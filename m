@@ -2,133 +2,79 @@ Return-Path: <SRS0=4HPi=KF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.1 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B6017C43462
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 May 2021 13:42:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 34B63C433ED
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 May 2021 13:48:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6CEB461430
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 May 2021 13:42:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6CEB461430
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id D1A9A610CA
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 May 2021 13:48:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D1A9A610CA
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F028D6E1BE;
-	Mon, 10 May 2021 13:42:07 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2041.outbound.protection.outlook.com [40.107.220.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C2656E1BE
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 May 2021 13:42:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UA1CN1hlODQdqj3h/GeBZu56W+hI5+zBJsd3SP9vYNcVLIeZy6NxxhdZEcvrsz+ad46207dDzhkOyQrjnDQaXVXGV2vk2xelaOBg/f3o1bsT0Schzs2yHTcKeYQifVeRz6+SyClcaBYUtAad1O6YWSujhQqOlHdWfkiGCUiH0Fk7xVcndy048PNLMO9aEq3FyNVpnIPX5zxr7XMzX3kG4BIJNFx7Dq98Aa030OisWIkERuG9AomkQScwtQVDVpwqbdSs2dEMo5kFAZMUvqcrKlf5oJQUfG6Ub549m8nmyv+k6Z2PrETzJP0QaJWwCLxhu8/PNteL8Z6px1FHvUa9RQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IHNP/NPDC9PmLMIHfw3uM5yvH4/05HiiiWE0ADpOWZQ=;
- b=a+nQ1Efy47rBfqhtre4E/Tnp8O6pHVi2rR+3i69DI9krTxLYGnQmRlroPl+1KqqipCvDqDI2SiMJkCXac0skiTJE6Tm0YSWkNb9p+3drGWbf+HjSkMTZKRq0kYST8PGx+gcAonz1AudF6tZiLdyy9/q3xb9ousJfEK+Ly3SPHIOdps5FGiSlf8KDNKhSdlBgzOaYRm1m8jDXOd/ce+P70ZtFuI+/ZAsRgQZJEPsRnkpKXWDjpqFQW9yAZeeltISQJozscuUW0gb39uSfrTdouW8f8UrkiHA21Q9WaOiYW0KEshyNYfntJLcm1WuuAn4jwzgP8N53APQnk8Ga0oz5YQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IHNP/NPDC9PmLMIHfw3uM5yvH4/05HiiiWE0ADpOWZQ=;
- b=ZhC6IAxahXspZzh0Ejtm3L+VdRcSl7l2d3MxNjcKppsyi+QNMHXxayLpARyemwpBZcmTYSUkz8PjULXjET2ytfpfRclI2YBa1pSK0uq3i4UDf1dw4N3aCZyyqIAuEQG034SaN6f3s5DqshaycPQOpdJDKNP1d2yrd5WY+VnPLdE=
-Received: from BYAPR12MB2840.namprd12.prod.outlook.com (2603:10b6:a03:62::32)
- by BY5PR12MB4034.namprd12.prod.outlook.com (2603:10b6:a03:205::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4108.26; Mon, 10 May
- 2021 13:42:04 +0000
-Received: from BYAPR12MB2840.namprd12.prod.outlook.com
- ([fe80::7c65:7181:6d1d:8616]) by BYAPR12MB2840.namprd12.prod.outlook.com
- ([fe80::7c65:7181:6d1d:8616%7]) with mapi id 15.20.4108.031; Mon, 10 May 2021
- 13:42:04 +0000
-From: "Nieto, David M" <David.Nieto@amd.com>
-To: "Gu, JiaWei (Will)" <JiaWei.Gu@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80D2789FD3;
+	Mon, 10 May 2021 13:48:46 +0000 (UTC)
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [IPv6:2a00:1450:4864:20::534])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53DD86E47B
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 May 2021 13:48:44 +0000 (UTC)
+Received: by mail-ed1-x534.google.com with SMTP id s7so14094910edq.12
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 May 2021 06:48:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language;
+ bh=wnMU+0NDJEevBlNLsCfj5PV8okY3LN9lqIT7mS5hy9U=;
+ b=lzXymEzwm5qLrfZR95u4H/BX42wokaUYVJlYvD1oTa6ULZyG4rnadaVfuX4u/iBvBr
+ ZoYbcR4XZCw3vBQbOMRJGmv3uXP6NGI86n0b1wwnUj/LSLbkKJMFhiNApwlkXFlmip0a
+ Eimbq6WwH7uMFpCQqMkjeX8HBzDXY3EOlhsgNdBpjZrL5q3z+p1c8JfY4LoFTwxF3g1e
+ q0OIec6ydFaxobLNzlPQ6St2J5ExJztmElT9l9l4esKUlM460ZhBtMGcEY9DTFB79cv2
+ tokx2+NlxyWAjQJ8jYwiAVgEXJ4HcQW/nxao1mukLENcTPtSRoWB80goHNbeGiRWm+k/
+ dM0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language;
+ bh=wnMU+0NDJEevBlNLsCfj5PV8okY3LN9lqIT7mS5hy9U=;
+ b=ePtTYe7sLEf31rIwkYWsVzL8HTTtZ8iiQufQZ6jBH8Y/VDbPpZCw9lmRfdd+UV7ljc
+ vGykLeAmC9EZQaN3Wqcp/7oc+ouJ+v8Yg2x5reDXHa2ZmjBZUusnnyfXUTx53uCn4ObX
+ jVXjkHENxVI2qeK+8vjHTetY2Rlx7Pm72aJ2mjh+8tO8yHdHdpQTvW9C+EYXOLCmmyZo
+ ETEb1unN+aHGA3XR7WEMOguU0NaCRptl4SC0inaFbZYk3aVnXiWCwLHyG3P2QINgFGGn
+ IMT4Ri79CgpBCm1+KTBRRhY/cKjBBNPoeSNm0hjLJTimFS1VmH2XBghMxArTBPwvqobU
+ RgFQ==
+X-Gm-Message-State: AOAM533C96Pvy31+UKKHHCPSIUwd1nA0OwSQSaAaga+31s2mRqWrmAFj
+ xEyn/wB1ikX1FTe/+4mNTr/6rGE7SP4=
+X-Google-Smtp-Source: ABdhPJwaXJ3Vpt92Hz46NvLf0k+0CnAtyvUY1YAGLx3S/ks0oH3mddMW4mbADmTsvrjy01qm1xaB6A==
+X-Received: by 2002:aa7:d806:: with SMTP id v6mr29892151edq.309.1620654523105; 
+ Mon, 10 May 2021 06:48:43 -0700 (PDT)
+Received: from ?IPv6:2a02:908:1252:fb60:7903:34fa:e13f:17ac?
+ ([2a02:908:1252:fb60:7903:34fa:e13f:17ac])
+ by smtp.gmail.com with ESMTPSA id z22sm12877766edm.57.2021.05.10.06.48.42
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 10 May 2021 06:48:42 -0700 (PDT)
 Subject: Re: [PATCH] drm/amdgpu: Align serial size in drm_amdgpu_info_vbios
-Thread-Topic: [PATCH] drm/amdgpu: Align serial size in drm_amdgpu_info_vbios
-Thread-Index: AQHXQ9Yf8LVbEME0wESo6KxpkiJJJqrbUMIAgADxAdCAAAjk7YAAA0iggABtf0g=
-Date: Mon, 10 May 2021 13:42:04 +0000
-Message-ID: <BYAPR12MB2840BA4077C73311A671CCBEF4549@BYAPR12MB2840.namprd12.prod.outlook.com>
+To: "Nieto, David M" <David.Nieto@amd.com>,
+ "Gu, JiaWei (Will)" <JiaWei.Gu@amd.com>
 References: <20210508064740.7705-1-Jiawei.Gu@amd.com>
- <CADnq5_PEogZDyFV_NOzbsajJQ_0A1+Jui-Mx7N_xsyWR5wXb8Q@mail.gmail.com>,
+ <CADnq5_PEogZDyFV_NOzbsajJQ_0A1+Jui-Mx7N_xsyWR5wXb8Q@mail.gmail.com>
  <CH0PR12MB5156FA453692B69100C3ADE7F8549@CH0PR12MB5156.namprd12.prod.outlook.com>
- <D7E9BE46-8E25-4A62-BE91-947898903A04@amd.com>,
+ <D7E9BE46-8E25-4A62-BE91-947898903A04@amd.com>
  <CH0PR12MB5156AF69D9E04020FDA5354AF8549@CH0PR12MB5156.namprd12.prod.outlook.com>
-In-Reply-To: <CH0PR12MB5156AF69D9E04020FDA5354AF8549@CH0PR12MB5156.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2021-05-10T07:13:02.0000000Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Use Only -
- Unrestricted; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [71.143.192.69]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: a0c7f41b-f95d-4b55-4802-08d913b965d7
-x-ms-traffictypediagnostic: BY5PR12MB4034:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BY5PR12MB4034CF568120342E46B56F17F4549@BY5PR12MB4034.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:1388;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 8GhTzb+46VixyqUDR2HBAMhEN0gLwaNtJqWd35r1wRRPKC+0qf5Z6pQnHi/fV+VnSIatJvJD22kfFJ7Hi031BpJ8slveTYvf4YCam1uEZY258dRi4hJC24QFgmEWNs+d6WopVENzShQP0IyZJZ+sCJcBR1SHuMY2QpyqlHH1C2+Ed3suCRfji8hzIJqxpnLSw+hMt3NFMYXmdcipmQIyYkavZTPc/LJiu542U2Y3fFZG2XeCLJNUv1LNn42Z7BtTt6z5IKNM/9ug0w/dRA0vvfqsrzfbUAtkCBmsU+5ACpTTJKpUgk0cynYGjaGco+5J1y4K5TnBovWsF/+KhoCiqjqSOztUwJX6xTSNoebPibCjANbbtEpIYEu/L5bmcb7oUKnj6K9RXYRMbvZU7uw+I6fEnEXPJamcNLQhEExJcBJzpg8bZiv7xBXe4+orDZqVKjmpucqzDCV2US4gQjNOwLeZbzmXrZBQx2DkxnkVXhJzIHU8I9cKo9FRr9fL9U/YlemKFnvC19ydePLpGxYD68L4lhuBcZFTd+1qKJTxmTPmN/IdmrtySKjze68/FxhvgjILytENWxK21MqdFJgAm72Rck0rNzXZpW/JDoy3tGNkG/B2kz2ItwQxeNw4aDVg+gmsooOPziyc4iAqUd6K4Ib9x9YvG5bzi0OZPbJnkZR1F0gz7DxLVvK5dUQc8hqG
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB2840.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(39860400002)(136003)(346002)(396003)(376002)(6506007)(76116006)(316002)(53546011)(9686003)(71200400001)(166002)(8936002)(54906003)(45080400002)(6636002)(55016002)(5660300002)(83380400001)(122000001)(33656002)(7696005)(66946007)(66476007)(966005)(26005)(64756008)(2906002)(66556008)(6862004)(4326008)(38100700002)(66446008)(186003)(86362001)(478600001)(8676002)(52536014);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?utf-8?B?TDU1eUNXdE9kU3dNcnkveW1ac0o4NkNHTUxIemNBdVEyeGZVeTZPZ016QmND?=
- =?utf-8?B?NXA0M0V0eEtaaUg4QUxpWEVIZlNTNEk4dEhlNzRwd3NoOTdMSVpaMlNLVFg1?=
- =?utf-8?B?MWxMM3BLWERIZVJFUGJZZkVzTThHczcvTG9sNnBFUGZHbWNUc1AzRy85WDVr?=
- =?utf-8?B?dWhDR3drZ0hiejZ2YWNmUExSNTlZWVA1eWdHWS9XL2NCZzhteTRrdUZiSHpj?=
- =?utf-8?B?bEJxOStwa2ttZlVyNVpjc3h2cXVRbUFDWjE1d2RpdmpvQkpRSGp3UmFTb1Zm?=
- =?utf-8?B?NDNxVG14eWNiRlVFZnE1Ujk2RnBCNkhqby8vZ3kyOGJDV1hxb2RwWk9vTWpE?=
- =?utf-8?B?Z1RNVFlQdlFFd3ZFOCtveUlZMkQ0bldDMkpQaDNWTFVqVTJkQmZVd1hCcXo0?=
- =?utf-8?B?a1VrdVh2ZGlVTW5RUE05Zy91WExxWFBhTE9oNVNscmF3c0tScjhyNEJHSFkz?=
- =?utf-8?B?RW0rNVdJSjFDNXpxQ3k3SWo4aUMvRmRFdGxMUEZKejZMV1laS1c5QlhmbEM2?=
- =?utf-8?B?RmtlM0NvOG93N0lvVmMzV1VyZ3JNTFFyZi9LNHlsR2NmZVlOd0cxSVZIVDZj?=
- =?utf-8?B?M1Z0ZE5zM0FBQ2tHdEprbnZpUS9jOXVaS0s3d2IwOFZ2QU9WdklQNFBCTmFO?=
- =?utf-8?B?aVhnSDZHQnc1R29wM1dsN0ppTUlZbmpKMm1wSDRBbmoraUdPYTRvQVVTbGNa?=
- =?utf-8?B?ZDFURUl6VmQwTnUrVFRFYk1PbjRVZEp3ZEQrbkt0WDB2Mmxva0RXQUF6Q0Nz?=
- =?utf-8?B?VUZSRCtyQzBTemJtaHoyaFNUb1FKbFRMWlZ0RnB2dHVQQ1BSdWpIbUc1KzRw?=
- =?utf-8?B?UVVqZ3lpUnhEWnZLejBjeUY3MktqSkhsMk85NDMxVEMvaWs0aXZtK0lDd25a?=
- =?utf-8?B?ZStnUVhSazlTbzhiditaMTJXbGVoQnJFeHJCRjZ2eUVRVnovSW41aWZJRzRh?=
- =?utf-8?B?RnBldThibUVMWVBPdmc1SzQxYUJLR1FQTjBoMzh2THpSd2lQVE9OYmpra2VY?=
- =?utf-8?B?Q0VTKzJselFNeHh1ZE9sRFFvdG56MnZWZy9TRmJ0NWxBWFRDaGZ2anNoalA0?=
- =?utf-8?B?NWc0Z212SUkxdU5LdFlQYVJTQXZPRlNuMGlXRXhYeUEweXpZcmZlMEFjNXhK?=
- =?utf-8?B?YURoa21HRE1RdkhYcWw3RFhLaWpLRGZueUF2dEVvM0NDaldMYmFBMDVaY2RT?=
- =?utf-8?B?dTdKb3FJck9xS1ptSHl3SjRVdzVQM2NsUkNVeXoxVmJ2MDBLd3RxVEJ3c2JY?=
- =?utf-8?B?dXVGQnlxZW80SUZMZnlsRUN6QlFzWXN1MGlManlPTmwvTFRZdTZvTy9FM2hx?=
- =?utf-8?B?dVk5d3QwSUpoZVpLd05zZE5sUTNmamE0STRBRWRtTExaaUJJd3U0WXNqbHo4?=
- =?utf-8?B?MTcxa0YyRERGVEdFZVNpTzdObUxuSTNZRFVJSHIyMHMrL3I5cy84UEd1ak90?=
- =?utf-8?B?Qjk0NFRxZjJ3eVprSklNQUprVyszUDB2UUwvOHJaWmhCbEtpTTdDVUllZDRy?=
- =?utf-8?B?QXFrNm4rMFJGdHFkN1U2Y0w1MFk4Wk91WmRQTzZoZW5HSUsrTXNtMDNmNVNh?=
- =?utf-8?B?L3AxenpPdC9zcWIxN3lQMUlET1ZOQnhXcm1HdjNhMjBQMHZPL1hhbEFLM0dn?=
- =?utf-8?B?cHBBL0owUFhHTWxSQlFZa1BCL2k1N0Q0NjJKdTNYTVZNaEs4NmdKN2t0TEVw?=
- =?utf-8?B?N1ZQTGJ5aloxQmo2Q01VOEwyY1pWdUdIUmh6dE1mVGsvelNwOVZuenNOR0xo?=
- =?utf-8?B?RDh3aUYzQnJsNjdSUW1mWGFuellySnhVS3hQZkd0VERjZVZuekc0eWdsaGZI?=
- =?utf-8?B?NExqb1gzYnpiRUNvdlNhQT09?=
+ <BYAPR12MB2840BA4077C73311A671CCBEF4549@BYAPR12MB2840.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <bbf8cdf1-00a7-3e2a-74b0-71e85f1c7697@gmail.com>
+Date: Mon, 10 May 2021 15:48:41 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB2840.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a0c7f41b-f95d-4b55-4802-08d913b965d7
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 May 2021 13:42:04.7361 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: zsEMRo8GDA1RkZxHvUwkdQdZMWxZGZFbmo+kHzQYOfg2E9laGXowIzeJcv+CZgIn
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4034
+In-Reply-To: <BYAPR12MB2840BA4077C73311A671CCBEF4549@BYAPR12MB2840.namprd12.prod.outlook.com>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,227 +86,391 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexdeucher@gmail.com>, "Deng,
- Emily" <Emily.Deng@amd.com>, Kees Cook <keescook@chromium.org>,
+Cc: Alex Deucher <alexdeucher@gmail.com>, "Deng, Emily" <Emily.Deng@amd.com>,
+ Kees Cook <keescook@chromium.org>,
  amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: multipart/mixed; boundary="===============2068129156=="
+Content-Type: multipart/mixed; boundary="===============0256640219=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============2068129156==
-Content-Language: en-US
+This is a multi-part message in MIME format.
+--===============0256640219==
 Content-Type: multipart/alternative;
-	boundary="_000_BYAPR12MB2840BA4077C73311A671CCBEF4549BYAPR12MB2840namp_"
+ boundary="------------AEDF236F3082C3A1D5776393"
+Content-Language: en-US
 
---_000_BYAPR12MB2840BA4077C73311A671CCBEF4549BYAPR12MB2840namp_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+This is a multi-part message in MIME format.
+--------------AEDF236F3082C3A1D5776393
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-VGhlbiB0aGUgYXBwbGljYXRpb24gd291bGQgbmVlZCB0byBpc3N1ZSB0aGUgaW9jdGwgYW5kIHRo
-ZW4gb3BlbiBhIHN5c2ZzIGZpbGUgdG8gZ2V0IGFsbCB0aGUgaW5mb3JtYXRpb24gaXQgbmVlZHMu
-IEl0IG1ha2VzIGxpdHRsZSBzZW5zZSBmcm9tIGEgcHJvZ3JhbW1pbmcgcGVyc3BlY3RpdmUgdG8g
-YWRkIGFuIGluY29tcGxldGUgaW50ZXJmYWNlIGluIG15IG9waW5pb24NCg0KX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18NCkZyb206IEd1LCBKaWFXZWkgKFdpbGwpIDxKaWFXZWkuR3VA
-YW1kLmNvbT4NClNlbnQ6IE1vbmRheSwgTWF5IDEwLCAyMDIxIDEyOjEzOjA3IEFNDQpUbzogTmll
-dG8sIERhdmlkIE0gPERhdmlkLk5pZXRvQGFtZC5jb20+DQpDYzogQWxleCBEZXVjaGVyIDxhbGV4
-ZGV1Y2hlckBnbWFpbC5jb20+OyBhbWQtZ2Z4IGxpc3QgPGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnPjsgS2VlcyBDb29rIDxrZWVzY29va0BjaHJvbWl1bS5vcmc+OyBEZW5nLCBFbWlseSA8
-RW1pbHkuRGVuZ0BhbWQuY29tPg0KU3ViamVjdDogUkU6IFtQQVRDSF0gZHJtL2FtZGdwdTogQWxp
-Z24gc2VyaWFsIHNpemUgaW4gZHJtX2FtZGdwdV9pbmZvX3ZiaW9zDQoNCltBTUQgT2ZmaWNpYWwg
-VXNlIE9ubHkgLSBJbnRlcm5hbCBEaXN0cmlidXRpb24gT25seV0NCg0KSGkgRGF2aWQsDQoNCldo
-YXQgSSBtZWFudCBpcyB0byBPTkxZIGRlbGV0ZSB0aGUgc2VyaWFsWzE2XSBmcm9tIGRybV9hbWRn
-cHVfaW5mb192Ymlvcywgbm90IHRoZSB3aG9sZSBzdHJ1Y3QuDQoNCnN0cnVjdCBkcm1fYW1kZ3B1
-X2luZm9fdmJpb3Mgew0KICAgICAgICBfX3U4IG5hbWVbNjRdOw0KICAgICAgICBfX3UzMiBkYmRm
-Ow0KICAgICAgICBfX3U4IHZiaW9zX3BuWzY0XTsNCiAgICAgICAgX191MzIgdmVyc2lvbjsNCiAg
-ICAgICAgX191OCBkYXRlWzMyXTsNCiAgICAgICAgX191OCBzZXJpYWxbMTZdOyAvLyBqaWF3ZWk6
-IHNoYWxsIHdlIGRlbGV0ZSB0aGlzDQogICAgICAgIF9fdTMyIGRldl9pZDsNCiAgICAgICAgX191
-MzIgcmV2X2lkOw0KICAgICAgICBfX3UzMiBzdWJfZGV2X2lkOw0KICAgICAgICBfX3UzMiBzdWJf
-dmVkX2lkOw0KfTsNCg0Kc2VyaWFsWzE2XSBpbiBkcm1fYW1kZ3B1X2luZm9fdmJpb3MgIGNvcGll
-ZCBmcm9tIGFkZXYtPnNlcmlhbCwgYnV0IHRoZXJlJ3MgYWxyZWFkeSBhIHN5c2ZzIG5hbWVkIHNl
-cmlhbF9udW1iZXIsIHdoaWNoIGV4cG9zZXMgaXQgYWxyZWFkeS4NCg0Kc3RhdGljIHNzaXplX3Qg
-YW1kZ3B1X2RldmljZV9nZXRfc2VyaWFsX251bWJlcihzdHJ1Y3QgZGV2aWNlICpkZXYsDQogICAg
-ICAgICAgICAgICAgc3RydWN0IGRldmljZV9hdHRyaWJ1dGUgKmF0dHIsIGNoYXIgKmJ1ZikNCnsN
-CiAgICAgICAgc3RydWN0IGRybV9kZXZpY2UgKmRkZXYgPSBkZXZfZ2V0X2RydmRhdGEoZGV2KTsN
-CiAgICAgICAgc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBkZGV2LT5kZXZfcHJpdmF0ZTsN
-Cg0KICAgICAgICByZXR1cm4gc25wcmludGYoYnVmLCBQQUdFX1NJWkUsICIlc1xuIiwgYWRldi0+
-c2VyaWFsKTsNCn0NCg0KVGhhbmtzLA0KSmlhd2VpDQoNCg0KLS0tLS1PcmlnaW5hbCBNZXNzYWdl
-LS0tLS0NCkZyb206IE5pZXRvLCBEYXZpZCBNIDxEYXZpZC5OaWV0b0BhbWQuY29tPg0KU2VudDog
-TW9uZGF5LCBNYXkgMTAsIDIwMjEgMjo1MyBQTQ0KVG86IEd1LCBKaWFXZWkgKFdpbGwpIDxKaWFX
-ZWkuR3VAYW1kLmNvbT4NCkNjOiBBbGV4IERldWNoZXIgPGFsZXhkZXVjaGVyQGdtYWlsLmNvbT47
-IGFtZC1nZnggbGlzdCA8YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+OyBLZWVzIENvb2sg
-PGtlZXNjb29rQGNocm9taXVtLm9yZz47IERlbmcsIEVtaWx5IDxFbWlseS5EZW5nQGFtZC5jb20+
-DQpTdWJqZWN0OiBSZTogW1BBVENIXSBkcm0vYW1kZ3B1OiBBbGlnbiBzZXJpYWwgc2l6ZSBpbiBk
-cm1fYW1kZ3B1X2luZm9fdmJpb3MNCg0KTm8sIHRoaXMgc3RydWN0dXJlIGNvbnRhaW5zIGFsbCB0
-aGUgZGV0YWlscyBvZiB0aGUgdmJpb3M6IGRhdGUsIHNlcmlhbCBudW1iZXIsIG5hbWUsIGV0Yy4N
-Cg0KVGhlIHN5c2ZzIG5vZGUgb25seSBjb250YWlucyB0aGUgdmJpb3MgbmFtZSBzdHJpbmcNCg0K
-PiBPbiBNYXkgOSwgMjAyMSwgYXQgMjM6MzMsIEd1LCBKaWFXZWkgKFdpbGwpIDxKaWFXZWkuR3VA
-YW1kLmNvbT4gd3JvdGU6DQo+DQo+IO+7v1tBTUQgT2ZmaWNpYWwgVXNlIE9ubHkgLSBJbnRlcm5h
-bCBEaXN0cmlidXRpb24gT25seV0NCj4NCj4gV2l0aCBhIHNlY29uZCB0aG91Z2h0LA0KPiBfX3U4
-IHNlcmlhbFsxNl0gaW4gZHJtX2FtZGdwdV9pbmZvX3ZiaW9zIGlzIGEgYml0IHJlZHVuZGFudCwg
-c3lzZnMgc2VyaWFsX251bWJlciBhbHJlYWR5IGV4cG9zZXMgaXQuDQo+DQo+IElzIGl0IGZpbmUg
-dG8gYWJhbmRvbiBpdCBmcm9tIGRybV9hbWRncHVfaW5mb192YmlvcyBzdHJ1Y3Q/IEBBbGV4DQo+
-IERldWNoZXIgQE5pZXRvLCBEYXZpZCBNDQo+DQo+IEJlc3QgcmVnYXJkcywNCj4gSmlhd2VpDQo+
-DQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IEFsZXggRGV1Y2hlciA8YWxl
-eGRldWNoZXJAZ21haWwuY29tPg0KPiBTZW50OiBTdW5kYXksIE1heSA5LCAyMDIxIDExOjU5IFBN
-DQo+IFRvOiBHdSwgSmlhV2VpIChXaWxsKSA8SmlhV2VpLkd1QGFtZC5jb20+DQo+IENjOiBhbWQt
-Z2Z4IGxpc3QgPGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPjsgS2VlcyBDb29rDQo+IDxr
-ZWVzY29va0BjaHJvbWl1bS5vcmc+DQo+IFN1YmplY3Q6IFJlOiBbUEFUQ0hdIGRybS9hbWRncHU6
-IEFsaWduIHNlcmlhbCBzaXplIGluDQo+IGRybV9hbWRncHVfaW5mb192Ymlvcw0KPg0KPj4gT24g
-U2F0LCBNYXkgOCwgMjAyMSBhdCAyOjQ4IEFNIEppYXdlaSBHdSA8Smlhd2VpLkd1QGFtZC5jb20+
-IHdyb3RlOg0KPj4NCj4+IDIwIHNob3VsZCBiZSBzZXJpYWwgY2hhciBzaXplIG5vdyBpbnN0ZWFk
-IG9mIDE2Lg0KPj4NCj4+IFNpZ25lZC1vZmYtYnk6IEppYXdlaSBHdSA8Smlhd2VpLkd1QGFtZC5j
-b20+DQo+DQo+IFBsZWFzZSBtYWtlIHN1cmUgdGhpcyBrZWVwcyBwcm9wZXIgNjQgYml0IGFsaWdu
-bWVudCBpbiB0aGUgc3RydWN0dXJlLg0KPg0KPiBBbGV4DQo+DQo+DQo+PiAtLS0NCj4+IGluY2x1
-ZGUvdWFwaS9kcm0vYW1kZ3B1X2RybS5oIHwgMiArLQ0KPj4gMSBmaWxlIGNoYW5nZWQsIDEgaW5z
-ZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pDQo+Pg0KPj4gZGlmZiAtLWdpdCBhL2luY2x1ZGUvdWFw
-aS9kcm0vYW1kZ3B1X2RybS5oDQo+PiBiL2luY2x1ZGUvdWFwaS9kcm0vYW1kZ3B1X2RybS5oIGlu
-ZGV4IDJiNDg3YThkMjcyNy4uMWMyMDcyMWY5MGRhDQo+PiAxMDA2NDQNCj4+IC0tLSBhL2luY2x1
-ZGUvdWFwaS9kcm0vYW1kZ3B1X2RybS5oDQo+PiArKysgYi9pbmNsdWRlL3VhcGkvZHJtL2FtZGdw
-dV9kcm0uaA0KPj4gQEAgLTk1Nyw3ICs5NTcsNyBAQCBzdHJ1Y3QgZHJtX2FtZGdwdV9pbmZvX3Zi
-aW9zIHsNCj4+ICAgICAgICBfX3U4IHZiaW9zX3BuWzY0XTsNCj4+ICAgICAgICBfX3UzMiB2ZXJz
-aW9uOw0KPj4gICAgICAgIF9fdTggZGF0ZVszMl07DQo+PiAtICAgICAgIF9fdTggc2VyaWFsWzE2
-XTsNCj4+ICsgICAgICAgX191OCBzZXJpYWxbMjBdOw0KPj4gICAgICAgIF9fdTMyIGRldl9pZDsN
-Cj4+ICAgICAgICBfX3UzMiByZXZfaWQ7DQo+PiAgICAgICAgX191MzIgc3ViX2Rldl9pZDsNCj4+
-IC0tDQo+PiAyLjE3LjENCj4+DQo+PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fXw0KPj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QNCj4+IGFtZC1nZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnDQo+PiBodHRwczovL25hbTExLnNhZmVsaW5rcy5wcm90ZWN0aW9uLm91
-dGxvb2suY29tLz91cmw9aHR0cHMlM0ElMkYlMkZsaXMNCj4+IHQNCj4+IHMuZnJlZWRlc2t0b3Au
-b3JnJTJGbWFpbG1hbiUyRmxpc3RpbmZvJTJGYW1kLWdmeCZhbXA7ZGF0YT0wNCU3QzAxJTdDSg0K
-Pj4gaQ0KPj4gYXdlaS5HdSU0MGFtZC5jb20lN0NjZWEzMTgzMzE4NGM0MWU4NTc0NTA4ZDkxMzAz
-NjBjYyU3QzNkZDg5NjFmZTQ4ODRlDQo+PiA2DQo+PiAwOGUxMWE4MmQ5OTRlMTgzZCU3QzAlN0Mw
-JTdDNjM3NTYxNzI3NTIzODgwMzU2JTdDVW5rbm93biU3Q1RXRnBiR1pzYjMNCj4+IGQNCj4+IDhl
-eUpXSWpvaU1DNHdMakF3TURBaUxDSlFJam9pVjJsdU16SWlMQ0pCVGlJNklrMWhhV3dpTENKWFZD
-STZNbjAlM0QlNw0KPj4gQw0KPj4gMTAwMCZhbXA7c2RhdGE9a0FKaUM2V29KVVRlRXh3azZmdHJM
-Zk1vWTJPVEF3ZzlYN21HZ0pUM2tMayUzRCZhbXA7cmVzDQo+PiBlDQo+PiBydmVkPTANCg==
+Well we could add both as sysfs file(s).
 
---_000_BYAPR12MB2840BA4077C73311A671CCBEF4549BYAPR12MB2840namp_
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: base64
+Question here is rather what is the primary use case of this and if the 
+application has the necessary access permissions to the sysfs files?
 
-PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
-dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjwvaGVhZD4NCjxib2R5Pg0KPGRpdj4NCjxkaXY+
-DQo8ZGl2IGRpcj0ibHRyIiBzdHlsZT0iY29sb3I6IHJnYigwLCAwLCAwKTsgYmFja2dyb3VuZC1j
-b2xvcjogcmdiKDI1NSwgMjU1LCAyNTUpOyI+DQpUaGVuIHRoZSBhcHBsaWNhdGlvbiB3b3VsZCBu
-ZWVkIHRvIGlzc3VlIHRoZSBpb2N0bCBhbmQgdGhlbiBvcGVuIGEgc3lzZnMgZmlsZSB0byBnZXQg
-YWxsIHRoZSBpbmZvcm1hdGlvbiBpdCBuZWVkcy4gSXQgbWFrZXMgbGl0dGxlIHNlbnNlIGZyb20g
-YSBwcm9ncmFtbWluZyBwZXJzcGVjdGl2ZSB0byBhZGQgYW4gaW5jb21wbGV0ZSBpbnRlcmZhY2Ug
-aW4gbXkgb3BpbmlvbiZuYnNwOzwvZGl2Pg0KPC9kaXY+DQo8ZGl2Pjxicj4NCjwvZGl2Pg0KPGRp
-diBjbGFzcz0ibXMtb3V0bG9vay1pb3Mtc2lnbmF0dXJlIj48L2Rpdj4NCjwvZGl2Pg0KPGhyIHN0
-eWxlPSJkaXNwbGF5OmlubGluZS1ibG9jazt3aWR0aDo5OCUiIHRhYmluZGV4PSItMSI+DQo8ZGl2
-IGlkPSJkaXZScGx5RndkTXNnIiBkaXI9Imx0ciI+PGZvbnQgZmFjZT0iQ2FsaWJyaSwgc2Fucy1z
-ZXJpZiIgc3R5bGU9ImZvbnQtc2l6ZToxMXB0IiBjb2xvcj0iIzAwMDAwMCI+PGI+RnJvbTo8L2I+
-IEd1LCBKaWFXZWkgKFdpbGwpICZsdDtKaWFXZWkuR3VAYW1kLmNvbSZndDs8YnI+DQo8Yj5TZW50
-OjwvYj4gTW9uZGF5LCBNYXkgMTAsIDIwMjEgMTI6MTM6MDcgQU08YnI+DQo8Yj5Ubzo8L2I+IE5p
-ZXRvLCBEYXZpZCBNICZsdDtEYXZpZC5OaWV0b0BhbWQuY29tJmd0Ozxicj4NCjxiPkNjOjwvYj4g
-QWxleCBEZXVjaGVyICZsdDthbGV4ZGV1Y2hlckBnbWFpbC5jb20mZ3Q7OyBhbWQtZ2Z4IGxpc3Qg
-Jmx0O2FtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnJmd0OzsgS2VlcyBDb29rICZsdDtrZWVz
-Y29va0BjaHJvbWl1bS5vcmcmZ3Q7OyBEZW5nLCBFbWlseSAmbHQ7RW1pbHkuRGVuZ0BhbWQuY29t
-Jmd0Ozxicj4NCjxiPlN1YmplY3Q6PC9iPiBSRTogW1BBVENIXSBkcm0vYW1kZ3B1OiBBbGlnbiBz
-ZXJpYWwgc2l6ZSBpbiBkcm1fYW1kZ3B1X2luZm9fdmJpb3M8L2ZvbnQ+DQo8ZGl2PiZuYnNwOzwv
-ZGl2Pg0KPC9kaXY+DQo8ZGl2IGNsYXNzPSJCb2R5RnJhZ21lbnQiPjxmb250IHNpemU9IjIiPjxz
-cGFuIHN0eWxlPSJmb250LXNpemU6MTFwdDsiPg0KPGRpdiBjbGFzcz0iUGxhaW5UZXh0Ij5bQU1E
-IE9mZmljaWFsIFVzZSBPbmx5IC0gSW50ZXJuYWwgRGlzdHJpYnV0aW9uIE9ubHldPGJyPg0KPGJy
-Pg0KSGkgRGF2aWQsPGJyPg0KPGJyPg0KV2hhdCBJIG1lYW50IGlzIHRvIE9OTFkgZGVsZXRlIHRo
-ZSBzZXJpYWxbMTZdIGZyb20gZHJtX2FtZGdwdV9pbmZvX3ZiaW9zLCBub3QgdGhlIHdob2xlIHN0
-cnVjdC48YnI+DQo8YnI+DQpzdHJ1Y3QgZHJtX2FtZGdwdV9pbmZvX3ZiaW9zIHs8YnI+DQombmJz
-cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgX191OCBuYW1lWzY0XTs8YnI+
-DQombmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgX191MzIgZGJkZjs8
-YnI+DQombmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgX191OCB2Ymlv
-c19wbls2NF07PGJyPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-IF9fdTMyIHZlcnNpb247PGJyPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-Jm5ic3A7IF9fdTggZGF0ZVszMl07PGJyPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-Jm5ic3A7Jm5ic3A7IF9fdTggc2VyaWFsWzE2XTsgLy8gamlhd2VpOiBzaGFsbCB3ZSBkZWxldGUg
-dGhpczxicj4NCiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBfX3Uz
-MiBkZXZfaWQ7PGJyPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-IF9fdTMyIHJldl9pZDs8YnI+DQombmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
-bmJzcDsgX191MzIgc3ViX2Rldl9pZDs8YnI+DQombmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
-cDsmbmJzcDsmbmJzcDsgX191MzIgc3ViX3ZlZF9pZDs8YnI+DQp9Ozxicj4NCjxicj4NCnNlcmlh
-bFsxNl0gaW4gZHJtX2FtZGdwdV9pbmZvX3ZiaW9zJm5ic3A7IGNvcGllZCBmcm9tIGFkZXYtJmd0
-O3NlcmlhbCwgYnV0IHRoZXJlJ3MgYWxyZWFkeSBhIHN5c2ZzIG5hbWVkIHNlcmlhbF9udW1iZXIs
-IHdoaWNoIGV4cG9zZXMgaXQgYWxyZWFkeS48YnI+DQo8YnI+DQpzdGF0aWMgc3NpemVfdCBhbWRn
-cHVfZGV2aWNlX2dldF9zZXJpYWxfbnVtYmVyKHN0cnVjdCBkZXZpY2UgKmRldiw8YnI+DQombmJz
-cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
-bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgc3RydWN0IGRldmljZV9hdHRyaWJ1dGUgKmF0
-dHIsIGNoYXIgKmJ1Zik8YnI+DQp7PGJyPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-Jm5ic3A7Jm5ic3A7IHN0cnVjdCBkcm1fZGV2aWNlICpkZGV2ID0gZGV2X2dldF9kcnZkYXRhKGRl
-dik7PGJyPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IHN0cnVj
-dCBhbWRncHVfZGV2aWNlICphZGV2ID0gZGRldi0mZ3Q7ZGV2X3ByaXZhdGU7PGJyPg0KPGJyPg0K
-Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IHJldHVybiBzbnByaW50
-ZihidWYsIFBBR0VfU0laRSwgJnF1b3Q7JXNcbiZxdW90OywgYWRldi0mZ3Q7c2VyaWFsKTs8YnI+
-DQp9PGJyPg0KPGJyPg0KVGhhbmtzLDxicj4NCkppYXdlaTxicj4NCjxicj4NCjxicj4NCi0tLS0t
-T3JpZ2luYWwgTWVzc2FnZS0tLS0tPGJyPg0KRnJvbTogTmlldG8sIERhdmlkIE0gJmx0O0Rhdmlk
-Lk5pZXRvQGFtZC5jb20mZ3Q7IDxicj4NClNlbnQ6IE1vbmRheSwgTWF5IDEwLCAyMDIxIDI6NTMg
-UE08YnI+DQpUbzogR3UsIEppYVdlaSAoV2lsbCkgJmx0O0ppYVdlaS5HdUBhbWQuY29tJmd0Ozxi
-cj4NCkNjOiBBbGV4IERldWNoZXIgJmx0O2FsZXhkZXVjaGVyQGdtYWlsLmNvbSZndDs7IGFtZC1n
-ZnggbGlzdCAmbHQ7YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcmZ3Q7OyBLZWVzIENvb2sg
-Jmx0O2tlZXNjb29rQGNocm9taXVtLm9yZyZndDs7IERlbmcsIEVtaWx5ICZsdDtFbWlseS5EZW5n
-QGFtZC5jb20mZ3Q7PGJyPg0KU3ViamVjdDogUmU6IFtQQVRDSF0gZHJtL2FtZGdwdTogQWxpZ24g
-c2VyaWFsIHNpemUgaW4gZHJtX2FtZGdwdV9pbmZvX3ZiaW9zPGJyPg0KPGJyPg0KTm8sIHRoaXMg
-c3RydWN0dXJlIGNvbnRhaW5zIGFsbCB0aGUgZGV0YWlscyBvZiB0aGUgdmJpb3M6IGRhdGUsIHNl
-cmlhbCBudW1iZXIsIG5hbWUsIGV0Yy48YnI+DQo8YnI+DQpUaGUgc3lzZnMgbm9kZSBvbmx5IGNv
-bnRhaW5zIHRoZSB2YmlvcyBuYW1lIHN0cmluZzxicj4NCjxicj4NCiZndDsgT24gTWF5IDksIDIw
-MjEsIGF0IDIzOjMzLCBHdSwgSmlhV2VpIChXaWxsKSAmbHQ7SmlhV2VpLkd1QGFtZC5jb20mZ3Q7
-IHdyb3RlOjxicj4NCiZndDsgPGJyPg0KJmd0OyDvu79bQU1EIE9mZmljaWFsIFVzZSBPbmx5IC0g
-SW50ZXJuYWwgRGlzdHJpYnV0aW9uIE9ubHldPGJyPg0KJmd0OyA8YnI+DQomZ3Q7IFdpdGggYSBz
-ZWNvbmQgdGhvdWdodCw8YnI+DQomZ3Q7IF9fdTggc2VyaWFsWzE2XSBpbiBkcm1fYW1kZ3B1X2lu
-Zm9fdmJpb3MgaXMgYSBiaXQgcmVkdW5kYW50LCBzeXNmcyBzZXJpYWxfbnVtYmVyIGFscmVhZHkg
-ZXhwb3NlcyBpdC48YnI+DQomZ3Q7IDxicj4NCiZndDsgSXMgaXQgZmluZSB0byBhYmFuZG9uIGl0
-IGZyb20gZHJtX2FtZGdwdV9pbmZvX3ZiaW9zIHN0cnVjdD8gQEFsZXggPGJyPg0KJmd0OyBEZXVj
-aGVyIEBOaWV0bywgRGF2aWQgTTxicj4NCiZndDsgPGJyPg0KJmd0OyBCZXN0IHJlZ2FyZHMsPGJy
-Pg0KJmd0OyBKaWF3ZWk8YnI+DQomZ3Q7IDxicj4NCiZndDsgLS0tLS1PcmlnaW5hbCBNZXNzYWdl
-LS0tLS08YnI+DQomZ3Q7IEZyb206IEFsZXggRGV1Y2hlciAmbHQ7YWxleGRldWNoZXJAZ21haWwu
-Y29tJmd0Ozxicj4NCiZndDsgU2VudDogU3VuZGF5LCBNYXkgOSwgMjAyMSAxMTo1OSBQTTxicj4N
-CiZndDsgVG86IEd1LCBKaWFXZWkgKFdpbGwpICZsdDtKaWFXZWkuR3VAYW1kLmNvbSZndDs8YnI+
-DQomZ3Q7IENjOiBhbWQtZ2Z4IGxpc3QgJmx0O2FtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Jmd0OzsgS2VlcyBDb29rIDxicj4NCiZndDsgJmx0O2tlZXNjb29rQGNocm9taXVtLm9yZyZndDs8
-YnI+DQomZ3Q7IFN1YmplY3Q6IFJlOiBbUEFUQ0hdIGRybS9hbWRncHU6IEFsaWduIHNlcmlhbCBz
-aXplIGluIDxicj4NCiZndDsgZHJtX2FtZGdwdV9pbmZvX3ZiaW9zPGJyPg0KJmd0OyA8YnI+DQom
-Z3Q7Jmd0OyBPbiBTYXQsIE1heSA4LCAyMDIxIGF0IDI6NDggQU0gSmlhd2VpIEd1ICZsdDtKaWF3
-ZWkuR3VAYW1kLmNvbSZndDsgd3JvdGU6PGJyPg0KJmd0OyZndDsgPGJyPg0KJmd0OyZndDsgMjAg
-c2hvdWxkIGJlIHNlcmlhbCBjaGFyIHNpemUgbm93IGluc3RlYWQgb2YgMTYuPGJyPg0KJmd0OyZn
-dDsgPGJyPg0KJmd0OyZndDsgU2lnbmVkLW9mZi1ieTogSmlhd2VpIEd1ICZsdDtKaWF3ZWkuR3VA
-YW1kLmNvbSZndDs8YnI+DQomZ3Q7IDxicj4NCiZndDsgUGxlYXNlIG1ha2Ugc3VyZSB0aGlzIGtl
-ZXBzIHByb3BlciA2NCBiaXQgYWxpZ25tZW50IGluIHRoZSBzdHJ1Y3R1cmUuPGJyPg0KJmd0OyA8
-YnI+DQomZ3Q7IEFsZXg8YnI+DQomZ3Q7IDxicj4NCiZndDsgPGJyPg0KJmd0OyZndDsgLS0tPGJy
-Pg0KJmd0OyZndDsgaW5jbHVkZS91YXBpL2RybS9hbWRncHVfZHJtLmggfCAyICstPGJyPg0KJmd0
-OyZndDsgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pPGJyPg0K
-Jmd0OyZndDsgPGJyPg0KJmd0OyZndDsgZGlmZiAtLWdpdCBhL2luY2x1ZGUvdWFwaS9kcm0vYW1k
-Z3B1X2RybS5oIDxicj4NCiZndDsmZ3Q7IGIvaW5jbHVkZS91YXBpL2RybS9hbWRncHVfZHJtLmgg
-aW5kZXggMmI0ODdhOGQyNzI3Li4xYzIwNzIxZjkwZGE8YnI+DQomZ3Q7Jmd0OyAxMDA2NDQ8YnI+
-DQomZ3Q7Jmd0OyAtLS0gYS9pbmNsdWRlL3VhcGkvZHJtL2FtZGdwdV9kcm0uaDxicj4NCiZndDsm
-Z3Q7ICsrKyBiL2luY2x1ZGUvdWFwaS9kcm0vYW1kZ3B1X2RybS5oPGJyPg0KJmd0OyZndDsgQEAg
-LTk1Nyw3ICs5NTcsNyBAQCBzdHJ1Y3QgZHJtX2FtZGdwdV9pbmZvX3ZiaW9zIHs8YnI+DQomZ3Q7
-Jmd0OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBfX3U4IHZiaW9z
-X3BuWzY0XTs8YnI+DQomZ3Q7Jmd0OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
-OyZuYnNwOyBfX3UzMiB2ZXJzaW9uOzxicj4NCiZndDsmZ3Q7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
-c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IF9fdTggZGF0ZVszMl07PGJyPg0KJmd0OyZndDsgLSZuYnNw
-OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBfX3U4IHNlcmlhbFsxNl07PGJyPg0KJmd0
-OyZndDsgKyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBfX3U4IHNlcmlhbFsy
-MF07PGJyPg0KJmd0OyZndDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
-cDsgX191MzIgZGV2X2lkOzxicj4NCiZndDsmZ3Q7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
-c3A7Jm5ic3A7Jm5ic3A7IF9fdTMyIHJldl9pZDs8YnI+DQomZ3Q7Jmd0OyZuYnNwOyZuYnNwOyZu
-YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBfX3UzMiBzdWJfZGV2X2lkOzxicj4NCiZndDsm
-Z3Q7IC0tPGJyPg0KJmd0OyZndDsgMi4xNy4xPGJyPg0KJmd0OyZndDsgPGJyPg0KJmd0OyZndDsg
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX188YnI+DQomZ3Q7
-Jmd0OyBhbWQtZ2Z4IG1haWxpbmcgbGlzdDxicj4NCiZndDsmZ3Q7IGFtZC1nZnhAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnPGJyPg0KJmd0OyZndDsgPGEgaHJlZj0iaHR0cHM6Ly9uYW0xMS5zYWZlbGlu
-a3MucHJvdGVjdGlvbi5vdXRsb29rLmNvbS8/dXJsPWh0dHBzJTNBJTJGJTJGbGlzIj4NCmh0dHBz
-Oi8vbmFtMTEuc2FmZWxpbmtzLnByb3RlY3Rpb24ub3V0bG9vay5jb20vP3VybD1odHRwcyUzQSUy
-RiUyRmxpczwvYT48YnI+DQomZ3Q7Jmd0OyB0IDxicj4NCiZndDsmZ3Q7IHMuZnJlZWRlc2t0b3Au
-b3JnJTJGbWFpbG1hbiUyRmxpc3RpbmZvJTJGYW1kLWdmeCZhbXA7YW1wO2RhdGE9MDQlN0MwMSU3
-Q0o8YnI+DQomZ3Q7Jmd0OyBpPGJyPg0KJmd0OyZndDsgYXdlaS5HdSU0MGFtZC5jb20lN0NjZWEz
-MTgzMzE4NGM0MWU4NTc0NTA4ZDkxMzAzNjBjYyU3QzNkZDg5NjFmZTQ4ODRlPGJyPg0KJmd0OyZn
-dDsgNiA8YnI+DQomZ3Q7Jmd0OyAwOGUxMWE4MmQ5OTRlMTgzZCU3QzAlN0MwJTdDNjM3NTYxNzI3
-NTIzODgwMzU2JTdDVW5rbm93biU3Q1RXRnBiR1pzYjM8YnI+DQomZ3Q7Jmd0OyBkIDxicj4NCiZn
-dDsmZ3Q7IDhleUpXSWpvaU1DNHdMakF3TURBaUxDSlFJam9pVjJsdU16SWlMQ0pCVGlJNklrMWhh
-V3dpTENKWFZDSTZNbjAlM0QlNzxicj4NCiZndDsmZ3Q7IEMgPGJyPg0KJmd0OyZndDsgMTAwMCZh
-bXA7YW1wO3NkYXRhPWtBSmlDNldvSlVUZUV4d2s2ZnRyTGZNb1kyT1RBd2c5WDdtR2dKVDNrTGsl
-M0QmYW1wO2FtcDtyZXM8YnI+DQomZ3Q7Jmd0OyBlPGJyPg0KJmd0OyZndDsgcnZlZD0wPGJyPg0K
-PC9kaXY+DQo8L3NwYW4+PC9mb250PjwvZGl2Pg0KPC9ib2R5Pg0KPC9odG1sPg0K
+Regards,
+Christian.
 
---_000_BYAPR12MB2840BA4077C73311A671CCBEF4549BYAPR12MB2840namp_--
+Am 10.05.21 um 15:42 schrieb Nieto, David M:
+> Then the application would need to issue the ioctl and then open a 
+> sysfs file to get all the information it needs. It makes little sense 
+> from a programming perspective to add an incomplete interface in my 
+> opinion
+>
+> ------------------------------------------------------------------------
+> *From:* Gu, JiaWei (Will) <JiaWei.Gu@amd.com>
+> *Sent:* Monday, May 10, 2021 12:13:07 AM
+> *To:* Nieto, David M <David.Nieto@amd.com>
+> *Cc:* Alex Deucher <alexdeucher@gmail.com>; amd-gfx list 
+> <amd-gfx@lists.freedesktop.org>; Kees Cook <keescook@chromium.org>; 
+> Deng, Emily <Emily.Deng@amd.com>
+> *Subject:* RE: [PATCH] drm/amdgpu: Align serial size in 
+> drm_amdgpu_info_vbios
+> [AMD Official Use Only - Internal Distribution Only]
+>
+> Hi David,
+>
+> What I meant is to ONLY delete the serial[16] from 
+> drm_amdgpu_info_vbios, not the whole struct.
+>
+> struct drm_amdgpu_info_vbios {
+>         __u8 name[64];
+>         __u32 dbdf;
+>         __u8 vbios_pn[64];
+>         __u32 version;
+>         __u8 date[32];
+>         __u8 serial[16]; // jiawei: shall we delete this
+>         __u32 dev_id;
+>         __u32 rev_id;
+>         __u32 sub_dev_id;
+>         __u32 sub_ved_id;
+> };
+>
+> serial[16] in drm_amdgpu_info_vbios  copied from adev->serial, but 
+> there's already a sysfs named serial_number, which exposes it already.
+>
+> static ssize_t amdgpu_device_get_serial_number(struct device *dev,
+>                 struct device_attribute *attr, char *buf)
+> {
+>         struct drm_device *ddev = dev_get_drvdata(dev);
+>         struct amdgpu_device *adev = ddev->dev_private;
+>
+>         return snprintf(buf, PAGE_SIZE, "%s\n", adev->serial);
+> }
+>
+> Thanks,
+> Jiawei
+>
+>
+> -----Original Message-----
+> From: Nieto, David M <David.Nieto@amd.com>
+> Sent: Monday, May 10, 2021 2:53 PM
+> To: Gu, JiaWei (Will) <JiaWei.Gu@amd.com>
+> Cc: Alex Deucher <alexdeucher@gmail.com>; amd-gfx list 
+> <amd-gfx@lists.freedesktop.org>; Kees Cook <keescook@chromium.org>; 
+> Deng, Emily <Emily.Deng@amd.com>
+> Subject: Re: [PATCH] drm/amdgpu: Align serial size in 
+> drm_amdgpu_info_vbios
+>
+> No, this structure contains all the details of the vbios: date, serial 
+> number, name, etc.
+>
+> The sysfs node only contains the vbios name string
+>
+> > On May 9, 2021, at 23:33, Gu, JiaWei (Will) <JiaWei.Gu@amd.com> wrote:
+> >
+> > ﻿[AMD Official Use Only - Internal Distribution Only]
+> >
+> > With a second thought,
+> > __u8 serial[16] in drm_amdgpu_info_vbios is a bit redundant, sysfs 
+> serial_number already exposes it.
+> >
+> > Is it fine to abandon it from drm_amdgpu_info_vbios struct? @Alex
+> > Deucher @Nieto, David M
+> >
+> > Best regards,
+> > Jiawei
+> >
+> > -----Original Message-----
+> > From: Alex Deucher <alexdeucher@gmail.com>
+> > Sent: Sunday, May 9, 2021 11:59 PM
+> > To: Gu, JiaWei (Will) <JiaWei.Gu@amd.com>
+> > Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>; Kees Cook
+> > <keescook@chromium.org>
+> > Subject: Re: [PATCH] drm/amdgpu: Align serial size in
+> > drm_amdgpu_info_vbios
+> >
+> >> On Sat, May 8, 2021 at 2:48 AM Jiawei Gu <Jiawei.Gu@amd.com> wrote:
+> >>
+> >> 20 should be serial char size now instead of 16.
+> >>
+> >> Signed-off-by: Jiawei Gu <Jiawei.Gu@amd.com>
+> >
+> > Please make sure this keeps proper 64 bit alignment in the structure.
+> >
+> > Alex
+> >
+> >
+> >> ---
+> >> include/uapi/drm/amdgpu_drm.h | 2 +-
+> >> 1 file changed, 1 insertion(+), 1 deletion(-)
+> >>
+> >> diff --git a/include/uapi/drm/amdgpu_drm.h
+> >> b/include/uapi/drm/amdgpu_drm.h index 2b487a8d2727..1c20721f90da
+> >> 100644
+> >> --- a/include/uapi/drm/amdgpu_drm.h
+> >> +++ b/include/uapi/drm/amdgpu_drm.h
+> >> @@ -957,7 +957,7 @@ struct drm_amdgpu_info_vbios {
+> >>        __u8 vbios_pn[64];
+> >>        __u32 version;
+> >>        __u8 date[32];
+> >> -       __u8 serial[16];
+> >> +       __u8 serial[20];
+> >>        __u32 dev_id;
+> >>        __u32 rev_id;
+> >>        __u32 sub_dev_id;
+> >> --
+> >> 2.17.1
+> >>
+> >> _______________________________________________
+> >> amd-gfx mailing list
+> >> amd-gfx@lists.freedesktop.org
+> >> 
+> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flis 
+> <https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flis>
+> >> t
+> >> s.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7CJ
+> >> i
+> >> awei.Gu%40amd.com%7Ccea31833184c41e8574508d9130360cc%7C3dd8961fe4884e
+> >> 6
+> >> 08e11a82d994e183d%7C0%7C0%7C637561727523880356%7CUnknown%7CTWFpbGZsb3
+> >> d
+> >> 8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7
+> >> C
+> >> 1000&amp;sdata=kAJiC6WoJUTeExwk6ftrLfMoY2OTAwg9X7mGgJT3kLk%3D&amp;res
+> >> e
+> >> rved=0
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============2068129156==
+
+--------------AEDF236F3082C3A1D5776393
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    Well we could add both as sysfs file(s).<br>
+    <br>
+    Question here is rather what is the primary use case of this and if
+    the application has the necessary access permissions to the sysfs
+    files?<br>
+    <br>
+    Regards,<br>
+    Christian.<br>
+    <br>
+    <div class="moz-cite-prefix">Am 10.05.21 um 15:42 schrieb Nieto,
+      David M:<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:BYAPR12MB2840BA4077C73311A671CCBEF4549@BYAPR12MB2840.namprd12.prod.outlook.com">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <div>
+        <div>
+          <div dir="ltr" style="color: rgb(0, 0, 0); background-color:
+            rgb(255, 255, 255);">
+            Then the application would need to issue the ioctl and then
+            open a sysfs file to get all the information it needs. It
+            makes little sense from a programming perspective to add an
+            incomplete interface in my opinion </div>
+        </div>
+        <div><br>
+        </div>
+      </div>
+      <hr style="display:inline-block;width:98%" tabindex="-1">
+      <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
+          face="Calibri, sans-serif" color="#000000"><b>From:</b> Gu,
+          JiaWei (Will) <a class="moz-txt-link-rfc2396E" href="mailto:JiaWei.Gu@amd.com">&lt;JiaWei.Gu@amd.com&gt;</a><br>
+          <b>Sent:</b> Monday, May 10, 2021 12:13:07 AM<br>
+          <b>To:</b> Nieto, David M <a class="moz-txt-link-rfc2396E" href="mailto:David.Nieto@amd.com">&lt;David.Nieto@amd.com&gt;</a><br>
+          <b>Cc:</b> Alex Deucher <a class="moz-txt-link-rfc2396E" href="mailto:alexdeucher@gmail.com">&lt;alexdeucher@gmail.com&gt;</a>; amd-gfx
+          list <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx@lists.freedesktop.org">&lt;amd-gfx@lists.freedesktop.org&gt;</a>; Kees Cook
+          <a class="moz-txt-link-rfc2396E" href="mailto:keescook@chromium.org">&lt;keescook@chromium.org&gt;</a>; Deng, Emily
+          <a class="moz-txt-link-rfc2396E" href="mailto:Emily.Deng@amd.com">&lt;Emily.Deng@amd.com&gt;</a><br>
+          <b>Subject:</b> RE: [PATCH] drm/amdgpu: Align serial size in
+          drm_amdgpu_info_vbios</font>
+        <div> </div>
+      </div>
+      <div class="BodyFragment"><font size="2"><span
+            style="font-size:11pt;">
+            <div class="PlainText">[AMD Official Use Only - Internal
+              Distribution Only]<br>
+              <br>
+              Hi David,<br>
+              <br>
+              What I meant is to ONLY delete the serial[16] from
+              drm_amdgpu_info_vbios, not the whole struct.<br>
+              <br>
+              struct drm_amdgpu_info_vbios {<br>
+                      __u8 name[64];<br>
+                      __u32 dbdf;<br>
+                      __u8 vbios_pn[64];<br>
+                      __u32 version;<br>
+                      __u8 date[32];<br>
+                      __u8 serial[16]; // jiawei: shall we delete this<br>
+                      __u32 dev_id;<br>
+                      __u32 rev_id;<br>
+                      __u32 sub_dev_id;<br>
+                      __u32 sub_ved_id;<br>
+              };<br>
+              <br>
+              serial[16] in drm_amdgpu_info_vbios  copied from
+              adev-&gt;serial, but there's already a sysfs named
+              serial_number, which exposes it already.<br>
+              <br>
+              static ssize_t amdgpu_device_get_serial_number(struct
+              device *dev,<br>
+                              struct device_attribute *attr, char *buf)<br>
+              {<br>
+                      struct drm_device *ddev = dev_get_drvdata(dev);<br>
+                      struct amdgpu_device *adev = ddev-&gt;dev_private;<br>
+              <br>
+                      return snprintf(buf, PAGE_SIZE, "%s\n",
+              adev-&gt;serial);<br>
+              }<br>
+              <br>
+              Thanks,<br>
+              Jiawei<br>
+              <br>
+              <br>
+              -----Original Message-----<br>
+              From: Nieto, David M <a class="moz-txt-link-rfc2396E" href="mailto:David.Nieto@amd.com">&lt;David.Nieto@amd.com&gt;</a> <br>
+              Sent: Monday, May 10, 2021 2:53 PM<br>
+              To: Gu, JiaWei (Will) <a class="moz-txt-link-rfc2396E" href="mailto:JiaWei.Gu@amd.com">&lt;JiaWei.Gu@amd.com&gt;</a><br>
+              Cc: Alex Deucher <a class="moz-txt-link-rfc2396E" href="mailto:alexdeucher@gmail.com">&lt;alexdeucher@gmail.com&gt;</a>; amd-gfx
+              list <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx@lists.freedesktop.org">&lt;amd-gfx@lists.freedesktop.org&gt;</a>; Kees Cook
+              <a class="moz-txt-link-rfc2396E" href="mailto:keescook@chromium.org">&lt;keescook@chromium.org&gt;</a>; Deng, Emily
+              <a class="moz-txt-link-rfc2396E" href="mailto:Emily.Deng@amd.com">&lt;Emily.Deng@amd.com&gt;</a><br>
+              Subject: Re: [PATCH] drm/amdgpu: Align serial size in
+              drm_amdgpu_info_vbios<br>
+              <br>
+              No, this structure contains all the details of the vbios:
+              date, serial number, name, etc.<br>
+              <br>
+              The sysfs node only contains the vbios name string<br>
+              <br>
+              &gt; On May 9, 2021, at 23:33, Gu, JiaWei (Will)
+              <a class="moz-txt-link-rfc2396E" href="mailto:JiaWei.Gu@amd.com">&lt;JiaWei.Gu@amd.com&gt;</a> wrote:<br>
+              &gt; <br>
+              &gt; ﻿[AMD Official Use Only - Internal Distribution Only]<br>
+              &gt; <br>
+              &gt; With a second thought,<br>
+              &gt; __u8 serial[16] in drm_amdgpu_info_vbios is a bit
+              redundant, sysfs serial_number already exposes it.<br>
+              &gt; <br>
+              &gt; Is it fine to abandon it from drm_amdgpu_info_vbios
+              struct? @Alex <br>
+              &gt; Deucher @Nieto, David M<br>
+              &gt; <br>
+              &gt; Best regards,<br>
+              &gt; Jiawei<br>
+              &gt; <br>
+              &gt; -----Original Message-----<br>
+              &gt; From: Alex Deucher <a class="moz-txt-link-rfc2396E" href="mailto:alexdeucher@gmail.com">&lt;alexdeucher@gmail.com&gt;</a><br>
+              &gt; Sent: Sunday, May 9, 2021 11:59 PM<br>
+              &gt; To: Gu, JiaWei (Will) <a class="moz-txt-link-rfc2396E" href="mailto:JiaWei.Gu@amd.com">&lt;JiaWei.Gu@amd.com&gt;</a><br>
+              &gt; Cc: amd-gfx list
+              <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx@lists.freedesktop.org">&lt;amd-gfx@lists.freedesktop.org&gt;</a>; Kees Cook <br>
+              &gt; <a class="moz-txt-link-rfc2396E" href="mailto:keescook@chromium.org">&lt;keescook@chromium.org&gt;</a><br>
+              &gt; Subject: Re: [PATCH] drm/amdgpu: Align serial size in
+              <br>
+              &gt; drm_amdgpu_info_vbios<br>
+              &gt; <br>
+              &gt;&gt; On Sat, May 8, 2021 at 2:48 AM Jiawei Gu
+              <a class="moz-txt-link-rfc2396E" href="mailto:Jiawei.Gu@amd.com">&lt;Jiawei.Gu@amd.com&gt;</a> wrote:<br>
+              &gt;&gt; <br>
+              &gt;&gt; 20 should be serial char size now instead of 16.<br>
+              &gt;&gt; <br>
+              &gt;&gt; Signed-off-by: Jiawei Gu
+              <a class="moz-txt-link-rfc2396E" href="mailto:Jiawei.Gu@amd.com">&lt;Jiawei.Gu@amd.com&gt;</a><br>
+              &gt; <br>
+              &gt; Please make sure this keeps proper 64 bit alignment
+              in the structure.<br>
+              &gt; <br>
+              &gt; Alex<br>
+              &gt; <br>
+              &gt; <br>
+              &gt;&gt; ---<br>
+              &gt;&gt; include/uapi/drm/amdgpu_drm.h | 2 +-<br>
+              &gt;&gt; 1 file changed, 1 insertion(+), 1 deletion(-)<br>
+              &gt;&gt; <br>
+              &gt;&gt; diff --git a/include/uapi/drm/amdgpu_drm.h <br>
+              &gt;&gt; b/include/uapi/drm/amdgpu_drm.h index
+              2b487a8d2727..1c20721f90da<br>
+              &gt;&gt; 100644<br>
+              &gt;&gt; --- a/include/uapi/drm/amdgpu_drm.h<br>
+              &gt;&gt; +++ b/include/uapi/drm/amdgpu_drm.h<br>
+              &gt;&gt; @@ -957,7 +957,7 @@ struct drm_amdgpu_info_vbios
+              {<br>
+              &gt;&gt;        __u8 vbios_pn[64];<br>
+              &gt;&gt;        __u32 version;<br>
+              &gt;&gt;        __u8 date[32];<br>
+              &gt;&gt; -       __u8 serial[16];<br>
+              &gt;&gt; +       __u8 serial[20];<br>
+              &gt;&gt;        __u32 dev_id;<br>
+              &gt;&gt;        __u32 rev_id;<br>
+              &gt;&gt;        __u32 sub_dev_id;<br>
+              &gt;&gt; --<br>
+              &gt;&gt; 2.17.1<br>
+              &gt;&gt; <br>
+              &gt;&gt; _______________________________________________<br>
+              &gt;&gt; amd-gfx mailing list<br>
+              &gt;&gt; <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a><br>
+              &gt;&gt; <a
+href="https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flis"
+                moz-do-not-send="true">
+https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flis</a><br>
+              &gt;&gt; t <br>
+              &gt;&gt;
+s.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=04%7C01%7CJ<br>
+              &gt;&gt; i<br>
+              &gt;&gt;
+              awei.Gu%40amd.com%7Ccea31833184c41e8574508d9130360cc%7C3dd8961fe4884e<br>
+              &gt;&gt; 6 <br>
+              &gt;&gt;
+              08e11a82d994e183d%7C0%7C0%7C637561727523880356%7CUnknown%7CTWFpbGZsb3<br>
+              &gt;&gt; d <br>
+              &gt;&gt;
+              8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7<br>
+              &gt;&gt; C <br>
+              &gt;&gt;
+1000&amp;amp;sdata=kAJiC6WoJUTeExwk6ftrLfMoY2OTAwg9X7mGgJT3kLk%3D&amp;amp;res<br>
+              &gt;&gt; e<br>
+              &gt;&gt; rved=0<br>
+            </div>
+          </span></font></div>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <pre class="moz-quote-pre" wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------AEDF236F3082C3A1D5776393--
+
+--===============0256640219==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -371,4 +481,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============2068129156==--
+--===============0256640219==--
