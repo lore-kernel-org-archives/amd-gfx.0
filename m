@@ -2,77 +2,107 @@ Return-Path: <SRS0=e+DK=KG=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.1 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6A0C4C433ED
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 May 2021 07:53:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 10D64C433B4
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 May 2021 08:07:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 17C11616EA
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 May 2021 07:53:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 17C11616EA
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id BEB9D610F8
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 May 2021 08:07:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BEB9D610F8
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 97D416E9EC;
-	Tue, 11 May 2021 07:53:09 +0000 (UTC)
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [IPv6:2a00:1450:4864:20::62f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C9CC6E9EC
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 May 2021 07:53:07 +0000 (UTC)
-Received: by mail-ej1-x62f.google.com with SMTP id gx5so28332826ejb.11
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 May 2021 00:53:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:references:from:message-id:date:user-agent:mime-version
- :in-reply-to:content-transfer-encoding:content-language;
- bh=51ZxcDul76x9F48wcTcaVhODYpThqlbV4Ao6IscdMzI=;
- b=TXw0YOHk/h/nD7aCTPHVkiZDB4ge80QAs4lbEcNsOSCR324effQ0HFH0X1eqMQmcJQ
- 2SVEUeRQrbvcAbqOkDv9wcLSQaFe11gAXbiV8dTrlzkxv/XV6IWc5sw8Wurg4KquECQv
- 87Sb4Zk5MuiP+28Mwy7FEUCysLZkcOfxx5Mlp2iABXMVDHjgjnvnEF6Amk4dawn/kalM
- 3M0VX3T6aIRJiFGNbY6YmOZgWynY7eE4thJl0naa2CVgDrY58MDRDCFxHfm5UK78I9BW
- RQOLqeMl1hahkVAfODe+KDOXokpAB6e088yAb5ewf/m9kfiDJAfcEWat1ymCoXXfNdfN
- +k5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=51ZxcDul76x9F48wcTcaVhODYpThqlbV4Ao6IscdMzI=;
- b=hDQ4V5jb5oFVGh2HZkDb0Qa0lg8tY3HN6RqEHST2clr210BEK4IUo00N0mpi23EpGt
- tNzJF8FiK0bDPMruDce7ausHPdx09zQHCUv8JQuGpuxgYLaN4VM0fejg/heoX0NKJO4s
- QGi72WKF8V52nideL4VMCpGkFJ7iYpHFy47G5bXJhQopEGzpUaPsWtd1NS0qLXFWURWU
- xIOKIAxcWVN1r/C6zc01yhUFCwanAxrT6AERihUCIBfFABiIgVqLqSq7X/T1wle+QzSu
- maMWw8loNVUkmZZvQkL/K9U/Pi00/+n+0yd9wARAtfEmVioytsYhKkLHIWv+yunN+RnD
- 6RIQ==
-X-Gm-Message-State: AOAM533BssghdCVAH1e0aOh+bqmOPxuBEWgQ7/r0e2AmAVDio7NPd29V
- vBX3JedJdAcJclY9XFcr8WGsVnQYtGw=
-X-Google-Smtp-Source: ABdhPJzrAP3e7Xwa4ThXLCvjZMge8lUVF7w2mpmtr5LtVVRGbYbtZG3fX/hXJbuHtP/TLuzW3KiHrQ==
-X-Received: by 2002:a17:906:aac5:: with SMTP id
- kt5mr30569129ejb.414.1620719586391; 
- Tue, 11 May 2021 00:53:06 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:c3ab:ee01:d547:2c4e?
- ([2a02:908:1252:fb60:c3ab:ee01:d547:2c4e])
- by smtp.gmail.com with ESMTPSA id i25sm9039677eje.6.2021.05.11.00.53.05
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 11 May 2021 00:53:06 -0700 (PDT)
-Subject: Re: [PATCH 2/2] drm/amdgpu: fix fence calculation
-To: David M Nieto <david.nieto@amd.com>, amd-gfx@lists.freedesktop.org
-References: <c1b6f68f-4b96-8752-c406-564e2b98ce41@gmail.com>
- <20210510202915.30502-1-david.nieto@amd.com>
- <20210510202915.30502-2-david.nieto@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <7579fa92-ad25-323a-0c41-ac07ac47fa42@gmail.com>
-Date: Tue, 11 May 2021 09:53:05 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72AC06E9DD;
+	Tue, 11 May 2021 08:07:15 +0000 (UTC)
+Received: from NAM02-BL2-obe.outbound.protection.outlook.com
+ (mail-eopbgr750050.outbound.protection.outlook.com [40.107.75.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B14186E9DD
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 May 2021 08:07:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=M5ylw5FLii8LNDVhxMzOMtsR3I9DvBnrUMBr4jiL7ckbsLV+lMZ1PIC23/hmCMegmxokUISCro2EVcgznNru8Db0Lmog3jiKwLza1QuCnbbWVJBPA2GFZGVpbwMAuvIVkrDMzPMdMakoljU2b1CPJqCyQ2A+0ZXFH53CDE1Mql5YKFvClCFV53mFyB7+WPspHhkBzMVLPe8tYGQSGcszQWANQuzLAcfUscUJl3SdFfPFi6ZEbXXfMslWN7N4QSUb7J+3Eo1CVlbxReGMxZmqf1kyrgD6YzkYf6CApv2CTVFBsSsoQTzTk01gNvK16TUl9v8hqkQsYS5twTUpYMbMhA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3rJThmokN0KS/7+c+0dd81sFfvsEhnnkK5HYgqvq4Ns=;
+ b=nDiyK9qj/gv/WocJxOCENUZ79R0K7Ja+/XnjlY7ZMNQDMTpY6VrRcHtkwI/TTTbaWKN/94RBFqgj2kh52Zfja1ap8KOLCKw7Q54wN+aczz8MTogoV4L0SD2F/iq+2cHKndF+bmqISDX02nt++REYlyOA2YGPROTsscQphuA+VToXpdlb5qzTFZ5FkkicXJ1Qzz6XY2vAfpnWHiY9DgZ7nPap2Jq9Y0IUFEx7Mm0GJryjEdYXxevjbt9aR9MkW+RsSoue/OZ6/2BMgyo+CwaMyTDJPMFtkWvhno5ZRSe5gotDvMR9nHJsjaTKWT2ZzBOZ/RdKFBHWmJh9UEoahqxogg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3rJThmokN0KS/7+c+0dd81sFfvsEhnnkK5HYgqvq4Ns=;
+ b=BcoVdW20wzPPV2S07SIgMsczfxwd3Z9keJn3mwvRrJzgyt2pY1yeIp211Upn2c+ANuW5eATeOM+83DzbXNIr7oBak7EjYzO3LiCHGn0otMGuKk/ESkKB2claIi+yKsGTWDhsUgZ6Ijgg3/6ZQO67roa4/OoDpSsLXQAgZn0G76A=
+Received: from DM5PR20CA0011.namprd20.prod.outlook.com (2603:10b6:3:93::21) by
+ DM6PR12MB3786.namprd12.prod.outlook.com (2603:10b6:5:14a::14) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4108.25; Tue, 11 May 2021 08:07:11 +0000
+Received: from DM6NAM11FT068.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:3:93:cafe::87) by DM5PR20CA0011.outlook.office365.com
+ (2603:10b6:3:93::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4108.25 via Frontend
+ Transport; Tue, 11 May 2021 08:07:11 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DM6NAM11FT068.mail.protection.outlook.com (10.13.173.67) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4108.25 via Frontend Transport; Tue, 11 May 2021 08:07:10 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Tue, 11 May
+ 2021 03:07:10 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Tue, 11 May
+ 2021 03:07:09 -0500
+Received: from yajunl-gv.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4 via Frontend
+ Transport; Tue, 11 May 2021 03:07:08 -0500
+From: Dennis Li <Dennis.Li@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <Alexander.Deucher@amd.com>,
+ <felix.kuehling@amd.com>, <Hawking.Zhang@amd.com>, <christian.koenig@amd.com>
+Subject: [PATCH] drm/amdkfd: refine the poison data consumption handling
+Date: Tue, 11 May 2021 16:06:57 +0800
+Message-ID: <20210511080657.14628-1-Dennis.Li@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-In-Reply-To: <20210510202915.30502-2-david.nieto@amd.com>
-Content-Language: en-US
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 3be8c9f3-b561-408f-078b-08d91453c752
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3786:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB378691FADFDC6BE0F1AB87F0ED539@DM6PR12MB3786.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4714;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Tq9CRr912WtrEQ2hdPPuamkHCQYxowIhX4cBeVvat0kutMUGfQqk4m3iZjNn8uR0FS4Nl1YgDvRXez/0jtQaF/rOTc7ii9mn395/ChekiIrS1L0x+rQm0HmqCLF83ZY8O4nWboAXjlVidVjdcZ3XDSo8KDAdnt/7KvINkw6qopeQpZwY0M5al9sbeSVsPtryAfW7nqCY1jROm7pB/VeU95NWfJ16ghwKATsyp+OU7HR5D+EVxOp7hVpP0+tTT+KSxNYYJIdAcsYXlb8sOhPnRcT2uNAYjgv1YzF2lI8TnSsPtRfrGTTtPseagCLiRDG8qhFdPuiGzMpNDlybkr1j1sVGbha+G/Ast4GKB/s0zIVFvn5hLCb67r1XIxzLfvQhKNuG8f7/yE77h4ZbiV2FEjxVSVTwxAhe9Zkq90g85ZEbjctk7VqJ+TUrfl8PoIqSOQAg3M+jXT3m8uuhaRT5hHkrfnpxNBl9efET3kx+9K5GqEbRF8Fgd3DxpmwFRG3GRUt8tunlZgSxSHCkMJ5JfcLX1CuWaG8BsPAEvJqJP61pAShMq6HKHMfFcgRrDc9/PHxujOCfuq9PekwT5L2VvromV/1HYNfzeiqeZQ/fPVBiR2H1nCXtUOWceHCtPansGnZ3qSzclZmu3X9hCSbvfWjYMLJEYLVho8s8Q/QrhE+9OmlhVFGjikWMvbsQ51MYaVM3sBxyeN0XpG1MHdHpxA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(136003)(39850400004)(376002)(396003)(346002)(36840700001)(46966006)(83380400001)(6636002)(8676002)(426003)(2906002)(8936002)(336012)(70586007)(4326008)(2616005)(70206006)(356005)(81166007)(36860700001)(82310400003)(1076003)(86362001)(26005)(7696005)(5660300002)(36756003)(82740400003)(186003)(478600001)(316002)(110136005)(6666004)(47076005)(36900700001)(2101003);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2021 08:07:10.7599 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3be8c9f3-b561-408f-078b-08d91453c752
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT068.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3786
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,81 +114,95 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Dennis Li <Dennis.Li@amd.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 10.05.21 um 22:29 schrieb David M Nieto:
-> The proper metric for fence utilization over several
-> contexts is an harmonic mean, but such calculation is
-> prohibitive in kernel space, so the code approximates it.
->
-> Because the approximation diverges when one context has a
-> very small ratio compared with the other context, this change
-> filter out ratios smaller that 0.01%
->
-> Signed-off-by: David M Nieto <david.nieto@amd.com>
-> Change-Id: I5b6e0ce5f489a5f55855d35354a6a3653e9d613b
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 13 ++++++++++++-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h |  1 +
->   2 files changed, 13 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-> index 9036c93b4a0c..89ee464b9424 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-> @@ -698,16 +698,27 @@ ktime_t amdgpu_ctx_mgr_fence_usage(struct amdgpu_ctx_mgr *mgr, uint32_t hwip,
->   	struct amdgpu_ctx_entity *centity;
->   	ktime_t total = 0, max = 0;
->   
-> +
+The user applications maybe register the KFD_EVENT_TYPE_HW_EXCEPTION and
+KFD_EVENT_TYPE_MEMORY events, driver could notify them when poison data
+consumed. Beside that, some applications maybe register SIGBUS signal
+hander. These applications will handle poison data by themselves, exit
+or re-create context to re-dispatch works.
 
-Unrelated white space change.
+Signed-off-by: Dennis Li <Dennis.Li@amd.com>
 
->   	if (idx >= AMDGPU_MAX_ENTITY_NUM)
->   		return 0;
->   	idp = &mgr->ctx_handles;
->   	mutex_lock(&mgr->lock);
->   	idr_for_each_entry(idp, ctx, id) {
-> +		ktime_t ttotal = tmax = ktime_set(0, 0);
-
-There should be a blank line between decleration and code and please 
-don't initialize local variables if it isn't necessary.
-
-Christian.
-
->   		if (!ctx->entities[hwip][idx])
->   			continue;
->   
->   		centity = ctx->entities[hwip][idx];
-> -		amdgpu_ctx_fence_time(ctx, centity, &total, &max);
-> +		amdgpu_ctx_fence_time(ctx, centity, &ttotal, &tmax);
-> +
-> +		/* Harmonic mean approximation diverges for very small
-> +		 * values. If ratio < 0.01% ignore
-> +		 */
-> +		if (AMDGPU_CTX_FENCE_USAGE_MIN_RATIO(tmax, ttotal))
-> +			continue;
-> +
-> +		total = ktime_add(total, ttotal);
-> +		max = ktime_after(tmax, max) ? tmax : max;
->   	}
->   
->   	mutex_unlock(&mgr->lock);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
-> index 10dcf59a5c6b..3541dfb059ec 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
-> @@ -30,6 +30,7 @@ struct drm_file;
->   struct amdgpu_fpriv;
->   
->   #define AMDGPU_MAX_ENTITY_NUM 4
-> +#define AMDGPU_CTX_FENCE_USAGE_MIN_RATIO(max, total) (max > 16384ULL*total)
->   
->   struct amdgpu_ctx_entity {
->   	uint64_t		sequence;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+index ba2c2ce0c55a..4d210f23c33c 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+@@ -1050,3 +1050,42 @@ void kfd_signal_reset_event(struct kfd_dev *dev)
+ 	}
+ 	srcu_read_unlock(&kfd_processes_srcu, idx);
+ }
++
++void kfd_signal_poison_consumed_event(struct kfd_dev *dev, u32 pasid)
++{
++	struct kfd_process *p = kfd_lookup_process_by_pasid(pasid);
++	struct kfd_hsa_memory_exception_data memory_exception_data;
++	struct kfd_hsa_hw_exception_data hw_exception_data;
++	struct kfd_event *ev;
++	uint32_t id = KFD_FIRST_NONSIGNAL_EVENT_ID;
++
++	if (!p)
++		return; /* Presumably process exited. */
++
++	memset(&hw_exception_data, 0, sizeof(hw_exception_data));
++	hw_exception_data.gpu_id = dev->id;
++	hw_exception_data.memory_lost = 1;
++	hw_exception_data.reset_cause = KFD_HW_EXCEPTION_ECC;
++
++	memset(&memory_exception_data, 0, sizeof(memory_exception_data));
++	memory_exception_data.ErrorType = KFD_MEM_ERR_POISON_CONSUMED;
++	memory_exception_data.gpu_id = dev->id;
++	memory_exception_data.failure.imprecise = true;
++
++	mutex_lock(&p->event_mutex);
++	idr_for_each_entry_continue(&p->event_idr, ev, id) {
++		if (ev->type == KFD_EVENT_TYPE_HW_EXCEPTION) {
++			ev->hw_exception_data = hw_exception_data;
++			set_event(ev);
++		}
++
++		if (ev->type == KFD_EVENT_TYPE_MEMORY) {
++			ev->memory_exception_data = memory_exception_data;
++			set_event(ev);
++		}
++	}
++	mutex_unlock(&p->event_mutex);
++
++	/* user application will handle SIGBUS signal */
++	send_sig(SIGBUS, p->lead_thread, 0);
++}
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
+index 97c36e3c8c80..9f9b1dfb9c37 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
+@@ -230,7 +230,7 @@ static void event_interrupt_wq_v9(struct kfd_dev *dev,
+ 					sq_intr_err);
+ 				if (sq_intr_err != SQ_INTERRUPT_ERROR_TYPE_ILLEGAL_INST &&
+ 					sq_intr_err != SQ_INTERRUPT_ERROR_TYPE_MEMVIOL) {
+-					kfd_signal_hw_exception_event(pasid);
++					kfd_signal_poison_consumed_event(dev, pasid);
+ 					amdgpu_amdkfd_gpu_reset(dev->kgd);
+ 					return;
+ 				}
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index 64552f6b8ba4..daa9d47514c6 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -1144,6 +1144,8 @@ void kfd_signal_vm_fault_event(struct kfd_dev *dev, u32 pasid,
+ 
+ void kfd_signal_reset_event(struct kfd_dev *dev);
+ 
++void kfd_signal_poison_consumed_event(struct kfd_dev *dev, u32 pasid);
++
+ void kfd_flush_tlb(struct kfd_process_device *pdd);
+ 
+ int dbgdev_wave_reset_wavefronts(struct kfd_dev *dev, struct kfd_process *p);
+-- 
+2.17.1
 
 _______________________________________________
 amd-gfx mailing list
