@@ -7,118 +7,122 @@ X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,PDS_BAD_THREAD_QP_64,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2A70DC433ED
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 May 2021 13:15:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 22D44C433ED
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 May 2021 13:24:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 96CF86191C
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 May 2021 13:15:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 96CF86191C
+	by mail.kernel.org (Postfix) with ESMTPS id A6FD8615FF
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 May 2021 13:24:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A6FD8615FF
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F16DD6E17C;
-	Tue, 11 May 2021 13:15:32 +0000 (UTC)
-Received: from NAM02-BL2-obe.outbound.protection.outlook.com
- (mail-eopbgr750045.outbound.protection.outlook.com [40.107.75.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFA116E17C
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 May 2021 13:15:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB8666E1B6;
+	Tue, 11 May 2021 13:24:47 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2068.outbound.protection.outlook.com [40.107.236.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AABAF6E1B6;
+ Tue, 11 May 2021 13:24:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EWIj30wJmly3qQMVZ2dcAFUWpNyiGAfauf443HOxfAOseOE5+pVceyNNCiqo5BdTC9HlYXK5xPWWtSP1ciaNDGJOryG/pmmoXDfmjYuW4BM7k+ND+ZAxCULpUpJDQ5RqPWcc8i/Ij3abntMQFl90N5Zl7dq8Wlhh9Bv5C474X/XazgZpEFXcArdBHJAHRqGU0ksQLi+KOksghaiu3b5sB+JIgxUfPF6QbGDljrJ+AwTMItie+jdOjsdsHawqqOUDJSE9lVbn9K0+pCmhSRKlMZjxYYy5pj9hB4Nsexmh/oNyZtK/bT1/3kTSHQc22o7d7b/s+P5q18NyX0X/cO1RXQ==
+ b=eMc66P1O/wN+Y83VN1jl5F6bH1jsSH4pFwaDiw+90kjwxBy421T1yR1/JCSGs30uDQ19vQs0aMnluifu5gJOjMRbhTUbISkfUeyV9kkzSqBrKfRIGjKeMFJ5vbDTBmBqDjjf6ALQXDWVGvF5GJYEtO53xvef7O/jO9iFRuBLZqzIjHTHjfqBIPN255ykDkaIFL73+xnOBFS38jMML+pZlaKdcd69F+fCGokLgVURb1MJsjXIyBYGiEsaRNXlkMHI1dtBj2YWA9cXcVRgQbzXzlMF+BHTdyq4P5ZfzWqcWWj6vGpKLU0+dfv7JQjIsyO9oyMd0speFfp1zfbRqj9/WQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+15mDDErs2lbmD4BNS8dUd3aIj8XXV2nxjIQCCJB6JI=;
- b=aYYxmrYPV3VG3qE1qQfDnxVyabcOhQo4vPgE4vZ4YMNPVcT/CatMvp6JiRvLHyWcvR/oP5Oc1XQYo/9vpOV/vvBBvjV+I1jPxpOMIlMNfoacaXJE5Cv+hgee1mf3Ynd58VnR0gFaPqf0W1DtWIPzTfpC5SDNJciCa/yHEeSEcEza8gqYBnV3qHD56YrA0RlBwd9qrUsOs1LrONHa1Phj/U1qsUtUDhA0kk14FZYExMfsF4zGpmff/bPZvFb0Er3cPdp62CkgBYyE0DmUvuqM257gbpd0ErsxNaaxZdivu9q57OxlPtoCLSOEBlJ+XunYIc4US15LIRyiKH/d9SOyqw==
+ bh=sVRqFORBlrjkVxOx7sasoOZ+PIY8xtVz0d+Yy3UzoU0=;
+ b=bXg+qsxgIRxwL7NchWJ5lrrWNJ0UW1zeYPsivXdqnPBxNSHDW60H90v5GCzpXL+HwwGRaR8IT7lsBRzUIMrwbYnK4n1eTroXLT++wL8szU/PW9YdxmOJd92Anmh5w8yZVuAJ2A7pYEMG52dRFq385SoN6+YQIe9IyHIP/G6icLOKVqbVtvsZfNRa1sxM8N5FAfOcG/qW9Nd0vUVK5OoL922fxC5uXeIeuoRDK6ROc2SXkSmjxScPFZVYphjTgWiZKeZ5D65VF9nf+m3xi1UP1kQkzYQCJD2IFBmkVww6Jwc02qaFleUGkdHvK79k7sGyOIQPy6ca4ZFFJ2KhkgwXDg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+15mDDErs2lbmD4BNS8dUd3aIj8XXV2nxjIQCCJB6JI=;
- b=tKq1+bzX05iU/mlXZKtrY70nXBtYpt1CUhTSS6X/4EuPPqFPotHBB2OUG9FAJCGYzcGyvCqGcaPqkPIG/dMkuPTPq05BQB8J3gGtzdQHsmWrs/uh3ZP1Dw5CiFNeON7gTyL2YE5ykGKfnNNPM6JJmolt3gPEW8pYbCqj7ZBL6/k=
+ bh=sVRqFORBlrjkVxOx7sasoOZ+PIY8xtVz0d+Yy3UzoU0=;
+ b=fWitJ9y/r8fv2TeWCDmxnkCRHYQzSOMO5TPqjo4r1VHq2fZJ8lvvuMAlmjUsjW3pOu8Wu/qNT6yguPxDI+TM2sktcbHXhcvOrzsPAZ1lD9JP5LE8KzEHk9WcpOp9xluXGi4ikJvXAzs+eemTzTUKsmx3vDLBbFVRmtqUxp3Datg=
 Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
- by BL0PR12MB4866.namprd12.prod.outlook.com (2603:10b6:208:1cf::18)
+ by MN2PR12MB4640.namprd12.prod.outlook.com (2603:10b6:208:38::29)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.25; Tue, 11 May
- 2021 13:15:30 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4108.27; Tue, 11 May
+ 2021 13:24:42 +0000
 Received: from MN2PR12MB4488.namprd12.prod.outlook.com
  ([fe80::3d98:cefb:476c:c36e]) by MN2PR12MB4488.namprd12.prod.outlook.com
  ([fe80::3d98:cefb:476c:c36e%8]) with mapi id 15.20.4108.032; Tue, 11 May 2021
- 13:15:30 +0000
+ 13:24:42 +0000
 From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Gu, JiaWei (Will)" <JiaWei.Gu@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdgpu: Field type update in drm_amdgpu_info_vbios
-Thread-Topic: [PATCH] drm/amdgpu: Field type update in drm_amdgpu_info_vbios
-Thread-Index: AQHXRib3oQEsnfINC0S0WY994zCB0KreQfQv
-Date: Tue, 11 May 2021 13:15:30 +0000
-Message-ID: <MN2PR12MB44889B34B2877BEEB6DF1803F7539@MN2PR12MB4488.namprd12.prod.outlook.com>
-References: <20210511053109.28816-1-Jiawei.Gu@amd.com>
-In-Reply-To: <20210511053109.28816-1-Jiawei.Gu@amd.com>
+To: "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
+ "ckoenig.leichtzumerken@gmail.com" <ckoenig.leichtzumerken@gmail.com>,
+ "daniel.vetter@ffwll.ch" <daniel.vetter@ffwll.ch>, "Wentland, Harry"
+ <Harry.Wentland@amd.com>
+Subject: Re: [PATCH v6 04/16] drm/amdkfd: Split kfd suspend from devie exit
+Thread-Topic: [PATCH v6 04/16] drm/amdkfd: Split kfd suspend from devie exit
+Thread-Index: AQHXRbqtDRMsp19jhUCOu9VNWlbr7areRmsh
+Date: Tue, 11 May 2021 13:24:42 +0000
+Message-ID: <MN2PR12MB4488E82C859899CDB2BE8D7AF7539@MN2PR12MB4488.namprd12.prod.outlook.com>
+References: <20210510163625.407105-1-andrey.grodzovsky@amd.com>,
+ <20210510163625.407105-5-andrey.grodzovsky@amd.com>
+In-Reply-To: <20210510163625.407105-5-andrey.grodzovsky@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2021-05-11T13:15:29.624Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Distribution
- Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
+msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=True;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-05-11T13:24:42.280Z;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=AMD
+ Public; MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=0;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged; 
 authentication-results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
 x-originating-ip: [192.161.79.245]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: fed16ab8-3ce1-44b0-8699-08d9147ed9d6
-x-ms-traffictypediagnostic: BL0PR12MB4866:
+x-ms-office365-filtering-correlation-id: 83294e79-c590-4856-de26-08d91480233f
+x-ms-traffictypediagnostic: MN2PR12MB4640:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BL0PR12MB48668DB2D4A3AC32C42CC568F7539@BL0PR12MB4866.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:1332;
+x-microsoft-antispam-prvs: <MN2PR12MB4640A039D5A41DB60686067FF7539@MN2PR12MB4640.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:4714;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: gzNaf5bwkupNEFOiCEfLvSZBATcjNStINOQroPPmYkM5WP/JV421d85MwqVnFdprI9OcxX/TbL+hL/sKyWXNcr3ZjY3JHYr9kCly6Zi9iw9zBEMeS0CT/2HNkinA8xqIkfWNLlyyWsDyXV+rKqX1HHKH5UG3N2yPN9r5UGXWKSxGA9E3clWL0QDC2unthzRaoYHy3tuhLu3UHsuE/6sUQ1Suz3J2FkZxNBDo3m1+4vOuewfxlrg3PIvsjTgIMOeTivltJpCA2noP/8pk2+YD7ubgT8ObSJolqrwpTEaqSfdJZ6SrqlmP57IJ4ClDFI8UxAo1gEKaLD+VG1fAMY1LmKG8suiXzaSJnnAOH2Hx/ifP9TqGXAUSYhJ1d/BpdBt25uHZbpo3Cba7IMGaZX7BDFfimJPgJN3IBgklTqC5zcwLqJ0GOR9FE2RoRoFhqAvYCVSapPb+qoIejEUq2CEqLgS+HwQH0Q5xHgSPdub4XVhBPeLZXZbGmjfjwfzMSinRTaQ2IEM7XXgfP9YmJUogeTT4W8seIlXFQVLkgdJQfCsWiS8djmoKtlWNGKvoRv1yz5ihYqMN5qtwsEq2GfLVeEmVYOB3KTWIKlLS94zBTqMvoACLtOLW+sA4eSST64D/atSBxU2En/c1HD+4UJQrnQ==
+x-microsoft-antispam-message-info: CmTPVTujYP9FZR3TwqhFwMkX5LKQrHvG6N9Jj9gkT1r2euNKvjYZXf4iy0l5F3FjRwf7SZ8MsjaimKSxjXoxoDUj89FtJ2XC3AmRbttKK0YJVMzAqBjx5MlHaJzCWtXnnJAMfeDLe7hqhjBVXk5iYUyfBnB35hF1Hd1NB4DsTf6Pb5nW3aUOTbbMqzKJckWTnxbrfHL/wKVRxcsWZcsNWNIqqxfNiKaiOIxx02VrSGOWh/bJcMYkVyXv+bY887NBLaIm2WD5VM4yAWYy13OnVCSoYCjMjP2/+bNNcwIxT6HBVbzvP+tSkl1RP2BfswQWfAEB88N2Ajv9i2EcYFCD0rNw1n50pqwsQTBO/iutRzHaqXL4va24lHhIHZ/M2lqJHvTlEVDbtevZGXAlqcOlLDYfi0UhORqrdhk4lkpwN/6FEa/zka7gTBjmzDQ8aosmQXRXKRV437onhi9/sniwIemWtVpl+/KLKelnY4ET/zbNlwVRaqKUdytmHZ3n/T0jnmB51HWPyVg5EA15tPfRgucXb5PeGLXAM2PB91RvZA2eeZtM9DNyRgrxOSk174fqFF2YPrFesrXuQj3LZhucfRAq/wk5RKJAFgkQmUtTpyA=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(376002)(366004)(136003)(39850400004)(396003)(45080400002)(186003)(2906002)(5660300002)(26005)(478600001)(76116006)(15650500001)(64756008)(19627405001)(8936002)(9686003)(66946007)(66556008)(66476007)(38100700002)(122000001)(66446008)(55016002)(8676002)(7696005)(4326008)(966005)(71200400001)(53546011)(83380400001)(316002)(6506007)(110136005)(52536014)(166002)(54906003)(86362001)(33656002);
+ SFS:(4636009)(366004)(39850400004)(376002)(136003)(346002)(396003)(71200400001)(15650500001)(26005)(186003)(478600001)(5660300002)(53546011)(9686003)(66556008)(4326008)(64756008)(8936002)(33656002)(52536014)(66476007)(54906003)(6506007)(76116006)(110136005)(66946007)(66446008)(316002)(83380400001)(6636002)(7696005)(122000001)(55016002)(38100700002)(19627405001)(8676002)(2906002)(86362001);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?iso-8859-1?Q?OR55tmMoiCjFjh6PLxQw32fS7NTxg2R77EWrccW2peXmAn7k7cROqot7wh?=
- =?iso-8859-1?Q?kaFgHYeDSxRwaDHzlh+bpry9ErrOIaRgzTmdClS+5LRHzkrhQSQIYsA2vn?=
- =?iso-8859-1?Q?JS/VZWVPMeaIpW9N50VN/d3xLR+OQhP7yJOiB10u2E0ZAA7zrVSQQ7WyKR?=
- =?iso-8859-1?Q?SVO0dKWbt/COAgf7iKJuqexp883v3rW8eBzyjo6QlRJPRyziStlA5daHUh?=
- =?iso-8859-1?Q?KExIhXzrwdDW16K0cVuHyLG9ojHNgBf46eoCndnwqZskf60vBF8p3tGFzu?=
- =?iso-8859-1?Q?rcNiXiRwazVB4vj+Iked1AbRJfSmGt/UDPojwP/xlnvOWvuiNjxL5PWTSr?=
- =?iso-8859-1?Q?lHCg+Xr3Bh5Who1tEt8nreRT60JNtEnQYF1kUdJiAhCv1M8InIYCYv8LM0?=
- =?iso-8859-1?Q?IM1uHozuIShlfSdhkbP8dSbfh8OrORylE+fjdByJoED8ZcadDxOgqHKQo6?=
- =?iso-8859-1?Q?CC+SsECWoVBSFx2duzZXCRS4zeJ2pV1WPFshY7m8bXRkf9vWyDKcX/xYy4?=
- =?iso-8859-1?Q?JWAmMKaI2Q5atCno8fFCQIKTgSbUF50MgoJKJ3zgb/QLaZkpzuh57CABXQ?=
- =?iso-8859-1?Q?AXMIV8ALuQWVRuAN8hmvxjoGfPnM7HjGvgZVJGQzefJbYs9YJltSFrizp0?=
- =?iso-8859-1?Q?naNdpV8LoVUzhMcLpABpDHjpP149YZNWgaetN2aYleJ3JIr+hmRtgzSfno?=
- =?iso-8859-1?Q?bgUxU8xlylHbeA7z0tkkkQ7YCueW1/zKa3EoB86rsuVNwT5tlqxgAQYFEy?=
- =?iso-8859-1?Q?LyjahHK/YNg8yYq+a/rxPuV9MIjEfnzJGi6BmZ09NXKqa1vC8kF5ZwqzqH?=
- =?iso-8859-1?Q?qyb1xxFT92THDlhYV+Xf60d1JnDs5l6M4pEbtziCRQFp1sqkXjbwk333uh?=
- =?iso-8859-1?Q?DzKYtXbokPA3kYEHPednLoWHVlx6cFaAIYcMCLK256d3TxiUxrcos0yuFb?=
- =?iso-8859-1?Q?gqSUWtowvChgSdFxNuZPIXJpWHM/apUnESsptmP9jdBfHrlX0di95dv9RW?=
- =?iso-8859-1?Q?ArFZBiXdpfqI9lTd/Z+GSUrXnG+rpsDhkpGR2qmUj8aXdfNGr9/36T48WY?=
- =?iso-8859-1?Q?anmri+PAAVlU9oPt5mhwpCb2q/wqUAUTQ3AAYVDsCMp8n7lH13k252JZSB?=
- =?iso-8859-1?Q?TAGGLJ6RJF+RzxsQhoftPqgFHc07HAlbFIizVF/Ku05J1STE1l8nc6T7RA?=
- =?iso-8859-1?Q?rHTxpdTHorYfw4jkozPT9hDAtxNxJYLDSkGy9+XmDtL1Lbs7+QiGEaGROz?=
- =?iso-8859-1?Q?9Ma6q/6k6qVEuqRa6p8jgnihzPRyYVpStzbc5wlVBw3tTwOQ0aEA7TGFwW?=
- =?iso-8859-1?Q?/KmURF9Ijlazvb2PhfBWej9eQJRvaJzhZ/BJPJoYawL22YQ+koOcPKBVeE?=
- =?iso-8859-1?Q?maInGMAXlT?=
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?TifB5UWG5gjgzKKohgnmN/jmvSJYuWt+OPvJgscULkOvyEMwTQIg91dRXTTl?=
+ =?us-ascii?Q?+bB/0iqA+KQxqAFitwT0Gk7bK2Dg6wsgV3EPEiOH1M7Hhn18e3ds5+Rh5svF?=
+ =?us-ascii?Q?BgGKoWcUMPoU77m5MrU+4mSRjL11yUJN2SzGX230UK1wilGuw+xD+Cj1c2Ry?=
+ =?us-ascii?Q?6Z6Ui4KyfBnwMwCG2ICc3qFZiS44KvEjH5o7IAUuOKgo/w3yty8omq/PqA5d?=
+ =?us-ascii?Q?j5G/TyFu9EiZa+SGt/+rvnSDJk3gpJBPnHEa/F2NA4Ye5akPjceXW18G7Lhs?=
+ =?us-ascii?Q?+JpB0jL4VP/ijDKPUUQlWT+mDk95WSpZC+atWf0Pbhf2/fLHSMCeeH89rORK?=
+ =?us-ascii?Q?d8kWoJbOn5HbLABpNFzLHrwZZFcglrIvmpzPBd7zNg1OZlhAOilRRFUIn5Vu?=
+ =?us-ascii?Q?9BcLnPJ7U5vWq3HyTJF71gYNTDUFWnbsPediXq9KGOoQLI6vAr9tFbkxN/sa?=
+ =?us-ascii?Q?V0/m223uR0KxcAj4Z2s2RCd3dvlIy+u/fN+KymjMMiQ5VprGICYSGnzBj0Y1?=
+ =?us-ascii?Q?webyM7pVMflgq/JXwucgeIpMTxzLV314O4Qa0l/vwjKVYAjZl/dbwtysS5Lp?=
+ =?us-ascii?Q?NsccuHv/r27ecegiDemYXNlKs8kxnJXhUtuxMesK1DT7bofiArWc29hoYcQ4?=
+ =?us-ascii?Q?+LoEyG2Gnu8A26gPQOZH78qxSe3ek2G0TEcPSSa3GB5Xb8aalDGwZhF2QRPw?=
+ =?us-ascii?Q?Oa/+wjKVgoNOKrBd73OB0I9OJShRrhSUUUJEFDqmKRVFaBROyHR7dgoB5hjj?=
+ =?us-ascii?Q?JZxevpzzkQfJVvGfWAEW3SysjVTMk90WvSXwhfgXliH2kYSuKfHJXbo3i53v?=
+ =?us-ascii?Q?j+CT++U6FZOBzCuBLNaPPzNO1dl47sd8qzwY4+dh59PBIr5RVmICLvr4lsJk?=
+ =?us-ascii?Q?2oiZGg0I+hvvYPccSidWRzdlgZFVQAlFld8uRpOrX8NzVuL7PvXcBM9RPUZd?=
+ =?us-ascii?Q?SvbNKAkhqYFs8SZG5V9GFBcsJOAStRY9vqmolNDdjKfgvEnW1jQhQKXv8soD?=
+ =?us-ascii?Q?cl2hzN/OPMidwsseZqDFdWbahhhqpgn3ML1T9v/jsLZMO+Fhf8pVso641mO4?=
+ =?us-ascii?Q?T+lwC3LUAE7d48QhIU8TY0LmhWdDEYlc5BZ2aJ5sVtB68JRp0UbHzgpnfq8Z?=
+ =?us-ascii?Q?/vY8eggETpg/ndnS9U2KjFLQO8Z3EtFhjQT12PulC7XVWM6TXhzROArtTP8P?=
+ =?us-ascii?Q?nWCPxUNJah8phI8qeRL0Q4rIq/k2T9rovuLxKohkPqw4bHGbyfJGq9A7Mgt+?=
+ =?us-ascii?Q?oQWPCKI68B8EGXw6dKCoJ1IYf3v9HQDG7og1P7O1+37xbNyhAAeLyrYpppOK?=
+ =?us-ascii?Q?aZjiq6AGOFfKzsmKYC/S8BIT?=
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fed16ab8-3ce1-44b0-8699-08d9147ed9d6
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 May 2021 13:15:30.1899 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 83294e79-c590-4856-de26-08d91480233f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 May 2021 13:24:42.8049 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 4Wpc+d/t79HepEgFMPbtJ4IUO49HKpNOBvTmU89cSJbZdxJagAjp92G/SYShW25Mvm9Njz582iRSiVus5XUixg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4866
+X-MS-Exchange-CrossTenant-userprincipalname: VwqQFtqc8Nd2/SE1c23TO7LadLh1lcb8yEG5OOFvDaSO1c/ZMb26wTf9MuKgrBprbkgWeUx6S3mS2oEO8kralw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4640
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,228 +134,244 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "StDenis, Tom" <Tom.StDenis@amd.com>,
- "keescook@chromium.org" <keescook@chromium.org>, "Nieto,
- David M" <David.Nieto@amd.com>
-Content-Type: multipart/mixed; boundary="===============1183803976=="
+Cc: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+ "ppaalanen@gmail.com" <ppaalanen@gmail.com>,
+ "helgaas@kernel.org" <helgaas@kernel.org>, "Kuehling,
+ Felix" <Felix.Kuehling@amd.com>
+Content-Type: multipart/mixed; boundary="===============0666877504=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1183803976==
+--===============0666877504==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB44889B34B2877BEEB6DF1803F7539MN2PR12MB4488namp_"
+	boundary="_000_MN2PR12MB4488E82C859899CDB2BE8D7AF7539MN2PR12MB4488namp_"
 
---_000_MN2PR12MB44889B34B2877BEEB6DF1803F7539MN2PR12MB4488namp_
-Content-Type: text/plain; charset="iso-8859-1"
+--_000_MN2PR12MB4488E82C859899CDB2BE8D7AF7539MN2PR12MB4488namp_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-[AMD Official Use Only - Internal Distribution Only]
+[AMD Public Use]
 
-Please update the umr patch as well.
+Typo in the subject: devie > device
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-
+Alex
 ________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Jiawei G=
-u <Jiawei.Gu@amd.com>
-Sent: Tuesday, May 11, 2021 1:31 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: StDenis, Tom <Tom.StDenis@amd.com>; Gu, JiaWei (Will) <JiaWei.Gu@amd.co=
-m>; keescook@chromium.org <keescook@chromium.org>; Nieto, David M <David.Ni=
-eto@amd.com>
-Subject: [PATCH] drm/amdgpu: Field type update in drm_amdgpu_info_vbios
+From: Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>
+Sent: Monday, May 10, 2021 12:36 PM
+To: dri-devel@lists.freedesktop.org <dri-devel@lists.freedesktop.org>; amd-=
+gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; linux-pci@vger.k=
+ernel.org <linux-pci@vger.kernel.org>; ckoenig.leichtzumerken@gmail.com <ck=
+oenig.leichtzumerken@gmail.com>; daniel.vetter@ffwll.ch <daniel.vetter@ffwl=
+l.ch>; Wentland, Harry <Harry.Wentland@amd.com>
+Cc: ppaalanen@gmail.com <ppaalanen@gmail.com>; Deucher, Alexander <Alexande=
+r.Deucher@amd.com>; gregkh@linuxfoundation.org <gregkh@linuxfoundation.org>=
+; helgaas@kernel.org <helgaas@kernel.org>; Kuehling, Felix <Felix.Kuehling@=
+amd.com>; Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>
+Subject: [PATCH v6 04/16] drm/amdkfd: Split kfd suspend from devie exit
 
-Use numeric type serial in drm_amdgpu_info_vbios instead.
+Helps to expdite HW related stuff to amdgpu_pci_remove
 
-Signed-off-by: Jiawei Gu <Jiawei.Gu@amd.com>
+Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 2 +-
- include/uapi/drm/amdgpu_drm.h           | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h | 2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_device.c    | 3 ++-
+ 3 files changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_kms.c
-index 75f34a9008e7..e1008a79b441 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -871,7 +871,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *dat=
-a, struct drm_file *filp)
-                         memcpy(vbios_info.vbios_pn, atom_context->vbios_pn=
-, sizeof(atom_context->vbios_pn));
-                         vbios_info.version =3D atom_context->version;
-                         memcpy(vbios_info.date, atom_context->date, sizeof=
-(atom_context->date));
--                       memcpy(vbios_info.serial, adev->serial, sizeof(adev=
-->serial));
-+                       vbios_info.serial =3D adev->unique_id;
-                         vbios_info.dev_id =3D adev->pdev->device;
-                         vbios_info.rev_id =3D adev->pdev->revision;
-                         vbios_info.sub_dev_id =3D atom_context->sub_dev_id=
-;
-diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-index 2b487a8d2727..2d9e84658bbc 100644
---- a/include/uapi/drm/amdgpu_drm.h
-+++ b/include/uapi/drm/amdgpu_drm.h
-@@ -957,7 +957,7 @@ struct drm_amdgpu_info_vbios {
-         __u8 vbios_pn[64];
-         __u32 version;
-         __u8 date[32];
--       __u8 serial[16];
-+       __u64 serial;
-         __u32 dev_id;
-         __u32 rev_id;
-         __u32 sub_dev_id;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_amdkfd.c
+index 5f6696a3c778..2b06dee9a0ce 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+@@ -170,7 +170,7 @@ void amdgpu_amdkfd_device_init(struct amdgpu_device *ad=
+ev)
+         }
+ }
+
+-void amdgpu_amdkfd_device_fini(struct amdgpu_device *adev)
++void amdgpu_amdkfd_device_fini_sw(struct amdgpu_device *adev)
+ {
+         if (adev->kfd.dev) {
+                 kgd2kfd_device_exit(adev->kfd.dev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_amdkfd.h
+index 14f68c028126..f8e10af99c28 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+@@ -127,7 +127,7 @@ void amdgpu_amdkfd_interrupt(struct amdgpu_device *adev=
+,
+                         const void *ih_ring_entry);
+ void amdgpu_amdkfd_device_probe(struct amdgpu_device *adev);
+ void amdgpu_amdkfd_device_init(struct amdgpu_device *adev);
+-void amdgpu_amdkfd_device_fini(struct amdgpu_device *adev);
++void amdgpu_amdkfd_device_fini_sw(struct amdgpu_device *adev);
+ int amdgpu_amdkfd_submit_ib(struct kgd_dev *kgd, enum kgd_engine_type engi=
+ne,
+                                 uint32_t vmid, uint64_t gpu_addr,
+                                 uint32_t *ib_cmd, uint32_t ib_len);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/=
+amdkfd/kfd_device.c
+index 357b9bf62a1c..ab6d2a43c9a3 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+@@ -858,10 +858,11 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
+         return kfd->init_complete;
+ }
+
++
++
+ void kgd2kfd_device_exit(struct kfd_dev *kfd)
+ {
+         if (kfd->init_complete) {
+-               kgd2kfd_suspend(kfd, false);
+                 device_queue_manager_uninit(kfd->dqm);
+                 kfd_interrupt_exit(kfd);
+                 kfd_topology_remove_device(kfd);
 --
-2.17.1
+2.25.1
 
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
-reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D04%7C01%7Calexande=
-r.deucher%40amd.com%7C9c3ad129089d4585544f08d9143e1892%7C3dd8961fe4884e608e=
-11a82d994e183d%7C0%7C0%7C637563079204768525%7CUnknown%7CTWFpbGZsb3d8eyJWIjo=
-iMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdat=
-a=3DefCxiLv4J5KWmoKqy1geARlt%2FJppT1eetVI3R%2FMNfzw%3D&amp;reserved=3D0
 
---_000_MN2PR12MB44889B34B2877BEEB6DF1803F7539MN2PR12MB4488namp_
-Content-Type: text/html; charset="iso-8859-1"
+--_000_MN2PR12MB4488E82C859899CDB2BE8D7AF7539MN2PR12MB4488namp_
+Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
 <html>
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
 <style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
 ttom:0;} </style>
 </head>
 <body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:11pt;color:#0078D7;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only - Internal Distribution Only]<br>
+<p style=3D"font-family:Arial;font-size:10pt;color:#317100;margin:15pt;" al=
+ign=3D"Left">
+[AMD Public Use]<br>
 </p>
 <br>
 <div>
 <div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
 : 12pt; color: rgb(0, 0, 0);">
-Please update the umr patch as well.&nbsp; <br>
-</div>
+Typo in the subject: <span class=3D"ITWTqi_23IoOPmK3O6ErT">devie</span> &gt=
+; device</div>
 <div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
 : 12pt; color: rgb(0, 0, 0);">
 <br>
 </div>
 <div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
 : 12pt; color: rgb(0, 0, 0);">
-Acked-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+Alex<br>
 </div>
 <div id=3D"appendonsend"></div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
-=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx=
--bounces@lists.freedesktop.org&gt; on behalf of Jiawei Gu &lt;Jiawei.Gu@amd=
-.com&gt;<br>
-<b>Sent:</b> Tuesday, May 11, 2021 1:31 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> StDenis, Tom &lt;Tom.StDenis@amd.com&gt;; Gu, JiaWei (Will) &lt;=
-JiaWei.Gu@amd.com&gt;; keescook@chromium.org &lt;keescook@chromium.org&gt;;=
- Nieto, David M &lt;David.Nieto@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: Field type update in drm_amdgpu_info_vb=
-ios</font>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Grodzovsky, Andrey &l=
+t;Andrey.Grodzovsky@amd.com&gt;<br>
+<b>Sent:</b> Monday, May 10, 2021 12:36 PM<br>
+<b>To:</b> dri-devel@lists.freedesktop.org &lt;dri-devel@lists.freedesktop.=
+org&gt;; amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&gt=
+;; linux-pci@vger.kernel.org &lt;linux-pci@vger.kernel.org&gt;; ckoenig.lei=
+chtzumerken@gmail.com &lt;ckoenig.leichtzumerken@gmail.com&gt;;
+ daniel.vetter@ffwll.ch &lt;daniel.vetter@ffwll.ch&gt;; Wentland, Harry &lt=
+;Harry.Wentland@amd.com&gt;<br>
+<b>Cc:</b> ppaalanen@gmail.com &lt;ppaalanen@gmail.com&gt;; Deucher, Alexan=
+der &lt;Alexander.Deucher@amd.com&gt;; gregkh@linuxfoundation.org &lt;gregk=
+h@linuxfoundation.org&gt;; helgaas@kernel.org &lt;helgaas@kernel.org&gt;; K=
+uehling, Felix &lt;Felix.Kuehling@amd.com&gt;; Grodzovsky, Andrey
+ &lt;Andrey.Grodzovsky@amd.com&gt;<br>
+<b>Subject:</b> [PATCH v6 04/16] drm/amdkfd: Split kfd suspend from devie e=
+xit</font>
 <div>&nbsp;</div>
 </div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
->
-<div class=3D"PlainText">Use numeric type serial in drm_amdgpu_info_vbios i=
-nstead.<br>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Helps to expdite HW related stuff to amdgpu_pci_re=
+move<br>
 <br>
-Signed-off-by: Jiawei Gu &lt;Jiawei.Gu@amd.com&gt;<br>
+Signed-off-by: Andrey Grodzovsky &lt;andrey.grodzovsky@amd.com&gt;<br>
 ---<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 2 +-<br>
-&nbsp;include/uapi/drm/amdgpu_drm.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; | 2 +-<br>
-&nbsp;2 files changed, 2 insertions(+), 2 deletions(-)<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 2 +-<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h | 2 +-<br>
+&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_device.c&nbsp;&nbsp;&nbsp; | 3 ++-<br>
+&nbsp;3 files changed, 4 insertions(+), 3 deletions(-)<br>
 <br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_kms.c<br>
-index 75f34a9008e7..e1008a79b441 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
-@@ -871,7 +871,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *dat=
-a, struct drm_file *filp)<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_amdkfd.c<br>
+index 5f6696a3c778..2b06dee9a0ce 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c<br>
+@@ -170,7 +170,7 @@ void amdgpu_amdkfd_device_init(struct amdgpu_device *ad=
+ev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;}<br>
+&nbsp;<br>
+-void amdgpu_amdkfd_device_fini(struct amdgpu_device *adev)<br>
++void amdgpu_amdkfd_device_fini_sw(struct amdgpu_device *adev)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;kfd.dev) {<br=
+>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcp=
-y(vbios_info.vbios_pn, atom_context-&gt;vbios_pn, sizeof(atom_context-&gt;v=
-bios_pn));<br>
+sp;&nbsp;&nbsp;&nbsp; kgd2kfd_device_exit(adev-&gt;kfd.dev);<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_amdkfd.h<br>
+index 14f68c028126..f8e10af99c28 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h<br>
+@@ -127,7 +127,7 @@ void amdgpu_amdkfd_interrupt(struct amdgpu_device *adev=
+,<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vbios=
-_info.version =3D atom_context-&gt;version;<br>
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const=
+ void *ih_ring_entry);<br>
+&nbsp;void amdgpu_amdkfd_device_probe(struct amdgpu_device *adev);<br>
+&nbsp;void amdgpu_amdkfd_device_init(struct amdgpu_device *adev);<br>
+-void amdgpu_amdkfd_device_fini(struct amdgpu_device *adev);<br>
++void amdgpu_amdkfd_device_fini_sw(struct amdgpu_device *adev);<br>
+&nbsp;int amdgpu_amdkfd_submit_ib(struct kgd_dev *kgd, enum kgd_engine_type=
+ engine,<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcp=
-y(vbios_info.date, atom_context-&gt;date, sizeof(atom_context-&gt;date));<b=
-r>
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t vmid, uint64_t gpu_addr=
+,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t *ib_cmd, uint32_t ib_le=
+n);<br>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/=
+amdkfd/kfd_device.c<br>
+index 357b9bf62a1c..ab6d2a43c9a3 100644<br>
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c<br>
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c<br>
+@@ -858,10 +858,11 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return kfd-&gt;init_comple=
+te;<br>
+&nbsp;}<br>
+&nbsp;<br>
++<br>
++<br>
+&nbsp;void kgd2kfd_device_exit(struct kfd_dev *kfd)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (kfd-&gt;init_complete)=
+ {<br>
 -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy(vbios_inf=
-o.serial, adev-&gt;serial, sizeof(adev-&gt;serial));<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vbios_info.seria=
-l =3D adev-&gt;unique_id;<br>
+bsp;&nbsp; kgd2kfd_suspend(kfd, false);<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vbios=
-_info.dev_id =3D adev-&gt;pdev-&gt;device;<br>
+sp;&nbsp;&nbsp;&nbsp; device_queue_manager_uninit(kfd-&gt;dqm);<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vbios=
-_info.rev_id =3D adev-&gt;pdev-&gt;revision;<br>
+sp;&nbsp;&nbsp;&nbsp; kfd_interrupt_exit(kfd);<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vbios=
-_info.sub_dev_id =3D atom_context-&gt;sub_dev_id;<br>
-diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h<=
-br>
-index 2b487a8d2727..2d9e84658bbc 100644<br>
---- a/include/uapi/drm/amdgpu_drm.h<br>
-+++ b/include/uapi/drm/amdgpu_drm.h<br>
-@@ -957,7 +957,7 @@ struct drm_amdgpu_info_vbios {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __u8 vbios_pn[64];<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __u32 version;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __u8 date[32];<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __u8 serial[16];<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __u64 serial;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __u32 dev_id;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __u32 rev_id;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __u32 sub_dev_id;<br>
+sp;&nbsp;&nbsp;&nbsp; kfd_topology_remove_device(kfd);<br>
 -- <br>
-2.17.1<br>
+2.25.1<br>
 <br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx@lists.freedesktop.org<br>
-<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
-F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D04%=
-7C01%7Calexander.deucher%40amd.com%7C9c3ad129089d4585544f08d9143e1892%7C3dd=
-8961fe4884e608e11a82d994e183d%7C0%7C0%7C637563079204768525%7CUnknown%7CTWFp=
-bGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%=
-7C1000&amp;amp;sdata=3DefCxiLv4J5KWmoKqy1geARlt%2FJppT1eetVI3R%2FMNfzw%3D&a=
-mp;amp;reserved=3D0">https://nam11.safelinks.protection.outlook.com/?url=3D=
-https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;=
-data=3D04%7C01%7Calexander.deucher%40amd.com%7C9c3ad129089d4585544f08d9143e=
-1892%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637563079204768525%7CUnkn=
-own%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXV=
-CI6Mn0%3D%7C1000&amp;amp;sdata=3DefCxiLv4J5KWmoKqy1geARlt%2FJppT1eetVI3R%2F=
-MNfzw%3D&amp;amp;reserved=3D0</a><br>
 </div>
 </span></font></div>
 </div>
 </body>
 </html>
 
---_000_MN2PR12MB44889B34B2877BEEB6DF1803F7539MN2PR12MB4488namp_--
+--_000_MN2PR12MB4488E82C859899CDB2BE8D7AF7539MN2PR12MB4488namp_--
 
---===============1183803976==
+--===============0666877504==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -362,4 +382,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============1183803976==--
+--===============0666877504==--
