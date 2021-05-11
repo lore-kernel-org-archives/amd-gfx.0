@@ -2,73 +2,120 @@ Return-Path: <SRS0=e+DK=KG=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_2 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BDA48C433ED
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 May 2021 11:08:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 89B0AC433ED
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 May 2021 12:30:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7527A61624
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 May 2021 11:08:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7527A61624
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 270A261919
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 May 2021 12:30:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 270A261919
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DE2C6EA1C;
-	Tue, 11 May 2021 11:08:14 +0000 (UTC)
-Received: from mail-lf1-x142.google.com (mail-lf1-x142.google.com
- [IPv6:2a00:1450:4864:20::142])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 638B36EA19;
- Tue, 11 May 2021 11:08:13 +0000 (UTC)
-Received: by mail-lf1-x142.google.com with SMTP id r5so10851209lfr.5;
- Tue, 11 May 2021 04:08:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:in-reply-to:references
- :mime-version; bh=2rwdY+cy/LFTwHB/JDH41pgEo5onrbL3R8dSf4+xjKg=;
- b=EaM83za3ez8P1OFd4pAdX0Z6TbNSAsjaN6dWo/LprqDNcFd834QtxsDzaRYBY7h0XK
- ubCBWo8fgFjbhzvX0BYZMNRcvPfkrey/GW/0CtJlsLFKPRTpYBhklz7nJ40B99XEBUX6
- lyQPu0CciWB5WSZ2jl1XAuCVl2fOKK1KiHyazScaEZZsmKmFKnc7uiAJto//1V1z9zRO
- FCG759nTYwhs6fHTuK+9Gwd/ioboQ64T8B+7vMGXCIgJnCZvhasUcf8MErcchvM5a6qG
- oJ4R6KKaUsAZtsYEF5o6Fo2QBSWjp4un3hU0TTbVfJk7GVaCmTqt6TvuCc7DTpfMliAl
- smcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
- :references:mime-version;
- bh=2rwdY+cy/LFTwHB/JDH41pgEo5onrbL3R8dSf4+xjKg=;
- b=NxJYKWrzeTqTRUOOo/ES88MsbHuUaIfRp1nU/KzAFjNndR4KQbt4Kfk7/a8qsH9Awf
- ZmexFiZ9LZIKBb3FC5gYkLF/lCNzLbQZD/qODMKoHLjtZzRRRm98s+Pys62BO5Ze17/+
- 9Dszz+2Fzs6R+joT3ItNQAf7948+jCByNaqNX3xd7KRvPBrP3ZOt81pu2LEpmBQEFm51
- 8awFjJi+6OVGrf2OftVMjkT3BY33xl11Q+Q8Kz3E4uQXDJutLtprJOQdZGwWQeBQx2ud
- TBYvUvFCTOJbr1Ep/XvOh/DN8a3VpCGm+vZBbk5NlM3MXEhTTZtQZPotr6cw/X9roBUA
- 3/LA==
-X-Gm-Message-State: AOAM530ZfsBwK1+XYxByqpZdc68ltDL8FM2s42h82gvUxqK5bc7yI/9y
- nbonVpJysMSlnE7pAd7jkAw=
-X-Google-Smtp-Source: ABdhPJxa58kOycC5ZbaUnn6C/Vl0QmIi664AHb+gcMZ0X3sCF7YAhZ++lVitc/tCQjCLGwXlGD49lg==
-X-Received: by 2002:a05:6512:3c91:: with SMTP id
- h17mr20344276lfv.106.1620731291633; 
- Tue, 11 May 2021 04:08:11 -0700 (PDT)
-Received: from eldfell ([194.136.85.206])
- by smtp.gmail.com with ESMTPSA id p11sm2602176lfu.41.2021.05.11.04.08.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 May 2021 04:08:11 -0700 (PDT)
-Date: Tue, 11 May 2021 14:08:00 +0300
-From: Pekka Paalanen <ppaalanen@gmail.com>
-To: Werner Sembach <wse@tuxedocomputers.com>
-Subject: Re: [PATCH] drm/amd/display: Expose active display color
- configurations to userspace
-Message-ID: <20210511140800.39f124d4@eldfell>
-In-Reply-To: <46ad57d2-8fdd-51c3-de32-bcf6a1016a56@tuxedocomputers.com>
-References: <20210507192718.35314-1-wse@tuxedocomputers.com>
- <CADnq5_O7uuSj-nmKXRvGVTb9n1e+Bb-SU3Psi7BVhN4AOYhHsQ@mail.gmail.com>
- <20210511110756.7e754c30@eldfell>
- <46ad57d2-8fdd-51c3-de32-bcf6a1016a56@tuxedocomputers.com>
-X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 568EA6EA2A;
+	Tue, 11 May 2021 12:30:21 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2082.outbound.protection.outlook.com [40.107.237.82])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C20886EA2A
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 May 2021 12:30:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ZejIwhwl1sCd1l7lax5NI3QPw2o7HZDPrXZOv2lB25kUEk4OP4jDu3oFF272Wf8Xh/hol8kSbpzXDbFVPCs251UXYek5yGf+VUHrP2+OQ7G2TfjkGrk1GywgqLvZ+4/O6vLEoIPbWEscUhv9olZ2J+yJbx+35fNas12px7pRMDwr517nQMqscYb0vFkzxa/AgsQsTs1o5DI/YzU1vTagoiblu3VpXE8/mhqo+fv+H0cp2tps2LBY/y+OrWTuXdEQ+ZRSKynyIs1kOGWSsjiRjnh9PSpWvu28BrOrsWAEZcSxW24+UffLskjRcMr1xgZV8dwR30kzG8zdI+n9F0QSrg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1/ekYhjbpgol6ex04C15bRsmVEbnioFOI9jfjsyccQc=;
+ b=oJzTrl5yL8RqAPpwI1w7zXBRjh628c88V9Ip8G9i71s+AMDpAdV3bdElcjqgON1y8thsNnqKH0aLaHoRBIHcynq+QckXOmiHVSttASsOsqjxIxWQbtp4B1xJZ5m71z8YcXoKxL7fGfNbEJeskI6O17/MaMpPvFeGus+nAPPe+NMG2KMST1I/6KJQlWpKvxFNDXjVGvMuWhgHN1DsRLNlbvHYSVkwbTHgjiscn6+5jevlvYTYeYJgPfeRDgwODpc9LAFWo9pXE6kfOtRhMBuYtszbe9h8iYGV3QEWRz6b7MKMzDcpDN8p/Nw/Uq5SJqBys4Cub0LtMA0gxdQKPHxDBA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1/ekYhjbpgol6ex04C15bRsmVEbnioFOI9jfjsyccQc=;
+ b=DLeQ3X8WwH3MU7HpXzaZWHmMvs8V4molFcU0gZY5H/ue2iCDQqxWLg0f+jHC+LHFHcWVTC+zhaI/jjy8mMM0tj1hIzWhpYEFj7FKAGvQFYdbZt4QCjv9YGpxe/Ko1mgpiaDO/54pS5IeIQm6RLkDn6J25gD/4beh15LaKC4VVUY=
+Received: from CH0PR12MB5348.namprd12.prod.outlook.com (2603:10b6:610:d7::9)
+ by CH0PR12MB5316.namprd12.prod.outlook.com (2603:10b6:610:d7::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4108.25; Tue, 11 May
+ 2021 12:30:17 +0000
+Received: from CH0PR12MB5348.namprd12.prod.outlook.com
+ ([fe80::9c3:508d:5340:8efd]) by CH0PR12MB5348.namprd12.prod.outlook.com
+ ([fe80::9c3:508d:5340:8efd%6]) with mapi id 15.20.4129.025; Tue, 11 May 2021
+ 12:30:17 +0000
+From: "Lazar, Lijo" <Lijo.Lazar@amd.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/pm: Update aldebaran pmfw interface
+Thread-Topic: [PATCH] drm/amd/pm: Update aldebaran pmfw interface
+Thread-Index: AddGYJ5S/wzXMvjSSCitzLk6l3FpUA==
+Date: Tue, 11 May 2021 12:30:17 +0000
+Message-ID: <CH0PR12MB5348A8191A3A18A5ABB8419097539@CH0PR12MB5348.namprd12.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-05-11T12:30:11Z; 
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=bfb49ac0-a0b3-4453-bf90-879d6f080913;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
+authentication-results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+x-originating-ip: [117.206.36.204]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 8ade66ca-69c8-4b7d-3169-08d91478890a
+x-ms-traffictypediagnostic: CH0PR12MB5316:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <CH0PR12MB531683958A52B0BD6BA1BC0897539@CH0PR12MB5316.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:1360;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 2kTveakmMn/0E6bLmopI9cwzOUIfVPkTxBU6ZdE604cQhOqKt3eRcjO+PUC/hY69PNjOyKR0tJVZUCMtYw8TI1K5KCcp/GJPHHNx9QdjmqobgCD9iyn4zdtkNZ28dk1Ee44sVTTAvJmrhHAjv2KUcp0Lv7axKjGBP+MUl/PjjR2fIbumtOLjIZr57ud/meAqhmubIq3E98xJjkpuYx5GryeF2cVqgsgUiAm04tacjsVaM68q2WXKvox/FfBST0MvCdzTyp8lRhmO/h1SlzODfSvL/AUts3MSnJ4u4q9tpLT7KtEGoI9J0UqgQpNPRJhCEU7uYGkmFyMMihhCglsKPUNcDW6bPlWO8M3Yjx9E46haUgte/DHbBNJwDbLjBXc1oeIVU8ifJi+spF4TTDN0anXaUzm2bpvm+dkfy/kyLeF55OopFD8/KCLkGedF/bt1iMx+20D0Pe/z+4qy5ad2Z0F7tMLkJNBEJsr4PZr1XM1nGQKDQ1auPNxE/v8QLHI+Ntv07Vsm/kMPxFolDjN/gwB8eUX+i6Q04AXidhyJRh+Sh5eyWG/zqXSMdnWrBiGvMBMZP3G92PBu1ts62x/afAkDJj6+0lpqijziiRX8Q2k=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH0PR12MB5348.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(376002)(39850400004)(396003)(366004)(136003)(8936002)(8676002)(26005)(66556008)(71200400001)(478600001)(64756008)(83380400001)(33656002)(966005)(186003)(54906003)(2906002)(66476007)(66446008)(38100700002)(4326008)(7696005)(316002)(15650500001)(6506007)(30864003)(6916009)(5660300002)(52536014)(66946007)(122000001)(76116006)(86362001)(55016002)(9686003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?Dj8eA3iwj4ZlMLpslieKvHb+T2tDzrXREswbJwHhSqNDOamRUK5N9Z/7swBK?=
+ =?us-ascii?Q?QjT0PhV6ylDT3xD+m9U+5dYHLdg89b3WuDd6YJYx6Mfc6edoAHFCIb83jVzz?=
+ =?us-ascii?Q?sDNu1WAOXQcwO47zk2vtU/TVAPN2D+Fgl6FKAQ82yMqSWGoZooUxUeYZysdJ?=
+ =?us-ascii?Q?H389/ebwoyeUvRKR2ByplCS8V30RbxyDgVuwt33RqA6fwHJgz5or7HNPN4Fx?=
+ =?us-ascii?Q?91cYsDyh3NKqhDroCq3RMz3m/OZK4TQzZOH1pFWajvFtRqgOwyC74/hSi7nT?=
+ =?us-ascii?Q?JqFjbnZpzqM+ecBjWt7mOIlYKzA5trtnbw/JqDiweK4tTHrnmvsENKDz/KX3?=
+ =?us-ascii?Q?RIG4G41QuJdEGhTboFIf95tqxMkinQFEh4Dg0VUXVLXr6qlK12NlgAZBdxVd?=
+ =?us-ascii?Q?1tkbtWJj+LUdf2NAczAy582LsqxIwJhdoL2ZcvJln1RHrq3phaQQiUOkL2n8?=
+ =?us-ascii?Q?ntx6Mkf58V582ALGw6LmAuVOmKJDM2yE/YFYS9himzQ1pNEvvSEYd5Fmlj0x?=
+ =?us-ascii?Q?IJa6N/u+jxaP4aGbTOP2zvKXAQvFx+/BX7jH5TC/Z0eid2SjpG9LoHTZJfCC?=
+ =?us-ascii?Q?NjUpxKuALHA7gCgxdCK5Fsbvyjxyw3OmkzxMXn85qpQCmU54ZxriwWGVm4Wh?=
+ =?us-ascii?Q?Kf2E/VTL/LjcUiu6ZtxpT2HZRG/BbDLf+8dfNlFvf0R6AgvBXkLPPziMYvQh?=
+ =?us-ascii?Q?4TYz3D5bBozcYnjpZYNoEB7vx3C2Mesxq5EqwAq8B8scdK3F7LUeDHM36hBq?=
+ =?us-ascii?Q?FlzLEbg8G0cPhKxncPUCCX1E4NiybE22yfNE0AabYXBizZ8Rzq+AEPxWNGfG?=
+ =?us-ascii?Q?NnmUkrsvMOUEMRBvZ/K4uNCPkv0c2TQC/sZ62JQmflcEgLxLgytfVxo94ZSJ?=
+ =?us-ascii?Q?5p5EIz7HeVbNx9MfTnq4PTJWnDQA4XC7iUkXKMY2JgsBUgByBs8e4eokjnWv?=
+ =?us-ascii?Q?m96nY2Krl1mgmsndZJetF8e8u03zC/wUnS8rjA7e+RU0qC/eTzYaP4Z9D1D8?=
+ =?us-ascii?Q?JOVmRdhtl6SxUbsJyuY3XOz8VbRmM9Pu6Qy9P8HOcpFG+mDHw//fuQG64u4q?=
+ =?us-ascii?Q?6O2VCa7nVDgCX/k9L34B1w/h3GCzM/J3YDFclCjlXg+l1EjCkYKUBscXIRJK?=
+ =?us-ascii?Q?00coErnZj/S/V/lSAS1zOB8dck1ut0hAhIiJQQqaXeXumvI9kA93aUCaRlgF?=
+ =?us-ascii?Q?QFcit3qs3N4Oc0Mv3DGot+BlMmdbwZdmaDiwOGgW0cPiODMrYDj+3YKBeSUv?=
+ =?us-ascii?Q?P3NTtWFoin3xh2Yj8ZF0uHqHGUM6m5KHfLn7YiSg0M/yMQRVwHtztK3NBenA?=
+ =?us-ascii?Q?uwW6TQS9F/sM3/wjw1y1n7t9?=
 MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5348.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8ade66ca-69c8-4b7d-3169-08d91478890a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 May 2021 12:30:17.6427 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: U5OSnXoGKKZKF5USLwkB9S/J1y6uPeBV3MYK2h7u8gQLwZAnPMQWeZNldKNl/BAq
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5316
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,205 +127,225 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dave Airlie <airlied@linux.ie>, LKML <linux-kernel@vger.kernel.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- "Leo \(Sunpeng\) Li" <sunpeng.li@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Alex Deucher <alexdeucher@gmail.com>, "Deucher, 
- Alexander" <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>
-Content-Type: multipart/mixed; boundary="===============0436102171=="
+Cc: "Xu, Feifei" <Feifei.Xu@amd.com>, "Wang,
+ Kevin\(Yang\)" <Kevin1.Wang@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>
+Content-Type: multipart/mixed; boundary="===============0267650807=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0436102171==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- boundary="Sig_/jFn+W2X.efBMyM.Ea=ua2tO"; protocol="application/pgp-signature"
+--===============0267650807==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_CH0PR12MB5348A8191A3A18A5ABB8419097539CH0PR12MB5348namp_"
 
---Sig_/jFn+W2X.efBMyM.Ea=ua2tO
-Content-Type: text/plain; charset=US-ASCII
+--_000_CH0PR12MB5348A8191A3A18A5ABB8419097539CH0PR12MB5348namp_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, 11 May 2021 12:03:30 +0200
-Werner Sembach <wse@tuxedocomputers.com> wrote:
+[AMD Public Use]
 
-> Am 11.05.21 um 10:07 schrieb Pekka Paalanen:
-> > On Mon, 10 May 2021 17:47:01 -0400
-> > Alex Deucher <alexdeucher@gmail.com> wrote:
-> > =20
-> >> On Fri, May 7, 2021 at 3:27 PM Werner Sembach <wse@tuxedocomputers.com=
-> wrote: =20
-> >>> xrandr --prop and other userspace info tools have currently no way of
-> >>> telling which color configuration is used on HDMI and DP ports.
-> >>>
-> >>> The ongoing transsition from HDMI 1.4 to 2.0 and the different bandwi=
-dth
-> >>> requirements of YCbCr 4:2:0 and RGB color format raise different
-> >>> incompatibilities. Having these configuration information readily
-> >>> available is a useful tool in debuging washed out colors, color artef=
-acts
-> >>> on small fonts and missing refreshrate options.   =20
-> >> I think we would ideally want these as generic connector properties
-> >> rather than AMD specific ones since they are not really AMD specific.
-> >> I believe there is already a generic drm property (max_bpc) for the
-> >> color depth.  At this point, I think having a generic RGB vs YCbCr
-> >> property would make sense.  I'm not sure about the color space. =20
->=20
-> Problem is: amdgpu does not really use generic structs for these 3
-> properties as far as I can tell. It uses own defines
-> https://elixir.bootlin.com/linux/v5.13-rc1/source/drivers/gpu/drm/amd/dis=
-play/dc/dc_hw_types.h#L647
-> in own structs
-> https://elixir.bootlin.com/linux/v5.13-rc1/source/drivers/gpu/drm/amd/dis=
-play/dc/dc_stream.h#L141
->=20
-> Intel uses generic defines
-> https://elixir.bootlin.com/linux/v5.13-rc1/source/include/linux/hdmi.h#L71
-> https://elixir.bootlin.com/linux/v5.13-rc1/source/include/drm/drm_dp_help=
-er.h#L1568
-> split up between dp and hdmi in own structs
-> https://elixir.bootlin.com/linux/v5.13-rc1/source/drivers/gpu/drm/i915/di=
-splay/intel_display_types.h#L879
->=20
-> So the property would need some translation from amd, intel, hdmi,
-> and dp to one enumeration representing all?
+Update aldebaran driver-PMFW interface to version 0x07
 
-If so, much better to do that in the kernel in one place per driver
-that actually know what they mean, rather than in half of the Wayland
-compositors by people who barely understand even the general concept.
-Like me.
+Signed-off-by: Lijo Lazar lijo.lazar@amd.com<mailto:lijo.lazar@amd.com>
+---
+ drivers/gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h | 7 +++++--
+ drivers/gpu/drm/amd/pm/inc/smu_v13_0.h                 | 2 +-
+ 2 files changed, 6 insertions(+), 3 deletions(-)
 
-> > Hi,
-> >
-> > I believe that userspace will definitely want to know what exactly is
-> > going on on the monitor cable, so I think exposing more information is
-> > good, but I agree that it needs to be done with generic KMS properties
-> > as much as possible. Userspace is not going to bother having explicit
-> > code for driver-specific properties.
-> >
-> > I think a major use case will be Wayland color management, where a
-> > Wayland compositor will want to make sure that the video signal
-> > parameters have not changed since the monitor was last measured
-> > (profiled). If the signal configuration is different, the measured
-> > color profile may be invalid and therefore the end user needs to be
-> > warned. See some ideas in
-> > https://gitlab.freedesktop.org/wayland/weston/-/issues/467
-> > under the heading "Color calibration auditing system".
-> >
-> > About the color space: is that something a kernel driver will decide
-> > on its own? I mean in the same sense as the driver will negotiate
-> > HDMI/DP link parameters, perhaps falling back to smaller requirements
-> > if higher requirements signal does not seem to work.
-> >
-> > We only need readback properties for things that generic userspace
-> > won't or cannot control explicitly, e.g. because the kernel driver has
-> > room to make a choice rather than fail. =20
->=20
-> Some explanation why I choose these 3 properties:
->=20
-> output color space: Mainly to see if full or limited RGB was chosen.
+diff --git a/drivers/gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h b/drive=
+rs/gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h
+index d23533bda002..a017983ff1fa 100644
+--- a/drivers/gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h
++++ b/drivers/gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h
+@@ -64,7 +64,7 @@
+ #define FEATURE_SMUIO_CG_BIT            28
+ #define FEATURE_THM_CG_BIT              29
+ #define FEATURE_CLK_CG_BIT              30
+-#define FEATURE_SPARE_31_BIT            31
++#define FEATURE_EDC_BIT                 31
+ #define FEATURE_SPARE_32_BIT            32
+ #define FEATURE_SPARE_33_BIT            33
+ #define FEATURE_SPARE_34_BIT            34
+@@ -439,8 +439,11 @@ typedef struct {
+   int8_t   XgmiOffset;     // in Amps
+   uint8_t  Padding_TelemetryXgmi;
 
-IOW, the driver makes the decision. Therefore userspace will need to
-know what it picked. Ok.
++  uint16_t  EdcPowerLimit;
++  uint16_t  spare6;
++
+   //reserved
+-  uint32_t reserved[15];
++  uint32_t reserved[14];
 
-> While in theory the driver should choose the right one automatically,
-> I read articles that in some cases it doesn't (hence why the
-> "Broadcast RGB" property for intel-gfx driver and "output_csc" for
-> the old radeon driver exist). The next step ofc would be to bring
-> over the "Broadcast RGB" property to amdgpu/make it a generic
-> property. But then still: having a feedback channel to see if the
-> chosen setting got correctly applied should not hurt in any way,
-> shape, or form?
+ } PPTable_t;
 
-Feedback is good IMO, yes, when it's not clearly redundant. As long as
-you don't tie the driver developers' hands in a knot or preclude
-support for hardware not invented yet. But I think the option to not
-expose a specific KMS property is an escape hatch enough. You might
-have problems with the requirements for DRM UAPI additions though,
-since they call for a proper userspace consumer.
+diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v13_0.h b/drivers/gpu/drm/amd/p=
+m/inc/smu_v13_0.h
+index 8145e1cbf181..1687709507b3 100644
+--- a/drivers/gpu/drm/amd/pm/inc/smu_v13_0.h
++++ b/drivers/gpu/drm/amd/pm/inc/smu_v13_0.h
+@@ -26,7 +26,7 @@
+ #include "amdgpu_smu.h"
 
-What defines what is "the right one"?
+ #define SMU13_DRIVER_IF_VERSION_INV 0xFFFFFFFF
+-#define SMU13_DRIVER_IF_VERSION_ALDE 0x6
++#define SMU13_DRIVER_IF_VERSION_ALDE 0x07
 
-I believe that we also need to aim for a fully known display pipeline,
-so if the driver is doing compression from full range 8-bit to limited
-range 8-bit, losing a little precision, userspace needs to know. This
-is a long stretch and maybe not even fully feasible, but I think it
-would be good to get as close as possible - within the limits of being
-driver-agnostic UAPI.
-
-> pixel encoding: Probably the most important of the 3: This should be
-> accompanied with a "preferred pixel encoding" user controllable
-> setting and is mainly thought as a feedback channel for that, because
-> it might not always the obvious if the Display + GPU + Driver + Link
-> encoder combination actually supports and therefore applies the
-> selected "preferred pixel encoding". For example: I have a display
-> here that can display 4k@60Hz or WQHD@120Hz, but YCbCr is only
-> supported by it for 4k@60Hz (also it's not supported for 4k30Hz).
-
-This feedback is useful, IMO.
-
-The alternative approach would be to just let KMS atomic commit fail if
-the exact given configuration does not work, but it would be really
-difficult for userspace to implement the necessary fallbacks and to try
-alternative configurations. Therefore I think setting preference and
-then checking what the driver actually achieved seems like a good
-compromise to me.
-
-> The "preferred pixel encoding" setting is required because certain
-> devices (both PC's and display's) might wrongly advertise their
-> capabilities. The current fix in this case is to write a custom edid
-> which is a kinda hacky solution. Examples: 1. RGB and YCbCr4:4:4 in
-> theory carry the same amount of color information, but some displays
-> look worse in one or the other, because they do bad internal
-> conversion. 2. A laptop wants to output YCbCr4:4:4 but because of bad
-> shielding of the port/the cable/the display, the screen goes black
-> every few seconds. Using YCbCr4:2:0, and therefore a lower signal
-> clock, stabilizes the connection without changing hardware.
-
-That totally makes sense, and example 1 is actually a good reason why
-color management needs to be interested about these properties.
-
-> color depth: While "max bpc" can be used to change the color depth,
-> there is currently no way to check which one actually gets used.
-> While in theory the driver chooses the best/highest bpc within the
-> max bpc setting a user might not be fully aware what his hardware is
-> or isn't capable off. This is meant as a quick way to double check
-> the setup.
-
-Likewise, this is important information for color management.
-
-I'm really happy to see these come up. The Weston CM&HDR work isn't
-quite there yet to start making use of these, but some month/year I bet
-it will.
+ /* MP Apertures */
+ #define MP0_Public                     0x03800000
+--
+2.17.1
 
 
-Thanks,
-pq
 
---Sig_/jFn+W2X.efBMyM.Ea=ua2tO
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
+--_000_CH0PR12MB5348A8191A3A18A5ABB8419097539CH0PR12MB5348namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
------BEGIN PGP SIGNATURE-----
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
+<!-- converted from rtf -->
+<style><!-- .EmailQuote { margin-left: 1pt; padding-left: 4pt; border-left:=
+ #800000 2px solid; } --></style>
+</head>
+<body>
+<font face=3D"Times New Roman" size=3D"3"><span style=3D"font-size:12pt;"><=
+a name=3D"_msipheader251902e5"></a>
+<div><font face=3D"Arial" size=3D"2" color=3D"#317100"><span style=3D"font-=
+size:10pt;">[AMD Public Use]<br>
 
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmCaZZAACgkQI1/ltBGq
-qqfzYxAAsOGa3LOR5nsVVQ8Qdxr5ZxRZgnr9CJevl7J8LzSEiXMNjsK7HmtjeKPK
-skCE0waOJm2wH5jpKwQ8RDiTAlOhPozk3sKclimXGa1BopKrQoVnNCD0/G2842bm
-O3FR7R1UHbcxcArpOlRSBGCGFeNZMnE6vus8E8VproV9Io/ZW4PLkW5g2UeahIrs
-9HVnp7oGxBsSr8TIjX1Ulv7CvhVrCojbQsbYh3E+RjuaEk7k6TlsJpjG8oMuW58V
-5sNFglI11P9eAGrQf2qJ3oNGoZV/lBoIFzds157E6nE2t7mJ6qZrCbxzE7Cys/7V
-YQhWT/1rJWlVtjWiNsHwyiW3iX+wukNAS7w45RoDK53KF5GaychRB4/jD8ujt79M
-HRPc4/lQR/bfJdZo3Kxcla9xyMo2fTSIkstor5J9MV682m83kYp6ZJ41V+W72bhr
-6U2espZPQ3y5CHa8uBMXpmKN/r0Uqd3k1KO2PoVHUftQuwPCUdovYtFRfLmNIz2l
-mJ9M9aHuYn+sgpXQkQyGLErVtaraCtNOcYm6idq0egijqSiF0s7m6WDowURy9IhM
-zaRcsAD6khfeSewCXMaE6h5RytGeKQ8uJy6W+1A2sndymClc18SzqWlrpXYy6oiG
-XAJmzh/xcj9JIXdxYcDvVMDpR8jKnpM/fmPU/VbmuVos8TB1HB8=
-=DpUk
------END PGP SIGNATURE-----
+</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Upda=
+te aldebaran driver-PMFW interface to version 0x07</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
+p;</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Sign=
+ed-off-by: Lijo Lazar <a href=3D"mailto:lijo.lazar@amd.com"><font color=3D"=
+#0563C1"><u>lijo.lazar@amd.com</u></font></a></span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">---<=
+/span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> dri=
+vers/gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h | 7 +++++--</span></fon=
+t></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> dri=
+vers/gpu/drm/amd/pm/inc/smu_v13_0.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 2 +-</span></fon=
+t></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> 2 f=
+iles changed, 6 insertions(+), 3 deletions(-)</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
+p;</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">diff=
+ --git a/drivers/gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h b/drivers/g=
+pu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">inde=
+x d23533bda002..a017983ff1fa 100644</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">--- =
+a/drivers/gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h</span></font></div=
+>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+++ =
+b/drivers/gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h</span></font></div=
+>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">@@ -=
+64,7 +64,7 @@</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> #de=
+fine FEATURE_SMUIO_CG_BIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; 28</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> #de=
+fine FEATURE_THM_CG_BIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp; 29</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> #de=
+fine FEATURE_CLK_CG_BIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp; 30</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-#de=
+fine FEATURE_SPARE_31_BIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; 31</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+#de=
+fine FEATURE_EDC_BIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 31</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> #de=
+fine FEATURE_SPARE_32_BIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; 32</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> #de=
+fine FEATURE_SPARE_33_BIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; 33</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> #de=
+fine FEATURE_SPARE_34_BIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; 34</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">@@ -=
+439,8 +439,11 @@ typedef struct {</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
+p;&nbsp; int8_t&nbsp;&nbsp; XgmiOffset;&nbsp;&nbsp;&nbsp;&nbsp; // in Amps<=
+/span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
+p;&nbsp; uint8_t&nbsp; Padding_TelemetryXgmi;</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
+p;</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
+sp; uint16_t&nbsp; EdcPowerLimit;</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
+sp; uint16_t&nbsp; spare6;</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+</s=
+pan></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
+p;&nbsp; //reserved</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
+sp; uint32_t reserved[15];</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
+sp; uint32_t reserved[14];</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
+p;</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> } P=
+PTable_t;</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
+p;</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">diff=
+ --git a/drivers/gpu/drm/amd/pm/inc/smu_v13_0.h b/drivers/gpu/drm/amd/pm/in=
+c/smu_v13_0.h</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">inde=
+x 8145e1cbf181..1687709507b3 100644</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">--- =
+a/drivers/gpu/drm/amd/pm/inc/smu_v13_0.h</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+++ =
+b/drivers/gpu/drm/amd/pm/inc/smu_v13_0.h</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">@@ -=
+26,7 +26,7 @@</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> #in=
+clude &quot;amdgpu_smu.h&quot;</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
+p;</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> #de=
+fine SMU13_DRIVER_IF_VERSION_INV 0xFFFFFFFF</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-#de=
+fine SMU13_DRIVER_IF_VERSION_ALDE 0x6</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+#de=
+fine SMU13_DRIVER_IF_VERSION_ALDE 0x07</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
+p;</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> /* =
+MP Apertures */</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> #de=
+fine MP0_Public&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x03800000</sp=
+an></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-- <=
+/span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">2.17=
+.1</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
+p;</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
+p;</span></font></div>
+</span></font>
+</body>
+</html>
 
---Sig_/jFn+W2X.efBMyM.Ea=ua2tO--
+--_000_CH0PR12MB5348A8191A3A18A5ABB8419097539CH0PR12MB5348namp_--
 
---===============0436102171==
+--===============0267650807==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -289,4 +356,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============0436102171==--
+--===============0267650807==--
