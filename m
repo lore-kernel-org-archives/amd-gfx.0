@@ -2,122 +2,123 @@ Return-Path: <SRS0=e+DK=KG=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,PDS_BAD_THREAD_QP_64,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AE124C433B4
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 May 2021 12:33:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2A70DC433ED
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 May 2021 13:15:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4C7AB61919
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 May 2021 12:33:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4C7AB61919
+	by mail.kernel.org (Postfix) with ESMTPS id 96CF86191C
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 May 2021 13:15:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 96CF86191C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF5736EA2E;
-	Tue, 11 May 2021 12:33:51 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2065.outbound.protection.outlook.com [40.107.92.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECA406EA2E
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 May 2021 12:33:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F16DD6E17C;
+	Tue, 11 May 2021 13:15:32 +0000 (UTC)
+Received: from NAM02-BL2-obe.outbound.protection.outlook.com
+ (mail-eopbgr750045.outbound.protection.outlook.com [40.107.75.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFA116E17C
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 May 2021 13:15:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Bc5+xY92HPfCPqzbkECSoy49672upZv0l2m6KCc4Pk/bYS/jYgmRZGc683fqAxzigfHMFZYo/qwt5DByxYZjO1fco/HYIlhh/7Hx3tzVHkK2/LpUMksl3KoeOd4cfLHErKf+JmqYZy0SwY9EPHhBgXZFzglH0T3KySX/i3SVRoVSuhxbY8KDFoIgrnmj2tygvZP4Dj4emGqbj9/Qt0ryznuhRi2PxoLJTD8eJSvplbgkwggeBLfkcox744Tn1GaTCVCxaF23+njuZq4BeHAxf/O7DZ46X+aaVNas86r49yPCPwbY/+PKeiTvJhfRhgNc/ZXjFB8O5A09WLB28zzaTA==
+ b=EWIj30wJmly3qQMVZ2dcAFUWpNyiGAfauf443HOxfAOseOE5+pVceyNNCiqo5BdTC9HlYXK5xPWWtSP1ciaNDGJOryG/pmmoXDfmjYuW4BM7k+ND+ZAxCULpUpJDQ5RqPWcc8i/Ij3abntMQFl90N5Zl7dq8Wlhh9Bv5C474X/XazgZpEFXcArdBHJAHRqGU0ksQLi+KOksghaiu3b5sB+JIgxUfPF6QbGDljrJ+AwTMItie+jdOjsdsHawqqOUDJSE9lVbn9K0+pCmhSRKlMZjxYYy5pj9hB4Nsexmh/oNyZtK/bT1/3kTSHQc22o7d7b/s+P5q18NyX0X/cO1RXQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ItlK2WVdODQb4f8TKXSBjhtHxVPN0zbU1JVbemTuGkc=;
- b=A4m0H8anDGqNpGe9XP7EdgYLElBfqF7XOTHPTo0eHGRH864IpO6bPop7hEFKw8ckVfvFwa71tfFmz/VB6aQKS69B664TL5u30sOn2DJPi2jxz3Ub4SuAMB6Ob5rn9LihIPg+hMVRLRoVeSHINEL5C0MDexhHBnsgiP80wfkIkTW9a8pfgPBMcD9W6upiXSYk9gdgeTSLly57gq6YTGj41I427jh64rDj/78NoHq0bkGebaC2L76/04NzKC+ALhyAhlFsBcw2CHf4MwGZpVDCXzSvr1lNJTmpP2JwgwHBYBFTPHk16Qg2ZOOi/RE4IpDx15N2aVyZW9qdMFmoDZec9w==
+ bh=+15mDDErs2lbmD4BNS8dUd3aIj8XXV2nxjIQCCJB6JI=;
+ b=aYYxmrYPV3VG3qE1qQfDnxVyabcOhQo4vPgE4vZ4YMNPVcT/CatMvp6JiRvLHyWcvR/oP5Oc1XQYo/9vpOV/vvBBvjV+I1jPxpOMIlMNfoacaXJE5Cv+hgee1mf3Ynd58VnR0gFaPqf0W1DtWIPzTfpC5SDNJciCa/yHEeSEcEza8gqYBnV3qHD56YrA0RlBwd9qrUsOs1LrONHa1Phj/U1qsUtUDhA0kk14FZYExMfsF4zGpmff/bPZvFb0Er3cPdp62CkgBYyE0DmUvuqM257gbpd0ErsxNaaxZdivu9q57OxlPtoCLSOEBlJ+XunYIc4US15LIRyiKH/d9SOyqw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ItlK2WVdODQb4f8TKXSBjhtHxVPN0zbU1JVbemTuGkc=;
- b=mOFndStarQ87FouTxt8waSa0L2SOvvfsPsI6aae2mXA55tgxehGf7YY1AWRkzfV3c1vVfMMoQprWhvzDMTe67xYGqbaac11DC9fZniiiZ60bjxNOph7j6zIS9BWH6RQ5pecETYpabxb8MZFDXqDJWIdHaw/k9aUT2bWFyyVWFD0=
-Received: from BN9PR12MB5368.namprd12.prod.outlook.com (2603:10b6:408:105::24)
- by BN9PR12MB5161.namprd12.prod.outlook.com (2603:10b6:408:11a::15)
+ bh=+15mDDErs2lbmD4BNS8dUd3aIj8XXV2nxjIQCCJB6JI=;
+ b=tKq1+bzX05iU/mlXZKtrY70nXBtYpt1CUhTSS6X/4EuPPqFPotHBB2OUG9FAJCGYzcGyvCqGcaPqkPIG/dMkuPTPq05BQB8J3gGtzdQHsmWrs/uh3ZP1Dw5CiFNeON7gTyL2YE5ykGKfnNNPM6JJmolt3gPEW8pYbCqj7ZBL6/k=
+Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
+ by BL0PR12MB4866.namprd12.prod.outlook.com (2603:10b6:208:1cf::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4108.24; Tue, 11 May
- 2021 12:33:48 +0000
-Received: from BN9PR12MB5368.namprd12.prod.outlook.com
- ([fe80::245d:c14d:fd99:be85]) by BN9PR12MB5368.namprd12.prod.outlook.com
- ([fe80::245d:c14d:fd99:be85%6]) with mapi id 15.20.4129.025; Tue, 11 May 2021
- 12:33:48 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.25; Tue, 11 May
+ 2021 13:15:30 +0000
+Received: from MN2PR12MB4488.namprd12.prod.outlook.com
+ ([fe80::3d98:cefb:476c:c36e]) by MN2PR12MB4488.namprd12.prod.outlook.com
+ ([fe80::3d98:cefb:476c:c36e%8]) with mapi id 15.20.4108.032; Tue, 11 May 2021
+ 13:15:30 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "Gu, JiaWei (Will)" <JiaWei.Gu@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amd/pm: Update aldebaran pmfw interface
-Thread-Topic: [PATCH] drm/amd/pm: Update aldebaran pmfw interface
-Thread-Index: AddGYJ5S/wzXMvjSSCitzLk6l3FpUAAATrkA
-Date: Tue, 11 May 2021 12:33:48 +0000
-Message-ID: <BN9PR12MB5368796EC1E43A67BE19F190FC539@BN9PR12MB5368.namprd12.prod.outlook.com>
-References: <CH0PR12MB5348A8191A3A18A5ABB8419097539@CH0PR12MB5348.namprd12.prod.outlook.com>
-In-Reply-To: <CH0PR12MB5348A8191A3A18A5ABB8419097539@CH0PR12MB5348.namprd12.prod.outlook.com>
+Subject: Re: [PATCH] drm/amdgpu: Field type update in drm_amdgpu_info_vbios
+Thread-Topic: [PATCH] drm/amdgpu: Field type update in drm_amdgpu_info_vbios
+Thread-Index: AQHXRib3oQEsnfINC0S0WY994zCB0KreQfQv
+Date: Tue, 11 May 2021 13:15:30 +0000
+Message-ID: <MN2PR12MB44889B34B2877BEEB6DF1803F7539@MN2PR12MB4488.namprd12.prod.outlook.com>
+References: <20210511053109.28816-1-Jiawei.Gu@amd.com>
+In-Reply-To: <20210511053109.28816-1-Jiawei.Gu@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-05-11T12:33:46Z; 
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=bfb49ac0-a0b3-4453-bf90-879d6f080913;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2021-05-11T13:15:29.624Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
+ Distribution
+ Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
 authentication-results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [180.167.199.189]
+x-originating-ip: [192.161.79.245]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: aa60e591-d551-47db-88a5-08d91479069c
-x-ms-traffictypediagnostic: BN9PR12MB5161:
+x-ms-office365-filtering-correlation-id: fed16ab8-3ce1-44b0-8699-08d9147ed9d6
+x-ms-traffictypediagnostic: BL0PR12MB4866:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BN9PR12MB5161A7AED652DD67C76C4297FC539@BN9PR12MB5161.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:1360;
+x-microsoft-antispam-prvs: <BL0PR12MB48668DB2D4A3AC32C42CC568F7539@BL0PR12MB4866.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:1332;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: jpKeLFcEHUEbwjdQoRz+Vv13CFspN0gasXXRuizFShKtU6gPth5OxX/0WZFNc4s839vyRXrqp4JdkPCd5Sh+3TAW8lNU3l/ljXmACuaikWOLqvTDMh0LNHUbluantn3yQ83x8UtseHfyanpwb1ywzRA9ttkzDaCUKwcHMwvgT+kYkFA6rfUhMs+rqx1j3ubns4BDcKfZmsR+sU0P7XwMvyV/0qOrJnHO0QyqIM3w887te+A6m08GEjMgJ6o/4WsslxoLZ0PWkNc5TOyTCPvSNxGJURYKq6h8idRVMGJ0YHebNlbDT6EF8tRFyQCDCsB0h8TraUvvHfSD4Ln4xEL1SCqyPXybvSzlxcM8u22AC7L72KzpsDOKhYiT09vINpWEBVeN/1Yikj8JIfRDhgeQVVFYaeMv/BcFENKqxeRMeEE3ecST0heJByK/DKmf4mzHpM0WgpqVGRnIAETVjd1AXiRNXslbxOwcFwao4hMGbHCODDX5Yso+5miiz1/jRtlww0/6IwEbJAit62AspVtMy5rxLKPaPhyS55t5jfHf2p/WOgIlQKUcXLzAPblghbUT2QHO134kUgB6uxyVHkFPIbyA0Egz+rNOevhG/2GYHJk=
+x-microsoft-antispam-message-info: gzNaf5bwkupNEFOiCEfLvSZBATcjNStINOQroPPmYkM5WP/JV421d85MwqVnFdprI9OcxX/TbL+hL/sKyWXNcr3ZjY3JHYr9kCly6Zi9iw9zBEMeS0CT/2HNkinA8xqIkfWNLlyyWsDyXV+rKqX1HHKH5UG3N2yPN9r5UGXWKSxGA9E3clWL0QDC2unthzRaoYHy3tuhLu3UHsuE/6sUQ1Suz3J2FkZxNBDo3m1+4vOuewfxlrg3PIvsjTgIMOeTivltJpCA2noP/8pk2+YD7ubgT8ObSJolqrwpTEaqSfdJZ6SrqlmP57IJ4ClDFI8UxAo1gEKaLD+VG1fAMY1LmKG8suiXzaSJnnAOH2Hx/ifP9TqGXAUSYhJ1d/BpdBt25uHZbpo3Cba7IMGaZX7BDFfimJPgJN3IBgklTqC5zcwLqJ0GOR9FE2RoRoFhqAvYCVSapPb+qoIejEUq2CEqLgS+HwQH0Q5xHgSPdub4XVhBPeLZXZbGmjfjwfzMSinRTaQ2IEM7XXgfP9YmJUogeTT4W8seIlXFQVLkgdJQfCsWiS8djmoKtlWNGKvoRv1yz5ihYqMN5qtwsEq2GfLVeEmVYOB3KTWIKlLS94zBTqMvoACLtOLW+sA4eSST64D/atSBxU2En/c1HD+4UJQrnQ==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5368.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(396003)(376002)(136003)(39850400004)(366004)(316002)(76116006)(26005)(186003)(33656002)(86362001)(66476007)(8676002)(71200400001)(83380400001)(2906002)(110136005)(66946007)(64756008)(66556008)(8936002)(66446008)(54906003)(4326008)(52536014)(5660300002)(6506007)(9686003)(55016002)(30864003)(38100700002)(122000001)(478600001)(7696005)(15650500001)(966005);
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(376002)(366004)(136003)(39850400004)(396003)(45080400002)(186003)(2906002)(5660300002)(26005)(478600001)(76116006)(15650500001)(64756008)(19627405001)(8936002)(9686003)(66946007)(66556008)(66476007)(38100700002)(122000001)(66446008)(55016002)(8676002)(7696005)(4326008)(966005)(71200400001)(53546011)(83380400001)(316002)(6506007)(110136005)(52536014)(166002)(54906003)(86362001)(33656002);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?LvfN5mf7XXYZ44U6wgtIvBL+9uImqMPfdCqG3rOcNiFvfO6fJ3ByhBCSaNOq?=
- =?us-ascii?Q?c4CdfUL/vupVCGSrz9QXmNmvRgWwmho/JErRWbyDTctlQyyqBqTqa6z6vFX1?=
- =?us-ascii?Q?4P1ni1MBDeoiiBRy9ldWJGT/SzTN01IAX/Ymnx3FdBXnP7Q71gtw2dvCfpGu?=
- =?us-ascii?Q?u2o1AC4KWMXKlz5qhFyygrKnovHk0FRIa1js4sM/GI5cW7/eX05l21RXI7qr?=
- =?us-ascii?Q?BNi2FGGUDyVCUSDvM+uFaLRe7jsTFTG/JCdSuoNnK75ftU7np2xN0e/AQHQB?=
- =?us-ascii?Q?EGDnhA5LmhBaZCOlxtjSQF3hpH8sJu69zLhUV8oH9cfNbPZN2GVgX1xtk8Fu?=
- =?us-ascii?Q?GNGLyRppPAOeF8VesjV+BtHXvzOpecb8BH4g2MFiuqvgq44Jl9ABZ5qgJHSd?=
- =?us-ascii?Q?YktDEwQA/cj1EkkiAUa1u09qTMuRXYikLLsSYFapVPDfnNUazHQ8LFF5K9gF?=
- =?us-ascii?Q?J0Ykt9b5DdvgzjE2i+f2pj9G16HXFVqDYR4Ss6yCEmuLXwwvNPK+LehQkrFV?=
- =?us-ascii?Q?00adB0IEipydCrD7leVr25GGiusySbPt+4AJrIfXkkfE9iHeHWF0CJ5I0LnD?=
- =?us-ascii?Q?rJn9vsqgXqGcraa2vCMYV5M87dq/VI7L0S9b86TXlnoNWN4DC7BL1nRP2LlZ?=
- =?us-ascii?Q?laub/0NX6j0CI+SYsbm+/VZXfa/kN0jZ29jzel/STc1/w2Iu9MqQrMELOpTu?=
- =?us-ascii?Q?BL2JnKrxdc0TTTTC4pxiilbVbTt3lIIsgoQLcUPJYR04O53oqVk+At2bsVHH?=
- =?us-ascii?Q?79MSpQG2K8L1F0GE6jUp8etY60zEosp9DyK1ANm6BtaaKHeQHgrWpuzUPuKD?=
- =?us-ascii?Q?ZfQNTIdaH8Fvv50ao2YVVbWqKhCd4Ejl/fQbG2FeBKInfhSSVdCAA1hK6B6u?=
- =?us-ascii?Q?sZJsQnuWCuDoY1ARbd6XSB3Sxw12eB/EJncfEtovZycjIkKcvqcyEBrjQtGH?=
- =?us-ascii?Q?hdrDUqaG5pepWoAWAjTPmktZQ5vjYawv6ei1bdrMUVblkBk065O22iOlqeZz?=
- =?us-ascii?Q?yW9oLwIs32jE4WRqgq+RQsVtOs6fXo6YbNVRjwdQh0KD79jSZ4v6sK9DGbju?=
- =?us-ascii?Q?r+tT0La5dU7faOqRfkA4GWsUX0FM8xrGAPcnZaPg/Vkm4+6QcWOTHJxFarR0?=
- =?us-ascii?Q?UfXsVmCYd2umYsUHsTcAi/ZqERi5wFFWRxOc6UDcdYZx5iEs02vH2mt+1dxq?=
- =?us-ascii?Q?eDlLwXt7NR58Cbf/d5TQQMuLfp2MyRqhG3/aCMrwTpF4n8L2mNZDF+OjxBWA?=
- =?us-ascii?Q?k6P3Y2NN3Iiy9gBDFVlVsrzK8QPUBRZ+LlCmNt4IYxvwwCnlCk0ocPliBxjC?=
- =?us-ascii?Q?NmLJQFxrLHeYAz95sjlYEWKt?=
+x-ms-exchange-antispam-messagedata: =?iso-8859-1?Q?OR55tmMoiCjFjh6PLxQw32fS7NTxg2R77EWrccW2peXmAn7k7cROqot7wh?=
+ =?iso-8859-1?Q?kaFgHYeDSxRwaDHzlh+bpry9ErrOIaRgzTmdClS+5LRHzkrhQSQIYsA2vn?=
+ =?iso-8859-1?Q?JS/VZWVPMeaIpW9N50VN/d3xLR+OQhP7yJOiB10u2E0ZAA7zrVSQQ7WyKR?=
+ =?iso-8859-1?Q?SVO0dKWbt/COAgf7iKJuqexp883v3rW8eBzyjo6QlRJPRyziStlA5daHUh?=
+ =?iso-8859-1?Q?KExIhXzrwdDW16K0cVuHyLG9ojHNgBf46eoCndnwqZskf60vBF8p3tGFzu?=
+ =?iso-8859-1?Q?rcNiXiRwazVB4vj+Iked1AbRJfSmGt/UDPojwP/xlnvOWvuiNjxL5PWTSr?=
+ =?iso-8859-1?Q?lHCg+Xr3Bh5Who1tEt8nreRT60JNtEnQYF1kUdJiAhCv1M8InIYCYv8LM0?=
+ =?iso-8859-1?Q?IM1uHozuIShlfSdhkbP8dSbfh8OrORylE+fjdByJoED8ZcadDxOgqHKQo6?=
+ =?iso-8859-1?Q?CC+SsECWoVBSFx2duzZXCRS4zeJ2pV1WPFshY7m8bXRkf9vWyDKcX/xYy4?=
+ =?iso-8859-1?Q?JWAmMKaI2Q5atCno8fFCQIKTgSbUF50MgoJKJ3zgb/QLaZkpzuh57CABXQ?=
+ =?iso-8859-1?Q?AXMIV8ALuQWVRuAN8hmvxjoGfPnM7HjGvgZVJGQzefJbYs9YJltSFrizp0?=
+ =?iso-8859-1?Q?naNdpV8LoVUzhMcLpABpDHjpP149YZNWgaetN2aYleJ3JIr+hmRtgzSfno?=
+ =?iso-8859-1?Q?bgUxU8xlylHbeA7z0tkkkQ7YCueW1/zKa3EoB86rsuVNwT5tlqxgAQYFEy?=
+ =?iso-8859-1?Q?LyjahHK/YNg8yYq+a/rxPuV9MIjEfnzJGi6BmZ09NXKqa1vC8kF5ZwqzqH?=
+ =?iso-8859-1?Q?qyb1xxFT92THDlhYV+Xf60d1JnDs5l6M4pEbtziCRQFp1sqkXjbwk333uh?=
+ =?iso-8859-1?Q?DzKYtXbokPA3kYEHPednLoWHVlx6cFaAIYcMCLK256d3TxiUxrcos0yuFb?=
+ =?iso-8859-1?Q?gqSUWtowvChgSdFxNuZPIXJpWHM/apUnESsptmP9jdBfHrlX0di95dv9RW?=
+ =?iso-8859-1?Q?ArFZBiXdpfqI9lTd/Z+GSUrXnG+rpsDhkpGR2qmUj8aXdfNGr9/36T48WY?=
+ =?iso-8859-1?Q?anmri+PAAVlU9oPt5mhwpCb2q/wqUAUTQ3AAYVDsCMp8n7lH13k252JZSB?=
+ =?iso-8859-1?Q?TAGGLJ6RJF+RzxsQhoftPqgFHc07HAlbFIizVF/Ku05J1STE1l8nc6T7RA?=
+ =?iso-8859-1?Q?rHTxpdTHorYfw4jkozPT9hDAtxNxJYLDSkGy9+XmDtL1Lbs7+QiGEaGROz?=
+ =?iso-8859-1?Q?9Ma6q/6k6qVEuqRa6p8jgnihzPRyYVpStzbc5wlVBw3tTwOQ0aEA7TGFwW?=
+ =?iso-8859-1?Q?/KmURF9Ijlazvb2PhfBWej9eQJRvaJzhZ/BJPJoYawL22YQ+koOcPKBVeE?=
+ =?iso-8859-1?Q?maInGMAXlT?=
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5368.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: aa60e591-d551-47db-88a5-08d91479069c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 May 2021 12:33:48.1816 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fed16ab8-3ce1-44b0-8699-08d9147ed9d6
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 May 2021 13:15:30.1899 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: N31PmZM6FslGqthDpA+C12X3Z8pKtgaq/9mVMScHA4kJE+5uUEKt7Hk7VMz+2VaGVw7NZpc4Coa7MwLjgDaz4A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5161
+X-MS-Exchange-CrossTenant-userprincipalname: 4Wpc+d/t79HepEgFMPbtJ4IUO49HKpNOBvTmU89cSJbZdxJagAjp92G/SYShW25Mvm9Njz582iRSiVus5XUixg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4866
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,271 +130,228 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Xu, Feifei" <Feifei.Xu@amd.com>, "Wang,
- Kevin\(Yang\)" <Kevin1.Wang@amd.com>
-Content-Type: multipart/mixed; boundary="===============1841510353=="
+Cc: "StDenis, Tom" <Tom.StDenis@amd.com>,
+ "keescook@chromium.org" <keescook@chromium.org>, "Nieto,
+ David M" <David.Nieto@amd.com>
+Content-Type: multipart/mixed; boundary="===============1183803976=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1841510353==
+--===============1183803976==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_BN9PR12MB5368796EC1E43A67BE19F190FC539BN9PR12MB5368namp_"
+	boundary="_000_MN2PR12MB44889B34B2877BEEB6DF1803F7539MN2PR12MB4488namp_"
 
---_000_BN9PR12MB5368796EC1E43A67BE19F190FC539BN9PR12MB5368namp_
-Content-Type: text/plain; charset="us-ascii"
+--_000_MN2PR12MB44889B34B2877BEEB6DF1803F7539MN2PR12MB4488namp_
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
-[AMD Public Use]
+[AMD Official Use Only - Internal Distribution Only]
 
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Please update the umr patch as well.
 
-Regards,
-Hawking
-_____________________________________________
-From: Lazar, Lijo <Lijo.Lazar@amd.com>
-Sent: Tuesday, May 11, 2021 20:30
-To: amd-gfx@lists.freedesktop.org
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Xu, Feifei <Feifei.Xu@amd.com>;=
- Wang, Kevin(Yang) <Kevin1.Wang@amd.com>
-Subject: [PATCH] drm/amd/pm: Update aldebaran pmfw interface
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
+________________________________
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Jiawei G=
+u <Jiawei.Gu@amd.com>
+Sent: Tuesday, May 11, 2021 1:31 AM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: StDenis, Tom <Tom.StDenis@amd.com>; Gu, JiaWei (Will) <JiaWei.Gu@amd.co=
+m>; keescook@chromium.org <keescook@chromium.org>; Nieto, David M <David.Ni=
+eto@amd.com>
+Subject: [PATCH] drm/amdgpu: Field type update in drm_amdgpu_info_vbios
 
-[AMD Public Use]
+Use numeric type serial in drm_amdgpu_info_vbios instead.
 
-Update aldebaran driver-PMFW interface to version 0x07
-
-Signed-off-by: Lijo Lazar lijo.lazar@amd.com<mailto:lijo.lazar@amd.com>
+Signed-off-by: Jiawei Gu <Jiawei.Gu@amd.com>
 ---
- drivers/gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h | 7 +++++--
- drivers/gpu/drm/amd/pm/inc/smu_v13_0.h                 | 2 +-
- 2 files changed, 6 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 2 +-
+ include/uapi/drm/amdgpu_drm.h           | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h b/drive=
-rs/gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h
-index d23533bda002..a017983ff1fa 100644
---- a/drivers/gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h
-+++ b/drivers/gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h
-@@ -64,7 +64,7 @@
- #define FEATURE_SMUIO_CG_BIT            28
- #define FEATURE_THM_CG_BIT              29
- #define FEATURE_CLK_CG_BIT              30
--#define FEATURE_SPARE_31_BIT            31
-+#define FEATURE_EDC_BIT                 31
- #define FEATURE_SPARE_32_BIT            32
- #define FEATURE_SPARE_33_BIT            33
- #define FEATURE_SPARE_34_BIT            34
-@@ -439,8 +439,11 @@ typedef struct {
-   int8_t   XgmiOffset;     // in Amps
-   uint8_t  Padding_TelemetryXgmi;
-
-+  uint16_t  EdcPowerLimit;
-+  uint16_t  spare6;
-+
-   //reserved
--  uint32_t reserved[15];
-+  uint32_t reserved[14];
-
- } PPTable_t;
-
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v13_0.h b/drivers/gpu/drm/amd/p=
-m/inc/smu_v13_0.h
-index 8145e1cbf181..1687709507b3 100644
---- a/drivers/gpu/drm/amd/pm/inc/smu_v13_0.h
-+++ b/drivers/gpu/drm/amd/pm/inc/smu_v13_0.h
-@@ -26,7 +26,7 @@
- #include "amdgpu_smu.h"
-
- #define SMU13_DRIVER_IF_VERSION_INV 0xFFFFFFFF
--#define SMU13_DRIVER_IF_VERSION_ALDE 0x6
-+#define SMU13_DRIVER_IF_VERSION_ALDE 0x07
-
- /* MP Apertures */
- #define MP0_Public                     0x03800000
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_kms.c
+index 75f34a9008e7..e1008a79b441 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -871,7 +871,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *dat=
+a, struct drm_file *filp)
+                         memcpy(vbios_info.vbios_pn, atom_context->vbios_pn=
+, sizeof(atom_context->vbios_pn));
+                         vbios_info.version =3D atom_context->version;
+                         memcpy(vbios_info.date, atom_context->date, sizeof=
+(atom_context->date));
+-                       memcpy(vbios_info.serial, adev->serial, sizeof(adev=
+->serial));
++                       vbios_info.serial =3D adev->unique_id;
+                         vbios_info.dev_id =3D adev->pdev->device;
+                         vbios_info.rev_id =3D adev->pdev->revision;
+                         vbios_info.sub_dev_id =3D atom_context->sub_dev_id=
+;
+diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+index 2b487a8d2727..2d9e84658bbc 100644
+--- a/include/uapi/drm/amdgpu_drm.h
++++ b/include/uapi/drm/amdgpu_drm.h
+@@ -957,7 +957,7 @@ struct drm_amdgpu_info_vbios {
+         __u8 vbios_pn[64];
+         __u32 version;
+         __u8 date[32];
+-       __u8 serial[16];
++       __u64 serial;
+         __u32 dev_id;
+         __u32 rev_id;
+         __u32 sub_dev_id;
 --
 2.17.1
 
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
+reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D04%7C01%7Calexande=
+r.deucher%40amd.com%7C9c3ad129089d4585544f08d9143e1892%7C3dd8961fe4884e608e=
+11a82d994e183d%7C0%7C0%7C637563079204768525%7CUnknown%7CTWFpbGZsb3d8eyJWIjo=
+iMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdat=
+a=3DefCxiLv4J5KWmoKqy1geARlt%2FJppT1eetVI3R%2FMNfzw%3D&amp;reserved=3D0
 
-
---_000_BN9PR12MB5368796EC1E43A67BE19F190FC539BN9PR12MB5368namp_
-Content-Type: text/html; charset="us-ascii"
+--_000_MN2PR12MB44889B34B2877BEEB6DF1803F7539MN2PR12MB4488namp_
+Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
 <html>
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
-<!-- converted from rtf -->
-<style><!-- .EmailQuote { margin-left: 1pt; padding-left: 4pt; border-left:=
- #800000 2px solid; } --></style>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
 </head>
-<body>
-<font face=3D"Times New Roman" size=3D"3"><span style=3D"font-size:12pt;"><=
-a name=3D"_msipheader251902e5"></a><a name=3D"_msipheader25000000"></a>
-<div><font face=3D"Arial" size=3D"2" color=3D"#317100"><span style=3D"font-=
-size:10pt;">[AMD Public Use]<br>
-
-</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Revi=
-ewed-by: Hawking Zhang &lt;Hawking.Zhang@amd.com&gt;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Rega=
-rds,<br>
-
-Hawking</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">____=
-_________________________________________<br>
-
-<b>From:</b> Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt; <br>
-
-<b>Sent:</b> Tuesday, May 11, 2021 20:30<br>
-
-<b>To:</b> amd-gfx@lists.freedesktop.org<br>
-
-<b>Cc:</b> Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Xu, Feifei &lt;Fei=
-fei.Xu@amd.com&gt;; Wang, Kevin(Yang) &lt;Kevin1.Wang@amd.com&gt;<br>
-
-<b>Subject:</b> [PATCH] drm/amd/pm: Update aldebaran pmfw interface</span><=
-/font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<a name=3D"_msipheader00000000"></a>
-<div><font face=3D"Arial" size=3D"2" color=3D"#317100"><span style=3D"font-=
-size:10pt;">[AMD Public Use]<br>
-
-</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Upda=
-te aldebaran driver-PMFW interface to version 0x07</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Sign=
-ed-off-by: Lijo Lazar <a href=3D"mailto:lijo.lazar@amd.com"><font color=3D"=
-#0563C1"><u>lijo.lazar@amd.com</u></font></a></span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">---<=
-/span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> dri=
-vers/gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h | 7 +++++--</span></fon=
-t></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> dri=
-vers/gpu/drm/amd/pm/inc/smu_v13_0.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 2 +-</span></fon=
-t></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> 2 f=
-iles changed, 6 insertions(+), 3 deletions(-)</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">diff=
- --git a/drivers/gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h b/drivers/g=
-pu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">inde=
-x d23533bda002..a017983ff1fa 100644</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">--- =
-a/drivers/gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h</span></font></div=
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:11pt;color:#0078D7;margin:5pt;" ali=
+gn=3D"Left">
+[AMD Official Use Only - Internal Distribution Only]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Please update the umr patch as well.&nbsp; <br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Acked-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+</div>
+<div id=3D"appendonsend"></div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+<br>
+</div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
+=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx=
+-bounces@lists.freedesktop.org&gt; on behalf of Jiawei Gu &lt;Jiawei.Gu@amd=
+.com&gt;<br>
+<b>Sent:</b> Tuesday, May 11, 2021 1:31 AM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> StDenis, Tom &lt;Tom.StDenis@amd.com&gt;; Gu, JiaWei (Will) &lt;=
+JiaWei.Gu@amd.com&gt;; keescook@chromium.org &lt;keescook@chromium.org&gt;;=
+ Nieto, David M &lt;David.Nieto@amd.com&gt;<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: Field type update in drm_amdgpu_info_vb=
+ios</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
 >
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+++ =
-b/drivers/gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h</span></font></div=
->
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">@@ -=
-64,7 +64,7 @@</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> #de=
-fine FEATURE_SMUIO_CG_BIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; 28</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> #de=
-fine FEATURE_THM_CG_BIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp; 29</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> #de=
-fine FEATURE_CLK_CG_BIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp; 30</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-#de=
-fine FEATURE_SPARE_31_BIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; 31</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+#de=
-fine FEATURE_EDC_BIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 31</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> #de=
-fine FEATURE_SPARE_32_BIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; 32</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> #de=
-fine FEATURE_SPARE_33_BIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; 33</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> #de=
-fine FEATURE_SPARE_34_BIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; 34</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">@@ -=
-439,8 +439,11 @@ typedef struct {</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp; int8_t&nbsp;&nbsp; XgmiOffset;&nbsp;&nbsp;&nbsp;&nbsp; // in Amps<=
-/span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp; uint8_t&nbsp; Padding_TelemetryXgmi;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp; uint16_t&nbsp; EdcPowerLimit;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp; uint16_t&nbsp; spare6;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+</s=
-pan></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp; //reserved</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp; uint32_t reserved[15];</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp; uint32_t reserved[14];</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> } P=
-PTable_t;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">diff=
- --git a/drivers/gpu/drm/amd/pm/inc/smu_v13_0.h b/drivers/gpu/drm/amd/pm/in=
-c/smu_v13_0.h</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">inde=
-x 8145e1cbf181..1687709507b3 100644</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">--- =
-a/drivers/gpu/drm/amd/pm/inc/smu_v13_0.h</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+++ =
-b/drivers/gpu/drm/amd/pm/inc/smu_v13_0.h</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">@@ -=
-26,7 +26,7 @@</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> #in=
-clude &quot;amdgpu_smu.h&quot;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> #de=
-fine SMU13_DRIVER_IF_VERSION_INV 0xFFFFFFFF</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-#de=
-fine SMU13_DRIVER_IF_VERSION_ALDE 0x6</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+#de=
-fine SMU13_DRIVER_IF_VERSION_ALDE 0x07</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> /* =
-MP Apertures */</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> #de=
-fine MP0_Public&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x03800000</sp=
-an></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-- <=
-/span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">2.17=
-.1</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-</span></font>
+<div class=3D"PlainText">Use numeric type serial in drm_amdgpu_info_vbios i=
+nstead.<br>
+<br>
+Signed-off-by: Jiawei Gu &lt;Jiawei.Gu@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 2 +-<br>
+&nbsp;include/uapi/drm/amdgpu_drm.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; | 2 +-<br>
+&nbsp;2 files changed, 2 insertions(+), 2 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_kms.c<br>
+index 75f34a9008e7..e1008a79b441 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
+@@ -871,7 +871,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *dat=
+a, struct drm_file *filp)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcp=
+y(vbios_info.vbios_pn, atom_context-&gt;vbios_pn, sizeof(atom_context-&gt;v=
+bios_pn));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vbios=
+_info.version =3D atom_context-&gt;version;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcp=
+y(vbios_info.date, atom_context-&gt;date, sizeof(atom_context-&gt;date));<b=
+r>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy(vbios_inf=
+o.serial, adev-&gt;serial, sizeof(adev-&gt;serial));<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vbios_info.seria=
+l =3D adev-&gt;unique_id;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vbios=
+_info.dev_id =3D adev-&gt;pdev-&gt;device;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vbios=
+_info.rev_id =3D adev-&gt;pdev-&gt;revision;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vbios=
+_info.sub_dev_id =3D atom_context-&gt;sub_dev_id;<br>
+diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h<=
+br>
+index 2b487a8d2727..2d9e84658bbc 100644<br>
+--- a/include/uapi/drm/amdgpu_drm.h<br>
++++ b/include/uapi/drm/amdgpu_drm.h<br>
+@@ -957,7 +957,7 @@ struct drm_amdgpu_info_vbios {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __u8 vbios_pn[64];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __u32 version;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __u8 date[32];<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __u8 serial[16];<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __u64 serial;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __u32 dev_id;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __u32 rev_id;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __u32 sub_dev_id;<br>
+-- <br>
+2.17.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx@lists.freedesktop.org<br>
+<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
+F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D04%=
+7C01%7Calexander.deucher%40amd.com%7C9c3ad129089d4585544f08d9143e1892%7C3dd=
+8961fe4884e608e11a82d994e183d%7C0%7C0%7C637563079204768525%7CUnknown%7CTWFp=
+bGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%=
+7C1000&amp;amp;sdata=3DefCxiLv4J5KWmoKqy1geARlt%2FJppT1eetVI3R%2FMNfzw%3D&a=
+mp;amp;reserved=3D0">https://nam11.safelinks.protection.outlook.com/?url=3D=
+https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;=
+data=3D04%7C01%7Calexander.deucher%40amd.com%7C9c3ad129089d4585544f08d9143e=
+1892%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637563079204768525%7CUnkn=
+own%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXV=
+CI6Mn0%3D%7C1000&amp;amp;sdata=3DefCxiLv4J5KWmoKqy1geARlt%2FJppT1eetVI3R%2F=
+MNfzw%3D&amp;amp;reserved=3D0</a><br>
+</div>
+</span></font></div>
+</div>
 </body>
 </html>
 
---_000_BN9PR12MB5368796EC1E43A67BE19F190FC539BN9PR12MB5368namp_--
+--_000_MN2PR12MB44889B34B2877BEEB6DF1803F7539MN2PR12MB4488namp_--
 
---===============1841510353==
+--===============1183803976==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -404,4 +362,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============1841510353==--
+--===============1183803976==--
