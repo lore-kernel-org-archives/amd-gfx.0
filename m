@@ -2,125 +2,108 @@ Return-Path: <SRS0=e+DK=KG=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 954A8C433ED
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 May 2021 05:46:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BA7AAC433B4
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 May 2021 06:04:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 279B3613CA
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 May 2021 05:46:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 279B3613CA
+	by mail.kernel.org (Postfix) with ESMTPS id 6576C61606
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 May 2021 06:04:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6576C61606
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9673B6E9BD;
-	Tue, 11 May 2021 05:46:57 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2086.outbound.protection.outlook.com [40.107.223.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A59E66E9BD
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 May 2021 05:46:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C36486E9C2;
+	Tue, 11 May 2021 06:04:35 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2085.outbound.protection.outlook.com [40.107.92.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E242E6E9C2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 May 2021 06:04:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=F1zuXRaP4xea67YtERvlhWkVm5P3Th9P3bxkpVVIwgPj73+NgF1zrmJZs4onPN2s9z5gfnM7xRTis0pZjztxoUVQRTM9rvF6T0nS6RrqNp+jNvBzluxpweXTVOaNhOxZNxx8MYtHbqYdMSTLkijjN3ci8DZleiDz217htdj31dqVKKKDEGNS2JPWqQ27+Igwu8EWQglXJlP2oIyvDbqaSxa0vQpudhUzIrmqpjJPwVEtxAZ9OIdElBMlEgnbQhwg9oDNFsVJQHJAmmxcQ0al5/NllrJNDndaH4NY2K6Yd/DpL6FSyX3HHGRSLw/WzVD/bUYJoZj0iTvOpWmgNdkQPw==
+ b=CeUPWD0ewbT+JXUW5fNUQ2yikv7immc+KRvg4OFJH0MrkF2V65LRM8LY5sRXEqo+ixYB8R3nmCza8hVMwITfRJSkGYerk9m5U1cqVUEGCQM4gjt0vlw8EpYg7ehGkVIeUxY5CFcCxe4mekqtSkkKt51W6fZN62dKr8ltuIcgO/4XaILz4XiIyjVQRA4a8cqLOUNlY2Efc+qlyHlh83VrgDyTutg+X3WKlhA6bdOGdav0WfhQ4Ay4OZ9Rew2Q2YbNBqyoMBeidown+9TKoLel6Yu7L+X4trph36xHYI7FLhvABg1j2Lh1T+8a3vg7vVRg2MG//6sDAnJgOItnrfvH+Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/K3hC1wJwiMvg9qXIl+dxvsKbOK4vY0d9Gg1BDUjkRA=;
- b=Y0t3s/S9TRsDhd9DU3icAQ9yG4fNTgETvjcBdHgbo+MEF8ynuhiqH2wEUNEAxR7AGcrPwPw6X7+sVAFToonUuTsQQ6Xhel85huB3O7JfmBAhLStDgj9o4Jz+Y65uq2I/wlm9M1zBrCldMsja9L3pPcDnCpJqEaec9Lae9eg3NuaNuMXI+r6819ZwokeS9MgbMQId72eMaUlWUX/x2R7GKXkqh+42ecOzFAp2WelL1Rf5MioUbw9JJBxL6Bmj3mw61LnxM91gD/HxcZSZEYWi11PYUIkaENAn22wxq7TpoV8utmI/X8UsXfyrSlDipI3XfLhFHZ3Qr9SmblZ6Tc9JSQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=VM9zIsAKOdipY9sgd5znVgk0CfdC5wHClGRBNQtcbZA=;
+ b=dvVx7aTT7LedZxicgu+MAH8Ajpr8qitvtlIPkLGana1AHAc9sXLr+oMY8RJ0VRQkAJQFWbGHUkVpLbMdComLKnJnn9QO3GB2n0ySNp4l5PK9kkZZKDpONwpwGvYj8WCeYE2O3Mmp41uS0x5tj0n7aifY7UqZ0FSRi5isUbyJnsHrHGDCbY2TXyFqpOz/cC87eH0RLfjncsQwcJ0+02BLEao5NvCv/82P8ASF6H3sz7S5zL8JVSZ/PAcF4+zOE6qfOT5GWr1c+o58YMacuPF1LALM7xi3Ggg3l5IxVYyPlVz1LU0jwVp3viFFKTqhDYVryhuxThspWKCe+q1UV8f+UA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/K3hC1wJwiMvg9qXIl+dxvsKbOK4vY0d9Gg1BDUjkRA=;
- b=3uCpsMxXIeX5G/B3eYPc4o+p/mc6t5lJS1Y5PEZ0jDEsvqFL45nHgIIq5wPbvlbZ1IYi+pej40sip6s2PyKlIRsRtDIyEaBxuroTKT9C0SVoWaLDXxXdf2K6CJRKJfPrtY45LU4SfJKUorZF/81dukYJzrfD04CkVfqEdv23ko8=
-Received: from CH0PR12MB5348.namprd12.prod.outlook.com (2603:10b6:610:d7::9)
- by CH0PR12MB5076.namprd12.prod.outlook.com (2603:10b6:610:e3::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.25; Tue, 11 May
- 2021 05:46:50 +0000
-Received: from CH0PR12MB5348.namprd12.prod.outlook.com
- ([fe80::9c3:508d:5340:8efd]) by CH0PR12MB5348.namprd12.prod.outlook.com
- ([fe80::9c3:508d:5340:8efd%6]) with mapi id 15.20.4108.032; Tue, 11 May 2021
- 05:46:50 +0000
-From: "Lazar, Lijo" <Lijo.Lazar@amd.com>
-To: "Zhu, Changfeng" <Changfeng.Zhu@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Huang, Ray" <Ray.Huang@amd.com>, "Wang, 
- Kevin(Yang)" <Kevin1.Wang@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: seperate the dependency between CGCG and CGLS
- when diable CGCG/CGLS
-Thread-Topic: [PATCH] drm/amdgpu: seperate the dependency between CGCG and
- CGLS when diable CGCG/CGLS
-Thread-Index: AQHXPL4zyFydLvOlVUegoEmpGm5Zo6rd154w
-Date: Tue, 11 May 2021 05:46:50 +0000
-Message-ID: <CH0PR12MB5348336B4B81DFA48346E04297539@CH0PR12MB5348.namprd12.prod.outlook.com>
-References: <20210429060853.4144-1-changfeng.zhu@amd.com>
-In-Reply-To: <20210429060853.4144-1-changfeng.zhu@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-05-11T05:46:38Z; 
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=55b8329a-aa3d-4606-8c81-b81defc1c0d0;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [117.206.36.204]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 991dc9c7-3356-470f-281b-08d914402c84
-x-ms-traffictypediagnostic: CH0PR12MB5076:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <CH0PR12MB5076C8D113B309D4BBE22B6397539@CH0PR12MB5076.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:4714;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: R4gRwLHpXmgUe+QTeMXMFqdPmj0YOFuCdjWsciE+ckjBoctjtg5TdJ6dLb+dVbstM1h95ugUZimK7lIZSkFrr2yx3XIX3zRkC8cF0Jkv8VhEPurerRaw12NnidEGTuYrQPDSJn26xnN++Zasv6GZXTklk9OGUnL4nrgw0JHbYEuG9DYB5TAG45G8zferYpLbr0CRrkvLTT9w7l7e8aSVLXw+PYhvDbc6boYQCPecTKjIZSBnqd8v+dyE6ZHDIeflr7CnWYXR9GqgRQ0n/DuHrzTKu5xdfOcYfGKdva1ANSvcadd9VbksOI6aHN7Vue7t3ldSNoxz6v+6W02gHGuVFxK4CtiaJDA8ebRPporR6EeLHjUNo4cPuY6AUcH74OPQ5tt3cO27Ez1IYwhw/cXTOyg8DrGRRAVOoVOMcvWpTXBFM+oPRHkJ2uPiY32gYu1bleL38cAsU6Z7029D85ZYc5+KhpGz8Az4rxonSmvQRZaw0uLKBY394atxHZoXI4OaOLok+g4c+m0j8ijGdVI+HY4CcZR5/E3oxLw/BRar7GXQtyWh/U7iXybiEz3nUv1ihQ2IsGh20LYaVcZovEqQMITKWhUKogdUEfERJUrHqd3WZrBzhg+XL2y9tcoG/JkwHJKTlH1s70OjbR64JXjqqA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH0PR12MB5348.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39850400004)(346002)(376002)(366004)(396003)(136003)(38100700002)(966005)(33656002)(478600001)(45080400002)(5660300002)(55016002)(6636002)(53546011)(6506007)(86362001)(71200400001)(8936002)(110136005)(26005)(4326008)(8676002)(316002)(2906002)(122000001)(76116006)(66446008)(7696005)(186003)(66556008)(66946007)(66476007)(64756008)(9686003)(83380400001)(52536014);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?09pMIWw61iMkdTCeXSTu4+U1n+zByRpNWOM/dpu0Fh9/z9gu/Ha3kEkP+j70?=
- =?us-ascii?Q?WCXhjFrjGSvSkHrfpukj57OJs0lv7J6T/8VcLvpy/rneaRNjCQnI/9fQcTw4?=
- =?us-ascii?Q?YaJUjHu4uwEU1Kc0E42EknA20O9xx7so/YUT9OKu24yW64ykPNsVx8dnAQqC?=
- =?us-ascii?Q?qzfCcHa+ctsG+2O4/pbhzS5y7WIEbV+cpfliECIfPH59+FNHJ4yIa8O+vXER?=
- =?us-ascii?Q?T7BhfayQtbLcsQyWWLSNEZ2F61tYbtFOVSh1p46hCMG5Wv9BfzTVCblWNNu7?=
- =?us-ascii?Q?FeeR3PETZ2qq4KaiL976rI5CtVVXPj3tX+7wMNxe6Qrk2uIXx5OTSmgRE6pT?=
- =?us-ascii?Q?eKW61GfYNco0J40h+b0QicaTPYS06mqZ26LGsLi30AR3J2So9qa6C/BvpO70?=
- =?us-ascii?Q?0vq2xtDjW/MDj3ha4yd7XNyR6JNegQC1lmONvcXZWriXlNFzv//4Ds99w1wa?=
- =?us-ascii?Q?uoPRF7igSOnQkMfO3NPdZsQ2bmncsKtg5GFjptnzFwHEdkQnCAhc+wsMYwtZ?=
- =?us-ascii?Q?umzyEbDT/A8+TC4h18eBwfEPsu875O/Exar7oj13TYODqpXRgzX8jfYbD8hk?=
- =?us-ascii?Q?wRZrsQ8nE+i1nxDTgUDu0ERMn4nj20s/H7lCcdvkcVOvsq3BZbSPGtheb4+b?=
- =?us-ascii?Q?XTfQkHtcTlbzrOBeAvv2N5nLZVirpAmEHhAGxb8rbc4lcQIYci+z4xE+NWyM?=
- =?us-ascii?Q?rc5cJiuQLDfjyR4zM8px8AlIo32vYUd2CVfB8rDxm34NhUkCz1k1oLXMZw+i?=
- =?us-ascii?Q?5xaFVAMSuHlaVKjgN/URvs17uIl52PxMPtB6IIsN9P98HCpwP/wF6T1XVmYJ?=
- =?us-ascii?Q?UGjSMKW56XTykywuFR0Nc0DfQuBjVZ03e1j/BweGmJDhhOM4g+MjpM6zHMdR?=
- =?us-ascii?Q?G98wqZxFQkMa7xygGI07QxhragtEa3iBO7v7q4XXh1q7almEPKjUHyIv88dH?=
- =?us-ascii?Q?Jp30yYaBwk06oc1KivVo6fhxZyfnf3HvLxSLNVvwwcqrIZLg9hlErIkVSgoL?=
- =?us-ascii?Q?TIjs3ddvba57i+1gVow24KWNYtzK3hFIirUyBdZABFwJLWum78jM+iswCeqn?=
- =?us-ascii?Q?czw905EaCMSHChdAjp1ZOehuH3yGEdnaobJvHtRm4VqajrsvzG10EQb3nvS5?=
- =?us-ascii?Q?bNw7eNu1oysZGRalWnWai+394HSytvawJ8CAztzPSGubnXjL1HJc7QYoVGgi?=
- =?us-ascii?Q?L5mxa6rax6zKc6wgiBfy9eUWVldUvqzp8ISR7Q9D1WEfAPd2ZMv8bUGB9CWT?=
- =?us-ascii?Q?gbCpF/ovbxBCxUAxvIuAP5EPzjpJBrzzFWOlDT6W13905R5uS6bnEYPrf7Dz?=
- =?us-ascii?Q?KowBv2wDUGWDbeb3M7xUG0DI?=
+ bh=VM9zIsAKOdipY9sgd5znVgk0CfdC5wHClGRBNQtcbZA=;
+ b=Z5QWruvZJYOGR6vGoLEkUE7z25DeBHrbUBeTyDLPU8Vwsy6R4e0Msp729BOOQp4saDltej+ofm/7a4OQvXkcan93uzVdiayOPWWIuQu6CQyizNEpPX+3Mh6VFVY1vHpCEcS7MzJiSogfbkcYP+wBxaP0fE+fxPOUC3z0DHbB4cU=
+Received: from MWHPR17CA0064.namprd17.prod.outlook.com (2603:10b6:300:93::26)
+ by CO6PR12MB5441.namprd12.prod.outlook.com (2603:10b6:303:13b::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4108.25; Tue, 11 May
+ 2021 06:04:32 +0000
+Received: from CO1NAM11FT021.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:300:93:cafe::87) by MWHPR17CA0064.outlook.office365.com
+ (2603:10b6:300:93::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4108.25 via Frontend
+ Transport; Tue, 11 May 2021 06:04:32 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT021.mail.protection.outlook.com (10.13.175.51) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4108.25 via Frontend Transport; Tue, 11 May 2021 06:04:32 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Tue, 11 May
+ 2021 01:04:31 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Tue, 11 May
+ 2021 01:04:31 -0500
+Received: from yajunl-gv.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4 via Frontend
+ Transport; Tue, 11 May 2021 01:04:29 -0500
+From: Dennis Li <Dennis.Li@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <Alexander.Deucher@amd.com>,
+ <felix.kuehling@amd.com>, <Hawking.Zhang@amd.com>, <christian.koenig@amd.com>
+Subject: [PATCH] drm/amdgpu: add synchronization among waves in the same
+ threadgroup
+Date: Tue, 11 May 2021 14:04:20 +0800
+Message-ID: <20210511060420.30820-1-Dennis.Li@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: c781e304-3d7b-49f8-b588-08d91442a54b
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5441:
+X-Microsoft-Antispam-PRVS: <CO6PR12MB54416F8351A285ADDE474ED8ED539@CO6PR12MB5441.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4303;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: aGkNrEbKJwtubtr6QtfjC/lLi7c0AwCAi1dDz+CevWRM8t40SIEF31VUgwXfQFN7Wm4XdYdBVhNlQ/JOlY8VF3mMjWb28HG3mlJPbiMRg8dDo4xBtZe7bQsb6VQLQY2o7s8rxW/DFKKBBSrP1HM8wKo2kI08MQSXp932WBTQLkQMnLoYZQSeu+8sxWevnLrQcNAcGtGrNhcIeg0AgEI52sPlvSVUm5GzJi8gAyMnQ8DfNOYc+lFtTkhETLVgRpKyz7kCbNNdjC0gNwoS9pJJb2Jwwi/QYVVh8A2vbrj6RYObAwDkqyTrg3zBis/kOAk91Khm2uSU5HQ/Sl1jTemPvtlimeuTXvU8SFbLqic3UDcLMHGT3KvzU9O/I33DIWZMeDQuRJb9KKnqN1tOCywlyv3nE/2a2yC5/H8C/gFMtFDLJX7xrg7UbtCkMkmIio4HZ3Fqr8WY4+miAfC06x2P78U/vTJjreuUnubISo1B/H5tU0CZOmBfhAlykzb2MhL8HHrw4BhkA+nKk00++cBEDttAvowJkUj8zBAhmdKyihoUGvRNygSZgAuCHaZziA2O/RB0jvIzSgnd7dmk5F7w5ZHvAgBLwLlwrShoQWPil1if0ALjuhxFe01DpcpBkSHAtmP2oLkFscEsL9jNFuQgjQcOO2tGdSHz9iVBzmvTIH+zu2tDigkqlsttedCC+EUu6wm7qmqTrqU7qnBx5hdxhg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(136003)(376002)(39860400002)(396003)(346002)(36840700001)(46966006)(4326008)(30864003)(82740400003)(8936002)(70586007)(2616005)(336012)(82310400003)(47076005)(5660300002)(70206006)(1076003)(478600001)(6666004)(316002)(26005)(426003)(81166007)(6636002)(7696005)(2906002)(8676002)(86362001)(356005)(110136005)(186003)(36860700001)(36756003)(2101003)(36900700001);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5348.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 991dc9c7-3356-470f-281b-08d914402c84
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 May 2021 05:46:50.5971 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 6zghodEBCexxJ9ihKPTk+qRaIZHFxlH3ssZoQa75z0c76mm3ooQm2uSDzxajV5Nm
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5076
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2021 06:04:32.1666 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c781e304-3d7b-49f8-b588-08d91442a54b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT021.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5441
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,178 +115,343 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Zhu, Changfeng" <Changfeng.Zhu@amd.com>
+Cc: Dennis Li <Dennis.Li@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Public Use]
+It is possible that the previous waves have exited before others are
+created, so the other waves maybe reuse pyhsical resouces left by
+previous ones. Therefore add barrier instruction to synchronize waves within
+the same threadgroup.
 
+Signed-off-by: Dennis Li <Dennis.Li@amd.com>
 
-
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Changfeng.Zhu
-Sent: Thursday, April 29, 2021 11:39 AM
-To: amd-gfx@lists.freedesktop.org; Huang, Ray <Ray.Huang@amd.com>; Wang, Kevin(Yang) <Kevin1.Wang@amd.com>
-Cc: Zhu, Changfeng <Changfeng.Zhu@amd.com>
-Subject: [PATCH] drm/amdgpu: seperate the dependency between CGCG and CGLS when diable CGCG/CGLS
-
-From: changzhu <Changfeng.Zhu@amd.com>
-
-From: Changfeng <Changfeng.Zhu@amd.com>
-
-The disable process of CGLS is dependent on CGCG now. Align with windows code, seperate the dependency between CGCG and CGLS and it will reduce confusion when debug CGCG/CGLS related issue.
-
-Change-Id: Ia91b8b16236bebd9224160672e500f6850dbc268
-Signed-off-by: Changfeng <Changfeng.Zhu@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 24 ++++++++++++-------  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c  | 33 ++++++++++++++++----------
- 2 files changed, 37 insertions(+), 20 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-index 49fd10a15707..3f8aa2fb974d 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -7717,18 +7717,22 @@ static void gfx_v10_0_update_3d_clock_gating(struct amdgpu_device *adev,
- 	uint32_t data, def;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
+index fdd65589f06b..dbad9ef002d5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
+@@ -93,98 +93,99 @@ static const struct soc15_reg_golden golden_settings_gc_9_4_2_alde[] = {
+ static const u32 vgpr_init_compute_shader_aldebaran[] = {
+ 	0xb8840904, 0xb8851a04, 0xb8861344, 0xb8831804, 0x9208ff06, 0x00000280,
+ 	0x9209a805, 0x920a8a04, 0x81080908, 0x81080a08, 0x81080308, 0x8e078208,
+-	0x81078407, 0xc0410080, 0x00000007, 0xbf8c0000, 0xd3d94000, 0x18000080,
+-	0xd3d94001, 0x18000080, 0xd3d94002, 0x18000080, 0xd3d94003, 0x18000080,
+-	0xd3d94004, 0x18000080, 0xd3d94005, 0x18000080, 0xd3d94006, 0x18000080,
+-	0xd3d94007, 0x18000080, 0xd3d94008, 0x18000080, 0xd3d94009, 0x18000080,
+-	0xd3d9400a, 0x18000080, 0xd3d9400b, 0x18000080, 0xd3d9400c, 0x18000080,
+-	0xd3d9400d, 0x18000080, 0xd3d9400e, 0x18000080, 0xd3d9400f, 0x18000080,
+-	0xd3d94010, 0x18000080, 0xd3d94011, 0x18000080, 0xd3d94012, 0x18000080,
+-	0xd3d94013, 0x18000080, 0xd3d94014, 0x18000080, 0xd3d94015, 0x18000080,
+-	0xd3d94016, 0x18000080, 0xd3d94017, 0x18000080, 0xd3d94018, 0x18000080,
+-	0xd3d94019, 0x18000080, 0xd3d9401a, 0x18000080, 0xd3d9401b, 0x18000080,
+-	0xd3d9401c, 0x18000080, 0xd3d9401d, 0x18000080, 0xd3d9401e, 0x18000080,
+-	0xd3d9401f, 0x18000080, 0xd3d94020, 0x18000080, 0xd3d94021, 0x18000080,
+-	0xd3d94022, 0x18000080, 0xd3d94023, 0x18000080, 0xd3d94024, 0x18000080,
+-	0xd3d94025, 0x18000080, 0xd3d94026, 0x18000080, 0xd3d94027, 0x18000080,
+-	0xd3d94028, 0x18000080, 0xd3d94029, 0x18000080, 0xd3d9402a, 0x18000080,
+-	0xd3d9402b, 0x18000080, 0xd3d9402c, 0x18000080, 0xd3d9402d, 0x18000080,
+-	0xd3d9402e, 0x18000080, 0xd3d9402f, 0x18000080, 0xd3d94030, 0x18000080,
+-	0xd3d94031, 0x18000080, 0xd3d94032, 0x18000080, 0xd3d94033, 0x18000080,
+-	0xd3d94034, 0x18000080, 0xd3d94035, 0x18000080, 0xd3d94036, 0x18000080,
+-	0xd3d94037, 0x18000080, 0xd3d94038, 0x18000080, 0xd3d94039, 0x18000080,
+-	0xd3d9403a, 0x18000080, 0xd3d9403b, 0x18000080, 0xd3d9403c, 0x18000080,
+-	0xd3d9403d, 0x18000080, 0xd3d9403e, 0x18000080, 0xd3d9403f, 0x18000080,
+-	0xd3d94040, 0x18000080, 0xd3d94041, 0x18000080, 0xd3d94042, 0x18000080,
+-	0xd3d94043, 0x18000080, 0xd3d94044, 0x18000080, 0xd3d94045, 0x18000080,
+-	0xd3d94046, 0x18000080, 0xd3d94047, 0x18000080, 0xd3d94048, 0x18000080,
+-	0xd3d94049, 0x18000080, 0xd3d9404a, 0x18000080, 0xd3d9404b, 0x18000080,
+-	0xd3d9404c, 0x18000080, 0xd3d9404d, 0x18000080, 0xd3d9404e, 0x18000080,
+-	0xd3d9404f, 0x18000080, 0xd3d94050, 0x18000080, 0xd3d94051, 0x18000080,
+-	0xd3d94052, 0x18000080, 0xd3d94053, 0x18000080, 0xd3d94054, 0x18000080,
+-	0xd3d94055, 0x18000080, 0xd3d94056, 0x18000080, 0xd3d94057, 0x18000080,
+-	0xd3d94058, 0x18000080, 0xd3d94059, 0x18000080, 0xd3d9405a, 0x18000080,
+-	0xd3d9405b, 0x18000080, 0xd3d9405c, 0x18000080, 0xd3d9405d, 0x18000080,
+-	0xd3d9405e, 0x18000080, 0xd3d9405f, 0x18000080, 0xd3d94060, 0x18000080,
+-	0xd3d94061, 0x18000080, 0xd3d94062, 0x18000080, 0xd3d94063, 0x18000080,
+-	0xd3d94064, 0x18000080, 0xd3d94065, 0x18000080, 0xd3d94066, 0x18000080,
+-	0xd3d94067, 0x18000080, 0xd3d94068, 0x18000080, 0xd3d94069, 0x18000080,
+-	0xd3d9406a, 0x18000080, 0xd3d9406b, 0x18000080, 0xd3d9406c, 0x18000080,
+-	0xd3d9406d, 0x18000080, 0xd3d9406e, 0x18000080, 0xd3d9406f, 0x18000080,
+-	0xd3d94070, 0x18000080, 0xd3d94071, 0x18000080, 0xd3d94072, 0x18000080,
+-	0xd3d94073, 0x18000080, 0xd3d94074, 0x18000080, 0xd3d94075, 0x18000080,
+-	0xd3d94076, 0x18000080, 0xd3d94077, 0x18000080, 0xd3d94078, 0x18000080,
+-	0xd3d94079, 0x18000080, 0xd3d9407a, 0x18000080, 0xd3d9407b, 0x18000080,
+-	0xd3d9407c, 0x18000080, 0xd3d9407d, 0x18000080, 0xd3d9407e, 0x18000080,
+-	0xd3d9407f, 0x18000080, 0xd3d94080, 0x18000080, 0xd3d94081, 0x18000080,
+-	0xd3d94082, 0x18000080, 0xd3d94083, 0x18000080, 0xd3d94084, 0x18000080,
+-	0xd3d94085, 0x18000080, 0xd3d94086, 0x18000080, 0xd3d94087, 0x18000080,
+-	0xd3d94088, 0x18000080, 0xd3d94089, 0x18000080, 0xd3d9408a, 0x18000080,
+-	0xd3d9408b, 0x18000080, 0xd3d9408c, 0x18000080, 0xd3d9408d, 0x18000080,
+-	0xd3d9408e, 0x18000080, 0xd3d9408f, 0x18000080, 0xd3d94090, 0x18000080,
+-	0xd3d94091, 0x18000080, 0xd3d94092, 0x18000080, 0xd3d94093, 0x18000080,
+-	0xd3d94094, 0x18000080, 0xd3d94095, 0x18000080, 0xd3d94096, 0x18000080,
+-	0xd3d94097, 0x18000080, 0xd3d94098, 0x18000080, 0xd3d94099, 0x18000080,
+-	0xd3d9409a, 0x18000080, 0xd3d9409b, 0x18000080, 0xd3d9409c, 0x18000080,
+-	0xd3d9409d, 0x18000080, 0xd3d9409e, 0x18000080, 0xd3d9409f, 0x18000080,
+-	0xd3d940a0, 0x18000080, 0xd3d940a1, 0x18000080, 0xd3d940a2, 0x18000080,
+-	0xd3d940a3, 0x18000080, 0xd3d940a4, 0x18000080, 0xd3d940a5, 0x18000080,
+-	0xd3d940a6, 0x18000080, 0xd3d940a7, 0x18000080, 0xd3d940a8, 0x18000080,
+-	0xd3d940a9, 0x18000080, 0xd3d940aa, 0x18000080, 0xd3d940ab, 0x18000080,
+-	0xd3d940ac, 0x18000080, 0xd3d940ad, 0x18000080, 0xd3d940ae, 0x18000080,
+-	0xd3d940af, 0x18000080, 0xd3d940b0, 0x18000080, 0xd3d940b1, 0x18000080,
+-	0xd3d940b2, 0x18000080, 0xd3d940b3, 0x18000080, 0xd3d940b4, 0x18000080,
+-	0xd3d940b5, 0x18000080, 0xd3d940b6, 0x18000080, 0xd3d940b7, 0x18000080,
+-	0xd3d940b8, 0x18000080, 0xd3d940b9, 0x18000080, 0xd3d940ba, 0x18000080,
+-	0xd3d940bb, 0x18000080, 0xd3d940bc, 0x18000080, 0xd3d940bd, 0x18000080,
+-	0xd3d940be, 0x18000080, 0xd3d940bf, 0x18000080, 0xd3d940c0, 0x18000080,
+-	0xd3d940c1, 0x18000080, 0xd3d940c2, 0x18000080, 0xd3d940c3, 0x18000080,
+-	0xd3d940c4, 0x18000080, 0xd3d940c5, 0x18000080, 0xd3d940c6, 0x18000080,
+-	0xd3d940c7, 0x18000080, 0xd3d940c8, 0x18000080, 0xd3d940c9, 0x18000080,
+-	0xd3d940ca, 0x18000080, 0xd3d940cb, 0x18000080, 0xd3d940cc, 0x18000080,
+-	0xd3d940cd, 0x18000080, 0xd3d940ce, 0x18000080, 0xd3d940cf, 0x18000080,
+-	0xd3d940d0, 0x18000080, 0xd3d940d1, 0x18000080, 0xd3d940d2, 0x18000080,
+-	0xd3d940d3, 0x18000080, 0xd3d940d4, 0x18000080, 0xd3d940d5, 0x18000080,
+-	0xd3d940d6, 0x18000080, 0xd3d940d7, 0x18000080, 0xd3d940d8, 0x18000080,
+-	0xd3d940d9, 0x18000080, 0xd3d940da, 0x18000080, 0xd3d940db, 0x18000080,
+-	0xd3d940dc, 0x18000080, 0xd3d940dd, 0x18000080, 0xd3d940de, 0x18000080,
+-	0xd3d940df, 0x18000080, 0xd3d940e0, 0x18000080, 0xd3d940e1, 0x18000080,
+-	0xd3d940e2, 0x18000080, 0xd3d940e3, 0x18000080, 0xd3d940e4, 0x18000080,
+-	0xd3d940e5, 0x18000080, 0xd3d940e6, 0x18000080, 0xd3d940e7, 0x18000080,
+-	0xd3d940e8, 0x18000080, 0xd3d940e9, 0x18000080, 0xd3d940ea, 0x18000080,
+-	0xd3d940eb, 0x18000080, 0xd3d940ec, 0x18000080, 0xd3d940ed, 0x18000080,
+-	0xd3d940ee, 0x18000080, 0xd3d940ef, 0x18000080, 0xd3d940f0, 0x18000080,
+-	0xd3d940f1, 0x18000080, 0xd3d940f2, 0x18000080, 0xd3d940f3, 0x18000080,
+-	0xd3d940f4, 0x18000080, 0xd3d940f5, 0x18000080, 0xd3d940f6, 0x18000080,
+-	0xd3d940f7, 0x18000080, 0xd3d940f8, 0x18000080, 0xd3d940f9, 0x18000080,
+-	0xd3d940fa, 0x18000080, 0xd3d940fb, 0x18000080, 0xd3d940fc, 0x18000080,
+-	0xd3d940fd, 0x18000080, 0xd3d940fe, 0x18000080, 0xd3d940ff, 0x18000080,
+-	0xb07c0000, 0xbe8a00ff, 0x000000f8, 0xbf11080a, 0x7e000280, 0x7e020280,
+-	0x7e040280, 0x7e060280, 0x7e080280, 0x7e0a0280, 0x7e0c0280, 0x7e0e0280,
+-	0x808a880a, 0xbe80320a, 0xbf84fff5, 0xbf9c0000, 0xd28c0001, 0x0001007f,
+-	0xd28d0001, 0x0002027e, 0x10020288, 0xbe8b0004, 0xb78b4000, 0xd1196a01,
+-	0x00001701, 0xbe8a0087, 0xbefc00c1, 0xd89c4000, 0x00020201, 0xd89cc080,
+-	0x00040401, 0x320202ff, 0x00000800, 0x808a810a, 0xbf84fff8, 0xbf810000,
++	0x81078407, 0xc0410080, 0x00000007, 0xbf8c0000, 0xbf8a0000, 0xd3d94000,
++	0x18000080, 0xd3d94001, 0x18000080, 0xd3d94002, 0x18000080, 0xd3d94003,
++	0x18000080, 0xd3d94004, 0x18000080, 0xd3d94005, 0x18000080, 0xd3d94006,
++	0x18000080, 0xd3d94007, 0x18000080, 0xd3d94008, 0x18000080, 0xd3d94009,
++	0x18000080, 0xd3d9400a, 0x18000080, 0xd3d9400b, 0x18000080, 0xd3d9400c,
++	0x18000080, 0xd3d9400d, 0x18000080, 0xd3d9400e, 0x18000080, 0xd3d9400f,
++	0x18000080, 0xd3d94010, 0x18000080, 0xd3d94011, 0x18000080, 0xd3d94012,
++	0x18000080, 0xd3d94013, 0x18000080, 0xd3d94014, 0x18000080, 0xd3d94015,
++	0x18000080, 0xd3d94016, 0x18000080, 0xd3d94017, 0x18000080, 0xd3d94018,
++	0x18000080, 0xd3d94019, 0x18000080, 0xd3d9401a, 0x18000080, 0xd3d9401b,
++	0x18000080, 0xd3d9401c, 0x18000080, 0xd3d9401d, 0x18000080, 0xd3d9401e,
++	0x18000080, 0xd3d9401f, 0x18000080, 0xd3d94020, 0x18000080, 0xd3d94021,
++	0x18000080, 0xd3d94022, 0x18000080, 0xd3d94023, 0x18000080, 0xd3d94024,
++	0x18000080, 0xd3d94025, 0x18000080, 0xd3d94026, 0x18000080, 0xd3d94027,
++	0x18000080, 0xd3d94028, 0x18000080, 0xd3d94029, 0x18000080, 0xd3d9402a,
++	0x18000080, 0xd3d9402b, 0x18000080, 0xd3d9402c, 0x18000080, 0xd3d9402d,
++	0x18000080, 0xd3d9402e, 0x18000080, 0xd3d9402f, 0x18000080, 0xd3d94030,
++	0x18000080, 0xd3d94031, 0x18000080, 0xd3d94032, 0x18000080, 0xd3d94033,
++	0x18000080, 0xd3d94034, 0x18000080, 0xd3d94035, 0x18000080, 0xd3d94036,
++	0x18000080, 0xd3d94037, 0x18000080, 0xd3d94038, 0x18000080, 0xd3d94039,
++	0x18000080, 0xd3d9403a, 0x18000080, 0xd3d9403b, 0x18000080, 0xd3d9403c,
++	0x18000080, 0xd3d9403d, 0x18000080, 0xd3d9403e, 0x18000080, 0xd3d9403f,
++	0x18000080, 0xd3d94040, 0x18000080, 0xd3d94041, 0x18000080, 0xd3d94042,
++	0x18000080, 0xd3d94043, 0x18000080, 0xd3d94044, 0x18000080, 0xd3d94045,
++	0x18000080, 0xd3d94046, 0x18000080, 0xd3d94047, 0x18000080, 0xd3d94048,
++	0x18000080, 0xd3d94049, 0x18000080, 0xd3d9404a, 0x18000080, 0xd3d9404b,
++	0x18000080, 0xd3d9404c, 0x18000080, 0xd3d9404d, 0x18000080, 0xd3d9404e,
++	0x18000080, 0xd3d9404f, 0x18000080, 0xd3d94050, 0x18000080, 0xd3d94051,
++	0x18000080, 0xd3d94052, 0x18000080, 0xd3d94053, 0x18000080, 0xd3d94054,
++	0x18000080, 0xd3d94055, 0x18000080, 0xd3d94056, 0x18000080, 0xd3d94057,
++	0x18000080, 0xd3d94058, 0x18000080, 0xd3d94059, 0x18000080, 0xd3d9405a,
++	0x18000080, 0xd3d9405b, 0x18000080, 0xd3d9405c, 0x18000080, 0xd3d9405d,
++	0x18000080, 0xd3d9405e, 0x18000080, 0xd3d9405f, 0x18000080, 0xd3d94060,
++	0x18000080, 0xd3d94061, 0x18000080, 0xd3d94062, 0x18000080, 0xd3d94063,
++	0x18000080, 0xd3d94064, 0x18000080, 0xd3d94065, 0x18000080, 0xd3d94066,
++	0x18000080, 0xd3d94067, 0x18000080, 0xd3d94068, 0x18000080, 0xd3d94069,
++	0x18000080, 0xd3d9406a, 0x18000080, 0xd3d9406b, 0x18000080, 0xd3d9406c,
++	0x18000080, 0xd3d9406d, 0x18000080, 0xd3d9406e, 0x18000080, 0xd3d9406f,
++	0x18000080, 0xd3d94070, 0x18000080, 0xd3d94071, 0x18000080, 0xd3d94072,
++	0x18000080, 0xd3d94073, 0x18000080, 0xd3d94074, 0x18000080, 0xd3d94075,
++	0x18000080, 0xd3d94076, 0x18000080, 0xd3d94077, 0x18000080, 0xd3d94078,
++	0x18000080, 0xd3d94079, 0x18000080, 0xd3d9407a, 0x18000080, 0xd3d9407b,
++	0x18000080, 0xd3d9407c, 0x18000080, 0xd3d9407d, 0x18000080, 0xd3d9407e,
++	0x18000080, 0xd3d9407f, 0x18000080, 0xd3d94080, 0x18000080, 0xd3d94081,
++	0x18000080, 0xd3d94082, 0x18000080, 0xd3d94083, 0x18000080, 0xd3d94084,
++	0x18000080, 0xd3d94085, 0x18000080, 0xd3d94086, 0x18000080, 0xd3d94087,
++	0x18000080, 0xd3d94088, 0x18000080, 0xd3d94089, 0x18000080, 0xd3d9408a,
++	0x18000080, 0xd3d9408b, 0x18000080, 0xd3d9408c, 0x18000080, 0xd3d9408d,
++	0x18000080, 0xd3d9408e, 0x18000080, 0xd3d9408f, 0x18000080, 0xd3d94090,
++	0x18000080, 0xd3d94091, 0x18000080, 0xd3d94092, 0x18000080, 0xd3d94093,
++	0x18000080, 0xd3d94094, 0x18000080, 0xd3d94095, 0x18000080, 0xd3d94096,
++	0x18000080, 0xd3d94097, 0x18000080, 0xd3d94098, 0x18000080, 0xd3d94099,
++	0x18000080, 0xd3d9409a, 0x18000080, 0xd3d9409b, 0x18000080, 0xd3d9409c,
++	0x18000080, 0xd3d9409d, 0x18000080, 0xd3d9409e, 0x18000080, 0xd3d9409f,
++	0x18000080, 0xd3d940a0, 0x18000080, 0xd3d940a1, 0x18000080, 0xd3d940a2,
++	0x18000080, 0xd3d940a3, 0x18000080, 0xd3d940a4, 0x18000080, 0xd3d940a5,
++	0x18000080, 0xd3d940a6, 0x18000080, 0xd3d940a7, 0x18000080, 0xd3d940a8,
++	0x18000080, 0xd3d940a9, 0x18000080, 0xd3d940aa, 0x18000080, 0xd3d940ab,
++	0x18000080, 0xd3d940ac, 0x18000080, 0xd3d940ad, 0x18000080, 0xd3d940ae,
++	0x18000080, 0xd3d940af, 0x18000080, 0xd3d940b0, 0x18000080, 0xd3d940b1,
++	0x18000080, 0xd3d940b2, 0x18000080, 0xd3d940b3, 0x18000080, 0xd3d940b4,
++	0x18000080, 0xd3d940b5, 0x18000080, 0xd3d940b6, 0x18000080, 0xd3d940b7,
++	0x18000080, 0xd3d940b8, 0x18000080, 0xd3d940b9, 0x18000080, 0xd3d940ba,
++	0x18000080, 0xd3d940bb, 0x18000080, 0xd3d940bc, 0x18000080, 0xd3d940bd,
++	0x18000080, 0xd3d940be, 0x18000080, 0xd3d940bf, 0x18000080, 0xd3d940c0,
++	0x18000080, 0xd3d940c1, 0x18000080, 0xd3d940c2, 0x18000080, 0xd3d940c3,
++	0x18000080, 0xd3d940c4, 0x18000080, 0xd3d940c5, 0x18000080, 0xd3d940c6,
++	0x18000080, 0xd3d940c7, 0x18000080, 0xd3d940c8, 0x18000080, 0xd3d940c9,
++	0x18000080, 0xd3d940ca, 0x18000080, 0xd3d940cb, 0x18000080, 0xd3d940cc,
++	0x18000080, 0xd3d940cd, 0x18000080, 0xd3d940ce, 0x18000080, 0xd3d940cf,
++	0x18000080, 0xd3d940d0, 0x18000080, 0xd3d940d1, 0x18000080, 0xd3d940d2,
++	0x18000080, 0xd3d940d3, 0x18000080, 0xd3d940d4, 0x18000080, 0xd3d940d5,
++	0x18000080, 0xd3d940d6, 0x18000080, 0xd3d940d7, 0x18000080, 0xd3d940d8,
++	0x18000080, 0xd3d940d9, 0x18000080, 0xd3d940da, 0x18000080, 0xd3d940db,
++	0x18000080, 0xd3d940dc, 0x18000080, 0xd3d940dd, 0x18000080, 0xd3d940de,
++	0x18000080, 0xd3d940df, 0x18000080, 0xd3d940e0, 0x18000080, 0xd3d940e1,
++	0x18000080, 0xd3d940e2, 0x18000080, 0xd3d940e3, 0x18000080, 0xd3d940e4,
++	0x18000080, 0xd3d940e5, 0x18000080, 0xd3d940e6, 0x18000080, 0xd3d940e7,
++	0x18000080, 0xd3d940e8, 0x18000080, 0xd3d940e9, 0x18000080, 0xd3d940ea,
++	0x18000080, 0xd3d940eb, 0x18000080, 0xd3d940ec, 0x18000080, 0xd3d940ed,
++	0x18000080, 0xd3d940ee, 0x18000080, 0xd3d940ef, 0x18000080, 0xd3d940f0,
++	0x18000080, 0xd3d940f1, 0x18000080, 0xd3d940f2, 0x18000080, 0xd3d940f3,
++	0x18000080, 0xd3d940f4, 0x18000080, 0xd3d940f5, 0x18000080, 0xd3d940f6,
++	0x18000080, 0xd3d940f7, 0x18000080, 0xd3d940f8, 0x18000080, 0xd3d940f9,
++	0x18000080, 0xd3d940fa, 0x18000080, 0xd3d940fb, 0x18000080, 0xd3d940fc,
++	0x18000080, 0xd3d940fd, 0x18000080, 0xd3d940fe, 0x18000080, 0xd3d940ff,
++	0x18000080, 0xb07c0000, 0xbe8a00ff, 0x000000f8, 0xbf11080a, 0x7e000280,
++	0x7e020280, 0x7e040280, 0x7e060280, 0x7e080280, 0x7e0a0280, 0x7e0c0280,
++	0x7e0e0280, 0x808a880a, 0xbe80320a, 0xbf84fff5, 0xbf9c0000, 0xd28c0001,
++	0x0001007f, 0xd28d0001, 0x0002027e, 0x10020288, 0xbe8b0004, 0xb78b4000,
++	0xd1196a01, 0x00001701, 0xbe8a0087, 0xbefc00c1, 0xd89c4000, 0x00020201,
++	0xd89cc080, 0x00040401, 0x320202ff, 0x00000800, 0x808a810a, 0xbf84fff8,
++	0xbf810000,
+ };
  
- 	/* Enable 3D CGCG/CGLS */
--	if (enable && (adev->cg_flags & AMD_CG_SUPPORT_GFX_3D_CGCG)) {
-+	if (enable) {
-
-
-<> After entering the condition, you could just do an initial check here for if (adev->cg_flags & AMD_CG_SUPPORT_GFX_3D_CGCG) and return if the device doesn't support it. Otherwise proceed with the rest of register reads and setting appropriate values. Same for gfx v9 also.
-
-Thanks,
-Lijo
-
- 		/* write cmd to clear cgcg/cgls ov */
- 		def = data = RREG32_SOC15(GC, 0, mmRLC_CGTT_MGCG_OVERRIDE);
- 		/* unset CGCG override */
--		data &= ~RLC_CGTT_MGCG_OVERRIDE__GFXIP_GFX3D_CG_OVERRIDE_MASK;
-+		if (adev->cg_flags & AMD_CG_SUPPORT_GFX_3D_CGCG)
-+			data &= ~RLC_CGTT_MGCG_OVERRIDE__GFXIP_GFX3D_CG_OVERRIDE_MASK;
- 		/* update CGCG and CGLS override bits */
- 		if (def != data)
- 			WREG32_SOC15(GC, 0, mmRLC_CGTT_MGCG_OVERRIDE, data);
- 		/* enable 3Dcgcg FSM(0x0000363f) */
- 		def = RREG32_SOC15(GC, 0, mmRLC_CGCG_CGLS_CTRL_3D);
--		data = (0x36 << RLC_CGCG_CGLS_CTRL_3D__CGCG_GFX_IDLE_THRESHOLD__SHIFT) |
--			RLC_CGCG_CGLS_CTRL_3D__CGCG_EN_MASK;
-+		data = 0;
+ const struct soc15_reg_entry vgpr_init_regs_aldebaran[] = {
+@@ -220,24 +221,25 @@ static const u32 sgpr112_init_compute_shader_aldebaran[] = {
+ 	0x9209a805, 0x920a8a04, 0x81080908, 0x81080a08, 0x81080308, 0x8e078208,
+ 	0x81078407, 0xc0410080, 0x00000007, 0xbf8c0000, 0xbf8e003f, 0xc0030200,
+ 	0x00000000, 0xbf8c0000, 0xbf06ff08, 0xdeadbeaf, 0xbf84fff9, 0x81028102,
+-	0xc0410080, 0x00000007, 0xbf8c0000, 0xbefc0080, 0xbeea0080, 0xbeeb0080,
+-	0xbf00f280, 0xbee60080, 0xbee70080, 0xbee80080, 0xbee90080, 0xbefe0080,
+-	0xbeff0080, 0xbe880080, 0xbe890080, 0xbe8a0080, 0xbe8b0080, 0xbe8c0080,
+-	0xbe8d0080, 0xbe8e0080, 0xbe8f0080, 0xbe900080, 0xbe910080, 0xbe920080,
+-	0xbe930080, 0xbe940080, 0xbe950080, 0xbe960080, 0xbe970080, 0xbe980080,
+-	0xbe990080, 0xbe9a0080, 0xbe9b0080, 0xbe9c0080, 0xbe9d0080, 0xbe9e0080,
+-	0xbe9f0080, 0xbea00080, 0xbea10080, 0xbea20080, 0xbea30080, 0xbea40080,
+-	0xbea50080, 0xbea60080, 0xbea70080, 0xbea80080, 0xbea90080, 0xbeaa0080,
+-	0xbeab0080, 0xbeac0080, 0xbead0080, 0xbeae0080, 0xbeaf0080, 0xbeb00080,
+-	0xbeb10080, 0xbeb20080, 0xbeb30080, 0xbeb40080, 0xbeb50080, 0xbeb60080,
+-	0xbeb70080, 0xbeb80080, 0xbeb90080, 0xbeba0080, 0xbebb0080, 0xbebc0080,
+-	0xbebd0080, 0xbebe0080, 0xbebf0080, 0xbec00080, 0xbec10080, 0xbec20080,
+-	0xbec30080, 0xbec40080, 0xbec50080, 0xbec60080, 0xbec70080, 0xbec80080,
+-	0xbec90080, 0xbeca0080, 0xbecb0080, 0xbecc0080, 0xbecd0080, 0xbece0080,
+-	0xbecf0080, 0xbed00080, 0xbed10080, 0xbed20080, 0xbed30080, 0xbed40080,
+-	0xbed50080, 0xbed60080, 0xbed70080, 0xbed80080, 0xbed90080, 0xbeda0080,
+-	0xbedb0080, 0xbedc0080, 0xbedd0080, 0xbede0080, 0xbedf0080, 0xbee00080,
+-	0xbee10080, 0xbee20080, 0xbee30080, 0xbee40080, 0xbee50080, 0xbf810000,
++	0xc0410080, 0x00000007, 0xbf8c0000, 0xbf8a0000, 0xbefc0080, 0xbeea0080,
++	0xbeeb0080, 0xbf00f280, 0xbee60080, 0xbee70080, 0xbee80080, 0xbee90080,
++	0xbefe0080, 0xbeff0080, 0xbe880080, 0xbe890080, 0xbe8a0080, 0xbe8b0080,
++	0xbe8c0080, 0xbe8d0080, 0xbe8e0080, 0xbe8f0080, 0xbe900080, 0xbe910080,
++	0xbe920080, 0xbe930080, 0xbe940080, 0xbe950080, 0xbe960080, 0xbe970080,
++	0xbe980080, 0xbe990080, 0xbe9a0080, 0xbe9b0080, 0xbe9c0080, 0xbe9d0080,
++	0xbe9e0080, 0xbe9f0080, 0xbea00080, 0xbea10080, 0xbea20080, 0xbea30080,
++	0xbea40080, 0xbea50080, 0xbea60080, 0xbea70080, 0xbea80080, 0xbea90080,
++	0xbeaa0080, 0xbeab0080, 0xbeac0080, 0xbead0080, 0xbeae0080, 0xbeaf0080,
++	0xbeb00080, 0xbeb10080, 0xbeb20080, 0xbeb30080, 0xbeb40080, 0xbeb50080,
++	0xbeb60080, 0xbeb70080, 0xbeb80080, 0xbeb90080, 0xbeba0080, 0xbebb0080,
++	0xbebc0080, 0xbebd0080, 0xbebe0080, 0xbebf0080, 0xbec00080, 0xbec10080,
++	0xbec20080, 0xbec30080, 0xbec40080, 0xbec50080, 0xbec60080, 0xbec70080,
++	0xbec80080, 0xbec90080, 0xbeca0080, 0xbecb0080, 0xbecc0080, 0xbecd0080,
++	0xbece0080, 0xbecf0080, 0xbed00080, 0xbed10080, 0xbed20080, 0xbed30080,
++	0xbed40080, 0xbed50080, 0xbed60080, 0xbed70080, 0xbed80080, 0xbed90080,
++	0xbeda0080, 0xbedb0080, 0xbedc0080, 0xbedd0080, 0xbede0080, 0xbedf0080,
++	0xbee00080, 0xbee10080, 0xbee20080, 0xbee30080, 0xbee40080, 0xbee50080,
++	0xbf810000
+ };
+ 
+ const struct soc15_reg_entry sgpr112_init_regs_aldebaran[] = {
+@@ -263,22 +265,23 @@ static const u32 sgpr96_init_compute_shader_aldebaran[] = {
+ 	0x9209a805, 0x920a8a04, 0x81080908, 0x81080a08, 0x81080308, 0x8e078208,
+ 	0x81078407, 0xc0410080, 0x00000007, 0xbf8c0000, 0xbf8e003f, 0xc0030200,
+ 	0x00000000, 0xbf8c0000, 0xbf06ff08, 0xdeadbeaf, 0xbf84fff9, 0x81028102,
+-	0xc0410080, 0x00000007, 0xbf8c0000, 0xbefc0080, 0xbeea0080, 0xbeeb0080,
+-	0xbf00f280, 0xbee60080, 0xbee70080, 0xbee80080, 0xbee90080, 0xbefe0080,
+-	0xbeff0080, 0xbe880080, 0xbe890080, 0xbe8a0080, 0xbe8b0080, 0xbe8c0080,
+-	0xbe8d0080, 0xbe8e0080, 0xbe8f0080, 0xbe900080, 0xbe910080, 0xbe920080,
+-	0xbe930080, 0xbe940080, 0xbe950080, 0xbe960080, 0xbe970080, 0xbe980080,
+-	0xbe990080, 0xbe9a0080, 0xbe9b0080, 0xbe9c0080, 0xbe9d0080, 0xbe9e0080,
+-	0xbe9f0080, 0xbea00080, 0xbea10080, 0xbea20080, 0xbea30080, 0xbea40080,
+-	0xbea50080, 0xbea60080, 0xbea70080, 0xbea80080, 0xbea90080, 0xbeaa0080,
+-	0xbeab0080, 0xbeac0080, 0xbead0080, 0xbeae0080, 0xbeaf0080, 0xbeb00080,
+-	0xbeb10080, 0xbeb20080, 0xbeb30080, 0xbeb40080, 0xbeb50080, 0xbeb60080,
+-	0xbeb70080, 0xbeb80080, 0xbeb90080, 0xbeba0080, 0xbebb0080, 0xbebc0080,
+-	0xbebd0080, 0xbebe0080, 0xbebf0080, 0xbec00080, 0xbec10080, 0xbec20080,
+-	0xbec30080, 0xbec40080, 0xbec50080, 0xbec60080, 0xbec70080, 0xbec80080,
+-	0xbec90080, 0xbeca0080, 0xbecb0080, 0xbecc0080, 0xbecd0080, 0xbece0080,
+-	0xbecf0080, 0xbed00080, 0xbed10080, 0xbed20080, 0xbed30080, 0xbed40080,
+-	0xbed50080, 0xbed60080, 0xbed70080, 0xbed80080, 0xbed90080, 0xbf810000,
++	0xc0410080, 0x00000007, 0xbf8c0000, 0xbf8a0000, 0xbefc0080, 0xbeea0080,
++	0xbeeb0080, 0xbf00f280, 0xbee60080, 0xbee70080, 0xbee80080, 0xbee90080,
++	0xbefe0080, 0xbeff0080, 0xbe880080, 0xbe890080, 0xbe8a0080, 0xbe8b0080,
++	0xbe8c0080, 0xbe8d0080, 0xbe8e0080, 0xbe8f0080, 0xbe900080, 0xbe910080,
++	0xbe920080, 0xbe930080, 0xbe940080, 0xbe950080, 0xbe960080, 0xbe970080,
++	0xbe980080, 0xbe990080, 0xbe9a0080, 0xbe9b0080, 0xbe9c0080, 0xbe9d0080,
++	0xbe9e0080, 0xbe9f0080, 0xbea00080, 0xbea10080, 0xbea20080, 0xbea30080,
++	0xbea40080, 0xbea50080, 0xbea60080, 0xbea70080, 0xbea80080, 0xbea90080,
++	0xbeaa0080, 0xbeab0080, 0xbeac0080, 0xbead0080, 0xbeae0080, 0xbeaf0080,
++	0xbeb00080, 0xbeb10080, 0xbeb20080, 0xbeb30080, 0xbeb40080, 0xbeb50080,
++	0xbeb60080, 0xbeb70080, 0xbeb80080, 0xbeb90080, 0xbeba0080, 0xbebb0080,
++	0xbebc0080, 0xbebd0080, 0xbebe0080, 0xbebf0080, 0xbec00080, 0xbec10080,
++	0xbec20080, 0xbec30080, 0xbec40080, 0xbec50080, 0xbec60080, 0xbec70080,
++	0xbec80080, 0xbec90080, 0xbeca0080, 0xbecb0080, 0xbecc0080, 0xbecd0080,
++	0xbece0080, 0xbecf0080, 0xbed00080, 0xbed10080, 0xbed20080, 0xbed30080,
++	0xbed40080, 0xbed50080, 0xbed60080, 0xbed70080, 0xbed80080, 0xbed90080,
++	0xbf810000,
+ };
+ 
+ const struct soc15_reg_entry sgpr96_init_regs_aldebaran[] = {
+@@ -307,7 +310,9 @@ const struct soc15_reg_entry sgpr96_init_regs_aldebaran[] = {
+ static const u32 sgpr64_init_compute_shader_aldebaran[] = {
+ 	0xb8840904, 0xb8851a04, 0xb8861344, 0xb8831804, 0x9208ff06, 0x00000280,
+ 	0x9209a805, 0x920a8a04, 0x81080908, 0x81080a08, 0x81080308, 0x8e078208,
+-	0x81078407, 0xc0410080, 0x00000007, 0xbf8c0000, 0xbefc0080, 0xbeea0080,
++	0x81078407, 0xc0410080, 0x00000007, 0xbf8c0000, 0xbf8e003f, 0xc0030200,
++	0x00000000, 0xbf8c0000, 0xbf06ff08, 0xdeadbeaf, 0xbf84fff9, 0x81028102,
++	0xc0410080, 0x00000007, 0xbf8c0000, 0xbf8a0000, 0xbefc0080, 0xbeea0080,
+ 	0xbeeb0080, 0xbf00f280, 0xbee60080, 0xbee70080, 0xbee80080, 0xbee90080,
+ 	0xbefe0080, 0xbeff0080, 0xbe880080, 0xbe890080, 0xbe8a0080, 0xbe8b0080,
+ 	0xbe8c0080, 0xbe8d0080, 0xbe8e0080, 0xbe8f0080, 0xbe900080, 0xbe910080,
+@@ -586,19 +591,22 @@ static int gfx_v9_4_2_do_sgprs_init(struct amdgpu_device *adev)
+ 		goto disp1_failed;
+ 	}
+ 
+-	r = dma_fence_wait(fences[2], false);
+-	if (r) {
+-		dev_err(adev->dev, "timeout to clear first 256 sgprs\n");
+-		goto disp2_failed;
+-	}
+-
+ 	r = gfx_v9_4_2_wait_for_waves_assigned(adev,
+ 			&wb_ib.ptr[1], 0b1111,
+ 			pattern[2],
+ 			adev->gfx.cu_info.number * SIMD_ID_MAX * 4,
+-			false);
++			true);
+ 	if (r) {
+ 		dev_err(adev->dev, "wave coverage failed when clear first 256 sgprs\n");
++		wb_ib.ptr[0] = 0xdeadbeaf; /* stop waves */
++		goto disp2_failed;
++	}
 +
-+		if (adev->cg_flags & AMD_CG_SUPPORT_GFX_3D_CGCG)
-+			data |= (0x36 << RLC_CGCG_CGLS_CTRL_3D__CGCG_GFX_IDLE_THRESHOLD__SHIFT) |
-+				RLC_CGCG_CGLS_CTRL_3D__CGCG_EN_MASK;
- 		if (adev->cg_flags & AMD_CG_SUPPORT_GFX_3D_CGLS)
- 			data |= (0x000F << RLC_CGCG_CGLS_CTRL_3D__CGLS_REP_COMPANSAT_DELAY__SHIFT) |
- 				RLC_CGCG_CGLS_CTRL_3D__CGLS_EN_MASK;
-@@ -7758,10 +7762,11 @@ static void gfx_v10_0_update_coarse_grain_clock_gating(struct amdgpu_device *ade  {
- 	uint32_t def, data;
- 
--	if (enable && (adev->cg_flags & AMD_CG_SUPPORT_GFX_CGCG)) {
-+	if (enable) {
- 		def = data = RREG32_SOC15(GC, 0, mmRLC_CGTT_MGCG_OVERRIDE);
- 		/* unset CGCG override */
--		data &= ~RLC_CGTT_MGCG_OVERRIDE__GFXIP_CGCG_OVERRIDE_MASK;
-+		if (adev->cg_flags & AMD_CG_SUPPORT_GFX_CGCG)
-+			data &= ~RLC_CGTT_MGCG_OVERRIDE__GFXIP_CGCG_OVERRIDE_MASK;
- 		if (adev->cg_flags & AMD_CG_SUPPORT_GFX_CGLS)
- 			data &= ~RLC_CGTT_MGCG_OVERRIDE__GFXIP_CGLS_OVERRIDE_MASK;
- 		else
-@@ -7772,8 +7777,11 @@ static void gfx_v10_0_update_coarse_grain_clock_gating(struct amdgpu_device *ade
- 
- 		/* enable cgcg FSM(0x0000363F) */
- 		def = RREG32_SOC15(GC, 0, mmRLC_CGCG_CGLS_CTRL);
--		data = (0x36 << RLC_CGCG_CGLS_CTRL__CGCG_GFX_IDLE_THRESHOLD__SHIFT) |
--			RLC_CGCG_CGLS_CTRL__CGCG_EN_MASK;
-+		data = 0;
++	wb_ib.ptr[0] = 0xdeadbeaf; /* stop waves */
 +
-+		if (adev->cg_flags & AMD_CG_SUPPORT_GFX_CGCG)
-+			data |= (0x36 << RLC_CGCG_CGLS_CTRL__CGCG_GFX_IDLE_THRESHOLD__SHIFT) |
-+				RLC_CGCG_CGLS_CTRL__CGCG_EN_MASK;
- 		if (adev->cg_flags & AMD_CG_SUPPORT_GFX_CGLS)
- 			data |= (0x000F << RLC_CGCG_CGLS_CTRL__CGLS_REP_COMPANSAT_DELAY__SHIFT) |
- 				RLC_CGCG_CGLS_CTRL__CGLS_EN_MASK;
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index 16a3b279a9ef..f69129097f2e 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -4946,20 +4946,23 @@ static void gfx_v9_0_update_3d_clock_gating(struct amdgpu_device *adev,
- 	amdgpu_gfx_rlc_enter_safe_mode(adev);
++	r = dma_fence_wait(fences[2], false);
++	if (r) {
++		dev_err(adev->dev, "timeout to clear first 256 sgprs\n");
+ 		goto disp2_failed;
+ 	}
  
- 	/* Enable 3D CGCG/CGLS */
--	if (enable && (adev->cg_flags & AMD_CG_SUPPORT_GFX_3D_CGCG)) {
-+	if (enable) {
- 		/* write cmd to clear cgcg/cgls ov */
- 		def = data = RREG32_SOC15(GC, 0, mmRLC_CGTT_MGCG_OVERRIDE);
- 		/* unset CGCG override */
--		data &= ~RLC_CGTT_MGCG_OVERRIDE__GFXIP_GFX3D_CG_OVERRIDE_MASK;
-+		if (adev->cg_flags & AMD_CG_SUPPORT_GFX_3D_CGCG)
-+			data &= ~RLC_CGTT_MGCG_OVERRIDE__GFXIP_GFX3D_CG_OVERRIDE_MASK;
- 		/* update CGCG and CGLS override bits */
- 		if (def != data)
- 			WREG32_SOC15(GC, 0, mmRLC_CGTT_MGCG_OVERRIDE, data);
- 
- 		/* enable 3Dcgcg FSM(0x0000363f) */
- 		def = RREG32_SOC15(GC, 0, mmRLC_CGCG_CGLS_CTRL_3D);
-+		data = 0;
- 
--		data = (0x36 << RLC_CGCG_CGLS_CTRL_3D__CGCG_GFX_IDLE_THRESHOLD__SHIFT) |
--			RLC_CGCG_CGLS_CTRL_3D__CGCG_EN_MASK;
-+		if (adev->cg_flags & AMD_CG_SUPPORT_GFX_3D_CGCG)
-+			data |= (0x36 << RLC_CGCG_CGLS_CTRL_3D__CGCG_GFX_IDLE_THRESHOLD__SHIFT) |
-+				RLC_CGCG_CGLS_CTRL_3D__CGCG_EN_MASK;
- 		if (adev->cg_flags & AMD_CG_SUPPORT_GFX_3D_CGLS)
- 			data |= (0x000F << RLC_CGCG_CGLS_CTRL_3D__CGLS_REP_COMPANSAT_DELAY__SHIFT) |
- 				RLC_CGCG_CGLS_CTRL_3D__CGLS_EN_MASK;
-@@ -4993,10 +4996,12 @@ static void gfx_v9_0_update_coarse_grain_clock_gating(struct amdgpu_device *adev
- 
- 	amdgpu_gfx_rlc_enter_safe_mode(adev);
- 
--	if (enable && (adev->cg_flags & AMD_CG_SUPPORT_GFX_CGCG)) {
-+	if (enable) {
- 		def = data = RREG32_SOC15(GC, 0, mmRLC_CGTT_MGCG_OVERRIDE);
- 		/* unset CGCG override */
--		data &= ~RLC_CGTT_MGCG_OVERRIDE__GFXIP_CGCG_OVERRIDE_MASK;
-+		if (adev->cg_flags & AMD_CG_SUPPORT_GFX_CGCG)
-+			data &= ~RLC_CGTT_MGCG_OVERRIDE__GFXIP_CGCG_OVERRIDE_MASK;
-+
- 		if (adev->cg_flags & AMD_CG_SUPPORT_GFX_CGLS)
- 			data &= ~RLC_CGTT_MGCG_OVERRIDE__GFXIP_CGLS_OVERRIDE_MASK;
- 		else
-@@ -5007,13 +5012,17 @@ static void gfx_v9_0_update_coarse_grain_clock_gating(struct amdgpu_device *adev
- 
- 		/* enable cgcg FSM(0x0000363F) */
- 		def = RREG32_SOC15(GC, 0, mmRLC_CGCG_CGLS_CTRL);
-+		data = 0;
-+
-+		if (adev->cg_flags & AMD_CG_SUPPORT_GFX_CGCG) {
-+			if (adev->asic_type == CHIP_ARCTURUS)
-+				data |= (0x2000 << RLC_CGCG_CGLS_CTRL__CGCG_GFX_IDLE_THRESHOLD__SHIFT) |
-+					RLC_CGCG_CGLS_CTRL__CGCG_EN_MASK;
-+			else
-+				data |= (0x36 << RLC_CGCG_CGLS_CTRL__CGCG_GFX_IDLE_THRESHOLD__SHIFT) |
-+					RLC_CGCG_CGLS_CTRL__CGCG_EN_MASK;
-+		}
- 
--		if (adev->asic_type == CHIP_ARCTURUS)
--			data = (0x2000 << RLC_CGCG_CGLS_CTRL__CGCG_GFX_IDLE_THRESHOLD__SHIFT) |
--				RLC_CGCG_CGLS_CTRL__CGCG_EN_MASK;
--		else
--			data = (0x36 << RLC_CGCG_CGLS_CTRL__CGCG_GFX_IDLE_THRESHOLD__SHIFT) |
--				RLC_CGCG_CGLS_CTRL__CGCG_EN_MASK;
- 		if (adev->cg_flags & AMD_CG_SUPPORT_GFX_CGLS)
- 			data |= (0x000F << RLC_CGCG_CGLS_CTRL__CGLS_REP_COMPANSAT_DELAY__SHIFT) |
- 				RLC_CGCG_CGLS_CTRL__CGLS_EN_MASK;
---
+-- 
 2.17.1
 
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7Clijo.lazar%40amd.com%7C0d0e57085ff44a4914bb08d90ad55422%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637552733630465511%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=BnixrZvT2gl96b0fkNX%2FXkgU1bWoWSTHXQgI2BMs%2FUk%3D&amp;reserved=0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
