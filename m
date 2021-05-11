@@ -8,71 +8,70 @@ X-Spam-Status: No, score=-12.1 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0F099C433B4
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 May 2021 06:41:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8D4AFC433B4
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 May 2021 06:44:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C67276161F
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 May 2021 06:41:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C67276161F
+	by mail.kernel.org (Postfix) with ESMTPS id 2E2CD610FA
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 May 2021 06:44:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2E2CD610FA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 711756E9CA;
-	Tue, 11 May 2021 06:41:16 +0000 (UTC)
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [IPv6:2a00:1450:4864:20::62e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D8736E9C9;
- Tue, 11 May 2021 06:41:15 +0000 (UTC)
-Received: by mail-ej1-x62e.google.com with SMTP id j10so1040880ejb.3;
- Mon, 10 May 2021 23:41:14 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C92336E9C9;
+	Tue, 11 May 2021 06:44:17 +0000 (UTC)
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [IPv6:2a00:1450:4864:20::531])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE66B6E9C9;
+ Tue, 11 May 2021 06:44:16 +0000 (UTC)
+Received: by mail-ed1-x531.google.com with SMTP id c22so21515697edn.7;
+ Mon, 10 May 2021 23:44:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=SqLXrgHTQKBQUkfoeKxW1AiDv/6zlWyzUyAbUcsN3tw=;
- b=Pah/bTVct0bvjJWThdhhqzCCsfI1OeUc8dymCWXSrQzjaNKvThhwHRlebtDk/Lj6O8
- 4CU8Jo2EUWxsi5lMXoTZgYkJhX4fgs0KwZJTygDa8INJohDpuH4yMNKEbxc8z0z2hU4W
- 6c4W4xk2pW0gQIyjyys/dx1StxuSxqiHYdZVDB8PF9xhZyxwk3nWQm7ewp6OwGXxK9y2
- Hx4BaEZCav+oLJb8JPHfHrP5rx+XlYvfz6TR9G5XLe1ivN1VTtL6NkZZ5yZQ8ZYVkAQT
- bSt+T3p42SZaHcPqAficG0Zk8OdEw0VurdtFpQebgMa9sGh8kA7ZUjq+3aYq+qvvL8qC
- lLwA==
+ bh=EjGFTDi2E6QAktR52Oi81JrStSsiVRqJYuc2OahOedw=;
+ b=JNAnLRvKnXdpxhGrOhRYGL2hHp656pZ2w66UNuV2LOipjGr+5mP41VfKO0zfy8eXpq
+ b4jV/n2NJLZomOUfzuOrGmDkkB1beeOixZdCFCz6qLLdS8FqZ7AtNFWavzP9nX1DbTpf
+ +UMO9B+Aq8VevnK75X8ha0sF8iwrv2/nqqv4GRDPli8cZw9a8i4cwxUtBm4AHgttL/XS
+ PzFrthITiBDZhVMv4m2OyyJDkB8H693GPS4z3lsEW/t59c9vV28ude0YtDY4V8XFgF91
+ 5jixUwXLnnenk9S4F78CqTjdtvaVg29VJJL7Xh2S2/MOq8JHnKr8Q0TAMuyHgE18QO8U
+ y2fg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-transfer-encoding
  :content-language;
- bh=SqLXrgHTQKBQUkfoeKxW1AiDv/6zlWyzUyAbUcsN3tw=;
- b=te3PpOk4S0nhnTAiJSOg2KP9KC6Mt2PCLTYa0PpKg+/RtViUtWN8WxxeBCcvy2Lq1r
- YTSykFUnKKDt0eAztUKfeOKzP6le+ErR43zRgapeDF1Iiw0skRtr7nRMxeeEqgeyCbx+
- hleNAC3zoY/zydnjCT+muENT1WBVYk1YaEobCw9PZPDgmhAN9vC731mTeFxScV0VDBl0
- WznkFVS8KOTKkSkHGkN1YVXgbLSq/8QVoQBKaMbvxbpV6iP9AtHQlUSPBSarjN7/P+X5
- Rx4jqbz2f/o3+xqSglugjqVIy3+odhslI/L0rrx2m7SUE63PtKsPLozPGxs2SDAja+II
- mPKg==
-X-Gm-Message-State: AOAM531dEW68DqQrvP7nAv+vDsTcSytnjvJ6Tf9gBuDjRVbOJRcq8e2c
- EOzqhJkzrX0UbnoHGxVl+ko=
-X-Google-Smtp-Source: ABdhPJzytkJeXeUuFfVIxHq6hZAnJnsfPWfhCjBdK1Vy11j3f9/y8e/dwXxm+TnFv1rn/GuPREtJlQ==
-X-Received: by 2002:a17:906:2854:: with SMTP id
- s20mr2862323ejc.335.1620715273680; 
- Mon, 10 May 2021 23:41:13 -0700 (PDT)
+ bh=EjGFTDi2E6QAktR52Oi81JrStSsiVRqJYuc2OahOedw=;
+ b=DiCx80J89SzKQRPUUt4tsS+7jtzJ1UMg6lTeiFVsa4JlYeQ35w0xr+dtlZA8BKtYJ0
+ ZHgMqtIlkJ3yS/V5KaJMXyesbo1ldl7NWVd5q+5gyZobtYKMsvObAwEFqvxQ+zl22wr9
+ c6XTC+LOw21ic/CkwAS/TGJnaAIlSk3CPkiLBt+mzz11OzfqHekPH4QeRBI2vtPS9PIW
+ gmoQxBMG0s/LJFtSwb7k+wZBsazVw3wv1g61aLtFHWVdczlFQ0qSoy2jdNWq0LOyn95n
+ eBCtdsSQ8X9LoPYONfkHOCoYxd8rF4dmSCec/lWrhXjF8PfkClsPp0+Y939Le7bm4JRk
+ gpAA==
+X-Gm-Message-State: AOAM530la5J7fPp98IjPXpi1YlRPth2vwq45TKorf04VZfyqJJyTmstP
+ +Lt+K4NlXnl8wXN3SB40mbU=
+X-Google-Smtp-Source: ABdhPJyhdTWSVirGUhoMnOMV2CCtbk93+keU6unscGaW/NIZYhbqBFpgD1rIOQ0EqqJjl4Kf95QmUg==
+X-Received: by 2002:aa7:cf8d:: with SMTP id z13mr34621718edx.104.1620715455607; 
+ Mon, 10 May 2021 23:44:15 -0700 (PDT)
 Received: from ?IPv6:2a02:908:1252:fb60:c3ab:ee01:d547:2c4e?
  ([2a02:908:1252:fb60:c3ab:ee01:d547:2c4e])
- by smtp.gmail.com with ESMTPSA id t7sm13623349eds.26.2021.05.10.23.41.12
+ by smtp.gmail.com with ESMTPSA id p13sm10604117ejr.87.2021.05.10.23.44.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 May 2021 23:41:13 -0700 (PDT)
-Subject: Re: [PATCH v6 05/16] drm/amdgpu: Add early fini callback
+ Mon, 10 May 2021 23:44:15 -0700 (PDT)
+Subject: Re: [PATCH v6 06/16] drm/amdgpu: Handle IOMMU enabled case.
 To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  linux-pci@vger.kernel.org, daniel.vetter@ffwll.ch, Harry.Wentland@amd.com
 References: <20210510163625.407105-1-andrey.grodzovsky@amd.com>
- <20210510163625.407105-6-andrey.grodzovsky@amd.com>
+ <20210510163625.407105-7-andrey.grodzovsky@amd.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <0fcb6729-1cf1-69f9-ac63-0e9764933e63@gmail.com>
-Date: Tue, 11 May 2021 08:41:12 +0200
+Message-ID: <2debf57e-e775-8e47-6862-489bada7701c@gmail.com>
+Date: Tue, 11 May 2021 08:44:14 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.8.1
 MIME-Version: 1.0
-In-Reply-To: <20210510163625.407105-6-andrey.grodzovsky@amd.com>
+In-Reply-To: <20210510163625.407105-7-andrey.grodzovsky@amd.com>
 Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,118 +86,213 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Alexander.Deucher@amd.com, gregkh@linuxfoundation.org, ppaalanen@gmail.com,
  helgaas@kernel.org, Felix.Kuehling@amd.com
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QW0gMTAuMDUuMjEgdW0gMTg6MzYgc2NocmllYiBBbmRyZXkgR3JvZHpvdnNreToKPiBVc2UgaXQg
-dG8gY2FsbCBkaXNwbHkgY29kZSBkZXBlbmRlbnQgb24gZGV2aWNlLT5kcnZfZGF0YQo+IGJlZm9y
-ZSBpdCdzIHNldCB0byBOVUxMIG9uIGRldmljZSB1bnBsdWcKPgo+IHY1OiBNb3ZlIEhXIGZpbmls
-aXphdGlvbiBpbnRvIHRoaXMgY2FsbGJhY2sgdG8gcHJldmVudCBNTUlPIGFjY2Vzc2VzCj4gICAg
-ICBwb3N0IGNwaSByZW1vdmUuCj4KPiBTaWduZWQtb2ZmLWJ5OiBBbmRyZXkgR3JvZHpvdnNreSA8
-YW5kcmV5Lmdyb2R6b3Zza3lAYW1kLmNvbT4KCkFja2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxj
-aHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X2RldmljZS5jICAgIHwgNTkgKysrKysrKysrKysrKy0tLS0tLQo+ICAgLi4u
-L2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIHwgMTIgKysrLQo+ICAg
-ZHJpdmVycy9ncHUvZHJtL2FtZC9pbmNsdWRlL2FtZF9zaGFyZWQuaCAgICAgIHwgIDIgKwo+ICAg
-MyBmaWxlcyBjaGFuZ2VkLCA1MiBpbnNlcnRpb25zKCspLCAyMSBkZWxldGlvbnMoLSkKPgo+IGRp
-ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKPiBpbmRleCAzNzYwY2U3
-ZDhmZjguLjE4NTk4ZWRhMThmNiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfZGV2aWNlLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfZGV2aWNlLmMKPiBAQCAtMjU1OCwzNCArMjU1OCwyNiBAQCBzdGF0aWMgaW50IGFtZGdw
-dV9kZXZpY2VfaXBfbGF0ZV9pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+ICAgCXJl
-dHVybiAwOwo+ICAgfQo+ICAgCj4gLS8qKgo+IC0gKiBhbWRncHVfZGV2aWNlX2lwX2ZpbmkgLSBy
-dW4gZmluaSBmb3IgaGFyZHdhcmUgSVBzCj4gLSAqCj4gLSAqIEBhZGV2OiBhbWRncHVfZGV2aWNl
-IHBvaW50ZXIKPiAtICoKPiAtICogTWFpbiB0ZWFyZG93biBwYXNzIGZvciBoYXJkd2FyZSBJUHMu
-ICBUaGUgbGlzdCBvZiBhbGwgdGhlIGhhcmR3YXJlCj4gLSAqIElQcyB0aGF0IG1ha2UgdXAgdGhl
-IGFzaWMgaXMgd2Fsa2VkIGFuZCB0aGUgaHdfZmluaSBhbmQgc3dfZmluaSBjYWxsYmFja3MKPiAt
-ICogYXJlIHJ1bi4gIGh3X2ZpbmkgdGVhcnMgZG93biB0aGUgaGFyZHdhcmUgYXNzb2NpYXRlZCB3
-aXRoIGVhY2ggSVAKPiAtICogYW5kIHN3X2ZpbmkgdGVhcnMgZG93biBhbnkgc29mdHdhcmUgc3Rh
-dGUgYXNzb2NpYXRlZCB3aXRoIGVhY2ggSVAuCj4gLSAqIFJldHVybnMgMCBvbiBzdWNjZXNzLCBu
-ZWdhdGl2ZSBlcnJvciBjb2RlIG9uIGZhaWx1cmUuCj4gLSAqLwo+IC1zdGF0aWMgaW50IGFtZGdw
-dV9kZXZpY2VfaXBfZmluaShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiArc3RhdGljIGlu
-dCBhbWRncHVfZGV2aWNlX2lwX2ZpbmlfZWFybHkoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYp
-Cj4gICB7Cj4gICAJaW50IGksIHI7Cj4gICAKPiAtCWlmIChhbWRncHVfc3Jpb3ZfdmYoYWRldikg
-JiYgYWRldi0+dmlydC5yYXNfaW5pdF9kb25lKQo+IC0JCWFtZGdwdV92aXJ0X3JlbGVhc2VfcmFz
-X2Vycl9oYW5kbGVyX2RhdGEoYWRldik7Cj4gKwlmb3IgKGkgPSAwOyBpIDwgYWRldi0+bnVtX2lw
-X2Jsb2NrczsgaSsrKSB7Cj4gKwkJaWYgKCFhZGV2LT5pcF9ibG9ja3NbaV0udmVyc2lvbi0+ZnVu
-Y3MtPmVhcmx5X2ZpbmkpCj4gKwkJCWNvbnRpbnVlOwo+ICAgCj4gLQlhbWRncHVfcmFzX3ByZV9m
-aW5pKGFkZXYpOwo+ICsJCXIgPSBhZGV2LT5pcF9ibG9ja3NbaV0udmVyc2lvbi0+ZnVuY3MtPmVh
-cmx5X2ZpbmkoKHZvaWQgKilhZGV2KTsKPiArCQlpZiAocikgewo+ICsJCQlEUk1fREVCVUcoImVh
-cmx5X2Zpbmkgb2YgSVAgYmxvY2sgPCVzPiBmYWlsZWQgJWRcbiIsCj4gKwkJCQkgIGFkZXYtPmlw
-X2Jsb2Nrc1tpXS52ZXJzaW9uLT5mdW5jcy0+bmFtZSwgcik7Cj4gKwkJfQo+ICsJfQo+ICAgCj4g
-LQlpZiAoYWRldi0+Z21jLnhnbWkubnVtX3BoeXNpY2FsX25vZGVzID4gMSkKPiAtCQlhbWRncHVf
-eGdtaV9yZW1vdmVfZGV2aWNlKGFkZXYpOwo+ICsJYW1kZ3B1X2FtZGtmZF9zdXNwZW5kKGFkZXYs
-IGZhbHNlKTsKPiAgIAo+ICAgCWFtZGdwdV9kZXZpY2Vfc2V0X3BnX3N0YXRlKGFkZXYsIEFNRF9Q
-R19TVEFURV9VTkdBVEUpOwo+ICAgCWFtZGdwdV9kZXZpY2Vfc2V0X2NnX3N0YXRlKGFkZXYsIEFN
-RF9DR19TVEFURV9VTkdBVEUpOwo+ICAgCj4gLQlhbWRncHVfYW1ka2ZkX2RldmljZV9maW5pKGFk
-ZXYpOwo+IC0KPiAgIAkvKiBuZWVkIHRvIGRpc2FibGUgU01DIGZpcnN0ICovCj4gICAJZm9yIChp
-ID0gMDsgaSA8IGFkZXYtPm51bV9pcF9ibG9ja3M7IGkrKykgewo+ICAgCQlpZiAoIWFkZXYtPmlw
-X2Jsb2Nrc1tpXS5zdGF0dXMuaHcpCj4gQEAgLTI2MTYsNiArMjYwOCwzMyBAQCBzdGF0aWMgaW50
-IGFtZGdwdV9kZXZpY2VfaXBfZmluaShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiAgIAkJ
-YWRldi0+aXBfYmxvY2tzW2ldLnN0YXR1cy5odyA9IGZhbHNlOwo+ICAgCX0KPiAgIAo+ICsJcmV0
-dXJuIDA7Cj4gK30KPiArCj4gKy8qKgo+ICsgKiBhbWRncHVfZGV2aWNlX2lwX2ZpbmkgLSBydW4g
-ZmluaSBmb3IgaGFyZHdhcmUgSVBzCj4gKyAqCj4gKyAqIEBhZGV2OiBhbWRncHVfZGV2aWNlIHBv
-aW50ZXIKPiArICoKPiArICogTWFpbiB0ZWFyZG93biBwYXNzIGZvciBoYXJkd2FyZSBJUHMuICBU
-aGUgbGlzdCBvZiBhbGwgdGhlIGhhcmR3YXJlCj4gKyAqIElQcyB0aGF0IG1ha2UgdXAgdGhlIGFz
-aWMgaXMgd2Fsa2VkIGFuZCB0aGUgaHdfZmluaSBhbmQgc3dfZmluaSBjYWxsYmFja3MKPiArICog
-YXJlIHJ1bi4gIGh3X2ZpbmkgdGVhcnMgZG93biB0aGUgaGFyZHdhcmUgYXNzb2NpYXRlZCB3aXRo
-IGVhY2ggSVAKPiArICogYW5kIHN3X2ZpbmkgdGVhcnMgZG93biBhbnkgc29mdHdhcmUgc3RhdGUg
-YXNzb2NpYXRlZCB3aXRoIGVhY2ggSVAuCj4gKyAqIFJldHVybnMgMCBvbiBzdWNjZXNzLCBuZWdh
-dGl2ZSBlcnJvciBjb2RlIG9uIGZhaWx1cmUuCj4gKyAqLwo+ICtzdGF0aWMgaW50IGFtZGdwdV9k
-ZXZpY2VfaXBfZmluaShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiArewo+ICsJaW50IGks
-IHI7Cj4gKwo+ICsJaWYgKGFtZGdwdV9zcmlvdl92ZihhZGV2KSAmJiBhZGV2LT52aXJ0LnJhc19p
-bml0X2RvbmUpCj4gKwkJYW1kZ3B1X3ZpcnRfcmVsZWFzZV9yYXNfZXJyX2hhbmRsZXJfZGF0YShh
-ZGV2KTsKPiArCj4gKwlhbWRncHVfcmFzX3ByZV9maW5pKGFkZXYpOwo+ICsKPiArCWlmIChhZGV2
-LT5nbWMueGdtaS5udW1fcGh5c2ljYWxfbm9kZXMgPiAxKQo+ICsJCWFtZGdwdV94Z21pX3JlbW92
-ZV9kZXZpY2UoYWRldik7Cj4gKwo+ICsJYW1kZ3B1X2FtZGtmZF9kZXZpY2VfZmluaV9zdyhhZGV2
-KTsKPiAgIAo+ICAgCWZvciAoaSA9IGFkZXYtPm51bV9pcF9ibG9ja3MgLSAxOyBpID49IDA7IGkt
-LSkgewo+ICAgCQlpZiAoIWFkZXYtPmlwX2Jsb2Nrc1tpXS5zdGF0dXMuc3cpCj4gQEAgLTM2ODMs
-NiArMzcwMiw4IEBAIHZvaWQgYW1kZ3B1X2RldmljZV9maW5pX2h3KHN0cnVjdCBhbWRncHVfZGV2
-aWNlICphZGV2KQo+ICAgCWFtZGdwdV9mYmRldl9maW5pKGFkZXYpOwo+ICAgCj4gICAJYW1kZ3B1
-X2lycV9maW5pX2h3KGFkZXYpOwo+ICsKPiArCWFtZGdwdV9kZXZpY2VfaXBfZmluaV9lYXJseShh
-ZGV2KTsKPiAgIH0KPiAgIAo+ICAgdm9pZCBhbWRncHVfZGV2aWNlX2Zpbmlfc3coc3RydWN0IGFt
-ZGdwdV9kZXZpY2UgKmFkZXYpCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlz
-cGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkv
-YW1kZ3B1X2RtL2FtZGdwdV9kbS5jCj4gaW5kZXggMjk2NzA0Y2UzNzY4Li42YzJjNmE1MWNlNmMg
-MTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRn
-cHVfZG0uYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1k
-Z3B1X2RtLmMKPiBAQCAtMTI1MSw2ICsxMjUxLDE1IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2RtX2lu
-aXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4gICAJcmV0dXJuIC1FSU5WQUw7Cj4gICB9
-Cj4gICAKPiArc3RhdGljIGludCBhbWRncHVfZG1fZWFybHlfZmluaSh2b2lkICpoYW5kbGUpCj4g
-K3sKPiArCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gKHN0cnVjdCBhbWRncHVfZGV2aWNl
-ICopaGFuZGxlOwo+ICsKPiArCWFtZGdwdV9kbV9hdWRpb19maW5pKGFkZXYpOwo+ICsKPiArCXJl
-dHVybiAwOwo+ICt9Cj4gKwo+ICAgc3RhdGljIHZvaWQgYW1kZ3B1X2RtX2Zpbmkoc3RydWN0IGFt
-ZGdwdV9kZXZpY2UgKmFkZXYpCj4gICB7Cj4gICAJaW50IGk7Cj4gQEAgLTEyNTksOCArMTI2OCw2
-IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV9kbV9maW5pKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
-KQo+ICAgCQlkcm1fZW5jb2Rlcl9jbGVhbnVwKCZhZGV2LT5kbS5tc3RfZW5jb2RlcnNbaV0uYmFz
-ZSk7Cj4gICAJfQo+ICAgCj4gLQlhbWRncHVfZG1fYXVkaW9fZmluaShhZGV2KTsKPiAtCj4gICAJ
-YW1kZ3B1X2RtX2Rlc3Ryb3lfZHJtX2RldmljZSgmYWRldi0+ZG0pOwo+ICAgCj4gICAjaWYgZGVm
-aW5lZChDT05GSUdfRFJNX0FNRF9TRUNVUkVfRElTUExBWSkKPiBAQCAtMjI5OCw2ICsyMzA1LDcg
-QEAgc3RhdGljIGNvbnN0IHN0cnVjdCBhbWRfaXBfZnVuY3MgYW1kZ3B1X2RtX2Z1bmNzID0gewo+
-ICAgCS5sYXRlX2luaXQgPSBkbV9sYXRlX2luaXQsCj4gICAJLnN3X2luaXQgPSBkbV9zd19pbml0
-LAo+ICAgCS5zd19maW5pID0gZG1fc3dfZmluaSwKPiArCS5lYXJseV9maW5pID0gYW1kZ3B1X2Rt
-X2Vhcmx5X2ZpbmksCj4gICAJLmh3X2luaXQgPSBkbV9od19pbml0LAo+ICAgCS5od19maW5pID0g
-ZG1faHdfZmluaSwKPiAgIAkuc3VzcGVuZCA9IGRtX3N1c3BlbmQsCj4gZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9hbWRfc2hhcmVkLmggYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2luY2x1ZGUvYW1kX3NoYXJlZC5oCj4gaW5kZXggNDNlZDYyOTFiMmI4Li4xYWQ1NmRhNDg2
-ZTQgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9pbmNsdWRlL2FtZF9zaGFyZWQu
-aAo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9hbWRfc2hhcmVkLmgKPiBAQCAt
-MjQwLDYgKzI0MCw3IEBAIGVudW0gYW1kX2RwbV9mb3JjZWRfbGV2ZWw7Cj4gICAgKiBAbGF0ZV9p
-bml0OiBzZXRzIHVwIGxhdGUgZHJpdmVyL2h3IHN0YXRlIChwb3N0IGh3X2luaXQpIC0gT3B0aW9u
-YWwKPiAgICAqIEBzd19pbml0OiBzZXRzIHVwIGRyaXZlciBzdGF0ZSwgZG9lcyBub3QgY29uZmln
-dXJlIGh3Cj4gICAgKiBAc3dfZmluaTogdGVhcnMgZG93biBkcml2ZXIgc3RhdGUsIGRvZXMgbm90
-IGNvbmZpZ3VyZSBodwo+ICsgKiBAZWFybHlfZmluaTogdGVhcnMgZG93biBzdHVmZiBiZWZvcmUg
-ZGV2IGRldGFjaGVkIGZyb20gZHJpdmVyCj4gICAgKiBAaHdfaW5pdDogc2V0cyB1cCB0aGUgaHcg
-c3RhdGUKPiAgICAqIEBod19maW5pOiB0ZWFycyBkb3duIHRoZSBodyBzdGF0ZQo+ICAgICogQGxh
-dGVfZmluaTogZmluYWwgY2xlYW51cAo+IEBAIC0yNjgsNiArMjY5LDcgQEAgc3RydWN0IGFtZF9p
-cF9mdW5jcyB7Cj4gICAJaW50ICgqbGF0ZV9pbml0KSh2b2lkICpoYW5kbGUpOwo+ICAgCWludCAo
-KnN3X2luaXQpKHZvaWQgKmhhbmRsZSk7Cj4gICAJaW50ICgqc3dfZmluaSkodm9pZCAqaGFuZGxl
-KTsKPiArCWludCAoKmVhcmx5X2ZpbmkpKHZvaWQgKmhhbmRsZSk7Cj4gICAJaW50ICgqaHdfaW5p
-dCkodm9pZCAqaGFuZGxlKTsKPiAgIAlpbnQgKCpod19maW5pKSh2b2lkICpoYW5kbGUpOwo+ICAg
-CXZvaWQgKCpsYXRlX2ZpbmkpKHZvaWQgKmhhbmRsZSk7CgpfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
-L2xpc3RpbmZvL2FtZC1nZngK
+Am 10.05.21 um 18:36 schrieb Andrey Grodzovsky:
+> Handle all DMA IOMMU gropup related dependencies before the
+> group is removed.
+>
+> v5: Drop IOMMU notifier and switch to lockless call to ttm_tt_unpopulate
+> v6: Drop the BO unamp list
+>
+> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++--
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c   | 3 +--
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h   | 1 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c    | 9 +++++++++
+>   drivers/gpu/drm/amd/amdgpu/cik_ih.c        | 1 -
+>   drivers/gpu/drm/amd/amdgpu/cz_ih.c         | 1 -
+>   drivers/gpu/drm/amd/amdgpu/iceland_ih.c    | 1 -
+>   drivers/gpu/drm/amd/amdgpu/navi10_ih.c     | 3 ---
+>   drivers/gpu/drm/amd/amdgpu/si_ih.c         | 1 -
+>   drivers/gpu/drm/amd/amdgpu/tonga_ih.c      | 1 -
+>   drivers/gpu/drm/amd/amdgpu/vega10_ih.c     | 3 ---
+>   11 files changed, 13 insertions(+), 15 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 18598eda18f6..a0bff4713672 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -3256,7 +3256,6 @@ static const struct attribute *amdgpu_dev_attributes[] = {
+>   	NULL
+>   };
+>   
+> -
+>   /**
+>    * amdgpu_device_init - initialize the driver
+>    *
+> @@ -3698,12 +3697,13 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
+>   		amdgpu_ucode_sysfs_fini(adev);
+>   	sysfs_remove_files(&adev->dev->kobj, amdgpu_dev_attributes);
+>   
+> -
+>   	amdgpu_fbdev_fini(adev);
+>   
+>   	amdgpu_irq_fini_hw(adev);
+>   
+>   	amdgpu_device_ip_fini_early(adev);
+> +
+> +	amdgpu_gart_dummy_page_fini(adev);
+
+I think you should probably just call amdgpu_gart_fini() here.
+
+>   }
+>   
+>   void amdgpu_device_fini_sw(struct amdgpu_device *adev)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+> index c5a9a4fb10d2..354e68081b53 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+> @@ -92,7 +92,7 @@ static int amdgpu_gart_dummy_page_init(struct amdgpu_device *adev)
+>    *
+>    * Frees the dummy page used by the driver (all asics).
+>    */
+> -static void amdgpu_gart_dummy_page_fini(struct amdgpu_device *adev)
+> +void amdgpu_gart_dummy_page_fini(struct amdgpu_device *adev)
+>   {
+>   	if (!adev->dummy_page_addr)
+>   		return;
+> @@ -375,5 +375,4 @@ int amdgpu_gart_init(struct amdgpu_device *adev)
+>    */
+>   void amdgpu_gart_fini(struct amdgpu_device *adev)
+>   {
+> -	amdgpu_gart_dummy_page_fini(adev);
+>   }
+
+Well either you remove amdgpu_gart_fini() or just call 
+amdgpu_gart_fini() instead of amdgpu_gart_dummy_page_fini().
+
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h
+> index a25fe97b0196..78dc7a23da56 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h
+> @@ -58,6 +58,7 @@ int amdgpu_gart_table_vram_pin(struct amdgpu_device *adev);
+>   void amdgpu_gart_table_vram_unpin(struct amdgpu_device *adev);
+>   int amdgpu_gart_init(struct amdgpu_device *adev);
+>   void amdgpu_gart_fini(struct amdgpu_device *adev);
+> +void amdgpu_gart_dummy_page_fini(struct amdgpu_device *adev);
+>   int amdgpu_gart_unbind(struct amdgpu_device *adev, uint64_t offset,
+>   		       int pages);
+>   int amdgpu_gart_map(struct amdgpu_device *adev, uint64_t offset,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+> index 233b64dab94b..a14973a7a9c9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+> @@ -361,6 +361,15 @@ void amdgpu_irq_fini_hw(struct amdgpu_device *adev)
+>   		if (!amdgpu_device_has_dc_support(adev))
+>   			flush_work(&adev->hotplug_work);
+>   	}
+> +
+> +	if (adev->irq.ih_soft.ring)
+> +		amdgpu_ih_ring_fini(adev, &adev->irq.ih_soft);
+> +	if (adev->irq.ih.ring)
+> +		amdgpu_ih_ring_fini(adev, &adev->irq.ih);
+> +	if (adev->irq.ih1.ring)
+> +		amdgpu_ih_ring_fini(adev, &adev->irq.ih1);
+> +	if (adev->irq.ih2.ring)
+> +		amdgpu_ih_ring_fini(adev, &adev->irq.ih2);
+
+You should probably make the function NULL save instead of checking here.
+
+Christian.
+
+>   }
+>   
+>   /**
+> diff --git a/drivers/gpu/drm/amd/amdgpu/cik_ih.c b/drivers/gpu/drm/amd/amdgpu/cik_ih.c
+> index 183d44a6583c..df385ffc9768 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/cik_ih.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/cik_ih.c
+> @@ -310,7 +310,6 @@ static int cik_ih_sw_fini(void *handle)
+>   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+>   
+>   	amdgpu_irq_fini_sw(adev);
+> -	amdgpu_ih_ring_fini(adev, &adev->irq.ih);
+>   	amdgpu_irq_remove_domain(adev);
+>   
+>   	return 0;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/cz_ih.c b/drivers/gpu/drm/amd/amdgpu/cz_ih.c
+> index d32743949003..b8c47e0cf37a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/cz_ih.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/cz_ih.c
+> @@ -302,7 +302,6 @@ static int cz_ih_sw_fini(void *handle)
+>   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+>   
+>   	amdgpu_irq_fini_sw(adev);
+> -	amdgpu_ih_ring_fini(adev, &adev->irq.ih);
+>   	amdgpu_irq_remove_domain(adev);
+>   
+>   	return 0;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/iceland_ih.c b/drivers/gpu/drm/amd/amdgpu/iceland_ih.c
+> index da96c6013477..ddfe4eaeea05 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/iceland_ih.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/iceland_ih.c
+> @@ -301,7 +301,6 @@ static int iceland_ih_sw_fini(void *handle)
+>   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+>   
+>   	amdgpu_irq_fini_sw(adev);
+> -	amdgpu_ih_ring_fini(adev, &adev->irq.ih);
+>   	amdgpu_irq_remove_domain(adev);
+>   
+>   	return 0;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+> index 5eea4550b856..e171a9e78544 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+> @@ -571,9 +571,6 @@ static int navi10_ih_sw_fini(void *handle)
+>   
+>   	amdgpu_irq_fini_sw(adev);
+>   	amdgpu_ih_ring_fini(adev, &adev->irq.ih_soft);
+> -	amdgpu_ih_ring_fini(adev, &adev->irq.ih2);
+> -	amdgpu_ih_ring_fini(adev, &adev->irq.ih1);
+> -	amdgpu_ih_ring_fini(adev, &adev->irq.ih);
+>   
+>   	return 0;
+>   }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/si_ih.c b/drivers/gpu/drm/amd/amdgpu/si_ih.c
+> index 751307f3252c..9a24f17a5750 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/si_ih.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/si_ih.c
+> @@ -176,7 +176,6 @@ static int si_ih_sw_fini(void *handle)
+>   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+>   
+>   	amdgpu_irq_fini_sw(adev);
+> -	amdgpu_ih_ring_fini(adev, &adev->irq.ih);
+>   
+>   	return 0;
+>   }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/tonga_ih.c b/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
+> index 973d80ec7f6c..b08905d1c00f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
+> @@ -313,7 +313,6 @@ static int tonga_ih_sw_fini(void *handle)
+>   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+>   
+>   	amdgpu_irq_fini_sw(adev);
+> -	amdgpu_ih_ring_fini(adev, &adev->irq.ih);
+>   	amdgpu_irq_remove_domain(adev);
+>   
+>   	return 0;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
+> index dead9c2fbd4c..d78b8abe993a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
+> @@ -515,9 +515,6 @@ static int vega10_ih_sw_fini(void *handle)
+>   
+>   	amdgpu_irq_fini_sw(adev);
+>   	amdgpu_ih_ring_fini(adev, &adev->irq.ih_soft);
+> -	amdgpu_ih_ring_fini(adev, &adev->irq.ih2);
+> -	amdgpu_ih_ring_fini(adev, &adev->irq.ih1);
+> -	amdgpu_ih_ring_fini(adev, &adev->irq.ih);
+>   
+>   	return 0;
+>   }
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
