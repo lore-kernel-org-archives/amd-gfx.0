@@ -7,43 +7,43 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3EC55C433B4
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 May 2021 15:15:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7D345C433ED
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 May 2021 15:31:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CE47861438
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 May 2021 15:15:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CE47861438
+	by mail.kernel.org (Postfix) with ESMTPS id 1534461CC6
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 May 2021 15:31:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1534461CC6
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linuxfoundation.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 605EC6EC2E;
-	Wed, 12 May 2021 15:15:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 982DB6EC40;
+	Wed, 12 May 2021 15:31:43 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D79956E1F8
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 May 2021 15:05:37 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E14A36194C;
- Wed, 12 May 2021 15:05:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E92E6EC3A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 May 2021 15:28:49 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 708DF6144A;
+ Wed, 12 May 2021 15:28:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1620831937;
- bh=g3z/VwvYcWPvXsOl/h0/INg1UucPJtQvm4R8DOaBu5M=;
+ s=korg; t=1620833328;
+ bh=FRkQPcqugX+6ff7elCcjNy1RfpURRUKUKdRS8baywzc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=sH9uiYpXF4XCnqfgTpONhUkunmO7iNst4iXV+/LSlbD6SqNzD6o7hlTOPudu2Wlhp
- 9Pe3qHgYe0LmkT4eCqkil05nWvGRKOZpSfIoGMjRxfDLd1xq/Fp0qzxm5o5Y2PTG1d
- wDkWraiw7QXPGLJ2m4P4ADjum+gROFxLpZCB43bE=
+ b=lttqmn75OUyr0tSX41GQor+8/8f4shqGPzE/ETjJwZwfLIfIOM211hNaoO/+vWfL9
+ 90AqzMYYzUh3pO2OvOb1ypDcCRwC8oehya1d7BR6LxFYxnJ8gSEvCIPry+AOvh6851
+ cXGvl2H43ysmN85mgHrVIas7RsEODOXXnD4rZfMU=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: linux-kernel@vger.kernel.org
-Subject: [PATCH 5.10 068/530] drm/amd/display: Reject non-zero src_y and src_x
+Subject: [PATCH 5.11 071/601] drm/amd/display: Reject non-zero src_y and src_x
  for video planes
-Date: Wed, 12 May 2021 16:42:58 +0200
-Message-Id: <20210512144821.996286372@linuxfoundation.org>
+Date: Wed, 12 May 2021 16:42:28 +0200
+Message-Id: <20210512144830.163388620@linuxfoundation.org>
 X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210512144819.664462530@linuxfoundation.org>
-References: <20210512144819.664462530@linuxfoundation.org>
+In-Reply-To: <20210512144827.811958675@linuxfoundation.org>
+References: <20210512144827.811958675@linuxfoundation.org>
 User-Agent: quilt/0.66
 MIME-Version: 1.0
-X-Mailman-Approved-At: Wed, 12 May 2021 15:15:07 +0000
+X-Mailman-Approved-At: Wed, 12 May 2021 15:31:41 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,7 +90,7 @@ cmVna2hAbGludXhmb3VuZGF0aW9uLm9yZz4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3Bs
 YXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIHwgICAxNyArKysrKysrKysrKysrKysrKwogMSBmaWxl
 IGNoYW5nZWQsIDE3IGluc2VydGlvbnMoKykKCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlz
 cGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
-bGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYwpAQCAtMzY4NSw2ICszNjg1LDIzIEBAIHN0YXRpYyBp
+bGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYwpAQCAtMzc0MCw2ICszNzQwLDIzIEBAIHN0YXRpYyBp
 bnQgZmlsbF9kY19zY2FsaW5nX2luZm8oY29uc3Qgc3QKIAlzY2FsaW5nX2luZm8tPnNyY19yZWN0
 LnggPSBzdGF0ZS0+c3JjX3ggPj4gMTY7CiAJc2NhbGluZ19pbmZvLT5zcmNfcmVjdC55ID0gc3Rh
 dGUtPnNyY195ID4+IDE2OwogCisJLyoKKwkgKiBGb3IgcmVhc29ucyB3ZSBkb24ndCAoeWV0KSBm
