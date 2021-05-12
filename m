@@ -2,47 +2,52 @@ Return-Path: <SRS0=awHg=KH=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1FC4BC43462
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 May 2021 13:08:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7D8D9C43461
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 May 2021 13:08:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B7C2060200
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 May 2021 13:08:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B7C2060200
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linuxfoundation.org
+	by mail.kernel.org (Postfix) with ESMTPS id DBD20613CA
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 May 2021 13:08:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DBD20613CA
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=alien8.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DB416EBC4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 195C86EBAA;
 	Wed, 12 May 2021 13:08:02 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5CB86E81F
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 May 2021 09:54:48 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id EAEE0613C1;
- Wed, 12 May 2021 09:54:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1620813288;
- bh=WpJIOCSKbupa9CCa4T762DWqwFy0yqGW2QDku4J78t4=;
- h=Subject:To:Cc:From:Date:From;
- b=bXBvFUsLNQiCMTqZh6G4gvCL0PpAPu5PjljE3WD7iP7tXWuuAeM0z7Kj+1DSiWYLj
- 91pw1P0kgImFDhudQkd+KaotRgBFUxk1Muwu4xi/edVVaevB2ETOD/IRnD5xexUBQb
- nsaGxqBOGbNZ9Cix30h0XpcnQqeZnV2avWrs1wBw=
-Subject: Patch "drm/amd/display: Reject non-zero src_y and src_x for video
- planes" has been added to the 5.10-stable tree
-To: Roman.Li@amd.com, alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
- christian.koenig@amd.com, danny.wang@amd.com, gregkh@linuxfoundation.org,
- harry.wentland@amd.com, hersenxs.wu@amd.com, nicholas.kazlauskas@amd.com
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 12 May 2021 11:54:46 +0200
-Message-ID: <162081328623851@kroah.com>
+X-Greylist: delayed 455 seconds by postgrey-1.36 at gabe;
+ Wed, 12 May 2021 09:44:27 UTC
+Received: from mail.skyhub.de (mail.skyhub.de [IPv6:2a01:4f8:190:11c2::b:1457])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 690CF6E1E9
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 May 2021 09:44:27 +0000 (UTC)
+Received: from zn.tnic (p200300ec2f0bb800ec6923be2c5225a4.dip0.t-ipconnect.de
+ [IPv6:2003:ec:2f0b:b800:ec69:23be:2c52:25a4])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 14A8B1EC01A2;
+ Wed, 12 May 2021 11:36:50 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
+ t=1620812210;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:in-reply-to:in-reply-to:  references:references;
+ bh=hVRfoW6q3II9JG/6HLWRqbnxdKNbxvXXpRAJyxfapS8=;
+ b=ZCQo4h0sRBxJjafwgw8J6wplzIEy5Th06Y9CH1rhhNpsfRHd8Wnctnq2KLE7I0yriftw4d
+ cxhj3iz80M8ggj6pfIvTAa7gN5GHig0nS5YGHskTDgzN+0iw+42ZWXlRhG6MpIuIAs4bQf
+ bOPrJ2p1ETqQe5Mc5r4To6lHlxWdGH4=
+Date: Wed, 12 May 2021 11:36:51 +0200
+From: Borislav Petkov <bp@alien8.de>
+To: Mukul Joshi <mukul.joshi@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: Register bad page handler for Aldebaran
+Message-ID: <YJuhs1WsqtJ7ta1L@zn.tnic>
+References: <20210512013058.6827-1-mukul.joshi@amd.com>
 MIME-Version: 1.0
-X-stable: commit
-X-Patchwork-Hint: ignore 
+Content-Disposition: inline
+In-Reply-To: <20210512013058.6827-1-mukul.joshi@amd.com>
 X-Mailman-Approved-At: Wed, 12 May 2021 13:07:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -55,71 +60,152 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stable-commits@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: x86-ml <x86@kernel.org>, harish.kasiviswanathan@amd.com,
+ lkml <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-ClRoaXMgaXMgYSBub3RlIHRvIGxldCB5b3Uga25vdyB0aGF0IEkndmUganVzdCBhZGRlZCB0aGUg
-cGF0Y2ggdGl0bGVkCgogICAgZHJtL2FtZC9kaXNwbGF5OiBSZWplY3Qgbm9uLXplcm8gc3JjX3kg
-YW5kIHNyY194IGZvciB2aWRlbyBwbGFuZXMKCnRvIHRoZSA1LjEwLXN0YWJsZSB0cmVlIHdoaWNo
-IGNhbiBiZSBmb3VuZCBhdDoKICAgIGh0dHA6Ly93d3cua2VybmVsLm9yZy9naXQvP3A9bGludXgv
-a2VybmVsL2dpdC9zdGFibGUvc3RhYmxlLXF1ZXVlLmdpdDthPXN1bW1hcnkKClRoZSBmaWxlbmFt
-ZSBvZiB0aGUgcGF0Y2ggaXM6CiAgICAgZHJtLWFtZC1kaXNwbGF5LXJlamVjdC1ub24temVyby1z
-cmNfeS1hbmQtc3JjX3gtZm9yLXZpZGVvLXBsYW5lcy5wYXRjaAphbmQgaXQgY2FuIGJlIGZvdW5k
-IGluIHRoZSBxdWV1ZS01LjEwIHN1YmRpcmVjdG9yeS4KCklmIHlvdSwgb3IgYW55b25lIGVsc2Us
-IGZlZWxzIGl0IHNob3VsZCBub3QgYmUgYWRkZWQgdG8gdGhlIHN0YWJsZSB0cmVlLApwbGVhc2Ug
-bGV0IDxzdGFibGVAdmdlci5rZXJuZWwub3JnPiBrbm93IGFib3V0IGl0LgoKCkZyb20gZDg5ZjYw
-NDhiZGNiNmE1NmFiYjM5NmM1ODQ3NDdkNWVlYWU2NTBkYiBNb24gU2VwIDE3IDAwOjAwOjAwIDIw
-MDEKRnJvbTogSGFycnkgV2VudGxhbmQgPGhhcnJ5LndlbnRsYW5kQGFtZC5jb20+CkRhdGU6IFRo
-dSwgMjIgQXByIDIwMjEgMTk6MTA6NTIgLTA0MDAKU3ViamVjdDogZHJtL2FtZC9kaXNwbGF5OiBS
-ZWplY3Qgbm9uLXplcm8gc3JjX3kgYW5kIHNyY194IGZvciB2aWRlbyBwbGFuZXMKTUlNRS1WZXJz
-aW9uOiAxLjAKQ29udGVudC1UeXBlOiB0ZXh0L3BsYWluOyBjaGFyc2V0PVVURi04CkNvbnRlbnQt
-VHJhbnNmZXItRW5jb2Rpbmc6IDhiaXQKCkZyb206IEhhcnJ5IFdlbnRsYW5kIDxoYXJyeS53ZW50
-bGFuZEBhbWQuY29tPgoKY29tbWl0IGQ4OWY2MDQ4YmRjYjZhNTZhYmIzOTZjNTg0NzQ3ZDVlZWFl
-NjUwZGIgdXBzdHJlYW0uCgpbV2h5XQpUaGlzIGhhc24ndCBiZWVuIHdlbGwgdGVzdGVkIGFuZCBs
-ZWFkcyB0byBjb21wbGV0ZSBzeXN0ZW0gaGFuZ3Mgb24gRENOMQpiYXNlZCBzeXN0ZW1zLCBwb3Nz
-aWJseSBvdGhlcnMuCgpUaGUgc3lzdGVtIGhhbmcgY2FuIGJlIHJlcHJvZHVjZWQgYnkgZ2VzdHVy
-aW5nIHRoZSB2aWRlbyBvbiB0aGUgWW91VHViZQpBbmRyb2lkIGFwcCBvbiBDaHJvbWVPUyBpbnRv
-IGZ1bGwgc2NyZWVuLgoKW0hvd10KUmVqZWN0IGF0b21pYyBjb21taXRzIHdpdGggbm9uLXplcm8g
-ZHJtX3BsYW5lX3N0YXRlLnNyY194IG9yIHNyY195IHZhbHVlcy4KCnYyOgogLSBBZGQgY29kZSBj
-b21tZW50IGRlc2NyaWJpbmcgdGhlIHJlYXNvbiB3ZSdyZSByZWplY3Rpbmcgbm9uLXplcm8KICAg
-c3JjX3ggYW5kIHNyY195CiAtIERyb3AgZ2Vycml0IENoYW5nZS1JZAogLSBBZGQgc3RhYmxlIEND
-CiAtIEJhc2VkIG9uIGFtZC1zdGFnaW5nLWRybS1uZXh0Cgp2MzogcmVtb3ZlZCB0cmFpbGluZyB3
-aGl0ZXNwYWNlCgpTaWduZWQtb2ZmLWJ5OiBIYXJyeSBXZW50bGFuZCA8aGFycnkud2VudGxhbmRA
-YW1kLmNvbT4KQ2M6IHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcKQ2M6IG5pY2hvbGFzLmthemxhdXNr
-YXNAYW1kLmNvbQpDYzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKQ2M6IGFsZXhhbmRl
-ci5kZXVjaGVyQGFtZC5jb20KQ2M6IFJvbWFuLkxpQGFtZC5jb20KQ2M6IGhlcnNlbnhzLnd1QGFt
-ZC5jb20KQ2M6IGRhbm55LndhbmdAYW1kLmNvbQpSZXZpZXdlZC1ieTogTmljaG9sYXMgS2F6bGF1
-c2thcyA8bmljaG9sYXMua2F6bGF1c2thc0BhbWQuY29tPgpBY2tlZC1ieTogQ2hyaXN0aWFuIEvD
-tm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgpSZXZpZXdlZC1ieTogSGVyc2VuIFd1IDxo
-ZXJzZW54cy53dUBhbWQuY29tPgpTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRl
-ci5kZXVjaGVyQGFtZC5jb20+CkNjOiBzdGFibGVAdmdlci5rZXJuZWwub3JnClNpZ25lZC1vZmYt
-Ynk6IEdyZWcgS3JvYWgtSGFydG1hbiA8Z3JlZ2toQGxpbnV4Zm91bmRhdGlvbi5vcmc+Ci0tLQog
-ZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyB8ICAgMTcg
-KysrKysrKysrKysrKysrKysKIDEgZmlsZSBjaGFuZ2VkLCAxNyBpbnNlcnRpb25zKCspCgotLS0g
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCisrKyBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKQEAgLTM2
-ODUsNiArMzY4NSwyMyBAQCBzdGF0aWMgaW50IGZpbGxfZGNfc2NhbGluZ19pbmZvKGNvbnN0IHN0
-CiAJc2NhbGluZ19pbmZvLT5zcmNfcmVjdC54ID0gc3RhdGUtPnNyY194ID4+IDE2OwogCXNjYWxp
-bmdfaW5mby0+c3JjX3JlY3QueSA9IHN0YXRlLT5zcmNfeSA+PiAxNjsKIAorCS8qCisJICogRm9y
-IHJlYXNvbnMgd2UgZG9uJ3QgKHlldCkgZnVsbHkgdW5kZXJzdGFuZCBhIG5vbi16ZXJvCisJICog
-c3JjX3kgY29vcmRpbmF0ZSBpbnRvIGFuIE5WMTIgYnVmZmVyIGNhbiBjYXVzZSBhCisJICogc3lz
-dGVtIGhhbmcuIFRvIGF2b2lkIGhhbmdzIChhbmQgbWF5YmUgYmUgb3Zlcmx5IGNhdXRpb3VzKQor
-CSAqIGxldCdzIHJlamVjdCBib3RoIG5vbi16ZXJvIHNyY194IGFuZCBzcmNfeS4KKwkgKgorCSAq
-IFdlIGN1cnJlbnRseSBrbm93IG9mIG9ubHkgb25lIHVzZS1jYXNlIHRvIHJlcHJvZHVjZSBhCisJ
-ICogc2NlbmFyaW8gd2l0aCBub24temVybyBzcmNfeCBhbmQgc3JjX3kgZm9yIE5WMTIsIHdoaWNo
-CisJICogaXMgdG8gZ2VzdHVyZSB0aGUgWW91VHViZSBBbmRyb2lkIGFwcCBpbnRvIGZ1bGwgc2Ny
-ZWVuCisJICogb24gQ2hyb21lT1MuCisJICovCisJaWYgKHN0YXRlLT5mYiAmJgorCSAgICBzdGF0
-ZS0+ZmItPmZvcm1hdC0+Zm9ybWF0ID09IERSTV9GT1JNQVRfTlYxMiAmJgorCSAgICAoc2NhbGlu
-Z19pbmZvLT5zcmNfcmVjdC54ICE9IDAgfHwKKwkgICAgIHNjYWxpbmdfaW5mby0+c3JjX3JlY3Qu
-eSAhPSAwKSkKKwkJcmV0dXJuIC1FSU5WQUw7CisKIAlzY2FsaW5nX2luZm8tPnNyY19yZWN0Lndp
-ZHRoID0gc3RhdGUtPnNyY193ID4+IDE2OwogCWlmIChzY2FsaW5nX2luZm8tPnNyY19yZWN0Lndp
-ZHRoID09IDApCiAJCXJldHVybiAtRUlOVkFMOwoKClBhdGNoZXMgY3VycmVudGx5IGluIHN0YWJs
-ZS1xdWV1ZSB3aGljaCBtaWdodCBiZSBmcm9tIGhhcnJ5LndlbnRsYW5kQGFtZC5jb20gYXJlCgpx
-dWV1ZS01LjEwL2RybS1hbWQtZGlzcGxheS1yZWplY3Qtbm9uLXplcm8tc3JjX3ktYW5kLXNyY194
-LWZvci12aWRlby1wbGFuZXMucGF0Y2gKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
-bWQtZ2Z4Cg==
+Hi,
+
+so this is a drive-by review using the lore.kernel.org mail because I
+wasn't CCed on this.
+
+On Tue, May 11, 2021 at 09:30:58PM -0400, Mukul Joshi wrote:
+> +static int amdgpu_bad_page_notifier(struct notifier_block *nb,
+> +				    unsigned long val, void *data)
+> +{
+> +	struct mce *m = (struct mce *)data;
+> +	struct amdgpu_device *adev = NULL;
+> +	uint32_t gpu_id = 0;
+> +	uint32_t umc_inst = 0;
+> +	uint32_t chan_index = 0;
+> +	struct ras_err_data err_data = {0, 0, 0, NULL};
+> +	struct eeprom_table_record err_rec;
+> +	uint64_t retired_page;
+> +
+> +	/*
+> +	 * If the error was generated in UMC_V2, which belongs to GPU UMCs,
+
+Why does it matter if the error is a v2 UMC generated one?
+
+IOW, can you detect the type of errors in GPU memory - I assume this
+is what this is supposed to handle - from the error signature itself
+instead of doing is_smca_umc_v2?
+
+> +	 * and error occurred in DramECC (Extended error code = 0) then only
+> +	 * process the error, else bail out.
+> +	 */
+> +	if (!m || !(is_smca_umc_v2(m->bank) && (XEC(m->status, 0x1f) == 0x0)))
+> +		return NOTIFY_DONE;
+> +
+> +	gpu_id = GET_MCA_IPID_GPUID(m->ipid);
+> +
+> +	/*
+> +	 * GPU Id is offset by GPU_ID_OFFSET in MCA_IPID_UMC register.
+> +	 */
+> +	gpu_id -= GPU_ID_OFFSET;
+> +
+> +	adev = find_adev(gpu_id);
+> +	if (!adev) {
+> +		dev_warn(adev->dev, "%s: Unable to find adev for gpu_id: %d\n",
+> +				     __func__, gpu_id);
+> +		return NOTIFY_DONE;
+> +	}
+> +
+> +	/*
+> +	 * If it is correctable error, then print a message and return.
+> +	 */
+> +	if (mce_is_correctable(m)) {
+> +		dev_info(adev->dev, "%s: UMC Correctable error detected.",
+> +				    __func__);
+
+So put yourself in the shoes of a support engineer who starts getting
+all those calls about people's hardware getting correctable errors and
+should they replace it and should AMD RMA the GPUs and so on and so
+on..? Do you really wanna be on the receiving side of that call?
+
+IOW, whom does printing the fact that the GPU had a corrected error
+which got corrected by the hardware, help and do you really want to
+upset people needlessly?
+
+> +		return NOTIFY_OK;
+> +	}
+> +
+> +	/*
+> +	 * If it is uncorrectable error, then find out UMC instance and
+> +	 * channel index.
+> +	 */
+> +	find_umc_inst_chan_index(m, &umc_inst, &chan_index);
+
+That's a void function but it could return a pointer to the instance and
+channel bundled in a struct maybe...
+
+> +
+> +	dev_info(adev->dev, "Uncorrectable error detected in UMC inst: %d,"
+> +			    " chan_idx: %d", umc_inst, chan_index);
+> +
+> +	memset(&err_rec, 0x0, sizeof(struct eeprom_table_record));
+> +
+> +	/*
+> +	 * Translate UMC channel address to Physical address
+> +	 */
+> +	retired_page = ADDR_OF_8KB_BLOCK(m->addr) |
+> +			ADDR_OF_256B_BLOCK(chan_index) |
+> +			OFFSET_IN_256B_BLOCK(m->addr);
+> +
+> +	err_rec.address = m->addr;
+> +	err_rec.retired_page = retired_page >> AMDGPU_GPU_PAGE_SHIFT;
+> +	err_rec.ts = (uint64_t)ktime_get_real_seconds();
+> +	err_rec.err_type = AMDGPU_RAS_EEPROM_ERR_NON_RECOVERABLE;
+> +	err_rec.cu = 0;
+> +	err_rec.mem_channel = chan_index;
+> +	err_rec.mcumc_id = umc_inst;
+> +
+> +	err_data.err_addr = &err_rec;
+> +	err_data.err_addr_cnt = 1;
+> +
+> +	if (amdgpu_bad_page_threshold != 0) {
+> +		amdgpu_ras_add_bad_pages(adev, err_data.err_addr,
+> +						err_data.err_addr_cnt);
+> +		amdgpu_ras_save_bad_pages(adev);
+> +	}
+> +
+> +	return NOTIFY_OK;
+> +}
+> +
+> +static struct notifier_block amdgpu_bad_page_nb = {
+> +	.notifier_call  = amdgpu_bad_page_notifier,
+> +	.priority       = MCE_PRIO_ACCEL,
+
+Nothing ever explains why this needs to be a separate priority. So how
+about it?
+
+> +};
+> +
+> +static void amdgpu_register_bad_pages_mca_notifier(void)
+> +{
+> +	/*
+> +	 * Register the x86 notifier with MCE subsystem.
+> +	 * Please note a notifier can be registered only once
+> +	 * with the MCE subsystem.
+> +	 */
+
+Why do you need this? Other users don't need that. Do you need to call
+mce_unregister_decode_chain() when the driver gets removed or so?
+
+> +	if (notifier_registered == false) {
+
+This is just silly and should be fixed properly once the issue is
+understood.
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
