@@ -5,58 +5,58 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CD43CC43461
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 May 2021 14:27:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 26215C43603
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 May 2021 14:27:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 787E8613E9
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 May 2021 14:27:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 787E8613E9
+	by mail.kernel.org (Postfix) with ESMTPS id 996A161412
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 May 2021 14:27:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 996A161412
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44D9A6E233;
-	Wed, 12 May 2021 14:27:22 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam08on2060.outbound.protection.outlook.com [40.107.102.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1D336EC05;
- Wed, 12 May 2021 14:27:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66F136EC0E;
+	Wed, 12 May 2021 14:27:27 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2072.outbound.protection.outlook.com [40.107.223.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA0B96EC11;
+ Wed, 12 May 2021 14:27:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ieHFv+rfK5AZWoqRmsGIjaFM21mm9Vu8QHpZYyVTFKKA2+54P0DSg7gj0nh/rDAsB6lENp8qh30LTdG5wlFzqn1vlrtN2Wozsx1TFiSbxqh75z+wmxB0QQDAy04SGROJBxEMhyQkWR1v5XGiCib8Wg/vvjAaID7vOHd5WAeyz6haAUpCX4ka1la79CZ9Y88/opB3BcfWFJV4GJBK1bMQSmO6iwNJ8zD3rWrD5SDYykpy3ZMTmGnp0+LWhn/+Zqyb43c8nTBG6E4JUGFzqRrAKl5az7Lfiq/+GvNSzzsfR9rjptu5xFh73aKlFtEUKMJlkg9sHJSlvOawMzWwwaX9Yg==
+ b=CmkQr74taIp1Iw7KaANpctHA35hNoUXNDLkt4FDMNor/p4IEBV8X/4bj+V776nqpSAwdyhWi9YhgwmFyQ7D+p2cUwtQ1qRtrdpArR3jo2puWzB7i/YRfaM5nWO44XeZVeEjHltCp2vYqo+T8nBfxdN/mKP9ZBg4z7hoS9wqLhKIJGPI/p6QfAoqKpRxqDEkUS/1bpAbp6uo4ZPsJVtAJEq7W+XwBpolhDZM6og3yaOtOyM6KWeR2hAkARoafHirv7X0lYaYObKr0mIFiI9X6nzRZUFhVu7vkeCMQSWDOkK5qFW2Wk1OIjqkHDy+SKBMf5GXZFebMqkGey/Jck+C2PQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s0dwKENLsURuCDAMt3HBqU82krOzXD1UOWvf5Glanbw=;
- b=etNqqK5Zeqn/2NXyt8h/QTwxNmpEQdzIzBodmKv915DQAGxLJ8HQsw7RuWOMQnYXcV48lqyACK5X3jn50BzTYbS5M99wvwA+jpWTRUy31EB601WNCX3k4zGFVmM6M7LA9ncjFGkmD+SUqd2eGG6TZFAbbkkK80yrACvOfn7sZuN+R3vHgo3Xgre0JFjwNVbhXwO1vSGDgw9yEx6xdBQm+w76XIJwBRSpEqSnHvmxMy+erEML/pVPIosRzGr5Jd88Le6U6fEDQ83EWv+CvcEicOJnwV3sDoRAww9D6ak6gp3jEMsN900eBTlXkts4KS12BEloBiwPf+KHD8Qq25tCAw==
+ bh=Ib9JMbJcQ89S3QqH2/zvtmoA13b9zTTfzZEYQOgJxs4=;
+ b=jpzUTj/AYiDtyZ5sUU16lKenuffbZedAu8u+j453UWRIHUN9Dw68Jy9FDuMyGSTBs4ETT/QTZRQ2S6OphfdQ7Ci4ESprgJQY6BBemRIYxvJ+Dkui3NgjN6a+jDyddOvKDDZ1E0VPgA+7P69VXz4IboD0emFfvbEmnPA6lqMe9DlGwRIE+xRNpwGbzXtVSpWKwTYb/qKnLhdPdJ3hAIElmLHItUMLIvaGTvjPafBaM8hhF8MxHk77AmJm89bT2Jc5ZHqE+XDavcxmWCTuAE4QPqZnbcFy97yeIL/eze/JCsHYH08PbDw6SHD5GrS6uGnABcg+sEilaJuCNq9mRgoY9w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s0dwKENLsURuCDAMt3HBqU82krOzXD1UOWvf5Glanbw=;
- b=XS1cqmMkuvrEafch1LlsiNBGe1KCXxbdUMskhu37LBDb57Lf/tnOXpM3L8CoNbysAtM+MRE2ntngHEirsu7ZO/Z5bplpYHPS3tOLKL0fwzt+TutvHNZFwmHTa3hDXuoi48pZysSblWEC84ypNvYOGdYQNFqU2G5C/o37n/9ywBw=
+ bh=Ib9JMbJcQ89S3QqH2/zvtmoA13b9zTTfzZEYQOgJxs4=;
+ b=dejeCAViCbUGefjdpMBG1HI/5+wnIryalwnu33JMf5cKQBeHCp5SDAPwiOKSP+Su9iltYdIfu3a+yxtww2i4w9h6kj8PlFXLSPZSewSNqZwMXaWT/lnEnRi97De9mKAPOhTkgt5hav3eoXmZd/JV2ixf4PiMXQtVq4sP7PCkg/k=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
 Received: from SN6PR12MB4623.namprd12.prod.outlook.com (2603:10b6:805:e9::17)
- by SA0PR12MB4576.namprd12.prod.outlook.com (2603:10b6:806:93::13)
+ by SN6PR12MB2845.namprd12.prod.outlook.com (2603:10b6:805:75::33)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4108.27; Wed, 12 May
- 2021 14:27:19 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.25; Wed, 12 May
+ 2021 14:27:24 +0000
 Received: from SN6PR12MB4623.namprd12.prod.outlook.com
  ([fe80::ad51:8c49:b171:856c]) by SN6PR12MB4623.namprd12.prod.outlook.com
  ([fe80::ad51:8c49:b171:856c%7]) with mapi id 15.20.4129.026; Wed, 12 May 2021
- 14:27:19 +0000
+ 14:27:24 +0000
 From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  linux-pci@vger.kernel.org, ckoenig.leichtzumerken@gmail.com,
  daniel.vetter@ffwll.ch, Harry.Wentland@amd.com
-Subject: [PATCH v7 05/16] drm/amdgpu: Handle IOMMU enabled case.
-Date: Wed, 12 May 2021 10:26:37 -0400
-Message-Id: <20210512142648.666476-6-andrey.grodzovsky@amd.com>
+Subject: [PATCH v7 07/16] PCI: Add support for dev_groups to struct pci_driver
+Date: Wed, 12 May 2021 10:26:39 -0400
+Message-Id: <20210512142648.666476-8-andrey.grodzovsky@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210512142648.666476-1-andrey.grodzovsky@amd.com>
 References: <20210512142648.666476-1-andrey.grodzovsky@amd.com>
@@ -71,54 +71,54 @@ Received: from agrodzovsky-All-Series.hitronhub.home
  YTOPR0101CA0032.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:15::45) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4108.30 via Frontend
- Transport; Wed, 12 May 2021 14:27:18 +0000
+ Transport; Wed, 12 May 2021 14:27:23 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 768fc8e9-dd41-4618-e0d4-08d915520c78
-X-MS-TrafficTypeDiagnostic: SA0PR12MB4576:
+X-MS-Office365-Filtering-Correlation-Id: 9cc5f59e-5043-4ff6-6096-08d915520f63
+X-MS-TrafficTypeDiagnostic: SN6PR12MB2845:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <SA0PR12MB45765BA08DB34AF399C933ECEA529@SA0PR12MB4576.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3826;
+X-Microsoft-Antispam-PRVS: <SN6PR12MB2845D733D1723D15FB3A10E5EA529@SN6PR12MB2845.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:551;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: FR6rPtghGwM3J/XyYqrsIWf99XEkkziKNH+qJJNwfpZD+ba6jiOPrbSFNWXDo7ad4l+7pEpucLUZTCcLmLNS2IOqlZAtBFDn+iaR97tlyiUJGtNhvvK7Zv/qomDYUCLOX39Xhh+xYFSyDNzkQ3qb/mY3FwVI43hm4S2tQITxg4SmHUg5zBRN+27yR/CvkvjUc+n8grF1os4lAMiH8cisCP+XIupG/5q2jy9/mKrwC1tXNPFn8To2wpaVNjP38jRdDYdq6n//xCfMMghYu89/mi9fN/1teC/Y1b6nplbnAczwvzIP/c4EeFMpqSZwbIJLzfqGmMCfl1zp6iVUyMobjw0+a1sN3dwIOYqOu3rTRXDOuJga+BRHpoAwagPxKGGc4kIlmzReFBsBLUSEWpHPgimTOwVWlk7Hgg7ueEBIwzrGNmKtCwIm9lzmGxNOYkenYB3zuzi73D6ixQlTiHXUkzXbdq1f/hOSAdMQGmTJoKxANaduX3JJRRJu9+w3I21dBDKvoNpRGXLNRw6LzY6wKFrnO9QjHeoxbZHIAP5B4Ul0iffOqCyLU6lqiCieTffproW9JnZ8+jAVleDz4HfFfTMPj4L0dOyKnp9/CNiwNyY=
+X-Microsoft-Antispam-Message-Info: FIdWCEba5PvMihH9V8v4zF3bQkbJWxh0oJMl0zP5dXIjUH8x12scsTLi2HxMJlb/QssNik2mDoiozhwFMmcYkOOuhplMcOAaYpYIg/fzMC1l1iz/r3f9n/jYpqj6O2ysHYMSi4F5gIt0vKnn0psqEbPQndEdbX6s77AXywHwW5UBlVJYhrlcWwtW5rnHzPCemAzWPVHiTjihFxT9RFup/FjxqwhBgLonj1Ias5cxbidttQhmg6U4QJUetmjOziUOFCkmmBokjvMScUsOIP9kEm+LPCzAPfHpISK4umn4mk5K9WRuRUHts5m50ey5rG9OFy1CMYr/mCmHdxXh4MLn1qQ4Juhx0V3R6o8LkpQuPRivt86ZvnhCuIrN3lLRKvoYdzkfzzyM+r9v6atmRLTsBtQYK2XZLKLoom3mZLAaBueGMem06bvSBULa664jx0a6Y/Ss6PdzRHVKVsZ6+/bdCQKi4v509nWsXCNBIP5GtwNFoUUozRP7Eap4EixCpcXuLLY/xwaDHEaWIv7P9Nl0tvSxW2JpD2xyjUWoqj5sFiKjpnpT/0BAw1JNnzYFvUtGcNGumz0l0ze+RyiBL6UHE3bC8hP6NDCZ6zCXyE+HCzo=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SN6PR12MB4623.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(39860400002)(366004)(346002)(396003)(136003)(38100700002)(5660300002)(1076003)(6666004)(186003)(316002)(16526019)(8676002)(83380400001)(66476007)(2906002)(6636002)(86362001)(30864003)(52116002)(36756003)(2616005)(66946007)(66556008)(8936002)(6512007)(6506007)(44832011)(478600001)(4326008)(6486002);
+ SFS:(4636009)(376002)(39860400002)(396003)(346002)(136003)(366004)(6486002)(8676002)(54906003)(316002)(6512007)(16526019)(6636002)(478600001)(1076003)(186003)(4326008)(44832011)(2906002)(6506007)(8936002)(5660300002)(2616005)(38100700002)(36756003)(86362001)(6666004)(66476007)(66946007)(66556008)(83380400001)(52116002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?N3qV0GEhJxKNAaEmxbJpQJURRDDa8KIIA5qdLMWfSpC+KV9CSptgfQTu+96Z?=
- =?us-ascii?Q?a7dxCr47PTJPLUqryDooCn1TKGHB2tR6ZXA1EpZDkPJwT0hLOaC91XS1ioQd?=
- =?us-ascii?Q?q7pH2AeYz3AazW5iB/Igu9P1fhYLIcX0P4jVTUfyB6dYGjNMj5TfJdJmYKWB?=
- =?us-ascii?Q?pC9LQD2C/qgZl6LSJpcvA/4mZPHi4GZZjFBubMoHRxTW0DFwhEf7/FGlldHM?=
- =?us-ascii?Q?Tll7Rcvgt+DiRBVPNJH1SxAQIu0VJ1QpL+SBYGlfZ0uLS3WkSDgdWyNYnK1N?=
- =?us-ascii?Q?P6QY6buyPiGyCGq7MhHQV3SS0GBuCiqzuHcOCFsvZbnHjgoVjlKywvK05IlO?=
- =?us-ascii?Q?GhSGVSkArnaj8hrGC07zzE9Izx0tdhPQjM5F0/Src+c45zj6v4lVxvTKgthq?=
- =?us-ascii?Q?sBK8wr/FfuhJdXnxB0O3920jUw7vwSc/Pdzwjc/oNNHtU1rIYZ0JenHVHWfG?=
- =?us-ascii?Q?2o9twgOiyV0AKKnerI0DCHEV4XYpEpPUYosS1dks+GDWeZ1ueUZcB3CE08Ni?=
- =?us-ascii?Q?pAo6gHK2LPwosNQB/NUOm2vRq2Qp3O3A5NQG0klNQBqBZHD4AhfRqijgfIvr?=
- =?us-ascii?Q?nV9Sh7g0UxWeZt5Dhsvt2l96XiF/I41y+moWmb2tbjhCyrdBR//hA6k6zhCH?=
- =?us-ascii?Q?wRCRO8EskkEiTcFo8nayo66WESXAMSgD09FyUFruDYuqjQ9Ywaogo+aymDRa?=
- =?us-ascii?Q?sUjkLJGLMeHxfWNfwJAcOPY/EG21kJA2xGlKxVJnCgi8ZW1F57/yMpR4aTJB?=
- =?us-ascii?Q?10MTlGPxDd7yVVg+yy+TDLSRE+9pek5Akdtu9L3PMaPrPws7z4YkjrH5RYJt?=
- =?us-ascii?Q?PGUQxABowdjoKxkBulD7u+NCi/YKHG2RU6H84fQpqhwlgC58Nv4lM0hUzqfi?=
- =?us-ascii?Q?cSeqbGXC0aha4F5h8+FngyzYqNldKU74B/NaOQ6jpxIyQNp7DOmFKlwdkeGu?=
- =?us-ascii?Q?u0nuU5XxucfNjk5xzIxj4Y746c59NazL6zwAd7tpJh3jCcbzJQZHyq9lfn2y?=
- =?us-ascii?Q?8C1oSE9lP2W8FEnnXqSDioNjlxF4s3nOW3chelnW4njjATWZcr0hqIo7JYYP?=
- =?us-ascii?Q?76k4XTqFejWbLJphfF6I5U+2pBNsImT028lk9PbaEUyCLYIrofgxegwc2PSQ?=
- =?us-ascii?Q?zjptdQ42BmEkOkg2TQ5yBRC75M92+RXeCPt1zPCCxur7lwBVn2S0zQWlsN6i?=
- =?us-ascii?Q?qzHYXl/2tBDX+e4FgytgmtiwM1jfFEgGj5FJ2bl3TGzxrHXpXjnzmpa0vKuw?=
- =?us-ascii?Q?RoHpm5Z+A+cxb6j5xh0k8AwNokhUzKvgqv42XW0t/zoOhko+N78uZcEnQ2gz?=
- =?us-ascii?Q?8wPNksSn7YhTTYNjkPMwOvcqod+13l1LiRB97MY7kYcQKjYv16LXxzubntjn?=
- =?us-ascii?Q?EJpugY9q+FCggFE9PGTWFQJTq213?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?u8iHqv8tz9BHH08oKkW0lWy+cVTbTQr+sNaKsxJOFnpNCoHi6ienOySoSYOt?=
+ =?us-ascii?Q?dAsqtZWqURt0kPBQn8bW/cO7UvWGWVxk/7MN4LL4cAgY0Ey0BvXLazUbVY7r?=
+ =?us-ascii?Q?eJIczrZThoQXR9eVTD67J8QQFuy/OUwyD39E1Zis4m+LvFlhanVLffF5juJk?=
+ =?us-ascii?Q?g7MSzN3P7niWvBNibx0a3fDmjFIUnfl2nkyvlB06P5s1OqM3ZJiYgNiMi+zf?=
+ =?us-ascii?Q?PJvaTHBGVO8A5NxBYJ6XSIQEIJUYHr70Stjt1tSWNMLn3CLxvX5uDNag9BKe?=
+ =?us-ascii?Q?DvscL4acYDhm0Mg8VGaSMII4Fb5Qthd3YzufXp2M+7+l/8qveJukSWe/jf6+?=
+ =?us-ascii?Q?JJ88HZEaKHKKZMjTP0fOcoxu0jYcUJwnB7fGByHyfqbknXzBW293697/N0eu?=
+ =?us-ascii?Q?PVTv4fcmHJjbPrA1M9yaAfEGvks476KhrWgkFKLpr4Xjm3vbTuAC/SwpIYfg?=
+ =?us-ascii?Q?pQrwymZCoZpRHFkTh7JuCPzgDHwO1X/zGJCyGh3TJqnKaLfpGrTdahBXhvny?=
+ =?us-ascii?Q?IQaVeN2zUcikn+uLHFw/IKDfs7Q+JaEfGh1gF4KT/q7utxmPmmTCTlowDt9g?=
+ =?us-ascii?Q?EzLhLi7pjQiLKH746Tr2vOwZxsNZrIkL0msPwAC2UpycnIws5FfPKBiqVrjV?=
+ =?us-ascii?Q?WYN3bucLL6f8b0hF9ySUR2Swl8XXvgLJ9UDC5xJdkSoRqJW+g/8ZhAnAb11g?=
+ =?us-ascii?Q?33pS2CX3ZHuh8ND6Jfa0t9eXYpxPnY4p/E5Y6hLDIinQFHF1o/A4kPiPfuG1?=
+ =?us-ascii?Q?77XkS081kXR8l5f4q8RTcZdECGyvGhQp39XRDzoOE5sRwAkD2If8kfuQP3Yq?=
+ =?us-ascii?Q?9aMYFhnX1seDDbjleUMuHxKfcVfsby459WkgJYvxMPpfGetzSnjLLB3+DtbB?=
+ =?us-ascii?Q?XiBfCBeE69f+CaBODO0FDqUFZ81U9ql1lSZHeRcfYtM9iOQ9SM6jLm8DsnWv?=
+ =?us-ascii?Q?Dc60yb2AVu880FrSJonHv8HJc30spBvDqYu0MZpcMzih/uukCmWws8zQy0TH?=
+ =?us-ascii?Q?DhH0o1aIy9NUm+WbLq/VjgWFU0EwvpoJBVec/JjV6QdKLblhWZj4g2zD4MpL?=
+ =?us-ascii?Q?YEuGePx9LMqH8coX8xmNv6nZoEMADVnZGKQDCTUOpbDbOwaVZzji8JoYORKB?=
+ =?us-ascii?Q?t9CYiSoalEAM9iDXQRmyH6PHFlqpvtVBU7niz+JJt8muSKNpqzqQum73v83B?=
+ =?us-ascii?Q?AgctJuO41MKbMsCe3CkR/W3+Xwi3Po8C54lpUZky6XAAwSL+YndZQgWEcgX7?=
+ =?us-ascii?Q?disj7xdIzrUOdT0X70onRkByA5LEikpaV9cSIAnLC3iPZfYrK5aF2lQydMuH?=
+ =?us-ascii?Q?vEHjgQeSbfDRmsN/Wl/1qvhpjIGPnKFNtQ/2zrL6cf3QYXXXpQoSc6CsOQAL?=
+ =?us-ascii?Q?jgb12A88sGsyl8p8aUuUKPHPc0s9?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 768fc8e9-dd41-4618-e0d4-08d915520c78
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9cc5f59e-5043-4ff6-6096-08d915520f63
 X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB4623.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 May 2021 14:27:19.2834 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 May 2021 14:27:24.0827 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Qc2zuFjldOwwMW2isi6YVIvxnIcTurPbWXuQX6CGA7vVPxuYJ4Vd4FHjFoVrAWn6YMXoMYBnRkObz4C7LEvEhA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4576
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZQtc9Q04ARiFQzokZZctQsHV7H4uApNgsNfGDqe/v8sPsmekPREdT+07h+OaIp+NAnyCvBq2yHew9QcmHKJubw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB2845
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,314 +131,59 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>, gregkh@linuxfoundation.org,
- Felix.Kuehling@amd.com, ppaalanen@gmail.com, helgaas@kernel.org,
- Alexander.Deucher@amd.com
+ Felix.Kuehling@amd.com, Bjorn Helgaas <bhelgaas@google.com>,
+ ppaalanen@gmail.com, helgaas@kernel.org, Alexander.Deucher@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Handle all DMA IOMMU gropup related dependencies before the
-group is removed.
+This helps converting PCI drivers sysfs attributes to static.
 
-v5: Drop IOMMU notifier and switch to lockless call to ttm_tt_unpopulate
-v6: Drop the BO unamp list
-v7:
-Drop amdgpu_gart_fini
-In amdgpu_ih_ring_fini do uncinditional  check (!ih->ring)
-to avoid freeing uniniitalized rings.
-Call amdgpu_ih_ring_fini unconditionally.
+Analogous to' commit b71b283e3d6d ("USB: add support for dev_groups to
+struct usb_driver")'
 
 Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Suggested-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Acked-by: Bjorn Helgaas <bhelgaas@google.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c   | 14 +-------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h   |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c     |  6 ++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c    |  5 +++++
- drivers/gpu/drm/amd/amdgpu/cik_ih.c        |  1 -
- drivers/gpu/drm/amd/amdgpu/cz_ih.c         |  1 -
- drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c     |  1 -
- drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c      |  1 -
- drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c      |  1 -
- drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c      |  1 -
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c      |  1 -
- drivers/gpu/drm/amd/amdgpu/iceland_ih.c    |  1 -
- drivers/gpu/drm/amd/amdgpu/navi10_ih.c     |  4 ----
- drivers/gpu/drm/amd/amdgpu/si_ih.c         |  1 -
- drivers/gpu/drm/amd/amdgpu/tonga_ih.c      |  1 -
- drivers/gpu/drm/amd/amdgpu/vega10_ih.c     |  4 ----
- drivers/gpu/drm/amd/amdgpu/vega20_ih.c     |  4 ----
- 18 files changed, 13 insertions(+), 40 deletions(-)
+ drivers/pci/pci-driver.c | 1 +
+ include/linux/pci.h      | 3 +++
+ 2 files changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 18598eda18f6..a0bff4713672 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3256,7 +3256,6 @@ static const struct attribute *amdgpu_dev_attributes[] = {
- 	NULL
+diff --git a/drivers/pci/pci-driver.c b/drivers/pci/pci-driver.c
+index ec44a79e951a..3a72352aa5cf 100644
+--- a/drivers/pci/pci-driver.c
++++ b/drivers/pci/pci-driver.c
+@@ -1385,6 +1385,7 @@ int __pci_register_driver(struct pci_driver *drv, struct module *owner,
+ 	drv->driver.owner = owner;
+ 	drv->driver.mod_name = mod_name;
+ 	drv->driver.groups = drv->groups;
++	drv->driver.dev_groups = drv->dev_groups;
+ 
+ 	spin_lock_init(&drv->dynids.lock);
+ 	INIT_LIST_HEAD(&drv->dynids.list);
+diff --git a/include/linux/pci.h b/include/linux/pci.h
+index 86c799c97b77..b57755b03009 100644
+--- a/include/linux/pci.h
++++ b/include/linux/pci.h
+@@ -858,6 +858,8 @@ struct module;
+  *		number of VFs to enable via sysfs "sriov_numvfs" file.
+  * @err_handler: See Documentation/PCI/pci-error-recovery.rst
+  * @groups:	Sysfs attribute groups.
++ * @dev_groups: Attributes attached to the device that will be
++ *              created once it is bound to the driver.
+  * @driver:	Driver model structure.
+  * @dynids:	List of dynamically added device IDs.
+  */
+@@ -873,6 +875,7 @@ struct pci_driver {
+ 	int  (*sriov_configure)(struct pci_dev *dev, int num_vfs); /* On PF */
+ 	const struct pci_error_handlers *err_handler;
+ 	const struct attribute_group **groups;
++	const struct attribute_group **dev_groups;
+ 	struct device_driver	driver;
+ 	struct pci_dynids	dynids;
  };
- 
--
- /**
-  * amdgpu_device_init - initialize the driver
-  *
-@@ -3698,12 +3697,13 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
- 		amdgpu_ucode_sysfs_fini(adev);
- 	sysfs_remove_files(&adev->dev->kobj, amdgpu_dev_attributes);
- 
--
- 	amdgpu_fbdev_fini(adev);
- 
- 	amdgpu_irq_fini_hw(adev);
- 
- 	amdgpu_device_ip_fini_early(adev);
-+
-+	amdgpu_gart_dummy_page_fini(adev);
- }
- 
- void amdgpu_device_fini_sw(struct amdgpu_device *adev)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
-index c5a9a4fb10d2..6460cf723f0a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
-@@ -92,7 +92,7 @@ static int amdgpu_gart_dummy_page_init(struct amdgpu_device *adev)
-  *
-  * Frees the dummy page used by the driver (all asics).
-  */
--static void amdgpu_gart_dummy_page_fini(struct amdgpu_device *adev)
-+void amdgpu_gart_dummy_page_fini(struct amdgpu_device *adev)
- {
- 	if (!adev->dummy_page_addr)
- 		return;
-@@ -365,15 +365,3 @@ int amdgpu_gart_init(struct amdgpu_device *adev)
- 
- 	return 0;
- }
--
--/**
-- * amdgpu_gart_fini - tear down the driver info for managing the gart
-- *
-- * @adev: amdgpu_device pointer
-- *
-- * Tear down the gart driver info and free the dummy page (all asics).
-- */
--void amdgpu_gart_fini(struct amdgpu_device *adev)
--{
--	amdgpu_gart_dummy_page_fini(adev);
--}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h
-index a25fe97b0196..030b9d4c736a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h
-@@ -57,7 +57,7 @@ void amdgpu_gart_table_vram_free(struct amdgpu_device *adev);
- int amdgpu_gart_table_vram_pin(struct amdgpu_device *adev);
- void amdgpu_gart_table_vram_unpin(struct amdgpu_device *adev);
- int amdgpu_gart_init(struct amdgpu_device *adev);
--void amdgpu_gart_fini(struct amdgpu_device *adev);
-+void amdgpu_gart_dummy_page_fini(struct amdgpu_device *adev);
- int amdgpu_gart_unbind(struct amdgpu_device *adev, uint64_t offset,
- 		       int pages);
- int amdgpu_gart_map(struct amdgpu_device *adev, uint64_t offset,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
-index faaa6aa2faaf..433469ace6f4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
-@@ -115,9 +115,11 @@ int amdgpu_ih_ring_init(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih,
-  */
- void amdgpu_ih_ring_fini(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih)
- {
-+
-+	if (!ih->ring)
-+		return;
-+
- 	if (ih->use_bus_addr) {
--		if (!ih->ring)
--			return;
- 
- 		/* add 8 bytes for the rptr/wptr shadows and
- 		 * add them to the end of the ring allocation.
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-index 233b64dab94b..32ce0e679dc7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-@@ -361,6 +361,11 @@ void amdgpu_irq_fini_hw(struct amdgpu_device *adev)
- 		if (!amdgpu_device_has_dc_support(adev))
- 			flush_work(&adev->hotplug_work);
- 	}
-+
-+	amdgpu_ih_ring_fini(adev, &adev->irq.ih_soft);
-+	amdgpu_ih_ring_fini(adev, &adev->irq.ih);
-+	amdgpu_ih_ring_fini(adev, &adev->irq.ih1);
-+	amdgpu_ih_ring_fini(adev, &adev->irq.ih2);
- }
- 
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/cik_ih.c b/drivers/gpu/drm/amd/amdgpu/cik_ih.c
-index 183d44a6583c..df385ffc9768 100644
---- a/drivers/gpu/drm/amd/amdgpu/cik_ih.c
-+++ b/drivers/gpu/drm/amd/amdgpu/cik_ih.c
-@@ -310,7 +310,6 @@ static int cik_ih_sw_fini(void *handle)
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
- 
- 	amdgpu_irq_fini_sw(adev);
--	amdgpu_ih_ring_fini(adev, &adev->irq.ih);
- 	amdgpu_irq_remove_domain(adev);
- 
- 	return 0;
-diff --git a/drivers/gpu/drm/amd/amdgpu/cz_ih.c b/drivers/gpu/drm/amd/amdgpu/cz_ih.c
-index d32743949003..b8c47e0cf37a 100644
---- a/drivers/gpu/drm/amd/amdgpu/cz_ih.c
-+++ b/drivers/gpu/drm/amd/amdgpu/cz_ih.c
-@@ -302,7 +302,6 @@ static int cz_ih_sw_fini(void *handle)
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
- 
- 	amdgpu_irq_fini_sw(adev);
--	amdgpu_ih_ring_fini(adev, &adev->irq.ih);
- 	amdgpu_irq_remove_domain(adev);
- 
- 	return 0;
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-index 2bfd620576f2..5e8bfcdd422e 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-@@ -954,7 +954,6 @@ static int gmc_v10_0_sw_init(void *handle)
- static void gmc_v10_0_gart_fini(struct amdgpu_device *adev)
- {
- 	amdgpu_gart_table_vram_free(adev);
--	amdgpu_gart_fini(adev);
- }
- 
- static int gmc_v10_0_sw_fini(void *handle)
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-index 405d6ad09022..0e81e03e9b49 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-@@ -898,7 +898,6 @@ static int gmc_v6_0_sw_fini(void *handle)
- 	amdgpu_vm_manager_fini(adev);
- 	amdgpu_gart_table_vram_free(adev);
- 	amdgpu_bo_fini(adev);
--	amdgpu_gart_fini(adev);
- 	release_firmware(adev->gmc.fw);
- 	adev->gmc.fw = NULL;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-index 210ada2289ec..0795ea736573 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-@@ -1085,7 +1085,6 @@ static int gmc_v7_0_sw_fini(void *handle)
- 	kfree(adev->gmc.vm_fault_info);
- 	amdgpu_gart_table_vram_free(adev);
- 	amdgpu_bo_fini(adev);
--	amdgpu_gart_fini(adev);
- 	release_firmware(adev->gmc.fw);
- 	adev->gmc.fw = NULL;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-index c1bd190841f8..dbf2e5472069 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-@@ -1194,7 +1194,6 @@ static int gmc_v8_0_sw_fini(void *handle)
- 	kfree(adev->gmc.vm_fault_info);
- 	amdgpu_gart_table_vram_free(adev);
- 	amdgpu_bo_fini(adev);
--	amdgpu_gart_fini(adev);
- 	release_firmware(adev->gmc.fw);
- 	adev->gmc.fw = NULL;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index c82d82da2c73..5ed0adae05cf 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -1601,7 +1601,6 @@ static int gmc_v9_0_sw_fini(void *handle)
- 	amdgpu_gart_table_vram_free(adev);
- 	amdgpu_bo_unref(&adev->gmc.pdb0_bo);
- 	amdgpu_bo_fini(adev);
--	amdgpu_gart_fini(adev);
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/iceland_ih.c b/drivers/gpu/drm/amd/amdgpu/iceland_ih.c
-index da96c6013477..ddfe4eaeea05 100644
---- a/drivers/gpu/drm/amd/amdgpu/iceland_ih.c
-+++ b/drivers/gpu/drm/amd/amdgpu/iceland_ih.c
-@@ -301,7 +301,6 @@ static int iceland_ih_sw_fini(void *handle)
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
- 
- 	amdgpu_irq_fini_sw(adev);
--	amdgpu_ih_ring_fini(adev, &adev->irq.ih);
- 	amdgpu_irq_remove_domain(adev);
- 
- 	return 0;
-diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-index 5eea4550b856..941d464a2b47 100644
---- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-+++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-@@ -570,10 +570,6 @@ static int navi10_ih_sw_fini(void *handle)
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
- 
- 	amdgpu_irq_fini_sw(adev);
--	amdgpu_ih_ring_fini(adev, &adev->irq.ih_soft);
--	amdgpu_ih_ring_fini(adev, &adev->irq.ih2);
--	amdgpu_ih_ring_fini(adev, &adev->irq.ih1);
--	amdgpu_ih_ring_fini(adev, &adev->irq.ih);
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/si_ih.c b/drivers/gpu/drm/amd/amdgpu/si_ih.c
-index 751307f3252c..9a24f17a5750 100644
---- a/drivers/gpu/drm/amd/amdgpu/si_ih.c
-+++ b/drivers/gpu/drm/amd/amdgpu/si_ih.c
-@@ -176,7 +176,6 @@ static int si_ih_sw_fini(void *handle)
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
- 
- 	amdgpu_irq_fini_sw(adev);
--	amdgpu_ih_ring_fini(adev, &adev->irq.ih);
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/tonga_ih.c b/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
-index 973d80ec7f6c..b08905d1c00f 100644
---- a/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
-+++ b/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
-@@ -313,7 +313,6 @@ static int tonga_ih_sw_fini(void *handle)
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
- 
- 	amdgpu_irq_fini_sw(adev);
--	amdgpu_ih_ring_fini(adev, &adev->irq.ih);
- 	amdgpu_irq_remove_domain(adev);
- 
- 	return 0;
-diff --git a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
-index dead9c2fbd4c..32ec4b8e806a 100644
---- a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
-@@ -514,10 +514,6 @@ static int vega10_ih_sw_fini(void *handle)
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
- 
- 	amdgpu_irq_fini_sw(adev);
--	amdgpu_ih_ring_fini(adev, &adev->irq.ih_soft);
--	amdgpu_ih_ring_fini(adev, &adev->irq.ih2);
--	amdgpu_ih_ring_fini(adev, &adev->irq.ih1);
--	amdgpu_ih_ring_fini(adev, &adev->irq.ih);
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
-index 58993ae1fe11..f51dfc38ac65 100644
---- a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
-@@ -566,10 +566,6 @@ static int vega20_ih_sw_fini(void *handle)
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
- 
- 	amdgpu_irq_fini_sw(adev);
--	amdgpu_ih_ring_fini(adev, &adev->irq.ih_soft);
--	amdgpu_ih_ring_fini(adev, &adev->irq.ih2);
--	amdgpu_ih_ring_fini(adev, &adev->irq.ih1);
--	amdgpu_ih_ring_fini(adev, &adev->irq.ih);
- 
- 	return 0;
- }
 -- 
 2.25.1
 
