@@ -7,54 +7,54 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 90405C18E7B
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 May 2021 17:31:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B1132C4361B
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 May 2021 17:31:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 37CB461432
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 May 2021 17:31:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 37CB461432
+	by mail.kernel.org (Postfix) with ESMTPS id 4F9FE61417
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 May 2021 17:31:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4F9FE61417
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B85546EC61;
-	Wed, 12 May 2021 17:31:28 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2077.outbound.protection.outlook.com [40.107.243.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E615B6EC6C
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 May 2021 17:31:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30F0E6EC66;
+	Wed, 12 May 2021 17:31:23 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2062.outbound.protection.outlook.com [40.107.94.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 144956EC65
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 May 2021 17:31:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LVhFsDpB4xf4hF1nTRUpxFNuQrYiOHuXX0Q8+m5lXDhpCs4cqmk1QKEUYdtFwE83SJ+86ElxQWiAmngWypFcMJJMRNRDGDcRnvjHKydA5zVSBH6MAlrV5VnbqYPfE/dYfBrFghAFvmcE6SUoDanA/D3+Ds4g5Hz90bOjizG2RraIruzcvFFNhIm9kDAr47xSGpWUTynstM5rv8Rb6S/Lg80BJqqGfN64ebDTt2/dMycI0L8SsicazpMHtNXSrCZxy4+bMnoaghFSPznAXWM98EhNtMOvCq/Pmek9xFONG2kqq/IVSPm763Hr8miMJycVOKT4HgShOoO5y1T3CQWdmA==
+ b=WYIJ8A3doJUt/SoDjdoKYe1lwxlTLCX26oCCX64WVm1U+OLVugjRNKMz3R+z2C0P8xcR/rhGKgZBdE10ZYxeDdP+9yRzYkGDAlZ4kuX1ws36n6JyBFuHGhMQMJEXiqyS/Qyv3lDTZ7BsWVSnEYwgDa9V/EeuvGzm43YbpCMpUyc+u2FFC73aKwQB20KaDUP+9M+FLbEZlyNRrk/rHyB7aHo+tX5Bq6juxFKWrhE+t+6aeUz/xLHNkVOuyA8fB4QlNz2w9/CdBDaoWQ2OBBGIOdQpR7r/2MQsYvJw9yBEnb9ZWYIQUXXzk4e/9HT38KUOIXRv0KvppAdgEbfbzCKNgA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tnCwJ8q18d/KQCN0HNHGlnojcOo7VUzWf/orcE2nBQc=;
- b=lxmMePrDRZT/m2pw62B5P7E3Vowxz4TQNp8AY/R2ldnf7QM2OheLL6uDAo/bZLFP60po+4YYmbPBcuKJeTgOunrtk7vKqh0oITAGnYOOZK21Cfn825dt5DVHVasuIBa6dMRa7NQWn6caT+lcrJo7BPBRb0CAcHi2vCqmSNaaNrX93n5t6UKUXqC2XoBqZEd9qbqQ7A+piXN2Eny3y5MgLkBgwMA8M4dSDHByu6XcLM5rARtnvJxY2fdpj5legrDzWiM05fSyFveW17PWe1V8wx38A0kiLDRcIDbe2oHNnfGR9/f/5PtJkcY8hAxPtka739u8GYs5EwPuQLUcuCDwMQ==
+ bh=buIOrphYOuXvpxF7dAmDogAbkhZadC1DcZXEOwo9HQc=;
+ b=cXJ8fuMaZVlMkppi9VI2NRbjo3fiRIrFyg+N+uWpJ4fA298Q0BcTQKsVT8Pu0I/4MDfFp1ZaddKC6KSDA4mm94OYF8+chg85IQQnuPnncYub8FogncWU4PuRl4/217Vw8Y7a7X4RSYgnmDJM5y0BNYw9rYjaNNffwXbx3XBhiYF5jr8f7Ynr2UjS5vtIUXMX1r0jg7jA3+/n0wLkdjPbr0950+tCY52cgV1bpZk0zkZzrfIMSwA8N3lVRakKKql+Hfb7JprbsAgJde/5IzWzFOBWfO/Pn+dB2NeHa3uKW/ZhJb5RIhAcDp3EZvz191l6+CtDGV3ynVieS0ZOoOZVkA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tnCwJ8q18d/KQCN0HNHGlnojcOo7VUzWf/orcE2nBQc=;
- b=ImcBjXTOfCozhlf7/S5Gpb4u6m35OSVloVaa60wM28AUyvqCvv6nGveN/Q0vukDJWswgGwNJflDsP9o1U2rtlcAIzotgTVNZkLEEmA2GV0MBp/WIDzdC9rWTPyL0n54W6HzbGt3J7DkU8ztZgVr9g7HFHQVcV94aPn752i+vohE=
+ bh=buIOrphYOuXvpxF7dAmDogAbkhZadC1DcZXEOwo9HQc=;
+ b=bc7x16j2k1HTufUXTkW4QDlNPt/pnPtyYwpaHPODy87M/uI+RSZEv6CTrOnAu5blRb8n9BWUQoQzMO/VaRoqV07G0Mrueo+o85trp3M2yi5TIMqZ8IOATb7FMcQ8nR8u4did4NEsdyt+Z9fTTzaV/Ogxw9EN5g4nlyU+vQJT0qk=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
 Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
- by BL0PR12MB2340.namprd12.prod.outlook.com (2603:10b6:207:4d::30)
+ by BL0PR12MB4692.namprd12.prod.outlook.com (2603:10b6:208:82::23)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.25; Wed, 12 May
- 2021 17:31:20 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4108.26; Wed, 12 May
+ 2021 17:31:17 +0000
 Received: from MN2PR12MB4488.namprd12.prod.outlook.com
  ([fe80::3d98:cefb:476c:c36e]) by MN2PR12MB4488.namprd12.prod.outlook.com
  ([fe80::3d98:cefb:476c:c36e%8]) with mapi id 15.20.4129.026; Wed, 12 May 2021
- 17:31:20 +0000
+ 17:31:17 +0000
 From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 12/49] drm/amd/amdgpu: add gfx ip block for beige_goby
-Date: Wed, 12 May 2021 13:30:17 -0400
-Message-Id: <20210512173053.2347842-13-alexander.deucher@amd.com>
+Subject: [PATCH 07/49] drm/amd/amdgpu: initialize IP offset for beige_goby
+Date: Wed, 12 May 2021 13:30:12 -0400
+Message-Id: <20210512173053.2347842-8-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210512173053.2347842-1-alexander.deucher@amd.com>
 References: <20210512173053.2347842-1-alexander.deucher@amd.com>
@@ -68,53 +68,53 @@ Received: from localhost.localdomain (192.161.79.245) by
  BL1PR13CA0159.namprd13.prod.outlook.com (2603:10b6:208:2bd::14) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4150.11 via Frontend
- Transport; Wed, 12 May 2021 17:31:20 +0000
+ Transport; Wed, 12 May 2021 17:31:16 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: dbc0143f-a7b8-4690-1b5b-08d9156bc1a5
-X-MS-TrafficTypeDiagnostic: BL0PR12MB2340:
+X-MS-Office365-Filtering-Correlation-Id: adec3b49-df90-4944-37f3-08d9156bbf98
+X-MS-TrafficTypeDiagnostic: BL0PR12MB4692:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BL0PR12MB23402F46E8D4C94F8CE1D84EF7529@BL0PR12MB2340.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:765;
+X-Microsoft-Antispam-PRVS: <BL0PR12MB469232B67D308B28466BADF7F7529@BL0PR12MB4692.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: PsqU8ATywVVPcqA5BLp/PBY9bN0vB7uLvXkBi2BQ3yRf6SwMR6kb7tUcI4LvsnoWX2NcMUGVjnYKNt2Q3veYHZZKq111qcT453ICUD1P9JvgRW36PC0Gh4k3DKgn+qUGRrFbs+R9TdkVpDvqddhBu6FZshoGTZ/awxMNRTB/FnTNgPyRiIK9vcfJZtCsytOTVSE6c9uPXA5dTQK//oY9Qn/Pt4mK0XK7fGPf2oWvWnVgNBoaInxq43YyWuM3i1tBfpB5Wo1FWPMecS5C45tsTuO0A5P6KtmunXRTOoltO/FxCdkF/TgaC/kCX9tKxFVGQIE2+4dTfZaFRltAXAHlgTFpzyU3VI7TS1YlWx4KIO5yqAlcjFM4CAeJsOLRTy5acL+oelEEBYQB8tbdNUqgPBNbceScWtYN0EfJwFMBtILqMUqh9W00Ec2j914QvNcHX7ygAyM/5VA/OUzGyII/8jwCG9LFgU6B1NnVsdCFRifHcolKOU6842GWCllnMAl0M8BxSlDuWZhkFwHAJuvAc47VLChEwSx0qCt6P+9QI7pHSxa/1//aoPDJJyExYD4JwEgkXYDLYpxaMW0LyV5vQzzLT+eRVBAwNuv5GAubaSGL8HKF4cQrrSAidEdZ7njX6Mmfg0Mfq3MoRArpVyckEh/jooRH2OGI2DCGqkiAdTqUSZsSj7HdwP+eC8lFBypb
+X-Microsoft-Antispam-Message-Info: 1pdQVIwUMjqgvOPKEdZlnIY/95GDcDnQh06XSNNBpovLnhSoQff15o248dBLdEpCOnKsTUKCq813X8a4WHk35p1FgSRe8krZ4ybGfpqRImgZBnUgPk8m7nUpyO2BQFsEyOc/qR1Lh9NcyaatwAKZzva67DfLuwuqy33tOLV4qSCbVU6Q3hmwUw8qkIxH3PonNwKjASj4ckfr58goQuSH1/d3IyPoz48HDJwFvkj2V3LjNw4Pugs0PS3WJI0WoN2nlRr1j9GuZd1PuAYMS/LOgjLhG6MzFY4/Hf4gFJf9e1qZt2CJiNGVdg4ftPkh2qDRLhilWroINQMpXbbTA0qSG8bo7LA/PTVf08/Br6iURRhC1+gMkMzgrwXq7TvsaMG4DKRkREsza5/xHzF+o4a8bqaZUqe3lqCutMXTh6Y/cS/C2YslOmuIPbX/2wcZ+4/Fr1RKxCpl7evYpoOJBNUnuayPh/P9AioJ17zvR9tqQoKtq/8uaR2HSJb9NpBZ3QjFU2r4mwIochXiGKFRwvR9CwnNLlRAu0kk2reLmGV5esTtBvEE3B2srlmg+MuBIhX2e3Ul295GXQ8TEzlyB69+qZtAVXVzJCLYJJmUcAx/vCj1SGLnZNPb3IqXdOfyPQcGh/g9qZ4NUv2kINWjoFYNLeF8ePMjqZsqTZmP/bO96LRhxXIVm+r7k0tyPTyLbmzM
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(39850400004)(366004)(396003)(136003)(376002)(6666004)(6506007)(26005)(38350700002)(66476007)(38100700002)(86362001)(4326008)(316002)(478600001)(2906002)(8676002)(52116002)(66946007)(66556008)(36756003)(5660300002)(54906003)(6916009)(2616005)(956004)(6486002)(8936002)(16526019)(1076003)(83380400001)(6512007)(186003)(69590400013);
+ SFS:(4636009)(39860400002)(376002)(136003)(366004)(396003)(346002)(6666004)(4326008)(2906002)(83380400001)(8936002)(6512007)(16526019)(36756003)(478600001)(2616005)(316002)(66476007)(186003)(956004)(8676002)(54906003)(86362001)(66556008)(66946007)(30864003)(1076003)(6486002)(26005)(38350700002)(6916009)(6506007)(52116002)(38100700002)(5660300002)(69590400013)(559001)(579004);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?0RGccsrzw+DZUrhe2op8E7NQsSHRa4PZl06PzEfy4C7OwGSoDux70V/2ri1i?=
- =?us-ascii?Q?TqWIxuReU82FS/U2SOQeHKj7/r10tJxsa0dxwbI2A9jsykPVgCm3LFH6pb3P?=
- =?us-ascii?Q?pP1kaR8G/rjRaFm7z2dl/Hv91pAhalxIKgSB10Dd6hEXIaoCZ2mIxq1u/mrW?=
- =?us-ascii?Q?lEoCWB7dVVEGwdD/ZY/2+aViEmRVG7WcyLa0eYXoWs9UdAkFJggvhKm+941w?=
- =?us-ascii?Q?o3yLuf5mhXjmnY4tkJ35Uvdx9GWOrq+1fNpHsoRwZpdq9KHCygtJNvYTHri/?=
- =?us-ascii?Q?dDsIpQEff2g1s62X1zi6EWsP5dR7xZNlCj+TR72Z8gLXOdC4woanInSQURk6?=
- =?us-ascii?Q?7sawyNcUPR2mnq1/vUdCVFdGMly57mPxcCM7Fh4lnVm6AiO61oHin+NnHOCN?=
- =?us-ascii?Q?e9IxX8XkawkTvirkXJ5leBdGiCD6T7G1xNgIMg4EBxPmPdnQv/Xhs/C71SYv?=
- =?us-ascii?Q?RmPMllgvDW8iZOn1xjsj6Ja3VYZXU00C8EL4cnnVUN/quYtRe5ZbSaukJyd1?=
- =?us-ascii?Q?LL3ZZSYgFbrc4SuOmxOkdrTEsWsV70C671zmWQxX26v2+aKMm6Z6SxioT7Cv?=
- =?us-ascii?Q?qp9wjbeQlvOikQPVneIGeOFSHXbTQV8DlJ3dkT+5KmOv/j/IsMarbXVB62sQ?=
- =?us-ascii?Q?5T22eslMOLvweTWXoFlCK42dQbiQfJer1hW5oiECPJY7ibxFsSm68aAGbx+p?=
- =?us-ascii?Q?4tP0X0VkNvonSQZz08JGORBz6pr/3msZOK+k5s81eDcGjOaD0DCJOPgO2EGZ?=
- =?us-ascii?Q?SOm3B1RO+5OVqIQas4Xetxpsl+QUducuEdkzxcMOGoLwbu0ssSaeZOO5iJ+q?=
- =?us-ascii?Q?WT739EsKbTUc14LlT1bxWW+SCjPjRMzJDVTNriB8/DoPH+SFOriWBnWTaLbN?=
- =?us-ascii?Q?5BhTcrr6nrt8xWiN24oqS3TCULfSC+0ynYym4RM9iHLvAyJLXcosFL7NHmpX?=
- =?us-ascii?Q?56bztEvFOwWmgyC6Uh7+rE2jrW3NWh8njepGwMJVgrRQSKZypcl6mBJAvjvU?=
- =?us-ascii?Q?tRE4mU17fmvSaPXY4AbRRpjBjskib8AiapoxnpgXCwjklHbzXOgR4bST5Zav?=
- =?us-ascii?Q?P1+zPVWcTvkIcZXNqCRH2HPxIS+gj3QlhjoYpagpWfBf3j+0x5wy43/NMhz8?=
- =?us-ascii?Q?OblcB8aauru/lxDwELlN9M5n5Q1LjtxDiF/xh9rbDckAKTsVNbmnmtM3zMdF?=
- =?us-ascii?Q?25r6Pd6zxcYBSshyn79G0qLyOT29Ff6Lkz2DvK7GmVK/ORB4sGzFe++jfF+g?=
- =?us-ascii?Q?190eApT4l4rDAvY6mYcBivUly/n6Q7vEEHPP1OPhaEPXuiByawRAWGaRallT?=
- =?us-ascii?Q?SgVw+iTxW29gR5+uMNPVXbsc?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?fp1t+N2460iWpmurx9YWYmbswLzbXBX3pdrAqGjrs1xOZL8dmnmxu1BmI3Ix?=
+ =?us-ascii?Q?uvWKzjRZeua17K8tv1BDGyNyOMAlt2+F8kKy6kwLyp6t9FZhwWSYzOm2YAGP?=
+ =?us-ascii?Q?LFYTVTpuLfWDCQmjKkkjniRj8Nb80Fc+HFmo0gmSn8LQ+LdfpXfNa5AATRDb?=
+ =?us-ascii?Q?TqNs4Vrmn4WTzQrMivVi/BVkxYNeYF3SnR0/qbmnC2qULaRzC/d3CrbBmGM4?=
+ =?us-ascii?Q?+uZn+hwDli1wHTpr3su/7kHl4V8Ae2KVKm+DN+mjks0t6w9Cb0yzGW91NxgU?=
+ =?us-ascii?Q?0Z19S5MKSVnKPob8JCz87Pn6w0ztBqOknKJjDn/EGQkYhvJuJJxGWAXw4/J0?=
+ =?us-ascii?Q?zdBH00iFEvV1HmseyrhonROJIDhKEoKgKJXsRt4L6GiYHWJuFvRM3Q1K7IG7?=
+ =?us-ascii?Q?4eK2xxH476WU+2MW6VUZldTlpwbCpnNf2kfQT68QL1Z+Sm6jP5eEhagqOiNV?=
+ =?us-ascii?Q?cerlt8TyyheUPcn6gNmduameLzB+UlYSImNc1e/rxQlQaOsSvk0GjpLkEFML?=
+ =?us-ascii?Q?ccYJCX4ghxDJpAGUy66veAUXEhvLquys/uHr7XRVOMBXDKV3N+3l7QEZAVAZ?=
+ =?us-ascii?Q?4XsuOPPN3mZophRRBjEd2FAkWt2ZxVth4hi0epuog0HQCUU1lnYBkA1RwJb5?=
+ =?us-ascii?Q?G6guc4qPBmjfhoUTjdERWHF97JLdjpsxVYokf9ISiIuYW/MZH54Q1TEtEmoY?=
+ =?us-ascii?Q?Sg4XJW5oAL3eGQKL1tdbbj/R/B4kc+03DrTqdEJBkqsRA8cA/ycDvAUvXnmv?=
+ =?us-ascii?Q?5dnoeJgZpuT/qRjldho9zJddwMNtzKOalpKaLp2WB7OB+bABOYdIXunWEDFw?=
+ =?us-ascii?Q?Karfw+hi6Gm93QLcYIGUgH66TBLkWrWeGCeah3EdvSP8KS97M9IJT4VoAvHY?=
+ =?us-ascii?Q?fRR0Vi14KEIwj1YcBsDArxsZ/v5IHwj3ZfUfbMENU4kxPNpyDZG8qoTX1ksz?=
+ =?us-ascii?Q?YcbtbPy/zffYON4XEHLvNP6emN7XTLhtXpqDysdIDjrETyKuiSEFW8C0so3+?=
+ =?us-ascii?Q?7NeEaSQQFYidibDxEcU8D2qs8y1nmY+wxFF2P2oVOBnuNH2p75WHIj4wf+zl?=
+ =?us-ascii?Q?0lNXQFYxTDeDeRt3Q8wgw+usBntFhp78/BfHvH+LSta1CkIZ9LBfI7FaVg29?=
+ =?us-ascii?Q?mVmzTrbPiXgduvxSzXH/UuO/n+NhFN8cEJ5GHSqOF3zTiJnlK4fTjlGaAlo/?=
+ =?us-ascii?Q?2JG6SySSOp2MsgxXle6Lx8Cuk375WsynfynHKjCviPA6/UOlk7J2urWstvO7?=
+ =?us-ascii?Q?BEUg2Qp0QNrv7d4MF+A+T2wr+6CpSw5GM5UbJnoUpd1LqknrmEnOcowarDqF?=
+ =?us-ascii?Q?bqzTN19JIj7BR41RIkw+uhel?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dbc0143f-a7b8-4690-1b5b-08d9156bc1a5
+X-MS-Exchange-CrossTenant-Network-Message-Id: adec3b49-df90-4944-37f3-08d9156bbf98
 X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 May 2021 17:31:20.5686 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 May 2021 17:31:17.3427 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EgntJuJWDSafd3d/B6d5kbZcWsf+25yyoAGYtCkD+O8B70+uvfIBcBQrIzJt5VmSj7crXKdWMOSkr5jpvYk/cA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2340
+X-MS-Exchange-CrossTenant-UserPrincipalName: KZ0q9+27MYXbP+FleFOYSob+Yv8GQamPWkESROIC1wHVsPX7HzPLNmzhIBXfFicWoQujAToIJNItC3IAWXcatg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4692
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,73 +135,1402 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Chengming Gui <Jack.Gui@amd.com>
 
-Enable gfx block for beige_goby, same as dimgrey_cavefish
+Add ip offset definition for beige_goby and initialize it
+
+v2: squash in fixes (Alex)
 
 Signed-off-by: Chengming Gui <Jack.Gui@amd.com>
 Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 5 +++++
- drivers/gpu/drm/amd/amdgpu/nv.c        | 1 +
- 2 files changed, 6 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/Makefile           |    3 +-
+ .../gpu/drm/amd/amdgpu/beige_goby_reg_init.c  |   54 +
+ drivers/gpu/drm/amd/amdgpu/nv.c               |    3 +
+ drivers/gpu/drm/amd/amdgpu/nv.h               |    1 +
+ .../drm/amd/include/beige_goby_ip_offset.h    | 1274 +++++++++++++++++
+ 5 files changed, 1334 insertions(+), 1 deletion(-)
+ create mode 100755 drivers/gpu/drm/amd/amdgpu/beige_goby_reg_init.c
+ create mode 100644 drivers/gpu/drm/amd/include/beige_goby_ip_offset.h
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-index b5972ad107f5..408691ad100d 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -4506,6 +4506,7 @@ static void gfx_v10_0_gpu_early_init(struct amdgpu_device *adev)
- 	case CHIP_NAVY_FLOUNDER:
- 	case CHIP_VANGOGH:
- 	case CHIP_DIMGREY_CAVEFISH:
-+	case CHIP_BEIGE_GOBY:
- 		adev->gfx.config.max_hw_contexts = 8;
- 		adev->gfx.config.sc_prim_fifo_size_frontend = 0x20;
- 		adev->gfx.config.sc_prim_fifo_size_backend = 0x100;
-@@ -4630,6 +4631,7 @@ static int gfx_v10_0_sw_init(void *handle)
- 	case CHIP_NAVY_FLOUNDER:
- 	case CHIP_VANGOGH:
- 	case CHIP_DIMGREY_CAVEFISH:
-+	case CHIP_BEIGE_GOBY:
- 		adev->gfx.me.num_me = 1;
- 		adev->gfx.me.num_pipe_per_me = 1;
- 		adev->gfx.me.num_queue_per_pipe = 1;
-@@ -7555,6 +7557,7 @@ static int gfx_v10_0_early_init(void *handle)
- 	case CHIP_NAVY_FLOUNDER:
- 	case CHIP_VANGOGH:
- 	case CHIP_DIMGREY_CAVEFISH:
-+	case CHIP_BEIGE_GOBY:
- 		adev->gfx.num_gfx_rings = GFX10_NUM_GFX_RINGS_Sienna_Cichlid;
- 		break;
- 	default:
-@@ -8040,6 +8043,7 @@ static int gfx_v10_0_set_clockgating_state(void *handle,
- 	case CHIP_NAVY_FLOUNDER:
- 	case CHIP_VANGOGH:
- 	case CHIP_DIMGREY_CAVEFISH:
-+	case CHIP_BEIGE_GOBY:
- 		gfx_v10_0_update_gfx_clock_gating(adev,
- 						 state == AMD_CG_STATE_GATE);
- 		break;
-@@ -9150,6 +9154,7 @@ static void gfx_v10_0_set_rlc_funcs(struct amdgpu_device *adev)
- 	case CHIP_NAVY_FLOUNDER:
- 	case CHIP_VANGOGH:
- 	case CHIP_DIMGREY_CAVEFISH:
-+	case CHIP_BEIGE_GOBY:
- 		adev->gfx.rlc.funcs = &gfx_v10_0_rlc_funcs;
- 		break;
- 	case CHIP_NAVI12:
+diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+index 418e6747b3d5..580a4eb631b2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/Makefile
++++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+@@ -71,7 +71,8 @@ amdgpu-y += \
+ 	vi.o mxgpu_vi.o nbio_v6_1.o soc15.o emu_soc.o mxgpu_ai.o nbio_v7_0.o vega10_reg_init.o \
+ 	vega20_reg_init.o nbio_v7_4.o nbio_v2_3.o nv.o navi10_reg_init.o navi14_reg_init.o \
+ 	arct_reg_init.o navi12_reg_init.o mxgpu_nv.o sienna_cichlid_reg_init.o vangogh_reg_init.o \
+-	nbio_v7_2.o dimgrey_cavefish_reg_init.o hdp_v4_0.o hdp_v5_0.o aldebaran_reg_init.o aldebaran.o
++	nbio_v7_2.o dimgrey_cavefish_reg_init.o hdp_v4_0.o hdp_v5_0.o aldebaran_reg_init.o aldebaran.o \
++	beige_goby_reg_init.o
+ 
+ # add DF block
+ amdgpu-y += \
+diff --git a/drivers/gpu/drm/amd/amdgpu/beige_goby_reg_init.c b/drivers/gpu/drm/amd/amdgpu/beige_goby_reg_init.c
+new file mode 100755
+index 000000000000..608a113ce354
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/beige_goby_reg_init.c
+@@ -0,0 +1,54 @@
++/*
++ * Copyright 2020 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++#include "amdgpu.h"
++#include "nv.h"
++
++#include "soc15_common.h"
++#include "soc15_hw_ip.h"
++#include "beige_goby_ip_offset.h"
++
++int beige_goby_reg_base_init(struct amdgpu_device *adev)
++{
++	/* HW has more IP blocks,  only initialize the block needed by driver */
++	uint32_t i;
++	for (i = 0 ; i < MAX_INSTANCE ; ++i) {
++		adev->reg_offset[GC_HWIP][i] = (uint32_t *)(&(GC_BASE.instance[i]));
++		adev->reg_offset[HDP_HWIP][i] = (uint32_t *)(&(HDP_BASE.instance[i]));
++		adev->reg_offset[MMHUB_HWIP][i] = (uint32_t *)(&(MMHUB_BASE.instance[i]));
++		adev->reg_offset[ATHUB_HWIP][i] = (uint32_t *)(&(ATHUB_BASE.instance[i]));
++		adev->reg_offset[NBIO_HWIP][i] = (uint32_t *)(&(NBIO_BASE.instance[i]));
++		adev->reg_offset[MP0_HWIP][i] = (uint32_t *)(&(MP0_BASE.instance[i]));
++		adev->reg_offset[MP1_HWIP][i] = (uint32_t *)(&(MP1_BASE.instance[i]));
++		adev->reg_offset[VCN_HWIP][i] = (uint32_t *)(&(VCN0_BASE.instance[i]));
++		adev->reg_offset[DF_HWIP][i] = (uint32_t *)(&(DF_BASE.instance[i]));
++		adev->reg_offset[DCE_HWIP][i] = (uint32_t *)(&(DCN_BASE.instance[i]));
++		adev->reg_offset[OSSSYS_HWIP][i] = (uint32_t *)(&(OSSSYS_BASE.instance[i]));
++		adev->reg_offset[SDMA0_HWIP][i] = (uint32_t *)(&(GC_BASE.instance[i]));
++		adev->reg_offset[SDMA1_HWIP][i] = (uint32_t *)(&(GC_BASE.instance[i]));
++		adev->reg_offset[SDMA2_HWIP][i] = (uint32_t *)(&(GC_BASE.instance[i]));
++		adev->reg_offset[SDMA3_HWIP][i] = (uint32_t *)(&(GC_BASE.instance[i]));
++		adev->reg_offset[SMUIO_HWIP][i] = (uint32_t *)(&(SMUIO_BASE.instance[i]));
++		adev->reg_offset[THM_HWIP][i] = (uint32_t *)(&(THM_BASE.instance[i]));
++	}
++	return 0;
++}
 diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-index ccc534fc4109..224b2add60ad 100644
+index 2042ac4912a8..d227264a0bda 100644
 --- a/drivers/gpu/drm/amd/amdgpu/nv.c
 +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-@@ -849,6 +849,7 @@ int nv_set_ip_blocks(struct amdgpu_device *adev)
- 		amdgpu_device_ip_block_add(adev, &nv_common_ip_block);
- 		amdgpu_device_ip_block_add(adev, &gmc_v10_0_ip_block);
- 		amdgpu_device_ip_block_add(adev, &navi10_ih_ip_block);
-+		amdgpu_device_ip_block_add(adev, &gfx_v10_0_ip_block);
+@@ -659,6 +659,9 @@ static int nv_reg_base_init(struct amdgpu_device *adev)
+ 	case CHIP_DIMGREY_CAVEFISH:
+ 		dimgrey_cavefish_reg_base_init(adev);
  		break;
++	case CHIP_BEIGE_GOBY:
++		beige_goby_reg_base_init(adev);
++		break;
  	default:
  		return -EINVAL;
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/nv.h b/drivers/gpu/drm/amd/amdgpu/nv.h
+index 515d67bf249f..330438388fde 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nv.h
++++ b/drivers/gpu/drm/amd/amdgpu/nv.h
+@@ -36,4 +36,5 @@ int navi12_reg_base_init(struct amdgpu_device *adev);
+ int sienna_cichlid_reg_base_init(struct amdgpu_device *adev);
+ void vangogh_reg_base_init(struct amdgpu_device *adev);
+ int dimgrey_cavefish_reg_base_init(struct amdgpu_device *adev);
++int beige_goby_reg_base_init(struct amdgpu_device *adev);
+ #endif
+diff --git a/drivers/gpu/drm/amd/include/beige_goby_ip_offset.h b/drivers/gpu/drm/amd/include/beige_goby_ip_offset.h
+new file mode 100644
+index 000000000000..26044cb285d2
+--- /dev/null
++++ b/drivers/gpu/drm/amd/include/beige_goby_ip_offset.h
+@@ -0,0 +1,1274 @@
++/*
++ * Copyright (C) 2020  Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included
++ * in all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
++ * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
++ * AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
++ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
++ */
++#ifndef _beige_goby_ip_offset_HEADER
++#define _beige_goby_ip_offset_HEADER
++
++
++#define MAX_INSTANCE                                        7
++#define MAX_SEGMENT                                         6
++
++
++struct IP_BASE_INSTANCE
++{
++    unsigned int segment[MAX_SEGMENT];
++};
++
++struct IP_BASE
++{
++    struct IP_BASE_INSTANCE instance[MAX_INSTANCE];
++};
++
++
++static const struct IP_BASE ATHUB_BASE = { { { { 0x00000C00, 0x02408C00, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } } } };
++static const struct IP_BASE CLK_BASE = { { { { 0x00016C00, 0x02401800, 0, 0, 0, 0 } },
++                                        { { 0x00016E00, 0x02401C00, 0, 0, 0, 0 } },
++                                        { { 0x00017000, 0x02402000, 0, 0, 0, 0 } },
++                                        { { 0x00017200, 0x02402400, 0, 0, 0, 0 } },
++                                        { { 0x0001B000, 0x0242D800, 0, 0, 0, 0 } },
++                                        { { 0x0001B200, 0x0242DC00, 0, 0, 0, 0 } },
++                                        { { 0x00017E00, 0x0240BC00, 0, 0, 0, 0 } } } };
++static const struct IP_BASE DBGU_IO0_BASE = { { { { 0x000001E0, 0x0240B400, 0, 0, 0, 0 } },
++                                        { { 0x00000260, 0x02413C00, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } } } };
++static const struct IP_BASE DF_BASE = { { { { 0x00007000, 0x0240B800, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } } } };
++static const struct IP_BASE DIO_BASE = { { { { 0x02404000, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } } } };
++static const struct IP_BASE DCN_BASE = { { { { 0x00000012, 0x000000C0, 0x000034C0, 0x00009000, 0x02403C00, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } } } };
++static const struct IP_BASE DPCS_BASE = { { { { 0x00000012, 0x000000C0, 0x000034C0, 0x00009000, 0x02403C00, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } } } };
++static const struct IP_BASE FUSE_BASE = { { { { 0x00017400, 0x02401400, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } } } };
++static const struct IP_BASE GC_BASE = { { { { 0x00001260, 0x0000A000, 0x0001C000, 0x02402C00, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } } } };
++static const struct IP_BASE HDA_BASE = { { { { 0x004C0000, 0x02404800, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } } } };
++static const struct IP_BASE HDP_BASE = { { { { 0x00000F20, 0x0240A400, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } } } };
++static const struct IP_BASE MMHUB_BASE = { { { { 0x0001A000, 0x02408800, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } } } };
++static const struct IP_BASE MP0_BASE = { { { { 0x00016000, 0x00DC0000, 0x00E00000, 0x00E40000, 0x0243FC00, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } } } };
++static const struct IP_BASE MP1_BASE = { { { { 0x00016000, 0x00DC0000, 0x00E00000, 0x00E40000, 0x0243FC00, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } } } };
++static const struct IP_BASE NBIO_BASE = { { { { 0x00000000, 0x00000014, 0x00000D20, 0x00010400, 0x0241B000, 0x04040000 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } } } };
++static const struct IP_BASE OSSSYS_BASE = { { { { 0x000010A0, 0x0240A000, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } } } };
++static const struct IP_BASE PCIE0_BASE = { { { { 0x00000000, 0x00000014, 0x00000D20, 0x00010400, 0x0241B000, 0x04040000 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } } } };
++static const struct IP_BASE SDMA0_BASE = { { { { 0x00001260, 0x0000A000, 0x0001C000, 0x02402C00, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } } } };
++static const struct IP_BASE SMUIO_BASE = { { { { 0x00016800, 0x00016A00, 0x00440000, 0x02401000, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } } } };
++static const struct IP_BASE THM_BASE = { { { { 0x00016600, 0x02400C00, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } } } };
++static const struct IP_BASE UMC_BASE = { { { { 0x00014000, 0x02425800, 0, 0, 0, 0 } },
++                                        { { 0x00054000, 0x02425C00, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } } } };
++static const struct IP_BASE VCN0_BASE = { { { { 0x00007800, 0x00007E00, 0x02403000, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } },
++                                        { { 0, 0, 0, 0, 0, 0 } } } };
++
++
++#define ATHUB_BASE__INST0_SEG0                     0x00000C00
++#define ATHUB_BASE__INST0_SEG1                     0x02408C00
++#define ATHUB_BASE__INST0_SEG2                     0
++#define ATHUB_BASE__INST0_SEG3                     0
++#define ATHUB_BASE__INST0_SEG4                     0
++#define ATHUB_BASE__INST0_SEG5                     0
++
++#define ATHUB_BASE__INST1_SEG0                     0
++#define ATHUB_BASE__INST1_SEG1                     0
++#define ATHUB_BASE__INST1_SEG2                     0
++#define ATHUB_BASE__INST1_SEG3                     0
++#define ATHUB_BASE__INST1_SEG4                     0
++#define ATHUB_BASE__INST1_SEG5                     0
++
++#define ATHUB_BASE__INST2_SEG0                     0
++#define ATHUB_BASE__INST2_SEG1                     0
++#define ATHUB_BASE__INST2_SEG2                     0
++#define ATHUB_BASE__INST2_SEG3                     0
++#define ATHUB_BASE__INST2_SEG4                     0
++#define ATHUB_BASE__INST2_SEG5                     0
++
++#define ATHUB_BASE__INST3_SEG0                     0
++#define ATHUB_BASE__INST3_SEG1                     0
++#define ATHUB_BASE__INST3_SEG2                     0
++#define ATHUB_BASE__INST3_SEG3                     0
++#define ATHUB_BASE__INST3_SEG4                     0
++#define ATHUB_BASE__INST3_SEG5                     0
++
++#define ATHUB_BASE__INST4_SEG0                     0
++#define ATHUB_BASE__INST4_SEG1                     0
++#define ATHUB_BASE__INST4_SEG2                     0
++#define ATHUB_BASE__INST4_SEG3                     0
++#define ATHUB_BASE__INST4_SEG4                     0
++#define ATHUB_BASE__INST4_SEG5                     0
++
++#define ATHUB_BASE__INST5_SEG0                     0
++#define ATHUB_BASE__INST5_SEG1                     0
++#define ATHUB_BASE__INST5_SEG2                     0
++#define ATHUB_BASE__INST5_SEG3                     0
++#define ATHUB_BASE__INST5_SEG4                     0
++#define ATHUB_BASE__INST5_SEG5                     0
++
++#define ATHUB_BASE__INST6_SEG0                     0
++#define ATHUB_BASE__INST6_SEG1                     0
++#define ATHUB_BASE__INST6_SEG2                     0
++#define ATHUB_BASE__INST6_SEG3                     0
++#define ATHUB_BASE__INST6_SEG4                     0
++#define ATHUB_BASE__INST6_SEG5                     0
++
++#define CLK_BASE__INST0_SEG0                       0x00016C00
++#define CLK_BASE__INST0_SEG1                       0x02401800
++#define CLK_BASE__INST0_SEG2                       0
++#define CLK_BASE__INST0_SEG3                       0
++#define CLK_BASE__INST0_SEG4                       0
++#define CLK_BASE__INST0_SEG5                       0
++
++#define CLK_BASE__INST1_SEG0                       0x00016E00
++#define CLK_BASE__INST1_SEG1                       0x02401C00
++#define CLK_BASE__INST1_SEG2                       0
++#define CLK_BASE__INST1_SEG3                       0
++#define CLK_BASE__INST1_SEG4                       0
++#define CLK_BASE__INST1_SEG5                       0
++
++#define CLK_BASE__INST2_SEG0                       0x00017000
++#define CLK_BASE__INST2_SEG1                       0x02402000
++#define CLK_BASE__INST2_SEG2                       0
++#define CLK_BASE__INST2_SEG3                       0
++#define CLK_BASE__INST2_SEG4                       0
++#define CLK_BASE__INST2_SEG5                       0
++
++#define CLK_BASE__INST3_SEG0                       0x00017200
++#define CLK_BASE__INST3_SEG1                       0x02402400
++#define CLK_BASE__INST3_SEG2                       0
++#define CLK_BASE__INST3_SEG3                       0
++#define CLK_BASE__INST3_SEG4                       0
++#define CLK_BASE__INST3_SEG5                       0
++
++#define CLK_BASE__INST4_SEG0                       0x0001B000
++#define CLK_BASE__INST4_SEG1                       0x0242D800
++#define CLK_BASE__INST4_SEG2                       0
++#define CLK_BASE__INST4_SEG3                       0
++#define CLK_BASE__INST4_SEG4                       0
++#define CLK_BASE__INST4_SEG5                       0
++
++#define CLK_BASE__INST5_SEG0                       0x0001B200
++#define CLK_BASE__INST5_SEG1                       0x0242DC00
++#define CLK_BASE__INST5_SEG2                       0
++#define CLK_BASE__INST5_SEG3                       0
++#define CLK_BASE__INST5_SEG4                       0
++#define CLK_BASE__INST5_SEG5                       0
++
++#define CLK_BASE__INST6_SEG0                       0x00017E00
++#define CLK_BASE__INST6_SEG1                       0x0240BC00
++#define CLK_BASE__INST6_SEG2                       0
++#define CLK_BASE__INST6_SEG3                       0
++#define CLK_BASE__INST6_SEG4                       0
++#define CLK_BASE__INST6_SEG5                       0
++
++#define DBGU_IO0_BASE__INST0_SEG0                  0x000001E0
++#define DBGU_IO0_BASE__INST0_SEG1                  0x0240B400
++#define DBGU_IO0_BASE__INST0_SEG2                  0
++#define DBGU_IO0_BASE__INST0_SEG3                  0
++#define DBGU_IO0_BASE__INST0_SEG4                  0
++#define DBGU_IO0_BASE__INST0_SEG5                  0
++
++#define DBGU_IO0_BASE__INST1_SEG0                  0x00000260
++#define DBGU_IO0_BASE__INST1_SEG1                  0x02413C00
++#define DBGU_IO0_BASE__INST1_SEG2                  0
++#define DBGU_IO0_BASE__INST1_SEG3                  0
++#define DBGU_IO0_BASE__INST1_SEG4                  0
++#define DBGU_IO0_BASE__INST1_SEG5                  0
++
++#define DBGU_IO0_BASE__INST2_SEG0                  0
++#define DBGU_IO0_BASE__INST2_SEG1                  0
++#define DBGU_IO0_BASE__INST2_SEG2                  0
++#define DBGU_IO0_BASE__INST2_SEG3                  0
++#define DBGU_IO0_BASE__INST2_SEG4                  0
++#define DBGU_IO0_BASE__INST2_SEG5                  0
++
++#define DBGU_IO0_BASE__INST3_SEG0                  0
++#define DBGU_IO0_BASE__INST3_SEG1                  0
++#define DBGU_IO0_BASE__INST3_SEG2                  0
++#define DBGU_IO0_BASE__INST3_SEG3                  0
++#define DBGU_IO0_BASE__INST3_SEG4                  0
++#define DBGU_IO0_BASE__INST3_SEG5                  0
++
++#define DBGU_IO0_BASE__INST4_SEG0                  0
++#define DBGU_IO0_BASE__INST4_SEG1                  0
++#define DBGU_IO0_BASE__INST4_SEG2                  0
++#define DBGU_IO0_BASE__INST4_SEG3                  0
++#define DBGU_IO0_BASE__INST4_SEG4                  0
++#define DBGU_IO0_BASE__INST4_SEG5                  0
++
++#define DBGU_IO0_BASE__INST5_SEG0                  0
++#define DBGU_IO0_BASE__INST5_SEG1                  0
++#define DBGU_IO0_BASE__INST5_SEG2                  0
++#define DBGU_IO0_BASE__INST5_SEG3                  0
++#define DBGU_IO0_BASE__INST5_SEG4                  0
++#define DBGU_IO0_BASE__INST5_SEG5                  0
++
++#define DBGU_IO0_BASE__INST6_SEG0                  0
++#define DBGU_IO0_BASE__INST6_SEG1                  0
++#define DBGU_IO0_BASE__INST6_SEG2                  0
++#define DBGU_IO0_BASE__INST6_SEG3                  0
++#define DBGU_IO0_BASE__INST6_SEG4                  0
++#define DBGU_IO0_BASE__INST6_SEG5                  0
++
++#define DF_BASE__INST0_SEG0                        0x00007000
++#define DF_BASE__INST0_SEG1                        0x0240B800
++#define DF_BASE__INST0_SEG2                        0
++#define DF_BASE__INST0_SEG3                        0
++#define DF_BASE__INST0_SEG4                        0
++#define DF_BASE__INST0_SEG5                        0
++
++#define DF_BASE__INST1_SEG0                        0
++#define DF_BASE__INST1_SEG1                        0
++#define DF_BASE__INST1_SEG2                        0
++#define DF_BASE__INST1_SEG3                        0
++#define DF_BASE__INST1_SEG4                        0
++#define DF_BASE__INST1_SEG5                        0
++
++#define DF_BASE__INST2_SEG0                        0
++#define DF_BASE__INST2_SEG1                        0
++#define DF_BASE__INST2_SEG2                        0
++#define DF_BASE__INST2_SEG3                        0
++#define DF_BASE__INST2_SEG4                        0
++#define DF_BASE__INST2_SEG5                        0
++
++#define DF_BASE__INST3_SEG0                        0
++#define DF_BASE__INST3_SEG1                        0
++#define DF_BASE__INST3_SEG2                        0
++#define DF_BASE__INST3_SEG3                        0
++#define DF_BASE__INST3_SEG4                        0
++#define DF_BASE__INST3_SEG5                        0
++
++#define DF_BASE__INST4_SEG0                        0
++#define DF_BASE__INST4_SEG1                        0
++#define DF_BASE__INST4_SEG2                        0
++#define DF_BASE__INST4_SEG3                        0
++#define DF_BASE__INST4_SEG4                        0
++#define DF_BASE__INST4_SEG5                        0
++
++#define DF_BASE__INST5_SEG0                        0
++#define DF_BASE__INST5_SEG1                        0
++#define DF_BASE__INST5_SEG2                        0
++#define DF_BASE__INST5_SEG3                        0
++#define DF_BASE__INST5_SEG4                        0
++#define DF_BASE__INST5_SEG5                        0
++
++#define DF_BASE__INST6_SEG0                        0
++#define DF_BASE__INST6_SEG1                        0
++#define DF_BASE__INST6_SEG2                        0
++#define DF_BASE__INST6_SEG3                        0
++#define DF_BASE__INST6_SEG4                        0
++#define DF_BASE__INST6_SEG5                        0
++
++#define DIO_BASE__INST0_SEG0                       0x02404000
++#define DIO_BASE__INST0_SEG1                       0
++#define DIO_BASE__INST0_SEG2                       0
++#define DIO_BASE__INST0_SEG3                       0
++#define DIO_BASE__INST0_SEG4                       0
++#define DIO_BASE__INST0_SEG5                       0
++
++#define DIO_BASE__INST1_SEG0                       0
++#define DIO_BASE__INST1_SEG1                       0
++#define DIO_BASE__INST1_SEG2                       0
++#define DIO_BASE__INST1_SEG3                       0
++#define DIO_BASE__INST1_SEG4                       0
++#define DIO_BASE__INST1_SEG5                       0
++
++#define DIO_BASE__INST2_SEG0                       0
++#define DIO_BASE__INST2_SEG1                       0
++#define DIO_BASE__INST2_SEG2                       0
++#define DIO_BASE__INST2_SEG3                       0
++#define DIO_BASE__INST2_SEG4                       0
++#define DIO_BASE__INST2_SEG5                       0
++
++#define DIO_BASE__INST3_SEG0                       0
++#define DIO_BASE__INST3_SEG1                       0
++#define DIO_BASE__INST3_SEG2                       0
++#define DIO_BASE__INST3_SEG3                       0
++#define DIO_BASE__INST3_SEG4                       0
++#define DIO_BASE__INST3_SEG5                       0
++
++#define DIO_BASE__INST4_SEG0                       0
++#define DIO_BASE__INST4_SEG1                       0
++#define DIO_BASE__INST4_SEG2                       0
++#define DIO_BASE__INST4_SEG3                       0
++#define DIO_BASE__INST4_SEG4                       0
++#define DIO_BASE__INST4_SEG5                       0
++
++#define DIO_BASE__INST5_SEG0                       0
++#define DIO_BASE__INST5_SEG1                       0
++#define DIO_BASE__INST5_SEG2                       0
++#define DIO_BASE__INST5_SEG3                       0
++#define DIO_BASE__INST5_SEG4                       0
++#define DIO_BASE__INST5_SEG5                       0
++
++#define DIO_BASE__INST6_SEG0                       0
++#define DIO_BASE__INST6_SEG1                       0
++#define DIO_BASE__INST6_SEG2                       0
++#define DIO_BASE__INST6_SEG3                       0
++#define DIO_BASE__INST6_SEG4                       0
++#define DIO_BASE__INST6_SEG5                       0
++
++#define DCN_BASE__INST0_SEG0                       0x00000012
++#define DCN_BASE__INST0_SEG1                       0x000000C0
++#define DCN_BASE__INST0_SEG2                       0x000034C0
++#define DCN_BASE__INST0_SEG3                       0x00009000
++#define DCN_BASE__INST0_SEG4                       0x02403C00
++#define DCN_BASE__INST0_SEG5                       0
++
++#define DCN_BASE__INST1_SEG0                       0
++#define DCN_BASE__INST1_SEG1                       0
++#define DCN_BASE__INST1_SEG2                       0
++#define DCN_BASE__INST1_SEG3                       0
++#define DCN_BASE__INST1_SEG4                       0
++#define DCN_BASE__INST1_SEG5                       0
++
++#define DCN_BASE__INST2_SEG0                       0
++#define DCN_BASE__INST2_SEG1                       0
++#define DCN_BASE__INST2_SEG2                       0
++#define DCN_BASE__INST2_SEG3                       0
++#define DCN_BASE__INST2_SEG4                       0
++#define DCN_BASE__INST2_SEG5                       0
++
++#define DCN_BASE__INST3_SEG0                       0
++#define DCN_BASE__INST3_SEG1                       0
++#define DCN_BASE__INST3_SEG2                       0
++#define DCN_BASE__INST3_SEG3                       0
++#define DCN_BASE__INST3_SEG4                       0
++#define DCN_BASE__INST3_SEG5                       0
++
++#define DCN_BASE__INST4_SEG0                       0
++#define DCN_BASE__INST4_SEG1                       0
++#define DCN_BASE__INST4_SEG2                       0
++#define DCN_BASE__INST4_SEG3                       0
++#define DCN_BASE__INST4_SEG4                       0
++#define DCN_BASE__INST4_SEG5                       0
++
++#define DCN_BASE__INST5_SEG0                       0
++#define DCN_BASE__INST5_SEG1                       0
++#define DCN_BASE__INST5_SEG2                       0
++#define DCN_BASE__INST5_SEG3                       0
++#define DCN_BASE__INST5_SEG4                       0
++#define DCN_BASE__INST5_SEG5                       0
++
++#define DCN_BASE__INST6_SEG0                       0
++#define DCN_BASE__INST6_SEG1                       0
++#define DCN_BASE__INST6_SEG2                       0
++#define DCN_BASE__INST6_SEG3                       0
++#define DCN_BASE__INST6_SEG4                       0
++#define DCN_BASE__INST6_SEG5                       0
++
++#define DPCS_BASE__INST0_SEG0                      0x00000012
++#define DPCS_BASE__INST0_SEG1                      0x000000C0
++#define DPCS_BASE__INST0_SEG2                      0x000034C0
++#define DPCS_BASE__INST0_SEG3                      0x00009000
++#define DPCS_BASE__INST0_SEG4                      0x02403C00
++#define DPCS_BASE__INST0_SEG5                      0
++
++#define DPCS_BASE__INST1_SEG0                      0
++#define DPCS_BASE__INST1_SEG1                      0
++#define DPCS_BASE__INST1_SEG2                      0
++#define DPCS_BASE__INST1_SEG3                      0
++#define DPCS_BASE__INST1_SEG4                      0
++#define DPCS_BASE__INST1_SEG5                      0
++
++#define DPCS_BASE__INST2_SEG0                      0
++#define DPCS_BASE__INST2_SEG1                      0
++#define DPCS_BASE__INST2_SEG2                      0
++#define DPCS_BASE__INST2_SEG3                      0
++#define DPCS_BASE__INST2_SEG4                      0
++#define DPCS_BASE__INST2_SEG5                      0
++
++#define DPCS_BASE__INST3_SEG0                      0
++#define DPCS_BASE__INST3_SEG1                      0
++#define DPCS_BASE__INST3_SEG2                      0
++#define DPCS_BASE__INST3_SEG3                      0
++#define DPCS_BASE__INST3_SEG4                      0
++#define DPCS_BASE__INST3_SEG5                      0
++
++#define DPCS_BASE__INST4_SEG0                      0
++#define DPCS_BASE__INST4_SEG1                      0
++#define DPCS_BASE__INST4_SEG2                      0
++#define DPCS_BASE__INST4_SEG3                      0
++#define DPCS_BASE__INST4_SEG4                      0
++#define DPCS_BASE__INST4_SEG5                      0
++
++#define DPCS_BASE__INST5_SEG0                      0
++#define DPCS_BASE__INST5_SEG1                      0
++#define DPCS_BASE__INST5_SEG2                      0
++#define DPCS_BASE__INST5_SEG3                      0
++#define DPCS_BASE__INST5_SEG4                      0
++#define DPCS_BASE__INST5_SEG5                      0
++
++#define DPCS_BASE__INST6_SEG0                      0
++#define DPCS_BASE__INST6_SEG1                      0
++#define DPCS_BASE__INST6_SEG2                      0
++#define DPCS_BASE__INST6_SEG3                      0
++#define DPCS_BASE__INST6_SEG4                      0
++#define DPCS_BASE__INST6_SEG5                      0
++
++#define FUSE_BASE__INST0_SEG0                      0x00017400
++#define FUSE_BASE__INST0_SEG1                      0x02401400
++#define FUSE_BASE__INST0_SEG2                      0
++#define FUSE_BASE__INST0_SEG3                      0
++#define FUSE_BASE__INST0_SEG4                      0
++#define FUSE_BASE__INST0_SEG5                      0
++
++#define FUSE_BASE__INST1_SEG0                      0
++#define FUSE_BASE__INST1_SEG1                      0
++#define FUSE_BASE__INST1_SEG2                      0
++#define FUSE_BASE__INST1_SEG3                      0
++#define FUSE_BASE__INST1_SEG4                      0
++#define FUSE_BASE__INST1_SEG5                      0
++
++#define FUSE_BASE__INST2_SEG0                      0
++#define FUSE_BASE__INST2_SEG1                      0
++#define FUSE_BASE__INST2_SEG2                      0
++#define FUSE_BASE__INST2_SEG3                      0
++#define FUSE_BASE__INST2_SEG4                      0
++#define FUSE_BASE__INST2_SEG5                      0
++
++#define FUSE_BASE__INST3_SEG0                      0
++#define FUSE_BASE__INST3_SEG1                      0
++#define FUSE_BASE__INST3_SEG2                      0
++#define FUSE_BASE__INST3_SEG3                      0
++#define FUSE_BASE__INST3_SEG4                      0
++#define FUSE_BASE__INST3_SEG5                      0
++
++#define FUSE_BASE__INST4_SEG0                      0
++#define FUSE_BASE__INST4_SEG1                      0
++#define FUSE_BASE__INST4_SEG2                      0
++#define FUSE_BASE__INST4_SEG3                      0
++#define FUSE_BASE__INST4_SEG4                      0
++#define FUSE_BASE__INST4_SEG5                      0
++
++#define FUSE_BASE__INST5_SEG0                      0
++#define FUSE_BASE__INST5_SEG1                      0
++#define FUSE_BASE__INST5_SEG2                      0
++#define FUSE_BASE__INST5_SEG3                      0
++#define FUSE_BASE__INST5_SEG4                      0
++#define FUSE_BASE__INST5_SEG5                      0
++
++#define FUSE_BASE__INST6_SEG0                      0
++#define FUSE_BASE__INST6_SEG1                      0
++#define FUSE_BASE__INST6_SEG2                      0
++#define FUSE_BASE__INST6_SEG3                      0
++#define FUSE_BASE__INST6_SEG4                      0
++#define FUSE_BASE__INST6_SEG5                      0
++
++#define GC_BASE__INST0_SEG0                        0x00001260
++#define GC_BASE__INST0_SEG1                        0x0000A000
++#define GC_BASE__INST0_SEG2                        0x0001C000
++#define GC_BASE__INST0_SEG3                        0x02402C00
++#define GC_BASE__INST0_SEG4                        0
++#define GC_BASE__INST0_SEG5                        0
++
++#define GC_BASE__INST1_SEG0                        0
++#define GC_BASE__INST1_SEG1                        0
++#define GC_BASE__INST1_SEG2                        0
++#define GC_BASE__INST1_SEG3                        0
++#define GC_BASE__INST1_SEG4                        0
++#define GC_BASE__INST1_SEG5                        0
++
++#define GC_BASE__INST2_SEG0                        0
++#define GC_BASE__INST2_SEG1                        0
++#define GC_BASE__INST2_SEG2                        0
++#define GC_BASE__INST2_SEG3                        0
++#define GC_BASE__INST2_SEG4                        0
++#define GC_BASE__INST2_SEG5                        0
++
++#define GC_BASE__INST3_SEG0                        0
++#define GC_BASE__INST3_SEG1                        0
++#define GC_BASE__INST3_SEG2                        0
++#define GC_BASE__INST3_SEG3                        0
++#define GC_BASE__INST3_SEG4                        0
++#define GC_BASE__INST3_SEG5                        0
++
++#define GC_BASE__INST4_SEG0                        0
++#define GC_BASE__INST4_SEG1                        0
++#define GC_BASE__INST4_SEG2                        0
++#define GC_BASE__INST4_SEG3                        0
++#define GC_BASE__INST4_SEG4                        0
++#define GC_BASE__INST4_SEG5                        0
++
++#define GC_BASE__INST5_SEG0                        0
++#define GC_BASE__INST5_SEG1                        0
++#define GC_BASE__INST5_SEG2                        0
++#define GC_BASE__INST5_SEG3                        0
++#define GC_BASE__INST5_SEG4                        0
++#define GC_BASE__INST5_SEG5                        0
++
++#define GC_BASE__INST6_SEG0                        0
++#define GC_BASE__INST6_SEG1                        0
++#define GC_BASE__INST6_SEG2                        0
++#define GC_BASE__INST6_SEG3                        0
++#define GC_BASE__INST6_SEG4                        0
++#define GC_BASE__INST6_SEG5                        0
++
++#define HDA_BASE__INST0_SEG0                       0x004C0000
++#define HDA_BASE__INST0_SEG1                       0x02404800
++#define HDA_BASE__INST0_SEG2                       0
++#define HDA_BASE__INST0_SEG3                       0
++#define HDA_BASE__INST0_SEG4                       0
++#define HDA_BASE__INST0_SEG5                       0
++
++#define HDA_BASE__INST1_SEG0                       0
++#define HDA_BASE__INST1_SEG1                       0
++#define HDA_BASE__INST1_SEG2                       0
++#define HDA_BASE__INST1_SEG3                       0
++#define HDA_BASE__INST1_SEG4                       0
++#define HDA_BASE__INST1_SEG5                       0
++
++#define HDA_BASE__INST2_SEG0                       0
++#define HDA_BASE__INST2_SEG1                       0
++#define HDA_BASE__INST2_SEG2                       0
++#define HDA_BASE__INST2_SEG3                       0
++#define HDA_BASE__INST2_SEG4                       0
++#define HDA_BASE__INST2_SEG5                       0
++
++#define HDA_BASE__INST3_SEG0                       0
++#define HDA_BASE__INST3_SEG1                       0
++#define HDA_BASE__INST3_SEG2                       0
++#define HDA_BASE__INST3_SEG3                       0
++#define HDA_BASE__INST3_SEG4                       0
++#define HDA_BASE__INST3_SEG5                       0
++
++#define HDA_BASE__INST4_SEG0                       0
++#define HDA_BASE__INST4_SEG1                       0
++#define HDA_BASE__INST4_SEG2                       0
++#define HDA_BASE__INST4_SEG3                       0
++#define HDA_BASE__INST4_SEG4                       0
++#define HDA_BASE__INST4_SEG5                       0
++
++#define HDA_BASE__INST5_SEG0                       0
++#define HDA_BASE__INST5_SEG1                       0
++#define HDA_BASE__INST5_SEG2                       0
++#define HDA_BASE__INST5_SEG3                       0
++#define HDA_BASE__INST5_SEG4                       0
++#define HDA_BASE__INST5_SEG5                       0
++
++#define HDA_BASE__INST6_SEG0                       0
++#define HDA_BASE__INST6_SEG1                       0
++#define HDA_BASE__INST6_SEG2                       0
++#define HDA_BASE__INST6_SEG3                       0
++#define HDA_BASE__INST6_SEG4                       0
++#define HDA_BASE__INST6_SEG5                       0
++
++#define HDP_BASE__INST0_SEG0                       0x00000F20
++#define HDP_BASE__INST0_SEG1                       0x0240A400
++#define HDP_BASE__INST0_SEG2                       0
++#define HDP_BASE__INST0_SEG3                       0
++#define HDP_BASE__INST0_SEG4                       0
++#define HDP_BASE__INST0_SEG5                       0
++
++#define HDP_BASE__INST1_SEG0                       0
++#define HDP_BASE__INST1_SEG1                       0
++#define HDP_BASE__INST1_SEG2                       0
++#define HDP_BASE__INST1_SEG3                       0
++#define HDP_BASE__INST1_SEG4                       0
++#define HDP_BASE__INST1_SEG5                       0
++
++#define HDP_BASE__INST2_SEG0                       0
++#define HDP_BASE__INST2_SEG1                       0
++#define HDP_BASE__INST2_SEG2                       0
++#define HDP_BASE__INST2_SEG3                       0
++#define HDP_BASE__INST2_SEG4                       0
++#define HDP_BASE__INST2_SEG5                       0
++
++#define HDP_BASE__INST3_SEG0                       0
++#define HDP_BASE__INST3_SEG1                       0
++#define HDP_BASE__INST3_SEG2                       0
++#define HDP_BASE__INST3_SEG3                       0
++#define HDP_BASE__INST3_SEG4                       0
++#define HDP_BASE__INST3_SEG5                       0
++
++#define HDP_BASE__INST4_SEG0                       0
++#define HDP_BASE__INST4_SEG1                       0
++#define HDP_BASE__INST4_SEG2                       0
++#define HDP_BASE__INST4_SEG3                       0
++#define HDP_BASE__INST4_SEG4                       0
++#define HDP_BASE__INST4_SEG5                       0
++
++#define HDP_BASE__INST5_SEG0                       0
++#define HDP_BASE__INST5_SEG1                       0
++#define HDP_BASE__INST5_SEG2                       0
++#define HDP_BASE__INST5_SEG3                       0
++#define HDP_BASE__INST5_SEG4                       0
++#define HDP_BASE__INST5_SEG5                       0
++
++#define HDP_BASE__INST6_SEG0                       0
++#define HDP_BASE__INST6_SEG1                       0
++#define HDP_BASE__INST6_SEG2                       0
++#define HDP_BASE__INST6_SEG3                       0
++#define HDP_BASE__INST6_SEG4                       0
++#define HDP_BASE__INST6_SEG5                       0
++
++#define MMHUB_BASE__INST0_SEG0                     0x0001A000
++#define MMHUB_BASE__INST0_SEG1                     0x02408800
++#define MMHUB_BASE__INST0_SEG2                     0
++#define MMHUB_BASE__INST0_SEG3                     0
++#define MMHUB_BASE__INST0_SEG4                     0
++#define MMHUB_BASE__INST0_SEG5                     0
++
++#define MMHUB_BASE__INST1_SEG0                     0
++#define MMHUB_BASE__INST1_SEG1                     0
++#define MMHUB_BASE__INST1_SEG2                     0
++#define MMHUB_BASE__INST1_SEG3                     0
++#define MMHUB_BASE__INST1_SEG4                     0
++#define MMHUB_BASE__INST1_SEG5                     0
++
++#define MMHUB_BASE__INST2_SEG0                     0
++#define MMHUB_BASE__INST2_SEG1                     0
++#define MMHUB_BASE__INST2_SEG2                     0
++#define MMHUB_BASE__INST2_SEG3                     0
++#define MMHUB_BASE__INST2_SEG4                     0
++#define MMHUB_BASE__INST2_SEG5                     0
++
++#define MMHUB_BASE__INST3_SEG0                     0
++#define MMHUB_BASE__INST3_SEG1                     0
++#define MMHUB_BASE__INST3_SEG2                     0
++#define MMHUB_BASE__INST3_SEG3                     0
++#define MMHUB_BASE__INST3_SEG4                     0
++#define MMHUB_BASE__INST3_SEG5                     0
++
++#define MMHUB_BASE__INST4_SEG0                     0
++#define MMHUB_BASE__INST4_SEG1                     0
++#define MMHUB_BASE__INST4_SEG2                     0
++#define MMHUB_BASE__INST4_SEG3                     0
++#define MMHUB_BASE__INST4_SEG4                     0
++#define MMHUB_BASE__INST4_SEG5                     0
++
++#define MMHUB_BASE__INST5_SEG0                     0
++#define MMHUB_BASE__INST5_SEG1                     0
++#define MMHUB_BASE__INST5_SEG2                     0
++#define MMHUB_BASE__INST5_SEG3                     0
++#define MMHUB_BASE__INST5_SEG4                     0
++#define MMHUB_BASE__INST5_SEG5                     0
++
++#define MMHUB_BASE__INST6_SEG0                     0
++#define MMHUB_BASE__INST6_SEG1                     0
++#define MMHUB_BASE__INST6_SEG2                     0
++#define MMHUB_BASE__INST6_SEG3                     0
++#define MMHUB_BASE__INST6_SEG4                     0
++#define MMHUB_BASE__INST6_SEG5                     0
++
++#define MP0_BASE__INST0_SEG0                       0x00016000
++#define MP0_BASE__INST0_SEG1                       0x00DC0000
++#define MP0_BASE__INST0_SEG2                       0x00E00000
++#define MP0_BASE__INST0_SEG3                       0x00E40000
++#define MP0_BASE__INST0_SEG4                       0x0243FC00
++#define MP0_BASE__INST0_SEG5                       0
++
++#define MP0_BASE__INST1_SEG0                       0
++#define MP0_BASE__INST1_SEG1                       0
++#define MP0_BASE__INST1_SEG2                       0
++#define MP0_BASE__INST1_SEG3                       0
++#define MP0_BASE__INST1_SEG4                       0
++#define MP0_BASE__INST1_SEG5                       0
++
++#define MP0_BASE__INST2_SEG0                       0
++#define MP0_BASE__INST2_SEG1                       0
++#define MP0_BASE__INST2_SEG2                       0
++#define MP0_BASE__INST2_SEG3                       0
++#define MP0_BASE__INST2_SEG4                       0
++#define MP0_BASE__INST2_SEG5                       0
++
++#define MP0_BASE__INST3_SEG0                       0
++#define MP0_BASE__INST3_SEG1                       0
++#define MP0_BASE__INST3_SEG2                       0
++#define MP0_BASE__INST3_SEG3                       0
++#define MP0_BASE__INST3_SEG4                       0
++#define MP0_BASE__INST3_SEG5                       0
++
++#define MP0_BASE__INST4_SEG0                       0
++#define MP0_BASE__INST4_SEG1                       0
++#define MP0_BASE__INST4_SEG2                       0
++#define MP0_BASE__INST4_SEG3                       0
++#define MP0_BASE__INST4_SEG4                       0
++#define MP0_BASE__INST4_SEG5                       0
++
++#define MP0_BASE__INST5_SEG0                       0
++#define MP0_BASE__INST5_SEG1                       0
++#define MP0_BASE__INST5_SEG2                       0
++#define MP0_BASE__INST5_SEG3                       0
++#define MP0_BASE__INST5_SEG4                       0
++#define MP0_BASE__INST5_SEG5                       0
++
++#define MP0_BASE__INST6_SEG0                       0
++#define MP0_BASE__INST6_SEG1                       0
++#define MP0_BASE__INST6_SEG2                       0
++#define MP0_BASE__INST6_SEG3                       0
++#define MP0_BASE__INST6_SEG4                       0
++#define MP0_BASE__INST6_SEG5                       0
++
++#define MP1_BASE__INST0_SEG0                       0x00016000
++#define MP1_BASE__INST0_SEG1                       0x00DC0000
++#define MP1_BASE__INST0_SEG2                       0x00E00000
++#define MP1_BASE__INST0_SEG3                       0x00E40000
++#define MP1_BASE__INST0_SEG4                       0x0243FC00
++#define MP1_BASE__INST0_SEG5                       0
++
++#define MP1_BASE__INST1_SEG0                       0
++#define MP1_BASE__INST1_SEG1                       0
++#define MP1_BASE__INST1_SEG2                       0
++#define MP1_BASE__INST1_SEG3                       0
++#define MP1_BASE__INST1_SEG4                       0
++#define MP1_BASE__INST1_SEG5                       0
++
++#define MP1_BASE__INST2_SEG0                       0
++#define MP1_BASE__INST2_SEG1                       0
++#define MP1_BASE__INST2_SEG2                       0
++#define MP1_BASE__INST2_SEG3                       0
++#define MP1_BASE__INST2_SEG4                       0
++#define MP1_BASE__INST2_SEG5                       0
++
++#define MP1_BASE__INST3_SEG0                       0
++#define MP1_BASE__INST3_SEG1                       0
++#define MP1_BASE__INST3_SEG2                       0
++#define MP1_BASE__INST3_SEG3                       0
++#define MP1_BASE__INST3_SEG4                       0
++#define MP1_BASE__INST3_SEG5                       0
++
++#define MP1_BASE__INST4_SEG0                       0
++#define MP1_BASE__INST4_SEG1                       0
++#define MP1_BASE__INST4_SEG2                       0
++#define MP1_BASE__INST4_SEG3                       0
++#define MP1_BASE__INST4_SEG4                       0
++#define MP1_BASE__INST4_SEG5                       0
++
++#define MP1_BASE__INST5_SEG0                       0
++#define MP1_BASE__INST5_SEG1                       0
++#define MP1_BASE__INST5_SEG2                       0
++#define MP1_BASE__INST5_SEG3                       0
++#define MP1_BASE__INST5_SEG4                       0
++#define MP1_BASE__INST5_SEG5                       0
++
++#define MP1_BASE__INST6_SEG0                       0
++#define MP1_BASE__INST6_SEG1                       0
++#define MP1_BASE__INST6_SEG2                       0
++#define MP1_BASE__INST6_SEG3                       0
++#define MP1_BASE__INST6_SEG4                       0
++#define MP1_BASE__INST6_SEG5                       0
++
++#define NBIO_BASE__INST0_SEG0                      0x00000000
++#define NBIO_BASE__INST0_SEG1                      0x00000014
++#define NBIO_BASE__INST0_SEG2                      0x00000D20
++#define NBIO_BASE__INST0_SEG3                      0x00010400
++#define NBIO_BASE__INST0_SEG4                      0x0241B000
++#define NBIO_BASE__INST0_SEG5                      0x04040000
++
++#define NBIO_BASE__INST1_SEG0                      0
++#define NBIO_BASE__INST1_SEG1                      0
++#define NBIO_BASE__INST1_SEG2                      0
++#define NBIO_BASE__INST1_SEG3                      0
++#define NBIO_BASE__INST1_SEG4                      0
++#define NBIO_BASE__INST1_SEG5                      0
++
++#define NBIO_BASE__INST2_SEG0                      0
++#define NBIO_BASE__INST2_SEG1                      0
++#define NBIO_BASE__INST2_SEG2                      0
++#define NBIO_BASE__INST2_SEG3                      0
++#define NBIO_BASE__INST2_SEG4                      0
++#define NBIO_BASE__INST2_SEG5                      0
++
++#define NBIO_BASE__INST3_SEG0                      0
++#define NBIO_BASE__INST3_SEG1                      0
++#define NBIO_BASE__INST3_SEG2                      0
++#define NBIO_BASE__INST3_SEG3                      0
++#define NBIO_BASE__INST3_SEG4                      0
++#define NBIO_BASE__INST3_SEG5                      0
++
++#define NBIO_BASE__INST4_SEG0                      0
++#define NBIO_BASE__INST4_SEG1                      0
++#define NBIO_BASE__INST4_SEG2                      0
++#define NBIO_BASE__INST4_SEG3                      0
++#define NBIO_BASE__INST4_SEG4                      0
++#define NBIO_BASE__INST4_SEG5                      0
++
++#define NBIO_BASE__INST5_SEG0                      0
++#define NBIO_BASE__INST5_SEG1                      0
++#define NBIO_BASE__INST5_SEG2                      0
++#define NBIO_BASE__INST5_SEG3                      0
++#define NBIO_BASE__INST5_SEG4                      0
++#define NBIO_BASE__INST5_SEG5                      0
++
++#define NBIO_BASE__INST6_SEG0                      0
++#define NBIO_BASE__INST6_SEG1                      0
++#define NBIO_BASE__INST6_SEG2                      0
++#define NBIO_BASE__INST6_SEG3                      0
++#define NBIO_BASE__INST6_SEG4                      0
++#define NBIO_BASE__INST6_SEG5                      0
++
++#define OSSSYS_BASE__INST0_SEG0                    0x000010A0
++#define OSSSYS_BASE__INST0_SEG1                    0x0240A000
++#define OSSSYS_BASE__INST0_SEG2                    0
++#define OSSSYS_BASE__INST0_SEG3                    0
++#define OSSSYS_BASE__INST0_SEG4                    0
++#define OSSSYS_BASE__INST0_SEG5                    0
++
++#define OSSSYS_BASE__INST1_SEG0                    0
++#define OSSSYS_BASE__INST1_SEG1                    0
++#define OSSSYS_BASE__INST1_SEG2                    0
++#define OSSSYS_BASE__INST1_SEG3                    0
++#define OSSSYS_BASE__INST1_SEG4                    0
++#define OSSSYS_BASE__INST1_SEG5                    0
++
++#define OSSSYS_BASE__INST2_SEG0                    0
++#define OSSSYS_BASE__INST2_SEG1                    0
++#define OSSSYS_BASE__INST2_SEG2                    0
++#define OSSSYS_BASE__INST2_SEG3                    0
++#define OSSSYS_BASE__INST2_SEG4                    0
++#define OSSSYS_BASE__INST2_SEG5                    0
++
++#define OSSSYS_BASE__INST3_SEG0                    0
++#define OSSSYS_BASE__INST3_SEG1                    0
++#define OSSSYS_BASE__INST3_SEG2                    0
++#define OSSSYS_BASE__INST3_SEG3                    0
++#define OSSSYS_BASE__INST3_SEG4                    0
++#define OSSSYS_BASE__INST3_SEG5                    0
++
++#define OSSSYS_BASE__INST4_SEG0                    0
++#define OSSSYS_BASE__INST4_SEG1                    0
++#define OSSSYS_BASE__INST4_SEG2                    0
++#define OSSSYS_BASE__INST4_SEG3                    0
++#define OSSSYS_BASE__INST4_SEG4                    0
++#define OSSSYS_BASE__INST4_SEG5                    0
++
++#define OSSSYS_BASE__INST5_SEG0                    0
++#define OSSSYS_BASE__INST5_SEG1                    0
++#define OSSSYS_BASE__INST5_SEG2                    0
++#define OSSSYS_BASE__INST5_SEG3                    0
++#define OSSSYS_BASE__INST5_SEG4                    0
++#define OSSSYS_BASE__INST5_SEG5                    0
++
++#define OSSSYS_BASE__INST6_SEG0                    0
++#define OSSSYS_BASE__INST6_SEG1                    0
++#define OSSSYS_BASE__INST6_SEG2                    0
++#define OSSSYS_BASE__INST6_SEG3                    0
++#define OSSSYS_BASE__INST6_SEG4                    0
++#define OSSSYS_BASE__INST6_SEG5                    0
++
++#define PCIE0_BASE__INST0_SEG0                     0x00000000
++#define PCIE0_BASE__INST0_SEG1                     0x00000014
++#define PCIE0_BASE__INST0_SEG2                     0x00000D20
++#define PCIE0_BASE__INST0_SEG3                     0x00010400
++#define PCIE0_BASE__INST0_SEG4                     0x0241B000
++#define PCIE0_BASE__INST0_SEG5                     0x04040000
++
++#define PCIE0_BASE__INST1_SEG0                     0
++#define PCIE0_BASE__INST1_SEG1                     0
++#define PCIE0_BASE__INST1_SEG2                     0
++#define PCIE0_BASE__INST1_SEG3                     0
++#define PCIE0_BASE__INST1_SEG4                     0
++#define PCIE0_BASE__INST1_SEG5                     0
++
++#define PCIE0_BASE__INST2_SEG0                     0
++#define PCIE0_BASE__INST2_SEG1                     0
++#define PCIE0_BASE__INST2_SEG2                     0
++#define PCIE0_BASE__INST2_SEG3                     0
++#define PCIE0_BASE__INST2_SEG4                     0
++#define PCIE0_BASE__INST2_SEG5                     0
++
++#define PCIE0_BASE__INST3_SEG0                     0
++#define PCIE0_BASE__INST3_SEG1                     0
++#define PCIE0_BASE__INST3_SEG2                     0
++#define PCIE0_BASE__INST3_SEG3                     0
++#define PCIE0_BASE__INST3_SEG4                     0
++#define PCIE0_BASE__INST3_SEG5                     0
++
++#define PCIE0_BASE__INST4_SEG0                     0
++#define PCIE0_BASE__INST4_SEG1                     0
++#define PCIE0_BASE__INST4_SEG2                     0
++#define PCIE0_BASE__INST4_SEG3                     0
++#define PCIE0_BASE__INST4_SEG4                     0
++#define PCIE0_BASE__INST4_SEG5                     0
++
++#define PCIE0_BASE__INST5_SEG0                     0
++#define PCIE0_BASE__INST5_SEG1                     0
++#define PCIE0_BASE__INST5_SEG2                     0
++#define PCIE0_BASE__INST5_SEG3                     0
++#define PCIE0_BASE__INST5_SEG4                     0
++#define PCIE0_BASE__INST5_SEG5                     0
++
++#define PCIE0_BASE__INST6_SEG0                     0
++#define PCIE0_BASE__INST6_SEG1                     0
++#define PCIE0_BASE__INST6_SEG2                     0
++#define PCIE0_BASE__INST6_SEG3                     0
++#define PCIE0_BASE__INST6_SEG4                     0
++#define PCIE0_BASE__INST6_SEG5                     0
++
++#define SDMA0_BASE__INST0_SEG0                     0x00001260
++#define SDMA0_BASE__INST0_SEG1                     0x0000A000
++#define SDMA0_BASE__INST0_SEG2                     0x0001C000
++#define SDMA0_BASE__INST0_SEG3                     0x02402C00
++#define SDMA0_BASE__INST0_SEG4                     0
++#define SDMA0_BASE__INST0_SEG5                     0
++
++#define SDMA0_BASE__INST1_SEG0                     0
++#define SDMA0_BASE__INST1_SEG1                     0
++#define SDMA0_BASE__INST1_SEG2                     0
++#define SDMA0_BASE__INST1_SEG3                     0
++#define SDMA0_BASE__INST1_SEG4                     0
++#define SDMA0_BASE__INST1_SEG5                     0
++
++#define SDMA0_BASE__INST2_SEG0                     0
++#define SDMA0_BASE__INST2_SEG1                     0
++#define SDMA0_BASE__INST2_SEG2                     0
++#define SDMA0_BASE__INST2_SEG3                     0
++#define SDMA0_BASE__INST2_SEG4                     0
++#define SDMA0_BASE__INST2_SEG5                     0
++
++#define SDMA0_BASE__INST3_SEG0                     0
++#define SDMA0_BASE__INST3_SEG1                     0
++#define SDMA0_BASE__INST3_SEG2                     0
++#define SDMA0_BASE__INST3_SEG3                     0
++#define SDMA0_BASE__INST3_SEG4                     0
++#define SDMA0_BASE__INST3_SEG5                     0
++
++#define SDMA0_BASE__INST4_SEG0                     0
++#define SDMA0_BASE__INST4_SEG1                     0
++#define SDMA0_BASE__INST4_SEG2                     0
++#define SDMA0_BASE__INST4_SEG3                     0
++#define SDMA0_BASE__INST4_SEG4                     0
++#define SDMA0_BASE__INST4_SEG5                     0
++
++#define SDMA0_BASE__INST5_SEG0                     0
++#define SDMA0_BASE__INST5_SEG1                     0
++#define SDMA0_BASE__INST5_SEG2                     0
++#define SDMA0_BASE__INST5_SEG3                     0
++#define SDMA0_BASE__INST5_SEG4                     0
++#define SDMA0_BASE__INST5_SEG5                     0
++
++#define SDMA0_BASE__INST6_SEG0                     0
++#define SDMA0_BASE__INST6_SEG1                     0
++#define SDMA0_BASE__INST6_SEG2                     0
++#define SDMA0_BASE__INST6_SEG3                     0
++#define SDMA0_BASE__INST6_SEG4                     0
++#define SDMA0_BASE__INST6_SEG5                     0
++
++#define SMUIO_BASE__INST0_SEG0                     0x00016800
++#define SMUIO_BASE__INST0_SEG1                     0x00016A00
++#define SMUIO_BASE__INST0_SEG2                     0x00440000
++#define SMUIO_BASE__INST0_SEG3                     0x02401000
++#define SMUIO_BASE__INST0_SEG4                     0
++#define SMUIO_BASE__INST0_SEG5                     0
++
++#define SMUIO_BASE__INST1_SEG0                     0
++#define SMUIO_BASE__INST1_SEG1                     0
++#define SMUIO_BASE__INST1_SEG2                     0
++#define SMUIO_BASE__INST1_SEG3                     0
++#define SMUIO_BASE__INST1_SEG4                     0
++#define SMUIO_BASE__INST1_SEG5                     0
++
++#define SMUIO_BASE__INST2_SEG0                     0
++#define SMUIO_BASE__INST2_SEG1                     0
++#define SMUIO_BASE__INST2_SEG2                     0
++#define SMUIO_BASE__INST2_SEG3                     0
++#define SMUIO_BASE__INST2_SEG4                     0
++#define SMUIO_BASE__INST2_SEG5                     0
++
++#define SMUIO_BASE__INST3_SEG0                     0
++#define SMUIO_BASE__INST3_SEG1                     0
++#define SMUIO_BASE__INST3_SEG2                     0
++#define SMUIO_BASE__INST3_SEG3                     0
++#define SMUIO_BASE__INST3_SEG4                     0
++#define SMUIO_BASE__INST3_SEG5                     0
++
++#define SMUIO_BASE__INST4_SEG0                     0
++#define SMUIO_BASE__INST4_SEG1                     0
++#define SMUIO_BASE__INST4_SEG2                     0
++#define SMUIO_BASE__INST4_SEG3                     0
++#define SMUIO_BASE__INST4_SEG4                     0
++#define SMUIO_BASE__INST4_SEG5                     0
++
++#define SMUIO_BASE__INST5_SEG0                     0
++#define SMUIO_BASE__INST5_SEG1                     0
++#define SMUIO_BASE__INST5_SEG2                     0
++#define SMUIO_BASE__INST5_SEG3                     0
++#define SMUIO_BASE__INST5_SEG4                     0
++#define SMUIO_BASE__INST5_SEG5                     0
++
++#define SMUIO_BASE__INST6_SEG0                     0
++#define SMUIO_BASE__INST6_SEG1                     0
++#define SMUIO_BASE__INST6_SEG2                     0
++#define SMUIO_BASE__INST6_SEG3                     0
++#define SMUIO_BASE__INST6_SEG4                     0
++#define SMUIO_BASE__INST6_SEG5                     0
++
++#define THM_BASE__INST0_SEG0                       0x00016600
++#define THM_BASE__INST0_SEG1                       0x02400C00
++#define THM_BASE__INST0_SEG2                       0
++#define THM_BASE__INST0_SEG3                       0
++#define THM_BASE__INST0_SEG4                       0
++#define THM_BASE__INST0_SEG5                       0
++
++#define THM_BASE__INST1_SEG0                       0
++#define THM_BASE__INST1_SEG1                       0
++#define THM_BASE__INST1_SEG2                       0
++#define THM_BASE__INST1_SEG3                       0
++#define THM_BASE__INST1_SEG4                       0
++#define THM_BASE__INST1_SEG5                       0
++
++#define THM_BASE__INST2_SEG0                       0
++#define THM_BASE__INST2_SEG1                       0
++#define THM_BASE__INST2_SEG2                       0
++#define THM_BASE__INST2_SEG3                       0
++#define THM_BASE__INST2_SEG4                       0
++#define THM_BASE__INST2_SEG5                       0
++
++#define THM_BASE__INST3_SEG0                       0
++#define THM_BASE__INST3_SEG1                       0
++#define THM_BASE__INST3_SEG2                       0
++#define THM_BASE__INST3_SEG3                       0
++#define THM_BASE__INST3_SEG4                       0
++#define THM_BASE__INST3_SEG5                       0
++
++#define THM_BASE__INST4_SEG0                       0
++#define THM_BASE__INST4_SEG1                       0
++#define THM_BASE__INST4_SEG2                       0
++#define THM_BASE__INST4_SEG3                       0
++#define THM_BASE__INST4_SEG4                       0
++#define THM_BASE__INST4_SEG5                       0
++
++#define THM_BASE__INST5_SEG0                       0
++#define THM_BASE__INST5_SEG1                       0
++#define THM_BASE__INST5_SEG2                       0
++#define THM_BASE__INST5_SEG3                       0
++#define THM_BASE__INST5_SEG4                       0
++#define THM_BASE__INST5_SEG5                       0
++
++#define THM_BASE__INST6_SEG0                       0
++#define THM_BASE__INST6_SEG1                       0
++#define THM_BASE__INST6_SEG2                       0
++#define THM_BASE__INST6_SEG3                       0
++#define THM_BASE__INST6_SEG4                       0
++#define THM_BASE__INST6_SEG5                       0
++
++#define UMC_BASE__INST0_SEG0                       0x00014000
++#define UMC_BASE__INST0_SEG1                       0x02425800
++#define UMC_BASE__INST0_SEG2                       0
++#define UMC_BASE__INST0_SEG3                       0
++#define UMC_BASE__INST0_SEG4                       0
++#define UMC_BASE__INST0_SEG5                       0
++
++#define UMC_BASE__INST1_SEG0                       0x00054000
++#define UMC_BASE__INST1_SEG1                       0x02425C00
++#define UMC_BASE__INST1_SEG2                       0
++#define UMC_BASE__INST1_SEG3                       0
++#define UMC_BASE__INST1_SEG4                       0
++#define UMC_BASE__INST1_SEG5                       0
++
++#define UMC_BASE__INST2_SEG0                       0
++#define UMC_BASE__INST2_SEG1                       0
++#define UMC_BASE__INST2_SEG2                       0
++#define UMC_BASE__INST2_SEG3                       0
++#define UMC_BASE__INST2_SEG4                       0
++#define UMC_BASE__INST2_SEG5                       0
++
++#define UMC_BASE__INST3_SEG0                       0
++#define UMC_BASE__INST3_SEG1                       0
++#define UMC_BASE__INST3_SEG2                       0
++#define UMC_BASE__INST3_SEG3                       0
++#define UMC_BASE__INST3_SEG4                       0
++#define UMC_BASE__INST3_SEG5                       0
++
++#define UMC_BASE__INST4_SEG0                       0
++#define UMC_BASE__INST4_SEG1                       0
++#define UMC_BASE__INST4_SEG2                       0
++#define UMC_BASE__INST4_SEG3                       0
++#define UMC_BASE__INST4_SEG4                       0
++#define UMC_BASE__INST4_SEG5                       0
++
++#define UMC_BASE__INST5_SEG0                       0
++#define UMC_BASE__INST5_SEG1                       0
++#define UMC_BASE__INST5_SEG2                       0
++#define UMC_BASE__INST5_SEG3                       0
++#define UMC_BASE__INST5_SEG4                       0
++#define UMC_BASE__INST5_SEG5                       0
++
++#define UMC_BASE__INST6_SEG0                       0
++#define UMC_BASE__INST6_SEG1                       0
++#define UMC_BASE__INST6_SEG2                       0
++#define UMC_BASE__INST6_SEG3                       0
++#define UMC_BASE__INST6_SEG4                       0
++#define UMC_BASE__INST6_SEG5                       0
++
++#define VCN0_BASE__INST0_SEG0                      0x00007800
++#define VCN0_BASE__INST0_SEG1                      0x00007E00
++#define VCN0_BASE__INST0_SEG2                      0x02403000
++#define VCN0_BASE__INST0_SEG3                      0
++#define VCN0_BASE__INST0_SEG4                      0
++#define VCN0_BASE__INST0_SEG5                      0
++
++#define VCN0_BASE__INST1_SEG0                      0
++#define VCN0_BASE__INST1_SEG1                      0
++#define VCN0_BASE__INST1_SEG2                      0
++#define VCN0_BASE__INST1_SEG3                      0
++#define VCN0_BASE__INST1_SEG4                      0
++#define VCN0_BASE__INST1_SEG5                      0
++
++#define VCN0_BASE__INST2_SEG0                      0
++#define VCN0_BASE__INST2_SEG1                      0
++#define VCN0_BASE__INST2_SEG2                      0
++#define VCN0_BASE__INST2_SEG3                      0
++#define VCN0_BASE__INST2_SEG4                      0
++#define VCN0_BASE__INST2_SEG5                      0
++
++#define VCN0_BASE__INST3_SEG0                      0
++#define VCN0_BASE__INST3_SEG1                      0
++#define VCN0_BASE__INST3_SEG2                      0
++#define VCN0_BASE__INST3_SEG3                      0
++#define VCN0_BASE__INST3_SEG4                      0
++#define VCN0_BASE__INST3_SEG5                      0
++
++#define VCN0_BASE__INST4_SEG0                      0
++#define VCN0_BASE__INST4_SEG1                      0
++#define VCN0_BASE__INST4_SEG2                      0
++#define VCN0_BASE__INST4_SEG3                      0
++#define VCN0_BASE__INST4_SEG4                      0
++#define VCN0_BASE__INST4_SEG5                      0
++
++#define VCN0_BASE__INST5_SEG0                      0
++#define VCN0_BASE__INST5_SEG1                      0
++#define VCN0_BASE__INST5_SEG2                      0
++#define VCN0_BASE__INST5_SEG3                      0
++#define VCN0_BASE__INST5_SEG4                      0
++#define VCN0_BASE__INST5_SEG5                      0
++
++#define VCN0_BASE__INST6_SEG0                      0
++#define VCN0_BASE__INST6_SEG1                      0
++#define VCN0_BASE__INST6_SEG2                      0
++#define VCN0_BASE__INST6_SEG3                      0
++#define VCN0_BASE__INST6_SEG4                      0
++#define VCN0_BASE__INST6_SEG5                      0
++
++#endif
 -- 
 2.31.1
 
