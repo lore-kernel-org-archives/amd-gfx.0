@@ -2,51 +2,48 @@ Return-Path: <SRS0=awHg=KH=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4315FC43461
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 May 2021 13:04:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C4F79C433B4
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 May 2021 13:08:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C440F61287
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 May 2021 13:04:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C440F61287
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 652C561287
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 May 2021 13:08:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 652C561287
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linuxfoundation.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F40796EC0D;
-	Wed, 12 May 2021 13:04:28 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 183156E7DD;
- Wed, 12 May 2021 13:04:27 +0000 (UTC)
-IronPort-SDR: qzNtoflJBNW1rafs4a/LKlS7JdisJO87s+WrvW+mVa3WB4U47SHK8zchU+FkyAsymHanzuT9eL
- Jy/Ec+XggjQA==
-X-IronPort-AV: E=McAfee;i="6200,9189,9981"; a="220671227"
-X-IronPort-AV: E=Sophos;i="5.82,293,1613462400"; d="scan'208";a="220671227"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 May 2021 06:04:22 -0700
-IronPort-SDR: yzHorLl++4fONoDHCVE04kfL0m1bnBhWfH1+n9s95Kzwol6g0v6bV8EJu3IcbrSiAwudmNuEAr
- JHG4RPUMWkGQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.82,293,1613462400"; d="scan'208";a="435193414"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
- by fmsmga008.fm.intel.com with SMTP; 12 May 2021 06:04:17 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 12 May 2021 16:04:16 +0300
-Date: Wed, 12 May 2021 16:04:16 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Werner Sembach <wse@tuxedocomputers.com>
-Subject: Re: New uAPI for color management proposal and feedback request
-Message-ID: <YJvSUCCPvWz7y/r7@intel.com>
-References: <8c0d7ad8-7ade-bf8a-0414-cc795fbb6aa2@tuxedocomputers.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E554D6EB9A;
+	Wed, 12 May 2021 13:07:59 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A8786EB4C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 May 2021 09:55:41 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 94972613C1;
+ Wed, 12 May 2021 09:55:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1620813341;
+ bh=BcSy4cDGBIB8m+eWXJ7AjXw73ea+nxc1HjGTK4vE3mY=;
+ h=Subject:To:Cc:From:Date:From;
+ b=L1q4tLEHaVqhybWWJZcZdCc9oR6i74xiae53w4d4f8LIffj8/XEKiaoqwut+MkPLU
+ rw3evVUETzt4I7I0lTjk5YzymgS6rSeEvBxb7xtqDdwsExtTS6zZxyLTtOcCuzoTrN
+ QKopkLORjapmAak0hHhf90EDP7hRVqLk9xQxXEzc=
+Subject: Patch "drm/amd/display: Reject non-zero src_y and src_x for video
+ planes" has been added to the 5.11-stable tree
+To: Roman.Li@amd.com, alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
+ christian.koenig@amd.com, danny.wang@amd.com, gregkh@linuxfoundation.org,
+ harry.wentland@amd.com, hersenxs.wu@amd.com, nicholas.kazlauskas@amd.com
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 12 May 2021 11:55:03 +0200
+Message-ID: <1620813303167108@kroah.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <8c0d7ad8-7ade-bf8a-0414-cc795fbb6aa2@tuxedocomputers.com>
-X-Patchwork-Hint: comment
+X-stable: commit
+X-Patchwork-Hint: ignore 
+X-Mailman-Approved-At: Wed, 12 May 2021 13:07:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,291 +55,71 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <alexander.deucher@amd.com>,
- Pekka Paalanen <ppaalanen@gmail.com>, intel-gfx@lists.freedesktop.org,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: stable-commits@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, May 12, 2021 at 02:06:56PM +0200, Werner Sembach wrote:
-> Hello,
-> =
-
-> In addition to the existing "max bpc", and "Broadcast RGB/output_csc" drm=
- properties I propose 4 new properties:
-> "preferred pixel encoding", "active color depth", "active color range", a=
-nd "active pixel encoding"
-> =
-
-> =
-
-> Motivation:
-> =
-
-> Current monitors have a variety pixel encodings available: RGB, YCbCr 4:4=
-:4, YCbCr 4:2:2, YCbCr 4:2:0.
-> =
-
-> In addition they might be full or limited RGB range and the monitors acce=
-pt different bit depths.
-> =
-
-> Currently the kernel driver for AMD and Intel GPUs automatically configur=
-e the color settings automatically with little
-> to no influence of the user. However there are several real world scenari=
-os where the user might disagree with the
-> default chosen by the drivers and wants to set his or her own preference.
-> =
-
-> Some examples:
-> =
-
-> 1. While RGB and YCbCr 4:4:4 in theory carry the same amount of color inf=
-ormation, some screens might look better on one
-> than the other because of bad internal conversion. The driver currently h=
-owever has a fixed default that is chosen if
-> available (RGB for Intel and YCbCr 4:4:4 for AMD). The only way to change=
- this currently is by editing and overloading
-> the edid reported by the monitor to the kernel.
-> =
-
-> 2. RGB and YCbCr 4:4:4 need a higher port clock then YCbCr 4:2:0. Some ha=
-rdware might report that it supports the higher
-> port clock, but because of bad shielding on the PC, the cable, or the mon=
-itor the screen cuts out every few seconds when
-> RGB or YCbCr 4:4:4 encoding is used, while YCbCr 4:2:0 might just work fi=
-ne without changing hardware. The drivers
-> currently however always default to the "best available" option even if i=
-t might be broken.
-> =
-
-> 3. Some screens natively only supporting 8-bit color, simulate 10-Bit col=
-or by rapidly switching between 2 adjacent
-> colors. They advertise themselves to the kernel as 10-bit monitors but th=
-e user might not like the "fake" 10-bit effect
-> and prefer running at the native 8-bit per color.
-> =
-
-> 4. Some screens are falsely classified as full RGB range wile they actual=
-ly use limited RGB range. This results in
-> washed out colors in dark and bright scenes. A user override can be helpf=
-ul to manually fix this issue when it occurs.
-> =
-
-> There already exist several requests, discussion, and patches regarding t=
-he thematic:
-> =
-
-> - https://gitlab.freedesktop.org/drm/amd/-/issues/476
-> =
-
-> - https://gitlab.freedesktop.org/drm/amd/-/issues/1548
-> =
-
-> - https://lkml.org/lkml/2021/5/7/695
-> =
-
-> - https://lkml.org/lkml/2021/5/11/416
-> =
-
-> =
-
-> Current State:
-> =
-
-> I only know bits about the Intel i915 and AMD amdgpu driver. I don't know=
- how other driver handle color management
-> =
-
-> - "max bpc", global setting applied by both i915 (only on dp i think?) an=
-d amdgpu. Default value is "8". For every
-> resolution + frequency combination the highest possible even number betwe=
-en 6 and max_bpc is chosen. If the range
-> doesn't contain a valid mode the resolution + frequency combination is di=
-scarded (but I guess that would be a very
-> special edge case, if existent at all, when 6 doesn't work but 10 would w=
-ork). Intel HDMI code always checks 8, 12, and
-> 10 and does not check the max_bpc setting.
-
-i915 does limit things below max_bpc for both HDMI and DP.
-
-> =
-
-> - "Broadcast RGB" for i915 and "output_csc" for the old radeon driver (no=
-t amdgpu), overwrites the kernel chosen color
-> range setting (full or limited). If I recall correctly Intel HDMI code de=
-faults to full unless this property is set,
-> Intel dp code tries to probe the monitor to find out what to use. amdgpu =
-has no corresponding setting (I don't know how
-> it's decided there).
-
-i915 has the same behaviour for HDMI and DP, as per the CTA-861/DP
-specs. Unfortunately as you already mentioned there are quite a few
-monitors (DP monitors in particular) that don't implemnt the spec
-correctly. IIRC later DP specs even relaxed the wording to say
-that you can basically ignore the spec and do whatever you want.
-Which I supose is just admitting defeat and concluding that there
-is no way to get this right 100% of the time.
-
-> =
-
-> - RGB pixel encoding can be forced by overloading a Monitors edid with on=
-e that tells the kernel that only RGB is
-> possible. That doesn't work for YCbCr 4:4:4 however because of the edid s=
-pecification. Forcing YCbCr 4:2:0 would
-> theoretically also be possible this way. amdgpu has a debugfs switch "for=
-ce_ycbcr_420" which makes the driver default to
-> YCbCr 4:2:0 on all monitors if possible.
-> =
-
-> =
-
-> Proposed Solution:
-> =
-
-> 1. Add a new uAPI property "preferred pixel encoding", as a per port sett=
-ing.
-> =
-
-> =A0=A0=A0 - An amdgpu specific implementation was already shared here: ht=
-tps://gitlab.freedesktop.org/drm/amd/-/issues/476
-> =
-
-> =A0=A0=A0 - It also writes back the actually used encoding if the one req=
-uested was not possible, overwriting the requested
-> value in the process. I think it would be better to have this feedback ch=
-annel as a different, read-only property.
-> =
-
-> =A0=A0=A0 - Make this solution vendor agnostic by putting it in the drm_c=
-onnector_state struct next do max_bpc
-> https://elixir.bootlin.com/linux/v5.13-rc1/source/include/drm/drm_connect=
-or.h#L654 and add patches to amdgpu and i915 to
-> respect this setting
-> =
-
-> 2. Convert "Broadcast RGB" to a vendor agnostic setting/replace with a ve=
-ndor agnostic setting.
-> =
-
-> =A0=A0=A0 - Imho the name is not very fitting, but it pops up in many tut=
-orials throughout the web (some other opinions? how
-> could a rename be handled?".
-
-IIRC there was an attempt to unify this. Not sure what happened to it.
-
-> =
-
-> =A0=A0=A0 - Also move it from Intel specific structs to the drm_connector=
-_state struct (please let me know if there is a
-> better place)
-> =
-
-> 3. Strive for full implementation of "max bpc"
-> =
-
-> =A0=A0=A0 - I need to double check the Intel HDMI code.
-> =
-
-> 4. Add 3 feedback channels "active color depth", "active color range", an=
-d "active pixel encoding" as vendor agnostic
-> settings in the drm_connector_state struct
-> =
-
-> =A0=A0=A0 - Possible values are:
-> =
-
-> =A0=A0=A0 =A0=A0=A0 - unknown, undefined, 6-bit, 8-bit, 9-bit, 10-bit, 11=
--bit, 12-bit, 14-bit, 16-bit (alternatively: an integer
-> from -1 (unknown), 0 (undefined) to 16, let me know what would be more su=
-itable)
-> =
-
-> =A0=A0=A0 =A0=A0=A0 - unknown, undefined, full, limited
-> =
-
-> =A0=A0=A0 =A0=A0=A0 - unknown, undefined, rgb, ycbcr444, ycbcr422, ycbcr4=
-20
-> =
-
-> =A0=A0=A0 - it's the responsibility of the driver to update the values on=
-ce the port configuration changes
-> =
-
-> =A0=A0=A0 - if the driver does not support the feedback channels they are=
- set to unknown
-> =
-
-> =A0=A0=A0 - if the driver uses a non listed setting it should set the pro=
-perty to undefined
-> =
-
-> =A0=A0=A0 - A more detailed description why I think these feedback channe=
-l are important and should be their own read-only
-> property can be found here: https://lkml.org/lkml/2021/5/11/339
-> =
-
-> =
-
-> Adoption:
-> =
-
-> A KDE dev wants to implement the settings in the KDE settings GUI:
-> https://gitlab.freedesktop.org/drm/amd/-/issues/476#note_912370
-> =
-
-> Tuxedo Computers (my employer) wants to implement the settings desktop en=
-vironment agnostic in Tuxedo Control Center. I
-> will start work on this in parallel to implementing the new kernel code.
-
-I suspect everyone would be happier to accept new uapi if we had
-multiple compositors signed up to implement it.
-
-> =
-
-> =
-
-> Questions:
-> =
-
-> I'm very curious about feedback from the dri-devel community. Would the c=
-oncept outlaid above be accepted as new uAPI
-> once it's fully implemented?
-> =
-
-> Where would be the best way to store the new vendor agnostic settings? Fo=
-llowing the implementation of max_bpc i would
-> put it in the drm_connector_state struct.
-> =
-
-> My way forward would be to implement the feedback channels first, because=
- they can be very useful for debugging the
-> setting properties afterwards.
-
-For debugging we have dmesg/debugfs/etc. If we add new uapi IMO
-it will have to have some real world use cases beyond debugging.
-
-> I will split each of it up it in 3 or 5 patch sets: 1 for the vendor agno=
-stic part, 1 for
-> Intel (or 2 split up between HDMI and DP), and 1 for AMD (or 2 split up b=
-etween HDMI and DP)
-> =
-
-> Kind regards,
-> =
-
-> Werner Sembach
-> =
-
-
--- =
-
-Ville Syrj=E4l=E4
-Intel
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+ClRoaXMgaXMgYSBub3RlIHRvIGxldCB5b3Uga25vdyB0aGF0IEkndmUganVzdCBhZGRlZCB0aGUg
+cGF0Y2ggdGl0bGVkCgogICAgZHJtL2FtZC9kaXNwbGF5OiBSZWplY3Qgbm9uLXplcm8gc3JjX3kg
+YW5kIHNyY194IGZvciB2aWRlbyBwbGFuZXMKCnRvIHRoZSA1LjExLXN0YWJsZSB0cmVlIHdoaWNo
+IGNhbiBiZSBmb3VuZCBhdDoKICAgIGh0dHA6Ly93d3cua2VybmVsLm9yZy9naXQvP3A9bGludXgv
+a2VybmVsL2dpdC9zdGFibGUvc3RhYmxlLXF1ZXVlLmdpdDthPXN1bW1hcnkKClRoZSBmaWxlbmFt
+ZSBvZiB0aGUgcGF0Y2ggaXM6CiAgICAgZHJtLWFtZC1kaXNwbGF5LXJlamVjdC1ub24temVyby1z
+cmNfeS1hbmQtc3JjX3gtZm9yLXZpZGVvLXBsYW5lcy5wYXRjaAphbmQgaXQgY2FuIGJlIGZvdW5k
+IGluIHRoZSBxdWV1ZS01LjExIHN1YmRpcmVjdG9yeS4KCklmIHlvdSwgb3IgYW55b25lIGVsc2Us
+IGZlZWxzIGl0IHNob3VsZCBub3QgYmUgYWRkZWQgdG8gdGhlIHN0YWJsZSB0cmVlLApwbGVhc2Ug
+bGV0IDxzdGFibGVAdmdlci5rZXJuZWwub3JnPiBrbm93IGFib3V0IGl0LgoKCkZyb20gZDg5ZjYw
+NDhiZGNiNmE1NmFiYjM5NmM1ODQ3NDdkNWVlYWU2NTBkYiBNb24gU2VwIDE3IDAwOjAwOjAwIDIw
+MDEKRnJvbTogSGFycnkgV2VudGxhbmQgPGhhcnJ5LndlbnRsYW5kQGFtZC5jb20+CkRhdGU6IFRo
+dSwgMjIgQXByIDIwMjEgMTk6MTA6NTIgLTA0MDAKU3ViamVjdDogZHJtL2FtZC9kaXNwbGF5OiBS
+ZWplY3Qgbm9uLXplcm8gc3JjX3kgYW5kIHNyY194IGZvciB2aWRlbyBwbGFuZXMKTUlNRS1WZXJz
+aW9uOiAxLjAKQ29udGVudC1UeXBlOiB0ZXh0L3BsYWluOyBjaGFyc2V0PVVURi04CkNvbnRlbnQt
+VHJhbnNmZXItRW5jb2Rpbmc6IDhiaXQKCkZyb206IEhhcnJ5IFdlbnRsYW5kIDxoYXJyeS53ZW50
+bGFuZEBhbWQuY29tPgoKY29tbWl0IGQ4OWY2MDQ4YmRjYjZhNTZhYmIzOTZjNTg0NzQ3ZDVlZWFl
+NjUwZGIgdXBzdHJlYW0uCgpbV2h5XQpUaGlzIGhhc24ndCBiZWVuIHdlbGwgdGVzdGVkIGFuZCBs
+ZWFkcyB0byBjb21wbGV0ZSBzeXN0ZW0gaGFuZ3Mgb24gRENOMQpiYXNlZCBzeXN0ZW1zLCBwb3Nz
+aWJseSBvdGhlcnMuCgpUaGUgc3lzdGVtIGhhbmcgY2FuIGJlIHJlcHJvZHVjZWQgYnkgZ2VzdHVy
+aW5nIHRoZSB2aWRlbyBvbiB0aGUgWW91VHViZQpBbmRyb2lkIGFwcCBvbiBDaHJvbWVPUyBpbnRv
+IGZ1bGwgc2NyZWVuLgoKW0hvd10KUmVqZWN0IGF0b21pYyBjb21taXRzIHdpdGggbm9uLXplcm8g
+ZHJtX3BsYW5lX3N0YXRlLnNyY194IG9yIHNyY195IHZhbHVlcy4KCnYyOgogLSBBZGQgY29kZSBj
+b21tZW50IGRlc2NyaWJpbmcgdGhlIHJlYXNvbiB3ZSdyZSByZWplY3Rpbmcgbm9uLXplcm8KICAg
+c3JjX3ggYW5kIHNyY195CiAtIERyb3AgZ2Vycml0IENoYW5nZS1JZAogLSBBZGQgc3RhYmxlIEND
+CiAtIEJhc2VkIG9uIGFtZC1zdGFnaW5nLWRybS1uZXh0Cgp2MzogcmVtb3ZlZCB0cmFpbGluZyB3
+aGl0ZXNwYWNlCgpTaWduZWQtb2ZmLWJ5OiBIYXJyeSBXZW50bGFuZCA8aGFycnkud2VudGxhbmRA
+YW1kLmNvbT4KQ2M6IHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcKQ2M6IG5pY2hvbGFzLmthemxhdXNr
+YXNAYW1kLmNvbQpDYzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKQ2M6IGFsZXhhbmRl
+ci5kZXVjaGVyQGFtZC5jb20KQ2M6IFJvbWFuLkxpQGFtZC5jb20KQ2M6IGhlcnNlbnhzLnd1QGFt
+ZC5jb20KQ2M6IGRhbm55LndhbmdAYW1kLmNvbQpSZXZpZXdlZC1ieTogTmljaG9sYXMgS2F6bGF1
+c2thcyA8bmljaG9sYXMua2F6bGF1c2thc0BhbWQuY29tPgpBY2tlZC1ieTogQ2hyaXN0aWFuIEvD
+tm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgpSZXZpZXdlZC1ieTogSGVyc2VuIFd1IDxo
+ZXJzZW54cy53dUBhbWQuY29tPgpTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRl
+ci5kZXVjaGVyQGFtZC5jb20+CkNjOiBzdGFibGVAdmdlci5rZXJuZWwub3JnClNpZ25lZC1vZmYt
+Ynk6IEdyZWcgS3JvYWgtSGFydG1hbiA8Z3JlZ2toQGxpbnV4Zm91bmRhdGlvbi5vcmc+Ci0tLQog
+ZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyB8ICAgMTcg
+KysrKysrKysrKysrKysrKysKIDEgZmlsZSBjaGFuZ2VkLCAxNyBpbnNlcnRpb25zKCspCgotLS0g
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCisrKyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKQEAgLTM3
+NDAsNiArMzc0MCwyMyBAQCBzdGF0aWMgaW50IGZpbGxfZGNfc2NhbGluZ19pbmZvKGNvbnN0IHN0
+CiAJc2NhbGluZ19pbmZvLT5zcmNfcmVjdC54ID0gc3RhdGUtPnNyY194ID4+IDE2OwogCXNjYWxp
+bmdfaW5mby0+c3JjX3JlY3QueSA9IHN0YXRlLT5zcmNfeSA+PiAxNjsKIAorCS8qCisJICogRm9y
+IHJlYXNvbnMgd2UgZG9uJ3QgKHlldCkgZnVsbHkgdW5kZXJzdGFuZCBhIG5vbi16ZXJvCisJICog
+c3JjX3kgY29vcmRpbmF0ZSBpbnRvIGFuIE5WMTIgYnVmZmVyIGNhbiBjYXVzZSBhCisJICogc3lz
+dGVtIGhhbmcuIFRvIGF2b2lkIGhhbmdzIChhbmQgbWF5YmUgYmUgb3Zlcmx5IGNhdXRpb3VzKQor
+CSAqIGxldCdzIHJlamVjdCBib3RoIG5vbi16ZXJvIHNyY194IGFuZCBzcmNfeS4KKwkgKgorCSAq
+IFdlIGN1cnJlbnRseSBrbm93IG9mIG9ubHkgb25lIHVzZS1jYXNlIHRvIHJlcHJvZHVjZSBhCisJ
+ICogc2NlbmFyaW8gd2l0aCBub24temVybyBzcmNfeCBhbmQgc3JjX3kgZm9yIE5WMTIsIHdoaWNo
+CisJICogaXMgdG8gZ2VzdHVyZSB0aGUgWW91VHViZSBBbmRyb2lkIGFwcCBpbnRvIGZ1bGwgc2Ny
+ZWVuCisJICogb24gQ2hyb21lT1MuCisJICovCisJaWYgKHN0YXRlLT5mYiAmJgorCSAgICBzdGF0
+ZS0+ZmItPmZvcm1hdC0+Zm9ybWF0ID09IERSTV9GT1JNQVRfTlYxMiAmJgorCSAgICAoc2NhbGlu
+Z19pbmZvLT5zcmNfcmVjdC54ICE9IDAgfHwKKwkgICAgIHNjYWxpbmdfaW5mby0+c3JjX3JlY3Qu
+eSAhPSAwKSkKKwkJcmV0dXJuIC1FSU5WQUw7CisKIAlzY2FsaW5nX2luZm8tPnNyY19yZWN0Lndp
+ZHRoID0gc3RhdGUtPnNyY193ID4+IDE2OwogCWlmIChzY2FsaW5nX2luZm8tPnNyY19yZWN0Lndp
+ZHRoID09IDApCiAJCXJldHVybiAtRUlOVkFMOwoKClBhdGNoZXMgY3VycmVudGx5IGluIHN0YWJs
+ZS1xdWV1ZSB3aGljaCBtaWdodCBiZSBmcm9tIGhhcnJ5LndlbnRsYW5kQGFtZC5jb20gYXJlCgpx
+dWV1ZS01LjExL2RybS1hbWQtZGlzcGxheS1yZWplY3Qtbm9uLXplcm8tc3JjX3ktYW5kLXNyY194
+LWZvci12aWRlby1wbGFuZXMucGF0Y2gKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
+bWQtZ2Z4Cg==
