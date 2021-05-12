@@ -2,47 +2,44 @@ Return-Path: <SRS0=awHg=KH=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C4F79C433B4
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 May 2021 13:08:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 904C7C433ED
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 May 2021 13:08:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 652C561287
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 May 2021 13:08:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 652C561287
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linuxfoundation.org
+	by mail.kernel.org (Postfix) with ESMTPS id 04F7F61287
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 May 2021 13:08:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 04F7F61287
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.alibaba.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E554D6EB9A;
-	Wed, 12 May 2021 13:07:59 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A8786EB4C
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 May 2021 09:55:41 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 94972613C1;
- Wed, 12 May 2021 09:55:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1620813341;
- bh=BcSy4cDGBIB8m+eWXJ7AjXw73ea+nxc1HjGTK4vE3mY=;
- h=Subject:To:Cc:From:Date:From;
- b=L1q4tLEHaVqhybWWJZcZdCc9oR6i74xiae53w4d4f8LIffj8/XEKiaoqwut+MkPLU
- rw3evVUETzt4I7I0lTjk5YzymgS6rSeEvBxb7xtqDdwsExtTS6zZxyLTtOcCuzoTrN
- QKopkLORjapmAak0hHhf90EDP7hRVqLk9xQxXEzc=
-Subject: Patch "drm/amd/display: Reject non-zero src_y and src_x for video
- planes" has been added to the 5.11-stable tree
-To: Roman.Li@amd.com, alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
- christian.koenig@amd.com, danny.wang@amd.com, gregkh@linuxfoundation.org,
- harry.wentland@amd.com, hersenxs.wu@amd.com, nicholas.kazlauskas@amd.com
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 12 May 2021 11:55:03 +0200
-Message-ID: <1620813303167108@kroah.com>
-MIME-Version: 1.0
-X-stable: commit
-X-Patchwork-Hint: ignore 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C38F6EBA3;
+	Wed, 12 May 2021 13:08:00 +0000 (UTC)
+X-Greylist: delayed 302 seconds by postgrey-1.36 at gabe;
+ Wed, 12 May 2021 10:19:57 UTC
+Received: from out30-133.freemail.mail.aliyun.com
+ (out30-133.freemail.mail.aliyun.com [115.124.30.133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF69B6EB4C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 May 2021 10:19:57 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R261e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04423;
+ MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=10; SR=0;
+ TI=SMTPD_---0UYdo9l1_1620814472; 
+Received: from
+ j63c13417.sqa.eu95.tbsite.net(mailfrom:jiapeng.chong@linux.alibaba.com
+ fp:SMTPD_---0UYdo9l1_1620814472) by smtp.aliyun-inc.com(127.0.0.1);
+ Wed, 12 May 2021 18:14:52 +0800
+From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+To: harry.wentland@amd.com
+Subject: [PATCH] drm/amd/display: Fix duplicate included hubp.h
+Date: Wed, 12 May 2021 18:14:31 +0800
+Message-Id: <1620814471-27902-1-git-send-email-jiapeng.chong@linux.alibaba.com>
+X-Mailer: git-send-email 1.8.3.1
 X-Mailman-Approved-At: Wed, 12 May 2021 13:07:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -55,71 +52,43 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stable-commits@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, sunpeng.li@amd.com,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, airlied@linux.ie,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch, alexander.deucher@amd.com,
+ christian.koenig@amd.com
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-ClRoaXMgaXMgYSBub3RlIHRvIGxldCB5b3Uga25vdyB0aGF0IEkndmUganVzdCBhZGRlZCB0aGUg
-cGF0Y2ggdGl0bGVkCgogICAgZHJtL2FtZC9kaXNwbGF5OiBSZWplY3Qgbm9uLXplcm8gc3JjX3kg
-YW5kIHNyY194IGZvciB2aWRlbyBwbGFuZXMKCnRvIHRoZSA1LjExLXN0YWJsZSB0cmVlIHdoaWNo
-IGNhbiBiZSBmb3VuZCBhdDoKICAgIGh0dHA6Ly93d3cua2VybmVsLm9yZy9naXQvP3A9bGludXgv
-a2VybmVsL2dpdC9zdGFibGUvc3RhYmxlLXF1ZXVlLmdpdDthPXN1bW1hcnkKClRoZSBmaWxlbmFt
-ZSBvZiB0aGUgcGF0Y2ggaXM6CiAgICAgZHJtLWFtZC1kaXNwbGF5LXJlamVjdC1ub24temVyby1z
-cmNfeS1hbmQtc3JjX3gtZm9yLXZpZGVvLXBsYW5lcy5wYXRjaAphbmQgaXQgY2FuIGJlIGZvdW5k
-IGluIHRoZSBxdWV1ZS01LjExIHN1YmRpcmVjdG9yeS4KCklmIHlvdSwgb3IgYW55b25lIGVsc2Us
-IGZlZWxzIGl0IHNob3VsZCBub3QgYmUgYWRkZWQgdG8gdGhlIHN0YWJsZSB0cmVlLApwbGVhc2Ug
-bGV0IDxzdGFibGVAdmdlci5rZXJuZWwub3JnPiBrbm93IGFib3V0IGl0LgoKCkZyb20gZDg5ZjYw
-NDhiZGNiNmE1NmFiYjM5NmM1ODQ3NDdkNWVlYWU2NTBkYiBNb24gU2VwIDE3IDAwOjAwOjAwIDIw
-MDEKRnJvbTogSGFycnkgV2VudGxhbmQgPGhhcnJ5LndlbnRsYW5kQGFtZC5jb20+CkRhdGU6IFRo
-dSwgMjIgQXByIDIwMjEgMTk6MTA6NTIgLTA0MDAKU3ViamVjdDogZHJtL2FtZC9kaXNwbGF5OiBS
-ZWplY3Qgbm9uLXplcm8gc3JjX3kgYW5kIHNyY194IGZvciB2aWRlbyBwbGFuZXMKTUlNRS1WZXJz
-aW9uOiAxLjAKQ29udGVudC1UeXBlOiB0ZXh0L3BsYWluOyBjaGFyc2V0PVVURi04CkNvbnRlbnQt
-VHJhbnNmZXItRW5jb2Rpbmc6IDhiaXQKCkZyb206IEhhcnJ5IFdlbnRsYW5kIDxoYXJyeS53ZW50
-bGFuZEBhbWQuY29tPgoKY29tbWl0IGQ4OWY2MDQ4YmRjYjZhNTZhYmIzOTZjNTg0NzQ3ZDVlZWFl
-NjUwZGIgdXBzdHJlYW0uCgpbV2h5XQpUaGlzIGhhc24ndCBiZWVuIHdlbGwgdGVzdGVkIGFuZCBs
-ZWFkcyB0byBjb21wbGV0ZSBzeXN0ZW0gaGFuZ3Mgb24gRENOMQpiYXNlZCBzeXN0ZW1zLCBwb3Nz
-aWJseSBvdGhlcnMuCgpUaGUgc3lzdGVtIGhhbmcgY2FuIGJlIHJlcHJvZHVjZWQgYnkgZ2VzdHVy
-aW5nIHRoZSB2aWRlbyBvbiB0aGUgWW91VHViZQpBbmRyb2lkIGFwcCBvbiBDaHJvbWVPUyBpbnRv
-IGZ1bGwgc2NyZWVuLgoKW0hvd10KUmVqZWN0IGF0b21pYyBjb21taXRzIHdpdGggbm9uLXplcm8g
-ZHJtX3BsYW5lX3N0YXRlLnNyY194IG9yIHNyY195IHZhbHVlcy4KCnYyOgogLSBBZGQgY29kZSBj
-b21tZW50IGRlc2NyaWJpbmcgdGhlIHJlYXNvbiB3ZSdyZSByZWplY3Rpbmcgbm9uLXplcm8KICAg
-c3JjX3ggYW5kIHNyY195CiAtIERyb3AgZ2Vycml0IENoYW5nZS1JZAogLSBBZGQgc3RhYmxlIEND
-CiAtIEJhc2VkIG9uIGFtZC1zdGFnaW5nLWRybS1uZXh0Cgp2MzogcmVtb3ZlZCB0cmFpbGluZyB3
-aGl0ZXNwYWNlCgpTaWduZWQtb2ZmLWJ5OiBIYXJyeSBXZW50bGFuZCA8aGFycnkud2VudGxhbmRA
-YW1kLmNvbT4KQ2M6IHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcKQ2M6IG5pY2hvbGFzLmthemxhdXNr
-YXNAYW1kLmNvbQpDYzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKQ2M6IGFsZXhhbmRl
-ci5kZXVjaGVyQGFtZC5jb20KQ2M6IFJvbWFuLkxpQGFtZC5jb20KQ2M6IGhlcnNlbnhzLnd1QGFt
-ZC5jb20KQ2M6IGRhbm55LndhbmdAYW1kLmNvbQpSZXZpZXdlZC1ieTogTmljaG9sYXMgS2F6bGF1
-c2thcyA8bmljaG9sYXMua2F6bGF1c2thc0BhbWQuY29tPgpBY2tlZC1ieTogQ2hyaXN0aWFuIEvD
-tm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgpSZXZpZXdlZC1ieTogSGVyc2VuIFd1IDxo
-ZXJzZW54cy53dUBhbWQuY29tPgpTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRl
-ci5kZXVjaGVyQGFtZC5jb20+CkNjOiBzdGFibGVAdmdlci5rZXJuZWwub3JnClNpZ25lZC1vZmYt
-Ynk6IEdyZWcgS3JvYWgtSGFydG1hbiA8Z3JlZ2toQGxpbnV4Zm91bmRhdGlvbi5vcmc+Ci0tLQog
-ZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyB8ICAgMTcg
-KysrKysrKysrKysrKysrKysKIDEgZmlsZSBjaGFuZ2VkLCAxNyBpbnNlcnRpb25zKCspCgotLS0g
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCisrKyBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKQEAgLTM3
-NDAsNiArMzc0MCwyMyBAQCBzdGF0aWMgaW50IGZpbGxfZGNfc2NhbGluZ19pbmZvKGNvbnN0IHN0
-CiAJc2NhbGluZ19pbmZvLT5zcmNfcmVjdC54ID0gc3RhdGUtPnNyY194ID4+IDE2OwogCXNjYWxp
-bmdfaW5mby0+c3JjX3JlY3QueSA9IHN0YXRlLT5zcmNfeSA+PiAxNjsKIAorCS8qCisJICogRm9y
-IHJlYXNvbnMgd2UgZG9uJ3QgKHlldCkgZnVsbHkgdW5kZXJzdGFuZCBhIG5vbi16ZXJvCisJICog
-c3JjX3kgY29vcmRpbmF0ZSBpbnRvIGFuIE5WMTIgYnVmZmVyIGNhbiBjYXVzZSBhCisJICogc3lz
-dGVtIGhhbmcuIFRvIGF2b2lkIGhhbmdzIChhbmQgbWF5YmUgYmUgb3Zlcmx5IGNhdXRpb3VzKQor
-CSAqIGxldCdzIHJlamVjdCBib3RoIG5vbi16ZXJvIHNyY194IGFuZCBzcmNfeS4KKwkgKgorCSAq
-IFdlIGN1cnJlbnRseSBrbm93IG9mIG9ubHkgb25lIHVzZS1jYXNlIHRvIHJlcHJvZHVjZSBhCisJ
-ICogc2NlbmFyaW8gd2l0aCBub24temVybyBzcmNfeCBhbmQgc3JjX3kgZm9yIE5WMTIsIHdoaWNo
-CisJICogaXMgdG8gZ2VzdHVyZSB0aGUgWW91VHViZSBBbmRyb2lkIGFwcCBpbnRvIGZ1bGwgc2Ny
-ZWVuCisJICogb24gQ2hyb21lT1MuCisJICovCisJaWYgKHN0YXRlLT5mYiAmJgorCSAgICBzdGF0
-ZS0+ZmItPmZvcm1hdC0+Zm9ybWF0ID09IERSTV9GT1JNQVRfTlYxMiAmJgorCSAgICAoc2NhbGlu
-Z19pbmZvLT5zcmNfcmVjdC54ICE9IDAgfHwKKwkgICAgIHNjYWxpbmdfaW5mby0+c3JjX3JlY3Qu
-eSAhPSAwKSkKKwkJcmV0dXJuIC1FSU5WQUw7CisKIAlzY2FsaW5nX2luZm8tPnNyY19yZWN0Lndp
-ZHRoID0gc3RhdGUtPnNyY193ID4+IDE2OwogCWlmIChzY2FsaW5nX2luZm8tPnNyY19yZWN0Lndp
-ZHRoID09IDApCiAJCXJldHVybiAtRUlOVkFMOwoKClBhdGNoZXMgY3VycmVudGx5IGluIHN0YWJs
-ZS1xdWV1ZSB3aGljaCBtaWdodCBiZSBmcm9tIGhhcnJ5LndlbnRsYW5kQGFtZC5jb20gYXJlCgpx
-dWV1ZS01LjExL2RybS1hbWQtZGlzcGxheS1yZWplY3Qtbm9uLXplcm8tc3JjX3ktYW5kLXNyY194
-LWZvci12aWRlby1wbGFuZXMucGF0Y2gKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
-bWQtZ2Z4Cg==
+Clean up the following includecheck warning:
+
+./drivers/gpu/drm/amd/display/dc/core/dc.c: hubp.h is included more than
+once.
+
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+---
+ drivers/gpu/drm/amd/display/dc/core/dc.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 4713f09..a3c73c2 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -59,7 +59,6 @@
+ #include "dc_link_ddc.h"
+ #include "dm_helpers.h"
+ #include "mem_input.h"
+-#include "hubp.h"
+ 
+ #include "dc_link_dp.h"
+ #include "dc_dmub_srv.h"
+-- 
+1.8.3.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
