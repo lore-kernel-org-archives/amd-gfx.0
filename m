@@ -2,125 +2,124 @@ Return-Path: <SRS0=x6gI=KI=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.7 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,MIME_HTML_MOSTLY,PDS_BAD_THREAD_QP_64,
-	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED autolearn=ham
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 18377C433B4
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 May 2021 11:36:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DE5BBC433ED
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 May 2021 11:50:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C49346108D
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 May 2021 11:36:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C49346108D
+	by mail.kernel.org (Postfix) with ESMTPS id 866F061176
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 May 2021 11:50:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 866F061176
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6FD5F6ECFA;
-	Thu, 13 May 2021 11:36:05 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2045.outbound.protection.outlook.com [40.107.223.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 581F96ECF9
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 May 2021 11:36:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CEFE6ECFE;
+	Thu, 13 May 2021 11:50:49 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2089.outbound.protection.outlook.com [40.107.236.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 952E86ECFE
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 May 2021 11:50:47 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GDTJDinK1gW0OJJ3u5uPhXrKUD560O7Gt/Lu3fBCdOXOTTwwcsBrMW4BlnuKYgy8Ne573Y1O+k5+x/k0i9yTo3ge+Z8zzLvWPasxCiU1FNlYiAwZv+3bt6lC+u2gsz8TYLOa6rFY0306WyICEHaLe0DIlalTX+KxPfpksVhVnoFqQqcGRPbvOaHl+RD+wr/OB61SrnOXYfQsT6k5zVAovFYUhYeZ22suooG567SCpDMR12HUHEDNSAVZvCodB9lmYvpQZKidVLMDjQl6TFVIfUOa+64culBmd+lo2UL9IaNtG8SejvKUhKQWh/8YvjW5/LDSNhAvvNQ+S6bc9/M40w==
+ b=M8olmwE39P9+g35/5HOhRP1PhUqkYXHZZ1SKPH38JbA8aVss37ySxG4emza9vfc86O/Ue22TbZk4awg5GIJYn1xw1g97e/7f7h4ulyhPx1IJS6UM/GWtvAe6SsvnuZvoLX+RVzpUXbg00BAFXUrIJVcbHMPtxYCdNGVG36q7YT7b+oOIl6lULqUzTZ0oP4to44e+wa4QX3xKTkpnWQhEnxDGDEmyadVwhXR22eQhi/yORfBZSA9A1pNVdtrQMYdydzJi3GgB9FHKcYl75ZGwyGs1RCjGJUaXA9eR/7I8shouINx11ukp39yNGOPlJvBa69LR6pTb2hSzl6ZW9iMb3g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wDshRZyBZH3CHi3Fa05bUVFm02O7QkNECzzbgN368zc=;
- b=cU/L4DrAkh7KQuBf1Y1pJxzjFt9ccMJBNzclNULsA7ML8YR5spG6z+pDcEBBBbplelL0sikw3WJVOPVO8ktlO0K1mm3is7UdmTxzwWP8K5rzjW/O6zDeDlTPCjL7ratfffZ6+b15BfB3FXJ+1drkWerlaRQeYKKRTYQL+iKLjBx5Iynekrbeo2H6zOEo8IVqfZtMbyXyzGGBN2fhjYs4rERpPJthcoshO3vjTgfe+dEicsrfs0dHit5PqW+PtEIqN1Jo+N4mr04E+79mO3nwGmKtB6dS1sos69QMs4u3BzrW4e7gzxhgiF8kkrubdhBs5vn6apuwuNokT/RVc3NlRQ==
+ bh=vwkHkJ7p9E/caJLFHlHjR6xSQJh3dlv7xyDqCYurbn4=;
+ b=jfxDr5AdeXa7Gxy+32QDDeVuGbpFdvwAqBccYWQGFBFKIxA3qfnAhKug5HzXg9Kh0L9pSiG2p5VOQrDcuDHKqTUC7id0D+dDw78Wy8L8lRrVCtdDFBHNOwdmihWsnDah+8BAIWX7yqoFkzH2gG3hLvkeM81RwXTPncqeY6vuv13YW/bxd2GXwbS+iMj9dPlikC5UKl/tLVDC0ZTfiqG5L0a9LCeuLvWxwi1F6V9JLxfOiwQJ1GHO+aaM7W6bQE+OGB4lbbfr8ml8dm1UqmEo2yEb0E4QEW6UeADQxlecdP3avU3W7xHJy88FwLHnCbPI24Fp7OIeLDxaeAbwwqgP0w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wDshRZyBZH3CHi3Fa05bUVFm02O7QkNECzzbgN368zc=;
- b=BC0vHB+h4/E9i/ydXikchuWsX8a0g0stcrxHUjyDmNqjaJg+qfhwSpFtb9Qhr9u5PXHS54AAcZGiKmmaQiWFXPX+RAUKVqGZ5292U9MuBXQpy7M1xxjlB/EzU/1WV1aeRRMgb+o1HhkF6h2xPNHgnxycd8QF5VafdA5DndYkldA=
-Received: from CO6PR12MB5473.namprd12.prod.outlook.com (2603:10b6:303:13e::8)
- by CO6PR12MB5457.namprd12.prod.outlook.com (2603:10b6:5:355::16) with
+ bh=vwkHkJ7p9E/caJLFHlHjR6xSQJh3dlv7xyDqCYurbn4=;
+ b=BBNy2QoMahjWgVwaeV15FPWRUSq/VeIQKDNeBaYroadFraUDe8c8XTQMHVvC7l4xRPhumn9QaAWncjtHOZILkVMDzvStMj/dvNMEzA4/TFRqpbpctO86wHe27FTe9k1szZ/cQT9OtMv4c2cxZqpWuP0hwk0VQ8x971ouKqSz/FY=
+Received: from DM5PR12MB1708.namprd12.prod.outlook.com (2603:10b6:3:10e::22)
+ by DM5PR12MB2504.namprd12.prod.outlook.com (2603:10b6:4:b5::19) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.26; Thu, 13 May
- 2021 11:36:00 +0000
-Received: from CO6PR12MB5473.namprd12.prod.outlook.com
- ([fe80::6d0f:e659:2a89:c67b]) by CO6PR12MB5473.namprd12.prod.outlook.com
- ([fe80::6d0f:e659:2a89:c67b%6]) with mapi id 15.20.4129.026; Thu, 13 May 2021
- 11:36:00 +0000
-From: "Wang, Kevin(Yang)" <Kevin1.Wang@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
+ 2021 11:50:45 +0000
+Received: from DM5PR12MB1708.namprd12.prod.outlook.com
+ ([fe80::c9c0:c016:885f:529c]) by DM5PR12MB1708.namprd12.prod.outlook.com
+ ([fe80::c9c0:c016:885f:529c%3]) with mapi id 15.20.4129.026; Thu, 13 May 2021
+ 11:50:45 +0000
+From: "Liu, Monk" <Monk.Liu@amd.com>
+To: "Zhang, Bokun" <Bokun.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH 2/3] drm/amd/pm: Fix showing incorrect frequencies on
- aldebaran
-Thread-Topic: [PATCH 2/3] drm/amd/pm: Fix showing incorrect frequencies on
- aldebaran
-Thread-Index: AQHXR90HFHI2wRchNkOhkbu3B9ikV6rhR/Or
-Date: Thu, 13 May 2021 11:36:00 +0000
-Message-ID: <CO6PR12MB547345F347D296F9D5715B8FA2519@CO6PR12MB5473.namprd12.prod.outlook.com>
-References: <cb35e9cc-26cf-c9e7-b747-c24920d788d6@amd.com>
-In-Reply-To: <cb35e9cc-26cf-c9e7-b747-c24920d788d6@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: Complete multimedia bandwidth interface
+Thread-Topic: [PATCH] drm/amdgpu: Complete multimedia bandwidth interface
+Thread-Index: AQHXR7iZQANhF8iJmUum8je076MNvqrhTJWA
+Date: Thu, 13 May 2021 11:50:45 +0000
+Message-ID: <DM5PR12MB170882F26F15E2B7E67ED10884519@DM5PR12MB1708.namprd12.prod.outlook.com>
+References: <20210513051949.6846-1-bokun.zhang@amd.com>
+In-Reply-To: <20210513051949.6846-1-bokun.zhang@amd.com>
 Accept-Language: en-US, zh-CN
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2021-05-13T11:50:39Z; 
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
+ Unrestricted;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2021-05-13T11:36:02.228Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Distribution
- Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=15eb1269-13ac-4a81-9c57-856069bf7aa1;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
+msip_justification: My manager approved sharing of this content
 authentication-results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [112.65.12.92]
+x-originating-ip: [165.204.134.244]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: a600d49b-7962-4745-4bed-08d91603487c
-x-ms-traffictypediagnostic: CO6PR12MB5457:
+x-ms-office365-filtering-correlation-id: 952ccf03-3dfe-45c1-275f-08d9160557e9
+x-ms-traffictypediagnostic: DM5PR12MB2504:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <CO6PR12MB545751C5EB1BADA06767DD98A2519@CO6PR12MB5457.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:7691;
+x-microsoft-antispam-prvs: <DM5PR12MB2504944AD967D960787B9B0684519@DM5PR12MB2504.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:9508;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: tsSpXvhiC2yWgdigt1IT5ofmN+b/uOOI3ItRzk5UkgKrqCMiPbF2WlgVa4gqQzRrTsX14czzFA2yCgZ6tUgjS2zJ8TrfWnXZaRsip0F9kmHPs4rovm2HMOjkbkR7uQxOiZtnMHf/RbNCig1fSqEbKOFKwCMoNQX/cLkSmrst3i8Y4TSgSTUirT1YJEkoYZU1vxTJ+rpBdNrB96seimSX/Dd53faA+3dZFHFOheTQrADd+rELt6i/rvS5B0LTFKD090G4lRbgGQunX808ZPagcTCmTHwP+ilM4xXOsDW7cxbygHqFVsphBDMbid4EXf2raQv8EvREGFY+3M1gTZjQZ4Fkxx8eRsrXCv45Il1tnKCQg+o04+/29a3tIsE1uFw8DGdpfCgW5jSJo44HPB6VA8SL+hxOCxZytVyjjQbFsQkkxm6O6xXCvCxv2oVNY+GLlIcxRKHX/m2PmXtJjjKkxLsZxEHIRTrzDahobzlS8SMsgLrlFvdz6F11vxiQLNdVClKMmmEgo3wCtJ+NJqv5gSEwwYnpVXmV0rM3Gd3SnXo0AIOcjgKhqp2bfbA/RDWkjYHBZdGtkhyx2LLz0jbY5eZb4o+r7rmrz+nUXN7pieY=
+x-microsoft-antispam-message-info: QR17E76aD6e/5WuTTIKhNQvshxahLNPehLO2zFBdq8D7klbsrifNvzyNYnLX8+o1Js5VJbjYjTvZnO5VzWJZaWNg/OTMwz4OMk+DxeoLHWAQZNXyVFxJkCDXp334QfgGZv/ZDGfaKQq05yLhQER/YKB+MtfdfFtheHg7PGbQ4aXMzIsZfvUt1E8CYbfa318JuwgCxvN8AU22BcSF1ybW9OTZWgIVrSExbwloMGslv1LgjIvWVthUT9x1NDoiy9Hfll9D505uVgRS3i+eXvwMZM7RG8BIWuQRYyRyIS/F8AkIzPpj1pmzayHDAplQMTa7LJ9UqVpx2wDYh7KuTyanV7k9LiPJBny2A92mYCEiki1ka8a9Ghh+HayHppjNpizGFJuYb+ZFfdC1EtL0wQTBXc68ltyoWfezjq72tscyt6DiZ2feXQyQmfSpXVSEbUVRPk55vj4T6bLLhzVZHxWvjTsPM1AtHfEP6Sz2fluuF+FUsrw1n544FqDBi1sGV3JOFRt4NYKXppPTJDsOwKsQrPgLJrqPaFcqLCrbSqE/qJJXHnOf5qlC3KPSaYtjc+Podc5ODvbY62pTxNFhV26AgYBF1Or+dGXjux0kLrJn6rioizYiBX+pr1wrXTw17AiP+S8UdVjMBbOuyB8KyisYDg==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5473.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(39860400002)(376002)(346002)(136003)(396003)(71200400001)(86362001)(7696005)(83380400001)(54906003)(26005)(6506007)(53546011)(66946007)(122000001)(4326008)(19627405001)(9686003)(55016002)(478600001)(33656002)(8936002)(8676002)(66476007)(52536014)(5660300002)(66446008)(64756008)(2906002)(66556008)(110136005)(316002)(186003)(91956017)(76116006)(38100700002);
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB1708.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(39860400002)(136003)(376002)(346002)(366004)(6506007)(8936002)(7696005)(71200400001)(86362001)(83380400001)(52536014)(5660300002)(76116006)(186003)(316002)(66446008)(66556008)(45080400002)(38100700002)(30864003)(122000001)(9686003)(478600001)(55016002)(33656002)(966005)(8676002)(110136005)(2906002)(26005)(64756008)(66946007)(66476007)(53546011)(4326008);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?iso-8859-1?Q?CwkE1Dh1rwontn/dQR4RDIjWFprwmiT5yWxXVVxYMgk09Q+CVtrz+ppmTF?=
- =?iso-8859-1?Q?ezyJu7BOczmqoVo/mXnv+AsB0HdA0j7Gc417lYlpboMroAYNLruWuM8VaA?=
- =?iso-8859-1?Q?9GIdjPfNkr+F+UCKthcbg+z8vxFC6JvN8kmS56BeCHwLVrjKOKtDTFZENM?=
- =?iso-8859-1?Q?ZguIcsHO3vnH9orkhmbJKzGV/NGnT+3ibVJcZybriLZ/Qemr3xC4IxwqiY?=
- =?iso-8859-1?Q?UJsORngGPZbyAh6EwdiGEgCw35GrgZnoZFtA8CSfRKa+igKRcNAcwCnXZP?=
- =?iso-8859-1?Q?NSs7QsM/m+Q9h508d3ymmuZm09DXFsm6Og038HrLJNwVjErw8kCpsluqux?=
- =?iso-8859-1?Q?GvIFcaMS19QG+uvQLMrPOQ8oiKMnAyM8N6pVKKrmg+uMcThtUjG0823zNw?=
- =?iso-8859-1?Q?YRZ+DYTvtJGF1/d7lxLzfw84GiSUSYId/T/WI5NftjhAPJ1FVEK9Efqxe3?=
- =?iso-8859-1?Q?s286ED5TrUhYozlpGygctt1GazOcdT7cfS1u392zXEVbLRivwdW/zhtvpg?=
- =?iso-8859-1?Q?LZ0hGQuBzDLkupvObSS4GyS96tRXOS1mCYJ+OIzHcIjodtxVQVwknDaWfb?=
- =?iso-8859-1?Q?5PtkUbCuxRvaqmKmo/ouC9zra1r9St4QYE3iRgeXb0Q8C3jZ/KWrtinWJR?=
- =?iso-8859-1?Q?ucn7LGey1FGZnjLy2Vnsojm1yxNLVZKk/qGm5YT1PKedBbb0SfgxiONeZH?=
- =?iso-8859-1?Q?1uaPdfljH7cfB83rRGxgz6yNzHCLieMp0xeQcZKca+01/umyanZAe+SRyl?=
- =?iso-8859-1?Q?OxVr0joQfIxemykq2HfUFqTi06nn80Q8Ps51Iz+t4AfXrKWvgD5/2/9R+W?=
- =?iso-8859-1?Q?Dz7SG3CPAeDAg6b5fTgT3Y/U9OtbhuyjJzc0yzGaT15jAZDE2lsGN4gedu?=
- =?iso-8859-1?Q?vWzzp+7xBa8mMbFbf2Wn15FPLCeWP/ibrsMtHSZ5htr8st36mF/+dqAQ9H?=
- =?iso-8859-1?Q?w4JJ+Kl1QMrVpv4F4vkYWpaYmFEQuVJY7qe185RWiEM0VbP2n6/vJ0YzTp?=
- =?iso-8859-1?Q?RbZSL/KGKjuLbkK4r9u9SgutNafGggZohWfCcdznMGtxS6eNmh5gYDrEn/?=
- =?iso-8859-1?Q?EvZYbVAUEGpRAKlcz/BevNs2wqnJeLImSWFZVse+RvFlCPxnq36NSKQsFR?=
- =?iso-8859-1?Q?eRLTdt7f4rpLKJTz7HxZVByTorDEzUQL5sWnfETfWnO+lfNeL/oYfyA4Wm?=
- =?iso-8859-1?Q?NxizYH70LA1PI4g2IN4thJB7v1e8cOZF4vqB7Af6wzP7QWCAJYeydbpAEs?=
- =?iso-8859-1?Q?Wb3gAc1fFEkEIzOmS23O6mac3nhqb6EIXtuD6+pFhXXkmgiY4txOo79IFZ?=
- =?iso-8859-1?Q?A780Sev+42MlJRnXvVgQ0apsuhkWmtr9UOFiEeB9s59W37o=3D?=
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?7mPaP0GEo14jiZBGuYWnQ9mAYOLAN1/KXSJKz/2fFCBUQ84i0e+0xBWFvTk2?=
+ =?us-ascii?Q?WjScpRJLJLxALZe9aVw6NLd3c8LJDJjjfaqoSZnQB9U4vNXxufqdqRzq32Ql?=
+ =?us-ascii?Q?/4vH3GNHYUsxr/F4hN0raAbe2FLFRTFHrOJ2/Qi1CezPrhh8w22gQ2R/6iGT?=
+ =?us-ascii?Q?nVV+S6OWLjR5XE9lUB/IOKTJwZnOT0TPPIY1vy2DEfMzXfrwxMV3S4brTqp0?=
+ =?us-ascii?Q?u2MQQ3a/Ow9Glua9jgeZSRYE9YJ2j2F1O9d6SB2a0VfRf6O3f60LmyEEQRGj?=
+ =?us-ascii?Q?ODBN3zjwd2R9Jf+C+ZhCv6cNtLI45Nwrsj2EQCLvXg5Ufoo8kj248lQheKKi?=
+ =?us-ascii?Q?5Vpb/sPbh/L/NIT8Ehe+faEPoL0yeFFq+adiQ/yJ16sczEs+BTxDSjQ3DrNM?=
+ =?us-ascii?Q?K4b1PIkmfb9HAPXiCeUMvizM9ZYfe1CVFsgSD1Iv+c+7TIelqwgraSO22DY/?=
+ =?us-ascii?Q?lokxWbNud2+YdEKz2Lx3nqlnfpuT37pSHmqFCz43mYV1sAr8GEGNXjWzpKfg?=
+ =?us-ascii?Q?mstwqaM7Iwa9++v+KbzHo4gZyEaCn3CBQ6PqWNJLaE4AZOhh4ygrBe0Cc8FA?=
+ =?us-ascii?Q?36NI1nyHRDzd5c3p975Iq/6u76RXFyMnraZShM9V59qZxvlGcpZ5oQZJeeun?=
+ =?us-ascii?Q?RgAcxQQw5BB/X5kI4zUlgm6/d4Rc3Rs2Zt3/SBMv/qGMpXuk0BojqmEBamta?=
+ =?us-ascii?Q?2+KWsPGUebTPlmwJf8TEOfwBRP411+1MHUrxJqOqqopni9IZ7y1hNi06wOEs?=
+ =?us-ascii?Q?1TLKJ/wROsnH6sb4UsamzR1lFSDOZ9wfanJDSk4f/wW42nuDBiG8xdNddfzl?=
+ =?us-ascii?Q?YQZhuewriWryx2Dx1+fQl7EQS4OdCvKFe+jpYUo7JOVUQal8a+KWk5Dmq+el?=
+ =?us-ascii?Q?4ZvZqx49AHwJCuqT2LWWV5t8xomWKgPIVU1CNHlfKLQt6HNLVV4+XD98+23Q?=
+ =?us-ascii?Q?6oc7sGzas8jFLRiwXcZaH7Peln+1SGxj43jIFDzenm57xvOQtCvEAqpIpRe1?=
+ =?us-ascii?Q?okzFIW3G3y8CvXZEwZk/26sheBKFB5ESA5kxu8Re4TtrRILcmlWZjFq6+UEX?=
+ =?us-ascii?Q?jjACepJ4TSsHfTaq5hBuEpDxenPkLUySONP/BAKyfeP7ZM37dKpHrvESZ5Pb?=
+ =?us-ascii?Q?/yfGc6U2LqICSWLTazS6xxffFZ13fuQW9l9+qy77C2n7uh2W6sBlqhBoBuN7?=
+ =?us-ascii?Q?xBNZ55qEdD1lrHFgbMDt6/OeVVKJFe6pUiDehujmPYtn8N73OUJf+FrEPwyM?=
+ =?us-ascii?Q?vDlqcYafm4QoCJ0RGeWV7FhnH0r+ZvGNHNk5QaT9uuPFI/50P2GqN8kPUCQG?=
+ =?us-ascii?Q?Sgag3SNIvPDvjwFGBKGa39EW?=
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5473.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a600d49b-7962-4745-4bed-08d91603487c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 May 2021 11:36:00.0112 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1708.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 952ccf03-3dfe-45c1-275f-08d9160557e9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 May 2021 11:50:45.3361 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: bLwHxF6/cEyW6CyxrEmNMVnV0KzrGPvcZWpvYOa5/IleUlaL4Z7xmGDi8i/iATEQ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5457
+X-MS-Exchange-CrossTenant-userprincipalname: OhwLLxo+TH1geytw7AK++knY+vS498b0WmKsncERLF+tu8Gwou3XRS7OT5QMu36W
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2504
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,921 +131,381 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Feng, Kenneth" <Kenneth.Feng@amd.com>, "Zhang,
- Hawking" <Hawking.Zhang@amd.com>
-Content-Type: multipart/mixed; boundary="===============1162862351=="
+Cc: "Zhang, Bokun" <Bokun.Zhang@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1162862351==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CO6PR12MB547345F347D296F9D5715B8FA2519CO6PR12MB5473namp_"
-
---_000_CO6PR12MB547345F347D296F9D5715B8FA2519CO6PR12MB5473namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
 [AMD Official Use Only - Internal Distribution Only]
 
+Reviewed-by: Monk liu <monk.liu@amd.com>
 
+Better get  open source team's RB as well 
 
-________________________________
-From: Lazar, Lijo <Lijo.Lazar@amd.com>
-Sent: Thursday, May 13, 2021 5:47 PM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Feng, Kenneth <Kenneth.Feng@amd=
-.com>; Wang, Kevin(Yang) <Kevin1.Wang@amd.com>
-Subject: [PATCH 2/3] drm/amd/pm: Fix showing incorrect frequencies on aldeb=
-aran
+Thanks 
 
+------------------------------------------
+Monk Liu | Cloud-GPU Core team
+------------------------------------------
 
-Use the current and custom pstate frequencies to track the current and
-user-set min/max values in manual and determinism mode. Previously, only
-actual_* value was used to track the currrent and user requested value.
-The value will get reassigned whenever user requests a new value with
-pp_od_clk_voltage node. Hence it will show incorrect values when user
-requests an invalid value or tries a partial request without committing
-the values. Separating out to custom and current variable fixes such
-issues.
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Bokun Zhang
+Sent: Thursday, May 13, 2021 1:20 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Zhang, Bokun <Bokun.Zhang@amd.com>
+Subject: [PATCH] drm/amdgpu: Complete multimedia bandwidth interface
 
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+- Update SRIOV PF2VF header with latest revision
+
+- Extend existing function in amdgpu_virt.c to read MM bandwidth config
+  from PF2VF message
+
+- Add SRIOV Sienna Cichlid codec array and update the bandwidth with
+  PF2VF message
+
+Change-Id: Id0cfa2e1adb7a097997d53b34d41a6d36a390c00
+Signed-off-by: Bokun Zhang <bokun.zhang@amd.com>
 ---
-  .../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    | 65 ++++++++++++-------
-  .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    | 18 ++++-
-  2 files changed, 55 insertions(+), 28 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c    |  56 ++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h    |  13 +++
+ drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h |  54 ++++++++--
+ drivers/gpu/drm/amd/amdgpu/nv.c             | 110 +++++++++++++++++++-
+ 4 files changed, 226 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-index 5d04a1dfdfd8..d27ed2954705 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-@@ -78,8 +78,6 @@
-
-  #define smnPCIE_ESM_CTRL                      0x111003D0
-
--#define CLOCK_VALID (1 << 31)
--
-  static const struct cmn2asic_msg_mapping
-aldebaran_message_map[SMU_MSG_MAX_COUNT] =3D {
-         MSG_MAP(TestMessage,                         PPSMC_MSG_TestMessage=
-,                      0),
-         MSG_MAP(GetSmuVersion,                       PPSMC_MSG_GetSmuVersi=
-on,                    1),
-@@ -455,12 +453,18 @@ static int aldebaran_populate_umd_state_clk(struct
-smu_context *smu)
-
-         pstate_table->gfxclk_pstate.min =3D gfx_table->min;
-         pstate_table->gfxclk_pstate.peak =3D gfx_table->max;
-+       pstate_table->gfxclk_pstate.curr.min =3D gfx_table->min;
-+       pstate_table->gfxclk_pstate.curr.max =3D gfx_table->max;
-
-         pstate_table->uclk_pstate.min =3D mem_table->min;
-         pstate_table->uclk_pstate.peak =3D mem_table->max;
-+       pstate_table->uclk_pstate.curr.min =3D mem_table->min;
-+       pstate_table->uclk_pstate.curr.max =3D mem_table->max;
-
-         pstate_table->socclk_pstate.min =3D soc_table->min;
-         pstate_table->socclk_pstate.peak =3D soc_table->max;
-+       pstate_table->socclk_pstate.curr.min =3D soc_table->min;
-+       pstate_table->socclk_pstate.curr.max =3D soc_table->max;
-
-         if (gfx_table->count > ALDEBARAN_UMD_PSTATE_GFXCLK_LEVEL &&
-             mem_table->count > ALDEBARAN_UMD_PSTATE_MCLK_LEVEL &&
-@@ -669,6 +673,7 @@ static int aldebaran_print_clk_levels(struct
-smu_context *smu,
-  {
-         int i, now, size =3D 0;
-         int ret =3D 0;
-+       struct smu_umd_pstate_table *pstate_table =3D &smu->pstate_table;
-         struct pp_clock_levels_with_latency clocks;
-         struct smu_13_0_dpm_table *single_dpm_table;
-         struct smu_dpm_context *smu_dpm =3D &smu->smu_dpm;
-@@ -703,12 +708,8 @@ static int aldebaran_print_clk_levels(struct
-smu_context *smu,
-
-                 display_levels =3D clocks.num_levels;
-
--               min_clk =3D smu->gfx_actual_hard_min_freq & CLOCK_VALID ?
--                                 smu->gfx_actual_hard_min_freq & ~CLOCK_VA=
-LID :
--                                 single_dpm_table->dpm_levels[0].value;
--               max_clk =3D smu->gfx_actual_soft_max_freq & CLOCK_VALID ?
--                                 smu->gfx_actual_soft_max_freq & ~CLOCK_VA=
-LID :
--                                 single_dpm_table->dpm_levels[1].value;
-+               min_clk =3D pstate_table->gfxclk_pstate.curr.min;
-+               max_clk =3D pstate_table->gfxclk_pstate.curr.max;
-
-                 freq_values[0] =3D min_clk;
-                 freq_values[1] =3D max_clk;
-@@ -1134,9 +1135,6 @@ static int aldebaran_set_performance_level(struct
-smu_context *smu,
-                         && (level !=3D AMD_DPM_FORCED_LEVEL_PERF_DETERMINI=
-SM))
-                 smu_cmn_send_smc_msg(smu, SMU_MSG_DisableDeterminism, NULL=
-);
-
--       /* Reset user min/max gfx clock */
--       smu->gfx_actual_hard_min_freq =3D 0;
--       smu->gfx_actual_soft_max_freq =3D 0;
-
-         switch (level) {
-
-@@ -1163,6 +1161,7 @@ static int
-aldebaran_set_soft_freq_limited_range(struct smu_context *smu,
-  {
-         struct smu_dpm_context *smu_dpm =3D &(smu->smu_dpm);
-         struct smu_13_0_dpm_context *dpm_context =3D smu_dpm->dpm_context;
-+       struct smu_umd_pstate_table *pstate_table =3D &smu->pstate_table;
-         struct amdgpu_device *adev =3D smu->adev;
-         uint32_t min_clk;
-         uint32_t max_clk;
-@@ -1176,14 +1175,20 @@ static int
-aldebaran_set_soft_freq_limited_range(struct smu_context *smu,
-                 return -EINVAL;
-
-         if (smu_dpm->dpm_level =3D=3D AMD_DPM_FORCED_LEVEL_MANUAL) {
--               min_clk =3D max(min, dpm_context->dpm_tables.gfx_table.min)=
-;
--               max_clk =3D min(max, dpm_context->dpm_tables.gfx_table.max)=
-;
--               ret =3D smu_v13_0_set_soft_freq_limited_range(smu, SMU_GFXC=
-LK,
--                                                           min_clk, max_cl=
-k);
-+               if (min >=3D max) {
-+                       dev_err(smu->adev->dev,
-+                               "Minimum GFX clk should be less than the ma=
-ximum allowed clock\n");
-+                       return -EINVAL;
-+               }
-
-[kevin]:
-why can these value not be equal in manual mode?
-
-+               if ((min =3D=3D pstate_table->gfxclk_pstate.curr.min) &&
-+                   (max =3D=3D pstate_table->gfxclk_pstate.curr.max))
-+                       return 0;
-+               ret =3D smu_v13_0_set_soft_freq_limited_range(smu, SMU_GFXC=
-LK,
-+                                                           min, max);
-                 if (!ret) {
--                       smu->gfx_actual_hard_min_freq =3D min_clk | CLOCK_V=
-ALID;
--                       smu->gfx_actual_soft_max_freq =3D max_clk | CLOCK_V=
-ALID;
-+                       pstate_table->gfxclk_pstate.curr.min =3D min;
-+                       pstate_table->gfxclk_pstate.curr.max =3D max;
-                 }
-                 return ret;
-         }
-@@ -1209,10 +1214,8 @@ static int
-aldebaran_set_soft_freq_limited_range(struct smu_context *smu,
-                                 dev_err(adev->dev,
-                                                 "Failed to enable determin=
-ism at GFX clock %d MHz\n", max);
-                         } else {
--                               smu->gfx_actual_hard_min_freq =3D
--                                       min_clk | CLOCK_VALID;
--                               smu->gfx_actual_soft_max_freq =3D
--                                       max | CLOCK_VALID;
-+                               pstate_table->gfxclk_pstate.curr.min =3D mi=
-n_clk;
-+                               pstate_table->gfxclk_pstate.curr.max =3D ma=
-x;
-                         }
-                 }
-         }
-@@ -1225,6 +1228,7 @@ static int aldebaran_usr_edit_dpm_table(struct
-smu_context *smu, enum PP_OD_DPM_
-  {
-         struct smu_dpm_context *smu_dpm =3D &(smu->smu_dpm);
-         struct smu_13_0_dpm_context *dpm_context =3D smu_dpm->dpm_context;
-+       struct smu_umd_pstate_table *pstate_table =3D &smu->pstate_table;
-         uint32_t min_clk;
-         uint32_t max_clk;
-         int ret =3D 0;
-@@ -1245,16 +1249,20 @@ static int aldebaran_usr_edit_dpm_table(struct
-smu_context *smu, enum PP_OD_DPM_
-                         if (input[1] < dpm_context->dpm_tables.gfx_table.m=
-in) {
-                                 dev_warn(smu->adev->dev, "Minimum GFX clk =
-(%ld) MHz specified is
-less than the minimum allowed (%d) MHz\n",
-                                         input[1], dpm_context->dpm_tables.=
-gfx_table.min);
-+                               pstate_table->gfxclk_pstate.custom.min =3D
-+                                       pstate_table->gfxclk_pstate.curr.mi=
-n;
-                                 return -EINVAL;
-                         }
--                       smu->gfx_actual_hard_min_freq =3D input[1];
-+                       pstate_table->gfxclk_pstate.custom.min =3D input[1]=
-;
-                 } else if (input[0] =3D=3D 1) {
-                         if (input[1] > dpm_context->dpm_tables.gfx_table.m=
-ax) {
-                                 dev_warn(smu->adev->dev, "Maximum GFX clk =
-(%ld) MHz specified is
-greater than the maximum allowed (%d) MHz\n",
-                                         input[1], dpm_context->dpm_tables.=
-gfx_table.max);
-+                               pstate_table->gfxclk_pstate.custom.max =3D
-+                                       pstate_table->gfxclk_pstate.curr.ma=
-x;
-                                 return -EINVAL;
-                         }
--                       smu->gfx_actual_soft_max_freq =3D input[1];
-+                       pstate_table->gfxclk_pstate.custom.max =3D input[1]=
-;
-                 } else {
-                         return -EINVAL;
-                 }
-@@ -1276,8 +1284,15 @@ static int aldebaran_usr_edit_dpm_table(struct
-smu_context *smu, enum PP_OD_DPM_
-                         dev_err(smu->adev->dev, "Input parameter number no=
-t correct\n");
-                         return -EINVAL;
-                 } else {
--                       min_clk =3D smu->gfx_actual_hard_min_freq;
--                       max_clk =3D smu->gfx_actual_soft_max_freq;
-+                       if (!pstate_table->gfxclk_pstate.custom.min)
-+                               pstate_table->gfxclk_pstate.custom.min =3D
-+                                       pstate_table->gfxclk_pstate.curr.mi=
-n;
-+                       if (!pstate_table->gfxclk_pstate.custom.max)
-+                               pstate_table->gfxclk_pstate.custom.max =3D
-+                                       pstate_table->gfxclk_pstate.curr.ma=
-x;
-+                       min_clk =3D pstate_table->gfxclk_pstate.custom.min;
-+                       max_clk =3D pstate_table->gfxclk_pstate.custom.max;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+index a57842689d42..c64e583347c6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+@@ -432,6 +432,9 @@ static int amdgpu_virt_read_pf2vf_data(struct amdgpu_device *adev)
+ 	uint32_t checksum;
+ 	uint32_t checkval;
+ 
++	uint32_t i;
++	uint32_t tmp;
 +
-                         return aldebaran_set_soft_freq_limited_range(smu, =
-SMU_GFXCLK,
-min_clk, max_clk);
-                 }
-                 break;
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-index 0864083e7435..755bddaf6c4b 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-@@ -1624,8 +1624,12 @@ int smu_v13_0_set_performance_level(struct
-smu_context *smu,
-                                                             SMU_GFXCLK,
-                                                             sclk_min,
-                                                             sclk_max);
--               if (ret)
-+               if (ret) {
-                         return ret;
-+               } else {
-+                       pstate_table->gfxclk_pstate.curr.min =3D sclk_min;
-+                       pstate_table->gfxclk_pstate.curr.max =3D sclk_max;
-+               }
-         }
-
-         if (mclk_min && mclk_max) {
-@@ -1633,8 +1637,12 @@ int smu_v13_0_set_performance_level(struct
-smu_context *smu,
-                                                             SMU_MCLK,
-                                                             mclk_min,
-                                                             mclk_max);
--               if (ret)
-+               if (ret) {
-                         return ret;
-+               } else {
-+                       pstate_table->uclk_pstate.curr.min =3D mclk_min;
-+                       pstate_table->uclk_pstate.curr.max =3D mclk_max;
-+               }
-         }
-
-         if (socclk_min && socclk_max) {
-@@ -1642,8 +1650,12 @@ int smu_v13_0_set_performance_level(struct
-smu_context *smu,
-                                                             SMU_SOCCLK,
-                                                             socclk_min,
-                                                             socclk_max);
--               if (ret)
-+               if (ret) {
-                         return ret;
-+               } else {
-+                       pstate_table->socclk_pstate.curr.min =3D socclk_min=
-;
-+                       pstate_table->socclk_pstate.curr.max =3D socclk_max=
-;
-+               }
-         }
-
-         return ret;
+ 	if (adev->virt.fw_reserve.p_pf2vf == NULL)
+ 		return -EINVAL;
+ 
+@@ -472,6 +475,27 @@ static int amdgpu_virt_read_pf2vf_data(struct amdgpu_device *adev)
+ 		adev->virt.reg_access =
+ 			((struct amd_sriov_msg_pf2vf_info *)pf2vf_info)->reg_access_flags.all;
+ 
++		adev->virt.decode_max_dimension_pixels = 0;
++		adev->virt.decode_max_frame_pixels = 0;
++		adev->virt.encode_max_dimension_pixels = 0;
++		adev->virt.encode_max_frame_pixels = 0;
++		adev->virt.is_mm_bw_enabled = false;
++		for (i = 0; i < AMD_SRIOV_MSG_RESERVE_VCN_INST; i++) {
++			tmp = ((struct amd_sriov_msg_pf2vf_info *)pf2vf_info)->mm_bw_management[i].decode_max_dimension_pixels;
++			adev->virt.decode_max_dimension_pixels = max(tmp, 
++adev->virt.decode_max_dimension_pixels);
++
++			tmp = ((struct amd_sriov_msg_pf2vf_info *)pf2vf_info)->mm_bw_management[i].decode_max_frame_pixels;
++			adev->virt.decode_max_frame_pixels = max(tmp, 
++adev->virt.decode_max_frame_pixels);
++
++			tmp = ((struct amd_sriov_msg_pf2vf_info *)pf2vf_info)->mm_bw_management[i].encode_max_dimension_pixels;
++			adev->virt.encode_max_dimension_pixels = max(tmp, 
++adev->virt.encode_max_dimension_pixels);
++
++			tmp = ((struct amd_sriov_msg_pf2vf_info *)pf2vf_info)->mm_bw_management[i].encode_max_frame_pixels;
++			adev->virt.encode_max_frame_pixels = max(tmp, adev->virt.encode_max_frame_pixels);
++		}
++		if((adev->virt.decode_max_dimension_pixels > 0) || (adev->virt.encode_max_dimension_pixels > 0))
++			adev->virt.is_mm_bw_enabled = true;
++
+ 		break;
+ 	default:
+ 		DRM_ERROR("invalid pf2vf version\n"); @@ -744,3 +768,35 @@ enum amdgpu_sriov_vf_mode amdgpu_virt_get_sriov_vf_mode(struct amdgpu_device *ad
+ 
+ 	return mode;
+ }
++
++void amdgpu_virt_update_sriov_video_codec(struct amdgpu_device *adev,
++			struct amdgpu_video_codec_info *encode, uint32_t encode_array_size,
++			struct amdgpu_video_codec_info *decode, uint32_t decode_array_size) 
++{
++	uint32_t i;
++
++	if (!adev->virt.is_mm_bw_enabled)
++		return;
++
++	if (encode) {
++		for (i = 0; i < encode_array_size; i++) {
++			encode[i].max_width = adev->virt.encode_max_dimension_pixels;
++			encode[i].max_pixels_per_frame = adev->virt.encode_max_frame_pixels;
++			if (encode[i].max_width > 0)
++				encode[i].max_height = encode[i].max_pixels_per_frame / encode[i].max_width;
++			else
++				encode[i].max_height = 0;
++		}
++	}
++
++	if (decode) {
++		for (i = 0; i < decode_array_size; i++) {
++			decode[i].max_width = adev->virt.decode_max_dimension_pixels;
++			decode[i].max_pixels_per_frame = adev->virt.decode_max_frame_pixels;
++			if (decode[i].max_width > 0)
++				decode[i].max_height = decode[i].max_pixels_per_frame / decode[i].max_width;
++			else
++				decode[i].max_height = 0;
++		}
++	}
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+index 383d4bdc3fb5..8d4c20bb71c5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+@@ -233,8 +233,17 @@ struct amdgpu_virt {
+ 	/* vf2pf message */
+ 	struct delayed_work vf2pf_work;
+ 	uint32_t vf2pf_update_interval_ms;
++
++	/* multimedia bandwidth config */
++	bool     is_mm_bw_enabled;
++	uint32_t decode_max_dimension_pixels;
++	uint32_t decode_max_frame_pixels;
++	uint32_t encode_max_dimension_pixels;
++	uint32_t encode_max_frame_pixels;
+ };
+ 
++struct amdgpu_video_codec_info;
++
+ #define amdgpu_sriov_enabled(adev) \
+ ((adev)->virt.caps & AMDGPU_SRIOV_CAPS_ENABLE_IOV)
+ 
+@@ -307,4 +316,8 @@ int amdgpu_virt_enable_access_debugfs(struct amdgpu_device *adev);  void amdgpu_virt_disable_access_debugfs(struct amdgpu_device *adev);
+ 
+ enum amdgpu_sriov_vf_mode amdgpu_virt_get_sriov_vf_mode(struct amdgpu_device *adev);
++
++void amdgpu_virt_update_sriov_video_codec(struct amdgpu_device *adev,
++			struct amdgpu_video_codec_info *encode, uint32_t encode_array_size,
++			struct amdgpu_video_codec_info *decode, uint32_t decode_array_size);
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
+index befd0b4b7bea..a434c71fde8e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
+@@ -56,6 +56,8 @@
+ 
+ #define AMD_SRIOV_MSG_RESERVE_UCODE		24
+ 
++#define AMD_SRIOV_MSG_RESERVE_VCN_INST 4
++
+ enum amd_sriov_ucode_engine_id {
+ 	AMD_SRIOV_UCODE_ID_VCE = 0,
+ 	AMD_SRIOV_UCODE_ID_UVD,
+@@ -98,10 +100,10 @@ union amd_sriov_msg_feature_flags {
+ 
+ union amd_sriov_reg_access_flags {
+ 	struct {
+-		uint32_t vf_reg_psp_access_ih    : 1;
+-		uint32_t vf_reg_rlc_access_mmhub : 1;
+-		uint32_t vf_reg_rlc_access_gc    : 1;
+-		uint32_t reserved            : 29;
++		uint32_t vf_reg_access_ih 	 : 1;
++		uint32_t vf_reg_access_mmhub : 1;
++		uint32_t vf_reg_access_gc 	 : 1;
++		uint32_t reserved	         : 29;
+ 	} flags;
+ 	uint32_t all;
+ };
+@@ -114,6 +116,37 @@ union amd_sriov_msg_os_info {
+ 	uint32_t      all;
+ };
+ 
++struct amd_sriov_msg_uuid_info {
++	union {
++		struct {
++			uint32_t did	: 16;
++			uint32_t fcn	: 8;
++			uint32_t asic_7 : 8;
++		};
++		uint32_t time_low;
++	};
++
++	struct {
++		uint32_t time_mid  : 16;
++		uint32_t time_high : 12;
++		uint32_t version   : 4;
++	};
++
++	struct {
++		struct {
++			uint8_t clk_seq_hi : 6;
++			uint8_t variant    : 2;
++		};
++		union {
++			uint8_t clk_seq_low;
++			uint8_t asic_6;
++		};
++		uint16_t asic_4;
++	};
++
++	uint32_t asic_0;
++};
++
+ struct amd_sriov_msg_pf2vf_info_header {
+ 	/* the total structure size in byte */
+ 	uint32_t size;
+@@ -160,10 +193,19 @@ struct amd_sriov_msg_pf2vf_info {
+ 	/* identification in ROCm SMI */
+ 	uint64_t uuid;
+ 	uint32_t fcn_idx;
+-	/* flags which indicate the register access method VF should use */
++	/* flags to indicate which register access method VF should use */
+ 	union amd_sriov_reg_access_flags reg_access_flags;
++	/* MM BW management */
++	struct {
++		uint32_t decode_max_dimension_pixels;
++		uint32_t decode_max_frame_pixels;
++		uint32_t encode_max_dimension_pixels;
++		uint32_t encode_max_frame_pixels;
++	} mm_bw_management[AMD_SRIOV_MSG_RESERVE_VCN_INST];
++	/* UUID info */
++	struct amd_sriov_msg_uuid_info uuid_info;
+ 	/* reserved */
+-	uint32_t reserved[256-27];
++	uint32_t reserved[256 - 47];
+ };
+ 
+ struct amd_sriov_msg_vf2pf_info_header { diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c index 75d1f9b939b2..9f74060207a4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nv.c
++++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+@@ -218,11 +218,114 @@ static const struct amdgpu_video_codecs sc_video_codecs_decode =
+ 	.codec_array = sc_video_codecs_decode_array,  };
+ 
++/* SRIOV Sienna Cichlid, not const since data is controlled by host */ 
++static struct amdgpu_video_codec_info 
++sriov_sc_video_codecs_encode_array[] = {
++	{
++		.codec_type = AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC,
++		.max_width = 4096,
++		.max_height = 2304,
++		.max_pixels_per_frame = 4096 * 2304,
++		.max_level = 0,
++	},
++	{
++		.codec_type = AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC,
++		.max_width = 4096,
++		.max_height = 2304,
++		.max_pixels_per_frame = 4096 * 2304,
++		.max_level = 0,
++	},
++};
++
++static struct amdgpu_video_codec_info 
++sriov_sc_video_codecs_decode_array[] = {
++	{
++		.codec_type = AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG2,
++		.max_width = 4096,
++		.max_height = 4096,
++		.max_pixels_per_frame = 4096 * 4096,
++		.max_level = 3,
++	},
++	{
++		.codec_type = AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4,
++		.max_width = 4096,
++		.max_height = 4096,
++		.max_pixels_per_frame = 4096 * 4096,
++		.max_level = 5,
++	},
++	{
++		.codec_type = AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC,
++		.max_width = 4096,
++		.max_height = 4096,
++		.max_pixels_per_frame = 4096 * 4096,
++		.max_level = 52,
++	},
++	{
++		.codec_type = AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VC1,
++		.max_width = 4096,
++		.max_height = 4096,
++		.max_pixels_per_frame = 4096 * 4096,
++		.max_level = 4,
++	},
++	{
++		.codec_type = AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC,
++		.max_width = 8192,
++		.max_height = 4352,
++		.max_pixels_per_frame = 8192 * 4352,
++		.max_level = 186,
++	},
++	{
++		.codec_type = AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_JPEG,
++		.max_width = 4096,
++		.max_height = 4096,
++		.max_pixels_per_frame = 4096 * 4096,
++		.max_level = 0,
++	},
++	{
++		.codec_type = AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VP9,
++		.max_width = 8192,
++		.max_height = 4352,
++		.max_pixels_per_frame = 8192 * 4352,
++		.max_level = 0,
++	},
++	{
++		.codec_type = AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_AV1,
++		.max_width = 8192,
++		.max_height = 4352,
++		.max_pixels_per_frame = 8192 * 4352,
++		.max_level = 0,
++	},
++};
++
++static struct amdgpu_video_codecs sriov_sc_video_codecs_encode = {
++	.codec_count = ARRAY_SIZE(sriov_sc_video_codecs_encode_array),
++	.codec_array = sriov_sc_video_codecs_encode_array,
++};
++
++static struct amdgpu_video_codecs sriov_sc_video_codecs_decode = {
++	.codec_count = ARRAY_SIZE(sriov_sc_video_codecs_decode_array),
++	.codec_array = sriov_sc_video_codecs_decode_array,
++};
++
+ static int nv_query_video_codecs(struct amdgpu_device *adev, bool encode,
+ 				 const struct amdgpu_video_codecs **codecs)  {
+ 	switch (adev->asic_type) {
+ 	case CHIP_SIENNA_CICHLID:
++		if (amdgpu_sriov_vf(adev)) {
++			if (encode)
++				*codecs = &sriov_sc_video_codecs_encode;
++			else
++				*codecs = &sriov_sc_video_codecs_decode;
++		} else {
++			if (encode)
++				*codecs = &nv_video_codecs_encode;
++			else
++				*codecs = &sc_video_codecs_decode;
++		}
++		return 0;
+ 	case CHIP_NAVY_FLOUNDER:
+ 	case CHIP_DIMGREY_CAVEFISH:
+ 	case CHIP_VANGOGH:
+@@ -1173,9 +1276,14 @@ static int nv_common_early_init(void *handle)  static int nv_common_late_init(void *handle)  {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
++	uint32_t i;
+ 
+-	if (amdgpu_sriov_vf(adev))
++	if (amdgpu_sriov_vf(adev)) {
+ 		xgpu_nv_mailbox_get_irq(adev);
++		amdgpu_virt_update_sriov_video_codec(adev,
++				sriov_sc_video_codecs_encode_array, ARRAY_SIZE(sriov_sc_video_codecs_encode_array),
++				sriov_sc_video_codecs_decode_array, ARRAY_SIZE(sriov_sc_video_codecs_decode_array));
++	}
+ 
+ 	return 0;
+ }
 --
-2.17.1
-
-
---_000_CO6PR12MB547345F347D296F9D5715B8FA2519CO6PR12MB5473namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:11pt;color:#0078D7;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div id=3D"appendonsend"></div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
-lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Lazar, Lijo &lt;Lijo.=
-Lazar@amd.com&gt;<br>
-<b>Sent:</b> Thursday, May 13, 2021 5:47 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Feng, Kenneth &lt;=
-Kenneth.Feng@amd.com&gt;; Wang, Kevin(Yang) &lt;Kevin1.Wang@amd.com&gt;<br>
-<b>Subject:</b> [PATCH 2/3] drm/amd/pm: Fix showing incorrect frequencies o=
-n aldebaran</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
->
-<div class=3D"PlainText"><br>
-Use the current and custom pstate frequencies to track the current and<br>
-user-set min/max values in manual and determinism mode. Previously, only<br=
->
-actual_* value was used to track the currrent and user requested value.<br>
-The value will get reassigned whenever user requests a new value with<br>
-pp_od_clk_voltage node. Hence it will show incorrect values when user<br>
-requests an invalid value or tries a partial request without committing<br>
-the values. Separating out to custom and current variable fixes such<br>
-issues.<br>
-<br>
-Signed-off-by: Lijo Lazar &lt;lijo.lazar@amd.com&gt;<br>
----<br>
-&nbsp; .../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c&nbsp;&nbsp;&nbsp; | 65 ++=
-++++++++++-------<br>
-&nbsp; .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c&nbsp;&nbsp;&nbsp; | 18 ++=
-++-<br>
-&nbsp; 2 files changed, 55 insertions(+), 28 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c <br>
-b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c<br>
-index 5d04a1dfdfd8..d27ed2954705 100644<br>
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c<br>
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c<br>
-@@ -78,8 +78,6 @@<br>
-<br>
-&nbsp; #define smnPCIE_ESM_CTRL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; 0x111003D0<br>
-<br>
--#define CLOCK_VALID (1 &lt;&lt; 31)<br>
--<br>
-&nbsp; static const struct cmn2asic_msg_mapping <br>
-aldebaran_message_map[SMU_MSG_MAX_COUNT] =3D {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(TestMessage,&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_T=
-estMessage,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(GetSmuVersion,&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_GetSmuVersi=
-on,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1),<br>
-@@ -455,12 +453,18 @@ static int aldebaran_populate_umd_state_clk(struct <b=
-r>
-smu_context *smu)<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pstate_table-&gt;gfxclk_ps=
-tate.min =3D gfx_table-&gt;min;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pstate_table-&gt;gfxclk_ps=
-tate.peak =3D gfx_table-&gt;max;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pstate_table-&gt;gfxclk_pstate.curr.m=
-in =3D gfx_table-&gt;min;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pstate_table-&gt;gfxclk_pstate.curr.m=
-ax =3D gfx_table-&gt;max;<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pstate_table-&gt;uclk_psta=
-te.min =3D mem_table-&gt;min;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pstate_table-&gt;uclk_psta=
-te.peak =3D mem_table-&gt;max;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pstate_table-&gt;uclk_pstate.curr.min=
- =3D mem_table-&gt;min;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pstate_table-&gt;uclk_pstate.curr.max=
- =3D mem_table-&gt;max;<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pstate_table-&gt;socclk_ps=
-tate.min =3D soc_table-&gt;min;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pstate_table-&gt;socclk_ps=
-tate.peak =3D soc_table-&gt;max;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pstate_table-&gt;socclk_pstate.curr.m=
-in =3D soc_table-&gt;min;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pstate_table-&gt;socclk_pstate.curr.m=
-ax =3D soc_table-&gt;max;<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (gfx_table-&gt;count &g=
-t; ALDEBARAN_UMD_PSTATE_GFXCLK_LEVEL &amp;&amp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; me=
-m_table-&gt;count &gt; ALDEBARAN_UMD_PSTATE_MCLK_LEVEL &amp;&amp;<br>
-@@ -669,6 +673,7 @@ static int aldebaran_print_clk_levels(struct <br>
-smu_context *smu,<br>
-&nbsp; {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i, now, size =3D 0;<br=
->
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_umd_pstate_table *pstate_t=
-able =3D &amp;smu-&gt;pstate_table;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct pp_clock_levels_wit=
-h_latency clocks;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_13_0_dpm_table =
-*single_dpm_table;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_dpm_context *sm=
-u_dpm =3D &amp;smu-&gt;smu_dpm;<br>
-@@ -703,12 +708,8 @@ static int aldebaran_print_clk_levels(struct <br>
-smu_context *smu,<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; display_levels =3D clocks.num_levels;<br>
-<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; min_clk =3D smu-&gt;gfx_actual_hard_min_freq &amp; CLOCK_VALID ?=
-<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&gt;gfx_actual_hard_min_fre=
-q &amp; ~CLOCK_VALID :<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; single_dpm_table-&gt;dpm_levels=
-[0].value;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; max_clk =3D smu-&gt;gfx_actual_soft_max_freq &amp; CLOCK_VALID ?=
-<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&gt;gfx_actual_soft_max_fre=
-q &amp; ~CLOCK_VALID :<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; single_dpm_table-&gt;dpm_levels=
-[1].value;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; min_clk =3D pstate_table-&gt;gfxclk_pstate.curr.min;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; max_clk =3D pstate_table-&gt;gfxclk_pstate.curr.max;<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; freq_values[0] =3D min_clk;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; freq_values[1] =3D max_clk;<br>
-@@ -1134,9 +1135,6 @@ static int aldebaran_set_performance_level(struct <br=
->
-smu_context *smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;=
-&amp; (level !=3D AMD_DPM_FORCED_LEVEL_PERF_DETERMINISM))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; smu_cmn_send_smc_msg(smu, SMU_MSG_DisableDeterminism,=
- NULL);<br>
-<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Reset user min/max gfx clock */<br=
->
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&gt;gfx_actual_hard_min_freq =3D =
-0;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&gt;gfx_actual_soft_max_freq =3D =
-0;<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (level) {<br>
-<br>
-@@ -1163,6 +1161,7 @@ static int <br>
-aldebaran_set_soft_freq_limited_range(struct smu_context *smu,<br>
-&nbsp; {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_dpm_context *sm=
-u_dpm =3D &amp;(smu-&gt;smu_dpm);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_13_0_dpm_contex=
-t *dpm_context =3D smu_dpm-&gt;dpm_context;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_umd_pstate_table *pstate_t=
-able =3D &amp;smu-&gt;pstate_table;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
- =3D smu-&gt;adev;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t min_clk;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t max_clk;<br>
-@@ -1176,14 +1175,20 @@ static int <br>
-aldebaran_set_soft_freq_limited_range(struct smu_context *smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (smu_dpm-&gt;dpm_level =
-=3D=3D AMD_DPM_FORCED_LEVEL_MANUAL) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; min_clk =3D max(min, dpm_context-&gt;dpm_tables.gfx_table.min);<=
-br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; max_clk =3D min(max, dpm_context-&gt;dpm_tables.gfx_table.max);<=
-br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; ret =3D smu_v13_0_set_soft_freq_limited_range(smu, SMU_GFXCLK,<b=
-r>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; min_clk, max_clk);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (min &gt;=3D max) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_err(smu-&gt;=
-adev-&gt;dev,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;Minimum GFX clk should be less than t=
-he maximum allowed clock\n&quot;);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<=
-br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; }</div>
-<div class=3D"PlainText"><br>
-</div>
-<div class=3D"PlainText">[kevin]:</div>
-<div class=3D"PlainText">why can these value not be equal in manual mode?</=
-div>
-<div class=3D"PlainText"><br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if ((min =3D=3D pstate_table-&gt;gfxclk_pstate.curr.min) &amp;&a=
-mp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (max =3D=3D pstate_table-&gt;gfxclk_psta=
-te.curr.max))<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; ret =3D smu_v13_0_set_soft_freq_limited_range(smu, SMU_GFXCLK,<b=
-r>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; min, max);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (!ret) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&gt;gfx_actu=
-al_hard_min_freq =3D min_clk | CLOCK_VALID;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&gt;gfx_actu=
-al_soft_max_freq =3D max_clk | CLOCK_VALID;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pstate_table-&gt=
-;gfxclk_pstate.curr.min =3D min;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pstate_table-&gt=
-;gfxclk_pstate.curr.max =3D max;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-@@ -1209,10 +1214,8 @@ static int <br>
-aldebaran_set_soft_freq_limited_range(struct smu_context *smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_err(adev-&gt;dev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;Faile=
-d to enable determinism at GFX clock %d MHz\n&quot;, max);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } els=
-e {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&gt;gfx_actual_hard_min_freq =3D<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; min_clk | CLOCK_VALID;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&gt;gfx_actual_soft_max_freq =3D<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; max | CLOCK_VALID;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pstate_table-&gt;gfxclk_pstate.curr.min =3D=
- min_clk;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pstate_table-&gt;gfxclk_pstate.curr.max =3D=
- max;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-@@ -1225,6 +1228,7 @@ static int aldebaran_usr_edit_dpm_table(struct <br>
-smu_context *smu, enum PP_OD_DPM_<br>
-&nbsp; {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_dpm_context *sm=
-u_dpm =3D &amp;(smu-&gt;smu_dpm);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_13_0_dpm_contex=
-t *dpm_context =3D smu_dpm-&gt;dpm_context;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_umd_pstate_table *pstate_t=
-able =3D &amp;smu-&gt;pstate_table;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t min_clk;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t max_clk;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
-@@ -1245,16 +1249,20 @@ static int aldebaran_usr_edit_dpm_table(struct <br>
-smu_context *smu, enum PP_OD_DPM_<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (i=
-nput[1] &lt; dpm_context-&gt;dpm_tables.gfx_table.min) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_warn(smu-&gt;adev-&gt;dev, &=
-quot;Minimum GFX clk (%ld) MHz specified is
-<br>
-less than the minimum allowed (%d) MHz\n&quot;,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; input[1], dpm_context-&gt;dpm_tables.gfx_table.min);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pstate_table-&gt;gfxclk_pstate.custom.min =
-=3D<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; pstate_table-&gt;gfxclk_pstate.curr.min;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&gt;gfx_actu=
-al_hard_min_freq =3D input[1];<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pstate_table-&gt=
-;gfxclk_pstate.custom.min =3D input[1];<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; } else if (input[0] =3D=3D 1) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (i=
-nput[1] &gt; dpm_context-&gt;dpm_tables.gfx_table.max) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_warn(smu-&gt;adev-&gt;dev, &=
-quot;Maximum GFX clk (%ld) MHz specified is
-<br>
-greater than the maximum allowed (%d) MHz\n&quot;,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; input[1], dpm_context-&gt;dpm_tables.gfx_table.max);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pstate_table-&gt;gfxclk_pstate.custom.max =
-=3D<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; pstate_table-&gt;gfxclk_pstate.curr.max;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&gt;gfx_actu=
-al_soft_max_freq =3D input[1];<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pstate_table-&gt=
-;gfxclk_pstate.custom.max =3D input[1];<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; } else {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retur=
-n -EINVAL;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
-@@ -1276,8 +1284,15 @@ static int aldebaran_usr_edit_dpm_table(struct <br>
-smu_context *smu, enum PP_OD_DPM_<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_e=
-rr(smu-&gt;adev-&gt;dev, &quot;Input parameter number not correct\n&quot;);=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retur=
-n -EINVAL;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; } else {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; min_clk =3D smu-=
-&gt;gfx_actual_hard_min_freq;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; max_clk =3D smu-=
-&gt;gfx_actual_soft_max_freq;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!pstate_tabl=
-e-&gt;gfxclk_pstate.custom.min)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pstate_table-&gt;gfxclk_pstate.custom.min =
-=3D<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; pstate_table-&gt;gfxclk_pstate.curr.min;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!pstate_tabl=
-e-&gt;gfxclk_pstate.custom.max)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pstate_table-&gt;gfxclk_pstate.custom.max =
-=3D<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; pstate_table-&gt;gfxclk_pstate.curr.max;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; min_clk =3D psta=
-te_table-&gt;gfxclk_pstate.custom.min;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; max_clk =3D psta=
-te_table-&gt;gfxclk_pstate.custom.max;<br>
-+<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retur=
-n aldebaran_set_soft_freq_limited_range(smu, SMU_GFXCLK,
-<br>
-min_clk, max_clk);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c <br>
-b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c<br>
-index 0864083e7435..755bddaf6c4b 100644<br>
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c<br>
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c<br>
-@@ -1624,8 +1624,12 @@ int smu_v13_0_set_performance_level(struct <br>
-smu_context *smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SMU_GFXCLK,<br=
->
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sclk_min,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sclk_max);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (ret)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (ret) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retur=
-n ret;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; } else {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pstate_table-&gt=
-;gfxclk_pstate.curr.min =3D sclk_min;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pstate_table-&gt=
-;gfxclk_pstate.curr.max =3D sclk_max;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (mclk_min &amp;&amp; mc=
-lk_max) {<br>
-@@ -1633,8 +1637,12 @@ int smu_v13_0_set_performance_level(struct <br>
-smu_context *smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SMU_MCLK,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mclk_min,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mclk_max);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (ret)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (ret) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retur=
-n ret;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; } else {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pstate_table-&gt=
-;uclk_pstate.curr.min =3D mclk_min;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pstate_table-&gt=
-;uclk_pstate.curr.max =3D mclk_max;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (socclk_min &amp;&amp; =
-socclk_max) {<br>
-@@ -1642,8 +1650,12 @@ int smu_v13_0_set_performance_level(struct <br>
-smu_context *smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SMU_SOCCLK,<br=
->
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; socclk_min,<br=
->
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; socclk_max);<b=
-r>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (ret)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (ret) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retur=
-n ret;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; } else {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pstate_table-&gt=
-;socclk_pstate.curr.min =3D socclk_min;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pstate_table-&gt=
-;socclk_pstate.curr.max =3D socclk_max;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
--- <br>
-2.17.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_CO6PR12MB547345F347D296F9D5715B8FA2519CO6PR12MB5473namp_--
-
---===============1162862351==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+2.20.1
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
+https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7Cmonk.liu%40amd.com%7C3aed0168a5d5494f634208d915cfbae0%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637564804209668228%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=Wyx7GoLCeZ5eTQORk5Loiqv%2FY2bhKYvpHIzAPXf%2BZOY%3D&amp;reserved=0
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1162862351==--
