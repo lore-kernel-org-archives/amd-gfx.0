@@ -2,76 +2,117 @@ Return-Path: <SRS0=x6gI=KI=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.1 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2757CC43460
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 May 2021 08:05:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9B6BCC433ED
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 May 2021 08:10:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D5A066140C
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 May 2021 08:05:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D5A066140C
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 16FA361355
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 May 2021 08:10:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 16FA361355
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E8526E85B;
-	Thu, 13 May 2021 08:05:56 +0000 (UTC)
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [IPv6:2a00:1450:4864:20::52d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 98F516E85B
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 May 2021 08:05:55 +0000 (UTC)
-Received: by mail-ed1-x52d.google.com with SMTP id n25so30024359edr.5
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 May 2021 01:05:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:references:from:message-id:date:user-agent:mime-version
- :in-reply-to:content-transfer-encoding:content-language;
- bh=9XzHmduEOJGuA8UVlIX9D3Rz0riElb3r2Af2v8GzjCk=;
- b=l5iU89dJI0hx8B+oYQBz1/VYU76R9bMLX26sZpJeGU/xdigVvulUKxmOq5vVrxYBUk
- fD/gToiOzXknLd01mHLM+Pq68udyLtkz1jZ4erV8qbtndA7M08OpdWpXclVQ1e3TDOEU
- 0Xex4n8xfANoSe6TaeZ5fh5iHNVw3emikjO64byZ9EOEu1ZvZ0IqE1cAa2Xgg2fXsmTP
- uUhoLJgPL+bZpit7boCpOMOWJoQQwFh8q+q+ktarhiXmnwNbsYLGa/5jRsp+m6AeyaKa
- Gg4LBHer1aNHxSMkjlyJruX/VjtP3eDnugpHUCG7AN7nZTcZ7y57wufTrsTlzGyXrb15
- bgEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=9XzHmduEOJGuA8UVlIX9D3Rz0riElb3r2Af2v8GzjCk=;
- b=owRO+nZJqvvcMYk5C0tZxuIv9LPE4qjt6v9pY2aVqBUm7XyRHYej4kJLWJBVPWHSQm
- aH+q/gyK4/EpjEdX5iyvUbKauDM6hykLPQpCrjaI9CKQ/ILl3tvCFVVmNA5FmEQia2i1
- EGds4joDOmUUdgKgJguSiGMpc3PCWMmzVL4uMEthqKPQAKEUn20NigQX+T9wZGxmMc9N
- HHT03DXTie8MIzUlF6DtSp8VmqGHywDnt51MQTRuHskZLlTEQeyJe3J4yPMmHpdhtdM5
- G8ISPpJH1ttPgn7qmQnxlIUrMhsjGT2x4YtuopGL1KqcLzhJivrdf/niBk+Y0RanSps7
- 7lSQ==
-X-Gm-Message-State: AOAM531jzM34iSgJdX0st/M9rolCa+A+PgiL8kfEtpIpha2kEtgSvNhU
- Rfpe+nsmEvijA3VIwcleu05jgPrQrFY=
-X-Google-Smtp-Source: ABdhPJz9r+49MPq8biC+95NF8get3W+Tc49Zpz3cPFrYI8flsJCd2wFILgQbTBSUeA5YMyJBhpr5GA==
-X-Received: by 2002:a05:6402:d05:: with SMTP id
- eb5mr48412788edb.6.1620893154230; 
- Thu, 13 May 2021 01:05:54 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:1e3f:7b0a:2eb9:c6dc?
- ([2a02:908:1252:fb60:1e3f:7b0a:2eb9:c6dc])
- by smtp.gmail.com with ESMTPSA id s4sm1821556edq.96.2021.05.13.01.05.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 May 2021 01:05:53 -0700 (PDT)
-Subject: Re: [PATCH v2] drm/amdgpu: flush TLB if valid PDE turns into PTE
-To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20210512123451.25900-1-Philip.Yang@amd.com>
- <20210512184342.13149-1-Philip.Yang@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <e0d5b569-bf51-4656-8512-3d1cf56aeae1@gmail.com>
-Date: Thu, 13 May 2021 10:05:53 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 701846E857;
+	Thu, 13 May 2021 08:10:54 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2046.outbound.protection.outlook.com [40.107.237.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB7996E857
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 May 2021 08:10:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=GDPiROCxkuSLhpCoVERAK8ToqLKS+3L7YH/XsjMFPiubFbOMw4Pnzv2B1kt13jh6Mh6O/9qtVFVNtgR8MQcwX0g/MxKcQFwAGS5jh3BILVVsfKTy7dSTBRYiiTrUhi+OsqPYR4T3hwySPGQhSCaalFDzZvBJBszaAnoCXyDRLmpKLg8+myQpoIVn4rjs5afPLusnxz1iFIqD60Bkx/FkFhKjhaotAoef3ChZ7GLOMOKYBCYAWQQ8oNl9uqrnDqa2i8fIdKUvaZfvluOdq2k2nbGXpkYY6+HnHGV3+fzN+vG9vAqnZyE3To/qJ6Y7q6ePty4qRx7MFvu7uVH84mBIkA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=37emlBd7k23EMSpRNSAQnJbsg0nX1PuoGfStEjDrHZ4=;
+ b=NDcVJhZNsMnsoZtEwgjFm/9KHMsFcAA6gdksq0RkfqGYCqqt6iYUgMkiHA1ZuFjl/n4ID6oANxJ8wi8PdFwODUpHUfqE2PxDG2/NrHNgHklZicdXh6rLKb3CixGQMi3jF+6Y1RHUwUcWCTe2/Hu7J7sztcq/uAB30bIpeRNnPEIU6hB97wvRk30L4dOEHyz5vqi3HbPh2uiE/MgMHOuFPXKhx2gQVpHCk5KPBV+zU8iIEB+JHw6DFPXtGt8HXuNAFGhBwyAkvhawOiIGV2ZSJdw0CldCEGQgix6NbbD31S4/8YZ83mWhWLXGNRseNjx66HQleFuNrJNo+Gdn87IuuQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=37emlBd7k23EMSpRNSAQnJbsg0nX1PuoGfStEjDrHZ4=;
+ b=kBRs7voiK2024eEeXDS9a/lbL84mxm6iYQSVBbNKbK8CxAn/1o5jKs4RbGbv20sj1m2tBMBkQTrEoghJEzivb/u3btv2y4+yA1P6r8sVHd6L7TRen4IjlhC+nbPFh9ARLpZBlK1gQ5b2iyAdjSNLttset/rv2ZXrFn9ztLK/1p4=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from CO6PR12MB5473.namprd12.prod.outlook.com (2603:10b6:303:13e::8)
+ by CO6PR12MB5443.namprd12.prod.outlook.com (2603:10b6:303:13a::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.27; Thu, 13 May
+ 2021 08:10:49 +0000
+Received: from CO6PR12MB5473.namprd12.prod.outlook.com
+ ([fe80::6d0f:e659:2a89:c67b]) by CO6PR12MB5473.namprd12.prod.outlook.com
+ ([fe80::6d0f:e659:2a89:c67b%6]) with mapi id 15.20.4129.026; Thu, 13 May 2021
+ 08:10:49 +0000
+From: Kevin Wang <kevin1.wang@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH v2] drm/amdkfd: disable kfd debugfs node of hang_hws on vf mode
+Date: Thu, 13 May 2021 16:08:39 +0800
+Message-Id: <20210513080839.35077-1-kevin1.wang@amd.com>
+X-Mailer: git-send-email 2.17.1
+X-Originating-IP: [165.204.134.251]
+X-ClientProxiedBy: HK2PR0401CA0014.apcprd04.prod.outlook.com
+ (2603:1096:202:2::24) To CO6PR12MB5473.namprd12.prod.outlook.com
+ (2603:10b6:303:13e::8)
 MIME-Version: 1.0
-In-Reply-To: <20210512184342.13149-1-Philip.Yang@amd.com>
-Content-Language: en-US
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from kevin-ws.amd.com (165.204.134.251) by
+ HK2PR0401CA0014.apcprd04.prod.outlook.com (2603:1096:202:2::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4108.25 via Frontend
+ Transport; Thu, 13 May 2021 08:10:46 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 327ba781-eb49-4eeb-9686-08d915e69e51
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5443:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <CO6PR12MB5443247A151A58D1C9C6534AA2519@CO6PR12MB5443.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:102;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: uZa9bRmUcZyJheEDAXt2hmuCDg/Ta0xvXLi64XQPGu0HsAic2po0pYRBrOFGgVmWiBvZMk5ftPUMYZqenQvKNlCJP8lwonO3TjBTrmmsJULxFJp06m2zR93ZAet8pmZf47uTx0yuUQxbmfd7GGnMN2RLBzYeg0G+jJFmMRFyb1bZVg5z93yxtDldMSjfvJrDsrsWx5vz4dJJLmd0r9B5PA0g2mPT3u37k6W4bKowtV7cixCZSkgs+7IlrNQJ7fgXB9z/Z+BqWl5kYB6mb3JRHxpzYaqsumrAGDIHdSQErhBx2nLq1Ckl7dvu58AIRekBPwA7ZtZCaOVzwLChgRie9WXWLFaDWM9QDuJ4n44aUJW+0SkSgXBnDXjC9JBhjM2klwY7MspI8sgja9kV2+tnwb6kg5J6qQHbeqIFJYT0iWyJYKeAoV341yKFn9P5TuIRM0T1la23SMWAFzvjIoRzQeEoUynXRV6DwOtzWO92MVfiBpQBO5d/rIx4NVzjEVZ5qstNA9oUICg7pB/NilN/aXOmqQcftaBgSDqf6qSSW4yQT/S0GDDcWjdOnLFL1OmELWSu+mdS2oE+rQu6vPQTrPdSHJjmlwsyf8x26GxXZKCylfhXiY5koZxv91aIYpZWAKOj0lx2vO9/N2Z27SUDrw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5473.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(376002)(396003)(39860400002)(366004)(136003)(346002)(6916009)(26005)(4326008)(16526019)(186003)(52116002)(7696005)(36756003)(38350700002)(2906002)(38100700002)(6486002)(2616005)(956004)(86362001)(316002)(83380400001)(5660300002)(66556008)(66476007)(1076003)(66946007)(478600001)(8936002)(8676002)(6666004);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?NJ1lJ5e3ud+EtkJptP5dM773YomkO96WSWpzYMqZpSdpeFQYXGrrETwKNvaJ?=
+ =?us-ascii?Q?L6YsPZh38I4jozhhQOKu7Fb+czFQRupaGqbEmLgVNKs9+i3+qvWiawElgrWS?=
+ =?us-ascii?Q?RBZFTTGwcYvOVXDTcO2Kii7Ww/pnmVWQo0Fv2Lll+5xt8H/sQF8qP/HQ0Hzq?=
+ =?us-ascii?Q?MtLWlOxdWR00Bc1UkrDsV3KbtOMFO8Xw2nFg89IH40DGlwgqqXu1XFCbk0Kh?=
+ =?us-ascii?Q?N4wlKlFC/B9DItbwcy+vV0DjP85A1X08ux0Y3qdO/ccqH4CkBHXXEypfkUih?=
+ =?us-ascii?Q?ReXAoQ4JaMAl3Qt/lvVzf+BpBMAGGzjXuoBFdBH1PpfsqfbbKZdYBIeTR7TL?=
+ =?us-ascii?Q?uY7nXt4C3mmJ2XF/ibahIJnAB6JBkMN/47SDPgunwEF0VEh3h9gHomhZywQ7?=
+ =?us-ascii?Q?KOrRkF9DlmWa7+k7V0cvtM7BLAerIzBvdEYncMGA7tHyEQ88qTXKFJ08H8Jk?=
+ =?us-ascii?Q?kzDQiEC3SKrjZeuyA4X1a9yZwnA9FNPGLaMkJapVHiuvekl2/62vNlyyS1Aw?=
+ =?us-ascii?Q?gaGeCZiH6y/UUBRplPFenfZPSXZd/Ff1oRS41PEsn2prh1IRi9uLsrlIvf+L?=
+ =?us-ascii?Q?39k9r6KHutOBQwxTVwr6yiCozTXxrZ3+eL1vGZmvPSxQnLT1+mdaWsQlJ4Lw?=
+ =?us-ascii?Q?CwnPq39zukLoAPqykVz5m9uD27eJy0Ab3wOuiRqCyypvC0bAfNU0jrX0qddq?=
+ =?us-ascii?Q?qgggz1zGo8ElXASHJ1HcFC8gvDCXOWcFeRiee4Xt3jIR2lp1lpP8o6OEDR8N?=
+ =?us-ascii?Q?nYr7ShoGsZVflpF0IU5qn1j00VlwLRWky393Ngh0eb0jtcFcMLcHIAN9eC8d?=
+ =?us-ascii?Q?Eye1vXsTMwT/XpDlojdiofk4suwUUXejATXe5DQtWvv1pCvlr3AorQ85aNI1?=
+ =?us-ascii?Q?gftsFarmq7WG11TjnWZbmR/n3dwyNT0+G5T9VZ9X5iisqOPikZai7J8muDnt?=
+ =?us-ascii?Q?9cr/P7xA/t9/cFSSf9onY81CsnwFXuq5z/dUkQ+QbvN22hdda/vQAuyVAAjU?=
+ =?us-ascii?Q?PWjM+AuYbmwT9UI/zS62UXbirgwGorpONQ2RXc5wVHfje+ILFc+AutFKIsIE?=
+ =?us-ascii?Q?CqCA+nyudsJqZIY068uiEq1R1W8oud9/qBpDzzqWiwfKf6IVf0Kr03LlaxmS?=
+ =?us-ascii?Q?8muzW9k/WEwzpSkXbTYeLjCz0NKIgEMPGSHqIDA9LPbT57XcgNwko04FQEXf?=
+ =?us-ascii?Q?zSNXIRxi6TlQ417SMOSZVTFWSglEB6zgCtMFoFg6eHUYHug6nTRr8COzumNQ?=
+ =?us-ascii?Q?0l5lfA4D90wVfsZGXxAXPolqwxDAaAYq01LTufiz7otgZZqTjn0GRQ00hF6e?=
+ =?us-ascii?Q?C2bOC7hzCB3dTbFUTjOb4kBj?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 327ba781-eb49-4eeb-9686-08d915e69e51
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5473.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2021 08:10:49.5162 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +V0pXcYuTu3wATeurmbqpBPsRW97FX7f+sFYuHBxxPxIUTB4j1dkymn83ZSWJb0/
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5443
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,180 +124,123 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: felix.kuehling@amd.com, Kevin Wang <kevin1.wang@amd.com>, frank.min@amd.com,
+ hawking.zhang@amd.com
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+v1:
+the kfd debugfs node is rely on kgd2kfd probe success,
+if not, the kfd_debugfs should not be created,
+and the node of "hang_hws" should be disabled on vf mode.
 
+v2:
+also move kfd_debugfs_fini() into kgd2kfd_device_exit() function.
 
-Am 12.05.21 um 20:43 schrieb Philip Yang:
-> Mapping huge page, 2MB aligned address with 2MB size, uses PDE0 as PTE.
-> If previously valid PDE0, PDE0.V=1 and PDE0.P=0 turns into PTE, this
-> requires TLB flush, otherwise page table walker will not read updated
-> PDE0.
->
-> Change page table update mapping to return free_table flag to indicate
-> the previously valid PDE may have turned into a PTE if page table is
-> freed.
->
-> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 13 +++++++++----
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h |  7 ++++++-
->   drivers/gpu/drm/amd/amdkfd/kfd_svm.c   | 12 ++++++++++--
->   3 files changed, 25 insertions(+), 7 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index 3dcdcc9ff522..f9c00b451a3d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -1583,6 +1583,8 @@ static int amdgpu_vm_update_ptes(struct amdgpu_vm_update_params *params,
->   			while (cursor.pfn < frag_start) {
->   				amdgpu_vm_free_pts(adev, params->vm, &cursor);
->   				amdgpu_vm_pt_next(adev, &cursor);
-> +				if (params->free_table)
-> +					*params->free_table = true;
+1. move kfd_debugfs_init() function into kgd2kfd_probe() function.
+2. disable "hang_hws" debugfs node on vf mode.
 
-Make the value a bool in the params structure and copy it to the input 
-variable in the upper level function and rename it to something like 
-"table_freed" instead.
+Signed-off-by: Kevin Wang <kevin1.wang@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c | 7 ++++---
+ drivers/gpu/drm/amd/amdkfd/kfd_device.c  | 3 +++
+ drivers/gpu/drm/amd/amdkfd/kfd_module.c  | 3 ---
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h    | 4 ++--
+ 4 files changed, 9 insertions(+), 8 deletions(-)
 
-Apart from that looks good to me.
-
-Christian.
-
->   			}
->   
->   		} else if (frag >= shift) {
-> @@ -1610,6 +1612,7 @@ static int amdgpu_vm_update_ptes(struct amdgpu_vm_update_params *params,
->    * @nodes: array of drm_mm_nodes with the MC addresses
->    * @pages_addr: DMA addresses to use for mapping
->    * @fence: optional resulting fence
-> + * @free_table: return true if page table is freed
->    *
->    * Fill in the page table entries between @start and @last.
->    *
-> @@ -1624,7 +1627,8 @@ int amdgpu_vm_bo_update_mapping(struct amdgpu_device *adev,
->   				uint64_t flags, uint64_t offset,
->   				struct drm_mm_node *nodes,
->   				dma_addr_t *pages_addr,
-> -				struct dma_fence **fence)
-> +				struct dma_fence **fence,
-> +				bool *free_table)
->   {
->   	struct amdgpu_vm_update_params params;
->   	enum amdgpu_sync_mode sync_mode;
-> @@ -1637,6 +1641,7 @@ int amdgpu_vm_bo_update_mapping(struct amdgpu_device *adev,
->   	params.immediate = immediate;
->   	params.pages_addr = pages_addr;
->   	params.unlocked = unlocked;
-> +	params.free_table = free_table;
->   
->   	/* Implicitly sync to command submissions in the same VM before
->   	 * unmapping. Sync to moving fences before mapping.
-> @@ -1879,7 +1884,7 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev, struct amdgpu_bo_va *bo_va,
->   						resv, mapping->start,
->   						mapping->last, update_flags,
->   						mapping->offset, nodes,
-> -						pages_addr, last_update);
-> +						pages_addr, last_update, NULL);
->   		if (r)
->   			return r;
->   	}
-> @@ -2090,7 +2095,7 @@ int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
->   		r = amdgpu_vm_bo_update_mapping(adev, adev, vm, false, false,
->   						resv, mapping->start,
->   						mapping->last, init_pte_value,
-> -						0, NULL, NULL, &f);
-> +						0, NULL, NULL, &f, NULL);
->   		amdgpu_vm_free_mapping(adev, vm, mapping, f);
->   		if (r) {
->   			dma_fence_put(f);
-> @@ -3428,7 +3433,7 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
->   	}
->   
->   	r = amdgpu_vm_bo_update_mapping(adev, adev, vm, true, false, NULL, addr,
-> -					addr, flags, value, NULL, NULL,
-> +					addr, flags, value, NULL, NULL, NULL,
->   					NULL);
->   	if (r)
->   		goto error_unlock;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> index ea60ec122b51..41a55b035cda 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> @@ -231,6 +231,11 @@ struct amdgpu_vm_update_params {
->   	 * @num_dw_left: number of dw left for the IB
->   	 */
->   	unsigned int num_dw_left;
-> +
-> +	/**
-> +	 * @free_table: return true if page table is freed when updating
-> +	 */
-> +	bool *free_table;
->   };
->   
->   struct amdgpu_vm_update_funcs {
-> @@ -404,7 +409,7 @@ int amdgpu_vm_bo_update_mapping(struct amdgpu_device *adev,
->   				uint64_t flags, uint64_t offset,
->   				struct drm_mm_node *nodes,
->   				dma_addr_t *pages_addr,
-> -				struct dma_fence **fence);
-> +				struct dma_fence **fence, bool *free_table);
->   int amdgpu_vm_bo_update(struct amdgpu_device *adev,
->   			struct amdgpu_bo_va *bo_va,
->   			bool clear);
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> index b665e9ff77e3..4f28052d44bf 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> @@ -1084,7 +1084,7 @@ svm_range_unmap_from_gpu(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->   
->   	return amdgpu_vm_bo_update_mapping(adev, adev, vm, false, true, NULL,
->   					   start, last, init_pte_value, 0,
-> -					   NULL, NULL, fence);
-> +					   NULL, NULL, fence, NULL);
->   }
->   
->   static int
-> @@ -1137,12 +1137,15 @@ svm_range_map_to_gpu(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->   		     struct amdgpu_device *bo_adev, struct dma_fence **fence)
->   {
->   	struct amdgpu_bo_va bo_va;
-> +	bool free_table = false;
-> +	struct kfd_process *p;
->   	uint64_t pte_flags;
->   	int r = 0;
->   
->   	pr_debug("svms 0x%p [0x%lx 0x%lx]\n", prange->svms, prange->start,
->   		 prange->last);
->   
-> +	p = container_of(prange->svms, struct kfd_process, svms);
->   	if (prange->svm_bo && prange->ttm_res) {
->   		bo_va.is_xgmi = amdgpu_xgmi_same_hive(adev, bo_adev);
->   		prange->mapping.bo_va = &bo_va;
-> @@ -1159,7 +1162,8 @@ svm_range_map_to_gpu(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->   					prange->mapping.offset,
->   					prange->ttm_res ?
->   						prange->ttm_res->mm_node : NULL,
-> -					dma_addr, &vm->last_update);
-> +					dma_addr, &vm->last_update,
-> +					&free_table);
->   	if (r) {
->   		pr_debug("failed %d to map to gpu 0x%lx\n", r, prange->start);
->   		goto out;
-> @@ -1175,6 +1179,10 @@ svm_range_map_to_gpu(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->   	if (fence)
->   		*fence = dma_fence_get(vm->last_update);
->   
-> +	if (free_table)
-> +		amdgpu_amdkfd_flush_gpu_tlb_pasid((struct kgd_dev *)adev,
-> +						  p->pasid);
-> +
->   out:
->   	prange->mapping.bo_va = NULL;
->   	return r;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c b/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
+index 673d5e34f213..f9a81f34d09e 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
+@@ -88,7 +88,7 @@ static const struct file_operations kfd_debugfs_hang_hws_fops = {
+ 	.release = single_release,
+ };
+ 
+-void kfd_debugfs_init(void)
++void kfd_debugfs_init(bool is_vf)
+ {
+ 	debugfs_root = debugfs_create_dir("kfd", NULL);
+ 
+@@ -98,8 +98,9 @@ void kfd_debugfs_init(void)
+ 			    kfd_debugfs_hqds_by_device, &kfd_debugfs_fops);
+ 	debugfs_create_file("rls", S_IFREG | 0444, debugfs_root,
+ 			    kfd_debugfs_rls_by_device, &kfd_debugfs_fops);
+-	debugfs_create_file("hang_hws", S_IFREG | 0200, debugfs_root,
+-			    kfd_debugfs_hang_hws_read, &kfd_debugfs_hang_hws_fops);
++	if (!is_vf)
++		debugfs_create_file("hang_hws", S_IFREG | 0200, debugfs_root,
++				    kfd_debugfs_hang_hws_read, &kfd_debugfs_hang_hws_fops);
+ }
+ 
+ void kfd_debugfs_fini(void)
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+index dedb8e33b953..aa9154a8410f 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+@@ -649,6 +649,8 @@ struct kfd_dev *kgd2kfd_probe(struct kgd_dev *kgd,
+ 
+ 	ida_init(&kfd->doorbell_ida);
+ 
++	kfd_debugfs_init(vf);
++
+ 	return kfd;
+ }
+ 
+@@ -884,6 +886,7 @@ void kgd2kfd_device_exit(struct kfd_dev *kfd)
+ 			amdgpu_amdkfd_free_gws(kfd->kgd, kfd->gws);
+ 	}
+ 
++	kfd_debugfs_fini();
+ 	kfree(kfd);
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_module.c b/drivers/gpu/drm/amd/amdkfd/kfd_module.c
+index 5e90fe642192..6b9f735c55ea 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_module.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_module.c
+@@ -61,8 +61,6 @@ static int kfd_init(void)
+ 	 */
+ 	kfd_procfs_init();
+ 
+-	kfd_debugfs_init();
+-
+ 	return 0;
+ 
+ err_create_wq:
+@@ -76,7 +74,6 @@ static int kfd_init(void)
+ 
+ static void kfd_exit(void)
+ {
+-	kfd_debugfs_fini();
+ 	kfd_process_destroy_wq();
+ 	kfd_procfs_shutdown();
+ 	kfd_topology_shutdown();
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index daa9d47514c6..f3ddd8c5b11e 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -1174,7 +1174,7 @@ static inline int kfd_devcgroup_check_permission(struct kfd_dev *kfd)
+ /* Debugfs */
+ #if defined(CONFIG_DEBUG_FS)
+ 
+-void kfd_debugfs_init(void);
++void kfd_debugfs_init(bool is_vf);
+ void kfd_debugfs_fini(void);
+ int kfd_debugfs_mqds_by_process(struct seq_file *m, void *data);
+ int pqm_debugfs_mqds(struct seq_file *m, void *data);
+@@ -1189,7 +1189,7 @@ int dqm_debugfs_execute_queues(struct device_queue_manager *dqm);
+ 
+ #else
+ 
+-static inline void kfd_debugfs_init(void) {}
++static inline void kfd_debugfs_init(bool is_vf) {}
+ static inline void kfd_debugfs_fini(void) {}
+ 
+ #endif
+-- 
+2.17.1
 
 _______________________________________________
 amd-gfx mailing list
