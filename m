@@ -2,124 +2,121 @@ Return-Path: <SRS0=x6gI=KI=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
+X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,PDS_BAD_THREAD_QP_64,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C7477C433ED
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 May 2021 13:35:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CC83DC433B4
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 May 2021 14:11:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 63F3B61370
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 May 2021 13:35:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 63F3B61370
+	by mail.kernel.org (Postfix) with ESMTPS id 848B961352
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 May 2021 14:11:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 848B961352
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4CAE6E886;
-	Thu, 13 May 2021 13:35:02 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2067.outbound.protection.outlook.com [40.107.220.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB2C66E886
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 May 2021 13:35:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29B266E0D4;
+	Thu, 13 May 2021 14:11:46 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam08on2058.outbound.protection.outlook.com [40.107.102.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C17356E0D4
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 May 2021 14:11:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cNKEjcReDEwBnS0Ncb6A0cNQK7ENv5oTPBkUx3MGMA5RpklgqtD718e88YWFbnaE9qR2F341rL5XnvofMVbYJid/1xn0op2sGWxgXJXHjG8MNRa+Gc9yB/7T0TPjuZcVY/J/tVm0s1AETiw7hzeK+FZghBTvV+kwvKcZHGQMDBTP5a6pJdZT3r8WhW1mwaKSx7yqlW/g3HD4hkWGf7GRBduE0n6szIbPWWpAQc/2tZDEJaMLD8FpBLxqQQOChVcd8YkuF/vZipKv2obwsjI1S9K3Nel38GsDS4XxWW/u+I0F9vVwhSiWegcN/fAgGf7jt0bFjvp6YZ4lfFclIHfQhA==
+ b=Fnqdbek6iIkOYGX5BP2USQQhDXUduZvmPBme8AK6hJ5efj+d4t96bL3BA6ij0+4Co+BjQkCjSpITc6+TNCOjLxAeRFPWDHMMmIJ9af7/fvKLoOfMAfko7FmGOd1vqG8Tr2NDM4Y3FSPsnZ1WgO98N7zzamazuDd9+ahk24q972sbPnstOei28vJ+u9ulHEWkHsZMImpjMkiHyGW4StnTDwwg+88WePv/CjzljVQPVNKm5QYNMzvQEIMbbujTN+rzEv3miY5opZzhl9lFYwEZowxSGStY/8GifQc2FbjZ1fChasyJpNHeGSJ4YhcxNfk2JZGUuE8TkW+659adLChPLg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EtwEkKoeVGwNp79yJjQvXxjp6Jvlo1Aziw+oIKaNm+w=;
- b=Y9RlOQzl/E40qBrDnxlRIKWpm5eoGHACbd1x5O/RBfNc4h+JQxbl00vOHZhvoIvu2/PNr8tB3m+uC55PTtjbzKhVs84mbghWBwaYFJWVQHyYvNxf+R/+50AupmCugDe82jnVIIK546wYdjDVdfvT+oXX+kAjSva6lMsovVcSYiFwTZhZZ0dlTTbp6dilfBCdQsDUexMP32JEzV12tmrjp3GnRAKUP0OIzPdpRMzOio5z7emNEQGHNmhz/Tva5UDP833SPWwjtwMb380OrYPE2RC6XABh82b1edJa/rVNYSyKDH+l+EeTMGw3EkmqPX7/S9P6vdKAAUtnEWKGGeVpUQ==
+ bh=pGGLgOxvihE4ZuY/Y/bKaNkU/wz53AlNdLq+7hc7itY=;
+ b=fEwQUqfMwavJgU7+2AyamVr7IrkqRS0/CuNf72xklAj1Db8iE65W0oSYZr1QoxCnslOmO7Q7QXoqyvjyx+fuA0Cw8YH2hAS1YGPmjZ0q39Iirq5uVtrqDhfIcwtegJAhvqRczXDJgerQp6UT3Ur2ixJLLZY2CgpGtl1cHpgKjablPGuFaTx7vmDybpB2LPrGtT5gwlg/gpsOAHE5UH70+zGwLb4IpjYVgZMtyqOBQOUOpEKmCer4Gump+ZBo0O7+UAqhTPuXq5Yv/BpJNnvEdSAUfpqByxdyfMlE3maQWbcCc4/YP+qcop2OA6aIY9Wa8voxqzqFu6/KP0WtQtX+ag==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EtwEkKoeVGwNp79yJjQvXxjp6Jvlo1Aziw+oIKaNm+w=;
- b=q9aun/vaN78VYM/9rPwVCHWV2s6yq4ALKdoJYZVY5zNgKXRpf0FJeIe4kov0Q2Lw7J0AxsgUfGLC/VfVtF5zwDj49+H/NFmxbS0/clszWvgbReI1ovBXiCYVPMK+FEgVba7/SCdSbLsasVYqJR3AW8fafZOI7rNyqq/AjkvftM0=
-Received: from CY4PR12MB1287.namprd12.prod.outlook.com (2603:10b6:903:40::8)
- by CY4PR1201MB0120.namprd12.prod.outlook.com (2603:10b6:910:1c::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4108.27; Thu, 13 May
- 2021 13:34:59 +0000
-Received: from CY4PR12MB1287.namprd12.prod.outlook.com
- ([fe80::50b1:6f8a:9b37:8835]) by CY4PR12MB1287.namprd12.prod.outlook.com
- ([fe80::50b1:6f8a:9b37:8835%4]) with mapi id 15.20.4129.025; Thu, 13 May 2021
- 13:34:59 +0000
-From: "Chen, Guchun" <Guchun.Chen@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
+ bh=pGGLgOxvihE4ZuY/Y/bKaNkU/wz53AlNdLq+7hc7itY=;
+ b=0+f2fz70b4PgKa0ilomNwexzQBSUs58s5TYzFXaJ9/4Ylk3fZb0o4LFT3pO44WD9m0/Z3L0l2sUsS8rvnehJkPoucc+duQJXtGNvTstWz4yMyGB+9h63AfjFnr6YywVf145Q+XKE64CopcQQ/o4DDgXd2u1/lX0CaaRxMHb9XbI=
+Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
+ by BL0PR12MB4964.namprd12.prod.outlook.com (2603:10b6:208:1c7::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.25; Thu, 13 May
+ 2021 14:11:36 +0000
+Received: from MN2PR12MB4488.namprd12.prod.outlook.com
+ ([fe80::3d98:cefb:476c:c36e]) by MN2PR12MB4488.namprd12.prod.outlook.com
+ ([fe80::3d98:cefb:476c:c36e%8]) with mapi id 15.20.4129.026; Thu, 13 May 2021
+ 14:11:36 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "Wang, YuBiao" <YuBiao.Wang@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 2/3] drm/amd/pm: Fix showing incorrect frequencies on
- aldebaran
-Thread-Topic: [PATCH 2/3] drm/amd/pm: Fix showing incorrect frequencies on
- aldebaran
-Thread-Index: AQHXR90LOP8kW1r9LEKw3exFksZ70qrhaOiA
-Date: Thu, 13 May 2021 13:34:59 +0000
-Message-ID: <CY4PR12MB1287B680C787B7C55C767136F1519@CY4PR12MB1287.namprd12.prod.outlook.com>
-References: <cb35e9cc-26cf-c9e7-b747-c24920d788d6@amd.com>
-In-Reply-To: <cb35e9cc-26cf-c9e7-b747-c24920d788d6@amd.com>
+Subject: Re: [PATCH] drm/amd/amdgpu: psp program IH_RB_CTRL on sienna_cichlid
+Thread-Topic: [PATCH] drm/amd/amdgpu: psp program IH_RB_CTRL on sienna_cichlid
+Thread-Index: AQHXR+Nlq2kNVzVyWEaj3ojbaa7MzKrhc6dY
+Date: Thu, 13 May 2021 14:11:36 +0000
+Message-ID: <MN2PR12MB448825CC5EC52F626AEE1938F7519@MN2PR12MB4488.namprd12.prod.outlook.com>
+References: <20210513103308.601043-1-YuBiao.Wang@amd.com>
+In-Reply-To: <20210513103308.601043-1-YuBiao.Wang@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-05-13T13:34:54Z; 
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
+msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=True;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=1e342445-324a-4cb4-9a05-ac0efb380c05;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-05-13T14:11:35.930Z;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=AMD
+ Public; MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=0;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged; 
 authentication-results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [101.229.235.188]
+x-originating-ip: [192.161.79.245]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 268d8b9d-7113-428c-9858-08d91613e76e
-x-ms-traffictypediagnostic: CY4PR1201MB0120:
+x-ms-office365-filtering-correlation-id: 9fcfbea5-1331-42b5-ae37-08d916190538
+x-ms-traffictypediagnostic: BL0PR12MB4964:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <CY4PR1201MB01207CACED6B0D7B52273D79F1519@CY4PR1201MB0120.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:7691;
+x-microsoft-antispam-prvs: <BL0PR12MB49648B66BDDE4F01DC53C2A3F7519@BL0PR12MB4964.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:2803;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: IxeC+MMKXWJgG6OS7+7Z8Fp4jwsRLoZWKTb1nm2aP1d0qrG1T/8CQC7lkG3+bu1HU5MsqXTKIbLxhaX9QmomKLyDIrbsj7VI82xIBmE1KgrLobGnRrgSQYQt9f/ryUa6DfV0oyMQXb+WMKM2qmzy4JDPnf/ob4Pm/IaTvomFpAoAwt6BxgXCxoFuMCfosCNhwz6YPRxlRl6MJnNmCwYaGaj0wvNg3KVQka8ZFgZk5pfC2aQdIm2aka6Q9sW/31IVpnqRIuWNs+wJ2xf8f+T42478M9SGuUlSB6oI9BRFfEfFyroBOtkKJn6SEtw8eZdi197yRvwyEWUpr7yqKuzx4X+ilwjkLg5WBKNFhRHk7xjNk7v35taYWV8tY9NXO5wRKLtZBn0JzfxvtGW7FetTZxrfNzhN6cKUVmLvRrMKjVcUFAsv4K0dSvPeN9aQ0XGJK7jdKBHRwmH7Enn6FakzkYtnyHYwXJudk78TznUYh5uoTiwHgGwHeCz6hEKJFWvse5IkIpgxDttJKQkPQ/uegFEY1Xae7XqygBX4S55czopZ53fx+NcLksc7HpZPfJ4S3LUi28pPR4URm5SJ3h6C5AZsKXFzfdCL1auFCJyn0+iWUirOxBYIjETDPc7xlKnb1424V9VL6aGTbmNivm/SAA==
+x-microsoft-antispam-message-info: BahOWzcFVRWr4NnaCTeFyB8p4pYQeCRljLhq3wFl+bddP2AX+JHFciSDEd2ksQpb6ITY5NejmMsLv8rG4l+V7WcRWYIUaHvgPL6zpTESf6Mo5B9tQroxs0vDvLK2vzSjgKkV2ef3YeWSl1Zh0qzqDwkqFiPI+k6kxkajVrLASIFyuDbkAfESNBa1TacEWd4JFwM5rLVteAIiyv3jQXdzqr9939kkOLEXKtw7hWf7PZmWHEWbbH78PleEQmaSzgE2hzNtajGfnR4FyVwFmvVzo3Ft0JcrIqGN7fBtsViZg+t5pzE0KI8p2KmhivhJZSE7stwLI9juO7PLu861eonWUpI5LtoTWWNW+/rP9+Afa+I1zvAhwLLoKOomM108O1YtMCdIexumS03C0mCh7ytc2rW8MRm2cGHk2vQtq2/9p9YRmmHpI4+yq+8FndmXWVg+UFI00dqalzjuFVCzqh/eMqX3yeSh0X/ZRWxv7YpgMEk9BXX3OIRxJSewTa6AqUlwspe1V76Dch3DOiNqEiLSY3wsPMogd+OtMk2TJkB1wVMq8kbzb9TiLlkNFB5vkZGVq5mJFM2WHFK8vknK/CNALaDMujIKGlMH13zkAc+iCRA=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY4PR12MB1287.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(39850400004)(346002)(396003)(136003)(366004)(2906002)(64756008)(8676002)(83380400001)(45080400002)(122000001)(66446008)(8936002)(66476007)(66556008)(71200400001)(316002)(53546011)(54906003)(5660300002)(33656002)(110136005)(26005)(9686003)(478600001)(76116006)(966005)(66946007)(7696005)(38100700002)(86362001)(55016002)(52536014)(186003)(4326008)(6506007);
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(376002)(366004)(136003)(396003)(39860400002)(346002)(86362001)(122000001)(4326008)(19627405001)(5660300002)(83380400001)(2906002)(66446008)(33656002)(316002)(71200400001)(64756008)(55016002)(66946007)(52536014)(7696005)(110136005)(186003)(8936002)(54906003)(8676002)(6506007)(53546011)(478600001)(9686003)(26005)(66476007)(38100700002)(66556008)(76116006);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?DLXjTbond3FzI6LhIR+icQxzkfaOTKpXqTC8ql0q4cpeypL06Z4arZdLb/10?=
- =?us-ascii?Q?gvzsXVdfh6FN3lpARuuuxTZ0cxz8cWFnoULeniTEY0gw+VE1DuF7tVgRJzFL?=
- =?us-ascii?Q?bU4FeoH/qmE4yuF7mUFMiIpYqcVkFJhcK0fKujkfDgk4v6LPXMKG8yzZjWt+?=
- =?us-ascii?Q?6iJiFGb+UzyKN6kUyi4itvhKmXZ5SCV3VXo41Mm2vfBXZnuwB4EmdrsHgP4p?=
- =?us-ascii?Q?I34NX16Y1E6upArAvS8mPc2Or3qeJtt1bXvXBNEolhzYFaJbUI08iPtGqqvC?=
- =?us-ascii?Q?E0zUCERStZIWwBsyt3J31JRB6YoZo1zddy7sg56MT936b0LyW4nikPpiXWI7?=
- =?us-ascii?Q?mDTtBoN7QmqgPi9Ml9eqgCXwzZCoYNtHOWDyyrSthOIdWuxs9wJPY/NTPU8J?=
- =?us-ascii?Q?Y8urOx6nxo6iE2/4IGz9E1jlKVNPQJubl7Jcx0r3Hj2EzWk3VGNvWVXB+jcc?=
- =?us-ascii?Q?TONxyCzwQhfiW4S/Hlq+73lw/T7fTXEi7JLLSYl/Okr3U+Att2GofcW7U2aZ?=
- =?us-ascii?Q?UyVhn9wFD+tJEj2n+ZmkmMMj8Vns1smMc8Gam1yhFqxNmR8JJT2PWqoTtvJ2?=
- =?us-ascii?Q?zk4e6qE2z22h3av2RtNOKiPNlpmxx2bGpsbv98l6Q2MJ2rhtyts0raRF04MN?=
- =?us-ascii?Q?ondjgHzbUdbKsJW+BY9AC+DVX1w9S/lF5TMD/WPl6M4wQpRI2Lsdl0x/4hz9?=
- =?us-ascii?Q?firBnTNABafkQb786401Hw0nIwdSuS4Z2E/Q3n9QNPhxdsk4VcRZjAJKi9TE?=
- =?us-ascii?Q?YMKTEF0axupGW0uXdT3Fbf0yFmXys0n+3+gsGa0jjfZkyqso6uUS92Dy+TJf?=
- =?us-ascii?Q?DM+JJBa/K7OzbPjiuMXEHa8z1GyUMArq59YBS31y7BLwjNiVFVmqC6oWtaBl?=
- =?us-ascii?Q?wZeN4Ae7Kt4szpx3V7jikCWCLaXF6PPv4FputKCD2Z5L0JFmuwc75DjvDCft?=
- =?us-ascii?Q?ZeFaB1aYts8o9BAK2ScG8XgYE1xYd7NqcbVHaR/6SxpUZB/09UWDsQFsj5dy?=
- =?us-ascii?Q?el4+/PVIscqnXMrQz5kkwmRJTzzX4j6izVlmWGckLI9jy1M9DsVXw/JClkUR?=
- =?us-ascii?Q?VmUdkpBq5Czk39Hal0Q8qONNbtlf58qsA1HGvcVv47axX44dJp+40x7kyJXx?=
- =?us-ascii?Q?qdmp/6pcPvOwmN4ZUcOOHYLYpB/8fs0NfRGG+PGFFNb6ZHXKMwIQABcrtTJh?=
- =?us-ascii?Q?k+HlQxbJ/HkuBvQgTQ0sTQqxOoj8oC9ZLDQg9ADNLNxSaVL24uRmA65EKB2r?=
- =?us-ascii?Q?hpNo665lXXNZD/NVOjJ9tPfXlCWQ9DAafdleDvSFzsQ3pFKBAjQKaCc1WfeZ?=
- =?us-ascii?Q?CEuDJnAAvIHAVvpYTLuZQzDb?=
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?vrS33L3QBIrUW+SPuCjjWA2jlPyCUPvhtsD1hZL0O0SVZriBm8mTD75AnP6n?=
+ =?us-ascii?Q?QcyjUjrdJurT5vw+EFEncr9ZQq22THND8YrvP39DQoPx4KcyjZR/a4r6JFbV?=
+ =?us-ascii?Q?QZ/2SBwbnlQjMC6HORjIdhEx04xSlSKzqGmyPrkv+hsg4YktaHAtQzDCawXl?=
+ =?us-ascii?Q?UPhtpc4KWSyAje3TYcvhuvwWEUB9xl+rzDteLhyQ9dagq55HenXj9KbECamC?=
+ =?us-ascii?Q?uxTKE663X6eF5+yJol89Vz+viq/MAYSII3gJ6xChWFi+9rflkPHtAUETwOYp?=
+ =?us-ascii?Q?J05VmC94OHDq84ihRtWihTYctqnlHWxpu9cVc8CsbBOvLfgsQHQgIIkTei/0?=
+ =?us-ascii?Q?6zeahb2je6DNTPEFukkxYPYPwRPf9x1WWy/87OvgZ5m7GhDi7opqshdYJlaD?=
+ =?us-ascii?Q?cXXqL/qAUkKbo1ldzvKosNwq7uT02KWRgMjl2J2+MDYElhEYIfWCDbV46RNS?=
+ =?us-ascii?Q?ELPPzPWUbJAH0IDv6P0fMaZq7eyqIFr8DeFayVHgzKjfrnvsrAJbPTS43XVl?=
+ =?us-ascii?Q?k5se0DXkOgF/aeVIpQ4aUVSSAKfOM0RPUzSxhSQj2cZyAfto9vZ183Gt0B4K?=
+ =?us-ascii?Q?58jZHv73Sd2nbvxF7lERrzwb2XxYDGSOXkj4I0ybTXu9/KqHtLwQBNRnfzSt?=
+ =?us-ascii?Q?CN83HEnp/tVCEPWP+l+hKf//dDdU9oofNYWMpuCS2MfHgUkHb+/Yfz1zJvVx?=
+ =?us-ascii?Q?GpDd/WNtvkW/r04/hxNMnEZzdL++99Lo223CDMaRmXM+90WJlrh40Jr0+cFq?=
+ =?us-ascii?Q?a578Kwq4NEoCiGNdWFFqnUNIfj8aCgkQQe615Et4y3HrLMqzt5v2ZhdBB/xB?=
+ =?us-ascii?Q?VC21CDCbQfA4bKS1wi1soW7b1LHMzcSoOOWxsclB3XgJqahTqqQhFlwsZulV?=
+ =?us-ascii?Q?d6Z6IMz4xc6P2JuAidMcqlZF59Wz1x9mTkrxgf1p+21a6F/cTZPQhREhlztQ?=
+ =?us-ascii?Q?iGlsb+Uo6W7YvjgLKeRqg6pq8R9jicjT1Ll9cExf9P48yUElZBewN3ZOcFDe?=
+ =?us-ascii?Q?1T/cZ4eUaRyQFk+mc+YlSNPLgWurtVZD/heYHJRODvDdaeb2AR71wugqnjBG?=
+ =?us-ascii?Q?ocdCHMTNSefXWT1C5G8vQLLL02dyEpRo5xj6Utv/JIFlu2Px4F14lFp1TpUa?=
+ =?us-ascii?Q?QGIUWxPTME6XG5/JNfD2a1n2iA10iMN9C7qBdYdI9CF76jg3TP3RZJgM6pud?=
+ =?us-ascii?Q?VqjY9YPfLLe5lyHMulEKLiRbjzIeZODVmFQOvGO6G0QPPgUEMUCdCu2IfVDP?=
+ =?us-ascii?Q?vcE2rohMy7pTETm67OBEgGMjdxYUZKLRmfptDEvxi1ozq3vhOowMt3h0NpVV?=
+ =?us-ascii?Q?DC8KY9Zt05JUzCPVfAQm8t09?=
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY4PR12MB1287.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 268d8b9d-7113-428c-9858-08d91613e76e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 May 2021 13:34:59.1470 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9fcfbea5-1331-42b5-ae37-08d916190538
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 May 2021 14:11:36.6304 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: KEMcVmGg6CiY1yKDuB+IUO+92k5LbOO5SDB7HMLGccyOi6UdlDz9BZKsoED8ENeDHeJ8+eBXf2V4NqsA++XmZA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0120
+X-MS-Exchange-CrossTenant-userprincipalname: f55sPEp5GShbya5WMZTPW2sId+jet4+NVpkite/S0Jb+HBZxbQssYJqKHi+RJyfZ8rz+sDVhZcKS0baY73OgLw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4964
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,274 +128,345 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Wang, Kevin\(Yang\)" <Kevin1.Wang@amd.com>, "Feng,
- Kenneth" <Kenneth.Feng@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>, "Xiao,
+ Jack" <Jack.Xiao@amd.com>, "Xu, Feifei" <Feifei.Xu@amd.com>, "Chen,
+ Horace" <Horace.Chen@amd.com>, "Wang, 
+ Kevin\(Yang\)" <Kevin1.Wang@amd.com>, Xiaojie Yuan <xiaojie.yuan@amd.com>,
+ "Tuikov, Luben" <Luben.Tuikov@amd.com>, "Quan, Evan" <Evan.Quan@amd.com>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>, "Liu, Monk" <Monk.Liu@amd.com>,
+ "Zhang, Hawking" <Hawking.Zhang@amd.com>
+Content-Type: multipart/mixed; boundary="===============2016819618=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+--===============2016819618==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MN2PR12MB448825CC5EC52F626AEE1938F7519MN2PR12MB4488namp_"
+
+--_000_MN2PR12MB448825CC5EC52F626AEE1938F7519MN2PR12MB4488namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
 [AMD Public Use]
 
-3 nit-picks inline.
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+________________________________
+From: YuBiao Wang <YuBiao.Wang@amd.com>
+Sent: Thursday, May 13, 2021 6:33 AM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>; Quan, Evan <Evan.Quan@a=
+md.com>; Chen, Horace <Horace.Chen@amd.com>; Tuikov, Luben <Luben.Tuikov@am=
+d.com>; Koenig, Christian <Christian.Koenig@amd.com>; Deucher, Alexander <A=
+lexander.Deucher@amd.com>; Xiao, Jack <Jack.Xiao@amd.com>; Zhang, Hawking <=
+Hawking.Zhang@amd.com>; Liu, Monk <Monk.Liu@amd.com>; Xu, Feifei <Feifei.Xu=
+@amd.com>; Wang, Kevin(Yang) <Kevin1.Wang@amd.com>; Xiaojie Yuan <xiaojie.y=
+uan@amd.com>; Wang, YuBiao <YuBiao.Wang@amd.com>
+Subject: [PATCH] drm/amd/amdgpu: psp program IH_RB_CTRL on sienna_cichlid
 
-Regards,
-Guchun
+[Why]
+IH_RB_CNTL is blocked by PSP so we need to ask psp to help config it.
 
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Lijo Lazar
-Sent: Thursday, May 13, 2021 5:48 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Wang, Kevin(Yang) <Kevin1.Wang@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>
-Subject: [PATCH 2/3] drm/amd/pm: Fix showing incorrect frequencies on aldebaran
+[How]
+Move psp ip block before ih, and use psp to program IH_RB_CNTL under sriov.
 
-
-Use the current and custom pstate frequencies to track the current and user-set min/max values in manual and determinism mode. Previously, only
-actual_* value was used to track the currrent and user requested value.
-The value will get reassigned whenever user requests a new value with pp_od_clk_voltage node. Hence it will show incorrect values when user requests an invalid value or tries a partial request without committing the values. Separating out to custom and current variable fixes such issues.
-
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+Signed-off-by: YuBiao Wang <YuBiao.Wang@amd.com>
 ---
-  .../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    | 65 ++++++++++++-------
-  .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    | 18 ++++-
-  2 files changed, 55 insertions(+), 28 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/navi10_ih.c | 20 ++++++++++++++++++--
+ drivers/gpu/drm/amd/amdgpu/nv.c        | 12 +++++++++---
+ 2 files changed, 27 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-index 5d04a1dfdfd8..d27ed2954705 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-@@ -78,8 +78,6 @@
-
-  #define smnPCIE_ESM_CTRL			0x111003D0
-
--#define CLOCK_VALID (1 << 31)
--
-  static const struct cmn2asic_msg_mapping aldebaran_message_map[SMU_MSG_MAX_COUNT] = {
-  	MSG_MAP(TestMessage,			     PPSMC_MSG_TestMessage,			0),
-  	MSG_MAP(GetSmuVersion,			     PPSMC_MSG_GetSmuVersion,			1),
-@@ -455,12 +453,18 @@ static int aldebaran_populate_umd_state_clk(struct
-smu_context *smu)
-
-  	pstate_table->gfxclk_pstate.min = gfx_table->min;
-  	pstate_table->gfxclk_pstate.peak = gfx_table->max;
-+	pstate_table->gfxclk_pstate.curr.min = gfx_table->min;
-+	pstate_table->gfxclk_pstate.curr.max = gfx_table->max;
-
-  	pstate_table->uclk_pstate.min = mem_table->min;
-  	pstate_table->uclk_pstate.peak = mem_table->max;
-+	pstate_table->uclk_pstate.curr.min = mem_table->min;
-+	pstate_table->uclk_pstate.curr.max = mem_table->max;
-
-  	pstate_table->socclk_pstate.min = soc_table->min;
-  	pstate_table->socclk_pstate.peak = soc_table->max;
-+	pstate_table->socclk_pstate.curr.min = soc_table->min;
-+	pstate_table->socclk_pstate.curr.max = soc_table->max;
-
-  	if (gfx_table->count > ALDEBARAN_UMD_PSTATE_GFXCLK_LEVEL &&
-  	    mem_table->count > ALDEBARAN_UMD_PSTATE_MCLK_LEVEL && @@ -669,6 +673,7 @@ static int aldebaran_print_clk_levels(struct smu_context *smu,
-  {
-  	int i, now, size = 0;
-  	int ret = 0;
-+	struct smu_umd_pstate_table *pstate_table = &smu->pstate_table;
-  	struct pp_clock_levels_with_latency clocks;
-  	struct smu_13_0_dpm_table *single_dpm_table;
-  	struct smu_dpm_context *smu_dpm = &smu->smu_dpm; @@ -703,12 +708,8 @@ static int aldebaran_print_clk_levels(struct smu_context *smu,
-
-  		display_levels = clocks.num_levels;
-
--		min_clk = smu->gfx_actual_hard_min_freq & CLOCK_VALID ?
--				  smu->gfx_actual_hard_min_freq & ~CLOCK_VALID :
--				  single_dpm_table->dpm_levels[0].value;
--		max_clk = smu->gfx_actual_soft_max_freq & CLOCK_VALID ?
--				  smu->gfx_actual_soft_max_freq & ~CLOCK_VALID :
--				  single_dpm_table->dpm_levels[1].value;
-+		min_clk = pstate_table->gfxclk_pstate.curr.min;
-+		max_clk = pstate_table->gfxclk_pstate.curr.max;
-
-  		freq_values[0] = min_clk;
-  		freq_values[1] = max_clk;
-@@ -1134,9 +1135,6 @@ static int aldebaran_set_performance_level(struct
-smu_context *smu,
-  			&& (level != AMD_DPM_FORCED_LEVEL_PERF_DETERMINISM))
-  		smu_cmn_send_smc_msg(smu, SMU_MSG_DisableDeterminism, NULL);
-
--	/* Reset user min/max gfx clock */
--	smu->gfx_actual_hard_min_freq = 0;
--	smu->gfx_actual_soft_max_freq = 0;
-
-  	switch (level) {
-
-@@ -1163,6 +1161,7 @@ static int
-aldebaran_set_soft_freq_limited_range(struct smu_context *smu,
-  {
-  	struct smu_dpm_context *smu_dpm = &(smu->smu_dpm);
-  	struct smu_13_0_dpm_context *dpm_context = smu_dpm->dpm_context;
-+	struct smu_umd_pstate_table *pstate_table = &smu->pstate_table;
-  	struct amdgpu_device *adev = smu->adev;
-  	uint32_t min_clk;
-  	uint32_t max_clk;
-@@ -1176,14 +1175,20 @@ static int
-aldebaran_set_soft_freq_limited_range(struct smu_context *smu,
-  		return -EINVAL;
-
-  	if (smu_dpm->dpm_level == AMD_DPM_FORCED_LEVEL_MANUAL) {
--		min_clk = max(min, dpm_context->dpm_tables.gfx_table.min);
--		max_clk = min(max, dpm_context->dpm_tables.gfx_table.max);
--		ret = smu_v13_0_set_soft_freq_limited_range(smu, SMU_GFXCLK,
--							    min_clk, max_clk);
-+		if (min >= max) {
-+			dev_err(smu->adev->dev,
-+				"Minimum GFX clk should be less than the maximum allowed clock\n");
-+			return -EINVAL;
-+		}
-
-+		if ((min == pstate_table->gfxclk_pstate.curr.min) &&
-+		    (max == pstate_table->gfxclk_pstate.curr.max))
-+			return 0;
-+		ret = smu_v13_0_set_soft_freq_limited_range(smu, SMU_GFXCLK,
-+							    min, max);
-  		if (!ret) {
--			smu->gfx_actual_hard_min_freq = min_clk | CLOCK_VALID;
--			smu->gfx_actual_soft_max_freq = max_clk | CLOCK_VALID;
-+			pstate_table->gfxclk_pstate.curr.min = min;
-+			pstate_table->gfxclk_pstate.curr.max = max;
-  		}
-  		return ret;
-  	}
-@@ -1209,10 +1214,8 @@ static int
-aldebaran_set_soft_freq_limited_range(struct smu_context *smu,
-  				dev_err(adev->dev,
-  						"Failed to enable determinism at GFX clock %d MHz\n", max);
-  			} else {
--				smu->gfx_actual_hard_min_freq =
--					min_clk | CLOCK_VALID;
--				smu->gfx_actual_soft_max_freq =
--					max | CLOCK_VALID;
-+				pstate_table->gfxclk_pstate.curr.min = min_clk;
-+				pstate_table->gfxclk_pstate.curr.max = max;
-  			}
-  		}
-  	}
-@@ -1225,6 +1228,7 @@ static int aldebaran_usr_edit_dpm_table(struct
-smu_context *smu, enum PP_OD_DPM_
-  {
-  	struct smu_dpm_context *smu_dpm = &(smu->smu_dpm);
-  	struct smu_13_0_dpm_context *dpm_context = smu_dpm->dpm_context;
-+	struct smu_umd_pstate_table *pstate_table = &smu->pstate_table;
-  	uint32_t min_clk;
-  	uint32_t max_clk;
-  	int ret = 0;
-@@ -1245,16 +1249,20 @@ static int aldebaran_usr_edit_dpm_table(struct
-smu_context *smu, enum PP_OD_DPM_
-  			if (input[1] < dpm_context->dpm_tables.gfx_table.min) {
-  				dev_warn(smu->adev->dev, "Minimum GFX clk (%ld) MHz specified is less than the minimum allowed (%d) MHz\n",
-  					input[1], dpm_context->dpm_tables.gfx_table.min);
-+				pstate_table->gfxclk_pstate.custom.min =
-+					pstate_table->gfxclk_pstate.curr.min;
-  				return -EINVAL;
-  			}
--			smu->gfx_actual_hard_min_freq = input[1];
-+			pstate_table->gfxclk_pstate.custom.min = input[1];
-  		} else if (input[0] == 1) {
-  			if (input[1] > dpm_context->dpm_tables.gfx_table.max) {
-  				dev_warn(smu->adev->dev, "Maximum GFX clk (%ld) MHz specified is greater than the maximum allowed (%d) MHz\n",
-  					input[1], dpm_context->dpm_tables.gfx_table.max);
-+				pstate_table->gfxclk_pstate.custom.max =
-+					pstate_table->gfxclk_pstate.curr.max;
-  				return -EINVAL;
-  			}
--			smu->gfx_actual_soft_max_freq = input[1];
-+			pstate_table->gfxclk_pstate.custom.max = input[1];
-  		} else {
-  			return -EINVAL;
-  		}
-@@ -1276,8 +1284,15 @@ static int aldebaran_usr_edit_dpm_table(struct
-smu_context *smu, enum PP_OD_DPM_
-  			dev_err(smu->adev->dev, "Input parameter number not correct\n");
-  			return -EINVAL;
-  		} else {
--			min_clk = smu->gfx_actual_hard_min_freq;
--			max_clk = smu->gfx_actual_soft_max_freq;
-+			if (!pstate_table->gfxclk_pstate.custom.min)
-+				pstate_table->gfxclk_pstate.custom.min =
-+					pstate_table->gfxclk_pstate.curr.min;
-+			if (!pstate_table->gfxclk_pstate.custom.max)
-+				pstate_table->gfxclk_pstate.custom.max =
-+					pstate_table->gfxclk_pstate.curr.max;
-+			min_clk = pstate_table->gfxclk_pstate.custom.min;
-+			max_clk = pstate_table->gfxclk_pstate.custom.max;
+diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/amd/a=
+mdgpu/navi10_ih.c
+index f4e4040bbd25..5ee923ccdeb3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
++++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+@@ -151,7 +151,15 @@ static int navi10_ih_toggle_ring_interrupts(struct amd=
+gpu_device *adev,
+         /* enable_intr field is only valid in ring0 */
+         if (ih =3D=3D &adev->irq.ih)
+                 tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, ENABLE_INTR, (enabl=
+e ? 1 : 0));
+-       WREG32(ih_regs->ih_rb_cntl, tmp);
 +
-  			return aldebaran_set_soft_freq_limited_range(smu, SMU_GFXCLK, min_clk, max_clk);
-  		}
-  		break;
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-index 0864083e7435..755bddaf6c4b 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-@@ -1624,8 +1624,12 @@ int smu_v13_0_set_performance_level(struct
-smu_context *smu,
-  							    SMU_GFXCLK,
-  							    sclk_min,
-  							    sclk_max);
--		if (ret)
-+		if (ret) {
-  			return ret;
-+		} else {
-+			pstate_table->gfxclk_pstate.curr.min = sclk_min;
-+			pstate_table->gfxclk_pstate.curr.max = sclk_max;
-+		}
-[Guchun] We may simply code like below. Drop "else" part, as it's redundant.
-If (ret)
-	return ret;
++       if (amdgpu_sriov_vf(adev) && amdgpu_sriov_reg_indirect_ih(adev)) {
++               if (psp_reg_program(&adev->psp, ih_regs->psp_reg_id, tmp)) =
+{
++                       DRM_ERROR("PSP program IH_RB_CNTL failed!\n");
++                       return -ETIMEDOUT;
++               }
++       } else {
++               WREG32(ih_regs->ih_rb_cntl, tmp);
++       }
 
-pstate_table->gfxclk_pstate.curr.min = sclk_min;
-pstate_table->gfxclk_pstate.curr.max = sclk_max;
-  	
-}
+         if (enable) {
+                 ih->enabled =3D true;
+@@ -261,7 +269,15 @@ static int navi10_ih_enable_ring(struct amdgpu_device =
+*adev,
+                 tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_ENABL=
+E, 0);
+                 tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, RB_FULL_DRAIN_ENABL=
+E, 1);
+         }
+-       WREG32(ih_regs->ih_rb_cntl, tmp);
++
++       if (amdgpu_sriov_vf(adev) && amdgpu_sriov_reg_indirect_ih(adev)) {
++               if (psp_reg_program(&adev->psp, ih_regs->psp_reg_id, tmp)) =
+{
++                       DRM_ERROR("PSP program IH_RB_CNTL failed!\n");
++                       return -ETIMEDOUT;
++               }
++       } else {
++               WREG32(ih_regs->ih_rb_cntl, tmp);
++       }
 
-  	if (mclk_min && mclk_max) {
-@@ -1633,8 +1637,12 @@ int smu_v13_0_set_performance_level(struct
-smu_context *smu,
-  							    SMU_MCLK,
-  							    mclk_min,
-  							    mclk_max);
--		if (ret)
-+		if (ret) {
-  			return ret;
-+		} else {
-+			pstate_table->uclk_pstate.curr.min = mclk_min;
-+			pstate_table->uclk_pstate.curr.max = mclk_max;
-+		}
-[Guchun]Same as above.
-  	}
-
-  	if (socclk_min && socclk_max) {
-@@ -1642,8 +1650,12 @@ int smu_v13_0_set_performance_level(struct
-smu_context *smu,
-  							    SMU_SOCCLK,
-  							    socclk_min,
-  							    socclk_max);
--		if (ret)
-+		if (ret) {
-  			return ret;
-+		} else {
-+			pstate_table->socclk_pstate.curr.min = socclk_min;
-+			pstate_table->socclk_pstate.curr.max = socclk_max;
-+		}
-[Guchun]Same as above.
-  	}
-
-  	return ret;
+         if (ih =3D=3D &adev->irq.ih) {
+                 /* set the ih ring 0 writeback address whether it's enable=
+d or not */
+diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/n=
+v.c
+index 75d1f9b939b2..2ec5d4e1f363 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nv.c
++++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+@@ -764,9 +764,15 @@ int nv_set_ip_blocks(struct amdgpu_device *adev)
+         case CHIP_SIENNA_CICHLID:
+                 amdgpu_device_ip_block_add(adev, &nv_common_ip_block);
+                 amdgpu_device_ip_block_add(adev, &gmc_v10_0_ip_block);
+-               amdgpu_device_ip_block_add(adev, &navi10_ih_ip_block);
+-               if (likely(adev->firmware.load_type =3D=3D AMDGPU_FW_LOAD_P=
+SP))
+-                       amdgpu_device_ip_block_add(adev, &psp_v11_0_ip_bloc=
+k);
++               if (!amdgpu_sriov_vf(adev)) {
++                       amdgpu_device_ip_block_add(adev, &navi10_ih_ip_bloc=
+k);
++                       if (likely(adev->firmware.load_type =3D=3D AMDGPU_F=
+W_LOAD_PSP))
++                               amdgpu_device_ip_block_add(adev, &psp_v11_0=
+_ip_block);
++               } else {
++                       if (likely(adev->firmware.load_type =3D=3D AMDGPU_F=
+W_LOAD_PSP))
++                               amdgpu_device_ip_block_add(adev, &psp_v11_0=
+_ip_block);
++                       amdgpu_device_ip_block_add(adev, &navi10_ih_ip_bloc=
+k);
++               }
+                 if (adev->firmware.load_type =3D=3D AMDGPU_FW_LOAD_PSP &&
+                     is_support_sw_smu(adev))
+                         amdgpu_device_ip_block_add(adev, &smu_v11_0_ip_blo=
+ck);
 --
-2.17.1
+2.25.1
 
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7Cguchun.chen%40amd.com%7C2a60ef3fa0994b00fb2c08d915f42cce%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637564960746162621%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=Rlv%2F%2B%2F7t9fc7vxXhs9vqipWMKhXbKYLj8hHhSh48lo0%3D&amp;reserved=0
+
+--_000_MN2PR12MB448825CC5EC52F626AEE1938F7519MN2PR12MB4488namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#317100;margin:15pt;" al=
+ign=3D"Left">
+[AMD Public Use]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Acked-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> YuBiao Wang &lt;YuBia=
+o.Wang@amd.com&gt;<br>
+<b>Sent:</b> Thursday, May 13, 2021 6:33 AM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> Grodzovsky, Andrey &lt;Andrey.Grodzovsky@amd.com&gt;; Quan, Evan=
+ &lt;Evan.Quan@amd.com&gt;; Chen, Horace &lt;Horace.Chen@amd.com&gt;; Tuiko=
+v, Luben &lt;Luben.Tuikov@amd.com&gt;; Koenig, Christian &lt;Christian.Koen=
+ig@amd.com&gt;; Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;;
+ Xiao, Jack &lt;Jack.Xiao@amd.com&gt;; Zhang, Hawking &lt;Hawking.Zhang@amd=
+.com&gt;; Liu, Monk &lt;Monk.Liu@amd.com&gt;; Xu, Feifei &lt;Feifei.Xu@amd.=
+com&gt;; Wang, Kevin(Yang) &lt;Kevin1.Wang@amd.com&gt;; Xiaojie Yuan &lt;xi=
+aojie.yuan@amd.com&gt;; Wang, YuBiao &lt;YuBiao.Wang@amd.com&gt;<br>
+<b>Subject:</b> [PATCH] drm/amd/amdgpu: psp program IH_RB_CTRL on sienna_ci=
+chlid</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">[Why]<br>
+IH_RB_CNTL is blocked by PSP so we need to ask psp to help config it.<br>
+<br>
+[How]<br>
+Move psp ip block before ih, and use psp to program IH_RB_CNTL under sriov.=
+<br>
+<br>
+Signed-off-by: YuBiao Wang &lt;YuBiao.Wang@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/navi10_ih.c | 20 ++++++++++++++++++--<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/nv.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; | 12 +++++++++---<br>
+&nbsp;2 files changed, 27 insertions(+), 5 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/amd/a=
+mdgpu/navi10_ih.c<br>
+index f4e4040bbd25..5ee923ccdeb3 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c<br>
+@@ -151,7 +151,15 @@ static int navi10_ih_toggle_ring_interrupts(struct amd=
+gpu_device *adev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* enable_intr field is on=
+ly valid in ring0 */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ih =3D=3D &amp;adev-&g=
+t;irq.ih)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, ENABLE_INTR, (=
+enable ? 1 : 0));<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(ih_regs-&gt;ih_rb_cntl, tmp);<=
+br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev) &amp;&amp; =
+amdgpu_sriov_reg_indirect_ih(adev)) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (psp_reg_program(&amp;adev-&gt;psp, ih_regs-&gt;psp_reg_id, t=
+mp)) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;=
+PSP program IH_RB_CNTL failed!\n&quot;);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -ETIMEDOU=
+T;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; }<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; WREG32(ih_regs-&gt;ih_rb_cntl, tmp);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (enable) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; ih-&gt;enabled =3D true;<br>
+@@ -261,7 +269,15 @@ static int navi10_ih_enable_ring(struct amdgpu_device =
+*adev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_=
+ENABLE, 0);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, RB_FULL_DRAIN_=
+ENABLE, 1);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(ih_regs-&gt;ih_rb_cntl, tmp);<=
+br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev) &amp;&amp; =
+amdgpu_sriov_reg_indirect_ih(adev)) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (psp_reg_program(&amp;adev-&gt;psp, ih_regs-&gt;psp_reg_id, t=
+mp)) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;=
+PSP program IH_RB_CNTL failed!\n&quot;);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -ETIMEDOU=
+T;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; }<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; WREG32(ih_regs-&gt;ih_rb_cntl, tmp);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ih =3D=3D &amp;adev-&g=
+t;irq.ih) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; /* set the ih ring 0 writeback address whether it's e=
+nabled or not */<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/n=
+v.c<br>
+index 75d1f9b939b2..2ec5d4e1f363 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/nv.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/nv.c<br>
+@@ -764,9 +764,15 @@ int nv_set_ip_blocks(struct amdgpu_device *adev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_SIENNA_CICHLID:<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; amdgpu_device_ip_block_add(adev, &amp;nv_common_ip_bl=
+ock);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; amdgpu_device_ip_block_add(adev, &amp;gmc_v10_0_ip_bl=
+ock);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; amdgpu_device_ip_block_add(adev, &amp;navi10_ih_ip_block);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (likely(adev-&gt;firmware.load_type =3D=3D AMDGPU_FW_LOAD_PSP=
+))<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_device_ip=
+_block_add(adev, &amp;psp_v11_0_ip_block);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (!amdgpu_sriov_vf(adev)) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_device_ip=
+_block_add(adev, &amp;navi10_ih_ip_block);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (likely(adev-=
+&gt;firmware.load_type =3D=3D AMDGPU_FW_LOAD_PSP))<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_device_ip_block_add(adev, &amp;psp_v=
+11_0_ip_block);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; } else {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (likely(adev-=
+&gt;firmware.load_type =3D=3D AMDGPU_FW_LOAD_PSP))<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_device_ip_block_add(adev, &amp;psp_v=
+11_0_ip_block);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_device_ip=
+_block_add(adev, &amp;navi10_ih_ip_block);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (adev-&gt;firmware.load_type =3D=3D AMDGPU_FW_LOAD=
+_PSP &amp;&amp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; is_support_sw_smu(adev))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgp=
+u_device_ip_block_add(adev, &amp;smu_v11_0_ip_block);<br>
+-- <br>
+2.25.1<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_MN2PR12MB448825CC5EC52F626AEE1938F7519MN2PR12MB4488namp_--
+
+--===============2016819618==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============2016819618==--
