@@ -7,102 +7,100 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7CF17C43460
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 May 2021 07:42:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BCD19C433B4
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 May 2021 07:42:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3F5C761406
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 May 2021 07:42:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3F5C761406
+	by mail.kernel.org (Postfix) with ESMTPS id 69F4C611CE
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 May 2021 07:42:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 69F4C611CE
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9D8D6EE36;
-	Fri, 14 May 2021 07:42:46 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2074.outbound.protection.outlook.com [40.107.236.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F5AE6EE36
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 May 2021 07:42:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10A7B6EE39;
+	Fri, 14 May 2021 07:42:48 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2060.outbound.protection.outlook.com [40.107.93.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DFFA6EE36
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 May 2021 07:42:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nbmPad1EwTr2LLNo3rF81Dj4fwRXf3y8GUbQAcWGtsa8H5/IrJXjkmDZZJSt40y4BcEoeRdrxxslgL2glZJWSd6OrrBLDa8uDO9S6bFKh9aBClXl8y6LHxBUs5voX7GYp2lPlBzdybJ58lTS0z0r95NYU1eEZUhsRXtmJ2atmprcli8ml4mSywWrldepScMMRDZKAxlw8pQSLV2xsd9ccO7x5NgZap9V070bYyczEQSKytTPdnyjaPZdnEcCXBXY9RebM0QyR3XKAs6sQw2F7ygwAal99mcQyNcfD/GkRMsivRnAhs8h1GWkoT6JqHXOcqqmrEfgqhutu8zoK/1O6Q==
+ b=C6UlmM9V3HlBARO9p90dwL0Xu3Dfu001kSVW7W0WoKL4xxOT8Nx9Bm0QCMol/j9NGRzmTn3T0hIfMKghLz39ELZuNaETkp5BVa/1qaDvuutmLsOKSK2CYaCIjxWej5FwAphGIqUs6vuT/gUwzk+bA6TxvCV+skfFG5siONJSJX5m3q12e09qIpnmNVWp1AyviQ+INRjRNr1yGkIuHai8KgFqCQoinbqBZiTBVkKEwWAE8J5yj016/rlhxIvZPyBkHIDmd++G2KWtwT+/tJseY8LpnrYujtlZDNMnbS/74/4+dYTadVcl0m6OHsLx2Igedm05wkX1LkH5d1jTOp7sJg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vMVKwF9+WMTMjDUjGQC7Oacg9UaoFcQ/9eron9B9OJk=;
- b=RWjFp5f3Flajg+iP593+Kku44r+bReQUuFNxbrsLnczGbdeB2Cxk1U4HbwrATS7tEnCqyTbUf7ISdu1ugwCz/SKMTz+xAAVyLjycRWKXoK0gqcljXA/+e7sOkezUo2tTwQrxbdX/dyfSylfn36BvDofiwYrDm2oAJVARTdW5866BwEWMQK4mIy/Jl5emL7luAju89laivY/caoRUubJqOrvAuJsby1hu+qxapFVx/WP8w1BInZZPZ8CqEpBN2kWEImj+hbwe55GdDq2N2xwIfXjwhnXtsy81VHO/CspTp0RBYuyP7a/E7LpdFtXk15+lRTu4PNAjk9wawKFERdB11A==
+ bh=gq4YfqFBKJFgYr+Saly8NbqEyL8zY3RTom1lbmPBJ3E=;
+ b=c5V7AESc7A8CeUFEvqYB97JbxoYxakiJzjyS4qYK4eWb8tF45OQK//5x4bmQJHHKPwDZAQbjKkzCspDS3oDSS1zR/3SD7eorVKee6MdYdsvkrthRCHN26S0uT23WTxhr4e7GzvsN4KXNGCqAHx040TlqTPG34fDmVjDhZTKL7APxaZHkhIpzKIaKosOs0Mw6roNMG9raQVqIoyCRqJTV8bkvcXziqFcO5vtcHnjoESVdq37U1G2AX0vDjYCSZujt9zs3jASI5RXv0VnwmOvC0XTxBSZ5Rw/U1dx1MCNz1VwiokZILSDt1NIa6YmYOFmHC9NMB4K8ybYF+re59V3FrA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=none sp=none pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vMVKwF9+WMTMjDUjGQC7Oacg9UaoFcQ/9eron9B9OJk=;
- b=pC5d08Nj5W0o8mZRqdGH1hG1c8flIfHOKhHSFTmmulLduBc2CbDoI0KA0S9rYSpUVNUKURdu89QLsO5uWgv3jd44aBQcGp6qcZXP1PBTYV0YdHFBeNLTBiUVaiYwR2jJmO9id9qtiZq20mgyGaehrblqT5uMLQVoi1/lLq8tvk8=
-Received: from CO2PR05CA0095.namprd05.prod.outlook.com (2603:10b6:104:1::21)
- by BN6PR12MB1169.namprd12.prod.outlook.com (2603:10b6:404:19::9) with
+ bh=gq4YfqFBKJFgYr+Saly8NbqEyL8zY3RTom1lbmPBJ3E=;
+ b=akaxF+VakZy++Pnu/qLbNsNlnQJyYPgXZba5Pr1+nX481A7JLxjymhrpX8esUBQ+9hk+lNXDxL0pQS6SaBMA7glfoatc3TnCIhu111DpwqShGnY5XSqAgi0DZlwOti+ts87ylmtNGcJt7zcvrF1jueB2qXJxsMoXHGKyTEPF6jA=
+Received: from DM6PR02CA0071.namprd02.prod.outlook.com (2603:10b6:5:177::48)
+ by DM6PR12MB4548.namprd12.prod.outlook.com (2603:10b6:5:2a1::11) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.26; Fri, 14 May
- 2021 07:42:39 +0000
-Received: from CO1NAM11FT005.eop-nam11.prod.protection.outlook.com
- (2603:10b6:104:1:cafe::95) by CO2PR05CA0095.outlook.office365.com
- (2603:10b6:104:1::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4150.11 via Frontend
- Transport; Fri, 14 May 2021 07:42:38 +0000
+ 2021 07:42:44 +0000
+Received: from DM6NAM11FT029.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:177:cafe::8d) by DM6PR02CA0071.outlook.office365.com
+ (2603:10b6:5:177::48) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4108.25 via Frontend
+ Transport; Fri, 14 May 2021 07:42:44 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
  header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1NAM11FT005.mail.protection.outlook.com (10.13.174.147) with Microsoft SMTP
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT029.mail.protection.outlook.com (10.13.173.23) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4129.25 via Frontend Transport; Fri, 14 May 2021 07:42:38 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.4129.25 via Frontend Transport; Fri, 14 May 2021 07:42:44 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Fri, 14 May
- 2021 02:42:37 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Fri, 14 May
- 2021 02:42:37 -0500
+ 2021 02:42:43 -0500
 Received: from hawzhang-System-Product.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2242.4
- via Frontend Transport; Fri, 14 May 2021 02:42:36 -0500
+ via Frontend Transport; Fri, 14 May 2021 02:42:42 -0500
 From: Hawking Zhang <Hawking.Zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, Alex Deucher <alexander.deucher@amd.com>, 
  John Clements <John.Clements@amd.com>
-Subject: [PATCH 1/6] drm/amdgpu: add atomfirmware helper function to query fw
- cap
-Date: Fri, 14 May 2021 15:42:28 +0800
-Message-ID: <1620978153-4564-1-git-send-email-Hawking.Zhang@amd.com>
+Subject: [PATCH 5/6] drm/amdgpu: add helper function to query dynamic boot
+ config cap
+Date: Fri, 14 May 2021 15:42:32 +0800
+Message-ID: <1620978153-4564-5-git-send-email-Hawking.Zhang@amd.com>
 X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1620978153-4564-1-git-send-email-Hawking.Zhang@amd.com>
+References: <1620978153-4564-1-git-send-email-Hawking.Zhang@amd.com>
 MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 567c81a0-363e-4a33-348a-08d916abd918
-X-MS-TrafficTypeDiagnostic: BN6PR12MB1169:
-X-Microsoft-Antispam-PRVS: <BN6PR12MB11692B46827AA652D6A2CD50FC509@BN6PR12MB1169.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Office365-Filtering-Correlation-Id: 9d060322-227f-4eed-4019-08d916abdc9f
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4548:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB4548A4D160943257ECACB7D3FC509@DM6PR12MB4548.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1051;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: E5CRxymtGrxHlJksNUwTLmFmLNK0NxhlUdHUVjrIY2Ka31kajYybVP2q8wyVDTO2Hedohj/lMmV0VUQka8leDuVlDL6lyIRr5pg7dMuFP1uPV2fXeGr9SjGvs8YFh2prTb2B59e7sSjN+Z244kXdE8j1nLPRYuK9mQ5ApkthE0YtnTzHdhtfjx7VnFcLU/w0QIRO3A/QI3an3IBopOlHOmmLmf7UOKQUQuFEXcp+yjDjQybesMUjnj1dY4hao4LHe2Nzq7y72t7tT0UErzmgHQPb0W65SRFLoarnSf6RoxlwHUJOEuEa7mwyJ+J1KPr/B1AYps1/N7EhaZ0XZjz/pMNA6/Hmf9kk7/kPFnTupF/hvVZ9hUzhhSHF/RsxCNpMHZMomluqjx5bZtXNpw5ZoAOdcXaExW9C9AW2fewP/irKcRr4CRo3SZjm9T0UIx82CvWAfQgr2dLirndnc05MUWuhJG70jceUNvIvCo3l8I0l1GEdBwVUx9d3sBcwocJprp3BBS1BIZ2eVm/xFmBSlHnxq4+Lysy6kjKn+R1qc/POktVKPJF9NmbrofBu1B3J7acYqM078myLDdpTOriqUusZvayXttgehM4Z2j7/t1goEDRIPLPlK6/xHvJxBUixlQ7xxlgGb39ox8WwhXdXGz0KFjDx/41wV2DpyjtFnBM1i+I3FO2aOjPg6CQirhCy
+X-Microsoft-Antispam-Message-Info: 9Pw06QHb14LrhkVGaarfMHjaURJzGWnoURQsPcPe755n1lY9WZeVNCySFaz9ri/7p6BP7s0e5tE+XYCVYQCpch9acBUAFdSapTKJVSFmyvow0liMp+/j6N4b+q81DINCOziFZPRLTumDwogd9/V2Yo9gacKGm2hVavP18kPf833PaF4GgdBfCOrmh6OS241NxRAbNAXNBDhV+sQcKvnxwNApG6Cl1ddsHnl6H8pfrJ5GLXf9LQ5UhKzumz3KGtKU5dpbsvnfSTGW/ZxKQOkT0pitmhytNzD8crHJkGlKJAszjE4u+glV7u9G/YueF7+rOOHNXufhS2+YVcUV24GBuR5/DgFb3DZcweN5Hsm7uuf0qYf4/zqgTSM64rrZ2Gs1GagwVGzKCfv454vLGDbuAcGew4/GJMgaBnO/SYB2X/MhWvP/AROAyqDnMgBRQTlDXp76KenYK/uqtwXoQwzit9CfJYVobGNjbLWtratwDUG8nf39EftEDL60zlz7rIIiDVTGMmtqtWvAiwADiq451BErGrT6MAuP+cPkicwMS9Bu0OsMiZV5CGV2N/dd6DO4u3ZH/7ypPVjyr1T2tvDrue7HYj5apyaetp2/SwYhaPYM3ymsalJzY/WHc3d3ZqVK+jVqJpxFA1ozbOVd9e1yNYB8xh28jVJ7Z02HGHRlC6pmuU5IEVC2T1b/0TIR77kh
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(136003)(396003)(39860400002)(346002)(376002)(46966006)(36840700001)(82740400003)(8936002)(26005)(478600001)(7696005)(36860700001)(2616005)(5660300002)(186003)(4326008)(316002)(47076005)(6666004)(110136005)(336012)(81166007)(83380400001)(356005)(6636002)(82310400003)(2906002)(70586007)(70206006)(36756003)(8676002)(426003)(86362001)(36900700001);
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(396003)(136003)(376002)(39860400002)(346002)(36840700001)(46966006)(86362001)(336012)(426003)(110136005)(2616005)(70206006)(36756003)(2906002)(186003)(316002)(47076005)(70586007)(4326008)(82310400003)(6666004)(356005)(81166007)(36860700001)(82740400003)(26005)(8936002)(478600001)(8676002)(7696005)(6636002)(5660300002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 May 2021 07:42:38.5517 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 567c81a0-363e-4a33-348a-08d916abd918
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 May 2021 07:42:44.5369 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9d060322-227f-4eed-4019-08d916abdc9f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT005.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT029.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1169
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4548
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,133 +118,68 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fimware capability was changed from 16 bits to 32 bits
-for atomfirmware. add helper funciton to query firmware
-capability and cache the value at early stage.
+Check firmware flags to determine whether dynmaic
+boot config is supported or not.
 
 Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c     |  3 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c | 50 ++++++++++++++++++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c | 16 ++++++++++++++++
  drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.h |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h         |  2 +-
- 4 files changed, 44 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/amd/include/atomfirmware.h       |  1 +
+ 3 files changed, 18 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-index 494b2e1..18bd1b49 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-@@ -1828,6 +1828,9 @@ int amdgpu_atombios_init(struct amdgpu_device *adev)
- 	if (adev->is_atom_fw) {
- 		amdgpu_atomfirmware_scratch_regs_init(adev);
- 		amdgpu_atomfirmware_allocate_fb_scratch(adev);
-+		/* cached firmware_flags for further usage */
-+		adev->mode_info.firmware_flags =
-+			amdgpu_atomfirmware_query_firmware_capability(adev);
- 	} else {
- 		amdgpu_atombios_scratch_regs_init(adev);
- 		amdgpu_atombios_allocate_fb_scratch(adev);
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-index 60716b3..c6eb07f 100644
+index cfd009a..8c41701 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-@@ -29,6 +29,45 @@
- #include "atombios.h"
- #include "soc15_hw_ip.h"
+@@ -452,6 +452,22 @@ bool amdgpu_atomfirmware_sram_ecc_supported(struct amdgpu_device *adev)
+ 	return (fw_cap & ATOM_FIRMWARE_CAP_SRAM_ECC) ? true : false;
+ }
  
-+union firmware_info {
-+	struct atom_firmware_info_v3_1 v31;
-+	struct atom_firmware_info_v3_2 v32;
-+	struct atom_firmware_info_v3_3 v33;
-+	struct atom_firmware_info_v3_4 v34;
-+};
-+
 +/*
-+ * Helper function to query firmware capability
++ * Helper function to query dynamic boot config capability
 + *
 + * @adev: amdgpu_device pointer
 + *
-+ * Return firmware_capability in firmwareinfo table on success or 0 if not
++ * Return true if vbios supports dynamic boot config or false if not
 + */
-+uint32_t amdgpu_atomfirmware_query_firmware_capability(struct amdgpu_device *adev)
++bool amdgpu_atomfirmware_dynamic_boot_config_supported(struct amdgpu_device *adev)
 +{
-+	struct amdgpu_mode_info *mode_info = &adev->mode_info;
-+	int index;
-+	u16 data_offset, size;
-+	union firmware_info *firmware_info;
-+	u8 frev, crev;
-+	u32 fw_cap = 0;
++	u32 fw_cap;
 +
-+	index = get_index_into_master_table(atom_master_list_of_data_tables_v2_1,
-+			firmwareinfo);
++	fw_cap = adev->mode_info.firmware_flags;
 +
-+	if (amdgpu_atom_parse_data_header(adev->mode_info.atom_context,
-+				index, &size, &frev, &crev, &data_offset)) {
-+		/* support firmware_info 3.1 + */
-+		if ((frev == 3 && crev >=1) || (frev > 3)) {
-+			firmware_info = (union firmware_info *)
-+				(mode_info->atom_context->bios + data_offset);
-+			fw_cap = le32_to_cpu(firmware_info->v31.firmware_capability);
-+		}
-+	}
-+
-+	return fw_cap;
++	return (fw_cap & ATOM_FIRMWARE_CAP_DYNAMIC_BOOT_CFG_ENABLE) ? true : false;
 +}
 +
- bool amdgpu_atomfirmware_gpu_supports_virtualization(struct amdgpu_device *adev)
- {
- 	int index = get_index_into_master_table(atom_master_list_of_data_tables_v2_1,
-@@ -400,13 +439,6 @@ bool amdgpu_atomfirmware_mem_ecc_supported(struct amdgpu_device *adev)
- 	return ecc_default_enabled;
- }
- 
--union firmware_info {
--	struct atom_firmware_info_v3_1 v31;
--	struct atom_firmware_info_v3_2 v32;
--	struct atom_firmware_info_v3_3 v33;
--	struct atom_firmware_info_v3_4 v34;
--};
--
- /*
-  * Return true if vbios supports sram ecc or false if not
-  */
-@@ -466,10 +498,6 @@ int amdgpu_atomfirmware_get_clock_info(struct amdgpu_device *adev)
- 		adev->pm.current_sclk = adev->clock.default_sclk;
- 		adev->pm.current_mclk = adev->clock.default_mclk;
- 
--		/* not technically a clock, but... */
--		adev->mode_info.firmware_flags =
--			le32_to_cpu(firmware_info->v31.firmware_capability);
--
- 		ret = 0;
- 	}
- 
+ union smu_info {
+ 	struct atom_smu_info_v3_1 v31;
+ };
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.h
-index 9f0d435..77c5fb1 100644
+index 8be95d8..1bbbb19 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.h
-@@ -26,6 +26,7 @@
+@@ -37,6 +37,7 @@ int amdgpu_atomfirmware_get_gfx_info(struct amdgpu_device *adev);
+ bool amdgpu_atomfirmware_mem_ecc_supported(struct amdgpu_device *adev);
+ bool amdgpu_atomfirmware_sram_ecc_supported(struct amdgpu_device *adev);
+ bool amdgpu_atomfirmware_mem_training_supported(struct amdgpu_device *adev);
++bool amdgpu_atomfirmware_dynamic_boot_config_supported(struct amdgpu_device *adev);
+ int amdgpu_atomfirmware_get_fw_reserved_fb_size(struct amdgpu_device *adev);
  
- #define get_index_into_master_table(master_table, table_name) (offsetof(struct master_table, table_name) / sizeof(uint16_t))
+ #endif
+diff --git a/drivers/gpu/drm/amd/include/atomfirmware.h b/drivers/gpu/drm/amd/include/atomfirmware.h
+index 41d6018..14d0d7d5 100644
+--- a/drivers/gpu/drm/amd/include/atomfirmware.h
++++ b/drivers/gpu/drm/amd/include/atomfirmware.h
+@@ -505,6 +505,7 @@ enum atombios_firmware_capability
+ 	ATOM_FIRMWARE_CAP_SRAM_ECC      = 0x00000200,
+ 	ATOM_FIRMWARE_CAP_ENABLE_2STAGE_BIST_TRAINING  = 0x00000400,
+ 	ATOM_FIRMWARE_CAP_ENABLE_2ND_USB20PORT = 0x0008000,
++	ATOM_FIRMWARE_CAP_DYNAMIC_BOOT_CFG_ENABLE = 0x0020000,
+ };
  
-+uint32_t amdgpu_atomfirmware_query_firmware_capability(struct amdgpu_device *adev);
- bool amdgpu_atomfirmware_gpu_supports_virtualization(struct amdgpu_device *adev);
- void amdgpu_atomfirmware_scratch_regs_init(struct amdgpu_device *adev);
- int amdgpu_atomfirmware_allocate_fb_scratch(struct amdgpu_device *adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-index 9fd06cb..3a4c1d992 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-@@ -350,7 +350,7 @@ struct amdgpu_mode_info {
- 	/* pointer to fbdev info structure */
- 	struct amdgpu_fbdev *rfbdev;
- 	/* firmware flags */
--	u16 firmware_flags;
-+	u32 firmware_flags;
- 	/* pointer to backlight encoder */
- 	struct amdgpu_encoder *bl_encoder;
- 	u8 bl_level; /* saved backlight level */
+ enum atom_cooling_solution_id{
 -- 
 2.7.4
 
