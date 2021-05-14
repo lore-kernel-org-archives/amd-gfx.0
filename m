@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id ADD53C433ED
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 May 2021 04:50:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F0B1AC433B4
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 May 2021 04:50:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5887F61184
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 May 2021 04:50:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5887F61184
+	by mail.kernel.org (Postfix) with ESMTPS id A269C61184
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 May 2021 04:50:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A269C61184
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 179446E209;
-	Fri, 14 May 2021 04:50:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58EE46E217;
+	Fri, 14 May 2021 04:50:59 +0000 (UTC)
 Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2055.outbound.protection.outlook.com [40.107.223.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E85A16E209
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 May 2021 04:50:53 +0000 (UTC)
+ (mail-dm6nam11on2049.outbound.protection.outlook.com [40.107.223.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 665D46E215
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 May 2021 04:50:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=g9sNJz9I/SoC2qluea8xLKqi9jBTkaHu4Bq+n+y9RYKAq1pG6qD03oDWSCdiM12ZTjSuP2LW3SqUpiPMoySmQT6eV1zrMBkaiBfotrLEYOn5o9YOXCUQalqywnuvZTOmYWatY+eQ6BJOMIBRfx8vLciUq7ZtL9YGEDEAw9tHsR6wnKcbtKt003P2Z9c50Nvzbsu66+c+C6wG6Psvg0PpE5GArci3q1d1bgW4zCGUVrDFRx+cZFMvgZ+mbkqRshfagK/RynEo2TDVmg0wc7djqj6Obygr/Vyh8umsZmkCp3tVxKCCDaw//T4BpPk5dRYtPYb1rFeyvya62Q5wNllt2w==
+ b=XjWxAhXJ8SXOhodtM+6F7UCdYNOfV0G3lbEbJPe28bPh4c8QRIAcUHHRF45GFHB2yMLlkTTadmEYfzsBIE3hpYPeCGE4YCj97uvhU5rex1MneYqw93W/KxqIxMLP0JnU35Mq0VElB37nDCcpYMCg4tV6HMqOqL4jzgHraM5I23a5+DaRTdc/WiFQ1lqzHXuGVomGDZLs+3gQhI6tjCgCbh3B1nS/h24Cxv1D5bNei+DFqMxQRGkg+DiJ9Gu76D7A4stt59en2OAcJ797ied8FWHdHE8y8BFRtNP6yk18QDrtZK0SYVD46B+Rw5Ca7D8NHS5+7BBUmkP/SurWBOJJ6A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KIXSgZPboqQKK7Zq+WtDwzdO5d4wwRD7E0MYXNRX18k=;
- b=PyZ8iiwo3jA4f9HI8wTb93BCo+ZTDWeymSOHLwK1miyQP5Z/HY6qrN7IUlGoIPw4sGZnUN26XmuPHAUb8AiTc17DVGsLKz4x57M+rSWO/UTbCvxPTvKqIJrsR+pRWOa9LI0QfzAqu3uGwJGjb5crzX7XLph5oQezVr71OurIUHju7QlhHmbLPZS1II2gxN+PnELp7RKsDkZFW/1KieqVUXWgfFDe2boRZq6P6VVkTc4fQHfmePbxlS/WBkGvSptMoGOEVL/i7k+3PBip8flUPEwWx0EVn6lu47vwXmeTZpQ5KHALJpDVv467T9ksC0IeH6Syj7nHiHn0gl9afhezLg==
+ bh=5l5k2r8fgzhBCCi05Pf4HrRPmQfl2hT+h5wywfqvdC4=;
+ b=UDTKDEaPRNR3uUwpCqbC4fPxJZpOZw5DvVJ3ICo9yCAxQe8tjq0+8DfWFqF8cqGLZJ3uEXQsVXC2VF3isoaAa0EBPQF0IKAujbmO/tYl1TqdT8BuRT69OpR1ke99PdDcJnezpC4YO0Te3xg+sW5hCAtBabI/TEnmqqQv4Q3S5gc9aGACtdgp9e+5+6dyrG8C2thxGxVDFGbnMCdmMLtkg3V2t3K2Jh9rR3cxHqrtOrHIZB1dRfN7reVvP7eIBUWyoTxpw03irD31+y5iiRIxwU4deXOcv8l4zKXU6Bw8by307UHru+93RP/l/7v0qkJOOfU0Hap7JT9EnOoRRkqitQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KIXSgZPboqQKK7Zq+WtDwzdO5d4wwRD7E0MYXNRX18k=;
- b=s+nX1hcOagNJlwQkkVMMQ3VRi2z4F08cTLJxDRgthpSSdeYn+44lFL9C/vPUjU6lZLR56qsy2Dehhx5v6UTp1teSBnhBqvy5DyFIvVCc0iahh0MgGIG52qWfqXCalNYTwIWP8MA2TxlZd+dXz9MgHkIsf77JMQK1qK6e5Pk1tGY=
+ bh=5l5k2r8fgzhBCCi05Pf4HrRPmQfl2hT+h5wywfqvdC4=;
+ b=1fcIQVB8uQp5Peyq/csuFJunPMuv+Ka3ocKi+D1WNfjIbH0ChsKO3FIAyD9GY4gxLGBNOSWA/I7Y+XCOOspLaglQi6TrbG9ctm1Mpib/n8m312p3idT/8F6V57N5tw5vLiGR/zbtlZaS2C38gXUexs2b+JH5QXbBslLp6uBDKiM=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -45,17 +45,16 @@ Received: from DM5PR12MB1226.namprd12.prod.outlook.com (2603:10b6:3:75::7) by
  DM6PR12MB3129.namprd12.prod.outlook.com (2603:10b6:5:3b::26) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4129.28; Fri, 14 May 2021 04:50:52 +0000
+ 15.20.4129.28; Fri, 14 May 2021 04:50:56 +0000
 Received: from DM5PR12MB1226.namprd12.prod.outlook.com
  ([fe80::16d:e05a:d9f2:8c23]) by DM5PR12MB1226.namprd12.prod.outlook.com
  ([fe80::16d:e05a:d9f2:8c23%9]) with mapi id 15.20.4108.035; Fri, 14 May 2021
- 04:50:52 +0000
+ 04:50:56 +0000
 From: Stylon Wang <stylon.wang@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 07/20] drm/amd/display: Minor refactor of DP PHY test
- automation
-Date: Fri, 14 May 2021 12:49:50 +0800
-Message-Id: <20210514045003.3069681-8-stylon.wang@amd.com>
+Subject: [PATCH 08/20] drm/amd/display: Disconnect non-DP with no EDID
+Date: Fri, 14 May 2021 12:49:51 +0800
+Message-Id: <20210514045003.3069681-9-stylon.wang@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210514045003.3069681-1-stylon.wang@amd.com>
 References: <20210514045003.3069681-1-stylon.wang@amd.com>
@@ -68,52 +67,52 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from stylon-rog.amd.com (165.204.134.251) by
  HK2PR02CA0147.apcprd02.prod.outlook.com (2603:1096:202:16::31) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4108.31 via Frontend Transport; Fri, 14 May 2021 04:50:49 +0000
+ 15.20.4108.31 via Frontend Transport; Fri, 14 May 2021 04:50:52 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d2e930df-38f4-49ed-4c1c-08d91693d9e9
+X-MS-Office365-Filtering-Correlation-Id: 4ea2f3be-1849-40d7-3d48-08d91693dc0c
 X-MS-TrafficTypeDiagnostic: DM6PR12MB3129:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB3129DEC3B5C4D46DBDFDD55AFF509@DM6PR12MB3129.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:741;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB3129A0693F2FAA77908B117CFF509@DM6PR12MB3129.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: bQWevuiZwrI+48YQ5axqIpm847FgyFf53Iaa3To9M8GSfhb3R3qkLA5nIvajM8yUmsNhSNz3M9mDii/ruo7UsXauyoFcXhTJBi5B7nqT50lTW6HojSOx1Hur5sHJ4pSe/bANg1VDm0sjtce1FTZ60/1qZb1kdfPqQQfIGP9AfihXMDDahW9/oIK0JGS23NBHFzPSyqIhLjvvmXU9owAM1KytMJQ9uem/FmuYVighU2THyF0t8S1dOw9E1FL7WVdasONgMvkcvmlNxM1dxTtd8S8jrB0fPZkxV6EkBt/Rsb+5MFXi3o+HwE9TOqS7O7VNshXsOAfmuErukHnY4C2xJa6Ge50aB1tQUHtQU5Oc88uM4cCypdsg/IU7n1WsfbT9Pb8vJNu/kDbMBwpC+e5AAHnxn3WqsAS23sowtUyGuY2XqX7VmMEZ22TjyRmc5ryscICmwSpMZt2gYSOZCtO9z6r4WX19WijatSBKOnFMr0DytUH4cBM1WskDFybr/JHPdomvKIRTouHua2sQNRPWTcyGDXcsHNUmoyAEuqv9sxRqQe/wchUIenN1bJIqkdLxj9w5c8jOxdFXFFyXGzeZblQqHnmbea6BCfubRpetxTyLpZ2o0U4T1xSIGk/Pq27NCd2IAoHD/lAyUpmu+LK/U2sMY8W8CPbF2ofE8UA8s58=
+X-Microsoft-Antispam-Message-Info: OrR448Fn8qITAXtzwlgI2Toyo24nnDTUZi08nRVsNbnR97zQb/CT+Z9SrYFJlQ0fCrn+qwsj8M32Z99N2mFzpZs4J7KPDKp0iZvZOMOgKN2Luxy40JZX/VTV+CW0DFElaMfbY5vjQNfA4pfnXq/woZ/pnc0MFzvy3sWrt4CEk0+CW0P3lPaKhvcQ4VA8+mUCB8P1ozON27n3+829gwrE7Bmft5Dh4rUhaoLrlHU5e9He7OCU2YKOF8f73aZbJJMqRfZ/mNGljgmngm4+3S/jI4ObY0UVq7i3HTHULb/fvs43utEkrgtUDKipc3ytGUPRcJpvkxveBS+R9U8/eZHl4zeuoNOgJTSpm7BG2dnEPvXaK4RA3WNACypzqqJkK9VZzT21SxSQljOjn+4pPgGn4/d0h3mgT7dhN3QoEG1Lbb7AJB1FbWA2bb2KzR1SpR920dnUMPXi1bWYevBqOqRbc+wpLjgZ3smRbEKAMMiwPRF5zBd6Gwl4Vvoko5+nTo9KbPTcTbfJPB2LSA6VivhZJDZOKZcV8tixO/mz0Var1cy3vNIei1+je+2cercusDirXpsZGeGfR2bemG7hwiJYEJjrB0tbclhDqItnbrObZnNhDomIslSu5aEViehJo0xFbcV7kpPmYADmDEnQXhh0ORy1y+fhD1Vwaj5X1imLUwk=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM5PR12MB1226.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(346002)(376002)(39860400002)(136003)(366004)(8676002)(316002)(478600001)(83380400001)(26005)(956004)(86362001)(54906003)(7696005)(4326008)(38350700002)(2616005)(6916009)(1076003)(44832011)(38100700002)(186003)(66556008)(66476007)(66946007)(16526019)(6486002)(6666004)(8936002)(52116002)(5660300002)(36756003)(2906002);
+ SFS:(4636009)(396003)(346002)(376002)(39860400002)(136003)(366004)(8676002)(316002)(478600001)(83380400001)(26005)(956004)(86362001)(54906003)(7696005)(4326008)(38350700002)(2616005)(6916009)(1076003)(44832011)(38100700002)(186003)(66556008)(66476007)(66946007)(16526019)(6486002)(8936002)(52116002)(5660300002)(36756003)(2906002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?E6hWzMDfZkVmwWQPh3OeQrYLCooI33Bu0p/Cjmbcqdu5szM5mVAvzTlmXXyW?=
- =?us-ascii?Q?mLStBn576AX2zYQVdN7HJCLcRska6dgSnmc6LEVFuqT0WkxKV2qIX7ZnZzrN?=
- =?us-ascii?Q?achZOh7DoBFT4wDlUTpuqBzhkxeMXWf65sGclNKAI184vcS3T+AZELGDkKby?=
- =?us-ascii?Q?G6Camk6WQW+GJYFg2dBHg8eRHpGFBnXTur37M318ILECYyY4srGvjikL/jte?=
- =?us-ascii?Q?dGG+QAQduAaMqpdEo0ZCG8+rv8HttP3bV6gMNCAKXBhs+H8RPB1v+Fk9s/YZ?=
- =?us-ascii?Q?qkYw1L1SokIRV62O72aDV3FWbPEmIBrfkqlgzo2doBgk+B8PhF1ogKtPOxWP?=
- =?us-ascii?Q?OofsgKn85FRoKLSgnWdXsUiw5iHHjwCJla0d55vgpUIdweW68ivXH5QdcZSF?=
- =?us-ascii?Q?BZZcttFbrlymhXgNXxSEVu5DG+Yq4xQRa2nO5qI6tLF3c1nmXdK16uGdyT8X?=
- =?us-ascii?Q?mD+COZzCTdaUTTTGaaTMw00kbLic0x2eYFu9An65wZeLsr/3zhzFpMgdVYyS?=
- =?us-ascii?Q?oSTzZ/a5ej4CGCBhIGIkKoYBQOFPoBBlpk5ZoDB2IW7SUUDGFJHhsoKwVUFS?=
- =?us-ascii?Q?syuF5qIaCwWyI0O9lM0uAo2vK1qG6SHZT5Yp3G4hmEKC7pfm1T4xIqD3Aqzo?=
- =?us-ascii?Q?wcwqJBB6wvnb92o3Z2+LZBDnh5U8pD7Ij5UMe0lIFibOOLeRldLawY/w/fQH?=
- =?us-ascii?Q?qO2+2BNXfLz01eQ1keBMDI0A1lvdYk2TwajRoP69j26pSSVhAjYrKXo7Xyiu?=
- =?us-ascii?Q?CaGSGlVZn00eAFQSmCeFtCAqR+Tvyv1Mtej+9NK128aXQ3km+fKY3rP4Faf5?=
- =?us-ascii?Q?xclQjDNwimUVCTB4B9gqH6mrqDHC2U5zbVBcruwvuW8kk8/axNTH3dSfCwka?=
- =?us-ascii?Q?8LLx3j4QQXwA7WHmYLtPkjV+Mmb4yKzXFh2wgnTrdWOuO3rnYhP4F8J4h0Gn?=
- =?us-ascii?Q?LE7dFZ91b8WJdSbFysmVUhhx/ITTxz6wzcJMomVLQtgEbn64Wf7BiX1jtlEI?=
- =?us-ascii?Q?6KVDWrX/K/bkQ/YV14gDKdwdYzojlTeA6SfN4ZKlQN/1VJX2Z/GUUJus3MN/?=
- =?us-ascii?Q?zf/vHjuqUN40wudYqjd+myI2ZaanKrn2YZzwbo2PK6Umkwk/ZOan43zJ4BF/?=
- =?us-ascii?Q?wEhcd1N7vGmCfxi1aN0uI2jhISb52lp5HIoyEb6AdlMP8auVIjBkPcUwSEdZ?=
- =?us-ascii?Q?73Nt+VjV9DV/9YaBfJYI+SecKwKlKIIzN9Wk2MNZM4tOeLC6aXOhXN4HYrbm?=
- =?us-ascii?Q?NWg61oBwXnt9JSAz3atraaTAK35xqiTQBHVEzQGOGdbYxUbwkuZmLdvsdY3X?=
- =?us-ascii?Q?Yr5iZSD7rPvmPJWun7pbO0hPDq+wRaivfdz4YDj48U1zmw=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?omWji1lFgA6WC127NBleKQZEeQY9plpG0egX9SFdYTyBffrqQ2BWwKbwJBqc?=
+ =?us-ascii?Q?tFE4syMxeTaneCpknWZIeu2PwtT5q65PoPGPqTuueOtOw0NmRPkeQXdOH7hC?=
+ =?us-ascii?Q?NpsbCsJMIVRw5pkNk93wl+rfQNRLx2rIy44Xs3TVReEC2vGvbpJJUmF6Ar55?=
+ =?us-ascii?Q?7olR1CjpgIa/JIVhPu3rZpwy+Q/Ai1Piy5OxYFg1wxRaSV4JlL5uuuaeJeBA?=
+ =?us-ascii?Q?tSOZ2yGyPsMuNJr7FAQLw72WiM1r/P1NtgdJY8o0B4tSVk8GcI/80lM7bMyy?=
+ =?us-ascii?Q?Rp205ENoLMo49c7UzDUAM0kaN2+fs87uw3ovlAiHvfMMfjpkIy39Ug3+HzTl?=
+ =?us-ascii?Q?dKjbhlAk5dVl6zv4WDOv2tkX2GIDfwmXMStrYGyALWduuvTwFOCUSw/cRxj3?=
+ =?us-ascii?Q?DZvV1luZWAz0wdiJc9STa3ljDwoSyfHDuKOFNyt1bCvHz9nDujrUAZ+daU05?=
+ =?us-ascii?Q?LGFkJopW6QUv78Ehq95P2ng+HjFI21CpovySS/KSmu/jRep8TTwEeRXXAib8?=
+ =?us-ascii?Q?UEEPSQRp9BJG0Mxiq2NFeZ4htwUpRKVa/f4CTn/SqAxhh71haTs58ej3jT2b?=
+ =?us-ascii?Q?VYMaEsuATXiiDXLnP6MSB3aVWfQF6Pju5/hlxyTZehekXmH6z45k76PM6pXJ?=
+ =?us-ascii?Q?xb0iQ4kNEXbsfcsGQcJxXwmfykl9Ad5S+7QDKhJ9jXuew/95Pme40JhkK8X9?=
+ =?us-ascii?Q?WRmlJ9p0SBWAY4j6abgJtkYYBMMjrbv7Bnxya3XfHAl6GxziZjEqVVfZ0GHH?=
+ =?us-ascii?Q?jjQUR2YLJsm0qHa7sl5MhN8tDrqXzEl0WU4K1A/0I9QLBPRAo1WrC0jJRxBn?=
+ =?us-ascii?Q?FI9H6njywgzTDccXM1ll6bAM+g3hUJzwi6gETxSk9GLm4n8y2ZqfNDRilV4Y?=
+ =?us-ascii?Q?2Wb9KOxZZb72yyLDaHe6Q/o1drdByS+mnRdackJMualx10BfLZbFyC0waETo?=
+ =?us-ascii?Q?Ncx/xy5Oz4NpKKCSI5wlCuc0RHoxVRmZlrbusRmnqoWJQh+7DLjtn/SHqfFr?=
+ =?us-ascii?Q?hM5kQk2cnotvKOd/L9E50iQ4N5FMCcwVxbbeBw1G2sw9PuTv4qC6HkSVj+Qh?=
+ =?us-ascii?Q?I1mFr/X9yHrLWK25LNvbf6wwngjFj56Kcm/7aWrnQFJzKw/cnTyad3FMMErY?=
+ =?us-ascii?Q?Q4kKK6AD7btpTVdIe97UeihVmj+zfy9k0tvoX/yW2uinOaCx6j0aA/GJdjuy?=
+ =?us-ascii?Q?YpIXRLrlMEMmM/+P5CnK1LA1QUqy060DHDU15rvzNZzVoa2LbqyFFlobvpaV?=
+ =?us-ascii?Q?t/Z3mzAatkMec6uu5iUc8sdhmXWnPs5niPzAuiARW/37F6gAEJvXwz1OB96d?=
+ =?us-ascii?Q?AQwpXtmE2/QdPJCx3qYpbo7t570B2ZPYyoKDic5RbDHgLQ=3D=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d2e930df-38f4-49ed-4c1c-08d91693d9e9
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4ea2f3be-1849-40d7-3d48-08d91693dc0c
 X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1226.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 May 2021 04:50:52.4023 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 May 2021 04:50:55.9738 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: c/TmiWnI71Uiep7A7lwI0HgMg2L6b2uvZ+A4WL+Nsgix3DcBdBno30JkDLK144tawyJu+wnK0HR/ZaCJyuBArw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 44FxtRTLHr6vzwtMLLAHuMuU/vQoqBA2PPpMg9flz1dW9qqtVj0EbIxHcgYwzS3ckRLR4ZSQsxxqbleccPWgdA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3129
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -126,79 +125,66 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Stylon Wang <stylon.wang@amd.com>, Eryk.Brol@amd.com, Sunpeng.Li@amd.com,
- Harry.Wentland@amd.com, Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com,
- Wenjing Liu <Wenjing.Liu@amd.com>, Anson.Jacob@amd.com,
- Aurabindo.Pillai@amd.com, George Shen <george.shen@amd.com>,
- Bhawanpreet.Lakha@amd.com, bindu.r@amd.com
+Cc: Stylon Wang <stylon.wang@amd.com>, Chris Park <Chris.Park@amd.com>,
+ Eryk.Brol@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com, Anson.Jacob@amd.com,
+ Aurabindo.Pillai@amd.com, Bhawanpreet.Lakha@amd.com,
+ Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>, bindu.r@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: George Shen <george.shen@amd.com>
+From: Chris Park <Chris.Park@amd.com>
 
 [Why]
-Improve readability and maintainability of code.
+Active DP dongles return no EDID when dongle
+is connected, but VGA display is taken out.
+Current driver behavior does not remove the
+active display when this happens, and this is
+a gap between dongle DTP and dongle behavior.
 
 [How]
-Refactor test pattern size calculation out of function
-call parameter and store value in variable.
+For active DP dongles and non-DP scenario,
+disconnect sink on detection when no EDID
+is read due to timeout.
 
-Signed-off-by: George Shen <george.shen@amd.com>
-Reviewed-by: Wenjing Liu <Wenjing.Liu@amd.com>
+Signed-off-by: Chris Park <Chris.Park@amd.com>
+Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
 Acked-by: Stylon Wang <stylon.wang@amd.com>
 ---
- .../gpu/drm/amd/display/dc/core/dc_link_dp.c    | 17 ++++++++++-------
- 1 file changed, 10 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-index ba4883fca616..69d511717828 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-@@ -2773,9 +2773,10 @@ static void dp_test_send_phy_test_pattern(struct dc_link *link)
- 	union phy_test_pattern dpcd_test_pattern;
- 	union lane_adjust dpcd_lane_adjustment[2];
- 	unsigned char dpcd_post_cursor_2_adjustment = 0;
--	unsigned char test_80_bit_pattern[
-+	unsigned char test_pattern_buffer[
- 			(DP_TEST_80BIT_CUSTOM_PATTERN_79_72 -
- 			DP_TEST_80BIT_CUSTOM_PATTERN_7_0)+1] = {0};
-+	unsigned int test_pattern_size = 0;
- 	enum dp_test_pattern test_pattern;
- 	struct dc_link_training_settings link_settings;
- 	union lane_adjust dpcd_lane_adjust;
-@@ -2845,12 +2846,15 @@ static void dp_test_send_phy_test_pattern(struct dc_link *link)
- 	break;
- 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+index 81beff4e9434..c07b45c021d5 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+@@ -1099,6 +1099,24 @@ static bool dc_link_detect_helper(struct dc_link *link,
+ 			    dc_is_dvi_signal(link->connector_signal)) {
+ 				if (prev_sink)
+ 					dc_sink_release(prev_sink);
++				link_disconnect_sink(link);
++
++				return false;
++			}
++			/*
++			 * Abort detection for DP connectors if we have
++			 * no EDID and connector is active converter
++			 * as there are no display downstream
++			 *
++			 */
++			if (dc_is_dp_sst_signal(link->connector_signal) &&
++				(link->dpcd_caps.dongle_type ==
++						DISPLAY_DONGLE_DP_VGA_CONVERTER ||
++				link->dpcd_caps.dongle_type ==
++						DISPLAY_DONGLE_DP_DVI_CONVERTER)) {
++				if (prev_sink)
++					dc_sink_release(prev_sink);
++				link_disconnect_sink(link);
  
--	if (test_pattern == DP_TEST_PATTERN_80BIT_CUSTOM)
-+	if (test_pattern == DP_TEST_PATTERN_80BIT_CUSTOM) {
-+		test_pattern_size = (DP_TEST_80BIT_CUSTOM_PATTERN_79_72 -
-+				DP_TEST_80BIT_CUSTOM_PATTERN_7_0) + 1;
- 		core_link_read_dpcd(
- 				link,
- 				DP_TEST_80BIT_CUSTOM_PATTERN_7_0,
--				test_80_bit_pattern,
--				sizeof(test_80_bit_pattern));
-+				test_pattern_buffer,
-+				test_pattern_size);
-+	}
- 
- 	/* prepare link training settings */
- 	link_settings.link = link->cur_link_settings;
-@@ -2888,9 +2892,8 @@ static void dp_test_send_phy_test_pattern(struct dc_link *link)
- 		test_pattern,
- 		DP_TEST_PATTERN_COLOR_SPACE_UNDEFINED,
- 		&link_training_settings,
--		test_80_bit_pattern,
--		(DP_TEST_80BIT_CUSTOM_PATTERN_79_72 -
--		DP_TEST_80BIT_CUSTOM_PATTERN_7_0)+1);
-+		test_pattern_buffer,
-+		test_pattern_size);
- }
- 
- static void dp_test_send_link_test_pattern(struct dc_link *link)
+ 				return false;
+ 			}
 -- 
 2.25.1
 
