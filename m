@@ -2,46 +2,66 @@ Return-Path: <SRS0=Ip1/=KM=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0C522C433ED
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 May 2021 17:31:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 650B7C433B4
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 May 2021 17:38:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2CC1660FDB
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 May 2021 17:31:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2CC1660FDB
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=sebastianwick.net
+	by mail.kernel.org (Postfix) with ESMTPS id 23A9D61004
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 May 2021 17:38:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 23A9D61004
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D66D86EA1A;
-	Mon, 17 May 2021 17:31:10 +0000 (UTC)
-X-Greylist: delayed 2496 seconds by postgrey-1.36 at gabe;
- Mon, 17 May 2021 17:30:24 UTC
-Received: from h1954565.stratoserver.net (sebastianwick.net [85.214.192.246])
- by gabe.freedesktop.org (Postfix) with ESMTP id 3F1546EA17;
- Mon, 17 May 2021 17:30:23 +0000 (UTC)
-Received: by h1954565.stratoserver.net (Postfix, from userid 117)
- id EE4AB163EF0; Mon, 17 May 2021 19:30:22 +0200 (CEST)
-Received: from mail.sebastianwick.net (localhost [IPv6:::1])
- by h1954565.stratoserver.net (Postfix) with ESMTP id 95E05163EEA;
- Mon, 17 May 2021 19:30:16 +0200 (CEST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A33E6EA19;
+	Mon, 17 May 2021 17:38:27 +0000 (UTC)
+Received: from mail-ot1-x332.google.com (mail-ot1-x332.google.com
+ [IPv6:2607:f8b0:4864:20::332])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 21E5F6EA19
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 May 2021 17:38:26 +0000 (UTC)
+Received: by mail-ot1-x332.google.com with SMTP id
+ u25-20020a0568302319b02902ac3d54c25eso6280897ote.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 May 2021 10:38:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=GdmFdQ8bWc8McFE1po287xEsRMajxJxEh5Y9p5Z8Mv4=;
+ b=BssPuEKtTQWCPilVoc+cDr2uUYoo++w1YQk+PBhAIyRe++L7rlCtLb3PNaJg1ZkEiK
+ MluOlR5ZSrJ648sUhy2yH9gdQHUXhB8JoiXzFq04EK5aUcjFOHXz1PhmGXZVB2Od8hW5
+ 1bSkbA4KzJKuYBEf6L6kDrRY31Bfsq6Eaf4FeNEAV1/7P8BSY1Z+ju4AYDsurHcqSs+h
+ nyc4/RZFVYYMrqG3XnvdPf0WLy0U+5t+OGQy++CT5v+GVyAbaSfpRJLBl3tipnv1SFrF
+ +ekOPLZJsC+yfuz/2HzRMEcpnFf/xDk2MCKl0oYRFYxbQj9orM0DO+8B2z7Yze4/TX3I
+ XSXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=GdmFdQ8bWc8McFE1po287xEsRMajxJxEh5Y9p5Z8Mv4=;
+ b=likjf2aMPQbcGH10+r00qFVB3VbVSLXLS54NR7YIsVUMsKDPBWhfuKiGETHM2tkE6o
+ 1oaiex4mrMm4hof8/zRPQgTxYOyEitP7A0GfSZwdtLDCMqEUXUIC0MMLtABMdsmiloNN
+ Z45J7WFRz8n0iB3J8hRG0XhnJsQR/T1GiuiZcX7GRUtd+U/seJffg1jHt7INf4ZVUbFW
+ uv4MLERdnIJC0bsIknMIPRe9Hzdrs5Yl2CWszSl8E73rPs5t3kOu2Zg47BVEmkrmSOSo
+ BmTHIK9mJIeTBlO4vB86TW/5L5/Mx7VO4/KzELTz+xfDPF2wBy93JQHRhULOXEhKHXrP
+ 4+0g==
+X-Gm-Message-State: AOAM531R8xjio5A/n+5zFw9HNQ5vSMwI+TV0/nKuwC7LmmX9QyO2PX0t
+ Joj+6j2b1JKO+cPugP6GeK/QYkfnE+6Gl7QzdvDVRTh1
+X-Google-Smtp-Source: ABdhPJy8V2q9sKR2x25H8jdazQL5xL9PRgIuFNJhgom/M0kXG1/vo1mCFsFhqMcRobENAj8EZvSn8OlVq49NW8wCY00=
+X-Received: by 2002:a9d:57cd:: with SMTP id q13mr598342oti.23.1621273105403;
+ Mon, 17 May 2021 10:38:25 -0700 (PDT)
 MIME-Version: 1.0
-Date: Mon, 17 May 2021 19:30:16 +0200
-From: Sebastian Wick <sebastian@sebastianwick.net>
-To: Harry Wentland <harry.wentland@amd.com>
-Subject: Re: [RFC PATCH v2 1/6] drm/doc: Color Management and HDR10 RFC
-In-Reply-To: <20210514210720.157892-2-harry.wentland@amd.com>
-References: <20210514210720.157892-1-harry.wentland@amd.com>
- <20210514210720.157892-2-harry.wentland@amd.com>
-Message-ID: <2753cbe2126c05f7c2beccf13fcfacef@sebastianwick.net>
-X-Sender: sebastian@sebastianwick.net
-User-Agent: Roundcube Webmail/1.3.4
-X-Mailman-Approved-At: Mon, 17 May 2021 17:31:09 +0000
+References: <20210511154411.1281317-1-alexander.deucher@amd.com>
+In-Reply-To: <20210511154411.1281317-1-alexander.deucher@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 17 May 2021 13:38:14 -0400
+Message-ID: <CADnq5_OTosyeWu_Xs9QW2n=U3_gXCr9H85Pff6etsXq4Az1ydg@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/amdgpu/display: add helper functions to get/set
+ backlight (v2)
+To: Alex Deucher <alexander.deucher@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,567 +73,162 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Deepak.Sharma@amd.com, aric.cyr@amd.com, Krunoslav.Kovac@amd.com,
- mcasas@google.com, Shashank.Sharma@amd.com, dri-devel@lists.freedesktop.org,
- Shirish.S@amd.com, ppaalanen@gmail.com, hersenxs.wu@amd.com,
- amd-gfx@lists.freedesktop.org, laurentiu.palcu@oss.nxp.com,
- Bhawanpreet.Lakha@amd.com, Nicholas.Kazlauskas@amd.com,
- ville.syrjala@linux.intel.com, Vitaly.Prosyak@amd.com
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2021-05-14 23:07, Harry Wentland wrote:
-> Use the new DRM RFC doc section to capture the RFC previously only
-> described in the cover letter at
-> https://patchwork.freedesktop.org/series/89506/
-> 
-> Update the RFC based on feedback received:
->  * don't use color_encoding property to define color space
->  * expand on reason for SDR luminance definition
->  * define input/output transfer functions for luminance space 
-> transforms,
->    rather than defining the luminance space of an input directly
-> 
-> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+Ping on this series.
+
+Alex
+
+On Tue, May 11, 2021 at 11:44 AM Alex Deucher <alexander.deucher@amd.com> wrote:
+>
+> And cache the value.  These can be used by the backlight callbacks
+> and modesetting functions.
+>
+> v2: rebase on latest backlight changes.
+>
+> Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1337
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
->  Documentation/gpu/rfc/hdr-wide-gamut.rst | 416 +++++++++++++++++++++++
->  Documentation/gpu/rfc/index.rst          |   4 +
->  2 files changed, 420 insertions(+)
->  create mode 100644 Documentation/gpu/rfc/hdr-wide-gamut.rst
-> 
-> diff --git a/Documentation/gpu/rfc/hdr-wide-gamut.rst
-> b/Documentation/gpu/rfc/hdr-wide-gamut.rst
-> new file mode 100644
-> index 000000000000..132898668eac
-> --- /dev/null
-> +++ b/Documentation/gpu/rfc/hdr-wide-gamut.rst
-> @@ -0,0 +1,416 @@
-> +==============================
-> +HDR & Wide Color Gamut Support
-> +==============================
-> +
-> +.. role:: wy-text-strike
-> +
-> +ToDo
-> +====
-> +
-> +* :wy-text-strike:`Reformat as RST kerneldoc` - done
-> +* :wy-text-strike:`Don't use color_encoding for color_space 
-> definitions` - done
-> +* :wy-text-strike:`Update SDR luminance description and reasoning` - 
-> done
-> +* :wy-text-strike:`Clarify 3D LUT required for some color space
-> transformations` - done
-> +* :wy-text-strike:`Highlight need for named color space and EOTF
-> definitions` - done
-> +* :wy-text-strike:`Define transfer function API` - done
-> +* :wy-text-strike:`Draft upstream plan` - done
-> +* Reference to wayland and/or Chrome plans
-> +* Sketch view of HW pipeline for couple of HW implementations
-> +
-> +
-> +Upstream Plan
-> +=============
-> +
-> +* Reach consensus on DRM/KMS API
-> +* Implement support in amdgpu
-> +* Implement IGT tests
-> +* Add API support to Weston, ChromiumOS, or other canonical
-> open-source project interested in HDR
-> +* Merge user-space
-> +* Merge kernel patches
-> +
-> +
-> +Introduction
-> +============
-> +
-> +We are looking to enable HDR support for a couple of single-plane and
-> +multi-plane scenarios. To do this effectively we recommend new 
-> interfaces
-> +to drm_plane. Below I'll give a bit of background on HDR and why we
-> +propose these interfaces.
-> +
-> +
-> +Overview and background
-> +=======================
-> +
-> +Defining a pixel's luminance
-> +----------------------------
-> +
-> +The luminance space of pixels in a framebuffer/plane presented to the
-> +display is not well defined in the DRM/KMS APIs. It is usually assumed 
-> to
-> +be in a 2.2 or 2.4 gamma space and has no mapping to an absolute 
-> luminance
-> +value; it is interpreted in relative terms.
-> +
-> +Luminance can be measured and described in absolute terms as candela
-> +per meter squared, or cd/m2, or nits. Even though a pixel value can be
-> +mapped to luminance in a linear fashion to do so without losing a lot 
-> of
-> +detail requires 16-bpc color depth. The reason for this is that human
-> +perception can distinguish roughly between a 0.5-1% luminance delta. A
-> +linear representation is suboptimal, wasting precision in the 
-> highlights
-> +and losing precision in the shadows.
-> +
-> +A gamma curve is a decent approximation to a human's perception of
-> +luminance, but the PQ (perceptual quantizer) function [1] improves on
-> +it. It also defines the luminance values in absolute terms, with the
-> +highest value being 10,000 nits and the lowest 0.0005 nits.
-> +
-> +Using a content that's defined in PQ space we can approximate the real
-> +world in a much better way.
-> +
-> +Here are some examples of real-life objects and their approximate
-> +luminance values:
-> +
-> +.. flat-table::
-> +   :header-rows: 1
-> +
-> +   * - Object
-> +     - Luminance in nits
-> +
-> +   *  - Fluorescent light
-> +      - 10,000
-> +
-> +   *  - Highlights
-> +      - 1,000 - sunlight
-> +
-> +   *  - White Objects
-> +      - 250 - 1,000
-> +
-> +   *  - Typical Objects
-> +      - 1 - 250
-> +
-> +   *  - Shadows
-> +      - 0.01 - 1
-> +
-> +   *  - Ultra Blacks
-> +      - 0 - 0.0005
-> +
-> +Transfer functions
-> +------------------
-> +
-> +Traditionally we used the terms gamma and de-gamma to describe the
-> +encoding of a pixel's luminance value and the operation to transfer 
-> from
-> +a linear luminance space to the non-linear space used to encode the
-> +pixels. Since some newer encodings don't use a gamma curve I suggest
-> +we refer to non-linear encodings using the terms EOTF, and OETF[2], or
-> +simply as transfer function in general.
-> +
-> +The EOTF (Electro-Optical Transfer Function) describes how to transfer
-> +from an electrical signal to an optical signal. This was traditionally
-> +done by the de-gamma function.
-> +
-> +The OETF (Opto Electronic Transfer Function) describes how to transfer
-> +from an optical signal to an electronic signal. This was traditionally
-> +done by the gamma function.
-> +
-> +More generally we can name the transfer function describing the 
-> transform
-> +between scanout and blending space as the **input transfer function**, 
-> and
-> +the transfer function describing the transform from blending space to 
-> the
-> +output space as **output transfer function**.
-> +
-> +
-> +Mastering Luminances
-> +--------------------
-> +
-> +Even though we are able to describe the absolute luminance of a pixel
-> +using the PQ 2084 EOTF we are presented with physical limitations of 
-> the
-> +display technologies on the market today. Here are a few examples of
-> +luminance ranges of displays.
-> +
-> +.. flat-table::
-> +   :header-rows: 1
-> +
-> +   * - Display
-> +     - Luminance range in nits
-> +
-> +   *  - Typical PC display
-> +      - 0.3 - 200
-> +
-> +   *  - Excellent LCD HDTV
-> +      - 0.3 - 400
-> +
-> +   *  - HDR LCD w/ local dimming
-> +      - 0.05 - 1,500
-> +
-> +Since no display can currently show the full 0.0005 to 10,000 nits
-> +luminance range of PQ the display will need to tone-map the HDR 
-> content,
-> +i.e to fit the content within a display's capabilities. To assist
-> +with tone-mapping HDR content is usually accompanied by a metadata
-> +that describes (among other things) the minimum and maximum mastering
-> +luminance, i.e. the maximum and minimum luminance of the display that
-> +was used to master the HDR content.
-> +
-> +The HDR metadata is currently defined on the drm_connector via the
-> +hdr_output_metadata blob property.
-> +
-> +It might be useful to define per-plane hdr metadata, as different 
-> planes
-> +might have been mastered differently.
-
-There really is not reason to have the HDR metadata anywhere but the
-connector. If you drive the display in PQ mode and you just map content
-into the PQ space you won't do any color or gamut mapping which is the
-only reason why you'd want access to the HDR metadata.
-
-User space can generate suitable connector metadata from the clients
-metadata.
-
-> +
-> +
-> +SDR Luminance
-> +-------------
-> +
-> +Traditional SDR content's maximum white luminance is not well defined.
-> +Some like to define it at 80 nits, others at 200 nits. It also depends
-> +to a large extent on the environmental viewing conditions. In practice
-> +this means that we need to define the maximum SDR white luminance, 
-> either
-> +in nits, or as a ratio.
-> +
-> +One Windows API defines it as a ratio against 80 nits:
-> +https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/dispmprt/ns-dispmprt-_dxgkarg_settargetadjustedcolorimetry2
-> +
-> +Another Windows API defines it as a nits value:
-> +https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/dispmprt/ns-dispmprt-_dxgkarg_settargetadjustedcolorimetry2
-> +
-> +The Wayland color management proposal uses Apple's definition of EDR 
-> as a
-> +ratio of the HDR range vs SDR range:
-> +https://gitlab.freedesktop.org/swick/wayland-protocols/-/blob/color/unstable/color-management/color.rst#id8
-
-If you're interested: the concept expanded to black levels
-https://gitlab.freedesktop.org/swick/wayland-protocols/-/merge_requests/15
-
-> +
-> +If a display's maximum HDR white level is correctly reported it is 
-> trivial
-> +to convert between all of the above representations of SDR white 
-> level. If
-> +it is not, defining SDR luminance as a nits value, or a ratio vs a 
-> fixed
-> +nits value is preferred, assuming we are blending in linear space.
-> +
-> +It is our experience that many HDR displays do not report maximum 
-> white
-> +level correctly
-> +
-> +
-> +Let There Be Color
-> +------------------
-> +
-> +So far we've only talked about luminance, ignoring colors altogether. 
-> Just
-> +like in the luminance space, traditionally the color space of display
-> +outputs has not been well defined. Similar to how an EOTF defines a
-> +mapping of pixel data to an absolute luminance value, the color space
-> +maps color information for each pixel onto the CIE 1931 chromaticity
-> +space. This can be thought of as a mapping to an absolute, real-life,
-> +color value.
-> +
-> +A color space is defined by its primaries and white point. The 
-> primaries
-> +and white point are expressed as coordinates in the CIE 1931 color
-> +space. Think of the red primary as the reddest red that can be 
-> displayed
-> +within the color space. Same for green and blue.
-> +
-> +Examples of color spaces are:
-> +
-> +.. flat-table::
-> +   :header-rows: 1
-> +
-> +   * - Color Space
-> +     - Description
-> +
-> +   *  - BT 601
-> +      - similar to BT 709
-> +
-> +   *  - BT 709
-> +      - used by sRGB content; ~53% of BT 2020
-> +
-> +   *  - DCI-P3
-> +      - used by most HDR displays; ~72% of BT 2020
-> +
-> +   *  - BT 2020
-> +      - standard for most HDR content
-> +
-> +
-> +
-> +Color Primaries and White Point
-> +-------------------------------
-> +
-> +Just like displays can currently not represent the entire 0.0005 -
-> +10,000 nits HDR range of the PQ 2084 EOTF, they are currently not 
-> capable
-> +of representing the entire BT.2020 color Gamut. For this reason video
-> +content will often specify the color primaries and white point used to
-> +master the video, in order to allow displays to be able to map the 
-> image
-> +as best as possible onto the display's gamut.
-> +
-> +
-> +Displays and Tonemapping
-> +------------------------
-> +
-> +External displays are able to do their own tone and color mapping, 
-> based
-> +on the mastering luminance, color primaries, and white space defined 
-> in
-> +the HDR metadata.
-> +
-> +Some internal panels might not include the complex HW to do tone and 
-> color
-> +mapping on their own and will require the display driver to perform
-> +appropriate mapping.
-> +
-> +
-> +How are we solving the problem?
-> +===============================
-> +
-> +Input and Output Transfer functions
-> +-----------------------------------
-> +
-> +We define an input transfer function on drm_plane to describe the
-> +transform from framebuffer to blending space.
-> +
-> +We define an output transfer function on drm_crtc to describe the
-> +transform from blending space to display space.
-> +
-> +The transfer function can be a pre-defined function, such as PQ EOTF, 
-> or
-> +a custom LUT. A driver will be able to specify support for specific
-> +transfer functions, including custom ones.
-> +
-> +Defining the transfer function in this way allows us to support in on 
-> HW
-> +that uses ROMs to support these transforms, as well as on HW that use
-> +LUT definitions that are complex and don't map easily onto a standard 
-> LUT
-> +definition.
-> +
-> +We will not define per-plane LUTs in this patchset as the scope of our
-> +current work only deals with pre-defined transfer functions. This API 
-> has
-> +the flexibility to add custom 1D or 3D LUTs at a later date.
-> +
-> +In order to support the existing 1D de-gamma and gamma LUTs on the 
-> drm_crtc
-> +we will include a "custom 1D" enum value to indicate that the custom 
-> gamma and
-> +de-gamma 1D LUTs should be used.
-> +
-> +Possible transfer functions:
-> +
-> +.. flat-table::
-> +   :header-rows: 1
-> +
-> +   * - Transfer Function
-> +     - Description
-> +
-> +   *  - Gamma 2.2
-> +      - a simple 2.2 gamma function
-> +
-> +   *  - sRGB
-> +      - 2.4 gamma with small initial linear section
-> +
-> +   *  - PQ 2084
-> +      - SMPTE ST 2084; used for HDR video and allows for up to 10,000
-> nit support
-> +
-> +   *  - Linear
-> +      - Linear relationship between pixel value and luminance value
-> +
-> +   *  - Custom 1D
-> +      - Custom 1D de-gamma and gamma LUTs; one LUT per color
-> +
-> +   *  - Custom 3D
-> +      - Custom 3D LUT (to be defined)
-
-If there actually is hardware which would benefit from the named TF then
-this isn't a bad idea. However, it should be made clear where in the
-pipeline this is (i.e. that it replaces the 1d lut) and each entry
-should have a reference to the exact formula used.
-
-This would not be useful for a generic wayland compositor so you might
-want to get the opinion of the Kodi devs.
-
-> +
-> +
-> +Describing SDR Luminance
-> +------------------------------
-> +
-> +Since many displays do no correctly advertise the HDR white level we
-> +propose to define the SDR white level in nits.
-> +
-> +We define a new drm_plane property to specify the white level of an 
-> SDR
-> +plane.
-
-Basically the same situation as with named TFs. If this includes some
-proprietary tone mapping stuff it should definitely not be generic KMS
-API and if hardware between vendors have just slightly different
-formulas it shouldn't be either.
-
-> +
-> +
-> +Defining the color space
-> +------------------------
-> +
-> +We propose to add a new color space property to drm_plane to define a
-> +plane's color space.
-> +
-> +While some color space conversions can be performed with a simple 
-> color
-> +transformation matrix (CTM) others require a 3D LUT.
-
-Every well-known color space can be converted to other well-known color
-spaces with a CTM so this property is just a worse CTM (am I missing
-something?).
-
-On the other hand if the hardware *has* a 3D LUT we absolutely want to
-be able to use it from user space!
-
-> +
-> +
-> +Defining mastering color space and luminance
-> +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> +
-> +ToDo
-> +
-> +
-> +
-> +Pixel Formats
-> +~~~~~~~~~~~~~
-> +
-> +The pixel formats, such as ARGB8888, ARGB2101010, P010, or FP16 are
-> +unrelated to color space and EOTF definitions. HDR pixels can be 
-> formatted
-> +in different ways but in order to not lose precision HDR content 
-> requires
-> +at least 10 bpc precision. For this reason ARGB2101010, P010, and FP16 
-> are
-> +the obvious candidates for HDR. ARGB2101010 and P010 have the 
-> advantage
-> +of requiring only half the bandwidth as FP16, while FP16 has the 
-> advantage
-> +of enough precision to operate in a linear space, i.e. without EOTF.
-> +
-> +
-> +
-> +Use Cases
-> +=========
-> +
-> +RGB10 HDR plane - composited HDR video & desktop
-> +------------------------------------------------
-> +
-> +A single, composited plane of HDR content. The use-case is a video 
-> player
-> +on a desktop with the compositor owning the composition of SDR and HDR
-> +content. The content shall be PQ BT.2020 formatted. The 
-> drm_connector's
-> +hdr_output_metadata shall be set.
-> +
-> +
-> +P010 HDR video plane + RGB8 SDR desktop plane
-> +---------------------------------------------
-> +A normal 8bpc desktop plane, with a P010 HDR video plane underlayed. 
-> The
-> +HDR plane shall be PQ BT.2020 formatted. The desktop plane shall 
-> specify
-> +an SDR boost value. The drm_connector's hdr_output_metadata shall be 
-> set.
-> +
-> +
-> +One XRGB8888 SDR Plane - HDR output
-> +-----------------------------------
-> +
-> +In order to support a smooth transition we recommend an OS that 
-> supports
-> +HDR output to provide the hdr_output_metadata on the drm_connector to
-> +configure the output for HDR, even when the content is only SDR. This 
-> will
-> +allow for a smooth transition between SDR-only and HDR content. In 
-> this
-> +use-case the SDR max luminance value should be provided on the 
-> drm_plane.
-> +
-> +In DCN we will de-PQ or de-Gamma all input in order to blend in linear
-> +space. For SDR content we will also apply any desired boost before
-> +blending. After blending we will then re-apply the PQ EOTF and do RGB
-> +to YCbCr conversion if needed.
-> +
-> +FP16 HDR linear planes
-> +----------------------
-> +
-> +ToDo
-> +
-> +
-> +User Space
-> +==========
-> +
-> +Wayland
-> +-------
-> +
-> +ToDo
-> +
-> +
-> +ChromeOS Ozone
-> +--------------
-> +
-> +ToDo
-> +
-> +
-> +HW support
-> +==========
-> +
-> +ToDo, describe pipeline on a couple different HW platforms
-> +
-> +
-> +References
-> +==========
-> +
-> +* [1]
-> https://en.wikipedia.org/wiki/High-dynamic-range_video#Perceptual_Quantizer
-> +* [2] https://en.wikipedia.org/wiki/Transfer_functions_in_imaging
-> +
-> +
-> +Further Reading
-> +===============
-> +
-> +*
-> https://gitlab.freedesktop.org/swick/wayland-protocols/-/blob/color/unstable/color-management/color.rst
-> +* http://downloads.bbc.co.uk/rd/pubs/whp/whp-pdf-files/WHP309.pdf
-> +* 
-> https://app.spectracal.com/Documents/White%20Papers/HDR_Demystified.pdf
-> +
-> +
-> diff --git a/Documentation/gpu/rfc/index.rst 
-> b/Documentation/gpu/rfc/index.rst
-> index a8621f7dab8b..5c8eaf8bf587 100644
-> --- a/Documentation/gpu/rfc/index.rst
-> +++ b/Documentation/gpu/rfc/index.rst
-> @@ -15,3 +15,7 @@ host such documentation:
-> 
->  * Once the code has landed move all the documentation to the right 
-> places in
->    the main core, helper or driver sections.
-> +
-> +  .. toctree::
-> +
-> +  hdr-wide-gamut.rst
-> \ No newline at end of file
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 42 ++++++++++++++-----
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  7 ++++
+>  2 files changed, 38 insertions(+), 11 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 5df187a6e25f..167c8759fbc9 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -3467,26 +3467,28 @@ static u32 convert_brightness_to_user(const struct amdgpu_dm_backlight_caps *cap
+>                                  max - min);
+>  }
+>
+> -static int amdgpu_dm_backlight_update_status(struct backlight_device *bd)
+> +static int amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
+> +                                        u32 user_brightness)
+>  {
+> -       struct amdgpu_display_manager *dm = bl_get_data(bd);
+>         struct amdgpu_dm_backlight_caps caps;
+>         struct dc_link *link[AMDGPU_DM_MAX_NUM_EDP];
+> -       u32 brightness;
+> +       u32 brightness[AMDGPU_DM_MAX_NUM_EDP];
+>         bool rc;
+>         int i;
+>
+>         amdgpu_dm_update_backlight_caps(dm);
+>         caps = dm->backlight_caps;
+>
+> -       for (i = 0; i < dm->num_of_edps; i++)
+> +       for (i = 0; i < dm->num_of_edps; i++) {
+> +               dm->brightness[i] = user_brightness;
+> +               brightness[i] = convert_brightness_from_user(&caps, dm->brightness[i]);
+>                 link[i] = (struct dc_link *)dm->backlight_link[i];
+> +       }
+>
+> -       brightness = convert_brightness_from_user(&caps, bd->props.brightness);
+> -       // Change brightness based on AUX property
+> +       /* Change brightness based on AUX property */
+>         if (caps.aux_support) {
+>                 for (i = 0; i < dm->num_of_edps; i++) {
+> -                       rc = dc_link_set_backlight_level_nits(link[i], true, brightness,
+> +                       rc = dc_link_set_backlight_level_nits(link[i], true, brightness[i],
+>                                 AUX_BL_DEFAULT_TRANSITION_TIME_MS);
+>                         if (!rc) {
+>                                 DRM_ERROR("DM: Failed to update backlight via AUX on eDP[%d]\n", i);
+> @@ -3495,7 +3497,7 @@ static int amdgpu_dm_backlight_update_status(struct backlight_device *bd)
+>                 }
+>         } else {
+>                 for (i = 0; i < dm->num_of_edps; i++) {
+> -                       rc = dc_link_set_backlight_level(dm->backlight_link[i], brightness, 0);
+> +                       rc = dc_link_set_backlight_level(dm->backlight_link[i], brightness[i], 0);
+>                         if (!rc) {
+>                                 DRM_ERROR("DM: Failed to update backlight on eDP[%d]\n", i);
+>                                 break;
+> @@ -3506,9 +3508,17 @@ static int amdgpu_dm_backlight_update_status(struct backlight_device *bd)
+>         return rc ? 0 : 1;
+>  }
+>
+> -static int amdgpu_dm_backlight_get_brightness(struct backlight_device *bd)
+> +static int amdgpu_dm_backlight_update_status(struct backlight_device *bd)
+>  {
+>         struct amdgpu_display_manager *dm = bl_get_data(bd);
+> +
+> +       amdgpu_dm_backlight_set_level(dm, bd->props.brightness);
+> +
+> +       return 0;
+> +}
+> +
+> +static u32 amdgpu_dm_backlight_get_level(struct amdgpu_display_manager *dm)
+> +{
+>         struct amdgpu_dm_backlight_caps caps;
+>
+>         amdgpu_dm_update_backlight_caps(dm);
+> @@ -3521,17 +3531,24 @@ static int amdgpu_dm_backlight_get_brightness(struct backlight_device *bd)
+>
+>                 rc = dc_link_get_backlight_level_nits(link, &avg, &peak);
+>                 if (!rc)
+> -                       return bd->props.brightness;
+> +                       return dm->brightness[0];
+>                 return convert_brightness_to_user(&caps, avg);
+>         } else {
+>                 int ret = dc_link_get_backlight_level(dm->backlight_link[0]);
+>
+>                 if (ret == DC_ERROR_UNEXPECTED)
+> -                       return bd->props.brightness;
+> +                       return dm->brightness[0];
+>                 return convert_brightness_to_user(&caps, ret);
+>         }
+>  }
+>
+> +static int amdgpu_dm_backlight_get_brightness(struct backlight_device *bd)
+> +{
+> +       struct amdgpu_display_manager *dm = bl_get_data(bd);
+> +
+> +       return amdgpu_dm_backlight_get_level(dm);
+> +}
+> +
+>  static const struct backlight_ops amdgpu_dm_backlight_ops = {
+>         .options = BL_CORE_SUSPENDRESUME,
+>         .get_brightness = amdgpu_dm_backlight_get_brightness,
+> @@ -3543,8 +3560,11 @@ amdgpu_dm_register_backlight_device(struct amdgpu_display_manager *dm)
+>  {
+>         char bl_name[16];
+>         struct backlight_properties props = { 0 };
+> +       int i;
+>
+>         amdgpu_dm_update_backlight_caps(dm);
+> +       for (i = 0; i < dm->num_of_edps; i++)
+> +               dm->brightness[i] = AMDGPU_MAX_BL_LEVEL;
+>
+>         props.max_brightness = AMDGPU_MAX_BL_LEVEL;
+>         props.brightness = AMDGPU_MAX_BL_LEVEL;
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> index c6f79c7dfac4..721c8b49730c 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> @@ -436,6 +436,13 @@ struct amdgpu_display_manager {
+>          */
+>         struct list_head da_list;
+>         struct completion dmub_aux_transfer_done;
+> +
+> +       /**
+> +        * @brightness:
+> +        *
+> +        * cached backlight values.
+> +        */
+> +       u32 brightness[AMDGPU_DM_MAX_NUM_EDP];
+>  };
+>
+>  enum dsc_clock_force_state {
+> --
+> 2.31.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
