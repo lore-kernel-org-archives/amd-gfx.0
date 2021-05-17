@@ -8,60 +8,61 @@ X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 08B4CC43460
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 May 2021 17:16:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2A932C433B4
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 May 2021 17:21:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A4F5061285
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 May 2021 17:16:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A4F5061285
+	by mail.kernel.org (Postfix) with ESMTPS id E7F5A60FD8
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 May 2021 17:21:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E7F5A60FD8
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A4036E9FF;
-	Mon, 17 May 2021 17:16:09 +0000 (UTC)
-Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com
- [IPv6:2607:f8b0:4864:20::32b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C9C06E9FF;
- Mon, 17 May 2021 17:16:07 +0000 (UTC)
-Received: by mail-ot1-x32b.google.com with SMTP id
- r26-20020a056830121ab02902a5ff1c9b81so6182949otp.11; 
- Mon, 17 May 2021 10:16:07 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 671AE6EA11;
+	Mon, 17 May 2021 17:21:08 +0000 (UTC)
+Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
+ [IPv6:2607:f8b0:4864:20::231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F07B46EA11
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 May 2021 17:21:06 +0000 (UTC)
+Received: by mail-oi1-x231.google.com with SMTP id b25so7221362oic.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 May 2021 10:21:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=1xBDaVEbXGRu9l052Wzwx34wSV2NVJtrXnPmwUuBm64=;
- b=XySfAYGTZ6DPQW0mCUYcdwG2BOfs4TTQzxXT7geirkcLqoNso8TymlO0DSxQ4EUra1
- evUNyjAjtQUR9YCCUaHUFShQpNAJuYQfOa1tfMO3HwMafowImonDBqEaxyp/wInH2qsp
- 8ppNl3XUt1jqumyB3gCRIRwgonKojBIzBLdq7jdfiLFZi+VWVyZN7ijkA85ndt8iK+/H
- UKOicrMy/po61xxK7gmiacDC48JagET7k653aqzZ2ZQRtlreqB+TwLJGlA65LuyGfFrL
- UvKReqvupNRQZ9VsxPRCMY/Vk1QkrUP/TDVOtgM7RWu06YCNNwCYyBboQ0ahNymOyneT
- 69cw==
+ :cc:content-transfer-encoding;
+ bh=zIkkgiiVoGg01nvhNBPLFBnnca+sQRgcIN6kYBoFmhs=;
+ b=vViQ2upT1hdWvFTyDaK31/8VsjZ3WVc1os0i73psdUb4KBqdZSi9mhfnnnOjNy3FKW
+ jgviFRWIGYMDLqOVemKUxEN1pZgHBhov9flCx6tGCfh3QEHYsp0ANOmP4e709J7/mZhT
+ fEJC6a6Dw1eWKnahe2r1H9idVzINJ6X5J4cVY1FzS7+gI4yloNfO+bkzAcXh1LIQF1O3
+ u07yafn3lMKFT6hWZiBC3X7y9G4mwXy6WcK8FIH6CoPMQog+yQp28v2EVvkXlVLofXT4
+ eKHXaa1iU5ERs3k2+zlxb7byGIr9cAhrD63FLKgPZxQxXbXiCAxflJnmw6XORdkos/4/
+ d9zQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=1xBDaVEbXGRu9l052Wzwx34wSV2NVJtrXnPmwUuBm64=;
- b=nDkRz71YkGoHCjhyshZVs2t3t6GNabspjOTEGMwr4In3C8OiHKaPprFzq+V6YbB5l4
- Q/sT7/CYYm1K4Rlq/TTHzUQBtwC9sp5D4o8cH8Nj/6Eyz4KxsIiuiP20TPydiH4Nz1QW
- Wa0/0WYAXJ5ZD3ht2510MkgnDyzfSiH2qHqxxxxkXWgKOReOlmqMx8f4ysQhHmQ7kYZG
- CoTXJmSIMeWbXEosjaZzCwq+2tZfmv46UXarq5k69pxtIFFrDndAwjj9I0wTXy+oJTKl
- 04zaLj3Odqej9KGIoxsvGo3vrspJQT8mp/S+aIvzXGvqHeuNYIIq6DpjkvjkNVc9th2n
- C6Dw==
-X-Gm-Message-State: AOAM530DgzVWtQPQgIaz2kjHqxPOJcvQPoqQHlLHizcwcTRyOoI0iXXh
- sOpP5VCcoqfZKHCGZA8qZVUust7fyvMPpJYxnno=
-X-Google-Smtp-Source: ABdhPJyNkLmTwrVqlUZyWSMcpDD9a5UrsmvHIT/nk2h2CKZYzPsfx42ok1JoA9q3mzE6yfWvGXXd7jiPsNYb3o6AmkM=
-X-Received: by 2002:a9d:6548:: with SMTP id q8mr481703otl.311.1621271766808;
- Mon, 17 May 2021 10:16:06 -0700 (PDT)
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=zIkkgiiVoGg01nvhNBPLFBnnca+sQRgcIN6kYBoFmhs=;
+ b=QIXpPgWXexGHe5n5aKsfuAblWBlHxgiufY+kujYnURXX5VOz1mZ2YTyNJO3KgP5duk
+ 7cCpDWFYxrSkCK2SfoCo0+/jknTWUR1xD9Mc5HNxuSOFdc4KUOcK6iOW9bEG3a2hWugk
+ AzYLj4A5v+VRrbeZIpmDeRaR06R562+7x+NXWpNLYjKMm+6xN6Ek649cw7ZZ6g3vMmS6
+ 16DUsHroKOStWxFvloLQn1A7Hujz06NWG4T2JNq9286wYh741ZXnGZFBUqZwTZnrRshA
+ chKIEVniF1gaeSpETt2Qv4sHLCezv9Ue4KBvCMheYOIe8zNp/ElMdLkymB+zEnERDxa0
+ ulXA==
+X-Gm-Message-State: AOAM531TOq+6y628n+w+OAIrbtmfc/38L2Ysr5zuRhJI6Q7pQjTyEDWM
+ N8tGJLzdl3WDpUxj0jDna/YPzKRjg5WwDEaXDxU=
+X-Google-Smtp-Source: ABdhPJz8VYUm1vaHNdn3lSTp59fYO3V0snH8Msw7jN12GtnnY/RmX2bAwdq/j49JCdtkSTUPwI1Pj+TI22PMt2woMBY=
+X-Received: by 2002:a05:6808:249:: with SMTP id
+ m9mr631362oie.120.1621272066359; 
+ Mon, 17 May 2021 10:21:06 -0700 (PDT)
 MIME-Version: 1.0
-References: <e5f8613b96fe43bd8ab2ac304a2c9fb57a87a2ca.camel@perches.com>
-In-Reply-To: <e5f8613b96fe43bd8ab2ac304a2c9fb57a87a2ca.camel@perches.com>
+References: <20210517082626.1528678-1-Jingwen.Chen2@amd.com>
+ <f29cfcb9-bd28-f7a6-40dc-bc188999e119@gmail.com>
+In-Reply-To: <f29cfcb9-bd28-f7a6-40dc-bc188999e119@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 17 May 2021 13:15:55 -0400
-Message-ID: <CADnq5_M98GPrHk6cdbieBtFDQYaauHzj1gm-OXn0bYTRjtgzAw@mail.gmail.com>
-Subject: Re: [trivial PATCH] drm/amd/display: Fix typo of format termination
- newline
-To: Joe Perches <joe@perches.com>
+Date: Mon, 17 May 2021 13:20:55 -0400
+Message-ID: <CADnq5_MqauN5y_CNvWWhp-7ML=r7Rqc0in1N6XQKPMKV6Viogg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/amdgpu: fix refcount leak
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,74 +74,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>, LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Jingwen Chen <Jingwen.Chen2@amd.com>, "monk.liu" <monk.liu@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sat, May 15, 2021 at 1:01 PM Joe Perches <joe@perches.com> wrote:
->
-> /n should be \n
->
-> Signed-off-by: Joe Perches <joe@perches.com>
-
-Applied.  Thanks!
-
-Alex
-
-> ---
->  drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c   | 2 +-
->  drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c | 2 +-
->  drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c | 2 +-
->  3 files changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
-> index 45f96221a094..b38fee783277 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
-> @@ -1724,7 +1724,7 @@ static bool init_soc_bounding_box(struct dc *dc,
->         DC_LOGGER_INIT(dc->ctx->logger);
->
->         if (!is_soc_bounding_box_valid(dc)) {
-> -               DC_LOG_ERROR("%s: not valid soc bounding box/n", __func__);
-> +               DC_LOG_ERROR("%s: not valid soc bounding box\n", __func__);
->                 return false;
->         }
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
-> index 5b54b7fc5105..3bf66c994dd5 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
-> @@ -1497,7 +1497,7 @@ static bool init_soc_bounding_box(struct dc *dc,
->         DC_LOGGER_INIT(dc->ctx->logger);
->
->         if (!is_soc_bounding_box_valid(dc)) {
-> -               DC_LOG_ERROR("%s: not valid soc bounding box/n", __func__);
-> +               DC_LOG_ERROR("%s: not valid soc bounding box\n", __func__);
->                 return false;
->         }
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c b/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c
-> index fc2dea243d1b..84c61128423e 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c
-> @@ -1093,7 +1093,7 @@ static bool init_soc_bounding_box(struct dc *dc,  struct resource_pool *pool)
->         DC_LOGGER_INIT(dc->ctx->logger);
->
->         if (!is_soc_bounding_box_valid(dc)) {
-> -               DC_LOG_ERROR("%s: not valid soc bounding box/n", __func__);
-> +               DC_LOG_ERROR("%s: not valid soc bounding box\n", __func__);
->                 return false;
->         }
->
->
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gTW9uLCBNYXkgMTcsIDIwMjEgYXQgNDo0NyBBTSBDaHJpc3RpYW4gS8O2bmlnCjxja29lbmln
+LmxlaWNodHp1bWVya2VuQGdtYWlsLmNvbT4gd3JvdGU6Cj4KPiBBbSAxNy4wNS4yMSB1bSAxMDoy
+NiBzY2hyaWViIEppbmd3ZW4gQ2hlbjoKPiA+IFtXaHldCj4gPiB0aGUgZ2VtIG9iamVjdCByZmIt
+PmJhc2Uub2JqWzBdIGlzIGdldCBhY2NvcmRpbmcgdG8gbnVtX3BsYW5lcwo+ID4gaW4gYW1kZ3B1
+ZmJfY3JlYXRlLCBidXQgaXMgbm90IHB1dCBhY2NvcmRpbmcgdG8gbnVtX3BsYW5lcwo+ID4KPiA+
+IFtIb3ddCj4gPiBwdXQgcmZiLT5iYXNlLm9ialswXSBpbiBhbWRncHVfZmJkZXZfZGVzdHJveSBh
+Y2NvcmRpbmcgdG8gbnVtX3BsYW5lcwo+ID4KPiA+IFNpZ25lZC1vZmYtYnk6IEppbmd3ZW4gQ2hl
+biA8SmluZ3dlbi5DaGVuMkBhbWQuY29tPgo+Cj4gTG9va3Mgc2FuZSB0byBtZSwgYnV0IEFsZXgg
+bWlnaHQgd2FudCB0byB0YWtlIGEgbG9vayBhcyB3ZWxsLgo+Cj4gQWNrZWQtYnk6IENocmlzdGlh
+biBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KCkxvb2tzIGdvb2QgdG8gbWUgYXMg
+d2VsbC4KClJldmlld2VkLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5j
+b20+Cgo+Cj4gPiAtLS0KPiA+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Zi
+LmMgfCAzICsrKwo+ID4gICAxIGZpbGUgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspCj4gPgo+ID4g
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9mYi5jIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ZiLmMKPiA+IGluZGV4IDRmMTBjNDUyOTg0
+MC4uMDliMDQ4NjQ3NTIzIDEwMDY0NAo+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X2ZiLmMKPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV9mYi5jCj4gPiBAQCAtMjg4LDEwICsyODgsMTMgQEAgc3RhdGljIGludCBhbWRncHVmYl9jcmVh
+dGUoc3RydWN0IGRybV9mYl9oZWxwZXIgKmhlbHBlciwKPiA+ICAgc3RhdGljIGludCBhbWRncHVf
+ZmJkZXZfZGVzdHJveShzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCBzdHJ1Y3QgYW1kZ3B1X2ZiZGV2
+ICpyZmJkZXYpCj4gPiAgIHsKPiA+ICAgICAgIHN0cnVjdCBhbWRncHVfZnJhbWVidWZmZXIgKnJm
+YiA9ICZyZmJkZXYtPnJmYjsKPiA+ICsgICAgIGludCBpOwo+ID4KPiA+ICAgICAgIGRybV9mYl9o
+ZWxwZXJfdW5yZWdpc3Rlcl9mYmkoJnJmYmRldi0+aGVscGVyKTsKPiA+Cj4gPiAgICAgICBpZiAo
+cmZiLT5iYXNlLm9ialswXSkgewo+ID4gKyAgICAgICAgICAgICBmb3IgKGkgPSAwOyBpIDwgcmZi
+LT5iYXNlLmZvcm1hdC0+bnVtX3BsYW5lczsgaSsrKQo+ID4gKyAgICAgICAgICAgICAgICAgICAg
+IGRybV9nZW1fb2JqZWN0X3B1dChyZmItPmJhc2Uub2JqWzBdKTsKPiA+ICAgICAgICAgICAgICAg
+YW1kZ3B1ZmJfZGVzdHJveV9waW5uZWRfb2JqZWN0KHJmYi0+YmFzZS5vYmpbMF0pOwo+ID4gICAg
+ICAgICAgICAgICByZmItPmJhc2Uub2JqWzBdID0gTlVMTDsKPiA+ICAgICAgICAgICAgICAgZHJt
+X2ZyYW1lYnVmZmVyX3VucmVnaXN0ZXJfcHJpdmF0ZSgmcmZiLT5iYXNlKTsKPgo+IF9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5n
+IGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeApfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
+bWFuL2xpc3RpbmZvL2FtZC1nZngK
