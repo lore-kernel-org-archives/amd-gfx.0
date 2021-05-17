@@ -2,120 +2,123 @@ Return-Path: <SRS0=Ip1/=KM=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B1FACC433B4
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 May 2021 06:27:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1DCE7C433ED
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 May 2021 06:28:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 64BDA61209
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 May 2021 06:27:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 64BDA61209
+	by mail.kernel.org (Postfix) with ESMTPS id A63F161209
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 May 2021 06:28:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A63F161209
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F06526E145;
-	Mon, 17 May 2021 06:27:39 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam08on2063.outbound.protection.outlook.com [40.107.102.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D95A76E145
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 May 2021 06:27:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08AB16E2C8;
+	Mon, 17 May 2021 06:28:11 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2064.outbound.protection.outlook.com [40.107.93.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 04C656E2C8
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 May 2021 06:28:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cLffwXw14TOb/QebTwnpcNlPb0Pyeo0OvFxvuKO7OOQkEj+a8Or+KI1b3FOU/cNop74uwxkZ8EHBB1yMJeo2y7BPXyPHBcahwdCubApazbIizmGH2qZPVODs2YFZkE6xSYEufDhrwFVG1JdYRGV7bJSbdWIpTZHtaM/ljNa4PM8vYBCTEd+g3bTMI+Sijn0W075yn4MF2jtSRxKks9MJdWGprKEpi7nu99fsPuwq14gsYEt/fNv6VRNAjfQqFvNbT1wud/I7BulzPOgH7u2zK6+2v6VVMkt4XhtVKpK+V/2oC6zEf8bDtTRT2Fq5GJY2AfsSRMVzgGhdqtSNgSGCGw==
+ b=oCNrA6gHMxWQNQs3XFBGLpkcMpZpvYNOIur2l+9DGsL71yefbyR4JIyJhMLiAjzYQRCquNh+cJ8ecIUUK5ZV/Twjng6MKl8hcJEL6cBK9Bza+6qVfeBkb7Ws6+f2qc0YYWtlnFZBrXJc4lhfaklGumZKRyUdNyTxzjal7fzpZJ/ksHOh2PLar5bCAstg7FGI52tbc36lY7HMbKaEUMIHeI+l5YN3l7tIeZHITDSLDpx+jX7DeIUR3FgszcXmH6K7IPFa9X8XR2mQawos06vkobLQcTAXM5wcX/QhIxsrmS11GMNmPKRqKm/FV+2kcbTY9IwvTiuC3BK0iePu4GXY1Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=p+dhuHKg4Xzofq5vRvytFvNYA32O5QsoKHBntSFCyBA=;
- b=UZ9AadtmDqzZn0CP39w8tY849lwcHdw5ipcGanLv8kFRZaG8joiNFtrypGEFkFf7KjIjtqD5oqRj4DEVLrhy3pwXPlVn4WecVCZK6sY6REQ4pkcoiB90D788X01CQoQwnwP5Q5IPQEADEG3HMLvCOllIF0HhjP0YRem3NOyq24O5QoCguy4wjgnMy1sDCKVaEr3DnGF8Xu5677vbEqXYi/Nk+6zeQSRtKWR7vEmrvf+BIcX+IBo6Z5wkwYGKZNnGZ+bafo1DSfXE2dxRVWG+hOITzo9Mbl0xOmjaYUdw0DB44G5OgI9Aey7puDcUVibnOKJ1JrKlezDIw0W6zyX6rQ==
+ bh=07EIym2wT/UsTjj8l1vjkl8s7NXbUpdpTOYvO6GGFbM=;
+ b=b9jss+8mfcaG4dkiMZG6h+Rei6bT8W+gPW9BsE3pFbnGH8E9jUOgLck9AnPXUCCeCr1MJrOGMElGI3go17AjcBeR4WjrLUjIPgywdEEm9UJGsAWVffFIu5qPzBp6QvuKo1zOjZw2Bg/wqy+ug/2QSQ9WKNDITirxLqBI7aYe9byPZXWp/iDZVsEF3OVSxbwluu9IvMvVkmNFi9CzQHN4H/ZAAoLCrBDHDvdcLcTBsljhAaIpiaAESF+BlKjQUUoiy6i2dmoEBt1D2vX9/QPKySv5xwCbRdC7H3P8ZqltPlN3Zc1IM1ftDF1rqvoD+bxAAo6wSc2iHC6X3SWCwamG5A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=p+dhuHKg4Xzofq5vRvytFvNYA32O5QsoKHBntSFCyBA=;
- b=i4AVjO9ZW1pLVsgQOFPJKqrFHUBfhqy63kGbpMlpRU9Gkhho9XMCd/rDJzQJZtMrYLiFm5KpUy1OpWJ7QL5OXzbW55spDAqChImfHbv8YVcGo2E5nyEU2P7LJLhxEAhobikmMRDXbRNLCJ80tairlw/kzmRpOCZQ8Isz6+dJfbM=
-Authentication-Results: gmail.com; dkim=none (message not signed)
- header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
-Received: from MWHPR12MB1248.namprd12.prod.outlook.com (2603:10b6:300:12::21)
- by MW3PR12MB4522.namprd12.prod.outlook.com (2603:10b6:303:5f::8) with
+ bh=07EIym2wT/UsTjj8l1vjkl8s7NXbUpdpTOYvO6GGFbM=;
+ b=FFVDUL6PPto3ORNcCUnyTGeccHzPh8R29cDbKHz2DOq4Pudldmq6nYCyA8VQgLNFj+h/ss+HxfUKzt92M+WH0CrQK03ujiM4Lla2ZoggCyeUcY26tBieGeiXHQKDMLo3HE5eRn/peZUQJ1Ak0QiiaSsPi+RwhSeS5SYRNy8siZ0=
+Received: from CH0PR12MB5348.namprd12.prod.outlook.com (2603:10b6:610:d7::9)
+ by CH0PR12MB5236.namprd12.prod.outlook.com (2603:10b6:610:d3::22) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.26; Mon, 17 May
- 2021 06:27:34 +0000
-Received: from MWHPR12MB1248.namprd12.prod.outlook.com
- ([fe80::f07c:dc0f:e7e8:416c]) by MWHPR12MB1248.namprd12.prod.outlook.com
- ([fe80::f07c:dc0f:e7e8:416c%4]) with mapi id 15.20.4129.031; Mon, 17 May 2021
- 06:27:33 +0000
-Date: Mon, 17 May 2021 14:27:24 +0800
-From: Huang Rui <ray.huang@amd.com>
-To: Alex Deucher <alexdeucher@gmail.com>,
- "Zhu, Changfeng" <Changfeng.Zhu@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: disable 3DCGCG on picasso/raven1 to avoid
- compute hang
-Message-ID: <20210517062724.GA1853590@hr-amd>
-References: <20210514081944.16849-1-changfeng.zhu@amd.com>
- <CADnq5_P4tvpTkmzpn=7V8qvfvy3aiR3WO967UObKKacJzQro9w@mail.gmail.com>
-Content-Disposition: inline
-In-Reply-To: <CADnq5_P4tvpTkmzpn=7V8qvfvy3aiR3WO967UObKKacJzQro9w@mail.gmail.com>
-X-Originating-IP: [165.204.134.251]
-X-ClientProxiedBy: HK2PR06CA0008.apcprd06.prod.outlook.com
- (2603:1096:202:2e::20) To MWHPR12MB1248.namprd12.prod.outlook.com
- (2603:10b6:300:12::21)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from hr-amd (165.204.134.251) by
- HK2PR06CA0008.apcprd06.prod.outlook.com (2603:1096:202:2e::20) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4108.25 via Frontend Transport; Mon, 17 May 2021 06:27:32 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 0ceac541-8dc3-4343-708e-08d918fcdb0a
-X-MS-TrafficTypeDiagnostic: MW3PR12MB4522:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MW3PR12MB4522F5DC3EC8BAEE8922E535EC2D9@MW3PR12MB4522.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Q4nMg60rBeiJ0CpL1OC0k2gi7rHf0fUbkykwLSGMEGcF9lYs0XJreUovefaQIb2aCwZnIu9ZlV8KL5pUPXobE3u8Q7ZpTqHKEW0K8boJXRnO3tELa+C9culRCqp+XHYTUDR0Lz8vUBEKi/DlvehVm+K3B+QnVZB+ttXpUkA0syjdJufYzBdYD37Bi4jd8nmQcl/CGQmVg8TKT41v7KoqhBpqfQcp4fLbV/zddVUZmvIisYGytoo0Mni6chhmPTjIxl/4kk2uujNGWeT0qcnTLvBBPxkH8vCibDBwIox28uSmpAQKJXoQqshc7/fBcR9dfweMmuyjBePKSOuWgY6Au08zjjeYpDTqp5Wd6rOtyOTP6p0C1f1BGKv0KqNyT6xSwBhnOeo4eg5dUNN1uo6tFkdAb+/9J9TSU49o0M+TwL6CQq2yMFe73H7EYRAC+N13if4quC/P4H7H1f/9lbYoqzz7r96ytPZ3LJpTfdNz7RJqZe+fJf/g73bC8e3iQTg3BdS7m1NIy/GYFSF0zGvZ9XH5bXc7dGYHJW4UPwOFAdyO9zBTNbDp1oL1TKUwTho5Gc/uoNaoPb4zIzeNFSpbsLc6bFBE0kakDxM18EN/HoXOwgJFz2+RfQVZ3vv9eEsDKulHzAcuApET/N2YYd3G2a6lKK9SAzqnK8HccEYCxtk2BppIgKgpEF9RFRiVzbxs
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR12MB1248.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(366004)(39860400002)(376002)(346002)(136003)(6636002)(956004)(316002)(66556008)(83380400001)(86362001)(33656002)(1076003)(6666004)(66476007)(8936002)(33716001)(8676002)(966005)(6496006)(16526019)(478600001)(52116002)(5660300002)(55016002)(9686003)(66946007)(38100700002)(4326008)(26005)(38350700002)(110136005)(186003)(45080400002)(2906002)(53546011);
+ 2021 06:28:08 +0000
+Received: from CH0PR12MB5348.namprd12.prod.outlook.com
+ ([fe80::9c3:508d:5340:8efd]) by CH0PR12MB5348.namprd12.prod.outlook.com
+ ([fe80::9c3:508d:5340:8efd%6]) with mapi id 15.20.4129.031; Mon, 17 May 2021
+ 06:28:08 +0000
+From: "Lazar, Lijo" <Lijo.Lazar@amd.com>
+To: "Nieto, David M" <David.Nieto@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 2/2] drm/amdgpu/pm: add new fields for Navi1x
+Thread-Topic: [PATCH 2/2] drm/amdgpu/pm: add new fields for Navi1x
+Thread-Index: AQHXSQRgyiwW8/Ufy0eEB7lWTGk9AarnOOqg
+Date: Mon, 17 May 2021 06:28:07 +0000
+Message-ID: <CH0PR12MB534810EC2A9AB95FBF09E06B972D9@CH0PR12MB5348.namprd12.prod.outlook.com>
+References: <20210514210135.14079-1-david.nieto@amd.com>
+ <20210514210135.14079-2-david.nieto@amd.com>
+In-Reply-To: <20210514210135.14079-2-david.nieto@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-05-17T06:28:03Z; 
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=aaa0e53b-1385-4432-acbc-fc3c9e16b153;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [165.204.159.242]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 5753581e-e5d7-45c0-9e91-08d918fcefa3
+x-ms-traffictypediagnostic: CH0PR12MB5236:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <CH0PR12MB523682133C02321711C284FC972D9@CH0PR12MB5236.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:2276;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: UdpZ3SvKSpPurCs9a+5sIIv2/CxPMBetikRwOV1IOTtQme6jQChJAy7HAWfT7VMkM6N5F7JBQXNMS309tnKPDPHj8NTnQoKaXqsMDzp04NoPfXoo9UwED5rK2UV+1VRkF70zcGUKhThbuxxlouM9wBbh6AE9a2ImBpC8QMiyCVlae29IrQk90DNQp+LuiQCfxM1Afl0ACIbsUGOL6prxZasnScIqSjrR5TB/dey2BVX+yJnrcWC1q0tfY0xb0KE6TKELIT/czWBNVIxSc/EyxlgzemTHInW1LRtBPVdJ2x2rJDBHX632KhMjPDgbNzfEE7x/Pyznj4Pp7miN/BbDDbybn8fjj4n3XoAhH6Dj5ti1sy0AkmpKWj3CFXPkat38phJbWWu/+q0/K6DKEuZuSy4VTlRlc/q1QG74SQR4RhHaDbEbw1QOuZ/4Y1Av1bqyBdO+8pZiLGF0xYYcztyW+sYWF+euPpFoU1cd1vvToZOu3kG6NfpKBpaFDXoHmL3b8mzkwkTkybMdbqrpVp+RI23rIgAgI5A4k/hm1LtEbIL8WNZsSZZmQhEtyjUNHXPFNe0e56/lj8Oh5s7HX/CdwXHagWzlMw+EXDGSdYPtbcy7TqkjX5DXEMZBfrD5Jl9s6aG3csHQ/SCTc7W4CrB0493HLnrT1Qp2C1tG62+ylvXcCMrrLNWM9p2zqSQxVkmK
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH0PR12MB5348.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(39860400002)(136003)(366004)(346002)(376002)(966005)(83380400001)(33656002)(76116006)(2906002)(478600001)(9686003)(19627235002)(7696005)(53546011)(6506007)(86362001)(316002)(5660300002)(38100700002)(186003)(52536014)(64756008)(55016002)(66446008)(66556008)(30864003)(8676002)(66946007)(122000001)(4326008)(71200400001)(26005)(45080400002)(8936002)(110136005)(66476007)(32563001)(579004);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?/29TDF7TJN9eskf6kYA6n1gEzWJurP9TCpDSM0zZs2B1Ti6f+jlSC6R+Wa2H?=
- =?us-ascii?Q?tPkEkLE5pNu+LjLPHICiv4zvml3CyN3uioDSiOcXZEL7tIMZrJ0sJR88XAQX?=
- =?us-ascii?Q?DXRScTFP9bL5KwAo1lj9BjgKd5jd+A9KI/bZ5s1tB0wEcWShB3P04hqRueuA?=
- =?us-ascii?Q?pvUrhMW4l9UdWGFr+obe0RKqGUEyL71FOrfXbVewclvFQPNNVAb5Ry3w+agU?=
- =?us-ascii?Q?61ZD55NJqIFx7RPPFCE9/D608Gqksxa05SohyjF5wrXvGECNWSqd3apbHQhk?=
- =?us-ascii?Q?/KNb1A0bVH7OlM47/ZzN+rIPnqldhyefpQlbEonQhJ6VULr3AJ0arxiiLle+?=
- =?us-ascii?Q?ph1YNCInS0l2tVthWKofgSSENZ3CIXIbEy0wn9pu/4s8dz9vduvcszWt8VcZ?=
- =?us-ascii?Q?j+KtwwV4NL4K3Zfx1dD8PjBi/PRWKpXZ+a0LDVcTJn3ayKvrRdNWiWalPfEW?=
- =?us-ascii?Q?d94Xgf39tIygdGmAgNLkpbFZvkp4/1V+bF0o0YjsbvVIv9KVIVde9uJ0H9HX?=
- =?us-ascii?Q?lpzFfDGRSwZhBFtvav9H9y0jb/cmN9pOE6kWEXESHAjblNx9l0+g5/jpJfb8?=
- =?us-ascii?Q?N3c6OO7hquUISCFBVbecANl/y6W/1I6akN8H4hMFiLFBX1Ab6DRp/qoLGOgb?=
- =?us-ascii?Q?sOxMUoPISylNwk4VUye2+OBuiiNBOhS6BsVp7M5J778X84d+uJxRJIXbm2Ma?=
- =?us-ascii?Q?sCtc6Bvy9EksKyeAc8JHL2bvVD/XdLkwQWJBNqf/f7O03zzvc5wFF+9sKB1d?=
- =?us-ascii?Q?2WJ91XJmzuZNaSiPoZt006VdODsVo0JC4PX2BvfoExmXWuVMpQaaFi5CvEL9?=
- =?us-ascii?Q?PolyA5ZkqV6JAe5qj6GjCoIHzWjDUFbCgkzi7d+tpMBBXtpB410Sinj0mEuI?=
- =?us-ascii?Q?DHj0hby6R4sQiHFrZkxcVTs8fxk6bpZrpkI1dsxP0ZpipBseb1YxSh8xSmUf?=
- =?us-ascii?Q?eLmxMYreO3xM2DAxiN0gGOtiI1Z9UJGLEOG+HQ/cLmpLvqDQUNWigpWklGke?=
- =?us-ascii?Q?SSGBqfLaGMKcKk9p8MgKPC9eijq8/J7mOt0g9oTOFy/GcncWuA3Ya2HGmqyO?=
- =?us-ascii?Q?9nXUkNiPzfvVEX8RCQy+zwK8KbX1iXU08iury0spk+LchSZURroSTVcpChwm?=
- =?us-ascii?Q?3f9tHMEik4lZIN9rKD9fguj3BgLilWtiYAPfkfshXduDpzKVa51KV21yZOqM?=
- =?us-ascii?Q?W6xHB1AO0l1jwUwra18DRDR4G2VrmVlXipUCVqlliQYQfgxqk74oHAaQK09J?=
- =?us-ascii?Q?ktoqaGzYj6sAvZyF4QoH4WRw+1RLDHYcd4u8luyeyqdfbP7J597lKD88390y?=
- =?us-ascii?Q?QqXfFE5zuUZ1NGOQhPo4JuRN?=
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?QPY8lWhoUkAAffMp2upC74DMfuCsOnxFduA6/0FsRdA6oBssDocMCUBIr+5r?=
+ =?us-ascii?Q?7ZyflwwjJ4HmuJ3PdXpmi9GrtAIY8mkL5j59EoXYK0mHK1tG+YpbeyhJLdGw?=
+ =?us-ascii?Q?/gGhGAwLQGzzz2Y9y9CBr0BpdkmnuzzMyi3wuoueJhT8XT9ppANj4cDqY/w5?=
+ =?us-ascii?Q?j9DAU5fFvRX9w8fSFfvW3aQtIqIukpGMBb4G6X4kCfPpTEgSgEJAYfCN+7Cr?=
+ =?us-ascii?Q?NFQqG93MERR93r7DFGiDuFLQ4YoguwvQkVrqvyvR2U+gUNtDtYXYvbnf5Osa?=
+ =?us-ascii?Q?QtwP1iEiSOpTw+FZd/WICxaaAwfcxvT0q3XSP7DRzbJzIO3rNdAnjM3RvjlM?=
+ =?us-ascii?Q?yMr483jVpDmNA4BnfFCjknsti2oPp72ulMJpElDsiZLbRS7XuhQBR7HflwKA?=
+ =?us-ascii?Q?05xRyGsLerI3zWkbbEdWv/gIEm/mYuqFZcUKiAhMjdboZicVYegETm+99qLF?=
+ =?us-ascii?Q?Im63buo/UAqYOWLeutdjeTlYkBjagbrus4yAS6hVzFLxxb8/Ay/LTabARx4i?=
+ =?us-ascii?Q?xD1hzA8lBTmi/LzdEv8rZ0a3srGfV53Rj8hH8qOGjXr8zwxMdqdtpIfwwy2P?=
+ =?us-ascii?Q?x2mUemn1lb9JdoSlXN5iKMYlJ+GgmaTIP1wLw/Mp/29/4VDABDjORBWR7BQS?=
+ =?us-ascii?Q?irV6BW2i/5JMkptvEhP8KZJsPM9a9xqXvvAZnYNUghYrycCkmmdpfYxt4xUD?=
+ =?us-ascii?Q?thcDrYwEUV0CgVut+X1q3VW+ztjsfMRcklXuY11rPZcmXcsfkVdC+dTn1RxJ?=
+ =?us-ascii?Q?dq+pvV1J47mMmdco2R6OgafEWYIA/DMjJ25O4f3sMXk6gQuRMah9Bphy5b42?=
+ =?us-ascii?Q?z+Xhltl+JUwh1dEcEqygTpAYaPeOL6p+bmJ5IGvFhnN8BP4KdQ6I4pc/DpYK?=
+ =?us-ascii?Q?W5PGWNYzW7ulPthXemaabEiE+H01xU1KeMPjqU3aXnjnHUzSyqayJavecjCA?=
+ =?us-ascii?Q?wLJwf7GIWg5NFMqy3aKu6djaCDOACNbVgzKtXLgRHuZxvooBG1GUbg5Q/G8d?=
+ =?us-ascii?Q?q/KokzZN53pMVTIzVgW7NoNbwA3B9plwM0DeasnxVUo7OGZmgqrtHmXhmo8a?=
+ =?us-ascii?Q?qOLv6nTAHBlGWVHtWuPtXTBXYuHYNJYseVQ/JYseOvPQqACu3iAJ4Q0uZPak?=
+ =?us-ascii?Q?9mLfqcSIM/Ls/Mi3lZDFaZJ8H86jjoE/QuNZjfaSRQzUDt1CwSHXw4SrD5LP?=
+ =?us-ascii?Q?88bQSseVdHPMgk2IixOzMGbqX7AT014rubS59BIcbxx9qgMtsUeUknLxVNvt?=
+ =?us-ascii?Q?V0CKlL0UC2COlF3mQZz1PJR2/V8q/Oir1DFreQIYGjfbPcJNbq0NXoFTIo74?=
+ =?us-ascii?Q?EPijKQRFQcm3RebGaN3eelvL?=
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0ceac541-8dc3-4343-708e-08d918fcdb0a
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR12MB1248.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 May 2021 06:27:33.7914 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Ko0cT7+vLrTsrdHeQBfr7er9hDhgZZFCChIIYz5YocoHILP5jd94yx8rnEBXZkOx4aIgs0k49gwdCiG+m0umQA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4522
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5348.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5753581e-e5d7-45c0-9e91-08d918fcefa3
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 May 2021 06:28:07.9962 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: HdEhCIqmPpbgOVYQ1YgBH+qS7LH7D74IyVs1FOXxFx5LGjKOtxpBlx7dXdVrw4/8
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5236
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,99 +130,583 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: "Nieto, David M" <David.Nieto@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, May 14, 2021 at 10:13:55PM +0800, Alex Deucher wrote:
-> On Fri, May 14, 2021 at 4:20 AM <changfeng.zhu@amd.com> wrote:
-> >
-> > From: changzhu <Changfeng.Zhu@amd.com>
-> >
-> > From: Changfeng <Changfeng.Zhu@amd.com>
-> >
-> > There is problem with 3DCGCG firmware and it will cause compute test
-> > hang on picasso/raven1. It needs to disable 3DCGCG in driver to avoid
-> > compute hang.
-> >
-> > Change-Id: Ic7d3c7922b2b32f7ac5193d6a4869cbc5b3baa87
-> > Signed-off-by: Changfeng <Changfeng.Zhu@amd.com>
-> 
-> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-> 
-> WIth this applied, can we re-enable the additional compute queues?
-> 
+[AMD Public Use]
 
-I think so.
+Metrics table carries dynamic state information of the ASIC. There are other pp_* nodes which carry static information about min/max and levels supported and that is a one-time query. Why there is a need to put everything in metrics data?
 
-Changfeng, could you please confirm this on all raven series?
+Thanks,
+Lijo
 
-Patch is Reviewed-by: Huang Rui <ray.huang@amd.com>
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of David M Nieto
+Sent: Saturday, May 15, 2021 2:32 AM
+To: amd-gfx@lists.freedesktop.org
+Cc: Nieto, David M <David.Nieto@amd.com>
+Subject: [PATCH 2/2] drm/amdgpu/pm: add new fields for Navi1x
 
-> Alex
-> 
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 10 +++++++---
-> >  drivers/gpu/drm/amd/amdgpu/soc15.c    |  2 --
-> >  2 files changed, 7 insertions(+), 5 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> > index 22608c45f07c..feaa5e4a5538 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> > @@ -4947,7 +4947,7 @@ static void gfx_v9_0_update_3d_clock_gating(struct amdgpu_device *adev,
-> >         amdgpu_gfx_rlc_enter_safe_mode(adev);
-> >
-> >         /* Enable 3D CGCG/CGLS */
-> > -       if (enable && (adev->cg_flags & AMD_CG_SUPPORT_GFX_3D_CGCG)) {
-> > +       if (enable) {
-> >                 /* write cmd to clear cgcg/cgls ov */
-> >                 def = data = RREG32_SOC15(GC, 0, mmRLC_CGTT_MGCG_OVERRIDE);
-> >                 /* unset CGCG override */
-> > @@ -4959,8 +4959,12 @@ static void gfx_v9_0_update_3d_clock_gating(struct amdgpu_device *adev,
-> >                 /* enable 3Dcgcg FSM(0x0000363f) */
-> >                 def = RREG32_SOC15(GC, 0, mmRLC_CGCG_CGLS_CTRL_3D);
-> >
-> > -               data = (0x36 << RLC_CGCG_CGLS_CTRL_3D__CGCG_GFX_IDLE_THRESHOLD__SHIFT) |
-> > -                       RLC_CGCG_CGLS_CTRL_3D__CGCG_EN_MASK;
-> > +               if (adev->cg_flags & AMD_CG_SUPPORT_GFX_3D_CGCG)
-> > +                       data = (0x36 << RLC_CGCG_CGLS_CTRL_3D__CGCG_GFX_IDLE_THRESHOLD__SHIFT) |
-> > +                               RLC_CGCG_CGLS_CTRL_3D__CGCG_EN_MASK;
-> > +               else
-> > +                       data = 0x0 << RLC_CGCG_CGLS_CTRL_3D__CGCG_GFX_IDLE_THRESHOLD__SHIFT;
-> > +
-> >                 if (adev->cg_flags & AMD_CG_SUPPORT_GFX_3D_CGLS)
-> >                         data |= (0x000F << RLC_CGCG_CGLS_CTRL_3D__CGLS_REP_COMPANSAT_DELAY__SHIFT) |
-> >                                 RLC_CGCG_CGLS_CTRL_3D__CGLS_EN_MASK;
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> > index 4b660b2d1c22..080e715799d4 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> > @@ -1393,7 +1393,6 @@ static int soc15_common_early_init(void *handle)
-> >                         adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
-> >                                 AMD_CG_SUPPORT_GFX_MGLS |
-> >                                 AMD_CG_SUPPORT_GFX_CP_LS |
-> > -                               AMD_CG_SUPPORT_GFX_3D_CGCG |
-> >                                 AMD_CG_SUPPORT_GFX_3D_CGLS |
-> >                                 AMD_CG_SUPPORT_GFX_CGCG |
-> >                                 AMD_CG_SUPPORT_GFX_CGLS |
-> > @@ -1413,7 +1412,6 @@ static int soc15_common_early_init(void *handle)
-> >                                 AMD_CG_SUPPORT_GFX_MGLS |
-> >                                 AMD_CG_SUPPORT_GFX_RLC_LS |
-> >                                 AMD_CG_SUPPORT_GFX_CP_LS |
-> > -                               AMD_CG_SUPPORT_GFX_3D_CGCG |
-> >                                 AMD_CG_SUPPORT_GFX_3D_CGLS |
-> >                                 AMD_CG_SUPPORT_GFX_CGCG |
-> >                                 AMD_CG_SUPPORT_GFX_CGLS |
-> > --
-> > 2.17.1
-> >
-> > _______________________________________________
-> > amd-gfx mailing list
-> > amd-gfx@lists.freedesktop.org
-> > https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7CRay.Huang%40amd.com%7C0e273856253d4b3efd0b08d916e2892a%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637565984495414849%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=lBzswAPBguL0mWFglEk%2Bg2eDCEuhir7JfFjov%2BV7pSY%3D&amp;reserved=0
+Fill voltage and frequency ranges fields
+
+Signed-off-by: David M Nieto <david.nieto@amd.com>
+Change-Id: I07f926dea46e80a96e1c972ba9dbc804b812d503
+---
+ .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 434 +++++++++++++++++-
+ 1 file changed, 417 insertions(+), 17 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+index ac13042672ea..a412fa9a95ec 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+@@ -505,7 +505,7 @@ static int navi10_tables_init(struct smu_context *smu)
+ 		goto err0_out;
+ 	smu_table->metrics_time = 0;
+ 
+-	smu_table->gpu_metrics_table_size = sizeof(struct gpu_metrics_v1_1);
++	smu_table->gpu_metrics_table_size = sizeof(struct gpu_metrics_v1_3);
+ 	smu_table->gpu_metrics_table = kzalloc(smu_table->gpu_metrics_table_size, GFP_KERNEL);
+ 	if (!smu_table->gpu_metrics_table)
+ 		goto err1_out;
+@@ -2627,10 +2627,11 @@ static ssize_t navi10_get_legacy_gpu_metrics(struct smu_context *smu,
+ 					     void **table)
+ {
+ 	struct smu_table_context *smu_table = &smu->smu_table;
+-	struct gpu_metrics_v1_1 *gpu_metrics =
+-		(struct gpu_metrics_v1_1 *)smu_table->gpu_metrics_table;
++	struct gpu_metrics_v1_3 *gpu_metrics =
++		(struct gpu_metrics_v1_3 *)smu_table->gpu_metrics_table;
+ 	SmuMetrics_legacy_t metrics;
+ 	int ret = 0;
++	int freq = 0, dpm = 0;
+ 
+ 	mutex_lock(&smu->metrics_lock);
+ 
+@@ -2646,7 +2647,7 @@ static ssize_t navi10_get_legacy_gpu_metrics(struct smu_context *smu,
+ 
+ 	mutex_unlock(&smu->metrics_lock);
+ 
+-	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 1, 1);
++	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 1, 3);
+ 
+ 	gpu_metrics->temperature_edge = metrics.TemperatureEdge;
+ 	gpu_metrics->temperature_hotspot = metrics.TemperatureHotspot; @@ -2681,19 +2682,119 @@ static ssize_t navi10_get_legacy_gpu_metrics(struct smu_context *smu,
+ 
+ 	gpu_metrics->system_clock_counter = ktime_get_boottime_ns();
+ 
++	gpu_metrics->voltage_gfx = (155000 - 625 * metrics.CurrGfxVoltageOffset) / 100;
++	gpu_metrics->voltage_mem = (155000 - 625 * metrics.CurrMemVidOffset) / 100;
++	gpu_metrics->voltage_soc = (155000 - 625 * 
++metrics.CurrSocVoltageOffset) / 100;
++
++	gpu_metrics->max_socket_power = smu->power_limit;
++
++	/* Frequency and DPM ranges */
++
++	ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_GFXCLK, 0, &freq);
++	if (ret)
++		goto out;
++	gpu_metrics->min_gfxclk_frequency = freq;
++
++	ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_SOCCLK, 0, &freq);
++	if (ret)
++		goto out;
++	gpu_metrics->min_socclk_frequency = freq;
++
++	ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_UCLK, 0, &freq);
++	if (ret)
++		goto out;
++	gpu_metrics->min_uclk_frequency = freq;
++
++	ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_VCLK, 0, &freq);
++	if (ret)
++		goto out;
++	gpu_metrics->min_vclk0_frequency = freq;
++
++	ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_DCLK, 0, &freq);
++	if (ret)
++		goto out;
++	gpu_metrics->min_dclk0_frequency = freq;
++
++	ret = smu_v11_0_get_dpm_level_count(smu, SMU_GFXCLK, &dpm);
++	if (ret)
++		goto out;
++	gpu_metrics->max_gfxclk_dpm = dpm;
++
++	ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_GFXCLK,
++			gpu_metrics->max_gfxclk_dpm - 1, &freq);
++	if (ret)
++		goto out;
++
++	gpu_metrics->max_gfxclk_frequency = freq;
++
++	ret = smu_v11_0_get_dpm_level_count(smu, SMU_SOCCLK, &dpm);
++	if (ret)
++		goto out;
++
++	gpu_metrics->max_socclk_dpm = dpm;
++
++	ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_SOCCLK,
++			gpu_metrics->max_socclk_dpm - 1, &freq);
++	if (ret)
++		goto out;
++
++	gpu_metrics->max_socclk_frequency = freq;
++
++	ret = smu_v11_0_get_dpm_level_count(smu, SMU_UCLK, &dpm);
++	if (ret)
++		goto out;
++
++	gpu_metrics->max_uclk_dpm = dpm;
++
++	ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_UCLK,
++			gpu_metrics->max_uclk_dpm - 1, &freq);
++	if (ret)
++		goto out;
++
++	gpu_metrics->max_uclk_frequency = freq;
++
++	ret = smu_v11_0_get_dpm_level_count(smu, SMU_VCLK, &dpm);
++	if (ret)
++		goto out;
++
++	gpu_metrics->max_vclk0_dpm = dpm;
++
++	ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_VCLK,
++			gpu_metrics->max_vclk0_dpm - 1, &freq);
++	if (ret)
++		goto out;
++
++	gpu_metrics->max_vclk0_frequency = freq;
++
++	ret = smu_v11_0_get_dpm_level_count(smu, SMU_DCLK, &dpm);
++	if (ret)
++		goto out;
++
++	gpu_metrics->max_dclk0_dpm = dpm;
++
++	ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_DCLK,
++			gpu_metrics->max_dclk0_dpm - 1, &freq);
++	if (ret)
++		goto out;
++
++	gpu_metrics->max_dclk0_frequency = freq;
++
+ 	*table = (void *)gpu_metrics;
+ 
+-	return sizeof(struct gpu_metrics_v1_1);
++	return sizeof(struct gpu_metrics_v1_3);
++out:
++	return ret;
+ }
+ 
+ static ssize_t navi10_get_gpu_metrics(struct smu_context *smu,
+ 				      void **table)
+ {
+ 	struct smu_table_context *smu_table = &smu->smu_table;
+-	struct gpu_metrics_v1_1 *gpu_metrics =
+-		(struct gpu_metrics_v1_1 *)smu_table->gpu_metrics_table;
++	struct gpu_metrics_v1_3 *gpu_metrics =
++		(struct gpu_metrics_v1_3 *)smu_table->gpu_metrics_table;
+ 	SmuMetrics_t metrics;
+ 	int ret = 0;
++	int freq = 0, dpm = 0;
+ 
+ 	mutex_lock(&smu->metrics_lock);
+ 
+@@ -2709,7 +2810,7 @@ static ssize_t navi10_get_gpu_metrics(struct smu_context *smu,
+ 
+ 	mutex_unlock(&smu->metrics_lock);
+ 
+-	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 1, 1);
++	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 1, 3);
+ 
+ 	gpu_metrics->temperature_edge = metrics.TemperatureEdge;
+ 	gpu_metrics->temperature_hotspot = metrics.TemperatureHotspot; @@ -2746,19 +2847,119 @@ static ssize_t navi10_get_gpu_metrics(struct smu_context *smu,
+ 
+ 	gpu_metrics->system_clock_counter = ktime_get_boottime_ns();
+ 
++	gpu_metrics->voltage_gfx = (155000 - 625 * metrics.CurrGfxVoltageOffset) / 100;
++	gpu_metrics->voltage_mem = (155000 - 625 * metrics.CurrMemVidOffset) / 100;
++	gpu_metrics->voltage_soc = (155000 - 625 * 
++metrics.CurrSocVoltageOffset) / 100;
++
++	gpu_metrics->max_socket_power = smu->power_limit;
++
++	/* Frequency and DPM ranges */
++
++	ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_GFXCLK, 0, &freq);
++	if (ret)
++		goto out;
++	gpu_metrics->min_gfxclk_frequency = freq;
++
++	ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_SOCCLK, 0, &freq);
++	if (ret)
++		goto out;
++	gpu_metrics->min_socclk_frequency = freq;
++
++	ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_UCLK, 0, &freq);
++	if (ret)
++		goto out;
++	gpu_metrics->min_uclk_frequency = freq;
++
++	ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_VCLK, 0, &freq);
++	if (ret)
++		goto out;
++	gpu_metrics->min_vclk0_frequency = freq;
++
++	ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_DCLK, 0, &freq);
++	if (ret)
++		goto out;
++	gpu_metrics->min_dclk0_frequency = freq;
++
++	ret = smu_v11_0_get_dpm_level_count(smu, SMU_GFXCLK, &dpm);
++	if (ret)
++		goto out;
++	gpu_metrics->max_gfxclk_dpm = dpm;
++
++	ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_GFXCLK,
++			gpu_metrics->max_gfxclk_dpm - 1, &freq);
++	if (ret)
++		goto out;
++
++	gpu_metrics->max_gfxclk_frequency = freq;
++
++	ret = smu_v11_0_get_dpm_level_count(smu, SMU_SOCCLK, &dpm);
++	if (ret)
++		goto out;
++
++	gpu_metrics->max_socclk_dpm = dpm;
++
++	ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_SOCCLK,
++			gpu_metrics->max_socclk_dpm - 1, &freq);
++	if (ret)
++		goto out;
++
++	gpu_metrics->max_socclk_frequency = freq;
++
++	ret = smu_v11_0_get_dpm_level_count(smu, SMU_UCLK, &dpm);
++	if (ret)
++		goto out;
++
++	gpu_metrics->max_uclk_dpm = dpm;
++
++	ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_UCLK,
++			gpu_metrics->max_uclk_dpm - 1, &freq);
++	if (ret)
++		goto out;
++
++	gpu_metrics->max_uclk_frequency = freq;
++
++	ret = smu_v11_0_get_dpm_level_count(smu, SMU_VCLK, &dpm);
++	if (ret)
++		goto out;
++
++	gpu_metrics->max_vclk0_dpm = dpm;
++
++	ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_VCLK,
++			gpu_metrics->max_vclk0_dpm - 1, &freq);
++	if (ret)
++		goto out;
++
++	gpu_metrics->max_vclk0_frequency = freq;
++
++	ret = smu_v11_0_get_dpm_level_count(smu, SMU_DCLK, &dpm);
++	if (ret)
++		goto out;
++
++	gpu_metrics->max_dclk0_dpm = dpm;
++
++	ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_DCLK,
++			gpu_metrics->max_dclk0_dpm - 1, &freq);
++	if (ret)
++		goto out;
++
++	gpu_metrics->max_dclk0_frequency = freq;
++
+ 	*table = (void *)gpu_metrics;
+ 
+-	return sizeof(struct gpu_metrics_v1_1);
++	return sizeof(struct gpu_metrics_v1_3);
++out:
++	return ret;
+ }
+ 
+ static ssize_t navi12_get_legacy_gpu_metrics(struct smu_context *smu,
+ 					     void **table)
+ {
+ 	struct smu_table_context *smu_table = &smu->smu_table;
+-	struct gpu_metrics_v1_1 *gpu_metrics =
+-		(struct gpu_metrics_v1_1 *)smu_table->gpu_metrics_table;
++	struct gpu_metrics_v1_3 *gpu_metrics =
++		(struct gpu_metrics_v1_3 *)smu_table->gpu_metrics_table;
+ 	SmuMetrics_NV12_legacy_t metrics;
+ 	int ret = 0;
++	int freq = 0, dpm = 0;
+ 
+ 	mutex_lock(&smu->metrics_lock);
+ 
+@@ -2774,7 +2975,7 @@ static ssize_t navi12_get_legacy_gpu_metrics(struct smu_context *smu,
+ 
+ 	mutex_unlock(&smu->metrics_lock);
+ 
+-	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 1, 1);
++	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 1, 3);
+ 
+ 	gpu_metrics->temperature_edge = metrics.TemperatureEdge;
+ 	gpu_metrics->temperature_hotspot = metrics.TemperatureHotspot; @@ -2814,19 +3015,119 @@ static ssize_t navi12_get_legacy_gpu_metrics(struct smu_context *smu,
+ 
+ 	gpu_metrics->system_clock_counter = ktime_get_boottime_ns();
+ 
++	gpu_metrics->voltage_gfx = (155000 - 625 * metrics.CurrGfxVoltageOffset) / 100;
++	gpu_metrics->voltage_mem = (155000 - 625 * metrics.CurrMemVidOffset) / 100;
++	gpu_metrics->voltage_soc = (155000 - 625 * 
++metrics.CurrSocVoltageOffset) / 100;
++
++	gpu_metrics->max_socket_power = smu->power_limit;
++
++	/* Frequency and DPM ranges */
++
++	ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_GFXCLK, 0, &freq);
++	if (ret)
++		goto out;
++	gpu_metrics->min_gfxclk_frequency = freq;
++
++	ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_SOCCLK, 0, &freq);
++	if (ret)
++		goto out;
++	gpu_metrics->min_socclk_frequency = freq;
++
++	ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_UCLK, 0, &freq);
++	if (ret)
++		goto out;
++	gpu_metrics->min_uclk_frequency = freq;
++
++	ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_VCLK, 0, &freq);
++	if (ret)
++		goto out;
++	gpu_metrics->min_vclk0_frequency = freq;
++
++	ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_DCLK, 0, &freq);
++	if (ret)
++		goto out;
++	gpu_metrics->min_dclk0_frequency = freq;
++
++	ret = smu_v11_0_get_dpm_level_count(smu, SMU_GFXCLK, &dpm);
++	if (ret)
++		goto out;
++	gpu_metrics->max_gfxclk_dpm = dpm;
++
++	ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_GFXCLK,
++			gpu_metrics->max_gfxclk_dpm - 1, &freq);
++	if (ret)
++		goto out;
++
++	gpu_metrics->max_gfxclk_frequency = freq;
++
++	ret = smu_v11_0_get_dpm_level_count(smu, SMU_SOCCLK, &dpm);
++	if (ret)
++		goto out;
++
++	gpu_metrics->max_socclk_dpm = dpm;
++
++	ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_SOCCLK,
++			gpu_metrics->max_socclk_dpm - 1, &freq);
++	if (ret)
++		goto out;
++
++	gpu_metrics->max_socclk_frequency = freq;
++
++	ret = smu_v11_0_get_dpm_level_count(smu, SMU_UCLK, &dpm);
++	if (ret)
++		goto out;
++
++	gpu_metrics->max_uclk_dpm = dpm;
++
++	ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_UCLK,
++			gpu_metrics->max_uclk_dpm - 1, &freq);
++	if (ret)
++		goto out;
++
++	gpu_metrics->max_uclk_frequency = freq;
++
++	ret = smu_v11_0_get_dpm_level_count(smu, SMU_VCLK, &dpm);
++	if (ret)
++		goto out;
++
++	gpu_metrics->max_vclk0_dpm = dpm;
++
++	ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_VCLK,
++			gpu_metrics->max_vclk0_dpm - 1, &freq);
++	if (ret)
++		goto out;
++
++	gpu_metrics->max_vclk0_frequency = freq;
++
++	ret = smu_v11_0_get_dpm_level_count(smu, SMU_DCLK, &dpm);
++	if (ret)
++		goto out;
++
++	gpu_metrics->max_dclk0_dpm = dpm;
++
++	ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_DCLK,
++			gpu_metrics->max_dclk0_dpm - 1, &freq);
++	if (ret)
++		goto out;
++
++	gpu_metrics->max_dclk0_frequency = freq;
++
+ 	*table = (void *)gpu_metrics;
+ 
+-	return sizeof(struct gpu_metrics_v1_1);
++	return sizeof(struct gpu_metrics_v1_3);
++out:
++	return ret;
+ }
+ 
+ static ssize_t navi12_get_gpu_metrics(struct smu_context *smu,
+ 				      void **table)
+ {
+ 	struct smu_table_context *smu_table = &smu->smu_table;
+-	struct gpu_metrics_v1_1 *gpu_metrics =
+-		(struct gpu_metrics_v1_1 *)smu_table->gpu_metrics_table;
++	struct gpu_metrics_v1_3 *gpu_metrics =
++		(struct gpu_metrics_v1_3 *)smu_table->gpu_metrics_table;
+ 	SmuMetrics_NV12_t metrics;
+ 	int ret = 0;
++	int freq = 0, dpm = 0;
+ 
+ 	mutex_lock(&smu->metrics_lock);
+ 
+@@ -2842,7 +3143,7 @@ static ssize_t navi12_get_gpu_metrics(struct smu_context *smu,
+ 
+ 	mutex_unlock(&smu->metrics_lock);
+ 
+-	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 1, 1);
++	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 1, 3);
+ 
+ 	gpu_metrics->temperature_edge = metrics.TemperatureEdge;
+ 	gpu_metrics->temperature_hotspot = metrics.TemperatureHotspot; @@ -2884,9 +3185,108 @@ static ssize_t navi12_get_gpu_metrics(struct smu_context *smu,
+ 
+ 	gpu_metrics->system_clock_counter = ktime_get_boottime_ns();
+ 
++	gpu_metrics->voltage_gfx = (155000 - 625 * metrics.CurrGfxVoltageOffset) / 100;
++	gpu_metrics->voltage_mem = (155000 - 625 * metrics.CurrMemVidOffset) / 100;
++	gpu_metrics->voltage_soc = (155000 - 625 * 
++metrics.CurrSocVoltageOffset) / 100;
++
++	gpu_metrics->max_socket_power = smu->power_limit;
++
++	/* Frequency and DPM ranges */
++
++	ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_GFXCLK, 0, &freq);
++	if (ret)
++		goto out;
++	gpu_metrics->min_gfxclk_frequency = freq;
++
++	ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_SOCCLK, 0, &freq);
++	if (ret)
++		goto out;
++	gpu_metrics->min_socclk_frequency = freq;
++
++	ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_UCLK, 0, &freq);
++	if (ret)
++		goto out;
++	gpu_metrics->min_uclk_frequency = freq;
++
++	ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_VCLK, 0, &freq);
++	if (ret)
++		goto out;
++	gpu_metrics->min_vclk0_frequency = freq;
++
++	ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_DCLK, 0, &freq);
++	if (ret)
++		goto out;
++	gpu_metrics->min_dclk0_frequency = freq;
++
++	ret = smu_v11_0_get_dpm_level_count(smu, SMU_GFXCLK, &dpm);
++	if (ret)
++		goto out;
++	gpu_metrics->max_gfxclk_dpm = dpm;
++
++	ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_GFXCLK,
++			gpu_metrics->max_gfxclk_dpm - 1, &freq);
++	if (ret)
++		goto out;
++
++	gpu_metrics->max_gfxclk_frequency = freq;
++
++	ret = smu_v11_0_get_dpm_level_count(smu, SMU_SOCCLK, &dpm);
++	if (ret)
++		goto out;
++
++	gpu_metrics->max_socclk_dpm = dpm;
++
++	ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_SOCCLK,
++			gpu_metrics->max_socclk_dpm - 1, &freq);
++	if (ret)
++		goto out;
++
++	gpu_metrics->max_socclk_frequency = freq;
++
++	ret = smu_v11_0_get_dpm_level_count(smu, SMU_UCLK, &dpm);
++	if (ret)
++		goto out;
++
++	gpu_metrics->max_uclk_dpm = dpm;
++
++	ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_UCLK,
++			gpu_metrics->max_uclk_dpm - 1, &freq);
++	if (ret)
++		goto out;
++
++	gpu_metrics->max_uclk_frequency = freq;
++
++	ret = smu_v11_0_get_dpm_level_count(smu, SMU_VCLK, &dpm);
++	if (ret)
++		goto out;
++
++	gpu_metrics->max_vclk0_dpm = dpm;
++
++	ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_VCLK,
++			gpu_metrics->max_vclk0_dpm - 1, &freq);
++	if (ret)
++		goto out;
++
++	gpu_metrics->max_vclk0_frequency = freq;
++
++	ret = smu_v11_0_get_dpm_level_count(smu, SMU_DCLK, &dpm);
++	if (ret)
++		goto out;
++
++	gpu_metrics->max_dclk0_dpm = dpm;
++
++	ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_DCLK,
++			gpu_metrics->max_dclk0_dpm - 1, &freq);
++	if (ret)
++		goto out;
++
++	gpu_metrics->max_dclk0_frequency = freq;
++
+ 	*table = (void *)gpu_metrics;
+ 
+-	return sizeof(struct gpu_metrics_v1_1);
++	return sizeof(struct gpu_metrics_v1_3);
++out:
++	return ret;
+ }
+ 
+ static ssize_t navi1x_get_gpu_metrics(struct smu_context *smu,
+--
+2.17.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7Clijo.lazar%40amd.com%7C2aabcce1455c410dec6008d9171b80a8%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637566229187346163%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=NgHqow7Ra1rXTqz4suB8Vv%2FASOYRRJAtCgLUcpHRDto%3D&amp;reserved=0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
