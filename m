@@ -2,105 +2,73 @@ Return-Path: <SRS0=Ip1/=KM=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-2.0 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_2 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3412CC433ED
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 May 2021 08:26:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7D8C4C433B4
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 May 2021 08:34:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E701161059
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 May 2021 08:26:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E701161059
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 2660361057
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 May 2021 08:34:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2660361057
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 727346E8F1;
-	Mon, 17 May 2021 08:26:40 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1anam02on2084.outbound.protection.outlook.com [40.107.96.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7EC346E8F1
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 May 2021 08:26:38 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iH99GsPqYDzSwc9Ydk5qrV123MUpTm+AR+RkeypAqiCmbMTsjWqnKZ2fioOhiuxb5Kzdwrf3793ZvjTPFoQT5LJclCOkS3wmjVgDoHIJVXo/fqFqaCCu8LxCLMCLvoANTbSATypLJHMijFzJ3EdKvEw5Feiyv4GE476AAZ5wr4ATzdLGX+G2UN4/Uc55Cn2MmVP4ufacHwHYP9GW/4o//DV4mstKC3n+KlCqi4BGlgWLhrCrQ31UcQ1wsjvafitYogbcKecMa4ng6kXuQyQmfon8DiuIyZTrX9YsLqzrPpQzgW2E9wC5w361PQTE8j3gWjxPlgFu6JBkgqfBwFTHUQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QayU+bxxbQiwNbqyr6C3SKQLJyBzpV/FLYZ4g1QSRZ4=;
- b=NR4g3jdfwIP5zKa4g7OgvBD21QM8qkUmtFX+sFj4VIs6Fnr0PDwgM1LmnBd43J15M7vYWgTrqU44Br/XARkdjtgE7wzYTc/wOcmAaPdepef3eQhCwhTP7U1ZC9SsRuhZhaJAC57ZqTFX7jbySR1pI8/9ktdybj9M55Ov9KVEAmQptp3fRzroAYb//EUtz1Y56F0QIE1izcX2/6XOktWgKljIoyy1bpqO/kz6X020HUi/nustq5EVOpA4rzM/Sfvg4MFYiUPlJrdMnM7cmJ8mrDHgXAdnsSEjwaemgM/6tuK75RtWTuP96ldffKqRQvf9rZ1zG9RIUT1FWkfpOUYQ+g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=none sp=none pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QayU+bxxbQiwNbqyr6C3SKQLJyBzpV/FLYZ4g1QSRZ4=;
- b=NJOi+oeZIse5ox/hM1snFgFfUM9WyRdnbjScFQ9EibXRYLhBOf/9EukkdxMJqucqb+y1i6gidG+GJRnOtmXFtadMoHNQQnszqDcRzDyRp+gvZvdYe2lwL7eb1OjbLxc8a0yKGWbUnHVc3/54eI5lVFeQTFItnBp500sOe2x3k/4=
-Received: from MW2PR16CA0048.namprd16.prod.outlook.com (2603:10b6:907:1::25)
- by DM4PR12MB5279.namprd12.prod.outlook.com (2603:10b6:5:39f::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.26; Mon, 17 May
- 2021 08:26:37 +0000
-Received: from CO1NAM11FT004.eop-nam11.prod.protection.outlook.com
- (2603:10b6:907:1:cafe::22) by MW2PR16CA0048.outlook.office365.com
- (2603:10b6:907:1::25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4108.25 via Frontend
- Transport; Mon, 17 May 2021 08:26:36 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT004.mail.protection.outlook.com (10.13.175.89) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4129.25 via Frontend Transport; Mon, 17 May 2021 08:26:36 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Mon, 17 May
- 2021 03:26:33 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Mon, 17 May
- 2021 03:26:32 -0500
-Received: from wayne-build.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2242.4 via Frontend
- Transport; Mon, 17 May 2021 03:26:31 -0500
-From: Jingwen Chen <Jingwen.Chen2@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd/amdgpu: fix refcount leak
-Date: Mon, 17 May 2021 16:26:26 +0800
-Message-ID: <20210517082626.1528678-1-Jingwen.Chen2@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 967486E8F2;
+	Mon, 17 May 2021 08:34:46 +0000 (UTC)
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E66656E8F2;
+ Mon, 17 May 2021 08:34:45 +0000 (UTC)
+Received: by mail-lj1-x234.google.com with SMTP id e11so6138502ljn.13;
+ Mon, 17 May 2021 01:34:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:in-reply-to:references
+ :mime-version; bh=4/35G1MI5crtjOtKd8XUhfr3P+Qgrojx1gL97EhL83o=;
+ b=MTxJ7TyiTG5LxkCEo/BaN6dgkKa3wEp9+Ffjp7s+mZD8MQ2P6+M2PGBLOVNqIw7pTw
+ Lr2sS+C2b7TRc/HwLagOkqeMRFS1ZdpQdHTsZNL9raCRn0JeQOJcgj99yCffZ21DeXOK
+ UYv1+zy43jPFa+tkj5dL0JSpM17rVzPcPf+wiy6ANaF3fruoas+XYe4eWLoJXUoiIdZ2
+ cxE0ipD8dN7LlcFfChbCQpWYsP8XYCZEX/odw5mFZNIzufUdBxmZ/hr57J6fzSytdTgx
+ 83ej0ixcj3Ar5aVVN3tgYxJZpzgNFBmGYyGJ/Kmbi+wEf3IHKZuUddkvloN9/m9R3NG0
+ Kc+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
+ :references:mime-version;
+ bh=4/35G1MI5crtjOtKd8XUhfr3P+Qgrojx1gL97EhL83o=;
+ b=gfHzE11j+A86h5l7j9PiSFMOjXPEjCazd1bXLyDw7YSnY0oSKQF4r66nQHuSjkrZhG
+ kcNKQ+s3YRAKFeLEy4c9bqDUGmNqAZYCsa42pLblcDJkuY9PIOLOVKwfxo8kpV2XNjs3
+ PUU8EIgdhy8Mxci/Skvx66iJ306efR+JlPnO83K9ZywTXxyIbCl6hj8t0La+7k7ZtpLh
+ xX3EabFsW96ox5xF1A2A/RCqV+SmVXjx2C4PPtPLFS8MQnJo2F8dU+Snc2nWvxwBcCl5
+ kcAoveNglFDkiNpyetb8ep8wzv0rm+KewcQ93296dWC1wy7DHgzQg4NLbszuxQOTwpdo
+ JTpg==
+X-Gm-Message-State: AOAM532ooyzQEHK1vi6WMRZWdK+y9t5mzX3iY5mEXgQFIXnsQ0foSBEp
+ TwRG4h9VQl1sWre9hq/RWsc=
+X-Google-Smtp-Source: ABdhPJzd5gc0ggRQY3tg6nHRBZAu7JjigCB5uEVxApt9kHbQ4lPV/NhaLthesrp3VCpVbVbE3RocSw==
+X-Received: by 2002:a2e:898c:: with SMTP id c12mr47007566lji.431.1621240484271; 
+ Mon, 17 May 2021 01:34:44 -0700 (PDT)
+Received: from eldfell ([194.136.85.206])
+ by smtp.gmail.com with ESMTPSA id s23sm2814394ljh.16.2021.05.17.01.34.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 17 May 2021 01:34:43 -0700 (PDT)
+Date: Mon, 17 May 2021 11:34:32 +0300
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: Harry Wentland <harry.wentland@amd.com>
+Subject: Re: [RFC PATCH 1/3] drm/color: Add RGB Color encodings
+Message-ID: <20210517113432.11f95361@eldfell>
+In-Reply-To: <cac44e69-85cb-661b-4a5e-33fafee8ea3d@amd.com>
+References: <20210426173852.484368-1-harry.wentland@amd.com>
+ <20210426173852.484368-2-harry.wentland@amd.com>
+ <YIcBUl+94sHJsT8B@intel.com>
+ <0090ce07-6102-59e7-bc8c-3528297aa5ae@amd.com>
+ <a49e967a0082727757143828770bd671@sebastianwick.net>
+ <cac44e69-85cb-661b-4a5e-33fafee8ea3d@amd.com>
+X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: fdc1c6d2-905b-4ca2-d8c7-08d9190d7cc4
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5279:
-X-Microsoft-Antispam-PRVS: <DM4PR12MB52793061F5CBE7BCF670D1B1B72D9@DM4PR12MB5279.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2399;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 7S1l+Pr/OT7jpTzEHvHQaoFsqGZyERoNtAWh2ZgzxqK6jE5axHeYoZQ/nUn46xhNtcUCuG1aw0w6Xl3XCcWj6LWRl/m/lNglRhoD3jOnMnTBKIWoz7eqq9wXp/ZajpSu0jHsugDgCgI3X0vRZ2SK0hxXT8ULsaEwEGbmZgI3zfjKUvLWz16f860LvV6XJilh3Z90BjmasaJxAh3wx0YuA/LjIV78Hy1qA07Drk+GDqYbkcK19iwdMJGkR4nKyA2gb2PysijLUi0CKDijzxdkE4VM1QMu6E7KAedAvsYLcqgLwqdU1ey2ARbD7SelXuOtlCS9XK2tzDS+izP1vcyjaHvT66SLzekSBDckOnYlFnjrne6dfF3YxeJmgQUs94zftnx8j43YmHbtq5GCRZQsKLLSi60CoRmZuajo3iJrY7LmMPBb4bvBk/KRcERlweUsiGj9mL12VdemtCC3fu5KmG8rUnbt6OXp3rWrumDK+ssYyLyXrLptcJ0ukTOEJ33b4JEucmG9SfjJvmdYytpTuzlrca2ibx5iGjojMePCQz5dIJ1kiIEpNJSr3lefPvOjjCarq+QwjKjxr9i/XqkXwVdVe/snltKkcfo0J/SdALwuU4mIJd6mHzzkt0Vn4sLvhxuOu0/e6s6JqR8k2qcVodfhJAkfdx4n1XvCyL9p6vbWhPfqbUWDOZKGPwoLIBC5
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(136003)(39860400002)(396003)(346002)(376002)(36840700001)(46966006)(81166007)(4326008)(47076005)(336012)(54906003)(316002)(356005)(186003)(6916009)(8936002)(82740400003)(86362001)(2616005)(8676002)(26005)(426003)(478600001)(7696005)(70206006)(6666004)(36860700001)(82310400003)(2906002)(5660300002)(1076003)(70586007)(36756003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 May 2021 08:26:36.6591 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fdc1c6d2-905b-4ca2-d8c7-08d9190d7cc4
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT004.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5279
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,46 +80,103 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jingwen Chen <Jingwen.Chen2@amd.com>, monk.liu@amd.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Deepak.Sharma@amd.com, aric.cyr@amd.com, Krunoslav.Kovac@amd.com,
+ mcasas@google.com, Shashank.Sharma@amd.com, dri-devel@lists.freedesktop.org,
+ Shirish.S@amd.com, Sebastian Wick <sebastian@sebastianwick.net>,
+ Uma Shankar <uma.shankar@intel.com>, hersenxs.wu@amd.com,
+ amd-gfx@lists.freedesktop.org, laurentiu.palcu@oss.nxp.com,
+ Bhawanpreet.Lakha@amd.com, Nicholas.Kazlauskas@amd.com,
+ Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Vitaly.Prosyak@amd.com
+Content-Type: multipart/mixed; boundary="===============0404820021=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why]
-the gem object rfb->base.obj[0] is get according to num_planes
-in amdgpufb_create, but is not put according to num_planes
+--===============0404820021==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ boundary="Sig_/.U1C=esMDUGghuFV02zT09K"; protocol="application/pgp-signature"
 
-[How]
-put rfb->base.obj[0] in amdgpu_fbdev_destroy according to num_planes
+--Sig_/.U1C=esMDUGghuFV02zT09K
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Jingwen Chen <Jingwen.Chen2@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c | 3 +++
- 1 file changed, 3 insertions(+)
+On Fri, 14 May 2021 17:04:51 -0400
+Harry Wentland <harry.wentland@amd.com> wrote:
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
-index 4f10c4529840..09b048647523 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
-@@ -288,10 +288,13 @@ static int amdgpufb_create(struct drm_fb_helper *helper,
- static int amdgpu_fbdev_destroy(struct drm_device *dev, struct amdgpu_fbdev *rfbdev)
- {
- 	struct amdgpu_framebuffer *rfb = &rfbdev->rfb;
-+	int i;
- 
- 	drm_fb_helper_unregister_fbi(&rfbdev->helper);
- 
- 	if (rfb->base.obj[0]) {
-+		for (i = 0; i < rfb->base.format->num_planes; i++)
-+			drm_gem_object_put(rfb->base.obj[0]);
- 		amdgpufb_destroy_pinned_object(rfb->base.obj[0]);
- 		rfb->base.obj[0] = NULL;
- 		drm_framebuffer_unregister_private(&rfb->base);
--- 
-2.25.1
+> On 2021-04-30 8:53 p.m., Sebastian Wick wrote:
+> > On 2021-04-26 20:56, Harry Wentland wrote: =20
+
+...
+
+> >> Another reason I'm proposing to define the color space (and gamma) of
+> >> a plane is to make this explicit. Up until the color space and gamma
+> >> of a plane or framebuffer are not well defined, which leads to drivers
+> >> assuming the color space and gamma of a buffer (for blending and other
+> >> purposes) and might lead to sub-optimal outcomes. =20
+> >=20
+> > Blending only is "correct" with linear light so that property of the
+> > color space is important. However, why does the kernel have to be
+> > involved here? As long as user space knows that for correct blending the
+> > data must represent linear light and knows when in the pipeline blending
+> > happens it can make sure that the data at that point in the pipeline
+> > contains linear light.
+> >  =20
+>=20
+> The only reason the kernel needs to be involved is to take full advantage
+> of the available HW without requiring KMS clients to be aware of
+> the difference in display HW.
+
+Can you explain in more tangible examples, why you think so, please?
+
+Is it because hardware does not fit the KMS UAPI model of the abstract
+pixel pipeline?
+
+Or is it because you have fixed-function hardware elements that you can
+only make use of when userspace uses an enum-based UAPI?
+
+I would totally agree that the driver does not want to be analysing LUT
+entries to decipher if it could use a fixed-function element or not. It
+would introduce uncertainty in the UAPI. So fixed-function elements
+would need their own properties, but I don't know if that is feasible
+as generic UAPI or if it should be driver-specific (and so left unused
+by generic userspace).
+
+
+Thanks,
+pq
+
+--Sig_/.U1C=esMDUGghuFV02zT09K
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmCiKpgACgkQI1/ltBGq
+qqcOOQ/+NzUjGFSG0VlVqpv5JsY8U4LKOJoG/2PZKYVNLQrvPAgabT2ZuJ8JG3Hu
+cfcdnzyqj72nm+/jG1ZVNJcCIkKs4sjSQdsgcgJzxFYyPaJfHIvnC8YNS8mlNXdK
+b77FKIk7ipzIF9LO4tWxS36g9v/lEcDDZEVFxfSKaZKNdYqhYlCaORmWorgs5zqS
+WJAGWfaAJjx2bk/RxhkFwJSG5RppAgnufDxg68FZv7uyyqi+k+0ZeEKgPKK0+Oy2
+iVPzNCmqMGpiClWw2QDeB7tqIyOzBjozgg+lkPPV44mMZ3q+wDpZ8+ADSgZD40Bf
+PQD0rKodHiYNvWuWBGn3bmeBJc/lA+NRKjXMgaokUcKZlFkRAYy3CSnNR1CCTw4+
+TxCtP7O19+43liguPDkC7ENJ4rlI+3rUG88aSJ+miyhauLJen8rcNdkLA3n5UIiw
+BjEZ85nK5N7Hujq1eVKe9p2LYQ8fKzJN0omr+33711tnP1ccAQkwDq9lEL/CgokL
+FC1xj9xOPxn+6wHW0zTfQieA4iD+c/fXDSSz6fgFgsL69cNCdpErokFtK6Yofund
+BhsPcMYRTKHgTpEUieecg661TaUrwM4N0a5jWcC4gwbJoSpAJaENlPhYkaJpErSA
+JnJnWTlEweXGjP0Ne2TW0e9d6M9SwfoqQSLbM2VLz8MlVOL989Q=
+=RiSq
+-----END PGP SIGNATURE-----
+
+--Sig_/.U1C=esMDUGghuFV02zT09K--
+
+--===============0404820021==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0404820021==--
