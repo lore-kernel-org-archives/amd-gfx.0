@@ -2,131 +2,126 @@ Return-Path: <SRS0=Ip1/=KM=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E3F71C433ED
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 May 2021 14:48:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8C8BFC433B4
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 May 2021 14:49:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A5E6761019
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 May 2021 14:48:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A5E6761019
+	by mail.kernel.org (Postfix) with ESMTPS id 5953B601FC
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 May 2021 14:49:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5953B601FC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D82C06E9B5;
-	Mon, 17 May 2021 14:48:45 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2056.outbound.protection.outlook.com [40.107.237.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 038316E9C6;
- Mon, 17 May 2021 14:48:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E22F36E9B3;
+	Mon, 17 May 2021 14:49:53 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2082.outbound.protection.outlook.com [40.107.94.82])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 87CFC6E9B3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 May 2021 14:49:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ipWG0Nu1rLtp0PpC5lkx4ENa5LEGAsagYytAiC02gDPqxRr1L7hh54J+/o51jMtuYFEyljirLZHQN0qgqKT1QiV/nIBg5xiMZwCKJoQkWJH/zvlMrWQeQpIr3YOotCmnyigeTfg5revTA6IMN2NlqjUuSex0KnzZteuH8VEQFnQJ9hLBgR4IEn98EqkHAOrVSfSuKXcrOLy5696GLYwPjnPx+R9XJYOmCJiYFrII0dYj6q2LD/DiGVZ8T2zbI18kRytQ1RTcCJ+pXZBTYtDDsl8ajZQ2c/eCTvAfMFWJJmPOnD5Wmu5SWs6CyBzBetYgeypIJdNkFQOZpq0mjVe/sQ==
+ b=jJUu4DIHYUWImx3Y2RqKy0HpyFr+9Pps2a5kxzwjeWR/4AYOy+GtsHi34h1qGluWaPcHUYktBO2ByV+QSpELseKBsrwFRkwcSB6MS5FXngyU1LOSulA/1CUO9EtaBoCmi74yDZu4/eyiVxxOvGMNvoP9lhR+Ew+IP5d3GFgvkO7054LbRGYXGPBGz34elIE7MyAdevHtawLA/sX6zDMUs2qVihDVMTtrt3kaKEMpIU5bw6B1jQrDDM6odOJO926BexKNYEKMSCqnmFbPcT0h3JMzSyXGP8xLA6LeEtspVe358utiv7V+hsmspDXFKv+RVE7SIpy9/OMqlVvpouZk/w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Roe/X31l1oUB61oufCfH/uc0+dPDv+jWQ5bBkbuNOgM=;
- b=GbYaLDenfjqYmJoq2F2yaVUQUgPEue/n+dhdVRBvbFaJdzsjJsWqU3ax81vCS8ATI77uS8NN2NbHZxPPVRWrU98LS4WzpGRO+Yh6jMGWXf5/mHUVfzkyzQmjPp3y3YUQL7XuB5ijakcSK3/TybJ13BA2homdrhnA+9bN6AKOsP4xbC4O46qDuqTp8h9KkrLbBW6t6GorYeHmwhJiNOZmzCY3Z8tv3Bej1/uJlB+3BY0HjNZMH1l1X4HZUZr7tRb7gW8osmhFNzyn64wGx/+vOYi4h43S9SxiU7fnM0Cp/jI+ratyklDSPIRB4veStvpmF/qRkPdEFxSyRtqCl0ts0w==
+ bh=hJVHFe2oMse4rY1Jjj7PI8MrYmnbyVE7zW8T0x+C5t8=;
+ b=XJagEwGt2ALZBqbGKdufbBJpitrTPsZmD6sfoH20OMFU251WsY3+6VdoT3Q+aKfInyVaoXqYrzG1T7OeClv9uzdKUp+fJ9+YYs85QxL+ZbZMwX8dyllgLqMKKR9zViuTbS3p6Wnf5sLhM5LDinZl3H/oppnjN48KeHy1MGKAk6rTgYN/Naw3kLU/S4NDZZteM04zVzt8GnK97aKC2L07nXmYnrblJJmwuERMZxn9DLrZZ0woM3eQ9YU3rVENA30ToTnw3RbVNWYDwRWHmuLMNz91jPy5rWx8W6GuzzgzHWSy5Emd1Z02nzxGa0Fv2PHK/H6pceTGAetCUZt31sXhsg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Roe/X31l1oUB61oufCfH/uc0+dPDv+jWQ5bBkbuNOgM=;
- b=tPzo0dbxhnSJSbbbInFgz1m6oQlVpLVgGLJDBEV5tQmwvIbNlj8VYZ28+jp+SQ1IGH+pXiaWr1oZPHN9KLIWAo5e+YNqsbAGYkR3PBRldnZby32Fng6HGWjEF/QYhA9Dlgio9bTruM6wtUc22hMTyRWicPAhxM+3RT3f49LGl6E=
-Authentication-Results: kernel.org; dkim=none (message not signed)
- header.d=none;kernel.org; dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5129.namprd12.prod.outlook.com (2603:10b6:408:136::12)
- by BN9PR12MB5066.namprd12.prod.outlook.com (2603:10b6:408:133::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.26; Mon, 17 May
- 2021 14:48:41 +0000
-Received: from BN9PR12MB5129.namprd12.prod.outlook.com
- ([fe80::3c78:e58b:fba7:b8dd]) by BN9PR12MB5129.namprd12.prod.outlook.com
- ([fe80::3c78:e58b:fba7:b8dd%6]) with mapi id 15.20.4129.031; Mon, 17 May 2021
- 14:48:41 +0000
-Subject: Re: [PATCH] drm/amdgpu: Handle IOMMU enabled case.
-To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-pci@vger.kernel.org, ckoenig.leichtzumerken@gmail.com,
- daniel.vetter@ffwll.ch, Harry.Wentland@amd.com
-References: <32b61077-f760-8fe0-c00f-256a97d2977e@amd.com>
- <20210517143851.475058-1-andrey.grodzovsky@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Message-ID: <b69780b9-efcd-425a-4d1e-599ff44f9ae8@amd.com>
-Date: Mon, 17 May 2021 10:48:38 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
-In-Reply-To: <20210517143851.475058-1-andrey.grodzovsky@amd.com>
-Content-Language: en-US
-X-Originating-IP: [142.186.56.206]
-X-ClientProxiedBy: YT1PR01CA0046.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2e::15) To BN9PR12MB5129.namprd12.prod.outlook.com
- (2603:10b6:408:136::12)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [192.168.2.100] (142.186.56.206) by
- YT1PR01CA0046.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2e::15) with Microsoft
+ bh=hJVHFe2oMse4rY1Jjj7PI8MrYmnbyVE7zW8T0x+C5t8=;
+ b=zSAxv+qcaEWE3x9g771Hedy6H3nR5ROJsJJxPaauVhADoHH2VzNRCQvKE5p0SMRARUxqvwUN8J3siAejNhSzWbCEAcMHIZK9i10U+7oAv4TUsSs2IskCg7T2L51KX/jA3ohfFbfwxZ3qH8TG+9g8Ompr4i9lHTZlQoDQ+zpLrxs=
+Received: from DM8PR12MB5478.namprd12.prod.outlook.com (2603:10b6:8:29::12) by
+ DM4PR12MB5136.namprd12.prod.outlook.com (2603:10b6:5:393::23) with
+ Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4108.30 via Frontend Transport; Mon, 17 May 2021 14:48:40 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d9838dd7-b442-4999-e35d-08d91942dcbf
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5066:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BN9PR12MB506689614877A3F53E1FB053922D9@BN9PR12MB5066.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: TwAvOVbci7kzL6bbNJEG9uKt/VoCZ/D/fnEa0wJnYqW46rMD7udun+DiBilEfiggdzB/v8gg7DkORLvkQ+YawDj1ioIcH7Pr/smd/B78CLXm/xFeklGrDMJOKrO85j1bQwXsRv7ADW5sbfX0tyNDR336GdUsWPKyCaGLOfgSzHOcOGInTD4XQvavOZs2G9FlKVJcX0VyHoFm8t4PMJ/RYxC/EGOvb0j2oUdfu4h31MBNROTdIQ+2shlBmMR8/RfoF7tb3nJvQMsEfMk6hgW+JVsE0zXOE1vTLf5asccW213k1Xkk+hk8BDuaspWG8PBOXjkGhINrik5eAKfLmKMJ/Q7T6zcophFThHII5firHjIiIyKlzejCHsWyIE0qJ/OEtPLNqa03mJYN4EeopXX0deOtB6+szBbcZ24515J65Uw/KSZ6ppLhW5isQPeW/kTNIIvMgZcvp3v81BhPyTGuGbd3LagsjW+Ak2CpDTRiU8pUVTKGMJIhB6pATJKNE3GhCWRDMMEYyE8h6PUbq8lKzhg2jua4QbfMoLTAOFrJlzM8XBiS4EOBNWuVOOIRLnRmPTRv6Gro1GbT57hnypm407ozdQQkQXsFFT/FUZFxvIEdIbKBXh2KlWqXSgUFh+A4R3e2azT0o76HNB1/NHK2zjEpSIdYEmXZ6jj9Gpq68RJOKNRjYiu59AZKaQlvUGj8
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5129.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(39850400004)(366004)(396003)(136003)(376002)(316002)(16576012)(956004)(2616005)(16526019)(186003)(4326008)(6486002)(86362001)(31686004)(26005)(66946007)(2906002)(31696002)(8936002)(83380400001)(478600001)(66476007)(66556008)(5660300002)(6636002)(30864003)(36756003)(8676002)(44832011)(38100700002)(45980500001)(43740500002);
+ 15.20.4129.25; Mon, 17 May 2021 14:49:49 +0000
+Received: from DM8PR12MB5478.namprd12.prod.outlook.com
+ ([fe80::4172:11d4:b0d7:63d6]) by DM8PR12MB5478.namprd12.prod.outlook.com
+ ([fe80::4172:11d4:b0d7:63d6%6]) with mapi id 15.20.4129.031; Mon, 17 May 2021
+ 14:49:49 +0000
+From: "Zhou, Peng Ju" <PengJu.Zhou@amd.com>
+To: Alex Deucher <alexdeucher@gmail.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH v5 01/10] drm/amdgpu: Indirect register access for Navi12
+ sriov
+Thread-Topic: [PATCH v5 01/10] drm/amdgpu: Indirect register access for Navi12
+ sriov
+Thread-Index: AQHXSyptilLfNdTJpEC7Uq6pCXE4iarnvtEA
+Date: Mon, 17 May 2021 14:49:49 +0000
+Message-ID: <DM8PR12MB5478B352B7F1D70855826CB2F82D9@DM8PR12MB5478.namprd12.prod.outlook.com>
+References: <20210517143910.2125-1-PengJu.Zhou@amd.com>
+In-Reply-To: <20210517143910.2125-1-PengJu.Zhou@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2021-05-17T14:49:39Z; 
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
+ Unrestricted;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=053e5205-a5d7-4149-afdd-3529f2b0e29d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
+msip_justification: drm-next
+authentication-results: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [223.166.164.9]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 3342eb58-75a3-499d-a5dd-08d919430559
+x-ms-traffictypediagnostic: DM4PR12MB5136:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM4PR12MB513639B79A044467E3619A02F82D9@DM4PR12MB5136.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8273;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: j7ppkSGjEzUk0yNebbv3Gg/LTCWQjjxe47gpUtXOjgYre6Wo4kzoY1RvDGIIWGT19Gp0jrxe52N0uzOwzwW1jd7HGH3BQtV/n37byELvBTXLE5iPsFXnX+nBEtSsEx2dHrTe0Pr3dl7GyKdv2P/K8+bhLfkjvsromtOFu3ForN0Xx66JxWXnaQwbU83AAZEvU6mzVtHqkahEp/0q5dcfspOqDdTXvsfWBD1ljsSlNRXRDm6JjFg5Vw9M66f80eGzn9C1+a6uBI+K7Daavu5DFd6ULZMaRWZ3RJzpU11FS6bA9OwcIU2MfGmHc11v+MGYlIzPwG8d+nx2JooPU5mBj1l5D6y564GwoxVcFoW+USs1XcdDCKTRMSuUon4I+BZ/yPegfSFPFwBnYAhJD28zqY7X4s+IP6yHIbUWYXH+s1xVCByEDicNjOksxsTyDhM6jU8Xh9aExN8waHE4n4a9l29XMlsfviEyCjVfOcOtY3OzDz50yxke9eHmhcL4wJzScEKx99Fv7AKm1/a92KI7kSyyRGN99FJHbLVq6eVrRv8DO8PBheGhxn0eHN0Pp9tbcDFB3kMxZEfjrJ72w+LzXq+0kchQAMC1HKA2ZDIN5DI=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM8PR12MB5478.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39850400004)(396003)(346002)(376002)(136003)(366004)(7696005)(83380400001)(186003)(71200400001)(52536014)(122000001)(478600001)(316002)(9686003)(55016002)(33656002)(54906003)(38100700002)(86362001)(8936002)(4326008)(76116006)(26005)(84040400003)(5660300002)(53546011)(110136005)(66556008)(66476007)(66446008)(64756008)(66946007)(30864003)(8676002)(6506007)(2906002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?aTV5aW13S250SHR1bTdvenVxSmhLNkFFaGhlcmJDYTB3SEltbGZlL2FQaFdz?=
- =?utf-8?B?VWpoeWdjNzJjQUdCUEw2cExmQVlWUnFXaEh5WXNoSmhrbzdiQWI5MnJzNm93?=
- =?utf-8?B?RnI1ajNkQlJNenA4SzBRL29maVFuTEUwSFhYMlFLRHUxcU04ZVRvS3lLKzFm?=
- =?utf-8?B?dU5UekdpcEhzVXFYZEZsdEoveGpKa0Vnci9mTGMyVExJeEo3b3JaQmxLZXVV?=
- =?utf-8?B?OGtLNDdvTFZnWWVhZDFNdDVOYWh4MHFRWjMwRGdkd1Z0Z3ZQaytLSjczRXhq?=
- =?utf-8?B?QTZMNTFEOGx6WlVkK1JUY051cE9WSjQ3aXRZZGtFb3YvV2dYanhHR1l6VndC?=
- =?utf-8?B?NU1HS0RWSVNZb2hYajVpYXZkaTdGTlNhNkd6NkdlV3VnQUFMRFNxWDBYQXg1?=
- =?utf-8?B?TGxFMFFmdU5nWHpwNjZLa0ZNZTl1Y2N1Z3dQN2xiVVRFeVNJdkliZkhmZnVP?=
- =?utf-8?B?Ukl2c0ppdUptUGhRcjNEbU5uWlN3Nkx1Z0JHSjJWS2pYOWsrTFE2UmFxZGxJ?=
- =?utf-8?B?R3NESTN6SlUxQ0YrRElXR0RCa28zRGhNN3pWZkx0M3hoV2V4Qk83WUVZK2lp?=
- =?utf-8?B?NjJaTEExbWZ2RmJWU0tMK2RXU2lEUTBpeUEvUmZEejBKRitPdGxYNjdnWDRM?=
- =?utf-8?B?UDhjVkxiazhoTVVqUnZuU1VaY3dSZTRYd3kyeExYUkdkcml4WEdmL0pqdkVu?=
- =?utf-8?B?M045UFJSTktxZmkyMHN3MWMrRXdWNjVqTVhUZldGQTRMODJUdEFCdjUxakIy?=
- =?utf-8?B?dEkwU1hrZXNrM3Q5NlZSUHdEbjJDY1kzMU9MbGt3SlIxdzd4RUFXa2swRzVh?=
- =?utf-8?B?Um5GUXU4OWRKallJLzNzYThPa1VUVEd6WHE2ZUFJNE1PeXQzSDE2azlxWmo4?=
- =?utf-8?B?S0xUZGVvalhRUFp0ZlgyaDN2Q1M2K2VjMFFnTXVVNUtBMCtNak1aNWFpSVlS?=
- =?utf-8?B?dnk4WHFYZVZpZkh2VVJVZ2xCc2RHQkVZTzBvR2lZV1FiWlRBOVFGZFdFTVhL?=
- =?utf-8?B?YTQwbHFLaVVWSmNNcTdQTGkyWXpHcWtUVEJ0SUVFQ08rVmF4aGxlSGpVcElG?=
- =?utf-8?B?Zm0zQ2M4RktWYzR6ZktKUmo5V1k4RmJlQU5qb3d6c0pWc0MrZE1pYmpPQlpp?=
- =?utf-8?B?SzEwYU0rcTd5UDFiY09YK3hFbnZ0SjlheUlyRWcyVE1QVUdxeWR4T0tyQUoy?=
- =?utf-8?B?MzV0bEtHZlY5aXRJZWU4YjVpL3pNTUpjUnlrMGV5U1JKbU9SVW54WVkxTWZx?=
- =?utf-8?B?eDUrajlPeU00cVlJWitVYU1MUXF4R1RUY0E5dmRnNjNWbVlQOUpYYjhyNzI2?=
- =?utf-8?B?RStFdjFEdDNTL3JBR3ZFU2hXL2hJUkt2a2x6MmhiRWlaQ0M0UEhDZDE3SE4z?=
- =?utf-8?B?cmY0MmJEbU9FU2lXem55UTVlU3p0VDhTRGo4TGRQSE9HckJDVjJMZDR4bk14?=
- =?utf-8?B?VzJ1S0VwYUhXR3NkZWZ4SnVpUmVHK3QwTElYWjgzMWdCdGF0bDcxTGVwcElU?=
- =?utf-8?B?Vk02WGtLQkpRVWg1YVJjdVB1aTgvcTN0QTlFOVFJbTZjR3lpbTlsenlwY3Fo?=
- =?utf-8?B?RldqTGwyVTB5a1hLWE8vV2VmZDNlWWg1dG5uV0YrZ1M4UU9kWFBnMkhDajMy?=
- =?utf-8?B?MGxkaUNSRWI0RXRqMUxJZEcxZGlGdllUSW9RRVdMRkRDTXFYODR1MDkxT3ow?=
- =?utf-8?B?ekw5Qkd4b2ppQXdYaWthNXZrYVM5U0Z3cjgzN3Y1d3NSWXBnSFB2b2ZNY1Jt?=
- =?utf-8?Q?p3kYSD5xL7PIDwdME1pOZb3HooHFco8AkHfORjW?=
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?w5fnHiM34dpeZkhLmAtmu19Rfm8CiJnbcmZ8SmNs5sST7idZb3U4zWTNPrcg?=
+ =?us-ascii?Q?J8w+rJJ9H9KlixcF27k11iK9crtWyy/KdjB7yr12s+eIlufXLA7rTQzj7NF3?=
+ =?us-ascii?Q?IwiWbMuZvqVQfWcfYLm67jXjNcvzT1/H5a0PSrCIYmGymheREdmXMRY0gadT?=
+ =?us-ascii?Q?hCfcTSTIq4W42kEKHZyuRXKulrOBygzuqF7GhTxFOucZFcuO8pCueECl/MFR?=
+ =?us-ascii?Q?oNFj4mJNzc/24BQgCe3iJnM9hHcjX89Q8J+awtIf9wUiSrTmh9/yalzh2PsY?=
+ =?us-ascii?Q?IDZj9vpLosQ19LXrqaB+dYKadPX/f6iuY2kpD2oDYJddh4eoM41x0ZttBiXM?=
+ =?us-ascii?Q?YYGNyFr1rili0543454xOwIGZjxddufxhRZzywvCnTFx7dyNeMCfkwblPQC1?=
+ =?us-ascii?Q?msyWLzIY/u524buXapYs182pQypqBQl+883+in438rcaSzKxPblAiX0UArrf?=
+ =?us-ascii?Q?Xy3fzVcIc4moOxixUdBMRIWib/uxs4upCkgv0eYKS79Xh9NEL2WgkWOBbfgz?=
+ =?us-ascii?Q?ZzRKMHRY8+KLV6tta+efBt2C7LKv57/wJrzPjiw2bImiBniWdFn9VIUTurA8?=
+ =?us-ascii?Q?FaSnsdV6LWUuY3guS3kQuSDIEvpymq1Jnlz7Z+xLYbYTma85UYBJOp7bI5rD?=
+ =?us-ascii?Q?FyDT0+vSJP7NLt5J4DCj0Thd5XCv2fDl4t0Jmr25EUi6YORuG9v85F48Kp2z?=
+ =?us-ascii?Q?sG0WO1JCT+25kEfp4dtgmKuQJQUnnLDvH/XxA4IQ7c6PlgAFBvj+rINKqXoJ?=
+ =?us-ascii?Q?ZKzuqSMRgYL7q9cKqwwWq6XVmenel0fMm68LUuG/dTg6Gema4ScxD3k6bE8b?=
+ =?us-ascii?Q?Ck+dJ7l86q3DC10PP0ZlDsu9bJ9qaYB5KZPKVqjSop3jceS1D4gr3MMtu+54?=
+ =?us-ascii?Q?upOugphQ2FciZUEubhDk/1wAmpgKpZ+bC5QjZSHIGhg8cjHr7O7qd2bZ2/FK?=
+ =?us-ascii?Q?nm1BYbUOskeEXCF8I6WEUHM8JiITO1ilGXl/OpWHP+jGktj52bRvnrQBxPgm?=
+ =?us-ascii?Q?VBFfYejCGCyFoqVz2otCZmwCBNJPZOhshHxaQp6diqWnUOHiWqTJOrxio1Ve?=
+ =?us-ascii?Q?Zuo7qUUbpYyjPPjlg6AJA3BiZrCtzf80Vo8qia9QFVXFhAw/FvynxIafvILH?=
+ =?us-ascii?Q?w+3Fdp1TXTgoylELZfpSN4EC5j3TGv42kNW9C+R5Kb4sZ76sXqC+ZfdyTs4x?=
+ =?us-ascii?Q?+PakZMUk8vRFbisJaP8sNgkf9beIi3wFRJ4tgZ/Hn3STupBNnEEBAIVZuCO+?=
+ =?us-ascii?Q?zoGdHBYZ0OED9hEHOU2WpEJt9I/g9pSJrLlLIVb3Upb7VAlff/tdOkRI/Q7H?=
+ =?us-ascii?Q?QCqopoFFIKmDFo3IXRShSCda?=
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d9838dd7-b442-4999-e35d-08d91942dcbf
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5129.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 May 2021 14:48:41.3815 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tQr+gKq1+MiMazrsEvMp+AZysujP7EwTfvEBpV202XHxtLdkLHRdSFe7Z95hTkpVWICq/CVpOINjyQX011Vc5w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5066
+X-MS-Exchange-CrossTenant-AuthSource: DM8PR12MB5478.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3342eb58-75a3-499d-a5dd-08d919430559
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 May 2021 14:49:49.1924 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 35PihKm3X5pB+dea7TPfv7H/mvpbzzwhjRi1V+2Be2xx0iENfoTkVP52D3UGirswEc6arX54gkpqUHQMjSqhRA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5136
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,329 +133,487 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, gregkh@linuxfoundation.org, ppaalanen@gmail.com,
- helgaas@kernel.org
+Cc: "Deng, Emily" <Emily.Deng@amd.com>, "Ming, Davis" <Davis.Ming@amd.com>,
+ "Chang, HaiJun" <HaiJun.Chang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 2021-05-17 um 10:38 a.m. schrieb Andrey Grodzovsky:
-> Problem:
-> Handle all DMA IOMMU group related dependencies before the
-> group is removed. Those manifest themself in that when IOMMU
-> enabled DMA map/unmap is dependent on the presence of IOMMU
-> group the device belongs to but, this group is released once
-> the device is removed from PCI topology.
->
-> Fix:
-> Expedite all such unmap operations to pci remove driver callback.
->
-> v5: Drop IOMMU notifier and switch to lockless call to ttm_tt_unpopulate
-> v6: Drop the BO unamp list
-> v7:
-> Drop amdgpu_gart_fini
-> In amdgpu_ih_ring_fini do uncinditional  check (!ih->ring)
-> to avoid freeing uniniitalized rings.
-> Call amdgpu_ih_ring_fini unconditionally.
-> v8: Add deatiled explanation
->
-> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+[AMD Official Use Only - Internal Distribution Only]
 
-This patch is
+Hi Alex
+About your comment:
+"I think patches 1-4, 16 need to be squashed together to avoid breaking the build.  Please also provide a description of how the new macros work in the patch description.  Describe how the reworked macros properly handle sending GC and MMHUB accesses via the RLC rather than via some other mechanism.  It's really hard to follow the macro logic."
 
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+I squashed patches 1-4, 16 and add more detail description in the patch description.
+Can you help to review the patch series?
 
 
+---------------------------------------------------------------------- 
+BW
+Pengju Zhou
+
+
+
+> -----Original Message-----
+> From: Peng Ju Zhou <PengJu.Zhou@amd.com>
+> Sent: Monday, May 17, 2021 10:39 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Zhou, Peng Ju <PengJu.Zhou@amd.com>
+> Subject: [PATCH v5 01/10] drm/amdgpu: Indirect register access for Navi12
+> sriov
+> 
+> This patch series are used for GC/MMHUB(part)/IH_RB_CNTL indirect access
+> in the SRIOV environment.
+> 
+> There are 4 bits, controlled by host, to control if
+> GC/MMHUB(part)/IH_RB_CNTL indirect access enabled.
+> (one bit is master bit controls other 3 bits)
+> 
+> For GC registers, changing all the register access from MMIO to RLC and use
+> RLC as the default access method in the full access time.
+> 
+> For partial MMHUB registers, changing their access from MMIO to RLC in the
+> full access time, the remaining registers keep the original access method.
+> 
+> For IH_RB_CNTL register, changing it's access from MMIO to PSP.
+> 
+> Signed-off-by: Peng Ju Zhou <PengJu.Zhou@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  4 ++--
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c   | 14 +-------------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h   |  2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c     |  6 ++++--
->  drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c    |  5 +++++
->  drivers/gpu/drm/amd/amdgpu/cik_ih.c        |  1 -
->  drivers/gpu/drm/amd/amdgpu/cz_ih.c         |  1 -
->  drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c     |  1 -
->  drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c      |  1 -
->  drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c      |  1 -
->  drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c      |  1 -
->  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c      |  1 -
->  drivers/gpu/drm/amd/amdgpu/iceland_ih.c    |  1 -
->  drivers/gpu/drm/amd/amdgpu/navi10_ih.c     |  4 ----
->  drivers/gpu/drm/amd/amdgpu/si_ih.c         |  1 -
->  drivers/gpu/drm/amd/amdgpu/tonga_ih.c      |  1 -
->  drivers/gpu/drm/amd/amdgpu/vega10_ih.c     |  4 ----
->  drivers/gpu/drm/amd/amdgpu/vega20_ih.c     |  4 ----
->  18 files changed, 13 insertions(+), 40 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 18598eda18f6..a0bff4713672 100644
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h    |  4 +-
+>  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c     | 78 +++++++++----------
+>  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c      |  9 ++-
+>  drivers/gpu/drm/amd/amdgpu/soc15_common.h  | 87 +++++++++++++------
+> ---
+>  6 files changed, 97 insertions(+), 84 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index 3147c1c935c8..4e0c90e52ab6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -1147,6 +1147,7 @@ int emu_soc_asic_init(struct amdgpu_device
+> *adev);
+>   * Registers read & write functions.
+>   */
+>  #define AMDGPU_REGS_NO_KIQ    (1<<1)
+> +#define AMDGPU_REGS_RLC	(1<<2)
+> 
+>  #define RREG32_NO_KIQ(reg) amdgpu_device_rreg(adev, (reg),
+> AMDGPU_REGS_NO_KIQ)  #define WREG32_NO_KIQ(reg, v)
+> amdgpu_device_wreg(adev, (reg), (v), AMDGPU_REGS_NO_KIQ) diff --git
+> a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 7c6c435e5d02..a2392bbe1e21 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -3256,7 +3256,6 @@ static const struct attribute *amdgpu_dev_attributes[] = {
->  	NULL
->  };
->  
-> -
->  /**
->   * amdgpu_device_init - initialize the driver
->   *
-> @@ -3698,12 +3697,13 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
->  		amdgpu_ucode_sysfs_fini(adev);
->  	sysfs_remove_files(&adev->dev->kobj, amdgpu_dev_attributes);
->  
-> -
->  	amdgpu_fbdev_fini(adev);
->  
->  	amdgpu_irq_fini_hw(adev);
->  
->  	amdgpu_device_ip_fini_early(adev);
-> +
-> +	amdgpu_gart_dummy_page_fini(adev);
->  }
->  
->  void amdgpu_device_fini_sw(struct amdgpu_device *adev)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
-> index c5a9a4fb10d2..6460cf723f0a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
-> @@ -92,7 +92,7 @@ static int amdgpu_gart_dummy_page_init(struct amdgpu_device *adev)
->   *
->   * Frees the dummy page used by the driver (all asics).
->   */
-> -static void amdgpu_gart_dummy_page_fini(struct amdgpu_device *adev)
-> +void amdgpu_gart_dummy_page_fini(struct amdgpu_device *adev)
->  {
->  	if (!adev->dummy_page_addr)
->  		return;
-> @@ -365,15 +365,3 @@ int amdgpu_gart_init(struct amdgpu_device *adev)
->  
->  	return 0;
->  }
-> -
-> -/**
-> - * amdgpu_gart_fini - tear down the driver info for managing the gart
-> - *
-> - * @adev: amdgpu_device pointer
-> - *
-> - * Tear down the gart driver info and free the dummy page (all asics).
-> - */
-> -void amdgpu_gart_fini(struct amdgpu_device *adev)
-> -{
-> -	amdgpu_gart_dummy_page_fini(adev);
-> -}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h
-> index a25fe97b0196..030b9d4c736a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h
-> @@ -57,7 +57,7 @@ void amdgpu_gart_table_vram_free(struct amdgpu_device *adev);
->  int amdgpu_gart_table_vram_pin(struct amdgpu_device *adev);
->  void amdgpu_gart_table_vram_unpin(struct amdgpu_device *adev);
->  int amdgpu_gart_init(struct amdgpu_device *adev);
-> -void amdgpu_gart_fini(struct amdgpu_device *adev);
-> +void amdgpu_gart_dummy_page_fini(struct amdgpu_device *adev);
->  int amdgpu_gart_unbind(struct amdgpu_device *adev, uint64_t offset,
->  		       int pages);
->  int amdgpu_gart_map(struct amdgpu_device *adev, uint64_t offset,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
-> index faaa6aa2faaf..433469ace6f4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
-> @@ -115,9 +115,11 @@ int amdgpu_ih_ring_init(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih,
->   */
->  void amdgpu_ih_ring_fini(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih)
->  {
-> +
-> +	if (!ih->ring)
-> +		return;
-> +
->  	if (ih->use_bus_addr) {
-> -		if (!ih->ring)
-> -			return;
->  
->  		/* add 8 bytes for the rptr/wptr shadows and
->  		 * add them to the end of the ring allocation.
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-> index 233b64dab94b..32ce0e679dc7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-> @@ -361,6 +361,11 @@ void amdgpu_irq_fini_hw(struct amdgpu_device *adev)
->  		if (!amdgpu_device_has_dc_support(adev))
->  			flush_work(&adev->hotplug_work);
+> @@ -490,7 +490,7 @@ void amdgpu_mm_wreg_mmio_rlc(struct
+> amdgpu_device *adev,
+>  	    adev->gfx.rlc.funcs &&
+>  	    adev->gfx.rlc.funcs->is_rlcg_access_range) {
+>  		if (adev->gfx.rlc.funcs->is_rlcg_access_range(adev, reg))
+> -			return adev->gfx.rlc.funcs->rlcg_wreg(adev, reg, v, 0);
+> +			return adev->gfx.rlc.funcs->rlcg_wreg(adev, reg, v, 0,
+> 0);
+>  	} else {
+>  		writel(v, ((void __iomem *)adev->rmmio) + (reg * 4));
 >  	}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
+> index 4fc2ce8ce8ab..7a4775ab6804 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
+> @@ -127,8 +127,8 @@ struct amdgpu_rlc_funcs {
+>  	void (*reset)(struct amdgpu_device *adev);
+>  	void (*start)(struct amdgpu_device *adev);
+>  	void (*update_spm_vmid)(struct amdgpu_device *adev, unsigned
+> vmid);
+> -	void (*rlcg_wreg)(struct amdgpu_device *adev, u32 offset, u32 v, u32
+> flag);
+> -	u32 (*rlcg_rreg)(struct amdgpu_device *adev, u32 offset, u32 flag);
+> +	void (*rlcg_wreg)(struct amdgpu_device *adev, u32 offset, u32 v, u32
+> acc_flags, u32 hwip);
+> +	u32 (*rlcg_rreg)(struct amdgpu_device *adev, u32 offset, u32
+> +acc_flags, u32 hwip);
+>  	bool (*is_rlcg_access_range)(struct amdgpu_device *adev, uint32_t
+> reg);  };
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> index 2a3427e5020f..7c5c1ff7d97e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> @@ -1427,38 +1427,36 @@ static const struct soc15_reg_golden
+> golden_settings_gc_10_1_2[] =
+>  	SOC15_REG_GOLDEN_VALUE(GC, 0, mmUTCL1_CTRL, 0xffffffff,
+> 0x00800000)  };
+> 
+> -static bool gfx_v10_is_rlcg_rw(struct amdgpu_device *adev, u32 offset,
+> uint32_t *flag, bool write) -{
+> -	/* always programed by rlcg, only for gc */
+> -	if (offset == SOC15_REG_OFFSET(GC, 0, mmRLC_CSIB_ADDR_HI) ||
+> -	    offset == SOC15_REG_OFFSET(GC, 0, mmRLC_CSIB_ADDR_LO) ||
+> -	    offset == SOC15_REG_OFFSET(GC, 0, mmRLC_CSIB_LENGTH) ||
+> -	    offset == SOC15_REG_OFFSET(GC, 0, mmGRBM_GFX_CNTL) ||
+> -	    offset == SOC15_REG_OFFSET(GC, 0, mmGRBM_GFX_INDEX) ||
+> -	    offset == SOC15_REG_OFFSET(GC, 0, mmCP_ME_CNTL)) {
+> -		if (!amdgpu_sriov_reg_indirect_gc(adev))
+> -			*flag = GFX_RLCG_GC_WRITE_OLD;
+> -		else
+> -			*flag = write ? GFX_RLCG_GC_WRITE :
+> GFX_RLCG_GC_READ;
+> +static bool gfx_v10_get_rlcg_flag(struct amdgpu_device *adev, u32
+> acc_flags, u32 hwip,
+> +				 int write, u32 *rlcg_flag)
+> +{
+> +	switch (hwip) {
+> +	case GC_HWIP:
+> +		if (amdgpu_sriov_reg_indirect_gc(adev)) {
+> +			*rlcg_flag = write ? GFX_RLCG_GC_WRITE :
+> GFX_RLCG_GC_READ;
+> 
+> -		return true;
+> -	}
+> +			return true;
+> +		/* only in new version, AMDGPU_REGS_NO_KIQ and
+> AMDGPU_REGS_RLC enabled simultaneously */
+> +		} else if ((acc_flags & AMDGPU_REGS_RLC) && !(acc_flags &
+> AMDGPU_REGS_NO_KIQ)) {
+> +			*rlcg_flag = GFX_RLCG_GC_WRITE_OLD;
+> 
+> -	/* currently support gc read/write, mmhub write */
+> -	if (offset >= SOC15_REG_OFFSET(GC, 0, mmSDMA0_DEC_START) &&
+> -	    offset <= SOC15_REG_OFFSET(GC, 0, mmRLC_GTS_OFFSET_MSB)) {
+> -		if (amdgpu_sriov_reg_indirect_gc(adev))
+> -			*flag = write ? GFX_RLCG_GC_WRITE :
+> GFX_RLCG_GC_READ;
+> -		else
+> -			return false;
+> -	} else {
+> -		if (amdgpu_sriov_reg_indirect_mmhub(adev))
+> -			*flag = GFX_RLCG_MMHUB_WRITE;
+> -		else
+> -			return false;
+> +			return true;
+> +		}
 > +
-> +	amdgpu_ih_ring_fini(adev, &adev->irq.ih_soft);
-> +	amdgpu_ih_ring_fini(adev, &adev->irq.ih);
-> +	amdgpu_ih_ring_fini(adev, &adev->irq.ih1);
-> +	amdgpu_ih_ring_fini(adev, &adev->irq.ih2);
+> +		break;
+> +	case MMHUB_HWIP:
+> +		if (amdgpu_sriov_reg_indirect_mmhub(adev) &&
+> +		    (acc_flags & AMDGPU_REGS_RLC) && write) {
+> +			*rlcg_flag = GFX_RLCG_MMHUB_WRITE;
+> +			return true;
+> +		}
+> +
+> +		break;
+> +	default:
+> +		DRM_DEBUG("Not program register by RLCG\n");
+>  	}
+> 
+> -	return true;
+> +	return false;
 >  }
->  
->  /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/cik_ih.c b/drivers/gpu/drm/amd/amdgpu/cik_ih.c
-> index 183d44a6583c..df385ffc9768 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/cik_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/cik_ih.c
-> @@ -310,7 +310,6 @@ static int cik_ih_sw_fini(void *handle)
->  	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->  
->  	amdgpu_irq_fini_sw(adev);
-> -	amdgpu_ih_ring_fini(adev, &adev->irq.ih);
->  	amdgpu_irq_remove_domain(adev);
->  
->  	return 0;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/cz_ih.c b/drivers/gpu/drm/amd/amdgpu/cz_ih.c
-> index d32743949003..b8c47e0cf37a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/cz_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/cz_ih.c
-> @@ -302,7 +302,6 @@ static int cz_ih_sw_fini(void *handle)
->  	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->  
->  	amdgpu_irq_fini_sw(adev);
-> -	amdgpu_ih_ring_fini(adev, &adev->irq.ih);
->  	amdgpu_irq_remove_domain(adev);
->  
->  	return 0;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> index 2bfd620576f2..5e8bfcdd422e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> @@ -954,7 +954,6 @@ static int gmc_v10_0_sw_init(void *handle)
->  static void gmc_v10_0_gart_fini(struct amdgpu_device *adev)
+> 
+>  static u32 gfx_v10_rlcg_rw(struct amdgpu_device *adev, u32 offset, u32 v,
+> uint32_t flag) @@ -1518,36 +1516,34 @@ static u32 gfx_v10_rlcg_rw(struct
+> amdgpu_device *adev, u32 offset, u32 v, uint32
+>  	return ret;
+>  }
+> 
+> -static void gfx_v10_rlcg_wreg(struct amdgpu_device *adev, u32 offset, u32
+> value, u32 flag)
+> +static void gfx_v10_rlcg_wreg(struct amdgpu_device *adev, u32 offset,
+> +u32 value, u32 acc_flags, u32 hwip)
 >  {
->  	amdgpu_gart_table_vram_free(adev);
-> -	amdgpu_gart_fini(adev);
+> -	uint32_t rlcg_flag;
+> +	u32 rlcg_flag;
+> 
+> -	if (amdgpu_sriov_fullaccess(adev) &&
+> -	    gfx_v10_is_rlcg_rw(adev, offset, &rlcg_flag, 1)) {
+> +	if (!amdgpu_sriov_runtime(adev) &&
+> +	    gfx_v10_get_rlcg_flag(adev, acc_flags, hwip, 1, &rlcg_flag)) {
+>  		gfx_v10_rlcg_rw(adev, offset, value, rlcg_flag);
+> -
+>  		return;
+>  	}
+> -	if (flag & AMDGPU_REGS_NO_KIQ)
+> +
+> +	if (acc_flags & AMDGPU_REGS_NO_KIQ)
+>  		WREG32_NO_KIQ(offset, value);
+>  	else
+>  		WREG32(offset, value);
 >  }
->  
->  static int gmc_v10_0_sw_fini(void *handle)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-> index 405d6ad09022..0e81e03e9b49 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-> @@ -898,7 +898,6 @@ static int gmc_v6_0_sw_fini(void *handle)
->  	amdgpu_vm_manager_fini(adev);
->  	amdgpu_gart_table_vram_free(adev);
->  	amdgpu_bo_fini(adev);
-> -	amdgpu_gart_fini(adev);
->  	release_firmware(adev->gmc.fw);
->  	adev->gmc.fw = NULL;
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> index 210ada2289ec..0795ea736573 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> @@ -1085,7 +1085,6 @@ static int gmc_v7_0_sw_fini(void *handle)
->  	kfree(adev->gmc.vm_fault_info);
->  	amdgpu_gart_table_vram_free(adev);
->  	amdgpu_bo_fini(adev);
-> -	amdgpu_gart_fini(adev);
->  	release_firmware(adev->gmc.fw);
->  	adev->gmc.fw = NULL;
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> index c1bd190841f8..dbf2e5472069 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> @@ -1194,7 +1194,6 @@ static int gmc_v8_0_sw_fini(void *handle)
->  	kfree(adev->gmc.vm_fault_info);
->  	amdgpu_gart_table_vram_free(adev);
->  	amdgpu_bo_fini(adev);
-> -	amdgpu_gart_fini(adev);
->  	release_firmware(adev->gmc.fw);
->  	adev->gmc.fw = NULL;
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> index c82d82da2c73..5ed0adae05cf 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> @@ -1601,7 +1601,6 @@ static int gmc_v9_0_sw_fini(void *handle)
->  	amdgpu_gart_table_vram_free(adev);
->  	amdgpu_bo_unref(&adev->gmc.pdb0_bo);
->  	amdgpu_bo_fini(adev);
-> -	amdgpu_gart_fini(adev);
->  
->  	return 0;
+> 
+> -static u32 gfx_v10_rlcg_rreg(struct amdgpu_device *adev, u32 offset, u32
+> flag)
+> +static u32 gfx_v10_rlcg_rreg(struct amdgpu_device *adev, u32 offset,
+> +u32 acc_flags, u32 hwip)
+>  {
+> -	uint32_t rlcg_flag;
+> +	u32 rlcg_flag;
+> 
+> -	if (amdgpu_sriov_fullaccess(adev) &&
+> -	    gfx_v10_is_rlcg_rw(adev, offset, &rlcg_flag, 0))
+> +	if (!amdgpu_sriov_runtime(adev) &&
+> +	    gfx_v10_get_rlcg_flag(adev, acc_flags, hwip, 0, &rlcg_flag))
+>  		return gfx_v10_rlcg_rw(adev, offset, 0, rlcg_flag);
+> 
+> -	if (flag & AMDGPU_REGS_NO_KIQ)
+> +	if (acc_flags & AMDGPU_REGS_NO_KIQ)
+>  		return RREG32_NO_KIQ(offset);
+>  	else
+>  		return RREG32(offset);
+> -
+> -	return 0;
 >  }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/iceland_ih.c b/drivers/gpu/drm/amd/amdgpu/iceland_ih.c
-> index da96c6013477..ddfe4eaeea05 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/iceland_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/iceland_ih.c
-> @@ -301,7 +301,6 @@ static int iceland_ih_sw_fini(void *handle)
->  	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->  
->  	amdgpu_irq_fini_sw(adev);
-> -	amdgpu_ih_ring_fini(adev, &adev->irq.ih);
->  	amdgpu_irq_remove_domain(adev);
->  
->  	return 0;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-> index 5eea4550b856..941d464a2b47 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-> @@ -570,10 +570,6 @@ static int navi10_ih_sw_fini(void *handle)
->  	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->  
->  	amdgpu_irq_fini_sw(adev);
-> -	amdgpu_ih_ring_fini(adev, &adev->irq.ih_soft);
-> -	amdgpu_ih_ring_fini(adev, &adev->irq.ih2);
-> -	amdgpu_ih_ring_fini(adev, &adev->irq.ih1);
-> -	amdgpu_ih_ring_fini(adev, &adev->irq.ih);
->  
->  	return 0;
+> 
+>  static const struct soc15_reg_golden golden_settings_gc_10_1_nv14[] = diff -
+> -git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> index feaa5e4a5538..fe5908f708cc 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> @@ -734,7 +734,7 @@ static const u32
+> GFX_RLC_SRM_INDEX_CNTL_DATA_OFFSETS[] =
+>  	mmRLC_SRM_INDEX_CNTL_DATA_7 -
+> mmRLC_SRM_INDEX_CNTL_DATA_0,  };
+> 
+> -static void gfx_v9_0_rlcg_rw(struct amdgpu_device *adev, u32 offset, u32 v,
+> u32 flag)
+> +static void gfx_v9_0_rlcg_w(struct amdgpu_device *adev, u32 offset, u32
+> +v, u32 flag)
+>  {
+>  	static void *scratch_reg0;
+>  	static void *scratch_reg1;
+> @@ -787,15 +787,16 @@ static void gfx_v9_0_rlcg_rw(struct amdgpu_device
+> *adev, u32 offset, u32 v, u32
+> 
 >  }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/si_ih.c b/drivers/gpu/drm/amd/amdgpu/si_ih.c
-> index 751307f3252c..9a24f17a5750 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/si_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/si_ih.c
-> @@ -176,7 +176,6 @@ static int si_ih_sw_fini(void *handle)
->  	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->  
->  	amdgpu_irq_fini_sw(adev);
-> -	amdgpu_ih_ring_fini(adev, &adev->irq.ih);
->  
->  	return 0;
->  }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/tonga_ih.c b/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
-> index 973d80ec7f6c..b08905d1c00f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
-> @@ -313,7 +313,6 @@ static int tonga_ih_sw_fini(void *handle)
->  	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->  
->  	amdgpu_irq_fini_sw(adev);
-> -	amdgpu_ih_ring_fini(adev, &adev->irq.ih);
->  	amdgpu_irq_remove_domain(adev);
->  
->  	return 0;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
-> index dead9c2fbd4c..32ec4b8e806a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
-> @@ -514,10 +514,6 @@ static int vega10_ih_sw_fini(void *handle)
->  	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->  
->  	amdgpu_irq_fini_sw(adev);
-> -	amdgpu_ih_ring_fini(adev, &adev->irq.ih_soft);
-> -	amdgpu_ih_ring_fini(adev, &adev->irq.ih2);
-> -	amdgpu_ih_ring_fini(adev, &adev->irq.ih1);
-> -	amdgpu_ih_ring_fini(adev, &adev->irq.ih);
->  
->  	return 0;
->  }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
-> index 58993ae1fe11..f51dfc38ac65 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
-> @@ -566,10 +566,6 @@ static int vega20_ih_sw_fini(void *handle)
->  	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->  
->  	amdgpu_irq_fini_sw(adev);
-> -	amdgpu_ih_ring_fini(adev, &adev->irq.ih_soft);
-> -	amdgpu_ih_ring_fini(adev, &adev->irq.ih2);
-> -	amdgpu_ih_ring_fini(adev, &adev->irq.ih1);
-> -	amdgpu_ih_ring_fini(adev, &adev->irq.ih);
->  
->  	return 0;
->  }
+> 
+> -static void gfx_v9_0_rlcg_wreg(struct amdgpu_device *adev, u32 offset, u32
+> v, u32 flag)
+> +static void gfx_v9_0_rlcg_wreg(struct amdgpu_device *adev, u32 offset,
+> +			       u32 v, u32 acc_flags, u32 hwip)
+>  {
+>  	if (amdgpu_sriov_fullaccess(adev)) {
+> -		gfx_v9_0_rlcg_rw(adev, offset, v, flag);
+> +		gfx_v9_0_rlcg_w(adev, offset, v, acc_flags);
+> 
+>  		return;
+>  	}
+> 
+> -	if (flag & AMDGPU_REGS_NO_KIQ)
+> +	if (acc_flags & AMDGPU_REGS_NO_KIQ)
+>  		WREG32_NO_KIQ(offset, v);
+>  	else
+>  		WREG32(offset, v);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15_common.h
+> b/drivers/gpu/drm/amd/amdgpu/soc15_common.h
+> index 14bd794bbea6..c781808e4dc3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/soc15_common.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/soc15_common.h
+> @@ -27,28 +27,51 @@
+>  /* Register Access Macros */
+>  #define SOC15_REG_OFFSET(ip, inst, reg)	(adev-
+> >reg_offset[ip##_HWIP][inst][reg##_BASE_IDX] + reg)
+> 
+> +#define __WREG32_SOC15_RLC__(reg, value, flag, hwip) \
+> +	((amdgpu_sriov_vf(adev) && adev->gfx.rlc.funcs->rlcg_wreg) ? \
+> +	 adev->gfx.rlc.funcs->rlcg_wreg(adev, reg, value, flag, hwip) : \
+> +	 WREG32(reg, value))
+> +
+> +#define __RREG32_SOC15_RLC__(reg, flag, hwip) \
+> +	((amdgpu_sriov_vf(adev) && adev->gfx.rlc.funcs->rlcg_rreg) ? \
+> +	 adev->gfx.rlc.funcs->rlcg_rreg(adev, reg, flag, hwip) : \
+> +	 RREG32(reg))
+> +
+>  #define WREG32_FIELD15(ip, idx, reg, field, val)	\
+> -	WREG32(adev->reg_offset[ip##_HWIP][idx][mm##reg##_BASE_IDX]
+> + mm##reg,	\
+> -	(RREG32(adev->reg_offset[ip##_HWIP][idx][mm##reg##_BASE_IDX]
+> + mm##reg)	\
+> -	& ~REG_FIELD_MASK(reg, field)) | (val) << REG_FIELD_SHIFT(reg,
+> field))
+> +	 __WREG32_SOC15_RLC__(adev-
+> >reg_offset[ip##_HWIP][idx][mm##reg##_BASE_IDX] + mm##reg,	\
+> +				(__RREG32_SOC15_RLC__( \
+> +					adev-
+> >reg_offset[ip##_HWIP][idx][mm##reg##_BASE_IDX] + mm##reg, \
+> +					0, ip##_HWIP) & \
+> +				~REG_FIELD_MASK(reg, field)) | (val) <<
+> REG_FIELD_SHIFT(reg, field), \
+> +			      0, ip##_HWIP)
+> 
+>  #define RREG32_SOC15(ip, inst, reg) \
+> -	RREG32(adev->reg_offset[ip##_HWIP][inst][reg##_BASE_IDX] + reg)
+> +	__RREG32_SOC15_RLC__(adev-
+> >reg_offset[ip##_HWIP][inst][reg##_BASE_IDX] + reg, \
+> +			 0, ip##_HWIP)
+> +
+> +#define RREG32_SOC15_IP(ip, reg) __RREG32_SOC15_RLC__(reg, 0,
+> +ip##_HWIP)
+> 
+>  #define RREG32_SOC15_NO_KIQ(ip, inst, reg) \
+> -	RREG32_NO_KIQ(adev-
+> >reg_offset[ip##_HWIP][inst][reg##_BASE_IDX] + reg)
+> +	__RREG32_SOC15_RLC__(adev-
+> >reg_offset[ip##_HWIP][inst][reg##_BASE_IDX] + reg, \
+> +			 AMDGPU_REGS_NO_KIQ, ip##_HWIP)
+> 
+>  #define RREG32_SOC15_OFFSET(ip, inst, reg, offset) \
+> -	RREG32((adev->reg_offset[ip##_HWIP][inst][reg##_BASE_IDX] + reg)
+> + offset)
+> +
+> +__RREG32_SOC15_RLC__((adev-
+> >reg_offset[ip##_HWIP][inst][reg##_BASE_IDX]
+> ++ reg) + offset, 0, ip##_HWIP)
+> 
+>  #define WREG32_SOC15(ip, inst, reg, value) \
+> -	WREG32((adev->reg_offset[ip##_HWIP][inst][reg##_BASE_IDX] + reg),
+> value)
+> +	 __WREG32_SOC15_RLC__((adev-
+> >reg_offset[ip##_HWIP][inst][reg##_BASE_IDX] + reg), \
+> +			  value, 0, ip##_HWIP)
+> +
+> +#define WREG32_SOC15_IP(ip, reg, value) \
+> +	 __WREG32_SOC15_RLC__(reg, value, 0, ip##_HWIP)
+> 
+>  #define WREG32_SOC15_NO_KIQ(ip, inst, reg, value) \
+> -	WREG32_NO_KIQ((adev-
+> >reg_offset[ip##_HWIP][inst][reg##_BASE_IDX] + reg), value)
+> +	__WREG32_SOC15_RLC__(adev-
+> >reg_offset[ip##_HWIP][inst][reg##_BASE_IDX] + reg, \
+> +			     value, AMDGPU_REGS_NO_KIQ, ip##_HWIP)
+> 
+>  #define WREG32_SOC15_OFFSET(ip, inst, reg, offset, value) \
+> -	WREG32((adev->reg_offset[ip##_HWIP][inst][reg##_BASE_IDX] + reg)
+> + offset, value)
+> +	 __WREG32_SOC15_RLC__((adev-
+> >reg_offset[ip##_HWIP][inst][reg##_BASE_IDX] + reg) + offset, \
+> +			  value, 0, ip##_HWIP)
+> 
+>  #define SOC15_WAIT_ON_RREG(ip, inst, reg, expected_value, mask) \
+>  ({	int ret = 0;						\
+> @@ -77,12 +100,7 @@
+>  })
+> 
+>  #define WREG32_RLC(reg, value) \
+> -	do { \
+> -		if (adev->gfx.rlc.funcs->rlcg_wreg) \
+> -			adev->gfx.rlc.funcs->rlcg_wreg(adev, reg, value, 0); \
+> -		else \
+> -			WREG32(reg, value);	\
+> -	} while (0)
+> +	__WREG32_SOC15_RLC__(reg, value, AMDGPU_REGS_RLC, GC_HWIP)
+> 
+>  #define WREG32_RLC_EX(prefix, reg, value) \
+>  	do {							\
+> @@ -108,24 +126,19 @@
+>  		}	\
+>  	} while (0)
+> 
+> +/* shadow the registers in the callback function */
+>  #define WREG32_SOC15_RLC_SHADOW(ip, inst, reg, value) \
+> -	WREG32_RLC((adev->reg_offset[ip##_HWIP][inst][reg##_BASE_IDX]
+> + reg), value)
+> +
+> +__WREG32_SOC15_RLC__((adev-
+> >reg_offset[ip##_HWIP][inst][reg##_BASE_IDX]
+> ++ reg), value, AMDGPU_REGS_RLC, GC_HWIP)
+> 
+> +/* for GC only */
+>  #define RREG32_RLC(reg) \
+> -	(adev->gfx.rlc.funcs->rlcg_rreg ? \
+> -		adev->gfx.rlc.funcs->rlcg_rreg(adev, reg, 0) : RREG32(reg))
+> -
+> -#define WREG32_RLC_NO_KIQ(reg, value) \
+> -	do { \
+> -		if (adev->gfx.rlc.funcs->rlcg_wreg) \
+> -			adev->gfx.rlc.funcs->rlcg_wreg(adev, reg, value,
+> AMDGPU_REGS_NO_KIQ); \
+> -		else \
+> -			WREG32_NO_KIQ(reg, value);	\
+> -	} while (0)
+> +	__RREG32_SOC15_RLC__(reg, AMDGPU_REGS_RLC, GC_HWIP)
+> +
+> +#define WREG32_RLC_NO_KIQ(reg, value, hwip) \
+> +	__WREG32_SOC15_RLC__(reg, value, AMDGPU_REGS_NO_KIQ |
+> AMDGPU_REGS_RLC,
+> +hwip)
+> 
+> -#define RREG32_RLC_NO_KIQ(reg) \
+> -	(adev->gfx.rlc.funcs->rlcg_rreg ? \
+> -		adev->gfx.rlc.funcs->rlcg_rreg(adev, reg,
+> AMDGPU_REGS_NO_KIQ) : RREG32_NO_KIQ(reg))
+> +#define RREG32_RLC_NO_KIQ(reg, hwip) \
+> +	__RREG32_SOC15_RLC__(reg, AMDGPU_REGS_NO_KIQ |
+> AMDGPU_REGS_RLC, hwip)
+> 
+>  #define WREG32_SOC15_RLC_SHADOW_EX(prefix, ip, inst, reg, value) \
+>  	do {							\
+> @@ -146,12 +159,12 @@
+>  	} while (0)
+> 
+>  #define RREG32_SOC15_RLC(ip, inst, reg) \
+> -	RREG32_RLC(adev->reg_offset[ip##_HWIP][inst][reg##_BASE_IDX] +
+> reg)
+> +	__RREG32_SOC15_RLC__(adev-
+> >reg_offset[ip##_HWIP][inst][reg##_BASE_IDX]
+> ++ reg, AMDGPU_REGS_RLC, ip##_HWIP)
+> 
+>  #define WREG32_SOC15_RLC(ip, inst, reg, value) \
+>  	do {							\
+>  		uint32_t target_reg = adev-
+> >reg_offset[ip##_HWIP][0][reg##_BASE_IDX] + reg;\
+> -		WREG32_RLC(target_reg, value); \
+> +		__WREG32_SOC15_RLC__(target_reg, value,
+> AMDGPU_REGS_RLC, ip##_HWIP);
+> +\
+>  	} while (0)
+> 
+>  #define WREG32_SOC15_RLC_EX(prefix, ip, inst, reg, value) \ @@ -161,14
+> +174,16 @@
+>  	} while (0)
+> 
+>  #define WREG32_FIELD15_RLC(ip, idx, reg, field, val)   \
+> -	WREG32_RLC((adev-
+> >reg_offset[ip##_HWIP][idx][mm##reg##_BASE_IDX] + mm##reg), \
+> -	(RREG32_RLC(adev-
+> >reg_offset[ip##_HWIP][idx][mm##reg##_BASE_IDX] + mm##reg) \
+> -	& ~REG_FIELD_MASK(reg, field)) | (val) << REG_FIELD_SHIFT(reg,
+> field))
+> +	__WREG32_SOC15_RLC__((adev-
+> >reg_offset[ip##_HWIP][idx][mm##reg##_BASE_IDX] + mm##reg), \
+> +			     (__RREG32_SOC15_RLC__(adev-
+> >reg_offset[ip##_HWIP][idx][mm##reg##_BASE_IDX] + mm##reg, \
+> +						   AMDGPU_REGS_RLC,
+> ip##_HWIP) & \
+> +			      ~REG_FIELD_MASK(reg, field)) | (val) <<
+> REG_FIELD_SHIFT(reg, field), \
+> +			     AMDGPU_REGS_RLC, ip##_HWIP)
+> 
+>  #define WREG32_SOC15_OFFSET_RLC(ip, inst, reg, offset, value) \
+> -	WREG32_RLC(((adev->reg_offset[ip##_HWIP][inst][reg##_BASE_IDX]
+> + reg) + offset), value)
+> +
+> +__WREG32_SOC15_RLC__((adev-
+> >reg_offset[ip##_HWIP][inst][reg##_BASE_IDX]
+> ++ reg) + offset, value, AMDGPU_REGS_RLC, ip##_HWIP)
+> 
+>  #define RREG32_SOC15_OFFSET_RLC(ip, inst, reg, offset) \
+> -	RREG32_RLC(((adev->reg_offset[ip##_HWIP][inst][reg##_BASE_IDX] +
+> reg) + offset))
+> +
+> +__RREG32_SOC15_RLC__((adev-
+> >reg_offset[ip##_HWIP][inst][reg##_BASE_IDX]
+> ++ reg) + offset, AMDGPU_REGS_RLC, ip##_HWIP)
+> 
+>  #endif
+> --
+> 2.17.1
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
