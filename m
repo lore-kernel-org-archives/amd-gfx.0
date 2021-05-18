@@ -2,106 +2,128 @@ Return-Path: <SRS0=uqvu=KN=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 088BCC433B4
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 May 2021 12:16:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2F417C43461
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 May 2021 12:19:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BA74E60FF1
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 May 2021 12:16:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BA74E60FF1
+	by mail.kernel.org (Postfix) with ESMTPS id E58DB61028
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 May 2021 12:19:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E58DB61028
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ECE366EB4A;
-	Tue, 18 May 2021 12:16:42 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2084.outbound.protection.outlook.com [40.107.243.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C66E6EB4A
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 May 2021 12:16:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 204F86EB51;
+	Tue, 18 May 2021 12:19:23 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam08on2051.outbound.protection.outlook.com [40.107.102.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6EDD26EB4F
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 May 2021 12:19:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EkVOxJNu5rBZ3T8OptIuwXrJ9s3TF1cXOt2Ai//kv93REwhELqesKG4OLBAQTpwbdmKfDnBOMFlHkLbqDRMvbRSKPZYLhUHBPV+DjAATqNtZGlTqcgZffr1/UYwhmaCAKSCBNUccvZTQzXN6Uu3L6XSz8OCEkngox6Lbh+DjnBWEuT8/a9mvxwQj9t6oE3WqqQV09ns0e9cWUHIN3qvtZMIGd/in6BQ824qaox8cF5/CGW0jM+kzCfsRVYOSzjSgm/6eDELbe2Ze0Hhf+KoM1d2emAwf87T1EUl2YSeJ2k6QbqrPsBmpTMfAM6IWDgBsjmNa4AJQL0GoyidYKm11Vg==
+ b=SUQxUx7DsEkLy8se0a7X4Z8pAWucjjfOGh1imasyEPgccuFjB8HLLH7JYzRNNb6wGkmA1Zs7Z6v83IEIWz/Uwsti2NbCBLrAg/Bwl6qm6WdrXEIXpSpb7KUJui+sUlrnslWmbcYX+ipRxDlkn+CIjf7DeKzQmcm6fk8jd4IU4gOrZ752r6JkqxCbGjMq5QX5WNMrp5qMkBgFNykpsrvRNnmkRGZSA7vn1/n6KZA+wyax7XSSo3I+LGLidT/7+2NWG8iar7cD58DDfOncL2bYnCLo/WYtm3Ff6ltOIfI0mwgnD2jpoLgZCVRjVJzjYosijUWS6uplGHPGd0xmjYD33A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=62xSFxrk7irNboA6l0sdRnPshCN1vH83KhQ7b25WxaA=;
- b=iSxiPeadrnvkWRDq7tUQRnPkdR33tSvLopxehqIlM7us6ak0xqULzQZr1TLaVCQY3rS6Co+48qi6jeJVsgiRUlRbCgaYqGRxq59og3ralAdRTO8TaExQvLSdRQ8OMAFBrz6DrqARPw+HOGzz6usv6RrzTw5BqOULjNoqzK/aX4THW/wtgm/sFAoby8MixUjX5zmF4cDJ/qL3Op1G0BbPoEIVT+QlpT1uDlQg9sPSPWq3c6ajXSGRXyqY+DB5ZgvVv+U5r27RIVVWDi8jjBa/l4IlfzGLeRi3Yl+laAkL+QnEnj6tt6LIKvoUms5yTHVZD9ne1H8zwUjT8b29Avtydg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=none sp=none pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
+ bh=6E+ghMXcl9ZlSUpltsf8Cdv2UvbJUAD8JbBkUQ/1Saw=;
+ b=b6hmQkNfk5ZyypRWANzWZDTY2JCmcnU/gf6k215fGfatgcRdhgvHQyPrWQCmMHkys5cKOvzekMffChC4GbXkbBHrhZpmami3jQubw8jv50ajFUMx6orxljHC8QeTGHZSTADf7K1RP0mzE1uxd4U8xzbItk/qfKsWAm0xF0p5XLaIWyiRycOW3w23uGQhBmxk3ndzm6bcrCCBQeEzgA+BoeZJo+Lfk/ffGUrRWsoA1hQ60MfuaCv7P5McI+rrJh8xvYo/fn9mlnqBMMOQRB2HlwpeudxtAoQK60kGAUene5Kw2hDZdeZoBIx97q8PMcmUbYr74GEUj23Q8xfVTAaKhw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=62xSFxrk7irNboA6l0sdRnPshCN1vH83KhQ7b25WxaA=;
- b=t8C5WLtKwcMtM3Sikwq2Fr+Br+KGNsDvE3ZLraN/zS++kNs7erF0gnvXHueVWstNnDSfGXDPvQVvjp2dTgIIAr5h7UdBNIUlNAAt4/EghHd7VLLMlMyRDu5q/rjZMEPekZeI3wecibPqUPIBrNN444DEdjLaq7feqrP7YV/3rC0=
-Received: from DS7PR03CA0084.namprd03.prod.outlook.com (2603:10b6:5:3bb::29)
- by BN8PR12MB3636.namprd12.prod.outlook.com (2603:10b6:408:4a::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.28; Tue, 18 May
- 2021 12:16:36 +0000
-Received: from DM6NAM11FT056.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:3bb:cafe::72) by DS7PR03CA0084.outlook.office365.com
- (2603:10b6:5:3bb::29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4108.25 via Frontend
- Transport; Tue, 18 May 2021 12:16:36 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DM6NAM11FT056.mail.protection.outlook.com (10.13.173.99) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4129.25 via Frontend Transport; Tue, 18 May 2021 12:16:36 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Tue, 18 May
- 2021 07:16:35 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Tue, 18 May
- 2021 07:16:35 -0500
-Received: from willgu.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2242.4 via Frontend
- Transport; Tue, 18 May 2021 07:16:33 -0500
-From: Jiawei Gu <Jiawei.Gu@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <christian.koenig@amd.com>,
- <david.nieto@amd.com>, <maraeo@gmail.com>, <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amdgpu: Add vbios info ioctl interface
-Date: Tue, 18 May 2021 20:16:28 +0800
-Message-ID: <20210518121628.9811-1-Jiawei.Gu@amd.com>
-X-Mailer: git-send-email 2.17.1
-MIME-Version: 1.0
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 44932557-8b7d-42c3-d309-08d919f6c83d
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3636:
-X-Microsoft-Antispam-PRVS: <BN8PR12MB3636698DE3D2796EA1C1FECDF82C9@BN8PR12MB3636.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: IyFV7QCkb0VbU1ZxalksSgwffQXUrcjIKODQMGF3URqXaYuVdvUWV/gT6V7zgYQReFKPx7uZ50PPrbBO3b8sN0nr1AR2VEjwPXFoiWEyqRNHfgObh3IdxDN6Mam+UofbD/gaRbnxrjhBAlSKuGUlHBqEnOs56Yr1Sq2F1+d3lyM74EGHI8h7dGy3O57xrfJ90zEqPc5ql1nLPtIqBGzXtTZ0cDmrm1EZUlZzgLr663sCpPOM2TZNF2QMF8eD/sZr9OIKvv6luUKu25Qb0CgimYUgQ+PX4NlSkOmR0ks/njv1naAdxnUypoZW3vMJ3dwYqBH/LtZeJmkuHgLO48JRqAzjrRYyGLhNy5mNE8qkEt5m7syiFBplMQFaKpyDjApbkt1GhGXy4ZjIZa6Py/k/CTZ0ALlFOZcMrvf8Ep8vQjr3YMLGoXvxrk4cjDtFNpjtF+aSs5jbZLHML43uNGXHouRJ6NYyCS8D+j5pajQqaz6HUpKG8jtRYneobaDKUwJCI60YHHCMnTcrDlOc6m3zJO6ckVFNLHNI4UOW5cVNCt7bHX4jlG1Ny3RZzawS14B1rpdiuXP+6xLJf38xpeWSD0YsCl69WAff576Ni7Lw3si3at6c8r3cM4FIk1NWPdYB/dgtLg9YBH/9dF8B0Ogbyxhs7PemedsKkrcA3Vdw7NoQeNCSC2LXPkhEa5XWwLxJ
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(346002)(39850400004)(136003)(376002)(396003)(46966006)(36840700001)(5660300002)(336012)(356005)(81166007)(478600001)(47076005)(426003)(6666004)(7696005)(82740400003)(186003)(86362001)(26005)(82310400003)(83380400001)(4326008)(2906002)(36860700001)(110136005)(54906003)(2616005)(36756003)(8936002)(1076003)(70586007)(6636002)(70206006)(316002)(8676002)(36900700001);
+ bh=6E+ghMXcl9ZlSUpltsf8Cdv2UvbJUAD8JbBkUQ/1Saw=;
+ b=EW8LnYiqB46P6XekPT7jueBy3nvYOSB+UU7BU1TdDme65bY1yoWWH85TPj6ONdfAjeSoTwfeySQMjp6BfmuOtWh8wsXAhZGcWZG4y4vxiqxDwyH0ANaxEerVB67pUZ3GvgneCKF032DpY1RSLRwQRdU+zeh7ikNWAABMM3+jeYY=
+Received: from CH0PR12MB5156.namprd12.prod.outlook.com (2603:10b6:610:bb::17)
+ by CH2PR12MB5564.namprd12.prod.outlook.com (2603:10b6:610:65::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.26; Tue, 18 May
+ 2021 12:19:20 +0000
+Received: from CH0PR12MB5156.namprd12.prod.outlook.com
+ ([fe80::a1d1:38a:2086:b5b]) by CH0PR12MB5156.namprd12.prod.outlook.com
+ ([fe80::a1d1:38a:2086:b5b%3]) with mapi id 15.20.4129.032; Tue, 18 May 2021
+ 12:19:18 +0000
+From: "Gu, JiaWei (Will)" <JiaWei.Gu@amd.com>
+To: "Gu, JiaWei (Will)" <JiaWei.Gu@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>, "Nieto, David M" <David.Nieto@amd.com>,
+ "maraeo@gmail.com" <maraeo@gmail.com>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: Add vbios info ioctl interface
+Thread-Topic: [PATCH] drm/amdgpu: Add vbios info ioctl interface
+Thread-Index: AQHXS9+nZ16zyHed7UewCZhFKBxS46rpJ7Pw
+Date: Tue, 18 May 2021 12:19:18 +0000
+Message-ID: <CH0PR12MB51560CD55134762EF8FE19E0F82C9@CH0PR12MB5156.namprd12.prod.outlook.com>
+References: <20210518121628.9811-1-Jiawei.Gu@amd.com>
+In-Reply-To: <20210518121628.9811-1-Jiawei.Gu@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2021-05-18T12:19:12Z; 
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
+ Unrestricted;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=a87f3f97-2af8-41a3-9366-fab719f6ed53;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
+msip_justification: I confirm the recipients are approved for sharing this
+ content
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [165.204.134.244]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 5abaa511-0d8f-430b-cf45-08d919f7292e
+x-ms-traffictypediagnostic: CH2PR12MB5564:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <CH2PR12MB5564C31350481B7239E0950EF82C9@CH2PR12MB5564.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:9508;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: m8vr78e62aKANzD1hCCv2qpwor7GvKMwX8+FN44lcS89nQWdSnsU70tM+GTuwT7arOuWEhu0vJFRwqVUvVneebzzkoa6HpDQ8sK/GlldCr6LcdTj/6XOoEP6VaeTlBSipdQwchuHFFf7/BvUTofS0r+YWCknWV754Lxokrlq7RmU+5BBbX/RI5z2UlvoSGBDHyOoroJmv0DF2UQb5WJPhXLxHJliKj8KB+mR3IbeAYL5T5twlL2Qhb5jv4IRI4qmpnhqgg/Dzf9Q4qjElwPnFGL3oFzeoAchvR8PiUrD+an8HRf3Xe+pRJixeN+vbqHHAmyqITqwcBAbOrNNIr2FCE8bMkQZ3EfDH4ytGjrvL5ZC0oOrFmE4YOer8I+7QIhYw+9eRh9rhc5hhL0FrSIk1cvEqdEitOIF0sditm/iv1deGB1BBeiQAVHGvkuzAHYbWIaLK538yc54FqWRCkNJym7hdUygAwueCINjJbD8qWCyj1usiPHiOvw97aATJ3E/OH3JiRS8YVb8J+9qoCfLNGmZE1/+PqHtCoUD3HWyoshW27XQaJmvEnJWabaOa4uIDzzXAGEVoEy6iOXsWi35+ZtA884zHP5MTlpuzbCkrkXNmu9pMhCZrHHvNKBhxQKG+6Gm5fRvdtRzSbYGTCagFw==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH0PR12MB5156.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(376002)(346002)(366004)(396003)(39850400004)(316002)(478600001)(6636002)(110136005)(55016002)(30864003)(9686003)(33656002)(186003)(26005)(71200400001)(6506007)(53546011)(66946007)(52536014)(76116006)(7696005)(66476007)(2906002)(66556008)(64756008)(66446008)(8676002)(8936002)(4326008)(122000001)(83380400001)(5660300002)(38100700002)(921005)(86362001);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?GfrI9xUprgALj8VQFw0y5kQVBmtOF+5ndaHon/ogDYE0Rrte+OaQduAJTQHY?=
+ =?us-ascii?Q?hvhK+xinAj2Qg9RWHAIY/Hnbw+6VFqMuQlwiQTzCgxZ+gW+Q3ZagDSRj4gdl?=
+ =?us-ascii?Q?WXIb2IV35LA9Wxs4VfTBWzC+7KYepT8XYUvShUmibM/QFpHH9/sg99C29cvL?=
+ =?us-ascii?Q?R1GpI4+AzdIa5mvRwVBCSCiMc9BMtJg2dQhIwpb2/CARSuaE7OcF4urpooT/?=
+ =?us-ascii?Q?sJBTLKI0KkNqlhJif+BEhBiMr+zTkYp2PlPzwmziG3UkKJGTR9hKN0mpbxOJ?=
+ =?us-ascii?Q?Mf0tS8nQ7fkOdDmZE/1rKLlfY2A6mlgxgSpA67qCw0UPDpbKXXSDPi3ATZix?=
+ =?us-ascii?Q?aXVve6JLkENPr2tIDL/DwoWpY5gwNQaFECJ7CyfG3myNiioqFQ/lJ6KOLml0?=
+ =?us-ascii?Q?LXxNo8VlM2h0O6XSXpzWPAkz96sJrTV4FY9zYkhgyNkrRe7JeaR0GA3Fg/qk?=
+ =?us-ascii?Q?pYWSlfMlb4yPcSUmyokYjihJ2GmN6fEHipXK7WrL00oYI13n5kE2BDABKMK0?=
+ =?us-ascii?Q?+hth6htEGDstnMAmKb191ismAqrs3UPkfgm5Rr60OZYqRJEl7cih/fvaBd6q?=
+ =?us-ascii?Q?2F90z07jwxnoXAecKg7S8Z7qmV8WFllgRqkd8h7HupdkgLdMrx0GmMSxfCdt?=
+ =?us-ascii?Q?VtuMHvWnLGhe3QZZLWKut8U6+sEX+hWTW+TnBFt1xy9OgJ2rfxpPiD0v6NRF?=
+ =?us-ascii?Q?7udyETjMWNCIEfXmlSB6jpBdwebWrLqAoGE7xtlTGrJV+8X6kPgKcN8NvIPv?=
+ =?us-ascii?Q?7QUhacJtwmanOkgfp+mGTfQVGm18vnP4uhTz9AjqTAQzL20dU+HXQaSx8r0U?=
+ =?us-ascii?Q?eyeX09GaNjkazRBwCcur5MPqGnpOrJh3LpeQrXVPhiFqqP+MlIZHVOXWnmk8?=
+ =?us-ascii?Q?9ZrmOtXsZCe9CMfgNswdxD8uqt5RNkBtAnN/V+ndgbZ3+UH1A8KcxBssJrSj?=
+ =?us-ascii?Q?Gn6qavmbE3fmwA6kQZ+VwUiADU7TSTHE73gmXih4iCby09wis+E3J0S/6GgT?=
+ =?us-ascii?Q?71cvRGWxRDJ8FBZFhqvDIVZlTSB6EvwX6D1OxWt2XKPd7pssbbZyvZuJ3r4A?=
+ =?us-ascii?Q?PaEijYBssbHFZJ4B6PHKXv3jJjwFOgkvPg8PDDo/52ZCK2gYTkZDBrMNIvOK?=
+ =?us-ascii?Q?qn5tTXTdH5eOLwlLhI36EM2GpWH+rC4pJCpO1pecFwBKnxoYJhAebhj7BMsI?=
+ =?us-ascii?Q?47QLPyRmB2QF97zMenNU+OiLgjUUDHg1jaHhJF0tD6XUFrVLjSBc0thdlAXA?=
+ =?us-ascii?Q?I1gr4KQPgr4xvYD66zhxxiazmYew1pB7g+Ya+8Mu4g6jwbjgraFcrvZMLBcQ?=
+ =?us-ascii?Q?33B0DL8TccingDVKz1eM4AP0?=
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2021 12:16:36.0790 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 44932557-8b7d-42c3-d309-08d919f6c83d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT056.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3636
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5156.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5abaa511-0d8f-430b-cf45-08d919f7292e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 May 2021 12:19:18.6563 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: jwfxcuFV7Dga1oDypR+HSYudAZ93A9BjHqr9R90mY2J2CNFGx/uXyAvZ5qAN+K5oaCxIZlFcv3UQtE9lBd9Rrg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB5564
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,18 +135,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: emily.deng@amd.com, Jiawei Gu <Jiawei.Gu@amd.com>
+Cc: "Deng, Emily" <Emily.Deng@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+[AMD Official Use Only - Internal Distribution Only]
+
+Hi all,
+
+Please help confirm that we're all fine with this new struct in uapi in this V3 patch:
+
++struct drm_amdgpu_info_vbios {
++	__u8 name[64];
++	__u8 vbios_pn[64];
++	__u32 version;
++	__u8 vbios_ver_str[32];
++	__u8 date[32];
++};
+
+Best regards,
+Jiawei
+
+-----Original Message-----
+From: Jiawei Gu <Jiawei.Gu@amd.com> 
+Sent: Tuesday, May 18, 2021 8:16 PM
+To: amd-gfx@lists.freedesktop.org; Koenig, Christian <Christian.Koenig@amd.com>; Nieto, David M <David.Nieto@amd.com>; maraeo@gmail.com; Deucher, Alexander <Alexander.Deucher@amd.com>
+Cc: Deng, Emily <Emily.Deng@amd.com>; Gu, JiaWei (Will) <JiaWei.Gu@amd.com>
+Subject: [PATCH] drm/amdgpu: Add vbios info ioctl interface
+
 Add AMDGPU_INFO_VBIOS_INFO subquery id for detailed vbios info.
 
-Provides a way for the user application to get the VBIOS
-information without having to parse the binary.
-It is useful for the user to be able to display in a simple way the VBIOS
-version in their system if they happen to encounter an issue.
+Provides a way for the user application to get the VBIOS information without having to parse the binary.
+It is useful for the user to be able to display in a simple way the VBIOS version in their system if they happen to encounter an issue.
 
 V2:
 Use numeric serial.
@@ -160,7 +204,8 @@ index 8d12e474745a..524e4fe5efe8 100644
 +			vbios_info.version = atom_context->version;
 +			memcpy(vbios_info.vbios_ver_str, atom_context->vbios_ver_str,
 +						sizeof(atom_context->vbios_ver_str));
-+			memcpy(vbios_info.date, atom_context->date, sizeof(atom_context->date));
++			memcpy(vbios_info.date, atom_context->date, 
++sizeof(atom_context->date));
 +
 +			return copy_to_user(out, &vbios_info,
 +						min((size_t)size, sizeof(vbios_info))) ? -EFAULT : 0;
@@ -184,8 +229,7 @@ index 3dcb8b32f48b..6fa2229b7229 100644
  	}
  }
  
-+static void atom_get_vbios_name(struct atom_context *ctx)
-+{
++static void atom_get_vbios_name(struct atom_context *ctx) {
 +	unsigned char *p_rom;
 +	unsigned char str_num;
 +	unsigned short off_to_vbios_str;
@@ -232,8 +276,7 @@ index 3dcb8b32f48b..6fa2229b7229 100644
 +	*(back + 1) = '\0';
 +}
 +
-+static void atom_get_vbios_date(struct atom_context *ctx)
-+{
++static void atom_get_vbios_date(struct atom_context *ctx) {
 +	unsigned char *p_rom;
 +	unsigned char *date_in_rom;
 +
@@ -283,8 +326,7 @@ index 3dcb8b32f48b..6fa2229b7229 100644
 +	return NULL;
 +}
 +
-+static void atom_get_vbios_pn(struct atom_context *ctx)
-+{
++static void atom_get_vbios_pn(struct atom_context *ctx) {
 +	unsigned char *p_rom;
 +	unsigned short off_to_vbios_str;
 +	unsigned char *vbios_str;
@@ -322,8 +364,7 @@ index 3dcb8b32f48b..6fa2229b7229 100644
 +	}
 +}
 +
-+static void atom_get_vbios_version(struct atom_context *ctx)
-+{
++static void atom_get_vbios_version(struct atom_context *ctx) {
 +	unsigned char *vbios_ver;
 +
 +	/* find anchor ATOMBIOSBK-AMD */
@@ -337,8 +378,7 @@ index 3dcb8b32f48b..6fa2229b7229 100644
 +	}
 +}
 +
- struct atom_context *amdgpu_atom_parse(struct card_info *card, void *bios)
- {
+ struct atom_context *amdgpu_atom_parse(struct card_info *card, void *bios)  {
  	int base;
  	struct atom_context *ctx =
  	    kzalloc(sizeof(struct atom_context), GFP_KERNEL);
@@ -422,8 +462,7 @@ index 275468e4be60..28deecc2f990 100644
  };
  
  /****************************************************************************   
-diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-index 9169df7fadee..155fd9918b4d 100644
+diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h index 9169df7fadee..155fd9918b4d 100644
 --- a/include/uapi/drm/amdgpu_drm.h
 +++ b/include/uapi/drm/amdgpu_drm.h
 @@ -756,6 +756,8 @@ struct drm_amdgpu_cs_chunk_data {
@@ -450,9 +489,8 @@ index 9169df7fadee..155fd9918b4d 100644
  #define AMDGPU_VRAM_TYPE_UNKNOWN 0
  #define AMDGPU_VRAM_TYPE_GDDR1 1
  #define AMDGPU_VRAM_TYPE_DDR2  2
--- 
+--
 2.17.1
-
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
