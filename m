@@ -2,120 +2,129 @@ Return-Path: <SRS0=uqvu=KN=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MIME_HTML_MOSTLY,PDS_BAD_THREAD_QP_64,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D6D24C433ED
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 May 2021 04:10:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 96AF3C433ED
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 May 2021 04:40:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8D6E261209
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 May 2021 04:10:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8D6E261209
+	by mail.kernel.org (Postfix) with ESMTPS id 2D002610E9
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 May 2021 04:40:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2D002610E9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C9476E5C3;
-	Tue, 18 May 2021 04:10:22 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2071.outbound.protection.outlook.com [40.107.236.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE53D6E04A
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 May 2021 04:10:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69D5A6E5D3;
+	Tue, 18 May 2021 04:40:34 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2046.outbound.protection.outlook.com [40.107.220.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE70F6E5CC
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 May 2021 04:40:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UcfrkL1rFVj/ouYHMPRn0g/3hSImF2SInbDGDzDCFCnn52BfVqiteg09Fr9j6MpQn3Mi/jo6oynTeL0119L1HGTC3MzcPLOg/M1Qri9nAk/a/GSaQNY+8/5sZnaq+6Z1LjCbZSCmCBvXvBC5R2sp3T1YcLxIeiem5BvUGtNX5bOzR92Hx9vWE/pyPWtqyUBRtyT7e7MdoshLsj0kB/oGxOLFIoV3LMaXUsDIa/kmtEiIn3SsaQuK1txlgfDjS5RkU7fRxKWxXcV4I507kZtRM6bpHZcUsXEIkeXIdQM13/7AXPLmsCIWbyCb1O5OjsrwQMo/oJ1aU59CLDF4wK0UFw==
+ b=oRPv47csKfehVro2r7b45FBY+vTovc9O8Y5qmRXkCfA4vdd7RYG2g4fwX4yYH8FgWSpyxrQ2fSWddTNGrWV6C0jYnU2K4UpE6hDGfHGcMSB7Yx+O/SVdaX20lDq8+wrxWbsFJ9HhtYDiW8Qkh/iBDUtVieRqOVORoUZXcBH7BRPLjRETNcZh9Wd4grMLqpSwLXycD3aZMgok03hE/ymuYkEdfyKrdhUIS9XiH5p0pwaPFkFajOn188Z7ugeWzDCbx3i7cCduTjb0tLereRXAw+mGSp1mb0gWxfhPr55R0Zl51mfdkqMYn8GL7voofHEfyBZM7T5nXU9/20pc5bq1Sw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9HMe+9LrrPL7JlCP5TSwwJXCRZGbd8oxiRQaM2nsNwA=;
- b=kZiJChq2YVd7oiqRTRdlqdch5lYJnT0eL4hOnl0wiEDK3HF9qEEDPqYLQzj0yyKIaxCRSOB0EqC8jC6IvAtb9jAH56j4rDtJI7F80ggcllburbH4ZVzfSWFVNogi6mahwb0/dndbqqpq+jFhTBPZsPG/3kteJFpHXai3LQqFCW5JHywt+PuULl1mGvAX2qU2z7z0Aurt5LOK6An8+pkGkcakpoSNF5QSoIs25lcAyL075lYMIyGPBxVZa5P3rhu2FegRztLC7pmzPIsqQ1aKRXv8YxrkHKGLTLlYLWNKkqGXOC7E2lpYhC0qrMsnL9HCgZJTPTKBTAoq8u7FEd1SYQ==
+ bh=wP1g9+FGw2THk6ZionHYy//JrUno3EwMGrVqeU2nFVI=;
+ b=QNGHvyVT8nCighCTQe09zQtr1zkwSoCL3u+u08ltXY3QCIgibJ5AQ9gAgfrNH4uV0CAJYmWkF8pQh4BscqnhM1lteSWdToerayTQgCy241aohNo4Ndjsp+4g+eMGkyMHHNXM2E3OCFJa9FzIZ5xREeHwK+6Ku8b9wfCTkLHKMmxR00bSpDiRFTr2TNQOSQEfa3laDQBwkqaod+dQrnt0+gZTLcACQbxeTto4gy+cbPSwGvW13JvNjNnMchvTcAkl6WkK0X3QdbOTajaOCx5hIU52hys7Yru8ajYWD3GW/K26hJCdPNYucnp2gZG5EBDqZ78E5OkGtHQScWYI7qEWVg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9HMe+9LrrPL7JlCP5TSwwJXCRZGbd8oxiRQaM2nsNwA=;
- b=BZduPAVQAUbNlPZEGmE8J1Y4Qym/QQuBvBuJ2L0cdOw5UfegQTPRELlQOcE8bIQrSF+fkLYnHQmGRGpblp12e5/yzqBf5j+H+u+6MKi+YqTt8Bfe/2yAaBhNCujKCvnpWdT1HBeE3SBOPYRa7guq+3fIgSUwI6q28oSov0iWzys=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
+ bh=wP1g9+FGw2THk6ZionHYy//JrUno3EwMGrVqeU2nFVI=;
+ b=HD8umutCePz2i/97I1nML/gTVzMP45lxAxr2IoZcfK6h601pHUIhHabYbvA0PSHPIi8abgfdlTvgDs5jmmr6LEIP0SGEaswus5D84XQX4L0xRyOI3lcNNDXkL5oTgpefL5RQWiGnyPrEQ2TtJOkC+47wwNXncKfXEpmEcDYA5vg=
 Received: from BYAPR12MB2840.namprd12.prod.outlook.com (2603:10b6:a03:62::32)
- by BYAPR12MB2981.namprd12.prod.outlook.com (2603:10b6:a03:de::26)
+ by BYAPR12MB4695.namprd12.prod.outlook.com (2603:10b6:a03:a4::28)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.25; Tue, 18 May
- 2021 04:10:12 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.28; Tue, 18 May
+ 2021 04:40:26 +0000
 Received: from BYAPR12MB2840.namprd12.prod.outlook.com
  ([fe80::7c65:7181:6d1d:8616]) by BYAPR12MB2840.namprd12.prod.outlook.com
  ([fe80::7c65:7181:6d1d:8616%7]) with mapi id 15.20.4129.031; Tue, 18 May 2021
- 04:10:12 +0000
-From: David M Nieto <david.nieto@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 3/3] drm/amdgpu/pm: display vcn pp dpm
-Date: Mon, 17 May 2021 21:09:57 -0700
-Message-Id: <20210518040957.23266-3-david.nieto@amd.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210518040957.23266-1-david.nieto@amd.com>
-References: <CH0PR12MB534810EC2A9AB95FBF09E06B972D9@CH0PR12MB5348.namprd12.prod.outlook.com>
- <20210518040957.23266-1-david.nieto@amd.com>
-X-Originating-IP: [165.204.53.123]
-X-ClientProxiedBy: SJ0PR03CA0223.namprd03.prod.outlook.com
- (2603:10b6:a03:39f::18) To BYAPR12MB2840.namprd12.prod.outlook.com
- (2603:10b6:a03:62::32)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from loud-cracker.amd.com (165.204.53.123) by
- SJ0PR03CA0223.namprd03.prod.outlook.com (2603:10b6:a03:39f::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4108.25 via Frontend
- Transport; Tue, 18 May 2021 04:10:12 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: c2cc6c7e-a711-46ff-aa2a-08d919b2d52c
-X-MS-TrafficTypeDiagnostic: BYAPR12MB2981:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BYAPR12MB29813AC1BF5E20783D683E0DF42C9@BYAPR12MB2981.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:352;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: eKQr3dZuDhzGIzX3KF+u99mLkIWTx8KeFXQBvBtX5ha151zzhTUJ3azYNJw0rQYSVwcy7lS55VuUQExvDjZu3ndOyxGQz+SKmqzBBy2BPRHC8r5AaX4R0/JBOHEKkI0aPh3d24+6sD1zQZWSOGDY4B4N96+VxWSbkC6GGDUekfskpuZo4Suc0B3gl9x/vapAknM/ElwE9q+lVWNs/qgn2T8csHpEeCS37l9Hfhq5JaVmqWb3EHb3j73GCzRp9z7k/elrIEAN7c4PwoDCB9Le+iVKTj947N9OIYY2DOxcoOt70zw/LPeDzkD5QM6CHanJgeW7N2c0YjIIJB5gINYgpj+4hEvICrTvq/xF6Xkq/SPjBAYSjd7jvlNO1BCS85+vsG8fIuJ05L8fxWa+EYxC0Qr2o3Skoast8ohsjMkQi8nEVw6o/x3M39oQDu+mFVyZ2gPFFHYRYdKjxpUHaR4czKlv3yYe2sqTXQa/4i9XH/zBClqm9hrlWr5yHFkBYf8URwb/qoZwS0GgTkzT/0ZKXd4AL9WEy5+QiXsnuSAQNpsMa4zxybF08nN+WIFrPIkyPVyZjm2SXHvyhjP6EhULUHyHwoM8FcXzVNtU6ijttjp6iSyPb50DgqcUzeBlHT8KHZarnA2qyXWVLmzLcoi440GehouucokCVjDlUHxN7Hg=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ 04:40:26 +0000
+From: "Nieto, David M" <David.Nieto@amd.com>
+To: "Gu, JiaWei (Will)" <JiaWei.Gu@amd.com>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "maraeo@gmail.com" <maraeo@gmail.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: Add vbios info ioctl interface
+Thread-Topic: [PATCH] drm/amdgpu: Add vbios info ioctl interface
+Thread-Index: AQHXSxVPBvM50M0wZkSTUB4XlW18fKrnlu0AgAACYYCAAObDgIAACKsHgAAHFACAABmoHQ==
+Date: Tue, 18 May 2021 04:40:26 +0000
+Message-ID: <BYAPR12MB284005A19E99B1D7AC43ABE5F42C9@BYAPR12MB2840.namprd12.prod.outlook.com>
+References: <20210517120804.27052-1-Jiawei.Gu@amd.com>
+ <CH0PR12MB5156D238E265426E504B791BF82D9@CH0PR12MB5156.namprd12.prod.outlook.com>
+ <51161d6d-a6be-90f0-262d-5215402e25dd@amd.com>,
+ <CH0PR12MB515644C1FF56458EFCA4B0FBF82C9@CH0PR12MB5156.namprd12.prod.outlook.com>
+ <BYAPR12MB2840E231B64B432D709A3B59F42C9@BYAPR12MB2840.namprd12.prod.outlook.com>,
+ <CH0PR12MB515657CAB5F1DF60A7E689C5F82C9@CH0PR12MB5156.namprd12.prod.outlook.com>
+In-Reply-To: <CH0PR12MB515657CAB5F1DF60A7E689C5F82C9@CH0PR12MB5156.namprd12.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-05-18T04:40:25.624Z;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [165.204.53.104]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: a2a0a63e-b474-4993-d2be-08d919b70e90
+x-ms-traffictypediagnostic: BYAPR12MB4695:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <BYAPR12MB46951DB811F961546DF81F1FF42C9@BYAPR12MB4695.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8882;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: pIudc/3ETn03J6vthtLvmdwfKf+pYNTOFkr30uDtdRD4j0rZ/Q9i8B6EdXJGSpxDIVxIqpcbmtmqnMnZQsoJzmfsLxzWggPRLTOfd2oz8usCPs3onWZkcXCbbVPLiAO+mcIr8xvHVXaoGGmNGd3S3KzpyjRXsoE1detADZjLotxrakc6MO6XYOo9inH2X31FlJVtJOC6gXJMACtM/JSp1DCNKZoy3H1m7lEwhHNXiDHRvCrDnmZmOb1AjWkJlA3Rovsqmr95/M26UcoqcMprWRyI28qIUtJDZ+4jfOYR7KMP5KQ87TQPJZJH8nsuBb0wC6nzeGVfrWJeKxaCt1l/HP/mcujsvOxOcZr2EhClhCAxunmouUKTHT2u/A0colAOYj/rkiEb0MZBN2V7F8IHRDptanC8Urgz2aVJB0gHnf+yFs/DTd1ziJmg3NwufVx/zcW/QNED5Z8OAaersaSCIr7qT6OiJiDpDU2gedVHlukLyI730cVUfBP24uS5Fdztpldm2U6cR0L9GV0BGqmKrH1HpEVnuXQx+QRLhmjz0ZjGp1nmvlqGmSY3ig8r41rFgCDJkpcZVLihzAlCSdRGsUEchA9kA8e/0mBAfdiSxog=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BYAPR12MB2840.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(136003)(376002)(39860400002)(346002)(366004)(83380400001)(6666004)(6486002)(8936002)(8676002)(38350700002)(4326008)(38100700002)(2616005)(956004)(1076003)(66476007)(66946007)(66556008)(52116002)(316002)(5660300002)(7696005)(36756003)(6916009)(478600001)(186003)(16526019)(2906002)(86362001)(26005);
+ SFS:(4636009)(396003)(376002)(346002)(366004)(39860400002)(136003)(478600001)(38100700002)(7696005)(83380400001)(6636002)(5660300002)(30864003)(52536014)(4326008)(71200400001)(26005)(66446008)(64756008)(66556008)(122000001)(6506007)(53546011)(66946007)(186003)(66476007)(76116006)(8676002)(86362001)(19627405001)(8936002)(19627235002)(33656002)(110136005)(2906002)(55016002)(9686003)(316002)(66574015);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?smXf8oA6mrM5Ke9GOG+iJK0c4iuy9ZhxWUFl949vlPSW7qbFhzCVLm7DhRjt?=
- =?us-ascii?Q?dsDa2dmnwN2aqth0R1WjyBEvqkyW2bke0Z/t/4KBLBQONKD1WPDnZSCFe7AZ?=
- =?us-ascii?Q?hMONskzuYpPhbdumews9QBfUv6GKh1owiFQj1QC9yHmbYYhBvpM86D9r0swJ?=
- =?us-ascii?Q?DtFqoJOEzyrt3EI3ldmb5mtv0QlPRJQhrknbrWf4/R7cajTTozXQLAcUVDHG?=
- =?us-ascii?Q?nUFaEkdhqrmmgOPTdKo7ulAmd8IT2SJgUfkUcqxqkJ5Pn297DMoiDuvcRdA+?=
- =?us-ascii?Q?JQX3vgJ5yMoaevjwkNLFRU2xqJmvJnF623TxGiSqCx8cidWYpG4vp2/BGyJe?=
- =?us-ascii?Q?/yv06oJfqd0461C5SDFW1bKPiKwuUIXZc4z/cypOXdw40s8tw84uzCYfuOJt?=
- =?us-ascii?Q?ZPqA/z3z4qevQp4P83RMpjYsFdAstfQVla7Qcwy+lQ5hl3aVirMaQSmaraMa?=
- =?us-ascii?Q?lIOXPF/KPvSaLO5WFOZYW6H4O56QHIUPABltkLyureNhpTlT8f71uSC+zqP/?=
- =?us-ascii?Q?FNhm8iAC+nkDG5uXxs6KDsKhO3XE+mSKAo2mximAGsbwf5LQ8CfAPXvue1iL?=
- =?us-ascii?Q?h3yJ//ls5apcrEGbMN86Oy+/03B/0Vy2eWkltAWx8+ApI8kj2n2XRh2T+eLK?=
- =?us-ascii?Q?FBdeH1E27jKnnaH3A/XG398/70uEGAVoFkNhUjGoY/0MfUspL86BJbL7jkPm?=
- =?us-ascii?Q?wQKaST4ZHI4EI9wWAzGYCxZm7MPb202aE+X5duXdUdudeXhnU6MR4XbYO6cY?=
- =?us-ascii?Q?aYMJU2o0njPcNbi8CUYfaZsN39N/zGjffYHPs8o+vxbzheGqDvueoUjhly1h?=
- =?us-ascii?Q?3ObhTiUjwm8k0bAFhHmVdicaqS9jCBHlEEEcxf7bPXrEyfGKlPABuil2yZ01?=
- =?us-ascii?Q?1p3SMEbroD8d4iaswD1KD8dfq0l7deMf6ccBUeRJe+IwK2EXvT2A4hSR+iHk?=
- =?us-ascii?Q?SRZjIj4KeGKrJd+hnPim5O0DvRLD7IkxBncxeqRBMi3g/5/AlJRrGZFS95Bk?=
- =?us-ascii?Q?YR6zAITyPann44WeBOhN7AxHiOnuvqnWpOdhYyx9FmVaJp2Gi+hJO3dvOHrD?=
- =?us-ascii?Q?PYrP2QY7wR7cv9vARUwo4TviLdvS0QNDdhsQeZZ6xEVlJiSA+pazVffc/0Vj?=
- =?us-ascii?Q?7FgfZufGQElnQJ/lK69VgvbfEzuWjKmj2xqil2tkfc7x38tqOHfRuuNgUnry?=
- =?us-ascii?Q?4YrEh487VJAZaPyFTR+EyvJaKHEcRFIJJoU6pGwKq81y0vYMz25YLkrVDPWm?=
- =?us-ascii?Q?InCZ7TX2ZFzEYX9zpE2rJbHz+k/yiBVitm1+EvAQk9DUUBWMeCXG6eBj8zEr?=
- =?us-ascii?Q?8F5R8cd7rpUXB9/qqAfcwiPu?=
+x-ms-exchange-antispam-messagedata: =?Windows-1252?Q?3vRMwIkOSFx8vYvev/q0+vv/cACUw4aXKGfcTczEFdxeybcJzqHWXXls?=
+ =?Windows-1252?Q?1UoprjYmTN+YFCELnC6sctUkZGl7YwWL20H/080wb8vSfMzzuEILIZF2?=
+ =?Windows-1252?Q?Dwn5YvQNRwr6xptVF0vMBc4xxNM7XmlxZkZbGoeIMc7Ke4t2E+wFSSW3?=
+ =?Windows-1252?Q?EosW6CfcQQcyjMh8kZ85DnIqxqW9n/772dStBwFF8ZkfsPZgl1spwdc4?=
+ =?Windows-1252?Q?tNcY7sQCEDIa07DFhQrt/3W70Fz2ha/zAkEkhoxfjgLqRqPNzzY4c1e2?=
+ =?Windows-1252?Q?1stmLBPrICSFlRxIsS1bE/0CNsoQ70Ebkzxrze3Ydg8CiJDipmp5vZds?=
+ =?Windows-1252?Q?SpdCtRcqh2cJ6dCepG+cuSwhQ0QFH2EHZvZLhdRnPgo4rxeAn/HM1kOq?=
+ =?Windows-1252?Q?nsunuXcden5894eqjeNDFry8eF/teDi9wzfytD5rf+lZ0oLMglH8KPfK?=
+ =?Windows-1252?Q?29hgzueWrmc77lA56sd4hKaIm2r2m1FoBNK2fcAaFa15fNbPbLTTb/cY?=
+ =?Windows-1252?Q?4jrDlUEdIvhfqmqb32JFCDoGG/0VR0+YR4QRkZeMtva32pmVUUWcz48C?=
+ =?Windows-1252?Q?d7rTcMWbG9pNiIWBczNs5EzVu6IQj8HASVV+znS+2A4qgVolBQRd78I7?=
+ =?Windows-1252?Q?B/MWE0hZjluHOxuyBI6zdgBu8FBSIbYN96KqsR+PtpbUMy5KrCRzN9jB?=
+ =?Windows-1252?Q?SRuHq8f0ejKeV9wVU21G90pRkDNc5MXfqRTKhTKeQ2+IYHyQMn7jvrqB?=
+ =?Windows-1252?Q?t4p0pb1B/cYL4Lj+gfvGyS741pV58RqIAeDwjZc/PmUNM5mtIvwzL4RA?=
+ =?Windows-1252?Q?mUwGXJGmEOPaVtzFWrPVlU51Kh98RecdBjrvPy26MUMc+Nc9M5mifFUi?=
+ =?Windows-1252?Q?aMNuHmLFEYbxHmVVQPVze5Dt/226zzpsIph89/vDqhc4iPRD8xZRf7zx?=
+ =?Windows-1252?Q?xVEciUjO/9PslTfpeOK2hggzgku75k8wtbX4ZfcF9MGkSzz0uCFocqCX?=
+ =?Windows-1252?Q?useW5RIiZZhTfGnq+jY4z3VO4g+r/nz0gqOz4Iomjq4BPx0siwtBhlQd?=
+ =?Windows-1252?Q?SQxVzM+9RbKeGc2TTyR373Bv0Pk0yi1k1eJZvrB1ya4m/6uvqBu6uf8g?=
+ =?Windows-1252?Q?dGGEyjshd06Cvl8fwX4WF091OWeiF/fG0kK+kXNpuh2TyLbsJhtmNscD?=
+ =?Windows-1252?Q?VQGhUn9AKEpOoYr802zhwi8gYcppw309zsX0jXU/5T8XCgiUN9I9VfWQ?=
+ =?Windows-1252?Q?3IP13OFZ4WefcnAW0OBMVG8Lq3oWI0uVgk61IlsSY8hWL1d30stg/d/0?=
+ =?Windows-1252?Q?dtY15F/NFvqpewryXnhwnsmhzJoB/Nmi9Yt6mIC2w2zj2iQJVaiCBMvb?=
+ =?Windows-1252?Q?6YjJf6A/BbrH843STtLZG7c0j6padaadvCJL6SYn943CzvmWlwPONqp5?=
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c2cc6c7e-a711-46ff-aa2a-08d919b2d52c
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB2840.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2021 04:10:12.3001 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CrWpQOpyfsX9sp+g9mgLaE0H1bCx5fe07ho4E1rMS5Q5rX2y0z25ESgt472NhXIf
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2981
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB2840.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a2a0a63e-b474-4993-d2be-08d919b70e90
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 May 2021 04:40:26.1458 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Q2svj+lU71BpP54OSdXF9NGLhX0t3VAhkQjd8b78dBAhsTv3o0+Mgt7qNqELa8Lo
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB4695
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,290 +136,1356 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David M Nieto <david.nieto@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: "Deng, Emily" <Emily.Deng@amd.com>
+Content-Type: multipart/mixed; boundary="===============1722405634=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Enable displaying DPM levels for VCN clocks
-in swsmu supported ASICs
+--===============1722405634==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BYAPR12MB284005A19E99B1D7AC43ABE5F42C9BYAPR12MB2840namp_"
 
-Signed-off-by: David M Nieto <david.nieto@amd.com>
----
- .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c | 46 ++++++++++++++++++
- .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   |  4 ++
- .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   |  8 ++++
- .../gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c   | 38 +++++++++++++++
- .../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    | 48 +++++++++++++++++++
- 5 files changed, 144 insertions(+)
+--_000_BYAPR12MB284005A19E99B1D7AC43ABE5F42C9BYAPR12MB2840namp_
+Content-Type: text/plain; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-index 77693bf0840c..1735a96dd307 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-@@ -822,6 +822,52 @@ static int arcturus_print_clk_levels(struct smu_context *smu,
- 				now) ? "*" : ""));
- 		break;
- 
-+	case SMU_VCLK:
-+		ret = arcturus_get_current_clk_freq_by_table(smu, SMU_VCLK, &now);
-+		if (ret) {
-+			dev_err(smu->adev->dev, "Attempt to get current vclk Failed!");
-+			return ret;
-+		}
-+
-+		single_dpm_table = &(dpm_context->dpm_tables.vclk_table);
-+		ret = arcturus_get_clk_table(smu, &clocks, single_dpm_table);
-+		if (ret) {
-+			dev_err(smu->adev->dev, "Attempt to get vclk levels Failed!");
-+			return ret;
-+		}
-+
-+		for (i = 0; i < single_dpm_table->count; i++)
-+			size += sprintf(buf + size, "%d: %uMhz %s\n",
-+				i, single_dpm_table->dpm_levels[i].value,
-+				(clocks.num_levels == 1) ? "*" :
-+				(arcturus_freqs_in_same_level(
-+				clocks.data[i].clocks_in_khz / 1000,
-+				now) ? "*" : ""));
-+		break;
-+
-+	case SMU_DCLK:
-+		ret = arcturus_get_current_clk_freq_by_table(smu, SMU_DCLK, &now);
-+		if (ret) {
-+			dev_err(smu->adev->dev, "Attempt to get current dclk Failed!");
-+			return ret;
-+		}
-+
-+		single_dpm_table = &(dpm_context->dpm_tables.dclk_table);
-+		ret = arcturus_get_clk_table(smu, &clocks, single_dpm_table);
-+		if (ret) {
-+			dev_err(smu->adev->dev, "Attempt to get dclk levels Failed!");
-+			return ret;
-+		}
-+
-+		for (i = 0; i < single_dpm_table->count; i++)
-+			size += sprintf(buf + size, "%d: %uMhz %s\n",
-+				i, single_dpm_table->dpm_levels[i].value,
-+				(clocks.num_levels == 1) ? "*" :
-+				(arcturus_freqs_in_same_level(
-+				clocks.data[i].clocks_in_khz / 1000,
-+				now) ? "*" : ""));
-+		break;
-+
- 	case SMU_PCIE:
- 		gen_speed = smu_v11_0_get_current_pcie_link_speed_level(smu);
- 		lane_width = smu_v11_0_get_current_pcie_link_width_level(smu);
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-index 9339fd24ae8c..2e801f2e42a9 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-@@ -1273,6 +1273,8 @@ static int navi10_print_clk_levels(struct smu_context *smu,
- 	case SMU_MCLK:
- 	case SMU_UCLK:
- 	case SMU_FCLK:
-+	case SMU_VCLK:
-+	case SMU_DCLK:
- 	case SMU_DCEFCLK:
- 		ret = navi10_get_current_clk_freq_by_table(smu, clk_type, &cur_value);
- 		if (ret)
-@@ -1444,6 +1446,8 @@ static int navi10_force_clk_levels(struct smu_context *smu,
- 	case SMU_MCLK:
- 	case SMU_UCLK:
- 	case SMU_FCLK:
-+	case SMU_VCLK:
-+	case SMU_DCLK:
- 		/* There is only 2 levels for fine grained DPM */
- 		if (navi10_is_support_fine_grained_dpm(smu, clk_type)) {
- 			soft_max_level = (soft_max_level >= 1 ? 1 : 0);
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-index 0c40a54c46d7..6da6d08d8858 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-@@ -987,6 +987,10 @@ static int sienna_cichlid_print_clk_levels(struct smu_context *smu,
- 	case SMU_MCLK:
- 	case SMU_UCLK:
- 	case SMU_FCLK:
-+	case SMU_VCLK:
-+	case SMU_VCLK1:
-+	case SMU_DCLK:
-+	case SMU_DCLK1:
- 	case SMU_DCEFCLK:
- 		ret = sienna_cichlid_get_current_clk_freq_by_table(smu, clk_type, &cur_value);
- 		if (ret)
-@@ -1150,6 +1154,10 @@ static int sienna_cichlid_force_clk_levels(struct smu_context *smu,
- 	case SMU_MCLK:
- 	case SMU_UCLK:
- 	case SMU_FCLK:
-+	case SMU_VCLK:
-+	case SMU_VCLK1:
-+	case SMU_DCLK:
-+	case SMU_DCLK1:
- 		/* There is only 2 levels for fine grained DPM */
- 		if (sienna_cichlid_is_support_fine_grained_dpm(smu, clk_type)) {
- 			soft_max_level = (soft_max_level >= 1 ? 1 : 0);
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-index f43b4c623685..3a6b52b7b647 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-@@ -109,6 +109,8 @@ static struct cmn2asic_mapping renoir_clk_map[SMU_CLK_COUNT] = {
- 	CLK_MAP(SOCCLK, CLOCK_SOCCLK),
- 	CLK_MAP(UCLK, CLOCK_FCLK),
- 	CLK_MAP(MCLK, CLOCK_FCLK),
-+	CLK_MAP(VCLK, CLOCK_VCLK),
-+	CLK_MAP(DCLK, CLOCK_DCLK),
- };
- 
- static struct cmn2asic_mapping renoir_table_map[SMU_TABLE_COUNT] = {
-@@ -202,6 +204,17 @@ static int renoir_get_dpm_clk_limited(struct smu_context *smu, enum smu_clk_type
- 			return -EINVAL;
- 		*freq = clk_table->FClocks[dpm_level].Freq;
- 		break;
-+	case SMU_VCLK:
-+		if (dpm_level >= NUM_VCN_DPM_LEVELS)
-+			return -EINVAL;
-+		*freq = clk_table->VClocks[dpm_level].Freq;
-+		break;
-+	case SMU_DCLK:
-+		if (dpm_level >= NUM_VCN_DPM_LEVELS)
-+			return -EINVAL;
-+		*freq = clk_table->DClocks[dpm_level].Freq;
-+		break;
-+
- 	default:
- 		return -EINVAL;
- 	}
-@@ -296,6 +309,8 @@ static int renoir_get_dpm_ultimate_freq(struct smu_context *smu,
- 		case SMU_UCLK:
- 		case SMU_FCLK:
- 		case SMU_MCLK:
-+		case SMU_VCLK:
-+		case SMU_DCLK:
- 			ret = renoir_get_dpm_clk_limited(smu, clk_type, mclk_mask, max);
- 			if (ret)
- 				goto failed;
-@@ -324,6 +339,8 @@ static int renoir_get_dpm_ultimate_freq(struct smu_context *smu,
- 		case SMU_UCLK:
- 		case SMU_FCLK:
- 		case SMU_MCLK:
-+		case SMU_DCLK:
-+		case SMU_VCLK:
- 			ret = renoir_get_dpm_clk_limited(smu, clk_type, NUM_MEMCLK_DPM_LEVELS - 1, min);
- 			if (ret)
- 				goto failed;
-@@ -532,6 +549,14 @@ static int renoir_print_clk_levels(struct smu_context *smu,
- 		count = NUM_FCLK_DPM_LEVELS;
- 		cur_value = metrics.ClockFrequency[CLOCK_FCLK];
- 		break;
-+	case SMU_VCLK:
-+		count = NUM_VCN_DPM_LEVELS;
-+		cur_value = metrics.ClockFrequency[CLOCK_VCLK];
-+		break;
-+	case SMU_DCLK:
-+		count = NUM_VCN_DPM_LEVELS;
-+		cur_value = metrics.ClockFrequency[CLOCK_DCLK];
-+		break;
- 	default:
- 		break;
- 	}
-@@ -543,6 +568,8 @@ static int renoir_print_clk_levels(struct smu_context *smu,
- 	case SMU_MCLK:
- 	case SMU_DCEFCLK:
- 	case SMU_FCLK:
-+	case SMU_VCLK:
-+	case SMU_DCLK:
- 		for (i = 0; i < count; i++) {
- 			ret = renoir_get_dpm_clk_limited(smu, clk_type, i, &value);
- 			if (ret)
-@@ -730,6 +757,17 @@ static int renoir_get_dpm_clock_table(struct smu_context *smu, struct dpm_clocks
- 		clock_table->MemClocks[i].Vol = table->MemClocks[i].Vol;
- 	}
- 
-+	for (i = 0; i < NUM_VCN_DPM_LEVELS; i++) {
-+		clock_table->VClocks[i].Freq = table->VClocks[i].Freq;
-+		clock_table->VClocks[i].Vol = table->VClocks[i].Vol;
-+	}
-+
-+	for (i = 0; i < NUM_VCN_DPM_LEVELS; i++) {
-+		clock_table->DClocks[i].Freq = table->DClocks[i].Freq;
-+		clock_table->DClocks[i].Vol = table->DClocks[i].Vol;
-+	}
-+
-+
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-index 7c191a5d6db9..bc628326776c 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-@@ -816,6 +816,52 @@ static int aldebaran_print_clk_levels(struct smu_context *smu,
- 								       now) ? "*" : ""));
- 		break;
- 
-+	case SMU_VCLK:
-+		ret = aldebaran_get_current_clk_freq_by_table(smu, SMU_VCLK, &now);
-+		if (ret) {
-+			dev_err(smu->adev->dev, "Attempt to get current vclk Failed!");
-+			return ret;
-+		}
-+
-+		single_dpm_table = &(dpm_context->dpm_tables.vclk_table);
-+		ret = aldebaran_get_clk_table(smu, &clocks, single_dpm_table);
-+		if (ret) {
-+			dev_err(smu->adev->dev, "Attempt to get vclk levels Failed!");
-+			return ret;
-+		}
-+
-+		for (i = 0; i < single_dpm_table->count; i++)
-+			size += sprintf(buf + size, "%d: %uMhz %s\n",
-+					i, single_dpm_table->dpm_levels[i].value,
-+					(clocks.num_levels == 1) ? "*" :
-+					(aldebaran_freqs_in_same_level(
-+								       clocks.data[i].clocks_in_khz / 1000,
-+								       now) ? "*" : ""));
-+		break;
-+
-+	case SMU_DCLK:
-+		ret = aldebaran_get_current_clk_freq_by_table(smu, SMU_DCLK, &now);
-+		if (ret) {
-+			dev_err(smu->adev->dev, "Attempt to get current dclk Failed!");
-+			return ret;
-+		}
-+
-+		single_dpm_table = &(dpm_context->dpm_tables.dclk_table);
-+		ret = aldebaran_get_clk_table(smu, &clocks, single_dpm_table);
-+		if (ret) {
-+			dev_err(smu->adev->dev, "Attempt to get dclk levels Failed!");
-+			return ret;
-+		}
-+
-+		for (i = 0; i < single_dpm_table->count; i++)
-+			size += sprintf(buf + size, "%d: %uMhz %s\n",
-+					i, single_dpm_table->dpm_levels[i].value,
-+					(clocks.num_levels == 1) ? "*" :
-+					(aldebaran_freqs_in_same_level(
-+								       clocks.data[i].clocks_in_khz / 1000,
-+								       now) ? "*" : ""));
-+		break;
-+
- 	default:
- 		break;
- 	}
-@@ -920,6 +966,8 @@ static int aldebaran_force_clk_levels(struct smu_context *smu,
- 	case SMU_MCLK:
- 	case SMU_SOCCLK:
- 	case SMU_FCLK:
-+	case SMU_VCLK:
-+	case SMU_DCLK:
- 		/*
- 		 * Should not arrive here since aldebaran does not
- 		 * support mclk/socclk/fclk softmin/softmax settings
--- 
-2.17.1
+[Public]
+
+Yes, let's remove that too,
+
+Thanks,
+
+David
+________________________________
+From: Gu, JiaWei (Will) <JiaWei.Gu@amd.com>
+Sent: Monday, May 17, 2021 8:07 PM
+To: Nieto, David M <David.Nieto@amd.com>; Koenig, Christian <Christian.Koen=
+ig@amd.com>; amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>;=
+ maraeo@gmail.com <maraeo@gmail.com>; Deucher, Alexander <Alexander.Deucher=
+@amd.com>
+Cc: Deng, Emily <Emily.Deng@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: Add vbios info ioctl interface
+
+
+[AMD Official Use Only - Internal Distribution Only]
+
+
+
+OK let=92s remove serial.
+
+
+
+dbdf comes from this:
+
+vbios_info.dbdf =3D PCI_DEVID(adev->pdev->bus->number, adev->pdev->devfn);
+
+
+
+I think we can remove dbdf as well.
+
+
+
+Best regards,
+
+Jiawei
+
+
+
+From: Nieto, David M <David.Nieto@amd.com>
+Sent: Tuesday, May 18, 2021 10:45 AM
+To: Gu, JiaWei (Will) <JiaWei.Gu@amd.com>; Koenig, Christian <Christian.Koe=
+nig@amd.com>; amd-gfx@lists.freedesktop.org; maraeo@gmail.com; Deucher, Ale=
+xander <Alexander.Deucher@amd.com>
+Cc: Deng, Emily <Emily.Deng@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: Add vbios info ioctl interface
+
+
+
+[AMD Official Use Only - Internal Distribution Only]
+
+
+
+The serial number is ASIC information, not VBIOS information, and it is sti=
+ll available as a sysfs node... I don't think we should put it there.
+
+
+
+Not sure what dbdf stands for.
+
+________________________________
+
+From: Gu, JiaWei (Will) <JiaWei.Gu@amd.com<mailto:JiaWei.Gu@amd.com>>
+Sent: Monday, May 17, 2021 7:11 PM
+To: Koenig, Christian <Christian.Koenig@amd.com<mailto:Christian.Koenig@amd=
+.com>>; amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>=
+ <amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>; Nie=
+to, David M <David.Nieto@amd.com<mailto:David.Nieto@amd.com>>; maraeo@gmail=
+.com<mailto:maraeo@gmail.com> <maraeo@gmail.com<mailto:maraeo@gmail.com>>; =
+Deucher, Alexander <Alexander.Deucher@amd.com<mailto:Alexander.Deucher@amd.=
+com>>
+Cc: Deng, Emily <Emily.Deng@amd.com<mailto:Emily.Deng@amd.com>>
+Subject: RE: [PATCH] drm/amdgpu: Add vbios info ioctl interface
+
+
+
+[AMD Official Use Only - Internal Distribution Only]
+
+So I guess the dbdf is also needed to be removed?
+And how about serial?
+
+> +struct drm_amdgpu_info_vbios {
+> +     __u8 name[64];
+> +     __u32 dbdf; // do we need this?
+> +     __u8 vbios_pn[64];
+> +     __u32 version;
+> +     __u8 vbios_ver_str[32];
+> +     __u8 date[32];
+> +     __u64 serial; // do we need this?
+> +};
+
+Best regards,
+Jiawei
+
+-----Original Message-----
+From: Koenig, Christian <Christian.Koenig@amd.com<mailto:Christian.Koenig@a=
+md.com>>
+Sent: Monday, May 17, 2021 8:26 PM
+To: Gu, JiaWei (Will) <JiaWei.Gu@amd.com<mailto:JiaWei.Gu@amd.com>>; amd-gf=
+x@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>; Nieto, David=
+ M <David.Nieto@amd.com<mailto:David.Nieto@amd.com>>; maraeo@gmail.com<mail=
+to:maraeo@gmail.com>; Deucher, Alexander <Alexander.Deucher@amd.com<mailto:=
+Alexander.Deucher@amd.com>>
+Cc: Deng, Emily <Emily.Deng@amd.com<mailto:Emily.Deng@amd.com>>
+Subject: Re: [PATCH] drm/amdgpu: Add vbios info ioctl interface
+
+I'm not very familiar with the technical background why we have the fields =
+here once more.
+
+But of hand we should at least remove everything which is also available fr=
+om the PCI information.
+
+E.g. dev_id, rev_id, sub_dev_id, sub_ved_id.
+
+Regards,
+Christian.
+
+Am 17.05.21 um 14:17 schrieb Gu, JiaWei (Will):
+> [AMD Official Use Only - Internal Distribution Only]
+>
+> Hi all,
+>
+> Thanks Christian's suggestion.
+> I reverted the previous patches and squash them into this single one.
+>
+> As this patch shows, the current uapi change looks like this:
+>
+> +struct drm_amdgpu_info_vbios {
+> +     __u8 name[64];
+> +     __u32 dbdf;
+> +     __u8 vbios_pn[64];
+> +     __u32 version;
+> +     __u8 vbios_ver_str[32];
+> +     __u8 date[32];
+> +     __u64 serial;
+> +     __u32 dev_id;
+> +     __u32 rev_id;
+> +     __u32 sub_dev_id;
+> +     __u32 sub_ved_id;
+> +};
+>
+> As we know there's some redundant info in this struct.
+> Please feel free to give any comments or suggestion about what it should =
+& shouldn't include.
+>
+> Best regards,
+> Jiawei
+>
+> -----Original Message-----
+> From: Jiawei Gu <Jiawei.Gu@amd.com<mailto:Jiawei.Gu@amd.com>>
+> Sent: Monday, May 17, 2021 8:08 PM
+> To: amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>; =
+Koenig, Christian
+> <Christian.Koenig@amd.com<mailto:Christian.Koenig@amd.com>>; Nieto, David=
+ M <David.Nieto@amd.com<mailto:David.Nieto@amd.com>>;
+> maraeo@gmail.com<mailto:maraeo@gmail.com>; Deucher, Alexander <Alexander.=
+Deucher@amd.com<mailto:Alexander.Deucher@amd.com>>
+> Cc: Deng, Emily <Emily.Deng@amd.com<mailto:Emily.Deng@amd.com>>; Gu, JiaW=
+ei (Will)
+> <JiaWei.Gu@amd.com<mailto:JiaWei.Gu@amd.com>>
+> Subject: [PATCH] drm/amdgpu: Add vbios info ioctl interface
+>
+> Add AMDGPU_INFO_VBIOS_INFO subquery id for detailed vbios info.
+>
+> Provides a way for the user application to get the VBIOS information with=
+out having to parse the binary.
+> It is useful for the user to be able to display in a simple way the VBIOS=
+ version in their system if they happen to encounter an issue.
+>
+> V2:
+> Use numeric serial.
+> Parse and expose vbios version string.
+>
+> Signed-off-by: Jiawei Gu <Jiawei.Gu@amd.com<mailto:Jiawei.Gu@amd.com>>
+> Acked-by: Christian K=F6nig <christian.koenig@amd.com<mailto:christian.ko=
+enig@amd.com>>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c    |  21 +++
+>   drivers/gpu/drm/amd/amdgpu/atom.c          | 174 +++++++++++++++++++++
+>   drivers/gpu/drm/amd/amdgpu/atom.h          |  12 ++
+>   drivers/gpu/drm/amd/include/atomfirmware.h |   5 +
+>   include/uapi/drm/amdgpu_drm.h              |  16 ++
+>   5 files changed, 228 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> index 8d12e474745a..30e4fed3de22 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> @@ -861,6 +861,27 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *=
+data, struct drm_file *filp)
+>                                            min((size_t)size, (size_t)(bio=
+s_size - bios_offset)))
+>                                        ? -EFAULT : 0;
+>                }
+> +             case AMDGPU_INFO_VBIOS_INFO: {
+> +                     struct drm_amdgpu_info_vbios vbios_info =3D {};
+> +                     struct atom_context *atom_context;
+> +
+> +                     atom_context =3D adev->mode_info.atom_context;
+> +                     memcpy(vbios_info.name, atom_context->name, sizeof(=
+atom_context->name));
+> +                     vbios_info.dbdf =3D PCI_DEVID(adev->pdev->bus->numb=
+er, adev->pdev->devfn);
+> +                     memcpy(vbios_info.vbios_pn, atom_context->vbios_pn,=
+ sizeof(atom_context->vbios_pn));
+> +                     vbios_info.version =3D atom_context->version;
+> +                     memcpy(vbios_info.vbios_ver_str, atom_context->vbio=
+s_ver_str,
+> +                                             sizeof(atom_context->vbios_=
+ver_str));
+> +                     memcpy(vbios_info.date, atom_context->date, sizeof(=
+atom_context->date));
+> +                     vbios_info.serial =3D adev->unique_id;
+> +                     vbios_info.dev_id =3D adev->pdev->device;
+> +                     vbios_info.rev_id =3D adev->pdev->revision;
+> +                     vbios_info.sub_dev_id =3D atom_context->sub_dev_id;
+> +                     vbios_info.sub_ved_id =3D atom_context->sub_ved_id;
+> +
+> +                     return copy_to_user(out, &vbios_info,
+> +                                             min((size_t)size, sizeof(vb=
+ios_info))) ? -EFAULT : 0;
+> +             }
+>                default:
+>                        DRM_DEBUG_KMS("Invalid request %d\n",
+>                                        info->vbios_info.type);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c
+> b/drivers/gpu/drm/amd/amdgpu/atom.c
+> index 3dcb8b32f48b..542b2c2414e4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/atom.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/atom.c
+> @@ -31,6 +31,7 @@
+>
+>   #define ATOM_DEBUG
+>
+> +#include "atomfirmware.h"
+>   #include "atom.h"
+>   #include "atom-names.h"
+>   #include "atom-bits.h"
+> @@ -1299,12 +1300,168 @@ static void atom_index_iio(struct atom_context *=
+ctx, int base)
+>        }
+>   }
+>
+> +static void atom_get_vbios_name(struct atom_context *ctx) {
+> +     unsigned char *p_rom;
+> +     unsigned char str_num;
+> +     unsigned short off_to_vbios_str;
+> +     unsigned char *c_ptr;
+> +     int name_size;
+> +     int i;
+> +
+> +     const char *na =3D "--N/A--";
+> +     char *back;
+> +
+> +     p_rom =3D ctx->bios;
+> +
+> +     str_num =3D *(p_rom + OFFSET_TO_GET_ATOMBIOS_NUMBER_OF_STRINGS);
+> +     if (str_num !=3D 0) {
+> +             off_to_vbios_str =3D
+> +                     *(unsigned short *)(p_rom + OFFSET_TO_GET_ATOMBIOS_=
+STRING_START);
+> +
+> +             c_ptr =3D (unsigned char *)(p_rom + off_to_vbios_str);
+> +     } else {
+> +             /* do not know where to find name */
+> +             memcpy(ctx->name, na, 7);
+> +             ctx->name[7] =3D 0;
+> +             return;
+> +     }
+> +
+> +     /*
+> +      * skip the atombios strings, usually 4
+> +      * 1st is P/N, 2nd is ASIC, 3rd is PCI type, 4th is Memory type
+> +      */
+> +     for (i =3D 0; i < str_num; i++) {
+> +             while (*c_ptr !=3D 0)
+> +                     c_ptr++;
+> +             c_ptr++;
+> +     }
+> +
+> +     /* skip the following 2 chars: 0x0D 0x0A */
+> +     c_ptr +=3D 2;
+> +
+> +     name_size =3D strnlen(c_ptr, STRLEN_LONG - 1);
+> +     memcpy(ctx->name, c_ptr, name_size);
+> +     back =3D ctx->name + name_size;
+> +     while ((*--back) =3D=3D ' ')
+> +             ;
+> +     *(back + 1) =3D '\0';
+> +}
+> +
+> +static void atom_get_vbios_date(struct atom_context *ctx) {
+> +     unsigned char *p_rom;
+> +     unsigned char *date_in_rom;
+> +
+> +     p_rom =3D ctx->bios;
+> +
+> +     date_in_rom =3D p_rom + OFFSET_TO_VBIOS_DATE;
+> +
+> +     ctx->date[0] =3D '2';
+> +     ctx->date[1] =3D '0';
+> +     ctx->date[2] =3D date_in_rom[6];
+> +     ctx->date[3] =3D date_in_rom[7];
+> +     ctx->date[4] =3D '/';
+> +     ctx->date[5] =3D date_in_rom[0];
+> +     ctx->date[6] =3D date_in_rom[1];
+> +     ctx->date[7] =3D '/';
+> +     ctx->date[8] =3D date_in_rom[3];
+> +     ctx->date[9] =3D date_in_rom[4];
+> +     ctx->date[10] =3D ' ';
+> +     ctx->date[11] =3D date_in_rom[9];
+> +     ctx->date[12] =3D date_in_rom[10];
+> +     ctx->date[13] =3D date_in_rom[11];
+> +     ctx->date[14] =3D date_in_rom[12];
+> +     ctx->date[15] =3D date_in_rom[13];
+> +     ctx->date[16] =3D '\0';
+> +}
+> +
+> +static unsigned char *atom_find_str_in_rom(struct atom_context *ctx, cha=
+r *str, int start,
+> +                                        int end, int maxlen)
+> +{
+> +     unsigned long str_off;
+> +     unsigned char *p_rom;
+> +     unsigned short str_len;
+> +
+> +     str_off =3D 0;
+> +     str_len =3D strnlen(str, maxlen);
+> +     p_rom =3D ctx->bios;
+> +
+> +     for (; start <=3D end; ++start) {
+> +             for (str_off =3D 0; str_off < str_len; ++str_off) {
+> +                     if (str[str_off] !=3D *(p_rom + start + str_off))
+> +                             break;
+> +             }
+> +
+> +             if (str_off =3D=3D str_len || str[str_off] =3D=3D 0)
+> +                     return p_rom + start;
+> +     }
+> +     return NULL;
+> +}
+> +
+> +static void atom_get_vbios_pn(struct atom_context *ctx) {
+> +     unsigned char *p_rom;
+> +     unsigned short off_to_vbios_str;
+> +     unsigned char *vbios_str;
+> +     int count;
+> +
+> +     off_to_vbios_str =3D 0;
+> +     p_rom =3D ctx->bios;
+> +
+> +     if (*(p_rom + OFFSET_TO_GET_ATOMBIOS_NUMBER_OF_STRINGS) !=3D 0) {
+> +             off_to_vbios_str =3D
+> +                     *(unsigned short *)(p_rom + OFFSET_TO_GET_ATOMBIOS_=
+STRING_START);
+> +
+> +             vbios_str =3D (unsigned char *)(p_rom + off_to_vbios_str);
+> +     } else {
+> +             vbios_str =3D p_rom + OFFSET_TO_VBIOS_PART_NUMBER;
+> +     }
+> +
+> +     if (*vbios_str =3D=3D 0) {
+> +             vbios_str =3D atom_find_str_in_rom(ctx, BIOS_ATOM_PREFIX, 3=
+, 1024, 64);
+> +             if (vbios_str =3D=3D NULL)
+> +                     vbios_str +=3D sizeof(BIOS_ATOM_PREFIX) - 1;
+> +     }
+> +     if (vbios_str !=3D NULL && *vbios_str =3D=3D 0)
+> +             vbios_str++;
+> +
+> +     if (vbios_str !=3D NULL) {
+> +             count =3D 0;
+> +             while ((count < BIOS_STRING_LENGTH) && vbios_str[count] >=
+=3D ' ' &&
+> +                    vbios_str[count] <=3D 'z') {
+> +                     ctx->vbios_pn[count] =3D vbios_str[count];
+> +                     count++;
+> +             }
+> +
+> +             ctx->vbios_pn[count] =3D 0;
+> +     }
+> +}
+> +
+> +static void atom_get_vbios_version(struct atom_context *ctx) {
+> +     unsigned char *vbios_ver;
+> +
+> +     /* find anchor ATOMBIOSBK-AMD */
+> +     vbios_ver =3D atom_find_str_in_rom(ctx, BIOS_VERSION_PREFIX, 3, 102=
+4, 64);
+> +     if (vbios_ver !=3D NULL) {
+> +             /* skip ATOMBIOSBK-AMD VER */
+> +             vbios_ver +=3D 18;
+> +             memcpy(ctx->vbios_ver_str, vbios_ver, STRLEN_NORMAL);
+> +     } else {
+> +             ctx->vbios_ver_str[0] =3D '\0';
+> +     }
+> +}
+> +
+>   struct atom_context *amdgpu_atom_parse(struct card_info *card, void *bi=
+os)  {
+>        int base;
+>        struct atom_context *ctx =3D
+>            kzalloc(sizeof(struct atom_context), GFP_KERNEL);
+>        char *str;
+> +     struct _ATOM_ROM_HEADER *atom_rom_header;
+> +     struct _ATOM_MASTER_DATA_TABLE *master_table;
+> +     struct _ATOM_FIRMWARE_INFO *atom_fw_info;
+>        u16 idx;
+>
+>        if (!ctx)
+> @@ -1353,6 +1510,23 @@ struct atom_context *amdgpu_atom_parse(struct card=
+_info *card, void *bios)
+>                strlcpy(ctx->vbios_version, str, sizeof(ctx->vbios_version=
+));
+>        }
+>
+> +     atom_rom_header =3D (struct _ATOM_ROM_HEADER *)CSTR(base);
+> +     ctx->sub_dev_id =3D atom_rom_header->usSubsystemVendorID;
+> +     ctx->sub_ved_id =3D atom_rom_header->usSubsystemID;
+> +     if (atom_rom_header->usMasterDataTableOffset !=3D 0) {
+> +             master_table =3D (struct _ATOM_MASTER_DATA_TABLE *)
+> +                             CSTR(atom_rom_header->usMasterDataTableOffs=
+et);
+> +             if (master_table->ListOfDataTables.FirmwareInfo !=3D 0) {
+> +                     atom_fw_info =3D (struct _ATOM_FIRMWARE_INFO *)
+> +                                     CSTR(master_table->ListOfDataTables=
+.FirmwareInfo);
+> +                     ctx->version =3D atom_fw_info->ulFirmwareRevision;
+> +             }
+> +     }
+> +
+> +     atom_get_vbios_name(ctx);
+> +     atom_get_vbios_pn(ctx);
+> +     atom_get_vbios_date(ctx);
+> +     atom_get_vbios_version(ctx);
+>
+>        return ctx;
+>   }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/atom.h
+> b/drivers/gpu/drm/amd/amdgpu/atom.h
+> index d279759cab47..6463ce6e756d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/atom.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/atom.h
+> @@ -112,6 +112,10 @@ struct drm_device;
+>   #define ATOM_IO_SYSIO               2
+>   #define ATOM_IO_IIO         0x80
+>
+> +#define STRLEN_NORMAL                32
+> +#define STRLEN_LONG          64
+> +#define STRLEN_VERYLONG              254
+> +
+>   struct card_info {
+>        struct drm_device *dev;
+>        void (* reg_write)(struct card_info *, uint32_t, uint32_t);   /*  =
+filled by driver */
+> @@ -140,6 +144,14 @@ struct atom_context {
+>        uint32_t *scratch;
+>        int scratch_size_bytes;
+>        char vbios_version[20];
+> +
+> +     uint8_t name[STRLEN_LONG];
+> +     uint8_t vbios_pn[STRLEN_LONG];
+> +     uint32_t version;
+> +     uint8_t vbios_ver_str[STRLEN_NORMAL];
+> +     uint8_t date[STRLEN_NORMAL];
+> +     uint32_t sub_dev_id;
+> +     uint32_t sub_ved_id;
+>   };
+>
+>   extern int amdgpu_atom_debug;
+> diff --git a/drivers/gpu/drm/amd/include/atomfirmware.h
+> b/drivers/gpu/drm/amd/include/atomfirmware.h
+> index 275468e4be60..28deecc2f990 100644
+> --- a/drivers/gpu/drm/amd/include/atomfirmware.h
+> +++ b/drivers/gpu/drm/amd/include/atomfirmware.h
+> @@ -197,6 +197,9 @@ enum atom_dp_vs_preemph_def{
+>     DP_VS_LEVEL0_PREEMPH_LEVEL3 =3D 0x18,
+>   };
+>
+> +#define BIOS_ATOM_PREFIX   "ATOMBIOS"
+> +#define BIOS_VERSION_PREFIX  "ATOMBIOSBK-AMD"
+> +#define BIOS_STRING_LENGTH 43
+>
+>   /*
+>   enum atom_string_def{
+> @@ -215,6 +218,8 @@ enum atombios_image_offset{
+>     MAXSIZE_OF_ATOMBIOS_ASIC_BUS_MEM_TYPE      =3D 20,  /*including the t=
+erminator 0x0!*/
+>     OFFSET_TO_GET_ATOMBIOS_NUMBER_OF_STRINGS   =3D 0x2f,
+>     OFFSET_TO_GET_ATOMBIOS_STRING_START        =3D 0x6e,
+> +  OFFSET_TO_VBIOS_PART_NUMBER                =3D 0x80,
+> +  OFFSET_TO_VBIOS_DATE                       =3D 0x50,
+>   };
+>
+>
+> /*********************************************************************
+> ******* diff --git a/include/uapi/drm/amdgpu_drm.h
+> b/include/uapi/drm/amdgpu_drm.h index 9169df7fadee..e0f98ca9a755
+> 100644
+> --- a/include/uapi/drm/amdgpu_drm.h
+> +++ b/include/uapi/drm/amdgpu_drm.h
+> @@ -756,6 +756,8 @@ struct drm_amdgpu_cs_chunk_data {
+>        #define AMDGPU_INFO_VBIOS_SIZE          0x1
+>        /* Subquery id: Query vbios image */
+>        #define AMDGPU_INFO_VBIOS_IMAGE         0x2
+> +     /* Subquery id: Query vbios info */
+> +     #define AMDGPU_INFO_VBIOS_INFO          0x3
+>   /* Query UVD handles */
+>   #define AMDGPU_INFO_NUM_HANDLES                     0x1C
+>   /* Query sensor related information */ @@ -949,6 +951,20 @@ struct
+> drm_amdgpu_info_firmware {
+>        __u32 feature;
+>   };
+>
+> +struct drm_amdgpu_info_vbios {
+> +     __u8 name[64];
+> +     __u32 dbdf;
+> +     __u8 vbios_pn[64];
+> +     __u32 version;
+> +     __u8 vbios_ver_str[32];
+> +     __u8 date[32];
+> +     __u64 serial;
+> +     __u32 dev_id;
+> +     __u32 rev_id;
+> +     __u32 sub_dev_id;
+> +     __u32 sub_ved_id;
+> +};
+> +
+>   #define AMDGPU_VRAM_TYPE_UNKNOWN 0
+>   #define AMDGPU_VRAM_TYPE_GDDR1 1
+>   #define AMDGPU_VRAM_TYPE_DDR2  2
+> --
+> 2.17.1
+
+--_000_BYAPR12MB284005A19E99B1D7AC43ABE5F42C9BYAPR12MB2840namp_
+Content-Type: text/html; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
+252">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
+ign=3D"Left">
+[Public]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
+Yes, let's remove that too,</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
+Thanks,</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
+David</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Gu, JiaWei (Will) &lt=
+;JiaWei.Gu@amd.com&gt;<br>
+<b>Sent:</b> Monday, May 17, 2021 8:07 PM<br>
+<b>To:</b> Nieto, David M &lt;David.Nieto@amd.com&gt;; Koenig, Christian &l=
+t;Christian.Koenig@amd.com&gt;; amd-gfx@lists.freedesktop.org &lt;amd-gfx@l=
+ists.freedesktop.org&gt;; maraeo@gmail.com &lt;maraeo@gmail.com&gt;; Deuche=
+r, Alexander &lt;Alexander.Deucher@amd.com&gt;<br>
+<b>Cc:</b> Deng, Emily &lt;Emily.Deng@amd.com&gt;<br>
+<b>Subject:</b> RE: [PATCH] drm/amdgpu: Add vbios info ioctl interface</fon=
+t>
+<div>&nbsp;</div>
+</div>
+<style>
+<!--
+@font-face
+	{font-family:"Cambria Math"}
+@font-face
+	{font-family:DengXian}
+@font-face
+	{font-family:Calibri}
+@font-face
+	{}
+p.x_MsoNormal, li.x_MsoNormal, div.x_MsoNormal
+	{margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif}
+a:link, span.x_MsoHyperlink
+	{color:#0563C1;
+	text-decoration:underline}
+span.x_EmailStyle18
+	{font-family:"Calibri",sans-serif;
+	color:windowtext}
+p.x_msipheader4d111418, li.x_msipheader4d111418, div.x_msipheader4d111418
+	{margin-right:0in;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif}
+.x_MsoChpDefault
+	{font-size:10.0pt}
+@page WordSection1
+	{margin:1.0in 1.0in 1.0in 1.0in}
+div.x_WordSection1
+	{}
+-->
+</style>
+<div lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:b=
+reak-word">
+<div class=3D"x_WordSection1">
+<p class=3D"x_msipheader4d111418" style=3D"margin:0in"><span style=3D"font-=
+family:&quot;Arial&quot;,sans-serif; color:#0078D7">[AMD Official Use Only =
+- Internal Distribution Only]</span></p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"x_MsoNormal">OK let=92s remove serial.</p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"x_MsoNormal">dbdf comes from this: </p>
+<p class=3D"x_MsoNormal">vbios_info.dbdf =3D PCI_DEVID(adev-&gt;pdev-&gt;bu=
+s-&gt;number, adev-&gt;pdev-&gt;devfn);</p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"x_MsoNormal">I think we can remove dbdf as well.</p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"x_MsoNormal">Best regards,</p>
+<p class=3D"x_MsoNormal">Jiawei</p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<div>
+<div style=3D"border:none; border-top:solid #E1E1E1 1.0pt; padding:3.0pt 0i=
+n 0in 0in">
+<p class=3D"x_MsoNormal"><b>From:</b> Nieto, David M &lt;David.Nieto@amd.co=
+m&gt; <br>
+<b>Sent:</b> Tuesday, May 18, 2021 10:45 AM<br>
+<b>To:</b> Gu, JiaWei (Will) &lt;JiaWei.Gu@amd.com&gt;; Koenig, Christian &=
+lt;Christian.Koenig@amd.com&gt;; amd-gfx@lists.freedesktop.org; maraeo@gmai=
+l.com; Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;<br>
+<b>Cc:</b> Deng, Emily &lt;Emily.Deng@amd.com&gt;<br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu: Add vbios info ioctl interface</p>
+</div>
+</div>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<p style=3D"margin:5.0pt"><span style=3D"font-family:&quot;Arial&quot;,sans=
+-serif; color:#0078D7">[AMD Official Use Only - Internal Distribution Only]=
+</span></p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<div>
+<div>
+<p class=3D"x_MsoNormal" style=3D"background:white"><span style=3D"font-siz=
+e:12.0pt; color:black">The serial&nbsp;number is ASIC information, not VBIO=
+S information, and it is still available as a sysfs node... I don't think w=
+e should put it there.</span></p>
+</div>
+<div>
+<p class=3D"x_MsoNormal" style=3D"background:white"><span style=3D"font-siz=
+e:12.0pt; color:black">&nbsp;</span></p>
+</div>
+<div>
+<p class=3D"x_MsoNormal" style=3D"background:white"><span style=3D"font-siz=
+e:12.0pt; color:black">Not sure what dbdf stands for.</span></p>
+</div>
+<div class=3D"x_MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"x_divRplyFwdMsg">
+<p class=3D"x_MsoNormal"><b><span style=3D"color:black">From:</span></b><sp=
+an style=3D"color:black"> Gu, JiaWei (Will) &lt;<a href=3D"mailto:JiaWei.Gu=
+@amd.com">JiaWei.Gu@amd.com</a>&gt;<br>
+<b>Sent:</b> Monday, May 17, 2021 7:11 PM<br>
+<b>To:</b> Koenig, Christian &lt;<a href=3D"mailto:Christian.Koenig@amd.com=
+">Christian.Koenig@amd.com</a>&gt;;
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
+org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.=
+freedesktop.org</a>&gt;; Nieto, David M &lt;<a href=3D"mailto:David.Nieto@a=
+md.com">David.Nieto@amd.com</a>&gt;;
+<a href=3D"mailto:maraeo@gmail.com">maraeo@gmail.com</a> &lt;<a href=3D"mai=
+lto:maraeo@gmail.com">maraeo@gmail.com</a>&gt;; Deucher, Alexander &lt;<a h=
+ref=3D"mailto:Alexander.Deucher@amd.com">Alexander.Deucher@amd.com</a>&gt;<=
+br>
+<b>Cc:</b> Deng, Emily &lt;<a href=3D"mailto:Emily.Deng@amd.com">Emily.Deng=
+@amd.com</a>&gt;<br>
+<b>Subject:</b> RE: [PATCH] drm/amdgpu: Add vbios info ioctl interface</spa=
+n> </p>
+<div>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"x_MsoNormal">[AMD Official Use Only - Internal Distribution Onl=
+y]<br>
+<br>
+So I guess the dbdf is also needed to be removed?<br>
+And how about serial?<br>
+<br>
+&gt; +struct drm_amdgpu_info_vbios {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; __u8 name[64];<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; __u32 dbdf; // do we need this?<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; __u8 vbios_pn[64];<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; __u32 version;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; __u8 vbios_ver_str[32];<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; __u8 date[32];<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; __u64 serial; // do we need this?<br>
+&gt; +};<br>
+<br>
+Best regards,<br>
+Jiawei<br>
+<br>
+-----Original Message-----<br>
+From: Koenig, Christian &lt;<a href=3D"mailto:Christian.Koenig@amd.com">Chr=
+istian.Koenig@amd.com</a>&gt;
+<br>
+Sent: Monday, May 17, 2021 8:26 PM<br>
+To: Gu, JiaWei (Will) &lt;<a href=3D"mailto:JiaWei.Gu@amd.com">JiaWei.Gu@am=
+d.com</a>&gt;;
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
+org</a>; Nieto, David M &lt;<a href=3D"mailto:David.Nieto@amd.com">David.Ni=
+eto@amd.com</a>&gt;;
+<a href=3D"mailto:maraeo@gmail.com">maraeo@gmail.com</a>; Deucher, Alexande=
+r &lt;<a href=3D"mailto:Alexander.Deucher@amd.com">Alexander.Deucher@amd.co=
+m</a>&gt;<br>
+Cc: Deng, Emily &lt;<a href=3D"mailto:Emily.Deng@amd.com">Emily.Deng@amd.co=
+m</a>&gt;<br>
+Subject: Re: [PATCH] drm/amdgpu: Add vbios info ioctl interface<br>
+<br>
+I'm not very familiar with the technical background why we have the fields =
+here once more.<br>
+<br>
+But of hand we should at least remove everything which is also available fr=
+om the PCI information.<br>
+<br>
+E.g. dev_id, rev_id, sub_dev_id, sub_ved_id.<br>
+<br>
+Regards,<br>
+Christian.<br>
+<br>
+Am 17.05.21 um 14:17 schrieb Gu, JiaWei (Will):<br>
+&gt; [AMD Official Use Only - Internal Distribution Only]<br>
+&gt;<br>
+&gt; Hi all,<br>
+&gt;<br>
+&gt; Thanks Christian's suggestion.<br>
+&gt; I reverted the previous patches and squash them into this single one.<=
+br>
+&gt;<br>
+&gt; As this patch shows, the current uapi change looks like this:<br>
+&gt;<br>
+&gt; +struct drm_amdgpu_info_vbios {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; __u8 name[64];<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; __u32 dbdf;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; __u8 vbios_pn[64];<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; __u32 version;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; __u8 vbios_ver_str[32];<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; __u8 date[32];<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; __u64 serial;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; __u32 dev_id;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; __u32 rev_id;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; __u32 sub_dev_id;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; __u32 sub_ved_id;<br>
+&gt; +};<br>
+&gt;<br>
+&gt; As we know there's some redundant info in this struct.<br>
+&gt; Please feel free to give any comments or suggestion about what it shou=
+ld &amp; shouldn't include.<br>
+&gt;<br>
+&gt; Best regards,<br>
+&gt; Jiawei<br>
+&gt;<br>
+&gt; -----Original Message-----<br>
+&gt; From: Jiawei Gu &lt;<a href=3D"mailto:Jiawei.Gu@amd.com">Jiawei.Gu@amd=
+.com</a>&gt;<br>
+&gt; Sent: Monday, May 17, 2021 8:08 PM<br>
+&gt; To: <a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.fre=
+edesktop.org</a>; Koenig, Christian
+<br>
+&gt; &lt;<a href=3D"mailto:Christian.Koenig@amd.com">Christian.Koenig@amd.c=
+om</a>&gt;; Nieto, David M &lt;<a href=3D"mailto:David.Nieto@amd.com">David=
+.Nieto@amd.com</a>&gt;;
+<br>
+&gt; <a href=3D"mailto:maraeo@gmail.com">maraeo@gmail.com</a>; Deucher, Ale=
+xander &lt;<a href=3D"mailto:Alexander.Deucher@amd.com">Alexander.Deucher@a=
+md.com</a>&gt;<br>
+&gt; Cc: Deng, Emily &lt;<a href=3D"mailto:Emily.Deng@amd.com">Emily.Deng@a=
+md.com</a>&gt;; Gu, JiaWei (Will)
+<br>
+&gt; &lt;<a href=3D"mailto:JiaWei.Gu@amd.com">JiaWei.Gu@amd.com</a>&gt;<br>
+&gt; Subject: [PATCH] drm/amdgpu: Add vbios info ioctl interface<br>
+&gt;<br>
+&gt; Add AMDGPU_INFO_VBIOS_INFO subquery id for detailed vbios info.<br>
+&gt;<br>
+&gt; Provides a way for the user application to get the VBIOS information w=
+ithout having to parse the binary.<br>
+&gt; It is useful for the user to be able to display in a simple way the VB=
+IOS version in their system if they happen to encounter an issue.<br>
+&gt;<br>
+&gt; V2:<br>
+&gt; Use numeric serial.<br>
+&gt; Parse and expose vbios version string.<br>
+&gt;<br>
+&gt; Signed-off-by: Jiawei Gu &lt;<a href=3D"mailto:Jiawei.Gu@amd.com">Jiaw=
+ei.Gu@amd.com</a>&gt;<br>
+&gt; Acked-by: Christian K=F6nig &lt;<a href=3D"mailto:christian.koenig@amd=
+.com">christian.koenig@amd.com</a>&gt;<br>
+&gt; ---<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c&nbsp;&nbsp;&nbsp; =
+|&nbsp; 21 +++<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/atom.c&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 174 +++++++++++++++++++++<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/atom.h&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 12 ++<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/include/atomfirmware.h |&nbsp;&nbsp; 5=
+ +<br>
+&gt;&nbsp;&nbsp; include/uapi/drm/amdgpu_drm.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 16 ++<br>
+&gt;&nbsp;&nbsp; 5 files changed, 228 insertions(+)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c <br>
+&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
+&gt; index 8d12e474745a..30e4fed3de22 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
+&gt; @@ -861,6 +861,27 @@ int amdgpu_info_ioctl(struct drm_device *dev, voi=
+d *data, struct drm_file *filp)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; min((size_t)size, (size_t)(bios_size =
+- bios_offset)))<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; ? -EFAULT : 0;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; }<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; case AMDGPU_INFO_VBIOS_INFO: {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_amdgpu_info_=
+vbios vbios_info =3D {};<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct atom_context *at=
+om_context;<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; atom_context =3D adev-&=
+gt;mode_info.atom_context;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy(vbios_info.name,=
+ atom_context-&gt;name, sizeof(atom_context-&gt;name));<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vbios_info.dbdf =3D PCI=
+_DEVID(adev-&gt;pdev-&gt;bus-&gt;number, adev-&gt;pdev-&gt;devfn);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy(vbios_info.vbios=
+_pn, atom_context-&gt;vbios_pn, sizeof(atom_context-&gt;vbios_pn));<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vbios_info.version =3D =
+atom_context-&gt;version;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy(vbios_info.vbios=
+_ver_str, atom_context-&gt;vbios_ver_str,<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sizeof(atom_context-&gt;vbios=
+_ver_str));<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy(vbios_info.date,=
+ atom_context-&gt;date, sizeof(atom_context-&gt;date));<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vbios_info.serial =3D a=
+dev-&gt;unique_id;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vbios_info.dev_id =3D a=
+dev-&gt;pdev-&gt;device;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vbios_info.rev_id =3D a=
+dev-&gt;pdev-&gt;revision;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vbios_info.sub_dev_id =
+=3D atom_context-&gt;sub_dev_id;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vbios_info.sub_ved_id =
+=3D atom_context-&gt;sub_ved_id;<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return copy_to_user(out=
+, &amp;vbios_info,<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; min((size_t)size, sizeof(vbio=
+s_info))) ? -EFAULT : 0;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; }<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; default:<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_DEB=
+UG_KMS(&quot;Invalid request %d\n&quot;,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; info-&gt;vbios_info.type);<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c <br>
+&gt; b/drivers/gpu/drm/amd/amdgpu/atom.c<br>
+&gt; index 3dcb8b32f48b..542b2c2414e4 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/atom.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/atom.c<br>
+&gt; @@ -31,6 +31,7 @@<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp; #define ATOM_DEBUG<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; +#include &quot;atomfirmware.h&quot;<br>
+&gt;&nbsp;&nbsp; #include &quot;atom.h&quot;<br>
+&gt;&nbsp;&nbsp; #include &quot;atom-names.h&quot;<br>
+&gt;&nbsp;&nbsp; #include &quot;atom-bits.h&quot;<br>
+&gt; @@ -1299,12 +1300,168 @@ static void atom_index_iio(struct atom_contex=
+t *ctx, int base)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; +static void atom_get_vbios_name(struct atom_context *ctx) {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; unsigned char *p_rom;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; unsigned char str_num;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; unsigned short off_to_vbios_str;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; unsigned char *c_ptr;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; int name_size;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; int i;<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; const char *na =3D &quot;--N/A--&quot;;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; char *back;<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; p_rom =3D ctx-&gt;bios;<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; str_num =3D *(p_rom + OFFSET_TO_GET_ATOMBIOS=
+_NUMBER_OF_STRINGS);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (str_num !=3D 0) {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; off_to_vbios_str =3D<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *(unsigned short *)(p_r=
+om + OFFSET_TO_GET_ATOMBIOS_STRING_START);<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; c_ptr =3D (unsigned char *)(p_rom + off_to_vbios_str);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; /* do not know where to find name */<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; memcpy(ctx-&gt;name, na, 7);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; ctx-&gt;name[7] =3D 0;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; return;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; /*<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * skip the atombios strings, usually 4=
+<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * 1st is P/N, 2nd is ASIC, 3rd is PCI =
+type, 4th is Memory type<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; str_num; i++) {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; while (*c_ptr !=3D 0)<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; c_ptr++;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; c_ptr++;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; /* skip the following 2 chars: 0x0D 0x0A */<=
+br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; c_ptr +=3D 2;<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; name_size =3D strnlen(c_ptr, STRLEN_LONG - 1=
+);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; memcpy(ctx-&gt;name, c_ptr, name_size);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; back =3D ctx-&gt;name + name_size;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; while ((*--back) =3D=3D ' ')<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; ;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; *(back + 1) =3D '\0';<br>
+&gt; +}<br>
+&gt; +<br>
+&gt; +static void atom_get_vbios_date(struct atom_context *ctx) {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; unsigned char *p_rom;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; unsigned char *date_in_rom;<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; p_rom =3D ctx-&gt;bios;<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; date_in_rom =3D p_rom + OFFSET_TO_VBIOS_DATE=
+;<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; ctx-&gt;date[0] =3D '2';<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; ctx-&gt;date[1] =3D '0';<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; ctx-&gt;date[2] =3D date_in_rom[6];<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; ctx-&gt;date[3] =3D date_in_rom[7];<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; ctx-&gt;date[4] =3D '/';<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; ctx-&gt;date[5] =3D date_in_rom[0];<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; ctx-&gt;date[6] =3D date_in_rom[1];<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; ctx-&gt;date[7] =3D '/';<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; ctx-&gt;date[8] =3D date_in_rom[3];<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; ctx-&gt;date[9] =3D date_in_rom[4];<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; ctx-&gt;date[10] =3D ' ';<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; ctx-&gt;date[11] =3D date_in_rom[9];<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; ctx-&gt;date[12] =3D date_in_rom[10];<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; ctx-&gt;date[13] =3D date_in_rom[11];<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; ctx-&gt;date[14] =3D date_in_rom[12];<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; ctx-&gt;date[15] =3D date_in_rom[13];<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; ctx-&gt;date[16] =3D '\0';<br>
+&gt; +}<br>
+&gt; +<br>
+&gt; +static unsigned char *atom_find_str_in_rom(struct atom_context *ctx, =
+char *str, int start,<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; int end, int maxlen)<br>
+&gt; +{<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; unsigned long str_off;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; unsigned char *p_rom;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; unsigned short str_len;<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; str_off =3D 0;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; str_len =3D strnlen(str, maxlen);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; p_rom =3D ctx-&gt;bios;<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; for (; start &lt;=3D end; ++start) {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; for (str_off =3D 0; str_off &lt; str_len; ++str_off) {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (str[str_off] !=3D *=
+(p_rom + start + str_off))<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; }<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; if (str_off =3D=3D str_len || str[str_off] =3D=3D 0)<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return p_rom + start;<b=
+r>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; return NULL;<br>
+&gt; +}<br>
+&gt; +<br>
+&gt; +static void atom_get_vbios_pn(struct atom_context *ctx) {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; unsigned char *p_rom;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; unsigned short off_to_vbios_str;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; unsigned char *vbios_str;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; int count;<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; off_to_vbios_str =3D 0;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; p_rom =3D ctx-&gt;bios;<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (*(p_rom + OFFSET_TO_GET_ATOMBIOS_NUMBER_=
+OF_STRINGS) !=3D 0) {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; off_to_vbios_str =3D<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *(unsigned short *)(p_r=
+om + OFFSET_TO_GET_ATOMBIOS_STRING_START);<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; vbios_str =3D (unsigned char *)(p_rom + off_to_vbios_str);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; vbios_str =3D p_rom + OFFSET_TO_VBIOS_PART_NUMBER;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (*vbios_str =3D=3D 0) {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; vbios_str =3D atom_find_str_in_rom(ctx, BIOS_ATOM_PREFIX, 3, 1024, 64);=
+<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; if (vbios_str =3D=3D NULL)<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vbios_str +=3D sizeof(B=
+IOS_ATOM_PREFIX) - 1;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (vbios_str !=3D NULL &amp;&amp; *vbios_st=
+r =3D=3D 0)<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; vbios_str++;<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (vbios_str !=3D NULL) {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; count =3D 0;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; while ((count &lt; BIOS_STRING_LENGTH) &amp;&amp; vbios_str[count] &gt;=
+=3D ' ' &amp;&amp;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vbios_str[count] &lt;=3D 'z')=
+ {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ctx-&gt;vbios_pn[count]=
+ =3D vbios_str[count];<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; count++;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; }<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; ctx-&gt;vbios_pn[count] =3D 0;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; +}<br>
+&gt; +<br>
+&gt; +static void atom_get_vbios_version(struct atom_context *ctx) {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; unsigned char *vbios_ver;<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; /* find anchor ATOMBIOSBK-AMD */<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; vbios_ver =3D atom_find_str_in_rom(ctx, BIOS=
+_VERSION_PREFIX, 3, 1024, 64);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (vbios_ver !=3D NULL) {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; /* skip ATOMBIOSBK-AMD VER */<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; vbios_ver +=3D 18;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; memcpy(ctx-&gt;vbios_ver_str, vbios_ver, STRLEN_NORMAL);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; ctx-&gt;vbios_ver_str[0] =3D '\0';<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; +}<br>
+&gt; +<br>
+&gt;&nbsp;&nbsp; struct atom_context *amdgpu_atom_parse(struct card_info *c=
+ard, void *bios)&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int base;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct atom_context *ctx =3D=
+<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kzal=
+loc(sizeof(struct atom_context), GFP_KERNEL);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char *str;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; struct _ATOM_ROM_HEADER *atom_rom_header;<br=
+>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; struct _ATOM_MASTER_DATA_TABLE *master_table=
+;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; struct _ATOM_FIRMWARE_INFO *atom_fw_info;<br=
+>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u16 idx;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!ctx)<br>
+&gt; @@ -1353,6 +1510,23 @@ struct atom_context *amdgpu_atom_parse(struct c=
+ard_info *card, void *bios)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; strlcpy(ctx-&gt;vbios_version, str, sizeof(ctx-&gt;vbio=
+s_version));<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; atom_rom_header =3D (struct _ATOM_ROM_HEADER=
+ *)CSTR(base);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; ctx-&gt;sub_dev_id =3D atom_rom_header-&gt;u=
+sSubsystemVendorID;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; ctx-&gt;sub_ved_id =3D atom_rom_header-&gt;u=
+sSubsystemID;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (atom_rom_header-&gt;usMasterDataTableOff=
+set !=3D 0) {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; master_table =3D (struct _ATOM_MASTER_DATA_TABLE *)<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; CSTR(atom_rom_header-&gt;usMasterDataTableOffset);=
+<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; if (master_table-&gt;ListOfDataTables.FirmwareInfo !=3D 0) {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; atom_fw_info =3D (struc=
+t _ATOM_FIRMWARE_INFO *)<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CS=
+TR(master_table-&gt;ListOfDataTables.FirmwareInfo);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ctx-&gt;version =3D ato=
+m_fw_info-&gt;ulFirmwareRevision;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; }<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; atom_get_vbios_name(ctx);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; atom_get_vbios_pn(ctx);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; atom_get_vbios_date(ctx);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; atom_get_vbios_version(ctx);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ctx;<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/atom.h <br>
+&gt; b/drivers/gpu/drm/amd/amdgpu/atom.h<br>
+&gt; index d279759cab47..6463ce6e756d 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/atom.h<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/atom.h<br>
+&gt; @@ -112,6 +112,10 @@ struct drm_device;<br>
+&gt;&nbsp;&nbsp; #define ATOM_IO_SYSIO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2<br>
+&gt;&nbsp;&nbsp; #define ATOM_IO_IIO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; 0x80<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; +#define STRLEN_NORMAL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 32<br>
+&gt; +#define STRLEN_LONG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; 64<br>
+&gt; +#define STRLEN_VERYLONG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 254<br>
+&gt; +<br>
+&gt;&nbsp;&nbsp; struct card_info {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_device *dev;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void (* reg_write)(struct ca=
+rd_info *, uint32_t, uint32_t);&nbsp;&nbsp; /*&nbsp; filled by driver */<br=
+>
+&gt; @@ -140,6 +144,14 @@ struct atom_context {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t *scratch;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int scratch_size_bytes;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char vbios_version[20];<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; uint8_t name[STRLEN_LONG];<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; uint8_t vbios_pn[STRLEN_LONG];<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; uint32_t version;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; uint8_t vbios_ver_str[STRLEN_NORMAL];<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; uint8_t date[STRLEN_NORMAL];<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sub_dev_id;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sub_ved_id;<br>
+&gt;&nbsp;&nbsp; };<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp; extern int amdgpu_atom_debug;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/include/atomfirmware.h <br>
+&gt; b/drivers/gpu/drm/amd/include/atomfirmware.h<br>
+&gt; index 275468e4be60..28deecc2f990 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/include/atomfirmware.h<br>
+&gt; +++ b/drivers/gpu/drm/amd/include/atomfirmware.h<br>
+&gt; @@ -197,6 +197,9 @@ enum atom_dp_vs_preemph_def{<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp; DP_VS_LEVEL0_PREEMPH_LEVEL3 =3D 0x18,<br>
+&gt;&nbsp;&nbsp; };<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; +#define BIOS_ATOM_PREFIX&nbsp;&nbsp; &quot;ATOMBIOS&quot;<br>
+&gt; +#define BIOS_VERSION_PREFIX&nbsp; &quot;ATOMBIOSBK-AMD&quot;<br>
+&gt; +#define BIOS_STRING_LENGTH 43<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp; /*<br>
+&gt;&nbsp;&nbsp; enum atom_string_def{<br>
+&gt; @@ -215,6 +218,8 @@ enum atombios_image_offset{<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp; MAXSIZE_OF_ATOMBIOS_ASIC_BUS_MEM_TYPE&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; =3D 20,&nbsp; /*including the terminator 0x0!*/<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp; OFFSET_TO_GET_ATOMBIOS_NUMBER_OF_STRINGS&nbsp;=
+&nbsp; =3D 0x2f,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp; OFFSET_TO_GET_ATOMBIOS_STRING_START&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D 0x6e,<br>
+&gt; +&nbsp; OFFSET_TO_VBIOS_PART_NUMBER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D 0x80,<br>
+&gt; +&nbsp; OFFSET_TO_VBIOS_DATE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; =3D 0x50,<br>
+&gt;&nbsp;&nbsp; };<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp; <br>
+&gt; /*********************************************************************=
+<br>
+&gt; ******* diff --git a/include/uapi/drm/amdgpu_drm.h <br>
+&gt; b/include/uapi/drm/amdgpu_drm.h index 9169df7fadee..e0f98ca9a755 <br>
+&gt; 100644<br>
+&gt; --- a/include/uapi/drm/amdgpu_drm.h<br>
+&gt; +++ b/include/uapi/drm/amdgpu_drm.h<br>
+&gt; @@ -756,6 +756,8 @@ struct drm_amdgpu_cs_chunk_data {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #define AMDGPU_INFO_VBIOS_SI=
+ZE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x1<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Subquery id: Query vbios =
+image */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #define AMDGPU_INFO_VBIOS_IM=
+AGE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x2<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; /* Subquery id: Query vbios info */<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; #define AMDGPU_INFO_VBIOS_INFO&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x3<br>
+&gt;&nbsp;&nbsp; /* Query UVD handles */<br>
+&gt;&nbsp;&nbsp; #define AMDGPU_INFO_NUM_HANDLES&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; 0x1C<br>
+&gt;&nbsp;&nbsp; /* Query sensor related information */ @@ -949,6 +951,20 @=
+@ struct <br>
+&gt; drm_amdgpu_info_firmware {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __u32 feature;<br>
+&gt;&nbsp;&nbsp; };<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; +struct drm_amdgpu_info_vbios {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; __u8 name[64];<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; __u32 dbdf;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; __u8 vbios_pn[64];<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; __u32 version;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; __u8 vbios_ver_str[32];<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; __u8 date[32];<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; __u64 serial;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; __u32 dev_id;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; __u32 rev_id;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; __u32 sub_dev_id;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; __u32 sub_ved_id;<br>
+&gt; +};<br>
+&gt; +<br>
+&gt;&nbsp;&nbsp; #define AMDGPU_VRAM_TYPE_UNKNOWN 0<br>
+&gt;&nbsp;&nbsp; #define AMDGPU_VRAM_TYPE_GDDR1 1<br>
+&gt;&nbsp;&nbsp; #define AMDGPU_VRAM_TYPE_DDR2&nbsp; 2<br>
+&gt; --<br>
+&gt; 2.17.1</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_BYAPR12MB284005A19E99B1D7AC43ABE5F42C9BYAPR12MB2840namp_--
+
+--===============1722405634==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============1722405634==--
