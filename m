@@ -7,63 +7,64 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,MIME_HTML_MOSTLY,PDS_BAD_THREAD_QP_64,
 	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 96AF3C433ED
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 May 2021 04:40:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 371C8C433ED
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 May 2021 05:58:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2D002610E9
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 May 2021 04:40:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2D002610E9
+	by mail.kernel.org (Postfix) with ESMTPS id EF25A610E9
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 May 2021 05:58:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EF25A610E9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69D5A6E5D3;
-	Tue, 18 May 2021 04:40:34 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2046.outbound.protection.outlook.com [40.107.220.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE70F6E5CC
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 May 2021 04:40:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DAD1E89852;
+	Tue, 18 May 2021 05:58:17 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2050.outbound.protection.outlook.com [40.107.94.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5C3C89100
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 May 2021 05:58:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oRPv47csKfehVro2r7b45FBY+vTovc9O8Y5qmRXkCfA4vdd7RYG2g4fwX4yYH8FgWSpyxrQ2fSWddTNGrWV6C0jYnU2K4UpE6hDGfHGcMSB7Yx+O/SVdaX20lDq8+wrxWbsFJ9HhtYDiW8Qkh/iBDUtVieRqOVORoUZXcBH7BRPLjRETNcZh9Wd4grMLqpSwLXycD3aZMgok03hE/ymuYkEdfyKrdhUIS9XiH5p0pwaPFkFajOn188Z7ugeWzDCbx3i7cCduTjb0tLereRXAw+mGSp1mb0gWxfhPr55R0Zl51mfdkqMYn8GL7voofHEfyBZM7T5nXU9/20pc5bq1Sw==
+ b=YAqLbHbI5VkhYqXuZKU6NiIi4pJuHaLDJvMaPUSmobAjJ2EZkddMTI3IT1HYXc/IN8o2+84K9uLr7aBXfC78s8NR/Nseya5lZr66jq+Pio0c1I9V0pcLYpD26b5pcD1jXJXnGO/b8V2fcXB0HXdyHdca81I9b7y/6moD5tTb3YF58wZ+TPktRucixIaNYJMDf3ZPjXXs6hzyK6ijNhIRMJGaKSdwd/R1ll2+S2F6PpKcXPZckE1wnlWATqZCQtA8XTvs5RP/225mG9ODMK+gLHx24dFpQv7okGZoYKvuD2Q/xae+ofXuGR4Ccf5R74vxkoiUhnkhpbyvAmHjMoDNRw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wP1g9+FGw2THk6ZionHYy//JrUno3EwMGrVqeU2nFVI=;
- b=QNGHvyVT8nCighCTQe09zQtr1zkwSoCL3u+u08ltXY3QCIgibJ5AQ9gAgfrNH4uV0CAJYmWkF8pQh4BscqnhM1lteSWdToerayTQgCy241aohNo4Ndjsp+4g+eMGkyMHHNXM2E3OCFJa9FzIZ5xREeHwK+6Ku8b9wfCTkLHKMmxR00bSpDiRFTr2TNQOSQEfa3laDQBwkqaod+dQrnt0+gZTLcACQbxeTto4gy+cbPSwGvW13JvNjNnMchvTcAkl6WkK0X3QdbOTajaOCx5hIU52hys7Yru8ajYWD3GW/K26hJCdPNYucnp2gZG5EBDqZ78E5OkGtHQScWYI7qEWVg==
+ bh=O32/kMdty+e+sUnrN1Xn/uNFQpV5bYl1Q52hWw6vjrw=;
+ b=FQI+g0zdVJ4RGti/BH27ze/Yq0akJorNs2t8bMM6dL+GzCMNFLlGNiUWBCw78n8+kHImeCdZvJud9KrdD/+7CsFOShvU29tkV4y5zKLj4ZIsWiZ2X7XkmN0dhhZIiHdx1Gx1qoLbdKb+7hD8PYxzPvIj4cXeu7/9UTiLh/jHK8hr1i+92YTR9RKJkkL/XV7KZPLvpUR4ZtQkIP3AYfuDm20EfhqD4EF5bHqaMf4m/FZvymKP4Qg8VS5FINeTP59Uk1EcId2UK0ggzVyZ6GXUEjjVOeb5l7jDTpJ4jCpauuY0XfSetMfDki2pFCjRm7iuGLjdOEP0BRZKo8voNuiljw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wP1g9+FGw2THk6ZionHYy//JrUno3EwMGrVqeU2nFVI=;
- b=HD8umutCePz2i/97I1nML/gTVzMP45lxAxr2IoZcfK6h601pHUIhHabYbvA0PSHPIi8abgfdlTvgDs5jmmr6LEIP0SGEaswus5D84XQX4L0xRyOI3lcNNDXkL5oTgpefL5RQWiGnyPrEQ2TtJOkC+47wwNXncKfXEpmEcDYA5vg=
-Received: from BYAPR12MB2840.namprd12.prod.outlook.com (2603:10b6:a03:62::32)
- by BYAPR12MB4695.namprd12.prod.outlook.com (2603:10b6:a03:a4::28)
+ bh=O32/kMdty+e+sUnrN1Xn/uNFQpV5bYl1Q52hWw6vjrw=;
+ b=R5BMKcSBS6e6qNHwc8+W/x7whnzUvlqYRO3jZBBOVEAjc/W5Kx5LODSoKhZ6DMsUjNV+/FuTvsFzSUfWcPy3u1gLHovncjjtEpwNnWBtmW5ERmShOwPCC8O8AUMC4US08kpafFtMNEXwQG+ICH7YBwtZJDpWGFxBBw+FVCG8lV8=
+Received: from CH0PR12MB5156.namprd12.prod.outlook.com (2603:10b6:610:bb::17)
+ by CH0PR12MB5153.namprd12.prod.outlook.com (2603:10b6:610:b8::17)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.28; Tue, 18 May
- 2021 04:40:26 +0000
-Received: from BYAPR12MB2840.namprd12.prod.outlook.com
- ([fe80::7c65:7181:6d1d:8616]) by BYAPR12MB2840.namprd12.prod.outlook.com
- ([fe80::7c65:7181:6d1d:8616%7]) with mapi id 15.20.4129.031; Tue, 18 May 2021
- 04:40:26 +0000
-From: "Nieto, David M" <David.Nieto@amd.com>
-To: "Gu, JiaWei (Will)" <JiaWei.Gu@amd.com>, "Koenig, Christian"
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.26; Tue, 18 May
+ 2021 05:58:14 +0000
+Received: from CH0PR12MB5156.namprd12.prod.outlook.com
+ ([fe80::a1d1:38a:2086:b5b]) by CH0PR12MB5156.namprd12.prod.outlook.com
+ ([fe80::a1d1:38a:2086:b5b%3]) with mapi id 15.20.4129.032; Tue, 18 May 2021
+ 05:58:14 +0000
+From: "Gu, JiaWei (Will)" <JiaWei.Gu@amd.com>
+To: "Nieto, David M" <David.Nieto@amd.com>, "Koenig, Christian"
  <Christian.Koenig@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>, "maraeo@gmail.com" <maraeo@gmail.com>,
  "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: Add vbios info ioctl interface
+Subject: RE: [PATCH] drm/amdgpu: Add vbios info ioctl interface
 Thread-Topic: [PATCH] drm/amdgpu: Add vbios info ioctl interface
-Thread-Index: AQHXSxVPBvM50M0wZkSTUB4XlW18fKrnlu0AgAACYYCAAObDgIAACKsHgAAHFACAABmoHQ==
-Date: Tue, 18 May 2021 04:40:26 +0000
-Message-ID: <BYAPR12MB284005A19E99B1D7AC43ABE5F42C9@BYAPR12MB2840.namprd12.prod.outlook.com>
+Thread-Index: AQHXSxVPiMP6Dw+hsEWuaKNLKByUOarnlJEggAAEvYCAAOVAsIAACsOAgAAFHHCAABtAAIAAE0iw
+Date: Tue, 18 May 2021 05:58:13 +0000
+Message-ID: <CH0PR12MB515686179ED43BB5CF71AC4AF82C9@CH0PR12MB5156.namprd12.prod.outlook.com>
 References: <20210517120804.27052-1-Jiawei.Gu@amd.com>
  <CH0PR12MB5156D238E265426E504B791BF82D9@CH0PR12MB5156.namprd12.prod.outlook.com>
  <51161d6d-a6be-90f0-262d-5215402e25dd@amd.com>,
  <CH0PR12MB515644C1FF56458EFCA4B0FBF82C9@CH0PR12MB5156.namprd12.prod.outlook.com>
  <BYAPR12MB2840E231B64B432D709A3B59F42C9@BYAPR12MB2840.namprd12.prod.outlook.com>,
  <CH0PR12MB515657CAB5F1DF60A7E689C5F82C9@CH0PR12MB5156.namprd12.prod.outlook.com>
-In-Reply-To: <CH0PR12MB515657CAB5F1DF60A7E689C5F82C9@CH0PR12MB5156.namprd12.prod.outlook.com>
+ <BYAPR12MB284005A19E99B1D7AC43ABE5F42C9@BYAPR12MB2840.namprd12.prod.outlook.com>
+In-Reply-To: <BYAPR12MB284005A19E99B1D7AC43ABE5F42C9@BYAPR12MB2840.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -76,55 +77,55 @@ msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
  MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
 authentication-results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [165.204.53.104]
+x-originating-ip: [165.204.134.244]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: a2a0a63e-b474-4993-d2be-08d919b70e90
-x-ms-traffictypediagnostic: BYAPR12MB4695:
+x-ms-office365-filtering-correlation-id: 25b8e99a-f11e-4492-5afd-08d919c1ecc9
+x-ms-traffictypediagnostic: CH0PR12MB5153:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BYAPR12MB46951DB811F961546DF81F1FF42C9@BYAPR12MB4695.namprd12.prod.outlook.com>
+x-microsoft-antispam-prvs: <CH0PR12MB51534B96DDBD032B79350FACF82C9@CH0PR12MB5153.namprd12.prod.outlook.com>
 x-ms-oob-tlc-oobclassifiers: OLM:8882;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: pIudc/3ETn03J6vthtLvmdwfKf+pYNTOFkr30uDtdRD4j0rZ/Q9i8B6EdXJGSpxDIVxIqpcbmtmqnMnZQsoJzmfsLxzWggPRLTOfd2oz8usCPs3onWZkcXCbbVPLiAO+mcIr8xvHVXaoGGmNGd3S3KzpyjRXsoE1detADZjLotxrakc6MO6XYOo9inH2X31FlJVtJOC6gXJMACtM/JSp1DCNKZoy3H1m7lEwhHNXiDHRvCrDnmZmOb1AjWkJlA3Rovsqmr95/M26UcoqcMprWRyI28qIUtJDZ+4jfOYR7KMP5KQ87TQPJZJH8nsuBb0wC6nzeGVfrWJeKxaCt1l/HP/mcujsvOxOcZr2EhClhCAxunmouUKTHT2u/A0colAOYj/rkiEb0MZBN2V7F8IHRDptanC8Urgz2aVJB0gHnf+yFs/DTd1ziJmg3NwufVx/zcW/QNED5Z8OAaersaSCIr7qT6OiJiDpDU2gedVHlukLyI730cVUfBP24uS5Fdztpldm2U6cR0L9GV0BGqmKrH1HpEVnuXQx+QRLhmjz0ZjGp1nmvlqGmSY3ig8r41rFgCDJkpcZVLihzAlCSdRGsUEchA9kA8e/0mBAfdiSxog=
+x-microsoft-antispam-message-info: u967l2nxDcV7f7M2p+rVO0y2KWKmDZ1xUaAYy2QjRMMdxcpw59wIl1dLI/FtX6sLN+/fLy2z5aKwBRl9eW9VR0B0ikeitclVtcBgwqYdUgvKF+EP6E4hKUS9QCk/8mKCUZN/daX7D6bL8pMLty6ZX2wfmrHv/7/KaBG55bWTRnH2E42rin0xa+MIrF016212LkJdImJ0P//imKT1V0oNuNDDnkg3ZVlt6XXM9yrhKph5lgcjRoKOpLWPZubzNYE/P2zNnx7gh4N/nbKXF3QWvCjj++ZLPgbW6T9dfe0Si+ywSvL1cfYw+/Ipvj8WNKockolbQzknNKoWXyPaK/HzQ5OGdM+WERWAWvyL5VSz7U5z/8QFYmJXHqoJfAYja9Ucbe9Y8Qk2iwwYRSMGMTUzN41vVvJcdYSshwvBvO+DV8go/jacgs3geun8D7gYIgTl07JMIlpQ7p094v2Xe/I1jm2aV/Phi5veOhhwcedFxEhNJWblyILz3Vqyg7c6GkMqw8eQFZwR1TW07Fc6W7LW1GxXbtBYMmzgk20hYmwaGAEF5OBfo9LTlet5oXyzKeVM8HCis57CmigBDTYS3e3qKbMyx3iRyk7alM++0sTPw+4=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB2840.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(376002)(346002)(366004)(39860400002)(136003)(478600001)(38100700002)(7696005)(83380400001)(6636002)(5660300002)(30864003)(52536014)(4326008)(71200400001)(26005)(66446008)(64756008)(66556008)(122000001)(6506007)(53546011)(66946007)(186003)(66476007)(76116006)(8676002)(86362001)(19627405001)(8936002)(19627235002)(33656002)(110136005)(2906002)(55016002)(9686003)(316002)(66574015);
+ IPV:NLI; SFV:NSPM; H:CH0PR12MB5156.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(396003)(346002)(136003)(366004)(376002)(186003)(122000001)(71200400001)(64756008)(66556008)(33656002)(66476007)(30864003)(4326008)(83380400001)(6506007)(66574015)(53546011)(52536014)(8936002)(76116006)(66946007)(86362001)(110136005)(2906002)(26005)(38100700002)(5660300002)(316002)(66446008)(9686003)(8676002)(55016002)(478600001)(7696005)(6636002)(579004);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?Windows-1252?Q?3vRMwIkOSFx8vYvev/q0+vv/cACUw4aXKGfcTczEFdxeybcJzqHWXXls?=
- =?Windows-1252?Q?1UoprjYmTN+YFCELnC6sctUkZGl7YwWL20H/080wb8vSfMzzuEILIZF2?=
- =?Windows-1252?Q?Dwn5YvQNRwr6xptVF0vMBc4xxNM7XmlxZkZbGoeIMc7Ke4t2E+wFSSW3?=
- =?Windows-1252?Q?EosW6CfcQQcyjMh8kZ85DnIqxqW9n/772dStBwFF8ZkfsPZgl1spwdc4?=
- =?Windows-1252?Q?tNcY7sQCEDIa07DFhQrt/3W70Fz2ha/zAkEkhoxfjgLqRqPNzzY4c1e2?=
- =?Windows-1252?Q?1stmLBPrICSFlRxIsS1bE/0CNsoQ70Ebkzxrze3Ydg8CiJDipmp5vZds?=
- =?Windows-1252?Q?SpdCtRcqh2cJ6dCepG+cuSwhQ0QFH2EHZvZLhdRnPgo4rxeAn/HM1kOq?=
- =?Windows-1252?Q?nsunuXcden5894eqjeNDFry8eF/teDi9wzfytD5rf+lZ0oLMglH8KPfK?=
- =?Windows-1252?Q?29hgzueWrmc77lA56sd4hKaIm2r2m1FoBNK2fcAaFa15fNbPbLTTb/cY?=
- =?Windows-1252?Q?4jrDlUEdIvhfqmqb32JFCDoGG/0VR0+YR4QRkZeMtva32pmVUUWcz48C?=
- =?Windows-1252?Q?d7rTcMWbG9pNiIWBczNs5EzVu6IQj8HASVV+znS+2A4qgVolBQRd78I7?=
- =?Windows-1252?Q?B/MWE0hZjluHOxuyBI6zdgBu8FBSIbYN96KqsR+PtpbUMy5KrCRzN9jB?=
- =?Windows-1252?Q?SRuHq8f0ejKeV9wVU21G90pRkDNc5MXfqRTKhTKeQ2+IYHyQMn7jvrqB?=
- =?Windows-1252?Q?t4p0pb1B/cYL4Lj+gfvGyS741pV58RqIAeDwjZc/PmUNM5mtIvwzL4RA?=
- =?Windows-1252?Q?mUwGXJGmEOPaVtzFWrPVlU51Kh98RecdBjrvPy26MUMc+Nc9M5mifFUi?=
- =?Windows-1252?Q?aMNuHmLFEYbxHmVVQPVze5Dt/226zzpsIph89/vDqhc4iPRD8xZRf7zx?=
- =?Windows-1252?Q?xVEciUjO/9PslTfpeOK2hggzgku75k8wtbX4ZfcF9MGkSzz0uCFocqCX?=
- =?Windows-1252?Q?useW5RIiZZhTfGnq+jY4z3VO4g+r/nz0gqOz4Iomjq4BPx0siwtBhlQd?=
- =?Windows-1252?Q?SQxVzM+9RbKeGc2TTyR373Bv0Pk0yi1k1eJZvrB1ya4m/6uvqBu6uf8g?=
- =?Windows-1252?Q?dGGEyjshd06Cvl8fwX4WF091OWeiF/fG0kK+kXNpuh2TyLbsJhtmNscD?=
- =?Windows-1252?Q?VQGhUn9AKEpOoYr802zhwi8gYcppw309zsX0jXU/5T8XCgiUN9I9VfWQ?=
- =?Windows-1252?Q?3IP13OFZ4WefcnAW0OBMVG8Lq3oWI0uVgk61IlsSY8hWL1d30stg/d/0?=
- =?Windows-1252?Q?dtY15F/NFvqpewryXnhwnsmhzJoB/Nmi9Yt6mIC2w2zj2iQJVaiCBMvb?=
- =?Windows-1252?Q?6YjJf6A/BbrH843STtLZG7c0j6padaadvCJL6SYn943CzvmWlwPONqp5?=
+x-ms-exchange-antispam-messagedata: =?iso-8859-1?Q?kCMX9HkLr3kG0a3VE7JcNlmdZGeLPr/iICBDoRZYcyBFm2Pl+OwXThxoA/?=
+ =?iso-8859-1?Q?y1dhDGi7BKAeqBt9SHEE7a8eRp/UYoEyjB05V6levooz6chH1FOGFFe3nv?=
+ =?iso-8859-1?Q?qrb/wQWEV4zHWOueAWj4ruDo+PfPZ4wXdcezFO2wyP7aqrG2shMTUl1Dmm?=
+ =?iso-8859-1?Q?2kGTjhKAI5dEJ2gVlu5PHdJHprOswyIjoKZgPW3Hp2LQz3jgDp9wcbmUEf?=
+ =?iso-8859-1?Q?pYbt4ae4gsKBdqLZvlKlpJszc55QjXxqS2wYmM6OYJtbeGh44kD4tvG/Mu?=
+ =?iso-8859-1?Q?FG6WedfulS77cnj0gHzvgLNzTehuVmEwLcq2oMoYSBko8pbmMxbXcBGJAu?=
+ =?iso-8859-1?Q?XLUKnQ/KOlcHO/EnoBco85NtQcj7OQgaCShadXVn7xi61BsrJIhJZ4nQB9?=
+ =?iso-8859-1?Q?VeVwgi1B9nPoYDNrvYNkQrmIAh//sR3CPpsVGUDMqdhRuopsOkwb+yGrqo?=
+ =?iso-8859-1?Q?xT2IBUuU0oRxNPtlVAUUQEyB+sJa8yU0MPBScVVUzuN7tAk0llvFDXLed+?=
+ =?iso-8859-1?Q?zejOxIGCjdxZuG6WzhPJCZoShLRBMa0IGRPx+MTqCRWuObrEJwrrkNuqJJ?=
+ =?iso-8859-1?Q?TXzIbfXzHHreucDGE2hqHN3qLb2vsZK2/DLuvj9kKIDYn2jMjT7VSC1QXD?=
+ =?iso-8859-1?Q?JtPnrQJuuau4TMNuNofHt9/HdGxra58Fl0U/BP4yyrzvhBsduZxWyZ5pRn?=
+ =?iso-8859-1?Q?xwkFbIoVdX5g2lvMcchPK4sWenMmL5/IBso/WO1g5QI0QEdqnkpJkQ3Fd0?=
+ =?iso-8859-1?Q?pIwl14owmb94+Ak/cy0e6IqzsTg9Uv7JGXfLM3RbGKUdT2RxMlzfIJ2WYk?=
+ =?iso-8859-1?Q?39vzqus4B7EF/xuctvdaDRv4b205C3Jbdp1/a3wFhMFWx2BUVUt+AXMgnw?=
+ =?iso-8859-1?Q?N4QnSslF785H2d6bEsr4NZT3+A30SYEQzPC1E6eNpelP0m7M9D65GiPbPC?=
+ =?iso-8859-1?Q?ggExHxPZQT+0Qgu8e1wxHExYhDCH51wK8tsdIP4NJwvKqXSh+3G9s95onI?=
+ =?iso-8859-1?Q?MMFhLlDOo8N++ocDTI1QlEKlf5E6gc12TpbmUdUmKDhx3KJ3KKW9Dssh+m?=
+ =?iso-8859-1?Q?z1iK7aR5Apubx5rihMSPsq+eGmFD+BMci6Vi9lbHpIgq7flDB49VuQXo8n?=
+ =?iso-8859-1?Q?Juw3mdPegyjNtP+7/hclnbQyPUKIOtfjiCbxbBU6qQUVsAvKTWCw/ZmnPU?=
+ =?iso-8859-1?Q?9LiGJ0L/fo3nap+hMtvFtsFqP+B93Z6e8GJNGV3cHeUmEFXqEvnCtcdk2E?=
+ =?iso-8859-1?Q?zD4eL/GpMkT4UdDRIKUu26ZbLopPN2WhxzDPjr7tiALfzZ0pBIPoOX9PXy?=
+ =?iso-8859-1?Q?Cly2iR1xxBJDFfIfJLc1Adzq/p8C/7F4CtOgRoqHkaYBSu2/IhjLq21oo1?=
+ =?iso-8859-1?Q?bZ6R5E0cs4?=
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB2840.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a2a0a63e-b474-4993-d2be-08d919b70e90
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 May 2021 04:40:26.1458 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5156.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 25b8e99a-f11e-4492-5afd-08d919c1ecc9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 May 2021 05:58:13.9785 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Q2svj+lU71BpP54OSdXF9NGLhX0t3VAhkQjd8b78dBAhsTv3o0+Mgt7qNqELa8Lo
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB4695
+X-MS-Exchange-CrossTenant-userprincipalname: 9/BSs7KMRJ49AQC9DcNbrJCrSiUu+8p+VyJq8vSZCri6m6I3ulUZ/JJZNaW1S4/bz06omMme3kG/kV3ABn6Yng==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5153
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,18 +138,55 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: "Deng, Emily" <Emily.Deng@amd.com>
-Content-Type: multipart/mixed; boundary="===============1722405634=="
+Content-Type: multipart/mixed; boundary="===============0620532570=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1722405634==
+--===============0620532570==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_BYAPR12MB284005A19E99B1D7AC43ABE5F42C9BYAPR12MB2840namp_"
+	boundary="_000_CH0PR12MB515686179ED43BB5CF71AC4AF82C9CH0PR12MB5156namp_"
 
---_000_BYAPR12MB284005A19E99B1D7AC43ABE5F42C9BYAPR12MB2840namp_
-Content-Type: text/plain; charset="Windows-1252"
+--_000_CH0PR12MB515686179ED43BB5CF71AC4AF82C9CH0PR12MB5156namp_
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
+
+[Public]
+
+Hi all,
+
+Then the struct looks like:
+
+> +struct drm_amdgpu_info_vbios {
+> +     __u8 name[64];
+> +     __u8 vbios_pn[64];
+> +     __u32 version;
+> +     __u8 vbios_ver_str[32];
+> +     __u8 date[32];
+> +};
+
+Sample output:
+
+vbios name : NAVI12 A0 XT D30501 8GB EVAL 1150e/334m HYN/SAM
+vbios pn : 113-D3050100-104
+vbios version : 285409288
+vbios ver_str : 017.003.000.008.016956
+vbios date : 2021/05/03 23:32
+
+Please help double confirm that we're all fine with it and there's no need =
+to add & remove anything.
+
+Best regards,
+Jiawei
+
+From: Nieto, David M <David.Nieto@amd.com>
+Sent: Tuesday, May 18, 2021 12:40 PM
+To: Gu, JiaWei (Will) <JiaWei.Gu@amd.com>; Koenig, Christian <Christian.Koe=
+nig@amd.com>; amd-gfx@lists.freedesktop.org; maraeo@gmail.com; Deucher, Ale=
+xander <Alexander.Deucher@amd.com>
+Cc: Deng, Emily <Emily.Deng@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: Add vbios info ioctl interface
+
 
 [Public]
 
@@ -158,13 +196,16 @@ Thanks,
 
 David
 ________________________________
-From: Gu, JiaWei (Will) <JiaWei.Gu@amd.com>
+From: Gu, JiaWei (Will) <JiaWei.Gu@amd.com<mailto:JiaWei.Gu@amd.com>>
 Sent: Monday, May 17, 2021 8:07 PM
-To: Nieto, David M <David.Nieto@amd.com>; Koenig, Christian <Christian.Koen=
-ig@amd.com>; amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>;=
- maraeo@gmail.com <maraeo@gmail.com>; Deucher, Alexander <Alexander.Deucher=
-@amd.com>
-Cc: Deng, Emily <Emily.Deng@amd.com>
+To: Nieto, David M <David.Nieto@amd.com<mailto:David.Nieto@amd.com>>; Koeni=
+g, Christian <Christian.Koenig@amd.com<mailto:Christian.Koenig@amd.com>>; a=
+md-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <amd-gfx=
+@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>; maraeo@gmail=
+.com<mailto:maraeo@gmail.com> <maraeo@gmail.com<mailto:maraeo@gmail.com>>; =
+Deucher, Alexander <Alexander.Deucher@amd.com<mailto:Alexander.Deucher@amd.=
+com>>
+Cc: Deng, Emily <Emily.Deng@amd.com<mailto:Emily.Deng@amd.com>>
 Subject: RE: [PATCH] drm/amdgpu: Add vbios info ioctl interface
 
 
@@ -172,7 +213,7 @@ Subject: RE: [PATCH] drm/amdgpu: Add vbios info ioctl interface
 
 
 
-OK let=92s remove serial.
+OK let's remove serial.
 
 
 
@@ -192,12 +233,14 @@ Jiawei
 
 
 
-From: Nieto, David M <David.Nieto@amd.com>
+From: Nieto, David M <David.Nieto@amd.com<mailto:David.Nieto@amd.com>>
 Sent: Tuesday, May 18, 2021 10:45 AM
-To: Gu, JiaWei (Will) <JiaWei.Gu@amd.com>; Koenig, Christian <Christian.Koe=
-nig@amd.com>; amd-gfx@lists.freedesktop.org; maraeo@gmail.com; Deucher, Ale=
-xander <Alexander.Deucher@amd.com>
-Cc: Deng, Emily <Emily.Deng@amd.com>
+To: Gu, JiaWei (Will) <JiaWei.Gu@amd.com<mailto:JiaWei.Gu@amd.com>>; Koenig=
+, Christian <Christian.Koenig@amd.com<mailto:Christian.Koenig@amd.com>>; am=
+d-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>; maraeo@g=
+mail.com<mailto:maraeo@gmail.com>; Deucher, Alexander <Alexander.Deucher@am=
+d.com<mailto:Alexander.Deucher@amd.com>>
+Cc: Deng, Emily <Emily.Deng@amd.com<mailto:Emily.Deng@amd.com>>
 Subject: Re: [PATCH] drm/amdgpu: Add vbios info ioctl interface
 
 
@@ -688,147 +731,250 @@ erminator 0x0!*/
 > --
 > 2.17.1
 
---_000_BYAPR12MB284005A19E99B1D7AC43ABE5F42C9BYAPR12MB2840namp_
-Content-Type: text/html; charset="Windows-1252"
+--_000_CH0PR12MB515686179ED43BB5CF71AC4AF82C9CH0PR12MB5156namp_
+Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
-<html>
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
-252">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"Segoe UI";
+	panose-1:2 11 5 2 4 2 4 2 2 3;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+p.xmsonormal, li.xmsonormal, div.xmsonormal
+	{mso-style-name:x_msonormal;
+	margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+p.xmsipheader4d111418, li.xmsipheader4d111418, div.xmsipheader4d111418
+	{mso-style-name:x_msipheader4d111418;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle25
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
 </head>
-<body dir=3D"ltr">
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"purple" style=3D"word-wrap:b=
+reak-word">
 <p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
 ign=3D"Left">
 [Public]<br>
 </p>
 <br>
 <div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-Yes, let's remove that too,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Hi all,<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Then the struct looks like:<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">&gt; +struct drm_amdgpu_info_vbios {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; __u8 name[64];<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; __u8 vbios_pn[64];<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; __u32 version;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; __u8 vbios_ver_str[32];<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; __u8 date[32];<br>
+&gt; +};<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Sample output:<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.5pt;font-family:&quot;Se=
+goe UI&quot;,sans-serif">vbios name : NAVI12 A0 XT D30501 8GB EVAL 1150e/33=
+4m HYN/SAM<br>
+vbios pn : 113-D3050100-104<br>
+vbios version : 285409288<br>
+vbios ver_str : 017.003.000.008.016956<br>
+vbios date : 2021/05/03 23:32<br>
 <br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-Thanks,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-David</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Gu, JiaWei (Will) &lt=
-;JiaWei.Gu@amd.com&gt;<br>
-<b>Sent:</b> Monday, May 17, 2021 8:07 PM<br>
-<b>To:</b> Nieto, David M &lt;David.Nieto@amd.com&gt;; Koenig, Christian &l=
-t;Christian.Koenig@amd.com&gt;; amd-gfx@lists.freedesktop.org &lt;amd-gfx@l=
-ists.freedesktop.org&gt;; maraeo@gmail.com &lt;maraeo@gmail.com&gt;; Deuche=
-r, Alexander &lt;Alexander.Deucher@amd.com&gt;<br>
-<b>Cc:</b> Deng, Emily &lt;Emily.Deng@amd.com&gt;<br>
-<b>Subject:</b> RE: [PATCH] drm/amdgpu: Add vbios info ioctl interface</fon=
-t>
-<div>&nbsp;</div>
-</div>
-<style>
-<!--
-@font-face
-	{font-family:"Cambria Math"}
-@font-face
-	{font-family:DengXian}
-@font-face
-	{font-family:Calibri}
-@font-face
-	{}
-p.x_MsoNormal, li.x_MsoNormal, div.x_MsoNormal
-	{margin:0in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif}
-a:link, span.x_MsoHyperlink
-	{color:#0563C1;
-	text-decoration:underline}
-span.x_EmailStyle18
-	{font-family:"Calibri",sans-serif;
-	color:windowtext}
-p.x_msipheader4d111418, li.x_msipheader4d111418, div.x_msipheader4d111418
-	{margin-right:0in;
-	margin-left:0in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif}
-.x_MsoChpDefault
-	{font-size:10.0pt}
-@page WordSection1
-	{margin:1.0in 1.0in 1.0in 1.0in}
-div.x_WordSection1
-	{}
--->
-</style>
-<div lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:b=
-reak-word">
-<div class=3D"x_WordSection1">
-<p class=3D"x_msipheader4d111418" style=3D"margin:0in"><span style=3D"font-=
-family:&quot;Arial&quot;,sans-serif; color:#0078D7">[AMD Official Use Only =
-- Internal Distribution Only]</span></p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">OK let=92s remove serial.</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">dbdf comes from this: </p>
-<p class=3D"x_MsoNormal">vbios_info.dbdf =3D PCI_DEVID(adev-&gt;pdev-&gt;bu=
-s-&gt;number, adev-&gt;pdev-&gt;devfn);</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">I think we can remove dbdf as well.</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">Best regards,</p>
-<p class=3D"x_MsoNormal">Jiawei</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
+<o:p></o:p></span></p>
+<p class=3D"MsoNormal">Please help double confirm that we&#8217;re all fine=
+ with it and there&#8217;s no need to add &amp; remove anything.<o:p></o:p>=
+</p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Best regards,<o:p></o:p></p>
+<p class=3D"MsoNormal">Jiawei<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
 <div>
-<div style=3D"border:none; border-top:solid #E1E1E1 1.0pt; padding:3.0pt 0i=
-n 0in 0in">
-<p class=3D"x_MsoNormal"><b>From:</b> Nieto, David M &lt;David.Nieto@amd.co=
-m&gt; <br>
-<b>Sent:</b> Tuesday, May 18, 2021 10:45 AM<br>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Nieto, David M &lt;David.Nieto@amd.com&=
+gt; <br>
+<b>Sent:</b> Tuesday, May 18, 2021 12:40 PM<br>
 <b>To:</b> Gu, JiaWei (Will) &lt;JiaWei.Gu@amd.com&gt;; Koenig, Christian &=
 lt;Christian.Koenig@amd.com&gt;; amd-gfx@lists.freedesktop.org; maraeo@gmai=
 l.com; Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;<br>
 <b>Cc:</b> Deng, Emily &lt;Emily.Deng@amd.com&gt;<br>
-<b>Subject:</b> Re: [PATCH] drm/amdgpu: Add vbios info ioctl interface</p>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu: Add vbios info ioctl interface<o:p>=
+</o:p></p>
 </div>
 </div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p style=3D"margin:15.0pt"><span style=3D"font-size:10.0pt;font-family:&quo=
+t;Arial&quot;,sans-serif;color:green">[Public]<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"font-size:=
+12.0pt;color:black">Yes, let's remove that too,<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"font-size:=
+12.0pt;color:black"><o:p>&nbsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"font-size:=
+12.0pt;color:black">Thanks,<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"font-size:=
+12.0pt;color:black"><o:p>&nbsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"font-size:=
+12.0pt;color:black">David<o:p></o:p></span></p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
+ style=3D"color:black"> Gu, JiaWei (Will) &lt;<a href=3D"mailto:JiaWei.Gu@a=
+md.com">JiaWei.Gu@amd.com</a>&gt;<br>
+<b>Sent:</b> Monday, May 17, 2021 8:07 PM<br>
+<b>To:</b> Nieto, David M &lt;<a href=3D"mailto:David.Nieto@amd.com">David.=
+Nieto@amd.com</a>&gt;; Koenig, Christian &lt;<a href=3D"mailto:Christian.Ko=
+enig@amd.com">Christian.Koenig@amd.com</a>&gt;;
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
+org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.=
+freedesktop.org</a>&gt;;
+<a href=3D"mailto:maraeo@gmail.com">maraeo@gmail.com</a> &lt;<a href=3D"mai=
+lto:maraeo@gmail.com">maraeo@gmail.com</a>&gt;; Deucher, Alexander &lt;<a h=
+ref=3D"mailto:Alexander.Deucher@amd.com">Alexander.Deucher@amd.com</a>&gt;<=
+br>
+<b>Cc:</b> Deng, Emily &lt;<a href=3D"mailto:Emily.Deng@amd.com">Emily.Deng=
+@amd.com</a>&gt;<br>
+<b>Subject:</b> RE: [PATCH] drm/amdgpu: Add vbios info ioctl interface</spa=
+n> <o:p>
+</o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"xmsipheader4d111418" style=3D"margin:0in"><span style=3D"font-f=
+amily:&quot;Arial&quot;,sans-serif;color:#0078D7">[AMD Official Use Only - =
+Internal Distribution Only]</span><o:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
+<p class=3D"xmsonormal">OK let&#8217;s remove serial.<o:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
+<p class=3D"xmsonormal">dbdf comes from this: <o:p></o:p></p>
+<p class=3D"xmsonormal">vbios_info.dbdf =3D PCI_DEVID(adev-&gt;pdev-&gt;bus=
+-&gt;number, adev-&gt;pdev-&gt;devfn);<o:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
+<p class=3D"xmsonormal">I think we can remove dbdf as well.<o:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
+<p class=3D"xmsonormal">Best regards,<o:p></o:p></p>
+<p class=3D"xmsonormal">Jiawei<o:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"xmsonormal"><b>From:</b> Nieto, David M &lt;<a href=3D"mailto:D=
+avid.Nieto@amd.com">David.Nieto@amd.com</a>&gt;
+<br>
+<b>Sent:</b> Tuesday, May 18, 2021 10:45 AM<br>
+<b>To:</b> Gu, JiaWei (Will) &lt;<a href=3D"mailto:JiaWei.Gu@amd.com">JiaWe=
+i.Gu@amd.com</a>&gt;; Koenig, Christian &lt;<a href=3D"mailto:Christian.Koe=
+nig@amd.com">Christian.Koenig@amd.com</a>&gt;;
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
+org</a>;
+<a href=3D"mailto:maraeo@gmail.com">maraeo@gmail.com</a>; Deucher, Alexande=
+r &lt;<a href=3D"mailto:Alexander.Deucher@amd.com">Alexander.Deucher@amd.co=
+m</a>&gt;<br>
+<b>Cc:</b> Deng, Emily &lt;<a href=3D"mailto:Emily.Deng@amd.com">Emily.Deng=
+@amd.com</a>&gt;<br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu: Add vbios info ioctl interface<o:p>=
+</o:p></p>
+</div>
+</div>
+<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
 <p style=3D"margin:5.0pt"><span style=3D"font-family:&quot;Arial&quot;,sans=
--serif; color:#0078D7">[AMD Official Use Only - Internal Distribution Only]=
-</span></p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
+-serif;color:#0078D7">[AMD Official Use Only - Internal Distribution Only]<=
+/span><o:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
 <div>
 <div>
-<p class=3D"x_MsoNormal" style=3D"background:white"><span style=3D"font-siz=
-e:12.0pt; color:black">The serial&nbsp;number is ASIC information, not VBIO=
-S information, and it is still available as a sysfs node... I don't think w=
-e should put it there.</span></p>
+<p class=3D"xmsonormal" style=3D"background:white"><span style=3D"font-size=
+:12.0pt;color:black">The serial&nbsp;number is ASIC information, not VBIOS =
+information, and it is still available as a sysfs node... I don't think we =
+should put it there.</span><o:p></o:p></p>
 </div>
 <div>
-<p class=3D"x_MsoNormal" style=3D"background:white"><span style=3D"font-siz=
-e:12.0pt; color:black">&nbsp;</span></p>
+<p class=3D"xmsonormal" style=3D"background:white"><span style=3D"font-size=
+:12.0pt;color:black">&nbsp;</span><o:p></o:p></p>
 </div>
 <div>
-<p class=3D"x_MsoNormal" style=3D"background:white"><span style=3D"font-siz=
-e:12.0pt; color:black">Not sure what dbdf stands for.</span></p>
+<p class=3D"xmsonormal" style=3D"background:white"><span style=3D"font-size=
+:12.0pt;color:black">Not sure what dbdf stands for.</span><o:p></o:p></p>
 </div>
-<div class=3D"x_MsoNormal" align=3D"center" style=3D"text-align:center">
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
 <hr size=3D"2" width=3D"98%" align=3D"center">
 </div>
 <div id=3D"x_divRplyFwdMsg">
-<p class=3D"x_MsoNormal"><b><span style=3D"color:black">From:</span></b><sp=
-an style=3D"color:black"> Gu, JiaWei (Will) &lt;<a href=3D"mailto:JiaWei.Gu=
-@amd.com">JiaWei.Gu@amd.com</a>&gt;<br>
+<p class=3D"xmsonormal"><b><span style=3D"color:black">From:</span></b><spa=
+n style=3D"color:black"> Gu, JiaWei (Will) &lt;<a href=3D"mailto:JiaWei.Gu@=
+amd.com">JiaWei.Gu@amd.com</a>&gt;<br>
 <b>Sent:</b> Monday, May 17, 2021 7:11 PM<br>
 <b>To:</b> Koenig, Christian &lt;<a href=3D"mailto:Christian.Koenig@amd.com=
 ">Christian.Koenig@amd.com</a>&gt;;
@@ -843,15 +989,16 @@ br>
 <b>Cc:</b> Deng, Emily &lt;<a href=3D"mailto:Emily.Deng@amd.com">Emily.Deng=
 @amd.com</a>&gt;<br>
 <b>Subject:</b> RE: [PATCH] drm/amdgpu: Add vbios info ioctl interface</spa=
-n> </p>
+n> <o:p>
+</o:p></p>
 <div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
 </div>
 </div>
 <div>
 <div>
-<p class=3D"x_MsoNormal">[AMD Official Use Only - Internal Distribution Onl=
-y]<br>
+<p class=3D"xmsonormal">[AMD Official Use Only - Internal Distribution Only=
+]<br>
 <br>
 So I guess the dbdf is also needed to be removed?<br>
 And how about serial?<br>
@@ -1465,7 +1612,9 @@ sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
 &gt;&nbsp;&nbsp; #define AMDGPU_VRAM_TYPE_GDDR1 1<br>
 &gt;&nbsp;&nbsp; #define AMDGPU_VRAM_TYPE_DDR2&nbsp; 2<br>
 &gt; --<br>
-&gt; 2.17.1</p>
+&gt; 2.17.1<o:p></o:p></p>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -1475,9 +1624,9 @@ sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
 </body>
 </html>
 
---_000_BYAPR12MB284005A19E99B1D7AC43ABE5F42C9BYAPR12MB2840namp_--
+--_000_CH0PR12MB515686179ED43BB5CF71AC4AF82C9CH0PR12MB5156namp_--
 
---===============1722405634==
+--===============0620532570==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -1488,4 +1637,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============1722405634==--
+--===============0620532570==--
