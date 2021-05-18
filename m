@@ -2,126 +2,66 @@ Return-Path: <SRS0=uqvu=KN=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 43E2EC433B4
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 May 2021 14:32:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5E2CCC43460
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 May 2021 14:53:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 06779610CC
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 May 2021 14:32:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 06779610CC
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 17D08610A8
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 May 2021 14:53:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 17D08610A8
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C95F46EB97;
-	Tue, 18 May 2021 14:32:56 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2051.outbound.protection.outlook.com [40.107.94.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B2D06EB94;
- Tue, 18 May 2021 14:32:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SRnJ22fdQihRuAqHoqwEf+0t+wwnQVEmOtBGNeF6HUW0kNYmcdQ8irrOCrpmZQEWecvAoUd/m0AR9vcEaFchK5ucjioQk/yuQq9jrsO2fmmqmeHMZwoNCobqet0hdOISuolKxy1Umyc6xdSA1rXiWUw1uTYIkNhUNton37EMCEbnBuKbrZlHBPJMVbYxm+K6nYG+Ki5BZOgPLNpb3Q9udkWebYdp/dMn+/6I+Kg17Tnmmwy27eef4qNS6V9e2lFR8Uha8sbdP7EBa0cvGPKjNT6VpmMU3QPbMP7h+desFKUCmRSV8ZJsrzbUP+5NIsESdn2G8epjbYQRU75FuWL7+w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Dlhj2AnwjZ/4QHbPTaOmqr5gEStmNeHnV3W17XE95BU=;
- b=nqGyh+KOWMSL4tsNVxcjTueust5QW7cB2voQXErwIg9XFwcYCG8ArngZyEAaGmADtDNLPLfKIb82VggHtnYeXK5jh0IrutOyhFr+nXhDdBqGoSJTB0ipii8WeTh9nDhnxAy09cc/BT6Tnk6KFhdc8C7+IwFKcWRV+z76hTXQohMt6jWDeA1isFgOlXOtW1cqJBNgIn5pr3Ga6l8xBbAJi7g2dkqFRY8TzXAGD27T+m/ea1Tqhnfhj8hbizJx/EOgMGebrDW4anpcQFAveaxWdfRZVkdLyzSVe02WH5z8H+32eOe15tgQaaG9yTe/vQ8I1+9ALhYFTOj1HIMwsapz5w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Dlhj2AnwjZ/4QHbPTaOmqr5gEStmNeHnV3W17XE95BU=;
- b=EybbzeczqljrogeRf/AwTk4nN03ihD1koKMwCHHyiava3JzcmFagqkhYecLBy358VARCGtipf/ITte3yWbUYZogE6txnV0S/LAn8Nk15ystaNLQuM41iO8ByDN4zidizjMSSu91DNfaFgmvhalwwoqtOXTFQeBIfBdV1hSiAChs=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from MW3PR12MB4379.namprd12.prod.outlook.com (2603:10b6:303:5e::11)
- by MWHPR12MB1358.namprd12.prod.outlook.com (2603:10b6:300:d::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.28; Tue, 18 May
- 2021 14:32:52 +0000
-Received: from MW3PR12MB4379.namprd12.prod.outlook.com
- ([fe80::c476:9fdf:664e:4f25]) by MW3PR12MB4379.namprd12.prod.outlook.com
- ([fe80::c476:9fdf:664e:4f25%4]) with mapi id 15.20.4129.033; Tue, 18 May 2021
- 14:32:52 +0000
-Subject: Re: [RFC PATCH 1/3] drm/color: Add RGB Color encodings
-To: Pekka Paalanen <ppaalanen@gmail.com>
-References: <20210426173852.484368-1-harry.wentland@amd.com>
- <20210426173852.484368-2-harry.wentland@amd.com> <YIcBUl+94sHJsT8B@intel.com>
- <0090ce07-6102-59e7-bc8c-3528297aa5ae@amd.com>
- <a49e967a0082727757143828770bd671@sebastianwick.net>
- <cac44e69-85cb-661b-4a5e-33fafee8ea3d@amd.com>
- <20210517113432.11f95361@eldfell>
-From: Harry Wentland <harry.wentland@amd.com>
-Message-ID: <812996ec-13f0-2440-c3d0-efb21fd877e5@amd.com>
-Date: Tue, 18 May 2021 10:32:48 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.1
-In-Reply-To: <20210517113432.11f95361@eldfell>
-Content-Language: en-US
-X-Originating-IP: [198.200.67.155]
-X-ClientProxiedBy: YQBPR0101CA0139.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:e::12) To MW3PR12MB4379.namprd12.prod.outlook.com
- (2603:10b6:303:5e::11)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B1B316E897;
+	Tue, 18 May 2021 14:53:38 +0000 (UTC)
+Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
+ [IPv6:2607:f8b0:4864:20::32c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C17C6E897
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 May 2021 14:53:37 +0000 (UTC)
+Received: by mail-ot1-x32c.google.com with SMTP id
+ g7-20020a9d12870000b0290328b1342b73so1020679otg.9
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 May 2021 07:53:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Dsimn8Jn1yl5q0VJrovRoI0f4VQPMXMgELOJkEYQ+BE=;
+ b=DIPngHmL4+kz6ubpBk7eoO3gVenPrXu16fdepHGRCYaT2RSijByrcW/0GpNLivCnKS
+ 2o/rRfRGQqy0yglqjQt7yBBTQQxzza4l6bXGeN1Z/UZSrmVQiZAGOflOziWrko+D37QA
+ EFnaU2umAP9jn5rXvzKV2hGLHgSMZDtetStLZKpbjAkqug16m/0Yq4X9ONZWz0gFwTVj
+ H6fEBMwt+1Yy1oE2fhpXfvFy8+7IUlrSbNFvuPtudT5Z/uS2WhkMUGln28Gnrah96Y+F
+ tQAmeNLkzyv5l/5a6pwgL0ZCMHEHRcmuyeOMLhIbSXfiBTvXfUDUYx3ITeqa0JBF4Vfh
+ 3M+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Dsimn8Jn1yl5q0VJrovRoI0f4VQPMXMgELOJkEYQ+BE=;
+ b=nQ5ixaWl18bmjnWjNReQ0HrLz0owGwDQ8wBxZNuZeV+aTpHaBHDDHF6NtTEc9p8ser
+ DbxhJKGsshddawXDsrgkvBGpCVcscry+B/DyCxwjrIMgoU9qLNT5q9g+ExfHy/ZcfpYD
+ lTytXrBz55rc2B33D/1VTBHEv0ytYEOgAtU84FT1hg/yKGOHa4MB7nF5eh6cn39HXwQF
+ LH2G8o0RhLir8jQtgmQjXQ19hUln2/wtPnDrZacV+u4q2X0hPz/rSJFaSyTWYyQ6unl7
+ A2GuoN1L89bTWMSu9ipt0+uIYWyih9s3XChgvOHrjP6vTzluXMk+rjZLfhLshG0obchs
+ YpEg==
+X-Gm-Message-State: AOAM533uLLoR+cfKrBtkDcf/n1KrICCQavUh70uIIrww9rKs0PN1/abz
+ FcuPJsfP2NAfV1ke6hosS9Q9epDEeU2iI2TBDxZ2B/Bc
+X-Google-Smtp-Source: ABdhPJy50w6xS0d8NAmIwcUUlLYH71HWrMfq3od6l7ayamEAHsb6xy3A29oXbexyqudrCxXjRaNfvLbU+EVyb5paiY4=
+X-Received: by 2002:a9d:6548:: with SMTP id q8mr4558216otl.311.1621349616667; 
+ Tue, 18 May 2021 07:53:36 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [192.168.1.193] (198.200.67.155) by
- YQBPR0101CA0139.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c01:e::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4108.30 via Frontend
- Transport; Tue, 18 May 2021 14:32:50 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f811cdd2-ff8e-4540-beb4-08d91a09d162
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1358:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MWHPR12MB13588CD0CCC2283CA5C8A2A18C2C9@MWHPR12MB1358.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: NCbm2OOksO2dpKXFc8i3hgR7ykcRrBxTQlCQ6gNj3qPL0Xhllz70To3dRTpxL46p0WcrRgDAzjRqWBEYF2FoQZ8IhwXDMD+K/ING7/vqaXTUFeSt0TWNGWg6SIY+dHn6hn5fMvDWmYpmyvSLjdW6/bB7ujM8c5KzLFTFBPFFl6SRVBv0rmJYSOglhg8s3YpvpZ+ee6Q6zis4Jdyvw6BVKNtL16lgBpZ4SXUuB+jNgdIHuwh5MmyioTeLsfmphcvRStBITAVMsV/mxZ6M9vMXV5hbY4TLbcb5WHn2kl8PHALowWKFc8djouk285ghB6CKjzpAnhH1QT8pdDxH3cyt1jJv/HWgK0qOITj8EWtVeSZ4AfqZ2enJ67ZEhui2xnqtVpyV/uOrhG7Cs0+8OfCIigWUkllF65Kp6+Eyp/5Ie2OzK5M7Rbj+m9ggm+hd7udWd6VM+SFaxwitenWQHjdnyj8dqz+fEUzhOB3BePVrqYuIttVIz4iE37WDzgxMa+N+NYwfJ0BnQaYc+1N6s9dSnpvFGUV2mHW7Jj8RS4lY7OYrTXq5WdGN6nnANQrk9V88ylMYN4FUwFwefTt6jXk9RzUYvN2Q3c3mRboSXkTuNDcIlDB29cchHmSZCHEkh1PxxpIvVOJ6c6saJP6Fx/qvkLnzMlrE4lDd8McQEz6vdThwFZ90eg4BcxhJFVhieFwV76m8YNJEMTdpX+TbqKTmZLHliaXysNMwKyDCCyjpuDw=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW3PR12MB4379.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(346002)(136003)(396003)(376002)(366004)(186003)(86362001)(478600001)(36756003)(6916009)(54906003)(31696002)(44832011)(38100700002)(316002)(2616005)(66556008)(956004)(2906002)(83380400001)(66476007)(66946007)(4326008)(53546011)(6486002)(16526019)(26005)(5660300002)(16576012)(966005)(8676002)(31686004)(8936002)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?Windows-1252?Q?abDwTDYxnDvDNh48KY5MFRP3gjTPJs7mgXQkhtkVzkDzTrSShHMnaZP9?=
- =?Windows-1252?Q?DGihd9dPoXHo4COmacfymJUirQ1q9/3Kg4yD74tds2yDXIsdKiJIzsvJ?=
- =?Windows-1252?Q?P+2Zbd8Ykb8o6N4gJO1TgD+Ah9YmFYQNXEhrCh7hNc+9z4wAI0/Nj5rK?=
- =?Windows-1252?Q?25UpVsHQFQM5NHIAVUwFyG3/EJUuM+yU+SlKtYslA2EPkixsdS9twd/K?=
- =?Windows-1252?Q?A+cKTdqNcopnP6J5FVpv3gNqUo9k7cx2Qp3Vit5guF2poWmp7cTaFNkl?=
- =?Windows-1252?Q?JjvTN/NQegvLYMlW+YMnB0cjIG17mEI2CElem3FhZKn4TGZLjAj/BTAB?=
- =?Windows-1252?Q?FtnURoJ3HQTMpMUsBQ7lla5XGRCUgVqoDVxi/BU0R5HPRxCz3Wc6tKZy?=
- =?Windows-1252?Q?jBXZKQpXlaxsJmTIcb6eQjolCyHh74WJTyxtPiZvBnc3Yhcrlrd/umAZ?=
- =?Windows-1252?Q?zgeia6mHY+EwP8BOK2vNnO3T7USzA6065e0YaLmhXW1el1R089C182HT?=
- =?Windows-1252?Q?iuhx7/Cm67SL1eSB7VeBrODqYWDqmm4yvFE4ZSTtRyZMtHfPksl5ws7d?=
- =?Windows-1252?Q?ubeOnZ/yhAJlsMs4RVR2qCW/9KdDMHV6/IeQZQg5cq7kJ4BDp+N1AKat?=
- =?Windows-1252?Q?HjXKxh56Gm6x52ZVZEu0KDFJQ7EuzE/4IErCtBLR+28zJxCFSsfi30Da?=
- =?Windows-1252?Q?GmgpU3nh1Dpa/o3/si6/54hD+5KuprtXMqmGPycYUDivBx/azEDIPMl2?=
- =?Windows-1252?Q?ZPV7eSg3EZp9MLgHaQntD+tshkzIQ4GTJLLm1f5mOnrcL3SrGLQ+18tc?=
- =?Windows-1252?Q?olQZr/44xWIbVFNwZI02zNBnMRgXsLkh8tFKcpZwEiVmy0nqWqyznbtX?=
- =?Windows-1252?Q?rpX67kuV7P3E7NYxx8P0ke4WhdkJluPLtWolAlU/5AQImKp1Y3xkDTl+?=
- =?Windows-1252?Q?WHPiWjy6jhwzs4NjP/bjBInMOBGhRd0duJcD21v3EwN+eKgIGlwJYef0?=
- =?Windows-1252?Q?aJYlwZAs1eg5muEHHvU5VueMO37OcjIeKPGRZnMIDdX6r6k4nZ3tz6H0?=
- =?Windows-1252?Q?Kl+m9nMGhrQ+PvX/VbWvZo8ZfGLCzuDKP7sXxOkohnDVEmwvhuaD1B4k?=
- =?Windows-1252?Q?YAhWhMKP5S4PodFKebsR0i4c+eRVXupmt2l9QKE2cEdljZOtlvAXnNaK?=
- =?Windows-1252?Q?fWrKEGTOe9C1GidiamwhtKz4sW3SI8JqzdX+fWc1y/2JWjCOtuPY5nfz?=
- =?Windows-1252?Q?kpU0ZH94xfJdXdnqj2psEcpVUYCOd/Ta39+nRi44vr8CiF+8TotwYSwN?=
- =?Windows-1252?Q?agWEUVwBUAmzRo/uD2HXuASnV6NHt4c8Cw4GlQPMho4UPLHBVKW+TAsH?=
- =?Windows-1252?Q?xRQpgQvxDVpWpnw5Y5wy7Zz89DVQa+Yk2VSfp6UFtRdl9pDTr9y7hXJV?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f811cdd2-ff8e-4540-beb4-08d91a09d162
-X-MS-Exchange-CrossTenant-AuthSource: MW3PR12MB4379.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2021 14:32:52.2888 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: G5Ztt9xih1Baz/BeddC45n3klE20bQezOyUxFpNaGgz7QSSv8AhoB5kswAc++5roKe/GZ8gTjiOHQaUjEPxkgw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1358
+References: <20210518141559.1360041-1-aaron.liu@amd.com>
+In-Reply-To: <20210518141559.1360041-1-aaron.liu@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 18 May 2021 10:53:25 -0400
+Message-ID: <CADnq5_OkhmG29cdcwPFjRjryxVTwetYC4DtoPXc2feGEEPBjew@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: modify system reference clock source for
+ navi+ (V2)
+To: Aaron Liu <aaron.liu@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,92 +73,61 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Deepak.Sharma@amd.com, aric.cyr@amd.com, Krunoslav.Kovac@amd.com,
- mcasas@google.com, Shashank.Sharma@amd.com, dri-devel@lists.freedesktop.org,
- Shirish.S@amd.com, Sebastian Wick <sebastian@sebastianwick.net>,
- Uma Shankar <uma.shankar@intel.com>, hersenxs.wu@amd.com,
- amd-gfx@lists.freedesktop.org, laurentiu.palcu@oss.nxp.com,
- Bhawanpreet.Lakha@amd.com, Nicholas.Kazlauskas@amd.com,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Vitaly.Prosyak@amd.com
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ Kevin Wang <kevin1.wang@amd.com>, Huang Rui <Ray.Huang@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2021-05-17 4:34 a.m., Pekka Paalanen wrote:
-> On Fri, 14 May 2021 17:04:51 -0400
-> Harry Wentland <harry.wentland@amd.com> wrote:
-> 
->> On 2021-04-30 8:53 p.m., Sebastian Wick wrote:
->>> On 2021-04-26 20:56, Harry Wentland wrote:  
-> 
-> ...
-> 
->>>> Another reason I'm proposing to define the color space (and gamma) of
->>>> a plane is to make this explicit. Up until the color space and gamma
->>>> of a plane or framebuffer are not well defined, which leads to drivers
->>>> assuming the color space and gamma of a buffer (for blending and other
->>>> purposes) and might lead to sub-optimal outcomes.  
->>>
->>> Blending only is "correct" with linear light so that property of the
->>> color space is important. However, why does the kernel have to be
->>> involved here? As long as user space knows that for correct blending the
->>> data must represent linear light and knows when in the pipeline blending
->>> happens it can make sure that the data at that point in the pipeline
->>> contains linear light.
->>>   
->>
->> The only reason the kernel needs to be involved is to take full advantage
->> of the available HW without requiring KMS clients to be aware of
->> the difference in display HW.
-> 
-> Can you explain in more tangible examples, why you think so, please?
-> 
-> Is it because hardware does not fit the KMS UAPI model of the abstract
-> pixel pipeline?
-> 
+On Tue, May 18, 2021 at 10:16 AM Aaron Liu <aaron.liu@amd.com> wrote:
+>
+> Starting from Navi+, the rlc reference clock is used for system clock
+> from vbios gfx_info table. It is incorrect to use core_refclk_10khz of
+> vbios smu_info table as system clock.
+>
+> Signed-off-by: Aaron Liu <aaron.liu@amd.com>
 
-I'd wager no HW is designed to meet KMS UAPI, rather KMS UAPI is designed
-to abstract HW.
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-> Or is it because you have fixed-function hardware elements that you can
-> only make use of when userspace uses an enum-based UAPI?
-> 
-
-One example is our degamma on our latest generation HW, where we have
-fixed-function "degamma" (rather de-EOTF):
-
-https://gitlab.freedesktop.org/agd5f/linux/-/blob/amd-staging-drm-next/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c#L166
-
-> I would totally agree that the driver does not want to be analysing LUT
-> entries to decipher if it could use a fixed-function element or not. It
-> would introduce uncertainty in the UAPI. So fixed-function elements
-> would need their own properties, but I don't know if that is feasible
-> as generic UAPI or if it should be driver-specific (and so left unused
-> by generic userspace).
-> 
-
-
-For the CRTC LUTs we actually do a linearity check to program the
-HW into bypass when the LUT is linear since the KMS LUT definition
-doesn't map well onto the LUT definition used by our HW and leads
-to rounding errors and failing IGT kms_color tests (if I remember
-this correctly).
-
-https://gitlab.freedesktop.org/agd5f/linux/-/blob/amd-staging-drm-next/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c#L330
-
-Hence the suggestion to define pre-defined TFs right at a KMS level
-for usecases where we can assume the display will tonemap the 
-content.
-
-Harry
-
-> 
-> Thanks,
-> pq
-> 
-
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c | 15 +++++++++++++++
+>  1 file changed, 15 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
+> index 8c417014ca89..3b5d13189073 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
+> @@ -546,6 +546,21 @@ int amdgpu_atomfirmware_get_clock_info(struct amdgpu_device *adev)
+>                 ret = 0;
+>         }
+>
+> +       /* if asic is Navi+, the rlc reference clock is used for system clock
+> +        * from vbios gfx_info table */
+> +       if (adev->asic_type >= CHIP_NAVI10) {
+> +               index = get_index_into_master_table(atom_master_list_of_data_tables_v2_1,
+> +                                                  gfx_info);
+> +               if (amdgpu_atom_parse_data_header(mode_info->atom_context, index, NULL,
+> +                                         &frev, &crev, &data_offset)) {
+> +                       struct atom_gfx_info_v2_2 *gfx_info = (struct atom_gfx_info_v2_2*)
+> +                               (mode_info->atom_context->bios + data_offset);
+> +                       if ((frev == 2) && (crev >= 2))
+> +                               spll->reference_freq = le32_to_cpu(gfx_info->rlc_gpu_timer_refclk);
+> +                       ret = 0;
+> +               }
+> +       }
+> +
+>         return ret;
+>  }
+>
+> --
+> 2.25.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
