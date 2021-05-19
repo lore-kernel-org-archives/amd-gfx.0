@@ -2,77 +2,146 @@ Return-Path: <SRS0=RLY9=KO=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.9 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MIME_HTML_MOSTLY,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 03B5CC433B4
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 10:58:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C5CACC433B4
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 11:03:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AC3A6610A8
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 10:58:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AC3A6610A8
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 85D7D60200
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 11:03:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 85D7D60200
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46A3D6ED11;
-	Wed, 19 May 2021 10:58:43 +0000 (UTC)
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [IPv6:2a00:1450:4864:20::632])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B05C6ED11
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 May 2021 10:58:38 +0000 (UTC)
-Received: by mail-ej1-x632.google.com with SMTP id u21so19264976ejo.13
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 May 2021 03:58:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language;
- bh=yrs1/uDXO8PAFgB4Rn7x4+yOrQ4EWbrFPDkK2c/I3iM=;
- b=e05Osm79NOyRkZcyJD/FtwN98WzGyiNbGMjLad+9xACdC3b8EMCbLkcmmTNQr2vloY
- PwmbeLI80Js65/4FFgRb6r6SoRcA2Z4Q7Q/42daXL/YBtx/w46tZ/XJislsBw/MtsRfr
- d+W5y1Ix9WmiH77Q3t6VvK8H2lVQAcHPhQchFcJz3nSr1YQs811e/kgKFBUmMdNu6LFP
- DCAJUkgnEvj4IKqy+S/MtcxNAFiKIwa9frBSUHG7W0yEhZ5IlYocYJnNEyBlfYvbVghz
- aYWWk/feqRlm5zjtZIoxRVGVVoJ79iPLPMbBJ5mcajKw54mT9urEn2t51UnC1cXdWpdZ
- EB/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language;
- bh=yrs1/uDXO8PAFgB4Rn7x4+yOrQ4EWbrFPDkK2c/I3iM=;
- b=eLs7wBi8y94f1PG4Bh9/CZabo6C/DFYpOqP9C5CwgdZnDkS1K4U8vlR2H96wyiFXyq
- z3MWaluZLr8zjeWvWPF5c+lJZOpxYUAvMY+LoZO5lcz/aBYh8xVWnxbN99V0wdoMZ/Op
- g8sKyqslbbxlmhH9fVWN7CpA3oLitMMBmrG7/C7GvCASHjw8Oh3pg7SUJaZCWcRjWOij
- UcbevtVYrJ9NkKQgWmLVZva7lGTROy7YM7G2gcYAtyRlePhKZHCnAMm6b7mgcx/lVOZr
- sUnOKf9dFIZgITRB1fbouHh83N2o+t51WYQas9UtKP37u+3z7eHphkKtx33oO5O+epHP
- lUtQ==
-X-Gm-Message-State: AOAM533SLAjdPUlQCJSsUxuE4KZbyU5q16pyBMmGUWUEMmtj/5Kd3lDe
- 4uCUHzeTedXBUxCqNB/5RlPO1mjqPY0=
-X-Google-Smtp-Source: ABdhPJyLRyAtxHhGNyU4RHhLVNOw+8f4fekj+Npw2cWcUjLKd06JDJUxJycRJLBgajSXN/jeYvY9gQ==
-X-Received: by 2002:a17:906:4cc5:: with SMTP id
- q5mr12016908ejt.302.1621421916731; 
- Wed, 19 May 2021 03:58:36 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:8e28:1d3:41f3:e15a?
- ([2a02:908:1252:fb60:8e28:1d3:41f3:e15a])
- by smtp.gmail.com with ESMTPSA id d7sm12223978ejk.55.2021.05.19.03.58.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 May 2021 03:58:36 -0700 (PDT)
-Subject: Re: [PATCH] drm/amdgpu: Expose rfc4122 compliant UUID
-To: "Nieto, David M" <David.Nieto@amd.com>,
- Alex Deucher <alexdeucher@gmail.com>, "Gu, JiaWei (Will)" <JiaWei.Gu@amd.com>
-References: <20210517055413.28417-1-Jiawei.Gu@amd.com>
- <CADnq5_MLzM8+f3LU5QbDsn0haUNvKECQe3rR9HdoYpcooUpN6w@mail.gmail.com>
- <BYAPR12MB2840D36066EF94573527A8F4F42C9@BYAPR12MB2840.namprd12.prod.outlook.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <fb600c5f-7b0d-8a1d-1bb2-0d01b92439bd@gmail.com>
-Date: Wed, 19 May 2021 12:58:35 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2ED206ED14;
+	Wed, 19 May 2021 11:03:37 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2087.outbound.protection.outlook.com [40.107.220.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 500DB6ED14;
+ Wed, 19 May 2021 11:03:36 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=LvHWT9bMP9f0YcZfGHauv1D9jZIxTNGcHShCbrJVm8MI1b1joZ1TFyVAb95roNw9GEA2uG0v9ORssguTxu0Z1kmUxNrRZqOXjFPSD3/sJrh90Of7UHgC2bv64lzvamVngA6xubNSgMKEsgepou9/biTZSyTT0YOdwDWwOZBlMmA/1XuFToNv/3ZHRXCi3LFtAfvYKYy4kpMc7GYO//F0JtZsNmEcDaNn5klDwjXao9rCotkQvNDxrzAhPZAcSZ6WnTCiho7KrXi3HLm2FbkjA+v22o+50Qdew2q81+6CCfJMo4vjnpxivCMT7IF9NPl4Y7bN4Gp2u5IeeQVDBFbHeg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HwU1chr3/bPHERdfidrWDrI85usjTMvWIp/EBR1Fb3Y=;
+ b=f0dnFGy90KrkEVTPNTM4ErQ6R1v3OGYBFA7KI86OPkUEQetFXV7CxwGyzZ65u9q0ZeklTs6mUaB1VQt98EV/kR54UN8QCRuYpyZNc6DAhmMUsh6vLZHv0mLZr9Q8oGFLBWlkwVdJbn0G1jwIDHJGlbHE+Zf/n7b0ymBnvt9tNPmgaFDbvojDyCBh1ttr76duh+3F8mtXcF8MZAyyfG6SJtJ/970GW9coUd3EfMjrBdXjOeU1zRn4qAP7Q4Y2EBgeIHX9qJccTztS+juczcRNWaIf5Wb23A3QXadlutDpi/tOZZKVj6l54DTB8qD9zT+j/+lvdrrNsrdQqBiwdsa4Zg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HwU1chr3/bPHERdfidrWDrI85usjTMvWIp/EBR1Fb3Y=;
+ b=LKc7b7h4OtH1YJimJ6EuvNiKhLdDZOMUmcIjUwmnpaCzlAzqaKpU5NMbfSrefJrpMDqGnNMI1ipuCo68SWCpBrFmACgaTe03t7/xy4Lj3eS3h01mCfpm2vHEfpcJWawgOp/lhQ3dHPfhwEBBbUbSd+pAQSqCGg9lWuD0KDj3KME=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from SN6PR12MB4623.namprd12.prod.outlook.com (2603:10b6:805:e9::17)
+ by SN6PR12MB2703.namprd12.prod.outlook.com (2603:10b6:805:75::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.28; Wed, 19 May
+ 2021 11:03:34 +0000
+Received: from SN6PR12MB4623.namprd12.prod.outlook.com
+ ([fe80::ad51:8c49:b171:856c]) by SN6PR12MB4623.namprd12.prod.outlook.com
+ ([fe80::ad51:8c49:b171:856c%7]) with mapi id 15.20.4129.033; Wed, 19 May 2021
+ 11:03:34 +0000
+Subject: Re: [PATCH v7 13/16] drm/scheduler: Fix hang when sched_entity
+ released
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-pci@vger.kernel.org, daniel.vetter@ffwll.ch, Harry.Wentland@amd.com
+References: <20210512142648.666476-1-andrey.grodzovsky@amd.com>
+ <20210512142648.666476-14-andrey.grodzovsky@amd.com>
+ <9e1270bf-ab62-5d76-b1de-e6cd49dc4841@amd.com>
+ <f0c5dea7-af35-9ea5-028e-6286e57a469a@amd.com>
+ <34d4e4a8-c577-dfe6-3190-28a5c63a2d23@amd.com>
+ <da1f9706-d918-cff8-2807-25da0c01fcde@amd.com>
+ <8228ea6b-4faf-bb7e-aaf4-8949932e869a@amd.com>
+ <ec157a35-85fb-11e5-226a-c25d699102c6@amd.com>
+ <53f281cc-e4c0-ea5d-9415-4413c85a6a16@amd.com>
+ <0b49fc7b-ca0b-58c4-3f76-c4a5fab97bdc@amd.com>
+ <31febf08-e9c9-77fa-932d-a50505866ec4@amd.com>
+ <cd6bbe33-cbc5-43cb-80f7-1cb82a81e65d@amd.com>
+ <77efa177-f313-5f1e-e273-6672ed46a90a@gmail.com>
+From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Message-ID: <4a9af53a-564d-62ae-25e1-06ca4129857f@amd.com>
+Date: Wed, 19 May 2021 07:03:31 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.8.1
-MIME-Version: 1.0
-In-Reply-To: <BYAPR12MB2840D36066EF94573527A8F4F42C9@BYAPR12MB2840.namprd12.prod.outlook.com>
+In-Reply-To: <77efa177-f313-5f1e-e273-6672ed46a90a@gmail.com>
 Content-Language: en-US
+X-Originating-IP: [2607:fea8:3edf:49b0:1069:60ba:d67c:3ab3]
+X-ClientProxiedBy: YTOPR0101CA0062.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:14::39) To SN6PR12MB4623.namprd12.prod.outlook.com
+ (2603:10b6:805:e9::17)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [IPv6:2607:fea8:3edf:49b0:1069:60ba:d67c:3ab3]
+ (2607:fea8:3edf:49b0:1069:60ba:d67c:3ab3) by
+ YTOPR0101CA0062.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:14::39) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4108.30 via Frontend
+ Transport; Wed, 19 May 2021 11:03:33 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 6313ecf1-24fa-4497-e7c0-08d91ab5be9b
+X-MS-TrafficTypeDiagnostic: SN6PR12MB2703:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <SN6PR12MB27034F61A81C0A054D398CD0EA2B9@SN6PR12MB2703.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: aem5QTFgf/G5aHFz8o7aWiXvAPwtChB7zmV+yIMzIna6jKme0OmasXAhXMNssMzbFIcHh3gz76skaVJbrSDO5xKJ+PcdSnLQz/ujelz+/FEkt8vkW4IDNFFkAA8X4ZDAYe4gTZnCAJYUp21+dW7yClFQ43qcKFk8q10TVebiB9o8bMOPO6j3fWJHc9ZTqZjdg/Fo5QKNJDPcvY3XHQyHWI2ADRKNX+6VHOALm9i2u76ByFBxwSRfuKQxDE/TON9wCKrkIEo2RZgXWqbVQ2XqDvSrsMAmAtXezdVnbBwyUapLKuOW6AU9fyljmwnvdEZ/BdKUzn3RoYITqMnbgj4W7Unwd8S/lvP0Abeorl51/lYpmS3CrrOC518rJMsq3YwekFdFGQAIZ7aWErCI+we7vCR3gHit/UGZ041xaQ4VbP9KnMwm9zTyYCx9NGd4k0s4aNpj1mjRgAXbLMLtjlPneIf0BwVvHXg8GkTaU1BdBXdG0VIjaClwRqFbSaQwEO0K9nqPh2jaW+3aYam/8cUSxtjDEnpQg8rv7Q4KgDTdnZwE2R5PB39pqUSnG1lJnWjUyj5szn0I753WAg/3uwLu/mKfsfLB126drwTWfe9z7hiO/XJeG+281OmyiJKcfpKxyvpV46ebDsS/lmZ07oSFU5wyaDvH0QaT8IyoEk0uFNfhNjm6vTdoeXD6wpjig11YsnH3+FkScjQLIBlWMi6cGw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SN6PR12MB4623.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(376002)(396003)(39860400002)(366004)(136003)(346002)(16526019)(45080400002)(4326008)(66946007)(83380400001)(6636002)(36756003)(6486002)(2616005)(5660300002)(31686004)(66476007)(186003)(8676002)(38100700002)(86362001)(44832011)(966005)(316002)(478600001)(8936002)(52116002)(110136005)(53546011)(2906002)(31696002)(66574015)(66556008)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?VnQ3K00rSjRHM0VLVExpRWl3ZG82elVtSUFxM3BEZk54RHlZYngxbExIdm9Z?=
+ =?utf-8?B?WjNYeHpSb3dRYlBLNHhFQnNiek1COGZwaCtYMGVLdE1YRHZHVkIzMUo0QXND?=
+ =?utf-8?B?Z1kyR0Yvc0RqT2JiWTlqMjA5OENLQkVhQkVOZlpVUWQ2VjlLemI2TnE4elBa?=
+ =?utf-8?B?cHo0anN2K0cyR0JzUE9Fb2diR1FaWXlSdEVtajRlOVdCenNWSjNtMUl6azE0?=
+ =?utf-8?B?UUhJMWhBZmFiMGIvaytFdjU5bVExUDh6ejNGSTUxS3F0Qm5TcStxVkhLQjQw?=
+ =?utf-8?B?ZmJGMmJBcS9iRDczU0tRMGd0N3d2MjJVWVFqZmsyOEk5dnIvdlgwT2VoTmEv?=
+ =?utf-8?B?NFBhNGJFck9tNC81VTNDeEthQlBrbTFQNjBXd0V1WC9JaHZiWmowY2c2bGxI?=
+ =?utf-8?B?OXFKd01QbUY4WXVsdGJUUUIySjEwUlRueGtSVzdaOGJ5aTZXZXUwV21Ec1A4?=
+ =?utf-8?B?THlucXpkdzczQnBpYkJXMi9taGFncm9ienlGUGN4dE1LbFN0dTNyRmFwcWZo?=
+ =?utf-8?B?UmpGTHI3RFJzT21QeHl2WkxWWGJENzV3UHJrYnMxdkw4TjQ3T2VUQmV4ejJS?=
+ =?utf-8?B?QWNIRzg4ejNCWklFYUpPeGJlQnJWeDdodWRNL1FiZTJvSnVxU0FuKzNZV1gy?=
+ =?utf-8?B?dDk4dnF6QjZMdDh3ZEpsYXpkQ1pHY29SM0xuY1ZsQzNaUXhFYmdRVnhoRHdk?=
+ =?utf-8?B?VVIzRmh3dUE3cUlwNVdnUVVPWWowZTZ1YjF1T0NhSWJBcXVrUW9LSytZelRh?=
+ =?utf-8?B?c2RWeVlZdFE1ZUo3Tmp5dCtSYTQ5d2dUTldmWHBwSGRBQi80UjNOT0hBTU1K?=
+ =?utf-8?B?cTdzNTB1WnpMSGE0Y0ZFZDBjYlBOZE1lcTBuVmVodUJGdm5VeVZiczByU3do?=
+ =?utf-8?B?NTJEcnFocVF5R0FOanBtYW5RTUZaTFd6YUJ5S3J1ZVU5WDJJeVJTem0vb21k?=
+ =?utf-8?B?QWZrTWZGRTZMaFY2YUdFaHd3dkNKRjRyUXU4dHB4alBBUzZzdUpHOUEvRllK?=
+ =?utf-8?B?UUJ1Q2F1ODVpTmoyVzY4UWNhL3RhSGFpYzAwRXBtbVRuREFDMWVQOWhWbTM4?=
+ =?utf-8?B?NWJiKzFFOFZFK1RPc1hra2ttbllCcGxiQTR3dFhuY09scUluc2xsM3pISVNP?=
+ =?utf-8?B?Sk9kU0FRSHlIQTM3R1FPV2FiQ2hpNFlVbVFTblpSZnVVZElZWFl4Z3NKZzk5?=
+ =?utf-8?B?Qm9ZN2VwNXJLVGQ1My83bmZFemdqS2QvK3U5NWdYVU1zbTROOU83aittZW1w?=
+ =?utf-8?B?UnNUUE5rRC9Vb0I4TXkzemphNmdwUHhnQXRnV0JYeS9JbGVKQWNadVJRZENr?=
+ =?utf-8?B?eUVodTYwZlNtbE5lbUVhZVdiUURJQTVtc0hkN0JKelZKZXdORFdsanE4WG4z?=
+ =?utf-8?B?RzN1YnYrT0lNRjR0dXFxV2c1QlkxOHh4TEJYU2pJRFpnTGFXRUpQd3FKeXFF?=
+ =?utf-8?B?bzBTZ3phSUR0V1c4djUvRVUzc3pKSXFOa2V0RENIcC9YWHBzQUd5dzVYNXNu?=
+ =?utf-8?B?ZGFtRndpRjdWOVhhdVRRUkFJQTFQUDd6ZHYrbGNWUjBjVmt5WFo1YlpQWXNs?=
+ =?utf-8?B?bnB1QXpKc21yYXNvbTBKSWxxTW9LdmM4NnEvU2RJZVBuSkZWMDE4aG5paVlh?=
+ =?utf-8?B?L2UwdXN5L1hjUUlkMCs2UTZvRmRrVHJvVDhZTjVKWUhHYnh0VGpucW9DSkc4?=
+ =?utf-8?B?SHQ0Vkk2NkNtQ1o4SVkzVnJMRmFpTk1YKzZJVDZBTGI2WUM5MVprK0NjcXRT?=
+ =?utf-8?B?OFFEZzZGUkl2NE1CT2JCcnJxUWZCM2EwUTdDV0ZPTHNSM0VXT1NBc0F4OHBu?=
+ =?utf-8?B?RytEQW43RmMvOWZ1TUtmaFpRZmxEZlVSbU8xNEJ4N25kazNBb0Nia250SXBF?=
+ =?utf-8?Q?7LJu2EWmJ0FcG?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6313ecf1-24fa-4497-e7c0-08d91ab5be9b
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB4623.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2021 11:03:34.0286 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7nA/LKq/3kNIwrFqH7SP23M9yTBK6lTaxZZcEWO+bz0KOnWo57o+z8h3CGBLu7cAYxxTRfVRA0DaOu6TiQaa7A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB2703
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,855 +153,37 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deng, Emily" <Emily.Deng@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: multipart/mixed; boundary="===============0200173550=="
+Cc: Alexander.Deucher@amd.com, gregkh@linuxfoundation.org, ppaalanen@gmail.com,
+ helgaas@kernel.org, Felix.Kuehling@amd.com
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---===============0200173550==
-Content-Type: multipart/alternative;
- boundary="------------8E0A37A201C5D1952829DE9F"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------8E0A37A201C5D1952829DE9F
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Well I don't think generating an UUID in the kernel makes sense in general.
-
-What we can do is to expose the serial number of the device, so that 
-userspace can create an UUID if necessary.
-
-Christian.
-
-Am 18.05.21 um 22:37 schrieb Nieto, David M:
->
-> [AMD Official Use Only]
->
->
-> I think the sysfs node should be moved into amdgpu_pm instead of the 
-> amdgpu_device.c and generation of the unique_id should be moved to 
-> navi10_ppt.c, similarly to other chips.
->
-> Thinking it better, generating a random UUID makes no sense in the 
-> driver level, any application can do the same thing on userspace if 
-> the UUID sysfs node is empty.
->
-> So, I think we should do the same as with the unique_id node, if the 
-> unique_id is not present, just return.
->
-> David
-> ------------------------------------------------------------------------
-> *From:* Alex Deucher <alexdeucher@gmail.com>
-> *Sent:* Tuesday, May 18, 2021 7:12 AM
-> *To:* Gu, JiaWei (Will) <JiaWei.Gu@amd.com>
-> *Cc:* amd-gfx list <amd-gfx@lists.freedesktop.org>; Deng, Emily 
-> <Emily.Deng@amd.com>; Nieto, David M <David.Nieto@amd.com>
-> *Subject:* Re: [PATCH] drm/amdgpu: Expose rfc4122 compliant UUID
-> On Mon, May 17, 2021 at 1:54 AM Jiawei Gu <Jiawei.Gu@amd.com> wrote:
-> >
-> > Introduce an RFC 4122 compliant UUID for the GPUs derived
-> > from the unique GPU serial number (from Vega10) on gpus.
-> > Where this serial number is not available, use a compliant
-> > random UUID.
-> >
-> > For virtualization, the unique ID is passed by the host driver
-> > in the PF2VF structure.
-> >
-> > Signed-off-by: Jiawei Gu <Jiawei.Gu@amd.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu.h         | 36 ++++++++
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  | 96 +++++++++++++++++++++
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c    |  4 +
-> >  drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h |  4 +-
-> >  drivers/gpu/drm/amd/amdgpu/nv.c             |  5 ++
-> >  drivers/gpu/drm/amd/amdgpu/nv.h             |  3 +
-> >  6 files changed, 146 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h 
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > index 3147c1c935c8..ad6d4b55be6c 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > @@ -802,6 +802,40 @@ struct amd_powerplay {
-> >                                           (rid == 0x01) || \
-> >                                           (rid == 0x10))))
-> >
-> > +union amdgpu_uuid_info {
-> > +       struct {
-> > +               union {
-> > +                       struct {
-> > +                               uint32_t did    : 16;
-> > +                               uint32_t fcn    : 8;
-> > +                               uint32_t asic_7 : 8;
-> > +                       };
-> > +                       uint32_t time_low;
-> > +               };
-> > +
-> > +               struct {
-> > +                       uint32_t time_mid  : 16;
-> > +                       uint32_t time_high : 12;
-> > +                       uint32_t version   : 4;
-> > +               };
-> > +
-> > +               struct {
-> > +                       struct {
-> > +                               uint8_t clk_seq_hi : 6;
-> > +                               uint8_t variant : 2;
-> > +                       };
-> > +                       union {
-> > +                               uint8_t clk_seq_low;
-> > +                               uint8_t asic_6;
-> > +                       };
-> > +                       uint16_t asic_4;
-> > +               };
-> > +
-> > +               uint32_t asic_0;
-> > +       };
-> > +       char as_char[16];
-> > +};
-> > +
-> >  #define AMDGPU_RESET_MAGIC_NUM 64
-> >  #define AMDGPU_MAX_DF_PERFMONS 4
-> >  struct amdgpu_device {
-> > @@ -1074,6 +1108,8 @@ struct amdgpu_device {
-> >         char product_name[32];
-> >         char                            serial[20];
-> >
-> > +       union amdgpu_uuid_info uuid_info;
-> > +
-> >         struct amdgpu_autodump          autodump;
-> >
-> >         atomic_t throttling_logging_enabled;
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c 
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > index 7c6c435e5d02..079841e1cb52 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > @@ -37,6 +37,7 @@
-> >  #include <linux/vgaarb.h>
-> >  #include <linux/vga_switcheroo.h>
-> >  #include <linux/efi.h>
-> > +#include <linux/uuid.h>
-> >  #include "amdgpu.h"
-> >  #include "amdgpu_trace.h"
-> >  #include "amdgpu_i2c.h"
-> > @@ -3239,11 +3240,104 @@ static int 
-> amdgpu_device_get_job_timeout_settings(struct amdgpu_device *adev)
-> >         return ret;
-> >  }
-> >
-> > +static bool amdgpu_is_uuid_info_empty(union amdgpu_uuid_info 
-> *uuid_info)
-> > +{
-> > +       return (uuid_info->time_low    == 0 &&
-> > +                       uuid_info->time_mid == 0 &&
-> > +                       uuid_info->time_high == 0 &&
-> > +                       uuid_info->version == 0 &&
-> > +                       uuid_info->clk_seq_hi == 0 &&
-> > +                       uuid_info->variant == 0 &&
-> > +                       uuid_info->clk_seq_low == 0 &&
-> > +                       uuid_info->asic_4 == 0 &&
-> > +                       uuid_info->asic_0 == 0);
-> > +}
-> > +
-> > +static void amdgpu_gen_uuid_info(union amdgpu_uuid_info *uuid_info,
-> > +                               uint64_t serial, uint16_t did, 
-> uint8_t idx)
-> > +{
-> > +       uint16_t clk_seq = 0;
-> > +
-> > +       /* Step1: insert clk_seq */
-> > +       uuid_info->clk_seq_low = (uint8_t)clk_seq;
-> > +       uuid_info->clk_seq_hi  = (uint8_t)(clk_seq >> 8) & 0x3F;
-> > +
-> > +       /* Step2: insert did */
-> > +       uuid_info->did = did;
-> > +
-> > +       /* Step3: insert vf idx */
-> > +       uuid_info->fcn = idx;
-> > +
-> > +       /* Step4: insert serial */
-> > +       uuid_info->asic_0 = (uint32_t)serial;
-> > +       uuid_info->asic_4 = (uint16_t)(serial >> 4 * 8) & 0xFFFF;
-> > +       uuid_info->asic_6 = (uint8_t)(serial >> 6 * 8) & 0xFF;
-> > +       uuid_info->asic_7 = (uint8_t)(serial >> 7 * 8) & 0xFF;
-> > +
-> > +       /* Step5: insert version */
-> > +       uuid_info->version = 1;
-> > +       /* Step6: insert variant */
-> > +       uuid_info->variant = 2;
-> > +}
-> > +
-> > +/* byte reverse random uuid */
-> > +static void amdgpu_gen_uuid_random(union amdgpu_uuid_info *uuid_info)
-> > +{
-> > +       char b0, b1;
-> > +       int i;
-> > +
-> > + generate_random_uuid(uuid_info->as_char);
-> > +       for (i = 0; i < 8; i++) {
-> > +               b0 = uuid_info->as_char[i];
-> > +               b1 = uuid_info->as_char[16-i];
-> > +               uuid_info->as_char[16-i] = b0;
-> > +               uuid_info->as_char[i] = b1;
-> > +       }
-> > +}
-> > +
-> > +/**
-> > + *
-> > + * The amdgpu driver provides a sysfs API for providing uuid data.
-> > + * The file uuid_info is used for this, and returns string of 
-> amdgpu uuid.
-> > + */
-> > +static ssize_t amdgpu_get_uuid_info(struct device *dev,
-> > +                                     struct device_attribute *attr,
-> > +                                     char *buf)
-> > +{
-> > +       struct drm_device *ddev = dev_get_drvdata(dev);
-> > +       struct amdgpu_device *adev = 
-> drm_to_adev(ddev);//ddev->dev_private;
-> > +       union amdgpu_uuid_info *uuid = &adev->uuid_info;
-> > +
-> > +       return sysfs_emit(buf,
-> > + "%08x-%04x-%x%03x-%02x%02x-%04x%08x\n",
-> > + uuid->time_low,
-> > + uuid->time_mid,
-> > + uuid->version,
-> > + uuid->time_high,
-> > + uuid->clk_seq_hi |
-> > + uuid->variant << 6,
-> > + uuid->clk_seq_low,
-> > + uuid->asic_4,
-> > + uuid->asic_0);
-> > +}
-> > +static DEVICE_ATTR(uuid_info, S_IRUGO, amdgpu_get_uuid_info, NULL);
-> > +
-> > +static void amdgpu_uuid_init(struct amdgpu_device *adev)
-> > +{
-> > +       if (amdgpu_is_uuid_info_empty(&adev->uuid_info)) {
-> > +               if (adev->unique_id)
-> > + amdgpu_gen_uuid_info(&adev->uuid_info, adev->unique_id, 
-> adev->pdev->device, 31);
-> > +               else
-> > + amdgpu_gen_uuid_random(&adev->uuid_info);
-> > +       }
-> > +}
-> > +
-> >  static const struct attribute *amdgpu_dev_attributes[] = {
-> >         &dev_attr_product_name.attr,
-> >         &dev_attr_product_number.attr,
-> >         &dev_attr_serial_number.attr,
-> >         &dev_attr_pcie_replay_count.attr,
-> > +       &dev_attr_uuid_info.attr,
-> >         NULL
-> >  };
-> >
-> > @@ -3551,6 +3645,8 @@ int amdgpu_device_init(struct amdgpu_device *adev,
-> >
-> >         amdgpu_fbdev_init(adev);
-> >
-> > +       amdgpu_uuid_init(adev);
-> > +
-> >         r = amdgpu_pm_sysfs_init(adev);
-> >         if (r) {
-> >                 adev->pm_sysfs_en = false;
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c 
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-> > index b71dd1deeb2d..2dfebfe38079 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-> > @@ -429,6 +429,7 @@ static void amdgpu_virt_add_bad_page(struct 
-> amdgpu_device *adev,
-> >  static int amdgpu_virt_read_pf2vf_data(struct amdgpu_device *adev)
-> >  {
-> >         struct amd_sriov_msg_pf2vf_info_header *pf2vf_info = 
-> adev->virt.fw_reserve.p_pf2vf;
-> > +       union amdgpu_uuid_info *uuid = &adev->uuid_info;
-> >         uint32_t checksum;
-> >         uint32_t checkval;
-> >
-> > @@ -498,6 +499,9 @@ static int amdgpu_virt_read_pf2vf_data(struct 
-> amdgpu_device *adev)
-> >
-> >                 adev->unique_id =
-> >                         ((struct amd_sriov_msg_pf2vf_info 
-> *)pf2vf_info)->uuid;
-> > +
-> > +               memcpy(uuid, &((struct amd_sriov_msg_pf2vf_info 
-> *)pf2vf_info)->uuid_info_reserved,
-> > +                       sizeof(union amdgpu_uuid_info));
-> >                 break;
-> >         default:
-> >                 DRM_ERROR("invalid pf2vf version\n");
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h 
-> b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
-> > index a434c71fde8e..0d1d36e82aeb 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
-> > @@ -203,9 +203,9 @@ struct amd_sriov_msg_pf2vf_info {
-> >                 uint32_t encode_max_frame_pixels;
-> >         } mm_bw_management[AMD_SRIOV_MSG_RESERVE_VCN_INST];
-> >         /* UUID info */
-> > -       struct amd_sriov_msg_uuid_info uuid_info;
-> > +       uint32_t uuid_info_reserved[4];
-> >         /* reserved */
-> > -       uint32_t reserved[256 - 47];
-> > +       uint32_t reserved[256-47];
-> >  };
-> >
-> >  struct amd_sriov_msg_vf2pf_info_header {
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c 
-> b/drivers/gpu/drm/amd/amdgpu/nv.c
-> > index 32c34470404c..16d4a480f4c0 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/nv.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-> > @@ -1167,6 +1167,11 @@ static int nv_common_early_init(void *handle)
-> >                 if (amdgpu_sriov_vf(adev))
-> >                         adev->rev_id = 0;
-> >                 adev->external_rev_id = adev->rev_id + 0xa;
-> > +               if (!amdgpu_sriov_vf(adev)) {
-> > +                       adev->unique_id = RREG32(mmFUSE_DATA_730);
-> > +                       adev->unique_id <<= 32;
-> > +                       adev->unique_id |= RREG32(mmFUSE_DATA_729);
-> > +               }
->
-> I would suggest putting this in navi10_get_unique_id() in navi10_ppt.c
-> for consistency since we query this from the SMU on most other asics.
->
-> Alex
->
->
->
-> >                 break;
-> >         case CHIP_SIENNA_CICHLID:
-> >                 adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/nv.h 
-> b/drivers/gpu/drm/amd/amdgpu/nv.h
-> > index 515d67bf249f..520ac2b98744 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/nv.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/nv.h
-> > @@ -26,6 +26,9 @@
-> >
-> >  #include "nbio_v2_3.h"
-> >
-> > +#define mmFUSE_DATA_729 (0x176D9)
-> > +#define mmFUSE_DATA_730 (0x176DA)
-> > +
-> >  void nv_grbm_select(struct amdgpu_device *adev,
-> >                     u32 me, u32 pipe, u32 queue, u32 vmid);
-> >  void nv_set_virt_ops(struct amdgpu_device *adev);
-> > --
-> > 2.17.1
-> >
-> > _______________________________________________
-> > amd-gfx mailing list
-> > amd-gfx@lists.freedesktop.org
-> > 
-> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7Cdavid.nieto%40amd.com%7Cb6a43b8c156c4a6964e208d91a070e84%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637569439877514988%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=7lpRnRgRwKASGUmfr3RChO0P6QfRbcpMFggQl6HO%2Bss%3D&amp;reserved=0 
-> <https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7Cdavid.nieto%40amd.com%7Cb6a43b8c156c4a6964e208d91a070e84%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637569439877514988%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=7lpRnRgRwKASGUmfr3RChO0P6QfRbcpMFggQl6HO%2Bss%3D&amp;reserved=0>
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
---------------8E0A37A201C5D1952829DE9F
-Content-Type: text/html; charset=windows-1252
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html;
-      charset=windows-1252">
-  </head>
-  <body>
-    Well I don't think generating an UUID in the kernel makes sense in
-    general.<br>
-    <br>
-    What we can do is to expose the serial number of the device, so that
-    userspace can create an UUID if necessary.<br>
-    <br>
-    Christian.<br>
-    <br>
-    <div class="moz-cite-prefix">Am 18.05.21 um 22:37 schrieb Nieto,
-      David M:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:BYAPR12MB2840D36066EF94573527A8F4F42C9@BYAPR12MB2840.namprd12.prod.outlook.com">
-      <meta http-equiv="Content-Type" content="text/html;
-        charset=windows-1252">
-      <style type="text/css" style="display:none;">P {margin-top:0;margin-bottom:0;}</style>
-      <p
-        style="font-family:Arial;font-size:10pt;color:#0000FF;margin:15pt;"
-        align="Left">
-        [AMD Official Use Only]<br>
-      </p>
-      <br>
-      <div>
-        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-          font-size: 12pt; color: rgb(0, 0, 0); background-color:
-          rgb(255, 255, 255);">
-          I think the sysfs node should be moved into amdgpu_pm instead
-          of the amdgpu_device.c and generation of the unique_id should
-          be moved to navi10_ppt.c, similarly to other chips.</div>
-        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-          font-size: 12pt; color: rgb(0, 0, 0); background-color:
-          rgb(255, 255, 255);">
-          <br>
-        </div>
-        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-          font-size: 12pt; color: rgb(0, 0, 0); background-color:
-          rgb(255, 255, 255);">
-          Thinking it better, generating a random UUID makes no sense in
-          the driver level, any application can do the same thing on
-          userspace if the UUID sysfs node is empty.</div>
-        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-          font-size: 12pt; color: rgb(0, 0, 0); background-color:
-          rgb(255, 255, 255);">
-          <br>
-        </div>
-        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-          font-size: 12pt; color: rgb(0, 0, 0); background-color:
-          rgb(255, 255, 255);">
-          So, I think we should do the same as with the unique_id node,
-          if the unique_id is not present, just return.</div>
-        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-          font-size: 12pt; color: rgb(0, 0, 0); background-color:
-          rgb(255, 255, 255);">
-          <br>
-        </div>
-        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-          font-size: 12pt; color: rgb(0, 0, 0); background-color:
-          rgb(255, 255, 255);">
-          David</div>
-        <hr style="display:inline-block;width:98%" tabindex="-1">
-        <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
-            face="Calibri, sans-serif" color="#000000"><b>From:</b> Alex
-            Deucher <a class="moz-txt-link-rfc2396E" href="mailto:alexdeucher@gmail.com">&lt;alexdeucher@gmail.com&gt;</a><br>
-            <b>Sent:</b> Tuesday, May 18, 2021 7:12 AM<br>
-            <b>To:</b> Gu, JiaWei (Will) <a class="moz-txt-link-rfc2396E" href="mailto:JiaWei.Gu@amd.com">&lt;JiaWei.Gu@amd.com&gt;</a><br>
-            <b>Cc:</b> amd-gfx list
-            <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx@lists.freedesktop.org">&lt;amd-gfx@lists.freedesktop.org&gt;</a>; Deng, Emily
-            <a class="moz-txt-link-rfc2396E" href="mailto:Emily.Deng@amd.com">&lt;Emily.Deng@amd.com&gt;</a>; Nieto, David M
-            <a class="moz-txt-link-rfc2396E" href="mailto:David.Nieto@amd.com">&lt;David.Nieto@amd.com&gt;</a><br>
-            <b>Subject:</b> Re: [PATCH] drm/amdgpu: Expose rfc4122
-            compliant UUID</font>
-          <div> </div>
-        </div>
-        <div class="BodyFragment"><font size="2"><span
-              style="font-size:11pt;">
-              <div class="PlainText">On Mon, May 17, 2021 at 1:54 AM
-                Jiawei Gu <a class="moz-txt-link-rfc2396E" href="mailto:Jiawei.Gu@amd.com">&lt;Jiawei.Gu@amd.com&gt;</a> wrote:<br>
-                &gt;<br>
-                &gt; Introduce an RFC 4122 compliant UUID for the GPUs
-                derived<br>
-                &gt; from the unique GPU serial number (from Vega10) on
-                gpus.<br>
-                &gt; Where this serial number is not available, use a
-                compliant<br>
-                &gt; random UUID.<br>
-                &gt;<br>
-                &gt; For virtualization, the unique ID is passed by the
-                host driver<br>
-                &gt; in the PF2VF structure.<br>
-                &gt;<br>
-                &gt; Signed-off-by: Jiawei Gu <a class="moz-txt-link-rfc2396E" href="mailto:Jiawei.Gu@amd.com">&lt;Jiawei.Gu@amd.com&gt;</a><br>
-                &gt; ---<br>
-                &gt;  drivers/gpu/drm/amd/amdgpu/amdgpu.h         | 36
-                ++++++++<br>
-                &gt;  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  | 96
-                +++++++++++++++++++++<br>
-                &gt;  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c    |  4 +<br>
-                &gt;  drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h |  4
-                +-<br>
-                &gt;  drivers/gpu/drm/amd/amdgpu/nv.c             |  5
-                ++<br>
-                &gt;  drivers/gpu/drm/amd/amdgpu/nv.h             |  3 +<br>
-                &gt;  6 files changed, 146 insertions(+), 2 deletions(-)<br>
-                &gt;<br>
-                &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-                b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
-                &gt; index 3147c1c935c8..ad6d4b55be6c 100644<br>
-                &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
-                &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
-                &gt; @@ -802,6 +802,40 @@ struct amd_powerplay {<br>
-                &gt;                                           (rid ==
-                0x01) || \<br>
-                &gt;                                           (rid ==
-                0x10))))<br>
-                &gt;<br>
-                &gt; +union amdgpu_uuid_info {<br>
-                &gt; +       struct {<br>
-                &gt; +               union {<br>
-                &gt; +                       struct {<br>
-                &gt; +                               uint32_t did    :
-                16;<br>
-                &gt; +                               uint32_t fcn    :
-                8;<br>
-                &gt; +                               uint32_t asic_7 :
-                8;<br>
-                &gt; +                       };<br>
-                &gt; +                       uint32_t time_low;<br>
-                &gt; +               };<br>
-                &gt; +<br>
-                &gt; +               struct {<br>
-                &gt; +                       uint32_t time_mid  : 16;<br>
-                &gt; +                       uint32_t time_high : 12;<br>
-                &gt; +                       uint32_t version   : 4;<br>
-                &gt; +               };<br>
-                &gt; +<br>
-                &gt; +               struct {<br>
-                &gt; +                       struct {<br>
-                &gt; +                               uint8_t clk_seq_hi
-                : 6;<br>
-                &gt; +                               uint8_t variant   
-                : 2;<br>
-                &gt; +                       };<br>
-                &gt; +                       union {<br>
-                &gt; +                               uint8_t
-                clk_seq_low;<br>
-                &gt; +                               uint8_t asic_6;<br>
-                &gt; +                       };<br>
-                &gt; +                       uint16_t asic_4;<br>
-                &gt; +               };<br>
-                &gt; +<br>
-                &gt; +               uint32_t asic_0;<br>
-                &gt; +       };<br>
-                &gt; +       char as_char[16];<br>
-                &gt; +};<br>
-                &gt; +<br>
-                &gt;  #define AMDGPU_RESET_MAGIC_NUM 64<br>
-                &gt;  #define AMDGPU_MAX_DF_PERFMONS 4<br>
-                &gt;  struct amdgpu_device {<br>
-                &gt; @@ -1074,6 +1108,8 @@ struct amdgpu_device {<br>
-                &gt;         char                           
-                product_name[32];<br>
-                &gt;         char                            serial[20];<br>
-                &gt;<br>
-                &gt; +       union amdgpu_uuid_info uuid_info;<br>
-                &gt; +<br>
-                &gt;         struct amdgpu_autodump          autodump;<br>
-                &gt;<br>
-                &gt;         atomic_t                       
-                throttling_logging_enabled;<br>
-                &gt; diff --git
-                a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-                b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-                &gt; index 7c6c435e5d02..079841e1cb52 100644<br>
-                &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-                &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-                &gt; @@ -37,6 +37,7 @@<br>
-                &gt;  #include &lt;linux/vgaarb.h&gt;<br>
-                &gt;  #include &lt;linux/vga_switcheroo.h&gt;<br>
-                &gt;  #include &lt;linux/efi.h&gt;<br>
-                &gt; +#include &lt;linux/uuid.h&gt;<br>
-                &gt;  #include "amdgpu.h"<br>
-                &gt;  #include "amdgpu_trace.h"<br>
-                &gt;  #include "amdgpu_i2c.h"<br>
-                &gt; @@ -3239,11 +3240,104 @@ static int
-                amdgpu_device_get_job_timeout_settings(struct
-                amdgpu_device *adev)<br>
-                &gt;         return ret;<br>
-                &gt;  }<br>
-                &gt;<br>
-                &gt; +static bool amdgpu_is_uuid_info_empty(union
-                amdgpu_uuid_info *uuid_info)<br>
-                &gt; +{<br>
-                &gt; +       return (uuid_info-&gt;time_low    == 0
-                &amp;&amp;<br>
-                &gt; +                       uuid_info-&gt;time_mid   
-                == 0 &amp;&amp;<br>
-                &gt; +                       uuid_info-&gt;time_high  
-                == 0 &amp;&amp;<br>
-                &gt; +                       uuid_info-&gt;version    
-                == 0 &amp;&amp;<br>
-                &gt; +                       uuid_info-&gt;clk_seq_hi 
-                == 0 &amp;&amp;<br>
-                &gt; +                       uuid_info-&gt;variant    
-                == 0 &amp;&amp;<br>
-                &gt; +                       uuid_info-&gt;clk_seq_low
-                == 0 &amp;&amp;<br>
-                &gt; +                       uuid_info-&gt;asic_4     
-                == 0 &amp;&amp;<br>
-                &gt; +                       uuid_info-&gt;asic_0     
-                == 0);<br>
-                &gt; +}<br>
-                &gt; +<br>
-                &gt; +static void amdgpu_gen_uuid_info(union
-                amdgpu_uuid_info *uuid_info,<br>
-                &gt; +                               uint64_t serial,
-                uint16_t did, uint8_t idx)<br>
-                &gt; +{<br>
-                &gt; +       uint16_t clk_seq = 0;<br>
-                &gt; +<br>
-                &gt; +       /* Step1: insert clk_seq */<br>
-                &gt; +       uuid_info-&gt;clk_seq_low =
-                (uint8_t)clk_seq;<br>
-                &gt; +       uuid_info-&gt;clk_seq_hi  =
-                (uint8_t)(clk_seq &gt;&gt; 8) &amp; 0x3F;<br>
-                &gt; +<br>
-                &gt; +       /* Step2: insert did */<br>
-                &gt; +       uuid_info-&gt;did = did;<br>
-                &gt; +<br>
-                &gt; +       /* Step3: insert vf idx */<br>
-                &gt; +       uuid_info-&gt;fcn = idx;<br>
-                &gt; +<br>
-                &gt; +       /* Step4: insert serial */<br>
-                &gt; +       uuid_info-&gt;asic_0 = (uint32_t)serial;<br>
-                &gt; +       uuid_info-&gt;asic_4 = (uint16_t)(serial
-                &gt;&gt; 4 * 8) &amp; 0xFFFF;<br>
-                &gt; +       uuid_info-&gt;asic_6 = (uint8_t)(serial
-                &gt;&gt; 6 * 8) &amp; 0xFF;<br>
-                &gt; +       uuid_info-&gt;asic_7 = (uint8_t)(serial
-                &gt;&gt; 7 * 8) &amp; 0xFF;<br>
-                &gt; +<br>
-                &gt; +       /* Step5: insert version */<br>
-                &gt; +       uuid_info-&gt;version = 1;<br>
-                &gt; +       /* Step6: insert variant */<br>
-                &gt; +       uuid_info-&gt;variant = 2;<br>
-                &gt; +}<br>
-                &gt; +<br>
-                &gt; +/* byte reverse random uuid */<br>
-                &gt; +static void amdgpu_gen_uuid_random(union
-                amdgpu_uuid_info *uuid_info)<br>
-                &gt; +{<br>
-                &gt; +       char b0, b1;<br>
-                &gt; +       int i;<br>
-                &gt; +<br>
-                &gt; +      
-                generate_random_uuid(uuid_info-&gt;as_char);<br>
-                &gt; +       for (i = 0; i &lt; 8; i++) {<br>
-                &gt; +               b0 = uuid_info-&gt;as_char[i];<br>
-                &gt; +               b1 = uuid_info-&gt;as_char[16-i];<br>
-                &gt; +               uuid_info-&gt;as_char[16-i] = b0;<br>
-                &gt; +               uuid_info-&gt;as_char[i] = b1;<br>
-                &gt; +       }<br>
-                &gt; +}<br>
-                &gt; +<br>
-                &gt; +/**<br>
-                &gt; + *<br>
-                &gt; + * The amdgpu driver provides a sysfs API for
-                providing uuid data.<br>
-                &gt; + * The file uuid_info is used for this, and
-                returns string of amdgpu uuid.<br>
-                &gt; + */<br>
-                &gt; +static ssize_t amdgpu_get_uuid_info(struct device
-                *dev,<br>
-                &gt; +                                     struct
-                device_attribute *attr,<br>
-                &gt; +                                     char *buf)<br>
-                &gt; +{<br>
-                &gt; +       struct drm_device *ddev =
-                dev_get_drvdata(dev);<br>
-                &gt; +       struct amdgpu_device *adev =
-                drm_to_adev(ddev);//ddev-&gt;dev_private;<br>
-                &gt; +       union amdgpu_uuid_info *uuid =
-                &amp;adev-&gt;uuid_info;<br>
-                &gt; +<br>
-                &gt; +       return sysfs_emit(buf,<br>
-                &gt; +                                      
-                "%08x-%04x-%x%03x-%02x%02x-%04x%08x\n",<br>
-                &gt; +                                      
-                uuid-&gt;time_low,<br>
-                &gt; +                                      
-                uuid-&gt;time_mid,<br>
-                &gt; +                                      
-                uuid-&gt;version,<br>
-                &gt; +                                      
-                uuid-&gt;time_high,<br>
-                &gt; +                                      
-                uuid-&gt;clk_seq_hi |<br>
-                &gt; +                                      
-                uuid-&gt;variant &lt;&lt; 6,<br>
-                &gt; +                                      
-                uuid-&gt;clk_seq_low,<br>
-                &gt; +                                      
-                uuid-&gt;asic_4,<br>
-                &gt; +                                      
-                uuid-&gt;asic_0);<br>
-                &gt; +}<br>
-                &gt; +static DEVICE_ATTR(uuid_info, S_IRUGO,
-                amdgpu_get_uuid_info, NULL);<br>
-                &gt; +<br>
-                &gt; +static void amdgpu_uuid_init(struct amdgpu_device
-                *adev)<br>
-                &gt; +{<br>
-                &gt; +       if
-                (amdgpu_is_uuid_info_empty(&amp;adev-&gt;uuid_info)) {<br>
-                &gt; +               if (adev-&gt;unique_id)<br>
-                &gt; +                      
-                amdgpu_gen_uuid_info(&amp;adev-&gt;uuid_info,
-                adev-&gt;unique_id, adev-&gt;pdev-&gt;device, 31);<br>
-                &gt; +               else<br>
-                &gt; +                      
-                amdgpu_gen_uuid_random(&amp;adev-&gt;uuid_info);<br>
-                &gt; +       }<br>
-                &gt; +}<br>
-                &gt; +<br>
-                &gt;  static const struct attribute
-                *amdgpu_dev_attributes[] = {<br>
-                &gt;         &amp;dev_attr_product_name.attr,<br>
-                &gt;         &amp;dev_attr_product_number.attr,<br>
-                &gt;         &amp;dev_attr_serial_number.attr,<br>
-                &gt;         &amp;dev_attr_pcie_replay_count.attr,<br>
-                &gt; +       &amp;dev_attr_uuid_info.attr,<br>
-                &gt;         NULL<br>
-                &gt;  };<br>
-                &gt;<br>
-                &gt; @@ -3551,6 +3645,8 @@ int amdgpu_device_init(struct
-                amdgpu_device *adev,<br>
-                &gt;<br>
-                &gt;         amdgpu_fbdev_init(adev);<br>
-                &gt;<br>
-                &gt; +       amdgpu_uuid_init(adev);<br>
-                &gt; +<br>
-                &gt;         r = amdgpu_pm_sysfs_init(adev);<br>
-                &gt;         if (r) {<br>
-                &gt;                 adev-&gt;pm_sysfs_en = false;<br>
-                &gt; diff --git
-                a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-                b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c<br>
-                &gt; index b71dd1deeb2d..2dfebfe38079 100644<br>
-                &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c<br>
-                &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c<br>
-                &gt; @@ -429,6 +429,7 @@ static void
-                amdgpu_virt_add_bad_page(struct amdgpu_device *adev,<br>
-                &gt;  static int amdgpu_virt_read_pf2vf_data(struct
-                amdgpu_device *adev)<br>
-                &gt;  {<br>
-                &gt;         struct amd_sriov_msg_pf2vf_info_header
-                *pf2vf_info = adev-&gt;virt.fw_reserve.p_pf2vf;<br>
-                &gt; +       union amdgpu_uuid_info *uuid =
-                &amp;adev-&gt;uuid_info;<br>
-                &gt;         uint32_t checksum;<br>
-                &gt;         uint32_t checkval;<br>
-                &gt;<br>
-                &gt; @@ -498,6 +499,9 @@ static int
-                amdgpu_virt_read_pf2vf_data(struct amdgpu_device *adev)<br>
-                &gt;<br>
-                &gt;                 adev-&gt;unique_id =<br>
-                &gt;                         ((struct
-                amd_sriov_msg_pf2vf_info *)pf2vf_info)-&gt;uuid;<br>
-                &gt; +<br>
-                &gt; +               memcpy(uuid, &amp;((struct
-                amd_sriov_msg_pf2vf_info
-                *)pf2vf_info)-&gt;uuid_info_reserved,<br>
-                &gt; +                       sizeof(union
-                amdgpu_uuid_info));<br>
-                &gt;                 break;<br>
-                &gt;         default:<br>
-                &gt;                 DRM_ERROR("invalid pf2vf
-                version\n");<br>
-                &gt; diff --git
-                a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
-                b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h<br>
-                &gt; index a434c71fde8e..0d1d36e82aeb 100644<br>
-                &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h<br>
-                &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h<br>
-                &gt; @@ -203,9 +203,9 @@ struct amd_sriov_msg_pf2vf_info
-                {<br>
-                &gt;                 uint32_t encode_max_frame_pixels;<br>
-                &gt;         }
-                mm_bw_management[AMD_SRIOV_MSG_RESERVE_VCN_INST];<br>
-                &gt;         /* UUID info */<br>
-                &gt; -       struct amd_sriov_msg_uuid_info uuid_info;<br>
-                &gt; +       uint32_t uuid_info_reserved[4];<br>
-                &gt;         /* reserved */<br>
-                &gt; -       uint32_t reserved[256 - 47];<br>
-                &gt; +       uint32_t reserved[256-47];<br>
-                &gt;  };<br>
-                &gt;<br>
-                &gt;  struct amd_sriov_msg_vf2pf_info_header {<br>
-                &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c
-                b/drivers/gpu/drm/amd/amdgpu/nv.c<br>
-                &gt; index 32c34470404c..16d4a480f4c0 100644<br>
-                &gt; --- a/drivers/gpu/drm/amd/amdgpu/nv.c<br>
-                &gt; +++ b/drivers/gpu/drm/amd/amdgpu/nv.c<br>
-                &gt; @@ -1167,6 +1167,11 @@ static int
-                nv_common_early_init(void *handle)<br>
-                &gt;                 if (amdgpu_sriov_vf(adev))<br>
-                &gt;                         adev-&gt;rev_id = 0;<br>
-                &gt;                 adev-&gt;external_rev_id =
-                adev-&gt;rev_id + 0xa;<br>
-                &gt; +               if (!amdgpu_sriov_vf(adev)) {<br>
-                &gt; +                       adev-&gt;unique_id =
-                RREG32(mmFUSE_DATA_730);<br>
-                &gt; +                       adev-&gt;unique_id
-                &lt;&lt;= 32;<br>
-                &gt; +                       adev-&gt;unique_id |=
-                RREG32(mmFUSE_DATA_729);<br>
-                &gt; +               }<br>
-                <br>
-                I would suggest putting this in navi10_get_unique_id()
-                in navi10_ppt.c<br>
-                for consistency since we query this from the SMU on most
-                other asics.<br>
-                <br>
-                Alex<br>
-                <br>
-                <br>
-                <br>
-                &gt;                 break;<br>
-                &gt;         case CHIP_SIENNA_CICHLID:<br>
-                &gt;                 adev-&gt;cg_flags =
-                AMD_CG_SUPPORT_GFX_MGCG |<br>
-                &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/nv.h
-                b/drivers/gpu/drm/amd/amdgpu/nv.h<br>
-                &gt; index 515d67bf249f..520ac2b98744 100644<br>
-                &gt; --- a/drivers/gpu/drm/amd/amdgpu/nv.h<br>
-                &gt; +++ b/drivers/gpu/drm/amd/amdgpu/nv.h<br>
-                &gt; @@ -26,6 +26,9 @@<br>
-                &gt;<br>
-                &gt;  #include "nbio_v2_3.h"<br>
-                &gt;<br>
-                &gt; +#define mmFUSE_DATA_729 (0x176D9)<br>
-                &gt; +#define mmFUSE_DATA_730 (0x176DA)<br>
-                &gt; +<br>
-                &gt;  void nv_grbm_select(struct amdgpu_device *adev,<br>
-                &gt;                     u32 me, u32 pipe, u32 queue,
-                u32 vmid);<br>
-                &gt;  void nv_set_virt_ops(struct amdgpu_device *adev);<br>
-                &gt; --<br>
-                &gt; 2.17.1<br>
-                &gt;<br>
-                &gt; _______________________________________________<br>
-                &gt; amd-gfx mailing list<br>
-                &gt; <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a><br>
-                &gt; <a
-href="https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=04%7C01%7Cdavid.nieto%40amd.com%7Cb6a43b8c156c4a6964e208d91a070e84%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637569439877514988%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;amp;sdata=7lpRnRgRwKASGUmfr3RChO0P6QfRbcpMFggQl6HO%2Bss%3D&amp;amp;reserved=0"
-                  moz-do-not-send="true">
-https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=04%7C01%7Cdavid.nieto%40amd.com%7Cb6a43b8c156c4a6964e208d91a070e84%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637569439877514988%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;amp;sdata=7lpRnRgRwKASGUmfr3RChO0P6QfRbcpMFggQl6HO%2Bss%3D&amp;amp;reserved=0</a><br>
-              </div>
-            </span></font></div>
-      </div>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <pre class="moz-quote-pre" wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------8E0A37A201C5D1952829DE9F--
-
---===============0200173550==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0200173550==--
+CgpPbiAyMDIxLTA1LTE5IDY6NTcgYS5tLiwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPiBBbSAx
+OC4wNS4yMSB1bSAyMDo0OCBzY2hyaWViIEFuZHJleSBHcm9kem92c2t5Ogo+PiBbU05JUF0KPj4+
+Pgo+Pj4+IFdvdWxkIHRoaXMgYmUgdGhlIHJpZ2h0IHdheSB0byBkbyBpdCA/Cj4+Pgo+Pj4gWWVz
+LCBpdCBpcyBhdCBsZWFzdCBhIHN0YXJ0LiBRdWVzdGlvbiBpcyBpZiB3ZSBjYW4gd2FpdCBibG9j
+a2luZyBoZXJlIAo+Pj4gb3Igbm90Lgo+Pj4KPj4+IFdlIGluc3RhbGwgYSBjYWxsYmFjayBhIGJp
+dCBsb3dlciB0byBhdm9pZCBibG9ja2luZywgc28gSSdtIHByZXR0eSAKPj4+IHN1cmUgdGhhdCB3
+b24ndCB3b3JrIGFzIGV4cGVjdGVkLgo+Pj4KPj4+IENocmlzdGlhbi4KPj4KPj4gSSBjYW4ndCBz
+ZWUgd2h5IHRoaXMgd291bGQgY3JlYXRlIHByb2JsZW1zLCBhcyBsb25nIGFzIHRoZSBkZXBlbmRl
+bmNpZXMKPj4gY29tcGxldGUgb3IgZm9yY2UgY29tcGV0ZWQgaWYgdGhleSBhcmUgZnJvbSBzYW1l
+IGRldmljZSAoZXh0cmFjdGVkKSBidXQKPj4gb24gYSBkaWZmZXJlbnQgcmluZyB0aGVuIGxvb2tz
+IHRvIG1lIGl0IHNob3VsZCB3b3JrLiBJIHdpbGwgZ2l2ZSBpdAo+PiBhIHRyeS4KPiAKPiBPaywg
+YnV0IHBsZWFzZSBhbHNvIHRlc3QgdGhlIGNhc2UgZm9yIGEga2lsbGVkIHByb2Nlc3MuCj4gCj4g
+Q2hyaXN0aWFuLgoKWW91IG1lYW4gc29tZXRoaW5nIGxpa2UgcnVuIGdseGdlYXJzIGFuZCB0aGVu
+IHNpbXBseQp0ZXJtaW5hdGUgaXQgPyBCZWNhdXNlIEkgZG9uZSB0aGF0LiBPciBzb21ldGhpbmcg
+bW9yZSA/CgpBbmRyZXkKCgo+IAo+Pgo+PiBBbmRyZXkKPiAKPiBfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1k
+LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL25hbTExLnNhZmVsaW5rcy5wcm90
+ZWN0aW9uLm91dGxvb2suY29tLz91cmw9aHR0cHMlM0ElMkYlMkZsaXN0cy5mcmVlZGVza3RvcC5v
+cmclMkZtYWlsbWFuJTJGbGlzdGluZm8lMkZhbWQtZ2Z4JmFtcDtkYXRhPTA0JTdDMDElN0NhbmRy
+ZXkuZ3JvZHpvdnNreSU0MGFtZC5jb20lN0NjZTEyNTJlNTVmYWU0MzM4NzEwZDA4ZDkxYWI0ZGUw
+MSU3QzNkZDg5NjFmZTQ4ODRlNjA4ZTExYTgyZDk5NGUxODNkJTdDMCU3QzAlN0M2Mzc1NzAxODYz
+OTMxMDcwNzElN0NVbmtub3duJTdDVFdGcGJHWnNiM2Q4ZXlKV0lqb2lNQzR3TGpBd01EQWlMQ0pR
+SWpvaVYybHVNeklpTENKQlRpSTZJazFoYVd3aUxDSlhWQ0k2TW4wJTNEJTdDMTAwMCZhbXA7c2Rh
+dGE9dkdxeFk1c3hwRUlpUUdGQk5uMlBXa0txVmp2aU0yOXIzNFlqdjB3dWpmNCUzRCZhbXA7cmVz
+ZXJ2ZWQ9MCAKPiAKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
+cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
