@@ -2,75 +2,48 @@ Return-Path: <SRS0=RLY9=KO=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_2 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2DB07C433B4
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 07:56:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D51A2C43460
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 08:15:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E8761610A2
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 07:56:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E8761610A2
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 61B5760241
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 08:15:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 61B5760241
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 439546ECD5;
-	Wed, 19 May 2021 07:56:41 +0000 (UTC)
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [IPv6:2a00:1450:4864:20::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D9236ECD4;
- Wed, 19 May 2021 07:56:39 +0000 (UTC)
-Received: by mail-lf1-x133.google.com with SMTP id j10so17653834lfb.12;
- Wed, 19 May 2021 00:56:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:in-reply-to:references
- :mime-version; bh=IBfR8gZe3l5S8pOzn7i8ghR1Fj99JbmBf6tOUZer5MI=;
- b=Dz+cssgY7e0wJmSTTGZVbBHgcAAlxyb3BgiHM1ktw19UD0kHrk4kK+17NMeYjlO5pj
- Y1JAoG20qLzsM6b3otWMB8vY7jcDp94acargwHsxjeytkRDKJTy1w535qP3dJ+9QQT6z
- MCnqdyXEvv9y0fSyePUkHYn8tuYzHfvWmUa0mpuTrC6WetimZJpag5I5PILN8U5KNpCh
- os7sKn8lNzSk3y/rBVAezrCNhH9rxlYxhzWFQPDfTZbqfZVPu3/nNULVEPNLP4ZYfQwE
- GDy/srKRqu+G+wvs0KZei3TtBj03qlBmFKuaMiOVBVVUhJtgPXS7R4vGjz11nZZ31Pa3
- 4sww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
- :references:mime-version;
- bh=IBfR8gZe3l5S8pOzn7i8ghR1Fj99JbmBf6tOUZer5MI=;
- b=hQsKCkJvPkXy2dqQme8V4smu6UpaRcGD753IWxWpWRQ7QTYNS8JZ1gPPdOUnvhkTUx
- k1oONntvpi+J5ZvIiRcMGVwqTGvjeDiXHeBLwJBH4Pm17rVQmxW1QZEqYo3Ea6qdhaHB
- UVgRVGS83zBn/6y/OR6AHLJKPHyBcDrNI5Q3Q3AMOIhfilDWEh0UyC0PvEHCCkFYLXZg
- 9f/O+wOVqdtiUymCMbfygBXzbF98sFr5WtVPdSidM9lCmJJNqw3z1HMngxUtvjx8zbV1
- r/EIjXNJPohqCk3eL+l+XhpxTV5gI8BiqNdFT5VT3bItCbZNZ4NsbTCmHh4vO6VKpQkw
- Bnuw==
-X-Gm-Message-State: AOAM533wR6oKIs39+kWR1/q/Qte2HgiAyrm7pFvF44vTvunaU4FCGYoz
- mk9wBvkreXCa+iPSv3P1OH0=
-X-Google-Smtp-Source: ABdhPJxUau0fImX7ezM2KGA1ComJEaQkc+B69Hhyn2TjakIPItN7eEr/cB8F72VWg/9dOjndgKOYCQ==
-X-Received: by 2002:a05:6512:3d94:: with SMTP id
- k20mr7529298lfv.604.1621410997803; 
- Wed, 19 May 2021 00:56:37 -0700 (PDT)
-Received: from eldfell ([194.136.85.206])
- by smtp.gmail.com with ESMTPSA id k15sm3658760ljk.135.2021.05.19.00.56.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 May 2021 00:56:37 -0700 (PDT)
-Date: Wed, 19 May 2021 10:56:25 +0300
-From: Pekka Paalanen <ppaalanen@gmail.com>
-To: Harry Wentland <harry.wentland@amd.com>
-Subject: Re: [RFC PATCH 1/3] drm/color: Add RGB Color encodings
-Message-ID: <20210519105625.01e99f41@eldfell>
-In-Reply-To: <812996ec-13f0-2440-c3d0-efb21fd877e5@amd.com>
-References: <20210426173852.484368-1-harry.wentland@amd.com>
- <20210426173852.484368-2-harry.wentland@amd.com>
- <YIcBUl+94sHJsT8B@intel.com>
- <0090ce07-6102-59e7-bc8c-3528297aa5ae@amd.com>
- <a49e967a0082727757143828770bd671@sebastianwick.net>
- <cac44e69-85cb-661b-4a5e-33fafee8ea3d@amd.com>
- <20210517113432.11f95361@eldfell>
- <812996ec-13f0-2440-c3d0-efb21fd877e5@amd.com>
-X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 528D36ECDD;
+	Wed, 19 May 2021 08:15:49 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6A526ECD9;
+ Wed, 19 May 2021 08:15:47 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 4DC0960241;
+ Wed, 19 May 2021 08:15:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1621412147;
+ bh=TLTO07eCdq1orhOlOSYmgcvo49avpBaMddvAcag1RYk=;
+ h=From:To:Cc:Subject:Date:From;
+ b=lWKraVSXpxYlHZQ9F1B2jPEMuPOOJAyH26Z10nwEaNkhUxnDEkZn1hCYQoZnYsjbm
+ 3GzWv1gStcX1+E7nZ+HAo1c9BMXYSGGskS3lYu3sK1VaXPFYcHsRSxwCetmupwLhsb
+ htKAtrp2YhOktI+8gPSlUmojlSiPQcG+RLNCf+QWc3UCDK4rPPQa5umgCpAhUIVC+q
+ UYNcV2fIGZ5xt1uCS+8jvRnaW3dubw8VGIIPNZN1Npq1G01AmuikLWZyeMCyhOSRnI
+ nrWwopAuuBwP+aGeOkcfm4pBKrMPMlgCJIbwmfbWaqpoQI9k0s5RNX3Tnmbf+Ppzaw
+ XBP0qfGxzqyIw==
+Received: by mail.kernel.org with local (Exim 4.94.2)
+ (envelope-from <mchehab@kernel.org>)
+ id 1ljHMm-007fB7-Uo; Wed, 19 May 2021 10:15:44 +0200
+From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+To: David Airlie <airlied@linux.ie>
+Subject: [PATCH 1/3] gpu: drm: replace occurrences of invalid character
+Date: Wed, 19 May 2021 10:15:35 +0200
+Message-Id: <e606930c73029f16673849c57acac061dd923866.1621412009.git.mchehab+huawei@kernel.org>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,158 +56,71 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Deepak.Sharma@amd.com, aric.cyr@amd.com, Krunoslav.Kovac@amd.com,
- mcasas@google.com, Shashank.Sharma@amd.com, dri-devel@lists.freedesktop.org,
- Shirish.S@amd.com, Sebastian Wick <sebastian@sebastianwick.net>,
- Uma Shankar <uma.shankar@intel.com>, hersenxs.wu@amd.com,
- amd-gfx@lists.freedesktop.org, laurentiu.palcu@oss.nxp.com,
- Bhawanpreet.Lakha@amd.com, Nicholas.Kazlauskas@amd.com,
- Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Vitaly.Prosyak@amd.com
-Content-Type: multipart/mixed; boundary="===============0296787077=="
+Cc: Randy Dunlap <rdunlap@infradead.org>,
+ Bhaskar Chowdhury <unixbhaskar@gmail.com>,
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+ dri-devel@lists.freedesktop.org,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ linux-kernel@vger.kernel.org, Jani Nikula <jani.nikula@linux.intel.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>, amd-gfx@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>,
+ intel-gfx@lists.freedesktop.org,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Michal Wajdeczko <michal.wajdeczko@intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0296787077==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- boundary="Sig_/k/36dMrq49Kl.NsLoULda7Z"; protocol="application/pgp-signature"
-
---Sig_/k/36dMrq49Kl.NsLoULda7Z
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, 18 May 2021 10:32:48 -0400
-Harry Wentland <harry.wentland@amd.com> wrote:
-
-> On 2021-05-17 4:34 a.m., Pekka Paalanen wrote:
-> > On Fri, 14 May 2021 17:04:51 -0400
-> > Harry Wentland <harry.wentland@amd.com> wrote:
-> >  =20
-> >> On 2021-04-30 8:53 p.m., Sebastian Wick wrote: =20
-> >>> On 2021-04-26 20:56, Harry Wentland wrote:   =20
-> >=20
-> > ...
-> >  =20
-> >>>> Another reason I'm proposing to define the color space (and gamma) of
-> >>>> a plane is to make this explicit. Up until the color space and gamma
-> >>>> of a plane or framebuffer are not well defined, which leads to drive=
-rs
-> >>>> assuming the color space and gamma of a buffer (for blending and oth=
-er
-> >>>> purposes) and might lead to sub-optimal outcomes.   =20
-> >>>
-> >>> Blending only is "correct" with linear light so that property of the
-> >>> color space is important. However, why does the kernel have to be
-> >>> involved here? As long as user space knows that for correct blending =
-the
-> >>> data must represent linear light and knows when in the pipeline blend=
-ing
-> >>> happens it can make sure that the data at that point in the pipeline
-> >>> contains linear light.
-> >>>    =20
-> >>
-> >> The only reason the kernel needs to be involved is to take full advant=
-age
-> >> of the available HW without requiring KMS clients to be aware of
-> >> the difference in display HW. =20
-> >=20
-> > Can you explain in more tangible examples, why you think so, please?
-> >=20
-> > Is it because hardware does not fit the KMS UAPI model of the abstract
-> > pixel pipeline?
-> >  =20
->=20
-> I'd wager no HW is designed to meet KMS UAPI, rather KMS UAPI is designed
-> to abstract HW.
-
-Of course, but you are in big trouble in any case if there is a
-fundamental mismatch. You may have to declare that all existing KMS
-properties for this stuff will be mutually exclusive with your new
-properties, so that you can introduce a new generic abstract pipeline
-in KMS.
-
-By mutually exclusive I mean that a driver must advertise only one or
-the other set of properties and never both. If you want to support
-userspace that doesn't understand the alternative set, maybe you also
-need a drm client cap to switch to the alternative set per-drm-client.
-
-> > Or is it because you have fixed-function hardware elements that you can
-> > only make use of when userspace uses an enum-based UAPI?
-> >  =20
->=20
-> One example is our degamma on our latest generation HW, where we have
-> fixed-function "degamma" (rather de-EOTF):
->=20
-> https://gitlab.freedesktop.org/agd5f/linux/-/blob/amd-staging-drm-next/dr=
-ivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c#L166
-
-Ok.
-
-> > I would totally agree that the driver does not want to be analysing LUT
-> > entries to decipher if it could use a fixed-function element or not. It
-> > would introduce uncertainty in the UAPI. So fixed-function elements
-> > would need their own properties, but I don't know if that is feasible
-> > as generic UAPI or if it should be driver-specific (and so left unused
-> > by generic userspace).
-> >  =20
->=20
->=20
-> For the CRTC LUTs we actually do a linearity check to program the
-> HW into bypass when the LUT is linear since the KMS LUT definition
-> doesn't map well onto the LUT definition used by our HW and leads
-> to rounding errors and failing IGT kms_color tests (if I remember
-> this correctly).
->=20
-> https://gitlab.freedesktop.org/agd5f/linux/-/blob/amd-staging-drm-next/dr=
-ivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c#L330
->=20
-> Hence the suggestion to define pre-defined TFs right at a KMS level
-> for usecases where we can assume the display will tonemap the=20
-> content.
-
-Right. Explaining this would have been a good introduction in your
-cover letter.
-
-Maybe you want to define new KMS properties that shall be mutually
-exclusive with the existing KMS GAMMA/CTM/DEGAMMA properties and
-clearly document them as such.
-
-
-Thanks,
-pq
-
---Sig_/k/36dMrq49Kl.NsLoULda7Z
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmCkxKkACgkQI1/ltBGq
-qqfFcQ/9HZWvQVnJ0+2Tk8Nw7NBQpC/szV0qZi1JrogTAffJsWDX/b0nDTTyD9Fy
-8dZvsnQrrGg4ROlqdnsc3uRoNVF95GsIgU6LSqHHVMzbeH4OM4rc75pXbxAUJGo1
-iYzg1EXExL88oVqhS1t5lOj9GfNTpubj1oEMYrWyZuhLbHZcg4Pf0c67Ea01tvhu
-8lOEQxya31b3x4issaJ+hjcDxAdzINlDLm9JcwsLm/sCzmogn2x92XCaNHuXq+EE
-CAbNugBRexlCmlDed84Xw78fl10xMYzHLnLGKirde0G+MuxFd5QLWncZRa9lJ8bm
-1rMCEkw3/MwHj1iH146Q2Q9kC5hrg+1DSzp05oKz2On4gJJePpPjOScTN081/HnA
-vnn8UwW1VJcjH/Z3x9MBCJXg/Yra1tKXuBAH+S8ZD95X5YAm8oaB4z6q/HBtHvVn
-kd+LQGU7IUfwsLaSebva2pAgUzqi+Js9dIN3aeY0WPUrfZFjNzVnxE5YXQmUWfnN
-vPwnkCJGHhKujfH65N16pwR/RSSzZ0Er/qQUB18cDSxHzP/Z8Yb61jpUnfpPm+Uq
-08LSots9IJLV2BFfgDoEMUbh1/SA6exV4KDa2K+fsMV++Dd3d9vQexcZvJldB7AM
-v9vTkawrxoQlL7S66pmR2Q8nQNb+LrFpETERyvV4h4Ie0ZDZIWE=
-=oajY
------END PGP SIGNATURE-----
-
---Sig_/k/36dMrq49Kl.NsLoULda7Z--
-
---===============0296787077==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0296787077==--
+VGhlcmUgYXJlIHNvbWUgcGxhY2VzIGF0IGRybSB0aGF0IGVuZGVkIHJlY2VpdmluZyBhClJFUExB
+Q0VNRU5UIENIQVJBQ1RFUiBVK2ZmZmQgKCfvv70nKSwgcHJvYmFibHkgYmVjYXVzZSBvZgpzb21l
+IGJhZCBjaGFyc2V0IGNvbnZlcnNpb24uCgpGaXggdGhlbSBieSB1c2luZyB3aGF0IGl0IHNlZW1z
+CXRvIGJlIHRoZSBwcm9wZXIKY2hhcmFjdGVyLgoKU2lnbmVkLW9mZi1ieTogTWF1cm8gQ2FydmFs
+aG8gQ2hlaGFiIDxtY2hlaGFiK2h1YXdlaUBrZXJuZWwub3JnPgotLS0KIGRyaXZlcnMvZ3B1L2Ry
+bS9hbWQvaW5jbHVkZS9hdG9tYmlvcy5oICAgICAgIHwgMTAgKysrKystLS0tLQogZHJpdmVycy9n
+cHUvZHJtL2k5MTUvZ3QvaW50ZWxfZ3B1X2NvbW1hbmRzLmggfCAgMiArLQogZHJpdmVycy9ncHUv
+ZHJtL2k5MTUvaTkxNV9ncHVfZXJyb3IuaCAgICAgICAgfCAgMiArLQogZHJpdmVycy9ncHUvZHJt
+L3IxMjgvcjEyOF9kcnYuaCAgICAgICAgICAgICAgfCAgMiArLQogNCBmaWxlcyBjaGFuZ2VkLCA4
+IGluc2VydGlvbnMoKyksIDggZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9pbmNsdWRlL2F0b21iaW9zLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUv
+YXRvbWJpb3MuaAppbmRleCA0N2ViODQ1OThiOTYuLjZhNTA1ZDFiODJhNSAxMDA2NDQKLS0tIGEv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9pbmNsdWRlL2F0b21iaW9zLmgKKysrIGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9pbmNsdWRlL2F0b21iaW9zLmgKQEAgLTUxNzgsMTEgKzUxNzgsMTEgQEAgdHlwZWRl
+ZiBzdHJ1Y3QgIF9BVE9NX0xFQUtBR0VfVk9MVEFHRV9PQkpFQ1RfVjMKIHR5cGVkZWYgc3RydWN0
+ICBfQVRPTV9TVklEMl9WT0xUQUdFX09CSkVDVF9WMwogewogICAgQVRPTV9WT0xUQUdFX09CSkVD
+VF9IRUFERVJfVjMgc0hlYWRlcjsgICAgLy8gdm9sdGFnZSBtb2RlID0gVk9MVEFHRV9PQkpfU1ZJ
+RDIKLS8vIDE0Ojcg77+9IFBTSTBfVklECi0vLyA2IO+/vSBQU0kwX0VOCi0vLyA1IO+/vSBQU0kx
+Ci0vLyA0OjIg77+9IGxvYWQgbGluZSBzbG9wZSB0cmltLgotLy8gMTowIO+/vSBvZmZzZXQgdHJp
+bSwKKy8vIDE0OjcgLSBQU0kwX1ZJRAorLy8gNiAtIFBTSTBfRU4KKy8vIDUgLSBQU0kxCisvLyA0
+OjIgLSBsb2FkIGxpbmUgc2xvcGUgdHJpbS4KKy8vIDE6MCAtIG9mZnNldCB0cmltLAogICAgVVNI
+T1JUICAgdXNMb2FkTGluZV9QU0k7CiAvLyBHUFUgR1BJTyBwaW4gSWQgdG8gU1ZJRDIgcmVndWxh
+dG9yIFZSSG90IHBpbi4gcG9zc2libGUgdmFsdWUgMH4zMS4gMCBtZWFucyBHUElPMCwgMzEgbWVh
+bnMgR1BJTzMxCiAgICBVQ0hBUiAgICB1Y1NWREdwaW9JZDsgICAgIC8vMH4zMSBpbmRpY2F0ZSBH
+UElPMH4zMQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfZ3B1X2Nv
+bW1hbmRzLmggYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC9pbnRlbF9ncHVfY29tbWFuZHMuaApp
+bmRleCAxNGUyZmZiNmMwZTUuLjI2OTRkYmI5OTY3ZSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUv
+ZHJtL2k5MTUvZ3QvaW50ZWxfZ3B1X2NvbW1hbmRzLmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5
+MTUvZ3QvaW50ZWxfZ3B1X2NvbW1hbmRzLmgKQEAgLTEsNiArMSw2IEBACiAvKiBTUERYLUxpY2Vu
+c2UtSWRlbnRpZmllcjogTUlUKi8KIC8qCi0gKiBDb3B5cmlnaHQg77+9IDIwMDMtMjAxOCBJbnRl
+bCBDb3Jwb3JhdGlvbgorICogQ29weXJpZ2h0IMKpIDIwMDMtMjAxOCBJbnRlbCBDb3Jwb3JhdGlv
+bgogICovCiAKICNpZm5kZWYgX0lOVEVMX0dQVV9DT01NQU5EU19IXwpkaWZmIC0tZ2l0IGEvZHJp
+dmVycy9ncHUvZHJtL2k5MTUvaTkxNV9ncHVfZXJyb3IuaCBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1
+L2k5MTVfZ3B1X2Vycm9yLmgKaW5kZXggMTZiYzQyZGU0Yjg0Li40ZGYyNGM3MzdlMTMgMTAwNjQ0
+Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZ3B1X2Vycm9yLmgKKysrIGIvZHJpdmVy
+cy9ncHUvZHJtL2k5MTUvaTkxNV9ncHVfZXJyb3IuaApAQCAtMSw3ICsxLDcgQEAKIC8qCiAgKiBT
+UERYLUxpY2Vuc2UtSWRlbnRpZmllcjogTUlUCiAgKgotICogQ29weXJpZ2h0IO+/vSAyMDA4LTIw
+MTggSW50ZWwgQ29ycG9yYXRpb24KKyAqIENvcHlyaWdodCDCqSAyMDA4LTIwMTggSW50ZWwgQ29y
+cG9yYXRpb24KICAqLwogCiAjaWZuZGVmIF9JOTE1X0dQVV9FUlJPUl9IXwpkaWZmIC0tZ2l0IGEv
+ZHJpdmVycy9ncHUvZHJtL3IxMjgvcjEyOF9kcnYuaCBiL2RyaXZlcnMvZ3B1L2RybS9yMTI4L3Ix
+MjhfZHJ2LmgKaW5kZXggOGIyNTYxMjNjZjJiLi5jNGQwZTIxMjgwYjkgMTAwNjQ0Ci0tLSBhL2Ry
+aXZlcnMvZ3B1L2RybS9yMTI4L3IxMjhfZHJ2LmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL3IxMjgv
+cjEyOF9kcnYuaApAQCAtMjksNyArMjksNyBAQAogICogICAgUmlja2FyZCBFLiAoUmlrKSBGYWl0
+aCA8ZmFpdGhAdmFsaW51eC5jb20+CiAgKiAgICBLZXZpbiBFLiBNYXJ0aW4gPG1hcnRpbkB2YWxp
+bnV4LmNvbT4KICAqICAgIEdhcmV0aCBIdWdoZXMgPGdhcmV0aEB2YWxpbnV4LmNvbT4KLSAqICAg
+IE1pY2hlbCBE77+9emVyIDxkYWVuemVybUBzdHVkZW50LmV0aHouY2g+CisgKiAgICBNaWNoZWwg
+RMOkemVyIDxkYWVuemVybUBzdHVkZW50LmV0aHouY2g+CiAgKi8KIAogI2lmbmRlZiBfX1IxMjhf
+RFJWX0hfXwotLSAKMi4zMS4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
+ZngK
