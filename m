@@ -2,135 +2,138 @@ Return-Path: <SRS0=RLY9=KO=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-11.9 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MIME_HTML_MOSTLY,MSGID_FROM_MTA_HEADER,
+	NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E6CAFC43611
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 14:39:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 32A34C433B4
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 14:47:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AE28461244
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 14:39:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AE28461244
+	by mail.kernel.org (Postfix) with ESMTPS id EC16C60FDB
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 14:47:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EC16C60FDB
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 570DD6E1F2;
-	Wed, 19 May 2021 14:39:49 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam08on2071.outbound.protection.outlook.com [40.107.101.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 208BE6E1ED
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 May 2021 14:39:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7FFE76EDD7;
+	Wed, 19 May 2021 14:47:46 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam08on2048.outbound.protection.outlook.com [40.107.100.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A001D6EDD7
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 May 2021 14:47:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NScU90oB2uCcYilhftQzmWqn9+jCcKj6JC8LZ1sYHRpr8eeOR59fZEa2gSAYfyDE89DuFC9Z9o4CPyhfi+DZWWVworuYvJJfAHANFSR00O395Ktcp0z7TU2a12OFZywOVUnYD0YmFFXnIHOtXV9WfUqDc6Tp/a6Iy0Xt+Y5u6/nDOWCsV/9j4u2RvX/fWRaXYo1XrE12O+6TUBCgj0NM29vgyHPI4XizV0RNkGhCbiowgajOLWQW6viOlQB1JK6CQtxcBQNTsEvdCiKDXxeMg9ltJkntL6edb/WCzyaUrEeuhChHiZ8KtGX18W/msaPOptCJa2OfmlsP4+HFHzqarA==
+ b=G9ae2xnGAeNVpDkMcY+xVonxnHQOHvaWoRmJuhIARfzBWjCVjvpVOnPBy5bBP/TAK29ocXaIZ8vOd1j3Ej+kQdvZV1dv55ULT5dw8pqz0zSEP87bgwQD4+1xxiHopnDnP2SoXlRlMLLGvM9lFGXfv5KzOdOz6aNdWxDiBbpvj3EAg2IdkLA+95UahI3lJWdOXJlIXUr1mo5xcWJ/YbCgZclbxYXf38kj/WF2ECjfzivPQLoAf7fcD3N0IRvMjsGkm1GyCip8wyh/x0uA14kbsnEBnWX++KJWEsjSfEcCwsW9n1jhQGJvrfSBTHiZWqng2Ts8gztLXugy7emHnMXmYA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XmYj9sTF4cOJZ+vB5jQglS7Nm5WFtK605lX0k6ae8J0=;
- b=m2CiPMcpyppoFZ7Pmz3wGNci92Ns5RBZk2c99I7YBoL3OIgmjdDuprQWVPYx3InoiZ9RrBLt92gRiOmgpeoWezM+biaVRuZKI24PI1PJzvQhbBOSG8IEZOzU9miX8x/kJSzn2R/kFOOZHecoHj3XFKm4ck+ROGfKIruLMHY91EjYgHqVZmIqKzOzlu+8kiPHS6N0nW5t/z07zrto4I49xckXopUz0RBKosJWFBwvCC7V94z4JwLQembGbW7C5hYHjyxisGJ6zGEFFN9IvktoW7apOm827MtC1WlGn026oZuvHlqQwbtpPKDYVGGyK3T+A+7M5LSC2oNpDCZOlMxGaA==
+ bh=6mDZqQ7BOcWFWz/P4+9jDx2S3P7VAXDaSeZ0x1KSy0k=;
+ b=K4GYBSN5HJE7ZO6fIcLhtQPlQVutQ8onQgeMf9m/OEP259l8TRBJ78Qe/TG03dy7mLfe24DDip9RY0z4wQgjufcHsbIEfNcVxPhOTQ02h9zJHI4wRRXvZjFdrjU3gBDwtEXX13NIpRZZrevXk3Zwi4vL9+DCjFWtvC2+AB36MjMReSsDfKZE1w6pOlNxT71iasNiQe1D/+YOkzr+cPzmVVqIzYqH8Ff8mG+ft5HgsfxNIPCGCyRDu6G+forZBJjEvAHqkE8+bou/MzAhv2kYd/PTxxy8tx6MSz2pj3939bAT1DOasC8r+XhlKVzG4p6ASMkgVxP+IebHEamuwkrACg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XmYj9sTF4cOJZ+vB5jQglS7Nm5WFtK605lX0k6ae8J0=;
- b=FnAGpATG/7wTnL0HqNUKh3q3Dk3ZlGJNSGdie1R58Twr52oHwX2/s5hW/0nt/9VMMmT8L5OCVMkaXXOQ2cDAUHfZuIi9jhyfHv6JUCmXZ42p7m5xz+HW4W8WTIXM9HSh2inMvFA/KDbDB4gI727nRExVFbH6ZeVnqAYTrVQ7b5o=
-Received: from DM4PR12MB5072.namprd12.prod.outlook.com (2603:10b6:5:38b::22)
- by DM4PR12MB5310.namprd12.prod.outlook.com (2603:10b6:5:39e::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.26; Wed, 19 May
- 2021 14:39:46 +0000
-Received: from DM4PR12MB5072.namprd12.prod.outlook.com
- ([fe80::e0a9:c676:5e4b:64ec]) by DM4PR12MB5072.namprd12.prod.outlook.com
- ([fe80::e0a9:c676:5e4b:64ec%3]) with mapi id 15.20.4129.033; Wed, 19 May 2021
- 14:39:46 +0000
-From: "Chen, Horace" <Horace.Chen@amd.com>
-To: "Koenig, Christian" <Christian.Koenig@amd.com>, "Liu, Cheng Zhe"
- <ChengZhe.Liu@amd.com>, =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?=
- <ckoenig.leichtzumerken@gmail.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: =?utf-8?B?5Zue5aSNOiBbUEFUQ0hdIGRybS9hbWRncHU6IEluY3JlYXNlIHRsYiBmbHVz?=
- =?utf-8?Q?h_timeout_for_sriov?=
-Thread-Topic: [PATCH] drm/amdgpu: Increase tlb flush timeout for sriov
-Thread-Index: AQHXTJHba6nbglaPY06ekmeH2Kyd+qrqlK8AgAAO69CAAA0xAIAALMlX
-Date: Wed, 19 May 2021 14:39:46 +0000
-Message-ID: <DM4PR12MB507287194C10E15669DEBAEDE12B9@DM4PR12MB5072.namprd12.prod.outlook.com>
+ bh=6mDZqQ7BOcWFWz/P4+9jDx2S3P7VAXDaSeZ0x1KSy0k=;
+ b=y+3C1kcy+Op19zD4ZY1i0rcCPrqOmKqWIzsBZ4rHm+f9xi2SRWCRL+ux4Mkv7lVkhjXD0hcjWe9ZPGtRsI6BH4yQGKetfxkVBZZOBUAWQe76xfX/LBgBBIoDk3js/9w7Ysm8XmyxtJ0mQ5dTnH/GQHk4O/hLLDxKlUCvk4uLAOQ=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
+ by MN2PR12MB4096.namprd12.prod.outlook.com (2603:10b6:208:1dc::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.25; Wed, 19 May
+ 2021 14:47:41 +0000
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::6d4d:4674:1cf6:8d34]) by MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::6d4d:4674:1cf6:8d34%6]) with mapi id 15.20.4129.032; Wed, 19 May 2021
+ 14:47:41 +0000
+Subject: =?UTF-8?B?UmU6IOWbnuWkjTogW1BBVENIXSBkcm0vYW1kZ3B1OiBJbmNyZWFzZSB0?=
+ =?UTF-8?Q?lb_flush_timeout_for_sriov?=
+To: "Chen, Horace" <Horace.Chen@amd.com>,
+ "Liu, Cheng Zhe" <ChengZhe.Liu@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 References: <20210519093209.888377-1-ChengZhe.Liu@amd.com>
  <b9d6e51c-b172-9627-799f-937c3e94851a@gmail.com>
- <CO6PR12MB54592ED7CDBD40D670A80361932B9@CO6PR12MB5459.namprd12.prod.outlook.com>,
+ <CO6PR12MB54592ED7CDBD40D670A80361932B9@CO6PR12MB5459.namprd12.prod.outlook.com>
  <cd905238-aeb7-dd71-e1a7-2fd8d20a2474@amd.com>
-In-Reply-To: <cd905238-aeb7-dd71-e1a7-2fd8d20a2474@amd.com>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-05-19T14:40:17.985Z;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD-Official
- Use
- Only; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard; 
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [61.152.143.24]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: df269525-9f77-4641-8aa3-08d91ad3f2a0
-x-ms-traffictypediagnostic: DM4PR12MB5310:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM4PR12MB53102377224D419C30852EFBE12B9@DM4PR12MB5310.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:2201;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: kWs3TbszIte8nJ21n7SU76X6/MA/EkesVrwnE9oVxDQ8C/7YOcRGVq7VtHBZAGQ4IHa8/ZalgKvZ4KNzBAi45Vax0NB6y5yVf9JSmcgZovYohRfcX4P8JvGli2GytrYd0qcbGDYRCRZHY5AGbGVXDc7vWfjdnn831GyPjuOm7NdVfgxSj/yIHEqGwLFuwSrfhGXEW2WXaZkMGOlFKPThgQskn/Qz7q1VzkZBh2HxwyQZgTRXLIVfNdTiiYij38RWq1BdeB7giaMZI+SWnQjYbS/kEuLhZOji77SFYq2j9BHdFEE42kyZ8lRl3U2HMepuXSvT0stlpFoo/AogeMBn61wgeXRpky4skEQcgNkFrZQFAcjww31lzxwIWoiMyq3RYWIdrRsYT6STfaxFlQ0HMBWXJMqfzTJumnBnVlU/gHHgr1bS/GHwnnJ/UpYvhpnBQpyJ9u5JLS6hW1ZY9HNkO9PlpbUbJ8zPebUW8Q19Uhen6jZBlwk1PpGfL79CtoyiR3cMnWptbD9y3zfu0sGHBQdmU8vruUJE0TFBX287rf4WHb5h/qyP/u9cTCvsa7jPLIJL/8vC/PUooPY5x2IUR5SkgnFUtESKZOagDpkwUy4=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5072.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(39860400002)(136003)(396003)(346002)(366004)(7696005)(2906002)(478600001)(86362001)(4326008)(71200400001)(8936002)(54906003)(110136005)(5660300002)(52536014)(9686003)(186003)(91956017)(26005)(64756008)(66574015)(38100700002)(122000001)(6506007)(53546011)(33656002)(224303003)(316002)(19627405001)(66446008)(83380400001)(55016002)(66946007)(76116006)(66556008)(66476007);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?utf-8?B?SGxJbk9TVUZwdFBWTHZQUVU1d0VqV09zKzNTSThnM3E5Y1dpU3BjOFF6U2hs?=
- =?utf-8?B?R3BsbUJ1NmVpMlR0WjR5Z21mZnl4b081WTl3SUtvTGFxKzg1WVV5dDJFWS9y?=
- =?utf-8?B?b0djb2tPN2ZsK2tuNDNpcmNpUVM4NGhBOHFUVEM1TWJVcHF4RmFNdS92UFU0?=
- =?utf-8?B?cHBhQ0t4MXRrYmFoa0t3bFV4S2NxVzROaUlDdUZSVTFncDdSMFVJamt4TWJQ?=
- =?utf-8?B?Yi9yRDdjYzFEZmV6VTFDaWdaQUlwK1RuWHc5R2tRRFRNLzl6V3p6RGRGZUpO?=
- =?utf-8?B?bHVxTDA2b0ZqRGNoU2pVT0poczZRckt6Y0RzcTRzS0p5a3gyVlBJd0ZBRzIy?=
- =?utf-8?B?RGRoTlkzMXI2THF1cnQxZ3lQd2hFNUdOSXFKTVNjQjE4SVQ4ZFRmS2FYakYx?=
- =?utf-8?B?bXVmYzlaN1pXZDhuaFEyb1NweFZYcFdIckNSRHZ4eGMrRnlUVWlJclIwcG9v?=
- =?utf-8?B?RG5vWmJKNSsydkIvVGJhdk1nam9sd3M2aXFUa3Z6THhuM0ErbnV2NW1qOHRD?=
- =?utf-8?B?WHFzeXdSVFRaeU1JVjFrTUNTTUs5eTAwcVFncHliY01pb2xGUGF2SXlEa0dy?=
- =?utf-8?B?WTBBeVBROE4rd3d1U1B5TGtMRVBMT040NWxPU1UxZlNhNmt5YjUvVWFGY1B4?=
- =?utf-8?B?Z0VuVWxzbTk3UjJ3NTRlcVpSTVhIZ0tmdzRUNUJWVWo0c2syRFBNZnVwMnpP?=
- =?utf-8?B?V1ZSQVNlS1cwdTBCN2JWaEZudUN3RnExWW1VM3ZJU0JKM0Z4d1d6WTZoRDAx?=
- =?utf-8?B?eVJpVy9hZ2RrY0Q2SjF5SSt0NG41eHo1SWRmdkJFMFk4K1cwSlFFcFB5U01T?=
- =?utf-8?B?RUZhdFVUNGNtdnMrVUVTZlEvWk1XcGNQb0l5emtZOWZLWmZMSW94VnpFa3Na?=
- =?utf-8?B?eVJoL2xjbG5IbThJTkNBRjVJejNkUWo2VEVIV2l4Ym1pSFh3eGlaaVRacXdH?=
- =?utf-8?B?b1Y0Q0hqcHpHRXIrNUJIZFptcDc4SmdxMG9lSzM0TjdlNjhDTGNiUGZEeHpt?=
- =?utf-8?B?VlM2dEVhR0k1MnRJTG9ZMldkNEhYVmFiSEF1R1RYT2k5UzIyeEk3ejhsQU5H?=
- =?utf-8?B?R3VhcVhPaFpkMTRXZ05zOFpKdkxWUkFnaWcwS3pwbGxydk1HWCs1RkdwNklr?=
- =?utf-8?B?RXQ5RzBkQnFLNTRYWnRTYkJ2akJWM0JHcUJwMlZxS2J3NUhHakhtQy9sTUNF?=
- =?utf-8?B?clNUZDVwc3pVblVaMDN1bzhVVFdmR0k3QU9IcVd0MlI5NVN1Um9kTUNCbEZC?=
- =?utf-8?B?Zkp3aExPOU1rbXBpTjIrbk5FOGVLNUV2K0IzRDJlU1dCb1RnSGgweGRXc2RN?=
- =?utf-8?B?alhFTGJNOXFhVzEwNUJlR003MjQyTy9RS3g3ems1RC85ektLV0JPTllFTHhF?=
- =?utf-8?B?bURGa1o1RlNSS1lPV054NklIV3A4OXZqc3A4eVE0SHM3T1hhR2ZkUjFqU2dW?=
- =?utf-8?B?RlAzMTB2WnFCbUJxaXkzZDZ6WUtqV0tmd0hrRGZhS3VFR0VUcjZTT3hrMlRI?=
- =?utf-8?B?eXpxNnFOYzB4K0FyN0ovYmlYUHpObTYvZjNhSi9pWUEwQWVvTzlIWEYxUUx2?=
- =?utf-8?B?VG90TnJIc1VDQnAvbUo0WDJubFlDSkc4Vndya0NpMFFiY3pBcVVJT3pPcWJl?=
- =?utf-8?B?MWczUGtFM3A5cDZxNlE0V3dqbUhHQ1N4TXphOFVSK3NHazdxOHJOVFZuNnE1?=
- =?utf-8?B?cFlTaHRaT24zWTZpTmRTdWR6WUJsNzN4U21QQ0RFYS9yVXQ2Z2I0M0d1NWZp?=
- =?utf-8?Q?YdTny0jMZ4kvM0+XVw=3D?=
+ <DM4PR12MB507287194C10E15669DEBAEDE12B9@DM4PR12MB5072.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Message-ID: <7350e5e2-ab7f-5092-8b7b-f55aedef1e08@amd.com>
+Date: Wed, 19 May 2021 16:47:34 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
+In-Reply-To: <DM4PR12MB507287194C10E15669DEBAEDE12B9@DM4PR12MB5072.namprd12.prod.outlook.com>
+Content-Language: en-US
+X-Originating-IP: [2a02:908:1252:fb60:8e28:1d3:41f3:e15a]
+X-ClientProxiedBy: PR0P264CA0161.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:100:1b::29) To MN2PR12MB3775.namprd12.prod.outlook.com
+ (2603:10b6:208:159::19)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [IPv6:2a02:908:1252:fb60:8e28:1d3:41f3:e15a]
+ (2a02:908:1252:fb60:8e28:1d3:41f3:e15a) by
+ PR0P264CA0161.FRAP264.PROD.OUTLOOK.COM (2603:10a6:100:1b::29) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4129.32 via Frontend Transport; Wed, 19 May 2021 14:47:39 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 16efb1f5-68d4-46f2-ed6c-08d91ad50dad
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4096:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MN2PR12MB40962BE8A136678D9D472047832B9@MN2PR12MB4096.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2582;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: xJTcPx2OgyyxtJmVLwpW961SCRWi7DUG+BfjhS1hkrnYLiOVM76YMNIQPCVZHAGBra1vwD4BX5TCgIiHCiwB+DD34HB+GrdbgEyPk13FbmmTW02QnO0ftE9LFUuhWyImghuEZJm3twgvnurPxUCJAoQY4lJwTtU4KUuxOKdFrCTrp4RZhS0LSSADn/MME6eec13lj/oesaM71VjRTklu/gyj+yf0TLjmoFysIs2zPc8+h21CNfhOB5HE1HQJxpDT9+gfhyYRqPDRWo9RAIV0l39v47bgaiVi37CgLkzBOyEwYUYVdFAisWquESCP6/q6NLa+L5T+y3KGGo7/ro/wTozw/cJtetlJN52crhgxYu0kWLbG8yabSPCFpPeY0sZwgWi4AxesiJnqX9FvUn3cGPEkmYnwf+TXe7JyASLlV1M1nX22D02qUFBVw0uvoWoha+EB3kmoKGock3HmyKfhmRJfTuGF+/hGVQwYS+qIKYQR47yJejTf4HFSWEDwAVOWNILG8Yp2nlX7jeYcr/lCJ39yaPxtT8j+Wo0Mb6yKsUvaT6iguWzSaVdgjeiZMgw4IuCmAPb3osLnqAZtw37OsCUyz7o0qgm/xdDiHUy+dN+TlxSNUnmcTzrxjcDaJhL/IKLY1ggcvntarHkjgMTDEXtxC1SY2iP9rVLbWdgTIbpbboadmz8ygw3KZ+Y+zgSU
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(39860400002)(376002)(396003)(136003)(366004)(66556008)(66476007)(6486002)(30864003)(19627405001)(86362001)(66946007)(31696002)(224303003)(5660300002)(8936002)(83380400001)(66574015)(4326008)(6666004)(36756003)(31686004)(478600001)(38100700002)(2906002)(53546011)(33964004)(316002)(110136005)(54906003)(52116002)(186003)(2616005)(16526019)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?b25rNkdmdHg1czVyYTcwYXBUM1d4b04wS0hGcFRxUDlnbEdJcFgvcC9CRHRK?=
+ =?utf-8?B?eFlnTEYyOEk0ajRBaEcwWnZIYkdlQ3lDZGh2SVhSQWZuNmRMbUdCRVVIU1BQ?=
+ =?utf-8?B?WkpWQ2d4TW83YmhNZjVkdkpJQVllWDNJcXVEckdoOS9ud3R6TkNlZmpISnZU?=
+ =?utf-8?B?VCtXaU9YYm5WaWpOM1E2aFpPbGdmOHI1a0J6OGF2TURYVDJIL09YMEZUZ1VO?=
+ =?utf-8?B?UHZtRHhRcHkrUzBLRjdtRHdpZktmN1B2ZVEzZHBvNGFTZTlWYW5mSTVoZjJP?=
+ =?utf-8?B?M0l1RFFNSDBUbm0wRElKbXA5UDF5M3U4aXBhUk5iZlpQYlN5L0F6cGQydWox?=
+ =?utf-8?B?R2tIWUh2VVVXYVpoNTVtU2pBa1ZQaWdiQ0RFa0NCU0ZBUzhic3JMTmpVM3FL?=
+ =?utf-8?B?aUFOc1ZiTCtkTkxQb1F4Qk5DUmNBOTRPYVBST1RaR3ZaVTBDV0o2am9RaVhu?=
+ =?utf-8?B?U1krS1RidVE4VWhSMVgxSkI1eENZeUVvTERwRXdWMGp5M3E0dHlwUkM5Tm80?=
+ =?utf-8?B?dkJ6ZmdUWFFKVkRsallPQnFvQ0FoMXJ2d1ByL1M2SW84aW9CWmlBODJFc1B4?=
+ =?utf-8?B?QTNNeHdLQnBZM2NMSDdQL1NEZkphcGFMUHJnNHNFYUtNNmIwU2JzZGRuT0di?=
+ =?utf-8?B?QUxpR1NJaUpIbWJBVWZab2NGNlFDOHNMSWZIdW1zaWxSSGFrTmN3bFJYRkdG?=
+ =?utf-8?B?a08rN0lDWU9IUkNrd2NYRzY2VVVQazdHdUZFeGFLTzBjalQ1M2IreU9hU0tJ?=
+ =?utf-8?B?b2Zia215Y3YxR1ZPeHNqWCtSVCtPS2FFZHR1TFVBRXdIVWtuVmZDMk5kZWlQ?=
+ =?utf-8?B?em03eWxQZmVET1p1ckVidzRiQzdBQlJ2dW1oOGhudTBTdERBTHVFQUd3c1Zj?=
+ =?utf-8?B?d3d2MUxkMzVLdmI3d1k5cENUSFJSSGZmUTh3eU9QVWJsYWZuZGdmMlh3MUhu?=
+ =?utf-8?B?Qi9sditVUG5WRTkySXQ1K2Q2bTU0VVFLak51VG1YOGRzTjFSYUg0MklmUnpV?=
+ =?utf-8?B?R2dMUHJuUjFQNjErbk0vSEZPQVdyL0ljeWMwQ1N4SUliMHp5WkhwT2JLOXZy?=
+ =?utf-8?B?MU94L21pUGI5VGdIY1Z5MHNGMW9LRGduQ2lXWkwwcDdlYzNBdzFmYlhxcEU4?=
+ =?utf-8?B?RkJSQndEMERRem1iT2Rqc3pTTkJpV0I2TzljbkZ6WjJ2MngwdzVzY3VmUVZt?=
+ =?utf-8?B?UVRCQUxBdmtmM29MUDJvMFVoR3NLckFJaGphOElmYml3cmpMa01lbnN4NUk1?=
+ =?utf-8?B?WDc1NnA3WGt4OSszTnpqdHduRFgrWG85STRpeVdteGhiZ1E1M2xTQnRmZXV3?=
+ =?utf-8?B?STZYNVlpQ3Z2RTFCTnE1NVdTOHZuNHNQVlVxN0R5dXI1eHpBWTlqZWtZOUFT?=
+ =?utf-8?B?ZStoWFZQelBiY0hvWWNGNHd3Ui9QaTNCSFYyWGEvRE90ZGNPcG5Yb2p6bzl1?=
+ =?utf-8?B?elVBZUdjTXpUclRackFuZUJZZHo4b1pZK3d2czNkR2VpdzVCLzFxN3NZZWlR?=
+ =?utf-8?B?Wkc5bzNYUnRwRjhSdU1EaSsrWkc3OHYzMkYyUS9UUVVFbzlyMU9MYWdYVDN0?=
+ =?utf-8?B?ZUltd0RDbDE0aVNqeHIwR3JCanBGVmZ4QUN5Z1VlR0JRWFJIRG5KTTl0aUtP?=
+ =?utf-8?B?SWVuRHp2aWVnSEN5RldOaXUzV1JqMVVBYTJ3Z2NwU0JhVnZZQi96NmpTRTlT?=
+ =?utf-8?B?ZGswWlRpUnA2V2tkQktQTSt0OVdVblA3NVRaTGxjZ0VVRTczZlNnSkhrN2Y2?=
+ =?utf-8?B?OVpyMmcwcGljNEhDRVRUVWRPN2pTYXkvQUxMU3pIYVk2L2N4bTBHRGdCNGY5?=
+ =?utf-8?B?S3UyMHNKVDlOdlhxaDlaWFZad21veFoyYjBRVmZhUGZrVEdYQUpWMFRVem9o?=
+ =?utf-8?Q?Db2O1UK/A+fJk?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 16efb1f5-68d4-46f2-ed6c-08d91ad50dad
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5072.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: df269525-9f77-4641-8aa3-08d91ad3f2a0
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 May 2021 14:39:46.0207 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: MsTQdKuR2CYOOK7qEt1q3ClUGAbw9r7gF2SpL//uY/nWG1LmTPnzh7LxPe8ea/Yu
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5310
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2021 14:47:41.1863 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: fv3zV8fesfUtmmkN3bMA//OTkwHlCLlzsMXr3Iqw4qxRcqSZkERWmO7a8zhCsVEH
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4096
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,303 +145,432 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Xiao, Jack" <Jack.Xiao@amd.com>, "Xu, Feifei" <Feifei.Xu@amd.com>, "Wang, 
- Kevin\(Yang\)" <Kevin1.Wang@amd.com>, "Tuikov,
- Luben" <Luben.Tuikov@amd.com>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Zhang,
+Cc: "Xiao, Jack" <Jack.Xiao@amd.com>, "Xu, Feifei" <Feifei.Xu@amd.com>, "Wang,
+ Kevin\(Yang\)" <Kevin1.Wang@amd.com>, "Tuikov, Luben" <Luben.Tuikov@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang,
  Hawking" <Hawking.Zhang@amd.com>
-Content-Type: multipart/mixed; boundary="===============0868441575=="
+Content-Type: multipart/mixed; boundary="===============2117273625=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0868441575==
-Content-Language: zh-CN
+--===============2117273625==
 Content-Type: multipart/alternative;
-	boundary="_000_DM4PR12MB507287194C10E15669DEBAEDE12B9DM4PR12MB5072namp_"
+ boundary="------------630B88129A106CEEE9DBADA2"
+Content-Language: en-US
 
---_000_DM4PR12MB507287194C10E15669DEBAEDE12B9DM4PR12MB5072namp_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+--------------630B88129A106CEEE9DBADA2
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seV0NCg0KSGkgQ2hyaXN0aWFuLA0KDQpJIHRoaW5rIHRoZSBw
-cm9ibGVtIGlzIHRoYXQgYSBub24tRkxSZWQgVkYgd2lsbCBub3Qga25vdyB0aGF0IGFub3RoZXIg
-VkYgZ290IGFuIEZMUiwgdW5sZXNzIGhvc3QgdHJpZ2dlcmVkIGEgd2hvbGUgR1BVIHJlc2V0Lg0K
-U28gaW4gdGhlIHdvcnN0IHNpdHVhdGlvbiwgZm9yIGV4YW1wbGUgdGhlIFZGMCB0byBWRjEwIGFy
-ZSBhbGwgaGFuZyBhbmQgd2lsbCBiZSBGTFJlZCBvbmUgYnkgb25lLCB0aGUgVkYxMSB3aWxsIG5v
-dCBrbm93IHRoYXQgdGhlcmUgYXJlIEZMUnMgaGFwcGVuZWQsIGluIFZGMTEncyBwcmVzcGVjdGl2
-ZSwgaXQganVzdCBzZWUgdGhlIGZlbmNlIGRpZG4ndCBjb21lIGJhY2sgZm9yIGFib3V0IDUuNSgw
-LjUqMTEpIHNlY29uZHMuDQoNClRoYW5rcyAmIFJlZ2FyZHMsDQpIb3JhY2UuDQoNCl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fDQrlj5Hku7bkuro6IEtvZW5pZywgQ2hyaXN0aWFuIDxD
-aHJpc3RpYW4uS29lbmlnQGFtZC5jb20+DQrlj5HpgIHml7bpl7Q6IDIwMjHlubQ15pyIMTnml6Ug
-MTk6NDkNCuaUtuS7tuS6ujogTGl1LCBDaGVuZyBaaGUgPENoZW5nWmhlLkxpdUBhbWQuY29tPjsg
-Q2hyaXN0aWFuIEvDtm5pZyA8Y2tvZW5pZy5sZWljaHR6dW1lcmtlbkBnbWFpbC5jb20+OyBhbWQt
-Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZyA8YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+
-DQrmioTpgIE6IFhpYW8sIEphY2sgPEphY2suWGlhb0BhbWQuY29tPjsgWHUsIEZlaWZlaSA8RmVp
-ZmVpLlh1QGFtZC5jb20+OyBXYW5nLCBLZXZpbihZYW5nKSA8S2V2aW4xLldhbmdAYW1kLmNvbT47
-IFR1aWtvdiwgTHViZW4gPEx1YmVuLlR1aWtvdkBhbWQuY29tPjsgRGV1Y2hlciwgQWxleGFuZGVy
-IDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPjsgWmhhbmcsIEhhd2tpbmcgPEhhd2tpbmcuWmhh
-bmdAYW1kLmNvbT47IENoZW4sIEhvcmFjZSA8SG9yYWNlLkNoZW5AYW1kLmNvbT4NCuS4u+mimDog
-UmU6IFtQQVRDSF0gZHJtL2FtZGdwdTogSW5jcmVhc2UgdGxiIGZsdXNoIHRpbWVvdXQgZm9yIHNy
-aW92DQoNClllYWgsIGJ1dCB5b3UgY2FuJ3QgZG8gdGhhdCBpdCB3aWxsIHByb2JhYmx5IHRyaWdn
-ZXIgdGhlIHdhdGNoZG9nIHRpbWVyLg0KDQpUaGUgdXNlY190aW1lb3V0IGlzIG5hbWVkIHRoaXMg
-d2F5IGJlY2F1c2UgaXQgaXMgYSB1c2VjIHRpbWVvdXQuDQpBbnl0aGluZyBsYXJnZSB0aGFuIDFt
-cyBpcyBhIG5vLWdvIGhlcmUuDQoNCldoZW4gdGhlIG90aGVyIGluc3RhbmNlcyBkbyBhIEZMUiB3
-ZSBkb24ndCByZWFsbHkgbmVlZCB0byB3YWl0IGZvciB0aGUNClRMQiBmbHVzaCBhbnl3YXkgc2lu
-Y2UgYW55IEZMUiB3aWxsIGtpbGwgdGhhdC4NCg0KQ2hyaXN0aWFuLg0KDQpBbSAxOS4wNS4yMSB1
-bSAxMzowOCBzY2hyaWViIExpdSwgQ2hlbmcgWmhlOg0KPiBbQU1EIE9mZmljaWFsIFVzZSBPbmx5
-XQ0KPg0KPiBXZSBzdXBwb3J0IDEyIFZGIGF0IG1vc3QuIEluIHdvcnN0IGNhc2UsIHRoZSBmaXJz
-dCAxMSBhbGwgSURMRSBmYWlsIGFuZCBkbyBGTFIsIGl0IHdpbGwgbmVlZCAxMSAqIDUwMG1zIHRv
-IHN3aXRjaCB0byB0aGUgMTJuZCBWRiwNCj4gc28gSSBzZXQgMTIgKiA1MDBtcyAgZm9yIHRoZSB0
-aW1lb3V0Lg0KPg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBDaHJpc3Rp
-YW4gS8O2bmlnIDxja29lbmlnLmxlaWNodHp1bWVya2VuQGdtYWlsLmNvbT4NCj4gU2VudDogV2Vk
-bmVzZGF5LCBNYXkgMTksIDIwMjEgNjowOCBQTQ0KPiBUbzogTGl1LCBDaGVuZyBaaGUgPENoZW5n
-WmhlLkxpdUBhbWQuY29tPjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gQ2M6IFhp
-YW8sIEphY2sgPEphY2suWGlhb0BhbWQuY29tPjsgWHUsIEZlaWZlaSA8RmVpZmVpLlh1QGFtZC5j
-b20+OyBXYW5nLCBLZXZpbihZYW5nKSA8S2V2aW4xLldhbmdAYW1kLmNvbT47IFR1aWtvdiwgTHVi
-ZW4gPEx1YmVuLlR1aWtvdkBhbWQuY29tPjsgRGV1Y2hlciwgQWxleGFuZGVyIDxBbGV4YW5kZXIu
-RGV1Y2hlckBhbWQuY29tPjsgS29lbmlnLCBDaHJpc3RpYW4gPENocmlzdGlhbi5Lb2VuaWdAYW1k
-LmNvbT47IFpoYW5nLCBIYXdraW5nIDxIYXdraW5nLlpoYW5nQGFtZC5jb20+DQo+IFN1YmplY3Q6
-IFJlOiBbUEFUQ0hdIGRybS9hbWRncHU6IEluY3JlYXNlIHRsYiBmbHVzaCB0aW1lb3V0IGZvciBz
-cmlvdg0KPg0KPiBBbSAxOS4wNS4yMSB1bSAxMTozMiBzY2hyaWViIENoZW5nemhlIExpdToNCj4+
-IFdoZW4gdGhlcmUgaXMgMTIgVkYsIHdlIG5lZWQgdG8gaW5jcmVhc2UgdGhlIHRpbWVvdXQNCj4g
-TkFLLCA2IHNlY29uZHMgaXMgd2F5IHRvIGxvbmcgdG8gd2FpdCBwb2xsaW5nIG9uIGEgZmVuY2Uu
-DQo+DQo+IFdoeSBzaG91bGQgYW4gaW52YWxpZGF0aW9uIHRha2UgdGhhdCBsb25nPyBUaGUgZW5n
-aW5lIGFyZSBwZXIgVkYganVzdCB0byBhdm9pZCBleGFjdGx5IHRoYXQgcHJvYmxlbS4NCj4NCj4g
-Q2hyaXN0aWFuLg0KPg0KPj4gU2lnbmVkLW9mZi1ieTogQ2hlbmd6aGUgTGl1IDxDaGVuZ1poZS5M
-aXVAYW1kLmNvbT4NCj4+IC0tLQ0KPj4gICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21j
-X3YxMF8wLmMgfCA2ICsrKysrLQ0KPj4gICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21j
-X3Y5XzAuYyAgfCA2ICsrKysrLQ0KPj4gICAgMiBmaWxlcyBjaGFuZ2VkLCAxMCBpbnNlcnRpb25z
-KCspLCAyIGRlbGV0aW9ucygtKQ0KPj4NCj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9nbWNfdjEwXzAuYw0KPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9n
-bWNfdjEwXzAuYw0KPj4gaW5kZXggZjAyZGM5MDRlNGNmLi5hNWYwMDVjNWQwZWMgMTAwNjQ0DQo+
-PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjEwXzAuYw0KPj4gKysrIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3YxMF8wLmMNCj4+IEBAIC00MDQsNiArNDA0
-LDcgQEAgc3RhdGljIGludCBnbWNfdjEwXzBfZmx1c2hfZ3B1X3RsYl9wYXNpZChzdHJ1Y3QgYW1k
-Z3B1X2RldmljZSAqYWRldiwNCj4+ICAgICAgIHVpbnQzMl90IHNlcTsNCj4+ICAgICAgIHVpbnQx
-Nl90IHF1ZXJpZWRfcGFzaWQ7DQo+PiAgICAgICBib29sIHJldDsNCj4+ICsgICAgdWludDMyX3Qg
-c3Jpb3ZfdXNlY190aW1lb3V0ID0gNjAwMDAwMDsgIC8qIHdhaXQgZm9yIDEyICogNTAwbXMgZm9y
-DQo+PiArU1JJT1YgKi8NCj4+ICAgICAgIHN0cnVjdCBhbWRncHVfcmluZyAqcmluZyA9ICZhZGV2
-LT5nZngua2lxLnJpbmc7DQo+PiAgICAgICBzdHJ1Y3QgYW1kZ3B1X2tpcSAqa2lxID0gJmFkZXYt
-PmdmeC5raXE7DQo+Pg0KPj4gQEAgLTQyMiw3ICs0MjMsMTAgQEAgc3RhdGljIGludCBnbWNfdjEw
-XzBfZmx1c2hfZ3B1X3RsYl9wYXNpZChzdHJ1Y3QNCj4+IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQo+
-Pg0KPj4gICAgICAgICAgICAgICBhbWRncHVfcmluZ19jb21taXQocmluZyk7DQo+PiAgICAgICAg
-ICAgICAgIHNwaW5fdW5sb2NrKCZhZGV2LT5nZngua2lxLnJpbmdfbG9jayk7DQo+PiAtICAgICAg
-ICAgICAgciA9IGFtZGdwdV9mZW5jZV93YWl0X3BvbGxpbmcocmluZywgc2VxLCBhZGV2LT51c2Vj
-X3RpbWVvdXQpOw0KPj4gKyAgICAgICAgICAgIGlmIChhbWRncHVfc3Jpb3ZfdmYoYWRldikpDQo+
-PiArICAgICAgICAgICAgICAgICAgICByID0gYW1kZ3B1X2ZlbmNlX3dhaXRfcG9sbGluZyhyaW5n
-LCBzZXEsIHNyaW92X3VzZWNfdGltZW91dCk7DQo+PiArICAgICAgICAgICAgZWxzZQ0KPj4gKyAg
-ICAgICAgICAgICAgICAgICAgciA9IGFtZGdwdV9mZW5jZV93YWl0X3BvbGxpbmcocmluZywgc2Vx
-LCBhZGV2LT51c2VjX3RpbWVvdXQpOw0KPj4gICAgICAgICAgICAgICBpZiAociA8IDEpIHsNCj4+
-ICAgICAgICAgICAgICAgICAgICAgICBkZXZfZXJyKGFkZXYtPmRldiwgIndhaXQgZm9yIGtpcSBm
-ZW5jZSBlcnJvcjogJWxkLlxuIiwgcik7DQo+PiAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJu
-IC1FVElNRTsNCj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNf
-djlfMC5jDQo+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMNCj4+IGlu
-ZGV4IGNlYjM5NjhkODMyNi4uZTRhMThkOGY3NWMyIDEwMDY0NA0KPj4gLS0tIGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYw0KPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvZ21jX3Y5XzAuYw0KPj4gQEAgLTg1Nyw2ICs4NTcsNyBAQCBzdGF0aWMgaW50IGdt
-Y192OV8wX2ZsdXNoX2dwdV90bGJfcGFzaWQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQo+
-PiAgICAgICB1aW50MzJfdCBzZXE7DQo+PiAgICAgICB1aW50MTZfdCBxdWVyaWVkX3Bhc2lkOw0K
-Pj4gICAgICAgYm9vbCByZXQ7DQo+PiArICAgIHVpbnQzMl90IHNyaW92X3VzZWNfdGltZW91dCA9
-IDYwMDAwMDA7ICAvKiB3YWl0IGZvciAxMiAqIDUwMG1zIGZvcg0KPj4gK1NSSU9WICovDQo+PiAg
-ICAgICBzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcgPSAmYWRldi0+Z2Z4LmtpcS5yaW5nOw0KPj4g
-ICAgICAgc3RydWN0IGFtZGdwdV9raXEgKmtpcSA9ICZhZGV2LT5nZngua2lxOw0KPj4NCj4+IEBA
-IC04OTYsNyArODk3LDEwIEBAIHN0YXRpYyBpbnQgZ21jX3Y5XzBfZmx1c2hfZ3B1X3RsYl9wYXNp
-ZChzdHJ1Y3QNCj4+IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQo+Pg0KPj4gICAgICAgICAgICAgICBh
-bWRncHVfcmluZ19jb21taXQocmluZyk7DQo+PiAgICAgICAgICAgICAgIHNwaW5fdW5sb2NrKCZh
-ZGV2LT5nZngua2lxLnJpbmdfbG9jayk7DQo+PiAtICAgICAgICAgICAgciA9IGFtZGdwdV9mZW5j
-ZV93YWl0X3BvbGxpbmcocmluZywgc2VxLCBhZGV2LT51c2VjX3RpbWVvdXQpOw0KPj4gKyAgICAg
-ICAgICAgIGlmIChhbWRncHVfc3Jpb3ZfdmYoYWRldikpDQo+PiArICAgICAgICAgICAgICAgICAg
-ICByID0gYW1kZ3B1X2ZlbmNlX3dhaXRfcG9sbGluZyhyaW5nLCBzZXEsIHNyaW92X3VzZWNfdGlt
-ZW91dCk7DQo+PiArICAgICAgICAgICAgZWxzZQ0KPj4gKyAgICAgICAgICAgICAgICAgICAgciA9
-IGFtZGdwdV9mZW5jZV93YWl0X3BvbGxpbmcocmluZywgc2VxLCBhZGV2LT51c2VjX3RpbWVvdXQp
-Ow0KPj4gICAgICAgICAgICAgICBpZiAociA8IDEpIHsNCj4+ICAgICAgICAgICAgICAgICAgICAg
-ICBkZXZfZXJyKGFkZXYtPmRldiwgIndhaXQgZm9yIGtpcSBmZW5jZSBlcnJvcjogJWxkLlxuIiwg
-cik7DQo+PiAgICAgICAgICAgICAgICAgICAgICAgdXBfcmVhZCgmYWRldi0+cmVzZXRfc2VtKTsN
-Cg0K
+Hi Horace,
 
---_000_DM4PR12MB507287194C10E15669DEBAEDE12B9DM4PR12MB5072namp_
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: base64
+that is correct, but also completely irrelevant.
 
-PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
-dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyIgc3R5bGU9
-ImRpc3BsYXk6bm9uZTsiPiBQIHttYXJnaW4tdG9wOjA7bWFyZ2luLWJvdHRvbTowO30gPC9zdHls
-ZT4NCjwvaGVhZD4NCjxib2R5IGRpcj0ibHRyIj4NCjxwIHN0eWxlPSJmb250LWZhbWlseTpBcmlh
-bDtmb250LXNpemU6MTBwdDtjb2xvcjojMDAwMEZGO21hcmdpbjoxNXB0OyIgYWxpZ249IkxlZnQi
-Pg0KW0FNRCBPZmZpY2lhbCBVc2UgT25seV08YnI+DQo8L3A+DQo8YnI+DQo8ZGl2Pg0KPGRpdiBz
-dHlsZT0iZm9udC1mYW1pbHk6IENhbGlicmksIEFyaWFsLCBIZWx2ZXRpY2EsIHNhbnMtc2VyaWY7
-IGZvbnQtc2l6ZTogMTJwdDsgY29sb3I6IHJnYigwLCAwLCAwKTsiPg0KSGkgQ2hyaXN0aWFuLDwv
-ZGl2Pg0KPGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IENhbGlicmksIEFyaWFsLCBIZWx2ZXRpY2Es
-IHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTJwdDsgY29sb3I6IHJnYigwLCAwLCAwKTsiPg0KPGJy
-Pg0KPC9kaXY+DQo8ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQ2FsaWJyaSwgQXJpYWwsIEhlbHZl
-dGljYSwgc2Fucy1zZXJpZjsgZm9udC1zaXplOiAxMnB0OyBjb2xvcjogcmdiKDAsIDAsIDApOyI+
-DQpJIHRoaW5rIHRoZSBwcm9ibGVtIGlzIHRoYXQgYSBub24tRkxSZWQgVkYgd2lsbCBub3Qga25v
-dyB0aGF0IGFub3RoZXIgVkYgZ290IGFuIEZMUiwgdW5sZXNzIGhvc3QgdHJpZ2dlcmVkIGEgd2hv
-bGUgR1BVIHJlc2V0Lg0KPGJyPg0KPC9kaXY+DQo8ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQ2Fs
-aWJyaSwgQXJpYWwsIEhlbHZldGljYSwgc2Fucy1zZXJpZjsgZm9udC1zaXplOiAxMnB0OyBjb2xv
-cjogcmdiKDAsIDAsIDApOyI+DQpTbyBpbiB0aGUgd29yc3Qgc2l0dWF0aW9uLCBmb3IgZXhhbXBs
-ZSB0aGUgVkYwIHRvIFZGMTAgYXJlIGFsbCBoYW5nIGFuZCB3aWxsIGJlIEZMUmVkIG9uZSBieSBv
-bmUsIHRoZSBWRjExIHdpbGwgbm90IGtub3cgdGhhdCB0aGVyZSBhcmUgRkxScyBoYXBwZW5lZCwg
-aW4gVkYxMSdzIHByZXNwZWN0aXZlLCBpdCBqdXN0IHNlZSB0aGUgZmVuY2UgZGlkbid0IGNvbWUg
-YmFjayBmb3IgYWJvdXQgNS41KDAuNSoxMSkgc2Vjb25kcy48L2Rpdj4NCjxkaXYgc3R5bGU9ImZv
-bnQtZmFtaWx5OiBDYWxpYnJpLCBBcmlhbCwgSGVsdmV0aWNhLCBzYW5zLXNlcmlmOyBmb250LXNp
-emU6IDEycHQ7IGNvbG9yOiByZ2IoMCwgMCwgMCk7Ij4NCjxicj4NCjwvZGl2Pg0KPGRpdiBzdHls
-ZT0iZm9udC1mYW1pbHk6IENhbGlicmksIEFyaWFsLCBIZWx2ZXRpY2EsIHNhbnMtc2VyaWY7IGZv
-bnQtc2l6ZTogMTJwdDsgY29sb3I6IHJnYigwLCAwLCAwKTsiPg0KVGhhbmtzICZhbXA7IFJlZ2Fy
-ZHMsPC9kaXY+DQo8ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQ2FsaWJyaSwgQXJpYWwsIEhlbHZl
-dGljYSwgc2Fucy1zZXJpZjsgZm9udC1zaXplOiAxMnB0OyBjb2xvcjogcmdiKDAsIDAsIDApOyI+
-DQpIb3JhY2UuPGJyPg0KPC9kaXY+DQo8ZGl2Pg0KPGRpdiBpZD0iYXBwZW5kb25zZW5kIj48YnI+
-DQo8L2Rpdj4NCjxociB0YWJpbmRleD0iLTEiIHN0eWxlPSJkaXNwbGF5OmlubGluZS1ibG9jazsg
-d2lkdGg6OTglIj4NCjxkaXYgaWQ9ImRpdlJwbHlGd2RNc2ciIGRpcj0ibHRyIj48Zm9udCBzdHls
-ZT0iZm9udC1zaXplOjExcHQiIGZhY2U9IkNhbGlicmksIHNhbnMtc2VyaWYiIGNvbG9yPSIjMDAw
-MDAwIj48Yj7lj5Hku7bkuro6PC9iPiBLb2VuaWcsIENocmlzdGlhbiAmbHQ7Q2hyaXN0aWFuLktv
-ZW5pZ0BhbWQuY29tJmd0Ozxicj4NCjxiPuWPkemAgeaXtumXtDo8L2I+IDIwMjHlubQ15pyIMTnm
-l6UgMTk6NDk8YnI+DQo8Yj7mlLbku7bkuro6PC9iPiBMaXUsIENoZW5nIFpoZSAmbHQ7Q2hlbmda
-aGUuTGl1QGFtZC5jb20mZ3Q7OyBDaHJpc3RpYW4gS8O2bmlnICZsdDtja29lbmlnLmxlaWNodHp1
-bWVya2VuQGdtYWlsLmNvbSZndDs7IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnICZsdDth
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZyZndDs8YnI+DQo8Yj7mioTpgIE6PC9iPiBYaWFv
-LCBKYWNrICZsdDtKYWNrLlhpYW9AYW1kLmNvbSZndDs7IFh1LCBGZWlmZWkgJmx0O0ZlaWZlaS5Y
-dUBhbWQuY29tJmd0OzsgV2FuZywgS2V2aW4oWWFuZykgJmx0O0tldmluMS5XYW5nQGFtZC5jb20m
-Z3Q7OyBUdWlrb3YsIEx1YmVuICZsdDtMdWJlbi5UdWlrb3ZAYW1kLmNvbSZndDs7IERldWNoZXIs
-IEFsZXhhbmRlciAmbHQ7QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbSZndDs7IFpoYW5nLCBIYXdr
-aW5nICZsdDtIYXdraW5nLlpoYW5nQGFtZC5jb20mZ3Q7OyBDaGVuLCBIb3JhY2UgJmx0O0hvcmFj
-ZS5DaGVuQGFtZC5jb20mZ3Q7PGJyPg0KPGI+5Li76aKYOjwvYj4gUmU6IFtQQVRDSF0gZHJtL2Ft
-ZGdwdTogSW5jcmVhc2UgdGxiIGZsdXNoIHRpbWVvdXQgZm9yIHNyaW92PC9mb250Pg0KPGRpdj4m
-bmJzcDs8L2Rpdj4NCjwvZGl2Pg0KPGRpdiBjbGFzcz0iQm9keUZyYWdtZW50Ij48Zm9udCBzaXpl
-PSIyIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExcHQiPg0KPGRpdiBjbGFzcz0iUGxhaW5UZXh0
-Ij5ZZWFoLCBidXQgeW91IGNhbid0IGRvIHRoYXQgaXQgd2lsbCBwcm9iYWJseSB0cmlnZ2VyIHRo
-ZSB3YXRjaGRvZyB0aW1lci48YnI+DQo8YnI+DQpUaGUgdXNlY190aW1lb3V0IGlzIG5hbWVkIHRo
-aXMgd2F5IGJlY2F1c2UgaXQgaXMgYSB1c2VjIHRpbWVvdXQuIDxicj4NCkFueXRoaW5nIGxhcmdl
-IHRoYW4gMW1zIGlzIGEgbm8tZ28gaGVyZS48YnI+DQo8YnI+DQpXaGVuIHRoZSBvdGhlciBpbnN0
-YW5jZXMgZG8gYSBGTFIgd2UgZG9uJ3QgcmVhbGx5IG5lZWQgdG8gd2FpdCBmb3IgdGhlIDxicj4N
-ClRMQiBmbHVzaCBhbnl3YXkgc2luY2UgYW55IEZMUiB3aWxsIGtpbGwgdGhhdC48YnI+DQo8YnI+
-DQpDaHJpc3RpYW4uPGJyPg0KPGJyPg0KQW0gMTkuMDUuMjEgdW0gMTM6MDggc2NocmllYiBMaXUs
-IENoZW5nIFpoZTo8YnI+DQomZ3Q7IFtBTUQgT2ZmaWNpYWwgVXNlIE9ubHldPGJyPg0KJmd0Ozxi
-cj4NCiZndDsgV2Ugc3VwcG9ydCAxMiBWRiBhdCBtb3N0LiBJbiB3b3JzdCBjYXNlLCB0aGUgZmly
-c3QgMTEgYWxsIElETEUgZmFpbCBhbmQgZG8gRkxSLCBpdCB3aWxsIG5lZWQgMTEgKiA1MDBtcyB0
-byBzd2l0Y2ggdG8gdGhlIDEybmQgVkYsPGJyPg0KJmd0OyBzbyBJIHNldCAxMiAqIDUwMG1zJm5i
-c3A7IGZvciB0aGUgdGltZW91dC48YnI+DQomZ3Q7PGJyPg0KJmd0OyAtLS0tLU9yaWdpbmFsIE1l
-c3NhZ2UtLS0tLTxicj4NCiZndDsgRnJvbTogQ2hyaXN0aWFuIEvDtm5pZyAmbHQ7Y2tvZW5pZy5s
-ZWljaHR6dW1lcmtlbkBnbWFpbC5jb20mZ3Q7PGJyPg0KJmd0OyBTZW50OiBXZWRuZXNkYXksIE1h
-eSAxOSwgMjAyMSA2OjA4IFBNPGJyPg0KJmd0OyBUbzogTGl1LCBDaGVuZyBaaGUgJmx0O0NoZW5n
-WmhlLkxpdUBhbWQuY29tJmd0OzsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc8YnI+DQom
-Z3Q7IENjOiBYaWFvLCBKYWNrICZsdDtKYWNrLlhpYW9AYW1kLmNvbSZndDs7IFh1LCBGZWlmZWkg
-Jmx0O0ZlaWZlaS5YdUBhbWQuY29tJmd0OzsgV2FuZywgS2V2aW4oWWFuZykgJmx0O0tldmluMS5X
-YW5nQGFtZC5jb20mZ3Q7OyBUdWlrb3YsIEx1YmVuICZsdDtMdWJlbi5UdWlrb3ZAYW1kLmNvbSZn
-dDs7IERldWNoZXIsIEFsZXhhbmRlciAmbHQ7QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbSZndDs7
-IEtvZW5pZywgQ2hyaXN0aWFuICZsdDtDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20mZ3Q7OyBaaGFu
-ZywgSGF3a2luZw0KICZsdDtIYXdraW5nLlpoYW5nQGFtZC5jb20mZ3Q7PGJyPg0KJmd0OyBTdWJq
-ZWN0OiBSZTogW1BBVENIXSBkcm0vYW1kZ3B1OiBJbmNyZWFzZSB0bGIgZmx1c2ggdGltZW91dCBm
-b3Igc3Jpb3Y8YnI+DQomZ3Q7PGJyPg0KJmd0OyBBbSAxOS4wNS4yMSB1bSAxMTozMiBzY2hyaWVi
-IENoZW5nemhlIExpdTo8YnI+DQomZ3Q7Jmd0OyBXaGVuIHRoZXJlIGlzIDEyIFZGLCB3ZSBuZWVk
-IHRvIGluY3JlYXNlIHRoZSB0aW1lb3V0PGJyPg0KJmd0OyBOQUssIDYgc2Vjb25kcyBpcyB3YXkg
-dG8gbG9uZyB0byB3YWl0IHBvbGxpbmcgb24gYSBmZW5jZS48YnI+DQomZ3Q7PGJyPg0KJmd0OyBX
-aHkgc2hvdWxkIGFuIGludmFsaWRhdGlvbiB0YWtlIHRoYXQgbG9uZz8gVGhlIGVuZ2luZSBhcmUg
-cGVyIFZGIGp1c3QgdG8gYXZvaWQgZXhhY3RseSB0aGF0IHByb2JsZW0uPGJyPg0KJmd0Ozxicj4N
-CiZndDsgQ2hyaXN0aWFuLjxicj4NCiZndDs8YnI+DQomZ3Q7Jmd0OyBTaWduZWQtb2ZmLWJ5OiBD
-aGVuZ3poZSBMaXUgJmx0O0NoZW5nWmhlLkxpdUBhbWQuY29tJmd0Ozxicj4NCiZndDsmZ3Q7IC0t
-LTxicj4NCiZndDsmZ3Q7Jm5ic3A7Jm5ic3A7Jm5ic3A7IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2dtY192MTBfMC5jIHwgNiArKysrKy08YnI+DQomZ3Q7Jmd0OyZuYnNwOyZuYnNwOyZuYnNw
-OyBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jJm5ic3A7IHwgNiArKysrKy08
-YnI+DQomZ3Q7Jmd0OyZuYnNwOyZuYnNwOyZuYnNwOyAyIGZpbGVzIGNoYW5nZWQsIDEwIGluc2Vy
-dGlvbnMoKyksIDIgZGVsZXRpb25zKC0pPGJyPg0KJmd0OyZndDs8YnI+DQomZ3Q7Jmd0OyBkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3YxMF8wLmM8YnI+DQomZ3Q7
-Jmd0OyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192MTBfMC5jPGJyPg0KJmd0OyZn
-dDsgaW5kZXggZjAyZGM5MDRlNGNmLi5hNWYwMDVjNWQwZWMgMTAwNjQ0PGJyPg0KJmd0OyZndDsg
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3YxMF8wLmM8YnI+DQomZ3Q7Jmd0
-OyArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjEwXzAuYzxicj4NCiZndDsm
-Z3Q7IEBAIC00MDQsNiArNDA0LDcgQEAgc3RhdGljIGludCBnbWNfdjEwXzBfZmx1c2hfZ3B1X3Rs
-Yl9wYXNpZChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiw8YnI+DQomZ3Q7Jmd0OyZuYnNwOyZu
-YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyB1aW50MzJfdCBzZXE7PGJyPg0KJmd0OyZndDsm
-bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgdWludDE2X3QgcXVlcmllZF9wYXNp
-ZDs8YnI+DQomZ3Q7Jmd0OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBib29s
-IHJldDs8YnI+DQomZ3Q7Jmd0OyArJm5ic3A7Jm5ic3A7Jm5ic3A7IHVpbnQzMl90IHNyaW92X3Vz
-ZWNfdGltZW91dCA9IDYwMDAwMDA7Jm5ic3A7IC8qIHdhaXQgZm9yIDEyICogNTAwbXMgZm9yPGJy
-Pg0KJmd0OyZndDsgK1NSSU9WICovPGJyPg0KJmd0OyZndDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
-cDsmbmJzcDsmbmJzcDsgc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nID0gJmFtcDthZGV2LSZndDtn
-Zngua2lxLnJpbmc7PGJyPg0KJmd0OyZndDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
-bmJzcDsgc3RydWN0IGFtZGdwdV9raXEgKmtpcSA9ICZhbXA7YWRldi0mZ3Q7Z2Z4LmtpcTs8YnI+
-DQomZ3Q7Jmd0OyZuYnNwOyZuYnNwOyZuYnNwOyA8YnI+DQomZ3Q7Jmd0OyBAQCAtNDIyLDcgKzQy
-MywxMCBAQCBzdGF0aWMgaW50IGdtY192MTBfMF9mbHVzaF9ncHVfdGxiX3Bhc2lkKHN0cnVjdDxi
-cj4NCiZndDsmZ3Q7IGFtZGdwdV9kZXZpY2UgKmFkZXYsPGJyPg0KJmd0OyZndDsmbmJzcDsmbmJz
-cDsmbmJzcDsgPGJyPg0KJmd0OyZndDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
-cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgYW1kZ3B1
-X3JpbmdfY29tbWl0KHJpbmcpOzxicj4NCiZndDsmZ3Q7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
-c3A7IHNwaW5fdW5sb2NrKCZhbXA7YWRldi0mZ3Q7Z2Z4LmtpcS5yaW5nX2xvY2spOzxicj4NCiZn
-dDsmZ3Q7IC0mbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
-bmJzcDsmbmJzcDsmbmJzcDsgciA9IGFtZGdwdV9mZW5jZV93YWl0X3BvbGxpbmcocmluZywgc2Vx
-LCBhZGV2LSZndDt1c2VjX3RpbWVvdXQpOzxicj4NCiZndDsmZ3Q7ICsmbmJzcDsmbmJzcDsmbmJz
-cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgaWYgKGFt
-ZGdwdV9zcmlvdl92ZihhZGV2KSk8YnI+DQomZ3Q7Jmd0OyArJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
-c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IHIgPSBhbWRncHVfZmVuY2Vfd2Fp
-dF9wb2xsaW5nKHJpbmcsIHNlcSwgc3Jpb3ZfdXNlY190aW1lb3V0KTs8YnI+DQomZ3Q7Jmd0OyAr
-Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
-c3A7Jm5ic3A7IGVsc2U8YnI+DQomZ3Q7Jmd0OyArJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
-c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IHIgPSBhbWRncHVfZmVuY2Vfd2FpdF9wb2xs
-aW5nKHJpbmcsIHNlcSwgYWRldi0mZ3Q7dXNlY190aW1lb3V0KTs8YnI+DQomZ3Q7Jmd0OyZuYnNw
-OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
-YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBpZiAociAmbHQ7IDEpIHs8YnI+DQomZ3Q7Jmd0OyZuYnNw
-OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
-YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
-OyZuYnNwOyZuYnNwOyBkZXZfZXJyKGFkZXYtJmd0O2RldiwgJnF1b3Q7d2FpdCBmb3Iga2lxIGZl
-bmNlIGVycm9yOiAlbGQuXG4mcXVvdDssIHIpOzxicj4NCiZndDsmZ3Q7Jm5ic3A7Jm5ic3A7Jm5i
-c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
-c3A7IHJldHVybiAtRVRJTUU7PGJyPg0KJmd0OyZndDsgZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmM8YnI+DQomZ3Q7Jmd0OyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2dtY192OV8wLmM8YnI+DQomZ3Q7Jmd0OyBpbmRleCBjZWIzOTY4ZDgzMjYu
-LmU0YTE4ZDhmNzVjMiAxMDA2NDQ8YnI+DQomZ3Q7Jmd0OyAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9nbWNfdjlfMC5jPGJyPg0KJmd0OyZndDsgKysrIGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvZ21jX3Y5XzAuYzxicj4NCiZndDsmZ3Q7IEBAIC04NTcsNiArODU3LDcgQEAg
-c3RhdGljIGludCBnbWNfdjlfMF9mbHVzaF9ncHVfdGxiX3Bhc2lkKHN0cnVjdCBhbWRncHVfZGV2
-aWNlICphZGV2LDxicj4NCiZndDsmZ3Q7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
-c3A7IHVpbnQzMl90IHNlcTs8YnI+DQomZ3Q7Jmd0OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
-YnNwOyZuYnNwOyB1aW50MTZfdCBxdWVyaWVkX3Bhc2lkOzxicj4NCiZndDsmZ3Q7Jm5ic3A7Jm5i
-c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IGJvb2wgcmV0Ozxicj4NCiZndDsmZ3Q7ICsmbmJz
-cDsmbmJzcDsmbmJzcDsgdWludDMyX3Qgc3Jpb3ZfdXNlY190aW1lb3V0ID0gNjAwMDAwMDsmbmJz
-cDsgLyogd2FpdCBmb3IgMTIgKiA1MDBtcyBmb3I8YnI+DQomZ3Q7Jmd0OyArU1JJT1YgKi88YnI+
-DQomZ3Q7Jmd0OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBzdHJ1Y3QgYW1k
-Z3B1X3JpbmcgKnJpbmcgPSAmYW1wO2FkZXYtJmd0O2dmeC5raXEucmluZzs8YnI+DQomZ3Q7Jmd0
-OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBzdHJ1Y3QgYW1kZ3B1X2tpcSAq
-a2lxID0gJmFtcDthZGV2LSZndDtnZngua2lxOzxicj4NCiZndDsmZ3Q7Jm5ic3A7Jm5ic3A7Jm5i
-c3A7IDxicj4NCiZndDsmZ3Q7IEBAIC04OTYsNyArODk3LDEwIEBAIHN0YXRpYyBpbnQgZ21jX3Y5
-XzBfZmx1c2hfZ3B1X3RsYl9wYXNpZChzdHJ1Y3Q8YnI+DQomZ3Q7Jmd0OyBhbWRncHVfZGV2aWNl
-ICphZGV2LDxicj4NCiZndDsmZ3Q7Jm5ic3A7Jm5ic3A7Jm5ic3A7IDxicj4NCiZndDsmZ3Q7Jm5i
-c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IGFtZGdwdV9yaW5nX2NvbW1pdChyaW5nKTs8YnI+DQom
-Z3Q7Jmd0OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
-YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBzcGluX3VubG9jaygmYW1wO2FkZXYt
-Jmd0O2dmeC5raXEucmluZ19sb2NrKTs8YnI+DQomZ3Q7Jmd0OyAtJm5ic3A7Jm5ic3A7Jm5ic3A7
-Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IHIgPSBhbWRn
-cHVfZmVuY2Vfd2FpdF9wb2xsaW5nKHJpbmcsIHNlcSwgYWRldi0mZ3Q7dXNlY190aW1lb3V0KTs8
-YnI+DQomZ3Q7Jmd0OyArJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IGlmIChhbWRncHVfc3Jpb3ZfdmYoYWRldikpPGJyPg0K
-Jmd0OyZndDsgKyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
-OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
-YnNwOyZuYnNwOyByID0gYW1kZ3B1X2ZlbmNlX3dhaXRfcG9sbGluZyhyaW5nLCBzZXEsIHNyaW92
-X3VzZWNfdGltZW91dCk7PGJyPg0KJmd0OyZndDsgKyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
-YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBlbHNlPGJyPg0KJmd0OyZn
-dDsgKyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
-OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
-YnNwOyByID0gYW1kZ3B1X2ZlbmNlX3dhaXRfcG9sbGluZyhyaW5nLCBzZXEsIGFkZXYtJmd0O3Vz
-ZWNfdGltZW91dCk7PGJyPg0KJmd0OyZndDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
-bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgaWYg
-KHIgJmx0OyAxKSB7PGJyPg0KJmd0OyZndDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
-bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
-cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgZGV2X2VycihhZGV2
-LSZndDtkZXYsICZxdW90O3dhaXQgZm9yIGtpcSBmZW5jZSBlcnJvcjogJWxkLlxuJnF1b3Q7LCBy
-KTs8YnI+DQomZ3Q7Jmd0OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
-OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
-YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyB1cF9yZWFkKCZhbXA7YWRldi0mZ3Q7
-cmVzZXRfc2VtKTs8YnI+DQo8YnI+DQo8L2Rpdj4NCjwvc3Bhbj48L2ZvbnQ+PC9kaXY+DQo8L2Rp
-dj4NCjwvZGl2Pg0KPC9ib2R5Pg0KPC9odG1sPg0K
+What we do here is to wait for the TLB flush to avoid starting 
+operations with invalid cache data.
 
---_000_DM4PR12MB507287194C10E15669DEBAEDE12B9DM4PR12MB5072namp_--
+But a parallel FLR clears the cache anyway and also prevents any new 
+operation from starting, so it is perfectly valid to timeout and just 
+continue with an error message.
 
---===============0868441575==
+
+On the other hand waiting for 6 seconds in a busy loop will most likely 
+trigger the watchdog timer and potentially kill our process.
+
+That is a rather clear no-go, we simply can't increase timeouts infinitely.
+
+Regards,
+Christian.
+
+Am 19.05.21 um 16:39 schrieb Chen, Horace:
+>
+> [AMD Official Use Only]
+>
+>
+> Hi Christian,
+>
+> I think the problem is that a non-FLRed VF will not know that another 
+> VF got an FLR, unless host triggered a whole GPU reset.
+> So in the worst situation, for example the VF0 to VF10 are all hang 
+> and will be FLRed one by one, the VF11 will not know that there are 
+> FLRs happened, in VF11's prespective, it just see the fence didn't 
+> come back for about 5.5(0.5*11) seconds.
+>
+> Thanks & Regards,
+> Horace.
+>
+> ------------------------------------------------------------------------
+> *发件人:* Koenig, Christian <Christian.Koenig@amd.com>
+> *发送时间:* 2021年5月19日 19:49
+> *收件人:* Liu, Cheng Zhe <ChengZhe.Liu@amd.com>; Christian König 
+> <ckoenig.leichtzumerken@gmail.com>; amd-gfx@lists.freedesktop.org 
+> <amd-gfx@lists.freedesktop.org>
+> *抄送:* Xiao, Jack <Jack.Xiao@amd.com>; Xu, Feifei <Feifei.Xu@amd.com>; 
+> Wang, Kevin(Yang) <Kevin1.Wang@amd.com>; Tuikov, Luben 
+> <Luben.Tuikov@amd.com>; Deucher, Alexander 
+> <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>; 
+> Chen, Horace <Horace.Chen@amd.com>
+> *主题:* Re: [PATCH] drm/amdgpu: Increase tlb flush timeout for sriov
+> Yeah, but you can't do that it will probably trigger the watchdog timer.
+>
+> The usec_timeout is named this way because it is a usec timeout.
+> Anything large than 1ms is a no-go here.
+>
+> When the other instances do a FLR we don't really need to wait for the
+> TLB flush anyway since any FLR will kill that.
+>
+> Christian.
+>
+> Am 19.05.21 um 13:08 schrieb Liu, Cheng Zhe:
+> > [AMD Official Use Only]
+> >
+> > We support 12 VF at most. In worst case, the first 11 all IDLE fail 
+> and do FLR, it will need 11 * 500ms to switch to the 12nd VF,
+> > so I set 12 * 500ms  for the timeout.
+> >
+> > -----Original Message-----
+> > From: Christian König <ckoenig.leichtzumerken@gmail.com>
+> > Sent: Wednesday, May 19, 2021 6:08 PM
+> > To: Liu, Cheng Zhe <ChengZhe.Liu@amd.com>; amd-gfx@lists.freedesktop.org
+> > Cc: Xiao, Jack <Jack.Xiao@amd.com>; Xu, Feifei <Feifei.Xu@amd.com>; 
+> Wang, Kevin(Yang) <Kevin1.Wang@amd.com>; Tuikov, Luben 
+> <Luben.Tuikov@amd.com>; Deucher, Alexander 
+> <Alexander.Deucher@amd.com>; Koenig, Christian 
+> <Christian.Koenig@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>
+> > Subject: Re: [PATCH] drm/amdgpu: Increase tlb flush timeout for sriov
+> >
+> > Am 19.05.21 um 11:32 schrieb Chengzhe Liu:
+> >> When there is 12 VF, we need to increase the timeout
+> > NAK, 6 seconds is way to long to wait polling on a fence.
+> >
+> > Why should an invalidation take that long? The engine are per VF 
+> just to avoid exactly that problem.
+> >
+> > Christian.
+> >
+> >> Signed-off-by: Chengzhe Liu <ChengZhe.Liu@amd.com>
+> >> ---
+> >>    drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c | 6 +++++-
+> >>    drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c  | 6 +++++-
+> >>    2 files changed, 10 insertions(+), 2 deletions(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> >> b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> >> index f02dc904e4cf..a5f005c5d0ec 100644
+> >> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> >> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> >> @@ -404,6 +404,7 @@ static int gmc_v10_0_flush_gpu_tlb_pasid(struct 
+> amdgpu_device *adev,
+> >>       uint32_t seq;
+> >>       uint16_t queried_pasid;
+> >>       bool ret;
+> >> +    uint32_t sriov_usec_timeout = 6000000; /* wait for 12 * 500ms for
+> >> +SRIOV */
+> >>       struct amdgpu_ring *ring = &adev->gfx.kiq.ring;
+> >>       struct amdgpu_kiq *kiq = &adev->gfx.kiq;
+> >>
+> >> @@ -422,7 +423,10 @@ static int gmc_v10_0_flush_gpu_tlb_pasid(struct
+> >> amdgpu_device *adev,
+> >>
+> >>               amdgpu_ring_commit(ring);
+> >> spin_unlock(&adev->gfx.kiq.ring_lock);
+> >> -            r = amdgpu_fence_wait_polling(ring, seq, 
+> adev->usec_timeout);
+> >> +            if (amdgpu_sriov_vf(adev))
+> >> +                    r = amdgpu_fence_wait_polling(ring, seq, 
+> sriov_usec_timeout);
+> >> +            else
+> >> +                    r = amdgpu_fence_wait_polling(ring, seq, 
+> adev->usec_timeout);
+> >>               if (r < 1) {
+> >>                       dev_err(adev->dev, "wait for kiq fence error: 
+> %ld.\n", r);
+> >>                       return -ETIME;
+> >> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> >> b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> >> index ceb3968d8326..e4a18d8f75c2 100644
+> >> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> >> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> >> @@ -857,6 +857,7 @@ static int gmc_v9_0_flush_gpu_tlb_pasid(struct 
+> amdgpu_device *adev,
+> >>       uint32_t seq;
+> >>       uint16_t queried_pasid;
+> >>       bool ret;
+> >> +    uint32_t sriov_usec_timeout = 6000000; /* wait for 12 * 500ms for
+> >> +SRIOV */
+> >>       struct amdgpu_ring *ring = &adev->gfx.kiq.ring;
+> >>       struct amdgpu_kiq *kiq = &adev->gfx.kiq;
+> >>
+> >> @@ -896,7 +897,10 @@ static int gmc_v9_0_flush_gpu_tlb_pasid(struct
+> >> amdgpu_device *adev,
+> >>
+> >>               amdgpu_ring_commit(ring);
+> >> spin_unlock(&adev->gfx.kiq.ring_lock);
+> >> -            r = amdgpu_fence_wait_polling(ring, seq, 
+> adev->usec_timeout);
+> >> +            if (amdgpu_sriov_vf(adev))
+> >> +                    r = amdgpu_fence_wait_polling(ring, seq, 
+> sriov_usec_timeout);
+> >> +            else
+> >> +                    r = amdgpu_fence_wait_polling(ring, seq, 
+> adev->usec_timeout);
+> >>               if (r < 1) {
+> >>                       dev_err(adev->dev, "wait for kiq fence error: 
+> %ld.\n", r);
+> >> up_read(&adev->reset_sem);
+>
+
+
+--------------630B88129A106CEEE9DBADA2
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    Hi Horace,<br>
+    <br>
+    that is correct, but also completely irrelevant.<br>
+    <br>
+    What we do here is to wait for the TLB flush to avoid starting
+    operations with invalid cache data.<br>
+    <br>
+    But a parallel FLR clears the cache anyway and also prevents any new
+    operation from starting, so it is perfectly valid to timeout and
+    just continue with an error message.<br>
+    <br>
+    <br>
+    On the other hand waiting for 6 seconds in a busy loop will most
+    likely trigger the watchdog timer and potentially kill our process.<br>
+    <br>
+    That is a rather clear no-go, we simply can't increase timeouts
+    infinitely.<br>
+    <br>
+    Regards,<br>
+    Christian.<br>
+    <br>
+    <div class="moz-cite-prefix">Am 19.05.21 um 16:39 schrieb Chen,
+      Horace:<br>
+    </div>
+    <blockquote type="cite" cite="mid:DM4PR12MB507287194C10E15669DEBAEDE12B9@DM4PR12MB5072.namprd12.prod.outlook.com">
+      
+      <style type="text/css" style="display:none;">P {margin-top:0;margin-bottom:0;}</style>
+      <p style="font-family:Arial;font-size:10pt;color:#0000FF;margin:15pt;" align="Left">
+        [AMD Official Use Only]<br>
+      </p>
+      <br>
+      <div>
+        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
+          font-size: 12pt; color: rgb(0, 0, 0);">
+          Hi Christian,</div>
+        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
+          font-size: 12pt; color: rgb(0, 0, 0);">
+          <br>
+        </div>
+        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
+          font-size: 12pt; color: rgb(0, 0, 0);">
+          I think the problem is that a non-FLRed VF will not know that
+          another VF got an FLR, unless host triggered a whole GPU
+          reset.
+          <br>
+        </div>
+        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
+          font-size: 12pt; color: rgb(0, 0, 0);">
+          So in the worst situation, for example the VF0 to VF10 are all
+          hang and will be FLRed one by one, the VF11 will not know that
+          there are FLRs happened, in VF11's prespective, it just see
+          the fence didn't come back for about 5.5(0.5*11) seconds.</div>
+        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
+          font-size: 12pt; color: rgb(0, 0, 0);">
+          <br>
+        </div>
+        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
+          font-size: 12pt; color: rgb(0, 0, 0);">
+          Thanks &amp; Regards,</div>
+        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
+          font-size: 12pt; color: rgb(0, 0, 0);">
+          Horace.<br>
+        </div>
+        <div>
+          <div id="appendonsend"><br>
+          </div>
+          <hr tabindex="-1" style="display:inline-block; width:98%">
+          <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt" face="Calibri, sans-serif" color="#000000"><b>发件人:</b>
+              Koenig, Christian <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt;</a><br>
+              <b>发送时间:</b> 2021年5月19日 19:49<br>
+              <b>收件人:</b> Liu, Cheng Zhe <a class="moz-txt-link-rfc2396E" href="mailto:ChengZhe.Liu@amd.com">&lt;ChengZhe.Liu@amd.com&gt;</a>;
+              Christian König <a class="moz-txt-link-rfc2396E" href="mailto:ckoenig.leichtzumerken@gmail.com">&lt;ckoenig.leichtzumerken@gmail.com&gt;</a>;
+              <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
+              <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx@lists.freedesktop.org">&lt;amd-gfx@lists.freedesktop.org&gt;</a><br>
+              <b>抄送:</b> Xiao, Jack <a class="moz-txt-link-rfc2396E" href="mailto:Jack.Xiao@amd.com">&lt;Jack.Xiao@amd.com&gt;</a>; Xu,
+              Feifei <a class="moz-txt-link-rfc2396E" href="mailto:Feifei.Xu@amd.com">&lt;Feifei.Xu@amd.com&gt;</a>; Wang, Kevin(Yang)
+              <a class="moz-txt-link-rfc2396E" href="mailto:Kevin1.Wang@amd.com">&lt;Kevin1.Wang@amd.com&gt;</a>; Tuikov, Luben
+              <a class="moz-txt-link-rfc2396E" href="mailto:Luben.Tuikov@amd.com">&lt;Luben.Tuikov@amd.com&gt;</a>; Deucher, Alexander
+              <a class="moz-txt-link-rfc2396E" href="mailto:Alexander.Deucher@amd.com">&lt;Alexander.Deucher@amd.com&gt;</a>; Zhang, Hawking
+              <a class="moz-txt-link-rfc2396E" href="mailto:Hawking.Zhang@amd.com">&lt;Hawking.Zhang@amd.com&gt;</a>; Chen, Horace
+              <a class="moz-txt-link-rfc2396E" href="mailto:Horace.Chen@amd.com">&lt;Horace.Chen@amd.com&gt;</a><br>
+              <b>主题:</b> Re: [PATCH] drm/amdgpu: Increase tlb flush
+              timeout for sriov</font>
+            <div>&nbsp;</div>
+          </div>
+          <div class="BodyFragment"><font size="2"><span style="font-size:11pt">
+                <div class="PlainText">Yeah, but you can't do that it
+                  will probably trigger the watchdog timer.<br>
+                  <br>
+                  The usec_timeout is named this way because it is a
+                  usec timeout. <br>
+                  Anything large than 1ms is a no-go here.<br>
+                  <br>
+                  When the other instances do a FLR we don't really need
+                  to wait for the <br>
+                  TLB flush anyway since any FLR will kill that.<br>
+                  <br>
+                  Christian.<br>
+                  <br>
+                  Am 19.05.21 um 13:08 schrieb Liu, Cheng Zhe:<br>
+                  &gt; [AMD Official Use Only]<br>
+                  &gt;<br>
+                  &gt; We support 12 VF at most. In worst case, the
+                  first 11 all IDLE fail and do FLR, it will need 11 *
+                  500ms to switch to the 12nd VF,<br>
+                  &gt; so I set 12 * 500ms&nbsp; for the timeout.<br>
+                  &gt;<br>
+                  &gt; -----Original Message-----<br>
+                  &gt; From: Christian König
+                  <a class="moz-txt-link-rfc2396E" href="mailto:ckoenig.leichtzumerken@gmail.com">&lt;ckoenig.leichtzumerken@gmail.com&gt;</a><br>
+                  &gt; Sent: Wednesday, May 19, 2021 6:08 PM<br>
+                  &gt; To: Liu, Cheng Zhe <a class="moz-txt-link-rfc2396E" href="mailto:ChengZhe.Liu@amd.com">&lt;ChengZhe.Liu@amd.com&gt;</a>;
+                  <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a><br>
+                  &gt; Cc: Xiao, Jack <a class="moz-txt-link-rfc2396E" href="mailto:Jack.Xiao@amd.com">&lt;Jack.Xiao@amd.com&gt;</a>; Xu,
+                  Feifei <a class="moz-txt-link-rfc2396E" href="mailto:Feifei.Xu@amd.com">&lt;Feifei.Xu@amd.com&gt;</a>; Wang, Kevin(Yang)
+                  <a class="moz-txt-link-rfc2396E" href="mailto:Kevin1.Wang@amd.com">&lt;Kevin1.Wang@amd.com&gt;</a>; Tuikov, Luben
+                  <a class="moz-txt-link-rfc2396E" href="mailto:Luben.Tuikov@amd.com">&lt;Luben.Tuikov@amd.com&gt;</a>; Deucher, Alexander
+                  <a class="moz-txt-link-rfc2396E" href="mailto:Alexander.Deucher@amd.com">&lt;Alexander.Deucher@amd.com&gt;</a>; Koenig, Christian
+                  <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt;</a>; Zhang, Hawking
+                  <a class="moz-txt-link-rfc2396E" href="mailto:Hawking.Zhang@amd.com">&lt;Hawking.Zhang@amd.com&gt;</a><br>
+                  &gt; Subject: Re: [PATCH] drm/amdgpu: Increase tlb
+                  flush timeout for sriov<br>
+                  &gt;<br>
+                  &gt; Am 19.05.21 um 11:32 schrieb Chengzhe Liu:<br>
+                  &gt;&gt; When there is 12 VF, we need to increase the
+                  timeout<br>
+                  &gt; NAK, 6 seconds is way to long to wait polling on
+                  a fence.<br>
+                  &gt;<br>
+                  &gt; Why should an invalidation take that long? The
+                  engine are per VF just to avoid exactly that problem.<br>
+                  &gt;<br>
+                  &gt; Christian.<br>
+                  &gt;<br>
+                  &gt;&gt; Signed-off-by: Chengzhe Liu
+                  <a class="moz-txt-link-rfc2396E" href="mailto:ChengZhe.Liu@amd.com">&lt;ChengZhe.Liu@amd.com&gt;</a><br>
+                  &gt;&gt; ---<br>
+                  &gt;&gt;&nbsp;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c | 6
+                  +++++-<br>
+                  &gt;&gt;&nbsp;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c&nbsp; | 6
+                  +++++-<br>
+                  &gt;&gt;&nbsp;&nbsp;&nbsp; 2 files changed, 10 insertions(+), 2
+                  deletions(-)<br>
+                  &gt;&gt;<br>
+                  &gt;&gt; diff --git
+                  a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c<br>
+                  &gt;&gt; b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c<br>
+                  &gt;&gt; index f02dc904e4cf..a5f005c5d0ec 100644<br>
+                  &gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c<br>
+                  &gt;&gt; +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c<br>
+                  &gt;&gt; @@ -404,6 +404,7 @@ static int
+                  gmc_v10_0_flush_gpu_tlb_pasid(struct amdgpu_device
+                  *adev,<br>
+                  &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t seq;<br>
+                  &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint16_t queried_pasid;<br>
+                  &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool ret;<br>
+                  &gt;&gt; +&nbsp;&nbsp;&nbsp; uint32_t sriov_usec_timeout = 6000000;&nbsp;
+                  /* wait for 12 * 500ms for<br>
+                  &gt;&gt; +SRIOV */<br>
+                  &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ring *ring =
+                  &amp;adev-&gt;gfx.kiq.ring;<br>
+                  &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_kiq *kiq =
+                  &amp;adev-&gt;gfx.kiq;<br>
+                  &gt;&gt;&nbsp;&nbsp;&nbsp; <br>
+                  &gt;&gt; @@ -422,7 +423,10 @@ static int
+                  gmc_v10_0_flush_gpu_tlb_pasid(struct<br>
+                  &gt;&gt; amdgpu_device *adev,<br>
+                  &gt;&gt;&nbsp;&nbsp;&nbsp; <br>
+                  &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_commit(ring);<br>
+                  &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  spin_unlock(&amp;adev-&gt;gfx.kiq.ring_lock);<br>
+                  &gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =
+                  amdgpu_fence_wait_polling(ring, seq,
+                  adev-&gt;usec_timeout);<br>
+                  &gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev))<br>
+                  &gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =
+                  amdgpu_fence_wait_polling(ring, seq,
+                  sriov_usec_timeout);<br>
+                  &gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
+                  &gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =
+                  amdgpu_fence_wait_polling(ring, seq,
+                  adev-&gt;usec_timeout);<br>
+                  &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r &lt; 1) {<br>
+                  &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_err(adev-&gt;dev,
+                  &quot;wait for kiq fence error: %ld.\n&quot;, r);<br>
+                  &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -ETIME;<br>
+                  &gt;&gt; diff --git
+                  a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c<br>
+                  &gt;&gt; b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c<br>
+                  &gt;&gt; index ceb3968d8326..e4a18d8f75c2 100644<br>
+                  &gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c<br>
+                  &gt;&gt; +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c<br>
+                  &gt;&gt; @@ -857,6 +857,7 @@ static int
+                  gmc_v9_0_flush_gpu_tlb_pasid(struct amdgpu_device
+                  *adev,<br>
+                  &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t seq;<br>
+                  &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint16_t queried_pasid;<br>
+                  &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool ret;<br>
+                  &gt;&gt; +&nbsp;&nbsp;&nbsp; uint32_t sriov_usec_timeout = 6000000;&nbsp;
+                  /* wait for 12 * 500ms for<br>
+                  &gt;&gt; +SRIOV */<br>
+                  &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ring *ring =
+                  &amp;adev-&gt;gfx.kiq.ring;<br>
+                  &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_kiq *kiq =
+                  &amp;adev-&gt;gfx.kiq;<br>
+                  &gt;&gt;&nbsp;&nbsp;&nbsp; <br>
+                  &gt;&gt; @@ -896,7 +897,10 @@ static int
+                  gmc_v9_0_flush_gpu_tlb_pasid(struct<br>
+                  &gt;&gt; amdgpu_device *adev,<br>
+                  &gt;&gt;&nbsp;&nbsp;&nbsp; <br>
+                  &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_commit(ring);<br>
+                  &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  spin_unlock(&amp;adev-&gt;gfx.kiq.ring_lock);<br>
+                  &gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =
+                  amdgpu_fence_wait_polling(ring, seq,
+                  adev-&gt;usec_timeout);<br>
+                  &gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev))<br>
+                  &gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =
+                  amdgpu_fence_wait_polling(ring, seq,
+                  sriov_usec_timeout);<br>
+                  &gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
+                  &gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =
+                  amdgpu_fence_wait_polling(ring, seq,
+                  adev-&gt;usec_timeout);<br>
+                  &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r &lt; 1) {<br>
+                  &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_err(adev-&gt;dev,
+                  &quot;wait for kiq fence error: %ld.\n&quot;, r);<br>
+                  &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  up_read(&amp;adev-&gt;reset_sem);<br>
+                  <br>
+                </div>
+              </span></font></div>
+        </div>
+      </div>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------630B88129A106CEEE9DBADA2--
+
+--===============2117273625==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -449,4 +581,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============0868441575==--
+--===============2117273625==--
