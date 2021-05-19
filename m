@@ -2,55 +2,76 @@ Return-Path: <SRS0=RLY9=KO=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-2.0 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_2 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7DA69C433B4
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 08:48:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2DEE2C433B4
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 08:53:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6E82B611AD
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 08:48:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6E82B611AD
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=daenzer.net
+	by mail.kernel.org (Postfix) with ESMTPS id DF0416044F
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 08:53:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DF0416044F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDE756E19C;
-	Wed, 19 May 2021 08:48:51 +0000 (UTC)
-Received: from netline-mail3.netline.ch (mail.netline.ch [148.251.143.180])
- by gabe.freedesktop.org (Postfix) with ESMTP id 160FA6E19C
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 May 2021 08:48:50 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by netline-mail3.netline.ch (Postfix) with ESMTP id 3581820201B;
- Wed, 19 May 2021 10:48:49 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at netline-mail3.netline.ch
-Received: from netline-mail3.netline.ch ([127.0.0.1])
- by localhost (netline-mail3.netline.ch [127.0.0.1]) (amavisd-new, port 10024)
- with LMTP id 7xF7pv-4cqrt; Wed, 19 May 2021 10:48:48 +0200 (CEST)
-Received: from thor (24.99.2.85.dynamic.wline.res.cust.swisscom.ch
- [85.2.99.24])
- by netline-mail3.netline.ch (Postfix) with ESMTPA id 834CC20201A;
- Wed, 19 May 2021 10:48:48 +0200 (CEST)
-Received: from [::1] by thor with esmtp (Exim 4.94.2)
- (envelope-from <michel@daenzer.net>)
- id 1ljHsl-000gkg-IX; Wed, 19 May 2021 10:48:47 +0200
-To: Alex Deucher <alexdeucher@gmail.com>
-References: <a4ba9456-812b-5280-75fd-6dd66d1f9718@riseup.net>
- <22c25fa6-b3eb-b778-8598-3ce1947a3d0b@daenzer.net>
- <CADnq5_OVjssNi2niLZQs-TOyN5T5EFOnpwmpmbvHRgh_M0B=wg@mail.gmail.com>
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
-Subject: Re: AMDGPU error: "[drm:amdgpu_dm_atomic_commit_tail [amdgpu]]
- *ERROR* Waiting for fences timed out!"
-Message-ID: <7a9f2682-559d-57ec-4879-b1e6f743c375@daenzer.net>
-Date: Wed, 19 May 2021 10:48:47 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 79B236ECE9;
+	Wed, 19 May 2021 08:53:43 +0000 (UTC)
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [IPv6:2a00:1450:4864:20::134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62EBA6ECE9;
+ Wed, 19 May 2021 08:53:42 +0000 (UTC)
+Received: by mail-lf1-x134.google.com with SMTP id r5so17903740lfr.5;
+ Wed, 19 May 2021 01:53:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:in-reply-to:references
+ :mime-version; bh=UEcEyDKGWc5BqkdIaL+KY18rDaFnEJEqEe+FVsf32e4=;
+ b=pm/UKKRV9gwmB0Uu5gCiTQpFvJcZacaRAVe6USMnJD+vZf8FioX9Qm4ahmhiGvwZfm
+ czyYuk+XzzzcvLwboCPNjltLmCK2rE7QFppt36mvZ/rerY0+4f/JZdnb8Bm8/ksrEoOK
+ eSLJJRakrkbzJoA0q1bzvjtFX7JF6gMj4lEtBLg7zkm4S6isg1CfajfiHeQLcQwhzYIV
+ an8JVbPE1xVstS20QK5TnPaJAsWaSI3LL0MzG1JkRovPmbtG65FWqWlXvhNZyq3CoDxH
+ +IY/E7Min6W/pn8AbR37r3JtMj6UJ0lnPtKnSetmyCsYo+RAI5gA60guiV3jcglkiLaa
+ yayQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
+ :references:mime-version;
+ bh=UEcEyDKGWc5BqkdIaL+KY18rDaFnEJEqEe+FVsf32e4=;
+ b=XYUCgywAch3vsNCEWlHW8tB6bv2astfHgeQnAQT6nnX0QTQdoi43hDeVVe88A9KTuV
+ /RLnEOTHajy9c7+sM3Xt/c8Lg1A70MujOYXWMKU7mlPTHdTouTkTv2QZm9d2/mOErhMx
+ ErkqCYwU1hCLKxDUSZ7vtcpeMXBp+iVE+NLKeVImeJ/M8RPEzqCQ9x4NK5x22RwQOqWb
+ RVaLR24c9oGqTkDPdfj2cvuvEY/blgBYfmhXIkHHYkh45+JHJSAa4GuIkxudd/i/Q7Fc
+ PuekXFFSzCI2ihzw9cf1B5UzSyQOrPzXeY3Td5AKBTZerqg5zhVLitUUX702dmhuUCzt
+ lSZg==
+X-Gm-Message-State: AOAM533Lc9DHcvB5KmatY+L9zUVypy1kuNmKpL/xwiGB3mrmzATAlxcU
+ ocZnxv5sSojaw4GJbQP9dyE=
+X-Google-Smtp-Source: ABdhPJysBcXgR6Z/CIwY+Iwz/ekfBPu1hqkHTuicaAnUGj/RQs5cJ78qD9xNPIqA69DvrReWO0S/PQ==
+X-Received: by 2002:a05:6512:3f2a:: with SMTP id
+ y42mr7492369lfa.234.1621414420727; 
+ Wed, 19 May 2021 01:53:40 -0700 (PDT)
+Received: from eldfell ([194.136.85.206])
+ by smtp.gmail.com with ESMTPSA id o8sm3537006ljp.49.2021.05.19.01.53.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 19 May 2021 01:53:40 -0700 (PDT)
+Date: Wed, 19 May 2021 11:53:37 +0300
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: Harry Wentland <harry.wentland@amd.com>
+Subject: Re: [RFC PATCH 0/3] A drm_plane API to support HDR planes
+Message-ID: <20210519115337.3194fa11@eldfell>
+In-Reply-To: <9d4ec9c3-6716-7c80-97d5-dd3c5c50ab51@amd.com>
+References: <20210426173852.484368-1-harry.wentland@amd.com>
+ <20210427175005.5b92badc@eldfell>
+ <e51a3067-a0b3-16e4-5996-bd8527b7536b@amd.com>
+ <20210517115726.4fc1c710@eldfell>
+ <5f6abaaa45bb7f77110d9f87c9824e3f@sebastianwick.net>
+ <b0834be8-9023-0fde-f15d-8c44f72e7702@amd.com>
+ <20210518105615.212b84e4@eldfell>
+ <9d4ec9c3-6716-7c80-97d5-dd3c5c50ab51@amd.com>
+X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-In-Reply-To: <CADnq5_OVjssNi2niLZQs-TOyN5T5EFOnpwmpmbvHRgh_M0B=wg@mail.gmail.com>
-Content-Language: en-CA
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,53 +83,197 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: xgqt <xgqt@riseup.net>, amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Deepak.Sharma@amd.com, aric.cyr@amd.com, amd-gfx@lists.freedesktop.org,
+ mcasas@google.com, Shashank.Sharma@amd.com, dri-devel@lists.freedesktop.org,
+ Shirish.S@amd.com, Sebastian Wick <sebastian@sebastianwick.net>,
+ Krunoslav.Kovac@amd.com, hersenxs.wu@amd.com,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>, laurentiu.palcu@oss.nxp.com,
+ Bhawanpreet.Lakha@amd.com, Nicholas.Kazlauskas@amd.com,
+ ville.syrjala@linux.intel.com
+Content-Type: multipart/mixed; boundary="===============0289682512=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gMjAyMS0wNS0xOSAxMjowNSBhLm0uLCBBbGV4IERldWNoZXIgd3JvdGU6Cj4gT24gVHVlLCBN
-YXkgMTgsIDIwMjEgYXQgMTA6MTEgQU0gTWljaGVsIETDpG56ZXIgPG1pY2hlbEBkYWVuemVyLm5l
-dD4gd3JvdGU6Cj4+Cj4+IE9uIDIwMjEtMDUtMTcgMTE6MzMgYS5tLiwgeGdxdCB3cm90ZToKPj4+
-IEhlbGxvIQo+Pj4KPj4+IEkgcnVuIGEgQU1EIGxhcHRvcCAiODFOQyBMZW5vdm8gSWRlYVBhZCBT
-MzQwLTE1QVBJIiAtIEFNRCBSeXplbiA1IDM1MDBVIHdpdGggUmFkZW9uIFZlZ2EgOCBHcmFwaGlj
-cy4KPj4+IFJlY2VudGx5IHNvbWUgYnJlYWthZ2VzIHN0YXJ0ZWQgaGFwcGVuaW5nIGZvciBtZS4g
-SW4gYWJvdXQgMWggYWZ0ZXIgYm9vdC11cCB3aGlsZSB1c2luZyBhIEtERSBkZXNrdG9wIG1hY2hp
-bmUgR1VJIHdvdWxkIGZyZWV6ZS4gU29tZXRpbWVzIGl0IHdvdWxkIGJlIHBvc3NpYmxlIHRvIG1v
-dmUgdGhlIG1vdXNlIGJ1dCB0aGUgcmVzdCB3aWxsIGJlIGZyb3plbi4gU2NyZWVuIG1heSBzdGFy
-dCBibGlua2luZyBvciBnbyBibGFjay4KPj4+Cj4+PiBJJ20gbm90IHN1cmUgaWYgdGhpcyBpcyBt
-eSBrZXJuZWwsIGZpcm13YXJlIG9yIHRoZSBoYXJkd2FyZS4KPj4+IEkgZG9uJ3QgdW5kZXJzdGFu
-ZHMgZG1lc2cgdGhhdCdzIHdoeSBJJ20gZ3Vlc3NpbmcsIGJ1dCBJIHRoaW5rIGl0IGlzIHRoZSBm
-aXJtd2FyZSBzaW5jZSB0aGlzIGJlaGF2aW9yIHN0YXJ0ZWQgYXJvdW5kIDIwMjEtMDUtMTUuCj4+
-PiBGcm9tIG15IFBvcnRhZ2UgbG9ncyBJIHNlZSB0aGF0IEkgdXBkYXRlZCBteSBmaXJtd2FyZSBv
-biAyMDIxLTA1LTE0IGF0IDE4OjE2OjA2Lgo+Pj4gU28gYnJlYWthZ2VzIHN0YXJ0ZWQgd2l0aCBt
-eSBrZXJuZWw6IDUuMTAuMjcgYW5kIEZXOiAyMDIxMDUxMS4KPj4+IEFmdGVyIGJyZWFrYWdlIEkg
-anVtcGVkIHRvIGEgb2xkZXIga2VybmVsIDUuNC45NyBhbmQgY29tcGlsZWQgNS4xMi40LiBJIGRp
-ZG4ndCBub3RpY2UgYSBicmVha2FnZSBvbiA1LjQuOTcgYnV0IHN5c3RlbSByYW4gfjQwIG1pbnV0
-ZXMuCj4+PiBTbyBJIGJvb3RlZCB0byBuZXdseSBjb21waWxlZCA1LjEyLjQgd2hlcmUgSSB3YXMg
-fjFoIGFuZCBpdCBicm9rZS4KPj4+IEFmdGVyIHRoYXQgSSBib290ZWQgdG8gNS40Ljk3IGFnYWlu
-IGFuZCBkb3duZ3JhZGVkIG15IEZXLgo+Pj4gV2hpbGUgSSdtIHdyaXRpbmcgdGhpcyBJJ20gYm9v
-dGVkIHRvIGtlcm5lbDogNS4xMi40IHdpdGggRlc6IDIwMjEwMzE1Lgo+Pj4KPj4+IEkgYWxzbyBk
-ZXNjcmliZWQgbXkgc2l0dWF0aW9uIG9uIHRoZSBHZW50b28gYnVnemlsbGE6IGh0dHBzOi8vYnVn
-cy5nZW50b28ub3JnLzc5MDU2Ngo+Pj4KPj4+ICJkbWVzZy5sb2ciIGF0dGFjaGVkIGhlcmUgaXMg
-ZnJvbSB0aGUgdGltZSBtYWNoaW5lIHJ1biBmaW5lIChhdCB0aGUgbW9tZW50KTsgImVycm9yc19z
-YXRfbWF5XzE1XzA3MjgyNV9wbV9jZXN0XzIwMjEubG9nIiBpcyBhIGRtZXNnIGxvZyBmcm9tIHRo
-ZSB0aW1lIHN5c3RlbSBicm9rZQo+Pj4KPj4+IENhbiBJIGdldCBhbnkgaGVscCB3aXRoIHRoaXM/
-IFdoYXQgYXJlIHRoZSBuZXh0IHN0ZXBzIEkgc2hvdWxkIHRha2U/IEFueSBvdGhlciBmaWxlcyBJ
-IHNob3VsZCBwcm92aWRlPwo+Pgo+PiBJJ3ZlIGhpdCBzaW1pbGFyIGhhbmdzIHdpdGggYSBMZW5v
-dm8gVGhpbmtQYWQgRTU5NSAoUnl6ZW4gNyAzNzAwVSAvIFBpY2Fzc28gLyBSQVZFTiAweDEwMDI6
-MHgxNUQ4IDB4MTdBQToweDUxMjQgMHhDMSkuIEknbSBhbHNvIHN1c3BlY3RpbmcgdGhlbSB0byBi
-ZSBmaXJ3YXJlIHJlbGF0ZWQuIFRoZSBoYW5ncyBvY2N1cnJlZCB3aXRoIGZpcm13YXJlIGZyb20g
-dGhlIEFNRCAyMC41MCByZWxlYXNlLiBJJ20gY3VycmVudGx5IHJ1bm5pbmcgd2l0aCBmaXJtd2Fy
-ZSBmcm9tIHRoZSAyMC40MCByZWxlYXNlLCBubyBoYW5nIGluIGFsbW9zdCAyIHdlZWtzICh0aGUg
-aGFuZ3MgaGFwcGVuZWQgd2l0aGluIDEtMiBkYXlzIGFmdGVyIGJvb3QpLgo+IAo+IENhbiB5b3Ug
-bmFycm93IGRvd24gd2hpY2ggZmlybXdhcmUocykgY2F1c2UgdGhlIHByb2JsZW0/CgpJJ2xsIHRy
-eSwgYnV0IG5vdGUgSSdtIG5vdCByZWFsbHkgc3VyZSB5ZXQgbXkgaGFuZ3Mgd2VyZSByZWxhdGVk
-IHRvIGZpcm13YXJlIChvbmx5KS4gQW55d2F5LCBJJ2xsIHRyeSBuYXJyb3dpbmcgaXQgZG93bi4K
-CgotLSAKRWFydGhsaW5nIE1pY2hlbCBEw6RuemVyICAgICAgICAgICAgICAgfCAgICAgICAgICAg
-ICAgIGh0dHBzOi8vcmVkaGF0LmNvbQpMaWJyZSBzb2Z0d2FyZSBlbnRodXNpYXN0ICAgICAgICAg
-ICAgIHwgICAgICAgICAgICAgTWVzYSBhbmQgWCBkZXZlbG9wZXIKX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
-bG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============0289682512==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ boundary="Sig_/GXzH8+oBwyxuqn61yuPy7Uc"; protocol="application/pgp-signature"
+
+--Sig_/GXzH8+oBwyxuqn61yuPy7Uc
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, 18 May 2021 10:19:25 -0400
+Harry Wentland <harry.wentland@amd.com> wrote:
+
+> On 2021-05-18 3:56 a.m., Pekka Paalanen wrote:
+> > On Mon, 17 May 2021 15:39:03 -0400
+> > Vitaly Prosyak <vitaly.prosyak@amd.com> wrote:
+> >  =20
+> >> On 2021-05-17 12:48 p.m., Sebastian Wick wrote: =20
+
+...
+
+> >>> I suspect that this is not about tone mapping at all. The use cases
+> >>> listed always have the display in PQ mode and just assume that no
+> >>> content exceeds the PQ limitations. Then you can simply bring all
+> >>> content to the color space with a matrix multiplication and then map =
+the
+> >>> linear light content somewhere into the PQ range. Tone mapping is
+> >>> performed in the display only. =20
+> >=20
+> > The use cases do use the word "desktop" though. Harry, could you expand
+> > on this, are you seeking a design that is good for generic desktop
+> > compositors too, or one that is more tailored to "embedded" video
+> > player systems taking the most advantage of (potentially
+> > fixed-function) hardware?
+> >  =20
+>=20
+> The goal is to enable this on a generic desktop, such as generic Wayland
+> implementations or ChromeOS. We're not looking for a custom solution for
+> some embedded systems, though the solution we end up with should obviously
+> not prevent an implementation on embedded video players.
+
+(There is a TL;DR: at the end.)
+
+Echoing a little bit what Sebastian already said, I believe there are
+two sides to this again:
+- color management in the traditional sense
+- modern standardised display technology
+
+It was perhaps too harsh to say that generic Wayland compositors cannot
+use enum-based color-related UAPI. Sometimes they could, sometimes it
+won't be good enough.
+
+Traditional color management assumes that no two monitors are the same,
+even if they are the same make, model, and manufacturing batch, and are
+driven exactly the same way. Hence, all monitors may require
+calibration (adjusting monitor knobs), and/or they may require
+profiling (measuring the light emission with a special hardware device
+designed for that). Also the viewing environment has an effect.
+
+For profiling to be at all meaningful, calibration must be fixed. This
+means that there must be no dynamic on-the-fly adaptation done in the
+monitor, in the display hardware, or in the kernel. That is a tall
+order that I guess is going to be less and less achievable, especially
+with HDR monitors.
+
+The other side is where the end user trusts the standards, and trusts
+that the drivers and the hardware do what they are specified to do.
+This is where you can trust that the monitor does the tone-mapping magic
+right.
+
+Weston needs to support both approaches, because we want to prove our
+new approach to traditional color management, but we also want to
+support HDR, and if possible, do both at the same time. Doing both at
+the same time is what we think foremost, because it's also the hardest
+thing to achieve. If that can be done, then everything else works out
+too.
+
+However, this should not exclude the possibility to trust standards and
+monitor magic, when the end user wants it.
+
+It's also possible that a monitor simply doesn't support a mode that
+would enable fully color managed HDR, so Weston will need to be able to
+drive monitors with e.g. BT.2020/PQ data eventually. It's just not the
+first goal we have.
+
+This debate is a little bit ironic. The Wayland approach to traditional
+color management is that end users should trust the display server to
+do the right thing, where before people only trusted the individual
+apps using a specific CMS implementation. The display server was the
+untrusted one that should just get out of the way and not touch
+anything. Now I'm arguing that I don't want to trust monitor magic, who
+knows what atrocities it does to my picture! But take the next logical
+step, and one would be arguing that end users should trust also
+monitors to do the right thing. :-)
+
+The above has two catches:
+
+- Do you actually trust hardware manufacturers and marketers and EDID?
+  Monitors have secret sauce you can't inspect nor change.
+
+- You feed a single video stream to a monitor, in a single format,
+  encoding and color space. The display server OTOH gets an arbitrary
+  number of input video streams in arbitrary formats, encodings, and
+  color spaces, and it needs to composite them into one.
+
+Composition is hard. It's not enough to know what kind of signals you
+take in and what kind of signal you must output. You also need to know
+what the end user wants from the result: the render intent.
+
+Even if we trust the monitor magic to do the right thing in
+interpreting and displaying our output signal, we still need to know
+what the end user wants from the composition, and we need to control
+the composition formula to achieve that.
+
+TL;DR:
+
+I would summarise my comments so far into these:
+
+- Telling the kernel the color spaces and letting it come up with
+  whatever color transformation formula from those is not enough,
+  because it puts the render intent policy decision in the kernel.
+
+- Telling the kernel what color transformations need to be done is
+  good, if it is clearly defined.
+
+- Using an enum-based UAPI to tell the kernel what color
+  transformations needs to be done (e.g. which EOTF or EOTF^-1 to apply
+  at a step in the abstract pipeline) is very likely ok for many
+  Wayland compositors in most cases, but may not be sufficient for all
+  use cases. Of course, one is always bound by what hardware can do, so
+  not a big deal.
+
+- You may need to define mutually exclusive KMS properties (referring
+  to my email in another branch of this email tree).
+
+- I'm not sure I (we?) can meaningfully review things like "SDR boost"
+  property until we know ourselves how to composite different types of
+  content together. Maybe someone else could.
+
+Does this help or raise thoughts?
+
+The work on Weston CM&HDR right now is aiming to get it up to a point
+where we can start nicely testing different compositing approaches and
+methods and parameters, and I expect that will also feed back into the
+Wayland CM&HDR protocol design as well.
+
+
+Thanks,
+pq
+
+--Sig_/GXzH8+oBwyxuqn61yuPy7Uc
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmCk0hEACgkQI1/ltBGq
+qqdcrxAAmyFaG6gyK/MNdGRjSKtgHyPQzJhVRQOUjKfwOD5GIIWm3tr30wF36Kn8
+c00/jxQQqm0xrewJikJMgNdsS0WYaTTuMC+M3cxi2gmf3tDBSOCgLP0rrAuI+5he
+kPnQTGplsq/dGluJTPC7AWx4HJvlZflyoheHIIhq2Rq0/FZYwRsW4dntZqJWaPlQ
+GBoXvFmHmXdpGSvWkK1CRkRwjjlZQ1IjnRP9qTXjNz15c+9vSsqiQaQSVPrLryRA
+jrvyPZj8F05D76QGXO+0NAaW0AXsfb6m3rx4tJekSExAanQUOZInjYBi69MY0WSv
+gGaI6+3k2e1Qtg3F8aFXbcfYOzoB8qjjbnIdxvSUNCBm71M4EGI2dpMbem4dP8qo
+61v4WnZ/0qigDhtxKmF6l9kYAT7oTA1vTKm6TjYVG5s9VRkfLb9yU4KyundaYCIY
+Ffk+wLpVHb+ZT5Ut2mgDzYrlt+t8GpOSdpMh3rf0GYQeaAife8nMt0kEiXUCbPdq
+zz/dSoT9MpWw2l1e5IYhb0H/nu65r34aiapfx2Z8SZdREQHZt0fSJdbrLUtOD2D0
+EdTu6O9eItIt4wFrgSp5wXOUKnQoh1iS2x85aid3HRveYxpKxKO3l63FJvPyxVzo
+941VnyYq9Y8v31h3Glkt3PvwpZ7Pu8UV2hOxpOVWhGHgseJJ1Gw=
+=ZcZj
+-----END PGP SIGNATURE-----
+
+--Sig_/GXzH8+oBwyxuqn61yuPy7Uc--
+
+--===============0289682512==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0289682512==--
