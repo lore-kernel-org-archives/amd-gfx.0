@@ -2,117 +2,129 @@ Return-Path: <SRS0=RLY9=KO=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-15.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AAEDEC433ED
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 20:42:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D8120C433ED
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 20:48:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6997A611AE
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 20:42:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6997A611AE
+	by mail.kernel.org (Postfix) with ESMTPS id 9331A611AE
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 20:48:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9331A611AE
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D9AE86EE91;
-	Wed, 19 May 2021 20:42:08 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2078.outbound.protection.outlook.com [40.107.93.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A80E6EE91
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 May 2021 20:42:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83ED16EE92;
+	Wed, 19 May 2021 20:48:08 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2043.outbound.protection.outlook.com [40.107.220.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6EBB46EE92
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 May 2021 20:48:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=e2OvI3jTOL3raTnzNkfLxT5FckGaPJm42++fNDnD12Q8oykTYLoxfzmoEJhtEJoqTUMmrrSbOHyCijKf8dHo+hwvk72MrvDuKfbAvRr29TGlKLMmZmQWXxkIeJUCOaE7KaGxEWK9AEZ7xffS9Kc9tZyMmvS9u1jfK4Q8ySVkmC5yIV8GJMzx+978a0TIJDHI2Pc2XZfFWx6TMM5TA8tHmrZlBvlehZchLsVkS20jQFSKm5x0E5nemZQe0aeo1Adc8EUItw+b3Tgmu2d/yMgen/MgdMJGxTsXHwcaZvrdLVqMJp/c+qpHdjel6Fg8BD4b07R75nbOfgONmT0maNnj7Q==
+ b=jJJtXmpOILeyV/WQx7/IVR7KsObtG6WUogT9yn21UwNegfS+TuPQOCuv9+Lqel4IMRpjME0iqw5O6YrtzZeND988WNOANoFjX5Zv8argSuzT9aeaaUcZZRt20kH9Z8wCDHIeezv5J11dAnO8cEc3paMKjGn8mUeqJbjc06RjoFHn7U/1LmLFuxvJcdH9FossTNw1he4hDVtG/Kvk3uKveTFxh+wwrKg607kw3h8qrCxKsNpWI21UfVF8/YUqT9p/DrglHAD7T6FELZGolXIhOh0jTpvM5Ad9or8kZKd3vZiX680HVLghYvRBlkQGRLeeNiKUFYovjJCj5x8YUDmSXQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DgHZQQsXF4QoslgqlPm8n/5Py8N3nG4RgY1jHSsIDG0=;
- b=QvSmub7sjwMJiUwfiBrBwdNt/LI/jGZjPU1YgbNZI09pgfOzMnvk9pTqUeP2tsPAkN1SyK05u042kU1FWUbXflxYLdihUKnzeW3m/X8zEWUgk+4KhpJdXCUCa+A5JKiHZZ79ks1lG71l4YKv1hWue8jvf5j2GA6BHZ1Uka6jEFTn9QW1IFv0H6U83uBHILYKlxFz6ZJP0zASxbTg3jiXRLpAUoqqOSQmycB0FIGwN05rRZBnSkCxAj99Nm/Qo5JCMUJ/dRS9RHu2OTL2LUFTxHl8/f+SDVyYYGkwtx1gtbM1v2vfWEykpcRJMYAnhzFu7EnIRGqt5DZHSYUjm/4YIQ==
+ bh=FukBAnSxkj0DXn7yWhsAdOVctBJB+wMxtBoa849rwSY=;
+ b=O7lULap9oDx6H9NAIbRA+YzHK+biw1lgJc5ABqN1Irk4N/ZeRsuqPTSl8R0Swxic5bJxbb2ar4ek8u5xS5ryhTIbY1wYXd8FRKoy3NyVujewaI6ejEX8KnNVtB3ZM5Zeb5ohDoOQZKhLkvemwk3tV+hlXPkP5GU7EhxCzLSs3TsvFjZGoTask7f734E8IKZqGE+gPvkbP6T9jGohc7RU2FTLvkJqvcliU6JxCDxq1V6LAQBS6SOb9Iu6EtN4K8+RR8d8DlvZPgc6bNg2JulySp9TNpulzFfxXTW4vFwWGREKQhZOKJ8f45JJDHheGrtwF9v9rTKtcviO5mV1n8scdg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DgHZQQsXF4QoslgqlPm8n/5Py8N3nG4RgY1jHSsIDG0=;
- b=2FYOFN1YrUzQ27xUtHKlOJ20kMBCxK3wWGO3mzBcMpptvaE2vfb40KKVP/DSXvyIP3yN70n3JVki+7t7Crk6VE4aGZUpAXjbkmPJftFy9B9jwyJin1SzNxC+poG1YrJ1O1kzx1abuwcNvwmQAhizc1E4W/nCfYmO7pT2y7xlXjI=
+ bh=FukBAnSxkj0DXn7yWhsAdOVctBJB+wMxtBoa849rwSY=;
+ b=IHpA4+AJZOdd2BhxFcvg42Lhj1gwy4UHPaxH1wK0eu/f4/QPYPwDM2wOONUBXWm8eCqNMSVOgMcWvJgHTxPCIxcfuL+n1ftxsfgN5r90aIk5HYUtL0sM/hVr8+WWdSigqzvEErP/PynAI5sVL+wPsWwSZfvYoefVFgSuZPwHY90=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
- by MN2PR12MB4471.namprd12.prod.outlook.com (2603:10b6:208:26f::16)
- with Microsoft SMTP Server (version=TLS1_2,
+Received: from CH0PR12MB5284.namprd12.prod.outlook.com (2603:10b6:610:d7::13)
+ by CH2PR12MB5514.namprd12.prod.outlook.com (2603:10b6:610:62::9) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.26; Wed, 19 May
- 2021 20:42:05 +0000
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::3d98:cefb:476c:c36e]) by MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::3d98:cefb:476c:c36e%8]) with mapi id 15.20.4129.033; Wed, 19 May 2021
- 20:42:05 +0000
-From: Alex Deucher <alexander.deucher@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu/acpi: unify ATCS handling (v2)
-Date: Wed, 19 May 2021 16:41:41 -0400
-Message-Id: <20210519204141.2737262-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.31.1
+ 2021 20:48:05 +0000
+Received: from CH0PR12MB5284.namprd12.prod.outlook.com
+ ([fe80::1ddc:e4:8412:642d]) by CH0PR12MB5284.namprd12.prod.outlook.com
+ ([fe80::1ddc:e4:8412:642d%6]) with mapi id 15.20.4129.034; Wed, 19 May 2021
+ 20:48:05 +0000
+Subject: Re: [PATCH] drm/amd/display: Fix GPU scaling regression by FS video
+ support
+To: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ amd-gfx@lists.freedesktop.org
+References: <20210519201219.260847-1-nicholas.kazlauskas@amd.com>
+From: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Message-ID: <22b25c84-c155-08a4-a360-795747e0d6e1@amd.com>
+Date: Wed, 19 May 2021 16:48:03 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.1
+In-Reply-To: <20210519201219.260847-1-nicholas.kazlauskas@amd.com>
+Content-Language: en-US
 X-Originating-IP: [165.204.84.11]
-X-ClientProxiedBy: BL1PR13CA0048.namprd13.prod.outlook.com
- (2603:10b6:208:257::23) To MN2PR12MB4488.namprd12.prod.outlook.com
- (2603:10b6:208:24e::19)
+X-ClientProxiedBy: BN0PR04CA0164.namprd04.prod.outlook.com
+ (2603:10b6:408:eb::19) To CH0PR12MB5284.namprd12.prod.outlook.com
+ (2603:10b6:610:d7::13)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from tr4.amd.com (165.204.84.11) by
- BL1PR13CA0048.namprd13.prod.outlook.com (2603:10b6:208:257::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4173.11 via Frontend
- Transport; Wed, 19 May 2021 20:42:05 +0000
+Received: from [10.254.40.134] (165.204.84.11) by
+ BN0PR04CA0164.namprd04.prod.outlook.com (2603:10b6:408:eb::19) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4129.25 via Frontend Transport; Wed, 19 May 2021 20:48:05 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9c6ea2c3-7b11-43ce-fedf-08d91b069046
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4471:
+X-MS-Office365-Filtering-Correlation-Id: d6ce8aa4-0c29-4079-462e-08d91b0766fe
+X-MS-TrafficTypeDiagnostic: CH2PR12MB5514:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB4471C4F8AB1FEEC5B2979437F72B9@MN2PR12MB4471.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:43;
+X-Microsoft-Antispam-PRVS: <CH2PR12MB5514E560EFE45E2EAE19E80E8B2B9@CH2PR12MB5514.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 3aDopGLlvBixkCTWcA8tKxg7evv/32YqglA+wSSBdlrd/iSM6eBI19p0fo6FYssdtz5E6jDGhb68Rxdx0EFpIipDzULfcz1CxRpi5YhIVkvByuUf4q4UzdKpDWPWi8XmMCftBPzKnKtMGl6+DoyVNiPvarn/S2tnmgKhb9dBhwr9M9Fobg2s1juoDc07AIaxhP1D3N6f48cVvKNqu3DvZsCYBo5ViZ5pmK3Fz0T4J1rX8K2igd2p39ekGkIfr9TguPTWjEFPlPq48rDNYWdS/quNC8dEVDe7QqMJgvS+uaXPE3rr5Zk4cYcANpC8Re/Mh8uO0Brv0lULr+1HDtLmf9dzR8Go3JUNXLnjQPvMbMGvrHW219avHpUEJn+zZ0n2zLJlHKJbL6iZL3T2pdxm4+rwzoszM+/kS+owXdnXSYJl6tHi47RX/ESHfmDhpg+LQzD24bHqSc+Y90Pljw/hyykOrVd/QcBrliht/kNKXmCXQA329WqAhBA9GHd7qD1sdPwO/M4gcCacsbsCPpBJWbE/h9OHIfRKm9BIjzfG4KTckZLsR6x9pqnP6wJHHlPnze6a7Gy5T95rAsuGlDmv6aJl9Wrpt08QmE02CgrfDo1m57TDrCIgvRBqRzuOqzQu3+mgYUBQaXmNsPntshg2Lt6yMo7e8npO11DiFnoWKnM=
+X-Microsoft-Antispam-Message-Info: h7sy98ZGpPZF33XG1SGfYhom4BxtTbgFHMzJa+//l2uMQAkrjA08m44HE/XsMJ5VtiHSXd6ccLIrjJFKxJLA68ffqICZfV9l+7xnEeUMXH1UjHhh1TNO3FdO3dQiQBZDGcspOzgTT59Qu4wQrUVZHnR1aBYE9NTVNkbnrcSLk/f+274ASzvu/1lojzuWWS6OgaAN7XiGjYAVGmx2x8LYBjSFLfRX3p25wX9gATedJ9kIiT28aJUmdWfy6J0fwBFMMLtxJrWaIw7kD3Ku+lLnVcHAktaaH9QpK1u/dlrQEkLp/T5zk7rrL3TpvVHiqKaUfdNSeGecr4qpVpHM6nWnjpxbVrnOD2xE+lvVaXPk9cMfM13itXrqg9Qn81HemLmeOwC22zsFIDdXRVuv8jESv22BKqiKhCr999VuZuvMpJMUVpBtPJGylUscg/mI4prFH/5JIVBnizrh3b4cB9zEDcZb7Wu9lKjxoHMvHnwpvaHN3Nr2Fa15RNe/xVU/nZ9NUmNYW/nYRF8C5WVcJ0SrD1dz8k1KOGLY0FslOpEv1VsRu44xtst/TOrJPSIXgym9J5YzSoTYhlbpNsV4FXTVt4ukwQxeoSDihDO6DE3q2YBe8vEL/OBQ72KHJ+kJO5C9YAsWfsX1jsV+NF3kToOrbU2dKV9dgYDG/e5sv+IO0ZCIaOjdVG8ouSp+a5W1UxHybLosISiKRoLEZXpJ0I7ldpDlJrkVg4NqahlXtjKLHyY=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(346002)(396003)(39860400002)(366004)(376002)(36756003)(6486002)(316002)(478600001)(83380400001)(86362001)(52116002)(7696005)(8936002)(8676002)(26005)(16526019)(6666004)(1076003)(186003)(5660300002)(6916009)(956004)(2616005)(66556008)(66476007)(4326008)(2906002)(38100700002)(38350700002)(66946007);
+ IPV:NLI; SFV:NSPM; H:CH0PR12MB5284.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(39860400002)(376002)(346002)(396003)(366004)(66476007)(66946007)(8936002)(66556008)(26005)(6486002)(52116002)(8676002)(36756003)(186003)(86362001)(16526019)(53546011)(31686004)(2616005)(31696002)(38350700002)(44832011)(478600001)(38100700002)(316002)(2906002)(5660300002)(16576012)(83380400001)(956004)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?UenmkaqFYY/jLqPaSYGu+iWuUHg3lVebb5zMMpVjTFU3XPTTZr3I4S/pEUic?=
- =?us-ascii?Q?sNveEm2OPUdtHij2DIRd42PxixYztDZL9+LhT+dkwASCNY+Wr3nUXA+dnRSV?=
- =?us-ascii?Q?kP3gzkSjCbMuxrSq/vupwEEIn9cmY8s7tRX9bKeoNtxrawIvro2w1Gww8N1u?=
- =?us-ascii?Q?7YuFP4kT+D2jdwjz19af+xRuWI5jeL4qdDNOURec1clmDn6z3/HjmOl8VmEQ?=
- =?us-ascii?Q?kMRz7eKV1uS/HNsNPHeiNQjheU3eVNw2IOeceBkmZ2NW5asN9RYcxObapJjA?=
- =?us-ascii?Q?qyZeViXkmMVEgy+BbMqvzw3BBlHzh6FwXL/cxi7X8ybCYsStpy3jQLyqe7eB?=
- =?us-ascii?Q?irwPoYTss4DLmgcGlThmWdnK9LQcVam1MA/5P1g125rcobK99vN72oOE4NJC?=
- =?us-ascii?Q?6NTRNNd69GVSBwTkOo66ul0rZIM6jIWuY2cHH9lwjzW4mdtAwyBq0Rek5hBs?=
- =?us-ascii?Q?trsqfBmqYXDOnSKNcb99BMh2WuFTpGEEbQ8FOst6v5slzKEcSr/dKI//+f88?=
- =?us-ascii?Q?CGl4nGbG3k8yI8T8N4nvuGdW8jEADkzWnD9MZvRB0n7A7yM/1BUyHobjhmrG?=
- =?us-ascii?Q?1SxhDl7aQHfKyoYzUxVZOhps8yOGw0yryM2FByTY31TMcGJpDcsKlyduELUy?=
- =?us-ascii?Q?h46p6PmuQxfUunIxtKBmhqVQp+aRy3qX19fc07BGPoAIAPfAvaaJvM7q2QJb?=
- =?us-ascii?Q?UncuC/wEHHwdP9OUBtobnwaUlV4DWzcVRL44Ix/tTLK8ZjZxLmQid5QKYIhn?=
- =?us-ascii?Q?vPEL7rT8QXF31ydDjpA05hh67uqUHZF96kbQxgngwiSF2x1UN4LXU4vD/wGO?=
- =?us-ascii?Q?LUELzYs0OV38zOMLJNq5rR524CuzqS1nJw3KH94I4e1c14neFsmKuVng4bt8?=
- =?us-ascii?Q?D+LmzIj43p3UJWdJ8Z3KBlHq8V9qQBth6DhbG/A9N3WTs4oyxP9s6SiArq/W?=
- =?us-ascii?Q?BjKWBLPSKBE4xtYFAb4IWe/O6+NvxC5SczEpqHMriq/6pL1hi46/+YkuEnas?=
- =?us-ascii?Q?fn/032Zm1KGi35hBwNY3lKGqwv7r+Fypc5UQ3MulzQdH/4PeynN1OtTOpqwf?=
- =?us-ascii?Q?QC/YV8O+I52zfRjYkxF9J7vL9Vg8i2cR14PB+a1SrcIxKhysB1VNalAZMA+t?=
- =?us-ascii?Q?oC11B4VMQJspnzRlCWlvf4w9yZFuOIokq6bdF65wCh09ohoXxu9Lz8UsK+SJ?=
- =?us-ascii?Q?2N09OSIT274Gh1FMlRuEXl394COVjMnnoxSjoeX4u3ywB3Rukq6boI59aKwU?=
- =?us-ascii?Q?IyyXWohrMtV64hcIxl3hIg0Fx0pL6O9CdgeiT4PuUwrI1HS5xnHMgKZJuT3L?=
- =?us-ascii?Q?m+VBmA1DE4ICueaK464X5a7n?=
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?YmNCZnVaU215SitBYTFmWDJqais1V1lGY1h4Znpwc2FrYVNBaDIrZlFkWkJo?=
+ =?utf-8?B?V2hMN1Q0UUpLVlBpTTJkekl0MHB3UHNUVXhMVTNhSWN3VWViRXNtdlR0Y0hU?=
+ =?utf-8?B?SDl6SHBvM09wcTlBdGs2TXl4WnhTM1lLZXd5TVVYRlBKaGtIYVJzeEhWN29O?=
+ =?utf-8?B?ZmhJRmFGeWJxRVE5TXd4RWtrb0pzamZFK1c1RGJkbms5VEJ6MVQ3MGsyNHRT?=
+ =?utf-8?B?V0ZGY2wwajJIR25aRVNHYkxIWHNOQ3dTZHZXVWdZOW1KOTIvWnRZRWVTUnp4?=
+ =?utf-8?B?aUc2c2NES2ZmYWtrN2RaQm5xUThFRGpFNVNqYUUvWUY0UXpqRjFnQVhEbkZD?=
+ =?utf-8?B?bmQ5WS8wMU1pRWIxb3QvSDhDM3dKOSt4Z1dRbUM1cm9SYW04eis3SEE3MnFl?=
+ =?utf-8?B?UVpheXJoS29QNE1KVkI4VUo1MlROTkFZVWxpUENWak1qQ0JWcDZnZTFZSVBF?=
+ =?utf-8?B?VnRUQnpMMFJHT2JnQmc5Q3dXblJETVVZcjZDL2c1QmxCL05UaDJQdTlqUDhW?=
+ =?utf-8?B?RzJpSVpKYmd1dGtGdFQ4Z0VBR1pxb3dTbXpCSUNoSjU3RThtdW93WGhJbUVN?=
+ =?utf-8?B?VktUQk1ULzc3UDVxd0ZEWnAzQnVNeU84N3FPeTdIRGkxU2RhTHFjMVVlVWtH?=
+ =?utf-8?B?UzhaaEdydFNQcUtoMHZZblJvM2I3RTBZZ2ZzMi9CekEzMURxT1lDU1lmUzNB?=
+ =?utf-8?B?dHhrbkVLbDZHaVovR29LbmI5SHY2TzVEN3laSW1WWVlFTnhaRE9mS0lXVTRD?=
+ =?utf-8?B?UHNqdHphYU5haDl1czBPVjlXZE9hRW9FYUd4TTEvQXllcDNkVmVDd056Zkhh?=
+ =?utf-8?B?bFBBUGFxUmxOV2Z0NDNFNUdIdi84VkdBNlNETlJielVqV0NiRndWcTZlVlVG?=
+ =?utf-8?B?c2JqcTdkSG54MHBVRUVIUkVFbk00bU9rR29MR2JCZ1owYWxSUEVqOFIwb2ZW?=
+ =?utf-8?B?MGRidDBEQ3VUY1hVR0xCR3RMV0ZhN2EzaTl5NEdUZWVQUVlDN0Y0OFUyOHNH?=
+ =?utf-8?B?eXdwL3hBOUtqU0J5TExSb2ZwOFF4VFBVSjdYMFgwa3JGNXVLZVRvRFI0Qzg0?=
+ =?utf-8?B?cExOL2tQdjNQOWJUZzlUd1dJcFo1bFNUNHd1SGdvYXFCRWswK0ZadkdTOHVL?=
+ =?utf-8?B?eFNoOGVJUTF1ZlZjbWp4cXU1VTdycUlIRHRDMHZNYlNESm5lcktLZGpNeHpG?=
+ =?utf-8?B?bFJYb2NBODRnNE9sOTIzdG1IUVg4N2VBYk9ubW0wV29Mb01VREV6cURqM1Bu?=
+ =?utf-8?B?LzB1NmJYK29NRGpuZmxxRVNBT1p4Z3hiVEFLZ1NSVzJXZXkwa1pUcFh6UjhP?=
+ =?utf-8?B?bUg0RUVwZTdING9yVDdIWlBkL0lYL0VWSVdhbzhtVDBiSFBJSVBhNGtOeWRa?=
+ =?utf-8?B?NVB5K2s3M0pUY1JLNENtTEtlcXRSdkFmQWtES0o0Z1JFYllrckg2Ky91dEh0?=
+ =?utf-8?B?SWI4Vm5JU2RvaE1MdFpiSkhnVkt3VGNZaGFySHJ2NVZpMkNNV1YyVzRTTXo4?=
+ =?utf-8?B?amFOQ3NiZEdiS3kvUTJnUjVZRXdGNytVN2UveUo2NExTWHIyNUo3eWRlSVdi?=
+ =?utf-8?B?MEIzci93TjZ4ZWxmRnJFYVFPdVVqa3lvSFdNZFk0UlFLeThLZC9zeXBLdjhx?=
+ =?utf-8?B?cWlsMCtJYVJSd2FQaU4yQXovWGZCRzBGVTBkUCtOek8rNlhKYzlCRWpDVzBk?=
+ =?utf-8?B?TUMxUmhHNjA3YkNUWlJIV1RWOTJHcExaRXdVeE5idHUzdUo1ZnF1Yk9yYXVE?=
+ =?utf-8?Q?FjNPiaa0zH+8F8/wsAMWxI9PvEHHGaPwL5zflnT?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9c6ea2c3-7b11-43ce-fedf-08d91b069046
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d6ce8aa4-0c29-4079-462e-08d91b0766fe
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5284.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2021 20:42:05.8192 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2021 20:48:05.8696 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5x13fiFfj0Fqg6xJqhS9MeSJ+oEYeV0DkD94QdvoYK8A9LG7KoyV+nI26xCP/y71WDzlDhDbVN0UkQWonO/GmA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4471
+X-MS-Exchange-CrossTenant-UserPrincipalName: fErdxNE40Z56czWZzyCt+yTSQWzIgdbhGNllV/SNAmBjy3RihzZxvCGeCxEOCVsXHepcZbykGTaWlf95GLI/2w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB5514
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,350 +136,95 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Treat it like ATIF and check both the dGPU and APU for
-the method.  This is required because ATCS may be hung
-off of the APU in ACPI on A+A systems.
+Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 
-v2: add back accidently removed ACPI handle check.
+On 2021-05-19 4:12 p.m., Nicholas Kazlauskas wrote:
+> [Why]
+> FS video support regressed GPU scaling and the scaled buffer ends up
+> stuck in the top left of the screen at native size - full, aspect,
+> center scaling modes do not function.
+> 
+> This is because decide_crtc_timing_for_drm_display_mode() does not
+> get called when scaling is enabled.
+> 
+> [How]
+> Split recalculate timing and scaling into two different flags.
+> 
+> We don't want to call drm_mode_set_crtcinfo() for scaling, but we
+> do want to call it for FS video.
+> 
+> Optimize and move preferred_refresh calculation next to
+> decide_crtc_timing_for_drm_display_mode() like it used to be since
+> that's not used for FS video.
+> 
+> We don't need to copy over the VIC or polarity in the case of FS video
+> modes because those don't change.
+> 
+> Fixes: a372f4abec ("drm/amd/display: Skip modeset for front porch change")
+> 
+> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+> Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+> ---
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 14 +++++++-------
+>   1 file changed, 7 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 8cd270f129..759621b0e8 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -5672,7 +5672,8 @@ create_stream_for_sink(struct amdgpu_dm_connector *aconnector,
+>   	struct drm_display_mode saved_mode;
+>   	struct drm_display_mode *freesync_mode = NULL;
+>   	bool native_mode_found = false;
+> -	bool recalculate_timing = dm_state ? (dm_state->scaling != RMX_OFF) : false;
+> +	bool recalculate_timing = false;
+> +	bool scale = dm_state ? (dm_state->scaling != RMX_OFF) : false;
+>   	int mode_refresh;
+>   	int preferred_refresh = 0;
+>   #if defined(CONFIG_DRM_AMD_DC_DCN)
+> @@ -5735,7 +5736,7 @@ create_stream_for_sink(struct amdgpu_dm_connector *aconnector,
+>   		 */
+>   		DRM_DEBUG_DRIVER("No preferred mode found\n");
+>   	} else {
+> -		recalculate_timing |= amdgpu_freesync_vid_mode &&
+> +		recalculate_timing = amdgpu_freesync_vid_mode &&
+>   				 is_freesync_video_mode(&mode, aconnector);
+>   		if (recalculate_timing) {
+>   			freesync_mode = get_highest_refresh_rate_mode(aconnector, false);
+> @@ -5743,11 +5744,10 @@ create_stream_for_sink(struct amdgpu_dm_connector *aconnector,
+>   			mode = *freesync_mode;
+>   		} else {
+>   			decide_crtc_timing_for_drm_display_mode(
+> -				&mode, preferred_mode,
+> -				dm_state ? (dm_state->scaling != RMX_OFF) : false);
+> -		}
+> +				&mode, preferred_mode, scale);
+>   
+> -		preferred_refresh = drm_mode_vrefresh(preferred_mode);
+> +			preferred_refresh = drm_mode_vrefresh(preferred_mode);
+> +		}
+>   	}
+>   
+>   	if (recalculate_timing)
+> @@ -5759,7 +5759,7 @@ create_stream_for_sink(struct amdgpu_dm_connector *aconnector,
+>   	* If scaling is enabled and refresh rate didn't change
+>   	* we copy the vic and polarities of the old timings
+>   	*/
+> -	if (!recalculate_timing || mode_refresh != preferred_refresh)
+> +	if (!scale || mode_refresh != preferred_refresh)
+>   		fill_stream_properties_from_drm_display_mode(
+>   			stream, &mode, &aconnector->base, con_state, NULL,
+>   			requested_bpc);
+> 
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h      |  17 +---
- drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 124 ++++++++++++++++-------
- 2 files changed, 91 insertions(+), 50 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 3147c1c935c8..b92eb068be12 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -269,6 +269,7 @@ struct amdgpu_irq_src;
- struct amdgpu_fpriv;
- struct amdgpu_bo_va_mapping;
- struct amdgpu_atif;
-+struct amdgpu_atcs;
- struct kfd_vm_fault_info;
- struct amdgpu_hive_info;
- struct amdgpu_reset_context;
-@@ -685,20 +686,6 @@ struct amdgpu_vram_scratch {
- 	u64				gpu_addr;
- };
- 
--/*
-- * ACPI
-- */
--struct amdgpu_atcs_functions {
--	bool get_ext_state;
--	bool pcie_perf_req;
--	bool pcie_dev_rdy;
--	bool pcie_bus_width;
--};
--
--struct amdgpu_atcs {
--	struct amdgpu_atcs_functions functions;
--};
--
- /*
-  * CGS
-  */
-@@ -829,7 +816,7 @@ struct amdgpu_device {
- 	struct amdgpu_i2c_chan		*i2c_bus[AMDGPU_MAX_I2C_BUS];
- 	struct debugfs_blob_wrapper     debugfs_vbios_blob;
- 	struct amdgpu_atif		*atif;
--	struct amdgpu_atcs		atcs;
-+	struct amdgpu_atcs		*atcs;
- 	struct mutex			srbm_mutex;
- 	/* GRBM index mutex. Protects concurrent access to GRBM index */
- 	struct mutex                    grbm_idx_mutex;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-index bf2939b6eb43..93f5207104ec 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-@@ -71,12 +71,25 @@ struct amdgpu_atif {
- 	struct amdgpu_dm_backlight_caps backlight_caps;
- };
- 
-+struct amdgpu_atcs_functions {
-+	bool get_ext_state;
-+	bool pcie_perf_req;
-+	bool pcie_dev_rdy;
-+	bool pcie_bus_width;
-+};
-+
-+struct amdgpu_atcs {
-+	acpi_handle handle;
-+
-+	struct amdgpu_atcs_functions functions;
-+};
-+
- /* Call the ATIF method
-  */
- /**
-  * amdgpu_atif_call - call an ATIF method
-  *
-- * @atif: acpi handle
-+ * @atif: atif structure
-  * @function: the ATIF function to execute
-  * @params: ATIF function params
-  *
-@@ -236,6 +249,35 @@ static acpi_handle amdgpu_atif_probe_handle(acpi_handle dhandle)
- 	return handle;
- }
- 
-+static acpi_handle amdgpu_atcs_probe_handle(acpi_handle dhandle)
-+{
-+	acpi_handle handle = NULL;
-+	char acpi_method_name[255] = { 0 };
-+	struct acpi_buffer buffer = { sizeof(acpi_method_name), acpi_method_name };
-+	acpi_status status;
-+
-+	/* For PX/HG systems, ATCS and ATPX are in the iGPU's namespace, on dGPU only
-+	 * systems, ATIF is in the dGPU's namespace.
-+	 */
-+	status = acpi_get_handle(dhandle, "ATCS", &handle);
-+	if (ACPI_SUCCESS(status))
-+		goto out;
-+
-+	if (amdgpu_has_atpx()) {
-+		status = acpi_get_handle(amdgpu_atpx_get_dhandle(), "ATCS",
-+					 &handle);
-+		if (ACPI_SUCCESS(status))
-+			goto out;
-+	}
-+
-+	DRM_DEBUG_DRIVER("No ATCS handle found\n");
-+	return NULL;
-+out:
-+	acpi_get_name(handle, ACPI_FULL_PATHNAME, &buffer);
-+	DRM_DEBUG_DRIVER("Found ATCS handle %s\n", acpi_method_name);
-+	return handle;
-+}
-+
- /**
-  * amdgpu_atif_get_notification_params - determine notify configuration
-  *
-@@ -485,14 +527,15 @@ static int amdgpu_atif_handler(struct amdgpu_device *adev,
- /**
-  * amdgpu_atcs_call - call an ATCS method
-  *
-- * @handle: acpi handle
-+ * @atcs: atcs structure
-  * @function: the ATCS function to execute
-  * @params: ATCS function params
-  *
-  * Executes the requested ATCS function (all asics).
-  * Returns a pointer to the acpi output buffer.
-  */
--static union acpi_object *amdgpu_atcs_call(acpi_handle handle, int function,
-+static union acpi_object *amdgpu_atcs_call(struct amdgpu_atcs *atcs,
-+					   int function,
- 					   struct acpi_buffer *params)
- {
- 	acpi_status status;
-@@ -516,7 +559,7 @@ static union acpi_object *amdgpu_atcs_call(acpi_handle handle, int function,
- 		atcs_arg_elements[1].integer.value = 0;
- 	}
- 
--	status = acpi_evaluate_object(handle, "ATCS", &atcs_arg, &buffer);
-+	status = acpi_evaluate_object(atcs->handle, "ATCS", &atcs_arg, &buffer);
- 
- 	/* Fail only if calling the method fails and ATIF is supported */
- 	if (ACPI_FAILURE(status) && status != AE_NOT_FOUND) {
-@@ -550,7 +593,6 @@ static void amdgpu_atcs_parse_functions(struct amdgpu_atcs_functions *f, u32 mas
- /**
-  * amdgpu_atcs_verify_interface - verify ATCS
-  *
-- * @handle: acpi handle
-  * @atcs: amdgpu atcs struct
-  *
-  * Execute the ATCS_FUNCTION_VERIFY_INTERFACE ATCS function
-@@ -558,15 +600,14 @@ static void amdgpu_atcs_parse_functions(struct amdgpu_atcs_functions *f, u32 mas
-  * (all asics).
-  * returns 0 on success, error on failure.
-  */
--static int amdgpu_atcs_verify_interface(acpi_handle handle,
--					struct amdgpu_atcs *atcs)
-+static int amdgpu_atcs_verify_interface(struct amdgpu_atcs *atcs)
- {
- 	union acpi_object *info;
- 	struct atcs_verify_interface output;
- 	size_t size;
- 	int err = 0;
- 
--	info = amdgpu_atcs_call(handle, ATCS_FUNCTION_VERIFY_INTERFACE, NULL);
-+	info = amdgpu_atcs_call(atcs, ATCS_FUNCTION_VERIFY_INTERFACE, NULL);
- 	if (!info)
- 		return -EIO;
- 
-@@ -603,8 +644,10 @@ static int amdgpu_atcs_verify_interface(acpi_handle handle,
-  */
- bool amdgpu_acpi_is_pcie_performance_request_supported(struct amdgpu_device *adev)
- {
--	struct amdgpu_atcs *atcs = &adev->atcs;
-+	struct amdgpu_atcs *atcs = adev->atcs;
- 
-+	if (!atcs)
-+		return false;
- 	if (atcs->functions.pcie_perf_req && atcs->functions.pcie_dev_rdy)
- 		return true;
- 
-@@ -622,19 +665,15 @@ bool amdgpu_acpi_is_pcie_performance_request_supported(struct amdgpu_device *ade
-  */
- int amdgpu_acpi_pcie_notify_device_ready(struct amdgpu_device *adev)
- {
--	acpi_handle handle;
- 	union acpi_object *info;
--	struct amdgpu_atcs *atcs = &adev->atcs;
-+	struct amdgpu_atcs *atcs = adev->atcs;
- 
--	/* Get the device handle */
--	handle = ACPI_HANDLE(&adev->pdev->dev);
--	if (!handle)
-+	if (!atcs)
- 		return -EINVAL;
--
- 	if (!atcs->functions.pcie_dev_rdy)
- 		return -EINVAL;
- 
--	info = amdgpu_atcs_call(handle, ATCS_FUNCTION_PCIE_DEVICE_READY_NOTIFICATION, NULL);
-+	info = amdgpu_atcs_call(atcs, ATCS_FUNCTION_PCIE_DEVICE_READY_NOTIFICATION, NULL);
- 	if (!info)
- 		return -EIO;
- 
-@@ -657,21 +696,18 @@ int amdgpu_acpi_pcie_notify_device_ready(struct amdgpu_device *adev)
- int amdgpu_acpi_pcie_performance_request(struct amdgpu_device *adev,
- 					 u8 perf_req, bool advertise)
- {
--	acpi_handle handle;
- 	union acpi_object *info;
--	struct amdgpu_atcs *atcs = &adev->atcs;
-+	struct amdgpu_atcs *atcs = adev->atcs;
- 	struct atcs_pref_req_input atcs_input;
- 	struct atcs_pref_req_output atcs_output;
- 	struct acpi_buffer params;
- 	size_t size;
- 	u32 retry = 3;
- 
--	if (amdgpu_acpi_pcie_notify_device_ready(adev))
-+	if (!atcs)
- 		return -EINVAL;
- 
--	/* Get the device handle */
--	handle = ACPI_HANDLE(&adev->pdev->dev);
--	if (!handle)
-+	if (amdgpu_acpi_pcie_notify_device_ready(adev))
- 		return -EINVAL;
- 
- 	if (!atcs->functions.pcie_perf_req)
-@@ -691,7 +727,7 @@ int amdgpu_acpi_pcie_performance_request(struct amdgpu_device *adev,
- 	params.pointer = &atcs_input;
- 
- 	while (retry--) {
--		info = amdgpu_atcs_call(handle, ATCS_FUNCTION_PCIE_PERFORMANCE_REQUEST, &params);
-+		info = amdgpu_atcs_call(atcs, ATCS_FUNCTION_PCIE_PERFORMANCE_REQUEST, &params);
- 		if (!info)
- 			return -EIO;
- 
-@@ -767,9 +803,9 @@ static int amdgpu_acpi_event(struct notifier_block *nb,
-  */
- int amdgpu_acpi_init(struct amdgpu_device *adev)
- {
--	acpi_handle handle, atif_handle;
-+	acpi_handle handle, atif_handle, atcs_handle;
- 	struct amdgpu_atif *atif;
--	struct amdgpu_atcs *atcs = &adev->atcs;
-+	struct amdgpu_atcs *atcs;
- 	int ret;
- 
- 	/* Get the device handle */
-@@ -778,21 +814,15 @@ int amdgpu_acpi_init(struct amdgpu_device *adev)
- 	if (!adev->bios || !handle)
- 		return 0;
- 
--	/* Call the ATCS method */
--	ret = amdgpu_atcs_verify_interface(handle, atcs);
--	if (ret) {
--		DRM_DEBUG_DRIVER("Call to ATCS verify_interface failed: %d\n", ret);
--	}
--
- 	/* Probe for ATIF, and initialize it if found */
- 	atif_handle = amdgpu_atif_probe_handle(handle);
- 	if (!atif_handle)
--		goto out;
-+		goto atcs;
- 
- 	atif = kzalloc(sizeof(*atif), GFP_KERNEL);
- 	if (!atif) {
- 		DRM_WARN("Not enough memory to initialize ATIF\n");
--		goto out;
-+		goto atcs;
- 	}
- 	atif->handle = atif_handle;
- 
-@@ -801,7 +831,7 @@ int amdgpu_acpi_init(struct amdgpu_device *adev)
- 	if (ret) {
- 		DRM_DEBUG_DRIVER("Call to ATIF verify_interface failed: %d\n", ret);
- 		kfree(atif);
--		goto out;
-+		goto atcs;
- 	}
- 	adev->atif = atif;
- 
-@@ -810,7 +840,8 @@ int amdgpu_acpi_init(struct amdgpu_device *adev)
- 		if (amdgpu_device_has_dc_support(adev)) {
- #if defined(CONFIG_DRM_AMD_DC)
- 			struct amdgpu_display_manager *dm = &adev->dm;
--			atif->bd = dm->backlight_dev;
-+			if (dm->backlight_dev)
-+				atif->bd = dm->backlight_dev;
- #endif
- 		} else {
- 			struct drm_encoder *tmp;
-@@ -862,6 +893,28 @@ int amdgpu_acpi_init(struct amdgpu_device *adev)
- 		atif->backlight_caps.caps_valid = false;
- 	}
- 
-+atcs:
-+	/* Probe for ATCS, and initialize it if found */
-+	atcs_handle = amdgpu_atcs_probe_handle(handle);
-+	if (!atcs_handle)
-+		goto out;
-+
-+	atcs = kzalloc(sizeof(*atcs), GFP_KERNEL);
-+	if (!atif) {
-+		DRM_WARN("Not enough memory to initialize ATCS\n");
-+		goto out;
-+	}
-+	atcs->handle = atcs_handle;
-+
-+	/* Call the ATCS method */
-+	ret = amdgpu_atcs_verify_interface(atcs);
-+	if (ret) {
-+		DRM_DEBUG_DRIVER("Call to ATCS verify_interface failed: %d\n", ret);
-+		kfree(atcs);
-+		goto out;
-+	}
-+	adev->atcs = atcs;
-+
- out:
- 	adev->acpi_nb.notifier_call = amdgpu_acpi_event;
- 	register_acpi_notifier(&adev->acpi_nb);
-@@ -892,6 +945,7 @@ void amdgpu_acpi_fini(struct amdgpu_device *adev)
- {
- 	unregister_acpi_notifier(&adev->acpi_nb);
- 	kfree(adev->atif);
-+	kfree(adev->atcs);
- }
- 
- /**
 -- 
-2.31.1
-
+Regards,
+Aurabindo Pillai
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
