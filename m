@@ -2,120 +2,76 @@ Return-Path: <SRS0=RLY9=KO=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-2.0 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_2 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D0E78C433B4
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 06:03:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2DB07C433B4
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 07:56:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8D8FD61355
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 06:03:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8D8FD61355
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id E8761610A2
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 07:56:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E8761610A2
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5ACEB6E55C;
-	Wed, 19 May 2021 06:03:12 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2070.outbound.protection.outlook.com [40.107.94.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C991D6E202
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 May 2021 06:03:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TMEWnSuDTfTzVhc9k3GKW6d2gMPfU/pl/7bhyESJC8sG6Bi2et+ZE00vO/s9lFvx6F4xUJPfe4AgjR3W63zhnnmzD13lIu8bIgEcw/fkTA8ps5rcK/oiOJvRLRshnOGUuiVZDnWOqbBmSeS/yUvm8rItl2XFoGQ1UnWhDOnBYXcKkMZsydpotRHTuShAqHgp8Gm0/G9zJWpa7sChKxTG/ubAELmMHi/ziR+t9BnsCA2gnXO7QLkePWMTL+wzyVVnMNq5iN4RQzrwR+L/ahINBmOsZazgi5erYpYGlfpUFb+KhOFmbx4Tr+bKO30cch5iPBMW5SCbLlQfGc9oWy60ZA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3e1LPrZ//ntLYWSekjSBs40xNqb/2XHYY6zoERvck+E=;
- b=geuFWT6IGvtinZzjRbGXQcxBXjE+BfQEyFJslJe0RiiY/cLiNbYIi4gneuXkAyHuv5nUi5aiCzRy7VDN9y/ORfJV2aTGqdPPYQMQm0VwcbNsba3KxAIW4nFaONxCljGScZ1sYMYt1KnHQvnvLeEq9H4+bc9LIhO+tUe9NvrmKl7+qks6A7wBLLI3FLpdcjGYVGylM5gs3BlXav4CtKjsXxIoGLZYxHZ/FSThO+ltsUTfjgEc60cX9YuleK5TGY2uFnfVkwdlLUasT63EjOVP4WS3K7tAjSrimKpeGggTHFWyTPrtW3cGibDG5m9mBes5bIv50ZwJnWWv9UT2rSIPwg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3e1LPrZ//ntLYWSekjSBs40xNqb/2XHYY6zoERvck+E=;
- b=02auBl6yZHOkDwIE6WjwBj0bjqnC0+qSPYvig+1dtUXOnKIlALDM1347L5n00BFjXLm9BMD+RZOvowW8vTp2XMnJ1Y1XRr9Bu/JjMaEVJ06ZZqBnNMUlK+hK6wai7fh23ev33MRrGgmpIm4PSNyH/Sth3Jq6umsmaYFHs/WTp8Y=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from BYAPR12MB2840.namprd12.prod.outlook.com (2603:10b6:a03:62::32)
- by BYAPR12MB3287.namprd12.prod.outlook.com (2603:10b6:a03:131::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.25; Wed, 19 May
- 2021 06:03:09 +0000
-Received: from BYAPR12MB2840.namprd12.prod.outlook.com
- ([fe80::7c65:7181:6d1d:8616]) by BYAPR12MB2840.namprd12.prod.outlook.com
- ([fe80::7c65:7181:6d1d:8616%7]) with mapi id 15.20.4129.031; Wed, 19 May 2021
- 06:03:09 +0000
-From: David M Nieto <david.nieto@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 3/3] drm/amdgpu/pm: display vcn pp dpm
-Date: Tue, 18 May 2021 23:02:33 -0700
-Message-Id: <20210519060233.13597-3-david.nieto@amd.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210519060233.13597-1-david.nieto@amd.com>
-References: <476f8809-5521-98b4-e08f-1d06fc099468@amd.com>
- <20210519060233.13597-1-david.nieto@amd.com>
-X-Originating-IP: [165.204.53.123]
-X-ClientProxiedBy: SJ0PR13CA0130.namprd13.prod.outlook.com
- (2603:10b6:a03:2c6::15) To BYAPR12MB2840.namprd12.prod.outlook.com
- (2603:10b6:a03:62::32)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 439546ECD5;
+	Wed, 19 May 2021 07:56:41 +0000 (UTC)
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [IPv6:2a00:1450:4864:20::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D9236ECD4;
+ Wed, 19 May 2021 07:56:39 +0000 (UTC)
+Received: by mail-lf1-x133.google.com with SMTP id j10so17653834lfb.12;
+ Wed, 19 May 2021 00:56:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:in-reply-to:references
+ :mime-version; bh=IBfR8gZe3l5S8pOzn7i8ghR1Fj99JbmBf6tOUZer5MI=;
+ b=Dz+cssgY7e0wJmSTTGZVbBHgcAAlxyb3BgiHM1ktw19UD0kHrk4kK+17NMeYjlO5pj
+ Y1JAoG20qLzsM6b3otWMB8vY7jcDp94acargwHsxjeytkRDKJTy1w535qP3dJ+9QQT6z
+ MCnqdyXEvv9y0fSyePUkHYn8tuYzHfvWmUa0mpuTrC6WetimZJpag5I5PILN8U5KNpCh
+ os7sKn8lNzSk3y/rBVAezrCNhH9rxlYxhzWFQPDfTZbqfZVPu3/nNULVEPNLP4ZYfQwE
+ GDy/srKRqu+G+wvs0KZei3TtBj03qlBmFKuaMiOVBVVUhJtgPXS7R4vGjz11nZZ31Pa3
+ 4sww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
+ :references:mime-version;
+ bh=IBfR8gZe3l5S8pOzn7i8ghR1Fj99JbmBf6tOUZer5MI=;
+ b=hQsKCkJvPkXy2dqQme8V4smu6UpaRcGD753IWxWpWRQ7QTYNS8JZ1gPPdOUnvhkTUx
+ k1oONntvpi+J5ZvIiRcMGVwqTGvjeDiXHeBLwJBH4Pm17rVQmxW1QZEqYo3Ea6qdhaHB
+ UVgRVGS83zBn/6y/OR6AHLJKPHyBcDrNI5Q3Q3AMOIhfilDWEh0UyC0PvEHCCkFYLXZg
+ 9f/O+wOVqdtiUymCMbfygBXzbF98sFr5WtVPdSidM9lCmJJNqw3z1HMngxUtvjx8zbV1
+ r/EIjXNJPohqCk3eL+l+XhpxTV5gI8BiqNdFT5VT3bItCbZNZ4NsbTCmHh4vO6VKpQkw
+ Bnuw==
+X-Gm-Message-State: AOAM533wR6oKIs39+kWR1/q/Qte2HgiAyrm7pFvF44vTvunaU4FCGYoz
+ mk9wBvkreXCa+iPSv3P1OH0=
+X-Google-Smtp-Source: ABdhPJxUau0fImX7ezM2KGA1ComJEaQkc+B69Hhyn2TjakIPItN7eEr/cB8F72VWg/9dOjndgKOYCQ==
+X-Received: by 2002:a05:6512:3d94:: with SMTP id
+ k20mr7529298lfv.604.1621410997803; 
+ Wed, 19 May 2021 00:56:37 -0700 (PDT)
+Received: from eldfell ([194.136.85.206])
+ by smtp.gmail.com with ESMTPSA id k15sm3658760ljk.135.2021.05.19.00.56.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 19 May 2021 00:56:37 -0700 (PDT)
+Date: Wed, 19 May 2021 10:56:25 +0300
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: Harry Wentland <harry.wentland@amd.com>
+Subject: Re: [RFC PATCH 1/3] drm/color: Add RGB Color encodings
+Message-ID: <20210519105625.01e99f41@eldfell>
+In-Reply-To: <812996ec-13f0-2440-c3d0-efb21fd877e5@amd.com>
+References: <20210426173852.484368-1-harry.wentland@amd.com>
+ <20210426173852.484368-2-harry.wentland@amd.com>
+ <YIcBUl+94sHJsT8B@intel.com>
+ <0090ce07-6102-59e7-bc8c-3528297aa5ae@amd.com>
+ <a49e967a0082727757143828770bd671@sebastianwick.net>
+ <cac44e69-85cb-661b-4a5e-33fafee8ea3d@amd.com>
+ <20210517113432.11f95361@eldfell>
+ <812996ec-13f0-2440-c3d0-efb21fd877e5@amd.com>
+X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from loud-cracker.amd.com (165.204.53.123) by
- SJ0PR13CA0130.namprd13.prod.outlook.com (2603:10b6:a03:2c6::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4150.11 via Frontend
- Transport; Wed, 19 May 2021 06:03:09 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 7c90ade6-fcde-454c-c8cc-08d91a8bc6f8
-X-MS-TrafficTypeDiagnostic: BYAPR12MB3287:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BYAPR12MB32877C303556C84A28938072F42B9@BYAPR12MB3287.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:208;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: qYdxeDY1gM12qKxhjClqsG66rwXqSVu2OBXqp4aanW+57wSqTtKD1UuptQ8YNRx3zaz2AxOOkhTnwmvt0TDodbRVIKbAirCRMGh3i9XiMibr3RKnBy6WLVFGf2kKZNrLXbgIBgGEfgeUUEsHLKLnseIY46ekl3SfCViqowLgoebwUUjlIG6/Leymq6Jg8rSAWARXUXg/6xA5Q9K5f+K68e/3nXShWC3tUIno7Vb/3Bn9RtIS6s6MgWZfzo24djvTpOUqd8m7Efu8trvUyT1wJfN+Z8SeqP9XBvwXRdiyVaFQ8rIjr5kMTPpH1h6W3gncBtfN4j+aYtkPu4/5SeaD5NmcxNYtpwoTvfmh5iGBbAGhqdzK1h7HlC3OlJ5YkNg9j5AdENZDolWezawYXX+Tfo4jL+Q1rVdLxamcxioabiC+fCHnOma9T5OP78TBOBB9edubjYwrRsC7eIOOyCjBnRB1ru7wgu6IqZQPaqc50p6gYkr/K4Ur3cq/osY+mbprB5G1+5WBBhaNslpLlSZW0+J0kxwbBwGEDUKyw2R1nHQMKmtT7uDYrm1JzSbrhHPGLdq2/rLK3PeDPU1oMv9xDq8tkaoW1DcPZDfd+x+LIWwoOt5g4womB0bgkBdOojhAp9n+s+pqvGdz43QVZL24TSQfAyPb62ADYB4rtSb3mp0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB2840.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(136003)(366004)(39860400002)(346002)(376002)(5660300002)(38100700002)(66476007)(38350700002)(316002)(66556008)(6486002)(8676002)(66946007)(8936002)(6916009)(2906002)(7696005)(52116002)(956004)(2616005)(26005)(83380400001)(86362001)(478600001)(36756003)(1076003)(186003)(4326008)(6666004)(16526019);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?woaBWdwOVfem2Ew1HzhVxm2qwwna/kLOqWf7b9FWXuZlwE8gJC/hWClyjiYc?=
- =?us-ascii?Q?fIYuDOLIHIuXP5O15PEoBmqGpLuunHd9FYy5LS9062aH/LyW1GBeI0kwVVnh?=
- =?us-ascii?Q?N8ysYDxnaRX2WncqSLKmUcMTYH18lqLW+P+ffZOfr9ccHFdb1cZeGZdGn+VB?=
- =?us-ascii?Q?1rWy7IYRq79WCfbh7tSz0LCBWJr+pd/8WFs8i7ux/k3jHwiPtIC6nwistibS?=
- =?us-ascii?Q?JCXbCdBlZxa6OKQutJ24xL7VaDp51gmIcb0qLU6K7dMfHUZCBjD3EPnCJ54d?=
- =?us-ascii?Q?xAcphgpONPXJQV06saE5q8mxQZE+XGMX4B/PkB/m+5/qAgGbnuXUnVk7BLNx?=
- =?us-ascii?Q?KhG2tCx2GQMxqsIWB6XRMMGzYDJMiiID+VQIoxjse7tavkCPCPjYlxdAFVD4?=
- =?us-ascii?Q?c9Zs+l8V1vIZtXo1yb6o4hbR/GwfXzQ1yLw1SO/xvBWdJzkmhnoPjIuElXIV?=
- =?us-ascii?Q?mY6PBA+Hx9Kr7/Mqg/HRCD0MGy2JS3uPbkcLH9Bqz+7tSQCrwVHDS0INVzOW?=
- =?us-ascii?Q?ybYlHeXsrlW/EMmaCzKzC8ytKEd9hZCcF681bH7HYb2016odstoHhzu9xqHq?=
- =?us-ascii?Q?wcF54jkjofT/RuSofRC4aMPZbleeEtJ1lKwFHJzevQ9iBbNIR3cQ/MufTnem?=
- =?us-ascii?Q?nwDiUTF1rvg3k3RcQ4hfxAuyoVAU4th685BfrGA50tCxe/5NGOQdb+vTgIT6?=
- =?us-ascii?Q?bGZmytdQi16oFKY/yTGn6/KjvtGofEsrZPm/wUpIj8glXuIy/fIa8zhz0YBN?=
- =?us-ascii?Q?FC23z+/NgG5EodZBc5SrDsfs8svBfOxNkI6t+WvuTrtruNli/pxKHjr80gx9?=
- =?us-ascii?Q?t2ghuqPsZvJz09RH7jVgDVY9F6M7mgvVGi7oWxGNfKr1QgqjfNoWDd4cwkSq?=
- =?us-ascii?Q?EvXtYx8AM3wdG4U+szcISqrG7zVB4AY2rRhoDb0o/MJUm9rP5jl70W13YwtD?=
- =?us-ascii?Q?26JAtgSxlkkzfvxjtuWQ6disP3HxZCbqO3tjt/k9J9gqBFb6g4wr3ZKfUomI?=
- =?us-ascii?Q?dTDJBu24O0rznLKYhYpqxpx/smsdNJMZBDM80uwk0iRUTMv8/8AtoTGbNaA1?=
- =?us-ascii?Q?9NXaAtfs5etXnNciOx7l3ETEbpxpGHtD/0e7q9L6c3LvsnIX1NwfbVGrG/XG?=
- =?us-ascii?Q?Yv9kniXlGYeyPGlJuIZOYQBcqDfWH13BDKjUwtjrs1N/7IfWBbicOWftt6mA?=
- =?us-ascii?Q?SF1VOoXOd03n8oArWjR7qK3EuZQTCrlj+PiI+e0mF5b1BLpvaWAQmRQnKJqx?=
- =?us-ascii?Q?X5q06a+c/gOIqdf3KUgpYa+rb9bcKD1tuzVBx2bEPdVc6UFHvy6pHE1cdF/6?=
- =?us-ascii?Q?9VdQJiJGGgujuCBkUpN3aWzh?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7c90ade6-fcde-454c-c8cc-08d91a8bc6f8
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB2840.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2021 06:03:09.2504 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DQX0LSNPH+4QD9zc2WPsdILrLQAXIAxp3A7oTWZzEZuPu0QHLvTAJ4SslKTfrsg+
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3287
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,254 +83,158 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David M Nieto <david.nieto@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Deepak.Sharma@amd.com, aric.cyr@amd.com, Krunoslav.Kovac@amd.com,
+ mcasas@google.com, Shashank.Sharma@amd.com, dri-devel@lists.freedesktop.org,
+ Shirish.S@amd.com, Sebastian Wick <sebastian@sebastianwick.net>,
+ Uma Shankar <uma.shankar@intel.com>, hersenxs.wu@amd.com,
+ amd-gfx@lists.freedesktop.org, laurentiu.palcu@oss.nxp.com,
+ Bhawanpreet.Lakha@amd.com, Nicholas.Kazlauskas@amd.com,
+ Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Vitaly.Prosyak@amd.com
+Content-Type: multipart/mixed; boundary="===============0296787077=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Enable displaying DPM levels for VCN clocks
-in swsmu supported ASICs
+--===============0296787077==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ boundary="Sig_/k/36dMrq49Kl.NsLoULda7Z"; protocol="application/pgp-signature"
 
-Signed-off-by: David M Nieto <david.nieto@amd.com>
----
- .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c | 46 +++++++++++++++++++
- .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   |  2 +
- .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   |  8 ++++
- .../gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c   | 34 ++++++++++++++
- .../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    | 46 +++++++++++++++++++
- 5 files changed, 136 insertions(+)
+--Sig_/k/36dMrq49Kl.NsLoULda7Z
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-index 77693bf0840c..1735a96dd307 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-@@ -822,6 +822,52 @@ static int arcturus_print_clk_levels(struct smu_context *smu,
- 				now) ? "*" : ""));
- 		break;
- 
-+	case SMU_VCLK:
-+		ret = arcturus_get_current_clk_freq_by_table(smu, SMU_VCLK, &now);
-+		if (ret) {
-+			dev_err(smu->adev->dev, "Attempt to get current vclk Failed!");
-+			return ret;
-+		}
-+
-+		single_dpm_table = &(dpm_context->dpm_tables.vclk_table);
-+		ret = arcturus_get_clk_table(smu, &clocks, single_dpm_table);
-+		if (ret) {
-+			dev_err(smu->adev->dev, "Attempt to get vclk levels Failed!");
-+			return ret;
-+		}
-+
-+		for (i = 0; i < single_dpm_table->count; i++)
-+			size += sprintf(buf + size, "%d: %uMhz %s\n",
-+				i, single_dpm_table->dpm_levels[i].value,
-+				(clocks.num_levels == 1) ? "*" :
-+				(arcturus_freqs_in_same_level(
-+				clocks.data[i].clocks_in_khz / 1000,
-+				now) ? "*" : ""));
-+		break;
-+
-+	case SMU_DCLK:
-+		ret = arcturus_get_current_clk_freq_by_table(smu, SMU_DCLK, &now);
-+		if (ret) {
-+			dev_err(smu->adev->dev, "Attempt to get current dclk Failed!");
-+			return ret;
-+		}
-+
-+		single_dpm_table = &(dpm_context->dpm_tables.dclk_table);
-+		ret = arcturus_get_clk_table(smu, &clocks, single_dpm_table);
-+		if (ret) {
-+			dev_err(smu->adev->dev, "Attempt to get dclk levels Failed!");
-+			return ret;
-+		}
-+
-+		for (i = 0; i < single_dpm_table->count; i++)
-+			size += sprintf(buf + size, "%d: %uMhz %s\n",
-+				i, single_dpm_table->dpm_levels[i].value,
-+				(clocks.num_levels == 1) ? "*" :
-+				(arcturus_freqs_in_same_level(
-+				clocks.data[i].clocks_in_khz / 1000,
-+				now) ? "*" : ""));
-+		break;
-+
- 	case SMU_PCIE:
- 		gen_speed = smu_v11_0_get_current_pcie_link_speed_level(smu);
- 		lane_width = smu_v11_0_get_current_pcie_link_width_level(smu);
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-index b8971303a873..7763de464678 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-@@ -1273,6 +1273,8 @@ static int navi10_print_clk_levels(struct smu_context *smu,
- 	case SMU_MCLK:
- 	case SMU_UCLK:
- 	case SMU_FCLK:
-+	case SMU_VCLK:
-+	case SMU_DCLK:
- 	case SMU_DCEFCLK:
- 		ret = navi10_get_current_clk_freq_by_table(smu, clk_type, &cur_value);
- 		if (ret)
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-index 0c40a54c46d7..6da6d08d8858 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-@@ -987,6 +987,10 @@ static int sienna_cichlid_print_clk_levels(struct smu_context *smu,
- 	case SMU_MCLK:
- 	case SMU_UCLK:
- 	case SMU_FCLK:
-+	case SMU_VCLK:
-+	case SMU_VCLK1:
-+	case SMU_DCLK:
-+	case SMU_DCLK1:
- 	case SMU_DCEFCLK:
- 		ret = sienna_cichlid_get_current_clk_freq_by_table(smu, clk_type, &cur_value);
- 		if (ret)
-@@ -1150,6 +1154,10 @@ static int sienna_cichlid_force_clk_levels(struct smu_context *smu,
- 	case SMU_MCLK:
- 	case SMU_UCLK:
- 	case SMU_FCLK:
-+	case SMU_VCLK:
-+	case SMU_VCLK1:
-+	case SMU_DCLK:
-+	case SMU_DCLK1:
- 		/* There is only 2 levels for fine grained DPM */
- 		if (sienna_cichlid_is_support_fine_grained_dpm(smu, clk_type)) {
- 			soft_max_level = (soft_max_level >= 1 ? 1 : 0);
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-index f43b4c623685..0805dc439572 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-@@ -109,6 +109,8 @@ static struct cmn2asic_mapping renoir_clk_map[SMU_CLK_COUNT] = {
- 	CLK_MAP(SOCCLK, CLOCK_SOCCLK),
- 	CLK_MAP(UCLK, CLOCK_FCLK),
- 	CLK_MAP(MCLK, CLOCK_FCLK),
-+	CLK_MAP(VCLK, CLOCK_VCLK),
-+	CLK_MAP(DCLK, CLOCK_DCLK),
- };
- 
- static struct cmn2asic_mapping renoir_table_map[SMU_TABLE_COUNT] = {
-@@ -202,6 +204,17 @@ static int renoir_get_dpm_clk_limited(struct smu_context *smu, enum smu_clk_type
- 			return -EINVAL;
- 		*freq = clk_table->FClocks[dpm_level].Freq;
- 		break;
-+	case SMU_VCLK:
-+		if (dpm_level >= NUM_VCN_DPM_LEVELS)
-+			return -EINVAL;
-+		*freq = clk_table->VClocks[dpm_level].Freq;
-+		break;
-+	case SMU_DCLK:
-+		if (dpm_level >= NUM_VCN_DPM_LEVELS)
-+			return -EINVAL;
-+		*freq = clk_table->DClocks[dpm_level].Freq;
-+		break;
-+
- 	default:
- 		return -EINVAL;
- 	}
-@@ -532,6 +545,14 @@ static int renoir_print_clk_levels(struct smu_context *smu,
- 		count = NUM_FCLK_DPM_LEVELS;
- 		cur_value = metrics.ClockFrequency[CLOCK_FCLK];
- 		break;
-+	case SMU_VCLK:
-+		count = NUM_VCN_DPM_LEVELS;
-+		cur_value = metrics.ClockFrequency[CLOCK_VCLK];
-+		break;
-+	case SMU_DCLK:
-+		count = NUM_VCN_DPM_LEVELS;
-+		cur_value = metrics.ClockFrequency[CLOCK_DCLK];
-+		break;
- 	default:
- 		break;
- 	}
-@@ -543,6 +564,8 @@ static int renoir_print_clk_levels(struct smu_context *smu,
- 	case SMU_MCLK:
- 	case SMU_DCEFCLK:
- 	case SMU_FCLK:
-+	case SMU_VCLK:
-+	case SMU_DCLK:
- 		for (i = 0; i < count; i++) {
- 			ret = renoir_get_dpm_clk_limited(smu, clk_type, i, &value);
- 			if (ret)
-@@ -730,6 +753,17 @@ static int renoir_get_dpm_clock_table(struct smu_context *smu, struct dpm_clocks
- 		clock_table->MemClocks[i].Vol = table->MemClocks[i].Vol;
- 	}
- 
-+	for (i = 0; i < NUM_VCN_DPM_LEVELS; i++) {
-+		clock_table->VClocks[i].Freq = table->VClocks[i].Freq;
-+		clock_table->VClocks[i].Vol = table->VClocks[i].Vol;
-+	}
-+
-+	for (i = 0; i < NUM_VCN_DPM_LEVELS; i++) {
-+		clock_table->DClocks[i].Freq = table->DClocks[i].Freq;
-+		clock_table->DClocks[i].Vol = table->DClocks[i].Vol;
-+	}
-+
-+
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-index 7c191a5d6db9..fb744f3e17d7 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-@@ -816,6 +816,52 @@ static int aldebaran_print_clk_levels(struct smu_context *smu,
- 								       now) ? "*" : ""));
- 		break;
- 
-+	case SMU_VCLK:
-+		ret = aldebaran_get_current_clk_freq_by_table(smu, SMU_VCLK, &now);
-+		if (ret) {
-+			dev_err(smu->adev->dev, "Attempt to get current vclk Failed!");
-+			return ret;
-+		}
-+
-+		single_dpm_table = &(dpm_context->dpm_tables.vclk_table);
-+		ret = aldebaran_get_clk_table(smu, &clocks, single_dpm_table);
-+		if (ret) {
-+			dev_err(smu->adev->dev, "Attempt to get vclk levels Failed!");
-+			return ret;
-+		}
-+
-+		for (i = 0; i < single_dpm_table->count; i++)
-+			size += sprintf(buf + size, "%d: %uMhz %s\n",
-+					i, single_dpm_table->dpm_levels[i].value,
-+					(clocks.num_levels == 1) ? "*" :
-+					(aldebaran_freqs_in_same_level(
-+								       clocks.data[i].clocks_in_khz / 1000,
-+								       now) ? "*" : ""));
-+		break;
-+
-+	case SMU_DCLK:
-+		ret = aldebaran_get_current_clk_freq_by_table(smu, SMU_DCLK, &now);
-+		if (ret) {
-+			dev_err(smu->adev->dev, "Attempt to get current dclk Failed!");
-+			return ret;
-+		}
-+
-+		single_dpm_table = &(dpm_context->dpm_tables.dclk_table);
-+		ret = aldebaran_get_clk_table(smu, &clocks, single_dpm_table);
-+		if (ret) {
-+			dev_err(smu->adev->dev, "Attempt to get dclk levels Failed!");
-+			return ret;
-+		}
-+
-+		for (i = 0; i < single_dpm_table->count; i++)
-+			size += sprintf(buf + size, "%d: %uMhz %s\n",
-+					i, single_dpm_table->dpm_levels[i].value,
-+					(clocks.num_levels == 1) ? "*" :
-+					(aldebaran_freqs_in_same_level(
-+								       clocks.data[i].clocks_in_khz / 1000,
-+								       now) ? "*" : ""));
-+		break;
-+
- 	default:
- 		break;
- 	}
--- 
-2.17.1
+On Tue, 18 May 2021 10:32:48 -0400
+Harry Wentland <harry.wentland@amd.com> wrote:
+
+> On 2021-05-17 4:34 a.m., Pekka Paalanen wrote:
+> > On Fri, 14 May 2021 17:04:51 -0400
+> > Harry Wentland <harry.wentland@amd.com> wrote:
+> >  =20
+> >> On 2021-04-30 8:53 p.m., Sebastian Wick wrote: =20
+> >>> On 2021-04-26 20:56, Harry Wentland wrote:   =20
+> >=20
+> > ...
+> >  =20
+> >>>> Another reason I'm proposing to define the color space (and gamma) of
+> >>>> a plane is to make this explicit. Up until the color space and gamma
+> >>>> of a plane or framebuffer are not well defined, which leads to drive=
+rs
+> >>>> assuming the color space and gamma of a buffer (for blending and oth=
+er
+> >>>> purposes) and might lead to sub-optimal outcomes.   =20
+> >>>
+> >>> Blending only is "correct" with linear light so that property of the
+> >>> color space is important. However, why does the kernel have to be
+> >>> involved here? As long as user space knows that for correct blending =
+the
+> >>> data must represent linear light and knows when in the pipeline blend=
+ing
+> >>> happens it can make sure that the data at that point in the pipeline
+> >>> contains linear light.
+> >>>    =20
+> >>
+> >> The only reason the kernel needs to be involved is to take full advant=
+age
+> >> of the available HW without requiring KMS clients to be aware of
+> >> the difference in display HW. =20
+> >=20
+> > Can you explain in more tangible examples, why you think so, please?
+> >=20
+> > Is it because hardware does not fit the KMS UAPI model of the abstract
+> > pixel pipeline?
+> >  =20
+>=20
+> I'd wager no HW is designed to meet KMS UAPI, rather KMS UAPI is designed
+> to abstract HW.
+
+Of course, but you are in big trouble in any case if there is a
+fundamental mismatch. You may have to declare that all existing KMS
+properties for this stuff will be mutually exclusive with your new
+properties, so that you can introduce a new generic abstract pipeline
+in KMS.
+
+By mutually exclusive I mean that a driver must advertise only one or
+the other set of properties and never both. If you want to support
+userspace that doesn't understand the alternative set, maybe you also
+need a drm client cap to switch to the alternative set per-drm-client.
+
+> > Or is it because you have fixed-function hardware elements that you can
+> > only make use of when userspace uses an enum-based UAPI?
+> >  =20
+>=20
+> One example is our degamma on our latest generation HW, where we have
+> fixed-function "degamma" (rather de-EOTF):
+>=20
+> https://gitlab.freedesktop.org/agd5f/linux/-/blob/amd-staging-drm-next/dr=
+ivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c#L166
+
+Ok.
+
+> > I would totally agree that the driver does not want to be analysing LUT
+> > entries to decipher if it could use a fixed-function element or not. It
+> > would introduce uncertainty in the UAPI. So fixed-function elements
+> > would need their own properties, but I don't know if that is feasible
+> > as generic UAPI or if it should be driver-specific (and so left unused
+> > by generic userspace).
+> >  =20
+>=20
+>=20
+> For the CRTC LUTs we actually do a linearity check to program the
+> HW into bypass when the LUT is linear since the KMS LUT definition
+> doesn't map well onto the LUT definition used by our HW and leads
+> to rounding errors and failing IGT kms_color tests (if I remember
+> this correctly).
+>=20
+> https://gitlab.freedesktop.org/agd5f/linux/-/blob/amd-staging-drm-next/dr=
+ivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c#L330
+>=20
+> Hence the suggestion to define pre-defined TFs right at a KMS level
+> for usecases where we can assume the display will tonemap the=20
+> content.
+
+Right. Explaining this would have been a good introduction in your
+cover letter.
+
+Maybe you want to define new KMS properties that shall be mutually
+exclusive with the existing KMS GAMMA/CTM/DEGAMMA properties and
+clearly document them as such.
+
+
+Thanks,
+pq
+
+--Sig_/k/36dMrq49Kl.NsLoULda7Z
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmCkxKkACgkQI1/ltBGq
+qqfFcQ/9HZWvQVnJ0+2Tk8Nw7NBQpC/szV0qZi1JrogTAffJsWDX/b0nDTTyD9Fy
+8dZvsnQrrGg4ROlqdnsc3uRoNVF95GsIgU6LSqHHVMzbeH4OM4rc75pXbxAUJGo1
+iYzg1EXExL88oVqhS1t5lOj9GfNTpubj1oEMYrWyZuhLbHZcg4Pf0c67Ea01tvhu
+8lOEQxya31b3x4issaJ+hjcDxAdzINlDLm9JcwsLm/sCzmogn2x92XCaNHuXq+EE
+CAbNugBRexlCmlDed84Xw78fl10xMYzHLnLGKirde0G+MuxFd5QLWncZRa9lJ8bm
+1rMCEkw3/MwHj1iH146Q2Q9kC5hrg+1DSzp05oKz2On4gJJePpPjOScTN081/HnA
+vnn8UwW1VJcjH/Z3x9MBCJXg/Yra1tKXuBAH+S8ZD95X5YAm8oaB4z6q/HBtHvVn
+kd+LQGU7IUfwsLaSebva2pAgUzqi+Js9dIN3aeY0WPUrfZFjNzVnxE5YXQmUWfnN
+vPwnkCJGHhKujfH65N16pwR/RSSzZ0Er/qQUB18cDSxHzP/Z8Yb61jpUnfpPm+Uq
+08LSots9IJLV2BFfgDoEMUbh1/SA6exV4KDa2K+fsMV++Dd3d9vQexcZvJldB7AM
+v9vTkawrxoQlL7S66pmR2Q8nQNb+LrFpETERyvV4h4Ie0ZDZIWE=
+=oajY
+-----END PGP SIGNATURE-----
+
+--Sig_/k/36dMrq49Kl.NsLoULda7Z--
+
+--===============0296787077==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0296787077==--
