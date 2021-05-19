@@ -2,105 +2,69 @@ Return-Path: <SRS0=RLY9=KO=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-2.0 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_2 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A9D8CC433ED
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 09:32:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E8B82C433B4
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 09:34:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3CC2861019
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 09:32:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3CC2861019
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id AC40D613B9
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 09:34:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AC40D613B9
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB1E06E235;
-	Wed, 19 May 2021 09:32:17 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2082.outbound.protection.outlook.com [40.107.223.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DCA26E235
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 May 2021 09:32:17 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Hnq038Wm7/NHT0B+vtXM6jZA59hPhtQMLqYLFhxbw2nQo7MML0dCZKUlReWcZyhZ8Cd00RrapMWYigx0gdfZ8wOaHQRKFdtBUkjeFGsobxjXx6pAPz20mSorgXxoQ/bzbxUyOWYUDaIy56kaGiP/fFEiNrrA267lNaHhoVSbAkPWVZDRhTj38LCcDbM7G3vLdxT6dFt8kLaOMjA1ucNVnNcy78f6c7GDJCZMK/1aAf7Q2ssynD3Ovz4mBWAes8NZFLjPqyoUVKzpW1eZKuqD6zFbHeblRyyzc4hPfTp02RKIJhXxbLAUuwI7Lob5sKgp297VoO75OqgxTj1fDdrkvQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hvSeioQnBpfKsJN3PlYeisTqaPPZ8WmzWOS7aH2/qAM=;
- b=A0Kl/0DoGGL02RHjxVKolY/E7kDUXi8g04zXnRXiFs0yGsK0LfNYG642XqL94phpLvlU6XvthqW5SOZpLD53nQkRZXN/2k0BjfSOBR9ZoBMjpt4tGoYeOMsdiqr3VOAwws0y+sMbecXSwtF1EvsYz8d8E2labFa/2bsscuR5l7MK/wWIo50EA71N99PIerHgZ/puE9fvKY6fw6vZyg7uiPPLQ7F2fEwxBzBOCIvspZZg5lceRPW8O5jVKPJFZrKAuG26Av8i8h9a3nY4283y7a4R75ql4y2AXEgxStHO5EOH7t3pWRZF3m9HJmcA/aPm1WF1DvjF+0e+aUigT0cNqA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=none sp=none pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hvSeioQnBpfKsJN3PlYeisTqaPPZ8WmzWOS7aH2/qAM=;
- b=QTOmop8b0G7/IUYuOAr95RsKK58cIl/nsuSIAPJ0xRq4+mdROS7EAzQvIVcsq5lGtaRnKBnsXtk6LIypm8ex5k9fx/zROpXAdvxb0E+SrpkCuEZMbGluMo7g0N7Gv5W8Jl77J2huHqjTlC+JJyh5phpM5i1wmzST4iATz6EYhGA=
-Received: from BN0PR04CA0199.namprd04.prod.outlook.com (2603:10b6:408:e9::24)
- by DM6PR12MB3258.namprd12.prod.outlook.com (2603:10b6:5:187::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.25; Wed, 19 May
- 2021 09:32:14 +0000
-Received: from BN8NAM11FT033.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:e9:cafe::ca) by BN0PR04CA0199.outlook.office365.com
- (2603:10b6:408:e9::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.32 via Frontend
- Transport; Wed, 19 May 2021 09:32:14 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT033.mail.protection.outlook.com (10.13.177.149) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4129.25 via Frontend Transport; Wed, 19 May 2021 09:32:14 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Wed, 19 May
- 2021 04:32:14 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Wed, 19 May
- 2021 04:32:13 -0500
-Received: from chengzhe-build.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2242.4 via Frontend
- Transport; Wed, 19 May 2021 04:32:11 -0500
-From: Chengzhe Liu <ChengZhe.Liu@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: Increase tlb flush timeout for sriov
-Date: Wed, 19 May 2021 17:32:09 +0800
-Message-ID: <20210519093209.888377-1-ChengZhe.Liu@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 451996E243;
+	Wed, 19 May 2021 09:34:12 +0000 (UTC)
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [IPv6:2a00:1450:4864:20::233])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D4D26E243;
+ Wed, 19 May 2021 09:34:11 +0000 (UTC)
+Received: by mail-lj1-x233.google.com with SMTP id e11so14790337ljn.13;
+ Wed, 19 May 2021 02:34:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:in-reply-to:references
+ :mime-version; bh=M4/CJdize/QPrExYkYoO17mX9iuO/FeUCuYX4ZYy1Eg=;
+ b=ctT/5/xc2v60tfVBuU70gynhEus2tJ7LfF9eRAMDp4bVW23Cr0l+KtN+5BqZP9MDJ4
+ nhFID3wbcOoaTIuqXJhDPpKEdteb8QGiPnlr9VVU3PRP88NgwKd5xrphibllssFumL5B
+ lbarigZtnY7bBYjDsn4CHr+fsE0C1xS0PMwZ9+Ru+bw4u0yFzfxLIVwUEFb/xTfGzaVR
+ dHLdX8oKXAyKrv8ZzE4BU7zttHSXAT5Q4x0nue05f3FbMts075JF2zrA9otR/UGAsfry
+ Ntuj5MKev/hi78YRQFiwRcON0VVHn3tMUCBmgLzquPEAs+WHanljz02CsKwNDN9xbFa2
+ Xqug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
+ :references:mime-version;
+ bh=M4/CJdize/QPrExYkYoO17mX9iuO/FeUCuYX4ZYy1Eg=;
+ b=jCNSGBSEB6VJSkSTi+FDlAs/DQxyVYdx9wKdvE4TWzQhCIy6B/oFlUWibQqWasqHCG
+ ptc2shoeP0EViGbUrY/AiuFP0uinFJsScxXVO0c01s+i4rEHi2H42b9xbllDcqr0BvMj
+ YyFUYhrWN6a6nZYNxroE+qHk4VQqIHKgOux/LvVunDcO1VmnWiH3yLJJKCbG3BnipfRm
+ YtQNjdY6f5Z8MsKceR0rfXmS9y2KNhRGmFEeqeLqIUpQgYp0XuRsIUB8Ju3OxpAUXjfu
+ fuCzWEHdYiVjwqGl4nYsCTu9k4oEhL/o301W8YJFsnCqxVIc1cskRaUNM36QZxCWbW0R
+ 8EbQ==
+X-Gm-Message-State: AOAM5309yh03kAvDSY0WtfSSZHtrEy2rNmf0kvbLQxGMH15zy0Zat1ZB
+ RRUd0tTgvkiUcs6Y0qpOrEw=
+X-Google-Smtp-Source: ABdhPJyRQECAfrcbN5v3yeUw8aJU5JkoSFeNQDtliwjRgoR1Spo74K9d5cjC0Neq19S1JoMcJAUfkA==
+X-Received: by 2002:a2e:a7c7:: with SMTP id x7mr7907151ljp.417.1621416849423; 
+ Wed, 19 May 2021 02:34:09 -0700 (PDT)
+Received: from eldfell ([194.136.85.206])
+ by smtp.gmail.com with ESMTPSA id n8sm450380lfi.60.2021.05.19.02.34.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 19 May 2021 02:34:09 -0700 (PDT)
+Date: Wed, 19 May 2021 12:34:05 +0300
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Subject: Re: New uAPI for color management proposal and feedback request
+Message-ID: <20210519123405.4d3218a7@eldfell>
+In-Reply-To: <YJvSUCCPvWz7y/r7@intel.com>
+References: <8c0d7ad8-7ade-bf8a-0414-cc795fbb6aa2@tuxedocomputers.com>
+ <YJvSUCCPvWz7y/r7@intel.com>
+X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1cc1951c-ffb8-41a1-473b-08d91aa8fcc2
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3258:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB325834B64535C81952BEE0E6932B9@DM6PR12MB3258.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:459;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: lvZ6VR/CJzssBNrZITDu4/V8PX/sMCtCuoM9reIlS6ncnVpQrKIo7XL4d3BKHDdVtmNdoApuqN8NzKlIrv8hrNIHl5SzYQozUiCEeIsPqyFP1emNIcYCjUaE/7nQybyNF0oSUvhfkf6XevrC9oaK7p1POlPN+6RHxgD53Jus2LIMyIh3oizPo7PKrFPnp5SUKKPovQZG9iCBAdri8ddyh58ydUxt9NJAtyowzO/3TNsKaEAEiJ4SN9F4PiWVUgyfI7ZAN5gKYabVD3wvGHt6PSaHm57kkj9giqhvZEnpzFfkkvjuoOWgiLbqJz9rRWnh2uCKj6Yvi1yqS79Bn5WDrf/WRm7TZe6YRbiX+3wXqCPh7pEfenPkuN+9tk/oI9c424+ibYRmjiYsFf3sO7DsR06GEPyA2uFss7VkYIPvWciMHQqrsz/CARgGLxl21FCelryC2i6aZZQDZq/NQit42dLYNvpAmek0NM9YwrIF7IU1t5aXczY0i/PEMjDZcoGkrSMztAZlB8T9P9beZa8QoYbMmx4LC9IO8t1e1hFmPhio5MKjYkM82+GPQS42HfRn0x3CZbcfEUDcLb8G0rFGQiOmc7NYCfhaZ0h2o1WpaJ9qy4bJX2CVZ2KqJuTr/thXtRb3fFxjUg1PTIUl48NKXzXlnxMOQjr0vU3oRDLI4/VludXb8CzSL+g8CYpuwO/7
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(136003)(39860400002)(376002)(346002)(396003)(36840700001)(46966006)(7696005)(81166007)(5660300002)(82740400003)(54906003)(83380400001)(8936002)(47076005)(8676002)(316002)(36860700001)(86362001)(36756003)(478600001)(2616005)(336012)(82310400003)(186003)(70206006)(426003)(4326008)(26005)(70586007)(2906002)(356005)(6916009)(1076003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2021 09:32:14.6624 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1cc1951c-ffb8-41a1-473b-08d91aa8fcc2
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT033.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3258
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,77 +76,175 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jack Xiao <Jack.Xiao@amd.com>, Feifei
- Xu <Feifei.Xu@amd.com>, Kevin Wang <Kevin1.Wang@amd.com>,
- Chengzhe Liu <ChengZhe.Liu@amd.com>, Tuikov Luben <Luben.Tuikov@amd.com>,
- Deucher Alexander <Alexander.Deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: "Deucher, Alexander" <alexander.deucher@amd.com>,
+ intel-gfx@lists.freedesktop.org, amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Werner Sembach <wse@tuxedocomputers.com>
+Content-Type: multipart/mixed; boundary="===============0502358379=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When there is 12 VF, we need to increase the timeout
+--===============0502358379==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ boundary="Sig_/AozgflNR6L4c7UMgl=YE5w="; protocol="application/pgp-signature"
 
-Signed-off-by: Chengzhe Liu <ChengZhe.Liu@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c | 6 +++++-
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c  | 6 +++++-
- 2 files changed, 10 insertions(+), 2 deletions(-)
+--Sig_/AozgflNR6L4c7UMgl=YE5w=
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-index f02dc904e4cf..a5f005c5d0ec 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-@@ -404,6 +404,7 @@ static int gmc_v10_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
- 	uint32_t seq;
- 	uint16_t queried_pasid;
- 	bool ret;
-+	uint32_t sriov_usec_timeout = 6000000;  /* wait for 12 * 500ms for SRIOV */
- 	struct amdgpu_ring *ring = &adev->gfx.kiq.ring;
- 	struct amdgpu_kiq *kiq = &adev->gfx.kiq;
- 
-@@ -422,7 +423,10 @@ static int gmc_v10_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
- 
- 		amdgpu_ring_commit(ring);
- 		spin_unlock(&adev->gfx.kiq.ring_lock);
--		r = amdgpu_fence_wait_polling(ring, seq, adev->usec_timeout);
-+		if (amdgpu_sriov_vf(adev))
-+			r = amdgpu_fence_wait_polling(ring, seq, sriov_usec_timeout);
-+		else
-+			r = amdgpu_fence_wait_polling(ring, seq, adev->usec_timeout);
- 		if (r < 1) {
- 			dev_err(adev->dev, "wait for kiq fence error: %ld.\n", r);
- 			return -ETIME;
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index ceb3968d8326..e4a18d8f75c2 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -857,6 +857,7 @@ static int gmc_v9_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
- 	uint32_t seq;
- 	uint16_t queried_pasid;
- 	bool ret;
-+	uint32_t sriov_usec_timeout = 6000000;  /* wait for 12 * 500ms for SRIOV */
- 	struct amdgpu_ring *ring = &adev->gfx.kiq.ring;
- 	struct amdgpu_kiq *kiq = &adev->gfx.kiq;
- 
-@@ -896,7 +897,10 @@ static int gmc_v9_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
- 
- 		amdgpu_ring_commit(ring);
- 		spin_unlock(&adev->gfx.kiq.ring_lock);
--		r = amdgpu_fence_wait_polling(ring, seq, adev->usec_timeout);
-+		if (amdgpu_sriov_vf(adev))
-+			r = amdgpu_fence_wait_polling(ring, seq, sriov_usec_timeout);
-+		else
-+			r = amdgpu_fence_wait_polling(ring, seq, adev->usec_timeout);
- 		if (r < 1) {
- 			dev_err(adev->dev, "wait for kiq fence error: %ld.\n", r);
- 			up_read(&adev->reset_sem);
--- 
-2.25.1
+On Wed, 12 May 2021 16:04:16 +0300
+Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com> wrote:
+
+> On Wed, May 12, 2021 at 02:06:56PM +0200, Werner Sembach wrote:
+> > Hello,
+> >=20
+> > In addition to the existing "max bpc", and "Broadcast RGB/output_csc" d=
+rm properties I propose 4 new properties:
+> > "preferred pixel encoding", "active color depth", "active color range",=
+ and "active pixel encoding"
+> >=20
+> >=20
+> > Motivation:
+> >=20
+> > Current monitors have a variety pixel encodings available: RGB, YCbCr 4=
+:4:4, YCbCr 4:2:2, YCbCr 4:2:0.
+> >=20
+> > In addition they might be full or limited RGB range and the monitors ac=
+cept different bit depths.
+> >=20
+> > Currently the kernel driver for AMD and Intel GPUs automatically config=
+ure the color settings automatically with little
+> > to no influence of the user. However there are several real world scena=
+rios where the user might disagree with the
+> > default chosen by the drivers and wants to set his or her own preferenc=
+e.
+> >=20
+> > Some examples:
+> >=20
+> > 1. While RGB and YCbCr 4:4:4 in theory carry the same amount of color i=
+nformation, some screens might look better on one
+> > than the other because of bad internal conversion. The driver currently=
+ however has a fixed default that is chosen if
+> > available (RGB for Intel and YCbCr 4:4:4 for AMD). The only way to chan=
+ge this currently is by editing and overloading
+> > the edid reported by the monitor to the kernel.
+> >=20
+> > 2. RGB and YCbCr 4:4:4 need a higher port clock then YCbCr 4:2:0. Some =
+hardware might report that it supports the higher
+> > port clock, but because of bad shielding on the PC, the cable, or the m=
+onitor the screen cuts out every few seconds when
+> > RGB or YCbCr 4:4:4 encoding is used, while YCbCr 4:2:0 might just work =
+fine without changing hardware. The drivers
+> > currently however always default to the "best available" option even if=
+ it might be broken.
+> >=20
+> > 3. Some screens natively only supporting 8-bit color, simulate 10-Bit c=
+olor by rapidly switching between 2 adjacent
+> > colors. They advertise themselves to the kernel as 10-bit monitors but =
+the user might not like the "fake" 10-bit effect
+> > and prefer running at the native 8-bit per color.
+> >=20
+> > 4. Some screens are falsely classified as full RGB range wile they actu=
+ally use limited RGB range. This results in
+> > washed out colors in dark and bright scenes. A user override can be hel=
+pful to manually fix this issue when it occurs.
+> >=20
+> > There already exist several requests, discussion, and patches regarding=
+ the thematic:
+> >=20
+> > - https://gitlab.freedesktop.org/drm/amd/-/issues/476
+> >=20
+> > - https://gitlab.freedesktop.org/drm/amd/-/issues/1548
+> >=20
+> > - https://lkml.org/lkml/2021/5/7/695
+> >=20
+> > - https://lkml.org/lkml/2021/5/11/416
+> >=20
+
+...
+
+> > Adoption:
+> >=20
+> > A KDE dev wants to implement the settings in the KDE settings GUI:
+> > https://gitlab.freedesktop.org/drm/amd/-/issues/476#note_912370
+> >=20
+> > Tuxedo Computers (my employer) wants to implement the settings desktop =
+environment agnostic in Tuxedo Control Center. I
+> > will start work on this in parallel to implementing the new kernel code=
+. =20
+>=20
+> I suspect everyone would be happier to accept new uapi if we had
+> multiple compositors signed up to implement it.
+
+I think having Weston support for these would be good, but for now it
+won't be much of an UI: just weston.ini to set, and the log to see what
+happened.
+
+However, knowing what happened is going to be important for color
+calibration auditing:
+https://gitlab.freedesktop.org/wayland/weston/-/issues/467
+
+Yes, please, very much for read-only properties for the feedback part.
+Properties that both userspace and kernel will write are hard to deal
+with in general.
+
+Btw. "max bpc" I can kind of guess that conversion from framebuffer
+format to the wire bpc happens automatically and only as the final
+step, but "Broadcast RGB" is more complicated: is the output from the
+abstract pixel pipeline sent as-is and "Broadcast RGB" is just another
+inforframe bit to the monitor, or does "Broadcast RGB" setting actually
+change what happens in the pixel pipeline *and* set infoframe bits?
+
+My vague recollection is that framebuffer was always assumed to be in
+full range, and then if "Broadcast RGB" was set to limited range, the
+driver would mangle the pixel pipeline to convert from full to limited
+range. This means that it would be impossible to have limited range
+data in a framebuffer, or there might be a double-conversion by
+userspace programming a LUT for limited->full and then the driver
+adding full->limited. I'm also confused how full/limited works when
+framebuffer is in RGB/YCbCr and the monitor wire format is in RGB/YCbCr
+and there may be RGB->YCbCR or YCbCR->RGB conversions going on - or
+maybe even FB YCbCR -> RGB -> DEGAMMA -> CTM -> GAMMA -> YCbCR.
+
+I wish someone drew a picture of the KMS abstract pixel pipeline with
+all the existing KMS properties in it. :-)
+
+
+Thanks,
+pq
+
+--Sig_/AozgflNR6L4c7UMgl=YE5w=
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmCk240ACgkQI1/ltBGq
+qqevjxAAhqOqJwTNqTH43n9o45nT828CVJEhixDW68u5frawVH93+7DA2UqiTLVL
+cmwFOF+9mH2H2qOI0rCGZuPlUzeWhLFgKWTiKbjApRw69Jc+IVZo10Odm49tdcnI
+068nF/02vvO7jrCTZ/F1wjHXSBg6vwBATrefIhjS7h4QP/6IaDI/5F1xqwPehsnz
+p+FDG5Vh4cIqSkgFSbzNAl+r3nyiiaYbfVaZpbJwYpXC9Jzse2J9kSuaa03WPnSR
+OsbhhQV//nj9z2YWIvpAAYQg6RXQMeVrmNP3F/V3woByZ/1SHj+0upYtYFY/gCMz
+aNiWfv+ryD03k4HmZCcu4bQX5/X6neOUMVyo2zBSLORhRiFdIO6+hpzRLhW3JZN5
+URbJmnms+XXFB+6L5iOpBvZnUn5Nn9RYZqdq+84Hu4qA35Q7Q7VNPz59OUJpK+ew
+SvylMv3Ryt5WyRC7bIYxrNNIVHScXhu7et4S4euE2frnz+ef+wIHAQU/ufKnj7mt
+0dctUeYdngW5ks9Jdt/e+jz0W9wAYNW5gkcR5MtdWHh/mI3V5eKNo0v0q22VHi7z
+dflGuJNgy6wTL+vvIkoA0d+4Fs193Mm8rlXQScZxEzTFwlIGjrKfOAibq2rbifOh
+T8fF0EdwePkbiaa4yNuo0TGrQYRvi6HyfjIzxmwUK84EwA6F6Jg=
+=RQOw
+-----END PGP SIGNATURE-----
+
+--Sig_/AozgflNR6L4c7UMgl=YE5w=--
+
+--===============0502358379==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0502358379==--
