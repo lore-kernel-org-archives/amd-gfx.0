@@ -8,57 +8,57 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7CB58C433B4
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 03:00:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BB3B3C433ED
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 03:03:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1492C61209
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 03:00:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1492C61209
+	by mail.kernel.org (Postfix) with ESMTPS id 778FD610CD
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 03:03:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 778FD610CD
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D8C789A77;
-	Wed, 19 May 2021 03:00:42 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam07on2070.outbound.protection.outlook.com [40.107.95.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 63D9589A77
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 May 2021 03:00:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9EDB6E039;
+	Wed, 19 May 2021 03:03:58 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1anam02on2044.outbound.protection.outlook.com [40.107.96.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4ACB56E039
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 May 2021 03:03:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=k9EFYkhlg8F8LuNJYyeibQgDyUldRW82jt/5AWtCZ2rek9pgcXVu0majX8hAxJjYr8up0GZW28dU3iH8nR+JamcRqsJ2pc0THXNikWts6Pg04QCbf4N24X8NC3rhy+Ji07au+7yAuJ72rrYGzFW+x+B4+ENNnBuNfqTefgAPzsUZFcfIv1vpiFPQG/2gLeEL0MJhuIrp5CxtPZpKRCyYXg6aPYA7cDTlMyxNI+Jee01FMUo6FN+MTgLyCMfrngzXVl6JQKC1j9vjlkOQ9ShVa6YUkvIojKhMXVSSHJBFyRcQ8U+Eo3TTZgTzna0LE9h+lCzZ2LhLi2oYHrl+bBCZAQ==
+ b=cStdYz7iKHFw84hLdL1ncxXYtKuPPwnVq8BDxF9hiUDOraKv8Sn9Y0YnmMEn81eATM1E0LG4/YClJo2hbiJ+we+s+HhDrMnyBSfJjhTMiphMFeTuSRVT8JE+LwaPxf0VnzV/4At2T7JzIH2sx1xMQpShVrc7sgVQYXMT0VtGUFuBKBCgelczBCwhPS6Fuaf7cR17+hM6mel4TNhy2cLPsoshxhrOVoC+vzf4dM7/+KMAMOw9t05MOMXsmVGkphFeHc7Z4FWoCoiWmMB5yXkrdxtyY7pru+qyNKvgONNqaQjiKU27AUgUKhknmJ9+weVKEXAIor2pWc/KtnXm9lWsyw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QAlzRTLqJrW7BM9XqBW0kODwgQAhHBDQGBuYXzZeC2M=;
- b=mUtgF/IKLmIWrmuMd7P5AlS4LyrhaDv8ta9ndr9dIfOEzuZU1Pew/NWyBh6lWzsWpfKFaMpjPC+lLTWT4t55rgsVChr+5RweQjhnuZvcLvZKng1zO3lmV7OADE2l0iqUu3VkBgISelXgzuxjVzsNlVq4l4nBWlQ6GuwaFHnDgf/Tnp7CDME3o6WKp36A9Gdye52nrl73PVOYHLdVl7hvSVDe+lu9LN4PAaNzNwzRYbEYNMUzVXSwaPvevw0ZHlZbIBjsT0r1LqF43Zxh6jtWe7/VENb1Q6K2f8v3bPMi2p2NXMcJlfbLGODcQ0eKzLjYVw18mlBTKiCXfqGOLeqsBw==
+ bh=c2RizyX5vjz8V4Rk84gDv1X9k2Z+51aVBVTrI9yDQJ4=;
+ b=DfW+OsA24RhIbfjI4w+YC++ePePiZfNc5oCZWKF9wPCbwYfqVXJ1frvXu+Yof7PlZ7ODQO1uuDRQ1gDNeoArWYc31ovIrGTc0glFOD4Pq2ZYs4bJQ58qbTfUNAx+x0T0ftM5Tm6376pnoIP231G3SS/7GeCDwCyuPmVB0rkNCQtECwm6n+4/4jcslIWMc0vPTLs3/owVCf5MvvyrMeIKKOvEXHkvkh/CkxXBnYMx+Dw65WcQsq68zihef8mqx86aukwy7zHvoVLrd4ebXQlXpBK58WtetQMyNgIwU+UAIVJWlX6JGwHBEwlHdsCKE4nsgmbM3F2k6yOYXC2DbkCtcA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QAlzRTLqJrW7BM9XqBW0kODwgQAhHBDQGBuYXzZeC2M=;
- b=h/X/kY1j+Ax3jdmSleiq5WUrZ2XfEswB7l+IWtdKMK0Bqd4JsJE+afgOQBIavIocppnLDBDAvfwNYI4ZBS3aTn6mtA+zTfQw1edVQ7yGn8fk+meGmMQ/siKmV1mWsBskfVfZWDno+dNlDKuuXIwW5LVMUWw0DbAa6DvHA2KNAqU=
-Received: from CY4PR12MB1287.namprd12.prod.outlook.com (2603:10b6:903:40::8)
- by CY4PR12MB1623.namprd12.prod.outlook.com (2603:10b6:910:6::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.25; Wed, 19 May
- 2021 03:00:35 +0000
-Received: from CY4PR12MB1287.namprd12.prod.outlook.com
- ([fe80::50b1:6f8a:9b37:8835]) by CY4PR12MB1287.namprd12.prod.outlook.com
- ([fe80::50b1:6f8a:9b37:8835%4]) with mapi id 15.20.4129.031; Wed, 19 May 2021
- 03:00:35 +0000
-From: "Chen, Guchun" <Guchun.Chen@amd.com>
-To: "Zhu, Changfeng" <Changfeng.Zhu@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, Alex Deucher <alexdeucher@gmail.com>, "Das,
- Nirmoy" <Nirmoy.Das@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: disable 3DCGCG on picasso/raven1 to avoid
+ bh=c2RizyX5vjz8V4Rk84gDv1X9k2Z+51aVBVTrI9yDQJ4=;
+ b=vwbg7l68k/y4Q5IbnjnX0W+jPsGCenSrcdv3EAlDMJRMZbxHv11FxuLstPPet5Ewjtq6vp7L5IrCVSOF7fabDYM/Rndea908qYUVYUMc+SRkJ/wSzq57CWEh9ir0HjjmcthFBs8LWkSkz3VFYXajgxyfSUg3v8UVK//IKON1PBU=
+Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
+ by MN2PR12MB4487.namprd12.prod.outlook.com (2603:10b6:208:264::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.26; Wed, 19 May
+ 2021 03:03:54 +0000
+Received: from MN2PR12MB4488.namprd12.prod.outlook.com
+ ([fe80::3d98:cefb:476c:c36e]) by MN2PR12MB4488.namprd12.prod.outlook.com
+ ([fe80::3d98:cefb:476c:c36e%8]) with mapi id 15.20.4129.033; Wed, 19 May 2021
+ 03:03:54 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "Chen, Guchun" <Guchun.Chen@amd.com>, "Zhu, Changfeng"
+ <Changfeng.Zhu@amd.com>, Alex Deucher <alexdeucher@gmail.com>, "Das, Nirmoy"
+ <Nirmoy.Das@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: disable 3DCGCG on picasso/raven1 to avoid
  compute hang
 Thread-Topic: [PATCH] drm/amdgpu: disable 3DCGCG on picasso/raven1 to avoid
  compute hang
-Thread-Index: AQHXSJn7vk+e1kNqVEOtUEdmqmqf56rjBYuAgAQ0pgCAABx1gIACwwoAgAACdICAAAa+gIAAANMAgAAAkvA=
-Date: Wed, 19 May 2021 03:00:34 +0000
-Message-ID: <CY4PR12MB12873E4A35B066FB196E4C87F12B9@CY4PR12MB1287.namprd12.prod.outlook.com>
+Thread-Index: AQHXSJn7ZKzTtOpbdU+CrPUZHuAuKqrjBYuAgAQ0pgCAABx1gIACwwoAgAACdICAAAYZc4AAAXgAgAABXACAAABz3A==
+Date: Wed, 19 May 2021 03:03:54 +0000
+Message-ID: <MN2PR12MB448886D0F0CD237D056B3445F72B9@MN2PR12MB4488.namprd12.prod.outlook.com>
 References: <20210514081944.16849-1-changfeng.zhu@amd.com>
  <CADnq5_P4tvpTkmzpn=7V8qvfvy3aiR3WO967UObKKacJzQro9w@mail.gmail.com>
  <20210517062724.GA1853590@hr-amd>
@@ -66,68 +66,70 @@ References: <20210514081944.16849-1-changfeng.zhu@amd.com>
  <CADnq5_OmpYjzaeGPUC4rUNkSo_CP+8zFfZQsF6d+2fLegtxUkQ@mail.gmail.com>,
  <MW2PR12MB46840D259987CA9265317F75FD2B9@MW2PR12MB4684.namprd12.prod.outlook.com>
  <MN2PR12MB448807A739B82ED7721E4A5EF72B9@MN2PR12MB4488.namprd12.prod.outlook.com>
- <MW2PR12MB4684ECE117B6D8CB2FEA84F2FD2B9@MW2PR12MB4684.namprd12.prod.outlook.com>
-In-Reply-To: <MW2PR12MB4684ECE117B6D8CB2FEA84F2FD2B9@MW2PR12MB4684.namprd12.prod.outlook.com>
+ <MW2PR12MB4684ECE117B6D8CB2FEA84F2FD2B9@MW2PR12MB4684.namprd12.prod.outlook.com>,
+ <CY4PR12MB12873E4A35B066FB196E4C87F12B9@CY4PR12MB1287.namprd12.prod.outlook.com>
+In-Reply-To: <CY4PR12MB12873E4A35B066FB196E4C87F12B9@CY4PR12MB1287.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
  MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-05-19T02:52:44.691Z;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-05-19T03:03:53.925Z;
  MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
  MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Standard; 
 authentication-results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [165.204.134.244]
+x-originating-ip: [204.111.139.213]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: b604d9a5-4ce0-4887-d7e2-08d91a7245df
-x-ms-traffictypediagnostic: CY4PR12MB1623:
+x-ms-office365-filtering-correlation-id: cb449df9-379e-44c8-81cf-08d91a72bce9
+x-ms-traffictypediagnostic: MN2PR12MB4487:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <CY4PR12MB162332F7D5AB966B421298D4F12B9@CY4PR12MB1623.namprd12.prod.outlook.com>
+x-microsoft-antispam-prvs: <MN2PR12MB4487B5D4264C5D1C84419122F72B9@MN2PR12MB4487.namprd12.prod.outlook.com>
 x-ms-oob-tlc-oobclassifiers: OLM:8273;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: yhi+Tm7O6iruvFCXXD/ONmYUaf5YIonmTVFV1iD5uEWFKO7niFBCI/f/lc6J/QhJDAnA8yspPxaQt1zNDIGGSK9ZjLE1OfcrSVQ+KOJYLKVFKI8MkcULt5hHrBaHQ4mfFN6Nt/KaScuic8KLxw9YKiWMcFyWaTmLCqujt7oG+YQ3xyjCwouHXStb7wOmSYnZACg7ViDWruAr9xTfhvmk+xOBesQVoqnNAepdIp5KTVBTi3dQ99rqlfcWX5nDOxCL8gmy1lOZK5s3qLrn/xII2ME3q6c/9A+/DrH0rPS/Fl+S5/PVkXj/+2EX5NCxsrEXWhBaJbiibRheF3qaK6PGkKFNnqHgKVq4jt61wiEMFFpMSAtdEQvb8PBZZXmazRM6NK/x0mg2b11edQYkoSpfxixIEtQ729azDtYh99s8qC+SOfzufELao6r6iPgPMg5LLKihrLIm4X0APWsx9gGsxiZIyGy3XzQ5fL8IRgPQfkPjBw9RI3M/fSvJZipyVa27kZRcAEzEriCRkPaJnpTtro8z640uhremlm3Y0Ag7b43/41BTQQ5y2+TMczU+YTN4FSvRMoyuB9IVhvvORXDVsGiV9iSfmay74X4l+IREo4ntABgQaMm70NN1KWB4Uo/+0/TaSWxMl+FmgM7UsDYaYQz2GJ/uWcrO9Vm7FlNr7AiE7sPBw1JnA8D9wk+xietS
+x-microsoft-antispam-message-info: CkGLbq0/db/5pYkRiqiWXlhAOUUwOoDPyc8MElyyIBBtwtsK8zi+CJGSqGy2gTP2qQnMxFmHOHWHk8bmW8NvNB+lYsXfK2bBBp3z3yDRh+uGzoYlNjo+cw5kKEJqXv0bS3J6p2d0py0SWdvqTHGFADKzskDzzqV/PYFVp3F+5kP4Z1KIAg5fADKrIDKDHYsLcUyYrapWdwFM98gDD8HrwY91qb9E0WKZBA5rEZ+l49jz0z8yGtHP8L3qJq7Z7onQW49h62aaTnOb7HJPpCxLXVcsCAhaRswr+2qn3mMQz2SPDmtzEQCQhMVktWjEU98fRtBf9mu5NYgJVR32E6Lb7m5yliYvYZJW4s+1tteRUh9RcsJ1M+YkPSMo7ZQ5chUWuDAQCyErVxTZRPcqnfLmzpLis15mIwYcTMUiBItT8hfNxC7IOvIR0yngmgNErv2mQ1DXXplJn9/jaiMxOycFEjLfjgV9SkNwFkayvtb5XDsuo39P84Qm+Wvc2zcE2v4TpDQFK/RIhPCTGv41TrKLRMPOAxN7IziV/b9chaqRW3c8sEMz8TzHkHqAqNIyVWRE93w6453lt4HgIcIdquOcY2e4BwF/GuDroNzw1FjzQOReULIcsISYAjJUIeCfG7FdAIoolFX8gWuufj02yxG4Qy+Lb89/y4ahEsY1PxU7kO2lYrmq6XnG3qKynC+mEaOu
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY4PR12MB1287.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(136003)(346002)(376002)(366004)(39860400002)(86362001)(110136005)(54906003)(2906002)(7696005)(186003)(66946007)(66476007)(6636002)(66446008)(66556008)(64756008)(38100700002)(9686003)(122000001)(71200400001)(33656002)(55016002)(76116006)(478600001)(316002)(45080400002)(53546011)(6506007)(8676002)(4326008)(966005)(83380400001)(166002)(8936002)(5660300002)(26005)(52536014);
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(53546011)(110136005)(54906003)(8676002)(76116006)(71200400001)(166002)(26005)(66946007)(52536014)(83380400001)(19627405001)(19627235002)(498600001)(6506007)(66556008)(66476007)(8936002)(66446008)(122000001)(64756008)(7696005)(55016002)(9686003)(2906002)(45080400002)(86362001)(6636002)(186003)(38100700002)(4326008)(33656002)(966005)(5660300002);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?46/JwkL7PRIw96gYhJyMR9I5qzGQtdAXxsbMe3BccDwY/Sg1/Q/SW3oKmzc3?=
- =?us-ascii?Q?lZBvG8n7jXCw8y/VAT0f1h6mQSiJ+ZqrWaxTbG38MAlcNL2646eZcX0MnCKq?=
- =?us-ascii?Q?5mjb/hNyRGFVAEBUB3tyHt3W1w0/2dI/dOkDyZik8HXmHDg1c0p+NYSzwrhU?=
- =?us-ascii?Q?OMi7psx5t/QxmmuZ622rWAZ/rNELpvPrJTdvoA4zmG3vOk/gBF3/hH7PqZd5?=
- =?us-ascii?Q?3vI22ZnpEy+mPvM3N2F8w3UB3oz2k/MZDkocsME+NPZjgLJH+dqiJ1RArWCN?=
- =?us-ascii?Q?+zXP2wtRk7+FSEWW5bvIUvEIK0k4hfAsM/nvN9J4Zl6UomAgMKO1j8lEyFuR?=
- =?us-ascii?Q?lm9U0+GylrlxiqEzX2WwNZf8oSFrF5NZwNR9DupEnJrp3dEU/aWGe2b4lXl2?=
- =?us-ascii?Q?9THzFra8nDddcU6XsvsvyH7Yg2j7Aqk0+Z0bnEMlpG4pB+BR12fYDo2AWSSx?=
- =?us-ascii?Q?Gw8bpircmYF2NjMPc4QPoR6Q0vgkpryVi0tyanQT486JSgLHvz1MuX7rwjjU?=
- =?us-ascii?Q?8gSZgJb10PP+KlYZqjk/z2ZxzuZ3w1UZ64rLoT0Jnr2SSeZKWzej/IrwdlTR?=
- =?us-ascii?Q?mHJiel0EBotU7NidTnt/c/5j88EU0X3NloUnPPmuPRM3hB4y3sZitXAEOFtR?=
- =?us-ascii?Q?O580Iq/vmB6cBkvw93Ak8wQHyXPu8JkoFv9PzBpX0dOulIfHV9HvYi4MTdRV?=
- =?us-ascii?Q?h7Uwd+4yTcKP5czobSX4YY3hzg4OMOcw88atn7PzzXKmZCCOzHi8V6gMmMIm?=
- =?us-ascii?Q?GsoBwhAdAVW9yAjGXdgx38I8xDNt4bwwsIwCkiTncsqwYAHWATP88FnxQ/ez?=
- =?us-ascii?Q?v3Tcz39oaAqbqDtGMfGqtmfH7sz3EqRV+8BHRNIimyBVEZcOe/d4xBf4QGsp?=
- =?us-ascii?Q?8BSypQpzuNlEgJot+2LeFlZic0CTyPRefwnq/WjyB3CZNr9TcmOCGADqdp0A?=
- =?us-ascii?Q?X/O7dku8NN+QGsdCO1C4REDTbG3zAzSXAm/A6lT5Px1n7timaJgngNlRibIN?=
- =?us-ascii?Q?yAnkDAEXluhnNO14+oh/2e20FLThGkIuOBnzh/HHmZB56ZoJUVplNgAxzRQl?=
- =?us-ascii?Q?haSJAF/+Uy7uUSNNHPyGSExj3xeWalL69SLdYu63KDhlKgYPvISdrksGABl+?=
- =?us-ascii?Q?yTmWBl79JTUYRTY97Q/KAEBqf2WbuEQ6PGiPPG8QJ6PrNbj4/ozZLeorkWby?=
- =?us-ascii?Q?sSRQ4JEj/J1cJC8LV0jdyp9Nr6Dh6tr2rQXsxgIOL54wU1nERR2ruADWt+0f?=
- =?us-ascii?Q?EMsnro9VrtIAwlsk9xJskxWeUpqoUjD5ZxD/gTtvl8lVkIlSt1c8BFfUQjt9?=
- =?us-ascii?Q?VtC28mXoqlbef1oqKfa4OHPk?=
+x-ms-exchange-antispam-messagedata: =?Windows-1252?Q?dfuYvEe3qlAEQXlX/IX79rcArqw/wdsFL3dfJ5yydyIxSfD3y4O9Wfq0?=
+ =?Windows-1252?Q?w6dukEG8vtbkQJlLmK8p7QxDswQKXWr37JPv/A81YO6OZHTJSF6hfMar?=
+ =?Windows-1252?Q?T4f58ylRErwU38HBJxpEs0nypgdhBBCdhmQazKDiYQ4Vt06hiogtyRh/?=
+ =?Windows-1252?Q?Cu/Vu6X8UELQ7/t6YGNR7IbEQJrWTbcS1EFthYjhh+Q/br4BQz1ezPYO?=
+ =?Windows-1252?Q?Vl5aZea9COrpO+wDmvPEYvZs7Hc2UhHnRTDo4ZCh1+Q6d3isgNmXXV/0?=
+ =?Windows-1252?Q?qzLcjpcqcgzLMdoCTVVPl64ML8oN8RZ61qRiCobZA+QooIqzg0/O6tFT?=
+ =?Windows-1252?Q?CVZQVjNNINkshYxlxQgsmtvEzCvilCZR7PVxf1oijUBV/X27XeM/iNyQ?=
+ =?Windows-1252?Q?FGyEMDy1qIowO+k8WfHHkDTEqQlR+796/1DmQCI/eEo0byfoj+JMnM7+?=
+ =?Windows-1252?Q?3lU4bOaIztxzCWxtdNCfmurFfvqx+Fm9VspTJl1aKluINk4xvO+1UDCH?=
+ =?Windows-1252?Q?kvdp5I6Fh+wXEzmYgcGAVq4octx+IZpEr0WRjt2GYYxw0FBLO0u38NFT?=
+ =?Windows-1252?Q?tx8NNS+W8p9JmrwRv6pcyEn9Y4mxaYtMPGcKCt9Mwvo0f46eEhYyndvP?=
+ =?Windows-1252?Q?LoKpmr69dW9TSIBikxWCqjJJrGu0BqSTUSdB9oLToqpYxtfb1sVXxlOT?=
+ =?Windows-1252?Q?MER9z/lhiEZW7fHExrTQ3IXyP5yF3mv2PuUwDSHsG3hR0s/Wz4/gGSRV?=
+ =?Windows-1252?Q?XAnaaH+ba8iZ7waDsjaESdcjnOMoH2OANE6Sakh684Cb9QZId3l8UAk7?=
+ =?Windows-1252?Q?1yIsG4u/rkk6lzPnaZuquv9HubUTh9eblphB0FbQ0sWdXXgOhwYdKmVa?=
+ =?Windows-1252?Q?F/NGCJlIOVqlmnNkJseda60qABo6MhgJdJzJiFBHyopI4mW9QlBG9QR8?=
+ =?Windows-1252?Q?3aS8SkwUCXz58N6R2DHIErA4/8JSbM3CoBVG4gdYzJ/yFXyW2Edo2n/B?=
+ =?Windows-1252?Q?D3r1myoa9gYTWuyzG0HMI58SQ3aNKFedEIw+dSS2z501aZXbWIY5O5Nr?=
+ =?Windows-1252?Q?MkQKJ9TSa9TekDfkJz2Y36xyx6KyxRhqiB4T1ftczNxARTR6hKa5u2N4?=
+ =?Windows-1252?Q?i00MSwXXbvhWgCUc7X3R3m10ygxEoeZ+7WbhnUfoche3JYAj+NGHdpnh?=
+ =?Windows-1252?Q?xrPx59F8CzwRpEuLJzLsl9ns5L05MZCIz9d+k9wcw2H0+jfd1qG+yWR3?=
+ =?Windows-1252?Q?cr0p59aBJC9pYon5oC55T9bef6OCut+gVm0V91OYhaoZ0ZpVznamjCSP?=
+ =?Windows-1252?Q?b1Aytsr3tVUPoh2VKXSyohEh8I3VLvqBJB0fuRVQGVTJNjEhXgZh55T+?=
+ =?Windows-1252?Q?N+mkmay6YLSF2LmKsRz2IoWHcIYhhL1wZJ/2N8s2pn7wfc7r8vzjbc3F?=
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY4PR12MB1287.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b604d9a5-4ce0-4887-d7e2-08d91a7245df
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 May 2021 03:00:34.9507 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cb449df9-379e-44c8-81cf-08d91a72bce9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 May 2021 03:03:54.5618 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: UPyad4Cfc5Lysn6UHdQieo0vyp3oQpTJMpz+SFDvEyHzLc5e6mboJzaHpvWxoWKKzj3TtvwJVQHj4i8FvUp8lA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1623
+X-MS-Exchange-CrossTenant-userprincipalname: PJWwCKs5qwswPf+88XmdJvWpDoue/LfarQZcez79FvTuR0prMoecNRvCetryKNzutplnqRcZHQdXJ05LVWgfbA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4487
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,27 +143,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: "Huang, Ray" <Ray.Huang@amd.com>,
  amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: multipart/mixed; boundary="===============0819292993=="
+Content-Type: multipart/mixed; boundary="===============0545802079=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0819292993==
+--===============0545802079==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB12873E4A35B066FB196E4C87F12B9CY4PR12MB1287namp_"
+	boundary="_000_MN2PR12MB448886D0F0CD237D056B3445F72B9MN2PR12MB4488namp_"
 
---_000_CY4PR12MB12873E4A35B066FB196E4C87F12B9CY4PR12MB1287namp_
-Content-Type: text/plain; charset="us-ascii"
+--_000_MN2PR12MB448886D0F0CD237D056B3445F72B9MN2PR12MB4488namp_
+Content-Type: text/plain; charset="Windows-1252"
 Content-Transfer-Encoding: quoted-printable
 
 [Public]
 
-Nirmoy's patch landed already if I understand correctly.
+I thought we had disabled all but one of the compute queues on raven due to=
+ this issue or at least disabled the schedulers for the additional queues, =
+but maybe I'm misremembering.
+
+Alex
+
+________________________________
+From: Chen, Guchun <Guchun.Chen@amd.com>
+Sent: Tuesday, May 18, 2021 11:00 PM
+To: Zhu, Changfeng <Changfeng.Zhu@amd.com>; Deucher, Alexander <Alexander.D=
+eucher@amd.com>; Alex Deucher <alexdeucher@gmail.com>; Das, Nirmoy <Nirmoy.=
+Das@amd.com>
+Cc: Huang, Ray <Ray.Huang@amd.com>; amd-gfx list <amd-gfx@lists.freedesktop=
+.org>
+Subject: RE: [PATCH] drm/amdgpu: disable 3DCGCG on picasso/raven1 to avoid =
+compute hang
+
+
+[Public]
+
+
+Nirmoy=92s patch landed already if I understand correctly.
+
+
 
 d41a39dda140 drm/scheduler: improve job distribution with multiple queues
 
+
+
 Regards,
+
 Guchun
+
+
 
 From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Zhu, Cha=
 ngfeng
@@ -174,18 +204,29 @@ Subject: RE: [PATCH] drm/amdgpu: disable 3DCGCG on picasso/raven1 to avoid =
 compute hang
 
 
+
 [Public]
 
 
+
 [Public]
+
+
 
 Hi Alex,
+
+
 
 This is the issue exposed by Nirmoy's patch that provided better load balan=
 cing across queues.
 
+
+
 BR,
+
 Changfeng.
+
+
 
 From: Deucher, Alexander <Alexander.Deucher@amd.com<mailto:Alexander.Deuche=
 r@amd.com>>
@@ -199,18 +240,28 @@ Subject: Re: [PATCH] drm/amdgpu: disable 3DCGCG on picasso/raven1 to avoid =
 compute hang
 
 
+
 [Public]
 
+
+
 + Nirmoy
+
+
 
 I thought we disabled all but one of the compute queues on raven due to thi=
 s issue.  Maybe that patch never landed?  Wasn't this the same issue that w=
 as exposed by Nirmoy's patch that provided better load balancing across que=
 ues?
 
+
+
 Alex
 
+
+
 ________________________________
+
 From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org<mailto:amd-gfx-bounces=
 @lists.freedesktop.org>> on behalf of Zhu, Changfeng <Changfeng.Zhu@amd.com=
 <mailto:Changfeng.Zhu@amd.com>>
@@ -220,6 +271,8 @@ Cc: Huang, Ray <Ray.Huang@amd.com<mailto:Ray.Huang@amd.com>>; amd-gfx list =
 <amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
 Subject: RE: [PATCH] drm/amdgpu: disable 3DCGCG on picasso/raven1 to avoid =
 compute hang
+
+
 
 [AMD Official Use Only - Internal Distribution Only]
 
@@ -414,90 +467,108 @@ sktop.org%2Fmailman%2Flistinfo%2Famd-gfx&data=3D04%7C01%7Cguchun.chen%40amd=
 JQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&sdata=3DYTC%2FvVR%2BbPK=
 w9JKayhmHapRkkEFaczoGzJJ3jFJqBAM%3D&reserved=3D0>
 
---_000_CY4PR12MB12873E4A35B066FB196E4C87F12B9CY4PR12MB1287namp_
-Content-Type: text/html; charset="us-ascii"
+--_000_MN2PR12MB448886D0F0CD237D056B3445F72B9MN2PR12MB4488namp_
+Content-Type: text/html; charset="Windows-1252"
 Content-Transfer-Encoding: quoted-printable
 
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:dt=3D"uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" xmlns:m=3D"http://sc=
-hemas.microsoft.com/office/2004/12/omml" xmlns=3D"http://www.w3.org/TR/REC-=
-html40">
+<html>
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
-o\:* {behavior:url(#default#VML);}
-w\:* {behavior:url(#default#VML);}
-.shape {behavior:url(#default#VML);}
-</style><![endif]--><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@DengXian";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}
-span.EmailStyle21
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
+252">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
 </head>
-<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple" style=3D"word-wrap:brea=
-k-word">
+<body dir=3D"ltr">
 <p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
 ign=3D"Left">
 [Public]<br>
 </p>
 <br>
 <div>
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal">Nirmoy&#8217;s patch landed already if I understand =
-correctly.<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">d41a39dda140 drm/scheduler: improve job distribution=
- with multiple queues<o:p></o:p></p>
-<div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Regards,<o:p></o:p></p>
-<p class=3D"MsoNormal">Guchun<o:p></o:p></p>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+I thought we had disabled all but one of the compute queues on raven due to=
+ this issue or at least disabled the schedulers for the additional queues, =
+but maybe I'm misremembering.</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
 </div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Alex</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Chen, Guchun &lt;Guch=
+un.Chen@amd.com&gt;<br>
+<b>Sent:</b> Tuesday, May 18, 2021 11:00 PM<br>
+<b>To:</b> Zhu, Changfeng &lt;Changfeng.Zhu@amd.com&gt;; Deucher, Alexander=
+ &lt;Alexander.Deucher@amd.com&gt;; Alex Deucher &lt;alexdeucher@gmail.com&=
+gt;; Das, Nirmoy &lt;Nirmoy.Das@amd.com&gt;<br>
+<b>Cc:</b> Huang, Ray &lt;Ray.Huang@amd.com&gt;; amd-gfx list &lt;amd-gfx@l=
+ists.freedesktop.org&gt;<br>
+<b>Subject:</b> RE: [PATCH] drm/amdgpu: disable 3DCGCG on picasso/raven1 to=
+ avoid compute hang</font>
+<div>&nbsp;</div>
+</div>
+<style>
+<!--
+@font-face
+	{font-family:"Cambria Math"}
+@font-face
+	{font-family:DengXian}
+@font-face
+	{font-family:Calibri}
+@font-face
+	{}
+p.x_MsoNormal, li.x_MsoNormal, div.x_MsoNormal
+	{margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif}
+a:link, span.x_MsoHyperlink
+	{color:blue;
+	text-decoration:underline}
+span.x_EmailStyle21
+	{font-family:"Calibri",sans-serif;
+	color:windowtext}
+.x_MsoChpDefault
+	{font-size:10.0pt}
+@page WordSection1
+	{margin:1.0in 1.0in 1.0in 1.0in}
+div.x_WordSection1
+	{}
+-->
+</style>
+<div lang=3D"EN-US" link=3D"blue" vlink=3D"purple" style=3D"word-wrap:break=
+-word">
+<p align=3D"Left" style=3D"font-family:Arial; font-size:10pt; color:#008000=
+; margin:15pt">
+[Public]<br>
+</p>
+<br>
 <div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b>From:</b> amd-gfx &lt;amd-gfx-bounces@lists.freed=
-esktop.org&gt;
+<div class=3D"x_WordSection1">
+<p class=3D"x_MsoNormal">Nirmoy=92s patch landed already if I understand co=
+rrectly.</p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"x_MsoNormal">d41a39dda140 drm/scheduler: improve job distributi=
+on with multiple queues</p>
+<div>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"x_MsoNormal">Regards,</p>
+<p class=3D"x_MsoNormal">Guchun</p>
+</div>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<div>
+<div style=3D"border:none; border-top:solid #E1E1E1 1.0pt; padding:3.0pt 0i=
+n 0in 0in">
+<p class=3D"x_MsoNormal"><b>From:</b> amd-gfx &lt;amd-gfx-bounces@lists.fre=
+edesktop.org&gt;
 <b>On Behalf Of </b>Zhu, Changfeng<br>
 <b>Sent:</b> Wednesday, May 19, 2021 10:56 AM<br>
 <b>To:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Alex Deuch=
@@ -506,36 +577,36 @@ er &lt;alexdeucher@gmail.com&gt;; Das, Nirmoy &lt;Nirmoy.Das@amd.com&gt;<br=
 <b>Cc:</b> Huang, Ray &lt;Ray.Huang@amd.com&gt;; amd-gfx list &lt;amd-gfx@l=
 ists.freedesktop.org&gt;<br>
 <b>Subject:</b> RE: [PATCH] drm/amdgpu: disable 3DCGCG on picasso/raven1 to=
- avoid compute hang<o:p></o:p></p>
+ avoid compute hang</p>
 </div>
 </div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p style=3D"margin:15.0pt"><span style=3D"font-size:10.0pt;font-family:&quo=
-t;Arial&quot;,sans-serif;color:green">[Public]<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<p style=3D"margin:15.0pt"><span style=3D"font-size:10.0pt; font-family:&qu=
+ot;Arial&quot;,sans-serif; color:green">[Public]</span></p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
 <div>
-<p style=3D"margin:15.0pt"><span style=3D"font-size:10.0pt;font-family:&quo=
-t;Arial&quot;,sans-serif;color:green">[Public]<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p style=3D"margin:15.0pt"><span style=3D"font-size:10.0pt; font-family:&qu=
+ot;Arial&quot;,sans-serif; color:green">[Public]</span></p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
 <div>
-<p class=3D"MsoNormal">Hi Alex,<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">This is the issue exposed by <span style=3D"font-siz=
-e:12.0pt;color:black">
-Nirmoy's patch that provided better load balancing across queues.<o:p></o:p=
-></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
-bsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">BR,<o:p=
-></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Changfe=
-ng.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"x_MsoNormal">Hi Alex,</p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"x_MsoNormal">This is the issue exposed by <span style=3D"font-s=
+ize:12.0pt; color:black">
+Nirmoy's patch that provided better load balancing across queues.</span></p=
+>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt; color:black">&nbs=
+p;</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt; color:black">BR,<=
+/span></p>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt; color:black">Chan=
+gfeng.</span></p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
 <div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b>From:</b> Deucher, Alexander &lt;<a href=3D"mailt=
-o:Alexander.Deucher@amd.com">Alexander.Deucher@amd.com</a>&gt;
+<div style=3D"border:none; border-top:solid #E1E1E1 1.0pt; padding:3.0pt 0i=
+n 0in 0in">
+<p class=3D"x_MsoNormal"><b>From:</b> Deucher, Alexander &lt;<a href=3D"mai=
+lto:Alexander.Deucher@amd.com">Alexander.Deucher@amd.com</a>&gt;
 <br>
 <b>Sent:</b> Wednesday, May 19, 2021 10:53 AM<br>
 <b>To:</b> Zhu, Changfeng &lt;<a href=3D"mailto:Changfeng.Zhu@amd.com">Chan=
@@ -546,50 +617,50 @@ Nirmoy.Das@amd.com">Nirmoy.Das@amd.com</a>&gt;<br>
 d.com</a>&gt;; amd-gfx list &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop=
 .org">amd-gfx@lists.freedesktop.org</a>&gt;<br>
 <b>Subject:</b> Re: [PATCH] drm/amdgpu: disable 3DCGCG on picasso/raven1 to=
- avoid compute hang<o:p></o:p></p>
+ avoid compute hang</p>
 </div>
 </div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p style=3D"margin:15.0pt"><span style=3D"font-size:10.0pt;font-family:&quo=
-t;Arial&quot;,sans-serif;color:green">[Public]<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<p style=3D"margin:15.0pt"><span style=3D"font-size:10.0pt; font-family:&qu=
+ot;Arial&quot;,sans-serif; color:green">[Public]</span></p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
 <div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">+ Nirmo=
-y<o:p></o:p></span></p>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt; color:black">+ Ni=
+rmoy</span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
-bsp;</o:p></span></p>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt; color:black">&nbs=
+p;</span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">I thoug=
-ht we disabled all but one of the compute queues on raven due to this issue=
-.&nbsp; Maybe that patch never landed?&nbsp; Wasn't this the same issue tha=
-t was exposed by Nirmoy's patch that provided
- better load balancing across queues?<o:p></o:p></span></p>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt; color:black">I th=
+ought we disabled all but one of the compute queues on raven due to this is=
+sue.&nbsp; Maybe that patch never landed?&nbsp; Wasn't this the same issue =
+that was exposed by Nirmoy's patch that provided
+ better load balancing across queues?</span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
-bsp;</o:p></span></p>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt; color:black">&nbs=
+p;</span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Alex<o:=
-p></o:p></span></p>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt; color:black">Alex=
+</span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
-bsp;</o:p></span></p>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt; color:black">&nbs=
+p;</span></p>
 </div>
-<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<div class=3D"x_MsoNormal" align=3D"center" style=3D"text-align:center">
 <hr size=3D"1" width=3D"98%" align=3D"center">
 </div>
-<div id=3D"divRplyFwdMsg">
-<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
- style=3D"color:black"> amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces@lists=
-.freedesktop.org">amd-gfx-bounces@lists.freedesktop.org</a>&gt; on behalf o=
-f Zhu, Changfeng &lt;<a href=3D"mailto:Changfeng.Zhu@amd.com">Changfeng.Zhu=
-@amd.com</a>&gt;<br>
+<div id=3D"x_divRplyFwdMsg">
+<p class=3D"x_MsoNormal"><b><span style=3D"color:black">From:</span></b><sp=
+an style=3D"color:black"> amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces@lis=
+ts.freedesktop.org">amd-gfx-bounces@lists.freedesktop.org</a>&gt; on behalf=
+ of Zhu, Changfeng &lt;<a href=3D"mailto:Changfeng.Zhu@amd.com">Changfeng.Z=
+hu@amd.com</a>&gt;<br>
 <b>Sent:</b> Tuesday, May 18, 2021 10:28 PM<br>
 <b>To:</b> Alex Deucher &lt;<a href=3D"mailto:alexdeucher@gmail.com">alexde=
 ucher@gmail.com</a>&gt;<br>
@@ -598,15 +669,15 @@ d.com</a>&gt;; amd-gfx list &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop=
 .org">amd-gfx@lists.freedesktop.org</a>&gt;<br>
 <b>Subject:</b> RE: [PATCH] drm/amdgpu: disable 3DCGCG on picasso/raven1 to=
  avoid compute hang</span>
-<o:p></o:p></p>
+</p>
 <div>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
 </div>
 </div>
 <div>
 <div>
-<p class=3D"MsoNormal">[AMD Official Use Only - Internal Distribution Only]=
-<br>
+<p class=3D"x_MsoNormal">[AMD Official Use Only - Internal Distribution Onl=
+y]<br>
 <br>
 Hi Alex.<br>
 <br>
@@ -901,7 +972,9 @@ lexander.deucher%40amd.com%7C6d2cfe6e59f54875f6fa08d91a6dd27f%7C3dd8961fe48=
 84e608e11a82d994e183d%7C0%7C0%7C637569881259273626%7CUnknown%7CTWFpbGZsb3d8=
 eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&a=
 mp;amp;sdata=3D33Is2P3sqdabI7PPuHFOmzuvXyFId%2BOTAMyJ8G5PhzI%3D&amp;amp;res=
-erved=3D0</a><o:p></o:p></p>
+erved=3D0</a></p>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -912,9 +985,9 @@ erved=3D0</a><o:p></o:p></p>
 </body>
 </html>
 
---_000_CY4PR12MB12873E4A35B066FB196E4C87F12B9CY4PR12MB1287namp_--
+--_000_MN2PR12MB448886D0F0CD237D056B3445F72B9MN2PR12MB4488namp_--
 
---===============0819292993==
+--===============0545802079==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -925,4 +998,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============0819292993==--
+--===============0545802079==--
