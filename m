@@ -7,124 +7,122 @@ X-Spam-Status: No, score=-15.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AD335C433ED
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 15:44:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B6429C433B4
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 15:55:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6A91960D07
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 15:44:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6A91960D07
+	by mail.kernel.org (Postfix) with ESMTPS id 6C5EE611BD
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 15:55:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6C5EE611BD
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A0D96EE03;
-	Wed, 19 May 2021 15:44:53 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2083.outbound.protection.outlook.com [40.107.223.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E014D6EE03
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 May 2021 15:44:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 965696EE09;
+	Wed, 19 May 2021 15:55:04 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2089.outbound.protection.outlook.com [40.107.244.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 345226EE09
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 May 2021 15:55:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=D56DwQAKvSmqJIZbZT0wxg9lgmvRCR7V3wWAX/AcwtdoH8LV6Mygae19e27+Dz76sbBgVtutp6DLMse1a+8Kn4eNUOjvI2TeHsH9AQWp82xTnBT4RH02hjTxfhcDfwZRwS+zYsvZvZ/lCGhPd2p6x38/R6nMGy/QjtQSuCg5i+DWIo252jj9IiEm67/QNGd6AJlY061Z0RP64OppxOhwlTCMJxiau6NoZkpKoQX1bGEj4fgVQSCk1xXuA2IfJjLrlgOL1tvV2PkXj1v5Co1bLdP++NVCms2E32tdo8MI5P59wjtfmlVEMH56UQkNsTY3Ua8+twpaGzVQBVO/lIEzkQ==
+ b=BZPZuwjlK2vMuW830WZkDhHi/1CS7Qya0tcWOsAqpRYYfFugFyOQc1xAn2l/6gPT9CadsBb84WDnoBe8bhDDb/kS6wrTqczDVES1sRUeEmXTxWiPueCa/v7Bxi0hbevNcFv0ktdsIQHuta4ji07TbNfdw9kUHX8qi6GfUC7Ya1aujqplQDXdQLHr+s3osmIm47in+04+cEGnM/aF/7dOR+Zs4N6cCctl3dFv7QjoWoB3MbODOIWsPUsQOqwNbTkVJczxfCN/mpJQmrrT6sPzce/Q5Mzlt/dV10GjRCN3hAqbKJrpoJAZlEqgSZUa3Upr1rNh4pY2s5UD/bsq5pbAag==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gk3P37cRNggBk3zDFUACCImZz06XzK7ZYTZ2a293VWA=;
- b=Vt7UQoXeCPXvcsN7fv3kNtCbbNdOqVpeAzPo+GfF0xHc0x68JOSny/Un9rbQkKOG8CniV0phapiZNMVX6E3YwejDQjv+SRj0jHErAD8qd31XLBAhTlIiTT7Y5nxqSzVvLZiCaswcNHq0p0/GAkJZe0ZuWV7C24sDM7J0h18bTbRA+fs0IYUblkhCgcabbxte6M69Y0FLQq7XRUq2s20MJ87t1Hz2MsJlV1pjzoDwOVIuZTSoEkhs4UmsHoBAfu5Oy9+FUvEvLBndNXHh0IoYxn7QWcoWyVcGs/zssVsyXwQbBsGZixJ8TuvuwRb0n8UgB32D53k56VpIWS07F4/dYQ==
+ bh=D8cJqyCV/N6CJl02mdhpSKX4si9APirmyXaEfJMqjuE=;
+ b=ci4D1rD/SpEJFjkSX6HjmRsMJfo8nBpavxKCOPjCfSGFW0ym5jcG1l06qKjJMs1MDyKgMa01cElyDHdfO6LLFa4bkrkqtkA27gd3oSYLf3RBcXnhksYPMJfdaLvxnPgehQKOzQpy8kQ63DY3o6LF/1nurRDIxI63ogFvgrtGcjEVHoKFNEB+yP70pSWsd8j9JX3JGprpURU4/FgLtL6tQ7J6tztMvLfBpnkupanRKebx5yHthQEQ0Zmp9G+4Y9305WzUYNKtsYLZBIzGbFnFNatT+N9zfMGgdsbarB5WtTVrx2Y8sxXFGMk0v9pABFcPvdwRZdXKeY5CnEcGI2LWVQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gk3P37cRNggBk3zDFUACCImZz06XzK7ZYTZ2a293VWA=;
- b=JvFZpQGaDI7foFPwluDvHJNW273P03IBgV2pB9rchoMwtlPHawXxSrxwCLeMlnLB6KPEyqeU2POGohcFSaqOrOZLw2PmOYk8IIXCQOhf+Cwxjve2U2ULihFN8C0b5Z/zV/jfhqkZHQ9XHssai9/W9TXcDHqCQvLM0UVVLWwzT1w=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from CH0PR12MB5348.namprd12.prod.outlook.com (2603:10b6:610:d7::9)
- by CH0PR12MB5137.namprd12.prod.outlook.com (2603:10b6:610:bc::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.25; Wed, 19 May
- 2021 15:44:49 +0000
-Received: from CH0PR12MB5348.namprd12.prod.outlook.com
- ([fe80::9c3:508d:5340:8efd]) by CH0PR12MB5348.namprd12.prod.outlook.com
- ([fe80::9c3:508d:5340:8efd%6]) with mapi id 15.20.4129.033; Wed, 19 May 2021
- 15:44:49 +0000
-Subject: Re: [PATCH 3/3] drm/amdgpu/pm: display vcn pp dpm
-To: David M Nieto <david.nieto@amd.com>, amd-gfx@lists.freedesktop.org
-References: <476f8809-5521-98b4-e08f-1d06fc099468@amd.com>
- <20210519060233.13597-1-david.nieto@amd.com>
- <20210519060233.13597-3-david.nieto@amd.com>
-From: Lijo Lazar <lijo.lazar@amd.com>
-Message-ID: <f2710077-6b91-670a-4caa-86e3fa755606@amd.com>
-Date: Wed, 19 May 2021 21:14:36 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.2
-In-Reply-To: <20210519060233.13597-3-david.nieto@amd.com>
+ bh=D8cJqyCV/N6CJl02mdhpSKX4si9APirmyXaEfJMqjuE=;
+ b=wv697AcoFdPSsbGf7skomnbT4mviWCO7F5WWiupQ5f1bbovf0sriNVgFpby0S3HAft3AS5QRHg1Y257Ozqfm5gl9UjVlorUHa1GzudDHPIvKKVP10UkNvFYxOnUC8Erz5gjUaLacs4ms/uehmZ7B1TI9Y2DMYIVRHOKAQkreUOU=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5129.namprd12.prod.outlook.com (2603:10b6:408:136::12)
+ by BN9PR12MB5196.namprd12.prod.outlook.com (2603:10b6:408:11d::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.26; Wed, 19 May
+ 2021 15:55:01 +0000
+Received: from BN9PR12MB5129.namprd12.prod.outlook.com
+ ([fe80::3c78:e58b:fba7:b8dd]) by BN9PR12MB5129.namprd12.prod.outlook.com
+ ([fe80::3c78:e58b:fba7:b8dd%6]) with mapi id 15.20.4129.033; Wed, 19 May 2021
+ 15:55:01 +0000
+Subject: Re: [PATCH] drm/amdgpu: Disable cwsr for vega10 and Sienna_Cichlid in
+ sriov
+To: Chengzhe Liu <ChengZhe.Liu@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20210519090242.888065-1-ChengZhe.Liu@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Message-ID: <a2c7bc50-498e-7cbd-b79e-fbd276588789@amd.com>
+Date: Wed, 19 May 2021 11:54:59 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
+In-Reply-To: <20210519090242.888065-1-ChengZhe.Liu@amd.com>
 Content-Language: en-US
-X-Originating-IP: [117.222.149.218]
-X-ClientProxiedBy: PN2PR01CA0119.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:27::34) To CH0PR12MB5348.namprd12.prod.outlook.com
- (2603:10b6:610:d7::9)
+X-Originating-IP: [142.186.56.206]
+X-ClientProxiedBy: YT1PR01CA0067.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2d::6) To BN9PR12MB5129.namprd12.prod.outlook.com
+ (2603:10b6:408:136::12)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [192.168.1.102] (117.222.149.218) by
- PN2PR01CA0119.INDPRD01.PROD.OUTLOOK.COM (2603:1096:c01:27::34) with Microsoft
+Received: from [192.168.2.100] (142.186.56.206) by
+ YT1PR01CA0067.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2d::6) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4108.25 via Frontend Transport; Wed, 19 May 2021 15:44:47 +0000
+ 15.20.4129.25 via Frontend Transport; Wed, 19 May 2021 15:55:01 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: b764789f-96f8-468b-5c8a-08d91add0911
-X-MS-TrafficTypeDiagnostic: CH0PR12MB5137:
+X-MS-Office365-Filtering-Correlation-Id: 832fda43-fc03-4350-8acc-08d91ade761e
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5196:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CH0PR12MB51372EDDAC02C8FCC2FAC5BB972B9@CH0PR12MB5137.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:167;
+X-Microsoft-Antispam-PRVS: <BN9PR12MB5196DE8650987D48A7D7506B922B9@BN9PR12MB5196.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:854;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: rRdtkKyb95OwJTTATj2YS8ajjLt7J8dV1nOvegr8TUavLLwD9jAE6iabpYWo7AHSuf8VyiG0hmFji7VG6NBZifwKGwLqtYrnvxUO1pkmeC4YJIralRVV4ZVPSc88mFy9Jh53goWbfesaaPRXns0kLHOx+6fOf85a7/tRV+mYATq4zxXlShmxHbP/SvywvWOISPz2OAvKJT0cr8wv3N+cPQ1rekz9H0s3HJMDkgg5Dc7en+0Rz0BL/A50zerLsCt9cNJvlSbSDfMq2WDlUZNdULp3yKvzgr+WUE8y++KV9YugACOpCceXifaUvGl5dzmxbbo1cAk2VU4uw8Et/LVb795T9WHekcvzEP4ICg7G0xje3cdN6E53LV9lGz/GEy3JrHXbC2t9+85u+eVGJ7YL8L8I/ZiyzqFGAJHT/8DT3tmwuqXT2EngM5lIpkkg+YI1NPsbYuNN01NMEXSfO3+BxoIAb2a/lq3CtsRT0RuRhErAtwV/a0oFXtuWXwi9js3BctOVJ7Pj077X6OItHfCTuKfOMhdB+2zYq3KKAL2+hOweXNfh7QiZfmEiAjwqgRFY6QnbFJaw3SzwB79Vn70zn/abx43fgJuw6+ceXoTj4UnEeQM3LHDolO8HYavpn7uoNOU9d+nLIEEn+OMMoVu/fAjGuNOo6DDJurOsM5ul4YsQfG65Lu1whOdibDHMp/mr7NHz8jHfRBFC7dJg1eydbw==
+X-Microsoft-Antispam-Message-Info: bnzAD4kj7yyivvvSaWfTePMkrGaPGXLYXfjbguCaJypOi2rtxdVofmNfJwRDZRkc4nz5boGUJ/fmY+v9HhhuNWGWSzLoz9PzlsUrOHugkJdgLfCjOMY5hxk3Le9RZGXn+sQqMexhkloMje50WFg1NYO48I/lZIed7MYt6tRGJQ65wj8q0Ty1CAsd+toqcB1Ha01EJngoaS5Nm2jxCBI2lU5av3Kn+WGf8KnuXD5E7xlRP8mjnnvo6n7MCydKY+MP0RTMiKYBHBWbe2qPbiWJDM92VwKdN9T3YOQ64RRcjrXAZSbYNr2McAVR7GXcsO7WY8/OfB1NLdhsb0zTn5+YqKnaTiwuEGNMQ9yA43giiE+rhaPGGbqsw1ju5eFBtqaLfKt9wERah347t+YR1T17uH+WimSz69WD1GgTS7HY3oJd/d9vHQ6lxo01T9wCE5d8LZF6rKnhGuuzFsaSUqGp94lOsOerHh+lUOYHaRGYlNipEVocUJ/+DxKDIC6+XWzYVl5dtgusM3y9PD712WdrRgyaljo8vOPo0f8cvmqyHXtWHc4yYHPmT7DobM9541h1Zdr4gpW50hRKH+/cPxHf+E5uBmEDws2ld/+azyX+p0RzrsiQn0KGTzAFOXxF7yXlR3mzlUGe+cfsrjc9r3Tj8GrFklDXxa96EnsD2H2IhYGviIDjj3Qfe5ZELH3PQQGy
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH0PR12MB5348.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(376002)(39860400002)(136003)(346002)(366004)(38100700002)(38350700002)(478600001)(186003)(316002)(52116002)(956004)(44832011)(2616005)(16526019)(2906002)(53546011)(16576012)(31696002)(5660300002)(26005)(8936002)(66556008)(6486002)(66476007)(8676002)(66946007)(86362001)(6666004)(31686004)(36756003)(83380400001)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5129.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(376002)(346002)(366004)(136003)(396003)(39860400002)(86362001)(26005)(478600001)(31696002)(38100700002)(5660300002)(31686004)(2616005)(956004)(186003)(36756003)(66946007)(44832011)(16526019)(8936002)(8676002)(16576012)(66556008)(54906003)(6486002)(2906002)(66476007)(4326008)(316002)(83380400001)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?RlJNRlV3MjU2UVVnanBHemZGWksySTZ3VG52UFpQdnlTRjJOUkpRdVNsbGMy?=
- =?utf-8?B?SGtPMFlSRXFrNUdTQ2VRL2RwOThqS1pMYWx2NjU3SEF5WDhTTTZaTlVrY2h1?=
- =?utf-8?B?ZEF5eHpyRldzRzVDcjMxNE1DWkFLVHRYVE5FVW5UWEh1bkt0U2dBRkFQWmVt?=
- =?utf-8?B?VkNOL2ZGRjAybURpU2tkSDAzdU9MOHB5TWcvT1hSZFg3SmVqcXdPb1BhcHAr?=
- =?utf-8?B?TWVuL1o4K3VWZ0tnYVJkbnk4SDJDS3JsS3ZKQTlVaFRQYW5JdlBFWitTaGtw?=
- =?utf-8?B?QmNSNTFUZ3c0S2tpT25reURXMHBoYk9VcGM5TWovMUt2NXdyclMwaEhSU0pZ?=
- =?utf-8?B?UkU0TTg3WWk3WjJNZkxERjgrd2JJeGx2dFNWU0xxeDkvRER1UzkzRzgrOHBn?=
- =?utf-8?B?NWE1dkx3ZmpmRkdtTHdvNUhxTVdJa2toMlZvZG1KL3ByK1laSDhzMUUwbHVu?=
- =?utf-8?B?SEFUV256Q2xSTU5MS29XNE13TzFRYTJ0d0RydjNkUHorTVBsMHJaa1RTTkl2?=
- =?utf-8?B?cS9SYkhaRXpkS042SEhYZzBnTHp6NEh4dmFDRURTc3pYQmRSVGY5ZVVnbGhk?=
- =?utf-8?B?Q1JzSjVNSkthcm1ZTUdwY2pQSEpLR3ZKcnZvTSswWTlEd2x4TzNtU2laMTdv?=
- =?utf-8?B?UFN1K25EQXNIS3NmMnRMa2RoYktBUSs3YnVQOGQ3aVkrdWZWWEpUcjZzcFhP?=
- =?utf-8?B?NHdRTGlHTCtHMWpoVXlrKzNLRm4zbXBjL0wyeHIwNVVlN1MyaTg4TE94K1cy?=
- =?utf-8?B?T3NpMm5CeEgyYmFUTllMV2RiTGNVYmZGWVdwYnpBbUNYV3NDaEhKOVlwTm4v?=
- =?utf-8?B?cWwySjJyMHRrbGZSdkVjN0orQ2kxN1BoRE1QclNCd0lsdisxS2sweDBEK1ht?=
- =?utf-8?B?N3gwNXY4MlRIUm1tZG1vVDFQRHRic3NaS1BlbXlJeElKMjA2MjcwSXRWblhy?=
- =?utf-8?B?NkNKMkVNUnpGOE9BNUozZnBjOGhySVJWMGw5TGkxcllKQW1KQmlKMkcxalRE?=
- =?utf-8?B?dWlZUnZsQ0ZQbDdQQ3ZsUC84dFdrWmNjSGd0cnNvMVQ0MUNYZ05hZ0hxMTdT?=
- =?utf-8?B?WFh4M3Z4NGFrQmRNeXl6MEc0Nk5HQ1gvKyszMjQyQ3dnMFRkaDZBWm5nc05B?=
- =?utf-8?B?VzVtYkk0alVPaVVMSElyOGJHN2I3UFl2bXpIdHhXMTliTmp0TmdzZFkrdzVt?=
- =?utf-8?B?M0w4bktiTlE5a1dISHJLSnNHaXJScTRHTlcyZFA1NkN4aVA4bVNQMnBiTkpx?=
- =?utf-8?B?TE0yZVA3bkg0aDRHcVp4dnVGTWxncXpEeW9PS1hpUHJMUjlyZjBhWU5TK2Qx?=
- =?utf-8?B?TEhyOUdaZkpCcmlOZ1BnbkdIY3FsU1lhZDQyeW9QM2t5Zy9aOEp5MDZkeFlD?=
- =?utf-8?B?cGhXOHpEZW1yV1FZMlBHRUNUNkRZaEtLM25VS1N3aGMyaXQ1TVZ2b3VGQWFG?=
- =?utf-8?B?endJWHI5NHVJTEpoL1VwZ1hjWkUrYy92K3l5NzZWMnJTRjA4REVHVkVaOTFp?=
- =?utf-8?B?a3RHQnBIZ2cwNGk0aVFrM1VGWlJIVjB5bEF2cVc5TXlzZndCSThyZ2d2WTQ1?=
- =?utf-8?B?YTBnZ2FSVGRVUURjd0tlR3hoZDZsZk16ZXpESUFEeHowTDVDUjRTNGp1cVgy?=
- =?utf-8?B?Y0lhYitseGgvMjgyUmVETTlrSGxrLzVSaGErTFdqUmxVNlVzWXNZa0xNUk1L?=
- =?utf-8?B?MG1kd3JqVWw4ZnpaNzdYWXFGamlyRXRJVzRrQ1JDaDFPbUVxcTd0OTMyYmhT?=
- =?utf-8?Q?3ddUvrkCsQDT4EYdiFOx2zdoqgKP7GJGQRSDgyK?=
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?V1doNlkyaFN2R2xmMlR3NzYyUDk1dmt3RGZwV3hoWXJUcjNzNndBSnB6TlZ6?=
+ =?utf-8?B?VzRoVU5WQy85cmJqMlE3ZDlITVJWRS9mUlJoRXZicmlQbGxqK2Exc0dnb1FE?=
+ =?utf-8?B?c0xjajBEbThXODYyMGtCZUN3aFFJa2E0ejVjS01BUEpGNmtIMWl3V091L29E?=
+ =?utf-8?B?djRLSEZIM1pXZzRSVmFIM1IxNzNRU2dHeUU1TWhabFhRaEYyWm1yVmhMOUZl?=
+ =?utf-8?B?UG9Uc0NEQy9xRTVXZnlHb1RObHRndzU0c1hEUFNBWmRCTTg3enVXVDgvQWh3?=
+ =?utf-8?B?RHNjVTVKYksxYlZ2RHlHM1orajdwWWIwRUNPa1c4TFdNaTdvREtGSVYxVHhG?=
+ =?utf-8?B?R2toemkyTzUySmNaRWNhOTFRWFY3NFdKQlpOZHNkZ25qTmwvUVk0NFp5emZs?=
+ =?utf-8?B?bDd5dXRRZFVMUjJJVENHRzRTUFVEak55ZnVSemhlTnI5ZHlKNktmTGNXUWJa?=
+ =?utf-8?B?R1lkdVQ1VjBIcTlIbm9RaVU2dER1L25xdjdBTnNxT1gzVVVDaTN0MWdYN2VJ?=
+ =?utf-8?B?UU4rd2hpNlczZms3c1ZsZ21CZHJlUGF2OHFzdi8zWDJMTnU1eU9CVnBDalFz?=
+ =?utf-8?B?UHVLZm1ZYUp3OVJHaFdvTUg1MmgrQmxmOWFzak5vVEgwZW8yTkg5ZjdEYjln?=
+ =?utf-8?B?cHR3WWRnZ2kvLzdON2JGaUFWNmFVSDVpY2E0UUU3aC9HaXBHSExtRlg4eDJ1?=
+ =?utf-8?B?YVk0OG0wUktXNitKaWhqMjJYaENSb3NyWFZudzR3VEJUMGpCdVNWS0dTbXB4?=
+ =?utf-8?B?Q2dEdXd2bDN0T2IwNHJzamUvOElsMjcrZ0hlWUlxZm0xdmZ1akE0UkdEUXNk?=
+ =?utf-8?B?UHpTVUU1OVJNRTV2SEI3TXRZeStkbjdSSDV6T29sMUdTR2lLSkFtSTY1SzNJ?=
+ =?utf-8?B?b0U0NmJxOU1sbFRmenZDaldYTWlMMFI5SXphZ3lObUI1Snp5MFYrVW1jTEtO?=
+ =?utf-8?B?SENYaHYxaldCSzlqOEdQVVVjd2VsdXkrcUdFK1FVRkdhK3k1bnoySHJRSnoz?=
+ =?utf-8?B?aFR5aDg3cHB5dkxmRFIwdkZQQ09OQndQWFYxam5CUDFZUjQwejdkZTM4N3Vr?=
+ =?utf-8?B?ZW51dnhwMGdmMUFVOVg0RnkzOHlNc2hqMHR5RmZ1TDdjdUlORVozTmltMnBD?=
+ =?utf-8?B?c2g0TmZab1N3UXJtRFdDYXVHRWRlQy9hd2c4bTZCUk0vdVhRQUJmNlVlV3Jq?=
+ =?utf-8?B?UkF4ZDFLaVBmUEZ6RS85R0xqYW1uckpkOE1UVXZBRFZXb2F3djJvNTF0N1pW?=
+ =?utf-8?B?SDVldXNZaHlocUsxTVhUaytpNlFEcEdieU5GSDNYMzJ0NkhIYU9ickNMNm9U?=
+ =?utf-8?B?Mllxd3FnQUhUVGU5VVpMLzNXRk5veW5WMTk0ZmtGdDhUNWQ0MTQ2MzEvU0Z3?=
+ =?utf-8?B?L1pxU2ZMQVh2RUhYQUZPOGlRNzd4ajRTVjdCZUZZUm9LNTdob0F4U0xkSGpr?=
+ =?utf-8?B?eVZoYmE0bVRsbmhUemlxVlU1UXhSNURCby8ycTN1eGFRNzFHczk2UXJLaXNM?=
+ =?utf-8?B?dWp0UElKMlNzNmVTUFBoODV5U0ZKUlE3MVBicUQ3Q0JTMDBReGxnNUJCNDAz?=
+ =?utf-8?B?c2lTMTJFbHdreE13YXdpVnp2MzlTdUhFZ21rajJqM1FtSFVMVGpRNUFSQkxC?=
+ =?utf-8?B?eVVudUhaK0lLYmZwcCtSWmVYUWZ0bXN6c2xTQ2VMTFdHczlydUxncVdCa1h3?=
+ =?utf-8?B?MlJpa1p4bEhzNnZDb21VYVZKSzdmMWlFa0xXQUxYTHBwUDRLS1R0UG1EcEFH?=
+ =?utf-8?Q?GLhWXd9L4oZgQnoGfKKVaefA5uCoNN7an0rHiM7?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b764789f-96f8-468b-5c8a-08d91add0911
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5348.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 832fda43-fc03-4350-8acc-08d91ade761e
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5129.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2021 15:44:49.3008 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2021 15:55:01.7585 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7GmqMeurE44CK2JbhHdLoA58X6EYdYdRIqtn1YD6iOao7upX1NyFMhHQJm5t3bP8
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5137
+X-MS-Exchange-CrossTenant-UserPrincipalName: ddV1CtW1b5pLVAr9cItIHCR2ijcDSJ5aaLidSlisggrENujBVXSneA5U4ByRnaOvsRyCMLSb7xd3ULGwRaXGkw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5196
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,262 +134,69 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: Jack Xiao <Jack.Xiao@amd.com>, Feifei Xu <Feifei.Xu@amd.com>,
+ Kevin Wang <Kevin1.Wang@amd.com>, Tuikov Luben <Luben.Tuikov@amd.com>,
+ Deucher Alexander <Alexander.Deucher@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Xiaojie Yuan <xiaojie.yuan@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-Avoid changes to sienna_cichlid_force_clk_levels as well.
-With that addressed patch is
-
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
-
-On 5/19/2021 11:32 AM, David M Nieto wrote:
-> Enable displaying DPM levels for VCN clocks
-> in swsmu supported ASICs
-> 
-> Signed-off-by: David M Nieto <david.nieto@amd.com>
-> ---
->   .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c | 46 +++++++++++++++++++
->   .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   |  2 +
->   .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   |  8 ++++
->   .../gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c   | 34 ++++++++++++++
->   .../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    | 46 +++++++++++++++++++
->   5 files changed, 136 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-> index 77693bf0840c..1735a96dd307 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-> @@ -822,6 +822,52 @@ static int arcturus_print_clk_levels(struct smu_context *smu,
->   				now) ? "*" : ""));
->   		break;
->   
-> +	case SMU_VCLK:
-> +		ret = arcturus_get_current_clk_freq_by_table(smu, SMU_VCLK, &now);
-> +		if (ret) {
-> +			dev_err(smu->adev->dev, "Attempt to get current vclk Failed!");
-> +			return ret;
-> +		}
-> +
-> +		single_dpm_table = &(dpm_context->dpm_tables.vclk_table);
-> +		ret = arcturus_get_clk_table(smu, &clocks, single_dpm_table);
-> +		if (ret) {
-> +			dev_err(smu->adev->dev, "Attempt to get vclk levels Failed!");
-> +			return ret;
-> +		}
-> +
-> +		for (i = 0; i < single_dpm_table->count; i++)
-> +			size += sprintf(buf + size, "%d: %uMhz %s\n",
-> +				i, single_dpm_table->dpm_levels[i].value,
-> +				(clocks.num_levels == 1) ? "*" :
-> +				(arcturus_freqs_in_same_level(
-> +				clocks.data[i].clocks_in_khz / 1000,
-> +				now) ? "*" : ""));
-> +		break;
-> +
-> +	case SMU_DCLK:
-> +		ret = arcturus_get_current_clk_freq_by_table(smu, SMU_DCLK, &now);
-> +		if (ret) {
-> +			dev_err(smu->adev->dev, "Attempt to get current dclk Failed!");
-> +			return ret;
-> +		}
-> +
-> +		single_dpm_table = &(dpm_context->dpm_tables.dclk_table);
-> +		ret = arcturus_get_clk_table(smu, &clocks, single_dpm_table);
-> +		if (ret) {
-> +			dev_err(smu->adev->dev, "Attempt to get dclk levels Failed!");
-> +			return ret;
-> +		}
-> +
-> +		for (i = 0; i < single_dpm_table->count; i++)
-> +			size += sprintf(buf + size, "%d: %uMhz %s\n",
-> +				i, single_dpm_table->dpm_levels[i].value,
-> +				(clocks.num_levels == 1) ? "*" :
-> +				(arcturus_freqs_in_same_level(
-> +				clocks.data[i].clocks_in_khz / 1000,
-> +				now) ? "*" : ""));
-> +		break;
-> +
->   	case SMU_PCIE:
->   		gen_speed = smu_v11_0_get_current_pcie_link_speed_level(smu);
->   		lane_width = smu_v11_0_get_current_pcie_link_width_level(smu);
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> index b8971303a873..7763de464678 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> @@ -1273,6 +1273,8 @@ static int navi10_print_clk_levels(struct smu_context *smu,
->   	case SMU_MCLK:
->   	case SMU_UCLK:
->   	case SMU_FCLK:
-> +	case SMU_VCLK:
-> +	case SMU_DCLK:
->   	case SMU_DCEFCLK:
->   		ret = navi10_get_current_clk_freq_by_table(smu, clk_type, &cur_value);
->   		if (ret)
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> index 0c40a54c46d7..6da6d08d8858 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> @@ -987,6 +987,10 @@ static int sienna_cichlid_print_clk_levels(struct smu_context *smu,
->   	case SMU_MCLK:
->   	case SMU_UCLK:
->   	case SMU_FCLK:
-> +	case SMU_VCLK:
-> +	case SMU_VCLK1:
-> +	case SMU_DCLK:
-> +	case SMU_DCLK1:
->   	case SMU_DCEFCLK:
->   		ret = sienna_cichlid_get_current_clk_freq_by_table(smu, clk_type, &cur_value);
->   		if (ret)
-> @@ -1150,6 +1154,10 @@ static int sienna_cichlid_force_clk_levels(struct smu_context *smu,
->   	case SMU_MCLK:
->   	case SMU_UCLK:
->   	case SMU_FCLK:
-> +	case SMU_VCLK:
-> +	case SMU_VCLK1:
-> +	case SMU_DCLK:
-> +	case SMU_DCLK1:
->   		/* There is only 2 levels for fine grained DPM */
->   		if (sienna_cichlid_is_support_fine_grained_dpm(smu, clk_type)) {
->   			soft_max_level = (soft_max_level >= 1 ? 1 : 0);
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-> index f43b4c623685..0805dc439572 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-> @@ -109,6 +109,8 @@ static struct cmn2asic_mapping renoir_clk_map[SMU_CLK_COUNT] = {
->   	CLK_MAP(SOCCLK, CLOCK_SOCCLK),
->   	CLK_MAP(UCLK, CLOCK_FCLK),
->   	CLK_MAP(MCLK, CLOCK_FCLK),
-> +	CLK_MAP(VCLK, CLOCK_VCLK),
-> +	CLK_MAP(DCLK, CLOCK_DCLK),
->   };
->   
->   static struct cmn2asic_mapping renoir_table_map[SMU_TABLE_COUNT] = {
-> @@ -202,6 +204,17 @@ static int renoir_get_dpm_clk_limited(struct smu_context *smu, enum smu_clk_type
->   			return -EINVAL;
->   		*freq = clk_table->FClocks[dpm_level].Freq;
->   		break;
-> +	case SMU_VCLK:
-> +		if (dpm_level >= NUM_VCN_DPM_LEVELS)
-> +			return -EINVAL;
-> +		*freq = clk_table->VClocks[dpm_level].Freq;
-> +		break;
-> +	case SMU_DCLK:
-> +		if (dpm_level >= NUM_VCN_DPM_LEVELS)
-> +			return -EINVAL;
-> +		*freq = clk_table->DClocks[dpm_level].Freq;
-> +		break;
-> +
->   	default:
->   		return -EINVAL;
->   	}
-> @@ -532,6 +545,14 @@ static int renoir_print_clk_levels(struct smu_context *smu,
->   		count = NUM_FCLK_DPM_LEVELS;
->   		cur_value = metrics.ClockFrequency[CLOCK_FCLK];
->   		break;
-> +	case SMU_VCLK:
-> +		count = NUM_VCN_DPM_LEVELS;
-> +		cur_value = metrics.ClockFrequency[CLOCK_VCLK];
-> +		break;
-> +	case SMU_DCLK:
-> +		count = NUM_VCN_DPM_LEVELS;
-> +		cur_value = metrics.ClockFrequency[CLOCK_DCLK];
-> +		break;
->   	default:
->   		break;
->   	}
-> @@ -543,6 +564,8 @@ static int renoir_print_clk_levels(struct smu_context *smu,
->   	case SMU_MCLK:
->   	case SMU_DCEFCLK:
->   	case SMU_FCLK:
-> +	case SMU_VCLK:
-> +	case SMU_DCLK:
->   		for (i = 0; i < count; i++) {
->   			ret = renoir_get_dpm_clk_limited(smu, clk_type, i, &value);
->   			if (ret)
-> @@ -730,6 +753,17 @@ static int renoir_get_dpm_clock_table(struct smu_context *smu, struct dpm_clocks
->   		clock_table->MemClocks[i].Vol = table->MemClocks[i].Vol;
->   	}
->   
-> +	for (i = 0; i < NUM_VCN_DPM_LEVELS; i++) {
-> +		clock_table->VClocks[i].Freq = table->VClocks[i].Freq;
-> +		clock_table->VClocks[i].Vol = table->VClocks[i].Vol;
-> +	}
-> +
-> +	for (i = 0; i < NUM_VCN_DPM_LEVELS; i++) {
-> +		clock_table->DClocks[i].Freq = table->DClocks[i].Freq;
-> +		clock_table->DClocks[i].Vol = table->DClocks[i].Vol;
-> +	}
-> +
-> +
->   	return 0;
->   }
->   
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-> index 7c191a5d6db9..fb744f3e17d7 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-> @@ -816,6 +816,52 @@ static int aldebaran_print_clk_levels(struct smu_context *smu,
->   								       now) ? "*" : ""));
->   		break;
->   
-> +	case SMU_VCLK:
-> +		ret = aldebaran_get_current_clk_freq_by_table(smu, SMU_VCLK, &now);
-> +		if (ret) {
-> +			dev_err(smu->adev->dev, "Attempt to get current vclk Failed!");
-> +			return ret;
-> +		}
-> +
-> +		single_dpm_table = &(dpm_context->dpm_tables.vclk_table);
-> +		ret = aldebaran_get_clk_table(smu, &clocks, single_dpm_table);
-> +		if (ret) {
-> +			dev_err(smu->adev->dev, "Attempt to get vclk levels Failed!");
-> +			return ret;
-> +		}
-> +
-> +		for (i = 0; i < single_dpm_table->count; i++)
-> +			size += sprintf(buf + size, "%d: %uMhz %s\n",
-> +					i, single_dpm_table->dpm_levels[i].value,
-> +					(clocks.num_levels == 1) ? "*" :
-> +					(aldebaran_freqs_in_same_level(
-> +								       clocks.data[i].clocks_in_khz / 1000,
-> +								       now) ? "*" : ""));
-> +		break;
-> +
-> +	case SMU_DCLK:
-> +		ret = aldebaran_get_current_clk_freq_by_table(smu, SMU_DCLK, &now);
-> +		if (ret) {
-> +			dev_err(smu->adev->dev, "Attempt to get current dclk Failed!");
-> +			return ret;
-> +		}
-> +
-> +		single_dpm_table = &(dpm_context->dpm_tables.dclk_table);
-> +		ret = aldebaran_get_clk_table(smu, &clocks, single_dpm_table);
-> +		if (ret) {
-> +			dev_err(smu->adev->dev, "Attempt to get dclk levels Failed!");
-> +			return ret;
-> +		}
-> +
-> +		for (i = 0; i < single_dpm_table->count; i++)
-> +			size += sprintf(buf + size, "%d: %uMhz %s\n",
-> +					i, single_dpm_table->dpm_levels[i].value,
-> +					(clocks.num_levels == 1) ? "*" :
-> +					(aldebaran_freqs_in_same_level(
-> +								       clocks.data[i].clocks_in_khz / 1000,
-> +								       now) ? "*" : ""));
-> +		break;
-> +
->   	default:
->   		break;
->   	}
-> 
-
--- 
-Thanks,
-Lijo
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+CkFtIDIwMjEtMDUtMTkgdW0gNTowMiBhLm0uIHNjaHJpZWIgQ2hlbmd6aGUgTGl1Ogo+IEluIHNy
+aW92LCBjd3NyIGlzIG5vdCBzdGFibGUKTkFLLiBXaXRob3V0IENXU1IsIFJPQ20gaXMgbm90IHN0
+YWJsZS4gQW55IGNvbXB1dGUgYXBwbGljYXRpb24gd2l0aCBsb25nCnJ1bm5pbmcgd2F2ZXMgY2Fu
+IGNhdXNlIGEgaGFuZy4KClJlZ2FyZHMsCsKgIEZlbGl4Cgo+Cj4gU2lnbmVkLW9mZi1ieTogQ2hl
+bmd6aGUgTGl1IDxDaGVuZ1poZS5MaXVAYW1kLmNvbT4KPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRrZmQva2ZkX2RldmljZS5jIHwgMjQgKysrKysrKysrKysrKysrKysrKysrLS0tCj4g
+IDEgZmlsZSBjaGFuZ2VkLCAyMSBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQo+Cj4gZGlm
+ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2UuYyBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2UuYwo+IGluZGV4IDgwMDE1ZTg2NjQ5OC4u
+ODliZDAwNTkzMjliIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tm
+ZF9kZXZpY2UuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2Uu
+Ywo+IEBAIC0zMzUsNyArMzM1LDcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBrZmRfZGV2aWNlX2lu
+Zm8gdmVnYTEwX3ZmX2RldmljZV9pbmZvID0gewo+ICAJLmV2ZW50X2ludGVycnVwdF9jbGFzcyA9
+ICZldmVudF9pbnRlcnJ1cHRfY2xhc3NfdjksCj4gIAkubnVtX29mX3dhdGNoX3BvaW50cyA9IDQs
+Cj4gIAkubXFkX3NpemVfYWxpZ25lZCA9IE1RRF9TSVpFX0FMSUdORUQsCj4gLQkuc3VwcG9ydHNf
+Y3dzciA9IHRydWUsCj4gKwkuc3VwcG9ydHNfY3dzciA9IGZhbHNlLAo+ICAJLm5lZWRzX2lvbW11
+X2RldmljZSA9IGZhbHNlLAo+ICAJLm5lZWRzX3BjaV9hdG9taWNzID0gZmFsc2UsCj4gIAkubnVt
+X3NkbWFfZW5naW5lcyA9IDIsCj4gQEAgLTUwNSw2ICs1MDUsMjQgQEAgc3RhdGljIGNvbnN0IHN0
+cnVjdCBrZmRfZGV2aWNlX2luZm8gc2llbm5hX2NpY2hsaWRfZGV2aWNlX2luZm8gPSB7Cj4gIAku
+bnVtX3NkbWFfcXVldWVzX3Blcl9lbmdpbmUgPSA4LAo+ICB9Owo+ICAKPiArc3RhdGljIGNvbnN0
+IHN0cnVjdCBrZmRfZGV2aWNlX2luZm8gc2llbm5hX2NpY2hsaWRfdmZfZGV2aWNlX2luZm8gPSB7
+Cj4gKwkuYXNpY19mYW1pbHkgPSBDSElQX1NJRU5OQV9DSUNITElELAo+ICsJLmFzaWNfbmFtZSA9
+ICJzaWVubmFfY2ljaGxpZCIsCj4gKwkubWF4X3Bhc2lkX2JpdHMgPSAxNiwKPiArCS5tYXhfbm9f
+b2ZfaHFkICA9IDI0LAo+ICsJLmRvb3JiZWxsX3NpemUgID0gOCwKPiArCS5paF9yaW5nX2VudHJ5
+X3NpemUgPSA4ICogc2l6ZW9mKHVpbnQzMl90KSwKPiArCS5ldmVudF9pbnRlcnJ1cHRfY2xhc3Mg
+PSAmZXZlbnRfaW50ZXJydXB0X2NsYXNzX3YxMCwKPiArCS5udW1fb2Zfd2F0Y2hfcG9pbnRzID0g
+NCwKPiArCS5tcWRfc2l6ZV9hbGlnbmVkID0gTVFEX1NJWkVfQUxJR05FRCwKPiArCS5uZWVkc19p
+b21tdV9kZXZpY2UgPSBmYWxzZSwKPiArCS5zdXBwb3J0c19jd3NyID0gZmFsc2UsCj4gKwkubmVl
+ZHNfcGNpX2F0b21pY3MgPSB0cnVlLAo+ICsJLm51bV9zZG1hX2VuZ2luZXMgPSA0LAo+ICsJLm51
+bV94Z21pX3NkbWFfZW5naW5lcyA9IDAsCj4gKwkubnVtX3NkbWFfcXVldWVzX3Blcl9lbmdpbmUg
+PSA4LAo+ICt9Owo+ICsKPiAgc3RhdGljIGNvbnN0IHN0cnVjdCBrZmRfZGV2aWNlX2luZm8gbmF2
+eV9mbG91bmRlcl9kZXZpY2VfaW5mbyA9IHsKPiAgCS5hc2ljX2ZhbWlseSA9IENISVBfTkFWWV9G
+TE9VTkRFUiwKPiAgCS5hc2ljX25hbWUgPSAibmF2eV9mbG91bmRlciIsCj4gQEAgLTYwMSw3ICs2
+MTksNyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGtmZF9kZXZpY2VfaW5mbyAqa2ZkX3N1cHBvcnRl
+ZF9kZXZpY2VzW11bMl0gPSB7Cj4gIAlbQ0hJUF9OQVZJMTBdID0geyZuYXZpMTBfZGV2aWNlX2lu
+Zm8sIE5VTEx9LAo+ICAJW0NISVBfTkFWSTEyXSA9IHsmbmF2aTEyX2RldmljZV9pbmZvLCAmbmF2
+aTEyX2RldmljZV9pbmZvfSwKPiAgCVtDSElQX05BVkkxNF0gPSB7Jm5hdmkxNF9kZXZpY2VfaW5m
+bywgTlVMTH0sCj4gLQlbQ0hJUF9TSUVOTkFfQ0lDSExJRF0gPSB7JnNpZW5uYV9jaWNobGlkX2Rl
+dmljZV9pbmZvLCAmc2llbm5hX2NpY2hsaWRfZGV2aWNlX2luZm99LAo+ICsJW0NISVBfU0lFTk5B
+X0NJQ0hMSURdID0geyZzaWVubmFfY2ljaGxpZF9kZXZpY2VfaW5mbywgJnNpZW5uYV9jaWNobGlk
+X3ZmX2RldmljZV9pbmZvfSwKPiAgCVtDSElQX05BVllfRkxPVU5ERVJdID0geyZuYXZ5X2Zsb3Vu
+ZGVyX2RldmljZV9pbmZvLCAmbmF2eV9mbG91bmRlcl9kZXZpY2VfaW5mb30sCj4gIAlbQ0hJUF9W
+QU5HT0dIXSA9IHsmdmFuZ29naF9kZXZpY2VfaW5mbywgTlVMTH0sCj4gIAlbQ0hJUF9ESU1HUkVZ
+X0NBVkVGSVNIXSA9IHsmZGltZ3JleV9jYXZlZmlzaF9kZXZpY2VfaW5mbywgJmRpbWdyZXlfY2F2
+ZWZpc2hfZGV2aWNlX2luZm99LAo+IEBAIC02NzQsNyArNjkyLDcgQEAgc3RydWN0IGtmZF9kZXYg
+KmtnZDJrZmRfcHJvYmUoc3RydWN0IGtnZF9kZXYgKmtnZCwKPiAgCj4gIHN0YXRpYyB2b2lkIGtm
+ZF9jd3NyX2luaXQoc3RydWN0IGtmZF9kZXYgKmtmZCkKPiAgewo+IC0JaWYgKGN3c3JfZW5hYmxl
+ICYmIGtmZC0+ZGV2aWNlX2luZm8tPnN1cHBvcnRzX2N3c3IpIHsKPiArCWlmICgoY3dzcl9lbmFi
+bGUgJiYga2ZkLT5kZXZpY2VfaW5mby0+c3VwcG9ydHNfY3dzcikgfHwgY3dzcl9lbmFibGUgPT0g
+Mikgewo+ICAJCWlmIChrZmQtPmRldmljZV9pbmZvLT5hc2ljX2ZhbWlseSA8IENISVBfVkVHQTEw
+KSB7Cj4gIAkJCUJVSUxEX0JVR19PTihzaXplb2YoY3dzcl90cmFwX2dmeDhfaGV4KSA+IFBBR0Vf
+U0laRSk7Cj4gIAkJCWtmZC0+Y3dzcl9pc2EgPSBjd3NyX3RyYXBfZ2Z4OF9oZXg7Cl9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBs
+aXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
