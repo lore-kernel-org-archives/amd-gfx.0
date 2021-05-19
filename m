@@ -2,76 +2,106 @@ Return-Path: <SRS0=RLY9=KO=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_2 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2DEE2C433B4
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 08:53:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B4870C433ED
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 09:02:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DF0416044F
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 08:53:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DF0416044F
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 396B8611AE
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 09:02:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 396B8611AE
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 79B236ECE9;
-	Wed, 19 May 2021 08:53:43 +0000 (UTC)
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [IPv6:2a00:1450:4864:20::134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 62EBA6ECE9;
- Wed, 19 May 2021 08:53:42 +0000 (UTC)
-Received: by mail-lf1-x134.google.com with SMTP id r5so17903740lfr.5;
- Wed, 19 May 2021 01:53:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:in-reply-to:references
- :mime-version; bh=UEcEyDKGWc5BqkdIaL+KY18rDaFnEJEqEe+FVsf32e4=;
- b=pm/UKKRV9gwmB0Uu5gCiTQpFvJcZacaRAVe6USMnJD+vZf8FioX9Qm4ahmhiGvwZfm
- czyYuk+XzzzcvLwboCPNjltLmCK2rE7QFppt36mvZ/rerY0+4f/JZdnb8Bm8/ksrEoOK
- eSLJJRakrkbzJoA0q1bzvjtFX7JF6gMj4lEtBLg7zkm4S6isg1CfajfiHeQLcQwhzYIV
- an8JVbPE1xVstS20QK5TnPaJAsWaSI3LL0MzG1JkRovPmbtG65FWqWlXvhNZyq3CoDxH
- +IY/E7Min6W/pn8AbR37r3JtMj6UJ0lnPtKnSetmyCsYo+RAI5gA60guiV3jcglkiLaa
- yayQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
- :references:mime-version;
- bh=UEcEyDKGWc5BqkdIaL+KY18rDaFnEJEqEe+FVsf32e4=;
- b=XYUCgywAch3vsNCEWlHW8tB6bv2astfHgeQnAQT6nnX0QTQdoi43hDeVVe88A9KTuV
- /RLnEOTHajy9c7+sM3Xt/c8Lg1A70MujOYXWMKU7mlPTHdTouTkTv2QZm9d2/mOErhMx
- ErkqCYwU1hCLKxDUSZ7vtcpeMXBp+iVE+NLKeVImeJ/M8RPEzqCQ9x4NK5x22RwQOqWb
- RVaLR24c9oGqTkDPdfj2cvuvEY/blgBYfmhXIkHHYkh45+JHJSAa4GuIkxudd/i/Q7Fc
- PuekXFFSzCI2ihzw9cf1B5UzSyQOrPzXeY3Td5AKBTZerqg5zhVLitUUX702dmhuUCzt
- lSZg==
-X-Gm-Message-State: AOAM533Lc9DHcvB5KmatY+L9zUVypy1kuNmKpL/xwiGB3mrmzATAlxcU
- ocZnxv5sSojaw4GJbQP9dyE=
-X-Google-Smtp-Source: ABdhPJysBcXgR6Z/CIwY+Iwz/ekfBPu1hqkHTuicaAnUGj/RQs5cJ78qD9xNPIqA69DvrReWO0S/PQ==
-X-Received: by 2002:a05:6512:3f2a:: with SMTP id
- y42mr7492369lfa.234.1621414420727; 
- Wed, 19 May 2021 01:53:40 -0700 (PDT)
-Received: from eldfell ([194.136.85.206])
- by smtp.gmail.com with ESMTPSA id o8sm3537006ljp.49.2021.05.19.01.53.39
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 May 2021 01:53:40 -0700 (PDT)
-Date: Wed, 19 May 2021 11:53:37 +0300
-From: Pekka Paalanen <ppaalanen@gmail.com>
-To: Harry Wentland <harry.wentland@amd.com>
-Subject: Re: [RFC PATCH 0/3] A drm_plane API to support HDR planes
-Message-ID: <20210519115337.3194fa11@eldfell>
-In-Reply-To: <9d4ec9c3-6716-7c80-97d5-dd3c5c50ab51@amd.com>
-References: <20210426173852.484368-1-harry.wentland@amd.com>
- <20210427175005.5b92badc@eldfell>
- <e51a3067-a0b3-16e4-5996-bd8527b7536b@amd.com>
- <20210517115726.4fc1c710@eldfell>
- <5f6abaaa45bb7f77110d9f87c9824e3f@sebastianwick.net>
- <b0834be8-9023-0fde-f15d-8c44f72e7702@amd.com>
- <20210518105615.212b84e4@eldfell>
- <9d4ec9c3-6716-7c80-97d5-dd3c5c50ab51@amd.com>
-X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADDE46ECF3;
+	Wed, 19 May 2021 09:02:55 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam08on2071.outbound.protection.outlook.com [40.107.101.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C7AE6ECF3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 May 2021 09:02:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Bi9i0lV5U6miCizd96daSFRN94xjl5lolktZ7sWC/UN+DhF2uXImSgpagNf8uAFvmEOQNsqN22V7DC7KT2u66AoUgPJ4Mjpp3jNNzotFmM/ISOhSPmxND6i7Hen6K1WFu0kavPxnq5P4xpT+ScyqlFvRGczJBkulHI1QdL9Ub5rIaiqhzmh7HscDcOikmpINe9nnUDQ6GDnevqkKh9UsdX/70F5Jv37FG1rQ2Ztpc7niROcGMRl9hR+s/5Mh7pongWo8ovNCrG8AclJFdU8aLemqsb07LDO5MFqdDsoAD1sKP1gQB3HWryQMjFqOBCVo2uEho/3/PD4uh7fOB0Xu1g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UlMDKINw1jtV9Pi7ufcNyTv5rJWCvrIUOv1U3Bke7tQ=;
+ b=O3U7xVtpOEY0hG2s3jwWqQB/gJZUX+tpMBqO88OGlHMGSOw9/GgRmJTEXxpJQDGwMKKgberFgZc7zjWjUcjDSWHiJ/hy7KXcot8MCQY2/XItBAjPb0LXPYj3ychbRK+KgGwErlGSSzsX6cS0xQNVi4v1Qw8KJTFFGZzaiAaHhhr0iP2nvXahHIiqZCvjQYLvaqy1myXAZfl/jLOAeROTpxeOS16AnV2RmBtrPs37j6VbqGaDs1llYkdyDe1IjztZOxpH2bBxsG5FSXHhOWVcJdCANA03yarZr5ru1srQ0axzP3u98HLPT1ezhaaYH1YJsLrOaC/x7Ewx1R1nladPqA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UlMDKINw1jtV9Pi7ufcNyTv5rJWCvrIUOv1U3Bke7tQ=;
+ b=AKX1YKfLcRrAbq+D+sOuLxjcQD9HyJczQ1+0fI548rFfDQvjoQnqIphlUUpI8F0h8Jed92BVwKUOhzq6CJAnoexqFwRilfG+WLXIlk0JUcpwisMMkFEQ17A6y7OfwkmY0SgLokMo/q65TjLG6VNMqxmJBnQwJ0kbdnukB1gfQqs=
+Received: from DM5PR13CA0003.namprd13.prod.outlook.com (2603:10b6:3:23::13) by
+ CY4PR12MB1830.namprd12.prod.outlook.com (2603:10b6:903:127::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.28; Wed, 19 May
+ 2021 09:02:52 +0000
+Received: from DM6NAM11FT054.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:3:23:cafe::c9) by DM5PR13CA0003.outlook.office365.com
+ (2603:10b6:3:23::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4173.11 via Frontend
+ Transport; Wed, 19 May 2021 09:02:51 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT054.mail.protection.outlook.com (10.13.173.95) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4129.25 via Frontend Transport; Wed, 19 May 2021 09:02:51 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Wed, 19 May
+ 2021 04:02:50 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Wed, 19 May
+ 2021 04:02:50 -0500
+Received: from chengzhe-build.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2242.4 via Frontend
+ Transport; Wed, 19 May 2021 04:02:48 -0500
+From: Chengzhe Liu <ChengZhe.Liu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: Disable cwsr for vega10 and Sienna_Cichlid in
+ sriov
+Date: Wed, 19 May 2021 17:02:42 +0800
+Message-ID: <20210519090242.888065-1-ChengZhe.Liu@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 22208c29-3fa5-40b6-7b47-08d91aa4e1f1
+X-MS-TrafficTypeDiagnostic: CY4PR12MB1830:
+X-Microsoft-Antispam-PRVS: <CY4PR12MB18304BC35964F6A5A7F5553F932B9@CY4PR12MB1830.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:758;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: WmZsa6McbaMlDLsP6OE72PrBAz2OGt6kY/oEbnEdrfj7u9UJgUQRUUe70kguFfdcWHkYGNPQ7s0xH9Sy2sGUxuZ7jk8EgvjPj+VS1lafLDgWYLcAR78U89XK3o/1L0CtvLq3CT+JZ62Hdtzn9IRS5ogbxF8Od7qy0wS7+CUJA3oid9yw/pXH4mGhrd5h5+Wf0WAjy40Okck2a+ktt0L2LfGD+tkSZuU/AjYvX3qNu+CTTrjrJNjZFMRqAmQa5muBoLjj8oai5hO7gW6kHx1vyJRwCkR8LCNESBeXlAmq36YN1V0pzpYsdR8S4UokrvsYqOjAuxInUTSOtR3HJMXnHU7xUl1nGfaZ66jua8w8Tj2Qyx6HgculaArvOeZ68Pe5Bw66RvQRnGqIADGJoTr/NaYkjswsYU/LhrbCPt/LHhGCW3EedHUuFrQlI0p/9Gi759tpQZt3Hoi6cq6NKsSvFdU98Udfxh2Hq47kPleHxqX71qV4n1XV9oCB9Mv5PTEY5YCT0gl76JAZWTl4TPSLxul4jEb27V8GTVLfXmnwhibT62SqLp3NW5Vg5kyu90s56yVv3gV1amVF+ONhw5AdKQbTrJyplNSKUisD2TWJgPgI6dkE8g7q2y/u5Ake5H4Qk/agjJuucJo1RN7IXx8c55nxJOuLid8d358463A7BhWDbs4MYqfAGaS3+DNnL/xg
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(346002)(39860400002)(376002)(136003)(396003)(46966006)(36840700001)(8936002)(54906003)(316002)(478600001)(81166007)(426003)(356005)(8676002)(82740400003)(86362001)(2616005)(36756003)(36860700001)(2906002)(26005)(5660300002)(4326008)(70206006)(70586007)(336012)(83380400001)(47076005)(1076003)(82310400003)(6666004)(186003)(7696005)(6916009)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2021 09:02:51.6194 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 22208c29-3fa5-40b6-7b47-08d91aa4e1f1
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT054.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1830
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,197 +113,85 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Deepak.Sharma@amd.com, aric.cyr@amd.com, amd-gfx@lists.freedesktop.org,
- mcasas@google.com, Shashank.Sharma@amd.com, dri-devel@lists.freedesktop.org,
- Shirish.S@amd.com, Sebastian Wick <sebastian@sebastianwick.net>,
- Krunoslav.Kovac@amd.com, hersenxs.wu@amd.com,
- Vitaly Prosyak <vitaly.prosyak@amd.com>, laurentiu.palcu@oss.nxp.com,
- Bhawanpreet.Lakha@amd.com, Nicholas.Kazlauskas@amd.com,
- ville.syrjala@linux.intel.com
-Content-Type: multipart/mixed; boundary="===============0289682512=="
+Cc: Jack Xiao <Jack.Xiao@amd.com>, Feifei
+ Xu <Feifei.Xu@amd.com>, Kevin Wang <Kevin1.Wang@amd.com>,
+ Chengzhe Liu <ChengZhe.Liu@amd.com>, Tuikov Luben <Luben.Tuikov@amd.com>,
+ Deucher Alexander <Alexander.Deucher@amd.com>,
+ Xiaojie Yuan <xiaojie.yuan@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0289682512==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- boundary="Sig_/GXzH8+oBwyxuqn61yuPy7Uc"; protocol="application/pgp-signature"
+In sriov, cwsr is not stable
 
---Sig_/GXzH8+oBwyxuqn61yuPy7Uc
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Chengzhe Liu <ChengZhe.Liu@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_device.c | 24 +++++++++++++++++++++---
+ 1 file changed, 21 insertions(+), 3 deletions(-)
 
-On Tue, 18 May 2021 10:19:25 -0400
-Harry Wentland <harry.wentland@amd.com> wrote:
-
-> On 2021-05-18 3:56 a.m., Pekka Paalanen wrote:
-> > On Mon, 17 May 2021 15:39:03 -0400
-> > Vitaly Prosyak <vitaly.prosyak@amd.com> wrote:
-> >  =20
-> >> On 2021-05-17 12:48 p.m., Sebastian Wick wrote: =20
-
-...
-
-> >>> I suspect that this is not about tone mapping at all. The use cases
-> >>> listed always have the display in PQ mode and just assume that no
-> >>> content exceeds the PQ limitations. Then you can simply bring all
-> >>> content to the color space with a matrix multiplication and then map =
-the
-> >>> linear light content somewhere into the PQ range. Tone mapping is
-> >>> performed in the display only. =20
-> >=20
-> > The use cases do use the word "desktop" though. Harry, could you expand
-> > on this, are you seeking a design that is good for generic desktop
-> > compositors too, or one that is more tailored to "embedded" video
-> > player systems taking the most advantage of (potentially
-> > fixed-function) hardware?
-> >  =20
->=20
-> The goal is to enable this on a generic desktop, such as generic Wayland
-> implementations or ChromeOS. We're not looking for a custom solution for
-> some embedded systems, though the solution we end up with should obviously
-> not prevent an implementation on embedded video players.
-
-(There is a TL;DR: at the end.)
-
-Echoing a little bit what Sebastian already said, I believe there are
-two sides to this again:
-- color management in the traditional sense
-- modern standardised display technology
-
-It was perhaps too harsh to say that generic Wayland compositors cannot
-use enum-based color-related UAPI. Sometimes they could, sometimes it
-won't be good enough.
-
-Traditional color management assumes that no two monitors are the same,
-even if they are the same make, model, and manufacturing batch, and are
-driven exactly the same way. Hence, all monitors may require
-calibration (adjusting monitor knobs), and/or they may require
-profiling (measuring the light emission with a special hardware device
-designed for that). Also the viewing environment has an effect.
-
-For profiling to be at all meaningful, calibration must be fixed. This
-means that there must be no dynamic on-the-fly adaptation done in the
-monitor, in the display hardware, or in the kernel. That is a tall
-order that I guess is going to be less and less achievable, especially
-with HDR monitors.
-
-The other side is where the end user trusts the standards, and trusts
-that the drivers and the hardware do what they are specified to do.
-This is where you can trust that the monitor does the tone-mapping magic
-right.
-
-Weston needs to support both approaches, because we want to prove our
-new approach to traditional color management, but we also want to
-support HDR, and if possible, do both at the same time. Doing both at
-the same time is what we think foremost, because it's also the hardest
-thing to achieve. If that can be done, then everything else works out
-too.
-
-However, this should not exclude the possibility to trust standards and
-monitor magic, when the end user wants it.
-
-It's also possible that a monitor simply doesn't support a mode that
-would enable fully color managed HDR, so Weston will need to be able to
-drive monitors with e.g. BT.2020/PQ data eventually. It's just not the
-first goal we have.
-
-This debate is a little bit ironic. The Wayland approach to traditional
-color management is that end users should trust the display server to
-do the right thing, where before people only trusted the individual
-apps using a specific CMS implementation. The display server was the
-untrusted one that should just get out of the way and not touch
-anything. Now I'm arguing that I don't want to trust monitor magic, who
-knows what atrocities it does to my picture! But take the next logical
-step, and one would be arguing that end users should trust also
-monitors to do the right thing. :-)
-
-The above has two catches:
-
-- Do you actually trust hardware manufacturers and marketers and EDID?
-  Monitors have secret sauce you can't inspect nor change.
-
-- You feed a single video stream to a monitor, in a single format,
-  encoding and color space. The display server OTOH gets an arbitrary
-  number of input video streams in arbitrary formats, encodings, and
-  color spaces, and it needs to composite them into one.
-
-Composition is hard. It's not enough to know what kind of signals you
-take in and what kind of signal you must output. You also need to know
-what the end user wants from the result: the render intent.
-
-Even if we trust the monitor magic to do the right thing in
-interpreting and displaying our output signal, we still need to know
-what the end user wants from the composition, and we need to control
-the composition formula to achieve that.
-
-TL;DR:
-
-I would summarise my comments so far into these:
-
-- Telling the kernel the color spaces and letting it come up with
-  whatever color transformation formula from those is not enough,
-  because it puts the render intent policy decision in the kernel.
-
-- Telling the kernel what color transformations need to be done is
-  good, if it is clearly defined.
-
-- Using an enum-based UAPI to tell the kernel what color
-  transformations needs to be done (e.g. which EOTF or EOTF^-1 to apply
-  at a step in the abstract pipeline) is very likely ok for many
-  Wayland compositors in most cases, but may not be sufficient for all
-  use cases. Of course, one is always bound by what hardware can do, so
-  not a big deal.
-
-- You may need to define mutually exclusive KMS properties (referring
-  to my email in another branch of this email tree).
-
-- I'm not sure I (we?) can meaningfully review things like "SDR boost"
-  property until we know ourselves how to composite different types of
-  content together. Maybe someone else could.
-
-Does this help or raise thoughts?
-
-The work on Weston CM&HDR right now is aiming to get it up to a point
-where we can start nicely testing different compositing approaches and
-methods and parameters, and I expect that will also feed back into the
-Wayland CM&HDR protocol design as well.
-
-
-Thanks,
-pq
-
---Sig_/GXzH8+oBwyxuqn61yuPy7Uc
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmCk0hEACgkQI1/ltBGq
-qqdcrxAAmyFaG6gyK/MNdGRjSKtgHyPQzJhVRQOUjKfwOD5GIIWm3tr30wF36Kn8
-c00/jxQQqm0xrewJikJMgNdsS0WYaTTuMC+M3cxi2gmf3tDBSOCgLP0rrAuI+5he
-kPnQTGplsq/dGluJTPC7AWx4HJvlZflyoheHIIhq2Rq0/FZYwRsW4dntZqJWaPlQ
-GBoXvFmHmXdpGSvWkK1CRkRwjjlZQ1IjnRP9qTXjNz15c+9vSsqiQaQSVPrLryRA
-jrvyPZj8F05D76QGXO+0NAaW0AXsfb6m3rx4tJekSExAanQUOZInjYBi69MY0WSv
-gGaI6+3k2e1Qtg3F8aFXbcfYOzoB8qjjbnIdxvSUNCBm71M4EGI2dpMbem4dP8qo
-61v4WnZ/0qigDhtxKmF6l9kYAT7oTA1vTKm6TjYVG5s9VRkfLb9yU4KyundaYCIY
-Ffk+wLpVHb+ZT5Ut2mgDzYrlt+t8GpOSdpMh3rf0GYQeaAife8nMt0kEiXUCbPdq
-zz/dSoT9MpWw2l1e5IYhb0H/nu65r34aiapfx2Z8SZdREQHZt0fSJdbrLUtOD2D0
-EdTu6O9eItIt4wFrgSp5wXOUKnQoh1iS2x85aid3HRveYxpKxKO3l63FJvPyxVzo
-941VnyYq9Y8v31h3Glkt3PvwpZ7Pu8UV2hOxpOVWhGHgseJJ1Gw=
-=ZcZj
------END PGP SIGNATURE-----
-
---Sig_/GXzH8+oBwyxuqn61yuPy7Uc--
-
---===============0289682512==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+index 80015e866498..89bd0059329b 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+@@ -335,7 +335,7 @@ static const struct kfd_device_info vega10_vf_device_info = {
+ 	.event_interrupt_class = &event_interrupt_class_v9,
+ 	.num_of_watch_points = 4,
+ 	.mqd_size_aligned = MQD_SIZE_ALIGNED,
+-	.supports_cwsr = true,
++	.supports_cwsr = false,
+ 	.needs_iommu_device = false,
+ 	.needs_pci_atomics = false,
+ 	.num_sdma_engines = 2,
+@@ -505,6 +505,24 @@ static const struct kfd_device_info sienna_cichlid_device_info = {
+ 	.num_sdma_queues_per_engine = 8,
+ };
+ 
++static const struct kfd_device_info sienna_cichlid_vf_device_info = {
++	.asic_family = CHIP_SIENNA_CICHLID,
++	.asic_name = "sienna_cichlid",
++	.max_pasid_bits = 16,
++	.max_no_of_hqd  = 24,
++	.doorbell_size  = 8,
++	.ih_ring_entry_size = 8 * sizeof(uint32_t),
++	.event_interrupt_class = &event_interrupt_class_v10,
++	.num_of_watch_points = 4,
++	.mqd_size_aligned = MQD_SIZE_ALIGNED,
++	.needs_iommu_device = false,
++	.supports_cwsr = false,
++	.needs_pci_atomics = true,
++	.num_sdma_engines = 4,
++	.num_xgmi_sdma_engines = 0,
++	.num_sdma_queues_per_engine = 8,
++};
++
+ static const struct kfd_device_info navy_flounder_device_info = {
+ 	.asic_family = CHIP_NAVY_FLOUNDER,
+ 	.asic_name = "navy_flounder",
+@@ -601,7 +619,7 @@ static const struct kfd_device_info *kfd_supported_devices[][2] = {
+ 	[CHIP_NAVI10] = {&navi10_device_info, NULL},
+ 	[CHIP_NAVI12] = {&navi12_device_info, &navi12_device_info},
+ 	[CHIP_NAVI14] = {&navi14_device_info, NULL},
+-	[CHIP_SIENNA_CICHLID] = {&sienna_cichlid_device_info, &sienna_cichlid_device_info},
++	[CHIP_SIENNA_CICHLID] = {&sienna_cichlid_device_info, &sienna_cichlid_vf_device_info},
+ 	[CHIP_NAVY_FLOUNDER] = {&navy_flounder_device_info, &navy_flounder_device_info},
+ 	[CHIP_VANGOGH] = {&vangogh_device_info, NULL},
+ 	[CHIP_DIMGREY_CAVEFISH] = {&dimgrey_cavefish_device_info, &dimgrey_cavefish_device_info},
+@@ -674,7 +692,7 @@ struct kfd_dev *kgd2kfd_probe(struct kgd_dev *kgd,
+ 
+ static void kfd_cwsr_init(struct kfd_dev *kfd)
+ {
+-	if (cwsr_enable && kfd->device_info->supports_cwsr) {
++	if ((cwsr_enable && kfd->device_info->supports_cwsr) || cwsr_enable == 2) {
+ 		if (kfd->device_info->asic_family < CHIP_VEGA10) {
+ 			BUILD_BUG_ON(sizeof(cwsr_trap_gfx8_hex) > PAGE_SIZE);
+ 			kfd->cwsr_isa = cwsr_trap_gfx8_hex;
+-- 
+2.25.1
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0289682512==--
