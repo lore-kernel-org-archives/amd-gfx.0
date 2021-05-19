@@ -2,134 +2,70 @@ Return-Path: <SRS0=RLY9=KO=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,MIME_HTML_MOSTLY,PDS_BAD_THREAD_QP_64,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-7.4 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MIME_HTML_MOSTLY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BB3B3C433ED
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 03:03:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3B460C433ED
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 03:10:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 778FD610CD
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 03:03:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 778FD610CD
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id E0980610CD
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 03:10:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E0980610CD
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9EDB6E039;
-	Wed, 19 May 2021 03:03:58 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1anam02on2044.outbound.protection.outlook.com [40.107.96.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4ACB56E039
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 May 2021 03:03:57 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cStdYz7iKHFw84hLdL1ncxXYtKuPPwnVq8BDxF9hiUDOraKv8Sn9Y0YnmMEn81eATM1E0LG4/YClJo2hbiJ+we+s+HhDrMnyBSfJjhTMiphMFeTuSRVT8JE+LwaPxf0VnzV/4At2T7JzIH2sx1xMQpShVrc7sgVQYXMT0VtGUFuBKBCgelczBCwhPS6Fuaf7cR17+hM6mel4TNhy2cLPsoshxhrOVoC+vzf4dM7/+KMAMOw9t05MOMXsmVGkphFeHc7Z4FWoCoiWmMB5yXkrdxtyY7pru+qyNKvgONNqaQjiKU27AUgUKhknmJ9+weVKEXAIor2pWc/KtnXm9lWsyw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=c2RizyX5vjz8V4Rk84gDv1X9k2Z+51aVBVTrI9yDQJ4=;
- b=DfW+OsA24RhIbfjI4w+YC++ePePiZfNc5oCZWKF9wPCbwYfqVXJ1frvXu+Yof7PlZ7ODQO1uuDRQ1gDNeoArWYc31ovIrGTc0glFOD4Pq2ZYs4bJQ58qbTfUNAx+x0T0ftM5Tm6376pnoIP231G3SS/7GeCDwCyuPmVB0rkNCQtECwm6n+4/4jcslIWMc0vPTLs3/owVCf5MvvyrMeIKKOvEXHkvkh/CkxXBnYMx+Dw65WcQsq68zihef8mqx86aukwy7zHvoVLrd4ebXQlXpBK58WtetQMyNgIwU+UAIVJWlX6JGwHBEwlHdsCKE4nsgmbM3F2k6yOYXC2DbkCtcA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=c2RizyX5vjz8V4Rk84gDv1X9k2Z+51aVBVTrI9yDQJ4=;
- b=vwbg7l68k/y4Q5IbnjnX0W+jPsGCenSrcdv3EAlDMJRMZbxHv11FxuLstPPet5Ewjtq6vp7L5IrCVSOF7fabDYM/Rndea908qYUVYUMc+SRkJ/wSzq57CWEh9ir0HjjmcthFBs8LWkSkz3VFYXajgxyfSUg3v8UVK//IKON1PBU=
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
- by MN2PR12MB4487.namprd12.prod.outlook.com (2603:10b6:208:264::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.26; Wed, 19 May
- 2021 03:03:54 +0000
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::3d98:cefb:476c:c36e]) by MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::3d98:cefb:476c:c36e%8]) with mapi id 15.20.4129.033; Wed, 19 May 2021
- 03:03:54 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Chen, Guchun" <Guchun.Chen@amd.com>, "Zhu, Changfeng"
- <Changfeng.Zhu@amd.com>, Alex Deucher <alexdeucher@gmail.com>, "Das, Nirmoy"
- <Nirmoy.Das@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: disable 3DCGCG on picasso/raven1 to avoid
- compute hang
-Thread-Topic: [PATCH] drm/amdgpu: disable 3DCGCG on picasso/raven1 to avoid
- compute hang
-Thread-Index: AQHXSJn7ZKzTtOpbdU+CrPUZHuAuKqrjBYuAgAQ0pgCAABx1gIACwwoAgAACdICAAAYZc4AAAXgAgAABXACAAABz3A==
-Date: Wed, 19 May 2021 03:03:54 +0000
-Message-ID: <MN2PR12MB448886D0F0CD237D056B3445F72B9@MN2PR12MB4488.namprd12.prod.outlook.com>
-References: <20210514081944.16849-1-changfeng.zhu@amd.com>
- <CADnq5_P4tvpTkmzpn=7V8qvfvy3aiR3WO967UObKKacJzQro9w@mail.gmail.com>
- <20210517062724.GA1853590@hr-amd>
- <MW2PR12MB46847BE39163543C680AF9BCFD2D9@MW2PR12MB4684.namprd12.prod.outlook.com>
- <CADnq5_OmpYjzaeGPUC4rUNkSo_CP+8zFfZQsF6d+2fLegtxUkQ@mail.gmail.com>,
- <MW2PR12MB46840D259987CA9265317F75FD2B9@MW2PR12MB4684.namprd12.prod.outlook.com>
- <MN2PR12MB448807A739B82ED7721E4A5EF72B9@MN2PR12MB4488.namprd12.prod.outlook.com>
- <MW2PR12MB4684ECE117B6D8CB2FEA84F2FD2B9@MW2PR12MB4684.namprd12.prod.outlook.com>,
- <CY4PR12MB12873E4A35B066FB196E4C87F12B9@CY4PR12MB1287.namprd12.prod.outlook.com>
-In-Reply-To: <CY4PR12MB12873E4A35B066FB196E4C87F12B9@CY4PR12MB1287.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-05-19T03:03:53.925Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Standard; 
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [204.111.139.213]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: cb449df9-379e-44c8-81cf-08d91a72bce9
-x-ms-traffictypediagnostic: MN2PR12MB4487:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MN2PR12MB4487B5D4264C5D1C84419122F72B9@MN2PR12MB4487.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8273;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: CkGLbq0/db/5pYkRiqiWXlhAOUUwOoDPyc8MElyyIBBtwtsK8zi+CJGSqGy2gTP2qQnMxFmHOHWHk8bmW8NvNB+lYsXfK2bBBp3z3yDRh+uGzoYlNjo+cw5kKEJqXv0bS3J6p2d0py0SWdvqTHGFADKzskDzzqV/PYFVp3F+5kP4Z1KIAg5fADKrIDKDHYsLcUyYrapWdwFM98gDD8HrwY91qb9E0WKZBA5rEZ+l49jz0z8yGtHP8L3qJq7Z7onQW49h62aaTnOb7HJPpCxLXVcsCAhaRswr+2qn3mMQz2SPDmtzEQCQhMVktWjEU98fRtBf9mu5NYgJVR32E6Lb7m5yliYvYZJW4s+1tteRUh9RcsJ1M+YkPSMo7ZQ5chUWuDAQCyErVxTZRPcqnfLmzpLis15mIwYcTMUiBItT8hfNxC7IOvIR0yngmgNErv2mQ1DXXplJn9/jaiMxOycFEjLfjgV9SkNwFkayvtb5XDsuo39P84Qm+Wvc2zcE2v4TpDQFK/RIhPCTGv41TrKLRMPOAxN7IziV/b9chaqRW3c8sEMz8TzHkHqAqNIyVWRE93w6453lt4HgIcIdquOcY2e4BwF/GuDroNzw1FjzQOReULIcsISYAjJUIeCfG7FdAIoolFX8gWuufj02yxG4Qy+Lb89/y4ahEsY1PxU7kO2lYrmq6XnG3qKynC+mEaOu
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(53546011)(110136005)(54906003)(8676002)(76116006)(71200400001)(166002)(26005)(66946007)(52536014)(83380400001)(19627405001)(19627235002)(498600001)(6506007)(66556008)(66476007)(8936002)(66446008)(122000001)(64756008)(7696005)(55016002)(9686003)(2906002)(45080400002)(86362001)(6636002)(186003)(38100700002)(4326008)(33656002)(966005)(5660300002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?Windows-1252?Q?dfuYvEe3qlAEQXlX/IX79rcArqw/wdsFL3dfJ5yydyIxSfD3y4O9Wfq0?=
- =?Windows-1252?Q?w6dukEG8vtbkQJlLmK8p7QxDswQKXWr37JPv/A81YO6OZHTJSF6hfMar?=
- =?Windows-1252?Q?T4f58ylRErwU38HBJxpEs0nypgdhBBCdhmQazKDiYQ4Vt06hiogtyRh/?=
- =?Windows-1252?Q?Cu/Vu6X8UELQ7/t6YGNR7IbEQJrWTbcS1EFthYjhh+Q/br4BQz1ezPYO?=
- =?Windows-1252?Q?Vl5aZea9COrpO+wDmvPEYvZs7Hc2UhHnRTDo4ZCh1+Q6d3isgNmXXV/0?=
- =?Windows-1252?Q?qzLcjpcqcgzLMdoCTVVPl64ML8oN8RZ61qRiCobZA+QooIqzg0/O6tFT?=
- =?Windows-1252?Q?CVZQVjNNINkshYxlxQgsmtvEzCvilCZR7PVxf1oijUBV/X27XeM/iNyQ?=
- =?Windows-1252?Q?FGyEMDy1qIowO+k8WfHHkDTEqQlR+796/1DmQCI/eEo0byfoj+JMnM7+?=
- =?Windows-1252?Q?3lU4bOaIztxzCWxtdNCfmurFfvqx+Fm9VspTJl1aKluINk4xvO+1UDCH?=
- =?Windows-1252?Q?kvdp5I6Fh+wXEzmYgcGAVq4octx+IZpEr0WRjt2GYYxw0FBLO0u38NFT?=
- =?Windows-1252?Q?tx8NNS+W8p9JmrwRv6pcyEn9Y4mxaYtMPGcKCt9Mwvo0f46eEhYyndvP?=
- =?Windows-1252?Q?LoKpmr69dW9TSIBikxWCqjJJrGu0BqSTUSdB9oLToqpYxtfb1sVXxlOT?=
- =?Windows-1252?Q?MER9z/lhiEZW7fHExrTQ3IXyP5yF3mv2PuUwDSHsG3hR0s/Wz4/gGSRV?=
- =?Windows-1252?Q?XAnaaH+ba8iZ7waDsjaESdcjnOMoH2OANE6Sakh684Cb9QZId3l8UAk7?=
- =?Windows-1252?Q?1yIsG4u/rkk6lzPnaZuquv9HubUTh9eblphB0FbQ0sWdXXgOhwYdKmVa?=
- =?Windows-1252?Q?F/NGCJlIOVqlmnNkJseda60qABo6MhgJdJzJiFBHyopI4mW9QlBG9QR8?=
- =?Windows-1252?Q?3aS8SkwUCXz58N6R2DHIErA4/8JSbM3CoBVG4gdYzJ/yFXyW2Edo2n/B?=
- =?Windows-1252?Q?D3r1myoa9gYTWuyzG0HMI58SQ3aNKFedEIw+dSS2z501aZXbWIY5O5Nr?=
- =?Windows-1252?Q?MkQKJ9TSa9TekDfkJz2Y36xyx6KyxRhqiB4T1ftczNxARTR6hKa5u2N4?=
- =?Windows-1252?Q?i00MSwXXbvhWgCUc7X3R3m10ygxEoeZ+7WbhnUfoche3JYAj+NGHdpnh?=
- =?Windows-1252?Q?xrPx59F8CzwRpEuLJzLsl9ns5L05MZCIz9d+k9wcw2H0+jfd1qG+yWR3?=
- =?Windows-1252?Q?cr0p59aBJC9pYon5oC55T9bef6OCut+gVm0V91OYhaoZ0ZpVznamjCSP?=
- =?Windows-1252?Q?b1Aytsr3tVUPoh2VKXSyohEh8I3VLvqBJB0fuRVQGVTJNjEhXgZh55T+?=
- =?Windows-1252?Q?N+mkmay6YLSF2LmKsRz2IoWHcIYhhL1wZJ/2N8s2pn7wfc7r8vzjbc3F?=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D3FF6E17A;
+	Wed, 19 May 2021 03:10:55 +0000 (UTC)
+Received: from mail-pj1-x102e.google.com (mail-pj1-x102e.google.com
+ [IPv6:2607:f8b0:4864:20::102e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B4EF6E17A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 May 2021 03:10:54 +0000 (UTC)
+Received: by mail-pj1-x102e.google.com with SMTP id
+ o17-20020a17090a9f91b029015cef5b3c50so2700077pjp.4
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 May 2021 20:10:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=w4NVfXw7JqZYO1CgbsLhHCmsnyFGdgHAJoBu7AfqlBE=;
+ b=fy/5T/D7vL5XoSLTd5GXlmpydV2QeAVCP/VlvTpILFHaNilnaoE5eFLbxNcPvky7RG
+ lQacXkbmE4OIoPi4bhuHEb/cCE1XGvJFHbw+Lh7ik647pEV377TmU67J9LkD6SqlGW+k
+ smHscdB7LKKjJwUUrfyGFXHfOgUJZ2QLsUWpz/dx4pAaFinQukdOlhg8QmaXI2z40NIJ
+ V+1i59SbWbIziWlNYb/vJ5pFWpcSjZZAsY4Z4WYNY62GxMZc1KDDBSE1hVn8AEHh8xNC
+ AMflmywgfrJoSQu6oNH8FFmZL628pxTfLUCAwh418coLd1a0LvLbyl1yrs5xF0d0iM5e
+ zZuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=w4NVfXw7JqZYO1CgbsLhHCmsnyFGdgHAJoBu7AfqlBE=;
+ b=bsANGAa55wWplILt2zxh51Sde4YmhHlbI9jNyqB+/oiXJzrrRYQRiRgDK3FHUouacY
+ 0QJ+pKjqTaX6Qx/5uU067aWNGy3L8uUSle6bx/Ga5Ol+F4p4MgjAL1o43ycToN1R/Owo
+ Kwmh/nlvT43U1vm8oNodijD02mBef807XhQG3kDMkwtw3sfdFJ6km/el1VJSVKwu4fRL
+ vK+VdvG9sC7x9b97Gq3iOE05kq3is1pdQeHZENDyJ60y/gxcnJAakGXiZS7Cerv4Tu0K
+ Qe0lfBEMY+LOY3EuLo/CQLsdahNwanBY3oy74Mdow3OrI1hVPMyelrTTxQa+jO+GC/Fm
+ o3ig==
+X-Gm-Message-State: AOAM531KdlvtY/ZJbopbL/p5cOSI+ZSAAP/DLFU8uwbYpeX8gsUMuKTs
+ 3HRw8ZDVqXufce9o+A/R7/Y0/AHk3TPcD6x+/Fg=
+X-Google-Smtp-Source: ABdhPJyvDCbURh6xi0mej3thS9+W1+NwpIbH8wT5ZwvegZDkhEk9+lTIEk9LPa2W1QTw4nRbPGR4IvYVmKjLtZe5lhE=
+X-Received: by 2002:a17:90a:67c6:: with SMTP id
+ g6mr8720352pjm.198.1621393853629; 
+ Tue, 18 May 2021 20:10:53 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cb449df9-379e-44c8-81cf-08d91a72bce9
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 May 2021 03:03:54.5618 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: PJWwCKs5qwswPf+88XmdJvWpDoue/LfarQZcez79FvTuR0prMoecNRvCetryKNzutplnqRcZHQdXJ05LVWgfbA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4487
+References: <20210518121628.9811-1-Jiawei.Gu@amd.com>
+ <CH0PR12MB51560CD55134762EF8FE19E0F82C9@CH0PR12MB5156.namprd12.prod.outlook.com>
+ <1ec97d1f-aaa3-46c1-b702-378879e67cc5@amd.com>
+ <DM6PR12MB3547CE479C026EF6D7F8A26CF72C9@DM6PR12MB3547.namprd12.prod.outlook.com>
+ <CH0PR12MB5156C835F4B80F4504B0E98AF82B9@CH0PR12MB5156.namprd12.prod.outlook.com>
+In-Reply-To: <CH0PR12MB5156C835F4B80F4504B0E98AF82B9@CH0PR12MB5156.namprd12.prod.outlook.com>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
+Date: Tue, 18 May 2021 23:10:41 -0400
+Message-ID: <CAAxE2A7C0QGKvf-ToA_R_-cDZsGNiQ5gxf_77_QmxvRu3YbjDQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Add vbios info ioctl interface
+To: "Gu, JiaWei (Will)" <JiaWei.Gu@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,853 +77,1062 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Huang, Ray" <Ray.Huang@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: multipart/mixed; boundary="===============0545802079=="
+Cc: "StDenis, Tom" <Tom.StDenis@amd.com>,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, "Deng,
+ Emily" <Emily.Deng@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>, "Nieto,
+ David M" <David.Nieto@amd.com>
+Content-Type: multipart/mixed; boundary="===============1723184269=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0545802079==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB448886D0F0CD237D056B3445F72B9MN2PR12MB4488namp_"
+--===============1723184269==
+Content-Type: multipart/alternative; boundary="000000000000afc74505c2a62c6b"
 
---_000_MN2PR12MB448886D0F0CD237D056B3445F72B9MN2PR12MB4488namp_
-Content-Type: text/plain; charset="Windows-1252"
+--000000000000afc74505c2a62c6b
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-[Public]
+Mesa doesn't have any use for this. It should be ok to expose just the
+ioctl without userspace because it's just vbios info.
 
-I thought we had disabled all but one of the compute queues on raven due to=
- this issue or at least disabled the schedulers for the additional queues, =
-but maybe I'm misremembering.
+Marek
 
-Alex
+On Tue., May 18, 2021, 22:41 Gu, JiaWei (Will), <JiaWei.Gu@amd.com> wrote:
 
-________________________________
-From: Chen, Guchun <Guchun.Chen@amd.com>
-Sent: Tuesday, May 18, 2021 11:00 PM
-To: Zhu, Changfeng <Changfeng.Zhu@amd.com>; Deucher, Alexander <Alexander.D=
-eucher@amd.com>; Alex Deucher <alexdeucher@gmail.com>; Das, Nirmoy <Nirmoy.=
-Das@amd.com>
-Cc: Huang, Ray <Ray.Huang@amd.com>; amd-gfx list <amd-gfx@lists.freedesktop=
-.org>
-Subject: RE: [PATCH] drm/amdgpu: disable 3DCGCG on picasso/raven1 to avoid =
-compute hang
-
-
-[Public]
-
-
-Nirmoy=92s patch landed already if I understand correctly.
-
-
-
-d41a39dda140 drm/scheduler: improve job distribution with multiple queues
-
-
-
-Regards,
-
-Guchun
-
-
-
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Zhu, Cha=
-ngfeng
-Sent: Wednesday, May 19, 2021 10:56 AM
-To: Deucher, Alexander <Alexander.Deucher@amd.com>; Alex Deucher <alexdeuch=
-er@gmail.com>; Das, Nirmoy <Nirmoy.Das@amd.com>
-Cc: Huang, Ray <Ray.Huang@amd.com>; amd-gfx list <amd-gfx@lists.freedesktop=
-.org>
-Subject: RE: [PATCH] drm/amdgpu: disable 3DCGCG on picasso/raven1 to avoid =
-compute hang
-
-
-
-[Public]
-
-
-
-[Public]
-
-
-
-Hi Alex,
-
-
-
-This is the issue exposed by Nirmoy's patch that provided better load balan=
-cing across queues.
-
-
-
-BR,
-
-Changfeng.
-
-
-
-From: Deucher, Alexander <Alexander.Deucher@amd.com<mailto:Alexander.Deuche=
-r@amd.com>>
-Sent: Wednesday, May 19, 2021 10:53 AM
-To: Zhu, Changfeng <Changfeng.Zhu@amd.com<mailto:Changfeng.Zhu@amd.com>>; A=
-lex Deucher <alexdeucher@gmail.com<mailto:alexdeucher@gmail.com>>; Das, Nir=
-moy <Nirmoy.Das@amd.com<mailto:Nirmoy.Das@amd.com>>
-Cc: Huang, Ray <Ray.Huang@amd.com<mailto:Ray.Huang@amd.com>>; amd-gfx list =
-<amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
-Subject: Re: [PATCH] drm/amdgpu: disable 3DCGCG on picasso/raven1 to avoid =
-compute hang
-
-
-
-[Public]
-
-
-
-+ Nirmoy
-
-
-
-I thought we disabled all but one of the compute queues on raven due to thi=
-s issue.  Maybe that patch never landed?  Wasn't this the same issue that w=
-as exposed by Nirmoy's patch that provided better load balancing across que=
-ues?
-
-
-
-Alex
-
-
-
-________________________________
-
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org<mailto:amd-gfx-bounces=
-@lists.freedesktop.org>> on behalf of Zhu, Changfeng <Changfeng.Zhu@amd.com=
-<mailto:Changfeng.Zhu@amd.com>>
-Sent: Tuesday, May 18, 2021 10:28 PM
-To: Alex Deucher <alexdeucher@gmail.com<mailto:alexdeucher@gmail.com>>
-Cc: Huang, Ray <Ray.Huang@amd.com<mailto:Ray.Huang@amd.com>>; amd-gfx list =
-<amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
-Subject: RE: [PATCH] drm/amdgpu: disable 3DCGCG on picasso/raven1 to avoid =
-compute hang
-
-
-
-[AMD Official Use Only - Internal Distribution Only]
-
-Hi Alex.
-
-I have submitted the patch: drm/amdgpu: disable 3DCGCG on picasso/raven1 to=
- avoid compute hang
-
-Do you mean we have something else to do for re-enabling the extra compute =
-queues?
-
-BR,
-Changfeng.
-
------Original Message-----
-From: Alex Deucher <alexdeucher@gmail.com<mailto:alexdeucher@gmail.com>>
-Sent: Wednesday, May 19, 2021 10:20 AM
-To: Zhu, Changfeng <Changfeng.Zhu@amd.com<mailto:Changfeng.Zhu@amd.com>>
-Cc: Huang, Ray <Ray.Huang@amd.com<mailto:Ray.Huang@amd.com>>; amd-gfx list =
-<amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
-Subject: Re: [PATCH] drm/amdgpu: disable 3DCGCG on picasso/raven1 to avoid =
-compute hang
-
-Care to submit a patch to re-enable the extra compute queues?
-
-Alex
-
-On Mon, May 17, 2021 at 4:09 AM Zhu, Changfeng <Changfeng.Zhu@amd.com<mailt=
-o:Changfeng.Zhu@amd.com>> wrote:
->
 > [AMD Official Use Only - Internal Distribution Only]
 >
-> Hi Ray and Alex,
+> Thanks Tom's suggestion.
+> I'm fine to replace ioctl with sysfs.
 >
-> I have confirmed it can enable the additional compute queues with this pa=
-tch:
+> Hi all, how about this sysfs alternative?
 >
-> [   41.823013] This is ring mec 1, pipe 0, queue 0, value 1
-> [   41.823028] This is ring mec 1, pipe 1, queue 0, value 1
-> [   41.823042] This is ring mec 1, pipe 2, queue 0, value 1
-> [   41.823057] This is ring mec 1, pipe 3, queue 0, value 1
-> [   41.823071] This is ring mec 1, pipe 0, queue 1, value 1
-> [   41.823086] This is ring mec 1, pipe 1, queue 1, value 1
-> [   41.823101] This is ring mec 1, pipe 2, queue 1, value 1
-> [   41.823115] This is ring mec 1, pipe 3, queue 1, value 1
+> And if it's a must to insist on ioctl, is there any Mesa expert to help
+> provide the patch?
 >
-> BR,
-> Changfeng.
+> Best regards,
+> Jiawei
 >
 >
 > -----Original Message-----
-> From: Huang, Ray <Ray.Huang@amd.com<mailto:Ray.Huang@amd.com>>
-> Sent: Monday, May 17, 2021 2:27 PM
-> To: Alex Deucher <alexdeucher@gmail.com<mailto:alexdeucher@gmail.com>>; Z=
-hu, Changfeng
-> <Changfeng.Zhu@amd.com<mailto:Changfeng.Zhu@amd.com>>
-> Cc: amd-gfx list <amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.free=
-desktop.org>>
-> Subject: Re: [PATCH] drm/amdgpu: disable 3DCGCG on picasso/raven1 to
-> avoid compute hang
+> From: StDenis, Tom <Tom.StDenis@amd.com>
+> Sent: Tuesday, May 18, 2021 9:26 PM
+> To: Koenig, Christian <Christian.Koenig@amd.com>; Gu, JiaWei (Will) <
+> JiaWei.Gu@amd.com>; amd-gfx@lists.freedesktop.org; Nieto, David M <
+> David.Nieto@amd.com>; maraeo@gmail.com; Deucher, Alexander <
+> Alexander.Deucher@amd.com>
+> Cc: Deng, Emily <Emily.Deng@amd.com>
+> Subject: Re: [PATCH] drm/amdgpu: Add vbios info ioctl interface
 >
-> On Fri, May 14, 2021 at 10:13:55PM +0800, Alex Deucher wrote:
-> > On Fri, May 14, 2021 at 4:20 AM <changfeng.zhu@amd.com<mailto:changfeng=
-.zhu@amd.com>> wrote:
-> > >
-> > > From: changzhu <Changfeng.Zhu@amd.com<mailto:Changfeng.Zhu@amd.com>>
-> > >
-> > > From: Changfeng <Changfeng.Zhu@amd.com<mailto:Changfeng.Zhu@amd.com>>
-> > >
-> > > There is problem with 3DCGCG firmware and it will cause compute
-> > > test hang on picasso/raven1. It needs to disable 3DCGCG in driver
-> > > to avoid compute hang.
-> > >
-> > > Change-Id: Ic7d3c7922b2b32f7ac5193d6a4869cbc5b3baa87
-> > > Signed-off-by: Changfeng <Changfeng.Zhu@amd.com<mailto:Changfeng.Zhu@=
-amd.com>>
+> [AMD Official Use Only - Internal Distribution Only]
+>
+> If changing the ioctl is an issue why not just use sysfs?  umr already
+> makes uses of all three for it's purposes so it's fine by me for either.
+>
+> Tom
+>
+> ________________________________________
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of
+> Christian K=C3=B6nig <christian.koenig@amd.com>
+> Sent: Tuesday, May 18, 2021 09:17
+> To: Gu, JiaWei (Will); amd-gfx@lists.freedesktop.org; Nieto, David M;
+> maraeo@gmail.com; Deucher, Alexander
+> Cc: Deng, Emily
+> Subject: Re: [PATCH] drm/amdgpu: Add vbios info ioctl interface
+>
+> Well not an expert on that stuff, but looks like that should work for me.
+>
+> Question is can you provide a patch to use that information in Mesa as
+> well? Umr might be sufficient as well as justification for upstreaming, b=
+ut
+> I want to be better save than sorry.
+>
+> Unless Marek has a better idea maybe add the vbios version to the string
+> returned by GLX_MESA_query_renderer or something like that.
+>
+> Thanks,
+> Christian.
+>
+> Am 18.05.21 um 14:19 schrieb Gu, JiaWei (Will):
+> > [AMD Official Use Only - Internal Distribution Only]
 > >
-> > Reviewed-by: Alex Deucher <alexander.deucher@amd.com<mailto:alexander.d=
-eucher@amd.com>>
+> > Hi all,
 > >
-> > WIth this applied, can we re-enable the additional compute queues?
+> > Please help confirm that we're all fine with this new struct in uapi in
+> this V3 patch:
 > >
->
-> I think so.
->
-> Changfeng, could you please confirm this on all raven series?
->
-> Patch is Reviewed-by: Huang Rui <ray.huang@amd.com<mailto:ray.huang@amd.c=
-om>>
->
-> > Alex
+> > +struct drm_amdgpu_info_vbios {
+> > +     __u8 name[64];
+> > +     __u8 vbios_pn[64];
+> > +     __u32 version;
+> > +     __u8 vbios_ver_str[32];
+> > +     __u8 date[32];
+> > +};
 > >
-> > > ---
-> > >  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 10 +++++++---
-> > >  drivers/gpu/drm/amd/amdgpu/soc15.c    |  2 --
-> > >  2 files changed, 7 insertions(+), 5 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> > > b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> > > index 22608c45f07c..feaa5e4a5538 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> > > @@ -4947,7 +4947,7 @@ static void gfx_v9_0_update_3d_clock_gating(str=
-uct amdgpu_device *adev,
-> > >         amdgpu_gfx_rlc_enter_safe_mode(adev);
-> > >
-> > >         /* Enable 3D CGCG/CGLS */
-> > > -       if (enable && (adev->cg_flags & AMD_CG_SUPPORT_GFX_3D_CGCG)) =
-{
-> > > +       if (enable) {
-> > >                 /* write cmd to clear cgcg/cgls ov */
-> > >                 def =3D data =3D RREG32_SOC15(GC, 0, mmRLC_CGTT_MGCG_=
-OVERRIDE);
-> > >                 /* unset CGCG override */ @@ -4959,8 +4959,12 @@
-> > > static void gfx_v9_0_update_3d_clock_gating(struct amdgpu_device *ade=
-v,
-> > >                 /* enable 3Dcgcg FSM(0x0000363f) */
-> > >                 def =3D RREG32_SOC15(GC, 0,
-> > > mmRLC_CGCG_CGLS_CTRL_3D);
-> > >
-> > > -               data =3D (0x36 << RLC_CGCG_CGLS_CTRL_3D__CGCG_GFX_IDL=
-E_THRESHOLD__SHIFT) |
-> > > -                       RLC_CGCG_CGLS_CTRL_3D__CGCG_EN_MASK;
-> > > +               if (adev->cg_flags & AMD_CG_SUPPORT_GFX_3D_CGCG)
-> > > +                       data =3D (0x36 << RLC_CGCG_CGLS_CTRL_3D__CGCG=
-_GFX_IDLE_THRESHOLD__SHIFT) |
-> > > +                               RLC_CGCG_CGLS_CTRL_3D__CGCG_EN_MASK;
-> > > +               else
-> > > +                       data =3D 0x0 <<
-> > > + RLC_CGCG_CGLS_CTRL_3D__CGCG_GFX_IDLE_THRESHOLD__SHIFT;
-> > > +
-> > >                 if (adev->cg_flags & AMD_CG_SUPPORT_GFX_3D_CGLS)
-> > >                         data |=3D (0x000F << RLC_CGCG_CGLS_CTRL_3D__C=
-GLS_REP_COMPANSAT_DELAY__SHIFT) |
-> > >
-> > > RLC_CGCG_CGLS_CTRL_3D__CGLS_EN_MASK;
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c
-> > > b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> > > index 4b660b2d1c22..080e715799d4 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> > > @@ -1393,7 +1393,6 @@ static int soc15_common_early_init(void *handle=
-)
-> > >                         adev->cg_flags =3D AMD_CG_SUPPORT_GFX_MGCG |
-> > >                                 AMD_CG_SUPPORT_GFX_MGLS |
-> > >                                 AMD_CG_SUPPORT_GFX_CP_LS |
-> > > -                               AMD_CG_SUPPORT_GFX_3D_CGCG |
-> > >                                 AMD_CG_SUPPORT_GFX_3D_CGLS |
-> > >                                 AMD_CG_SUPPORT_GFX_CGCG |
-> > >                                 AMD_CG_SUPPORT_GFX_CGLS | @@
-> > > -1413,7
-> > > +1412,6 @@ static int soc15_common_early_init(void *handle)
-> > >                                 AMD_CG_SUPPORT_GFX_MGLS |
-> > >                                 AMD_CG_SUPPORT_GFX_RLC_LS |
-> > >                                 AMD_CG_SUPPORT_GFX_CP_LS |
-> > > -                               AMD_CG_SUPPORT_GFX_3D_CGCG |
-> > >                                 AMD_CG_SUPPORT_GFX_3D_CGLS |
-> > >                                 AMD_CG_SUPPORT_GFX_CGCG |
-> > >                                 AMD_CG_SUPPORT_GFX_CGLS |
-> > > --
-> > > 2.17.1
-> > >
-> > > _______________________________________________
-> > > amd-gfx mailing list
-> > > amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
-> > > https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2F
-> > > li
-> > > sts.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D04%7C0
-> > > 1%
-> > > 7CRay.Huang%40amd.com%7C0e273856253d4b3efd0b08d916e2892a%7C3dd8961
-> > > fe
-> > > 4884e608e11a82d994e183d%7C0%7C0%7C637565984495414849%7CUnknown%7CT
-> > > WF
-> > > pbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXV
-> > > CI
-> > > 6Mn0%3D%7C1000&amp;sdata=3DlBzswAPBguL0mWFglEk%2Bg2eDCEuhir7JfFjov%2
-> > > BV
-> > > 7pSY%3D&amp;reserved=3D0
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
-https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
-reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D04%7C01%7Calexande=
-r.deucher%40amd.com%7C6d2cfe6e59f54875f6fa08d91a6dd27f%7C3dd8961fe4884e608e=
-11a82d994e183d%7C0%7C0%7C637569881259273626%7CUnknown%7CTWFpbGZsb3d8eyJWIjo=
-iMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdat=
-a=3D33Is2P3sqdabI7PPuHFOmzuvXyFId%2BOTAMyJ8G5PhzI%3D&amp;reserved=3D0<https=
-://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.freede=
-sktop.org%2Fmailman%2Flistinfo%2Famd-gfx&data=3D04%7C01%7Cguchun.chen%40amd=
-.com%7C3fc7a549816d4c8061c008d91a719cb8%7C3dd8961fe4884e608e11a82d994e183d%=
-7C0%7C0%7C637569897555065647%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLC=
-JQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&sdata=3DYTC%2FvVR%2BbPK=
-w9JKayhmHapRkkEFaczoGzJJ3jFJqBAM%3D&reserved=3D0>
+> > Best regards,
+> > Jiawei
+> >
+> > -----Original Message-----
+> > From: Jiawei Gu <Jiawei.Gu@amd.com>
+> > Sent: Tuesday, May 18, 2021 8:16 PM
+> > To: amd-gfx@lists.freedesktop.org; Koenig, Christian
+> > <Christian.Koenig@amd.com>; Nieto, David M <David.Nieto@amd.com>;
+> > maraeo@gmail.com; Deucher, Alexander <Alexander.Deucher@amd.com>
+> > Cc: Deng, Emily <Emily.Deng@amd.com>; Gu, JiaWei (Will)
+> > <JiaWei.Gu@amd.com>
+> > Subject: [PATCH] drm/amdgpu: Add vbios info ioctl interface
+> >
+> > Add AMDGPU_INFO_VBIOS_INFO subquery id for detailed vbios info.
+> >
+> > Provides a way for the user application to get the VBIOS information
+> without having to parse the binary.
+> > It is useful for the user to be able to display in a simple way the
+> VBIOS version in their system if they happen to encounter an issue.
+> >
+> > V2:
+> > Use numeric serial.
+> > Parse and expose vbios version string.
+> >
+> > V3:
+> > Remove redundant data in drm_amdgpu_info_vbios struct.
+> >
+> > Signed-off-by: Jiawei Gu <Jiawei.Gu@amd.com>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c    |  15 ++
+> >   drivers/gpu/drm/amd/amdgpu/atom.c          | 172 ++++++++++++++++++++=
++
+> >   drivers/gpu/drm/amd/amdgpu/atom.h          |  10 ++
+> >   drivers/gpu/drm/amd/include/atomfirmware.h |   5 +
+> >   include/uapi/drm/amdgpu_drm.h              |  10 ++
+> >   5 files changed, 212 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> > index 8d12e474745a..524e4fe5efe8 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> > @@ -861,6 +861,21 @@ int amdgpu_info_ioctl(struct drm_device *dev, void
+> *data, struct drm_file *filp)
+> >                                           min((size_t)size,
+> (size_t)(bios_size - bios_offset)))
+> >                                       ? -EFAULT : 0;
+> >               }
+> > +             case AMDGPU_INFO_VBIOS_INFO: {
+> > +                     struct drm_amdgpu_info_vbios vbios_info =3D {};
+> > +                     struct atom_context *atom_context;
+> > +
+> > +                     atom_context =3D adev->mode_info.atom_context;
+> > +                     memcpy(vbios_info.name, atom_context->name,
+> sizeof(atom_context->name));
+> > +                     memcpy(vbios_info.vbios_pn,
+> atom_context->vbios_pn, sizeof(atom_context->vbios_pn));
+> > +                     vbios_info.version =3D atom_context->version;
+> > +                     memcpy(vbios_info.vbios_ver_str,
+> atom_context->vbios_ver_str,
+> > +
+>  sizeof(atom_context->vbios_ver_str));
+> > +                     memcpy(vbios_info.date, atom_context->date,
+> > +sizeof(atom_context->date));
+> > +
+> > +                     return copy_to_user(out, &vbios_info,
+> > +                                             min((size_t)size,
+> sizeof(vbios_info))) ? -EFAULT : 0;
+> > +             }
+> >               default:
+> >                       DRM_DEBUG_KMS("Invalid request %d\n",
+> >                                       info->vbios_info.type); diff
+> > --git a/drivers/gpu/drm/amd/amdgpu/atom.c
+> > b/drivers/gpu/drm/amd/amdgpu/atom.c
+> > index 3dcb8b32f48b..6fa2229b7229 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/atom.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/atom.c
+> > @@ -31,6 +31,7 @@
+> >
+> >   #define ATOM_DEBUG
+> >
+> > +#include "atomfirmware.h"
+> >   #include "atom.h"
+> >   #include "atom-names.h"
+> >   #include "atom-bits.h"
+> > @@ -1299,12 +1300,168 @@ static void atom_index_iio(struct atom_context
+> *ctx, int base)
+> >       }
+> >   }
+> >
+> > +static void atom_get_vbios_name(struct atom_context *ctx) {
+> > +     unsigned char *p_rom;
+> > +     unsigned char str_num;
+> > +     unsigned short off_to_vbios_str;
+> > +     unsigned char *c_ptr;
+> > +     int name_size;
+> > +     int i;
+> > +
+> > +     const char *na =3D "--N/A--";
+> > +     char *back;
+> > +
+> > +     p_rom =3D ctx->bios;
+> > +
+> > +     str_num =3D *(p_rom + OFFSET_TO_GET_ATOMBIOS_NUMBER_OF_STRINGS);
+> > +     if (str_num !=3D 0) {
+> > +             off_to_vbios_str =3D
+> > +                     *(unsigned short *)(p_rom +
+> > + OFFSET_TO_GET_ATOMBIOS_STRING_START);
+> > +
+> > +             c_ptr =3D (unsigned char *)(p_rom + off_to_vbios_str);
+> > +     } else {
+> > +             /* do not know where to find name */
+> > +             memcpy(ctx->name, na, 7);
+> > +             ctx->name[7] =3D 0;
+> > +             return;
+> > +     }
+> > +
+> > +     /*
+> > +      * skip the atombios strings, usually 4
+> > +      * 1st is P/N, 2nd is ASIC, 3rd is PCI type, 4th is Memory type
+> > +      */
+> > +     for (i =3D 0; i < str_num; i++) {
+> > +             while (*c_ptr !=3D 0)
+> > +                     c_ptr++;
+> > +             c_ptr++;
+> > +     }
+> > +
+> > +     /* skip the following 2 chars: 0x0D 0x0A */
+> > +     c_ptr +=3D 2;
+> > +
+> > +     name_size =3D strnlen(c_ptr, STRLEN_LONG - 1);
+> > +     memcpy(ctx->name, c_ptr, name_size);
+> > +     back =3D ctx->name + name_size;
+> > +     while ((*--back) =3D=3D ' ')
+> > +             ;
+> > +     *(back + 1) =3D '\0';
+> > +}
+> > +
+> > +static void atom_get_vbios_date(struct atom_context *ctx) {
+> > +     unsigned char *p_rom;
+> > +     unsigned char *date_in_rom;
+> > +
+> > +     p_rom =3D ctx->bios;
+> > +
+> > +     date_in_rom =3D p_rom + OFFSET_TO_VBIOS_DATE;
+> > +
+> > +     ctx->date[0] =3D '2';
+> > +     ctx->date[1] =3D '0';
+> > +     ctx->date[2] =3D date_in_rom[6];
+> > +     ctx->date[3] =3D date_in_rom[7];
+> > +     ctx->date[4] =3D '/';
+> > +     ctx->date[5] =3D date_in_rom[0];
+> > +     ctx->date[6] =3D date_in_rom[1];
+> > +     ctx->date[7] =3D '/';
+> > +     ctx->date[8] =3D date_in_rom[3];
+> > +     ctx->date[9] =3D date_in_rom[4];
+> > +     ctx->date[10] =3D ' ';
+> > +     ctx->date[11] =3D date_in_rom[9];
+> > +     ctx->date[12] =3D date_in_rom[10];
+> > +     ctx->date[13] =3D date_in_rom[11];
+> > +     ctx->date[14] =3D date_in_rom[12];
+> > +     ctx->date[15] =3D date_in_rom[13];
+> > +     ctx->date[16] =3D '\0';
+> > +}
+> > +
+> > +static unsigned char *atom_find_str_in_rom(struct atom_context *ctx,
+> char *str, int start,
+> > +                                        int end, int maxlen) {
+> > +     unsigned long str_off;
+> > +     unsigned char *p_rom;
+> > +     unsigned short str_len;
+> > +
+> > +     str_off =3D 0;
+> > +     str_len =3D strnlen(str, maxlen);
+> > +     p_rom =3D ctx->bios;
+> > +
+> > +     for (; start <=3D end; ++start) {
+> > +             for (str_off =3D 0; str_off < str_len; ++str_off) {
+> > +                     if (str[str_off] !=3D *(p_rom + start + str_off))
+> > +                             break;
+> > +             }
+> > +
+> > +             if (str_off =3D=3D str_len || str[str_off] =3D=3D 0)
+> > +                     return p_rom + start;
+> > +     }
+> > +     return NULL;
+> > +}
+> > +
+> > +static void atom_get_vbios_pn(struct atom_context *ctx) {
+> > +     unsigned char *p_rom;
+> > +     unsigned short off_to_vbios_str;
+> > +     unsigned char *vbios_str;
+> > +     int count;
+> > +
+> > +     off_to_vbios_str =3D 0;
+> > +     p_rom =3D ctx->bios;
+> > +
+> > +     if (*(p_rom + OFFSET_TO_GET_ATOMBIOS_NUMBER_OF_STRINGS) !=3D 0) {
+> > +             off_to_vbios_str =3D
+> > +                     *(unsigned short *)(p_rom +
+> > + OFFSET_TO_GET_ATOMBIOS_STRING_START);
+> > +
+> > +             vbios_str =3D (unsigned char *)(p_rom + off_to_vbios_str)=
+;
+> > +     } else {
+> > +             vbios_str =3D p_rom + OFFSET_TO_VBIOS_PART_NUMBER;
+> > +     }
+> > +
+> > +     if (*vbios_str =3D=3D 0) {
+> > +             vbios_str =3D atom_find_str_in_rom(ctx, BIOS_ATOM_PREFIX,=
+ 3,
+> 1024, 64);
+> > +             if (vbios_str =3D=3D NULL)
+> > +                     vbios_str +=3D sizeof(BIOS_ATOM_PREFIX) - 1;
+> > +     }
+> > +     if (vbios_str !=3D NULL && *vbios_str =3D=3D 0)
+> > +             vbios_str++;
+> > +
+> > +     if (vbios_str !=3D NULL) {
+> > +             count =3D 0;
+> > +             while ((count < BIOS_STRING_LENGTH) && vbios_str[count] >=
+=3D
+> ' ' &&
+> > +                    vbios_str[count] <=3D 'z') {
+> > +                     ctx->vbios_pn[count] =3D vbios_str[count];
+> > +                     count++;
+> > +             }
+> > +
+> > +             ctx->vbios_pn[count] =3D 0;
+> > +     }
+> > +}
+> > +
+> > +static void atom_get_vbios_version(struct atom_context *ctx) {
+> > +     unsigned char *vbios_ver;
+> > +
+> > +     /* find anchor ATOMBIOSBK-AMD */
+> > +     vbios_ver =3D atom_find_str_in_rom(ctx, BIOS_VERSION_PREFIX, 3,
+> 1024, 64);
+> > +     if (vbios_ver !=3D NULL) {
+> > +             /* skip ATOMBIOSBK-AMD VER */
+> > +             vbios_ver +=3D 18;
+> > +             memcpy(ctx->vbios_ver_str, vbios_ver, STRLEN_NORMAL);
+> > +     } else {
+> > +             ctx->vbios_ver_str[0] =3D '\0';
+> > +     }
+> > +}
+> > +
+> >   struct atom_context *amdgpu_atom_parse(struct card_info *card, void
+> *bios)  {
+> >       int base;
+> >       struct atom_context *ctx =3D
+> >           kzalloc(sizeof(struct atom_context), GFP_KERNEL);
+> >       char *str;
+> > +     struct _ATOM_ROM_HEADER *atom_rom_header;
+> > +     struct _ATOM_MASTER_DATA_TABLE *master_table;
+> > +     struct _ATOM_FIRMWARE_INFO *atom_fw_info;
+> >       u16 idx;
+> >
+> >       if (!ctx)
+> > @@ -1353,6 +1510,21 @@ struct atom_context *amdgpu_atom_parse(struct
+> card_info *card, void *bios)
+> >               strlcpy(ctx->vbios_version, str,
+> sizeof(ctx->vbios_version));
+> >       }
+> >
+> > +     atom_rom_header =3D (struct _ATOM_ROM_HEADER *)CSTR(base);
+> > +     if (atom_rom_header->usMasterDataTableOffset !=3D 0) {
+> > +             master_table =3D (struct _ATOM_MASTER_DATA_TABLE *)
+> > +
+>  CSTR(atom_rom_header->usMasterDataTableOffset);
+> > +             if (master_table->ListOfDataTables.FirmwareInfo !=3D 0) {
+> > +                     atom_fw_info =3D (struct _ATOM_FIRMWARE_INFO *)
+> > +
+>  CSTR(master_table->ListOfDataTables.FirmwareInfo);
+> > +                     ctx->version =3D atom_fw_info->ulFirmwareRevision=
+;
+> > +             }
+> > +     }
+> > +
+> > +     atom_get_vbios_name(ctx);
+> > +     atom_get_vbios_pn(ctx);
+> > +     atom_get_vbios_date(ctx);
+> > +     atom_get_vbios_version(ctx);
+> >
+> >       return ctx;
+> >   }
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/atom.h
+> > b/drivers/gpu/drm/amd/amdgpu/atom.h
+> > index d279759cab47..0c1839824520 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/atom.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/atom.h
+> > @@ -112,6 +112,10 @@ struct drm_device;
+> >   #define ATOM_IO_SYSIO               2
+> >   #define ATOM_IO_IIO         0x80
+> >
+> > +#define STRLEN_NORMAL                32
+> > +#define STRLEN_LONG          64
+> > +#define STRLEN_VERYLONG              254
+> > +
+> >   struct card_info {
+> >       struct drm_device *dev;
+> >       void (* reg_write)(struct card_info *, uint32_t, uint32_t);   /*
+> filled by driver */
+> > @@ -140,6 +144,12 @@ struct atom_context {
+> >       uint32_t *scratch;
+> >       int scratch_size_bytes;
+> >       char vbios_version[20];
+> > +
+> > +     uint8_t name[STRLEN_LONG];
+> > +     uint8_t vbios_pn[STRLEN_LONG];
+> > +     uint32_t version;
+> > +     uint8_t vbios_ver_str[STRLEN_NORMAL];
+> > +     uint8_t date[STRLEN_NORMAL];
+> >   };
+> >
+> >   extern int amdgpu_atom_debug;
+> > diff --git a/drivers/gpu/drm/amd/include/atomfirmware.h
+> > b/drivers/gpu/drm/amd/include/atomfirmware.h
+> > index 275468e4be60..28deecc2f990 100644
+> > --- a/drivers/gpu/drm/amd/include/atomfirmware.h
+> > +++ b/drivers/gpu/drm/amd/include/atomfirmware.h
+> > @@ -197,6 +197,9 @@ enum atom_dp_vs_preemph_def{
+> >     DP_VS_LEVEL0_PREEMPH_LEVEL3 =3D 0x18,
+> >   };
+> >
+> > +#define BIOS_ATOM_PREFIX   "ATOMBIOS"
+> > +#define BIOS_VERSION_PREFIX  "ATOMBIOSBK-AMD"
+> > +#define BIOS_STRING_LENGTH 43
+> >
+> >   /*
+> >   enum atom_string_def{
+> > @@ -215,6 +218,8 @@ enum atombios_image_offset{
+> >     MAXSIZE_OF_ATOMBIOS_ASIC_BUS_MEM_TYPE      =3D 20,  /*including the
+> terminator 0x0!*/
+> >     OFFSET_TO_GET_ATOMBIOS_NUMBER_OF_STRINGS   =3D 0x2f,
+> >     OFFSET_TO_GET_ATOMBIOS_STRING_START        =3D 0x6e,
+> > +  OFFSET_TO_VBIOS_PART_NUMBER                =3D 0x80,
+> > +  OFFSET_TO_VBIOS_DATE                       =3D 0x50,
+> >   };
+> >
+> >
+> > /*********************************************************************
+> > ******* diff --git a/include/uapi/drm/amdgpu_drm.h
+> > b/include/uapi/drm/amdgpu_drm.h index 9169df7fadee..155fd9918b4d
+> > 100644
+> > --- a/include/uapi/drm/amdgpu_drm.h
+> > +++ b/include/uapi/drm/amdgpu_drm.h
+> > @@ -756,6 +756,8 @@ struct drm_amdgpu_cs_chunk_data {
+> >       #define AMDGPU_INFO_VBIOS_SIZE          0x1
+> >       /* Subquery id: Query vbios image */
+> >       #define AMDGPU_INFO_VBIOS_IMAGE         0x2
+> > +     /* Subquery id: Query vbios info */
+> > +     #define AMDGPU_INFO_VBIOS_INFO          0x3
+> >   /* Query UVD handles */
+> >   #define AMDGPU_INFO_NUM_HANDLES                     0x1C
+> >   /* Query sensor related information */ @@ -949,6 +951,14 @@ struct
+> > drm_amdgpu_info_firmware {
+> >       __u32 feature;
+> >   };
+> >
+> > +struct drm_amdgpu_info_vbios {
+> > +     __u8 name[64];
+> > +     __u8 vbios_pn[64];
+> > +     __u32 version;
+> > +     __u8 vbios_ver_str[32];
+> > +     __u8 date[32];
+> > +};
+> > +
+> >   #define AMDGPU_VRAM_TYPE_UNKNOWN 0
+> >   #define AMDGPU_VRAM_TYPE_GDDR1 1
+> >   #define AMDGPU_VRAM_TYPE_DDR2  2
+> > --
+> > 2.17.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+>
+> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists=
+.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D04%7C01%7Ctom.st=
+denis%40amd.com%7C332524597a5e42ad491908d919ff414f%7C3dd8961fe4884e608e11a8=
+2d994e183d%7C0%7C0%7C637569406377960645%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4=
+wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=3D=
+ZFBUbqu1VjvQkpnQ4Wy6Q4XE9CB2IcFltOq3Iv12F7U%3D&amp;reserved=3D0
+>
 
---_000_MN2PR12MB448886D0F0CD237D056B3445F72B9MN2PR12MB4488namp_
-Content-Type: text/html; charset="Windows-1252"
+--000000000000afc74505c2a62c6b
+Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
-252">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
-ign=3D"Left">
-[Public]<br>
-</p>
+<div dir=3D"auto">Mesa doesn&#39;t have any use for this. It should be ok t=
+o expose just the ioctl without userspace because it&#39;s just vbios info.=
+<div dir=3D"auto"><br></div><div dir=3D"auto">Marek</div></div><br><div cla=
+ss=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Tue., May 18, 2=
+021, 22:41 Gu, JiaWei (Will), &lt;<a href=3D"mailto:JiaWei.Gu@amd.com">JiaW=
+ei.Gu@amd.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" sty=
+le=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">[AMD O=
+fficial Use Only - Internal Distribution Only]<br>
 <br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-I thought we had disabled all but one of the compute queues on raven due to=
- this issue or at least disabled the schedulers for the additional queues, =
-but maybe I'm misremembering.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
+Thanks Tom&#39;s suggestion.<br>
+I&#39;m fine to replace ioctl with sysfs.<br>
 <br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Alex</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
+Hi all, how about this sysfs alternative?<br>
 <br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Chen, Guchun &lt;Guch=
-un.Chen@amd.com&gt;<br>
-<b>Sent:</b> Tuesday, May 18, 2021 11:00 PM<br>
-<b>To:</b> Zhu, Changfeng &lt;Changfeng.Zhu@amd.com&gt;; Deucher, Alexander=
- &lt;Alexander.Deucher@amd.com&gt;; Alex Deucher &lt;alexdeucher@gmail.com&=
-gt;; Das, Nirmoy &lt;Nirmoy.Das@amd.com&gt;<br>
-<b>Cc:</b> Huang, Ray &lt;Ray.Huang@amd.com&gt;; amd-gfx list &lt;amd-gfx@l=
-ists.freedesktop.org&gt;<br>
-<b>Subject:</b> RE: [PATCH] drm/amdgpu: disable 3DCGCG on picasso/raven1 to=
- avoid compute hang</font>
-<div>&nbsp;</div>
-</div>
-<style>
-<!--
-@font-face
-	{font-family:"Cambria Math"}
-@font-face
-	{font-family:DengXian}
-@font-face
-	{font-family:Calibri}
-@font-face
-	{}
-p.x_MsoNormal, li.x_MsoNormal, div.x_MsoNormal
-	{margin:0in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif}
-a:link, span.x_MsoHyperlink
-	{color:blue;
-	text-decoration:underline}
-span.x_EmailStyle21
-	{font-family:"Calibri",sans-serif;
-	color:windowtext}
-.x_MsoChpDefault
-	{font-size:10.0pt}
-@page WordSection1
-	{margin:1.0in 1.0in 1.0in 1.0in}
-div.x_WordSection1
-	{}
--->
-</style>
-<div lang=3D"EN-US" link=3D"blue" vlink=3D"purple" style=3D"word-wrap:break=
--word">
-<p align=3D"Left" style=3D"font-family:Arial; font-size:10pt; color:#008000=
-; margin:15pt">
-[Public]<br>
-</p>
+And if it&#39;s a must to insist on ioctl, is there any Mesa expert to help=
+ provide the patch?<br>
 <br>
-<div>
-<div class=3D"x_WordSection1">
-<p class=3D"x_MsoNormal">Nirmoy=92s patch landed already if I understand co=
-rrectly.</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">d41a39dda140 drm/scheduler: improve job distributi=
-on with multiple queues</p>
-<div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">Regards,</p>
-<p class=3D"x_MsoNormal">Guchun</p>
-</div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<div>
-<div style=3D"border:none; border-top:solid #E1E1E1 1.0pt; padding:3.0pt 0i=
-n 0in 0in">
-<p class=3D"x_MsoNormal"><b>From:</b> amd-gfx &lt;amd-gfx-bounces@lists.fre=
-edesktop.org&gt;
-<b>On Behalf Of </b>Zhu, Changfeng<br>
-<b>Sent:</b> Wednesday, May 19, 2021 10:56 AM<br>
-<b>To:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Alex Deuch=
-er &lt;alexdeucher@gmail.com&gt;; Das, Nirmoy &lt;Nirmoy.Das@amd.com&gt;<br=
->
-<b>Cc:</b> Huang, Ray &lt;Ray.Huang@amd.com&gt;; amd-gfx list &lt;amd-gfx@l=
-ists.freedesktop.org&gt;<br>
-<b>Subject:</b> RE: [PATCH] drm/amdgpu: disable 3DCGCG on picasso/raven1 to=
- avoid compute hang</p>
-</div>
-</div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p style=3D"margin:15.0pt"><span style=3D"font-size:10.0pt; font-family:&qu=
-ot;Arial&quot;,sans-serif; color:green">[Public]</span></p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<div>
-<p style=3D"margin:15.0pt"><span style=3D"font-size:10.0pt; font-family:&qu=
-ot;Arial&quot;,sans-serif; color:green">[Public]</span></p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<div>
-<p class=3D"x_MsoNormal">Hi Alex,</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">This is the issue exposed by <span style=3D"font-s=
-ize:12.0pt; color:black">
-Nirmoy's patch that provided better load balancing across queues.</span></p=
->
-<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt; color:black">&nbs=
-p;</span></p>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt; color:black">BR,<=
-/span></p>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt; color:black">Chan=
-gfeng.</span></p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<div>
-<div style=3D"border:none; border-top:solid #E1E1E1 1.0pt; padding:3.0pt 0i=
-n 0in 0in">
-<p class=3D"x_MsoNormal"><b>From:</b> Deucher, Alexander &lt;<a href=3D"mai=
-lto:Alexander.Deucher@amd.com">Alexander.Deucher@amd.com</a>&gt;
+Best regards,<br>
+Jiawei<br>
 <br>
-<b>Sent:</b> Wednesday, May 19, 2021 10:53 AM<br>
-<b>To:</b> Zhu, Changfeng &lt;<a href=3D"mailto:Changfeng.Zhu@amd.com">Chan=
-gfeng.Zhu@amd.com</a>&gt;; Alex Deucher &lt;<a href=3D"mailto:alexdeucher@g=
-mail.com">alexdeucher@gmail.com</a>&gt;; Das, Nirmoy &lt;<a href=3D"mailto:=
-Nirmoy.Das@amd.com">Nirmoy.Das@amd.com</a>&gt;<br>
-<b>Cc:</b> Huang, Ray &lt;<a href=3D"mailto:Ray.Huang@amd.com">Ray.Huang@am=
-d.com</a>&gt;; amd-gfx list &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop=
-.org">amd-gfx@lists.freedesktop.org</a>&gt;<br>
-<b>Subject:</b> Re: [PATCH] drm/amdgpu: disable 3DCGCG on picasso/raven1 to=
- avoid compute hang</p>
-</div>
-</div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p style=3D"margin:15.0pt"><span style=3D"font-size:10.0pt; font-family:&qu=
-ot;Arial&quot;,sans-serif; color:green">[Public]</span></p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<div>
-<div>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt; color:black">+ Ni=
-rmoy</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt; color:black">&nbs=
-p;</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt; color:black">I th=
-ought we disabled all but one of the compute queues on raven due to this is=
-sue.&nbsp; Maybe that patch never landed?&nbsp; Wasn't this the same issue =
-that was exposed by Nirmoy's patch that provided
- better load balancing across queues?</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt; color:black">&nbs=
-p;</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt; color:black">Alex=
-</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt; color:black">&nbs=
-p;</span></p>
-</div>
-<div class=3D"x_MsoNormal" align=3D"center" style=3D"text-align:center">
-<hr size=3D"1" width=3D"98%" align=3D"center">
-</div>
-<div id=3D"x_divRplyFwdMsg">
-<p class=3D"x_MsoNormal"><b><span style=3D"color:black">From:</span></b><sp=
-an style=3D"color:black"> amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces@lis=
-ts.freedesktop.org">amd-gfx-bounces@lists.freedesktop.org</a>&gt; on behalf=
- of Zhu, Changfeng &lt;<a href=3D"mailto:Changfeng.Zhu@amd.com">Changfeng.Z=
-hu@amd.com</a>&gt;<br>
-<b>Sent:</b> Tuesday, May 18, 2021 10:28 PM<br>
-<b>To:</b> Alex Deucher &lt;<a href=3D"mailto:alexdeucher@gmail.com">alexde=
-ucher@gmail.com</a>&gt;<br>
-<b>Cc:</b> Huang, Ray &lt;<a href=3D"mailto:Ray.Huang@amd.com">Ray.Huang@am=
-d.com</a>&gt;; amd-gfx list &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop=
-.org">amd-gfx@lists.freedesktop.org</a>&gt;<br>
-<b>Subject:</b> RE: [PATCH] drm/amdgpu: disable 3DCGCG on picasso/raven1 to=
- avoid compute hang</span>
-</p>
-<div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-</div>
-</div>
-<div>
-<div>
-<p class=3D"x_MsoNormal">[AMD Official Use Only - Internal Distribution Onl=
-y]<br>
-<br>
-Hi Alex.<br>
-<br>
-I have submitted the patch: drm/amdgpu: disable 3DCGCG on picasso/raven1 to=
- avoid compute hang<br>
-<br>
-Do you mean we have something else to do for re-enabling the extra compute =
-queues?<br>
-<br>
-BR,<br>
-Changfeng.<br>
 <br>
 -----Original Message-----<br>
-From: Alex Deucher &lt;<a href=3D"mailto:alexdeucher@gmail.com">alexdeucher=
-@gmail.com</a>&gt;
+From: StDenis, Tom &lt;<a href=3D"mailto:Tom.StDenis@amd.com" target=3D"_bl=
+ank" rel=3D"noreferrer">Tom.StDenis@amd.com</a>&gt; <br>
+Sent: Tuesday, May 18, 2021 9:26 PM<br>
+To: Koenig, Christian &lt;<a href=3D"mailto:Christian.Koenig@amd.com" targe=
+t=3D"_blank" rel=3D"noreferrer">Christian.Koenig@amd.com</a>&gt;; Gu, JiaWe=
+i (Will) &lt;<a href=3D"mailto:JiaWei.Gu@amd.com" target=3D"_blank" rel=3D"=
+noreferrer">JiaWei.Gu@amd.com</a>&gt;; <a href=3D"mailto:amd-gfx@lists.free=
+desktop.org" target=3D"_blank" rel=3D"noreferrer">amd-gfx@lists.freedesktop=
+.org</a>; Nieto, David M &lt;<a href=3D"mailto:David.Nieto@amd.com" target=
+=3D"_blank" rel=3D"noreferrer">David.Nieto@amd.com</a>&gt;; <a href=3D"mail=
+to:maraeo@gmail.com" target=3D"_blank" rel=3D"noreferrer">maraeo@gmail.com<=
+/a>; Deucher, Alexander &lt;<a href=3D"mailto:Alexander.Deucher@amd.com" ta=
+rget=3D"_blank" rel=3D"noreferrer">Alexander.Deucher@amd.com</a>&gt;<br>
+Cc: Deng, Emily &lt;<a href=3D"mailto:Emily.Deng@amd.com" target=3D"_blank"=
+ rel=3D"noreferrer">Emily.Deng@amd.com</a>&gt;<br>
+Subject: Re: [PATCH] drm/amdgpu: Add vbios info ioctl interface<br>
 <br>
-Sent: Wednesday, May 19, 2021 10:20 AM<br>
-To: Zhu, Changfeng &lt;<a href=3D"mailto:Changfeng.Zhu@amd.com">Changfeng.Z=
-hu@amd.com</a>&gt;<br>
-Cc: Huang, Ray &lt;<a href=3D"mailto:Ray.Huang@amd.com">Ray.Huang@amd.com</=
-a>&gt;; amd-gfx list &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">a=
-md-gfx@lists.freedesktop.org</a>&gt;<br>
-Subject: Re: [PATCH] drm/amdgpu: disable 3DCGCG on picasso/raven1 to avoid =
-compute hang<br>
+[AMD Official Use Only - Internal Distribution Only]<br>
 <br>
-Care to submit a patch to re-enable the extra compute queues?<br>
+If changing the ioctl is an issue why not just use sysfs?=C2=A0 umr already=
+ makes uses of all three for it&#39;s purposes so it&#39;s fine by me for e=
+ither.<br>
 <br>
-Alex<br>
+Tom<br>
 <br>
-On Mon, May 17, 2021 at 4:09 AM Zhu, Changfeng &lt;<a href=3D"mailto:Changf=
-eng.Zhu@amd.com">Changfeng.Zhu@amd.com</a>&gt; wrote:<br>
-&gt;<br>
+________________________________________<br>
+From: amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces@lists.freedesktop.org" =
+target=3D"_blank" rel=3D"noreferrer">amd-gfx-bounces@lists.freedesktop.org<=
+/a>&gt; on behalf of Christian K=C3=B6nig &lt;<a href=3D"mailto:christian.k=
+oenig@amd.com" target=3D"_blank" rel=3D"noreferrer">christian.koenig@amd.co=
+m</a>&gt;<br>
+Sent: Tuesday, May 18, 2021 09:17<br>
+To: Gu, JiaWei (Will); <a href=3D"mailto:amd-gfx@lists.freedesktop.org" tar=
+get=3D"_blank" rel=3D"noreferrer">amd-gfx@lists.freedesktop.org</a>; Nieto,=
+ David M; <a href=3D"mailto:maraeo@gmail.com" target=3D"_blank" rel=3D"nore=
+ferrer">maraeo@gmail.com</a>; Deucher, Alexander<br>
+Cc: Deng, Emily<br>
+Subject: Re: [PATCH] drm/amdgpu: Add vbios info ioctl interface<br>
+<br>
+Well not an expert on that stuff, but looks like that should work for me.<b=
+r>
+<br>
+Question is can you provide a patch to use that information in Mesa as well=
+? Umr might be sufficient as well as justification for upstreaming, but I w=
+ant to be better save than sorry.<br>
+<br>
+Unless Marek has a better idea maybe add the vbios version to the string re=
+turned by GLX_MESA_query_renderer or something like that.<br>
+<br>
+Thanks,<br>
+Christian.<br>
+<br>
+Am 18.05.21 um 14:19 schrieb Gu, JiaWei (Will):<br>
 &gt; [AMD Official Use Only - Internal Distribution Only]<br>
 &gt;<br>
-&gt; Hi Ray and Alex,<br>
+&gt; Hi all,<br>
 &gt;<br>
-&gt; I have confirmed it can enable the additional compute queues with this=
- patch:<br>
+&gt; Please help confirm that we&#39;re all fine with this new struct in ua=
+pi in this V3 patch:<br>
 &gt;<br>
-&gt; [&nbsp;&nbsp; 41.823013] This is ring mec 1, pipe 0, queue 0, value 1<=
-br>
-&gt; [&nbsp;&nbsp; 41.823028] This is ring mec 1, pipe 1, queue 0, value 1<=
-br>
-&gt; [&nbsp;&nbsp; 41.823042] This is ring mec 1, pipe 2, queue 0, value 1<=
-br>
-&gt; [&nbsp;&nbsp; 41.823057] This is ring mec 1, pipe 3, queue 0, value 1<=
-br>
-&gt; [&nbsp;&nbsp; 41.823071] This is ring mec 1, pipe 0, queue 1, value 1<=
-br>
-&gt; [&nbsp;&nbsp; 41.823086] This is ring mec 1, pipe 1, queue 1, value 1<=
-br>
-&gt; [&nbsp;&nbsp; 41.823101] This is ring mec 1, pipe 2, queue 1, value 1<=
-br>
-&gt; [&nbsp;&nbsp; 41.823115] This is ring mec 1, pipe 3, queue 1, value 1<=
-br>
+&gt; +struct drm_amdgpu_info_vbios {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0__u8 name[64];<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0__u8 vbios_pn[64];<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0__u32 version;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0__u8 vbios_ver_str[32];<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0__u8 date[32];<br>
+&gt; +};<br>
 &gt;<br>
-&gt; BR,<br>
-&gt; Changfeng.<br>
-&gt;<br>
+&gt; Best regards,<br>
+&gt; Jiawei<br>
 &gt;<br>
 &gt; -----Original Message-----<br>
-&gt; From: Huang, Ray &lt;<a href=3D"mailto:Ray.Huang@amd.com">Ray.Huang@am=
-d.com</a>&gt;<br>
-&gt; Sent: Monday, May 17, 2021 2:27 PM<br>
-&gt; To: Alex Deucher &lt;<a href=3D"mailto:alexdeucher@gmail.com">alexdeuc=
-her@gmail.com</a>&gt;; Zhu, Changfeng
-<br>
-&gt; &lt;<a href=3D"mailto:Changfeng.Zhu@amd.com">Changfeng.Zhu@amd.com</a>=
-&gt;<br>
-&gt; Cc: amd-gfx list &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">=
-amd-gfx@lists.freedesktop.org</a>&gt;<br>
-&gt; Subject: Re: [PATCH] drm/amdgpu: disable 3DCGCG on picasso/raven1 to <=
-br>
-&gt; avoid compute hang<br>
-&gt;<br>
-&gt; On Fri, May 14, 2021 at 10:13:55PM +0800, Alex Deucher wrote:<br>
-&gt; &gt; On Fri, May 14, 2021 at 4:20 AM &lt;<a href=3D"mailto:changfeng.z=
-hu@amd.com">changfeng.zhu@amd.com</a>&gt; wrote:<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; From: changzhu &lt;<a href=3D"mailto:Changfeng.Zhu@amd.com">=
-Changfeng.Zhu@amd.com</a>&gt;<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; From: Changfeng &lt;<a href=3D"mailto:Changfeng.Zhu@amd.com"=
->Changfeng.Zhu@amd.com</a>&gt;<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; There is problem with 3DCGCG firmware and it will cause comp=
-ute <br>
-&gt; &gt; &gt; test hang on picasso/raven1. It needs to disable 3DCGCG in d=
-river <br>
-&gt; &gt; &gt; to avoid compute hang.<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; Change-Id: Ic7d3c7922b2b32f7ac5193d6a4869cbc5b3baa87<br>
-&gt; &gt; &gt; Signed-off-by: Changfeng &lt;<a href=3D"mailto:Changfeng.Zhu=
-@amd.com">Changfeng.Zhu@amd.com</a>&gt;<br>
-&gt; &gt;<br>
-&gt; &gt; Reviewed-by: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher=
-@amd.com">alexander.deucher@amd.com</a>&gt;<br>
-&gt; &gt;<br>
-&gt; &gt; WIth this applied, can we re-enable the additional compute queues=
-?<br>
-&gt; &gt;<br>
-&gt;<br>
-&gt; I think so.<br>
-&gt;<br>
-&gt; Changfeng, could you please confirm this on all raven series?<br>
-&gt;<br>
-&gt; Patch is Reviewed-by: Huang Rui &lt;<a href=3D"mailto:ray.huang@amd.co=
-m">ray.huang@amd.com</a>&gt;<br>
-&gt;<br>
-&gt; &gt; Alex<br>
-&gt; &gt;<br>
-&gt; &gt; &gt; ---<br>
-&gt; &gt; &gt;&nbsp; drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 10 +++++++---<=
-br>
-&gt; &gt; &gt;&nbsp; drivers/gpu/drm/amd/amdgpu/soc15.c&nbsp;&nbsp;&nbsp; |=
-&nbsp; 2 --<br>
-&gt; &gt; &gt;&nbsp; 2 files changed, 7 insertions(+), 5 deletions(-)<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<br>
-&gt; &gt; &gt; b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<br>
-&gt; &gt; &gt; index 22608c45f07c..feaa5e4a5538 100644<br>
-&gt; &gt; &gt; --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<br>
-&gt; &gt; &gt; +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<br>
-&gt; &gt; &gt; @@ -4947,7 +4947,7 @@ static void gfx_v9_0_update_3d_clock_g=
-ating(struct amdgpu_device *adev,<br>
-&gt; &gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_gfx_r=
-lc_enter_safe_mode(adev);<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Enable 3D=
- CGCG/CGLS */<br>
-&gt; &gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (enable &amp;&amp; =
-(adev-&gt;cg_flags &amp; AMD_CG_SUPPORT_GFX_3D_CGCG)) {<br>
-&gt; &gt; &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (enable) {<br>
-&gt; &gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* write cmd to clear cgcg/cgls ov */<b=
+&gt; From: Jiawei Gu &lt;<a href=3D"mailto:Jiawei.Gu@amd.com" target=3D"_bl=
+ank" rel=3D"noreferrer">Jiawei.Gu@amd.com</a>&gt;<br>
+&gt; Sent: Tuesday, May 18, 2021 8:16 PM<br>
+&gt; To: <a href=3D"mailto:amd-gfx@lists.freedesktop.org" target=3D"_blank"=
+ rel=3D"noreferrer">amd-gfx@lists.freedesktop.org</a>; Koenig, Christian <b=
 r>
-&gt; &gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; def =3D data =3D RREG32_SOC15(GC, 0, mm=
-RLC_CGTT_MGCG_OVERRIDE);<br>
-&gt; &gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* unset CGCG override */ @@ -4959,8 +4=
-959,12 @@ <br>
-&gt; &gt; &gt; static void gfx_v9_0_update_3d_clock_gating(struct amdgpu_de=
-vice *adev,<br>
-&gt; &gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* enable 3Dcgcg FSM(0x0000363f) */<br>
-&gt; &gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; def =3D RREG32_SOC15(GC, 0, <br>
-&gt; &gt; &gt; mmRLC_CGCG_CGLS_CTRL_3D);<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp; data =3D (0x36 &lt;&lt; RLC_CGCG_CGLS_CTRL_3D__CG=
-CG_GFX_IDLE_THRESHOLD__SHIFT) |<br>
-&gt; &gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; R=
-LC_CGCG_CGLS_CTRL_3D__CGCG_EN_MASK;<br>
-&gt; &gt; &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;cg_flags &amp; AMD_CG_SUPPORT_GFX_3D=
-_CGCG)<br>
-&gt; &gt; &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; d=
-ata =3D (0x36 &lt;&lt; RLC_CGCG_CGLS_CTRL_3D__CGCG_GFX_IDLE_THRESHOLD__SHIF=
-T) |<br>
-&gt; &gt; &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RLC_CGCG_CGLS_CTRL_3D__CGCG_=
-EN_MASK;<br>
-&gt; &gt; &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
-&gt; &gt; &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; d=
-ata =3D 0x0 &lt;&lt; <br>
-&gt; &gt; &gt; + RLC_CGCG_CGLS_CTRL_3D__CGCG_GFX_IDLE_THRESHOLD__SHIFT;<br>
-&gt; &gt; &gt; +<br>
-&gt; &gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;cg_flags &amp; AMD_CG_SUPP=
-ORT_GFX_3D_CGLS)<br>
-&gt; &gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; data |=3D (0x000F &lt;&lt; RLC_CGCG_CGLS_CTRL_3D__CGLS_REP_COMPANS=
-AT_DELAY__SHIFT) |<br>
-&gt; &gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
-&gt; &gt; &gt; RLC_CGCG_CGLS_CTRL_3D__CGLS_EN_MASK;<br>
-&gt; &gt; &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
-&gt; &gt; &gt; b/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
-&gt; &gt; &gt; index 4b660b2d1c22..080e715799d4 100644<br>
-&gt; &gt; &gt; --- a/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
-&gt; &gt; &gt; +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
-&gt; &gt; &gt; @@ -1393,7 +1393,6 @@ static int soc15_common_early_init(voi=
-d *handle)<br>
-&gt; &gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; adev-&gt;cg_flags =3D AMD_CG_SUPPORT_GFX_MGCG |<br>
-&gt; &gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_CG_SUPPORT_GFX=
-_MGLS |<br>
-&gt; &gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_CG_SUPPORT_GFX=
-_CP_LS |<br>
-&gt; &gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_CG_SUPPORT_GFX_3D_CGCG |=
-<br>
-&gt; &gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_CG_SUPPORT_GFX=
-_3D_CGLS |<br>
-&gt; &gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_CG_SUPPORT_GFX=
-_CGCG |<br>
-&gt; &gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_CG_SUPPORT_GFX=
-_CGLS | @@ <br>
-&gt; &gt; &gt; -1413,7<br>
-&gt; &gt; &gt; +1412,6 @@ static int soc15_common_early_init(void *handle)<=
+&gt; &lt;<a href=3D"mailto:Christian.Koenig@amd.com" target=3D"_blank" rel=
+=3D"noreferrer">Christian.Koenig@amd.com</a>&gt;; Nieto, David M &lt;<a hre=
+f=3D"mailto:David.Nieto@amd.com" target=3D"_blank" rel=3D"noreferrer">David=
+.Nieto@amd.com</a>&gt;; <br>
+&gt; <a href=3D"mailto:maraeo@gmail.com" target=3D"_blank" rel=3D"noreferre=
+r">maraeo@gmail.com</a>; Deucher, Alexander &lt;<a href=3D"mailto:Alexander=
+.Deucher@amd.com" target=3D"_blank" rel=3D"noreferrer">Alexander.Deucher@am=
+d.com</a>&gt;<br>
+&gt; Cc: Deng, Emily &lt;<a href=3D"mailto:Emily.Deng@amd.com" target=3D"_b=
+lank" rel=3D"noreferrer">Emily.Deng@amd.com</a>&gt;; Gu, JiaWei (Will) <br>
+&gt; &lt;<a href=3D"mailto:JiaWei.Gu@amd.com" target=3D"_blank" rel=3D"nore=
+ferrer">JiaWei.Gu@amd.com</a>&gt;<br>
+&gt; Subject: [PATCH] drm/amdgpu: Add vbios info ioctl interface<br>
+&gt;<br>
+&gt; Add AMDGPU_INFO_VBIOS_INFO subquery id for detailed vbios info.<br>
+&gt;<br>
+&gt; Provides a way for the user application to get the VBIOS information w=
+ithout having to parse the binary.<br>
+&gt; It is useful for the user to be able to display in a simple way the VB=
+IOS version in their system if they happen to encounter an issue.<br>
+&gt;<br>
+&gt; V2:<br>
+&gt; Use numeric serial.<br>
+&gt; Parse and expose vbios version string.<br>
+&gt;<br>
+&gt; V3:<br>
+&gt; Remove redundant data in drm_amdgpu_info_vbios struct.<br>
+&gt;<br>
+&gt; Signed-off-by: Jiawei Gu &lt;<a href=3D"mailto:Jiawei.Gu@amd.com" targ=
+et=3D"_blank" rel=3D"noreferrer">Jiawei.Gu@amd.com</a>&gt;<br>
+&gt; ---<br>
+&gt;=C2=A0 =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c=C2=A0 =C2=A0 |=C2=
+=A0 15 ++<br>
+&gt;=C2=A0 =C2=A0drivers/gpu/drm/amd/amdgpu/atom.c=C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 | 172 +++++++++++++++++++++<br>
+&gt;=C2=A0 =C2=A0drivers/gpu/drm/amd/amdgpu/atom.h=C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 |=C2=A0 10 ++<br>
+&gt;=C2=A0 =C2=A0drivers/gpu/drm/amd/include/atomfirmware.h |=C2=A0 =C2=A05=
+ +<br>
+&gt;=C2=A0 =C2=A0include/uapi/drm/amdgpu_drm.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 |=C2=A0 10 ++<br>
+&gt;=C2=A0 =C2=A05 files changed, 212 insertions(+)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c <br>
+&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
+&gt; index 8d12e474745a..524e4fe5efe8 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
+&gt; @@ -861,6 +861,21 @@ int amdgpu_info_ioctl(struct drm_device *dev, voi=
+d *data, struct drm_file *filp)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0min((size_t)size, (size_t)(bios_size - bios_offset)))<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0? -EFA=
+ULT : 0;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case AMDGPU_INFO_VBIO=
+S_INFO: {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0struct drm_amdgpu_info_vbios vbios_info =3D {};<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0struct atom_context *atom_context;<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0atom_context =3D adev-&gt;mode_info.atom_context;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0memcpy(<a href=3D"http://vbios_info.name" rel=3D"noreferrer noreferr=
+er" target=3D"_blank">vbios_info.name</a>, atom_context-&gt;name, sizeof(at=
+om_context-&gt;name));<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0memcpy(vbios_info.vbios_pn, atom_context-&gt;vbios_pn, sizeof(atom_c=
+ontext-&gt;vbios_pn));<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0vbios_info.version =3D atom_context-&gt;version;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0memcpy(vbios_info.vbios_ver_str, atom_context-&gt;vbios_ver_str,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0sizeof(atom_context-&gt;vbios_ver_str));<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0memcpy(vbios_info.date, atom_context-&gt;date, <br>
+&gt; +sizeof(atom_context-&gt;date));<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0return copy_to_user(out, &amp;vbios_info,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0min((size_t)size, sizeof(vbios_info))) ? -EFAULT : 0;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0default:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0DRM_DEBUG_KMS(&quot;Invalid request %d\n&quot;,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0info-&=
+gt;vbios_info.type); diff <br>
+&gt; --git a/drivers/gpu/drm/amd/amdgpu/atom.c <br>
+&gt; b/drivers/gpu/drm/amd/amdgpu/atom.c<br>
+&gt; index 3dcb8b32f48b..6fa2229b7229 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/atom.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/atom.c<br>
+&gt; @@ -31,6 +31,7 @@<br>
+&gt;<br>
+&gt;=C2=A0 =C2=A0#define ATOM_DEBUG<br>
+&gt;<br>
+&gt; +#include &quot;atomfirmware.h&quot;<br>
+&gt;=C2=A0 =C2=A0#include &quot;atom.h&quot;<br>
+&gt;=C2=A0 =C2=A0#include &quot;atom-names.h&quot;<br>
+&gt;=C2=A0 =C2=A0#include &quot;atom-bits.h&quot;<br>
+&gt; @@ -1299,12 +1300,168 @@ static void atom_index_iio(struct atom_contex=
+t *ctx, int base)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt;=C2=A0 =C2=A0}<br>
+&gt;<br>
+&gt; +static void atom_get_vbios_name(struct atom_context *ctx) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0unsigned char *p_rom;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0unsigned char str_num;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0unsigned short off_to_vbios_str;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0unsigned char *c_ptr;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0int name_size;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0int i;<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0const char *na =3D &quot;--N/A--&quot;;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0char *back;<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0p_rom =3D ctx-&gt;bios;<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0str_num =3D *(p_rom + OFFSET_TO_GET_ATOMBIOS_NUMB=
+ER_OF_STRINGS);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0if (str_num !=3D 0) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0off_to_vbios_str =3D<=
 br>
-&gt; &gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_CG_SUPPORT_GFX=
-_MGLS |<br>
-&gt; &gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_CG_SUPPORT_GFX=
-_RLC_LS |<br>
-&gt; &gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_CG_SUPPORT_GFX=
-_CP_LS |<br>
-&gt; &gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_CG_SUPPORT_GFX_3D_CGCG |=
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0*(unsigned short *)(p_rom + <br>
+&gt; + OFFSET_TO_GET_ATOMBIOS_STRING_START);<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0c_ptr =3D (unsigned c=
+har *)(p_rom + off_to_vbios_str);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0} else {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* do not know where =
+to find name */<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0memcpy(ctx-&gt;name, =
+na, 7);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ctx-&gt;name[7] =3D 0=
+;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0/*<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 * skip the atombios strings, usually 4<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 * 1st is P/N, 2nd is ASIC, 3rd is PCI type, 4th =
+is Memory type<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 */<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0for (i =3D 0; i &lt; str_num; i++) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0while (*c_ptr !=3D 0)=
 <br>
-&gt; &gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_CG_SUPPORT_GFX=
-_3D_CGLS |<br>
-&gt; &gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_CG_SUPPORT_GFX=
-_CGCG |<br>
-&gt; &gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_CG_SUPPORT_GFX=
-_CGLS |<br>
-&gt; &gt; &gt; --<br>
-&gt; &gt; &gt; 2.17.1<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; _______________________________________________<br>
-&gt; &gt; &gt; amd-gfx mailing list<br>
-&gt; &gt; &gt; <a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lis=
-ts.freedesktop.org</a><br>
-&gt; &gt; &gt; <a href=3D"https://nam11.safelinks.protection.outlook.com/?u=
-rl=3Dhttps%3A%2F%2F">
-https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2F</a><br=
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0c_ptr++;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0c_ptr++;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0/* skip the following 2 chars: 0x0D 0x0A */<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0c_ptr +=3D 2;<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0name_size =3D strnlen(c_ptr, STRLEN_LONG - 1);<br=
 >
-&gt; &gt; &gt; li <br>
-&gt; &gt; &gt; sts.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;d=
-ata=3D04%7C0<br>
-&gt; &gt; &gt; 1% <br>
-&gt; &gt; &gt; 7CRay.Huang%40amd.com%7C0e273856253d4b3efd0b08d916e2892a%7C3=
-dd8961<br>
-&gt; &gt; &gt; fe <br>
-&gt; &gt; &gt; 4884e608e11a82d994e183d%7C0%7C0%7C637565984495414849%7CUnkno=
-wn%7CT<br>
-&gt; &gt; &gt; WF <br>
-&gt; &gt; &gt; pbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWw=
-iLCJXV<br>
-&gt; &gt; &gt; CI <br>
-&gt; &gt; &gt; 6Mn0%3D%7C1000&amp;amp;sdata=3DlBzswAPBguL0mWFglEk%2Bg2eDCEu=
-hir7JfFjov%2<br>
-&gt; &gt; &gt; BV<br>
-&gt; &gt; &gt; 7pSY%3D&amp;amp;reserved=3D0<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0memcpy(ctx-&gt;name, c_ptr, name_size);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0back =3D ctx-&gt;name + name_size;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0while ((*--back) =3D=3D &#39; &#39;)<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0*(back + 1) =3D &#39;\0&#39;;<br>
+&gt; +}<br>
+&gt; +<br>
+&gt; +static void atom_get_vbios_date(struct atom_context *ctx) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0unsigned char *p_rom;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0unsigned char *date_in_rom;<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0p_rom =3D ctx-&gt;bios;<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0date_in_rom =3D p_rom + OFFSET_TO_VBIOS_DATE;<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0ctx-&gt;date[0] =3D &#39;2&#39;;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0ctx-&gt;date[1] =3D &#39;0&#39;;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0ctx-&gt;date[2] =3D date_in_rom[6];<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0ctx-&gt;date[3] =3D date_in_rom[7];<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0ctx-&gt;date[4] =3D &#39;/&#39;;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0ctx-&gt;date[5] =3D date_in_rom[0];<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0ctx-&gt;date[6] =3D date_in_rom[1];<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0ctx-&gt;date[7] =3D &#39;/&#39;;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0ctx-&gt;date[8] =3D date_in_rom[3];<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0ctx-&gt;date[9] =3D date_in_rom[4];<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0ctx-&gt;date[10] =3D &#39; &#39;;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0ctx-&gt;date[11] =3D date_in_rom[9];<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0ctx-&gt;date[12] =3D date_in_rom[10];<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0ctx-&gt;date[13] =3D date_in_rom[11];<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0ctx-&gt;date[14] =3D date_in_rom[12];<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0ctx-&gt;date[15] =3D date_in_rom[13];<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0ctx-&gt;date[16] =3D &#39;\0&#39;;<br>
+&gt; +}<br>
+&gt; +<br>
+&gt; +static unsigned char *atom_find_str_in_rom(struct atom_context *ctx, =
+char *str, int start,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 int =
+end, int maxlen) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0unsigned long str_off;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0unsigned char *p_rom;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0unsigned short str_len;<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0str_off =3D 0;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0str_len =3D strnlen(str, maxlen);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0p_rom =3D ctx-&gt;bios;<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0for (; start &lt;=3D end; ++start) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0for (str_off =3D 0; s=
+tr_off &lt; str_len; ++str_off) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0if (str[str_off] !=3D *(p_rom + start + str_off))<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (str_off =3D=3D st=
+r_len || str[str_off] =3D=3D 0)<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0return p_rom + start;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0return NULL;<br>
+&gt; +}<br>
+&gt; +<br>
+&gt; +static void atom_get_vbios_pn(struct atom_context *ctx) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0unsigned char *p_rom;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0unsigned short off_to_vbios_str;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0unsigned char *vbios_str;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0int count;<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0off_to_vbios_str =3D 0;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0p_rom =3D ctx-&gt;bios;<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0if (*(p_rom + OFFSET_TO_GET_ATOMBIOS_NUMBER_OF_ST=
+RINGS) !=3D 0) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0off_to_vbios_str =3D<=
+br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0*(unsigned short *)(p_rom + <br>
+&gt; + OFFSET_TO_GET_ATOMBIOS_STRING_START);<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0vbios_str =3D (unsign=
+ed char *)(p_rom + off_to_vbios_str);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0} else {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0vbios_str =3D p_rom +=
+ OFFSET_TO_VBIOS_PART_NUMBER;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0if (*vbios_str =3D=3D 0) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0vbios_str =3D atom_fi=
+nd_str_in_rom(ctx, BIOS_ATOM_PREFIX, 3, 1024, 64);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (vbios_str =3D=3D =
+NULL)<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0vbios_str +=3D sizeof(BIOS_ATOM_PREFIX) - 1;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0if (vbios_str !=3D NULL &amp;&amp; *vbios_str =3D=
+=3D 0)<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0vbios_str++;<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0if (vbios_str !=3D NULL) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0count =3D 0;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0while ((count &lt; BI=
+OS_STRING_LENGTH) &amp;&amp; vbios_str[count] &gt;=3D &#39; &#39; &amp;&amp=
+;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ vbios_str[count] &lt;=3D &#39;z&#39;) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0ctx-&gt;vbios_pn[count] =3D vbios_str[count];<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0count++;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ctx-&gt;vbios_pn[coun=
+t] =3D 0;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
+&gt; +}<br>
+&gt; +<br>
+&gt; +static void atom_get_vbios_version(struct atom_context *ctx) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0unsigned char *vbios_ver;<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0/* find anchor ATOMBIOSBK-AMD */<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0vbios_ver =3D atom_find_str_in_rom(ctx, BIOS_VERS=
+ION_PREFIX, 3, 1024, 64);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0if (vbios_ver !=3D NULL) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* skip ATOMBIOSBK-AM=
+D VER */<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0vbios_ver +=3D 18;<br=
+>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0memcpy(ctx-&gt;vbios_=
+ver_str, vbios_ver, STRLEN_NORMAL);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0} else {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ctx-&gt;vbios_ver_str=
+[0] =3D &#39;\0&#39;;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
+&gt; +}<br>
+&gt; +<br>
+&gt;=C2=A0 =C2=A0struct atom_context *amdgpu_atom_parse(struct card_info *c=
+ard, void *bios)=C2=A0 {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0int base;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0struct atom_context *ctx =3D<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0kzalloc(sizeof(struct atom_con=
+text), GFP_KERNEL);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0char *str;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0struct _ATOM_ROM_HEADER *atom_rom_header;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0struct _ATOM_MASTER_DATA_TABLE *master_table;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0struct _ATOM_FIRMWARE_INFO *atom_fw_info;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0u16 idx;<br>
+&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0if (!ctx)<br>
+&gt; @@ -1353,6 +1510,21 @@ struct atom_context *amdgpu_atom_parse(struct c=
+ard_info *card, void *bios)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0strlcpy(ctx-&gt;=
+vbios_version, str, sizeof(ctx-&gt;vbios_version));<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0atom_rom_header =3D (struct _ATOM_ROM_HEADER *)CS=
+TR(base);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0if (atom_rom_header-&gt;usMasterDataTableOffset !=
+=3D 0) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0master_table =3D (str=
+uct _ATOM_MASTER_DATA_TABLE *)<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0CSTR(atom_rom_header-&gt;usMasterDataTab=
+leOffset);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (master_table-&gt;=
+ListOfDataTables.FirmwareInfo !=3D 0) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0atom_fw_info =3D (struct _ATOM_FIRMWARE_INFO *)<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0CSTR(master_=
+table-&gt;ListOfDataTables.FirmwareInfo);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0ctx-&gt;version =3D atom_fw_info-&gt;ulFirmwareRevision;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0atom_get_vbios_name(ctx);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0atom_get_vbios_pn(ctx);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0atom_get_vbios_date(ctx);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0atom_get_vbios_version(ctx);<br>
+&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0return ctx;<br>
+&gt;=C2=A0 =C2=A0}<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/atom.h <br>
+&gt; b/drivers/gpu/drm/amd/amdgpu/atom.h<br>
+&gt; index d279759cab47..0c1839824520 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/atom.h<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/atom.h<br>
+&gt; @@ -112,6 +112,10 @@ struct drm_device;<br>
+&gt;=C2=A0 =C2=A0#define ATOM_IO_SYSIO=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A02<br>
+&gt;=C2=A0 =C2=A0#define ATOM_IO_IIO=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00x80<=
+br>
+&gt;<br>
+&gt; +#define STRLEN_NORMAL=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 32<br>
+&gt; +#define STRLEN_LONG=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 64<br>
+&gt; +#define STRLEN_VERYLONG=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 254<br>
+&gt; +<br>
+&gt;=C2=A0 =C2=A0struct card_info {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0struct drm_device *dev;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0void (* reg_write)(struct card_info *, uint3=
+2_t, uint32_t);=C2=A0 =C2=A0/*=C2=A0 filled by driver */<br>
+&gt; @@ -140,6 +144,12 @@ struct atom_context {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0uint32_t *scratch;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0int scratch_size_bytes;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0char vbios_version[20];<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0uint8_t name[STRLEN_LONG];<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0uint8_t vbios_pn[STRLEN_LONG];<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0uint32_t version;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0uint8_t vbios_ver_str[STRLEN_NORMAL];<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0uint8_t date[STRLEN_NORMAL];<br>
+&gt;=C2=A0 =C2=A0};<br>
+&gt;<br>
+&gt;=C2=A0 =C2=A0extern int amdgpu_atom_debug;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/include/atomfirmware.h <br>
+&gt; b/drivers/gpu/drm/amd/include/atomfirmware.h<br>
+&gt; index 275468e4be60..28deecc2f990 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/include/atomfirmware.h<br>
+&gt; +++ b/drivers/gpu/drm/amd/include/atomfirmware.h<br>
+&gt; @@ -197,6 +197,9 @@ enum atom_dp_vs_preemph_def{<br>
+&gt;=C2=A0 =C2=A0 =C2=A0DP_VS_LEVEL0_PREEMPH_LEVEL3 =3D 0x18,<br>
+&gt;=C2=A0 =C2=A0};<br>
+&gt;<br>
+&gt; +#define BIOS_ATOM_PREFIX=C2=A0 =C2=A0&quot;ATOMBIOS&quot;<br>
+&gt; +#define BIOS_VERSION_PREFIX=C2=A0 &quot;ATOMBIOSBK-AMD&quot;<br>
+&gt; +#define BIOS_STRING_LENGTH 43<br>
+&gt;<br>
+&gt;=C2=A0 =C2=A0/*<br>
+&gt;=C2=A0 =C2=A0enum atom_string_def{<br>
+&gt; @@ -215,6 +218,8 @@ enum atombios_image_offset{<br>
+&gt;=C2=A0 =C2=A0 =C2=A0MAXSIZE_OF_ATOMBIOS_ASIC_BUS_MEM_TYPE=C2=A0 =C2=A0 =
+=C2=A0 =3D 20,=C2=A0 /*including the terminator 0x0!*/<br>
+&gt;=C2=A0 =C2=A0 =C2=A0OFFSET_TO_GET_ATOMBIOS_NUMBER_OF_STRINGS=C2=A0 =C2=
+=A0=3D 0x2f,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0OFFSET_TO_GET_ATOMBIOS_STRING_START=C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =3D 0x6e,<br>
+&gt; +=C2=A0 OFFSET_TO_VBIOS_PART_NUMBER=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =3D 0x80,<br>
+&gt; +=C2=A0 OFFSET_TO_VBIOS_DATE=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=3D 0x50,<br>
+&gt;=C2=A0 =C2=A0};<br>
+&gt;<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt; /*********************************************************************=
+<br>
+&gt; ******* diff --git a/include/uapi/drm/amdgpu_drm.h <br>
+&gt; b/include/uapi/drm/amdgpu_drm.h index 9169df7fadee..155fd9918b4d <br>
+&gt; 100644<br>
+&gt; --- a/include/uapi/drm/amdgpu_drm.h<br>
+&gt; +++ b/include/uapi/drm/amdgpu_drm.h<br>
+&gt; @@ -756,6 +756,8 @@ struct drm_amdgpu_cs_chunk_data {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0#define AMDGPU_INFO_VBIOS_SIZE=C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 0x1<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Subquery id: Query vbios image */<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0#define AMDGPU_INFO_VBIOS_IMAGE=C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A00x2<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0/* Subquery id: Query vbios info */<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0#define AMDGPU_INFO_VBIOS_INFO=C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 0x3<br>
+&gt;=C2=A0 =C2=A0/* Query UVD handles */<br>
+&gt;=C2=A0 =C2=A0#define AMDGPU_INFO_NUM_HANDLES=C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00x1C<br>
+&gt;=C2=A0 =C2=A0/* Query sensor related information */ @@ -949,6 +951,14 @=
+@ struct <br>
+&gt; drm_amdgpu_info_firmware {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0__u32 feature;<br>
+&gt;=C2=A0 =C2=A0};<br>
+&gt;<br>
+&gt; +struct drm_amdgpu_info_vbios {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0__u8 name[64];<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0__u8 vbios_pn[64];<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0__u32 version;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0__u8 vbios_ver_str[32];<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0__u8 date[32];<br>
+&gt; +};<br>
+&gt; +<br>
+&gt;=C2=A0 =C2=A0#define AMDGPU_VRAM_TYPE_UNKNOWN 0<br>
+&gt;=C2=A0 =C2=A0#define AMDGPU_VRAM_TYPE_GDDR1 1<br>
+&gt;=C2=A0 =C2=A0#define AMDGPU_VRAM_TYPE_DDR2=C2=A0 2<br>
+&gt; --<br>
+&gt; 2.17.1<br>
+<br>
 _______________________________________________<br>
 amd-gfx mailing list<br>
-<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
-org</a><br>
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org" target=3D"_blank" rel=3D"n=
+oreferrer">amd-gfx@lists.freedesktop.org</a><br>
 <a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
-F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D04%7C01=
-%7Cguchun.chen%40amd.com%7C3fc7a549816d4c8061c008d91a719cb8%7C3dd8961fe4884=
-e608e11a82d994e183d%7C0%7C0%7C637569897555065647%7CUnknown%7CTWFpbGZsb3d8ey=
-JWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp=
-;sdata=3DYTC%2FvVR%2BbPKw9JKayhmHapRkkEFaczoGzJJ3jFJqBAM%3D&amp;reserved=3D=
-0">https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flist=
-s.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D04%7C01%7Ca=
-lexander.deucher%40amd.com%7C6d2cfe6e59f54875f6fa08d91a6dd27f%7C3dd8961fe48=
-84e608e11a82d994e183d%7C0%7C0%7C637569881259273626%7CUnknown%7CTWFpbGZsb3d8=
-eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&a=
-mp;amp;sdata=3D33Is2P3sqdabI7PPuHFOmzuvXyFId%2BOTAMyJ8G5PhzI%3D&amp;amp;res=
-erved=3D0</a></p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</body>
-</html>
+F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D04%=
+7C01%7Ctom.stdenis%40amd.com%7C332524597a5e42ad491908d919ff414f%7C3dd8961fe=
+4884e608e11a82d994e183d%7C0%7C0%7C637569406377960645%7CUnknown%7CTWFpbGZsb3=
+d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000=
+&amp;amp;sdata=3DZFBUbqu1VjvQkpnQ4Wy6Q4XE9CB2IcFltOq3Iv12F7U%3D&amp;amp;res=
+erved=3D0" rel=3D"noreferrer noreferrer" target=3D"_blank">https://nam11.sa=
+felinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.freedesktop.org%2=
+Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D04%7C01%7Ctom.stdenis%40amd.co=
+m%7C332524597a5e42ad491908d919ff414f%7C3dd8961fe4884e608e11a82d994e183d%7C0=
+%7C0%7C637569406377960645%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQI=
+joiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;amp;sdata=3DZFBUbqu1Vj=
+vQkpnQ4Wy6Q4XE9CB2IcFltOq3Iv12F7U%3D&amp;amp;reserved=3D0</a><br>
+</blockquote></div>
 
---_000_MN2PR12MB448886D0F0CD237D056B3445F72B9MN2PR12MB4488namp_--
+--000000000000afc74505c2a62c6b--
 
---===============0545802079==
+--===============1723184269==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -998,4 +1143,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============0545802079==--
+--===============1723184269==--
