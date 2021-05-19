@@ -8,61 +8,63 @@ X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DB207C433ED
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 02:14:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E61D0C433B4
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 02:20:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9EF1661074
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 02:14:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9EF1661074
+	by mail.kernel.org (Postfix) with ESMTPS id A6C1861363
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 May 2021 02:20:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A6C1861363
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3824D6E153;
-	Wed, 19 May 2021 02:14:29 +0000 (UTC)
-Received: from mail-oi1-x232.google.com (mail-oi1-x232.google.com
- [IPv6:2607:f8b0:4864:20::232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E12DC6E153
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 May 2021 02:14:28 +0000 (UTC)
-Received: by mail-oi1-x232.google.com with SMTP id w127so7914823oig.12
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 May 2021 19:14:28 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 255606ECC0;
+	Wed, 19 May 2021 02:20:30 +0000 (UTC)
+Received: from mail-ot1-x32d.google.com (mail-ot1-x32d.google.com
+ [IPv6:2607:f8b0:4864:20::32d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E2166ECC0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 May 2021 02:20:01 +0000 (UTC)
+Received: by mail-ot1-x32d.google.com with SMTP id
+ t10-20020a05683022eab0290304ed8bc759so10435971otc.12
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 May 2021 19:20:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=fRAOgrPH2P25v5Muu5F3XJxaB4b0pgqBr4o/EA2EZ9U=;
- b=jHET6wtUq/vdWYWPYbH0UVzv0v5UjHkYdUkJ/6QViTYrsKYaUCKMUvP+CG+UsYQrj8
- x9pfoMK+I70Rgju41gLK1cWwW33/W6d/iK7UyS/ZcIJE0K8V1W1ziDhUbHxWsNDEJS1W
- 4tuVUh6lsF/WPJqrLwKWZTMBmjgvisnO8Tqv9ITroAiwQcPaYHzQomaI4TAi8zI7KjoI
- bxDp7auGLxMxhxju0dQOTQB16T7xe4+MF+pYq/dptiEmVEtJNTMRdOt2yO25Cg3CJXwl
- wJnh0zVJBNptRjTW4cPkgemIfOtwXVg2cFQMvJvm7sQ/gHwTr8oMJFwmyDf7se6Xm+sO
- gM7Q==
+ :cc; bh=5FGNGve67ZWXy0J3UZiYo1vBqbmNmiV+yxKlkklhzZY=;
+ b=tWlM3nL4L+OFZHT7KmBfQrad3YQRFD5Iu6AyNUxVzxzQJLD+0K08Ukys/IfHtHPa43
+ rlT6wNF2WAei23Y34w08xDATWgMHaYiHVHNaIJKhPut7j9NyUQrhZubcULKyu7by/lWv
+ KDUAySZa+1DPVp1hgECgtueWbnfdzlirgmEdl3HF1ORkpONsPhZXuna6tbF574iJFSFQ
+ ORADXvQl2TOBE3a3nPOEwo/hb4JIdSMbugRXwEjRPCE+a1LbVw1/P1iKQVYnLB8PlOYD
+ A2/OMs7bjI+quKqFkdX0NGjxXQbI2yLMn+03vSoL74EjW+C/Jffjv6etJQXXlakfDUni
+ vwlg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=fRAOgrPH2P25v5Muu5F3XJxaB4b0pgqBr4o/EA2EZ9U=;
- b=pbhlM0nSzbXm6iV8mW/wzXkHpSPVJ+UJQugbqpedRhlpjspY0CfbTeV4RCrCUHeovJ
- lVgG+SQau7468uFglnpu8eKuiwkpyMN3pZr4h7KPwyyES/S9jJ7r032M0EIcPSgqfvfw
- K7B+u71JtcQOaJDsHU2P6EsVz6QQswqTKJzubuqgv/kZP7OeRT4j5vJsOjvPvpBqsa8p
- PbFhBPY0qInxUiGNKPlHZVfeheBu31bi1oD0pKsfMOSIF5d060bMgEkb/z8OyBrpn158
- 0yFsmUBd1NNsKImqjwPSB3Is94trUWsD5KjFJE9gBElOXtVvDVAjkFG+EyWnjyqfWjsX
- jy1Q==
-X-Gm-Message-State: AOAM533eD85vWCpxjr4YyOc1z0Hf3wBNgyxUba9HKijwcHalFH73vDsm
- y261paRiKQkPdtqyhLWDku/kSriqF/NixH8OAIE=
-X-Google-Smtp-Source: ABdhPJwaEIl10R3QitnFLElXW9vd5SvvOOqxG2ckeWDo9dxXYywk5y7ozPNdZWSv/h6tfG/o9NhhKVd/uIKbdqrIN84=
-X-Received: by 2002:a05:6808:206:: with SMTP id l6mr5498548oie.5.1621390468222; 
- Tue, 18 May 2021 19:14:28 -0700 (PDT)
+ bh=5FGNGve67ZWXy0J3UZiYo1vBqbmNmiV+yxKlkklhzZY=;
+ b=Hsi3aM2ebFDfx133p5vpqRJxQkpGPpz6LN7KomyQMfdyjWqUZOmNip+tKX/1ricuRd
+ 4M5kd7WYk9YNpTBbgnSdo0YGrpJs7VR6b9VMKGajt1MH8/epoG5NBuXYeiCGWC2zncW3
+ dYKz6kCbNNZlYF3Kz6kDJK45WZWkL8+QjMuGHZdeUXB6504SlDgYcT8o3XBHyOWjJCa0
+ tC2RFBQ3vRxtV2/L0IwRclli6NClWtr+dgvjEDGXat8aocYsCxG6aY22LbDaMIQQukfn
+ 9L66cEBjwpgemm2c64OVqrQmzFyEkUlTBFCvZAHsEDYBuRjPOOOpFYpBU9hE353NtxTg
+ HhhA==
+X-Gm-Message-State: AOAM531OqPkEQR7d2J7c4WY6gsTSnrkVTd2KctZUZYe/JxS+KsORhcBq
+ l0NjFxxTTJVZ1wmfZUtSjFmoo7fNJduKDuMV8CwimrC+
+X-Google-Smtp-Source: ABdhPJyuiChm37DGUEsPNkF9nTcAZ8xEOEJVaCT4UiJ7E0mysxr2Vh2KQg/lfjBCJj2tbixU4R/Hkjvm7JS+HtoYZeU=
+X-Received: by 2002:a9d:57cd:: with SMTP id q13mr6781234oti.23.1621390800926; 
+ Tue, 18 May 2021 19:20:00 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210518020502.351803-1-evan.quan@amd.com>
- <BYAPR12MB364031C662ABE2B04ADE75758E2C9@BYAPR12MB3640.namprd12.prod.outlook.com>
- <CADnq5_ObXZajNNTGpp4ffR+aC-mvyXgOJzfPm-oz_K15eq+zjQ@mail.gmail.com>
- <CADnq5_N_U36ZbGvg7SVadn91F2VGEr8EqXw03CjnnjcyW-SgJw@mail.gmail.com>
-In-Reply-To: <CADnq5_N_U36ZbGvg7SVadn91F2VGEr8EqXw03CjnnjcyW-SgJw@mail.gmail.com>
+References: <20210514081944.16849-1-changfeng.zhu@amd.com>
+ <CADnq5_P4tvpTkmzpn=7V8qvfvy3aiR3WO967UObKKacJzQro9w@mail.gmail.com>
+ <20210517062724.GA1853590@hr-amd>
+ <MW2PR12MB46847BE39163543C680AF9BCFD2D9@MW2PR12MB4684.namprd12.prod.outlook.com>
+In-Reply-To: <MW2PR12MB46847BE39163543C680AF9BCFD2D9@MW2PR12MB4684.namprd12.prod.outlook.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 18 May 2021 22:14:17 -0400
-Message-ID: <CADnq5_NtT9tkodwjXycA2iiwMA3GU4-9b215R8Tg9W0O0UkBPA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/pm: correct MGpuFanBoost setting
-To: "Feng, Kenneth" <Kenneth.Feng@amd.com>
+Date: Tue, 18 May 2021 22:19:50 -0400
+Message-ID: <CADnq5_OmpYjzaeGPUC4rUNkSo_CP+8zFfZQsF6d+2fLegtxUkQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: disable 3DCGCG on picasso/raven1 to avoid
+ compute hang
+To: "Zhu, Changfeng" <Changfeng.Zhu@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,109 +76,141 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Quan,
- Evan" <Evan.Quan@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: "Huang, Ray" <Ray.Huang@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, May 18, 2021 at 10:13 PM Alex Deucher <alexdeucher@gmail.com> wrote:
->
-> Can also add:
-> Fixes: https://gitlab.freedesktop.org/drm/amd/-/issues/1580
+Care to submit a patch to re-enable the extra compute queues?
 
-er,
-Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1580
+Alex
 
+On Mon, May 17, 2021 at 4:09 AM Zhu, Changfeng <Changfeng.Zhu@amd.com> wrote:
 >
-> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+> [AMD Official Use Only - Internal Distribution Only]
 >
-> Alex
+> Hi Ray and Alex,
 >
-> On Tue, May 18, 2021 at 10:12 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+> I have confirmed it can enable the additional compute queues with this patch:
+>
+> [   41.823013] This is ring mec 1, pipe 0, queue 0, value 1
+> [   41.823028] This is ring mec 1, pipe 1, queue 0, value 1
+> [   41.823042] This is ring mec 1, pipe 2, queue 0, value 1
+> [   41.823057] This is ring mec 1, pipe 3, queue 0, value 1
+> [   41.823071] This is ring mec 1, pipe 0, queue 1, value 1
+> [   41.823086] This is ring mec 1, pipe 1, queue 1, value 1
+> [   41.823101] This is ring mec 1, pipe 2, queue 1, value 1
+> [   41.823115] This is ring mec 1, pipe 3, queue 1, value 1
+>
+> BR,
+> Changfeng.
+>
+>
+> -----Original Message-----
+> From: Huang, Ray <Ray.Huang@amd.com>
+> Sent: Monday, May 17, 2021 2:27 PM
+> To: Alex Deucher <alexdeucher@gmail.com>; Zhu, Changfeng <Changfeng.Zhu@amd.com>
+> Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+> Subject: Re: [PATCH] drm/amdgpu: disable 3DCGCG on picasso/raven1 to avoid compute hang
+>
+> On Fri, May 14, 2021 at 10:13:55PM +0800, Alex Deucher wrote:
+> > On Fri, May 14, 2021 at 4:20 AM <changfeng.zhu@amd.com> wrote:
+> > >
+> > > From: changzhu <Changfeng.Zhu@amd.com>
+> > >
+> > > From: Changfeng <Changfeng.Zhu@amd.com>
+> > >
+> > > There is problem with 3DCGCG firmware and it will cause compute test
+> > > hang on picasso/raven1. It needs to disable 3DCGCG in driver to
+> > > avoid compute hang.
+> > >
+> > > Change-Id: Ic7d3c7922b2b32f7ac5193d6a4869cbc5b3baa87
+> > > Signed-off-by: Changfeng <Changfeng.Zhu@amd.com>
 > >
-> > Do we need a similar check in the vega powerplay code?
+> > Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 > >
+> > WIth this applied, can we re-enable the additional compute queues?
+> >
+>
+> I think so.
+>
+> Changfeng, could you please confirm this on all raven series?
+>
+> Patch is Reviewed-by: Huang Rui <ray.huang@amd.com>
+>
 > > Alex
 > >
-> >
-> > On Mon, May 17, 2021 at 10:59 PM Feng, Kenneth <Kenneth.Feng@amd.com> wrote:
-> > >
-> > > [AMD Official Use Only]
-> > >
-> > > Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
-> > >
-> > > -----Original Message-----
-> > > From: Quan, Evan <Evan.Quan@amd.com>
-> > > Sent: Tuesday, May 18, 2021 10:05 AM
-> > > To: amd-gfx@lists.freedesktop.org
-> > > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>; Quan, Evan <Evan.Quan@amd.com>
-> > > Subject: [PATCH] drm/amd/pm: correct MGpuFanBoost setting
-> > >
-> > > No MGpuFanBoost setting for those ASICs which do not support it.
-> > > Otherwise, it may breaks their fan control feature.
-> > >
-> > > Change-Id: Ifa9c87ac537a07937a0f0f6a670f21368eb29218
-> > > Signed-off-by: Evan Quan <evan.quan@amd.com>
 > > > ---
-> > >  drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c        |  9 +++++++++
-> > >  .../gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c    | 10 ++++++++++
-> > >  2 files changed, 19 insertions(+)
+> > >  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 10 +++++++---
+> > >  drivers/gpu/drm/amd/amdgpu/soc15.c    |  2 --
+> > >  2 files changed, 7 insertions(+), 5 deletions(-)
 > > >
-> > > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> > > index d2063b1e7936..f16c76038f13 100644
-> > > --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> > > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> > > @@ -2936,6 +2936,8 @@ static ssize_t navi1x_get_gpu_metrics(struct smu_context *smu,
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> > > b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> > > index 22608c45f07c..feaa5e4a5538 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> > > @@ -4947,7 +4947,7 @@ static void gfx_v9_0_update_3d_clock_gating(struct amdgpu_device *adev,
+> > >         amdgpu_gfx_rlc_enter_safe_mode(adev);
 > > >
-> > >  static int navi10_enable_mgpu_fan_boost(struct smu_context *smu)  {
-> > > +       struct smu_table_context *table_context = &smu->smu_table;
-> > > +       PPTable_t *smc_pptable = table_context->driver_pptable;
-> > >         struct amdgpu_device *adev = smu->adev;
-> > >         uint32_t param = 0;
+> > >         /* Enable 3D CGCG/CGLS */
+> > > -       if (enable && (adev->cg_flags & AMD_CG_SUPPORT_GFX_3D_CGCG)) {
+> > > +       if (enable) {
+> > >                 /* write cmd to clear cgcg/cgls ov */
+> > >                 def = data = RREG32_SOC15(GC, 0, mmRLC_CGTT_MGCG_OVERRIDE);
+> > >                 /* unset CGCG override */ @@ -4959,8 +4959,12 @@
+> > > static void gfx_v9_0_update_3d_clock_gating(struct amdgpu_device *adev,
+> > >                 /* enable 3Dcgcg FSM(0x0000363f) */
+> > >                 def = RREG32_SOC15(GC, 0, mmRLC_CGCG_CGLS_CTRL_3D);
 > > >
-> > > @@ -2943,6 +2945,13 @@ static int navi10_enable_mgpu_fan_boost(struct smu_context *smu)
-> > >         if (adev->asic_type == CHIP_NAVI12)
-> > >                 return 0;
-> > >
-> > > +       /*
-> > > +        * Skip the MGpuFanBoost setting for those ASICs
-> > > +        * which do not support it
-> > > +        */
-> > > +       if (!smc_pptable->MGpuFanBoostLimitRpm)
-> > > +               return 0;
+> > > -               data = (0x36 << RLC_CGCG_CGLS_CTRL_3D__CGCG_GFX_IDLE_THRESHOLD__SHIFT) |
+> > > -                       RLC_CGCG_CGLS_CTRL_3D__CGCG_EN_MASK;
+> > > +               if (adev->cg_flags & AMD_CG_SUPPORT_GFX_3D_CGCG)
+> > > +                       data = (0x36 << RLC_CGCG_CGLS_CTRL_3D__CGCG_GFX_IDLE_THRESHOLD__SHIFT) |
+> > > +                               RLC_CGCG_CGLS_CTRL_3D__CGCG_EN_MASK;
+> > > +               else
+> > > +                       data = 0x0 <<
+> > > + RLC_CGCG_CGLS_CTRL_3D__CGCG_GFX_IDLE_THRESHOLD__SHIFT;
 > > > +
-> > >         /* Workaround for WS SKU */
-> > >         if (adev->pdev->device == 0x7312 &&
-> > >             adev->pdev->revision == 0)
-> > > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> > > index 3c3a7f9233e0..159cd698323e 100644
-> > > --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> > > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> > > @@ -3201,6 +3201,16 @@ static ssize_t sienna_cichlid_get_gpu_metrics(struct smu_context *smu,
-> > >
-> > >  static int sienna_cichlid_enable_mgpu_fan_boost(struct smu_context *smu)  {
-> > > +       struct smu_table_context *table_context = &smu->smu_table;
-> > > +       PPTable_t *smc_pptable = table_context->driver_pptable;
-> > > +
-> > > +       /*
-> > > +        * Skip the MGpuFanBoost setting for those ASICs
-> > > +        * which do not support it
-> > > +        */
-> > > +       if (!smc_pptable->MGpuFanBoostLimitRpm)
-> > > +               return 0;
-> > > +
-> > >         return smu_cmn_send_smc_msg_with_param(smu,
-> > >                                                SMU_MSG_SetMGpuFanBoostLimitRpm,
-> > >                                                0,
+> > >                 if (adev->cg_flags & AMD_CG_SUPPORT_GFX_3D_CGLS)
+> > >                         data |= (0x000F << RLC_CGCG_CGLS_CTRL_3D__CGLS_REP_COMPANSAT_DELAY__SHIFT) |
+> > >                                 RLC_CGCG_CGLS_CTRL_3D__CGLS_EN_MASK;
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c
+> > > b/drivers/gpu/drm/amd/amdgpu/soc15.c
+> > > index 4b660b2d1c22..080e715799d4 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+> > > @@ -1393,7 +1393,6 @@ static int soc15_common_early_init(void *handle)
+> > >                         adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
+> > >                                 AMD_CG_SUPPORT_GFX_MGLS |
+> > >                                 AMD_CG_SUPPORT_GFX_CP_LS |
+> > > -                               AMD_CG_SUPPORT_GFX_3D_CGCG |
+> > >                                 AMD_CG_SUPPORT_GFX_3D_CGLS |
+> > >                                 AMD_CG_SUPPORT_GFX_CGCG |
+> > >                                 AMD_CG_SUPPORT_GFX_CGLS | @@ -1413,7
+> > > +1412,6 @@ static int soc15_common_early_init(void *handle)
+> > >                                 AMD_CG_SUPPORT_GFX_MGLS |
+> > >                                 AMD_CG_SUPPORT_GFX_RLC_LS |
+> > >                                 AMD_CG_SUPPORT_GFX_CP_LS |
+> > > -                               AMD_CG_SUPPORT_GFX_3D_CGCG |
+> > >                                 AMD_CG_SUPPORT_GFX_3D_CGLS |
+> > >                                 AMD_CG_SUPPORT_GFX_CGCG |
+> > >                                 AMD_CG_SUPPORT_GFX_CGLS |
 > > > --
-> > > 2.29.0
+> > > 2.17.1
+> > >
 > > > _______________________________________________
 > > > amd-gfx mailing list
 > > > amd-gfx@lists.freedesktop.org
-> > > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+> > > https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fli
+> > > sts.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%
+> > > 7CRay.Huang%40amd.com%7C0e273856253d4b3efd0b08d916e2892a%7C3dd8961fe
+> > > 4884e608e11a82d994e183d%7C0%7C0%7C637565984495414849%7CUnknown%7CTWF
+> > > pbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI
+> > > 6Mn0%3D%7C1000&amp;sdata=lBzswAPBguL0mWFglEk%2Bg2eDCEuhir7JfFjov%2BV
+> > > 7pSY%3D&amp;reserved=0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
