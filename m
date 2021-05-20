@@ -8,60 +8,60 @@ X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E351FC433B4
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 May 2021 03:47:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BDAB4C433ED
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 May 2021 03:48:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A68A36108D
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 May 2021 03:47:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A68A36108D
+	by mail.kernel.org (Postfix) with ESMTPS id 7935E611BE
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 May 2021 03:48:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7935E611BE
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DF0D6E83A;
-	Thu, 20 May 2021 03:47:41 +0000 (UTC)
-Received: from mail-ot1-x329.google.com (mail-ot1-x329.google.com
- [IPv6:2607:f8b0:4864:20::329])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 777BD6E83A
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 May 2021 03:47:39 +0000 (UTC)
-Received: by mail-ot1-x329.google.com with SMTP id
- n32-20020a9d1ea30000b02902a53d6ad4bdso13701061otn.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 May 2021 20:47:39 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 073EA6E839;
+	Thu, 20 May 2021 03:48:34 +0000 (UTC)
+Received: from mail-ot1-x32a.google.com (mail-ot1-x32a.google.com
+ [IPv6:2607:f8b0:4864:20::32a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EC856E839
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 May 2021 03:48:32 +0000 (UTC)
+Received: by mail-ot1-x32a.google.com with SMTP id
+ i14-20020a9d624e0000b029033683c71999so2512222otk.5
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 May 2021 20:48:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=dudmbYtWfCwaj3uZQevOZ96/iI2ctHUxdktAQhN04Rw=;
- b=qj4FxknpvLRX8BFMG6FhgCofj+DR3RDajK2X+xO9DIMwS0QX1YnfzrcfuWH6atkaDY
- GcCu0YIiia23klfgd1s0qmoLPfEYLx0RjbF4eRjuwdpuMhO6X090p1plQG8PEp1MGBf8
- pOS4QwJqrtJK2vntE7WNMuTaHWhIWLPHGogxgGIwe94uOAHlmhonvc+MYPJ5ZoEThYmf
- OnGVTdDy8RUnPc1Ay292zMgsFXphMeXvkZF/qZ8y9YAyRjydPTgEVoLCe6IdwKmcjmCg
- 6xudq5TW4+vdCbfsnqEYFRDAcaEYfimS3WoB+zEaLXzoayCCUatbm1YRn187yQfwo42P
- C+jQ==
+ :cc; bh=SAybIDptnyWL2NwGraFZl83ghvhiw0d1pDGYuphoUVQ=;
+ b=ndEYES9+RwnUQITurwG6eGZKq6EG1GVfzSsinNwA1oi13wirsniBackCyjUOR7WO4r
+ UgqSZ3lidccA+U6Au9Wlt5LBw3tCb2/kMuOIm+tNUsIjvm3Ro14GxeBeFBzYegI8ga8o
+ PA2W+gOecwLK6adNnkfDtWk3mlZCGzLAbeEL10j2wd48A6DWl19nwgQ33Sbf6p4y2MCQ
+ mLY2nLj/A9kgQm0qP4THssNN/jrRH0QIhwHyn5WAzkkeZ8y+TO7pG68lgd99GXmSAiW1
+ /QDX6MDA9NsyDQLQ6GGIPXKnIW9biROe/2x0CpKg31LYo+vpXg1jGonofRe9EIF+XlUM
+ +URQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=dudmbYtWfCwaj3uZQevOZ96/iI2ctHUxdktAQhN04Rw=;
- b=CmxzeFQVUfPGwoy+puSHAu5NXemvAYJ86j2o+JyXbdxDwKVvf3pdahut9djIRIqmwG
- zMECapB5dT9+c5WuPPX9y8n7CoFULWUspyINTT0mitcBlBIZl5Qn8Ss9tQp/2QuOxYSB
- wxBbmimK5D1KkF7OJ7wPbDKQ8Ypx9Y/0cEAs8G3+x08/Yf1jVPOcX42dp4sKxOrS/LOU
- Pc0/GjL7I9UUruu+vFliVBWjFDNPDnA+nTlvAR4k1cyCgiRxYUk5z/WuOfNIRA9lt/rm
- uy+iZKlU6LHKpeJnxRYm3LnlZDuoRahkf7ZHZZCrKuP+BWKsyvsDTdWNh2IUtMtv+ogl
- KLYw==
-X-Gm-Message-State: AOAM531061S1UUg/AY9kveD6hJtNpROV/IaYrHwnojq4xlSlhiCAhcKv
- nB80AVJkdtooDDGF0JCc5jb477+KUaNREji1S3Y=
-X-Google-Smtp-Source: ABdhPJxtwbybdTqtdABQ9wZXs3yLODK6ohzFQnileFmS3jfBQdAMzjM7uVytJQ4YvNboHSXvYJ/q2Hb1pYOC4qeXSD8=
-X-Received: by 2002:a9d:74c6:: with SMTP id a6mr2346538otl.132.1621482458852; 
- Wed, 19 May 2021 20:47:38 -0700 (PDT)
+ bh=SAybIDptnyWL2NwGraFZl83ghvhiw0d1pDGYuphoUVQ=;
+ b=CjBCB3HpiO96PS+2Kpf6tmfd8r3FtoCEfll/f9w17I8aghJTVG5y6hh9bPaCzlQAca
+ p4zQ+8w5nqd4vGYQgcXz1MC2QYDq4lM4ZuC+2NrdinRlVo3C5kskMuetuB9wAKX+ZnHq
+ raZuxU7mGCdgP5Z7tnXLd8mxbtXZvmN6WMPesnlr3REdFXOd48xsiuE/G0RQnQ8KYQuu
+ XWte8cIaMBOtTTl/lyvPoJN+O0nwKaK3PAotGPbxFtpPwohN2rBwA4mhQsFzXM0hb63J
+ OFffc9pd2eBvSJUWO2riguHhwGrv6h3q/vwGiJR0VfuXt1Nk4dHOFg4wQjI9erCfhkJi
+ pL+Q==
+X-Gm-Message-State: AOAM533GReecPaBQ4K6bRq7xn9JXBuLg0bzPrvDiGpsavj5jpa9jS2v6
+ YvSyCZc8XXzx7UYrY7rA7eCklVFzIyL/EhNQBaSI8pQs
+X-Google-Smtp-Source: ABdhPJx8MHyc7mEXGX5kviRpox7qoSNSKr3YSvOJjifSONhO/lupMt7iDZA5Hw4vlIOOXwchVSJHeFKJuBjrKryvC9Y=
+X-Received: by 2002:a9d:6548:: with SMTP id q8mr2299576otl.311.1621482511559; 
+ Wed, 19 May 2021 20:48:31 -0700 (PDT)
 MIME-Version: 1.0
 References: <20210517143910.2125-1-PengJu.Zhou@amd.com>
- <20210517143910.2125-10-PengJu.Zhou@amd.com>
-In-Reply-To: <20210517143910.2125-10-PengJu.Zhou@amd.com>
+ <20210517143910.2125-8-PengJu.Zhou@amd.com>
+In-Reply-To: <20210517143910.2125-8-PengJu.Zhou@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 19 May 2021 23:47:28 -0400
-Message-ID: <CADnq5_NtV-tzvWNGpXu239r805tvu0muQhmUYyG_w-ezBZ_rWQ@mail.gmail.com>
-Subject: Re: [PATCH v5 10/10] drm/amdgpu: Skip the program of MMMC_VM_AGP_* in
- SRIOV
+Date: Wed, 19 May 2021 23:48:20 -0400
+Message-ID: <CADnq5_PUB-uRRr73ZgfLkEKfHuAvVMttY-Tz_bt++UpRy5L-_A@mail.gmail.com>
+Subject: Re: [PATCH v5 08/10] drm/amdgpu: Modify MMHUB register access from
+ MMIO to RLCG in file mmhub_v2*
 To: Peng Ju Zhou <PengJu.Zhou@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,39 +82,133 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On Mon, May 17, 2021 at 10:39 AM Peng Ju Zhou <PengJu.Zhou@amd.com> wrote:
 >
-> KMD should not program these registers, the value were
-> defined in the host, so skip them in the SRIOV environment.
+> From: pengzhou <PengJu.Zhou@amd.com>
 >
-> Signed-off-by: Peng Ju Zhou <PengJu.Zhou@amd.com>
+> In SRIOV environment, KMD should access GC registers
+> with RLCG if GC indirect access flag enabled.
+>
+> Signed-off-by: pengzhou <PengJu.Zhou@amd.com>
 
+Patches 1-8 are:
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+See my comments on patch 9.
+
+Alex
 
 > ---
->  drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c | 10 +++++-----
->  1 file changed, 5 insertions(+), 5 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c | 37 +++++++++++++------------
+>  1 file changed, 19 insertions(+), 18 deletions(-)
 >
 > diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
-> index e24225b3d42a..422d106a650b 100644
+> index ac76081b91d5..e24225b3d42a 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
-> @@ -197,12 +197,12 @@ static void mmhub_v2_0_init_system_aperture_regs(struct amdgpu_device *adev)
->         uint64_t value;
+> @@ -29,6 +29,7 @@
+>  #include "mmhub/mmhub_2_0_0_default.h"
+>  #include "navi10_enum.h"
+>
+> +#include "gc/gc_10_1_0_offset.h"
+>  #include "soc15_common.h"
+>
+>  #define mmMM_ATC_L2_MISC_CG_Sienna_Cichlid                      0x064d
+> @@ -165,11 +166,11 @@ static void mmhub_v2_0_setup_vm_pt_regs(struct amdgpu_device *adev, uint32_t vmi
+>  {
+>         struct amdgpu_vmhub *hub = &adev->vmhub[AMDGPU_MMHUB_0];
+>
+> -       WREG32_SOC15_OFFSET(MMHUB, 0, mmMMVM_CONTEXT0_PAGE_TABLE_BASE_ADDR_LO32,
+> +       WREG32_SOC15_OFFSET_RLC(MMHUB, 0, mmMMVM_CONTEXT0_PAGE_TABLE_BASE_ADDR_LO32,
+>                             hub->ctx_addr_distance * vmid,
+>                             lower_32_bits(page_table_base));
+>
+> -       WREG32_SOC15_OFFSET(MMHUB, 0, mmMMVM_CONTEXT0_PAGE_TABLE_BASE_ADDR_HI32,
+> +       WREG32_SOC15_OFFSET_RLC(MMHUB, 0, mmMMVM_CONTEXT0_PAGE_TABLE_BASE_ADDR_HI32,
+>                             hub->ctx_addr_distance * vmid,
+>                             upper_32_bits(page_table_base));
+>  }
+> @@ -180,14 +181,14 @@ static void mmhub_v2_0_init_gart_aperture_regs(struct amdgpu_device *adev)
+>
+>         mmhub_v2_0_setup_vm_pt_regs(adev, 0, pt_base);
+>
+> -       WREG32_SOC15(MMHUB, 0, mmMMVM_CONTEXT0_PAGE_TABLE_START_ADDR_LO32,
+> +       WREG32_SOC15_RLC(MMHUB, 0, mmMMVM_CONTEXT0_PAGE_TABLE_START_ADDR_LO32,
+>                      (u32)(adev->gmc.gart_start >> 12));
+> -       WREG32_SOC15(MMHUB, 0, mmMMVM_CONTEXT0_PAGE_TABLE_START_ADDR_HI32,
+> +       WREG32_SOC15_RLC(MMHUB, 0, mmMMVM_CONTEXT0_PAGE_TABLE_START_ADDR_HI32,
+>                      (u32)(adev->gmc.gart_start >> 44));
+>
+> -       WREG32_SOC15(MMHUB, 0, mmMMVM_CONTEXT0_PAGE_TABLE_END_ADDR_LO32,
+> +       WREG32_SOC15_RLC(MMHUB, 0, mmMMVM_CONTEXT0_PAGE_TABLE_END_ADDR_LO32,
+>                      (u32)(adev->gmc.gart_end >> 12));
+> -       WREG32_SOC15(MMHUB, 0, mmMMVM_CONTEXT0_PAGE_TABLE_END_ADDR_HI32,
+> +       WREG32_SOC15_RLC(MMHUB, 0, mmMMVM_CONTEXT0_PAGE_TABLE_END_ADDR_HI32,
+>                      (u32)(adev->gmc.gart_end >> 44));
+>  }
+>
+> @@ -197,9 +198,9 @@ static void mmhub_v2_0_init_system_aperture_regs(struct amdgpu_device *adev)
 >         uint32_t tmp;
 >
-> -       /* Program the AGP BAR */
-> -       WREG32_SOC15_RLC(MMHUB, 0, mmMMMC_VM_AGP_BASE, 0);
-> -       WREG32_SOC15_RLC(MMHUB, 0, mmMMMC_VM_AGP_BOT, adev->gmc.agp_start >> 24);
-> -       WREG32_SOC15_RLC(MMHUB, 0, mmMMMC_VM_AGP_TOP, adev->gmc.agp_end >> 24);
-> -
+>         /* Program the AGP BAR */
+> -       WREG32_SOC15(MMHUB, 0, mmMMMC_VM_AGP_BASE, 0);
+> -       WREG32_SOC15(MMHUB, 0, mmMMMC_VM_AGP_BOT, adev->gmc.agp_start >> 24);
+> -       WREG32_SOC15(MMHUB, 0, mmMMMC_VM_AGP_TOP, adev->gmc.agp_end >> 24);
+> +       WREG32_SOC15_RLC(MMHUB, 0, mmMMMC_VM_AGP_BASE, 0);
+> +       WREG32_SOC15_RLC(MMHUB, 0, mmMMMC_VM_AGP_BOT, adev->gmc.agp_start >> 24);
+> +       WREG32_SOC15_RLC(MMHUB, 0, mmMMMC_VM_AGP_TOP, adev->gmc.agp_end >> 24);
+>
 >         if (!amdgpu_sriov_vf(adev)) {
-> +               /* Program the AGP BAR */
-> +               WREG32_SOC15_RLC(MMHUB, 0, mmMMMC_VM_AGP_BASE, 0);
-> +               WREG32_SOC15_RLC(MMHUB, 0, mmMMMC_VM_AGP_BOT, adev->gmc.agp_start >> 24);
-> +               WREG32_SOC15_RLC(MMHUB, 0, mmMMMC_VM_AGP_TOP, adev->gmc.agp_end >> 24);
-> +
 >                 /* Program the system aperture low logical page number. */
->                 WREG32_SOC15(MMHUB, 0, mmMMMC_VM_SYSTEM_APERTURE_LOW_ADDR,
->                              min(adev->gmc.fb_start, adev->gmc.agp_start) >> 18);
+> @@ -308,7 +309,7 @@ static void mmhub_v2_0_enable_system_domain(struct amdgpu_device *adev)
+>         tmp = REG_SET_FIELD(tmp, MMVM_CONTEXT0_CNTL, PAGE_TABLE_DEPTH, 0);
+>         tmp = REG_SET_FIELD(tmp, MMVM_CONTEXT0_CNTL,
+>                             RETRY_PERMISSION_OR_INVALID_PAGE_FAULT, 0);
+> -       WREG32_SOC15(MMHUB, 0, mmMMVM_CONTEXT0_CNTL, tmp);
+> +       WREG32_SOC15_RLC(MMHUB, 0, mmMMVM_CONTEXT0_CNTL, tmp);
+>  }
+>
+>  static void mmhub_v2_0_disable_identity_aperture(struct amdgpu_device *adev)
+> @@ -370,16 +371,16 @@ static void mmhub_v2_0_setup_vmid_config(struct amdgpu_device *adev)
+>                 tmp = REG_SET_FIELD(tmp, MMVM_CONTEXT1_CNTL,
+>                                     RETRY_PERMISSION_OR_INVALID_PAGE_FAULT,
+>                                     !adev->gmc.noretry);
+> -               WREG32_SOC15_OFFSET(MMHUB, 0, mmMMVM_CONTEXT1_CNTL,
+> +               WREG32_SOC15_OFFSET_RLC(MMHUB, 0, mmMMVM_CONTEXT1_CNTL,
+>                                     i * hub->ctx_distance, tmp);
+> -               WREG32_SOC15_OFFSET(MMHUB, 0, mmMMVM_CONTEXT1_PAGE_TABLE_START_ADDR_LO32,
+> +               WREG32_SOC15_OFFSET_RLC(MMHUB, 0, mmMMVM_CONTEXT1_PAGE_TABLE_START_ADDR_LO32,
+>                                     i * hub->ctx_addr_distance, 0);
+> -               WREG32_SOC15_OFFSET(MMHUB, 0, mmMMVM_CONTEXT1_PAGE_TABLE_START_ADDR_HI32,
+> +               WREG32_SOC15_OFFSET_RLC(MMHUB, 0, mmMMVM_CONTEXT1_PAGE_TABLE_START_ADDR_HI32,
+>                                     i * hub->ctx_addr_distance, 0);
+> -               WREG32_SOC15_OFFSET(MMHUB, 0, mmMMVM_CONTEXT1_PAGE_TABLE_END_ADDR_LO32,
+> +               WREG32_SOC15_OFFSET_RLC(MMHUB, 0, mmMMVM_CONTEXT1_PAGE_TABLE_END_ADDR_LO32,
+>                                     i * hub->ctx_addr_distance,
+>                                     lower_32_bits(adev->vm_manager.max_pfn - 1));
+> -               WREG32_SOC15_OFFSET(MMHUB, 0, mmMMVM_CONTEXT1_PAGE_TABLE_END_ADDR_HI32,
+> +               WREG32_SOC15_OFFSET_RLC(MMHUB, 0, mmMMVM_CONTEXT1_PAGE_TABLE_END_ADDR_HI32,
+>                                     i * hub->ctx_addr_distance,
+>                                     upper_32_bits(adev->vm_manager.max_pfn - 1));
+>         }
+> @@ -391,9 +392,9 @@ static void mmhub_v2_0_program_invalidation(struct amdgpu_device *adev)
+>         unsigned i;
+>
+>         for (i = 0; i < 18; ++i) {
+> -               WREG32_SOC15_OFFSET(MMHUB, 0, mmMMVM_INVALIDATE_ENG0_ADDR_RANGE_LO32,
+> +               WREG32_SOC15_OFFSET_RLC(MMHUB, 0, mmMMVM_INVALIDATE_ENG0_ADDR_RANGE_LO32,
+>                                     i * hub->eng_addr_distance, 0xffffffff);
+> -               WREG32_SOC15_OFFSET(MMHUB, 0, mmMMVM_INVALIDATE_ENG0_ADDR_RANGE_HI32,
+> +               WREG32_SOC15_OFFSET_RLC(MMHUB, 0, mmMMVM_INVALIDATE_ENG0_ADDR_RANGE_HI32,
+>                                     i * hub->eng_addr_distance, 0x1f);
+>         }
+>  }
+> @@ -422,7 +423,7 @@ static void mmhub_v2_0_gart_disable(struct amdgpu_device *adev)
+>
+>         /* Disable all tables */
+>         for (i = 0; i < AMDGPU_NUM_VMID; i++)
+> -               WREG32_SOC15_OFFSET(MMHUB, 0, mmMMVM_CONTEXT0_CNTL,
+> +               WREG32_SOC15_OFFSET_RLC(MMHUB, 0, mmMMVM_CONTEXT0_CNTL,
+>                                     i * hub->ctx_distance, 0);
+>
+>         /* Setup TLB control */
 > --
 > 2.17.1
 >
