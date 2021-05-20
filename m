@@ -8,60 +8,60 @@ X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1D9BFC433ED
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 May 2021 03:47:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E351FC433B4
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 May 2021 03:47:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BB9BB60E0C
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 May 2021 03:47:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BB9BB60E0C
+	by mail.kernel.org (Postfix) with ESMTPS id A68A36108D
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 May 2021 03:47:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A68A36108D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C17236E837;
-	Thu, 20 May 2021 03:47:02 +0000 (UTC)
-Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
- [IPv6:2607:f8b0:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8A216E837
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 May 2021 03:47:00 +0000 (UTC)
-Received: by mail-ot1-x335.google.com with SMTP id
- v19-20020a0568301413b0290304f00e3d88so13689239otp.4
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 May 2021 20:47:00 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DF0D6E83A;
+	Thu, 20 May 2021 03:47:41 +0000 (UTC)
+Received: from mail-ot1-x329.google.com (mail-ot1-x329.google.com
+ [IPv6:2607:f8b0:4864:20::329])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 777BD6E83A
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 May 2021 03:47:39 +0000 (UTC)
+Received: by mail-ot1-x329.google.com with SMTP id
+ n32-20020a9d1ea30000b02902a53d6ad4bdso13701061otn.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 May 2021 20:47:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=S+fDBMfKpyUtfyrWAEy93S7dMLIXIvFhfPS52/YWoik=;
- b=jZ+nX3rs8qhS74q4Wacm952eZOc0ClPooVgZ8m6pef08yqU7A5d19pDADrmmwltAvU
- Gw0jBxzbH3EyKkdAiUVIsp868fvjNB0QUad/cKdsCw5m4ZjdPlDgdAd5/t1Bi9SUyayD
- yiYcVgB7gsmJSTYTg3tuiML8XJKYFqqw6B9x2KUpLFdy+roRu1O+IlM6VhjIERlB80z4
- i+CF3F3ciKXCc94RIikHPyVRQaGun4NY0x9fors8hdSRrFHoQOspLFhoa2wi2NAmDdYL
- U0ZZb8HPPjQ1u4d6U4THXNI+ghst0l7biISucXNfiq0Pm/BVSYqlbEj5Lbh+fs2QyHYI
- 2SdQ==
+ :cc; bh=dudmbYtWfCwaj3uZQevOZ96/iI2ctHUxdktAQhN04Rw=;
+ b=qj4FxknpvLRX8BFMG6FhgCofj+DR3RDajK2X+xO9DIMwS0QX1YnfzrcfuWH6atkaDY
+ GcCu0YIiia23klfgd1s0qmoLPfEYLx0RjbF4eRjuwdpuMhO6X090p1plQG8PEp1MGBf8
+ pOS4QwJqrtJK2vntE7WNMuTaHWhIWLPHGogxgGIwe94uOAHlmhonvc+MYPJ5ZoEThYmf
+ OnGVTdDy8RUnPc1Ay292zMgsFXphMeXvkZF/qZ8y9YAyRjydPTgEVoLCe6IdwKmcjmCg
+ 6xudq5TW4+vdCbfsnqEYFRDAcaEYfimS3WoB+zEaLXzoayCCUatbm1YRn187yQfwo42P
+ C+jQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=S+fDBMfKpyUtfyrWAEy93S7dMLIXIvFhfPS52/YWoik=;
- b=K9Us9pbn1eVaz3SesDSOJtYaG+Y6BbJ9+nfpHl3yuGmthAWxuiV98e5riqpOxJQkJn
- dk1qLx2D2niRJI/cu7s5RO0nNM4MorxL/nzFtZRsJ/U8P6x6Z3wjLO0UR9cMbqH0fvnF
- 0sEVns2szuRxvns+/WQR22v/1duhLVUVGC1kHCz3aCU8tXi0BEjUhXXGXbpH+kpNiz88
- CeMHAVHQL7IqcILCbhLPbT7J/jjXY6JeJtimE/TObskDsxQn8U76rJiCXpFMO72d/C0Y
- +YioJWrS2KhGt7/nDX+L7tpCTzvOhPwWagW9RaTcOGIytlyeRGszlhTHNBZHretaD8cY
- GTUQ==
-X-Gm-Message-State: AOAM532msDuHEJ7D4zX+9j9Ae23ejwb4gdWC1utdykkT6vd1r+rbc5Cf
- 7eNgaIPna1/124ac3PFLSco5bdJME0FAKjbhW+k=
-X-Google-Smtp-Source: ABdhPJwXdzbXsWRtarwzEl9eM8fsYg2naEgVA01CW5yXLYtHUuZ6s5CtsQ4yBAecokeeSTmwwDQR71zgvFyG1Apx0vw=
-X-Received: by 2002:a9d:6548:: with SMTP id q8mr2296199otl.311.1621482420008; 
- Wed, 19 May 2021 20:47:00 -0700 (PDT)
+ bh=dudmbYtWfCwaj3uZQevOZ96/iI2ctHUxdktAQhN04Rw=;
+ b=CmxzeFQVUfPGwoy+puSHAu5NXemvAYJ86j2o+JyXbdxDwKVvf3pdahut9djIRIqmwG
+ zMECapB5dT9+c5WuPPX9y8n7CoFULWUspyINTT0mitcBlBIZl5Qn8Ss9tQp/2QuOxYSB
+ wxBbmimK5D1KkF7OJ7wPbDKQ8Ypx9Y/0cEAs8G3+x08/Yf1jVPOcX42dp4sKxOrS/LOU
+ Pc0/GjL7I9UUruu+vFliVBWjFDNPDnA+nTlvAR4k1cyCgiRxYUk5z/WuOfNIRA9lt/rm
+ uy+iZKlU6LHKpeJnxRYm3LnlZDuoRahkf7ZHZZCrKuP+BWKsyvsDTdWNh2IUtMtv+ogl
+ KLYw==
+X-Gm-Message-State: AOAM531061S1UUg/AY9kveD6hJtNpROV/IaYrHwnojq4xlSlhiCAhcKv
+ nB80AVJkdtooDDGF0JCc5jb477+KUaNREji1S3Y=
+X-Google-Smtp-Source: ABdhPJxtwbybdTqtdABQ9wZXs3yLODK6ohzFQnileFmS3jfBQdAMzjM7uVytJQ4YvNboHSXvYJ/q2Hb1pYOC4qeXSD8=
+X-Received: by 2002:a9d:74c6:: with SMTP id a6mr2346538otl.132.1621482458852; 
+ Wed, 19 May 2021 20:47:38 -0700 (PDT)
 MIME-Version: 1.0
 References: <20210517143910.2125-1-PengJu.Zhou@amd.com>
- <20210517143910.2125-9-PengJu.Zhou@amd.com>
-In-Reply-To: <20210517143910.2125-9-PengJu.Zhou@amd.com>
+ <20210517143910.2125-10-PengJu.Zhou@amd.com>
+In-Reply-To: <20210517143910.2125-10-PengJu.Zhou@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 19 May 2021 23:46:49 -0400
-Message-ID: <CADnq5_OB+F3yeN9=nJjnvnAV6ePevL6Rz1NYhERJFUJ3s1sCJw@mail.gmail.com>
-Subject: Re: [PATCH v5 09/10] drm/amdgpu: Use PSP to program IH_RB_CNTL*
- registers
+Date: Wed, 19 May 2021 23:47:28 -0400
+Message-ID: <CADnq5_NtV-tzvWNGpXu239r805tvu0muQhmUYyG_w-ezBZ_rWQ@mail.gmail.com>
+Subject: Re: [PATCH v5 10/10] drm/amdgpu: Skip the program of MMMC_VM_AGP_* in
+ SRIOV
 To: Peng Ju Zhou <PengJu.Zhou@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -74,7 +74,7 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Victor <Victor.Zhao@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
@@ -82,75 +82,39 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On Mon, May 17, 2021 at 10:39 AM Peng Ju Zhou <PengJu.Zhou@amd.com> wrote:
 >
-> use psp to program IH_RB_CNTL* if indirect access
-> for ih enabled in SRIOV environment.
+> KMD should not program these registers, the value were
+> defined in the host, so skip them in the SRIOV environment.
 >
-> Signed-off-by: Victor <Victor.Zhao@amd.com>
 > Signed-off-by: Peng Ju Zhou <PengJu.Zhou@amd.com>
+
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
 > ---
->  drivers/gpu/drm/amd/amdgpu/navi10_ih.c | 19 +++++++++++++++++--
->  drivers/gpu/drm/amd/amdgpu/nv.c        |  2 +-
->  2 files changed, 18 insertions(+), 3 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c | 10 +++++-----
+>  1 file changed, 5 insertions(+), 5 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-> index f4e4040bbd25..2e69cf8db072 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-> @@ -151,7 +151,14 @@ static int navi10_ih_toggle_ring_interrupts(struct amdgpu_device *adev,
->         /* enable_intr field is only valid in ring0 */
->         if (ih == &adev->irq.ih)
->                 tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, ENABLE_INTR, (enable ? 1 : 0));
-> -       WREG32(ih_regs->ih_rb_cntl, tmp);
-> +       if (amdgpu_sriov_vf(adev) && amdgpu_sriov_reg_indirect_ih(adev)) {
-> +               if (psp_reg_program(&adev->psp, ih_regs->psp_reg_id, tmp)) {
-> +                       DRM_ERROR("PSP program IH_RB_CNTL failed!\n");
-> +                       return -ETIMEDOUT;
-> +               }
-> +       } else {
-> +               WREG32(ih_regs->ih_rb_cntl, tmp);
-> +       }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
+> index e24225b3d42a..422d106a650b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
+> @@ -197,12 +197,12 @@ static void mmhub_v2_0_init_system_aperture_regs(struct amdgpu_device *adev)
+>         uint64_t value;
+>         uint32_t tmp;
 >
->         if (enable) {
->                 ih->enabled = true;
-> @@ -261,7 +268,15 @@ static int navi10_ih_enable_ring(struct amdgpu_device *adev,
->                 tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_ENABLE, 0);
->                 tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, RB_FULL_DRAIN_ENABLE, 1);
->         }
-> -       WREG32(ih_regs->ih_rb_cntl, tmp);
+> -       /* Program the AGP BAR */
+> -       WREG32_SOC15_RLC(MMHUB, 0, mmMMMC_VM_AGP_BASE, 0);
+> -       WREG32_SOC15_RLC(MMHUB, 0, mmMMMC_VM_AGP_BOT, adev->gmc.agp_start >> 24);
+> -       WREG32_SOC15_RLC(MMHUB, 0, mmMMMC_VM_AGP_TOP, adev->gmc.agp_end >> 24);
+> -
+>         if (!amdgpu_sriov_vf(adev)) {
+> +               /* Program the AGP BAR */
+> +               WREG32_SOC15_RLC(MMHUB, 0, mmMMMC_VM_AGP_BASE, 0);
+> +               WREG32_SOC15_RLC(MMHUB, 0, mmMMMC_VM_AGP_BOT, adev->gmc.agp_start >> 24);
+> +               WREG32_SOC15_RLC(MMHUB, 0, mmMMMC_VM_AGP_TOP, adev->gmc.agp_end >> 24);
 > +
-> +       if (amdgpu_sriov_vf(adev) && amdgpu_sriov_reg_indirect_ih(adev)) {
-> +               if (psp_reg_program(&adev->psp, ih_regs->psp_reg_id, tmp)) {
-> +                       DRM_ERROR("PSP program IH_RB_CNTL failed!\n");
-> +                       return -ETIMEDOUT;
-> +               }
-> +       } else {
-> +               WREG32(ih_regs->ih_rb_cntl, tmp);
-> +       }
->
->         if (ih == &adev->irq.ih) {
->                 /* set the ih ring 0 writeback address whether it's enabled or not */
-> diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-> index a9ad28fb55b3..b9c9c4d4606c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/nv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-> @@ -845,8 +845,8 @@ int nv_set_ip_blocks(struct amdgpu_device *adev)
->         case CHIP_NAVI12:
->                 amdgpu_device_ip_block_add(adev, &nv_common_ip_block);
->                 amdgpu_device_ip_block_add(adev, &gmc_v10_0_ip_block);
-> -               amdgpu_device_ip_block_add(adev, &navi10_ih_ip_block);
->                 amdgpu_device_ip_block_add(adev, &psp_v11_0_ip_block);
-> +               amdgpu_device_ip_block_add(adev, &navi10_ih_ip_block);
-
-Is it safe to change the order like this on bare metal?  Please look
-at what was done for vega and sienna cichlid.  Something like that is
-probably a better bet.
-
-Alex
-
-
->                 if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP)
->                         amdgpu_device_ip_block_add(adev, &smu_v11_0_ip_block);
->                 if (adev->enable_virtual_display || amdgpu_sriov_vf(adev))
+>                 /* Program the system aperture low logical page number. */
+>                 WREG32_SOC15(MMHUB, 0, mmMMMC_VM_SYSTEM_APERTURE_LOW_ADDR,
+>                              min(adev->gmc.fb_start, adev->gmc.agp_start) >> 18);
 > --
 > 2.17.1
 >
