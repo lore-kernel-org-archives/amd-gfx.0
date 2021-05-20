@@ -2,51 +2,70 @@ Return-Path: <SRS0=8Dg8=KP=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 02B72C43470
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 May 2021 12:49:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0BA80C4361B
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 May 2021 12:49:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7FA5C61184
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 May 2021 12:49:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7FA5C61184
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=igalia.com
+	by mail.kernel.org (Postfix) with ESMTPS id C383561184
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 May 2021 12:49:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C383561184
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linaro.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A67C26F465;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A02A86F460;
 	Thu, 20 May 2021 12:49:16 +0000 (UTC)
-Received: from fanzine.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB3336F3D0;
- Thu, 20 May 2021 10:15:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
- s=20170329; 
- h=MIME-Version:Content-Type:Date:Cc:To:From:Subject:Message-ID;
- bh=O0iHU1/VHHkhwP5qU6e9vxiPh+rZbb09bmx0z3cBJBM=; 
- b=MZHsc4N7/ulLQv+eCIGld70Dcd+eH43dyLA3991v9K8vS2m7FU8eTIYL+pVcAfYxEITRbN7NURNhh16NVzhur8aiauQt36RlismSe0GPrOVtdeIKT2RSkCT8W6aU/Immau56snwHmTLVXIsnWOtNw6U1XwE7uztIWk+Us2XROTFYPYrgc9fNj356yJq/X4W/KxFwYRAzVd2yMc/7uWJSSFdSFMdlvyu4LzeDHD1FknUleiHsRJWxTUvzDdc1ALDULB+dZ6ou4cq8tkVLU9mHhKG9xyvsfjr3Xu76y6D1p/Pfc9/nXR6niH6PtW7+whzutlgUBPEpDJIG/cEyaLnuMg==;
-Received: from 216.pool85-49-174.dynamic.orange.es ([85.49.174.216]
- helo=[192.168.1.117]) by fanzine.igalia.com with esmtpsa 
- (Cipher TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim)
- id 1ljfiI-0004cl-RM; Thu, 20 May 2021 12:15:34 +0200
-Message-ID: <95ec2c414f7dd1ea5685184435b95430e1709047.camel@igalia.com>
-Subject: Requests For Proposals for hosting XDC 2022 are now open
-From: Samuel Iglesias =?ISO-8859-1?Q?Gons=E1lvez?= <siglesias@igalia.com>
-To: "events@lists.x.org" <events@lists.x.org>, 
- "xorg-devel@lists.freedesktop.org"
- <xorg-devel@lists.freedesktop.org>, wayland-devel@lists.freedesktop.org, 
- wayland-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, mesa-dev@lists.freedesktop.org, 
- mesa-dev@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, etnaviv@lists.freedesktop.org, 
- etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org
-Date: Thu, 20 May 2021 12:15:23 +0200
-User-Agent: Evolution 3.40.1 (3.40.1-1.fc34) 
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [IPv6:2a00:1450:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A4F786F411
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 May 2021 12:03:07 +0000 (UTC)
+Received: by mail-wm1-x331.google.com with SMTP id
+ u5-20020a7bc0450000b02901480e40338bso4931112wmc.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 May 2021 05:03:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=OmMgm22TVdmn0YlU70PwNW8OaCfk/LhHrn8mYGM1ILk=;
+ b=QD/KEVmze2nJBsl72X+9/4makCpNLgnhq9kHYQtB0j4vPW1YZXrU1khxF3fGuZU0h+
+ ZPx91P2Ne+MJofYJYv5eKK7Yft2hMjg3D7P89z+qpLWEu9oeG6N31skJJsST4qDrmNuL
+ ySurx8C8e78/4JZjFHBzSggFMTGDA1MPBXw05kOtgeBccYfmGiCg/i8VWeoCenhST8s3
+ okGcBzBiUXfR8+BF1kkNK6mjF301dRzRn875g/Zz6dy9mlYT5wmxs++2gIlYPo+WBEGW
+ VwU0WXfkvJCZBLqh2oTsGKIhfsdLjBIrutsQI0UPvKw8CSfIyIxy42lR1AHIt+/e9wWS
+ nUuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=OmMgm22TVdmn0YlU70PwNW8OaCfk/LhHrn8mYGM1ILk=;
+ b=lTuVMhUFPXI0AhCj+HiuhiDZIDtLjLb20pFykim02Gq53TTpGQ786BZtb/g8K0q8bu
+ b3Aw+ImJONZNKEcPvQ/j/lFykjLVXPgidCDsj5o/BdOdGIUK2rdokyO78WNAZDQ/chex
+ lqy/6/qy7MJkITWOubqaEbemdkx9T6i0DWjasNj8JaONOhL+XuDmXgiK8cuqafgAdbWP
+ XUO+llRbx5c4TGrXVPMGBa3GanIpxPwrRDgTbaj74k5n7MZLH+hYXHA61prdXmQJ1Iiz
+ K/a/o6QlJ9odtgOcqsUeLdkQf1xhELpkrZ7FXWX4JgJ40cisei234a9qNlyJeK+K8MWy
+ GP/Q==
+X-Gm-Message-State: AOAM530ShwMpUF+9wLWH2/c6EQWx5N4bJo/Awe+uyuc/YIpja3CU5b+Y
+ ENcf/mbRg/q2RMq9VECfVMkxjA==
+X-Google-Smtp-Source: ABdhPJxIRwowWq6Q6Jk0qbvu6pd7yWq+Mmva8O37/LRH9s85uRpcjtEb6krZZtsukcUmk7nXDt3tAw==
+X-Received: by 2002:a1c:bbc3:: with SMTP id l186mr3700393wmf.38.1621512186295; 
+ Thu, 20 May 2021 05:03:06 -0700 (PDT)
+Received: from dell.default ([91.110.221.215])
+ by smtp.gmail.com with ESMTPSA id j10sm2886332wrt.32.2021.05.20.05.03.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 20 May 2021 05:03:05 -0700 (PDT)
+From: Lee Jones <lee.jones@linaro.org>
+To: lee.jones@linaro.org
+Subject: [PATCH 14/38] drm/amd/amdgpu/gfx_v7_0: Repair function names in the
+ documentation
+Date: Thu, 20 May 2021 13:02:24 +0100
+Message-Id: <20210520120248.3464013-15-lee.jones@linaro.org>
+X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20210520120248.3464013-1-lee.jones@linaro.org>
+References: <20210520120248.3464013-1-lee.jones@linaro.org>
 MIME-Version: 1.0
 X-Mailman-Approved-At: Thu, 20 May 2021 12:49:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -60,97 +79,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "board@foundation.x.org" <board@foundation.x.org>
-Content-Type: multipart/mixed; boundary="===============0809746576=="
+Cc: David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, linux-media@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
---===============0809746576==
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-PlIrzc/n3c7pGzJvSGeE"
-
-
---=-PlIrzc/n3c7pGzJvSGeE
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hello everyone!
-
-The X.org board is soliciting proposals to host XDC in 2022. Since
-XDC 2021 is being held in Europe this year (although virtually), we've
-decided to host in North America. However, the board is open to other
-locations, especially if there's an interesting co-location with
-another conference.
-
-Of course though, due to the ongoing COVID-19 pandemic it's not yet
-clear whether or not it will be possible to host XDC 2022 in person,
-although is seems very likely. Because of this, we would like to
-make it clear that sponsors should prepare for both the possibility
-of an in person conference, and the possibility of a virtual
-conference. We will work with organizers on coming up with a
-deadline for deciding whether or not we'll be going virtual, likely
-sometime around July 2022.
-
-If you're considering hosting XDC, we've assembled a wiki page with
-what's generally expected and needed:
-
-https://www.x.org/wiki/Events/RFP/
-
-When submitting your proposal, please make sure to include at least the
-key information about the potential location in question, possible
-dates along with estimated costs. Proposals can be submitted to board
-at foundation.x.org until the deadline of *September 1st, 2021*.=C2=A0
-
-Additionally, an quirk early heads-up to the board if you're
-considering hosting would be appreciated, in case we need to adjust the
-schedule a bit. Also, earlier is better since there generally will be a
-bit of Q&A with organizers.
-
-And if you just have some questions about what organizing XDC entails,
-please feel free to chat with previous organizers, or someone from the
-board.
-
-Thanks,
-
-Sam
-
-
---=-PlIrzc/n3c7pGzJvSGeE
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEQP+ZAvaXWkfuKXiEf/S6MvF9w0MFAmCmNrsACgkQf/S6MvF9
-w0NsSxAA1ui8Yz9mLl9sknE/Lu1eOzz/P0B7tgPy4hLe4cj6SbCCU37S9d+RJ0/h
-iAoZDzP5yxEneqT0nIA5LYzvUjOxcl6POaC5nxqYagrtOOKi4H0Gd4U03LjIqtpy
-Fuc6J4z1eePoXORAPP/vlQbUojPG085P/NW77biDPBYL+3pTpWdIxdQV9zFv+CzY
-HDJwupFJJHtwVaGiArV1sJn6Ls/hzgD/JhAGpGF12k6/31IjlS+k8BOAFod4sIeq
-F3KqIYWa6LQtgrhvcSpLXLMf27v5A/gPCtpw5ikga3NKIo2lZY5wwNCGTAH6DJ4q
-ILf/OFYDt7RmgQ9o3y/bMHiFtQdmoC5RzpGTSsVTezeAAyIPskc00wgfyvmItJYK
-v5eziT91D5uLqDeglhwC39HU+v2ABa11TeADqifsu4WPTPTPKVe66shB2uP/cx5s
-o2LIVt8JflpyB++CQ6DBxcz+7yVqC8OLVfNK4MbMkGtbTgzuNtcisf0zP/dVZEh8
-4Sj//vhVfDId92Sp0yyhiOEwWmAO+HAwh2/qsd+7/JbHU0HGrHwqarUM5LNhyDqJ
-ZXd0FnEpXQvNK3AYOGBJcU9gPjuXmjGlDS3k4pHhvrsb198xIp1t/lBBsV0vyEaz
-gNSmH8Dx+VbGstCm3/VE6uZhHFYXn6FMvT5qIr8BN3LGQuGz5Yc=
-=JocE
------END PGP SIGNATURE-----
-
---=-PlIrzc/n3c7pGzJvSGeE--
-
-
---===============0809746576==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0809746576==--
-
+Rml4ZXMgdGhlIGZvbGxvd2luZyBXPTEga2VybmVsIGJ1aWxkIHdhcm5pbmcocyk6CgogZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y3XzAuYzoyMTI2OiB3YXJuaW5nOiBleHBlY3Rpbmcg
+cHJvdG90eXBlIGZvciBnZnhfdjdfMF9yaW5nX2VtaXRfaGRwKCkuIFByb3RvdHlwZSB3YXMgZm9y
+IGdmeF92N18wX3JpbmdfZW1pdF9oZHBfZmx1c2goKSBpbnN0ZWFkCiBkcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9nZnhfdjdfMC5jOjIyNjI6IHdhcm5pbmc6IGV4cGVjdGluZyBwcm90b3R5cGUg
+Zm9yIGdmeF92N18wX3JpbmdfZW1pdF9pYigpLiBQcm90b3R5cGUgd2FzIGZvciBnZnhfdjdfMF9y
+aW5nX2VtaXRfaWJfZ2Z4KCkgaW5zdGVhZAogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4
+X3Y3XzAuYzozMjA3OiB3YXJuaW5nOiBleHBlY3RpbmcgcHJvdG90eXBlIGZvciBnZnhfdjdfMF9y
+aW5nX2VtaXRfdm1fZmx1c2goKS4gUHJvdG90eXBlIHdhcyBmb3IgZ2Z4X3Y3XzBfcmluZ19lbWl0
+X3BpcGVsaW5lX3N5bmMoKSBpbnN0ZWFkCgpDYzogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1
+Y2hlckBhbWQuY29tPgpDYzogIkNocmlzdGlhbiBLw7ZuaWciIDxjaHJpc3RpYW4ua29lbmlnQGFt
+ZC5jb20+CkNjOiBEYXZpZCBBaXJsaWUgPGFpcmxpZWRAbGludXguaWU+CkNjOiBEYW5pZWwgVmV0
+dGVyIDxkYW5pZWxAZmZ3bGwuY2g+CkNjOiBTdW1pdCBTZW13YWwgPHN1bWl0LnNlbXdhbEBsaW5h
+cm8ub3JnPgpDYzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKQ2M6IGRyaS1kZXZlbEBs
+aXN0cy5mcmVlZGVza3RvcC5vcmcKQ2M6IGxpbnV4LW1lZGlhQHZnZXIua2VybmVsLm9yZwpDYzog
+bGluYXJvLW1tLXNpZ0BsaXN0cy5saW5hcm8ub3JnClNpZ25lZC1vZmYtYnk6IExlZSBKb25lcyA8
+bGVlLmpvbmVzQGxpbmFyby5vcmc+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4
+X3Y3XzAuYyB8IDYgKysrLS0tCiAxIGZpbGUgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspLCAzIGRl
+bGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92
+N18wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjdfMC5jCmluZGV4IGMzNWZk
+ZDJlZjJkNGQuLjY4NTIxMmMzZGRhZTUgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2dmeF92N18wLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y3
+XzAuYwpAQCAtMjExNiw3ICsyMTE2LDcgQEAgc3RhdGljIGludCBnZnhfdjdfMF9yaW5nX3Rlc3Rf
+cmluZyhzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcpCiB9CiAKIC8qKgotICogZ2Z4X3Y3XzBfcmlu
+Z19lbWl0X2hkcCAtIGVtaXQgYW4gaGRwIGZsdXNoIG9uIHRoZSBjcAorICogZ2Z4X3Y3XzBfcmlu
+Z19lbWl0X2hkcF9mbHVzaCAtIGVtaXQgYW4gaGRwIGZsdXNoIG9uIHRoZSBjcAogICoKICAqIEBy
+aW5nOiBhbWRncHVfcmluZyBzdHJ1Y3R1cmUgaG9sZGluZyByaW5nIGluZm9ybWF0aW9uCiAgKgpA
+QCAtMjI0Miw3ICsyMjQyLDcgQEAgc3RhdGljIHZvaWQgZ2Z4X3Y3XzBfcmluZ19lbWl0X2ZlbmNl
+X2NvbXB1dGUoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLAogICogSUIgc3R1ZmYKICAqLwogLyoq
+Ci0gKiBnZnhfdjdfMF9yaW5nX2VtaXRfaWIgLSBlbWl0IGFuIElCIChJbmRpcmVjdCBCdWZmZXIp
+IG9uIHRoZSByaW5nCisgKiBnZnhfdjdfMF9yaW5nX2VtaXRfaWJfZ2Z4IC0gZW1pdCBhbiBJQiAo
+SW5kaXJlY3QgQnVmZmVyKSBvbiB0aGUgcmluZwogICoKICAqIEByaW5nOiBhbWRncHVfcmluZyBz
+dHJ1Y3R1cmUgaG9sZGluZyByaW5nIGluZm9ybWF0aW9uCiAgKiBAam9iOiBqb2IgdG8gcmV0cmll
+dmUgdm1pZCBmcm9tCkBAIC0zMTk2LDcgKzMxOTYsNyBAQCBzdGF0aWMgaW50IGdmeF92N18wX2Nw
+X3Jlc3VtZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIH0KIAogLyoqCi0gKiBnZnhfdjdf
+MF9yaW5nX2VtaXRfdm1fZmx1c2ggLSBjaWsgdm0gZmx1c2ggdXNpbmcgdGhlIENQCisgKiBnZnhf
+djdfMF9yaW5nX2VtaXRfcGlwZWxpbmVfc3luYyAtIGNpayB2bSBmbHVzaCB1c2luZyB0aGUgQ1AK
+ICAqCiAgKiBAcmluZzogdGhlIHJpbmcgdG8gZW1pdCB0aGUgY29tbWFuZHMgdG8KICAqCi0tIAoy
+LjMxLjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFt
+ZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
