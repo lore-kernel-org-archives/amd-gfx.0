@@ -7,48 +7,48 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 48A15C4707A
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 May 2021 17:37:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C744FC4707C
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 May 2021 17:37:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 032FD61168
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 May 2021 17:37:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 032FD61168
+	by mail.kernel.org (Postfix) with ESMTPS id 81D2A611AB
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 May 2021 17:37:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 81D2A611AB
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9E316E516;
-	Fri, 21 May 2021 17:37:03 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam07on2089.outbound.protection.outlook.com [40.107.212.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B0636E51C
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 May 2021 17:37:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D8426E51C;
+	Fri, 21 May 2021 17:37:06 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2065.outbound.protection.outlook.com [40.107.93.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 242296E15F
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 May 2021 17:37:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Vf7rlvdHCunb1Efp1sxI57qFr+HFsHBrDvsy9gypMoss0+9X5LJ03we7Ixk5ia7OxSm6UtK9iutD1Yk1+LpmYI/koaVtI9pBzhOZdENrJ8iweAUWlqEkpHnO6+66apAXSrodqiBz2G8ax1wNN6MQHkiTnPXjq8zXK2SLdSj51+3NrdkCasGxzleuJUn6DCRyN7CvbgE7e/F1d3O+bqQuKsOLNKKDAa6dtzqIPsw3Q0XEzhLQ4S80Tpq54MnYSqvPDn5Cs0Dv4AzTfU9CNiQ0HdVwzPWR/zEL8X7wjF9MWOMGoU5mRlZmR5Jrlm4xl1Tzq39SOJY5TE6PqTYwGQ+KPQ==
+ b=Qz+lrY+cbA6QrnwPyHgvSGpc1rbZLOkD2MIMXTbZRVflaSB5c3XR3/Lg7Vp2RMD/YG4BqI6B2ZJ/OyZds0gjIlGdzUVRj+dDmVNzULxgLSyADTghZawPbsVSEyOPCeVUiBqwkkK1ZCCKTZrmT0lrXVAMmemwUKncbUCT5h1CZjjeRS3Yjpq0nnvxBVEQn2GisgB+ixSoVoE+bufaX+sd7ogY6spg34IxAu0P7WL/NkRDrd0zHvQU0qyf8/miypdlNFwx2CGSaT/skDlrWp7/U2y3D+al/d/XQqdAkQxAnw/6htyhnCPuoQRlwQHGSdCIsDGSpN/MNaclyv+JYcPSAQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sD3HenVq8h2cx1PxFFivj1WuhyrbVioM2Sm2KqW3FEE=;
- b=ZAVSYsGH2E4npBcrmf2TJJDmE5XT+m0BN1YGx/s7/3/8e/CUIWV7yiKh3mo9kW/JFBMUe+2hJQFpG+/z3ndTdMeV38LBN4pUoysMEJ4Jc5+LVjRnfxwC1IaouxcPGlxpI7BgAtsz3Hbg89PuocjFfH2rM38xYMlMG6Z9OWZnwwffDFd26fIiwBIWxIbMirnbn8U9+fm1PgDk0pfi69bU/RNOjTx0sHi8nTUgpy+yf9ldHGoZOhNZm1VQVwbSscYrLN2k0q57I/z7Ep/YlW6RtmagWa6m2Yvr1bmq0vJAOahiLzYWJ5MJUu8E5GONAWGkfmESztb4RGxvG6SdCZ2rmg==
+ bh=Bui1dYTWQ2iYxLHHQl9tzv3lOWiHrmUKe3UrwOWQU3E=;
+ b=VBUhiYE4VJzclqqHL2aDxljC3NAMmPUGUX7pl/2zFEqWnFoqWQXpgMT6kFtFs9u2mGA8iukXs39TX+lWRk0TxeY70Cy35QosouU2+3retgy0TF3IhyvFStk5t0WHQ6JjILKMsJ4OOqnxnzQN+4SFcDc2qE4YLAcrKVRptvrKVcqzHB1wAwZVodlU1JygAlkveyAh7BoQNmLQzn7bX5uvDLSbC6cYPx88+esgGAYjH9URAEFURrUNSohJ6qkeaH3opcVPTW7E+yLObq6vp6ezc+z5w8MGeGmvWogF/cXKHmCmQIggJZkhpl7MhTUgNuyv/dHF+tSU6RZd2yindvoanQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=none sp=none pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sD3HenVq8h2cx1PxFFivj1WuhyrbVioM2Sm2KqW3FEE=;
- b=cfYrNvJKkV7VMX534emDvZ/Bbfn/Nkekzs9GafmADP6jFiTOaliOuCQxe6sITtoqZl2IdGEAcYtIESEMGcHq0ux32hBTwD77YR2aiB1cZWFTOxsIhWiEWl6ZEKXGbYhy+iib+RyMv7c+w9Z7rqYr7OOHjzeh9k4jm1MmzLTDsb8=
-Received: from BN0PR04CA0107.namprd04.prod.outlook.com (2603:10b6:408:ec::22)
- by CY4PR12MB1414.namprd12.prod.outlook.com (2603:10b6:903:3a::23)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=Bui1dYTWQ2iYxLHHQl9tzv3lOWiHrmUKe3UrwOWQU3E=;
+ b=V+CaNFpcaP9jLx1qVm3wm2EdACC8NF246T+Fg3e7N+YLCMWihUX9yf5oSpX8brzX9nqxoRyA9NYt0mrsL4nF5uZ4yu1oo7zuhDEAtDXjSs2pBAW1THdUifcTBhRq+NQlFKRPf7GNabLJweba2/uXiHCrCGba04xLrEWVpplu0BQ=
+Received: from BN6PR1201CA0018.namprd12.prod.outlook.com
+ (2603:10b6:405:4c::28) by BYAPR12MB4981.namprd12.prod.outlook.com
+ (2603:10b6:a03:10d::29) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4150.23; Fri, 21 May
- 2021 17:37:00 +0000
-Received: from BN8NAM11FT053.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:ec:cafe::6f) by BN0PR04CA0107.outlook.office365.com
- (2603:10b6:408:ec::22) with Microsoft SMTP Server (version=TLS1_2,
+ 2021 17:37:01 +0000
+Received: from BN8NAM11FT038.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:405:4c:cafe::af) by BN6PR1201CA0018.outlook.office365.com
+ (2603:10b6:405:4c::28) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4150.23 via Frontend
- Transport; Fri, 21 May 2021 17:37:00 +0000
+ Transport; Fri, 21 May 2021 17:37:01 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -57,18 +57,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT053.mail.protection.outlook.com (10.13.177.209) with Microsoft SMTP
+ BN8NAM11FT038.mail.protection.outlook.com (10.13.176.246) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4129.25 via Frontend Transport; Fri, 21 May 2021 17:36:59 +0000
+ 15.20.4129.25 via Frontend Transport; Fri, 21 May 2021 17:37:00 +0000
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Fri, 21 May
- 2021 12:36:58 -0500
+ 2021 12:36:59 -0500
 From: Qingqing Zhuo <qingqing.zhuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 03/15] drm/amd/display: Retrieve DSC Branch Decoder Caps
-Date: Fri, 21 May 2021 13:36:34 -0400
-Message-ID: <20210521173646.1140586-4-qingqing.zhuo@amd.com>
+Subject: [PATCH 04/15] drm/amd/display: Update DP link configuration.
+Date: Fri, 21 May 2021 13:36:35 -0400
+Message-ID: <20210521173646.1140586-5-qingqing.zhuo@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210521173646.1140586-1-qingqing.zhuo@amd.com>
 References: <20210521173646.1140586-1-qingqing.zhuo@amd.com>
@@ -78,27 +78,27 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 3a4bbafa-137a-4d4f-3b8a-08d91c7f09c7
-X-MS-TrafficTypeDiagnostic: CY4PR12MB1414:
-X-Microsoft-Antispam-PRVS: <CY4PR12MB1414E2DB326A4AD1FC4A0F60FB299@CY4PR12MB1414.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4303;
+X-MS-Office365-Filtering-Correlation-Id: 75837dc6-e68a-492f-efc2-08d91c7f0a56
+X-MS-TrafficTypeDiagnostic: BYAPR12MB4981:
+X-Microsoft-Antispam-PRVS: <BYAPR12MB49810F8567AE3E7220BF6063FB299@BYAPR12MB4981.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: mhX0Iq3hRloo30jjltpHJCAXrbqjb13iFogQ9+F32/6ueaYfyqvNNTG6Znu/BaoOcx9wIb0e0UCyB8NmOYimZL3cvKTRP16/xpqkMBW/vyy+WP0KKhyh8N5kah3Zv5lTcSLgEq/ka7/3msKdCLRwyvJEDJ/FQi2jhQX0Nm5AITXokOQ/PlzKRW5w+9qgg/2TbAFlbnzxAR4++mSPnpVtJokUGFq1J1/OBu/Z+vCS70NV6ot9nW9tglRuJV3qn+i1fZQFo+FFg3HcO+NvT4o4eTgj3/BM65Yj8rklNTi1q0j/48jjurPsJ3zkOoy1ydlVZ6lGTqaeu41Q/PKKaYhEsGTdVEliNBoKy/z9lKp8/h95MQZWaqx47dvrysgS57Jz1es8imiKzfRdowEt2L4WfLP0GEFJiA3EbochAf35o5XE4Cynx4rZqc8sRpum+TKibf2W5xqcadtOcDWxGrMqSVAWpnEdiintldZAosQHn15S/8vY2ver63iGv0JMJLRc5gfXw0rrAjvAaSn/XnbXHVxt4zpTsM6a379Ed9OtPQszo9m7R4+3/w9p8fdkpz+3Zs2v2YaD0vMz31//WqBe+n2xBm2p16xfxyT4ur6A9Q4ybrP27te+uqAb+uZJYxAZ5iXTD+/hPvDNWbHzKqpXxd3l469J2M3f6vtgfrTGeV8hugJ+x1V4kfpH8cUnfjXe
+X-Microsoft-Antispam-Message-Info: 6qGRjBwwC//aGc63ADXJHJeOY1QJ4mqlOd95bqregRIT/KfjD0tUUrSykJm7Ye+JdWGlsKA1RNfHJ65FmOY6mvW3o3jDuqSJ1EwATeH0Op2MCuNjE7q3jGHE7X8qkG4nEwns9hmtSG+3ypxoQHNiYDkIBhdkD/ijy+bktQeO86YGnY+ryx9rZTg2HQ00ziyYZWuKpmgOCbOQ3d1mlJfwSE48QEVE7qcR6/qDwYPxeCZyKd4t49k8VTreMJAr+VjYjMB0abiQvSRRo/l7XUtnGffHgpw6jzXFrDsD7AjcYjirdih3XeGEU530AHQgjDKD1Y1embtMfCqAMAe/Ds9us+5Rlmp6w2nYnClFU5aqfxcCtoUjag0OeZzz3XFthWU5otD8wnroq4PsE36ZS6PHb4ndQ29PhfZ4LczOsIPT0HKcgmbQ16RFk54sf1kedrSviLLq14op7qYKtLDiADLEgd30+3qyNYVaYRgDhxvsHlwHBvm6jyLdmM238VRFzU2yQQQ63U4VLpgKWGHUx++BF/2+4oSnyfjw9x08hv8hX8uKp5XmHKLR5ESGpYvv4542MsskPBTZrQOtLUhQv3zRBW4VM94PPtMxHFiIXHDmGf565TMq5uRj0F4vtL0Pb+WqXGaDaa/lhwZJCkHYwDXTDqi+QWnV0eov+igekk8rR/giy7zUBSd5UHlTt50IMm/+
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(396003)(39860400002)(346002)(136003)(376002)(36840700001)(46966006)(36860700001)(1076003)(70586007)(44832011)(8936002)(478600001)(2616005)(70206006)(47076005)(5660300002)(54906003)(356005)(426003)(26005)(186003)(83380400001)(81166007)(336012)(6916009)(82740400003)(82310400003)(2906002)(6666004)(8676002)(86362001)(36756003)(4326008)(316002)(16526019)(36900700001);
+ SFS:(4636009)(376002)(39860400002)(396003)(346002)(136003)(36840700001)(46966006)(36860700001)(316002)(47076005)(36756003)(186003)(16526019)(70206006)(8936002)(8676002)(70586007)(54906003)(356005)(81166007)(4326008)(1076003)(82740400003)(2906002)(86362001)(336012)(83380400001)(6916009)(6666004)(15650500001)(426003)(2616005)(5660300002)(26005)(478600001)(82310400003)(44832011)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2021 17:36:59.9652 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3a4bbafa-137a-4d4f-3b8a-08d91c7f09c7
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2021 17:37:00.9090 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 75837dc6-e68a-492f-efc2-08d91c7f0a56
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT053.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT038.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1414
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB4981
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,60 +112,307 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Eryk.Brol@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
  qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- Anson.Jacob@amd.com, Fangzhi Zuo <Jerry.Zuo@amd.com>, Aurabindo.Pillai@amd.com,
- Bhawanpreet.Lakha@amd.com, Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>,
- bindu.r@amd.com
+ Anson.Jacob@amd.com, Aurabindo.Pillai@amd.com, Jun Lei <Jun.Lei@amd.com>,
+ Bhawanpreet.Lakha@amd.com, bindu.r@amd.com,
+ Jimmy Kizito <Jimmy.Kizito@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Fangzhi Zuo <Jerry.Zuo@amd.com>
+From: Jimmy Kizito <Jimmy.Kizito@amd.com>
 
-DSC extended branch decoder caps 0xA0 ~ 0xA2 is read from dsc_aux.
-The dsc_aux is returned from drm dsc determination policy with the
-right DSC capable MST branch device for decoding.
+[Why & How]
+- Update application of training settings for links whose encoders are
+assigned dynamically.
+- Add functionality useful for DP link configuration to public
+interface.
 
-The values are all zero if DSC decoding at a MST BU with virtual DPCD;
-The values are meaningful when DSC decoding at a MST BU without
-virtual DPCD or at a DSC capable MST endpoint.
-
-Signed-off-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
-Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
+Signed-off-by: Jimmy Kizito <Jimmy.Kizito@amd.com>
+Reviewed-by: Jun Lei <Jun.Lei@amd.com>
 Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
 ---
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ .../gpu/drm/amd/display/dc/core/dc_link_dp.c  | 91 ++++++++++++++-----
+ .../gpu/drm/amd/display/dc/inc/dc_link_dp.h   | 17 +++-
+ 2 files changed, 83 insertions(+), 25 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index f3a9bc828b91..0fca1e842552 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -160,6 +160,8 @@ static bool validate_dsc_caps_on_connector(struct amdgpu_dm_connector *aconnecto
- 	struct dc_sink *dc_sink = aconnector->dc_sink;
- 	struct drm_dp_mst_port *port = aconnector->port;
- 	u8 dsc_caps[16] = { 0 };
-+	u8 dsc_branch_dec_caps_raw[3] = { 0 };	// DSC branch decoder caps 0xA0 ~ 0xA2
-+	u8 *dsc_branch_dec_caps = NULL;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+index 9e08410bfdfd..5812412382c0 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+@@ -206,11 +206,12 @@ static enum dc_dp_training_pattern decide_eq_training_pattern(struct dc_link *li
+ 	return DP_TRAINING_PATTERN_SEQUENCE_2;
+ }
  
- 	aconnector->dsc_aux = drm_dp_mst_dsc_aux_for_port(port);
- #if defined(CONFIG_HP_HOOK_WORKAROUND)
-@@ -182,9 +184,13 @@ static bool validate_dsc_caps_on_connector(struct amdgpu_dm_connector *aconnecto
- 	if (drm_dp_dpcd_read(aconnector->dsc_aux, DP_DSC_SUPPORT, dsc_caps, 16) < 0)
- 		return false;
+-static void dpcd_set_link_settings(
++enum dc_status dpcd_set_link_settings(
+ 	struct dc_link *link,
+ 	const struct link_training_settings *lt_settings)
+ {
+ 	uint8_t rate;
++	enum dc_status status;
  
-+	if (drm_dp_dpcd_read(aconnector->dsc_aux,
-+			DP_DSC_BRANCH_OVERALL_THROUGHPUT_0, dsc_branch_dec_caps_raw, 3) == 3)
-+		dsc_branch_dec_caps = dsc_branch_dec_caps_raw;
+ 	union down_spread_ctrl downspread = { {0} };
+ 	union lane_count_set lane_count_set = { {0} };
+@@ -225,15 +226,16 @@ static void dpcd_set_link_settings(
+ 	lane_count_set.bits.POST_LT_ADJ_REQ_GRANTED = 0;
+ 
+ 
+-	if (lt_settings->pattern_for_eq < DP_TRAINING_PATTERN_SEQUENCE_4) {
++	if (link->ep_type == DISPLAY_ENDPOINT_PHY &&
++			lt_settings->pattern_for_eq < DP_TRAINING_PATTERN_SEQUENCE_4) {
+ 		lane_count_set.bits.POST_LT_ADJ_REQ_GRANTED =
+ 				link->dpcd_caps.max_ln_count.bits.POST_LT_ADJ_REQ_SUPPORTED;
+ 	}
+ 
+-	core_link_write_dpcd(link, DP_DOWNSPREAD_CTRL,
++	status = core_link_write_dpcd(link, DP_DOWNSPREAD_CTRL,
+ 		&downspread.raw, sizeof(downspread));
+ 
+-	core_link_write_dpcd(link, DP_LANE_COUNT_SET,
++	status = core_link_write_dpcd(link, DP_LANE_COUNT_SET,
+ 		&lane_count_set.raw, 1);
+ 
+ 	if (link->dpcd_caps.dpcd_rev.raw >= DPCD_REV_14 &&
+@@ -249,12 +251,12 @@ static void dpcd_set_link_settings(
+ 			core_link_read_dpcd(link, DP_SUPPORTED_LINK_RATES,
+ 					supported_link_rates, sizeof(supported_link_rates));
+ 		}
+-		core_link_write_dpcd(link, DP_LINK_BW_SET, &rate, 1);
+-		core_link_write_dpcd(link, DP_LINK_RATE_SET,
++		status = core_link_write_dpcd(link, DP_LINK_BW_SET, &rate, 1);
++		status = core_link_write_dpcd(link, DP_LINK_RATE_SET,
+ 				&lt_settings->link_settings.link_rate_set, 1);
+ 	} else {
+ 		rate = (uint8_t) (lt_settings->link_settings.link_rate);
+-		core_link_write_dpcd(link, DP_LINK_BW_SET, &rate, 1);
++		status = core_link_write_dpcd(link, DP_LINK_BW_SET, &rate, 1);
+ 	}
+ 
+ 	if (rate) {
+@@ -278,6 +280,8 @@ static void dpcd_set_link_settings(
+ 			DP_DOWNSPREAD_CTRL,
+ 			lt_settings->link_settings.link_spread);
+ 	}
 +
- 	if (!dc_dsc_parse_dsc_dpcd(aconnector->dc_link->ctx->dc,
--				   dsc_caps, NULL,
--				   &dc_sink->dsc_caps.dsc_dec_caps))
-+				  dsc_caps, dsc_branch_dec_caps,
-+				  &dc_sink->dsc_caps.dsc_dec_caps))
- 		return false;
++	return status;
+ }
  
+ static uint8_t dc_dp_initialize_scrambling_data_symbols(
+@@ -1329,7 +1333,7 @@ static inline void decide_8b_10b_training_settings(
+ 		lt_settings->enhanced_framing = 1;
+ }
+ 
+-static void decide_training_settings(
++void dp_decide_training_settings(
+ 		struct dc_link *link,
+ 		const struct dc_link_settings *link_settings,
+ 		const struct dc_link_training_overrides *overrides,
+@@ -1365,18 +1369,18 @@ uint8_t dp_convert_to_count(uint8_t lttpr_repeater_count)
+ 	return 0; // invalid value
+ }
+ 
+-static void configure_lttpr_mode_transparent(struct dc_link *link)
++enum dc_status configure_lttpr_mode_transparent(struct dc_link *link)
+ {
+ 	uint8_t repeater_mode = DP_PHY_REPEATER_MODE_TRANSPARENT;
+ 
+ 	DC_LOG_HW_LINK_TRAINING("%s\n Set LTTPR to Transparent Mode\n", __func__);
+-	core_link_write_dpcd(link,
++	return core_link_write_dpcd(link,
+ 			DP_PHY_REPEATER_MODE,
+ 			(uint8_t *)&repeater_mode,
+ 			sizeof(repeater_mode));
+ }
+ 
+-static void configure_lttpr_mode_non_transparent(
++enum dc_status configure_lttpr_mode_non_transparent(
+ 		struct dc_link *link,
+ 		const struct link_training_settings *lt_settings)
+ {
+@@ -1431,6 +1435,8 @@ static void configure_lttpr_mode_non_transparent(
+ 			}
+ 		}
+ 	}
++
++	return result;
+ }
+ 
+ static void repeater_training_done(struct dc_link *link, uint32_t offset)
+@@ -1564,7 +1570,7 @@ bool dc_link_dp_perform_link_training_skip_aux(
+ {
+ 	struct link_training_settings lt_settings;
+ 
+-	decide_training_settings(
++	dp_decide_training_settings(
+ 			link,
+ 			link_setting,
+ 			&link->preferred_training_settings,
+@@ -1602,6 +1608,19 @@ bool dc_link_dp_perform_link_training_skip_aux(
  	return true;
+ }
+ 
++enum dc_status dpcd_configure_lttpr_mode(struct dc_link *link, struct link_training_settings *lt_settings)
++{
++	enum dc_status status = DC_OK;
++
++	if (lt_settings->lttpr_mode == LTTPR_MODE_TRANSPARENT)
++		status = configure_lttpr_mode_transparent(link);
++
++	else if (lt_settings->lttpr_mode == LTTPR_MODE_NON_TRANSPARENT)
++		status = configure_lttpr_mode_non_transparent(link, lt_settings);
++
++	return status;
++}
++
+ enum link_training_result dc_link_dp_perform_link_training(
+ 	struct dc_link *link,
+ 	const struct dc_link_settings *link_setting,
+@@ -1614,7 +1633,7 @@ enum link_training_result dc_link_dp_perform_link_training(
+ 	uint8_t repeater_cnt;
+ 	uint8_t repeater_id;
+ 
+-	decide_training_settings(
++	dp_decide_training_settings(
+ 			link,
+ 			link_setting,
+ 			&link->preferred_training_settings,
+@@ -1899,7 +1918,7 @@ enum link_training_result dc_link_dp_sync_lt_attempt(
+ 	enum clock_source_id dp_cs_id = CLOCK_SOURCE_ID_EXTERNAL;
+ 	bool fec_enable = false;
+ 
+-	decide_training_settings(
++	dp_decide_training_settings(
+ 		link,
+ 		link_settings,
+ 		lt_overrides,
+@@ -4606,50 +4625,74 @@ enum dp_panel_mode dp_get_panel_mode(struct dc_link *link)
+ 	return DP_PANEL_MODE_DEFAULT;
+ }
+ 
+-void dp_set_fec_ready(struct dc_link *link, bool ready)
++enum dc_status dp_set_fec_ready(struct dc_link *link, bool ready)
+ {
+ 	/* FEC has to be "set ready" before the link training.
+ 	 * The policy is to always train with FEC
+ 	 * if the sink supports it and leave it enabled on link.
+ 	 * If FEC is not supported, disable it.
+ 	 */
+-	struct link_encoder *link_enc = link->link_enc;
++	struct link_encoder *link_enc = NULL;
++	enum dc_status status = DC_OK;
+ 	uint8_t fec_config = 0;
+ 
++	/* Access link encoder based on whether it is statically
++	 * or dynamically assigned to a link.
++	 */
++	if (link->is_dig_mapping_flexible &&
++			link->dc->res_pool->funcs->link_encs_assign)
++		link_enc = link_enc_cfg_get_link_enc_used_by_link(link->dc->current_state, link);
++	else
++		link_enc = link->link_enc;
++	ASSERT(link_enc);
++
+ 	if (!dc_link_should_enable_fec(link))
+-		return;
++		return status;
+ 
+ 	if (link_enc->funcs->fec_set_ready &&
+ 			link->dpcd_caps.fec_cap.bits.FEC_CAPABLE) {
+ 		if (ready) {
+ 			fec_config = 1;
+-			if (core_link_write_dpcd(link,
++			status = core_link_write_dpcd(link,
+ 					DP_FEC_CONFIGURATION,
+ 					&fec_config,
+-					sizeof(fec_config)) == DC_OK) {
++					sizeof(fec_config));
++			if (status == DC_OK) {
+ 				link_enc->funcs->fec_set_ready(link_enc, true);
+ 				link->fec_state = dc_link_fec_ready;
+ 			} else {
+-				link->link_enc->funcs->fec_set_ready(link->link_enc, false);
++				link_enc->funcs->fec_set_ready(link->link_enc, false);
+ 				link->fec_state = dc_link_fec_not_ready;
+ 				dm_error("dpcd write failed to set fec_ready");
+ 			}
+ 		} else if (link->fec_state == dc_link_fec_ready) {
+ 			fec_config = 0;
+-			core_link_write_dpcd(link,
++			status = core_link_write_dpcd(link,
+ 					DP_FEC_CONFIGURATION,
+ 					&fec_config,
+ 					sizeof(fec_config));
+-			link->link_enc->funcs->fec_set_ready(
+-					link->link_enc, false);
++			link_enc->funcs->fec_set_ready(link_enc, false);
+ 			link->fec_state = dc_link_fec_not_ready;
+ 		}
+ 	}
++
++	return status;
+ }
+ 
+ void dp_set_fec_enable(struct dc_link *link, bool enable)
+ {
+-	struct link_encoder *link_enc = link->link_enc;
++	struct link_encoder *link_enc = NULL;
++
++	/* Access link encoder based on whether it is statically
++	 * or dynamically assigned to a link.
++	 */
++	if (link->is_dig_mapping_flexible &&
++			link->dc->res_pool->funcs->link_encs_assign)
++		link_enc = link_enc_cfg_get_link_enc_used_by_link(
++				link->dc->current_state, link);
++	else
++		link_enc = link->link_enc;
++	ASSERT(link_enc);
+ 
+ 	if (!dc_link_should_enable_fec(link))
+ 		return;
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/dc_link_dp.h b/drivers/gpu/drm/amd/display/dc/inc/dc_link_dp.h
+index ffc3f2c63db8..3581159e61af 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/dc_link_dp.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/dc_link_dp.h
+@@ -88,8 +88,12 @@ void dp_set_panel_mode(struct dc_link *link, enum dp_panel_mode panel_mode);
+ bool dp_overwrite_extended_receiver_cap(struct dc_link *link);
+ 
+ void dpcd_set_source_specific_data(struct dc_link *link);
++/* Write DPCD link configuration data. */
++enum dc_status dpcd_set_link_settings(
++	struct dc_link *link,
++	const struct link_training_settings *lt_settings);
+ 
+-void dp_set_fec_ready(struct dc_link *link, bool ready);
++enum dc_status dp_set_fec_ready(struct dc_link *link, bool ready);
+ void dp_set_fec_enable(struct dc_link *link, bool enable);
+ bool dp_set_dsc_enable(struct pipe_ctx *pipe_ctx, bool enable);
+ bool dp_set_dsc_pps_sdp(struct pipe_ctx *pipe_ctx, bool enable);
+@@ -97,6 +101,13 @@ void dp_set_dsc_on_stream(struct pipe_ctx *pipe_ctx, bool enable);
+ bool dp_update_dsc_config(struct pipe_ctx *pipe_ctx);
+ bool dp_set_dsc_on_rx(struct pipe_ctx *pipe_ctx, bool enable);
+ 
++/* Initialize output parameter lt_settings. */
++void dp_decide_training_settings(
++	struct dc_link *link,
++	const struct dc_link_settings *link_setting,
++	const struct dc_link_training_overrides *overrides,
++	struct link_training_settings *lt_settings);
++
+ /* Convert PHY repeater count read from DPCD uint8_t. */
+ uint8_t dp_convert_to_count(uint8_t lttpr_repeater_count);
+ 
+@@ -105,5 +116,9 @@ enum link_training_result dp_check_link_loss_status(
+ 		struct dc_link *link,
+ 		const struct link_training_settings *link_training_setting);
+ 
++enum dc_status dpcd_configure_lttpr_mode(
++		struct dc_link *link,
++		struct link_training_settings *lt_settings);
++
+ enum dp_link_encoding dp_get_link_encoding_format(const struct dc_link_settings *link_settings);
+ #endif /* __DC_LINK_DP_H__ */
 -- 
 2.25.1
 
