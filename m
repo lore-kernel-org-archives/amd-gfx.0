@@ -2,104 +2,116 @@ Return-Path: <SRS0=kbWR=KQ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 88D78C47076
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 May 2021 17:37:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4138DC47076
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 May 2021 17:39:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4CA9B611AB
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 May 2021 17:37:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4CA9B611AB
+	by mail.kernel.org (Postfix) with ESMTPS id 0A1D2611AB
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 May 2021 17:39:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0A1D2611AB
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C413B6E5BE;
-	Fri, 21 May 2021 17:37:23 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2076.outbound.protection.outlook.com [40.107.93.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8B776E52D
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 May 2021 17:37:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE4DD6E53E;
+	Fri, 21 May 2021 17:39:53 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam08on2055.outbound.protection.outlook.com [40.107.101.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 073506E53E
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 May 2021 17:39:51 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gORkal9aC6z+Aq6ohalugUpAV9/xB6a0Kd3KYmT9TmJ774upxZmjYOAjRuav3XIJY+eNBxFP6reFVLQZel0Kb0s2Cj0FY9xGSzJQclMlZJ7J2u//ApIBffENf5npzYOqcAyILp8kaoJ4l+IpxH+3hGWhTRFZqY2f5sKcPA08Cg7Sjv61oH9T5vQ5FA7GEbLhnBiqW2f3t3NpJwva8q/dwN9HXpUXxJHR4qvshs/Az7eyjCMFKaMUsmJmIyyKcTxdVEIbtfay45Dae2wdPOWj9LSoQlTIFuHoUErsxv9EOe93pDZnMNfCkt6+CvJ2G33rXqmwHbhG1vJpgRKKph1GVg==
+ b=J79BipJd9q+NIZWjRth2OSImzd0LpHvWRskecouJfS8WyUjMT0pyOQOaUGYSDvLCdZdrE7kSvt1/BEo+LpYWy8CBev691CkmYqQrBfZUJWVi36OZT45j+Y4PLhj3fMKsrMOoEJ8+C158/y6v88SRRfV2H1UWvrl4mj0A2+0uBbvXFV2r0Vm8GbmuxTx5K8RtuIvg3mQZwtYauX5+pR4ILz7h+/VErnNHRbVx1ONlsVSQJLcCRPyR4DK4mF0HpAva855MfpXyHrJSbDzv6Ub95v6LOZZA6NAemiHIRQfbYonvEfF9A1G7ugeYSAag+8x2ZYSuVCkcJZTBnvFEIGLC4g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TGm/cYy/LCg+aCRqWc5VzX2jw9GkTnbRXhMQLWjz7zg=;
- b=aroq/HQDsYMQQRFnldq2W4rJ57v135mVYQMJ9LVnjj5aRNthsTCmbR5fLxusLB0t8eeSzacrSsxALODcsb+1kNCLtgR+fcVDg0jc55ghY3Q+i9T0Gh+hq7UVWJ131zU8UeFdFoPlB01RI+t0vIpkK8TQjsj2BWfIl73uwC0Rlcpy00fRvCHSr+g/0DfQTwMm//yXrlXbWCdF/GX0GKJZukIQe8R22izUpFeZjTbMf16mYi8c20GEGSK3c5V4Zdtgo59NkJ+0g0lR2iWBVKXHsfKhXsT7uGg5v33N0MhUgGPteKz+2nJJURWHO9f2FkEIn+9pMVAkafVSp6k0B5UOCg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=none sp=none pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
+ bh=sZutARR02mckg5ygoO83H0f6wQ17Chd03d54EM1Xy+c=;
+ b=HvmQ/w+NXcySOf4nJ/T7xI0brCfBVu1xXV3xAdtlxcu07wZeyVub1QRZsRrndpaMnRMt9KH+7sZYKkhbPQvJrFrMMTzDMLKRLtMDyQ9q3arbyD9I4GGmzaweYV4nQx9ESmkz+hLPmN5xMsrZDcDs9uo+RiQbSv7tTgcl35yiHjlg+V6ZvRyW7foiDDx7DWFCzrPszHCMks/RRO0RjgxRGxs0ZK+0wFsr2Lm03h7mAIs48DpCel63w5qIBlKfMHGfgIA1v6F/ZmxNPSsu4YlZnHifU5mShIu2GL91tjKliDGZX5cmKhSkHjkhdDYTOSiAy0iJUc72LDcFOSHhbrubKQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TGm/cYy/LCg+aCRqWc5VzX2jw9GkTnbRXhMQLWjz7zg=;
- b=hQ+890GjSMxFyVpkEvDBhN5KY5ENa6dcS/QrNCN6Wu+aq5z14pF7tY5U5/Z4JEqxFTqheTIsyauZXUmQpOMm+LpQAtPMMy7Ay44pACA6qMU0YRr1qHnoUm5XIiPwNDOhuveaJY4FPv90/b4VC7IprEUXVs87Z0NXshBZLpkIit8=
-Received: from BN6PR1101CA0006.namprd11.prod.outlook.com
- (2603:10b6:405:4a::16) by BN8PR12MB3603.namprd12.prod.outlook.com
- (2603:10b6:408:4a::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4150.26; Fri, 21 May
- 2021 17:37:10 +0000
-Received: from BN8NAM11FT059.eop-nam11.prod.protection.outlook.com
- (2603:10b6:405:4a:cafe::ad) by BN6PR1101CA0006.outlook.office365.com
- (2603:10b6:405:4a::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4150.23 via Frontend
- Transport; Fri, 21 May 2021 17:37:10 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT059.mail.protection.outlook.com (10.13.177.120) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4129.25 via Frontend Transport; Fri, 21 May 2021 17:37:10 +0000
-Received: from localhost.localdomain (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Fri, 21 May
- 2021 12:37:09 -0500
-From: Qingqing Zhuo <qingqing.zhuo@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 15/15] Revert "drm/amd/display: Refactor and add visual
- confirm for HW Flip Queue"
-Date: Fri, 21 May 2021 13:36:46 -0400
-Message-ID: <20210521173646.1140586-16-qingqing.zhuo@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210521173646.1140586-1-qingqing.zhuo@amd.com>
-References: <20210521173646.1140586-1-qingqing.zhuo@amd.com>
-MIME-Version: 1.0
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 832e31c6-8e7a-4503-8f63-08d91c7f1037
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3603:
-X-Microsoft-Antispam-PRVS: <BN8PR12MB36039E995D5F026C334C92F2FB299@BN8PR12MB3603.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1227;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: VHESjuqSORSlwxZPF1aCaVRzUXA/pxhy2xHN65twpmzDfYpc3VQnt9lYShwvwZWfE4WstMwpatsraVrabGcl2elCaSp7dhhy9jSaW/Vsn5EyFI2tSPA6hf2DoaaWiymRm6+N6fTbBxP40bxZy/oA3znBaEfZ3xVRyhU357yTLuKVHutXwwVq48lvfQRGPmeLw2LpqsPhTXdk5A5TVMWSou2YjWO96f4O9aFQWVpW81BCNVshsv34NP0UInk+fxFmDIYg/NzGYe0vexXNaHSZFEYo5rXbls0fDXSY2FNr6KsIt+ilLjSES4yak68ddNeMC+lKntrghh7PaeDddsC3on5/n2xhYmCoRJqJ7xzLSKZEK1642DYpkTOyoRSwu65UnIqEqivryiG+Yj3HHAcN+pNGTojC26bddExdPdgWzM9OeM1n66tG8Y3yUZFFKg+9xg6H4EQf3hRguwjtYNXSS99p8NF1pFS4EOcoglAtRDli89VyHTS1f4zOA3UAo+lHF8pgf+D9LzaZrjUq9B8PnVkhFgY1Yvin9npauJRhn3htwsqNfXoYrgE8JifknJ/8pwSGEGr90rekYyEZ1NeVbUF+o27vUbyYOYCzmcJrCc6PDhtl35UIdWGtUE9w7aKVVOsJRwFEvo7qMbMvBK2VaH2SXAPXEbvnjsb1V2zIIFfp9Tf8j31cdSzSwTevjD3k
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(346002)(39850400004)(396003)(376002)(136003)(36840700001)(46966006)(316002)(4326008)(6916009)(2906002)(86362001)(2616005)(81166007)(70206006)(356005)(26005)(5660300002)(8676002)(70586007)(478600001)(36756003)(1076003)(336012)(8936002)(82740400003)(83380400001)(36860700001)(54906003)(30864003)(426003)(47076005)(82310400003)(6666004)(16526019)(44832011)(186003)(36900700001);
+ bh=sZutARR02mckg5ygoO83H0f6wQ17Chd03d54EM1Xy+c=;
+ b=u2Y78eE1FTvYsgAxFs/vfZZD6dqG7/KZCCAZ7+QctzsZzYNhP7PbjyjJym3wXGiS0afz7lWetYK1d6vv+T3hI3r6Rc9EFdIuTQLH+x3fNkw13kLpMo16x8aIBGR43RznEudS/k1nTjKJ2WO1lAO527jUa2a53fMnrVmKexRS7c8=
+Received: from DM6PR12MB3067.namprd12.prod.outlook.com (2603:10b6:5:115::10)
+ by DM6PR12MB3916.namprd12.prod.outlook.com (2603:10b6:5:1ca::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.26; Fri, 21 May
+ 2021 17:39:50 +0000
+Received: from DM6PR12MB3067.namprd12.prod.outlook.com
+ ([fe80::5c8c:adff:ab42:9345]) by DM6PR12MB3067.namprd12.prod.outlook.com
+ ([fe80::5c8c:adff:ab42:9345%6]) with mapi id 15.20.4129.035; Fri, 21 May 2021
+ 17:39:50 +0000
+From: "Sider, Graham" <Graham.Sider@amd.com>
+To: Alex Deucher <alexdeucher@gmail.com>
+Subject: RE: [PATCH 2/6] drm/amd/pm: Add arcturus throttler translation
+Thread-Topic: [PATCH 2/6] drm/amd/pm: Add arcturus throttler translation
+Thread-Index: AQHXTYSqhVvD5xR5YU6jGKA1xw/dbKrt/8GAgAAz2AA=
+Date: Fri, 21 May 2021 17:39:49 +0000
+Message-ID: <DM6PR12MB3067FD5B64C665F5E264F6EA8A299@DM6PR12MB3067.namprd12.prod.outlook.com>
+References: <20210520142930.8369-1-Graham.Sider@amd.com>
+ <20210520142930.8369-2-Graham.Sider@amd.com>
+ <CADnq5_MnENbvZJTAr8nfmvENZoeZaWxpU=zaeGeUasgz5TfUFA@mail.gmail.com>
+In-Reply-To: <CADnq5_MnENbvZJTAr8nfmvENZoeZaWxpU=zaeGeUasgz5TfUFA@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [72.141.145.172]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 9515d698-246c-43cd-61ef-08d91c7f6f2d
+x-ms-traffictypediagnostic: DM6PR12MB3916:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM6PR12MB39167C384575135E9220773C8A299@DM6PR12MB3916.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:4714;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: v/49B8lwVR2QfO9GESgGz9ZfO8KIKdlQ7VLduW1Vi6uiESYrQNZWabZSt2KswM7sfc+pnq7GYBoPCNxedi7smJYlaKYexKQhTcN+pYagRZNQ71+Y2+6lCtX4ao/I6HJZXlNhshTeUyJk6DYFxH1mRd/4m/UBuoz8HnfSW9YopUwhdPCpIdHptn7gUwLOu7S7z1lAI7ly+KDF0uS1o/DS6jxj0oNzuoBE6N6cQ0WBVJ9ao+ZcDLzeXPXCZdwA97Uoy0E2zvsnlpV4RkEiOXfRxRng4kqKZZsQUHpt+PPo2ueP0pD53u5kcZ0Cj90soNwX7zcc4BJBpKrDnXC59HfD900TJN+/506Nmr8ka9RZOmTyUob73bCfhKvb6PWYmZj10pEEFEtghzL0KhMEW7TXJwK5XvW7l9Rx5S1JYv0lF1QJEMzbR7FT6tjQniKLpAPTtNK7qmfwfOXjGHKe5NGw7h1tzr6yeVDjtvS0Z/pXV08ZO0B5a2s1rvbzusnsv/Q1tNuAVdMVk91yWjPNmM3qETo0788Dk4aJNih9zkeKQ5X5hrgWZ6qPkrDd5iSsv3wsYGU4j1kBDfnATvHqszdlHbXnivfElt4lxbWtVlmlDSADrjqxjCcQoHUgrjJYZml+G/OkBn2CkHBwDVCl+DGXfqjN/xw4xH1u5c5rURBKb5qHw+ZzI3vz+DgTAMrgdhweve86EOVa8j9BgF2+50AFJHAbYjwEuSHobNbDNCGaL+LBUzZSNONcfBsWJ2XSbUU0zV7RLOdGzG0Y7/sROEmFGg==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3067.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(376002)(396003)(366004)(346002)(136003)(39860400002)(6916009)(122000001)(26005)(4326008)(966005)(33656002)(86362001)(316002)(186003)(478600001)(53546011)(45080400002)(38100700002)(6506007)(54906003)(66556008)(9686003)(8936002)(52536014)(5660300002)(83380400001)(76116006)(66946007)(71200400001)(55016002)(66476007)(64756008)(66446008)(2906002)(7696005)(8676002)(357404004);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?csDCXHKxo+MLTA7uyeYaZQH2nNxjDJA7NLUjc+ssgEvGGgWcejSxlQAy6Gwc?=
+ =?us-ascii?Q?HSxfyayuCK7Db90CggtQypl1+0f3gPFw1gGE7TcEuYen0BmICsOl960VPBls?=
+ =?us-ascii?Q?LdxW4EvGgiQaWUdJJuXY3QmnINcJfvlId4ZouoOskjQ+MYYXPUXZd7vECTWW?=
+ =?us-ascii?Q?AVEPdp3jqGTyz8HHicv+3z0DAcATH9z+dVYg0+Gi57Wbn4j0ggPZE+oFsARH?=
+ =?us-ascii?Q?IfKTYkxD7gMmGelSeI0bNXAHT8Dkhu8zYS77jowoB4IX97tEz7sEA2qzlI/H?=
+ =?us-ascii?Q?IMKjZstjvWkp5cYi4POZg+opFv0yPK7kP3UUDPozPLc1OrHzY8Vviv3mILZg?=
+ =?us-ascii?Q?5h0WkN+w4vPyAaoknq8va5D+RVoKr49SyO8ohBSQ9MJUZySrgH7SEbsPTH5Z?=
+ =?us-ascii?Q?VQvVWW7NRVQ+Gi8MVu+mOn8G7JILdHzNTqyjKRGD4UQI2AHIiQrCBkJtNf8f?=
+ =?us-ascii?Q?+0IU7dwVOPuuoFJSHgcg1YeONP5r45ptZfHWcCN5oEqJMqD3d4AmZ9uTXuXz?=
+ =?us-ascii?Q?jBF2IICoq8m+l2g4TNAgam1axxxZPcChLsSZL50VnmwaW/dtLrPHAFX/ZrP5?=
+ =?us-ascii?Q?7eFC61RTHtI+vfr19DY9rdmzYcvXgZix88Zq4SHJ1kWaQgO32hjDQ+pH77dP?=
+ =?us-ascii?Q?rUjK+f39i5F+AC9oBEbbruQGCaK1gZkUJAVMN8ANQCZEa1mBIM3sbkhEGYbn?=
+ =?us-ascii?Q?tPc+A4h25jJ+a0OpbC71L0zp6jIY6y3Uizp6se2mMF2asLmm1gYLek5gO9h0?=
+ =?us-ascii?Q?svo534vA0u18gNvZZCLUlAUMDQWuB1ItHQPbmLD59Ok/NFDN7BcAxC9g4TIs?=
+ =?us-ascii?Q?sJzC1ronthdL50U1je5JH9ZF077Qcs6AxM9uh+5oPfMoQnRLptLQ3dikX1nY?=
+ =?us-ascii?Q?RJzejG9BZitdXZsdxUDNbHgfK9Cbu2tJ6yCvGBcd+DepIU97hAFMQUiXCang?=
+ =?us-ascii?Q?jvPotF0oUkTUFHkuruyfVmRFG3Brh9Be8MlYQMVH5KhrtMo9bM9yKILVgSim?=
+ =?us-ascii?Q?KH0YsRHEs5CHidIM1EGcsR3fRRhtteIJmQumrMf4Md3zO23NcnVQUwGah/Lk?=
+ =?us-ascii?Q?UoBggHoBwJffPpl60So4CEYY3yFokPT7BIde73E13YqgJwhDjLhXG1mCHLIx?=
+ =?us-ascii?Q?RPsJDHMZwpvtUXaVStEC5goMqtFdYf+rG6YDYUQkVfF+05Jkdok0Kqe2nUgx?=
+ =?us-ascii?Q?HESMoecbTY1Frp56cPo478uoPFqQvhGOkOzM1ienSPazNu2flp4hsnA8Ahg9?=
+ =?us-ascii?Q?utWisYxCkLGcCnUsFyp1rufieoHqV/glytTg9FGFfZmHQS0kQs6Ek+L60SvT?=
+ =?us-ascii?Q?GAc=3D?=
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2021 17:37:10.7707 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 832e31c6-8e7a-4503-8f63-08d91c7f1037
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT059.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3603
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3067.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9515d698-246c-43cd-61ef-08d91c7f6f2d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 May 2021 17:39:49.9946 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: N9U4wMowrR8edzWF+9FGrRIEBBQA4be4HEjkEreABXv4L5VYakZ/9C4RLkN5ZOb793c1mtSyKBMRhAFcrXJGAQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3916
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,334 +123,154 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Eryk.Brol@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- Anson.Jacob@amd.com, Aurabindo.Pillai@amd.com, Bhawanpreet.Lakha@amd.com,
- bindu.r@amd.com
+Cc: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, "Sakhnovitch,
+ Elena \(Elen\)" <Elena.Sakhnovitch@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This reverts commit 5791d219561cb661c991332a4f0bca6a8c8db080.
+Hi Alex,
 
-Recent visual confirm changes are regressing the driver, causing a
-black screen on boot in some green sardine configs, or visual confirm
-is not updated at all.
+Are you referring to bumping the gpu_metrics_vX_Y version number? Different ASICs are currently using different version numbers already, so I'm not sure how feasible this might be (e.g. arcturus ==  gpu_metrics_v1_1, navi1x == gpu_metrics_v1_3, vangogh == gpu_metrics_v2_1).
 
-Signed-off-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
-Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
----
- .../amd/display/dc/dcn10/dcn10_hw_sequencer.c | 31 +++++++------------
- .../amd/display/dc/dcn10/dcn10_hw_sequencer.h |  6 ----
- .../gpu/drm/amd/display/dc/dcn10/dcn10_init.c |  1 -
- .../gpu/drm/amd/display/dc/dcn10/dcn10_mpc.c  |  5 ---
- .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    | 28 ++++++-----------
- .../drm/amd/display/dc/dcn20/dcn20_hwseq.h    |  5 ---
- .../gpu/drm/amd/display/dc/dcn20/dcn20_init.c |  1 -
- .../gpu/drm/amd/display/dc/dcn20/dcn20_mpc.c  |  2 +-
- .../gpu/drm/amd/display/dc/dcn21/dcn21_init.c |  1 -
- .../gpu/drm/amd/display/dc/dcn30/dcn30_init.c |  1 -
- .../gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c  |  2 +-
- .../drm/amd/display/dc/dcn301/dcn301_init.c   |  1 -
- drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h   |  3 --
- .../gpu/drm/amd/display/dc/inc/hw_sequencer.h |  4 ---
- 14 files changed, 23 insertions(+), 68 deletions(-)
+Technically speaking no new fields have been added to any of the gpu_metrics versions, just a change in representation in the throttle_status field. Let me know your thoughts on this.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-index 85a947015945..8f11e2b58cd7 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-@@ -2502,23 +2502,6 @@ static void dcn10_update_dpp(struct dpp *dpp, struct dc_plane_state *plane_state
- 		dpp->funcs->dpp_program_bias_and_scale(dpp, &bns_params);
- }
- 
--void dcn10_update_visual_confirm_color(struct dc *dc, struct pipe_ctx *pipe_ctx, struct tg_color *color, int mpcc_id)
--{
--	struct dce_hwseq *hws = dc->hwseq;
--	struct mpc *mpc = dc->res_pool->mpc;
--
--	if (dc->debug.visual_confirm == VISUAL_CONFIRM_HDR)
--		hws->funcs.get_hdr_visual_confirm_color(pipe_ctx, color);
--	else if (dc->debug.visual_confirm == VISUAL_CONFIRM_SURFACE)
--		hws->funcs.get_surface_visual_confirm_color(pipe_ctx, color);
--	else
--		color_space_to_black_color(
--				dc, pipe_ctx->stream->output_color_space, color);
--
--	if (mpc->funcs->set_bg_color)
--		mpc->funcs->set_bg_color(mpc, color, mpcc_id);
--}
--
- void dcn10_update_mpcc(struct dc *dc, struct pipe_ctx *pipe_ctx)
- {
- 	struct dce_hwseq *hws = dc->hwseq;
-@@ -2530,6 +2513,18 @@ void dcn10_update_mpcc(struct dc *dc, struct pipe_ctx *pipe_ctx)
- 	struct mpc *mpc = dc->res_pool->mpc;
- 	struct mpc_tree *mpc_tree_params = &(pipe_ctx->stream_res.opp->mpc_tree_params);
- 
-+	if (dc->debug.visual_confirm == VISUAL_CONFIRM_HDR) {
-+		hws->funcs.get_hdr_visual_confirm_color(
-+				pipe_ctx, &blnd_cfg.black_color);
-+	} else if (dc->debug.visual_confirm == VISUAL_CONFIRM_SURFACE) {
-+		hws->funcs.get_surface_visual_confirm_color(
-+				pipe_ctx, &blnd_cfg.black_color);
-+	} else {
-+		color_space_to_black_color(
-+				dc, pipe_ctx->stream->output_color_space,
-+				&blnd_cfg.black_color);
-+	}
-+
- 	if (per_pixel_alpha)
- 		blnd_cfg.alpha_mode = MPCC_ALPHA_BLEND_MODE_PER_PIXEL_ALPHA;
- 	else
-@@ -2561,8 +2556,6 @@ void dcn10_update_mpcc(struct dc *dc, struct pipe_ctx *pipe_ctx)
- 	 */
- 	mpcc_id = hubp->inst;
- 
--	dc->hwss.update_visual_confirm_color(dc, pipe_ctx, &blnd_cfg.black_color, mpcc_id);
--
- 	/* If there is no full update, don't need to touch MPC tree*/
- 	if (!pipe_ctx->plane_state->update_flags.bits.full_update) {
- 		mpc->funcs->update_blending(mpc, &blnd_cfg, mpcc_id);
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.h
-index 478180b96d8d..c9bdffe5989b 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.h
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.h
-@@ -206,10 +206,4 @@ void dcn10_verify_allow_pstate_change_high(struct dc *dc);
- 
- void dcn10_get_dcc_en_bits(struct dc *dc, int *dcc_en_bits);
- 
--void dcn10_update_visual_confirm_color(
--		struct dc *dc,
--		struct pipe_ctx *pipe_ctx,
--		struct tg_color *color,
--		int mpcc_id);
--
- #endif /* __DC_HWSS_DCN10_H__ */
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_init.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_init.c
-index 4ff3ebc25438..680ca53455a2 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_init.c
-@@ -82,7 +82,6 @@ static const struct hw_sequencer_funcs dcn10_funcs = {
- 	.set_abm_immediate_disable = dce110_set_abm_immediate_disable,
- 	.set_pipe = dce110_set_pipe,
- 	.get_dcc_en_bits = dcn10_get_dcc_en_bits,
--	.update_visual_confirm_color = dcn10_update_visual_confirm_color,
- };
- 
- static const struct hwseq_private_funcs dcn10_private_funcs = {
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_mpc.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_mpc.c
-index da74269feb75..b096011acb49 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_mpc.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_mpc.c
-@@ -64,8 +64,6 @@ void mpc1_set_bg_color(struct mpc *mpc,
- 			MPCC_BG_G_Y, bg_g_y);
- 	REG_SET(MPCC_BG_B_CB[bottommost_mpcc->mpcc_id], 0,
- 			MPCC_BG_B_CB, bg_b_cb);
--
--	bottommost_mpcc->blnd_cfg.black_color = *bg_color;
- }
- 
- static void mpc1_update_blending(
-@@ -248,8 +246,6 @@ struct mpcc *mpc1_insert_plane(
- 		}
- 	}
- 
--	mpc->funcs->set_bg_color(mpc, &blnd_cfg->black_color, mpcc_id);
--
- 	/* update the blending configuration */
- 	mpc->funcs->update_blending(mpc, blnd_cfg, mpcc_id);
- 
-@@ -499,7 +495,6 @@ static const struct mpc_funcs dcn10_mpc_funcs = {
- 	.set_output_csc = NULL,
- 	.set_output_gamma = NULL,
- 	.get_mpc_out_mux = mpc1_get_mpc_out_mux,
--	.set_bg_color = mpc1_set_bg_color,
- };
- 
- void dcn10_mpc_construct(struct dcn10_mpc *mpc10,
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-index 558821e5ed2f..484a30592987 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-@@ -2267,23 +2267,6 @@ void dcn20_get_mpctree_visual_confirm_color(
- 	*color = pipe_colors[top_pipe->pipe_idx];
- }
- 
--void dcn20_update_visual_confirm_color(struct dc *dc, struct pipe_ctx *pipe_ctx, struct tg_color *color, int mpcc_id)
--{
--	struct dce_hwseq *hws = dc->hwseq;
--	struct mpc *mpc = dc->res_pool->mpc;
--
--	/* input to MPCC is always RGB, by default leave black_color at 0 */
--	if (dc->debug.visual_confirm == VISUAL_CONFIRM_HDR)
--		hws->funcs.get_hdr_visual_confirm_color(pipe_ctx, color);
--	else if (dc->debug.visual_confirm == VISUAL_CONFIRM_SURFACE)
--		hws->funcs.get_surface_visual_confirm_color(pipe_ctx, color);
--	else if (dc->debug.visual_confirm == VISUAL_CONFIRM_MPCTREE)
--		dcn20_get_mpctree_visual_confirm_color(pipe_ctx, color);
--
--	if (mpc->funcs->set_bg_color)
--		mpc->funcs->set_bg_color(mpc, color, mpcc_id);
--}
--
- void dcn20_update_mpcc(struct dc *dc, struct pipe_ctx *pipe_ctx)
- {
- 	struct dce_hwseq *hws = dc->hwseq;
-@@ -2295,6 +2278,15 @@ void dcn20_update_mpcc(struct dc *dc, struct pipe_ctx *pipe_ctx)
- 	struct mpc *mpc = dc->res_pool->mpc;
- 	struct mpc_tree *mpc_tree_params = &(pipe_ctx->stream_res.opp->mpc_tree_params);
- 
-+	// input to MPCC is always RGB, by default leave black_color at 0
-+	if (dc->debug.visual_confirm == VISUAL_CONFIRM_HDR) {
-+		hws->funcs.get_hdr_visual_confirm_color(pipe_ctx, &blnd_cfg.black_color);
-+	} else if (dc->debug.visual_confirm == VISUAL_CONFIRM_SURFACE) {
-+		hws->funcs.get_surface_visual_confirm_color(pipe_ctx, &blnd_cfg.black_color);
-+	} else if (dc->debug.visual_confirm == VISUAL_CONFIRM_MPCTREE) {
-+		dcn20_get_mpctree_visual_confirm_color(pipe_ctx, &blnd_cfg.black_color);
-+	}
-+
- 	if (per_pixel_alpha)
- 		blnd_cfg.alpha_mode = MPCC_ALPHA_BLEND_MODE_PER_PIXEL_ALPHA;
- 	else
-@@ -2328,8 +2320,6 @@ void dcn20_update_mpcc(struct dc *dc, struct pipe_ctx *pipe_ctx)
- 	 */
- 	mpcc_id = hubp->inst;
- 
--	dc->hwss.update_visual_confirm_color(dc, pipe_ctx, &blnd_cfg.black_color, mpcc_id);
--
- 	/* If there is no full update, don't need to touch MPC tree*/
- 	if (!pipe_ctx->plane_state->update_flags.bits.full_update &&
- 		!pipe_ctx->update_flags.bits.mpcc) {
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.h b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.h
-index 6bba191cd33e..c69f766a40ce 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.h
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.h
-@@ -146,10 +146,5 @@ void dcn20_set_disp_pattern_generator(const struct dc *dc,
- 		const struct tg_color *solid_color,
- 		int width, int height, int offset);
- 
--void dcn20_update_visual_confirm_color(struct dc *dc,
--		struct pipe_ctx *pipe_ctx,
--		struct tg_color *color,
--		int mpcc_id);
--
- #endif /* __DC_HWSS_DCN20_H__ */
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_init.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_init.c
-index 2f59f10e5f09..b5bb613eed4d 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_init.c
-@@ -96,7 +96,6 @@ static const struct hw_sequencer_funcs dcn20_funcs = {
- #endif
- 	.set_disp_pattern_generator = dcn20_set_disp_pattern_generator,
- 	.get_dcc_en_bits = dcn10_get_dcc_en_bits,
--	.update_visual_confirm_color = dcn20_update_visual_confirm_color,
- };
- 
- static const struct hwseq_private_funcs dcn20_private_funcs = {
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_mpc.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_mpc.c
-index 947eb0df3f12..6a99fdd55e8c 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_mpc.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_mpc.c
-@@ -67,6 +67,7 @@ void mpc2_update_blending(
- 	REG_SET(MPCC_BOT_GAIN_INSIDE[mpcc_id], 0, MPCC_BOT_GAIN_INSIDE, blnd_cfg->bottom_inside_gain);
- 	REG_SET(MPCC_BOT_GAIN_OUTSIDE[mpcc_id], 0, MPCC_BOT_GAIN_OUTSIDE, blnd_cfg->bottom_outside_gain);
- 
-+	mpc1_set_bg_color(mpc, &blnd_cfg->black_color, mpcc_id);
- 	mpcc->blnd_cfg = *blnd_cfg;
- }
- 
-@@ -556,7 +557,6 @@ const struct mpc_funcs dcn20_mpc_funcs = {
- 	.set_output_gamma = mpc2_set_output_gamma,
- 	.power_on_mpc_mem_pwr = mpc20_power_on_ogam_lut,
- 	.get_mpc_out_mux = mpc1_get_mpc_out_mux,
--	.set_bg_color = mpc1_set_bg_color,
- };
- 
- void dcn20_mpc_construct(struct dcn20_mpc *mpc20,
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_init.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_init.c
-index 523e25f7e410..4f20a85ff396 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_init.c
-@@ -100,7 +100,6 @@ static const struct hw_sequencer_funcs dcn21_funcs = {
- 	.is_abm_supported = dcn21_is_abm_supported,
- 	.set_disp_pattern_generator = dcn20_set_disp_pattern_generator,
- 	.get_dcc_en_bits = dcn10_get_dcc_en_bits,
--	.update_visual_confirm_color = dcn20_update_visual_confirm_color,
- };
- 
- static const struct hwseq_private_funcs dcn21_private_funcs = {
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.c
-index a978d848d370..bf7fa98b39eb 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.c
-@@ -99,7 +99,6 @@ static const struct hw_sequencer_funcs dcn30_funcs = {
- 	.set_pipe = dcn21_set_pipe,
- 	.set_disp_pattern_generator = dcn30_set_disp_pattern_generator,
- 	.get_dcc_en_bits = dcn10_get_dcc_en_bits,
--	.update_visual_confirm_color = dcn20_update_visual_confirm_color,
- };
- 
- static const struct hwseq_private_funcs dcn30_private_funcs = {
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c
-index a82319f4d081..950c9bfd53de 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c
-@@ -1431,7 +1431,7 @@ const struct mpc_funcs dcn30_mpc_funcs = {
- 	.release_rmu = mpcc3_release_rmu,
- 	.power_on_mpc_mem_pwr = mpc3_power_on_ogam_lut,
- 	.get_mpc_out_mux = mpc1_get_mpc_out_mux,
--	.set_bg_color = mpc1_set_bg_color,
-+
- };
- 
- void dcn30_mpc_construct(struct dcn30_mpc *mpc30,
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_init.c b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_init.c
-index 181f2175ac95..70b053d9ba40 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_init.c
-@@ -101,7 +101,6 @@ static const struct hw_sequencer_funcs dcn301_funcs = {
- 	.get_dcc_en_bits = dcn10_get_dcc_en_bits,
- 	.optimize_pwr_state = dcn21_optimize_pwr_state,
- 	.exit_optimized_pwr_state = dcn21_exit_optimized_pwr_state,
--	.update_visual_confirm_color = dcn20_update_visual_confirm_color,
- };
- 
- static const struct hwseq_private_funcs dcn301_private_funcs = {
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h b/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
-index 640bb432bd6a..75c77ad9cbfe 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
-@@ -363,9 +363,6 @@ struct mpc_funcs {
- 			struct mpc *mpc,
- 			int opp_id);
- 
--	void (*set_bg_color)(struct mpc *mpc,
--			struct tg_color *bg_color,
--			int mpcc_id);
- };
- 
- #endif
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h
-index 43284d410687..1d5853c95448 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h
-@@ -235,10 +235,6 @@ struct hw_sequencer_funcs {
- 			enum dc_color_depth color_depth,
- 			const struct tg_color *solid_color,
- 			int width, int height, int offset);
--	void (*update_visual_confirm_color)(struct dc *dc,
--			struct pipe_ctx *pipe_ctx,
--			struct tg_color *color,
--			int mpcc_id);
- };
- 
- void color_space_to_black_color(
--- 
-2.25.1
+Best,
+Graham
 
+-----Original Message-----
+From: Alex Deucher <alexdeucher@gmail.com> 
+Sent: Friday, May 21, 2021 10:27 AM
+To: Sider, Graham <Graham.Sider@amd.com>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>; Kasiviswanathan, Harish <Harish.Kasiviswanathan@amd.com>; Sakhnovitch, Elena (Elen) <Elena.Sakhnovitch@amd.com>
+Subject: Re: [PATCH 2/6] drm/amd/pm: Add arcturus throttler translation
+
+[CAUTION: External Email]
+
+General comment on the patch series, do you want to bump the metrics table version since the meaning of the throttler status has changed?
+
+Alex
+
+On Thu, May 20, 2021 at 10:30 AM Graham Sider <Graham.Sider@amd.com> wrote:
+>
+> Perform dependent to independent throttle status translation for 
+> arcturus.
+> ---
+>  .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c | 62 
+> ++++++++++++++++---
+>  1 file changed, 53 insertions(+), 9 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c 
+> b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+> index 1735a96dd307..7c01c0bf2073 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+> @@ -540,6 +540,49 @@ static int arcturus_freqs_in_same_level(int32_t frequency1,
+>         return (abs(frequency1 - frequency2) <= EPSILON);  }
+>
+> +static uint32_t arcturus_get_indep_throttler_status(
+> +                                       unsigned long 
+> +dep_throttler_status) {
+> +       unsigned long indep_throttler_status = 0;
+> +
+> +       __assign_bit(INDEP_THROTTLER_TEMP_EDGE_BIT, &indep_throttler_status,
+> +                 test_bit(THROTTLER_TEMP_EDGE_BIT, &dep_throttler_status));
+> +       __assign_bit(INDEP_THROTTLER_TEMP_HOTSPOT_BIT, &indep_throttler_status,
+> +                 test_bit(THROTTLER_TEMP_HOTSPOT_BIT, &dep_throttler_status));
+> +       __assign_bit(INDEP_THROTTLER_TEMP_MEM_BIT, &indep_throttler_status,
+> +                 test_bit(THROTTLER_TEMP_MEM_BIT, &dep_throttler_status));
+> +       __assign_bit(INDEP_THROTTLER_TEMP_VR_GFX_BIT, &indep_throttler_status,
+> +                 test_bit(THROTTLER_TEMP_VR_GFX_BIT, &dep_throttler_status));
+> +       __assign_bit(INDEP_THROTTLER_TEMP_VR_MEM_BIT, &indep_throttler_status,
+> +                 test_bit(THROTTLER_TEMP_VR_MEM_BIT, &dep_throttler_status));
+> +       __assign_bit(INDEP_THROTTLER_TEMP_VR_SOC_BIT, &indep_throttler_status,
+> +                 test_bit(THROTTLER_TEMP_VR_SOC_BIT, &dep_throttler_status));
+> +       __assign_bit(INDEP_THROTTLER_TDC_GFX_BIT, &indep_throttler_status,
+> +                 test_bit(THROTTLER_TDC_GFX_BIT, &dep_throttler_status));
+> +       __assign_bit(INDEP_THROTTLER_TDC_SOC_BIT, &indep_throttler_status,
+> +                 test_bit(THROTTLER_TDC_SOC_BIT, &dep_throttler_status));
+> +       __assign_bit(INDEP_THROTTLER_PPT0_BIT, &indep_throttler_status,
+> +                 test_bit(THROTTLER_PPT0_BIT, &dep_throttler_status));
+> +       __assign_bit(INDEP_THROTTLER_PPT1_BIT, &indep_throttler_status,
+> +                 test_bit(THROTTLER_PPT1_BIT, &dep_throttler_status));
+> +       __assign_bit(INDEP_THROTTLER_PPT2_BIT, &indep_throttler_status,
+> +                 test_bit(THROTTLER_PPT2_BIT, &dep_throttler_status));
+> +       __assign_bit(INDEP_THROTTLER_PPT3_BIT, &indep_throttler_status,
+> +                 test_bit(THROTTLER_PPT3_BIT, &dep_throttler_status));
+> +       __assign_bit(INDEP_THROTTLER_PPM_BIT, &indep_throttler_status,
+> +                 test_bit(THROTTLER_PPM_BIT, &dep_throttler_status));
+> +       __assign_bit(INDEP_THROTTLER_FIT_BIT, &indep_throttler_status,
+> +                 test_bit(THROTTLER_FIT_BIT, &dep_throttler_status));
+> +       __assign_bit(INDEP_THROTTLER_APCC_BIT, &indep_throttler_status,
+> +                 test_bit(THROTTLER_APCC_BIT, &dep_throttler_status));
+> +       __assign_bit(INDEP_THROTTLER_VRHOT0_BIT, &indep_throttler_status,
+> +                 test_bit(THROTTLER_VRHOT0_BIT, &dep_throttler_status));
+> +       __assign_bit(INDEP_THROTTLER_VRHOT1_BIT, &indep_throttler_status,
+> +                 test_bit(THROTTLER_VRHOT1_BIT, 
+> + &dep_throttler_status));
+> +
+> +       return (uint32_t)indep_throttler_status; }
+> +
+>  static int arcturus_get_smu_metrics_data(struct smu_context *smu,
+>                                          MetricsMember_t member,
+>                                          uint32_t *value) @@ -629,7 
+> +672,7 @@ static int arcturus_get_smu_metrics_data(struct smu_context *smu,
+>                         SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
+>                 break;
+>         case METRICS_THROTTLER_STATUS:
+> -               *value = metrics->ThrottlerStatus;
+> +               *value = 
+> + arcturus_get_indep_throttler_status(metrics->ThrottlerStatus);
+>                 break;
+>         case METRICS_CURR_FANSPEED:
+>                 *value = metrics->CurrFanSpeed; @@ -2213,13 +2256,13 
+> @@ static const struct throttling_logging_label {
+>         uint32_t feature_mask;
+>         const char *label;
+>  } logging_label[] = {
+> -       {(1U << THROTTLER_TEMP_HOTSPOT_BIT), "GPU"},
+> -       {(1U << THROTTLER_TEMP_MEM_BIT), "HBM"},
+> -       {(1U << THROTTLER_TEMP_VR_GFX_BIT), "VR of GFX rail"},
+> -       {(1U << THROTTLER_TEMP_VR_MEM_BIT), "VR of HBM rail"},
+> -       {(1U << THROTTLER_TEMP_VR_SOC_BIT), "VR of SOC rail"},
+> -       {(1U << THROTTLER_VRHOT0_BIT), "VR0 HOT"},
+> -       {(1U << THROTTLER_VRHOT1_BIT), "VR1 HOT"},
+> +       {(1U << INDEP_THROTTLER_TEMP_HOTSPOT_BIT), "GPU"},
+> +       {(1U << INDEP_THROTTLER_TEMP_MEM_BIT), "HBM"},
+> +       {(1U << INDEP_THROTTLER_TEMP_VR_GFX_BIT), "VR of GFX rail"},
+> +       {(1U << INDEP_THROTTLER_TEMP_VR_MEM_BIT), "VR of HBM rail"},
+> +       {(1U << INDEP_THROTTLER_TEMP_VR_SOC_BIT), "VR of SOC rail"},
+> +       {(1U << INDEP_THROTTLER_VRHOT0_BIT), "VR0 HOT"},
+> +       {(1U << INDEP_THROTTLER_VRHOT1_BIT), "VR1 HOT"},
+>  };
+>  static void arcturus_log_thermal_throttling_event(struct smu_context 
+> *smu)  { @@ -2314,7 +2357,8 @@ static ssize_t 
+> arcturus_get_gpu_metrics(struct smu_context *smu,
+>         gpu_metrics->current_vclk0 = metrics.CurrClock[PPCLK_VCLK];
+>         gpu_metrics->current_dclk0 = metrics.CurrClock[PPCLK_DCLK];
+>
+> -       gpu_metrics->throttle_status = metrics.ThrottlerStatus;
+> +       gpu_metrics->throttle_status =
+> +                       
+> + arcturus_get_indep_throttler_status(metrics.ThrottlerStatus);
+>
+>         gpu_metrics->current_fan_speed = metrics.CurrFanSpeed;
+>
+> --
+> 2.17.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flist
+> s.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7CGr
+> aham.Sider%40amd.com%7Ca3ca9a6b0576479e545808d91c648f50%7C3dd8961fe488
+> 4e608e11a82d994e183d%7C0%7C0%7C637572040495495758%7CUnknown%7CTWFpbGZs
+> b3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D
+> %7C1000&amp;sdata=YxUx7BrsQKBauKE3fHpNrkWMAG4dBy11fV9xnJdMHns%3D&amp;r
+> eserved=0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
