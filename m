@@ -2,66 +2,72 @@ Return-Path: <SRS0=kbWR=KQ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3C4F8C433B4
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 May 2021 13:47:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1F7B7C43461
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 May 2021 13:52:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 000CF611AD
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 May 2021 13:47:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 000CF611AD
+	by mail.kernel.org (Postfix) with ESMTPS id DCAE2611AD
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 May 2021 13:52:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DCAE2611AD
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77D9E6F874;
-	Fri, 21 May 2021 13:47:25 +0000 (UTC)
-Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com
- [IPv6:2607:f8b0:4864:20::235])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB0376F874
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 May 2021 13:47:23 +0000 (UTC)
-Received: by mail-oi1-x235.google.com with SMTP id z3so19681172oib.5
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 May 2021 06:47:23 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 231396F877;
+	Fri, 21 May 2021 13:52:07 +0000 (UTC)
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [IPv6:2a00:1450:4864:20::629])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F40986F877
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 May 2021 13:52:05 +0000 (UTC)
+Received: by mail-ej1-x629.google.com with SMTP id i7so12749418ejc.5
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 May 2021 06:52:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=cq2iTH/te0U2nr8qul2JQysPZQf1AYXW9IfYdcASNrs=;
- b=vh0DrMAH/k6if0YDjS1dSISvUFviLTvKvdIjPoZd9wkVRPEoAyfVa6scJgUedHKXKe
- Kh2q7RS/uo87NZBpGvWR2TVB+KwaUXTWFgFzVoMBo4cPw8aPmpWFBWm8nsokuGlqXgM3
- UV7XQbxuJ0U94uf9LKS2dUWaW0KSh2RB/fDwVGJ6XYseu5JKNUJunHMuPM64FzPPNJkm
- kEfj6MxNmOBepgCYbeSfiqh+SOyWMII9q07S7tepEzF4LVSJ+200t39k2xRdxV9ArinN
- 9p4GmiAP45Ru1jBzRNvuPY7gM27F0h+gV5SvcCBGFkXKbbQkfiC1QZG6DPk6GOANpBsq
- 74mQ==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=2iMYr3YgtQXs410T7FiAyg8ykoH5T6cAT7pc6QmP4AI=;
+ b=NIaJWH/mC+m1WAR+h/phRk1/XWrTUk4SzUutVlJnUEhABuM3nDU1aYqIDclwVPbClI
+ 2JwV8LxCp4DpXAdBTEpriX2k3Dvd2gDG1qBxrsu/PqQKVlRVARGoVDspP7X2g2va3IFw
+ LkBHRkxq8+gIzPuJVRMFYzs368w802giFQ3+SWOP7rD6OMiWXyDuIteSLD/KhfHyKsFV
+ JsLIjZISQ9CQJcuT1uZIon13i9ouVkXMI4p7lyzNUcB0B6N8xMj5hXeX2DdcUDFMBByg
+ OucsmTkieeeF2xRtlk28gn3iEesTEpYxUiZOKuNu89BeklcapcU+viE3ex2wVjB5RnSy
+ Lmvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=cq2iTH/te0U2nr8qul2JQysPZQf1AYXW9IfYdcASNrs=;
- b=L7cd6DSFgU/mWBJemcKwGfyhWmQmgKAVWsErpk9Est82ZwkVpgHCvQM/Zf76BTabyf
- YWdnqByHRiHtuVaCsjNsUfB2JKVFb+QIRbNOLZsdf+J9HVrgmBW+KXniVCCZO7RjuGl8
- YvV/iy+MFJrBmqaN809q59uWglGULBHIIn7F28RlnaTU4LTiSk9dIuW/Q5r7UtytcxvY
- Oqz0m7uqu+czaAgvkESr9B2ofxrnBdmgd8pylyn/25LmSqW3hSNEV2AECKKjCImYLWDx
- ZDjT7/X+MK7MebUiM8ssuPdPO8XTE+mS/zBaI88S911ANXb/TdMNbpQ+0OOcsOPikau3
- 2J7g==
-X-Gm-Message-State: AOAM533SqS4awj4xvoZt+8yl2li6b0BuilsyuuPnETqT4UXdN7VqFulO
- 5fDeDpifRcqW+WFZSUtu2mngwGg/ct0rElcUU6Galyr8
-X-Google-Smtp-Source: ABdhPJyHegH/FpubAhjcaodryG4vZZt2y1gqoIF+OXM2ufZ6Zbjq2dKClQOZJw3jSHfqN6v5JoSlF/MGJ/PsGmEp7ng=
-X-Received: by 2002:a05:6808:249:: with SMTP id
- m9mr2174027oie.120.1621604843050; 
- Fri, 21 May 2021 06:47:23 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=2iMYr3YgtQXs410T7FiAyg8ykoH5T6cAT7pc6QmP4AI=;
+ b=U6jc480deLiA6vca6HtxJzEh1GaRdtxYDO+5ZplkDzPA20l7b3QWol8ZEfBBmSC+wX
+ ls6Xsnd64ZkA0qFtOwkoai0Yw3bER5ivXA0627prYWk9CFOTAGEBMb+7KNsv9dXtngoX
+ jZ4FGvCuWxorFElcLd4wvuXBSd7zKP4E7DPB9CM3ujHOB2c8JPL7S3KTiYGlUNmJi5/w
+ TvCZKymm3aNPfffenfCcL+1j3fGJZwc/9iLi7hQ5uYYfBbw9ilQFNdnwCAISDdE18bg4
+ cTzoBHRg9eNLKYgeZTlA3leXEFAoXL0vDy5rCZOehKCjmOuLxv1Egpi5EOINaEhO+EOl
+ O8wg==
+X-Gm-Message-State: AOAM532hMbaUBApUmOkz0GluQA8jWL2HNuDKQiKRIMrhRaIG8VGNBL2S
+ Yymu3JwaI+7rFGOl6sahDz8=
+X-Google-Smtp-Source: ABdhPJwfXkKxZJ03gVT9P/mu1V6EZ0W310NDhAGREjh/6aIsb4edTogMem7VaXCTl1fb/WODnTWuhg==
+X-Received: by 2002:a17:906:ff4b:: with SMTP id
+ zo11mr8893882ejb.345.1621605124512; 
+ Fri, 21 May 2021 06:52:04 -0700 (PDT)
+Received: from abel.fritz.box ([2a02:908:1252:fb60:477a:e00a:55ad:247d])
+ by smtp.gmail.com with ESMTPSA id u1sm4001759edv.91.2021.05.21.06.52.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 21 May 2021 06:52:04 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: yangp@amd.com,
+	felix.kuehling@amd.com
+Subject: [PATCH] drm/amdkfd: use resource cursor in svm_migrate_copy_to_vram
+Date: Fri, 21 May 2021 15:52:03 +0200
+Message-Id: <20210521135203.169068-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20210520155614.309986-1-alexander.deucher@amd.com>
- <1afdccca-8659-8fee-5ec6-17645198f0b3@amd.com>
-In-Reply-To: <1afdccca-8659-8fee-5ec6-17645198f0b3@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 21 May 2021 09:47:12 -0400
-Message-ID: <CADnq5_Oo2LSXwc49Kpv7qtvEUZdeivJQ4-BqQsk6FbR5e2wpWA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/amdgpu/acpi: unify ATCS handling (v3)
-To: Lijo Lazar <lijo.lazar@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,383 +79,81 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, May 21, 2021 at 3:12 AM Lijo Lazar <lijo.lazar@amd.com> wrote:
->
->
->
-> On 5/20/2021 9:26 PM, Alex Deucher wrote:
-> > Treat it like ATIF and check both the dGPU and APU for
-> > the method.  This is required because ATCS may be hung
-> > off of the APU in ACPI on A+A systems.
-> >
-> > v2: add back accidently removed ACPI handle check.
-> > v3: Fix incorrect atif check (Colin)
-> >      Fix uninitialized variable (Colin)
-> >
-> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu.h      |  17 +--
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 128 ++++++++++++++++-------
-> >   2 files changed, 93 insertions(+), 52 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > index b6435479cac8..ece1aee5a667 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > @@ -268,6 +268,7 @@ struct amdgpu_irq_src;
-> >   struct amdgpu_fpriv;
-> >   struct amdgpu_bo_va_mapping;
-> >   struct amdgpu_atif;
-> > +struct amdgpu_atcs;
-> >   struct kfd_vm_fault_info;
-> >   struct amdgpu_hive_info;
-> >   struct amdgpu_reset_context;
-> > @@ -681,20 +682,6 @@ struct amdgpu_vram_scratch {
-> >       u64                             gpu_addr;
-> >   };
-> >
-> > -/*
-> > - * ACPI
-> > - */
-> > -struct amdgpu_atcs_functions {
-> > -     bool get_ext_state;
-> > -     bool pcie_perf_req;
-> > -     bool pcie_dev_rdy;
-> > -     bool pcie_bus_width;
-> > -};
-> > -
-> > -struct amdgpu_atcs {
-> > -     struct amdgpu_atcs_functions functions;
-> > -};
-> > -
-> >   /*
-> >    * CGS
-> >    */
-> > @@ -825,7 +812,7 @@ struct amdgpu_device {
-> >       struct amdgpu_i2c_chan          *i2c_bus[AMDGPU_MAX_I2C_BUS];
-> >       struct debugfs_blob_wrapper     debugfs_vbios_blob;
-> >       struct amdgpu_atif              *atif;
-> > -     struct amdgpu_atcs              atcs;
-> > +     struct amdgpu_atcs              *atcs;
-> >       struct mutex                    srbm_mutex;
-> >       /* GRBM index mutex. Protects concurrent access to GRBM index */
-> >       struct mutex                    grbm_idx_mutex;
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> > index 6cf6231057fc..29708b5685ad 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> > @@ -72,12 +72,25 @@ struct amdgpu_atif {
-> >       struct amdgpu_dm_backlight_caps backlight_caps;
-> >   };
-> >
-> > +struct amdgpu_atcs_functions {
-> > +     bool get_ext_state;
-> > +     bool pcie_perf_req;
-> > +     bool pcie_dev_rdy;
-> > +     bool pcie_bus_width;
-> > +};
-> > +
-> > +struct amdgpu_atcs {
-> > +     acpi_handle handle;
-> > +
-> > +     struct amdgpu_atcs_functions functions;
-> > +};
-> > +
-> >   /* Call the ATIF method
-> >    */
-> >   /**
-> >    * amdgpu_atif_call - call an ATIF method
-> >    *
-> > - * @atif: acpi handle
-> > + * @atif: atif structure
-> >    * @function: the ATIF function to execute
-> >    * @params: ATIF function params
-> >    *
-> > @@ -237,6 +250,35 @@ static acpi_handle amdgpu_atif_probe_handle(acpi_handle dhandle)
-> >       return handle;
-> >   }
-> >
-> > +static acpi_handle amdgpu_atcs_probe_handle(acpi_handle dhandle)
-> > +{
-> > +     acpi_handle handle = NULL;
-> > +     char acpi_method_name[255] = { 0 };
-> > +     struct acpi_buffer buffer = { sizeof(acpi_method_name), acpi_method_name };
-> > +     acpi_status status;
-> > +
-> > +     /* For PX/HG systems, ATCS and ATPX are in the iGPU's namespace, on dGPU only
-> > +      * systems, ATIF is in the dGPU's namespace.
-> > +      */
-> > +     status = acpi_get_handle(dhandle, "ATCS", &handle);
-> > +     if (ACPI_SUCCESS(status))
-> > +             goto out;
-> > +
-> > +     if (amdgpu_has_atpx()) {
-> > +             status = acpi_get_handle(amdgpu_atpx_get_dhandle(), "ATCS",
-> > +                                      &handle);
-> > +             if (ACPI_SUCCESS(status))
-> > +                     goto out;
-> > +     }
-> > +
-> > +     DRM_DEBUG_DRIVER("No ATCS handle found\n");
-> > +     return NULL;
-> > +out:
-> > +     acpi_get_name(handle, ACPI_FULL_PATHNAME, &buffer);
-> > +     DRM_DEBUG_DRIVER("Found ATCS handle %s\n", acpi_method_name);
-> > +     return handle;
-> > +}
-> > +
-> >   /**
-> >    * amdgpu_atif_get_notification_params - determine notify configuration
-> >    *
-> > @@ -486,14 +528,15 @@ static int amdgpu_atif_handler(struct amdgpu_device *adev,
-> >   /**
-> >    * amdgpu_atcs_call - call an ATCS method
-> >    *
-> > - * @handle: acpi handle
-> > + * @atcs: atcs structure
-> >    * @function: the ATCS function to execute
-> >    * @params: ATCS function params
-> >    *
-> >    * Executes the requested ATCS function (all asics).
-> >    * Returns a pointer to the acpi output buffer.
-> >    */
-> > -static union acpi_object *amdgpu_atcs_call(acpi_handle handle, int function,
-> > +static union acpi_object *amdgpu_atcs_call(struct amdgpu_atcs *atcs,
-> > +                                        int function,
-> >                                          struct acpi_buffer *params)
-> >   {
-> >       acpi_status status;
-> > @@ -517,7 +560,7 @@ static union acpi_object *amdgpu_atcs_call(acpi_handle handle, int function,
-> >               atcs_arg_elements[1].integer.value = 0;
-> >       }
-> >
-> > -     status = acpi_evaluate_object(handle, "ATCS", &atcs_arg, &buffer);
-> > +     status = acpi_evaluate_object(atcs->handle, "ATCS", &atcs_arg, &buffer);
-> >
-> >       /* Fail only if calling the method fails and ATIF is supported */
-> >       if (ACPI_FAILURE(status) && status != AE_NOT_FOUND) {
-> > @@ -551,7 +594,6 @@ static void amdgpu_atcs_parse_functions(struct amdgpu_atcs_functions *f, u32 mas
-> >   /**
-> >    * amdgpu_atcs_verify_interface - verify ATCS
-> >    *
-> > - * @handle: acpi handle
-> >    * @atcs: amdgpu atcs struct
-> >    *
-> >    * Execute the ATCS_FUNCTION_VERIFY_INTERFACE ATCS function
-> > @@ -559,15 +601,14 @@ static void amdgpu_atcs_parse_functions(struct amdgpu_atcs_functions *f, u32 mas
-> >    * (all asics).
-> >    * returns 0 on success, error on failure.
-> >    */
-> > -static int amdgpu_atcs_verify_interface(acpi_handle handle,
-> > -                                     struct amdgpu_atcs *atcs)
-> > +static int amdgpu_atcs_verify_interface(struct amdgpu_atcs *atcs)
-> >   {
-> >       union acpi_object *info;
-> >       struct atcs_verify_interface output;
-> >       size_t size;
-> >       int err = 0;
-> >
-> > -     info = amdgpu_atcs_call(handle, ATCS_FUNCTION_VERIFY_INTERFACE, NULL);
-> > +     info = amdgpu_atcs_call(atcs, ATCS_FUNCTION_VERIFY_INTERFACE, NULL);
-> >       if (!info)
-> >               return -EIO;
-> >
-> > @@ -604,8 +645,10 @@ static int amdgpu_atcs_verify_interface(acpi_handle handle,
-> >    */
-> >   bool amdgpu_acpi_is_pcie_performance_request_supported(struct amdgpu_device *adev)
-> >   {
-> > -     struct amdgpu_atcs *atcs = &adev->atcs;
-> > +     struct amdgpu_atcs *atcs = adev->atcs;
-> >
-> > +     if (!atcs)
-> > +             return false;
-> >       if (atcs->functions.pcie_perf_req && atcs->functions.pcie_dev_rdy)
-> >               return true;
-> >
-> > @@ -623,19 +666,15 @@ bool amdgpu_acpi_is_pcie_performance_request_supported(struct amdgpu_device *ade
-> >    */
-> >   int amdgpu_acpi_pcie_notify_device_ready(struct amdgpu_device *adev)
-> >   {
-> > -     acpi_handle handle;
-> >       union acpi_object *info;
-> > -     struct amdgpu_atcs *atcs = &adev->atcs;
-> > +     struct amdgpu_atcs *atcs = adev->atcs;
-> >
-> > -     /* Get the device handle */
-> > -     handle = ACPI_HANDLE(&adev->pdev->dev);
-> > -     if (!handle)
-> > +     if (!atcs)
-> >               return -EINVAL;
-> > -
-> >       if (!atcs->functions.pcie_dev_rdy)
-> >               return -EINVAL;
-> >
-> > -     info = amdgpu_atcs_call(handle, ATCS_FUNCTION_PCIE_DEVICE_READY_NOTIFICATION, NULL);
-> > +     info = amdgpu_atcs_call(atcs, ATCS_FUNCTION_PCIE_DEVICE_READY_NOTIFICATION, NULL);
-> >       if (!info)
-> >               return -EIO;
-> >
-> > @@ -658,21 +697,18 @@ int amdgpu_acpi_pcie_notify_device_ready(struct amdgpu_device *adev)
-> >   int amdgpu_acpi_pcie_performance_request(struct amdgpu_device *adev,
-> >                                        u8 perf_req, bool advertise)
-> >   {
-> > -     acpi_handle handle;
-> >       union acpi_object *info;
-> > -     struct amdgpu_atcs *atcs = &adev->atcs;
-> > +     struct amdgpu_atcs *atcs = adev->atcs;
-> >       struct atcs_pref_req_input atcs_input;
-> >       struct atcs_pref_req_output atcs_output;
-> >       struct acpi_buffer params;
-> >       size_t size;
-> >       u32 retry = 3;
-> >
-> > -     if (amdgpu_acpi_pcie_notify_device_ready(adev))
-> > +     if (!atcs)
-> >               return -EINVAL;
-> >
-> > -     /* Get the device handle */
-> > -     handle = ACPI_HANDLE(&adev->pdev->dev);
-> > -     if (!handle)
-> > +     if (amdgpu_acpi_pcie_notify_device_ready(adev))
-> >               return -EINVAL;
-> >
-> >       if (!atcs->functions.pcie_perf_req)
-> > @@ -692,7 +728,7 @@ int amdgpu_acpi_pcie_performance_request(struct amdgpu_device *adev,
-> >       params.pointer = &atcs_input;
-> >
-> >       while (retry--) {
-> > -             info = amdgpu_atcs_call(handle, ATCS_FUNCTION_PCIE_PERFORMANCE_REQUEST, &params);
-> > +             info = amdgpu_atcs_call(atcs, ATCS_FUNCTION_PCIE_PERFORMANCE_REQUEST, &params);
-> >               if (!info)
-> >                       return -EIO;
-> >
-> > @@ -768,32 +804,26 @@ static int amdgpu_acpi_event(struct notifier_block *nb,
-> >    */
-> >   int amdgpu_acpi_init(struct amdgpu_device *adev)
-> >   {
-> > -     acpi_handle handle, atif_handle;
-> > +     acpi_handle handle, atif_handle, atcs_handle;
-> >       struct amdgpu_atif *atif;
-> > -     struct amdgpu_atcs *atcs = &adev->atcs;
-> > -     int ret;
-> > +     struct amdgpu_atcs *atcs;
-> > +     int ret = 0;
-> >
-> >       /* Get the device handle */
-> >       handle = ACPI_HANDLE(&adev->pdev->dev);
-> >
-> >       if (!adev->bios || !handle)
-> > -             return 0;
-> > -
-> > -     /* Call the ATCS method */
-> > -     ret = amdgpu_atcs_verify_interface(handle, atcs);
-> > -     if (ret) {
-> > -             DRM_DEBUG_DRIVER("Call to ATCS verify_interface failed: %d\n", ret);
-> > -     }
-> > +             return ret;
->
-> Is this return ok? Is it possible not to have ACPI handle for the dGPU,
-> but has a valid handle for iGPU - like ATIF/ATCS functions that exist in
-> iGPU space?
-
-We are just checking for an ACPI handle here.  Presumably if the
-device were part of the platform it would have an ACPI handle.  ATIF
-and ATCS are only relevant to devices which are part of the platform.
-E.g., they wouldn't apply to a card plugged into a PCIe slot or
-thunderbolt.
-
-Alex
-
->
-> --
-> Thanks,
-> Lijo
->
-> >       /* Probe for ATIF, and initialize it if found */
-> >       atif_handle = amdgpu_atif_probe_handle(handle);
-> >       if (!atif_handle)
-> > -             goto out;
-> > +             goto atcs;
-> >
-> >       atif = kzalloc(sizeof(*atif), GFP_KERNEL);
-> >       if (!atif) {
-> >               DRM_WARN("Not enough memory to initialize ATIF\n");
-> > -             goto out;
-> > +             goto atcs;
-> >       }
-> >       atif->handle = atif_handle;
-> >
-> > @@ -802,7 +832,7 @@ int amdgpu_acpi_init(struct amdgpu_device *adev)
-> >       if (ret) {
-> >               DRM_DEBUG_DRIVER("Call to ATIF verify_interface failed: %d\n", ret);
-> >               kfree(atif);
-> > -             goto out;
-> > +             goto atcs;
-> >       }
-> >       adev->atif = atif;
-> >
-> > @@ -811,7 +841,8 @@ int amdgpu_acpi_init(struct amdgpu_device *adev)
-> >               if (amdgpu_device_has_dc_support(adev)) {
-> >   #if defined(CONFIG_DRM_AMD_DC)
-> >                       struct amdgpu_display_manager *dm = &adev->dm;
-> > -                     atif->bd = dm->backlight_dev;
-> > +                     if (dm->backlight_dev)
-> > +                             atif->bd = dm->backlight_dev;
-> >   #endif
-> >               } else {
-> >                       struct drm_encoder *tmp;
-> > @@ -863,6 +894,28 @@ int amdgpu_acpi_init(struct amdgpu_device *adev)
-> >               atif->backlight_caps.caps_valid = false;
-> >       }
-> >
-> > +atcs:
-> > +     /* Probe for ATCS, and initialize it if found */
-> > +     atcs_handle = amdgpu_atcs_probe_handle(handle);
-> > +     if (!atcs_handle)
-> > +             goto out;
-> > +
-> > +     atcs = kzalloc(sizeof(*atcs), GFP_KERNEL);
-> > +     if (!atcs) {
-> > +             DRM_WARN("Not enough memory to initialize ATCS\n");
-> > +             goto out;
-> > +     }
-> > +     atcs->handle = atcs_handle;
-> > +
-> > +     /* Call the ATCS method */
-> > +     ret = amdgpu_atcs_verify_interface(atcs);
-> > +     if (ret) {
-> > +             DRM_DEBUG_DRIVER("Call to ATCS verify_interface failed: %d\n", ret);
-> > +             kfree(atcs);
-> > +             goto out;
-> > +     }
-> > +     adev->atcs = atcs;
-> > +
-> >   out:
-> >       adev->acpi_nb.notifier_call = amdgpu_acpi_event;
-> >       register_acpi_notifier(&adev->acpi_nb);
-> > @@ -893,6 +946,7 @@ void amdgpu_acpi_fini(struct amdgpu_device *adev)
-> >   {
-> >       unregister_acpi_notifier(&adev->acpi_nb);
-> >       kfree(adev->atif);
-> > +     kfree(adev->atcs);
-> >   }
-> >
-> >   /**
-> >
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+QWNjZXNzIHRvIHRoZSBtbV9ub2RlIGlzIG5vdyBmb3JiaWRkZW4uIFNvIGluc3RlYWQgb2YgaGFu
+ZCB3aXJpbmcgdGhhdAp1c2UgdGhlIGN1cnNvciBmdW5jdGlvbmFsaXR5LgoKU2lnbmVkLW9mZi1i
+eTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgotLS0KIGRyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9taWdyYXRlLmMgfCA3NiArKystLS0tLS0tLS0tLS0t
+LS0tLS0tLS0KIDEgZmlsZSBjaGFuZ2VkLCA5IGluc2VydGlvbnMoKyksIDY3IGRlbGV0aW9ucygt
+KQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9taWdyYXRlLmMg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfbWlncmF0ZS5jCmluZGV4IGZkOGY1NDRm
+MGRlMi4uY2IyOGQxZTY2MGFmIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtm
+ZC9rZmRfbWlncmF0ZS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9taWdy
+YXRlLmMKQEAgLTI5LDYgKzI5LDcgQEAKICNpbmNsdWRlICJhbWRncHVfb2JqZWN0LmgiCiAjaW5j
+bHVkZSAiYW1kZ3B1X3ZtLmgiCiAjaW5jbHVkZSAiYW1kZ3B1X21uLmgiCisjaW5jbHVkZSAiYW1k
+Z3B1X3Jlc19jdXJzb3IuaCIKICNpbmNsdWRlICJrZmRfcHJpdi5oIgogI2luY2x1ZGUgImtmZF9z
+dm0uaCIKICNpbmNsdWRlICJrZmRfbWlncmF0ZS5oIgpAQCAtMjA1LDM0ICsyMDYsNiBAQCBzdm1f
+bWlncmF0ZV9jb3B5X2RvbmUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHN0cnVjdCBkbWFf
+ZmVuY2UgKm1mZW5jZSkKIAlyZXR1cm4gcjsKIH0KIAotc3RhdGljIHVpbnQ2NF90Ci1zdm1fbWln
+cmF0ZV9ub2RlX3BoeXNpY2FsX2FkZHIoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCi0JCQkg
+ICAgICAgc3RydWN0IGRybV9tbV9ub2RlICoqbW1fbm9kZSwgdWludDY0X3QgKm9mZnNldCkKLXsK
+LQlzdHJ1Y3QgZHJtX21tX25vZGUgKm5vZGUgPSAqbW1fbm9kZTsKLQl1aW50NjRfdCBwb3MgPSAq
+b2Zmc2V0OwotCi0JaWYgKG5vZGUtPnN0YXJ0ID09IEFNREdQVV9CT19JTlZBTElEX09GRlNFVCkg
+ewotCQlwcl9kZWJ1ZygiZHJtIG5vZGUgaXMgbm90IHZhbGlkYXRlZFxuIik7Ci0JCXJldHVybiAw
+OwotCX0KLQotCXByX2RlYnVnKCJ2cmFtIG5vZGUgc3RhcnQgMHglbGx4IG5wYWdlcyAweCVsbHhc
+biIsIG5vZGUtPnN0YXJ0LAotCQkgbm9kZS0+c2l6ZSk7Ci0KLQlpZiAocG9zID49IG5vZGUtPnNp
+emUpIHsKLQkJZG8gIHsKLQkJCXBvcyAtPSBub2RlLT5zaXplOwotCQkJbm9kZSsrOwotCQl9IHdo
+aWxlIChwb3MgPj0gbm9kZS0+c2l6ZSk7Ci0KLQkJKm1tX25vZGUgPSBub2RlOwotCQkqb2Zmc2V0
+ID0gcG9zOwotCX0KLQotCXJldHVybiAobm9kZS0+c3RhcnQgKyBwb3MpIDw8IFBBR0VfU0hJRlQ7
+Ci19Ci0KIHVuc2lnbmVkIGxvbmcKIHN2bV9taWdyYXRlX2FkZHJfdG9fcGZuKHN0cnVjdCBhbWRn
+cHVfZGV2aWNlICphZGV2LCB1bnNpZ25lZCBsb25nIGFkZHIpCiB7CkBAIC0yOTcsMTEgKzI3MCw5
+IEBAIHN2bV9taWdyYXRlX2NvcHlfdG9fdnJhbShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwg
+c3RydWN0IHN2bV9yYW5nZSAqcHJhbmdlLAogewogCXVpbnQ2NF90IG5wYWdlcyA9IG1pZ3JhdGUt
+PmNwYWdlczsKIAlzdHJ1Y3QgZGV2aWNlICpkZXYgPSBhZGV2LT5kZXY7Ci0Jc3RydWN0IGRybV9t
+bV9ub2RlICpub2RlOworCXN0cnVjdCBhbWRncHVfcmVzX2N1cnNvciBjdXJzb3I7CiAJZG1hX2Fk
+ZHJfdCAqc3JjOwogCXVpbnQ2NF90ICpkc3Q7Ci0JdWludDY0X3QgdnJhbV9hZGRyOwotCXVpbnQ2
+NF90IG9mZnNldDsKIAl1aW50NjRfdCBpLCBqOwogCWludCByOwogCkBAIC0zMTcsMTkgKzI4OCwx
+MiBAQCBzdm1fbWlncmF0ZV9jb3B5X3RvX3ZyYW0oc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYs
+IHN0cnVjdCBzdm1fcmFuZ2UgKnByYW5nZSwKIAkJZ290byBvdXQ7CiAJfQogCi0Jbm9kZSA9IHBy
+YW5nZS0+dHRtX3Jlcy0+bW1fbm9kZTsKLQlvZmZzZXQgPSBwcmFuZ2UtPm9mZnNldDsKLQl2cmFt
+X2FkZHIgPSBzdm1fbWlncmF0ZV9ub2RlX3BoeXNpY2FsX2FkZHIoYWRldiwgJm5vZGUsICZvZmZz
+ZXQpOwotCWlmICghdnJhbV9hZGRyKSB7Ci0JCVdBUk5fT05DRSgxLCAidnJhbSBub2RlIGFkZHJl
+c3MgaXMgMFxuIik7Ci0JCXIgPSAtRU5PTUVNOwotCQlnb3RvIG91dDsKLQl9Ci0KKwlhbWRncHVf
+cmVzX2ZpcnN0KHByYW5nZS0+dHRtX3JlcywgcHJhbmdlLT5vZmZzZXQsIG5wYWdlcyA8PCBQQUdF
+X1NISUZULAorCQkJICZjdXJzb3IpOwogCWZvciAoaSA9IGogPSAwOyBpIDwgbnBhZ2VzOyBpKysp
+IHsKIAkJc3RydWN0IHBhZ2UgKnNwYWdlOwogCi0JCWRzdFtpXSA9IHZyYW1fYWRkciArIChqIDw8
+IFBBR0VfU0hJRlQpOworCQlkc3RbaV0gPSBjdXJzb3Iuc3RhcnQgKyAoaiA8PCBQQUdFX1NISUZU
+KTsKIAkJbWlncmF0ZS0+ZHN0W2ldID0gc3ZtX21pZ3JhdGVfYWRkcl90b19wZm4oYWRldiwgZHN0
+W2ldKTsKIAkJc3ZtX21pZ3JhdGVfZ2V0X3ZyYW1fcGFnZShwcmFuZ2UsIG1pZ3JhdGUtPmRzdFtp
+XSk7CiAKQEAgLTM1NCwxOCArMzE4LDEwIEBAIHN2bV9taWdyYXRlX2NvcHlfdG9fdnJhbShzdHJ1
+Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgc3RydWN0IHN2bV9yYW5nZSAqcHJhbmdlLAogCQkJCQkJ
+bWZlbmNlKTsKIAkJCQlpZiAocikKIAkJCQkJZ290byBvdXRfZnJlZV92cmFtX3BhZ2VzOwotCQkJ
+CW9mZnNldCArPSBqOwotCQkJCXZyYW1fYWRkciA9IChub2RlLT5zdGFydCArIG9mZnNldCkgPDwg
+UEFHRV9TSElGVDsKKwkJCQlhbWRncHVfcmVzX25leHQoJmN1cnNvciwgaiA8PCBQQUdFX1NISUZU
+KTsKIAkJCQlqID0gMDsKIAkJCX0gZWxzZSB7Ci0JCQkJb2Zmc2V0Kys7Ci0JCQkJdnJhbV9hZGRy
+ICs9IFBBR0VfU0laRTsKLQkJCX0KLQkJCWlmIChvZmZzZXQgPj0gbm9kZS0+c2l6ZSkgewotCQkJ
+CW5vZGUrKzsKLQkJCQlwcl9kZWJ1ZygibmV4dCBub2RlIHNpemUgMHglbGx4XG4iLCBub2RlLT5z
+aXplKTsKLQkJCQl2cmFtX2FkZHIgPSBub2RlLT5zdGFydCA8PCBQQUdFX1NISUZUOwotCQkJCW9m
+ZnNldCA9IDA7CisJCQkJYW1kZ3B1X3Jlc19uZXh0KCZjdXJzb3IsIFBBR0VfU0laRSk7CiAJCQl9
+CiAJCQljb250aW51ZTsKIAkJfQpAQCAtMzczLDIyICszMjksOCBAQCBzdm1fbWlncmF0ZV9jb3B5
+X3RvX3ZyYW0oc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHN0cnVjdCBzdm1fcmFuZ2UgKnBy
+YW5nZSwKIAkJcHJfZGVidWcoImRtYSBtYXBwaW5nIHNyYyB0byAweCVsbHgsIHBhZ2VfdG9fcGZu
+IDB4JWx4XG4iLAogCQkJIHNyY1tpXSA+PiBQQUdFX1NISUZULCBwYWdlX3RvX3BmbihzcGFnZSkp
+OwogCi0JCWlmIChqICsgb2Zmc2V0ID49IG5vZGUtPnNpemUgLSAxICYmIGkgPCBucGFnZXMgLSAx
+KSB7Ci0JCQlyID0gc3ZtX21pZ3JhdGVfY29weV9tZW1vcnlfZ2FydChhZGV2LCBzcmMgKyBpIC0g
+aiwKLQkJCQkJCQkgZHN0ICsgaSAtIGosIGogKyAxLAotCQkJCQkJCSBGUk9NX1JBTV9UT19WUkFN
+LAotCQkJCQkJCSBtZmVuY2UpOwotCQkJaWYgKHIpCi0JCQkJZ290byBvdXRfZnJlZV92cmFtX3Bh
+Z2VzOwotCi0JCQlub2RlKys7Ci0JCQlwcl9kZWJ1ZygibmV4dCBub2RlIHNpemUgMHglbGx4XG4i
+LCBub2RlLT5zaXplKTsKLQkJCXZyYW1fYWRkciA9IG5vZGUtPnN0YXJ0IDw8IFBBR0VfU0hJRlQ7
+Ci0JCQlvZmZzZXQgPSAwOwotCQkJaiA9IDA7Ci0JCX0gZWxzZSB7Ci0JCQlqKys7Ci0JCX0KKwkJ
+YW1kZ3B1X3Jlc19uZXh0KCZjdXJzb3IsIFBBR0VfU0laRSk7CisJCWorKzsKIAl9CiAKIAlyID0g
+c3ZtX21pZ3JhdGVfY29weV9tZW1vcnlfZ2FydChhZGV2LCBzcmMgKyBpIC0gaiwgZHN0ICsgaSAt
+IGosIGosCi0tIAoyLjI1LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
+eAo=
