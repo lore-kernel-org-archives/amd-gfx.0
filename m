@@ -2,121 +2,128 @@ Return-Path: <SRS0=kbWR=KQ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-15.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6AB7BC04FF3
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 May 2021 22:04:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 43093C4707A
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 May 2021 22:09:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 279FB611ED
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 May 2021 22:04:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 279FB611ED
+	by mail.kernel.org (Postfix) with ESMTPS id 047CE60FE6
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 May 2021 22:09:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 047CE60FE6
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D7B56E193;
-	Fri, 21 May 2021 22:04:14 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2085.outbound.protection.outlook.com [40.107.244.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 602886E157
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 May 2021 22:04:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C2F26E50C;
+	Fri, 21 May 2021 22:09:05 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2052.outbound.protection.outlook.com [40.107.243.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF25E6E157;
+ Fri, 21 May 2021 22:09:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GL6pUif/GdLcDM/pXsrqwiZzxzdx//UotjKIhydF2ioz1t/nN5Z6xQbKXcHv7mNdiK+w6+q5wYrnxidW4+JtdPohKl+7hCrTEfOEqVEYo9Oo8PCXmiiFz3lapkT5/v/HIC/YmqORohygdYpVCNIiW7gcvFW0Ibtq9wQ928W4Gj7xhhjCCHezi0BKzPA8UPLvAE3imlq9qHJuyDc0xNQxSh8qJRgXs96r5R5mYbuShZAgaaoZtHw6CmDCZ34sZJQvF4LApCASJtmjLCXIlXLxvCPgMfnCH6lOd+tRbt/Mcf7KWcZXwG6lmzfeWYGAg2aZll91DtK2VqXfVw80BTDiww==
+ b=aFnDHP060Z9YKIfb4M/9ayI2vlp7FDtzIfHKNBI8Fyj0Qm0cjnNWt39pE9DnLbOXIewBGD84rSNVg5188WugqD5+hCdD0dioKeRRgEZy2KYjNmL2uq54d7nEESy1/2U0xbm/URX341OcocWRyELhArgj1lsXf4P29B8T9N+QjqRnnWrK7BRJ+o94tnxxj+jYcBKFG6rwN5noyXOCmohn/k6K0JYho5gdXqJUXeOdQKwB+PtAJGafD9z5ElfvvWzm/VmN6Z9njsCnTNR7m/nJGBxh2L5X0rh8H1pqTrd6SwzGn+GwXhfBal1+2R3uKih2wNUvMWBWqiLR5ihgys2mmA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0AVrIEng42uAEDYHrukTNRtjypYipvbuM8aj0S/hPGk=;
- b=CF5FAonMZvonzrUSk4Bi1JZkzImiR62miqGCCFUQaPi85cqkOrOsPauWUaf/NRZcYo8NYMcOo+CF30qxghAXt7J5xaBEk+2XzGldm/JGhk4e8gVq86Y4eHSLcp7u9/Be6WaG8ivktPnUWHsFRtSqJDKcaz5iFL6f5lVt8O2DV+CUz1aM8UsLls0cqJKGrh60IGulxbmE3fJBmAPg5OWWZcX3dAD+IhQWkNB5rmsEDLFz/bJbOO85f6i2GU2eN7D0IMhnlcBjaI3+EErwDx/SVBMtLDEquAKn9lpCUr0gDJ7nFfDlZF+INXJMs44U8eVjGCGziHpLm5INqjU0KWRqTg==
+ bh=oj7EwLzv8zmJQ6OpJYURBUiltqTI2KH3cx4gqFCawNM=;
+ b=NX3VeZl7F7sN9zqYEnlps3vMfb40jI6sU4ECszT1R3BmLjUi1PWYd+Q3AjfYuKMthmnh46W4wJ7MpCmebYqWkBss8uXkU/kWWPxcwzRpItHdeCAWglkgM83dq6rgrZ3PxH6ILlfJhRwhkKw9I+jESgg4fyWxtzsguTAdsFgXXXX2S9MshA8Lw5LT2EDlH5GKfx4vZlEpvXl5387bG+2gYF+ISXLdpBBPE/arP6ORH/UapyxHcowukM5pfm1mktIYdkXnlPU1R1va9ibrOwFguBRk/R0PA12WcuxryrCma6bjCQXYcz9malKAmnHtIxyUPa25dihIfPL9JGw77Qz43Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0AVrIEng42uAEDYHrukTNRtjypYipvbuM8aj0S/hPGk=;
- b=kii11JwpK//Ty/6hPLvUBGzGiYgAb47exr8LQT5RIuKVZZJ5L/0GpOzWtf3U+B8yvwzvO75VHwiIZCGRR6TMGE7ixdywzu5f1bTlB+HMlgNa45aR1GOo98PMcdX3tcvGjqxYjPI/KCRdxSm8Sj3vlGY/bPxpMXp+EH8pFJNTXZ4=
-Received: from DM6PR12MB3067.namprd12.prod.outlook.com (2603:10b6:5:115::10)
- by DM6PR12MB4404.namprd12.prod.outlook.com (2603:10b6:5:2a7::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.25; Fri, 21 May
- 2021 22:04:10 +0000
-Received: from DM6PR12MB3067.namprd12.prod.outlook.com
- ([fe80::5c8c:adff:ab42:9345]) by DM6PR12MB3067.namprd12.prod.outlook.com
- ([fe80::5c8c:adff:ab42:9345%6]) with mapi id 15.20.4129.035; Fri, 21 May 2021
- 22:04:09 +0000
-From: "Sider, Graham" <Graham.Sider@amd.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-Subject: RE: [PATCH 2/6] drm/amd/pm: Add arcturus throttler translation
-Thread-Topic: [PATCH 2/6] drm/amd/pm: Add arcturus throttler translation
-Thread-Index: AQHXTYSqhVvD5xR5YU6jGKA1xw/dbKrt/8GAgAAz2ACAAC09gIAAED3AgAAJlICAAACvAIAAAuAA
-Date: Fri, 21 May 2021 22:04:09 +0000
-Message-ID: <DM6PR12MB306708FA8274AC661CE859248A299@DM6PR12MB3067.namprd12.prod.outlook.com>
-References: <20210520142930.8369-1-Graham.Sider@amd.com>
- <20210520142930.8369-2-Graham.Sider@amd.com>
- <CADnq5_MnENbvZJTAr8nfmvENZoeZaWxpU=zaeGeUasgz5TfUFA@mail.gmail.com>
- <DM6PR12MB3067FD5B64C665F5E264F6EA8A299@DM6PR12MB3067.namprd12.prod.outlook.com>
- <CADnq5_O=LP9y_YNmvPC8om7KOf2eKyBr2P+CL1j4zAhBrRak1A@mail.gmail.com>
- <DM6PR12MB3067E3CC583A472F14DE7A1A8A299@DM6PR12MB3067.namprd12.prod.outlook.com>
- <CADnq5_O257rQg7PW5NiRCdYrmbtzRnxco_FQiaX8sNHO=RSqgg@mail.gmail.com>
- <CADnq5_N1Wh2RNJtdQ200jsbeaeqgfMM+5rPcWp-sWWL2f_6Rmw@mail.gmail.com>
-In-Reply-To: <CADnq5_N1Wh2RNJtdQ200jsbeaeqgfMM+5rPcWp-sWWL2f_6Rmw@mail.gmail.com>
-Accept-Language: en-US
+ bh=oj7EwLzv8zmJQ6OpJYURBUiltqTI2KH3cx4gqFCawNM=;
+ b=ptmWzyGHMmxkjnFEftfPBw+FYrt21ZcaEg9BpDggMl/hrFSZLAob2jMn60IqaNLjtIE85hZMWZ8EY611SwYctCMgjmnM/b9SgMgjbeEeBJRWZfC/I55mbNKaIcvWzPUaN7cWwRp48M6s47y0hQYC4QzSmfyDTDA3WlIPTG9MH8E=
+Authentication-Results: vger.kernel.org; dkim=none (message not signed)
+ header.d=none;vger.kernel.org; dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5129.namprd12.prod.outlook.com (2603:10b6:408:136::12)
+ by BN9PR12MB5163.namprd12.prod.outlook.com (2603:10b6:408:11c::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4150.26; Fri, 21 May
+ 2021 22:09:01 +0000
+Received: from BN9PR12MB5129.namprd12.prod.outlook.com
+ ([fe80::3c78:e58b:fba7:b8dd]) by BN9PR12MB5129.namprd12.prod.outlook.com
+ ([fe80::3c78:e58b:fba7:b8dd%6]) with mapi id 15.20.4129.034; Fri, 21 May 2021
+ 22:09:01 +0000
+Subject: Re: [PATCH] drm/amd/amdkfd: Drop unnecessary NULL check after
+ container_of
+To: Guenter Roeck <linux@roeck-us.net>
+References: <20210521150212.2076151-1-linux@roeck-us.net>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Message-ID: <ac17a916-f205-96b0-d49d-d45c06c01205@amd.com>
+Date: Fri, 21 May 2021 18:08:59 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
+In-Reply-To: <20210521150212.2076151-1-linux@roeck-us.net>
 Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: gmail.com; dkim=none (message not signed)
- header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [72.141.145.172]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: d1e3add1-ff46-46f1-447f-08d91ca45c58
-x-ms-traffictypediagnostic: DM6PR12MB4404:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB4404A197DE05B727B39848DF8A299@DM6PR12MB4404.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: n7rw7YK4ZCZV4s2VrgRmfyQVaRuiJL/KssrpJbpfQNdUt9BL2c8YmdS6OLdp4HZzpCnaQd7jcWsE93U67RWqATOXPre+mr6qGGftgFyjcZxgj7amwP/FQ0/xOsICdAhA9P7D/IkSugP57ddUVP3mdOR3LgSDtaaW1zElMN8EcT1aCZtJg/YP4udfil1KBD9Uj3g6Nlpx2HRRCjFLijw9oqZHTkhWXgjgot1Uhvg55i1HQ6N9+sPEOgNPOx1Qjtz1LDsGPgTkhQ4x+phrkeqHfe7jt0kZkNlXN0x+QltvcyayxXMpAjl1DQ3gUHHIW1NxU4mTDUwC8+eCaGyHwaet4TnPuwyLXf8UMCVM+ZgOEYPX8qeubHuVuYj0Lmt2YqUeAqOmYic6bp9VZ83b8oj1cFzpahPloWCJR03PuMaYNLZPxmPWZyJdQJ0EhpYTMyuA0fWhji+AFl71SCPqaGYpm+N7A5KbodRJi3NluqvhGRGxagjGlGMemJ+ByVMxleFAHaTuUPQMcpBGcaiJ3iROH0+6xSo/ukiY0rYbb9EgqYbWUTU/sM8/hODgmS3zxuuSmyW1jIAnRyi56JJkTinFjd+h9gOrsxluTpi7TzXZDlYj+QiOLeOId6UzlnX8f1ReGzZLC0a/q1NXF4oNr1Wk/bUbsCFCJxXfYjaAJl0USFow4wIZrhvZhJhuOwjoNjSQq1Q8YD/ykAOyzOmaZrp1LDSN0SVQm4f5gWaGE09pp/yL+BBxQkiAssONvsm5BhLUfurxZk4pDW7/Pi31Rxa6kQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3067.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(376002)(136003)(346002)(396003)(39860400002)(4326008)(478600001)(71200400001)(186003)(966005)(45080400002)(53546011)(54906003)(316002)(2906002)(55016002)(33656002)(66446008)(66556008)(86362001)(26005)(8676002)(6916009)(5660300002)(38100700002)(7696005)(76116006)(122000001)(83380400001)(8936002)(52536014)(64756008)(66946007)(9686003)(66476007)(6506007)(357404004);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?yStrAxjP+KaiXqswxDK+rYnrY3ygX+kL8KADGJsCrCy+vp3QZ2CMXg5f1VUz?=
- =?us-ascii?Q?YJ20vYU4ERxP1I/MOmuQVvFHQBBk7TJHe9fu1sUlR/Huqa2QsZMwMY3lpxMb?=
- =?us-ascii?Q?c+8P7wC00EqNKgT1JIo7PxdMcPyYtLXS8U8850K2lq4XVynDbu08gn+45+tl?=
- =?us-ascii?Q?HSEokfPMqA2vKstqNpd6auZuGmgOc6Byz8VxLRPNVcuLw+dC1442o2Fr3kR5?=
- =?us-ascii?Q?kpPNK+td4sP2ygzsVNPAec6IliYI5VkHQWCs+flJsv8fRrAJ1x6qSajeQIEQ?=
- =?us-ascii?Q?3bsKepTRzxtn7IIYqP2taxKqoXqWrw6Ww31keEOUPLu2CvqnCQEivzI0wMu9?=
- =?us-ascii?Q?HjSzM3PcUnWtxed1+fRg0Yv5RTdxO5rnKxGBO9wUrYERinKvKxZATIoU2mJ5?=
- =?us-ascii?Q?XdPixPfd/tVFFwy0w1Y+lvFdP/CmaL2u0Xh8NoZO6Q1gWyCeT+09pQ9ZbkU7?=
- =?us-ascii?Q?QRW1F5jES4knJXPt6JlkNfZTpIn1qvsRw4f7mQANqqjw2uQKkWQNijerLl4w?=
- =?us-ascii?Q?wWy6blMe+Xh0dfPdWkMV1rFenzHwv0M1mpCssyFuqVoxB5E4LB7Wb+Y63OO1?=
- =?us-ascii?Q?SLCGVQAfDzX99GmAY1NpwvtZaAG214so+uVmj/teXoOBBfCqi4DatU7OX76E?=
- =?us-ascii?Q?0+zfWyhm7sKE9RuMHhFDm/x4wNLbkT3szXNQIpcBGa6LwVShPmgaLxaekd/W?=
- =?us-ascii?Q?cpTotXJcRc5D7KdK55mwO5g8wWaSBFeifouzld5BuJ0WBKR0Jz+3Nj+McGcZ?=
- =?us-ascii?Q?fQe8iOUiF7871cndxbXgMDrH2n/jOyRTYDOxdN9mECMxaVN157BU0dudb6E6?=
- =?us-ascii?Q?vTWKmhws1dI2wAITkaReeTc+uEjEEVgkqNU3G4h5PKsNKLAFudT81+ukIO+H?=
- =?us-ascii?Q?GT7oO90hdzzBsb0li9yWunKaIXZ2JNDlWbgaJM6U4QiODXIZ7htsZDCFbsw7?=
- =?us-ascii?Q?Rv9v7iFS07VoLhzzRfYrw1dblERhMHhhTnvMxzpt/srTWHldVwBBHHl2habz?=
- =?us-ascii?Q?UOyqHaDoPj5C1cdW+WhbmrxGqILtPwr1OWf6mes+qywDiq4ogEh0XsYRjTfp?=
- =?us-ascii?Q?ok/wTMIUyS1Bib+L6UgSsat1A7PoS3xjhfDKYJIfFb4hhcE+hTQllTWubsek?=
- =?us-ascii?Q?0mCdvObzA1JhV5SCT+ugE3qq4GJvUrzDIjK3XlP5fGaNsrqGncneH6Cwb901?=
- =?us-ascii?Q?zCiOay6joGDf6sh+pjMtC8rEDjCztJrl6Xru6VbBtNGDCvD6jGUvpojVHvAg?=
- =?us-ascii?Q?UUJbBPF5+ymtt7cEZWDnEOKEPBqx5fvZSXPBRiz4dXf3fzMll3DyS1fczSah?=
- =?us-ascii?Q?X74ssYh7QY49o2If1k2s8atH?=
+X-Originating-IP: [142.186.56.206]
+X-ClientProxiedBy: YTXPR0101CA0063.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:1::40) To BN9PR12MB5129.namprd12.prod.outlook.com
+ (2603:10b6:408:136::12)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [192.168.2.100] (142.186.56.206) by
+ YTXPR0101CA0063.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:1::40) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4108.31 via Frontend
+ Transport; Fri, 21 May 2021 22:09:01 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 8eb4c450-5667-43e2-e3f2-08d91ca50a1a
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5163:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BN9PR12MB51631F0927AB794EF6BED25192299@BN9PR12MB5163.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2657;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: LPPG8Z4H3sQpDShlh9IkCfcSTEPe5AF9bigha6+hVPj7Ftn9kT3vaNVvdQq5o6ettt8XeSmvklrtIpZ8l2mBKwEEElXcGqxbvGoddr8nxWQfs2wiElYYSapR9JMg9JrSQqmauHCQjcYGg76mJRgK/Waq6OtI1MVg+KrtnZpiHFUhiKuIufazDKtt0V8t17NDOm/Rio79io0ba4tLfbfm8rk61tKAiduT1Lxv9ndGfFs14/hM+/DOgsGbqu0GXQN7VAvQPyMp39DgXzlpW2GCfwMH6I/GcMsJSfqyI+Sr7zcB773Sd8iOuGzMI5ZCGdtAtU698wDRGh13vAllnQtlLecs/AuprBJ8JDbYvHH/fdqGc7tihz11+nSfqmZTRTTnhVuM/ztK3RaXwKi+xe38csHmOMVle+XTfYqcc+dchWnYqLajtrKCPuBy1IdNmfAEMgoLx1uvtFSDAhRnKfrXVvE9fwrPccA7CpaAB9IUIXDy5mi4AWmekZ2YNQi7+EV4Pbzq1JZxYsHMHw2MhsWYgRq8SymTFyPyp0XAjz4nu4lom76yaEqT7/BeE1lvnu5LvXrUhvw36/K55f9pUKl9dObXxkqstyvJF2Qli3SHc23dOfwQvV1od1NprtDv48k/zWvhOQs3+fWzwH3fmjsK9chu0DUe6ZRM6W3+YkC9EoE8pU4aK+vpD2K0U6/MFo7V
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5129.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(136003)(366004)(376002)(396003)(346002)(478600001)(66946007)(8676002)(956004)(2906002)(8936002)(2616005)(66476007)(5660300002)(54906003)(31686004)(16526019)(186003)(66556008)(26005)(31696002)(16576012)(6916009)(44832011)(6486002)(316002)(36756003)(83380400001)(4326008)(86362001)(38100700002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?cVhtcHpTOVhIZTcyaE8rNzA1Q24xWEl1a2pUb0N2TU9ScjNXcUtYNnNiSldO?=
+ =?utf-8?B?djdmWWx4K3BvZHVyNEg4SlJsR3dieWFkMXlzdmdSd3dxeUxXTW1BRmRvUjNy?=
+ =?utf-8?B?eEN2K2I3ajFGbEpXbStsaXR5ZlhFeGxKMkQ3LzcrNjl1NHlDazNCWVFzUlQ4?=
+ =?utf-8?B?MnRvS2hnMmM1Z1pmc0I3RXNZaHdvZWdpSFFuMDFYQ0NsQVJqd2xOOEVqeDQ5?=
+ =?utf-8?B?TDJHQWZNYWdOdm5scEJzUElEUlNENEorODRGTkNGcUM5T3k1cEcxNWt0b0tF?=
+ =?utf-8?B?OFB1RThCQVlEa1VUREdGcklraEVLUFhndEdUY3lpaE5VZFNQbmpuT2l4T2k5?=
+ =?utf-8?B?Vzg1ZG1GNno3cFpHQUdyYzFKUk9qcktmOWtaQlpVcEVlWGo4UkNDaVVyMHhE?=
+ =?utf-8?B?NmFHODBpZWUrZlVvejJ1Z0xBQU1WSFVUZ3E3WVFZaHhYYjVLOUhLTWdINm5G?=
+ =?utf-8?B?TU5DUmt3c0pMNlFTdzFYQnZGWWV2T3ZFNXE4T01EMUIrMGJsZnJ1MTkvOEFi?=
+ =?utf-8?B?ZFRob05qZUlnRnhiNnBVRk1YUjFidW03ZTJ6UlpGWkkvbmpiR1NUbmxqUXFx?=
+ =?utf-8?B?SEp1QUpXeWxFeVhTWFJoamRtQUVyL3c1Z0I3VllITmxjZ2RMUnplOFhYZ1A0?=
+ =?utf-8?B?TVNPK3ZQRkJtRHNaM2p6NWVKODl1YlZEKzFjbVB2RVY0RWFKVHlLU1o1YjRP?=
+ =?utf-8?B?ZUxEMHl6V2Z3MGY3ZzNTbXgrNnROUXh1ajNZZm5RQmVGM2YvSlZRbWxpWGwz?=
+ =?utf-8?B?YXY0ZEN6U3o0eFhZVFB4elZTditlWVJEQit1LzZ6RkNGVGd1QUM1b2pWQWZ5?=
+ =?utf-8?B?V1owSGg2ZTM4cXBUVSs1YlBaRk12MStnQkpuV0N1WXl5NTVreTBlelh6VW5z?=
+ =?utf-8?B?RCtXaTIzZ2VTakpIQkxUS28yd3psejgxWXM2SDNjaTBwSm8yK0VVb25sZjVk?=
+ =?utf-8?B?d0Zta2lKK3c0ckl6NVN0ZjFYcTdzbG1JOHhzbk11YjF6LzZrditCV0VyZm9Z?=
+ =?utf-8?B?NFZmbEFzaHhBRXRIbEQxbEV4UENaMllaQkppOUZUUnNsSUJWRzVLMmxHNzNr?=
+ =?utf-8?B?amFQcnozYllqczh4citMbTZESThWTGhFcTlTZmtVMStFWjRsVHBNdmI1Y015?=
+ =?utf-8?B?TmJUUEgvNzFCSkxNa3dna0xwWXJtVVA3M3JmdmNnQU9zOXFROEt0L1htYU1t?=
+ =?utf-8?B?S2VDS0NseDBLdW9nd29NTlREb0JiY0p5cDJRRnpYemhESW9KdkNYbGwrR2g2?=
+ =?utf-8?B?MUtjRzNremd3Nk1ncE1hM0ZpQkZuaEhvalZyb2hrVUxoMnhOb2JvZTdNdEJ4?=
+ =?utf-8?B?UlZhOElFNnNCYzdJc0ZxU0g2U3ZoWEtCN3dHVUpabHBYK0dQV3pOQWFhN2RH?=
+ =?utf-8?B?SjZlNGtTc3VrRUIvNDJDeXV4dlN0MGYweUZyVkpRZVdadUJYQkJoTmZaRG9X?=
+ =?utf-8?B?NTVnMFgwbDhYdSt5djZsMGg0UHpneGd3QW9wdjNWVkFjUTc1ZmJMT051blh3?=
+ =?utf-8?B?d3ZaZGlveVordG0xSFF5VGFCd29HZzhwNmNNOVpYaXpPVkpKOWw4dHVsUnlB?=
+ =?utf-8?B?dGlzMFpkY3JZM25jRHhVT213T25MR3BXRE81V1NwMUJCS0NKbC81clpPUXc0?=
+ =?utf-8?B?eitpMXV0dFlKK0Z5cUIwQmg3Q1lsUlRiQVZ1MnVxbnJSYjhXL3lscHNURDlP?=
+ =?utf-8?B?VVhYR0s3aVNET3J0MEhJNUlSbWw3cVdGcXlCYmV6YmtCRWRGOGU0WUR0RExW?=
+ =?utf-8?Q?dPPpNYosRixoQlciD5sJatF/ywF5DxfoCc2Rs1e?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8eb4c450-5667-43e2-e3f2-08d91ca50a1a
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5129.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3067.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d1e3add1-ff46-46f1-447f-08d91ca45c58
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 May 2021 22:04:09.7259 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: mLyYNZq/0zwIaKWRkbRhSVm5MR6GjB3eDaiZtpSeI9Eq5dHw1Fi2K8HT5uPqWT79JplrjbrkdBaVA0Qfr467cw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4404
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2021 22:09:01.5447 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: er0Wobt5rVQj+uzzYZgwZEg/FBAAECQssmkL8uUsVQT4GhE1S10keMrQh6FKwrVEl43HQTVXFwFUGMZMtnC4mg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5163
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,232 +135,66 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, "Sakhnovitch,
- Elena \(Elen\)" <Elena.Sakhnovitch@amd.com>
+Cc: David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Right, that all makes sense. I'm fine with either of these options. Thanks for the insights -- I'll give this a bit more thought and get back to you.
-
-Best,
-Graham
-
------Original Message-----
-From: Alex Deucher <alexdeucher@gmail.com> 
-Sent: Friday, May 21, 2021 5:50 PM
-To: Sider, Graham <Graham.Sider@amd.com>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>; Kasiviswanathan, Harish <Harish.Kasiviswanathan@amd.com>; Sakhnovitch, Elena (Elen) <Elena.Sakhnovitch@amd.com>
-Subject: Re: [PATCH 2/6] drm/amd/pm: Add arcturus throttler translation
-
-[CAUTION: External Email]
-
-On Fri, May 21, 2021 at 5:47 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+Am 2021-05-21 um 11:02 a.m. schrieb Guenter Roeck:
+> The first parameter passed to container_of() is the pointer to the work
+> structure passed to the worker and never NULL. The NULL check on the
+> result of container_of() is therefore unnecessary and misleading.
+> Remove it.
 >
-> On Fri, May 21, 2021 at 5:32 PM Sider, Graham <Graham.Sider@amd.com> wrote:
-> >
-> > Would this be referring to tools that may parse /sys/class/.../device/gpu_metrics or the actual gpu_metrics_vX_Y structs? For the latter, if there are tools that parse dependent on version vX_Y, I agree that we would not want to break those.
-> >
-> > Since most ASICs are using different version currently, we would have to create a duplicate struct for each gpu_metrics version currently being used, unless I'm misunderstanding. I'm not sure if this is what you had in mind - let me know.
-> >
+> This change was made automatically with the following Coccinelle script.
 >
-> Just update them all to the latest version.  The newer ones are just 
-> supersets of the previous versions.  I think a newer revision just 
-> went in in the last day or two for some additional new data, you can 
-> probably just piggy back on that since the code is not upstream yet.
+> @@
+> type t;
+> identifier v;
+> statement s;
+> @@
+>
+> <+...
+> (
+>   t v = container_of(...);
+> |
+>   v = container_of(...);
+> )
+>   ...
+>   when != v
+> - if (\( !v \| v == NULL \) ) s
+> ...+>
+>
+> Signed-off-by: Guenter Roeck <linux@roeck-us.net>
 
-Another option would be to leave the current throttle status as is, and add a new one that provides the standardized format.  Not sure if there is much value in having both though.  That said, we could increase the size of the new one to 64 bits to accommodate future throttle status bits.
+Thank you. The patch looks good to me. I caught a few such pointless
+checks in code review but must have missed this one. I'll apply your
+patch to amd-staging-drm-next. The patch is
 
-Alex
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 
+
+> ---
+>  drivers/gpu/drm/amd/amdkfd/kfd_process.c | 2 --
+>  1 file changed, 2 deletions(-)
 >
-> Alex
->
->
-> > Best,
-> > Graham
-> >
-> > -----Original Message-----
-> > From: Alex Deucher <alexdeucher@gmail.com>
-> > Sent: Friday, May 21, 2021 4:15 PM
-> > To: Sider, Graham <Graham.Sider@amd.com>
-> > Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>; Kasiviswanathan, 
-> > Harish <Harish.Kasiviswanathan@amd.com>; Sakhnovitch, Elena (Elen) 
-> > <Elena.Sakhnovitch@amd.com>
-> > Subject: Re: [PATCH 2/6] drm/amd/pm: Add arcturus throttler 
-> > translation
-> >
-> > [CAUTION: External Email]
-> >
-> > On Fri, May 21, 2021 at 1:39 PM Sider, Graham <Graham.Sider@amd.com> wrote:
-> > >
-> > > Hi Alex,
-> > >
-> > > Are you referring to bumping the gpu_metrics_vX_Y version number? Different ASICs are currently using different version numbers already, so I'm not sure how feasible this might be (e.g. arcturus ==  gpu_metrics_v1_1, navi1x == gpu_metrics_v1_3, vangogh == gpu_metrics_v2_1).
-> > >
-> > > Technically speaking no new fields have been added to any of the gpu_metrics versions, just a change in representation in the throttle_status field. Let me know your thoughts on this.
-> > >
-> >
-> > I don't know if we have any existing tools out there that parse this data, but if so, they would interpret it incorrectly after this change.  If we bump the version, at least the tools will know how to handle it.
-> >
-> > Alex
-> >
-> >
-> > > Best,
-> > > Graham
-> > >
-> > > -----Original Message-----
-> > > From: Alex Deucher <alexdeucher@gmail.com>
-> > > Sent: Friday, May 21, 2021 10:27 AM
-> > > To: Sider, Graham <Graham.Sider@amd.com>
-> > > Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>; Kasiviswanathan, 
-> > > Harish <Harish.Kasiviswanathan@amd.com>; Sakhnovitch, Elena (Elen) 
-> > > <Elena.Sakhnovitch@amd.com>
-> > > Subject: Re: [PATCH 2/6] drm/amd/pm: Add arcturus throttler 
-> > > translation
-> > >
-> > > [CAUTION: External Email]
-> > >
-> > > General comment on the patch series, do you want to bump the metrics table version since the meaning of the throttler status has changed?
-> > >
-> > > Alex
-> > >
-> > > On Thu, May 20, 2021 at 10:30 AM Graham Sider <Graham.Sider@amd.com> wrote:
-> > > >
-> > > > Perform dependent to independent throttle status translation for 
-> > > > arcturus.
-> > > > ---
-> > > >  .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c | 62
-> > > > ++++++++++++++++---
-> > > >  1 file changed, 53 insertions(+), 9 deletions(-)
-> > > >
-> > > > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-> > > > b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-> > > > index 1735a96dd307..7c01c0bf2073 100644
-> > > > --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-> > > > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-> > > > @@ -540,6 +540,49 @@ static int arcturus_freqs_in_same_level(int32_t frequency1,
-> > > >         return (abs(frequency1 - frequency2) <= EPSILON);  }
-> > > >
-> > > > +static uint32_t arcturus_get_indep_throttler_status(
-> > > > +                                       unsigned long
-> > > > +dep_throttler_status) {
-> > > > +       unsigned long indep_throttler_status = 0;
-> > > > +
-> > > > +       __assign_bit(INDEP_THROTTLER_TEMP_EDGE_BIT, &indep_throttler_status,
-> > > > +                 test_bit(THROTTLER_TEMP_EDGE_BIT, &dep_throttler_status));
-> > > > +       __assign_bit(INDEP_THROTTLER_TEMP_HOTSPOT_BIT, &indep_throttler_status,
-> > > > +                 test_bit(THROTTLER_TEMP_HOTSPOT_BIT, &dep_throttler_status));
-> > > > +       __assign_bit(INDEP_THROTTLER_TEMP_MEM_BIT, &indep_throttler_status,
-> > > > +                 test_bit(THROTTLER_TEMP_MEM_BIT, &dep_throttler_status));
-> > > > +       __assign_bit(INDEP_THROTTLER_TEMP_VR_GFX_BIT, &indep_throttler_status,
-> > > > +                 test_bit(THROTTLER_TEMP_VR_GFX_BIT, &dep_throttler_status));
-> > > > +       __assign_bit(INDEP_THROTTLER_TEMP_VR_MEM_BIT, &indep_throttler_status,
-> > > > +                 test_bit(THROTTLER_TEMP_VR_MEM_BIT, &dep_throttler_status));
-> > > > +       __assign_bit(INDEP_THROTTLER_TEMP_VR_SOC_BIT, &indep_throttler_status,
-> > > > +                 test_bit(THROTTLER_TEMP_VR_SOC_BIT, &dep_throttler_status));
-> > > > +       __assign_bit(INDEP_THROTTLER_TDC_GFX_BIT, &indep_throttler_status,
-> > > > +                 test_bit(THROTTLER_TDC_GFX_BIT, &dep_throttler_status));
-> > > > +       __assign_bit(INDEP_THROTTLER_TDC_SOC_BIT, &indep_throttler_status,
-> > > > +                 test_bit(THROTTLER_TDC_SOC_BIT, &dep_throttler_status));
-> > > > +       __assign_bit(INDEP_THROTTLER_PPT0_BIT, &indep_throttler_status,
-> > > > +                 test_bit(THROTTLER_PPT0_BIT, &dep_throttler_status));
-> > > > +       __assign_bit(INDEP_THROTTLER_PPT1_BIT, &indep_throttler_status,
-> > > > +                 test_bit(THROTTLER_PPT1_BIT, &dep_throttler_status));
-> > > > +       __assign_bit(INDEP_THROTTLER_PPT2_BIT, &indep_throttler_status,
-> > > > +                 test_bit(THROTTLER_PPT2_BIT, &dep_throttler_status));
-> > > > +       __assign_bit(INDEP_THROTTLER_PPT3_BIT, &indep_throttler_status,
-> > > > +                 test_bit(THROTTLER_PPT3_BIT, &dep_throttler_status));
-> > > > +       __assign_bit(INDEP_THROTTLER_PPM_BIT, &indep_throttler_status,
-> > > > +                 test_bit(THROTTLER_PPM_BIT, &dep_throttler_status));
-> > > > +       __assign_bit(INDEP_THROTTLER_FIT_BIT, &indep_throttler_status,
-> > > > +                 test_bit(THROTTLER_FIT_BIT, &dep_throttler_status));
-> > > > +       __assign_bit(INDEP_THROTTLER_APCC_BIT, &indep_throttler_status,
-> > > > +                 test_bit(THROTTLER_APCC_BIT, &dep_throttler_status));
-> > > > +       __assign_bit(INDEP_THROTTLER_VRHOT0_BIT, &indep_throttler_status,
-> > > > +                 test_bit(THROTTLER_VRHOT0_BIT, &dep_throttler_status));
-> > > > +       __assign_bit(INDEP_THROTTLER_VRHOT1_BIT, &indep_throttler_status,
-> > > > +                 test_bit(THROTTLER_VRHOT1_BIT, 
-> > > > + &dep_throttler_status));
-> > > > +
-> > > > +       return (uint32_t)indep_throttler_status; }
-> > > > +
-> > > >  static int arcturus_get_smu_metrics_data(struct smu_context *smu,
-> > > >                                          MetricsMember_t member,
-> > > >                                          uint32_t *value) @@ 
-> > > > -629,7
-> > > > +672,7 @@ static int arcturus_get_smu_metrics_data(struct
-> > > > +smu_context *smu,
-> > > >                         SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
-> > > >                 break;
-> > > >         case METRICS_THROTTLER_STATUS:
-> > > > -               *value = metrics->ThrottlerStatus;
-> > > > +               *value =
-> > > > + arcturus_get_indep_throttler_status(metrics->ThrottlerStatus);
-> > > >                 break;
-> > > >         case METRICS_CURR_FANSPEED:
-> > > >                 *value = metrics->CurrFanSpeed; @@ -2213,13 
-> > > > +2256,13 @@ static const struct throttling_logging_label {
-> > > >         uint32_t feature_mask;
-> > > >         const char *label;
-> > > >  } logging_label[] = {
-> > > > -       {(1U << THROTTLER_TEMP_HOTSPOT_BIT), "GPU"},
-> > > > -       {(1U << THROTTLER_TEMP_MEM_BIT), "HBM"},
-> > > > -       {(1U << THROTTLER_TEMP_VR_GFX_BIT), "VR of GFX rail"},
-> > > > -       {(1U << THROTTLER_TEMP_VR_MEM_BIT), "VR of HBM rail"},
-> > > > -       {(1U << THROTTLER_TEMP_VR_SOC_BIT), "VR of SOC rail"},
-> > > > -       {(1U << THROTTLER_VRHOT0_BIT), "VR0 HOT"},
-> > > > -       {(1U << THROTTLER_VRHOT1_BIT), "VR1 HOT"},
-> > > > +       {(1U << INDEP_THROTTLER_TEMP_HOTSPOT_BIT), "GPU"},
-> > > > +       {(1U << INDEP_THROTTLER_TEMP_MEM_BIT), "HBM"},
-> > > > +       {(1U << INDEP_THROTTLER_TEMP_VR_GFX_BIT), "VR of GFX rail"},
-> > > > +       {(1U << INDEP_THROTTLER_TEMP_VR_MEM_BIT), "VR of HBM rail"},
-> > > > +       {(1U << INDEP_THROTTLER_TEMP_VR_SOC_BIT), "VR of SOC rail"},
-> > > > +       {(1U << INDEP_THROTTLER_VRHOT0_BIT), "VR0 HOT"},
-> > > > +       {(1U << INDEP_THROTTLER_VRHOT1_BIT), "VR1 HOT"},
-> > > >  };
-> > > >  static void arcturus_log_thermal_throttling_event(struct
-> > > > smu_context
-> > > > *smu)  { @@ -2314,7 +2357,8 @@ static ssize_t 
-> > > > arcturus_get_gpu_metrics(struct smu_context *smu,
-> > > >         gpu_metrics->current_vclk0 = metrics.CurrClock[PPCLK_VCLK];
-> > > >         gpu_metrics->current_dclk0 = 
-> > > > metrics.CurrClock[PPCLK_DCLK];
-> > > >
-> > > > -       gpu_metrics->throttle_status = metrics.ThrottlerStatus;
-> > > > +       gpu_metrics->throttle_status =
-> > > > +
-> > > > + arcturus_get_indep_throttler_status(metrics.ThrottlerStatus);
-> > > >
-> > > >         gpu_metrics->current_fan_speed = metrics.CurrFanSpeed;
-> > > >
-> > > > --
-> > > > 2.17.1
-> > > >
-> > > > _______________________________________________
-> > > > amd-gfx mailing list
-> > > > amd-gfx@lists.freedesktop.org
-> > > > https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%
-> > > > 2Fli
-> > > > st
-> > > > s.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C0
-> > > > 1%7C
-> > > > Gr
-> > > > aham.Sider%40amd.com%7Ca3ca9a6b0576479e545808d91c648f50%7C3dd896
-> > > > 1fe4
-> > > > 88
-> > > > 4e608e11a82d994e183d%7C0%7C0%7C637572040495495758%7CUnknown%7CTW
-> > > > FpbG
-> > > > Zs
-> > > > b3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6
-> > > > Mn0%
-> > > > 3D
-> > > > %7C1000&amp;sdata=YxUx7BrsQKBauKE3fHpNrkWMAG4dBy11fV9xnJdMHns%3D
-> > > > &amp
-> > > > ;r
-> > > > eserved=0
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> index 5b6c5669c03d..2f8d352e0069 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> @@ -110,8 +110,6 @@ static void kfd_sdma_activity_worker(struct work_struct *work)
+>  
+>  	workarea = container_of(work, struct kfd_sdma_activity_handler_workarea,
+>  				sdma_activity_work);
+> -	if (!workarea)
+> -		return;
+>  
+>  	pdd = workarea->pdd;
+>  	if (!pdd)
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
