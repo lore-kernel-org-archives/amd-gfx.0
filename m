@@ -7,43 +7,43 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C9699C2B9F8
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 May 2021 14:50:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E5B7FC47085
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 May 2021 14:50:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9989B61481
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 May 2021 14:50:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9989B61481
+	by mail.kernel.org (Postfix) with ESMTPS id B8DAF6157F
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 May 2021 14:50:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B8DAF6157F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C20136E86F;
-	Mon, 24 May 2021 14:50:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B5F76E871;
+	Mon, 24 May 2021 14:50:40 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 062486E86A;
- Mon, 24 May 2021 14:50:05 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 1C11E61476;
- Mon, 24 May 2021 14:50:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 41DD66E871;
+ Mon, 24 May 2021 14:50:38 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 4696161477;
+ Mon, 24 May 2021 14:50:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1621867804;
- bh=TTnz5OriA+p5HLPpRS8J0Z2C4CzA/KCLw6QSdGxXHc8=;
+ s=k20201202; t=1621867838;
+ bh=seJzjGs9sZ6zHofGNTUjuqpT4Swidg4xyrcoyTpbhH4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ndOlsglaSWEJowZnPcQDoOJQIViE4tupPTve0ILwC54H1/ZLh76uKec5EzMwAKm9i
- 4PxgRIuCrJyoPwJcDE7h+JjJ05ah5w58F1i/z0dFYMShXlZmYaWR+ooPzuNmItyO39
- 1gNUtOkecB6nfQnHEoF2XGVdjX1U3Kvs7dnaPypzutiy0TmtNsnmKthkX/yeYcAI/B
- MUdxetWYtFeotmQIdCqFQElY32W/62e3kuyUxGEdskGrHUgGZGRWm6/jF8IFLB/IMl
- VvS1rjUPLkBSQZiLRZA3iLIvAo51WW+ENYf3pJkEBWwAcyIRF86R4+OFzGW9ZIIGqP
- R5KpZvchD0ayw==
+ b=QCd5AturtuDd/gnYJBC4GcRDuqDCYs8DmcywDX75d9ab2dhY00JkZH1UU6eGxHJGC
+ MpHzwOcAUfJTvNXc5sH51/LUAvPrwcooAQShbgjVUafR6/5biVkmSuiWAp0ny3Z14c
+ CwbJUGBkjL5E4mTfjWt92tqBl4qfjA5C8BAvj1gviCDGd/D33wns2RyuJpnYcT0mSo
+ UApwqa+pA1nZ+OK6FYrGXNgd5Xzi10CCP0ELKPHrT+9q1U2aqt4lXR794LD68qSGAz
+ jIHdyIDk9MSBgXea0qztajtz7v7ANH9/Di4zFxk0JoGnNTYKdctqGfAd6y+Bkgf74E
+ gCKLNnsA8qSfA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 50/52] drm/amd/amdgpu: fix refcount leak
-Date: Mon, 24 May 2021 10:49:00 -0400
-Message-Id: <20210524144903.2498518-50-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.19 24/25] drm/amd/amdgpu: fix refcount leak
+Date: Mon, 24 May 2021 10:50:07 -0400
+Message-Id: <20210524145008.2499049-24-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210524144903.2498518-1-sashal@kernel.org>
-References: <20210524144903.2498518-1-sashal@kernel.org>
+In-Reply-To: <20210524145008.2499049-1-sashal@kernel.org>
+References: <20210524145008.2499049-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -80,9 +80,9 @@ Y2hlckBhbWQuY29tPgpTaWduZWQtb2ZmLWJ5OiBTYXNoYSBMZXZpbiA8c2FzaGFsQGtlcm5lbC5v
 cmc+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ZiLmMgfCAzICsrKwog
 MSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
 L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9mYi5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X2ZiLmMKaW5kZXggZmQ5NGExN2ZiMmM2Li40NjUyMjgwNGM3ZDggMTAwNjQ0Ci0tLSBh
+YW1kZ3B1X2ZiLmMKaW5kZXggNjljNWQyMmYyOWJkLi5kNTVmZjU5NTg0YzggMTAwNjQ0Ci0tLSBh
 L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9mYi5jCisrKyBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9mYi5jCkBAIC0yODksMTAgKzI4OSwxMyBAQCBzdGF0aWMg
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9mYi5jCkBAIC0yOTcsMTAgKzI5NywxMyBAQCBzdGF0aWMg
 aW50IGFtZGdwdWZiX2NyZWF0ZShzdHJ1Y3QgZHJtX2ZiX2hlbHBlciAqaGVscGVyLAogc3RhdGlj
 IGludCBhbWRncHVfZmJkZXZfZGVzdHJveShzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCBzdHJ1Y3Qg
 YW1kZ3B1X2ZiZGV2ICpyZmJkZXYpCiB7CiAJc3RydWN0IGFtZGdwdV9mcmFtZWJ1ZmZlciAqcmZi
