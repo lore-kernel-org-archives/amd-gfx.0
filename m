@@ -8,59 +8,60 @@ X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E07C3C04FF3
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 May 2021 18:50:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 71A41C04FF3
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 May 2021 19:25:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A0E9D61413
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 May 2021 18:50:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A0E9D61413
+	by mail.kernel.org (Postfix) with ESMTPS id 33A63613FC
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 May 2021 19:25:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 33A63613FC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F01B16E90C;
-	Mon, 24 May 2021 18:50:21 +0000 (UTC)
-Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
- [IPv6:2607:f8b0:4864:20::32c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38FEF6E90C;
- Mon, 24 May 2021 18:50:10 +0000 (UTC)
-Received: by mail-ot1-x32c.google.com with SMTP id
- i14-20020a9d624e0000b029033683c71999so15004788otk.5; 
- Mon, 24 May 2021 11:50:10 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84DB66E91C;
+	Mon, 24 May 2021 19:25:46 +0000 (UTC)
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [IPv6:2a00:1450:4864:20::632])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60B726E91C
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 May 2021 19:25:44 +0000 (UTC)
+Received: by mail-ej1-x632.google.com with SMTP id n2so43468996ejy.7
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 May 2021 12:25:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=OA4u1hUVW7+czWLOl7FPRNPAHAh/vc/gl/M2fiIZYJo=;
- b=tQ32gaJ+K524LKDCVZIVsFdMx5pCHrP/SDGMrpfkp0V7f+aQg0NutnYXMkesDoexif
- n2+tK4S+bphjLSN2kEcC6C7z9YBFVFBIreIhdg0x4rRIMU0jkHEkla0y5cDBNr3mHaPn
- kl8H3/DFY/rz9Dl+uqpvH3aJCCgzHC7tfzu/wQlTFe+UWJf9hTPXJ12olYhHAgghQGgO
- FSYeEShH7WQ1ssMxvkzVLmVtMoOpF7BFQdFzoPKM1HQYO+GKODiYM5nw84om2K2sR5Hf
- LJ9MmwmflUEZffrDx/bUSw6EugvN8R10GbN5W5H9uShfTJaZGM9EWKVUfVjCP36awygI
- 55fA==
+ h=mime-version:from:date:message-id:subject:to
+ :content-transfer-encoding;
+ bh=6g30Jr3gi294txvYDw/FdE/OcIJ1BIfyfrFexzVIPIA=;
+ b=XVIwOfz/CpK4FEeBpCoM+5khe88DZRzuwwwsp+gpoMibzn4+j9mPLUpfC/U5s7EGUw
+ 4FcujGF0mcR8t04ttTf9BO0HXdPQX+hUxqnJXenNpht/TNxxlwwG2b4es4oiMf/2F6Y6
+ BlTkQWjyqiCL+PFIjYRzYJXNQkOpUlrqK/hDB71KDswdK7ObfaIncnhETZTGq5PwHKIz
+ sTamjtgpn1a2yWi//Ndkp4kP27fIqW7HDofi6cV8POPdz2lXzGiVXsWxuWT7rcQzvT8u
+ 4vqRS63nN1JQx+kkw+1ENoPF71gnKv74eiELVPhQ/ZnS750TiWsOuGTWZhFS6A1hNySz
+ /sTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=OA4u1hUVW7+czWLOl7FPRNPAHAh/vc/gl/M2fiIZYJo=;
- b=gzRBDIyWikDmwNNUSFAq+MsIqidEFokWbxc7sFFmG8k5a15ar7KcQ7rdUOQw5AFvAM
- nWk5zfBw4fmu/22mJ3p7F3NRHYM0Qb9EKjb/loeZxvIdHfxD36F/bnjoD+jkqKDekg4T
- +bXVWG8gaDXsDkv1KgMoCVQzsQ/8pqQuEj1DR9ov3gtXV/QbtkYrkF665s3DGtYzaRna
- dwhU59yiMVYcc543p/cea86BoZDTkE02CxMXLwHrbTl64XGn2RP/Nz34wKPZvy4TtHtm
- jbujAo1qxi70oqQDOu3T3iFZUQFMO7rNQv3fyTM3UUtpgwczQUeax7Hh2Z6SNmpqPQXy
- eU+A==
-X-Gm-Message-State: AOAM533THZHrN5lgd+9+Muhk9xCUTtQw41tj6aoFTrJYqIHXD+90pwl4
- 9fKabfEFNakDo1jyKywk8s4Hu2GbHH3lT3qCp6s=
-X-Google-Smtp-Source: ABdhPJwiKzX9Gj1sMzHOgN92igF3UyXdCiTIb4xlUH7OP/tM0D4aeQ/+U1aKEUBnpy8WLZa75emQN038NmfSWdArwjY=
-X-Received: by 2002:a9d:57cd:: with SMTP id q13mr19783026oti.23.1621882209553; 
- Mon, 24 May 2021 11:50:09 -0700 (PDT)
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to
+ :content-transfer-encoding;
+ bh=6g30Jr3gi294txvYDw/FdE/OcIJ1BIfyfrFexzVIPIA=;
+ b=oZyNWg7P9dVY9WJKaDF3i+5xJccZFuncZWCFmakjtfLGo/8kRgMh/3mrYE3IVzaQkT
+ yuzDA/i+QID96QSippM3VhTRKPbDmOsD4cNyWJpG6wljR+9xoNNsesDV6cmyaBG0+HGT
+ O4iHr409qP3HHZzZ+rpkse7Cz3moiq/3HHI4dEEbG/aSwZomHIXwGK/lYp0K7suqsxEk
+ 8ZGu6m6zN8+Z5g30Y5dxkk0zgRsdb9liR+I0/Cn5OFeP5vtSoM7q9GTzQKOF84TltyL3
+ FTfJ9a98uHyMW9YPgRCIyzZqvV+JbQVQBa2gEk0i0imwNOcWm08PXsdYQ4Nm6zfhRSPQ
+ RWcg==
+X-Gm-Message-State: AOAM5329kegcL72muAfwVV44ry1/4gTOtFEVc4zOuMXfSLieNLh/Ym6L
+ oO/6x5vATFrMWnk13t25mZjTfz1gt4LCi5WJk4S55j8jNdM=
+X-Google-Smtp-Source: ABdhPJwKAF8//gdtN28l1udA8BjCc81MLVgl53ZFI6NqESi2RTsXmsSyTlYKxQ9i+WHLU+ApHoiDrB1LL15xQTMETiI=
+X-Received: by 2002:a17:906:2a56:: with SMTP id
+ k22mr25265871eje.551.1621884342881; 
+ Mon, 24 May 2021 12:25:42 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210524071554.12344-1-nswdhpyhwt@163.com>
-In-Reply-To: <20210524071554.12344-1-nswdhpyhwt@163.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 24 May 2021 14:49:58 -0400
-Message-ID: <CADnq5_OoFF=zEr61yRj0c6xXTBO4qLwor76e4knyyPg1ZhHF0g@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: fix typo
-To: nswdhpyhwt@163.com
+From: =?UTF-8?B?THXDrXMgTWVuZGVz?= <luis.p.mendes@gmail.com>
+Date: Mon, 24 May 2021 20:25:31 +0100
+Message-ID: <CAEzXK1pXrnXpBfzZ9c-8MsYpoDCRt86F7yU=uLi52i96u8+SQA@mail.gmail.com>
+Subject: Regression: bisected: AMDGPU causes Kernel Bad page state OOPS
+ starting with kernels 5.11.x, 5.12.x, 5.13-rc
+To: "Koenig, Christian" <Christian.Koenig@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,59 +73,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dave Airlie <airlied@linux.ie>, Lee Jones <lee.jones@linaro.org>,
- xinhui pan <Xinhui.Pan@amd.com>, LKML <linux-kernel@vger.kernel.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Sonny Jiang <sonny.jiang@amd.com>, "tony.huang_cp" <huangwentao@yulong.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
- "Deucher, Alexander" <alexander.deucher@amd.com>, Leo Liu <leo.liu@amd.com>,
- Christian Koenig <christian.koenig@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
-
-Alex
-
-On Mon, May 24, 2021 at 3:45 AM <nswdhpyhwt@163.com> wrote:
->
-> From: "tony.huang_cp" <huangwentao@yulong.com>
->
-> change 'interupt' to 'interrupt'
->
-> Signed-off-by: tony.huang_cp <huangwentao@yulong.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c b/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
-> index 284447d..6c0e914 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
-> @@ -340,7 +340,7 @@ static int uvd_v3_1_start(struct amdgpu_device *adev)
->         /* enable VCPU clock */
->         WREG32(mmUVD_VCPU_CNTL,  1 << 9);
->
-> -       /* disable interupt */
-> +       /* disable interrupt */
->         WREG32_P(mmUVD_MASTINT_EN, 0, ~(1 << 1));
->
->  #ifdef __BIG_ENDIAN
-> @@ -405,7 +405,7 @@ static int uvd_v3_1_start(struct amdgpu_device *adev)
->                 return r;
->         }
->
-> -       /* enable interupt */
-> +       /* enable interrupt */
->         WREG32_P(mmUVD_MASTINT_EN, 3<<1, ~(3 << 1));
->
->         WREG32_P(mmUVD_STATUS, 0, ~(1<<2));
-> --
-> 1.9.1
->
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+SGksCgpBTURHUFUgd2FzIHdvcmtpbmcgZmluZSBvbiBteSBhcm1oZiBzeXN0ZW1zIHdpdGggNS4x
+MC54IGFuZCBwcmV2aW91cwprZXJuZWxzIGFuZCBhIFJYNTUwIGNhcmQuIFVuZm9ydHVuYXRlbHkg
+SSBoYXZlIG9ubHkgbm93IHRlc3RlZCBrZXJuZWxzCjUuMTEueCwgNS4xMi54IGFuZCA1LjEzLXJj
+IGFuZCBhbGwgYXJlIG5vdyBzaG93aW5nIHByb2JsZW1zIGxpa2UgdGhpcwpvbmU6Ck1heSAxMCAy
+MDoyMzoxNCBwaWNvbG8ga2VybmVsOiBbICAgMTguOTY3NjI2XSBCVUc6IEJhZCBwYWdlIHN0YXRl
+IGluCnByb2Nlc3MgZ25vbWUtc2hlbGwgIHBmbjo3OGMwOApNYXkgMTAgMjA6MjM6MTQgcGljb2xv
+IGtlcm5lbDogWyAgIDE4Ljk3Mzc1MF0gcGFnZTpjZTJlOTcxNyByZWZjb3VudDoyCm1hcGNvdW50
+OjEgbWFwcGluZzoxN2VkY2VkMCBpbmRleDoweDEwOWU5IHBmbjoweDc4YzA4Ck1heSAxMCAyMDoy
+MzoxNCBwaWNvbG8ga2VybmVsOiBbICAgMTguOTczNzYzXSBhb3BzOjB4YzBlMTJmNTQgaW5vOjMw
+ZAoKRnVsbCBLZXJuZWwgYm9vdCBsb2cgaXMgaGVyZQpodHRwczovL3Bhc3RlYmluLmNvbS9wY3VV
+V1hiagoKSSd2ZSBiaXNlY3RlZCBhbmQgdHJhY2VkIHRoZSBwcm9ibGVtIHRvIHRoaXMgY29tbWl0
+OgplOTNiMmRhOTc5OWU1Y2I5Nzc2MDk2OWYzZTFmMDJhNWJkYWMyOWZlIGlzIHRoZSBmaXJzdCBi
+YWQgY29tbWl0CmNvbW1pdCBlOTNiMmRhOTc5OWU1Y2I5Nzc2MDk2OWYzZTFmMDJhNWJkYWMyOWZl
+CkF1dGhvcjogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgpEYXRl
+OiAgIFNhdCBPY3QgMjQgMTM6MTE6MjkgMjAyMCArMDIwMAoKICAgIGRybS9hbWRncHU6IHN3aXRj
+aCB0byBuZXcgYWxsb2NhdG9yIHYyCgogICAgSXQgc2hvdWxkIGJlIGFibGUgdG8gaGFuZGxlIGFs
+bCBjYXNlcyBoZXJlLgoKICAgIHYyOiBmaXggZGVidWdmcyBhcyB3ZWxsCgogICAgU2lnbmVkLW9m
+Zi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgogICAgUmV2
+aWV3ZWQtYnk6IERhdmUgQWlybGllIDxhaXJsaWVkQHJlZGhhdC5jb20+CiAgICBSZXZpZXdlZC1i
+eTogTWFkaGF2IENoYXVoYW4gPG1hZGhhdi5jaGF1aGFuQGFtZC5jb20+CiAgICBUZXN0ZWQtYnk6
+IEh1YW5nIFJ1aSA8cmF5Lmh1YW5nQGFtZC5jb20+CiAgICBMaW5rOiBodHRwczovL3BhdGNod29y
+ay5mcmVlZGVza3RvcC5vcmcvcGF0Y2gvMzk3MDg2Lz9zZXJpZXM9ODMwNTEmcmV2PTEKCiBkcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMgfCA0NSArKysrKysrKysrLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0KIDEgZmlsZSBjaGFuZ2VkLCAxNCBpbnNlcnRpb25zKCspLCAzMSBk
+ZWxldGlvbnMoLSkKCkRldGFpbGVkIGJpc2VjdCBsb2cgaXMgaGVyZToKaHR0cHM6Ly9iaW4ucHJp
+dmFjeXRvb2xzLmlvLz9hODhhZTYzZmI5NWZhMWMxI0V0ckM0cXhHV2ptZ3k1QzNkQnpYRkdxanhj
+N3puVEtVTHR6NGN4b1lGeFc1CgpCZXN0IHJlZ2FyZHMsCkx1w61zIE1lbmRlcwpBcGFyYXBpIGRl
+dmVsb3BlcgpQaEQgU3R1ZGVudCAmIFJlc2VhcmNoZXIKX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0
+cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
+aXN0aW5mby9hbWQtZ2Z4Cg==
