@@ -8,60 +8,58 @@ X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DB3BAC2B9F8
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 May 2021 18:12:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2AD1CC2B9F7
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 May 2021 18:49:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7F8B8600D1
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 May 2021 18:12:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7F8B8600D1
+	by mail.kernel.org (Postfix) with ESMTPS id E23D061413
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 May 2021 18:49:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E23D061413
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCB0C6E1F6;
-	Mon, 24 May 2021 18:12:19 +0000 (UTC)
-Received: from mail-oo1-xc34.google.com (mail-oo1-xc34.google.com
- [IPv6:2607:f8b0:4864:20::c34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0DD86E1F6;
- Mon, 24 May 2021 18:12:17 +0000 (UTC)
-Received: by mail-oo1-xc34.google.com with SMTP id
- v13-20020a4ac00d0000b029020b43b918eeso6548395oop.9; 
- Mon, 24 May 2021 11:12:17 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8AC796E909;
+	Mon, 24 May 2021 18:49:07 +0000 (UTC)
+Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
+ [IPv6:2607:f8b0:4864:20::22a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B8F096E909;
+ Mon, 24 May 2021 18:49:06 +0000 (UTC)
+Received: by mail-oi1-x22a.google.com with SMTP id h9so27982180oih.4;
+ Mon, 24 May 2021 11:49:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=+9I9jlaYCJwm7GMK8vCa+XPnOfqmkJZLcMPH2lbyCHI=;
- b=nzCpeBr7dDnoasU9Kv35bQBN1pMvKkUb21yqjebcNR2NJdUbJQcfCM/tzozKsoET/0
- uRTBHjIf65/dksUaZ6hQKSniPIUhnWbn84k8THLUecpHq6CvZeJnM6xyXqcZWRd2kKeG
- FPbHQEbOwZN+EoTMnq7lEWNmenmgzpzKltRDQ8yy3W/c7yn1FE4h8VKbIQfGAzUGzL4K
- ZyMvbhSOIKL1tn1GKT39I0eYmVguLX3dG458TVDrp96RUjLhWnFoYWhQ35Ubl4nsPzRL
- CdIWHCDVaqLD9QJuY1LhiLLmgnjCL8jG22j2BF5VIGNAoPfGswRu1a7C35eWEDZSwxWr
- UbZQ==
+ :cc; bh=dYnEhzkp1dbbf9fIGVRRORFDdaTodcnnOdSTVqP9m0o=;
+ b=J3EkV+L9cKqEC9dducGQe+dlBDeMynfnUMq+roxzZEzKLRGNcT56FSxo8Ei5FeMx9C
+ 5OeCXpu0A4JO9WW4UhE3RpEM26Ari6+3g4EcsBxkChmBIzewPsSA9EBS2SLG5QaR27f+
+ wj6/1NBybMiWJZwBBPkUyzliWdjaSUvZDPHlcEiMBw9DeugmzMAcZUBbM6sF7CsYghl/
+ ghnzS0dH/qs9krdIbeCr+R2u00qPaEQ8aM5DeVSD/u0sD5nyJUNQ/Iw5a4taqbyDdoT2
+ 05GQday22Hv7KDHRrMyHlo9lWGmOaEKIDUdPmh4JIjhM1gjsq/IT7F70IZF1gH2nTYTV
+ v+3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=+9I9jlaYCJwm7GMK8vCa+XPnOfqmkJZLcMPH2lbyCHI=;
- b=qrjBt0sJQeaDerXpDXUiTZCSFk7b3PS9uQtaqNR07L3lgf+3AMzjLGSPmzzddvY85E
- v6dXOJFPnLeND705IeSlsNC0CwVC/Rwf6u14mmqXmJZDcFoZZDi+gk5eAm/61sqHLIZY
- v86QHCkLtcyY3ao0dCPOq24mRp2sWck4s9FdM0aHIhFUTl1dVSH0+hV4XumaPkMbJsSu
- M/6wtMHmZrvh/J1TxSvFaghCkDtLPF0XDk48y2g6zf/jeKKZkmPcaUKlkfFfUj5iRuqs
- rZE1xtfA4azguHQwIS8ZistmJXcLe/CWcCC4W1AggjCmG2V0Cqcob6wK0dhEYijdxUQA
- 4xIg==
-X-Gm-Message-State: AOAM533rp7DngOphoQcUZoMfSxiiDTrCeDBgwgFeLNB+Bd0HSI5fj/FV
- 6qP1dGPRkqKhvkGINRa35a3fctSLp8Ycdhhv4qw=
-X-Google-Smtp-Source: ABdhPJzhVFLRxGfoyzWVJh3tF9KW/NhQHanjStmXRL3+N/qojxCqMzyXV6pZNW3TG8IVKGKFaI7lHeuVsvrsYP+dFK0=
-X-Received: by 2002:a4a:d085:: with SMTP id i5mr19301783oor.61.1621879937282; 
- Mon, 24 May 2021 11:12:17 -0700 (PDT)
+ bh=dYnEhzkp1dbbf9fIGVRRORFDdaTodcnnOdSTVqP9m0o=;
+ b=N8guqYcQbfUbRufjmaDZT+/PEp+CGtG/OpyMF6esPxXSYYvuMiGfiG9xU9zJX6+pE5
+ 3ybQPH1tV5eIrp4TJt3ED7nPukcK/Q5M/FQ+OhwBcUqYUoeLyjGRGfcHySmuXLRcH+K7
+ nhCsXWeUxMhLfvlSxPNnMR63H5OROYYGmcOwL+bF6fXfEEvXOzNfNdgjs/1dedgAjQAT
+ CeH08xlCk7xAxeoIWqUM83PGOV+bs/NR5d44HyiNJaUCjVxXBp1hux6Anp4e12XuG9tP
+ M94DroOrLfPgs0dIBoq9DmisPDv+HLPJqvEzx5l5U+XNlRTxKEg1VkaaSolEk+QQhoCb
+ gqUg==
+X-Gm-Message-State: AOAM5301AhhAp7vFctWr9PTGoyaruGCB9EPbP/q7aeUpm9HUSGu6llJ2
+ 5VUY3v5zMImCZ9EMGAUnc2xdQnliHZU4cbQ0OOg=
+X-Google-Smtp-Source: ABdhPJwVX9evJqZgQ8DoevhP5UkPf9wyiPN6kdoDCnSMac0ZTswKiitlAwMr0DjZ60GMh/dFVtX2UO7EU+ZEJZcSc34=
+X-Received: by 2002:a05:6808:206:: with SMTP id l6mr329581oie.5.1621882146073; 
+ Mon, 24 May 2021 11:49:06 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210524133548.2361943-1-weiyongjun1@huawei.com>
-In-Reply-To: <20210524133548.2361943-1-weiyongjun1@huawei.com>
+References: <1621853213-55876-1-git-send-email-jiapeng.chong@linux.alibaba.com>
+In-Reply-To: <1621853213-55876-1-git-send-email-jiapeng.chong@linux.alibaba.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 24 May 2021 14:12:06 -0400
-Message-ID: <CADnq5_Os1fKouKSkfmmiWgjLxkX3FQ1Ny5Wcno7VQcheG4-26Q@mail.gmail.com>
-Subject: Re: [PATCH -next] drm/amdgpu: fix error return code in
- amdgpu_acpi_init()
-To: Wei Yongjun <weiyongjun1@huawei.com>
+Date: Mon, 24 May 2021 14:48:55 -0400
+Message-ID: <CADnq5_N3WkoYHcn8b1-qZ23+t=E9xxV5fV_1Lwqck6x2dUPqmA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: remove unreachable code
+To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,62 +71,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lijo Lazar <lijo.lazar@amd.com>, David Airlie <airlied@linux.ie>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, kernel-janitors@vger.kernel.org,
- Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>, Hulk Robot <hulkci@huawei.com>,
- Prike Liang <Prike.Liang@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>, Likun Gao <Likun.Gao@amd.com>,
- "Fabio M. De Francesco" <fmdefrancesco@gmail.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Ye Bin <yebin10@huawei.com>
+Cc: Dave Airlie <airlied@linux.ie>, LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>,
+ linux-media <linux-media@vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, May 24, 2021 at 9:25 AM Wei Yongjun <weiyongjun1@huawei.com> wrote:
->
-> Fix to return a negative error code from the error handling
-> case instead of 0, as done elsewhere in this function.
-
-I don't see any other cases in this function where we return an error.
-It could arguably be made a void.  All of these APCI methods are
-optional.
+Applied.  Thanks!
 
 Alex
 
+On Mon, May 24, 2021 at 6:47 AM Jiapeng Chong
+<jiapeng.chong@linux.alibaba.com> wrote:
 >
-> Fixes: 77bf762f8b30 ("drm/amdgpu/acpi: unify ATCS handling (v3)")
-> Reported-by: Hulk Robot <hulkci@huawei.com>
-> Signed-off-by: Wei Yongjun <weiyongjun1@huawei.com>
+> In the function amdgpu_uvd_cs_msg(), every branch in the switch
+> statement will have a return, so the code below the switch statement
+> will not be executed.
+>
+> Eliminate the follow smatch warning:
+>
+> drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:845 amdgpu_uvd_cs_msg() warn:
+> ignoring unreachable code.
+>
+> Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+> Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c | 2 --
+>  1 file changed, 2 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> index 49563ff87f1a..9564690b21b4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> @@ -895,12 +895,15 @@ int amdgpu_acpi_init(struct amdgpu_device *adev)
->  atcs:
->         /* Probe for ATCS, and initialize it if found */
->         atcs_handle = amdgpu_atcs_probe_handle(handle);
-> -       if (!atcs_handle)
-> +       if (!atcs_handle) {
-> +               ret = -ENODEV;
->                 goto out;
-> +       }
->
->         atcs = kzalloc(sizeof(*atcs), GFP_KERNEL);
->         if (!atcs) {
->                 DRM_WARN("Not enough memory to initialize ATCS\n");
-> +               ret = -ENOMEM;
->                 goto out;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+> index 82f0542..375b346 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+> @@ -842,8 +842,6 @@ static int amdgpu_uvd_cs_msg(struct amdgpu_uvd_cs_ctx *ctx,
+>                 DRM_ERROR("Illegal UVD message type (%d)!\n", msg_type);
+>                 return -EINVAL;
 >         }
->         atcs->handle = atcs_handle;
+> -       BUG();
+> -       return -EINVAL;
+>  }
+>
+>  /**
+> --
+> 1.8.3.1
 >
 _______________________________________________
 amd-gfx mailing list
