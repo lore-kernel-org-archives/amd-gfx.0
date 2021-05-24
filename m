@@ -7,44 +7,44 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 06605C04FF3
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 May 2021 14:47:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C9CC7C47086
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 May 2021 14:48:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C7FF36140C
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 May 2021 14:47:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C7FF36140C
+	by mail.kernel.org (Postfix) with ESMTPS id 96C1061430
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 May 2021 14:48:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 96C1061430
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 257EB6E85C;
-	Mon, 24 May 2021 14:47:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CAE716E860;
+	Mon, 24 May 2021 14:48:53 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC1EB6E857;
- Mon, 24 May 2021 14:47:38 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id F293561261;
- Mon, 24 May 2021 14:47:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84CE56E85D;
+ Mon, 24 May 2021 14:48:52 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 588C2613DB;
+ Mon, 24 May 2021 14:48:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1621867658;
- bh=PzC1/aHqCfv71WlG8DDX9grk2xusdWHpo+JrJJTeOp8=;
+ s=k20201202; t=1621867732;
+ bh=p9SOPVhR3hgFauLpHcLifRt5AajZWHwWV4bCa9HFucs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=fJgh0CeeDBoCgym8Pu3y2ErIIw9syTChWyemsQDGHbO8knf/Zx/3PTjz2ZzP53XoK
- 735yc9dhMYdmJRILds+o0ngaKVXIANmkH5osExHZDir8KbNdT6t5vogHPhGDioP4uy
- uge7R+n7CLszYtkeTCtTAHqNyrDhRIzq+nPARpklSdPzG/VcREgiTOdeOuzZKacKnA
- OnPLADgt8P/V7qdagaA9heAS1u1GRH49kROkTCrOzBHrsyFFEjOJwq7BCC5OCYLdrP
- 18sf71YwsOPdb2cveCMkvz8crvsglqw2RQFiE94sskV5VPMNbldM6dLLZcUBjlE+eU
- f8y16lZ1Vc0iA==
+ b=Og+V+JZ0vihvTDbD/hu6i0ltI0VlUk+F8clHcI3zOf0W+MoAZb4e/0QEmQBPGM15H
+ ZbUN1UnAmsIpicS290HADPiFR4UTzXp3xxX2tdrcl/opJWqd7NC6Skbof/bH4KXCAm
+ F6LSKBOlEkY3ujRLL3i2UilPgExegVeFIMJynz5Ds72rfZE7BEy55W4pu0pJkpHvlN
+ qI70EXMqqDt495w26yg+oL88k9f7CTyFlwlOgJWu2bNXTw+OeOAiVkQBEhOFhNx24w
+ 5OM+6zYDNy6Os0BundnJEpdEZLYa7WohTUEOPEJ0PtiAWBMjBRJHCW2boZMy076lyV
+ UGThW06YHCyoQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.12 60/63] drm/amdgpu: stop touching sched.ready in
- the backend
-Date: Mon, 24 May 2021 10:46:17 -0400
-Message-Id: <20210524144620.2497249-60-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 55/62] drm/amd/display: Disconnect non-DP with no
+ EDID
+Date: Mon, 24 May 2021 10:47:36 -0400
+Message-Id: <20210524144744.2497894-55-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210524144620.2497249-1-sashal@kernel.org>
-References: <20210524144620.2497249-1-sashal@kernel.org>
+In-Reply-To: <20210524144744.2497894-1-sashal@kernel.org>
+References: <20210524144744.2497894-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -59,71 +59,75 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- dri-devel@lists.freedesktop.org,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Stylon Wang <stylon.wang@amd.com>, Sasha Levin <sashal@kernel.org>,
+ Chris Park <Chris.Park@amd.com>, amd-gfx@lists.freedesktop.org,
+ Daniel Wheeler <daniel.wheeler@amd.com>, dri-devel@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgoKWyBVcHN0
-cmVhbSBjb21taXQgYTJiNDc4NWYwMTI4MGE0MjkxZWRiOWZkYTY5MDMyZmMyZTRiZmQzZiBdCgpU
-aGlzIHVuZm9ydHVuYXRlbHkgY29tZXMgdXAgaW4gcmVndWxhciBpbnRlcnZhbHMgYW5kIGJyZWFr
-cwpHUFUgcmVzZXQgZm9yIHRoZSBlbmdpbmUgaW4gcXVlc3Rpb24uCgpUaGUgc2NoZWQucmVhZHkg
-ZmxhZyBjb250cm9scyBpZiBhbiBlbmdpbmUgY2FuJ3QgZ2V0IHdvcmtpbmcKZHVyaW5nIGh3X2lu
-aXQsIGJ1dCBzaG91bGQgbmV2ZXIgYmUgc2V0IHRvIGZhbHNlIGR1cmluZyBod19maW5pLgoKdjI6
-IHNxdWFzaCBpbiB1bnVzZWQgdmFyaWFibGUgZml4IChBbGV4KQoKU2lnbmVkLW9mZi1ieTogQ2hy
-aXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgpSZXZpZXdlZC1ieTogQWxl
-eCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgpTaWduZWQtb2ZmLWJ5OiBBbGV4
-IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+ClNpZ25lZC1vZmYtYnk6IFNhc2hh
-IExldmluIDxzYXNoYWxAa2VybmVsLm9yZz4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9qcGVnX3YyXzUuYyB8IDIgLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2pwZWdfdjNf
-MC5jIHwgMiAtLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2RtYV92NV8yLmMgfCA1IC0t
-LS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjNfMC5jICB8IDggKy0tLS0tLS0K
-IDQgZmlsZXMgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDE2IGRlbGV0aW9ucygtKQoKZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2pwZWdfdjJfNS5jIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvanBlZ192Ml81LmMKaW5kZXggYzY3MjRhMGUwYzQzLi5kYzk0N2M4
-ZmZlMjEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2pwZWdfdjJfNS5j
-CisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2pwZWdfdjJfNS5jCkBAIC0xOTgsOCAr
-MTk4LDYgQEAgc3RhdGljIGludCBqcGVnX3YyXzVfaHdfZmluaSh2b2lkICpoYW5kbGUpCiAJCWlm
-IChhZGV2LT5qcGVnLmN1cl9zdGF0ZSAhPSBBTURfUEdfU1RBVEVfR0FURSAmJgogCQkgICAgICBS
-UkVHMzJfU09DMTUoSlBFRywgaSwgbW1VVkRfSlJCQ19TVEFUVVMpKQogCQkJanBlZ192Ml81X3Nl
-dF9wb3dlcmdhdGluZ19zdGF0ZShhZGV2LCBBTURfUEdfU1RBVEVfR0FURSk7Ci0KLQkJcmluZy0+
-c2NoZWQucmVhZHkgPSBmYWxzZTsKIAl9CiAKIAlyZXR1cm4gMDsKZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2pwZWdfdjNfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvanBlZ192M18wLmMKaW5kZXggZThmYmIyYTBkZTM0Li4xZDM1NDI0NTY3OGQgMTAwNjQ0
-Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2pwZWdfdjNfMC5jCisrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2pwZWdfdjNfMC5jCkBAIC0xNjYsOCArMTY2LDYgQEAgc3Rh
-dGljIGludCBqcGVnX3YzXzBfaHdfZmluaSh2b2lkICpoYW5kbGUpCiAJICAgICAgUlJFRzMyX1NP
-QzE1KEpQRUcsIDAsIG1tVVZEX0pSQkNfU1RBVFVTKSkKIAkJanBlZ192M18wX3NldF9wb3dlcmdh
-dGluZ19zdGF0ZShhZGV2LCBBTURfUEdfU1RBVEVfR0FURSk7CiAKLQlyaW5nLT5zY2hlZC5yZWFk
-eSA9IGZhbHNlOwotCiAJcmV0dXJuIDA7CiB9CiAKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L3NkbWFfdjVfMi5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2Rt
-YV92NV8yLmMKaW5kZXggNjkwYTUwOTA0NzVhLi4zMmM2YWEwM2QyNjcgMTAwNjQ0Ci0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjVfMi5jCisrKyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L3NkbWFfdjVfMi5jCkBAIC00NzAsMTEgKzQ3MCw2IEBAIHN0YXRpYyB2b2lk
-IHNkbWFfdjVfMl9nZnhfc3RvcChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIAkJaWJfY250
-bCA9IFJFR19TRVRfRklFTEQoaWJfY250bCwgU0RNQTBfR0ZYX0lCX0NOVEwsIElCX0VOQUJMRSwg
-MCk7CiAJCVdSRUczMihzZG1hX3Y1XzJfZ2V0X3JlZ19vZmZzZXQoYWRldiwgaSwgbW1TRE1BMF9H
-RlhfSUJfQ05UTCksIGliX2NudGwpOwogCX0KLQotCXNkbWEwLT5zY2hlZC5yZWFkeSA9IGZhbHNl
-OwotCXNkbWExLT5zY2hlZC5yZWFkeSA9IGZhbHNlOwotCXNkbWEyLT5zY2hlZC5yZWFkeSA9IGZh
-bHNlOwotCXNkbWEzLT5zY2hlZC5yZWFkeSA9IGZhbHNlOwogfQogCiAvKioKZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zjbl92M18wLmMgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS92Y25fdjNfMC5jCmluZGV4IDliODQ0ZTlmYjE2Zi4uZWJiYzA0ZmY1ZGEwIDEw
-MDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjNfMC5jCisrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zjbl92M18wLmMKQEAgLTM2OCw3ICszNjgsNyBAQCBz
-dGF0aWMgaW50IHZjbl92M18wX2h3X2Zpbmkodm9pZCAqaGFuZGxlKQogewogCXN0cnVjdCBhbWRn
-cHVfZGV2aWNlICphZGV2ID0gKHN0cnVjdCBhbWRncHVfZGV2aWNlICopaGFuZGxlOwogCXN0cnVj
-dCBhbWRncHVfcmluZyAqcmluZzsKLQlpbnQgaSwgajsKKwlpbnQgaTsKIAogCWZvciAoaSA9IDA7
-IGkgPCBhZGV2LT52Y24ubnVtX3Zjbl9pbnN0OyArK2kpIHsKIAkJaWYgKGFkZXYtPnZjbi5oYXJ2
-ZXN0X2NvbmZpZyAmICgxIDw8IGkpKQpAQCAtMzgzLDEyICszODMsNiBAQCBzdGF0aWMgaW50IHZj
-bl92M18wX2h3X2Zpbmkodm9pZCAqaGFuZGxlKQogCQkJCXZjbl92M18wX3NldF9wb3dlcmdhdGlu
-Z19zdGF0ZShhZGV2LCBBTURfUEdfU1RBVEVfR0FURSk7CiAJCQl9CiAJCX0KLQkJcmluZy0+c2No
-ZWQucmVhZHkgPSBmYWxzZTsKLQotCQlmb3IgKGogPSAwOyBqIDwgYWRldi0+dmNuLm51bV9lbmNf
-cmluZ3M7ICsraikgewotCQkJcmluZyA9ICZhZGV2LT52Y24uaW5zdFtpXS5yaW5nX2VuY1tqXTsK
-LQkJCXJpbmctPnNjaGVkLnJlYWR5ID0gZmFsc2U7Ci0JCX0KIAl9CiAKIAlyZXR1cm4gMDsKLS0g
-CjIuMzAuMgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-YW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
-Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+From: Chris Park <Chris.Park@amd.com>
+
+[ Upstream commit 080039273b126eeb0185a61c045893a25dbc046e ]
+
+[Why]
+Active DP dongles return no EDID when dongle
+is connected, but VGA display is taken out.
+Current driver behavior does not remove the
+active display when this happens, and this is
+a gap between dongle DTP and dongle behavior.
+
+[How]
+For active DP dongles and non-DP scenario,
+disconnect sink on detection when no EDID
+is read due to timeout.
+
+Signed-off-by: Chris Park <Chris.Park@amd.com>
+Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
+Acked-by: Stylon Wang <stylon.wang@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+index f0039599e02f..62778ccea055 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+@@ -1049,6 +1049,24 @@ static bool dc_link_detect_helper(struct dc_link *link,
+ 			    dc_is_dvi_signal(link->connector_signal)) {
+ 				if (prev_sink)
+ 					dc_sink_release(prev_sink);
++				link_disconnect_sink(link);
++
++				return false;
++			}
++			/*
++			 * Abort detection for DP connectors if we have
++			 * no EDID and connector is active converter
++			 * as there are no display downstream
++			 *
++			 */
++			if (dc_is_dp_sst_signal(link->connector_signal) &&
++				(link->dpcd_caps.dongle_type ==
++						DISPLAY_DONGLE_DP_VGA_CONVERTER ||
++				link->dpcd_caps.dongle_type ==
++						DISPLAY_DONGLE_DP_DVI_CONVERTER)) {
++				if (prev_sink)
++					dc_sink_release(prev_sink);
++				link_disconnect_sink(link);
+ 
+ 				return false;
+ 			}
+-- 
+2.30.2
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
