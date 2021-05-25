@@ -5,55 +5,55 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B3295C2B9F8
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 May 2021 15:11:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 64D35C2B9F8
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 May 2021 15:11:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7FB6F61249
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 May 2021 15:11:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7FB6F61249
+	by mail.kernel.org (Postfix) with ESMTPS id 2DC696141D
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 May 2021 15:11:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2DC696141D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 909986EA51;
-	Tue, 25 May 2021 15:11:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9BC026EA41;
+	Tue, 25 May 2021 15:11:02 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F6836EA47;
- Tue, 25 May 2021 15:11:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 640EB6E40C;
+ Tue, 25 May 2021 15:11:00 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1621955459; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ZRNsfjIPBSxN+hNIIxuJoDMfD7pJZldFBp2rwH/0mg4=;
- b=0VhIcxrGGcB2iOZ4eEvaxwnzhdV5lgt9xHnITn+XpZh3xInIvQQTGea8OmJKHzLmz1hMNI
- nfVFqyGklL7fZOehMtO1iIutC1JnxLvTftHpxbyW/glUz2DYDgatliXxvw2dcwvp6sbvyH
- DU4om/C/8WkyN6DpSDkc3qFoeo332gY=
+ bh=sre4zmdHXYljzUQtsp8iSwo/02uAwnOB5tZVsADMy1Q=;
+ b=mkmr0tWUL2Kj0LdgQoWo0EWEpmTWgk0INgc1q8jq9s/qx6oBHTs/DfEGR3dC1PNbk75JcP
+ DdhNQlBn5OTp6rWsVpNLAHYe0OGnJ0hDgl/IntT+KMu2eoLPA0SjFsLwDJkwOLpTEwbvgh
+ CW9t/jAp9qA4v1xxeCT/PZKJ+NkhICk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1621955459;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ZRNsfjIPBSxN+hNIIxuJoDMfD7pJZldFBp2rwH/0mg4=;
- b=5kbyCaIhTy7Lyz3Dap3PhZGVgabgbyIJZQIbIx9cTaTQCmPa8EmkIRR+JTfvVHCjJuFL7R
- Jp+IF6g8DXKGLTAA==
+ bh=sre4zmdHXYljzUQtsp8iSwo/02uAwnOB5tZVsADMy1Q=;
+ b=j8bWjfez3k/3ED556mNyeDx/gY0rmP12AF2Bmmc7wKhBMzQ332SDg6S9tklrKgOjWe+xX3
+ WUIxlubN+QSaXRAQ==
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id A9DE5AEEE;
- Tue, 25 May 2021 15:10:59 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id D81ABAED6;
+ Tue, 25 May 2021 15:10:58 +0000 (UTC)
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
  daniel@ffwll.ch, bskeggs@redhat.com, ray.huang@amd.com,
  linux-graphics-maintainer@vmware.com, sroland@vmware.com, zackr@vmware.com,
  shashank.sharma@amd.com, sam@ravnborg.org, emil.velikov@collabora.com,
  Felix.Kuehling@amd.com, nirmoy.das@amd.com
-Subject: [PATCH v4 5/7] drm/vmwgfx: Inline ttm_bo_mmap() into vmwgfx driver
-Date: Tue, 25 May 2021 17:10:53 +0200
-Message-Id: <20210525151055.8174-6-tzimmermann@suse.de>
+Subject: [PATCH v4 3/7] drm/radeon: Implement mmap as GEM object function
+Date: Tue, 25 May 2021 17:10:51 +0200
+Message-Id: <20210525151055.8174-4-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210525151055.8174-1-tzimmermann@suse.de>
 References: <20210525151055.8174-1-tzimmermann@suse.de>
@@ -76,102 +76,230 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The vmwgfx driver is the only remaining user of ttm_bo_mmap(). Inline
-the code. The internal helper ttm_bo_vm_lookup() is now also part of
-vmwgfx as vmw_bo_vm_lookup().
+Moving the driver-specific mmap code into a GEM object function allows
+for using DRM helpers for various mmap callbacks.
 
+This change also allows to support prime-based mmap via DRM's helper
+drm_gem_prime_mmap().
+
+Permission checks are implemented by drm_gem_mmap(), with an additional
+check for radeon_ttm_tt_has_userptr() in the GEM object function. The
+function radeon_verify_access() is now unused and has thus been removed.
+
+As a side effect, radeon_ttm_vm_ops and radeon_ttm_fault() are now
+implemented in amdgpu's GEM code.
+
+v3:
+	* remove unnecessary checks from mmap (Christian)
 v2:
-	* replace pr_err() with drm_err() (Zack)
+	* rename radeon_ttm_vm_ops and radeon_ttm_fault() to
+	  radeon_gem_vm_ops and radeon_gem_fault() (Christian)
+	* fix commit description (Alex)
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Zack Rusin <zackr@vmware.com>
 ---
- drivers/gpu/drm/vmwgfx/vmwgfx_ttm_glue.c | 56 ++++++++++++++++++++++--
- 1 file changed, 53 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/radeon/radeon_drv.c |  3 +-
+ drivers/gpu/drm/radeon/radeon_gem.c | 49 ++++++++++++++++++++++
+ drivers/gpu/drm/radeon/radeon_ttm.c | 65 -----------------------------
+ drivers/gpu/drm/radeon/radeon_ttm.h |  1 -
+ 4 files changed, 51 insertions(+), 67 deletions(-)
 
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_glue.c b/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_glue.c
-index cb9975889e2f..c8b6543b4e39 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_glue.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_glue.c
-@@ -27,6 +27,32 @@
+diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
+index 31d3dd0e5258..8cd135fa6dcd 100644
+--- a/drivers/gpu/drm/radeon/radeon_drv.c
++++ b/drivers/gpu/drm/radeon/radeon_drv.c
+@@ -545,7 +545,7 @@ static const struct file_operations radeon_driver_kms_fops = {
+ 	.open = drm_open,
+ 	.release = drm_release,
+ 	.unlocked_ioctl = radeon_drm_ioctl,
+-	.mmap = radeon_mmap,
++	.mmap = drm_gem_mmap,
+ 	.poll = drm_poll,
+ 	.read = drm_read,
+ #ifdef CONFIG_COMPAT
+@@ -620,6 +620,7 @@ static const struct drm_driver kms_driver = {
+ 	.prime_handle_to_fd = drm_gem_prime_handle_to_fd,
+ 	.prime_fd_to_handle = drm_gem_prime_fd_to_handle,
+ 	.gem_prime_import_sg_table = radeon_gem_prime_import_sg_table,
++	.gem_prime_mmap = drm_gem_prime_mmap,
  
- #include "vmwgfx_drv.h"
+ 	.name = DRIVER_NAME,
+ 	.desc = DRIVER_DESC,
+diff --git a/drivers/gpu/drm/radeon/radeon_gem.c b/drivers/gpu/drm/radeon/radeon_gem.c
+index 05ea2f39f626..ff8849827d61 100644
+--- a/drivers/gpu/drm/radeon/radeon_gem.c
++++ b/drivers/gpu/drm/radeon/radeon_gem.c
+@@ -44,6 +44,42 @@ void radeon_gem_prime_unpin(struct drm_gem_object *obj);
  
-+static struct ttm_buffer_object *vmw_bo_vm_lookup(struct ttm_device *bdev,
-+						  unsigned long offset,
-+						  unsigned long pages)
+ const struct drm_gem_object_funcs radeon_gem_object_funcs;
+ 
++static vm_fault_t radeon_gem_fault(struct vm_fault *vmf)
 +{
-+	struct vmw_private *dev_priv = container_of(bdev, struct vmw_private, bdev);
-+	struct drm_device *drm = &dev_priv->drm;
-+	struct drm_vma_offset_node *node;
-+	struct ttm_buffer_object *bo = NULL;
++	struct ttm_buffer_object *bo = vmf->vma->vm_private_data;
++	struct radeon_device *rdev = radeon_get_rdev(bo->bdev);
++	vm_fault_t ret;
 +
-+	drm_vma_offset_lock_lookup(bdev->vma_manager);
++	down_read(&rdev->pm.mclk_lock);
 +
-+	node = drm_vma_offset_lookup_locked(bdev->vma_manager, offset, pages);
-+	if (likely(node)) {
-+		bo = container_of(node, struct ttm_buffer_object,
-+				  base.vma_node);
-+		bo = ttm_bo_get_unless_zero(bo);
-+	}
++	ret = ttm_bo_vm_reserve(bo, vmf);
++	if (ret)
++		goto unlock_mclk;
 +
-+	drm_vma_offset_unlock_lookup(bdev->vma_manager);
++	ret = radeon_bo_fault_reserve_notify(bo);
++	if (ret)
++		goto unlock_resv;
 +
-+	if (!bo)
-+		drm_err(drm, "Could not find buffer object to map\n");
++	ret = ttm_bo_vm_fault_reserved(vmf, vmf->vma->vm_page_prot,
++				       TTM_BO_VM_NUM_PREFAULT, 1);
++	if (ret == VM_FAULT_RETRY && !(vmf->flags & FAULT_FLAG_RETRY_NOWAIT))
++		goto unlock_mclk;
 +
-+	return bo;
++unlock_resv:
++	dma_resv_unlock(bo->base.resv);
++
++unlock_mclk:
++	up_read(&rdev->pm.mclk_lock);
++	return ret;
 +}
 +
- int vmw_mmap(struct file *filp, struct vm_area_struct *vma)
++static const struct vm_operations_struct radeon_gem_vm_ops = {
++	.fault = radeon_gem_fault,
++	.open = ttm_bo_vm_open,
++	.close = ttm_bo_vm_close,
++	.access = ttm_bo_vm_access
++};
++
+ static void radeon_gem_object_free(struct drm_gem_object *gobj)
  {
- 	static const struct vm_operations_struct vmw_vm_ops = {
-@@ -41,10 +67,28 @@ int vmw_mmap(struct file *filp, struct vm_area_struct *vma)
- 	};
- 	struct drm_file *file_priv = filp->private_data;
- 	struct vmw_private *dev_priv = vmw_priv(file_priv->minor->dev);
--	int ret = ttm_bo_mmap(filp, vma, &dev_priv->bdev);
-+	struct ttm_device *bdev = &dev_priv->bdev;
-+	struct ttm_buffer_object *bo;
-+	int ret;
-+
-+	if (unlikely(vma->vm_pgoff < DRM_FILE_PAGE_OFFSET_START))
-+		return -EINVAL;
-+
-+	bo = vmw_bo_vm_lookup(bdev, vma->vm_pgoff, vma_pages(vma));
-+	if (unlikely(!bo))
-+		return -EINVAL;
- 
--	if (ret)
--		return ret;
-+	if (unlikely(!bo->bdev->funcs->verify_access)) {
-+		ret = -EPERM;
-+		goto out_unref;
-+	}
-+	ret = bo->bdev->funcs->verify_access(bo, filp);
-+	if (unlikely(ret != 0))
-+		goto out_unref;
-+
-+	ret = ttm_bo_mmap_obj(vma, bo);
-+	if (unlikely(ret != 0))
-+		goto out_unref;
- 
- 	vma->vm_ops = &vmw_vm_ops;
- 
-@@ -52,7 +96,13 @@ int vmw_mmap(struct file *filp, struct vm_area_struct *vma)
- 	if (!is_cow_mapping(vma->vm_flags))
- 		vma->vm_flags = (vma->vm_flags & ~VM_MIXEDMAP) | VM_PFNMAP;
- 
-+	ttm_bo_put(bo); /* release extra ref taken by ttm_bo_mmap_obj() */
-+
- 	return 0;
-+
-+out_unref:
-+	ttm_bo_put(bo);
-+	return ret;
+ 	struct radeon_bo *robj = gem_to_radeon_bo(gobj);
+@@ -226,6 +262,17 @@ static int radeon_gem_handle_lockup(struct radeon_device *rdev, int r)
+ 	return r;
  }
  
- /* struct vmw_validation_mem callback */
++static int radeon_gem_object_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma)
++{
++	struct radeon_bo *bo = gem_to_radeon_bo(obj);
++	struct radeon_device *rdev = radeon_get_rdev(bo->tbo.bdev);
++
++	if (radeon_ttm_tt_has_userptr(rdev, bo->tbo.ttm))
++		return -EPERM;
++
++	return drm_gem_ttm_mmap(obj, vma);
++}
++
+ const struct drm_gem_object_funcs radeon_gem_object_funcs = {
+ 	.free = radeon_gem_object_free,
+ 	.open = radeon_gem_object_open,
+@@ -236,6 +283,8 @@ const struct drm_gem_object_funcs radeon_gem_object_funcs = {
+ 	.get_sg_table = radeon_gem_prime_get_sg_table,
+ 	.vmap = drm_gem_ttm_vmap,
+ 	.vunmap = drm_gem_ttm_vunmap,
++	.mmap = radeon_gem_object_mmap,
++	.vm_ops = &radeon_gem_vm_ops,
+ };
+ 
+ /*
+diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c b/drivers/gpu/drm/radeon/radeon_ttm.c
+index 3361d11769a2..a71d94f7067b 100644
+--- a/drivers/gpu/drm/radeon/radeon_ttm.c
++++ b/drivers/gpu/drm/radeon/radeon_ttm.c
+@@ -135,17 +135,6 @@ static void radeon_evict_flags(struct ttm_buffer_object *bo,
+ 	*placement = rbo->placement;
+ }
+ 
+-static int radeon_verify_access(struct ttm_buffer_object *bo, struct file *filp)
+-{
+-	struct radeon_bo *rbo = container_of(bo, struct radeon_bo, tbo);
+-	struct radeon_device *rdev = radeon_get_rdev(bo->bdev);
+-
+-	if (radeon_ttm_tt_has_userptr(rdev, bo->ttm))
+-		return -EPERM;
+-	return drm_vma_node_verify_access(&rbo->tbo.base.vma_node,
+-					  filp->private_data);
+-}
+-
+ static int radeon_move_blit(struct ttm_buffer_object *bo,
+ 			bool evict,
+ 			struct ttm_resource *new_mem,
+@@ -703,7 +692,6 @@ static struct ttm_device_funcs radeon_bo_driver = {
+ 	.eviction_valuable = ttm_bo_eviction_valuable,
+ 	.evict_flags = &radeon_evict_flags,
+ 	.move = &radeon_bo_move,
+-	.verify_access = &radeon_verify_access,
+ 	.delete_mem_notify = &radeon_bo_delete_mem_notify,
+ 	.io_mem_reserve = &radeon_ttm_io_mem_reserve,
+ };
+@@ -800,59 +788,6 @@ void radeon_ttm_set_active_vram_size(struct radeon_device *rdev, u64 size)
+ 	man->size = size >> PAGE_SHIFT;
+ }
+ 
+-static vm_fault_t radeon_ttm_fault(struct vm_fault *vmf)
+-{
+-	struct ttm_buffer_object *bo = vmf->vma->vm_private_data;
+-	struct radeon_device *rdev = radeon_get_rdev(bo->bdev);
+-	vm_fault_t ret;
+-
+-	down_read(&rdev->pm.mclk_lock);
+-
+-	ret = ttm_bo_vm_reserve(bo, vmf);
+-	if (ret)
+-		goto unlock_mclk;
+-
+-	ret = radeon_bo_fault_reserve_notify(bo);
+-	if (ret)
+-		goto unlock_resv;
+-
+-	ret = ttm_bo_vm_fault_reserved(vmf, vmf->vma->vm_page_prot,
+-				       TTM_BO_VM_NUM_PREFAULT, 1);
+-	if (ret == VM_FAULT_RETRY && !(vmf->flags & FAULT_FLAG_RETRY_NOWAIT))
+-		goto unlock_mclk;
+-
+-unlock_resv:
+-	dma_resv_unlock(bo->base.resv);
+-
+-unlock_mclk:
+-	up_read(&rdev->pm.mclk_lock);
+-	return ret;
+-}
+-
+-static const struct vm_operations_struct radeon_ttm_vm_ops = {
+-	.fault = radeon_ttm_fault,
+-	.open = ttm_bo_vm_open,
+-	.close = ttm_bo_vm_close,
+-	.access = ttm_bo_vm_access
+-};
+-
+-int radeon_mmap(struct file *filp, struct vm_area_struct *vma)
+-{
+-	int r;
+-	struct drm_file *file_priv = filp->private_data;
+-	struct radeon_device *rdev = file_priv->minor->dev->dev_private;
+-
+-	if (rdev == NULL)
+-		return -EINVAL;
+-
+-	r = ttm_bo_mmap(filp, vma, &rdev->mman.bdev);
+-	if (unlikely(r != 0))
+-		return r;
+-
+-	vma->vm_ops = &radeon_ttm_vm_ops;
+-	return 0;
+-}
+-
+ #if defined(CONFIG_DEBUG_FS)
+ 
+ static int radeon_mm_vram_dump_table_show(struct seq_file *m, void *unused)
+diff --git a/drivers/gpu/drm/radeon/radeon_ttm.h b/drivers/gpu/drm/radeon/radeon_ttm.h
+index 4d7b90ee2774..91ea7141bc81 100644
+--- a/drivers/gpu/drm/radeon/radeon_ttm.h
++++ b/drivers/gpu/drm/radeon/radeon_ttm.h
+@@ -32,6 +32,5 @@ struct radeon_device;
+ 
+ int radeon_ttm_init(struct radeon_device *rdev);
+ void radeon_ttm_fini(struct radeon_device *rdev);
+-int radeon_mmap(struct file *filp, struct vm_area_struct *vma);
+ 
+ #endif				/* __RADEON_TTM_H__ */
 -- 
 2.31.1
 
