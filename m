@@ -5,55 +5,55 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F14EFC4707F
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 May 2021 15:11:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EE205C2B9F8
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 May 2021 15:11:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B5C146141C
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 May 2021 15:11:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B5C146141C
+	by mail.kernel.org (Postfix) with ESMTPS id B6EF56141C
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 May 2021 15:11:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B6EF56141C
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C3BC6EA50;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 673926EA4F;
 	Tue, 25 May 2021 15:11:03 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18CF46EA3A;
- Tue, 25 May 2021 15:11:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A01356EA48;
+ Tue, 25 May 2021 15:11:01 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1621955458; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1621955460; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=s79OnCX1bitM92KYgxSgPuA1FSaQ3fbo27vfFP7owsE=;
- b=1lqdZgnJeNlCHMW4yzeUyJu0iqqAWnCTxqsAGOTxJwrm5PZGm19ksQ02fHcW9DlDsQQM3O
- 3Zt9VNuat16mrnR46LTQ7d0Jj/K8QlZQjGrayQfVbIdT29KokzCaTvHyio712srgyP9lrw
- 3yFwpzZAxY1TJTz1BFo41EVAwXsglbw=
+ bh=Mc9NTeMuazcCtJ+aE4DVfTULbpMUye+p7AX2g+8grdg=;
+ b=EyzYUg2dYQmf3RfWU/Cv0YarW2RUY0jDLf9Iq8A/tSYdN1E7ERHIsNpa320BRJLufNH4RH
+ e+7cPMWInsqXhL3U4l/10e2LmHE6s8DzOcz9eyri3tEJOmIuB6AitZhSaTBt+BwkuxSNSB
+ TXc9bXFoRIG6c5nWVjYyMrWWVy7+S0E=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1621955458;
+ s=susede2_ed25519; t=1621955460;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=s79OnCX1bitM92KYgxSgPuA1FSaQ3fbo27vfFP7owsE=;
- b=Gzuf2k0qqQOAC5DJHfvF/OenJdeut6FcI8wSCVWoL4Tybq0oGB4DGNFM3I0B0DerAc9neQ
- Q4FQlMWz4LKmjQCQ==
+ bh=Mc9NTeMuazcCtJ+aE4DVfTULbpMUye+p7AX2g+8grdg=;
+ b=uCbkBQS4wLLzz5/RShM+IRc37COsVmErbRDjVtdqFX7N/vxEorXGiQoWdxVMqhlAxJcBiN
+ yqRDF+ncYSd/w0DQ==
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 9207FAE5C;
- Tue, 25 May 2021 15:10:58 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 1A6CAAEFB;
+ Tue, 25 May 2021 15:11:00 +0000 (UTC)
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
  daniel@ffwll.ch, bskeggs@redhat.com, ray.huang@amd.com,
  linux-graphics-maintainer@vmware.com, sroland@vmware.com, zackr@vmware.com,
  shashank.sharma@amd.com, sam@ravnborg.org, emil.velikov@collabora.com,
  Felix.Kuehling@amd.com, nirmoy.das@amd.com
-Subject: [PATCH v4 2/7] drm/amdgpu: Implement mmap as GEM object function
-Date: Tue, 25 May 2021 17:10:50 +0200
-Message-Id: <20210525151055.8174-3-tzimmermann@suse.de>
+Subject: [PATCH v4 6/7] drm/vmwgfx: Inline vmw_verify_access()
+Date: Tue, 25 May 2021 17:10:54 +0200
+Message-Id: <20210525151055.8174-7-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210525151055.8174-1-tzimmermann@suse.de>
 References: <20210525151055.8174-1-tzimmermann@suse.de>
@@ -76,336 +76,68 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Moving the driver-specific mmap code into a GEM object function allows
-for using DRM helpers for various mmap callbacks.
-
-This change resolves several inconsistencies between regular mmap and
-prime-based mmap. The vm_ops field in vma is now set for all mmap'ed
-areas. Previously it way only set for regular mmap calls, prime-based
-mmap used TTM's default vm_ops. The function amdgpu_verify_access() is
-no longer being called and therefore removed by this patch.
-
-As a side effect, amdgpu_ttm_vm_ops and amdgpu_ttm_fault() are now
-implemented in amdgpu's GEM code.
-
-v4:
-	* rebased
-v3:
-	* rename mmap function to amdgpu_gem_object_mmap() (Christian)
-	* remove unnecessary checks from mmap (Christian)
-v2:
-	* rename amdgpu_ttm_vm_ops and amdgpu_ttm_fault() to
-	  amdgpu_gem_vm_ops and amdgpu_gem_fault() (Christian)
-	* the check for kfd_bo has meanwhile been removed
+Vmwgfx is the only user of the TTM's verify_access callback. Inline
+the call and avoid the indirection through the function pointer.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Reviewed-by: Zack Rusin <zackr@vmware.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 46 -------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.h |  2 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c     |  4 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c     | 55 +++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c     | 75 ---------------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h     |  1 -
- 6 files changed, 57 insertions(+), 126 deletions(-)
+ drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c | 9 ---------
+ drivers/gpu/drm/vmwgfx/vmwgfx_ttm_glue.c   | 7 ++-----
+ 2 files changed, 2 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-index baa980a477d9..6ec1312b7389 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-@@ -42,52 +42,6 @@
- #include <linux/pci-p2pdma.h>
- #include <linux/pm_runtime.h>
- 
--/**
-- * amdgpu_gem_prime_mmap - &drm_driver.gem_prime_mmap implementation
-- * @obj: GEM BO
-- * @vma: Virtual memory area
-- *
-- * Sets up a userspace mapping of the BO's memory in the given
-- * virtual memory area.
-- *
-- * Returns:
-- * 0 on success or a negative error code on failure.
-- */
--int amdgpu_gem_prime_mmap(struct drm_gem_object *obj,
--			  struct vm_area_struct *vma)
--{
--	struct amdgpu_bo *bo = gem_to_amdgpu_bo(obj);
--	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
--	unsigned asize = amdgpu_bo_size(bo);
--	int ret;
--
--	if (!vma->vm_file)
--		return -ENODEV;
--
--	if (adev == NULL)
--		return -ENODEV;
--
--	/* Check for valid size. */
--	if (asize < vma->vm_end - vma->vm_start)
--		return -EINVAL;
--
--	if (amdgpu_ttm_tt_get_usermm(bo->tbo.ttm) ||
--	    (bo->flags & AMDGPU_GEM_CREATE_NO_CPU_ACCESS)) {
--		return -EPERM;
--	}
--	vma->vm_pgoff += amdgpu_bo_mmap_offset(bo) >> PAGE_SHIFT;
--
--	/* prime mmap does not need to check access, so allow here */
--	ret = drm_vma_node_allow(&obj->vma_node, vma->vm_file->private_data);
--	if (ret)
--		return ret;
--
--	ret = ttm_bo_mmap(vma->vm_file, vma, &adev->mman.bdev);
--	drm_vma_node_revoke(&obj->vma_node, vma->vm_file->private_data);
--
--	return ret;
--}
--
- static int
- __dma_resv_make_exclusive(struct dma_resv *obj)
- {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.h
-index 39b5b9616fd8..3e93b9b407a9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.h
-@@ -31,8 +31,6 @@ struct drm_gem_object *amdgpu_gem_prime_import(struct drm_device *dev,
- 					    struct dma_buf *dma_buf);
- bool amdgpu_dmabuf_is_xgmi_accessible(struct amdgpu_device *adev,
- 				      struct amdgpu_bo *bo);
--int amdgpu_gem_prime_mmap(struct drm_gem_object *obj,
--			  struct vm_area_struct *vma);
- 
- extern const struct dma_buf_ops amdgpu_dmabuf_ops;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 3a0890ca816a..d3b9cde993e6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -1691,7 +1691,7 @@ static const struct file_operations amdgpu_driver_kms_fops = {
- 	.flush = amdgpu_flush,
- 	.release = drm_release,
- 	.unlocked_ioctl = amdgpu_drm_ioctl,
--	.mmap = amdgpu_mmap,
-+	.mmap = drm_gem_mmap,
- 	.poll = drm_poll,
- 	.read = drm_read,
- #ifdef CONFIG_COMPAT
-@@ -1758,7 +1758,7 @@ static const struct drm_driver amdgpu_kms_driver = {
- 	.prime_handle_to_fd = drm_gem_prime_handle_to_fd,
- 	.prime_fd_to_handle = drm_gem_prime_fd_to_handle,
- 	.gem_prime_import = amdgpu_gem_prime_import,
--	.gem_prime_mmap = amdgpu_gem_prime_mmap,
-+	.gem_prime_mmap = drm_gem_prime_mmap,
- 
- 	.name = DRIVER_NAME,
- 	.desc = DRIVER_DESC,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index 18974bd081f0..73c76a3e2b12 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -32,6 +32,7 @@
- #include <linux/dma-buf.h>
- 
- #include <drm/amdgpu_drm.h>
-+#include <drm/drm_drv.h>
- #include <drm/drm_gem_ttm_helper.h>
- 
- #include "amdgpu.h"
-@@ -41,6 +42,46 @@
- 
- static const struct drm_gem_object_funcs amdgpu_gem_object_funcs;
- 
-+static vm_fault_t amdgpu_gem_fault(struct vm_fault *vmf)
-+{
-+	struct ttm_buffer_object *bo = vmf->vma->vm_private_data;
-+	struct drm_device *ddev = bo->base.dev;
-+	vm_fault_t ret;
-+	int idx;
-+
-+	ret = ttm_bo_vm_reserve(bo, vmf);
-+	if (ret)
-+		return ret;
-+
-+	if (drm_dev_enter(ddev, &idx)) {
-+		ret = amdgpu_bo_fault_reserve_notify(bo);
-+		if (ret) {
-+			drm_dev_exit(idx);
-+			goto unlock;
-+		}
-+
-+		 ret = ttm_bo_vm_fault_reserved(vmf, vmf->vma->vm_page_prot,
-+						TTM_BO_VM_NUM_PREFAULT, 1);
-+
-+		 drm_dev_exit(idx);
-+	} else {
-+		ret = ttm_bo_vm_dummy_page(vmf, vmf->vma->vm_page_prot);
-+	}
-+	if (ret == VM_FAULT_RETRY && !(vmf->flags & FAULT_FLAG_RETRY_NOWAIT))
-+		return ret;
-+
-+unlock:
-+	dma_resv_unlock(bo->base.resv);
-+	return ret;
-+}
-+
-+static const struct vm_operations_struct amdgpu_gem_vm_ops = {
-+	.fault = amdgpu_gem_fault,
-+	.open = ttm_bo_vm_open,
-+	.close = ttm_bo_vm_close,
-+	.access = ttm_bo_vm_access
-+};
-+
- static void amdgpu_gem_object_free(struct drm_gem_object *gobj)
- {
- 	struct amdgpu_bo *robj = gem_to_amdgpu_bo(gobj);
-@@ -205,6 +246,18 @@ static void amdgpu_gem_object_close(struct drm_gem_object *obj,
- 	ttm_eu_backoff_reservation(&ticket, &list);
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c b/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c
+index 7bfe83c936ff..35b03fe21161 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c
+@@ -661,14 +661,6 @@ static void vmw_evict_flags(struct ttm_buffer_object *bo,
+ 	*placement = vmw_sys_placement;
  }
  
-+static int amdgpu_gem_object_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma)
-+{
-+	struct amdgpu_bo *bo = gem_to_amdgpu_bo(obj);
-+
-+	if (amdgpu_ttm_tt_get_usermm(bo->tbo.ttm))
-+		return -EPERM;
-+	if (bo->flags & AMDGPU_GEM_CREATE_NO_CPU_ACCESS)
-+		return -EPERM;
-+
-+	return drm_gem_ttm_mmap(obj, vma);
-+}
-+
- static const struct drm_gem_object_funcs amdgpu_gem_object_funcs = {
- 	.free = amdgpu_gem_object_free,
- 	.open = amdgpu_gem_object_open,
-@@ -212,6 +265,8 @@ static const struct drm_gem_object_funcs amdgpu_gem_object_funcs = {
- 	.export = amdgpu_gem_prime_export,
- 	.vmap = drm_gem_ttm_vmap,
- 	.vunmap = drm_gem_ttm_vunmap,
-+	.mmap = amdgpu_gem_object_mmap,
-+	.vm_ops = &amdgpu_gem_vm_ops,
+-static int vmw_verify_access(struct ttm_buffer_object *bo, struct file *filp)
+-{
+-	struct ttm_object_file *tfile =
+-		vmw_fpriv((struct drm_file *)filp->private_data)->tfile;
+-
+-	return vmw_user_bo_verify_access(bo, tfile);
+-}
+-
+ static int vmw_ttm_io_mem_reserve(struct ttm_device *bdev, struct ttm_resource *mem)
+ {
+ 	struct vmw_private *dev_priv = container_of(bdev, struct vmw_private, bdev);
+@@ -771,7 +763,6 @@ struct ttm_device_funcs vmw_bo_driver = {
+ 	.eviction_valuable = ttm_bo_eviction_valuable,
+ 	.evict_flags = vmw_evict_flags,
+ 	.move = vmw_move,
+-	.verify_access = vmw_verify_access,
+ 	.swap_notify = vmw_swap_notify,
+ 	.io_mem_reserve = &vmw_ttm_io_mem_reserve,
  };
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_glue.c b/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_glue.c
+index c8b6543b4e39..e6b1f98ec99f 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_glue.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_glue.c
+@@ -67,6 +67,7 @@ int vmw_mmap(struct file *filp, struct vm_area_struct *vma)
+ 	};
+ 	struct drm_file *file_priv = filp->private_data;
+ 	struct vmw_private *dev_priv = vmw_priv(file_priv->minor->dev);
++	struct ttm_object_file *tfile = vmw_fpriv(file_priv)->tfile;
+ 	struct ttm_device *bdev = &dev_priv->bdev;
+ 	struct ttm_buffer_object *bo;
+ 	int ret;
+@@ -78,11 +79,7 @@ int vmw_mmap(struct file *filp, struct vm_area_struct *vma)
+ 	if (unlikely(!bo))
+ 		return -EINVAL;
  
- /*
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 3bc3aebfef7c..80437b6ba5f3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -47,7 +47,6 @@
- #include <drm/ttm/ttm_placement.h>
- 
- #include <drm/amdgpu_drm.h>
--#include <drm/drm_drv.h>
- 
- #include "amdgpu.h"
- #include "amdgpu_object.h"
-@@ -166,25 +165,6 @@ static void amdgpu_evict_flags(struct ttm_buffer_object *bo,
- 	*placement = abo->placement;
- }
- 
--/**
-- * amdgpu_verify_access - Verify access for a mmap call
-- *
-- * @bo:	The buffer object to map
-- * @filp: The file pointer from the process performing the mmap
-- *
-- * This is called by ttm_bo_mmap() to verify whether a process
-- * has the right to mmap a BO to their process space.
-- */
--static int amdgpu_verify_access(struct ttm_buffer_object *bo, struct file *filp)
--{
--	struct amdgpu_bo *abo = ttm_to_amdgpu_bo(bo);
--
--	if (amdgpu_ttm_tt_get_usermm(bo->ttm))
--		return -EPERM;
--	return drm_vma_node_verify_access(&abo->tbo.base.vma_node,
--					  filp->private_data);
--}
--
- /**
-  * amdgpu_ttm_map_buffer - Map memory into the GART windows
-  * @bo: buffer object to map
-@@ -1476,7 +1456,6 @@ static struct ttm_device_funcs amdgpu_bo_driver = {
- 	.eviction_valuable = amdgpu_ttm_bo_eviction_valuable,
- 	.evict_flags = &amdgpu_evict_flags,
- 	.move = &amdgpu_bo_move,
--	.verify_access = &amdgpu_verify_access,
- 	.delete_mem_notify = &amdgpu_bo_delete_mem_notify,
- 	.release_notify = &amdgpu_bo_release_notify,
- 	.io_mem_reserve = &amdgpu_ttm_io_mem_reserve,
-@@ -1844,60 +1823,6 @@ void amdgpu_ttm_set_buffer_funcs_status(struct amdgpu_device *adev, bool enable)
- 	adev->mman.buffer_funcs_enabled = enable;
- }
- 
--static vm_fault_t amdgpu_ttm_fault(struct vm_fault *vmf)
--{
--	struct ttm_buffer_object *bo = vmf->vma->vm_private_data;
--	struct drm_device *ddev = bo->base.dev;
--	vm_fault_t ret;
--	int idx;
--
--	ret = ttm_bo_vm_reserve(bo, vmf);
--	if (ret)
--		return ret;
--
--	if (drm_dev_enter(ddev, &idx)) {
--		ret = amdgpu_bo_fault_reserve_notify(bo);
--		if (ret) {
--			drm_dev_exit(idx);
--			goto unlock;
--		}
--
--		 ret = ttm_bo_vm_fault_reserved(vmf, vmf->vma->vm_page_prot,
--						TTM_BO_VM_NUM_PREFAULT, 1);
--
--		 drm_dev_exit(idx);
--	} else {
--		ret = ttm_bo_vm_dummy_page(vmf, vmf->vma->vm_page_prot);
+-	if (unlikely(!bo->bdev->funcs->verify_access)) {
+-		ret = -EPERM;
+-		goto out_unref;
 -	}
--	if (ret == VM_FAULT_RETRY && !(vmf->flags & FAULT_FLAG_RETRY_NOWAIT))
--		return ret;
--
--unlock:
--	dma_resv_unlock(bo->base.resv);
--	return ret;
--}
--
--static const struct vm_operations_struct amdgpu_ttm_vm_ops = {
--	.fault = amdgpu_ttm_fault,
--	.open = ttm_bo_vm_open,
--	.close = ttm_bo_vm_close,
--	.access = ttm_bo_vm_access
--};
--
--int amdgpu_mmap(struct file *filp, struct vm_area_struct *vma)
--{
--	struct drm_file *file_priv = filp->private_data;
--	struct amdgpu_device *adev = drm_to_adev(file_priv->minor->dev);
--	int r;
--
--	r = ttm_bo_mmap(filp, vma, &adev->mman.bdev);
--	if (unlikely(r != 0))
--		return r;
--
--	vma->vm_ops = &amdgpu_ttm_vm_ops;
--	return 0;
--}
--
- int amdgpu_copy_buffer(struct amdgpu_ring *ring, uint64_t src_offset,
- 		       uint64_t dst_offset, uint32_t byte_count,
- 		       struct dma_resv *resv,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-index eb84a69c4b74..b2c97b19cbe1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-@@ -142,7 +142,6 @@ int amdgpu_fill_buffer(struct amdgpu_bo *bo,
- 			struct dma_resv *resv,
- 			struct dma_fence **fence);
+-	ret = bo->bdev->funcs->verify_access(bo, filp);
++	ret = vmw_user_bo_verify_access(bo, tfile);
+ 	if (unlikely(ret != 0))
+ 		goto out_unref;
  
--int amdgpu_mmap(struct file *filp, struct vm_area_struct *vma);
- int amdgpu_ttm_alloc_gart(struct ttm_buffer_object *bo);
- int amdgpu_ttm_recover_gart(struct ttm_buffer_object *tbo);
- uint64_t amdgpu_ttm_domain_start(struct amdgpu_device *adev, uint32_t type);
 -- 
 2.31.1
 
