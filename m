@@ -2,57 +2,61 @@ Return-Path: <SRS0=WUpi=KU=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0B92CC47085
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 May 2021 15:11:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B3295C2B9F8
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 May 2021 15:11:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C5C0561249
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 May 2021 15:11:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C5C0561249
+	by mail.kernel.org (Postfix) with ESMTPS id 7FB6F61249
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 May 2021 15:11:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7FB6F61249
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E75646EA47;
-	Tue, 25 May 2021 15:11:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 909986EA51;
+	Tue, 25 May 2021 15:11:03 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 26C876EA40;
- Tue, 25 May 2021 15:11:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F6836EA47;
+ Tue, 25 May 2021 15:11:01 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1621955458; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=uGOvvwIOK0GzlJLUWcZa8b3FcDnT7qm8cRQ8fCx4Jfw=;
- b=F49Rv55+lQJ87uuedo1ygfkqpFlppUfh9kltbntXOpE/A5lBzK9qO5q64IJdEkEq1xSoIf
- puZJ2AENYtAb5rD6/upSu/tvsnpsmn3TyqdyWnqNerpCATjL6WuKmN/4H0AWR4nXK4jS4K
- vU2ZmUm1HFG+kZSR1AW+sBr8FhVd2aU=
+ t=1621955459; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=ZRNsfjIPBSxN+hNIIxuJoDMfD7pJZldFBp2rwH/0mg4=;
+ b=0VhIcxrGGcB2iOZ4eEvaxwnzhdV5lgt9xHnITn+XpZh3xInIvQQTGea8OmJKHzLmz1hMNI
+ nfVFqyGklL7fZOehMtO1iIutC1JnxLvTftHpxbyW/glUz2DYDgatliXxvw2dcwvp6sbvyH
+ DU4om/C/8WkyN6DpSDkc3qFoeo332gY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1621955458;
+ s=susede2_ed25519; t=1621955459;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=uGOvvwIOK0GzlJLUWcZa8b3FcDnT7qm8cRQ8fCx4Jfw=;
- b=UNh5ThTb+hoYs2Ob6zZEMCbcztq0BeraHsSlioXWcwXQeAjISXCjbPT05wApbwxRCL0vpz
- q1Bv1kFFWobFswAw==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=ZRNsfjIPBSxN+hNIIxuJoDMfD7pJZldFBp2rwH/0mg4=;
+ b=5kbyCaIhTy7Lyz3Dap3PhZGVgabgbyIJZQIbIx9cTaTQCmPa8EmkIRR+JTfvVHCjJuFL7R
+ Jp+IF6g8DXKGLTAA==
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 93605AEB3;
- Tue, 25 May 2021 15:10:58 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id A9DE5AEEE;
+ Tue, 25 May 2021 15:10:59 +0000 (UTC)
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
  daniel@ffwll.ch, bskeggs@redhat.com, ray.huang@amd.com,
  linux-graphics-maintainer@vmware.com, sroland@vmware.com, zackr@vmware.com,
  shashank.sharma@amd.com, sam@ravnborg.org, emil.velikov@collabora.com,
  Felix.Kuehling@amd.com, nirmoy.das@amd.com
-Subject: [PATCH v4 0/7] drm: Clean up mmap for TTM-based GEM drivers
-Date: Tue, 25 May 2021 17:10:48 +0200
-Message-Id: <20210525151055.8174-1-tzimmermann@suse.de>
+Subject: [PATCH v4 5/7] drm/vmwgfx: Inline ttm_bo_mmap() into vmwgfx driver
+Date: Tue, 25 May 2021 17:10:53 +0200
+Message-Id: <20210525151055.8174-6-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20210525151055.8174-1-tzimmermann@suse.de>
+References: <20210525151055.8174-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,68 +76,103 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Implement mmap via struct drm_gem_object_functions.mmap in amdgpu,
-radeon and nouveau. This allows for using common DRM helpers for
-the mmap-related callbacks in struct file_operations and struct
-drm_driver. The drivers have their own vm_ops, which are now set
-automatically by the DRM core functions. The code in each driver's
-verify_access becomes part of the driver's new mmap implementation.
+The vmwgfx driver is the only remaining user of ttm_bo_mmap(). Inline
+the code. The internal helper ttm_bo_vm_lookup() is now also part of
+vmwgfx as vmw_bo_vm_lookup().
 
-With the GEM drivers converted, vmwgfx is the only user of
-ttm_bo_mmap() and related infrastructure. So move everything into
-vmwgfx and delete the rsp code from TTM.
-
-This touches several drivers. Preferably everything would be merged
-at once via drm-misc-next.
-
-v4:
-	* rebase on top of amdgpu hot-unplug changes
-v3:
-	* tidy up the new mmap functions in amdgpu and radeon (Christian)
 v2:
-	* removal of amdgpu fbdev mmap already merged (Christian)
-	* rebase on top of amdgpu fixes [1] (Felix)
-	* replace pr_err() with drm_err() in vmwgfx patch (Zack)
-	* several typos
+	* replace pr_err() with drm_err() (Zack)
 
-[1] https://patchwork.freedesktop.org/series/88822/
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Reviewed-by: Zack Rusin <zackr@vmware.com>
+---
+ drivers/gpu/drm/vmwgfx/vmwgfx_ttm_glue.c | 56 ++++++++++++++++++++++--
+ 1 file changed, 53 insertions(+), 3 deletions(-)
 
-Thomas Zimmermann (7):
-  drm/ttm: Don't override vm_ops callbacks, if set
-  drm/amdgpu: Implement mmap as GEM object function
-  drm/radeon: Implement mmap as GEM object function
-  drm/nouveau: Implement mmap as GEM object function
-  drm/vmwgfx: Inline ttm_bo_mmap() into vmwgfx driver
-  drm/vmwgfx: Inline vmw_verify_access()
-  drm/ttm: Remove ttm_bo_mmap() and friends
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 46 -------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.h |  2 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c     |  4 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c     | 55 +++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c     | 75 ---------------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h     |  1 -
- drivers/gpu/drm/nouveau/nouveau_bo.c        | 10 ---
- drivers/gpu/drm/nouveau/nouveau_drm.c       |  3 +-
- drivers/gpu/drm/nouveau/nouveau_gem.c       | 36 ++++++++++
- drivers/gpu/drm/nouveau/nouveau_ttm.c       | 49 --------------
- drivers/gpu/drm/nouveau/nouveau_ttm.h       |  1 -
- drivers/gpu/drm/radeon/radeon_drv.c         |  3 +-
- drivers/gpu/drm/radeon/radeon_gem.c         | 49 ++++++++++++++
- drivers/gpu/drm/radeon/radeon_ttm.c         | 65 ------------------
- drivers/gpu/drm/radeon/radeon_ttm.h         |  1 -
- drivers/gpu/drm/ttm/ttm_bo_vm.c             | 60 ++---------------
- drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c  |  9 ---
- drivers/gpu/drm/vmwgfx/vmwgfx_ttm_glue.c    | 53 ++++++++++++++-
- include/drm/ttm/ttm_bo_api.h                | 13 ----
- include/drm/ttm/ttm_device.h                | 15 -----
- 20 files changed, 202 insertions(+), 348 deletions(-)
-
-
-base-commit: 28dddc0c90bc6464be4c5e3224a293c022564a4e
-prerequisite-patch-id: c2b2f08f0eccc9f5df0c0da49fa1d36267deb11d
-prerequisite-patch-id: c67e5d886a47b7d0266d81100837557fda34cb24
---
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_glue.c b/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_glue.c
+index cb9975889e2f..c8b6543b4e39 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_glue.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_glue.c
+@@ -27,6 +27,32 @@
+ 
+ #include "vmwgfx_drv.h"
+ 
++static struct ttm_buffer_object *vmw_bo_vm_lookup(struct ttm_device *bdev,
++						  unsigned long offset,
++						  unsigned long pages)
++{
++	struct vmw_private *dev_priv = container_of(bdev, struct vmw_private, bdev);
++	struct drm_device *drm = &dev_priv->drm;
++	struct drm_vma_offset_node *node;
++	struct ttm_buffer_object *bo = NULL;
++
++	drm_vma_offset_lock_lookup(bdev->vma_manager);
++
++	node = drm_vma_offset_lookup_locked(bdev->vma_manager, offset, pages);
++	if (likely(node)) {
++		bo = container_of(node, struct ttm_buffer_object,
++				  base.vma_node);
++		bo = ttm_bo_get_unless_zero(bo);
++	}
++
++	drm_vma_offset_unlock_lookup(bdev->vma_manager);
++
++	if (!bo)
++		drm_err(drm, "Could not find buffer object to map\n");
++
++	return bo;
++}
++
+ int vmw_mmap(struct file *filp, struct vm_area_struct *vma)
+ {
+ 	static const struct vm_operations_struct vmw_vm_ops = {
+@@ -41,10 +67,28 @@ int vmw_mmap(struct file *filp, struct vm_area_struct *vma)
+ 	};
+ 	struct drm_file *file_priv = filp->private_data;
+ 	struct vmw_private *dev_priv = vmw_priv(file_priv->minor->dev);
+-	int ret = ttm_bo_mmap(filp, vma, &dev_priv->bdev);
++	struct ttm_device *bdev = &dev_priv->bdev;
++	struct ttm_buffer_object *bo;
++	int ret;
++
++	if (unlikely(vma->vm_pgoff < DRM_FILE_PAGE_OFFSET_START))
++		return -EINVAL;
++
++	bo = vmw_bo_vm_lookup(bdev, vma->vm_pgoff, vma_pages(vma));
++	if (unlikely(!bo))
++		return -EINVAL;
+ 
+-	if (ret)
+-		return ret;
++	if (unlikely(!bo->bdev->funcs->verify_access)) {
++		ret = -EPERM;
++		goto out_unref;
++	}
++	ret = bo->bdev->funcs->verify_access(bo, filp);
++	if (unlikely(ret != 0))
++		goto out_unref;
++
++	ret = ttm_bo_mmap_obj(vma, bo);
++	if (unlikely(ret != 0))
++		goto out_unref;
+ 
+ 	vma->vm_ops = &vmw_vm_ops;
+ 
+@@ -52,7 +96,13 @@ int vmw_mmap(struct file *filp, struct vm_area_struct *vma)
+ 	if (!is_cow_mapping(vma->vm_flags))
+ 		vma->vm_flags = (vma->vm_flags & ~VM_MIXEDMAP) | VM_PFNMAP;
+ 
++	ttm_bo_put(bo); /* release extra ref taken by ttm_bo_mmap_obj() */
++
+ 	return 0;
++
++out_unref:
++	ttm_bo_put(bo);
++	return ret;
+ }
+ 
+ /* struct vmw_validation_mem callback */
+-- 
 2.31.1
 
 _______________________________________________
