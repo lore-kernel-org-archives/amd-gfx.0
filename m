@@ -2,125 +2,102 @@ Return-Path: <SRS0=Zxj3=KV=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 28576C2B9F7
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 May 2021 07:43:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EC288C2B9F7
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 May 2021 08:06:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CDBEE61429
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 May 2021 07:43:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CDBEE61429
+	by mail.kernel.org (Postfix) with ESMTPS id B08B8606A5
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 May 2021 08:06:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B08B8606A5
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86B2B6EC1D;
-	Wed, 26 May 2021 07:43:48 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2067.outbound.protection.outlook.com [40.107.220.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E4CD6EC1D
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 May 2021 07:43:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65B8E6E497;
+	Wed, 26 May 2021 08:06:47 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2075.outbound.protection.outlook.com [40.107.223.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C51486E497
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 May 2021 08:06:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Wq6KSaN6mO8P/PdTNDDm6U+5JBh5U6Gn/Hi5Ytpfershevvq1s+Ruj4iBFoPdQLoXN7oQMCC4Cr1z6GDOyzwAjasbvBDnwSb7HFZHkSytiO36tsTQLpKGZfUjDH3anFdbjytE2+yQiEB/RZaQPrOyD1CGxv0QrMSf/CmGNSnLX5jr4yie1Qowmgsu21kjilpU6xdvlt7lGEoFy8xWwnFreI39qD0YQBDoeSVFPCyrREosVGadkn3JBEiUVy4tx+dNEPoGNTQrIJoci7XBISj3wJPFj17mKpep/9fkt3tMNSCqKN9YSrgye7Ffi96NHHv0rvKPQxHFcGmfsjhFwbd1g==
+ b=YpfgvwDx/BuhsIgaEoZBE+QRQyFinhToTBhEYDdcgsH41F1KWZdnWKOxrT687XIXy+v+wrLFZB03EBVsgCt9RcAPYwbloeoPRGckXtvB2Fry1kf6U4+dBLJygO2ZCKxsxJy9Gfh95Tm/XxSW3xeawRJWxog0/R788sm1EhgNx+5kQi0JJb9eaHc9GiJVKW9F3hSGysuSXd6G7VCGbzJQQMIGW4IVY92JDI8/nU4YIgq8jS6AmV+YDVviwCaZqi9jcnxkmM/41EKkYbcwUJbQnKU0DYoGhtkKXlidUZRywSKP25DkufGxUbZZ8d3veEW8L15Ri/BTZyKK/5qGW7OjAA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tkJgRS/BTfnWJJ///yLfPVFth4lvbtDo5LY4J5zRazg=;
- b=aE7KfjGbO4ieTLDzq2ZMWnLO7ug3GWIQvNBoNJHIgnL402O4TkqSZiOA0X9UiemLp6fydZMbYkYtB3bOjwzMJH2N4Ntbjv8oTJKBg4QoDxTQx58S6QrX7RyJKOymcur4gBWbJ0KIF2GlIwCylIWV8g/jRtdOrsSOK0AnsodQ/gr7o0P1y/kHl5Nn0WIG8F291YPcX+5bCwi6uDr1F+9JVoMTzYKygw0U6kxXalEasqrX0RPEEPav7+BeCWC1vOwnGjdk3b3rP0Ce+/roWZqM9FNHFtF9wfX7rJxowAkdrsO5W619d6mIVjF6RbloGUs/BdN4gsrsEWv+SHnoHwPlmg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=cz5VlM8TPGqcfsZLqGxHF7Q48Z1Xs5AiZj6pQrB26eo=;
+ b=B3ZDR9xphF6EdcaDTMIiOI0C4k9CIkR8zsodZwVyIwR1wfS5P0BcQBAsP1o7VphAdbbPaWbQNMNXVF8FpOMy6qe1U0xA/PoRsgu2pZxqB/tWEnIcFKX4YZBYiauTxTk4yEVpgMlYdB2cVFOGDakMZbE9kODh7nwT3xgMqKf4LMSWDoEN7euRJh9AhwHgWa299jfE9pYjfSTlGCTerRcv7OGJkQ72ga1UqZfSAw0uhjDbQV5sKHuNFcWsoIyD3DzZQq74+VPs5KJN+XWBWmbBnYML31RE4NRADjrCbjov8gwSdZW8rSkCcMBhFfE48qt2LD6NOAzWEx+kzrOtMtI0kA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tkJgRS/BTfnWJJ///yLfPVFth4lvbtDo5LY4J5zRazg=;
- b=pExbfTdln/rVLHlylag9c7K7g1FuG4KPDAg3SuQnSbLEG9r/FOny8I5WqcwgyxaxkrMg84MOLAa5ws2i87QgwgHLnLwmzaGj7fq2phRLjUAv0Q96zhvKL3mQN4+68+O3coKFyonM5IHh20pdOxw3DIfLNgbdQ2DJVeH+ITUrFnU=
-Received: from BN6PR12MB1267.namprd12.prod.outlook.com (2603:10b6:404:17::13)
- by BN6PR12MB1716.namprd12.prod.outlook.com (2603:10b6:404:104::14)
+ bh=cz5VlM8TPGqcfsZLqGxHF7Q48Z1Xs5AiZj6pQrB26eo=;
+ b=DRrAe1YEaGy3bTZVZLlECmd26vWm2MYrq9n+Hv55hy67ZuAiCzC6Zl+iFd7VAN12KtQ8kmmX0l0n8kWrHC7pmYSlx8auh4UqsqqzNbce9+XL3LDSpNHtRVwrAc1eBpxOO/jbaArOhHkLfpzV+iIbzAyOJvG4EnqzYaX/Gd+KRfI=
+Received: from BN9P220CA0007.NAMP220.PROD.OUTLOOK.COM (2603:10b6:408:13e::12)
+ by MN2PR12MB3213.namprd12.prod.outlook.com (2603:10b6:208:af::26)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4150.26; Wed, 26 May
- 2021 07:43:43 +0000
-Received: from BN6PR12MB1267.namprd12.prod.outlook.com
- ([fe80::64a7:42d4:a452:807]) by BN6PR12MB1267.namprd12.prod.outlook.com
- ([fe80::64a7:42d4:a452:807%12]) with mapi id 15.20.4150.027; Wed, 26 May 2021
- 07:43:43 +0000
-From: "Chen, JingWen" <JingWen.Chen2@amd.com>
-To: "Liu, Monk" <Monk.Liu@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amd/amdgpu:save psp ring wptr in SRIOV to avoid attack
-Thread-Topic: [PATCH] drm/amd/amdgpu:save psp ring wptr in SRIOV to avoid
- attack
-Thread-Index: AQHXUfwYjbSp9NwqHESEgt7dtHflGar1XDsAgAAFR8A=
-Date: Wed, 26 May 2021 07:43:43 +0000
-Message-ID: <BN6PR12MB1267FC3EC1B7B92BFBBEED3CB7249@BN6PR12MB1267.namprd12.prod.outlook.com>
-References: <20210526065459.26368-1-Jingwen.Chen2@amd.com>
- <BL1PR12MB52699DD281EF5DF4A1BB066884249@BL1PR12MB5269.namprd12.prod.outlook.com>
-In-Reply-To: <BL1PR12MB52699DD281EF5DF4A1BB066884249@BL1PR12MB5269.namprd12.prod.outlook.com>
-Accept-Language: en-150, zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-05-26T07:24:00Z; 
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
- Only-AIP 2.0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=8cd4f70b-726f-4252-b46d-b5286f3aab5f;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [165.204.134.244]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 8838628b-ae0f-4945-f304-08d92019fc8e
-x-ms-traffictypediagnostic: BN6PR12MB1716:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BN6PR12MB17169F36B1B50A5D5BE4A565B7249@BN6PR12MB1716.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8882;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: m5PbtSsIdHdESE1pOtM/D1unRfdRljrx3qmHDFG9RwdGA+XV3fVuxZoNJLHhqUEACFZh4vuiTxKbVXQ86rtKArIcigCrkdaHdHMaxttwseqNMS13T9X17AyiLXCnTCy27sRi0E7F2IHmgXWzWyj0GPx/Zv72vyn34xG+wd7LDv9pWqLsDr5CNV26iruu9uvQ+YKvKtkiJcreAdd0HU9qNyMFezLb5RtCv29jbXkVG90mbpaf9R+8fjzyOpWx7FV8STePd3/9ZZ4UE9lxyWQsFp57XHSluu3XF3daq6banrRMRlpJiOXPetf8zukzP2ZqRkXvEOEuBXL6BCcjgXpaSB5TWTL2QPKdcPxEPIY7aBkRmIzBYr5MmoXt9X9/nnLZGmVInx1UrsAptbVMXjH9w5jZskh3F1FqM5miZB3EC1NWYD/AAO3xhOEMJyfZsol0rh5bnXYjxJy03a7jLqHklNWbx1dNvzlckPk/D8POsjWZFwXnb651rKHG5Nvqbc6tNo2jG6bm9ZT5pl4QoLIIwKHxu93hAujuVZqGocwzIfBJ5pDz1b0VjSgCsREm1jfoT9ZNqlcv45gRbIs3LxlNB0Wm6PGkQZ0D+rh0wBmYL7o=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN6PR12MB1267.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(136003)(346002)(366004)(396003)(376002)(71200400001)(6506007)(53546011)(316002)(4326008)(110136005)(122000001)(478600001)(8676002)(26005)(9686003)(5660300002)(83380400001)(55016002)(2906002)(8936002)(86362001)(76116006)(66476007)(66446008)(66556008)(64756008)(33656002)(52536014)(38100700002)(7696005)(66946007)(186003)(54906003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?c0Y+Mr/wAvHzxEv8aVhDnyOsaH26l4gkYPmRvrFo+kDBRiAY21hv1Q0/B76p?=
- =?us-ascii?Q?CyCia9HQxTroEhCageC4/KaISUW+cAoTtAHcvCTPy0Yqjg0kYst/ID54YY9o?=
- =?us-ascii?Q?XoyUMGCdgWQmhFAnVBJDZu7hhehPRIU+f9K23fS4mtGvVJt9Gv8oaF7DlEP2?=
- =?us-ascii?Q?jgGgPfMO98XdVj5jL+qb4QAgtuLoyZvOpIOb7B+FS0qQSt9LwQCbs003sPDT?=
- =?us-ascii?Q?TY1k1BfAOKJqsO5dYLJ6w6O4afFag7aukDV0vP/HVCMNWh1Geh+Oo8kzi7v2?=
- =?us-ascii?Q?cFKUA/iVF60jvMXcxjHsyGyp9ncWEiYkNrJoucZH8PMbDM7nHk95OI6+jbcy?=
- =?us-ascii?Q?As3eH1t0F6BZFYbMnXeTFVrWEJtB2tJ/X31LQMOZa/knAjuDsE2TMGdzAuW4?=
- =?us-ascii?Q?8gR8m9S8V0sCcLFaTSCWgRnVSzLJgmtjh88kW/ESWa4EoXes8vmCj4Kixu0D?=
- =?us-ascii?Q?3bmaUbpq9/b6rHb8lMFZWfucY2CLjPT6j8rNx95wwlW2fiWI6e9yjxqIFjGM?=
- =?us-ascii?Q?TBDr2J1sKh5uzrXZ2Vb73MN2H1h10Ly71Q6SN45bJUBjRVPFL4Bo2BUhLoY/?=
- =?us-ascii?Q?yt2YUrU0L3Pj+KDyzqVmQLDAQMcI+tbpn94cS7jO6M/sZdS6/h4zoYpOYL6i?=
- =?us-ascii?Q?QTa7ZnVtl7Vwdw4qXF2Tu9tALE5KrcxFB8PCcuPniOzIWPNshr+fTEoAZePc?=
- =?us-ascii?Q?CSarlX872bY55QwPDmyIXLHBVh3l9APSe/vsskMRvv/EqdjTcfJ7Zg8Yaysm?=
- =?us-ascii?Q?1Go+eajvSNKNB/pFaZEW9yglDvnZfLak23w6FZF6adi2iyYooeXULgpnJHoc?=
- =?us-ascii?Q?hob+1YB+emilbri1bGqSu9varS2FJnetCnUter/p9bszia6crSG5XsusFZ9f?=
- =?us-ascii?Q?tyiZI6agztswra11He2ZyJvk44n6lkZ+vjO0SjCXrs5W+cyeXfl9LwD936jC?=
- =?us-ascii?Q?2B1AvnJDtIaPotxYvaOFnhlyBW/ehT4dnAz5P/cJ5sQ158Y1/UDyl63ZupON?=
- =?us-ascii?Q?iqtKCn7+YVETv98jjVIkT0IgNpFkezekOdMV1vs57sbJbShYZFWIvrjZEyEk?=
- =?us-ascii?Q?i3Bba1W+lmN1xfNOXH0JdkroPkwtILHNz70jBuoa0QaJuWr6tzNHjNNpAg6n?=
- =?us-ascii?Q?eouUfnn1uUgkANwT0+X+a6wZEE+KN5NHESOyjuUVqU36xrQtMWcbJXiNlLIq?=
- =?us-ascii?Q?w64Zh5++qB2f5aUuJu4FrC0roLyr2H4o+iWx1K/pzRfxkVXItMotIhPf4bfq?=
- =?us-ascii?Q?2NLLf5x8a2fqpTF2ohejsDAlMlNalS/YeAE+7T43fmN0u1d3O8KyEKkVBBd5?=
- =?us-ascii?Q?B/EtBlr3ST7cpg2vVyFyC85D?=
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4150.23; Wed, 26 May
+ 2021 08:06:43 +0000
+Received: from BN8NAM11FT054.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:13e:cafe::b6) by BN9P220CA0007.outlook.office365.com
+ (2603:10b6:408:13e::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4173.20 via Frontend
+ Transport; Wed, 26 May 2021 08:06:43 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT054.mail.protection.outlook.com (10.13.177.102) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4129.25 via Frontend Transport; Wed, 26 May 2021 08:06:43 +0000
+Received: from jenkins-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Wed, 26 May
+ 2021 03:06:41 -0500
+From: Xiaojian Du <Xiaojian.Du@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/pm: retain the fine grain tuning parameters after
+ resume
+Date: Wed, 26 May 2021 16:06:25 +0800
+Message-ID: <20210526080625.1210268-1-Xiaojian.Du@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 5adff520-aaac-4e23-6949-08d9201d3345
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3213:
+X-Microsoft-Antispam-PRVS: <MN2PR12MB321321A506C68906DDF6CC43F1249@MN2PR12MB3213.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: inRhot9wv5EF8NnyWpr0qxUkjFZpgynOLErxaEjifFUP3fDMqjAHd2cQQCYjICvfVjLm7iBhMMUxV+XOLzf3/yvBcYAAe5jg5ppjLqEeg/Lq1x/L6v4eyYCRmnOOnUAric1Hk8g54x61kJteoSk/Z5O666Uq/CzRQkm3RSfv4ek1XScHcUDdLSBchCzNNBgoJ3sQHISVfw567OX75fm47W7k6ebZmaehpwMhdnAHa7aiR2P9abG+u4b0yskD4PnUybcz13jb3A8v5bqpx9EnkHvjl2+PupZcy8oqx6Yk7lLrNCPfeN/B0JWD/qEq21PBHlXKF2ElF8kd8C40jyBlWcK24YymSrPTW5b2SEsbb7sGbRfDPnrWXgJisHaX8FhHzXma9eLbkGER3iQVxklZ+wZKrEQ4ZsQFSZx3kXP11S7ulU2fSOV9a/7QY/uSZpp3hOXF7bj/zxQeV8PXbMOeZFu/LxadQlQB0i5qnken3T8TpqoRzvrmtyQ5e2n/kuOgYM9z5GbhlQ6opNQ20WyRp44qRpDa5mbhIRim8uBY3ywsvtJG1AfeB0AYU6BpccFahO2u/G/j5JFj8D+pkj2jieHLSePUhKbESb5wsnMUFTKgmrYLtNsdLlbdO4oaZiUBB3dCZ8NXc2gFU6HWugWb7YHHfagz1PDbOzlMvSiCubXowpgRrls2N8u1nyLndUhc
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(39860400002)(346002)(136003)(396003)(376002)(46966006)(36840700001)(356005)(86362001)(6666004)(2616005)(47076005)(81166007)(83380400001)(1076003)(16526019)(5660300002)(2906002)(26005)(426003)(6916009)(82310400003)(8676002)(7696005)(54906003)(336012)(186003)(316002)(8936002)(36756003)(19627235002)(478600001)(36860700001)(70206006)(82740400003)(70586007)(4326008)(36900700001);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN6PR12MB1267.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8838628b-ae0f-4945-f304-08d92019fc8e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 May 2021 07:43:43.1154 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: M4xU/U14Q6qQuOZFvs5hEaqB8EDsp4HQLAKd1vZX0bDmYik4wS5MnkxvtIrUVWQI7t3YNceADisBIK3E04t+Dg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1716
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2021 08:06:43.5533 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5adff520-aaac-4e23-6949-08d9201d3345
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT054.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3213
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,130 +109,71 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deng, Emily" <Emily.Deng@amd.com>, "Zhao, Victor" <Victor.Zhao@amd.com>
+Cc: Alexander.Deucher@amd.com, Anatoli.Antonovitch@amd.com, ray.huang@amd.com,
+ Xiaojian Du <Xiaojian.Du@amd.com>, Pavan.Ramayanam@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Monk,
+This patch is to retain the fine grain tuning parameters after resume for
+legacy APU, it will cover Raven/Raven2/Picasso.
 
-New patch submitted according to your suggestion
-
-Best Regards,
-JingWen Chen
-
------Original Message-----
-From: Liu, Monk <Monk.Liu@amd.com> 
-Sent: Wednesday, May 26, 2021 3:24 PM
-To: Chen, JingWen <JingWen.Chen2@amd.com>; amd-gfx@lists.freedesktop.org
-Cc: Zhao, Victor <Victor.Zhao@amd.com>; Chen, JingWen <JingWen.Chen2@amd.com>
-Subject: RE: [PATCH] drm/amd/amdgpu:save psp ring wptr in SRIOV to avoid attack
-
-[AMD Official Use Only]
-
->>+	ring->ring_wptr = psp_write_ptr_reg;
-
-Put the cache mechanism into the callbacks please
-
->>+		ring->ring_wptr = 0;
-
-It is not needed
-
-At last, try to put more details in the comment to let people know why we need this PSP WPTR cache mechanism 
-
-
-Thanks 
-
-------------------------------------------
-Monk Liu | Cloud-GPU Core team
-------------------------------------------
-
------Original Message-----
-From: Jingwen Chen <Jingwen.Chen2@amd.com> 
-Sent: Wednesday, May 26, 2021 2:55 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Liu, Monk <Monk.Liu@amd.com>; Zhao, Victor <Victor.Zhao@amd.com>; Chen, JingWen <JingWen.Chen2@amd.com>
-Subject: [PATCH] drm/amd/amdgpu:save psp ring wptr in SRIOV to avoid attack
-
-From: Victor Zhao <Victor.Zhao@amd.com>
-
-save psp ring wptr in SRIOV to avoid attack to avoid extra changes to
-MP0_SMN_C2PMSG_102 reg
-
-Change-Id: Idee78e8c1c781463048f2f6311fdc70488ef05b2
-Signed-off-by: Victor Zhao <Victor.Zhao@amd.com>
-Signed-off-by: Jingwen Chen <Jingwen.Chen2@amd.com>
+Signed-off-by: Xiaojian Du <Xiaojian.Du@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 1 +  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h | 1 +  drivers/gpu/drm/amd/amdgpu/psp_v11_0.c  | 3 ++-
- drivers/gpu/drm/amd/amdgpu/psp_v3_1.c   | 3 ++-
- 4 files changed, 6 insertions(+), 2 deletions(-)
+ .../amd/pm/powerplay/hwmgr/hardwaremanager.c  |  3 ++-
+ .../drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c  | 21 +++++++++++++++++++
+ 2 files changed, 23 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index 55378c6b9722..20e06b3ec686 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -2701,6 +2701,7 @@ int psp_ring_cmd_submit(struct psp_context *psp,
- 	/* Update the write Pointer in DWORDs */
- 	psp_write_ptr_reg = (psp_write_ptr_reg + rb_frame_size_dw) % ring_size_dw;
- 	psp_ring_set_wptr(psp, psp_write_ptr_reg);
-+	ring->ring_wptr = psp_write_ptr_reg;
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/hardwaremanager.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/hardwaremanager.c
+index 25b5831a15cd..370deae7b054 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/hardwaremanager.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/hardwaremanager.c
+@@ -82,7 +82,8 @@ int phm_enable_dynamic_state_management(struct pp_hwmgr *hwmgr)
+ 
+ 	/* Skip for suspend/resume case */
+ 	if (!hwmgr->pp_one_vf && smum_is_dpm_running(hwmgr)
+-	    && !amdgpu_passthrough(adev) && adev->in_suspend) {
++	    && !amdgpu_passthrough(adev) && adev->in_suspend
++		&& !adev->apu_flags) {
+ 		pr_info("dpm has been enabled\n");
+ 		return 0;
+ 	}
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
+index f5fe540cd536..8f71f6a4bb49 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
+@@ -377,6 +377,27 @@ static int smu10_enable_gfx_off(struct pp_hwmgr *hwmgr)
+ 
+ static int smu10_enable_dpm_tasks(struct pp_hwmgr *hwmgr)
+ {
++	struct amdgpu_device *adev = hwmgr->adev;
++	struct smu10_hwmgr *smu10_data = (struct smu10_hwmgr *)(hwmgr->backend);
++	int ret = -EINVAL;
++
++	if (adev->in_suspend) {
++		pr_info("restore the fine grain parameters\n");
++
++		ret = smum_send_msg_to_smc_with_parameter(hwmgr,
++					PPSMC_MSG_SetHardMinGfxClk,
++					smu10_data->gfx_actual_soft_min_freq,
++					NULL);
++		if (ret)
++			return ret;
++		ret = smum_send_msg_to_smc_with_parameter(hwmgr,
++					PPSMC_MSG_SetSoftMaxGfxClk,
++					smu10_data->gfx_actual_soft_max_freq,
++					NULL);
++		if (ret)
++			return ret;
++	}
++
  	return 0;
  }
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-index 46a5328e00e0..60aa99a39a74 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-@@ -76,6 +76,7 @@ struct psp_ring
- 	uint64_t			ring_mem_mc_addr;
- 	void				*ring_mem_handle;
- 	uint32_t			ring_size;
-+	uint32_t			ring_wptr;
- };
- 
- /* More registers may will be supported */ diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-index 1f2e7e35c91e..4a32b0c84ef4 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-@@ -474,6 +474,7 @@ static int psp_v11_0_ring_create(struct psp_context *psp,
- 			return ret;
- 		}
- 
-+		ring->ring_wptr = 0;
- 		/* Write low address of the ring to C2PMSG_102 */
- 		psp_ring_reg = lower_32_bits(ring->ring_mem_mc_addr);
- 		WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_102, psp_ring_reg); @@ -733,7 +734,7 @@ static uint32_t psp_v11_0_ring_get_wptr(struct psp_context *psp)
- 	struct amdgpu_device *adev = psp->adev;
- 
- 	if (amdgpu_sriov_vf(adev))
--		data = RREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_102);
-+		data = psp->km_ring.ring_wptr;
- 	else
- 		data = RREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_67);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c b/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c
-index f2e725f72d2f..160f78eb6403 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c
-@@ -237,6 +237,7 @@ static int psp_v3_1_ring_create(struct psp_context *psp,
- 			return ret;
- 		}
- 
-+		ring->ring_wptr = 0;
- 		/* Write low address of the ring to C2PMSG_102 */
- 		psp_ring_reg = lower_32_bits(ring->ring_mem_mc_addr);
- 		WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_102, psp_ring_reg); @@ -379,7 +380,7 @@ static uint32_t psp_v3_1_ring_get_wptr(struct psp_context *psp)
- 	struct amdgpu_device *adev = psp->adev;
- 
- 	if (amdgpu_sriov_vf(adev))
--		data = RREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_102);
-+		data = psp->km_ring.ring_wptr;
- 	else
- 		data = RREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_67);
- 	return data;
---
+-- 
 2.25.1
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
