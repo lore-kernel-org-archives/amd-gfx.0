@@ -6,64 +6,64 @@ X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1F8F7C4708C
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8612DC4708D
 	for <amd-gfx@archiver.kernel.org>; Thu, 27 May 2021 20:56:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E363360FEB
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 May 2021 20:56:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E363360FEB
+	by mail.kernel.org (Postfix) with ESMTPS id 4DEBE60FEB
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 May 2021 20:56:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4DEBE60FEB
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F8CB6F4CF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2CDC6F4DD;
 	Thu, 27 May 2021 20:56:20 +0000 (UTC)
-Received: from mail-io1-xd31.google.com (mail-io1-xd31.google.com
- [IPv6:2607:f8b0:4864:20::d31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 596936F4DB;
- Thu, 27 May 2021 20:56:19 +0000 (UTC)
-Received: by mail-io1-xd31.google.com with SMTP id k22so1936430ioa.9;
- Thu, 27 May 2021 13:56:19 -0700 (PDT)
+Received: from mail-io1-xd29.google.com (mail-io1-xd29.google.com
+ [IPv6:2607:f8b0:4864:20::d29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 41B1D6F4C7;
+ Thu, 27 May 2021 20:56:14 +0000 (UTC)
+Received: by mail-io1-xd29.google.com with SMTP id b25so1958515iot.5;
+ Thu, 27 May 2021 13:56:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=8NtsOMPx4MYkCLJ0TPZ28k3bl7JgFX4G9RGUV3lfIuo=;
- b=s6oFQ0ulr9y1gkGxTcI0G7Opo/22W70in/KBdRlCwSewauReb2dTeJZG8chtm9dy/O
- pYVLndfJ8PXPRxv6SLyd9eaK8Ndf/UVfJhwVWFDOuhCwwirO0izyLgcQYnrmAiFnZXR9
- 7NLvT/hj5N7mn9Q5CZtwY7nJNZlyyHNGKB1xFeeVr9MqNgmgveVry3FDhXvYMZIg8NFj
- u6vOZlqYe6xdWhnO8HleEAZYmTIIraCY/gvcmx/HjK6+e6Bs9pJzLDGHGbXJTFlxTqrR
- v4rOeJrlzI6jTH2Ri8CCo/NU2xJgTu5OOpaBLubqJtwiCmByDaJUbzxrGFft24IuhGpN
- g71g==
+ bh=G1tcho2vQuPwN9OsudHtISmc/DxgqXUVsaVYx3XpKI0=;
+ b=KXXWj1sNI002LBIdmNhaICZ/YWCAqVnfw6WfaMeoBYYRjtg3qY4Yt1TstcTK64eHpG
+ 9IfDDhadktV/3hmtI8WQjVafzuaLg3fImSBYJhqYMjGWBu9UopwTUR+TVn4PWvWQrp7S
+ MWmjc+41Zya8J9r9MjF0uPVEXmvYYppN3zLz7o790YwzjtxOMMIln8Waq4jQVkJYUmIv
+ AIuxl4+QwYuRz8Be2geNxlDHrmK22PvrSaSw+ijYZddXlZ2cvsJV2NbSUWBto0g9qPMH
+ /so01GUi7PfThfg7lXqlaeJm1iGY/77GJ7WKH8meajebVAO6X9Du2MoSY1dFJ+Bqldip
+ Ovzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=8NtsOMPx4MYkCLJ0TPZ28k3bl7JgFX4G9RGUV3lfIuo=;
- b=M3K1GUYgapS9/PCsG1vLAzdZzLMmVxfkpiXukJyced0PY4aVCVYLl/DBE1GsisxDCd
- YiOfelZRp4I3ujj2ITCaEoH+LGBMy+dM1Cc9Ae++m0K6Zg61mgxfYhY/1XvHEhih+t2I
- THo1qLo9uis14RNk6gJo3i1CXUYvHKb1HP4rChp5JfcASfvBsmn59Omdi53Sv+FksELm
- DN3UgT4BTEfy/nQRh+EENaAxtH0qjhpbN3TZKQYeqqXkyFhsnMlB9Cq9idBBQ9uEEacq
- u4CKdB91W2KYBhOXt24MxV34X9/HBK9xbd39kCxhrlfgOUbg1GInRQsJHamZPGY3Xu/A
- 7ZOQ==
-X-Gm-Message-State: AOAM531XpCiXKRPyQ+5X6ZnsUnms26xF4DkNBoXAVlAUfGpH2DxHXRrP
- E59iYAPMy2G+b8PoAvTrHVYLNBhEJ28mAA==
-X-Google-Smtp-Source: ABdhPJzT6HgjvQzvbCBhkeTY5/c5SttWmlQTFK6CqeRkiK2Fkkdv+W6mILxxZg7EfoerYFFGF9HT7g==
-X-Received: by 2002:a6b:e817:: with SMTP id f23mr4234692ioh.183.1622148978438; 
- Thu, 27 May 2021 13:56:18 -0700 (PDT)
+ bh=G1tcho2vQuPwN9OsudHtISmc/DxgqXUVsaVYx3XpKI0=;
+ b=gA9DMOyDRXq9Linowj43SsNDmLkulYnn/zuzLFXicM/pdy8sPhz4yEMlnCFf3pk7PK
+ aCnr9aKuXPJ98v4RablTYrcNLm3HnWY7c2xXsHZLEwfBHUDnaTcg3XUOwCGeG42DdLL0
+ 17bQmHgvDCzOyc7vJtWtfppe8ePzuTI8B0PCLylMpN3Dk397CjROANW37ICmZv1aLtAD
+ mJ807Rr9HLxaqiBVu4p+ThDawt5asaHfM4htSyEv6N85DggM9VD5B8d73qdjgQ/Y2ZD4
+ Ksz2w8fqk3hcEGqR+kbZCp8gWGY96rUFrVwnLkXJ5rXKgtIcEm3F3phc4PsWv4+7mENR
+ k3Ug==
+X-Gm-Message-State: AOAM5329cBbX2NO0xdq10n8xHpqNTT3I7W/qYelaoTI7daLiSigBgL8V
+ O0Q8QDoRFTdYv637BgixijTFYmQXJ1IsFg==
+X-Google-Smtp-Source: ABdhPJzkzIlMs1CWQgZzYkdtpkN6yKDgFTQ/W4ltxmM435fml4U8mVCf5T3QDT7WQXEhaEb058d4tQ==
+X-Received: by 2002:a5d:9c58:: with SMTP id 24mr4476883iof.153.1622148973183; 
+ Thu, 27 May 2021 13:56:13 -0700 (PDT)
 Received: from Harpoon.amd.com ([165.204.55.251])
- by smtp.gmail.com with ESMTPSA id b10sm1577265ioz.35.2021.05.27.13.56.17
+ by smtp.gmail.com with ESMTPSA id b10sm1577265ioz.35.2021.05.27.13.56.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 May 2021 13:56:18 -0700 (PDT)
+ Thu, 27 May 2021 13:56:12 -0700 (PDT)
 From: Felix Kuehling <felix.kuehling@gmail.com>
 X-Google-Original-From: Felix Kuehling <Felix.Kuehling@amd.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Subject: [PATCH 09/10] drm/amdkfd: partially actual_loc removed
-Date: Thu, 27 May 2021 16:56:05 -0400
-Message-Id: <20210527205606.2660-9-Felix.Kuehling@amd.com>
+Subject: [PATCH 04/10] drm/amdgpu: get owner ref in validate and map
+Date: Thu, 27 May 2021 16:56:00 -0400
+Message-Id: <20210527205606.2660-4-Felix.Kuehling@amd.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210527205606.2660-1-Felix.Kuehling@amd.com>
 References: <20210527205606.2660-1-Felix.Kuehling@amd.com>
@@ -87,142 +87,70 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Alex Sierra <alex.sierra@amd.com>
 
-actual_loc should not be used anymore, as pranges
-could have mixed locations (VRAM & SYSRAM) at the
-same time.
+Get the proper owner reference for amdgpu_hmm_range_get_pages function.
+This is useful for partial migrations. To avoid migrating back to
+system memory, VRAM pages, that are accessible by all devices in the
+same memory domain.
+Ex. multiple devices in the same hive.
 
 Signed-off-by: Alex Sierra <alex.sierra@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 12 +---
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c     | 71 ++++++++++--------------
- 2 files changed, 29 insertions(+), 54 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 25 ++++++++++++++++++++++++-
+ 1 file changed, 24 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-index f71f8d7e2b72..acb9f64577a0 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-@@ -501,12 +501,6 @@ svm_migrate_ram_to_vram(struct svm_range *prange, uint32_t best_loc,
- 	struct amdgpu_device *adev;
- 	int r = 0;
- 
--	if (prange->actual_loc == best_loc) {
--		pr_debug("svms 0x%p [0x%lx 0x%lx] already on best_loc 0x%x\n",
--			 prange->svms, prange->start, prange->last, best_loc);
--		return 0;
--	}
--
- 	adev = svm_range_get_adev_by_id(prange, best_loc);
- 	if (!adev) {
- 		pr_debug("failed to get device by id 0x%x\n", best_loc);
-@@ -791,11 +785,7 @@ int
- svm_migrate_to_vram(struct svm_range *prange, uint32_t best_loc,
- 		    struct mm_struct *mm)
- {
--	if  (!prange->actual_loc)
--		return svm_migrate_ram_to_vram(prange, best_loc, mm);
--	else
--		return svm_migrate_vram_to_vram(prange, best_loc, mm);
--
-+	return svm_migrate_ram_to_vram(prange, best_loc, mm);
- }
- 
- /**
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 7b50395ec377..1e15a6170635 100644
+index 54f47b09b14a..2b4318646a75 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -1420,42 +1420,38 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
+@@ -1313,6 +1313,17 @@ static void svm_range_unreserve_bos(struct svm_validate_context *ctx)
+ 	ttm_eu_backoff_reservation(&ctx->ticket, &ctx->validate_list);
+ }
  
++static void *kfd_svm_page_owner(struct kfd_process *p, int32_t gpuidx)
++{
++	struct kfd_process_device *pdd;
++	struct amdgpu_device *adev;
++
++	pdd = kfd_process_device_from_gpuidx(p, gpuidx);
++	adev = (struct amdgpu_device *)pdd->dev->kgd;
++
++	return SVM_ADEV_PGMAP_OWNER(adev);
++}
++
+ /*
+  * Validation+GPU mapping with concurrent invalidation (MMU notifiers)
+  *
+@@ -1343,6 +1354,9 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
+ {
+ 	struct svm_validate_context ctx;
+ 	struct hmm_range *hmm_range;
++	struct kfd_process *p;
++	void *owner;
++	int32_t idx;
+ 	int r = 0;
+ 
+ 	ctx.process = container_of(prange->svms, struct kfd_process, svms);
+@@ -1389,10 +1403,19 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
  	svm_range_reserve_bos(&ctx);
  
--	if (!prange->actual_loc) {
--		p = container_of(prange->svms, struct kfd_process, svms);
--		owner = kfd_svm_page_owner(p, find_first_bit(ctx.bitmap,
--							MAX_GPU_INSTANCE));
--		for_each_set_bit(idx, ctx.bitmap, MAX_GPU_INSTANCE) {
--			if (kfd_svm_page_owner(p, idx) != owner) {
--				owner = NULL;
--				break;
--			}
--		}
--		r = amdgpu_hmm_range_get_pages(&prange->notifier, mm, NULL,
--					       prange->start << PAGE_SHIFT,
--					       prange->npages, &hmm_range,
--					       false, true, owner);
--		if (r) {
--			pr_debug("failed %d to get svm range pages\n", r);
--			goto unreserve_out;
--		}
--
--		r = svm_range_dma_map(prange, ctx.bitmap,
--				      hmm_range->hmm_pfns);
--		if (r) {
--			pr_debug("failed %d to dma map range\n", r);
--			goto unreserve_out;
-+	p = container_of(prange->svms, struct kfd_process, svms);
-+	owner = kfd_svm_page_owner(p, find_first_bit(ctx.bitmap,
-+						MAX_GPU_INSTANCE));
-+	for_each_set_bit(idx, ctx.bitmap, MAX_GPU_INSTANCE) {
-+		if (kfd_svm_page_owner(p, idx) != owner) {
-+			owner = NULL;
-+			break;
- 		}
-+	}
-+	r = amdgpu_hmm_range_get_pages(&prange->notifier, mm, NULL,
-+				       prange->start << PAGE_SHIFT,
-+				       prange->npages, &hmm_range,
-+				       false, true, owner);
-+	if (r) {
-+		pr_debug("failed %d to get svm range pages\n", r);
-+		goto unreserve_out;
-+	}
- 
--		prange->validated_once = true;
-+	r = svm_range_dma_map(prange, ctx.bitmap,
-+			      hmm_range->hmm_pfns);
-+	if (r) {
-+		pr_debug("failed %d to dma map range\n", r);
-+		goto unreserve_out;
- 	}
- 
-+	prange->validated_once = true;
-+
- 	svm_range_lock(prange);
--	if (!prange->actual_loc) {
--		if (amdgpu_hmm_range_get_pages_done(hmm_range)) {
--			pr_debug("hmm update the range, need validate again\n");
--			r = -EAGAIN;
--			goto unlock_out;
--		}
-+	if (amdgpu_hmm_range_get_pages_done(hmm_range)) {
-+		pr_debug("hmm update the range, need validate again\n");
-+		r = -EAGAIN;
-+		goto unlock_out;
- 	}
- 	if (!list_empty(&prange->child_list)) {
- 		pr_debug("range split by unmap in parallel, validate again\n");
-@@ -2740,20 +2736,9 @@ svm_range_trigger_migration(struct mm_struct *mm, struct svm_range *prange,
- 	*migrated = false;
- 	best_loc = svm_range_best_prefetch_location(prange);
- 
--	if (best_loc == KFD_IOCTL_SVM_LOCATION_UNDEFINED ||
--	    best_loc == prange->actual_loc)
-+	if (best_loc == KFD_IOCTL_SVM_LOCATION_UNDEFINED)
- 		return 0;
- 
--	/*
--	 * Prefetch to GPU without host access flag, set actual_loc to gpu, then
--	 * validate on gpu and map to gpus will be handled afterwards.
--	 */
--	if (best_loc && !prange->actual_loc &&
--	    !(prange->flags & KFD_IOCTL_SVM_FLAG_HOST_ACCESS)) {
--		prange->actual_loc = best_loc;
--		return 0;
--	}
--
- 	if (!best_loc) {
- 		r = svm_migrate_vram_to_ram(prange, mm);
- 		*migrated = !r;
+ 	if (!prange->actual_loc) {
++		p = container_of(prange->svms, struct kfd_process, svms);
++		owner = kfd_svm_page_owner(p, find_first_bit(ctx.bitmap,
++							MAX_GPU_INSTANCE));
++		for_each_set_bit(idx, ctx.bitmap, MAX_GPU_INSTANCE) {
++			if (kfd_svm_page_owner(p, idx) != owner) {
++				owner = NULL;
++				break;
++			}
++		}
+ 		r = amdgpu_hmm_range_get_pages(&prange->notifier, mm, NULL,
+ 					       prange->start << PAGE_SHIFT,
+ 					       prange->npages, &hmm_range,
+-					       false, true, NULL);
++					       false, true, owner);
+ 		if (r) {
+ 			pr_debug("failed %d to get svm range pages\n", r);
+ 			goto unreserve_out;
 -- 
 2.31.1
 
