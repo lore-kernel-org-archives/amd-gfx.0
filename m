@@ -4,70 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F23DAC4708B
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 May 2021 20:56:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7BB6AC47089
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 May 2021 23:09:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B991560FEB
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 May 2021 20:56:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B991560FEB
+	by mail.kernel.org (Postfix) with ESMTPS id 38F6E61176
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 May 2021 23:09:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 38F6E61176
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 802CF6F4C7;
-	Thu, 27 May 2021 20:56:31 +0000 (UTC)
-Received: from mail-il1-x136.google.com (mail-il1-x136.google.com
- [IPv6:2607:f8b0:4864:20::136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 825F16F4DA;
- Thu, 27 May 2021 20:56:20 +0000 (UTC)
-Received: by mail-il1-x136.google.com with SMTP id o10so1456492ilm.13;
- Thu, 27 May 2021 13:56:20 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86C9B6E2D5;
+	Thu, 27 May 2021 23:09:29 +0000 (UTC)
+Received: from mail-il1-x132.google.com (mail-il1-x132.google.com
+ [IPv6:2607:f8b0:4864:20::132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6ADB46E2C0;
+ Thu, 27 May 2021 23:09:27 +0000 (UTC)
+Received: by mail-il1-x132.google.com with SMTP id l15so1774079ilh.1;
+ Thu, 27 May 2021 16:09:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=r/JjWzro4A2OCgWHcu1YXap6BV3Bmhd60DexHUrV220=;
- b=o07lZiXsxTVWUuuqUPVXT4q1SfjYXCOjeWjGTRsiI1vX7D2ekO2JFNe9Qcsk6I0wBV
- //HacdPj0E0Zkqf9GMcalvM7nThh9uUgVDFOXl2+e46PHtPQjugCz8/+Kt5d4JN+vO/H
- OvK3xTk0WCL/nQ9wbbNWzqTvMfcwsw/aYGxutPVEe4LcScGoygsMk5aClYMGwHr2677k
- TA89EdHN5qlLLKPAph0ycbaiOQn1pjHicbD7WS4WnrWkcTchMNbzRlJYhr64dfjPR3Am
- 0fUo3LHx4Q6zGL4bEwM+WQsFP4GRFF9nzSDjNDurjIhj06rjjrDhqP0/0nlwdkD5U6hn
- sawQ==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=4kLiEsgXJL4l0OE3QcUENS/6JLbXlz5zRsd7ODaSzsA=;
+ b=AN9s3c3Nnqymav/1Na5LgRM+yBjehQGzQVHllAlGVj/anzx0uk05waX9p6Xtf+AB1L
+ sMWyKD2IQV3IiuxHTkKcNwoXxLgx7iNowi6tWHHMy2FjfaXbbnAr8KECFOUxY2sfgw8a
+ xCOFXm7f+fWr8Pi0DVhWkJuMKMg1d+BLm6/QcmgULUGLyiB6I9d1a3b/Xs7Cz7endodL
+ sZ7Yn7Dvgw0ZidAvf+VzU3YQWI+cvURDkp/ocIflIPjdhuyA61n06Ec5h9MMkkE/XZnq
+ z6K+JUN48Q+XvgRICM5Blx185WYOCsG84f7kPj97hhZihds/zRInHrm2Etmv3Er9TiFg
+ QYQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=r/JjWzro4A2OCgWHcu1YXap6BV3Bmhd60DexHUrV220=;
- b=SwxxCyPbzi1rw4UEtDL+xuFILZNysLajOPuaJdlLdgaqwWVmn3TZDcHcn/Z95F9RcO
- ntTurMImVkA42dFSoxsnlpfgAVXkVNwOCjKRvqYYfVlXn3jdlYMZBlK88n4gtt0Zxk5z
- 2YaXXdRvGNdvKKSbmZw2RIdKCENgEadZhiDfIk5uZlWXOwwwJDFpUcCMVzs6bGGvkQ4m
- 4/9BAEIikH74WCWyBJpLrccd2spewmd8T9bDY1J1cAyfW06amaaLFFNSEYi2suRQr8bO
- mzQVin10I3fHgazW4DhGNdc+YJ9p1q/2PeXKw/K3gc/lBt9IcgOSdp20r6Z9rKbbIDwo
- OfSw==
-X-Gm-Message-State: AOAM532RHoNvugZLd1znkVXJTBChUc4vjsHCOxVqjgklBNcDNbQflvPu
- A6nOb2+P9DV58gsQS3nc2klSWVB1+ZV7Ug==
-X-Google-Smtp-Source: ABdhPJxl/iMYR8Z9Q3oCLtRIuSau+DDg/+nplNKRdqaAc8wE7+0J5MGQpLWf1HS0GKrZbtgyE05dbg==
-X-Received: by 2002:a05:6e02:b4b:: with SMTP id
- f11mr4551361ilu.253.1622148979406; 
- Thu, 27 May 2021 13:56:19 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=4kLiEsgXJL4l0OE3QcUENS/6JLbXlz5zRsd7ODaSzsA=;
+ b=WPkdcRkvE+YSyjVdh1JA5dMkuA//UiIArI+PToRzqGoAA+M7xpGZABGqFYFuljaRyJ
+ hT7ryxuWreHeS8tsnLQto9wPCoKPdIYiS+p4OgnXNfgtPvnS1h1X0/XP1yZ7Or0BC3wM
+ i0csK9/VwK82UDSTOfAvfSeU7oe8eE0QG6vTrLom8enokM2AJm8++SPLiLTuppfMTZIz
+ 84vreTossoyRwVI4X0DslkrlfkhR3SvaGcGi8WddPPv6SYu0jVHxCzdB2dwy+QRqNgYK
+ bFHbgYCIO2h6VeebGDfLhRaQpZSafffMxAmll8WgeS+FG4gjQh/psN4J2/i2CFbXCPTS
+ YjgQ==
+X-Gm-Message-State: AOAM530DreF/SYxPdFdPIdx52Bnc9xUlV+Geob4nsRv6npyxqww9hS23
+ YSrZoQhMY+MsrIjJ3NfEouk=
+X-Google-Smtp-Source: ABdhPJwk5Q8Yq1NmCjqTz3x3UVzu8172YycfbZkjO+O53PFGq2hSwrHmFPyOgtebO7cEMlrgm4pSUA==
+X-Received: by 2002:a92:d9d2:: with SMTP id n18mr5096577ilq.10.1622156966745; 
+ Thu, 27 May 2021 16:09:26 -0700 (PDT)
 Received: from Harpoon.amd.com ([165.204.55.251])
- by smtp.gmail.com with ESMTPSA id b10sm1577265ioz.35.2021.05.27.13.56.18
+ by smtp.gmail.com with ESMTPSA id r5sm1860014ilb.1.2021.05.27.16.09.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 May 2021 13:56:19 -0700 (PDT)
+ Thu, 27 May 2021 16:09:09 -0700 (PDT)
 From: Felix Kuehling <felix.kuehling@gmail.com>
 X-Google-Original-From: Felix Kuehling <Felix.Kuehling@amd.com>
-To: amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Subject: [PATCH 10/10] drm/amdkfd: protect svm_bo ref in case prange has forked
-Date: Thu, 27 May 2021 16:56:06 -0400
-Message-Id: <20210527205606.2660-10-Felix.Kuehling@amd.com>
+To: felix.kuehling@amd.com,
+	akpm@linux-foundation.org,
+	linux-mm@kvack.org
+Subject: [RFC PATCH 0/5] Support DEVICE_GENERIC memory in migrate_vma_*
+Date: Thu, 27 May 2021 19:08:04 -0400
+Message-Id: <20210527230809.3701-1-Felix.Kuehling@amd.com>
 X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210527205606.2660-1-Felix.Kuehling@amd.com>
-References: <20210527205606.2660-1-Felix.Kuehling@amd.com>
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,118 +78,65 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Sierra <alex.sierra@amd.com>
+Cc: dri-devel@lists.freedesktop.org, jglisse@redhat.com,
+ amd-gfx@lists.freedesktop.org, hch@lst.de, jgg@nvidia.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Sierra <alex.sierra@amd.com>
+AMD is building a system architecture for the Frontier supercomputer with
+a coherent interconnect between CPUs and GPUs. This hardware architecture
+allows the CPUs to coherently access GPU device memory. We have hardware
+in our labs and we are working with our partner HPE on the BIOS, firmware
+and software for delivery to the DOE.
 
-Keep track of all the pages inside of pranges referenced to
-the same svm_bo. This is done, by using the ref count inside this object.
-This makes sure the object has freed after the last prange is not longer
-at any GPU. Including references shared between a parent and child during
-a fork.
+The system BIOS advertises the GPU device memory (aka VRAM) as SPM
+(special purpose memory) in the UEFI system address map. The amdgpu driver
+looks it up with lookup_resource and registers it with devmap as
+MEMORY_DEVICE_GENERIC using devm_memremap_pages.
 
-Signed-off-by: Alex Sierra <alex.sierra@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 10 ++++++++--
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c     | 10 +---------
- drivers/gpu/drm/amd/amdkfd/kfd_svm.h     | 10 +++++++++-
- 3 files changed, 18 insertions(+), 12 deletions(-)
+Now we're trying to migrate data to and from that memory using the
+migrate_vma_* helpers so we can support page-based migration in our
+unified memory allocations, while also supporting CPU access to those
+pages.
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-index acb9f64577a0..c8ca3252cbc2 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-@@ -245,7 +245,7 @@ svm_migrate_get_vram_page(struct svm_range *prange, unsigned long pfn)
- 	struct page *page;
- 
- 	page = pfn_to_page(pfn);
--	page->zone_device_data = prange;
-+	page->zone_device_data = prange->svm_bo;
- 	get_page(page);
- 	lock_page(page);
- }
-@@ -336,6 +336,7 @@ svm_migrate_copy_to_vram(struct amdgpu_device *adev, struct svm_range *prange,
- 			svm_migrate_get_vram_page(prange, migrate->dst[i]);
- 			migrate->dst[i] = migrate_pfn(migrate->dst[i]);
- 			migrate->dst[i] |= MIGRATE_PFN_LOCKED;
-+			svm_range_bo_ref(prange->svm_bo);
- 		}
- 		if (migrate->dst[i] & MIGRATE_PFN_VALID) {
- 			spage = migrate_pfn_to_page(migrate->src[i]);
-@@ -540,7 +541,12 @@ svm_migrate_ram_to_vram(struct svm_range *prange, uint32_t best_loc,
- 
- static void svm_migrate_page_free(struct page *page)
- {
--	/* Keep this function to avoid warning */
-+	struct svm_range_bo *svm_bo = page->zone_device_data;
-+
-+	if (svm_bo) {
-+		pr_debug("svm_bo ref left: %d\n", kref_read(&svm_bo->kref));
-+		svm_range_bo_unref(svm_bo);
-+	}
- }
- 
- static int
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 1e15a6170635..2bc20752ee30 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -309,14 +309,6 @@ static bool svm_bo_ref_unless_zero(struct svm_range_bo *svm_bo)
- 	return true;
- }
- 
--static struct svm_range_bo *svm_range_bo_ref(struct svm_range_bo *svm_bo)
--{
--	if (svm_bo)
--		kref_get(&svm_bo->kref);
--
--	return svm_bo;
--}
--
- static void svm_range_bo_release(struct kref *kref)
- {
- 	struct svm_range_bo *svm_bo;
-@@ -355,7 +347,7 @@ static void svm_range_bo_release(struct kref *kref)
- 	kfree(svm_bo);
- }
- 
--static void svm_range_bo_unref(struct svm_range_bo *svm_bo)
-+void svm_range_bo_unref(struct svm_range_bo *svm_bo)
- {
- 	if (!svm_bo)
- 		return;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-index 27fbe1936493..21f693767a0d 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-@@ -150,6 +150,14 @@ static inline void svm_range_unlock(struct svm_range *prange)
- 	mutex_unlock(&prange->lock);
- }
- 
-+static inline struct svm_range_bo *svm_range_bo_ref(struct svm_range_bo *svm_bo)
-+{
-+	if (svm_bo)
-+		kref_get(&svm_bo->kref);
-+
-+	return svm_bo;
-+}
-+
- int svm_range_list_init(struct kfd_process *p);
- void svm_range_list_fini(struct kfd_process *p);
- int svm_ioctl(struct kfd_process *p, enum kfd_ioctl_svm_op op, uint64_t start,
-@@ -178,7 +186,7 @@ void svm_range_dma_unmap(struct device *dev, dma_addr_t *dma_addr,
- void svm_range_free_dma_mappings(struct svm_range *prange);
- void svm_range_prefault(struct svm_range *prange, struct mm_struct *mm,
- 			void *owner);
--
-+void svm_range_bo_unref(struct svm_range_bo *svm_bo);
- #else
- 
- struct kfd_process;
+This patch series makes a few changes to make MEMORY_DEVICE_GENERIC pages
+behave correctly in the migrate_vma_* helpers. We are looking for feedback
+about this approach. If we're close, what's needed to make our patches
+acceptable upstream? If we're not close, any suggestions how else to
+achieve what we are trying to do (i.e. page migration and coherent CPU
+access to VRAM)?
+
+This work is based on HMM and our SVM memory manager that was recently
+upstreamed to Dave Airlie's drm-next branch
+[https://cgit.freedesktop.org/drm/drm/log/?h=drm-next]. On top of that we
+did some rework of our VRAM management for migrations to remove some
+incorrect assumptions, allow partially successful migrations and GPU
+memory mappings that mix pages in VRAM and system memory.
+[https://patchwork.kernel.org/project/dri-devel/list/?series=489811]
+
+In this RFC, patches 1 and 2 are for context to show how we are looking up
+the SPM memory and registering it with devmap.
+
+Patches 3-5 are the changes we are trying to upstream or rework to make
+them acceptable upstream.
+
+Alex Sierra (5):
+  drm/amdkfd: add SPM support for SVM
+  drm/amdkfd: generic type as sys mem on migration to ram
+  include/linux/mm.h: helper to check zone device generic type
+  mm: add generic type support for device zone page migration
+  mm: changes to unref pages with Generic type
+
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 15 +++++++++++----
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.h     |  1 -
+ include/linux/mm.h                       |  8 ++++++++
+ kernel/resource.c                        |  2 +-
+ mm/memremap.c                            |  5 ++++-
+ mm/migrate.c                             | 13 ++++++++-----
+ 6 files changed, 32 insertions(+), 12 deletions(-)
+
 -- 
 2.31.1
 
