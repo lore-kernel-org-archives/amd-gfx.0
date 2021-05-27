@@ -6,65 +6,65 @@ X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3183CC4708A
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A2524C4707F
 	for <amd-gfx@archiver.kernel.org>; Thu, 27 May 2021 20:56:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0267960FEB
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 May 2021 20:56:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0267960FEB
+	by mail.kernel.org (Postfix) with ESMTPS id 6FE4160FEB
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 May 2021 20:56:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6FE4160FEB
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D86A36F4D5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEEC76F4D9;
 	Thu, 27 May 2021 20:56:19 +0000 (UTC)
-Received: from mail-il1-x129.google.com (mail-il1-x129.google.com
- [IPv6:2607:f8b0:4864:20::129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 258A46F4CD;
- Thu, 27 May 2021 20:56:15 +0000 (UTC)
-Received: by mail-il1-x129.google.com with SMTP id k4so1505933ili.4;
- Thu, 27 May 2021 13:56:15 -0700 (PDT)
+Received: from mail-io1-xd36.google.com (mail-io1-xd36.google.com
+ [IPv6:2607:f8b0:4864:20::d36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 565DD6F4D5;
+ Thu, 27 May 2021 20:56:18 +0000 (UTC)
+Received: by mail-io1-xd36.google.com with SMTP id n10so1935902ion.8;
+ Thu, 27 May 2021 13:56:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=cYgArYhWT+z/4+YUOepxn67gZTW6vYNK84K++vMOkHs=;
- b=WRxOTAVFWmz3qY9+B7G7QF3T0vUcUKj5BuW11w3t3c+YM7LvApuzHn5SpFL5cKknQK
- 50XjT3mrje7hY8gFU5USsRQH5OUQPjMcdNBycxXdNSKUQ2r7avtVUMHELPkhFHg0+qjK
- vS02LmYUQ0kZRU+6pWyi5Nd+r24IMUy6r0/FP+HDIMSTZPSnRaoLBlM6z9XCKQawhMca
- bYJSp3x4nnvWYp1EdM7DNHa+IgYfiysxJuk7aRjvf3LjC4n56HAklSK9qxhAHQuCEsI4
- LBVV6RNEzVl6g0FA+bs9YznieTnVI3+pW3ho4olrCIHpaDOkbYqtuorxKkUMunsSG/YM
- SQyQ==
+ bh=k1Ma8e4VgLih51j4GLcjEplAHTajoYpcn4LnehgSpAs=;
+ b=CZdDPQGxmTFwM6p6C4CNikpcwJhyUrQ/DqfYSJYXz9igEti2BxRwt2wzpM9W0nEZ1A
+ YT69TIB+NITXPm8fbOvVveR+VcmJrZs/V8OSHztdvJzviEehdqc3CEsCay+HCbRB7bv0
+ pZoVOuDz5iSHywRywPvdtSJehFXorFXn37M1xOnq+xsCvAoP5vbGRyuCH5ZLlHnCM4q5
+ QBeMQ3U1+cBcg8YZxmpdV+G0SbiaX7SCTHlLU0IggH2yOumBHNBZfwRM5XHj60h8sMfu
+ fUhMF+5kR9Rvt7K9MYKzb+wjP5bTK9e7+mg5HHYI0ZqC5mUmTTpTKXffyjIexSeYo+b4
+ KAlw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=cYgArYhWT+z/4+YUOepxn67gZTW6vYNK84K++vMOkHs=;
- b=HXiQPZM77tGba+KD70VNG+4SQa506HyWMr74jgwh2pIEz2dJLWln4apFHw6WOTsxrU
- XbdeCllacTeI8uURsXXmzpCeQkhvgbHb/UAQMjbyo/WwlN+Gyz7D8HOCszHA1EVXOfvQ
- yLFFQZJkOiiW1ofeBNV8ZnaI91LiBO9URTn/C/3W2c1sptU5Di9eMIQovfmMDDWcnxto
- 71oRsGrGNkKc/+C14rcfkUUznkKuLmcfqcO7fVFZRKq73uBLqClatTX1maWZsHJkOaJY
- fpS4GugWLp5wxGlNyXGgPIRhFTE7PiTVfnew0y8OeI06q66GtlfL/vbk2DzklMYGaQog
- 0FUw==
-X-Gm-Message-State: AOAM530eBBlnAhystLZL+eJJUjuUvGipuhuqKKugXh1kXLOij76YlHn0
- t3vSvKUBCZs/maYpJctJg3wmMHITRnNCzg==
-X-Google-Smtp-Source: ABdhPJzuesr7wky56TrTaKRgKsSaC3GkVDswyJksMURbnn0KyXkg1sF3ojsumAw+QkoirYIsoKj5Fg==
-X-Received: by 2002:a92:cda7:: with SMTP id g7mr4210742ild.50.1622148974142;
- Thu, 27 May 2021 13:56:14 -0700 (PDT)
+ bh=k1Ma8e4VgLih51j4GLcjEplAHTajoYpcn4LnehgSpAs=;
+ b=Eiwr1+IO8s4rlQuIaVqY0MTcAAKFrhCUZcEP78jg0kzCEDsWnHDfXROHd+xnyPz2vR
+ VifCKF2BAVYdO4PuvGpDUSTzHkLGPxxH1fhocGGH6cGuYn9NsyDVBs3O2Qpx3SHmcA3s
+ 7zwMYQYo+bhRyxRmAPv5C2EtFVhdx/SGTPcKwoBDrZDLXyw3XcVF+q+aOuDhkzJUFE68
+ o8dVwVN3t17QCF0j9PVFESq5V7UML7hncHUBX34LiM3luwRj+Cdim5LME9YWpTfbFf0+
+ JCy0LPROKQGayjxL7u+2iB8stZmNyRLSVvEuP+ElgBw3dz/spvK2Fsi0j4e7YHhDwZKt
+ z3lw==
+X-Gm-Message-State: AOAM533LZz6PP7NKUHm8chSGnZISq7vud0lxTECh7ll4JQGi8lqzGSdv
+ vAOFcCY8FJeiZH6u7ZxM/RMinBb66UbJXg==
+X-Google-Smtp-Source: ABdhPJxwoq1pth4gPv4Rv4Zj7JgZlu02ITqu9/GOuwtpWVb9SnoVFOrJ2ciZayfOP8NjF41P8+aQjw==
+X-Received: by 2002:a05:6638:12c5:: with SMTP id
+ v5mr5249627jas.11.1622148977494; 
+ Thu, 27 May 2021 13:56:17 -0700 (PDT)
 Received: from Harpoon.amd.com ([165.204.55.251])
- by smtp.gmail.com with ESMTPSA id b10sm1577265ioz.35.2021.05.27.13.56.13
+ by smtp.gmail.com with ESMTPSA id b10sm1577265ioz.35.2021.05.27.13.56.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 May 2021 13:56:13 -0700 (PDT)
+ Thu, 27 May 2021 13:56:16 -0700 (PDT)
 From: Felix Kuehling <felix.kuehling@gmail.com>
 X-Google-Original-From: Felix Kuehling <Felix.Kuehling@amd.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Subject: [PATCH 05/10] drm/amdkfd: classify and map mixed svm range pages in
- GPU
-Date: Thu, 27 May 2021 16:56:01 -0400
-Message-Id: <20210527205606.2660-5-Felix.Kuehling@amd.com>
+Subject: [PATCH 08/10] drm/amdkfd: add invalid pages debug at vram migration
+Date: Thu, 27 May 2021 16:56:04 -0400
+Message-Id: <20210527205606.2660-8-Felix.Kuehling@amd.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210527205606.2660-1-Felix.Kuehling@amd.com>
 References: <20210527205606.2660-1-Felix.Kuehling@amd.com>
@@ -88,215 +88,40 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Alex Sierra <alex.sierra@amd.com>
 
-[Why]
-svm ranges can have mixed pages from device or system memory.
-A good example is, after a prange has been allocated in VRAM and a
-copy-on-write is triggered by a fork. This invalidates some pages
-inside the prange. Endding up in mixed pages.
-
-[How]
-By classifying each page inside a prange, based on its type. Device or
-system memory, during dma mapping call. If page corresponds
-to VRAM domain, a flag is set to its dma_addr entry for each GPU.
-Then, at the GPU page table mapping. All group of contiguous pages within
-the same type are mapped with their proper pte flags.
-
-v2:
-Instead of using ttm_res to calculate vram pfns in the svm_range. It is now
-done by setting the vram real physical address into drm_addr array.
-This makes more flexible VRAM management, plus removes the need to have
-a BO reference in the svm_range.
-
-v3:
-Remove mapping member from svm_range
+This is for debug purposes only.
+It conditionally generates partial migrations to test mixed
+CPU/GPU memory domain pages in a prange easily.
 
 Signed-off-by: Alex Sierra <alex.sierra@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 72 +++++++++++++++++-----------
- drivers/gpu/drm/amd/amdkfd/kfd_svm.h |  2 +-
- 2 files changed, 46 insertions(+), 28 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 2b4318646a75..7b50395ec377 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -119,11 +119,12 @@ static void svm_range_remove_notifier(struct svm_range *prange)
- }
- 
- static int
--svm_range_dma_map_dev(struct device *dev, dma_addr_t **dma_addr,
-+svm_range_dma_map_dev(struct amdgpu_device *adev, dma_addr_t **dma_addr,
- 		      unsigned long *hmm_pfns, uint64_t npages)
- {
- 	enum dma_data_direction dir = DMA_BIDIRECTIONAL;
- 	dma_addr_t *addr = *dma_addr;
-+	struct device *dev = adev->dev;
- 	struct page *page;
- 	int i, r;
- 
-@@ -141,6 +142,14 @@ svm_range_dma_map_dev(struct device *dev, dma_addr_t **dma_addr,
- 			dma_unmap_page(dev, addr[i], PAGE_SIZE, dir);
- 
- 		page = hmm_pfn_to_page(hmm_pfns[i]);
-+		if (is_zone_device_page(page)) {
-+			addr[i] = (hmm_pfns[i] << PAGE_SHIFT) +
-+				   adev->vm_manager.vram_base_offset -
-+				   adev->kfd.dev->pgmap.range.start;
-+			addr[i] |= SVM_RANGE_VRAM_DOMAIN;
-+			pr_debug("vram address detected: 0x%llx\n", addr[i]);
-+			continue;
-+		}
- 		addr[i] = dma_map_page(dev, page, 0, PAGE_SIZE, dir);
- 		r = dma_mapping_error(dev, addr[i]);
- 		if (r) {
-@@ -175,7 +184,7 @@ svm_range_dma_map(struct svm_range *prange, unsigned long *bitmap,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+index 8a3f21d76915..f71f8d7e2b72 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+@@ -404,6 +404,20 @@ svm_migrate_copy_to_vram(struct amdgpu_device *adev, struct svm_range *prange,
  		}
- 		adev = (struct amdgpu_device *)pdd->dev->kgd;
- 
--		r = svm_range_dma_map_dev(adev->dev, &prange->dma_addr[gpuidx],
-+		r = svm_range_dma_map_dev(adev, &prange->dma_addr[gpuidx],
- 					  hmm_pfns, prange->npages);
- 		if (r)
- 			break;
-@@ -1003,21 +1012,22 @@ svm_range_split_by_granularity(struct kfd_process *p, struct mm_struct *mm,
- }
- 
- static uint64_t
--svm_range_get_pte_flags(struct amdgpu_device *adev, struct svm_range *prange)
-+svm_range_get_pte_flags(struct amdgpu_device *adev, struct svm_range *prange,
-+			int domain)
- {
- 	struct amdgpu_device *bo_adev;
- 	uint32_t flags = prange->flags;
- 	uint32_t mapping_flags = 0;
- 	uint64_t pte_flags;
--	bool snoop = !prange->ttm_res;
-+	bool snoop = (domain != SVM_RANGE_VRAM_DOMAIN);
- 	bool coherent = flags & KFD_IOCTL_SVM_FLAG_COHERENT;
- 
--	if (prange->svm_bo && prange->ttm_res)
-+	if (domain == SVM_RANGE_VRAM_DOMAIN)
- 		bo_adev = amdgpu_ttm_adev(prange->svm_bo->bo->tbo.bdev);
- 
- 	switch (adev->asic_type) {
- 	case CHIP_ARCTURUS:
--		if (prange->svm_bo && prange->ttm_res) {
-+		if (domain == SVM_RANGE_VRAM_DOMAIN) {
- 			if (bo_adev == adev) {
- 				mapping_flags |= coherent ?
- 					AMDGPU_VM_MTYPE_CC : AMDGPU_VM_MTYPE_RW;
-@@ -1032,7 +1042,7 @@ svm_range_get_pte_flags(struct amdgpu_device *adev, struct svm_range *prange)
- 		}
- 		break;
- 	case CHIP_ALDEBARAN:
--		if (prange->svm_bo && prange->ttm_res) {
-+		if (domain == SVM_RANGE_VRAM_DOMAIN) {
- 			if (bo_adev == adev) {
- 				mapping_flags |= coherent ?
- 					AMDGPU_VM_MTYPE_CC : AMDGPU_VM_MTYPE_RW;
-@@ -1061,14 +1071,14 @@ svm_range_get_pte_flags(struct amdgpu_device *adev, struct svm_range *prange)
- 		mapping_flags |= AMDGPU_VM_PAGE_EXECUTABLE;
- 
- 	pte_flags = AMDGPU_PTE_VALID;
--	pte_flags |= prange->ttm_res ? 0 : AMDGPU_PTE_SYSTEM;
-+	pte_flags |= (domain == SVM_RANGE_VRAM_DOMAIN) ? 0 : AMDGPU_PTE_SYSTEM;
- 	pte_flags |= snoop ? AMDGPU_PTE_SNOOPED : 0;
- 
- 	pte_flags |= amdgpu_gem_va_map_flags(adev, mapping_flags);
- 
- 	pr_debug("svms 0x%p [0x%lx 0x%lx] vram %d PTE 0x%llx mapping 0x%x\n",
- 		 prange->svms, prange->start, prange->last,
--		 prange->ttm_res ? 1:0, pte_flags, mapping_flags);
-+		 (domain == SVM_RANGE_VRAM_DOMAIN) ? 1:0, pte_flags, mapping_flags);
- 
- 	return pte_flags;
- }
-@@ -1138,31 +1148,40 @@ svm_range_map_to_gpu(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- {
- 	struct amdgpu_bo_va bo_va;
- 	uint64_t pte_flags;
-+	unsigned long last_start;
-+	int last_domain;
- 	int r = 0;
-+	int64_t i;
- 
- 	pr_debug("svms 0x%p [0x%lx 0x%lx]\n", prange->svms, prange->start,
- 		 prange->last);
- 
--	if (prange->svm_bo && prange->ttm_res) {
-+	if (prange->svm_bo && prange->ttm_res)
- 		bo_va.is_xgmi = amdgpu_xgmi_same_hive(adev, bo_adev);
--		prange->mapping.bo_va = &bo_va;
--	}
- 
--	prange->mapping.start = prange->start;
--	prange->mapping.last = prange->last;
--	prange->mapping.offset = prange->offset;
--	pte_flags = svm_range_get_pte_flags(adev, prange);
-+	last_start = prange->start;
-+	for (i = 0; i < prange->npages; i++) {
-+		last_domain = dma_addr[i] & SVM_RANGE_VRAM_DOMAIN;
-+		if ((prange->start + i) < prange->last &&
-+		    last_domain == (dma_addr[i + 1] & SVM_RANGE_VRAM_DOMAIN))
-+			continue;
- 
--	r = amdgpu_vm_bo_update_mapping(adev, bo_adev, vm, false, false, NULL,
--					prange->mapping.start,
--					prange->mapping.last, pte_flags,
--					prange->mapping.offset,
--					prange->ttm_res ?
--						prange->ttm_res->mm_node : NULL,
--					dma_addr, &vm->last_update);
--	if (r) {
--		pr_debug("failed %d to map to gpu 0x%lx\n", r, prange->start);
--		goto out;
-+		pr_debug("Mapping range [0x%lx 0x%llx] on domain: %s\n",
-+			 last_start, prange->start + i, last_domain ? "GPU" : "CPU");
-+		pte_flags = svm_range_get_pte_flags(adev, prange, last_domain);
-+		r = amdgpu_vm_bo_update_mapping(adev, bo_adev, vm, false, false, NULL,
-+						last_start,
-+						prange->start + i, pte_flags,
-+						prange->offset +
-+						((last_start - prange->start) << PAGE_SHIFT),
-+						NULL,
-+						dma_addr,
-+						&vm->last_update);
-+		if (r) {
-+			pr_debug("failed %d to map to gpu 0x%lx\n", r, prange->start);
-+			goto out;
-+		}
-+		last_start = prange->start + i + 1;
  	}
  
- 	r = amdgpu_vm_update_pdes(adev, vm, false);
-@@ -1176,7 +1195,6 @@ svm_range_map_to_gpu(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 		*fence = dma_fence_get(vm->last_update);
- 
++#ifdef DEBUG_FORCE_MIXED_DOMAINS
++	for (i = 0, j = 0; i < npages; i += 4, j++) {
++		if (j & 1)
++			continue;
++		svm_migrate_put_vram_page(adev, dst[i]);
++		migrate->dst[i] = 0;
++		svm_migrate_put_vram_page(adev, dst[i + 1]);
++		migrate->dst[i + 1] = 0;
++		svm_migrate_put_vram_page(adev, dst[i + 2]);
++		migrate->dst[i + 2] = 0;
++		svm_migrate_put_vram_page(adev, dst[i + 3]);
++		migrate->dst[i + 3] = 0;
++	}
++#endif
  out:
--	prange->mapping.bo_va = NULL;
  	return r;
  }
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-index 08542fe39303..27fbe1936493 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-@@ -35,6 +35,7 @@
- #include "amdgpu.h"
- #include "kfd_priv.h"
- 
-+#define SVM_RANGE_VRAM_DOMAIN (1UL << 0)
- #define SVM_ADEV_PGMAP_OWNER(adev)\
- 			((adev)->hive ? (void *)(adev)->hive : (void *)(adev))
- 
-@@ -113,7 +114,6 @@ struct svm_range {
- 	struct list_head		update_list;
- 	struct list_head		remove_list;
- 	struct list_head		insert_list;
--	struct amdgpu_bo_va_mapping	mapping;
- 	uint64_t			npages;
- 	dma_addr_t			*dma_addr[MAX_GPU_INSTANCE];
- 	struct ttm_resource		*ttm_res;
 -- 
 2.31.1
 
