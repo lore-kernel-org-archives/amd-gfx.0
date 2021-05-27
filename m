@@ -2,124 +2,125 @@ Return-Path: <SRS0=0i2d=KW=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,PDS_BAD_THREAD_QP_64,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 59F02C47089
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 May 2021 06:34:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AC5D7C47089
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 May 2021 07:17:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 10B33613C5
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 May 2021 06:34:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 10B33613C5
+	by mail.kernel.org (Postfix) with ESMTPS id 4013F613D4
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 May 2021 07:17:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4013F613D4
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE8CF6EA37;
-	Thu, 27 May 2021 06:34:39 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2085.outbound.protection.outlook.com [40.107.244.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CBCE6E7DA
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 May 2021 06:34:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF6866E037;
+	Thu, 27 May 2021 07:17:56 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2074.outbound.protection.outlook.com [40.107.223.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0DDE6E037
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 May 2021 07:17:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=h50lfCdW2JHGB0624R9Yn8WRAke2RFZDDmD12egX4S1kLNDglDK9VNl3LpELfJa/eeYbBEzBbyaug7A5FkzjQdQkpqtU89G82Yzfvk1OcKXMxLeciwouCzDuI7d0gFofq5N1BtaU5gF/boE0ulGCrRMN0jBPwDmyyIS5avSs7GgLD96QmZNU9SlJdf7x5HVWtJreP2UJ2D9Zi08zd1hbdXYCCX83mUaR7tyJEUL+FBbjpkzksjZ5mUshcMI8rF7O4O8zKbK4kdDUmaGFZsyR8qttnV7lSisimAbYGXXivaxuDZpsMEvbmWotyef98N4BlsR6ava8NyZKHjOYqJIIzA==
+ b=clV6eAKATYYf/0UOMKq+lMDIzyVV/Un0VAsxFHtHj1QwalO2qcmDvXQ5qyG32AdIlHaEZ1EU1+ZylouSgC1/GeBL3FJ1A3ARTCPrrE0d63GhzxZI7SmgvrKS3nluOo+kwpxNdawN4tkG5dJQoe/H02TPkE6gh42xEG1qXxNUSZdioxACl93aAG40zOi8Kf59z6y179n0SzZcXC4nPHHFkuza+iWjg7lLDQNoSWobwsUZBG0Xbsg+A9RvYP5364vWCGyRtaiIktJuDJfCAN2kaKOxyqsjaP2J6LGw3p+Js7zH+nJloXmPnAujmx9rCu1zU7WUT7zsiE0HKa50tq4lMw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=r+M7BvaZV0EnbOwzQfNcDcuTK9y2L1ho9VqISkqGkD4=;
- b=AAkFqbkls+SuWVgjL5rCIMkdidc8Z0ZzulD2wiQhlk15ZftGCe8x4imLRaQW/948S0pTJbJZUxKwtikCkck/n84PShDwBUHvxQhro4Ge0bBB0iVUhDnAqc0Chom3mrZ9e5OCARmLZo0l7V4wR/UCXlc7gajG/tKFRCaypS0oFqNomyReLdeHkauUW4j8K7yRSNlzjrhmV2mmpQSlcdl/pq7yO4ddw3caIf+3SBmM/BBrDj60gSEs+cM8WAoOk1em1qIcTEHVPbIbnme9536gnNBmgslCN0QIipVweaUwpCrik6C9hAQvr5Wvfago5rcQJMOiJ1c+vrH2RpUAbWaAog==
+ bh=oh3IQDfqBXhqSfA89v1ziBGhLY/ngJ165mZSxQJBnjM=;
+ b=YxhN/zWdb602V8E5PMLnycCsbZqKEzxhEE18KOGURjLQdrrpF9StFiXXpWOULyTNBRLP9iSAcGWsQDA/TMN0tIbvH5p0RHZ/GwqpGKiw+lTOvste0veK+FrQqHIQJMSONkexJdZpT2l1nbNXMqeGy3O5gmsYSJFdlmAZmOosOI4ARrFhkBPzzFoV7pCEMOOx1uVSofQ62XR2XH38HC3Rp7+tU+NkPAFcRghataiETzP4kClMHoJ407o39V0QO+bNLYZwrmy5lR4AhPn+npMna39XxTddVybzdUf2sZVlumzv8m4s+k3Hw++Y35YNQyNMSFWYaN9fRL38lIOdAP//7w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=r+M7BvaZV0EnbOwzQfNcDcuTK9y2L1ho9VqISkqGkD4=;
- b=qwXwjWnMWivJG5xIqcZGPPFiWTFnueoXUKJDOJJv5nmvOe9nT/6zvU7DZ8U2AFGBIVwghaaesohdw/432SSjPYK0fmJG52EdfjPISBPfgUbZcJWCOF0eas4as1xJsZtJi589fAKR4l21aDDiLfFGuc8CUqUfsSVXERZVn1v2grw=
-Received: from CH0PR12MB5348.namprd12.prod.outlook.com (2603:10b6:610:d7::9)
- by CH0PR12MB5124.namprd12.prod.outlook.com (2603:10b6:610:bf::20) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=oh3IQDfqBXhqSfA89v1ziBGhLY/ngJ165mZSxQJBnjM=;
+ b=KvRzl3RqlhAsCcGzD0dPi3Q12HTHv8j+W1HH5vduAKkMFy/+6mdFAZQWuSgIZ91rp+GqiOP3fsemdA6+uP9MH5um9ZgifCQovsx+gdyK2/xB0hM/CpTVvFYojwzoIal3vqOdgbgtyOZwHAALNjwiNPy3+tOipq4ZN/zZuuqG/ek=
+Received: from BYAPR12MB4759.namprd12.prod.outlook.com (2603:10b6:a03:9d::16)
+ by BY5PR12MB4227.namprd12.prod.outlook.com (2603:10b6:a03:206::21)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4173.21; Thu, 27 May
- 2021 06:34:35 +0000
-Received: from CH0PR12MB5348.namprd12.prod.outlook.com
- ([fe80::9c3:508d:5340:8efd]) by CH0PR12MB5348.namprd12.prod.outlook.com
- ([fe80::9c3:508d:5340:8efd%6]) with mapi id 15.20.4173.021; Thu, 27 May 2021
- 06:34:35 +0000
-From: "Lazar, Lijo" <Lijo.Lazar@amd.com>
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 2/2] drm/amdgpu/acpi: make ATPX/ATCS structures global (v2)
-Thread-Topic: [PATCH 2/2] drm/amdgpu/acpi: make ATPX/ATCS structures global
- (v2)
-Thread-Index: AQHXUjgvel6R8sS9t0Kssl3xdexwlar2y6IA
-Date: Thu, 27 May 2021 06:34:35 +0000
-Message-ID: <CH0PR12MB5348DE08B3D60E0AD4880B6A97239@CH0PR12MB5348.namprd12.prod.outlook.com>
-References: <20210526140503.1541686-1-alexander.deucher@amd.com>
- <20210526140503.1541686-2-alexander.deucher@amd.com>
-In-Reply-To: <20210526140503.1541686-2-alexander.deucher@amd.com>
+ 2021 07:17:50 +0000
+Received: from BYAPR12MB4759.namprd12.prod.outlook.com
+ ([fe80::510c:c457:aeaf:e71c]) by BYAPR12MB4759.namprd12.prod.outlook.com
+ ([fe80::510c:c457:aeaf:e71c%3]) with mapi id 15.20.4173.021; Thu, 27 May 2021
+ 07:17:50 +0000
+From: "Li, Xin (Justin)" <Xin2.Li@amd.com>
+To: "Liu, Monk" <Monk.Liu@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/amdgpu: Fix Gstreamer api vaapih264enc missing
+Thread-Topic: [PATCH] drm/amdgpu: Fix Gstreamer api vaapih264enc missing
+Thread-Index: AQHXUhe/YOz3+Ry/6Uu5dUE49mCC4qr2cacAgAB54Yw=
+Date: Thu, 27 May 2021 07:17:50 +0000
+Message-ID: <BYAPR12MB4759A953391A086672B58D43BB239@BYAPR12MB4759.namprd12.prod.outlook.com>
+References: <20210526101310.1872892-1-xin2.li@amd.com>,
+ <BL1PR12MB52692DDE6DC4D82AEB5E4A6784249@BL1PR12MB5269.namprd12.prod.outlook.com>
+In-Reply-To: <BL1PR12MB52692DDE6DC4D82AEB5E4A6784249@BL1PR12MB5269.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-05-27T06:32:35Z; 
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP 2.0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=fcbf597a-7fb3-4d56-b36a-575ae41b2680;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-05-26T23:57:42.0000000Z;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
+ Official Use Only-AIP
+ 2.0; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard
 authentication-results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [165.204.159.242]
+x-originating-ip: [165.204.134.244]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: c9e1aad0-e3af-4a6b-0c9e-08d920d97e96
-x-ms-traffictypediagnostic: CH0PR12MB5124:
+x-ms-office365-filtering-correlation-id: 655017df-af34-42e8-999b-08d920df8988
+x-ms-traffictypediagnostic: BY5PR12MB4227:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <CH0PR12MB512471450C5A695E3D01ADFD97239@CH0PR12MB5124.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:1443;
+x-microsoft-antispam-prvs: <BY5PR12MB42274F7E1BF276DCE47F0120BB239@BY5PR12MB4227.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:478;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: upA5/BVm3RWFm9Jfn9y8DGjTJlDxk6+65Kf4UDEYvpmrPlgOdda5KD0lwdiAj8jHlU3ql0aEi5aUbl2MU5tDhTbi+gH/MILxtq1wzwzqATQJPNtN8FTiKDm78jha7zHhZQDJwLjU6ZVvhHYE8Uj45uGnT8S6ZXR9ypaLkx6Pn+kLD+pkME+mDHvJ7pi+yge45XgS9H+dykJbRgjZo74fVBYfFNQLv/YffK4U3cejZyPL6HGeCg8SNCZVSRexDdx/QdXVid7eLdeK7pM4zZVVetA2jOirEMuUp5QZrDsCHr8k5rREjNnANbRqu40sOn5uo3CZVKYKvBFe2UHW0ScBPS1mL7xIai188Ct7XUElXmyx+H3x+vjYCeKF+EGWJqGg82LWgj+sXssBRmz1uTPViSTzOXEtuvSOKJ/BE0AvdhWhq11sESh4IhLJGyGz0MRMVJDrFmZF35ygGqHE4FcxZFc2okD2BTwWUtK4jq5KIGFru1+Bg45DUdLxGRGfMsSUGNLttM5GuzvAmPuQVhlEJhMdUeJk3rwBA2nhyT+uPkWrFhwh27EUOKEj+g11rZ3qfrYGwoqPjESFd24QkTo09/IQOY6F0Ga3YDpyCwKcK0XAyW2OLXEy2cIniZ4zmRK1vh+JCmr/AymYTwaw2aiSwzfigHJ0QWXI2Rz2IZgeL2S7erROtPsgI1aZMCa1Z4IU
+x-microsoft-antispam-message-info: ZNFvOsHGqomXAkwYpRdxYWis0bv7Nk+QDM7YM3iKPdHz1sbtiKVSPIR4k+IJ8zqO2VK6eOo0e1vIPnx/XR1HtogkVli/YYhOVXNiQMog88RqLcMmCVzrIWu21otWSEdy0xcxDwcqFFa1GHiKEn6q4/e3gfqAOeEBbq/W0GB/3AZQS0m7/IEITDmYRn+Q0Nx2ptPHqas9gB7HqMljpyaDKHnRuD3mdJZerdKzDpRVIbVZM4XyWRW/A2WagBj6v04c7xntJV4xGbJiciQFs3I8XKNuv8dDxfydGmu04YBzfi48G0ceLO2+h25T2SU1uUCMa857QhdjjSwJVBSNOFGOs9ycCebuaKiB/va2MS43QEv3SAJI08ASMzVLZxe2kclhR/j33tILaGL9WtWh2tKma8I58/tljwGLk5L1NcvG39T4Jd/UO5FPDsTfqRAZqJZ2cEBiLMATPlXOpad9XxPGNgfcPe3sIykwI1Tst3w6TsZ5zPVE2Yo1VbVuO+orjIbonAmj3hhzPaZP9ztRxsNRC3RdSwuMFDoogebZoAJzBogf23pvSXe7vWFC3JvoLgET4Y4EyEUb4DmpCzwIPObj7O0/sNWjDJS1THJi2xUU+4+0jgDozBt03SsJZFFpAgZ/qVBVZ8z2DEkTfcKqWPYXWA==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH0PR12MB5348.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(346002)(39860400002)(396003)(366004)(136003)(86362001)(186003)(966005)(478600001)(55016002)(66446008)(83380400001)(66556008)(122000001)(6506007)(66946007)(66476007)(64756008)(52536014)(53546011)(76116006)(38100700002)(7696005)(8676002)(8936002)(71200400001)(33656002)(9686003)(2906002)(110136005)(316002)(30864003)(45080400002)(5660300002)(26005)(4326008)(21314003);
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB4759.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(376002)(39860400002)(366004)(346002)(136003)(396003)(186003)(38100700002)(54906003)(6506007)(7696005)(26005)(33656002)(122000001)(53546011)(55016002)(71200400001)(86362001)(110136005)(52536014)(4326008)(76116006)(66446008)(8676002)(64756008)(66476007)(66556008)(5660300002)(166002)(9686003)(66946007)(8936002)(2906002)(91956017)(316002)(83380400001)(45080400002)(966005)(478600001);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?o0r9VVdOqky4jK1dhJ7tCSb6FaVl2ZS1cc/MdOe3YzljPTQY63bxVUZJLXKq?=
- =?us-ascii?Q?ODt2wmzPu6QsJi0tGuRhvb9+1HusaOtwcrXTFOGF6MrfjyGmLEqvQ1Ap4FJN?=
- =?us-ascii?Q?kLNOXP8LHJlAijzypNT6yrVL3tu5guTHdtkh9vqUdtncN8z6LyX5YsM4NEnP?=
- =?us-ascii?Q?/2wqneFPSWL4qN3nwIT7NoDbxYDx7tfdaKy0h5dgXv54Zcgu0mfvGXerKkHY?=
- =?us-ascii?Q?Ck1HmDbRuYfCwJf0tmGY8/TUIvm35xy8nJ+LEGNDm7ASF18p/7NndMrG/8bw?=
- =?us-ascii?Q?Qi9kwmEI4oEqeA4NwM5R0g7x7maGxyRQnA9cR+aWczWLAPPdNAT8W/7jkvZl?=
- =?us-ascii?Q?CJCJhBw+PZj4FJBpC1TmmCZ+0HEdch2KBZ6qPLMT3uYGn5dqp+hpuUDIJmwn?=
- =?us-ascii?Q?P/tJz9DWccOfl4WnBQVcX6xNRjL8RbsmQj2v4JhNuRcp4efRAhneSzLhrJ6H?=
- =?us-ascii?Q?G9nzVewimezRKk9aPnjPg5flZyohUVwL/c1/ai2GJn4Cm7ovBS+f7gKiHTw8?=
- =?us-ascii?Q?UpfkhwPkGrHsueWwHVXZXOp2Tju3jOm83ekZJDkyCSO87qAWHloUw5GHOv7W?=
- =?us-ascii?Q?lSMMum+qVjbW8ef8ZLcm31Nv1t0vR7BEk7RYEYfTVQdqohtn5jV51DrRV/qG?=
- =?us-ascii?Q?ffsrIY7QBnR33syIeMQiwPsHvp7Z1lYTINWzLqZ4lRQtnV/FWskknKQRYSbz?=
- =?us-ascii?Q?3UVXF4zkqTzIN79XikdzyNaAWSDubsks9az2DEuziSWuSrhFf2xrlBE78+en?=
- =?us-ascii?Q?fMIbVkoH18lIhsxPaOshRK7U3yc4Ju+Qm6WD8rPr+3hs2WTGl9mbTjQkDREi?=
- =?us-ascii?Q?Viw0fipx/TmNEmNEcRp2u+meEJFiqygv8zP8ESBIhF+VZsGVcLM17w2lS9Dw?=
- =?us-ascii?Q?yT3+FU3j8xzV/rFgoXHrr2KEjAtuxr/dPONXT3Q70e/ANRcN2OqR/t/57E/Y?=
- =?us-ascii?Q?JZASmgy/UkizGa/jjt5Bi5GGz7+i45YKUtBGuIwGk1bVPfLncN8zrtgvCfI9?=
- =?us-ascii?Q?yl/bFKEZdpnozWVOBaU6gazqfyDI+bRmEoJw8RyGYYZ+qtgcB+4HwBdJUlyd?=
- =?us-ascii?Q?BBuXEOvweync24+xzVl518AJQWfsR3j9n1lvvyqAR3LEp1yWZYfB38oITVlg?=
- =?us-ascii?Q?O8QwAjH5Unj5VwZj0eMjw0HTWYEDl8VQXQxp/1RXU6qDc6PImS3ilgULqRWR?=
- =?us-ascii?Q?sms3WII/os3KEzx1q/3iSkM4pufb2BlmgWMM5z82grctbLkcIqyVcr7RFYaB?=
- =?us-ascii?Q?M1k87P2Gxd3OQbdTdE1j+JMGK66LMkcANWEj7tXUGKTosIshkhRi1yRv/S9U?=
- =?us-ascii?Q?IaVb4OV3S5jnu5vZHjfIIjaB?=
+x-ms-exchange-antispam-messagedata: =?Windows-1252?Q?gPN2g2GeKPvgWC4E7XxrmPW1YnvfZ3Cgn4c4eGDzwlef3aFTYXd+P6j7?=
+ =?Windows-1252?Q?l7o3BjpX9tVa+D6aQJz1Smbto0hHFCVBXEanO8ztdbJ0kqUlX39ycuf/?=
+ =?Windows-1252?Q?HpPYNd4sDAG8QEOEfGEoNQ020BnTzd6ROVYKMv7cWc5+sS+p1X7xXTli?=
+ =?Windows-1252?Q?BkwZr62dLBOpe7VomxSVWD9E9RKlWqkaKb0p6v7jGbxupibTeY27qPyA?=
+ =?Windows-1252?Q?WDrLliXG3Cuytvg1nNH4Z3eaTaOpos084rlkkiiCS01JiptUDF8Lflk+?=
+ =?Windows-1252?Q?5YlAJgWDkJtG5584dK6HAgdQGsAFDGfAZuE+e4W3W5gKQO/zng9AmXlZ?=
+ =?Windows-1252?Q?Exgx5FySrsKuejWrvR7cLj8d/d+Z1LybS9VPl1qA4fHQtBgpDdFBH+I4?=
+ =?Windows-1252?Q?6dGkjl/Fm+6FQGBSFzK0946LqhQsr9sMFwBSOgg+jo7QZOJwGs06Q89T?=
+ =?Windows-1252?Q?hiMeKLF9GPMWmvO1R9HofThl8rBbJU0TR4vynJIw/TBIl2eouRfxEXeV?=
+ =?Windows-1252?Q?mlNVW9nz9VRq9OWy/EkH5VjuaSx/5Z6j1PAI4AruTKoWVla6wuhQ9AMe?=
+ =?Windows-1252?Q?/Ki0oxOiKSVOAwbn4wte4eXR37PgBbEbfeli3HnMz0uAOstwZxWHRSNN?=
+ =?Windows-1252?Q?HvKjeeX1WunKGHXTlIF81tslOlaVls1iZm2PWwZtyfv8eJHPYWze5LGV?=
+ =?Windows-1252?Q?mYi1uq4U1pQ2eZKaBVirTVxX3Lk5MD3AzGSPasS5YOTo2YYGWXwP5jp/?=
+ =?Windows-1252?Q?MI2I40/s8GAIdl/gdTdargbU4pNc0eYFfxlRoF/QFYUJzwEa5NbbXSQ4?=
+ =?Windows-1252?Q?FxAWPF+bXTmLsiT9Z5t42kfpPJ9GIwgr208xtuRuB3GCVJ8gSjtiCBYN?=
+ =?Windows-1252?Q?/sbgHocpLu0AH7T/8Yxqcub3/J1k9u7e7RJVoJu8Kdx+p0YlexuEkB5f?=
+ =?Windows-1252?Q?T83L6Mqrnn20GsSboWcDLFsAymfvcmI5xP12R3JP4SzvvdrolSe0PkcP?=
+ =?Windows-1252?Q?wZRqxGvwPS6C76Zykc8IMLI2ddtPMrafmDrJoOmS+dMi0OiL5bbKPQw2?=
+ =?Windows-1252?Q?WNDto1IyehrJOPZ1gtq7UByNJnHPmqfdZoaK/JTsI+6INoIsj3qfm503?=
+ =?Windows-1252?Q?ZN2HV9rrQvkXo/Zd8sIgS0gAHlGuAgR/xpInwoda8wLdY/Zo9dZMRa4z?=
+ =?Windows-1252?Q?ng3Neo4fNplCVPU6mNnlygp9p2ufq49W/jCvnGdyabgxPz0NH17jIqfi?=
+ =?Windows-1252?Q?rxjaJ+8sEvJPp4jDZyFn1rMnpNVHibtfLhjvTvwtKIs4X4APJ5/BzxbO?=
+ =?Windows-1252?Q?9WE2deYEj3vJZ08skLLbXCVywmZ8c5ilOuieqUPk1D9Qxen8s9J5MjP6?=
+ =?Windows-1252?Q?3Yt0rJxXoRFvHKGtasJIT71SKcsMjX9I1zNKVGur5tYbneMd/8HK9ZKy?=
+ =?Windows-1252?Q?DHIJsghwUiariHTHkaJg7w=3D=3D?=
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5348.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c9e1aad0-e3af-4a6b-0c9e-08d920d97e96
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 May 2021 06:34:35.1379 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4759.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 655017df-af34-42e8-999b-08d920df8988
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 May 2021 07:17:50.5073 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: xJ5Da1F+ny9zFRqAMe68sBbewKqsGqzF3ZeYLGSUeirbmlzSADbb93+hpacNBsYG
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5124
+X-MS-Exchange-CrossTenant-userprincipalname: E0WrqZy+yAhVMXg/I865k6phg4PYe+RsQZiD0Qvu5iMBjrXVlZKm0cOH8QjofsR7
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4227
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,461 +132,524 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Min,
+ Frank" <Frank.Min@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>
+Content-Type: multipart/mixed; boundary="===============1306425047=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
+--===============1306425047==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BYAPR12MB4759A953391A086672B58D43BB239BYAPR12MB4759namp_"
 
-Series is 
+--_000_BYAPR12MB4759A953391A086672B58D43BB239BYAPR12MB4759namp_
+Content-Type: text/plain; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+Hi, friends.
 
+My apologize for this patch.
+
+I=92ve ported this patch from another branch to fix gstreamer=92s lack of =
+=93vaapi264enc=94, currently this ported patch did fix that issue. However,=
+ since this patch is ported from another branch, I might need to do some al=
+ternations and audits mainly in its commit messages. I will file another re=
+view right after my fixes.
+
+Thank you all for you time.
+
+BR,
+Justin
+
+From: Liu, Monk <Monk.Liu@amd.com>
+Date: Thursday, May 27, 2021 at 07:57
+To: Li, Xin (Justin) <Xin2.Li@amd.com>, amd-gfx@lists.freedesktop.org <amd-=
+gfx@lists.freedesktop.org>
+Cc: Li, Xin (Justin) <Xin2.Li@amd.com>, Deucher, Alexander <Alexander.Deuch=
+er@amd.com>, Min, Frank <Frank.Min@amd.com>, Koenig, Christian <Christian.K=
+oenig@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: Fix Gstreamer api vaapih264enc missing
+[AMD Official Use Only]
+
+Looks it lack enough background for people to review:
+
+
+-                       if (adev->vcn.inst[i].ring_dec.sched.ready)
++                       if (adev->vcn.inst[i].ring_dec.sched.ready ||
++                               (adev->asic_type =3D=3D CHIP_NAVI12 &&
++                               amdgpu_sriov_vf(adev)))
+                                 ++num_rings;
+
+[ml] why for SRIOV navi12 is forced to have those DEC rings ? since  SRIOV =
+navi12 have no decode capability , any explain here ?
+
+
+-               if (amdgpu_is_tmz(adev))
+-                       dev_info->ids_flags |=3D AMDGPU_IDS_FLAGS_TMZ;
+[ML] why this is removed ? is it related to your issue ?
+
+
+Thanks
+
+------------------------------------------
+Monk Liu | Cloud-GPU Core team
+------------------------------------------
 
 -----Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex Deucher
-Sent: Wednesday, May 26, 2021 7:35 PM
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Li, Xin =
+(Justin)
+Sent: Wednesday, May 26, 2021 6:13 PM
 To: amd-gfx@lists.freedesktop.org
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-Subject: [PATCH 2/2] drm/amdgpu/acpi: make ATPX/ATCS structures global (v2)
+Cc: Li, Xin (Justin) <Xin2.Li@amd.com>; Deucher, Alexander <Alexander.Deuch=
+er@amd.com>; Min, Frank <Frank.Min@amd.com>; Koenig, Christian <Christian.K=
+oenig@amd.com>
+Subject: [PATCH] drm/amdgpu: Fix Gstreamer api vaapih264enc missing
 
-They are global ACPI methods, so maybe the structures global in the driver. This simplified a number of things in the handling of these methods.
+since vcn decoding ring is not required, so just disable it.
 
-v2: reset the handle if verify interface fails (Lijo)
-
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: Alex.Deucher <alexander.deucher@amd.com>
+Cc: Christian.Konig <christian.koenig@amd.com>
+Signed-off-by: Li.Xin.Justin <xin2.li@amd.com>
+Signed-off-by: Frank.Min <Frank.Min@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   9 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c      | 288 ++++++++----------
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |   1 +
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   2 +-
- 4 files changed, 139 insertions(+), 161 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c |  6 +++---
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c   | 25 ++++++++++++++-----------
+ 2 files changed, 17 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index c759d5a8a3a0..2c063c550101 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -268,8 +268,6 @@ struct amdgpu_job;
- struct amdgpu_irq_src;
- struct amdgpu_fpriv;
- struct amdgpu_bo_va_mapping;
--struct amdgpu_atif;
--struct amdgpu_atcs;
- struct kfd_vm_fault_info;
- struct amdgpu_hive_info;
- struct amdgpu_reset_context;
-@@ -812,8 +810,6 @@ struct amdgpu_device {
- 	struct notifier_block		acpi_nb;
- 	struct amdgpu_i2c_chan		*i2c_bus[AMDGPU_MAX_I2C_BUS];
- 	struct debugfs_blob_wrapper     debugfs_vbios_blob;
--	struct amdgpu_atif		*atif;
--	struct amdgpu_atcs		*atcs;
- 	struct mutex			srbm_mutex;
- 	/* GRBM index mutex. Protects concurrent access to GRBM index */
- 	struct mutex                    grbm_idx_mutex;
-@@ -1348,13 +1344,14 @@ int amdgpu_acpi_pcie_performance_request(struct amdgpu_device *adev,
- 						u8 perf_req, bool advertise);
- int amdgpu_acpi_pcie_notify_device_ready(struct amdgpu_device *adev);
- 
--void amdgpu_acpi_get_backlight_caps(struct amdgpu_device *adev,
--		struct amdgpu_dm_backlight_caps *caps);
-+void amdgpu_acpi_get_backlight_caps(struct amdgpu_dm_backlight_caps 
-+*caps);
- bool amdgpu_acpi_is_s0ix_supported(struct amdgpu_device *adev);
-+void amdgpu_acpi_detect(void);
- #else
- static inline int amdgpu_acpi_init(struct amdgpu_device *adev) { return 0; }  static inline void amdgpu_acpi_fini(struct amdgpu_device *adev) { }  static inline bool amdgpu_acpi_is_s0ix_supported(struct amdgpu_device *adev) { return false; }
-+void amdgpu_acpi_detect(void) { }
- #endif
- 
- int amdgpu_cs_find_mapping(struct amdgpu_cs_parser *parser, diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-index df216d12c507..5caa54ed6662 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-@@ -85,6 +85,11 @@ struct amdgpu_atcs {
- 	struct amdgpu_atcs_functions functions;  };
- 
-+static struct amdgpu_acpi_priv {
-+	struct amdgpu_atif atif;
-+	struct amdgpu_atcs atcs;
-+} amdgpu_acpi_priv;
-+
- /* Call the ATIF method
-  */
- /**
-@@ -221,62 +226,6 @@ static int amdgpu_atif_verify_interface(struct amdgpu_atif *atif)
- 	return err;
- }
- 
--static acpi_handle amdgpu_atif_probe_handle(acpi_handle dhandle) -{
--	acpi_handle handle = NULL;
--	char acpi_method_name[255] = { 0 };
--	struct acpi_buffer buffer = { sizeof(acpi_method_name), acpi_method_name };
--	acpi_status status;
--
--	/* For PX/HG systems, ATIF and ATPX are in the iGPU's namespace, on dGPU only
--	 * systems, ATIF is in the dGPU's namespace.
--	 */
--	if (amdgpu_has_atpx()) {
--		status = acpi_get_handle(amdgpu_atpx_get_dhandle(), "ATIF",
--					 &handle);
--		if (ACPI_SUCCESS(status))
--			goto out;
--	}
--	status = acpi_get_handle(dhandle, "ATIF", &handle);
--	if (ACPI_SUCCESS(status))
--		goto out;
--
--	DRM_DEBUG_DRIVER("No ATIF handle found\n");
--	return NULL;
--out:
--	acpi_get_name(handle, ACPI_FULL_PATHNAME, &buffer);
--	DRM_DEBUG_DRIVER("Found ATIF handle %s\n", acpi_method_name);
--	return handle;
--}
--
--static acpi_handle amdgpu_atcs_probe_handle(acpi_handle dhandle) -{
--	acpi_handle handle = NULL;
--	char acpi_method_name[255] = { 0 };
--	struct acpi_buffer buffer = { sizeof(acpi_method_name), acpi_method_name };
--	acpi_status status;
--
--	/* For PX/HG systems, ATCS and ATPX are in the iGPU's namespace, on dGPU only
--	 * systems, ATIF is in the dGPU's namespace.
--	 */
--	if (amdgpu_has_atpx()) {
--		status = acpi_get_handle(amdgpu_atpx_get_dhandle(), "ATCS",
--					 &handle);
--		if (ACPI_SUCCESS(status))
--			goto out;
--	}
--	status = acpi_get_handle(dhandle, "ATCS", &handle);
--	if (ACPI_SUCCESS(status))
--		goto out;
--
--	DRM_DEBUG_DRIVER("No ATCS handle found\n");
--	return NULL;
--out:
--	acpi_get_name(handle, ACPI_FULL_PATHNAME, &buffer);
--	DRM_DEBUG_DRIVER("Found ATCS handle %s\n", acpi_method_name);
--	return handle;
--}
--
- /**
-  * amdgpu_atif_get_notification_params - determine notify configuration
-  *
-@@ -455,7 +404,7 @@ static int amdgpu_atif_get_sbios_requests(struct amdgpu_atif *atif,  static int amdgpu_atif_handler(struct amdgpu_device *adev,
- 			       struct acpi_bus_event *event)  {
--	struct amdgpu_atif *atif = adev->atif;
-+	struct amdgpu_atif *atif = &amdgpu_acpi_priv.atif;
- 	int count;
- 
- 	DRM_DEBUG_DRIVER("event, device_class = %s, type = %#x\n", @@ -465,8 +414,7 @@ static int amdgpu_atif_handler(struct amdgpu_device *adev,
- 		return NOTIFY_DONE;
- 
- 	/* Is this actually our event? */
--	if (!atif ||
--	    !atif->notification_cfg.enabled ||
-+	if (!atif->notification_cfg.enabled ||
- 	    event->type != atif->notification_cfg.command_code) {
- 		/* These events will generate keypresses otherwise */
- 		if (event->type == ACPI_VIDEO_NOTIFY_PROBE) @@ -643,10 +591,8 @@ static int amdgpu_atcs_verify_interface(struct amdgpu_atcs *atcs)
-  */
- bool amdgpu_acpi_is_pcie_performance_request_supported(struct amdgpu_device *adev)  {
--	struct amdgpu_atcs *atcs = adev->atcs;
-+	struct amdgpu_atcs *atcs = &amdgpu_acpi_priv.atcs;
- 
--	if (!atcs)
--		return false;
- 	if (atcs->functions.pcie_perf_req && atcs->functions.pcie_dev_rdy)
- 		return true;
- 
-@@ -665,10 +611,8 @@ bool amdgpu_acpi_is_pcie_performance_request_supported(struct amdgpu_device *ade  int amdgpu_acpi_pcie_notify_device_ready(struct amdgpu_device *adev)  {
- 	union acpi_object *info;
--	struct amdgpu_atcs *atcs = adev->atcs;
-+	struct amdgpu_atcs *atcs = &amdgpu_acpi_priv.atcs;
- 
--	if (!atcs)
--		return -EINVAL;
- 	if (!atcs->functions.pcie_dev_rdy)
- 		return -EINVAL;
- 
-@@ -696,16 +640,13 @@ int amdgpu_acpi_pcie_performance_request(struct amdgpu_device *adev,
- 					 u8 perf_req, bool advertise)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_kms.c
+index 524e4fe5efe8..614e6b06e94e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -427,7 +427,9 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *adev=
+,
+                         if (adev->uvd.harvest_config & (1 << i))
+                                 continue;
+
+-                       if (adev->vcn.inst[i].ring_dec.sched.ready)
++                       if (adev->vcn.inst[i].ring_dec.sched.ready ||
++                               (adev->asic_type =3D=3D CHIP_NAVI12 &&
++                               amdgpu_sriov_vf(adev)))
+                                 ++num_rings;
+                 }
+                 ib_start_alignment =3D 16;
+@@ -770,8 +772,6 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *dat=
+a, struct drm_file *filp)
+                         dev_info->ids_flags |=3D AMDGPU_IDS_FLAGS_FUSION;
+                 if (amdgpu_mcbp || amdgpu_sriov_vf(adev))
+                         dev_info->ids_flags |=3D AMDGPU_IDS_FLAGS_PREEMPTI=
+ON;
+-               if (amdgpu_is_tmz(adev))
+-                       dev_info->ids_flags |=3D AMDGPU_IDS_FLAGS_TMZ;
+
+                 vm_size =3D adev->vm_manager.max_pfn * AMDGPU_GPU_PAGE_SIZ=
+E;
+                 vm_size -=3D AMDGPU_VA_RESERVED_SIZE;
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c b/drivers/gpu/drm/amd/am=
+dgpu/vcn_v2_0.c
+index 8af567c546db..dc8a36766c4a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
+@@ -220,17 +220,20 @@ static int vcn_v2_0_hw_init(void *handle)
  {
- 	union acpi_object *info;
--	struct amdgpu_atcs *atcs = adev->atcs;
-+	struct amdgpu_atcs *atcs = &amdgpu_acpi_priv.atcs;
- 	struct atcs_pref_req_input atcs_input;
- 	struct atcs_pref_req_output atcs_output;
- 	struct acpi_buffer params;
- 	size_t size;
- 	u32 retry = 3;
- 
--	if (!atcs)
--		return -EINVAL;
+         struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
+         struct amdgpu_ring *ring =3D &adev->vcn.inst->ring_dec;
+-       int i, r;
++       int i, r =3D -1;
+
+         adev->nbio.funcs->vcn_doorbell_range(adev, ring->use_doorbell,
+                                              ring->doorbell_index, 0);
+
+-       if (amdgpu_sriov_vf(adev))
++       if (amdgpu_sriov_vf(adev)) {
+                 vcn_v2_0_start_sriov(adev);
 -
- 	if (amdgpu_acpi_pcie_notify_device_ready(adev))
- 		return -EINVAL;
- 
-@@ -802,37 +743,7 @@ static int amdgpu_acpi_event(struct notifier_block *nb,
-  */
- int amdgpu_acpi_init(struct amdgpu_device *adev)  {
--	acpi_handle handle, atif_handle, atcs_handle;
--	struct amdgpu_atif *atif;
--	struct amdgpu_atcs *atcs;
--	int ret = 0;
--
--	/* Get the device handle */
--	handle = ACPI_HANDLE(&adev->pdev->dev);
--
--	if (!adev->bios || !handle)
--		return ret;
--
--	/* Probe for ATIF, and initialize it if found */
--	atif_handle = amdgpu_atif_probe_handle(handle);
--	if (!atif_handle)
--		goto atcs;
--
--	atif = kzalloc(sizeof(*atif), GFP_KERNEL);
--	if (!atif) {
--		DRM_WARN("Not enough memory to initialize ATIF\n");
--		goto atcs;
--	}
--	atif->handle = atif_handle;
--
--	/* Call the ATIF method */
--	ret = amdgpu_atif_verify_interface(atif);
--	if (ret) {
--		DRM_DEBUG_DRIVER("Call to ATIF verify_interface failed: %d\n", ret);
--		kfree(atif);
--		goto atcs;
--	}
--	adev->atif = atif;
-+	struct amdgpu_atif *atif = &amdgpu_acpi_priv.atif;
- 
- #if defined(CONFIG_BACKLIGHT_CLASS_DEVICE) || defined(CONFIG_BACKLIGHT_CLASS_DEVICE_MODULE)
- 	if (atif->notifications.brightness_change) { @@ -862,6 +773,129 @@ int amdgpu_acpi_init(struct amdgpu_device *adev)
- 		}
- 	}
- #endif
-+	adev->acpi_nb.notifier_call = amdgpu_acpi_event;
-+	register_acpi_notifier(&adev->acpi_nb);
-+
-+	return 0;
-+}
-+
-+void amdgpu_acpi_get_backlight_caps(struct amdgpu_dm_backlight_caps 
-+*caps) {
-+	struct amdgpu_atif *atif = &amdgpu_acpi_priv.atif;
-+
-+	caps->caps_valid = atif->backlight_caps.caps_valid;
-+	caps->min_input_signal = atif->backlight_caps.min_input_signal;
-+	caps->max_input_signal = atif->backlight_caps.max_input_signal;
-+}
-+
-+/**
-+ * amdgpu_acpi_fini - tear down driver acpi support
-+ *
-+ * @adev: amdgpu_device pointer
-+ *
-+ * Unregisters with the acpi notifier chain (all asics).
-+ */
-+void amdgpu_acpi_fini(struct amdgpu_device *adev) {
-+	unregister_acpi_notifier(&adev->acpi_nb);
-+}
-+
-+/**
-+ * amdgpu_atif_pci_probe_handle - look up the ATIF handle
-+ *
-+ * @pdev: pci device
-+ *
-+ * Look up the ATIF handles (all asics).
-+ * Returns true if the handle is found, false if not.
-+ */
-+static bool amdgpu_atif_pci_probe_handle(struct pci_dev *pdev) {
-+	char acpi_method_name[255] = { 0 };
-+	struct acpi_buffer buffer = {sizeof(acpi_method_name), acpi_method_name};
-+	acpi_handle dhandle, atif_handle;
-+	acpi_status status;
-+	int ret;
-+
-+	dhandle = ACPI_HANDLE(&pdev->dev);
-+	if (!dhandle)
-+		return false;
-+
-+	status = acpi_get_handle(dhandle, "ATIF", &atif_handle);
-+	if (ACPI_FAILURE(status)) {
-+		return false;
-+	}
-+	amdgpu_acpi_priv.atif.handle = atif_handle;
-+	acpi_get_name(amdgpu_acpi_priv.atif.handle, ACPI_FULL_PATHNAME, &buffer);
-+	DRM_DEBUG_DRIVER("Found ATIF handle %s\n", acpi_method_name);
-+	ret = amdgpu_atif_verify_interface(&amdgpu_acpi_priv.atif);
-+	if (ret) {
-+		amdgpu_acpi_priv.atif.handle = 0;
-+		return false;
-+	}
-+	return true;
-+}
-+
-+/**
-+ * amdgpu_atcs_pci_probe_handle - look up the ATCS handle
-+ *
-+ * @pdev: pci device
-+ *
-+ * Look up the ATCS handles (all asics).
-+ * Returns true if the handle is found, false if not.
-+ */
-+static bool amdgpu_atcs_pci_probe_handle(struct pci_dev *pdev) {
-+	char acpi_method_name[255] = { 0 };
-+	struct acpi_buffer buffer = { sizeof(acpi_method_name), acpi_method_name };
-+	acpi_handle dhandle, atcs_handle;
-+	acpi_status status;
-+	int ret;
-+
-+	dhandle = ACPI_HANDLE(&pdev->dev);
-+	if (!dhandle)
-+		return false;
-+
-+	status = acpi_get_handle(dhandle, "ATCS", &atcs_handle);
-+	if (ACPI_FAILURE(status)) {
-+		return false;
-+	}
-+	amdgpu_acpi_priv.atcs.handle = atcs_handle;
-+	acpi_get_name(amdgpu_acpi_priv.atcs.handle, ACPI_FULL_PATHNAME, &buffer);
-+	DRM_DEBUG_DRIVER("Found ATCS handle %s\n", acpi_method_name);
-+	ret = amdgpu_atcs_verify_interface(&amdgpu_acpi_priv.atcs);
-+	if (ret) {
-+		amdgpu_acpi_priv.atcs.handle = 0;
-+		return false;
-+	}
-+	return true;
-+}
-+
-+/*
-+ * amdgpu_acpi_detect - detect ACPI ATIF/ATCS methods
-+ *
-+ * Check if we have the ATIF/ATCS methods and populate
-+ * the structures in the driver.
-+ */
-+void amdgpu_acpi_detect(void)
-+{
-+	struct amdgpu_atif *atif = &amdgpu_acpi_priv.atif;
-+	struct amdgpu_atcs *atcs = &amdgpu_acpi_priv.atcs;
-+	struct pci_dev *pdev = NULL;
-+	int ret;
-+
-+	while ((pdev = pci_get_class(PCI_CLASS_DISPLAY_VGA << 8, pdev)) != NULL) {
-+		if (!atif->handle)
-+			amdgpu_atif_pci_probe_handle(pdev);
-+		if (!atcs->handle)
-+			amdgpu_atcs_pci_probe_handle(pdev);
-+	}
-+
-+	while ((pdev = pci_get_class(PCI_CLASS_DISPLAY_OTHER << 8, pdev)) != NULL) {
-+		if (!atif->handle)
-+			amdgpu_atif_pci_probe_handle(pdev);
-+		if (!atcs->handle)
-+			amdgpu_atcs_pci_probe_handle(pdev);
-+	}
- 
- 	if (atif->functions.sbios_requests && !atif->functions.system_params) {
- 		/* XXX check this workraround, if sbios request function is @@ -891,60 +925,6 @@ int amdgpu_acpi_init(struct amdgpu_device *adev)
- 	} else {
- 		atif->backlight_caps.caps_valid = false;
- 	}
--
--atcs:
--	/* Probe for ATCS, and initialize it if found */
--	atcs_handle = amdgpu_atcs_probe_handle(handle);
--	if (!atcs_handle)
--		goto out;
--
--	atcs = kzalloc(sizeof(*atcs), GFP_KERNEL);
--	if (!atcs) {
--		DRM_WARN("Not enough memory to initialize ATCS\n");
--		goto out;
--	}
--	atcs->handle = atcs_handle;
--
--	/* Call the ATCS method */
--	ret = amdgpu_atcs_verify_interface(atcs);
--	if (ret) {
--		DRM_DEBUG_DRIVER("Call to ATCS verify_interface failed: %d\n", ret);
--		kfree(atcs);
--		goto out;
--	}
--	adev->atcs = atcs;
--
--out:
--	adev->acpi_nb.notifier_call = amdgpu_acpi_event;
--	register_acpi_notifier(&adev->acpi_nb);
--
--	return ret;
--}
--
--void amdgpu_acpi_get_backlight_caps(struct amdgpu_device *adev,
--		struct amdgpu_dm_backlight_caps *caps)
--{
--	if (!adev->atif) {
--		caps->caps_valid = false;
--		return;
--	}
--	caps->caps_valid = adev->atif->backlight_caps.caps_valid;
--	caps->min_input_signal = adev->atif->backlight_caps.min_input_signal;
--	caps->max_input_signal = adev->atif->backlight_caps.max_input_signal;
--}
--
--/**
-- * amdgpu_acpi_fini - tear down driver acpi support
-- *
-- * @adev: amdgpu_device pointer
-- *
-- * Unregisters with the acpi notifier chain (all asics).
-- */
--void amdgpu_acpi_fini(struct amdgpu_device *adev) -{
--	unregister_acpi_notifier(&adev->acpi_nb);
--	kfree(adev->atif);
--	kfree(adev->atcs);
+-       r =3D amdgpu_ring_test_helper(ring);
+-       if (r)
+-               goto done;
++               if (adev->asic_type =3D=3D CHIP_NAVI12)
++                       ring->sched.ready =3D false;
++       } else {
++               r =3D amdgpu_ring_test_helper(ring);
++               if (r)
++                       goto done;
++       }
+
+         //Disable vcn decode for sriov
+         if (amdgpu_sriov_vf(adev))
+@@ -245,8 +248,11 @@ static int vcn_v2_0_hw_init(void *handle)
+
+ done:
+         if (!r)
+-               DRM_INFO("VCN decode and encode initialized successfully(un=
+der %s).\n",
+-                       (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG)?"DPG Mode=
+":"SPG Mode");
++               DRM_INFO("VCN %s encode initialized successfully(under %s).=
+\n",
++                       (adev->asic_type =3D=3D CHIP_NAVI12 &&
++                               amdgpu_sriov_vf(adev))?"":"decode and",
++                       (adev->pg_flags &
++                               AMD_PG_SUPPORT_VCN_DPG)?"DPG Mode":"SPG Mod=
+e");
+
+         return r;
  }
- 
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 1ed9748b9bc7..c21710d72afc 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -1801,6 +1801,7 @@ static int __init amdgpu_init(void)
- 
- 	DRM_INFO("amdgpu kernel modesetting enabled.\n");
- 	amdgpu_register_atpx_handler();
-+	amdgpu_acpi_detect();
- 
- 	/* Ignore KFD init failures. Normal when CONFIG_HSA_AMD is not set. */
- 	amdgpu_amdkfd_init();
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index f303e8dbdb5f..434e4183c2e3 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -3414,7 +3414,7 @@ static void amdgpu_dm_update_backlight_caps(struct amdgpu_display_manager *dm)
- 	if (dm->backlight_caps.caps_valid)
- 		return;
- 
--	amdgpu_acpi_get_backlight_caps(dm->adev, &caps);
-+	amdgpu_acpi_get_backlight_caps(&caps);
- 	if (caps.caps_valid) {
- 		dm->backlight_caps.caps_valid = true;
- 		if (caps.aux_support)
+@@ -1721,9 +1727,6 @@ int vcn_v2_0_dec_ring_test_ring(struct amdgpu_ring *r=
+ing)
+         unsigned i;
+         int r;
+
+-       if (amdgpu_sriov_vf(adev))
+-               return 0;
+-
+         WREG32(adev->vcn.inst[ring->me].external.scratch9, 0xCAFEDEAD);
+         r =3D amdgpu_ring_alloc(ring, 4);
+         if (r)
 --
-2.31.1
+2.25.1
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7Clijo.lazar%40amd.com%7Cb04aa10766554a78a6c608d9204f50d0%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637576347308358587%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=hk0oJIS1LdG3Y59C2G9%2FONrTAnarL3fvlgMg3kMqhiM%3D&amp;reserved=0
+https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
+reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D04%7C01%7Cmonk.liu=
+%40amd.com%7Cb86e27d9b55f429b352308d9202ee408%7C3dd8961fe4884e608e11a82d994=
+e183d%7C0%7C0%7C637576208056272141%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAw=
+MDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=3DcMllN=
+28FN56voTpWwdnMmBB3CGXezs%2FaEwflSZD6qr4%3D&amp;reserved=3D0
+
+--_000_BYAPR12MB4759A953391A086672B58D43BB239BYAPR12MB4759namp_
+Content-Type: text/html; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:o=3D"urn:schemas-microsoft-com:office:office" xmlns:w=3D"urn:sc=
+hemas-microsoft-com:office:word" xmlns:m=3D"http://schemas.microsoft.com/of=
+fice/2004/12/omml" xmlns=3D"http://www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
+252">
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+span.EmailStyle19
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style>
+</head>
+<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple" style=3D"word-wrap:brea=
+k-word">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Hi, friends.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">My apologize for this patch. <o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">I=92ve ported this patch from another branch to fix =
+gstreamer=92s lack of =93vaapi264enc=94, currently this ported patch did fi=
+x that issue. However, since this patch is ported from another branch, I mi=
+ght need to do some alternations and audits
+ mainly in its commit messages. I will file another review right after my f=
+ixes.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thank you all for you time.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">BR,<o:p></o:p></p>
+<p class=3D"MsoNormal">Justin<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div style=3D"border:none;border-top:solid #B5C4DF 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><b><span style=3D"fon=
+t-size:12.0pt;color:black">From:
+</span></b><span style=3D"font-size:12.0pt;color:black">Liu, Monk &lt;Monk.=
+Liu@amd.com&gt;<br>
+<b>Date: </b>Thursday, May 27, 2021 at 07:57<br>
+<b>To: </b>Li, Xin (Justin) &lt;Xin2.Li@amd.com&gt;, amd-gfx@lists.freedesk=
+top.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<b>Cc: </b>Li, Xin (Justin) &lt;Xin2.Li@amd.com&gt;, Deucher, Alexander &lt=
+;Alexander.Deucher@amd.com&gt;, Min, Frank &lt;Frank.Min@amd.com&gt;, Koeni=
+g, Christian &lt;Christian.Koenig@amd.com&gt;<br>
+<b>Subject: </b>RE: [PATCH] drm/amdgpu: Fix Gstreamer api vaapih264enc miss=
+ing<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal">[AMD Official Use Only]<br>
+<br>
+Looks it lack enough background for people to review:<br>
+<br>
+<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;vcn=
+.inst[i].ring_dec.sched.ready)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;vcn=
+.inst[i].ring_dec.sched.ready ||<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (adev-&gt;asic_type =3D=3D CHIP_NAVI12 &amp=
+;&amp;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_sriov_vf(adev)))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ++num_rings;<br>
+<br>
+[ml] why for SRIOV navi12 is forced to have those DEC rings ? since&nbsp; S=
+RIOV navi12 have no decode capability , any explain here ?<br>
+<br>
+<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (amdgpu_is_tmz(adev))<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_info-&gt;ids=
+_flags |=3D AMDGPU_IDS_FLAGS_TMZ;<br>
+[ML] why this is removed ? is it related to your issue ?<br>
+<br>
+<br>
+Thanks <br>
+<br>
+------------------------------------------<br>
+Monk Liu | Cloud-GPU Core team<br>
+------------------------------------------<br>
+<br>
+-----Original Message-----<br>
+From: amd-gfx &lt;amd-gfx-bounces@lists.freedesktop.org&gt; On Behalf Of Li=
+, Xin (Justin)<br>
+Sent: Wednesday, May 26, 2021 6:13 PM<br>
+To: amd-gfx@lists.freedesktop.org<br>
+Cc: Li, Xin (Justin) &lt;Xin2.Li@amd.com&gt;; Deucher, Alexander &lt;Alexan=
+der.Deucher@amd.com&gt;; Min, Frank &lt;Frank.Min@amd.com&gt;; Koenig, Chri=
+stian &lt;Christian.Koenig@amd.com&gt;<br>
+Subject: [PATCH] drm/amdgpu: Fix Gstreamer api vaapih264enc missing<br>
+<br>
+since vcn decoding ring is not required, so just disable it.<br>
+<br>
+Cc: Alex.Deucher &lt;alexander.deucher@amd.com&gt;<br>
+Cc: Christian.Konig &lt;christian.koenig@amd.com&gt;<br>
+Signed-off-by: Li.Xin.Justin &lt;xin2.li@amd.com&gt;<br>
+Signed-off-by: Frank.Min &lt;Frank.Min@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c |&nbsp; 6 +++---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c&nbsp;&nbsp; | 25 ++++++++++++++=
+-----------<br>
+&nbsp;2 files changed, 17 insertions(+), 14 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_kms.c<br>
+index 524e4fe5efe8..614e6b06e94e 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
+@@ -427,7 +427,9 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *adev=
+,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (a=
+dev-&gt;uvd.harvest_config &amp; (1 &lt;&lt; i))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continue;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;vcn=
+.inst[i].ring_dec.sched.ready)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;vcn=
+.inst[i].ring_dec.sched.ready ||<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (adev-&gt;asic_type =3D=3D CHIP_NAVI12 &amp=
+;&amp;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_sriov_vf(adev)))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ++num_rings;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; ib_start_alignment =3D 16;<br>
+@@ -770,8 +772,6 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *dat=
+a, struct drm_file *filp)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_i=
+nfo-&gt;ids_flags |=3D AMDGPU_IDS_FLAGS_FUSION;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (amdgpu_mcbp || amdgpu_sriov_vf(adev))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_i=
+nfo-&gt;ids_flags |=3D AMDGPU_IDS_FLAGS_PREEMPTION;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (amdgpu_is_tmz(adev))<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_info-&gt;ids=
+_flags |=3D AMDGPU_IDS_FLAGS_TMZ;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; vm_size =3D adev-&gt;vm_manager.max_pfn * AMDGPU_GPU_=
+PAGE_SIZE;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; vm_size -=3D AMDGPU_VA_RESERVED_SIZE;<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c b/drivers/gpu/drm/amd/am=
+dgpu/vcn_v2_0.c<br>
+index 8af567c546db..dc8a36766c4a 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c<br>
+@@ -220,17 +220,20 @@ static int vcn_v2_0_hw_init(void *handle)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
+ =3D (struct amdgpu_device *)handle;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ring *ring =
+=3D &amp;adev-&gt;vcn.inst-&gt;ring_dec;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i, r;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i, r =3D -1;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;nbio.funcs-&gt;vc=
+n_doorbell_range(adev, ring-&gt;use_doorbell,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ring-&gt;doorbell_index, 0);<=
+br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev))<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev)) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; vcn_v2_0_start_sriov(adev);<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_ring_test_helper(ring);<=
+br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; goto done;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (adev-&gt;asic_type =3D=3D CHIP_NAVI12)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ring-&gt;sched.r=
+eady =3D false;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; r =3D amdgpu_ring_test_helper(ring);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (r)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto done;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //Disable vcn decode for s=
+riov<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev))=
+<br>
+@@ -245,8 +248,11 @@ static int vcn_v2_0_hw_init(void *handle)<br>
+&nbsp;<br>
+&nbsp;done:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!r)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; DRM_INFO(&quot;VCN decode and encode initialized successfully(un=
+der %s).\n&quot;,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (adev-&gt;pg_fla=
+gs &amp; AMD_PG_SUPPORT_VCN_DPG)?&quot;DPG Mode&quot;:&quot;SPG Mode&quot;)=
+;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; DRM_INFO(&quot;VCN %s encode initialized successfully(under %s).=
+\n&quot;,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (adev-&gt;asic_t=
+ype =3D=3D CHIP_NAVI12 &amp;&amp;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_sriov_vf(adev))?&quot;&quot;:&quot;d=
+ecode and&quot;,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (adev-&gt;pg_fla=
+gs &amp;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_PG_SUPPORT_VCN_DPG)?&quot;DPG Mode&quot=
+;:&quot;SPG Mode&quot;);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
+&nbsp;}<br>
+@@ -1721,9 +1727,6 @@ int vcn_v2_0_dec_ring_test_ring(struct amdgpu_ring *r=
+ing)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned i;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev))<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; return 0;<br>
+-<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(adev-&gt;vcn.inst[r=
+ing-&gt;me].external.scratch9, 0xCAFEDEAD);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_ring_alloc(ri=
+ng, 4);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
+-- <br>
+2.25.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx@lists.freedesktop.org<br>
+<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
+F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D04%=
+7C01%7Cmonk.liu%40amd.com%7Cb86e27d9b55f429b352308d9202ee408%7C3dd8961fe488=
+4e608e11a82d994e183d%7C0%7C0%7C637576208056272141%7CUnknown%7CTWFpbGZsb3d8e=
+yJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&am=
+p;amp;sdata=3DcMllN28FN56voTpWwdnMmBB3CGXezs%2FaEwflSZD6qr4%3D&amp;amp;rese=
+rved=3D0">https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F=
+%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D04%7=
+C01%7Cmonk.liu%40amd.com%7Cb86e27d9b55f429b352308d9202ee408%7C3dd8961fe4884=
+e608e11a82d994e183d%7C0%7C0%7C637576208056272141%7CUnknown%7CTWFpbGZsb3d8ey=
+JWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp=
+;amp;sdata=3DcMllN28FN56voTpWwdnMmBB3CGXezs%2FaEwflSZD6qr4%3D&amp;amp;reser=
+ved=3D0</a><o:p></o:p></p>
+</div>
+</div>
+</body>
+</html>
+
+--_000_BYAPR12MB4759A953391A086672B58D43BB239BYAPR12MB4759namp_--
+
+--===============1306425047==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============1306425047==--
