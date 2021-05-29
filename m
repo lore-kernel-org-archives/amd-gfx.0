@@ -2,120 +2,54 @@ Return-Path: <SRS0=Uo0t=KY=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BFADBC4708F
-	for <amd-gfx@archiver.kernel.org>; Sat, 29 May 2021 10:20:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AC0F0C4708E
+	for <amd-gfx@archiver.kernel.org>; Sat, 29 May 2021 10:20:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8C96461205
-	for <amd-gfx@archiver.kernel.org>; Sat, 29 May 2021 10:20:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8C96461205
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=nvidia.com
+	by mail.kernel.org (Postfix) with ESMTPS id 71C6C6103E
+	for <amd-gfx@archiver.kernel.org>; Sat, 29 May 2021 10:20:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 71C6C6103E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=huawei.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70DEC6F3E4;
-	Sat, 29 May 2021 10:20:33 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2041.outbound.protection.outlook.com [40.107.244.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2869F6F5BD;
- Fri, 28 May 2021 13:08:19 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dMxgZYC9dqV/31CjKO1+mznYsavsJ4SPLqysi6cueT3F/auncdJV+HyZPOaPIMqnJ2tKIssflPvKx5zW9xiEhFOFdkgUmL4X7QfAZfx8TrMmTbIsWPs9KPJGmn/DQjmdb4ZbkRmey+BRTIMsG9YVfhhlkiLrrdPG4p9WpxLEcGh7plBwCUmZ6ldcof8BZDt2Rof/WAkPplTHaED1ges1BDveHWvtS9bZefIBphd27v3WVbzKoc2nKzBc1pfdAH5uBbNQqMXH1f9ekgiVHIl1uJQyCbaCFRVp9ChFoESojEkKoTjwnwFy3/evy28R7Kh4bhA+XUGSrVZbQAR1jLCmBA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YXVqZFMpdZj4fDWpY0EIrNM8cXPsmV6Ttf7D3Hgc1BQ=;
- b=GEksb5QWOCu0/Zrs65SQw3ko2bqoRCITVhsfkTuEo986cLvuVPrQc0oZigN6q828u31fq/Q07FRkcxds7r4p78VCbGkzIHlDfpuVZ3Yrw3kH4wwLTFPBDiTAoSLi9wmOM5gb7nbAM79rWhNkOX6ouXRECzFj6DrPu+UlQkllbjc4sHYE37Z0kcpiT7qDhhnRIIIMao3SUCit1rN9YQ3MDzDjl2yRoeqFLyqbJfnM4s8PLgV8Q4yxq9/R76LEyFvQ1DvcmwvHYphmEqpgTGR0C9YnVXwTkiTBj8vaonCHL/BmIJlIuKXXmeeqt1WOVlrcv3/GGaBNTBBckoSH9+fcZw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YXVqZFMpdZj4fDWpY0EIrNM8cXPsmV6Ttf7D3Hgc1BQ=;
- b=HNvOGraitn0u+rokHG1/Lytj21ikF7cjyCIaOP8pI2axpH4n+CGXt7SZi3na4NsPl8dFhz1WhvT5u2cQmZEKq/G1pW1MNECVuWPqNIWuPoiRbwEJLLi6wbsLVE4OATYARQGRVf2nLbyVujNA2e8gHHqB3JfS0zMjg3S1I9Xn2ozO8s6jba3FX10Go+L0lty1fHabnbo1gmucpiHGzWd0o6w1kI2R+v47KcA3asoQizj95qWiVgTKlaTUe6/EpFgEIEkGy7WYLhgRBfR1LVZ+eP6ehb6tS1X9PNL6MqnqxTAUiwZF/32v44SIxw62aNdcHVJ7L44AHxxXdHPpVyocLQ==
-Authentication-Results: gmail.com; dkim=none (message not signed)
- header.d=none;gmail.com; dmarc=none action=none header.from=nvidia.com;
-Received: from BL0PR12MB5506.namprd12.prod.outlook.com (2603:10b6:208:1cb::22)
- by BL1PR12MB5253.namprd12.prod.outlook.com (2603:10b6:208:30b::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4173.21; Fri, 28 May
- 2021 13:08:17 +0000
-Received: from BL0PR12MB5506.namprd12.prod.outlook.com
- ([fe80::3d51:a3b9:8611:684e]) by BL0PR12MB5506.namprd12.prod.outlook.com
- ([fe80::3d51:a3b9:8611:684e%7]) with mapi id 15.20.4173.023; Fri, 28 May 2021
- 13:08:17 +0000
-Date: Fri, 28 May 2021 10:08:16 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Felix Kuehling <felix.kuehling@gmail.com>
-Subject: Re: [RFC PATCH 0/5] Support DEVICE_GENERIC memory in migrate_vma_*
-Message-ID: <20210528130816.GM1002214@nvidia.com>
-References: <20210527230809.3701-1-Felix.Kuehling@amd.com>
-Content-Disposition: inline
-In-Reply-To: <20210527230809.3701-1-Felix.Kuehling@amd.com>
-X-Originating-IP: [47.55.113.94]
-X-ClientProxiedBy: BL1PR13CA0238.namprd13.prod.outlook.com
- (2603:10b6:208:2bf::33) To BL0PR12MB5506.namprd12.prod.outlook.com
- (2603:10b6:208:1cb::22)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3119E6F3F5;
+	Sat, 29 May 2021 10:20:45 +0000 (UTC)
+X-Greylist: delayed 1155 seconds by postgrey-1.36 at gabe;
+ Sat, 29 May 2021 09:38:13 UTC
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C4B46E10D
+ for <amd-gfx@lists.freedesktop.org>; Sat, 29 May 2021 09:38:13 +0000 (UTC)
+Received: from dggemv711-chm.china.huawei.com (unknown [172.30.72.55])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4FsbZM0vpbzYpVW;
+ Sat, 29 May 2021 17:18:19 +0800 (CST)
+Received: from dggema762-chm.china.huawei.com (10.1.198.204) by
+ dggemv711-chm.china.huawei.com (10.1.198.66) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
+ 15.1.2176.2; Sat, 29 May 2021 17:21:00 +0800
+Received: from huawei.com (10.175.127.227) by dggema762-chm.china.huawei.com
+ (10.1.198.204) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2176.2; Sat, 29
+ May 2021 17:20:59 +0800
+From: Yu Kuai <yukuai3@huawei.com>
+To: <harry.wentland@amd.com>, <sunpeng.li@amd.com>,
+ <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
+ <Xinhui.Pan@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>
+Subject: [PATCH] drm/amd/display: fix gcc set but not used warning of variable
+ 'link_bandwidth_kbps'
+Date: Sat, 29 May 2021 17:30:21 +0800
+Message-ID: <20210529093021.3135273-1-yukuai3@huawei.com>
+X-Mailer: git-send-email 2.25.4
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from mlx.ziepe.ca (47.55.113.94) by
- BL1PR13CA0238.namprd13.prod.outlook.com (2603:10b6:208:2bf::33) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.9 via Frontend
- Transport; Fri, 28 May 2021 13:08:17 +0000
-Received: from jgg by mlx with local (Exim 4.94)	(envelope-from
- <jgg@nvidia.com>)	id 1lmcDo-00FwuC-BD; Fri, 28 May 2021 10:08:16 -0300
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: bfe100dd-a793-4343-8733-08d921d9a8a9
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5253:
-X-Microsoft-Antispam-PRVS: <BL1PR12MB5253BBA95A69E0C8C920ABB7C2229@BL1PR12MB5253.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: FnYTubnWu//RyGWXrWOgNzbbaaf9C0XfhARbbXA/FwOZt2fBj6xDSpYPwJ7WWA3OlNvm1b5zia68h5rsxahX7nZXGCBku/Zc1XC1m8sCA483dhFBCXlGZ5zH90tpNtTqxeAGqndn+xx924QGHaShqEOkXQXu6yWemPV5EBmr1zYw9up9A89AkzAeRDRNk1LgkqeHox6/S4xyka7D3hhXHk7rpGZ4lLsj2B0dAHiyhuq+087A1S31IxWEBiizXNLUcANQedKT0uSuTZdDueJdU77eHyaC1Ykus22JImsEYXheQuP/0ypDWKXS8050W8Qz3rTcmw2zOqjX+jyGSEbYlB/woq9ABUaIi8E/di5GKGh105Ggo0LjDIWxWbwTqcNBvQEtsGQ9CCeUHD0FM3a8sVFx7dwjOIn5bi94DLz58pa09ujQ3k0F1afEdPcjyrXNbQUvYOjV9sUzQOWkT4e+C4LOJaw3EofCSjbyCmJATk6oG+6iPmSh/5RWzm9N7D1lGX3w5oSCDyb0AQoXJKmqgwNuGMA60Ksu+t/ZBbiN0xE+V0xnUjSbS3dIDbQdf7HFwpY/CbO2/b+aRfJTkx6cF4gg23MdOJbWDVS300Gt5rSah/T/bx3X8qvTtHZIvmIPoV3++9farUh7lurN6UFAPQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL0PR12MB5506.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(346002)(376002)(366004)(39860400002)(396003)(26005)(9786002)(86362001)(38100700002)(9746002)(8676002)(8936002)(66946007)(33656002)(36756003)(66476007)(66556008)(4326008)(316002)(186003)(1076003)(426003)(6916009)(2616005)(83380400001)(2906002)(478600001)(5660300002)(41533002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?TwBo1+MW8IMaiRAm4bginEhhIw93RwLIw+zBkLfIDIsMUnFlt7vmHYAHKnRN?=
- =?us-ascii?Q?q8AyLmnEfVdr6CzLDXujUktjJCDkVMRga0PFiuUzQVO3hp1aFwZ8lojJgZ1L?=
- =?us-ascii?Q?rfSB4/JQnsrf3IXZ648nGB/yh+dIwDZCZY7u7vF1sT2b2dT8hAasVuuKS7n+?=
- =?us-ascii?Q?KPXuSXcMLGk4QmJPm8Fo+PIFWPIEGdWnegugyNUHAJez7cvnrymfUgUYBpEn?=
- =?us-ascii?Q?As491H+rHXZCjVrNawHdtxzUC2uKF7xaNp0wPvzgDStpMT+xi9o+jp7vpiSX?=
- =?us-ascii?Q?mzHNs8HqrZj8E8ctEeno75fSF53bM6FBzVg5BMVycETkisUxNgcOEIB9eL/S?=
- =?us-ascii?Q?7HQyxDLLpwd+XapOJFSSGfvbQ1rCqB616dBhwAhm5fuW9+uesEk8mPFFTxmj?=
- =?us-ascii?Q?hQ/Mo/YYj4NAiKYPQCJDTAA4iBU95SmwkG8ssFtxoPAkQ8Q0I1uGB01zuKys?=
- =?us-ascii?Q?e6YcaIeuBPjZRST6kKzjsrL1ld6ne9YVPBz2xiYc39nL6M/qhXQ0NYBecILB?=
- =?us-ascii?Q?gLWhT7W9q/YwTzkxbKz9SB8/DhAn61iYC0/PbpiYYBz4GNno3mG6oawYcQjv?=
- =?us-ascii?Q?6zo+wLxHk+3ghEQGVxaOAmPGmKkSrwtHkmb+wccMlr+s7DrkImP9m/2S3rWw?=
- =?us-ascii?Q?ilvxcY+XzO1UHQiLQaNd+wKBElF+lnwsxYAPuWtiEHAktisiW199pscRGkD0?=
- =?us-ascii?Q?q4N4/QwE1CXgPzo8578Qc7rkgO/XHiL4dytsywu+JAPHPNxVabl72F8ksZNK?=
- =?us-ascii?Q?qFiClEviFdvbjxE9DkrsW7Fei+MvYUXkFNA91xrjsghJaG2z6nAw6us6PGlX?=
- =?us-ascii?Q?0SxwQdWE6ZfCBrR3QJRMyAgGvDezFYdsuxv0cUOFGfoLPrWoGIxvQL25LDpL?=
- =?us-ascii?Q?RPQ6o9CqpoL7OxRXLaTAROB7w5TMFZwHcc3OeJVmYxoXJ6lZe0Xv5qircvR9?=
- =?us-ascii?Q?KqhBXx8xLDNpO1W6XrXIxjH/cugs+lDC9uZhMozJz50eMHnwCyE4G/Z52Lf9?=
- =?us-ascii?Q?meJhm714uD47vsTv5eWvR900pht+h1J2hYUYMDUttso2AaBFtdkygjhXEpKE?=
- =?us-ascii?Q?Rd7hCgiWCAD2NGfKt5Fgm9Z/I7KAees7kA0nED5WZLoRjbB8G7RMTBn8uW7m?=
- =?us-ascii?Q?dzU8RESk3sU4lCd0JeaIpwmpy/ILkcd0Jf+seBkdYn8UHA/SZDkHZ3+hhSJl?=
- =?us-ascii?Q?5iMcADSFI8KcSfBCROMHHmG4bzBEl1lwt21pExwy0lO51r0/v0+tNw2xsKjL?=
- =?us-ascii?Q?2LeHvJQ7nrbOymNs7y5QvFCjMT/ph1nKlS8otpHZhCERhqMiPeaDGLhefLmS?=
- =?us-ascii?Q?Cuba1pYm8FAXH/xY80fMHqwg?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bfe100dd-a793-4343-8733-08d921d9a8a9
-X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB5506.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 May 2021 13:08:17.1844 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: h6v+OrUAi60leIutP33N2lj+jJEIXfxwL7zl3+1kW9BU2dUZILdHbdUwksd5UMuH
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5253
+X-Originating-IP: [10.175.127.227]
+X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
+ dggema762-chm.china.huawei.com (10.1.198.204)
+X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Sat, 29 May 2021 10:20:31 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -128,41 +62,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: felix.kuehling@amd.com, dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
- jglisse@redhat.com, amd-gfx@lists.freedesktop.org, akpm@linux-foundation.org,
- hch@lst.de
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: yukuai3@huawei.com, yi.zhang@huawei.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, May 27, 2021 at 07:08:04PM -0400, Felix Kuehling wrote:
-> Now we're trying to migrate data to and from that memory using the
-> migrate_vma_* helpers so we can support page-based migration in our
-> unified memory allocations, while also supporting CPU access to those
-> pages.
-
-So you have completely coherent and indistinguishable GPU and CPU
-memory and the need of migration is basicaly alot like NUMA policy
-choice - get better access locality?
- 
-> This patch series makes a few changes to make MEMORY_DEVICE_GENERIC pages
-> behave correctly in the migrate_vma_* helpers. We are looking for feedback
-> about this approach. If we're close, what's needed to make our patches
-> acceptable upstream? If we're not close, any suggestions how else to
-> achieve what we are trying to do (i.e. page migration and coherent CPU
-> access to VRAM)?
-
-I'm not an expert in migrate, but it doesn't look outrageous.
-
-Have you thought about allowing MEMORY_DEVICE_GENERIC to work with
-hmm_range_fault() so you can have nice uniform RDMA?
-
-People have wanted to do that with MEMORY_DEVICE_PRIVATE but nobody
-finished the work
-
-Jason
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+YXBwbHlfZHNjX3BvbGljeV9mb3Jfc3RyZWFtKCkgd2lsbCBvbmx5IGJlIHVzZWQgaWYKJ0NPTkZJ
+R19EUk1fQU1EX0RDX0RDTicgaXMgZW5hYmxlZCwgdGh1cyB0aGUgZnVuY3Rpb24gY2FuIGJlCmRl
+Y2xhcmVkIGluc2lkZSB0aGUgaWZkZWZpbmUgbWFyY28uCgpGaXggZ2NjIHdhcm5pbmc6CmRyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1Ly4uL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jOjU1
+Nzc6MTE6IHdhcm5pbmc6CiB2YXJpYWJsZSDigJhsaW5rX2JhbmR3aWR0aF9rYnBz4oCZIHNldCBi
+dXQgbm90IHVzZWQgWy1XdW51c2VkLWJ1dC1zZXQtdmFyaWFibGVdCgpTaWduZWQtb2ZmLWJ5OiBZ
+dSBLdWFpIDx5dWt1YWkzQGh1YXdlaS5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
+bGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyB8IDIgKy0KIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2Vy
+dGlvbigrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+ZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3Bs
+YXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCmluZGV4IGYwYWRmZGEzMjIxMy4uZjdhNWU1YjQ4ZWE2
+IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdw
+dV9kbS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1
+X2RtLmMKQEAgLTU1NjksNiArNTU2OSw3IEBAIHN0YXRpYyB2b2lkIHVwZGF0ZV9kc2NfY2Fwcyhz
+dHJ1Y3QgYW1kZ3B1X2RtX2Nvbm5lY3RvciAqYWNvbm5lY3RvciwKIAl9CiB9CiAKKyNpZiBkZWZp
+bmVkKENPTkZJR19EUk1fQU1EX0RDX0RDTikKIHN0YXRpYyB2b2lkIGFwcGx5X2RzY19wb2xpY3lf
+Zm9yX3N0cmVhbShzdHJ1Y3QgYW1kZ3B1X2RtX2Nvbm5lY3RvciAqYWNvbm5lY3RvciwKIAkJCQkJ
+CQkJCQlzdHJ1Y3QgZGNfc2luayAqc2luaywgc3RydWN0IGRjX3N0cmVhbV9zdGF0ZSAqc3RyZWFt
+LAogCQkJCQkJCQkJCXN0cnVjdCBkc2NfZGVjX2RwY2RfY2FwcyAqZHNjX2NhcHMpCkBAIC01NTc4
+LDcgKzU1NzksNiBAQCBzdGF0aWMgdm9pZCBhcHBseV9kc2NfcG9saWN5X2Zvcl9zdHJlYW0oc3Ry
+dWN0IGFtZGdwdV9kbV9jb25uZWN0b3IgKmFjb25uZWN0b3IsCiAKIAlsaW5rX2JhbmR3aWR0aF9r
+YnBzID0gZGNfbGlua19iYW5kd2lkdGhfa2JwcyhhY29ubmVjdG9yLT5kY19saW5rLAogCQkJCQkJ
+CWRjX2xpbmtfZ2V0X2xpbmtfY2FwKGFjb25uZWN0b3ItPmRjX2xpbmspKTsKLSNpZiBkZWZpbmVk
+KENPTkZJR19EUk1fQU1EX0RDX0RDTikKIAkvKiBTZXQgRFNDIHBvbGljeSBhY2NvcmRpbmcgdG8g
+ZHNjX2Nsb2NrX2VuICovCiAJZGNfZHNjX3BvbGljeV9zZXRfZW5hYmxlX2RzY193aGVuX25vdF9u
+ZWVkZWQoCiAJCWFjb25uZWN0b3ItPmRzY19zZXR0aW5ncy5kc2NfZm9yY2VfZW5hYmxlID09IERT
+Q19DTEtfRk9SQ0VfRU5BQkxFKTsKLS0gCjIuMjUuNAoKX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0
+cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
+aXN0aW5mby9hbWQtZ2Z4Cg==
