@@ -2,54 +2,71 @@ Return-Path: <SRS0=CFk9=K2=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 70206C47082
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 May 2021 08:17:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B943BC4708F
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 May 2021 08:17:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 31912610C8
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 May 2021 08:17:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 31912610C8
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=huawei.com
+	by mail.kernel.org (Postfix) with ESMTPS id 5D8C7610C8
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 May 2021 08:17:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5D8C7610C8
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=web.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B31FD6E87A;
-	Mon, 31 May 2021 08:17:26 +0000 (UTC)
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF9C96E454;
- Mon, 31 May 2021 02:04:56 +0000 (UTC)
-Received: from dggemv703-chm.china.huawei.com (unknown [172.30.72.57])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4Ftdlx3Fv6zWqmj;
- Mon, 31 May 2021 10:00:13 +0800 (CST)
-Received: from dggema762-chm.china.huawei.com (10.1.198.204) by
- dggemv703-chm.china.huawei.com (10.3.19.46) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
- 15.1.2176.2; Mon, 31 May 2021 10:04:51 +0800
-Received: from huawei.com (10.175.127.227) by dggema762-chm.china.huawei.com
- (10.1.198.204) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2176.2; Mon, 31
- May 2021 10:04:50 +0800
-From: Yu Kuai <yukuai3@huawei.com>
-To: <harry.wentland@amd.com>, <sunpeng.li@amd.com>,
- <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
- <Xinhui.Pan@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>
-Subject: [PATCH V2] drm/amd/display: fix gcc set but not used warning of
- variable 'link_bandwidth_kbps'
-Date: Mon, 31 May 2021 10:14:11 +0800
-Message-ID: <20210531021411.469090-1-yukuai3@huawei.com>
-X-Mailer: git-send-email 2.25.4
-In-Reply-To: <20210529093021.3135273-1-yukuai3@huawei.com>
-References: <20210529093021.3135273-1-yukuai3@huawei.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 156E46E87D;
+	Mon, 31 May 2021 08:17:29 +0000 (UTC)
+X-Greylist: delayed 693 seconds by postgrey-1.36 at gabe;
+ Sat, 29 May 2021 12:41:01 UTC
+Received: from mout.web.de (mout.web.de [212.227.17.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02CAD6E16F
+ for <amd-gfx@lists.freedesktop.org>; Sat, 29 May 2021 12:41:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de;
+ s=dbaedf251592; t=1622292058;
+ bh=qjHm73v3dGQmzJZHlvrVW1oQb9sbygrVOZh13TpYGC0=;
+ h=X-UI-Sender-Class:Date:From:To:Subject:In-Reply-To:References;
+ b=WiMZWOMFTx6+HAbxFmAQiOQIaTL1tjzY/Ps6FNRVouuzqJ74erposZlQaqvfu0S7B
+ AkJiIfNcYJkYMMdmsdg3b+dQy0DWWYsnhNIF4cFIs8qOUmBVhMto3g2vVjmoVYG3gt
+ wIx2MsU0lXGow8hrksTU/pjoietrG8sy057Bs04Y=
+X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
+Received: from schienar ([92.105.189.242]) by smtp.web.de (mrweb106
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1N5lj7-1lKG3x0IFH-017Fb3 for
+ <amd-gfx@lists.freedesktop.org>; Sat, 29 May 2021 14:16:30 +0200
+Date: Sat, 29 May 2021 14:16:28 +0200
+From: Julian Wollrath <jwollrath@web.de>
+To: amd-gfx@lists.freedesktop.org
+Subject: Re: 5.13-rc3 Renoir (ChipID = 0x1636): error GPU reset, fences
+ timed out, failed to initialize parser -125
+Message-ID: <20210529141628.1951ee33@schienar>
+In-Reply-To: <20210529134054.099661dc@schienar>
+References: <20210529134054.099661dc@schienar>
 MIME-Version: 1.0
-X-Originating-IP: [10.175.127.227]
-X-ClientProxiedBy: dggems704-chm.china.huawei.com (10.3.19.181) To
- dggema762-chm.china.huawei.com (10.1.198.204)
-X-CFilter-Loop: Reflected
+X-Provags-ID: V03:K1:lLkritVMHFPyfMt2ztZ0K8fgg7jVTeD4Qc2QHKR4lEfeuLjr6eR
+ qZknbpxg+/g3nbVnvtatUlNPLGnz7SesVQS2nxk+jcjBKcpLYyU17GE0MIgV6jYKiqLMLyj
+ ndEcnerAmLgW3rcqmI2I7gmFwANDLEzZ0TSIAcYa50QqwhYjbxLrW+mnliGNZl1o/QJ08Ya
+ 6ddb9ZXOlJT6kdME+M6Cw==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:mOGit2t+Lbw=:2h9G2l2trGIXfO6vei2rgD
+ fAYMenkHcHmtHiZ5HfS4pFdOWwoj4ERU3CskNybFmjKwYvZacnhavHzecjSpoMNkcBD7fVuby
+ 0PQnz+hCCY4bN7r06xU7FDcANhuQdQcflL53GQO/RhlsvgECroIB2Hp+5iQnZSGKMoMLvzsJB
+ UtxAurd31bfZwWEcWVkJMb1XdJOao7Uz3SiUMJLhmXWfKWppZ6tQTyZtgO+I+y1GVwHiHKdWP
+ LRTQNInDnHu2ZsN88tJnpOCS6YokFkJQKF96g1UBWS25qmjIDX6KcVKLILSjrkGMZ/wjR0bA3
+ HQTnCs2Zxgds293nP2RzVBWGMRxl8vJ2OZRSNueP0EsTkgbi+G6ho5KzC+CN08kIPz6OqiL5x
+ 11YqLIGnBffZ0kKzfjwp/QrkPyEcYt4FYbZpqr/JcV0TB1zRp/x99l7FEL34ZCbc128RsjAfO
+ gT/r2fO3FqGB2tMynSJjX2Q4DTIEHTZChLDa4Y+FjgXVTPuNn1OqpXjRODtlDxuE8fRNhaej3
+ bxLYn5guz8/oOmjnqCz46fz13xkCp6TsedkGjvdgaFsS6sraCMIAa2YHxalwFcKzx/YwTyUwz
+ hXNAmDGFyaiav6OBsywHb2XkD/lxwME6wkrJQIY2j6fBTdxMYj4PuD8RBjGOfQl2F+0pY7Srd
+ DmwvO3q7RFNYReaHxq6EErmTf0xldyYhYrE72WBRl7KEr9G/+GNFtXV1cpkA3Y15AcfrKJbWs
+ w5iyuDGoWsiQTs6nyBu3gYJxImUh244eYB2gCIjF0gayMhZFylrQlab94xdsAZ5QACRBUsebY
+ t6A9e1zjun1fB+Fyq1wX2HSQ6zKygeAH7FczAZMB1ef+bnRQQTpEK2EibenprSflqWSgIhF1I
+ Q5HzcDji/CwCpkcvpE081D6iiOW6nOoWKt47Eo7jLUiCGCG7Hcx6e+FN5Vyuy6XBKFlF68YPA
+ S/IAjEZ0xypxqakwLy6g29beSCQTnMRDtG53dyqmhTTEM8/OI9MrffazyNHFCQx6/pFcgUW+7
+ V11f6RvPP4vIXd1HxpIPN3essC9YIZ0sQPcDf7lzU44rfpr8aBV9Fhx/0yqyUeGW6xMFGpiKB
+ fLioo8oK+wvJHFlrSIG3Q0weTkcTWXPN5tNOACS4GIFRwrXLciifAQ6//4UnGt1ezq6n0LjZZ
+ nAqXhPQpELip3tyTJsiN+AA4MAo2/4g40g9DZSBzcMCAipCksRnIxsLExJ94pWN2mF1mo=
 X-Mailman-Approved-At: Mon, 31 May 2021 08:17:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,48 +79,29 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: yukuai3@huawei.com, yi.zhang@huawei.com, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-YXBwbHlfZHNjX3BvbGljeV9mb3Jfc3RyZWFtKCkgd2lsbCBvbmx5IGJlIHVzZWQgaWYKJ0NPTkZJ
-R19EUk1fQU1EX0RDX0RDTicgaXMgZW5hYmxlZCwgdGh1cyB0aGUgZnVuY3Rpb24gY2FuIGJlCmRl
-Y2xhcmVkIGluc2lkZSB0aGUgaWZkZWZpbmUgbWFyY28uCgpGaXggZ2NjIHdhcm5pbmc6CmRyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1Ly4uL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jOjU1
-Nzc6MTE6IHdhcm5pbmc6CiB2YXJpYWJsZSDigJhsaW5rX2JhbmR3aWR0aF9rYnBz4oCZIHNldCBi
-dXQgbm90IHVzZWQgWy1XdW51c2VkLWJ1dC1zZXQtdmFyaWFibGVdCgpTaWduZWQtb2ZmLWJ5OiBZ
-dSBLdWFpIDx5dWt1YWkzQGh1YXdlaS5jb20+Ci0tLQpjaGFuZ2VzIGluIFYyOgogLSBmaXggdGhh
-dCBmb3JnZXR0aW5nIHRvIGNoYW5nZSBwb3NpdGlvbiBvZiAnI2VuZGlmJwogZHJpdmVycy9ncHUv
-ZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyB8IDQgKystLQogMSBmaWxlIGNo
-YW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYwppbmRleCBhMjgwY2FkN2M0
-Y2EuLmMyYWU4OGFmNzBjZCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
-L2FtZGdwdV9kbS9hbWRncHVfZG0uYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkv
-YW1kZ3B1X2RtL2FtZGdwdV9kbS5jCkBAIC01NTY5LDYgKzU1NjksNyBAQCBzdGF0aWMgdm9pZCB1
-cGRhdGVfZHNjX2NhcHMoc3RydWN0IGFtZGdwdV9kbV9jb25uZWN0b3IgKmFjb25uZWN0b3IsCiAJ
-fQogfQogCisjaWYgZGVmaW5lZChDT05GSUdfRFJNX0FNRF9EQ19EQ04pCiBzdGF0aWMgdm9pZCBh
-cHBseV9kc2NfcG9saWN5X2Zvcl9zdHJlYW0oc3RydWN0IGFtZGdwdV9kbV9jb25uZWN0b3IgKmFj
-b25uZWN0b3IsCiAJCQkJCQkJCQkJc3RydWN0IGRjX3NpbmsgKnNpbmssIHN0cnVjdCBkY19zdHJl
-YW1fc3RhdGUgKnN0cmVhbSwKIAkJCQkJCQkJCQlzdHJ1Y3QgZHNjX2RlY19kcGNkX2NhcHMgKmRz
-Y19jYXBzKQpAQCAtNTU3OCw3ICs1NTc5LDYgQEAgc3RhdGljIHZvaWQgYXBwbHlfZHNjX3BvbGlj
-eV9mb3Jfc3RyZWFtKHN0cnVjdCBhbWRncHVfZG1fY29ubmVjdG9yICphY29ubmVjdG9yLAogCiAJ
-bGlua19iYW5kd2lkdGhfa2JwcyA9IGRjX2xpbmtfYmFuZHdpZHRoX2ticHMoYWNvbm5lY3Rvci0+
-ZGNfbGluaywKIAkJCQkJCQlkY19saW5rX2dldF9saW5rX2NhcChhY29ubmVjdG9yLT5kY19saW5r
-KSk7Ci0jaWYgZGVmaW5lZChDT05GSUdfRFJNX0FNRF9EQ19EQ04pCiAJLyogU2V0IERTQyBwb2xp
-Y3kgYWNjb3JkaW5nIHRvIGRzY19jbG9ja19lbiAqLwogCWRjX2RzY19wb2xpY3lfc2V0X2VuYWJs
-ZV9kc2Nfd2hlbl9ub3RfbmVlZGVkKAogCQlhY29ubmVjdG9yLT5kc2Nfc2V0dGluZ3MuZHNjX2Zv
-cmNlX2VuYWJsZSA9PSBEU0NfQ0xLX0ZPUkNFX0VOQUJMRSk7CkBAIC01NjA5LDggKzU2MDksOCBA
-QCBzdGF0aWMgdm9pZCBhcHBseV9kc2NfcG9saWN5X2Zvcl9zdHJlYW0oc3RydWN0IGFtZGdwdV9k
-bV9jb25uZWN0b3IgKmFjb25uZWN0b3IsCiAKIAlpZiAoc3RyZWFtLT50aW1pbmcuZmxhZ3MuRFND
-ICYmIGFjb25uZWN0b3ItPmRzY19zZXR0aW5ncy5kc2NfYml0c19wZXJfcGl4ZWwpCiAJCXN0cmVh
-bS0+dGltaW5nLmRzY19jZmcuYml0c19wZXJfcGl4ZWwgPSBhY29ubmVjdG9yLT5kc2Nfc2V0dGlu
-Z3MuZHNjX2JpdHNfcGVyX3BpeGVsOwotI2VuZGlmCiB9CisjZW5kaWYKIAogc3RhdGljIHN0cnVj
-dCBkcm1fZGlzcGxheV9tb2RlICoKIGdldF9oaWdoZXN0X3JlZnJlc2hfcmF0ZV9tb2RlKHN0cnVj
-dCBhbWRncHVfZG1fY29ubmVjdG9yICphY29ubmVjdG9yLAotLSAKMi4yNS40CgpfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
-dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+Hello,
+
+> on 5.13-rc3 with a 4650U (Renoir, ChipID = 0x1636) I am able to
+> reliably get the GPU to reset under X11/Xorg with the amdgpu driver
+> (current from git) and having persistent problems afterwards. I
+> achieve this in the following way (using ROOT (root.cern.ch) to draw a
+> histogram):
+
+p.s.: this also happens with 5.10.40, so it is not a recent regression.
+
+
+Best regards,
+Julian Wollrath
+
+--
+ ()  ascii ribbon campaign - against html e-mail
+ /\                        - against proprietary attachments
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
