@@ -2,74 +2,133 @@ Return-Path: <SRS0=CFk9=K2=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7105BC47082
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 May 2021 12:18:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 47A12C47082
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 May 2021 12:49:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1FE8661263
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 May 2021 12:18:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1FE8661263
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=shipmail.org
+	by mail.kernel.org (Postfix) with ESMTPS id ED44E61279
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 May 2021 12:49:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ED44E61279
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AC096E8EF;
-	Mon, 31 May 2021 12:18:05 +0000 (UTC)
-X-Greylist: delayed 481 seconds by postgrey-1.36 at gabe;
- Mon, 31 May 2021 12:18:04 UTC
-Received: from ste-pvt-msa1.bahnhof.se (ste-pvt-msa1.bahnhof.se
- [213.80.101.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF3106E8EF
- for <amd-gfx@lists.freedesktop.org>; Mon, 31 May 2021 12:18:04 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by ste-pvt-msa1.bahnhof.se (Postfix) with ESMTP id 7A7103F71A;
- Mon, 31 May 2021 14:10:01 +0200 (CEST)
-Authentication-Results: ste-pvt-msa1.bahnhof.se; dkim=pass (1024-bit key;
- unprotected) header.d=shipmail.org header.i=@shipmail.org header.b="M0KF649V";
- dkim-atps=neutral
-X-Virus-Scanned: Debian amavisd-new at bahnhof.se
-Received: from ste-pvt-msa1.bahnhof.se ([127.0.0.1])
- by localhost (ste-pvt-msa1.bahnhof.se [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id I9wo6bk9VmlS; Mon, 31 May 2021 14:10:00 +0200 (CEST)
-Received: by ste-pvt-msa1.bahnhof.se (Postfix) with ESMTPA id 316A93F6BE;
- Mon, 31 May 2021 14:09:59 +0200 (CEST)
-Received: from [192.168.0.209] (h-155-4-205-35.A357.priv.bahnhof.se
- [155.4.205.35])
- by mail1.shipmail.org (Postfix) with ESMTPSA id BC3F83600E5;
- Mon, 31 May 2021 14:09:59 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=shipmail.org; s=mail;
- t=1622462999; bh=Y5BqkkCrLzjckxB/iPLYEH1anqsml90Pb+tjhUY5K18=;
- h=Subject:To:References:From:Date:In-Reply-To:From;
- b=M0KF649VDfgiPSQrTvWZdZLONzcU4S3xZgdhMmrUejzlxL6ST1bYgdLp+Mn3d9k6/
- 1HoBSO2YANuz5R1ra6Igsk6i//TurmwBBg/QQ9NrEPhbbLrJNLYUtRKZva/0H6+qZz
- BYonG82VhE+cXtE30RgGV5QZAs6RPAQ49Td1uprg=
-Subject: Re: [PATCH 1/2] drm/ttm: cleanup and add TTM_PL_FLAG_TEMPORARY
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- "Yu, Lang" <Lang.Yu@amd.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20210527013051.4302-1-Lang.Yu@amd.com>
- <DM6PR12MB4250B79297F587313D7645EBFB3F9@DM6PR12MB4250.namprd12.prod.outlook.com>
- <14d7f047-cf6d-c84a-14ff-3f1d833a770b@shipmail.org>
- <883bd629-e3ad-07a2-8952-994f42cb02be@gmail.com>
- <86054733-9b7d-de96-4ab2-21dca85f1e6e@shipmail.org>
- <888c52a5-ec10-0dee-c462-93cef8510e9f@amd.com>
- <6c4c8c57-7cc7-7e24-1d19-b91a312d44a0@shipmail.org>
- <cd081dda-7430-d891-6b02-8aedda7b67be@amd.com>
-From: =?UTF-8?Q?Thomas_Hellstr=c3=b6m_=28Intel=29?= <thomas_os@shipmail.org>
-Message-ID: <7d545d70-8212-3fbe-e803-5198af69f5c2@shipmail.org>
-Date: Mon, 31 May 2021 14:09:59 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 697976E927;
+	Mon, 31 May 2021 12:49:09 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1anam02on2068.outbound.protection.outlook.com [40.107.96.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0031E6E91B;
+ Mon, 31 May 2021 12:49:07 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=jnb7LCdb/UMxfnPWE8x8kRaCz9wiSzIC9SKLnJnLhRuGG7K6qeOOrZaiwlbgvAe/zu2xLdT/vFB7TaR0+Hg1PZubpgKe4WKDswiJ/8FUGcrmdH1EhtDhEuTGsIRl03S9D9+2zJHJQWtZ7xeExvp/aKAflQ7HNPjOKHUK52PluUKynlJkGkYk2xZkGdveENeT4PGFRIwFr1xzcbua8QiQ0NV8nXquKA0uyjSTmbF3MTMNarCn9BsKLjCT8zjaZJKmYkRH477EVyvEcJ2NgQyZNv0hICBcZTMVUY6UNUAt4VPc8QLRFnY5R66jW2Irjv7GWUJ2m5o356IN5QlSdgPHDw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=a4xKbShWB1BgK2sWWMs0zLBJ75VFXOmUL9frKUU1oxI=;
+ b=NvOYw0GSto00l79/xg6UqEAoe6cXsWn9VuxAL15ewS4xh5a+LqFwlKkSzEepyHXksUb6KI0ZiieS7eplLvYxRQu7VM9wSIlZWzXCoyTnnAS1e3TjYU8xB8kFwBeUiWYa4bHQt83u8mVqECgNBVjitPeNnhc1r9o0PswXeXRlyriiVjdnUSPhONuQpsfd0UdhegnqSmk1qjIIXOD45qbJq7aVaopeoIh888xmsBZomhwiXS/FjYOLIC58b48DfI8FiIpsSwnhc1bmioPf324qY+R8FLMG0dx0au3xMuw68ZNcHplTro4QVKEx0MjnoXNYbYsz+c39c74CyfFVLU7hfw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=a4xKbShWB1BgK2sWWMs0zLBJ75VFXOmUL9frKUU1oxI=;
+ b=OkVOXxyz/+getB+K4T+isOgPseoOwWP5zN5qlxGeaf3mRQbOmiKtOl8ziadhWNJjtKDM+upu73lII1C7iuptGCeF3KSEzT61VIJqtrvIzftD4t4xtnqpCxkaGBcv0orOIIyMFRaoJf+uULyIbB5RsGkF5d0Wr/rxcdQcLCo9Aew=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
+ by MN2PR12MB3694.namprd12.prod.outlook.com (2603:10b6:208:165::26)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4173.22; Mon, 31 May
+ 2021 12:49:04 +0000
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::6d4d:4674:1cf6:8d34]) by MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::6d4d:4674:1cf6:8d34%6]) with mapi id 15.20.4173.030; Mon, 31 May 2021
+ 12:49:04 +0000
+Subject: Re: [PATCH v2 3/3] drm/amdgpu: allow temporary GTT allocation under
+ memory pressure
+To: Lang Yu <Lang.Yu@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+References: <20210531082241.4254-1-Lang.Yu@amd.com>
+ <20210531082241.4254-3-Lang.Yu@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Message-ID: <e2e9acf8-5094-10de-549b-51852236b69b@amd.com>
+Date: Mon, 31 May 2021 14:48:57 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.1
-MIME-Version: 1.0
-In-Reply-To: <cd081dda-7430-d891-6b02-8aedda7b67be@amd.com>
+ Thunderbird/78.8.1
+In-Reply-To: <20210531082241.4254-3-Lang.Yu@amd.com>
 Content-Language: en-US
+X-Originating-IP: [2a02:908:1252:fb60:b94:4956:bad4:7c81]
+X-ClientProxiedBy: AM4PR0302CA0026.eurprd03.prod.outlook.com
+ (2603:10a6:205:2::39) To MN2PR12MB3775.namprd12.prod.outlook.com
+ (2603:10b6:208:159::19)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [IPv6:2a02:908:1252:fb60:b94:4956:bad4:7c81]
+ (2a02:908:1252:fb60:b94:4956:bad4:7c81) by
+ AM4PR0302CA0026.eurprd03.prod.outlook.com (2603:10a6:205:2::39) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4173.20 via Frontend
+ Transport; Mon, 31 May 2021 12:49:02 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: cc13ac18-1a30-45e2-2e7b-08d92432783a
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3694:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MN2PR12MB369490A0CB8BA74CA887C5F7833F9@MN2PR12MB3694.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: GrsqFAKa9Rxo1PrKTJb53HXHlC5ZU27fWPBlWmGPzj+LA7ySa75xGTtQ98Fu3Sq8lH+vSx8XSKcIC6VN7jX1/pCi4CL6oA5zskzIkIr0tQnXBupX2RWBhRq82cV6tGyenQTI+FsEVfwahHpANuc7G+uzseCTE8Nii+kY4Kbby6pLFXRKJiXnVAPJaGK85djL3YOm0febr4hYo+m3tr97zfiAdMf22LtU3xL9U9SqGn6bXocPMFoRWC77ZqLvm5OhdwXAHwk0G6nVIo2zRmlhCtTdlGMZ7JJfpZsBXosDcxohMQIjbRms/T0eRrny2qaBisEkuIVFKS0Oh6Tq1rhVX2p8BulUPGaofx1iYUxH7Xbiz82RoqAEzCERfrk5EoMffN3B2/4bnXDFMOlTuJcmWWQgg/WqmzuOM4k3figysLTIUY+SCFwYOJZLajtexGWp73GEnyTkqCzXYGhbz3kpoCg8mxCU3tRKlhDnu4FJqPaiOSDgsmaOiemPWM/dn8OLlovKNFH8UG90fSX4lKUO99vFH3dl6LqMSZ+XNN634HQR4VY+nyo6su78ff1/NTkbXZv+FGQQIttG09+hj+z30wXh5HJa/RBZwnfyTztifyKfvZCuq7XTi7OcM3DOQZI7XzyqPmIDBlzaR2SqpDVfCzQTXigypoQOFFtz/M0jU5T+xaPnm500bdvDgaJdJxTW
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(376002)(366004)(136003)(346002)(39860400002)(396003)(83380400001)(6666004)(8936002)(16526019)(36756003)(86362001)(54906003)(2616005)(31696002)(6486002)(66476007)(66556008)(5660300002)(2906002)(31686004)(66946007)(186003)(8676002)(38100700002)(316002)(4326008)(478600001)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?djl6OHQybkN6dFVIcXN1eC9IemFTclRBUExONkY2Qmp3Rm5JZVhRWWoyNUNB?=
+ =?utf-8?B?MmovMmFJTjNlWkY2aGgvZ2paNTFZckJVZXVBaGwyNGZBYk5HYkh5RU9yL3NM?=
+ =?utf-8?B?T1JQc2J3OXNWcG1sYTFNaU15ZGZqcE1VRkpHZ0ZXcnBZekFHNTJ5RXdyNDVY?=
+ =?utf-8?B?TUtSSVpmSEJ2TEloTXlzSmt3d0NwQjVHN21VcFpZRDlLVzJ2YUs4REU0bVpp?=
+ =?utf-8?B?TDhoWGZRb3dtbEFwdGJmRG1oTEdWSHZIblpGRjVHQ3lpMnNPMDFTQTVJUUJ1?=
+ =?utf-8?B?Ni9JOUJzMkRNa3ZNSnpIV3JXUHJMSlF1cllkQnhxcEpnNEtZWUtMVGFiSWJt?=
+ =?utf-8?B?dlJ0S0xTYXY3R0ZhSFFBNDRDcVZHNHNpMjdIZ2JsUXZEZUs3YlAvVy9FVkU4?=
+ =?utf-8?B?bDU4VHM3b2lBSFhwempjdmEyS04wWEFQRkFxSno4Zk04OUoxLy9zTGNEOTZv?=
+ =?utf-8?B?Q0FTcTdtVU9YVlVXenRJVWg2RkgxSGo4bWNEOTBJVHhKZzdvYTRCN2tsVThL?=
+ =?utf-8?B?RXUrcDNGZjAwdEVwN2swWGxSMnBaOXdHTlBVWTFCaG1ycm42ZHk2KzRlMkp6?=
+ =?utf-8?B?dkZxY0xrdkRLUFVzTXBkUWVYazdhMVdXN010dE8vTi8wNDJJZk1aaEJBOElT?=
+ =?utf-8?B?VkxUV0RQQWtWSDRac3RwSmVWZXkrMUZnOXJEOE1qNk01T1FzbEM2TXYySndu?=
+ =?utf-8?B?c0lZN095dFZpRE91M0p0N2dyc2xyOU1rN0RKM2Erd3k0SU92WTdGMi90Ykdp?=
+ =?utf-8?B?UTJOSy9UcHNPQXM2VlY3ZlpRMzBPeS9zTzIyZDhQc2FReThWRFFIbnJyU1VR?=
+ =?utf-8?B?a3cwNkxHUEJrazNhazBFK0dNY0t1Mi9RMzg1dmxqQ0xIWjU0bUttd1NISUk1?=
+ =?utf-8?B?MzZOVnljUG5uWTV2cVZQcUlCTGZSbDhlc0d6QlY5clNzMWV6cmJFQUM4bGtK?=
+ =?utf-8?B?K1hhdm1FZzhYcWhYMUgydnNlTXlUNFgxYlY1eUtFUUVuNXJmWTBlMkFmRXov?=
+ =?utf-8?B?RFFiZWQ3d080a0o3d0pPZUJJZXRSUzZHR1dXbDgzd3hsNUtRS2Iwb0VweERn?=
+ =?utf-8?B?MjZXZVhiT0RDcERIUWU2alRyZWZIOUtWVlYyZGw0TVRrc3E2Tm00ZjBTNU92?=
+ =?utf-8?B?V1BIbWRrQW1JTFhpSm9rRmdnc3pKc0pHbHg3S3l1bVc1a0hBTjhURWwyUVVm?=
+ =?utf-8?B?d241dS9qSGRNVGtkQ3dzWXZQV2NaQ2FIbDk3azB0WW5OWkV5N2NKcjA2MU5C?=
+ =?utf-8?B?Q2cxc2JlMEhTTGFsWTRJMHVyZFI2TlRkS1lReTRWMHgwa0U0eWwrTjArT2xa?=
+ =?utf-8?B?bnJxNHJjZXRINUVKU09mZGQ5Yjc1SVAzUW5QSDlZelVsMUx2TzFERUtFKzNC?=
+ =?utf-8?B?Wk5zaHlJalIrWEZxVWVoeWNCS3JGNjVsaGt2cHAweU84RFdocmFjT240dlUz?=
+ =?utf-8?B?RmhadVY4cHE4bHJmUnRsK2xXWFloOHp2SVdkVEo3cG9yaDU4S1Zhb29kd2xp?=
+ =?utf-8?B?aktldzk0MW5VRDV0SDFWU0JsTmdSOEU2V3hLUzJXTmw3UG0xenhvbHk3UktD?=
+ =?utf-8?B?N1V6Rm5OVlZRemVQUWpRTmRiU3BoMkxjYjRjQW5UZnI4WkpFYVl6THJBK0Fz?=
+ =?utf-8?B?emJsRlRXRDc2QkJReEZ2M0swUGpMUDZMSlNhaVRKbXBpN0djWmVoTjhTb2tW?=
+ =?utf-8?B?WFN3NlhsSU5NUTZ6bGVGUktNMkxveGVITjdkcS80RmxkZmNDeHI0elBFRHdn?=
+ =?utf-8?B?UFY0NU1WWDZsUVFDdG1kbEx1NlNYdkUxd3ZCUlRMVCt3Y0dRdGdvVDZOS1FI?=
+ =?utf-8?B?QkcveTVJTk1LdWdPc2liZjJCcmJRNVVySncyeWkzS3pZN1p2NlZaMWRKR05x?=
+ =?utf-8?Q?dEvml83TD2X9N?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cc13ac18-1a30-45e2-2e7b-08d92432783a
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 May 2021 12:49:04.0225 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Lw258VHovGmV21zJGqgxTVxU5PJ+5yuZZYT6ICz+IQk1eQl0lCA7fR1uxnEIxs4Z
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3694
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,80 +140,165 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Thomas_Hellstr=c3=b6?= <thomas_os@shipmail.org>,
+ Huang Rui <ray.huang@amd.com>, Marek Olsak <Marek.Olsak@amd.com>
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ck9uIDUvMzEvMjEgMjowMiBQTSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPiBBbSAzMS4wNS4y
-MSB1bSAxMzoxOSBzY2hyaWViIFRob21hcyBIZWxsc3Ryw7ZtIChJbnRlbCk6Cj4+Cj4+IE9uIDUv
-MzEvMjEgMTI6NTYgUE0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+PiBBbSAzMS4wNS4yMSB1
-bSAxMjo0NiBzY2hyaWViIFRob21hcyBIZWxsc3Ryw7ZtIChJbnRlbCk6Cj4+Pj4KPj4+PiBPbiA1
-LzMxLzIxIDEyOjMyIFBNLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+Pj4+PiBBbSAzMS4wNS4y
-MSB1bSAxMTo1MiBzY2hyaWViIFRob21hcyBIZWxsc3Ryw7ZtIChJbnRlbCk6Cj4+Pj4+PiBIaSwg
-TGFuZywKPj4+Pj4+Cj4+Pj4+PiBPbiA1LzMxLzIxIDEwOjE5IEFNLCBZdSwgTGFuZyB3cm90ZToK
-Pj4+Pj4+PiBbUHVibGljXQo+Pj4+Pj4+Cj4+Pj4+Pj4+IEhpLAo+Pj4+Pj4+PiBPbiA1LzI3LzIx
-IDM6MzAgQU0sIExhbmcgWXUgd3JvdGU6Cj4+Pj4+Pj4+PiBNYWtlIFRUTV9QTF9GTEFHXyogc3Rh
-cnQgZnJvbSB6ZXJvIGFuZCBhZGQKPj4+Pj4+Pj4+IFRUTV9QTF9GTEFHX1RFTVBPUkFSWSBmbGFn
-IGZvciB0ZW1wb3JhcnkKPj4+Pj4+Pj4+IEdUVCBhbGxvY2F0aW9uIHVzZS4KPj4+Pj4+Pj4gR1RU
-IGlzIGEgZHJpdmVyIHByaXZhdGUgYWNyb255bSwgcmlnaHQ/IEFuZCBpdCBkb2Vzbid0IGxvb2sg
-bGlrZQo+Pj4+Pj4+PiBUVE1fUExfRkxBR19URU1QT1JBUlkgd2lsbCBiZSB1c2VkIGluIGNvcmUg
-VFRNLCBzbyBzaG91bGQgd2UgCj4+Pj4+Pj4+IGluc3RlYWQgc2V0Cj4+Pj4+Pj4+IGFzaWRlIGEg
-bWFzayBpbiB0aGUgUEwgZmxhZyBmb3IgZHJpdmVyLXByaXZhdGUgdXNlPwo+Pj4+Pj4+IEhpIFRo
-b21hcywKPj4+Pj4+Pgo+Pj4+Pj4+IFRoYW5rcyBmb3IgeW91ciBjb21tZW50cyBhbmQgYWR2aWNl
-LCBHVFQgbWVhbnMgR3JhcGhpY3MgCj4+Pj4+Pj4gVHJhbnNsYXRpb24gVGFibGUgaGVyZSwgc2Vl
-bXMKPj4+Pj4+PiBhIGdlbmVyYWwgYWNyb255bS4gVFRNX1BMX0ZMQUdfVEVNUE9SQVJZIG1heSBh
-bHNvIGJlIHVzZWQgYnkgCj4+Pj4+Pj4gb3RoZXIgZHJpdmVzLgo+Pj4+Pj4+IEkgaGF2ZSBtYWRl
-IG90aGVyIHBhdGNoZXMgZm9yIHRoaXMuIFBsZWFzZSBoZWxwIHJldmlldy4KPj4+Pj4+Pgo+Pj4+
-Pj4+IFJlZ2FyZHMsCj4+Pj4+Pj4gTGFuZwo+Pj4+Pj4+Cj4+Pj4+PiBNeSBwb2ludCB3YXMgcmVh
-bGx5IHRoYXQgdGhlIGZsYWcgbmFtaW5nIGFuZCBkb2N1bWVudGF0aW9uIHNob3VsZCAKPj4+Pj4+
-IHJlZmxlY3Qgd2hhdCBjb3JlIHR0bSBpcyBkb2luZyB3aXRoIHRoYXQgZmxhZy4gSWYgdGhlcmUg
-aXMgbm8gCj4+Pj4+PiBzcGVjaWZpYyBjb3JlIFRUTSB1c2FnZSwgSU1PIHdlIHNob3VsZCBtb3Zl
-IGl0IHRvIGEgZHJpdmVyIAo+Pj4+Pj4gc3BlY2lmaWMgZmxhZyB0byBhdm9pZCBmdXR1cmUgY29u
-ZnVzaW9uLiBJbiBwYXJ0aWN1bGFyIGEgd3JpdGVyIAo+Pj4+Pj4gb2YgYSBnZW5lcmljIFRUTSBy
-ZXNvdXJjZSBtYW5hZ2VyIHNob3VsZCBiZSBhYmxlIHRvIGtub3cgd2l0aG91dCAKPj4+Pj4+IGxv
-b2tpbmcgYXQgYW4gb2xkIGNvbW1pdCBtZXNzYWdlIHdoYXQgdGhlIHBsYWNlbWVudCBmbGFnIGlz
-IAo+Pj4+Pj4gaW50ZW5kZWQgZm9yLgo+Pj4+Pj4KPj4+Pj4+IFNvIGhlcmUgd2UgYWRkIGEgZmxh
-ZyB3aGVyZSBjb3JlIFRUTSBmb3JjZXMgYSBibyBtb3ZlIG9uIHZhbGlkYXRlIAo+Pj4+Pj4gYW5k
-IHRoYXQncyBpdC4gQW5kIHRoYXQgYXBwZWFycyB0byBiZSBob3cgaXQncyB1c2VkIHdoZW4gYW4g
-Cj4+Pj4+PiBhbWRncHUgYm8gaXMgZXZpY3RlZCB0byBHVFQsIChidHcgc2hvdWxkIGl0IGJlIGFj
-Y291bnRlZCBpbiB0aGlzIAo+Pj4+Pj4gc2l0dWF0aW9uPykKPj4+Pj4+Cj4+Pj4+PiBUaGUgb3Ro
-ZXIgdXNlIGlzIHRvIGZvcmNlIHRoZSBhbWRncHUgZHJpdmVyIHRvIHRlbXBvcmFyaWx5IGFjY2Vw
-dCAKPj4+Pj4+IGl0IGludG8gR1RUIHdoZW4gdGhlcmUgaXMgYSBsYWNrIG9mIHNwYWNlLCBhbmQg
-SU1ITyB0aGF0J3MgYSAKPj4+Pj4+IGRyaXZlciBzcGVjaWZpYyB1c2UgYW5kIHdlIHNob3VsZCBh
-bGxvY2F0ZSBhIG1hc2sgZm9yIGRyaXZlciAKPj4+Pj4+IHNwZWNpZmljIGZsYWdzIGZvciB0aGF0
-Lgo+Pj4+Pj4KPj4+Pj4+IFNvIHNob3VsZG4ndCB0aGlzIGJlIHR3byBmbGFncywgcmVhbGx5Pwo+
-Pj4+Pgo+Pj4+PiBXZWxsIG9uZSBmbGFnIG1ha2VzIHNlbnNlIGZvciB0aGUgdXNlIGNhc2UgYXQg
-aGFuZCB0aGF0IGRyaXZlcnMgCj4+Pj4+IHdhbnQgdG8gc2lnbmFsIHRvIFRUTSB0aGF0IGFuIGFs
-bG9jYXRpb24gaXMgb25seSB0ZW1wb3JhcnkgYW5kIG5vdCAKPj4+Pj4gY29uc2lkZXJlZCB2YWxp
-ZC4KPj4+Pj4KPj4+Pj4gVGhhdCB3ZSB0aGVuIHVzZSB0aGlzIGZsYWcgdG8gaW1wbGVtZW50IHRl
-bXBvcmFyeSBHVFQgYWxsb2NhdGlvbnMgCj4+Pj4+IHRvIGF2b2lkIHByb2JsZW1zIGR1cmluZyBl
-dmljdGlvbiBpcyBqdXN0IGV4dGVuZGluZyB0aGF0IHVzZSBjYXNlLgo+Pj4+Pgo+Pj4+IE9LLCBi
-dXQgaXQgbG9va2VkIGxpa2UgdGhlcmUgd2VyZSBhY3R1YWxseSB0d28gdXNlLWNhc2VzLiBPbmUg
-Zm9yIAo+Pj4+IHBvc3NpYmx5IGxvbmctdGVybSBWUkFNIGV2aWN0aW9ucyB0byBHVFQsIHRoZSBv
-dGhlciBmb3IgdGhlIAo+Pj4+IHRlbXBvcmFyeSB1c2UtY2FzZSB3aGVyZSB0aGUgaG9wIHJlc291
-cmNlIGFsbG9jYXRpb25zIHNvbWV0aW1lcyAKPj4+PiBmYWlsZWQuIE9yIGRpZCBJIG1pc3VuZGVy
-c3RhbmQgdGhlIGNvZGU/Cj4+Pgo+Pj4gT2sgc291bmRzIGxpa2Ugd2UgbmVlZCBtb3JlIGRvY3Vt
-ZW50YXRpb24gaGVyZS4gVGhhdCdzIHJlYWxseSBvbmUgCj4+PiB1c2UgY2FzZS4KPj4+Cj4+PiBL
-ZXkgcG9pbnQgaXMgd2UgbmVlZCB0ZW1wb3JhcnkgYWxsb2NhdGlvbiBkdXJpbmcgbXVsdGlob3Ag
-d2hpY2ggCj4+PiBzaG91bGQgYmUgaGFuZGxlZCBkaWZmZXJlbnRseSB0byBub3JtYWwgYWxsb2Nh
-dGlvbnMuCj4+Cj4+IFllcywgdGhhdCBwYXJ0IGlzIGNsZWFyIGZyb20gdGhlIHBhdGNoZXMuIFRo
-ZSBwYXJ0IHRoYXQgSSBjYW4ndCBmaXQgCj4+IGludG8gdGhhdCBwYXR0ZXJuIGlzIHdoeSB0aGUg
-ZXZpY3QgZmxhZ3Mgd2hlbiBldmljdGluZyBmcm9tIHZpc2libGUgCj4+IFZSQU0gdG8gR1RUIG9y
-IG9yZGluYXJ5IFZSQU0gaXMgbWFya2VkIHdpdGggVFRNX1BMX0ZMQUdfVEVNUE9SQVJZLiAKPj4g
-V291bGRuJ3QgdGhvc2UgcmVtYWluIGV2aWN0ZWQgaW4gdGhhdCBwbGFjZW1lbnQgdW50aWwgcmUt
-dmFsaWRhdGVkIHRvIAo+PiB2aXNpYmxlIFZSQU0gYXQgYW4gdW5rbm93biBmdXR1cmUgdGltZT8K
-Pgo+IE5vdCBuZWNlc3NhcmlseS4KPgo+IFRoZSBzaXR1YXRpb24gd2UgcmFuIGludG8gd2FzIHRo
-ZSBmb2xsb3dpbmc6Cj4gMS4gT09NIG9uIFZSQU0sIHdlIHRyeSB0byBldmljdC4KPgo+IDIuIEdU
-VCBzcGFjZSBpcyB1c2VkIHVwIGFzIHdlbGwsIG9rIGV2aWN0IGRpcmVjdGx5IHRvIFNZU1RFTS4K
-Pgo+IDMuIEZvciBWUkFNLT5TWVNURU0gZXZpY3Rpb24gd2UgdXNlIGEgdGVtcG9yYXJ5IGJvdW5j
-ZSBidWZmZXIuCj4KPiA0LiBXYWl0aW5nIGZvciB0aGUgYm91bmNlIGJ1ZmZlciB0byBiZWNvbWUg
-aWRsZSBpcyBpbnRlcnJ1cHRlZCBieSBhIAo+IHNpZ25hbCBzbyBCTyBpcyBzdGlsbCBiYWNrZWQg
-YnkgYm91bmNlIGJ1ZmZlci4KPgo+IDUuIE5leHQgQ1MsIEJPIGlzIHZhbGlkYXRlZCB3aXRoIFZS
-QU18R1RULiBUVE0gc2VlcyB0aGF0IGl0IGlzIGluIEdUVCAKPiBhbmQgZG9lc24ndCBtb3ZlIHRo
-ZSBidWZmZXIuCj4KPiA2LiBDUyBnb2VzIGludG8gbmlydmFuYSBiZWNhdXNlIGJvdW5jZSBidWZm
-ZXJzIGFyZSBub3QgbWVhbnQgdG8gYmUgCj4gdXNlZCBmb3IgQ1MgKHdlIGNhbiBpZ25vcmUgYWxp
-Z25tZW50IGFuZCBhY2NvdW50aW5nIGZvciB0aGVtKS4KPgpZZXMsIG1ha2VzIHNlbnNlIHRvIG1l
-LgoKL1Rob21hcwoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
-dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+On which branch are you working? I have problems applying that one to 
+amd-staging-drm-next.
+
+Christian.
+
+Am 31.05.21 um 10:22 schrieb Lang Yu:
+> Currently, we have a limitted GTT memory size and need a bounce buffer
+> when doing buffer migration between VRAM and SYSTEM domain.
+>
+> The problem is under GTT memory pressure we can't do buffer migration
+> between VRAM and SYSTEM domain. But in some cases we really need that.
+> Eespecially when validating a VRAM backing store BO which resides in
+> SYSTEM domain.
+>
+> To solve the problem, we allow temporary GTT allocation under memory
+> pressure and do the following:
+>
+> 1. Change mgr->available into mgr->used (invert the value).
+> 2. Always account all GTT BOs to the used space.
+> 3. Only when it is not a temporary allocation bail out.
+>
+> v2: still account temporary GTT allocations
+>
+> Signed-off-by: Lang Yu <Lang.Yu@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c | 27 ++++++++++-----------
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c     |  4 ++-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h     |  2 +-
+>   3 files changed, 17 insertions(+), 16 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
+> index 8860545344c7..393f55f412b7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
+> @@ -111,14 +111,11 @@ static int amdgpu_gtt_mgr_new(struct ttm_resource_manager *man,
+>   	struct amdgpu_gtt_node *node;
+>   	int r;
+>   
+> -	spin_lock(&mgr->lock);
+> -	if ((&tbo->mem == mem || tbo->mem.mem_type != TTM_PL_TT) &&
+> -	    atomic64_read(&mgr->available) < mem->num_pages) {
+> -		spin_unlock(&mgr->lock);
+> +	if ((atomic64_add_return(mem->num_pages, &mgr->used) > man->size) &&
+> +		!(mem->placement & TTM_PL_FLAG_TEMPORARY)) {
+> +		atomic64_sub(mem->num_pages, &mgr->used);
+>   		return -ENOSPC;
+>   	}
+> -	atomic64_sub(mem->num_pages, &mgr->available);
+> -	spin_unlock(&mgr->lock);
+>   
+>   	if (!place->lpfn) {
+>   		mem->mm_node = NULL;
+> @@ -152,7 +149,7 @@ static int amdgpu_gtt_mgr_new(struct ttm_resource_manager *man,
+>   	kfree(node);
+>   
+>   err_out:
+> -	atomic64_add(mem->num_pages, &mgr->available);
+> +	atomic64_sub(mem->num_pages, &mgr->used);
+>   
+>   	return r;
+>   }
+> @@ -178,7 +175,7 @@ static void amdgpu_gtt_mgr_del(struct ttm_resource_manager *man,
+>   		kfree(node);
+>   	}
+>   
+> -	atomic64_add(mem->num_pages, &mgr->available);
+> +	atomic64_sub(mem->num_pages, &mgr->used);
+>   }
+>   
+>   /**
+> @@ -191,9 +188,8 @@ static void amdgpu_gtt_mgr_del(struct ttm_resource_manager *man,
+>   uint64_t amdgpu_gtt_mgr_usage(struct ttm_resource_manager *man)
+>   {
+>   	struct amdgpu_gtt_mgr *mgr = to_gtt_mgr(man);
+> -	s64 result = man->size - atomic64_read(&mgr->available);
+>   
+> -	return (result > 0 ? result : 0) * PAGE_SIZE;
+> +	return atomic64_read(&mgr->used) * PAGE_SIZE;
+>   }
+>   
+>   /**
+> @@ -234,14 +230,17 @@ static void amdgpu_gtt_mgr_debug(struct ttm_resource_manager *man,
+>   				 struct drm_printer *printer)
+>   {
+>   	struct amdgpu_gtt_mgr *mgr = to_gtt_mgr(man);
+> +	uint64_t used, used_pages;
+>   
+>   	spin_lock(&mgr->lock);
+>   	drm_mm_print(&mgr->mm, printer);
+>   	spin_unlock(&mgr->lock);
+>   
+> -	drm_printf(printer, "man size:%llu pages, gtt available:%lld pages, usage:%lluMB\n",
+> -		   man->size, (u64)atomic64_read(&mgr->available),
+> -		   amdgpu_gtt_mgr_usage(man) >> 20);
+> +	used = amdgpu_gtt_mgr_usage(man);
+> +	used_pages = used/PAGE_SIZE;
+> +
+> +	drm_printf(printer, "man size:%llu pages,  gtt available:%lld pages, usage:%lluMB\n",
+> +		man->size, used_pages > man->size ? 0 : man->size - used_pages, used >> 20);
+>   }
+>   
+>   static const struct ttm_resource_manager_func amdgpu_gtt_mgr_func = {
+> @@ -274,7 +273,7 @@ int amdgpu_gtt_mgr_init(struct amdgpu_device *adev, uint64_t gtt_size)
+>   	size = (adev->gmc.gart_size >> PAGE_SHIFT) - start;
+>   	drm_mm_init(&mgr->mm, start, size);
+>   	spin_lock_init(&mgr->lock);
+> -	atomic64_set(&mgr->available, gtt_size >> PAGE_SHIFT);
+> +	atomic64_set(&mgr->used, 0);
+>   
+>   	ret = device_create_file(adev->dev, &dev_attr_mem_info_gtt_total);
+>   	if (ret) {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> index c0aef327292a..129d39392859 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> @@ -152,9 +152,11 @@ static void amdgpu_evict_flags(struct ttm_buffer_object *bo,
+>   			abo->placements[0].lpfn = 0;
+>   			abo->placement.busy_placement = &abo->placements[1];
+>   			abo->placement.num_busy_placement = 1;
+> +			abo->placements[1].flags |= TTM_PL_FLAG_TEMPORARY;
+>   		} else {
+>   			/* Move to GTT memory */
+>   			amdgpu_bo_placement_from_domain(abo, AMDGPU_GEM_DOMAIN_GTT);
+> +			abo->placements[0].flags |= TTM_PL_FLAG_TEMPORARY;
+>   		}
+>   		break;
+>   	case TTM_PL_TT:
+> @@ -538,7 +540,7 @@ static int amdgpu_bo_move(struct ttm_buffer_object *bo, bool evict,
+>   			hop->fpfn = 0;
+>   			hop->lpfn = 0;
+>   			hop->mem_type = TTM_PL_TT;
+> -			hop->flags = 0;
+> +			hop->flags |= TTM_PL_FLAG_TEMPORARY;
+>   			return -EMULTIHOP;
+>   		}
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+> index 2877a924086f..26b67af00550 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+> @@ -52,7 +52,7 @@ struct amdgpu_gtt_mgr {
+>   	struct ttm_resource_manager manager;
+>   	struct drm_mm mm;
+>   	spinlock_t lock;
+> -	atomic64_t available;
+> +	atomic64_t used;
+>   };
+>   
+>   struct amdgpu_preempt_mgr {
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
