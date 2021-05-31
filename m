@@ -2,69 +2,123 @@ Return-Path: <SRS0=CFk9=K2=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CAD73C47082
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 May 2021 08:17:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9F67CC47094
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 May 2021 08:19:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7ADF1610C8
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 May 2021 08:17:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7ADF1610C8
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=web.de
+	by mail.kernel.org (Postfix) with ESMTPS id 59258610C9
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 May 2021 08:19:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 59258610C9
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33BC46E880;
-	Mon, 31 May 2021 08:17:29 +0000 (UTC)
-X-Greylist: delayed 304 seconds by postgrey-1.36 at gabe;
- Sat, 29 May 2021 11:46:02 UTC
-Received: from mout.web.de (mout.web.de [212.227.15.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3CAF66E0A1
- for <amd-gfx@lists.freedesktop.org>; Sat, 29 May 2021 11:46:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de;
- s=dbaedf251592; t=1622288760;
- bh=HD8lzOiWoLaxBfS2FeOUg/QRwax8VTffDBMUY5S1Ro0=;
- h=X-UI-Sender-Class:Date:From:To:Subject;
- b=X5/wuN4IwgXj0kVm7QkJ1cV2QPdWooGply5GVqrO6tta22tWDMql5yZHm+CwUKZef
- 7Zx5Vv2j+5wrkh2YFiSpTLE8iY5ppsXrrvKQBGQqeLEgoSi0leXIrFZeVrDQrf8FOq
- enn4B9UkoZkiF7LQVLKMwlPAoRu12ZdAD8JhqiZM=
-X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
-Received: from schienar ([92.105.189.242]) by smtp.web.de (mrweb003
- [213.165.67.108]) with ESMTPSA (Nemesis) id 0MZDQ4-1m7v1w0GbM-00Kxio for
- <amd-gfx@lists.freedesktop.org>; Sat, 29 May 2021 13:40:56 +0200
-Date: Sat, 29 May 2021 13:40:54 +0200
-From: Julian Wollrath <jwollrath@web.de>
-To: amd-gfx@lists.freedesktop.org
-Subject: 5.13-rc3 Renoir (ChipID = 0x1636): error GPU reset, fences timed
- out, failed to initialize parser -125
-Message-ID: <20210529134054.099661dc@schienar>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3ACC06E883;
+	Mon, 31 May 2021 08:19:10 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam07on2068.outbound.protection.outlook.com [40.107.212.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27BA26E882;
+ Mon, 31 May 2021 08:19:08 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=eLKvB96tQXRWOLZu6Z3m0uauW57O0UEVVDmrOgwCX0e2gs0XPNgdlj9Jl0bk8KHWu6Vf+nPDhtktegL0Iw9eqxgWBrXBHHaD2qRKx9dOeEbGDuQxB2shdBTQhyW5grcipQcTE3sg4fBxvarNRbASP556YkCG6sI9gZtun391egFmw2ir/umRRIqPLJTLsyiUjSXcB0iVb4S+zsvclVOHKgmij3wdHlDFxeqicmnrAfQTPOJhqWBPuGWk1egAwM86OcTSVSmzm8Yn3Kjc/E1lIqSNm87mNvztoWeI8vlv9XeqVbADcTjqm7gXH26U+/YMt0KlBtI+sKfA9y8bS3UO6g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dLs1fvaKcFDOKvZFgXSt/iFn1RN9/eBCL7Zf0tvNwbc=;
+ b=dssfkoX0ukpogfcqFksRuN4qkqHoKeoh3FxvtI4Wcxs9lz6w2I6y6FgJCpTHGMNOsVhCLzwuhbSjBdcFt7UcLJ9rKnXdxXOziBF7+GEfZO1BHHVuUDgmKQ70UkKzsd9kpd7UIrPbD4B4spntOUAsMhgfJgFn0xtnI9gBJwHdFqn3ty0GXGgia3VqkhMRhdqDfQW6HLHkq9vZwHXtbh9ccVzn9opDYKFbhZfg5vmY6RZIID8QsFL93yXyO3ShZz7calS3dO4Syv5lwjPhCrYvwkeqXmgtqYZZJj+hfiiK0D1rQuDxRZlPLGS2O0Tkdv2TWHWG+aGFDeYloKKC4nQ5wQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dLs1fvaKcFDOKvZFgXSt/iFn1RN9/eBCL7Zf0tvNwbc=;
+ b=y2ownauDMSBfZn69n7veyn2UdOpLMlMYfCG9xiDMelhVyXdRPh53gqxu55F6gEOq9WDt2BUovP1A9k2BlBbWB6BYJ7OOo7E1kzOSQRGdL/XIOqlreJqptt2FWJM3myy16mraLXVCoHLovR2wRuUk9EaG2gxkZHXA8tbgXyQhrFY=
+Received: from DM6PR12MB4250.namprd12.prod.outlook.com (2603:10b6:5:21a::9) by
+ DM5PR12MB1339.namprd12.prod.outlook.com (2603:10b6:3:70::14) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4173.24; Mon, 31 May 2021 08:19:07 +0000
+Received: from DM6PR12MB4250.namprd12.prod.outlook.com
+ ([fe80::a4b1:38b7:ec94:8003]) by DM6PR12MB4250.namprd12.prod.outlook.com
+ ([fe80::a4b1:38b7:ec94:8003%8]) with mapi id 15.20.4173.030; Mon, 31 May 2021
+ 08:19:07 +0000
+From: "Yu, Lang" <Lang.Yu@amd.com>
+To: "thomas_os@shipmail.org" <thomas_os@shipmail.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 1/2] drm/ttm: cleanup and add TTM_PL_FLAG_TEMPORARY
+Thread-Topic: [PATCH 1/2] drm/ttm: cleanup and add TTM_PL_FLAG_TEMPORARY
+Thread-Index: AQHXUpf7leXvKSxZVUKsvyexEgFZo6r9QhEQ
+Date: Mon, 31 May 2021 08:19:07 +0000
+Message-ID: <DM6PR12MB4250B79297F587313D7645EBFB3F9@DM6PR12MB4250.namprd12.prod.outlook.com>
+References: <20210527013051.4302-1-Lang.Yu@amd.com>
+In-Reply-To: <20210527013051.4302-1-Lang.Yu@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-05-31T08:19:03Z; 
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP 2.0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=d5529307-3e5e-46bc-a9d9-469601290355;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1
+authentication-results: shipmail.org; dkim=none (message not signed)
+ header.d=none;shipmail.org; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [165.204.134.244]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: f80753dc-c23c-4454-786e-08d9240cc29f
+x-ms-traffictypediagnostic: DM5PR12MB1339:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM5PR12MB1339D379C41186A014CF880DFB3F9@DM5PR12MB1339.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:4303;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 20+pWoTQzq1vzjsAYKAV5ALsbC1wMwY5vrsw+Ex0lPweP6fD+YR3ok+aHi5xdXB1idLU2msge0glzHwsoZ4CJaCi6Y1fCPabwTB03DrPJm7UNcRk8g28eOBE73eWrHitV5wICajvGi51swqB6raF0CPlM2wLicIhVYg0HNpCFJq4GzBy3zz6TWtGA4GhmHi1cQPb7ol+SE8rK23/irDBcywrjhPuCCFIHYQf79QTGuXyNypeNtumJk4KvgIfLV8kck3Kzf3gTH3+8TUTI/CsexcCHne5bF7iGsbXLlwae90hnD6/zNaqAwL4nUc2se8TmUKlC7s6HQBEP5CKC7pOkhcUGlM+PHP16qU83Z5JAqdCee2wd/zRA5ObUpw8mf4syaOh/esIFzZapnRyFIqsrNeK1ZfdqXljzCAXW5IvwdRbOK0bW8qT/nGIpGW8aIW+2xMZLhTqZIbwZbQfWEMd6/apCNNHAFj6nyEzATMcUU9xkfGybrPHTdVFddiqA9UVKFcMy/bJ+E0X+q8Xlh8gg2YT/fuyTSjxH/a/CJ1gwAgPTVOF1rwy4BnEzxtp/wbLQBIbhFcpvnxAYrP/vwXUioeQvgJGhl0UuEs3+pi6+2M=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4250.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(376002)(396003)(346002)(39860400002)(136003)(366004)(6506007)(86362001)(66556008)(5660300002)(122000001)(64756008)(71200400001)(55016002)(8936002)(9686003)(110136005)(316002)(83380400001)(186003)(478600001)(2906002)(4326008)(33656002)(7696005)(8676002)(66476007)(66446008)(66946007)(38100700002)(26005)(52536014)(76116006);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?UwIsbgFSaFuswiykI0m65A4+Z/XdkPUGqHncUfLM1+lXEzHprTz+q//Qn4uZ?=
+ =?us-ascii?Q?e6xDETVwqBgNZYXziIORrHwpc37q70iLkGE2IQS47X93+tjRWFw5xCjYY0Sq?=
+ =?us-ascii?Q?MaPIJWfqwGKOGGwqO7hRmrXeUST7e2goKlclcVR/UhdymPnZsU5CKba7qK54?=
+ =?us-ascii?Q?4b+hiQMGvxblwLej2JjAWeRCM4Sn+MyA5mdRx4qJzsp4i36SGDko2RMCWEzd?=
+ =?us-ascii?Q?U0iRbyBKWj2NxdmjrhXDRjsS6Ms2muO3J4NOZC3IclKgHK91to1QjdN38jjR?=
+ =?us-ascii?Q?KFtGqR+1rkkI4lEgHB8wFRR3oBLArDtDBoQTh8WaF1hGjUpsZDOEoFOPKD//?=
+ =?us-ascii?Q?txAAVkarU1QmvlbVlRZriF+JFutsGPCuWhVXwg/sHgnS8rHXJyvF+jWUubOn?=
+ =?us-ascii?Q?mphW/NYA51VMSZa+m8m3cm5fF6SN8U8p26aiDcmh8q3Nc5VyNQ8nAufS6kg8?=
+ =?us-ascii?Q?ZHKywsWDqi+6m+v0VxhP9OGJdCt96NpzsFr0aWeBrjdmT4ynv43a80U9FWiP?=
+ =?us-ascii?Q?KgcdoBOzoR3qFRGWKmqn3pbDXddHpZKcUtrqnsaTEZ0GpZM8SK+LPyLEpwSz?=
+ =?us-ascii?Q?ZBcCtw6SBggd3ov1zEMV6EyTuBCR2ILd4qJZwqPzHHMrQAdMFChDk3BEsqoE?=
+ =?us-ascii?Q?zgPzk/ZZRJcZrdMeq0XIPp8sjDRmcp17PPJpJ2S4T/Fim98C1+Xhh6KTu/Qe?=
+ =?us-ascii?Q?Aue2rOrcQFVQEGV2V1hKXE3K2FJTpcIck/t+GonFQ7Ktqs+GnKKT+J+lygth?=
+ =?us-ascii?Q?R8sD5TiLAQwAPmiHKhptd6AzEIWO6gfXIqGGS+8RUdRxZDsh8eFhlkbo+thJ?=
+ =?us-ascii?Q?cm5wF0pi2GiKkXDPJQETbqIGTCqGHvdm2X9XZgiZW+e8BnY7RY6UepLBILKr?=
+ =?us-ascii?Q?SPy8eEEGIreMzauPY+ndmAOD6Qb6+TmJJ6kmb8ZHg2jRCU2jYWQ37eX+/fLt?=
+ =?us-ascii?Q?5o7iIPpIvnERwBi1QxV9h5+tARL3DEh8rS6w2bk8UoqJRBtFVBadR9mHHx4v?=
+ =?us-ascii?Q?eyXMQsURSvtRpdlbqmpYu+ZY1Zcw7opw48UjRT3AZ1nnS3OqDrfb0z9hoTUB?=
+ =?us-ascii?Q?XzQVLrVBrax5JIU5KW+c+DtheMsFuZsc1n75L2Dv00Jk3LW82N36IkfSifYi?=
+ =?us-ascii?Q?wJ4+O9lLwj3TBc/LEYjcoXLgryjQXXO+kqlILs8jbAC2Eh7HngW5qRff6bsx?=
+ =?us-ascii?Q?0GpLLidQCIFUz0RA1/FOz3aC82FV7xkxwRXE9m2kFlRdRBIfoJF8LddTttBK?=
+ =?us-ascii?Q?2Tk9CayTAfqoWMah+yb7X9fULbvUi6yBMQWjIL3inSWVTx+MzeQgFJcXp8zk?=
+ =?us-ascii?Q?6+qJNkHQoWddstZOqiBWVyNB?=
 MIME-Version: 1.0
-X-Provags-ID: V03:K1:u7jZIuizNEIMCmXduuGBP6GW+oKYyGi/FEqcmBE1D6BrTvUjXSZ
- kIYQzmVo7rpLMy2Zw6XvABml55tPLTeEwLcg5llw9jp+vAgBbZdACdWliPqJyrE5W0sa2vI
- hviq1ParSlR0rvEz2/jtT5W2aCoH7dZn7j5w/s/Ysv3jsOuvC89Jek9fMAsoZ5aLXXxLuNK
- VGHh9aTO8XHHaZES7vKdA==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:I1wKoC++aUo=:JHK/iaOskeRiOugZvc89qu
- qK4sz05BRgr9CMVJyJE8tbJX6BJFtsqps5lsY3lJW9Qv3DCRs5IlMO20RV5Pb/Fe+ZyWkW6Ux
- hr0t3cnGBNnD8+bRy1D67ZD3YMx2gbW7NgZgNgCe4xDrMfp3qGdcvYuVlQlTnNuF1mNa4IcFy
- 6FsFgqZHnIZUDMNqULQKJcWAsJcWa12mOE1lLWurJqgvMc41V2w1+TBvt3CWSxZYmWl7aV/ZO
- yxXdd2fsM226lyOwkeIa/S+guw3vvn16tFLnTJZr0QIjrTM15eefpuesm6vYUedRoGpClEVAK
- FlebTqvMknj3rQYq6+jPfLEIn5+g7EkAAhpP5K0uo0z2Ged51pRPAJwCW/yRP1kez1ohtgFyG
- vBIWg4peQlXhKEoQig0XsNYAK8FWEhGMXTH8wp0zDBPoL5DhfiosI3NpDomSamzpiJlNfV+LA
- 7VDPTyepkfLxXKFIaqgx4yd94cwxDiFwZZ3WMGVCic1Wg3H28u4Rqxw0XPrHZKwgogmd14c0/
- 4rsm9yPojagn8wSg466ghKH+brNrcojooVWTvG9AO2H68I5szzGeaQqmD8fI6YBvOS2NBn8vW
- V2a/WG4PNFpML8ok3HMn3gjrf5t3Ojsf0pQWzc1J+bUwzUtxqn9HvEvo+LEVcrYZ7AluYHP54
- wmgZPX8kPdaKUb42mscqqbMJ5BdMAE8ikHC5DsUG4JnJlvb7f5l/KVOdep1yeKMejQwUnG3cT
- GHncvKN/xpIy+ghPVDMDnkSe3iR0WGhxRy3NofgmOUXd4JiFMp/YOAeW7bLfSOfVnD5JHkVtT
- vGIxlU3k+JCVUaBNO/rghxRImOSlPgTjEkLVRBEED8LDijLuXUgE75+28vccDB3pp8lnXML7A
- ZfPdBDvRBZreGV/9TBiXDJHFkOYsu80/NKxXUVzIO15c7pRyXf8C89yI0W/5j6Za+vLsyy5Cx
- YEIVVjXDCPcsr0P8EN5HZfzsfZBPjeJZw6m2bFKVwHiNpFVx8fiWcFFAQJpZboRepJU1mlaq1
- X5ze/RkjFL94Q+4Dm6qBRrXTlSYL1GQnyIR/OVSuXVOw4990QEzJAxwSjcYiLE6pWADnnKAjQ
- YSnQkwLtmYQKAFD5e87S2ISVcHpvUPVkxV8
-X-Mailman-Approved-At: Mon, 31 May 2021 08:17:26 +0000
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4250.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f80753dc-c23c-4454-786e-08d9240cc29f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 31 May 2021 08:19:07.1839 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: vme8dzV3zvhjqwy4+mamvLrqj2wPjcOpz912tJr/VNAa7VUiMdSXB62bQ4/82/6GwLLHH6q7+i0qZBTBsxy+kA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1339
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,112 +130,71 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "Koenig, Christian" <Christian.Koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello,
+[Public]
 
-on 5.13-rc3 with a 4650U (Renoir, ChipID = 0x1636) I am able to
-reliably get the GPU to reset under X11/Xorg with the amdgpu driver
-(current from git) and having persistent problems afterwards. I
-achieve this in the following way (using ROOT (root.cern.ch) to draw a
-histogram):
+>Hi,
 
-$ root
-# TH1 *t = new TH1I("test", "test", 2, -.5, 1.5)
-# t->Fill(1)
-# t->Draw()
+>On 5/27/21 3:30 AM, Lang Yu wrote:
+>> Make TTM_PL_FLAG_* start from zero and add
+>> TTM_PL_FLAG_TEMPORARY flag for temporary
+>> GTT allocation use.
 
+>GTT is a driver private acronym, right? And it doesn't look like 
+>TTM_PL_FLAG_TEMPORARY will be used in core TTM, so should we instead set 
+>aside a mask in the PL flag for driver-private use?
 
-this opens a window showing the histogram and results in
+Hi Thomas,  
 
-kernel: [  370.709485] [drm:amdgpu_dm_atomic_commit_tail [amdgpu]] *ERROR* Waiting for fences timed out!
-kernel: [  375.820701] [drm:amdgpu_dm_atomic_commit_tail [amdgpu]] *ERROR* Waiting for fences timed out!
-kernel: [  375.830689] [drm:amdgpu_job_timedout [amdgpu]] *ERROR* ring gfx timeout, signaled seq=3783, emitted seq=3785
-kernel: [  375.831015] [drm:amdgpu_job_timedout [amdgpu]] *ERROR* Process information: process Xorg pid 1028 thread Xorg
-:cs0 pid 1029
-kernel: [  375.831174] amdgpu 0000:03:00.0: amdgpu: GPU reset begin!
-kernel: [  375.924610] [drm] free PSP TMR buffer
-kernel: [  375.951409] amdgpu 0000:03:00.0: amdgpu: MODE2 reset
-kernel: [  375.951531] amdgpu 0000:03:00.0: amdgpu: GPU reset succeeded, trying to resume
-kernel: [  375.951712] [drm] PCIE GART of 1024M enabled.
-kernel: [  375.951715] [drm] PTB located at 0x000000F400900000
-kernel: [  375.951957] [drm] PSP is resuming...
-kernel: [  375.971811] [drm] reserve 0x400000 from 0xf41f800000 for PSP TMR
-kernel: [  376.277979] amdgpu 0000:03:00.0: amdgpu: RAS: optional ras ta ucode is not available
-kernel: [  376.288823] amdgpu 0000:03:00.0: amdgpu: RAP: optional rap ta ucode is not available
-kernel: [  376.288830] amdgpu 0000:03:00.0: amdgpu: SECUREDISPLAY: securedisplay ta ucode is not available
-kernel: [  376.288836] amdgpu 0000:03:00.0: amdgpu: SMU is resuming...
-kernel: [  376.290539] amdgpu 0000:03:00.0: amdgpu: SMU is resumed successfully!
-kernel: [  376.648574] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to initialize parser -125!
-kernel: [  376.649562] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to initialize parser -125!
-kernel: [  376.721210] [drm] kiq ring mec 2 pipe 1 q 0
-kernel: [  376.722457] [drm] DMUB hardware initialized: version=0x01020008
-kernel: [  376.936133] [drm] VCN decode and encode initialized successfully(under DPG Mode).
-kernel: [  376.936628] [drm] JPEG decode initialized successfully.
-kernel: [  376.936635] amdgpu 0000:03:00.0: amdgpu: ring gfx uses VM inv eng 0 on hub 0
-kernel: [  376.936639] amdgpu 0000:03:00.0: amdgpu: ring comp_1.0.0 uses VM inv eng 1 on hub 0
-kernel: [  376.936641] amdgpu 0000:03:00.0: amdgpu: ring comp_1.1.0 uses VM inv eng 4 on hub 0
-kernel: [  376.936643] amdgpu 0000:03:00.0: amdgpu: ring comp_1.2.0 uses VM inv eng 5 on hub 0
-kernel: [  376.936645] amdgpu 0000:03:00.0: amdgpu: ring comp_1.3.0 uses VM inv eng 6 on hub 0
-kernel: [  376.936646] amdgpu 0000:03:00.0: amdgpu: ring comp_1.0.1 uses VM inv eng 7 on hub 0
-kernel: [  376.936648] amdgpu 0000:03:00.0: amdgpu: ring comp_1.1.1 uses VM inv eng 8 on hub 0
-kernel: [  376.936649] amdgpu 0000:03:00.0: amdgpu: ring comp_1.2.1 uses VM inv eng 9 on hub 0
-kernel: [  376.936650] amdgpu 0000:03:00.0: amdgpu: ring comp_1.3.1 uses VM inv eng 10 on hub 0
-kernel: [  376.936652] amdgpu 0000:03:00.0: amdgpu: ring kiq_2.1.0 uses VM inv eng 11 on hub 0
-kernel: [  376.936654] amdgpu 0000:03:00.0: amdgpu: ring sdma0 uses VM inv eng 0 on hub 1
-kernel: [  376.936656] amdgpu 0000:03:00.0: amdgpu: ring vcn_dec uses VM inv eng 1 on hub 1
-kernel: [  376.936657] amdgpu 0000:03:00.0: amdgpu: ring vcn_enc0 uses VM inv eng 4 on hub 1
-kernel: [  376.936659] amdgpu 0000:03:00.0: amdgpu: ring vcn_enc1 uses VM inv eng 5 on hub 1
-kernel: [  376.936660] amdgpu 0000:03:00.0: amdgpu: ring jpeg_dec uses VM inv eng 6 on hub 1
-kernel: [  376.945068] amdgpu 0000:03:00.0: amdgpu: recover vram bo from shadow start
-kernel: [  376.945075] amdgpu 0000:03:00.0: amdgpu: recover vram bo from shadow done
-kernel: [  376.945081] [drm] Skip scheduling IBs!
-kernel: [  376.945084] [drm] Skip scheduling IBs!
-kernel: [  376.945119] amdgpu 0000:03:00.0: amdgpu: GPU reset(2) succeeded!
-kernel: [  376.945161] [drm] Skip scheduling IBs!
-kernel: [  376.945169] [drm] Skip scheduling IBs!
-kernel: [  376.945172] [drm] Skip scheduling IBs!
-kernel: [  376.945235] [drm] Skip scheduling IBs!
-kernel: [  376.945243] [drm] Skip scheduling IBs!
-kernel: [  376.945246] [drm] Skip scheduling IBs!
-kernel: [  376.945248] [drm] Skip scheduling IBs!
-kernel: [  376.945251] [drm] Skip scheduling IBs!
-kernel: [  376.945253] [drm] Skip scheduling IBs!
-kernel: [  376.948659] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to initialize parser -125!
-kernel: [  381.640053] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to initialize parser -125!
-kernel: [  381.641067] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to initialize parser -125!
-kernel: [  381.641510] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to initialize parser -125!
-kernel: [  382.795658] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to initialize parser -125!
-kernel: [  382.796462] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to initialize parser -125!
-kernel: [  383.157991] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to initialize parser -125!
-kernel: [  383.224317] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to initialize parser -125!
-kernel: [  383.225321] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to initialize parser -125!
-kernel: [  383.226164] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to initialize parser -125!
-kernel: [  383.226836] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to initialize parser -125!
-kernel: [  383.227294] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to initialize parser -125!
-kernel: [  383.227573] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to initialize parser -125!
-kernel: [  383.228525] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to initialize parser -125!
-kernel: [  391.623243] amdgpu_cs_ioctl: 13 callbacks suppressed
-kernel: [  391.623250] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to initialize parser -125!
-kernel: [  391.623979] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to initialize parser -125!
-kernel: [  396.615491] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to initialize parser -125!
-kernel: [  396.616130] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to initialize parser -125!
-kernel: [  398.242898] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to initialize parser -125!
-[...]
+Thanks for your comments and advice, GTT means Graphics Translation Table here, seems
+a general acronym. TTM_PL_FLAG_TEMPORARY may also be used by other drives.
+I have made other patches for this. Please help review. 
 
-I guess, that this might not be detailed enough information but I am
-happy to provide more, if you tell me, what exactly is needed.
+Regards,
+Lang
 
+>Thomas
 
-With best regards,
-Julian Wollrath
-
---
- ()  ascii ribbon campaign - against html e-mail
- /\                        - against proprietary attachments
+>-----Original Message-----
+>From: Yu, Lang <Lang.Yu@amd.com>
+>Sent: Thursday, May 27, 2021 9:31 AM
+>To: amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org
+>Cc: Koenig, Christian <Christian.Koenig@amd.com>; Huang, Ray
+><Ray.Huang@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>;
+>Yu, Lang <Lang.Yu@amd.com>
+>Subject: [PATCH 1/2] drm/ttm: cleanup and add TTM_PL_FLAG_TEMPORARY
+>
+>Make TTM_PL_FLAG_* start from zero and add TTM_PL_FLAG_TEMPORARY flag
+>for temporary GTT allocation use.
+>
+>Signed-off-by: Lang Yu <Lang.Yu@amd.com>
+>---
+> include/drm/ttm/ttm_placement.h | 5 +++--
+> 1 file changed, 3 insertions(+), 2 deletions(-)
+>
+>diff --git a/include/drm/ttm/ttm_placement.h
+>b/include/drm/ttm/ttm_placement.h index aa6ba4d0cf78..9f5cfc7c2d5a 100644
+>--- a/include/drm/ttm/ttm_placement.h
+>+++ b/include/drm/ttm/ttm_placement.h
+>@@ -47,8 +47,9 @@
+>  * top of the memory area, instead of the bottom.
+>  */
+>
+>-#define TTM_PL_FLAG_CONTIGUOUS  (1 << 19)
+>-#define TTM_PL_FLAG_TOPDOWN     (1 << 22)
+>+#define TTM_PL_FLAG_CONTIGUOUS  (1 << 0)
+>+#define TTM_PL_FLAG_TOPDOWN     (1 << 1)
+>+#define TTM_PL_FLAG_TEMPORARY   (1 << 2)
+>
+> /**
+>  * struct ttm_place
+>--
+>2.25.1
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
