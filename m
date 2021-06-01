@@ -2,62 +2,64 @@ Return-Path: <SRS0=H3yO=K3=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6A83AC47092
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 13:12:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6A4B3C47080
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 13:17:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0D8F9613BD
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 13:12:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0D8F9613BD
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=huawei.com
+	by mail.kernel.org (Postfix) with ESMTPS id 2F76C613B1
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 13:17:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2F76C613B1
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC0066EA62;
-	Tue,  1 Jun 2021 13:12:03 +0000 (UTC)
-X-Greylist: delayed 1111 seconds by postgrey-1.36 at gabe;
- Tue, 01 Jun 2021 08:23:20 UTC
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7BF8988065
- for <amd-gfx@lists.freedesktop.org>; Tue,  1 Jun 2021 08:23:20 +0000 (UTC)
-Received: from dggemv703-chm.china.huawei.com (unknown [172.30.72.57])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4FvPhh5ZYkzWqPw;
- Tue,  1 Jun 2021 16:00:04 +0800 (CST)
-Received: from dggpeml500020.china.huawei.com (7.185.36.88) by
- dggemv703-chm.china.huawei.com (10.3.19.46) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2176.2; Tue, 1 Jun 2021 16:04:45 +0800
-Received: from huawei.com (10.175.127.227) by dggpeml500020.china.huawei.com
- (7.185.36.88) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.2; Tue, 1 Jun 2021
- 16:04:44 +0800
-From: Baokun Li <libaokun1@huawei.com>
-To: <harry.wentland@amd.com>, <sunpeng.li@amd.com>,
- <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
- <Xinhui.Pan@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>,
- <nicholas.kazlauskas@amd.com>, <Rodrigo.Siqueira@amd.com>,
- <aurabindo.pillai@amd.com>, <qingqing.zhuo@amd.com>,
- <bas@basnieuwenhuizen.nl>, <nikola.cornij@amd.com>, <Wayne.Lin@amd.com>,
- <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>
-Subject: [PATCH -next] =?UTF-8?q?drm/amd/display:=20fix=20warning:=20?=
- =?UTF-8?q?=E2=80=98update=5Fdsc=5Fcaps=E2=80=99=20and=20=E2=80=98apply=5F?=
- =?UTF-8?q?dsc=5Fpolicy=5Ffor=5Fstream=E2=80=99=20defined=20but=20not=20us?=
- =?UTF-8?q?ed?=
-Date: Tue, 1 Jun 2021 16:14:00 +0800
-Message-ID: <20210601081400.123089-1-libaokun1@huawei.com>
-X-Mailer: git-send-email 2.31.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id A90426E7F5;
+	Tue,  1 Jun 2021 13:17:29 +0000 (UTC)
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [IPv6:2a00:1450:4864:20::535])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9537D6E7F5
+ for <amd-gfx@lists.freedesktop.org>; Tue,  1 Jun 2021 13:17:28 +0000 (UTC)
+Received: by mail-ed1-x535.google.com with SMTP id y7so17288592eda.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 01 Jun 2021 06:17:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=XdnTo2xiFIZUf8RX6VjyA9Y655hHeR0liNnxCDaxTWE=;
+ b=jm7Fbrl/3BTpnbVdhhGOK81v/l9HB6j6sUfXf6b3P/qKXYOj3PBD/F/1/niqL3/qj4
+ v6IwqyKbSLI5Nilv6MybOG77NQwvi3befq7wmrYWA9z6ch1+nXluGbzf4/nJxZ8qczbu
+ GSQpheJbQeZ36S13mhfCeDe+DMqRC1DuaKl9PoH8IWIu3GrNV+sv8WtLUDbseoIel1ek
+ 3beHVdgQO2jcmuZC9VTltqSHdujTUYlp9knWWc2mFzSnZon15WBKDUEQ+LwP4/1olX1L
+ GEdrJOHr0fcI0bLaUrnaJwtv5V1SurTugRxM0o2t86EbQrehnnIaAgIfz4FRgmfwYUwj
+ pGIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=XdnTo2xiFIZUf8RX6VjyA9Y655hHeR0liNnxCDaxTWE=;
+ b=WZMJLNHCj7KbTgTa7zdNj0CGzEux4pKFF26qzZtY7haT79LMqK83btxeh6PiIvimHZ
+ Dl2RKpnGS5TuRVcgf5slmd41O9iAewH6OW529UbjYKoiRPQ0Hb5xPgES9O9njTHnin3L
+ ssRkjuAVBPBjpAaVli5S5l0pZGqJzL7GxNAxjs98lib9AcE2Gp94hCIoOCGE/DpFVr1F
+ /kw+Vs3bvOFb3GziUdSWV1kzw/9SfCI0JjjAc+GTtxPCo75HCL+BDbYqzDoEjOO0i/Eo
+ olpp/MITDoO92et3id943CS2H5Mmolqq7av2hQNpdMaYvWs3OdF/TggFuismU6s8QG8+
+ QkTQ==
+X-Gm-Message-State: AOAM530Zgzm9FYol9JFRqmtZZQShle4GtbT6kMFNnTnEJxxOrtSF/UmU
+ BWwLkLaz591qsaGOOLpZLzH0mU53oXxrjdJO9bQ=
+X-Google-Smtp-Source: ABdhPJxvEUOWPjbR+ZkmZT2rXqUHUBoIu00hoo3y03MfHTszA4XQ+UV48ky/NC3DaoY1Ei7A6JLiD+2mJsaF4An2Wj0=
+X-Received: by 2002:aa7:cd19:: with SMTP id b25mr30597923edw.84.1622553447262; 
+ Tue, 01 Jun 2021 06:17:27 -0700 (PDT)
 MIME-Version: 1.0
-X-Originating-IP: [10.175.127.227]
-X-ClientProxiedBy: dggems702-chm.china.huawei.com (10.3.19.179) To
- dggpeml500020.china.huawei.com (7.185.36.88)
-X-CFilter-Loop: Reflected
-X-Mailman-Approved-At: Tue, 01 Jun 2021 13:12:02 +0000
+References: <DM6PR12MB3547CA74B0AA230909080A0AF73F9@DM6PR12MB3547.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB3547CA74B0AA230909080A0AF73F9@DM6PR12MB3547.namprd12.prod.outlook.com>
+From: Mario Kleiner <mario.kleiner.de@gmail.com>
+Date: Tue, 1 Jun 2021 15:17:15 +0200
+Message-ID: <CAEsyxyhmjds=87PKyVVkruwZLOQgk_DALgD_-_nLxzmMiH3qFg@mail.gmail.com>
+Subject: Re: display regression on Carrizo
+To: "StDenis, Tom" <Tom.StDenis@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,62 +71,76 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: yuehaibing@huawei.com, libaokun1@huawei.com, weiyongjun1@huawei.com,
- yukuai3@huawei.com, yangjihong1@huawei.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Rml4ZXMgZ2NjICctV3VudXNlZC1mdW5jdGlvbicgd2FybmluZzoKCuKAmHVwZGF0ZV9kc2NfY2Fw
-c+KAmSBhbmQg4oCYYXBwbHlfZHNjX3BvbGljeV9mb3Jfc3RyZWFt4oCZIGFyZSBvbmx5IHVzZWQK
-aWYgJ0NPTkZJR19EUk1fQU1EX0RDX0RDTicgaXMgZGVmaW5lZCwKCmhvd2V2ZXIsIGl0J3MgZGVm
-aW5lZCBldmVuIGlmICdDT05GSUdfRFJNX0FNRF9EQ19EQ04nIGlzIG5vdCBkZWZpbmVkLgpUaHVz
-IGdjYyB3aWxsIHJlcG9ydCBmb2xsb3dpbmcgd2FybmluZwppZiAnQ09ORklHX0RSTV9BTURfRENf
-RENOJyBpcyBub3QgZGVmaW5lZDoKCmRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1Ly4uL2Rpc3Bs
-YXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jOjU1NzI6MTM6IHdhcm5pbmc6CuKAmGFwcGx5X2RzY19w
-b2xpY3lfZm9yX3N0cmVhbeKAmSBkZWZpbmVkIGJ1dCBub3QgdXNlZCBbLVd1bnVzZWQtZnVuY3Rp
-b25dCgpkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS8uLi9kaXNwbGF5L2FtZGdwdV9kbS9hbWRn
-cHVfZG0uYzo1NTU2OjEzOiB3YXJuaW5nOgrigJh1cGRhdGVfZHNjX2NhcHPigJkgZGVmaW5lZCBi
-dXQgbm90IHVzZWQgWy1XdW51c2VkLWZ1bmN0aW9uXQoKVGh1cyBtb3ZlIHRoZSBkZWZpbml0aW9u
-IG9mIOKAmHVwZGF0ZV9kc2NfY2Fwc+KAmSBhbmQK4oCYYXBwbHlfZHNjX3BvbGljeV9mb3Jfc3Ry
-ZWFt4oCZIGluc2lkZSBkZWZpbmUgbWFjcm8gdG8gZml4IGl0LgoKU2lnbmVkLW9mZi1ieTogQmFv
-a3VuIExpIDxsaWJhb2t1bjFAaHVhd2VpLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rp
-c3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIHwgNiArKy0tLS0KIDEgZmlsZSBjaGFuZ2VkLCAy
-IGluc2VydGlvbnMoKyksIDQgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKaW5kZXggZjBhZGZkYTMyMjEzLi5lMGFm
-Mzk0MTAzYWEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVf
-ZG0vYW1kZ3B1X2RtLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9k
-bS9hbWRncHVfZG0uYwpAQCAtNTU1Myw2ICs1NTUzLDcgQEAgc3RhdGljIHZvaWQgZG1fZW5hYmxl
-X3Blcl9mcmFtZV9jcnRjX21hc3Rlcl9zeW5jKHN0cnVjdCBkY19zdGF0ZSAqY29udGV4dCkKIAl9
-CiB9CiAKKyNpZiBkZWZpbmVkKENPTkZJR19EUk1fQU1EX0RDX0RDTikKIHN0YXRpYyB2b2lkIHVw
-ZGF0ZV9kc2NfY2FwcyhzdHJ1Y3QgYW1kZ3B1X2RtX2Nvbm5lY3RvciAqYWNvbm5lY3RvciwKIAkJ
-CQkJCQlzdHJ1Y3QgZGNfc2luayAqc2luaywgc3RydWN0IGRjX3N0cmVhbV9zdGF0ZSAqc3RyZWFt
-LAogCQkJCQkJCXN0cnVjdCBkc2NfZGVjX2RwY2RfY2FwcyAqZHNjX2NhcHMpCkBAIC01NTYwLDEy
-ICs1NTYxLDEwIEBAIHN0YXRpYyB2b2lkIHVwZGF0ZV9kc2NfY2FwcyhzdHJ1Y3QgYW1kZ3B1X2Rt
-X2Nvbm5lY3RvciAqYWNvbm5lY3RvciwKIAlzdHJlYW0tPnRpbWluZy5mbGFncy5EU0MgPSAwOwog
-CiAJaWYgKGFjb25uZWN0b3ItPmRjX2xpbmsgJiYgc2luay0+c2lua19zaWduYWwgPT0gU0lHTkFM
-X1RZUEVfRElTUExBWV9QT1JUKSB7Ci0jaWYgZGVmaW5lZChDT05GSUdfRFJNX0FNRF9EQ19EQ04p
-CiAJCWRjX2RzY19wYXJzZV9kc2NfZHBjZChhY29ubmVjdG9yLT5kY19saW5rLT5jdHgtPmRjLAog
-CQkJCSAgICAgIGFjb25uZWN0b3ItPmRjX2xpbmstPmRwY2RfY2Fwcy5kc2NfY2Fwcy5kc2NfYmFz
-aWNfY2Fwcy5yYXcsCiAJCQkJICAgICAgYWNvbm5lY3Rvci0+ZGNfbGluay0+ZHBjZF9jYXBzLmRz
-Y19jYXBzLmRzY19icmFuY2hfZGVjb2Rlcl9jYXBzLnJhdywKIAkJCQkgICAgICBkc2NfY2Fwcyk7
-Ci0jZW5kaWYKIAl9CiB9CiAKQEAgLTU1NzgsNyArNTU3Nyw2IEBAIHN0YXRpYyB2b2lkIGFwcGx5
-X2RzY19wb2xpY3lfZm9yX3N0cmVhbShzdHJ1Y3QgYW1kZ3B1X2RtX2Nvbm5lY3RvciAqYWNvbm5l
-Y3RvciwKIAogCWxpbmtfYmFuZHdpZHRoX2ticHMgPSBkY19saW5rX2JhbmR3aWR0aF9rYnBzKGFj
-b25uZWN0b3ItPmRjX2xpbmssCiAJCQkJCQkJZGNfbGlua19nZXRfbGlua19jYXAoYWNvbm5lY3Rv
-ci0+ZGNfbGluaykpOwotI2lmIGRlZmluZWQoQ09ORklHX0RSTV9BTURfRENfRENOKQogCS8qIFNl
-dCBEU0MgcG9saWN5IGFjY29yZGluZyB0byBkc2NfY2xvY2tfZW4gKi8KIAlkY19kc2NfcG9saWN5
-X3NldF9lbmFibGVfZHNjX3doZW5fbm90X25lZWRlZCgKIAkJYWNvbm5lY3Rvci0+ZHNjX3NldHRp
-bmdzLmRzY19mb3JjZV9lbmFibGUgPT0gRFNDX0NMS19GT1JDRV9FTkFCTEUpOwpAQCAtNTYwOSw4
-ICs1NjA3LDggQEAgc3RhdGljIHZvaWQgYXBwbHlfZHNjX3BvbGljeV9mb3Jfc3RyZWFtKHN0cnVj
-dCBhbWRncHVfZG1fY29ubmVjdG9yICphY29ubmVjdG9yLAogCiAJaWYgKHN0cmVhbS0+dGltaW5n
-LmZsYWdzLkRTQyAmJiBhY29ubmVjdG9yLT5kc2Nfc2V0dGluZ3MuZHNjX2JpdHNfcGVyX3BpeGVs
-KQogCQlzdHJlYW0tPnRpbWluZy5kc2NfY2ZnLmJpdHNfcGVyX3BpeGVsID0gYWNvbm5lY3Rvci0+
-ZHNjX3NldHRpbmdzLmRzY19iaXRzX3Blcl9waXhlbDsKLSNlbmRpZgogfQorI2VuZGlmCiAKIHN0
-YXRpYyBzdHJ1Y3QgZHJtX2Rpc3BsYXlfbW9kZSAqCiBnZXRfaGlnaGVzdF9yZWZyZXNoX3JhdGVf
-bW9kZShzdHJ1Y3QgYW1kZ3B1X2RtX2Nvbm5lY3RvciAqYWNvbm5lY3RvciwKLS0gCjIuMzEuMQoK
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+On Mon, May 31, 2021 at 4:14 PM StDenis, Tom <Tom.StDenis@amd.com> wrote:
+>
+> [AMD Official Use Only]
+>
+> Hi Mario,
+>
+
+Hi Tom,
+
+> The following commit causes a display regression on my Carrizo when booting linux into a console (e.g. no WM).  When the driver inits the display goes green and is unusable.  The commit prior to this one on amd-staging-drm-next results in a clean init.
+>
+
+That's sad. What happens if you only revert the change to
+drivers/gpu/drm/amd/display/dc/core/dc_resource.c in this commit,ie.
+change the assignment in resource_build_scaling_params() back to:
+
+pipe_ctx->plane_res.scl_data.lb_params.depth = LB_PIXEL_DEPTH_30BPP;
+
+As my testing on Polaris / DCE11.2 showed, for some reason the change
+in linebuffer pixeldepth was not required for my Polaris11 to get
+12bpc output, only for my Raven Ridge / DCN-1. Maybe I could make a
+followup patch to make it conditional on asic? Either only increase lb
+depth on DCN-1+, leave it off for DCE, or just exclude DCE-11.0 from
+the change, as Carrizo is DCE-11? I seem to remember there were some
+other DCE-11 specific restrictions wrt. 64bpp fp16 and the scaler.
+Maybe something similar happens here?
+
+-mario
+
+> commit b1114ddd63be03825182d6162ff25fa3492cd6f5
+> Author: Mario Kleiner <mario.kleiner.de@gmail.com>
+> Date:   Fri Mar 19 22:03:15 2021 +0100
+>
+>     drm/amd/display: Increase linebuffer pixel depth to 36bpp.
+>
+>     Testing with the photometer shows that at least Raven Ridge DCN-1.0
+>     does not achieve more than 10 bpc effective output precision with a
+>     16 bpc unorm surface of type SURFACE_PIXEL_FORMAT_GRPH_ABGR16161616,
+>     unless linebuffer depth is increased from LB_PIXEL_DEPTH_30BPP to
+>     LB_PIXEL_DEPTH_36BPP. Otherwise precision gets truncated somewhere
+>     to 10 bpc effective depth.
+>
+>     Strangely this increase was not needed on Polaris11 DCE-11.2 during
+>     testing to get 12 bpc effective precision. It also is not needed for
+>     fp16 framebuffers.
+>
+>     Tested on DCN-1.0 and DCE-11.2.
+>
+>     Signed-off-by: Mario Kleiner <mario.kleiner.de@gmail.com>
+>     Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+>
+>  drivers/gpu/drm/amd/display/dc/core/dc_resource.c          | 7 +++++--
+>  drivers/gpu/drm/amd/display/dc/dce/dce_transform.c         | 6 ++++--
+>  drivers/gpu/drm/amd/display/dc/dce110/dce110_transform_v.c | 3 ++-
+>  drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp.c           | 3 ++-
+>  drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c  | 2 +-
+>  drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dpp.c           | 3 ++-
+>  drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c         | 2 +-
+>  drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c           | 3 ++-
+>  8 files changed, 19 insertions(+), 10 deletions(-)
+>
+> Tom
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
