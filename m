@@ -8,68 +8,69 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 10A73C4708F
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 07:02:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8E4D7C4708F
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 07:05:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B78EE610C8
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 07:02:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B78EE610C8
+	by mail.kernel.org (Postfix) with ESMTPS id 218BB61396
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 07:05:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 218BB61396
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F4676E030;
-	Tue,  1 Jun 2021 07:02:06 +0000 (UTC)
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [IPv6:2a00:1450:4864:20::52f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CCB56E030
- for <amd-gfx@lists.freedesktop.org>; Tue,  1 Jun 2021 07:02:04 +0000 (UTC)
-Received: by mail-ed1-x52f.google.com with SMTP id u24so6466461edy.11
- for <amd-gfx@lists.freedesktop.org>; Tue, 01 Jun 2021 00:02:04 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4CEB8912A;
+	Tue,  1 Jun 2021 07:05:09 +0000 (UTC)
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [IPv6:2a00:1450:4864:20::62f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E36888912A
+ for <amd-gfx@lists.freedesktop.org>; Tue,  1 Jun 2021 07:05:08 +0000 (UTC)
+Received: by mail-ej1-x62f.google.com with SMTP id jt22so20053018ejb.7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 01 Jun 2021 00:05:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=subject:to:references:from:message-id:date:user-agent:mime-version
  :in-reply-to:content-transfer-encoding:content-language;
- bh=RgTEj4WUEH0RNmWdEOjYzq23a465YD+6NHqv2O/a9lc=;
- b=ITXZvhzUeW3s5wQlGZ8SGGdxOqxiqAmcoks1rfq+ish95F+NzEthW09G1tBIBfcLd2
- TWI24qxEUDK+DUAydB/DTFcRwO6BkzZo1bj9sl4/JK8sFwBUvr0IYLL42W6ZpmCHF6SK
- qGVpyNDuPbLTU6xzkrSMXGbccSO0G7gyg/V74D1mKG5SgOMqMYmfzg0AgUAKDOy1/I4l
- EmCvVfYSVRwbgu8FE/Z/pi6nGy0RCP4g3RH2lOFjInoKGp9pzsYWeSXxVGqbHQF6ViCP
- eMWznIybDqhLFibuvBF3hCHGS5YQ7zE+Kbd2U4EruGiOxdc4ed2kW/QsGnZI75i9eMku
- 7I1A==
+ bh=pEC7w66xBzo5BxRYNZEyK+Bvh5ytZBeFPN8DZOJJK6k=;
+ b=K9h5Yhxg428AL0BJBiHKvR/fTHnnrH8V6y4a4LETsA6ikCBMgfIMwaU9VKhouGR51b
+ keNtSzKpeyHAA4wws1FILpRP76Jr/tb6FLLEmbLisGxt0YIfT4EbjEV/To1WNyG12aiQ
+ D4f96P8weE2vD5mQeGzfm57hkGdMBjRPYC66WnOx43AJxx1joWlDh3aw9RCIU6uAU90J
+ nRaXJW2F3uWolAPHR3H/IviI2pa4+MgezDPeg/bsltj/UJAX32Is73qrvTuxvfGEoJc8
+ STB8MFVVZaRywWyeUA7sKPefxEkOje/CJfYgJ2Cai5Qut2RccPTLns9eMm7gaohb8x3P
+ jKvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:subject:to:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-transfer-encoding
  :content-language;
- bh=RgTEj4WUEH0RNmWdEOjYzq23a465YD+6NHqv2O/a9lc=;
- b=QdrtZkSR5y6A4CKC0RhiAOgoGeD6AlW5UoNXh7GX5ENWtz7OnPFRorZEKpBAPNN9Gd
- zLpxdVlgjzC2VtQGonBcD7eqP9SUWvGlMPW7aOn5GJagtXpWNMBxgDbuZZR2LK5qYTJX
- Ggarmb/yx4TZibD2k6T+05sdHNKMyLU+RgB6C2QdbChpzc7LARL3N9Bp/K0QBtZ4Bggt
- OZwVS/OLkcJZfML8nkKRhJCbZBNztzU240/JAF+Qh7ai53z2hUfikt3mQ9NVjfzEFjlX
- G/aEeFenLq3Av7+rf8ib/PZRTKVleSNwxSqiQXtyDu2TjjYOHaMJC84fSREeH6RF+hqw
- NrSQ==
-X-Gm-Message-State: AOAM531EcAQbUfIcbrnKnZnjG8W+6f7f8fnax6tV7Z/JXviW78GIWeKj
- UtPoAug0edyzO2d+1mL4x6hPGiTKMMI=
-X-Google-Smtp-Source: ABdhPJwAkgzwkbC8FMPvPzmkioQwl48cuRpz9iNarbrX+tnNeOHw2Z39OT+k+KwUt6TAxZc6LKgDcg==
-X-Received: by 2002:a05:6402:254d:: with SMTP id
- l13mr30831328edb.281.1622530923466; 
- Tue, 01 Jun 2021 00:02:03 -0700 (PDT)
+ bh=pEC7w66xBzo5BxRYNZEyK+Bvh5ytZBeFPN8DZOJJK6k=;
+ b=CKowQfQdz1Lrm2uRYnTW2VTWPg5a80sSfCawnbeK2zX35ubg+VQi5q6c0V8qNg+EJ0
+ vs/r19pMD3SDkuCBdFJ/VaE1Oq3DeaZQQxq3Fvo7gXFWLCy4T6rFOcqShD34ARQzsdci
+ jxo5cVOq0+vMTkNf/IKewCo7k06pF0d5eRS7nFYo2M85/X9PlSbSHUJ/9zV0zCUlqqrC
+ /YtdHoEYuVksxd60C4QG6UJ4BEjHTX0rUA5xWpJw5Tn0I7qyX95YDVduDb/a6WWoBwq1
+ 8QIIBkGu3+WN5DcihewhXgZHeE9QTkJxDkLrwss4Rd04zU1QdmHL0hkwtTud95gPbjOl
+ m3Zw==
+X-Gm-Message-State: AOAM531SDUjm/SIIOreue1S7B1Z/fakjK1USVGOXiuQoViqjGh1PEmMk
+ VPbJ/Xn39k8tq+gGWyZ1GKeL0W40et4=
+X-Google-Smtp-Source: ABdhPJyGjty/X3wI/+5irkxIXUhIwmnNwQMkqTCryvoHyUysjxb1W5I9HCFaTkwI0LdcqdR0Vuikug==
+X-Received: by 2002:a17:906:d7a8:: with SMTP id
+ pk8mr27999937ejb.74.1622531107588; 
+ Tue, 01 Jun 2021 00:05:07 -0700 (PDT)
 Received: from ?IPv6:2a02:908:1252:fb60:5ee0:b6d9:de45:97bd?
  ([2a02:908:1252:fb60:5ee0:b6d9:de45:97bd])
- by smtp.gmail.com with ESMTPSA id j22sm6956783ejt.11.2021.06.01.00.02.02
+ by smtp.gmail.com with ESMTPSA id b16sm8012542edu.53.2021.06.01.00.05.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Jun 2021 00:02:03 -0700 (PDT)
-Subject: Re: [PATCH v2 1/2] drm/amdgpu: Fix a bug on flag table_freed
+ Tue, 01 Jun 2021 00:05:07 -0700 (PDT)
+Subject: Re: [PATCH v2 2/2] drm/amdgpu: Don't flush HDP on A+A
 To: Eric Huang <jinhuieric.huang@amd.com>, amd-gfx@lists.freedesktop.org
 References: <20210601000625.551445-1-jinhuieric.huang@amd.com>
+ <20210601000625.551445-2-jinhuieric.huang@amd.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <d80dce26-ddf9-ecee-501f-e3afc0595f4d@gmail.com>
-Date: Tue, 1 Jun 2021 09:02:02 +0200
+Message-ID: <21f80a3a-b48d-3ee3-fabb-d1b377a51600@gmail.com>
+Date: Tue, 1 Jun 2021 09:05:06 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.8.1
 MIME-Version: 1.0
-In-Reply-To: <20210601000625.551445-1-jinhuieric.huang@amd.com>
+In-Reply-To: <20210601000625.551445-2-jinhuieric.huang@amd.com>
 Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,35 +83,91 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-CgpBbSAwMS4wNi4yMSB1bSAwMjowNiBzY2hyaWViIEVyaWMgSHVhbmc6Cj4gdGFibGVfZnJlZWQg
-d2lsbCBiZSBhbHdheXMgdHJ1ZSB3aGVuIG1hcHBpbmcgYSBtZW1vcnkgd2l0aCBzaXplCj4gYmln
-Z2VyIHRoYW4gMk1CLiBUaGUgcHJvYmxlbSBpcyBwYWdlIHRhYmxlJ3MgZW50cmllcyBhcmUgYWx3
-YXlzCj4gZXhpc3RlZCwgYnV0IGV4aXN0aW5nIG1hcHBpbmcgZGVwZW5kcyBvbiBwYWdlIHRhbGJl
-J3MgYm8sIHNvCj4gdXNpbmcgYSBjaGVjayBvZiBwYWdlIHRhYmxlJ3MgYm8gZXhpc3RlZCB3aWxs
-IHJlc29sdmUgdGhlIGlzc3VlLgo+Cj4gU2lnbmVkLW9mZi1ieTogRXJpYyBIdWFuZyA8amluaHVp
-ZXJpYy5odWFuZ0BhbWQuY29tPgoKUmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlz
-dGlhbi5rb2VuaWdAYW1kLmNvbT4gZm9yIHRoaXMgb25lLgoKPiAtLS0KPiAgIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jIHwgNyArKysrKy0tCj4gICAxIGZpbGUgY2hhbmdl
-ZCwgNSBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X3ZtLmMKPiBpbmRleCA1MzljMTE3OTA2Y2MuLjJjMjBiYmE3ZGMxYSAxMDA2
-NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYwo+ICsrKyBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jCj4gQEAgLTE1ODIsOSArMTU4
-MiwxMiBAQCBzdGF0aWMgaW50IGFtZGdwdV92bV91cGRhdGVfcHRlcyhzdHJ1Y3QgYW1kZ3B1X3Zt
-X3VwZGF0ZV9wYXJhbXMgKnBhcmFtcywKPiAgIAkJCSAqIGNvbXBsZXRlbHkgY292ZXJlZCBieSB0
-aGUgcmFuZ2UgYW5kIHNvIHBvdGVudGlhbGx5IHN0aWxsIGluIHVzZS4KPiAgIAkJCSAqLwo+ICAg
-CQkJd2hpbGUgKGN1cnNvci5wZm4gPCBmcmFnX3N0YXJ0KSB7Cj4gLQkJCQlhbWRncHVfdm1fZnJl
-ZV9wdHMoYWRldiwgcGFyYW1zLT52bSwgJmN1cnNvcik7Cj4gKwkJCQkvKiBNYWtlIHN1cmUgcHJl
-dmlvdXMgbWFwcGluZyBpcyBmcmVlZCAqLwo+ICsJCQkJaWYgKGN1cnNvci5lbnRyeS0+YmFzZS5i
-bykgewo+ICsJCQkJCXBhcmFtcy0+dGFibGVfZnJlZWQgPSB0cnVlOwo+ICsJCQkJCWFtZGdwdV92
-bV9mcmVlX3B0cyhhZGV2LCBwYXJhbXMtPnZtLCAmY3Vyc29yKTsKPiArCQkJCX0KPiAgIAkJCQlh
-bWRncHVfdm1fcHRfbmV4dChhZGV2LCAmY3Vyc29yKTsKPiAtCQkJCXBhcmFtcy0+dGFibGVfZnJl
-ZWQgPSB0cnVlOwo+ICAgCQkJfQo+ICAgCj4gICAJCX0gZWxzZSBpZiAoZnJhZyA+PSBzaGlmdCkg
-ewoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
-eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+Am 01.06.21 um 02:06 schrieb Eric Huang:
+> With XGMI connection flushing HDP on PCIe is unnecessary,
+> it is also to optimize memory allocation latency.
+>
+> Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h | 1 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c  | 3 ++-
+>   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   | 1 +
+>   drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c   | 3 +++
+>   4 files changed, 7 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h
+> index 7ec99d591584..1ca23f2f51d2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h
+> @@ -44,6 +44,7 @@ struct amdgpu_hdp {
+>   	struct ras_common_if			*ras_if;
+>   	const struct amdgpu_hdp_funcs		*funcs;
+>   	const struct amdgpu_hdp_ras_funcs	*ras_funcs;
+> +	bool	no_flush;
+>   };
+>   
+>   int amdgpu_hdp_ras_late_init(struct amdgpu_device *adev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> index aaa2574ce9bc..f31eae2931f3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> @@ -226,7 +226,8 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned num_ibs,
+>   	if (!(adev->flags & AMD_IS_APU))
+>   #endif
+>   	{
+> -		if (ring->funcs->emit_hdp_flush)
+> +		if (ring->funcs->emit_hdp_flush &&
+> +			!adev->hdp.no_flush)
+
+This still emits the flush through MMIO.
+
+What you need to do is to initialize the hdp.no_flush field for all 
+asics and architectures and then use that here in the if above this one.
+
+>   			amdgpu_ring_emit_hdp_flush(ring);
+>   		else
+>   			amdgpu_asic_flush_hdp(adev, ring);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> index 2749621d5f63..6e1eab615914 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> @@ -1223,6 +1223,7 @@ static int gmc_v9_0_early_init(void *handle)
+>   		adev->gmc.xgmi.supported = true;
+>   		adev->gmc.xgmi.connected_to_cpu =
+>   			adev->smuio.funcs->is_host_gpu_xgmi_supported(adev);
+> +		adev->hdp.no_flush = adev->gmc.xgmi.connected_to_cpu;
+>   	}
+>   
+>   	gmc_v9_0_set_gmc_funcs(adev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c b/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c
+> index 74b90cc2bf48..e1b2face8656 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c
+> @@ -40,6 +40,9 @@
+>   static void hdp_v4_0_flush_hdp(struct amdgpu_device *adev,
+>   				struct amdgpu_ring *ring)
+>   {
+> +	if (adev->hdp.no_flush)
+> +		return;
+> +
+
+Just to be clear once more, this approach is a NAK.
+
+Checks like this should not be in the hardware specific function.
+
+Regards,
+Christian.
+
+>   	if (!ring || !ring->funcs->emit_wreg)
+>   		WREG32_NO_KIQ((adev->rmmio_remap.reg_offset + KFD_MMIO_REMAP_HDP_MEM_FLUSH_CNTL) >> 2, 0);
+>   	else
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
