@@ -2,123 +2,116 @@ Return-Path: <SRS0=H3yO=K3=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 090E7C4708F
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 08:13:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C604CC4708F
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 10:13:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B13C6601FA
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 08:13:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B13C6601FA
+	by mail.kernel.org (Postfix) with ESMTPS id 831806139A
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 10:13:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 831806139A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4FCDA6E8B4;
-	Tue,  1 Jun 2021 08:13:24 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam08on2071.outbound.protection.outlook.com [40.107.101.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3390B6E8B9
- for <amd-gfx@lists.freedesktop.org>; Tue,  1 Jun 2021 08:13:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 473316E11C;
+	Tue,  1 Jun 2021 10:13:48 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2052.outbound.protection.outlook.com [40.107.220.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A541A6E11C
+ for <amd-gfx@lists.freedesktop.org>; Tue,  1 Jun 2021 10:13:47 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UVod19mhLEfNYDWx5CTDQxHPSm9BxOkjnfzrKJFDV23qwyXbk+KgIahR8q2tt34rDv1sJv4rL/eSaUGJhLhOxyhhNGy4CNbLOI23Ks3jaERYfP2GWbScv2oS9jzbLdSSNnGTMYQYLNfP7kd9PzaaKkS9wEoTL11q/ITAYHNEt6uHhLTUKU3vyLM9liBjQ5vFoWVjRW6TRnJriF5SWIdRHEYGeNMRkzgF42KD+ASjknqepPRjPNbycVbrRz7o4RNRJAuaf9aRWx6kNoEITreSO8bpPv158Jiac6JDJVy2Qz2CE2ZDMumsglkpbxkThWgE8nu+AX5q2l/lYNgU6bmp5w==
+ b=CmBmwTlKPkAxwGkOFkAZ7osYdiH5/mH9gZBH0jJ9Go/lt4mActop6d/dIpBiolmn8N54XbG62kxzOFh9Np6wQlPavbjBAhRzTTZVJBjbsDDlEbm1IVJfN9fYCcpndpg8F9QlVBHKLMISnLDX+t6ogemlYrSSmvsstGfvXXQAz6Y9OXnnSAUdhgj2MymjFi42nBgkUEKlDsZd4OL6LvUePZDMHEPNhHLKhVrAnlL/5L3ML+F5wwDLDBBY/QbFDzvWQaBMDvCEmiUwo5/yRkQltPhvgChkJ+yw5WADUdwrt+G+datESfdfg/dbzYACaqWSZADTzzyQR8f9tJxoANTIKg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Idxkzj1uKiwTYHs6cwdEsc+3pUJtUklxN0RpfzJkLjc=;
- b=Gx5oz1fbgpuYg02uBQUC0X7QnLVenXVy5+/gfKcNVS/iizXsf3Q6Js+G5VKVUPJlwlxIFCoNHC7r6Cpe/Yhmx3lJ+mAKvVmpun/ztyedbrmda8ciWHCrD6w5oZQ1sdxhHpF88iWZPmUCe9z429g8K5M/pn9RT/afXDRjhKdnL0S2jx7wwLCbzkvyPM+78ZuO5SZNO3HBpzJsHWE+KIupr+kyhpW2KsbE/f6lzJuXxiy1yevbIPu/LkjnBJyTzYHF40hc/tM00e77iNQIQwS6JQkXJxD0f6iTd4YVNhm+8FMiCA8k6s9b57MY0psP+4YRJ2UdbQ2lauq/8cxQa4oS6g==
+ bh=miDr9y07P4qDlnYcvYO/hxlq9ZIZkZBoL6d21gODAmM=;
+ b=n8mmUmx+NKUuMb1iw+cd9XuwOmUPrhR+pdexMLeF4BYUsC55G/gx7sC9d7r29RaWhULpRfILe02q5+o/XKkG9I6MhHRE9w5nVPFmvZH+HfIa6JLe+PogQWEwl86TvGvFbTXr/FX/HHQqu3ViHcsxhuW1iRLo3PL7GrpkJxVdb4fnJdE0ePWUQZyOupz54DWbTL5c4p20v2uBuGjpH3abv9jAdOkFDNVyry1EdeOCIPqH214t6KKZJcDUZDjndn1YWWfQtjPR9+RG9YZS3/B0aaM/XuANhFWTaL4asTQj8aT7fKLIDy1KxZwKQDID1jXyD7vQsjGzmc3ZTCvxdJB4Jg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Idxkzj1uKiwTYHs6cwdEsc+3pUJtUklxN0RpfzJkLjc=;
- b=LWHkTa0claxNawMn98EE466yVEHquNgRknFaLgXBZuFUNgSbpZprvKe9PH4Xzo6j+ZD2LJisxNc7/jofXS77OE4ThGHXhgECHSkf9oxfKlkEhlylz0UE7Gm44KGzkxQBH9sgATXC7bs21Bad77tx9Ko9c6UB23TVbaDnyr+DUqI=
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
- DM5PR1201MB2506.namprd12.prod.outlook.com (2603:10b6:3:e7::12) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4173.24; Tue, 1 Jun 2021 08:13:13 +0000
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::14a7:9460:4e5f:880d]) by DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::14a7:9460:4e5f:880d%5]) with mapi id 15.20.4173.030; Tue, 1 Jun 2021
- 08:13:13 +0000
-From: "Quan, Evan" <Evan.Quan@amd.com>
-To: "Sundararaju, Sathishkumar" <Sathishkumar.Sundararaju@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu: enable smart shift on dGPU (v5)
-Thread-Topic: [PATCH] drm/amdgpu: enable smart shift on dGPU (v5)
-Thread-Index: AQHXVhybQK+eHMJgt0GG3gMIvL4xu6r+z5Zw
-Date: Tue, 1 Jun 2021 08:13:13 +0000
-Message-ID: <DM6PR12MB2619A4679B240E9C097FE360E43E9@DM6PR12MB2619.namprd12.prod.outlook.com>
-References: <20210530091929.30889-1-sathishkumar.sundararaju@amd.com>
-In-Reply-To: <20210530091929.30889-1-sathishkumar.sundararaju@amd.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-06-01T08:13:10Z; 
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
- Only-AIP 2.0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=c13fdb2e-8260-44f1-a5a8-4267daaec413;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
-authentication-results: amd.com; dkim=none (message not signed)
+ bh=miDr9y07P4qDlnYcvYO/hxlq9ZIZkZBoL6d21gODAmM=;
+ b=mVkAikJkDxEv23pBE6cDz7b1101FxRCiBpWmIcI93EzhPsDeEGOEbMnOgViISGIuT/CRtI7Qedhabu2x0zTKlyct/Pdt2D4cMafc6AFoyHgL4LI31SLIVMS9qt5MNI1cBKkeSMykrjg84/NKrX4hArqwNEHefQ8TpuycIrOHwnQ=
+Authentication-Results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [165.204.134.244]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: d5007179-07b7-4f57-8443-08d924d51a26
-x-ms-traffictypediagnostic: DM5PR1201MB2506:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM5PR1201MB25061982A44E77D895CC694AE43E9@DM5PR1201MB2506.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:7219;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: EonrUCwjefqF//4VLBzXXo+ZSL8P0WyGbN/1yXleZH4uHfyyx2FWEAXZfHw/839pnCJeGPruUW4O2lPjbAgnRGsqKN+WPnJCvSuPZExmQKaQ4mUCZlTjqsIbVBA6m4BC0zmDiZuDEaOC89ztpA3nYg0sLqSDXGEgQ9/1XILQnM0q70vhlb9ykAN3fHJG3IGnHAFqzZpRzn9b4ya/rGq6r5gAZvFHrwnQ6LkOPjxvrRkjrfk9sEWc1jig7IxDad2zMoUp8era+G8UKkg4GKJKEUpAJprlwyEj96hfX/YO1THGuAeVolcckKRVH7hJPKQAL7DzwInGAhH6JJckfxUwn0aQPg8mnuKl3VGadvT9vVmxx0r0gL1MIKr8krZj1MtsiW+q40XK4Mk8B4wUl7LnuqJbuJ7hc1QhIaTAM2woTAX6iiC6lQOPFVBYWP2KpZrQdBP9dN2+t/SjjjIlBEpwwYwPpeI/DhxNpwCLx595QJ4uDVy6hIMINIOsgTU69Ogc6pgu7SJ1iFAlmcE3uFGLp96cDBqljmkkoC1pNwJxWOs/iHIiT8u2FoFdAzMR/Hu3JZgJXoFzsju5+lTpnoQNCG747KS9bT1cw6s6DqJ0qYK9IfltZXBXdRxDCETL+wpmxZGJucSjJ7TN4CoP33OQjal+TbVJU4+57sEZjNi9T8/Ob0zbE8vxcpHJqaZCP37rGqc5rFVher1Ryqay4GhsX1kuYEgPqY5A2bktTeYK4q0=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(376002)(39860400002)(136003)(346002)(396003)(55016002)(52536014)(966005)(8936002)(5660300002)(122000001)(86362001)(110136005)(4326008)(45080400002)(83380400001)(54906003)(316002)(33656002)(71200400001)(9686003)(76116006)(186003)(2906002)(38100700002)(26005)(53546011)(6506007)(66946007)(66476007)(64756008)(66446008)(7696005)(478600001)(8676002)(66556008);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?x4yvTLbep8LMkCk2uPXni2X8cBLu8a/PivDkAbYTOZVmtAOt/+jmgMO8JrYJ?=
- =?us-ascii?Q?aIYYuIyA5MMcM/ewvSxERd7Y8kbooVdIGFtvcTgmvYQF1BuAjCuH7aLVQAJU?=
- =?us-ascii?Q?BWsnkP+haLxmtZCUesYtarRcLaqTG4BxSZ0McvZj+iSrGTv1BY0RIUbXHWUN?=
- =?us-ascii?Q?Zld2FLkvptwOPyRify9rJVK5nJxrLsizORV/2qlV4A731lMNgl+ed0/oigf8?=
- =?us-ascii?Q?kFSgnglTUbSa/g08Ua5jwyP/1wzQznXk+/MeCdYewx81GgXb3Medjoyb58ps?=
- =?us-ascii?Q?sQUrYa5pFj/JnnidfNLsSwYnnzur+bW/BmzfdGkWVugLiEftJmt5jKvVs2IX?=
- =?us-ascii?Q?AJvkzI9hgQt5e0iehj/hyKKEz/RN0Og2F3gtEj8yq/wOu903zsujXkivVid/?=
- =?us-ascii?Q?vzl4VLNxG42Do/JDx482DUIyIi09840ge0BjqRN9wEeGIBlBxGVqU+kUysOW?=
- =?us-ascii?Q?H1syfdXQfLm6O4iHTpVR/CXcYJPoJdpX8KWBsZd27faB586sU310121sku0b?=
- =?us-ascii?Q?xvJZu5zm46elppBWQTnx55D7dNCmPeJ1vX7Aag5GXuTN/RtHUh+jR/HvcuAs?=
- =?us-ascii?Q?FrGEa53QTseSL5R7kzvHq/2NPdVRqJJYmQnlgbhgeZ/zT1hLrhvu2tC6yXNk?=
- =?us-ascii?Q?Vn48x63hbffehxLqbfWrH/OHXJTRXFhDtL2IiCmtVf1Yyev+AhxgYl1kiLKX?=
- =?us-ascii?Q?y+4LOGo/gXg2bKRQlS36N3Po73L9B1S7XzH90pSvJkEZ8XfTo2F4EmKZrOUr?=
- =?us-ascii?Q?15zk9u8wwGQnCeVG3Mx2/tggSOhu3Ualcf+Vjqp2MJBodq+lPGEz6DCdExEB?=
- =?us-ascii?Q?Y/oqEoymMIeCAjGcFBXlySiUytaUnd9CTUUotQg3R6AgetRIZQND/11pvQda?=
- =?us-ascii?Q?XxePDYaBjOhN9soJiZ55K8A0fCg0wmFBGVxZ2xLg8FDb5BPb/8aJqQoLmhcJ?=
- =?us-ascii?Q?f6UOIdntN2uN7lrqDLSAX55ALNGhtcwz5/VGZAvi2SfM7Jlu2vM/n8BwYXrQ?=
- =?us-ascii?Q?z610cqi54kOkN5rOBcjO2PUzjXU6JtwbsQwG4DpdbsXbx4R4NS04gqIKr2pn?=
- =?us-ascii?Q?e0dlbiVo0fdqzRoG8Fru3dB19Cy9ELhShMJ5X8pEHOAxlfnN91uEJ8VkdNK1?=
- =?us-ascii?Q?aZrfxUjBeDp9R1iXCttslZTmaC7mjfuDOwskc9XIoxCZmW+xfv7yAk7Tieub?=
- =?us-ascii?Q?5oO9iekiFiyJ260EcDMlkoMEx8syedgGN1rb+bxcDmQwt8Vs+7rN4Z5Yg9BG?=
- =?us-ascii?Q?Pg90aAiSPBkg/mvOLbFmoiqYvoywmy1NV0Ti5k/AHcMw3FNnxDpe3SSs/f8K?=
- =?us-ascii?Q?Q53Pl80alBhS+Y2bQp5cYJew?=
+Received: from DM4PR12MB5136.namprd12.prod.outlook.com (2603:10b6:5:393::23)
+ by DM4PR12MB5215.namprd12.prod.outlook.com (2603:10b6:5:397::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4173.22; Tue, 1 Jun
+ 2021 10:13:46 +0000
+Received: from DM4PR12MB5136.namprd12.prod.outlook.com
+ ([fe80::4074:4943:244:a5fa]) by DM4PR12MB5136.namprd12.prod.outlook.com
+ ([fe80::4074:4943:244:a5fa%6]) with mapi id 15.20.4173.030; Tue, 1 Jun 2021
+ 10:13:46 +0000
+From: Nirmoy Das <nirmoy.das@amd.com>
+To: alexander.deucher@amd.com
+Subject: [PATCH 1/1] drm/amd/display: fix coding style
+Date: Tue,  1 Jun 2021 12:13:31 +0200
+Message-Id: <20210601101331.31846-1-nirmoy.das@amd.com>
+X-Mailer: git-send-email 2.31.1
+X-Originating-IP: [165.204.84.11]
+X-ClientProxiedBy: BN9PR03CA0916.namprd03.prod.outlook.com
+ (2603:10b6:408:107::21) To DM4PR12MB5136.namprd12.prod.outlook.com
+ (2603:10b6:5:393::23)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from brihaspati.amd.com (165.204.84.11) by
+ BN9PR03CA0916.namprd03.prod.outlook.com (2603:10b6:408:107::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4173.22 via Frontend
+ Transport; Tue, 1 Jun 2021 10:13:44 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 793aba7b-4c95-4d81-7152-08d924e5f0ed
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5215:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM4PR12MB5215E2CE14B54FA1CBA54EA98B3E9@DM4PR12MB5215.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4714;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: EGXPox0FwgAj7A7GYuq93vfbCQLOYm63tpYZsXDLZ6a//uQwBJeBcd3Ym07IJFax8US1UdrsUoI4h9DcpluBkjAOJt2vqMoYqJecA70Awfj9kX+GcbzfQcEWet6w65cGjAs2YvbCwIr62j/ctnF7MeoPEzKW9I1x2DFC2EfBfyzpQz9Nzg14dhASUo4ksVrJpWh71dUhfKnVGZeDKPW4F/92s/nmDwQhng8zo8CX78Huv0BQ9RQArEL/a81oyTYaVJGv91cjAPjFQLz+gM7ZXHo+JdR4221POhFRYjiLPXvUt4U9Lg9uwMFgvzlo3gimFKd2yYlKYGdfyUqb4hKD1/HYh7+teWgbEwrudCrvLf+9tJzj12upoAAn/kjUpegOWRQTpWw2VuP4YK4c4D3w0V7xCMHX2jcaJHp/kOG1LMpqKx8AzvOiAC9z5yX+VXJ29SpMJ+AwbJ4dsXLHN3nyyERoJHY/nTtFEVfKnwJXbRiobs0wjfHjUNQc2aUNVMfusBQx1cNKmSVkzGmKpVKMeZWqhfQJuRBSGkv5YZOChZVsNqwda0LAZQ5iJBhPYR1JfaSMKP1IE0pe9DJqxFZm/PwPoSa30WIujjJpXACVGjgNABKQ+84CEY519rnj2lCOM+W55lNzqTGNDlS4LwBJ3Q==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5136.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(136003)(39840400004)(366004)(346002)(376002)(2616005)(956004)(7696005)(52116002)(6486002)(5660300002)(34206002)(36756003)(44832011)(16526019)(8676002)(37006003)(4326008)(6666004)(8936002)(316002)(2906002)(478600001)(6636002)(66476007)(66556008)(1076003)(26005)(66946007)(186003)(38100700002)(83380400001)(4744005)(86362001)(38350700002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?ssCZbU8RFQoHIqS3FxOz21V5mp6xLQ1YFf6FlRBQU7/B5NsPpmqfrb/+0tLb?=
+ =?us-ascii?Q?nyCMPckHYH+8q7l+lhG6sF+DoIKFYWgHfZnuYzh/tiRZe9kFxoyLjK3rgl7P?=
+ =?us-ascii?Q?86fm/zuUqISXR8c0J/b8m2M0mWyoDr7cQGvJTGodV+vPjGB3j/QyZ1ugNtIs?=
+ =?us-ascii?Q?9qMJuSpH8aojjPIbCWBrv7VGuB0vhCC4SpZA6MEluP5ZT0wiPKM0dWf0aMPf?=
+ =?us-ascii?Q?jIaHgjpPItoWbUkwc0UA/+i2o2qMW/SrCzd4yi/pR5z3A/mv541fmcL71Qrt?=
+ =?us-ascii?Q?BeUPKR7t3rbNYY5GP+4dw2CdiSKqK8ti62u8eptioriq6ncpHNJzL4j7tSyU?=
+ =?us-ascii?Q?mVdz2F8WGCe+h5axr6sQugzGH7FCHQDsOJ8H7PhL78/4DYIdbTdwu6TbJ8cj?=
+ =?us-ascii?Q?x4c6SifyabD3qLJ7zXm1gxNnh5Tp7PrB3FunO8l4tjh070P/o4h660DtlsQw?=
+ =?us-ascii?Q?mbfbj55R7vbjk6Kd2E7LqyEBLU1JtuE3ms9pRWtu93ZFagLX2KAFgSxPlWiQ?=
+ =?us-ascii?Q?t+2bxjVxTXadsb/FJBSIBO4jhiDyfQUIZqssmVP9cCn06tMGblmBrftnAbPe?=
+ =?us-ascii?Q?0Km64pSS4qDBEF+9ca/slK5U6CF6JDMMrbmKlCUEoBoEF/EpyoAUIP5KmjaW?=
+ =?us-ascii?Q?lfI6IXSJKorKL6qe9dUArdFY0imq6ieryl9X2PUVWBhwE8NEUFVuC29xMiR1?=
+ =?us-ascii?Q?lZhYGGFmI9btJ1dW31l3rU0ZmiUIBm2oIqFAKYQxXxEJDajvy9GE3XYZk3ei?=
+ =?us-ascii?Q?UVzEAna5oaGqUjQzkvoHca0Mq9IIRJlPSxS/7pqnV4K4dz2Al6WxdmZUQKKH?=
+ =?us-ascii?Q?RB1+lLRHpoIgB2oxvm618F8ga7F0nX288M9n5U0rRBLJliPVwj5yK3RsQk0c?=
+ =?us-ascii?Q?U9ZQti6/ViwIAiKg7asOt5AlTWpmkxVvxX5Kg90ZxUShwjy+pwg1+MlV0rDg?=
+ =?us-ascii?Q?9AhkskN4MLdihpZx4Ul4Cmwd7b1q0hHkCs0GQ01AABSa5f4V48gvRYd6gJLI?=
+ =?us-ascii?Q?MNgt9vmdrTv+AZhhEetsMFrEbGU3evqr3vwPqSqLnAbj0Jw1cgU5xn2q6pCA?=
+ =?us-ascii?Q?cboSLRmT1salFdsk2DekD0PNzdrWDEqGtpvVNn9RZspMVz+pAsIQ6LuL0cxk?=
+ =?us-ascii?Q?YinVEBe/8iHhGNjZ8Ir8HWejmbDu2lG4ztOW+Er6pb9Vhx9vE1dVlaLFpmGz?=
+ =?us-ascii?Q?q6TsvH5nEy7mtgYnQ26GoyFURDSoI6yQIFYN7qtDw+DQgx3s5bkSf/Pl0Nj3?=
+ =?us-ascii?Q?WkA6M8lWnNfLgMJyzoHqEQrOmF+tAvfnLlS5K1foSFhl1us8JRZ2kl61CGME?=
+ =?us-ascii?Q?ItZ6mVIY+URht6II2uKuwIkF?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 793aba7b-4c95-4d81-7152-08d924e5f0ed
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5136.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d5007179-07b7-4f57-8443-08d924d51a26
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Jun 2021 08:13:13.3722 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: N+uTmSREunjVqr1TAHUCbCiucAMeCNfj3+8UwS3ZyGfaAL0XON8HZci4Kek1B3or
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB2506
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2021 10:13:46.1045 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: v8FjTe7xpOtwrc+IwIuH0nmFCijJvAm6aAGLETOfP1UHZ/Scz4Km6tik9QTBmATDW2X6UOy7i4+SE5GznKmfTA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5215
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,286 +123,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Sundararaju,
- Sathishkumar" <Sathishkumar.Sundararaju@amd.com>, "Sharma,
- Shashank" <Shashank.Sharma@amd.com>
+Cc: Nirmoy Das <nirmoy.das@amd.com>, Christian.Koenig@amd.com,
+ amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only]
+Fixes: 60d198ca66ecf778 ("drm/amd/display: WARN_ON cleanups")
 
-Acked-by: Evan Quan <evan.quan@amd.com>
+Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
+---
+Hi Alex,
 
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
-> Sathishkumar S
-> Sent: Sunday, May 30, 2021 5:19 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Sundararaju,
-> Sathishkumar <Sathishkumar.Sundararaju@amd.com>; Sharma, Shashank
-> <Shashank.Sharma@amd.com>
-> Subject: [PATCH] drm/amdgpu: enable smart shift on dGPU (v5)
-> 
-> enable smart shift on dGPU if it is part of HG system and the platform
-> supports ATCS method to handle power shift.
-> 
-> V2: avoid psc updates in baco enter and exit (Lijo)
->     fix alignment (Shashank)
-> V3: rebased on unified ATCS handling. (Alex)
-> V4: check for return value and warn on failed update (Shashank)
->     return 0 if device does not support smart shift.  (Lizo)
-> V5: rebased on ATPX/ATCS structures global (Alex)
-> 
-> Signed-off-by: Sathishkumar S <sathishkumar.sundararaju@amd.com>
-> Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
-> Reviewed-by: Shashank Sharma <shashank.sharma@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h        | 18 ++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c   | 49
-> ++++++++++++++++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 24 +++++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c    |  6 +++
->  4 files changed, 97 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index 0ea2ed3a55f1..827533a543c6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -130,6 +130,13 @@ struct amdgpu_mgpu_info
->  	bool				pending_reset;
->  };
-> 
-> +enum amdgpu_ss {
-> +	AMDGPU_SS_DRV_LOAD,
-> +	AMDGPU_SS_DEV_D0,
-> +	AMDGPU_SS_DEV_D3,
-> +	AMDGPU_SS_DRV_UNLOAD
-> +};
-> +
->  struct amdgpu_watchdog_timer
->  {
->  	bool timeout_fatal_disable;
-> @@ -1267,6 +1274,7 @@ int amdgpu_device_mode1_reset(struct
-> amdgpu_device *adev);  bool amdgpu_device_supports_atpx(struct
-> drm_device *dev);  bool amdgpu_device_supports_px(struct drm_device
-> *dev);  bool amdgpu_device_supports_boco(struct drm_device *dev);
-> +bool amdgpu_device_supports_smart_shift(struct drm_device *dev);
->  bool amdgpu_device_supports_baco(struct drm_device *dev);  bool
-> amdgpu_device_is_peer_accessible(struct amdgpu_device *adev,
->  				      struct amdgpu_device *peer_adev); @@ -
-> 1339,6 +1347,13 @@ struct amdgpu_afmt_acr {  struct amdgpu_afmt_acr
-> amdgpu_afmt_acr(uint32_t clock);
-> 
->  /* amdgpu_acpi.c */
-> +
-> +/* ATCS Device/Driver State */
-> +#define AMDGPU_ATCS_PSC_DEV_STATE_D0		0
-> +#define AMDGPU_ATCS_PSC_DEV_STATE_D3_HOT	3
-> +#define AMDGPU_ATCS_PSC_DRV_STATE_OPR		0
-> +#define AMDGPU_ATCS_PSC_DRV_STATE_NOT_OPR	1
-> +
->  #if defined(CONFIG_ACPI)
->  int amdgpu_acpi_init(struct amdgpu_device *adev);  void
-> amdgpu_acpi_fini(struct amdgpu_device *adev); @@ -1348,6 +1363,7 @@
-> int amdgpu_acpi_pcie_performance_request(struct amdgpu_device *adev,
->  						u8 perf_req, bool advertise);
->  int amdgpu_acpi_power_shift_control(struct amdgpu_device *adev,
->  				    u8 dev_state, bool drv_state);
-> +int amdgpu_acpi_smart_shift_update(struct drm_device *dev, enum
-> +amdgpu_ss ss_state);
->  int amdgpu_acpi_pcie_notify_device_ready(struct amdgpu_device *adev);
-> 
->  void amdgpu_acpi_get_backlight_caps(struct amdgpu_dm_backlight_caps
-> *caps); @@ -1361,6 +1377,8 @@ static inline void amdgpu_acpi_detect(void)
-> { }  static inline bool amdgpu_acpi_is_power_shift_control_supported(void)
-> { return false; }  static inline int amdgpu_acpi_power_shift_control(struct
-> amdgpu_device *adev,
->  						  u8 dev_state, bool drv_state)
-> { return 0; }
-> +static inline int amdgpu_acpi_smart_shift_update(struct drm_device *dev,
-> +						 enum amdgpu_ss ss_state)
-> { return 0; }
->  #endif
-> 
->  int amdgpu_cs_find_mapping(struct amdgpu_cs_parser *parser, diff --git
-> a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> index b631316bfe5b..84a1b4bc9bb4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> @@ -754,6 +754,55 @@ int amdgpu_acpi_power_shift_control(struct
-> amdgpu_device *adev,
->  	return 0;
->  }
-> 
-> +/**
-> + * amdgpu_acpi_smart_shift_update - update dGPU device state to SBIOS
-> + *
-> + * @dev: drm_device pointer
-> + * @ss_state: current smart shift event
-> + *
-> + * returns 0 on success,
-> + * otherwise return error number.
-> + */
-> +int amdgpu_acpi_smart_shift_update(struct drm_device *dev, enum
-> +amdgpu_ss ss_state) {
-> +	struct amdgpu_device *adev = drm_to_adev(dev);
-> +	int r;
-> +
-> +	if (!amdgpu_device_supports_smart_shift(dev))
-> +		return 0;
-> +
-> +	switch (ss_state) {
-> +	/* SBIOS trigger "stop", "enable" and "start" at D0, Driver Operational.
-> +	 * SBIOS trigger "stop" at D3, Driver Not Operational.
-> +	 * SBIOS trigger "stop" and "disable" at D0, Driver NOT operational.
-> +	 */
-> +	case AMDGPU_SS_DRV_LOAD:
-> +		r = amdgpu_acpi_power_shift_control(adev,
-> +
-> AMDGPU_ATCS_PSC_DEV_STATE_D0,
-> +
-> AMDGPU_ATCS_PSC_DRV_STATE_OPR);
-> +		break;
-> +	case AMDGPU_SS_DEV_D0:
-> +		r = amdgpu_acpi_power_shift_control(adev,
-> +
-> AMDGPU_ATCS_PSC_DEV_STATE_D0,
-> +
-> AMDGPU_ATCS_PSC_DRV_STATE_OPR);
-> +		break;
-> +	case AMDGPU_SS_DEV_D3:
-> +		r = amdgpu_acpi_power_shift_control(adev,
-> +
-> AMDGPU_ATCS_PSC_DEV_STATE_D3_HOT,
-> +
-> AMDGPU_ATCS_PSC_DRV_STATE_NOT_OPR);
-> +		break;
-> +	case AMDGPU_SS_DRV_UNLOAD:
-> +		r = amdgpu_acpi_power_shift_control(adev,
-> +
-> AMDGPU_ATCS_PSC_DEV_STATE_D0,
-> +
-> AMDGPU_ATCS_PSC_DRV_STATE_NOT_OPR);
-> +		break;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +
-> +	return r;
-> +}
-> +
->  /**
->   * amdgpu_acpi_event - handle notify events
->   *
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index d1521e498e40..5c465db47aff 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -263,6 +263,21 @@ bool amdgpu_device_supports_baco(struct
-> drm_device *dev)
->  	return amdgpu_asic_supports_baco(adev);  }
-> 
-> +/**
-> + * amdgpu_device_supports_smart_shift - Is the device dGPU with
-> + * smart shift support
-> + *
-> + * @dev: drm_device pointer
-> + *
-> + * Returns true if the device is a dGPU with Smart Shift support,
-> + * otherwise returns false.
-> + */
-> +bool amdgpu_device_supports_smart_shift(struct drm_device *dev) {
-> +	return (amdgpu_device_supports_boco(dev) &&
-> +		amdgpu_acpi_is_power_shift_control_supported());
-> +}
-> +
->  /*
->   * VRAM access helper functions
->   */
-> @@ -3750,6 +3765,10 @@ int amdgpu_device_suspend(struct drm_device
-> *dev, bool fbcon)
->  		return 0;
-> 
->  	adev->in_suspend = true;
-> +
-> +	if (amdgpu_acpi_smart_shift_update(dev, AMDGPU_SS_DEV_D3))
-> +		DRM_WARN("smart shift update failed\n");
-> +
->  	drm_kms_helper_poll_disable(dev);
-> 
->  	if (fbcon)
-> @@ -3859,6 +3878,9 @@ int amdgpu_device_resume(struct drm_device
-> *dev, bool fbcon)  #endif
->  	adev->in_suspend = false;
-> 
-> +	if (amdgpu_acpi_smart_shift_update(dev, AMDGPU_SS_DEV_D0))
-> +		DRM_WARN("smart shift update failed\n");
-> +
->  	return 0;
->  }
-> 
-> @@ -4938,6 +4960,8 @@ int amdgpu_device_gpu_recover(struct
-> amdgpu_device *adev,
->  			amdgpu_vf_error_put(tmp_adev,
-> AMDGIM_ERROR_VF_GPU_RESET_FAIL, 0, r);
->  		} else {
->  			dev_info(tmp_adev->dev, "GPU reset(%d)
-> succeeded!\n", atomic_read(&tmp_adev->gpu_reset_counter));
-> +			if
-> (amdgpu_acpi_smart_shift_update(adev_to_drm(tmp_adev),
-> AMDGPU_SS_DEV_D0))
-> +				DRM_WARN("smart shift update failed\n");
->  		}
->  	}
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> index 524e4fe5efe8..c354ffa62483 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> @@ -91,6 +91,9 @@ void amdgpu_driver_unload_kms(struct drm_device
-> *dev)
->  		pm_runtime_forbid(dev->dev);
->  	}
-> 
-> +	if (amdgpu_acpi_smart_shift_update(dev,
-> AMDGPU_SS_DRV_UNLOAD))
-> +		DRM_WARN("smart shift update failed\n");
-> +
->  	amdgpu_acpi_fini(adev);
->  	amdgpu_device_fini(adev);
->  }
-> @@ -214,6 +217,9 @@ int amdgpu_driver_load_kms(struct amdgpu_device
-> *adev, unsigned long flags)
->  		pm_runtime_put_autosuspend(dev->dev);
->  	}
-> 
-> +	if (amdgpu_acpi_smart_shift_update(dev,
-> AMDGPU_SS_DRV_LOAD))
-> +		DRM_WARN("smart shift update failed\n");
-> +
->  out:
->  	if (r) {
->  		/* balance pm_runtime_get_sync in
-> amdgpu_driver_unload_kms */
-> --
-> 2.17.1
-> 
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.
-> freedesktop.org%2Fmailman%2Flistinfo%2Famd-
-> gfx&amp;data=04%7C01%7Cevan.quan%40amd.com%7Cb34e099047da486ff
-> 38708d92433bd07%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C63
-> 7580626902184975%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMD
-> AiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=
-> Jd22waXSR0n6h1FZvVubdij9G6UkQDLB2apshxBANxU%3D&amp;reserved=0
+Can you please squash this with the "Fixes" patch?
+
+Thanks,
+Nirmoy
+
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 09bbec4dab7c..56abc27b78f7 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -315,9 +315,8 @@ get_crtc_by_otg_inst(struct amdgpu_device *adev,
+ 	struct drm_crtc *crtc;
+ 	struct amdgpu_crtc *amdgpu_crtc;
+
+-	if (WARN_ON(otg_inst == -1)) {
++	if (WARN_ON(otg_inst == -1))
+ 		return adev->mode_info.crtcs[0];
+-	}
+
+ 	list_for_each_entry(crtc, &dev->mode_config.crtc_list, head) {
+ 		amdgpu_crtc = to_amdgpu_crtc(crtc);
+--
+2.31.1
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
