@@ -2,78 +2,102 @@ Return-Path: <SRS0=H3yO=K3=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9B56BC4708F
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 17:38:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 81921C4708F
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 18:14:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5BAE061042
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 17:38:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5BAE061042
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 3354D613D2
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 18:14:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3354D613D2
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 018D689E2A;
-	Tue,  1 Jun 2021 17:38:05 +0000 (UTC)
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [IPv6:2a00:1450:4864:20::635])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F1AB89E2A
- for <amd-gfx@lists.freedesktop.org>; Tue,  1 Jun 2021 17:38:04 +0000 (UTC)
-Received: by mail-ej1-x635.google.com with SMTP id l1so23004592ejb.6
- for <amd-gfx@lists.freedesktop.org>; Tue, 01 Jun 2021 10:38:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:references:from:message-id:date:user-agent:mime-version
- :in-reply-to:content-transfer-encoding:content-language;
- bh=c25ZgGkOwNz9mPrz2VlWmx5lC+m/H9JTpceoZNO5IFk=;
- b=k7WcXDSgpyRCbYSAWl4SQIZbNTM6H/+6q11vx7USIinpgGJ1qn+otUSZ4h7ZxUWJA9
- QDmFy1L5bDsYvldO+T76Ly1w0nEtDOu38LMUNVjqRbHtvfLd7PLLg/kRF0uZYirktvat
- BRttrCc5Px30ZB+//9ocmPEDhOBTC6uzwTYvM/lCmCg3xEzXg6Gb49FS197qBqWNHv7Z
- SNCvak7YcjTbcjEwsfh+cr9EaMeKp1HlEXQ5U3O9qHWADDRFTN+gz8N1ovw9VqnMnNgz
- r6wHKEpQyx3ZAAQVOyokXyToNUp9m4QIHTuEa60qFxvUlX48QCMb+Z2Q3tIngmyTGdFK
- LLMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=c25ZgGkOwNz9mPrz2VlWmx5lC+m/H9JTpceoZNO5IFk=;
- b=t59uOmBjvSu9w3XW3BnA5EqHBxx4YEzxe5aBZwiFlEJXrq6UEElabs8gBzewMP8Rjg
- 3Q8N7k4EbmllgPfGX6Pb6jWRFp69O+EHNk0oUsXjovRkhmYYgGwm1/UcuBfXJJGx9WLM
- FryJIiiANfduStFc0+Wz0bN5scjR7eJW8NnOuWnFROazr2BSMoyBnYVyiKE7udO0ibL/
- kCnxgeU6PAS376y88lX1oPNr+pVNFlx8Oa4/SNtzu8JnPD9aGcbHhwzvYz5rvOaO7Pc9
- PH8hlYJvtJDfJXqFqkC+G8mH46Wg0H+ypb6v+5s0KOSlUvPv/7XADLju+XghulYsnvPu
- MOSQ==
-X-Gm-Message-State: AOAM530gvz49xi2Zjh65VIpACQMfrsHEwUQXt1Ic0G6QxWt1rkPeLtxx
- brs7vmkDfMnY2lhHC+jBHZRauIqULOY=
-X-Google-Smtp-Source: ABdhPJzGOVNyyYX6tkEL73rEQkW/L4kZeeXvpGmOPB0Y9EKOROHrJw+8eMD0pufuD36nETBkGGOO9Q==
-X-Received: by 2002:a17:906:7203:: with SMTP id
- m3mr29657151ejk.381.1622569082909; 
- Tue, 01 Jun 2021 10:38:02 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:7517:785b:7177:d6a6?
- ([2a02:908:1252:fb60:7517:785b:7177:d6a6])
- by smtp.gmail.com with ESMTPSA id t2sm5439249ejx.72.2021.06.01.10.38.01
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Jun 2021 10:38:02 -0700 (PDT)
-Subject: Re: [PATCH v2 2/2] drm/amdgpu: Don't flush HDP on A+A
-To: Eric Huang <jinhuieric.huang@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20210601000625.551445-1-jinhuieric.huang@amd.com>
- <20210601000625.551445-2-jinhuieric.huang@amd.com>
- <21f80a3a-b48d-3ee3-fabb-d1b377a51600@gmail.com>
- <0da1d86e-b966-4103-119e-ed8ae6f53842@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <c1769db6-030a-fc83-9a1a-87b5372b30ac@gmail.com>
-Date: Tue, 1 Jun 2021 19:38:01 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id BBD146EA95;
+	Tue,  1 Jun 2021 18:14:00 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2084.outbound.protection.outlook.com [40.107.93.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66ABC6E0F8
+ for <amd-gfx@lists.freedesktop.org>; Tue,  1 Jun 2021 18:13:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=I9yK9lugfV+xdbKQC22cF/KCi5xlidu3Ae8f4yu3I4ReIT99xU3OJDxsBFpUvzZwxANO70wPgutKJXMmOXWT9y1vXONj8QeFEKpYOct5TCROFDDo1NaGXia8BW8Pk80eI3JGo9FIME+dwseyOKFcfeKv0SKAVmIESCUSBkqLC7zZdxableQIqSYNiCOivelRbq7LE4GB3Wr3c2X561rv3u/M2cSF7MYiyxEPANInFNxDM2TGWbojpSeHH5HXyyY0fjrwJJV47CmXlTqeLMkcUzrwx/fqrD1NKDCgT/5nmhqAer4bol+16dLbWCLMrrtuLVzI6OxDBHBUR6YU01MisQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/2voXrGbyIS79LHCEtAEgvIIWffXLg6y1Mh5+swtq+k=;
+ b=OxaG5Quc7pwXUIFckScYzSGUDxxe7TdXNEE/LKwY5ufc7aUC8mgobvSSlinqJs7uK2sxZ908inb7shffWvrS8kPElQtxdpsN3nAkoTZ3FjL1yLsWR7A2llvhhmK1YP9TwmmhDqY1pcT0QULY78ZTiCjvb4KKsi279HBou4ZL3zCB8BywaxSpE9/3zR4uLlXFVEK/5j4iva0DDNIO9u194ocwnzhjU5kDMZKYJlBiE0YutuU+TROid6gXjbwgcRnUHD2OV+3nVkXdtjrMMkcpcMlQ1kGUa0BOh/dfjcltes2PC81N5NrwnVBIJxvp0K1bmLbap/tqoWXZ9BGHkY63Lw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/2voXrGbyIS79LHCEtAEgvIIWffXLg6y1Mh5+swtq+k=;
+ b=MmVWoEnMGqmn+sHYmELWPs2WEKHQC2IbwSpcO2s+eku7rmXi5CDwxP+5dJhQtW8NPM2mXemsGAXXlhtIDVByW34OI8Xlj64ZVNmV3KOfEyM6Jp6ugXsRrVNwHUv8Lxbyaxlic3mxc/60jfIrYFCmsThNLhAWFie9ukT2thtxgJI=
+Received: from DM5PR22CA0021.namprd22.prod.outlook.com (2603:10b6:3:101::31)
+ by CY4PR12MB1606.namprd12.prod.outlook.com (2603:10b6:910:10::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4173.21; Tue, 1 Jun
+ 2021 18:13:56 +0000
+Received: from DM6NAM11FT005.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:3:101:cafe::5e) by DM5PR22CA0021.outlook.office365.com
+ (2603:10b6:3:101::31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4173.20 via Frontend
+ Transport; Tue, 1 Jun 2021 18:13:56 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT005.mail.protection.outlook.com (10.13.172.238) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4150.30 via Frontend Transport; Tue, 1 Jun 2021 18:13:55 +0000
+Received: from grasider-dev.hitronhub.home (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.4; Tue, 1 Jun 2021 13:13:53 -0500
+From: Graham Sider <Graham.Sider@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v3 1/8] drm/amd/pm: Add u64 throttler status field to
+ gpu_metrics
+Date: Tue, 1 Jun 2021 14:12:24 -0400
+Message-ID: <20210601181231.24773-1-Graham.Sider@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-In-Reply-To: <0da1d86e-b966-4103-119e-ed8ae6f53842@amd.com>
-Content-Language: en-US
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 28720773-048d-484c-8f31-08d92529052b
+X-MS-TrafficTypeDiagnostic: CY4PR12MB1606:
+X-Microsoft-Antispam-PRVS: <CY4PR12MB1606EF32B737C3361CAF16D78A3E9@CY4PR12MB1606.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: YeV7pKwB6+DityvDRpWhMCrQOBJSAExSx2Uhl5VetC6py33ylori0NKHUxIIKNzzgiC8Dzn6pEtbGqNf4QFZFueW5far3kMY3BqhmkbgZkzMivQj6+V2yAEgxbVE7mYvO/Mna0N6UTPZxyTyAGTtGORSsl4kJ+H39RTM8VUZLy/H7iDxCeL/wmDpPlZh/pgscd3+o9rVg2HtG0Qt9sZ6dC5+0yXXQSSIID0e8QVazagKod0o7JqrdHbKuvqKwLvOVI1mFCtGjMnB5OiMXCmITj7gDXXUu9BBg7bOwXuxw1Xr8tCH151FBlo68dSPhaf75ACczv3fLQ8LHLGst6vCpLEWKSSxsX2QiNdahFind3+YWKR0pwHsbKKieOBQXdI+ez17hRLFCHU9vwZuV4K0igUheL9d66iomz0fpy/LEg7iapVWqubCwl2uDHbtANags1oJdl8ltqYfqiO9tw2+qZ/abKIm5AdoeT141Juy+Rs65ub9knkJRCk89dJNX9lYqipNZqfqCesxRqGK5zp6hV+vkYtMqUQq6I1CMTMJLLRD1JABa3bTKUO6+4rkZUlSSH8gzCgqSyRZ7Z4ilGY8ZaAnwH+M4oKUBuzH6ADPssMc6qbFeOJDq5qsDH407pYAlxpn1yGQstN6FybkyKAEGN3tgEt2vVxCLJZKd9reaPoZvgdxCqVVOr97/uc3H4ag
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(39860400002)(376002)(346002)(136003)(396003)(36840700001)(46966006)(478600001)(8936002)(70206006)(336012)(5660300002)(8676002)(186003)(426003)(36756003)(1076003)(36860700001)(47076005)(2906002)(70586007)(16526019)(86362001)(82310400003)(2616005)(82740400003)(6916009)(6666004)(316002)(54906003)(356005)(26005)(4326008)(83380400001)(81166007)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2021 18:13:55.7934 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 28720773-048d-484c-8f31-08d92529052b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT005.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1606
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,98 +109,125 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Lijo.Lazar@amd.com, Harish.Kasiviswanathan@amd.com,
+ Graham Sider <Graham.Sider@amd.com>, Elena.Sakhnovitch@amd.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QW0gMDEuMDYuMjEgdW0gMTY6NDUgc2NocmllYiBFcmljIEh1YW5nOgo+Cj4gT24gMjAyMS0wNi0w
-MSAzOjA1IGEubS4sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+IEFtIDAxLjA2LjIxIHVtIDAy
-OjA2IHNjaHJpZWIgRXJpYyBIdWFuZzoKPj4+IFdpdGggWEdNSSBjb25uZWN0aW9uIGZsdXNoaW5n
-IEhEUCBvbiBQQ0llIGlzIHVubmVjZXNzYXJ5LAo+Pj4gaXQgaXMgYWxzbyB0byBvcHRpbWl6ZSBt
-ZW1vcnkgYWxsb2NhdGlvbiBsYXRlbmN5Lgo+Pj4KPj4+IFNpZ25lZC1vZmYtYnk6IEVyaWMgSHVh
-bmcgPGppbmh1aWVyaWMuaHVhbmdAYW1kLmNvbT4KPj4+IC0tLQo+Pj4gwqAgZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2hkcC5oIHwgMSArCj4+PiDCoCBkcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfaWIuY8KgIHwgMyArKy0KPj4+IMKgIGRyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2dtY192OV8wLmPCoMKgIHwgMSArCj4+PiDCoCBkcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9oZHBfdjRfMC5jwqDCoCB8IDMgKysrCj4+PiDCoCA0IGZpbGVzIGNoYW5nZWQsIDcg
-aW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQo+Pj4KPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfaGRwLmggCj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9oZHAuaAo+Pj4gaW5kZXggN2VjOTlkNTkxNTg0Li4xY2EyM2YyZjUx
-ZDIgMTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfaGRw
-LmgKPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9oZHAuaAo+Pj4g
-QEAgLTQ0LDYgKzQ0LDcgQEAgc3RydWN0IGFtZGdwdV9oZHAgewo+Pj4gwqDCoMKgwqDCoCBzdHJ1
-Y3QgcmFzX2NvbW1vbl9pZsKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgKnJhc19pZjsKPj4+IMKgwqDC
-oMKgwqAgY29uc3Qgc3RydWN0IGFtZGdwdV9oZHBfZnVuY3PCoMKgwqDCoMKgwqDCoCAqZnVuY3M7
-Cj4+PiDCoMKgwqDCoMKgIGNvbnN0IHN0cnVjdCBhbWRncHVfaGRwX3Jhc19mdW5jc8KgwqDCoCAq
-cmFzX2Z1bmNzOwo+Pj4gK8KgwqDCoCBib29swqDCoMKgIG5vX2ZsdXNoOwo+Pj4gwqAgfTsKPj4+
-IMKgIMKgIGludCBhbWRncHVfaGRwX3Jhc19sYXRlX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2Ug
-KmFkZXYpOwo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9pYi5jIAo+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfaWIuYwo+Pj4g
-aW5kZXggYWFhMjU3NGNlOWJjLi5mMzFlYWUyOTMxZjMgMTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfaWIuYwo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X2liLmMKPj4+IEBAIC0yMjYsNyArMjI2LDggQEAgaW50IGFtZGdw
-dV9pYl9zY2hlZHVsZShzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsIAo+Pj4gdW5zaWduZWQgbnVt
-X2licywKPj4+IMKgwqDCoMKgwqAgaWYgKCEoYWRldi0+ZmxhZ3MgJiBBTURfSVNfQVBVKSkKPj4+
-IMKgICNlbmRpZgo+Pj4gwqDCoMKgwqDCoCB7Cj4+PiAtwqDCoMKgwqDCoMKgwqAgaWYgKHJpbmct
-PmZ1bmNzLT5lbWl0X2hkcF9mbHVzaCkKPj4+ICvCoMKgwqDCoMKgwqDCoCBpZiAocmluZy0+ZnVu
-Y3MtPmVtaXRfaGRwX2ZsdXNoICYmCj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAhYWRldi0+
-aGRwLm5vX2ZsdXNoKQo+Pgo+PiBUaGlzIHN0aWxsIGVtaXRzIHRoZSBmbHVzaCB0aHJvdWdoIE1N
-SU8uCj4KPiBBcyBtYXR0ZXIgb2YgZmFjdCwgaXQgZG9lc24ndCwgYmVjYXVzZSBhbWRncHVfYXNp
-Y19mbHVzaF9oZHAgd2lsbCAKPiBjaGVjayB0aGUgZmxhZyBhZ2FpbiBpbiBoZHBfdjRfMC5jLiBJ
-IGV2ZW4gdGhpbmsgdGhlIGNoZWNrIGhlcmUgaXMgCj4gdW5uZWNlc3NhcnkgZm9yIHByZXZpb3Vz
-IGFzaWMsIGJlY2F1c2UgYXNpYyBvdGhlciB0aGFuIEFsZGViZXJhbiBBK0EgCj4gaGFzIHRvIGZs
-dXNoIHRsYnMgYWNjb3JkaW5nIHRvIGhhcmR3YXJlIHNwZWNpZmljLgoKQW5kIGV4YWN0bHkgdGhh
-dCBpcyB3aGF0IEknbSB0cnlpbmcgdG8gZXhwbGFpbiBoZXJlLgoKU2tpcHBpbmcgSERQIGZsdXNo
-aW5nIGlzIHNvbWV0aGluZyB3ZSBkbyBmb3IgQVBVcyBmb3Igb3ZlciAxMCB5ZWFycyBub3csIAp0
-aGF0IGlzIHByZXR0eSBjb21tb24gb24gb3RoZXIgQVNJQ3MgYW5kIG5vdCBBbGRlYmVyYW4gc3Bl
-Y2lmaWMgYXQgYWxsLgoKQWxkZWJlcmFuIGlzIGp1c3QgdGhlIGZpcnN0IGRHUFUgd2Ugc2tpcCB0
-aGlzIGZsdXNoaW5nIGJlY2F1c2UgaXQgaGFzIGFuIApYR01JIGNvbm5lY3Rpb24gdG8gdGhlIENQ
-VS4KCj4+Cj4+IFdoYXQgeW91IG5lZWQgdG8gZG8gaXMgdG8gaW5pdGlhbGl6ZSB0aGUgaGRwLm5v
-X2ZsdXNoIGZpZWxkIGZvciBhbGwgCj4+IGFzaWNzIGFuZCBhcmNoaXRlY3R1cmVzIGFuZCB0aGVu
-IHVzZSB0aGF0IGhlcmUgaW4gdGhlIGlmIGFib3ZlIHRoaXMgb25lLgo+Cj4gSSBkb24ndCB1bmRl
-cnN0YW5kIHdoeSBpdCBzaG91bGQgYmUgZm9yIGFsbCBhc2ljcy4gQ3VycmVudGx5IG9ubHkgCj4g
-QWxkZWJlcmFuIEErQSBuZWVkIG5vIFRMQiBmbHVzaCwgd2UgZG9uJ3QgaGF2ZSB0byBjb25zaWRl
-ciBvdGhlciAKPiBhc2ljcy4gQW5kIGhkcC5ub19mbHVzaCBpcyBhIGNvbW1vbiBmbGFnIGZvciBh
-bGwgYXNpY3MsIElzIHRoZXJlIGFuIAo+IGlzc3VlIGluIG90aGVyIGFzaWNzIGZvciB0aGlzIGZs
-YWcgb24gdGxiIGZsdXNoPwoKU2VlIHRoZSBjb2RlIGluIHRoZSBJQiBoYW5kbGluZyBhcyB3ZWxs
-LiBXaGF0IHlvdSBzaG91bGQgZG8gaXMgdG8gCmdlbmVyYWxpemUgdGhpcyBjb2RlIGFuZCBub3Qg
-cmUtaW52ZW50IHRoZSB3aGVlbCBzcGVjaWZpYyBmb3IgQWxkZWJlcmFuLgoKSW4gb3RoZXIgd29y
-ZHMgbW9kaWZ5IG9yIGV4dGVuZCB0aGUgZXhpc3RpbmcgY29kZSB3aGljaCBza2lwcyBIRFAgCmZs
-dXNoaW5nL2ludmFsaWRhdGlvbi4KCkNsZWFuaW5nIHRoYXQgdXAgYnkgcHV0dGluZyB0aGUgbm9f
-Zmx1c2ggaW50byB0aGUgaGRwIHN0cnVjdHVyZSBzb3VuZHMgCmxpa2UgYSBnb29kIHN0YXJ0IHRv
-IG1lLgoKPj4KPj4+IGFtZGdwdV9yaW5nX2VtaXRfaGRwX2ZsdXNoKHJpbmcpOwo+Pj4gwqDCoMKg
-wqDCoMKgwqDCoMKgIGVsc2UKPj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGFtZGdwdV9h
-c2ljX2ZsdXNoX2hkcChhZGV2LCByaW5nKTsKPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jIAo+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9nbWNfdjlfMC5jCj4+PiBpbmRleCAyNzQ5NjIxZDVmNjMuLjZlMWVhYjYxNTkxNCAxMDA2NDQK
-Pj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMKPj4+ICsrKyBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMKPj4+IEBAIC0xMjIzLDYgKzEy
-MjMsNyBAQCBzdGF0aWMgaW50IGdtY192OV8wX2Vhcmx5X2luaXQodm9pZCAqaGFuZGxlKQo+Pj4g
-wqDCoMKgwqDCoMKgwqDCoMKgIGFkZXYtPmdtYy54Z21pLnN1cHBvcnRlZCA9IHRydWU7Cj4+PiDC
-oMKgwqDCoMKgwqDCoMKgwqAgYWRldi0+Z21jLnhnbWkuY29ubmVjdGVkX3RvX2NwdSA9Cj4+PiBh
-ZGV2LT5zbXVpby5mdW5jcy0+aXNfaG9zdF9ncHVfeGdtaV9zdXBwb3J0ZWQoYWRldik7Cj4+PiAr
-wqDCoMKgwqDCoMKgwqAgYWRldi0+aGRwLm5vX2ZsdXNoID0gYWRldi0+Z21jLnhnbWkuY29ubmVj
-dGVkX3RvX2NwdTsKPj4+IMKgwqDCoMKgwqAgfQo+Pj4gwqAgwqDCoMKgwqDCoCBnbWNfdjlfMF9z
-ZXRfZ21jX2Z1bmNzKGFkZXYpOwo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2hkcF92NF8wLmMgCj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2hkcF92
-NF8wLmMKPj4+IGluZGV4IDc0YjkwY2MyYmY0OC4uZTFiMmZhY2U4NjU2IDEwMDY0NAo+Pj4gLS0t
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvaGRwX3Y0XzAuYwo+Pj4gKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvaGRwX3Y0XzAuYwo+Pj4gQEAgLTQwLDYgKzQwLDkgQEAKPj4+
-IMKgIHN0YXRpYyB2b2lkIGhkcF92NF8wX2ZsdXNoX2hkcChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
-YWRldiwKPj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3RydWN0IGFtZGdw
-dV9yaW5nICpyaW5nKQo+Pj4gwqAgewo+Pj4gK8KgwqDCoCBpZiAoYWRldi0+aGRwLm5vX2ZsdXNo
-KQo+Pj4gK8KgwqDCoMKgwqDCoMKgIHJldHVybjsKPj4+ICsKPj4KPj4gSnVzdCB0byBiZSBjbGVh
-ciBvbmNlIG1vcmUsIHRoaXMgYXBwcm9hY2ggaXMgYSBOQUsuCj4+Cj4+IENoZWNrcyBsaWtlIHRo
-aXMgc2hvdWxkIG5vdCBiZSBpbiB0aGUgaGFyZHdhcmUgc3BlY2lmaWMgZnVuY3Rpb24uCj4KPiBB
-cyBJIG1lbnRpb24gYWJvdmUsIFRMQiBmbHVzaCBzaG91bGQgYmUgc3BlY2lmaWMgZm9yIEFzaWMg
-Zm9yIG15IG9waW5pb24uCgpObywgdGhhdCBpcyBjZXJ0YWlubHkgd3JvbmcuIFRoaXMgaXMgYnR3
-IG5vdCByZWxhdGVkIHRvIHRoZSBUTEIgaW4gYW55IAp3YXksIHRoZSBIRFAgaXMgcGFydCBvZiB0
-aGUgUENJZSBidXMgaW50ZXJmYWNlLgoKUmVnYXJkcywKQ2hyaXN0aWFuLgoKPgo+IFJlZ2FyZHMs
-Cj4gRXJpYwo+Pgo+PiBSZWdhcmRzLAo+PiBDaHJpc3RpYW4uCj4+Cj4+PiDCoMKgwqDCoMKgIGlm
-ICghcmluZyB8fCAhcmluZy0+ZnVuY3MtPmVtaXRfd3JlZykKPj4+IMKgwqDCoMKgwqDCoMKgwqDC
-oCBXUkVHMzJfTk9fS0lRKChhZGV2LT5ybW1pb19yZW1hcC5yZWdfb2Zmc2V0ICsgCj4+PiBLRkRf
-TU1JT19SRU1BUF9IRFBfTUVNX0ZMVVNIX0NOVEwpID4+IDIsIDApOwo+Pj4gwqDCoMKgwqDCoCBl
-bHNlCj4+Cj4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+This patch set adds support for a new ASIC independent u64 throttler
+status field (indep_throttle_status). Piggybacks off the
+gpu_metrics_v1_3 bump and similarly bumps gpu_metrics_v2 version (to
+v2_2) to add field.  Adding this new field allows us to allocate 16
+bits to each type of throttler information for more leeway in adding
+additional throttler bits in the future.
+
+Signed-off-by: Graham Sider <Graham.Sider@amd.com>
+---
+ .../gpu/drm/amd/include/kgd_pp_interface.h    | 58 ++++++++++++++++++-
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c        |  3 +
+ 2 files changed, 60 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+index b1cd52a9d684..a6436c331f46 100644
+--- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
++++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+@@ -577,7 +577,7 @@ struct gpu_metrics_v1_3 {
+ 	uint16_t			current_vclk1;
+ 	uint16_t			current_dclk1;
+ 
+-	/* Throttle status */
++	/* Throttle status (ASIC dependent) */
+ 	uint32_t			throttle_status;
+ 
+ 	/* Fans */
+@@ -603,6 +603,9 @@ struct gpu_metrics_v1_3 {
+ 	uint16_t			voltage_mem;
+ 
+ 	uint16_t			padding1;
++
++	/* Throttle status (ASIC independent) */
++	uint64_t			indep_throttle_status;
+ };
+ 
+ /*
+@@ -709,4 +712,57 @@ struct gpu_metrics_v2_1 {
+ 	uint16_t			padding[3];
+ };
+ 
++struct gpu_metrics_v2_2 {
++	struct metrics_table_header	common_header;
++
++	/* Temperature */
++	uint16_t			temperature_gfx; // gfx temperature on APUs
++	uint16_t			temperature_soc; // soc temperature on APUs
++	uint16_t			temperature_core[8]; // CPU core temperature on APUs
++	uint16_t			temperature_l3[2];
++
++	/* Utilization */
++	uint16_t			average_gfx_activity;
++	uint16_t			average_mm_activity; // UVD or VCN
++
++	/* Driver attached timestamp (in ns) */
++	uint64_t			system_clock_counter;
++
++	/* Power/Energy */
++	uint16_t			average_socket_power; // dGPU + APU power on A + A platform
++	uint16_t			average_cpu_power;
++	uint16_t			average_soc_power;
++	uint16_t			average_gfx_power;
++	uint16_t			average_core_power[8]; // CPU core power on APUs
++
++	/* Average clocks */
++	uint16_t			average_gfxclk_frequency;
++	uint16_t			average_socclk_frequency;
++	uint16_t			average_uclk_frequency;
++	uint16_t			average_fclk_frequency;
++	uint16_t			average_vclk_frequency;
++	uint16_t			average_dclk_frequency;
++
++	/* Current clocks */
++	uint16_t			current_gfxclk;
++	uint16_t			current_socclk;
++	uint16_t			current_uclk;
++	uint16_t			current_fclk;
++	uint16_t			current_vclk;
++	uint16_t			current_dclk;
++	uint16_t			current_coreclk[8]; // CPU core clocks
++	uint16_t			current_l3clk[2];
++
++	/* Throttle status (ASIC dependent) */
++	uint32_t			throttle_status;
++
++	/* Fans */
++	uint16_t			fan_pwm;
++
++	uint16_t			padding[3];
++
++	/* Throttle status (ASIC independent) */
++	uint64_t			indep_throttle_status;
++};
++
+ #endif
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+index 0ceb7329838c..01645537d9ab 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+@@ -773,6 +773,9 @@ void smu_cmn_init_soft_gpu_metrics(void *table, uint8_t frev, uint8_t crev)
+ 	case METRICS_VERSION(2, 1):
+ 		structure_size = sizeof(struct gpu_metrics_v2_1);
+ 		break;
++	case METRICS_VERSION(2, 2):
++		structure_size = sizeof(struct gpu_metrics_v2_2);
++		break;
+ 	default:
+ 		return;
+ 	}
+-- 
+2.17.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
