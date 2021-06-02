@@ -2,63 +2,60 @@ Return-Path: <SRS0=QW4G=K4=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
-	UPPERCASE_50_75,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-11.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2EE85C47083
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A6F25C47096
 	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 16:49:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 02A2661C2E
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 16:49:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 02A2661C2E
+	by mail.kernel.org (Postfix) with ESMTPS id 7039761C2E
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 16:49:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7039761C2E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73BA66ED72;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D1F7A6ED84;
 	Wed,  2 Jun 2021 16:49:42 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2045.outbound.protection.outlook.com [40.107.220.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29DCA6ED65
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Jun 2021 16:49:39 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2085.outbound.protection.outlook.com [40.107.236.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8AF526ED26
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Jun 2021 16:49:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Xp3tjn/NfdicBB3gxRm6oI4S+kSrcl79/ry/00p1fGtp9iyqNo6ExfjA0DmI4AZA16jTy6GllvvWZMIwwX5Qmg7Rker6gLU/QGH9UoA/KmHpsL06ReX6dIapi7nsMAm7syotE4oEQUQObbaZ4LFZI53w4O8tRifaPTZMNt972vvHiSmMAK04lo5GkWfGWAvxoW9snmEcg4y2ZxEWxt+K7uU/usEfWUY+20yL45F0301CRhjxzkt7hWzPuQOIGmwZSELAIjRRunba1bRV47tQVVuOCc7lXBe/gqa7phNuFAf0PMS7VNC8O4zreCb6u4Yn/W2r3seGbpeNbnCB1YEAjg==
+ b=WsB2jFVbFl9QRDZy/TYLFsH33bCQJhQa7RjpHeilqLE6/H5g0q6X2CK8z7ikrWsMXcr5O1FHpNJVk7yZ8+iaQEVw1Q6YgRdTXYZklu4XhGM7U/tGK17MC31xTv+MRIyqvwKqmGLzDYaJ2lfsH7YtZmM750SJPB0Z561s0VewObSWWqHEHEFlIQrySzFIzwTL+ieBEgXXSVdydXBG0KcxW+J4pYSFMZGaiiDRuquE4VOex4nt3W8WRekClcDw0FxZu5D2Nk0RRQYHxMcrKzFJyuftloE3oq6qlluhbfwPSEhHZla64+DTXe3hSQZA1Q76Di21iVagPZqDxSqYrR08Dg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8I5DAFZFN6p70TH9exBFyUyGnugFGrdRmiai7oVAOP8=;
- b=PnYFe+6ooXo6+nYyPR12DdKpQ92E/SYWQKJO07EqefqKOGQ1sthTWoG/v0XYm4dcAbYB6wIzYy7qd8tDYVYP/9K+052p/zWxOTGQ+Q0200c3F+g1vp/Ib5kBF59XWw5W4OSTPhlNnECQGkYH5yjn9KNAFEo8gUdH94IdGvb6SJ2S7k2kC878AYDLBWgIEAJ+rx7eMvg4Boh3QzugcPApjG4EfU5XkCSuyy30OyKkekSiK+xcp/XXMrtDgydm1PjHAJc1vVu7kvHlmVe3jp1pV+0dw73MSBRjEHhesReiWpaSHhZWM+TuX5JulTl/URr+LgMCldh2XBsn4UAW78nAog==
+ bh=JmUfF3OuZj6x4gzFKSJDnk+xm7KTkjjIq1Q378/Hdl0=;
+ b=SrOX/TTPHWQR1GLtnkALyaIBAMaJVMd1sNP76+HgFWyNUcyXlCm5MpnwbweeOyWr1xDs+pr74Fm4MPSFom+n/dm1LNhDdu4NkuWlwVMTnEX8INBrX7aPcclwlMBRkg73mLVlKh7P/QAnj7+U0q//xm4Y38hcO9cnKlx9qGGsTX/jhzVI633+jxU7gcycsN0Oy7hFqFO1nAyWuffba+HEbrVVDKlRridGO5GvtJK79E/+DluYl2p3AIgG6yJ52qNqI49in2r/qowarQwFmGvBaGvXLtKINB/SY0wtrJpfCGlvHo8cLSqR7eOFK997sSJDc+zLt/qlTvzdQDLJ8lH0jw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8I5DAFZFN6p70TH9exBFyUyGnugFGrdRmiai7oVAOP8=;
- b=GGBERoWfi8J+B0xcC1zR2laIqaWXJvdJ3y68mXpxauhIkafMn8xtuL8YZTRi7lX6pqm+M9O2RWnRxLX7W2gIEs7osgLwBggj8TBLw1MVFvQU43xx/ji2JrdMTApzgbQd65q60wRbYR6M9o78zN4ZBnGjtU/Zq6pp/vuVJCz3CDw=
+ bh=JmUfF3OuZj6x4gzFKSJDnk+xm7KTkjjIq1Q378/Hdl0=;
+ b=KVDwu7rnajvxPFk1BBWancjPAqNxTMpdvg5KoSpT7l/0Y/lGIEml30XqtIY+kdtp2ufLeBpFzsEempDItEOYKxZ7bUSPnTLLQPYWn1aPSHkFGXQHCCAKTVwDEZWMWYWJ+nVtF3Bxv3R3Cd7cjMJqQrPmH8RSu6yIUxrhz3jyTww=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
 Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
- by MN2PR12MB4077.namprd12.prod.outlook.com (2603:10b6:208:1da::15)
+ by BL0PR12MB4675.namprd12.prod.outlook.com (2603:10b6:207:35::26)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.21; Wed, 2 Jun
- 2021 16:49:37 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4173.20; Wed, 2 Jun
+ 2021 16:49:29 +0000
 Received: from MN2PR12MB4488.namprd12.prod.outlook.com
  ([fe80::25f7:664:3a8f:25b6]) by MN2PR12MB4488.namprd12.prod.outlook.com
  ([fe80::25f7:664:3a8f:25b6%7]) with mapi id 15.20.4173.030; Wed, 2 Jun 2021
- 16:49:37 +0000
+ 16:49:29 +0000
 From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 14/89] drm/amdgpu: support nbio_7_2_1 for yellow carp
-Date: Wed,  2 Jun 2021 12:47:53 -0400
-Message-Id: <20210602164908.2848791-14-alexander.deucher@amd.com>
+Subject: [PATCH 00/89] Add initial support for Yellow Carp
+Date: Wed,  2 Jun 2021 12:47:40 -0400
+Message-Id: <20210602164908.2848791-1-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210602164908.2848791-1-alexander.deucher@amd.com>
-References: <20210602164908.2848791-1-alexander.deucher@amd.com>
 X-Originating-IP: [192.161.79.207]
 X-ClientProxiedBy: MN2PR13CA0007.namprd13.prod.outlook.com
  (2603:10b6:208:160::20) To MN2PR12MB4488.namprd12.prod.outlook.com
@@ -69,53 +66,53 @@ Received: from localhost.localdomain (192.161.79.207) by
  MN2PR13CA0007.namprd13.prod.outlook.com (2603:10b6:208:160::20) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.9 via Frontend
- Transport; Wed, 2 Jun 2021 16:49:37 +0000
+ Transport; Wed, 2 Jun 2021 16:49:28 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a9420b8f-7467-4ab5-5b46-08d925e66883
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4077:
+X-MS-Office365-Filtering-Correlation-Id: a060842c-bea0-4df2-7bbc-08d925e66354
+X-MS-TrafficTypeDiagnostic: BL0PR12MB4675:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB407798264AC3300786291950F73D9@MN2PR12MB4077.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:346;
+X-Microsoft-Antispam-PRVS: <BL0PR12MB46757ACF75E698B7305ED067F73D9@BL0PR12MB4675.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1002;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 33G39BY/3Eg0QbnJVjgJ13l4jMLBUgv1I6RWXKvB+1ETzHPmI7Z2gY03fzp77lTJex4XZ7t4O82WV7XGRCoHknBJRfImydKFIF5VKxKFFYfSTqW09kLgvOmcl8JReafQGrz6txYoQ1MyQvitgBqixSLjLZAj/G8uDARHBvWZ7sf6592gRvB0WYAepWegjCAO2GmmaEhWQY7C69kJN2Sw1XLFpik7ou6SgYYUub2UP0S6/qmQzvI2MhP8eeeawYYgk0b6DqFpPnf9kEQA8qAQwx2N2wMG2fQZRQ5hFZAXsDXrk0+ZRtV+ILbqyMN8SHUH6KVLjCqMz7sOjGyPQooTMknnSYsRHyiDTSygFXxLtSG7ALM36DI9IU6gmzrPuVWXWgfBk4VXpdtYULQjoKb3UsDKMVcY9EOQtbosPBqOda99n6UTXLoxF0UKYAQedEC+qF+RKGZ1q5l/zohDq7/jQ6BoZyxSP9UER8zgkDxI2XyIJGm4nSwTzx0IAmkeQkzMp/+du1MF1RrczQyVDVhBP1X49RaTYkjfOhWDc5uK7omZjuIqkGOdJQvOVSiGc+gO/j6s6s0mdzrCvTXnpN0SvWJt1xJp0Ki44eCOWwwd73rFdY2G22Jj9RPEhqzx+HCmtCso9iVPnow2xWcCAtz2aEEX+jzkSLWJDIOKf1W68juEL2tqkGzWj3fLBfvmLyA/
+X-Microsoft-Antispam-Message-Info: 8jupUhA0Dci4pWJmpwGfM2iz16gfCpffx9RnF4fo4mhpZpx4JP7IRLZPvkf5TFuHxkon6rDSMUIthsUu8GMVFNHS97+ne9ul6X1AretmT2W/4EWK/276GnDQsp99TPxuun6EjXJcYYHFl0UuxycDbLTHdB5NzNBwlRiwhsgj2TdzMIpES+VMPos/LXZ9vbmNMVPmneLi0hnUfhOI1O5/gGwogcBP7z7lnRD8FsmbAOPCq9TJRMTCLiBhAuyKlDfFHfta4nJHRpXrDP4CW8JKsBba2sji49ywZ94sB1Gbs7nYAsCh1ahFeY+cuQAYqgKL7QEsMBkACEzeoI+M1aADx9NxhgrtUM5EFBWlfcIdCDeoEkZ7lubSnfWvFbgCAwjupfgtRbBFMs9TWfmKFHwesbb50gMaErWmum1/WMtvQSkNJHWPC/6MTuthr0bPfseWPa2icCASnHIVDy41yIcXDhNxahz10YmbPVLMrg4rWYY1BbzT9CGnyDBS9E7EYMIEwcYoA7JZK2JJn4zo2MvJrKZHpZgJvo3AoZgeJs7PxoZhJi18qay6u7gb4b+CWzMkrXoYQ61kkm+xoQm23w1eLYU9mJw8p6YU/l7X05q+MipxByNJTPFzfdKaSmPmW24+CiB6lgVFAErvsQQnWxpNxlKDQip4W6j0YUpo9ANjux78UuhEfF25IgyQyy+6/MYvoX/lFpz4fwKYAAXoJBVbWvxivIH041VSm3b3Qi5dVZg=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(136003)(376002)(346002)(396003)(39850400004)(8676002)(54906003)(4326008)(5660300002)(8936002)(6666004)(478600001)(316002)(83380400001)(16526019)(1076003)(6506007)(956004)(2616005)(52116002)(66946007)(26005)(66476007)(66556008)(2906002)(6916009)(38100700002)(38350700002)(36756003)(86362001)(6512007)(186003)(6486002)(69590400013);
+ SFS:(4636009)(136003)(346002)(396003)(376002)(39860400002)(366004)(30864003)(52116002)(6486002)(956004)(6666004)(26005)(5660300002)(6506007)(2616005)(36756003)(6512007)(478600001)(38350700002)(66476007)(966005)(66556008)(83380400001)(8676002)(2906002)(4326008)(86362001)(1076003)(19627235002)(16526019)(316002)(186003)(6916009)(66946007)(38100700002)(8936002)(69590400013);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?+LHIghDaD5cu8Hp93/tDNkDSNvzH+g5mFm/PW0K3O2bn9wt7RHN5RYZ1JzaQ?=
- =?us-ascii?Q?io0m7/aljmF3o+MuELNnfDREeLRTJGk236ICS9Khvp4Mtdgxc9/2QntFIwPN?=
- =?us-ascii?Q?AnI036atF0Cd2hPhDiA5EOEW2RDqkHBF79agSQVmqCbkFcYjMgTrsjBSpAmo?=
- =?us-ascii?Q?MHoCzDJjRkTZ2R2pQZ3A48/6DRPgrA/0shMaDH6lkMJY0inqa28Buq6VkW1D?=
- =?us-ascii?Q?mLZazEQFLmojT1nyGKnBsfYDpogoWha1UCHdodO/Mdky8ZpdFxbD5DGPOXr8?=
- =?us-ascii?Q?zE31TIledmcji3MkfMLg9OworTuVT7f5q/XaD6YBwBFwBdjzDNuiMehIuAiE?=
- =?us-ascii?Q?k4WbzJUMTsylg6E408Gsn8HXm76WW78NirxxW0BECHXwhJwZpBQvXMdvL+rL?=
- =?us-ascii?Q?3qw8euwmAhAHEC+cAayOsyZyOu42smolj7nnpeNhJ07XS8h01SCDrSVqpZEJ?=
- =?us-ascii?Q?dw3hO9mSFK87EMJVvIXaKGv+sMRTIF62XbQYMD/Uzzb//0kRkDZVTaWqMfNT?=
- =?us-ascii?Q?8+02uFeqvJAIM59zG5mh6YWRqCfNFJQYWQKQdW3aeOf1QFFXzc01OelcKOAg?=
- =?us-ascii?Q?jxJRTaLIA16Jzv9fWG3dTigO5CKtjHp3EuoldoFizdjQkX2DufL9J8tQ2pXQ?=
- =?us-ascii?Q?O0N2BmCvtcGlPQ2mmTD3vRXkEy2+wO2MBFqsT9ubxZ79Vu0dwL5WVDizTDzo?=
- =?us-ascii?Q?nZRvvgdt/mrg7jkflanWU17VzbtRypGwO9bHg6g8EJoCwppYfUZWxwKLROI9?=
- =?us-ascii?Q?AU5xT0LuynuyAT7iqQmRAizLUTa1+iYI1+K3RXE9vcbVpd8Kh7xl53JSrtVn?=
- =?us-ascii?Q?6V5pIlDxJcnyQZCCVOmMFMBdRczFBuUFIaMMndW8Ycq6fcrByI+s4sX8JA+1?=
- =?us-ascii?Q?eHxe46wuITlO71xajyGUKy6S9e87mNc4jVtkJUxUSqbi13i3ykaZ24pZ66lN?=
- =?us-ascii?Q?ARlNnUoJERGCBQzENx/sttaSfoUTa7BIlzsayfSVAZQrXQx892APHyZ3YhFC?=
- =?us-ascii?Q?o//ScXfxBMP0GwkXvmJCTVAcsx4RVOPPACPItO9MeRCFhnTfYlJUv68G4HKv?=
- =?us-ascii?Q?TysFf6D0ysRp+8RpwRU5W3rFw1p4vdXddiMq49yBllXOlJc6hkscdzfdZf+w?=
- =?us-ascii?Q?dyi8mQoYJG8wBrPO+uyXG+whZfJQ75uF4bGVYDXwcID8IIb2G61uMPKLyQmI?=
- =?us-ascii?Q?/Vw64bv/3qD9mfkuJ61gnAfr2KGZXFG6EFU8sNvA9luTlQ8b402mb7AryOsm?=
- =?us-ascii?Q?YtbcdkksYvtPJGAgN3RA+2NfNzOgUpruhSM4XRCxQaeMzjb7F/U2aGDImVtq?=
- =?us-ascii?Q?+KJk9IxGwodhkiUOYvIeilOq?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?oe73x1cRHmP+4XDasD19rOxypNYZmG1PjBscxftr/fbtS6KYY9hqBMxRnWSJ?=
+ =?us-ascii?Q?zPKrCHTFYuk+W19j1Px0cBQOsas8aHfMHsbT6iXB9ZdHPsSjW4FFpZlSv4Kf?=
+ =?us-ascii?Q?aFxYei0+oNQVpT6VzEElJxwgWMm7weH1kfZF97VO6fKwy/igjpuhOt2la6IA?=
+ =?us-ascii?Q?d1DHs1+8MNDAQgxg4vUEyhTVLH0il83C10swdF43/RHrBRz283ay7zrOzHin?=
+ =?us-ascii?Q?RvIp1rf0AZ++GbV6fagXJoQVYHX1Fp9wJgkKkhFlW8MLDexkrWv7pNB1WV4f?=
+ =?us-ascii?Q?NRFeuT6Q9g8oJnghHaHTQ66J11h+HlZqeYrde9B6JlfloBrpaM6dpIMCd40F?=
+ =?us-ascii?Q?Ng6qWYchvSt9iefaUD8UuwVuTdCIu//oJ2p4HNy3TQpYE7HAcay8lKczv9J2?=
+ =?us-ascii?Q?/IqSGSE4ghgH6+ybG1y0NJVVDk/n4ENIP4uRwh9SuA3qnUmcRAqLv+wZQWzs?=
+ =?us-ascii?Q?qbX2Xqm+ve9xvmiZk9kQ79eVDpKObO6Me9s+Rxwlvvz8fdMB1BqPEHbOvmQm?=
+ =?us-ascii?Q?UcxVJ/OB1hRsV89FqWAOhJmc9dtTzPmUUyWG5jlHJmAahwLUR+NhtAVB13Wz?=
+ =?us-ascii?Q?rsIjUQVKoDx7xuXJvG84kATusxC2t/Fj6M81LAn4LWdwxgZN1qoeO6A0XDkq?=
+ =?us-ascii?Q?jxIPjfmlMVL4bZwVE+OEFgw9tfNRBV1BvwelrD+rMPRVRVqf2bZInYQtAxwU?=
+ =?us-ascii?Q?WBRcCkAa5/jHdM/PHmYZY1glDMDatOXq3LeNuafHK4dZ7cEIy6Gay03o2O+d?=
+ =?us-ascii?Q?n7w1khmmKt5rZNbSbtd+aC1Lhm0OZ8K/iXQG2zSY7MjYstBpsaglQbm997Tr?=
+ =?us-ascii?Q?2QZKy5Qr6JPcFqf/9Jvw0DrRzCzn8H3VkWxqFOKb3zBuHzmiHVWXHZ7RuwJs?=
+ =?us-ascii?Q?Cf3N5TAMONwGO+3QCf/gx0LMsCvjSnJG3r/QQOj0JZJp1islhmyMrJoIV2B8?=
+ =?us-ascii?Q?Ft2PxYy1cyj1nNYoxGsn3HX8nWy5Zn+wRFxZK/heh06vq/x5R4lrwUtbV8T9?=
+ =?us-ascii?Q?33vDuz/6t1JnJsBXw88gSI6v92pYs1fkQUDE1kMCrO6rDCca9DHsny8i9B55?=
+ =?us-ascii?Q?n1Hcoo7zKu9xR3DNBwjbM/w8JY3cjJzTROegVSKz5TWVhrK2A7dE732oM8Y+?=
+ =?us-ascii?Q?MQbHycgwpGN/LNTxds5GT212o/wqMyEDDYxXKbNjYoWzRXHl8iLiihI1jB+c?=
+ =?us-ascii?Q?Xy9RLx6I4RdCF4ds3d2YfCdHqEZ7YKwY7nei2vjC6sV029o2E7skfA8x524i?=
+ =?us-ascii?Q?DLo43PtdXEGh9etSexuhJrEeFnqkyuyrhekTgqfBX4dffywjcw1M7aC+IZIm?=
+ =?us-ascii?Q?4xEy1N6QUMXTix75kCRxlyt4?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a9420b8f-7467-4ab5-5b46-08d925e66883
+X-MS-Exchange-CrossTenant-Network-Message-Id: a060842c-bea0-4df2-7bbc-08d925e66354
 X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2021 16:49:37.8130 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2021 16:49:29.0694 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ElBo50E+HT2/Rgt4ghVh4t9vozKnEz+T9WhynVtj3EoMzcFhDZGCddXNy7Z8jUxJlZWQzCArV+mRaJmLEqroZQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4077
+X-MS-Exchange-CrossTenant-UserPrincipalName: z7fnJ+a1DxhA6rmG9wBowO1J3EeoSSdS/lgvJti0Ck9Tbn9j7+12QP1Cy/ws0dRaHruEQm+5VlyxF24xAQfjnQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4675
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,231 +124,313 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Huang Rui <ray.huang@amd.com>,
- Aaron Liu <aaron.liu@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Aaron Liu <aaron.liu@amd.com>
+This patch set adds initial support for Yellow Carp, a new
+GPU from AMD.
 
-This patch adds nbio_7_2_1 support yellow carp.
+I did not send out patch 1 due to its size (new register headers),
+but you can view the entire patch set here:
+https://gitlab.freedesktop.org/agd5f/linux/-/commits/yellow_carp
 
-Signed-off-by: Aaron Liu <aaron.liu@amd.com>
-Reviewed-by: Huang Rui <ray.huang@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c | 142 ++++++++++++++++++-------
- 1 file changed, 104 insertions(+), 38 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c
-index 598ce0e93627..8f2a315e7c73 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c
-@@ -28,6 +28,25 @@
- #include "nbio/nbio_7_2_0_sh_mask.h"
- #include <uapi/linux/kfd_ioctl.h>
- 
-+#define regRCC_STRAP0_RCC_DEV0_EPF0_STRAP0_YC				0x0015
-+#define regRCC_STRAP0_RCC_DEV0_EPF0_STRAP0_YC_BASE_IDX		2
-+#define regBIF_BX0_BIF_FB_EN_YC								0x0100
-+#define regBIF_BX0_BIF_FB_EN_YC_BASE_IDX					2
-+#define regBIF1_PCIE_MST_CTRL_3								0x4601c6
-+#define regBIF1_PCIE_MST_CTRL_3_BASE_IDX					5
-+#define BIF1_PCIE_MST_CTRL_3__CI_SWUS_MAX_READ_REQUEST_SIZE_MODE__SHIFT \
-+			0x1b
-+#define BIF1_PCIE_MST_CTRL_3__CI_SWUS_MAX_READ_REQUEST_SIZE_PRIV__SHIFT \
-+			0x1c
-+#define BIF1_PCIE_MST_CTRL_3__CI_SWUS_MAX_READ_REQUEST_SIZE_MODE_MASK \
-+			0x08000000L
-+#define BIF1_PCIE_MST_CTRL_3__CI_SWUS_MAX_READ_REQUEST_SIZE_PRIV_MASK \
-+			0x30000000L
-+#define regBIF1_PCIE_TX_POWER_CTRL_1						0x460187
-+#define regBIF1_PCIE_TX_POWER_CTRL_1_BASE_IDX				5
-+#define BIF1_PCIE_TX_POWER_CTRL_1__MST_MEM_LS_EN_MASK		0x00000001L
-+#define BIF1_PCIE_TX_POWER_CTRL_1__REPLAY_MEM_LS_EN_MASK	0x00000008L
-+
- static void nbio_v7_2_remap_hdp_registers(struct amdgpu_device *adev)
- {
- 	WREG32_SOC15(NBIO, 0, regBIF_BX0_REMAP_HDP_MEM_FLUSH_CNTL,
-@@ -38,7 +57,12 @@ static void nbio_v7_2_remap_hdp_registers(struct amdgpu_device *adev)
- 
- static u32 nbio_v7_2_get_rev_id(struct amdgpu_device *adev)
- {
--	u32 tmp = RREG32_SOC15(NBIO, 0, regRCC_STRAP0_RCC_DEV0_EPF0_STRAP0);
-+	u32 tmp;
-+
-+	if (adev->asic_type == CHIP_YELLOW_CARP)
-+		tmp = RREG32_SOC15(NBIO, 0, regRCC_STRAP0_RCC_DEV0_EPF0_STRAP0_YC);
-+	else
-+		tmp = RREG32_SOC15(NBIO, 0, regRCC_STRAP0_RCC_DEV0_EPF0_STRAP0);
- 
- 	tmp &= RCC_STRAP0_RCC_DEV0_EPF0_STRAP0__STRAP_ATI_REV_ID_DEV0_F0_MASK;
- 	tmp >>= RCC_STRAP0_RCC_DEV0_EPF0_STRAP0__STRAP_ATI_REV_ID_DEV0_F0__SHIFT;
-@@ -49,11 +73,19 @@ static u32 nbio_v7_2_get_rev_id(struct amdgpu_device *adev)
- static void nbio_v7_2_mc_access_enable(struct amdgpu_device *adev, bool enable)
- {
- 	if (enable)
--		WREG32_SOC15(NBIO, 0, regBIF_BX0_BIF_FB_EN,
--			     BIF_BX0_BIF_FB_EN__FB_READ_EN_MASK |
--			     BIF_BX0_BIF_FB_EN__FB_WRITE_EN_MASK);
-+		if (adev->asic_type == CHIP_YELLOW_CARP)
-+			WREG32_SOC15(NBIO, 0, regBIF_BX0_BIF_FB_EN_YC,
-+				BIF_BX0_BIF_FB_EN__FB_READ_EN_MASK |
-+				BIF_BX0_BIF_FB_EN__FB_WRITE_EN_MASK);
-+		else
-+			WREG32_SOC15(NBIO, 0, regBIF_BX0_BIF_FB_EN,
-+				BIF_BX0_BIF_FB_EN__FB_READ_EN_MASK |
-+				BIF_BX0_BIF_FB_EN__FB_WRITE_EN_MASK);
- 	else
--		WREG32_SOC15(NBIO, 0, regBIF_BX0_BIF_FB_EN, 0);
-+		if (adev->asic_type == CHIP_YELLOW_CARP)
-+			WREG32_SOC15(NBIO, 0, regBIF_BX0_BIF_FB_EN_YC, 0);
-+		else
-+			WREG32_SOC15(NBIO, 0, regBIF_BX0_BIF_FB_EN, 0);
- }
- 
- static u32 nbio_v7_2_get_memsize(struct amdgpu_device *adev)
-@@ -92,13 +124,13 @@ static void nbio_v7_2_vcn_doorbell_range(struct amdgpu_device *adev, bool use_do
- 
- 	if (use_doorbell) {
- 		doorbell_range = REG_SET_FIELD(doorbell_range,
--					       GDC0_BIF_VCN0_DOORBELL_RANGE, OFFSET,
--					       doorbell_index);
-+							GDC0_BIF_VCN0_DOORBELL_RANGE, OFFSET,
-+							doorbell_index);
- 		doorbell_range = REG_SET_FIELD(doorbell_range,
--					       GDC0_BIF_VCN0_DOORBELL_RANGE, SIZE, 8);
-+							GDC0_BIF_VCN0_DOORBELL_RANGE, SIZE, 8);
- 	} else {
- 		doorbell_range = REG_SET_FIELD(doorbell_range,
--					       GDC0_BIF_VCN0_DOORBELL_RANGE, SIZE, 0);
-+							GDC0_BIF_VCN0_DOORBELL_RANGE, SIZE, 0);
- 	}
- 
- 	WREG32_PCIE_PORT(reg, doorbell_range);
-@@ -123,22 +155,22 @@ static void nbio_v7_2_enable_doorbell_selfring_aperture(struct amdgpu_device *ad
- 
- 	if (enable) {
- 		tmp = REG_SET_FIELD(tmp, BIF_BX_PF0_DOORBELL_SELFRING_GPA_APER_CNTL,
--				    DOORBELL_SELFRING_GPA_APER_EN, 1) |
--		      REG_SET_FIELD(tmp, BIF_BX_PF0_DOORBELL_SELFRING_GPA_APER_CNTL,
--				    DOORBELL_SELFRING_GPA_APER_MODE, 1) |
--		      REG_SET_FIELD(tmp, BIF_BX_PF0_DOORBELL_SELFRING_GPA_APER_CNTL,
--				    DOORBELL_SELFRING_GPA_APER_SIZE, 0);
-+				DOORBELL_SELFRING_GPA_APER_EN, 1) |
-+			REG_SET_FIELD(tmp, BIF_BX_PF0_DOORBELL_SELFRING_GPA_APER_CNTL,
-+				DOORBELL_SELFRING_GPA_APER_MODE, 1) |
-+			REG_SET_FIELD(tmp, BIF_BX_PF0_DOORBELL_SELFRING_GPA_APER_CNTL,
-+				DOORBELL_SELFRING_GPA_APER_SIZE, 0);
- 
- 		WREG32_SOC15(NBIO, 0,
--			     regBIF_BX_PF0_DOORBELL_SELFRING_GPA_APER_BASE_LOW,
--			     lower_32_bits(adev->doorbell.base));
-+			regBIF_BX_PF0_DOORBELL_SELFRING_GPA_APER_BASE_LOW,
-+			lower_32_bits(adev->doorbell.base));
- 		WREG32_SOC15(NBIO, 0,
--			     regBIF_BX_PF0_DOORBELL_SELFRING_GPA_APER_BASE_HIGH,
--			     upper_32_bits(adev->doorbell.base));
-+			regBIF_BX_PF0_DOORBELL_SELFRING_GPA_APER_BASE_HIGH,
-+			upper_32_bits(adev->doorbell.base));
- 	}
- 
- 	WREG32_SOC15(NBIO, 0, regBIF_BX_PF0_DOORBELL_SELFRING_GPA_APER_CNTL,
--		     tmp);
-+		tmp);
- }
- 
- 
-@@ -218,19 +250,42 @@ static void nbio_v7_2_update_medium_grain_light_sleep(struct amdgpu_device *adev
- {
- 	uint32_t def, data;
- 
--	def = data = RREG32_PCIE_PORT(SOC15_REG_OFFSET(NBIO, 0, regPCIE_CNTL2));
--	if (enable && (adev->cg_flags & AMD_CG_SUPPORT_BIF_LS)) {
--		data |= (PCIE_CNTL2__SLV_MEM_LS_EN_MASK |
--			 PCIE_CNTL2__MST_MEM_LS_EN_MASK |
--			 PCIE_CNTL2__REPLAY_MEM_LS_EN_MASK);
-+	if (adev->asic_type == CHIP_YELLOW_CARP) {
-+		def = data = RREG32_PCIE_PORT(SOC15_REG_OFFSET(NBIO, 0, regPCIE_CNTL2));
-+		if (enable && (adev->cg_flags & AMD_CG_SUPPORT_BIF_LS))
-+			data |= PCIE_CNTL2__SLV_MEM_LS_EN_MASK;
-+		else
-+			data &= ~PCIE_CNTL2__SLV_MEM_LS_EN_MASK;
-+
-+		if (def != data)
-+			WREG32_PCIE_PORT(SOC15_REG_OFFSET(NBIO, 0, regPCIE_CNTL2), data);
-+
-+		data = RREG32_PCIE_PORT(SOC15_REG_OFFSET(NBIO, 0, regBIF1_PCIE_TX_POWER_CTRL_1));
-+		def = data;
-+		if (enable && (adev->cg_flags & AMD_CG_SUPPORT_BIF_LS))
-+			data |= (BIF1_PCIE_TX_POWER_CTRL_1__MST_MEM_LS_EN_MASK |
-+				BIF1_PCIE_TX_POWER_CTRL_1__REPLAY_MEM_LS_EN_MASK);
-+		else
-+			data &= ~(BIF1_PCIE_TX_POWER_CTRL_1__MST_MEM_LS_EN_MASK |
-+				BIF1_PCIE_TX_POWER_CTRL_1__REPLAY_MEM_LS_EN_MASK);
-+
-+		if (def != data)
-+			WREG32_PCIE_PORT(SOC15_REG_OFFSET(NBIO, 0, regBIF1_PCIE_TX_POWER_CTRL_1),
-+				data);
- 	} else {
--		data &= ~(PCIE_CNTL2__SLV_MEM_LS_EN_MASK |
--			  PCIE_CNTL2__MST_MEM_LS_EN_MASK |
--			  PCIE_CNTL2__REPLAY_MEM_LS_EN_MASK);
-+		def = data = RREG32_PCIE_PORT(SOC15_REG_OFFSET(NBIO, 0, regPCIE_CNTL2));
-+		if (enable && (adev->cg_flags & AMD_CG_SUPPORT_BIF_LS))
-+			data |= (PCIE_CNTL2__SLV_MEM_LS_EN_MASK |
-+				 PCIE_CNTL2__MST_MEM_LS_EN_MASK |
-+				 PCIE_CNTL2__REPLAY_MEM_LS_EN_MASK);
-+		else
-+			data &= ~(PCIE_CNTL2__SLV_MEM_LS_EN_MASK |
-+				  PCIE_CNTL2__MST_MEM_LS_EN_MASK |
-+				  PCIE_CNTL2__REPLAY_MEM_LS_EN_MASK);
-+
-+		if (def != data)
-+			WREG32_PCIE_PORT(SOC15_REG_OFFSET(NBIO, 0, regPCIE_CNTL2), data);
- 	}
--
--	if (def != data)
--		WREG32_PCIE_PORT(SOC15_REG_OFFSET(NBIO, 0, regPCIE_CNTL2), data);
- }
- 
- static void nbio_v7_2_get_clockgating_state(struct amdgpu_device *adev,
-@@ -297,14 +352,25 @@ const struct nbio_hdp_flush_reg nbio_v7_2_hdp_flush_reg = {
- static void nbio_v7_2_init_registers(struct amdgpu_device *adev)
- {
- 	uint32_t def, data;
--
--	def = data = RREG32_PCIE_PORT(SOC15_REG_OFFSET(NBIO, 0, regPCIE_CONFIG_CNTL));
--	data = REG_SET_FIELD(data, PCIE_CONFIG_CNTL, CI_SWUS_MAX_READ_REQUEST_SIZE_MODE, 1);
--	data = REG_SET_FIELD(data, PCIE_CONFIG_CNTL, CI_SWUS_MAX_READ_REQUEST_SIZE_PRIV, 1);
--
--	if (def != data)
--		WREG32_PCIE_PORT(SOC15_REG_OFFSET(NBIO, 0, regPCIE_CONFIG_CNTL),
--				 data);
-+	if (adev->asic_type == CHIP_YELLOW_CARP) {
-+		def = data = RREG32_PCIE_PORT(SOC15_REG_OFFSET(NBIO, 0, regBIF1_PCIE_MST_CTRL_3));
-+		data = REG_SET_FIELD(data, BIF1_PCIE_MST_CTRL_3,
-+			CI_SWUS_MAX_READ_REQUEST_SIZE_MODE, 1);
-+		data = REG_SET_FIELD(data, BIF1_PCIE_MST_CTRL_3,
-+			CI_SWUS_MAX_READ_REQUEST_SIZE_PRIV, 1);
-+
-+		if (def != data)
-+			WREG32_PCIE_PORT(SOC15_REG_OFFSET(NBIO, 0, regBIF1_PCIE_MST_CTRL_3), data);
-+	} else {
-+		def = data = RREG32_PCIE_PORT(SOC15_REG_OFFSET(NBIO, 0, regPCIE_CONFIG_CNTL));
-+		data = REG_SET_FIELD(data, PCIE_CONFIG_CNTL,
-+			CI_SWUS_MAX_READ_REQUEST_SIZE_MODE, 1);
-+		data = REG_SET_FIELD(data, PCIE_CONFIG_CNTL,
-+			CI_SWUS_MAX_READ_REQUEST_SIZE_PRIV, 1);
-+
-+		if (def != data)
-+			WREG32_PCIE_PORT(SOC15_REG_OFFSET(NBIO, 0, regPCIE_CONFIG_CNTL), data);
-+	}
- }
- 
- const struct amdgpu_nbio_funcs nbio_v7_2_funcs = {
+
+Aaron Liu (42):
+  drm/amdgpu: add yellow carp asic header files (v3)
+  drm/amdgpu: add yellow carp asic_type enum
+  drm/amdgpu: add uapi to define yellow carp series
+  drm/amdgpu: add yellow carp support for gpu_info and ip block setting
+  drm/amdgpu: add nv common ip block support for yellow carp
+  drm/amdgpu: add yellow carp support for ih block
+  drm/amdgpu: add gmc v10 supports for yellow carp
+  drm/amdgpu: support fw load type for yellow carp
+  drm/amdgpu: add gfx support for yellow carp
+  drm/amdgpu: add sdma support for yellow carp
+  drm/amdgpu: set ip blocks for yellow carp
+  drm/amdkfd: add yellow carp KFD support
+  drm/amdgpu: support nbio_7_2_1 for yellow carp
+  drm/admgpu/pm: add smu v13 driver interface header for yellow carp
+    (v3)
+  drm/amdgpu/pm: add smu v13.0.1 firmware header for yellow carp (V4)
+  drm/amdgpu/pm: add smu v13.0.1 smc header for yellow carp (v2)
+  drm/amd/pm: add smu13 ip support for moment(V3)
+  drm/amd/pm: add yellow_carp_ppt implementation(V3)
+  drm/amd/pm: partially enable swsmu for yellow carp(V2)
+  drm/amdgpu: add smu ip block for yellow carp(V3)
+  drm/amdgpu: add gfx golden settings for yellow carp (v3)
+  drm/amdgpu: reserved buffer is not needed with ip discovery enabled
+  drm/amdgpu: add psp_v13 support for yellow carp
+  drm/amdgpu: enable psp_v13 for yellow carp
+  drm/amdgpu/pm: set_pp_feature is unsupport for yellow carp
+  drm/amdgpu/pm: add set_driver_table_location implementation for yellow
+    carp
+  drm/amdgpu: add GFX Clock Gating support for yellow carp
+  drm/amdgpu: add MMHUB Clock Gating support for yellow carp
+  drm/amdgpu: add GFX Power Gating support for yellow carp
+  drm/amdgpu/pm: enable smu_hw_init for yellow carp
+  drm/amdgpu/pm: add gfx_off_control for yellow carp
+  drm/amdgpu/pm: enable gfx_off in yellow carp smu post init
+  drm/amdgpu: add SDMA Clock Gating support for yellow carp
+  drm/amdgpu: add HDP Clock Gating support for yellow carp
+  drm/amdgpu: add ATHUB Clock Gating support for yellow carp
+  drm/amdgpu: add IH Clock Gating support for yellow carp
+  drm/amdgpu: enable VCN PG and CG for yellow carp
+  drm/amdgpu/pm: support smu_post_init for yellow carp
+  drm/amdgpu: add RLC_PG_DELAY_3 for yellow carp
+  drm/amdgpu: add timestamp counter query support for yellow carp
+  drm/amd/pm: add PrepareMp1ForUnload support for yellow carp
+  drm/amdgpu: add mode2 reset support for yellow carp
+
+Alex Deucher (2):
+  drm/amdgpu: add yellow_carp_reg_base_init function for yellow carp
+    (v2)
+  drm/amdgpu: add mmhub client support for yellow carp
+
+Huang Rui (2):
+  drm/amdgpu: introduce a stolen reserved buffer to protect specific
+    buffer region (v2)
+  drm/amd/pm: add vcn/jepg enable functions for yellow carp
+
+James Zhu (5):
+  drm/amdgpu/jpeg: Remove harvest checking on CHIP_YELLOW_CARP
+  drm/amdgpu/vcn: add vcn support for yellow carp
+  drm/amdgpu: enable vcn/jpeg on yellow carp
+  drm/amdgpu: enable vcn dpg mode on yellow carp
+  drm/amdgpu: add video_codecs query support for yellow carp
+
+Nicholas Kazlauskas (22):
+  drm/amdgpu: Load TA firmware for yellow carp
+  drm/amdgpu: Update atomfirmware for DCN3.1 phy tuning and eDP caps
+  drm/amd/display: Add DCN3.1 yellow carp asic family IDs
+  drm/amd/display: Add DCN3.1 clock manager support
+  drm/amd/display: Add DCN3.1 DCCG
+  drm/amd/display: Add DCN3.1 DIO
+  drm/amd/display: Add DCN3.1 OPTC
+  drm/amd/display: Add DCN3.1 DCHHUB
+  drm/amd/display: Add DCN3.1 DML calculation support
+  drm/amd/display: Add DCN3.1 IRQ manager
+  drm/amd/display: Add DCN3.1 GPIO support
+  drm/amd/display: Add DCN3.1 DMCUB
+  drm/amd/display: Add DCN3.1 PANEL
+  drm/amd/display: Add DCN3.1 HDCP support
+  drm/amd/display: Add DCN3.1 BIOS parser support
+  drm/amd/display: Add DCN3.1 HWSEQ
+  drm/amd/display: Add z10 restore checks for DC interfaces
+  drm/amd/display: Add DCN3.1 Resource
+  drm/amd/display: Add DCN3.1 blocks to the DC Makefile
+  drm/amd/display: Add DCN3.1 Yellow Carp support to DM
+  drm/amd/display: Add DC DCN3.1 support to Kconfig
+  drm/amdgpu: Add DC support and display block for Yellow Carp
+
+Xiaomeng Hou (16):
+  drm/amd/pm: add read_sensor function for yellow carp
+  drm/amd/pm: add set_watermarks_table function for yellow carp
+  drm/amd/pm: add the fine grain tuning function for yellow carp
+  drm/amd/pm: add support to get dpm clock value for yellow carp
+  drm/amd/pm: add feature map for yellow carp
+  drm/amd/pm: implement is_dpm_running() callback for yellow carp
+  drm/amd/pm: initialize feature_enabled/feature_support bitmap for
+    yellow carp
+  drm/amd/pm: add callback force_clk_levels for yellow carp
+  drm/amd/pm: add callback to get bootup values for yellow carp
+  drm/amd/pm: add callback get_dpm_ultimate_freq for yellow carp
+  drm/amd/pm: add callbacks to read/write sysfs file
+    pp_power_profile_mode
+  drm/amd/pm: add the interface to dump smu metrics table for yellow
+    carp
+  drm/amdgpu: add gpu harvest support for yellow carp (v2)
+  drm/amdgpu: correct the cu and rb info for yellow carp
+  drm/amd/pm: add set_performance_level function for yellow carp
+  drm/amd/pm: disable manually setting MCLK power level on yellow carp
+
+ drivers/gpu/drm/amd/amdgpu/Makefile           |      2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |      9 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfxhub.h    |      1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c       |     19 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h       |      1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       |      4 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       |     10 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h       |      4 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c     |      1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c       |      8 +
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c        |     83 +-
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c      |     40 +
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c        |     17 +-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c        |      9 +-
+ drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c       |      1 +
+ drivers/gpu/drm/amd/amdgpu/navi10_ih.c        |      1 +
+ drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c        |    142 +-
+ drivers/gpu/drm/amd/amdgpu/nv.c               |     51 +
+ drivers/gpu/drm/amd/amdgpu/nv.h               |      2 +
+ drivers/gpu/drm/amd/amdgpu/psp_v13_0.c        |     37 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c        |      7 +
+ .../gpu/drm/amd/amdgpu/yellow_carp_reg_init.c |     51 +
+ drivers/gpu/drm/amd/amdkfd/kfd_crat.c         |     52 +
+ drivers/gpu/drm/amd/amdkfd/kfd_device.c       |     19 +
+ .../drm/amd/amdkfd/kfd_device_queue_manager.c |      1 +
+ drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c  |      1 +
+ .../gpu/drm/amd/amdkfd/kfd_packet_manager.c   |      1 +
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c     |      1 +
+ drivers/gpu/drm/amd/display/Kconfig           |      7 +
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |     44 +
+ .../amd/display/amdgpu_dm/amdgpu_dm_hdcp.c    |     13 +
+ .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |      6 +
+ drivers/gpu/drm/amd/display/dc/Makefile       |      3 +
+ .../drm/amd/display/dc/bios/bios_parser2.c    |    113 +
+ .../display/dc/bios/command_table_helper2.c   |      5 +
+ .../gpu/drm/amd/display/dc/clk_mgr/Makefile   |     11 +
+ .../gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c  |     30 +
+ .../display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c  |      4 +
+ .../display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c  |    673 +
+ .../display/dc/clk_mgr/dcn31/dcn31_clk_mgr.h  |    103 +
+ .../amd/display/dc/clk_mgr/dcn31/dcn31_smu.c  |    333 +
+ .../amd/display/dc/clk_mgr/dcn31/dcn31_smu.h  |    271 +
+ drivers/gpu/drm/amd/display/dc/core/dc.c      |     17 +
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c |     18 +
+ .../gpu/drm/amd/display/dc/core/dc_resource.c |     26 +
+ .../gpu/drm/amd/display/dc/core/dc_stream.c   |      6 +
+ drivers/gpu/drm/amd/display/dc/dc.h           |     28 +
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  |     23 +
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h  |      3 +
+ .../gpu/drm/amd/display/dc/dce/dce_hwseq.h    |     21 +-
+ .../display/dc/dce110/dce110_hw_sequencer.c   |     23 +
+ .../drm/amd/display/dc/dcn10/dcn10_hubbub.h   |     48 +
+ .../amd/display/dc/dcn10/dcn10_link_encoder.h |     20 +
+ .../gpu/drm/amd/display/dc/dcn10/dcn10_optc.c |     11 +
+ .../gpu/drm/amd/display/dc/dcn10/dcn10_optc.h |      2 +
+ .../gpu/drm/amd/display/dc/dcn20/dcn20_dccg.h |     54 +
+ .../drm/amd/display/dc/dcn20/dcn20_hubbub.h   |      9 +
+ .../gpu/drm/amd/display/dc/dcn20/dcn20_hubp.h |     16 +
+ .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    |     37 +
+ .../drm/amd/display/dc/dcn20/dcn20_resource.c |     39 +
+ .../drm/amd/display/dc/dcn30/dcn30_hwseq.c    |      5 +
+ drivers/gpu/drm/amd/display/dc/dcn31/Makefile |     35 +
+ .../gpu/drm/amd/display/dc/dcn31/dcn31_dccg.c |    279 +
+ .../gpu/drm/amd/display/dc/dcn31/dcn31_dccg.h |    147 +
+ .../display/dc/dcn31/dcn31_dio_link_encoder.c |    412 +
+ .../display/dc/dcn31/dcn31_dio_link_encoder.h |    246 +
+ .../drm/amd/display/dc/dcn31/dcn31_hubbub.c   |    956 +
+ .../drm/amd/display/dc/dcn31/dcn31_hubbub.h   |    122 +
+ .../gpu/drm/amd/display/dc/dcn31/dcn31_hubp.c |    103 +
+ .../gpu/drm/amd/display/dc/dcn31/dcn31_hubp.h |    246 +
+ .../drm/amd/display/dc/dcn31/dcn31_hwseq.c    |    598 +
+ .../drm/amd/display/dc/dcn31/dcn31_hwseq.h    |     56 +
+ .../gpu/drm/amd/display/dc/dcn31/dcn31_init.c |    151 +
+ .../gpu/drm/amd/display/dc/dcn31/dcn31_init.h |     33 +
+ .../gpu/drm/amd/display/dc/dcn31/dcn31_optc.c |    287 +
+ .../gpu/drm/amd/display/dc/dcn31/dcn31_optc.h |    259 +
+ .../amd/display/dc/dcn31/dcn31_panel_cntl.c   |    157 +
+ .../amd/display/dc/dcn31/dcn31_panel_cntl.h   |     40 +
+ .../drm/amd/display/dc/dcn31/dcn31_resource.c |   2180 +
+ .../drm/amd/display/dc/dcn31/dcn31_resource.h |     42 +
+ drivers/gpu/drm/amd/display/dc/dm_cp_psp.h    |      5 +
+ drivers/gpu/drm/amd/display/dc/dm_helpers.h   |      6 +
+ drivers/gpu/drm/amd/display/dc/dml/Makefile   |     11 +
+ .../dc/dml/dcn31/display_mode_vba_31.c        |   7506 ++
+ .../dc/dml/dcn31/display_mode_vba_31.h        |     43 +
+ .../dc/dml/dcn31/display_rq_dlg_calc_31.c     |   1727 +
+ .../dc/dml/dcn31/display_rq_dlg_calc_31.h     |     69 +
+ .../drm/amd/display/dc/dml/display_mode_lib.c |     18 +
+ .../drm/amd/display/dc/dml/display_mode_lib.h |      4 +
+ .../amd/display/dc/dml/display_mode_structs.h |     12 +
+ .../drm/amd/display/dc/dml/display_mode_vba.c |     42 +
+ .../drm/amd/display/dc/dml/display_mode_vba.h |     52 +
+ .../gpu/drm/amd/display/dc/gpio/hw_factory.c  |      3 +
+ .../drm/amd/display/dc/gpio/hw_translate.c    |      3 +
+ .../gpu/drm/amd/display/dc/inc/core_types.h   |     10 +
+ .../gpu/drm/amd/display/dc/inc/hw/clk_mgr.h   |      3 +
+ drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h  |     56 +
+ .../gpu/drm/amd/display/dc/inc/hw/dchubbub.h  |      5 +
+ .../drm/amd/display/dc/inc/hw/link_encoder.h  |     14 +
+ .../gpu/drm/amd/display/dc/inc/hw/mem_input.h |      4 +
+ .../amd/display/dc/inc/hw/timing_generator.h  |      4 +
+ .../gpu/drm/amd/display/dc/inc/hw_sequencer.h |      4 +
+ drivers/gpu/drm/amd/display/dc/irq/Makefile   |     11 +
+ .../display/dc/irq/dcn31/irq_service_dcn31.c  |    432 +
+ .../display/dc/irq/dcn31/irq_service_dcn31.h  |     37 +
+ drivers/gpu/drm/amd/display/dmub/dmub_srv.h   |     12 +
+ .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |    118 +
+ drivers/gpu/drm/amd/display/dmub/src/Makefile |      3 +
+ .../gpu/drm/amd/display/dmub/src/dmub_dcn31.c |    354 +
+ .../gpu/drm/amd/display/dmub/src/dmub_dcn31.h |    230 +
+ .../gpu/drm/amd/display/dmub/src/dmub_srv.c   |     37 +
+ .../gpu/drm/amd/display/include/dal_asic_id.h |     13 +
+ .../gpu/drm/amd/display/include/dal_types.h   |      3 +
+ .../drm/amd/display/modules/hdcp/hdcp_log.c   |      4 +
+ .../drm/amd/display/modules/hdcp/hdcp_psp.c   |    135 +-
+ .../drm/amd/display/modules/hdcp/hdcp_psp.h   |     38 +
+ .../drm/amd/display/modules/inc/mod_hdcp.h    |     23 +-
+ .../include/asic_reg/dcn/dcn_3_1_2_offset.h   |  15083 +++
+ .../include/asic_reg/dcn/dcn_3_1_2_sh_mask.h  |  60747 +++++++++
+ .../include/asic_reg/dpcs/dpcs_4_2_0_offset.h |  11936 ++
+ .../asic_reg/dpcs/dpcs_4_2_0_sh_mask.h        | 103385 +++++++++++++++
+ .../include/asic_reg/mp/mp_13_0_1_offset.h    |    355 +
+ .../include/asic_reg/mp/mp_13_0_1_sh_mask.h   |    531 +
+ drivers/gpu/drm/amd/include/atomfirmware.h    |     56 +-
+ .../gpu/drm/amd/include/yellow_carp_offset.h  |   1366 +
+ .../amd/pm/inc/smu13_driver_if_yellow_carp.h  |    222 +
+ drivers/gpu/drm/amd/pm/inc/smu_v13_0_1.h      |     57 +
+ drivers/gpu/drm/amd/pm/inc/smu_v13_0_1_pmfw.h |    139 +
+ .../gpu/drm/amd/pm/inc/smu_v13_0_1_ppsmc.h    |     97 +
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |      7 +
+ drivers/gpu/drm/amd/pm/swsmu/smu13/Makefile   |      2 +-
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_1.c  |    311 +
+ .../drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c  |   1210 +
+ .../drm/amd/pm/swsmu/smu13/yellow_carp_ppt.h  |     28 +
+ include/drm/amd_asic_type.h                   |      1 +
+ include/uapi/drm/amdgpu_drm.h                 |      1 +
+ 136 files changed, 215465 insertions(+), 66 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/yellow_carp_reg_init.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_smu.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_smu.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/Makefile
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dccg.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dccg.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dio_link_encoder.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dio_link_encoder.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubp.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubp.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_init.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_init.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_optc.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_optc.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_panel_cntl.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_panel_cntl.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dml/dcn31/display_rq_dlg_calc_31.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dml/dcn31/display_rq_dlg_calc_31.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/irq/dcn31/irq_service_dcn31.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/irq/dcn31/irq_service_dcn31.h
+ create mode 100644 drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c
+ create mode 100644 drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_1_2_offset.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_1_2_sh_mask.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/dpcs/dpcs_4_2_0_offset.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/dpcs/dpcs_4_2_0_sh_mask.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/mp/mp_13_0_1_offset.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/mp/mp_13_0_1_sh_mask.h
+ create mode 100644 drivers/gpu/drm/amd/include/yellow_carp_offset.h
+ create mode 100644 drivers/gpu/drm/amd/pm/inc/smu13_driver_if_yellow_carp.h
+ create mode 100644 drivers/gpu/drm/amd/pm/inc/smu_v13_0_1.h
+ create mode 100644 drivers/gpu/drm/amd/pm/inc/smu_v13_0_1_pmfw.h
+ create mode 100644 drivers/gpu/drm/amd/pm/inc/smu_v13_0_1_ppsmc.h
+ create mode 100644 drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_1.c
+ create mode 100644 drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
+ create mode 100644 drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.h
+
 -- 
 2.31.1
 
