@@ -2,117 +2,132 @@ Return-Path: <SRS0=QW4G=K4=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-15.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C419CC4708F
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 08:30:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3F713C4708F
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 08:33:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8C86D61159
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 08:30:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8C86D61159
+	by mail.kernel.org (Postfix) with ESMTPS id 07B28613D0
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 08:33:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 07B28613D0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45B106EB7B;
-	Wed,  2 Jun 2021 08:30:42 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2042.outbound.protection.outlook.com [40.107.93.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61A906EB7B
- for <amd-gfx@freedesktop.org>; Wed,  2 Jun 2021 08:30:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA7E36EB7E;
+	Wed,  2 Jun 2021 08:33:54 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2045.outbound.protection.outlook.com [40.107.92.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E79816EB7E
+ for <amd-gfx@freedesktop.org>; Wed,  2 Jun 2021 08:33:53 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XZ3e5B15S6tED8X5oKjg3o+yCJNoQ7ywcPYHIKxw/lL7IEKSxAnJj8O2a1FFg7JbA+A7kx1K6fghgRAE95b1SVFQ4LcOtV4Ed+UNvLENuBA6W12VI2lm2rNporuGuoYxU0UcTO6cIGW+arGdsZ3w/tbTdZ210Sb0rpLio0XGaSrGd+VdswTkzOKbN/J73rM2ogQ9RzNbNXFoPkWLYRXuQVD4DtVObTKo+OAdNGCX4hiuAgJwK0n8gzeHjiRrVCrMBObwcI9B1xrLXsa+Nk92YITtIy/D9+CEPdbrHsdfe3b2xqFLLdrqMlq8Lxh3wl9c7fn1JhpRO0zFPbvNyBTsWg==
+ b=boDuFWKlmIqdAzawNuH7FlwM/ojbW7nvZ5Fo9ApTO0woXI1dHs4F9p6xzVq5eRLoByGU7mVdJDVcXTtibV4nsL9wncc1aVmQ2SWqhZJZJKkUUrOfvxfzeLg4ssX9ftL0P0GbRXeajIp/dOQzBSPLZarRsOIalUKg6jaaWERN0rv9O+X18RR0z8lgKDCD8lhMa8HjL5XsBoKElIkrxom2WglDoEgyNw3oiy82h1R5mJphA9/HDL0MWK8iNrbL0yLaxZ8abE8X/EvQu40IEaU/aF3srs4l366LhESzN8NHVAb0VLFJEZLZ8S0rr3IsxYCaLBaxxwz/oa95X7ojhTC5tA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=a7MAyOWGBhiT6pSSBOZLTnttk8kI0rL/NPuKaWPEqp8=;
- b=TOvpcy8P2+mvhvGo45X7bMg2YBdy1IsYChH3ysRAhtbpk53BQkPz42hCTiennjWNRBMJjG2SwuPDBT3hxzwW4CNnpsabUjE8LaKArxPoCGpTTc934C7XMiWNphT/sZnvQnNnRyGsvfcMicVps/ljodxkv+tyAtIJY3y9WFmbrbIyATlsIrS2Oz1HA9YZAGuLxndgrI8n3QPFlk63pXM21Oo3d2XjVP7nQhLMYV8QRu7gU/cHlL+VEMTNo+jD+uQ5jwCF+roCksiBMPOlSeeVH/9U0dPj19lhVAd8+sd3XuHn6sEz4YEHuydfSVoTTCh5j8lRpNEwf2SKV4FwywSSxQ==
+ bh=00EINdWCauBZpnKhhgiDu/FLthu4+8U2Wd7Q5p9IMgA=;
+ b=WSsMMDmsob8k9q4twI7XTeZ1CQhY5XgPQALwhMprpDMNldU99xA2GUZzjCIzhwQ5oOrUAimVFPehaprsXx1ekPSlMVfVy7vEDb7Wx7mTpCYLa1XAWjDPXsyvvrHNuQhdAHe5H8vu+hFwv7wtjI69ZwJ0emO7V2UgRYm5WT3DJuDjliQRcNzSvMvBEkqcpRwOPKEV2vc5za+OryjmJpqN/4A0Y82IbA5zjvvzSCJyEbn6OLoQH0nyEnuUzaDIHLSjndUdbZjcYNnoxXp2pCTfmP0jZU36mqbM08ZG7KdZVvBAVfXejs7yf163OdYAS+dP7PmmpvKSJIA+3qbin5/KdQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=a7MAyOWGBhiT6pSSBOZLTnttk8kI0rL/NPuKaWPEqp8=;
- b=lkDQcM/BzaZhNSup2o0dUoCf+kdGV6/VDp539ZWmWh5S77rTbYt4Xbs+y1oJZ4wx5RwnkUmxYm/5AIwbeDneXD3HOuMCb8nhJISiWu4pKi7W8/fqW3RT80+Q2OOyadb+HJorh8/m0uUE6wsZJPoETExdngIffn3107Xu6LkISB4=
+ bh=00EINdWCauBZpnKhhgiDu/FLthu4+8U2Wd7Q5p9IMgA=;
+ b=fJmGa+B1o37ELcHjQutnZRZAQgzqLUVJ7mX/T4BH774mUcIB/CUESyWRpsB0Hb+AUaNdw0VvZHD1WXUbcz0h6eivu5bWkq+b/tNqWuPSlqSAbfrP3sbweLcIPU3MH6ostHeK5Kv1gUgnr54f0liw83QvtWsHNYku+1njmOjbswU=
 Authentication-Results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from MW2PR12MB4684.namprd12.prod.outlook.com (2603:10b6:302:13::29)
- by MWHPR12MB1872.namprd12.prod.outlook.com (2603:10b6:300:10d::23)
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
+ by MN2PR12MB4094.namprd12.prod.outlook.com (2603:10b6:208:15f::23)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4173.22; Wed, 2 Jun
- 2021 08:30:37 +0000
-Received: from MW2PR12MB4684.namprd12.prod.outlook.com
- ([fe80::14db:e180:2a16:1b2a]) by MW2PR12MB4684.namprd12.prod.outlook.com
- ([fe80::14db:e180:2a16:1b2a%3]) with mapi id 15.20.4173.030; Wed, 2 Jun 2021
- 08:30:36 +0000
-From: Changfeng <Changfeng.Zhu@amd.com>
-To: Ray.Huang@amd.com, amd-gfx@freedesktop.org, Nirmoy.Das@amd.com,
- Christian.Koenig@amd.com
-Subject: [PATCH] drm/amdgpu: take back kvmalloc_array for entries alloc
+ 2021 08:33:52 +0000
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::6d4d:4674:1cf6:8d34]) by MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::6d4d:4674:1cf6:8d34%6]) with mapi id 15.20.4173.033; Wed, 2 Jun 2021
+ 08:33:52 +0000
+Subject: Re: [PATCH] drm/amdgpu: take back kvmalloc_array for entries alloc
  because of kzalloc memory limit
-Date: Wed,  2 Jun 2021 16:30:17 +0800
-Message-Id: <20210602083017.2335-1-Changfeng.Zhu@amd.com>
-X-Mailer: git-send-email 2.17.1
-X-Originating-IP: [165.204.134.244]
-X-ClientProxiedBy: HKAPR04CA0013.apcprd04.prod.outlook.com
- (2603:1096:203:d0::23) To MW2PR12MB4684.namprd12.prod.outlook.com
- (2603:10b6:302:13::29)
+To: Changfeng <Changfeng.Zhu@amd.com>, Ray.Huang@amd.com,
+ amd-gfx@freedesktop.org, Nirmoy.Das@amd.com
+References: <20210602083017.2335-1-Changfeng.Zhu@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Message-ID: <6c569716-1953-697b-f032-c521a38c10e7@amd.com>
+Date: Wed, 2 Jun 2021 10:33:46 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
+In-Reply-To: <20210602083017.2335-1-Changfeng.Zhu@amd.com>
+Content-Language: en-US
+X-Originating-IP: [2a02:908:1252:fb60:cd07:2759:3eec:1d00]
+X-ClientProxiedBy: PR3P189CA0090.EURP189.PROD.OUTLOOK.COM
+ (2603:10a6:102:b4::35) To MN2PR12MB3775.namprd12.prod.outlook.com
+ (2603:10b6:208:159::19)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from changfeng-pc.amd.com (165.204.134.244) by
- HKAPR04CA0013.apcprd04.prod.outlook.com (2603:1096:203:d0::23) with Microsoft
+Received: from [IPv6:2a02:908:1252:fb60:cd07:2759:3eec:1d00]
+ (2a02:908:1252:fb60:cd07:2759:3eec:1d00) by
+ PR3P189CA0090.EURP189.PROD.OUTLOOK.COM (2603:10a6:102:b4::35) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4173.20 via Frontend Transport; Wed, 2 Jun 2021 08:30:34 +0000
+ 15.20.4173.20 via Frontend Transport; Wed, 2 Jun 2021 08:33:51 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 50744912-06ba-4463-d12d-08d925a0b22e
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1872:
+X-MS-Office365-Filtering-Correlation-Id: d4fba5a5-e074-4dca-f37c-08d925a126aa
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4094:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MWHPR12MB1872B92275C90BE4FA3A81E6FD3D9@MWHPR12MB1872.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4714;
+X-Microsoft-Antispam-PRVS: <MN2PR12MB4094834201FE58354E22BC87833D9@MN2PR12MB4094.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: JK+Ak6Xl1taQQak0Gie2ivSqHA3eJcdzQ9Oyp0b0vQWhZcX9WiV1VymeDMV9Z49kygkocpFS0KFEykSaeH2OZrimBru5JWq6YE8vQnGQ/7tu7WAIlXmWsuXhguRl6XmIHq0aul0qCHRumy+05XV8QUCACehBNIDCz+SNbZO5hgJNWCxlhqT9qvEeplZEZgpsixeKO0/C4OUdnt9v4dem6qvxN5VQp5PA290dbqUhCAHdZHVy+4CRkdoYvyYHwKS2w35iEoBMDgtyXGwzwJOj1ZiyIMEmETMz1HnZJn0lrx9vIjdnE+dQWhCD3241N3MC8t2NOMH1zWNkGHNBTB0Kh1ACvZsNqvkiEru+hiyOXquwC3UOxxy1VhwGlZ2hB0OOIKVrUHecwPvTprwCyL4JFZ89mk30lvxdyUW+r1Y5ls5cm6SQrSI8yv60jiCbBaeVP/mF0Fkd/8vCW67/9W6vgxmetLTeAjAQUJ1DYC3jz44qCCPalCy+4F+ZjuHusirXYxclKARlADBMhEFnJICnx1Diu3vdts1QMAc+9/3up1ZB994p0qG9DAoBpz9qsdK2t94d7uwgZifjXxiDY3W1/gWox9TRgmKcpyuKfFmWg1zifB8U5ZHk7q2PlMqU8qAKjYac5ApsyafoUXVEygdSc5yId33suuUA7lGBTMNvDpnlHwU4+FI56038+vlk+dH8
+X-Microsoft-Antispam-Message-Info: JX4PMEuZaI2P++YbMIZZWz5vncV8BvQTZsp5Pn81G91A3yN2e6tjQAh28uzm+iGPEUy3pY3/xT9VVPPu392MB6QN/7PrNTHvt/h35E0CGt/PrZIdGqkuXrhbYW/WrNY8avg+BMJg9QEwFPLZNlfP+8KuchxmWygWvKakmfX1t5ufVXwdaNYuKCvwPCTnjORK47jUyRm0i3oU+VB0sulxxl0EvcIPeryh6nj1wGpE+fWxOqd8IzfjqQ3DqU6SW312LK7W1dg1Usvchff6DoYDLhXdPxa9E6cAnfwsrvUb8r/GgPuxf/UUkRBY8bqMjiohccw6yh5n6wUo0qtlmNfyyjae78QrrIOskqtdIlrWZTWX+a320GOFKFlH05M8GNVmZJQDuLpfqKn5TEPYzobNwVHTGsfvfFpPi9T1eFYcUxi2CUH5Kry2N3Cxh7+xZqydNKX/ypr2navcqaK7FL6Z8DkcYVwxL/tXSjp5pwmX9CZTuaGIppHqAcjWsQbzKJH2GypkybmmBwsuwINIZFB+K+pFR6lZ+du/8j8OvuVQ4gaPDJvOHUriQX2SMQtx4Hr6m9IeVGm84dqolAEMKaFPZeU0hujczKCZju4snntWG4zehOjNkhj4Yn7gLnzKya2cAGsyXNdATxfg8lADEa8ETMHsoaDAZKOFyldgYFOe0Pb3Aw3gIOzXZqNc0irlJJcL
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW2PR12MB4684.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(136003)(346002)(366004)(39860400002)(376002)(2906002)(478600001)(7696005)(6666004)(38350700002)(38100700002)(66556008)(4326008)(86362001)(6636002)(83380400001)(66476007)(5660300002)(16526019)(66946007)(2616005)(52116002)(26005)(8936002)(6486002)(316002)(1076003)(36756003)(8676002)(186003)(956004)(16060500005);
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(366004)(136003)(39860400002)(396003)(376002)(36756003)(6486002)(66946007)(478600001)(316002)(16526019)(6666004)(31696002)(31686004)(2906002)(86362001)(6636002)(66556008)(66476007)(5660300002)(8936002)(2616005)(38100700002)(8676002)(186003)(83380400001)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?ETXd4HY7174DPbakoXwe2MWNOLrYk2lmwoBzUwUJRcUkju6i4eIhSRNeKL1F?=
- =?us-ascii?Q?gMVghQOkhTBTqeGoLNxejYmkIF8vJLRhx16Y9vU9BQFQoVVNgrCBfbzLCCii?=
- =?us-ascii?Q?xiHsDQ0Hi0aJ7y1DAzo/VkJ30n9z+77EeK6xbvM+sx/T7rG9Mlr+cIt5Bfr3?=
- =?us-ascii?Q?lUgzknnJZNhDsGIpXeau5jEczsJXbO5KCGTCZJD3NDf1aAd4CUQWm+E50CwC?=
- =?us-ascii?Q?JMqSMVgbPOzuho7COdp9hss36JbxbnuUGs++cHC3RsA6Nodnq6PZme0RbIaQ?=
- =?us-ascii?Q?UfOLHtoiLhsOuimbE4l01ai+AQzPuNx8+c/rSAN/EFqPh34PRPE4LHsxWGvo?=
- =?us-ascii?Q?XkdRyfvphZ7pVFOCDUJ8dlSXAvuqToQPZsUnEVHlspe3t7y7L35a95JzVcgd?=
- =?us-ascii?Q?NIh6vEcJmdXwtZ+QQF/OVVFqndVXXeekv13M5f7GVyK+OAdtV/859irUJjoy?=
- =?us-ascii?Q?gXC1DG45sFuHmAzuk7SLZbrrAIOdGV3Smb9n/gja7itlyaSfrIqJCyBkQXi0?=
- =?us-ascii?Q?s7g8Q+p3bpUfxWSKaMYgHNL1+x5+lrTWZQfhPLlHoNDjYix2Pl8yFBtG0T9M?=
- =?us-ascii?Q?w/UNkhDhivYrc15RlojKwBD2847T1A8y+cCQUp3dWPx4RRsBnDLi79cT1nsv?=
- =?us-ascii?Q?RPnfCJ9UeD6pPM61BskUHiU+Sfy374+Z91K0KI8r8wal5zpo9qTaU3fK02rP?=
- =?us-ascii?Q?2TZdpavFL2YQZW7fjq0ULylM7KY2GjP48cjrNxJrmiW5jc5MiTC3NdmOUs2n?=
- =?us-ascii?Q?RnSB4EMcRDtZx3v1BUmJz/qx0pwzC8pUi2HUWFPBlEPbQKDqby/luYyIKeB2?=
- =?us-ascii?Q?5DKJ15Nsh26jkXACsnRgNHL7CuRE20qivDfNHOYlRz3sJygXpQ1kErfnyjMS?=
- =?us-ascii?Q?zhqtxG0yCIafWYz0qOgB25g8vNbGGFTNqysQNZgQra/hEhQGTGUJIG/AgLXF?=
- =?us-ascii?Q?h5nhpWk0/eNBvo1w6wDBR9OmAHPe5a508GBUvis3jCYFkcuPh4XXAWPzcuzb?=
- =?us-ascii?Q?lBZqhGLXkUewwPEHGNnnN1KRSQlx1hjGXj2eA6sb3G6Cl25Rrhj04uM/w1nu?=
- =?us-ascii?Q?L5bzYrUODCe+vObqnjZFNrbScADxir4uCsEvEcwugmYu5FGIQSCLWnODse9m?=
- =?us-ascii?Q?nzjABO1NPbwm5UoWyYhXzTI01akGeQYI290StKwIUGt4o8B+Eg1p/FrcgfYV?=
- =?us-ascii?Q?C+vtlZMoBQHr1i1eV1vpII/E7TNMbwpqnsmdOH9cA3SHpDY15mYM6JJdDOAI?=
- =?us-ascii?Q?E6HgOeVgWJ2ZEMedP0tNPlfuBmQRI4M3VTDyiHrkCY4tyaFKsSG6Oot2z96Q?=
- =?us-ascii?Q?VywzRDgQmXp4OYBB5SpUQtW4?=
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?VWdWeUl4QmVvbWdCUVcxMW04ckZmZ1FUY0tJYmNjc3dHSENpWFNpV1g2VmUr?=
+ =?utf-8?B?S2RVVGRRSnJBOUt3RTRkNTFMRU9jRWtLcUpFZzlqNlZzaVlqcjhTZXJ2YmRD?=
+ =?utf-8?B?cTBnaXRNaVBHd25NSWlwYzV1YlRYNXBpajYyRzl2TjJLdC9wa1kycjJkWWR0?=
+ =?utf-8?B?OE1Sc1FEazNLTElyYmNjNDV5Uk1zUXpnemVUNnE5ZlZ2cGEzYjJvdjBYSkc5?=
+ =?utf-8?B?UzNjRTZlbE84TEVDTmxxcGkwVE9QaFV6VW9yVG1ibjcvODNCSHZYMEN4VCtw?=
+ =?utf-8?B?NXJQMnFnZ0RqeW1ycFlubnBQUUYxWlRnOEdjMnU5Uzg0WVdkdzc3TFBERkc5?=
+ =?utf-8?B?OVpFdWNmUGJxRGszQ2dUcjhyZDR0M0lsVURuOU43NEpTQUlnZXlPTVp5R0NL?=
+ =?utf-8?B?cHNuNkJHVDNtdXBCQTl4eVoyYkt1VklGVHh1dWFNcHoxdkxwWjgwcFNMd3BL?=
+ =?utf-8?B?TllFTDRHelFmSHhKeGdnU2crMFo4SkRKaGJESWR4dldMVEJ3SWkwS2lTbnZL?=
+ =?utf-8?B?WUlLMzlHKzVOeFZGeGZHMUlrd2prUEd6OVQzZE42R3JDNnM5ZTVlcFExc0tP?=
+ =?utf-8?B?Wkd6SGFOOXUwSnNBK216ZW5aQi9USUNZb2NsMUIxMU96bjJuRjZTV0wxTlY1?=
+ =?utf-8?B?OFdjYmlkaHg3RlRtbnVJOElTc3FzVHRyUmEycjBESW5aUCtGZUVTNm5td2VQ?=
+ =?utf-8?B?MGZSY24waUJoaUcxSjVNdTZERHFMSGxsOWJVNlpGdFZYanRKSHFQSjJzZVRh?=
+ =?utf-8?B?RlpKNDdJYU5SRGFUT1ppTDRnZCs4eXM2S1paNjBoWE9BMlNDZlVKSmNLTnl0?=
+ =?utf-8?B?d1QzTlhwZ0tjbW9mSXB0NytBNmdQWW5sL0RYS1NkMCtVUWVFQ3VEOWozRnhi?=
+ =?utf-8?B?QWw3Q1FiRmZYYzFPLzhvcGRDS0hNUWRuQlBKUCtFN09XcGNlZ1JRQ3JsMzNs?=
+ =?utf-8?B?SDBhM2s1K1ExNldtOTlNVzR6ZkVBeHdQZHZUcjdrS3hwdjdYSjhmVDNiRDlp?=
+ =?utf-8?B?NElkOEw3SWtXY3NUVnZzSUpuejhSR3BzR0FvcTRJMXBpdjJ1bGI1eXRlQk5T?=
+ =?utf-8?B?L1lTeTZUUGZzS0JoVXM3VXc0M08xSWxDR2Y0TmwwMG1lQ1NlcnVQTjNZQU9a?=
+ =?utf-8?B?QnZoL0tURjJnTjFYTmZyR2NTMTQ0ZXcrYjJUNkdZU2JOU2wwWEJtUTB5c1VC?=
+ =?utf-8?B?MHRhUDdxYmZTbE1hVlJOemFvQ2Y0WitVZHlQQjVUNDV1UWQ5TVZVL2l1bzA3?=
+ =?utf-8?B?U043SUkwd3VzeXd2aXpocWJta1paY1ZXdXNwTlRFSlMvTWtjM3RoNVlUS1V6?=
+ =?utf-8?B?SXNkb0hMdk91N1RlZXMrUC9LUEZOYndkb2lFRVlkTGhMRlhWMlljc090TGF2?=
+ =?utf-8?B?T2draGIvYXc5OEVDZmtyQkhydWlnNnNpUVhNaW1Nb0F6eEw5TkZDUUh4dHRS?=
+ =?utf-8?B?cWJLR05mU1JwWnRGWE4zR0FhR2Z3UHNmVHRUZjRhRkV4ZjcrNXdWa0RPV3hQ?=
+ =?utf-8?B?ajVBOVVUdmpnbThsNlVuNm1FMEJzWWU2bzlVQ3BKOTFvL016Y1puajJSQzlv?=
+ =?utf-8?B?bjk5SFRPSGJtSEJZa0YvNEVKenRqeERhb29WNmFPTks5dVFoRUpROWl1RUpE?=
+ =?utf-8?B?QitHK2RRSGRFSGl5bElJVzNFMW9YRHRwL25kSEZoejhGQytiRW5KMi81c3Ja?=
+ =?utf-8?B?WjZOcjZGOWJxNlQxbTNVWkY5cEY2Q3Q1QS9peEpSWDVxU1dRajkrQ1UxTGNM?=
+ =?utf-8?B?UzhPMW4zUEhtVE02MG9WaVlzRHJhL2F0cENTa3huazBzeXVGd3JMQ05QS3lZ?=
+ =?utf-8?B?QWJjOGJTOTNpK1B0MlFmMGxxUlhrNUVjRjlYUjJpRmZSM25HZXVRVkN6UmZR?=
+ =?utf-8?Q?MHrot//lWImwW?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 50744912-06ba-4463-d12d-08d925a0b22e
-X-MS-Exchange-CrossTenant-AuthSource: MW2PR12MB4684.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d4fba5a5-e074-4dca-f37c-08d925a126aa
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2021 08:30:36.7151 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2021 08:33:52.0104 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: APL/aH5qFRjHC8old++0yHmr7yFcAec7fYyohwHxUuQkTgBMqdBjbjkebDdW5/zwVAXdVj8qMWLC5Gu9YfdxFQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1872
+X-MS-Exchange-CrossTenant-UserPrincipalName: cjyBbmiAyTOpRqh7IZOp/aHXiYNlJWXM1YLf2SE1uMSavksrvToYf+81vfSMdvrQ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4094
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,99 +139,102 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: changzhu <Changfeng.Zhu@amd.com>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: changzhu <Changfeng.Zhu@amd.com>
+Am 02.06.21 um 10:30 schrieb Changfeng:
+> From: changzhu <Changfeng.Zhu@amd.com>
+>
+> From: Changfeng <Changfeng.Zhu@amd.com>
+>
+> It will cause error when alloc memory larger than 128KB in
+> amdgpu_bo_create->kzalloc.
 
-From: Changfeng <Changfeng.Zhu@amd.com>
+Well NAK, in that case we should just switch to kvmalloc here.
 
-It will cause error when alloc memory larger than 128KB in
-amdgpu_bo_create->kzalloc.
+Christian.
 
-Call Trace:
-   alloc_pages_current+0x6a/0xe0
-   kmalloc_order+0x32/0xb0
-   kmalloc_order_trace+0x1e/0x80
-   __kmalloc+0x249/0x2d0
-   amdgpu_bo_create+0x102/0x500 [amdgpu]
-   ? xas_create+0x264/0x3e0
-   amdgpu_bo_create_vm+0x32/0x60 [amdgpu]
-   amdgpu_vm_pt_create+0xf5/0x260 [amdgpu]
-   amdgpu_vm_init+0x1fd/0x4d0 [amdgpu]
-
-Change-Id: I29e479db45ead37c39449e856599fd4f6a0e34ce
-Signed-off-by: Changfeng <Changfeng.Zhu@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 27 +++++++++++++++-----------
- 1 file changed, 16 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 1923f035713a..714d613d020b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -894,6 +894,10 @@ static int amdgpu_vm_pt_create(struct amdgpu_device *adev,
- 		num_entries = 0;
- 
- 	bp.bo_ptr_size = struct_size((*vmbo), entries, num_entries);
-+	if (bp.bo_ptr_size > 32*AMDGPU_GPU_PAGE_SIZE) {
-+		DRM_INFO("Can't alloc memory larger than 128KB by using kzalloc in amdgpu_bo_create\n");
-+		bp.bo_ptr_size = sizeof(struct amdgpu_bo_vm);
-+	}
- 
- 	if (vm->use_cpu_for_update)
- 		bp.flags |= AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
-@@ -965,15 +969,19 @@ static int amdgpu_vm_alloc_pts(struct amdgpu_device *adev,
- 	struct amdgpu_bo_vm *pt;
- 	int r;
- 
--	if (entry->base.bo) {
--		if (cursor->level < AMDGPU_VM_PTB)
--			entry->entries =
--				to_amdgpu_bo_vm(entry->base.bo)->entries;
--		else
--			entry->entries = NULL;
--		return 0;
-+	if (cursor->level < AMDGPU_VM_PTB && !entry->entries) {
-+		unsigned num_entries;
-+		num_entries = amdgpu_vm_num_entries(adev, cursor->level);
-+		entry->entries = kvmalloc_array(num_entries,
-+						sizeof(*entry->entries),
-+						GFP_KERNEL | __GFP_ZERO);
-+		if (!entry->entries)
-+			return -ENOMEM;
- 	}
- 
-+	if (entry->base.bo)
-+		return 0;
-+
- 	r = amdgpu_vm_pt_create(adev, vm, cursor->level, immediate, &pt);
- 	if (r)
- 		return r;
-@@ -984,10 +992,6 @@ static int amdgpu_vm_alloc_pts(struct amdgpu_device *adev,
- 	pt_bo = &pt->bo;
- 	pt_bo->parent = amdgpu_bo_ref(cursor->parent->base.bo);
- 	amdgpu_vm_bo_base_init(&entry->base, vm, pt_bo);
--	if (cursor->level < AMDGPU_VM_PTB)
--		entry->entries = pt->entries;
--	else
--		entry->entries = NULL;
- 
- 	r = amdgpu_vm_clear_bo(adev, vm, pt, immediate);
- 	if (r)
-@@ -1017,6 +1021,7 @@ static void amdgpu_vm_free_table(struct amdgpu_vm_pt *entry)
- 		amdgpu_bo_unref(&shadow);
- 		amdgpu_bo_unref(&entry->base.bo);
- 	}
-+	kvfree(entry->entries);
- 	entry->entries = NULL;
- }
- 
--- 
-2.17.1
+>
+> Call Trace:
+>     alloc_pages_current+0x6a/0xe0
+>     kmalloc_order+0x32/0xb0
+>     kmalloc_order_trace+0x1e/0x80
+>     __kmalloc+0x249/0x2d0
+>     amdgpu_bo_create+0x102/0x500 [amdgpu]
+>     ? xas_create+0x264/0x3e0
+>     amdgpu_bo_create_vm+0x32/0x60 [amdgpu]
+>     amdgpu_vm_pt_create+0xf5/0x260 [amdgpu]
+>     amdgpu_vm_init+0x1fd/0x4d0 [amdgpu]
+>
+> Change-Id: I29e479db45ead37c39449e856599fd4f6a0e34ce
+> Signed-off-by: Changfeng <Changfeng.Zhu@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 27 +++++++++++++++-----------
+>   1 file changed, 16 insertions(+), 11 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index 1923f035713a..714d613d020b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -894,6 +894,10 @@ static int amdgpu_vm_pt_create(struct amdgpu_device *adev,
+>   		num_entries = 0;
+>   
+>   	bp.bo_ptr_size = struct_size((*vmbo), entries, num_entries);
+> +	if (bp.bo_ptr_size > 32*AMDGPU_GPU_PAGE_SIZE) {
+> +		DRM_INFO("Can't alloc memory larger than 128KB by using kzalloc in amdgpu_bo_create\n");
+> +		bp.bo_ptr_size = sizeof(struct amdgpu_bo_vm);
+> +	}
+>   
+>   	if (vm->use_cpu_for_update)
+>   		bp.flags |= AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
+> @@ -965,15 +969,19 @@ static int amdgpu_vm_alloc_pts(struct amdgpu_device *adev,
+>   	struct amdgpu_bo_vm *pt;
+>   	int r;
+>   
+> -	if (entry->base.bo) {
+> -		if (cursor->level < AMDGPU_VM_PTB)
+> -			entry->entries =
+> -				to_amdgpu_bo_vm(entry->base.bo)->entries;
+> -		else
+> -			entry->entries = NULL;
+> -		return 0;
+> +	if (cursor->level < AMDGPU_VM_PTB && !entry->entries) {
+> +		unsigned num_entries;
+> +		num_entries = amdgpu_vm_num_entries(adev, cursor->level);
+> +		entry->entries = kvmalloc_array(num_entries,
+> +						sizeof(*entry->entries),
+> +						GFP_KERNEL | __GFP_ZERO);
+> +		if (!entry->entries)
+> +			return -ENOMEM;
+>   	}
+>   
+> +	if (entry->base.bo)
+> +		return 0;
+> +
+>   	r = amdgpu_vm_pt_create(adev, vm, cursor->level, immediate, &pt);
+>   	if (r)
+>   		return r;
+> @@ -984,10 +992,6 @@ static int amdgpu_vm_alloc_pts(struct amdgpu_device *adev,
+>   	pt_bo = &pt->bo;
+>   	pt_bo->parent = amdgpu_bo_ref(cursor->parent->base.bo);
+>   	amdgpu_vm_bo_base_init(&entry->base, vm, pt_bo);
+> -	if (cursor->level < AMDGPU_VM_PTB)
+> -		entry->entries = pt->entries;
+> -	else
+> -		entry->entries = NULL;
+>   
+>   	r = amdgpu_vm_clear_bo(adev, vm, pt, immediate);
+>   	if (r)
+> @@ -1017,6 +1021,7 @@ static void amdgpu_vm_free_table(struct amdgpu_vm_pt *entry)
+>   		amdgpu_bo_unref(&shadow);
+>   		amdgpu_bo_unref(&entry->base.bo);
+>   	}
+> +	kvfree(entry->entries);
+>   	entry->entries = NULL;
+>   }
+>   
 
 _______________________________________________
 amd-gfx mailing list
