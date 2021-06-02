@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F15FAC47097
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B43B2C47096
 	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 16:51:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C4E6361C53
+	by mail.kernel.org (Postfix) with ESMTPS id 8679F61C64
 	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 16:51:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C4E6361C53
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8679F61C64
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF4D26EDD6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7C866EDD5;
 	Wed,  2 Jun 2021 16:51:20 +0000 (UTC)
 Received: from NAM10-DM6-obe.outbound.protection.outlook.com
  (mail-dm6nam10on2075.outbound.protection.outlook.com [40.107.93.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A40806EDD2
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 80A856EDD1
  for <amd-gfx@lists.freedesktop.org>; Wed,  2 Jun 2021 16:51:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=n/WG1Zjga68521k7Owi3FdfTrotvcHt8S1yWB9IV2pViGlRWRMWuu/FyG0j/KiIE8htPkMuyLxWDMjsBj9c0TFetOfocq0ZF84Y1VCq9MCNH1e+iwAzDC9YKqHnADoAOQy8EecbLx3qSxLVIrtw/sRtLv8eFIeqG7Mj81KhMx6h0ZkFDBFRjasWy+blJnkdZoYOxhmsYs37Nkb3AXX1cbzz2t5OQkbsvUGZJkoi3tngX59EsGzCEiKMCk89qzADGlW7ar9JFxW/iSPhA0Us3YE2QawthuPAdciNa88f3fxW4uXb0k9eSDXJn7USnXihZ83EcKDlSNhoBsxqsLc0ffQ==
+ b=lD9XZap3tyJj4Maoo3kRF4otF8GwXNx8M1YLVdBEnrL6PT4sSoAhIViE68BFOMzE3ly0dtoMuke0SyQB3+oxnpYjEQ/B+hmrQMqn8N0e9+TVctAAJWJXOVS8+QtUGJ7ewSp5Vl7blqO4o7j+CVPy8z6BHjS7/TOX6Mx94LU0u5mBJaYwqYpAW5yf39dV7wCjlkp8NcCH3L42tmsDrbJmvWl3CqzXwfkF0cDfoBDxDo4bgGykYitDAw9eBouAadmj3VM4AoeJh/Ypr8BMNucZDCmqusU8vxH9YzLFgTrnrn61L75JzpWOwfFZNM1FGZiQ2iEXUnZcZP3Vj7B7fyrcrA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WoI2Z56sHxHFarkVoyBX8r/1GnpoiQJ+SInytNGM6vk=;
- b=lWQsFgjWV6t5MDnurmhRitM6wmwjnrAUru6vdINeglNyhmZV98JgR433N/8Pffmj1y2ARPkrtr6MmlTWwEzaMGzLQn43JWHWdSbJyO6ws/TmKa9UBcXmDIrn0vuJC6YQ1eH9PAtT9KlJucLSIk+9RGujd5sPEelancjJq8ebR/cnS7ivfL3/Ubvr4/82J5GdqKxzkE1LEQ0G7VWgVgDg81MJrrpF2u1Ka/I49A5Q436Z1r+wCnjTW+/mwYCpxRgcB0/r1K/90a/LTxZN20CHjLlOVoG/4mUCEOAbKERKodbWaAkcm4FaVk38Tltg+RkjBWBjDwAHe91dG6JO+jeEAA==
+ bh=SGsHdUJWSlv4XJ+DiEw4P2wmwh56uVwRKZ7x//sdZrY=;
+ b=O9/SLvSJjz8eYNFjX7axnM6F/FU2ma/ttFndyPVeTbs7Zu3EN22NkHJOuzU16GOh2ltvzOKFimL9UG8nLTZIoABdL2Bm+6ZzNEbvu7fVUy8vGvbM4hiIADm8SH4ddDe9ClCNx+XZ2gYxgQ95zc+6dQzhmoXTQm09gGzfHdsi9Bob3MNqjGmECrxyckSd3vQFcbIw5WGZLWhf0kmM0RyZEewWbFzttycD2vz5CUFYwXEr+YpiQs3VMxWuu7rohQy6wXLGjozbgekE5JV6CHwTfQAekqVqTzKDAK6AO7YmKYxfE7zpCZ2uAV6+HVEm8HrAp59Iv2v0U9ILDqoJ9+uzCQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WoI2Z56sHxHFarkVoyBX8r/1GnpoiQJ+SInytNGM6vk=;
- b=WGqTi3afPXSWGpc27ZSHYD8KXeBLhXeDtgx+f3//fmUDvZdWPH0bzhCNI3LtX05XVp97HC2hksSUnJ4qBiSJXdpvhk1V1/aDq/VOx/0BI9H2gq33DVroKO6zPhAh+ktyiLaWiW9f177az1mVagI8d7rCaahCtd54eO4C9VV79po=
+ bh=SGsHdUJWSlv4XJ+DiEw4P2wmwh56uVwRKZ7x//sdZrY=;
+ b=SHaNVep7Gy3O5LI5K1ZUJFTkf0CGSciF09fPrJlAMjlOTWm3uewrV0H3dDKI/2tWemW0FepgdKnQTqHWjIq66yhrWSqdZ5UYxZCJ7Gxe8ZoMy5r4CZmnXBonQitvN1fVyXr4dFJSQDfsiFMEOeupOVY6v2viqSKpYEOd8ChrYc0=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -52,9 +52,10 @@ Received: from MN2PR12MB4488.namprd12.prod.outlook.com
  16:51:17 +0000
 From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 70/89] drm/amd/display: Add DCN3.1 yellow carp asic family IDs
-Date: Wed,  2 Jun 2021 12:48:49 -0400
-Message-Id: <20210602164908.2848791-70-alexander.deucher@amd.com>
+Subject: [PATCH 69/89] drm/amdgpu: Update atomfirmware for DCN3.1 phy tuning
+ and eDP caps
+Date: Wed,  2 Jun 2021 12:48:48 -0400
+Message-Id: <20210602164908.2848791-69-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210602164908.2848791-1-alexander.deucher@amd.com>
 References: <20210602164908.2848791-1-alexander.deucher@amd.com>
@@ -70,50 +71,50 @@ Received: from localhost.localdomain (192.161.79.207) by
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.9 via Frontend
  Transport; Wed, 2 Jun 2021 16:50:15 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 277dcc23-a4d4-4c6b-51b7-08d925e67f5a
+X-MS-Office365-Filtering-Correlation-Id: 759f18b1-4115-45f0-1dea-08d925e67f03
 X-MS-TrafficTypeDiagnostic: BL0PR12MB2369:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BL0PR12MB2369AE9C31847C1D24EF0621F73D9@BL0PR12MB2369.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:256;
+X-Microsoft-Antispam-PRVS: <BL0PR12MB2369597369E50E18104B97A3F73D9@BL0PR12MB2369.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: gRr6DBUM4A5lPC/8Sc8NlHO4JGaTCIDYqdk7U8j/rdmEIqdkIPaJ9i88+QKQC9Mll5e9388zYl7mp3GPYGDjG6rY2Z2LOUanEqIvf/9mwTWfA59ulmWUx08I0zbHNPTWyI1LIS2KVvEG42L+ROIARPm0zQGNDjlqDJYqaATgF8QwSoGngIs1qd1eUySYLJMFzf9Q9ykcyxE+pZDa4BO6H6q2gcBrSzcEys5YPjTneAT1AQnMlK77uZibkpZfex+kOfAxLkTB218ASE7Xyfqx7rYryfTlVj/O8HiAS3KD648RP5WWkd8ZXDXG2KsDbYeuwqSToofms/dAGOuRx6Pykx6JbmRwQomMB+X8jZX1jrsTKh2EmEuYT/M1I0X8DYu/oO0D1RgLyRXSnvdEtIZSCRUrUPgTO+UXSGVl7wF2PbO14wzedw/g+eR3qw0ORicbRaR5oyojSDiSo1kXgaqbXzm0PfnSWZil028GWIjgkiYBJI6qV9nO/OmB01RQNht5C7cBS7IHXUnSq5idsU4hO7lEeumUv2DId4fg5HGUc/CUm1oAH2y77wSHT+YGxIBBjmjPwr1SRLvP6fKWcwuW+ptnPlAYs/B7dXnwwUuaUeTZ4IAkpdemVhuUjUwIJyD6GhdQKpQCdJDte1WqLsgonDAKsvURztcOUquFog7wRN8VObhGWs4SRt1T3LqPOKe8
+X-Microsoft-Antispam-Message-Info: XbMu/xFQud19eRYR8iH88T0EgXWjfM6ba8CTk8byqVFnZk2VMwk6OeVVdn0w45Ci2en4jB7SuvyXQVFsSAMtD+cDBxqi6CipRem7my8C5MlzcPQF5jB06cuE2fubOsIQt05OI1hLiEaqbodiJEV8TfvXwN5cvpB6tSmlgomuaSb5N0Se89ATCN6BT/wXKNnhPSChKPe6BCA4BPD/k6HdBcR2Ij3kiXHVEZyhZItaP3UEaM0ZcXu+rKRYlgalj5EdUIBKcwwQwmCa3/bLAgvoKc+gBMoKYyX8QzlJX7kdPghYON3cZY1hPiLTv+1Axy02AY4exSBlW58RLUMsnBS7VgBaAYZ/uGw22/w3bT7uMeaaNiBY3RVP0LRvAvDVzwppVdguFN09ecxFDm6biIz7gjaR2N4rtFSuMQMlCnOWTDy+adLVGbnK36NK5Znieb08xf/4hcBmeIcJHopeBWEnQympwWm06hkBZItsurULZPnXR6Hqxo8KmxsNWJUWNt5JxNs2gtGs54a0NsF1FD0J15luGVR6i1fChAgZ0dk26o0w4cCDdmuR9NcTQTn4bFA2ULUBJ1JEfUUJzeUgx4yyt1MqO4iZc7X1O5an1ioYOz/ihefuVZREA69I98Pt0vOAkGusjycIrMCiKV8SDMOdAmZ2g+qW8nMj/MyOY/Ss5e6dkuwNEhcFUuxYg5QP+89C
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(4636009)(136003)(376002)(39850400004)(346002)(366004)(396003)(54906003)(1076003)(8676002)(6916009)(956004)(2616005)(478600001)(6512007)(6486002)(86362001)(6506007)(4326008)(6666004)(38100700002)(316002)(38350700002)(52116002)(26005)(186003)(5660300002)(66476007)(66946007)(8936002)(83380400001)(36756003)(66556008)(16526019)(2906002)(69590400013);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?LSMrpYFD27AfgkY/Rx4TODvEfOeSX8Y78UhtouR+oG4WdEEZzm8t5rMzgcbu?=
- =?us-ascii?Q?MP5a7yQJRB6BipuwCtD8bMC9YCVqPntRb/3eSuOA+A1Z/T/7ZZwBSX2fWIbO?=
- =?us-ascii?Q?jdBa5paCTBY6RWZifiCEBhY6YujOTFYu2UWb9yJV2MLiWF8ZVM4XLtMfaufj?=
- =?us-ascii?Q?TW1BhTJ5CVvlIWEN3qFZIXZXWyEwT22u9/WN4hTTbf/ZNn0EKaYBQVwk/qi1?=
- =?us-ascii?Q?pU8jcLVJMXPKQ3L9qM4xc4mC8yHt00a+YkCAcGSiqdagqA/JVoR+ETN+QZY7?=
- =?us-ascii?Q?FbW9LGSoEy9xXhr2+zdig8sV9tQ71lN7Wqa9HKUFxnm+deeY8yD8LFOnlZpb?=
- =?us-ascii?Q?S0JBmJOdEBJCUlE6RQPg9WsHb6E8AIDNqRw4AlaHpQv0hFSL9ODtYDWvXHuS?=
- =?us-ascii?Q?tl6aZqTc6LF1KBYYj3rgu6nk0oI8mqQXXaX6/jl5Vwbg/rWaMqjHt1u1ECAH?=
- =?us-ascii?Q?WsoLK69OhIoe5ysgMxBnOtWU9OwKuwL/yTPpjAJBYJU3I9aFXTN+YyIW4wBN?=
- =?us-ascii?Q?6eSAMtebZ3lgnRBBDpEdncjg3yQi3FrRSQNaFunH4+Y7oOizSFO9NWaKomeo?=
- =?us-ascii?Q?tufVx6Vww+CLGZ3/tRydHvX4lni/tzqsmxfQJIeeGUa3d1yUtiQ0DZmr4/gs?=
- =?us-ascii?Q?dpBv25rtJNAxMWvEW3wr8k5MgmjqKPYO3zmf0JKeETHJERd2NgO/UyWyA6mn?=
- =?us-ascii?Q?mgSfiarG3sntv1y4D9bwk24FhvZLZCT1XmqCF0j0UQ7Oz6EFqOXkPhQ9xrGW?=
- =?us-ascii?Q?T30jgYt23KNnlEsmXXMFtLhPo3Kw5sUykVvN1c6bF2X/A+ZCjeg6jyePWnvA?=
- =?us-ascii?Q?RK7baziNZwvRgabq92kpEUgaCy/Rv/as/gXjPoA627oPNkIEQPX8wo2UtALi?=
- =?us-ascii?Q?F1tN2Rg2R5O9cs9tRZR/hugfrvUVQJ5Y/ItNdA/mdBg/uDIWpfiMuRreFeB3?=
- =?us-ascii?Q?xaeZS+Z07PQXxRMzWVc7XIsjQWTmXNqkAztrbbjU8wIxYqh0BtAjEb51Odfw?=
- =?us-ascii?Q?keW3uiwejuCfGtBDe+le5Y6OijSyIGiC4K0pGAL8TOas/MpvxPio9UQR/SKe?=
- =?us-ascii?Q?FCpBuiNHM/lFF266a7E1I+4za07gTVTf0cau7vQVib6iMtFpmR49Mnv/+Zq4?=
- =?us-ascii?Q?FBaIRab8RkTspf1NOr8On6RnpTLuwU0L2xQ3taKLA94f6/KzzEo1vrPE3TT/?=
- =?us-ascii?Q?2FHK+8pFsvT4T/3w5vahLl9RN24RKkezFXj1Ao9DoTITwNLQyG1uJpb3WKi/?=
- =?us-ascii?Q?E77iiPclh1B7NWMIV3wHz+jTmFgFD14HkU7HnbWa/PMEabr49gVAnZktCATj?=
- =?us-ascii?Q?QeWO/ITrAAasJYyHdIdjQzt1?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?iePwOQhZITK2iGIQmCdC07avw6PIJwfeU+626QbjHUxVH51ef78yxtAn4Lki?=
+ =?us-ascii?Q?lx9zpGc1aHTtfwiuS+9KZzZLkPViPDGqjvnDyKo1VLrzMDBkHA3fgVxGbsel?=
+ =?us-ascii?Q?NGHRh2LsWxyMFBR1FQcoi2QHnECWbkZ1XNeFGgXWyNGq8S4n9p8SChiFtwqR?=
+ =?us-ascii?Q?126zjtn4aCp4u1kmNdtaqclzhD0TwRCuxmzzhys3PeueFHXPMZG/59MZfbTs?=
+ =?us-ascii?Q?Q2+6ecfgv/787vZoba5gUiO9in6+V8qGFHILbbsym7yhtyV1CP3z84o/pskH?=
+ =?us-ascii?Q?cfs8TjZ7dtJlIIPKOOZ8zxTXq+52GlH34irasOJaiWnoZCW4TQbpOXkVkeOu?=
+ =?us-ascii?Q?4UkV7iLyAgkb72OuWTudqKv9MKK02/VmxnOU1nDcV+akMM/WKxH5LA/J8rJw?=
+ =?us-ascii?Q?JDq4TVlwEbgKhoFOMEhnMfscbZ652XFoSTJnQE3y1A/ZGSYq9HhxgCN3UeYj?=
+ =?us-ascii?Q?X/Ubm0EyGEB7rdUKcaWHgxrnvOWF/1p3cuuuweMUWTRBRYhfOjVtNNTNemBm?=
+ =?us-ascii?Q?YWhVyRPckVnYeRGFt2uRDQpxdX/D7QOvZu8lgPptdAmaK9760zYt+SibLa/f?=
+ =?us-ascii?Q?I38wtptJa4xz9IufpqpVQk8QF2Lj3Jl5hJAe8qjdp+GzOQDUukXFT/1isaeI?=
+ =?us-ascii?Q?Y9Kj7XYoqKA5gaLwPusKtlxNDSU+ZZtcEkMeYb/4AEpEgghTImcRBNO7bcIE?=
+ =?us-ascii?Q?27ux/dL9mcPR4phBJKSxEGg623/7larduDeBdaSIvz9lkhPhrIMWkWgIraQC?=
+ =?us-ascii?Q?yBwrvVavabZeZO724c8lyLzng4yqSr5MZXH1KvDRJWKNNC+7qGt9XqevfLkL?=
+ =?us-ascii?Q?L1rMDrHcm3BUV50lMRsNNc85axdap2zHF1238zLr0coPcaNbAqDDU9xqia4V?=
+ =?us-ascii?Q?mBQ9n+ORitUj6MGmSWsAoDhgae2zqN1Zrwi0KIV4lYQNRbsIR6uhUvs0S+x1?=
+ =?us-ascii?Q?9Ngc+344gnB2B7y+ykiH6fM5X7XzkZnu381Fj8mtdBIlGHBfkRkt/fdCc5Ud?=
+ =?us-ascii?Q?xlFyoH8JrucPabBqjamdH+M4he0uVoR88Z+6ZKQbN2De4NW72v2EHgmkRpSx?=
+ =?us-ascii?Q?C48mQ/XdXYMtNnz6Z2lP7M+3p5lMG1arLA2xKt/Wa0fEYNQvNDeQfwh+Jzew?=
+ =?us-ascii?Q?yUJ2KaLVxykbtTzydU/sdiufNrWmcV7c2Q2Z6EHtnRP5qmswzJTuDHtTyh/s?=
+ =?us-ascii?Q?ZvUCixy9+GnyAd2evUFKOe+btjQF2U5EyD4ls1hndpRnNqvsjzGe5NzDLwE3?=
+ =?us-ascii?Q?2laZwZZd+X1VDZA2v5s+X8I31hGfO8j5AO3eiJG47Z6vGyavpuu6GZwvEn28?=
+ =?us-ascii?Q?ul6+fdf6zKoD+6HmQd2CjNWc?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 277dcc23-a4d4-4c6b-51b7-08d925e67f5a
+X-MS-Exchange-CrossTenant-Network-Message-Id: 759f18b1-4115-45f0-1dea-08d925e67f03
 X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2021 16:50:16.1346 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2021 16:50:15.4735 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kjzF9BlVEK4XfLSE6QgSL18R0qh75RgaFj9ekXiXv3Fm6U1hH9ifWNa8NAEAE0+RQQbdOUK59gYHKt2Zm9haHw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: xYo3TME/MXsYwjQBU+ucyQ1iFfq9arR355Bicg1VsZPRJzKboDuRJA/34LdGJbeoL8+yyWI28TWcXs7pFuCcsw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2369
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -136,54 +137,91 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 
 [Why & How]
-To determine whether the chip is yellow carp or not and which revision
-it is.
+We'll need these in driver for phy tuning in DCN3.1.
+
+Multiple eDP support also requires understanding which LCD the backlight
+curve in atombios is for.
 
 Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/display/include/dal_asic_id.h | 13 +++++++++++++
- drivers/gpu/drm/amd/display/include/dal_types.h   |  3 +++
- 2 files changed, 16 insertions(+)
+ drivers/gpu/drm/amd/include/atomfirmware.h | 56 +++++++++++++++++++++-
+ 1 file changed, 55 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/include/dal_asic_id.h b/drivers/gpu/drm/amd/display/include/dal_asic_id.h
-index cb35eae29ca0..d615a8e00f8c 100644
---- a/drivers/gpu/drm/amd/display/include/dal_asic_id.h
-+++ b/drivers/gpu/drm/amd/display/include/dal_asic_id.h
-@@ -224,6 +224,19 @@ enum {
- #define ASICREV_IS_GREEN_SARDINE(eChipRev) ((eChipRev >= GREEN_SARDINE_A0) && (eChipRev < 0xFF))
- #endif
- 
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+#define FAMILY_YELLOW_CARP                     146
-+
-+#define YELLOW_CARP_A0 0x01
-+#define YELLOW_CARP_B0 0x02		// TODO: DCN31 - update with correct B0 ID
-+#define YELLOW_CARP_UNKNOWN 0xFF
-+
-+#ifndef ASICREV_IS_YELLOW_CARP
-+#define ASICREV_IS_YELLOW_CARP(eChipRev) ((eChipRev >= YELLOW_CARP_A0) && (eChipRev < YELLOW_CARP_UNKNOWN))
-+#endif
-+#endif
-+
-+
- /*
-  * ASIC chip ID
-  */
-diff --git a/drivers/gpu/drm/amd/display/include/dal_types.h b/drivers/gpu/drm/amd/display/include/dal_types.h
-index 85aed509c01f..59453ced9ece 100644
---- a/drivers/gpu/drm/amd/display/include/dal_types.h
-+++ b/drivers/gpu/drm/amd/display/include/dal_types.h
-@@ -55,6 +55,9 @@ enum dce_version {
- 	DCN_VERSION_3_01,
- 	DCN_VERSION_3_02,
- 	DCN_VERSION_3_03,
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+	DCN_VERSION_3_1,
-+#endif
- 	DCN_VERSION_MAX
+diff --git a/drivers/gpu/drm/amd/include/atomfirmware.h b/drivers/gpu/drm/amd/include/atomfirmware.h
+index 28deecc2f990..3811e58dd857 100644
+--- a/drivers/gpu/drm/amd/include/atomfirmware.h
++++ b/drivers/gpu/drm/amd/include/atomfirmware.h
+@@ -883,7 +883,8 @@ struct  atom_bracket_layout_record
  };
  
+ enum atom_display_device_tag_def{
+-  ATOM_DISPLAY_LCD1_SUPPORT            = 0x0002,  //an embedded display is either an LVDS or eDP signal type of display
++  ATOM_DISPLAY_LCD1_SUPPORT            = 0x0002, //an embedded display is either an LVDS or eDP signal type of display
++  ATOM_DISPLAY_LCD2_SUPPORT			       = 0x0020, //second edp device tag 0x0020 for backward compability
+   ATOM_DISPLAY_DFP1_SUPPORT            = 0x0008,
+   ATOM_DISPLAY_DFP2_SUPPORT            = 0x0080,
+   ATOM_DISPLAY_DFP3_SUPPORT            = 0x0200,
+@@ -1413,6 +1414,59 @@ struct atom_integrated_system_info_v2_1
+ 
+ };
+ 
++struct atom_n6_display_phy_tuning_set {
++	uint8_t display_signal_type;
++	uint8_t phy_sel;
++	uint8_t preset_level;
++	uint8_t reserved1;
++	uint32_t reserved2;
++	uint32_t speed_upto;
++	uint8_t tx_vboost_level;
++	uint8_t tx_vreg_v2i;
++	uint8_t tx_vregdrv_byp;
++	uint8_t tx_term_cntl;
++	uint8_t tx_peak_level;
++	uint8_t tx_slew_en;
++	uint8_t tx_eq_pre;
++	uint8_t tx_eq_main;
++	uint8_t tx_eq_post;
++	uint8_t tx_en_inv_pre;
++	uint8_t tx_en_inv_post;
++	uint8_t reserved3;
++	uint32_t reserved4;
++	uint32_t reserved5;
++	uint32_t reserved6;
++};
++
++struct atom_display_phy_tuning_info {
++	struct atom_common_table_header table_header;
++	struct atom_n6_display_phy_tuning_set disp_phy_tuning[1];
++};
++
++struct atom_integrated_system_info_v2_2
++{
++	struct  atom_common_table_header  table_header;
++	uint32_t  vbios_misc;                       //enum of atom_system_vbiosmisc_def
++	uint32_t  gpucapinfo;                       //enum of atom_system_gpucapinf_def
++	uint32_t  system_config;
++	uint32_t  cpucapinfo;
++	uint16_t  gpuclk_ss_percentage;             //unit of 0.001%,   1000 mean 1%
++	uint16_t  gpuclk_ss_type;
++	uint16_t  dpphy_override;                   // bit vector, enum of atom_sysinfo_dpphy_override_def
++	uint8_t   memorytype;                       // enum of atom_dmi_t17_mem_type_def, APU memory type indication.
++	uint8_t   umachannelnumber;                 // number of memory channels
++	uint8_t   htc_hyst_limit;
++	uint8_t   htc_tmp_limit;
++	uint8_t   reserved1;
++	uint8_t   reserved2;
++	struct edp_info_table edp1_info;
++	struct edp_info_table edp2_info;
++	uint32_t  reserved3[8];
++	struct atom_external_display_connection_info extdispconninfo;
++
++	uint32_t  reserved4[189];
++};
++
+ // system_config
+ enum atom_system_vbiosmisc_def{
+   INTEGRATED_SYSTEM_INFO__GET_EDID_CALLBACK_FUNC_SUPPORT = 0x01,
 -- 
 2.31.1
 
