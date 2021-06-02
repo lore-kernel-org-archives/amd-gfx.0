@@ -8,121 +8,124 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8DB8BC4708F
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 03:55:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EDCB7C4708F
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 04:32:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1F30D6138C
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 03:55:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1F30D6138C
+	by mail.kernel.org (Postfix) with ESMTPS id A4A7D60FDB
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 04:32:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A4A7D60FDB
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 977C66E02F;
-	Wed,  2 Jun 2021 03:55:10 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2083.outbound.protection.outlook.com [40.107.244.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B05696E02F
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Jun 2021 03:55:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62D016EA8D;
+	Wed,  2 Jun 2021 04:32:07 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2063.outbound.protection.outlook.com [40.107.236.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCD916EA8D
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Jun 2021 04:32:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=E/OAKTvLd+XaoMMlFoLsvEZ+Tl5MSDP0Vke2txq9MzyYp58MHmsF+eBBnJrxFpK400ggHpTqpfJoU/3PYOaFKr6orPxT26Q+O7uoQGTHTqFCvQH8837OvtWDjzkVhAo9jbjYoUd0cJDZfWFlp1OYP6bFJdUCQ+VlvMzKZXmdEvEv1t642SDXPeugJMWIruQrfUJmdeBk+tFHU3ZYxy6I4z8EKY4iVscajdqfwpdXF2qKZ514FP2c7EmkHQ5HQ+fATW5AqVvsvGQuTBNXiCGP6T8HY2EaGW/hIXzbBBlNDREYV6CqDMQtBZu7e0/4Y0SnLnf+hZKl5aQFpgmEi2QmFg==
+ b=T3NV5AbOEqbkDRNyV9gfeRdVDHKYVk1Ys37vWUF2Jo9XQIqh9ispHNU8b6pbudbiG45x00aApjVaS8Z1I27Z/nXFaIZrhVmbymcq1/pDM1w4Ia118ZGf/Cohr5L3WAui8j71SPR8AIKTiBpb4ebp1UNiqwBxIoI+1hEBthrHetLfBrRoPcLODHUehHuBqG71zEaGut1MHRnqyEUeJ/s6Q7JdwvOmiQ3tE2gmWi0eGIQS4SwzueNONqITIau7x6FaE+b1O42UcMJV8gRJ4jsrG771IaXsw9GEUWji0nnmeQJmhlJiMGCQOQTCWoatXB38KL10uRSryhmYDery3yLagA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GxUX8UlZ3RtwVm3Xe2eozgX1q86IU55PUJ7FBFNAqmw=;
- b=Hy078zykQTgdwVGiGhJ67jTj0rBTNLptxXO/EJXu+O2SDFmjoE5PZeJbjJrr/GaSOLhApJEtMeD/q6xyuiexLNrSqAjqPmf47N5ExC4bvaab0h4x6F0pYumPj3/IR0wLl6KxC/1oHpAKdo7OTdVuzwV+wiNTUuGwh1VOdVYXTzH4mc2bRNBQgfLPcR3K+bI92449R60XSSMsHBnf9suT8O9bRwSSdiAlg0znbIejmPJlO3P+pPCxITw0zb+Bio1qWy7CTt1lk+NUgpB5vXhxyRlVtLHUc2PEchwDlJfL920yYNiY0ujeSmcMwbp/ZWdJQ6JZKQaVV68hLc1y/U6kdw==
+ bh=NfkDE1SchtLJHLx5vPFwNroI7a1yrfRGQoxNjk4bMJE=;
+ b=kXD2n5l6smrsgLHvRT6Ub+cbPOCGz6EfLwwtE7njcOIcMMDCtl1aulmaW8VnhOCFzFML/OEeOQ1ELFAQLPxe1MjGa6ZGAs+bZlMXd+QnjINnaiIwvN7QavGWt0XT/9Uaw2xNOHiHQNjjx8+o+tK3gtVVDISn0L5FFM1TS7E5Q9Fw9QEumVPfTh0PyvKeWf+66U5OISffM5BMcvNtakj80ecLmQ6iZZTsSriIDvAs6GyYQY1e+ok/uJYZfZ6jhbneZ3VaXBnGbE1jcPU0fTTh4Ey4f6OgOhAfiwYV/RPaUCbZgPHBACQY0orlETsSvYGwrz5bRWg2bVlHVOY44/qg8w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GxUX8UlZ3RtwVm3Xe2eozgX1q86IU55PUJ7FBFNAqmw=;
- b=TLdIbIL3gHzGjCAbfWXX2i9cvJX7ZiSCtrjlywjKnz+iZ0rgbiQSOb9dtPuBW+vb9cSsOUHz6vgDKuYWtAI6VZdSi6TrksCftZvs4fydyBSEftPE5V8rpR+2fE0TCJpjl8JAp+DVX7jiH+inschpYK3agSsCTXRTL7Q/DoDhJvY=
-Received: from DM6PR12MB2954.namprd12.prod.outlook.com (2603:10b6:5:188::22)
- by DM5PR12MB1386.namprd12.prod.outlook.com (2603:10b6:3:77::9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4173.24; Wed, 2 Jun 2021 03:55:07 +0000
-Received: from DM6PR12MB2954.namprd12.prod.outlook.com
- ([fe80::4c0:7a8d:d41:dba0]) by DM6PR12MB2954.namprd12.prod.outlook.com
- ([fe80::4c0:7a8d:d41:dba0%4]) with mapi id 15.20.4173.030; Wed, 2 Jun 2021
- 03:55:07 +0000
-From: "Powell, Darren" <Darren.Powell@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
+ bh=NfkDE1SchtLJHLx5vPFwNroI7a1yrfRGQoxNjk4bMJE=;
+ b=irUsC9OVSWk/eYmJXYutu5eNQtC4QBV/8PdzyC827Ap4VZMsMLroIw/bVHG2c8n0/2yjtchS+2BVTkuMWu41vK5tuXiyFPcThwwufnndepTSg3iFYyOJF2yEdelt5l7DSkzPe4BAFZzn3sB/T+EDkSyWDMENcH5jvQ8dn0v412o=
+Received: from CH0PR12MB5348.namprd12.prod.outlook.com (2603:10b6:610:d7::9)
+ by CH2PR12MB5547.namprd12.prod.outlook.com (2603:10b6:610:64::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.20; Wed, 2 Jun
+ 2021 04:32:02 +0000
+Received: from CH0PR12MB5348.namprd12.prod.outlook.com
+ ([fe80::9c3:508d:5340:8efd]) by CH0PR12MB5348.namprd12.prod.outlook.com
+ ([fe80::9c3:508d:5340:8efd%6]) with mapi id 15.20.4173.030; Wed, 2 Jun 2021
+ 04:32:02 +0000
+From: "Lazar, Lijo" <Lijo.Lazar@amd.com>
+To: "Powell, Darren" <Darren.Powell@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH 2/6] amdgpu/pm: clean up smu_get_power_limit function
+Subject: RE: [PATCH 2/6] amdgpu/pm: clean up smu_get_power_limit function
  signature
 Thread-Topic: [PATCH 2/6] amdgpu/pm: clean up smu_get_power_limit function
  signature
-Thread-Index: AQHXVBYeoepHF8dB0UqdYhF2bLZulqr9HXOAgAEghkWAAF7DgIABevFy
-Date: Wed, 2 Jun 2021 03:55:06 +0000
-Message-ID: <DM6PR12MB2954060EE8BA02E3E048FECEF03D9@DM6PR12MB2954.namprd12.prod.outlook.com>
+Thread-Index: AQHXVBYfNEWgrbBnYkyNpITBdXGwIqr9G+QAgAEi8gCAAFqvYIABhHQAgAAFFcA=
+Date: Wed, 2 Jun 2021 04:32:02 +0000
+Message-ID: <CH0PR12MB5348672703366A7EDE22BE8B973D9@CH0PR12MB5348.namprd12.prod.outlook.com>
 References: <20210528230621.16468-1-darren.powell@amd.com>
  <20210528230621.16468-3-darren.powell@amd.com>,
  <CH0PR12MB5348CD424C6F4A5E0A064598973F9@CH0PR12MB5348.namprd12.prod.outlook.com>
  <DM6PR12MB2954B3E943CD476445C945E9F03F9@DM6PR12MB2954.namprd12.prod.outlook.com>,
  <CH0PR12MB5348DB50C9C32FB21586F41C973E9@CH0PR12MB5348.namprd12.prod.outlook.com>
-In-Reply-To: <CH0PR12MB5348DB50C9C32FB21586F41C973E9@CH0PR12MB5348.namprd12.prod.outlook.com>
+ <DM6PR12MB2954060EE8BA02E3E048FECEF03D9@DM6PR12MB2954.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB2954060EE8BA02E3E048FECEF03D9@DM6PR12MB2954.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-06-02T04:31:55Z; 
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Standard;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP 2.0;
  MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-06-02T03:54:52.330Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Standard; 
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1
 authentication-results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [165.204.54.211]
+x-originating-ip: [117.206.36.183]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: d245a4a0-2ae4-4e3e-aa57-08d9257a35ea
-x-ms-traffictypediagnostic: DM5PR12MB1386:
+x-ms-office365-filtering-correlation-id: f70acede-ce0b-44da-675a-08d9257f5e49
+x-ms-traffictypediagnostic: CH2PR12MB5547:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM5PR12MB1386DB2D36B6377DF3DCE737F03D9@DM5PR12MB1386.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:3826;
+x-microsoft-antispam-prvs: <CH2PR12MB554733793AB90A222C40D47C973D9@CH2PR12MB5547.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:5516;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: O43yHFplLsKdYxQEv8ASa4Iddou+1yAFq8cQXTM3yrUWYEnGjSPBVtC5TSpUjLC4r5S9O901AfXufffL3tjRHHFmaDGl2GrbPFSFGMhiF+O3dAn87PFr0EhbYxDeZT/ip9gByGER1G2KVP4nq5BWKV6KA9MIPgeZ7uklvUfehJc1JpbtQSJ+OOYmFwFitU82CKZP4VtL5haEBxdNGb7NZfOYBKythu2+J2Gvs/rG2Jpy6lSL0PZggAhSBIzAR1rYawTlBQu7+2c4LnroxFFoKpZTHmdfxYPGKTrZXiFoMmkJJbvRHV65k+hlNAXlIuOP+bidiOKubdqCpPV0I+WWF+Vl4WPWPV05TlKC2eC04pgH+mjTQjfr1yDUyV5s5s4L1+igWPIRZExTLr6SRbnZvzgseW5Gkr6+U2Q4YsZVj3h5Sd8/LBuEVIXHjjuo/V7U4WvLxtJRfllZq9Zftm/mzbfXQSEXPMvE3+ziQQkhYIJFNP2HK1A3UMEib8ns+3d23ECpo1uCDUYxdXKq4bPQCixmnkEnK8zEfEeGkOsyK8b03z00UeaS9+HYjzJGfrArW6ASWWTHYkUCWCnE8LmuxrIN5WxxbYYl1ZHaYC+UguM=
+x-microsoft-antispam-message-info: jGzyDP94hfjIQPtJVjNjkV6s/fn33om14a/KjJXsSr67vLdGruNHAN03Zk8jexJkzX3bXR+KEbnRjfDRNNaq0sMU/A5UreWoTpY+6tmfbMeYFTtzvquSx/tnaMtUZ5RSLgNS1JiVlcZUvlAFUZGlWjgSlhyFqNpks4v5UQJVzjlclsjdoIt8oSQImM3Sokc6n532Xpn/ZNTnCOPMCMrtYjkQ+WgzrkDquCDjWlSxylKF2CnOmFL1LVllCAlylkemAcyYvlebQ+924m7jgEiJq8734u7YZRyLcai7XbDp4cslfjGTQXbxggea7dew9hxQPANd3l5MtPqcBpr9CY77SXUvOLCQ3Fk2t3rWmPKx1peYfzfIDHx9B2NPW7tlnW4d87MfIFv3mGLJDPDaz/2n3EeUznEm0C/Q9aNIb8WGzteL1kd01OWQ6zU6Fz/0AcnXhz4YgZSWfUI6SN4fZEUu2719/JY9tEwL0ZLOAaQnMxjtjB0q30ndrnukdJczPlkSOZq/I2nyo3wnXeFx2KMj989lkyiHhcALuzbXhDy2Bhqol+SCK9sips1QVZsPmaflG3f/QVrmdhLuK9mKU6X4zz2R5ikd5MW85GXgK4W1lAQ=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2954.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(366004)(346002)(39860400002)(396003)(376002)(9686003)(71200400001)(83380400001)(52536014)(86362001)(19627405001)(478600001)(110136005)(76116006)(66446008)(53546011)(66556008)(55016002)(66946007)(64756008)(66476007)(6506007)(2906002)(38100700002)(316002)(5660300002)(186003)(33656002)(8676002)(7696005)(8936002)(91956017)(30864003)(19627235002)(26005)(122000001);
+ IPV:NLI; SFV:NSPM; H:CH0PR12MB5348.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(376002)(366004)(136003)(396003)(39860400002)(346002)(30864003)(110136005)(6506007)(53546011)(7696005)(316002)(86362001)(122000001)(186003)(38100700002)(66556008)(66946007)(76116006)(64756008)(66446008)(66476007)(55016002)(26005)(5660300002)(9686003)(478600001)(71200400001)(33656002)(8936002)(83380400001)(8676002)(2906002)(52536014);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?+fJqKpKqH0Dceje7hut1/Gt9YmDo/XxvutIT6fix5+A9EFML3kwmB9u8ww6i?=
- =?us-ascii?Q?qFExSNkEGnOU3CQkwiowJ0VzTYLIe54PvHgx/qVo/E1WRdXB+RWgFcyKsxVR?=
- =?us-ascii?Q?ZTO81+LdZNeyrxGPOloxG+20TuYg03WQQ243KyOzpLGMCqBFxHUl32bSzaH2?=
- =?us-ascii?Q?epU8+FAyPZR39kjUPCqDrRqqqfLSEFaIf+GxJjXnNPa9of9oT8Zy+tK8cGor?=
- =?us-ascii?Q?LslqaHHFxtAyiq3T7bpGsC+sbMW6/jQ7Nu7KkVkKRozXUvv/UthF2ZWm09zD?=
- =?us-ascii?Q?jo3BoMP+1T0Zp2lHFd+yG/Ng7DtQaIDBKImb4O/Q1cFF5miYc1vEYg7Nu6xg?=
- =?us-ascii?Q?mby5Vf4/DB9b0qAOKU7r5de6iDabXi2a0pDWbVYLNgxxoIOR8Hi1hWHEbvE/?=
- =?us-ascii?Q?OETW5tIZbKxJ0q/lFa3u5aT7u6E08oBUNBx5hUn6DpZ2krwYncs/nNJu+nkH?=
- =?us-ascii?Q?A27uD2JzjHI6dk2sxmPIo5cR5FJ7ZuhmwjhZXv5bgPozk/flXArBp7fPsmLK?=
- =?us-ascii?Q?1T9oDyYSoqlxhFnn89rcolzw7rmxT1Ei76Ivz5ofyhmCyYDXyqneJBMVEjIm?=
- =?us-ascii?Q?2Uhdt/znYUFr33Tn5I+XV5d9Mh1qQu2nx0/+kFTk6DdIPZ5J2pX61PJSUc3n?=
- =?us-ascii?Q?6GdfhpgJ91sU+GRhBDGZ+YKg8RJ1N5ZFqHcbCBhTLOEGs/rq1bPjV1xve6CU?=
- =?us-ascii?Q?K1Uwn5PWD1gnxifUz7qJRo7Oc8ysOKb8NjXyrAZVSt6g9GK96R54u1mE8oRQ?=
- =?us-ascii?Q?vWfWabu054A5Okhs33M5bvbSxFXHWTeYLx3+ULV/sYd+4gb+dKaFjw10zL81?=
- =?us-ascii?Q?t70QYOipNx+GJ9PvvsryTiWdDB3ps5pDitge7y2spIDoIy8Cgtq6FuX67p+T?=
- =?us-ascii?Q?fzbciYLJIow1pMvofKD8QJpAYrSqsY9SY1Yy9gXTh9FYPkmJDX1r5oHpofIN?=
- =?us-ascii?Q?5QDZOaIU6q3FFO/g733tYJEjrAGW5pt1bphIkmiVpBtUfxXHlSjiUX389wDY?=
- =?us-ascii?Q?U3yJ7L2gH4Sy5Uw0ECKqYO2xMfSxQpwW1Fm5VRceuAF48CpA/RPmn0JnR3uO?=
- =?us-ascii?Q?+pke/NcbdqVGbz8CSokBCy4Be5Nd2B74rXPkcX0xxQEt5F8/Et/orkpCK2Yf?=
- =?us-ascii?Q?gKUesDWygN1e57lmJpcdOdBhf2sWl5E8oEIW1A3qXP9WU3VrFTZFyP6mMOMi?=
- =?us-ascii?Q?/C9f9bWR4//uq2Ij1PqwiFLuBWMjSlXwlm/sMJAK7fnZkSM4fViU7cG1Zqpr?=
- =?us-ascii?Q?OkXit+x+MoNO+Qolvwkl+uFvCTt3YjcBlptxRlSxoWw0l6Vz3gnMuEKk9GE5?=
- =?us-ascii?Q?UrKHdA6XcMCjb2KscRXd1kbp?=
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?1HBdOUxDGCjyxogdvNr/bCAOc5hAPqNlKgcbPPmN26lsPUSP9Gh3oiBdobL2?=
+ =?us-ascii?Q?dbPnMCzrO+qIaUPYrcUtJMM7/fhoM+X8xRAi0lJU3IS3TJJO+2ZbOx7Ly9Jo?=
+ =?us-ascii?Q?eKdINKUnaRCJvesbm8X8KFghLLRnTXCEjJrkxjJ0HRfz29IuxO+KI6DVvI/x?=
+ =?us-ascii?Q?dHUk1GzLFKfMIpGhZ/ffZ0J4DuUzrh6sYDOEqkg0qKZv1l5CKM8Cjyv262Qo?=
+ =?us-ascii?Q?sz7s3OONmlgglFv1Oyp4ebz8pWzo0iJ5aErJ2EsOevIwQbUEb7+6RRT9OSyL?=
+ =?us-ascii?Q?ZoLrfPcIl2wATsMFdVEPrcqlA0bs/ZdjVLpiiTNBRapIKQOaJI3qXy4HAEVG?=
+ =?us-ascii?Q?Ll63f+t+gBVwG0SVezm1IRVp3OxO+egjZlbEEbwfvxAiE2+RGDYU0vtW/Mii?=
+ =?us-ascii?Q?GZPNlo6tA6rzbjbmSK/DmUeS0uM19zA+P/lKffSh6K8gPiBvJwqn4/amBF0t?=
+ =?us-ascii?Q?uYljyXPQmJQWvvm/6xznBNwiLyWz6cufYljJSojic/BVxGUZqFKyBDNmECUj?=
+ =?us-ascii?Q?n79jo8I7ESQRyF3DlMbHorcT5lZfvV5JJ8fJ6UXfXDl4EmScgMmudqOhIB3O?=
+ =?us-ascii?Q?j/XsnnK/5n66pix5DFVlVOXKOqu6FtCfYKviedvlTRQ6OIOEFRYECDxA1Mqk?=
+ =?us-ascii?Q?YZGvYaRnyNZzFV5341alYSlAv2DsSlx7oCuPDQERmyAP9fqwZ/MB2xfyjhSE?=
+ =?us-ascii?Q?DPrG8wLLIsREG16tyBbPMip4BvJDPARfxwxFKUwR/GyYPNNp524iBI5g9pIP?=
+ =?us-ascii?Q?aUpzRB1IatIMjCVEaADhWOkH3hyDKqWFQZYtoeIT66XCyqBxeonnpHrWufA8?=
+ =?us-ascii?Q?5So3+EfDBlcevRKCrBmLd0JsmJnm5thBOFrgBHAafPxU7/bXTHcj+bQhuB4G?=
+ =?us-ascii?Q?3WMXuLtWH+NzaWabGFEMPVbLCBj5G1D5imi3oMbb6v865jit3fawR7aPC9+C?=
+ =?us-ascii?Q?SLqqBKWApBPUGzEOV6pwWIuio8Nq9o2bL36W2H7cMDxIN6QdfVSNMJky1Ltz?=
+ =?us-ascii?Q?BMVdQ8tcnEUIVH2T92m/gd1aSzqvbAvEzTLk58ehD7XNnvvGtTqpb57w4zYP?=
+ =?us-ascii?Q?XgRO1yKvW1e31gKRnMIUgcaRQQRaiBOcxfY7y4lpi2FodrV8XaU0B09WRjs5?=
+ =?us-ascii?Q?M9KcgJWQqnaZwhycxEP2kEzeZ8ugjt/ofEEbZQdZg/dxjVHWmKFkjxfNV7qo?=
+ =?us-ascii?Q?txV8MItg9stbCAeVkIO7VMX61OqIMBYPXF7rK4+5kasxsig+zKYqXyt9/PmQ?=
+ =?us-ascii?Q?41F0V9UhBTvzFuo9n53XIeAByIc1vLxM7+dm+hCEItyeyCc9Un4gcAEzYi5T?=
+ =?us-ascii?Q?PIJ972zD8Vb5bJepQpI/y36/?=
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2954.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d245a4a0-2ae4-4e3e-aa57-08d9257a35ea
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Jun 2021 03:55:06.9555 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5348.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f70acede-ce0b-44da-675a-08d9257f5e49
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Jun 2021 04:32:02.1095 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 3omhOD7hXhfa8Vao0CDc6jvEj7i6EfLyBym6ce7X8NWOADMtH9gghBNxYv+vRHAbIwW6lVts1D7B119ZBwVZQw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1386
+X-MS-Exchange-CrossTenant-userprincipalname: qWono3SKCDUehKIkJdDovMAB7+o2BGFx4M95lLTepyyXQaZEEtoHnzETexn5bXm/
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB5547
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,18 +137,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1275543689=="
+Content-Type: multipart/mixed; boundary="===============0571825507=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1275543689==
+--===============0571825507==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_DM6PR12MB2954060EE8BA02E3E048FECEF03D9DM6PR12MB2954namp_"
+	boundary="_000_CH0PR12MB5348672703366A7EDE22BE8B973D9CH0PR12MB5348namp_"
 
---_000_DM6PR12MB2954060EE8BA02E3E048FECEF03D9DM6PR12MB2954namp_
+--_000_CH0PR12MB5348672703366A7EDE22BE8B973D9CH0PR12MB5348namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+[Public]
+
+I'm looking for an appropriate name that can accommodate more limits like
+
+enum pp_power_limit
+{
+                PP_PWR_LIMIT_DEFAULT,
+                PP_PWR_LIMIT_FAST,
+PP_PWR_LIMIT_APU,
+                PP_PWR_LIMIT_PLATFORM,
+};
+
+Or simply different limits where the meaning may change based on ASIC - LIM=
+IT2 could be platform power limit for ASIC1 or LIMIT2 could be max power al=
+location for a domain (say memory) for ASIC2
+
+enum pp_power_limit
+{
+                PP_PWR_LIMIT_0,
+                PP_PWR_LIMIT_1,
+                PP_PWR_LIMIT_2,
+                PP_PWR_LIMIT_3,
+};
+
+Thanks,
+Lijo
+
+From: Powell, Darren <Darren.Powell@amd.com>
+Sent: Wednesday, June 2, 2021 9:25 AM
+To: Lazar, Lijo <Lijo.Lazar@amd.com>; amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH 2/6] amdgpu/pm: clean up smu_get_power_limit function s=
+ignature
+
 
 [Public]
 
@@ -161,56 +198,70 @@ Darren
 
 SENSOR(power1_average)     amdgpu_hwmon_show_power_avg(0)           amdgpu_=
 dpm_read_sensor(AMDGPU_PP_SENSOR_GPU_POWER)
+
 SENSOR(power1_cap_max)     amdgpu_hwmon_show_power_cap_max(0)       get_pow=
 er_limit(PP_PWR_LIMIT_MAX, PP_PWR_WINDOW_DEFAULT)
+
 SENSOR(power1_cap_min)     amdgpu_hwmon_show_power_cap_min(0)       0
+
 SENSOR(power1_cap)         amdgpu_hwmon_show_power_cap(0)           get_pow=
 er_limit(PP_PWR_LIMIT_CURRENT, PP_PWR_WINDOW_DEFAULT)
+
 SENSOR(power1_cap_default) amdgpu_hwmon_show_power_cap_default(0)   get_pow=
 er_limit(PP_PWR_LIMIT_DEFAULT, PP_PWR_WINDOW_DEFAULT)
+
 SENSOR(power1_label)       amdgpu_hwmon_show_power_label(0)         "slowPP=
 T"
+
 SENSOR(power2_average)     amdgpu_hwmon_show_power_avg(1)           amdgpu_=
 dpm_read_sensor(AMDGPU_PP_SENSOR_GPU_POWER)
+
 SENSOR(power2_cap_max)     amdgpu_hwmon_show_power_cap_max(1)       get_pow=
 er_limit(PP_PWR_LIMIT_MAX, PP_PWR_WINDOW_FAST)
+
 SENSOR(power2_cap_min)     amdgpu_hwmon_show_power_cap_min(1)       0
+
 SENSOR(power2_cap)         amdgpu_hwmon_show_power_cap(1)           get_pow=
 er_limit(PP_PWR_LIMIT_CURRENT, PP_PWR_WINDOW_FAST)
+
 SENSOR(power2_cap_default) amdgpu_hwmon_show_power_cap_default(1)   get_pow=
 er_limit(PP_PWR_LIMIT_DEFAULT, PP_PWR_WINDOW_FAST)
+
 SENSOR(power2_label)       amdgpu_hwmon_show_power_label(1)         "fastPP=
 T"
-
-
 =3D=3D Write =3D=3D
 
 SENSOR(power1_cap)         amdgpu_hwmon_set_power_cap(0,value)      set_pow=
 er_limit( (0<<24) || value )
+
 SENSOR(power2_cap)         amdgpu_hwmon_set_power_cap(1,value)      set_pow=
 er_limit( (1<<24) || value )
-
 
 
 =3D Summary =3D
 
 power1 =3D> PP_PWR_WINDOW_DEFAULT   ( label ("slowPPT"))
+
 power2 =3D> PP_PWR_WINDOW_FAST      ( label ("fastPPT"))
 
-
 power_avg         =3D> AMDGPU_PP_SENSOR_GPU_POWER
+
 power_cap_max     =3D> PP_PWR_LIMIT_MAX
+
 power_cap_min     =3D> PP_PWR_LIMIT_MIN (optimized to 0)
+
 power_cap         =3D> PP_PWR_LIMIT_CURRENT
+
 power_cap_default =3D> PP_PWR_LIMIT_DEFAULT
 
 
 
 ________________________________
-From: Lazar, Lijo <Lijo.Lazar@amd.com>
+From: Lazar, Lijo <Lijo.Lazar@amd.com<mailto:Lijo.Lazar@amd.com>>
 Sent: Tuesday, June 1, 2021 12:56 AM
-To: Powell, Darren <Darren.Powell@amd.com>; amd-gfx@lists.freedesktop.org <=
-amd-gfx@lists.freedesktop.org>
+To: Powell, Darren <Darren.Powell@amd.com<mailto:Darren.Powell@amd.com>>; a=
+md-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <amd-gfx=
+@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
 Subject: RE: [PATCH 2/6] amdgpu/pm: clean up smu_get_power_limit function s=
 ignature
 
@@ -231,9 +282,10 @@ Lijo
 
 
 
-From: Powell, Darren <Darren.Powell@amd.com>
+From: Powell, Darren <Darren.Powell@amd.com<mailto:Darren.Powell@amd.com>>
 Sent: Tuesday, June 1, 2021 4:50 AM
-To: Lazar, Lijo <Lijo.Lazar@amd.com>; amd-gfx@lists.freedesktop.org
+To: Lazar, Lijo <Lijo.Lazar@amd.com<mailto:Lijo.Lazar@amd.com>>; amd-gfx@li=
+sts.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
 Subject: Re: [PATCH 2/6] amdgpu/pm: clean up smu_get_power_limit function s=
 ignature
 
@@ -499,244 +551,397 @@ index 8aff67a667fa..44c1baa2748d 100644
 --
 2.25.1
 
---_000_DM6PR12MB2954060EE8BA02E3E048FECEF03D9DM6PR12MB2954namp_
+--_000_CH0PR12MB5348672703366A7EDE22BE8B973D9CH0PR12MB5348namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<html>
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
 <head>
 <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
-ign=3D"Left">
-[Public]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-I'm not sure exactly what you are looking for. The enums sample_window and =
-limit_level map to power{1,2} and cap{min,max,default,current} respectively=
-. I added the enums to make the function signatures more readable and stop =
-the use of value as an input and
- output variable.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Please give more specific example?</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Darren&nbsp;</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<div>
-<div>=3D HWMON Mapping =3D</div>
-<div>=3D=3D Read =3D=3D</div>
-</div>
-<div></div>
-<pre style=3D"font-family:monospace, monospace;background-color:rgb(248, 24=
-9, 250);border:1px solid rgb(234, 236, 240);padding:1em;line-height:1.3em;f=
-ont-size:14px">SENSOR(power1_average) &nbsp; &nbsp; amdgpu_hwmon_show_power=
-_avg(0) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; amdgpu_dpm_read_sensor(AMDGPU_PP=
-_SENSOR_GPU_POWER)=0A=
-SENSOR(power1_cap_max) &nbsp; &nbsp; amdgpu_hwmon_show_power_cap_max(0) &nb=
-sp; &nbsp; &nbsp; get_power_limit(PP_PWR_LIMIT_MAX, PP_PWR_WINDOW_DEFAULT)=
-=0A=
-SENSOR(power1_cap_min) &nbsp; &nbsp; amdgpu_hwmon_show_power_cap_min(0) &nb=
-sp; &nbsp; &nbsp; 0=0A=
-SENSOR(power1_cap) &nbsp; &nbsp; &nbsp; &nbsp; amdgpu_hwmon_show_power_cap(=
-0) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; get_power_limit(PP_PWR_LIMIT_CURRENT,=
- PP_PWR_WINDOW_DEFAULT)=0A=
-SENSOR(power1_cap_default) amdgpu_hwmon_show_power_cap_default(0) &nbsp; ge=
-t_power_limit(PP_PWR_LIMIT_DEFAULT, PP_PWR_WINDOW_DEFAULT)=0A=
-SENSOR(power1_label) &nbsp; &nbsp; &nbsp; amdgpu_hwmon_show_power_label(0) =
-&nbsp; &nbsp; &nbsp; &nbsp; &quot;slowPPT&quot;=0A=
-SENSOR(power2_average) &nbsp; &nbsp; amdgpu_hwmon_show_power_avg(1) &nbsp; =
-&nbsp; &nbsp; &nbsp; &nbsp; amdgpu_dpm_read_sensor(AMDGPU_PP_SENSOR_GPU_POW=
-ER)=0A=
-SENSOR(power2_cap_max) &nbsp; &nbsp; amdgpu_hwmon_show_power_cap_max(1) &nb=
-sp; &nbsp; &nbsp; get_power_limit(PP_PWR_LIMIT_MAX, PP_PWR_WINDOW_FAST)=0A=
-SENSOR(power2_cap_min) &nbsp; &nbsp; amdgpu_hwmon_show_power_cap_min(1) &nb=
-sp; &nbsp; &nbsp; 0=0A=
-SENSOR(power2_cap) &nbsp; &nbsp; &nbsp; &nbsp; amdgpu_hwmon_show_power_cap(=
-1) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; get_power_limit(PP_PWR_LIMIT_CURRENT,=
- PP_PWR_WINDOW_FAST)=0A=
-SENSOR(power2_cap_default) amdgpu_hwmon_show_power_cap_default(1) &nbsp; ge=
-t_power_limit(PP_PWR_LIMIT_DEFAULT, PP_PWR_WINDOW_FAST)=0A=
-SENSOR(power2_label) &nbsp; &nbsp; &nbsp; amdgpu_hwmon_show_power_label(1) =
-&nbsp; &nbsp; &nbsp; &nbsp; &quot;fastPPT&quot;=0A=
-</pre>
-<div>
-<div>=3D=3D Write =3D=3D</div>
-</div>
-<pre style=3D"font-family:monospace, monospace;background-color:rgb(248, 24=
-9, 250);border:1px solid rgb(234, 236, 240);padding:1em;line-height:1.3em;f=
-ont-size:14px">SENSOR(power1_cap) &nbsp; &nbsp; &nbsp; &nbsp; amdgpu_hwmon_=
-set_power_cap(0,value) &nbsp; &nbsp; &nbsp;set_power_limit( (0&lt;&lt;24) |=
-| value )=0A=
-SENSOR(power2_cap) &nbsp; &nbsp; &nbsp; &nbsp; amdgpu_hwmon_set_power_cap(1=
-,value) &nbsp; &nbsp; &nbsp;set_power_limit( (1&lt;&lt;24) || value )=0A=
-</pre>
-<p style=3D"margin:0.5em 0px;color:rgb(34, 34, 34);font-family:sans-serif;f=
-ont-size:14px;background-color:rgb(255, 255, 255)">
-<br>
-</p>
-<div>=3D Summary =3D</div>
-<pre style=3D"font-family:monospace, monospace;background-color:rgb(248, 24=
-9, 250);border:1px solid rgb(234, 236, 240);padding:1em;line-height:1.3em;f=
-ont-size:14px">power1 =3D&gt; PP_PWR_WINDOW_DEFAULT &nbsp; ( label (&quot;s=
-lowPPT&quot;))=0A=
-power2 =3D&gt; PP_PWR_WINDOW_FAST &nbsp; &nbsp; &nbsp;( label (&quot;fastPP=
-T&quot;))=0A=
-</pre>
-<pre style=3D"font-family:monospace, monospace;background-color:rgb(248, 24=
-9, 250);border:1px solid rgb(234, 236, 240);padding:1em;line-height:1.3em;f=
-ont-size:14px">power_avg &nbsp; &nbsp; &nbsp; &nbsp; =3D&gt; AMDGPU_PP_SENS=
-OR_GPU_POWER=0A=
-power_cap_max &nbsp; &nbsp; =3D&gt; PP_PWR_LIMIT_MAX=0A=
-power_cap_min &nbsp; &nbsp; =3D&gt; PP_PWR_LIMIT_MIN (optimized to 0)=0A=
-power_cap &nbsp; &nbsp; &nbsp; &nbsp; =3D&gt; PP_PWR_LIMIT_CURRENT=0A=
-power_cap_default =3D&gt; PP_PWR_LIMIT_DEFAULT</pre>
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Lazar, Lijo &lt;Lijo.=
-Lazar@amd.com&gt;<br>
-<b>Sent:</b> Tuesday, June 1, 2021 12:56 AM<br>
-<b>To:</b> Powell, Darren &lt;Darren.Powell@amd.com&gt;; amd-gfx@lists.free=
-desktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
-<b>Subject:</b> RE: [PATCH 2/6] amdgpu/pm: clean up smu_get_power_limit fun=
-ction signature</font>
-<div>&nbsp;</div>
-</div>
-<style>
-<!--
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
 @font-face
-	{font-family:"Cambria Math"}
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
 @font-face
-	{font-family:Calibri}
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
 @font-face
-	{font-family:"Segoe UI"}
-p.x_MsoNormal, li.x_MsoNormal, div.x_MsoNormal
+	{font-family:Consolas;
+	panose-1:2 11 6 9 2 2 4 3 2 4;}
+@font-face
+	{font-family:"Segoe UI";
+	panose-1:2 11 5 2 4 2 4 2 2 3;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
 	{margin:0in;
 	font-size:11.0pt;
-	font-family:"Calibri",sans-serif}
-a:link, span.x_MsoHyperlink
-	{color:#0563C1;
-	text-decoration:underline}
-span.x_EmailStyle18
-	{font-family:"Calibri",sans-serif;
-	color:windowtext}
-p.x_msipheaderc10f11a2, li.x_msipheaderc10f11a2, div.x_msipheaderc10f11a2
-	{margin-right:0in;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+pre
+	{mso-style-priority:99;
+	mso-style-link:"HTML Preformatted Char";
+	margin:0in;
+	font-size:10.0pt;
+	font-family:"Courier New";}
+span.HTMLPreformattedChar
+	{mso-style-name:"HTML Preformatted Char";
+	mso-style-priority:99;
+	mso-style-link:"HTML Preformatted";
+	font-family:Consolas;}
+p.xmsonormal, li.xmsonormal, div.xmsonormal
+	{mso-style-name:x_msonormal;
+	margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+p.xmsipheaderc10f11a2, li.xmsipheaderc10f11a2, div.xmsipheaderc10f11a2
+	{mso-style-name:x_msipheaderc10f11a2;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
 	margin-left:0in;
 	font-size:11.0pt;
-	font-family:"Calibri",sans-serif}
-.x_MsoChpDefault
-	{font-size:10.0pt}
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle22
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+p.msipheaderc10f11a2, li.msipheaderc10f11a2, div.msipheaderc10f11a2
+	{mso-style-name:msipheaderc10f11a2;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
 @page WordSection1
-	{margin:1.0in 1.0in 1.0in 1.0in}
-div.x_WordSection1
-	{}
--->
-</style>
-<div lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:b=
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"purple" style=3D"word-wrap:b=
 reak-word">
-<div class=3D"x_WordSection1">
-<p class=3D"x_msipheaderc10f11a2" style=3D"margin:0in"><span style=3D"font-=
-size:10.0pt; font-family:&quot;Arial&quot;,sans-serif; color:green">[Public=
-]</span></p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">May be just call it power_limit or power_cap simil=
-ar to hwmon. The various limits correspond to hwmon power[1-*]_cap and leve=
-ls correspond to min/ max etc.</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">Thanks,</p>
-<p class=3D"x_MsoNormal">Lijo</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
+<div class=3D"WordSection1">
+<p class=3D"msipheaderc10f11a2" style=3D"margin:0in"><span style=3D"font-si=
+ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:green">[Public]</s=
+pan><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">I&#8217;m looking for an appropriate name that can a=
+ccommodate more limits like
+<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">enum pp_power_limit<o:p></o:p></p>
+<p class=3D"MsoNormal">{<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PP_PWR_LIMIT_DEFAULT,<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PP_PWR_LIMIT_FAST, <o:p></o:p></p>
+<p class=3D"MsoNormal" style=3D"text-indent:.5in">PP_PWR_LIMIT_APU,<o:p></o=
+:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PP_PWR_LIMIT_PLATFORM,<o:p></o:p></p=
+>
+<p class=3D"MsoNormal">};<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Or simply different limits where the meaning may cha=
+nge based on ASIC - LIMIT2 could be platform power limit for ASIC1 or LIMIT=
+2 could be max power allocation for a domain (say memory) for ASIC2<o:p></o=
+:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">enum pp_power_limit<o:p></o:p></p>
+<p class=3D"MsoNormal">{<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PP_PWR_LIMIT_0,<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PP_PWR_LIMIT_1,<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PP_PWR_LIMIT_2,<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PP_PWR_LIMIT_3,<o:p></o:p></p>
+<p class=3D"MsoNormal">};<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thanks,<o:p></o:p></p>
+<p class=3D"MsoNormal">Lijo<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
 <div>
-<div style=3D"border:none; border-top:solid #E1E1E1 1.0pt; padding:3.0pt 0i=
-n 0in 0in">
-<p class=3D"x_MsoNormal"><b>From:</b> Powell, Darren &lt;Darren.Powell@amd.=
-com&gt; <br>
-<b>Sent:</b> Tuesday, June 1, 2021 4:50 AM<br>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Powell, Darren &lt;Darren.Powell@amd.co=
+m&gt; <br>
+<b>Sent:</b> Wednesday, June 2, 2021 9:25 AM<br>
 <b>To:</b> Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;; amd-gfx@lists.freedeskto=
 p.org<br>
 <b>Subject:</b> Re: [PATCH 2/6] amdgpu/pm: clean up smu_get_power_limit fun=
-ction signature</p>
+ction signature<o:p></o:p></p>
 </div>
 </div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p style=3D"margin:15.0pt"><span style=3D"font-size:10.0pt; font-family:&qu=
-ot;Arial&quot;,sans-serif; color:green">[Public]</span></p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p style=3D"margin:15.0pt"><span style=3D"font-size:10.0pt;font-family:&quo=
+t;Arial&quot;,sans-serif;color:green">[Public]<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
 <div>
 <div>
-<p class=3D"x_MsoNormal"><span style=3D"font-family:&quot;Segoe UI&quot;,sa=
-ns-serif; color:black"><br>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">I'm not=
+ sure exactly what you are looking for. The enums sample_window and limit_l=
+evel map to power{1,2} and cap{min,max,default,current} respectively. I add=
+ed the enums to make the function signatures
+ more readable and stop the use of value as an input and output variable.<o=
+:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Please =
+give more specific example?<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Darren&=
+nbsp;<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">=3D HWM=
+ON Mapping =3D<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">=3D=3D =
+Read =3D=3D<o:p></o:p></span></p>
+</div>
+</div>
+<div style=3D"border:solid #EAECF0 1.0pt;padding:12.0pt 12.0pt 12.0pt 12.0p=
+t">
+<pre style=3D"line-height:15.6pt;background:#F8F9FA"><span style=3D"font-si=
+ze:10.5pt;color:black">SENSOR(power1_average) &nbsp; &nbsp; amdgpu_hwmon_sh=
+ow_power_avg(0) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; amdgpu_dpm_read_sensor(A=
+MDGPU_PP_SENSOR_GPU_POWER)<o:p></o:p></span></pre>
+<pre style=3D"line-height:15.6pt;background:#F8F9FA"><span style=3D"font-si=
+ze:10.5pt;color:black">SENSOR(power1_cap_max) &nbsp; &nbsp; amdgpu_hwmon_sh=
+ow_power_cap_max(0) &nbsp; &nbsp; &nbsp; get_power_limit(PP_PWR_LIMIT_MAX, =
+PP_PWR_WINDOW_DEFAULT)<o:p></o:p></span></pre>
+<pre style=3D"line-height:15.6pt;background:#F8F9FA"><span style=3D"font-si=
+ze:10.5pt;color:black">SENSOR(power1_cap_min) &nbsp; &nbsp; amdgpu_hwmon_sh=
+ow_power_cap_min(0) &nbsp; &nbsp; &nbsp; 0<o:p></o:p></span></pre>
+<pre style=3D"line-height:15.6pt;background:#F8F9FA"><span style=3D"font-si=
+ze:10.5pt;color:black">SENSOR(power1_cap) &nbsp; &nbsp; &nbsp; &nbsp; amdgp=
+u_hwmon_show_power_cap(0) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; get_power_limi=
+t(PP_PWR_LIMIT_CURRENT, PP_PWR_WINDOW_DEFAULT)<o:p></o:p></span></pre>
+<pre style=3D"line-height:15.6pt;background:#F8F9FA"><span style=3D"font-si=
+ze:10.5pt;color:black">SENSOR(power1_cap_default) amdgpu_hwmon_show_power_c=
+ap_default(0) &nbsp; get_power_limit(PP_PWR_LIMIT_DEFAULT, PP_PWR_WINDOW_DE=
+FAULT)<o:p></o:p></span></pre>
+<pre style=3D"line-height:15.6pt;background:#F8F9FA"><span style=3D"font-si=
+ze:10.5pt;color:black">SENSOR(power1_label) &nbsp; &nbsp; &nbsp; amdgpu_hwm=
+on_show_power_label(0) &nbsp; &nbsp; &nbsp; &nbsp; &quot;slowPPT&quot;<o:p>=
+</o:p></span></pre>
+<pre style=3D"line-height:15.6pt;background:#F8F9FA"><span style=3D"font-si=
+ze:10.5pt;color:black">SENSOR(power2_average) &nbsp; &nbsp; amdgpu_hwmon_sh=
+ow_power_avg(1) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; amdgpu_dpm_read_sensor(A=
+MDGPU_PP_SENSOR_GPU_POWER)<o:p></o:p></span></pre>
+<pre style=3D"line-height:15.6pt;background:#F8F9FA"><span style=3D"font-si=
+ze:10.5pt;color:black">SENSOR(power2_cap_max) &nbsp; &nbsp; amdgpu_hwmon_sh=
+ow_power_cap_max(1) &nbsp; &nbsp; &nbsp; get_power_limit(PP_PWR_LIMIT_MAX, =
+PP_PWR_WINDOW_FAST)<o:p></o:p></span></pre>
+<pre style=3D"line-height:15.6pt;background:#F8F9FA"><span style=3D"font-si=
+ze:10.5pt;color:black">SENSOR(power2_cap_min) &nbsp; &nbsp; amdgpu_hwmon_sh=
+ow_power_cap_min(1) &nbsp; &nbsp; &nbsp; 0<o:p></o:p></span></pre>
+<pre style=3D"line-height:15.6pt;background:#F8F9FA"><span style=3D"font-si=
+ze:10.5pt;color:black">SENSOR(power2_cap) &nbsp; &nbsp; &nbsp; &nbsp; amdgp=
+u_hwmon_show_power_cap(1) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; get_power_limi=
+t(PP_PWR_LIMIT_CURRENT, PP_PWR_WINDOW_FAST)<o:p></o:p></span></pre>
+<pre style=3D"line-height:15.6pt;background:#F8F9FA"><span style=3D"font-si=
+ze:10.5pt;color:black">SENSOR(power2_cap_default) amdgpu_hwmon_show_power_c=
+ap_default(1) &nbsp; get_power_limit(PP_PWR_LIMIT_DEFAULT, PP_PWR_WINDOW_FA=
+ST)<o:p></o:p></span></pre>
+<pre style=3D"line-height:15.6pt;background:#F8F9FA"><span style=3D"font-si=
+ze:10.5pt;color:black">SENSOR(power2_label) &nbsp; &nbsp; &nbsp; amdgpu_hwm=
+on_show_power_label(1) &nbsp; &nbsp; &nbsp; &nbsp; &quot;fastPPT&quot;<o:p>=
+</o:p></span></pre>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">=3D=3D =
+Write =3D=3D<o:p></o:p></span></p>
+</div>
+</div>
+<div style=3D"border:solid #EAECF0 1.0pt;padding:12.0pt 12.0pt 12.0pt 12.0p=
+t">
+<pre style=3D"line-height:15.6pt;background:#F8F9FA"><span style=3D"font-si=
+ze:10.5pt;color:black">SENSOR(power1_cap) &nbsp; &nbsp; &nbsp; &nbsp; amdgp=
+u_hwmon_set_power_cap(0,value) &nbsp; &nbsp; &nbsp;set_power_limit( (0&lt;&=
+lt;24) || value )<o:p></o:p></span></pre>
+<pre style=3D"line-height:15.6pt;background:#F8F9FA"><span style=3D"font-si=
+ze:10.5pt;color:black">SENSOR(power2_cap) &nbsp; &nbsp; &nbsp; &nbsp; amdgp=
+u_hwmon_set_power_cap(1,value) &nbsp; &nbsp; &nbsp;set_power_limit( (1&lt;&=
+lt;24) || value )<o:p></o:p></span></pre>
+</div>
+<p style=3D"mso-margin-top-alt:6.0pt;margin-right:0in;margin-bottom:6.0pt;m=
+argin-left:0in;background:white">
+<span style=3D"font-size:10.5pt;font-family:&quot;Arial&quot;,sans-serif;co=
+lor:#222222"><o:p>&nbsp;</o:p></span></p>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">=3D Sum=
+mary =3D<o:p></o:p></span></p>
+</div>
+<div style=3D"border:solid #EAECF0 1.0pt;padding:12.0pt 12.0pt 12.0pt 12.0p=
+t">
+<pre style=3D"line-height:15.6pt;background:#F8F9FA"><span style=3D"font-si=
+ze:10.5pt;color:black">power1 =3D&gt; PP_PWR_WINDOW_DEFAULT &nbsp; ( label =
+(&quot;slowPPT&quot;))<o:p></o:p></span></pre>
+<pre style=3D"line-height:15.6pt;background:#F8F9FA"><span style=3D"font-si=
+ze:10.5pt;color:black">power2 =3D&gt; PP_PWR_WINDOW_FAST &nbsp; &nbsp; &nbs=
+p;( label (&quot;fastPPT&quot;))<o:p></o:p></span></pre>
+<pre style=3D"line-height:15.6pt;background:#F8F9FA"><span style=3D"font-si=
+ze:10.5pt;color:black">power_avg &nbsp; &nbsp; &nbsp; &nbsp; =3D&gt; AMDGPU=
+_PP_SENSOR_GPU_POWER<o:p></o:p></span></pre>
+<pre style=3D"line-height:15.6pt;background:#F8F9FA"><span style=3D"font-si=
+ze:10.5pt;color:black">power_cap_max &nbsp; &nbsp; =3D&gt; PP_PWR_LIMIT_MAX=
+<o:p></o:p></span></pre>
+<pre style=3D"line-height:15.6pt;background:#F8F9FA"><span style=3D"font-si=
+ze:10.5pt;color:black">power_cap_min &nbsp; &nbsp; =3D&gt; PP_PWR_LIMIT_MIN=
+ (optimized to 0)<o:p></o:p></span></pre>
+<pre style=3D"line-height:15.6pt;background:#F8F9FA"><span style=3D"font-si=
+ze:10.5pt;color:black">power_cap &nbsp; &nbsp; &nbsp; &nbsp; =3D&gt; PP_PWR=
+_LIMIT_CURRENT<o:p></o:p></span></pre>
+<pre style=3D"line-height:15.6pt;background:#F8F9FA"><span style=3D"font-si=
+ze:10.5pt;color:black">power_cap_default =3D&gt; PP_PWR_LIMIT_DEFAULT<o:p><=
+/o:p></span></pre>
+</div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
+ style=3D"color:black"> Lazar, Lijo &lt;<a href=3D"mailto:Lijo.Lazar@amd.co=
+m">Lijo.Lazar@amd.com</a>&gt;<br>
+<b>Sent:</b> Tuesday, June 1, 2021 12:56 AM<br>
+<b>To:</b> Powell, Darren &lt;<a href=3D"mailto:Darren.Powell@amd.com">Darr=
+en.Powell@amd.com</a>&gt;;
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
+org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.=
+freedesktop.org</a>&gt;<br>
+<b>Subject:</b> RE: [PATCH 2/6] amdgpu/pm: clean up smu_get_power_limit fun=
+ction signature</span>
+<o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"xmsipheaderc10f11a2" style=3D"margin:0in"><span style=3D"font-s=
+ize:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:green">[Public]</=
+span><o:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
+<p class=3D"xmsonormal">May be just call it power_limit or power_cap simila=
+r to hwmon. The various limits correspond to hwmon power[1-*]_cap and level=
+s correspond to min/ max etc.<o:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
+<p class=3D"xmsonormal">Thanks,<o:p></o:p></p>
+<p class=3D"xmsonormal">Lijo<o:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"xmsonormal"><b>From:</b> Powell, Darren &lt;<a href=3D"mailto:D=
+arren.Powell@amd.com">Darren.Powell@amd.com</a>&gt;
+<br>
+<b>Sent:</b> Tuesday, June 1, 2021 4:50 AM<br>
+<b>To:</b> Lazar, Lijo &lt;<a href=3D"mailto:Lijo.Lazar@amd.com">Lijo.Lazar=
+@amd.com</a>&gt;;
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
+org</a><br>
+<b>Subject:</b> Re: [PATCH 2/6] amdgpu/pm: clean up smu_get_power_limit fun=
+ction signature<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
+<p style=3D"margin:15.0pt"><span style=3D"font-size:10.0pt;font-family:&quo=
+t;Arial&quot;,sans-serif;color:green">[Public]</span><o:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
+<div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-family:&quot;Segoe UI&quot;,san=
+s-serif;color:black"><br>
 <span style=3D"background:white">&gt;&lt; &gt; The limits are not limited t=
 o sample window. There are limits like APU only limit, platform limit and t=
 otally obscure ones like PPT0/PPT1 etc.</span><br>
 <span style=3D"background:white">&gt;It's better that the new enum takes ca=
 re of those as well in case there is a need to make them available through =
-sysfs.</span></span><span style=3D"font-size:12.0pt; color:black"></span></=
-p>
+sysfs.</span></span><o:p></o:p></p>
 </div>
 <div>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt; color:black">&nbs=
-p;</span></p>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">&nbsp;=
+</span><o:p></o:p></p>
 </div>
 <div>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt; color:black">I th=
-ink you mean something more like this?</span></p>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">I thin=
+k you mean something more like this?</span><o:p></o:p></p>
 </div>
 <div>
-<p class=3D"x_MsoNormal"><span style=3D"font-family:&quot;Segoe UI&quot;,sa=
-ns-serif; color:black; background:white">+ enum pp_power_constraints</span>=
-<span style=3D"font-size:12.0pt; color:black"><br>
-</span><span style=3D"font-family:&quot;Segoe UI&quot;,sans-serif; color:bl=
-ack; background:white">+{</span><span style=3D"font-family:&quot;Segoe UI&q=
-uot;,sans-serif; color:black"><br>
+<p class=3D"xmsonormal"><span style=3D"font-family:&quot;Segoe UI&quot;,san=
+s-serif;color:black;background:white">+ enum pp_power_constraints</span><sp=
+an style=3D"font-size:12.0pt;color:black"><br>
+</span><span style=3D"font-family:&quot;Segoe UI&quot;,sans-serif;color:bla=
+ck;background:white">+{</span><span style=3D"font-family:&quot;Segoe UI&quo=
+t;,sans-serif;color:black"><br>
 <span style=3D"background:white">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PP_P=
 WR_CONSTRAINT_DEFAULT,</span><br>
 <span style=3D"background:white">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PP_P=
 WR_CONSTRAINT_FASTWINDOW,</span><br>
 <span style=3D"background:white">+};</span><br>
-<span style=3D"background:white">+</span></span><span style=3D"font-size:12=
-.0pt; color:black"></span></p>
+<span style=3D"background:white">+</span></span><o:p></o:p></p>
 </div>
 <div>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt; color:black">&nbs=
-p;</span></p>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">&nbsp;=
+</span><o:p></o:p></p>
 </div>
 <div>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt; color:black">&nbs=
-p;</span></p>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">&nbsp;=
+</span><o:p></o:p></p>
 </div>
-<div class=3D"x_MsoNormal" align=3D"center" style=3D"text-align:center">
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
 <hr size=3D"2" width=3D"98%" align=3D"center">
 </div>
 <div id=3D"x_divRplyFwdMsg">
-<p class=3D"x_MsoNormal"><b><span style=3D"color:black">From:</span></b><sp=
-an style=3D"color:black"> Lazar, Lijo &lt;<a href=3D"mailto:Lijo.Lazar@amd.=
-com">Lijo.Lazar@amd.com</a>&gt;<br>
+<p class=3D"xmsonormal"><b><span style=3D"color:black">From:</span></b><spa=
+n style=3D"color:black"> Lazar, Lijo &lt;<a href=3D"mailto:Lijo.Lazar@amd.c=
+om">Lijo.Lazar@amd.com</a>&gt;<br>
 <b>Sent:</b> Monday, May 31, 2021 2:04 AM<br>
 <b>To:</b> Powell, Darren &lt;<a href=3D"mailto:Darren.Powell@amd.com">Darr=
 en.Powell@amd.com</a>&gt;;
@@ -745,14 +950,14 @@ org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.=
 freedesktop.org</a>&gt;<br>
 <b>Subject:</b> RE: [PATCH 2/6] amdgpu/pm: clean up smu_get_power_limit fun=
 ction signature</span>
-</p>
+<o:p></o:p></p>
 <div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
 </div>
 </div>
 <div>
 <div>
-<p class=3D"x_MsoNormal">[Public]<br>
+<p class=3D"xmsonormal">[Public]<br>
 <br>
 <br>
 <br>
@@ -1060,7 +1265,8 @@ tex);<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (limit_type !=3D SMU_DE=
 FAULT_PPT_LIMIT) {<br>
 --<br>
-2.25.1</p>
+2.25.1<o:p></o:p></p>
+</div>
 </div>
 </div>
 </div>
@@ -1070,9 +1276,9 @@ FAULT_PPT_LIMIT) {<br>
 </body>
 </html>
 
---_000_DM6PR12MB2954060EE8BA02E3E048FECEF03D9DM6PR12MB2954namp_--
+--_000_CH0PR12MB5348672703366A7EDE22BE8B973D9CH0PR12MB5348namp_--
 
---===============1275543689==
+--===============0571825507==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -1083,4 +1289,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============1275543689==--
+--===============0571825507==--
