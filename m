@@ -7,55 +7,54 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B43B2C47096
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 16:51:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D9320C4708F
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 16:51:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8679F61C64
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 16:51:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8679F61C64
+	by mail.kernel.org (Postfix) with ESMTPS id AFDDF61C53
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 16:51:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AFDDF61C53
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7C866EDD5;
-	Wed,  2 Jun 2021 16:51:20 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2075.outbound.protection.outlook.com [40.107.93.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80A856EDD1
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Jun 2021 16:51:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BCCC6EDC0;
+	Wed,  2 Jun 2021 16:51:22 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2052.outbound.protection.outlook.com [40.107.223.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EE4E6EDD4
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Jun 2021 16:51:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lD9XZap3tyJj4Maoo3kRF4otF8GwXNx8M1YLVdBEnrL6PT4sSoAhIViE68BFOMzE3ly0dtoMuke0SyQB3+oxnpYjEQ/B+hmrQMqn8N0e9+TVctAAJWJXOVS8+QtUGJ7ewSp5Vl7blqO4o7j+CVPy8z6BHjS7/TOX6Mx94LU0u5mBJaYwqYpAW5yf39dV7wCjlkp8NcCH3L42tmsDrbJmvWl3CqzXwfkF0cDfoBDxDo4bgGykYitDAw9eBouAadmj3VM4AoeJh/Ypr8BMNucZDCmqusU8vxH9YzLFgTrnrn61L75JzpWOwfFZNM1FGZiQ2iEXUnZcZP3Vj7B7fyrcrA==
+ b=XT1Ej1qQEJZeaGaroLT++V8TRZj5k7MGnK/HwUwuSqiMQ8EQHhNBjQrZRZv/YLqeALaQkGeplpw2RIIC8f5CymI9RAIIRV5KmyrIIz9jhLuQ0OOGx2qnhs+yUDCkxqMgItNN95RVyhu0eL3ME0eLKw4t9rdoXhJjgv5Zvxm38kfcHTHDnaOv5i7ot8hMvTB/sjLxD10wfX7vXbwfQJg7VV2Zg64mJrpWL5o2fJE95QAZThg47pgS/a8C6e36DOYrezgutI0scmwD6eRExMxKpbCWznih6x6v0EaPD4JFl7tSM4spZNMPvzuv2pxIapW5R+tdeT82iv53m7nMqjtDSg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SGsHdUJWSlv4XJ+DiEw4P2wmwh56uVwRKZ7x//sdZrY=;
- b=O9/SLvSJjz8eYNFjX7axnM6F/FU2ma/ttFndyPVeTbs7Zu3EN22NkHJOuzU16GOh2ltvzOKFimL9UG8nLTZIoABdL2Bm+6ZzNEbvu7fVUy8vGvbM4hiIADm8SH4ddDe9ClCNx+XZ2gYxgQ95zc+6dQzhmoXTQm09gGzfHdsi9Bob3MNqjGmECrxyckSd3vQFcbIw5WGZLWhf0kmM0RyZEewWbFzttycD2vz5CUFYwXEr+YpiQs3VMxWuu7rohQy6wXLGjozbgekE5JV6CHwTfQAekqVqTzKDAK6AO7YmKYxfE7zpCZ2uAV6+HVEm8HrAp59Iv2v0U9ILDqoJ9+uzCQ==
+ bh=vBd5XwPbgxJfDXA7N/BH3pkxGtoFagHazgwlAiq43Ww=;
+ b=lXkAQo6rrCWQgzwQGxXmfrKvzUOCcY+3HWYHfU01U/R/NdWhdrcvjhiA2FJuVsAWH2zAZJELQHfdE1K6QOZYKyL+DsYuS1oEUZLDOMzNortmucN93E8e7bZT78vETB5SnJUiCzoRX55EaaTpSofkoiq8gFqV//Zww/b1pbayCc9Klj4FC5nEDMVBcxqbJR9Qp/SVwRJUz7FKqWfUjljT89fiNVuGCB0Spyg2JptO4X7ttnhZH9TSs4R3woB3X7eHddW/movHFBoThH5dxPOf4yv4Vxt2m87Nw+40XlS0QmSBx3BJp9JP0m5FvtAn4hetshOxLmiYMNoKx3d9RGLbyw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SGsHdUJWSlv4XJ+DiEw4P2wmwh56uVwRKZ7x//sdZrY=;
- b=SHaNVep7Gy3O5LI5K1ZUJFTkf0CGSciF09fPrJlAMjlOTWm3uewrV0H3dDKI/2tWemW0FepgdKnQTqHWjIq66yhrWSqdZ5UYxZCJ7Gxe8ZoMy5r4CZmnXBonQitvN1fVyXr4dFJSQDfsiFMEOeupOVY6v2viqSKpYEOd8ChrYc0=
+ bh=vBd5XwPbgxJfDXA7N/BH3pkxGtoFagHazgwlAiq43Ww=;
+ b=TbOUu73TsrLD/Pblgp02DHilLHNUdI+RBXgVU7gjgGmVlQKx1LkCkJY9vNMae7FA/LOUpucY7UpfbuMjaXOiaREfQi62WvD+UtDbKKa4TXSfSn9yKd0JHkYzQ2rV4pMrpW3R4YULsLghplmCash8g1RHIVlHdSuc1B/C6+C7LI8=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
 Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
- by BL0PR12MB2369.namprd12.prod.outlook.com (2603:10b6:207:40::31)
+ by MN2PR12MB4534.namprd12.prod.outlook.com (2603:10b6:208:24f::10)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.20; Wed, 2 Jun
- 2021 16:51:17 +0000
+ 2021 16:51:18 +0000
 Received: from MN2PR12MB4488.namprd12.prod.outlook.com
  ([fe80::25f7:664:3a8f:25b6]) by MN2PR12MB4488.namprd12.prod.outlook.com
  ([fe80::25f7:664:3a8f:25b6%7]) with mapi id 15.20.4173.030; Wed, 2 Jun 2021
- 16:51:17 +0000
+ 16:51:18 +0000
 From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 69/89] drm/amdgpu: Update atomfirmware for DCN3.1 phy tuning
- and eDP caps
-Date: Wed,  2 Jun 2021 12:48:48 -0400
-Message-Id: <20210602164908.2848791-69-alexander.deucher@amd.com>
+Subject: [PATCH 72/89] drm/amd/display: Add DCN3.1 DCCG
+Date: Wed,  2 Jun 2021 12:48:51 -0400
+Message-Id: <20210602164908.2848791-72-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210602164908.2848791-1-alexander.deucher@amd.com>
 References: <20210602164908.2848791-1-alexander.deucher@amd.com>
@@ -69,53 +68,53 @@ Received: from localhost.localdomain (192.161.79.207) by
  MN2PR13CA0007.namprd13.prod.outlook.com (2603:10b6:208:160::20) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.9 via Frontend
- Transport; Wed, 2 Jun 2021 16:50:15 +0000
+ Transport; Wed, 2 Jun 2021 16:50:17 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 759f18b1-4115-45f0-1dea-08d925e67f03
-X-MS-TrafficTypeDiagnostic: BL0PR12MB2369:
+X-MS-Office365-Filtering-Correlation-Id: 6265edeb-ae4f-47d1-79a8-08d925e68028
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4534:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BL0PR12MB2369597369E50E18104B97A3F73D9@BL0PR12MB2369.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
+X-Microsoft-Antispam-PRVS: <MN2PR12MB4534C21893DB6AF5F3298518F73D9@MN2PR12MB4534.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: XbMu/xFQud19eRYR8iH88T0EgXWjfM6ba8CTk8byqVFnZk2VMwk6OeVVdn0w45Ci2en4jB7SuvyXQVFsSAMtD+cDBxqi6CipRem7my8C5MlzcPQF5jB06cuE2fubOsIQt05OI1hLiEaqbodiJEV8TfvXwN5cvpB6tSmlgomuaSb5N0Se89ATCN6BT/wXKNnhPSChKPe6BCA4BPD/k6HdBcR2Ij3kiXHVEZyhZItaP3UEaM0ZcXu+rKRYlgalj5EdUIBKcwwQwmCa3/bLAgvoKc+gBMoKYyX8QzlJX7kdPghYON3cZY1hPiLTv+1Axy02AY4exSBlW58RLUMsnBS7VgBaAYZ/uGw22/w3bT7uMeaaNiBY3RVP0LRvAvDVzwppVdguFN09ecxFDm6biIz7gjaR2N4rtFSuMQMlCnOWTDy+adLVGbnK36NK5Znieb08xf/4hcBmeIcJHopeBWEnQympwWm06hkBZItsurULZPnXR6Hqxo8KmxsNWJUWNt5JxNs2gtGs54a0NsF1FD0J15luGVR6i1fChAgZ0dk26o0w4cCDdmuR9NcTQTn4bFA2ULUBJ1JEfUUJzeUgx4yyt1MqO4iZc7X1O5an1ioYOz/ihefuVZREA69I98Pt0vOAkGusjycIrMCiKV8SDMOdAmZ2g+qW8nMj/MyOY/Ss5e6dkuwNEhcFUuxYg5QP+89C
+X-Microsoft-Antispam-Message-Info: 0NCf+ljs/lwRr2X4xsMhESe9GS+TRNlhIXZ4zxml6TW4vT+uBSujnxN2tJBh4SKqTJjXoUtK70hx5o7AqHIJt3YKQqiUZhXB/lDuYmZktagtyzquE/IIabgCKDBMeXmvykqXwl3ZaVrqKmgC+tfURBez99YwxIoJk8iwrr3UuJ6Z+tTpG9R4T7oYzItVOghNtdmTFqI+QWLKCbstQ2sulzheXfeIbR7SmoPJZUp406wH5KOXP5BKzvOViUyF1hnKkMa5o0ItM8GVI7742KD2Jypw6vhRcvlaOeKd4GEsBVXuprOlrr1uTOlV4dcg+uJiKUNDm0A0DTeLq7xmwx6jojAsULchkk0fe9AcCTdw7gWuFYz/kv47zzuSqfi99BHAnahAdwONolvvAlTflOFnFMlTOzzIWQz0kXMqXElK9YzkkR8zPctUbJvZ/n39vgLDTOd3oFhldo3unMFRVhz8+uwq1OxFG1BEQ8AbX5vrB/wNh3jNSnAcXrKQOvXS9ZLGF24nUhZEZE01ZR5GIvs8fH5OBY+3oeIyl1KXuXysoIbsQSk+NmXRcQcd6jIAQ/bUpsBPHcD5OAcpLXJmKI6aX2/K9dK8yMiJeUg1LdnIW9jGpx5fHcd9LfjV3F4SMd4BbFat71Em3hm2cmEBf8Sq7mhYcTIYhO7Lrxv1Qb50vlCGUQ90Nv1DSjHr9D8W6Zj9
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(376002)(39850400004)(346002)(366004)(396003)(54906003)(1076003)(8676002)(6916009)(956004)(2616005)(478600001)(6512007)(6486002)(86362001)(6506007)(4326008)(6666004)(38100700002)(316002)(38350700002)(52116002)(26005)(186003)(5660300002)(66476007)(66946007)(8936002)(83380400001)(36756003)(66556008)(16526019)(2906002)(69590400013);
+ SFS:(4636009)(396003)(346002)(39860400002)(136003)(376002)(366004)(30864003)(1076003)(8676002)(2906002)(8936002)(4326008)(2616005)(956004)(38350700002)(478600001)(38100700002)(83380400001)(66946007)(66476007)(66556008)(36756003)(54906003)(6486002)(52116002)(6916009)(316002)(6512007)(6506007)(16526019)(26005)(6666004)(5660300002)(186003)(86362001)(69590400013);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?iePwOQhZITK2iGIQmCdC07avw6PIJwfeU+626QbjHUxVH51ef78yxtAn4Lki?=
- =?us-ascii?Q?lx9zpGc1aHTtfwiuS+9KZzZLkPViPDGqjvnDyKo1VLrzMDBkHA3fgVxGbsel?=
- =?us-ascii?Q?NGHRh2LsWxyMFBR1FQcoi2QHnECWbkZ1XNeFGgXWyNGq8S4n9p8SChiFtwqR?=
- =?us-ascii?Q?126zjtn4aCp4u1kmNdtaqclzhD0TwRCuxmzzhys3PeueFHXPMZG/59MZfbTs?=
- =?us-ascii?Q?Q2+6ecfgv/787vZoba5gUiO9in6+V8qGFHILbbsym7yhtyV1CP3z84o/pskH?=
- =?us-ascii?Q?cfs8TjZ7dtJlIIPKOOZ8zxTXq+52GlH34irasOJaiWnoZCW4TQbpOXkVkeOu?=
- =?us-ascii?Q?4UkV7iLyAgkb72OuWTudqKv9MKK02/VmxnOU1nDcV+akMM/WKxH5LA/J8rJw?=
- =?us-ascii?Q?JDq4TVlwEbgKhoFOMEhnMfscbZ652XFoSTJnQE3y1A/ZGSYq9HhxgCN3UeYj?=
- =?us-ascii?Q?X/Ubm0EyGEB7rdUKcaWHgxrnvOWF/1p3cuuuweMUWTRBRYhfOjVtNNTNemBm?=
- =?us-ascii?Q?YWhVyRPckVnYeRGFt2uRDQpxdX/D7QOvZu8lgPptdAmaK9760zYt+SibLa/f?=
- =?us-ascii?Q?I38wtptJa4xz9IufpqpVQk8QF2Lj3Jl5hJAe8qjdp+GzOQDUukXFT/1isaeI?=
- =?us-ascii?Q?Y9Kj7XYoqKA5gaLwPusKtlxNDSU+ZZtcEkMeYb/4AEpEgghTImcRBNO7bcIE?=
- =?us-ascii?Q?27ux/dL9mcPR4phBJKSxEGg623/7larduDeBdaSIvz9lkhPhrIMWkWgIraQC?=
- =?us-ascii?Q?yBwrvVavabZeZO724c8lyLzng4yqSr5MZXH1KvDRJWKNNC+7qGt9XqevfLkL?=
- =?us-ascii?Q?L1rMDrHcm3BUV50lMRsNNc85axdap2zHF1238zLr0coPcaNbAqDDU9xqia4V?=
- =?us-ascii?Q?mBQ9n+ORitUj6MGmSWsAoDhgae2zqN1Zrwi0KIV4lYQNRbsIR6uhUvs0S+x1?=
- =?us-ascii?Q?9Ngc+344gnB2B7y+ykiH6fM5X7XzkZnu381Fj8mtdBIlGHBfkRkt/fdCc5Ud?=
- =?us-ascii?Q?xlFyoH8JrucPabBqjamdH+M4he0uVoR88Z+6ZKQbN2De4NW72v2EHgmkRpSx?=
- =?us-ascii?Q?C48mQ/XdXYMtNnz6Z2lP7M+3p5lMG1arLA2xKt/Wa0fEYNQvNDeQfwh+Jzew?=
- =?us-ascii?Q?yUJ2KaLVxykbtTzydU/sdiufNrWmcV7c2Q2Z6EHtnRP5qmswzJTuDHtTyh/s?=
- =?us-ascii?Q?ZvUCixy9+GnyAd2evUFKOe+btjQF2U5EyD4ls1hndpRnNqvsjzGe5NzDLwE3?=
- =?us-ascii?Q?2laZwZZd+X1VDZA2v5s+X8I31hGfO8j5AO3eiJG47Z6vGyavpuu6GZwvEn28?=
- =?us-ascii?Q?ul6+fdf6zKoD+6HmQd2CjNWc?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?4r2HXl5ro48Ht83PmGe700RdT2vdpJlNgzi2hm6Kk4l0+OzKUklce/akGEeH?=
+ =?us-ascii?Q?rcU28HNW0HWCk/CA17c8b7SJmGMWJgzZkd4H8Ac37C+4yUzmxvPaMg0MfEN0?=
+ =?us-ascii?Q?FkRQy2D2fwO/pgfU+qMGYngJHnk6zeXRt/JcjlTqnsQRJqYjmrO0HQjw1l1G?=
+ =?us-ascii?Q?AITiVZ+WMM2iGnueJU/J4fnsfbF6KZVrdCbcdA3TWznL44dHIIxIM6rEkC5u?=
+ =?us-ascii?Q?WOEACOo3QdtQ7twIv1NldGy5e7w8Zs4zDQ8YudbWFaN1+TLX1p2Fmmac0/Wk?=
+ =?us-ascii?Q?2+HYOblx55Dx2a763mh8MyPM2ONmrQHYFZoeVf9BVGR66ASvXp/qhddX0hPf?=
+ =?us-ascii?Q?u2sPCZ8+I5imHNe0Rm7yCyHddiFjKYJoREX5VLzzZzktXM6mQef1MErlEiZe?=
+ =?us-ascii?Q?hSwvvTGFJ4iZj3GyKWeTGH/uo/CfRqYglqRiBMSBy838ab9IkMJR9X9coDph?=
+ =?us-ascii?Q?kvWBLrjJxLMash2h9rwV+pEN1Zq2CPR12lpIATO1PsJgAYjWHuovFgyr60ss?=
+ =?us-ascii?Q?cCdkWtNjWl0Xy1FqHB6N/x8H2VHsWAFMQ4tfzrHka0+uiYXH5Yj7D1MMbR0U?=
+ =?us-ascii?Q?VZpP3wX1WCsuv+7tYs5E+kC2uNb7qhuKekj/3GQdWtvz7vfwOOo7jlrMoGHk?=
+ =?us-ascii?Q?vZeGVIBl6TksDqBHTH2a2IYMnL0DMqJ5OY8dbBGhLz7rrLfoib/xOAJSDyZD?=
+ =?us-ascii?Q?MQspVnRyLdnHBmmjA7TccvxAw7yEa+uD3F0IDAsqnqRz2asU3TBidCw77ALk?=
+ =?us-ascii?Q?HFhsD75Axgq/yho1jOHEZz9uXEb4k6HnT/JuVZOGEmy385jx1nVUg3Ua2+5H?=
+ =?us-ascii?Q?DxOA2vhETJ3DNQIhvu+1x2ltPWcqV/PLykwmUasRs7FbGnrUpFJ4VzFlmikn?=
+ =?us-ascii?Q?wvzJ6PVzHxgLrNdCPc3kPTJWaOj2ZEozwLuZ9hoV6uDP3Moo11ipZZufx6J+?=
+ =?us-ascii?Q?ZDPyyiaCdmwCvVBJe8VvehdGhxPdTc2zxJ2bN0Lg0rGn7GL1gUbjLyyQZY6Q?=
+ =?us-ascii?Q?IdVpT7eza63wdxKBQvt/KbqP2oZoXbqgbVwoAlRhbx8EzoV/4UG9m8MiSerj?=
+ =?us-ascii?Q?N3A35UgAjtc/Uk9ANwKv2q0L+J49DmzkJCswQp91DnuW0KOOx079N8IGjwVz?=
+ =?us-ascii?Q?oLwwzEOLSEE38K0v9jpRdhh5jY9DxCuS46UTLmFHJCFrCo/Gyk5Wu6hJwAfl?=
+ =?us-ascii?Q?j7eAYPL7AEf8Q2Vc71ut9HGZbQ8WzgYGF1fKwE7tXXFHvcC9NJ90MvfIKQmR?=
+ =?us-ascii?Q?2/FTXa5ecJSOwjadJ0yRfDCjq40a5F+clBzCtZUkm0PQRtbvtmhyv1EYpctr?=
+ =?us-ascii?Q?EoqtHiq2H7RWdDMjafBxALzq?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 759f18b1-4115-45f0-1dea-08d925e67f03
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6265edeb-ae4f-47d1-79a8-08d925e68028
 X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2021 16:50:15.4735 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2021 16:50:17.4847 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xYo3TME/MXsYwjQBU+ucyQ1iFfq9arR355Bicg1VsZPRJzKboDuRJA/34LdGJbeoL8+yyWI28TWcXs7pFuCcsw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2369
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2aiuV/vS/0WQfaLV44MZuIbbwhqqdbkz28v6LdTnv13JksTyu6dO7+pYfn1Sv1UwTpM5yEpYxicx7vtPMTQfVA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4534
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,92 +135,622 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 
-[Why & How]
-We'll need these in driver for phy tuning in DCN3.1.
+Add programming of the DCCG (Display Controller Clock Generator) block:
 
-Multiple eDP support also requires understanding which LCD the backlight
-curve in atombios is for.
+HW Blocks:
+
+    +--------+
+    |  DCCG  |
+    +--------+
 
 Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/include/atomfirmware.h | 56 +++++++++++++++++++++-
- 1 file changed, 55 insertions(+), 1 deletion(-)
+ .../gpu/drm/amd/display/dc/dcn20/dcn20_dccg.h |  54 ++++
+ .../gpu/drm/amd/display/dc/dcn31/dcn31_dccg.c | 279 ++++++++++++++++++
+ .../gpu/drm/amd/display/dc/dcn31/dcn31_dccg.h | 147 +++++++++
+ drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h  |  56 ++++
+ 4 files changed, 536 insertions(+)
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dccg.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dccg.h
 
-diff --git a/drivers/gpu/drm/amd/include/atomfirmware.h b/drivers/gpu/drm/amd/include/atomfirmware.h
-index 28deecc2f990..3811e58dd857 100644
---- a/drivers/gpu/drm/amd/include/atomfirmware.h
-+++ b/drivers/gpu/drm/amd/include/atomfirmware.h
-@@ -883,7 +883,8 @@ struct  atom_bracket_layout_record
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dccg.h b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dccg.h
+index d407f33308b9..e5aa2da3176d 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dccg.h
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dccg.h
+@@ -84,14 +84,53 @@
+ 	type PHYCSYMCLK_FORCE_EN;\
+ 	type PHYCSYMCLK_FORCE_SRC_SEL;
+ 
++#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
++#define DCCG31_REG_FIELD_LIST(type) \
++	type PHYDSYMCLK_FORCE_EN;\
++	type PHYDSYMCLK_FORCE_SRC_SEL;\
++	type PHYESYMCLK_FORCE_EN;\
++	type PHYESYMCLK_FORCE_SRC_SEL;\
++	type DPSTREAMCLK_PIPE0_EN;\
++	type DPSTREAMCLK_PIPE1_EN;\
++	type DPSTREAMCLK_PIPE2_EN;\
++	type DPSTREAMCLK_PIPE3_EN;\
++	type HDMISTREAMCLK0_SRC_SEL;\
++	type HDMISTREAMCLK0_DTO_FORCE_DIS;\
++	type SYMCLK32_SE0_SRC_SEL;\
++	type SYMCLK32_SE1_SRC_SEL;\
++	type SYMCLK32_SE2_SRC_SEL;\
++	type SYMCLK32_SE3_SRC_SEL;\
++	type SYMCLK32_SE0_EN;\
++	type SYMCLK32_SE1_EN;\
++	type SYMCLK32_SE2_EN;\
++	type SYMCLK32_SE3_EN;\
++	type SYMCLK32_LE0_SRC_SEL;\
++	type SYMCLK32_LE1_SRC_SEL;\
++	type SYMCLK32_LE0_EN;\
++	type SYMCLK32_LE1_EN;\
++	type DTBCLK_DTO_ENABLE[MAX_PIPES];\
++	type DTBCLKDTO_ENABLE_STATUS[MAX_PIPES];\
++	type PIPE_DTO_SRC_SEL[MAX_PIPES];\
++	type DTBCLK_DTO_DIV[MAX_PIPES];\
++	type DCCG_AUDIO_DTO_SEL;\
++	type DCCG_AUDIO_DTO0_SOURCE_SEL;\
++	type DENTIST_DISPCLK_CHG_MODE;
++#endif
++
+ struct dccg_shift {
+ 	DCCG_REG_FIELD_LIST(uint8_t)
+ 	DCCG3_REG_FIELD_LIST(uint8_t)
++#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
++	DCCG31_REG_FIELD_LIST(uint8_t)
++#endif
  };
  
- enum atom_display_device_tag_def{
--  ATOM_DISPLAY_LCD1_SUPPORT            = 0x0002,  //an embedded display is either an LVDS or eDP signal type of display
-+  ATOM_DISPLAY_LCD1_SUPPORT            = 0x0002, //an embedded display is either an LVDS or eDP signal type of display
-+  ATOM_DISPLAY_LCD2_SUPPORT			       = 0x0020, //second edp device tag 0x0020 for backward compability
-   ATOM_DISPLAY_DFP1_SUPPORT            = 0x0008,
-   ATOM_DISPLAY_DFP2_SUPPORT            = 0x0080,
-   ATOM_DISPLAY_DFP3_SUPPORT            = 0x0200,
-@@ -1413,6 +1414,59 @@ struct atom_integrated_system_info_v2_1
- 
+ struct dccg_mask {
+ 	DCCG_REG_FIELD_LIST(uint32_t)
+ 	DCCG3_REG_FIELD_LIST(uint32_t)
++#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
++	DCCG31_REG_FIELD_LIST(uint32_t)
++#endif
  };
  
-+struct atom_n6_display_phy_tuning_set {
-+	uint8_t display_signal_type;
-+	uint8_t phy_sel;
-+	uint8_t preset_level;
-+	uint8_t reserved1;
-+	uint32_t reserved2;
-+	uint32_t speed_upto;
-+	uint8_t tx_vboost_level;
-+	uint8_t tx_vreg_v2i;
-+	uint8_t tx_vregdrv_byp;
-+	uint8_t tx_term_cntl;
-+	uint8_t tx_peak_level;
-+	uint8_t tx_slew_en;
-+	uint8_t tx_eq_pre;
-+	uint8_t tx_eq_main;
-+	uint8_t tx_eq_post;
-+	uint8_t tx_en_inv_pre;
-+	uint8_t tx_en_inv_post;
-+	uint8_t reserved3;
-+	uint32_t reserved4;
-+	uint32_t reserved5;
-+	uint32_t reserved6;
-+};
+ struct dccg_registers {
+@@ -102,6 +141,21 @@ struct dccg_registers {
+ 	uint32_t PHYASYMCLK_CLOCK_CNTL;
+ 	uint32_t PHYBSYMCLK_CLOCK_CNTL;
+ 	uint32_t PHYCSYMCLK_CLOCK_CNTL;
++#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
++	uint32_t PHYDSYMCLK_CLOCK_CNTL;
++	uint32_t PHYESYMCLK_CLOCK_CNTL;
++	uint32_t OTG_PIXEL_RATE_CNTL[MAX_PIPES];
++	uint32_t DTBCLK_DTO_MODULO[MAX_PIPES];
++	uint32_t DTBCLK_DTO_PHASE[MAX_PIPES];
++	uint32_t DCCG_AUDIO_DTBCLK_DTO_MODULO;
++	uint32_t DCCG_AUDIO_DTBCLK_DTO_PHASE;
++	uint32_t DCCG_AUDIO_DTO_SOURCE;
++	uint32_t DPSTREAMCLK_CNTL;
++	uint32_t HDMISTREAMCLK_CNTL;
++	uint32_t SYMCLK32_SE_CNTL;
++	uint32_t SYMCLK32_LE_CNTL;
++	uint32_t DENTIST_DISPCLK_CNTL;
++#endif
+ };
+ 
+ struct dcn_dccg {
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dccg.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dccg.c
+new file mode 100644
+index 000000000000..696c9307715d
+--- /dev/null
++++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dccg.c
+@@ -0,0 +1,279 @@
++/*
++ * Copyright 2018 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ * Authors: AMD
++ *
++ */
 +
-+struct atom_display_phy_tuning_info {
-+	struct atom_common_table_header table_header;
-+	struct atom_n6_display_phy_tuning_set disp_phy_tuning[1];
-+};
++#include "reg_helper.h"
++#include "core_types.h"
++#include "dcn31_dccg.h"
 +
-+struct atom_integrated_system_info_v2_2
++#define TO_DCN_DCCG(dccg)\
++	container_of(dccg, struct dcn_dccg, base)
++
++#define REG(reg) \
++	(dccg_dcn->regs->reg)
++
++#undef FN
++#define FN(reg_name, field_name) \
++	dccg_dcn->dccg_shift->field_name, dccg_dcn->dccg_mask->field_name
++
++#define CTX \
++	dccg_dcn->base.ctx
++#define DC_LOGGER \
++	dccg->ctx->logger
++
++void dccg31_set_physymclk(
++		struct dccg *dccg,
++		int phy_inst,
++		enum physymclk_clock_source clk_src,
++		bool force_enable)
 +{
-+	struct  atom_common_table_header  table_header;
-+	uint32_t  vbios_misc;                       //enum of atom_system_vbiosmisc_def
-+	uint32_t  gpucapinfo;                       //enum of atom_system_gpucapinf_def
-+	uint32_t  system_config;
-+	uint32_t  cpucapinfo;
-+	uint16_t  gpuclk_ss_percentage;             //unit of 0.001%,   1000 mean 1%
-+	uint16_t  gpuclk_ss_type;
-+	uint16_t  dpphy_override;                   // bit vector, enum of atom_sysinfo_dpphy_override_def
-+	uint8_t   memorytype;                       // enum of atom_dmi_t17_mem_type_def, APU memory type indication.
-+	uint8_t   umachannelnumber;                 // number of memory channels
-+	uint8_t   htc_hyst_limit;
-+	uint8_t   htc_tmp_limit;
-+	uint8_t   reserved1;
-+	uint8_t   reserved2;
-+	struct edp_info_table edp1_info;
-+	struct edp_info_table edp2_info;
-+	uint32_t  reserved3[8];
-+	struct atom_external_display_connection_info extdispconninfo;
++	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
 +
-+	uint32_t  reserved4[189];
++	/* Force PHYSYMCLK on and Select phyd32clk as the source of clock which is output to PHY through DCIO */
++	switch (phy_inst) {
++	case 0:
++		if (force_enable)
++			REG_UPDATE_2(PHYASYMCLK_CLOCK_CNTL,
++					PHYASYMCLK_FORCE_EN, 1,
++					PHYASYMCLK_FORCE_SRC_SEL, clk_src);
++		else
++			REG_UPDATE_2(PHYASYMCLK_CLOCK_CNTL,
++					PHYASYMCLK_FORCE_EN, 0,
++					PHYASYMCLK_FORCE_SRC_SEL, 0);
++		break;
++	case 1:
++		if (force_enable)
++			REG_UPDATE_2(PHYBSYMCLK_CLOCK_CNTL,
++					PHYBSYMCLK_FORCE_EN, 1,
++					PHYBSYMCLK_FORCE_SRC_SEL, clk_src);
++		else
++			REG_UPDATE_2(PHYBSYMCLK_CLOCK_CNTL,
++					PHYBSYMCLK_FORCE_EN, 0,
++					PHYBSYMCLK_FORCE_SRC_SEL, 0);
++		break;
++	case 2:
++		if (force_enable)
++			REG_UPDATE_2(PHYCSYMCLK_CLOCK_CNTL,
++					PHYCSYMCLK_FORCE_EN, 1,
++					PHYCSYMCLK_FORCE_SRC_SEL, clk_src);
++		else
++			REG_UPDATE_2(PHYCSYMCLK_CLOCK_CNTL,
++					PHYCSYMCLK_FORCE_EN, 0,
++					PHYCSYMCLK_FORCE_SRC_SEL, 0);
++		break;
++	case 3:
++		if (force_enable)
++			REG_UPDATE_2(PHYDSYMCLK_CLOCK_CNTL,
++					PHYDSYMCLK_FORCE_EN, 1,
++					PHYDSYMCLK_FORCE_SRC_SEL, clk_src);
++		else
++			REG_UPDATE_2(PHYDSYMCLK_CLOCK_CNTL,
++					PHYDSYMCLK_FORCE_EN, 0,
++					PHYDSYMCLK_FORCE_SRC_SEL, 0);
++		break;
++	case 4:
++		if (force_enable)
++			REG_UPDATE_2(PHYESYMCLK_CLOCK_CNTL,
++					PHYESYMCLK_FORCE_EN, 1,
++					PHYESYMCLK_FORCE_SRC_SEL, clk_src);
++		else
++			REG_UPDATE_2(PHYESYMCLK_CLOCK_CNTL,
++					PHYESYMCLK_FORCE_EN, 0,
++					PHYESYMCLK_FORCE_SRC_SEL, 0);
++		break;
++	default:
++		BREAK_TO_DEBUGGER();
++		return;
++	}
++}
++
++/* Controls the generation of pixel valid for OTG in (OTG -> HPO case) */
++void dccg31_set_dtbclk_dto(
++		struct dccg *dccg,
++		int dtbclk_inst,
++		int req_dtbclk_khz,
++		int num_odm_segments,
++		const struct dc_crtc_timing *timing)
++{
++	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
++	uint32_t dtbdto_div;
++
++	/* Mode	                DTBDTO Rate       DTBCLK_DTO<x>_DIV Register
++	 * ODM 4:1 combine      pixel rate/4      2
++	 * ODM 2:1 combine      pixel rate/2      4
++	 * non-DSC 4:2:0 mode   pixel rate/2      4
++	 * DSC native 4:2:0     pixel rate/2      4
++	 * DSC native 4:2:2     pixel rate/2      4
++	 * Other modes          pixel rate        8
++	 */
++	if (num_odm_segments == 4) {
++		dtbdto_div = 2;
++		req_dtbclk_khz = req_dtbclk_khz / 4;
++	} else if ((num_odm_segments == 2) ||
++			(timing->pixel_encoding == PIXEL_ENCODING_YCBCR420) ||
++			(timing->flags.DSC && timing->pixel_encoding == PIXEL_ENCODING_YCBCR422
++					&& !timing->dsc_cfg.ycbcr422_simple)) {
++		dtbdto_div = 4;
++		req_dtbclk_khz = req_dtbclk_khz / 2;
++	} else
++		dtbdto_div = 8;
++
++	if (dccg->ref_dtbclk_khz && req_dtbclk_khz) {
++		uint32_t modulo, phase;
++
++		// phase / modulo = dtbclk / dtbclk ref
++		modulo = dccg->ref_dtbclk_khz * 1000;
++		phase = div_u64((((unsigned long long)modulo * req_dtbclk_khz) + dccg->ref_dtbclk_khz - 1),
++			dccg->ref_dtbclk_khz);
++
++		REG_UPDATE(OTG_PIXEL_RATE_CNTL[dtbclk_inst],
++				DTBCLK_DTO_DIV[dtbclk_inst], dtbdto_div);
++
++		REG_WRITE(DTBCLK_DTO_MODULO[dtbclk_inst], modulo);
++		REG_WRITE(DTBCLK_DTO_PHASE[dtbclk_inst], phase);
++
++		REG_UPDATE(OTG_PIXEL_RATE_CNTL[dtbclk_inst],
++				DTBCLK_DTO_ENABLE[dtbclk_inst], 1);
++
++		REG_WAIT(OTG_PIXEL_RATE_CNTL[dtbclk_inst],
++				DTBCLKDTO_ENABLE_STATUS[dtbclk_inst], 1,
++				1, 100);
++
++		/* The recommended programming sequence to enable DTBCLK DTO to generate
++		 * valid pixel HPO DPSTREAM ENCODER, specifies that DTO source select should
++		 * be set only after DTO is enabled
++		 */
++		REG_UPDATE(OTG_PIXEL_RATE_CNTL[dtbclk_inst],
++				PIPE_DTO_SRC_SEL[dtbclk_inst], 1);
++
++		dccg->dtbclk_khz[dtbclk_inst] = req_dtbclk_khz;
++	} else {
++		REG_UPDATE_3(OTG_PIXEL_RATE_CNTL[dtbclk_inst],
++				DTBCLK_DTO_ENABLE[dtbclk_inst], 0,
++				PIPE_DTO_SRC_SEL[dtbclk_inst], 0,
++				DTBCLK_DTO_DIV[dtbclk_inst], dtbdto_div);
++
++		REG_WRITE(DTBCLK_DTO_MODULO[dtbclk_inst], 0);
++		REG_WRITE(DTBCLK_DTO_PHASE[dtbclk_inst], 0);
++
++		dccg->dtbclk_khz[dtbclk_inst] = 0;
++	}
++}
++
++void dccg31_set_audio_dtbclk_dto(
++		struct dccg *dccg,
++		uint32_t req_audio_dtbclk_khz)
++{
++	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
++
++	if (dccg->ref_dtbclk_khz && req_audio_dtbclk_khz) {
++		uint32_t modulo, phase;
++
++		// phase / modulo = dtbclk / dtbclk ref
++		modulo = dccg->ref_dtbclk_khz * 1000;
++		phase = div_u64((((unsigned long long)modulo * req_audio_dtbclk_khz) + dccg->ref_dtbclk_khz - 1),
++			dccg->ref_dtbclk_khz);
++
++
++		REG_WRITE(DCCG_AUDIO_DTBCLK_DTO_MODULO, modulo);
++		REG_WRITE(DCCG_AUDIO_DTBCLK_DTO_PHASE, phase);
++
++		//REG_UPDATE(DCCG_AUDIO_DTO_SOURCE,
++		//		DCCG_AUDIO_DTBCLK_DTO_USE_512FBR_DTO, 1);
++
++		REG_UPDATE(DCCG_AUDIO_DTO_SOURCE,
++				DCCG_AUDIO_DTO_SEL, 4);  //  04 - DCCG_AUDIO_DTO_SEL_AUDIO_DTO_DTBCLK
++
++		dccg->audio_dtbclk_khz = req_audio_dtbclk_khz;
++	} else {
++		REG_WRITE(DCCG_AUDIO_DTBCLK_DTO_PHASE, 0);
++		REG_WRITE(DCCG_AUDIO_DTBCLK_DTO_MODULO, 0);
++
++		REG_UPDATE(DCCG_AUDIO_DTO_SOURCE,
++				DCCG_AUDIO_DTO_SEL, 3);  //  03 - DCCG_AUDIO_DTO_SEL_NO_AUDIO_DTO
++
++		dccg->audio_dtbclk_khz = 0;
++	}
++}
++
++static void dccg31_get_dccg_ref_freq(struct dccg *dccg,
++		unsigned int xtalin_freq_inKhz,
++		unsigned int *dccg_ref_freq_inKhz)
++{
++	/*
++	 * Assume refclk is sourced from xtalin
++	 * expect 24MHz
++	 */
++	*dccg_ref_freq_inKhz = xtalin_freq_inKhz;
++	return;
++}
++
++static void dccg31_set_dispclk_change_mode(
++	struct dccg *dccg,
++	enum dentist_dispclk_change_mode change_mode)
++{
++	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
++
++	REG_UPDATE(DENTIST_DISPCLK_CNTL, DENTIST_DISPCLK_CHG_MODE,
++		   change_mode == DISPCLK_CHANGE_MODE_RAMPING ? 2 : 0);
++}
++
++void dccg31_init(struct dccg *dccg)
++{
++}
++
++static const struct dccg_funcs dccg31_funcs = {
++	.update_dpp_dto = dccg2_update_dpp_dto,
++	.get_dccg_ref_freq = dccg31_get_dccg_ref_freq,
++	.dccg_init = dccg31_init,
++	.set_physymclk = dccg31_set_physymclk,
++	.set_dtbclk_dto = dccg31_set_dtbclk_dto,
++	.set_audio_dtbclk_dto = dccg31_set_audio_dtbclk_dto,
++	.set_dispclk_change_mode = dccg31_set_dispclk_change_mode,
 +};
 +
- // system_config
- enum atom_system_vbiosmisc_def{
-   INTEGRATED_SYSTEM_INFO__GET_EDID_CALLBACK_FUNC_SUPPORT = 0x01,
++struct dccg *dccg31_create(
++	struct dc_context *ctx,
++	const struct dccg_registers *regs,
++	const struct dccg_shift *dccg_shift,
++	const struct dccg_mask *dccg_mask)
++{
++	struct dcn_dccg *dccg_dcn = kzalloc(sizeof(*dccg_dcn), GFP_KERNEL);
++	struct dccg *base;
++
++	if (dccg_dcn == NULL) {
++		BREAK_TO_DEBUGGER();
++		return NULL;
++	}
++
++	base = &dccg_dcn->base;
++	base->ctx = ctx;
++	base->funcs = &dccg31_funcs;
++
++	dccg_dcn->regs = regs;
++	dccg_dcn->dccg_shift = dccg_shift;
++	dccg_dcn->dccg_mask = dccg_mask;
++
++	return &dccg_dcn->base;
++}
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dccg.h b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dccg.h
+new file mode 100644
+index 000000000000..706ad80ba873
+--- /dev/null
++++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dccg.h
+@@ -0,0 +1,147 @@
++/*
++ * Copyright 2018 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ * Authors: AMD
++ *
++ */
++
++#ifndef __DCN31_DCCG_H__
++#define __DCN31_DCCG_H__
++
++#include "dcn30/dcn30_dccg.h"
++
++#define DCCG_SFII(block, reg_name, field_prefix, field_name, inst, post_fix)\
++	.field_prefix ## _ ## field_name[inst] = block ## inst ## _ ## reg_name ## __ ## field_prefix ## inst ## _ ## field_name ## post_fix
++
++
++#define DCCG_REG_LIST_DCN31() \
++	SR(DPPCLK_DTO_CTRL),\
++	DCCG_SRII(DTO_PARAM, DPPCLK, 0),\
++	DCCG_SRII(DTO_PARAM, DPPCLK, 1),\
++	DCCG_SRII(DTO_PARAM, DPPCLK, 2),\
++	DCCG_SRII(DTO_PARAM, DPPCLK, 3),\
++	SR(PHYASYMCLK_CLOCK_CNTL),\
++	SR(PHYBSYMCLK_CLOCK_CNTL),\
++	SR(PHYCSYMCLK_CLOCK_CNTL),\
++	SR(PHYDSYMCLK_CLOCK_CNTL),\
++	SR(PHYESYMCLK_CLOCK_CNTL),\
++	SR(DPSTREAMCLK_CNTL),\
++	SR(SYMCLK32_SE_CNTL),\
++	SR(SYMCLK32_LE_CNTL),\
++	DCCG_SRII(PIXEL_RATE_CNTL, OTG, 0),\
++	DCCG_SRII(PIXEL_RATE_CNTL, OTG, 1),\
++	DCCG_SRII(PIXEL_RATE_CNTL, OTG, 2),\
++	DCCG_SRII(PIXEL_RATE_CNTL, OTG, 3),\
++	DCCG_SRII(MODULO, DTBCLK_DTO, 0),\
++	DCCG_SRII(MODULO, DTBCLK_DTO, 1),\
++	DCCG_SRII(MODULO, DTBCLK_DTO, 2),\
++	DCCG_SRII(MODULO, DTBCLK_DTO, 3),\
++	DCCG_SRII(PHASE, DTBCLK_DTO, 0),\
++	DCCG_SRII(PHASE, DTBCLK_DTO, 1),\
++	DCCG_SRII(PHASE, DTBCLK_DTO, 2),\
++	DCCG_SRII(PHASE, DTBCLK_DTO, 3),\
++	SR(DCCG_AUDIO_DTBCLK_DTO_MODULO),\
++	SR(DCCG_AUDIO_DTBCLK_DTO_PHASE),\
++	SR(DCCG_AUDIO_DTO_SOURCE),\
++	SR(DENTIST_DISPCLK_CNTL)
++
++
++#define DCCG_MASK_SH_LIST_DCN31(mask_sh) \
++	DCCG_SFI(DPPCLK_DTO_CTRL, DTO_ENABLE, DPPCLK, 0, mask_sh),\
++	DCCG_SFI(DPPCLK_DTO_CTRL, DTO_DB_EN, DPPCLK, 0, mask_sh),\
++	DCCG_SFI(DPPCLK_DTO_CTRL, DTO_ENABLE, DPPCLK, 1, mask_sh),\
++	DCCG_SFI(DPPCLK_DTO_CTRL, DTO_DB_EN, DPPCLK, 1, mask_sh),\
++	DCCG_SFI(DPPCLK_DTO_CTRL, DTO_ENABLE, DPPCLK, 2, mask_sh),\
++	DCCG_SFI(DPPCLK_DTO_CTRL, DTO_DB_EN, DPPCLK, 2, mask_sh),\
++	DCCG_SFI(DPPCLK_DTO_CTRL, DTO_ENABLE, DPPCLK, 3, mask_sh),\
++	DCCG_SFI(DPPCLK_DTO_CTRL, DTO_DB_EN, DPPCLK, 3, mask_sh),\
++	DCCG_SF(DPPCLK0_DTO_PARAM, DPPCLK0_DTO_PHASE, mask_sh),\
++	DCCG_SF(DPPCLK0_DTO_PARAM, DPPCLK0_DTO_MODULO, mask_sh),\
++	DCCG_SF(PHYASYMCLK_CLOCK_CNTL, PHYASYMCLK_FORCE_EN, mask_sh),\
++	DCCG_SF(PHYASYMCLK_CLOCK_CNTL, PHYASYMCLK_FORCE_SRC_SEL, mask_sh),\
++	DCCG_SF(PHYBSYMCLK_CLOCK_CNTL, PHYBSYMCLK_FORCE_EN, mask_sh),\
++	DCCG_SF(PHYBSYMCLK_CLOCK_CNTL, PHYBSYMCLK_FORCE_SRC_SEL, mask_sh),\
++	DCCG_SF(PHYCSYMCLK_CLOCK_CNTL, PHYCSYMCLK_FORCE_EN, mask_sh),\
++	DCCG_SF(PHYCSYMCLK_CLOCK_CNTL, PHYCSYMCLK_FORCE_SRC_SEL, mask_sh),\
++	DCCG_SF(PHYDSYMCLK_CLOCK_CNTL, PHYDSYMCLK_FORCE_EN, mask_sh),\
++	DCCG_SF(PHYDSYMCLK_CLOCK_CNTL, PHYDSYMCLK_FORCE_SRC_SEL, mask_sh),\
++	DCCG_SF(PHYESYMCLK_CLOCK_CNTL, PHYESYMCLK_FORCE_EN, mask_sh),\
++	DCCG_SF(PHYESYMCLK_CLOCK_CNTL, PHYESYMCLK_FORCE_SRC_SEL, mask_sh),\
++	DCCG_SF(DPSTREAMCLK_CNTL, DPSTREAMCLK_PIPE0_EN, mask_sh),\
++	DCCG_SF(DPSTREAMCLK_CNTL, DPSTREAMCLK_PIPE1_EN, mask_sh),\
++	DCCG_SF(DPSTREAMCLK_CNTL, DPSTREAMCLK_PIPE2_EN, mask_sh),\
++	DCCG_SF(DPSTREAMCLK_CNTL, DPSTREAMCLK_PIPE3_EN, mask_sh),\
++	DCCG_SF(SYMCLK32_SE_CNTL, SYMCLK32_SE0_SRC_SEL, mask_sh),\
++	DCCG_SF(SYMCLK32_SE_CNTL, SYMCLK32_SE1_SRC_SEL, mask_sh),\
++	DCCG_SF(SYMCLK32_SE_CNTL, SYMCLK32_SE2_SRC_SEL, mask_sh),\
++	DCCG_SF(SYMCLK32_SE_CNTL, SYMCLK32_SE3_SRC_SEL, mask_sh),\
++	DCCG_SF(SYMCLK32_SE_CNTL, SYMCLK32_SE0_EN, mask_sh),\
++	DCCG_SF(SYMCLK32_SE_CNTL, SYMCLK32_SE1_EN, mask_sh),\
++	DCCG_SF(SYMCLK32_SE_CNTL, SYMCLK32_SE2_EN, mask_sh),\
++	DCCG_SF(SYMCLK32_SE_CNTL, SYMCLK32_SE3_EN, mask_sh),\
++	DCCG_SF(SYMCLK32_LE_CNTL, SYMCLK32_LE0_SRC_SEL, mask_sh),\
++	DCCG_SF(SYMCLK32_LE_CNTL, SYMCLK32_LE1_SRC_SEL, mask_sh),\
++	DCCG_SF(SYMCLK32_LE_CNTL, SYMCLK32_LE0_EN, mask_sh),\
++	DCCG_SF(SYMCLK32_LE_CNTL, SYMCLK32_LE1_EN, mask_sh),\
++	DCCG_SFII(OTG, PIXEL_RATE_CNTL, DTBCLK_DTO, ENABLE, 0, mask_sh),\
++	DCCG_SFII(OTG, PIXEL_RATE_CNTL, DTBCLK_DTO, ENABLE, 1, mask_sh),\
++	DCCG_SFII(OTG, PIXEL_RATE_CNTL, DTBCLK_DTO, ENABLE, 2, mask_sh),\
++	DCCG_SFII(OTG, PIXEL_RATE_CNTL, DTBCLK_DTO, ENABLE, 3, mask_sh),\
++	DCCG_SFII(OTG, PIXEL_RATE_CNTL, DTBCLKDTO, ENABLE_STATUS, 0, mask_sh),\
++	DCCG_SFII(OTG, PIXEL_RATE_CNTL, DTBCLKDTO, ENABLE_STATUS, 1, mask_sh),\
++	DCCG_SFII(OTG, PIXEL_RATE_CNTL, DTBCLKDTO, ENABLE_STATUS, 2, mask_sh),\
++	DCCG_SFII(OTG, PIXEL_RATE_CNTL, DTBCLKDTO, ENABLE_STATUS, 3, mask_sh),\
++	DCCG_SFII(OTG, PIXEL_RATE_CNTL, PIPE, DTO_SRC_SEL, 0, mask_sh),\
++	DCCG_SFII(OTG, PIXEL_RATE_CNTL, PIPE, DTO_SRC_SEL, 1, mask_sh),\
++	DCCG_SFII(OTG, PIXEL_RATE_CNTL, PIPE, DTO_SRC_SEL, 2, mask_sh),\
++	DCCG_SFII(OTG, PIXEL_RATE_CNTL, PIPE, DTO_SRC_SEL, 3, mask_sh),\
++	DCCG_SFII(OTG, PIXEL_RATE_CNTL, DTBCLK_DTO, DIV, 0, mask_sh),\
++	DCCG_SFII(OTG, PIXEL_RATE_CNTL, DTBCLK_DTO, DIV, 1, mask_sh),\
++	DCCG_SFII(OTG, PIXEL_RATE_CNTL, DTBCLK_DTO, DIV, 2, mask_sh),\
++	DCCG_SFII(OTG, PIXEL_RATE_CNTL, DTBCLK_DTO, DIV, 3, mask_sh),\
++	DCCG_SF(DCCG_AUDIO_DTO_SOURCE, DCCG_AUDIO_DTO_SEL, mask_sh),\
++	DCCG_SF(DCCG_AUDIO_DTO_SOURCE, DCCG_AUDIO_DTO0_SOURCE_SEL, mask_sh),\
++	DCCG_SF(DENTIST_DISPCLK_CNTL, DENTIST_DISPCLK_CHG_MODE, mask_sh)
++
++
++struct dccg *dccg31_create(
++	struct dc_context *ctx,
++	const struct dccg_registers *regs,
++	const struct dccg_shift *dccg_shift,
++	const struct dccg_mask *dccg_mask);
++
++void dccg31_init(struct dccg *dccg);
++
++void dccg31_set_physymclk(
++		struct dccg *dccg,
++		int phy_inst,
++		enum physymclk_clock_source clk_src,
++		bool force_enable);
++
++void dccg31_set_audio_dtbclk_dto(
++		struct dccg *dccg,
++		uint32_t req_audio_dtbclk_khz);
++
++void dccg31_set_hdmistreamclk(
++		struct dccg *dccg,
++		enum hdmistreamclk_source src);
++
++#endif //__DCN31_DCCG_H__
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h b/drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h
+index 336c80a18175..f7aa703e3175 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h
+@@ -29,11 +29,44 @@
+ #include "dc_types.h"
+ #include "hw_shared.h"
+ 
++#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
++enum phyd32clk_clock_source {
++	PHYD32CLKA,
++	PHYD32CLKB,
++	PHYD32CLKC,
++	PHYD32CLKD,
++	PHYD32CLKE,
++	PHYD32CLKF,
++	PHYD32CLKG,
++};
++
++enum physymclk_clock_source {
++	PHYSYMCLK_FORCE_SRC_SYMCLK,    // Select symclk as source of clock which is output to PHY through DCIO.
++	PHYSYMCLK_FORCE_SRC_PHYD18CLK, // Select phyd18clk as the source of clock which is output to PHY through DCIO.
++	PHYSYMCLK_FORCE_SRC_PHYD32CLK, // Select phyd32clk as the source of clock which is output to PHY through DCIO.
++};
++
++enum hdmistreamclk_source {
++	REFCLK,                   // Selects REFCLK as source for hdmistreamclk.
++	DTBCLK0,                  // Selects DTBCLK0 as source for hdmistreamclk.
++};
++
++enum dentist_dispclk_change_mode {
++	DISPCLK_CHANGE_MODE_IMMEDIATE,
++	DISPCLK_CHANGE_MODE_RAMPING,
++};
++#endif
++
+ struct dccg {
+ 	struct dc_context *ctx;
+ 	const struct dccg_funcs *funcs;
+ 	int pipe_dppclk_khz[MAX_PIPES];
+ 	int ref_dppclk;
++#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
++	int dtbclk_khz[MAX_PIPES];
++	int audio_dtbclk_khz;
++	int ref_dtbclk_khz;
++#endif
+ };
+ 
+ struct dccg_funcs {
+@@ -44,6 +77,29 @@ struct dccg_funcs {
+ 			unsigned int xtalin_freq_inKhz,
+ 			unsigned int *dccg_ref_freq_inKhz);
+ 	void (*dccg_init)(struct dccg *dccg);
++#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
++
++	void (*set_physymclk)(
++			struct dccg *dccg,
++			int phy_inst,
++			enum physymclk_clock_source clk_src,
++			bool force_enable);
++
++	void (*set_dtbclk_dto)(
++			struct dccg *dccg,
++			int dtbclk_inst,
++			int req_dtbclk_khz,
++			int num_odm_segments,
++			const struct dc_crtc_timing *timing);
++
++	void (*set_audio_dtbclk_dto)(
++			struct dccg *dccg,
++			uint32_t req_audio_dtbclk_khz);
++
++	void (*set_dispclk_change_mode)(
++			struct dccg *dccg,
++			enum dentist_dispclk_change_mode change_mode);
++#endif
+ };
+ 
+ #endif //__DAL_DCCG_H__
 -- 
 2.31.1
 
