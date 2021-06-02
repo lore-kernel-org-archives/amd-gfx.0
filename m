@@ -2,80 +2,61 @@ Return-Path: <SRS0=QW4G=K4=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 47AD6C47092
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 07:03:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0E163C47092
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 07:59:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0494D6135D
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 07:03:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0494D6135D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id BB8FF61376
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 07:59:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BB8FF61376
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B451B6EB69;
-	Wed,  2 Jun 2021 07:03:01 +0000 (UTC)
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95E1E6EB69
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Jun 2021 07:03:00 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id p17so986805lfc.6
- for <amd-gfx@lists.freedesktop.org>; Wed, 02 Jun 2021 00:03:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:references:from:message-id:date:user-agent:mime-version
- :in-reply-to:content-transfer-encoding:content-language;
- bh=mwcumlWzdhOcTWJi50VvD2CWfOT4vaekKqXd6JrxbbY=;
- b=sP7z+HesyVBQ6/5Zjl0XQWeL9tgSjYn047vlPXWYaUm/xm9bkeZNT44Gr0H1S0BgTf
- iNqf2Y1OzL+zjofr3l7LfZz4+QxG/NiIw12zYaPBGy16b6G4fkI24RcQwk2ztpYsr5YU
- 56LCVZtdcRa3b3qqZ9DdqP24CvTcKZUrNOtEFpnWhxKpzAo3/kth4PaidP7/e7PJ0Bpk
- MmI4ESSffb2YlynPXkxAjB5ne1SJDdNsgP3DtVioRJEZ97ijy1MWXJavK9zcW6Aelwhi
- eOGpv1GKyz+MTmaSKzxeE2u79jMLY7fplQXYxwAJ1x47dZXDEhWT61faY8cESmvU1ryA
- 25PA==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34BE96EB6F;
+	Wed,  2 Jun 2021 07:59:14 +0000 (UTC)
+Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com
+ [IPv6:2607:f8b0:4864:20::336])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 100A96E086
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Jun 2021 07:59:13 +0000 (UTC)
+Received: by mail-ot1-x336.google.com with SMTP id
+ 66-20020a9d02c80000b02903615edf7c1aso1645062otl.13
+ for <amd-gfx@lists.freedesktop.org>; Wed, 02 Jun 2021 00:59:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=qGvUg7g5napozN81BeHjEpK95x/aqYy7PtsRq+Mdc5E=;
+ b=R2tiPBsEGIDqXjwieTtACdfLOACuaDag9L/+f51fjJzSJVyFPpA4Ljp4ORadpaYtV5
+ Mlnas7VvWSWOQlvmFbOTBWru/Kqi7e6JOi3NEABL2STqfmKj4CLKAqG5699uGT62lK9V
+ 77GTdcmFKg0zAhDz/vaX5UtGE4fPZVGtGYPe8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=mwcumlWzdhOcTWJi50VvD2CWfOT4vaekKqXd6JrxbbY=;
- b=mAF9/0wZPHMabxLFCLDK/t17uFZjYSfe0x+jfrMjX+QECVo7JxtcP5m80Uq5BlKbQa
- WY6s9GgqPhjwniWx/EG2XAhV49iBQPbD24J9YqnuH1f6DD/1cB+z1phTqEFPbTmJKkeO
- QPqJScQIhhtOAHjREkiYW/MsSPwbbWkvItfs2tJitpKPHfi3BtzyuelH4NcJ5zl1BYT0
- r8vJHo6DRF5tj4wWuiQIQFqy2D043207DhSP+9VdC8w6itTHKa7I/ZyElki5YkgI7c7Z
- RCH0xgJ79fZzgQ1DXY2wUttRWTm8RpEsisuiaZXvM3cgU3YhdiY0hsRQMLefNQDdYQNj
- Ui+w==
-X-Gm-Message-State: AOAM532y8G5clPGAifY5lsvGNAwCUWgEM+UJ194MhOxe6mTwHalcCZgt
- b0p7iWYcQVmuYAhz4R6xXVH4j4Td3+o=
-X-Google-Smtp-Source: ABdhPJzdOQO2xtz2kyZnNNd1IthgNvJPE/ahPcKxKIg/UP9EjMZhot7fz6XEAFaO3lNI6+kuKIY7Rw==
-X-Received: by 2002:a05:6512:21b:: with SMTP id
- a27mr8039630lfo.96.1622617379016; 
- Wed, 02 Jun 2021 00:02:59 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:cd07:2759:3eec:1d00?
- ([2a02:908:1252:fb60:cd07:2759:3eec:1d00])
- by smtp.gmail.com with ESMTPSA id k31sm1908506lfv.105.2021.06.02.00.02.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Jun 2021 00:02:58 -0700 (PDT)
-Subject: Re: [PATCH 3/4] drm/amdgpu: Add flush_tlb parameter to
- amdgpu_vm_bo_update
-To: Felix Kuehling <felix.kuehling@amd.com>,
- Eric Huang <jinhuieric.huang@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
-References: <20210601225907.749049-1-jinhuieric.huang@amd.com>
- <20210601225907.749049-3-jinhuieric.huang@amd.com>
- <2db33600-8504-db7e-7cbe-f16247da7f8e@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <5b4e7d78-4e1e-cd88-be0d-bd3e131cf37a@gmail.com>
-Date: Wed, 2 Jun 2021 09:02:57 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=qGvUg7g5napozN81BeHjEpK95x/aqYy7PtsRq+Mdc5E=;
+ b=ailtKmZ9TnyC6x/qiQHRofadg1HvhQMpURINgyIYMnXra4v/D27U+kBCnWnZ1eTO1Y
+ JwBaOIF0r0UrbCC9WwCDDCRHR+u0xA+z8jgMKrR2rjxyBOhrnSOL7qxaMNzTifefoty7
+ ES8LWqkmUnfOrwVjf+SFLQuMsC6ni0jYUzGAxTZY3kw7bJigja/8jW6KfW+sqeLHolFT
+ JAFq8W6IMchNA0ErePpFb84jwxdoq+D0kRb8iUgNQJlp0rCMYNhdSFfe3JRkNQizjn5L
+ NCqAzvbw5K+kpKnVyGWE9SZK91vexeZ7jiKpKg7SBeOOVrKCCFJ5SdjgtaFsz8HhhnBh
+ 2hGg==
+X-Gm-Message-State: AOAM5317qgNqQg0meHPIs5ngOZEenOWdj0wmHMcgOdw+ABUS4ifVl8kJ
+ eftO9aWfDXuLufWj9SpP0rHySbMeHtiRzH4NOTH9sg==
+X-Google-Smtp-Source: ABdhPJx1g/OLNyZ55JeYwk8dci0GheN+3UPp7HULJgUiGCuX7h7dda+hPxqK58LjJBKBSzmk1iqT2eOTTTlVd5WmOMI=
+X-Received: by 2002:a9d:4008:: with SMTP id m8mr15846097ote.188.1622620752246; 
+ Wed, 02 Jun 2021 00:59:12 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <2db33600-8504-db7e-7cbe-f16247da7f8e@amd.com>
-Content-Language: en-US
+References: <20210601201702.23316-1-andrey.grodzovsky@amd.com>
+In-Reply-To: <20210601201702.23316-1-andrey.grodzovsky@amd.com>
+From: Daniel Vetter <daniel@ffwll.ch>
+Date: Wed, 2 Jun 2021 09:59:01 +0200
+Message-ID: <CAKMK7uFoLmOFCTkPMm4mMSScF0xa+MnHvY2FVmfBUM8b8S0_PQ@mail.gmail.com>
+Subject: Re: [PATCH 0/7] libdrm tests for hot-unplug feature
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,107 +68,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Alex Deucher <Alexander.Deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QW0gMDIuMDYuMjEgdW0gMDQ6NTQgc2NocmllYiBGZWxpeCBLdWVobGluZzoKPiBBbSAyMDIxLTA2
-LTAxIHVtIDY6NTkgcC5tLiBzY2hyaWViIEVyaWMgSHVhbmc6Cj4+IEl0IGlzIHRvIHBhc3MgdGhl
-IGZsYWcgdG8gS0ZELCBhbmQgb3B0aW1pemUgdGFibGVfZnJlZWQgaW4KPj4gYW1kZ3B1X3ZtX2Jv
-X3VwZGF0ZV9tYXBwaW5nLgo+Pgo+PiBTaWduZWQtb2ZmLWJ5OiBFcmljIEh1YW5nIDxqaW5odWll
-cmljLmh1YW5nQGFtZC5jb20+Cj4+IC0tLQo+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9jcy5jICB8ICA2ICsrKy0tLQo+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9nZW0uYyB8ICAyICstCj4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X3ZtLmMgIHwgMTAgKysrKystLS0tLQo+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV92bS5oICB8ICAyICstCj4+ICAgNCBmaWxlcyBjaGFuZ2VkLCAxMCBpbnNlcnRpb25z
-KCspLCAxMCBkZWxldGlvbnMoLSkKPj4KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9jcy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X2NzLmMKPj4gaW5kZXggZTlmOWY0NjJhNjUyLi5lM2RmMTMyZTUzYTUgMTAwNjQ0Cj4+IC0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jCj4+ICsrKyBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jCj4+IEBAIC05MTYsNyArOTE2LDcgQEAgc3Rh
-dGljIGludCBhbWRncHVfY3Nfdm1faGFuZGxpbmcoc3RydWN0IGFtZGdwdV9jc19wYXJzZXIgKnAp
-Cj4+ICAgCWlmIChyKQo+PiAgIAkJcmV0dXJuIHI7Cj4+ICAgCj4+IC0JciA9IGFtZGdwdV92bV9i
-b191cGRhdGUoYWRldiwgZnByaXYtPnBydF92YSwgZmFsc2UpOwo+PiArCXIgPSBhbWRncHVfdm1f
-Ym9fdXBkYXRlKGFkZXYsIGZwcml2LT5wcnRfdmEsIGZhbHNlLCBOVUxMKTsKPj4gICAJaWYgKHIp
-Cj4+ICAgCQlyZXR1cm4gcjsKPj4gICAKPj4gQEAgLTkyNyw3ICs5MjcsNyBAQCBzdGF0aWMgaW50
-IGFtZGdwdV9jc192bV9oYW5kbGluZyhzdHJ1Y3QgYW1kZ3B1X2NzX3BhcnNlciAqcCkKPj4gICAJ
-aWYgKGFtZGdwdV9tY2JwIHx8IGFtZGdwdV9zcmlvdl92ZihhZGV2KSkgewo+PiAgIAkJYm9fdmEg
-PSBmcHJpdi0+Y3NhX3ZhOwo+PiAgIAkJQlVHX09OKCFib192YSk7Cj4+IC0JCXIgPSBhbWRncHVf
-dm1fYm9fdXBkYXRlKGFkZXYsIGJvX3ZhLCBmYWxzZSk7Cj4+ICsJCXIgPSBhbWRncHVfdm1fYm9f
-dXBkYXRlKGFkZXYsIGJvX3ZhLCBmYWxzZSwgTlVMTCk7Cj4+ICAgCQlpZiAocikKPj4gICAJCQly
-ZXR1cm4gcjsKPj4gICAKPj4gQEAgLTk0Niw3ICs5NDYsNyBAQCBzdGF0aWMgaW50IGFtZGdwdV9j
-c192bV9oYW5kbGluZyhzdHJ1Y3QgYW1kZ3B1X2NzX3BhcnNlciAqcCkKPj4gICAJCWlmIChib192
-YSA9PSBOVUxMKQo+PiAgIAkJCWNvbnRpbnVlOwo+PiAgIAo+PiAtCQlyID0gYW1kZ3B1X3ZtX2Jv
-X3VwZGF0ZShhZGV2LCBib192YSwgZmFsc2UpOwo+PiArCQlyID0gYW1kZ3B1X3ZtX2JvX3VwZGF0
-ZShhZGV2LCBib192YSwgZmFsc2UsIE5VTEwpOwo+PiAgIAkJaWYgKHIpCj4+ICAgCQkJcmV0dXJu
-IHI7Cj4+ICAgCj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfZ2VtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2VtLmMKPj4gaW5k
-ZXggMjEyMGE4N2E5NDlmLi5lYWMyZmQwMDQ4Y2MgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZW0uYwo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfZ2VtLmMKPj4gQEAgLTY5Niw3ICs2OTYsNyBAQCBzdGF0aWMgdm9pZCBh
-bWRncHVfZ2VtX3ZhX3VwZGF0ZV92bShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPj4gICAK
-Pj4gICAJaWYgKG9wZXJhdGlvbiA9PSBBTURHUFVfVkFfT1BfTUFQIHx8Cj4+ICAgCSAgICBvcGVy
-YXRpb24gPT0gQU1ER1BVX1ZBX09QX1JFUExBQ0UpIHsKPj4gLQkJciA9IGFtZGdwdV92bV9ib191
-cGRhdGUoYWRldiwgYm9fdmEsIGZhbHNlKTsKPj4gKwkJciA9IGFtZGdwdV92bV9ib191cGRhdGUo
-YWRldiwgYm9fdmEsIGZhbHNlLCBOVUxMKTsKPj4gICAJCWlmIChyKQo+PiAgIAkJCWdvdG8gZXJy
-b3I7Cj4+ICAgCX0KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV92bS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPj4gaW5k
-ZXggMmMyMGJiYTdkYzFhLi5mZWQzZDQ0YjVkZWQgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV92bS5jCj4+IEBAIC0xNzI5LDcgKzE3MjksNyBAQCBpbnQgYW1kZ3B1X3Zt
-X2JvX3VwZGF0ZV9tYXBwaW5nKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+PiAgIAlyID0g
-dm0tPnVwZGF0ZV9mdW5jcy0+Y29tbWl0KCZwYXJhbXMsIGZlbmNlKTsKPj4gICAKPj4gICAJaWYg
-KHRhYmxlX2ZyZWVkKQo+PiAtCQkqdGFibGVfZnJlZWQgPSBwYXJhbXMudGFibGVfZnJlZWQ7Cj4+
-ICsJCSp0YWJsZV9mcmVlZCA9ICp0YWJsZV9mcmVlZCB8fCBwYXJhbXMudGFibGVfZnJlZWQ7Cj4+
-ICAgCj4+ICAgZXJyb3JfdW5sb2NrOgo+PiAgIAlhbWRncHVfdm1fZXZpY3Rpb25fdW5sb2NrKHZt
-KTsKPj4gQEAgLTE3OTMsNyArMTc5Myw3IEBAIHZvaWQgYW1kZ3B1X3ZtX2dldF9tZW1vcnkoc3Ry
-dWN0IGFtZGdwdV92bSAqdm0sIHVpbnQ2NF90ICp2cmFtX21lbSwKPj4gICAgKiAwIGZvciBzdWNj
-ZXNzLCAtRUlOVkFMIGZvciBmYWlsdXJlLgo+PiAgICAqLwo+PiAgIGludCBhbWRncHVfdm1fYm9f
-dXBkYXRlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBzdHJ1Y3QgYW1kZ3B1X2JvX3ZhICpi
-b192YSwKPj4gLQkJCWJvb2wgY2xlYXIpCj4+ICsJCQlib29sIGNsZWFyLCBib29sICpmbHVzaF90
-bGIpCj4gVG8gYmUgY29uc2lzdGVudCB3aXRoIGFtZGdwdV92bV9ib191cGRhdGVfbWFwcGluZyBJ
-J2QgbmFtZSB0aGlzCj4gcGFyYW1ldGVyIHRhYmxlX2ZyZWVkLgo+Cj4KPj4gICB7Cj4+ICAgCXN0
-cnVjdCBhbWRncHVfYm8gKmJvID0gYm9fdmEtPmJhc2UuYm87Cj4+ICAgCXN0cnVjdCBhbWRncHVf
-dm0gKnZtID0gYm9fdmEtPmJhc2Uudm07Cj4+IEBAIC0xODg3LDcgKzE4ODcsNyBAQCBpbnQgYW1k
-Z3B1X3ZtX2JvX3VwZGF0ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgc3RydWN0IGFtZGdw
-dV9ib192YSAqYm9fdmEsCj4+ICAgCQkJCQkJcmVzdiwgbWFwcGluZy0+c3RhcnQsCj4+ICAgCQkJ
-CQkJbWFwcGluZy0+bGFzdCwgdXBkYXRlX2ZsYWdzLAo+PiAgIAkJCQkJCW1hcHBpbmctPm9mZnNl
-dCwgbWVtLAo+PiAtCQkJCQkJcGFnZXNfYWRkciwgbGFzdF91cGRhdGUsIE5VTEwsCj4+ICsJCQkJ
-CQlwYWdlc19hZGRyLCBsYXN0X3VwZGF0ZSwgZmx1c2hfdGxiLAo+PiAgIAkJCQkJCXZyYW1fYmFz
-ZV9vZmZzZXQpOwo+PiAgIAkJaWYgKHIpCj4+ICAgCQkJcmV0dXJuIHI7Cj4+IEBAIC0yMTQxLDcg
-KzIxNDEsNyBAQCBpbnQgYW1kZ3B1X3ZtX2hhbmRsZV9tb3ZlZChzdHJ1Y3QgYW1kZ3B1X2Rldmlj
-ZSAqYWRldiwKPj4gICAKPj4gICAJbGlzdF9mb3JfZWFjaF9lbnRyeV9zYWZlKGJvX3ZhLCB0bXAs
-ICZ2bS0+bW92ZWQsIGJhc2Uudm1fc3RhdHVzKSB7Cj4+ICAgCQkvKiBQZXIgVk0gQk9zIG5ldmVy
-IG5lZWQgdG8gYm8gY2xlYXJlZCBpbiB0aGUgcGFnZSB0YWJsZXMgKi8KPj4gLQkJciA9IGFtZGdw
-dV92bV9ib191cGRhdGUoYWRldiwgYm9fdmEsIGZhbHNlKTsKPj4gKwkJciA9IGFtZGdwdV92bV9i
-b191cGRhdGUoYWRldiwgYm9fdmEsIGZhbHNlLCBOVUxMKTsKPj4gICAJCWlmIChyKQo+PiAgIAkJ
-CXJldHVybiByOwo+PiAgIAl9Cj4+IEBAIC0yMTYwLDcgKzIxNjAsNyBAQCBpbnQgYW1kZ3B1X3Zt
-X2hhbmRsZV9tb3ZlZChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPj4gICAJCWVsc2UKPj4g
-ICAJCQljbGVhciA9IHRydWU7Cj4+ICAgCj4+IC0JCXIgPSBhbWRncHVfdm1fYm9fdXBkYXRlKGFk
-ZXYsIGJvX3ZhLCBjbGVhcik7Cj4+ICsJCXIgPSBhbWRncHVfdm1fYm9fdXBkYXRlKGFkZXYsIGJv
-X3ZhLCBjbGVhciwgTlVMTCk7Cj4+ICAgCQlpZiAocikKPj4gICAJCQlyZXR1cm4gcjsKPj4gICAK
-Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5oIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmgKPj4gaW5kZXggNjdiYmE4NDYy
-ZTdkLi4yNGE2M2UyODRhNjkgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV92bS5oCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV92bS5oCj4+IEBAIC00MTksNyArNDE5LDcgQEAgaW50IGFtZGdwdV92bV9ib191cGRhdGVfbWFw
-cGluZyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPj4gICAKPj4gICBpbnQgYW1kZ3B1X3Zt
-X2JvX3VwZGF0ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPj4gICAJCQlzdHJ1Y3QgYW1k
-Z3B1X2JvX3ZhICpib192YSwKPj4gLQkJCWJvb2wgY2xlYXIpOwo+PiArCQkJYm9vbCBjbGVhciwg
-Ym9vbCAqZmx1c2hfdGxiKTsKPiBTYW1lIGFzIGFib3ZlLiBXaXRoIHRoYXQgZml4ZWQsIHRoZSBw
-YXRjaCBhbmQgdGhlIHNlcmllcyBpcwo+Cj4gUmV2aWV3ZWQtYnk6IEZlbGl4IEt1ZWhsaW5nIDxG
-ZWxpeC5LdWVobGluZ0BhbWQuY29tPgo+Cj4gUGxlYXNlIGFsc28gZ2l2ZSBDaHJpc3RpYW4gYSBj
-aGFuY2UgdG8gcmV2aWV3IHRoaXMgcGF0Y2ggaW4gcGFydGljdWxhcgo+IGJlZm9yZSB5b3Ugc3Vi
-bWl0LgoKV2l0aCB0aGUgbmFtaW5nIG1hZGUgY29uc2lzdGVudCB0aGUgcGF0Y2ggaXMgUmV2aWV3
-ZWQtYnk6IENocmlzdGlhbiAKS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+IGFzIHdl
-bGwuCgo+Cj4gVGhhbmtzLAo+ICDCoCBGZWxpeAo+Cj4KPj4gICBib29sIGFtZGdwdV92bV9ldmlj
-dGFibGUoc3RydWN0IGFtZGdwdV9ibyAqYm8pOwo+PiAgIHZvaWQgYW1kZ3B1X3ZtX2JvX2ludmFs
-aWRhdGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4+ICAgCQkJICAgICBzdHJ1Y3QgYW1k
-Z3B1X2JvICpibywgYm9vbCBldmljdGVkKTsKPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0
-cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
-L2xpc3RpbmZvL2FtZC1nZngKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
-eAo=
+On Tue, Jun 1, 2021 at 10:17 PM Andrey Grodzovsky
+<andrey.grodzovsky@amd.com> wrote:
+> Adding some tests to acompany the recently added hot-unplug
+> feature. For now the test suite is disabled until the feature
+> propagates from drm-misc-next to drm-next.
+>
+> Andrey Grodzovsky (7):
+>   tests/amdgpu: Fix valgrind warning
+>   xf86drm: Add function to retrieve char device path
+>   test/amdgpu: Add helper functions for hot unplug
+>   test/amdgpu/hotunplug: Add test suite for GPU unplug
+>   test/amdgpu/hotunplug: Add basic test
+>   tests/amdgpu/hotunplug: Add unplug with cs test.
+>   tests/amdgpu/hotunplug: Add hotunplug with exported bo test
+
+Given how nasty hotunplug is I really think collaborating on igt tests
+on this would be best for everyone ... do we have to keep doing
+parallel tests here for amdgpu?
+-Daniel
+
+>  tests/amdgpu/amdgpu_test.c     |  42 +++-
+>  tests/amdgpu/amdgpu_test.h     |  26 +++
+>  tests/amdgpu/basic_tests.c     |   5 +-
+>  tests/amdgpu/hotunplug_tests.c | 357 +++++++++++++++++++++++++++++++++
+>  tests/amdgpu/meson.build       |   1 +
+>  xf86drm.c                      |  23 +++
+>  xf86drm.h                      |   1 +
+>  7 files changed, 450 insertions(+), 5 deletions(-)
+>  create mode 100644 tests/amdgpu/hotunplug_tests.c
+>
+> --
+> 2.25.1
+>
+
+
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
