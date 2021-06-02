@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D9320C4708F
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 16:51:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4562BC47093
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 16:51:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AFDDF61C53
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 16:51:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AFDDF61C53
+	by mail.kernel.org (Postfix) with ESMTPS id 1999B61C53
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 16:51:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1999B61C53
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BCCC6EDC0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 763536EDC7;
 	Wed,  2 Jun 2021 16:51:22 +0000 (UTC)
 Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2052.outbound.protection.outlook.com [40.107.223.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EE4E6EDD4
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Jun 2021 16:51:20 +0000 (UTC)
+ (mail-dm6nam11on2075.outbound.protection.outlook.com [40.107.223.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F2A06EDD7
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Jun 2021 16:51:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XT1Ej1qQEJZeaGaroLT++V8TRZj5k7MGnK/HwUwuSqiMQ8EQHhNBjQrZRZv/YLqeALaQkGeplpw2RIIC8f5CymI9RAIIRV5KmyrIIz9jhLuQ0OOGx2qnhs+yUDCkxqMgItNN95RVyhu0eL3ME0eLKw4t9rdoXhJjgv5Zvxm38kfcHTHDnaOv5i7ot8hMvTB/sjLxD10wfX7vXbwfQJg7VV2Zg64mJrpWL5o2fJE95QAZThg47pgS/a8C6e36DOYrezgutI0scmwD6eRExMxKpbCWznih6x6v0EaPD4JFl7tSM4spZNMPvzuv2pxIapW5R+tdeT82iv53m7nMqjtDSg==
+ b=KgvuZ4tP1B+kdK2AwXfPlhDkMcpzVyMoKA3Pdc+kYdAVAsTl2pc/Vs+zNOCYV9BekMV+rvzVJ5Y5S6w7sn6fRYPj/c+npzrq6SZB48ExNNL9tdrJjfIRZM6/MhJEPJ38uG6KoGaSq9JytTjMiaVS4LkjH1lYAe7ZhR4M0y6K9EZ2in26oCVOeqYh672c3IOeId299STmMbU9CP6l+HNvR/Ye2sA28ahXmEQlsTB+vYDAIvEfYpVisGSXbJm8Hudk99so1EnwzWPDdjlkyDSYWVCCtJItaIvOtPspSfHEnoK1v84gdHe/iUevkV40Xkfw7xt3Q+pwyLjkbaUAqyVYUA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vBd5XwPbgxJfDXA7N/BH3pkxGtoFagHazgwlAiq43Ww=;
- b=lXkAQo6rrCWQgzwQGxXmfrKvzUOCcY+3HWYHfU01U/R/NdWhdrcvjhiA2FJuVsAWH2zAZJELQHfdE1K6QOZYKyL+DsYuS1oEUZLDOMzNortmucN93E8e7bZT78vETB5SnJUiCzoRX55EaaTpSofkoiq8gFqV//Zww/b1pbayCc9Klj4FC5nEDMVBcxqbJR9Qp/SVwRJUz7FKqWfUjljT89fiNVuGCB0Spyg2JptO4X7ttnhZH9TSs4R3woB3X7eHddW/movHFBoThH5dxPOf4yv4Vxt2m87Nw+40XlS0QmSBx3BJp9JP0m5FvtAn4hetshOxLmiYMNoKx3d9RGLbyw==
+ bh=aD7ARki4G2EJg76vBru9szPf5juz0GEuDyLCStKb3Eg=;
+ b=JtY7k0+NVEec1EE17Fc/DKB7PQtNndOgF2jnLKWiDeD+YzCq3hV/4ZW9gdFLD5Tj5R/ft1W/o6GnjF+r4fYMu3bkFMOH1ammom9K0hJhF+PE13Ukw5xgMILPcNi7V78HIviEjSeO9NH1Z7tr03xpTf1Fka8QBoSkRfO0O6vI1eVaFoM8wNZ47cR6dYvfLpoPzIsZ2bQ27bj+U0NEH/Ewkrb7BQMMzU9RIBthHLW7xz0csPAeQ8giCu33djGehv7d/DBrV+2qOiu05F/67c+p4VQ7zyFMSyNzawi7gHfNOw4XVVPNFmXSBgHflb7uxvwNUxigNyaeM7fq/78ec8mwfg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vBd5XwPbgxJfDXA7N/BH3pkxGtoFagHazgwlAiq43Ww=;
- b=TbOUu73TsrLD/Pblgp02DHilLHNUdI+RBXgVU7gjgGmVlQKx1LkCkJY9vNMae7FA/LOUpucY7UpfbuMjaXOiaREfQi62WvD+UtDbKKa4TXSfSn9yKd0JHkYzQ2rV4pMrpW3R4YULsLghplmCash8g1RHIVlHdSuc1B/C6+C7LI8=
+ bh=aD7ARki4G2EJg76vBru9szPf5juz0GEuDyLCStKb3Eg=;
+ b=ejOFpT24BrvqosgigFDYeiZW7dAdSZ7d/isTOjqRSJRegYmatXLCzj4+eagiugv+ZA8VGe9lC8c6UgNEnjCdO5hTd7Sy8oZ+PejVYFW65/FjVsy4/4ccbtbSu72BSQl3N+X6d0wKlSrlix6fAD4WjQ2W9GkIoNVvq6XhAEExhZI=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -45,16 +45,16 @@ Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
  by MN2PR12MB4534.namprd12.prod.outlook.com (2603:10b6:208:24f::10)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.20; Wed, 2 Jun
- 2021 16:51:18 +0000
+ 2021 16:51:19 +0000
 Received: from MN2PR12MB4488.namprd12.prod.outlook.com
  ([fe80::25f7:664:3a8f:25b6]) by MN2PR12MB4488.namprd12.prod.outlook.com
  ([fe80::25f7:664:3a8f:25b6%7]) with mapi id 15.20.4173.030; Wed, 2 Jun 2021
- 16:51:18 +0000
+ 16:51:19 +0000
 From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 72/89] drm/amd/display: Add DCN3.1 DCCG
-Date: Wed,  2 Jun 2021 12:48:51 -0400
-Message-Id: <20210602164908.2848791-72-alexander.deucher@amd.com>
+Subject: [PATCH 73/89] drm/amd/display: Add DCN3.1 DIO
+Date: Wed,  2 Jun 2021 12:48:52 -0400
+Message-Id: <20210602164908.2848791-73-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210602164908.2848791-1-alexander.deucher@amd.com>
 References: <20210602164908.2848791-1-alexander.deucher@amd.com>
@@ -68,52 +68,52 @@ Received: from localhost.localdomain (192.161.79.207) by
  MN2PR13CA0007.namprd13.prod.outlook.com (2603:10b6:208:160::20) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.9 via Frontend
- Transport; Wed, 2 Jun 2021 16:50:17 +0000
+ Transport; Wed, 2 Jun 2021 16:50:18 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 6265edeb-ae4f-47d1-79a8-08d925e68028
+X-MS-Office365-Filtering-Correlation-Id: e4d527ab-f4ad-4912-db4e-08d925e680e4
 X-MS-TrafficTypeDiagnostic: MN2PR12MB4534:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB4534C21893DB6AF5F3298518F73D9@MN2PR12MB4534.namprd12.prod.outlook.com>
+X-Microsoft-Antispam-PRVS: <MN2PR12MB453472357ED12C545F755B6BF73D9@MN2PR12MB4534.namprd12.prod.outlook.com>
 X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 0NCf+ljs/lwRr2X4xsMhESe9GS+TRNlhIXZ4zxml6TW4vT+uBSujnxN2tJBh4SKqTJjXoUtK70hx5o7AqHIJt3YKQqiUZhXB/lDuYmZktagtyzquE/IIabgCKDBMeXmvykqXwl3ZaVrqKmgC+tfURBez99YwxIoJk8iwrr3UuJ6Z+tTpG9R4T7oYzItVOghNtdmTFqI+QWLKCbstQ2sulzheXfeIbR7SmoPJZUp406wH5KOXP5BKzvOViUyF1hnKkMa5o0ItM8GVI7742KD2Jypw6vhRcvlaOeKd4GEsBVXuprOlrr1uTOlV4dcg+uJiKUNDm0A0DTeLq7xmwx6jojAsULchkk0fe9AcCTdw7gWuFYz/kv47zzuSqfi99BHAnahAdwONolvvAlTflOFnFMlTOzzIWQz0kXMqXElK9YzkkR8zPctUbJvZ/n39vgLDTOd3oFhldo3unMFRVhz8+uwq1OxFG1BEQ8AbX5vrB/wNh3jNSnAcXrKQOvXS9ZLGF24nUhZEZE01ZR5GIvs8fH5OBY+3oeIyl1KXuXysoIbsQSk+NmXRcQcd6jIAQ/bUpsBPHcD5OAcpLXJmKI6aX2/K9dK8yMiJeUg1LdnIW9jGpx5fHcd9LfjV3F4SMd4BbFat71Em3hm2cmEBf8Sq7mhYcTIYhO7Lrxv1Qb50vlCGUQ90Nv1DSjHr9D8W6Zj9
+X-Microsoft-Antispam-Message-Info: A+Jktd8ECXhXuv9QjHf8S+9T0/htJJyWX+3viO3P2OciL53p3CfJa/DvFQ3f7reqySIULoloT82vaBFZEg6FM2mXX6cROeO0F4meZERMk75/mZUdAeKFCdK+noR55O9JoNLeKqSsK3thJgstcgG6bFWax0brNhjBtGkBgGmIVvrjyh+3iaCxD+dwSwsLe9KwUT4+WB1qeEDaBOV7RQmeAOLXF/BJCsUwgyrWAX9yqGb78uHSOPhqZ1MqpX62cE9tPB0hs46LZsqrIWkAEjF05kvcxpfFAIafYQ/tu7gxYG2ne8x6pV7OdiKl9iUn7oZZEl3LRvY8En8KW0JEFyzPzfENcBFStHQkP7Gg/F+e9EE57nPekj5m5nZoCUwY4FtVsx1Lx2j3L933Myo/WZ2WaupYMdt4qYWaPElEu2gWXNBJCXWe6RmDK1O4g3FcDoKwOnnFppzJ1Q5sZYmHHl+FayJWP4bdKz2M6mCrqqfUr5xrel/8SheVsz0BMbKdfaCHuaW6xmx83QPSvdoXnfuhdvofNA/8nSWOzBZ7viTj57kCH+8xS3YeOhHX36621B2NQXrE/p/6U31pg6q0vdn7Zc/VnTtsAUMZv0k4PfbFUukmD+czEeGVDH8lmnVw0iybOTjON9MEOHa4TNf8pz9aSOLmQ8BqXbiUDkUSW+OsDdCPC+VIF6kZeN7Aih5oV06o
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(4636009)(396003)(346002)(39860400002)(136003)(376002)(366004)(30864003)(1076003)(8676002)(2906002)(8936002)(4326008)(2616005)(956004)(38350700002)(478600001)(38100700002)(83380400001)(66946007)(66476007)(66556008)(36756003)(54906003)(6486002)(52116002)(6916009)(316002)(6512007)(6506007)(16526019)(26005)(6666004)(5660300002)(186003)(86362001)(69590400013);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?4r2HXl5ro48Ht83PmGe700RdT2vdpJlNgzi2hm6Kk4l0+OzKUklce/akGEeH?=
- =?us-ascii?Q?rcU28HNW0HWCk/CA17c8b7SJmGMWJgzZkd4H8Ac37C+4yUzmxvPaMg0MfEN0?=
- =?us-ascii?Q?FkRQy2D2fwO/pgfU+qMGYngJHnk6zeXRt/JcjlTqnsQRJqYjmrO0HQjw1l1G?=
- =?us-ascii?Q?AITiVZ+WMM2iGnueJU/J4fnsfbF6KZVrdCbcdA3TWznL44dHIIxIM6rEkC5u?=
- =?us-ascii?Q?WOEACOo3QdtQ7twIv1NldGy5e7w8Zs4zDQ8YudbWFaN1+TLX1p2Fmmac0/Wk?=
- =?us-ascii?Q?2+HYOblx55Dx2a763mh8MyPM2ONmrQHYFZoeVf9BVGR66ASvXp/qhddX0hPf?=
- =?us-ascii?Q?u2sPCZ8+I5imHNe0Rm7yCyHddiFjKYJoREX5VLzzZzktXM6mQef1MErlEiZe?=
- =?us-ascii?Q?hSwvvTGFJ4iZj3GyKWeTGH/uo/CfRqYglqRiBMSBy838ab9IkMJR9X9coDph?=
- =?us-ascii?Q?kvWBLrjJxLMash2h9rwV+pEN1Zq2CPR12lpIATO1PsJgAYjWHuovFgyr60ss?=
- =?us-ascii?Q?cCdkWtNjWl0Xy1FqHB6N/x8H2VHsWAFMQ4tfzrHka0+uiYXH5Yj7D1MMbR0U?=
- =?us-ascii?Q?VZpP3wX1WCsuv+7tYs5E+kC2uNb7qhuKekj/3GQdWtvz7vfwOOo7jlrMoGHk?=
- =?us-ascii?Q?vZeGVIBl6TksDqBHTH2a2IYMnL0DMqJ5OY8dbBGhLz7rrLfoib/xOAJSDyZD?=
- =?us-ascii?Q?MQspVnRyLdnHBmmjA7TccvxAw7yEa+uD3F0IDAsqnqRz2asU3TBidCw77ALk?=
- =?us-ascii?Q?HFhsD75Axgq/yho1jOHEZz9uXEb4k6HnT/JuVZOGEmy385jx1nVUg3Ua2+5H?=
- =?us-ascii?Q?DxOA2vhETJ3DNQIhvu+1x2ltPWcqV/PLykwmUasRs7FbGnrUpFJ4VzFlmikn?=
- =?us-ascii?Q?wvzJ6PVzHxgLrNdCPc3kPTJWaOj2ZEozwLuZ9hoV6uDP3Moo11ipZZufx6J+?=
- =?us-ascii?Q?ZDPyyiaCdmwCvVBJe8VvehdGhxPdTc2zxJ2bN0Lg0rGn7GL1gUbjLyyQZY6Q?=
- =?us-ascii?Q?IdVpT7eza63wdxKBQvt/KbqP2oZoXbqgbVwoAlRhbx8EzoV/4UG9m8MiSerj?=
- =?us-ascii?Q?N3A35UgAjtc/Uk9ANwKv2q0L+J49DmzkJCswQp91DnuW0KOOx079N8IGjwVz?=
- =?us-ascii?Q?oLwwzEOLSEE38K0v9jpRdhh5jY9DxCuS46UTLmFHJCFrCo/Gyk5Wu6hJwAfl?=
- =?us-ascii?Q?j7eAYPL7AEf8Q2Vc71ut9HGZbQ8WzgYGF1fKwE7tXXFHvcC9NJ90MvfIKQmR?=
- =?us-ascii?Q?2/FTXa5ecJSOwjadJ0yRfDCjq40a5F+clBzCtZUkm0PQRtbvtmhyv1EYpctr?=
- =?us-ascii?Q?EoqtHiq2H7RWdDMjafBxALzq?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?fKMjxZum0G+hgOK4mzEJbUt2k0BKW5BW+T4qBV24Dd67JENTTX3vzy3KFCEN?=
+ =?us-ascii?Q?AI4zHQGWKrpOXlEA+grGjvQXntYomn40l5yi+ea5VeUh2UQSzppFHw8wluU1?=
+ =?us-ascii?Q?g/UJpMPDjPcMMvf2juwNj4MRYvVurCxLLq1kvPiCvBZgxI9qajeytMQQRb3R?=
+ =?us-ascii?Q?RR8piLOJjmoAYAVlx3shu3d6wvCJxOFoJEGZxxA+vDE8xsixpHt/htOcF2uL?=
+ =?us-ascii?Q?exh+3lNF+3I0roSRpkkQPw/pJr6lpKdfSgZwKmfIkWwYgcMuxUR7FUJ9qlW0?=
+ =?us-ascii?Q?CFUKa0J/5kz9xuY/aYRH96+1S2q8kUqkfluHdbPY31ONtlG2rwTeKUNXQFGL?=
+ =?us-ascii?Q?zxNg7Kf1fPYd7Vw1ZktugbP67eaTafr/sd2cSdB+t8eZuFm87unT9olSHePd?=
+ =?us-ascii?Q?Ss3opkVen3bFFWWUqVeWkqm9qaF6QSbBQsC8p+fmox46uG5euRvu9yKlHaCz?=
+ =?us-ascii?Q?VIIEn7JGN7cc6bPsgXPGWdqEqWKBUTZPWyN9CJGplRXLYvwOkYC9q1AKTD2j?=
+ =?us-ascii?Q?YGZJehBzaZxtwx5vmnqMNkPfaQuC7j5F6pZgoC5d0YbkCXueqWx55n8OobGp?=
+ =?us-ascii?Q?SBKXsfrBsaPK0V8QFtH9FtMhA60LQF5FFII/Z65zJPmrcnPzeXgbd5yi5Mza?=
+ =?us-ascii?Q?gjb/8zE5ra/jwMhSqb5zP5n3x5sR664WjM6kFOTH2TWZ2lmK4NwZ7zmNr8u1?=
+ =?us-ascii?Q?OOL1zdM+ZH7CooRhT2KiFw1a8FO2sG23X86Ecj8bjKjDGbYQHOE9joxbtZ7d?=
+ =?us-ascii?Q?ftniK0Mruncjl7VbNe/G1jdhI6t9phgGaK4turuF32ptQ8THT0TPcXMT3hIi?=
+ =?us-ascii?Q?tc3fzOWtAdvRTFDaHqU0+KXsLNS+G28sCCdo9IQzpVpF47aFW+uqSRV0BxlN?=
+ =?us-ascii?Q?aRPYR/In8MBpcdkfNGciJDZoC6qC7fdYmaHr/ngPwbppKz8l32GgJgYolztQ?=
+ =?us-ascii?Q?RwnYYbM3EOgHKWVeT/x8fKjEgBHRmiXb0884GUu1b073FmEb0pPd4DHuPmTR?=
+ =?us-ascii?Q?WiB4xjpWRtQJ3cc5oReOlqfkhkswzke4Qu9ZCSF5FOcmWbuR80AQklenin12?=
+ =?us-ascii?Q?gg6uTPDqQYg+L4+kbIJclOzuJV7yuaf66djEu6UvrwWAidAHflWjFImgMu9z?=
+ =?us-ascii?Q?5h9tSxaQuQmnjn45hSwStL6G/DwUZbLmRv8m26e/jS1CiNvOqr5GA6d7Pqjv?=
+ =?us-ascii?Q?LDRUsHUMxt/3rPb+5PnXoEqn3pUl7RKXQ26n/S6UTWbz7eNR+Ih4OH02cU8I?=
+ =?us-ascii?Q?2sRPkbFS8iqLqpihOmqw/aGxOD0e9iOW+nVPL5c26h0+MNGMClE+2Ur1eFmW?=
+ =?us-ascii?Q?G0AvMt3dmEJS2pjjhG6Vvp73?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6265edeb-ae4f-47d1-79a8-08d925e68028
+X-MS-Exchange-CrossTenant-Network-Message-Id: e4d527ab-f4ad-4912-db4e-08d925e680e4
 X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2021 16:50:17.4847 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2021 16:50:18.6984 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2aiuV/vS/0WQfaLV44MZuIbbwhqqdbkz28v6LdTnv13JksTyu6dO7+pYfn1Sv1UwTpM5yEpYxicx7vtPMTQfVA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: AAzNR+0pG2tFL/SxvLAA58eRczoEEs/Uw029sOksHq7x0uK3mq9h1lWR+0rqg/luSCHCAosq2xRoSXXGAP6Qyg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4534
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -135,113 +135,145 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 
-Add programming of the DCCG (Display Controller Clock Generator) block:
+Add support for the DIO (Display IO) block of DCN3.1 which controls
+legacy HDMI/DP stream/link encoding.
 
 HW Blocks:
 
-    +--------+
-    |  DCCG  |
-    +--------+
+    +--------+       +--------+
+    |  DIO   |       |  DCCG  |
+    +--------+       +--------+
+
+Includes some updates to core logic for link encoder assignment and
+future support for new high bandwidth output.
 
 Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- .../gpu/drm/amd/display/dc/dcn20/dcn20_dccg.h |  54 ++++
- .../gpu/drm/amd/display/dc/dcn31/dcn31_dccg.c | 279 ++++++++++++++++++
- .../gpu/drm/amd/display/dc/dcn31/dcn31_dccg.h | 147 +++++++++
- drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h  |  56 ++++
- 4 files changed, 536 insertions(+)
- create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dccg.c
- create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dccg.h
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c |  14 +
+ .../gpu/drm/amd/display/dc/core/dc_resource.c |  10 +
+ .../amd/display/dc/dcn10/dcn10_link_encoder.h |  20 +
+ .../display/dc/dcn31/dcn31_dio_link_encoder.c | 412 ++++++++++++++++++
+ .../display/dc/dcn31/dcn31_dio_link_encoder.h | 246 +++++++++++
+ .../drm/amd/display/dc/inc/hw/link_encoder.h  |  14 +
+ 6 files changed, 716 insertions(+)
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dio_link_encoder.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dio_link_encoder.h
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dccg.h b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dccg.h
-index d407f33308b9..e5aa2da3176d 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dccg.h
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dccg.h
-@@ -84,14 +84,53 @@
- 	type PHYCSYMCLK_FORCE_EN;\
- 	type PHYCSYMCLK_FORCE_SRC_SEL;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+index c07b45c021d5..31ba40746a2f 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+@@ -2875,8 +2875,16 @@ bool dc_link_setup_psr(struct dc_link *link,
+ 	psr_context->psr_level.u32all = 0;
  
+ 	/*skip power down the single pipe since it blocks the cstate*/
 +#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+#define DCCG31_REG_FIELD_LIST(type) \
-+	type PHYDSYMCLK_FORCE_EN;\
-+	type PHYDSYMCLK_FORCE_SRC_SEL;\
-+	type PHYESYMCLK_FORCE_EN;\
-+	type PHYESYMCLK_FORCE_SRC_SEL;\
-+	type DPSTREAMCLK_PIPE0_EN;\
-+	type DPSTREAMCLK_PIPE1_EN;\
-+	type DPSTREAMCLK_PIPE2_EN;\
-+	type DPSTREAMCLK_PIPE3_EN;\
-+	type HDMISTREAMCLK0_SRC_SEL;\
-+	type HDMISTREAMCLK0_DTO_FORCE_DIS;\
-+	type SYMCLK32_SE0_SRC_SEL;\
-+	type SYMCLK32_SE1_SRC_SEL;\
-+	type SYMCLK32_SE2_SRC_SEL;\
-+	type SYMCLK32_SE3_SRC_SEL;\
-+	type SYMCLK32_SE0_EN;\
-+	type SYMCLK32_SE1_EN;\
-+	type SYMCLK32_SE2_EN;\
-+	type SYMCLK32_SE3_EN;\
-+	type SYMCLK32_LE0_SRC_SEL;\
-+	type SYMCLK32_LE1_SRC_SEL;\
-+	type SYMCLK32_LE0_EN;\
-+	type SYMCLK32_LE1_EN;\
-+	type DTBCLK_DTO_ENABLE[MAX_PIPES];\
-+	type DTBCLKDTO_ENABLE_STATUS[MAX_PIPES];\
-+	type PIPE_DTO_SRC_SEL[MAX_PIPES];\
-+	type DTBCLK_DTO_DIV[MAX_PIPES];\
-+	type DCCG_AUDIO_DTO_SEL;\
-+	type DCCG_AUDIO_DTO0_SOURCE_SEL;\
-+	type DENTIST_DISPCLK_CHG_MODE;
++	if (link->ctx->asic_id.chip_family >= FAMILY_RV) {
++		psr_context->psr_level.bits.SKIP_CRTC_DISABLE = true;
++		if (link->ctx->asic_id.chip_family == FAMILY_YELLOW_CARP && !dc->debug.disable_z10)
++			psr_context->psr_level.bits.SKIP_CRTC_DISABLE = false;
++	}
++#else
+ 	if (link->ctx->asic_id.chip_family >= FAMILY_RV)
+ 		psr_context->psr_level.bits.SKIP_CRTC_DISABLE = true;
 +#endif
+ 
+ 	/* SMU will perform additional powerdown sequence.
+ 	 * For unsupported ASICs, set psr_level flag to skip PSR
+@@ -3208,8 +3216,14 @@ static void update_psp_stream_config(struct pipe_ctx *pipe_ctx, bool dpms_off)
+ 				dp_get_panel_mode(pipe_ctx->stream->link);
+ 
+ 		config.otg_inst = (uint8_t) pipe_ctx->stream_res.tg->inst;
++		/*stream_enc_inst*/
+ 		config.dig_fe = (uint8_t) pipe_ctx->stream_res.stream_enc->stream_enc_inst;
+ 		config.dig_be = pipe_ctx->stream->link->link_enc_hw_inst;
++#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
++		config.stream_enc_idx = pipe_ctx->stream_res.stream_enc->id - ENGINE_ID_DIGA;
++		config.link_enc_idx = pipe_ctx->stream->link->link_enc->transmitter - TRANSMITTER_UNIPHY_A;
++		config.phy_idx = pipe_ctx->stream->link->link_enc->transmitter - TRANSMITTER_UNIPHY_A;
++#endif
+ 		config.dpms_off = dpms_off;
+ 		config.dm_stream_ctx = pipe_ctx->stream->dm_stream_context;
+ 		config.assr_enabled = (panel_mode == DP_PANEL_MODE_EDP);
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+index cd864cc83539..56188cd30d62 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+@@ -2114,6 +2114,16 @@ enum dc_status dc_validate_global_state(
+ 
+ 	if (!new_ctx)
+ 		return DC_ERROR_UNEXPECTED;
++#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
 +
- struct dccg_shift {
- 	DCCG_REG_FIELD_LIST(uint8_t)
- 	DCCG3_REG_FIELD_LIST(uint8_t)
++	/*
++	 * Update link encoder to stream assignment.
++	 * TODO: Split out reason allocation from validation.
++	 */
++	if (dc->res_pool->funcs->link_encs_assign)
++		dc->res_pool->funcs->link_encs_assign(
++			dc, new_ctx, new_ctx->streams, new_ctx->stream_count);
++#endif
+ 
+ 	if (dc->res_pool->funcs->validate_global) {
+ 		result = dc->res_pool->funcs->validate_global(dc, new_ctx);
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_link_encoder.h b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_link_encoder.h
+index 3e1a582e4b88..ba47553081a7 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_link_encoder.h
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_link_encoder.h
+@@ -160,6 +160,14 @@ struct dcn10_link_enc_registers {
+ 	uint32_t PHYA_LINK_CNTL2;
+ 	uint32_t PHYB_LINK_CNTL2;
+ 	uint32_t PHYC_LINK_CNTL2;
 +#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+	DCCG31_REG_FIELD_LIST(uint8_t)
++	uint32_t DIO_LINKA_CNTL;
++	uint32_t DIO_LINKB_CNTL;
++	uint32_t DIO_LINKC_CNTL;
++	uint32_t DIO_LINKD_CNTL;
++	uint32_t DIO_LINKE_CNTL;
++	uint32_t DIO_LINKF_CNTL;
 +#endif
  };
  
- struct dccg_mask {
- 	DCCG_REG_FIELD_LIST(uint32_t)
- 	DCCG3_REG_FIELD_LIST(uint32_t)
+ #define LE_SF(reg_name, field_name, post_fix)\
+@@ -459,17 +467,29 @@ struct dcn10_link_enc_registers {
+ 	type DPCS_TX_DATA_SWAP_10_BIT;\
+ 	type DPCS_TX_DATA_ORDER_INVERT_18_BIT;\
+ 	type RDPCS_TX_CLK_EN
 +#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+	DCCG31_REG_FIELD_LIST(uint32_t)
++#define DCN31_LINK_ENCODER_REG_FIELD_LIST(type) \
++	type ENC_TYPE_SEL;\
++	type HPO_DP_ENC_SEL;\
++	type HPO_HDMI_ENC_SEL
++#endif
+ 
+ struct dcn10_link_enc_shift {
+ 	DCN_LINK_ENCODER_REG_FIELD_LIST(uint8_t);
+ 	DCN20_LINK_ENCODER_REG_FIELD_LIST(uint8_t);
+ 	DCN30_LINK_ENCODER_REG_FIELD_LIST(uint8_t);
++#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
++	DCN31_LINK_ENCODER_REG_FIELD_LIST(uint8_t);
 +#endif
  };
  
- struct dccg_registers {
-@@ -102,6 +141,21 @@ struct dccg_registers {
- 	uint32_t PHYASYMCLK_CLOCK_CNTL;
- 	uint32_t PHYBSYMCLK_CLOCK_CNTL;
- 	uint32_t PHYCSYMCLK_CLOCK_CNTL;
+ struct dcn10_link_enc_mask {
+ 	DCN_LINK_ENCODER_REG_FIELD_LIST(uint32_t);
+ 	DCN20_LINK_ENCODER_REG_FIELD_LIST(uint32_t);
+ 	DCN30_LINK_ENCODER_REG_FIELD_LIST(uint32_t);
 +#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+	uint32_t PHYDSYMCLK_CLOCK_CNTL;
-+	uint32_t PHYESYMCLK_CLOCK_CNTL;
-+	uint32_t OTG_PIXEL_RATE_CNTL[MAX_PIPES];
-+	uint32_t DTBCLK_DTO_MODULO[MAX_PIPES];
-+	uint32_t DTBCLK_DTO_PHASE[MAX_PIPES];
-+	uint32_t DCCG_AUDIO_DTBCLK_DTO_MODULO;
-+	uint32_t DCCG_AUDIO_DTBCLK_DTO_PHASE;
-+	uint32_t DCCG_AUDIO_DTO_SOURCE;
-+	uint32_t DPSTREAMCLK_CNTL;
-+	uint32_t HDMISTREAMCLK_CNTL;
-+	uint32_t SYMCLK32_SE_CNTL;
-+	uint32_t SYMCLK32_LE_CNTL;
-+	uint32_t DENTIST_DISPCLK_CNTL;
++	DCN31_LINK_ENCODER_REG_FIELD_LIST(uint32_t);
 +#endif
  };
  
- struct dcn_dccg {
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dccg.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dccg.c
+ struct dcn10_link_encoder {
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dio_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dio_link_encoder.c
 new file mode 100644
-index 000000000000..696c9307715d
+index 000000000000..b281a4ad152a
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dccg.c
-@@ -0,0 +1,279 @@
++++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dio_link_encoder.c
+@@ -0,0 +1,412 @@
 +/*
-+ * Copyright 2018 Advanced Micro Devices, Inc.
++ * Copyright 2012-15 Advanced Micro Devices, Inc.
 + *
 + * Permission is hereby granted, free of charge, to any person obtaining a
 + * copy of this software and associated documentation files (the "Software"),
@@ -265,274 +297,407 @@ index 000000000000..696c9307715d
 + *
 + */
 +
++
 +#include "reg_helper.h"
++
 +#include "core_types.h"
-+#include "dcn31_dccg.h"
++#include "link_encoder.h"
++#include "dcn31_dio_link_encoder.h"
++#include "stream_encoder.h"
++#include "i2caux_interface.h"
++#include "dc_bios_types.h"
 +
-+#define TO_DCN_DCCG(dccg)\
-+	container_of(dccg, struct dcn_dccg, base)
++#include "gpio_service_interface.h"
 +
-+#define REG(reg) \
-+	(dccg_dcn->regs->reg)
++#include "link_enc_cfg.h"
++#include "dc_dmub_srv.h"
++
++#define CTX \
++	enc10->base.ctx
++#define DC_LOGGER \
++	enc10->base.ctx->logger
++
++#define REG(reg)\
++	(enc10->link_regs->reg)
 +
 +#undef FN
 +#define FN(reg_name, field_name) \
-+	dccg_dcn->dccg_shift->field_name, dccg_dcn->dccg_mask->field_name
++	enc10->link_shift->field_name, enc10->link_mask->field_name
 +
-+#define CTX \
-+	dccg_dcn->base.ctx
-+#define DC_LOGGER \
-+	dccg->ctx->logger
++#define IND_REG(index) \
++	(enc10->link_regs->index)
 +
-+void dccg31_set_physymclk(
-+		struct dccg *dccg,
-+		int phy_inst,
-+		enum physymclk_clock_source clk_src,
-+		bool force_enable)
++#define AUX_REG(reg)\
++	(enc10->aux_regs->reg)
++
++#define AUX_REG_READ(reg_name) \
++		dm_read_reg(CTX, AUX_REG(reg_name))
++
++#define AUX_REG_WRITE(reg_name, val) \
++			dm_write_reg(CTX, AUX_REG(reg_name), val)
++
++void dcn31_link_encoder_set_dio_phy_mux(
++	struct link_encoder *enc,
++	enum encoder_type_select sel,
++	uint32_t hpo_inst)
 +{
-+	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
++	struct dcn10_link_encoder *enc10 = TO_DCN10_LINK_ENC(enc);
 +
-+	/* Force PHYSYMCLK on and Select phyd32clk as the source of clock which is output to PHY through DCIO */
-+	switch (phy_inst) {
-+	case 0:
-+		if (force_enable)
-+			REG_UPDATE_2(PHYASYMCLK_CLOCK_CNTL,
-+					PHYASYMCLK_FORCE_EN, 1,
-+					PHYASYMCLK_FORCE_SRC_SEL, clk_src);
-+		else
-+			REG_UPDATE_2(PHYASYMCLK_CLOCK_CNTL,
-+					PHYASYMCLK_FORCE_EN, 0,
-+					PHYASYMCLK_FORCE_SRC_SEL, 0);
++	switch (enc->transmitter) {
++	case TRANSMITTER_UNIPHY_A:
++		if (sel == ENCODER_TYPE_HDMI_FRL)
++			REG_UPDATE(DIO_LINKA_CNTL,
++					HPO_HDMI_ENC_SEL, hpo_inst);
++		else if (sel == ENCODER_TYPE_DP_128B132B)
++			REG_UPDATE(DIO_LINKA_CNTL,
++					HPO_DP_ENC_SEL, hpo_inst);
++		REG_UPDATE(DIO_LINKA_CNTL,
++				ENC_TYPE_SEL, sel);
 +		break;
-+	case 1:
-+		if (force_enable)
-+			REG_UPDATE_2(PHYBSYMCLK_CLOCK_CNTL,
-+					PHYBSYMCLK_FORCE_EN, 1,
-+					PHYBSYMCLK_FORCE_SRC_SEL, clk_src);
-+		else
-+			REG_UPDATE_2(PHYBSYMCLK_CLOCK_CNTL,
-+					PHYBSYMCLK_FORCE_EN, 0,
-+					PHYBSYMCLK_FORCE_SRC_SEL, 0);
++	case TRANSMITTER_UNIPHY_B:
++		if (sel == ENCODER_TYPE_HDMI_FRL)
++			REG_UPDATE(DIO_LINKB_CNTL,
++					HPO_HDMI_ENC_SEL, hpo_inst);
++		else if (sel == ENCODER_TYPE_DP_128B132B)
++			REG_UPDATE(DIO_LINKB_CNTL,
++					HPO_DP_ENC_SEL, hpo_inst);
++		REG_UPDATE(DIO_LINKB_CNTL,
++				ENC_TYPE_SEL, sel);
 +		break;
-+	case 2:
-+		if (force_enable)
-+			REG_UPDATE_2(PHYCSYMCLK_CLOCK_CNTL,
-+					PHYCSYMCLK_FORCE_EN, 1,
-+					PHYCSYMCLK_FORCE_SRC_SEL, clk_src);
-+		else
-+			REG_UPDATE_2(PHYCSYMCLK_CLOCK_CNTL,
-+					PHYCSYMCLK_FORCE_EN, 0,
-+					PHYCSYMCLK_FORCE_SRC_SEL, 0);
++	case TRANSMITTER_UNIPHY_C:
++		if (sel == ENCODER_TYPE_HDMI_FRL)
++			REG_UPDATE(DIO_LINKC_CNTL,
++					HPO_HDMI_ENC_SEL, hpo_inst);
++		else if (sel == ENCODER_TYPE_DP_128B132B)
++			REG_UPDATE(DIO_LINKC_CNTL,
++					HPO_DP_ENC_SEL, hpo_inst);
++		REG_UPDATE(DIO_LINKC_CNTL,
++				ENC_TYPE_SEL, sel);
 +		break;
-+	case 3:
-+		if (force_enable)
-+			REG_UPDATE_2(PHYDSYMCLK_CLOCK_CNTL,
-+					PHYDSYMCLK_FORCE_EN, 1,
-+					PHYDSYMCLK_FORCE_SRC_SEL, clk_src);
-+		else
-+			REG_UPDATE_2(PHYDSYMCLK_CLOCK_CNTL,
-+					PHYDSYMCLK_FORCE_EN, 0,
-+					PHYDSYMCLK_FORCE_SRC_SEL, 0);
++	case TRANSMITTER_UNIPHY_D:
++		if (sel == ENCODER_TYPE_HDMI_FRL)
++			REG_UPDATE(DIO_LINKD_CNTL,
++					HPO_HDMI_ENC_SEL, hpo_inst);
++		else if (sel == ENCODER_TYPE_DP_128B132B)
++			REG_UPDATE(DIO_LINKD_CNTL,
++					HPO_DP_ENC_SEL, hpo_inst);
++		REG_UPDATE(DIO_LINKD_CNTL,
++				ENC_TYPE_SEL, sel);
 +		break;
-+	case 4:
-+		if (force_enable)
-+			REG_UPDATE_2(PHYESYMCLK_CLOCK_CNTL,
-+					PHYESYMCLK_FORCE_EN, 1,
-+					PHYESYMCLK_FORCE_SRC_SEL, clk_src);
-+		else
-+			REG_UPDATE_2(PHYESYMCLK_CLOCK_CNTL,
-+					PHYESYMCLK_FORCE_EN, 0,
-+					PHYESYMCLK_FORCE_SRC_SEL, 0);
++	case TRANSMITTER_UNIPHY_E:
++		if (sel == ENCODER_TYPE_HDMI_FRL)
++			REG_UPDATE(DIO_LINKE_CNTL,
++					HPO_HDMI_ENC_SEL, hpo_inst);
++		else if (sel == ENCODER_TYPE_DP_128B132B)
++			REG_UPDATE(DIO_LINKE_CNTL,
++					HPO_DP_ENC_SEL, hpo_inst);
++		REG_UPDATE(DIO_LINKE_CNTL,
++				ENC_TYPE_SEL, sel);
++		break;
++	case TRANSMITTER_UNIPHY_F:
++		if (sel == ENCODER_TYPE_HDMI_FRL)
++			REG_UPDATE(DIO_LINKF_CNTL,
++					HPO_HDMI_ENC_SEL, hpo_inst);
++		else if (sel == ENCODER_TYPE_DP_128B132B)
++			REG_UPDATE(DIO_LINKF_CNTL,
++					HPO_DP_ENC_SEL, hpo_inst);
++		REG_UPDATE(DIO_LINKF_CNTL,
++				ENC_TYPE_SEL, sel);
 +		break;
 +	default:
-+		BREAK_TO_DEBUGGER();
-+		return;
++		/* Do nothing */
++		break;
 +	}
 +}
 +
-+/* Controls the generation of pixel valid for OTG in (OTG -> HPO case) */
-+void dccg31_set_dtbclk_dto(
-+		struct dccg *dccg,
-+		int dtbclk_inst,
-+		int req_dtbclk_khz,
-+		int num_odm_segments,
-+		const struct dc_crtc_timing *timing)
++void enc31_hw_init(struct link_encoder *enc)
 +{
-+	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
-+	uint32_t dtbdto_div;
++	struct dcn10_link_encoder *enc10 = TO_DCN10_LINK_ENC(enc);
 +
-+	/* Mode	                DTBDTO Rate       DTBCLK_DTO<x>_DIV Register
-+	 * ODM 4:1 combine      pixel rate/4      2
-+	 * ODM 2:1 combine      pixel rate/2      4
-+	 * non-DSC 4:2:0 mode   pixel rate/2      4
-+	 * DSC native 4:2:0     pixel rate/2      4
-+	 * DSC native 4:2:2     pixel rate/2      4
-+	 * Other modes          pixel rate        8
-+	 */
-+	if (num_odm_segments == 4) {
-+		dtbdto_div = 2;
-+		req_dtbclk_khz = req_dtbclk_khz / 4;
-+	} else if ((num_odm_segments == 2) ||
-+			(timing->pixel_encoding == PIXEL_ENCODING_YCBCR420) ||
-+			(timing->flags.DSC && timing->pixel_encoding == PIXEL_ENCODING_YCBCR422
-+					&& !timing->dsc_cfg.ycbcr422_simple)) {
-+		dtbdto_div = 4;
-+		req_dtbclk_khz = req_dtbclk_khz / 2;
-+	} else
-+		dtbdto_div = 8;
++/*
++	00 - DP_AUX_DPHY_RX_DETECTION_THRESHOLD__1to2 : 1/2
++	01 - DP_AUX_DPHY_RX_DETECTION_THRESHOLD__3to4 : 3/4
++	02 - DP_AUX_DPHY_RX_DETECTION_THRESHOLD__7to8 : 7/8
++	03 - DP_AUX_DPHY_RX_DETECTION_THRESHOLD__15to16 : 15/16
++	04 - DP_AUX_DPHY_RX_DETECTION_THRESHOLD__31to32 : 31/32
++	05 - DP_AUX_DPHY_RX_DETECTION_THRESHOLD__63to64 : 63/64
++	06 - DP_AUX_DPHY_RX_DETECTION_THRESHOLD__127to128 : 127/128
++	07 - DP_AUX_DPHY_RX_DETECTION_THRESHOLD__255to256 : 255/256
++*/
 +
-+	if (dccg->ref_dtbclk_khz && req_dtbclk_khz) {
-+		uint32_t modulo, phase;
++/*
++	AUX_REG_UPDATE_5(AUX_DPHY_RX_CONTROL0,
++	AUX_RX_START_WINDOW = 1 [6:4]
++	AUX_RX_RECEIVE_WINDOW = 1 default is 2 [10:8]
++	AUX_RX_HALF_SYM_DETECT_LEN  = 1 [13:12] default is 1
++	AUX_RX_TRANSITION_FILTER_EN = 1 [16] default is 1
++	AUX_RX_ALLOW_BELOW_THRESHOLD_PHASE_DETECT [17] is 0  default is 0
++	AUX_RX_ALLOW_BELOW_THRESHOLD_START [18] is 1  default is 1
++	AUX_RX_ALLOW_BELOW_THRESHOLD_STOP [19] is 1  default is 1
++	AUX_RX_PHASE_DETECT_LEN,  [21,20] = 0x3 default is 3
++	AUX_RX_DETECTION_THRESHOLD [30:28] = 1
++*/
++	AUX_REG_WRITE(AUX_DPHY_RX_CONTROL0, 0x103d1110);
 +
-+		// phase / modulo = dtbclk / dtbclk ref
-+		modulo = dccg->ref_dtbclk_khz * 1000;
-+		phase = div_u64((((unsigned long long)modulo * req_dtbclk_khz) + dccg->ref_dtbclk_khz - 1),
-+			dccg->ref_dtbclk_khz);
++	AUX_REG_WRITE(AUX_DPHY_TX_CONTROL, 0x21c7a);
 +
-+		REG_UPDATE(OTG_PIXEL_RATE_CNTL[dtbclk_inst],
-+				DTBCLK_DTO_DIV[dtbclk_inst], dtbdto_div);
++	//AUX_DPHY_TX_REF_CONTROL'AUX_TX_REF_DIV HW default is 0x32;
++	// Set AUX_TX_REF_DIV Divider to generate 2 MHz reference from refclk
++	// 27MHz -> 0xd
++	// 100MHz -> 0x32
++	// 48MHz -> 0x18
 +
-+		REG_WRITE(DTBCLK_DTO_MODULO[dtbclk_inst], modulo);
-+		REG_WRITE(DTBCLK_DTO_PHASE[dtbclk_inst], phase);
++#ifdef CLEANUP_FIXME
++	/*from display_init*/
++	REG_WRITE(RDPCSTX_DEBUG_CONFIG, 0);
++#endif
 +
-+		REG_UPDATE(OTG_PIXEL_RATE_CNTL[dtbclk_inst],
-+				DTBCLK_DTO_ENABLE[dtbclk_inst], 1);
++	// Set TMDS_CTL0 to 1.  This is a legacy setting.
++	REG_UPDATE(TMDS_CTL_BITS, TMDS_CTL0, 1);
 +
-+		REG_WAIT(OTG_PIXEL_RATE_CNTL[dtbclk_inst],
-+				DTBCLKDTO_ENABLE_STATUS[dtbclk_inst], 1,
-+				1, 100);
++	/*HW default is 5*/
++	REG_UPDATE(RDPCSTX_CNTL,
++			RDPCS_TX_FIFO_RD_START_DELAY, 4);
 +
-+		/* The recommended programming sequence to enable DTBCLK DTO to generate
-+		 * valid pixel HPO DPSTREAM ENCODER, specifies that DTO source select should
-+		 * be set only after DTO is enabled
-+		 */
-+		REG_UPDATE(OTG_PIXEL_RATE_CNTL[dtbclk_inst],
-+				PIPE_DTO_SRC_SEL[dtbclk_inst], 1);
-+
-+		dccg->dtbclk_khz[dtbclk_inst] = req_dtbclk_khz;
-+	} else {
-+		REG_UPDATE_3(OTG_PIXEL_RATE_CNTL[dtbclk_inst],
-+				DTBCLK_DTO_ENABLE[dtbclk_inst], 0,
-+				PIPE_DTO_SRC_SEL[dtbclk_inst], 0,
-+				DTBCLK_DTO_DIV[dtbclk_inst], dtbdto_div);
-+
-+		REG_WRITE(DTBCLK_DTO_MODULO[dtbclk_inst], 0);
-+		REG_WRITE(DTBCLK_DTO_PHASE[dtbclk_inst], 0);
-+
-+		dccg->dtbclk_khz[dtbclk_inst] = 0;
-+	}
++	dcn10_aux_initialize(enc10);
 +}
 +
-+void dccg31_set_audio_dtbclk_dto(
-+		struct dccg *dccg,
-+		uint32_t req_audio_dtbclk_khz)
-+{
-+	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
-+
-+	if (dccg->ref_dtbclk_khz && req_audio_dtbclk_khz) {
-+		uint32_t modulo, phase;
-+
-+		// phase / modulo = dtbclk / dtbclk ref
-+		modulo = dccg->ref_dtbclk_khz * 1000;
-+		phase = div_u64((((unsigned long long)modulo * req_audio_dtbclk_khz) + dccg->ref_dtbclk_khz - 1),
-+			dccg->ref_dtbclk_khz);
-+
-+
-+		REG_WRITE(DCCG_AUDIO_DTBCLK_DTO_MODULO, modulo);
-+		REG_WRITE(DCCG_AUDIO_DTBCLK_DTO_PHASE, phase);
-+
-+		//REG_UPDATE(DCCG_AUDIO_DTO_SOURCE,
-+		//		DCCG_AUDIO_DTBCLK_DTO_USE_512FBR_DTO, 1);
-+
-+		REG_UPDATE(DCCG_AUDIO_DTO_SOURCE,
-+				DCCG_AUDIO_DTO_SEL, 4);  //  04 - DCCG_AUDIO_DTO_SEL_AUDIO_DTO_DTBCLK
-+
-+		dccg->audio_dtbclk_khz = req_audio_dtbclk_khz;
-+	} else {
-+		REG_WRITE(DCCG_AUDIO_DTBCLK_DTO_PHASE, 0);
-+		REG_WRITE(DCCG_AUDIO_DTBCLK_DTO_MODULO, 0);
-+
-+		REG_UPDATE(DCCG_AUDIO_DTO_SOURCE,
-+				DCCG_AUDIO_DTO_SEL, 3);  //  03 - DCCG_AUDIO_DTO_SEL_NO_AUDIO_DTO
-+
-+		dccg->audio_dtbclk_khz = 0;
-+	}
-+}
-+
-+static void dccg31_get_dccg_ref_freq(struct dccg *dccg,
-+		unsigned int xtalin_freq_inKhz,
-+		unsigned int *dccg_ref_freq_inKhz)
-+{
-+	/*
-+	 * Assume refclk is sourced from xtalin
-+	 * expect 24MHz
-+	 */
-+	*dccg_ref_freq_inKhz = xtalin_freq_inKhz;
-+	return;
-+}
-+
-+static void dccg31_set_dispclk_change_mode(
-+	struct dccg *dccg,
-+	enum dentist_dispclk_change_mode change_mode)
-+{
-+	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
-+
-+	REG_UPDATE(DENTIST_DISPCLK_CNTL, DENTIST_DISPCLK_CHG_MODE,
-+		   change_mode == DISPCLK_CHANGE_MODE_RAMPING ? 2 : 0);
-+}
-+
-+void dccg31_init(struct dccg *dccg)
-+{
-+}
-+
-+static const struct dccg_funcs dccg31_funcs = {
-+	.update_dpp_dto = dccg2_update_dpp_dto,
-+	.get_dccg_ref_freq = dccg31_get_dccg_ref_freq,
-+	.dccg_init = dccg31_init,
-+	.set_physymclk = dccg31_set_physymclk,
-+	.set_dtbclk_dto = dccg31_set_dtbclk_dto,
-+	.set_audio_dtbclk_dto = dccg31_set_audio_dtbclk_dto,
-+	.set_dispclk_change_mode = dccg31_set_dispclk_change_mode,
++static const struct link_encoder_funcs dcn31_link_enc_funcs = {
++	.read_state = link_enc2_read_state,
++	.validate_output_with_stream =
++			dcn30_link_encoder_validate_output_with_stream,
++	.hw_init = enc31_hw_init,
++	.setup = dcn10_link_encoder_setup,
++	.enable_tmds_output = dcn10_link_encoder_enable_tmds_output,
++	.enable_dp_output = dcn31_link_encoder_enable_dp_output,
++	.enable_dp_mst_output = dcn31_link_encoder_enable_dp_mst_output,
++	.disable_output = dcn31_link_encoder_disable_output,
++	.dp_set_lane_settings = dcn10_link_encoder_dp_set_lane_settings,
++	.dp_set_phy_pattern = dcn10_link_encoder_dp_set_phy_pattern,
++	.update_mst_stream_allocation_table =
++		dcn10_link_encoder_update_mst_stream_allocation_table,
++	.psr_program_dp_dphy_fast_training =
++			dcn10_psr_program_dp_dphy_fast_training,
++	.psr_program_secondary_packet = dcn10_psr_program_secondary_packet,
++	.connect_dig_be_to_fe = dcn10_link_encoder_connect_dig_be_to_fe,
++	.enable_hpd = dcn10_link_encoder_enable_hpd,
++	.disable_hpd = dcn10_link_encoder_disable_hpd,
++	.is_dig_enabled = dcn10_is_dig_enabled,
++	.destroy = dcn10_link_encoder_destroy,
++	.fec_set_enable = enc2_fec_set_enable,
++	.fec_set_ready = enc2_fec_set_ready,
++	.fec_is_active = enc2_fec_is_active,
++	.get_dig_frontend = dcn10_get_dig_frontend,
++	.get_dig_mode = dcn10_get_dig_mode,
++	.is_in_alt_mode = dcn20_link_encoder_is_in_alt_mode,
++	.get_max_link_cap = dcn20_link_encoder_get_max_link_cap,
++	.set_dio_phy_mux = dcn31_link_encoder_set_dio_phy_mux,
 +};
 +
-+struct dccg *dccg31_create(
-+	struct dc_context *ctx,
-+	const struct dccg_registers *regs,
-+	const struct dccg_shift *dccg_shift,
-+	const struct dccg_mask *dccg_mask)
++void dcn31_link_encoder_construct(
++	struct dcn20_link_encoder *enc20,
++	const struct encoder_init_data *init_data,
++	const struct encoder_feature_support *enc_features,
++	const struct dcn10_link_enc_registers *link_regs,
++	const struct dcn10_link_enc_aux_registers *aux_regs,
++	const struct dcn10_link_enc_hpd_registers *hpd_regs,
++	const struct dcn10_link_enc_shift *link_shift,
++	const struct dcn10_link_enc_mask *link_mask)
 +{
-+	struct dcn_dccg *dccg_dcn = kzalloc(sizeof(*dccg_dcn), GFP_KERNEL);
-+	struct dccg *base;
++	struct bp_encoder_cap_info bp_cap_info = {0};
++	const struct dc_vbios_funcs *bp_funcs = init_data->ctx->dc_bios->funcs;
++	enum bp_result result = BP_RESULT_OK;
++	struct dcn10_link_encoder *enc10 = &enc20->enc10;
 +
-+	if (dccg_dcn == NULL) {
-+		BREAK_TO_DEBUGGER();
-+		return NULL;
++	enc10->base.funcs = &dcn31_link_enc_funcs;
++	enc10->base.ctx = init_data->ctx;
++	enc10->base.id = init_data->encoder;
++
++	enc10->base.hpd_source = init_data->hpd_source;
++	enc10->base.connector = init_data->connector;
++
++	enc10->base.preferred_engine = ENGINE_ID_UNKNOWN;
++
++	enc10->base.features = *enc_features;
++
++	enc10->base.transmitter = init_data->transmitter;
++
++	/* set the flag to indicate whether driver poll the I2C data pin
++	 * while doing the DP sink detect
++	 */
++
++/*	if (dal_adapter_service_is_feature_supported(as,
++		FEATURE_DP_SINK_DETECT_POLL_DATA_PIN))
++		enc10->base.features.flags.bits.
++			DP_SINK_DETECT_POLL_DATA_PIN = true;*/
++
++	enc10->base.output_signals =
++		SIGNAL_TYPE_DVI_SINGLE_LINK |
++		SIGNAL_TYPE_DVI_DUAL_LINK |
++		SIGNAL_TYPE_LVDS |
++		SIGNAL_TYPE_DISPLAY_PORT |
++		SIGNAL_TYPE_DISPLAY_PORT_MST |
++		SIGNAL_TYPE_EDP |
++		SIGNAL_TYPE_HDMI_TYPE_A;
++
++	/* For DCE 8.0 and 8.1, by design, UNIPHY is hardwired to DIG_BE.
++	 * SW always assign DIG_FE 1:1 mapped to DIG_FE for non-MST UNIPHY.
++	 * SW assign DIG_FE to non-MST UNIPHY first and MST last. So prefer
++	 * DIG is per UNIPHY and used by SST DP, eDP, HDMI, DVI and LVDS.
++	 * Prefer DIG assignment is decided by board design.
++	 * For DCE 8.0, there are only max 6 UNIPHYs, we assume board design
++	 * and VBIOS will filter out 7 UNIPHY for DCE 8.0.
++	 * By this, adding DIGG should not hurt DCE 8.0.
++	 * This will let DCE 8.1 share DCE 8.0 as much as possible
++	 */
++
++	enc10->link_regs = link_regs;
++	enc10->aux_regs = aux_regs;
++	enc10->hpd_regs = hpd_regs;
++	enc10->link_shift = link_shift;
++	enc10->link_mask = link_mask;
++
++	switch (enc10->base.transmitter) {
++	case TRANSMITTER_UNIPHY_A:
++		enc10->base.preferred_engine = ENGINE_ID_DIGA;
++	break;
++	case TRANSMITTER_UNIPHY_B:
++		enc10->base.preferred_engine = ENGINE_ID_DIGB;
++	break;
++	case TRANSMITTER_UNIPHY_C:
++		enc10->base.preferred_engine = ENGINE_ID_DIGC;
++	break;
++	case TRANSMITTER_UNIPHY_D:
++		enc10->base.preferred_engine = ENGINE_ID_DIGD;
++	break;
++	case TRANSMITTER_UNIPHY_E:
++		enc10->base.preferred_engine = ENGINE_ID_DIGE;
++	break;
++	case TRANSMITTER_UNIPHY_F:
++		enc10->base.preferred_engine = ENGINE_ID_DIGF;
++	break;
++	default:
++		ASSERT_CRITICAL(false);
++		enc10->base.preferred_engine = ENGINE_ID_UNKNOWN;
 +	}
 +
-+	base = &dccg_dcn->base;
-+	base->ctx = ctx;
-+	base->funcs = &dccg31_funcs;
++	/* default to one to mirror Windows behavior */
++	enc10->base.features.flags.bits.HDMI_6GB_EN = 1;
 +
-+	dccg_dcn->regs = regs;
-+	dccg_dcn->dccg_shift = dccg_shift;
-+	dccg_dcn->dccg_mask = dccg_mask;
++	result = bp_funcs->get_encoder_cap_info(enc10->base.ctx->dc_bios,
++						enc10->base.id, &bp_cap_info);
 +
-+	return &dccg_dcn->base;
++	/* Override features with DCE-specific values */
++	if (result == BP_RESULT_OK) {
++		enc10->base.features.flags.bits.IS_HBR2_CAPABLE =
++				bp_cap_info.DP_HBR2_EN;
++		enc10->base.features.flags.bits.IS_HBR3_CAPABLE =
++				bp_cap_info.DP_HBR3_EN;
++		enc10->base.features.flags.bits.HDMI_6GB_EN = bp_cap_info.HDMI_6GB_EN;
++		enc10->base.features.flags.bits.DP_IS_USB_C =
++				bp_cap_info.DP_IS_USB_C;
++	} else {
++		DC_LOG_WARNING("%s: Failed to get encoder_cap_info from VBIOS with error code %d!\n",
++				__func__,
++				result);
++	}
++	if (enc10->base.ctx->dc->debug.hdmi20_disable) {
++		enc10->base.features.flags.bits.HDMI_6GB_EN = 0;
++	}
 +}
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dccg.h b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dccg.h
++
++void dcn31_link_encoder_construct_minimal(
++	struct dcn20_link_encoder *enc20,
++	struct dc_context *ctx,
++	const struct encoder_feature_support *enc_features,
++	const struct dcn10_link_enc_registers *link_regs,
++	enum engine_id eng_id)
++{
++	struct dcn10_link_encoder *enc10 = &enc20->enc10;
++
++	enc10->base.funcs = &dcn31_link_enc_funcs;
++	enc10->base.ctx = ctx;
++	enc10->base.id.type = OBJECT_TYPE_ENCODER;
++	enc10->base.hpd_source = HPD_SOURCEID_UNKNOWN;
++	enc10->base.connector.type = OBJECT_TYPE_CONNECTOR;
++	enc10->base.preferred_engine = eng_id;
++	enc10->base.features = *enc_features;
++	enc10->base.transmitter = TRANSMITTER_UNKNOWN;
++	enc10->link_regs = link_regs;
++
++	enc10->base.output_signals =
++		SIGNAL_TYPE_DISPLAY_PORT |
++		SIGNAL_TYPE_DISPLAY_PORT_MST |
++		SIGNAL_TYPE_EDP;
++}
++
++void dcn31_link_encoder_enable_dp_output(
++	struct link_encoder *enc,
++	const struct dc_link_settings *link_settings,
++	enum clock_source_id clock_source)
++{
++	struct dcn10_link_encoder *enc10 = TO_DCN10_LINK_ENC(enc);
++
++	/* Enable transmitter and encoder. */
++	if (!link_enc_cfg_is_transmitter_mappable(enc->ctx->dc->current_state, enc)) {
++
++		dcn20_link_encoder_enable_dp_output(enc, link_settings, clock_source);
++
++	} else {
++
++		/** @todo Handle transmitter with programmable mapping to link encoder. */
++	}
++}
++
++void dcn31_link_encoder_enable_dp_mst_output(
++	struct link_encoder *enc,
++	const struct dc_link_settings *link_settings,
++	enum clock_source_id clock_source)
++{
++	struct dcn10_link_encoder *enc10 = TO_DCN10_LINK_ENC(enc);
++
++	/* Enable transmitter and encoder. */
++	if (!link_enc_cfg_is_transmitter_mappable(enc->ctx->dc->current_state, enc)) {
++
++		dcn10_link_encoder_enable_dp_mst_output(enc, link_settings, clock_source);
++
++	} else {
++
++		/** @todo Handle transmitter with programmable mapping to link encoder. */
++	}
++}
++
++void dcn31_link_encoder_disable_output(
++	struct link_encoder *enc,
++	enum signal_type signal)
++{
++	struct dcn10_link_encoder *enc10 = TO_DCN10_LINK_ENC(enc);
++
++	/* Disable transmitter and encoder. */
++	if (!link_enc_cfg_is_transmitter_mappable(enc->ctx->dc->current_state, enc)) {
++
++		dcn10_link_encoder_disable_output(enc, signal);
++
++	} else {
++
++		/** @todo Handle transmitter with programmable mapping to link encoder. */
++	}
++}
++
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dio_link_encoder.h b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dio_link_encoder.h
 new file mode 100644
-index 000000000000..706ad80ba873
+index 000000000000..32d146312838
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dccg.h
-@@ -0,0 +1,147 @@
++++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dio_link_encoder.h
+@@ -0,0 +1,246 @@
 +/*
-+ * Copyright 2018 Advanced Micro Devices, Inc.
++ * Copyright 2012-15 Advanced Micro Devices, Inc.
 + *
 + * Permission is hereby granted, free of charge, to any person obtaining a
 + * copy of this software and associated documentation files (the "Software"),
 + * to deal in the Software without restriction, including without limitation
 + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
++ *  and/or sell copies of the Software, and to permit persons to whom the
 + * Software is furnished to do so, subject to the following conditions:
 + *
 + * The above copyright notice and this permission notice shall be included in
@@ -550,207 +715,259 @@ index 000000000000..706ad80ba873
 + *
 + */
 +
-+#ifndef __DCN31_DCCG_H__
-+#define __DCN31_DCCG_H__
++#ifndef __DC_LINK_ENCODER__DCN31_H__
++#define __DC_LINK_ENCODER__DCN31_H__
 +
-+#include "dcn30/dcn30_dccg.h"
-+
-+#define DCCG_SFII(block, reg_name, field_prefix, field_name, inst, post_fix)\
-+	.field_prefix ## _ ## field_name[inst] = block ## inst ## _ ## reg_name ## __ ## field_prefix ## inst ## _ ## field_name ## post_fix
++#include "dcn30/dcn30_dio_link_encoder.h"
 +
 +
-+#define DCCG_REG_LIST_DCN31() \
-+	SR(DPPCLK_DTO_CTRL),\
-+	DCCG_SRII(DTO_PARAM, DPPCLK, 0),\
-+	DCCG_SRII(DTO_PARAM, DPPCLK, 1),\
-+	DCCG_SRII(DTO_PARAM, DPPCLK, 2),\
-+	DCCG_SRII(DTO_PARAM, DPPCLK, 3),\
-+	SR(PHYASYMCLK_CLOCK_CNTL),\
-+	SR(PHYBSYMCLK_CLOCK_CNTL),\
-+	SR(PHYCSYMCLK_CLOCK_CNTL),\
-+	SR(PHYDSYMCLK_CLOCK_CNTL),\
-+	SR(PHYESYMCLK_CLOCK_CNTL),\
-+	SR(DPSTREAMCLK_CNTL),\
-+	SR(SYMCLK32_SE_CNTL),\
-+	SR(SYMCLK32_LE_CNTL),\
-+	DCCG_SRII(PIXEL_RATE_CNTL, OTG, 0),\
-+	DCCG_SRII(PIXEL_RATE_CNTL, OTG, 1),\
-+	DCCG_SRII(PIXEL_RATE_CNTL, OTG, 2),\
-+	DCCG_SRII(PIXEL_RATE_CNTL, OTG, 3),\
-+	DCCG_SRII(MODULO, DTBCLK_DTO, 0),\
-+	DCCG_SRII(MODULO, DTBCLK_DTO, 1),\
-+	DCCG_SRII(MODULO, DTBCLK_DTO, 2),\
-+	DCCG_SRII(MODULO, DTBCLK_DTO, 3),\
-+	DCCG_SRII(PHASE, DTBCLK_DTO, 0),\
-+	DCCG_SRII(PHASE, DTBCLK_DTO, 1),\
-+	DCCG_SRII(PHASE, DTBCLK_DTO, 2),\
-+	DCCG_SRII(PHASE, DTBCLK_DTO, 3),\
-+	SR(DCCG_AUDIO_DTBCLK_DTO_MODULO),\
-+	SR(DCCG_AUDIO_DTBCLK_DTO_PHASE),\
-+	SR(DCCG_AUDIO_DTO_SOURCE),\
-+	SR(DENTIST_DISPCLK_CNTL)
++#define LE_DCN31_REG_LIST(id)\
++	LE_DCN3_REG_LIST(id),\
++	SRI(DP_DPHY_INTERNAL_CTRL, DP, id), \
++	SR(DIO_LINKA_CNTL), \
++	SR(DIO_LINKB_CNTL), \
++	SR(DIO_LINKC_CNTL), \
++	SR(DIO_LINKD_CNTL), \
++	SR(DIO_LINKE_CNTL), \
++	SR(DIO_LINKF_CNTL)
 +
++#define LINK_ENCODER_MASK_SH_LIST_DCN31(mask_sh) \
++	LINK_ENCODER_MASK_SH_LIST_DCN10(mask_sh),\
++	LE_SF(DP0_DP_DPHY_CNTL, DPHY_FEC_EN, mask_sh),\
++	LE_SF(DP0_DP_DPHY_CNTL, DPHY_FEC_READY_SHADOW, mask_sh),\
++	LE_SF(DP0_DP_DPHY_CNTL, DPHY_FEC_ACTIVE_STATUS, mask_sh),\
++	LE_SF(DIG0_TMDS_CTL_BITS, TMDS_CTL0, mask_sh), \
++	LE_SF(DP_AUX0_AUX_DPHY_RX_CONTROL0, AUX_RX_START_WINDOW, mask_sh),\
++	LE_SF(DP_AUX0_AUX_DPHY_RX_CONTROL0, AUX_RX_HALF_SYM_DETECT_LEN, mask_sh),\
++	LE_SF(DP_AUX0_AUX_DPHY_RX_CONTROL0, AUX_RX_TRANSITION_FILTER_EN, mask_sh),\
++	LE_SF(DP_AUX0_AUX_DPHY_RX_CONTROL0, AUX_RX_ALLOW_BELOW_THRESHOLD_PHASE_DETECT, mask_sh),\
++	LE_SF(DP_AUX0_AUX_DPHY_RX_CONTROL0, AUX_RX_ALLOW_BELOW_THRESHOLD_START, mask_sh),\
++	LE_SF(DP_AUX0_AUX_DPHY_RX_CONTROL0, AUX_RX_ALLOW_BELOW_THRESHOLD_STOP, mask_sh),\
++	LE_SF(DP_AUX0_AUX_DPHY_RX_CONTROL0, AUX_RX_PHASE_DETECT_LEN, mask_sh),\
++	LE_SF(DP_AUX0_AUX_DPHY_RX_CONTROL0, AUX_RX_DETECTION_THRESHOLD, mask_sh), \
++	LE_SF(DP_AUX0_AUX_DPHY_TX_CONTROL, AUX_TX_PRECHARGE_LEN, mask_sh),\
++	LE_SF(DP_AUX0_AUX_DPHY_TX_CONTROL, AUX_TX_PRECHARGE_SYMBOLS, mask_sh),\
++	LE_SF(DP_AUX0_AUX_DPHY_TX_CONTROL, AUX_MODE_DET_CHECK_DELAY, mask_sh),\
++	LE_SF(DP_AUX0_AUX_DPHY_RX_CONTROL1, AUX_RX_PRECHARGE_SKIP, mask_sh),\
++	LE_SF(DP_AUX0_AUX_DPHY_RX_CONTROL1, AUX_RX_TIMEOUT_LEN, mask_sh),\
++	LE_SF(DP_AUX0_AUX_DPHY_RX_CONTROL1, AUX_RX_TIMEOUT_LEN_MUL, mask_sh),\
++	LE_SF(DIO_LINKA_CNTL, ENC_TYPE_SEL, mask_sh),\
++	LE_SF(DIO_LINKA_CNTL, HPO_DP_ENC_SEL, mask_sh),\
++	LE_SF(DIO_LINKA_CNTL, HPO_HDMI_ENC_SEL, mask_sh)
 +
-+#define DCCG_MASK_SH_LIST_DCN31(mask_sh) \
-+	DCCG_SFI(DPPCLK_DTO_CTRL, DTO_ENABLE, DPPCLK, 0, mask_sh),\
-+	DCCG_SFI(DPPCLK_DTO_CTRL, DTO_DB_EN, DPPCLK, 0, mask_sh),\
-+	DCCG_SFI(DPPCLK_DTO_CTRL, DTO_ENABLE, DPPCLK, 1, mask_sh),\
-+	DCCG_SFI(DPPCLK_DTO_CTRL, DTO_DB_EN, DPPCLK, 1, mask_sh),\
-+	DCCG_SFI(DPPCLK_DTO_CTRL, DTO_ENABLE, DPPCLK, 2, mask_sh),\
-+	DCCG_SFI(DPPCLK_DTO_CTRL, DTO_DB_EN, DPPCLK, 2, mask_sh),\
-+	DCCG_SFI(DPPCLK_DTO_CTRL, DTO_ENABLE, DPPCLK, 3, mask_sh),\
-+	DCCG_SFI(DPPCLK_DTO_CTRL, DTO_DB_EN, DPPCLK, 3, mask_sh),\
-+	DCCG_SF(DPPCLK0_DTO_PARAM, DPPCLK0_DTO_PHASE, mask_sh),\
-+	DCCG_SF(DPPCLK0_DTO_PARAM, DPPCLK0_DTO_MODULO, mask_sh),\
-+	DCCG_SF(PHYASYMCLK_CLOCK_CNTL, PHYASYMCLK_FORCE_EN, mask_sh),\
-+	DCCG_SF(PHYASYMCLK_CLOCK_CNTL, PHYASYMCLK_FORCE_SRC_SEL, mask_sh),\
-+	DCCG_SF(PHYBSYMCLK_CLOCK_CNTL, PHYBSYMCLK_FORCE_EN, mask_sh),\
-+	DCCG_SF(PHYBSYMCLK_CLOCK_CNTL, PHYBSYMCLK_FORCE_SRC_SEL, mask_sh),\
-+	DCCG_SF(PHYCSYMCLK_CLOCK_CNTL, PHYCSYMCLK_FORCE_EN, mask_sh),\
-+	DCCG_SF(PHYCSYMCLK_CLOCK_CNTL, PHYCSYMCLK_FORCE_SRC_SEL, mask_sh),\
-+	DCCG_SF(PHYDSYMCLK_CLOCK_CNTL, PHYDSYMCLK_FORCE_EN, mask_sh),\
-+	DCCG_SF(PHYDSYMCLK_CLOCK_CNTL, PHYDSYMCLK_FORCE_SRC_SEL, mask_sh),\
-+	DCCG_SF(PHYESYMCLK_CLOCK_CNTL, PHYESYMCLK_FORCE_EN, mask_sh),\
-+	DCCG_SF(PHYESYMCLK_CLOCK_CNTL, PHYESYMCLK_FORCE_SRC_SEL, mask_sh),\
-+	DCCG_SF(DPSTREAMCLK_CNTL, DPSTREAMCLK_PIPE0_EN, mask_sh),\
-+	DCCG_SF(DPSTREAMCLK_CNTL, DPSTREAMCLK_PIPE1_EN, mask_sh),\
-+	DCCG_SF(DPSTREAMCLK_CNTL, DPSTREAMCLK_PIPE2_EN, mask_sh),\
-+	DCCG_SF(DPSTREAMCLK_CNTL, DPSTREAMCLK_PIPE3_EN, mask_sh),\
-+	DCCG_SF(SYMCLK32_SE_CNTL, SYMCLK32_SE0_SRC_SEL, mask_sh),\
-+	DCCG_SF(SYMCLK32_SE_CNTL, SYMCLK32_SE1_SRC_SEL, mask_sh),\
-+	DCCG_SF(SYMCLK32_SE_CNTL, SYMCLK32_SE2_SRC_SEL, mask_sh),\
-+	DCCG_SF(SYMCLK32_SE_CNTL, SYMCLK32_SE3_SRC_SEL, mask_sh),\
-+	DCCG_SF(SYMCLK32_SE_CNTL, SYMCLK32_SE0_EN, mask_sh),\
-+	DCCG_SF(SYMCLK32_SE_CNTL, SYMCLK32_SE1_EN, mask_sh),\
-+	DCCG_SF(SYMCLK32_SE_CNTL, SYMCLK32_SE2_EN, mask_sh),\
-+	DCCG_SF(SYMCLK32_SE_CNTL, SYMCLK32_SE3_EN, mask_sh),\
-+	DCCG_SF(SYMCLK32_LE_CNTL, SYMCLK32_LE0_SRC_SEL, mask_sh),\
-+	DCCG_SF(SYMCLK32_LE_CNTL, SYMCLK32_LE1_SRC_SEL, mask_sh),\
-+	DCCG_SF(SYMCLK32_LE_CNTL, SYMCLK32_LE0_EN, mask_sh),\
-+	DCCG_SF(SYMCLK32_LE_CNTL, SYMCLK32_LE1_EN, mask_sh),\
-+	DCCG_SFII(OTG, PIXEL_RATE_CNTL, DTBCLK_DTO, ENABLE, 0, mask_sh),\
-+	DCCG_SFII(OTG, PIXEL_RATE_CNTL, DTBCLK_DTO, ENABLE, 1, mask_sh),\
-+	DCCG_SFII(OTG, PIXEL_RATE_CNTL, DTBCLK_DTO, ENABLE, 2, mask_sh),\
-+	DCCG_SFII(OTG, PIXEL_RATE_CNTL, DTBCLK_DTO, ENABLE, 3, mask_sh),\
-+	DCCG_SFII(OTG, PIXEL_RATE_CNTL, DTBCLKDTO, ENABLE_STATUS, 0, mask_sh),\
-+	DCCG_SFII(OTG, PIXEL_RATE_CNTL, DTBCLKDTO, ENABLE_STATUS, 1, mask_sh),\
-+	DCCG_SFII(OTG, PIXEL_RATE_CNTL, DTBCLKDTO, ENABLE_STATUS, 2, mask_sh),\
-+	DCCG_SFII(OTG, PIXEL_RATE_CNTL, DTBCLKDTO, ENABLE_STATUS, 3, mask_sh),\
-+	DCCG_SFII(OTG, PIXEL_RATE_CNTL, PIPE, DTO_SRC_SEL, 0, mask_sh),\
-+	DCCG_SFII(OTG, PIXEL_RATE_CNTL, PIPE, DTO_SRC_SEL, 1, mask_sh),\
-+	DCCG_SFII(OTG, PIXEL_RATE_CNTL, PIPE, DTO_SRC_SEL, 2, mask_sh),\
-+	DCCG_SFII(OTG, PIXEL_RATE_CNTL, PIPE, DTO_SRC_SEL, 3, mask_sh),\
-+	DCCG_SFII(OTG, PIXEL_RATE_CNTL, DTBCLK_DTO, DIV, 0, mask_sh),\
-+	DCCG_SFII(OTG, PIXEL_RATE_CNTL, DTBCLK_DTO, DIV, 1, mask_sh),\
-+	DCCG_SFII(OTG, PIXEL_RATE_CNTL, DTBCLK_DTO, DIV, 2, mask_sh),\
-+	DCCG_SFII(OTG, PIXEL_RATE_CNTL, DTBCLK_DTO, DIV, 3, mask_sh),\
-+	DCCG_SF(DCCG_AUDIO_DTO_SOURCE, DCCG_AUDIO_DTO_SEL, mask_sh),\
-+	DCCG_SF(DCCG_AUDIO_DTO_SOURCE, DCCG_AUDIO_DTO0_SOURCE_SEL, mask_sh),\
-+	DCCG_SF(DENTIST_DISPCLK_CNTL, DENTIST_DISPCLK_CHG_MODE, mask_sh)
++#define DPCS_DCN31_REG_LIST(id) \
++	SRI(TMDS_CTL_BITS, DIG, id), \
++	SRI(RDPCSTX_PHY_CNTL3, RDPCSTX, id), \
++	SRI(RDPCSTX_PHY_CNTL4, RDPCSTX, id), \
++	SRI(RDPCSTX_PHY_CNTL5, RDPCSTX, id), \
++	SRI(RDPCSTX_PHY_CNTL6, RDPCSTX, id), \
++	SRI(RDPCSTX_PHY_CNTL7, RDPCSTX, id), \
++	SRI(RDPCSTX_PHY_CNTL8, RDPCSTX, id), \
++	SRI(RDPCSTX_PHY_CNTL9, RDPCSTX, id), \
++	SRI(RDPCSTX_PHY_CNTL10, RDPCSTX, id), \
++	SRI(RDPCSTX_PHY_CNTL11, RDPCSTX, id), \
++	SRI(RDPCSTX_PHY_CNTL12, RDPCSTX, id), \
++	SRI(RDPCSTX_PHY_CNTL13, RDPCSTX, id), \
++	SRI(RDPCSTX_PHY_CNTL14, RDPCSTX, id), \
++	SRI(RDPCSTX_CNTL, RDPCSTX, id), \
++	SRI(RDPCSTX_CLOCK_CNTL, RDPCSTX, id), \
++	SRI(RDPCSTX_INTERRUPT_CONTROL, RDPCSTX, id), \
++	SRI(RDPCSTX_PHY_CNTL0, RDPCSTX, id), \
++	SRI(RDPCSTX_PHY_CNTL2, RDPCSTX, id), \
++	SRI(RDPCS_TX_CR_ADDR, RDPCSTX, id), \
++	SRI(RDPCS_TX_CR_DATA, RDPCSTX, id), \
++	SRI(RDPCSTX_PHY_FUSE0, RDPCSTX, id), \
++	SRI(RDPCSTX_PHY_FUSE1, RDPCSTX, id), \
++	SRI(RDPCSTX_PHY_FUSE2, RDPCSTX, id), \
++	SRI(RDPCSTX_PHY_FUSE3, RDPCSTX, id), \
++	SR(RDPCSTX0_RDPCSTX_SCRATCH), \
++	SRI(RDPCSTX_PHY_RX_LD_VAL, RDPCSTX, id),\
++	SRI(RDPCSTX_DMCU_DPALT_DIS_BLOCK_REG, RDPCSTX, id)
 +
++#define DPCS_DCN31_MASK_SH_LIST(mask_sh)\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL3, RDPCS_PHY_DP_TX0_CLK_RDY, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL3, RDPCS_PHY_DP_TX0_DATA_EN, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL3, RDPCS_PHY_DP_TX1_CLK_RDY, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL3, RDPCS_PHY_DP_TX1_DATA_EN, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL3, RDPCS_PHY_DP_TX2_CLK_RDY, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL3, RDPCS_PHY_DP_TX2_DATA_EN, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL3, RDPCS_PHY_DP_TX3_CLK_RDY, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL3, RDPCS_PHY_DP_TX3_DATA_EN, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL4, RDPCS_PHY_DP_TX0_TERM_CTRL, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL4, RDPCS_PHY_DP_TX1_TERM_CTRL, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL4, RDPCS_PHY_DP_TX2_TERM_CTRL, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL4, RDPCS_PHY_DP_TX3_TERM_CTRL, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL11, RDPCS_PHY_DP_MPLLB_MULTIPLIER, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL5, RDPCS_PHY_DP_TX0_WIDTH, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL5, RDPCS_PHY_DP_TX0_RATE, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL5, RDPCS_PHY_DP_TX1_WIDTH, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL5, RDPCS_PHY_DP_TX1_RATE, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL6, RDPCS_PHY_DP_TX2_PSTATE, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL6, RDPCS_PHY_DP_TX3_PSTATE, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL6, RDPCS_PHY_DP_TX2_MPLL_EN, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL6, RDPCS_PHY_DP_TX3_MPLL_EN, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL6, RDPCS_PHY_DPALT_DP4, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL6, RDPCS_PHY_DPALT_DISABLE, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL7, RDPCS_PHY_DP_MPLLB_FRACN_QUOT, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL7, RDPCS_PHY_DP_MPLLB_FRACN_DEN, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL8, RDPCS_PHY_DP_MPLLB_SSC_PEAK, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL9, RDPCS_PHY_DP_MPLLB_SSC_UP_SPREAD, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL9, RDPCS_PHY_DP_MPLLB_SSC_STEPSIZE, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL10, RDPCS_PHY_DP_MPLLB_FRACN_REM, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL11, RDPCS_PHY_DP_REF_CLK_MPLLB_DIV, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL11, RDPCS_PHY_HDMI_MPLLB_HDMI_DIV, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL12, RDPCS_PHY_DP_MPLLB_SSC_EN, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL12, RDPCS_PHY_DP_MPLLB_DIV5_CLK_EN, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL12, RDPCS_PHY_DP_MPLLB_TX_CLK_DIV, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL12, RDPCS_PHY_DP_MPLLB_WORD_DIV2_EN, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL12, RDPCS_PHY_DP_MPLLB_STATE, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL13, RDPCS_PHY_DP_MPLLB_DIV_CLK_EN, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL13, RDPCS_PHY_DP_MPLLB_DIV_MULTIPLIER, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL14, RDPCS_PHY_DP_MPLLB_FRACN_EN, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL14, RDPCS_PHY_DP_MPLLB_PMIX_EN, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_CNTL, RDPCS_TX_FIFO_LANE0_EN, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_CNTL, RDPCS_TX_FIFO_LANE1_EN, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_CNTL, RDPCS_TX_FIFO_LANE2_EN, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_CNTL, RDPCS_TX_FIFO_LANE3_EN, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_CNTL, RDPCS_TX_FIFO_EN, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_CNTL, RDPCS_TX_FIFO_RD_START_DELAY, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_CLOCK_CNTL, RDPCS_EXT_REFCLK_EN, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_CLOCK_CNTL, RDPCS_SRAMCLK_BYPASS, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_CLOCK_CNTL, RDPCS_SRAMCLK_EN, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_CLOCK_CNTL, RDPCS_SRAMCLK_CLOCK_ON, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_CLOCK_CNTL, RDPCS_SYMCLK_DIV2_CLOCK_ON, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_CLOCK_CNTL, RDPCS_SYMCLK_DIV2_GATE_DIS, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_CLOCK_CNTL, RDPCS_SYMCLK_DIV2_EN, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL3, RDPCS_PHY_DP_TX0_DISABLE, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL3, RDPCS_PHY_DP_TX1_DISABLE, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL3, RDPCS_PHY_DP_TX2_DISABLE, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL3, RDPCS_PHY_DP_TX3_DISABLE, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL3, RDPCS_PHY_DP_TX0_REQ, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL3, RDPCS_PHY_DP_TX1_REQ, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL3, RDPCS_PHY_DP_TX2_REQ, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL3, RDPCS_PHY_DP_TX3_REQ, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL3, RDPCS_PHY_DP_TX0_ACK, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL3, RDPCS_PHY_DP_TX1_ACK, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL3, RDPCS_PHY_DP_TX2_ACK, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL3, RDPCS_PHY_DP_TX3_ACK, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL3, RDPCS_PHY_DP_TX0_RESET, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL3, RDPCS_PHY_DP_TX1_RESET, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL3, RDPCS_PHY_DP_TX2_RESET, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL3, RDPCS_PHY_DP_TX3_RESET, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL0, RDPCS_PHY_RESET, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL0, RDPCS_PHY_CR_MUX_SEL, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL0, RDPCS_PHY_REF_RANGE, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL0, RDPCS_SRAM_BYPASS, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL0, RDPCS_SRAM_EXT_LD_DONE, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL0, RDPCS_PHY_HDMIMODE_ENABLE, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL0, RDPCS_SRAM_INIT_DONE, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL2, RDPCS_PHY_DP4_POR, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_INTERRUPT_CONTROL, RDPCS_REG_FIFO_ERROR_MASK, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_INTERRUPT_CONTROL, RDPCS_TX_FIFO_ERROR_MASK, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_INTERRUPT_CONTROL, RDPCS_DPALT_DISABLE_TOGGLE_MASK, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_INTERRUPT_CONTROL, RDPCS_DPALT_4LANE_TOGGLE_MASK, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCS_TX_CR_ADDR, RDPCS_TX_CR_ADDR, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCS_TX_CR_DATA, RDPCS_TX_CR_DATA, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_FUSE0, RDPCS_PHY_DP_MPLLB_V2I, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_FUSE0, RDPCS_PHY_DP_TX0_EQ_MAIN, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_FUSE0, RDPCS_PHY_DP_TX0_EQ_PRE, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_FUSE0, RDPCS_PHY_DP_TX0_EQ_POST, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_FUSE0, RDPCS_PHY_DP_MPLLB_FREQ_VCO, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_FUSE1, RDPCS_PHY_DP_MPLLB_CP_INT, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_FUSE1, RDPCS_PHY_DP_MPLLB_CP_PROP, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_FUSE1, RDPCS_PHY_DP_TX1_EQ_MAIN, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_FUSE1, RDPCS_PHY_DP_TX1_EQ_PRE, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_FUSE1, RDPCS_PHY_DP_TX1_EQ_POST, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_FUSE2, RDPCS_PHY_DP_TX2_EQ_MAIN, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_FUSE2, RDPCS_PHY_DP_TX2_EQ_PRE, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_FUSE2, RDPCS_PHY_DP_TX2_EQ_POST, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_FUSE3, RDPCS_PHY_DP_TX3_EQ_MAIN, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_FUSE3, RDPCS_PHY_DCO_FINETUNE, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_FUSE3, RDPCS_PHY_DCO_RANGE, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_FUSE3, RDPCS_PHY_DP_TX3_EQ_PRE, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_FUSE3, RDPCS_PHY_DP_TX3_EQ_POST, mask_sh)
 +
-+struct dccg *dccg31_create(
++void dcn31_link_encoder_construct(
++	struct dcn20_link_encoder *enc20,
++	const struct encoder_init_data *init_data,
++	const struct encoder_feature_support *enc_features,
++	const struct dcn10_link_enc_registers *link_regs,
++	const struct dcn10_link_enc_aux_registers *aux_regs,
++	const struct dcn10_link_enc_hpd_registers *hpd_regs,
++	const struct dcn10_link_enc_shift *link_shift,
++	const struct dcn10_link_enc_mask *link_mask);
++
++/*
++ * Create a minimal link encoder object with no dc_link object associated with it.
++ */
++void dcn31_link_encoder_construct_minimal(
++	struct dcn20_link_encoder *enc20,
 +	struct dc_context *ctx,
-+	const struct dccg_registers *regs,
-+	const struct dccg_shift *dccg_shift,
-+	const struct dccg_mask *dccg_mask);
++	const struct encoder_feature_support *enc_features,
++	const struct dcn10_link_enc_registers *link_regs,
++	enum engine_id eng_id);
 +
-+void dccg31_init(struct dccg *dccg);
++void dcn31_link_encoder_set_dio_phy_mux(
++	struct link_encoder *enc,
++	enum encoder_type_select sel,
++	uint32_t hpo_inst);
 +
-+void dccg31_set_physymclk(
-+		struct dccg *dccg,
-+		int phy_inst,
-+		enum physymclk_clock_source clk_src,
-+		bool force_enable);
++/*
++ * Enable DP transmitter and its encoder.
++ */
++void dcn31_link_encoder_enable_dp_output(
++	struct link_encoder *enc,
++	const struct dc_link_settings *link_settings,
++	enum clock_source_id clock_source);
 +
-+void dccg31_set_audio_dtbclk_dto(
-+		struct dccg *dccg,
-+		uint32_t req_audio_dtbclk_khz);
++/*
++ * Enable DP transmitter and its encoder in MST mode.
++ */
++void dcn31_link_encoder_enable_dp_mst_output(
++	struct link_encoder *enc,
++	const struct dc_link_settings *link_settings,
++	enum clock_source_id clock_source);
 +
-+void dccg31_set_hdmistreamclk(
-+		struct dccg *dccg,
-+		enum hdmistreamclk_source src);
++/*
++ * Disable transmitter and its encoder.
++ */
++void dcn31_link_encoder_disable_output(
++	struct link_encoder *enc,
++	enum signal_type signal);
 +
-+#endif //__DCN31_DCCG_H__
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h b/drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h
-index 336c80a18175..f7aa703e3175 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h
-@@ -29,11 +29,44 @@
- #include "dc_types.h"
- #include "hw_shared.h"
++#endif /* __DC_LINK_ENCODER__DCN31_H__ */
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/link_encoder.h b/drivers/gpu/drm/amd/display/dc/inc/hw/link_encoder.h
+index 80bc99500645..f643fe3ed064 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/link_encoder.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/link_encoder.h
+@@ -127,6 +127,14 @@ struct link_enc_state {
+ 
+ };
  
 +#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+enum phyd32clk_clock_source {
-+	PHYD32CLKA,
-+	PHYD32CLKB,
-+	PHYD32CLKC,
-+	PHYD32CLKD,
-+	PHYD32CLKE,
-+	PHYD32CLKF,
-+	PHYD32CLKG,
-+};
-+
-+enum physymclk_clock_source {
-+	PHYSYMCLK_FORCE_SRC_SYMCLK,    // Select symclk as source of clock which is output to PHY through DCIO.
-+	PHYSYMCLK_FORCE_SRC_PHYD18CLK, // Select phyd18clk as the source of clock which is output to PHY through DCIO.
-+	PHYSYMCLK_FORCE_SRC_PHYD32CLK, // Select phyd32clk as the source of clock which is output to PHY through DCIO.
-+};
-+
-+enum hdmistreamclk_source {
-+	REFCLK,                   // Selects REFCLK as source for hdmistreamclk.
-+	DTBCLK0,                  // Selects DTBCLK0 as source for hdmistreamclk.
-+};
-+
-+enum dentist_dispclk_change_mode {
-+	DISPCLK_CHANGE_MODE_IMMEDIATE,
-+	DISPCLK_CHANGE_MODE_RAMPING,
-+};
++	enum encoder_type_select {
++		ENCODER_TYPE_DIG = 0,
++		ENCODER_TYPE_HDMI_FRL = 1,
++		ENCODER_TYPE_DP_128B132B = 2
++	};
 +#endif
 +
- struct dccg {
- 	struct dc_context *ctx;
- 	const struct dccg_funcs *funcs;
- 	int pipe_dppclk_khz[MAX_PIPES];
- 	int ref_dppclk;
+ struct link_encoder_funcs {
+ 	void (*read_state)(
+ 			struct link_encoder *enc, struct link_enc_state *s);
+@@ -185,6 +193,12 @@ struct link_encoder_funcs {
+ 
+ 	enum signal_type (*get_dig_mode)(
+ 		struct link_encoder *enc);
 +#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+	int dtbclk_khz[MAX_PIPES];
-+	int audio_dtbclk_khz;
-+	int ref_dtbclk_khz;
++	void (*set_dio_phy_mux)(
++		struct link_encoder *enc,
++		enum encoder_type_select sel,
++		uint32_t hpo_inst);
 +#endif
  };
  
- struct dccg_funcs {
-@@ -44,6 +77,29 @@ struct dccg_funcs {
- 			unsigned int xtalin_freq_inKhz,
- 			unsigned int *dccg_ref_freq_inKhz);
- 	void (*dccg_init)(struct dccg *dccg);
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+
-+	void (*set_physymclk)(
-+			struct dccg *dccg,
-+			int phy_inst,
-+			enum physymclk_clock_source clk_src,
-+			bool force_enable);
-+
-+	void (*set_dtbclk_dto)(
-+			struct dccg *dccg,
-+			int dtbclk_inst,
-+			int req_dtbclk_khz,
-+			int num_odm_segments,
-+			const struct dc_crtc_timing *timing);
-+
-+	void (*set_audio_dtbclk_dto)(
-+			struct dccg *dccg,
-+			uint32_t req_audio_dtbclk_khz);
-+
-+	void (*set_dispclk_change_mode)(
-+			struct dccg *dccg,
-+			enum dentist_dispclk_change_mode change_mode);
-+#endif
- };
- 
- #endif //__DAL_DCCG_H__
+ /*
 -- 
 2.31.1
 
