@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 385D7C47092
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8922AC47083
 	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 16:51:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EB59561C49
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 16:51:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EB59561C49
+	by mail.kernel.org (Postfix) with ESMTPS id 5C3A061C64
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 16:51:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5C3A061C64
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AADF6EDD3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A87346EDDA;
 	Wed,  2 Jun 2021 16:51:24 +0000 (UTC)
 Received: from NAM11-DM6-obe.outbound.protection.outlook.com
  (mail-dm6nam11on2046.outbound.protection.outlook.com [40.107.223.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8FE56EDDA
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Jun 2021 16:51:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E43696EDD9
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Jun 2021 16:51:22 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=O1O9tb7iYe0GhB2y0WaBbLlz989oL3Qlis32mtPR10gN9n098UpipTFghfa0gByj+dYHz+Ie4a/ovq2VUK4ibxnI+oTNPyHORWCvBR3bcYJT6+EfQ/jHz2d+YeqBn5eoY4qp9wA+vXEdlxtzmVc/OQSddpzoTbk7uxJy4DhuGzVq26bnaXPowsbNKh6bq9tqbQF1jrgvYzuhLasVvMrGUy9KSyn0MqZJvCa2ERg+jaGaAdy7GV4mFqlrwBF4769DCvOJNxqcbzbb/1QxC7SqJf2WbUvJX77L71JKf3Cie2cUxmvWKZrCpTOIBkc9EcugrDtcWpvr6u9DoYLsOR/gjQ==
+ b=Gkvd9kSGgrrQFFVSQAEvxz2mSUpcxsXaI3nZgj6p2IsS488oWAh+ubqXPugbmiBxiq44yFKYagFrEwuvvI0pi4WytYV1jTOOa0hGx4nMH4HkpiNsh2g/rKtxP1czAR8WlLuf/ST/d/qOIPYwOVaShlKbWdf5TzhCT1TmKJG1hyEwczPY1XO5/SuRCVzIxWAG4cqWu57bzBvvM4y5AC1T8tiayhs8LX66fLUwBf1/4CdOX05DOM3NfPM7dEOw1AyHAKYeoZKIKvVbyaHLFShhyi/jOSJv+oOZVury5B/VQyyNWbLMykgvjTj9L9SBtxxA1J2alY1amxev7ruuFhr+gQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wURAdOh5DoEzC2+UIIWZCwrGInZuk0V2eTIheBFUFzY=;
- b=WYIpmnMITaHLeA8/Kg5kx1fipmOe36fmHYByIn3rnIgKVPapa/6LObTmoGFl+r2mgzuhf/3smS0lAU6zLb5JDbx4T0a7E7x/wwrec9BJzjaHp/rabo4HRIqeWu5vN024dF7BCnP4U0UOosUo3iWrNHpjPtOL3LeOapDtpkaKxf5/hMK63aq2NByeILpLT7hY2EDWhOan3Dq7+TEvcC3CXza2KmzspvqYSuSpwqvE1iZrvpGOk2cE2NMW16Ipo5KNoYRosKIRf5pLPjOaddocfzcCcYQ6ZC4C8Z9/sRHaXf8g4yEtmP9YClI3BkL5nX5FEm+l2R+E1Cn3LlII51JfIw==
+ bh=OipQ85bxeS5CcJ2Cct7lnjPdcN9IX1vCW/UIydJq6TM=;
+ b=kIle7nhTL8GO3vx5hK90CUBYFM2OmWOGgUO/S7+6yptyiAOCd7JVrL56DgOlPDFrqA4kXipg6zV9/B1j+hQboVV/x55nBt/eWw8WKAfwjv0EfdWU2Y/53lVCl7bWqej9x3SQ78ZIZSNcuybNzuY6UAtwgRUS2wZvC5flRF12hFZc5fwzo3BVKoZoWMkY1l5/wDRjbfbwhh7dbux6M8WVTH9mBIiTtMvmnDhXiRt6M5yivL/7uu670w0WBh1hZTt9iVLZs7JLE3I/Nsg/4b2lFDQvGZZ/AnW2p6Zhl0N6We+Urfy0weJ16+ld1+TXYKzavjEn/FPz5Buje+W08w34xQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wURAdOh5DoEzC2+UIIWZCwrGInZuk0V2eTIheBFUFzY=;
- b=U0Hb1P0zOMZocAogQsIWWVHcZafZ/M+8eMb9y6idba/W07B4nw8nFdJZPccAaAvjU/3S2V+P5ihIWCGag1U+ho43p9sEKLANxbRCmHCTKM/C7n0IxqpNXaFpJZTdcAmv0/f2+FybWXugpzJfyNsHa0Ts9RnafZJUY9llQ46xnwA=
+ bh=OipQ85bxeS5CcJ2Cct7lnjPdcN9IX1vCW/UIydJq6TM=;
+ b=BsSAcfyJ1PDUSyrylnMlS9xeXrcz7W0Zk/yNiGcTqgZ60Lo1ZxeKZJMto5I3sxOLBWDvQKELOf9V18F9Gu45tGoomPmbUqfqmMfy4++OkPf20Od6eSpdhNzzZJ2bE233hUbcGguh1Op2CwgxnR41VXoovmYvG4555dy4cuAq39U=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -45,16 +45,16 @@ Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
  by MN2PR12MB4534.namprd12.prod.outlook.com (2603:10b6:208:24f::10)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.20; Wed, 2 Jun
- 2021 16:51:22 +0000
+ 2021 16:51:21 +0000
 Received: from MN2PR12MB4488.namprd12.prod.outlook.com
  ([fe80::25f7:664:3a8f:25b6]) by MN2PR12MB4488.namprd12.prod.outlook.com
  ([fe80::25f7:664:3a8f:25b6%7]) with mapi id 15.20.4173.030; Wed, 2 Jun 2021
- 16:51:22 +0000
+ 16:51:21 +0000
 From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 80/89] drm/amd/display: Add DCN3.1 PANEL
-Date: Wed,  2 Jun 2021 12:48:59 -0400
-Message-Id: <20210602164908.2848791-80-alexander.deucher@amd.com>
+Subject: [PATCH 77/89] drm/amd/display: Add DCN3.1 IRQ manager
+Date: Wed,  2 Jun 2021 12:48:56 -0400
+Message-Id: <20210602164908.2848791-77-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210602164908.2848791-1-alexander.deucher@amd.com>
 References: <20210602164908.2848791-1-alexander.deucher@amd.com>
@@ -68,52 +68,52 @@ Received: from localhost.localdomain (192.161.79.207) by
  MN2PR13CA0007.namprd13.prod.outlook.com (2603:10b6:208:160::20) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.9 via Frontend
- Transport; Wed, 2 Jun 2021 16:50:22 +0000
+ Transport; Wed, 2 Jun 2021 16:50:21 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 420ab589-199c-44a4-2bec-08d925e6839e
+X-MS-Office365-Filtering-Correlation-Id: 881367ae-05a5-4e73-6d7d-08d925e682a9
 X-MS-TrafficTypeDiagnostic: MN2PR12MB4534:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB45340DFA42E91908609C5F54F73D9@MN2PR12MB4534.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-Microsoft-Antispam-PRVS: <MN2PR12MB45345AB39BAC6483A352FBAEF73D9@MN2PR12MB4534.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: aPN7i8TxP7dNRdeUlLpKwQROjn0yKY39rLQnwZh53ASXUoJbsyAmYIdJTnuXaEcOO1mSZc8pjoauXPIJDoR8Gl98afUYC3TUHwv9r9oPG4jyOyMmxx97TWYY1ZUVY5fQE/DSpbNMlxdb7m5Pv+YDS69IiY1OtlDkPvV1wN2EEjbFob014shK5za7x7vtib5mJPyxfr5/MNw9BflfrOqyQ+Sme3cmU6Hc/u9G+8CCYIsVPRDxUXq5PMWdoHUu4rQLyCY5XAWRychoZ2K5iAmQ1JUJBycckPeTOuu2sFc/KA+7UvIts/Q6TYgDxeGhGKTYz1yEi5rzE1A9AtgEY7j116UvhWvoaovUL2Ci7wmpccnWM8uM4eROl1+oZW4EkLgDN6ADd6zYHxIxGGAnEf4EE8hTtSTiOuDZA75e+DN6u0xFh5a566gKLTZgyaimMn1Jg32p5ux7ZUwIGqw7ZVRcV+XXtK225uMh2vvatlXnnzBlV83uHtO4Y0p9pm7D6vDv1AdyaOehH23rEwyUwmE1NvuZP8NRw79ZcXBaiTsOzXauxaZIg9XKBeCRFoU9DPMQ1NsJhO/8G5CzjP1C1GAc0eXkfwvkmd+KXSC2ybY9r9B/AUY0y8AF62fZp8I2ICDL9wkK7QaV0xf28PVYx5oRYF6i12XktCbJhbuYYPgaUIV+pKDJC4WxvdU7aGQkcNY4
+X-Microsoft-Antispam-Message-Info: e97hHBy0qb8IlGCMpSL9CQE/Y7akWuoi2pS8+djQEZCa/W6Juh3bxl+WzESUJoGwIg8d0dR0sB1xm8TuaqKIVe5bAiAnU8nw4SMSE/fjekGESCDE/SOJKx0Vk/N7arc+h1qFoX3sP1lPszXC+HH6N2LpDmmwufjxVOBkOQvMCfYjTTldQr61t3pXfSlcA6HgFp1APZEI+py6r8SZlVzLWBLg8Go84+WHn1xww47T/MWYFvOlKERwlNgLWX8GxMdFSP4psCRdy4OwNT0i0prjS0lX86Y/xFWeaUGj8kqI3/yaAS9ookZuHlE1x4ahLUpvZa8M123imhFwXbM2UfcmkA1SN6J8r+j+7qiTqSbzux22bLfvuaU9RdWSXAUEU+vAvIDRbSOiDgwzacucsCsQ4CZQ5mKDz+SDv7J4+C9e+2mYER8+2h12KTk0EJ2sZ3t7/BKIZt+6H/Xv7uxZFEd1s6XF+Cy7WS28pEv33BMbvjXF/fZx+mlH8BhHm4MflVYbKZsT1X73/mb0ofXXLwlgAiz7XpTFw66Q4d0nlB79oYmUUACJyTcCgPmBmLc3dNeoM+kxZCn0FQw7ox0bneJw7OgY2/URaClec3iouOiMv4aM/Ls6zY17ORIQG/ke/TUfrI5E+U0Wk2+iTkIX813fYjhppJvYGPu5UAvLzP9BRW5dL179sB5XzNQ7d96/ze9e
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(346002)(39860400002)(136003)(376002)(366004)(1076003)(8676002)(2906002)(8936002)(4326008)(2616005)(956004)(38350700002)(478600001)(38100700002)(83380400001)(66946007)(66476007)(66556008)(36756003)(54906003)(6486002)(52116002)(6916009)(316002)(6512007)(6506007)(16526019)(26005)(6666004)(5660300002)(186003)(86362001)(69590400013);
+ SFS:(4636009)(396003)(346002)(39860400002)(136003)(376002)(366004)(30864003)(1076003)(8676002)(2906002)(8936002)(4326008)(2616005)(956004)(38350700002)(478600001)(38100700002)(83380400001)(66946007)(66476007)(66556008)(36756003)(54906003)(6486002)(52116002)(6916009)(316002)(6512007)(6506007)(16526019)(26005)(6666004)(5660300002)(186003)(86362001)(69590400013);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?bDmz4tP3j39zXpChklyRf+8x17Um5aE2u6OBA4sIY7N4oSnM8gumvFDU81OB?=
- =?us-ascii?Q?GfNRx13SCZV6X24DhhtPY4W/FzRkkPZr4Wj4k0gAhwyeeqIQGiI1kL8nVW5O?=
- =?us-ascii?Q?CrllQN8kQdaIbAaSbmICSXA5Pl+vv9aa6xPVwRbAVXgQ/JI6w+haYzzUtLoF?=
- =?us-ascii?Q?R4sYFF/HMb0cKuP5iFL2UX5TXGhXCuAJLvNeYdvJW/83/D3XVVOWzISOh61H?=
- =?us-ascii?Q?RP/8oOyyVGQBoznrpW/OX6Ex0I4exkUDym5BQwIUnJySPaAZ9F2AvfNPYq/q?=
- =?us-ascii?Q?4wCWDjpAzeZIOvkI4DdFgPEWRkvXREnbdq8swTkH5P3rUs8x8wdoh01imEJ0?=
- =?us-ascii?Q?SMtPQcxFELqEMiOdvPku3TdYOo9ziBixbe8b2qBj0LYWIoVjkl/KWW0+zgKT?=
- =?us-ascii?Q?Fmn5AoMB4I9mqA/lT746CFx2pNlnA1WIKosddC6DjY5fNtJAE1kUvISFELX/?=
- =?us-ascii?Q?6schC5SHXeAI4Jz8H99tdO3qa73rQRPL2x8afPZ3uxGsc8Pa9avlk0BJqwM5?=
- =?us-ascii?Q?vBCw2wVLKLd45hCCM9X+L47LY7axZj71OyxexQ3PkPJDf9UuynjFuCJCqAJe?=
- =?us-ascii?Q?af1xrk7ZIwkoe5I6G/hx58+eedbX5A8dFbRxrzG3jkL66k9/3Vw5KAB/1FJU?=
- =?us-ascii?Q?ovEa8I0L7sunTMkO4OtN9UdTxpmvuvnDnwRaRe8MZhsERDkXSsQ1tEaEfdoT?=
- =?us-ascii?Q?2WU/9oJwJ39wtgM5KFZXRvdabPxSX/mBjq0Fc2MRR+Kd9/OAogpS5nAMJ2QW?=
- =?us-ascii?Q?HQ5mLv6CKxkchhGDEl7xnesGAH1Gu7x3fwEBB07I7DovMs3xUH3dS4LpV5Vw?=
- =?us-ascii?Q?bsaZKvQy/DhzjkCIaHUS3Al0fP+67GH2J6QTZJFHnqI6QXwoAC0I/E+641Yf?=
- =?us-ascii?Q?UJfhFfKeF8PqD6/EfT+hlYdNSxjjQm6Kohn9JJppGU0eivCKeYhOEWfUhMQG?=
- =?us-ascii?Q?+LKUHIRgPX5ukzDBOErIatEEzmHjgwATSceO6hVMZF3a1cKsjSh0ZkIlNbTn?=
- =?us-ascii?Q?B6H3knWXZwMlwRUcTvcO14KFWLZW6Yg7uSLQ4h7ZmdWamuAJh9Gmsz6Br9LI?=
- =?us-ascii?Q?YZB9whxV352EAOkJv6obrwAH1UiXN1RFuX37BLN2HjdlAgj/ACDxtBHXZsfP?=
- =?us-ascii?Q?YuIONhjlKXOl9ZMtfstps4Mm8x8HdHCvELaasHK61V4qpBBo8hsi/7zzYlDS?=
- =?us-ascii?Q?xtp+9fWr7jYIDbvRscaC+yPmlRNMybDAUX+cAfglcKGQNLb4P8IlKR+zbOXB?=
- =?us-ascii?Q?N9xc4vdYNJL9eMLqClPET38WJbg6Yle/bSzHJU7edJUE8qjyWpq9mAGw684a?=
- =?us-ascii?Q?jV3LIWvm6ATRqLu1k3weXfHv?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?B2xfPtjZ91dJw77J1VcMfr6g8b7nUGb+a9HhDhgA5EIBFg+WAsT780+MjjVk?=
+ =?us-ascii?Q?2hj7a4JfgEhtdssw0F6u20n/j5fBdq5Pyjc1yC+nUe9PnLQaQxbhza3TrQWA?=
+ =?us-ascii?Q?cXdzk5eV//Qb8ZzWALje6dHFdlI6HBFAqSPHuicBRfo8IoelF3YOMXVTyGov?=
+ =?us-ascii?Q?kUTE+7boDeumClTfsj0CeX2Zs/vXiG5cInec2gmaXMB7/ocH6V/aseGCE73M?=
+ =?us-ascii?Q?c/nJIJHMymI8P+qikI/mul3nbmkVNZEQgFVYdmD83QSECpP2CuP/hVYQL6MN?=
+ =?us-ascii?Q?BffFzp5pkyHLjibs7aKsYxlMBaa54dVjPd1hgU7A3GxFkUSqEf4qYRvNXJu4?=
+ =?us-ascii?Q?PVFpZ1sR+NMQXufmGWTeHWjVvilXA2X/va+V41GEiIxFsZsX4ogv4k3JXeLy?=
+ =?us-ascii?Q?iiLVIGHwCPs9OM3OnQJbOpnbG322MIoFw8AvnKvPeOZV63QAOqAai9Y9D/TM?=
+ =?us-ascii?Q?acghBpacWw4CD+L+1GUkT360aAJWQxbwC5wGzObvG7okffY6usXyVkndM7FF?=
+ =?us-ascii?Q?N7XtYvkyEq767XHz/yzzzfPsBBIGPzVyswb4laGlSWhobuvzVSGrly8kPizd?=
+ =?us-ascii?Q?O+3R4a52Vs0SNNKpiOD1HMidNzmZw4lMdwgiwEaAIrg7V1HEnlFj31b31/rD?=
+ =?us-ascii?Q?c2E5NNdKXZhsQOlBMM1qa5OsSKw67YzUNM+PgW/zvfMmXFQaTeONb4MHAQDr?=
+ =?us-ascii?Q?AtavcHpsAtxc2ZU72ks2h4v1R6qoMQBC9pmD2aQ8IUebIsAdYWM5cIywfibR?=
+ =?us-ascii?Q?cK9pbg06noDdEF1Od+DPn078Kq7RRxtwLCVvMQVURnSZvGvlwxgM3yCExmVK?=
+ =?us-ascii?Q?0IIsNDe51s4MVpOj7dIb4yLLYKwcQB5zUJRirBI4aWk0G7CbEGqCvJBq5FC4?=
+ =?us-ascii?Q?hMQuB/cEcAXreuZ/v4Ahj0JOReG58nOqJvC07snwFXrIksa4vdIYg9/smE0V?=
+ =?us-ascii?Q?2LnuhWc+fvyQEzPHNiWnyxc/G7NDdDE8sPXGRCOWHFaQiRHbaVlzUe2fzyu5?=
+ =?us-ascii?Q?phPrHvsJ1qtFsCO9DFkSwXcQOsEX3IfSadQwy9W1DfKY8mSaSpGzHE1UBeB5?=
+ =?us-ascii?Q?qp+vDujaLw6bA6B37R49PwKCcm4th3V4Y8BqP91JkAmODK4PBvUqnBC0Cnd5?=
+ =?us-ascii?Q?mCGitleI4Y/RAGAD+nMJeowx5Xw7gs1w08qFq0GQ5OBDTCYLNp7greIKOFFF?=
+ =?us-ascii?Q?sB7zRVdRLxefTKr8rXuMtvVB8XhSiULxibJW5yuR/5HuVYE1fN6A016kq0IG?=
+ =?us-ascii?Q?E4nSTZT3zMNVRPbkvYEoY4+O/zLF/IaWmHMsmZZYcGJtEPO1HBgwBguY5fBn?=
+ =?us-ascii?Q?SMEIHtdjGCobHm2A4qH5RYzc?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 420ab589-199c-44a4-2bec-08d925e6839e
+X-MS-Exchange-CrossTenant-Network-Message-Id: 881367ae-05a5-4e73-6d7d-08d925e682a9
 X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2021 16:50:23.2205 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2021 16:50:21.6016 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OF5T8j2MlLehVqeYj5LZt0YJ9zMnJ1zCACsrdmj3t+3RhHAS0TWniYmcU07b+d7Jfx+3I9odFWUpQpCLJPXGmw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: uWaKSN7RAP+z/+ZVFi9dfMLOdtYuEC2gnaejaRJNUT5/xOt7tQCf2OjT/jASR3FFen/xy/vdynDaaXhp/oumBQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4534
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -135,28 +135,45 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 
-The PANEL block handles embedded panel power and backlight programming.
-
-This programming and sequencing is now owned by DMCUB and driver will
-call into the interface for backlight status and programming.
+Add IRQ services for DCN3.1 to handle hardware generated interrupts.
 
 Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- .../amd/display/dc/dcn31/dcn31_panel_cntl.c   | 157 ++++++++++++++++++
- .../amd/display/dc/dcn31/dcn31_panel_cntl.h   |  40 +++++
- 2 files changed, 197 insertions(+)
- create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_panel_cntl.c
- create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_panel_cntl.h
+ drivers/gpu/drm/amd/display/dc/irq/Makefile   |  11 +
+ .../display/dc/irq/dcn31/irq_service_dcn31.c  | 432 ++++++++++++++++++
+ .../display/dc/irq/dcn31/irq_service_dcn31.h  |  37 ++
+ 3 files changed, 480 insertions(+)
+ create mode 100644 drivers/gpu/drm/amd/display/dc/irq/dcn31/irq_service_dcn31.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/irq/dcn31/irq_service_dcn31.h
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_panel_cntl.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_panel_cntl.c
+diff --git a/drivers/gpu/drm/amd/display/dc/irq/Makefile b/drivers/gpu/drm/amd/display/dc/irq/Makefile
+index e9fabb85741f..ea4943c5d552 100644
+--- a/drivers/gpu/drm/amd/display/dc/irq/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/irq/Makefile
+@@ -118,3 +118,14 @@ AMD_DAL_IRQ_DCN3_03 = $(addprefix $(AMDDALPATH)/dc/irq/dcn303/,$(IRQ_DCN3_03))
+ 
+ AMD_DISPLAY_FILES += $(AMD_DAL_IRQ_DCN3_03)
+ endif
++
++ifdef CONFIG_DRM_AMD_DC_DCN3_1
++###############################################################################
++# DCN 31
++###############################################################################
++IRQ_DCN31 = irq_service_dcn31.o
++
++AMD_DAL_IRQ_DCN31= $(addprefix $(AMDDALPATH)/dc/irq/dcn31/,$(IRQ_DCN31))
++
++AMD_DISPLAY_FILES += $(AMD_DAL_IRQ_DCN31)
++endif
+diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn31/irq_service_dcn31.c b/drivers/gpu/drm/amd/display/dc/irq/dcn31/irq_service_dcn31.c
 new file mode 100644
-index 000000000000..7db268da6976
+index 000000000000..38e0ade60c7b
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_panel_cntl.c
-@@ -0,0 +1,157 @@
++++ b/drivers/gpu/drm/amd/display/dc/irq/dcn31/irq_service_dcn31.c
+@@ -0,0 +1,432 @@
 +/*
-+ * Copyright 2021 Advanced Micro Devices, Inc.
++ * Copyright 2020 Advanced Micro Devices, Inc.
 + *
 + * Permission is hereby granted, free of charge, to any person obtaining a
 + * copy of this software and associated documentation files (the "Software"),
@@ -180,152 +197,427 @@ index 000000000000..7db268da6976
 + *
 + */
 +
-+#include "reg_helper.h"
-+#include "core_types.h"
-+#include "dc_dmub_srv.h"
-+#include "dcn31_panel_cntl.h"
-+#include "atom.h"
++#include "dm_services.h"
++#include "include/logger_interface.h"
++#include "../dce110/irq_service_dce110.h"
 +
-+#define TO_DCN31_PANEL_CNTL(panel_cntl)\
-+	container_of(panel_cntl, struct dcn31_panel_cntl, base)
 +
-+#define CTX \
-+	dcn31_panel_cntl->base.ctx
++#include "yellow_carp_offset.h"
++#include "dcn/dcn_3_1_2_offset.h"
++#include "dcn/dcn_3_1_2_sh_mask.h"
 +
-+#define DC_LOGGER \
-+	dcn31_panel_cntl->base.ctx->logger
++#include "irq_service_dcn31.h"
 +
-+static bool dcn31_query_backlight_info(struct panel_cntl *panel_cntl, union dmub_rb_cmd *cmd)
++#include "ivsrcid/dcn/irqsrcs_dcn_1_0.h"
++
++enum dc_irq_source to_dal_irq_source_dcn31(
++		struct irq_service *irq_service,
++		uint32_t src_id,
++		uint32_t ext_id)
 +{
-+	struct dcn31_panel_cntl *dcn31_panel_cntl = TO_DCN31_PANEL_CNTL(panel_cntl);
-+	struct dc_dmub_srv *dc_dmub_srv = panel_cntl->ctx->dmub_srv;
++	switch (src_id) {
++	case DCN_1_0__SRCID__DC_D1_OTG_VSTARTUP:
++		return DC_IRQ_SOURCE_VBLANK1;
++	case DCN_1_0__SRCID__DC_D2_OTG_VSTARTUP:
++		return DC_IRQ_SOURCE_VBLANK2;
++	case DCN_1_0__SRCID__DC_D3_OTG_VSTARTUP:
++		return DC_IRQ_SOURCE_VBLANK3;
++	case DCN_1_0__SRCID__DC_D4_OTG_VSTARTUP:
++		return DC_IRQ_SOURCE_VBLANK4;
++	case DCN_1_0__SRCID__DC_D5_OTG_VSTARTUP:
++		return DC_IRQ_SOURCE_VBLANK5;
++	case DCN_1_0__SRCID__DC_D6_OTG_VSTARTUP:
++		return DC_IRQ_SOURCE_VBLANK6;
++	case DCN_1_0__SRCID__OTG1_VERTICAL_INTERRUPT0_CONTROL:
++		return DC_IRQ_SOURCE_DC1_VLINE0;
++	case DCN_1_0__SRCID__OTG2_VERTICAL_INTERRUPT0_CONTROL:
++		return DC_IRQ_SOURCE_DC2_VLINE0;
++	case DCN_1_0__SRCID__OTG3_VERTICAL_INTERRUPT0_CONTROL:
++		return DC_IRQ_SOURCE_DC3_VLINE0;
++	case DCN_1_0__SRCID__OTG4_VERTICAL_INTERRUPT0_CONTROL:
++		return DC_IRQ_SOURCE_DC4_VLINE0;
++	case DCN_1_0__SRCID__OTG5_VERTICAL_INTERRUPT0_CONTROL:
++		return DC_IRQ_SOURCE_DC5_VLINE0;
++	case DCN_1_0__SRCID__OTG6_VERTICAL_INTERRUPT0_CONTROL:
++		return DC_IRQ_SOURCE_DC6_VLINE0;
++	case DCN_1_0__SRCID__HUBP0_FLIP_INTERRUPT:
++		return DC_IRQ_SOURCE_PFLIP1;
++	case DCN_1_0__SRCID__HUBP1_FLIP_INTERRUPT:
++		return DC_IRQ_SOURCE_PFLIP2;
++	case DCN_1_0__SRCID__HUBP2_FLIP_INTERRUPT:
++		return DC_IRQ_SOURCE_PFLIP3;
++	case DCN_1_0__SRCID__HUBP3_FLIP_INTERRUPT:
++		return DC_IRQ_SOURCE_PFLIP4;
++	case DCN_1_0__SRCID__HUBP4_FLIP_INTERRUPT:
++		return DC_IRQ_SOURCE_PFLIP5;
++	case DCN_1_0__SRCID__HUBP5_FLIP_INTERRUPT:
++		return DC_IRQ_SOURCE_PFLIP6;
++	case DCN_1_0__SRCID__OTG0_IHC_V_UPDATE_NO_LOCK_INTERRUPT:
++		return DC_IRQ_SOURCE_VUPDATE1;
++	case DCN_1_0__SRCID__OTG1_IHC_V_UPDATE_NO_LOCK_INTERRUPT:
++		return DC_IRQ_SOURCE_VUPDATE2;
++	case DCN_1_0__SRCID__OTG2_IHC_V_UPDATE_NO_LOCK_INTERRUPT:
++		return DC_IRQ_SOURCE_VUPDATE3;
++	case DCN_1_0__SRCID__OTG3_IHC_V_UPDATE_NO_LOCK_INTERRUPT:
++		return DC_IRQ_SOURCE_VUPDATE4;
++	case DCN_1_0__SRCID__OTG4_IHC_V_UPDATE_NO_LOCK_INTERRUPT:
++		return DC_IRQ_SOURCE_VUPDATE5;
++	case DCN_1_0__SRCID__OTG5_IHC_V_UPDATE_NO_LOCK_INTERRUPT:
++		return DC_IRQ_SOURCE_VUPDATE6;
++	case DCN_1_0__SRCID__DMCUB_OUTBOX_LOW_PRIORITY_READY_INT:
++		return DC_IRQ_SOURCE_DMCUB_OUTBOX;
++	case DCN_1_0__SRCID__DC_HPD1_INT:
++		/* generic src_id for all HPD and HPDRX interrupts */
++		switch (ext_id) {
++		case DCN_1_0__CTXID__DC_HPD1_INT:
++			return DC_IRQ_SOURCE_HPD1;
++		case DCN_1_0__CTXID__DC_HPD2_INT:
++			return DC_IRQ_SOURCE_HPD2;
++		case DCN_1_0__CTXID__DC_HPD3_INT:
++			return DC_IRQ_SOURCE_HPD3;
++		case DCN_1_0__CTXID__DC_HPD4_INT:
++			return DC_IRQ_SOURCE_HPD4;
++		case DCN_1_0__CTXID__DC_HPD5_INT:
++			return DC_IRQ_SOURCE_HPD5;
++		case DCN_1_0__CTXID__DC_HPD6_INT:
++			return DC_IRQ_SOURCE_HPD6;
++		case DCN_1_0__CTXID__DC_HPD1_RX_INT:
++			return DC_IRQ_SOURCE_HPD1RX;
++		case DCN_1_0__CTXID__DC_HPD2_RX_INT:
++			return DC_IRQ_SOURCE_HPD2RX;
++		case DCN_1_0__CTXID__DC_HPD3_RX_INT:
++			return DC_IRQ_SOURCE_HPD3RX;
++		case DCN_1_0__CTXID__DC_HPD4_RX_INT:
++			return DC_IRQ_SOURCE_HPD4RX;
++		case DCN_1_0__CTXID__DC_HPD5_RX_INT:
++			return DC_IRQ_SOURCE_HPD5RX;
++		case DCN_1_0__CTXID__DC_HPD6_RX_INT:
++			return DC_IRQ_SOURCE_HPD6RX;
++		default:
++			return DC_IRQ_SOURCE_INVALID;
++		}
++		break;
 +
-+	if (!dc_dmub_srv)
-+		return false;
-+
-+	memset(cmd, 0, sizeof(*cmd));
-+	cmd->panel_cntl.header.type = DMUB_CMD__PANEL_CNTL;
-+	cmd->panel_cntl.header.sub_type = DMUB_CMD__PANEL_CNTL_QUERY_BACKLIGHT_INFO;
-+	cmd->panel_cntl.header.payload_bytes = sizeof(cmd->panel_cntl.data);
-+	cmd->panel_cntl.data.inst = dcn31_panel_cntl->base.inst;
-+
-+	return dc_dmub_srv_cmd_with_reply_data(dc_dmub_srv, cmd);
++	default:
++		return DC_IRQ_SOURCE_INVALID;
++	}
 +}
 +
-+static uint32_t dcn31_get_16_bit_backlight_from_pwm(struct panel_cntl *panel_cntl)
++static bool hpd_ack(
++	struct irq_service *irq_service,
++	const struct irq_source_info *info)
 +{
-+	union dmub_rb_cmd cmd;
++	uint32_t addr = info->status_reg;
++	uint32_t value = dm_read_reg(irq_service->ctx, addr);
++	uint32_t current_status =
++		get_reg_field_value(
++			value,
++			HPD0_DC_HPD_INT_STATUS,
++			DC_HPD_SENSE_DELAYED);
 +
-+	if (!dcn31_query_backlight_info(panel_cntl, &cmd))
-+		return 0;
++	dal_irq_service_ack_generic(irq_service, info);
 +
-+	return cmd.panel_cntl.data.current_backlight;
++	value = dm_read_reg(irq_service->ctx, info->enable_reg);
++
++	set_reg_field_value(
++		value,
++		current_status ? 0 : 1,
++		HPD0_DC_HPD_INT_CONTROL,
++		DC_HPD_INT_POLARITY);
++
++	dm_write_reg(irq_service->ctx, info->enable_reg, value);
++
++	return true;
 +}
 +
-+uint32_t dcn31_panel_cntl_hw_init(struct panel_cntl *panel_cntl)
-+{
-+	struct dcn31_panel_cntl *dcn31_panel_cntl = TO_DCN31_PANEL_CNTL(panel_cntl);
-+	struct dc_dmub_srv *dc_dmub_srv = panel_cntl->ctx->dmub_srv;
-+	union dmub_rb_cmd cmd;
-+
-+	if (!dc_dmub_srv)
-+		return 0;
-+
-+	memset(&cmd, 0, sizeof(cmd));
-+	cmd.panel_cntl.header.type = DMUB_CMD__PANEL_CNTL;
-+	cmd.panel_cntl.header.sub_type = DMUB_CMD__PANEL_CNTL_HW_INIT;
-+	cmd.panel_cntl.header.payload_bytes = sizeof(cmd.panel_cntl.data);
-+	cmd.panel_cntl.data.inst = dcn31_panel_cntl->base.inst;
-+	cmd.panel_cntl.data.bl_pwm_cntl = panel_cntl->stored_backlight_registers.BL_PWM_CNTL;
-+	cmd.panel_cntl.data.bl_pwm_period_cntl = panel_cntl->stored_backlight_registers.BL_PWM_PERIOD_CNTL;
-+	cmd.panel_cntl.data.bl_pwm_ref_div1 =
-+		panel_cntl->stored_backlight_registers.LVTMA_PWRSEQ_REF_DIV_BL_PWM_REF_DIV;
-+
-+	if (!dc_dmub_srv_cmd_with_reply_data(dc_dmub_srv, &cmd))
-+		return 0;
-+
-+	panel_cntl->stored_backlight_registers.BL_PWM_CNTL = cmd.panel_cntl.data.bl_pwm_cntl;
-+	panel_cntl->stored_backlight_registers.BL_PWM_CNTL2 = 0; /* unused */
-+	panel_cntl->stored_backlight_registers.BL_PWM_PERIOD_CNTL = cmd.panel_cntl.data.bl_pwm_period_cntl;
-+	panel_cntl->stored_backlight_registers.LVTMA_PWRSEQ_REF_DIV_BL_PWM_REF_DIV =
-+		cmd.panel_cntl.data.bl_pwm_ref_div1;
-+
-+	return cmd.panel_cntl.data.current_backlight;
-+}
-+
-+void dcn31_panel_cntl_destroy(struct panel_cntl **panel_cntl)
-+{
-+	struct dcn31_panel_cntl *dcn31_panel_cntl = TO_DCN31_PANEL_CNTL(*panel_cntl);
-+
-+	kfree(dcn31_panel_cntl);
-+	*panel_cntl = NULL;
-+}
-+
-+bool dcn31_is_panel_backlight_on(struct panel_cntl *panel_cntl)
-+{
-+	union dmub_rb_cmd cmd;
-+
-+	if (!dcn31_query_backlight_info(panel_cntl, &cmd))
-+		return 0;
-+
-+	return cmd.panel_cntl.data.is_backlight_on;
-+}
-+
-+bool dcn31_is_panel_powered_on(struct panel_cntl *panel_cntl)
-+{
-+	union dmub_rb_cmd cmd;
-+
-+	if (!dcn31_query_backlight_info(panel_cntl, &cmd))
-+		return 0;
-+
-+	return cmd.panel_cntl.data.is_powered_on;
-+}
-+
-+void dcn31_store_backlight_level(struct panel_cntl *panel_cntl)
-+{
-+	union dmub_rb_cmd cmd;
-+
-+	if (!dcn31_query_backlight_info(panel_cntl, &cmd))
-+		return;
-+
-+	panel_cntl->stored_backlight_registers.BL_PWM_CNTL = cmd.panel_cntl.data.bl_pwm_cntl;
-+	panel_cntl->stored_backlight_registers.BL_PWM_CNTL2 = 0; /* unused */
-+	panel_cntl->stored_backlight_registers.BL_PWM_PERIOD_CNTL = cmd.panel_cntl.data.bl_pwm_period_cntl;
-+	panel_cntl->stored_backlight_registers.LVTMA_PWRSEQ_REF_DIV_BL_PWM_REF_DIV =
-+		cmd.panel_cntl.data.bl_pwm_ref_div1;
-+}
-+
-+static const struct panel_cntl_funcs dcn31_link_panel_cntl_funcs = {
-+	.destroy = dcn31_panel_cntl_destroy,
-+	.hw_init = dcn31_panel_cntl_hw_init,
-+	.is_panel_backlight_on = dcn31_is_panel_backlight_on,
-+	.is_panel_powered_on = dcn31_is_panel_powered_on,
-+	.store_backlight_level = dcn31_store_backlight_level,
-+	.get_current_backlight = dcn31_get_16_bit_backlight_from_pwm,
++static const struct irq_source_info_funcs hpd_irq_info_funcs = {
++	.set = NULL,
++	.ack = hpd_ack
 +};
 +
-+void dcn31_panel_cntl_construct(
-+	struct dcn31_panel_cntl *dcn31_panel_cntl,
-+	const struct panel_cntl_init_data *init_data)
++static const struct irq_source_info_funcs hpd_rx_irq_info_funcs = {
++	.set = NULL,
++	.ack = NULL
++};
++
++static const struct irq_source_info_funcs pflip_irq_info_funcs = {
++	.set = NULL,
++	.ack = NULL
++};
++
++static const struct irq_source_info_funcs vupdate_no_lock_irq_info_funcs = {
++	.set = NULL,
++	.ack = NULL
++};
++
++static const struct irq_source_info_funcs vblank_irq_info_funcs = {
++	.set = NULL,
++	.ack = NULL
++};
++
++static const struct irq_source_info_funcs outbox_irq_info_funcs = {
++	.set = NULL,
++	.ack = NULL
++};
++
++static const struct irq_source_info_funcs vline0_irq_info_funcs = {
++	.set = NULL,
++	.ack = NULL
++};
++
++#undef BASE_INNER
++#define BASE_INNER(seg) DCN_BASE__INST0_SEG ## seg
++
++/* compile time expand base address. */
++#define BASE(seg) \
++	BASE_INNER(seg)
++
++#define SRI(reg_name, block, id)\
++	BASE(reg ## block ## id ## _ ## reg_name ## _BASE_IDX) + \
++			reg ## block ## id ## _ ## reg_name
++
++#define SRI_DMUB(reg_name)\
++	BASE(reg ## reg_name ## _BASE_IDX) + \
++			reg ## reg_name
++
++#define IRQ_REG_ENTRY(block, reg_num, reg1, mask1, reg2, mask2)\
++	.enable_reg = SRI(reg1, block, reg_num),\
++	.enable_mask = \
++		block ## reg_num ## _ ## reg1 ## __ ## mask1 ## _MASK,\
++	.enable_value = {\
++		block ## reg_num ## _ ## reg1 ## __ ## mask1 ## _MASK,\
++		~block ## reg_num ## _ ## reg1 ## __ ## mask1 ## _MASK \
++	},\
++	.ack_reg = SRI(reg2, block, reg_num),\
++	.ack_mask = \
++		block ## reg_num ## _ ## reg2 ## __ ## mask2 ## _MASK,\
++	.ack_value = \
++		block ## reg_num ## _ ## reg2 ## __ ## mask2 ## _MASK \
++
++#define IRQ_REG_ENTRY_DMUB(reg1, mask1, reg2, mask2)\
++	.enable_reg = SRI_DMUB(reg1),\
++	.enable_mask = \
++		reg1 ## __ ## mask1 ## _MASK,\
++	.enable_value = {\
++		reg1 ## __ ## mask1 ## _MASK,\
++		~reg1 ## __ ## mask1 ## _MASK \
++	},\
++	.ack_reg = SRI_DMUB(reg2),\
++	.ack_mask = \
++		reg2 ## __ ## mask2 ## _MASK,\
++	.ack_value = \
++		reg2 ## __ ## mask2 ## _MASK \
++
++#define hpd_int_entry(reg_num)\
++	[DC_IRQ_SOURCE_HPD1 + reg_num] = {\
++		IRQ_REG_ENTRY(HPD, reg_num,\
++			DC_HPD_INT_CONTROL, DC_HPD_INT_EN,\
++			DC_HPD_INT_CONTROL, DC_HPD_INT_ACK),\
++		.status_reg = SRI(DC_HPD_INT_STATUS, HPD, reg_num),\
++		.funcs = &hpd_irq_info_funcs\
++	}
++
++#define hpd_rx_int_entry(reg_num)\
++	[DC_IRQ_SOURCE_HPD1RX + reg_num] = {\
++		IRQ_REG_ENTRY(HPD, reg_num,\
++			DC_HPD_INT_CONTROL, DC_HPD_RX_INT_EN,\
++			DC_HPD_INT_CONTROL, DC_HPD_RX_INT_ACK),\
++		.status_reg = SRI(DC_HPD_INT_STATUS, HPD, reg_num),\
++		.funcs = &hpd_rx_irq_info_funcs\
++	}
++#define pflip_int_entry(reg_num)\
++	[DC_IRQ_SOURCE_PFLIP1 + reg_num] = {\
++		IRQ_REG_ENTRY(HUBPREQ, reg_num,\
++			DCSURF_SURFACE_FLIP_INTERRUPT, SURFACE_FLIP_INT_MASK,\
++			DCSURF_SURFACE_FLIP_INTERRUPT, SURFACE_FLIP_CLEAR),\
++		.funcs = &pflip_irq_info_funcs\
++	}
++
++/* vupdate_no_lock_int_entry maps to DC_IRQ_SOURCE_VUPDATEx, to match semantic
++ * of DCE's DC_IRQ_SOURCE_VUPDATEx.
++ */
++#define vupdate_no_lock_int_entry(reg_num)\
++	[DC_IRQ_SOURCE_VUPDATE1 + reg_num] = {\
++		IRQ_REG_ENTRY(OTG, reg_num,\
++			OTG_GLOBAL_SYNC_STATUS, VUPDATE_NO_LOCK_INT_EN,\
++			OTG_GLOBAL_SYNC_STATUS, VUPDATE_NO_LOCK_EVENT_CLEAR),\
++		.funcs = &vupdate_no_lock_irq_info_funcs\
++	}
++
++#define vblank_int_entry(reg_num)\
++	[DC_IRQ_SOURCE_VBLANK1 + reg_num] = {\
++		IRQ_REG_ENTRY(OTG, reg_num,\
++			OTG_GLOBAL_SYNC_STATUS, VSTARTUP_INT_EN,\
++			OTG_GLOBAL_SYNC_STATUS, VSTARTUP_EVENT_CLEAR),\
++		.funcs = &vblank_irq_info_funcs\
++	}
++
++#define vline0_int_entry(reg_num)\
++	[DC_IRQ_SOURCE_DC1_VLINE0 + reg_num] = {\
++		IRQ_REG_ENTRY(OTG, reg_num,\
++			OTG_VERTICAL_INTERRUPT0_CONTROL, OTG_VERTICAL_INTERRUPT0_INT_ENABLE,\
++			OTG_VERTICAL_INTERRUPT0_CONTROL, OTG_VERTICAL_INTERRUPT0_CLEAR),\
++		.funcs = &vline0_irq_info_funcs\
++	}
++#define dmub_outbox_int_entry()\
++	[DC_IRQ_SOURCE_DMCUB_OUTBOX] = {\
++		IRQ_REG_ENTRY_DMUB(\
++			DMCUB_INTERRUPT_ENABLE, DMCUB_OUTBOX1_READY_INT_EN,\
++			DMCUB_INTERRUPT_ACK, DMCUB_OUTBOX1_READY_INT_ACK),\
++		.funcs = &outbox_irq_info_funcs\
++	}
++
++#define dummy_irq_entry() \
++	{\
++		.funcs = &dummy_irq_info_funcs\
++	}
++
++#define i2c_int_entry(reg_num) \
++	[DC_IRQ_SOURCE_I2C_DDC ## reg_num] = dummy_irq_entry()
++
++#define dp_sink_int_entry(reg_num) \
++	[DC_IRQ_SOURCE_DPSINK ## reg_num] = dummy_irq_entry()
++
++#define gpio_pad_int_entry(reg_num) \
++	[DC_IRQ_SOURCE_GPIOPAD ## reg_num] = dummy_irq_entry()
++
++#define dc_underflow_int_entry(reg_num) \
++	[DC_IRQ_SOURCE_DC ## reg_num ## UNDERFLOW] = dummy_irq_entry()
++
++static const struct irq_source_info_funcs dummy_irq_info_funcs = {
++	.set = dal_irq_service_dummy_set,
++	.ack = dal_irq_service_dummy_ack
++};
++
++static const struct irq_source_info
++irq_source_info_dcn31[DAL_IRQ_SOURCES_NUMBER] = {
++	[DC_IRQ_SOURCE_INVALID] = dummy_irq_entry(),
++	hpd_int_entry(0),
++	hpd_int_entry(1),
++	hpd_int_entry(2),
++	hpd_int_entry(3),
++	hpd_int_entry(4),
++	hpd_rx_int_entry(0),
++	hpd_rx_int_entry(1),
++	hpd_rx_int_entry(2),
++	hpd_rx_int_entry(3),
++	hpd_rx_int_entry(4),
++	i2c_int_entry(1),
++	i2c_int_entry(2),
++	i2c_int_entry(3),
++	i2c_int_entry(4),
++	i2c_int_entry(5),
++	i2c_int_entry(6),
++	dp_sink_int_entry(1),
++	dp_sink_int_entry(2),
++	dp_sink_int_entry(3),
++	dp_sink_int_entry(4),
++	dp_sink_int_entry(5),
++	dp_sink_int_entry(6),
++	[DC_IRQ_SOURCE_TIMER] = dummy_irq_entry(),
++	pflip_int_entry(0),
++	pflip_int_entry(1),
++	pflip_int_entry(2),
++	pflip_int_entry(3),
++	[DC_IRQ_SOURCE_PFLIP5] = dummy_irq_entry(),
++	[DC_IRQ_SOURCE_PFLIP6] = dummy_irq_entry(),
++	[DC_IRQ_SOURCE_PFLIP_UNDERLAY0] = dummy_irq_entry(),
++	gpio_pad_int_entry(0),
++	gpio_pad_int_entry(1),
++	gpio_pad_int_entry(2),
++	gpio_pad_int_entry(3),
++	gpio_pad_int_entry(4),
++	gpio_pad_int_entry(5),
++	gpio_pad_int_entry(6),
++	gpio_pad_int_entry(7),
++	gpio_pad_int_entry(8),
++	gpio_pad_int_entry(9),
++	gpio_pad_int_entry(10),
++	gpio_pad_int_entry(11),
++	gpio_pad_int_entry(12),
++	gpio_pad_int_entry(13),
++	gpio_pad_int_entry(14),
++	gpio_pad_int_entry(15),
++	gpio_pad_int_entry(16),
++	gpio_pad_int_entry(17),
++	gpio_pad_int_entry(18),
++	gpio_pad_int_entry(19),
++	gpio_pad_int_entry(20),
++	gpio_pad_int_entry(21),
++	gpio_pad_int_entry(22),
++	gpio_pad_int_entry(23),
++	gpio_pad_int_entry(24),
++	gpio_pad_int_entry(25),
++	gpio_pad_int_entry(26),
++	gpio_pad_int_entry(27),
++	gpio_pad_int_entry(28),
++	gpio_pad_int_entry(29),
++	gpio_pad_int_entry(30),
++	dc_underflow_int_entry(1),
++	dc_underflow_int_entry(2),
++	dc_underflow_int_entry(3),
++	dc_underflow_int_entry(4),
++	dc_underflow_int_entry(5),
++	dc_underflow_int_entry(6),
++	[DC_IRQ_SOURCE_DMCU_SCP] = dummy_irq_entry(),
++	[DC_IRQ_SOURCE_VBIOS_SW] = dummy_irq_entry(),
++	vupdate_no_lock_int_entry(0),
++	vupdate_no_lock_int_entry(1),
++	vupdate_no_lock_int_entry(2),
++	vupdate_no_lock_int_entry(3),
++	vblank_int_entry(0),
++	vblank_int_entry(1),
++	vblank_int_entry(2),
++	vblank_int_entry(3),
++	vline0_int_entry(0),
++	vline0_int_entry(1),
++	vline0_int_entry(2),
++	vline0_int_entry(3),
++	[DC_IRQ_SOURCE_DC5_VLINE1] = dummy_irq_entry(),
++	[DC_IRQ_SOURCE_DC6_VLINE1] = dummy_irq_entry(),
++	dmub_outbox_int_entry(),
++};
++
++static const struct irq_service_funcs irq_service_funcs_dcn31 = {
++		.to_dal_irq_source = to_dal_irq_source_dcn31
++};
++
++static void dcn31_irq_construct(
++	struct irq_service *irq_service,
++	struct irq_service_init_data *init_data)
 +{
-+	dcn31_panel_cntl->base.funcs = &dcn31_link_panel_cntl_funcs;
-+	dcn31_panel_cntl->base.ctx = init_data->ctx;
-+	dcn31_panel_cntl->base.inst = init_data->inst;
++	dal_irq_service_construct(irq_service, init_data);
++
++	irq_service->info = irq_source_info_dcn31;
++	irq_service->funcs = &irq_service_funcs_dcn31;
 +}
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_panel_cntl.h b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_panel_cntl.h
++
++struct irq_service *dal_irq_service_dcn31_create(
++	struct irq_service_init_data *init_data)
++{
++	struct irq_service *irq_service = kzalloc(sizeof(*irq_service),
++						  GFP_KERNEL);
++
++	if (!irq_service)
++		return NULL;
++
++	dcn31_irq_construct(irq_service, init_data);
++	return irq_service;
++}
+diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn31/irq_service_dcn31.h b/drivers/gpu/drm/amd/display/dc/irq/dcn31/irq_service_dcn31.h
 new file mode 100644
-index 000000000000..d33ccd6ef8c3
+index 000000000000..d6c845f6bfbf
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_panel_cntl.h
-@@ -0,0 +1,40 @@
++++ b/drivers/gpu/drm/amd/display/dc/irq/dcn31/irq_service_dcn31.h
+@@ -0,0 +1,37 @@
 +/*
-+ * Copyright 2012-15 Advanced Micro Devices, Inc.
++ * Copyright 2020 Advanced Micro Devices, Inc.
 + *
 + * Permission is hereby granted, free of charge, to any person obtaining a
 + * copy of this software and associated documentation files (the "Software"),
 + * to deal in the Software without restriction, including without limitation
 + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ *  and/or sell copies of the Software, and to permit persons to whom the
++ * and/or sell copies of the Software, and to permit persons to whom the
 + * Software is furnished to do so, subject to the following conditions:
 + *
 + * The above copyright notice and this permission notice shall be included in
@@ -343,21 +635,18 @@ index 000000000000..d33ccd6ef8c3
 + *
 + */
 +
-+#ifndef __DC_PANEL_CNTL__DCN31_H__
-+#define __DC_PANEL_CNTL__DCN31_H__
++#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
 +
-+#include "panel_cntl.h"
-+#include "dce/dce_panel_cntl.h"
++#ifndef __DAL_IRQ_SERVICE_DCN31_H__
++#define __DAL_IRQ_SERVICE_DCN31_H__
 +
-+struct dcn31_panel_cntl {
-+	struct panel_cntl base;
-+};
++#include "../irq_service.h"
 +
-+void dcn31_panel_cntl_construct(
-+	struct dcn31_panel_cntl *dcn31_panel_cntl,
-+	const struct panel_cntl_init_data *init_data);
++struct irq_service *dal_irq_service_dcn31_create(
++	struct irq_service_init_data *init_data);
 +
-+#endif /* __DC_PANEL_CNTL__DCN31_H__ */
++#endif /* __DAL_IRQ_SERVICE_DCN31_H__ */
++#endif /* CONFIG_DRM_AMD_DC_DCN3_1 */
 -- 
 2.31.1
 
