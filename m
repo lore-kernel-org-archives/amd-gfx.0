@@ -2,67 +2,101 @@ Return-Path: <SRS0=QW4G=K4=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 602A2C47080
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 01:57:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 72553C47080
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 02:05:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1DD56610C8
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 01:57:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1DD56610C8
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 1861460720
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 02:05:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1861460720
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B18AF6EB56;
-	Wed,  2 Jun 2021 01:57:48 +0000 (UTC)
-Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
- [IPv6:2607:f8b0:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5B9B6EB45;
- Wed,  2 Jun 2021 01:57:46 +0000 (UTC)
-Received: by mail-oi1-x231.google.com with SMTP id h9so1265832oih.4;
- Tue, 01 Jun 2021 18:57:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=SU3VNhIHP4qFfMS6BHdB+T/4wdfQUGXE54wCPeu58gQ=;
- b=QQO75cNDTpDKr0tOdLOk5vG9ysCKgZa/phRsAdD89jlR+TT9Wjgl3mHuc1yXOnZu9L
- xsRhHTI9U8g5BYgBihgDXw6SikyKy9uI+vcBR/0GRLeuZPZPL/sZ+Q8NyhCrFi6h/8Rq
- ZEOkfNeRAWeAfwfI/4mLVNOdfpqIvjsk/+BgiSUjprCSv3xhbHyQZJvd23gxCfFk6QKD
- QOImaejnjZGYi3c+IWhtKD14pHWKC11iaZ1fLPcXIYgwoFVMWYOv7mN3EYxOAP7W4T9/
- yHHTxTAYdLhrWVepaPX/WcM0IxKK2z1R8oLv3rcFrSmis3GkxABc1obOY4Yh0u0nmFw4
- Ckkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=SU3VNhIHP4qFfMS6BHdB+T/4wdfQUGXE54wCPeu58gQ=;
- b=lLXCuB+djC/lRxyr1ylcoW2FeCAoLbNFPW28QlS0Ueq2Q7fIFhXovaDUHwBu8NDK6i
- mCf5LqVHdY/TcVVxw5zONqFDfzNmdu0aHxxfxWB7+IG9WU0A9jC81ymvzia1JVk5pehH
- DTjnM7toDbhmImRegm4X29F+2FZStf6W/16qBDnQanWR1hDQHaixJcvyntt6Zxww0dvW
- QNAeOAh3AKfWpvgiaP2VD9qJeselx6EckhVhNZvTee3yBC47lvi+d7YTf5QM1JmyMi7G
- dUNDbFVYifmj6xRpF5VUq3aE8zMiFWI/4XNnH4BVto0jnPU6Xb67vVZPoQLAeg74fOk9
- ODQw==
-X-Gm-Message-State: AOAM532739sYzXFBsS+Nj5ahW19xv3fuRpvjwdrY+/n3sLu2V1Z62j23
- FEEOrzHg4uZjsZ5e7WVMfXrjDcD2tz2NSwr9d04=
-X-Google-Smtp-Source: ABdhPJz1oJcj/TIW7IPXKfUGMx+mKb7O5I8+KY9nNPCZgngt3Y0TTxSNjp3R9qmQkBVU/dtI0mfS9UGxQ14qdDZsEFg=
-X-Received: by 2002:a05:6808:1592:: with SMTP id
- t18mr19903224oiw.123.1622599066060; 
- Tue, 01 Jun 2021 18:57:46 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA3CD6EB45;
+	Wed,  2 Jun 2021 02:05:19 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2049.outbound.protection.outlook.com [40.107.92.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FA386EB45
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Jun 2021 02:05:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=DoGj6exhmXRgqcVsSAFNRhoMSG5faUwxeGzCMll53fGQg8Wq5uVKJ4pxEzBT3daH5p2T5EVDwM4ERnaRhKLlsMve0mpCEP2GLpJVagM3eWOjAAfnnZQSvaqNIVU+IU23eIF0CJSFrYDHq7MoMKWnmCdXVniyNhZdDmmlRIZcArzQeUVUoXrp9Rxg549ekTCNLriEa7Uv6aIsDWupJsQWC5Mw+1HBrCflcIFapEQ7mpVPwwcUuvj/OwxFFrLWC6enB1Gqgq99Wyo9Qe2fgt9EdtSHsbXhH1z8oexWA6UjAYJS3mxoF55xwRlsn121rA+irt0NRH+1YrpqnRpdkp2JsQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LHCrk1sQfE+2ygQd5n0t6F8o8wCJODcA3xYoT6dPO7M=;
+ b=C8S8bCsusvGXXEjUxoEBHqTff0XM+u58Uqy4yyRpTdzkKV3ZoBy2xxlN1R0Oh/Nbh3tGUkvkNHY7UFBCfdyLYO2CGZGFOOlitAtx1c+sKjnQ0sPOPuQl2mcCIoDfErwoOQ3loCv1bu+1194npIkFRIsELnhCgtw7Irl25JuNRoEzfUIuBwJKlUGW7sJP+ZMZTkcpSIQmxto5GueugsDtG0oE3OKl/5xAUiFxQ/rD3vhZFTnUHcs9pQIUwmjq5LQHqbmbXxMqQLn8NXVvGYpAaLHeAIqBGi2in0c+whnkAC+Px3JzBDQwJFex9tXEY8GbVyKjWUuH3d4Nc3oYkLtnYA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LHCrk1sQfE+2ygQd5n0t6F8o8wCJODcA3xYoT6dPO7M=;
+ b=bGhlhQHzX5+nFP8fk9IxGIMQG9HoO2uWJcKY1rJVbW6xPObcO+SVAKtGxomwQpJPBNsDKc9j1zJKNdZiMFqRazvRWnRHOWNYQQmBu/8+0X7UHW+RbJoqJBa1PUksJHiblmxKbJbKqT6bRoDwmbQ4ZSXeU/6mpgQmdslUPmdFVBg=
+Received: from BN9P220CA0013.NAMP220.PROD.OUTLOOK.COM (2603:10b6:408:13e::18)
+ by BL0PR12MB2545.namprd12.prod.outlook.com (2603:10b6:207:4e::32)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4173.21; Wed, 2 Jun
+ 2021 02:05:15 +0000
+Received: from BN8NAM11FT053.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:13e:cafe::8e) by BN9P220CA0013.outlook.office365.com
+ (2603:10b6:408:13e::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.15 via Frontend
+ Transport; Wed, 2 Jun 2021 02:05:15 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT053.mail.protection.outlook.com (10.13.177.209) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4150.30 via Frontend Transport; Wed, 2 Jun 2021 02:05:15 +0000
+Received: from eric-HP-EliteBook-745-G4.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.4; Tue, 1 Jun 2021 21:05:14 -0500
+From: Eric Huang <jinhuieric.huang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v3] drm/amdgpu: Don't flush/invalidate HDP for APUs and A+A
+Date: Tue, 1 Jun 2021 22:04:58 -0400
+Message-ID: <20210602020458.781206-1-jinhuieric.huang@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <1622194158-70898-1-git-send-email-jiapeng.chong@linux.alibaba.com>
- <37a4f0bf-4acb-3961-699b-8335e194e315@amd.com>
-In-Reply-To: <37a4f0bf-4acb-3961-699b-8335e194e315@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 1 Jun 2021 21:57:35 -0400
-Message-ID: <CADnq5_NY_uWzB6QjsM0_+xcbQkMfy1wm2gQx3v7xW_eHQ804YA@mail.gmail.com>
-Subject: Re: [PATCH v3] amdgpu: remove unreachable code
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: b0a3ee7c-0451-4437-a302-08d9256add16
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2545:
+X-Microsoft-Antispam-PRVS: <BL0PR12MB2545DFBD875E4BAFCA3C2013823D9@BL0PR12MB2545.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2582;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: xHUe4vK5Jm5Pcq39eggUQBDCEOfYe90UXf7BiH6vIGxaPxJ5wph5z68ygdTmmn7iLrKV5wRwE8Lp4fkdnEkwUN6khG+B0uCPE3JvwizH44YjHYUxvRRoBhRHp6+76tPEa4svAgbAgfz/v3UbyHrAlZ3a2yw7gs80ZcfKj1YX+La2rMTCHfamcBdg/BckHJtz6TFy/X3BoepSDySw9PqxM6Yqbw8VVzv78Y1CzqfM8Y/s/aD4LnXOnEslM+CeLdWKD0jpfiZdAZRmY35CDMFEdTbEMNy0dIKwqUnXepdRzwt+5NNB7ywH0vb77L55h1g1SxNaEjjtyCxVqH1ogNeau5ZSzQCB0GbFzi0xz33kwLxglHWI/m1Py6HhNiDTAHQUroBPutupbEMB2rwnNi81+JpKAPHNkEPg2JraxAALjBBHJfy1/JdFQKdQE3byRAZroskOKT6LL1sk1I1GOkExgPGkBW9zKB8Ky8gT8eIBFxe5cJ6intWHGLLOd+HYEeRfmVjcEyyj4JYk7vVtUHG5tFtkbKw/W1Vxv9ZLOiPy5Zb+MHkeFzWIMLbCTTZeRiLwDw3TQuaSTcx9uHjXkLUm9DLWiMbRff6HhBUWnLyOzxQIGTC8PtIi6a313qHJ2A64SPfdKsPbZVRm6ijuwG00jzq+k503/1X8hyXaageyxLorIbm0N6c/aPCn21CK2g3p
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(136003)(346002)(39860400002)(396003)(376002)(46966006)(36840700001)(82740400003)(81166007)(83380400001)(356005)(16526019)(186003)(36860700001)(26005)(4326008)(336012)(36756003)(86362001)(6916009)(478600001)(2906002)(8936002)(8676002)(47076005)(316002)(5660300002)(6666004)(70586007)(1076003)(82310400003)(426003)(70206006)(7696005)(2616005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2021 02:05:15.5215 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b0a3ee7c-0451-4437-a302-08d9256add16
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT053.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2545
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,47 +108,144 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
- Dave Airlie <airlied@linux.ie>, LKML <linux-kernel@vger.kernel.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
- "Deucher, Alexander" <alexander.deucher@amd.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- linux-media <linux-media@vger.kernel.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Eric Huang <jinhuieric.huang@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QXBwbGllZC4gIFRoYW5rcyEKCk9uIEZyaSwgTWF5IDI4LCAyMDIxIGF0IDg6MTggQU0gQ2hyaXN0
-aWFuIEvDtm5pZwo8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPiB3cm90ZToKPgo+IEFtIDI4LjA1
-LjIxIHVtIDExOjI5IHNjaHJpZWIgSmlhcGVuZyBDaG9uZzoKPiA+IEluIHRoZSBmdW5jdGlvbiBh
-bWRncHVfdXZkX2NzX21zZygpLCBldmVyeSBicmFuY2ggaW4gdGhlIHN3aXRjaAo+ID4gc3RhdGVt
-ZW50IHdpbGwgaGF2ZSBhIHJldHVybiwgc28gdGhlIGNvZGUgYmVsb3cgdGhlIHN3aXRjaCBzdGF0
-ZW1lbnQKPiA+IHdpbGwgbm90IGJlIGV4ZWN1dGVkLgo+ID4KPiA+IEVsaW1pbmF0ZSB0aGUgZm9s
-bG93IHNtYXRjaCB3YXJuaW5nOgo+ID4KPiA+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV91dmQuYzo4NDUgYW1kZ3B1X3V2ZF9jc19tc2coKSB3YXJuOgo+ID4gaWdub3JpbmcgdW5y
-ZWFjaGFibGUgY29kZS4KPiA+Cj4gPiBSZXBvcnRlZC1ieTogQWJhY2kgUm9ib3QgPGFiYWNpQGxp
-bnV4LmFsaWJhYmEuY29tPgo+ID4gU2lnbmVkLW9mZi1ieTogSmlhcGVuZyBDaG9uZyA8amlhcGVu
-Zy5jaG9uZ0BsaW51eC5hbGliYWJhLmNvbT4KPgo+IFJldmlld2VkLWJ5OiBDaHJpc3RpYW4gS8O2
-bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4KPiA+IC0tLQo+ID4gQ2hhbmdlcyBpbiB2
-MjoKPiA+ICAgIC1Gb3IgdGhlIGZvbGxvdyBhZHZpY2U6IGh0dHBzOi8vbG9yZS5rZXJuZWwub3Jn
-L3BhdGNod29yay9wYXRjaC8xNDM1OTY4Lwo+ID4KPiA+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X3V2ZC5jIHwgMyArLS0KPiA+ICAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0
-aW9uKCspLCAyIGRlbGV0aW9ucygtKQo+ID4KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfdXZkLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfdXZkLmMKPiA+IGluZGV4IGM2ZGJjMDguLjM1ZjY4NzQgMTAwNjQ0Cj4gPiAtLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdXZkLmMKPiA+ICsrKyBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV91dmQuYwo+ID4gQEAgLTgyOSw5ICs4MjksOCBAQCBz
-dGF0aWMgaW50IGFtZGdwdV91dmRfY3NfbXNnKHN0cnVjdCBhbWRncHVfdXZkX2NzX2N0eCAqY3R4
-LAo+ID4KPiA+ICAgICAgIGRlZmF1bHQ6Cj4gPiAgICAgICAgICAgICAgIERSTV9FUlJPUigiSWxs
-ZWdhbCBVVkQgbWVzc2FnZSB0eXBlICglZCkhXG4iLCBtc2dfdHlwZSk7Cj4gPiAtICAgICAgICAg
-ICAgIHJldHVybiAtRUlOVkFMOwo+ID4gICAgICAgfQo+ID4gLSAgICAgQlVHKCk7Cj4gPiArCj4g
-PiAgICAgICByZXR1cm4gLUVJTlZBTDsKPiA+ICAgfQo+ID4KPgo+IF9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBh
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeApfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
-bmZvL2FtZC1nZngK
+Integrate two macros into two generic functions and add
+no_flush flag to determine if HDP flush is needed for
+all Asics.
+
+Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  9 ++++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 29 ++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h    |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c     | 15 ++---------
+ 4 files changed, 37 insertions(+), 17 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 1e3cd4ce9e91..224552d38240 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -1297,10 +1297,6 @@ int emu_soc_asic_init(struct amdgpu_device *adev);
+ #define amdgpu_asic_read_bios_from_rom(adev, b, l) (adev)->asic_funcs->read_bios_from_rom((adev), (b), (l))
+ #define amdgpu_asic_read_register(adev, se, sh, offset, v)((adev)->asic_funcs->read_register((adev), (se), (sh), (offset), (v)))
+ #define amdgpu_asic_get_config_memsize(adev) (adev)->asic_funcs->get_config_memsize((adev))
+-#define amdgpu_asic_flush_hdp(adev, r) \
+-	((adev)->asic_funcs->flush_hdp ? (adev)->asic_funcs->flush_hdp((adev), (r)) : (adev)->hdp.funcs->flush_hdp((adev), (r)))
+-#define amdgpu_asic_invalidate_hdp(adev, r) \
+-	((adev)->asic_funcs->invalidate_hdp ? (adev)->asic_funcs->invalidate_hdp((adev), (r)) : (adev)->hdp.funcs->invalidate_hdp((adev), (r)))
+ #define amdgpu_asic_need_full_reset(adev) (adev)->asic_funcs->need_full_reset((adev))
+ #define amdgpu_asic_init_doorbell_index(adev) (adev)->asic_funcs->init_doorbell_index((adev))
+ #define amdgpu_asic_get_pcie_usage(adev, cnt0, cnt1) ((adev)->asic_funcs->get_pcie_usage((adev), (cnt0), (cnt1)))
+@@ -1314,6 +1310,11 @@ int emu_soc_asic_init(struct amdgpu_device *adev);
+ 
+ #define amdgpu_inc_vram_lost(adev) atomic_inc(&((adev)->vram_lost_counter));
+ 
++void amdgpu_asic_flush_hdp(struct amdgpu_device *adev,
++		struct amdgpu_ring *ring);
++void amdgpu_asic_invalidate_hdp(struct amdgpu_device *adev,
++		struct amdgpu_ring *ring);
++
+ /* Common functions */
+ bool amdgpu_device_has_job_running(struct amdgpu_device *adev);
+ bool amdgpu_device_should_recover_gpu(struct amdgpu_device *adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 9c4d33f649f7..951feefb5e76 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -3505,6 +3505,9 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ 	if (r)
+ 		goto failed_unmap;
+ 
++	if ((adev->flags & AMD_IS_APU) || adev->gmc.xgmi.connected_to_cpu)
++		adev->hdp.no_flush = true;
++
+ 	/* doorbell bar mapping and doorbell index init*/
+ 	amdgpu_device_doorbell_init(adev);
+ 
+@@ -5548,3 +5551,29 @@ bool amdgpu_device_is_headless(struct amdgpu_device *adev)
+     /* Check if it is NV's VGA class while VCN is harvest, it is headless*/
+     return nv_is_headless_sku(adev->pdev);
+ }
++
++void amdgpu_asic_flush_hdp(struct amdgpu_device *adev,
++		struct amdgpu_ring *ring)
++{
++	if (adev->hdp.no_flush)
++		return;
++
++	if (ring->funcs->emit_hdp_flush)
++		amdgpu_ring_emit_hdp_flush(ring);
++	else if (adev->asic_funcs->flush_hdp)
++		adev->asic_funcs->flush_hdp(adev, ring);
++	else
++		adev->hdp.funcs->flush_hdp(adev, ring);
++}
++
++void amdgpu_asic_invalidate_hdp(struct amdgpu_device *adev,
++		struct amdgpu_ring *ring)
++{
++	if (adev->hdp.no_flush)
++		return;
++
++	if (adev->asic_funcs->invalidate_hdp)
++		adev->asic_funcs->invalidate_hdp(adev, ring);
++	else
++		adev->hdp.funcs->invalidate_hdp(adev, ring);
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h
+index 7ec99d591584..1ca23f2f51d2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h
+@@ -44,6 +44,7 @@ struct amdgpu_hdp {
+ 	struct ras_common_if			*ras_if;
+ 	const struct amdgpu_hdp_funcs		*funcs;
+ 	const struct amdgpu_hdp_ras_funcs	*ras_funcs;
++	bool	no_flush;
+ };
+ 
+ int amdgpu_hdp_ras_late_init(struct amdgpu_device *adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+index aaa2574ce9bc..6db676c4c7e1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+@@ -222,15 +222,7 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned num_ibs,
+ 	if (job && ring->funcs->init_cond_exec)
+ 		patch_offset = amdgpu_ring_init_cond_exec(ring);
+ 
+-#ifdef CONFIG_X86_64
+-	if (!(adev->flags & AMD_IS_APU))
+-#endif
+-	{
+-		if (ring->funcs->emit_hdp_flush)
+-			amdgpu_ring_emit_hdp_flush(ring);
+-		else
+-			amdgpu_asic_flush_hdp(adev, ring);
+-	}
++	amdgpu_asic_flush_hdp(adev, ring);
+ 
+ 	if (need_ctx_switch)
+ 		status |= AMDGPU_HAVE_CTX_SWITCH;
+@@ -267,10 +259,7 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned num_ibs,
+ 	if (job && ring->funcs->emit_frame_cntl)
+ 		amdgpu_ring_emit_frame_cntl(ring, false, secure);
+ 
+-#ifdef CONFIG_X86_64
+-	if (!(adev->flags & AMD_IS_APU))
+-#endif
+-		amdgpu_asic_invalidate_hdp(adev, ring);
++	amdgpu_asic_invalidate_hdp(adev, ring);
+ 
+ 	if (ib->flags & AMDGPU_IB_FLAG_TC_WB_NOT_INVALIDATE)
+ 		fence_flags |= AMDGPU_FENCE_FLAG_TC_WB_ONLY;
+-- 
+2.25.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
