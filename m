@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D44E8C47097
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 16:51:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DB6E7C47240
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 16:51:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A34DC61C53
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 16:51:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A34DC61C53
+	by mail.kernel.org (Postfix) with ESMTPS id A3A2361C39
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 16:51:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A3A2361C39
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94B136EDD8;
-	Wed,  2 Jun 2021 16:51:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44F9D6EDEB;
+	Wed,  2 Jun 2021 16:51:29 +0000 (UTC)
 Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2046.outbound.protection.outlook.com [40.107.223.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E9866EDD8
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Jun 2021 16:51:23 +0000 (UTC)
+ (mail-dm6nam11on2070.outbound.protection.outlook.com [40.107.223.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4231C6EDDF
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Jun 2021 16:51:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dPXxN0s6cy+9S8iKcpoM+TJH8ALKC5HfelifeuP//usdvKCbS/3wp/IEyQuBP4Fp3c/AoZAJBbEty/gFlK2Ja66yORgXwBV4B7q+5wohsJnlfOvqLYsrPWsuwE0NhGoxd//CwfOjQ1WZ+K7tpyN03o34bXTV+iu4EWdpbOVNgRtYBm+WjdcWkXdGCA/AEBkgktdjw4ik5gUm/r+JEcwaB56NHpBILJVYboqq1oMSR6nZ3YXo8zhT4s24xpXKT3rkWTR1U0nwmMPJC4m7GzzipVkgHS52mOGAf+bjvcPrK8yWs1hVnrfsuxgJJNcBdDsXnCGRMwYrJb+hpJylOSfkVQ==
+ b=QpOLeWC43wDFuskVtf8ZaT1DpYhBs8UOdL0p8/mxGVCOlYBkDYtM97KnL/x1TLRiIJXtzsDJbnCb6K4jAZ1GhcDq/KS9kE2jG5om5IKvK+1ixuxJSmOAGVXySYPergwTGz4LIMUgBVY85Z/677zWZBYYrT5xDelRnoFzp3AWAH3jMGQ/OehWjBSLfjXmzGvX+kJhacmQabDMEBKU2cnw2cI9G21w3cFjs1yNLJYqHiH2MRophBZEVyHe9nyWz/CGqOk/qVsvCEn1njefJz5/UPz5RysyLfNYP7PmhxGegsKQc3SyzZwFJ4gWXqtUXyRu5CvC/HbNksZmVshDJSiXHw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Nct8CUJoUpmH8Oz0fQYBlGLLG46YlX+01Mh0qKJOLvo=;
- b=iacnZ52duvMZ5ch4KZfMRD6+6HElL32Yi92Ih2QPOo/wLa20edf6HY723Q5tKKQTvyKkn9y0/LBsb2ubdFJ5iLo3gehe06mt1K9Thqj0/KorPidY8nVKitkDFzJ6HQ7j9I+lE9CurMnj+WR2DvGcDeux3fnyob5Ux2MteJ314B5QbMWHUr+gl8uiPw/2TXIp4X95WBHSkdsPEt6MZozGg5ywR6jAWgFXG8EYW0eWvGlZYA9tGnydJQzmcbB6VcpxmbT5hEPnxNSzPZhVgb13z98nSNh7KJczT0ViLfEM0e3NYIecqxsvbR/i4Ui4T2S0E8wjcMfaot0fBbPTCnlcWg==
+ bh=MQ/M120hVjV11uJtRxQd6gXX5PHtlZ+PDiP/mbESfPU=;
+ b=dRbUHLXRW8wO1QuC5CtHeBkWje6PxqLBXOg/cYIYS8vMpcIvpJaW3C8ZU4KI1qhULiHWSDoiQaZt4Loj0yhbVR5NyEx++1ezGBVZzIfmcJpMOJAzrjygdxg4EHso+c2dsQz1H7DlyCRwMm0BmAhytl+eyNIXvZ5dWmMk8Xw+YTr8v4jjAh/4gLseaWNiVP6L++Wl7T4IDwWCvAYAZiThHMemcVEpo9tZnd57aydJJCeIrAfmJdOlonYOS2K+Lo4Px8HQ5yitgNLrfrxkUIeZVvlX2OVg0X7dokdsbZj07tMBLpVgoVRqxFdXCt68wf9f+GsYuyrHu72cqcz6Ju/tEA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Nct8CUJoUpmH8Oz0fQYBlGLLG46YlX+01Mh0qKJOLvo=;
- b=4v8ileMAHHa6iTB+y7+aM0LwazfywY2G0hr74+vA9WNQiL5kkVBL6wV3ZTDxhhWV/wZIaZI7egrUGjZhJQIQMGzvHjztDQ5H5M5UWaNrTe+3AKb4ZS1R7nF5nO8sMFeIMSDYLOoutTOGcrePVzuoO0+sNla66ynfGwmRUVaQAPU=
+ bh=MQ/M120hVjV11uJtRxQd6gXX5PHtlZ+PDiP/mbESfPU=;
+ b=nIGp/UDAH6zCBUikLPbT02Pa88WdGFh1BKBsF8jBuIgK/szhDoRk/QbAy9XhfBjZbP//fr0kV6/4CeJKN/wMOTUSC7vFedePxFqSi5Sl/BHYJwSNzv3ZRCCRyYbltjpVpGlOt2QLUMYtVDPJejSpkD86vYyNJHnUn4BZ6TU0P5A=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -45,16 +45,16 @@ Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
  by MN2PR12MB4534.namprd12.prod.outlook.com (2603:10b6:208:24f::10)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.20; Wed, 2 Jun
- 2021 16:51:20 +0000
+ 2021 16:51:24 +0000
 Received: from MN2PR12MB4488.namprd12.prod.outlook.com
  ([fe80::25f7:664:3a8f:25b6]) by MN2PR12MB4488.namprd12.prod.outlook.com
  ([fe80::25f7:664:3a8f:25b6%7]) with mapi id 15.20.4173.030; Wed, 2 Jun 2021
- 16:51:20 +0000
+ 16:51:24 +0000
 From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 75/89] drm/amd/display: Add DCN3.1 DCHHUB
-Date: Wed,  2 Jun 2021 12:48:54 -0400
-Message-Id: <20210602164908.2848791-75-alexander.deucher@amd.com>
+Subject: [PATCH 85/89] drm/amd/display: Add DCN3.1 Resource
+Date: Wed,  2 Jun 2021 12:49:04 -0400
+Message-Id: <20210602164908.2848791-85-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210602164908.2848791-1-alexander.deucher@amd.com>
 References: <20210602164908.2848791-1-alexander.deucher@amd.com>
@@ -68,52 +68,52 @@ Received: from localhost.localdomain (192.161.79.207) by
  MN2PR13CA0007.namprd13.prod.outlook.com (2603:10b6:208:160::20) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.9 via Frontend
- Transport; Wed, 2 Jun 2021 16:50:19 +0000
+ Transport; Wed, 2 Jun 2021 16:50:25 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a56abd4e-962e-4c1b-494e-08d925e68191
+X-MS-Office365-Filtering-Correlation-Id: e88f068f-8982-4d52-cae9-08d925e6855e
 X-MS-TrafficTypeDiagnostic: MN2PR12MB4534:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB4534F626C26C85865BB62B47F73D9@MN2PR12MB4534.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-Microsoft-Antispam-PRVS: <MN2PR12MB453430AEA8DDF89C556DE45AF73D9@MN2PR12MB4534.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: nQsxX/wC3BasAdWmGakVRaql4aD3r8YvHVxtT3L7Rs3bO+/W/r5udExfLRDrLjJ1ZPPZNUw76lXBLgTZN6X4oWjMVJBhxxFt9QS3kz3DIJIut70KidHSQTpUy/MgY0SqPkiBhm0v4rJYkY0TWAgnCoMZYwPls92sce8/+17fD8UY07vJ1sQDhfqb8kb1vxiAZTGI4pXcGx7f7TRmynVjFqPuPStgwdyIblUmNuc9/TTMTjE7689Sv4oBwdboLRucRszdsJVM9JqvZcs/gND9sp8TNTQrBlSkpro5Xf8LxmPhL8zTRPt4Uj6XQ+SSDwY3m0PzpiA3OKLizJZ6IKzdOxE9ZzDSuOZynxxyNP5or015VTxjjTjc4zDhe5SBXqsKkT2S9v753PgmmqwfvhE4ICYXmHf5wF7aZncQ3H3dQfhpZYj3bq860YBzvC83lMwIlW+nCu4q/T4Av6U7D+QUuJAoXd3eIoTGl8YvrYhhJCr94tuqkBTUixzIZIGyljDOyEMI3dMLPoNEH7cpdCmd2fzFEVWi501GidY3NPa5sjf+9tfhsN+NddjaA/BfhtLtbvp1OKNDk6jO3HgCSZgxbjcfkNkBvpGSqDOjnufAnexli+eowqSIzXnZj9CnsfoGUydWiPf9Bie4jKzG+tiWJw0zF6YeicGemZUWD6jWRXNMTd6ZSV39o6l6svHJAgBUHjn6+DGK7PqKxgd6GK7CKg==
+X-Microsoft-Antispam-Message-Info: gDg68T4hryVGBOeYGbd8TZz+fe+7N6Xe8ZBcylxzbI7L/lilZm/YhPje+3kcVMDpL04Oqgpbd/UkxdEWlbXgMxvcbXV1+fMxEc/KXpPhj5dUi9QXHYC/CWk/MCayUCJqMpZ6W0EpmZhnnPoEjQab/T9lpcmPUKrajrxYUdv3XK5fy1h56TTIXtJ957DKYvMrdpmyWKqX0+w1jdp5RAPpECt9N9cp8CiIoVyuxAc601L3ZAz+y4BjyYlko3MZJgs7TJzf5kZ2h1h1ouGaDSzlPw6Jda8JORWQ6MmmNKl1d67h5fPOf9Ht0IrmlXxT5fWmI9T0a6Si81kUi975ai7tDDgJJaYLioqgGKMOyqbPsDJlA1AHaXtk75BzjOQXqzutG3DXrClZFyDcXDb8pnB54oCPpYFfg2EH7bdaZrT7f35Sp53SXDx3pKbQpV3BwDyTXTEloA4HLPkbjkrtMZjXx0xyUQqFh+jPooHlwFNFs9x0nbNzKn8MKZ3grr18TN9fDsFSih1bR2GB+8b+KB1BX8NHM4jw9OsQmwUu314uD06nwTSlFXGhXJsl+DkCd+Xcfu/hyY6L4PpRuuF7eT0Y1Lv9k+E2ojCtndXq5LXpZW+m2y+mRz7kWJIJmEzSUyoK++eSOEy3fBvBW++YAViDsfGjiSscOko4Gbc+jpoxIxZeleeFbsgUOHZFbK3FjvCe
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(346002)(39860400002)(136003)(376002)(366004)(30864003)(1076003)(8676002)(2906002)(8936002)(4326008)(2616005)(956004)(38350700002)(478600001)(38100700002)(83380400001)(66946007)(66476007)(66556008)(36756003)(54906003)(6486002)(52116002)(6916009)(316002)(6512007)(6506007)(16526019)(26005)(6666004)(5660300002)(186003)(86362001)(69590400013)(21314003)(579004)(559001);
+ SFS:(4636009)(396003)(346002)(39860400002)(136003)(376002)(366004)(30864003)(1076003)(8676002)(2906002)(8936002)(4326008)(2616005)(956004)(38350700002)(478600001)(38100700002)(83380400001)(66946007)(66476007)(66556008)(36756003)(54906003)(6486002)(52116002)(6916009)(316002)(6512007)(6506007)(16526019)(26005)(6666004)(5660300002)(186003)(86362001)(69590400013)(579004)(559001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?ReE11D96sn96kiq59GoFcqor3/5LEaY5/RfJrSIk755nsVNAi8hnNMA0k5bt?=
- =?us-ascii?Q?EAumKH2jEKO1HQHzY7O96SuvrahuX27+1fH0q7u6LREp8Mc6JRN58Z7Q8WsZ?=
- =?us-ascii?Q?23lkGnlplrVioSMphsrKhvPN02FVPxk90G5BRys8RdvFfpBxXRFkYUdXrgTu?=
- =?us-ascii?Q?2OwjNcBCaczHRbx0PPQn9DaOOW79nl1dJ9LTH7bwJDbrK1ydWgu3jpZCmyyr?=
- =?us-ascii?Q?wLItuXI/7hRMXovEcIGKHlqYbEAr1NKQT9xPAIlTQxsRFOizpG+7rRyuR2rw?=
- =?us-ascii?Q?2nzh0NlQO1QqAwuHDndmGff0ZxN0xQf8TwnGN0UMixX4WNIcwtpFZfNvlJmq?=
- =?us-ascii?Q?gn/mJvGxju70POwwyEJCI21Q+bKEKCadzyQFbNuHeullSOTsMKqUsSVuNvXO?=
- =?us-ascii?Q?owXyJLkSsQuiRcV2J6zVqQTwkOGvlvb1HPniKa5CbgwP1xq+zdYwWj/Q098h?=
- =?us-ascii?Q?TPBK/yK4bRrbaeTV8TeH4F++hlSw5KBdJnGO+oJEODQO4EnGaAGPiY4ZFT15?=
- =?us-ascii?Q?JGSDm/sR3wQ8h8i/hRFVI8faPv9+zmKi+TV1EZ5zVo+ss5lJq5S0GnzULVEx?=
- =?us-ascii?Q?Qztb7ew7h+prSbrQoGF8NC3AZYGkdbBCba8b/UNvWo/R3BE1hr0pfX+HUdKY?=
- =?us-ascii?Q?1CobImpU0mcHlgYo/HsnS1K7L3dj2toWbmFKK4l4o80Tfu/JJIowKhYFytZX?=
- =?us-ascii?Q?ay7GJxQf0McG9EV/OSFXCoDRSUB/+jcVaad8geTPLStSqhUf+eFxBRjmUaWo?=
- =?us-ascii?Q?QCb5dVNl1vq3TrCz3ANTeGYS2lUVqkeMyVOT9KFBPqUFrJOrhnXjh85g1bzy?=
- =?us-ascii?Q?Zrl3uiOb6GZnpKFP7nMypOjPele1ftNnZsuC50myO0ek5oq36X5RsK7UkyLy?=
- =?us-ascii?Q?f1Mh2UZDlFP4gqPdkms6RpbgA3HQ+XZTTM572VTpANa9ekPHgWFDy36RvYQR?=
- =?us-ascii?Q?7wjekzAhIVYBFjQmNSvq19NTIBZy95qYj8PAH1eD/TeUTKXoBdyjpgwarr2d?=
- =?us-ascii?Q?THZYyvzKse/jE+NylPzp6ATFz1Ne86AWWtEppXaftAXgLHefg79p1qZDl9nD?=
- =?us-ascii?Q?54kCPBEqwWp2cWxZk0a2tNzxOkx1r+bIlrxcpzbsiCd5m2OW5TYYVm8j8YKi?=
- =?us-ascii?Q?2ddhYtZe8pUmCfEeKfWxqaYdMAz00NdIHrqlwlSzmNjIBtV+QUWmWSDOZ4xf?=
- =?us-ascii?Q?1bbyuZ0uL393grODeoA1HsT7Ub9zlbUqAMtVm3wTsT2+c7lmwv6QNnGT8rkf?=
- =?us-ascii?Q?TgBpq9MqPMzJxvLM5dfOjW2U2UXTeaRv542tjX2pnCHo9sTcPadfb/3MG87t?=
- =?us-ascii?Q?yY2UhLafJcNnyAB54tcXK/X6?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?zQie0ARsFSWCCw1PztvkHjPFbrTrErY1GsY5VuLGaxg2XS0O83XAuOx5f2Ug?=
+ =?us-ascii?Q?+atZ7SbgI0te/PWlGarpy5ObG53qum0HUHuGjYeKbE3coLpBVLiTV2ovLHce?=
+ =?us-ascii?Q?huTXUllAxrTMBcaabQiEGlyRojs2j0DYJSjXRmW+YX4efhc0XMNVC+F5x2mY?=
+ =?us-ascii?Q?8OeW//zXs+Ut7tvfmhfV9ZyaKRPJlK/SclOxd/8bahoKrjTTwW2WUMLUYLUa?=
+ =?us-ascii?Q?PteHaLPE1VanYOU49BUiyRvqytJcjQoH3rlIDeYkkw4CSLwtDQn8rqNzzUbh?=
+ =?us-ascii?Q?/IO+8HChHTaYeYwWH534C6xeuRuuhwb+TOwmzmrKa/bl5RATWQinQvJYE6tr?=
+ =?us-ascii?Q?3U0oc4xWYgu1of3vQlQ+6/hFCQQFr3BhPo0KDjwp50UoVjJtLTOyGFD56mj6?=
+ =?us-ascii?Q?PLbSDvQRnlOV/sx6u4MZBMsFpE50jE66XfIZVI/NUUL1IMXh1L6CkQsNrShC?=
+ =?us-ascii?Q?ygkganh3aEuWiQiWRt7fO4WvuN0t57oSApxH0JQkMJ4eaqUNPHXM2MTFl/8H?=
+ =?us-ascii?Q?gYdS2E3AnCUqWaJxTw8Ve6LmfyTKL6WewbGhxbz8FstA4ejmYwC+B0oYlZp1?=
+ =?us-ascii?Q?dNz+fl/LC/wcKYffsJ1wijgfPRnoAA5q4RTxOTLh7I27ukZZvQbqi1tm0Fbt?=
+ =?us-ascii?Q?WX4JvmsrVL0mlO4F7UBjf58jCwB6zzCaP6RXq6KrSbuUoC4Ifx5B15bKSr1Q?=
+ =?us-ascii?Q?fZjLb5EEhf2UkseBFitLM7tbTlJxVqPeUQRNhb49fJTLPuTTHVZv/X66EoAT?=
+ =?us-ascii?Q?/J5g8UeptYy779upjyUXqfDBu6GKEkrTOBCB0nVimenAOS5bVJ5jXl8jmDXl?=
+ =?us-ascii?Q?0rPGtqSZxoUS9H7CY3ttb+3bR38u6RI8HWGtfKKlXY5eT33LP6O+8QPlv7oD?=
+ =?us-ascii?Q?k7ZWt5V/cVHykuDaMdJE3JWbSyL45heA5T6KgdMxXDZiR2PnTYgSfAf7raoa?=
+ =?us-ascii?Q?W79Ro7OARsspZR269LPDFBG2rrx/vN1o9f7xFHKZJu9pAEj+Y523cJpr7BnT?=
+ =?us-ascii?Q?rtSsd/rKLYRosaoawMcNRE/1pJD9YCRlkAQdh4Bf697K2EkwcdvAeyjuGhFl?=
+ =?us-ascii?Q?l2oizGFKmRWKEbYDfVYpaaGSaw8sVQXWJ4zOMACCUQ8lrWJCdj7L9zpx615i?=
+ =?us-ascii?Q?YSctvX/X1Az0tY6cd5VHpARw0DgDGIkTSZ5pKzLj+rSOZzVebD79UblNytbc?=
+ =?us-ascii?Q?gIxr72ldXq9HFu4irMdgx5Q+F1gwVvgl+wRmyIrXOqXzGpSRYywMGdWCvvU6?=
+ =?us-ascii?Q?ZSfP4zC4H260gERKy9fG/WniPJKciaD+wHXW+RCZvnK4CGtgSmMmp5hQkjtK?=
+ =?us-ascii?Q?LjoOXVusYQt0B3e77tWcjj/U?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a56abd4e-962e-4c1b-494e-08d925e68191
+X-MS-Exchange-CrossTenant-Network-Message-Id: e88f068f-8982-4d52-cae9-08d925e6855e
 X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2021 16:50:19.9120 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2021 16:50:26.3219 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Rz4nwgyBJR8uCSrFanvJLeptXDVigdwOv03cJ1EUdG6X+TvXURJPsE2ub7qraJuQLE57OnBw44hooFOV/SNFRQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5B1omF6Jpsromn8EgJHWC+bzOb3HjHIBcjD9IKeC5J1mIb8y2USx1F+SAYRRTNhrqU9uPLYtYjv1bsmUDNoo/A==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4534
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -135,1827 +135,2320 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 
-Adds DCN3.1 DCHHUB programming and modifies DCN20/DCN30 shared
-hardware sequencer helpers to use these hooks.
-
-HW Blocks:
-
- +--------++------+       +----------+
- |DCHUBBUB|| HUBP |  <--  | MMHUBBUB |
- +--------++------+       +----------+
-        |                      ^
-        v                      |
-    +--------+             +--------+
-    |  DPP   | <---------> |  DWB   |
-    +--------+             +--------+
-        |                      ^
-        v                      |
-    +--------+                 |
-    |  MPC   |                 |
-    +--------+                 |
-        |                      |
-        v                      |
-    +-------+                  |
-    |  OPP  |                  |
-    +-------+                  |
-        |                      |
-        v                      |
-    +--------+                /
-    |  OPTC  |  --------------
-    +--------+
-        |
-        v
-    +--------+       +--------+
-    |  DIO   |       |  DCCG  |
-    +--------+       +--------+
-
-No changes to MMHUBBUB or DWB programming, added to diagram for clarity.
+Container for hardware resources and blocks for DCN3.1, also adds
+new DC debug flags used with DCN3.1.
 
 Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- .../drm/amd/display/dc/dcn10/dcn10_hubbub.h   |  48 +
- .../drm/amd/display/dc/dcn20/dcn20_hubbub.h   |   9 +
- .../gpu/drm/amd/display/dc/dcn20/dcn20_hubp.h |  16 +
- .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    |  37 +
- .../drm/amd/display/dc/dcn30/dcn30_hwseq.c    |   5 +
- .../drm/amd/display/dc/dcn31/dcn31_hubbub.c   | 956 ++++++++++++++++++
- .../drm/amd/display/dc/dcn31/dcn31_hubbub.h   | 122 +++
- .../gpu/drm/amd/display/dc/dcn31/dcn31_hubp.c | 103 ++
- .../gpu/drm/amd/display/dc/dcn31/dcn31_hubp.h | 246 +++++
- .../gpu/drm/amd/display/dc/inc/core_types.h   |  10 +
- .../gpu/drm/amd/display/dc/inc/hw/dchubbub.h  |   5 +
- .../gpu/drm/amd/display/dc/inc/hw/mem_input.h |   4 +
- 12 files changed, 1561 insertions(+)
- create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.c
- create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.h
- create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubp.c
- create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubp.h
+ .../gpu/drm/amd/display/dc/core/dc_resource.c |   16 +
+ drivers/gpu/drm/amd/display/dc/dc.h           |    7 +
+ .../drm/amd/display/dc/dcn31/dcn31_resource.c | 2180 +++++++++++++++++
+ .../drm/amd/display/dc/dcn31/dcn31_resource.h |   42 +
+ 4 files changed, 2245 insertions(+)
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.h
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.h b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.h
-index 343a537172c7..83c3f944e9ab 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.h
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.h
-@@ -139,6 +139,23 @@ struct dcn_hubbub_registers {
- 	uint32_t DCHVM_CLK_CTRL;
- 	uint32_t DCHVM_RIOMMU_CTRL0;
- 	uint32_t DCHVM_RIOMMU_STAT0;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+index 56188cd30d62..8c34f8b23515 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+@@ -58,6 +58,9 @@
+ #include "dcn301/dcn301_resource.h"
+ #include "dcn302/dcn302_resource.h"
+ #include "dcn303/dcn303_resource.h"
 +#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+	uint32_t DCHUBBUB_DET0_CTRL;
-+	uint32_t DCHUBBUB_DET1_CTRL;
-+	uint32_t DCHUBBUB_DET2_CTRL;
-+	uint32_t DCHUBBUB_DET3_CTRL;
-+	uint32_t DCHUBBUB_COMPBUF_CTRL;
-+	uint32_t COMPBUF_RESERVED_SPACE;
-+	uint32_t DCHUBBUB_DEBUG_CTRL_0;
-+	uint32_t DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_A;
-+	uint32_t DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_A;
-+	uint32_t DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_B;
-+	uint32_t DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_B;
-+	uint32_t DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_C;
-+	uint32_t DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_C;
-+	uint32_t DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_D;
-+	uint32_t DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_D;
-+#endif
- };
- 
- /* set field name */
-@@ -275,17 +292,48 @@ struct dcn_hubbub_registers {
- 		type HOSTVM_POWERSTATUS; \
- 		type RIOMMU_ACTIVE; \
- 		type HOSTVM_PREFETCH_DONE
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+#define HUBBUB_RET_REG_FIELD_LIST(type) \
-+		type DET_DEPTH;\
-+		type DET0_SIZE;\
-+		type DET1_SIZE;\
-+		type DET2_SIZE;\
-+		type DET3_SIZE;\
-+		type DET0_SIZE_CURRENT;\
-+		type DET1_SIZE_CURRENT;\
-+		type DET2_SIZE_CURRENT;\
-+		type DET3_SIZE_CURRENT;\
-+		type COMPBUF_SIZE;\
-+		type COMPBUF_SIZE_CURRENT;\
-+		type COMPBUF_RESERVED_SPACE_64B;\
-+		type COMPBUF_RESERVED_SPACE_ZS;\
-+		type DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_A;\
-+		type DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_A;\
-+		type DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_B;\
-+		type DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_B;\
-+		type DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_C;\
-+		type DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_C;\
-+		type DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_D;\
-+		type DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_D
-+#endif
-+
- 
- struct dcn_hubbub_shift {
- 	DCN_HUBBUB_REG_FIELD_LIST(uint8_t);
- 	HUBBUB_STUTTER_REG_FIELD_LIST(uint8_t);
- 	HUBBUB_HVM_REG_FIELD_LIST(uint8_t);
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+	HUBBUB_RET_REG_FIELD_LIST(uint8_t);
-+#endif
- };
- 
- struct dcn_hubbub_mask {
- 	DCN_HUBBUB_REG_FIELD_LIST(uint32_t);
- 	HUBBUB_STUTTER_REG_FIELD_LIST(uint32_t);
- 	HUBBUB_HVM_REG_FIELD_LIST(uint32_t);
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+	HUBBUB_RET_REG_FIELD_LIST(uint32_t);
-+#endif
- };
- 
- struct dc;
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubbub.h b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubbub.h
-index c478213ba7ad..a4fc70fa0957 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubbub.h
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubbub.h
-@@ -83,6 +83,15 @@ struct dcn20_hubbub {
- 	int num_vmid;
- 	struct dcn20_vmid vmid[16];
- 	unsigned int detile_buf_size;
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+	unsigned int crb_size_segs;
-+	unsigned int compbuf_size_segments;
-+	unsigned int pixel_chunk_size;
-+	unsigned int det0_size;
-+	unsigned int det1_size;
-+	unsigned int det2_size;
-+	unsigned int det3_size;
-+#endif
- };
- 
- void hubbub2_construct(struct dcn20_hubbub *hubbub,
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.h b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.h
-index f501c02c244b..2652d6abe9e3 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.h
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.h
-@@ -216,16 +216,32 @@
- 	type ROW_TTU_MODE; \
- 	type NUM_PKRS
- 
-+#ifdef CONFIG_DRM_AMD_DC_DCN3_1
-+#define DCN31_HUBP_REG_FIELD_VARIABLE_LIST(type) \
-+	DCN30_HUBP_REG_FIELD_VARIABLE_LIST(type);\
-+	type HUBP_UNBOUNDED_REQ_MODE;\
-+	type CURSOR_REQ_MODE;\
-+	type HUBP_SOFT_RESET
-+#endif
-+
- struct dcn_hubp2_registers {
- 	DCN30_HUBP_REG_COMMON_VARIABLE_LIST;
- };
- 
- struct dcn_hubp2_shift {
-+#if   defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+	DCN31_HUBP_REG_FIELD_VARIABLE_LIST(uint8_t);
-+#else
- 	DCN30_HUBP_REG_FIELD_VARIABLE_LIST(uint8_t);
-+#endif
- };
- 
- struct dcn_hubp2_mask {
-+#if   defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+	DCN31_HUBP_REG_FIELD_VARIABLE_LIST(uint32_t);
-+#else
- 	DCN30_HUBP_REG_FIELD_VARIABLE_LIST(uint32_t);
-+#endif
- };
- 
- struct dcn20_hubp {
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-index 14e322761645..a90f54236b93 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-@@ -1269,6 +1269,9 @@ static void dcn20_detect_pipe_changes(struct pipe_ctx *old_pipe, struct pipe_ctx
- 		new_pipe->update_flags.bits.gamut_remap = 1;
- 		new_pipe->update_flags.bits.scaler = 1;
- 		new_pipe->update_flags.bits.viewport = 1;
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+		new_pipe->update_flags.bits.det_size = 1;
-+#endif
- 		if (!new_pipe->top_pipe && !new_pipe->prev_odm_pipe) {
- 			new_pipe->update_flags.bits.odm = 1;
- 			new_pipe->update_flags.bits.global_sync = 1;
-@@ -1303,6 +1306,10 @@ static void dcn20_detect_pipe_changes(struct pipe_ctx *old_pipe, struct pipe_ctx
- 			new_pipe->update_flags.bits.global_sync = 1;
- 	}
- 
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+	if (old_pipe->det_buffer_size_kb != new_pipe->det_buffer_size_kb)
-+		new_pipe->update_flags.bits.det_size = 1;
-+#endif
- 	/*
- 	 * Detect opp / tg change, only set on change, not on enable
- 	 * Assume mpcc inst = pipe index, if not this code needs to be updated
-@@ -1418,6 +1425,10 @@ static void dcn20_update_dchubp_dpp(
- 			&pipe_ctx->ttu_regs,
- 			&pipe_ctx->rq_regs,
- 			&pipe_ctx->pipe_dlg_param);
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+		if (hubp->funcs->set_unbounded_requesting)
-+			hubp->funcs->set_unbounded_requesting(hubp, pipe_ctx->unbounded_req);
-+#endif
- 	}
- 	if (pipe_ctx->update_flags.bits.hubp_interdependent)
- 		hubp->funcs->hubp_setup_interdependent(
-@@ -1597,6 +1608,12 @@ static void dcn20_program_pipe(
- 			dc->res_pool->hubbub->funcs->force_wm_propagate_to_pipes(dc->res_pool->hubbub);
- 	}
- 
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+	if (dc->res_pool->hubbub->funcs->program_det_size && pipe_ctx->update_flags.bits.det_size)
-+		dc->res_pool->hubbub->funcs->program_det_size(
-+			dc->res_pool->hubbub, pipe_ctx->plane_res.hubp->inst, pipe_ctx->det_buffer_size_kb);
-+#endif
-+
- 	if (pipe_ctx->update_flags.raw || pipe_ctx->plane_state->update_flags.raw || pipe_ctx->stream->update_flags.raw)
- 		dcn20_update_dchubp_dpp(dc, pipe_ctx, context);
- 
-@@ -1687,6 +1704,12 @@ void dcn20_program_front_end_for_ctx(
- 	for (i = 0; i < dc->res_pool->pipe_count; i++)
- 		if (context->res_ctx.pipe_ctx[i].update_flags.bits.disable
- 				|| context->res_ctx.pipe_ctx[i].update_flags.bits.opp_changed) {
-+		#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+			struct hubbub *hubbub = dc->res_pool->hubbub;
-+
-+			if (hubbub->funcs->program_det_size && context->res_ctx.pipe_ctx[i].update_flags.bits.disable)
-+				hubbub->funcs->program_det_size(hubbub, dc->current_state->res_ctx.pipe_ctx[i].plane_res.hubp->inst, 0);
-+		#endif
- 			hws->funcs.plane_atomic_disconnect(dc, &dc->current_state->res_ctx.pipe_ctx[i]);
- 			DC_LOG_DC("Reset mpcc for pipe %d\n", dc->current_state->res_ctx.pipe_ctx[i].pipe_idx);
- 		}
-@@ -1804,6 +1827,11 @@ void dcn20_prepare_bandwidth(
- 					&context->bw_ctx.bw.dcn.watermarks,
- 					dc->res_pool->ref_clocks.dchub_ref_clock_inKhz / 1000,
- 					false);
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+	/* decrease compbuf size */
-+	if (hubbub->funcs->program_compbuf_size)
-+		hubbub->funcs->program_compbuf_size(hubbub, context->bw_ctx.bw.dcn.compbuf_size_kb, false);
-+#endif
- }
- 
- void dcn20_optimize_bandwidth(
-@@ -1822,6 +1850,11 @@ void dcn20_optimize_bandwidth(
- 			dc->clk_mgr,
- 			context,
- 			true);
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+	/* increase compbuf size */
-+	if (hubbub->funcs->program_compbuf_size)
-+		hubbub->funcs->program_compbuf_size(hubbub, context->bw_ctx.bw.dcn.compbuf_size_kb, true);
-+#endif
- }
- 
- bool dcn20_update_bandwidth(
-@@ -2539,6 +2572,10 @@ void dcn20_fpga_init_hw(struct dc *dc)
- 
- 		tg->funcs->tg_init(tg);
- 	}
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+	if (dc->res_pool->hubbub->funcs->init_crb)
-+		dc->res_pool->hubbub->funcs->init_crb(dc->res_pool->hubbub);
-+#endif
- }
- #ifndef TRIM_FSFT
- bool dcn20_optimize_timing_for_fsft(struct dc *dc,
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
-index 83685310a391..ef5d0b778a72 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
-@@ -651,6 +651,11 @@ void dcn30_init_hw(struct dc *dc)
- 	if (dc->res_pool->hubbub->funcs->force_pstate_change_control)
- 		dc->res_pool->hubbub->funcs->force_pstate_change_control(
- 				dc->res_pool->hubbub, false, false);
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+	if (dc->res_pool->hubbub->funcs->init_crb)
-+		dc->res_pool->hubbub->funcs->init_crb(dc->res_pool->hubbub);
-+#endif
-+
- }
- 
- void dcn30_set_avmute(struct pipe_ctx *pipe_ctx, bool enable)
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.c
-new file mode 100644
-index 000000000000..bb9648488900
---- /dev/null
-+++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.c
-@@ -0,0 +1,956 @@
-+/*
-+ * Copyright 2016 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ * Authors: AMD
-+ *
-+ */
-+
-+
-+#include "dcn30/dcn30_hubbub.h"
-+#include "dcn31_hubbub.h"
-+#include "dm_services.h"
-+#include "reg_helper.h"
-+
-+
-+#define CTX \
-+	hubbub2->base.ctx
-+#define DC_LOGGER \
-+	hubbub2->base.ctx->logger
-+#define REG(reg)\
-+	hubbub2->regs->reg
-+
-+#undef FN
-+#define FN(reg_name, field_name) \
-+	hubbub2->shifts->field_name, hubbub2->masks->field_name
-+
-+#ifdef NUM_VMID
-+#undef NUM_VMID
-+#endif
-+#define NUM_VMID 16
-+
-+#define DCN31_CRB_SEGMENT_SIZE_KB 64
-+
-+static void dcn31_init_crb(struct hubbub *hubbub)
-+{
-+	struct dcn20_hubbub *hubbub2 = TO_DCN20_HUBBUB(hubbub);
-+
-+	REG_GET(DCHUBBUB_DET0_CTRL, DET0_SIZE_CURRENT,
-+		&hubbub2->det0_size);
-+
-+	REG_GET(DCHUBBUB_DET1_CTRL, DET1_SIZE_CURRENT,
-+		&hubbub2->det1_size);
-+
-+	REG_GET(DCHUBBUB_DET2_CTRL, DET2_SIZE_CURRENT,
-+		&hubbub2->det2_size);
-+
-+	REG_GET(DCHUBBUB_DET3_CTRL, DET3_SIZE_CURRENT,
-+		&hubbub2->det3_size);
-+
-+	REG_GET(DCHUBBUB_COMPBUF_CTRL, COMPBUF_SIZE_CURRENT,
-+		&hubbub2->compbuf_size_segments);
-+
-+	REG_SET_2(COMPBUF_RESERVED_SPACE, 0,
-+			COMPBUF_RESERVED_SPACE_64B, hubbub2->pixel_chunk_size / 32,
-+			COMPBUF_RESERVED_SPACE_ZS, hubbub2->pixel_chunk_size / 128);
-+	REG_UPDATE(DCHUBBUB_DEBUG_CTRL_0, DET_DEPTH, 0x17F);
-+}
-+
-+static void dcn31_program_det_size(struct hubbub *hubbub, int hubp_inst, unsigned int det_buffer_size_in_kbyte)
-+{
-+	struct dcn20_hubbub *hubbub2 = TO_DCN20_HUBBUB(hubbub);
-+
-+	unsigned int det_size_segments = (det_buffer_size_in_kbyte + DCN31_CRB_SEGMENT_SIZE_KB - 1) / DCN31_CRB_SEGMENT_SIZE_KB;
-+
-+	switch (hubp_inst) {
-+	case 0:
-+		REG_UPDATE(DCHUBBUB_DET0_CTRL,
-+					DET0_SIZE, det_size_segments);
-+		hubbub2->det0_size = det_size_segments;
-+		break;
-+	case 1:
-+		REG_UPDATE(DCHUBBUB_DET1_CTRL,
-+					DET1_SIZE, det_size_segments);
-+		hubbub2->det1_size = det_size_segments;
-+		break;
-+	case 2:
-+		REG_UPDATE(DCHUBBUB_DET2_CTRL,
-+					DET2_SIZE, det_size_segments);
-+		hubbub2->det2_size = det_size_segments;
-+		break;
-+	case 3:
-+		REG_UPDATE(DCHUBBUB_DET3_CTRL,
-+					DET3_SIZE, det_size_segments);
-+		hubbub2->det3_size = det_size_segments;
-+		break;
-+	default:
-+		break;
-+	}
-+	/* Should never be hit, if it is we have an erroneous hw config*/
-+	ASSERT(hubbub2->det0_size + hubbub2->det1_size + hubbub2->det2_size
-+			+ hubbub2->det3_size + hubbub2->compbuf_size_segments <= hubbub2->crb_size_segs);
-+}
-+
-+static void dcn31_program_compbuf_size(struct hubbub *hubbub, unsigned int compbuf_size_kb, bool safe_to_increase)
-+{
-+	struct dcn20_hubbub *hubbub2 = TO_DCN20_HUBBUB(hubbub);
-+	unsigned int compbuf_size_segments = (compbuf_size_kb + DCN31_CRB_SEGMENT_SIZE_KB - 1) / DCN31_CRB_SEGMENT_SIZE_KB;
-+
-+	if (safe_to_increase || compbuf_size_segments <= hubbub2->compbuf_size_segments) {
-+		if (compbuf_size_segments > hubbub2->compbuf_size_segments) {
-+			REG_WAIT(DCHUBBUB_DET0_CTRL, DET0_SIZE_CURRENT, hubbub2->det0_size, 1, 100);
-+			REG_WAIT(DCHUBBUB_DET1_CTRL, DET1_SIZE_CURRENT, hubbub2->det1_size, 1, 100);
-+			REG_WAIT(DCHUBBUB_DET2_CTRL, DET2_SIZE_CURRENT, hubbub2->det2_size, 1, 100);
-+			REG_WAIT(DCHUBBUB_DET3_CTRL, DET3_SIZE_CURRENT, hubbub2->det3_size, 1, 100);
-+		}
-+		/* Should never be hit, if it is we have an erroneous hw config*/
-+		ASSERT(hubbub2->det0_size + hubbub2->det1_size + hubbub2->det2_size
-+				+ hubbub2->det3_size + compbuf_size_segments <= hubbub2->crb_size_segs);
-+		REG_UPDATE(DCHUBBUB_COMPBUF_CTRL, COMPBUF_SIZE, compbuf_size_segments);
-+		REG_WAIT(DCHUBBUB_COMPBUF_CTRL, COMPBUF_SIZE_CURRENT, compbuf_size_segments, 1, 100);
-+		hubbub2->compbuf_size_segments = compbuf_size_segments;
-+	}
-+}
-+
-+static uint32_t convert_and_clamp(
-+	uint32_t wm_ns,
-+	uint32_t refclk_mhz,
-+	uint32_t clamp_value)
-+{
-+	uint32_t ret_val = 0;
-+	ret_val = wm_ns * refclk_mhz;
-+	ret_val /= 1000;
-+
-+	if (ret_val > clamp_value)
-+		ret_val = clamp_value;
-+
-+	return ret_val;
-+}
-+
-+static bool hubbub31_program_urgent_watermarks(
-+		struct hubbub *hubbub,
-+		struct dcn_watermark_set *watermarks,
-+		unsigned int refclk_mhz,
-+		bool safe_to_lower)
-+{
-+	struct dcn20_hubbub *hubbub2 = TO_DCN20_HUBBUB(hubbub);
-+	uint32_t prog_wm_value;
-+	bool wm_pending = false;
-+
-+	/* Repeat for water mark set A, B, C and D. */
-+	/* clock state A */
-+	if (safe_to_lower || watermarks->a.urgent_ns > hubbub2->watermarks.a.urgent_ns) {
-+		hubbub2->watermarks.a.urgent_ns = watermarks->a.urgent_ns;
-+		prog_wm_value = convert_and_clamp(watermarks->a.urgent_ns,
-+				refclk_mhz, 0x1fffff);
-+		REG_SET(DCHUBBUB_ARB_DATA_URGENCY_WATERMARK_A, 0,
-+				DCHUBBUB_ARB_DATA_URGENCY_WATERMARK_A, prog_wm_value);
-+
-+		DC_LOG_BANDWIDTH_CALCS("URGENCY_WATERMARK_A calculated =%d\n"
-+			"HW register value = 0x%x\n",
-+			watermarks->a.urgent_ns, prog_wm_value);
-+	} else if (watermarks->a.urgent_ns < hubbub2->watermarks.a.urgent_ns)
-+		wm_pending = true;
-+
-+	/* determine the transfer time for a quantity of data for a particular requestor.*/
-+	if (safe_to_lower || watermarks->a.frac_urg_bw_flip
-+			> hubbub2->watermarks.a.frac_urg_bw_flip) {
-+		hubbub2->watermarks.a.frac_urg_bw_flip = watermarks->a.frac_urg_bw_flip;
-+
-+		REG_SET(DCHUBBUB_ARB_FRAC_URG_BW_FLIP_A, 0,
-+				DCHUBBUB_ARB_FRAC_URG_BW_FLIP_A, watermarks->a.frac_urg_bw_flip);
-+	} else if (watermarks->a.frac_urg_bw_flip
-+			< hubbub2->watermarks.a.frac_urg_bw_flip)
-+		wm_pending = true;
-+
-+	if (safe_to_lower || watermarks->a.frac_urg_bw_nom
-+			> hubbub2->watermarks.a.frac_urg_bw_nom) {
-+		hubbub2->watermarks.a.frac_urg_bw_nom = watermarks->a.frac_urg_bw_nom;
-+
-+		REG_SET(DCHUBBUB_ARB_FRAC_URG_BW_NOM_A, 0,
-+				DCHUBBUB_ARB_FRAC_URG_BW_NOM_A, watermarks->a.frac_urg_bw_nom);
-+	} else if (watermarks->a.frac_urg_bw_nom
-+			< hubbub2->watermarks.a.frac_urg_bw_nom)
-+		wm_pending = true;
-+
-+	if (safe_to_lower || watermarks->a.urgent_latency_ns > hubbub2->watermarks.a.urgent_latency_ns) {
-+		hubbub2->watermarks.a.urgent_latency_ns = watermarks->a.urgent_latency_ns;
-+		prog_wm_value = convert_and_clamp(watermarks->a.urgent_latency_ns,
-+				refclk_mhz, 0x1fffff);
-+		REG_SET(DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_A, 0,
-+				DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_A, prog_wm_value);
-+	} else if (watermarks->a.urgent_latency_ns < hubbub2->watermarks.a.urgent_latency_ns)
-+		wm_pending = true;
-+
-+	/* clock state B */
-+	if (safe_to_lower || watermarks->b.urgent_ns > hubbub2->watermarks.b.urgent_ns) {
-+		hubbub2->watermarks.b.urgent_ns = watermarks->b.urgent_ns;
-+		prog_wm_value = convert_and_clamp(watermarks->b.urgent_ns,
-+				refclk_mhz, 0x1fffff);
-+		REG_SET(DCHUBBUB_ARB_DATA_URGENCY_WATERMARK_B, 0,
-+				DCHUBBUB_ARB_DATA_URGENCY_WATERMARK_B, prog_wm_value);
-+
-+		DC_LOG_BANDWIDTH_CALCS("URGENCY_WATERMARK_B calculated =%d\n"
-+			"HW register value = 0x%x\n",
-+			watermarks->b.urgent_ns, prog_wm_value);
-+	} else if (watermarks->b.urgent_ns < hubbub2->watermarks.b.urgent_ns)
-+		wm_pending = true;
-+
-+	/* determine the transfer time for a quantity of data for a particular requestor.*/
-+	if (safe_to_lower || watermarks->b.frac_urg_bw_flip
-+			> hubbub2->watermarks.b.frac_urg_bw_flip) {
-+		hubbub2->watermarks.b.frac_urg_bw_flip = watermarks->b.frac_urg_bw_flip;
-+
-+		REG_SET(DCHUBBUB_ARB_FRAC_URG_BW_FLIP_B, 0,
-+				DCHUBBUB_ARB_FRAC_URG_BW_FLIP_B, watermarks->b.frac_urg_bw_flip);
-+	} else if (watermarks->b.frac_urg_bw_flip
-+			< hubbub2->watermarks.b.frac_urg_bw_flip)
-+		wm_pending = true;
-+
-+	if (safe_to_lower || watermarks->b.frac_urg_bw_nom
-+			> hubbub2->watermarks.b.frac_urg_bw_nom) {
-+		hubbub2->watermarks.b.frac_urg_bw_nom = watermarks->b.frac_urg_bw_nom;
-+
-+		REG_SET(DCHUBBUB_ARB_FRAC_URG_BW_NOM_B, 0,
-+				DCHUBBUB_ARB_FRAC_URG_BW_NOM_B, watermarks->b.frac_urg_bw_nom);
-+	} else if (watermarks->b.frac_urg_bw_nom
-+			< hubbub2->watermarks.b.frac_urg_bw_nom)
-+		wm_pending = true;
-+
-+	if (safe_to_lower || watermarks->b.urgent_latency_ns > hubbub2->watermarks.b.urgent_latency_ns) {
-+		hubbub2->watermarks.b.urgent_latency_ns = watermarks->b.urgent_latency_ns;
-+		prog_wm_value = convert_and_clamp(watermarks->b.urgent_latency_ns,
-+				refclk_mhz, 0x1fffff);
-+		REG_SET(DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_B, 0,
-+				DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_B, prog_wm_value);
-+	} else if (watermarks->b.urgent_latency_ns < hubbub2->watermarks.b.urgent_latency_ns)
-+		wm_pending = true;
-+
-+	/* clock state C */
-+	if (safe_to_lower || watermarks->c.urgent_ns > hubbub2->watermarks.c.urgent_ns) {
-+		hubbub2->watermarks.c.urgent_ns = watermarks->c.urgent_ns;
-+		prog_wm_value = convert_and_clamp(watermarks->c.urgent_ns,
-+				refclk_mhz, 0x1fffff);
-+		REG_SET(DCHUBBUB_ARB_DATA_URGENCY_WATERMARK_C, 0,
-+				DCHUBBUB_ARB_DATA_URGENCY_WATERMARK_C, prog_wm_value);
-+
-+		DC_LOG_BANDWIDTH_CALCS("URGENCY_WATERMARK_C calculated =%d\n"
-+			"HW register value = 0x%x\n",
-+			watermarks->c.urgent_ns, prog_wm_value);
-+	} else if (watermarks->c.urgent_ns < hubbub2->watermarks.c.urgent_ns)
-+		wm_pending = true;
-+
-+	/* determine the transfer time for a quantity of data for a particular requestor.*/
-+	if (safe_to_lower || watermarks->c.frac_urg_bw_flip
-+			> hubbub2->watermarks.c.frac_urg_bw_flip) {
-+		hubbub2->watermarks.c.frac_urg_bw_flip = watermarks->c.frac_urg_bw_flip;
-+
-+		REG_SET(DCHUBBUB_ARB_FRAC_URG_BW_FLIP_C, 0,
-+				DCHUBBUB_ARB_FRAC_URG_BW_FLIP_C, watermarks->c.frac_urg_bw_flip);
-+	} else if (watermarks->c.frac_urg_bw_flip
-+			< hubbub2->watermarks.c.frac_urg_bw_flip)
-+		wm_pending = true;
-+
-+	if (safe_to_lower || watermarks->c.frac_urg_bw_nom
-+			> hubbub2->watermarks.c.frac_urg_bw_nom) {
-+		hubbub2->watermarks.c.frac_urg_bw_nom = watermarks->c.frac_urg_bw_nom;
-+
-+		REG_SET(DCHUBBUB_ARB_FRAC_URG_BW_NOM_C, 0,
-+				DCHUBBUB_ARB_FRAC_URG_BW_NOM_C, watermarks->c.frac_urg_bw_nom);
-+	} else if (watermarks->c.frac_urg_bw_nom
-+			< hubbub2->watermarks.c.frac_urg_bw_nom)
-+		wm_pending = true;
-+
-+	if (safe_to_lower || watermarks->c.urgent_latency_ns > hubbub2->watermarks.c.urgent_latency_ns) {
-+		hubbub2->watermarks.c.urgent_latency_ns = watermarks->c.urgent_latency_ns;
-+		prog_wm_value = convert_and_clamp(watermarks->c.urgent_latency_ns,
-+				refclk_mhz, 0x1fffff);
-+		REG_SET(DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_C, 0,
-+				DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_C, prog_wm_value);
-+	} else if (watermarks->c.urgent_latency_ns < hubbub2->watermarks.c.urgent_latency_ns)
-+		wm_pending = true;
-+
-+	/* clock state D */
-+	if (safe_to_lower || watermarks->d.urgent_ns > hubbub2->watermarks.d.urgent_ns) {
-+		hubbub2->watermarks.d.urgent_ns = watermarks->d.urgent_ns;
-+		prog_wm_value = convert_and_clamp(watermarks->d.urgent_ns,
-+				refclk_mhz, 0x1fffff);
-+		REG_SET(DCHUBBUB_ARB_DATA_URGENCY_WATERMARK_D, 0,
-+				DCHUBBUB_ARB_DATA_URGENCY_WATERMARK_D, prog_wm_value);
-+
-+		DC_LOG_BANDWIDTH_CALCS("URGENCY_WATERMARK_D calculated =%d\n"
-+			"HW register value = 0x%x\n",
-+			watermarks->d.urgent_ns, prog_wm_value);
-+	} else if (watermarks->d.urgent_ns < hubbub2->watermarks.d.urgent_ns)
-+		wm_pending = true;
-+
-+	/* determine the transfer time for a quantity of data for a particular requestor.*/
-+	if (safe_to_lower || watermarks->d.frac_urg_bw_flip
-+			> hubbub2->watermarks.d.frac_urg_bw_flip) {
-+		hubbub2->watermarks.d.frac_urg_bw_flip = watermarks->d.frac_urg_bw_flip;
-+
-+		REG_SET(DCHUBBUB_ARB_FRAC_URG_BW_FLIP_D, 0,
-+				DCHUBBUB_ARB_FRAC_URG_BW_FLIP_D, watermarks->d.frac_urg_bw_flip);
-+	} else if (watermarks->d.frac_urg_bw_flip
-+			< hubbub2->watermarks.d.frac_urg_bw_flip)
-+		wm_pending = true;
-+
-+	if (safe_to_lower || watermarks->d.frac_urg_bw_nom
-+			> hubbub2->watermarks.d.frac_urg_bw_nom) {
-+		hubbub2->watermarks.d.frac_urg_bw_nom = watermarks->d.frac_urg_bw_nom;
-+
-+		REG_SET(DCHUBBUB_ARB_FRAC_URG_BW_NOM_D, 0,
-+				DCHUBBUB_ARB_FRAC_URG_BW_NOM_D, watermarks->d.frac_urg_bw_nom);
-+	} else if (watermarks->d.frac_urg_bw_nom
-+			< hubbub2->watermarks.d.frac_urg_bw_nom)
-+		wm_pending = true;
-+
-+	if (safe_to_lower || watermarks->d.urgent_latency_ns > hubbub2->watermarks.d.urgent_latency_ns) {
-+		hubbub2->watermarks.d.urgent_latency_ns = watermarks->d.urgent_latency_ns;
-+		prog_wm_value = convert_and_clamp(watermarks->d.urgent_latency_ns,
-+				refclk_mhz, 0x1fffff);
-+		REG_SET(DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_D, 0,
-+				DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_D, prog_wm_value);
-+	} else if (watermarks->d.urgent_latency_ns < hubbub2->watermarks.d.urgent_latency_ns)
-+		wm_pending = true;
-+
-+	return wm_pending;
-+}
-+
-+static bool hubbub31_program_stutter_watermarks(
-+		struct hubbub *hubbub,
-+		struct dcn_watermark_set *watermarks,
-+		unsigned int refclk_mhz,
-+		bool safe_to_lower)
-+{
-+	struct dcn20_hubbub *hubbub2 = TO_DCN20_HUBBUB(hubbub);
-+	uint32_t prog_wm_value;
-+	bool wm_pending = false;
-+
-+	/* clock state A */
-+	if (safe_to_lower || watermarks->a.cstate_pstate.cstate_enter_plus_exit_ns
-+			> hubbub2->watermarks.a.cstate_pstate.cstate_enter_plus_exit_ns) {
-+		hubbub2->watermarks.a.cstate_pstate.cstate_enter_plus_exit_ns =
-+				watermarks->a.cstate_pstate.cstate_enter_plus_exit_ns;
-+		prog_wm_value = convert_and_clamp(
-+				watermarks->a.cstate_pstate.cstate_enter_plus_exit_ns,
-+				refclk_mhz, 0x1fffff);
-+		REG_SET(DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_A, 0,
-+				DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_A, prog_wm_value);
-+		DC_LOG_BANDWIDTH_CALCS("SR_ENTER_EXIT_WATERMARK_A calculated =%d\n"
-+			"HW register value = 0x%x\n",
-+			watermarks->a.cstate_pstate.cstate_enter_plus_exit_ns, prog_wm_value);
-+	} else if (watermarks->a.cstate_pstate.cstate_enter_plus_exit_ns
-+			< hubbub2->watermarks.a.cstate_pstate.cstate_enter_plus_exit_ns)
-+		wm_pending = true;
-+
-+	if (safe_to_lower || watermarks->a.cstate_pstate.cstate_exit_ns
-+			> hubbub2->watermarks.a.cstate_pstate.cstate_exit_ns) {
-+		hubbub2->watermarks.a.cstate_pstate.cstate_exit_ns =
-+				watermarks->a.cstate_pstate.cstate_exit_ns;
-+		prog_wm_value = convert_and_clamp(
-+				watermarks->a.cstate_pstate.cstate_exit_ns,
-+				refclk_mhz, 0x1fffff);
-+		REG_SET(DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_A, 0,
-+				DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_A, prog_wm_value);
-+		DC_LOG_BANDWIDTH_CALCS("SR_EXIT_WATERMARK_A calculated =%d\n"
-+			"HW register value = 0x%x\n",
-+			watermarks->a.cstate_pstate.cstate_exit_ns, prog_wm_value);
-+	} else if (watermarks->a.cstate_pstate.cstate_exit_ns
-+			< hubbub2->watermarks.a.cstate_pstate.cstate_exit_ns)
-+		wm_pending = true;
-+
-+	if (safe_to_lower || watermarks->a.cstate_pstate.cstate_enter_plus_exit_z8_ns
-+			> hubbub2->watermarks.a.cstate_pstate.cstate_enter_plus_exit_z8_ns) {
-+		hubbub2->watermarks.a.cstate_pstate.cstate_enter_plus_exit_z8_ns =
-+				watermarks->a.cstate_pstate.cstate_enter_plus_exit_z8_ns;
-+		prog_wm_value = convert_and_clamp(
-+				watermarks->a.cstate_pstate.cstate_enter_plus_exit_z8_ns,
-+				refclk_mhz, 0x1fffff);
-+		REG_SET(DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_A, 0,
-+				DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_A, prog_wm_value);
-+		DC_LOG_BANDWIDTH_CALCS("SR_ENTER_WATERMARK_Z8_A calculated =%d\n"
-+			"HW register value = 0x%x\n",
-+			watermarks->a.cstate_pstate.cstate_enter_plus_exit_z8_ns, prog_wm_value);
-+	} else if (watermarks->a.cstate_pstate.cstate_enter_plus_exit_z8_ns
-+			< hubbub2->watermarks.a.cstate_pstate.cstate_enter_plus_exit_z8_ns)
-+		wm_pending = true;
-+
-+	if (safe_to_lower || watermarks->a.cstate_pstate.cstate_exit_z8_ns
-+			> hubbub2->watermarks.a.cstate_pstate.cstate_exit_z8_ns) {
-+		hubbub2->watermarks.a.cstate_pstate.cstate_exit_z8_ns =
-+				watermarks->a.cstate_pstate.cstate_exit_z8_ns;
-+		prog_wm_value = convert_and_clamp(
-+				watermarks->a.cstate_pstate.cstate_exit_z8_ns,
-+				refclk_mhz, 0x1fffff);
-+		REG_SET(DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_A, 0,
-+				DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_A, prog_wm_value);
-+		DC_LOG_BANDWIDTH_CALCS("SR_EXIT_WATERMARK_Z8_A calculated =%d\n"
-+			"HW register value = 0x%x\n",
-+			watermarks->a.cstate_pstate.cstate_exit_z8_ns, prog_wm_value);
-+	} else if (watermarks->a.cstate_pstate.cstate_exit_z8_ns
-+			< hubbub2->watermarks.a.cstate_pstate.cstate_exit_z8_ns)
-+		wm_pending = true;
-+
-+	/* clock state B */
-+	if (safe_to_lower || watermarks->b.cstate_pstate.cstate_enter_plus_exit_ns
-+			> hubbub2->watermarks.b.cstate_pstate.cstate_enter_plus_exit_ns) {
-+		hubbub2->watermarks.b.cstate_pstate.cstate_enter_plus_exit_ns =
-+				watermarks->b.cstate_pstate.cstate_enter_plus_exit_ns;
-+		prog_wm_value = convert_and_clamp(
-+				watermarks->b.cstate_pstate.cstate_enter_plus_exit_ns,
-+				refclk_mhz, 0x1fffff);
-+		REG_SET(DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_B, 0,
-+				DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_B, prog_wm_value);
-+		DC_LOG_BANDWIDTH_CALCS("SR_ENTER_EXIT_WATERMARK_B calculated =%d\n"
-+			"HW register value = 0x%x\n",
-+			watermarks->b.cstate_pstate.cstate_enter_plus_exit_ns, prog_wm_value);
-+	} else if (watermarks->b.cstate_pstate.cstate_enter_plus_exit_ns
-+			< hubbub2->watermarks.b.cstate_pstate.cstate_enter_plus_exit_ns)
-+		wm_pending = true;
-+
-+	if (safe_to_lower || watermarks->b.cstate_pstate.cstate_exit_ns
-+			> hubbub2->watermarks.b.cstate_pstate.cstate_exit_ns) {
-+		hubbub2->watermarks.b.cstate_pstate.cstate_exit_ns =
-+				watermarks->b.cstate_pstate.cstate_exit_ns;
-+		prog_wm_value = convert_and_clamp(
-+				watermarks->b.cstate_pstate.cstate_exit_ns,
-+				refclk_mhz, 0x1fffff);
-+		REG_SET(DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_B, 0,
-+				DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_B, prog_wm_value);
-+		DC_LOG_BANDWIDTH_CALCS("SR_EXIT_WATERMARK_B calculated =%d\n"
-+			"HW register value = 0x%x\n",
-+			watermarks->b.cstate_pstate.cstate_exit_ns, prog_wm_value);
-+	} else if (watermarks->b.cstate_pstate.cstate_exit_ns
-+			< hubbub2->watermarks.b.cstate_pstate.cstate_exit_ns)
-+		wm_pending = true;
-+
-+	if (safe_to_lower || watermarks->b.cstate_pstate.cstate_enter_plus_exit_z8_ns
-+			> hubbub2->watermarks.b.cstate_pstate.cstate_enter_plus_exit_z8_ns) {
-+		hubbub2->watermarks.b.cstate_pstate.cstate_enter_plus_exit_z8_ns =
-+				watermarks->b.cstate_pstate.cstate_enter_plus_exit_z8_ns;
-+		prog_wm_value = convert_and_clamp(
-+				watermarks->b.cstate_pstate.cstate_enter_plus_exit_z8_ns,
-+				refclk_mhz, 0x1fffff);
-+		REG_SET(DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_B, 0,
-+				DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_B, prog_wm_value);
-+		DC_LOG_BANDWIDTH_CALCS("SR_ENTER_WATERMARK_Z8_B calculated =%d\n"
-+			"HW register value = 0x%x\n",
-+			watermarks->b.cstate_pstate.cstate_enter_plus_exit_z8_ns, prog_wm_value);
-+	} else if (watermarks->b.cstate_pstate.cstate_enter_plus_exit_z8_ns
-+			< hubbub2->watermarks.b.cstate_pstate.cstate_enter_plus_exit_z8_ns)
-+		wm_pending = true;
-+
-+	if (safe_to_lower || watermarks->b.cstate_pstate.cstate_exit_z8_ns
-+			> hubbub2->watermarks.b.cstate_pstate.cstate_exit_z8_ns) {
-+		hubbub2->watermarks.b.cstate_pstate.cstate_exit_z8_ns =
-+				watermarks->b.cstate_pstate.cstate_exit_z8_ns;
-+		prog_wm_value = convert_and_clamp(
-+				watermarks->b.cstate_pstate.cstate_exit_z8_ns,
-+				refclk_mhz, 0x1fffff);
-+		REG_SET(DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_B, 0,
-+				DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_B, prog_wm_value);
-+		DC_LOG_BANDWIDTH_CALCS("SR_EXIT_WATERMARK_Z8_B calculated =%d\n"
-+			"HW register value = 0x%x\n",
-+			watermarks->b.cstate_pstate.cstate_exit_z8_ns, prog_wm_value);
-+	} else if (watermarks->b.cstate_pstate.cstate_exit_z8_ns
-+			< hubbub2->watermarks.b.cstate_pstate.cstate_exit_z8_ns)
-+		wm_pending = true;
-+
-+	/* clock state C */
-+	if (safe_to_lower || watermarks->c.cstate_pstate.cstate_enter_plus_exit_ns
-+			> hubbub2->watermarks.c.cstate_pstate.cstate_enter_plus_exit_ns) {
-+		hubbub2->watermarks.c.cstate_pstate.cstate_enter_plus_exit_ns =
-+				watermarks->c.cstate_pstate.cstate_enter_plus_exit_ns;
-+		prog_wm_value = convert_and_clamp(
-+				watermarks->c.cstate_pstate.cstate_enter_plus_exit_ns,
-+				refclk_mhz, 0x1fffff);
-+		REG_SET(DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_C, 0,
-+				DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_C, prog_wm_value);
-+		DC_LOG_BANDWIDTH_CALCS("SR_ENTER_EXIT_WATERMARK_C calculated =%d\n"
-+			"HW register value = 0x%x\n",
-+			watermarks->c.cstate_pstate.cstate_enter_plus_exit_ns, prog_wm_value);
-+	} else if (watermarks->c.cstate_pstate.cstate_enter_plus_exit_ns
-+			< hubbub2->watermarks.c.cstate_pstate.cstate_enter_plus_exit_ns)
-+		wm_pending = true;
-+
-+	if (safe_to_lower || watermarks->c.cstate_pstate.cstate_exit_ns
-+			> hubbub2->watermarks.c.cstate_pstate.cstate_exit_ns) {
-+		hubbub2->watermarks.c.cstate_pstate.cstate_exit_ns =
-+				watermarks->c.cstate_pstate.cstate_exit_ns;
-+		prog_wm_value = convert_and_clamp(
-+				watermarks->c.cstate_pstate.cstate_exit_ns,
-+				refclk_mhz, 0x1fffff);
-+		REG_SET(DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_C, 0,
-+				DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_C, prog_wm_value);
-+		DC_LOG_BANDWIDTH_CALCS("SR_EXIT_WATERMARK_C calculated =%d\n"
-+			"HW register value = 0x%x\n",
-+			watermarks->c.cstate_pstate.cstate_exit_ns, prog_wm_value);
-+	} else if (watermarks->c.cstate_pstate.cstate_exit_ns
-+			< hubbub2->watermarks.c.cstate_pstate.cstate_exit_ns)
-+		wm_pending = true;
-+
-+	if (safe_to_lower || watermarks->c.cstate_pstate.cstate_enter_plus_exit_z8_ns
-+			> hubbub2->watermarks.c.cstate_pstate.cstate_enter_plus_exit_z8_ns) {
-+		hubbub2->watermarks.c.cstate_pstate.cstate_enter_plus_exit_z8_ns =
-+				watermarks->c.cstate_pstate.cstate_enter_plus_exit_z8_ns;
-+		prog_wm_value = convert_and_clamp(
-+				watermarks->c.cstate_pstate.cstate_enter_plus_exit_z8_ns,
-+				refclk_mhz, 0x1fffff);
-+		REG_SET(DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_C, 0,
-+				DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_C, prog_wm_value);
-+		DC_LOG_BANDWIDTH_CALCS("SR_ENTER_WATERMARK_Z8_C calculated =%d\n"
-+			"HW register value = 0x%x\n",
-+			watermarks->c.cstate_pstate.cstate_enter_plus_exit_z8_ns, prog_wm_value);
-+	} else if (watermarks->c.cstate_pstate.cstate_enter_plus_exit_z8_ns
-+			< hubbub2->watermarks.c.cstate_pstate.cstate_enter_plus_exit_z8_ns)
-+		wm_pending = true;
-+
-+	if (safe_to_lower || watermarks->c.cstate_pstate.cstate_exit_z8_ns
-+			> hubbub2->watermarks.c.cstate_pstate.cstate_exit_z8_ns) {
-+		hubbub2->watermarks.c.cstate_pstate.cstate_exit_z8_ns =
-+				watermarks->c.cstate_pstate.cstate_exit_z8_ns;
-+		prog_wm_value = convert_and_clamp(
-+				watermarks->c.cstate_pstate.cstate_exit_z8_ns,
-+				refclk_mhz, 0x1fffff);
-+		REG_SET(DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_C, 0,
-+				DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_C, prog_wm_value);
-+		DC_LOG_BANDWIDTH_CALCS("SR_EXIT_WATERMARK_Z8_C calculated =%d\n"
-+			"HW register value = 0x%x\n",
-+			watermarks->c.cstate_pstate.cstate_exit_z8_ns, prog_wm_value);
-+	} else if (watermarks->c.cstate_pstate.cstate_exit_z8_ns
-+			< hubbub2->watermarks.c.cstate_pstate.cstate_exit_z8_ns)
-+		wm_pending = true;
-+
-+	/* clock state D */
-+	if (safe_to_lower || watermarks->d.cstate_pstate.cstate_enter_plus_exit_ns
-+			> hubbub2->watermarks.d.cstate_pstate.cstate_enter_plus_exit_ns) {
-+		hubbub2->watermarks.d.cstate_pstate.cstate_enter_plus_exit_ns =
-+				watermarks->d.cstate_pstate.cstate_enter_plus_exit_ns;
-+		prog_wm_value = convert_and_clamp(
-+				watermarks->d.cstate_pstate.cstate_enter_plus_exit_ns,
-+				refclk_mhz, 0x1fffff);
-+		REG_SET(DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_D, 0,
-+				DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_D, prog_wm_value);
-+		DC_LOG_BANDWIDTH_CALCS("SR_ENTER_EXIT_WATERMARK_D calculated =%d\n"
-+			"HW register value = 0x%x\n",
-+			watermarks->d.cstate_pstate.cstate_enter_plus_exit_ns, prog_wm_value);
-+	} else if (watermarks->d.cstate_pstate.cstate_enter_plus_exit_ns
-+			< hubbub2->watermarks.d.cstate_pstate.cstate_enter_plus_exit_ns)
-+		wm_pending = true;
-+
-+	if (safe_to_lower || watermarks->d.cstate_pstate.cstate_exit_ns
-+			> hubbub2->watermarks.d.cstate_pstate.cstate_exit_ns) {
-+		hubbub2->watermarks.d.cstate_pstate.cstate_exit_ns =
-+				watermarks->d.cstate_pstate.cstate_exit_ns;
-+		prog_wm_value = convert_and_clamp(
-+				watermarks->d.cstate_pstate.cstate_exit_ns,
-+				refclk_mhz, 0x1fffff);
-+		REG_SET(DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_D, 0,
-+				DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_D, prog_wm_value);
-+		DC_LOG_BANDWIDTH_CALCS("SR_EXIT_WATERMARK_D calculated =%d\n"
-+			"HW register value = 0x%x\n",
-+			watermarks->d.cstate_pstate.cstate_exit_ns, prog_wm_value);
-+	} else if (watermarks->d.cstate_pstate.cstate_exit_ns
-+			< hubbub2->watermarks.d.cstate_pstate.cstate_exit_ns)
-+		wm_pending = true;
-+
-+	if (safe_to_lower || watermarks->d.cstate_pstate.cstate_enter_plus_exit_z8_ns
-+			> hubbub2->watermarks.d.cstate_pstate.cstate_enter_plus_exit_z8_ns) {
-+		hubbub2->watermarks.d.cstate_pstate.cstate_enter_plus_exit_z8_ns =
-+				watermarks->d.cstate_pstate.cstate_enter_plus_exit_z8_ns;
-+		prog_wm_value = convert_and_clamp(
-+				watermarks->d.cstate_pstate.cstate_enter_plus_exit_z8_ns,
-+				refclk_mhz, 0x1fffff);
-+		REG_SET(DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_D, 0,
-+				DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_D, prog_wm_value);
-+		DC_LOG_BANDWIDTH_CALCS("SR_ENTER_WATERMARK_Z8_D calculated =%d\n"
-+			"HW register value = 0x%x\n",
-+			watermarks->d.cstate_pstate.cstate_enter_plus_exit_z8_ns, prog_wm_value);
-+	} else if (watermarks->d.cstate_pstate.cstate_enter_plus_exit_z8_ns
-+			< hubbub2->watermarks.d.cstate_pstate.cstate_enter_plus_exit_z8_ns)
-+		wm_pending = true;
-+
-+	if (safe_to_lower || watermarks->d.cstate_pstate.cstate_exit_z8_ns
-+			> hubbub2->watermarks.d.cstate_pstate.cstate_exit_z8_ns) {
-+		hubbub2->watermarks.d.cstate_pstate.cstate_exit_z8_ns =
-+				watermarks->d.cstate_pstate.cstate_exit_z8_ns;
-+		prog_wm_value = convert_and_clamp(
-+				watermarks->d.cstate_pstate.cstate_exit_z8_ns,
-+				refclk_mhz, 0x1fffff);
-+		REG_SET(DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_D, 0,
-+				DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_D, prog_wm_value);
-+		DC_LOG_BANDWIDTH_CALCS("SR_EXIT_WATERMARK_Z8_D calculated =%d\n"
-+			"HW register value = 0x%x\n",
-+			watermarks->d.cstate_pstate.cstate_exit_z8_ns, prog_wm_value);
-+	} else if (watermarks->d.cstate_pstate.cstate_exit_z8_ns
-+			< hubbub2->watermarks.d.cstate_pstate.cstate_exit_z8_ns)
-+		wm_pending = true;
-+
-+	return wm_pending;
-+}
-+
-+static bool hubbub31_program_pstate_watermarks(
-+		struct hubbub *hubbub,
-+		struct dcn_watermark_set *watermarks,
-+		unsigned int refclk_mhz,
-+		bool safe_to_lower)
-+{
-+	struct dcn20_hubbub *hubbub2 = TO_DCN20_HUBBUB(hubbub);
-+	uint32_t prog_wm_value;
-+
-+	bool wm_pending = false;
-+
-+	/* clock state A */
-+	if (safe_to_lower || watermarks->a.cstate_pstate.pstate_change_ns
-+			> hubbub2->watermarks.a.cstate_pstate.pstate_change_ns) {
-+		hubbub2->watermarks.a.cstate_pstate.pstate_change_ns =
-+				watermarks->a.cstate_pstate.pstate_change_ns;
-+		prog_wm_value = convert_and_clamp(
-+				watermarks->a.cstate_pstate.pstate_change_ns,
-+				refclk_mhz, 0x1fffff);
-+		REG_SET(DCHUBBUB_ARB_ALLOW_DRAM_CLK_CHANGE_WATERMARK_A, 0,
-+				DCHUBBUB_ARB_ALLOW_DRAM_CLK_CHANGE_WATERMARK_A, prog_wm_value);
-+		DC_LOG_BANDWIDTH_CALCS("DRAM_CLK_CHANGE_WATERMARK_A calculated =%d\n"
-+			"HW register value = 0x%x\n\n",
-+			watermarks->a.cstate_pstate.pstate_change_ns, prog_wm_value);
-+	} else if (watermarks->a.cstate_pstate.pstate_change_ns
-+			< hubbub2->watermarks.a.cstate_pstate.pstate_change_ns)
-+		wm_pending = true;
-+
-+	/* clock state B */
-+	if (safe_to_lower || watermarks->b.cstate_pstate.pstate_change_ns
-+			> hubbub2->watermarks.b.cstate_pstate.pstate_change_ns) {
-+		hubbub2->watermarks.b.cstate_pstate.pstate_change_ns =
-+				watermarks->b.cstate_pstate.pstate_change_ns;
-+		prog_wm_value = convert_and_clamp(
-+				watermarks->b.cstate_pstate.pstate_change_ns,
-+				refclk_mhz, 0x1fffff);
-+		REG_SET(DCHUBBUB_ARB_ALLOW_DRAM_CLK_CHANGE_WATERMARK_B, 0,
-+				DCHUBBUB_ARB_ALLOW_DRAM_CLK_CHANGE_WATERMARK_B, prog_wm_value);
-+		DC_LOG_BANDWIDTH_CALCS("DRAM_CLK_CHANGE_WATERMARK_B calculated =%d\n"
-+			"HW register value = 0x%x\n\n",
-+			watermarks->b.cstate_pstate.pstate_change_ns, prog_wm_value);
-+	} else if (watermarks->b.cstate_pstate.pstate_change_ns
-+			< hubbub2->watermarks.b.cstate_pstate.pstate_change_ns)
-+		wm_pending = false;
-+
-+	/* clock state C */
-+	if (safe_to_lower || watermarks->c.cstate_pstate.pstate_change_ns
-+			> hubbub2->watermarks.c.cstate_pstate.pstate_change_ns) {
-+		hubbub2->watermarks.c.cstate_pstate.pstate_change_ns =
-+				watermarks->c.cstate_pstate.pstate_change_ns;
-+		prog_wm_value = convert_and_clamp(
-+				watermarks->c.cstate_pstate.pstate_change_ns,
-+				refclk_mhz, 0x1fffff);
-+		REG_SET(DCHUBBUB_ARB_ALLOW_DRAM_CLK_CHANGE_WATERMARK_C, 0,
-+				DCHUBBUB_ARB_ALLOW_DRAM_CLK_CHANGE_WATERMARK_C, prog_wm_value);
-+		DC_LOG_BANDWIDTH_CALCS("DRAM_CLK_CHANGE_WATERMARK_C calculated =%d\n"
-+			"HW register value = 0x%x\n\n",
-+			watermarks->c.cstate_pstate.pstate_change_ns, prog_wm_value);
-+	} else if (watermarks->c.cstate_pstate.pstate_change_ns
-+			< hubbub2->watermarks.c.cstate_pstate.pstate_change_ns)
-+		wm_pending = true;
-+
-+	/* clock state D */
-+	if (safe_to_lower || watermarks->d.cstate_pstate.pstate_change_ns
-+			> hubbub2->watermarks.d.cstate_pstate.pstate_change_ns) {
-+		hubbub2->watermarks.d.cstate_pstate.pstate_change_ns =
-+				watermarks->d.cstate_pstate.pstate_change_ns;
-+		prog_wm_value = convert_and_clamp(
-+				watermarks->d.cstate_pstate.pstate_change_ns,
-+				refclk_mhz, 0x1fffff);
-+		REG_SET(DCHUBBUB_ARB_ALLOW_DRAM_CLK_CHANGE_WATERMARK_D, 0,
-+				DCHUBBUB_ARB_ALLOW_DRAM_CLK_CHANGE_WATERMARK_D, prog_wm_value);
-+		DC_LOG_BANDWIDTH_CALCS("DRAM_CLK_CHANGE_WATERMARK_D calculated =%d\n"
-+			"HW register value = 0x%x\n\n",
-+			watermarks->d.cstate_pstate.pstate_change_ns, prog_wm_value);
-+	} else if (watermarks->d.cstate_pstate.pstate_change_ns
-+			< hubbub2->watermarks.d.cstate_pstate.pstate_change_ns)
-+		wm_pending = true;
-+
-+	return wm_pending;
-+}
-+
-+static bool hubbub31_program_watermarks(
-+		struct hubbub *hubbub,
-+		struct dcn_watermark_set *watermarks,
-+		unsigned int refclk_mhz,
-+		bool safe_to_lower)
-+{
-+	bool wm_pending = false;
-+
-+	if (hubbub31_program_urgent_watermarks(hubbub, watermarks, refclk_mhz, safe_to_lower))
-+		wm_pending = true;
-+
-+	if (hubbub31_program_stutter_watermarks(hubbub, watermarks, refclk_mhz, safe_to_lower))
-+		wm_pending = true;
-+
-+	if (hubbub31_program_pstate_watermarks(hubbub, watermarks, refclk_mhz, safe_to_lower))
-+		wm_pending = true;
-+
-+	/*
-+	 * The DCHub arbiter has a mechanism to dynamically rate limit the DCHub request stream to the fabric.
-+	 * If the memory controller is fully utilized and the DCHub requestors are
-+	 * well ahead of their amortized schedule, then it is safe to prevent the next winner
-+	 * from being committed and sent to the fabric.
-+	 * The utilization of the memory controller is approximated by ensuring that
-+	 * the number of outstanding requests is greater than a threshold specified
-+	 * by the ARB_MIN_REQ_OUTSTANDING. To determine that the DCHub requestors are well ahead of the amortized schedule,
-+	 * the slack of the next winner is compared with the ARB_SAT_LEVEL in DLG RefClk cycles.
-+	 *
-+	 * TODO: Revisit request limit after figure out right number. request limit for RM isn't decided yet, set maximum value (0x1FF)
-+	 * to turn off it for now.
-+	 */
-+	/*REG_SET(DCHUBBUB_ARB_SAT_LEVEL, 0,
-+			DCHUBBUB_ARB_SAT_LEVEL, 60 * refclk_mhz);
-+	REG_UPDATE(DCHUBBUB_ARB_DF_REQ_OUTSTAND,
-+			DCHUBBUB_ARB_MIN_REQ_OUTSTAND, 0x1FF);*/
-+
-+	hubbub1_allow_self_refresh_control(hubbub, !hubbub->ctx->dc->debug.disable_stutter);
-+	return wm_pending;
-+}
-+
-+static void hubbub3_get_blk256_size(unsigned int *blk256_width, unsigned int *blk256_height,
-+		unsigned int bytes_per_element)
-+{
-+	/* copied from DML.  might want to refactor DML to leverage from DML */
-+	/* DML : get_blk256_size */
-+	if (bytes_per_element == 1) {
-+		*blk256_width = 16;
-+		*blk256_height = 16;
-+	} else if (bytes_per_element == 2) {
-+		*blk256_width = 16;
-+		*blk256_height = 8;
-+	} else if (bytes_per_element == 4) {
-+		*blk256_width = 8;
-+		*blk256_height = 8;
-+	} else if (bytes_per_element == 8) {
-+		*blk256_width = 8;
-+		*blk256_height = 4;
-+	}
-+}
-+
-+static void hubbub31_det_request_size(
-+		unsigned int detile_buf_size,
-+		unsigned int height,
-+		unsigned int width,
-+		unsigned int bpe,
-+		bool *req128_horz_wc,
-+		bool *req128_vert_wc)
-+{
-+	unsigned int blk256_height = 0;
-+	unsigned int blk256_width = 0;
-+	unsigned int swath_bytes_horz_wc, swath_bytes_vert_wc;
-+
-+	hubbub3_get_blk256_size(&blk256_width, &blk256_height, bpe);
-+
-+	swath_bytes_horz_wc = width * blk256_height * bpe;
-+	swath_bytes_vert_wc = height * blk256_width * bpe;
-+
-+	*req128_horz_wc = (2 * swath_bytes_horz_wc <= detile_buf_size) ?
-+			false : /* full 256B request */
-+			true; /* half 128b request */
-+
-+	*req128_vert_wc = (2 * swath_bytes_vert_wc <= detile_buf_size) ?
-+			false : /* full 256B request */
-+			true; /* half 128b request */
-+}
-+
-+static bool hubbub31_get_dcc_compression_cap(struct hubbub *hubbub,
-+		const struct dc_dcc_surface_param *input,
-+		struct dc_surface_dcc_cap *output)
-+{
-+	struct dc *dc = hubbub->ctx->dc;
-+	enum dcc_control dcc_control;
-+	unsigned int bpe;
-+	enum segment_order segment_order_horz, segment_order_vert;
-+	bool req128_horz_wc, req128_vert_wc;
-+
-+	memset(output, 0, sizeof(*output));
-+
-+	if (dc->debug.disable_dcc == DCC_DISABLE)
-+		return false;
-+
-+	if (!hubbub->funcs->dcc_support_pixel_format(input->format,
-+			&bpe))
-+		return false;
-+
-+	if (!hubbub->funcs->dcc_support_swizzle(input->swizzle_mode, bpe,
-+			&segment_order_horz, &segment_order_vert))
-+		return false;
-+
-+	hubbub31_det_request_size(TO_DCN20_HUBBUB(hubbub)->detile_buf_size,
-+			input->surface_size.height,  input->surface_size.width,
-+			bpe, &req128_horz_wc, &req128_vert_wc);
-+
-+	if (!req128_horz_wc && !req128_vert_wc) {
-+		dcc_control = dcc_control__256_256_xxx;
-+	} else if (input->scan == SCAN_DIRECTION_HORIZONTAL) {
-+		if (!req128_horz_wc)
-+			dcc_control = dcc_control__256_256_xxx;
-+		else if (segment_order_horz == segment_order__contiguous)
-+			dcc_control = dcc_control__128_128_xxx;
-+		else
-+			dcc_control = dcc_control__256_64_64;
-+	} else if (input->scan == SCAN_DIRECTION_VERTICAL) {
-+		if (!req128_vert_wc)
-+			dcc_control = dcc_control__256_256_xxx;
-+		else if (segment_order_vert == segment_order__contiguous)
-+			dcc_control = dcc_control__128_128_xxx;
-+		else
-+			dcc_control = dcc_control__256_64_64;
-+	} else {
-+		if ((req128_horz_wc &&
-+			segment_order_horz == segment_order__non_contiguous) ||
-+			(req128_vert_wc &&
-+			segment_order_vert == segment_order__non_contiguous))
-+			/* access_dir not known, must use most constraining */
-+			dcc_control = dcc_control__256_64_64;
-+		else
-+			/* reg128 is true for either horz and vert
-+			 * but segment_order is contiguous
-+			 */
-+			dcc_control = dcc_control__128_128_xxx;
-+	}
-+
-+	/* Exception for 64KB_R_X */
-+	if ((bpe == 2) && (input->swizzle_mode == DC_SW_64KB_R_X))
-+		dcc_control = dcc_control__128_128_xxx;
-+
-+	if (dc->debug.disable_dcc == DCC_HALF_REQ_DISALBE &&
-+		dcc_control != dcc_control__256_256_xxx)
-+		return false;
-+
-+	switch (dcc_control) {
-+	case dcc_control__256_256_xxx:
-+		output->grph.rgb.max_uncompressed_blk_size = 256;
-+		output->grph.rgb.max_compressed_blk_size = 256;
-+		output->grph.rgb.independent_64b_blks = false;
-+		output->grph.rgb.dcc_controls.dcc_256_256_unconstrained = 1;
-+		output->grph.rgb.dcc_controls.dcc_256_128_128 = 1;
-+		break;
-+	case dcc_control__128_128_xxx:
-+		output->grph.rgb.max_uncompressed_blk_size = 128;
-+		output->grph.rgb.max_compressed_blk_size = 128;
-+		output->grph.rgb.independent_64b_blks = false;
-+		output->grph.rgb.dcc_controls.dcc_128_128_uncontrained = 1;
-+		output->grph.rgb.dcc_controls.dcc_256_128_128 = 1;
-+		break;
-+	case dcc_control__256_64_64:
-+		output->grph.rgb.max_uncompressed_blk_size = 256;
-+		output->grph.rgb.max_compressed_blk_size = 64;
-+		output->grph.rgb.independent_64b_blks = true;
-+		output->grph.rgb.dcc_controls.dcc_256_64_64 = 1;
-+		break;
-+	case dcc_control__256_128_128:
-+		output->grph.rgb.max_uncompressed_blk_size = 256;
-+		output->grph.rgb.max_compressed_blk_size = 128;
-+		output->grph.rgb.independent_64b_blks = false;
-+		output->grph.rgb.dcc_controls.dcc_256_128_128 = 1;
-+		break;
-+	}
-+	output->capable = true;
-+	output->const_color_support = true;
-+
-+	return true;
-+}
-+
-+static int hubbub31_init_dchub_sys_ctx(struct hubbub *hubbub,
-+		struct dcn_hubbub_phys_addr_config *pa_config)
-+{
-+	hubbub3_init_dchub_sys_ctx(hubbub, pa_config);
-+
-+	dcn21_dchvm_init(hubbub);
-+
-+	return NUM_VMID;
-+}
-+
-+static void hubbub31_get_dchub_ref_freq(struct hubbub *hubbub,
-+		unsigned int dccg_ref_freq_inKhz,
-+		unsigned int *dchub_ref_freq_inKhz)
-+{
-+	struct dcn20_hubbub *hubbub2 = TO_DCN20_HUBBUB(hubbub);
-+	uint32_t ref_div = 0;
-+	uint32_t ref_en = 0;
-+	unsigned int dc_refclk_khz = 24000;
-+
-+	REG_GET_2(DCHUBBUB_GLOBAL_TIMER_CNTL, DCHUBBUB_GLOBAL_TIMER_REFDIV, &ref_div,
-+			DCHUBBUB_GLOBAL_TIMER_ENABLE, &ref_en);
-+
-+	if (ref_en) {
-+		if (ref_div == 2)
-+			*dchub_ref_freq_inKhz = dc_refclk_khz / 2;
-+		else
-+			*dchub_ref_freq_inKhz = dc_refclk_khz;
-+
-+		/*
-+		 * The external Reference Clock may change based on the board or
-+		 * platform requirements and the programmable integer divide must
-+		 * be programmed to provide a suitable DLG RefClk frequency between
-+		 * a minimum of 20MHz and maximum of 50MHz
-+		 */
-+		if (*dchub_ref_freq_inKhz < 20000 || *dchub_ref_freq_inKhz > 50000)
-+			ASSERT_CRITICAL(false);
-+
-+		return;
-+	} else {
-+		*dchub_ref_freq_inKhz = dc_refclk_khz;
-+
-+		// HUBBUB global timer must be enabled.
-+		ASSERT_CRITICAL(false);
-+		return;
-+	}
-+}
-+
-+static const struct hubbub_funcs hubbub31_funcs = {
-+	.update_dchub = hubbub2_update_dchub,
-+	.init_dchub_sys_ctx = hubbub31_init_dchub_sys_ctx,
-+	.init_vm_ctx = hubbub2_init_vm_ctx,
-+	.dcc_support_swizzle = hubbub3_dcc_support_swizzle,
-+	.dcc_support_pixel_format = hubbub2_dcc_support_pixel_format,
-+	.get_dcc_compression_cap = hubbub31_get_dcc_compression_cap,
-+	.wm_read_state = hubbub21_wm_read_state,
-+	.get_dchub_ref_freq = hubbub31_get_dchub_ref_freq,
-+	.program_watermarks = hubbub31_program_watermarks,
-+	.allow_self_refresh_control = hubbub1_allow_self_refresh_control,
-+	.is_allow_self_refresh_enabled = hubbub1_is_allow_self_refresh_enabled,
-+	.program_det_size = dcn31_program_det_size,
-+	.program_compbuf_size = dcn31_program_compbuf_size,
-+	.init_crb = dcn31_init_crb
-+};
-+
-+void hubbub31_construct(struct dcn20_hubbub *hubbub31,
-+	struct dc_context *ctx,
-+	const struct dcn_hubbub_registers *hubbub_regs,
-+	const struct dcn_hubbub_shift *hubbub_shift,
-+	const struct dcn_hubbub_mask *hubbub_mask,
-+	int det_size_kb,
-+	int pixel_chunk_size_kb,
-+	int config_return_buffer_size_kb)
-+{
-+
-+	hubbub3_construct(hubbub31, ctx, hubbub_regs, hubbub_shift, hubbub_mask);
-+	hubbub31->base.funcs = &hubbub31_funcs;
-+	hubbub31->detile_buf_size = det_size_kb * 1024;
-+	hubbub31->pixel_chunk_size = pixel_chunk_size_kb * 1024;
-+	hubbub31->crb_size_segs = config_return_buffer_size_kb / DCN31_CRB_SEGMENT_SIZE_KB;
-+}
-+
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.h b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.h
-new file mode 100644
-index 000000000000..8ec98cbcbd47
---- /dev/null
-+++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.h
-@@ -0,0 +1,122 @@
-+/*
-+ * Copyright 2016 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ * Authors: AMD
-+ *
-+ */
-+
-+#ifndef __DC_HUBBUB_DCN31_H__
-+#define __DC_HUBBUB_DCN31_H__
-+
-+#include "dcn21/dcn21_hubbub.h"
-+
-+#define HUBBUB_REG_LIST_DCN31(id)\
-+	HUBBUB_REG_LIST_DCN30(id),\
-+	SR(DCHVM_CTRL0),\
-+	SR(DCHVM_MEM_CTRL),\
-+	SR(DCHVM_CLK_CTRL),\
-+	SR(DCHVM_RIOMMU_CTRL0),\
-+	SR(DCHVM_RIOMMU_STAT0),\
-+	SR(DCHUBBUB_DET0_CTRL),\
-+	SR(DCHUBBUB_DET1_CTRL),\
-+	SR(DCHUBBUB_DET2_CTRL),\
-+	SR(DCHUBBUB_DET3_CTRL),\
-+	SR(DCHUBBUB_COMPBUF_CTRL),\
-+	SR(COMPBUF_RESERVED_SPACE),\
-+	SR(DCHUBBUB_DEBUG_CTRL_0),\
-+	SR(DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_A),\
-+	SR(DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_A),\
-+	SR(DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_B),\
-+	SR(DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_B),\
-+	SR(DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_C),\
-+	SR(DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_C),\
-+	SR(DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_D),\
-+	SR(DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_D)
-+
-+#define HUBBUB_MASK_SH_LIST_DCN31(mask_sh)\
-+	HUBBUB_MASK_SH_LIST_DCN_COMMON(mask_sh), \
-+	HUBBUB_MASK_SH_LIST_STUTTER(mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_GLOBAL_TIMER_CNTL, DCHUBBUB_GLOBAL_TIMER_REFDIV, mask_sh), \
-+	HUBBUB_SF(DCN_VM_FB_LOCATION_BASE, FB_BASE, mask_sh), \
-+	HUBBUB_SF(DCN_VM_FB_LOCATION_TOP, FB_TOP, mask_sh), \
-+	HUBBUB_SF(DCN_VM_FB_OFFSET, FB_OFFSET, mask_sh), \
-+	HUBBUB_SF(DCN_VM_AGP_BOT, AGP_BOT, mask_sh), \
-+	HUBBUB_SF(DCN_VM_AGP_TOP, AGP_TOP, mask_sh), \
-+	HUBBUB_SF(DCN_VM_AGP_BASE, AGP_BASE, mask_sh), \
-+	HUBBUB_SF(DCHVM_CTRL0, HOSTVM_INIT_REQ, mask_sh),\
-+	HUBBUB_SF(DCHVM_MEM_CTRL, HVM_GPUVMRET_PWR_REQ_DIS, mask_sh),\
-+	HUBBUB_SF(DCHVM_MEM_CTRL, HVM_GPUVMRET_FORCE_REQ, mask_sh),\
-+	HUBBUB_SF(DCHVM_MEM_CTRL, HVM_GPUVMRET_POWER_STATUS, mask_sh),\
-+	HUBBUB_SF(DCHVM_CLK_CTRL, HVM_DISPCLK_R_GATE_DIS, mask_sh),\
-+	HUBBUB_SF(DCHVM_CLK_CTRL, HVM_DISPCLK_G_GATE_DIS, mask_sh),\
-+	HUBBUB_SF(DCHVM_CLK_CTRL, HVM_DCFCLK_R_GATE_DIS, mask_sh),\
-+	HUBBUB_SF(DCHVM_CLK_CTRL, HVM_DCFCLK_G_GATE_DIS, mask_sh),\
-+	HUBBUB_SF(DCHVM_CLK_CTRL, TR_REQ_REQCLKREQ_MODE, mask_sh),\
-+	HUBBUB_SF(DCHVM_CLK_CTRL, TW_RSP_COMPCLKREQ_MODE, mask_sh),\
-+	HUBBUB_SF(DCHVM_RIOMMU_CTRL0, HOSTVM_PREFETCH_REQ, mask_sh),\
-+	HUBBUB_SF(DCHVM_RIOMMU_CTRL0, HOSTVM_POWERSTATUS, mask_sh),\
-+	HUBBUB_SF(DCHVM_RIOMMU_STAT0, RIOMMU_ACTIVE, mask_sh),\
-+	HUBBUB_SF(DCHVM_RIOMMU_STAT0, HOSTVM_PREFETCH_DONE, mask_sh),\
-+	HUBBUB_SF(DCHUBBUB_ARB_FRAC_URG_BW_FLIP_A, DCHUBBUB_ARB_FRAC_URG_BW_FLIP_A, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_FRAC_URG_BW_FLIP_B, DCHUBBUB_ARB_FRAC_URG_BW_FLIP_B, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_FRAC_URG_BW_FLIP_C, DCHUBBUB_ARB_FRAC_URG_BW_FLIP_C, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_FRAC_URG_BW_FLIP_D, DCHUBBUB_ARB_FRAC_URG_BW_FLIP_D, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_FRAC_URG_BW_NOM_A, DCHUBBUB_ARB_FRAC_URG_BW_NOM_A, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_FRAC_URG_BW_NOM_B, DCHUBBUB_ARB_FRAC_URG_BW_NOM_B, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_FRAC_URG_BW_NOM_C, DCHUBBUB_ARB_FRAC_URG_BW_NOM_C, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_FRAC_URG_BW_NOM_D, DCHUBBUB_ARB_FRAC_URG_BW_NOM_D, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_A, DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_A, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_B, DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_B, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_C, DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_C, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_D, DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_D, mask_sh),\
-+	HUBBUB_SF(DCHUBBUB_DEBUG_CTRL_0, DET_DEPTH, mask_sh),\
-+	HUBBUB_SF(DCHUBBUB_DET0_CTRL, DET0_SIZE, mask_sh),\
-+	HUBBUB_SF(DCHUBBUB_DET0_CTRL, DET0_SIZE_CURRENT, mask_sh),\
-+	HUBBUB_SF(DCHUBBUB_DET1_CTRL, DET1_SIZE, mask_sh),\
-+	HUBBUB_SF(DCHUBBUB_DET1_CTRL, DET1_SIZE_CURRENT, mask_sh),\
-+	HUBBUB_SF(DCHUBBUB_DET2_CTRL, DET2_SIZE, mask_sh),\
-+	HUBBUB_SF(DCHUBBUB_DET2_CTRL, DET2_SIZE_CURRENT, mask_sh),\
-+	HUBBUB_SF(DCHUBBUB_DET3_CTRL, DET3_SIZE, mask_sh),\
-+	HUBBUB_SF(DCHUBBUB_DET3_CTRL, DET3_SIZE_CURRENT, mask_sh),\
-+	HUBBUB_SF(DCHUBBUB_COMPBUF_CTRL, COMPBUF_SIZE, mask_sh),\
-+	HUBBUB_SF(DCHUBBUB_COMPBUF_CTRL, COMPBUF_SIZE_CURRENT, mask_sh),\
-+	HUBBUB_SF(COMPBUF_RESERVED_SPACE, COMPBUF_RESERVED_SPACE_64B, mask_sh),\
-+	HUBBUB_SF(COMPBUF_RESERVED_SPACE, COMPBUF_RESERVED_SPACE_ZS, mask_sh),\
-+	HUBBUB_SF(DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_A, DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_A, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_B, DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_B, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_C, DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_C, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_D, DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_D, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_A, DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_A, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_B, DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_B, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_C, DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_C, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_D, DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_D, mask_sh)
-+
-+
-+void hubbub31_construct(struct dcn20_hubbub *hubbub3,
-+	struct dc_context *ctx,
-+	const struct dcn_hubbub_registers *hubbub_regs,
-+	const struct dcn_hubbub_shift *hubbub_shift,
-+	const struct dcn_hubbub_mask *hubbub_mask,
-+	int det_size_kb,
-+	int pixel_chunk_size_kb,
-+	int config_return_buffer_size_kb);
-+
-+#endif
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubp.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubp.c
-new file mode 100644
-index 000000000000..53b792b997b7
---- /dev/null
-+++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubp.c
-@@ -0,0 +1,103 @@
-+/*
-+ * Copyright 2012-20 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ * Authors: AMD
-+ *
-+ */
-+
-+#include "dm_services.h"
-+#include "dce_calcs.h"
-+#include "reg_helper.h"
-+#include "basics/conversion.h"
-+#include "dcn31_hubp.h"
-+
-+#define REG(reg)\
-+	hubp2->hubp_regs->reg
-+
-+#define CTX \
-+	hubp2->base.ctx
-+
-+#undef FN
-+#define FN(reg_name, field_name) \
-+	hubp2->hubp_shift->field_name, hubp2->hubp_mask->field_name
-+
-+void hubp31_set_unbounded_requesting(struct hubp *hubp, bool enable)
-+{
-+	struct dcn20_hubp *hubp2 = TO_DCN20_HUBP(hubp);
-+
-+	REG_UPDATE(DCHUBP_CNTL, HUBP_UNBOUNDED_REQ_MODE, enable);
-+	REG_UPDATE(CURSOR_CONTROL, CURSOR_REQ_MODE, enable);
-+}
-+
-+void hubp31_soft_reset(struct hubp *hubp, bool reset)
-+{
-+	struct dcn20_hubp *hubp2 = TO_DCN20_HUBP(hubp);
-+
-+	REG_UPDATE(DCHUBP_CNTL, HUBP_SOFT_RESET, reset);
-+}
-+
-+static struct hubp_funcs dcn31_hubp_funcs = {
-+	.hubp_enable_tripleBuffer = hubp2_enable_triplebuffer,
-+	.hubp_is_triplebuffer_enabled = hubp2_is_triplebuffer_enabled,
-+	.hubp_program_surface_flip_and_addr = hubp3_program_surface_flip_and_addr,
-+	.hubp_program_surface_config = hubp3_program_surface_config,
-+	.hubp_is_flip_pending = hubp2_is_flip_pending,
-+	.hubp_setup = hubp3_setup,
-+	.hubp_setup_interdependent = hubp2_setup_interdependent,
-+	.hubp_set_vm_system_aperture_settings = hubp3_set_vm_system_aperture_settings,
-+	.set_blank = hubp2_set_blank,
-+	.dcc_control = hubp3_dcc_control,
-+	.mem_program_viewport = min_set_viewport,
-+	.set_cursor_attributes	= hubp2_cursor_set_attributes,
-+	.set_cursor_position	= hubp2_cursor_set_position,
-+	.hubp_clk_cntl = hubp2_clk_cntl,
-+	.hubp_vtg_sel = hubp2_vtg_sel,
-+	.dmdata_set_attributes = hubp3_dmdata_set_attributes,
-+	.dmdata_load = hubp2_dmdata_load,
-+	.dmdata_status_done = hubp2_dmdata_status_done,
-+	.hubp_read_state = hubp3_read_state,
-+	.hubp_clear_underflow = hubp2_clear_underflow,
-+	.hubp_set_flip_control_surface_gsl = hubp2_set_flip_control_surface_gsl,
-+	.hubp_init = hubp3_init,
-+	.set_unbounded_requesting = hubp31_set_unbounded_requesting,
-+	.hubp_soft_reset = hubp31_soft_reset,
-+	.hubp_in_blank = hubp1_in_blank,
-+};
-+
-+bool hubp31_construct(
-+	struct dcn20_hubp *hubp2,
-+	struct dc_context *ctx,
-+	uint32_t inst,
-+	const struct dcn_hubp2_registers *hubp_regs,
-+	const struct dcn_hubp2_shift *hubp_shift,
-+	const struct dcn_hubp2_mask *hubp_mask)
-+{
-+	hubp2->base.funcs = &dcn31_hubp_funcs;
-+	hubp2->base.ctx = ctx;
-+	hubp2->hubp_regs = hubp_regs;
-+	hubp2->hubp_shift = hubp_shift;
-+	hubp2->hubp_mask = hubp_mask;
-+	hubp2->base.inst = inst;
-+	hubp2->base.opp_id = OPP_ID_INVALID;
-+	hubp2->base.mpcc_id = 0xf;
-+
-+	return true;
-+}
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubp.h b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubp.h
-new file mode 100644
-index 000000000000..c31a7b8f81ee
---- /dev/null
-+++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubp.h
-@@ -0,0 +1,246 @@
-+/*
-+ * Copyright 2012-20 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ * Authors: AMD
-+ *
-+ */
-+
-+#ifndef __DC_HUBP_DCN31_H__
-+#define __DC_HUBP_DCN31_H__
-+
-+#include "dcn20/dcn20_hubp.h"
-+#include "dcn21/dcn21_hubp.h"
-+#include "dcn30/dcn30_hubp.h"
-+
-+#define HUBP_MASK_SH_LIST_DCN31(mask_sh)\
-+	HUBP_SF(HUBPREQ0_DCN_DMDATA_VM_CNTL, REFCYC_PER_VM_DMDATA, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCN_DMDATA_VM_CNTL, DMDATA_VM_FAULT_STATUS, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCN_DMDATA_VM_CNTL, DMDATA_VM_FAULT_STATUS_CLEAR, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCN_DMDATA_VM_CNTL, DMDATA_VM_UNDERFLOW_STATUS, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCN_DMDATA_VM_CNTL, DMDATA_VM_LATE_STATUS, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCN_DMDATA_VM_CNTL, DMDATA_VM_UNDERFLOW_STATUS_CLEAR, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCN_DMDATA_VM_CNTL, DMDATA_VM_DONE, mask_sh),\
-+	HUBP_SF(HUBP0_DCHUBP_CNTL, HUBP_BLANK_EN, mask_sh),\
-+	HUBP_SF(HUBP0_DCHUBP_CNTL, HUBP_TTU_DISABLE, mask_sh),\
-+	HUBP_SF(HUBP0_DCHUBP_CNTL, HUBP_UNDERFLOW_STATUS, mask_sh),\
-+	HUBP_SF(HUBP0_DCHUBP_CNTL, HUBP_UNDERFLOW_CLEAR, mask_sh),\
-+	HUBP_SF(HUBP0_DCHUBP_CNTL, HUBP_NO_OUTSTANDING_REQ, mask_sh),\
-+	HUBP_SF(HUBP0_DCHUBP_CNTL, HUBP_VTG_SEL, mask_sh),\
-+	HUBP_SF(HUBP0_DCHUBP_CNTL, HUBP_UNBOUNDED_REQ_MODE, mask_sh),\
-+	HUBP_SF(HUBP0_DCHUBP_CNTL, HUBP_IN_BLANK, mask_sh),\
-+	HUBP_SF(HUBP0_DCHUBP_CNTL, HUBP_SOFT_RESET, mask_sh),\
-+	HUBP_SF(HUBP0_DCSURF_ADDR_CONFIG, NUM_PIPES, mask_sh),\
-+	HUBP_SF(HUBP0_DCSURF_ADDR_CONFIG, PIPE_INTERLEAVE, mask_sh),\
-+	HUBP_SF(HUBP0_DCSURF_ADDR_CONFIG, MAX_COMPRESSED_FRAGS, mask_sh),\
-+	HUBP_SF(HUBP0_DCSURF_ADDR_CONFIG, NUM_PKRS, mask_sh),\
-+	HUBP_SF(HUBP0_DCSURF_TILING_CONFIG, SW_MODE, mask_sh),\
-+	HUBP_SF(HUBP0_DCSURF_TILING_CONFIG, META_LINEAR, mask_sh),\
-+	HUBP_SF(HUBP0_DCSURF_TILING_CONFIG, PIPE_ALIGNED, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_PITCH, PITCH, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_PITCH, META_PITCH, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_PITCH_C, PITCH_C, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_PITCH_C, META_PITCH_C, mask_sh),\
-+	HUBP_SF(HUBP0_DCSURF_SURFACE_CONFIG, SURFACE_PIXEL_FORMAT, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_FLIP_CONTROL, SURFACE_FLIP_TYPE, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_FLIP_CONTROL, SURFACE_FLIP_MODE_FOR_STEREOSYNC, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_FLIP_CONTROL, SURFACE_FLIP_IN_STEREOSYNC, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_FLIP_CONTROL, SURFACE_FLIP_PENDING, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_FLIP_CONTROL, SURFACE_UPDATE_LOCK, mask_sh),\
-+	HUBP_SF(HUBP0_DCSURF_PRI_VIEWPORT_DIMENSION, PRI_VIEWPORT_WIDTH, mask_sh),\
-+	HUBP_SF(HUBP0_DCSURF_PRI_VIEWPORT_DIMENSION, PRI_VIEWPORT_HEIGHT, mask_sh),\
-+	HUBP_SF(HUBP0_DCSURF_PRI_VIEWPORT_START, PRI_VIEWPORT_X_START, mask_sh),\
-+	HUBP_SF(HUBP0_DCSURF_PRI_VIEWPORT_START, PRI_VIEWPORT_Y_START, mask_sh),\
-+	HUBP_SF(HUBP0_DCSURF_SEC_VIEWPORT_DIMENSION, SEC_VIEWPORT_WIDTH, mask_sh),\
-+	HUBP_SF(HUBP0_DCSURF_SEC_VIEWPORT_DIMENSION, SEC_VIEWPORT_HEIGHT, mask_sh),\
-+	HUBP_SF(HUBP0_DCSURF_SEC_VIEWPORT_START, SEC_VIEWPORT_X_START, mask_sh),\
-+	HUBP_SF(HUBP0_DCSURF_SEC_VIEWPORT_START, SEC_VIEWPORT_Y_START, mask_sh),\
-+	HUBP_SF(HUBP0_DCSURF_PRI_VIEWPORT_DIMENSION_C, PRI_VIEWPORT_WIDTH_C, mask_sh),\
-+	HUBP_SF(HUBP0_DCSURF_PRI_VIEWPORT_DIMENSION_C, PRI_VIEWPORT_HEIGHT_C, mask_sh),\
-+	HUBP_SF(HUBP0_DCSURF_PRI_VIEWPORT_START_C, PRI_VIEWPORT_X_START_C, mask_sh),\
-+	HUBP_SF(HUBP0_DCSURF_PRI_VIEWPORT_START_C, PRI_VIEWPORT_Y_START_C, mask_sh),\
-+	HUBP_SF(HUBP0_DCSURF_SEC_VIEWPORT_DIMENSION_C, SEC_VIEWPORT_WIDTH_C, mask_sh),\
-+	HUBP_SF(HUBP0_DCSURF_SEC_VIEWPORT_DIMENSION_C, SEC_VIEWPORT_HEIGHT_C, mask_sh),\
-+	HUBP_SF(HUBP0_DCSURF_SEC_VIEWPORT_START_C, SEC_VIEWPORT_X_START_C, mask_sh),\
-+	HUBP_SF(HUBP0_DCSURF_SEC_VIEWPORT_START_C, SEC_VIEWPORT_Y_START_C, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_PRIMARY_SURFACE_ADDRESS_HIGH, PRIMARY_SURFACE_ADDRESS_HIGH, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_PRIMARY_SURFACE_ADDRESS, PRIMARY_SURFACE_ADDRESS, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_SECONDARY_SURFACE_ADDRESS_HIGH, SECONDARY_SURFACE_ADDRESS_HIGH, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_SECONDARY_SURFACE_ADDRESS, SECONDARY_SURFACE_ADDRESS, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_PRIMARY_META_SURFACE_ADDRESS_HIGH, PRIMARY_META_SURFACE_ADDRESS_HIGH, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_PRIMARY_META_SURFACE_ADDRESS, PRIMARY_META_SURFACE_ADDRESS, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_SECONDARY_META_SURFACE_ADDRESS_HIGH, SECONDARY_META_SURFACE_ADDRESS_HIGH, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_SECONDARY_META_SURFACE_ADDRESS, SECONDARY_META_SURFACE_ADDRESS, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_PRIMARY_SURFACE_ADDRESS_HIGH_C, PRIMARY_SURFACE_ADDRESS_HIGH_C, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_PRIMARY_SURFACE_ADDRESS_C, PRIMARY_SURFACE_ADDRESS_C, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_SECONDARY_SURFACE_ADDRESS_HIGH_C, SECONDARY_SURFACE_ADDRESS_HIGH_C, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_SECONDARY_SURFACE_ADDRESS_C, SECONDARY_SURFACE_ADDRESS_C, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_PRIMARY_META_SURFACE_ADDRESS_HIGH_C, PRIMARY_META_SURFACE_ADDRESS_HIGH_C, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_PRIMARY_META_SURFACE_ADDRESS_C, PRIMARY_META_SURFACE_ADDRESS_C, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_SECONDARY_META_SURFACE_ADDRESS_HIGH_C, SECONDARY_META_SURFACE_ADDRESS_HIGH_C, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_SECONDARY_META_SURFACE_ADDRESS_C, SECONDARY_META_SURFACE_ADDRESS_C, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_INUSE, SURFACE_INUSE_ADDRESS, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_INUSE_HIGH, SURFACE_INUSE_ADDRESS_HIGH, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_INUSE_C, SURFACE_INUSE_ADDRESS_C, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_INUSE_HIGH_C, SURFACE_INUSE_ADDRESS_HIGH_C, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_EARLIEST_INUSE, SURFACE_EARLIEST_INUSE_ADDRESS, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_EARLIEST_INUSE_HIGH, SURFACE_EARLIEST_INUSE_ADDRESS_HIGH, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_EARLIEST_INUSE_C, SURFACE_EARLIEST_INUSE_ADDRESS_C, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_EARLIEST_INUSE_HIGH_C, SURFACE_EARLIEST_INUSE_ADDRESS_HIGH_C, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_CONTROL, PRIMARY_SURFACE_TMZ, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_CONTROL, PRIMARY_SURFACE_TMZ_C, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_CONTROL, PRIMARY_META_SURFACE_TMZ, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_CONTROL, PRIMARY_META_SURFACE_TMZ_C, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_CONTROL, PRIMARY_SURFACE_DCC_EN, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_CONTROL, PRIMARY_SURFACE_DCC_IND_BLK, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_CONTROL, PRIMARY_SURFACE_DCC_IND_BLK_C, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_CONTROL, SECONDARY_SURFACE_TMZ, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_CONTROL, SECONDARY_SURFACE_TMZ_C, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_CONTROL, SECONDARY_META_SURFACE_TMZ, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_CONTROL, SECONDARY_META_SURFACE_TMZ_C, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_CONTROL, SECONDARY_SURFACE_DCC_EN, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_CONTROL, SECONDARY_SURFACE_DCC_IND_BLK, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_CONTROL, SECONDARY_SURFACE_DCC_IND_BLK_C, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_FLIP_INTERRUPT, SURFACE_FLIP_INT_MASK, mask_sh),\
-+	HUBP_SF(HUBPRET0_HUBPRET_CONTROL, DET_BUF_PLANE1_BASE_ADDRESS, mask_sh),\
-+	HUBP_SF(HUBPRET0_HUBPRET_CONTROL, CROSSBAR_SRC_CB_B, mask_sh),\
-+	HUBP_SF(HUBPRET0_HUBPRET_CONTROL, CROSSBAR_SRC_CR_R, mask_sh),\
-+	HUBP_SF(HUBPRET0_HUBPRET_CONTROL, CROSSBAR_SRC_Y_G, mask_sh),\
-+	HUBP_SF(HUBPRET0_HUBPRET_CONTROL, CROSSBAR_SRC_ALPHA, mask_sh),\
-+	HUBP_SF(HUBPRET0_HUBPRET_CONTROL, PACK_3TO2_ELEMENT_DISABLE, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCN_EXPANSION_MODE, DRQ_EXPANSION_MODE, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCN_EXPANSION_MODE, PRQ_EXPANSION_MODE, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCN_EXPANSION_MODE, MRQ_EXPANSION_MODE, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCN_EXPANSION_MODE, CRQ_EXPANSION_MODE, mask_sh),\
-+	HUBP_SF(HUBP0_DCHUBP_REQ_SIZE_CONFIG, CHUNK_SIZE, mask_sh),\
-+	HUBP_SF(HUBP0_DCHUBP_REQ_SIZE_CONFIG, MIN_CHUNK_SIZE, mask_sh),\
-+	HUBP_SF(HUBP0_DCHUBP_REQ_SIZE_CONFIG, META_CHUNK_SIZE, mask_sh),\
-+	HUBP_SF(HUBP0_DCHUBP_REQ_SIZE_CONFIG, MIN_META_CHUNK_SIZE, mask_sh),\
-+	HUBP_SF(HUBP0_DCHUBP_REQ_SIZE_CONFIG, DPTE_GROUP_SIZE, mask_sh),\
-+	HUBP_SF(HUBP0_DCHUBP_REQ_SIZE_CONFIG, SWATH_HEIGHT, mask_sh),\
-+	HUBP_SF(HUBP0_DCHUBP_REQ_SIZE_CONFIG, PTE_ROW_HEIGHT_LINEAR, mask_sh),\
-+	HUBP_SF(HUBP0_DCHUBP_REQ_SIZE_CONFIG_C, CHUNK_SIZE_C, mask_sh),\
-+	HUBP_SF(HUBP0_DCHUBP_REQ_SIZE_CONFIG_C, MIN_CHUNK_SIZE_C, mask_sh),\
-+	HUBP_SF(HUBP0_DCHUBP_REQ_SIZE_CONFIG_C, META_CHUNK_SIZE_C, mask_sh),\
-+	HUBP_SF(HUBP0_DCHUBP_REQ_SIZE_CONFIG_C, MIN_META_CHUNK_SIZE_C, mask_sh),\
-+	HUBP_SF(HUBP0_DCHUBP_REQ_SIZE_CONFIG_C, DPTE_GROUP_SIZE_C, mask_sh),\
-+	HUBP_SF(HUBP0_DCHUBP_REQ_SIZE_CONFIG_C, SWATH_HEIGHT_C, mask_sh),\
-+	HUBP_SF(HUBP0_DCHUBP_REQ_SIZE_CONFIG_C, PTE_ROW_HEIGHT_LINEAR_C, mask_sh),\
-+	HUBP_SF(HUBPREQ0_BLANK_OFFSET_0, REFCYC_H_BLANK_END, mask_sh),\
-+	HUBP_SF(HUBPREQ0_BLANK_OFFSET_0, DLG_V_BLANK_END, mask_sh),\
-+	HUBP_SF(HUBPREQ0_BLANK_OFFSET_1, MIN_DST_Y_NEXT_START, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DST_DIMENSIONS, REFCYC_PER_HTOTAL, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DST_AFTER_SCALER, REFCYC_X_AFTER_SCALER, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DST_AFTER_SCALER, DST_Y_AFTER_SCALER, mask_sh),\
-+	HUBP_SF(HUBPREQ0_VBLANK_PARAMETERS_0, DST_Y_PER_VM_VBLANK, mask_sh),\
-+	HUBP_SF(HUBPREQ0_VBLANK_PARAMETERS_0, DST_Y_PER_ROW_VBLANK, mask_sh),\
-+	HUBP_SF(HUBPREQ0_REF_FREQ_TO_PIX_FREQ, REF_FREQ_TO_PIX_FREQ, mask_sh),\
-+	HUBP_SF(HUBPREQ0_VBLANK_PARAMETERS_1, REFCYC_PER_PTE_GROUP_VBLANK_L, mask_sh),\
-+	HUBP_SF(HUBPREQ0_VBLANK_PARAMETERS_3, REFCYC_PER_META_CHUNK_VBLANK_L, mask_sh),\
-+	HUBP_SF(HUBPREQ0_NOM_PARAMETERS_4, DST_Y_PER_META_ROW_NOM_L, mask_sh),\
-+	HUBP_SF(HUBPREQ0_NOM_PARAMETERS_5, REFCYC_PER_META_CHUNK_NOM_L, mask_sh),\
-+	HUBP_SF(HUBPREQ0_PER_LINE_DELIVERY_PRE, REFCYC_PER_LINE_DELIVERY_PRE_L, mask_sh),\
-+	HUBP_SF(HUBPREQ0_PER_LINE_DELIVERY_PRE, REFCYC_PER_LINE_DELIVERY_PRE_C, mask_sh),\
-+	HUBP_SF(HUBPREQ0_PER_LINE_DELIVERY, REFCYC_PER_LINE_DELIVERY_L, mask_sh),\
-+	HUBP_SF(HUBPREQ0_PER_LINE_DELIVERY, REFCYC_PER_LINE_DELIVERY_C, mask_sh),\
-+	HUBP_SF(HUBPREQ0_VBLANK_PARAMETERS_2, REFCYC_PER_PTE_GROUP_VBLANK_C, mask_sh),\
-+	HUBP_SF(HUBPREQ0_VBLANK_PARAMETERS_4, REFCYC_PER_META_CHUNK_VBLANK_C, mask_sh),\
-+	HUBP_SF(HUBPREQ0_NOM_PARAMETERS_6, DST_Y_PER_META_ROW_NOM_C, mask_sh),\
-+	HUBP_SF(HUBPREQ0_NOM_PARAMETERS_7, REFCYC_PER_META_CHUNK_NOM_C, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCN_TTU_QOS_WM, QoS_LEVEL_LOW_WM, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCN_TTU_QOS_WM, QoS_LEVEL_HIGH_WM, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCN_GLOBAL_TTU_CNTL, MIN_TTU_VBLANK, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCN_GLOBAL_TTU_CNTL, QoS_LEVEL_FLIP, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCN_GLOBAL_TTU_CNTL, ROW_TTU_MODE, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCN_SURF0_TTU_CNTL0, REFCYC_PER_REQ_DELIVERY, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCN_SURF0_TTU_CNTL0, QoS_LEVEL_FIXED, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCN_SURF0_TTU_CNTL0, QoS_RAMP_DISABLE, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCN_SURF0_TTU_CNTL1, REFCYC_PER_REQ_DELIVERY_PRE, mask_sh),\
-+	HUBP_SF(HUBP0_HUBP_CLK_CNTL, HUBP_CLOCK_ENABLE, mask_sh),\
-+	HUBP_MASK_SH_LIST_DCN_VM(mask_sh),\
-+	HUBP_SF(HUBP0_DCSURF_SURFACE_CONFIG, ROTATION_ANGLE, mask_sh),\
-+	HUBP_SF(HUBP0_DCSURF_SURFACE_CONFIG, H_MIRROR_EN, mask_sh),\
-+	HUBP_SF(HUBP0_DCSURF_SURFACE_CONFIG, ALPHA_PLANE_EN, mask_sh),\
-+	HUBP_SF(HUBPREQ0_PREFETCH_SETTINGS, DST_Y_PREFETCH, mask_sh),\
-+	HUBP_SF(HUBPREQ0_PREFETCH_SETTINGS, VRATIO_PREFETCH, mask_sh),\
-+	HUBP_SF(HUBPREQ0_PREFETCH_SETTINGS_C, VRATIO_PREFETCH_C, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCN_VM_SYSTEM_APERTURE_LOW_ADDR, MC_VM_SYSTEM_APERTURE_LOW_ADDR, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCN_VM_SYSTEM_APERTURE_HIGH_ADDR, MC_VM_SYSTEM_APERTURE_HIGH_ADDR, mask_sh),\
-+	HUBP_SF(HUBPREQ0_CURSOR_SETTINGS, CURSOR0_DST_Y_OFFSET, mask_sh), \
-+	HUBP_SF(HUBPREQ0_CURSOR_SETTINGS, CURSOR0_CHUNK_HDL_ADJUST, mask_sh), \
-+	HUBP_SF(CURSOR0_0_CURSOR_SURFACE_ADDRESS_HIGH, CURSOR_SURFACE_ADDRESS_HIGH, mask_sh), \
-+	HUBP_SF(CURSOR0_0_CURSOR_SURFACE_ADDRESS, CURSOR_SURFACE_ADDRESS, mask_sh), \
-+	HUBP_SF(CURSOR0_0_CURSOR_SIZE, CURSOR_WIDTH, mask_sh), \
-+	HUBP_SF(CURSOR0_0_CURSOR_SIZE, CURSOR_HEIGHT, mask_sh), \
-+	HUBP_SF(CURSOR0_0_CURSOR_CONTROL, CURSOR_MODE, mask_sh), \
-+	HUBP_SF(CURSOR0_0_CURSOR_CONTROL, CURSOR_REQ_MODE, mask_sh), \
-+	HUBP_SF(CURSOR0_0_CURSOR_CONTROL, CURSOR_2X_MAGNIFY, mask_sh), \
-+	HUBP_SF(CURSOR0_0_CURSOR_CONTROL, CURSOR_PITCH, mask_sh), \
-+	HUBP_SF(CURSOR0_0_CURSOR_CONTROL, CURSOR_LINES_PER_CHUNK, mask_sh), \
-+	HUBP_SF(CURSOR0_0_CURSOR_CONTROL, CURSOR_ENABLE, mask_sh), \
-+	HUBP_SF(CURSOR0_0_CURSOR_POSITION, CURSOR_X_POSITION, mask_sh), \
-+	HUBP_SF(CURSOR0_0_CURSOR_POSITION, CURSOR_Y_POSITION, mask_sh), \
-+	HUBP_SF(CURSOR0_0_CURSOR_HOT_SPOT, CURSOR_HOT_SPOT_X, mask_sh), \
-+	HUBP_SF(CURSOR0_0_CURSOR_HOT_SPOT, CURSOR_HOT_SPOT_Y, mask_sh), \
-+	HUBP_SF(CURSOR0_0_CURSOR_DST_OFFSET, CURSOR_DST_X_OFFSET, mask_sh), \
-+	HUBP_SF(CURSOR0_0_DMDATA_ADDRESS_HIGH, DMDATA_ADDRESS_HIGH, mask_sh), \
-+	HUBP_SF(CURSOR0_0_DMDATA_CNTL, DMDATA_MODE, mask_sh), \
-+	HUBP_SF(CURSOR0_0_DMDATA_CNTL, DMDATA_UPDATED, mask_sh), \
-+	HUBP_SF(CURSOR0_0_DMDATA_CNTL, DMDATA_REPEAT, mask_sh), \
-+	HUBP_SF(CURSOR0_0_DMDATA_CNTL, DMDATA_SIZE, mask_sh), \
-+	HUBP_SF(CURSOR0_0_DMDATA_SW_CNTL, DMDATA_SW_UPDATED, mask_sh), \
-+	HUBP_SF(CURSOR0_0_DMDATA_SW_CNTL, DMDATA_SW_REPEAT, mask_sh), \
-+	HUBP_SF(CURSOR0_0_DMDATA_SW_CNTL, DMDATA_SW_SIZE, mask_sh), \
-+	HUBP_SF(CURSOR0_0_DMDATA_QOS_CNTL, DMDATA_QOS_MODE, mask_sh), \
-+	HUBP_SF(CURSOR0_0_DMDATA_QOS_CNTL, DMDATA_QOS_LEVEL, mask_sh), \
-+	HUBP_SF(CURSOR0_0_DMDATA_QOS_CNTL, DMDATA_DL_DELTA, mask_sh), \
-+	HUBP_SF(CURSOR0_0_DMDATA_STATUS, DMDATA_DONE, mask_sh),\
-+	HUBP_SF(HUBPREQ0_FLIP_PARAMETERS_0, DST_Y_PER_VM_FLIP, mask_sh),\
-+	HUBP_SF(HUBPREQ0_FLIP_PARAMETERS_0, DST_Y_PER_ROW_FLIP, mask_sh),\
-+	HUBP_SF(HUBPREQ0_FLIP_PARAMETERS_1, REFCYC_PER_PTE_GROUP_FLIP_L, mask_sh),\
-+	HUBP_SF(HUBPREQ0_FLIP_PARAMETERS_2, REFCYC_PER_META_CHUNK_FLIP_L, mask_sh),\
-+	HUBP_SF(HUBP0_DCHUBP_CNTL, HUBP_VREADY_AT_OR_AFTER_VSYNC, mask_sh),\
-+	HUBP_SF(HUBP0_DCHUBP_CNTL, HUBP_DISABLE_STOP_DATA_DURING_VM, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_FLIP_CONTROL, HUBPREQ_MASTER_UPDATE_LOCK_STATUS, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_FLIP_CONTROL2, SURFACE_GSL_ENABLE, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_FLIP_CONTROL2, SURFACE_TRIPLE_BUFFER_ENABLE, mask_sh),\
-+	HUBP_SF(HUBPREQ0_VMID_SETTINGS_0, VMID, mask_sh),\
-+	HUBP_SF(HUBPREQ0_FLIP_PARAMETERS_3, REFCYC_PER_VM_GROUP_FLIP, mask_sh),\
-+	HUBP_SF(HUBPREQ0_FLIP_PARAMETERS_4, REFCYC_PER_VM_REQ_FLIP, mask_sh),\
-+	HUBP_SF(HUBPREQ0_FLIP_PARAMETERS_5, REFCYC_PER_PTE_GROUP_FLIP_C, mask_sh),\
-+	HUBP_SF(HUBPREQ0_FLIP_PARAMETERS_6, REFCYC_PER_META_CHUNK_FLIP_C, mask_sh),\
-+	HUBP_SF(HUBPREQ0_VBLANK_PARAMETERS_5, REFCYC_PER_VM_GROUP_VBLANK, mask_sh),\
-+	HUBP_SF(HUBPREQ0_VBLANK_PARAMETERS_6, REFCYC_PER_VM_REQ_VBLANK, mask_sh),\
-+	HUBP_SF(HUBP0_DCHUBP_REQ_SIZE_CONFIG, VM_GROUP_SIZE, mask_sh)
-+
-+
-+bool hubp31_construct(
-+		struct dcn20_hubp *hubp2,
-+		struct dc_context *ctx,
-+		uint32_t inst,
-+		const struct dcn_hubp2_registers *hubp_regs,
-+		const struct dcn_hubp2_shift *hubp_shift,
-+		const struct dcn_hubp2_mask *hubp_mask);
-+
-+void hubp31_soft_reset(struct hubp *hubp, bool reset);
-+
-+void hubp31_set_unbounded_requesting(struct hubp *hubp, bool enable);
-+
-+#endif /* __DC_HUBP_DCN31_H__ */
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/core_types.h b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
-index 81b92f20d5b6..0d1c3260b68e 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/core_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
-@@ -338,6 +338,9 @@ union pipe_update_flags {
- 		uint32_t scaler : 1;
- 		uint32_t viewport : 1;
- 		uint32_t plane_changed : 1;
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+		uint32_t det_size : 1;
-+#endif
- 	} bits;
- 	uint32_t raw;
- };
-@@ -365,6 +368,10 @@ struct pipe_ctx {
- 	struct _vcs_dpi_display_ttu_regs_st ttu_regs;
- 	struct _vcs_dpi_display_rq_regs_st rq_regs;
- 	struct _vcs_dpi_display_pipe_dest_params_st pipe_dlg_param;
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+	int det_buffer_size_kb;
-+	bool unbounded_req;
++#include "../dcn31/dcn31_resource.h"
 +#endif
  #endif
- 	union pipe_update_flags update_flags;
- 	struct dwbc *dwbc;
-@@ -415,6 +422,9 @@ struct dcn_bw_output {
- 	struct dc_clocks clk;
- 	struct dcn_watermark_set watermarks;
- 	struct dcn_bw_writeback bw_writeback;
+ 
+ #define DC_LOGGER_INIT(logger)
+@@ -139,6 +142,14 @@ enum dce_version resource_parse_asic_id(struct hw_asic_id asic_id)
+ 		dc_version = DCN_VERSION_3_01;
+ 		break;
+ #endif
++
 +#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+	int compbuf_size_kb;
++	case FAMILY_YELLOW_CARP:
++		if (ASICREV_IS_YELLOW_CARP(asic_id.hw_internal_rev))
++			dc_version = DCN_VERSION_3_1;
++		break;
 +#endif
- };
- 
- union bw_output {
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h b/drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h
-index d9fd28b34f2a..d2611b865695 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h
-@@ -152,6 +152,11 @@ struct hubbub_funcs {
- 	void (*force_pstate_change_control)(struct hubbub *hubbub, bool force, bool allow);
- 
- 	void (*init_watermarks)(struct hubbub *hubbub);
++
+ 	default:
+ 		dc_version = DCE_VERSION_UNKNOWN;
+ 		break;
+@@ -222,6 +233,11 @@ struct resource_pool *dc_create_resource_pool(struct dc  *dc,
+ 	case DCN_VERSION_3_03:
+ 		res_pool = dcn303_create_resource_pool(init_data, dc);
+ 		break;
 +#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+	void (*program_det_size)(struct hubbub *hubbub, int hubp_inst, unsigned det_buffer_size_in_kbyte);
-+	void (*program_compbuf_size)(struct hubbub *hubbub, unsigned compbuf_size_kb, bool safe_to_increase);
-+	void (*init_crb)(struct hubbub *hubbub);
++	case DCN_VERSION_3_1:
++		res_pool = dcn31_create_resource_pool(init_data, dc);
++		break;
++#endif
+ #endif
+ 	default:
+ 		break;
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index 05aae1419812..5c9637a34160 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -520,6 +520,9 @@ struct dc_debug_options {
+ 	unsigned int force_odm_combine; //bit vector based on otg inst
+ #if defined(CONFIG_DRM_AMD_DC_DCN)
+ 	unsigned int force_odm_combine_4to1; //bit vector based on otg inst
++#endif
++#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
++	bool disable_z9_mpc;
+ #endif
+ 	unsigned int force_fclk_khz;
+ 	bool enable_tri_buf;
+@@ -562,6 +565,10 @@ struct dc_debug_options {
+ 	bool force_enable_edp_fec;
+ 	/* FEC/PSR1 sequence enable delay in 100us */
+ 	uint8_t fec_enable_delay_in100us;
++#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
++	bool disable_z10;
++	bool enable_sw_cntl_psr;
 +#endif
  };
  
- struct hubbub {
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/mem_input.h b/drivers/gpu/drm/amd/display/dc/inc/hw/mem_input.h
-index 2e2310f1901a..dd562dcd03b2 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/mem_input.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/mem_input.h
-@@ -33,6 +33,10 @@
- struct dchub_init_data;
- struct cstate_pstate_watermarks_st {
- 	uint32_t cstate_exit_ns;
-+#ifdef CONFIG_DRM_AMD_DC_DCN3_1
-+	uint32_t cstate_exit_z8_ns;
-+	uint32_t cstate_enter_plus_exit_z8_ns;
+ struct dc_debug_data {
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
+new file mode 100644
+index 000000000000..af978d2cb25f
+--- /dev/null
++++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
+@@ -0,0 +1,2180 @@
++/*
++ * Copyright 2019 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ * Authors: AMD
++ *
++ */
++
++
++#include "dm_services.h"
++#include "dc.h"
++
++#include "dcn31/dcn31_init.h"
++
++#include "resource.h"
++#include "include/irq_service_interface.h"
++#include "dcn31_resource.h"
++
++#include "dcn20/dcn20_resource.h"
++#include "dcn30/dcn30_resource.h"
++
++#include "dcn10/dcn10_ipp.h"
++#include "dcn30/dcn30_hubbub.h"
++#include "dcn31/dcn31_hubbub.h"
++#include "dcn30/dcn30_mpc.h"
++#include "dcn31/dcn31_hubp.h"
++#include "irq/dcn31/irq_service_dcn31.h"
++#include "dcn30/dcn30_dpp.h"
++#include "dcn31/dcn31_optc.h"
++#include "dcn20/dcn20_hwseq.h"
++#include "dcn30/dcn30_hwseq.h"
++#include "dce110/dce110_hw_sequencer.h"
++#include "dcn30/dcn30_opp.h"
++#include "dcn20/dcn20_dsc.h"
++#include "dcn30/dcn30_vpg.h"
++#include "dcn30/dcn30_afmt.h"
++#include "dcn30/dcn30_dio_stream_encoder.h"
++#include "dcn31/dcn31_dio_link_encoder.h"
++#include "dce/dce_clock_source.h"
++#include "dce/dce_audio.h"
++#include "dce/dce_hwseq.h"
++#include "clk_mgr.h"
++#include "virtual/virtual_stream_encoder.h"
++#include "dce110/dce110_resource.h"
++#include "dml/display_mode_vba.h"
++#include "dcn31/dcn31_dccg.h"
++#include "dcn10/dcn10_resource.h"
++#include "dcn31_panel_cntl.h"
++
++#include "dcn30/dcn30_dwb.h"
++#include "dcn30/dcn30_mmhubbub.h"
++
++// TODO: change include headers /amd/include/asic_reg after upstream
++#include "yellow_carp_offset.h"
++#include "dcn/dcn_3_1_2_offset.h"
++#include "dcn/dcn_3_1_2_sh_mask.h"
++#include "nbio/nbio_7_2_0_offset.h"
++#include "dpcs/dpcs_4_2_0_offset.h"
++#include "dpcs/dpcs_4_2_0_sh_mask.h"
++#include "mmhub/mmhub_2_3_0_offset.h"
++#include "mmhub/mmhub_2_3_0_sh_mask.h"
++
++
++#define regDCHUBBUB_DEBUG_CTRL_0                                              0x04d6
++#define regDCHUBBUB_DEBUG_CTRL_0_BASE_IDX                                     2
++#define DCHUBBUB_DEBUG_CTRL_0__DET_DEPTH__SHIFT                               0x10
++#define DCHUBBUB_DEBUG_CTRL_0__DET_DEPTH_MASK                                 0x01FF0000L
++
++#include "reg_helper.h"
++#include "dce/dmub_abm.h"
++#include "dce/dmub_psr.h"
++#include "dce/dce_aux.h"
++#include "dce/dce_i2c.h"
++
++#include "dml/dcn30/display_mode_vba_30.h"
++#include "vm_helper.h"
++#include "dcn20/dcn20_vmid.h"
++
++#include "link_enc_cfg.h"
++
++#define DC_LOGGER_INIT(logger)
++#define fixed16_to_double(x) (((double) x) / ((double) (1 << 16)))
++#define fixed16_to_double_to_cpu(x) fixed16_to_double(le32_to_cpu(x))
++
++#define DCN3_1_DEFAULT_DET_SIZE 384
++
++struct _vcs_dpi_ip_params_st dcn3_1_ip = {
++	.gpuvm_enable = 1,
++	.gpuvm_max_page_table_levels = 1,
++	.hostvm_enable = 1,
++	.hostvm_max_page_table_levels = 2,
++	.rob_buffer_size_kbytes = 64,
++	.det_buffer_size_kbytes = DCN3_1_DEFAULT_DET_SIZE,
++	.config_return_buffer_size_in_kbytes = 1792,
++	.compressed_buffer_segment_size_in_kbytes = 64,
++	.meta_fifo_size_in_kentries = 32,
++	.zero_size_buffer_entries = 512,
++	.compbuf_reserved_space_64b = 256,
++	.compbuf_reserved_space_zs = 64,
++	.dpp_output_buffer_pixels = 2560,
++	.opp_output_buffer_lines = 1,
++	.pixel_chunk_size_kbytes = 8,
++	.meta_chunk_size_kbytes = 2,
++	.min_meta_chunk_size_bytes = 256,
++	.writeback_chunk_size_kbytes = 8,
++	.ptoi_supported = false,
++	.num_dsc = 3,
++	.maximum_dsc_bits_per_component = 10,
++	.dsc422_native_support = false,
++	.is_line_buffer_bpp_fixed = true,
++	.line_buffer_fixed_bpp = 48,
++	.line_buffer_size_bits = 789504,
++	.max_line_buffer_lines = 12,
++	.writeback_interface_buffer_size_kbytes = 90,
++	.max_num_dpp = 4,
++	.max_num_otg = 4,
++	.max_num_hdmi_frl_outputs = 1,
++	.max_num_wb = 1,
++	.max_dchub_pscl_bw_pix_per_clk = 4,
++	.max_pscl_lb_bw_pix_per_clk = 2,
++	.max_lb_vscl_bw_pix_per_clk = 4,
++	.max_vscl_hscl_bw_pix_per_clk = 4,
++	.max_hscl_ratio = 6,
++	.max_vscl_ratio = 6,
++	.max_hscl_taps = 8,
++	.max_vscl_taps = 8,
++	.dpte_buffer_size_in_pte_reqs_luma = 64,
++	.dpte_buffer_size_in_pte_reqs_chroma = 34,
++	.dispclk_ramp_margin_percent = 1,
++	.max_inter_dcn_tile_repeaters = 8,
++	.cursor_buffer_size = 16,
++	.cursor_chunk_size = 2,
++	.writeback_line_buffer_buffer_size = 0,
++	.writeback_min_hscl_ratio = 1,
++	.writeback_min_vscl_ratio = 1,
++	.writeback_max_hscl_ratio = 1,
++	.writeback_max_vscl_ratio = 1,
++	.writeback_max_hscl_taps = 1,
++	.writeback_max_vscl_taps = 1,
++	.dppclk_delay_subtotal = 46,
++	.dppclk_delay_scl = 50,
++	.dppclk_delay_scl_lb_only = 16,
++	.dppclk_delay_cnvc_formatter = 27,
++	.dppclk_delay_cnvc_cursor = 6,
++	.dispclk_delay_subtotal = 119,
++	.dynamic_metadata_vm_enabled = false,
++	.odm_combine_4to1_supported = false,
++	.dcc_supported = true,
++};
++
++struct _vcs_dpi_soc_bounding_box_st dcn3_1_soc = {
++		/*TODO: correct dispclk/dppclk voltage level determination*/
++	.clock_limits = {
++		{
++			.state = 0,
++			.dispclk_mhz = 1200.0,
++			.dppclk_mhz = 1200.0,
++			.phyclk_mhz = 600.0,
++			.phyclk_d18_mhz = 667.0,
++			.dscclk_mhz = 186.0,
++			.dtbclk_mhz = 625.0,
++		},
++		{
++			.state = 1,
++			.dispclk_mhz = 1200.0,
++			.dppclk_mhz = 1200.0,
++			.phyclk_mhz = 810.0,
++			.phyclk_d18_mhz = 667.0,
++			.dscclk_mhz = 209.0,
++			.dtbclk_mhz = 625.0,
++		},
++		{
++			.state = 2,
++			.dispclk_mhz = 1200.0,
++			.dppclk_mhz = 1200.0,
++			.phyclk_mhz = 810.0,
++			.phyclk_d18_mhz = 667.0,
++			.dscclk_mhz = 209.0,
++			.dtbclk_mhz = 625.0,
++		},
++		{
++			.state = 3,
++			.dispclk_mhz = 1200.0,
++			.dppclk_mhz = 1200.0,
++			.phyclk_mhz = 810.0,
++			.phyclk_d18_mhz = 667.0,
++			.dscclk_mhz = 371.0,
++			.dtbclk_mhz = 625.0,
++		},
++		{
++			.state = 4,
++			.dispclk_mhz = 1200.0,
++			.dppclk_mhz = 1200.0,
++			.phyclk_mhz = 810.0,
++			.phyclk_d18_mhz = 667.0,
++			.dscclk_mhz = 417.0,
++			.dtbclk_mhz = 625.0,
++		},
++	},
++	.num_states = 5,
++	.sr_exit_time_us = 9.0,
++	.sr_enter_plus_exit_time_us = 11.0,
++	.sr_exit_z8_time_us = 402.0,
++	.sr_enter_plus_exit_z8_time_us = 520.0,
++	.writeback_latency_us = 12.0,
++	.round_trip_ping_latency_dcfclk_cycles = 106,
++	.urgent_latency_pixel_data_only_us = 4.0,
++	.urgent_latency_pixel_mixed_with_vm_data_us = 4.0,
++	.urgent_latency_vm_data_only_us = 4.0,
++	.urgent_out_of_order_return_per_channel_pixel_only_bytes = 4096,
++	.urgent_out_of_order_return_per_channel_pixel_and_vm_bytes = 4096,
++	.urgent_out_of_order_return_per_channel_vm_only_bytes = 4096,
++	.pct_ideal_sdp_bw_after_urgent = 80.0,
++	.pct_ideal_dram_sdp_bw_after_urgent_pixel_only = 65.0,
++	.pct_ideal_dram_sdp_bw_after_urgent_pixel_and_vm = 60.0,
++	.pct_ideal_dram_sdp_bw_after_urgent_vm_only = 30.0,
++	.max_avg_sdp_bw_use_normal_percent = 60.0,
++	.max_avg_dram_bw_use_normal_percent = 60.0,
++	.fabric_datapath_to_dcn_data_return_bytes = 32,
++	.return_bus_width_bytes = 64,
++	.downspread_percent = 0.38,
++	.dcn_downspread_percent = 0.5,
++	.gpuvm_min_page_size_bytes = 4096,
++	.hostvm_min_page_size_bytes = 4096,
++	.do_urgent_latency_adjustment = false,
++	.urgent_latency_adjustment_fabric_clock_component_us = 0,
++	.urgent_latency_adjustment_fabric_clock_reference_mhz = 0,
++};
++
++enum dcn31_clk_src_array_id {
++	DCN31_CLK_SRC_PLL0,
++	DCN31_CLK_SRC_PLL1,
++	DCN31_CLK_SRC_PLL2,
++	DCN31_CLK_SRC_PLL3,
++	DCN31_CLK_SRC_PLL4,
++	DCN30_CLK_SRC_TOTAL
++};
++
++/* begin *********************
++ * macros to expend register list macro defined in HW object header file
++ */
++
++/* DCN */
++/* TODO awful hack. fixup dcn20_dwb.h */
++#undef BASE_INNER
++#define BASE_INNER(seg) DCN_BASE__INST0_SEG ## seg
++
++#define BASE(seg) BASE_INNER(seg)
++
++#define SR(reg_name)\
++		.reg_name = BASE(reg ## reg_name ## _BASE_IDX) +  \
++					reg ## reg_name
++
++#define SRI(reg_name, block, id)\
++	.reg_name = BASE(reg ## block ## id ## _ ## reg_name ## _BASE_IDX) + \
++					reg ## block ## id ## _ ## reg_name
++
++#define SRI2(reg_name, block, id)\
++	.reg_name = BASE(reg ## reg_name ## _BASE_IDX) + \
++					reg ## reg_name
++
++#define SRIR(var_name, reg_name, block, id)\
++	.var_name = BASE(reg ## block ## id ## _ ## reg_name ## _BASE_IDX) + \
++					reg ## block ## id ## _ ## reg_name
++
++#define SRII(reg_name, block, id)\
++	.reg_name[id] = BASE(reg ## block ## id ## _ ## reg_name ## _BASE_IDX) + \
++					reg ## block ## id ## _ ## reg_name
++
++#define SRII_MPC_RMU(reg_name, block, id)\
++	.RMU##_##reg_name[id] = BASE(reg ## block ## id ## _ ## reg_name ## _BASE_IDX) + \
++					reg ## block ## id ## _ ## reg_name
++
++#define SRII_DWB(reg_name, temp_name, block, id)\
++	.reg_name[id] = BASE(reg ## block ## id ## _ ## temp_name ## _BASE_IDX) + \
++					reg ## block ## id ## _ ## temp_name
++
++#define DCCG_SRII(reg_name, block, id)\
++	.block ## _ ## reg_name[id] = BASE(reg ## block ## id ## _ ## reg_name ## _BASE_IDX) + \
++					reg ## block ## id ## _ ## reg_name
++
++#define VUPDATE_SRII(reg_name, block, id)\
++	.reg_name[id] = BASE(reg ## reg_name ## _ ## block ## id ## _BASE_IDX) + \
++					reg ## reg_name ## _ ## block ## id
++
++/* NBIO */
++#define NBIO_BASE_INNER(seg) \
++	NBIO_BASE__INST0_SEG ## seg
++
++#define NBIO_BASE(seg) \
++	NBIO_BASE_INNER(seg)
++
++#define NBIO_SR(reg_name)\
++		.reg_name = NBIO_BASE(regBIF_BX1_ ## reg_name ## _BASE_IDX) + \
++					regBIF_BX1_ ## reg_name
++
++/* MMHUB */
++#define MMHUB_BASE_INNER(seg) \
++	MMHUB_BASE__INST0_SEG ## seg
++
++#define MMHUB_BASE(seg) \
++	MMHUB_BASE_INNER(seg)
++
++#define MMHUB_SR(reg_name)\
++		.reg_name = MMHUB_BASE(mm ## reg_name ## _BASE_IDX) + \
++					mm ## reg_name
++
++/* CLOCK */
++#define CLK_BASE_INNER(seg) \
++	CLK_BASE__INST0_SEG ## seg
++
++#define CLK_BASE(seg) \
++	CLK_BASE_INNER(seg)
++
++#define CLK_SRI(reg_name, block, inst)\
++	.reg_name = CLK_BASE(reg ## block ## _ ## inst ## _ ## reg_name ## _BASE_IDX) + \
++					reg ## block ## _ ## inst ## _ ## reg_name
++
++
++static const struct bios_registers bios_regs = {
++		NBIO_SR(BIOS_SCRATCH_3),
++		NBIO_SR(BIOS_SCRATCH_6)
++};
++
++#define clk_src_regs(index, pllid)\
++[index] = {\
++	CS_COMMON_REG_LIST_DCN3_0(index, pllid),\
++}
++
++static const struct dce110_clk_src_regs clk_src_regs[] = {
++	clk_src_regs(0, A),
++	clk_src_regs(1, B),
++	clk_src_regs(2, C),
++	clk_src_regs(3, D),
++	clk_src_regs(4, E)
++};
++
++static const struct dce110_clk_src_shift cs_shift = {
++		CS_COMMON_MASK_SH_LIST_DCN2_0(__SHIFT)
++};
++
++static const struct dce110_clk_src_mask cs_mask = {
++		CS_COMMON_MASK_SH_LIST_DCN2_0(_MASK)
++};
++
++#define abm_regs(id)\
++[id] = {\
++		ABM_DCN301_REG_LIST(id)\
++}
++
++static const struct dce_abm_registers abm_regs[] = {
++		abm_regs(0),
++		abm_regs(1),
++		abm_regs(2),
++		abm_regs(3),
++};
++
++static const struct dce_abm_shift abm_shift = {
++		ABM_MASK_SH_LIST_DCN30(__SHIFT)
++};
++
++static const struct dce_abm_mask abm_mask = {
++		ABM_MASK_SH_LIST_DCN30(_MASK)
++};
++
++#define audio_regs(id)\
++[id] = {\
++		AUD_COMMON_REG_LIST(id)\
++}
++
++static const struct dce_audio_registers audio_regs[] = {
++	audio_regs(0),
++	audio_regs(1),
++	audio_regs(2),
++	audio_regs(3),
++	audio_regs(4),
++	audio_regs(5),
++	audio_regs(6)
++};
++
++#define DCE120_AUD_COMMON_MASK_SH_LIST(mask_sh)\
++		SF(AZF0ENDPOINT0_AZALIA_F0_CODEC_ENDPOINT_INDEX, AZALIA_ENDPOINT_REG_INDEX, mask_sh),\
++		SF(AZF0ENDPOINT0_AZALIA_F0_CODEC_ENDPOINT_DATA, AZALIA_ENDPOINT_REG_DATA, mask_sh),\
++		AUD_COMMON_MASK_SH_LIST_BASE(mask_sh)
++
++static const struct dce_audio_shift audio_shift = {
++		DCE120_AUD_COMMON_MASK_SH_LIST(__SHIFT)
++};
++
++static const struct dce_audio_mask audio_mask = {
++		DCE120_AUD_COMMON_MASK_SH_LIST(_MASK)
++};
++
++#define vpg_regs(id)\
++[id] = {\
++	VPG_DCN3_REG_LIST(id)\
++}
++
++static const struct dcn30_vpg_registers vpg_regs[] = {
++	vpg_regs(0),
++	vpg_regs(1),
++	vpg_regs(2),
++	vpg_regs(3),
++	vpg_regs(4),
++	vpg_regs(5),
++	vpg_regs(6),
++	vpg_regs(7),
++	vpg_regs(8),
++	vpg_regs(9),
++};
++
++static const struct dcn30_vpg_shift vpg_shift = {
++	DCN3_VPG_MASK_SH_LIST(__SHIFT)
++};
++
++static const struct dcn30_vpg_mask vpg_mask = {
++	DCN3_VPG_MASK_SH_LIST(_MASK)
++};
++
++#define afmt_regs(id)\
++[id] = {\
++	AFMT_DCN3_REG_LIST(id)\
++}
++
++static const struct dcn30_afmt_registers afmt_regs[] = {
++	afmt_regs(0),
++	afmt_regs(1),
++	afmt_regs(2),
++	afmt_regs(3),
++	afmt_regs(4),
++	afmt_regs(5)
++};
++
++static const struct dcn30_afmt_shift afmt_shift = {
++	DCN3_AFMT_MASK_SH_LIST(__SHIFT)
++};
++
++static const struct dcn30_afmt_mask afmt_mask = {
++	DCN3_AFMT_MASK_SH_LIST(_MASK)
++};
++
++#define stream_enc_regs(id)\
++[id] = {\
++	SE_DCN3_REG_LIST(id)\
++}
++
++static const struct dcn10_stream_enc_registers stream_enc_regs[] = {
++	stream_enc_regs(0),
++	stream_enc_regs(1),
++	stream_enc_regs(2),
++	stream_enc_regs(3),
++	stream_enc_regs(4)
++};
++
++static const struct dcn10_stream_encoder_shift se_shift = {
++		SE_COMMON_MASK_SH_LIST_DCN30(__SHIFT)
++};
++
++static const struct dcn10_stream_encoder_mask se_mask = {
++		SE_COMMON_MASK_SH_LIST_DCN30(_MASK)
++};
++
++
++#define aux_regs(id)\
++[id] = {\
++	DCN2_AUX_REG_LIST(id)\
++}
++
++static const struct dcn10_link_enc_aux_registers link_enc_aux_regs[] = {
++		aux_regs(0),
++		aux_regs(1),
++		aux_regs(2),
++		aux_regs(3),
++		aux_regs(4)
++};
++
++#define hpd_regs(id)\
++[id] = {\
++	HPD_REG_LIST(id)\
++}
++
++static const struct dcn10_link_enc_hpd_registers link_enc_hpd_regs[] = {
++		hpd_regs(0),
++		hpd_regs(1),
++		hpd_regs(2),
++		hpd_regs(3),
++		hpd_regs(4)
++};
++
++#define link_regs(id, phyid)\
++[id] = {\
++	LE_DCN31_REG_LIST(id), \
++	UNIPHY_DCN2_REG_LIST(phyid), \
++	DPCS_DCN31_REG_LIST(id), \
++}
++
++static const struct dce110_aux_registers_shift aux_shift = {
++	DCN_AUX_MASK_SH_LIST(__SHIFT)
++};
++
++static const struct dce110_aux_registers_mask aux_mask = {
++	DCN_AUX_MASK_SH_LIST(_MASK)
++};
++
++static const struct dcn10_link_enc_registers link_enc_regs[] = {
++	link_regs(0, A),
++	link_regs(1, B),
++	link_regs(2, C),
++	link_regs(3, D),
++	link_regs(4, E)
++};
++
++static const struct dcn10_link_enc_shift le_shift = {
++	LINK_ENCODER_MASK_SH_LIST_DCN31(__SHIFT), \
++	DPCS_DCN31_MASK_SH_LIST(__SHIFT)
++};
++
++static const struct dcn10_link_enc_mask le_mask = {
++	LINK_ENCODER_MASK_SH_LIST_DCN31(_MASK), \
++	DPCS_DCN31_MASK_SH_LIST(_MASK)
++};
++
++#define dpp_regs(id)\
++[id] = {\
++	DPP_REG_LIST_DCN30(id),\
++}
++
++static const struct dcn3_dpp_registers dpp_regs[] = {
++	dpp_regs(0),
++	dpp_regs(1),
++	dpp_regs(2),
++	dpp_regs(3)
++};
++
++static const struct dcn3_dpp_shift tf_shift = {
++		DPP_REG_LIST_SH_MASK_DCN30(__SHIFT)
++};
++
++static const struct dcn3_dpp_mask tf_mask = {
++		DPP_REG_LIST_SH_MASK_DCN30(_MASK)
++};
++
++#define opp_regs(id)\
++[id] = {\
++	OPP_REG_LIST_DCN30(id),\
++}
++
++static const struct dcn20_opp_registers opp_regs[] = {
++	opp_regs(0),
++	opp_regs(1),
++	opp_regs(2),
++	opp_regs(3)
++};
++
++static const struct dcn20_opp_shift opp_shift = {
++	OPP_MASK_SH_LIST_DCN20(__SHIFT)
++};
++
++static const struct dcn20_opp_mask opp_mask = {
++	OPP_MASK_SH_LIST_DCN20(_MASK)
++};
++
++#define aux_engine_regs(id)\
++[id] = {\
++	AUX_COMMON_REG_LIST0(id), \
++	.AUXN_IMPCAL = 0, \
++	.AUXP_IMPCAL = 0, \
++	.AUX_RESET_MASK = DP_AUX0_AUX_CONTROL__AUX_RESET_MASK, \
++}
++
++static const struct dce110_aux_registers aux_engine_regs[] = {
++		aux_engine_regs(0),
++		aux_engine_regs(1),
++		aux_engine_regs(2),
++		aux_engine_regs(3),
++		aux_engine_regs(4)
++};
++
++#define dwbc_regs_dcn3(id)\
++[id] = {\
++	DWBC_COMMON_REG_LIST_DCN30(id),\
++}
++
++static const struct dcn30_dwbc_registers dwbc30_regs[] = {
++	dwbc_regs_dcn3(0),
++};
++
++static const struct dcn30_dwbc_shift dwbc30_shift = {
++	DWBC_COMMON_MASK_SH_LIST_DCN30(__SHIFT)
++};
++
++static const struct dcn30_dwbc_mask dwbc30_mask = {
++	DWBC_COMMON_MASK_SH_LIST_DCN30(_MASK)
++};
++
++#define mcif_wb_regs_dcn3(id)\
++[id] = {\
++	MCIF_WB_COMMON_REG_LIST_DCN30(id),\
++}
++
++static const struct dcn30_mmhubbub_registers mcif_wb30_regs[] = {
++	mcif_wb_regs_dcn3(0)
++};
++
++static const struct dcn30_mmhubbub_shift mcif_wb30_shift = {
++	MCIF_WB_COMMON_MASK_SH_LIST_DCN30(__SHIFT)
++};
++
++static const struct dcn30_mmhubbub_mask mcif_wb30_mask = {
++	MCIF_WB_COMMON_MASK_SH_LIST_DCN30(_MASK)
++};
++
++#define dsc_regsDCN20(id)\
++[id] = {\
++	DSC_REG_LIST_DCN20(id)\
++}
++
++static const struct dcn20_dsc_registers dsc_regs[] = {
++	dsc_regsDCN20(0),
++	dsc_regsDCN20(1),
++	dsc_regsDCN20(2)
++};
++
++static const struct dcn20_dsc_shift dsc_shift = {
++	DSC_REG_LIST_SH_MASK_DCN20(__SHIFT)
++};
++
++static const struct dcn20_dsc_mask dsc_mask = {
++	DSC_REG_LIST_SH_MASK_DCN20(_MASK)
++};
++
++static const struct dcn30_mpc_registers mpc_regs = {
++		MPC_REG_LIST_DCN3_0(0),
++		MPC_REG_LIST_DCN3_0(1),
++		MPC_REG_LIST_DCN3_0(2),
++		MPC_REG_LIST_DCN3_0(3),
++		MPC_OUT_MUX_REG_LIST_DCN3_0(0),
++		MPC_OUT_MUX_REG_LIST_DCN3_0(1),
++		MPC_OUT_MUX_REG_LIST_DCN3_0(2),
++		MPC_OUT_MUX_REG_LIST_DCN3_0(3),
++		MPC_RMU_GLOBAL_REG_LIST_DCN3AG,
++		MPC_RMU_REG_LIST_DCN3AG(0),
++		MPC_RMU_REG_LIST_DCN3AG(1),
++		//MPC_RMU_REG_LIST_DCN3AG(2),
++		MPC_DWB_MUX_REG_LIST_DCN3_0(0),
++};
++
++static const struct dcn30_mpc_shift mpc_shift = {
++	MPC_COMMON_MASK_SH_LIST_DCN30(__SHIFT)
++};
++
++static const struct dcn30_mpc_mask mpc_mask = {
++	MPC_COMMON_MASK_SH_LIST_DCN30(_MASK)
++};
++
++#define optc_regs(id)\
++[id] = {OPTC_COMMON_REG_LIST_DCN3_1(id)}
++
++static const struct dcn_optc_registers optc_regs[] = {
++	optc_regs(0),
++	optc_regs(1),
++	optc_regs(2),
++	optc_regs(3)
++};
++
++static const struct dcn_optc_shift optc_shift = {
++	OPTC_COMMON_MASK_SH_LIST_DCN3_1(__SHIFT)
++};
++
++static const struct dcn_optc_mask optc_mask = {
++	OPTC_COMMON_MASK_SH_LIST_DCN3_1(_MASK)
++};
++
++#define hubp_regs(id)\
++[id] = {\
++	HUBP_REG_LIST_DCN30(id)\
++}
++
++static const struct dcn_hubp2_registers hubp_regs[] = {
++		hubp_regs(0),
++		hubp_regs(1),
++		hubp_regs(2),
++		hubp_regs(3)
++};
++
++
++static const struct dcn_hubp2_shift hubp_shift = {
++		HUBP_MASK_SH_LIST_DCN31(__SHIFT)
++};
++
++static const struct dcn_hubp2_mask hubp_mask = {
++		HUBP_MASK_SH_LIST_DCN31(_MASK)
++};
++static const struct dcn_hubbub_registers hubbub_reg = {
++		HUBBUB_REG_LIST_DCN31(0)
++};
++
++static const struct dcn_hubbub_shift hubbub_shift = {
++		HUBBUB_MASK_SH_LIST_DCN31(__SHIFT)
++};
++
++static const struct dcn_hubbub_mask hubbub_mask = {
++		HUBBUB_MASK_SH_LIST_DCN31(_MASK)
++};
++
++static const struct dccg_registers dccg_regs = {
++		DCCG_REG_LIST_DCN31()
++};
++
++static const struct dccg_shift dccg_shift = {
++		DCCG_MASK_SH_LIST_DCN31(__SHIFT)
++};
++
++static const struct dccg_mask dccg_mask = {
++		DCCG_MASK_SH_LIST_DCN31(_MASK)
++};
++
++
++#define SRII2(reg_name_pre, reg_name_post, id)\
++	.reg_name_pre ## _ ##  reg_name_post[id] = BASE(reg ## reg_name_pre \
++			## id ## _ ## reg_name_post ## _BASE_IDX) + \
++			reg ## reg_name_pre ## id ## _ ## reg_name_post
++
++
++#define HWSEQ_DCN31_REG_LIST()\
++	SR(DCHUBBUB_GLOBAL_TIMER_CNTL), \
++	SR(DIO_MEM_PWR_CTRL), \
++	SR(ODM_MEM_PWR_CTRL3), \
++	SR(DMU_MEM_PWR_CNTL), \
++	SR(MMHUBBUB_MEM_PWR_CNTL), \
++	SR(DCCG_GATE_DISABLE_CNTL), \
++	SR(DCCG_GATE_DISABLE_CNTL2), \
++	SR(DCFCLK_CNTL),\
++	SR(DC_MEM_GLOBAL_PWR_REQ_CNTL), \
++	SRII(PIXEL_RATE_CNTL, OTG, 0), \
++	SRII(PIXEL_RATE_CNTL, OTG, 1),\
++	SRII(PIXEL_RATE_CNTL, OTG, 2),\
++	SRII(PIXEL_RATE_CNTL, OTG, 3),\
++	SRII(PHYPLL_PIXEL_RATE_CNTL, OTG, 0),\
++	SRII(PHYPLL_PIXEL_RATE_CNTL, OTG, 1),\
++	SRII(PHYPLL_PIXEL_RATE_CNTL, OTG, 2),\
++	SRII(PHYPLL_PIXEL_RATE_CNTL, OTG, 3),\
++	SR(MICROSECOND_TIME_BASE_DIV), \
++	SR(MILLISECOND_TIME_BASE_DIV), \
++	SR(DISPCLK_FREQ_CHANGE_CNTL), \
++	SR(RBBMIF_TIMEOUT_DIS), \
++	SR(RBBMIF_TIMEOUT_DIS_2), \
++	SR(DCHUBBUB_CRC_CTRL), \
++	SR(DPP_TOP0_DPP_CRC_CTRL), \
++	SR(DPP_TOP0_DPP_CRC_VAL_B_A), \
++	SR(DPP_TOP0_DPP_CRC_VAL_R_G), \
++	SR(MPC_CRC_CTRL), \
++	SR(MPC_CRC_RESULT_GB), \
++	SR(MPC_CRC_RESULT_C), \
++	SR(MPC_CRC_RESULT_AR), \
++	SR(DOMAIN0_PG_CONFIG), \
++	SR(DOMAIN1_PG_CONFIG), \
++	SR(DOMAIN2_PG_CONFIG), \
++	SR(DOMAIN3_PG_CONFIG), \
++	SR(DOMAIN16_PG_CONFIG), \
++	SR(DOMAIN17_PG_CONFIG), \
++	SR(DOMAIN18_PG_CONFIG), \
++	SR(DOMAIN0_PG_STATUS), \
++	SR(DOMAIN1_PG_STATUS), \
++	SR(DOMAIN2_PG_STATUS), \
++	SR(DOMAIN3_PG_STATUS), \
++	SR(DOMAIN16_PG_STATUS), \
++	SR(DOMAIN17_PG_STATUS), \
++	SR(DOMAIN18_PG_STATUS), \
++	SR(D1VGA_CONTROL), \
++	SR(D2VGA_CONTROL), \
++	SR(D3VGA_CONTROL), \
++	SR(D4VGA_CONTROL), \
++	SR(D5VGA_CONTROL), \
++	SR(D6VGA_CONTROL), \
++	SR(DC_IP_REQUEST_CNTL), \
++	SR(AZALIA_AUDIO_DTO), \
++	SR(AZALIA_CONTROLLER_CLOCK_GATING)
++
++static const struct dce_hwseq_registers hwseq_reg = {
++		HWSEQ_DCN31_REG_LIST()
++};
++
++#define HWSEQ_DCN31_MASK_SH_LIST(mask_sh)\
++	HWSEQ_DCN_MASK_SH_LIST(mask_sh), \
++	HWS_SF(, DCHUBBUB_GLOBAL_TIMER_CNTL, DCHUBBUB_GLOBAL_TIMER_REFDIV, mask_sh), \
++	HWS_SF(, DOMAIN0_PG_CONFIG, DOMAIN_POWER_FORCEON, mask_sh), \
++	HWS_SF(, DOMAIN0_PG_CONFIG, DOMAIN_POWER_GATE, mask_sh), \
++	HWS_SF(, DOMAIN1_PG_CONFIG, DOMAIN_POWER_FORCEON, mask_sh), \
++	HWS_SF(, DOMAIN1_PG_CONFIG, DOMAIN_POWER_GATE, mask_sh), \
++	HWS_SF(, DOMAIN2_PG_CONFIG, DOMAIN_POWER_FORCEON, mask_sh), \
++	HWS_SF(, DOMAIN2_PG_CONFIG, DOMAIN_POWER_GATE, mask_sh), \
++	HWS_SF(, DOMAIN3_PG_CONFIG, DOMAIN_POWER_FORCEON, mask_sh), \
++	HWS_SF(, DOMAIN3_PG_CONFIG, DOMAIN_POWER_GATE, mask_sh), \
++	HWS_SF(, DOMAIN16_PG_CONFIG, DOMAIN_POWER_FORCEON, mask_sh), \
++	HWS_SF(, DOMAIN16_PG_CONFIG, DOMAIN_POWER_GATE, mask_sh), \
++	HWS_SF(, DOMAIN17_PG_CONFIG, DOMAIN_POWER_FORCEON, mask_sh), \
++	HWS_SF(, DOMAIN17_PG_CONFIG, DOMAIN_POWER_GATE, mask_sh), \
++	HWS_SF(, DOMAIN18_PG_CONFIG, DOMAIN_POWER_FORCEON, mask_sh), \
++	HWS_SF(, DOMAIN18_PG_CONFIG, DOMAIN_POWER_GATE, mask_sh), \
++	HWS_SF(, DOMAIN0_PG_STATUS, DOMAIN_PGFSM_PWR_STATUS, mask_sh), \
++	HWS_SF(, DOMAIN1_PG_STATUS, DOMAIN_PGFSM_PWR_STATUS, mask_sh), \
++	HWS_SF(, DOMAIN2_PG_STATUS, DOMAIN_PGFSM_PWR_STATUS, mask_sh), \
++	HWS_SF(, DOMAIN3_PG_STATUS, DOMAIN_PGFSM_PWR_STATUS, mask_sh), \
++	HWS_SF(, DOMAIN16_PG_STATUS, DOMAIN_PGFSM_PWR_STATUS, mask_sh), \
++	HWS_SF(, DOMAIN17_PG_STATUS, DOMAIN_PGFSM_PWR_STATUS, mask_sh), \
++	HWS_SF(, DOMAIN18_PG_STATUS, DOMAIN_PGFSM_PWR_STATUS, mask_sh), \
++	HWS_SF(, DC_IP_REQUEST_CNTL, IP_REQUEST_EN, mask_sh), \
++	HWS_SF(, AZALIA_AUDIO_DTO, AZALIA_AUDIO_DTO_MODULE, mask_sh), \
++	HWS_SF(, HPO_TOP_CLOCK_CONTROL, HPO_HDMISTREAMCLK_G_GATE_DIS, mask_sh), \
++	HWS_SF(, DMU_MEM_PWR_CNTL, DMCU_ERAM_MEM_PWR_FORCE, mask_sh), \
++	HWS_SF(, ODM_MEM_PWR_CTRL3, ODM_MEM_UNASSIGNED_PWR_MODE, mask_sh), \
++	HWS_SF(, ODM_MEM_PWR_CTRL3, ODM_MEM_VBLANK_PWR_MODE, mask_sh), \
++	HWS_SF(, MMHUBBUB_MEM_PWR_CNTL, VGA_MEM_PWR_FORCE, mask_sh)
++
++static const struct dce_hwseq_shift hwseq_shift = {
++		HWSEQ_DCN31_MASK_SH_LIST(__SHIFT)
++};
++
++static const struct dce_hwseq_mask hwseq_mask = {
++		HWSEQ_DCN31_MASK_SH_LIST(_MASK)
++};
++#define vmid_regs(id)\
++[id] = {\
++		DCN20_VMID_REG_LIST(id)\
++}
++
++static const struct dcn_vmid_registers vmid_regs[] = {
++	vmid_regs(0),
++	vmid_regs(1),
++	vmid_regs(2),
++	vmid_regs(3),
++	vmid_regs(4),
++	vmid_regs(5),
++	vmid_regs(6),
++	vmid_regs(7),
++	vmid_regs(8),
++	vmid_regs(9),
++	vmid_regs(10),
++	vmid_regs(11),
++	vmid_regs(12),
++	vmid_regs(13),
++	vmid_regs(14),
++	vmid_regs(15)
++};
++
++static const struct dcn20_vmid_shift vmid_shifts = {
++		DCN20_VMID_MASK_SH_LIST(__SHIFT)
++};
++
++static const struct dcn20_vmid_mask vmid_masks = {
++		DCN20_VMID_MASK_SH_LIST(_MASK)
++};
++
++static const struct resource_caps res_cap_dcn31 = {
++	.num_timing_generator = 4,
++	.num_opp = 4,
++	.num_video_plane = 4,
++	.num_audio = 5,
++	.num_stream_encoder = 5,
++	.num_dig_link_enc = 5,
++	.num_pll = 5,
++	.num_dwb = 1,
++	.num_ddc = 5,
++	.num_vmid = 16,
++	.num_mpc_3dlut = 2,
++	.num_dsc = 3,
++};
++
++static const struct dc_plane_cap plane_cap = {
++	.type = DC_PLANE_TYPE_DCN_UNIVERSAL,
++	.blends_with_above = true,
++	.blends_with_below = true,
++	.per_pixel_alpha = true,
++
++	.pixel_format_support = {
++			.argb8888 = true,
++			.nv12 = true,
++			.fp16 = true,
++			.p010 = false,
++			.ayuv = false,
++	},
++
++	.max_upscale_factor = {
++			.argb8888 = 16000,
++			.nv12 = 16000,
++			.fp16 = 16000
++	},
++
++	// 6:1 downscaling ratio: 1000/6 = 166.666
++	.max_downscale_factor = {
++			.argb8888 = 167,
++			.nv12 = 167,
++			.fp16 = 167
++	},
++	64,
++	64
++};
++
++static const struct dc_debug_options debug_defaults_drv = {
++	.disable_dmcu = true,
++	.force_abm_enable = false,
++	.timing_trace = false,
++	.clock_trace = true,
++	.disable_pplib_clock_request = false,
++	.pipe_split_policy = MPC_SPLIT_AVOID,
++	.force_single_disp_pipe_split = false,
++	.disable_dcc = DCC_ENABLE,
++	.vsr_support = true,
++	.performance_trace = false,
++	.max_downscale_src_width = 7680,/*upto 8K*/
++	.disable_pplib_wm_range = false,
++	.scl_reset_length10 = true,
++	.sanity_checks = false,
++	.underflow_assert_delay_us = 0xFFFFFFFF,
++	.dwb_fi_phase = -1, // -1 = disable,
++	.dmub_command_table = true,
++	.pstate_enabled = true,
++	.use_max_lb = true,
++	.pstate_enabled = true,
++	.enable_mem_low_power = {
++		.bits = {
++			.vga = false,
++			.i2c = false,
++			.dmcu = false, // This is previously known to cause hang on S3 cycles if enabled
++			.dscl = false,
++			.cm = false,
++			.mpc = false,
++			.optc = false,
++		}
++	},
++	.optimize_edp_link_rate = true,
++	.enable_sw_cntl_psr = true,
++};
++
++static const struct dc_debug_options debug_defaults_diags = {
++	.disable_dmcu = true,
++	.force_abm_enable = false,
++	.timing_trace = true,
++	.clock_trace = true,
++	.disable_dpp_power_gate = true,
++	.disable_hubp_power_gate = true,
++	.disable_clock_gate = true,
++	.disable_pplib_clock_request = true,
++	.disable_pplib_wm_range = true,
++	.disable_stutter = false,
++	.scl_reset_length10 = true,
++	.dwb_fi_phase = -1, // -1 = disable
++	.dmub_command_table = true,
++	.enable_tri_buf = true,
++	.use_max_lb = true
++};
++
++static void dcn31_dpp_destroy(struct dpp **dpp)
++{
++	kfree(TO_DCN20_DPP(*dpp));
++	*dpp = NULL;
++}
++
++static struct dpp *dcn31_dpp_create(
++	struct dc_context *ctx,
++	uint32_t inst)
++{
++	struct dcn3_dpp *dpp =
++		kzalloc(sizeof(struct dcn3_dpp), GFP_KERNEL);
++
++	if (!dpp)
++		return NULL;
++
++	if (dpp3_construct(dpp, ctx, inst,
++			&dpp_regs[inst], &tf_shift, &tf_mask))
++		return &dpp->base;
++
++	BREAK_TO_DEBUGGER();
++	kfree(dpp);
++	return NULL;
++}
++
++static struct output_pixel_processor *dcn31_opp_create(
++	struct dc_context *ctx, uint32_t inst)
++{
++	struct dcn20_opp *opp =
++		kzalloc(sizeof(struct dcn20_opp), GFP_KERNEL);
++
++	if (!opp) {
++		BREAK_TO_DEBUGGER();
++		return NULL;
++	}
++
++	dcn20_opp_construct(opp, ctx, inst,
++			&opp_regs[inst], &opp_shift, &opp_mask);
++	return &opp->base;
++}
++
++static struct dce_aux *dcn31_aux_engine_create(
++	struct dc_context *ctx,
++	uint32_t inst)
++{
++	struct aux_engine_dce110 *aux_engine =
++		kzalloc(sizeof(struct aux_engine_dce110), GFP_KERNEL);
++
++	if (!aux_engine)
++		return NULL;
++
++	dce110_aux_engine_construct(aux_engine, ctx, inst,
++				    SW_AUX_TIMEOUT_PERIOD_MULTIPLIER * AUX_TIMEOUT_PERIOD,
++				    &aux_engine_regs[inst],
++					&aux_mask,
++					&aux_shift,
++					ctx->dc->caps.extended_aux_timeout_support);
++
++	return &aux_engine->base;
++}
++#define i2c_inst_regs(id) { I2C_HW_ENGINE_COMMON_REG_LIST_DCN30(id) }
++
++static const struct dce_i2c_registers i2c_hw_regs[] = {
++		i2c_inst_regs(1),
++		i2c_inst_regs(2),
++		i2c_inst_regs(3),
++		i2c_inst_regs(4),
++		i2c_inst_regs(5),
++};
++
++static const struct dce_i2c_shift i2c_shifts = {
++		I2C_COMMON_MASK_SH_LIST_DCN30(__SHIFT)
++};
++
++static const struct dce_i2c_mask i2c_masks = {
++		I2C_COMMON_MASK_SH_LIST_DCN30(_MASK)
++};
++
++static struct dce_i2c_hw *dcn31_i2c_hw_create(
++	struct dc_context *ctx,
++	uint32_t inst)
++{
++	struct dce_i2c_hw *dce_i2c_hw =
++		kzalloc(sizeof(struct dce_i2c_hw), GFP_KERNEL);
++
++	if (!dce_i2c_hw)
++		return NULL;
++
++	dcn2_i2c_hw_construct(dce_i2c_hw, ctx, inst,
++				    &i2c_hw_regs[inst], &i2c_shifts, &i2c_masks);
++
++	return dce_i2c_hw;
++}
++static struct mpc *dcn31_mpc_create(
++		struct dc_context *ctx,
++		int num_mpcc,
++		int num_rmu)
++{
++	struct dcn30_mpc *mpc30 = kzalloc(sizeof(struct dcn30_mpc),
++					  GFP_KERNEL);
++
++	if (!mpc30)
++		return NULL;
++
++	dcn30_mpc_construct(mpc30, ctx,
++			&mpc_regs,
++			&mpc_shift,
++			&mpc_mask,
++			num_mpcc,
++			num_rmu);
++
++	return &mpc30->base;
++}
++
++static struct hubbub *dcn31_hubbub_create(struct dc_context *ctx)
++{
++	int i;
++
++	struct dcn20_hubbub *hubbub3 = kzalloc(sizeof(struct dcn20_hubbub),
++					  GFP_KERNEL);
++
++	if (!hubbub3)
++		return NULL;
++
++	hubbub31_construct(hubbub3, ctx,
++			&hubbub_reg,
++			&hubbub_shift,
++			&hubbub_mask,
++			dcn3_1_ip.det_buffer_size_kbytes,
++			dcn3_1_ip.pixel_chunk_size_kbytes,
++			dcn3_1_ip.config_return_buffer_size_in_kbytes);
++
++
++	for (i = 0; i < res_cap_dcn31.num_vmid; i++) {
++		struct dcn20_vmid *vmid = &hubbub3->vmid[i];
++
++		vmid->ctx = ctx;
++
++		vmid->regs = &vmid_regs[i];
++		vmid->shifts = &vmid_shifts;
++		vmid->masks = &vmid_masks;
++	}
++
++	return &hubbub3->base;
++}
++
++static struct timing_generator *dcn31_timing_generator_create(
++		struct dc_context *ctx,
++		uint32_t instance)
++{
++	struct optc *tgn10 =
++		kzalloc(sizeof(struct optc), GFP_KERNEL);
++
++	if (!tgn10)
++		return NULL;
++
++	tgn10->base.inst = instance;
++	tgn10->base.ctx = ctx;
++
++	tgn10->tg_regs = &optc_regs[instance];
++	tgn10->tg_shift = &optc_shift;
++	tgn10->tg_mask = &optc_mask;
++
++	dcn31_timing_generator_init(tgn10);
++
++	return &tgn10->base;
++}
++
++static const struct encoder_feature_support link_enc_feature = {
++		.max_hdmi_deep_color = COLOR_DEPTH_121212,
++		.max_hdmi_pixel_clock = 600000,
++		.hdmi_ycbcr420_supported = true,
++		.dp_ycbcr420_supported = true,
++		.fec_supported = true,
++		.flags.bits.IS_HBR2_CAPABLE = true,
++		.flags.bits.IS_HBR3_CAPABLE = true,
++		.flags.bits.IS_TPS3_CAPABLE = true,
++		.flags.bits.IS_TPS4_CAPABLE = true
++};
++
++static struct link_encoder *dcn31_link_encoder_create(
++	const struct encoder_init_data *enc_init_data)
++{
++	struct dcn20_link_encoder *enc20 =
++		kzalloc(sizeof(struct dcn20_link_encoder), GFP_KERNEL);
++
++	if (!enc20)
++		return NULL;
++
++	dcn31_link_encoder_construct(enc20,
++			enc_init_data,
++			&link_enc_feature,
++			&link_enc_regs[enc_init_data->transmitter],
++			&link_enc_aux_regs[enc_init_data->channel - 1],
++			&link_enc_hpd_regs[enc_init_data->hpd_source],
++			&le_shift,
++			&le_mask);
++
++	return &enc20->enc10.base;
++}
++
++/* Create a minimal link encoder object not associated with a particular
++ * physical connector.
++ * resource_funcs.link_enc_create_minimal
++ */
++static struct link_encoder *dcn31_link_enc_create_minimal(
++		struct dc_context *ctx, enum engine_id eng_id)
++{
++	struct dcn20_link_encoder *enc20;
++
++	if ((eng_id - ENGINE_ID_DIGA) > ctx->dc->res_pool->res_cap->num_dig_link_enc)
++		return NULL;
++
++	enc20 = kzalloc(sizeof(struct dcn20_link_encoder), GFP_KERNEL);
++	if (!enc20)
++		return NULL;
++
++	dcn31_link_encoder_construct_minimal(
++			enc20,
++			ctx,
++			&link_enc_feature,
++			&link_enc_regs[eng_id - ENGINE_ID_DIGA],
++			eng_id);
++
++	return &enc20->enc10.base;
++}
++
++struct panel_cntl *dcn31_panel_cntl_create(const struct panel_cntl_init_data *init_data)
++{
++	struct dcn31_panel_cntl *panel_cntl =
++		kzalloc(sizeof(struct dcn31_panel_cntl), GFP_KERNEL);
++
++	if (!panel_cntl)
++		return NULL;
++
++	dcn31_panel_cntl_construct(panel_cntl, init_data);
++
++	return &panel_cntl->base;
++}
++
++static void read_dce_straps(
++	struct dc_context *ctx,
++	struct resource_straps *straps)
++{
++	generic_reg_get(ctx, regDC_PINSTRAPS + BASE(regDC_PINSTRAPS_BASE_IDX),
++		FN(DC_PINSTRAPS, DC_PINSTRAPS_AUDIO), &straps->dc_pinstraps_audio);
++
++}
++
++static struct audio *dcn31_create_audio(
++		struct dc_context *ctx, unsigned int inst)
++{
++	return dce_audio_create(ctx, inst,
++			&audio_regs[inst], &audio_shift, &audio_mask);
++}
++
++static struct vpg *dcn31_vpg_create(
++	struct dc_context *ctx,
++	uint32_t inst)
++{
++	struct dcn30_vpg *vpg3 = kzalloc(sizeof(struct dcn30_vpg), GFP_KERNEL);
++
++	if (!vpg3)
++		return NULL;
++
++	vpg3_construct(vpg3, ctx, inst,
++			&vpg_regs[inst],
++			&vpg_shift,
++			&vpg_mask);
++
++	return &vpg3->base;
++}
++
++static struct afmt *dcn31_afmt_create(
++	struct dc_context *ctx,
++	uint32_t inst)
++{
++	struct dcn30_afmt *afmt3 = kzalloc(sizeof(struct dcn30_afmt), GFP_KERNEL);
++
++	if (!afmt3)
++		return NULL;
++
++	afmt3_construct(afmt3, ctx, inst,
++			&afmt_regs[inst],
++			&afmt_shift,
++			&afmt_mask);
++
++	return &afmt3->base;
++}
++
++static struct stream_encoder *dcn31_stream_encoder_create(
++	enum engine_id eng_id,
++	struct dc_context *ctx)
++{
++	struct dcn10_stream_encoder *enc1;
++	struct vpg *vpg;
++	struct afmt *afmt;
++	int vpg_inst;
++	int afmt_inst;
++
++	/* Mapping of VPG, AFMT, DME register blocks to DIO block instance */
++	if (eng_id <= ENGINE_ID_DIGF) {
++		vpg_inst = eng_id;
++		afmt_inst = eng_id;
++	} else
++		return NULL;
++
++	enc1 = kzalloc(sizeof(struct dcn10_stream_encoder), GFP_KERNEL);
++	vpg = dcn31_vpg_create(ctx, vpg_inst);
++	afmt = dcn31_afmt_create(ctx, afmt_inst);
++
++	if (!enc1 || !vpg || !afmt)
++		return NULL;
++
++	dcn30_dio_stream_encoder_construct(enc1, ctx, ctx->dc_bios,
++					eng_id, vpg, afmt,
++					&stream_enc_regs[eng_id],
++					&se_shift, &se_mask);
++
++	return &enc1->base;
++}
++
++static struct dce_hwseq *dcn31_hwseq_create(
++	struct dc_context *ctx)
++{
++	struct dce_hwseq *hws = kzalloc(sizeof(struct dce_hwseq), GFP_KERNEL);
++
++	if (hws) {
++		hws->ctx = ctx;
++		hws->regs = &hwseq_reg;
++		hws->shifts = &hwseq_shift;
++		hws->masks = &hwseq_mask;
++	}
++	return hws;
++}
++static const struct resource_create_funcs res_create_funcs = {
++	.read_dce_straps = read_dce_straps,
++	.create_audio = dcn31_create_audio,
++	.create_stream_encoder = dcn31_stream_encoder_create,
++	.create_hwseq = dcn31_hwseq_create,
++};
++
++static const struct resource_create_funcs res_create_maximus_funcs = {
++	.read_dce_straps = NULL,
++	.create_audio = NULL,
++	.create_stream_encoder = NULL,
++	.create_hwseq = dcn31_hwseq_create,
++};
++
++static void dcn31_resource_destruct(struct dcn31_resource_pool *pool)
++{
++	unsigned int i;
++
++	for (i = 0; i < pool->base.stream_enc_count; i++) {
++		if (pool->base.stream_enc[i] != NULL) {
++			if (pool->base.stream_enc[i]->vpg != NULL) {
++				kfree(DCN30_VPG_FROM_VPG(pool->base.stream_enc[i]->vpg));
++				pool->base.stream_enc[i]->vpg = NULL;
++			}
++			if (pool->base.stream_enc[i]->afmt != NULL) {
++				kfree(DCN30_AFMT_FROM_AFMT(pool->base.stream_enc[i]->afmt));
++				pool->base.stream_enc[i]->afmt = NULL;
++			}
++			kfree(DCN10STRENC_FROM_STRENC(pool->base.stream_enc[i]));
++			pool->base.stream_enc[i] = NULL;
++		}
++	}
++
++	for (i = 0; i < pool->base.res_cap->num_dsc; i++) {
++		if (pool->base.dscs[i] != NULL)
++			dcn20_dsc_destroy(&pool->base.dscs[i]);
++	}
++
++	if (pool->base.mpc != NULL) {
++		kfree(TO_DCN20_MPC(pool->base.mpc));
++		pool->base.mpc = NULL;
++	}
++	if (pool->base.hubbub != NULL) {
++		kfree(pool->base.hubbub);
++		pool->base.hubbub = NULL;
++	}
++	for (i = 0; i < pool->base.pipe_count; i++) {
++		if (pool->base.dpps[i] != NULL)
++			dcn31_dpp_destroy(&pool->base.dpps[i]);
++
++		if (pool->base.ipps[i] != NULL)
++			pool->base.ipps[i]->funcs->ipp_destroy(&pool->base.ipps[i]);
++
++		if (pool->base.hubps[i] != NULL) {
++			kfree(TO_DCN20_HUBP(pool->base.hubps[i]));
++			pool->base.hubps[i] = NULL;
++		}
++
++		if (pool->base.irqs != NULL) {
++			dal_irq_service_destroy(&pool->base.irqs);
++		}
++	}
++
++	for (i = 0; i < pool->base.res_cap->num_ddc; i++) {
++		if (pool->base.engines[i] != NULL)
++			dce110_engine_destroy(&pool->base.engines[i]);
++		if (pool->base.hw_i2cs[i] != NULL) {
++			kfree(pool->base.hw_i2cs[i]);
++			pool->base.hw_i2cs[i] = NULL;
++		}
++		if (pool->base.sw_i2cs[i] != NULL) {
++			kfree(pool->base.sw_i2cs[i]);
++			pool->base.sw_i2cs[i] = NULL;
++		}
++	}
++
++	for (i = 0; i < pool->base.res_cap->num_opp; i++) {
++		if (pool->base.opps[i] != NULL)
++			pool->base.opps[i]->funcs->opp_destroy(&pool->base.opps[i]);
++	}
++
++	for (i = 0; i < pool->base.res_cap->num_timing_generator; i++) {
++		if (pool->base.timing_generators[i] != NULL)	{
++			kfree(DCN10TG_FROM_TG(pool->base.timing_generators[i]));
++			pool->base.timing_generators[i] = NULL;
++		}
++	}
++
++	for (i = 0; i < pool->base.res_cap->num_dwb; i++) {
++		if (pool->base.dwbc[i] != NULL) {
++			kfree(TO_DCN30_DWBC(pool->base.dwbc[i]));
++			pool->base.dwbc[i] = NULL;
++		}
++		if (pool->base.mcif_wb[i] != NULL) {
++			kfree(TO_DCN30_MMHUBBUB(pool->base.mcif_wb[i]));
++			pool->base.mcif_wb[i] = NULL;
++		}
++	}
++
++	for (i = 0; i < pool->base.audio_count; i++) {
++		if (pool->base.audios[i])
++			dce_aud_destroy(&pool->base.audios[i]);
++	}
++
++	for (i = 0; i < pool->base.clk_src_count; i++) {
++		if (pool->base.clock_sources[i] != NULL) {
++			dcn20_clock_source_destroy(&pool->base.clock_sources[i]);
++			pool->base.clock_sources[i] = NULL;
++		}
++	}
++
++	for (i = 0; i < pool->base.res_cap->num_mpc_3dlut; i++) {
++		if (pool->base.mpc_lut[i] != NULL) {
++			dc_3dlut_func_release(pool->base.mpc_lut[i]);
++			pool->base.mpc_lut[i] = NULL;
++		}
++		if (pool->base.mpc_shaper[i] != NULL) {
++			dc_transfer_func_release(pool->base.mpc_shaper[i]);
++			pool->base.mpc_shaper[i] = NULL;
++		}
++	}
++
++	if (pool->base.dp_clock_source != NULL) {
++		dcn20_clock_source_destroy(&pool->base.dp_clock_source);
++		pool->base.dp_clock_source = NULL;
++	}
++
++	for (i = 0; i < pool->base.res_cap->num_timing_generator; i++) {
++		if (pool->base.multiple_abms[i] != NULL)
++			dce_abm_destroy(&pool->base.multiple_abms[i]);
++	}
++
++	if (pool->base.psr != NULL)
++		dmub_psr_destroy(&pool->base.psr);
++
++	if (pool->base.dccg != NULL)
++		dcn_dccg_destroy(&pool->base.dccg);
++}
++
++static struct hubp *dcn31_hubp_create(
++	struct dc_context *ctx,
++	uint32_t inst)
++{
++	struct dcn20_hubp *hubp2 =
++		kzalloc(sizeof(struct dcn20_hubp), GFP_KERNEL);
++
++	if (!hubp2)
++		return NULL;
++
++	if (hubp31_construct(hubp2, ctx, inst,
++			&hubp_regs[inst], &hubp_shift, &hubp_mask))
++		return &hubp2->base;
++
++	BREAK_TO_DEBUGGER();
++	kfree(hubp2);
++	return NULL;
++}
++
++static bool dcn31_dwbc_create(struct dc_context *ctx, struct resource_pool *pool)
++{
++	int i;
++	uint32_t pipe_count = pool->res_cap->num_dwb;
++
++	for (i = 0; i < pipe_count; i++) {
++		struct dcn30_dwbc *dwbc30 = kzalloc(sizeof(struct dcn30_dwbc),
++						    GFP_KERNEL);
++
++		if (!dwbc30) {
++			dm_error("DC: failed to create dwbc30!\n");
++			return false;
++		}
++
++		dcn30_dwbc_construct(dwbc30, ctx,
++				&dwbc30_regs[i],
++				&dwbc30_shift,
++				&dwbc30_mask,
++				i);
++
++		pool->dwbc[i] = &dwbc30->base;
++	}
++	return true;
++}
++
++static bool dcn31_mmhubbub_create(struct dc_context *ctx, struct resource_pool *pool)
++{
++	int i;
++	uint32_t pipe_count = pool->res_cap->num_dwb;
++
++	for (i = 0; i < pipe_count; i++) {
++		struct dcn30_mmhubbub *mcif_wb30 = kzalloc(sizeof(struct dcn30_mmhubbub),
++						    GFP_KERNEL);
++
++		if (!mcif_wb30) {
++			dm_error("DC: failed to create mcif_wb30!\n");
++			return false;
++		}
++
++		dcn30_mmhubbub_construct(mcif_wb30, ctx,
++				&mcif_wb30_regs[i],
++				&mcif_wb30_shift,
++				&mcif_wb30_mask,
++				i);
++
++		pool->mcif_wb[i] = &mcif_wb30->base;
++	}
++	return true;
++}
++
++static struct display_stream_compressor *dcn31_dsc_create(
++	struct dc_context *ctx, uint32_t inst)
++{
++	struct dcn20_dsc *dsc =
++		kzalloc(sizeof(struct dcn20_dsc), GFP_KERNEL);
++
++	if (!dsc) {
++		BREAK_TO_DEBUGGER();
++		return NULL;
++	}
++
++	dsc2_construct(dsc, ctx, inst, &dsc_regs[inst], &dsc_shift, &dsc_mask);
++	return &dsc->base;
++}
++
++static void dcn31_destroy_resource_pool(struct resource_pool **pool)
++{
++	struct dcn31_resource_pool *dcn31_pool = TO_DCN31_RES_POOL(*pool);
++
++	dcn31_resource_destruct(dcn31_pool);
++	kfree(dcn31_pool);
++	*pool = NULL;
++}
++
++static struct clock_source *dcn31_clock_source_create(
++		struct dc_context *ctx,
++		struct dc_bios *bios,
++		enum clock_source_id id,
++		const struct dce110_clk_src_regs *regs,
++		bool dp_clk_src)
++{
++	struct dce110_clk_src *clk_src =
++		kzalloc(sizeof(struct dce110_clk_src), GFP_KERNEL);
++
++	if (!clk_src)
++		return NULL;
++
++	if (dcn3_clk_src_construct(clk_src, ctx, bios, id,
++			regs, &cs_shift, &cs_mask)) {
++		clk_src->base.dp_clk_src = dp_clk_src;
++		return &clk_src->base;
++	}
++
++	BREAK_TO_DEBUGGER();
++	return NULL;
++}
++
++static bool is_dual_plane(enum surface_pixel_format format)
++{
++	return format >= SURFACE_PIXEL_FORMAT_VIDEO_BEGIN || format == SURFACE_PIXEL_FORMAT_GRPH_RGBE_ALPHA;
++}
++
++static int dcn31_populate_dml_pipes_from_context(
++	struct dc *dc, struct dc_state *context,
++	display_e2e_pipe_params_st *pipes,
++	bool fast_validate)
++{
++	int i, pipe_cnt;
++	struct resource_context *res_ctx = &context->res_ctx;
++	struct pipe_ctx *pipe;
++
++	dcn20_populate_dml_pipes_from_context(dc, context, pipes, fast_validate);
++
++	for (i = 0, pipe_cnt = 0; i < dc->res_pool->pipe_count; i++) {
++		struct dc_crtc_timing *timing;
++
++		if (!res_ctx->pipe_ctx[i].stream)
++			continue;
++		pipe = &res_ctx->pipe_ctx[i];
++		timing = &pipe->stream->timing;
++
++		pipes[pipe_cnt].pipe.src.unbounded_req_mode = false;
++		pipes[pipe_cnt].pipe.src.gpuvm = true;
++		pipes[pipe_cnt].pipe.src.dcc_fraction_of_zs_req_luma = 0;
++		pipes[pipe_cnt].pipe.src.dcc_fraction_of_zs_req_chroma = 0;
++		pipes[pipe_cnt].pipe.dest.vfront_porch = timing->v_front_porch;
++		pipes[pipe_cnt].pipe.src.dcc_rate = 3;
++		pipes[pipe_cnt].dout.dsc_input_bpc = 0;
++
++		if (pipes[pipe_cnt].dout.dsc_enable) {
++			switch (timing->display_color_depth) {
++			case COLOR_DEPTH_888:
++				pipes[pipe_cnt].dout.dsc_input_bpc = 8;
++				break;
++			case COLOR_DEPTH_101010:
++				pipes[pipe_cnt].dout.dsc_input_bpc = 10;
++				break;
++			case COLOR_DEPTH_121212:
++				pipes[pipe_cnt].dout.dsc_input_bpc = 12;
++				break;
++			default:
++				ASSERT(0);
++				break;
++			}
++		}
++
++		pipe_cnt++;
++	}
++	context->bw_ctx.dml.ip.det_buffer_size_kbytes = DCN3_1_DEFAULT_DET_SIZE;
++	dc->config.enable_4to1MPC = false;
++	if (pipe_cnt == 1 && pipe->plane_state && !dc->debug.disable_z9_mpc) {
++		if (is_dual_plane(pipe->plane_state->format)
++				&& pipe->plane_state->src_rect.width <= 1920 && pipe->plane_state->src_rect.height <= 1080) {
++			dc->config.enable_4to1MPC = true;
++		} else if (!is_dual_plane(pipe->plane_state->format)) {
++			context->bw_ctx.dml.ip.det_buffer_size_kbytes = 192;
++			pipes[0].pipe.src.unbounded_req_mode = true;
++		}
++	}
++
++	return pipe_cnt;
++}
++
++static void dcn31_update_soc_for_wm_a(struct dc *dc, struct dc_state *context)
++{
++	if (dc->clk_mgr->bw_params->wm_table.entries[WM_A].valid) {
++		context->bw_ctx.dml.soc.dram_clock_change_latency_us = dc->clk_mgr->bw_params->wm_table.entries[WM_A].pstate_latency_us;
++		context->bw_ctx.dml.soc.sr_enter_plus_exit_time_us = dc->clk_mgr->bw_params->wm_table.entries[WM_A].sr_enter_plus_exit_time_us;
++		context->bw_ctx.dml.soc.sr_exit_time_us = dc->clk_mgr->bw_params->wm_table.entries[WM_A].sr_exit_time_us;
++	}
++}
++
++static void dcn31_calculate_wm_and_dlg(
++		struct dc *dc, struct dc_state *context,
++		display_e2e_pipe_params_st *pipes,
++		int pipe_cnt,
++		int vlevel)
++{
++	int i, pipe_idx;
++	double dcfclk = context->bw_ctx.dml.vba.DCFCLKState[vlevel][context->bw_ctx.dml.vba.maxMpcComb];
++
++	if (context->bw_ctx.dml.soc.min_dcfclk > dcfclk)
++		dcfclk = context->bw_ctx.dml.soc.min_dcfclk;
++
++	pipes[0].clks_cfg.voltage = vlevel;
++	pipes[0].clks_cfg.dcfclk_mhz = dcfclk;
++	pipes[0].clks_cfg.socclk_mhz = context->bw_ctx.dml.soc.clock_limits[vlevel].socclk_mhz;
++
++#if 0 // TODO
++	/* Set B:
++	 * TODO
++	 */
++	if (dc->clk_mgr->bw_params->wm_table.nv_entries[WM_B].valid) {
++		if (vlevel == 0) {
++			pipes[0].clks_cfg.voltage = 1;
++			pipes[0].clks_cfg.dcfclk_mhz = context->bw_ctx.dml.soc.clock_limits[0].dcfclk_mhz;
++		}
++		context->bw_ctx.dml.soc.dram_clock_change_latency_us = dc->clk_mgr->bw_params->wm_table.nv_entries[WM_B].dml_input.pstate_latency_us;
++		context->bw_ctx.dml.soc.sr_enter_plus_exit_time_us = dc->clk_mgr->bw_params->wm_table.nv_entries[WM_B].dml_input.sr_enter_plus_exit_time_us;
++		context->bw_ctx.dml.soc.sr_exit_time_us = dc->clk_mgr->bw_params->wm_table.nv_entries[WM_B].dml_input.sr_exit_time_us;
++	}
++	context->bw_ctx.bw.dcn.watermarks.b.urgent_ns = get_wm_urgent(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
++	context->bw_ctx.bw.dcn.watermarks.b.cstate_pstate.cstate_enter_plus_exit_ns = get_wm_stutter_enter_exit(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
++	context->bw_ctx.bw.dcn.watermarks.b.cstate_pstate.cstate_exit_ns = get_wm_stutter_exit(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
++	context->bw_ctx.bw.dcn.watermarks.b.cstate_pstate.cstate_enter_plus_exit_z8_ns = get_wm_z8_stutter_enter_exit(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
++	context->bw_ctx.bw.dcn.watermarks.b.cstate_pstate.cstate_exit_z8_ns = get_wm_z8_stutter_exit(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
++	context->bw_ctx.bw.dcn.watermarks.b.cstate_pstate.pstate_change_ns = get_wm_dram_clock_change(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
++	context->bw_ctx.bw.dcn.watermarks.b.pte_meta_urgent_ns = get_wm_memory_trip(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
++	context->bw_ctx.bw.dcn.watermarks.b.frac_urg_bw_nom = get_fraction_of_urgent_bandwidth(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
++	context->bw_ctx.bw.dcn.watermarks.b.frac_urg_bw_flip = get_fraction_of_urgent_bandwidth_imm_flip(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
++	context->bw_ctx.bw.dcn.watermarks.b.urgent_latency_ns = get_urgent_latency(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
++
++	pipes[0].clks_cfg.voltage = vlevel;
++	pipes[0].clks_cfg.dcfclk_mhz = dcfclk;
++
++	/* Set C:
++	 * TODO
++	 */
++	if (dc->clk_mgr->bw_params->wm_table.nv_entries[WM_C].valid) {
++		context->bw_ctx.dml.soc.dram_clock_change_latency_us = dc->clk_mgr->bw_params->wm_table.nv_entries[WM_C].dml_input.pstate_latency_us;
++		context->bw_ctx.dml.soc.sr_enter_plus_exit_time_us = dc->clk_mgr->bw_params->wm_table.nv_entries[WM_C].dml_input.sr_enter_plus_exit_time_us;
++		context->bw_ctx.dml.soc.sr_exit_time_us = dc->clk_mgr->bw_params->wm_table.nv_entries[WM_C].dml_input.sr_exit_time_us;
++	}
++	context->bw_ctx.bw.dcn.watermarks.c.urgent_ns = get_wm_urgent(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
++	context->bw_ctx.bw.dcn.watermarks.c.cstate_pstate.cstate_enter_plus_exit_ns = get_wm_stutter_enter_exit(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
++	context->bw_ctx.bw.dcn.watermarks.c.cstate_pstate.cstate_exit_ns = get_wm_stutter_exit(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
++	context->bw_ctx.bw.dcn.watermarks.c.cstate_pstate.cstate_enter_plus_exit_z8_ns = get_wm_z8_stutter_enter_exit(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
++	context->bw_ctx.bw.dcn.watermarks.c.cstate_pstate.cstate_exit_z8_ns = get_wm_z8_stutter_exit(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
++	context->bw_ctx.bw.dcn.watermarks.c.cstate_pstate.pstate_change_ns = get_wm_dram_clock_change(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
++	context->bw_ctx.bw.dcn.watermarks.c.pte_meta_urgent_ns = get_wm_memory_trip(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
++	context->bw_ctx.bw.dcn.watermarks.c.frac_urg_bw_nom = get_fraction_of_urgent_bandwidth(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
++	context->bw_ctx.bw.dcn.watermarks.c.frac_urg_bw_flip = get_fraction_of_urgent_bandwidth_imm_flip(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
++	context->bw_ctx.bw.dcn.watermarks.c.urgent_latency_ns = get_urgent_latency(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
++
++	/* Set D:
++	 * TODO
++	 */
++	if (dc->clk_mgr->bw_params->wm_table.nv_entries[WM_D].valid) {
++		context->bw_ctx.dml.soc.dram_clock_change_latency_us = dc->clk_mgr->bw_params->wm_table.nv_entries[WM_D].dml_input.pstate_latency_us;
++		context->bw_ctx.dml.soc.sr_enter_plus_exit_time_us = dc->clk_mgr->bw_params->wm_table.nv_entries[WM_D].dml_input.sr_enter_plus_exit_time_us;
++		context->bw_ctx.dml.soc.sr_exit_time_us = dc->clk_mgr->bw_params->wm_table.nv_entries[WM_D].dml_input.sr_exit_time_us;
++	}
++	context->bw_ctx.bw.dcn.watermarks.d.urgent_ns = get_wm_urgent(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
++	context->bw_ctx.bw.dcn.watermarks.d.cstate_pstate.cstate_enter_plus_exit_ns = get_wm_stutter_enter_exit(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
++	context->bw_ctx.bw.dcn.watermarks.d.cstate_pstate.cstate_exit_ns = get_wm_stutter_exit(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
++	context->bw_ctx.bw.dcn.watermarks.d.cstate_pstate.pstate_change_ns = get_wm_dram_clock_change(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
++	context->bw_ctx.bw.dcn.watermarks.d.cstate_pstate.cstate_enter_plus_exit_z8_ns = get_wm_z8_stutter_enter_exit(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
++	context->bw_ctx.bw.dcn.watermarks.d.cstate_pstate.cstate_exit_z8_ns = get_wm_z8_stutter_exit(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
++	context->bw_ctx.bw.dcn.watermarks.d.pte_meta_urgent_ns = get_wm_memory_trip(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
++	context->bw_ctx.bw.dcn.watermarks.d.frac_urg_bw_nom = get_fraction_of_urgent_bandwidth(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
++	context->bw_ctx.bw.dcn.watermarks.d.frac_urg_bw_flip = get_fraction_of_urgent_bandwidth_imm_flip(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
++	context->bw_ctx.bw.dcn.watermarks.d.urgent_latency_ns = get_urgent_latency(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
 +#endif
- 	uint32_t cstate_enter_plus_exit_ns;
- 	uint32_t pstate_change_ns;
- };
++
++	/* Set A:
++	 * All clocks min required
++	 *
++	 * Set A calculated last so that following calculations are based on Set A
++	 */
++	dc->res_pool->funcs->update_soc_for_wm_a(dc, context);
++	context->bw_ctx.bw.dcn.watermarks.a.urgent_ns = get_wm_urgent(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
++	context->bw_ctx.bw.dcn.watermarks.a.cstate_pstate.cstate_enter_plus_exit_ns = get_wm_stutter_enter_exit(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
++	context->bw_ctx.bw.dcn.watermarks.a.cstate_pstate.cstate_exit_ns = get_wm_stutter_exit(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
++	context->bw_ctx.bw.dcn.watermarks.a.cstate_pstate.pstate_change_ns = get_wm_dram_clock_change(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
++	context->bw_ctx.bw.dcn.watermarks.a.cstate_pstate.cstate_enter_plus_exit_z8_ns = get_wm_z8_stutter_enter_exit(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
++	context->bw_ctx.bw.dcn.watermarks.a.cstate_pstate.cstate_exit_z8_ns = get_wm_z8_stutter_exit(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
++	context->bw_ctx.bw.dcn.watermarks.a.pte_meta_urgent_ns = get_wm_memory_trip(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
++	context->bw_ctx.bw.dcn.watermarks.a.frac_urg_bw_nom = get_fraction_of_urgent_bandwidth(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
++	context->bw_ctx.bw.dcn.watermarks.a.frac_urg_bw_flip = get_fraction_of_urgent_bandwidth_imm_flip(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
++	context->bw_ctx.bw.dcn.watermarks.a.urgent_latency_ns = get_urgent_latency(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
++	/* TODO: remove: */
++	context->bw_ctx.bw.dcn.watermarks.b = context->bw_ctx.bw.dcn.watermarks.a;
++	context->bw_ctx.bw.dcn.watermarks.c = context->bw_ctx.bw.dcn.watermarks.a;
++	context->bw_ctx.bw.dcn.watermarks.d = context->bw_ctx.bw.dcn.watermarks.a;
++	/* end remove*/
++
++	for (i = 0, pipe_idx = 0; i < dc->res_pool->pipe_count; i++) {
++		if (!context->res_ctx.pipe_ctx[i].stream)
++			continue;
++
++		pipes[pipe_idx].clks_cfg.dispclk_mhz = get_dispclk_calculated(&context->bw_ctx.dml, pipes, pipe_cnt);
++		pipes[pipe_idx].clks_cfg.dppclk_mhz = get_dppclk_calculated(&context->bw_ctx.dml, pipes, pipe_cnt, pipe_idx);
++
++		if (dc->config.forced_clocks) {
++			pipes[pipe_idx].clks_cfg.dispclk_mhz = context->bw_ctx.dml.soc.clock_limits[0].dispclk_mhz;
++			pipes[pipe_idx].clks_cfg.dppclk_mhz = context->bw_ctx.dml.soc.clock_limits[0].dppclk_mhz;
++		}
++		if (dc->debug.min_disp_clk_khz > pipes[pipe_idx].clks_cfg.dispclk_mhz * 1000)
++			pipes[pipe_idx].clks_cfg.dispclk_mhz = dc->debug.min_disp_clk_khz / 1000.0;
++		if (dc->debug.min_dpp_clk_khz > pipes[pipe_idx].clks_cfg.dppclk_mhz * 1000)
++			pipes[pipe_idx].clks_cfg.dppclk_mhz = dc->debug.min_dpp_clk_khz / 1000.0;
++
++		pipe_idx++;
++	}
++
++	dcn20_calculate_dlg_params(dc, context, pipes, pipe_cnt, vlevel);
++}
++
++static struct dc_cap_funcs cap_funcs = {
++	.get_dcc_compression_cap = dcn20_get_dcc_compression_cap
++};
++
++static void dcn31_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params)
++{
++	struct clk_limit_table *clk_table = &bw_params->clk_table;
++	struct _vcs_dpi_voltage_scaling_st clock_limits[DC__VOLTAGE_STATES];
++	unsigned int i, closest_clk_lvl;
++	int j;
++
++	// Default clock levels are used for diags, which may lead to overclocking.
++	if (!IS_DIAG_DC(dc->ctx->dce_environment)) {
++		int max_dispclk_mhz = 0, max_dppclk_mhz = 0;
++
++		dcn3_1_ip.max_num_otg = dc->res_pool->res_cap->num_timing_generator;
++		dcn3_1_ip.max_num_dpp = dc->res_pool->pipe_count;
++		dcn3_1_soc.num_chans = bw_params->num_channels;
++
++		ASSERT(clk_table->num_entries);
++
++		/* Prepass to find max clocks independent of voltage level. */
++		for (i = 0; i < clk_table->num_entries; ++i) {
++			if (clk_table->entries[i].dispclk_mhz > max_dispclk_mhz)
++				max_dispclk_mhz = clk_table->entries[i].dispclk_mhz;
++			if (clk_table->entries[i].dppclk_mhz > max_dppclk_mhz)
++				max_dppclk_mhz = clk_table->entries[i].dppclk_mhz;
++		}
++
++		for (i = 0; i < clk_table->num_entries; i++) {
++			/* loop backwards*/
++			for (closest_clk_lvl = 0, j = dcn3_1_soc.num_states - 1; j >= 0; j--) {
++				if ((unsigned int) dcn3_1_soc.clock_limits[j].dcfclk_mhz <= clk_table->entries[i].dcfclk_mhz) {
++					closest_clk_lvl = j;
++					break;
++				}
++			}
++
++			clock_limits[i].state = i;
++
++			/* Clocks dependent on voltage level. */
++			clock_limits[i].dcfclk_mhz = clk_table->entries[i].dcfclk_mhz;
++			clock_limits[i].fabricclk_mhz = clk_table->entries[i].fclk_mhz;
++			clock_limits[i].socclk_mhz = clk_table->entries[i].socclk_mhz;
++			clock_limits[i].dram_speed_mts = clk_table->entries[i].memclk_mhz * 2 * clk_table->entries[i].wck_ratio;
++
++			/* Clocks independent of voltage level. */
++			clock_limits[i].dispclk_mhz = max_dispclk_mhz ? max_dispclk_mhz :
++				dcn3_1_soc.clock_limits[closest_clk_lvl].dispclk_mhz;
++
++			clock_limits[i].dppclk_mhz = max_dppclk_mhz ? max_dppclk_mhz :
++				dcn3_1_soc.clock_limits[closest_clk_lvl].dppclk_mhz;
++
++			clock_limits[i].dram_bw_per_chan_gbps = dcn3_1_soc.clock_limits[closest_clk_lvl].dram_bw_per_chan_gbps;
++			clock_limits[i].dscclk_mhz = dcn3_1_soc.clock_limits[closest_clk_lvl].dscclk_mhz;
++			clock_limits[i].dtbclk_mhz = dcn3_1_soc.clock_limits[closest_clk_lvl].dtbclk_mhz;
++			clock_limits[i].phyclk_d18_mhz = dcn3_1_soc.clock_limits[closest_clk_lvl].phyclk_d18_mhz;
++			clock_limits[i].phyclk_mhz = dcn3_1_soc.clock_limits[closest_clk_lvl].phyclk_mhz;
++		}
++		for (i = 0; i < clk_table->num_entries; i++)
++			dcn3_1_soc.clock_limits[i] = clock_limits[i];
++		if (clk_table->num_entries) {
++			dcn3_1_soc.num_states = clk_table->num_entries;
++		}
++	}
++
++	dcn3_1_soc.dispclk_dppclk_vco_speed_mhz = dc->clk_mgr->dentist_vco_freq_khz / 1000.0;
++	dc->dml.soc.dispclk_dppclk_vco_speed_mhz = dc->clk_mgr->dentist_vco_freq_khz / 1000.0;
++
++	if (!IS_FPGA_MAXIMUS_DC(dc->ctx->dce_environment))
++		dml_init_instance(&dc->dml, &dcn3_1_soc, &dcn3_1_ip, DML_PROJECT_DCN31);
++	else
++		dml_init_instance(&dc->dml, &dcn3_1_soc, &dcn3_1_ip, DML_PROJECT_DCN31_FPGA);
++}
++
++static struct resource_funcs dcn31_res_pool_funcs = {
++	.destroy = dcn31_destroy_resource_pool,
++	.link_enc_create = dcn31_link_encoder_create,
++	.link_enc_create_minimal = dcn31_link_enc_create_minimal,
++	.link_encs_assign = link_enc_cfg_link_encs_assign,
++	.link_enc_unassign = link_enc_cfg_link_enc_unassign,
++	.panel_cntl_create = dcn31_panel_cntl_create,
++	.validate_bandwidth = dcn30_validate_bandwidth,
++	.calculate_wm_and_dlg = dcn31_calculate_wm_and_dlg,
++	.update_soc_for_wm_a = dcn31_update_soc_for_wm_a,
++	.populate_dml_pipes = dcn31_populate_dml_pipes_from_context,
++	.acquire_idle_pipe_for_layer = dcn20_acquire_idle_pipe_for_layer,
++	.add_stream_to_ctx = dcn30_add_stream_to_ctx,
++	.add_dsc_to_stream_resource = dcn20_add_dsc_to_stream_resource,
++	.remove_stream_from_ctx = dcn20_remove_stream_from_ctx,
++	.populate_dml_writeback_from_context = dcn30_populate_dml_writeback_from_context,
++	.set_mcif_arb_params = dcn30_set_mcif_arb_params,
++	.find_first_free_match_stream_enc_for_link = dcn10_find_first_free_match_stream_enc_for_link,
++	.acquire_post_bldn_3dlut = dcn30_acquire_post_bldn_3dlut,
++	.release_post_bldn_3dlut = dcn30_release_post_bldn_3dlut,
++	.update_bw_bounding_box = dcn31_update_bw_bounding_box,
++	.patch_unknown_plane_state = dcn20_patch_unknown_plane_state,
++};
++
++static struct clock_source *dcn30_clock_source_create(
++		struct dc_context *ctx,
++		struct dc_bios *bios,
++		enum clock_source_id id,
++		const struct dce110_clk_src_regs *regs,
++		bool dp_clk_src)
++{
++	struct dce110_clk_src *clk_src =
++		kzalloc(sizeof(struct dce110_clk_src), GFP_KERNEL);
++
++	if (!clk_src)
++		return NULL;
++
++	if (dcn3_clk_src_construct(clk_src, ctx, bios, id,
++			regs, &cs_shift, &cs_mask)) {
++		clk_src->base.dp_clk_src = dp_clk_src;
++		return &clk_src->base;
++	}
++
++	BREAK_TO_DEBUGGER();
++	return NULL;
++}
++
++static bool dcn31_resource_construct(
++	uint8_t num_virtual_links,
++	struct dc *dc,
++	struct dcn31_resource_pool *pool)
++{
++	int i;
++	struct dc_context *ctx = dc->ctx;
++	struct irq_service_init_data init_data;
++
++	ctx->dc_bios->regs = &bios_regs;
++
++	pool->base.res_cap = &res_cap_dcn31;
++
++	pool->base.funcs = &dcn31_res_pool_funcs;
++
++	/*************************************************
++	 *  Resource + asic cap harcoding                *
++	 *************************************************/
++	pool->base.underlay_pipe_index = NO_UNDERLAY_PIPE;
++	pool->base.pipe_count = pool->base.res_cap->num_timing_generator;
++	pool->base.mpcc_count = pool->base.res_cap->num_timing_generator;
++	dc->caps.max_downscale_ratio = 600;
++	dc->caps.i2c_speed_in_khz = 100;
++	dc->caps.i2c_speed_in_khz_hdcp = 5; /*1.4 w/a applied by default*/
++	dc->caps.max_cursor_size = 256;
++	dc->caps.min_horizontal_blanking_period = 80;
++	dc->caps.dmdata_alloc_size = 2048;
++
++	dc->caps.max_slave_planes = 1;
++	dc->caps.max_slave_yuv_planes = 1;
++	dc->caps.max_slave_rgb_planes = 1;
++	dc->caps.post_blend_color_processing = true;
++	dc->caps.force_dp_tps4_for_cp2520 = true;
++	dc->caps.extended_aux_timeout_support = true;
++	dc->caps.dmcub_support = true;
++	dc->caps.is_apu = true;
++
++	/* Color pipeline capabilities */
++	dc->caps.color.dpp.dcn_arch = 1;
++	dc->caps.color.dpp.input_lut_shared = 0;
++	dc->caps.color.dpp.icsc = 1;
++	dc->caps.color.dpp.dgam_ram = 0; // must use gamma_corr
++	dc->caps.color.dpp.dgam_rom_caps.srgb = 1;
++	dc->caps.color.dpp.dgam_rom_caps.bt2020 = 1;
++	dc->caps.color.dpp.dgam_rom_caps.gamma2_2 = 1;
++	dc->caps.color.dpp.dgam_rom_caps.pq = 1;
++	dc->caps.color.dpp.dgam_rom_caps.hlg = 1;
++	dc->caps.color.dpp.post_csc = 1;
++	dc->caps.color.dpp.gamma_corr = 1;
++	dc->caps.color.dpp.dgam_rom_for_yuv = 0;
++
++	dc->caps.color.dpp.hw_3d_lut = 1;
++	dc->caps.color.dpp.ogam_ram = 1;
++	// no OGAM ROM on DCN301
++	dc->caps.color.dpp.ogam_rom_caps.srgb = 0;
++	dc->caps.color.dpp.ogam_rom_caps.bt2020 = 0;
++	dc->caps.color.dpp.ogam_rom_caps.gamma2_2 = 0;
++	dc->caps.color.dpp.ogam_rom_caps.pq = 0;
++	dc->caps.color.dpp.ogam_rom_caps.hlg = 0;
++	dc->caps.color.dpp.ocsc = 0;
++
++	dc->caps.color.mpc.gamut_remap = 1;
++	dc->caps.color.mpc.num_3dluts = pool->base.res_cap->num_mpc_3dlut; //2
++	dc->caps.color.mpc.ogam_ram = 1;
++	dc->caps.color.mpc.ogam_rom_caps.srgb = 0;
++	dc->caps.color.mpc.ogam_rom_caps.bt2020 = 0;
++	dc->caps.color.mpc.ogam_rom_caps.gamma2_2 = 0;
++	dc->caps.color.mpc.ogam_rom_caps.pq = 0;
++	dc->caps.color.mpc.ogam_rom_caps.hlg = 0;
++	dc->caps.color.mpc.ocsc = 1;
++
++	if (dc->ctx->dce_environment == DCE_ENV_PRODUCTION_DRV)
++		dc->debug = debug_defaults_drv;
++	else if (dc->ctx->dce_environment == DCE_ENV_FPGA_MAXIMUS) {
++		dc->debug = debug_defaults_diags;
++	} else
++		dc->debug = debug_defaults_diags;
++	// Init the vm_helper
++	if (dc->vm_helper)
++		vm_helper_init(dc->vm_helper, 16);
++
++	/*************************************************
++	 *  Create resources                             *
++	 *************************************************/
++
++	/* Clock Sources for Pixel Clock*/
++	pool->base.clock_sources[DCN31_CLK_SRC_PLL0] =
++			dcn30_clock_source_create(ctx, ctx->dc_bios,
++				CLOCK_SOURCE_COMBO_PHY_PLL0,
++				&clk_src_regs[0], false);
++	pool->base.clock_sources[DCN31_CLK_SRC_PLL1] =
++			dcn30_clock_source_create(ctx, ctx->dc_bios,
++				CLOCK_SOURCE_COMBO_PHY_PLL1,
++				&clk_src_regs[1], false);
++	pool->base.clock_sources[DCN31_CLK_SRC_PLL2] =
++			dcn30_clock_source_create(ctx, ctx->dc_bios,
++				CLOCK_SOURCE_COMBO_PHY_PLL2,
++				&clk_src_regs[2], false);
++	pool->base.clock_sources[DCN31_CLK_SRC_PLL3] =
++			dcn30_clock_source_create(ctx, ctx->dc_bios,
++				CLOCK_SOURCE_COMBO_PHY_PLL3,
++				&clk_src_regs[3], false);
++	pool->base.clock_sources[DCN31_CLK_SRC_PLL4] =
++			dcn30_clock_source_create(ctx, ctx->dc_bios,
++				CLOCK_SOURCE_COMBO_PHY_PLL4,
++				&clk_src_regs[4], false);
++
++	pool->base.clk_src_count = DCN30_CLK_SRC_TOTAL;
++
++	/* todo: not reuse phy_pll registers */
++	pool->base.dp_clock_source =
++			dcn31_clock_source_create(ctx, ctx->dc_bios,
++				CLOCK_SOURCE_ID_DP_DTO,
++				&clk_src_regs[0], true);
++
++	for (i = 0; i < pool->base.clk_src_count; i++) {
++		if (pool->base.clock_sources[i] == NULL) {
++			dm_error("DC: failed to create clock sources!\n");
++			BREAK_TO_DEBUGGER();
++			goto create_fail;
++		}
++	}
++
++	/* TODO: DCCG */
++	pool->base.dccg = dccg31_create(ctx, &dccg_regs, &dccg_shift, &dccg_mask);
++	if (pool->base.dccg == NULL) {
++		dm_error("DC: failed to create dccg!\n");
++		BREAK_TO_DEBUGGER();
++		goto create_fail;
++	}
++
++	/* TODO: IRQ */
++	init_data.ctx = dc->ctx;
++	pool->base.irqs = dal_irq_service_dcn31_create(&init_data);
++	if (!pool->base.irqs)
++		goto create_fail;
++
++	/* HUBBUB */
++	pool->base.hubbub = dcn31_hubbub_create(ctx);
++	if (pool->base.hubbub == NULL) {
++		BREAK_TO_DEBUGGER();
++		dm_error("DC: failed to create hubbub!\n");
++		goto create_fail;
++	}
++
++	/* HUBPs, DPPs, OPPs and TGs */
++	for (i = 0; i < pool->base.pipe_count; i++) {
++		pool->base.hubps[i] = dcn31_hubp_create(ctx, i);
++		if (pool->base.hubps[i] == NULL) {
++			BREAK_TO_DEBUGGER();
++			dm_error(
++				"DC: failed to create hubps!\n");
++			goto create_fail;
++		}
++
++		pool->base.dpps[i] = dcn31_dpp_create(ctx, i);
++		if (pool->base.dpps[i] == NULL) {
++			BREAK_TO_DEBUGGER();
++			dm_error(
++				"DC: failed to create dpps!\n");
++			goto create_fail;
++		}
++	}
++
++	for (i = 0; i < pool->base.res_cap->num_opp; i++) {
++		pool->base.opps[i] = dcn31_opp_create(ctx, i);
++		if (pool->base.opps[i] == NULL) {
++			BREAK_TO_DEBUGGER();
++			dm_error(
++				"DC: failed to create output pixel processor!\n");
++			goto create_fail;
++		}
++	}
++
++	for (i = 0; i < pool->base.res_cap->num_timing_generator; i++) {
++		pool->base.timing_generators[i] = dcn31_timing_generator_create(
++				ctx, i);
++		if (pool->base.timing_generators[i] == NULL) {
++			BREAK_TO_DEBUGGER();
++			dm_error("DC: failed to create tg!\n");
++			goto create_fail;
++		}
++	}
++	pool->base.timing_generator_count = i;
++
++	/* PSR */
++	pool->base.psr = dmub_psr_create(ctx);
++	if (pool->base.psr == NULL) {
++		dm_error("DC: failed to create psr obj!\n");
++		BREAK_TO_DEBUGGER();
++		goto create_fail;
++	}
++
++	/* ABM */
++	for (i = 0; i < pool->base.res_cap->num_timing_generator; i++) {
++		pool->base.multiple_abms[i] = dmub_abm_create(ctx,
++				&abm_regs[i],
++				&abm_shift,
++				&abm_mask);
++		if (pool->base.multiple_abms[i] == NULL) {
++			dm_error("DC: failed to create abm for pipe %d!\n", i);
++			BREAK_TO_DEBUGGER();
++			goto create_fail;
++		}
++	}
++
++	/* MPC and DSC */
++	pool->base.mpc = dcn31_mpc_create(ctx, pool->base.mpcc_count, pool->base.res_cap->num_mpc_3dlut);
++	if (pool->base.mpc == NULL) {
++		BREAK_TO_DEBUGGER();
++		dm_error("DC: failed to create mpc!\n");
++		goto create_fail;
++	}
++
++	for (i = 0; i < pool->base.res_cap->num_dsc; i++) {
++		pool->base.dscs[i] = dcn31_dsc_create(ctx, i);
++		if (pool->base.dscs[i] == NULL) {
++			BREAK_TO_DEBUGGER();
++			dm_error("DC: failed to create display stream compressor %d!\n", i);
++			goto create_fail;
++		}
++	}
++
++	/* DWB and MMHUBBUB */
++	if (!dcn31_dwbc_create(ctx, &pool->base)) {
++		BREAK_TO_DEBUGGER();
++		dm_error("DC: failed to create dwbc!\n");
++		goto create_fail;
++	}
++
++	if (!dcn31_mmhubbub_create(ctx, &pool->base)) {
++		BREAK_TO_DEBUGGER();
++		dm_error("DC: failed to create mcif_wb!\n");
++		goto create_fail;
++	}
++
++	/* AUX and I2C */
++	for (i = 0; i < pool->base.res_cap->num_ddc; i++) {
++		pool->base.engines[i] = dcn31_aux_engine_create(ctx, i);
++		if (pool->base.engines[i] == NULL) {
++			BREAK_TO_DEBUGGER();
++			dm_error(
++				"DC:failed to create aux engine!!\n");
++			goto create_fail;
++		}
++		pool->base.hw_i2cs[i] = dcn31_i2c_hw_create(ctx, i);
++		if (pool->base.hw_i2cs[i] == NULL) {
++			BREAK_TO_DEBUGGER();
++			dm_error(
++				"DC:failed to create hw i2c!!\n");
++			goto create_fail;
++		}
++		pool->base.sw_i2cs[i] = NULL;
++	}
++
++	/* Audio, Stream Encoders including HPO and virtual, MPC 3D LUTs */
++	if (!resource_construct(num_virtual_links, dc, &pool->base,
++			(!IS_FPGA_MAXIMUS_DC(dc->ctx->dce_environment) ?
++			&res_create_funcs : &res_create_maximus_funcs)))
++			goto create_fail;
++
++	/* HW Sequencer and Plane caps */
++	dcn31_hw_sequencer_construct(dc);
++
++	dc->caps.max_planes =  pool->base.pipe_count;
++
++	for (i = 0; i < dc->caps.max_planes; ++i)
++		dc->caps.planes[i] = plane_cap;
++
++	dc->cap_funcs = cap_funcs;
++
++	return true;
++
++create_fail:
++
++	dcn31_resource_destruct(pool);
++
++	return false;
++}
++
++struct resource_pool *dcn31_create_resource_pool(
++		const struct dc_init_data *init_data,
++		struct dc *dc)
++{
++	struct dcn31_resource_pool *pool =
++		kzalloc(sizeof(struct dcn31_resource_pool), GFP_KERNEL);
++
++	if (!pool)
++		return NULL;
++
++	if (dcn31_resource_construct(init_data->num_virtual_links, dc, pool))
++		return &pool->base;
++
++	BREAK_TO_DEBUGGER();
++	kfree(pool);
++	return NULL;
++}
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.h b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.h
+new file mode 100644
+index 000000000000..93571c976996
+--- /dev/null
++++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.h
+@@ -0,0 +1,42 @@
++/*
++ * Copyright 2020 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ * Authors: AMD
++ *
++ */
++
++#ifndef _DCN31_RESOURCE_H_
++#define _DCN31_RESOURCE_H_
++
++#include "core_types.h"
++
++#define TO_DCN31_RES_POOL(pool)\
++	container_of(pool, struct dcn31_resource_pool, base)
++
++struct dcn31_resource_pool {
++	struct resource_pool base;
++};
++
++struct resource_pool *dcn31_create_resource_pool(
++		const struct dc_init_data *init_data,
++		struct dc *dc);
++
++#endif /* _DCN31_RESOURCE_H_ */
 -- 
 2.31.1
 
