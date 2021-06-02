@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3B237C47097
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 16:49:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 76489C4708F
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 16:49:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0926F61C39
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 16:49:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0926F61C39
+	by mail.kernel.org (Postfix) with ESMTPS id 484C861C39
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 16:49:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 484C861C39
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C217F6ED80;
-	Wed,  2 Jun 2021 16:49:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9CEA6ED7E;
+	Wed,  2 Jun 2021 16:49:44 +0000 (UTC)
 Received: from NAM11-CO1-obe.outbound.protection.outlook.com
  (mail-co1nam11on2058.outbound.protection.outlook.com [40.107.220.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 602196ED1A
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D8656ED72
  for <amd-gfx@lists.freedesktop.org>; Wed,  2 Jun 2021 16:49:40 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=F7F2fSrqauOMnO0XYfm7EAW+NfUr2qmgNOvwozDWrJxkUxlaDBJSqEV9uLcknUZInsPJLKymNbBNJZAAVMjqGmKdMC0YDQTelzk93YpbgIvifuQh8IR3M9FbZs16hlf2j76uT2iqBbPF5OFVTE/z6kOMojUvA1GBDtbFx+XyYzmsTRCb3idIJEHxCBHRw0UhuzD7eNcf/6HfS3/h/JM/1qlQU/ognRgGnXMmV653VgxdIO3zVyIl0vrA5G9h8kCsGjbKzGQjZBL9faG7b2Zz8ubUbzYnMved7wpNu7VHP96glHkTar/fH31ylDoOOO5QazqqtKuxE8uZrPcxSI9+tA==
+ b=mnCP9lSJsqTbhqBFYSyExVlpVIZ51bX+dpABFvvWqIgjeAkrG6B6R10IDDUcp91aBvfdfO2OM/UI1vMJjY+N7m9wiCbUNplXLkY8r6dlDf9TP4k1KfkkoRBDa1lDaH/G09giLCJF6PVjMMb/a7NzXNOjPmJbpGXmmE4uBYd5vVwYXY6SafcQCK4jEH80SARNxddPcVyRgpLg6JvQ6uQKdc2WE2h5CsqY/wk6zCahByfhg8RpwR03bJdnvf/79ko8gPD336PkEKHaEbABN57DCQzibNrgwHalhuTdFN/6OcVqWlDndpfi21LR1WxyqyBZoPS4bOn45LoaXmHzQuv4fQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1ik651xd0UoNsaPlD0F+NUYU7xV6pLbs3O8EApXk1Eg=;
- b=gSZyNSjGDByNu5l7xCrb5yUnS/t3Ja2/8qJwZ7/tmjvq42AeIw3DuNoralSSzh3MGU4HODpJFH3+sa79Fo3qo+2MtUz5W5wtNZ1IsdIXkT07U5t26ySv7s+YBJ6+y9JKMigaY3pGP4JORlFzDD9oCaB0TO/GxoqU6XuVago6FrX6oQlXgRRlh+XFJORzzFYguC5CK+HXQHQr4hFl4gheqUuQkd3moHN9UQexlyQlRROUqfSb14NYDSRmVmhPIOUiMhycqe0XqOw+Q73ChL6CaKRg6+ULJxK19VmCVjn/Gya+EEYO2Xjvm5qON7/UoZAzCKrX3db7OhIEfTIqhuAkkA==
+ bh=fhKahIuHctVwyVk2Kt4tjfuoJDQp/89bov8RcqFIR9E=;
+ b=HxUjOcu6FMkJrepn2aEdVywT9mekZOW2j4EqVTEpN+mo3pVeZNFCQrDIdFyFmnnNS+EqNJJwUIwn/UdFHXGxk73nrSldUT0nGBPsmZWkhIU6hDIqK2WpUDffJwhL+q4V1wzEgehonTPUG2na7OeIecRtFpsiGKhYbe7Pyx2hdCuMFjKmNcSdxIPzXTgnoey8CEgrM3z+pEaioRrAXmoAT67+31lqczQL5ZRSeNcTc21N/O4L4yroaEsIoaLIP9gd8CFWFktoLxAinTfQLKnmz3Eku58OeH1Axp2Vv+qnNqEn6i8tPHBSygkYRYeQXiNElFAJcp+BPHo8+c8tMJtVcQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1ik651xd0UoNsaPlD0F+NUYU7xV6pLbs3O8EApXk1Eg=;
- b=FdwoJ/HVmO69jTvmqWnwWBXf4GcphRtb40LBl1yxrsA57I16XWVocsX1WvatWyXmLgLr4eKshd/XhCbrY0eC+rkqTOmAYzddwzBltGv7OW37DXXH2Y5FHLHMYZPyC5JUg29/sPRqgvt4UW19vq1KCwPFXljfKlpw2DX8BugArPY=
+ bh=fhKahIuHctVwyVk2Kt4tjfuoJDQp/89bov8RcqFIR9E=;
+ b=DWo3uwGrPa5cOY+MMw6EXtXqsgjR2yXbmpGWXzUcjkwVDSnl3vCiSanKeArFkvCtQXvUBgL+VKcu3idoIzdx0+1SLsR9SqmThIdl/vdPROcHGv1wrzhBdPPiH+na0BwNHH5VSknO3JVME8WIoKoI5RNLWmjDmJRrIhqCVPlPqsw=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -45,17 +45,17 @@ Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
  by MN2PR12MB4077.namprd12.prod.outlook.com (2603:10b6:208:1da::15)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.21; Wed, 2 Jun
- 2021 16:49:39 +0000
+ 2021 16:49:38 +0000
 Received: from MN2PR12MB4488.namprd12.prod.outlook.com
  ([fe80::25f7:664:3a8f:25b6]) by MN2PR12MB4488.namprd12.prod.outlook.com
  ([fe80::25f7:664:3a8f:25b6%7]) with mapi id 15.20.4173.030; Wed, 2 Jun 2021
- 16:49:39 +0000
+ 16:49:38 +0000
 From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 16/89] drm/amdgpu/pm: add smu v13.0.1 firmware header for
- yellow carp (V4)
-Date: Wed,  2 Jun 2021 12:47:55 -0400
-Message-Id: <20210602164908.2848791-16-alexander.deucher@amd.com>
+Subject: [PATCH 15/89] drm/admgpu/pm: add smu v13 driver interface header for
+ yellow carp (v3)
+Date: Wed,  2 Jun 2021 12:47:54 -0400
+Message-Id: <20210602164908.2848791-15-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210602164908.2848791-1-alexander.deucher@amd.com>
 References: <20210602164908.2848791-1-alexander.deucher@amd.com>
@@ -71,50 +71,50 @@ Received: from localhost.localdomain (192.161.79.207) by
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.9 via Frontend
  Transport; Wed, 2 Jun 2021 16:49:38 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 0a4b046c-f845-4722-c796-08d925e6695a
+X-MS-Office365-Filtering-Correlation-Id: d31ec051-0e8c-4ce9-cd08-08d925e668e5
 X-MS-TrafficTypeDiagnostic: MN2PR12MB4077:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB4077376EB1D005DD73E6E5DEF73D9@MN2PR12MB4077.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
+X-Microsoft-Antispam-PRVS: <MN2PR12MB4077118CC435E6C21EA97FE1F73D9@MN2PR12MB4077.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: nCVjqrnA7Tl+8hdyI+6iV8pW5iEvkjS0P847qlYrqYhxowLmJftSSIDhyFcLqf7LLifQ27o4F8t/7DjevvSbS1a5HnMDjhlFPk9EwYaSAUxr80OSvJflbxNx9uuqSYDJUHYwl/VtY+8TGMxGvVxRFX+YT+J5LJWWFmXIEDPFp5ETTwQVtJA57tYpf14+PuK+v2LYAQQP3L8tsRg1arQpVs1i4RskbvUrJWtrWxGT9Ady2MOfa71dFyZdBfJR+txo9eSJiD8yfFa+1TPlK39Wwj+4UV5OBd1fo5gshrRBxwC0L+2EQy3WVUJX1np0R1beRibMYdj0nZeNf/7A2uM6yHLvx0TeJkAWOpTJ+gKlwCPOQBWy0lPjwk5jFXYYjAy/FYy2HLug13LDB/+9eu9TBlt1XIdJdUPKJLOYGKM0YqrpyhcQ5+FnPnZ+0OAU5riG92vQQDSmjY3VTTJF5WtqZQxx1MYTPW7zwdRBOuO7m9e2sCkfALnH0nUipa4SVnShxOP7z+hXHCmsYinbZy+58Vz2vSGO3LXoE7OjlhviIadWyG+LVS75gKV7Ikyew+CjzXM51kiwixhBRT3qzg1MoHISnLHwzh7c1EUoYzCFcyPoWW8FVMbLEgSa4xwDEH/GMd2HMg17VwmbFOFd8I9LWZqzXzYAmQFYTOhb0T4sTTWXmUWmTOQkxQUhQcRBKM/p
+X-Microsoft-Antispam-Message-Info: UMHQKHkhsE+S6/ZzoyY8NBkHYifgHWp50ZNRJ0xxk9Z78wsugYLsDLRLdCg5mRPvab8wTcBPBb5Y2btyuufEsCM4G+z/+Zq3yyd6VCEqJ2Dnketkchw8bgjIUgJ0OFEcGXvdBREMaXq0yvu1wtSAgXX2No23xeLVdQHz6CWnjtJc7s7L8LFN4J9LneeXoIQyl/BDKXgUpET59Zrd7dRu1C11daGyqeig+GssD6GgrP2EAdujsCrRcXLP1Dzjh6pc+I5oUztlkgNv/ppHSEzM+kGHN1FKxs2a3rVmYbNJdUldOYOTuVaBTh2Bf8A9qyI6L0luCtC13Jp7g+XxO2ztbgKgKvkI4IAmxQGp5cxA2uXYqBvnOeYvlfuiojYpVOeiQQzV9kC2Dx7k0AyM/IxU71XjgQrB/kLEc2R5Pi7lb6ZUHoaADkjIVd6x3YovZPtyc2p1/wj4QeCVpO974xKjLzv7BLXNNs/Gwnp1BKjhFoSGb5IE4OPJl+WPpKW61vZ1p7NzAsmUGH9CPcy5UZbAUbV9CpzpSNY/Pe09Pa5Bh7g6zDu4EjAbYv0q1GkYp65FaYAxhcTgA88uPpjee2I5bozGwEQANWb5G9djL8UY3xdNgdti5fSnlyl1N1JHMtF3YFFfQdqW0wuhnBYigYRb8ZmE/uHRi2XKItKQfejwNE7A4MgF+3QP8kMnLdtQtw1M
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(136003)(376002)(346002)(396003)(39850400004)(8676002)(54906003)(4326008)(19627235002)(5660300002)(8936002)(6666004)(478600001)(316002)(83380400001)(16526019)(1076003)(6506007)(956004)(2616005)(52116002)(66946007)(26005)(66476007)(66556008)(2906002)(6916009)(38100700002)(38350700002)(36756003)(86362001)(6512007)(186003)(6486002)(69590400013);
+ SFS:(4636009)(366004)(136003)(376002)(346002)(396003)(39850400004)(8676002)(54906003)(4326008)(5660300002)(8936002)(6666004)(478600001)(316002)(83380400001)(16526019)(1076003)(6506007)(956004)(2616005)(52116002)(66946007)(26005)(66476007)(66556008)(2906002)(6916009)(38100700002)(38350700002)(36756003)(86362001)(6512007)(186003)(6486002)(69590400013);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?zrX+YfMao7xfGDknk030q3auwPLPWIi5pWkDNhh2AMA59X/y2veub6G6j9Md?=
- =?us-ascii?Q?YKy1x+ajtX9MNh9oCJtHiwejnBbmcB2ifU3/wiXcC7kwcaUKtHa8BxsEwRLc?=
- =?us-ascii?Q?Xdc0AxcR8c7tfhD2lKmpkwVRNew1+tU5WZgUGx+epfv0xY2zgJ3twK7AKCov?=
- =?us-ascii?Q?aDE59bVsLaaDS/lc11zGWvrbfX4x+B+qO+fnXMAKYPfxHbIHqozvsRdwvRHD?=
- =?us-ascii?Q?SjEUHik8uRl4uUZq3wPrvyoIOCujHdf+z6Ey8qSGfrjUOEf4jNPCIpM9/PGZ?=
- =?us-ascii?Q?py0l8hAGRi6hltvO8ptETvoO9wapulGcHwhH4qj89P1YJqzWzj4Udb2RyCQF?=
- =?us-ascii?Q?zcEIfGI7mC5oc5mdGK9/5KQdsGIXDuwm7F6ChCvQ55ueerqMaqt5OMfWcLyC?=
- =?us-ascii?Q?ZadL09vIx/MO3ffUgibMSdq15G9yEkgEayrOWpLK1p94bTmLifXhpKgC0XNS?=
- =?us-ascii?Q?JAWasbhwXme1jovbmz8FwWZHluLd+0pgocG+fmQKlyXCz9JOLA8OSQP+kn7Y?=
- =?us-ascii?Q?jUsZ5sTcuKeNI732yKoDNyPOk8kVBB1YjoLxUnooOhfBei0F1p2en7uSRmc6?=
- =?us-ascii?Q?HS1oXKFXi1usbPs8u0Z9mpMfBVqib/aARqtY0rWMYRs7lS9pLQMOzWQHdwhZ?=
- =?us-ascii?Q?xTJgBYdD4kQUvUfihL0m0cNkMx/puAwo9h8i95E0MSTR38qEH+b/dnp0XSYa?=
- =?us-ascii?Q?DtHj2ehYrW5FsoS5c0L9LkaMy8VNPh0Vqv9iHQf3QQ5IURsQxAzgk7s5mij8?=
- =?us-ascii?Q?XAIjDcIWX5rMWHgP6J/wODCsOzdzIctcltipAdS/2AjBO+eTGfGuW2qZZlzQ?=
- =?us-ascii?Q?4PpM59B+UH8wqnczkCj20t6SAa8V04fiCAU/swhumDgsVrxgR0JtAq6bQeWI?=
- =?us-ascii?Q?FrXPpgMHlYyYf4+t3e/3WJ/xf6fCwq3XdHJAp7ROUxs6Tq7SjsXhJeedzrWh?=
- =?us-ascii?Q?1L74Nu1a+iev6gjfSamFPKZEa4niDRgK21rAi2soELviSlwWDXU+VuRudbRn?=
- =?us-ascii?Q?GxTKzTY59Fo/XZFVJMwDjr1geeYUYrVmhzuHWiiHTTmA5ylwDNw1oXwn+LB7?=
- =?us-ascii?Q?EUpsQEhFZw144gMC/IkIRvGrwinY3u+kUrf2M5v1/BQXNX7IaZsibmQAnlHM?=
- =?us-ascii?Q?ntfc1pPWv5NQUbcvcUY6kjECMcZkfJVpkQtRVKRqY/qmnrOImdJeJ0fg3ekR?=
- =?us-ascii?Q?UvKKMKfZPYCIyeF0xMCE9Cepgn01M8f7BOCapfhAFmPlPiPH++NVmDG+s0Id?=
- =?us-ascii?Q?89GLu5yBvbUhC/TfQ8CkJGof1xNuT2WNkupP1romi8ee1VkYXU7jXoFLJBjg?=
- =?us-ascii?Q?bbkWPmUUd6tWJlVnsw3vaToJ?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?JT2EHBxQ94wmNnk/AGyI+uncs+BM9I18S8Lc0hdBOg7bvEcZflFKKUKW8B7Z?=
+ =?us-ascii?Q?eDvkaFy2qG+y0540BlJDPWJW79wdLv92TZ1m6fMEUAFS4HDCjVKp6GjeyNyK?=
+ =?us-ascii?Q?65Fzx+C6/+bfNU+bnOdkwWrHqc+oi9KEDR+59rINAlo4G8Gz+muzIqKf9Vu5?=
+ =?us-ascii?Q?3nALKZcQ8ytjZ5rpOpEUMgHg8wK82xQqrgVDUY//njbQGhmTYAA45MHbdHT0?=
+ =?us-ascii?Q?GAj1AVC1HGqNB3D4NPLKMs+F8rg9y1rmGvMpLlcnWOse+Jo1/WjkhuXpjyRM?=
+ =?us-ascii?Q?KrSrbHVFAbbsPsGk6tXGf00EEfO/1FE6AyObT/6ZDyrpIA6chkD07Ihmva5I?=
+ =?us-ascii?Q?w1B7/DnbXaalJq1iGddez09yr3rygSsaboEi0O4WD8QbHGasResFVeU3JB9+?=
+ =?us-ascii?Q?oztpuCosrIMzP6C11iulhDcMXedmiMOc86ZJHdh9WAHASETQRMU4AbbAzwYk?=
+ =?us-ascii?Q?bSDwpZzrrMbBgYxZt4XyOEPLDHi8WBfl/CImqVBIWDNXs5KILEV2Wx3SRO5T?=
+ =?us-ascii?Q?Uutlh1WzE6OohF875W1u05EPYl3BSNAaXL8EvRL0DqzrnWS537NLTM2Fy2GN?=
+ =?us-ascii?Q?qsI3SqADM7TFSmOdz9gLzKjBABGxrY6Oojkc6mCeUQj3WjfaeN18+1O67vEl?=
+ =?us-ascii?Q?qjKJUIGUsNS+CS9sENZX5Jb9ADOdPQtp9WGWaV4ZsX6h9bgiTP4s6OSGsby8?=
+ =?us-ascii?Q?PeRz/b4mWDrWxJe5saNUYuT4YzAjfTHgKcJhHB0FrdUJJxy5evoQBnbDiE8/?=
+ =?us-ascii?Q?iq1l41gWmLt4KzSkiZRBO8OicRNPZ/P00TQAw4LEa0tcE3pPIUhoC4kpWuHQ?=
+ =?us-ascii?Q?nFV/ziDyfec89hpQQMT5bP2Iyyj/pgQJuNXcPU3MMg+SmdYpKmS0OHdX+UPd?=
+ =?us-ascii?Q?D4/cFjq7L9K5oQnwYONTaoSf7NfpvTx6RTFHBY5WRyR/joeNETKwWkygcJ0W?=
+ =?us-ascii?Q?XNReSZCRK+SFHmCDbz/lL8P0AtGbqaox7BfQkdEbbh0V1wAhiTYiEBCs1sia?=
+ =?us-ascii?Q?UOL5o2L+/7rugwHYHpuil90/s0oYvCK4NjlZODq0xaIHy9TCNjzoAlcReS9H?=
+ =?us-ascii?Q?k44C/XQy3HUBCyv9WKp4ZKL8ldr8vYL0LK9FJHz5+BHDyZfE6SQ164i5cSlH?=
+ =?us-ascii?Q?XHofPWdX2/2A4EBSkWXuN0JdrqNmVp/Co8zTVpjomELaZNi2MYYmGyvYX76P?=
+ =?us-ascii?Q?TrfS1kdbSGFwYMuNd9dqY73yDu1rNthfoheCPtSP8ftSAwQeLuxMt8apDefo?=
+ =?us-ascii?Q?Eug0xIp/aUSK2p50yQ3FcYmN3WONge4mcAtGex1aJpDllgrtJ2Uu/6GEcu3J?=
+ =?us-ascii?Q?WVGY903LVtO7lJXcjq5O5BYP?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0a4b046c-f845-4722-c796-08d925e6695a
+X-MS-Exchange-CrossTenant-Network-Message-Id: d31ec051-0e8c-4ce9-cd08-08d925e668e5
 X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2021 16:49:39.1262 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2021 16:49:38.4850 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: sUP1oxNzWSt6LY49NKrEvNSUcfL4OYZ3lotHZGg9nmOEhZVu0923T/aBwewslegOi6GUEM+m8gPwPfikGkLc+Q==
+X-MS-Exchange-CrossTenant-UserPrincipalName: J+gD/+/6k2fsKssbb+6Fvgi6GHGWvYB+B191OXAjaHWqIiNkdwncUn+ZqaGwVGC7uC8dzNrmzPjvnognDlz3cw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4077
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -136,23 +136,26 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Aaron Liu <aaron.liu@amd.com>
 
-This patch is to add smu v13.0.1 firmware header for yellow carp.
+This patch is to add smu v13 driver interface header for yellow carp.
+
+v2: squash in updates (Alex)
+v3: squash in v69.29.0 update (Alex)
 
 Signed-off-by: Aaron Liu <aaron.liu@amd.com>
 Acked-by: Alex Deucher <alexander.deucher@amd.com>
 Reviewed-by: Huang Rui <ray.huang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/pm/inc/smu_v13_0_1_pmfw.h | 139 ++++++++++++++++++
- 1 file changed, 139 insertions(+)
- create mode 100644 drivers/gpu/drm/amd/pm/inc/smu_v13_0_1_pmfw.h
+ .../amd/pm/inc/smu13_driver_if_yellow_carp.h  | 222 ++++++++++++++++++
+ 1 file changed, 222 insertions(+)
+ create mode 100644 drivers/gpu/drm/amd/pm/inc/smu13_driver_if_yellow_carp.h
 
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v13_0_1_pmfw.h b/drivers/gpu/drm/amd/pm/inc/smu_v13_0_1_pmfw.h
+diff --git a/drivers/gpu/drm/amd/pm/inc/smu13_driver_if_yellow_carp.h b/drivers/gpu/drm/amd/pm/inc/smu13_driver_if_yellow_carp.h
 new file mode 100644
-index 000000000000..5627de734246
+index 000000000000..25540cb28208
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/pm/inc/smu_v13_0_1_pmfw.h
-@@ -0,0 +1,139 @@
++++ b/drivers/gpu/drm/amd/pm/inc/smu13_driver_if_yellow_carp.h
+@@ -0,0 +1,222 @@
 +/*
 + * Copyright 2020 Advanced Micro Devices, Inc.
 + *
@@ -175,121 +178,204 @@ index 000000000000..5627de734246
 + * OTHER DEALINGS IN THE SOFTWARE.
 + *
 + */
++#ifndef __SMU13_DRIVER_IF_YELLOW_CARP_H__
++#define __SMU13_DRIVER_IF_YELLOW_CARP_H__
 +
-+#ifndef __SMU_V13_0_1_PMFW_H__
-+#define __SMU_V13_0_1_PMFW_H__
-+
-+#include "smu13_driver_if_yellow_carp.h"
-+
-+#pragma pack(push, 1)
-+
-+#define ENABLE_DEBUG_FEATURES
-+
-+// Firmware features 
-+// Feature Control Defines
-+#define FEATURE_CCLK_DPM_BIT                 0
-+#define FEATURE_FAN_CONTROLLER_BIT           1
-+#define FEATURE_DATA_CALCULATION_BIT         2
-+#define FEATURE_PPT_BIT                      3
-+#define FEATURE_TDC_BIT                      4
-+#define FEATURE_THERMAL_BIT                  5
-+#define FEATURE_FIT_BIT                      6
-+#define FEATURE_EDC_BIT                      7
-+#define FEATURE_PLL_POWER_DOWN_BIT           8
-+#define FEATURE_ULV_BIT                      9
-+#define FEATURE_VDDOFF_BIT                  10
-+#define FEATURE_VCN_DPM_BIT                 11
-+#define FEATURE_CSTATE_BOOST_BIT            12
-+#define FEATURE_FCLK_DPM_BIT                13
-+#define FEATURE_SOCCLK_DPM_BIT              14
-+#define FEATURE_MP0CLK_DPM_BIT              15
-+#define FEATURE_LCLK_DPM_BIT                16
-+#define FEATURE_SHUBCLK_DPM_BIT             17
-+#define FEATURE_DCFCLK_DPM_BIT              18
-+#define FEATURE_GFX_DPM_BIT                 19
-+#define FEATURE_DS_GFXCLK_BIT               20
-+#define FEATURE_DS_SOCCLK_BIT               21
-+#define FEATURE_DS_LCLK_BIT                 22
-+#define FEATURE_DS_DCFCLK_BIT               23
-+#define FEATURE_DS_SHUBCLK_BIT              24
-+#define FEATURE_GFX_TEMP_VMIN_BIT           25
-+#define FEATURE_ZSTATES_BIT                 26
-+#define FEATURE_WHISPER_MODE_BIT            27
-+#define FEATURE_DS_FCLK_BIT                 28
-+#define FEATURE_DS_SMNCLK_BIT               29
-+#define FEATURE_DS_MP1CLK_BIT               30
-+#define FEATURE_DS_MP0CLK_BIT               31
-+#define FEATURE_CLK_LOW_POWER_BIT           32
-+#define FEATURE_FUSE_PG_BIT                 33
-+#define FEATURE_GFX_DEM_BIT                 34
-+#define FEATURE_PSI_BIT                     35
-+#define FEATURE_PROCHOT_BIT                 36
-+#define FEATURE_CPUOFF_BIT                  37
-+#define FEATURE_STAPM_BIT                   38
-+#define FEATURE_S0I3_BIT                    39
-+#define FEATURE_DF_LIGHT_CSTATE             40   // shift the order or DFCstate annd DF light Cstate
-+#define FEATURE_PERF_LIMIT_BIT              41
-+#define FEATURE_CORE_DLDO_BIT               42
-+#define FEATURE_RSMU_LOW_POWER_BIT          43
-+#define FEATURE_SMN_LOW_POWER_BIT           44
-+#define FEATURE_THM_LOW_POWER_BIT           45
-+#define FEATURE_SMUIO_LOW_POWER_BIT         46
-+#define FEATURE_MP1_LOW_POWER_BIT           47
-+#define FEATURE_DS_VCN_BIT                  48
-+#define FEATURE_CPPC_BIT                    49
-+#define FEATURE_CPPC_PREFERRED_CORES        50
-+#define FEATURE_SMART_SHIFT_BIT             51
-+#define FEATURE_DF_CSTATES_BIT              52
-+#define FEATURE_MSMU_LOW_POWER_BIT          53
-+#define FEATURE_SOC_VOLTAGE_MON_BIT         54
-+#define FEATURE_ATHUB_PG_BIT                55
-+#define FEATURE_VDDOFF_ECO_BIT              56
-+#define FEATURE_ZSTATES_ECO_BIT             57
-+#define FEATURE_CC6_BIT                     58
-+#define FEATURE_DS_UMCCLK_BIT               59
-+#define FEATURE_DS_HSPCLK_BIT               60 
-+#define NUM_FEATURES                        61
++// *** IMPORTANT ***
++// SMU TEAM: Always increment the interface version if
++// any structure is changed in this file
++#define SMU13_DRIVER_IF_VERSION 4
 +
 +typedef struct {
-+  // MP1_EXT_SCRATCH0
-+  uint32_t DpmHandlerID         : 8;
-+  uint32_t ActivityMonitorID    : 8;
-+  uint32_t DpmTimerID           : 8;
-+  uint32_t DpmHubID             : 4;
-+  uint32_t DpmHubTask           : 4;
-+  // MP1_EXT_SCRATCH1
-+  uint32_t GfxoffStatus         : 8;
-+  uint32_t GfxStatus            : 2;
-+  uint32_t CpuOff               : 2;
-+  uint32_t VddOff               : 1;
-+  uint32_t InUlv                : 1;
-+  uint32_t InWhisperMode        : 1;
-+  uint32_t spare0               : 1;
-+  uint32_t ZstateStatus         : 4;
-+  uint32_t spare1               :12;
-+  // MP1_EXT_SCRATCH2
-+  uint32_t P2JobHandler         :24;
-+  uint32_t RsmuPmiP2FinishedCnt : 8;
-+  // MP1_EXT_SCRATCH3
-+  uint32_t PostCode             :32;
-+  // MP1_EXT_SCRATCH4
-+  uint32_t MsgPortBusy          :15;
-+  uint32_t RsmuPmiP1Pending     : 1;
-+  uint32_t DfCstateExitPending  : 1;
-+  uint32_t Pc6EntryPending      : 1;
-+  uint32_t Pc6ExitPending       : 1;
-+  uint32_t WarmResetPending     : 1;
-+  uint32_t Mp0ClkPending        : 1;
-+  uint32_t spare2               : 3;
-+  uint32_t RsmuPmiP2PendingCnt  : 8;
-+  // MP1_EXT_SCRATCH5
-+  uint32_t IdleMask             :32;
-+  // MP1_EXT_SCRATCH6 = RTOS threads' status
-+  // MP1_EXT_SCRATCH7 = RTOS Current Job
-+} FwStatus_t;
++  int32_t value;
++  uint32_t numFractionalBits;
++} FloatInIntFormat_t;
++
++typedef enum {
++  DSPCLK_DCFCLK = 0,
++  DSPCLK_DISPCLK,
++  DSPCLK_PIXCLK,
++  DSPCLK_PHYCLK,
++  DSPCLK_COUNT,
++} DSPCLK_e;
++
++typedef struct {
++  uint16_t Freq; // in MHz
++  uint16_t Vid;  // min voltage in SVI3 VID
++} DisplayClockTable_t;
++
++typedef struct {
++  uint16_t MinClock; // This is either DCFCLK or SOCCLK (in MHz)
++  uint16_t MaxClock; // This is either DCFCLK or SOCCLK (in MHz)
++  uint16_t MinMclk;
++  uint16_t MaxMclk;
++
++  uint8_t  WmSetting;
++  uint8_t  WmType;  // Used for normal pstate change or memory retraining
++  uint8_t  Padding[2];
++} WatermarkRowGeneric_t;
++
++#define NUM_WM_RANGES 4
++#define WM_PSTATE_CHG 0
++#define WM_RETRAINING 1
++
++typedef enum {
++  WM_SOCCLK = 0,
++  WM_DCFCLK,
++  WM_COUNT,
++} WM_CLOCK_e;
++
++typedef struct {
++  // Watermarks
++  WatermarkRowGeneric_t WatermarkRow[WM_COUNT][NUM_WM_RANGES];
++
++  uint32_t MmHubPadding[7]; // SMU internal use
++} Watermarks_t;
++
++typedef enum {
++  CUSTOM_DPM_SETTING_GFXCLK,
++  CUSTOM_DPM_SETTING_CCLK,
++  CUSTOM_DPM_SETTING_FCLK_CCX,
++  CUSTOM_DPM_SETTING_FCLK_GFX,
++  CUSTOM_DPM_SETTING_FCLK_STALLS,
++  CUSTOM_DPM_SETTING_LCLK,
++  CUSTOM_DPM_SETTING_COUNT,
++} CUSTOM_DPM_SETTING_e;
++
++typedef struct {
++  uint8_t             ActiveHystLimit;
++  uint8_t             IdleHystLimit;
++  uint8_t             FPS;
++  uint8_t             MinActiveFreqType;
++  FloatInIntFormat_t  MinActiveFreq;
++  FloatInIntFormat_t  PD_Data_limit;
++  FloatInIntFormat_t  PD_Data_time_constant;
++  FloatInIntFormat_t  PD_Data_error_coeff;
++  FloatInIntFormat_t  PD_Data_error_rate_coeff;
++} DpmActivityMonitorCoeffExt_t;
++
++typedef struct {
++  DpmActivityMonitorCoeffExt_t DpmActivityMonitorCoeff[CUSTOM_DPM_SETTING_COUNT];
++} CustomDpmSettings_t;
++
++#define NUM_DCFCLK_DPM_LEVELS   8
++#define NUM_DISPCLK_DPM_LEVELS  8
++#define NUM_DPPCLK_DPM_LEVELS   8
++#define NUM_SOCCLK_DPM_LEVELS   8
++#define NUM_VCN_DPM_LEVELS      8
++#define NUM_SOC_VOLTAGE_LEVELS  8
++#define NUM_DF_PSTATE_LEVELS    4
++
++typedef struct {
++  uint32_t FClk;
++  uint32_t MemClk;
++  uint32_t Voltage;
++  uint8_t  WckRatio;
++  uint8_t  Spare[3];
++} DfPstateTable_t;
++
++//Freq in MHz
++//Voltage in milli volts with 2 fractional bits
++typedef struct {
++  uint32_t DcfClocks[NUM_DCFCLK_DPM_LEVELS];
++  uint32_t DispClocks[NUM_DISPCLK_DPM_LEVELS];
++  uint32_t DppClocks[NUM_DPPCLK_DPM_LEVELS];
++  uint32_t SocClocks[NUM_SOCCLK_DPM_LEVELS];
++  uint32_t VClocks[NUM_VCN_DPM_LEVELS];
++  uint32_t DClocks[NUM_VCN_DPM_LEVELS];
++  uint32_t SocVoltage[NUM_SOC_VOLTAGE_LEVELS];
++  DfPstateTable_t DfPstateTable[NUM_DF_PSTATE_LEVELS];
++
++  uint8_t  NumDcfClkLevelsEnabled;
++  uint8_t  NumDispClkLevelsEnabled; //Applies to both Dispclk and Dppclk
++  uint8_t  NumSocClkLevelsEnabled;
++  uint8_t  VcnClkLevelsEnabled;     //Applies to both Vclk and Dclk
++  uint8_t  NumDfPstatesEnabled;
++  uint8_t  spare[3];
++
++  uint32_t MinGfxClk;
++  uint32_t MaxGfxClk;
++} DpmClocks_t;
 +
 +
-+#pragma pack(pop)
++// Throttler Status Bitmask
++#define THROTTLER_STATUS_BIT_SPL            0
++#define THROTTLER_STATUS_BIT_FPPT           1
++#define THROTTLER_STATUS_BIT_SPPT           2
++#define THROTTLER_STATUS_BIT_SPPT_APU       3
++#define THROTTLER_STATUS_BIT_THM_CORE       4
++#define THROTTLER_STATUS_BIT_THM_GFX        5
++#define THROTTLER_STATUS_BIT_THM_SOC        6
++#define THROTTLER_STATUS_BIT_TDC_VDD        7
++#define THROTTLER_STATUS_BIT_TDC_SOC        8
++#define THROTTLER_STATUS_BIT_PROCHOT_CPU    9
++#define THROTTLER_STATUS_BIT_PROCHOT_GFX   10
++#define THROTTLER_STATUS_BIT_EDC_CPU       11
++#define THROTTLER_STATUS_BIT_EDC_GFX       12
++
++typedef struct {
++  uint16_t GfxclkFrequency;             //[MHz]
++  uint16_t SocclkFrequency;             //[MHz]
++  uint16_t VclkFrequency;               //[MHz]
++  uint16_t DclkFrequency;               //[MHz]
++  uint16_t MemclkFrequency;             //[MHz]
++  uint16_t spare;
++
++  uint16_t GfxActivity;                 //[centi]
++  uint16_t UvdActivity;                 //[centi]
++
++  uint16_t Voltage[2];                  //[mV] indices: VDDCR_VDD, VDDCR_SOC
++  uint16_t Current[2];                  //[mA] indices: VDDCR_VDD, VDDCR_SOC
++  uint16_t Power[2];                    //[mW] indices: VDDCR_VDD, VDDCR_SOC
++
++  //3rd party tools in Windows need this info in the case of APUs
++  uint16_t CoreFrequency[8];            //[MHz]
++  uint16_t CorePower[8];                //[mW]
++  uint16_t CoreTemperature[8];          //[centi-Celsius]
++  uint16_t L3Frequency;                 //[MHz]
++  uint16_t L3Temperature;               //[centi-Celsius]
++
++  uint16_t GfxTemperature;              //[centi-Celsius]
++  uint16_t SocTemperature;              //[centi-Celsius]
++  uint16_t ThrottlerStatus;
++
++  uint16_t CurrentSocketPower;          //[mW]
++  uint16_t StapmOpnLimit;               //[W]
++  uint16_t StapmCurrentLimit;           //[W]
++  uint32_t ApuPower;                    //[mW]
++  uint32_t dGpuPower;                   //[mW]
++
++  uint16_t VddTdcValue;                 //[mA]
++  uint16_t SocTdcValue;                 //[mA]
++  uint16_t VddEdcValue;                 //[mA]
++  uint16_t SocEdcValue;                 //[mA]
++
++  uint16_t InfrastructureCpuMaxFreq;    //[MHz]
++  uint16_t InfrastructureGfxMaxFreq;    //[MHz]
++
++  uint16_t SkinTemp;
++  uint16_t DeviceState;
++} SmuMetrics_t;
++
++
++// Workload bits
++#define WORKLOAD_PPLIB_FULL_SCREEN_3D_BIT 0
++#define WORKLOAD_PPLIB_VIDEO_BIT          2
++#define WORKLOAD_PPLIB_VR_BIT             3
++#define WORKLOAD_PPLIB_COMPUTE_BIT        4
++#define WORKLOAD_PPLIB_CUSTOM_BIT         5
++#define WORKLOAD_PPLIB_COUNT              6
++
++#define TABLE_BIOS_IF               0 // Called by BIOS
++#define TABLE_WATERMARKS            1 // Called by DAL through VBIOS
++#define TABLE_CUSTOM_DPM            2 // Called by Driver
++#define TABLE_SPARE1                3
++#define TABLE_DPMCLOCKS             4 // Called by Driver and VBIOS
++#define TABLE_MOMENTARY_PM          5 // Called by Tools
++#define TABLE_MODERN_STDBY          6 // Called by Tools for Modern Standby Log
++#define TABLE_SMU_METRICS           7 // Called by Driver
++#define TABLE_INFRASTRUCTURE_LIMITS 8
++#define TABLE_COUNT                 9
 +
 +#endif
 -- 
