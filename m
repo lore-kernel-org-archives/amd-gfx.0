@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4CE0FC47096
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 16:51:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0C590C4708F
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 16:51:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1B80161C53
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 16:51:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1B80161C53
+	by mail.kernel.org (Postfix) with ESMTPS id D80A061C49
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 16:51:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D80A061C49
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4AA96EDDB;
-	Wed,  2 Jun 2021 16:51:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 874946EDDE;
+	Wed,  2 Jun 2021 16:51:27 +0000 (UTC)
 Received: from NAM11-DM6-obe.outbound.protection.outlook.com
  (mail-dm6nam11on2046.outbound.protection.outlook.com [40.107.223.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BB206EDD3
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61C4A6EDD8
  for <amd-gfx@lists.freedesktop.org>; Wed,  2 Jun 2021 16:51:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bYHJKRClvKt1PFlbf6TbHxCtJ8uE1X8WVBroCWMJuGO7HXD3umvc7TqCLKyJ9NsGty6AmE+AKQufuStnAo7lMd/rmbdpyakx6k5wGWfKnDB+f3Qkqx7Gg7HxVwpfZWXOQgZIne04L6iep1ZA3m/V3XN6AbBZjYUoNuH3WLb2eeU+KABCdqVTmpdb4rtdJhAjtMo4Fg3vy9WtRM8SbqdLpjmtHs8NRIcU7bp9RtHLPvOs6O1rHuChCS2mI5FanjBZ4CjMoIw8zenI5qJD0TixnZVyMEuwccX10wf0jvVVhIY4GjZQ7ggt8tUocTFleE7vARL7sPhbDmSvBn1WVLXUVg==
+ b=DO783vdRGFoPhPECq2uIyH3+ozp+IZj4gQosgHGK7sJ32vNspf+zrxJfJLVUBbGhqk7QpXk6RE/0HCUKioCAYKBw+TgFh5srWNrh9LiM+1PcRlQ1ie9MLCicyTub807tglVlHpuZVdIrjDmdHRr8MBlQM9QjP+R1/18C/h+HXUimldAlnvpAVPukl0j4Sdx6JOG+EXEcxXIqZOBHoT2Yj3ukijUXh6M8/TvGObecMQTt1RjzNh9EPIOalbQ5qCfdPazIn1Y3C2Hflol6Vb96dbiXSvT1quYnPcp/Zp5JxzkaXWA2U6oDwALXANrrcpFqap9vZ69i1Hx9Tr4DTUXdcg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kJ82eCkJOvcdUYJQPtULTrI6bB3NdRznLKTJOQP7+oQ=;
- b=gUogzQMKrmIvlUieD8/DEkfx0MR9aip0TI59hUyfl43DZmRmeivvFX+TLQXoGyYnh8xgs0DZhZMgSy4c14FGLaW+71/OJePOuwQqrp0mzcd5ZisbPX0R77BXayykcRNgRzG9XH0sqHQyepgENtlcho1bxaGBcYgRA/RjO/ZVoC2PKwwQ2r50V72uTfR7fT1K3t3m2VarApE6HfHzg7PlPGK2D75tKQu0OzMzYX7gpRDHN4gz+kVpYMvMmh6rPyhBOVWzba9td97neRDVCr/AH0RpAWasGQD4sNMh09F0ARro9Imh2OfazcJrJeAI4uB+WPerBK8ftGw3cCQkzsGbyw==
+ bh=dyJF8zyLmllT15Ov3ppNp3ah/XsgwddWq3Xn4pW660U=;
+ b=PB4n+V0avr5NQhJQiagBp553JHw9ema4GR1VS/7HxSzEBRQiubjSQSJ/Dr4f7TpjrU2c+lPFd39qfdpWA2UteUeEeLwiQOvxqgq0yYat/4RSuwFUW4iG58lB6KKEFaIazktDoOcEyoZuOSrZ8JL8rUAEKQevdTXOuWdv7J2mKOuCCFRiXv3/hQD1QYc1UTQr4JEiP09DHzbouWg2eikstgihXjkimNgjuBnQ3+8voFDX7D/7jF4HXnJ3K5rvJo85jYdYcntX+x92Kan3vvGQ+OTJvnsRrLpUCLqgHsNtVXxmqy2d9l8SalUVKImlq72wB1e9M5eiP7qIE0hgB6AXHA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kJ82eCkJOvcdUYJQPtULTrI6bB3NdRznLKTJOQP7+oQ=;
- b=dZxV9F1GW4l2DYDO2itf1uMLBzsEO2ONJUneumjnSuq9/2qDJ6erBEPZ4IJnpX6njMCU8OgSOizGhxF5aFrONrZMdiZ8c3xva+sMtfto8cxexPnuEXUuyTfHmuCm5vS06mKrnsVfxud3cupWTrFGwHEKdRL8+yZNrwFvV8WynPY=
+ bh=dyJF8zyLmllT15Ov3ppNp3ah/XsgwddWq3Xn4pW660U=;
+ b=C74LrhcvI1iKzGtKkU1U2s/JEUmNXPsIzP5Jnu9DwnXc9OjeU6Ne/g/owFB8ynA/WfI8GyIvhLv2EoNt6lRIjcmmuzn2dhHIb4j6Ipa05Q3v8w912osIt9eN7Osha01O2lq6sokCrLmPV/EvICoscZTpqbBaiWyMg+Z3023bZ5k=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -45,16 +45,16 @@ Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
  by MN2PR12MB4534.namprd12.prod.outlook.com (2603:10b6:208:24f::10)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.20; Wed, 2 Jun
- 2021 16:51:22 +0000
+ 2021 16:51:23 +0000
 Received: from MN2PR12MB4488.namprd12.prod.outlook.com
  ([fe80::25f7:664:3a8f:25b6]) by MN2PR12MB4488.namprd12.prod.outlook.com
  ([fe80::25f7:664:3a8f:25b6%7]) with mapi id 15.20.4173.030; Wed, 2 Jun 2021
- 16:51:22 +0000
+ 16:51:23 +0000
 From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 81/89] drm/amd/display: Add DCN3.1 HDCP support
-Date: Wed,  2 Jun 2021 12:49:00 -0400
-Message-Id: <20210602164908.2848791-81-alexander.deucher@amd.com>
+Subject: [PATCH 82/89] drm/amd/display: Add DCN3.1 BIOS parser support
+Date: Wed,  2 Jun 2021 12:49:01 -0400
+Message-Id: <20210602164908.2848791-82-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210602164908.2848791-1-alexander.deucher@amd.com>
 References: <20210602164908.2848791-1-alexander.deucher@amd.com>
@@ -68,52 +68,52 @@ Received: from localhost.localdomain (192.161.79.207) by
  MN2PR13CA0007.namprd13.prod.outlook.com (2603:10b6:208:160::20) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.9 via Frontend
- Transport; Wed, 2 Jun 2021 16:50:23 +0000
+ Transport; Wed, 2 Jun 2021 16:50:24 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 66c98964-3b83-4d55-11f4-08d925e683f5
+X-MS-Office365-Filtering-Correlation-Id: b1ea67fe-03f1-416c-1504-08d925e68449
 X-MS-TrafficTypeDiagnostic: MN2PR12MB4534:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB4534CE4AEF95362D62DD8D03F73D9@MN2PR12MB4534.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-Microsoft-Antispam-PRVS: <MN2PR12MB45346F0194A2B163A9E5CE83F73D9@MN2PR12MB4534.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1443;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: fTlIjy/tNz+5hFUsq8j8Bdn6ZB8EA7EoRA7BlGqUUQJen/ynGYFy01fqq/MkV2wERzicmWv5C2QWDa8pTVOFuwatyOt8jF9aYbeF4WnSAfgKdDQnPlzhaV5yr4N24FYxGaKhUoe06K6VA635uRoWgoP4weXFXCBlvxQtG6RC2MpJckQfheI1MnsfuU8CewGXcjpraR6x/8OQ6VZ5XJm5PC0aQgrbI1mGgL4GZQ1rpzJMPxSqTiEd3+Fs1+zfZpbTRG+E/ZGZCRvpIW9c76SLTPtKdVBM6toEMESEYn5/0HB1uBxZYHDTpfskvH6oc3H/iDg+c1DdMDeStcNDrvSnIgNBkrlT+v+iIO0UX4LsY/8P+Z4rxFFmfbxASX6L8Vr+/TurARhaE6/1qgBLQg24pewn0SrAUZzoy1E9WDOt0ydLlBoOfyccqosRCDB54JQ/mBATQVzlxlze+BnTp5gISgnlFUYKfSqcVPY30vWEf/Qs39D1zj2Gh/F7JX+XoFl9thuQOvNKXOjvFp8ICM2SvHlel1y+N61HY6Xc9bNvhtcf8hsuU+Z3b1pOzBQdcbwiT8gpUJiK2UxHjqu3+ElrplbzyvczfebUtpn7vaZfXmSn5VZ3629snQZYkCoCEzIZk09L8ESuICio6zTe9DNSaSxcgp8QNTFPOk1VefFpGjmyB1Lzsd7hCC0g0s7CJXzq
+X-Microsoft-Antispam-Message-Info: kUbdg5rhwTImD/RQmKs63qflDJrnlQUmJdSuSEVnZoi7t0fBt/qMoeTw5sWPWSrS7NKnE9NZJJJ/ErJDqe7fFxN8U3pwdGnir+1WOgIsFK7FnbR86yc4SJtna4dVhGs+7PNk/rQl8NktM6QIiHiPONZv+MJKhKp/qqZ/44EjTPykR7EQ7fiLwwkrudKGTUE3ecsjFSkzxfG/HHKThPC48ERdbfhmoyDVUV1hHwVV0BajAKrmTtCcAik6EqBNTMV9HNwGK4xrL+hGTHCm5qf3GTeD+FBUKml/ho8ySeXg8ZAys2r4E+1gERlj+KvXBfBwmXFClzGBU4KLD2pny30V2FTGvRQ4VpPgeFkYdvXNZDQD5GZC0HQXwBzV6hKdN7tW+KXmmno6MLPg9jFXBppl3Hzt+O5t+gWDSBLVeyFZRzdb12AR1WmejytkrPyjWE4bN/5BmJLTFlqZ6s41zLahgxmlI33/Eqe4WbuzvT0fYSTf6dkaqKAe7DcJDok1MrPOhpW+7X5/ehyO0uLaLtVm/Arv9rcHUFjlKhgVcy2XAKPCK5cZqoGN3yRbM8DL0V8jzNyqE3f5S8Kd1aPwytLoBb2S/LDQL4yU7Nu2EjgpbJFdoU1qlhI4SUB8HIw0HImJMY1IzevO9wSbOlwiKNYROzcRIz20UH3rtwDVQGyIqeVyR4XnrRBO3/g7khcJ2YfG
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(346002)(39860400002)(136003)(376002)(366004)(30864003)(1076003)(8676002)(2906002)(8936002)(4326008)(2616005)(956004)(38350700002)(478600001)(38100700002)(83380400001)(66946007)(66476007)(66556008)(36756003)(54906003)(6486002)(52116002)(6916009)(316002)(6512007)(6506007)(16526019)(26005)(6666004)(5660300002)(186003)(86362001)(69590400013);
+ SFS:(4636009)(396003)(346002)(39860400002)(136003)(376002)(366004)(1076003)(8676002)(2906002)(8936002)(4326008)(2616005)(956004)(38350700002)(478600001)(38100700002)(83380400001)(66946007)(66476007)(66556008)(36756003)(54906003)(6486002)(52116002)(6916009)(316002)(6512007)(6506007)(16526019)(26005)(6666004)(5660300002)(186003)(86362001)(69590400013);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?4tDt8nx0N22rvaQcaEklZreIqGJUdxwm5/Xil3100R7E0tP9tG1MUknhG0rT?=
- =?us-ascii?Q?KNyrlIP01GGsSYQEtLcyafIihO42iKYgvNdKl9+3V+jEaCL16kHuL5MtUIB3?=
- =?us-ascii?Q?iN/+y+EvqrtuGYLOZvn3cKWso8y4CWqWNTA+x4+CvZpMZ69YnhI2bGJHSQCC?=
- =?us-ascii?Q?QF+vaDIaubgV13GE8lNhumSrUMCw09AwyCrIQIMbQS0Ri9NAWBwngG4VK0dW?=
- =?us-ascii?Q?z39iFye2etsrdXpfBbhtYYFUv0VHSn5Ne+R2JGrX1BUEgLXqx62Trlj7OFOZ?=
- =?us-ascii?Q?YlNuQMqa8nbWdXe4rft/s5/dbfbnxjdDbEL9yHgXdatecphmzI8rJ9Y9l8wR?=
- =?us-ascii?Q?jEZwGF022yNMcnJfaM5CQozOwZ2Ie3U/Qb8hD4zJJwjOpDRobiPDkJWRG6ar?=
- =?us-ascii?Q?W4N4eIyk9vDBUMcYsEA86AsNEtkkL+NBFY0DMia0xMLgGhjvKjtR39DWXP++?=
- =?us-ascii?Q?hqpkFiMzwReHNeSGhN4EL4sEyB+D4MeHZY0SX2aHBT8aCGz8QhGjyNhbT6Gk?=
- =?us-ascii?Q?miMgoS6GdmAOKWihmmmOi5C1W/o+L9Wr6goxItBUGE+zsm4JfWsN+p8Kj906?=
- =?us-ascii?Q?HRGtpDodByWd3f22/rMVBSvAGF6qMI1Swh38xz+eU+gz1tN59ez0o8R3jhtE?=
- =?us-ascii?Q?mv3XO+g7lH/zKys1Vjx6UB+21c4hYCBZbbnWLX8hZMrMMS1xLJLMEsGFqz8R?=
- =?us-ascii?Q?eXiswZaeTwqxzeb0EyyNeW8+sxoe7FgTpgFE4rCOwXR1oRfK/8lmN1H6JviO?=
- =?us-ascii?Q?pTYO2KkiTiNROsZdjD5tT7ZGWL5g4wHB+JZeRAl+o8PqUna7sn5ylxu1Xj2H?=
- =?us-ascii?Q?3y+Q/D0bOXOX78TH22XvDiVPS348TXn3kcbTNc3lnumpeC0gDTiI0M9HzylF?=
- =?us-ascii?Q?YbuTfbHlg6BIiZ/mEOJ/x+vdalpPoyr+zg26UpDunAJFolH/Tn/S7Dwpb+Ni?=
- =?us-ascii?Q?nvsF7eiIHEmpLX5a86ATIN8sox8MwIueSi98SalJ7hP49qtFmzqOn6raXsJe?=
- =?us-ascii?Q?FYBo5fpOg4QgjWeWhpvVY2hhh4ywAZHbZ6FAMY/zObPy8JDzsAkJvD7WcIik?=
- =?us-ascii?Q?jNJxBxWdky9vm86k2y72VBWJ5xiw4SvLj+RoFFCvywtH6bhwH58EVCGcW2/c?=
- =?us-ascii?Q?UTfv2TlNsSVllU5m+ZVGsos7QqPEIsNvClOrUE7wEaPyQM/l6P2oOIZsOVDX?=
- =?us-ascii?Q?hp2XFcrlfgh406F3a8Pe3EeDNVb8tCm/A599YqmqkEnvJAfQLyzpZxvrkMDH?=
- =?us-ascii?Q?wD6lI+AxXVQUHsEFHzoduhNSQDvTH5sgRCY6Sjb3/jsuA2XhMYIA2Aq4EO33?=
- =?us-ascii?Q?5nMDXNTY6yXjj4sjySDDxhtk?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?ZNJjtot5pZ65WmdOt719qD2G93OTFKFpNDnE11rjbIUhd5jBVNuqhRHKRw+w?=
+ =?us-ascii?Q?uOK2CuuqxNE2lWUdFExqnr9fORvYi3jGx9lknFuP6c5ciSr5tTEkGTm3ruXW?=
+ =?us-ascii?Q?zHaOnYN4pbkaM6W4W2BY8RdgrpUFGXjmB4m3gO3EDlE4uEDwKCkqTps6Bpgy?=
+ =?us-ascii?Q?VTVekZ7zv5SuLp+Kf6fu36UDPHKA+HQW8KCHRzuWbT5DTDyWDy+flxAGKaiK?=
+ =?us-ascii?Q?8N6hQDeA6/Hfbrycvg4cROyYdcpmmzPHa397Qa6uYweWhdkTbRAsTO2oMkZ4?=
+ =?us-ascii?Q?pbkt0QwHPE+a5gT2LAvMIGLRD9lg0trJFlhoaRY7TmbRdoWWXhtBAYi0W0zB?=
+ =?us-ascii?Q?WyrNrYL2CLSj5D3b1eN0X2V7f22MlgQRQd4sHpeWYWu7WP3Fd+s0OxPsxvKy?=
+ =?us-ascii?Q?5pVqqEEHUP1efHwWKuj2vATBy2/nqij7LflDl0Zc0eQpchtRBew2FkzDgovW?=
+ =?us-ascii?Q?sIVAqHlto/vwtbnwvcKQu897LtLjhZaBAgwQUYlKi1Nr8m9aYNe9WKBJX6L9?=
+ =?us-ascii?Q?NYIhs7VMYVGsO2YWN1V6q7UnnngdBUH2VLKFu4FYvtKCMObb9ueBkNlMBY6T?=
+ =?us-ascii?Q?2QbPss9FgWtYKGiSg9Z32gyahvW+MHUQSOGi55n5yfhCHDl2WQlIaKCTw3Pc?=
+ =?us-ascii?Q?8+Ogjy96ZkQ2ljKQGUPPYQ8IlwR484CqfcIO3tiLiQvZhVNJXY7yTZC+ieyD?=
+ =?us-ascii?Q?AwK9BEqfUgLkNdp6nrcuBIFGoAWrP/GE0dnsNTc3jROmOTDhzfwMxD+1HQ7J?=
+ =?us-ascii?Q?nycR6q134WZQqqeZ0uAQp6VAcxd2Y9sZkyNphEGy6Oxhh6eB9nRbGixRmbKr?=
+ =?us-ascii?Q?fPAUQSoKsN1WouLkuhFakmO+zyCA6COAEUXrDVGjh/y51A37TM/kPFDS098x?=
+ =?us-ascii?Q?pgOZkAufwQ5Z+DmrAb6Qb3DLVA0G5eiWvEceUoKbzhqtsXjp4NFRIt4S5To3?=
+ =?us-ascii?Q?02u3/LYNbvk9BUSHH/geHbxPX5b6MucAnxFjyM/FI/gHdtV0AbDTKjQH8u6r?=
+ =?us-ascii?Q?YA30dNKM2Q8AJpkQaCpKncyfrf2RRpENyb2UznTEu/R3ZZlCU58aqLcC1emc?=
+ =?us-ascii?Q?5AqVgauqs5VwswKS6R6vSFoTSXEAsuo/4AqMA0c82UNdi7ludDprB9SonTjx?=
+ =?us-ascii?Q?nDqyA79EYLYfklUkh7s+AvFYO+kzTYLfM36bwiLv4Jjc6OWlyeau6uHrrO9O?=
+ =?us-ascii?Q?6Dj0FJgFD3DD8/p0Qt7ANc6jXveWVAa0sWu77/BM7GEfK+pHmuEUYGTgD5ew?=
+ =?us-ascii?Q?l170qgkkzk1hqJwoMt/QPGhf8FCmJaNGe3ecnw/JSi/kwuN97pMEuLQUv5f6?=
+ =?us-ascii?Q?wSiPSf2JfTkeZgSYKDrb3lxL?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 66c98964-3b83-4d55-11f4-08d925e683f5
+X-MS-Exchange-CrossTenant-Network-Message-Id: b1ea67fe-03f1-416c-1504-08d925e68449
 X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2021 16:50:23.7830 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2021 16:50:24.3207 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /yLUMZNXDOvDKu62fwS53GXYf4R8/mMcOZCfyMVjxXl9WQlqRmjWhGZ/Ypfuj2ArAQNwU2eoupypIGPD8ZLXBw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: gdxBQhVtEwUC3FZQqDJxtDvLwd+fK+p2+MyRVSbAjrYMaUzuUj0KfP5y44ZVDkz5+5o3f2Gm5s0PPvXz3mfcVg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4534
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -135,387 +135,170 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 
-New DTM interface is V3 and we need to extend our existing support
-to enable HDCP on DCN3.1.
-
-Version the helpers and fallback to the older versions on failure
-in the new interfaces.
+Updated interfaces for multiple eDP backlight caps.
+Added support for interpreting the new BIOS command tables on DCN3.1.
 
 Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- .../amd/display/amdgpu_dm/amdgpu_dm_hdcp.c    |  13 ++
- drivers/gpu/drm/amd/display/dc/dm_cp_psp.h    |   5 +
- .../drm/amd/display/modules/hdcp/hdcp_log.c   |   4 +
- .../drm/amd/display/modules/hdcp/hdcp_psp.c   | 135 +++++++++++++++++-
- .../drm/amd/display/modules/hdcp/hdcp_psp.h   |  38 +++++
- .../drm/amd/display/modules/inc/mod_hdcp.h    |  23 ++-
- 6 files changed, 214 insertions(+), 4 deletions(-)
+ .../drm/amd/display/dc/bios/bios_parser2.c    | 113 ++++++++++++++++++
+ .../display/dc/bios/command_table_helper2.c   |   5 +
+ 2 files changed, 118 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
-index 666796a0067c..10c0406778b8 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
-@@ -454,6 +454,13 @@ static void update_config(void *handle, struct cp_psp_stream_config *config)
- 	display->dig_fe = config->dig_fe;
- 	link->dig_be = config->dig_be;
- 	link->ddc_line = aconnector->dc_link->ddc_hw_inst + 1;
+diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
+index 49126a0f66af..7d1c1b76d8d0 100644
+--- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
++++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
+@@ -576,6 +576,13 @@ static struct device_id device_type_from_device_id(uint16_t device_id)
+ 		result_device_id.device_type = DEVICE_TYPE_LCD;
+ 		result_device_id.enum_id = 1;
+ 		break;
 +#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+	display->stream_enc_idx = config->stream_enc_idx;
-+	link->link_enc_idx = config->link_enc_idx;
-+	link->phy_idx = config->phy_idx;
-+	link->hdcp_supported_informational = dc_link_is_hdcp14(aconnector->dc_link,
-+			aconnector->dc_sink->sink_signal) ? 1 : 0;
++
++	case ATOM_DISPLAY_LCD2_SUPPORT:
++		result_device_id.device_type = DEVICE_TYPE_LCD;
++		result_device_id.enum_id = 2;
++		break;
 +#endif
- 	link->dp.rev = aconnector->dc_link->dpcd_caps.dpcd_rev.raw;
- 	link->dp.assr_enabled = config->assr_enabled;
- 	link->dp.mst_enabled = config->mst_enabled;
-@@ -637,6 +644,12 @@ struct hdcp_workqueue *hdcp_create_workqueue(struct amdgpu_device *adev, struct
- 		INIT_DELAYED_WORK(&hdcp_work[i].property_validate_dwork, event_property_validate);
  
- 		hdcp_work[i].hdcp.config.psp.handle = &adev->psp;
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+		if (dc->ctx->dce_version == DCN_VERSION_3_1) {
-+			hdcp_work[i].hdcp.config.psp.caps.dtm_v3_supported = 1;
-+			hdcp_work[i].hdcp.config.psp.caps.opm_state_query_supported = false;
-+		}
-+#endif
- 		hdcp_work[i].hdcp.config.ddc.handle = dc_get_link_at_index(dc, i);
- 		hdcp_work[i].hdcp.config.ddc.funcs.write_i2c = lp_write_i2c;
- 		hdcp_work[i].hdcp.config.ddc.funcs.read_i2c = lp_read_i2c;
-diff --git a/drivers/gpu/drm/amd/display/dc/dm_cp_psp.h b/drivers/gpu/drm/amd/display/dc/dm_cp_psp.h
-index cac0b2c0d31b..8381c8f9ddb7 100644
---- a/drivers/gpu/drm/amd/display/dc/dm_cp_psp.h
-+++ b/drivers/gpu/drm/amd/display/dc/dm_cp_psp.h
-@@ -32,6 +32,11 @@ struct cp_psp_stream_config {
- 	uint8_t otg_inst;
- 	uint8_t dig_be;
- 	uint8_t dig_fe;
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+	uint8_t link_enc_idx;
-+	uint8_t stream_enc_idx;
-+	uint8_t phy_idx;
-+#endif
- 	uint8_t assr_enabled;
- 	uint8_t mst_enabled;
- 	void *dm_stream_ctx;
-diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_log.c b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_log.c
-index ee5230ccf3c4..62dd89cf70bb 100644
---- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_log.c
-+++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_log.c
-@@ -172,6 +172,10 @@ char *mod_hdcp_status_to_str(int32_t status)
- 		return "MOD_HDCP_STATUS_HDCP2_REAUTH_LINK_INTEGRITY_FAILURE";
- 	case MOD_HDCP_STATUS_HDCP2_DEVICE_COUNT_MISMATCH_FAILURE:
- 		return "MOD_HDCP_STATUS_HDCP2_DEVICE_COUNT_MISMATCH_FAILURE";
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+	case MOD_HDCP_STATUS_UNSUPPORTED_PSP_VER_FAILURE:
-+		return "MOD_HDCP_STATUS_UNSUPPORTED_PSP_VER_FAILURE";
-+#endif
- 	default:
- 		return "MOD_HDCP_STATUS_UNKNOWN";
- 	}
-diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c
-index 06910d2fd57a..fc88fe249a50 100644
---- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c
-+++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c
-@@ -44,11 +44,16 @@ static void hdcp2_message_init(struct mod_hdcp *hdcp,
- 	in->process.msg3_desc.msg_id = TA_HDCP_HDCP2_MSG_ID__NULL_MESSAGE;
- 	in->process.msg3_desc.msg_size = 0;
- }
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+static enum mod_hdcp_status mod_hdcp_remove_display_from_topology_v2(
-+		struct mod_hdcp *hdcp, uint8_t index)
-+#else
- enum mod_hdcp_status mod_hdcp_remove_display_from_topology(
- 		struct mod_hdcp *hdcp, uint8_t index)
-- {
-- 	struct psp_context *psp = hdcp->config.psp.handle;
-- 	struct ta_dtm_shared_memory *dtm_cmd;
-+#endif
-+{
-+	struct psp_context *psp = hdcp->config.psp.handle;
-+	struct ta_dtm_shared_memory *dtm_cmd;
- 	struct mod_hdcp_display *display =
- 			get_active_display_at_index(hdcp, index);
- 	enum mod_hdcp_status status = MOD_HDCP_STATUS_SUCCESS;
-@@ -79,8 +84,66 @@ enum mod_hdcp_status mod_hdcp_remove_display_from_topology(
- 	mutex_unlock(&psp->dtm_context.mutex);
- 	return status;
- }
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+static enum mod_hdcp_status mod_hdcp_remove_display_from_topology_v3(
-+		struct mod_hdcp *hdcp, uint8_t index)
-+{
-+	struct psp_context *psp = hdcp->config.psp.handle;
-+	struct ta_dtm_shared_memory *dtm_cmd;
-+	struct mod_hdcp_display *display =
-+		get_active_display_at_index(hdcp, index);
-+	enum mod_hdcp_status status = MOD_HDCP_STATUS_SUCCESS;
-+
-+	dtm_cmd = (struct ta_dtm_shared_memory *)psp->dtm_context.dtm_shared_buf;
-+
-+	if (!display || !is_display_active(display))
-+		return MOD_HDCP_STATUS_DISPLAY_NOT_FOUND;
-+
-+	mutex_lock(&psp->dtm_context.mutex);
-+
-+	memset(dtm_cmd, 0, sizeof(struct ta_dtm_shared_memory));
-+
-+	dtm_cmd->cmd_id = TA_DTM_COMMAND__TOPOLOGY_UPDATE_V3;
-+	dtm_cmd->dtm_in_message.topology_update_v3.display_handle = display->index;
-+	dtm_cmd->dtm_in_message.topology_update_v3.is_active = 0;
-+	dtm_cmd->dtm_status = TA_DTM_STATUS__GENERIC_FAILURE;
-+
-+	psp_dtm_invoke(psp, dtm_cmd->cmd_id);
-+
-+	if (dtm_cmd->dtm_status != TA_DTM_STATUS__SUCCESS) {
-+		status = mod_hdcp_remove_display_from_topology_v2(hdcp, index);
-+		if (status != MOD_HDCP_STATUS_SUCCESS)
-+			display->state = MOD_HDCP_DISPLAY_INACTIVE;
-+	} else {
-+		display->state = MOD_HDCP_DISPLAY_ACTIVE;
-+		HDCP_TOP_REMOVE_DISPLAY_TRACE(hdcp, display->index);
-+	}
-+
-+	mutex_unlock(&psp->dtm_context.mutex);
-+
-+	return status;
-+}
-+
-+enum mod_hdcp_status mod_hdcp_remove_display_from_topology(
-+		struct mod_hdcp *hdcp, uint8_t index)
-+{
-+	enum mod_hdcp_status status = MOD_HDCP_STATUS_UPDATE_TOPOLOGY_FAILURE;
-+
-+	if (hdcp->config.psp.caps.dtm_v3_supported)
-+		status = mod_hdcp_remove_display_from_topology_v3(hdcp, index);
-+	else
-+		status = mod_hdcp_remove_display_from_topology_v2(hdcp, index);
-+
-+	return status;
-+}
-+#endif
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+static enum mod_hdcp_status mod_hdcp_add_display_to_topology_v2(
-+		struct mod_hdcp *hdcp, struct mod_hdcp_display *display)
-+#else
- enum mod_hdcp_status mod_hdcp_add_display_to_topology(struct mod_hdcp *hdcp,
- 					       struct mod_hdcp_display *display)
-+#endif
- {
- 	struct psp_context *psp = hdcp->config.psp.handle;
- 	struct ta_dtm_shared_memory *dtm_cmd;
-@@ -126,6 +189,72 @@ enum mod_hdcp_status mod_hdcp_add_display_to_topology(struct mod_hdcp *hdcp,
- 	return status;
+ 	case ATOM_DISPLAY_DFP1_SUPPORT:
+ 		result_device_id.device_type = DEVICE_TYPE_DFP;
+@@ -2155,6 +2162,107 @@ static enum bp_result get_integrated_info_v2_1(
+ 	return BP_RESULT_OK;
  }
  
 +#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+static enum mod_hdcp_status mod_hdcp_add_display_to_topology_v3(
-+		struct mod_hdcp *hdcp, struct mod_hdcp_display *display)
++static enum bp_result get_integrated_info_v2_2(
++	struct bios_parser *bp,
++	struct integrated_info *info)
 +{
-+	struct psp_context *psp = hdcp->config.psp.handle;
-+	struct ta_dtm_shared_memory *dtm_cmd;
-+	struct mod_hdcp_link *link = &hdcp->connection.link;
-+	enum mod_hdcp_status status = MOD_HDCP_STATUS_SUCCESS;
++	struct atom_integrated_system_info_v2_2 *info_v2_2;
++	uint32_t i;
 +
-+	if (!psp->dtm_context.dtm_initialized) {
-+		DRM_INFO("Failed to add display topology, DTM TA is not initialized.");
-+		display->state = MOD_HDCP_DISPLAY_INACTIVE;
-+		return MOD_HDCP_STATUS_FAILURE;
++	info_v2_2 = GET_IMAGE(struct atom_integrated_system_info_v2_2,
++					DATA_TABLES(integratedsysteminfo));
++
++	if (info_v2_2 == NULL)
++		return BP_RESULT_BADBIOSTABLE;
++
++	info->gpu_cap_info =
++	le32_to_cpu(info_v2_2->gpucapinfo);
++	/*
++	* system_config: Bit[0] = 0 : PCIE power gating disabled
++	*                       = 1 : PCIE power gating enabled
++	*                Bit[1] = 0 : DDR-PLL shut down disabled
++	*                       = 1 : DDR-PLL shut down enabled
++	*                Bit[2] = 0 : DDR-PLL power down disabled
++	*                       = 1 : DDR-PLL power down enabled
++	*/
++	info->system_config = le32_to_cpu(info_v2_2->system_config);
++	info->cpu_cap_info = le32_to_cpu(info_v2_2->cpucapinfo);
++	info->memory_type = info_v2_2->memorytype;
++	info->ma_channel_number = info_v2_2->umachannelnumber;
++	info->dp_ss_control =
++		le16_to_cpu(info_v2_2->reserved1);
++
++	for (i = 0; i < NUMBER_OF_UCHAR_FOR_GUID; ++i) {
++		info->ext_disp_conn_info.gu_id[i] =
++				info_v2_2->extdispconninfo.guid[i];
 +	}
 +
-+	dtm_cmd = (struct ta_dtm_shared_memory *)psp->dtm_context.dtm_shared_buf;
++	for (i = 0; i < MAX_NUMBER_OF_EXT_DISPLAY_PATH; ++i) {
++		info->ext_disp_conn_info.path[i].device_connector_id =
++		object_id_from_bios_object_id(
++		le16_to_cpu(info_v2_2->extdispconninfo.path[i].connectorobjid));
 +
-+	mutex_lock(&psp->dtm_context.mutex);
-+	memset(dtm_cmd, 0, sizeof(struct ta_dtm_shared_memory));
++		info->ext_disp_conn_info.path[i].ext_encoder_obj_id =
++		object_id_from_bios_object_id(
++			le16_to_cpu(
++			info_v2_2->extdispconninfo.path[i].ext_encoder_objid));
 +
-+	dtm_cmd->cmd_id = TA_DTM_COMMAND__TOPOLOGY_UPDATE_V3;
-+	dtm_cmd->dtm_in_message.topology_update_v3.display_handle = display->index;
-+	dtm_cmd->dtm_in_message.topology_update_v3.is_active = 1;
-+	dtm_cmd->dtm_in_message.topology_update_v3.controller = display->controller;
-+	dtm_cmd->dtm_in_message.topology_update_v3.ddc_line = link->ddc_line;
-+	dtm_cmd->dtm_in_message.topology_update_v3.link_enc = link->link_enc_idx;
-+	dtm_cmd->dtm_in_message.topology_update_v3.stream_enc = display->stream_enc_idx;
-+	if (is_dp_hdcp(hdcp))
-+		dtm_cmd->dtm_in_message.topology_update_v3.is_assr = link->dp.assr_enabled;
-+
-+	dtm_cmd->dtm_in_message.topology_update_v3.dp_mst_vcid = display->vc_id;
-+	dtm_cmd->dtm_in_message.topology_update_v3.max_hdcp_supported_version =
-+			TA_DTM_HDCP_VERSION_MAX_SUPPORTED__2_3;
-+	dtm_cmd->dtm_in_message.topology_update_v3.encoder_type = TA_DTM_ENCODER_TYPE__DIG;
-+	dtm_cmd->dtm_status = TA_DTM_STATUS__GENERIC_FAILURE;
-+	dtm_cmd->dtm_in_message.topology_update_v3.phy_id = link->phy_idx;
-+	dtm_cmd->dtm_in_message.topology_update_v3.link_hdcp_cap = link->hdcp_supported_informational;
-+
-+	psp_dtm_invoke(psp, dtm_cmd->cmd_id);
-+
-+	if (dtm_cmd->dtm_status != TA_DTM_STATUS__SUCCESS) {
-+		status = mod_hdcp_add_display_to_topology_v2(hdcp, display);
-+		if (status != MOD_HDCP_STATUS_SUCCESS)
-+			display->state = MOD_HDCP_DISPLAY_INACTIVE;
-+	} else {
-+		HDCP_TOP_ADD_DISPLAY_TRACE(hdcp, display->index);
++		info->ext_disp_conn_info.path[i].device_tag =
++			le16_to_cpu(
++				info_v2_2->extdispconninfo.path[i].device_tag);
++		info->ext_disp_conn_info.path[i].device_acpi_enum =
++		le16_to_cpu(
++			info_v2_2->extdispconninfo.path[i].device_acpi_enum);
++		info->ext_disp_conn_info.path[i].ext_aux_ddc_lut_index =
++			info_v2_2->extdispconninfo.path[i].auxddclut_index;
++		info->ext_disp_conn_info.path[i].ext_hpd_pin_lut_index =
++			info_v2_2->extdispconninfo.path[i].hpdlut_index;
++		info->ext_disp_conn_info.path[i].channel_mapping.raw =
++			info_v2_2->extdispconninfo.path[i].channelmapping;
++		info->ext_disp_conn_info.path[i].caps =
++				le16_to_cpu(info_v2_2->extdispconninfo.path[i].caps);
 +	}
 +
-+	mutex_unlock(&psp->dtm_context.mutex);
++	info->ext_disp_conn_info.checksum =
++		info_v2_2->extdispconninfo.checksum;
 +
-+	return status;
++	info->edp1_info.edp_backlight_pwm_hz =
++	le16_to_cpu(info_v2_2->edp1_info.edp_backlight_pwm_hz);
++	info->edp1_info.edp_ss_percentage =
++	le16_to_cpu(info_v2_2->edp1_info.edp_ss_percentage);
++	info->edp1_info.edp_ss_rate_10hz =
++	le16_to_cpu(info_v2_2->edp1_info.edp_ss_rate_10hz);
++	info->edp1_info.edp_pwr_on_off_delay =
++		info_v2_2->edp1_info.edp_pwr_on_off_delay;
++	info->edp1_info.edp_pwr_on_vary_bl_to_blon =
++		info_v2_2->edp1_info.edp_pwr_on_vary_bl_to_blon;
++	info->edp1_info.edp_pwr_down_bloff_to_vary_bloff =
++		info_v2_2->edp1_info.edp_pwr_down_bloff_to_vary_bloff;
++	info->edp1_info.edp_panel_bpc =
++		info_v2_2->edp1_info.edp_panel_bpc;
++	info->edp1_info.edp_bootup_bl_level =
++
++	info->edp2_info.edp_backlight_pwm_hz =
++	le16_to_cpu(info_v2_2->edp2_info.edp_backlight_pwm_hz);
++	info->edp2_info.edp_ss_percentage =
++	le16_to_cpu(info_v2_2->edp2_info.edp_ss_percentage);
++	info->edp2_info.edp_ss_rate_10hz =
++	le16_to_cpu(info_v2_2->edp2_info.edp_ss_rate_10hz);
++	info->edp2_info.edp_pwr_on_off_delay =
++		info_v2_2->edp2_info.edp_pwr_on_off_delay;
++	info->edp2_info.edp_pwr_on_vary_bl_to_blon =
++		info_v2_2->edp2_info.edp_pwr_on_vary_bl_to_blon;
++	info->edp2_info.edp_pwr_down_bloff_to_vary_bloff =
++		info_v2_2->edp2_info.edp_pwr_down_bloff_to_vary_bloff;
++	info->edp2_info.edp_panel_bpc =
++		info_v2_2->edp2_info.edp_panel_bpc;
++	info->edp2_info.edp_bootup_bl_level =
++		info_v2_2->edp2_info.edp_bootup_bl_level;
++
++	return BP_RESULT_OK;
 +}
-+
-+enum mod_hdcp_status mod_hdcp_add_display_to_topology(struct mod_hdcp *hdcp,
-+					       struct mod_hdcp_display *display)
-+{
-+	enum mod_hdcp_status status = MOD_HDCP_STATUS_SUCCESS;
-+
-+	if (hdcp->config.psp.caps.dtm_v3_supported)
-+		status = mod_hdcp_add_display_to_topology_v3(hdcp, display);
-+	else
-+		status = mod_hdcp_add_display_to_topology_v2(hdcp, display);
-+
-+	return status;
-+}
 +#endif
- enum mod_hdcp_status mod_hdcp_hdcp1_create_session(struct mod_hdcp *hdcp)
- {
- 
-diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.h b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.h
-index 1a663dbbf810..b0b2544eaa9d 100644
---- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.h
-+++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.h
-@@ -44,7 +44,12 @@ enum bgd_security_hdcp2_content_type {
- enum ta_dtm_command {
- 	TA_DTM_COMMAND__UNUSED_1 = 1,
- 	TA_DTM_COMMAND__TOPOLOGY_UPDATE_V2,
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+	TA_DTM_COMMAND__TOPOLOGY_ASSR_ENABLE,
-+	TA_DTM_COMMAND__TOPOLOGY_UPDATE_V3
-+#else
- 	TA_DTM_COMMAND__TOPOLOGY_ASSR_ENABLE
-+#endif
- };
- 
- /* DTM related enumerations */
-@@ -86,6 +91,33 @@ struct ta_dtm_topology_update_input_v2 {
- 	uint32_t max_hdcp_supported_version;
- };
- 
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+/* For security reason/HW may change value, these encoder type enum values are not HW register values */
-+/* Security code will check real HW register values and these SW enum values */
-+enum ta_dtm_encoder_type {
-+	TA_DTM_ENCODER_TYPE__INVALID    = 0,
-+	TA_DTM_ENCODER_TYPE__DIG        = 0x10
-+};
-+
-+struct ta_dtm_topology_update_input_v3 {
-+	/* display handle is unique across the driver and is used to identify a display */
-+	/* for all security interfaces which reference displays such as HDCP */
-+	/* link_hdcp_cap means link is HDCP-capable for audio HDCP capable property(informational), not for other logic(e.g. Crossbar) */
-+	uint32_t display_handle;
-+	uint32_t is_active;
-+	uint32_t is_miracast;
-+	uint32_t controller;
-+	uint32_t ddc_line;
-+	uint32_t link_enc;
-+	uint32_t stream_enc;
-+	uint32_t dp_mst_vcid;
-+	uint32_t is_assr;
-+	uint32_t max_hdcp_supported_version;
-+	enum ta_dtm_encoder_type encoder_type;
-+	uint32_t phy_id;
-+	uint32_t link_hdcp_cap;
-+};
-+#endif
- struct ta_dtm_topology_assr_enable {
- 	uint32_t display_topology_dig_be_index;
- };
-@@ -99,6 +131,9 @@ struct ta_dtm_topology_assr_enable {
- union ta_dtm_cmd_input {
- 	struct ta_dtm_topology_update_input_v2 topology_update_v2;
- 	struct ta_dtm_topology_assr_enable topology_assr_enable;
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+	struct ta_dtm_topology_update_input_v3 topology_update_v3;
-+#endif
- };
- 
- union ta_dtm_cmd_output {
-@@ -278,6 +313,9 @@ enum ta_hdcp2_version {
- 	TA_HDCP2_VERSION_UNKNOWN = 0,
- 	TA_HDCP2_VERSION_2_0 = 20,
- 	TA_HDCP2_VERSION_2_1 = 21,
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+	TA_HDCP2_VERSION_2_3 = 23,
-+#endif
- 	TA_HDCP2_VERSION_2_2 = 22
- };
- 
-diff --git a/drivers/gpu/drm/amd/display/modules/inc/mod_hdcp.h b/drivers/gpu/drm/amd/display/modules/inc/mod_hdcp.h
-index acbeada5215b..2197c269e0a7 100644
---- a/drivers/gpu/drm/amd/display/modules/inc/mod_hdcp.h
-+++ b/drivers/gpu/drm/amd/display/modules/inc/mod_hdcp.h
-@@ -1,5 +1,5 @@
  /*
-- * Copyright 2019 Advanced Micro Devices, Inc.
-+ * Copyright 2018 Advanced Micro Devices, Inc.
+  * construct_integrated_info
   *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-@@ -97,6 +97,9 @@ enum mod_hdcp_status {
- 	MOD_HDCP_STATUS_HDCP2_REAUTH_REQUEST,
- 	MOD_HDCP_STATUS_HDCP2_REAUTH_LINK_INTEGRITY_FAILURE,
- 	MOD_HDCP_STATUS_HDCP2_DEVICE_COUNT_MISMATCH_FAILURE,
+@@ -2202,6 +2310,11 @@ static enum bp_result construct_integrated_info(
+ 			case 1:
+ 				result = get_integrated_info_v2_1(bp, info);
+ 				break;
 +#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+	MOD_HDCP_STATUS_UNSUPPORTED_PSP_VER_FAILURE,
++			case 2:
++				result = get_integrated_info_v2_2(bp, info);
++				break;
 +#endif
- };
- 
- struct mod_hdcp_displayport {
-@@ -120,6 +123,13 @@ enum mod_hdcp_display_state {
- 	MOD_HDCP_DISPLAY_ENCRYPTION_ENABLED
- };
- 
+ 			default:
+ 				return result;
+ 			}
+diff --git a/drivers/gpu/drm/amd/display/dc/bios/command_table_helper2.c b/drivers/gpu/drm/amd/display/dc/bios/command_table_helper2.c
+index 6d2fb112ad9f..3ac4dc01f8e1 100644
+--- a/drivers/gpu/drm/amd/display/dc/bios/command_table_helper2.c
++++ b/drivers/gpu/drm/amd/display/dc/bios/command_table_helper2.c
+@@ -72,6 +72,11 @@ bool dal_bios_parser_init_cmd_tbl_helper2(
+ 	case DCN_VERSION_2_1:
+ 	case DCN_VERSION_3_0:
+ 	case DCN_VERSION_3_01:
 +#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+struct mod_hdcp_psp_caps {
-+	uint8_t dtm_v3_supported;
-+	uint8_t opm_state_query_supported;
-+};
-+
++	case DCN_VERSION_3_1:
++		*h = dal_cmd_tbl_helper_dce112_get_table2();
++		return true;
 +#endif
- enum mod_hdcp_display_disable_option {
- 	MOD_HDCP_DISPLAY_NOT_DISABLE = 0,
- 	MOD_HDCP_DISPLAY_DISABLE_AUTHENTICATION,
-@@ -152,6 +162,9 @@ struct mod_hdcp_ddc {
- struct mod_hdcp_psp {
- 	void *handle;
- 	void *funcs;
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+	struct mod_hdcp_psp_caps caps;
-+#endif
- };
- 
- struct mod_hdcp_display_adjustment {
-@@ -227,6 +240,9 @@ struct mod_hdcp_display {
- 	uint8_t index;
- 	uint8_t controller;
- 	uint8_t dig_fe;
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+	uint8_t stream_enc_idx;
-+#endif
- 	union {
- 		uint8_t vc_id;
- 	};
-@@ -239,6 +255,11 @@ struct mod_hdcp_link {
- 	enum mod_hdcp_operation_mode mode;
- 	uint8_t dig_be;
- 	uint8_t ddc_line;
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_1)
-+	uint8_t link_enc_idx;
-+	uint8_t phy_idx;
-+	uint8_t hdcp_supported_informational;
-+#endif
- 	union {
- 		struct mod_hdcp_displayport dp;
- 		struct mod_hdcp_hdmi hdmi;
+ 	case DCN_VERSION_3_02:
+ 	case DCN_VERSION_3_03:
+ 		*h = dal_cmd_tbl_helper_dce112_get_table2();
 -- 
 2.31.1
 
