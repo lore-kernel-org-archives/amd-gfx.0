@@ -8,68 +8,73 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BD2A2C4708F
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 07:00:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 47AD6C47092
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 07:03:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 87B2961242
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 07:00:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 87B2961242
+	by mail.kernel.org (Postfix) with ESMTPS id 0494D6135D
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 07:03:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0494D6135D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2986C6EB6A;
-	Wed,  2 Jun 2021 07:00:43 +0000 (UTC)
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [IPv6:2a00:1450:4864:20::236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 49B8E6EB6A
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Jun 2021 07:00:42 +0000 (UTC)
-Received: by mail-lj1-x236.google.com with SMTP id m3so1214231lji.12
- for <amd-gfx@lists.freedesktop.org>; Wed, 02 Jun 2021 00:00:42 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B451B6EB69;
+	Wed,  2 Jun 2021 07:03:01 +0000 (UTC)
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [IPv6:2a00:1450:4864:20::12e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95E1E6EB69
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Jun 2021 07:03:00 +0000 (UTC)
+Received: by mail-lf1-x12e.google.com with SMTP id p17so986805lfc.6
+ for <amd-gfx@lists.freedesktop.org>; Wed, 02 Jun 2021 00:03:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=subject:to:references:from:message-id:date:user-agent:mime-version
  :in-reply-to:content-transfer-encoding:content-language;
- bh=lRVrbSOGcBsGZx2lDqmwZvfOPTUNDsAwJLEDD27NGjY=;
- b=sIVZDgPsNv39UtqPhRil6EykA0b5gI99jtWSFO5ZknTermAbiS6n/7ixsNOV9HrDWY
- tVFxd7qRs/8kuOp6m9cilnENsNwht/a6gyfaKUY/ruaIPX2wnM7/v/A5fFFmJjmZBKA5
- Uw/cF0x6kqaoXQkCI1L+3lJ2BpvENZSZuoc6wv9UFu65Ebr/iVRZZqzixtbAfawzsTFo
- e4PPNe2WuIXymwvQT8JyXzhB1yM5E6pk6TusDxfxi1S/fUxIEVrh4Iq5s2XNsxyp09Kg
- QsbtAJzz1Yk9Yd3i5K4skZOSc8Hlt6jYW8K/W+GxPyAebjmW/Cj9POl+Uas053bgWDlj
- c/bQ==
+ bh=mwcumlWzdhOcTWJi50VvD2CWfOT4vaekKqXd6JrxbbY=;
+ b=sP7z+HesyVBQ6/5Zjl0XQWeL9tgSjYn047vlPXWYaUm/xm9bkeZNT44Gr0H1S0BgTf
+ iNqf2Y1OzL+zjofr3l7LfZz4+QxG/NiIw12zYaPBGy16b6G4fkI24RcQwk2ztpYsr5YU
+ 56LCVZtdcRa3b3qqZ9DdqP24CvTcKZUrNOtEFpnWhxKpzAo3/kth4PaidP7/e7PJ0Bpk
+ MmI4ESSffb2YlynPXkxAjB5ne1SJDdNsgP3DtVioRJEZ97ijy1MWXJavK9zcW6Aelwhi
+ eOGpv1GKyz+MTmaSKzxeE2u79jMLY7fplQXYxwAJ1x47dZXDEhWT61faY8cESmvU1ryA
+ 25PA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:subject:to:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-transfer-encoding
  :content-language;
- bh=lRVrbSOGcBsGZx2lDqmwZvfOPTUNDsAwJLEDD27NGjY=;
- b=izSgvPMICRz5EZAdFKWfr/ouekim66j7UGrZa7fL/ZeYuheoyjpz/NcvZIxYz491H1
- ERQbYl+pBLOPUjRdUhg3TcjBrjv/0XKU/zJjSWjw81q8ZuxjOIQpqseTunyWoaL/l/UQ
- EglsGhvfALpfMxcxMPGvCZVLT/QLCQ/PtCZ2E4+4Fv+cz/cV7ulU8bM4Hq3tM6CNb+/D
- ikByFT8PivtLB7YH/xbAsNDJvJubQPzQgFPp/71/BQsIAiHPhHf/THPliWKtwWANl4tW
- V4iTmnUhR+l+kEqteChnBMsj0SFI3WrP7D2+9vdB8WJzAYa3WDYWOHLIpWK4PsBwTYiI
- V5Zg==
-X-Gm-Message-State: AOAM533yawjQ0SGYoMYtobNEd1m6nv1g+XZTM4zaDwcFP7JQS4hYwBdb
- Y4n/rlBSvYRdZKrrBjyLv6eNzpEAeGk=
-X-Google-Smtp-Source: ABdhPJzQ4wFBui/xuahJMia6bR73HWjZqdpmFCIPpHDoXwh5fWTOg+wWtPyAk72QwGrOxxLUPsVG9Q==
-X-Received: by 2002:a05:651c:311:: with SMTP id
- a17mr3681358ljp.90.1622617240745; 
- Wed, 02 Jun 2021 00:00:40 -0700 (PDT)
+ bh=mwcumlWzdhOcTWJi50VvD2CWfOT4vaekKqXd6JrxbbY=;
+ b=mAF9/0wZPHMabxLFCLDK/t17uFZjYSfe0x+jfrMjX+QECVo7JxtcP5m80Uq5BlKbQa
+ WY6s9GgqPhjwniWx/EG2XAhV49iBQPbD24J9YqnuH1f6DD/1cB+z1phTqEFPbTmJKkeO
+ QPqJScQIhhtOAHjREkiYW/MsSPwbbWkvItfs2tJitpKPHfi3BtzyuelH4NcJ5zl1BYT0
+ r8vJHo6DRF5tj4wWuiQIQFqy2D043207DhSP+9VdC8w6itTHKa7I/ZyElki5YkgI7c7Z
+ RCH0xgJ79fZzgQ1DXY2wUttRWTm8RpEsisuiaZXvM3cgU3YhdiY0hsRQMLefNQDdYQNj
+ Ui+w==
+X-Gm-Message-State: AOAM532y8G5clPGAifY5lsvGNAwCUWgEM+UJ194MhOxe6mTwHalcCZgt
+ b0p7iWYcQVmuYAhz4R6xXVH4j4Td3+o=
+X-Google-Smtp-Source: ABdhPJzdOQO2xtz2kyZnNNd1IthgNvJPE/ahPcKxKIg/UP9EjMZhot7fz6XEAFaO3lNI6+kuKIY7Rw==
+X-Received: by 2002:a05:6512:21b:: with SMTP id
+ a27mr8039630lfo.96.1622617379016; 
+ Wed, 02 Jun 2021 00:02:59 -0700 (PDT)
 Received: from ?IPv6:2a02:908:1252:fb60:cd07:2759:3eec:1d00?
  ([2a02:908:1252:fb60:cd07:2759:3eec:1d00])
- by smtp.gmail.com with ESMTPSA id c9sm1901310lfb.207.2021.06.02.00.00.39
+ by smtp.gmail.com with ESMTPSA id k31sm1908506lfv.105.2021.06.02.00.02.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Jun 2021 00:00:39 -0700 (PDT)
-Subject: Re: [PATCH v3] drm/amdgpu: Don't flush/invalidate HDP for APUs and A+A
-To: Eric Huang <jinhuieric.huang@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20210602020458.781206-1-jinhuieric.huang@amd.com>
+ Wed, 02 Jun 2021 00:02:58 -0700 (PDT)
+Subject: Re: [PATCH 3/4] drm/amdgpu: Add flush_tlb parameter to
+ amdgpu_vm_bo_update
+To: Felix Kuehling <felix.kuehling@amd.com>,
+ Eric Huang <jinhuieric.huang@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
+References: <20210601225907.749049-1-jinhuieric.huang@amd.com>
+ <20210601225907.749049-3-jinhuieric.huang@amd.com>
+ <2db33600-8504-db7e-7cbe-f16247da7f8e@amd.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <61d996d7-1001-3717-ab96-b09ffbfdf282@gmail.com>
-Date: Wed, 2 Jun 2021 09:00:38 +0200
+Message-ID: <5b4e7d78-4e1e-cd88-be0d-bd3e131cf37a@gmail.com>
+Date: Wed, 2 Jun 2021 09:02:57 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.8.1
 MIME-Version: 1.0
-In-Reply-To: <20210602020458.781206-1-jinhuieric.huang@amd.com>
+In-Reply-To: <2db33600-8504-db7e-7cbe-f16247da7f8e@amd.com>
 Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,170 +87,107 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 02.06.21 um 04:04 schrieb Eric Huang:
-> Integrate two macros into two generic functions and add
-> no_flush flag to determine if HDP flush is needed for
-> all Asics.
-
-Yes that starts looks like it should work, just a few comments below.
-
->
-> Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  9 ++++---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 29 ++++++++++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h    |  1 +
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c     | 15 ++---------
->   4 files changed, 37 insertions(+), 17 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index 1e3cd4ce9e91..224552d38240 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -1297,10 +1297,6 @@ int emu_soc_asic_init(struct amdgpu_device *adev);
->   #define amdgpu_asic_read_bios_from_rom(adev, b, l) (adev)->asic_funcs->read_bios_from_rom((adev), (b), (l))
->   #define amdgpu_asic_read_register(adev, se, sh, offset, v)((adev)->asic_funcs->read_register((adev), (se), (sh), (offset), (v)))
->   #define amdgpu_asic_get_config_memsize(adev) (adev)->asic_funcs->get_config_memsize((adev))
-> -#define amdgpu_asic_flush_hdp(adev, r) \
-> -	((adev)->asic_funcs->flush_hdp ? (adev)->asic_funcs->flush_hdp((adev), (r)) : (adev)->hdp.funcs->flush_hdp((adev), (r)))
-> -#define amdgpu_asic_invalidate_hdp(adev, r) \
-> -	((adev)->asic_funcs->invalidate_hdp ? (adev)->asic_funcs->invalidate_hdp((adev), (r)) : (adev)->hdp.funcs->invalidate_hdp((adev), (r)))
->   #define amdgpu_asic_need_full_reset(adev) (adev)->asic_funcs->need_full_reset((adev))
->   #define amdgpu_asic_init_doorbell_index(adev) (adev)->asic_funcs->init_doorbell_index((adev))
->   #define amdgpu_asic_get_pcie_usage(adev, cnt0, cnt1) ((adev)->asic_funcs->get_pcie_usage((adev), (cnt0), (cnt1)))
-> @@ -1314,6 +1310,11 @@ int emu_soc_asic_init(struct amdgpu_device *adev);
->   
->   #define amdgpu_inc_vram_lost(adev) atomic_inc(&((adev)->vram_lost_counter));
->   
-> +void amdgpu_asic_flush_hdp(struct amdgpu_device *adev,
-> +		struct amdgpu_ring *ring);
-> +void amdgpu_asic_invalidate_hdp(struct amdgpu_device *adev,
-> +		struct amdgpu_ring *ring);
-> +
->   /* Common functions */
->   bool amdgpu_device_has_job_running(struct amdgpu_device *adev);
->   bool amdgpu_device_should_recover_gpu(struct amdgpu_device *adev);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 9c4d33f649f7..951feefb5e76 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -3505,6 +3505,9 @@ int amdgpu_device_init(struct amdgpu_device *adev,
->   	if (r)
->   		goto failed_unmap;
->   
-> +	if ((adev->flags & AMD_IS_APU) || adev->gmc.xgmi.connected_to_cpu)
-> +		adev->hdp.no_flush = true;
-> +
-
-This is not correct. We can only skip HDP flush on X86_64, but not on 
-32bit builds.
-
-Additional to that we might want this somewhere in the GMC code and not 
-here.
-
->   	/* doorbell bar mapping and doorbell index init*/
->   	amdgpu_device_doorbell_init(adev);
->   
-> @@ -5548,3 +5551,29 @@ bool amdgpu_device_is_headless(struct amdgpu_device *adev)
->       /* Check if it is NV's VGA class while VCN is harvest, it is headless*/
->       return nv_is_headless_sku(adev->pdev);
->   }
-> +
-> +void amdgpu_asic_flush_hdp(struct amdgpu_device *adev,
-> +		struct amdgpu_ring *ring)
-
-Please name the functions amdgpu_device_, the amdgpu_asic_ names are for 
-callbacks only.
-
-> +{
-> +	if (adev->hdp.no_flush)
-> +		return;
-
-Since we now have a function to check the different conditions I think 
-we might want to check for X86_64 & APU and XGMI connection separately here.
-
-But that is not a hard requirement, using the no_flush variable is fine 
-with me if you think that this is better.
-
-> +
-> +	if (ring->funcs->emit_hdp_flush)
-> +		amdgpu_ring_emit_hdp_flush(ring);
-> +	else if (adev->asic_funcs->flush_hdp)
-> +		adev->asic_funcs->flush_hdp(adev, ring);
-> +	else
-> +		adev->hdp.funcs->flush_hdp(adev, ring);
-> +}
-> +
-> +void amdgpu_asic_invalidate_hdp(struct amdgpu_device *adev,
-> +		struct amdgpu_ring *ring)
-> +{
-> +	if (adev->hdp.no_flush)
-> +		return;
-> +
-> +	if (adev->asic_funcs->invalidate_hdp)
-> +		adev->asic_funcs->invalidate_hdp(adev, ring);
-> +	else
-> +		adev->hdp.funcs->invalidate_hdp(adev, ring);
-> +}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h
-> index 7ec99d591584..1ca23f2f51d2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h
-> @@ -44,6 +44,7 @@ struct amdgpu_hdp {
->   	struct ras_common_if			*ras_if;
->   	const struct amdgpu_hdp_funcs		*funcs;
->   	const struct amdgpu_hdp_ras_funcs	*ras_funcs;
-> +	bool	no_flush;
->   };
->   
->   int amdgpu_hdp_ras_late_init(struct amdgpu_device *adev);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-> index aaa2574ce9bc..6db676c4c7e1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-> @@ -222,15 +222,7 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned num_ibs,
->   	if (job && ring->funcs->init_cond_exec)
->   		patch_offset = amdgpu_ring_init_cond_exec(ring);
->   
-> -#ifdef CONFIG_X86_64
-> -	if (!(adev->flags & AMD_IS_APU))
-> -#endif
-> -	{
-> -		if (ring->funcs->emit_hdp_flush)
-> -			amdgpu_ring_emit_hdp_flush(ring);
-> -		else
-> -			amdgpu_asic_flush_hdp(adev, ring);
-> -	}
-> +	amdgpu_asic_flush_hdp(adev, ring);
-
-We also have two more HDP flush cases in the GART code and the CPU based 
-VM code IIRC.
-
-Thanks,
-Christian.
-
->   
->   	if (need_ctx_switch)
->   		status |= AMDGPU_HAVE_CTX_SWITCH;
-> @@ -267,10 +259,7 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned num_ibs,
->   	if (job && ring->funcs->emit_frame_cntl)
->   		amdgpu_ring_emit_frame_cntl(ring, false, secure);
->   
-> -#ifdef CONFIG_X86_64
-> -	if (!(adev->flags & AMD_IS_APU))
-> -#endif
-> -		amdgpu_asic_invalidate_hdp(adev, ring);
-> +	amdgpu_asic_invalidate_hdp(adev, ring);
->   
->   	if (ib->flags & AMDGPU_IB_FLAG_TC_WB_NOT_INVALIDATE)
->   		fence_flags |= AMDGPU_FENCE_FLAG_TC_WB_ONLY;
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+QW0gMDIuMDYuMjEgdW0gMDQ6NTQgc2NocmllYiBGZWxpeCBLdWVobGluZzoKPiBBbSAyMDIxLTA2
+LTAxIHVtIDY6NTkgcC5tLiBzY2hyaWViIEVyaWMgSHVhbmc6Cj4+IEl0IGlzIHRvIHBhc3MgdGhl
+IGZsYWcgdG8gS0ZELCBhbmQgb3B0aW1pemUgdGFibGVfZnJlZWQgaW4KPj4gYW1kZ3B1X3ZtX2Jv
+X3VwZGF0ZV9tYXBwaW5nLgo+Pgo+PiBTaWduZWQtb2ZmLWJ5OiBFcmljIEh1YW5nIDxqaW5odWll
+cmljLmh1YW5nQGFtZC5jb20+Cj4+IC0tLQo+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV9jcy5jICB8ICA2ICsrKy0tLQo+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV9nZW0uYyB8ICAyICstCj4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X3ZtLmMgIHwgMTAgKysrKystLS0tLQo+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV92bS5oICB8ICAyICstCj4+ICAgNCBmaWxlcyBjaGFuZ2VkLCAxMCBpbnNlcnRpb25z
+KCspLCAxMCBkZWxldGlvbnMoLSkKPj4KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9jcy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X2NzLmMKPj4gaW5kZXggZTlmOWY0NjJhNjUyLi5lM2RmMTMyZTUzYTUgMTAwNjQ0Cj4+IC0tLSBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jCj4+ICsrKyBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jCj4+IEBAIC05MTYsNyArOTE2LDcgQEAgc3Rh
+dGljIGludCBhbWRncHVfY3Nfdm1faGFuZGxpbmcoc3RydWN0IGFtZGdwdV9jc19wYXJzZXIgKnAp
+Cj4+ICAgCWlmIChyKQo+PiAgIAkJcmV0dXJuIHI7Cj4+ICAgCj4+IC0JciA9IGFtZGdwdV92bV9i
+b191cGRhdGUoYWRldiwgZnByaXYtPnBydF92YSwgZmFsc2UpOwo+PiArCXIgPSBhbWRncHVfdm1f
+Ym9fdXBkYXRlKGFkZXYsIGZwcml2LT5wcnRfdmEsIGZhbHNlLCBOVUxMKTsKPj4gICAJaWYgKHIp
+Cj4+ICAgCQlyZXR1cm4gcjsKPj4gICAKPj4gQEAgLTkyNyw3ICs5MjcsNyBAQCBzdGF0aWMgaW50
+IGFtZGdwdV9jc192bV9oYW5kbGluZyhzdHJ1Y3QgYW1kZ3B1X2NzX3BhcnNlciAqcCkKPj4gICAJ
+aWYgKGFtZGdwdV9tY2JwIHx8IGFtZGdwdV9zcmlvdl92ZihhZGV2KSkgewo+PiAgIAkJYm9fdmEg
+PSBmcHJpdi0+Y3NhX3ZhOwo+PiAgIAkJQlVHX09OKCFib192YSk7Cj4+IC0JCXIgPSBhbWRncHVf
+dm1fYm9fdXBkYXRlKGFkZXYsIGJvX3ZhLCBmYWxzZSk7Cj4+ICsJCXIgPSBhbWRncHVfdm1fYm9f
+dXBkYXRlKGFkZXYsIGJvX3ZhLCBmYWxzZSwgTlVMTCk7Cj4+ICAgCQlpZiAocikKPj4gICAJCQly
+ZXR1cm4gcjsKPj4gICAKPj4gQEAgLTk0Niw3ICs5NDYsNyBAQCBzdGF0aWMgaW50IGFtZGdwdV9j
+c192bV9oYW5kbGluZyhzdHJ1Y3QgYW1kZ3B1X2NzX3BhcnNlciAqcCkKPj4gICAJCWlmIChib192
+YSA9PSBOVUxMKQo+PiAgIAkJCWNvbnRpbnVlOwo+PiAgIAo+PiAtCQlyID0gYW1kZ3B1X3ZtX2Jv
+X3VwZGF0ZShhZGV2LCBib192YSwgZmFsc2UpOwo+PiArCQlyID0gYW1kZ3B1X3ZtX2JvX3VwZGF0
+ZShhZGV2LCBib192YSwgZmFsc2UsIE5VTEwpOwo+PiAgIAkJaWYgKHIpCj4+ICAgCQkJcmV0dXJu
+IHI7Cj4+ICAgCj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfZ2VtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2VtLmMKPj4gaW5k
+ZXggMjEyMGE4N2E5NDlmLi5lYWMyZmQwMDQ4Y2MgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZW0uYwo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfZ2VtLmMKPj4gQEAgLTY5Niw3ICs2OTYsNyBAQCBzdGF0aWMgdm9pZCBh
+bWRncHVfZ2VtX3ZhX3VwZGF0ZV92bShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPj4gICAK
+Pj4gICAJaWYgKG9wZXJhdGlvbiA9PSBBTURHUFVfVkFfT1BfTUFQIHx8Cj4+ICAgCSAgICBvcGVy
+YXRpb24gPT0gQU1ER1BVX1ZBX09QX1JFUExBQ0UpIHsKPj4gLQkJciA9IGFtZGdwdV92bV9ib191
+cGRhdGUoYWRldiwgYm9fdmEsIGZhbHNlKTsKPj4gKwkJciA9IGFtZGdwdV92bV9ib191cGRhdGUo
+YWRldiwgYm9fdmEsIGZhbHNlLCBOVUxMKTsKPj4gICAJCWlmIChyKQo+PiAgIAkJCWdvdG8gZXJy
+b3I7Cj4+ICAgCX0KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV92bS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPj4gaW5k
+ZXggMmMyMGJiYTdkYzFhLi5mZWQzZDQ0YjVkZWQgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV92bS5jCj4+IEBAIC0xNzI5LDcgKzE3MjksNyBAQCBpbnQgYW1kZ3B1X3Zt
+X2JvX3VwZGF0ZV9tYXBwaW5nKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+PiAgIAlyID0g
+dm0tPnVwZGF0ZV9mdW5jcy0+Y29tbWl0KCZwYXJhbXMsIGZlbmNlKTsKPj4gICAKPj4gICAJaWYg
+KHRhYmxlX2ZyZWVkKQo+PiAtCQkqdGFibGVfZnJlZWQgPSBwYXJhbXMudGFibGVfZnJlZWQ7Cj4+
+ICsJCSp0YWJsZV9mcmVlZCA9ICp0YWJsZV9mcmVlZCB8fCBwYXJhbXMudGFibGVfZnJlZWQ7Cj4+
+ICAgCj4+ICAgZXJyb3JfdW5sb2NrOgo+PiAgIAlhbWRncHVfdm1fZXZpY3Rpb25fdW5sb2NrKHZt
+KTsKPj4gQEAgLTE3OTMsNyArMTc5Myw3IEBAIHZvaWQgYW1kZ3B1X3ZtX2dldF9tZW1vcnkoc3Ry
+dWN0IGFtZGdwdV92bSAqdm0sIHVpbnQ2NF90ICp2cmFtX21lbSwKPj4gICAgKiAwIGZvciBzdWNj
+ZXNzLCAtRUlOVkFMIGZvciBmYWlsdXJlLgo+PiAgICAqLwo+PiAgIGludCBhbWRncHVfdm1fYm9f
+dXBkYXRlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBzdHJ1Y3QgYW1kZ3B1X2JvX3ZhICpi
+b192YSwKPj4gLQkJCWJvb2wgY2xlYXIpCj4+ICsJCQlib29sIGNsZWFyLCBib29sICpmbHVzaF90
+bGIpCj4gVG8gYmUgY29uc2lzdGVudCB3aXRoIGFtZGdwdV92bV9ib191cGRhdGVfbWFwcGluZyBJ
+J2QgbmFtZSB0aGlzCj4gcGFyYW1ldGVyIHRhYmxlX2ZyZWVkLgo+Cj4KPj4gICB7Cj4+ICAgCXN0
+cnVjdCBhbWRncHVfYm8gKmJvID0gYm9fdmEtPmJhc2UuYm87Cj4+ICAgCXN0cnVjdCBhbWRncHVf
+dm0gKnZtID0gYm9fdmEtPmJhc2Uudm07Cj4+IEBAIC0xODg3LDcgKzE4ODcsNyBAQCBpbnQgYW1k
+Z3B1X3ZtX2JvX3VwZGF0ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgc3RydWN0IGFtZGdw
+dV9ib192YSAqYm9fdmEsCj4+ICAgCQkJCQkJcmVzdiwgbWFwcGluZy0+c3RhcnQsCj4+ICAgCQkJ
+CQkJbWFwcGluZy0+bGFzdCwgdXBkYXRlX2ZsYWdzLAo+PiAgIAkJCQkJCW1hcHBpbmctPm9mZnNl
+dCwgbWVtLAo+PiAtCQkJCQkJcGFnZXNfYWRkciwgbGFzdF91cGRhdGUsIE5VTEwsCj4+ICsJCQkJ
+CQlwYWdlc19hZGRyLCBsYXN0X3VwZGF0ZSwgZmx1c2hfdGxiLAo+PiAgIAkJCQkJCXZyYW1fYmFz
+ZV9vZmZzZXQpOwo+PiAgIAkJaWYgKHIpCj4+ICAgCQkJcmV0dXJuIHI7Cj4+IEBAIC0yMTQxLDcg
+KzIxNDEsNyBAQCBpbnQgYW1kZ3B1X3ZtX2hhbmRsZV9tb3ZlZChzdHJ1Y3QgYW1kZ3B1X2Rldmlj
+ZSAqYWRldiwKPj4gICAKPj4gICAJbGlzdF9mb3JfZWFjaF9lbnRyeV9zYWZlKGJvX3ZhLCB0bXAs
+ICZ2bS0+bW92ZWQsIGJhc2Uudm1fc3RhdHVzKSB7Cj4+ICAgCQkvKiBQZXIgVk0gQk9zIG5ldmVy
+IG5lZWQgdG8gYm8gY2xlYXJlZCBpbiB0aGUgcGFnZSB0YWJsZXMgKi8KPj4gLQkJciA9IGFtZGdw
+dV92bV9ib191cGRhdGUoYWRldiwgYm9fdmEsIGZhbHNlKTsKPj4gKwkJciA9IGFtZGdwdV92bV9i
+b191cGRhdGUoYWRldiwgYm9fdmEsIGZhbHNlLCBOVUxMKTsKPj4gICAJCWlmIChyKQo+PiAgIAkJ
+CXJldHVybiByOwo+PiAgIAl9Cj4+IEBAIC0yMTYwLDcgKzIxNjAsNyBAQCBpbnQgYW1kZ3B1X3Zt
+X2hhbmRsZV9tb3ZlZChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPj4gICAJCWVsc2UKPj4g
+ICAJCQljbGVhciA9IHRydWU7Cj4+ICAgCj4+IC0JCXIgPSBhbWRncHVfdm1fYm9fdXBkYXRlKGFk
+ZXYsIGJvX3ZhLCBjbGVhcik7Cj4+ICsJCXIgPSBhbWRncHVfdm1fYm9fdXBkYXRlKGFkZXYsIGJv
+X3ZhLCBjbGVhciwgTlVMTCk7Cj4+ICAgCQlpZiAocikKPj4gICAJCQlyZXR1cm4gcjsKPj4gICAK
+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5oIGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmgKPj4gaW5kZXggNjdiYmE4NDYy
+ZTdkLi4yNGE2M2UyODRhNjkgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV92bS5oCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV92bS5oCj4+IEBAIC00MTksNyArNDE5LDcgQEAgaW50IGFtZGdwdV92bV9ib191cGRhdGVfbWFw
+cGluZyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPj4gICAKPj4gICBpbnQgYW1kZ3B1X3Zt
+X2JvX3VwZGF0ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPj4gICAJCQlzdHJ1Y3QgYW1k
+Z3B1X2JvX3ZhICpib192YSwKPj4gLQkJCWJvb2wgY2xlYXIpOwo+PiArCQkJYm9vbCBjbGVhciwg
+Ym9vbCAqZmx1c2hfdGxiKTsKPiBTYW1lIGFzIGFib3ZlLiBXaXRoIHRoYXQgZml4ZWQsIHRoZSBw
+YXRjaCBhbmQgdGhlIHNlcmllcyBpcwo+Cj4gUmV2aWV3ZWQtYnk6IEZlbGl4IEt1ZWhsaW5nIDxG
+ZWxpeC5LdWVobGluZ0BhbWQuY29tPgo+Cj4gUGxlYXNlIGFsc28gZ2l2ZSBDaHJpc3RpYW4gYSBj
+aGFuY2UgdG8gcmV2aWV3IHRoaXMgcGF0Y2ggaW4gcGFydGljdWxhcgo+IGJlZm9yZSB5b3Ugc3Vi
+bWl0LgoKV2l0aCB0aGUgbmFtaW5nIG1hZGUgY29uc2lzdGVudCB0aGUgcGF0Y2ggaXMgUmV2aWV3
+ZWQtYnk6IENocmlzdGlhbiAKS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+IGFzIHdl
+bGwuCgo+Cj4gVGhhbmtzLAo+ICDCoCBGZWxpeAo+Cj4KPj4gICBib29sIGFtZGdwdV92bV9ldmlj
+dGFibGUoc3RydWN0IGFtZGdwdV9ibyAqYm8pOwo+PiAgIHZvaWQgYW1kZ3B1X3ZtX2JvX2ludmFs
+aWRhdGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4+ICAgCQkJICAgICBzdHJ1Y3QgYW1k
+Z3B1X2JvICpibywgYm9vbCBldmljdGVkKTsKPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0
+cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
+L2xpc3RpbmZvL2FtZC1nZngKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
+eAo=
