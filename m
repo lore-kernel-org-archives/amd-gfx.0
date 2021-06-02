@@ -6,61 +6,63 @@ X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3EAA4C47080
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 01:53:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 602A2C47080
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 01:57:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DBB07613D0
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 01:53:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DBB07613D0
+	by mail.kernel.org (Postfix) with ESMTPS id 1DD56610C8
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 01:57:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1DD56610C8
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A9F389C6B;
-	Wed,  2 Jun 2021 01:53:25 +0000 (UTC)
-Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
- [IPv6:2607:f8b0:4864:20::32c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAD8D89C1E;
- Wed,  2 Jun 2021 01:53:23 +0000 (UTC)
-Received: by mail-ot1-x32c.google.com with SMTP id
- 69-20020a9d0a4b0000b02902ed42f141e1so1139756otg.2; 
- Tue, 01 Jun 2021 18:53:23 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B18AF6EB56;
+	Wed,  2 Jun 2021 01:57:48 +0000 (UTC)
+Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
+ [IPv6:2607:f8b0:4864:20::231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5B9B6EB45;
+ Wed,  2 Jun 2021 01:57:46 +0000 (UTC)
+Received: by mail-oi1-x231.google.com with SMTP id h9so1265832oih.4;
+ Tue, 01 Jun 2021 18:57:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=808lPJMNU82vuLNkoBWoEKGDD/4g6v7JuN8FunnyIsk=;
- b=VL8wFpkBPgI4HBcqRUWarcnxOsuRa/i+iLDJxEU2m/kLzWfJRuBiF9vbvP1xY6+KDk
- dF+1W4IIpTAW4x/7W4/XYjXti/JMQXXOwnDS9ZdXLCljddZ41Qu4NUS4pgm0ibHSNLIR
- jsT3MtKtL+QPVaqdevbl3XmnzloUdZPPN58t6jNBchRCAPsNfAZs4AayNzxObTOgvRoT
- afPUNCTB6IKen0P2Q+UmgNL31F0NukXEg0+w1w8YF0fJqTHQmn027HEA7PJWWVIDxaaR
- CiExGVD91Q+ps+Pqyf3su39qSXg0j/nEAImxOWGc36HuE/DFshuAWyrAgbAqXNeZ+WCm
- csCg==
+ :cc:content-transfer-encoding;
+ bh=SU3VNhIHP4qFfMS6BHdB+T/4wdfQUGXE54wCPeu58gQ=;
+ b=QQO75cNDTpDKr0tOdLOk5vG9ysCKgZa/phRsAdD89jlR+TT9Wjgl3mHuc1yXOnZu9L
+ xsRhHTI9U8g5BYgBihgDXw6SikyKy9uI+vcBR/0GRLeuZPZPL/sZ+Q8NyhCrFi6h/8Rq
+ ZEOkfNeRAWeAfwfI/4mLVNOdfpqIvjsk/+BgiSUjprCSv3xhbHyQZJvd23gxCfFk6QKD
+ QOImaejnjZGYi3c+IWhtKD14pHWKC11iaZ1fLPcXIYgwoFVMWYOv7mN3EYxOAP7W4T9/
+ yHHTxTAYdLhrWVepaPX/WcM0IxKK2z1R8oLv3rcFrSmis3GkxABc1obOY4Yh0u0nmFw4
+ Ckkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=808lPJMNU82vuLNkoBWoEKGDD/4g6v7JuN8FunnyIsk=;
- b=QRWiKBoKdq86b4CxaXHNmuPXthPuuEPwhVqIFkj9WwaObq/HhzqXA8R8esm4fHxxgm
- /MBG9tjQkpQ6m/rQfPkm+ab7Phvj4mpHbB4ooj5eP7Z7WSYe+xmlxc2UgVUVOAkVOGVl
- XYOWaUirejXpVD0yzOXoo82EuJNgUaAhlxhGZ1I0UUu7pSvkQu5xijUj/msMj/W2Sy+T
- V4LPWg1OgJdflooThbeu5mDgJ8+99uP3/SeGov/rlzy+GqkZTFuwi+RhMyhEymcsCOYM
- dAcdncak2YGPNgrgQPEa+CZabrYNTophagGqtbjymDUkGGEZlBGbjrgSZBt+bf0M0a5E
- kSHg==
-X-Gm-Message-State: AOAM5331dYcFKb8xl2TV6IKvvxXHTXOoMaoNvVDTPpJujBp7Tp3d/rv4
- SNDwJ+zDcu8HXtU82FUUpxRQGTg5aYjS3SU+PKm4cqtj
-X-Google-Smtp-Source: ABdhPJz8yiekIq60HpZI8GZkZq5YHICKRQnCgncgu6RV2PrJA7tU6O32SuN5NUgI3LiNfC/UmkuhLRYqjG/iPOCN3jY=
-X-Received: by 2002:a9d:74c6:: with SMTP id a6mr24871519otl.132.1622598803212; 
- Tue, 01 Jun 2021 18:53:23 -0700 (PDT)
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=SU3VNhIHP4qFfMS6BHdB+T/4wdfQUGXE54wCPeu58gQ=;
+ b=lLXCuB+djC/lRxyr1ylcoW2FeCAoLbNFPW28QlS0Ueq2Q7fIFhXovaDUHwBu8NDK6i
+ mCf5LqVHdY/TcVVxw5zONqFDfzNmdu0aHxxfxWB7+IG9WU0A9jC81ymvzia1JVk5pehH
+ DTjnM7toDbhmImRegm4X29F+2FZStf6W/16qBDnQanWR1hDQHaixJcvyntt6Zxww0dvW
+ QNAeOAh3AKfWpvgiaP2VD9qJeselx6EckhVhNZvTee3yBC47lvi+d7YTf5QM1JmyMi7G
+ dUNDbFVYifmj6xRpF5VUq3aE8zMiFWI/4XNnH4BVto0jnPU6Xb67vVZPoQLAeg74fOk9
+ ODQw==
+X-Gm-Message-State: AOAM532739sYzXFBsS+Nj5ahW19xv3fuRpvjwdrY+/n3sLu2V1Z62j23
+ FEEOrzHg4uZjsZ5e7WVMfXrjDcD2tz2NSwr9d04=
+X-Google-Smtp-Source: ABdhPJz1oJcj/TIW7IPXKfUGMx+mKb7O5I8+KY9nNPCZgngt3Y0TTxSNjp3R9qmQkBVU/dtI0mfS9UGxQ14qdDZsEFg=
+X-Received: by 2002:a05:6808:1592:: with SMTP id
+ t18mr19903224oiw.123.1622599066060; 
+ Tue, 01 Jun 2021 18:57:46 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210528070217.9204-1-yuehaibing@huawei.com>
-In-Reply-To: <20210528070217.9204-1-yuehaibing@huawei.com>
+References: <1622194158-70898-1-git-send-email-jiapeng.chong@linux.alibaba.com>
+ <37a4f0bf-4acb-3961-699b-8335e194e315@amd.com>
+In-Reply-To: <37a4f0bf-4acb-3961-699b-8335e194e315@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 1 Jun 2021 21:53:12 -0400
-Message-ID: <CADnq5_M2dSDqafpgEvuaRZRHk1j0=obTyYcYX0GGRGiBzs5eMQ@mail.gmail.com>
-Subject: Re: [PATCH -next] drm/radeon/radeon_pm: use DEVICE_ATTR_RW macro
-To: YueHaibing <yuehaibing@huawei.com>
+Date: Tue, 1 Jun 2021 21:57:35 -0400
+Message-ID: <CADnq5_NY_uWzB6QjsM0_+xcbQkMfy1wm2gQx3v7xW_eHQ804YA@mail.gmail.com>
+Subject: Re: [PATCH v3] amdgpu: remove unreachable code
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,163 +74,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dave Airlie <airlied@linux.ie>, xinhui pan <Xinhui.Pan@amd.com>,
- LKML <linux-kernel@vger.kernel.org>,
+Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
+ Dave Airlie <airlied@linux.ie>, LKML <linux-kernel@vger.kernel.org>,
  Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
  amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
  "Deucher, Alexander" <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ linux-media <linux-media@vger.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, May 28, 2021 at 3:18 AM YueHaibing <yuehaibing@huawei.com> wrote:
->
-> Use DEVICE_ATTR_RW() helper instead of plain DEVICE_ATTR(),
-> which makes the code a bit shorter and easier to read.
->
-> Signed-off-by: YueHaibing <yuehaibing@huawei.com>
-
-I'm not convinced this really buys us anything other than code churn,
-but I don't have a particularly strong opinion of others feel
-differently.
-
-Alex
-
-
-> ---
->  drivers/gpu/drm/radeon/radeon_pm.c | 56 ++++++++++++------------------
->  1 file changed, 23 insertions(+), 33 deletions(-)
->
-> diff --git a/drivers/gpu/drm/radeon/radeon_pm.c b/drivers/gpu/drm/radeon/radeon_pm.c
-> index 3861c0b98fcf..edf10cc3947e 100644
-> --- a/drivers/gpu/drm/radeon/radeon_pm.c
-> +++ b/drivers/gpu/drm/radeon/radeon_pm.c
-> @@ -352,9 +352,8 @@ static void radeon_pm_print_states(struct radeon_device *rdev)
->         }
->  }
->
-> -static ssize_t radeon_get_pm_profile(struct device *dev,
-> -                                    struct device_attribute *attr,
-> -                                    char *buf)
-> +static ssize_t power_profile_show(struct device *dev,
-> +                                 struct device_attribute *attr, char *buf)
->  {
->         struct drm_device *ddev = dev_get_drvdata(dev);
->         struct radeon_device *rdev = ddev->dev_private;
-> @@ -366,10 +365,8 @@ static ssize_t radeon_get_pm_profile(struct device *dev,
->                           (cp == PM_PROFILE_HIGH) ? "high" : "default");
->  }
->
-> -static ssize_t radeon_set_pm_profile(struct device *dev,
-> -                                    struct device_attribute *attr,
-> -                                    const char *buf,
-> -                                    size_t count)
-> +static ssize_t power_profile_store(struct device *dev, struct device_attribute *attr,
-> +                                  const char *buf, size_t count)
->  {
->         struct drm_device *ddev = dev_get_drvdata(dev);
->         struct radeon_device *rdev = ddev->dev_private;
-> @@ -406,9 +403,8 @@ static ssize_t radeon_set_pm_profile(struct device *dev,
->         return count;
->  }
->
-> -static ssize_t radeon_get_pm_method(struct device *dev,
-> -                                   struct device_attribute *attr,
-> -                                   char *buf)
-> +static ssize_t power_method_show(struct device *dev,
-> +                                struct device_attribute *attr, char *buf)
->  {
->         struct drm_device *ddev = dev_get_drvdata(dev);
->         struct radeon_device *rdev = ddev->dev_private;
-> @@ -418,10 +414,9 @@ static ssize_t radeon_get_pm_method(struct device *dev,
->                           (pm == PM_METHOD_PROFILE) ? "profile" : "dpm");
->  }
->
-> -static ssize_t radeon_set_pm_method(struct device *dev,
-> -                                   struct device_attribute *attr,
-> -                                   const char *buf,
-> -                                   size_t count)
-> +static ssize_t power_method_store(struct device *dev,
-> +                                 struct device_attribute *attr,
-> +                                 const char *buf, size_t count)
->  {
->         struct drm_device *ddev = dev_get_drvdata(dev);
->         struct radeon_device *rdev = ddev->dev_private;
-> @@ -462,9 +457,8 @@ static ssize_t radeon_set_pm_method(struct device *dev,
->         return count;
->  }
->
-> -static ssize_t radeon_get_dpm_state(struct device *dev,
-> -                                   struct device_attribute *attr,
-> -                                   char *buf)
-> +static ssize_t power_dpm_state_show(struct device *dev,
-> +                                   struct device_attribute *attr, char *buf)
->  {
->         struct drm_device *ddev = dev_get_drvdata(dev);
->         struct radeon_device *rdev = ddev->dev_private;
-> @@ -475,10 +469,9 @@ static ssize_t radeon_get_dpm_state(struct device *dev,
->                           (pm == POWER_STATE_TYPE_BALANCED) ? "balanced" : "performance");
->  }
->
-> -static ssize_t radeon_set_dpm_state(struct device *dev,
-> -                                   struct device_attribute *attr,
-> -                                   const char *buf,
-> -                                   size_t count)
-> +static ssize_t power_dpm_state_store(struct device *dev,
-> +                                    struct device_attribute *attr,
-> +                                    const char *buf, size_t count)
->  {
->         struct drm_device *ddev = dev_get_drvdata(dev);
->         struct radeon_device *rdev = ddev->dev_private;
-> @@ -506,9 +499,9 @@ static ssize_t radeon_set_dpm_state(struct device *dev,
->         return count;
->  }
->
-> -static ssize_t radeon_get_dpm_forced_performance_level(struct device *dev,
-> -                                                      struct device_attribute *attr,
-> -                                                      char *buf)
-> +static ssize_t power_dpm_force_performance_level_show(struct device *dev,
-> +                                                     struct device_attribute *attr,
-> +                                                     char *buf)
->  {
->         struct drm_device *ddev = dev_get_drvdata(dev);
->         struct radeon_device *rdev = ddev->dev_private;
-> @@ -523,10 +516,9 @@ static ssize_t radeon_get_dpm_forced_performance_level(struct device *dev,
->                           (level == RADEON_DPM_FORCED_LEVEL_LOW) ? "low" : "high");
->  }
->
-> -static ssize_t radeon_set_dpm_forced_performance_level(struct device *dev,
-> +static ssize_t power_dpm_force_performance_level_store(struct device *dev,
->                                                        struct device_attribute *attr,
-> -                                                      const char *buf,
-> -                                                      size_t count)
-> +                                                      const char *buf, size_t count)
->  {
->         struct drm_device *ddev = dev_get_drvdata(dev);
->         struct radeon_device *rdev = ddev->dev_private;
-> @@ -658,12 +650,10 @@ static ssize_t radeon_hwmon_get_pwm1(struct device *dev,
->         return sprintf(buf, "%i\n", speed);
->  }
->
-> -static DEVICE_ATTR(power_profile, S_IRUGO | S_IWUSR, radeon_get_pm_profile, radeon_set_pm_profile);
-> -static DEVICE_ATTR(power_method, S_IRUGO | S_IWUSR, radeon_get_pm_method, radeon_set_pm_method);
-> -static DEVICE_ATTR(power_dpm_state, S_IRUGO | S_IWUSR, radeon_get_dpm_state, radeon_set_dpm_state);
-> -static DEVICE_ATTR(power_dpm_force_performance_level, S_IRUGO | S_IWUSR,
-> -                  radeon_get_dpm_forced_performance_level,
-> -                  radeon_set_dpm_forced_performance_level);
-> +static DEVICE_ATTR_RW(power_profile);
-> +static DEVICE_ATTR_RW(power_method);
-> +static DEVICE_ATTR_RW(power_dpm_state);
-> +static DEVICE_ATTR_RW(power_dpm_force_performance_level);
->
->  static ssize_t radeon_hwmon_show_temp(struct device *dev,
->                                       struct device_attribute *attr,
-> --
-> 2.17.1
->
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+QXBwbGllZC4gIFRoYW5rcyEKCk9uIEZyaSwgTWF5IDI4LCAyMDIxIGF0IDg6MTggQU0gQ2hyaXN0
+aWFuIEvDtm5pZwo8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPiB3cm90ZToKPgo+IEFtIDI4LjA1
+LjIxIHVtIDExOjI5IHNjaHJpZWIgSmlhcGVuZyBDaG9uZzoKPiA+IEluIHRoZSBmdW5jdGlvbiBh
+bWRncHVfdXZkX2NzX21zZygpLCBldmVyeSBicmFuY2ggaW4gdGhlIHN3aXRjaAo+ID4gc3RhdGVt
+ZW50IHdpbGwgaGF2ZSBhIHJldHVybiwgc28gdGhlIGNvZGUgYmVsb3cgdGhlIHN3aXRjaCBzdGF0
+ZW1lbnQKPiA+IHdpbGwgbm90IGJlIGV4ZWN1dGVkLgo+ID4KPiA+IEVsaW1pbmF0ZSB0aGUgZm9s
+bG93IHNtYXRjaCB3YXJuaW5nOgo+ID4KPiA+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV91dmQuYzo4NDUgYW1kZ3B1X3V2ZF9jc19tc2coKSB3YXJuOgo+ID4gaWdub3JpbmcgdW5y
+ZWFjaGFibGUgY29kZS4KPiA+Cj4gPiBSZXBvcnRlZC1ieTogQWJhY2kgUm9ib3QgPGFiYWNpQGxp
+bnV4LmFsaWJhYmEuY29tPgo+ID4gU2lnbmVkLW9mZi1ieTogSmlhcGVuZyBDaG9uZyA8amlhcGVu
+Zy5jaG9uZ0BsaW51eC5hbGliYWJhLmNvbT4KPgo+IFJldmlld2VkLWJ5OiBDaHJpc3RpYW4gS8O2
+bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4KPiA+IC0tLQo+ID4gQ2hhbmdlcyBpbiB2
+MjoKPiA+ICAgIC1Gb3IgdGhlIGZvbGxvdyBhZHZpY2U6IGh0dHBzOi8vbG9yZS5rZXJuZWwub3Jn
+L3BhdGNod29yay9wYXRjaC8xNDM1OTY4Lwo+ID4KPiA+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X3V2ZC5jIHwgMyArLS0KPiA+ICAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0
+aW9uKCspLCAyIGRlbGV0aW9ucygtKQo+ID4KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfdXZkLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfdXZkLmMKPiA+IGluZGV4IGM2ZGJjMDguLjM1ZjY4NzQgMTAwNjQ0Cj4gPiAtLS0gYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdXZkLmMKPiA+ICsrKyBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV91dmQuYwo+ID4gQEAgLTgyOSw5ICs4MjksOCBAQCBz
+dGF0aWMgaW50IGFtZGdwdV91dmRfY3NfbXNnKHN0cnVjdCBhbWRncHVfdXZkX2NzX2N0eCAqY3R4
+LAo+ID4KPiA+ICAgICAgIGRlZmF1bHQ6Cj4gPiAgICAgICAgICAgICAgIERSTV9FUlJPUigiSWxs
+ZWdhbCBVVkQgbWVzc2FnZSB0eXBlICglZCkhXG4iLCBtc2dfdHlwZSk7Cj4gPiAtICAgICAgICAg
+ICAgIHJldHVybiAtRUlOVkFMOwo+ID4gICAgICAgfQo+ID4gLSAgICAgQlVHKCk7Cj4gPiArCj4g
+PiAgICAgICByZXR1cm4gLUVJTlZBTDsKPiA+ICAgfQo+ID4KPgo+IF9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBh
+bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeApfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
+bmZvL2FtZC1nZngK
