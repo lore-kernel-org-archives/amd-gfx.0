@@ -2,101 +2,71 @@ Return-Path: <SRS0=QW4G=K4=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AAB9CC4708F
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 19:18:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CAB0CC47083
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 20:46:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6372960FEE
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 19:18:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6372960FEE
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 86E0F61008
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 20:46:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 86E0F61008
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A8C76E20A;
-	Wed,  2 Jun 2021 19:18:40 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2071.outbound.protection.outlook.com [40.107.92.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9BA46E20A
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Jun 2021 19:18:39 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IgmHj64s0yTlI9yWPHiFmtGKUBdRNKUKBEB27mI8xTmu+DafiT/Mm7Bozf9HJAFV/2y+rrEoN/rIrTRuiiKQ2ppZKSLcVtunM3cyHX4hEcXhVg0dAPencv4cjruZ5ho23kOJK8eGXq4ZjqEUMrCu0ljJRyDPpaYQz4POwy9/ZS4wKf5fywaig1L4Mear/j8RykndJtieY8RVzdyVmwbls4yqs0DIVyHYm6BLGUKp5H7d8gIp3I1FgLKakMCSSC6tYcna038V1fvpMZSAOA3FDv2dAk+3lLhuetxmx1ZLV0E+aqkcy4Ij75CTWtLiKmh7XvJChhYKI7YyNeblnvoPng==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Rcnj+bnqoY6dS1HTbsjqmONlvFEEQ0Lvhsj/yO+gD1Q=;
- b=mav0C7sZaPeNCitk4iKOH+aLJzy4uZtlYpSOpRvC+rzvyKnfgaNgM0oA46OddCkDaRy9mrzWZTd4zY7t7u5AKOnUqtux3sUodGKG3gUwcOOhEoauDbnP8IOcwJG2w43x9SQUPhPo1soyNnLnA0CcxotFOFEuh/7SW8cuP3qIGFxXbohWx4ndcnSSDKsuJ3lprD8lr6hKOPaqPq9Qb587ygwh/GXFO+Zf9jNZO/g/+KO78JH4I2ZGlt+G7pfWUu9zQ3oHZy1TiaZnfP9cap14f8uyB2hf0SMEPZTNvPqUuoeknV6K8c03sQtfjB3CI7fBnIztv4U5PW1F2jiYZ/Mdeg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Rcnj+bnqoY6dS1HTbsjqmONlvFEEQ0Lvhsj/yO+gD1Q=;
- b=TXJ3qZSDGQ79WVRKOEFk2A+kLdt9M5yajIyvHTSXTOyX32QGktohqqzYgaFxoAUowftGX8VuFLNVHef1bH7gnP9oCATfh4okX2tHNrd4fhAL4fkepdxugTyD6L4lSscJaM4AQGabGQGPQCBLsJDEZd7cjjDENVIczEoPvpogarg=
-Received: from MW4PR03CA0205.namprd03.prod.outlook.com (2603:10b6:303:b8::30)
- by SA0PR12MB4448.namprd12.prod.outlook.com (2603:10b6:806:94::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4173.24; Wed, 2 Jun
- 2021 19:18:36 +0000
-Received: from CO1NAM11FT044.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:b8:cafe::f2) by MW4PR03CA0205.outlook.office365.com
- (2603:10b6:303:b8::30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.20 via Frontend
- Transport; Wed, 2 Jun 2021 19:18:36 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT044.mail.protection.outlook.com (10.13.175.188) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4150.30 via Frontend Transport; Wed, 2 Jun 2021 19:18:36 +0000
-Received: from eric-HP-EliteBook-745-G4.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2242.4; Wed, 2 Jun 2021 14:18:35 -0500
-From: Eric Huang <jinhuieric.huang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v4] drm/amdgpu: Don't flush/invalidate HDP for APUs and A+A
-Date: Wed, 2 Jun 2021 15:18:20 -0400
-Message-ID: <20210602191820.837871-1-jinhuieric.huang@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3268F6E1D8;
+	Wed,  2 Jun 2021 20:46:43 +0000 (UTC)
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [IPv6:2a00:1450:4864:20::536])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06A6F6E1D8
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Jun 2021 20:46:41 +0000 (UTC)
+Received: by mail-ed1-x536.google.com with SMTP id u24so4469409edy.11
+ for <amd-gfx@lists.freedesktop.org>; Wed, 02 Jun 2021 13:46:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=FChgAP8pCui0F80QWe5zcZ+vfjL1ss/2FeAKbzcmji4=;
+ b=SQoIBaPVAT9kkDHHeX4tWNQJ804b7nSCskB9zL3Ux75jhdwCsqOP5fr9XQ2xgOMYMl
+ Vo8fauiDs8RIjQebPEaST/Gof9xr4fZqw6OKEGmUZTxpo2RyMTskJ6ukBB5lKWCRQ8Hv
+ gle+fHwGe9DKWlulFqUed4aT7bvDiF0A+Sf/IN54FBgBPSlq+DRRepnErfGkuTRHPTon
+ vvJdeb42ds7IXyEeaMPZRFeP68U/t203Kr3QxU+NwE4gs0QSGJdWISM/k2ubOXPsxDji
+ dqBUl7XAdA76fXZcO6yA7nSXA/1HbGt69uLsRuOSlorfQu+n2mo2XVOwSWgBof9FM8KJ
+ Cy4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=FChgAP8pCui0F80QWe5zcZ+vfjL1ss/2FeAKbzcmji4=;
+ b=Y1zrjfEPuhSuluVmviZ3cxMSegJQ5KxGG0J81PQjIB/BUM0v5CcG17O0cxQ+B1B6IH
+ Qfw30CUCXLFdWybtl6ryPKNI+akSidd9hP6CHTCkPqQujt2+arpZDH5/ZqR3D4EplQQK
+ J86g4PUWNHnU1e6VjgRa4OYEj52SJevW8R/Txj1zKCzz66jP/QAFnPJBryOuMVxWWoZi
+ U73w9KeFxFORdnBULmnf94ZU+NAWVus9bnE5RO6EMonJzwhJB8eyelInWLURuV0oYp4J
+ tSSZfZKMmUX4f2loWxzCAiTQAzHxJT3b0V7ekkzHVPk+5zrsXHr5/zQioEMqB/aNBBan
+ 6Kxg==
+X-Gm-Message-State: AOAM530Rk7in/U+2lxOjqbFji3zauxxskd+n5OkaJN/7r7et6WZyW81X
+ cqQLIVEgFjJUqCo+TVKDcGa+epEKVD8=
+X-Google-Smtp-Source: ABdhPJzAvN8n+6ewqC/pw167rosXqkkVNkp8xsvycjZUPrMPXv8tUEz+U0gktuqo3Lxe8aNNMZob1g==
+X-Received: by 2002:aa7:c04e:: with SMTP id k14mr39638051edo.157.1622666800383; 
+ Wed, 02 Jun 2021 13:46:40 -0700 (PDT)
+Received: from twisty.localdomain
+ (dynamic-2a01-0c23-7c7f-8100-6cbb-50d4-b91e-5b37.c23.pool.telefonica.de.
+ [2a01:c23:7c7f:8100:6cbb:50d4:b91e:5b37])
+ by smtp.gmail.com with ESMTPSA id gv11sm522640ejb.13.2021.06.02.13.46.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 02 Jun 2021 13:46:39 -0700 (PDT)
+From: Mario Kleiner <mario.kleiner.de@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amd/display: Keep linebuffer pixel depth at 30bpp for
+ DCE-11.0.
+Date: Wed,  2 Jun 2021 22:45:56 +0200
+Message-Id: <20210602204556.17324-1-mario.kleiner.de@gmail.com>
+X-Mailer: git-send-email 2.24.0
 MIME-Version: 1.0
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 11bf1bad-bdbd-4740-c200-08d925fb38aa
-X-MS-TrafficTypeDiagnostic: SA0PR12MB4448:
-X-Microsoft-Antispam-PRVS: <SA0PR12MB444832345CBFD4184DB4934F823D9@SA0PR12MB4448.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:38;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: lquSIrz74kmEMbHVNZPUH5sdnUBpSelzJr0uLEgG9/Tf2qtI/fmiliw36Mh1oSAWnoCQM7HTJNr/sryaA8nXuvkPn9gFQLi+62fQ4/dxBAB1CfCa0qPex0T83Uky+ian/7Ka8GbDld5VBLquKtifSPpxp+UDVi+uyNmOZWIMRu0TBdhU98pTh6J1+d/6AqGUIgGRZWAuKjx9CznTTwjW1Ux3j9WNtbqDcwoWukoJGX07JXzoQUB2+OuuYVvGgedheYcAy05SOtsFHwVccSgtLxl/kVn+vXPd1w4uGoy4wKSKGYtA3X5KOr2Ptlm4vYxX2PAfCjd1vH37lr5NZmqMyL/q+OMREG8x33s3tV9z9h+RIe3jYLjnJQNyEDjpTMd3xGq6pC1QRB3ELYCLt50Qq7R/ZgHNJi2fQGcZ0zrPl1q4OmcJsB3ZUKpZl0CQosu4o+ZQPksmNJoqB9RLTW0rLAkoA4kZyPfRTlCJNrUUHWyik/fQKtiURyZg5CuNTupvmpJJT4LjRgWqSe3V41fLfO6Y1/2E8xsaq4QxQNhRjAcs5u/qNhbD2ce8Lt6C0RHGhM6pDExiNjd1ahZKESsMg//6VZGUnPKFhqdUUP/c63PE/n1m153Sd8kee7L9DnbumJXkK85aR6Os+jTAEw5r4SgQMN/Dt9DIiGmjmtFJoGIl5Wb2Krxwkl1o62NqVws+
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(8936002)(70206006)(83380400001)(4326008)(47076005)(81166007)(6666004)(16526019)(36756003)(7696005)(2616005)(86362001)(70586007)(26005)(5660300002)(426003)(336012)(2906002)(498600001)(82310400003)(6916009)(36860700001)(8676002)(1076003)(356005)(186003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2021 19:18:36.5740 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 11bf1bad-bdbd-4740-c200-08d925fb38aa
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT044.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4448
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,203 +78,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Eric Huang <jinhuieric.huang@amd.com>
+Cc: Tom.StDenis@amd.com, Alex Deucher <alexander.deucher@amd.com>,
+ mario.kleiner.de@gmail.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Integrate two generic functions to determine if HDP
-flush is needed for all Asics.
+Testing on AMD Carizzo with DCE-11.0 display engine showed that
+it doesn't like a 36 bpp linebuffer very much. The display just
+showed a solid green.
 
-Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
+Testing on RavenRidge DCN-1.0, Polaris11 with DCE-11.2 and Kabini
+with DCE-8.3 did not expose any problems, so for now only revert
+to 30 bpp linebuffer depth on asics with DCE-11.0 display engine.
+
+Reported-by: Tom StDenis <Tom.StDenis@amd.com>
+Signed-off-by: Mario Kleiner <mario.kleiner.de@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  5 ++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 33 ++++++++++++++++++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c   |  4 +--
- drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c     | 15 ++--------
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c    |  6 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c |  2 +-
- 7 files changed, 45 insertions(+), 22 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc_resource.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 7533c2677933..2d5dac573425 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -1348,6 +1348,11 @@ int amdgpu_device_baco_enter(struct drm_device *dev);
- int amdgpu_device_baco_exit(struct drm_device *dev);
- bool amdgpu_device_is_headless(struct amdgpu_device *adev);
- 
-+void amdgpu_device_flush_hdp(struct amdgpu_device *adev,
-+		struct amdgpu_ring *ring);
-+void amdgpu_device_invalidate_hdp(struct amdgpu_device *adev,
-+		struct amdgpu_ring *ring);
-+
- /* atpx handler */
- #if defined(CONFIG_VGA_SWITCHEROO)
- void amdgpu_register_atpx_handler(void);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-index 4c61a67d0016..900c2dbce934 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-@@ -697,7 +697,7 @@ bool amdgpu_amdkfd_have_atomics_support(struct kgd_dev *kgd)
- 
- void amdgpu_amdkfd_debug_mem_fence(struct kgd_dev *kgd)
- {
--	amdgpu_asic_flush_hdp((struct amdgpu_device *) kgd, NULL);
-+	amdgpu_device_flush_hdp((struct amdgpu_device *) kgd, NULL);
- }
- 
- int amdgpu_amdkfd_send_close_event_drain_irq(struct kgd_dev *kgd,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 9c4d33f649f7..7f687ea58834 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -362,9 +362,9 @@ void amdgpu_device_vram_access(struct amdgpu_device *adev, loff_t pos,
- 		if (write) {
- 			memcpy_toio(addr, buf, count);
- 			mb();
--			amdgpu_asic_flush_hdp(adev, NULL);
-+			amdgpu_device_flush_hdp(adev, NULL);
- 		} else {
--			amdgpu_asic_invalidate_hdp(adev, NULL);
-+			amdgpu_device_invalidate_hdp(adev, NULL);
- 			mb();
- 			memcpy_fromio(buf, addr, count);
- 		}
-@@ -5548,3 +5548,32 @@ bool amdgpu_device_is_headless(struct amdgpu_device *adev)
-     /* Check if it is NV's VGA class while VCN is harvest, it is headless*/
-     return nv_is_headless_sku(adev->pdev);
- }
-+
-+void amdgpu_device_flush_hdp(struct amdgpu_device *adev,
-+		struct amdgpu_ring *ring)
-+{
-+#ifdef CONFIG_X86_64
-+	if (adev->flags & AMD_IS_APU)
-+		return;
-+#endif
-+	if (adev->gmc.xgmi.connected_to_cpu)
-+		return;
-+
-+	if (ring && ring->funcs->emit_hdp_flush)
-+		amdgpu_ring_emit_hdp_flush(ring);
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+index b2ee3cd77b4e..a4f1ae8930a4 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+@@ -1213,9 +1213,16 @@ bool resource_build_scaling_params(struct pipe_ctx *pipe_ctx)
+ 	 * on certain displays, such as the Sharp 4k. 36bpp is needed
+ 	 * to support SURFACE_PIXEL_FORMAT_GRPH_ARGB16161616 and
+ 	 * SURFACE_PIXEL_FORMAT_GRPH_ABGR16161616 with actual > 10 bpc
+-	 * precision on at least DCN display engines.
++	 * precision on at least DCN display engines. However, at least
++	 * Carrizo with DCE_VERSION_11_0 does not like 36 bpp lb depth,
++	 * so use only 30 bpp on DCE_VERSION_11_0. Testing with DCE 11.2 and 8.3
++	 * did not show such problems, so this seems to be the exception.
+ 	 */
+-	pipe_ctx->plane_res.scl_data.lb_params.depth = LB_PIXEL_DEPTH_36BPP;
++	if (plane_state->ctx->dce_version != DCE_VERSION_11_0)
++		pipe_ctx->plane_res.scl_data.lb_params.depth = LB_PIXEL_DEPTH_36BPP;
 +	else
-+		amdgpu_asic_flush_hdp(adev, ring);
-+}
++		pipe_ctx->plane_res.scl_data.lb_params.depth = LB_PIXEL_DEPTH_30BPP;
 +
-+void amdgpu_device_invalidate_hdp(struct amdgpu_device *adev,
-+		struct amdgpu_ring *ring)
-+{
-+#ifdef CONFIG_X86_64
-+	if (adev->flags & AMD_IS_APU)
-+		return;
-+#endif
-+	if (adev->gmc.xgmi.connected_to_cpu)
-+		return;
-+
-+	amdgpu_asic_invalidate_hdp(adev, ring);
-+}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
-index 5562b5c90c03..0e3a46ff38e3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
-@@ -250,7 +250,7 @@ int amdgpu_gart_unbind(struct amdgpu_device *adev, uint64_t offset,
- 		}
- 	}
- 	mb();
--	amdgpu_asic_flush_hdp(adev, NULL);
-+	amdgpu_device_flush_hdp(adev, NULL);
- 	for (i = 0; i < adev->num_vmhubs; i++)
- 		amdgpu_gmc_flush_gpu_tlb(adev, 0, i, 0);
+ 	pipe_ctx->plane_res.scl_data.lb_params.alpha_en = plane_state->per_pixel_alpha;
  
-@@ -328,7 +328,7 @@ int amdgpu_gart_bind(struct amdgpu_device *adev, uint64_t offset,
- 		return r;
- 
- 	mb();
--	amdgpu_asic_flush_hdp(adev, NULL);
-+	amdgpu_device_flush_hdp(adev, NULL);
- 	for (i = 0; i < adev->num_vmhubs; i++)
- 		amdgpu_gmc_flush_gpu_tlb(adev, 0, i, 0);
- 	return 0;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-index aaa2574ce9bc..b0ba8376dc33 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-@@ -222,15 +222,7 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned num_ibs,
- 	if (job && ring->funcs->init_cond_exec)
- 		patch_offset = amdgpu_ring_init_cond_exec(ring);
- 
--#ifdef CONFIG_X86_64
--	if (!(adev->flags & AMD_IS_APU))
--#endif
--	{
--		if (ring->funcs->emit_hdp_flush)
--			amdgpu_ring_emit_hdp_flush(ring);
--		else
--			amdgpu_asic_flush_hdp(adev, ring);
--	}
-+	amdgpu_device_flush_hdp(adev, ring);
- 
- 	if (need_ctx_switch)
- 		status |= AMDGPU_HAVE_CTX_SWITCH;
-@@ -267,10 +259,7 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned num_ibs,
- 	if (job && ring->funcs->emit_frame_cntl)
- 		amdgpu_ring_emit_frame_cntl(ring, false, secure);
- 
--#ifdef CONFIG_X86_64
--	if (!(adev->flags & AMD_IS_APU))
--#endif
--		amdgpu_asic_invalidate_hdp(adev, ring);
-+	amdgpu_device_invalidate_hdp(adev, ring);
- 
- 	if (ib->flags & AMDGPU_IB_FLAG_TC_WB_NOT_INVALIDATE)
- 		fence_flags |= AMDGPU_FENCE_FLAG_TC_WB_ONLY;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index 55378c6b9722..f21603a9d07b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -277,7 +277,7 @@ psp_cmd_submit_buf(struct psp_context *psp,
- 		return ret;
- 	}
- 
--	amdgpu_asic_invalidate_hdp(psp->adev, NULL);
-+	amdgpu_device_invalidate_hdp(psp->adev, NULL);
- 	while (*((unsigned int *)psp->fence_buf) != index) {
- 		if (--timeout == 0)
- 			break;
-@@ -290,7 +290,7 @@ psp_cmd_submit_buf(struct psp_context *psp,
- 		if (ras_intr)
- 			break;
- 		usleep_range(10, 100);
--		amdgpu_asic_invalidate_hdp(psp->adev, NULL);
-+		amdgpu_device_invalidate_hdp(psp->adev, NULL);
- 	}
- 
- 	/* We allow TEE_ERROR_NOT_SUPPORTED for VMR command and PSP_ERR_UNKNOWN_COMMAND in SRIOV */
-@@ -2696,7 +2696,7 @@ int psp_ring_cmd_submit(struct psp_context *psp,
- 	write_frame->fence_addr_hi = upper_32_bits(fence_mc_addr);
- 	write_frame->fence_addr_lo = lower_32_bits(fence_mc_addr);
- 	write_frame->fence_value = index;
--	amdgpu_asic_flush_hdp(adev, NULL);
-+	amdgpu_device_flush_hdp(adev, NULL);
- 
- 	/* Update the write Pointer in DWORDs */
- 	psp_write_ptr_reg = (psp_write_ptr_reg + rb_frame_size_dw) % ring_size_dw;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
-index 03a44be50dd7..e3fbf0f10add 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
-@@ -110,7 +110,7 @@ static int amdgpu_vm_cpu_commit(struct amdgpu_vm_update_params *p,
- {
- 	/* Flush HDP */
- 	mb();
--	amdgpu_asic_flush_hdp(p->adev, NULL);
-+	amdgpu_device_flush_hdp(p->adev, NULL);
- 	return 0;
- }
- 
+ 	pipe_ctx->plane_res.scl_data.recout.x += timing->h_border_left;
 -- 
 2.25.1
 
