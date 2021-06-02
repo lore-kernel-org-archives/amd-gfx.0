@@ -7,55 +7,54 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B4036C47083
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 16:51:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 42B23C4708F
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 16:51:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7DD0761C68
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 16:51:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7DD0761C68
+	by mail.kernel.org (Postfix) with ESMTPS id 17F8E61C64
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 16:51:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 17F8E61C64
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BD626EDA7;
-	Wed,  2 Jun 2021 16:51:15 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2054.outbound.protection.outlook.com [40.107.236.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08EE46EDA7
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Jun 2021 16:51:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCD5F6EDC1;
+	Wed,  2 Jun 2021 16:51:17 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam07on2044.outbound.protection.outlook.com [40.107.212.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 381056EDC1
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Jun 2021 16:51:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fbrA87tgvbAp5A/lrUjPVM8NFw4saUgVHisfYqPK/wm9uZ3FN7BRE+fMvjJwNE+mBl/W9KgbxUTlu7D/hES4XC84VloZ4cTARoapmCh9qO6loGs4jChkV0E+t8D0HDGZf45c94u8YpgbrhXLfZFGoxwyhp14JUjO1GLgHamTYnPxSnxiXLHraUSs6g1U+IwpqGq9DRJqEDDqcOI/2Irx0ws1yqM+NE9TYgONMwCwKPCFuI/GEGaK4ur2qa/6YGWoWJ1xr/T6u0sz6P7s4j/cud2isofLrKJZ7NE73qaKcKj7idlFTZq0g25amvyXb2xEiwQ51EJn3NqzbyqxtSyD3w==
+ b=ksHQIF2o3p/JYi1hV/NG8FKLwZWqTgknAFHEuFo97LG7NjTnzKsVQuBCZsjMKhr6NfPqOX4+k2NPTiRGOQMdqiK8e6jJbjH0nLsdE4sLKDr03uo4679iiPbZ7HW4OQZjstJiEaW56yGESd8+tJFUJIvSn4z7Nm1fYxtvYa9OgFfsqu4RDVMII2Uv6CudFIhq1A0E9X8qbxqx5phe/5m97PpqXC7hhHr7sHb3byrUoW/0JYVe3HFh9aCcsm4G/X+L20vnRqBq9x2UhlhXF/Pczh5k0bV/Ht3sfU+LVuO0WWE2J9H9meXb0jxqwC28ogMbfN/q06cU5i8oVt+d4nvP5w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Mfy1cEpJvdK5IBVRmgZkAWt5Khu7cyP0VNNEUG7rCL4=;
- b=QNS2Cndk67VjDH5kIPgupiRU5QwJGtwBXrXsi59QIzZub8M6LbH54fA0/Pr6OpQJJn53H5PARINNppQl1DfTiL4Y1Isb/+0RU4hKtnH7+1xuxBCdVUnybNL8fJbDyYtu3AppO81IiFzrbQgMxu6iy2na9cXsLPg2gzAZoMsuOmWFvwzGD2MmNFIaSct7ZfnIRMPYNipylYjdr2PmY5grA6wy1UY4O7mMAwQwaqKIismq1ji0W2+DgeB3wlI2x823IO8vCVy9Oi6slMu4YQGyBnYWmCOzi/sP9lPC7FeFPmW/1x0Rm8dxgmiKBDjXLaPhOv/+0STF7Yc23XqMRGCEyQ==
+ bh=4jYwzlcYbO7an20kym8Kyvycy75CkL0XFMdssIdTjLM=;
+ b=XeUSm4Wz6+S3Ys+m7mNv3fAAERMOVoIgRoBb2h9R/r8ZByOo3kAeB0sCVV3ud8YhAoEDFjSqK2+bROQ/VpW8XBbjERtYiA4IqcnzrzG/FXHBPphvSufwh9ksny7RlDnR410b+Sn5F6XAf7EXX4wc+cwfiBXWEWXTlVSpNPAZH0hYATTgh5oj6jY7l24sM7ZCfJjUyfAp7u6vL4WGVhwOGpKGuYUqgXu8G0YPHnuhD+QwuUq6TvN+nmZS0Hom5/llyoi0Xg5HSS4z05+xDWfzz2joJGVdt8W3np9ZFwnlQ2j1YzQXvz9lNSvrWm9OyNDEf+5TMzKMqG8YORTRPKBxaQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Mfy1cEpJvdK5IBVRmgZkAWt5Khu7cyP0VNNEUG7rCL4=;
- b=Ie/eikI6HFdAppUvcAfUUAIeglHmkLw3/Kd3ZxZTYmV8r3iremH15OfUR80nUFYjJi+Z5QrHFsiT41kRGka+N47YgHNrQ9Pa9+ZmdNNlj2/+6/LeXiOtWEIWsx68/1Nc33YXFZGzKUcsh7vu5JlRQ1399orBNjyvTNdn/278Xgs=
+ bh=4jYwzlcYbO7an20kym8Kyvycy75CkL0XFMdssIdTjLM=;
+ b=5kykqZRwZF+Ew5xMvKKqXNtsOnd9YPxefvz8/BTFZqRsqldfneQ4jDUK+Y4AVxy+r+SHRxF/OZvVsZ4JhIFIPEcCs55WZGc4gj4n32N4W7XLC5Y01ynA1a6TRAd5tDTx5j4DKMFkbayoZy1stV4Wq3Yyethl5YRlPnJ5O+KkjrI=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
 Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
- by BL0PR12MB4675.namprd12.prod.outlook.com (2603:10b6:207:35::26)
+ by BL0PR12MB2369.namprd12.prod.outlook.com (2603:10b6:207:40::31)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4173.20; Wed, 2 Jun
- 2021 16:51:12 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.20; Wed, 2 Jun
+ 2021 16:51:16 +0000
 Received: from MN2PR12MB4488.namprd12.prod.outlook.com
  ([fe80::25f7:664:3a8f:25b6]) by MN2PR12MB4488.namprd12.prod.outlook.com
  ([fe80::25f7:664:3a8f:25b6%7]) with mapi id 15.20.4173.030; Wed, 2 Jun 2021
- 16:51:12 +0000
+ 16:51:16 +0000
 From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 61/89] drm/amd/pm: add callbacks to read/write sysfs file
- pp_power_profile_mode
-Date: Wed,  2 Jun 2021 12:48:40 -0400
-Message-Id: <20210602164908.2848791-61-alexander.deucher@amd.com>
+Subject: [PATCH 66/89] drm/amdgpu: add mode2 reset support for yellow carp
+Date: Wed,  2 Jun 2021 12:48:45 -0400
+Message-Id: <20210602164908.2848791-66-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210602164908.2848791-1-alexander.deucher@amd.com>
 References: <20210602164908.2848791-1-alexander.deucher@amd.com>
@@ -69,53 +68,53 @@ Received: from localhost.localdomain (192.161.79.207) by
  MN2PR13CA0007.namprd13.prod.outlook.com (2603:10b6:208:160::20) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.9 via Frontend
- Transport; Wed, 2 Jun 2021 16:50:09 +0000
+ Transport; Wed, 2 Jun 2021 16:50:12 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: fb75954a-65e4-40ae-4fe2-08d925e67bb4
-X-MS-TrafficTypeDiagnostic: BL0PR12MB4675:
+X-MS-Office365-Filtering-Correlation-Id: c407b8bb-9c05-4773-0cd8-08d925e67d8a
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2369:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BL0PR12MB46755F76581A1DAB454CFF5EF73D9@BL0PR12MB4675.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:53;
+X-Microsoft-Antispam-PRVS: <BL0PR12MB23695C299C0C90537184E5E8F73D9@BL0PR12MB2369.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2000;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: B4FAQ1c9QpeO/vyrCiUgDzDHb6rNrVLclQwA4FajLmtbBRW10YTG6GHGIvS4nYk+7ksR5fNnknW7h1W2yjhRioVJyvFkr5jfcVwq2855Tt+M2zMEcFw//6qBBBDsRKJlA5dMnm9jTRSr1sChk7K8Q4GP+K8j9pbhWQeSc3KWOQGhMl/+pSK5D3OLSpA8yzpLejY4oyjkowqn8atIXW/tBuSgQoaSBDw/ypcMB9xsXaqi/oBhZldp9ZXFM8SXVESbfDatUzbXiZKBNWYvxWdfHEISKU7DBEzM/B96UUsuB5bgTxo6RD9XWr84rWzLGSmZfaaB267YIihAOcXQu/luxCg7nqbKQPJXBuAPriAUrR/DuM7YJYT9LPf3g1tVwHE712OguxE31cdIjbQ4nzdogwgV1QxMYRJ7X0zKLJRBDYilFgUsZIPH+NUqvffGhafMNdYZjSEkWrA7ei91jW12OMIuR7+74khKP7ZavI/SqnPpBUC2Hm+ywrX6eRg3dAvw2yk+HKAgOfaVwWKCKj9dmmN62gFyZpMxNceUYtQeLWcGmjahO2oupFFHCCm+4o4cs0VGzA7PlVBoXpQvOP/cUNdqa+Pk+asqJYgL7afMKgDqREYcEcPG48GuqGQMQLWVzbGckUIwc7c7VQsFLpNxvpKNls5nOzpJP8SMkER5/ZDh6eBceVuJAVnT6oYijTcF
+X-Microsoft-Antispam-Message-Info: OD2IOhVWfa4pVWb2aX9YbTDfjPmTM/8aMG57V6Vjs291DiXBVTJ2SAKr2DuMg1A17J/kjGmj/Pwu3mJGigUciqpE54/5rLZsJhePO1LZIaL7YiH3Goss9+Kj3eAMVy3aPbaHvThT6Gg4NNqC2PkqAqu9oeX0pLdi2/MybpOFVpSzx6GpfrSSXpNVv0OutnnYR4IHSv6GE6O4VLX26jRYlsF/WIGbmmNt8HPdE9okvgVAP30A54f6m6y6fHJIPaecysEUijG4J8mXmb5i3iayl866eyQT3vXR9Rr2WjuRgOhyk9EC5t+czeHjhHQXlOYJKQ/IoHdV3Rn/67lNFWn2DdQrd65uvv+5KX7xVqvelnhcuN9cCeWSF17mIWUVshFmrHIdjS8WVQIRpP0WLq6UvpRDAvjYwI1Va0ITr09UjCJa4WdnFVihRbpWRY+aLNNzhwK17oeahHPfy1NW9nJoEG7kPYko4vEWlrwq5gvYsDDvEYS0PXuCxUHronIOWQ5kdeM6M9b0QBGNx59wVgzczOLAkMwiup5ht+oFFUbOcwnLA8+RRw5tw6T2h+C6Kv2EcVc4JcbrLIwA+YX/d7wCbEeY2f5uDQzbPkImakcPk05ZQ0xOOQtsQxAV2TBZ8J0x5sa5N/9ZocCZ8XBMLXCwDJqBgf1mkPO4hV4ZY5qfyhCXsnNf1tYviQIkYg9Wv004
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(346002)(396003)(376002)(39860400002)(366004)(52116002)(6486002)(956004)(6666004)(26005)(5660300002)(6506007)(2616005)(36756003)(6512007)(478600001)(38350700002)(66476007)(66556008)(83380400001)(8676002)(2906002)(4326008)(86362001)(1076003)(16526019)(316002)(186003)(54906003)(6916009)(66946007)(38100700002)(8936002)(69590400013);
+ SFS:(4636009)(136003)(376002)(39850400004)(346002)(366004)(396003)(54906003)(1076003)(8676002)(6916009)(956004)(2616005)(478600001)(6512007)(6486002)(86362001)(6506007)(4326008)(6666004)(38100700002)(316002)(38350700002)(52116002)(26005)(186003)(5660300002)(66476007)(66946007)(8936002)(83380400001)(36756003)(66556008)(16526019)(2906002)(69590400013);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?F8jmmBCJx+62ZQOEl3lWgJ4BWCC4oFAEOkFtF8pEwkJnCzWr04kZT9QHEW0Q?=
- =?us-ascii?Q?lI5zzMqhH1XTjPr8NhHD4le2VbYyAo+6JX4w2IT3daGUNGnxzoy3xjqgZjnF?=
- =?us-ascii?Q?34YMZvcerY1eq+OZn/aJtMcdRislz0a3Rvm9MsnczuFADn2f3elTSBtdxQEa?=
- =?us-ascii?Q?rZPSaVK28tdKYALs5edxFGlyCUQeRVBGBxJDtSzWdRFXgS8Tf3RbvQehpTFZ?=
- =?us-ascii?Q?BeyeLTQPxbzdirmMsYpYY4L+lXeobkxASTsJiSD0TpA5AegOpp4T2BbFNuwj?=
- =?us-ascii?Q?pWJjfQ0uPp27F7djGMMbV/TSOC5GFnbuR1wjwulrd6xnKsHK5kt2+dBnsMli?=
- =?us-ascii?Q?ogVO66sgt+es+lfDu00MEMI4IaWC/UNaY7LaG99movkcBES6NEcEIjKNrt+D?=
- =?us-ascii?Q?D4snJ39Tx1Txgk8XgLngpfXLjuUyhpSEZurTV9N2dnvYjecEKbR8Br5zO1OV?=
- =?us-ascii?Q?tna9MIGtxsakaaJvsN470ioshhkY8qRxXiHghebJdU9+J8y5DZuXtYWIaN7/?=
- =?us-ascii?Q?tuZnINOyz0RV+o1AHgCbzgvDlPLM6krGLi+5D81gcl/lipuWxEvQ0Wrp6Ng7?=
- =?us-ascii?Q?ptLVooLhhZm0JaXOFNbp+A33MineZgXwj/y2C5pVjPhRA+cFHevzWCY3s3hX?=
- =?us-ascii?Q?Su4Gw35po9CNxtzptdoCpQZugUW1+9iZFSlYA8rAhpBplxRALBmRsYh3t4Ec?=
- =?us-ascii?Q?J0jPP+BlStGyJAHupe5hQqiviGTbv62W8G7wfU2YL4GBBZn0zwp5JBJhmemi?=
- =?us-ascii?Q?5n6lTQrLP4aeX5ajtBWXfZvdenUimmQq7Oc8HyCyP/XHDoJHPOWeXh6cgFmy?=
- =?us-ascii?Q?c1j1ZxlSzaaswF7Ai2j2GmF/KFMpEbNHSx6G6L2gIUjWa+38uDLrf0z0RIMc?=
- =?us-ascii?Q?tUWkDo+54Cap8tSNbVEqGFih+8ME3gcZcbCz6VPdB5D16Y/1kfc39OznfSUS?=
- =?us-ascii?Q?Pvel67k1ezsi+wqqboLh27e8dTmIZsd8BAJ+Ns/zJJ0PWaoG+VzHvkH+pSVZ?=
- =?us-ascii?Q?h0MPr0FAApu8nY4wyfvyv/43FKkMncRES/YW8wlKwsCOJXcTa+tWsarX7XiT?=
- =?us-ascii?Q?jT9E2SIjqsn8zyMtW5kT+sNLjDkonhh0usKA105j8AiKYSTiB7GG6DXzXOzw?=
- =?us-ascii?Q?DFpcvbewm8MG7g+LHW90+s6CJWazTMrnCH9ELGZ7SvHvQIAf7jBCeHGSClGQ?=
- =?us-ascii?Q?FK9/xnyroIocC5qSou+1bXaDbmvAIxJMqLMB3o2ddZtWeeHqUgsBB1dlByMw?=
- =?us-ascii?Q?sBazxWxwZruJ2ap73uxMenm6UQWG5Wcq2eT8Yyk2Ko0ag5IuP/HxioCfzTWz?=
- =?us-ascii?Q?pi0/H+f5JE1oQVo69MGkrPoa?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?ddBKtH7Oare5dmlAW5kb3OupbwTkws0c1Epr66AYysBLa+/XEgHOHvfhjOkC?=
+ =?us-ascii?Q?vn9ak7aFxvV/eduyMn8qlgO83Sp3rRN+HosXFxlJqEjPOu7k0LOLXsOmBG3q?=
+ =?us-ascii?Q?srqWyBYN9SW2ff66WbPJ+AklYgpyNy2WDZZ9b/8Pa4ZPCa77FC+7gK4l+5yG?=
+ =?us-ascii?Q?As70jB3dJOKGO1VcgaPL54FKcA3kmP2+otC0Bd2aC9DPt7Qyp7ZWfnyRrhaH?=
+ =?us-ascii?Q?jqnGsHNqil9IC5o72xRe8qOu+TADdbUYeovTa6gKQmcWX9X4zNmrKyCUO+QC?=
+ =?us-ascii?Q?qerSLoD5UwwcdI2EZEM7q7WCwPMvk568WA2hP09MZyzatZXjKARh78X9+bwX?=
+ =?us-ascii?Q?jSjAuHWC60zfaMLWlGODDRJJkx52rOSW7mGEkD4kCZnHGWGzno+J300hW0or?=
+ =?us-ascii?Q?5zzEINEoBGmI+H8H0E8RQltFOA9L2BJ1GF5r/uA+KZmy4n3cMDzIVBwDhAnj?=
+ =?us-ascii?Q?By2nuPtkM5EYJdn/MOJr76g+2kSFyfbt8cIACd1jbG6VdJDOXMl3AsLc6MSK?=
+ =?us-ascii?Q?TUfjg6SGjcUTFxWf+p6hmzoYQoVkT35uK1rqkvVge5mYgIPfkVz8YBoo37XF?=
+ =?us-ascii?Q?eddHH5NsohHdfdtQDtP28BOnLkFRZtFAcNg1t2zxmKkTWDZkQ69B+/mrWYT8?=
+ =?us-ascii?Q?0+HD0+Rgcg94NbaGBXlKbnXnMuxf+Rhg7kPnd7HhZ5P4JzjhJ4IYzNl13jSE?=
+ =?us-ascii?Q?ULm7GdT+q/VZIQzeKZJoO1NVPHAUc2Xj6v9l/gVaTQEaQrLlMGeDvxxCMpNe?=
+ =?us-ascii?Q?rN7uvQpyRAtrAVvp8SU7hhazo7FGW2eBn8RWPAAtXQigKkNVSI7p9CZl35Yc?=
+ =?us-ascii?Q?pvpGWHOSFKlFi9yB8dqvj09wkmNYgxLxjnHCeoHOTP6L9oymgigs63DA5AIq?=
+ =?us-ascii?Q?y3wBLNRfojaf0jSjzyljRGSgYmlI269BQdIkJqgSxgkiJsQLg+VTwRReq6mE?=
+ =?us-ascii?Q?0jEqoFx1jUhiPiYfWQUJ6Al+CrlN9VnrwmBjFdNNMDBsEBB3h+aP2PM4d9c6?=
+ =?us-ascii?Q?lo809LnDl30Tw7gZwYz82M8PyJuWQUPYR5Gp8vqmWbvnUn55h4mEGPiILuwB?=
+ =?us-ascii?Q?10WiBfKW9fh3DBYGQGsW2Ke17xZ6R5Ef9aWKoZuwRvCAssUFBiNYIbp1RnDu?=
+ =?us-ascii?Q?vYWT1mrjyBgHU3s65UXfxAJmPh/fusD/iGVGq99IutPLnnclIs3EZ4jDtOXU?=
+ =?us-ascii?Q?0RyD38WIZs5OkleYNltovhCLWw9gJq2g+D7N86DT0OmzZ5O7Hs9Cympx1kbj?=
+ =?us-ascii?Q?VtKwq+TnZ5Xj8j/8zqjjqbPPWyz4IFELONbzToO+UZn/PrWVUiFYP3M+0pjP?=
+ =?us-ascii?Q?jUPn5vT5DBp71blf8kkEFkRG?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fb75954a-65e4-40ae-4fe2-08d925e67bb4
+X-MS-Exchange-CrossTenant-Network-Message-Id: c407b8bb-9c05-4773-0cd8-08d925e67d8a
 X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2021 16:50:09.9120 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2021 16:50:13.0342 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ixFclYlhFk7ILFreVP0Pc90+ZlVJk232NUoTSmFeFUimc0tUCO8ggZITzHzk/9vVTdoM+AHPqp/TLXHAjiZN/g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4675
+X-MS-Exchange-CrossTenant-UserPrincipalName: odkcZfp3O8mavmphgWgiKVa4W83N1sR9Z+O0PLEWacIIsVJY4fLUfV/+BQb7+DB0PvLRTDJk62A3v7J+khBPkQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2369
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,142 +126,81 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Xiaomeng Hou <Xiaomeng.Hou@amd.com>, Huang Rui <ray.huang@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Aaron Liu <aaron.liu@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Xiaomeng Hou <Xiaomeng.Hou@amd.com>
+From: Aaron Liu <aaron.liu@amd.com>
 
-Implement the sysfs API for getting/setting pp_power_profile_mode for
-yellow carp.
+This patch adds mode2 reset support for yellow carp.
 
-Signed-off-by: Xiaomeng Hou <Xiaomeng.Hou@amd.com>
+Signed-off-by: Aaron Liu <aaron.liu@amd.com>
 Reviewed-by: Huang Rui <ray.huang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- .../drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c  | 86 +++++++++++++++++++
- 1 file changed, 86 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/nv.c               |  1 +
+ .../drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c  | 26 +++++++++++++++++++
+ 2 files changed, 27 insertions(+)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
+index fa2f0cbcec8b..54dd1bde202c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nv.c
++++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+@@ -633,6 +633,7 @@ nv_asic_reset_method(struct amdgpu_device *adev)
+ 
+ 	switch (adev->asic_type) {
+ 	case CHIP_VANGOGH:
++	case CHIP_YELLOW_CARP:
+ 		return AMD_RESET_METHOD_MODE2;
+ 	case CHIP_SIENNA_CICHLID:
+ 	case CHIP_NAVY_FLOUNDER:
 diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
-index 080dd761a328..db1252424f0f 100644
+index ddf56b31a403..364fc17b2a78 100644
 --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
 +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
-@@ -135,6 +135,14 @@ static struct cmn2asic_mapping yellow_carp_table_map[SMU_TABLE_COUNT] = {
- 	TAB_MAP_VALID(CUSTOM_DPM),
- 	TAB_MAP_VALID(DPMCLOCKS),
- };
-+
-+static struct cmn2asic_mapping yellow_carp_workload_map[PP_SMC_POWER_PROFILE_COUNT] = {
-+	WORKLOAD_MAP(PP_SMC_POWER_PROFILE_FULLSCREEN3D,		WORKLOAD_PPLIB_FULL_SCREEN_3D_BIT),
-+	WORKLOAD_MAP(PP_SMC_POWER_PROFILE_VIDEO,		WORKLOAD_PPLIB_VIDEO_BIT),
-+	WORKLOAD_MAP(PP_SMC_POWER_PROFILE_VR,			WORKLOAD_PPLIB_VR_BIT),
-+	WORKLOAD_MAP(PP_SMC_POWER_PROFILE_COMPUTE,		WORKLOAD_PPLIB_COMPUTE_BIT),
-+	WORKLOAD_MAP(PP_SMC_POWER_PROFILE_CUSTOM,		WORKLOAD_PPLIB_CUSTOM_BIT),
-+};
- 	
- static int yellow_carp_init_smc_tables(struct smu_context *smu)
- {
-@@ -463,6 +471,81 @@ static int yellow_carp_set_watermarks_table(struct smu_context *smu,
- 	return 0;
+@@ -272,6 +272,31 @@ static int yellow_carp_post_smu_init(struct smu_context *smu)
+ 	return ret;
  }
  
-+static int yellow_carp_get_power_profile_mode(struct smu_context *smu,
-+						char *buf)
++static int yellow_carp_mode_reset(struct smu_context *smu, int type)
 +{
-+	static const char *profile_name[] = {
-+					"BOOTUP_DEFAULT",
-+					"3D_FULL_SCREEN",
-+					"POWER_SAVING",
-+					"VIDEO",
-+					"VR",
-+					"COMPUTE",
-+					"CUSTOM"};
-+	uint32_t i, size = 0;
-+	int16_t workload_type = 0;
++	int ret = 0, index = 0;
 +
-+	if (!buf)
-+		return -EINVAL;
++	index = smu_cmn_to_asic_specific_index(smu, CMN2ASIC_MAPPING_MSG,
++				SMU_MSG_GfxDeviceDriverReset);
++	if (index < 0)
++		return index == -EACCES ? 0 : index;
 +
-+	for (i = 0; i <= PP_SMC_POWER_PROFILE_CUSTOM; i++) {
-+		/*
-+		 * Conv PP_SMC_POWER_PROFILE* to WORKLOAD_PPLIB_*_BIT.
-+		 * Not all profile modes are supported on yellow carp.
-+		 */
-+		workload_type = smu_cmn_to_asic_specific_index(smu,
-+							       CMN2ASIC_MAPPING_WORKLOAD,
-+							       i);
++	mutex_lock(&smu->message_lock);
 +
-+		if (workload_type < 0)
-+			continue;
++	ret = smu_cmn_send_msg_without_waiting(smu, (uint16_t)index, type);
 +
-+		size += sprintf(buf + size, "%2d %14s%s\n",
-+			i, profile_name[i], (i == smu->power_profile_mode) ? "*" : " ");
-+	}
++	mutex_unlock(&smu->message_lock);
 +
-+	return size;
++	mdelay(10);
++
++	return ret;
 +}
 +
-+static int yellow_carp_set_power_profile_mode(struct smu_context *smu,
-+						long *input, uint32_t size)
++static int yellow_carp_mode2_reset(struct smu_context *smu)
 +{
-+	int workload_type, ret;
-+	uint32_t profile_mode = input[size];
-+
-+	if (profile_mode > PP_SMC_POWER_PROFILE_CUSTOM) {
-+		dev_err(smu->adev->dev, "Invalid power profile mode %d\n", profile_mode);
-+		return -EINVAL;
-+	}
-+
-+	if (profile_mode == PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT ||
-+			profile_mode == PP_SMC_POWER_PROFILE_POWERSAVING)
-+		return 0;
-+
-+	/* conv PP_SMC_POWER_PROFILE* to WORKLOAD_PPLIB_*_BIT */
-+	workload_type = smu_cmn_to_asic_specific_index(smu,
-+						       CMN2ASIC_MAPPING_WORKLOAD,
-+						       profile_mode);
-+	if (workload_type < 0) {
-+		dev_dbg(smu->adev->dev, "Unsupported power profile mode %d on YELLOWCARP\n",
-+					profile_mode);
-+		return -EINVAL;
-+	}
-+
-+	ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_ActiveProcessNotify,
-+				    1 << workload_type,
-+				    NULL);
-+	if (ret) {
-+		dev_err_once(smu->adev->dev, "Fail to set workload type %d\n",
-+					workload_type);
-+		return ret;
-+	}
-+
-+	smu->power_profile_mode = profile_mode;
-+
-+	return 0;
++	return yellow_carp_mode_reset(smu, SMU_RESET_MODE_2);
 +}
 +
- static int yellow_carp_od_edit_dpm_table(struct smu_context *smu, enum PP_OD_DPM_TABLE_COMMAND type,
- 					long input[], uint32_t size)
- {
-@@ -940,6 +1023,8 @@ static const struct pptable_funcs yellow_carp_ppt_funcs = {
- 	.read_sensor = yellow_carp_read_sensor,
- 	.is_dpm_running = yellow_carp_is_dpm_running,
- 	.set_watermarks_table = yellow_carp_set_watermarks_table,
-+	.get_power_profile_mode = yellow_carp_get_power_profile_mode,
-+	.set_power_profile_mode = yellow_carp_set_power_profile_mode,
- 	.get_enabled_mask = smu_cmn_get_enabled_32_bits_mask,
- 	.get_pp_feature_mask = smu_cmn_get_pp_feature_mask,
+ static int yellow_carp_get_smu_metrics_data(struct smu_context *smu,
+ 							MetricsMember_t member,
+ 							uint32_t *value)
+@@ -1167,6 +1192,7 @@ static const struct pptable_funcs yellow_carp_ppt_funcs = {
  	.set_driver_table_location = smu_v13_0_1_set_driver_table_location,
-@@ -958,5 +1043,6 @@ void yellow_carp_set_ppt_funcs(struct smu_context *smu)
- 	smu->message_map = yellow_carp_message_map;
- 	smu->feature_map = yellow_carp_feature_mask_map;
- 	smu->table_map = yellow_carp_table_map;
-+	smu->workload_map = yellow_carp_workload_map;
- 	smu->is_apu = true;
- }
+ 	.gfx_off_control = smu_v13_0_1_gfx_off_control,
+ 	.post_init = yellow_carp_post_smu_init,
++	.mode2_reset = yellow_carp_mode2_reset,
+ 	.get_dpm_ultimate_freq = yellow_carp_get_dpm_ultimate_freq,
+ 	.od_edit_dpm_table = yellow_carp_od_edit_dpm_table,
+ 	.print_clk_levels = yellow_carp_print_clk_levels,
 -- 
 2.31.1
 
