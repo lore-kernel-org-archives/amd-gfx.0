@@ -2,67 +2,70 @@ Return-Path: <SRS0=4Sal=K5=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 51D84C47096
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 19:29:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A1419C47082
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 21:11:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 231296124B
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 19:29:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 231296124B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 6CFCC6139A
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 21:11:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6CFCC6139A
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7ECF6F4FF;
-	Thu,  3 Jun 2021 19:29:33 +0000 (UTC)
-Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
- [IPv6:2607:f8b0:4864:20::331])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C4AF6F4FB
- for <amd-gfx@lists.freedesktop.org>; Thu,  3 Jun 2021 19:29:33 +0000 (UTC)
-Received: by mail-ot1-x331.google.com with SMTP id
- t10-20020a05683022eab0290304ed8bc759so6794299otc.12
- for <amd-gfx@lists.freedesktop.org>; Thu, 03 Jun 2021 12:29:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=4v1EsAN4qH2OFMwX+3vD1tHMpl4XVuDXpoBcEWFrYg0=;
- b=uQvrjCNgx0ryIVq0CY7rEGmd8kxrPDVlXYUbqVRqbzZMLoFThJKkYQxsMT1i6EX6Rl
- pOs4EQSRuMNzbJH3tf0VdwZ/kdM7KJ8efRXRsShOcwAvsrRltqHhi7o8qV4fEARUkfw0
- IyPheDfJfuyOhYm0Ix0fWkRV5T/b4a5iWNFueambb/UW6lMONtFOZXOwjzD44eAtaFgu
- rCZMmtLiAe0SZvurUTfS0BAQw3EXNsjZx6JW/XFJytD3rB0FiMvstuXnN9WgodJUj6OC
- jelAGp3CLW5lnNuP+whmO7WStis2RQmyxhonH4My23QVb1c3UjrV1k9NOs6ck7CoMMlR
- E84w==
+	by gabe.freedesktop.org (Postfix) with ESMTP id D44026EEAA;
+	Thu,  3 Jun 2021 21:11:55 +0000 (UTC)
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [IPv6:2a00:1450:4864:20::431])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFBA06EE9E
+ for <amd-gfx@lists.freedesktop.org>; Thu,  3 Jun 2021 21:11:53 +0000 (UTC)
+Received: by mail-wr1-x431.google.com with SMTP id q5so7226261wrm.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 03 Jun 2021 14:11:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=qo81W0COu/9T+MtdH15dWO35zb4IKBH3tap7L13Ay+g=;
+ b=Ep1C99k65ha6o9n/Xnv083Ka95kqOxU0nc+P1Su4LgSF7LEKJoAw+0C8/4y3YWA1Uk
+ 9jmI+6Kg3RoJYHfcWvod76BaO3A0UqaPypcfqM4GZ8bcRyRWiPfoGo4yubuBwZwQAuBH
+ WuAqsi7sTEuX8lJzK1mBf4J7nel1IMd5d6hks=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=4v1EsAN4qH2OFMwX+3vD1tHMpl4XVuDXpoBcEWFrYg0=;
- b=tp5EpgNm4A98NALT9QNpaWjzLYhgKSfkLn91yX91fipOhRyJm3DjXlaqtkSWmLiOSr
- W2+k9NBYc7YmtnrMK7Di7JqtpCdyDleKwoLShGGGLP0BsGxkxkC2sqFJzRkbbdAX3/C1
- ZHX2QHwvmES+9JGHGZbAnj9Cx/BJaiAtQa/5oEybnU4HDt+y+kylXQHnZ60tJjRSJ5wr
- sdcqEk16ZbmyxFxIHesBGUxd4UFJN2TTzcCR0ykYp8gol9n9uxdQgbxSSPuQbeH/OvOG
- PIq+jRrdbMpyceOJIZO10U1shC4FZ64k/1qOsRxkqANxpvMfb/3b2IYaM+8+z5djpHO3
- qpgw==
-X-Gm-Message-State: AOAM530QOEzwO/dOyXeOf4KyMM9d41eyxI0sgxRhIAyZXqH+HaqXOBg+
- KjMDIyKufttEqoA7XowJz5BXpjdxbmi/z85cWx6sk8mV
-X-Google-Smtp-Source: ABdhPJzIsM1QmhTrBlwBMYxozM00bm1vguNYSomyLAf41AjiFsAD+zJd0dxnZa1Lr8+2UAxWr/+ilRx9BXUdu4KKot4=
-X-Received: by 2002:a9d:74c6:: with SMTP id a6mr768946otl.132.1622748572593;
- Thu, 03 Jun 2021 12:29:32 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=qo81W0COu/9T+MtdH15dWO35zb4IKBH3tap7L13Ay+g=;
+ b=ARBwMx5J3oN82o1ACarOefH++U+GVg/cOwiFtfPAQ/T1EfFWm7l3qOmW8pFRFL+OP4
+ LWNFfbsi/3Gtyqzqoc4hSxmqmSxaGBW6QOksQ1ukH7Q93vUEZ2Sosfj4uBqLemdcHpzl
+ K9JnTX8z1fiosKJ10Aq/aWaO5+bgRVyiKHqHuELhUdkW7KTvSuhKkvZu8OslohLVZyxf
+ SqrsikYmaNH0zC8rqpr9wGD46b9oY9MsGIT7U33dPSMqSL78a5NIp+T2NXaKKTwsfM7N
+ JVKATz5jB2kd4LMVjkK0vM347iuqv3fIgcga8Uqjcy6Ei0M8Pi2FiArUvcMt/xTvaN1k
+ r4qQ==
+X-Gm-Message-State: AOAM531BUlh4RdNPMwMgCpDDycrcQzz4r5k6e+bZx8myhvZ9DEJyCIUn
+ di1e524//b3npB7JRITzU/Rk0Q==
+X-Google-Smtp-Source: ABdhPJx8yjSE12ygh5q4XzGrGDcVw6g7J7uRZbzliCwqbFJIqvVK1qA/BT1I8/4oa8K2GVWvDzxesA==
+X-Received: by 2002:adf:a489:: with SMTP id g9mr387883wrb.103.1622754712405;
+ Thu, 03 Jun 2021 14:11:52 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id a1sm5056623wrg.92.2021.06.03.14.11.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 03 Jun 2021 14:11:51 -0700 (PDT)
+Date: Thu, 3 Jun 2021 23:11:50 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Subject: Re: [PATCH 0/7] libdrm tests for hot-unplug feature
+Message-ID: <YLlFlq1orNnGLXRH@phenom.ffwll.local>
+References: <20210601201702.23316-1-andrey.grodzovsky@amd.com>
+ <CAKMK7uFoLmOFCTkPMm4mMSScF0xa+MnHvY2FVmfBUM8b8S0_PQ@mail.gmail.com>
+ <de4b3521-42f7-7fc2-7271-e4fa3cd91708@amd.com>
+ <baf1d1f8-48c7-ed83-8e42-a4a317bfa74d@amd.com>
 MIME-Version: 1.0
-References: <20210602204556.17324-1-mario.kleiner.de@gmail.com>
- <887b4f3a-e609-e288-4c61-e9b12527fe4c@amd.com>
-In-Reply-To: <887b4f3a-e609-e288-4c61-e9b12527fe4c@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 3 Jun 2021 15:29:21 -0400
-Message-ID: <CADnq5_Nox9gYoJvg6AvszsuE+V6+ko+xBgeGScgRWM2xQ=krAA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Keep linebuffer pixel depth at 30bpp for
- DCE-11.0.
-To: Harry Wentland <harry.wentland@amd.com>
+Content-Disposition: inline
+In-Reply-To: <baf1d1f8-48c7-ed83-8e42-a4a317bfa74d@amd.com>
+X-Operating-System: Linux phenom 5.10.32scarlett+ 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,74 +77,115 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tom St Denis <Tom.StDenis@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Mario Kleiner <mario.kleiner.de@gmail.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Alex Deucher <Alexander.Deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On Thu, Jun 03, 2021 at 10:22:37AM -0400, Andrey Grodzovsky wrote:
+> Ping
+> =
 
-Alex
+> Andrey
+> =
 
-On Wed, Jun 2, 2021 at 4:58 PM Harry Wentland <harry.wentland@amd.com> wrote:
->
-> On 2021-06-02 4:45 p.m., Mario Kleiner wrote:
-> > Testing on AMD Carizzo with DCE-11.0 display engine showed that
-> > it doesn't like a 36 bpp linebuffer very much. The display just
-> > showed a solid green.
-> >
-> > Testing on RavenRidge DCN-1.0, Polaris11 with DCE-11.2 and Kabini
-> > with DCE-8.3 did not expose any problems, so for now only revert
-> > to 30 bpp linebuffer depth on asics with DCE-11.0 display engine.
-> >
-> > Reported-by: Tom StDenis <Tom.StDenis@amd.com>
-> > Signed-off-by: Mario Kleiner <mario.kleiner.de@gmail.com>
-> > Cc: Alex Deucher <alexander.deucher@amd.com>
->
-> Curious now why Carrizo doesn't like a LB depth of 36bpp but
-> this should fix the issue.
->
-> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
->
-> Harry
->
-> > ---
-> >  drivers/gpu/drm/amd/display/dc/core/dc_resource.c | 11 +++++++++--
-> >  1 file changed, 9 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-> > index b2ee3cd77b4e..a4f1ae8930a4 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-> > @@ -1213,9 +1213,16 @@ bool resource_build_scaling_params(struct pipe_ctx *pipe_ctx)
-> >        * on certain displays, such as the Sharp 4k. 36bpp is needed
-> >        * to support SURFACE_PIXEL_FORMAT_GRPH_ARGB16161616 and
-> >        * SURFACE_PIXEL_FORMAT_GRPH_ABGR16161616 with actual > 10 bpc
-> > -      * precision on at least DCN display engines.
-> > +      * precision on at least DCN display engines. However, at least
-> > +      * Carrizo with DCE_VERSION_11_0 does not like 36 bpp lb depth,
-> > +      * so use only 30 bpp on DCE_VERSION_11_0. Testing with DCE 11.2 and 8.3
-> > +      * did not show such problems, so this seems to be the exception.
-> >        */
-> > -     pipe_ctx->plane_res.scl_data.lb_params.depth = LB_PIXEL_DEPTH_36BPP;
-> > +     if (plane_state->ctx->dce_version != DCE_VERSION_11_0)
-> > +             pipe_ctx->plane_res.scl_data.lb_params.depth = LB_PIXEL_DEPTH_36BPP;
-> > +     else
-> > +             pipe_ctx->plane_res.scl_data.lb_params.depth = LB_PIXEL_DEPTH_30BPP;
-> > +
-> >       pipe_ctx->plane_res.scl_data.lb_params.alpha_en = plane_state->per_pixel_alpha;
-> >
-> >       pipe_ctx->plane_res.scl_data.recout.x += timing->h_border_left;
-> >
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+> On 2021-06-02 10:20 a.m., Andrey Grodzovsky wrote:
+> > =
+
+> > On 2021-06-02 3:59 a.m., Daniel Vetter wrote:
+> > > On Tue, Jun 1, 2021 at 10:17 PM Andrey Grodzovsky
+> > > <andrey.grodzovsky@amd.com> wrote:
+> > > > Adding some tests to acompany the recently added hot-unplug
+> > > > feature. For now the test suite is disabled until the feature
+> > > > propagates from drm-misc-next to drm-next.
+> > > > =
+
+> > > > Andrey Grodzovsky (7):
+> > > > =A0=A0 tests/amdgpu: Fix valgrind warning
+> > > > =A0=A0 xf86drm: Add function to retrieve char device path
+> > > > =A0=A0 test/amdgpu: Add helper functions for hot unplug
+> > > > =A0=A0 test/amdgpu/hotunplug: Add test suite for GPU unplug
+> > > > =A0=A0 test/amdgpu/hotunplug: Add basic test
+> > > > =A0=A0 tests/amdgpu/hotunplug: Add unplug with cs test.
+> > > > =A0=A0 tests/amdgpu/hotunplug: Add hotunplug with exported bo test
+> > > Given how nasty hotunplug is I really think collaborating on igt tests
+> > > on this would be best for everyone ... do we have to keep doing
+> > > parallel tests here for amdgpu?
+> > > -Daniel
+> > =
+
+> > AFAIK as far as AMD goes a lot of developers use libdrm for regression
+> > testing
+> > while developing their features and also QA as i can see from some
+> > internal ticket
+> > specifically opened for failing to pass libdrm tests. From my bitter
+> > experience with
+> > GPU reset - features which are not part of a common use case such as
+> > device loading,
+> > mode setting or commands submissions tend to very quickly break as
+> > people develop
+> > features but never test them in those uncommon use cases - this is why I
+> > feel it will be
+> > very helpful to include those tests in libdrm.
+> > =
+
+> > Also given that this is libdrm amdgpu code it fits naturally into libdr=
+m.
+> > =
+
+> > Regarding IGT - as you may remember I have them there too -
+> > https://gitlab.freedesktop.org/agrodzov/igt-gpu-tools/-/commits/master
+> > I hit some compile breakage on debian platform there which i need to
+> > resolve before i will submit for review there too.
+
+Why can't amd run the igt tests? Afaiui on the display side this is
+happening already, at least sometimes.
+
+And yes regression tests matter, it just feels silly that we need to have
+them 2x for amdgpu. For old stuff the old repo is all fine, but for new
+feature it looks a bit silly.
+-Daniel
+
+> > =
+
+> > Andrey
+> > =
+
+> > =
+
+> > > =
+
+> > > > =A0 tests/amdgpu/amdgpu_test.c=A0=A0=A0=A0 |=A0 42 +++-
+> > > > =A0 tests/amdgpu/amdgpu_test.h=A0=A0=A0=A0 |=A0 26 +++
+> > > > =A0 tests/amdgpu/basic_tests.c=A0=A0=A0=A0 |=A0=A0 5 +-
+> > > > =A0 tests/amdgpu/hotunplug_tests.c | 357
+> > > > +++++++++++++++++++++++++++++++++
+> > > > =A0 tests/amdgpu/meson.build=A0=A0=A0=A0=A0=A0 |=A0=A0 1 +
+> > > > =A0 xf86drm.c=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0 |=A0 23 +++
+> > > > =A0 xf86drm.h=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0 |=A0=A0 1 +
+> > > > =A0 7 files changed, 450 insertions(+), 5 deletions(-)
+> > > > =A0 create mode 100644 tests/amdgpu/hotunplug_tests.c
+> > > > =
+
+> > > > -- =
+
+> > > > 2.25.1
+> > > > =
+
+> > > =
+
+
+-- =
+
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
