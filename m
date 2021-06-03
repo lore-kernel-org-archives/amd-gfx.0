@@ -7,47 +7,53 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 114EAC4708F
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3C830C47083
 	for <amd-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 03:31:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A819761078
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 03:31:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A819761078
+	by mail.kernel.org (Postfix) with ESMTPS id 059E6613C9
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 03:31:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 059E6613C9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=vivo.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B0066F384;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6DF86F385;
 	Thu,  3 Jun 2021 03:31:09 +0000 (UTC)
+X-Greylist: delayed 544 seconds by postgrey-1.36 at gabe;
+ Thu, 03 Jun 2021 02:51:02 UTC
 Received: from mail-m121144.qiye.163.com (mail-m121144.qiye.163.com
  [115.236.121.144])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 502136F382;
- Thu,  3 Jun 2021 03:29:18 +0000 (UTC)
-Received: from vivo-HP-ProDesk-680-G4-PCI-MT.vivo.xyz (unknown [58.251.74.232])
- by mail-m121144.qiye.163.com (Hmail) with ESMTPA id 83B74AC03B3;
- Thu,  3 Jun 2021 11:29:15 +0800 (CST)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B1236EF3F;
+ Thu,  3 Jun 2021 02:51:02 +0000 (UTC)
+Received: from vivo-HP-ProDesk-680-G4-PCI-MT.vivo.xyz (unknown
+ [58.250.176.229])
+ by mail-m121144.qiye.163.com (Hmail) with ESMTPA id AD808AC034F;
+ Thu,  3 Jun 2021 10:41:54 +0800 (CST)
 From: Wan Jiabing <wanjiabing@vivo.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Felix Kuehling <Felix.Kuehling@amd.com>,
- Nirmoy Das <nirmoy.das@amd.com>, Dave Airlie <airlied@redhat.com>,
- Philip Yang <Philip.Yang@amd.com>,
- Mihir Bhogilal Patel <Mihir.Patel@amd.com>, Roy Sun <Roy.Sun@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] drm: amdgpu: Remove unneeded semicolon in amdgpu_vm.c
-Date: Thu,  3 Jun 2021 11:28:59 +0800
-Message-Id: <1622690940-10972-1-git-send-email-wanjiabing@vivo.com>
+ Daniel Vetter <daniel@ffwll.ch>, Hawking Zhang <Hawking.Zhang@amd.com>,
+ John Clements <john.clements@amd.com>,
+ Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ Likun Gao <Likun.Gao@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Jinzhou Su <Jinzhou.Su@amd.com>, Wenhui Sheng <Wenhui.Sheng@amd.com>,
+ Liu ChengZhe <ChengZhe.Liu@amd.com>, Victor Zhao <Victor.Zhao@amd.com>,
+ Kevin Wang <kevin1.wang@amd.com>, Deepak R Varma <mh12gx2825@gmail.com>,
+ Oak Zeng <Oak.Zeng@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] drm: amdgpu: Remove duplicate include of drm_drv.h
+Date: Thu,  3 Jun 2021 10:41:45 +0800
+Message-Id: <1622688107-20340-1-git-send-email-wanjiabing@vivo.com>
 X-Mailer: git-send-email 2.7.4
 X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgYFAkeWUFZS1VLWVdZKFlBSE83V1ktWUFJV1kPCR
- oVCBIfWUFZGUseTlZPHR1CSRlDQkMZQxpVEwETFhoSFyQUDg9ZV1kWGg8SFR0UWUFZT0tIVUpKS0
- hKQ1VLWQY+
-X-HM-Sender-Digest: e1kMHhlZQR0aFwgeV1kSHx4VD1lBWUc6NyI6Vio5MD8QKxVLNCMpMENM
- Qj0aCS9VSlVKTUlJTUJLQk5NT0tNVTMWGhIXVQwaFRESGhkSFRw7DRINFFUYFBZFWVdZEgtZQVlO
- Q1VJTkpVTE9VSUhJWVdZCAFZQUlISkk3Bg++
-X-HM-Tid: 0a79cfeb0322b039kuuu83b74ac03b3
+ oVCBIfWUFZGR9OSFYdHUtDSEtPTElDSU9VEwETFhoSFyQUDg9ZV1kWGg8SFR0UWUFZT0tIVUpKS0
+ hOSFVLWQY+
+X-HM-Sender-Digest: e1kMHhlZQR0aFwgeV1kSHx4VD1lBWUc6ME06Ejo4Ez8UHRUvGDBITTQ3
+ L1EwFBJVSlVKTUlJTUNDSkpOTE5JVTMWGhIXVQwaFRESGhkSFRw7DRINFFUYFBZFWVdZEgtZQVlO
+ Q1VJTktVSkxNVUlJQllXWQgBWUFJTEtPNwY+
+X-HM-Tid: 0a79cfbfaac1b039kuuuad808ac034f
 X-Mailman-Approved-At: Thu, 03 Jun 2021 03:31:08 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,26 +73,25 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix following coccicheck warning:
-./drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c:1726:2-3: Unneeded semicolon
+drm_drv.h is included at line 28, remove the duplicate here.
 
 Signed-off-by: Wan Jiabing <wanjiabing@vivo.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 2460371..231745b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -1723,7 +1723,7 @@ int amdgpu_vm_bo_update_mapping(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index 3ff76cb..131cff0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -41,8 +41,6 @@
+ #include "amdgpu_securedisplay.h"
+ #include "amdgpu_atomfirmware.h"
  
- 		amdgpu_res_next(&cursor, num_entries * AMDGPU_GPU_PAGE_SIZE);
- 		start = tmp;
--	};
-+	}
- 
- 	r = vm->update_funcs->commit(&params, fence);
+-#include <drm/drm_drv.h>
+-
+ static int psp_sysfs_init(struct amdgpu_device *adev);
+ static void psp_sysfs_fini(struct amdgpu_device *adev);
  
 -- 
 2.7.4
