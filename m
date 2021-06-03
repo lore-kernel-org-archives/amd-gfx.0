@@ -2,108 +2,126 @@ Return-Path: <SRS0=4Sal=K5=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 410C9C47097
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 12:50:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0C2D3C47082
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 13:11:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 13C6E6139A
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 12:50:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 13C6E6139A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linaro.org
+	by mail.kernel.org (Postfix) with ESMTPS id AE175613B8
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 13:11:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AE175613B8
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B8766F472;
-	Thu,  3 Jun 2021 12:50:33 +0000 (UTC)
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [IPv6:2a00:1450:4864:20::332])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B09ED6EDBE
- for <amd-gfx@lists.freedesktop.org>; Thu,  3 Jun 2021 11:52:38 +0000 (UTC)
-Received: by mail-wm1-x332.google.com with SMTP id
- l11-20020a05600c4f0bb029017a7cd488f5so3573584wmq.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 03 Jun 2021 04:52:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=Nxij94IMFMsp61zYWJS5XKMycKfWOvntSLUdgR9Luec=;
- b=PP1Vx2P7z4p7uzC7frRq63E4x3I08msTGMShcvAdEGFQwbgoSQLam6TY7qFtZnfrip
- sZ2vdZz58OMVJtBV+LV7UtfH3hRj1TGjasngZ2KltASWY+0UFk1GkCFvbmMy1zh8VBMP
- dPoAp8/Papp6e6Y9syxE5WTIn3EkF63IUFXhjOyvBnTk1EZXXSJ1zWN+ZFpLmyfRRgmV
- zaZeW5clEklapwp4mQNAksAoChe6wCnp4zD6/sK7bIoELjiqOV1BWj7Fd7qq0A12wR59
- YBj4xTZnnoKIwJpwtS8WL69eLi0TYKCyPQcOnDWAOzYthTaMGxq+z6P1knTVhENqAX1n
- l+Kg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=Nxij94IMFMsp61zYWJS5XKMycKfWOvntSLUdgR9Luec=;
- b=f9miD+9hsqNzm/plnerUiJJKPmZYpjbKC8h2C94T6LmsS9CXomiOEwED/N1e0kLJJt
- R5vTDFNGev0tvtNsgq1Pmvken3B6GgemjYWZPyqSwjQGdb23OvLNnChZovZj1zFh6Bil
- 23ohyf9dz5Ke2s2MdnlRxa+7kkRzU/68CEIpDDPjvT2yQ9CNNz9tTwIJl+2demP+muxj
- BRto5fSH4whW2sXO1TtKJ8EGAZutf9aCcjjS498855+s4wIZHKGyFEPuNm6YG6ZeYuOU
- 25LwmwkqFPtPZb/hlEK6IGqIDUg7VoT/iZJJYzAHzgosGMjzlxECU4A8QLPaGfG6KlUw
- X1bQ==
-X-Gm-Message-State: AOAM533+aeBl48dyK+Lba9d1NciMpn3I9XOgUiiUzCSbHgtORmZXuXJp
- WSPkYs9PfI/UERb6Q19CZl2T5Q==
-X-Google-Smtp-Source: ABdhPJy5Njm66nMjE/L6HCMm1K6dzFQlD8FyCcfSndwd7kIwe0+i4mO9AXShjFboYjDIKB2XcsUlUA==
-X-Received: by 2002:a05:600c:4e8b:: with SMTP id
- f11mr4461550wmq.40.1622721157306; 
- Thu, 03 Jun 2021 04:52:37 -0700 (PDT)
-Received: from dell ([91.110.221.214])
- by smtp.gmail.com with ESMTPSA id h9sm2479488wmb.35.2021.06.03.04.52.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 03 Jun 2021 04:52:36 -0700 (PDT)
-Date: Thu, 3 Jun 2021 12:52:34 +0100
-From: Lee Jones <lee.jones@linaro.org>
-To: linux-kernel@vger.kernel.org, Adam Jackson <ajax@redhat.com>,
- Ajay Kumar <ajaykumar.rs@samsung.com>, Akshu Agarwal <akshua@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Alistair Popple <apopple@nvidia.com>, amd-gfx@lists.freedesktop.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Benjamin Gaignard <benjamin.gaignard@linaro.org>,
- Ben Skeggs <bskeggs@redhat.com>, Ben Widawsky <ben@bwidawsk.net>,
- Chandan Uddaraju <chandanu@codeaurora.org>,
- Christian Koenig <christian.koenig@amd.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
- Eric Anholt <eric@anholt.net>, Fabien Dessenne <fabien.dessenne@st.com>,
- freedreno@lists.freedesktop.org, Hans de Goede <hdegoede@redhat.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Huang Rui <ray.huang@amd.com>, Hyun Kwon <hyun.kwon@xilinx.com>,
- Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>,
- Joonyoung Shim <jy0922.shim@samsung.com>,
- Krishna Manikandan <mkrishn@codeaurora.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
- Kuogee Hsieh <khsieh@codeaurora.org>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Leo Li <sunpeng.li@amd.com>, linaro-mm-sig@lists.linaro.org,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- linux-mediatek@lists.infradead.org, linux-media@vger.kernel.org,
- linux-samsung-soc@vger.kernel.org,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Mauro Rossi <issor.oruam@gmail.com>,
- Michal Simek <michal.simek@xilinx.com>, nouveau@lists.freedesktop.org,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Rob Clark <robdclark@gmail.com>, Sam Ravnborg <sam@ravnborg.org>,
- Sean Paul <sean@poorly.run>, Seung-Woo Kim <sw0312.kim@samsung.com>,
- Stephen Boyd <swboyd@chromium.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Thierry Reding <thierry.reding@gmail.com>,
- Vincent Abriou <vincent.abriou@st.com>
-Subject: Re: [RESEND 00/26] Rid W=1 warnings from GPU
-Message-ID: <20210603115234.GA2435141@dell>
-References: <20210602143300.2330146-1-lee.jones@linaro.org>
- <YLi+KJrLjKbdXLxH@phenom.ffwll.local>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 622496F477;
+	Thu,  3 Jun 2021 13:11:00 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2067.outbound.protection.outlook.com [40.107.223.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E70376F477
+ for <amd-gfx@lists.freedesktop.org>; Thu,  3 Jun 2021 13:10:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=UJywT9hGyOCM90IibuSMb88tp1hWOEHSOF7GH6uZtbojiYSRt8L+AW5f5ReSXxexd2gBGc8ZOojCnw9uEHf1fl/xiY1j0pHjBFYT97LW8YsmDKcZKJnXhYofUpMOX8AEVHQMsV4cW+SKKvsnZc7VK+ESrv6Jg5X/r7VmB3oKvaFaZ07WJTvosaUAiwq/DjgMpRzb40R1af/msSaBTh6e52pLtt0ejjcCfj1yugLCWSjmDxl8iWWIfXgDqjBsbkSmc0StZQKmzrOhP3OaEVTajkP98CMl347perkCfbRsIb6gPREDNCP60ikD5an4I5e4kROCENQEGQMr5B1w8ktbpg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lCFECkXG9DFUVpwzuz2xHevcQD3hKgjvhAY6umKCvr0=;
+ b=eCh1WqmWHyncXqy0YfDNOWQA+D9+Kx9eCYtDqyipS5aEs+4qJjeZ1gXvgxSNEl6yMlVa5CGNy+mlS89QbQgyctSbueEmvS9M5D4mjmknOAXYikgh5PVEw39INwC1HzzgGfcqUauNgXLIwf7nWCSMesJs43eSEtMqKCK5cq3vuCZ9IPiasQ6Q7ocbhfxgvdxJWkn+MjLiI3+QsvZpTzDym3LGpcWkTma/iIDjK7xQ4BpYL2YvLlZemM44vnowCT35UHamz4JYfh4w5bz6Zc7P7sWzmocFg15oHvWnhmx+ePUKDL/mitnxp2gwEH7COHwDEHkYnTaH+JIABcDBGYUgNQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lCFECkXG9DFUVpwzuz2xHevcQD3hKgjvhAY6umKCvr0=;
+ b=y4u8IgnzaUZREaKgI1RWFbjXn2d7PxT9jzUdWIsVfBHJH82kwaR+k2ps0eH7InpWJ4SSaJUiTYeXUqgaYZyH9727vOTuyxNUrKBZb8WzAha4KEub9QuanirIjoes4yacKWLvN3ZUYxsWhGmdiDjWWqS/I3MZ645MCbvETD9lCMQ=
+Received: from DM6PR12MB3067.namprd12.prod.outlook.com (2603:10b6:5:115::10)
+ by DM6PR12MB4928.namprd12.prod.outlook.com (2603:10b6:5:1b8::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.23; Thu, 3 Jun
+ 2021 13:10:57 +0000
+Received: from DM6PR12MB3067.namprd12.prod.outlook.com
+ ([fe80::5c8c:adff:ab42:9345]) by DM6PR12MB3067.namprd12.prod.outlook.com
+ ([fe80::5c8c:adff:ab42:9345%6]) with mapi id 15.20.4195.024; Thu, 3 Jun 2021
+ 13:10:57 +0000
+From: "Sider, Graham" <Graham.Sider@amd.com>
+To: "Quan, Evan" <Evan.Quan@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH v3 4/8] drm/amd/pm: Add navi1x throttler translation
+Thread-Topic: [PATCH v3 4/8] drm/amd/pm: Add navi1x throttler translation
+Thread-Index: AQHXVxHnOs5rKx+Wikmn/4L8wjao+asAI9aAgAIf2AA=
+Date: Thu, 3 Jun 2021 13:10:57 +0000
+Message-ID: <DM6PR12MB30676D0E36B54D85296A685F8A3C9@DM6PR12MB3067.namprd12.prod.outlook.com>
+References: <20210601181231.24773-1-Graham.Sider@amd.com>
+ <20210601181231.24773-4-Graham.Sider@amd.com>
+ <DM6PR12MB26199099168565AAFB6690ACE43D9@DM6PR12MB2619.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB26199099168565AAFB6690ACE43D9@DM6PR12MB2619.namprd12.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-06-02T04:37:25Z; 
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
+ Only-AIP 2.0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=1160a2c4-c7ad-40a2-846e-0d6c59d370a7;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [2607:9880:1020:cb:6db9:3c91:43ce:5016]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 44d83043-7097-492a-37d8-08d9269106ed
+x-ms-traffictypediagnostic: DM6PR12MB4928:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM6PR12MB4928C947A4B1577D86C052048A3C9@DM6PR12MB4928.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:2657;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: Eg1UYeJYXnhSJSTEiB9X6HO/e2WpQYLu4TTyLwgOm9Vi+1X6W7iCZ5J5xYVFVlLqkyBtYVdl0xI8X3vTVVdUYeoIbjj1JclwGxeZMYZKVcTePqZHYPbyS62gIq5G5CTgBhV6jAmVM6m7KKQR79rAfaLJBOfPLjln7zBqGkiVJcVCQSIkRaRjBjncTvNNHcyLHOkwMGKZu01yFP+lvDXdfgM5DrdkVAKeVrNXokNVLr1Dg1PpFbOIKfWi3ZmHSmLfrIqZ+kG7CJ9d2teIB1zsMyRHB5Aur3sepIlWU886LKQK3yPgoz8Sx1tOXQGuxUU9Dpd6QEgyPzwW4TslNZI2PQMxH1qVd0Wx7JTTGj0hnHyRUoIM5MjHTackx8QtUOkyrEbu8r1ROpdX+mBGt+wZWqMH0Yy5du7nZCMcatbdQfMhJO7OQpAsZGxvsV1XgFXsUZYuGf/hLnMYw+ZmPEKH50MAWgxpz40guzZF8XbsxZIMjAO0sTuC+Um2dV+ynuSd4+IH0ZxRb3+EzXddzSEy4L+PzpAgR3039oPgdk7FtZbcs0YdYNECcK31LcvSTVFaWa87lN1LQxM0vDFHzEfYKRcE9NsemTUDmjBqhkHPaYxdKtFtUjJXNKacpmt64iOpDDn8PG4P8bCN75K1k6ae1ewVDyxAZLMbhj4mBo1TkIVuNuBY6wudJDvgsfRaLzeAPLoW2cA6rcieKVPqh1bCkPyXuU4vH1hV36DJPvXTTcaXzyUAOKbRybq7EnL07lzTs3kj/EhvzlQU+uOaFANPXw0OCtKIgtvnK5L/VAt/Cz8=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3067.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(136003)(396003)(376002)(366004)(346002)(54906003)(110136005)(316002)(76116006)(55016002)(9686003)(71200400001)(8936002)(2906002)(8676002)(86362001)(52536014)(5660300002)(122000001)(83380400001)(38100700002)(66446008)(53546011)(66946007)(33656002)(966005)(64756008)(7696005)(45080400002)(478600001)(66556008)(186003)(6506007)(4326008)(66476007)(32563001)(357404004);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?+9Exw4IiZOiEForIHh5EEuajcf5iQ4VMfB2hYIxZPfi1RCrlKP5NUZFmGKD/?=
+ =?us-ascii?Q?CfYyuLMNIYwJK2yKFYKM/EKEK9xVsVUDj774qfzHoeQLoZ/h1s1EMypJi128?=
+ =?us-ascii?Q?+vZN7HGgBji5eLfcKnQX9GOv/9LNcqWybeVG2q7X8zV2dDM083PdDOZJIKsC?=
+ =?us-ascii?Q?DmsUXEiS1la+iOPo8LbczjipBn1VgOtUWH0B3ESY02M4n0UU/Nf1DrEwN3Hp?=
+ =?us-ascii?Q?8qmmMMqkyfdQsoiytNAb4ZhAuY99cklKFVnj10h8w9XUJa/C3X5HY8Us7utN?=
+ =?us-ascii?Q?ukpYpT8H6x/qcWB4bW1KaNZWb81XyAJiH/oHtR+bWS2ifza2m9SL7uSx9eRG?=
+ =?us-ascii?Q?x7jEGsuCjLwMcgxG7R86ZvTigBbNieBQDZjQaUye/n4WkG/Zp1fl8Xo0ct4B?=
+ =?us-ascii?Q?6iLXrUOO4p7Ta9t4SpDK3eOx93OYNihdmu1uOMSuhecM1nf/yctbEyTogyQv?=
+ =?us-ascii?Q?nH1SoINMzEWKrQUUzB2EeDsf/I9NPs2esp9LWIBoGjnZcDjH0S+8lQ/VNa+b?=
+ =?us-ascii?Q?8cjSULVjaZ3tZwkUzDJhT5aKx30UmkpPGDjmiLmVgZCb3H6Zu5Yrn/otxCRz?=
+ =?us-ascii?Q?45aKTM3YEIBq/u0ndZFLQ3hktglwam9TTCet9HF4cuQH6fFPsERGfX8yQuYq?=
+ =?us-ascii?Q?jJ780EDMMy04iBPbo0afMLn6WBfQxL5199tbgxMMGPuo81SNej8YT46ojJyd?=
+ =?us-ascii?Q?4C+tXyxsFiddF528ht6GmH8dfl7naFoythgUXwawrUYwXFQQfd2h3KgjqU4D?=
+ =?us-ascii?Q?JfqV+dKY3VDhYRr60duYjANPzDMTWRR6+D565Cm91mDDojcnRNXP2qW7D9Uj?=
+ =?us-ascii?Q?sDQpyOEBgWYkpAWNWk1QbedF/HQLIM9qrBlm0Tx7EjzQqO6Fj8nfbp7Jm9Em?=
+ =?us-ascii?Q?oOABt+cKB9Gx0KtLGTB9TBdPurXPzBYG9b8z0tajzH86t65EaIIuush263AX?=
+ =?us-ascii?Q?ZSRmrvXJecPvICtSSlI0bViWAi9ULVAXgEGzlIObPmx7OpXj3CTWAnzZA7RA?=
+ =?us-ascii?Q?79JGf3iHb5K4xIm2GIoGxKcKcQyXWleBHo10sXC2wJMR8p+VVncV2SJKZBRG?=
+ =?us-ascii?Q?Bsqu/kwsC0tn6mRv78Msm9ZcGK0MQFKm2QH1gNalw6EsIkqVuiL5aZkYtI6k?=
+ =?us-ascii?Q?2PW9huUc3MblwSTfEiefFYAd+SdAxHLwDku0idgdicudq5jIO3FdnKiP7My9?=
+ =?us-ascii?Q?B43MxIVwcnWItZYxEqRFirJRSwHh3+J3VhkXAzW0LcK0/SPnm9AqmummPbf6?=
+ =?us-ascii?Q?kvaoHP7V6WTlrtoQ3VKte0KPtwJPepwUh2LyAUPcdTCcIY9RmMb+me98nVkE?=
+ =?us-ascii?Q?+sgKcNGsN/NKXHlCfuyPpQRZq/FpTxQT7f+2mKqZMIKA2i49fyKM1vUmQE1b?=
+ =?us-ascii?Q?PyAqx5ba0RM6dpDovNDyW6zjm7ce?=
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <YLi+KJrLjKbdXLxH@phenom.ffwll.local>
-X-Mailman-Approved-At: Thu, 03 Jun 2021 12:50:31 +0000
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3067.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 44d83043-7097-492a-37d8-08d9269106ed
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Jun 2021 13:10:57.3791 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: rs84BzNfkgHo7ydxdILFmMCXjDzkPTJLdLhgzUOguOdFXAqbkwRp4VLpJ6eSU8KwhzzJ8+Mc4XAsjlCu08R6oQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4928
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,60 +133,183 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Kasiviswanathan,
+ Harish" <Harish.Kasiviswanathan@amd.com>, "Sakhnovitch,
+ Elena \(Elen\)" <Elena.Sakhnovitch@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gVGh1LCAwMyBKdW4gMjAyMSwgRGFuaWVsIFZldHRlciB3cm90ZToKCj4gT24gV2VkLCBKdW4g
-MDIsIDIwMjEgYXQgMDM6MzI6MzRQTSArMDEwMCwgTGVlIEpvbmVzIHdyb3RlOgo+ID4gU29tZSBv
-ZmYgdGhlc2UgcGF0Y2hlcyBoYXZlIGJlZW4ga25vY2tpbmcgYXJvdW5kIGZvciBhIHdoaWxlLgo+
-ID4gCj4gPiBXaG8gd2lsbCBob292ZXIgdGhlbSB1cCBwbGVhc2U/Cj4gPiAKPiA+IFRoaXMgc2V0
-IGlzIHBhcnQgb2YgYSBsYXJnZXIgZWZmb3J0IGF0dGVtcHRpbmcgdG8gY2xlYW4tdXAgVz0xCj4g
-PiBrZXJuZWwgYnVpbGRzLCB3aGljaCBhcmUgY3VycmVudGx5IG92ZXJ3aGVsbWluZ2x5IHJpZGRs
-ZWQgd2l0aAo+ID4gbmlnZ2x5IGxpdHRsZSB3YXJuaW5ncy4KPiA+IAo+ID4gTGVlIEpvbmVzICgy
-Nik6Cj4gPiAgIGRybS9tZWRpYXRlay9tdGtfZGlzcF9jb2xvcjogU3RyaXAgaW5jb3JyZWN0IGRv
-YyBhbmQgZGVtb3RlIGhlYWRlcgo+ID4gICBkcm0vbWVkaWF0ZWsvbXRrX2Rpc3BfZ2FtbWE6IFN0
-cmlwIGFuZCBkZW1vdGUgbm9uLWNvbmZvcm1hbnQKPiA+ICAgICBrZXJuZWwtZG9jIGhlYWRlcgo+
-ID4gICBkcm0vbWVkaWF0ZWsvbXRrX2Rpc3Bfb3ZsOiBTdHJpcCBhbmQgZGVtb3RlIG5vbi1jb25m
-b3JtYW50IGhlYWRlcgo+ID4gICBkcm0vbWVkaWF0ZWsvbXRrX2Rpc3BfcmRtYTogU3RyaXAgYW5k
-IGRlbW90ZSBub24tY29uZm9ybWFudCBrZXJuZWwtZG9jCj4gPiAgICAgaGVhZGVyCj4gPiAgIGRy
-bS9zdGkvc3RpX2hkbWlfdHgzZzRjMjhwaHk6IFByb3ZpZGUgZnVuY3Rpb24gbmFtZXMgZm9yIGtl
-cm5lbC1kb2MKPiA+ICAgICBoZWFkZXJzCj4gPiAgIGRybS9zdGkvc3RpX2hkYTogUHJvdmlkZSBt
-aXNzaW5nIGZ1bmN0aW9uIG5hbWVzCj4gPiAgIGRybS9zdGkvc3RpX3R2b3V0OiBQcm92aWRlIGEg
-YnVuY2ggb2YgbWlzc2luZyBmdW5jdGlvbiBuYW1lcwo+ID4gICBkcm0vc3RpL3N0aV9ocXZkcDog
-Rml4IGluY29ycmVjdGx5IG5hbWVkIGZ1bmN0aW9uICdzdGlfaHF2ZHBfdnRnX2NiKCknCj4gPiAg
-IGRybS9tc20vZGlzcC9kcHUxL2RwdV9lbmNvZGVyX3BoeXNfY21kOiBSZW1vdmUgdW51c2VkIHZh
-cmlhYmxlCj4gPiAgICAgJ2NtZF9lbmMnCj4gPiAgIGRybS9tc20vZGlzcC9kcHUxL2RwdV9od19p
-bnRlcnJ1cHRzOiBEZW1vdGUgYSBidW5jaCBvZiBrZXJuZWwtZG9jCj4gPiAgICAgYWJ1c2VzCj4g
-PiAgIGRybS9tc20vZGlzcC9kcHUxL2RwdV9wbGFuZTogRml4IGEgY291cGxlIG9mIG5hbWluZyBp
-c3N1ZXMKPiA+ICAgZHJtL21zbS9tc21fZ2VtOiBEZW1vdGUga2VybmVsLWRvYyBhYnVzZXMKPiA+
-ICAgZHJtL21zbS9kcC9kcF9jYXRhbG9nOiBDb3JyZWN0bHkgZG9jdW1lbnQgcGFyYW0gJ2RwX2Nh
-dGFsb2cnCj4gPiAgIGRybS9tc20vZHAvZHBfbGluazogRml4IHNvbWUgcG90ZW50aWFsIGRvYy1y
-b3QKPiA+ICAgZHJtL25vdXZlYXUvbnZrbS9zdWJkZXYvbWMvdHUxMDI6IE1ha2UgZnVuY3Rpb25z
-IGNhbGxlZCBieSByZWZlcmVuY2UKPiA+ICAgICBzdGF0aWMKPiA+ICAgZHJtL2FtZC9kaXNwbGF5
-L2RjL2RjZS9kY2VfdHJhbnNmb3JtOiBSZW1vdmUgc3VwZXJmbHVvdXMKPiA+ICAgICByZS1pbml0
-aWFsaXNhdGlvbiBvZiBEQ0ZFX01FTV9MSUdIVF9TTEVFUF9DTlRMLAo+ID4gICBkcm0veGxueC96
-eW5xbXBfZGlzcDogRml4IGluY29ycmVjdGx5IG5hbWVkIGVudW0KPiA+ICAgICAnenlucW1wX2Rp
-c3BfbGF5ZXJfaWQnCj4gPiAgIGRybS94bG54L3p5bnFtcF9kcDogRml4IGluY29ycmVjdGx5IG5h
-bWUgZnVuY3Rpb24gJ3p5bnFtcF9kcF90cmFpbigpJwo+ID4gICBkcm0vdHRtL3R0bV90dDogRGVt
-b3RlIG5vbi1jb25mb3JtYW50IGtlcm5lbC1kb2MgaGVhZGVyCj4gPiAgIGRybS9wYW5lbC9wYW5l
-bC1yYXNwYmVycnlwaS10b3VjaHNjcmVlbjogRGVtb3RlIGtlcm5lbC1kb2MgYWJ1c2UKPiA+ICAg
-ZHJtL3BhbmVsL3BhbmVsLXNpdHJvbml4LXN0NzcwMTogRGVtb3RlIGtlcm5lbC1kb2MgYWJ1c2UK
-PiA+ICAgZHJtL3ZnZW0vdmdlbV9kcnY6IFN0YW5kYXJkIGNvbW1lbnQgYmxvY2tzIHNob3VsZCBu
-b3QgdXNlIGtlcm5lbC1kb2MKPiA+ICAgICBmb3JtYXQKPiA+ICAgZHJtL2V4eW5vcy9leHlub3M3
-X2RybV9kZWNvbjogRml4IGluY29ycmVjdCBuYW1pbmcgb2YKPiA+ICAgICAnZGVjb25fc2hhZG93
-X3Byb3RlY3Rfd2luKCknCj4gPiAgIGRybS9leHlub3MvZXh5bm9zX2RybV9pcHA6IEZpeCBkb2N1
-bWVudGF0aW9uIGZvcgo+ID4gICAgICdleHlub3NfZHJtX2lwcF9nZXRfe2NhcHMscmVzfV9pb2N0
-bCgpJwo+ID4gICBkcm0vdmJveHZpZGVvL2hnc21pX2Jhc2U6IFBsYWNlIGZ1bmN0aW9uIG5hbWVz
-IGludG8gaGVhZGVycwo+ID4gICBkcm0vdmJveHZpZGVvL21vZGVzZXR0aW5nOiBQcm92aWRlIGZ1
-bmN0aW9uIG5hbWVzIGZvciBwcm90b3R5cGUKPiA+ICAgICBoZWFkZXJzCj4gCj4gRXhjZXB0IGZv
-ciBtc20gKFJvYiBDbGFyayBwcm9taXNlZCBvbiBpcmMgaGUnbGwgcGljayB0aGVtIHVwIGZvciA1
-LjE0Cj4gc29vbikgYW5kIGFtZCAoQWxleCBpcyBvbiB0b3Agb2YgdGhpbmdzIEkgdGhpbmspIEkg
-cGlja2VkIHRoZW0gYWxsIHVwIGFuZAo+IG1lcmdlZCBpbnRvIGRybS1taXNjLW5leHQuCgpTdXBl
-cnN0YXIhICBUaGFua3MgRGFuaWVsLgoKLS0gCkxlZSBKb25lcyBb5p2O55C85pavXQpTZW5pb3Ig
-VGVjaG5pY2FsIExlYWQgLSBEZXZlbG9wZXIgU2VydmljZXMKTGluYXJvLm9yZyDilIIgT3BlbiBz
-b3VyY2Ugc29mdHdhcmUgZm9yIEFybSBTb0NzCkZvbGxvdyBMaW5hcm86IEZhY2Vib29rIHwgVHdp
-dHRlciB8IEJsb2cKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
-cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+Some ASICs use a single VR_MEM bit, whereas others split it into VR_MEM0 and VR_MEM1. To avoid confusion, we've combined the VR_MEM0 and VR_MEM1 bits on those ASICs. For consistency we did the same with LIQUID0 and LIQUID1. 
+
+-----Original Message-----
+From: Quan, Evan <Evan.Quan@amd.com> 
+Sent: Wednesday, June 2, 2021 12:37 AM
+To: Sider, Graham <Graham.Sider@amd.com>; amd-gfx@lists.freedesktop.org
+Cc: Lazar, Lijo <Lijo.Lazar@amd.com>; Kasiviswanathan, Harish <Harish.Kasiviswanathan@amd.com>; Sider, Graham <Graham.Sider@amd.com>; Sakhnovitch, Elena (Elen) <Elena.Sakhnovitch@amd.com>
+Subject: RE: [PATCH v3 4/8] drm/amd/pm: Add navi1x throttler translation
+
+[AMD Official Use Only]
+
+
+
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of 
+> Graham Sider
+> Sent: Wednesday, June 2, 2021 2:12 AM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Lazar, Lijo <Lijo.Lazar@amd.com>; Kasiviswanathan, Harish 
+> <Harish.Kasiviswanathan@amd.com>; Sider, Graham 
+> <Graham.Sider@amd.com>; Sakhnovitch, Elena (Elen) 
+> <Elena.Sakhnovitch@amd.com>
+> Subject: [PATCH v3 4/8] drm/amd/pm: Add navi1x throttler translation
+> 
+> Perform dependent to independent throttle status translation for 
+> navi1x. Makes use of lookup table navi1x_throttler_map.
+> 
+> Signed-off-by: Graham Sider <Graham.Sider@amd.com>
+> ---
+>  .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 43
+> +++++++++++++++++++
+>  1 file changed, 43 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> index 78fe13183e8b..bf376b1be08d 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> @@ -238,6 +238,28 @@ static struct cmn2asic_mapping 
+> navi10_workload_map[PP_SMC_POWER_PROFILE_COUNT] =
+>  	WORKLOAD_MAP(PP_SMC_POWER_PROFILE_CUSTOM,
+> 	WORKLOAD_PPLIB_CUSTOM_BIT),
+>  };
+> 
+> +static const uint8_t navi1x_throttler_map[] = {
+> +	[THROTTLER_TEMP_EDGE_BIT]	=
+> (SMU_THROTTLER_TEMP_EDGE_BIT),
+> +	[THROTTLER_TEMP_HOTSPOT_BIT]	=
+> (SMU_THROTTLER_TEMP_HOTSPOT_BIT),
+> +	[THROTTLER_TEMP_MEM_BIT]	=
+> (SMU_THROTTLER_TEMP_MEM_BIT),
+> +	[THROTTLER_TEMP_VR_GFX_BIT]	=
+> (SMU_THROTTLER_TEMP_VR_GFX_BIT),
+> +	[THROTTLER_TEMP_VR_MEM0_BIT]	=
+> (SMU_THROTTLER_TEMP_VR_MEM_BIT),
+> +	[THROTTLER_TEMP_VR_MEM1_BIT]	=
+> (SMU_THROTTLER_TEMP_VR_MEM_BIT),
+[Quan, Evan] I'm wondering why you map the two ASIC dependent bits to the same non ASIC independent bit. Instead of defining two non ASIC independent bits.
+> +	[THROTTLER_TEMP_VR_SOC_BIT]	=
+> (SMU_THROTTLER_TEMP_VR_SOC_BIT),
+> +	[THROTTLER_TEMP_LIQUID0_BIT]	=
+> (SMU_THROTTLER_TEMP_LIQUID_BIT),
+> +	[THROTTLER_TEMP_LIQUID1_BIT]	=
+> (SMU_THROTTLER_TEMP_LIQUID_BIT),
+[Quan, Evan] Same question here and for Patch4.
+
+BR
+Evan
+> +	[THROTTLER_TDC_GFX_BIT]		=
+> (SMU_THROTTLER_TDC_GFX_BIT),
+> +	[THROTTLER_TDC_SOC_BIT]		=
+> (SMU_THROTTLER_TDC_SOC_BIT),
+> +	[THROTTLER_PPT0_BIT]		=
+> (SMU_THROTTLER_PPT0_BIT),
+> +	[THROTTLER_PPT1_BIT]		=
+> (SMU_THROTTLER_PPT1_BIT),
+> +	[THROTTLER_PPT2_BIT]		=
+> (SMU_THROTTLER_PPT2_BIT),
+> +	[THROTTLER_PPT3_BIT]		=
+> (SMU_THROTTLER_PPT3_BIT),
+> +	[THROTTLER_FIT_BIT]		= (SMU_THROTTLER_FIT_BIT),
+> +	[THROTTLER_PPM_BIT]		=
+> (SMU_THROTTLER_PPM_BIT),
+> +	[THROTTLER_APCC_BIT]		=
+> (SMU_THROTTLER_APCC_BIT),
+> +};
+> +
+> +
+>  static bool is_asic_secure(struct smu_context *smu)  {
+>  	struct amdgpu_device *adev = smu->adev; @@ -524,6 +546,19 @@ static 
+> int navi10_tables_init(struct smu_context
+> *smu)
+>  	return -ENOMEM;
+>  }
+> 
+> +static uint64_t navi1x_get_indep_throttler_status(
+> +					const unsigned long dep_status)
+> +{
+> +	uint64_t indep_status = 0;
+> +	uint8_t dep_bit = 0;
+> +
+> +	for_each_set_bit(dep_bit, &dep_status, 32)
+> +		indep_status |= smu_u64_throttler_bit(dep_status,
+> +			navi1x_throttler_map[dep_bit], dep_bit);
+> +
+> +	return indep_status;
+> +}
+> +
+>  static int navi10_get_legacy_smu_metrics_data(struct smu_context *smu,
+>  					      MetricsMember_t member,
+>  					      uint32_t *value)
+> @@ -2673,6 +2708,8 @@ static ssize_t
+> navi10_get_legacy_gpu_metrics(struct smu_context *smu,
+>  	gpu_metrics->current_dclk0 = metrics.CurrClock[PPCLK_DCLK];
+> 
+>  	gpu_metrics->throttle_status = metrics.ThrottlerStatus;
+> +	gpu_metrics->indep_throttle_status =
+> +
+> 	navi1x_get_indep_throttler_status(metrics.ThrottlerStatus);
+> 
+>  	gpu_metrics->current_fan_speed = metrics.CurrFanSpeed;
+> 
+> @@ -2750,6 +2787,8 @@ static ssize_t navi10_get_gpu_metrics(struct 
+> smu_context *smu,
+>  	gpu_metrics->current_dclk0 = metrics.CurrClock[PPCLK_DCLK];
+> 
+>  	gpu_metrics->throttle_status = metrics.ThrottlerStatus;
+> +	gpu_metrics->indep_throttle_status =
+> +
+> 	navi1x_get_indep_throttler_status(metrics.ThrottlerStatus);
+> 
+>  	gpu_metrics->current_fan_speed = metrics.CurrFanSpeed;
+> 
+> @@ -2826,6 +2865,8 @@ static ssize_t
+> navi12_get_legacy_gpu_metrics(struct smu_context *smu,
+>  	gpu_metrics->current_dclk0 = metrics.CurrClock[PPCLK_DCLK];
+> 
+>  	gpu_metrics->throttle_status = metrics.ThrottlerStatus;
+> +	gpu_metrics->indep_throttle_status =
+> +
+> 	navi1x_get_indep_throttler_status(metrics.ThrottlerStatus);
+> 
+>  	gpu_metrics->current_fan_speed = metrics.CurrFanSpeed;
+> 
+> @@ -2908,6 +2949,8 @@ static ssize_t navi12_get_gpu_metrics(struct 
+> smu_context *smu,
+>  	gpu_metrics->current_dclk0 = metrics.CurrClock[PPCLK_DCLK];
+> 
+>  	gpu_metrics->throttle_status = metrics.ThrottlerStatus;
+> +	gpu_metrics->indep_throttle_status =
+> +
+> 	navi1x_get_indep_throttler_status(metrics.ThrottlerStatus);
+> 
+>  	gpu_metrics->current_fan_speed = metrics.CurrFanSpeed;
+> 
+> --
+> 2.17.1
+> 
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.
+> freedesktop.org%2Fmailman%2Flistinfo%2Famd-
+> gfx&amp;data=04%7C01%7Cevan.quan%40amd.com%7Cf05ba28afbe0417ac
+> 54008d925290dc0%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C63
+> 7581680520671680%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMD
+> AiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=
+> PzZzTHlRh0ygXIJdQeN8%2Ff4ojC9KcCy4Ia5POPGw1nI%3D&amp;reserved=0
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
