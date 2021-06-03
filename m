@@ -7,38 +7,38 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 19F28C47096
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ECA76C47082
 	for <amd-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 12:50:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CAA4760E0C
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 12:50:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CAA4760E0C
+	by mail.kernel.org (Postfix) with ESMTPS id BEF9D6139A
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 12:50:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BEF9D6139A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=canonical.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 905036E17F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF2B86F471;
 	Thu,  3 Jun 2021 12:50:32 +0000 (UTC)
 Received: from youngberry.canonical.com (youngberry.canonical.com
  [91.189.89.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9AB56E0A1;
- Thu,  3 Jun 2021 12:34:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A53CA6F46D;
+ Thu,  3 Jun 2021 12:42:33 +0000 (UTC)
 Received: from 1.general.cking.uk.vpn ([10.172.193.212] helo=localhost)
  by youngberry.canonical.com with esmtpsa (TLS1.2) tls
  TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
  (envelope-from <colin.king@canonical.com>)
- id 1lomYa-0002Qk-AQ; Thu, 03 Jun 2021 12:34:40 +0000
+ id 1lomgB-00036e-GX; Thu, 03 Jun 2021 12:42:31 +0000
 From: Colin King <colin.king@canonical.com>
-To: Felix Kuehling <Felix.Kuehling@amd.com>,
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Xinhui.Pan@amd.com, David Airlie <airlied@linux.ie>,
  Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu: remove redundant assignment of variable k
-Date: Thu,  3 Jun 2021 13:34:40 +0100
-Message-Id: <20210603123440.83936-1-colin.king@canonical.com>
+Subject: [PATCH] drm/amd/display: remove variable active_disp
+Date: Thu,  3 Jun 2021 13:42:31 +0100
+Message-Id: <20210603124231.84230-1-colin.king@canonical.com>
 X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
 X-Mailman-Approved-At: Thu, 03 Jun 2021 12:50:31 +0000
@@ -61,28 +61,31 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Colin Ian King <colin.king@canonical.com>
 
-The variable k is being assigned a value that is never read, the
-assignment is redundant and can be removed.
+The variable active_disp is being initialized with a value that
+is never read, it is being re-assigned immediately afterwards.
+Clean up the code by removing the need for variable active_disp.
 
 Addresses-Coverity: ("Unused value")
 Signed-off-by: Colin Ian King <colin.king@canonical.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/bios/bios_parser_helper.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 2a7bed66d50b..f545dc1248b8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -278,7 +278,7 @@ static int amdgpu_amdkfd_remove_eviction_fence(struct amdgpu_bo *bo,
- 	write_seqcount_end(&resv->seq);
+diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser_helper.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser_helper.c
+index 53d7513b5083..adc710fe4a45 100644
+--- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser_helper.c
++++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser_helper.c
+@@ -82,9 +82,6 @@ void bios_set_scratch_critical_state(
+ uint32_t bios_get_vga_enabled_displays(
+ 	struct dc_bios *bios)
+ {
+-	uint32_t active_disp = 1;
+-
+-	active_disp = REG_READ(BIOS_SCRATCH_3) & 0XFFFF;
+-	return active_disp;
++	return REG_READ(BIOS_SCRATCH_3) & 0XFFFF;
+ }
  
- 	/* Drop the references to the removed fences or move them to ef_list */
--	for (i = j, k = 0; i < old->shared_count; ++i) {
-+	for (i = j; i < old->shared_count; ++i) {
- 		struct dma_fence *f;
- 
- 		f = rcu_dereference_protected(new->shared[i],
 -- 
 2.31.1
 
