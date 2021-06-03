@@ -8,59 +8,59 @@ X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B7807C47096
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 19:14:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 98D79C47096
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 19:21:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7A862613F4
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 19:14:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7A862613F4
+	by mail.kernel.org (Postfix) with ESMTPS id 5C636610A1
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 19:21:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5C636610A1
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0809E6F4EE;
-	Thu,  3 Jun 2021 19:14:53 +0000 (UTC)
-Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
- [IPv6:2607:f8b0:4864:20::22e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFB876F4E7;
- Thu,  3 Jun 2021 19:14:51 +0000 (UTC)
-Received: by mail-oi1-x22e.google.com with SMTP id h9so7371051oih.4;
- Thu, 03 Jun 2021 12:14:51 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DAC776F4FC;
+	Thu,  3 Jun 2021 19:21:40 +0000 (UTC)
+Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
+ [IPv6:2607:f8b0:4864:20::22d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B2F76F4F3;
+ Thu,  3 Jun 2021 19:21:39 +0000 (UTC)
+Received: by mail-oi1-x22d.google.com with SMTP id u11so7408002oiv.1;
+ Thu, 03 Jun 2021 12:21:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=yTcdojc8mwwtA9K2NJaczioq6lgh4tCtax6VLDoB3+8=;
- b=N1b8Xb6JaD/REB3WoovSCN50+jBsEIUw/t0OZgaPSIKlWS16XgazPhYR+e8T3vIIKb
- mGjKhYltbPgSyDrPi2qXpjrpNDsrXi58HUBcgrTnhpOOIT0bWt9DZKcYgHJEDeyHjXV6
- cfq6PqOILEN1tukJd7DKWDW4xcEvAlNI6pyOFEQdx4miovIeAFARR0FpctDoJJZmWVeC
- 9R0oE8g3zYmpxmqJSs3xdHwZJ0e6P2Ku+AisTA9Sh9LmPzDAKZS6y7X0Jp+KIvxcnqJw
- kLBfpdS3Gh0utaUCTUhRUkT4Z41XOdep7AYj/Ht00C8YHJ9RgowpWHMZ5vNYrI9aQgKT
- L1VA==
+ :cc; bh=DCd+Js7x35BRGZXfWolgmG59TF3YUGqV0VSBXueuPA0=;
+ b=hkA/DyJ2sLR2D7PYIK9efy4xQzqaSBypMSfskGdmaDhKNZkGMUzP987MqtKaHwMK+m
+ 4t0tS6U3cGPpRdijl8nw+/yw8lrdG40HruVXuworxoRpbM8U0s9XW511/xDmiG1DMLCD
+ E6TLr0AOyYQufzJLTWKDGGOGI92oRiF1+uV75ONeEhNe16yTasIRVx0YaNAKYtJYX2EC
+ plqp8ydfl4OuaYhtUb2rhs3HnuzFaH/XxZ9BCJ5jjrUgfsX5lHorDPfsHsU9xORqFcuF
+ PoP1H5FuAcymyt7irv/7q5Y73O1rtqDepP/WqqwN4Mj4rdVCMxQkFlO2pkG7+FfzNWgO
+ eyoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=yTcdojc8mwwtA9K2NJaczioq6lgh4tCtax6VLDoB3+8=;
- b=UKa/wcLcj4gT2hhkRVAqgm8kXvetYvb34RvgP8YVYTxkaH7DM4fZT0ZvvqhVoPLu/A
- vt2hlYHO1yoh1mPzqMJSQP/kNe5AwQHkKIQDBg7NAPsNH8BN6rvradutJjNrPvs/FkYu
- wNU13Kyd4qZN3j1TEJnIPcHopmG9dmjIdsQ94moSc1ClbO8ujhP1GVK8RNx/8+DyxvH/
- GvVlIPObau1TOBS+GpxksEWdGWujMCC6BOR1rgeumgHdstzzNO/zkR4QSPdJaYNrYFXy
- xpVI8fw+KIRY0z22kR3QjW6eA3+j3D6vsDCXoay3hELMTtufP0TjdpU0U+mjKQ8YCCxz
- 6K6w==
-X-Gm-Message-State: AOAM531T7I471pqMe4ggN1k3ly3K/6mifCCYNZ6haPPtdDZEz9HY9mAS
- znbsMCnNtwl2FIe5NRV+oPdX4p/VyM3tb+p+Ybs=
-X-Google-Smtp-Source: ABdhPJy4rqfYmdV0F0ZL0gFISzpsTevYCr4Bh7iAwUynNZmpWVh2h7yvF0xMDmi1+b17doVVsQ57vnkZBY1xBj4z2l0=
+ bh=DCd+Js7x35BRGZXfWolgmG59TF3YUGqV0VSBXueuPA0=;
+ b=Bz7I5TWQidXoeT3+2DPgIEURrjO6SYywj9zq2k2IPy4ZH55k5JY36Dv6h+bw/TFsmB
+ 7/6eYxgnsT5hNZC3mOKf4gXdsQJHbk91+nOoQddGMgHYXfRzVgCbuHXsgSqI5M8x4d08
+ Q4lnlVumkspjdAyiNf/bbfc0I+hgbeV9SEelmWTDksOTmwIp3MDP4lzVgmXO+s0bcOjb
+ VGtDGmV690T4hw+r90plGdtrFXzGwojOwzY8XhDJcLb9Dc3k0WuL7GHUhBrgatPjkUVV
+ 7/VrJ5rym9PgUB61DA/x2FSjXUw2sW/6WWvBPzEpt+d2yGzyDY+qogbMr1w9K+nSFZjj
+ aSig==
+X-Gm-Message-State: AOAM531X9f02uOs096t57Je6ouuG6hDiXm/ySHHNprOji+C2NSKw7q3k
+ X+X70OmNr2bH1wSbOjN2y488vpH7uma86uO8iGE=
+X-Google-Smtp-Source: ABdhPJzWkTX6vRMR+uBIu8hDUsOPxhyr3oPBIh21PkI0WEijAarE7m/m4tspL1zo5oT/gzxyVP/f31SQWVIWSVAGqI0=
 X-Received: by 2002:a05:6808:1592:: with SMTP id
- t18mr476649oiw.123.1622747691117; 
- Thu, 03 Jun 2021 12:14:51 -0700 (PDT)
+ t18mr495320oiw.123.1622748099282; 
+ Thu, 03 Jun 2021 12:21:39 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210603124231.84230-1-colin.king@canonical.com>
-In-Reply-To: <20210603124231.84230-1-colin.king@canonical.com>
+References: <87o8cnfr3s.wl-chenli@uniontech.com>
+In-Reply-To: <87o8cnfr3s.wl-chenli@uniontech.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 3 Jun 2021 15:14:40 -0400
-Message-ID: <CADnq5_P2yPtw1XmXrS8+SxHDMfq_FnVLt-XMDVqz_58YCb3Wog@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: remove variable active_disp
-To: Colin King <colin.king@canonical.com>
+Date: Thu, 3 Jun 2021 15:21:28 -0400
+Message-ID: <CADnq5_PorxhXnVXY8NxqjTj-1y-n0589QSiqUQc=QGNVhzP0xw@mail.gmail.com>
+Subject: Re: [PATCH] radeon: use memcpy_to/fromio for UVD fw upload
+To: Chen Li <chenli@uniontech.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,53 +72,123 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>, xinhui pan <Xinhui.Pan@amd.com>,
- kernel-janitors@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On Thu, Jun 3, 2021 at 3:35 AM Chen Li <chenli@uniontech.com> wrote:
+>
+>
+> I met a gpu addr bug recently and the kernel log
+> tells me the pc is memcpy/memset and link register is
+> radeon_uvd_resume.
+>
+> As we know, in some architectures, optimized memcpy/memset
+> may not work well on device memory. Trival memcpy_toio/memset_io
+> can fix this problem.
+>
+> BTW, amdgpu has already done it in:
+> commit ba0b2275a678 ("drm/amdgpu: use memcpy_to/fromio for UVD fw upload"),
+> that's why it has no this issue on the same gpu and platform.
+>
+> Also fix some coding issues reported from sparse.
+
+Can you split the sparse fixes and the mmio fixes into two patches?
+
+Thanks,
 
 Alex
 
-On Thu, Jun 3, 2021 at 8:42 AM Colin King <colin.king@canonical.com> wrote:
 >
-> From: Colin Ian King <colin.king@canonical.com>
->
-> The variable active_disp is being initialized with a value that
-> is never read, it is being re-assigned immediately afterwards.
-> Clean up the code by removing the need for variable active_disp.
->
-> Addresses-Coverity: ("Unused value")
-> Signed-off-by: Colin Ian King <colin.king@canonical.com>
+> Signed-off-by: Chen Li <chenli@uniontech.com>
 > ---
->  drivers/gpu/drm/amd/display/dc/bios/bios_parser_helper.c | 5 +----
->  1 file changed, 1 insertion(+), 4 deletions(-)
+>  drivers/gpu/drm/radeon/radeon_uvd.c | 30 ++++++++++++++++-------------
+>  1 file changed, 17 insertions(+), 13 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser_helper.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser_helper.c
-> index 53d7513b5083..adc710fe4a45 100644
-> --- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser_helper.c
-> +++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser_helper.c
-> @@ -82,9 +82,6 @@ void bios_set_scratch_critical_state(
->  uint32_t bios_get_vga_enabled_displays(
->         struct dc_bios *bios)
->  {
-> -       uint32_t active_disp = 1;
-> -
-> -       active_disp = REG_READ(BIOS_SCRATCH_3) & 0XFFFF;
-> -       return active_disp;
-> +       return REG_READ(BIOS_SCRATCH_3) & 0XFFFF;
+> diff --git a/drivers/gpu/drm/radeon/radeon_uvd.c b/drivers/gpu/drm/radeon/radeon_uvd.c
+> index dfa9fdbe98da..0d6a5cfa2abf 100644
+> --- a/drivers/gpu/drm/radeon/radeon_uvd.c
+> +++ b/drivers/gpu/drm/radeon/radeon_uvd.c
+> @@ -152,9 +152,11 @@ int radeon_uvd_init(struct radeon_device *rdev)
+>
+>                         rdev->uvd.fw_header_present = true;
+>
+> -                       family_id = le32_to_cpu(hdr->ucode_version) & 0xff;
+> -                       version_major = (le32_to_cpu(hdr->ucode_version) >> 24) & 0xff;
+> -                       version_minor = (le32_to_cpu(hdr->ucode_version) >> 8) & 0xff;
+> +                       family_id = (__force u32)(hdr->ucode_version) & 0xff;
+> +                       version_major = (le32_to_cpu((__force __le32)(hdr->ucode_version))
+> +                                                        >> 24) & 0xff;
+> +                       version_minor = (le32_to_cpu((__force __le32)(hdr->ucode_version))
+> +                                                        >> 8) & 0xff;
+>                         DRM_INFO("Found UVD firmware Version: %u.%u Family ID: %u\n",
+>                                  version_major, version_minor, family_id);
+>
+> @@ -286,7 +288,9 @@ int radeon_uvd_resume(struct radeon_device *rdev)
+>         if (rdev->uvd.vcpu_bo == NULL)
+>                 return -EINVAL;
+>
+> -       memcpy(rdev->uvd.cpu_addr, rdev->uvd_fw->data, rdev->uvd_fw->size);
+> +       memcpy_toio((void __iomem *)rdev->uvd.cpu_addr,
+> +                               rdev->uvd_fw->data,
+> +                               le32_to_cpu((__force __le32)rdev->uvd_fw->size));
+>
+>         size = radeon_bo_size(rdev->uvd.vcpu_bo);
+>         size -= rdev->uvd_fw->size;
+> @@ -294,7 +298,7 @@ int radeon_uvd_resume(struct radeon_device *rdev)
+>         ptr = rdev->uvd.cpu_addr;
+>         ptr += rdev->uvd_fw->size;
+>
+> -       memset(ptr, 0, size);
+> +       memset_io((void __iomem *)ptr, 0, size);
+>
+>         return 0;
 >  }
+> @@ -791,17 +795,17 @@ int radeon_uvd_get_create_msg(struct radeon_device *rdev, int ring,
+>                 return r;
 >
+>         /* stitch together an UVD create msg */
+> -       writel(cpu_to_le32(0x00000de4), &msg[0]);
+> +       writel((__force u32)cpu_to_le32(0x00000de4), &msg[0]);
+>         writel(0x0, (void __iomem *)&msg[1]);
+> -       writel(cpu_to_le32(handle), &msg[2]);
+> +       writel((__force u32)cpu_to_le32(handle), &msg[2]);
+>         writel(0x0, &msg[3]);
+>         writel(0x0, &msg[4]);
+>         writel(0x0, &msg[5]);
+>         writel(0x0, &msg[6]);
+> -       writel(cpu_to_le32(0x00000780), &msg[7]);
+> -       writel(cpu_to_le32(0x00000440), &msg[8]);
+> +       writel((__force u32)cpu_to_le32(0x00000780), &msg[7]);
+> +       writel((__force u32)cpu_to_le32(0x00000440), &msg[8]);
+>         writel(0x0, &msg[9]);
+> -       writel(cpu_to_le32(0x01b37000), &msg[10]);
+> +       writel((__force u32)cpu_to_le32(0x01b37000), &msg[10]);
+>         for (i = 11; i < 1024; ++i)
+>                 writel(0x0, &msg[i]);
+>
+> @@ -827,9 +831,9 @@ int radeon_uvd_get_destroy_msg(struct radeon_device *rdev, int ring,
+>                 return r;
+>
+>         /* stitch together an UVD destroy msg */
+> -       writel(cpu_to_le32(0x00000de4), &msg[0]);
+> -       writel(cpu_to_le32(0x00000002), &msg[1]);
+> -       writel(cpu_to_le32(handle), &msg[2]);
+> +       writel((__force u32)cpu_to_le32(0x00000de4), &msg[0]);
+> +       writel((__force u32)cpu_to_le32(0x00000002), &msg[1]);
+> +       writel((__force u32)cpu_to_le32(handle), &msg[2]);
+>         writel(0x0, &msg[3]);
+>         for (i = 4; i < 1024; ++i)
+>                 writel(0x0, &msg[i]);
 > --
 > 2.31.1
+>
+>
 >
 _______________________________________________
 amd-gfx mailing list
