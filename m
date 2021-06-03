@@ -2,52 +2,52 @@ Return-Path: <SRS0=4Sal=K5=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0E355C47082
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 15:17:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6902BC47096
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 15:17:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CDAAE61208
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 15:17:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CDAAE61208
+	by mail.kernel.org (Postfix) with ESMTPS id 380E560FF0
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 15:17:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 380E560FF0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B01796F4A4;
-	Thu,  3 Jun 2021 15:17:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C97EC6F4A7;
+	Thu,  3 Jun 2021 15:17:47 +0000 (UTC)
 Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2060.outbound.protection.outlook.com [40.107.237.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F38066F4A8
- for <amd-gfx@lists.freedesktop.org>; Thu,  3 Jun 2021 15:17:42 +0000 (UTC)
+ (mail-bn8nam12on2050.outbound.protection.outlook.com [40.107.237.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 312A96F4A9
+ for <amd-gfx@lists.freedesktop.org>; Thu,  3 Jun 2021 15:17:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kmuUb6QvRtLsmhfltzUv/CFBXF2uRkRR3strXSh1JEHwG/V5W6/isTBj8FEPd1aCN8MYq9Oo70fsLO+ik7pPn3pvjm/o6yiWTrx07KiyfD0wXtDldTVg0aK6pEgQ/CL5w4lmPn/CHwzB13h+wnHHxGmuXp46h/IdCUbsOepUVau4iUdfMA71TPAz5EwleIC2oe9IQPEHVb9X6uEzVO6JoPee/ORvEnfcUcAjkSFRkoMXxpZNIPLX2lJK6zbiR4KBeqD+Oo6WTd1YIvVmxBB9XVvWpS9ulsG1NQOezvkViJqT43Ng7JmTJz/DgPkc/rUmdoSdrvTXcuo1H0fDRuWtjA==
+ b=l6f7FaMREBlUOf7pnE2HiuACxK4LoHA8SlztAiEm7bucD40jfIEafoXiRyhEbqoQg/1DmNYEShEcKjbnL4ZU3cVohLDa7y6+d+J/T82IxuaAjzekQheKRRunqEeXojHetXZ2f+xRGynUuXLkZbIc0wDUnUSEsZV3XAyabgZfEnwrRl9nXiAgr8wZMIT1BZAyc1qfiTm64cLaPtE1YpAmMO+A7TIkYGPy1ZbSKDEpjMngdIhCjokqEnU18Gxv40YgnkDPAqtcvGsmNgsbw8M2SHuMgXkCRLY7DPFGYbB4+HVPRhLN325T0/0BfzI0b3dgot72Ny5a7XpC+qeociK02A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wWq5k7b1MzcGaibtD1oFcHVQhQq5g3xKml8An8J0I5o=;
- b=DTwM+O0wYXe97YrfqrbdGfptPm9biiaD3cdqU3mnV42LXdL6eD+HGflZu91JSh6T363NTtjbBBaDcup0krGuA9EikhIHe4Q4WEQQJBGzvU0YIfPDHl2/JepRyUkS7TRZw+psPhes6vz4Cb/KGrn9h0FgnolW+WdnxE4WCG3I/K6gualS2e/U5D+3x1ExK/yiYVJXkwpDdpE3tTY1AVQRvjtarR7BvQQjqTgHhWTAmwkH9l8VyFUeFtdIBOet3rVbBV60ayMVVhFMY+ty9DW5KS3W3+wQ56fDpDyPeFfGk3wOj3egNmqVDgw3fv8MhQ6DjysvmoUWYaCfCbdXfL74rg==
+ bh=gDrb9i/SwXW7l2L3fF1v6Zn8jmYR3Oy/VRFUpRB2Wxc=;
+ b=KbdlGR6r1ebc21m2tkcwQggjNjlR2wL8tW+GjKJnSD/7RJAdV/bldKUKWSfoHxrKZKiCyJz8sMJMISSz1hajSEYTmLOr+nR0G7OwQRuaQerXBWyWwo5DfRB1HW46WPYGS4wm4ADoSKZOcrpstI4XUeG4KJZRQYH+yLgBcC91gGofn3K1haJVFOtPq3on9XOcokbeQ+M7o+bJNR4oBESxKuPrqLjkU9DWFGTPUJK/izzXt4zsV2co/vJwOwcgHjCdlgqpmUuHH/Wgh2OJdsV3MSldEnKDyZoK0L/DS49hz/CAqImPxycYD6jzB0/YQ/IZb43lhWDfPHmlMlvvYJQ3kA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wWq5k7b1MzcGaibtD1oFcHVQhQq5g3xKml8An8J0I5o=;
- b=SURFWo/3wkeS6uaqnMqNJDMCzCL795IWlnoF62bsjcJFaaIH94E8bQHdnvxtJ8ajKtZobrzQhR3BicxD3NcIajbrVXOhL87fMaIRhJvMxs7e7QpoMZ2S/PNlp5fTkwfuviizNNkwzsB2p6boml4zlRpsLoaXiisfOWzicNqEttQ=
-Received: from DM5PR2201CA0019.namprd22.prod.outlook.com (2603:10b6:4:14::29)
- by DM6PR12MB4893.namprd12.prod.outlook.com (2603:10b6:5:1bd::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4173.24; Thu, 3 Jun
+ bh=gDrb9i/SwXW7l2L3fF1v6Zn8jmYR3Oy/VRFUpRB2Wxc=;
+ b=1JIVtfi1vxkhRBCVegGzZVc+YzA5oa6s+rwyZyrinsUVPXFVI5+9uyAO/xxkCZssofLP+bFjm1lq7hMlqL4Zsdvw2/f8onxKIN1U0fVSpqHwWhEN5OPQ79K6Kv2D+vnOzEUBKK3BlW3TUHU2/waK6a3UWqHYyf3sKVE2n7zTVt8=
+Received: from DM5PR2201CA0012.namprd22.prod.outlook.com (2603:10b6:4:14::22)
+ by BY5PR12MB4243.namprd12.prod.outlook.com (2603:10b6:a03:20f::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4173.22; Thu, 3 Jun
  2021 15:17:41 +0000
 Received: from DM6NAM11FT066.eop-nam11.prod.protection.outlook.com
- (2603:10b6:4:14:cafe::43) by DM5PR2201CA0019.outlook.office365.com
- (2603:10b6:4:14::29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.22 via Frontend
+ (2603:10b6:4:14:cafe::f4) by DM5PR2201CA0012.outlook.office365.com
+ (2603:10b6:4:14::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.21 via Frontend
  Transport; Thu, 3 Jun 2021 15:17:41 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
@@ -66,9 +66,9 @@ Received: from grasider-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  10:17:36 -0500
 From: Graham Sider <Graham.Sider@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v4 8/9] drm/amd/pm: Add renoir throttler translation
-Date: Thu, 3 Jun 2021 11:16:41 -0400
-Message-ID: <20210603151642.14014-8-Graham.Sider@amd.com>
+Subject: [PATCH v4 9/9] drm/amd/pm: Add aldebaran throttler translation
+Date: Thu, 3 Jun 2021 11:16:42 -0400
+Message-ID: <20210603151642.14014-9-Graham.Sider@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210603151642.14014-1-Graham.Sider@amd.com>
 References: <20210603151642.14014-1-Graham.Sider@amd.com>
@@ -78,27 +78,27 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ecc1bcc4-2c65-4815-b48a-08d926a2baf0
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4893:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB48935F819EF9383290C21BDA8A3C9@DM6PR12MB4893.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2000;
+X-MS-Office365-Filtering-Correlation-Id: e476c162-fc6c-44f5-e856-08d926a2bb30
+X-MS-TrafficTypeDiagnostic: BY5PR12MB4243:
+X-Microsoft-Antispam-PRVS: <BY5PR12MB42434A35B4B386BFB4232B038A3C9@BY5PR12MB4243.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1122;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: gvb2PLGxI90xvsXAEEAfBDvygeamxeExXN8ociam8WZn84ZifGrV8DtQw+gWGGJYQwfV04MznrbBSn6g1Y9z50a7uW+cdNHi0UfpdMDRz5uvmnK6KbHTYM2RrQnSol+4lq9ClsE5aWPTH9/VLTH0fGdCOhONENwSqcGkv8Qu/cTYWSh1QE96w/kdci2yCibJQZ4nRwEh/0A+WPxMCXiyH2XtN9DO8kFjmn3LQYCz6dRDlhxsi+Z8mgbKLFROpju0JE66rK2Scvt+Sj2o1LlqpZir1K0luUd5fzH3FxjHb465QosqJQczdvC6ShNAGEO74RhH9+spdKk8zqyff0TyMTvgkigQQBhypwRRlmGGfExpxu6kyfT5iyKnrpU2AykiBA0sKlHdTUJPYl6PjPRMoJgvRUN5epq4+DLy7SD//6xZwlNqNrs6qRW8LRqyaueVkNNoRoPXatI/gLCWRhKSJF7Y6EnvGQUYx9Ds2wtNOnZTNZ/zOCy4WsuxED1JV7a6eUrR7E3aFCc6BhJkjq/GoHo0p+y3BiyFS7GvRgjGa3owyofGMQ7oPRUix7t3eMIiRs0ee9OF+IlVVM9zPAwZns58sUI94Yv1jtM90iVvH/BkRuOyMFo63XNDGyVq6r4o7leoKnk7tcHYaWPOx4aTjsDP/t5bWxGNE+IRcMLxrYMI8P7Pq5gecGCmh0TaXacJ
+X-Microsoft-Antispam-Message-Info: IExWrg/WdqX9ynJWkX4Xsl88zAILNt0+MHM2L1BZrrRdLGddhQ7RKuvSgFaeLMPlVROyNVc+z2Pfpp1i7cTxpq48UeGrQuBOuYbimjAM1mnDAIiY4z/+UR8C4LzoPmIda5ixlxAS+OiW58m1Yo5E1omruBeQqtcIgZtiqOTDwWItWWnPmd9HCa2Bt4Z/qiync0+YYGwdcJKxEgSy/aZuIFxkakdb22GnKE+WHcxaaBFukCV27qjhAuIYmb+/wD6SNslmmt8XNDlcfUqA7kPLGqH9yNQ7/a2AcWnN0Txh0byJU9xC+ukvpDl66zSnKsCt075eOMJLHP93bnJqc2p08cU6+iUndAFAJGz7kdsc7VZyDqc1T3R6TfVp7cLClJyPfvot4va9p0TME8YLou78zUiBUtFuupnMK4BnCYgQzW8wHH1WktaobdpOm3IULCrwLCccf3hWxOErkT4dlWCYCd+utPWiquUwFCuxRAkLwLlALsQTKJ93DUmkrpc1lzuxQXUEZ+6IXg7y2rl7JX20bxTaLwIxITrCH1p2TYP2FsJUHj1/fTLQ6JZgOJHnKRpMaDnHubOaDq56hTlAzuTXBrXz6w+LId7jLiYMGgjZqUFvn4mxtaScmSplgHhS+py+06PyIzn+EF+fFIr0uDs0SttfVeNbedvwGq20zalt7iVDOqfhHuc3SAZYvm0KUJ+e
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(396003)(136003)(346002)(376002)(39860400002)(36840700001)(46966006)(356005)(5660300002)(82740400003)(336012)(6666004)(7696005)(70206006)(81166007)(83380400001)(54906003)(26005)(426003)(6916009)(2906002)(36860700001)(36756003)(8936002)(4326008)(1076003)(82310400003)(47076005)(2616005)(316002)(478600001)(8676002)(70586007)(16526019)(86362001)(186003)(36900700001);
+ SFS:(4636009)(346002)(396003)(136003)(376002)(39840400004)(36840700001)(46966006)(5660300002)(83380400001)(478600001)(1076003)(8676002)(36860700001)(336012)(82310400003)(426003)(6916009)(356005)(8936002)(316002)(16526019)(86362001)(2906002)(6666004)(70586007)(70206006)(7696005)(54906003)(186003)(4326008)(36756003)(2616005)(47076005)(26005)(81166007)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2021 15:17:41.1430 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ecc1bcc4-2c65-4815-b48a-08d926a2baf0
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2021 15:17:41.5688 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e476c162-fc6c-44f5-e856-08d926a2bb30
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT066.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4893
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4243
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,88 +118,86 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Perform dependent to independent throttle status translation
-for renoir.
+for aldebaran.
 
 Signed-off-by: Graham Sider <Graham.Sider@amd.com>
 ---
- .../gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c   | 29 +++++++++++++++----
- 1 file changed, 24 insertions(+), 5 deletions(-)
+ .../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    | 27 +++++++++++++++----
+ 1 file changed, 22 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-index 1c399c4ab4dc..6af67d372926 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-@@ -128,6 +128,22 @@ static struct cmn2asic_mapping renoir_workload_map[PP_SMC_POWER_PROFILE_COUNT] =
- 	WORKLOAD_MAP(PP_SMC_POWER_PROFILE_CUSTOM,		WORKLOAD_PPLIB_CUSTOM_BIT),
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+index 7a1abb3d6a7a..4f1a2a4debd3 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+@@ -191,6 +191,20 @@ static const struct cmn2asic_mapping aldebaran_table_map[SMU_TABLE_COUNT] = {
+ 	TAB_MAP(I2C_COMMANDS),
  };
  
-+static const uint8_t renoir_throttler_map[] = {
-+	[THROTTLER_STATUS_BIT_SPL]		= (SMU_THROTTLER_SPL_BIT),
-+	[THROTTLER_STATUS_BIT_FPPT]		= (SMU_THROTTLER_FPPT_BIT),
-+	[THROTTLER_STATUS_BIT_SPPT]		= (SMU_THROTTLER_SPPT_BIT),
-+	[THROTTLER_STATUS_BIT_SPPT_APU]		= (SMU_THROTTLER_SPPT_APU_BIT),
-+	[THROTTLER_STATUS_BIT_THM_CORE]		= (SMU_THROTTLER_TEMP_CORE_BIT),
-+	[THROTTLER_STATUS_BIT_THM_GFX]		= (SMU_THROTTLER_TEMP_VR_GFX_BIT),
-+	[THROTTLER_STATUS_BIT_THM_SOC]		= (SMU_THROTTLER_TEMP_VR_SOC_BIT),
-+	[THROTTLER_STATUS_BIT_TDC_VDD]		= (SMU_THROTTLER_TDC_VDD_BIT),
-+	[THROTTLER_STATUS_BIT_TDC_SOC]		= (SMU_THROTTLER_TDC_SOC_BIT),
-+	[THROTTLER_STATUS_BIT_PROCHOT_CPU]	= (SMU_THROTTLER_PROCHOT_CPU_BIT),
-+	[THROTTLER_STATUS_BIT_PROCHOT_GFX]	= (SMU_THROTTLER_PROCHOT_GFX_BIT),
-+	[THROTTLER_STATUS_BIT_EDC_CPU]		= (SMU_THROTTLER_EDC_CPU_BIT),
-+	[THROTTLER_STATUS_BIT_EDC_GFX]		= (SMU_THROTTLER_EDC_GFX_BIT),
++static const uint8_t aldebaran_throttler_map[] = {
++	[THROTTLER_PPT0_BIT]		= (SMU_THROTTLER_PPT0_BIT),
++	[THROTTLER_PPT1_BIT]		= (SMU_THROTTLER_PPT1_BIT),
++	[THROTTLER_TDC_GFX_BIT]		= (SMU_THROTTLER_TDC_GFX_BIT),
++	[THROTTLER_TDC_SOC_BIT]		= (SMU_THROTTLER_TDC_SOC_BIT),
++	[THROTTLER_TDC_HBM_BIT]		= (SMU_THROTTLER_TDC_MEM_BIT),
++	[THROTTLER_TEMP_GPU_BIT]	= (SMU_THROTTLER_TEMP_GPU_BIT),
++	[THROTTLER_TEMP_MEM_BIT]	= (SMU_THROTTLER_TEMP_MEM_BIT),
++	[THROTTLER_TEMP_VR_GFX_BIT]	= (SMU_THROTTLER_TEMP_VR_GFX_BIT),
++	[THROTTLER_TEMP_VR_SOC_BIT]	= (SMU_THROTTLER_TEMP_VR_SOC_BIT),
++	[THROTTLER_TEMP_VR_MEM_BIT]	= (SMU_THROTTLER_TEMP_VR_MEM_BIT),
++	[THROTTLER_APCC_BIT]		= (SMU_THROTTLER_APCC_BIT),
 +};
 +
- static int renoir_init_smc_tables(struct smu_context *smu)
+ static int aldebaran_tables_init(struct smu_context *smu)
  {
  	struct smu_table_context *smu_table = &smu->smu_table;
-@@ -153,7 +169,7 @@ static int renoir_init_smc_tables(struct smu_context *smu)
- 	if (!smu_table->watermarks_table)
- 		goto err2_out;
+@@ -213,7 +227,7 @@ static int aldebaran_tables_init(struct smu_context *smu)
+ 		return -ENOMEM;
+ 	smu_table->metrics_time = 0;
  
--	smu_table->gpu_metrics_table_size = sizeof(struct gpu_metrics_v2_1);
-+	smu_table->gpu_metrics_table_size = sizeof(struct gpu_metrics_v2_2);
+-	smu_table->gpu_metrics_table_size = sizeof(struct gpu_metrics_v1_2);
++	smu_table->gpu_metrics_table_size = sizeof(struct gpu_metrics_v1_3);
  	smu_table->gpu_metrics_table = kzalloc(smu_table->gpu_metrics_table_size, GFP_KERNEL);
- 	if (!smu_table->gpu_metrics_table)
- 		goto err3_out;
-@@ -1264,8 +1280,8 @@ static ssize_t renoir_get_gpu_metrics(struct smu_context *smu,
- 				      void **table)
+ 	if (!smu_table->gpu_metrics_table) {
+ 		kfree(smu_table->metrics_table);
+@@ -1713,8 +1727,8 @@ static ssize_t aldebaran_get_gpu_metrics(struct smu_context *smu,
+ 					 void **table)
  {
  	struct smu_table_context *smu_table = &smu->smu_table;
--	struct gpu_metrics_v2_1 *gpu_metrics =
--		(struct gpu_metrics_v2_1 *)smu_table->gpu_metrics_table;
-+	struct gpu_metrics_v2_2 *gpu_metrics =
-+		(struct gpu_metrics_v2_2 *)smu_table->gpu_metrics_table;
+-	struct gpu_metrics_v1_2 *gpu_metrics =
+-		(struct gpu_metrics_v1_2 *)smu_table->gpu_metrics_table;
++	struct gpu_metrics_v1_3 *gpu_metrics =
++		(struct gpu_metrics_v1_3 *)smu_table->gpu_metrics_table;
  	SmuMetrics_t metrics;
- 	int ret = 0;
+ 	int i, ret = 0;
  
-@@ -1273,7 +1289,7 @@ static ssize_t renoir_get_gpu_metrics(struct smu_context *smu,
+@@ -1724,7 +1738,7 @@ static ssize_t aldebaran_get_gpu_metrics(struct smu_context *smu,
  	if (ret)
  		return ret;
  
--	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 2, 1);
-+	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 2, 2);
+-	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 1, 2);
++	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 1, 3);
  
- 	gpu_metrics->temperature_gfx = metrics.GfxTemperature;
- 	gpu_metrics->temperature_soc = metrics.SocTemperature;
-@@ -1311,6 +1327,9 @@ static ssize_t renoir_get_gpu_metrics(struct smu_context *smu,
- 	gpu_metrics->current_l3clk[1] = metrics.L3Frequency[1];
+ 	gpu_metrics->temperature_edge = metrics.TemperatureEdge;
+ 	gpu_metrics->temperature_hotspot = metrics.TemperatureHotspot;
+@@ -1755,6 +1769,9 @@ static ssize_t aldebaran_get_gpu_metrics(struct smu_context *smu,
+ 	gpu_metrics->current_dclk0 = metrics.CurrClock[PPCLK_DCLK];
  
  	gpu_metrics->throttle_status = metrics.ThrottlerStatus;
 +	gpu_metrics->indep_throttle_status =
-+		smu_cmn_get_indep_throttler_status(metrics.ThrottlerStatus,
-+						   renoir_throttler_map);
++			smu_cmn_get_indep_throttler_status(metrics.ThrottlerStatus,
++							   aldebaran_throttler_map);
  
- 	gpu_metrics->fan_pwm = metrics.FanPwm;
+ 	gpu_metrics->current_fan_speed = 0;
  
-@@ -1318,7 +1337,7 @@ static ssize_t renoir_get_gpu_metrics(struct smu_context *smu,
+@@ -1776,7 +1793,7 @@ static ssize_t aldebaran_get_gpu_metrics(struct smu_context *smu,
  
  	*table = (void *)gpu_metrics;
  
--	return sizeof(struct gpu_metrics_v2_1);
-+	return sizeof(struct gpu_metrics_v2_2);
+-	return sizeof(struct gpu_metrics_v1_2);
++	return sizeof(struct gpu_metrics_v1_3);
  }
  
- static int renoir_gfx_state_change_set(struct smu_context *smu, uint32_t state)
+ static int aldebaran_mode2_reset(struct smu_context *smu)
 -- 
 2.17.1
 
