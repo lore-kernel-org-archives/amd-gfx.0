@@ -2,70 +2,126 @@ Return-Path: <SRS0=4Sal=K5=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A1419C47082
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 21:11:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DCCB7C47082
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 21:13:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6CFCC6139A
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 21:11:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6CFCC6139A
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id A29446139A
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 21:13:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A29446139A
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D44026EEAA;
-	Thu,  3 Jun 2021 21:11:55 +0000 (UTC)
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [IPv6:2a00:1450:4864:20::431])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFBA06EE9E
- for <amd-gfx@lists.freedesktop.org>; Thu,  3 Jun 2021 21:11:53 +0000 (UTC)
-Received: by mail-wr1-x431.google.com with SMTP id q5so7226261wrm.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 03 Jun 2021 14:11:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=qo81W0COu/9T+MtdH15dWO35zb4IKBH3tap7L13Ay+g=;
- b=Ep1C99k65ha6o9n/Xnv083Ka95kqOxU0nc+P1Su4LgSF7LEKJoAw+0C8/4y3YWA1Uk
- 9jmI+6Kg3RoJYHfcWvod76BaO3A0UqaPypcfqM4GZ8bcRyRWiPfoGo4yubuBwZwQAuBH
- WuAqsi7sTEuX8lJzK1mBf4J7nel1IMd5d6hks=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=qo81W0COu/9T+MtdH15dWO35zb4IKBH3tap7L13Ay+g=;
- b=ARBwMx5J3oN82o1ACarOefH++U+GVg/cOwiFtfPAQ/T1EfFWm7l3qOmW8pFRFL+OP4
- LWNFfbsi/3Gtyqzqoc4hSxmqmSxaGBW6QOksQ1ukH7Q93vUEZ2Sosfj4uBqLemdcHpzl
- K9JnTX8z1fiosKJ10Aq/aWaO5+bgRVyiKHqHuELhUdkW7KTvSuhKkvZu8OslohLVZyxf
- SqrsikYmaNH0zC8rqpr9wGD46b9oY9MsGIT7U33dPSMqSL78a5NIp+T2NXaKKTwsfM7N
- JVKATz5jB2kd4LMVjkK0vM347iuqv3fIgcga8Uqjcy6Ei0M8Pi2FiArUvcMt/xTvaN1k
- r4qQ==
-X-Gm-Message-State: AOAM531BUlh4RdNPMwMgCpDDycrcQzz4r5k6e+bZx8myhvZ9DEJyCIUn
- di1e524//b3npB7JRITzU/Rk0Q==
-X-Google-Smtp-Source: ABdhPJx8yjSE12ygh5q4XzGrGDcVw6g7J7uRZbzliCwqbFJIqvVK1qA/BT1I8/4oa8K2GVWvDzxesA==
-X-Received: by 2002:adf:a489:: with SMTP id g9mr387883wrb.103.1622754712405;
- Thu, 03 Jun 2021 14:11:52 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id a1sm5056623wrg.92.2021.06.03.14.11.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 03 Jun 2021 14:11:51 -0700 (PDT)
-Date: Thu, 3 Jun 2021 23:11:50 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-Subject: Re: [PATCH 0/7] libdrm tests for hot-unplug feature
-Message-ID: <YLlFlq1orNnGLXRH@phenom.ffwll.local>
-References: <20210601201702.23316-1-andrey.grodzovsky@amd.com>
- <CAKMK7uFoLmOFCTkPMm4mMSScF0xa+MnHvY2FVmfBUM8b8S0_PQ@mail.gmail.com>
- <de4b3521-42f7-7fc2-7271-e4fa3cd91708@amd.com>
- <baf1d1f8-48c7-ed83-8e42-a4a317bfa74d@amd.com>
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 596D86F502;
+	Thu,  3 Jun 2021 21:13:27 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2058.outbound.protection.outlook.com [40.107.244.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A2306F502
+ for <amd-gfx@lists.freedesktop.org>; Thu,  3 Jun 2021 21:13:26 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=SORuA18k75hszJj6FLvFtljXD5NdDIRBNYWLqWn1JZtS9cLB3oLL7pojg4NLNlaRmLsx+lj9x7TcFwsaoTAzjR/wxHE18Gb3Iso7mQXJAeHrtbS2R3d1UKRf/uG/WQqVwJFm6GD/lsvnIpvayVleE46+RLYs0IhnNY8NnV3+6bU+wK/dS/KtwZ/b0eAGYb1ecqNu26Q0OOaqFjVr50MNIc8gC0OKOvB3/Fnd7xFnM1kSJWAk0aQmI0QCE/Sf+HzgA1+32Ww1MOfIDTYXdHbS8Fp6O7JKytKvYKVvTvd36WjEfHO2lgxWRIspveK0cntbNfbozaewhPIB9MgK+ERL1Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ct34TsEuTumNDUbbDsFbANUXgh5pPU9LpUGzDohTucg=;
+ b=YHH8Ww4w9fEAsPqyVQaPhxX3PunqxaYzgbmIDpgUj+svKsHaGHaUCMgVmI9qklZBk/8Oit55it6YTLD+sM2jHP/1ELWOtJ6PKgaxa5e+746Qn1Ore4nT6kooo8OyxsyPzLKj8u/4Asq7qtLgcr1kGtODIPOtUFg7GvoX1RTkAKDj6hcDweV6x/53l18Yb3QmMDd3Oow2JQRDm2U2g9iBCagljMz1yxltXF37LF1q//KTJjyZMxbDhZkWiImk4u8Zdr6FXCTgLs51v4L82L32d3qUtBKf9nGPgKwwqNaxtt+1cdNCRTW1esSF7HkG/4sTj+vInh9ioaDuPx1WWJ4/Dw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ct34TsEuTumNDUbbDsFbANUXgh5pPU9LpUGzDohTucg=;
+ b=qSRkibspbyEV8Umhn1qubKH3EVsWEsgjLfaKL685Yz468syLc291Ri4cD2qPEehqENdfZ4up1WALoHFgAU2UOCaYeBGPpm2hbDz12TG2NVQDRMPxZEG6jmIV/kwkbPKaFU001fGhGfCmINvgDvkAdiJeBXiaHF2QNz/zfUDNCdI=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3108.namprd12.prod.outlook.com (2603:10b6:408:40::20)
+ by BN6PR1201MB0146.namprd12.prod.outlook.com (2603:10b6:405:59::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.20; Thu, 3 Jun
+ 2021 21:13:22 +0000
+Received: from BN8PR12MB3108.namprd12.prod.outlook.com
+ ([fe80::453f:6e2a:468d:ad6e]) by BN8PR12MB3108.namprd12.prod.outlook.com
+ ([fe80::453f:6e2a:468d:ad6e%5]) with mapi id 15.20.4173.030; Thu, 3 Jun 2021
+ 21:13:20 +0000
+Date: Thu, 3 Jun 2021 17:13:14 -0400
+From: Yazen Ghannam <yazen.ghannam@amd.com>
+To: "Joshi, Mukul" <Mukul.Joshi@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: Register bad page handler for Aldebaran
+Message-ID: <20210603211255.GA1410@aus-x-yghannam.amd.com>
+References: <YJxDIhGnZ5XdukiS@zn.tnic>
+ <DM4PR12MB52631035F875B77974FA8D21EE519@DM4PR12MB5263.namprd12.prod.outlook.com>
+ <YJz3CMBFFIDBzVwX@zn.tnic>
+ <CADnq5_Or5maEWTZFzS6iksyoFC=q9=y=-YmPTdPuWRKFhdw0yg@mail.gmail.com>
+ <YJ04D8a6LaVRMuGH@zn.tnic>
+ <CADnq5_NQonmqtFDpfsWygGzA2kv-W-daDSkxkY2ALf9a1eby9g@mail.gmail.com>
+ <YJ0+YbwSpxTrghpo@zn.tnic>
+ <DM4PR12MB5263A7ABC342C37CE6891707EE519@DM4PR12MB5263.namprd12.prod.outlook.com>
+ <YJ4g1MagVNQOvyvj@zn.tnic>
+ <DM4PR12MB5263BCFD05993959820430A5EE239@DM4PR12MB5263.namprd12.prod.outlook.com>
 Content-Disposition: inline
-In-Reply-To: <baf1d1f8-48c7-ed83-8e42-a4a317bfa74d@amd.com>
-X-Operating-System: Linux phenom 5.10.32scarlett+ 
+In-Reply-To: <DM4PR12MB5263BCFD05993959820430A5EE239@DM4PR12MB5263.namprd12.prod.outlook.com>
+X-Originating-IP: [165.204.25.250]
+X-ClientProxiedBy: BN6PR19CA0106.namprd19.prod.outlook.com
+ (2603:10b6:404:a0::20) To BN8PR12MB3108.namprd12.prod.outlook.com
+ (2603:10b6:408:40::20)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from aus-x-yghannam.amd.com (165.204.25.250) by
+ BN6PR19CA0106.namprd19.prod.outlook.com (2603:10b6:404:a0::20) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4195.22 via Frontend Transport; Thu, 3 Jun 2021 21:13:19 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: d48a5404-3129-48e1-b6dc-08d926d46a0b
+X-MS-TrafficTypeDiagnostic: BN6PR1201MB0146:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BN6PR1201MB014634D08F4EFA54384AA98DF83C9@BN6PR1201MB0146.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: xnZSYhOE0h3Haf4o/phLznUh5E29tjnZwiLs38erQY3yIYkf6EvMWxVJk56w0ByF4VUWnzQ6SLlAiJfMuCV9+JKAJVZ80DJ9IXBLbpxBobxpE8d7UrK8luHF0PnJgW9s7kir4Irbbmv+9xM6FYqeCFQndmOMS6gY413oZZUJTBg4TPtZN6xEXWjlamJrtV/2d3KOBiHdyIS/UjwPX7E/9oBgQ0yWMegcSlMkQcQxTNBZ8N1cn+L+5//FQfvxbtXImBihJdfp6CoGabTssTFUrc301spoXa0u6GoFEpUyknHvNJBp7WkdrY1RND2KrEXJ6d61/tJUWnLPEi39DNIdvHWDWoyKWKi6JdocrHAOimRrPqU+w755520kZ7NXOYd/UfQtWdMPV+dq0ceZkicJttn+BxIbSZxM3zCikyVJOdnv0NkMyuWW18dHE0vx6aqqMbpe/YriF3oORDzyah7dxTQSWvUdhRh18BPJ6s/La15eX3gCChI5zzYZuaH5AmfZpEXJYB63e5O6MFdfMZxTpJDuVqd+cGLtlXmt3UiGzWBN1Hk5ooHv15L9fnNIhoEJKnl26ov3uaEraE43SwNdv4AWcPy1c4bqD8e/q3h8N00DioyQksiTUmlYUn53nypydrcUoqWTY4UBKddIREywuyMXnvrNu2Md+F7ONqGL9U4=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3108.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(376002)(136003)(39860400002)(396003)(346002)(86362001)(66476007)(66556008)(66946007)(8676002)(33656002)(8936002)(52116002)(54906003)(2906002)(7696005)(316002)(6636002)(55016002)(38100700002)(38350700002)(478600001)(26005)(5660300002)(956004)(6666004)(44832011)(4326008)(16526019)(186003)(1076003)(6862004)(83380400001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?/qq55F37wUfSFIfYH9Gax57Arm5d0y4v48NZupcVeNZnmym1d/jCEiPLz6vk?=
+ =?us-ascii?Q?R2XumEhePXA5wI7Pn2066TAGJ22bB+/+CuvOkJ2PAqWTYennVS/fPxGybyFF?=
+ =?us-ascii?Q?aQTmLu7QZAzZtzB38qAshbLJ8YONp/4kTjsbrfZ2uf5m57Qxuor/yvmlkySX?=
+ =?us-ascii?Q?7NyJ5mLYOIs04p20ZOX1ZOpbktS4LBjt8SChLYPKyjZ3vX/lx0nB8EXm93tx?=
+ =?us-ascii?Q?y7vQGoGTX3UUsOntKN6oDFOsc6MhfpHmWS7rTyBzoGBR5OhgvmJGpVKxgFpy?=
+ =?us-ascii?Q?pPG7gcUL8S7gph/FG4uBFoj9vF/EVz7WDpyQJsZvhtjtxWYEJRY3p7V9zm0J?=
+ =?us-ascii?Q?gHZCmXTFuC5NPIxmyhMacPryjlnoG4EsF7suZdqzl9HRAzfhw4Gj7Zm9Vz+S?=
+ =?us-ascii?Q?pqDpf0z+dK/5TWp5RDE5pfkT4lGDdWZLNE6scopRd4lidZ04yKLuFX53bl0X?=
+ =?us-ascii?Q?XUu7vOkRObUi2Y9e/6i3IzSWKvEcp9FfQrktPWRhmlMMnvnWRzOGYRU5DHMk?=
+ =?us-ascii?Q?rc577Ljpcu1zCS93XdcLBkQ73A2yxJV4H4pn9qWnMV0+3U1ZxK7s5OOCkbs2?=
+ =?us-ascii?Q?rvMGJgU1HEXnw0GB/QFeSH5ciQv5hWB0CXKAzo//1PKT+AuLu7c/gHUQM7By?=
+ =?us-ascii?Q?aB0wHljmOKUgaKpVe+d5XNjz8tZLld/FeSbGlS8dL/+gNyhyobNQrj+Vy5Ce?=
+ =?us-ascii?Q?e0XuEaxuR47cDTnGpILnWQqadlJRMvwAdBFeSHQpl4Mtej21wBqjpI4+SCef?=
+ =?us-ascii?Q?6ZbaghhlRATOMD5/9dOvrOlTHTV+LDNpNcYrQ6TTNCDAz1Bxmb8J2br4mCSL?=
+ =?us-ascii?Q?3gzU2iYzkWBHVE8EeomTw3lr4VWFOld8HuBZZWzoZDpXiKi7yDk2z0RlY7ju?=
+ =?us-ascii?Q?hbeay2SSDBF2KIaiWHEeLXWds3qsSVEWq9bxhX9C6iwZzfHixE5p9pgW9Zby?=
+ =?us-ascii?Q?nX3zxJaWWEfmrIPGQ5JNFEWCwtid5Pk5TSWiWGhuF5D6XoeNzE8DE9hDDY+t?=
+ =?us-ascii?Q?/gkzntr8cs82D4MqUFl4+1TgO+DaTNXQtcj4cbQvOuoxRUHsQbEJtlP1AWwf?=
+ =?us-ascii?Q?Tdx+Sntl0Fn2pi0vvnRlyzx41Z+Hpnhl4BqiSe4gOhbdmtl+d/k94DZBoNkR?=
+ =?us-ascii?Q?Drdo2YK3jhzoToJmRVBXadU/RSWUVtAN+pqX0pgeSymWoBYC7gV8FpNi2gs8?=
+ =?us-ascii?Q?mPJewZstP8nmfuyegypuq9rk4U1EAq4JKl8QC8kVgfBhLlkviltC8gq+IH1y?=
+ =?us-ascii?Q?pm8wyyKdA2ONSmUcD9kJ9upVSqTUVnP47s0/pJHCXo/Fzu1Yi4AvEfZ8DTR9?=
+ =?us-ascii?Q?agafC0FrbcaVSHKKrrzBkPjC?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d48a5404-3129-48e1-b6dc-08d926d46a0b
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3108.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2021 21:13:20.6159 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JpJ1UqrwPEhUKcsIu2mVCP2XHyZBnsQlzz8ASocGSqo04Pd0JEE6dyFmSAqc/yaz+B/ubRPMBNUwnSDZmqFZjA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR1201MB0146
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,115 +133,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <Alexander.Deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: x86-ml <x86@kernel.org>, "Kasiviswanathan,
+ Harish" <Harish.Kasiviswanathan@amd.com>, lkml <linux-kernel@vger.kernel.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Borislav Petkov <bp@alien8.de>, Alex Deucher <alexdeucher@gmail.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jun 03, 2021 at 10:22:37AM -0400, Andrey Grodzovsky wrote:
-> Ping
-> =
+On Thu, May 27, 2021 at 03:54:27PM -0400, Joshi, Mukul wrote:
+...
+> > Is that the same deferred interrupt which calls
+> > amd_deferred_error_interrupt() ?
+> 
+> Sorry picking this up after sometime. I thought I had replied to this email.
+> Yes it is the same deferred interrupt which calls amd_deferred_error_interrupt().
+>
 
-> Andrey
-> =
+Mukul,
 
-> On 2021-06-02 10:20 a.m., Andrey Grodzovsky wrote:
-> > =
+Do you expect that the driver will need to mark pages with high
+correctable error counts as bad? I think the hardware folks may want the
+GPU memory errors to be handled more aggressively than CPU memory
+errors. The specific threshold may change from product to product, so it
+may make sense to hardcode this in the driver.
 
-> > On 2021-06-02 3:59 a.m., Daniel Vetter wrote:
-> > > On Tue, Jun 1, 2021 at 10:17 PM Andrey Grodzovsky
-> > > <andrey.grodzovsky@amd.com> wrote:
-> > > > Adding some tests to acompany the recently added hot-unplug
-> > > > feature. For now the test suite is disabled until the feature
-> > > > propagates from drm-misc-next to drm-next.
-> > > > =
+We have similar functionality in the Correctable Errors Collector. But
+enterprise users may prefer a direct approach done in the driver (based
+on the hardware experts' guidance) instead of configuring the kernel at
+runtime.
 
-> > > > Andrey Grodzovsky (7):
-> > > > =A0=A0 tests/amdgpu: Fix valgrind warning
-> > > > =A0=A0 xf86drm: Add function to retrieve char device path
-> > > > =A0=A0 test/amdgpu: Add helper functions for hot unplug
-> > > > =A0=A0 test/amdgpu/hotunplug: Add test suite for GPU unplug
-> > > > =A0=A0 test/amdgpu/hotunplug: Add basic test
-> > > > =A0=A0 tests/amdgpu/hotunplug: Add unplug with cs test.
-> > > > =A0=A0 tests/amdgpu/hotunplug: Add hotunplug with exported bo test
-> > > Given how nasty hotunplug is I really think collaborating on igt tests
-> > > on this would be best for everyone ... do we have to keep doing
-> > > parallel tests here for amdgpu?
-> > > -Daniel
-> > =
+So I think having a separate priority may make sense if some special
+functionality, or combination of behaviors, is needed which don't fall
+under any exisiting things. In this case, "special functionality" could
+be that the GPU memory needs to be handled differently than CPU memory.
 
-> > AFAIK as far as AMD goes a lot of developers use libdrm for regression
-> > testing
-> > while developing their features and also QA as i can see from some
-> > internal ticket
-> > specifically opened for failing to pass libdrm tests. From my bitter
-> > experience with
-> > GPU reset - features which are not part of a common use case such as
-> > device loading,
-> > mode setting or commands submissions tend to very quickly break as
-> > people develop
-> > features but never test them in those uncommon use cases - this is why I
-> > feel it will be
-> > very helpful to include those tests in libdrm.
-> > =
+Another thing is that this behavior is similar to the NFIT behavior,
+i.e. there's a memory error on an external device that needs to be
+handled by the device's driver. So maybe we can rename MCE_PRIO_NFIT to
+be generic (MCE_PRIO_EXTERNAL?) and use that? Multiple notifiers with
+the same priority is okay, right?
 
-> > Also given that this is libdrm amdgpu code it fits naturally into libdr=
-m.
-> > =
-
-> > Regarding IGT - as you may remember I have them there too -
-> > https://gitlab.freedesktop.org/agrodzov/igt-gpu-tools/-/commits/master
-> > I hit some compile breakage on debian platform there which i need to
-> > resolve before i will submit for review there too.
-
-Why can't amd run the igt tests? Afaiui on the display side this is
-happening already, at least sometimes.
-
-And yes regression tests matter, it just feels silly that we need to have
-them 2x for amdgpu. For old stuff the old repo is all fine, but for new
-feature it looks a bit silly.
--Daniel
-
-> > =
-
-> > Andrey
-> > =
-
-> > =
-
-> > > =
-
-> > > > =A0 tests/amdgpu/amdgpu_test.c=A0=A0=A0=A0 |=A0 42 +++-
-> > > > =A0 tests/amdgpu/amdgpu_test.h=A0=A0=A0=A0 |=A0 26 +++
-> > > > =A0 tests/amdgpu/basic_tests.c=A0=A0=A0=A0 |=A0=A0 5 +-
-> > > > =A0 tests/amdgpu/hotunplug_tests.c | 357
-> > > > +++++++++++++++++++++++++++++++++
-> > > > =A0 tests/amdgpu/meson.build=A0=A0=A0=A0=A0=A0 |=A0=A0 1 +
-> > > > =A0 xf86drm.c=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0 |=A0 23 +++
-> > > > =A0 xf86drm.h=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0 |=A0=A0 1 +
-> > > > =A0 7 files changed, 450 insertions(+), 5 deletions(-)
-> > > > =A0 create mode 100644 tests/amdgpu/hotunplug_tests.c
-> > > > =
-
-> > > > -- =
-
-> > > > 2.25.1
-> > > > =
-
-> > > =
-
-
--- =
-
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+Thanks,
+Yazen
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
