@@ -7,48 +7,48 @@ X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 96FC6C48BDF
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 17:26:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EB3E3C4743D
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 17:31:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6593C613AD
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 17:26:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6593C613AD
+	by mail.kernel.org (Postfix) with ESMTPS id BF2A061405
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 17:31:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BF2A061405
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 179E06F64E;
-	Fri,  4 Jun 2021 17:26:53 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 112CF6F645;
- Fri,  4 Jun 2021 17:26:51 +0000 (UTC)
-IronPort-SDR: tWTVzyjj1JsqHL1upD1hPHNyRx1vZ4ucYw/hh11+rYmTLx6kdaOhtftozK/F2BShTVZ7Z1LLMG
- ENjT0baCPo+w==
-X-IronPort-AV: E=McAfee;i="6200,9189,10005"; a="184705800"
-X-IronPort-AV: E=Sophos;i="5.83,248,1616482800"; d="scan'208";a="184705800"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jun 2021 10:26:50 -0700
-IronPort-SDR: hHxfs9zcgC2O6PZrXBqdGq+eSyydodxVXZvXVI2bKozhgASgx9bBU8+ndopyiwkqxP9Y2HmPs8
- GPnpR/h35PpQ==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9BA7D6F64B;
+	Fri,  4 Jun 2021 17:31:14 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A6406F64A;
+ Fri,  4 Jun 2021 17:31:12 +0000 (UTC)
+IronPort-SDR: MgeBixsI15jMiIkRPMwEQkNb52Q3OBQpdIt/Ba7cK/1ax5xbUmDR9RhnLFbpb274hPj9KKIn2S
+ vUrn+2O4YjaQ==
+X-IronPort-AV: E=McAfee;i="6200,9189,10005"; a="225654437"
+X-IronPort-AV: E=Sophos;i="5.83,248,1616482800"; d="scan'208";a="225654437"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jun 2021 10:30:59 -0700
+IronPort-SDR: E6f8vel3p5Bo3KoNnpIKKX3N7n331JqiLdiBnwP8qXAgkaOWsthLpEHPipQE1fQ/cLpudqh2py
+ spnGTxfVCyjA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.83,248,1616482800"; d="scan'208";a="439257354"
+X-IronPort-AV: E=Sophos;i="5.83,248,1616482800"; d="scan'208";a="412432857"
 Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
- by orsmga007.jf.intel.com with SMTP; 04 Jun 2021 10:26:44 -0700
+ by fmsmga007.fm.intel.com with SMTP; 04 Jun 2021 10:30:53 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 04 Jun 2021 20:26:44 +0300
-Date: Fri, 4 Jun 2021 20:26:44 +0300
+ Fri, 04 Jun 2021 20:30:52 +0300
+Date: Fri, 4 Jun 2021 20:30:52 +0300
 From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
 To: Werner Sembach <wse@tuxedocomputers.com>
-Subject: Re: [PATCH 2/4] drm/uAPI: Add "active bpc" as feedback channel for
- "max bpc" drm property
-Message-ID: <YLpiVFiBrgH29rki@intel.com>
+Subject: Re: [PATCH 4/4] drm/i915/display: Add handling for new "active bpc"
+ property
+Message-ID: <YLpjTMegcjT22vQE@intel.com>
 References: <20210604171723.10276-1-wse@tuxedocomputers.com>
- <20210604171723.10276-3-wse@tuxedocomputers.com>
+ <20210604171723.10276-5-wse@tuxedocomputers.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210604171723.10276-3-wse@tuxedocomputers.com>
+In-Reply-To: <20210604171723.10276-5-wse@tuxedocomputers.com>
 X-Patchwork-Hint: comment
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -73,167 +73,130 @@ Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jun 04, 2021 at 07:17:21PM +0200, Werner Sembach wrote:
-> Add a new general drm property "active bpc" which can be used by graphic =
-drivers
-> to report the applied bit depth per pixel back to userspace.
-> =
-
-> While "max bpc" can be used to change the color depth, there was no way t=
-o check
-> which one actually got used. While in theory the driver chooses the best/=
-highest
-> color depth within the max bpc setting a user might not be fully aware wh=
-at his
-> hardware is or isn't capable off. This is meant as a quick way to double =
-check
-> the setup.
-> =
-
-> In the future, automatic color calibration for screens might also depend =
-on this
-> information available.
+On Fri, Jun 04, 2021 at 07:17:23PM +0200, Werner Sembach wrote:
+> This commits implements the "active bpc" drm property for the Intel GPU d=
+river.
 > =
 
 > Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
 > ---
->  drivers/gpu/drm/drm_atomic_uapi.c |  2 ++
->  drivers/gpu/drm/drm_connector.c   | 40 +++++++++++++++++++++++++++++++
->  include/drm/drm_connector.h       | 15 ++++++++++++
->  3 files changed, 57 insertions(+)
+>  drivers/gpu/drm/i915/display/intel_display.c | 13 +++++++++++++
+>  drivers/gpu/drm/i915/display/intel_dp.c      |  8 ++++++--
+>  drivers/gpu/drm/i915/display/intel_dp_mst.c  |  4 +++-
+>  drivers/gpu/drm/i915/display/intel_hdmi.c    |  4 +++-
+>  4 files changed, 25 insertions(+), 4 deletions(-)
 > =
 
-> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atom=
-ic_uapi.c
-> index 268bb69c2e2f..7ae4e40936b5 100644
-> --- a/drivers/gpu/drm/drm_atomic_uapi.c
-> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
-> @@ -873,6 +873,8 @@ drm_atomic_connector_get_property(struct drm_connecto=
-r *connector,
->  		*val =3D 0;
->  	} else if (property =3D=3D connector->max_bpc_property) {
->  		*val =3D state->max_requested_bpc;
-> +	} else if (property =3D=3D connector->active_bpc_property) {
-> +		*val =3D state->active_bpc;
->  	} else if (connector->funcs->atomic_get_property) {
->  		return connector->funcs->atomic_get_property(connector,
->  				state, property, val);
-> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connec=
-tor.c
-> index 7631f76e7f34..5f42a5be5822 100644
-> --- a/drivers/gpu/drm/drm_connector.c
-> +++ b/drivers/gpu/drm/drm_connector.c
-> @@ -1195,6 +1195,13 @@ static const struct drm_prop_enum_list dp_colorspa=
-ces[] =3D {
->   *	drm_connector_attach_max_bpc_property() to create and attach the
->   *	property to the connector during initialization.
->   *
-> + * active bpc:
-> + *	This read-only range property is used by userspace check the bit depth
-> + *	actually applied by the GPU driver after evaluation all hardware
-> + *	capabilities and max bpc. Drivers to use the function
-> + *	drm_connector_attach_active_bpc_property() to create and attach the
-> + *	property to the connector during initialization.
-> + *
->   * Connectors also have one standardized atomic property:
->   *
->   * CRTC_ID:
-> @@ -2150,6 +2157,39 @@ int drm_connector_attach_max_bpc_property(struct d=
-rm_connector *connector,
->  }
->  EXPORT_SYMBOL(drm_connector_attach_max_bpc_property);
+> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/d=
+rm/i915/display/intel_display.c
+> index 64e9107d70f7..f7898d9d7438 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display.c
+> @@ -10164,6 +10164,8 @@ static void intel_atomic_commit_tail(struct intel=
+_atomic_state *state)
+>  	struct drm_i915_private *dev_priv =3D to_i915(dev);
+>  	struct intel_crtc_state *new_crtc_state, *old_crtc_state;
+>  	struct intel_crtc *crtc;
+> +	struct drm_connector *connector;
+> +	struct drm_connector_state *new_conn_state;
+>  	u64 put_domains[I915_MAX_PIPES] =3D {};
+>  	intel_wakeref_t wakeref =3D 0;
+>  	int i;
+> @@ -10324,6 +10326,17 @@ static void intel_atomic_commit_tail(struct inte=
+l_atomic_state *state)
+>  	}
+>  	intel_runtime_pm_put(&dev_priv->runtime_pm, state->wakeref);
 >  =
 
-> +/**
-> + * drm_connector_attach_active_bpc_property - attach "active bpc" proper=
-ty
-> + * @connector: connector to attach active bpc property on.
-> + * @min: The minimum bit depth supported by the connector.
-> + * @max: The maximum bit depth supported by the connector.
-> + *
-> + * This is used to check the applied bit depth on a connector.
-> + *
-> + * Returns:
-> + * Zero on success, negative errno on failure.
-> + */
-> +int drm_connector_attach_active_bpc_property(struct drm_connector *conne=
-ctor,
-> +					  int min, int max)
-> +{
-> +	struct drm_device *dev =3D connector->dev;
-> +	struct drm_property *prop;
-> +
-> +	prop =3D connector->active_bpc_property;
-> +	if (!prop) {
-> +		prop =3D drm_property_create_range(dev, 0, "active bpc", min, max);
+> +	/* Extract information from crtc to communicate it to userspace as conn=
+ector properties */
+> +	for_each_new_connector_in_state(&state->base, connector, new_conn_state=
+, i) {
+> +		struct drm_crtc *crtc =3D new_conn_state->crtc;
+> +		if (crtc) {
+> +			new_crtc_state =3D to_intel_crtc_state(drm_atomic_get_new_crtc_state(=
+&state->base, crtc));
 
-Should be immutable.
+intel_atomic_get_new_crtc_state()
 
-Also wondering what the semantics of this should be when eg. DSC
-is active?
-
-> +		if (!prop)
-> +			return -ENOMEM;
-> +
-> +		connector->active_bpc_property =3D prop;
+> +			new_conn_state->active_bpc =3D new_crtc_state->pipe_bpp / 3;
+> +		}
+> +		else
+> +			new_conn_state->active_bpc =3D 0;
 > +	}
+
+This also seems too late. I think the whole thing should be
+done somewhere around the normal swap_state() stuff.
+
 > +
-> +	drm_object_attach_property(&connector->base, prop, 0);
-> +	connector->state->active_bpc =3D 0;
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL(drm_connector_attach_active_bpc_property);
-> +
->  /**
->   * drm_connector_set_vrr_capable_property - sets the variable refresh ra=
-te
->   * capable property for a connector
-> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-> index 1922b278ffad..c58cba2b6afe 100644
-> --- a/include/drm/drm_connector.h
-> +++ b/include/drm/drm_connector.h
-> @@ -781,6 +781,13 @@ struct drm_connector_state {
+>  	/*
+>  	 * Defer the cleanup of the old state to a separate worker to not
+>  	 * impede the current task (userspace for blocking modesets) that
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i9=
+15/display/intel_dp.c
+> index 642c60f3d9b1..67826ba976ed 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -4671,10 +4671,14 @@ intel_dp_add_properties(struct intel_dp *intel_dp=
+, struct drm_connector *connect
+>  		intel_attach_force_audio_property(connector);
+>  =
+
+>  	intel_attach_broadcast_rgb_property(connector);
+> -	if (HAS_GMCH(dev_priv))
+> +	if (HAS_GMCH(dev_priv)) {
+>  		drm_connector_attach_max_bpc_property(connector, 6, 10);
+> -	else if (DISPLAY_VER(dev_priv) >=3D 5)
+> +		drm_connector_attach_active_bpc_property(connector, 6, 10);
+> +	}
+> +	else if (DISPLAY_VER(dev_priv) >=3D 5) {
+>  		drm_connector_attach_max_bpc_property(connector, 6, 12);
+> +		drm_connector_attach_active_bpc_property(connector, 6, 12);
+> +	}
+>  =
+
+>  	/* Register HDMI colorspace for case of lspcon */
+>  	if (intel_bios_is_lspcon_present(dev_priv, port)) {
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/dr=
+m/i915/display/intel_dp_mst.c
+> index 2daa3f67791e..5a1869dc2210 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+> @@ -844,8 +844,10 @@ static struct drm_connector *intel_dp_add_mst_connec=
+tor(struct drm_dp_mst_topolo
 >  	 */
->  	u8 max_bpc;
+>  	connector->max_bpc_property =3D
+>  		intel_dp->attached_connector->base.max_bpc_property;
+> -	if (connector->max_bpc_property)
+> +	if (connector->max_bpc_property) {
+>  		drm_connector_attach_max_bpc_property(connector, 6, 12);
+> +		drm_connector_attach_active_bpc_property(connector, 6, 12);
+> +	}
 >  =
 
-> +	/**
-> +	 * @active_bpc: Read only property set by the GPU driver to the actually
-> +	 * applied bit depth of the pixels after evaluating all hardware
-> +	 * limitations.
-> +	 */
-> +	u8 active_bpc;
-> +
->  	/**
->  	 * @hdr_output_metadata:
->  	 * DRM blob property for HDR output metadata
-> @@ -1380,6 +1387,12 @@ struct drm_connector {
->  	 */
->  	struct drm_property *max_bpc_property;
+>  	return connector;
 >  =
 
-> +	/**
-> +	 * @active_bpc_property: Default connector property for the active bpc
-> +	 * to be driven out of the connector.
-> +	 */
-> +	struct drm_property *active_bpc_property;
-> +
->  #define DRM_CONNECTOR_POLL_HPD (1 << 0)
->  #define DRM_CONNECTOR_POLL_CONNECT (1 << 1)
->  #define DRM_CONNECTOR_POLL_DISCONNECT (1 << 2)
-> @@ -1698,6 +1711,8 @@ int drm_connector_set_panel_orientation_with_quirk(
->  	int width, int height);
->  int drm_connector_attach_max_bpc_property(struct drm_connector *connecto=
-r,
->  					  int min, int max);
-> +int drm_connector_attach_active_bpc_property(struct drm_connector *conne=
-ctor,
-> +					  int min, int max);
+> diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/=
+i915/display/intel_hdmi.c
+> index d69f0a6dc26d..8af78b27b6ce 100644
+> --- a/drivers/gpu/drm/i915/display/intel_hdmi.c
+> +++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+> @@ -2463,8 +2463,10 @@ intel_hdmi_add_properties(struct intel_hdmi *intel=
+_hdmi, struct drm_connector *c
+>  		drm_object_attach_property(&connector->base,
+>  			connector->dev->mode_config.hdr_output_metadata_property, 0);
 >  =
 
->  /**
->   * struct drm_tile_group - Tile group metadata
+> -	if (!HAS_GMCH(dev_priv))
+> +	if (!HAS_GMCH(dev_priv)) {
+>  		drm_connector_attach_max_bpc_property(connector, 8, 12);
+> +		drm_connector_attach_active_bpc_property(connector, 8, 12);
+> +	}
+>  }
+>  =
+
+>  /*
 > -- =
 
 > 2.25.1
