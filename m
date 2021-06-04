@@ -2,66 +2,133 @@ Return-Path: <SRS0=YIqZ=K6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.7 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2BDAEC47096
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 02:53:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BCC7DC47082
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 03:31:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E38ED61246
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 02:53:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E38ED61246
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 82842613FA
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 03:31:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 82842613FA
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6BAB6F56B;
-	Fri,  4 Jun 2021 02:53:23 +0000 (UTC)
-Received: from mail-oo1-xc2e.google.com (mail-oo1-xc2e.google.com
- [IPv6:2607:f8b0:4864:20::c2e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 944956F56A;
- Fri,  4 Jun 2021 02:53:22 +0000 (UTC)
-Received: by mail-oo1-xc2e.google.com with SMTP id
- q20-20020a4a6c140000b029024915d1bd7cso242799ooc.12; 
- Thu, 03 Jun 2021 19:53:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=59/o5WUFh0HgVtIfqnBcRLjnuCEyEPLe7i9E9Et2Nk0=;
- b=sDNdiWlwKUJ3hMjk3uR3Joh9gi0v3zzKJJfFKNTy3CHj55/JTgBm8Kvw21uS94yBjy
- uV7vur1Q8ATD4tgVEUUrxfHDsRTmTe9O9tXHa/VfLlY26kx2t0bNQGaNIZ0YR2G4Rb52
- aoh7/w4Ikj3MCbUGaXmr3VaIqN1kIRmXUouw3W43tA6lw9oX6RglpIqUFTdJMZ6jytw3
- ++EAlp4Et8/0xCpjau424k0LIe3eAV+PEDry2ayGkjhMgfm9WpxdLLNA5BxdsWeWy+HI
- fDi+Ph5SNXjSnD2asCgD4d1lZ//LjujV6/kImxH3CzxG5b0Duscd0pDFh4fZqgPFbHoB
- 1kDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=59/o5WUFh0HgVtIfqnBcRLjnuCEyEPLe7i9E9Et2Nk0=;
- b=ZUn5BCGbcHefszBpJfCLznr3vGyUaf5xIXBAf6KcKMDikV3CxjTlSVP5grBt2Gd7Rc
- Tn0IIzdkvhlAijAycSYdISlNdavyKZQ09SqIqD2T/y3WDs2rbN8uiJ8TCuze+b6KwM1K
- 9sczXwTIWiujXBXsADsINQE4VyxIiTn7KSnM5C5Y54Eyoia4JYzSffQy//WWjVv8rTNj
- 6+w/G0DlRLJi9gbzUcGTWoiTGst+RLo+wpPHly6Nt11H7YvcIBhWSZ7p8TJevi8Oq+3Z
- b6AVqiB6EgZYOcts453YAuaiy35w/9S28UCAwuNRSXPqeIV8LCfrn/O/oPZFNu3txadx
- YXOA==
-X-Gm-Message-State: AOAM531NBH83DN0F+/Zb1fAkyis22ld3Rlwk0K9bPe6bd1v6tWZ17yMy
- 2c3/IArlHyAuxC9XreXjfJYNpE08XeTSXwPJEYA=
-X-Google-Smtp-Source: ABdhPJytfvSP1Lg7K9HXPuiuhCUyS1i3M9tOa/IoW8cmSYko9U7xwaVmBK1twuGf2I7oa9uz5y8O8GsM9nKBQemjdZI=
-X-Received: by 2002:a4a:d004:: with SMTP id h4mr1877872oor.90.1622775201900;
- Thu, 03 Jun 2021 19:53:21 -0700 (PDT)
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id D5CAE6F576;
+	Fri,  4 Jun 2021 03:31:15 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2069.outbound.protection.outlook.com [40.107.237.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC5146F574;
+ Fri,  4 Jun 2021 03:31:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=lAprqKscAOF9IxiUoeRu1LaMhYg/BHMq7iNtgux2JnRvYHVwYsBgdZMau+It6pZ4xDMLzQ42/tjwdhvyTapDHP6ItzVzA7uEsKWiqBtgCHL99sFg9fGUgYW0+cDtQNwb1vM5bgroXSHr+21Lt8n33K3gtKgT1QWFa1zZq7w94YzgZU/7p0xcc3eBHBDb3JHqyTpzuZxtrQLDS705fxuO7jHx7BAgBM4Hx+rDVP8UK2l3w/m4U+D9c9KxjwLwquLpd6rWSpPJIkmqkENj9sp7gBvt2IIoVNjKcLE2VItYdeTwItzEvruChOveb5+Mr56mWfqB3fc0PQtLqEXqaDIRHw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=z/1VsQYbpF2tbdOF9icFEXlI7r697TJ4yrxv4A7wUb8=;
+ b=DdjZQkvdem7vU4puNSDksRTWE8bFzZk4q0LUv1MKWHD1DqLB775YqT6WSzRb4PKiSwWtRuN865r28/3NUkKmxJ0VlU8nH1UM4gZAJuBzNfSX82/3KOGw3Sw9THMQ+upA1/6mTk2SiVW0B1jiPdNFtD6saa2xggcSaZsvzmjuUjvjP5osmYTowHCFDbZvbKD672Ig2++eYaWEoMkv0slpgatun/a9D/DXcZoUCoFt+IixR1SiYqj18/RmdNf2RtT60zxAGJTf2I8KWrrWLxIWiDFpk8io7y8n9N2KKK1iyBlGe0ksHIsO6NtstMKfay7OmflhmZtQbSV+kr9h+V95Pg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=z/1VsQYbpF2tbdOF9icFEXlI7r697TJ4yrxv4A7wUb8=;
+ b=WAqzy+TO85kaLWf6CCJyQTHLrWkoK6JNyKw0C5n/2Px7vrTuitxNSyNah4yvWb6JZojkEqunEm53kNgP9DisFhcMoFJPmq/h7nc3a+xzoXKiHO0Cl04lHscIaaWjTFD8oFBkemoO3GE1QitQdXyu4bJh+HigfiKzGni+SWoFFLY=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from SN6PR12MB4623.namprd12.prod.outlook.com (2603:10b6:805:e9::17)
+ by SA0PR12MB4398.namprd12.prod.outlook.com (2603:10b6:806:9f::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.23; Fri, 4 Jun
+ 2021 03:31:11 +0000
+Received: from SN6PR12MB4623.namprd12.prod.outlook.com
+ ([fe80::ad51:8c49:b171:856c]) by SN6PR12MB4623.namprd12.prod.outlook.com
+ ([fe80::ad51:8c49:b171:856c%7]) with mapi id 15.20.4173.030; Fri, 4 Jun 2021
+ 03:31:11 +0000
+Subject: Re: [PATCH 0/7] libdrm tests for hot-unplug feature
+To: Alex Deucher <alexdeucher@gmail.com>, Dave Airlie <airlied@gmail.com>
 References: <20210601201702.23316-1-andrey.grodzovsky@amd.com>
  <CADnq5_Nfs_j9XE1Siou2wGYuwd5cvTD1T7m9gFpS9z74D=AuAQ@mail.gmail.com>
  <CAPM=9tznFeKrL-La1RqCtAib4N+Stf=2epQYabrm=vYnds6LwQ@mail.gmail.com>
-In-Reply-To: <CAPM=9tznFeKrL-La1RqCtAib4N+Stf=2epQYabrm=vYnds6LwQ@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 3 Jun 2021 22:53:09 -0400
-Message-ID: <CADnq5_OJt6YUixqhfkvVq6RKACNYtEHNKb8wY1h+7d6G1a3P3Q@mail.gmail.com>
-Subject: Re: [PATCH 0/7] libdrm tests for hot-unplug feature
-To: Dave Airlie <airlied@gmail.com>
+ <CADnq5_OJt6YUixqhfkvVq6RKACNYtEHNKb8wY1h+7d6G1a3P3Q@mail.gmail.com>
+From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Message-ID: <191942ca-0773-758f-130d-17c0ad326fc2@amd.com>
+Date: Thu, 3 Jun 2021 23:31:09 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
+In-Reply-To: <CADnq5_OJt6YUixqhfkvVq6RKACNYtEHNKb8wY1h+7d6G1a3P3Q@mail.gmail.com>
+Content-Language: en-US
+X-Originating-IP: [2607:fea8:3edf:49b0:9a04:1ebc:cbd9:a420]
+X-ClientProxiedBy: YTXPR0101CA0023.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00::36) To SN6PR12MB4623.namprd12.prod.outlook.com
+ (2603:10b6:805:e9::17)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [IPv6:2607:fea8:3edf:49b0:9a04:1ebc:cbd9:a420]
+ (2607:fea8:3edf:49b0:9a04:1ebc:cbd9:a420) by
+ YTXPR0101CA0023.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00::36) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4173.27 via Frontend Transport; Fri, 4 Jun 2021 03:31:10 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 5d11ed66-bfa4-4874-7f34-08d9270932ea
+X-MS-TrafficTypeDiagnostic: SA0PR12MB4398:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <SA0PR12MB43988164998972C2ECFA2244EA3B9@SA0PR12MB4398.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:949;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 9fICE7diukxt33Ueawl5Fj+UgYUnmD6ve9GXjPs60jrWCAJ/PF96C+8EC1w6SYXXTE/qadIPQksFXiX4nTe2HYb5VKO5v32s3IYifmFVCoJJbKGMf9YDpeGqqFAVhGfsqKnsMeczb0ahJHYi1nem6oTDWHScgr7SRTzKXkRsKNtFatvFOct2fDQ6sQzYv026l5T7UlBf7oRcK/c6Zx08FgF0KjxNtBTRM7+sZ34am4Zh+3XXtLpS3CT2Z03MGShn9zOBfbrJIS0bkJlwZGnaCOo9c/8IsePF5ALpY034Gq3VoVxbgdrJ+8CLqW0ShRQ+yJCZbySS5fG13b3OVyoxbzs2QxZCua/ZhogMERrX8LqL6dm6k4LloBAinj/Mn0WvYyy1rWmO14jxdi5n1kLPd3JgrSTq1H8chDhPzVAEZUxdCZEmBVFxfjjpitWBFqMK21n1CkfwnG4gFG/JHRDhUvl0X+1iCPSXRxcutmDN0wcRqzmsij92gdGSP1s30MMm+/RsD8qKPWXWSRQuWreyIidBzFcRRSsq7VAcOPgBt7a/YzmM4Wxb3XQWe9fCfU+0TgGl4N7EVyC4I2DNl3mfwNqFjiANN7xlE71PnZxdEc2GH5VgfZb0QB9aTKUPiakUgHBrxGyQoPK+jA3x/x8fFHSt9qUdLNyfUYvMsAVbeVuK6ZjMv/CpvLpmyLM4WAxOI57M8KlECLG0bw6ovQ9l0Cv6BmU+Ff6oTyCXtxIbGjY=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SN6PR12MB4623.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(366004)(346002)(376002)(39860400002)(136003)(966005)(2906002)(36756003)(186003)(478600001)(16526019)(4326008)(54906003)(6486002)(110136005)(8936002)(5660300002)(316002)(44832011)(66556008)(66476007)(31686004)(86362001)(53546011)(2616005)(8676002)(31696002)(66946007)(52116002)(38100700002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?aCtwR21yWXlxU01RcG4ra3k5YjhCdkhaZ3dkNFk2eFVsd0hDZHU0YWR4cDJP?=
+ =?utf-8?B?QVhuV0lkYTd1b3ZuTkN6OHFWaVNzekZYUEhBam5lWGx1Y1RqZjJZc2NtSzFH?=
+ =?utf-8?B?enZ6Y3F2UDFCSUdTTVlqQWc1THZKQmlVSTV5SGpaclZydVZ1RGhFd0gvQ05G?=
+ =?utf-8?B?RmtmTDN1ZGVYbXphc2ZpdzhkckxMUFNzMjZvNExTR0ZHTCs3RmxXWWJMRTh6?=
+ =?utf-8?B?eEdEVGIxS0pVaGhlcWU0Qjg0a3ZhN1JsNTdwY3JmL2xKdTg3c2llU29RZnZJ?=
+ =?utf-8?B?eHRqdkNNczV1Mm90RFVYNDRwMUJGekgrRktwdmZQUzBwSUdqQmxCQmovc2hU?=
+ =?utf-8?B?cVVrcVFrZEpCbk03ZlJLYktTOGdSTmVST1k0SGxPODU4SnlUVkdpUjBrYW5n?=
+ =?utf-8?B?eUJRQzd5L080NllVNFMvNmxBcXYwTUlHeXE0djNEU1Q1V2lHam00YjNjOHNp?=
+ =?utf-8?B?SnRDc1h2ZjZLSklQamF5cDZKaUhzMVZnaG9GWDhibjJwYndsVlUxVlkwSWNO?=
+ =?utf-8?B?d2tuZ0JaYXpIa01MZmdOY05ObmNsQ29iMWNTaE5qZFd4NHlSZDRKb0U0NUo3?=
+ =?utf-8?B?UVVBZWtYaTVsa2ozeEdac1VKMVRqQ0REK1ZuZVFLd2puNDhRcDBrcEZOUStL?=
+ =?utf-8?B?RWN5cS9nRTZsNktJcjhRVE93Z1JWZTlFM1dsRlhiK3ZyZUxteUtuZjV4SVJR?=
+ =?utf-8?B?WkNya0UxVFBYODJCMTFGMmNPZm9Xajh6MEE1WkFLRmVOSDdOZHRLTTRqYjVO?=
+ =?utf-8?B?azBBMzl0dGZFM1loQUJCQ0hjSTY2blI5UUxDNUFSV2tGOVVMMTR1ZzYxQW9i?=
+ =?utf-8?B?Q1hZRE16SE5WbU1ibm54bTFweWo1QTlnMyt0UnNYN2x2YnpNOVNMM3hSQStt?=
+ =?utf-8?B?ZlpidytTNnJxeWxmUU96R0cyd2RQSlRxNmNZVkVraHBlbS9GTUhRMlFhQTZV?=
+ =?utf-8?B?OGkwMVhkYTlTTDFWZktLam01WEtWdGpwU01adDJKdVJYRlZQalRITU95THVq?=
+ =?utf-8?B?d0NxbkRUUTQ1eml1bFFiNjhVNFBEVlBwaHFya3BURkVYdUN0VStIZXE2c25L?=
+ =?utf-8?B?QkhDMnlDY2pjNEtQajdlQ3JlZk10cXdGYVlCbnhXbVVYbTdqVnRrUWQvNzJk?=
+ =?utf-8?B?VWpieWVuQ3M3Yk50aUxBQTVTTU9YT0NlT215dk5BZzhRMkVDakpDQXF6amwx?=
+ =?utf-8?B?V3FNTlB4OGc0L0lRbTRVK21tSGtxeERPcmRvSzdYaG5TbC9TN21aWXVrNGps?=
+ =?utf-8?B?b2lUSWFESitvSWFlNU4rbEhKcHBBbkp2ZXJlTE1sUklNZ0w3MDBNSTgxV3Rt?=
+ =?utf-8?B?NzJaRm1ZeVA1cWliYis2VTNZamR6bnNDR1Z1ajdEUkNXaXlwd01hZFora3Rl?=
+ =?utf-8?B?SUJEUVRVTFpzRnhkTWdkbHBqZzJNNmtQSnpwdGtaWnlPYm94dGpnOVZTQkZL?=
+ =?utf-8?B?RERFeldqbnJOLzBVeEpBQ25HVkZDNFhKQVJvWHBIUlVOZU5tNFFOK3VvOUYx?=
+ =?utf-8?B?K2Y5c01ENklKbmE2akxtVjJOLzJPZExlaG5nTEpmUFlVeHZxc3d1blJVYjEx?=
+ =?utf-8?B?ZnpmS2M0dTFPbFN6S2QxOHBOMTBFaXpPMUpOOXpMeGdlR21URHdrMmZQNDB4?=
+ =?utf-8?B?ZnFpVzh0Z2lXMTAxUUZhTnVHd0M0eCtCNjZrQVg5U1VoZTRGMkZMRk9KNFBH?=
+ =?utf-8?B?NWtQSC9NcTBwRmJGSGZBc2lSdDV0bjg5elEwU3lMN2FaWWViRGQ5cG40NVZo?=
+ =?utf-8?B?THNuZFhvSDQ3U0JxYm1lT0t5dTJReXNSUDYxb0tub1dJdEl0MUdDSnRGZEV6?=
+ =?utf-8?B?SVhlTml6ay9sUDFja2Q0Y0poRmx1bXFnem1iY0szV09UWXdHQjloL0pCbDR1?=
+ =?utf-8?B?TGNlaVNrNk9Md1p4VUJMOEx0dWNqMWJVc1ZTOTNCVC9nc2c9PQ==?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5d11ed66-bfa4-4874-7f34-08d9270932ea
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB4623.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2021 03:31:11.4901 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: E7gm2njYq8psEXIMPlyHMefjSoFZE27WM3UaoMTY85o5MVvjb/Iu40orwTTFPDtjtP3WTjWQFyzWxVbZtz1JLA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4398
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,39 +141,53 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
  Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Content-Type: text/plain; charset="us-ascii"
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jun 3, 2021 at 9:37 PM Dave Airlie <airlied@gmail.com> wrote:
+
+On 2021-06-03 10:53 p.m., Alex Deucher wrote:
+> On Thu, Jun 3, 2021 at 9:37 PM Dave Airlie <airlied@gmail.com> wrote:
+>> On Fri, 4 Jun 2021 at 07:20, Alex Deucher <alexdeucher@gmail.com> wrote:
+>>> Please open a gitlab MR for these.
+>>>
+>> I'd really prefer these tests all get migrated out of here into igt. I
+>> don't think libdrm_amdgpu really should have tests that test the
+>> kernel level infrastructure.
+>>
+
+
+I am also a bit confused now what's the policy about libdrm - is it
+being slowly deprecated ?
+What tests should go to IGT and what to libdrm ?
+The kernel feature itself is strictly amdgpu specific and not generic
+DRM level feature - why then it's not a good fit for amdgpu tester ?
+
+
+> We are providing equivalent patches for IGT as well.  There are some
+> teams and customers that would prefer to stick with libdrm_amdgpu.
+
+
+Here are the patches in my cloned gitlab repo - 
+https://gitlab.freedesktop.org/agrodzov/igt-gpu-tools/-/commits/master
+and I sent today for review to igt-dev@lists.freedesktop.org too.
+
+Andrey
+
+
 >
-> On Fri, 4 Jun 2021 at 07:20, Alex Deucher <alexdeucher@gmail.com> wrote:
-> >
-> > Please open a gitlab MR for these.
-> >
+>> I know some people at AMD had issues in the past with igt because the
+>> i might have stood for intel back in time, but at this point I think
+>> we should be moving past that.
+> I don't think that was ever an issue.  It's more that some teams built
+> a bunch of infrastructure that used libdrm tests and haven't had the
+> resources to switch to IGT yet.
 >
-> I'd really prefer these tests all get migrated out of here into igt. I
-> don't think libdrm_amdgpu really should have tests that test the
-> kernel level infrastructure.
->
-
-We are providing equivalent patches for IGT as well.  There are some
-teams and customers that would prefer to stick with libdrm_amdgpu.
-
-> I know some people at AMD had issues in the past with igt because the
-> i might have stood for intel back in time, but at this point I think
-> we should be moving past that.
-
-I don't think that was ever an issue.  It's more that some teams built
-a bunch of infrastructure that used libdrm tests and haven't had the
-resources to switch to IGT yet.
-
-Alex
+> Alex
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
