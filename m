@@ -2,72 +2,54 @@ Return-Path: <SRS0=YIqZ=K6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B7FDFC4743E
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 17:22:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 96FC6C48BDF
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 17:26:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8A47E613FA
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 17:22:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8A47E613FA
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 6593C613AD
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 17:26:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6593C613AD
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39DD86F647;
-	Fri,  4 Jun 2021 17:22:09 +0000 (UTC)
-Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com
- [IPv6:2607:f8b0:4864:20::32b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6983B6F646;
- Fri,  4 Jun 2021 17:22:08 +0000 (UTC)
-Received: by mail-ot1-x32b.google.com with SMTP id
- i14-20020a9d624e0000b029033683c71999so9789534otk.5; 
- Fri, 04 Jun 2021 10:22:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=Jwj11W1dNddZwxmLESUbeDm5qnursrjwtNP8oMdIXWI=;
- b=YKmmPaGc5sg7zLTZfX1ibvETcdsD4jmzaW0Ls+6Sj8pO8eXxXueWQQqKdLrHk5kS74
- VnUuzn+h/weDs9F2Vv6B3JiDdFhF1W6z4h5AgjNjyvYWj7NAUka7qO7A2FX5li0wH8cS
- 1ZlO0QtKzi1ErVH14szu9EO+OB19ycegljhT4xD4bgVcqifBPVJYBJKUYNFrxiZU/Gk6
- Mgq+bIRoCsgcuN9zw7xaBN4ZAVQbl+ll4fbE1ob8QP6SSNWwv3fFbRau9qZpsjhT0uZj
- z44q51wY1uzF+CrviLZrAvTrtu9oLcTZgqtMUkwsqlF5hGxFDfjiTzozrNuvbeYvSSYt
- DvuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=Jwj11W1dNddZwxmLESUbeDm5qnursrjwtNP8oMdIXWI=;
- b=OQTRRn/RGXLk6yy96d03faQltHDNZcgpHiLVfKlwrEPnw5psL8bXDxNd7BGpSd6TNn
- TL6iVMY4zHfjW7PcOAPbGZFQG5AeetH8dHHgCSRWrxvPAQXfnCJVa4go5pd8BpUWC8EU
- K651rYNVleTKBNCoP1e590dty4belV0qTXM4wGJ2WNcU4tXa09oWjL1JnglUS+SR2Tz8
- 5ACNuz/iqkVFRBSfjeyA68Kyyz8M0fIxszLvXDLTSyoIuv71ASohPnVNZN501PX3rqkh
- dXg9hQ6OkCtWblVifgQBB0vCMbkBBEoB8mD6xdjUSXNt0wzj0CX7EJ27Xke/1/dLuWmH
- Mp4Q==
-X-Gm-Message-State: AOAM530l8c/9GWE7y4sRFPTh9eLUj54Vod/o8FNqR4/tM8Nww9DddQyZ
- XMBcBHgMzfau+UGS1arpB539aEGiFKFcBodc6ok=
-X-Google-Smtp-Source: ABdhPJzrq437/q2H6TQntwoQRnFiVMqEeerpbPpO8kP/VQO+tYZYnhHR6HxTrljeb/ZuXt3gH9tgIVk4+L1Oi3wZPE4=
-X-Received: by 2002:a05:6830:1e64:: with SMTP id
- m4mr2007512otr.23.1622827327707; 
- Fri, 04 Jun 2021 10:22:07 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 179E06F64E;
+	Fri,  4 Jun 2021 17:26:53 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 112CF6F645;
+ Fri,  4 Jun 2021 17:26:51 +0000 (UTC)
+IronPort-SDR: tWTVzyjj1JsqHL1upD1hPHNyRx1vZ4ucYw/hh11+rYmTLx6kdaOhtftozK/F2BShTVZ7Z1LLMG
+ ENjT0baCPo+w==
+X-IronPort-AV: E=McAfee;i="6200,9189,10005"; a="184705800"
+X-IronPort-AV: E=Sophos;i="5.83,248,1616482800"; d="scan'208";a="184705800"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jun 2021 10:26:50 -0700
+IronPort-SDR: hHxfs9zcgC2O6PZrXBqdGq+eSyydodxVXZvXVI2bKozhgASgx9bBU8+ndopyiwkqxP9Y2HmPs8
+ GPnpR/h35PpQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.83,248,1616482800"; d="scan'208";a="439257354"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
+ by orsmga007.jf.intel.com with SMTP; 04 Jun 2021 10:26:44 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Fri, 04 Jun 2021 20:26:44 +0300
+Date: Fri, 4 Jun 2021 20:26:44 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Werner Sembach <wse@tuxedocomputers.com>
+Subject: Re: [PATCH 2/4] drm/uAPI: Add "active bpc" as feedback channel for
+ "max bpc" drm property
+Message-ID: <YLpiVFiBrgH29rki@intel.com>
+References: <20210604171723.10276-1-wse@tuxedocomputers.com>
+ <20210604171723.10276-3-wse@tuxedocomputers.com>
 MIME-Version: 1.0
-References: <87o8cnfr3s.wl-chenli@uniontech.com>
- <87im2ufhyz.wl-chenli@uniontech.com>
- <0689a006-a0a2-698a-12d8-cb11156e469a@gmail.com>
- <877djacbfx.wl-chenli@uniontech.com>
- <c4941cb6-8c40-aad1-e61a-2786ba1ab225@gmail.com>
- <87zgw6aull.wl-chenli@uniontech.com>
-In-Reply-To: <87zgw6aull.wl-chenli@uniontech.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 4 Jun 2021 13:21:56 -0400
-Message-ID: <CADnq5_P=y1uvWNF2j2EzyQaZoFANQqrGvZ79PuagXXQPM10HaA@mail.gmail.com>
-Subject: Re: [PATCH v4 2/2] radeon: use memcpy_to/fromio for UVD fw upload
-To: Chen Li <chenli@uniontech.com>
+Content-Disposition: inline
+In-Reply-To: <20210604171723.10276-3-wse@tuxedocomputers.com>
+X-Patchwork-Hint: comment
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,49 +61,188 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: amd-gfx@lists.freedesktop.org, tzimmermann@suse.de,
+ intel-gfx@lists.freedesktop.org, sunpeng.li@amd.com,
+ dri-devel@lists.freedesktop.org, joonas.lahtinen@linux.intel.com,
+ maarten.lankhorst@linux.intel.com, linux-kernel@vger.kernel.org,
+ mripard@kernel.org, airlied@linux.ie, jani.nikula@linux.intel.com,
+ daniel@ffwll.ch, rodrigo.vivi@intel.com, alexander.deucher@amd.com,
+ harry.wentland@amd.com, christian.koenig@amd.com
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QXBwbGllZCB3aXRoIHRoZSBSQiBmaXhlZC4KClRoYW5rcyEKCkFsZXgKCk9uIEZyaSwgSnVuIDQs
-IDIwMjEgYXQgNzo1MyBBTSBDaGVuIExpIDxjaGVubGlAdW5pb250ZWNoLmNvbT4gd3JvdGU6Cj4K
-Pgo+IEkgbWV0IGEgZ3B1IGFkZHIgYnVnIHJlY2VudGx5IGFuZCB0aGUga2VybmVsIGxvZwo+IHRl
-bGxzIG1lIHRoZSBwYyBpcyBtZW1jcHkvbWVtc2V0IGFuZCBsaW5rIHJlZ2lzdGVyIGlzCj4gcmFk
-ZW9uX3V2ZF9yZXN1bWUuCj4KPiBBcyB3ZSBrbm93LCBpbiBzb21lIGFyY2hpdGVjdHVyZXMsIG9w
-dGltaXplZCBtZW1jcHkvbWVtc2V0Cj4gbWF5IG5vdCB3b3JrIHdlbGwgb24gZGV2aWNlIG1lbW9y
-eS4gVHJpdmFsIG1lbWNweV90b2lvL21lbXNldF9pbwo+IGNhbiBmaXggdGhpcyBwcm9ibGVtLgo+
-Cj4gQlRXLCBhbWRncHUgaGFzIGFscmVhZHkgZG9uZSBpdCBpbjoKPiBjb21taXQgYmEwYjIyNzVh
-Njc4ICgiZHJtL2FtZGdwdTogdXNlIG1lbWNweV90by9mcm9taW8gZm9yIFVWRCBmdyB1cGxvYWQi
-KSwKPiB0aGF0J3Mgd2h5IGl0IGhhcyBubyB0aGlzIGlzc3VlIG9uIHRoZSBzYW1lIGdwdSBhbmQg
-cGxhdGZvcm0uCj4KPiBTaWduZWQtb2ZmLWJ5OiBDaGVuIExpIDxjaGVubGlAdW5pb250ZWNoLmNv
-bT4KPiBSZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZwo+IC0tLQo+ICBkcml2ZXJzL2dwdS9k
-cm0vcmFkZW9uL3JhZGVvbl91dmQuYyB8IDQgKystLQo+ICAxIGZpbGUgY2hhbmdlZCwgMiBpbnNl
-cnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
-bS9yYWRlb24vcmFkZW9uX3V2ZC5jIGIvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fdXZk
-LmMKPiBpbmRleCA4NWExZjJjMzE3NDkuLjc1M2RhOTVlNmFiYiAxMDA2NDQKPiAtLS0gYS9kcml2
-ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl91dmQuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9y
-YWRlb24vcmFkZW9uX3V2ZC5jCj4gQEAgLTI4OCw3ICsyODgsNyBAQCBpbnQgcmFkZW9uX3V2ZF9y
-ZXN1bWUoc3RydWN0IHJhZGVvbl9kZXZpY2UgKnJkZXYpCj4gICAgICAgICBpZiAocmRldi0+dXZk
-LnZjcHVfYm8gPT0gTlVMTCkKPiAgICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7Cj4KPiAt
-ICAgICAgIG1lbWNweShyZGV2LT51dmQuY3B1X2FkZHIsIHJkZXYtPnV2ZF9mdy0+ZGF0YSwgcmRl
-di0+dXZkX2Z3LT5zaXplKTsKPiArICAgICAgIG1lbWNweV90b2lvKCh2b2lkIF9faW9tZW0gKily
-ZGV2LT51dmQuY3B1X2FkZHIsIHJkZXYtPnV2ZF9mdy0+ZGF0YSwgcmRldi0+dXZkX2Z3LT5zaXpl
-KTsKPgo+ICAgICAgICAgc2l6ZSA9IHJhZGVvbl9ib19zaXplKHJkZXYtPnV2ZC52Y3B1X2JvKTsK
-PiAgICAgICAgIHNpemUgLT0gcmRldi0+dXZkX2Z3LT5zaXplOwo+IEBAIC0yOTYsNyArMjk2LDcg
-QEAgaW50IHJhZGVvbl91dmRfcmVzdW1lKHN0cnVjdCByYWRlb25fZGV2aWNlICpyZGV2KQo+ICAg
-ICAgICAgcHRyID0gcmRldi0+dXZkLmNwdV9hZGRyOwo+ICAgICAgICAgcHRyICs9IHJkZXYtPnV2
-ZF9mdy0+c2l6ZTsKPgo+IC0gICAgICAgbWVtc2V0KHB0ciwgMCwgc2l6ZSk7Cj4gKyAgICAgICBt
-ZW1zZXRfaW8oKHZvaWQgX19pb21lbSAqKXB0ciwgMCwgc2l6ZSk7Cj4KPiAgICAgICAgIHJldHVy
-biAwOwo+ICB9Cj4gLS0KPiAyLjMxLjEKPgo+Cj4KPgo+IF9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4
-QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
-aWxtYW4vbGlzdGluZm8vYW1kLWdmeApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
-ZC1nZngK
+On Fri, Jun 04, 2021 at 07:17:21PM +0200, Werner Sembach wrote:
+> Add a new general drm property "active bpc" which can be used by graphic =
+drivers
+> to report the applied bit depth per pixel back to userspace.
+> =
+
+> While "max bpc" can be used to change the color depth, there was no way t=
+o check
+> which one actually got used. While in theory the driver chooses the best/=
+highest
+> color depth within the max bpc setting a user might not be fully aware wh=
+at his
+> hardware is or isn't capable off. This is meant as a quick way to double =
+check
+> the setup.
+> =
+
+> In the future, automatic color calibration for screens might also depend =
+on this
+> information available.
+> =
+
+> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+> ---
+>  drivers/gpu/drm/drm_atomic_uapi.c |  2 ++
+>  drivers/gpu/drm/drm_connector.c   | 40 +++++++++++++++++++++++++++++++
+>  include/drm/drm_connector.h       | 15 ++++++++++++
+>  3 files changed, 57 insertions(+)
+> =
+
+> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atom=
+ic_uapi.c
+> index 268bb69c2e2f..7ae4e40936b5 100644
+> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+> @@ -873,6 +873,8 @@ drm_atomic_connector_get_property(struct drm_connecto=
+r *connector,
+>  		*val =3D 0;
+>  	} else if (property =3D=3D connector->max_bpc_property) {
+>  		*val =3D state->max_requested_bpc;
+> +	} else if (property =3D=3D connector->active_bpc_property) {
+> +		*val =3D state->active_bpc;
+>  	} else if (connector->funcs->atomic_get_property) {
+>  		return connector->funcs->atomic_get_property(connector,
+>  				state, property, val);
+> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connec=
+tor.c
+> index 7631f76e7f34..5f42a5be5822 100644
+> --- a/drivers/gpu/drm/drm_connector.c
+> +++ b/drivers/gpu/drm/drm_connector.c
+> @@ -1195,6 +1195,13 @@ static const struct drm_prop_enum_list dp_colorspa=
+ces[] =3D {
+>   *	drm_connector_attach_max_bpc_property() to create and attach the
+>   *	property to the connector during initialization.
+>   *
+> + * active bpc:
+> + *	This read-only range property is used by userspace check the bit depth
+> + *	actually applied by the GPU driver after evaluation all hardware
+> + *	capabilities and max bpc. Drivers to use the function
+> + *	drm_connector_attach_active_bpc_property() to create and attach the
+> + *	property to the connector during initialization.
+> + *
+>   * Connectors also have one standardized atomic property:
+>   *
+>   * CRTC_ID:
+> @@ -2150,6 +2157,39 @@ int drm_connector_attach_max_bpc_property(struct d=
+rm_connector *connector,
+>  }
+>  EXPORT_SYMBOL(drm_connector_attach_max_bpc_property);
+>  =
+
+> +/**
+> + * drm_connector_attach_active_bpc_property - attach "active bpc" proper=
+ty
+> + * @connector: connector to attach active bpc property on.
+> + * @min: The minimum bit depth supported by the connector.
+> + * @max: The maximum bit depth supported by the connector.
+> + *
+> + * This is used to check the applied bit depth on a connector.
+> + *
+> + * Returns:
+> + * Zero on success, negative errno on failure.
+> + */
+> +int drm_connector_attach_active_bpc_property(struct drm_connector *conne=
+ctor,
+> +					  int min, int max)
+> +{
+> +	struct drm_device *dev =3D connector->dev;
+> +	struct drm_property *prop;
+> +
+> +	prop =3D connector->active_bpc_property;
+> +	if (!prop) {
+> +		prop =3D drm_property_create_range(dev, 0, "active bpc", min, max);
+
+Should be immutable.
+
+Also wondering what the semantics of this should be when eg. DSC
+is active?
+
+> +		if (!prop)
+> +			return -ENOMEM;
+> +
+> +		connector->active_bpc_property =3D prop;
+> +	}
+> +
+> +	drm_object_attach_property(&connector->base, prop, 0);
+> +	connector->state->active_bpc =3D 0;
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL(drm_connector_attach_active_bpc_property);
+> +
+>  /**
+>   * drm_connector_set_vrr_capable_property - sets the variable refresh ra=
+te
+>   * capable property for a connector
+> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+> index 1922b278ffad..c58cba2b6afe 100644
+> --- a/include/drm/drm_connector.h
+> +++ b/include/drm/drm_connector.h
+> @@ -781,6 +781,13 @@ struct drm_connector_state {
+>  	 */
+>  	u8 max_bpc;
+>  =
+
+> +	/**
+> +	 * @active_bpc: Read only property set by the GPU driver to the actually
+> +	 * applied bit depth of the pixels after evaluating all hardware
+> +	 * limitations.
+> +	 */
+> +	u8 active_bpc;
+> +
+>  	/**
+>  	 * @hdr_output_metadata:
+>  	 * DRM blob property for HDR output metadata
+> @@ -1380,6 +1387,12 @@ struct drm_connector {
+>  	 */
+>  	struct drm_property *max_bpc_property;
+>  =
+
+> +	/**
+> +	 * @active_bpc_property: Default connector property for the active bpc
+> +	 * to be driven out of the connector.
+> +	 */
+> +	struct drm_property *active_bpc_property;
+> +
+>  #define DRM_CONNECTOR_POLL_HPD (1 << 0)
+>  #define DRM_CONNECTOR_POLL_CONNECT (1 << 1)
+>  #define DRM_CONNECTOR_POLL_DISCONNECT (1 << 2)
+> @@ -1698,6 +1711,8 @@ int drm_connector_set_panel_orientation_with_quirk(
+>  	int width, int height);
+>  int drm_connector_attach_max_bpc_property(struct drm_connector *connecto=
+r,
+>  					  int min, int max);
+> +int drm_connector_attach_active_bpc_property(struct drm_connector *conne=
+ctor,
+> +					  int min, int max);
+>  =
+
+>  /**
+>   * struct drm_tile_group - Tile group metadata
+> -- =
+
+> 2.25.1
+
+-- =
+
+Ville Syrj=E4l=E4
+Intel
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
