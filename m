@@ -7,31 +7,31 @@ X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 28425C47097
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 03:39:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4FDEDC47083
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 03:39:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B1DC361402
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 03:39:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B1DC361402
+	by mail.kernel.org (Postfix) with ESMTPS id 00C2E6140C
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 03:39:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 00C2E6140C
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=uniontech.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F5F46F578;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9BFDD6F57A;
 	Fri,  4 Jun 2021 03:39:17 +0000 (UTC)
 Received: from smtphy.263.net (sg-smtp01.263.net [54.255.195.220])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C536B6F570;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AEE1F6F56F;
  Fri,  4 Jun 2021 03:11:11 +0000 (UTC)
 Received: from smtp.263.net (unknown [211.157.147.163])
- by smtphy.263.net (Postfix) with ESMTPS id 4C9C5134;
- Fri,  4 Jun 2021 11:04:43 +0800 (CST)
-Received: from regular1.263xmail.com (unknown [192.168.165.183])
- by smtp.263.net (Postfix) with ESMTP id 58A602A9;
- Fri,  4 Jun 2021 11:04:40 +0800 (CST)
+ by smtphy.263.net (Postfix) with ESMTPS id DD2953C;
+ Fri,  4 Jun 2021 11:03:08 +0800 (CST)
+Received: from regular1.263xmail.com (unknown [192.168.165.234])
+ by smtp.263.net (Postfix) with ESMTP id A92D7199A;
+ Fri,  4 Jun 2021 11:03:05 +0800 (CST)
 Received: from localhost (unknown [192.168.167.235])
- by regular1.263xmail.com (Postfix) with ESMTP id 45948807;
- Fri,  4 Jun 2021 11:04:37 +0800 (CST)
+ by regular1.263xmail.com (Postfix) with ESMTP id 609DE12DF;
+ Fri,  4 Jun 2021 11:03:03 +0800 (CST)
 X-MAIL-GRAY: 0
 X-MAIL-DELIVERY: 1
 X-ADDR-CHECKED4: 1
@@ -40,10 +40,10 @@ X-SKE-CHECKED: 1
 X-ABS-CHECKED: 1
 Received: from manjaro.uniontech.com (unknown [58.246.122.242])
  by smtp.263.net (postfix) whith ESMTP id
- P31747T140094946129664S1622775876983625_; 
- Fri, 04 Jun 2021 11:04:37 +0800 (CST)
+ P31747T140094956619520S1622775773028026_; 
+ Fri, 04 Jun 2021 11:02:53 +0800 (CST)
 X-IP-DOMAINF: 1
-X-UNIQUE-TAG: <b890aad20f2ebb2e735f034deedf7599>
+X-UNIQUE-TAG: <d160252276998c041bcbb83e5564fe5f>
 X-RL-SENDER: chenli@uniontech.com
 X-SENDER: chenli@uniontech.com
 X-LOGIN-NAME: chenli@uniontech.com
@@ -52,13 +52,13 @@ X-RCPT-COUNT: 4
 X-SENDER-IP: 58.246.122.242
 X-ATTACHMENT-NUM: 0
 X-System-Flag: 0
-Date: Fri, 04 Jun 2021 11:04:36 +0800
-Message-ID: <87im2ufhyz.wl-chenli@uniontech.com>
+Date: Fri, 04 Jun 2021 11:02:52 +0800
+Message-ID: <87lf7qfi1v.wl-chenli@uniontech.com>
 From: Chen Li <chenli@uniontech.com>
 To: Alex Deucher <alexander.deucher@amd.com>,	=?ISO-8859-1?Q?=22Christian_?=
  =?ISO-8859-1?Q?K=F6nig=22?= <christian.koenig@amd.com>,
  dri-devel@lists.freedesktop.org,	amd-gfx@lists.freedesktop.org
-Subject: [PATCH v2 2/2] radeon: use memcpy_to/fromio for UVD fw upload
+Subject: [PATCH v2 1/2] radeon: fix coding issues reported from sparse
 In-Reply-To: <87o8cnfr3s.wl-chenli@uniontech.com>
 References: <87o8cnfr3s.wl-chenli@uniontech.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
@@ -83,47 +83,68 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-I met a gpu addr bug recently and the kernel log
-tells me the pc is memcpy/memset and link register is
-radeon_uvd_resume.
-
-As we know, in some architectures, optimized memcpy/memset
-may not work well on device memory. Trival memcpy_toio/memset_io
-can fix this problem.
-
-BTW, amdgpu has already done it in:
-commit ba0b2275a678 ("drm/amdgpu: use memcpy_to/fromio for UVD fw upload"),
-that's why it has no this issue on the same gpu and platform.
+Also fix some coding issue reported from sparse.
 
 Signed-off-by: Chen Li <chenli@uniontech.com>
 ---
- drivers/gpu/drm/radeon/radeon_uvd.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/radeon/radeon_uvd.c | 24 +++++++++++++-----------
+ 1 file changed, 13 insertions(+), 11 deletions(-)
 
 diff --git a/drivers/gpu/drm/radeon/radeon_uvd.c b/drivers/gpu/drm/radeon/radeon_uvd.c
-index 85a1f2c31749..0d6a5cfa2abf 100644
+index dfa9fdbe98da..85a1f2c31749 100644
 --- a/drivers/gpu/drm/radeon/radeon_uvd.c
 +++ b/drivers/gpu/drm/radeon/radeon_uvd.c
-@@ -288,7 +288,9 @@ int radeon_uvd_resume(struct radeon_device *rdev)
- 	if (rdev->uvd.vcpu_bo == NULL)
- 		return -EINVAL;
+@@ -152,9 +152,11 @@ int radeon_uvd_init(struct radeon_device *rdev)
  
--	memcpy(rdev->uvd.cpu_addr, rdev->uvd_fw->data, rdev->uvd_fw->size);
-+	memcpy_toio((void __iomem *)rdev->uvd.cpu_addr,
-+				rdev->uvd_fw->data,
-+				le32_to_cpu((__force __le32)rdev->uvd_fw->size));
+ 			rdev->uvd.fw_header_present = true;
  
- 	size = radeon_bo_size(rdev->uvd.vcpu_bo);
- 	size -= rdev->uvd_fw->size;
-@@ -296,7 +298,7 @@ int radeon_uvd_resume(struct radeon_device *rdev)
- 	ptr = rdev->uvd.cpu_addr;
- 	ptr += rdev->uvd_fw->size;
+-			family_id = le32_to_cpu(hdr->ucode_version) & 0xff;
+-			version_major = (le32_to_cpu(hdr->ucode_version) >> 24) & 0xff;
+-			version_minor = (le32_to_cpu(hdr->ucode_version) >> 8) & 0xff;
++			family_id = (__force u32)(hdr->ucode_version) & 0xff;
++			version_major = (le32_to_cpu((__force __le32)(hdr->ucode_version))
++							 >> 24) & 0xff;
++			version_minor = (le32_to_cpu((__force __le32)(hdr->ucode_version))
++							 >> 8) & 0xff;
+ 			DRM_INFO("Found UVD firmware Version: %u.%u Family ID: %u\n",
+ 				 version_major, version_minor, family_id);
  
--	memset(ptr, 0, size);
-+	memset_io((void __iomem *)ptr, 0, size);
+@@ -791,17 +793,17 @@ int radeon_uvd_get_create_msg(struct radeon_device *rdev, int ring,
+ 		return r;
  
- 	return 0;
- }
+ 	/* stitch together an UVD create msg */
+-	writel(cpu_to_le32(0x00000de4), &msg[0]);
++	writel((__force u32)cpu_to_le32(0x00000de4), &msg[0]);
+ 	writel(0x0, (void __iomem *)&msg[1]);
+-	writel(cpu_to_le32(handle), &msg[2]);
++	writel((__force u32)cpu_to_le32(handle), &msg[2]);
+ 	writel(0x0, &msg[3]);
+ 	writel(0x0, &msg[4]);
+ 	writel(0x0, &msg[5]);
+ 	writel(0x0, &msg[6]);
+-	writel(cpu_to_le32(0x00000780), &msg[7]);
+-	writel(cpu_to_le32(0x00000440), &msg[8]);
++	writel((__force u32)cpu_to_le32(0x00000780), &msg[7]);
++	writel((__force u32)cpu_to_le32(0x00000440), &msg[8]);
+ 	writel(0x0, &msg[9]);
+-	writel(cpu_to_le32(0x01b37000), &msg[10]);
++	writel((__force u32)cpu_to_le32(0x01b37000), &msg[10]);
+ 	for (i = 11; i < 1024; ++i)
+ 		writel(0x0, &msg[i]);
+ 
+@@ -827,9 +829,9 @@ int radeon_uvd_get_destroy_msg(struct radeon_device *rdev, int ring,
+ 		return r;
+ 
+ 	/* stitch together an UVD destroy msg */
+-	writel(cpu_to_le32(0x00000de4), &msg[0]);
+-	writel(cpu_to_le32(0x00000002), &msg[1]);
+-	writel(cpu_to_le32(handle), &msg[2]);
++	writel((__force u32)cpu_to_le32(0x00000de4), &msg[0]);
++	writel((__force u32)cpu_to_le32(0x00000002), &msg[1]);
++	writel((__force u32)cpu_to_le32(handle), &msg[2]);
+ 	writel(0x0, &msg[3]);
+ 	for (i = 4; i < 1024; ++i)
+ 		writel(0x0, &msg[i]);
 -- 
 2.31.1
 
