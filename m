@@ -7,25 +7,25 @@ X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A812FC47099
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 11:53:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 50479C47098
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 11:53:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 784046140C
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 11:53:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 784046140C
+	by mail.kernel.org (Postfix) with ESMTPS id 11F1D6140F
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 11:53:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 11F1D6140F
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=uniontech.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 955BF6E314;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC8526E32A;
 	Fri,  4 Jun 2021 11:53:27 +0000 (UTC)
-Received: from regular1.263xmail.com (regular1.263xmail.com [211.150.70.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C1FC36E15D;
- Fri,  4 Jun 2021 08:28:59 +0000 (UTC)
-Received: from localhost (unknown [192.168.167.32])
- by regular1.263xmail.com (Postfix) with ESMTP id 8C18A1BCA;
- Fri,  4 Jun 2021 16:28:56 +0800 (CST)
+Received: from regular1.263xmail.com (regular1.263xmail.com [211.150.70.201])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3E186E97B;
+ Fri,  4 Jun 2021 08:37:43 +0000 (UTC)
+Received: from localhost (unknown [192.168.167.13])
+ by regular1.263xmail.com (Postfix) with ESMTP id C40DAEC0;
+ Fri,  4 Jun 2021 16:37:41 +0800 (CST)
 X-MAIL-GRAY: 0
 X-MAIL-DELIVERY: 1
 X-ADDR-CHECKED4: 1
@@ -34,29 +34,31 @@ X-SKE-CHECKED: 1
 X-ABS-CHECKED: 1
 Received: from manjaro.uniontech.com (unknown [58.246.122.242])
  by smtp.263.net (postfix) whith ESMTP id
- P30809T139674067453696S1622795326072443_; 
- Fri, 04 Jun 2021 16:28:46 +0800 (CST)
+ P32134T140105771636480S1622795856638405_; 
+ Fri, 04 Jun 2021 16:37:37 +0800 (CST)
 X-IP-DOMAINF: 1
-X-UNIQUE-TAG: <f71d30b5e02927d24e19708d4ed2ae10>
+X-UNIQUE-TAG: <8a96aba8be7c476945315ee439019f48>
 X-RL-SENDER: chenli@uniontech.com
 X-SENDER: chenli@uniontech.com
 X-LOGIN-NAME: chenli@uniontech.com
-X-FST-TO: ckoenig.leichtzumerken@gmail.com
+X-FST-TO: christian.koenig@amd.com
 X-RCPT-COUNT: 6
 X-SENDER-IP: 58.246.122.242
 X-ATTACHMENT-NUM: 0
 X-System-Flag: 0
-Date: Fri, 04 Jun 2021 16:28:46 +0800
-Message-ID: <875yyuc9tt.wl-chenli@uniontech.com>
+Date: Fri, 04 Jun 2021 16:37:36 +0800
+Message-ID: <874keec9f3.wl-chenli@uniontech.com>
 From: Chen Li <chenli@uniontech.com>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
 Subject: Re: [PATCH v3 2/2] radeon: use memcpy_to/fromio for UVD fw upload
-In-Reply-To: <c4941cb6-8c40-aad1-e61a-2786ba1ab225@gmail.com>
+In-Reply-To: <7bf7e03a-4733-bf66-4a81-ac712582539c@amd.com>
 References: <87o8cnfr3s.wl-chenli@uniontech.com>
  <87im2ufhyz.wl-chenli@uniontech.com>
  <0689a006-a0a2-698a-12d8-cb11156e469a@gmail.com>
  <877djacbfx.wl-chenli@uniontech.com>
  <c4941cb6-8c40-aad1-e61a-2786ba1ab225@gmail.com>
+ <875yyuc9tt.wl-chenli@uniontech.com>
+ <7bf7e03a-4733-bf66-4a81-ac712582539c@amd.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
  FLIM-LB/1.14.9 (=?ISO-8859-4?Q?Goj=F2?=) APEL-LB/10.8 EasyPG/1.0.0
  Emacs/28.0.50 (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -73,15 +75,16 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- Chen Li <chenli@uniontech.com>, dri-devel@lists.freedesktop.org,
- Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ amd-gfx@lists.freedesktop.org, Chen Li <chenli@uniontech.com>,
+ dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 04 Jun 2021 16:08:26 +0800,
+On Fri, 04 Jun 2021 16:31:28 +0800,
 Christian K=F6nig wrote:
 > =
 
@@ -89,73 +92,100 @@ Christian K=F6nig wrote:
 
 > =
 
-> Am 04.06.21 um 09:53 schrieb Chen Li:
-> > I met a gpu addr bug recently and the kernel log
-> > tells me the pc is memcpy/memset and link register is
-> > radeon_uvd_resume.
+> Am 04.06.21 um 10:28 schrieb Chen Li:
+> > On Fri, 04 Jun 2021 16:08:26 +0800,
+> > Christian K=F6nig wrote:
+> >> =
+
+> >> =
+
+> >> Am 04.06.21 um 09:53 schrieb Chen Li:
+> >>> I met a gpu addr bug recently and the kernel log
+> >>> tells me the pc is memcpy/memset and link register is
+> >>> radeon_uvd_resume.
+> >>> =
+
+> >>> As we know, in some architectures, optimized memcpy/memset
+> >>> may not work well on device memory. Trival memcpy_toio/memset_io
+> >>> can fix this problem.
+> >>> =
+
+> >>> BTW, amdgpu has already done it in:
+> >>> commit ba0b2275a678 ("drm/amdgpu: use memcpy_to/fromio for UVD fw upl=
+oad"),
+> >>> that's why it has no this issue on the same gpu and platform.
+> >>> =
+
+> >>> Signed-off-by: Chen Li <chenli@uniontech.com>
+> >>> ---
+> >>>    drivers/gpu/drm/radeon/radeon_uvd.c | 6 ++++--
+> >>>    1 file changed, 4 insertions(+), 2 deletions(-)
+> >>> =
+
+> >>> diff --git a/drivers/gpu/drm/radeon/radeon_uvd.c b/drivers/gpu/drm/ra=
+deon/radeon_uvd.c
+> >>> index 85a1f2c31749..55abf9a9623b 100644
+> >>> --- a/drivers/gpu/drm/radeon/radeon_uvd.c
+> >>> +++ b/drivers/gpu/drm/radeon/radeon_uvd.c
+> >>> @@ -288,7 +288,9 @@ int radeon_uvd_resume(struct radeon_device *rdev)
+> >>>    	if (rdev->uvd.vcpu_bo =3D=3D NULL)
+> >>>    		return -EINVAL;
+> >>>    -	memcpy(rdev->uvd.cpu_addr, rdev->uvd_fw->data, rdev->uvd_fw->siz=
+e);
+> >>> +	memcpy_toio((void __iomem *)rdev->uvd.cpu_addr,
+> >>> +				rdev->uvd_fw->data,
+> >>> +				rdev->uvd_fw->size);
+> >> The coding style still looks wrong here, e.g. it is indented to far to=
+ the right
+> >> and data/size can be on one line.
+> > It's really werid that the patch before being replyed has not this codi=
+ng style issue and do always indent the same with previous memcpy(in all of=
+ v1, v2 and v3),
+> > you can check at https://nam11.safelinks.protection.outlook.com/?url=3D=
+https%3A%2F%2Fpatchwork.kernel.org%2Fproject%2Fdri-devel%2Fpatch%2F87im2ufh=
+yz.wl-chenli%40uniontech.com%2F&amp;data=3D04%7C01%7Cchristian.koenig%40amd=
+.com%7C3faf061c19b54a68e72508d92732cd5e%7C3dd8961fe4884e608e11a82d994e183d%=
+7C0%7C0%7C637583921450406148%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLC=
+JQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=3Db0726ORwyeL=
+QsKVzqjfZEMaU4Vi543szpFYoHekPMIU%3D&amp;reserved=3D0 Cannot figure out what=
+ happened, sorry.
 > > =
 
-> > As we know, in some architectures, optimized memcpy/memset
-> > may not work well on device memory. Trival memcpy_toio/memset_io
-> > can fix this problem.
-> > =
-
-> > BTW, amdgpu has already done it in:
-> > commit ba0b2275a678 ("drm/amdgpu: use memcpy_to/fromio for UVD fw uploa=
-d"),
-> > that's why it has no this issue on the same gpu and platform.
-> > =
-
-> > Signed-off-by: Chen Li <chenli@uniontech.com>
-> > ---
-> >   drivers/gpu/drm/radeon/radeon_uvd.c | 6 ++++--
-> >   1 file changed, 4 insertions(+), 2 deletions(-)
-> > =
-
-> > diff --git a/drivers/gpu/drm/radeon/radeon_uvd.c b/drivers/gpu/drm/rade=
-on/radeon_uvd.c
-> > index 85a1f2c31749..55abf9a9623b 100644
-> > --- a/drivers/gpu/drm/radeon/radeon_uvd.c
-> > +++ b/drivers/gpu/drm/radeon/radeon_uvd.c
-> > @@ -288,7 +288,9 @@ int radeon_uvd_resume(struct radeon_device *rdev)
-> >   	if (rdev->uvd.vcpu_bo =3D=3D NULL)
-> >   		return -EINVAL;
-> >   -	memcpy(rdev->uvd.cpu_addr, rdev->uvd_fw->data, rdev->uvd_fw->size);
-> > +	memcpy_toio((void __iomem *)rdev->uvd.cpu_addr,
-> > +				rdev->uvd_fw->data,
-> > +				rdev->uvd_fw->size);
+> > I'll take merge them in single line in the next series, thanks.
 > =
 
-> The coding style still looks wrong here, e.g. it is indented to far to th=
-e right
-> and data/size can be on one line.
+> It's not much of an issue, just make sure that checkpatch.pl doesn't comp=
+lain.
 
-It's really werid that the patch before being replyed has not this coding s=
-tyle issue and do always indent the same with previous memcpy(in all of v1,=
- v2 and v3),
-you can check at https://patchwork.kernel.org/project/dri-devel/patch/87im2=
-ufhyz.wl-chenli@uniontech.com/ Cannot figure out what happened, sorry.
-
-I'll take merge them in single line in the next series, thanks.
+Yes, have already done checkpatch in all these series.
 > =
 
-> Apart from that the patch is Reviewed-by: Christian K=F6nig
-> <christian.koenig@amd.com>
-> =
-
-> Regards,
 > Christian.
 > =
 
-> >     	size =3D radeon_bo_size(rdev->uvd.vcpu_bo);
-> >   	size -=3D rdev->uvd_fw->size;
-> > @@ -296,7 +298,7 @@ int radeon_uvd_resume(struct radeon_device *rdev)
-> >   	ptr =3D rdev->uvd.cpu_addr;
-> >   	ptr +=3D rdev->uvd_fw->size;
-> >   -	memset(ptr, 0, size);
-> > +	memset_io((void __iomem *)ptr, 0, size);
-> >     	return 0;
-> >   }
+> >> Apart from that the patch is Reviewed-by: Christian K=F6nig
+> >> <christian.koenig@amd.com>
+> >> =
+
+> >> Regards,
+> >> Christian.
+> >> =
+
+> >>>      	size =3D radeon_bo_size(rdev->uvd.vcpu_bo);
+> >>>    	size -=3D rdev->uvd_fw->size;
+> >>> @@ -296,7 +298,7 @@ int radeon_uvd_resume(struct radeon_device *rdev)
+> >>>    	ptr =3D rdev->uvd.cpu_addr;
+> >>>    	ptr +=3D rdev->uvd_fw->size;
+> >>>    -	memset(ptr, 0, size);
+> >>> +	memset_io((void __iomem *)ptr, 0, size);
+> >>>      	return 0;
+> >>>    }
+> >> =
+
+> >> =
+
+> > =
+
 > =
 
 > =
