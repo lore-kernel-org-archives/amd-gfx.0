@@ -2,79 +2,57 @@ Return-Path: <SRS0=YIqZ=K6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
 	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B6619C07E94
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 07:40:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0CDB8C07E94
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 07:47:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 82CE1613AC
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 07:40:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 82CE1613AC
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 26ECD613AA
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 07:47:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 26ECD613AA
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=daenzer.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 255216F5BA;
-	Fri,  4 Jun 2021 07:40:13 +0000 (UTC)
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [IPv6:2a00:1450:4864:20::633])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 350F16F5BA
- for <amd-gfx@lists.freedesktop.org>; Fri,  4 Jun 2021 07:40:12 +0000 (UTC)
-Received: by mail-ej1-x633.google.com with SMTP id k25so7562142eja.9
- for <amd-gfx@lists.freedesktop.org>; Fri, 04 Jun 2021 00:40:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=T2LF/iXm2hY6nCrOz0bpKtxr+D9/Llstgz8ndcZZQE4=;
- b=lFPJ6a7hUfz6DhVAry3i4IfjzF4Xlo6tr5YPRskRxKZqVsGryBpx4kTMCgUpygUdhh
- pcyim68U2/THJgtMAKpz3bxstUQHmZ6qkF5O9OXB1uwHArTRHLJFkAuDN7HhUjBfytbf
- Y34FKXedYx2aisX75RdWNEDfPTkihMhpDNzSNb8ZIm0ihAxF1pIW3bnIldnyEx+9RNP1
- rv2fTVBKEgM0fFxwwIIHPjAvDitvHgC/6fWOyaPhdBhUYleyFiHCunnJxcnP5L8Dnui+
- oAX3KHzdHfw+gsX3Mg7VZnll66nCQe8c5hrzQ1cULdzu6KSnvvhGql3TpoD6iYXQRTu3
- YuNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=T2LF/iXm2hY6nCrOz0bpKtxr+D9/Llstgz8ndcZZQE4=;
- b=bMk+Ei0KjaBmR+vKfWDiwUO2SNPArN+dTpuJcfO9987NiVM4klERTzPPfMobMlBEGS
- mw4CsXavg4o4IQY5TzXQUHR0TA0ThANnKnvF3eiJISxXiuI/c05AamlY9LZuc+Wj64mi
- Egg1mZhh7snkvrkxs/XLj2VgnXWB+vNc1zFFHMynFSKO+FbNwBDxQc3UwgmHUxqUoaV0
- G69f4XlredklUd6SPF/uv2Jwfu5ZYWw8Iag5DAOsb5KaARDObIceD/JeHvNjMyTC5rE+
- e6/DZhTio0ZgXNKt/Nw5ashKC54oa/B1psgFRtO+StQful03wsotR+O9C0RfkPiZtLuC
- Gnkg==
-X-Gm-Message-State: AOAM530gbYDufhn586PRRUiBZV+fXiWgnw2sfF15WfWVqp7UQKgG7FER
- Le03ozxw9Ag74Ufixl3k4sOmEFrQ4YI=
-X-Google-Smtp-Source: ABdhPJyxEdyVQGbn2F/W4Nz+1PFKjAQpaTVvTKWspZ03uJPjkOaw4byMNSmgQZw4toy7X56dV1FFrw==
-X-Received: by 2002:a17:906:2419:: with SMTP id
- z25mr2984929eja.343.1622792410869; 
- Fri, 04 Jun 2021 00:40:10 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:7b4b:873a:17b5:b581?
- ([2a02:908:1252:fb60:7b4b:873a:17b5:b581])
- by smtp.gmail.com with ESMTPSA id p10sm2425077ejc.14.2021.06.04.00.40.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 04 Jun 2021 00:40:10 -0700 (PDT)
-Subject: Re: [BUG] Data race when use PACKET3_DMA_DATA?
-To: Chen Lei <chenlei18s@ict.ac.cn>, Alex Deucher <alexdeucher@gmail.com>
-References: <30855000.34f9.179ccbc8079.Coremail.chenlei18s@ict.ac.cn>
- <CADnq5_Mg+kVrXNLsNW8ZYS9JMmch4Jg5iAzOdCqyPru8UpmctA@mail.gmail.com>
- <66ba8554.40b87.179cf463340.Coremail.chenlei18s@ict.ac.cn>
- <CADnq5_PN+-N+QCuAGJeyEHLJ_WuX_vUf=fDgjruwHcKtD15v0Q@mail.gmail.com>
- <1d273190.41b52.179cff24956.Coremail.chenlei18s@ict.ac.cn>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <b5c15d2d-4660-51ca-5205-b724b51f8ad7@gmail.com>
-Date: Fri, 4 Jun 2021 09:40:08 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id C39366F5BE;
+	Fri,  4 Jun 2021 07:47:06 +0000 (UTC)
+Received: from netline-mail3.netline.ch (mail.netline.ch [148.251.143.180])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 109BA6F5BE
+ for <amd-gfx@lists.freedesktop.org>; Fri,  4 Jun 2021 07:47:06 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by netline-mail3.netline.ch (Postfix) with ESMTP id 4175620201D;
+ Fri,  4 Jun 2021 09:47:05 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at netline-mail3.netline.ch
+Received: from netline-mail3.netline.ch ([127.0.0.1])
+ by localhost (netline-mail3.netline.ch [127.0.0.1]) (amavisd-new, port 10024)
+ with LMTP id MvPWjukmCkD7; Fri,  4 Jun 2021 09:47:04 +0200 (CEST)
+Received: from thor (24.99.2.85.dynamic.wline.res.cust.swisscom.ch
+ [85.2.99.24])
+ by netline-mail3.netline.ch (Postfix) with ESMTPA id 1FA3720201C;
+ Fri,  4 Jun 2021 09:47:04 +0200 (CEST)
+Received: from [::1] by thor with esmtp (Exim 4.94.2)
+ (envelope-from <michel@daenzer.net>)
+ id 1lp4Xm-0002yn-PC; Fri, 04 Jun 2021 09:47:02 +0200
+To: Alex Deucher <alexdeucher@gmail.com>
+References: <a4ba9456-812b-5280-75fd-6dd66d1f9718@riseup.net>
+ <22c25fa6-b3eb-b778-8598-3ce1947a3d0b@daenzer.net>
+ <CADnq5_OVjssNi2niLZQs-TOyN5T5EFOnpwmpmbvHRgh_M0B=wg@mail.gmail.com>
+ <7a9f2682-559d-57ec-4879-b1e6f743c375@daenzer.net>
+ <CADnq5_O+FjF0R0OEMyPZ-hzg7d2Fx87NBUjax8_XLF4b71oKmg@mail.gmail.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+Subject: Re: AMDGPU error: "[drm:amdgpu_dm_atomic_commit_tail [amdgpu]]
+ *ERROR* Waiting for fences timed out!"
+Message-ID: <7ecaff42-68e4-7566-0da1-fa3475fcacb3@daenzer.net>
+Date: Fri, 4 Jun 2021 09:47:02 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
+ Thunderbird/78.10.2
 MIME-Version: 1.0
-In-Reply-To: <1d273190.41b52.179cff24956.Coremail.chenlei18s@ict.ac.cn>
-Content-Language: en-US
+In-Reply-To: <CADnq5_O+FjF0R0OEMyPZ-hzg7d2Fx87NBUjax8_XLF4b71oKmg@mail.gmail.com>
+Content-Language: en-CA
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,103 +64,63 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: xgqt <xgqt@riseup.net>, amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
-
-I think your problem comes from the missing understanding that the 
-hardware is heavily pipelined.
-
-In other words commands you send to the hardware just kick of 
-asynchronously processing, e.g. a CP DMA command just kicks a copy 
-operation but the CP then continue executing commands.
-
-Same thing for a RELEASE_MEM packet, it just kicks of an operation to 
-write a value to an address when all Compute or 3D rendering is completed.
-
-But if you want to synchronize execution of the CP commands you still 
-need to block for that valuie to be written or otherwise the CP will 
-just keep going with the next command.
-
-Regards,
-Christian.
-
-Am 03.06.21 um 05:37 schrieb Chen Lei:
-> I had seperated the dispatch packet and DMA DATA packet into 2 IBs, and called the amdgpu_cs_ioctl twice.
-> If I was not mistaken, the `amdgpu_ib_schedule` would emit fence packets for each amdgpu_cs_ioctl call.
-> Did I need to insert the fence packet explicitly after the dispatch packet?
->
->
-> &gt; -----Original Messages-----
-> &gt; From: "Alex Deucher" <alexdeucher@gmail.com>
-> &gt; Sent Time: 2021-06-03 10:11:46 (Thursday)
-> &gt; To: "Chen Lei" <chenlei18s@ict.ac.cn>
-> &gt; Cc: "amd-gfx list" <amd-gfx@lists.freedesktop.org>
-> &gt; Subject: Re: Re: [BUG] Data race when use PACKET3_DMA_DATA?
-> &gt;
-> &gt; On Wed, Jun 2, 2021 at 8:29 PM Chen Lei <chenlei18s@ict.ac.cn> wrote:
-> &gt; &gt;
-> &gt; &gt; Hi Alex. Thanks for your quick reply.
-> &gt; &gt; I first submit the OpenCL kernel packet and then submit the DMA DATA packet. And the OpenCL kernel reads the value written by the DMA DATA packet.
-> &gt; &gt; If I understand you correctly, that is because the CP engine continues on to process the DMA DATA packet after launching the OpenCL kernel. If so, is there any way to sync the CP engine until the OpenCL kernel is complete?
-> &gt; &gt;
-> &gt;
-> &gt; Once the kernel has been dispatched to the shader cores, the CP will
-> &gt; continue to execute packets in the queue.  If you want it to wait for
-> &gt; the pipeline to drain you'll need to insert a fence packet (e.g.,
-> &gt; RELEASE_MEM).
-> &gt;
-> &gt; Alex
-> &gt;
-> &gt; &gt;
-> &gt; &gt; &gt; -----Original Messages-----
-> &gt; &gt; &gt; From: "Alex Deucher" <alexdeucher@gmail.com>
-> &gt; &gt; &gt; Sent Time: 2021-06-02 21:37:51 (Wednesday)
-> &gt; &gt; &gt; To: "Chen Lei" <chenlei18s@ict.ac.cn>
-> &gt; &gt; &gt; Cc: "amd-gfx list" <amd-gfx@lists.freedesktop.org>
-> &gt; &gt; &gt; Subject: Re: [BUG] Data race when use PACKET3_DMA_DATA?
-> &gt; &gt; &gt;
-> &gt; &gt; &gt; On Wed, Jun 2, 2021 at 8:44 AM Chen Lei <chenlei18s@ict.ac.cn> wrote:
-> &gt; &gt; &gt; &gt;
-> &gt; &gt; &gt; &gt; Hi, I noticed that there are two ways to do DMA for amd gpu: the SDMA copy packet and the PM4 dma packet.
-> &gt; &gt; &gt; &gt;
-> &gt; &gt; &gt; &gt; I had tested the PM4 dma packet:  PACKET3_DMA_DATA. In most of time, it works.
-> &gt; &gt; &gt; &gt;
-> &gt; &gt; &gt; &gt; But when I launch an OpenCL kernel followed by a host-to-gpu DMA packet, it seems that the OpenCL kernel read the new value written by the following DMA packet.
-> &gt; &gt; &gt; &gt;
-> &gt; &gt; &gt; &gt; Both the OpenCL kernel and the PM4 dma packet are submitted using the amdgpu_cs_ioctl, and they are submitted to the same ring.
-> &gt; &gt; &gt; &gt;
-> &gt; &gt; &gt; &gt; I was not family with the hardware details. According to my understanding, because the ring is FIFO, there is no need for any explicit synchronization between the OpenCL kernel launch packet and the dma packet. So the result looked weird. And when I add the synchronization(i.e. amdgpu_cs_wait_ioctl) before the dma packet, everything is OK.
-> &gt; &gt; &gt; &gt;
-> &gt; &gt; &gt; &gt; Was it a hardware bug or did I miss something?
-> &gt; &gt; &gt; &gt;
-> &gt; &gt; &gt;
-> &gt; &gt; &gt; The CP DMA engine is separate from the various CP micro engines.  When
-> &gt; &gt; &gt; there is a DMA DATA packet, the DMA operation is offloaded to the CP
-> &gt; &gt; &gt; DMA engine and the CP engine that processed the packet continues on to
-> &gt; &gt; &gt; the next packet.  You need to use the ENGINE_SEL and CP_SYNC bits in
-> &gt; &gt; &gt; the DMA DATA packet to specify the behavior you want.  The ENGINE_SEL
-> &gt; &gt; &gt; bit selects which CP engine processes the packet (PFP or ME) and the
-> &gt; &gt; &gt; CP_SYNC bit stops further packet processing on the selected engine
-> &gt; &gt; &gt; until the DMA is complete.
-> &gt; &gt; &gt;
-> &gt; &gt; &gt; Alex
-> &gt; &gt; </chenlei18s@ict.ac.cn></amd-gfx@lists.freedesktop.org></chenlei18s@ict.ac.cn></alexdeucher@gmail.com>
-> &gt; &gt; _______________________________________________
-> &gt; &gt; amd-gfx mailing list
-> &gt; &gt; amd-gfx@lists.freedesktop.org
-> &gt; &gt; https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-> </chenlei18s@ict.ac.cn></amd-gfx@lists.freedesktop.org></chenlei18s@ict.ac.cn></alexdeucher@gmail.com>
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gMjAyMS0wNS0xOSAzOjU3IHAubS4sIEFsZXggRGV1Y2hlciB3cm90ZToKPiBPbiBXZWQsIE1h
+eSAxOSwgMjAyMSBhdCA0OjQ4IEFNIE1pY2hlbCBEw6RuemVyIDxtaWNoZWxAZGFlbnplci5uZXQ+
+IHdyb3RlOgo+Pgo+PiBPbiAyMDIxLTA1LTE5IDEyOjA1IGEubS4sIEFsZXggRGV1Y2hlciB3cm90
+ZToKPj4+IE9uIFR1ZSwgTWF5IDE4LCAyMDIxIGF0IDEwOjExIEFNIE1pY2hlbCBEw6RuemVyIDxt
+aWNoZWxAZGFlbnplci5uZXQ+IHdyb3RlOgo+Pj4+Cj4+Pj4gT24gMjAyMS0wNS0xNyAxMTozMyBh
+Lm0uLCB4Z3F0IHdyb3RlOgo+Pj4+PiBIZWxsbyEKPj4+Pj4KPj4+Pj4gSSBydW4gYSBBTUQgbGFw
+dG9wICI4MU5DIExlbm92byBJZGVhUGFkIFMzNDAtMTVBUEkiIC0gQU1EIFJ5emVuIDUgMzUwMFUg
+d2l0aCBSYWRlb24gVmVnYSA4IEdyYXBoaWNzLgo+Pj4+PiBSZWNlbnRseSBzb21lIGJyZWFrYWdl
+cyBzdGFydGVkIGhhcHBlbmluZyBmb3IgbWUuIEluIGFib3V0IDFoIGFmdGVyIGJvb3QtdXAgd2hp
+bGUgdXNpbmcgYSBLREUgZGVza3RvcCBtYWNoaW5lIEdVSSB3b3VsZCBmcmVlemUuIFNvbWV0aW1l
+cyBpdCB3b3VsZCBiZSBwb3NzaWJsZSB0byBtb3ZlIHRoZSBtb3VzZSBidXQgdGhlIHJlc3Qgd2ls
+bCBiZSBmcm96ZW4uIFNjcmVlbiBtYXkgc3RhcnQgYmxpbmtpbmcgb3IgZ28gYmxhY2suCj4+Pj4+
+Cj4+Pj4+IEknbSBub3Qgc3VyZSBpZiB0aGlzIGlzIG15IGtlcm5lbCwgZmlybXdhcmUgb3IgdGhl
+IGhhcmR3YXJlLgo+Pj4+PiBJIGRvbid0IHVuZGVyc3RhbmRzIGRtZXNnIHRoYXQncyB3aHkgSSdt
+IGd1ZXNzaW5nLCBidXQgSSB0aGluayBpdCBpcyB0aGUgZmlybXdhcmUgc2luY2UgdGhpcyBiZWhh
+dmlvciBzdGFydGVkIGFyb3VuZCAyMDIxLTA1LTE1Lgo+Pj4+PiBGcm9tIG15IFBvcnRhZ2UgbG9n
+cyBJIHNlZSB0aGF0IEkgdXBkYXRlZCBteSBmaXJtd2FyZSBvbiAyMDIxLTA1LTE0IGF0IDE4OjE2
+OjA2Lgo+Pj4+PiBTbyBicmVha2FnZXMgc3RhcnRlZCB3aXRoIG15IGtlcm5lbDogNS4xMC4yNyBh
+bmQgRlc6IDIwMjEwNTExLgo+Pj4+PiBBZnRlciBicmVha2FnZSBJIGp1bXBlZCB0byBhIG9sZGVy
+IGtlcm5lbCA1LjQuOTcgYW5kIGNvbXBpbGVkIDUuMTIuNC4gSSBkaWRuJ3Qgbm90aWNlIGEgYnJl
+YWthZ2Ugb24gNS40Ljk3IGJ1dCBzeXN0ZW0gcmFuIH40MCBtaW51dGVzLgo+Pj4+PiBTbyBJIGJv
+b3RlZCB0byBuZXdseSBjb21waWxlZCA1LjEyLjQgd2hlcmUgSSB3YXMgfjFoIGFuZCBpdCBicm9r
+ZS4KPj4+Pj4gQWZ0ZXIgdGhhdCBJIGJvb3RlZCB0byA1LjQuOTcgYWdhaW4gYW5kIGRvd25ncmFk
+ZWQgbXkgRlcuCj4+Pj4+IFdoaWxlIEknbSB3cml0aW5nIHRoaXMgSSdtIGJvb3RlZCB0byBrZXJu
+ZWw6IDUuMTIuNCB3aXRoIEZXOiAyMDIxMDMxNS4KPj4+Pj4KPj4+Pj4gSSBhbHNvIGRlc2NyaWJl
+ZCBteSBzaXR1YXRpb24gb24gdGhlIEdlbnRvbyBidWd6aWxsYTogaHR0cHM6Ly9idWdzLmdlbnRv
+by5vcmcvNzkwNTY2Cj4+Pj4+Cj4+Pj4+ICJkbWVzZy5sb2ciIGF0dGFjaGVkIGhlcmUgaXMgZnJv
+bSB0aGUgdGltZSBtYWNoaW5lIHJ1biBmaW5lIChhdCB0aGUgbW9tZW50KTsgImVycm9yc19zYXRf
+bWF5XzE1XzA3MjgyNV9wbV9jZXN0XzIwMjEubG9nIiBpcyBhIGRtZXNnIGxvZyBmcm9tIHRoZSB0
+aW1lIHN5c3RlbSBicm9rZQo+Pj4+Pgo+Pj4+PiBDYW4gSSBnZXQgYW55IGhlbHAgd2l0aCB0aGlz
+PyBXaGF0IGFyZSB0aGUgbmV4dCBzdGVwcyBJIHNob3VsZCB0YWtlPyBBbnkgb3RoZXIgZmlsZXMg
+SSBzaG91bGQgcHJvdmlkZT8KPj4+Pgo+Pj4+IEkndmUgaGl0IHNpbWlsYXIgaGFuZ3Mgd2l0aCBh
+IExlbm92byBUaGlua1BhZCBFNTk1IChSeXplbiA3IDM3MDBVIC8gUGljYXNzbyAvIFJBVkVOIDB4
+MTAwMjoweDE1RDggMHgxN0FBOjB4NTEyNCAweEMxKS4gSSdtIGFsc28gc3VzcGVjdGluZyB0aGVt
+IHRvIGJlIGZpcndhcmUgcmVsYXRlZC4gVGhlIGhhbmdzIG9jY3VycmVkIHdpdGggZmlybXdhcmUg
+ZnJvbSB0aGUgQU1EIDIwLjUwIHJlbGVhc2UuIEknbSBjdXJyZW50bHkgcnVubmluZyB3aXRoIGZp
+cm13YXJlIGZyb20gdGhlIDIwLjQwIHJlbGVhc2UsIG5vIGhhbmcgaW4gYWxtb3N0IDIgd2Vla3Mg
+KHRoZSBoYW5ncyBoYXBwZW5lZCB3aXRoaW4gMS0yIGRheXMgYWZ0ZXIgYm9vdCkuCj4+Pgo+Pj4g
+Q2FuIHlvdSBuYXJyb3cgZG93biB3aGljaCBmaXJtd2FyZShzKSBjYXVzZSB0aGUgcHJvYmxlbT8K
+Pj4KPj4gSSdsbCB0cnksIGJ1dCBub3RlIEknbSBub3QgcmVhbGx5IHN1cmUgeWV0IG15IGhhbmdz
+IHdlcmUgcmVsYXRlZCB0byBmaXJtd2FyZSAob25seSkuIEFueXdheSwgSSdsbCB0cnkgbmFycm93
+aW5nIGl0IGRvd24uCj4gCj4gVGhhbmtzLiAgRG9lcyB0aGlzIHBhdGNoIGhlbHA/Cj4gaHR0cHM6
+Ly9wYXRjaHdvcmsuZnJlZWRlc2t0b3Aub3JnL3BhdGNoLzQzMzcwMS8KClVuZm9ydHVuYXRlbHkg
+bm90LiBBZnRlciBubyBoYW5ncyBmb3IgdHdvIHdlZWtzIHdpdGggb2xkZXIgZmlybXdhcmUsIEkg
+anVzdCBnb3QgYSBoYW5nIGFnYWluIHdpdGhpbiBhIGRheSB3aXRoIG5ld2VyIGZpcm13YXJlIGFu
+ZCBhIGtlcm5lbCB3aXRoIHRoaXMgZml4LgoKCkknbGwgdHJ5IGFuZCBuYXJyb3cgZG93biB3aGlj
+aCBmaXJtd2FyZSB0cmlnZ2VycyBpdCBub3cuIERvZXMgUGljYXNzbyB1c2UgdGhlIHBpY2Fzc29f
+Ki5iaW4gb25lcyBvbmx5LCBvciBvdGhlcnMgYXMgd2VsbD8KCgotLSAKRWFydGhsaW5nIE1pY2hl
+bCBEw6RuemVyICAgICAgICAgICAgICAgfCAgICAgICAgICAgICAgIGh0dHBzOi8vcmVkaGF0LmNv
+bQpMaWJyZSBzb2Z0d2FyZSBlbnRodXNpYXN0ICAgICAgICAgICAgIHwgICAgICAgICAgICAgTWVz
+YSBhbmQgWCBkZXZlbG9wZXIKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+Cg==
