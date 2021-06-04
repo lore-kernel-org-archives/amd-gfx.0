@@ -7,25 +7,25 @@ X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E6006C47083
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 11:53:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A812FC47099
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 11:53:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B49686140C
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 11:53:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B49686140C
+	by mail.kernel.org (Postfix) with ESMTPS id 784046140C
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 11:53:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 784046140C
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=uniontech.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81A5E6E30F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 955BF6E314;
 	Fri,  4 Jun 2021 11:53:27 +0000 (UTC)
-Received: from regular1.263xmail.com (regular1.263xmail.com [211.150.70.202])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 647356F5CF;
- Fri,  4 Jun 2021 08:43:06 +0000 (UTC)
-Received: from localhost (unknown [192.168.167.16])
- by regular1.263xmail.com (Postfix) with ESMTP id 70A9E829;
- Fri,  4 Jun 2021 16:43:04 +0800 (CST)
+Received: from regular1.263xmail.com (regular1.263xmail.com [211.150.70.197])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C1FC36E15D;
+ Fri,  4 Jun 2021 08:28:59 +0000 (UTC)
+Received: from localhost (unknown [192.168.167.32])
+ by regular1.263xmail.com (Postfix) with ESMTP id 8C18A1BCA;
+ Fri,  4 Jun 2021 16:28:56 +0800 (CST)
 X-MAIL-GRAY: 0
 X-MAIL-DELIVERY: 1
 X-ADDR-CHECKED4: 1
@@ -34,10 +34,10 @@ X-SKE-CHECKED: 1
 X-ABS-CHECKED: 1
 Received: from manjaro.uniontech.com (unknown [58.246.122.242])
  by smtp.263.net (postfix) whith ESMTP id
- P32527T140357308937984S1622796183596910_; 
- Fri, 04 Jun 2021 16:43:04 +0800 (CST)
+ P30809T139674067453696S1622795326072443_; 
+ Fri, 04 Jun 2021 16:28:46 +0800 (CST)
 X-IP-DOMAINF: 1
-X-UNIQUE-TAG: <45363ea924c1af503493fe091a2fa4bc>
+X-UNIQUE-TAG: <f71d30b5e02927d24e19708d4ed2ae10>
 X-RL-SENDER: chenli@uniontech.com
 X-SENDER: chenli@uniontech.com
 X-LOGIN-NAME: chenli@uniontech.com
@@ -46,11 +46,11 @@ X-RCPT-COUNT: 6
 X-SENDER-IP: 58.246.122.242
 X-ATTACHMENT-NUM: 0
 X-System-Flag: 0
-Date: Fri, 04 Jun 2021 16:43:02 +0800
-Message-ID: <87zgw6aull.wl-chenli@uniontech.com>
+Date: Fri, 04 Jun 2021 16:28:46 +0800
+Message-ID: <875yyuc9tt.wl-chenli@uniontech.com>
 From: Chen Li <chenli@uniontech.com>
 To: Christian =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
-Subject: [PATCH v4 2/2] radeon: use memcpy_to/fromio for UVD fw upload
+Subject: Re: [PATCH v3 2/2] radeon: use memcpy_to/fromio for UVD fw upload
 In-Reply-To: <c4941cb6-8c40-aad1-e61a-2786ba1ab225@gmail.com>
 References: <87o8cnfr3s.wl-chenli@uniontech.com>
  <87im2ufhyz.wl-chenli@uniontech.com>
@@ -81,57 +81,86 @@ Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Fri, 04 Jun 2021 16:08:26 +0800,
+Christian K=F6nig wrote:
+> =
 
-I met a gpu addr bug recently and the kernel log
-tells me the pc is memcpy/memset and link register is
-radeon_uvd_resume.
+> =
 
-As we know, in some architectures, optimized memcpy/memset
-may not work well on device memory. Trival memcpy_toio/memset_io
-can fix this problem.
+> =
 
-BTW, amdgpu has already done it in:
-commit ba0b2275a678 ("drm/amdgpu: use memcpy_to/fromio for UVD fw upload"),
-that's why it has no this issue on the same gpu and platform.
+> Am 04.06.21 um 09:53 schrieb Chen Li:
+> > I met a gpu addr bug recently and the kernel log
+> > tells me the pc is memcpy/memset and link register is
+> > radeon_uvd_resume.
+> > =
 
-Signed-off-by: Chen Li <chenli@uniontech.com>
-Reviewed-by: Christian K=F6nig
----
- drivers/gpu/drm/radeon/radeon_uvd.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+> > As we know, in some architectures, optimized memcpy/memset
+> > may not work well on device memory. Trival memcpy_toio/memset_io
+> > can fix this problem.
+> > =
 
-diff --git a/drivers/gpu/drm/radeon/radeon_uvd.c b/drivers/gpu/drm/radeon/r=
-adeon_uvd.c
-index 85a1f2c31749..753da95e6abb 100644
---- a/drivers/gpu/drm/radeon/radeon_uvd.c
-+++ b/drivers/gpu/drm/radeon/radeon_uvd.c
-@@ -288,7 +288,7 @@ int radeon_uvd_resume(struct radeon_device *rdev)
- 	if (rdev->uvd.vcpu_bo =3D=3D NULL)
- 		return -EINVAL;
- =
+> > BTW, amdgpu has already done it in:
+> > commit ba0b2275a678 ("drm/amdgpu: use memcpy_to/fromio for UVD fw uploa=
+d"),
+> > that's why it has no this issue on the same gpu and platform.
+> > =
 
--	memcpy(rdev->uvd.cpu_addr, rdev->uvd_fw->data, rdev->uvd_fw->size);
-+	memcpy_toio((void __iomem *)rdev->uvd.cpu_addr, rdev->uvd_fw->data, rdev-=
->uvd_fw->size);
- =
+> > Signed-off-by: Chen Li <chenli@uniontech.com>
+> > ---
+> >   drivers/gpu/drm/radeon/radeon_uvd.c | 6 ++++--
+> >   1 file changed, 4 insertions(+), 2 deletions(-)
+> > =
 
- 	size =3D radeon_bo_size(rdev->uvd.vcpu_bo);
- 	size -=3D rdev->uvd_fw->size;
-@@ -296,7 +296,7 @@ int radeon_uvd_resume(struct radeon_device *rdev)
- 	ptr =3D rdev->uvd.cpu_addr;
- 	ptr +=3D rdev->uvd_fw->size;
- =
+> > diff --git a/drivers/gpu/drm/radeon/radeon_uvd.c b/drivers/gpu/drm/rade=
+on/radeon_uvd.c
+> > index 85a1f2c31749..55abf9a9623b 100644
+> > --- a/drivers/gpu/drm/radeon/radeon_uvd.c
+> > +++ b/drivers/gpu/drm/radeon/radeon_uvd.c
+> > @@ -288,7 +288,9 @@ int radeon_uvd_resume(struct radeon_device *rdev)
+> >   	if (rdev->uvd.vcpu_bo =3D=3D NULL)
+> >   		return -EINVAL;
+> >   -	memcpy(rdev->uvd.cpu_addr, rdev->uvd_fw->data, rdev->uvd_fw->size);
+> > +	memcpy_toio((void __iomem *)rdev->uvd.cpu_addr,
+> > +				rdev->uvd_fw->data,
+> > +				rdev->uvd_fw->size);
+> =
 
--	memset(ptr, 0, size);
-+	memset_io((void __iomem *)ptr, 0, size);
- =
+> The coding style still looks wrong here, e.g. it is indented to far to th=
+e right
+> and data/size can be on one line.
 
- 	return 0;
- }
--- =
+It's really werid that the patch before being replyed has not this coding s=
+tyle issue and do always indent the same with previous memcpy(in all of v1,=
+ v2 and v3),
+you can check at https://patchwork.kernel.org/project/dri-devel/patch/87im2=
+ufhyz.wl-chenli@uniontech.com/ Cannot figure out what happened, sorry.
 
-2.31.1
+I'll take merge them in single line in the next series, thanks.
+> =
 
+> Apart from that the patch is Reviewed-by: Christian K=F6nig
+> <christian.koenig@amd.com>
+> =
+
+> Regards,
+> Christian.
+> =
+
+> >     	size =3D radeon_bo_size(rdev->uvd.vcpu_bo);
+> >   	size -=3D rdev->uvd_fw->size;
+> > @@ -296,7 +298,7 @@ int radeon_uvd_resume(struct radeon_device *rdev)
+> >   	ptr =3D rdev->uvd.cpu_addr;
+> >   	ptr +=3D rdev->uvd_fw->size;
+> >   -	memset(ptr, 0, size);
+> > +	memset_io((void __iomem *)ptr, 0, size);
+> >     	return 0;
+> >   }
+> =
+
+> =
+
+> =
 
 
 
