@@ -7,60 +7,62 @@ X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,PDS_BAD_THREAD_QP_64,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5FCE1C07E94
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 14:56:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C8CF7C07E94
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 15:04:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0F89B613AA
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 14:56:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0F89B613AA
+	by mail.kernel.org (Postfix) with ESMTPS id 86C5E61400
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 15:04:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 86C5E61400
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C1CBF6F60A;
-	Fri,  4 Jun 2021 14:56:29 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2070.outbound.protection.outlook.com [40.107.243.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77DAF6E9F8
- for <amd-gfx@lists.freedesktop.org>; Fri,  4 Jun 2021 14:56:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 441A56E0F6;
+	Fri,  4 Jun 2021 15:04:39 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2087.outbound.protection.outlook.com [40.107.236.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7EB16E0F6
+ for <amd-gfx@lists.freedesktop.org>; Fri,  4 Jun 2021 15:04:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=n9kBh+YENPhmqkFKyYuqjvSBqCqbnHdMZrTpb1cHtNQ6SOFmdd1wyrB9TpuK8BSoKqkR0cLf0bVSZ8WrF4VnpvOeqlnBTLMXqpl6rpvIQpAjN7eHFgN8Z1rqvEAI6YkpeBYZkrRDPzSOaelTzSdyKxyDOtpJ+KVwtOOMCVlKEAAvXWBqOx7Ad89M4HwlKYn9sJu7HAWB3N4cqTlUn+pJiqsyXIy6GrNEzFuFWW8F79vvI41NyDe/0o3iV7Wf4C92dbhcD1YqXYEPhRGk6GZOXaDP8eyqWD3iUuo5G9bun7hzs6yMoOpmlIL+6SLXKmQ3m1hhCsFQ7znxmwe4vziXkg==
+ b=KtMF6vc85F06+wFZT7U+UEz038bFQhplmWCsFU6xBshMrGoMuPO8n7Eg9AT8tpU2TkVHFwMsMxR9z8r8ysuuRufCjVaTxoJqyQwm9mBxPgENKdTQp08VjcQ58ZCB8Vd1kI4C4Pi8WH5aMlnDWZWOh7wk7ByFBr20aKIbQPYb2wpubsd75XkgpZq6iP8zoJs2F6LKz3nPPVlFGnvjtLIgGoi3nDkJ5KuFnQaI63991lYSsTv5F+zd9iZIJHoz+SgPOvVf0w8nfbLHmvvOmr2Nfra9do6hQ+wPU1EwBzeeaH+3KUZcb5bIaLiB3nsQn9GjzbC0b/Hk5lRlzYF3xthtig==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=U/pmv7KoiiWE1jtKbxmFkxDvNT0k61ZSk/fWkEenJwE=;
- b=KdAaySgaQxskF7eBKGo7lh7izSvEI0RT7U4sysNRbyQXBGfKY/wW3xrhbmN6Gx7U4XZ8TaG/p6PRG1wShkPHF+opnWFgf29op4MkDMdAmBZ3K8083X34oXhpbYf/z8eINkboeITv8R3p0/Omh4N+uvqQ7mijRHfFo0QiPHVO6SuqiVm4wzrvZB2+gfdhfpEwdj52OAfEoviey0qyzmVsFHAuq8Kn1f9Lod60e90z+cRq1V1vjnrq+esz8SmSEJDfsJ732damzoFLYYyxRfCVI6FcUaPEV5XII1IOOGEhWOibldhUctjI5qeLSB/Udw7YCw3xuw5IgqMyKSnwig6fkQ==
+ bh=1TisvboHI/d0y00M7Up84OOaUc2m97ZsfueybvhzOW8=;
+ b=AJ6Dv6XrbLmnHjjn4eBmM0Tciq13YPfdbcqYOqxfQPTMCsR0mMTorcHiPCwjOZrbNq3adD5PnhNDG09ud+CXcEcfljK52uOht+cf2D0w2w4kDUaXNnt0Yq9lD0XQoQS1ILhF2cNQEmFKfFFS2MR7/G6WL7dLZm5JWKwtAf9ZMO7ZF46ykFlOXHhXcc38knJzH7afGLFbw1KVTfZKwUrdkex9bZuRNdgZNSH8I54po2XARxjS50mSEbEFlgBL/djh2s+ZZXE6CmgkqrOj8uWhYAJPG8kqvt/KxyRS3GcGFXwl0UDP6jh3dN4W8jT7Zmr2Yd+8SYWKTiyE/bCssyvEUA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=U/pmv7KoiiWE1jtKbxmFkxDvNT0k61ZSk/fWkEenJwE=;
- b=YO0v52jh0lTs7pPhnSnJHJ+ax2rPGTz2tuLSWE40hGgVePTECMWG85CNjmaQEH1Y4kY8wk3aEFJCkW4p3f1CQREH0azOo1LZNbxyJBQvr/ccY+0Hh7yNrukmR2DYutiDTfb8QEtLpDITDh//rI7d118KbfYcrpCN55zHFqRhh2U=
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
- by MN2PR12MB4472.namprd12.prod.outlook.com (2603:10b6:208:267::11)
+ bh=1TisvboHI/d0y00M7Up84OOaUc2m97ZsfueybvhzOW8=;
+ b=tneVG4lwmjGSi6EViSqRLv6D91jyBWoJBxt/juXEY2gLrXAzZOnqFSDevGJ2D5h5u8DMn2tCZuJ57KKF0A32d3O3eX9w1LhB507g/2XvR5oKez8Z77aHGSiDTyThd51tE97WFknQeDfV7lEPPAyPlGMxllDdq2WzDjFheMRAJLI=
+Received: from BL0PR12MB4755.namprd12.prod.outlook.com (2603:10b6:208:82::26)
+ by BL0PR12MB4657.namprd12.prod.outlook.com (2603:10b6:207:1a::20)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.24; Fri, 4 Jun
- 2021 14:56:25 +0000
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::25f7:664:3a8f:25b6]) by MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::25f7:664:3a8f:25b6%9]) with mapi id 15.20.4195.024; Fri, 4 Jun 2021
- 14:56:25 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Khaire, Rohit" <Rohit.Khaire@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Zhang, Hawking" <Hawking.Zhang@amd.com>,
- "Deng, Emily" <Emily.Deng@amd.com>, "Liu, Monk" <Monk.Liu@amd.com>, "Zhou,
- Peng Ju" <PengJu.Zhou@amd.com>, "Chen, Horace" <Horace.Chen@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: Fix incorrect register offsets for Sienna
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.23; Fri, 4 Jun
+ 2021 15:04:33 +0000
+Received: from BL0PR12MB4755.namprd12.prod.outlook.com
+ ([fe80::2ce1:d92c:92e9:1689]) by BL0PR12MB4755.namprd12.prod.outlook.com
+ ([fe80::2ce1:d92c:92e9:1689%5]) with mapi id 15.20.4195.022; Fri, 4 Jun 2021
+ 15:04:33 +0000
+From: "Khaire, Rohit" <Rohit.Khaire@amd.com>
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Zhang,
+ Hawking" <Hawking.Zhang@amd.com>, "Deng, Emily" <Emily.Deng@amd.com>, "Liu,
+ Monk" <Monk.Liu@amd.com>, "Zhou, Peng Ju" <PengJu.Zhou@amd.com>, "Chen,
+ Horace" <Horace.Chen@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: Fix incorrect register offsets for Sienna
  Cichlid
 Thread-Topic: [PATCH] drm/amdgpu: Fix incorrect register offsets for Sienna
  Cichlid
-Thread-Index: AQHXWVDsoiagklZ7ZUmAgchpqKB3C6sD8JyQ
-Date: Fri, 4 Jun 2021 14:56:25 +0000
-Message-ID: <MN2PR12MB44881B6C3797944D77FC30E6F73B9@MN2PR12MB4488.namprd12.prod.outlook.com>
+Thread-Index: AQHXWVDsWSQ/WaGbIU27K9XOrtkSQ6sD8PKAgAACLOA=
+Date: Fri, 4 Jun 2021 15:04:33 +0000
+Message-ID: <BL0PR12MB475577237DF9EB2C3AF89FAA873B9@BL0PR12MB4755.namprd12.prod.outlook.com>
 References: <20210604144921.14764-1-rohit.khaire@amd.com>
-In-Reply-To: <20210604144921.14764-1-rohit.khaire@amd.com>
+ <MN2PR12MB44881B6C3797944D77FC30E6F73B9@MN2PR12MB4488.namprd12.prod.outlook.com>
+In-Reply-To: <MN2PR12MB44881B6C3797944D77FC30E6F73B9@MN2PR12MB4488.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -74,55 +76,54 @@ msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard; 
 authentication-results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [192.161.79.207]
+x-originating-ip: [165.204.55.250]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 2ebcaa82-33ff-4dfd-6e6d-08d92768ed2e
-x-ms-traffictypediagnostic: MN2PR12MB4472:
+x-ms-office365-filtering-correlation-id: 7f34b37b-45ec-4fa8-1ed6-08d9276a0fb7
+x-ms-traffictypediagnostic: BL0PR12MB4657:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MN2PR12MB44726587AAFB65F0FFBB5E99F73B9@MN2PR12MB4472.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:65;
+x-microsoft-antispam-prvs: <BL0PR12MB46576D6C57459B524C813941873B9@BL0PR12MB4657.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:92;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: ftfUA4zd1uwfEIHDpE4dkfFLLvaVGwnLh1bod6penWQc4eglI3tYQXsWxYO5GSexFdQir5L594Mk+p2IDoizV8PJcdozwDxDzTjSJ8lF++05Lpp1RkSqPh6UQvmn4O1LyADCm8/rKhfR6jb54Wt2LxBnG5jbSdfaglbU2l0veTvhODax937St4yCcUuvBpl04IWlqJovIMgUMo7DBqHIaQgBvR9kqQ8ihboIfMxxxJoy1QnzwY2pnuyx0VZ3w/T7dNao9muwCe/WDB50hkM9sJ/S9uBMycdd4rdgcvjYkKsMRfeyTG8VrDZVP9cFLbjeX9NEtsOC1qVnhM5aQC1ei1ovvBvJqypEPmad0KuHqG7tHQ8tpmyJryWsieHpnm0kZ+x6ftMdyz3a31Py30Ox/XSKcNaxH/esI0l0swu+qXbXOQNrSkKIgFKsPxqiN+/omiePuI0oTkqGATmDMwq8id5W+4llJn86S6XbmU0Lhce5x3HP8gK+6cZTksFlTZFDbZAy8Vlfh604KB41t9x1mScurLK0qP9gI0lBDUGvGQWdiA+a5bZ/B4A76Zv2A7ndOr8S6MEf9UaBKR7Ya6urU0Un+nrp5cc1BPm5RVzC18AidzKJtcE2/TNjt//ftqFDZOCYJvl98zDBoUR3CXGRcg==
+x-microsoft-antispam-message-info: wexz3YKQBmQsmlkFdZAgTkdIr2l6vSHASPPnJ5I2xk9W6AGft/ZSd+YTRi2sLv0I4tOlyf6aRBhr3qn3oDMkCCMrR8hTUJ0GYKHrSYbWnutaRYBVUcS8lqlkXaM5Hol3/KiBJXw+NDTo+9k4DvnxVu1yO4SakXNqITEBizpa6ebUb6JhXpGq/ZCQRQjKx1OkzRaYZnRS2WtyokAvgMOa1nuOroI59JpFGpXISc3/K2MMmStpRF/fiWiILlsVps4SZcdWBKOrlWJCN+Dp0BBxueQvNLo1u2jZ9Jg7Xfno3HB347yrDuljb9hS5Je9z/M3r/Ct53bJezr4YpPtFkj0unA9aWdt4pYj734v6ib+Jt0bSjx1EsOCSweXN+9UDb4dOfAO/9dSjrQEAi2fo0Ze3HbmNh+ooaFOhu7/f/zhGXbqGWodFYq627hk/89hDNwR+1c4JaIXNgdDkb5ThhGFQAZ71nzTlkY1N0E3OPxSfnnUuC96oUi8bhRJAEohe0CqMHfogBgQgtjBJ6hTOg5k/RJWYYON9TZ4NZgGcpmJPZ5spogCOqJaQUyEwgdrly9UXeBZ1Ntxk5cjTqxE/b7y8zQxBcmxuvNeJnKbTpzMuqQYE5OV2Bi+tOYc74xx0dzqvsIDBfL1Off+MH1aoGl4PQ==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(376002)(396003)(136003)(366004)(346002)(7696005)(9686003)(6636002)(4326008)(19627405001)(2906002)(86362001)(55016002)(5660300002)(921005)(52536014)(71200400001)(76116006)(8936002)(66556008)(64756008)(66476007)(66946007)(66446008)(26005)(33656002)(186003)(6506007)(53546011)(122000001)(38100700002)(83380400001)(478600001)(54906003)(8676002)(110136005)(316002);
+ IPV:NLI; SFV:NSPM; H:BL0PR12MB4755.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(136003)(346002)(366004)(376002)(39860400002)(2906002)(5660300002)(8936002)(110136005)(26005)(54906003)(55016002)(9686003)(316002)(52536014)(6506007)(53546011)(4326008)(186003)(122000001)(66446008)(64756008)(66556008)(66476007)(66946007)(76116006)(71200400001)(6636002)(83380400001)(86362001)(8676002)(7696005)(921005)(33656002)(38100700002)(478600001);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?iso-8859-1?Q?gr5IupImBkpNdDE/GPBmMI/urqcVNIYTfjSG+oVkArgIPp7oKYBtRgtVZi?=
- =?iso-8859-1?Q?lG7j3szj8xODyj1IkrLdnDYozytHRKOGj0h3+auUk++PslaoUyoJGgnbky?=
- =?iso-8859-1?Q?xBIiiY/98o9rXK4eSdn7WE63xS2FevnEU1euZxMAcR1QuBFHC/AefO+OYi?=
- =?iso-8859-1?Q?QD/4PXh2dqavDdFCKgQ/sKitl1b4WWPaKmG1Z/q2Fk+LmxwIv9ENp1/uMt?=
- =?iso-8859-1?Q?nWolWF8f9WI+geueR0pcV1h/pWUNVT04buPghl1nruS5Lct/IGz/E7L1us?=
- =?iso-8859-1?Q?yg0/TKot550rYjdDwZGGC+whlqZfKrJcXKWKazyg5FgjsIu68NgS85qilZ?=
- =?iso-8859-1?Q?NiRoV6Lj/brRsXrkfBIiLtjqJhT1PKOSx5ZYmkgGqbyNHBnhSSCedTq9nY?=
- =?iso-8859-1?Q?9v7CYyLIrAdrvO1u3wh7irc15qf21sQzijCvnNn5YB9JBPb+rXTNyPuu0r?=
- =?iso-8859-1?Q?UmengsQwINmFxz3QesN5sHJG0dteiE4luZ7vwyWDQvYq31QOdMf6dBu6fB?=
- =?iso-8859-1?Q?ifUxUGmoaxrYNi/jMEjI/+LyQi6CHxAd4HZ1VtAasg79J5Iyy3jKD2HbBW?=
- =?iso-8859-1?Q?RBDAEXB547LymDpFZy2T2YVP4EnN8bDROjcbmRxigzdJ6HsIY+JRoO5hyP?=
- =?iso-8859-1?Q?G9hHsyB4PMHDcy8gLmzyLCimrxXE900wW9cFke0AvKJPLN/oLzZmKZAZMl?=
- =?iso-8859-1?Q?KfrMzMd6vU/pQNF7kdrCVzGvmsxXtrQGRjqq9HXgLYLoRaXIYWz0LoZt27?=
- =?iso-8859-1?Q?xVnXoatBKb19jW9rFIcpS3di+5Q+0WgK/EA6QkgPqWK+rUcj7BM7PFv8BE?=
- =?iso-8859-1?Q?icikz7QzSlTwPQb6YX/d+7whA9jHAP5CdWsHSf2f4WA8/jSlxYNacnPOnG?=
- =?iso-8859-1?Q?IMCaQCmQRs8elNt5vNCXeavo+tujm7pem6NRLCli1SZhp+xdCedKms6oYg?=
- =?iso-8859-1?Q?Bc8DHrW+nu6f5MEHloLqdsQNwonsRzvey4Oue20Ln0DkvkElzsKb7vQ1+l?=
- =?iso-8859-1?Q?g8a7c3lGiN95DKqZIrDxzlNqx1XWAqZvHmSbWsbk6BteMUJtEnZdO9hr4R?=
- =?iso-8859-1?Q?iuYpvNXgiVTY8CE0xvTwNbrtBpw2WpeXNaaau0ijRgEei120pK+99+6y6Z?=
- =?iso-8859-1?Q?rCSmMc1L/1GubKf24hJj07Ne2KBLCpP9eu4gSyhBaduehlHLEXvKbSe0M4?=
- =?iso-8859-1?Q?/Ilt+FSLrpeS+AQaRo4tcdLKSXJLsdiUx9WPFQO40RWkmZbFu0NMg12eeU?=
- =?iso-8859-1?Q?HlUla1KoK8BYUvOVgo2yZgGumwnVOeB3hepqwK6r+OtXD0Who96E2XcVeq?=
- =?iso-8859-1?Q?x40cCrCPkgbAASYyzo1DKnGa8IaQYpvTPAgNrYBNoXrLveYNPHirzM8lLB?=
- =?iso-8859-1?Q?tg4Wb5WjXl?=
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?X4MNP2lbz/Y6H7CucTfevQ9yxPXCF7/6junmVovGISSM2oQv1RBLZvDuJPyE?=
+ =?us-ascii?Q?vcJGyZM7ipv/5HpF5mu7VxNS9LwvzP/qEVdN171qiBkVhZEjl4mRcDkHec+T?=
+ =?us-ascii?Q?WDVEUFnKoG1YI+Rq10D0uEpuf/WWUify6iPAfjERTfpIF1SWJxUJkB1H/kLo?=
+ =?us-ascii?Q?AXp4WKE2A0xspGmZFRUnwSP8+fc2lY6o4WxuoGpFwlfaXlInCvMdXN06i37E?=
+ =?us-ascii?Q?ME1/rGw4sdV/WBD3f8kvdtEAXn/1KtlxAxn7TRZJ65iWDh8dEt9CmfVkQ3Ds?=
+ =?us-ascii?Q?MZSwdMqCoyasJXQKdSRPO8vk5FlqkZu7hUL6f+7H35DjFcdcvK+R+g+rOe9U?=
+ =?us-ascii?Q?UP4noLz+3jDErEVpJde7Ojk2rmB4UPaFbupHFL3Z8Drfx/Me1Sooi81jdqrF?=
+ =?us-ascii?Q?51341rEAM4Mxp/6P9WANOogm2937wRyKUx4ywlC+79JYLaDWec9JKO4jK8uT?=
+ =?us-ascii?Q?/SKyhXaeT7M4YWsKvjoFK8mmKTslGmls45/66G1fFXlWct0E3v2yYwKYSm9S?=
+ =?us-ascii?Q?1/M7tWyCRoG1alGWGUd5XStzTtCXvx8uBLzT+FgPYuiWqOUoCbmeTHCdvSGM?=
+ =?us-ascii?Q?OZyVnJXW8gbwnmy7wnOAgf3jhrgWdioZie8gM+UEL+4n8D8PdYPMjfS6fb/t?=
+ =?us-ascii?Q?Zk0a1qdnel8FIN3SappvW5o0FEPNFUZarJo6q4iozD0Jm7SraQ3gEZO0vZbx?=
+ =?us-ascii?Q?cea71NU98E9MbDy/mPS8Td0Xndeqix4XC1iquYMC0FW7YWTcEEbz/pcgxRFV?=
+ =?us-ascii?Q?aj36mZ4khTJz7RW8fVRknf3rBWooirrrhyp8FtodclHDww6b9nEGN1+1ibfD?=
+ =?us-ascii?Q?rGTTs/pSarM3dLy5W0sxllQ18CUee2kSo38qIg5tX3d4W7+KyZPSmM+g0GkK?=
+ =?us-ascii?Q?H9it4SHx0niQcWEhyxitUSRvFK3ydLEMK6KW26brRZ1uuzkssQjoER6og3Kg?=
+ =?us-ascii?Q?094djQH796XgktXqytDiWwBYh5GCPuke9Ntz57Uyv4k366ZiB8ms2vt7JSpX?=
+ =?us-ascii?Q?fTcKMBNUj3obLYGyDFUDaaa6I588wNCbvv4RjRYupH87R2F3jV0/rNZQxGB9?=
+ =?us-ascii?Q?DxeZA3h80haR8JyBNtMUh0zuhaHiygezsbxalg0puY3jMKrajosjF+EO9FJ+?=
+ =?us-ascii?Q?Hsu5AS4rN8Nbe5isletPClyObf/7a+kq56JTiDwq3D4bHoimZerlppttJCFF?=
+ =?us-ascii?Q?lVwBT8hxP5zPZVlvqVBqG3YTc20LY591/Qdhnz/nicwwvrBXSQvwWAYq3NWl?=
+ =?us-ascii?Q?Xc1hj651bq7JACX7TwX/gPxUZmHRV9+RrxC1RHVo5nbQlGeA8BgnA5z5b8jz?=
+ =?us-ascii?Q?yq76hUIgvkIrRgA7DZCvj7S+?=
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2ebcaa82-33ff-4dfd-6e6d-08d92768ed2e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Jun 2021 14:56:25.7009 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB4755.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7f34b37b-45ec-4fa8-1ed6-08d9276a0fb7
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Jun 2021 15:04:33.1023 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: PvBC9o3IRZLRtr1VI3aUcU5sFUOw1euNfWA1+2zwGv4HRowWMENxQwKCA+Z2pWsde7y7sDqRCpb5GBY8KI4FBw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4472
+X-MS-Exchange-CrossTenant-userprincipalname: PhbO2LACbSfqAQHvUiMiO0dQ4raRf/vbtLE7yVK3mADHnncg7dM/cbRPXEow20/Y
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4657
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,42 +137,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: "Ming, Davis" <Davis.Ming@amd.com>, "Koenig,
  Christian" <Christian.Koenig@amd.com>
-Content-Type: multipart/mixed; boundary="===============1936630013=="
+Content-Type: multipart/mixed; boundary="===============1707276290=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1936630013==
+--===============1707276290==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB44881B6C3797944D77FC30E6F73B9MN2PR12MB4488namp_"
+	boundary="_000_BL0PR12MB475577237DF9EB2C3AF89FAA873B9BL0PR12MB4755namp_"
 
---_000_MN2PR12MB44881B6C3797944D77FC30E6F73B9MN2PR12MB4488namp_
-Content-Type: text/plain; charset="iso-8859-1"
+--_000_BL0PR12MB475577237DF9EB2C3AF89FAA873B9BL0PR12MB4755namp_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+[AMD Official Use Only]
+
+Thanks. I will fix that check.
+
+Rohit
+
+From: Deucher, Alexander <Alexander.Deucher@amd.com>
+Sent: June 4, 2021 10:56 AM
+To: Khaire, Rohit <Rohit.Khaire@amd.com>; amd-gfx@lists.freedesktop.org; Zh=
+ang, Hawking <Hawking.Zhang@amd.com>; Deng, Emily <Emily.Deng@amd.com>; Liu=
+, Monk <Monk.Liu@amd.com>; Zhou, Peng Ju <PengJu.Zhou@amd.com>; Chen, Horac=
+e <Horace.Chen@amd.com>
+Cc: Ming, Davis <Davis.Ming@amd.com>; Koenig, Christian <Christian.Koenig@a=
+md.com>
+Subject: Re: [PATCH] drm/amdgpu: Fix incorrect register offsets for Sienna =
+Cichlid
+
 
 [AMD Official Use Only]
 
 checks should be adev->asic_type >=3D CHIP_SIENNA_CICHLID so we cover other=
  gfx10.3 asics as well.  With that fixed:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com<mailto:alexander.deuch=
+er@amd.com>>
 
 ________________________________
-From: Khaire, Rohit <Rohit.Khaire@amd.com>
+From: Khaire, Rohit <Rohit.Khaire@amd.com<mailto:Rohit.Khaire@amd.com>>
 Sent: Friday, June 4, 2021 10:49 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Deucher,=
- Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.c=
-om>; Deng, Emily <Emily.Deng@amd.com>; Liu, Monk <Monk.Liu@amd.com>; Zhou, =
-Peng Ju <PengJu.Zhou@amd.com>; Chen, Horace <Horace.Chen@amd.com>
-Cc: Ming, Davis <Davis.Ming@amd.com>; Khaire, Rohit <Rohit.Khaire@amd.com>;=
- Koenig, Christian <Christian.Koenig@amd.com>; Khaire, Rohit <Rohit.Khaire@=
-amd.com>
+To: amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <am=
+d-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>; Deucher=
+, Alexander <Alexander.Deucher@amd.com<mailto:Alexander.Deucher@amd.com>>; =
+Zhang, Hawking <Hawking.Zhang@amd.com<mailto:Hawking.Zhang@amd.com>>; Deng,=
+ Emily <Emily.Deng@amd.com<mailto:Emily.Deng@amd.com>>; Liu, Monk <Monk.Liu=
+@amd.com<mailto:Monk.Liu@amd.com>>; Zhou, Peng Ju <PengJu.Zhou@amd.com<mail=
+to:PengJu.Zhou@amd.com>>; Chen, Horace <Horace.Chen@amd.com<mailto:Horace.C=
+hen@amd.com>>
+Cc: Ming, Davis <Davis.Ming@amd.com<mailto:Davis.Ming@amd.com>>; Khaire, Ro=
+hit <Rohit.Khaire@amd.com<mailto:Rohit.Khaire@amd.com>>; Koenig, Christian =
+<Christian.Koenig@amd.com<mailto:Christian.Koenig@amd.com>>; Khaire, Rohit =
+<Rohit.Khaire@amd.com<mailto:Rohit.Khaire@amd.com>>
 Subject: [PATCH] drm/amdgpu: Fix incorrect register offsets for Sienna Cich=
 lid
 
 RLC_CP_SCHEDULERS and RLC_SPARE_INT0 have different
 offsets for Sienna Cichlid
 
-Signed-off-by: Rohit Khaire <rohit.khaire@amd.com>
+Signed-off-by: Rohit Khaire <rohit.khaire@amd.com<mailto:rohit.khaire@amd.c=
+om>>
 ---
  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 26 +++++++++++++++++++++-----
  1 file changed, 21 insertions(+), 5 deletions(-)
@@ -242,64 +268,155 @@ lid, tmp);
 --
 2.17.1
 
-
---_000_MN2PR12MB44881B6C3797944D77FC30E6F73B9MN2PR12MB4488namp_
-Content-Type: text/html; charset="iso-8859-1"
+--_000_BL0PR12MB475577237DF9EB2C3AF89FAA873B9BL0PR12MB4755namp_
+Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<html>
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+span.EmailStyle20
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
 </head>
-<body dir=3D"ltr">
+<body lang=3D"EN-CA" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
+break-word">
 <p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:15pt;" al=
 ign=3D"Left">
 [AMD Official Use Only]<br>
 </p>
 <br>
 <div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-checks should be <font size=3D"2"><span style=3D"font-size:11pt">adev-&gt;a=
-sic_type &gt;=3D CHIP_SIENNA_CICHLID so we cover other gfx10.3 asics as wel=
-l.&nbsp; With that fixed:</span></font></div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<font size=3D"2"><span style=3D"font-size:11pt">Reviewed-by: Alex Deucher &=
-lt;alexander.deucher@amd.com&gt;</span></font><br>
-</div>
-<div id=3D"appendonsend"></div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span style=3D"mso-fareast-language:EN-US">Thanks. I=
+ will fix that check.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"mso-fareast-language:EN-US"><o:p>&nbs=
+p;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"mso-fareast-language:EN-US">Rohit<o:p=
+></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"mso-fareast-language:EN-US"><o:p>&nbs=
+p;</o:p></span></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0cm =
+0cm 0cm">
+<p class=3D"MsoNormal"><b><span lang=3D"EN-US">From:</span></b><span lang=
+=3D"EN-US"> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;
 <br>
+<b>Sent:</b> June 4, 2021 10:56 AM<br>
+<b>To:</b> Khaire, Rohit &lt;Rohit.Khaire@amd.com&gt;; amd-gfx@lists.freede=
+sktop.org; Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Deng, Emily &lt;Em=
+ily.Deng@amd.com&gt;; Liu, Monk &lt;Monk.Liu@amd.com&gt;; Zhou, Peng Ju &lt=
+;PengJu.Zhou@amd.com&gt;; Chen, Horace &lt;Horace.Chen@amd.com&gt;<br>
+<b>Cc:</b> Ming, Davis &lt;Davis.Ming@amd.com&gt;; Koenig, Christian &lt;Ch=
+ristian.Koenig@amd.com&gt;<br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu: Fix incorrect register offsets for =
+Sienna Cichlid<o:p></o:p></span></p>
 </div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
-=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> Khaire, Rohit &lt;R=
-ohit.Khaire@amd.com&gt;<br>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p style=3D"margin:15.0pt"><span style=3D"font-size:10.0pt;font-family:&quo=
+t;Arial&quot;,sans-serif;color:blue">[AMD Official Use Only]<o:p></o:p></sp=
+an></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">checks =
+should be </span>
+<span style=3D"color:black">adev-&gt;asic_type &gt;=3D CHIP_SIENNA_CICHLID =
+so we cover other gfx10.3 asics as well.&nbsp; With that fixed:</span><span=
+ style=3D"font-size:12.0pt;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"color:black">Reviewed-by: Alex Deuche=
+r &lt;<a href=3D"mailto:alexander.deucher@amd.com">alexander.deucher@amd.co=
+m</a>&gt;</span><span style=3D"font-size:12.0pt;color:black"><o:p></o:p></s=
+pan></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
+ style=3D"color:black"> Khaire, Rohit &lt;<a href=3D"mailto:Rohit.Khaire@am=
+d.com">Rohit.Khaire@amd.com</a>&gt;<br>
 <b>Sent:</b> Friday, June 4, 2021 10:49 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;; Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Zhang, Hawking &=
-lt;Hawking.Zhang@amd.com&gt;; Deng, Emily &lt;Emily.Deng@amd.com&gt;; Liu, =
-Monk &lt;Monk.Liu@amd.com&gt;; Zhou, Peng Ju &lt;PengJu.Zhou@amd.com&gt;;
- Chen, Horace &lt;Horace.Chen@amd.com&gt;<br>
-<b>Cc:</b> Ming, Davis &lt;Davis.Ming@amd.com&gt;; Khaire, Rohit &lt;Rohit.=
-Khaire@amd.com&gt;; Koenig, Christian &lt;Christian.Koenig@amd.com&gt;; Kha=
-ire, Rohit &lt;Rohit.Khaire@amd.com&gt;<br>
+<b>To:</b> <a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.f=
+reedesktop.org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd=
+-gfx@lists.freedesktop.org</a>&gt;; Deucher, Alexander &lt;<a href=3D"mailt=
+o:Alexander.Deucher@amd.com">Alexander.Deucher@amd.com</a>&gt;;
+ Zhang, Hawking &lt;<a href=3D"mailto:Hawking.Zhang@amd.com">Hawking.Zhang@=
+amd.com</a>&gt;; Deng, Emily &lt;<a href=3D"mailto:Emily.Deng@amd.com">Emil=
+y.Deng@amd.com</a>&gt;; Liu, Monk &lt;<a href=3D"mailto:Monk.Liu@amd.com">M=
+onk.Liu@amd.com</a>&gt;; Zhou, Peng Ju &lt;<a href=3D"mailto:PengJu.Zhou@am=
+d.com">PengJu.Zhou@amd.com</a>&gt;;
+ Chen, Horace &lt;<a href=3D"mailto:Horace.Chen@amd.com">Horace.Chen@amd.co=
+m</a>&gt;<br>
+<b>Cc:</b> Ming, Davis &lt;<a href=3D"mailto:Davis.Ming@amd.com">Davis.Ming=
+@amd.com</a>&gt;; Khaire, Rohit &lt;<a href=3D"mailto:Rohit.Khaire@amd.com"=
+>Rohit.Khaire@amd.com</a>&gt;; Koenig, Christian &lt;<a href=3D"mailto:Chri=
+stian.Koenig@amd.com">Christian.Koenig@amd.com</a>&gt;;
+ Khaire, Rohit &lt;<a href=3D"mailto:Rohit.Khaire@amd.com">Rohit.Khaire@amd=
+.com</a>&gt;<br>
 <b>Subject:</b> [PATCH] drm/amdgpu: Fix incorrect register offsets for Sien=
-na Cichlid</font>
-<div>&nbsp;</div>
+na Cichlid</span>
+<o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
 </div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
->
-<div class=3D"PlainText">RLC_CP_SCHEDULERS and RLC_SPARE_INT0 have differen=
-t<br>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">RLC_CP_SCHEDULERS and=
+ RLC_SPARE_INT0 have different<br>
 offsets for Sienna Cichlid<br>
 <br>
-Signed-off-by: Rohit Khaire &lt;rohit.khaire@amd.com&gt;<br>
+Signed-off-by: Rohit Khaire &lt;<a href=3D"mailto:rohit.khaire@amd.com">roh=
+it.khaire@amd.com</a>&gt;<br>
 ---<br>
 &nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 26 +++++++++++++++++++++----=
 -<br>
@@ -408,17 +525,18 @@ bsp;&nbsp; }<br>
 sp;&nbsp;&nbsp;&nbsp; return 0;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
 -- <br>
-2.17.1<br>
-<br>
+2.17.1<o:p></o:p></p>
 </div>
-</span></font></div>
+</div>
+</div>
+</div>
 </div>
 </body>
 </html>
 
---_000_MN2PR12MB44881B6C3797944D77FC30E6F73B9MN2PR12MB4488namp_--
+--_000_BL0PR12MB475577237DF9EB2C3AF89FAA873B9BL0PR12MB4755namp_--
 
---===============1936630013==
+--===============1707276290==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -429,4 +547,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============1936630013==--
+--===============1707276290==--
