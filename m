@@ -2,31 +2,30 @@ Return-Path: <SRS0=YIqZ=K6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7A9CEC07E94
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E6006C47083
 	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 11:53:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 28D896140C
+	by mail.kernel.org (Postfix) with ESMTPS id B49686140C
 	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 11:53:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 28D896140C
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B49686140C
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=uniontech.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBD606E30D;
-	Fri,  4 Jun 2021 11:53:26 +0000 (UTC)
-X-Greylist: delayed 17405 seconds by postgrey-1.36 at gabe;
- Fri, 04 Jun 2021 07:50:30 UTC
-Received: from regular1.263xmail.com (regular1.263xmail.com [211.150.70.198])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A1B16F5C0;
- Fri,  4 Jun 2021 07:50:30 +0000 (UTC)
-Received: from localhost (unknown [192.168.167.32])
- by regular1.263xmail.com (Postfix) with ESMTP id 955EE798;
- Fri,  4 Jun 2021 15:50:27 +0800 (CST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81A5E6E30F;
+	Fri,  4 Jun 2021 11:53:27 +0000 (UTC)
+Received: from regular1.263xmail.com (regular1.263xmail.com [211.150.70.202])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 647356F5CF;
+ Fri,  4 Jun 2021 08:43:06 +0000 (UTC)
+Received: from localhost (unknown [192.168.167.16])
+ by regular1.263xmail.com (Postfix) with ESMTP id 70A9E829;
+ Fri,  4 Jun 2021 16:43:04 +0800 (CST)
 X-MAIL-GRAY: 0
 X-MAIL-DELIVERY: 1
 X-ADDR-CHECKED4: 1
@@ -35,10 +34,10 @@ X-SKE-CHECKED: 1
 X-ABS-CHECKED: 1
 Received: from manjaro.uniontech.com (unknown [58.246.122.242])
  by smtp.263.net (postfix) whith ESMTP id
- P30809T139673962555136S1622793026953811_; 
- Fri, 04 Jun 2021 15:50:27 +0800 (CST)
+ P32527T140357308937984S1622796183596910_; 
+ Fri, 04 Jun 2021 16:43:04 +0800 (CST)
 X-IP-DOMAINF: 1
-X-UNIQUE-TAG: <bc1eeb75acd6ca300ecb9843e92dc05f>
+X-UNIQUE-TAG: <45363ea924c1af503493fe091a2fa4bc>
 X-RL-SENDER: chenli@uniontech.com
 X-SENDER: chenli@uniontech.com
 X-LOGIN-NAME: chenli@uniontech.com
@@ -47,15 +46,17 @@ X-RCPT-COUNT: 6
 X-SENDER-IP: 58.246.122.242
 X-ATTACHMENT-NUM: 0
 X-System-Flag: 0
-Date: Fri, 04 Jun 2021 15:50:27 +0800
-Message-ID: <87a6o6cblo.wl-chenli@uniontech.com>
+Date: Fri, 04 Jun 2021 16:43:02 +0800
+Message-ID: <87zgw6aull.wl-chenli@uniontech.com>
 From: Chen Li <chenli@uniontech.com>
 To: Christian =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
-Subject: [PATCH v3 0/2] use memcpy_to/fromio for UVD fw upload
-In-Reply-To: <0689a006-a0a2-698a-12d8-cb11156e469a@gmail.com>
+Subject: [PATCH v4 2/2] radeon: use memcpy_to/fromio for UVD fw upload
+In-Reply-To: <c4941cb6-8c40-aad1-e61a-2786ba1ab225@gmail.com>
 References: <87o8cnfr3s.wl-chenli@uniontech.com>
  <87im2ufhyz.wl-chenli@uniontech.com>
  <0689a006-a0a2-698a-12d8-cb11156e469a@gmail.com>
+ <877djacbfx.wl-chenli@uniontech.com>
+ <c4941cb6-8c40-aad1-e61a-2786ba1ab225@gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
  FLIM-LB/1.14.9 (=?ISO-8859-4?Q?Goj=F2?=) APEL-LB/10.8 EasyPG/1.0.0
  Emacs/28.0.50 (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -75,26 +76,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
  Chen Li <chenli@uniontech.com>, dri-devel@lists.freedesktop.org,
  Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
+I met a gpu addr bug recently and the kernel log
+tells me the pc is memcpy/memset and link register is
+radeon_uvd_resume.
 
-changelog:
-    v1->v2: split sparse and memcp/memset fix
-    v2->v3: fix coding issue and misuse of le32_to_cpu
+As we know, in some architectures, optimized memcpy/memset
+may not work well on device memory. Trival memcpy_toio/memset_io
+can fix this problem.
 
-Chen Li (2):
-  radeon: fix coding issues reported from sparse
-  radeon: use memcpy_to/fromio for UVD fw upload
+BTW, amdgpu has already done it in:
+commit ba0b2275a678 ("drm/amdgpu: use memcpy_to/fromio for UVD fw upload"),
+that's why it has no this issue on the same gpu and platform.
 
- drivers/gpu/drm/radeon/radeon_uvd.c | 30 ++++++++++++++++-------------
- 1 file changed, 17 insertions(+), 13 deletions(-)
+Signed-off-by: Chen Li <chenli@uniontech.com>
+Reviewed-by: Christian K=F6nig
+---
+ drivers/gpu/drm/radeon/radeon_uvd.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
--- 
+diff --git a/drivers/gpu/drm/radeon/radeon_uvd.c b/drivers/gpu/drm/radeon/r=
+adeon_uvd.c
+index 85a1f2c31749..753da95e6abb 100644
+--- a/drivers/gpu/drm/radeon/radeon_uvd.c
++++ b/drivers/gpu/drm/radeon/radeon_uvd.c
+@@ -288,7 +288,7 @@ int radeon_uvd_resume(struct radeon_device *rdev)
+ 	if (rdev->uvd.vcpu_bo =3D=3D NULL)
+ 		return -EINVAL;
+ =
+
+-	memcpy(rdev->uvd.cpu_addr, rdev->uvd_fw->data, rdev->uvd_fw->size);
++	memcpy_toio((void __iomem *)rdev->uvd.cpu_addr, rdev->uvd_fw->data, rdev-=
+>uvd_fw->size);
+ =
+
+ 	size =3D radeon_bo_size(rdev->uvd.vcpu_bo);
+ 	size -=3D rdev->uvd_fw->size;
+@@ -296,7 +296,7 @@ int radeon_uvd_resume(struct radeon_device *rdev)
+ 	ptr =3D rdev->uvd.cpu_addr;
+ 	ptr +=3D rdev->uvd_fw->size;
+ =
+
+-	memset(ptr, 0, size);
++	memset_io((void __iomem *)ptr, 0, size);
+ =
+
+ 	return 0;
+ }
+-- =
+
 2.31.1
+
 
 
 
