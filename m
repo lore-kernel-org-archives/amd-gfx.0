@@ -8,74 +8,72 @@ X-Spam-Status: No, score=-12.6 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 00DA3C07E94
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 11:11:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 01423C07E94
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 11:14:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BB4CA61405
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 11:11:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BB4CA61405
+	by mail.kernel.org (Postfix) with ESMTPS id BAC3D613FF
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 11:14:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BAC3D613FF
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F055D6E283;
-	Fri,  4 Jun 2021 11:11:41 +0000 (UTC)
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [IPv6:2a00:1450:4864:20::62e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B8A96E138;
- Fri,  4 Jun 2021 11:11:39 +0000 (UTC)
-Received: by mail-ej1-x62e.google.com with SMTP id og14so8594865ejc.5;
- Fri, 04 Jun 2021 04:11:39 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BC716E0C6;
+	Fri,  4 Jun 2021 11:14:17 +0000 (UTC)
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [IPv6:2a00:1450:4864:20::530])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6AEFE6E0C6
+ for <amd-gfx@lists.freedesktop.org>; Fri,  4 Jun 2021 11:14:16 +0000 (UTC)
+Received: by mail-ed1-x530.google.com with SMTP id r11so10637932edt.13
+ for <amd-gfx@lists.freedesktop.org>; Fri, 04 Jun 2021 04:14:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=BQUG9rLBagDE3J7LSSE86X2TmT7SF5szEvUlFFOgXJw=;
- b=AKZLZ9RcuNFtFpU2HlORqN+F0aDDdPOWEF0LmofzDUBzJVQxFuF03Iopw5UfbJo6wj
- dCrODKC6J9QggYjr4fn+5Awk3p7KTQYHQBkcLM1VihBqGR1yRXvQVP6e7d/xU54vcYkB
- Kf1up2JPH+87j0n8Tibjo70vosVzALe5dWICqux0nf6Aezw7orz+x73+DWy4ZrWUyOCY
- 2vqQRKvQrlthlG6farlgGqrDkOtJxzsyNp/+xeB8Q8yPAIHC0ZxoJzB//UvhLDZvn3ed
- lVZTcZaSQsWE9rpJ6UmFkZlzCo+di9rjRRMIkkDoIPzI7iQevgYFl5uiNOHowCKBgpQg
- Ng7w==
+ h=subject:to:references:from:message-id:date:user-agent:mime-version
+ :in-reply-to:content-transfer-encoding:content-language;
+ bh=mtLbr8eQvZcYmlXv0308uDT3c1EMabCnLOnxJ6ocGds=;
+ b=EiR35mQ/qQnFB6UetQWzhqMM8MbXkiWEfUF8oUu/fFylxCaGIA6ELa5IQYhPd7AVYF
+ vWwW2AuDPS/9s3/vgaCcPxjivvUID6cMZjZ2FmqgcOqKL5EHmUlq/fuTWYz96bL3887c
+ n6VywZuuCJLgeHg0Dw2iKf6160LVI+20Je1kXEcEArxwbuyhs9UW4bzNoryobX90k5td
+ iXmijYovYD1ZYp+oY9G4/Q1b9QFbyYjQp4EKvWnU4pBsnKb98/AiTxOmvKGBc09n2rL4
+ kLwCxv7vr4/lXnYDqKk2eIKXB767Q4k26QjsHO4fwP26Q7mt5bBx28fq+mh+DwstxC5w
+ Fl7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ h=x-gm-message-state:subject:to:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-transfer-encoding
  :content-language;
- bh=BQUG9rLBagDE3J7LSSE86X2TmT7SF5szEvUlFFOgXJw=;
- b=YX6bBoIie2SXnHs/tjKrh2S6yZurMXBxzwiUS/9f+L8NIj5ZnJSFvTrUr7SfDvdA0H
- 3pfDJYYxHEetxbnJLLUgMICQPmZine/N0NbnlRnzNI+ASFMXgErQKTIdZY1EWKlH8Xwa
- ABTEKHYoKeH5A9goAAHxt0TX0ligxhGaZ1dbVKaqXm1Fk4juwGeo4ty274YdbjjEmRaZ
- q7b0oRYeNl7xPzymbg9W1h/jnl2h9YLBc9+43E+9aNVVnahXykc2roasFUIwjOEz8Xlm
- Rq/UpTgS7hSiMXg9pdzP2XHDCNvo16lBPokhVLNeHPEBtmGu2YMPVQzL43acZRrGo9gL
- POwg==
-X-Gm-Message-State: AOAM531GlxMNNs9C0wRgXoisimhHlNNWhTO9W8qfA9bY/i/P/TNGCiSd
- qIkrTHQmWqdUxx/yuXF2izk=
-X-Google-Smtp-Source: ABdhPJxwOi2L/qa3p1KrMVaJKXxi1zF8E7uZF06kEzz3kjvluKA7vA7S+LWJ1SpnGlbw7LFo89zKHg==
-X-Received: by 2002:a17:906:5f93:: with SMTP id
- a19mr3677884eju.18.1622805098334; 
- Fri, 04 Jun 2021 04:11:38 -0700 (PDT)
+ bh=mtLbr8eQvZcYmlXv0308uDT3c1EMabCnLOnxJ6ocGds=;
+ b=j4EmhTthtUaCr78aC0HnlsHzGindGQAAxxRuahlZpDkmJ61kENw71LVV+MoHMMpj8U
+ iJ6hwOGJGRijIGQND7LlSt2wTnKsTpQPTqCUgTpLML6ZL8oTeSGbmIAkml/C3i2RumKu
+ vgl+Le0h0NGV7vdduzskKU7Vt9MD5wmQyyuoLT63ugN/bfZOAUoKbeyVzAi1biLKD9N1
+ 1GEdnjK/AO13ez/CUMbnxlFSWjfJUvSFXUP2gZAPfKcZej0vqoRuXF848GSwiTAfoQkL
+ MpdQjweyzENOk7J8EY507tTqVRUadULzEEe7R0vSqfuNlh+x4cUIcaoC5MmV+zP+odyV
+ tSVA==
+X-Gm-Message-State: AOAM531VVfTgYbWWse+FHgWtWYtS72IQoS8xp86B80LgmzDVJCnETGC3
+ sXZGSI8hwl51VIkrOc/QUFR4tjaEces=
+X-Google-Smtp-Source: ABdhPJwAh9hXBR1Gf+UsLam9zQvu9F6kbg/9eTGPnblIvpP7xN8++6e+ODRW2AuiWwfntY5pbt12WQ==
+X-Received: by 2002:aa7:da8c:: with SMTP id q12mr215912eds.368.1622805255069; 
+ Fri, 04 Jun 2021 04:14:15 -0700 (PDT)
 Received: from ?IPv6:2a02:908:1252:fb60:7b4b:873a:17b5:b581?
  ([2a02:908:1252:fb60:7b4b:873a:17b5:b581])
- by smtp.gmail.com with ESMTPSA id dy19sm3062992edb.68.2021.06.04.04.11.37
+ by smtp.gmail.com with ESMTPSA id b25sm3100553edv.9.2021.06.04.04.14.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 04 Jun 2021 04:11:37 -0700 (PDT)
-Subject: Re: [PATCH] drm/amdgpu: Use vma_lookup() in
- amdgpu_ttm_tt_get_user_pages()
-To: Liam Howlett <liam.howlett@oracle.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- "linux-mm@kvack.org" <linux-mm@kvack.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-References: <20210603160928.3854180-1-Liam.Howlett@Oracle.com>
+ Fri, 04 Jun 2021 04:14:14 -0700 (PDT)
+Subject: Re: [PATCH 1/5] drm/amdgpu: remove sriov vf checking from getting fb
+ location
+To: "Deng, Emily" <Emily.Deng@amd.com>, "Liu, Shaoyun" <Shaoyun.Liu@amd.com>, 
+ "Luo, Zhigang" <Zhigang.Luo@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20210603141305.2542-1-zhigang.luo@amd.com>
+ <DM6PR12MB5534D815A3DBF82EBE78C576F43C9@DM6PR12MB5534.namprd12.prod.outlook.com>
+ <PH0PR12MB54171568B27151FC487210928F3B9@PH0PR12MB5417.namprd12.prod.outlook.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <4d2e62c7-af4c-b977-a05c-97b664b532b3@gmail.com>
-Date: Fri, 4 Jun 2021 13:11:36 +0200
+Message-ID: <befc7f07-613a-d1bd-434a-516035552a79@gmail.com>
+Date: Fri, 4 Jun 2021 13:14:13 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.8.1
 MIME-Version: 1.0
-In-Reply-To: <20210603160928.3854180-1-Liam.Howlett@Oracle.com>
+In-Reply-To: <PH0PR12MB54171568B27151FC487210928F3B9@PH0PR12MB5417.namprd12.prod.outlook.com>
 Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,31 +86,105 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QW0gMDMuMDYuMjEgdW0gMTg6MDkgc2NocmllYiBMaWFtIEhvd2xldHQ6Cj4gVXNlIHZtYV9sb29r
-dXAoKSB0byBmaW5kIHRoZSBWTUEgYXQgYSBzcGVjaWZpYyBhZGRyZXNzLiAgQXMgdm1hX2xvb2t1
-cCgpCj4gd2lsbCByZXR1cm4gTlVMTCBpZiB0aGUgYWRkcmVzcyBpcyBub3Qgd2l0aGluIGFueSBW
-TUEsIHRoZSBzdGFydCBhZGRyZXNzCj4gbm8gbG9uZ2VyIG5lZWRzIHRvIGJlIHZhbGlkYXRlZC4K
-Pgo+IFNpZ25lZC1vZmYtYnk6IExpYW0gUi4gSG93bGV0dCA8TGlhbS5Ib3dsZXR0QE9yYWNsZS5j
-b20+CgpSZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQu
-Y29tPgoKPiAtLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYyB8
-IDQgKystLQo+ICAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMo
-LSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRt
-LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMKPiBpbmRleCA3Y2I3
-ZmZkZDE5MDAuLmRmYjVjYTNmOGRhOCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfdHRtLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfdHRtLmMKPiBAQCAtNjgwLDkgKzY4MCw5IEBAIGludCBhbWRncHVfdHRtX3R0X2dldF91
-c2VyX3BhZ2VzKHN0cnVjdCBhbWRncHVfYm8gKmJvLCBzdHJ1Y3QgcGFnZSAqKnBhZ2VzKQo+ICAg
-CQlyZXR1cm4gLUVTUkNIOwo+ICAgCj4gICAJbW1hcF9yZWFkX2xvY2sobW0pOwo+IC0Jdm1hID0g
-ZmluZF92bWEobW0sIHN0YXJ0KTsKPiArCXZtYSA9IHZtYV9sb29rdXAobW0sIHN0YXJ0KTsKPiAg
-IAltbWFwX3JlYWRfdW5sb2NrKG1tKTsKPiAtCWlmICh1bmxpa2VseSghdm1hIHx8IHN0YXJ0IDwg
-dm1hLT52bV9zdGFydCkpIHsKPiArCWlmICh1bmxpa2VseSghdm1hKSkgewo+ICAgCQlyID0gLUVG
-QVVMVDsKPiAgIAkJZ290byBvdXRfcHV0bW07Cj4gICAJfQoKX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
-bi9saXN0aW5mby9hbWQtZ2Z4Cg==
+I was just about to question the same thing.
+
+It looks really good to me to have that cleaned up, but if this breaks 
+with older versions of the hypervisor then it is a bit questionable change.
+
+Regards,
+Christian.
+
+Am 04.06.21 um 03:13 schrieb Deng, Emily:
+> Do we need to consider backward compatibility?
+>
+>
+> Best wishes
+> Emily Deng
+>
+>
+>> -----Original Message-----
+>> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Liu,
+>> Shaoyun
+>> Sent: Thursday, June 3, 2021 11:10 PM
+>> To: Luo, Zhigang <Zhigang.Luo@amd.com>; amd-gfx@lists.freedesktop.org
+>> Cc: Luo, Zhigang <Zhigang.Luo@amd.com>
+>> Subject: RE: [PATCH 1/5] drm/amdgpu: remove sriov vf checking from getting fb
+>> location
+>>
+>> [AMD Official Use Only]
+>>
+>> Looks ok to me .
+>>
+>> Reviewed-By : Shaoyun.liu <shaoyunl@amd.com>
+>>
+>> -----Original Message-----
+>> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Zhigang
+>> Luo
+>> Sent: Thursday, June 3, 2021 10:13 AM
+>> To: amd-gfx@lists.freedesktop.org
+>> Cc: Luo, Zhigang <Zhigang.Luo@amd.com>
+>> Subject: [PATCH 1/5] drm/amdgpu: remove sriov vf checking from getting fb
+>> location
+>>
+>> host driver programmed fb location registers for vf, no need to check anymore.
+>>
+>> Signed-off-by: Zhigang Luo <zhigang.luo@amd.com>
+>> ---
+>> drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 5 +----
+>> 1 file changed, 1 insertion(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+>> b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+>> index ceb3968d8326..1c2d9fde9021 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+>> @@ -1292,10 +1292,7 @@ static int gmc_v9_0_late_init(void *handle)  static
+>> void gmc_v9_0_vram_gtt_location(struct amdgpu_device *adev,
+>> 					struct amdgpu_gmc *mc)
+>> {
+>> -	u64 base = 0;
+>> -
+>> -	if (!amdgpu_sriov_vf(adev))
+>> -		base = adev->mmhub.funcs->get_fb_location(adev);
+>> +	u64 base = adev->mmhub.funcs->get_fb_location(adev);
+>>
+>> 	/* add the xgmi offset of the physical node */
+>> 	base += adev->gmc.xgmi.physical_node_id * adev-
+>>> gmc.xgmi.node_segment_size;
+>> --
+>> 2.17.1
+>>
+>> _______________________________________________
+>> amd-gfx mailing list
+>> amd-gfx@lists.freedesktop.org
+>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.fre
+>> edesktop.org%2Fmailman%2Flistinfo%2Famd-
+>> gfx&amp;data=04%7C01%7CEmily.Deng%40amd.com%7Cd41e78b1a3af4f08ff
+>> d108d926a1a2d8%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C63
+>> 7583297946242271%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAi
+>> LCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=Nsz
+>> ZyRZHCxj%2FIJ1hYoSrkv3LpTmF9FbchpNMtQ2GE5M%3D&amp;reserved=0
+>> _______________________________________________
+>> amd-gfx mailing list
+>> amd-gfx@lists.freedesktop.org
+>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.fre
+>> edesktop.org%2Fmailman%2Flistinfo%2Famd-
+>> gfx&amp;data=04%7C01%7CEmily.Deng%40amd.com%7Cd41e78b1a3af4f08ff
+>> d108d926a1a2d8%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C63
+>> 7583297946242271%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAi
+>> LCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=Nsz
+>> ZyRZHCxj%2FIJ1hYoSrkv3LpTmF9FbchpNMtQ2GE5M%3D&amp;reserved=0
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
