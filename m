@@ -7,122 +7,123 @@ X-Spam-Status: No, score=-15.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9A3FDC07E94
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 11:56:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D4701C07E94
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 12:23:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 584126140C
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 11:56:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 584126140C
+	by mail.kernel.org (Postfix) with ESMTPS id 8AF5261412
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 12:23:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8AF5261412
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0746C6E33F;
-	Fri,  4 Jun 2021 11:56:27 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2083.outbound.protection.outlook.com [40.107.93.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B65976E33F
- for <amd-gfx@lists.freedesktop.org>; Fri,  4 Jun 2021 11:56:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A5D66E364;
+	Fri,  4 Jun 2021 12:23:59 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam08on2053.outbound.protection.outlook.com [40.107.101.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18D766E364
+ for <amd-gfx@lists.freedesktop.org>; Fri,  4 Jun 2021 12:23:58 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iksfu/Ph/APgfLNLT77ljFqR5Mvo2OS5h3Y5cse/mC8HVfm2OvMa8hVVjjjD28AVB3DWdOK8pAXFj5GNeD5l37y96LbSIM1Z4gGjsGiZvBK9ArBJhE5gi3p3z4xhRVscWVH3no8pK4s05LbNzYpsVFOauTSee+p+3eidcxz5Qik2c//4QHjG/6GAIOR7q14aQq6/F9K+mOcs+V1qY7U5UC7Zh0j1/+C8l3KoLtOUiP3KmKym7W/977zAU915l/0lAPILX+k4LQgoKAQYgsYmBq3k5hIAsPtN1aRk+nilg/Wm77LSjY3TtWyLwQrZavSFazKHOFCqARbHFda1eZAI1A==
+ b=RWp2RqQGOFdPuh8fogC7MNbJBEWkpUxrNUTi4+UvPcluVDngIFT/+EmpDFlUORMozmkVajkLk/T4wq3TFzogBvZRJCAreL5viOiyfgleVu4+FxJE8b2qF5mgVy3t79bzsocgYfse93UoVKuRktyHdNyecK5oIbnPBBH7udBagiBiKijhjpy/crZty6pVsKtcbE6TxK6mwc5fylSgEwNbFJwp0lID7c0xFq/I+JVWsqUJLNu3m1guCpOj7yGCOREjJrQh5+ldwI63PzCIxgfTPP2sYuJShuhSCY02jsf4ghfA/PUmr+EbrOqQAKodqIHDhR1x4BHVCoOyu59plBOK9w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OzSqwwYeLUJ24QJkXViXMPnHiAD4HIj4VS8A1kKD9+w=;
- b=NcfCclh9xzBVpdSVJ8gylpk3zV3MMSh5LfuHcDPz3iCpNJWq0m6JpE7Gx9zT5qLIO02wO7sqlU3F61wot4LkuHpqhHCQbK6WU/OugAop41a9cVfscHiGV5Udx6nWHQSKUaC7N8ZSzVFKS0ej6KFifyL3PV6o5l93Ds/BgWIiPnMlPOBzKxpCjJ1ZcA10jbvZzbncnHNcmYXkZT9dOMYZJ6tVIXAhMk2BDjB47/gptcTtPmNo3ItixbllD+5YCRpAHsjZBXFQEoaSRxga9H9miKqIoKjsVcp4RxuqrK7XFTbdcLqi9Xl4zjaRgwB+YnZ5Hro1IfHy9nGuH0BURdGb7g==
+ bh=hlc5WvodqFt8KUHphnmcsRYfRBsbq0rFLT1i6+y7Fns=;
+ b=dLPU/pjd6BHGA1p+nWFLVNo+AlVURvMNFZlvnzviXD2fYXb9E4Ski1VuS+9qe3PlGvGt9Uy1raf+/Z5ZRNTtvtuNKkk3sN4yoJ4yxwPaVv0cOlJics3i2Byhxg94BPe2V+TCN4d43UnfYYo/ORpNSAcWfmlZo0h/qrsfgPPB4Q2M3Lj9xokzSkleZJkoeH89OjgQhOiyKvG9IxwtHdO2tlCMb8A39W38kfVfmiEiyttX/cWX6QHJ2cRgmrKvqrmJwb877bDjU5q45zoaiU7GG2/0d1Z26s+xyMqUwGa1IcqCg+cG/MU15K9wgqmBdrsX8MStup3LhKr1xvNOvlLQ+A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OzSqwwYeLUJ24QJkXViXMPnHiAD4HIj4VS8A1kKD9+w=;
- b=m6+2saDOJJQ99sxQqWAl2I5mR5vFAxDvQK0lmhMuFSQoBbN4efEstH7WaoZBorI0pRo6FFt3cqI/Fg/8HCtkBRlXJiE0FSiPxCwuWqbPR+NyzxMFDPfKDf84RTTVtoRkSkU4/Rvim0nHG9xj1ox/nMIbEbhDxzdhNQtmtUm2J0c=
+ bh=hlc5WvodqFt8KUHphnmcsRYfRBsbq0rFLT1i6+y7Fns=;
+ b=dgGkNGXfcfe5OJvwBWkRWHByIP8RRP5tV5R2gLCkpRncZ2INZFzf82XSJaYiJHkpXQBnRbzsV/tEr3szpIeSBWSOoKwlfQJkD2vZSTyQ05dRPVNYiN6gbMd+wry/IkYVvLcwgOBv1J/N7AH2eMIkTEhpGBhha09I9yMSXtZCd1Y=
 Authentication-Results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
 Received: from CH0PR12MB5348.namprd12.prod.outlook.com (2603:10b6:610:d7::9)
- by CH0PR12MB5059.namprd12.prod.outlook.com (2603:10b6:610:e2::6) with
+ by CH0PR12MB5282.namprd12.prod.outlook.com (2603:10b6:610:d5::22) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.23; Fri, 4 Jun
- 2021 11:56:23 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.20; Fri, 4 Jun
+ 2021 12:23:57 +0000
 Received: from CH0PR12MB5348.namprd12.prod.outlook.com
  ([fe80::80e7:eb2e:843d:91e9]) by CH0PR12MB5348.namprd12.prod.outlook.com
  ([fe80::80e7:eb2e:843d:91e9%3]) with mapi id 15.20.4195.024; Fri, 4 Jun 2021
- 11:56:23 +0000
-Subject: Re: [PATCH V2 4/5] drm/amd/pm: clear the cached dpm feature status
+ 12:23:56 +0000
+Subject: Re: [PATCH V2 3/5] drm/amdgpu: correct the audio function initial
+ Dstate
 To: Evan Quan <evan.quan@amd.com>, amd-gfx@lists.freedesktop.org
 References: <20210604095823.1403271-1-evan.quan@amd.com>
- <20210604095823.1403271-4-evan.quan@amd.com>
+ <20210604095823.1403271-3-evan.quan@amd.com>
 From: "Lazar, Lijo" <lijo.lazar@amd.com>
-Message-ID: <83d7ff01-061e-707a-0774-fc29e05c2684@amd.com>
-Date: Fri, 4 Jun 2021 17:26:10 +0530
+Message-ID: <b55d9c52-cadf-fbb3-1ed0-8b99dc972b6c@amd.com>
+Date: Fri, 4 Jun 2021 17:53:38 +0530
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.10.2
-In-Reply-To: <20210604095823.1403271-4-evan.quan@amd.com>
+In-Reply-To: <20210604095823.1403271-3-evan.quan@amd.com>
 Content-Language: en-US
 X-Originating-IP: [165.204.159.242]
-X-ClientProxiedBy: MAXPR01CA0116.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a00:5d::34) To CH0PR12MB5348.namprd12.prod.outlook.com
+X-ClientProxiedBy: MA1PR01CA0103.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a00:1::19) To CH0PR12MB5348.namprd12.prod.outlook.com
  (2603:10b6:610:d7::9)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from [10.252.81.250] (165.204.159.242) by
- MAXPR01CA0116.INDPRD01.PROD.OUTLOOK.COM (2603:1096:a00:5d::34) with Microsoft
+ MA1PR01CA0103.INDPRD01.PROD.OUTLOOK.COM (2603:1096:a00:1::19) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4195.21 via Frontend Transport; Fri, 4 Jun 2021 11:56:21 +0000
+ 15.20.4195.15 via Frontend Transport; Fri, 4 Jun 2021 12:23:54 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 0ae55168-3b26-4af1-1d2f-08d9274fc639
-X-MS-TrafficTypeDiagnostic: CH0PR12MB5059:
+X-MS-Office365-Filtering-Correlation-Id: f6894532-ee98-4ef1-8d68-08d927539fa2
+X-MS-TrafficTypeDiagnostic: CH0PR12MB5282:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CH0PR12MB505966B3DB6133645F0B880B973B9@CH0PR12MB5059.namprd12.prod.outlook.com>
+X-Microsoft-Antispam-PRVS: <CH0PR12MB5282BDFA9429FBB929B54A28973B9@CH0PR12MB5282.namprd12.prod.outlook.com>
 X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: qYFml09ug4wrz/91rpmGPcCEUFCVUyTEvygGrfZqfOtHx+IDiJVTH1ten3kLHagKB10f1YmJTbR6Lc/IJso3IxZ2ahgiKjDPt34hG0J2/EYdcxswyLk2BUUv1gqqcEv6K+ScdUOu+yLgqxf1h58kytnhQKM/Hg0ReLYCcIGYQsWe84C5r0mOC7Kfr7YCmbwyf6toJjegz0kLMetlhO+LJPe56/Z/lFH8ObQBKu8E8dkewnXRTzsTwHPrcT3Cn3Rg1h92OOiTmPEHqcG+XZv/cIXANioseo01f4WPkF6Q8SWXCt1lb8EJlyHoqWt5e0T89sC/j+Qh+AKgePXkSZ3kISHwTLAoqeqCvtNrSAGeYwMayWPluvxjSMsc0OrZ8j3pYyz0FJyE/ASwzXNt4xupyuIWhnkKxaPFgv3V+rSYZEuJ3+IM16xYLKRPiCKBYFxjhUrdHlWR07NUFOPb1ihP0bFLEH0bv4PxqaszzJ2804Cc9xjdHQxV0ikMlP6fAmSwdVUegm8ow/Tgx6os49fZ+lNX3hoh3NoRBV/JWphu3cg9ejtkoQJ+eklBlN/iq3W+8swLshCqBevHO8DzKcWmGiPaatx3mgNMwq4eO7Yu7WMurgmWxApCLQOPSnWfxqFYLDqQrhjCyYlRzSeox9HCI2BXJsXMRzupmxGrmGsb3BM2H7vbjoec6slehEpkh8WQ
+X-Microsoft-Antispam-Message-Info: Or6+sDjw3U9BaZqa2uXxaMue5zGg7yalSbjQJBdrcGrDp4Lt9s9MLulUs3vdSDm5LFBZJYQ3tzArDOEjEiooUKREmBw8bHJeHPtCo9jf3hbNLyM0OdDuQrr7l6Wjb/dxwyoCi3/l7G+9QVXlbWgeZKfv2iX+7GjcT1XX0hzipioFzurgL0BRHxy8OybJp0B8irajJHwKkY3bXVyTDZ0W8a7yVIDkXp08jbeqmMZHs2z5JW1qxbkEN0Mu4P8pRdcx0hWHRLxqxTkC59FrXuvjeRKNpdgfJ5A1UmryyUWOikM8YPViBDZup65PGmkHfoJq50mLhLpFaG/7iQ4/TFnJ6D9br4LC9DrxLVxo9EqN3OrSy+0fJLVjThq8SWloJs34TubFxhHA8H8GLopCbdb6RTwO80hoiAR+i9+Xt/HmUqQGuaz4pFWUIGgpbo4DfGxVx6rXfgeqg0+TTC4rDC3NAQpvzjvaX667Iq158M3AcAiGfvmvYCdvW9z2hWP2tcuRyFUAKmKRbtkPZYyFwpvL28e1zkhqoLTqvCvjAXEjoLIDeA2IXNtOUFh+OR42YtMtJH3K8/18lo005l8uHtTcVdPl2wmmbpspsKWbDIrZm/++IowI5djnK0Ekg4bLi7fz6v4JDFtL4HfGs7JTzhpyyyZDbyj5hyEK0YFZIzRYu78uxlJ9mYbLZZARt3SBaK8f
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CH0PR12MB5348.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(346002)(39860400002)(396003)(136003)(376002)(66946007)(66476007)(66556008)(8676002)(6666004)(6486002)(2616005)(31696002)(53546011)(86362001)(5660300002)(31686004)(956004)(36756003)(16576012)(4326008)(38100700002)(186003)(478600001)(16526019)(316002)(83380400001)(2906002)(26005)(8936002)(45980500001)(43740500002);
+ SFS:(4636009)(39860400002)(136003)(396003)(376002)(366004)(346002)(8936002)(6666004)(31696002)(36756003)(86362001)(4326008)(31686004)(478600001)(83380400001)(8676002)(38100700002)(53546011)(26005)(16526019)(2906002)(66556008)(66946007)(66476007)(5660300002)(2616005)(6486002)(956004)(16576012)(316002)(186003)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?TWxUUUpCNGpVcHNFb2Q0YmJwNkZROUpiUi8rZUcrMUxEdDBwbEQrTU1zeVRM?=
- =?utf-8?B?ZVExVUNyN3BuaHNYTGZlUEZndlZQOGR0Uks0WWx1RFY2WUw1OFRhUTRsSXpo?=
- =?utf-8?B?cEh2cFpuOGdWWFJBdlVhUE4zT0M1cFNOTjQ0ZDJ2SkQ1ZjZ3TFhjaGpOcFAw?=
- =?utf-8?B?YzRNaHhkc1EwbkNHNWNIUnYrZXFtLzlPcldKa080NkFjaEJONDNDd1htaThF?=
- =?utf-8?B?TnNGMGV0UE9EMFJmeW9uZFcvQlU1bjQrb2pzbm1BSnc1cXNWTVg2bUxacDlD?=
- =?utf-8?B?K2NPTW1vajl2bXhLWFFkYmhwWCtTUDNSRnJ1Yk4wTmhvMGE5TFd5NHB3UDBp?=
- =?utf-8?B?T1NpZ1BHbDh4VWdmWTZYMis5c1duQW1KUGFxSFo2SzNHYnp5SjBCR3pSaEdB?=
- =?utf-8?B?czNxYlEya3Y0NndpREgxNmdVdjVrNlBiQzZ1cVUyOCs1a0JRM3JIajZzcHh0?=
- =?utf-8?B?UmljdXpzY3hCTlp0NkJKY2ZZcEZJQ051VzdqRXBwWkszMzllV3FIM3FnOE40?=
- =?utf-8?B?WktCeXdVNXBuRW1QMUJMVXhlbmZNZGFtRUViMTNNaXZEUnorUUh0bEJmWS9M?=
- =?utf-8?B?aW9UQWVkb2poR0lBcEVFQWtJbDJUZnpKU3U4bkRnZEltUFhuWWtGVVJ2cHo5?=
- =?utf-8?B?aVM4dXRIelQwQllpc2FaZWtZNEN1Sjk1eU9pRWJnTnJYSUpWeEJGZWlocjRW?=
- =?utf-8?B?STE0MkJGSG4zc1dwbmt4N09TK0FhK2JzVWRBNHA3OEFJcWZac2lYakFvWEM0?=
- =?utf-8?B?djgrVGxGWmtqRXZlMklaQ2hiTzRkUGtEYlcyb1NVdnEvS09jZDhMVXhWdEo5?=
- =?utf-8?B?VzYvSksvZWhQTnZRNStDeWhWd2NldWh4UzBlRXc3eWFZSStVNWdBNTA5b0Z6?=
- =?utf-8?B?b3NkaFdMdG00V2cwQ3M2SFlNVjZGWWRkMkJCSzJXUnhad1pvOTYyVmsyVUM4?=
- =?utf-8?B?ek5Udmt1elBzZkRxYy94VzBCNnJqYklIN01FL2hYVmdhaHp3SUtZK013bUpx?=
- =?utf-8?B?b01iT0lnNCtISENFTzZhZkxIMENuREdtamtWeDdmeFFLZk4zUm1TdDFmL1pP?=
- =?utf-8?B?dFNaMDhza1FMdE1ERXhnRjlESUp4L2RpRXFySWE5NTRtY1ByOGY5ZTIydzdO?=
- =?utf-8?B?MXRpQndtaXpzdDQwb3pFa1VyTTI2TG9yZUU5cmt1RGdYL28zNDBESEdyWnJ6?=
- =?utf-8?B?RVdVSHJTWDFZNWtBK3Z2Z3I2U3BnK0F4Y0ZDcGFsQmc4d21kSXU0cVBqcE5l?=
- =?utf-8?B?NmcvWTB3RE5BaG5sc3JyV09tRm1LRU1HZk41SkJJOFJINlJsa1NQZ2ZlbExu?=
- =?utf-8?B?dUNGZVNuRURranMrWnRXckxLTEtqamFPV0E2NUlMNnMvWEZtVUdXZXd4YXQ0?=
- =?utf-8?B?eHVvQjd4emRDM1ppU0pNU2kxb2dFbXRSSHhjSkpYc3hFMlpUVVNlcWtWWFdo?=
- =?utf-8?B?emVML2ZKdk16dWFncXhDWTgzb3JNaU1sdGxDem5jYTNLT3ZsMjFiTTdpV0pq?=
- =?utf-8?B?S1F5TTBTcFc2K3ozTitKSTZxMzRHclI3ZDZTaGZCQUhsdngzbGd4U0h2cEhn?=
- =?utf-8?B?TTF0S0NNYmVabklRWkt1RE50S091MWJmWWZmUnFnbDMzZ2RGcjdxU0ZFeUpH?=
- =?utf-8?B?dzhRWTBWTWFPcTZIL0lpM2VoSnVHSUt3bm94VGhpOHNPaUhmQ2ltTE9Kd1hv?=
- =?utf-8?B?d2c5TWY0K2hkdGZIY0NkYkxrSU5IS0NzZFljaFBjMFRZTkdWSkY2bDVBaFlr?=
- =?utf-8?Q?goeWmbj/EodJyac1hqLLLl7gUK8alDHS8dZJyCd?=
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?L3VxelorVDVpQlh6cnNzeEt2cmlwOEJQcm9OVHh3ODRSdXJNci9rakh3N2tN?=
+ =?utf-8?B?ZUdqWFJYV1dOK0R2REJyaTV3aG1nbnFKMkVwamhBRm9IWDFqdG1qTkFaOVRv?=
+ =?utf-8?B?TGhMeGc0Sy9YTTBJSmlBcS9udXE1N3c3L3RYWTNvSytHVy9aMStnKzlsRFhB?=
+ =?utf-8?B?RTlHQmhKZ05VV1FqdldiemgxUkFkc1MwdXVKTkxIci9RL3d4emRhblprd3VD?=
+ =?utf-8?B?YTlvaUE3ZkwzQTlVeE83TVpDajRUaVk5M1lwL25YTVQrL09DRGR4QTArMGRX?=
+ =?utf-8?B?NEFEYlJaR05yNEgrQ08xQkR0UllDWXludXBjNkhtYVFzbHBIZFZGMzdkZUV6?=
+ =?utf-8?B?cXJqOVVPSGNmb1lFRnJvYWtoM0gwT1FjWFFxNXhMQmdtMzR5T2RtTVYvUjRR?=
+ =?utf-8?B?N3lJdEVEa0UyNGs4Wm5mZmhQaC82UzBqZTBsWE9UR3AyRndURWU0THdSbXha?=
+ =?utf-8?B?Wi8vb2F0OGRJMEs0YXU0TDdMand5WVV4YVhraU5yMGNkaXdrazB5VTF0RDlK?=
+ =?utf-8?B?b1hDQnFGaG9kYmVOUDFWdVNSN1BOU084bmlDdTVISmdnMllMZ1puTVJveEEy?=
+ =?utf-8?B?VjVBVkNUZ1YrdktYQ0VheWdiZG5VeXFCWTY4UDNxNSt5dmcrbkx5VzB5ZG05?=
+ =?utf-8?B?L1pkbDJtNE5wa1FHUmlkbVdMdTN0MGE1eFU0djYzODdMQXFDVmxTVngvNHNT?=
+ =?utf-8?B?djlyZ3hwU2J6N1VhR1BkSks0RncvRmNHcU9PY1lseTFIRGZkSWovRHJvTzFy?=
+ =?utf-8?B?SjJqT3liR09uZUhOYkhic3NMZFF4T09Oa3MyRCtOOFRUNHdnajBTbjF5bmN1?=
+ =?utf-8?B?YXhYT3lnWFVQUVRwOHF1cFFDWk5BRVYxaWRHTXJqTlBBa1cvT3N3T0Y5eUpq?=
+ =?utf-8?B?aG9NOHRjTDdIZWhoNnp3cy9Hc0E3SjRxV3RCeU01OExUREtRK3o3TEpma3FU?=
+ =?utf-8?B?bDFpeFpyaDQzbWs4L0NWZStldG1Ua1YzaTlUeWE2QkhrSGJmZVJvRnBiREdo?=
+ =?utf-8?B?VUNHbHJRbCtSeUg2cFYvTEZYazkwQUxZUjZkcnlMVStsTVhKZzh3QTJZakVx?=
+ =?utf-8?B?TjFpU0RyR1lNcStLZzlWQjVtL2Y1dmwrV013aHQyMjRuZHRzQmxrelkrVVB1?=
+ =?utf-8?B?dU1PdDk2bHJjdDM3dU50SEhCV1U1cmorZHR3UTNCUWxPM2JnT2hBQnJoTFND?=
+ =?utf-8?B?YkdRYU1scWd4aENkSGg3eW5IRXoxM3ZHQWg4WlVGbFFpUm9hQmFJSk9WN2Jo?=
+ =?utf-8?B?NSsyOGNJeXoxNElyNWZNOUdwL3ZMM2JwVnZOcHVoNUZwaUJNVkhVOGg4UGlw?=
+ =?utf-8?B?UFp0OWc1RzhtUlhTdnJlQXVxc1dkTW1rcGpQelBNcU5RZTl2aTlUSXhOTzVE?=
+ =?utf-8?B?azNFdUUxU2ovSTAvZ2gvNmRwWEVlT2p2NllPM2VTOFprQWpxckI0UEN4NE1i?=
+ =?utf-8?B?SzNzVThWTXBIMG8wRGd6TWwwV2ZMZXM3U2o2RTArNWp4eWROSzNYMzVaSFFQ?=
+ =?utf-8?B?WHNUZHRlYWVFUGVKVEZnL3lheUN0NGM5NTRQWUtDclBuVHVMdDFTWjFhQ280?=
+ =?utf-8?B?WE15M0pWcjY2SVQ3SWd6d1pDQ1ArUHFLSTlwbkRLRkxGZUovelQ0b2wvYXpk?=
+ =?utf-8?B?cGFBbGhQS3RDVWY2RVlXa2ZTUHRQYTliQ3JlbjNHYk1rSzB5SjlGTDFTNzBy?=
+ =?utf-8?B?MURFODkvQWEwaWxGV213OWd4SFhGZEN0TTR2NmdPb3M1VG9seTVjbkJTRytR?=
+ =?utf-8?Q?IgEw7pMG5h8au9mNd/QK43hIVHtZpVA2yOWRYH9?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0ae55168-3b26-4af1-1d2f-08d9274fc639
+X-MS-Exchange-CrossTenant-Network-Message-Id: f6894532-ee98-4ef1-8d68-08d927539fa2
 X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5348.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2021 11:56:23.5020 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2021 12:23:56.8414 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9SQdwq3QCQTxZhOsiSELBtsmW4VWKxNVeDzmPrt7qDRUossdOJfnJToR8/uZds7W
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5059
+X-MS-Exchange-CrossTenant-UserPrincipalName: YIXmJsdSHWcHvJhWF0jkRWeStUnGrfSmNiOFnqW9//41xM6lzqmRREqrJE1a8b2g
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5282
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,183 +144,89 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 On 6/4/2021 3:28 PM, Evan Quan wrote:
-> For some ASICs, the real dpm feature disablement job is handled by
-> PMFW during baco reset and custom pptable loading. Cached dpm feature
-> status need to be cleared to pair that.
+> On driver loading, the ASIC is in D0 state. The bundled
+> audio function should be in the same state also.
 > 
-> Change-Id: I9e37d80e13599833301c04711b097fb37c2e41f9
+> Change-Id: I136e196be7633e95883a7f6c33963f7583e9bad1
 > Signed-off-by: Evan Quan <evan.quan@amd.com>
 > ---
 > V1->V2:
->    - correct the setting for baco bit(pointed out by Lijo)
+>    - Lijo: include the code in a seperate API for better readability
+>    - limit the change for Navi10 and later dGPUs
+>    - comments more about the background
 > ---
->   drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h       |  6 +++++
->   drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 19 ++++++++++++--
->   .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   |  1 +
->   .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   |  1 +
->   drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c        | 25 +++++++++++++++++++
->   drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h        |  3 +++
->   drivers/gpu/drm/amd/pm/swsmu/smu_internal.h   |  1 +
->   7 files changed, 54 insertions(+), 2 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 40 +++++++++++++++++++++++++
+>   1 file changed, 40 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-> index fb7438224872..3f9b2a839a37 100644
-> --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-> +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-> @@ -937,6 +937,12 @@ struct pptable_funcs {
->   	 */
->   	int (*disable_all_features_with_exception)(struct smu_context *smu, enum smu_feature_mask mask);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> index c354ffa62483..e9f2161738d1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> @@ -123,6 +123,22 @@ void amdgpu_register_gpu_instance(struct amdgpu_device *adev)
+>   	mutex_unlock(&mgpu_info.mutex);
+>   }
 >   
-> +	/**
-> +	 * @clear_cached_dpm_feature_status_with_exception: Clear cached dpm feature status with
-> +	 *                                                  exception to those in &mask.
-> +	 */
-> +	int (*clear_cached_dpm_feature_status_with_exception)(struct smu_context *smu, enum smu_feature_mask mask);
+> +static void amdgpu_get_audio_func(struct amdgpu_device *adev)
+> +{
+> +	struct pci_dev *p = NULL;
 > +
+> +	p = pci_get_domain_bus_and_slot(pci_domain_nr(adev->pdev->bus),
+> +			adev->pdev->bus->number, 1);
+> +	if (p) {
+> +		pm_runtime_get_sync(&p->dev);
+> +
+> +		pm_runtime_mark_last_busy(&p->dev);
+> +		pm_runtime_put_autosuspend(&p->dev);
+> +
+> +		pci_dev_put(p);
+> +	}
+> +}
+> +
+>   /**
+>    * amdgpu_driver_load_kms - Main load function for KMS.
+>    *
+> @@ -212,9 +228,33 @@ int amdgpu_driver_load_kms(struct amdgpu_device *adev, unsigned long flags)
+>   						DPM_FLAG_MAY_SKIP_RESUME);
+>   		pm_runtime_use_autosuspend(dev->dev);
+>   		pm_runtime_set_autosuspend_delay(dev->dev, 5000);
+> +
+>   		pm_runtime_allow(dev->dev);
+> +
+>   		pm_runtime_mark_last_busy(dev->dev);
+>   		pm_runtime_put_autosuspend(dev->dev);
+> +
+> +		/*
+> +		 * For runpm implemented via BACO, PMFW will handle the
+> +		 * timing for BACO in and out:
+> +		 *   - put ASIC into BACO state only when both video and
+> +		 *     audio functions are in D3 state.
+> +		 *   - pull ASIC out of BACO state when either video or
+> +		 *     audio function is in D0 state.
+> +		 * Also, at startup, PMFW assumes both functions are in
+> +		 * D0 state.
+> +		 *
+> +		 * So if snd driver was loaded prior to amdgpu driver
+> +		 * and audio function was put into D3 state behind PMFW's
+> +		 * back, the BACO may not correctly kicks in and out.
+> +		 *
+> +		 * Via amdgpu_get_audio_func() below, the audio function
+> +		 * is guarded to be in D0 correctly.
+> +		 */
 
-Since this is a just a utility function which clears sw bitmask without 
-touching hardware, do we need a ppt_func? In case that is needed, we 
-already have this - smu_cmn_disable_all_features_with_exception. So, 
-can't this remain as a standalone smu_cmn function which can be called 
-from anywhere? Nowadays, I get a red alert when a ppt_func gets added :)
+On a second look at the comments - should runpm _get on audio dev be 
+done before doing device_init (so that it's in D0 while FW is getting 
+loaded) and put done here?
 
 Thanks,
 Lijo
 
->   	/**
->   	 * @notify_display_change: Enable fast memory clock switching.
->   	 *
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> index c9a31556e077..aba475d06507 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> @@ -1352,6 +1352,16 @@ static int smu_hw_init(void *handle)
->   	return 0;
->   }
+> +		if (amdgpu_device_supports_baco(dev) &&
+> +		    !(adev->flags & AMD_IS_APU) &&
+> +		    (adev->asic_type >= CHIP_NAVI10))
+> +			amdgpu_get_audio_func(adev);
+>   	}
 >   
-> +static void smu_reset_cached_dpm_feature_status(struct smu_context *smu)
-> +{
-> +	struct smu_feature *feature = &smu->smu_feature;
-> +
-> +	mutex_lock(&feature->mutex);
-> +	bitmap_zero(feature->enabled, feature->feature_num);
-> +	bitmap_zero(feature->supported, feature->feature_num);
-> +	mutex_unlock(&feature->mutex);
-> +}
-> +
->   static int smu_disable_dpms(struct smu_context *smu)
->   {
->   	struct amdgpu_device *adev = smu->adev;
-> @@ -1374,16 +1384,21 @@ static int smu_disable_dpms(struct smu_context *smu)
->   	 */
->   	if (smu->uploading_custom_pp_table &&
->   	    (adev->asic_type >= CHIP_NAVI10) &&
-> -	    (adev->asic_type <= CHIP_DIMGREY_CAVEFISH))
-> +	    (adev->asic_type <= CHIP_DIMGREY_CAVEFISH)) {
-> +		smu_reset_cached_dpm_feature_status(smu);
->   		return 0;
-> +	}
->   
->   	/*
->   	 * For Sienna_Cichlid, PMFW will handle the features disablement properly
->   	 * on BACO in. Driver involvement is unnecessary.
->   	 */
->   	if ((adev->asic_type == CHIP_SIENNA_CICHLID) &&
-> -	     use_baco)
-> +	     use_baco) {
-> +		smu_clear_cached_dpm_feature_status_with_exception(smu,
-> +								   SMU_FEATURE_BACO_BIT);
->   		return 0;
-> +	}
->   
->   	/*
->   	 * For gpu reset, runpm and hibernation through BACO,
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> index afd4bd850c63..8c3ea20fb0f6 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> @@ -3083,6 +3083,7 @@ static const struct pptable_funcs navi10_ppt_funcs = {
->   	.get_enabled_mask = smu_cmn_get_enabled_mask,
->   	.feature_is_enabled = smu_cmn_feature_is_enabled,
->   	.disable_all_features_with_exception = smu_cmn_disable_all_features_with_exception,
-> +	.clear_cached_dpm_feature_status_with_exception = smu_cmn_clear_cached_dpm_feature_status_with_exception,
->   	.notify_display_change = smu_v11_0_notify_display_change,
->   	.set_power_limit = smu_v11_0_set_power_limit,
->   	.init_max_sustainable_clocks = smu_v11_0_init_max_sustainable_clocks,
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> index b4a2bb0f3f4c..14a14c30ee5e 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> @@ -3886,6 +3886,7 @@ static const struct pptable_funcs sienna_cichlid_ppt_funcs = {
->   	.get_enabled_mask = smu_cmn_get_enabled_mask,
->   	.feature_is_enabled = smu_cmn_feature_is_enabled,
->   	.disable_all_features_with_exception = smu_cmn_disable_all_features_with_exception,
-> +	.clear_cached_dpm_feature_status_with_exception = smu_cmn_clear_cached_dpm_feature_status_with_exception,
->   	.notify_display_change = NULL,
->   	.set_power_limit = smu_v11_0_set_power_limit,
->   	.init_max_sustainable_clocks = smu_v11_0_init_max_sustainable_clocks,
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-> index 0ceb7329838c..b9c38abc9d37 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-> @@ -594,6 +594,31 @@ int smu_cmn_disable_all_features_with_exception(struct smu_context *smu,
->   						   0);
->   }
->   
-> +int smu_cmn_clear_cached_dpm_feature_status_with_exception(struct smu_context *smu,
-> +							   enum smu_feature_mask mask)
-> +{
-> +	struct smu_feature *feature = &smu->smu_feature;
-> +	uint64_t features_to_disable = U64_MAX;
-> +	int skipped_feature_id;
-> +
-> +	skipped_feature_id = smu_cmn_to_asic_specific_index(smu,
-> +							    CMN2ASIC_MAPPING_FEATURE,
-> +							    mask);
-> +	if (skipped_feature_id < 0)
-> +		return -EINVAL;
-> +
-> +	features_to_disable &= ~(1ULL << skipped_feature_id);
-> +
-> +	mutex_lock(&feature->mutex);
-> +	bitmap_andnot(feature->enabled, feature->enabled,
-> +			(unsigned long *)(&features_to_disable), SMU_FEATURE_MAX);
-> +	bitmap_andnot(feature->supported, feature->supported,
-> +			(unsigned long *)(&features_to_disable), SMU_FEATURE_MAX);
-> +	mutex_unlock(&feature->mutex);
-> +
-> +	return 0;
-> +}
-> +
->   int smu_cmn_get_smc_version(struct smu_context *smu,
->   			    uint32_t *if_version,
->   			    uint32_t *smu_version)
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
-> index da6ff6f024f9..12ad07132d15 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
-> @@ -77,6 +77,9 @@ int smu_cmn_set_pp_feature_mask(struct smu_context *smu,
->   int smu_cmn_disable_all_features_with_exception(struct smu_context *smu,
->   						enum smu_feature_mask mask);
->   
-> +int smu_cmn_clear_cached_dpm_feature_status_with_exception(struct smu_context *smu,
-> +							   enum smu_feature_mask mask);
-> +
->   int smu_cmn_get_smc_version(struct smu_context *smu,
->   			    uint32_t *if_version,
->   			    uint32_t *smu_version);
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h b/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
-> index 33101dc93bcc..b12dcfab55fe 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
-> @@ -58,6 +58,7 @@
->   #define smu_feature_get_enabled_mask(smu, mask, num)			smu_ppt_funcs(get_enabled_mask, 0, smu, mask, num)
->   #define smu_feature_is_enabled(smu, mask)				smu_ppt_funcs(feature_is_enabled, 0, smu, mask)
->   #define smu_disable_all_features_with_exception(smu, mask)		smu_ppt_funcs(disable_all_features_with_exception, 0, smu, mask)
-> +#define smu_clear_cached_dpm_feature_status_with_exception(smu, mask)	smu_ppt_funcs(clear_cached_dpm_feature_status_with_exception, 0, smu, mask)
->   #define smu_is_dpm_running(smu)						smu_ppt_funcs(is_dpm_running, 0 , smu)
->   #define smu_notify_display_change(smu)					smu_ppt_funcs(notify_display_change, 0, smu)
->   #define smu_populate_umd_state_clk(smu)					smu_ppt_funcs(populate_umd_state_clk, 0, smu)
+>   	if (amdgpu_acpi_smart_shift_update(dev, AMDGPU_SS_DRV_LOAD))
 > 
 _______________________________________________
 amd-gfx mailing list
