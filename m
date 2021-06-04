@@ -2,30 +2,31 @@ Return-Path: <SRS0=YIqZ=K6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9631DC4708F
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 11:53:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7A9CEC07E94
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 11:53:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 317C86140F
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 11:53:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 317C86140F
+	by mail.kernel.org (Postfix) with ESMTPS id 28D896140C
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 11:53:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 28D896140C
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=uniontech.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DA526E30C;
-	Fri,  4 Jun 2021 11:53:25 +0000 (UTC)
-Received: from regular1.263xmail.com (regular1.263xmail.com [211.150.70.205])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 155B46F5CF;
- Fri,  4 Jun 2021 08:40:35 +0000 (UTC)
-Received: from localhost (unknown [192.168.167.69])
- by regular1.263xmail.com (Postfix) with ESMTP id 458A7904;
- Fri,  4 Jun 2021 16:40:33 +0800 (CST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBD606E30D;
+	Fri,  4 Jun 2021 11:53:26 +0000 (UTC)
+X-Greylist: delayed 17405 seconds by postgrey-1.36 at gabe;
+ Fri, 04 Jun 2021 07:50:30 UTC
+Received: from regular1.263xmail.com (regular1.263xmail.com [211.150.70.198])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A1B16F5C0;
+ Fri,  4 Jun 2021 07:50:30 +0000 (UTC)
+Received: from localhost (unknown [192.168.167.32])
+ by regular1.263xmail.com (Postfix) with ESMTP id 955EE798;
+ Fri,  4 Jun 2021 15:50:27 +0800 (CST)
 X-MAIL-GRAY: 0
 X-MAIL-DELIVERY: 1
 X-ADDR-CHECKED4: 1
@@ -34,10 +35,10 @@ X-SKE-CHECKED: 1
 X-ABS-CHECKED: 1
 Received: from manjaro.uniontech.com (unknown [58.246.122.242])
  by smtp.263.net (postfix) whith ESMTP id
- P31903T140446719883008S1622796031951602_; 
- Fri, 04 Jun 2021 16:40:32 +0800 (CST)
+ P30809T139673962555136S1622793026953811_; 
+ Fri, 04 Jun 2021 15:50:27 +0800 (CST)
 X-IP-DOMAINF: 1
-X-UNIQUE-TAG: <b257bbb59944a62dbcba445ff41dd260>
+X-UNIQUE-TAG: <bc1eeb75acd6ca300ecb9843e92dc05f>
 X-RL-SENDER: chenli@uniontech.com
 X-SENDER: chenli@uniontech.com
 X-LOGIN-NAME: chenli@uniontech.com
@@ -46,17 +47,15 @@ X-RCPT-COUNT: 6
 X-SENDER-IP: 58.246.122.242
 X-ATTACHMENT-NUM: 0
 X-System-Flag: 0
-Date: Fri, 04 Jun 2021 16:40:32 +0800
-Message-ID: <871r9ic9a7.wl-chenli@uniontech.com>
+Date: Fri, 04 Jun 2021 15:50:27 +0800
+Message-ID: <87a6o6cblo.wl-chenli@uniontech.com>
 From: Chen Li <chenli@uniontech.com>
 To: Christian =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
-Subject: [PATCH v4 1/2] radeon: fix coding issues reported from sparse
-In-Reply-To: <c4941cb6-8c40-aad1-e61a-2786ba1ab225@gmail.com>
+Subject: [PATCH v3 0/2] use memcpy_to/fromio for UVD fw upload
+In-Reply-To: <0689a006-a0a2-698a-12d8-cb11156e469a@gmail.com>
 References: <87o8cnfr3s.wl-chenli@uniontech.com>
  <87im2ufhyz.wl-chenli@uniontech.com>
  <0689a006-a0a2-698a-12d8-cb11156e469a@gmail.com>
- <877djacbfx.wl-chenli@uniontech.com>
- <c4941cb6-8c40-aad1-e61a-2786ba1ab225@gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
  FLIM-LB/1.14.9 (=?ISO-8859-4?Q?Goj=F2?=) APEL-LB/10.8 EasyPG/1.0.0
  Emacs/28.0.50 (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -76,89 +75,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
  Chen Li <chenli@uniontech.com>, dri-devel@lists.freedesktop.org,
  Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-Also fix some coding issues reported from sparse.
 
-Signed-off-by: Chen Li <chenli@uniontech.com>
-Acked-by: Christian K=F6nig <christian.koenig@amd.com>
----
- drivers/gpu/drm/radeon/radeon_uvd.c | 24 +++++++++++++-----------
- 1 file changed, 13 insertions(+), 11 deletions(-)
+changelog:
+    v1->v2: split sparse and memcp/memset fix
+    v2->v3: fix coding issue and misuse of le32_to_cpu
 
-diff --git a/drivers/gpu/drm/radeon/radeon_uvd.c b/drivers/gpu/drm/radeon/r=
-adeon_uvd.c
-index dfa9fdbe98da..85a1f2c31749 100644
---- a/drivers/gpu/drm/radeon/radeon_uvd.c
-+++ b/drivers/gpu/drm/radeon/radeon_uvd.c
-@@ -152,9 +152,11 @@ int radeon_uvd_init(struct radeon_device *rdev)
- =
+Chen Li (2):
+  radeon: fix coding issues reported from sparse
+  radeon: use memcpy_to/fromio for UVD fw upload
 
- 			rdev->uvd.fw_header_present =3D true;
- =
+ drivers/gpu/drm/radeon/radeon_uvd.c | 30 ++++++++++++++++-------------
+ 1 file changed, 17 insertions(+), 13 deletions(-)
 
--			family_id =3D le32_to_cpu(hdr->ucode_version) & 0xff;
--			version_major =3D (le32_to_cpu(hdr->ucode_version) >> 24) & 0xff;
--			version_minor =3D (le32_to_cpu(hdr->ucode_version) >> 8) & 0xff;
-+			family_id =3D (__force u32)(hdr->ucode_version) & 0xff;
-+			version_major =3D (le32_to_cpu((__force __le32)(hdr->ucode_version))
-+							 >> 24) & 0xff;
-+			version_minor =3D (le32_to_cpu((__force __le32)(hdr->ucode_version))
-+							 >> 8) & 0xff;
- 			DRM_INFO("Found UVD firmware Version: %u.%u Family ID: %u\n",
- 				 version_major, version_minor, family_id);
- =
-
-@@ -791,17 +793,17 @@ int radeon_uvd_get_create_msg(struct radeon_device *r=
-dev, int ring,
- 		return r;
- =
-
- 	/* stitch together an UVD create msg */
--	writel(cpu_to_le32(0x00000de4), &msg[0]);
-+	writel((__force u32)cpu_to_le32(0x00000de4), &msg[0]);
- 	writel(0x0, (void __iomem *)&msg[1]);
--	writel(cpu_to_le32(handle), &msg[2]);
-+	writel((__force u32)cpu_to_le32(handle), &msg[2]);
- 	writel(0x0, &msg[3]);
- 	writel(0x0, &msg[4]);
- 	writel(0x0, &msg[5]);
- 	writel(0x0, &msg[6]);
--	writel(cpu_to_le32(0x00000780), &msg[7]);
--	writel(cpu_to_le32(0x00000440), &msg[8]);
-+	writel((__force u32)cpu_to_le32(0x00000780), &msg[7]);
-+	writel((__force u32)cpu_to_le32(0x00000440), &msg[8]);
- 	writel(0x0, &msg[9]);
--	writel(cpu_to_le32(0x01b37000), &msg[10]);
-+	writel((__force u32)cpu_to_le32(0x01b37000), &msg[10]);
- 	for (i =3D 11; i < 1024; ++i)
- 		writel(0x0, &msg[i]);
- =
-
-@@ -827,9 +829,9 @@ int radeon_uvd_get_destroy_msg(struct radeon_device *rd=
-ev, int ring,
- 		return r;
- =
-
- 	/* stitch together an UVD destroy msg */
--	writel(cpu_to_le32(0x00000de4), &msg[0]);
--	writel(cpu_to_le32(0x00000002), &msg[1]);
--	writel(cpu_to_le32(handle), &msg[2]);
-+	writel((__force u32)cpu_to_le32(0x00000de4), &msg[0]);
-+	writel((__force u32)cpu_to_le32(0x00000002), &msg[1]);
-+	writel((__force u32)cpu_to_le32(handle), &msg[2]);
- 	writel(0x0, &msg[3]);
- 	for (i =3D 4; i < 1024; ++i)
- 		writel(0x0, &msg[i]);
--- =
-
+-- 
 2.31.1
-
-
 
 
 
