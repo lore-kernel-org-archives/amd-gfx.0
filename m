@@ -2,75 +2,72 @@ Return-Path: <SRS0=4Bis=K7=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.6 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9320AC47082
-	for <amd-gfx@archiver.kernel.org>; Sat,  5 Jun 2021 10:49:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CD9BFC47082
+	for <amd-gfx@archiver.kernel.org>; Sat,  5 Jun 2021 14:51:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 377BC613AE
-	for <amd-gfx@archiver.kernel.org>; Sat,  5 Jun 2021 10:49:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 377BC613AE
+	by mail.kernel.org (Postfix) with ESMTPS id 9CBE961287
+	for <amd-gfx@archiver.kernel.org>; Sat,  5 Jun 2021 14:51:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9CBE961287
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2BC26E061;
-	Sat,  5 Jun 2021 10:49:20 +0000 (UTC)
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [IPv6:2a00:1450:4864:20::52e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 701976E061
- for <amd-gfx@lists.freedesktop.org>; Sat,  5 Jun 2021 10:49:19 +0000 (UTC)
-Received: by mail-ed1-x52e.google.com with SMTP id dj8so14084797edb.6
- for <amd-gfx@lists.freedesktop.org>; Sat, 05 Jun 2021 03:49:19 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38BED6E18E;
+	Sat,  5 Jun 2021 14:51:59 +0000 (UTC)
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [IPv6:2a00:1450:4864:20::630])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFA1F6E18E
+ for <amd-gfx@lists.freedesktop.org>; Sat,  5 Jun 2021 14:51:58 +0000 (UTC)
+Received: by mail-ej1-x630.google.com with SMTP id ho18so8010350ejc.8
+ for <amd-gfx@lists.freedesktop.org>; Sat, 05 Jun 2021 07:51:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:references:from:message-id:date:user-agent:mime-version
- :in-reply-to:content-transfer-encoding:content-language;
- bh=b2CFSQidDzo8s10masgDUHLMxGazLThCMxSEH6fe4cE=;
- b=Vqux8L073mreg2h0ci/6HolXh05Q8p+JIs58UBsQ53VlIQx2wToldyf+BS/pxOt5WD
- wQGqaZ/V54+Vu+CKhNHs7BD2cfBZK+CU7TQw6LK1P3tsrWKTP9kA8zYLx2RIyPcaMlo4
- u8q6gGdXkrRUZEam+VzqHsM20p+jj9TOH4IdgPPDkWLC9fjw/8EZpfl5nUi6EzXfdOMW
- 0IMb3r8syyDoDhPTamZNrvXxh4xw4sURiv+ddOCeCYa5FNYQXBmf6PTBBWBHU01RgrkA
- JLFCq6aMfONPWgwptqFRFFf2U/X+uzHlLYvAtGKzkbmpHnC7sIMULS+IAmSefGSGEsCv
- rIng==
+ h=from:to:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=UIigLj+LHZHTJ08ZnrqwvMe5ZdZgyu3VEzKCpwgUOzo=;
+ b=eRNRYWn2iH3TXy50euyIgYQQz/LI/9YvFuMFn2V8n9OIrtMaiUY2Y6nCM3UAsaI2uC
+ 2Nm+/S2QCXMkfMlo6YjOi0It/Vtj1CJUm+udDHmIyM9MSVqioJXk4/kAcAE9Di6OwGwp
+ yCBPQalh3RZp7f7igT8ZhcQAeh+PjkLrQGtwxfhUWg9t94K5Tqwk8GL1cff0R1yb559Z
+ xv4gdRUIAo8HFvP1u5QyGuDvwBgZpn6cKTo6Zs9+mlYSdDQLeq93eHy2PPDEs+MfmuZS
+ asuez3B9SrzBNslZiLJlMkhZHi6zUx6ON1Y+g/nlu2Fn6ocBNn1gQdE09Y2hV26EBm74
+ VpOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=b2CFSQidDzo8s10masgDUHLMxGazLThCMxSEH6fe4cE=;
- b=Gg0kB2kKV/3J4MOzHafRCHaHVdoQegTh658k82j8mqYfJUwRKL+hTVg3yHj09Zmih6
- dhHtc31CznowVyTKvrMnWN6FCCBA4FZ+RsL+90bniEg+kftZfbcbFP+3Rorrv57hxD0u
- 9PJ6gzw0DMqD4cSGGfOVZod/NTwz4gQ6ANWLJpk29ETKPSCkZ8G+a46I6GLp/s37Mdpm
- wr7MKI7qv3z6daow+NV9eEOQUQhAlg54W+h8Qp2dQnWk5XVeZQ1aBsmESrRXRd+VIPhe
- gTdEOQ2mWI6ToQG6GjqaBoSUHwGjktqtVaDUHUSAop8vWDNMMKQI+nJseJMzlNS7QyFQ
- Lpgw==
-X-Gm-Message-State: AOAM533VLkCD6bECA9CzAlHMLzQ0T0OqCiYSvYoogIDYuFqdGMMZ/AYC
- Df33Pa3mv2EL/b5tc5lp/8M=
-X-Google-Smtp-Source: ABdhPJwSCYY5OLScRM5jtIYJkuqwJRYNpHS5iRjUt+h0poVOJe8qX7U7rGrxdVA0zYYhLNk79LAPHQ==
-X-Received: by 2002:a50:fe18:: with SMTP id f24mr9710138edt.271.1622890158156; 
- Sat, 05 Jun 2021 03:49:18 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:8946:fd9b:10c9:6ef0?
- ([2a02:908:1252:fb60:8946:fd9b:10c9:6ef0])
- by smtp.gmail.com with ESMTPSA id w14sm4539517edj.6.2021.06.05.03.49.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 05 Jun 2021 03:49:17 -0700 (PDT)
-Subject: Re: [PATCH] drm/amdkfd: pages_addr offset must be 0 for system range
-To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org,
- Felix.Kuehling@amd.com
-References: <20210604231039.27518-1-Philip.Yang@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <8b0dd803-642a-735e-2785-b711749d58c3@gmail.com>
-Date: Sat, 5 Jun 2021 12:49:16 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
+ h=x-gm-message-state:from:to:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=UIigLj+LHZHTJ08ZnrqwvMe5ZdZgyu3VEzKCpwgUOzo=;
+ b=ekh/byDgy+vnFl1ZTPegNEvhQv5Kd9GGUHmbCxfMaBJGJIae+jcjDDCCsDWGGdxoLY
+ pCeQX2ib4UBpvsmQTBTm6Ty/Gt7lxg92d5RUmknxUsKTVDrk4YKnzPfZ65XQXBzbf6kI
+ vE8becju5tS1xor7Qwl0BryEnWTr7dl2121KxXcW2ULyC0bxIhAJoY8m4Ti4/XJupKh6
+ ihlIEcT2obVhaZ6JZObKb49XHOkXPChPj40vFwbQ5VFI3B+ZgbcSHXfj9uyfgpiHBcaK
+ EChzuffE5n/Xl6BWuXFizCrUInBgKdKi/+9hecrDBG1NmXz+Z0d/5WrZfPdG/B1JVs6A
+ 3CpA==
+X-Gm-Message-State: AOAM530LFQ0U+hc+nkjlFA1ggALQGZbJjxfnlUD1Ad02N79Lh6syv3F3
+ OTRuEDtsvdXl+IWSYJHOrbRA3zrCoSE=
+X-Google-Smtp-Source: ABdhPJyCxdDamUdBUGjwQb3UW8WBlxPHUxKE/nvG5HgjJbBGnsFZhUuMfINGzPL+IOsR1u5nhCS1Lg==
+X-Received: by 2002:a17:907:7808:: with SMTP id
+ la8mr7313163ejc.13.1622904717389; 
+ Sat, 05 Jun 2021 07:51:57 -0700 (PDT)
+Received: from abel.fritz.box ([2a02:908:1252:fb60:207d:cd7a:b460:f7fe])
+ by smtp.gmail.com with ESMTPSA id v8sm431955edc.59.2021.06.05.07.51.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 05 Jun 2021 07:51:56 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: amd-gfx@lists.freedesktop.org, nirmoy.das@amd.com,
+ Agustin.Gutierrez@amd.com
+Subject: [PATCH] drm/amdgpu: fix VM handling for GART allocations
+Date: Sat,  5 Jun 2021 16:51:55 +0200
+Message-Id: <20210605145155.1468-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <20210604231039.27518-1-Philip.Yang@amd.com>
-Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,44 +79,28 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 05.06.21 um 01:10 schrieb Philip Yang:
-> prange->offset is for VRAM range mm_nodes, if multiple ranges share same
-> mm_nodes, migrate range back to VRAM will reuse the VRAM at offset of
-> the same mm_nodes. For system memory pages_addr array, the offset is
-> always 0, otherwise, update GPU mapping will use incorrect system memory
-> page, and cause system memory corruption.
-
-Nirmoy and I also stumbled over a similar problem which we are going to 
-fix inside the VM code instead.
-
-Christian.
-
->
-> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> index f2901e7a993e..0f18bd0dc64e 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> @@ -1153,7 +1153,7 @@ svm_range_map_to_gpu(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->   
->   	prange->mapping.start = prange->start;
->   	prange->mapping.last = prange->last;
-> -	prange->mapping.offset = prange->offset;
-> +	prange->mapping.offset = prange->ttm_res ? prange->offset : 0;
->   	pte_flags = svm_range_get_pte_flags(adev, prange);
->   
->   	r = amdgpu_vm_bo_update_mapping(adev, bo_adev, vm, false, false, NULL,
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+Rm9yIEdUVCBhbGxvY2F0aW9ucyB3aXRoIGEgR0FSVCBhZGRyZXNzIHRoZSByZXMgY29udGFpbnMg
+dGhlIFZNSUQwCmFkZHJlc3NlcyBhbmQgY2FuJ3QgYmUgdXNlZCBmb3IgVk0gaGFuZGxpbmcuCgpT
+byBpZ25vcmUgdGhlIHJlcyB3aGVuIHRoZSBwYWdlcyBhcnJheSBpcyBnaXZlbiBvciB3ZSBmaWxs
+IHRoZSBwYWdlCnRhYmxlcyB3aXRoIG5vbnNlbnNlLgoKU2lnbmVkLW9mZi1ieTogQ2hyaXN0aWFu
+IEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV92bS5jIHwgNCArKy0tCiAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRp
+b25zKCspLCAyIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV92bS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zt
+LmMKaW5kZXggYzI5ZmFkOTdiNjNhLi40MzM2NDJiM2U0OTggMTAwNjQ0Ci0tLSBhL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV92bS5jCkBAIC0xNzA1LDggKzE3MDUsOCBAQCBpbnQgYW1kZ3B1X3ZtX2Jv
+X3VwZGF0ZV9tYXBwaW5nKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAogCWlmIChyKQogCQln
+b3RvIGVycm9yX3VubG9jazsKIAotCWFtZGdwdV9yZXNfZmlyc3QocmVzLCBvZmZzZXQsIChsYXN0
+IC0gc3RhcnQgKyAxKSAqIEFNREdQVV9HUFVfUEFHRV9TSVpFLAotCQkJICZjdXJzb3IpOworCWFt
+ZGdwdV9yZXNfZmlyc3QocGFnZXNfYWRkciA/IE5VTEwgOiByZXMsIG9mZnNldCwKKwkJCSAobGFz
+dCAtIHN0YXJ0ICsgMSkgKiBBTURHUFVfR1BVX1BBR0VfU0laRSwgJmN1cnNvcik7CiAJd2hpbGUg
+KGN1cnNvci5yZW1haW5pbmcpIHsKIAkJdWludDY0X3QgdG1wLCBudW1fZW50cmllcywgYWRkcjsK
+IAotLSAKMi4yNS4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
+dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
