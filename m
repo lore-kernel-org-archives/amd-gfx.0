@@ -7,48 +7,48 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5E438C47082
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 16:49:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2A9B3C47094
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 16:49:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 28A0D60FDA
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 16:49:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 28A0D60FDA
+	by mail.kernel.org (Postfix) with ESMTPS id EA42260FDA
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 16:49:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EA42260FDA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1EAA6E93C;
-	Mon,  7 Jun 2021 16:49:08 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2077.outbound.protection.outlook.com [40.107.93.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E94C96E93C
- for <amd-gfx@lists.freedesktop.org>; Mon,  7 Jun 2021 16:49:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB94A6E943;
+	Mon,  7 Jun 2021 16:49:14 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam08on2076.outbound.protection.outlook.com [40.107.101.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 826106E942
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Jun 2021 16:49:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WP3yzAF/l64X02LC1DEdFL97eK+YhdvxXV5wxjuot4Jm9l0dj5qjSHK+qF9ErIocbxtCuhSQdgTh5nyLGz9sKWSJqtvabrBSgmpkarUSqaGlzkkKGzXSD1M16JwAGhp/1Pb3er/x8oDiJqSCOhXBnwmZWuj0tBvf5F0npT2WFrpQR2J6wexszIvXBf0aev8kiXj5z1LgAfOm8vFH9kthu2TuJ4dCu78N6TNzADSJ0jtjchbX7t0JedYY4x5SFJ8+S4BqH0weT09ur05ep/sr90bzLhNS4KeQh0X/zBoV4iblsydNMHE4bOrNvFQKBG43DpAsCR3JOI9ZlOOfwHNjPg==
+ b=I/RycVV6JAexodgwhIJMtyQljmz+scwQ1dnLYeCmVT1qDjnKV40UbJt4V3K54KLYFvDufs5Y2y0Tr9KVcNN3fF1AsfrJ0Tgw1kAPTzWLbsWTF6RYjrmVisato/JvdAgQcU1btmDFon5qKy3IfYQ99uIk1rBTz29CZWjoh5nsRlZBDQyd+YU3zJ2NseicKuPBV1hTo7+4kYyaElIWRMVcEZJl6Udk+AJrpyA/xj0q4pDnNK1rPx7ulEF7PrCy3AeEt8bK8Zj6rXlrSC5YjcFQ3g4T2EDAcbxIN/XREvGeee6Lh0jRQmXj6FM5ODHSJrMFykxe2GZ0abfG4Zs2GahJ5w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9LL0FjnWohh2vqW4aAytvCYBgNrVm5FO4MiW9HtU0Qo=;
- b=Nt7yrku+H1BWheTR1QUqk+OVLW1t+yRUQFvbhlj3ECWURzPsTkLWPmrmFvvFihMsh8mAnJUUnLOaG928Fvl48NhFbfzthkN2fg2hqaqu0IlvzoU2RU521AYpRiKjHZOhI/NeSMQDYSZcCTAKNfkc/ccSkYnr/D5hE/jc4uTNEYUDJPjY+dxTMLypKLnHn6aTKEYUM840j61G/rB7B2quj0pe1xTYO75lsphobLS0eY1N3tiVagtdzkLaPSNER+6KO9udTa3jVWtF9El0tFVDUF3hehr1S9YeBkkd3AUVzkx22wWCKcf6pdjdvcfyhjEMvRfOYZxs7VWyAukK1c20Qw==
+ bh=VCTX8sZiHZwund09LnJulw21sy3mmfaIkuwP4KV97cg=;
+ b=gee+rG7a88Vs9VSTIAK8ePSwL7N7eGhg3OPvO2YaZauLPMTkfq7DNIY+VE72Q9mSwLq5mEAC/WkhXKQ3BwU+FYc0Dd4lsgzDJmBko548JC19UIAN5zqzNz4uTKH7zHvRZ3bMpphkuG/VCPHxJ8BJYcwKK1EatbVZfyG79lu7FWqEMW5X4QcDacLrCgXdPGAg5/X6w0n1wdf7v4m8s3pt0yPFAEGx0Bco26faZt3S9eSRWISX6o99d5xwrcQ39X31G/eqy4EJy7Jc/dCkkjviTeP0RAtvkwi0ax3O2Hjy7yH7WGIl7GYdKVtkhKtgNZYP+Qfcii8UTpayhHizTMsszw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9LL0FjnWohh2vqW4aAytvCYBgNrVm5FO4MiW9HtU0Qo=;
- b=MU5EvrCDSZ1n1h3JRn3zBCAOd8etlV9HNoMDy67z+/DiCX086Oj19c1Wj0KQwKun9JmdA7KtdQiTYy5zyleRqpzp52cVFcJvOh4nfSPBbQ7PBPHl+DFKP/E8kgg/i3666bPiQuHQNSRp0zc90NEEjI2pnqj8lGfmQfOPAddhDBo=
-Received: from BN9PR03CA0093.namprd03.prod.outlook.com (2603:10b6:408:fd::8)
- by SA0PR12MB4479.namprd12.prod.outlook.com (2603:10b6:806:95::24) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=VCTX8sZiHZwund09LnJulw21sy3mmfaIkuwP4KV97cg=;
+ b=Zq0HRgNlzvcxaCKea9WOCWbMb71a5OGPOsfpB52U+I+t8YcDKSNA2vfG4p8eQHBWHsbfx4pxtUCnzsqsnTEE0JwtkBbbDXypIuXmMP551FMOs/fwilS1CV5ga6gFrkb4bEs5rCMNeLZZ2a0Ly/diWD32OuaLbitscEUN65QCemg=
+Received: from BN9PR03CA0065.namprd03.prod.outlook.com (2603:10b6:408:fc::10)
+ by MN2PR12MB2925.namprd12.prod.outlook.com (2603:10b6:208:ad::11)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.24; Mon, 7 Jun
- 2021 16:49:04 +0000
-Received: from BN8NAM11FT005.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:fd:cafe::75) by BN9PR03CA0093.outlook.office365.com
- (2603:10b6:408:fd::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.22 via Frontend
- Transport; Mon, 7 Jun 2021 16:49:04 +0000
+ 2021 16:49:10 +0000
+Received: from BN8NAM11FT047.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:fc:cafe::ae) by BN9PR03CA0065.outlook.office365.com
+ (2603:10b6:408:fc::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.15 via Frontend
+ Transport; Mon, 7 Jun 2021 16:49:10 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -57,19 +57,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT005.mail.protection.outlook.com (10.13.176.69) with Microsoft SMTP
+ BN8NAM11FT047.mail.protection.outlook.com (10.13.177.220) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4195.22 via Frontend Transport; Mon, 7 Jun 2021 16:49:03 +0000
+ 15.20.4195.22 via Frontend Transport; Mon, 7 Jun 2021 16:49:10 +0000
 Received: from stylon-rog.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Mon, 7 Jun 2021
- 11:49:00 -0500
+ 11:49:03 -0500
 From: Stylon Wang <stylon.wang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 23/30] drm/amd/display: Fix crash during MPO + ODM combine
- mode recalculation
-Date: Tue, 8 Jun 2021 00:47:07 +0800
-Message-ID: <20210607164714.311325-24-stylon.wang@amd.com>
+Subject: [PATCH 24/30] drm/amd/display: Add debugfs entry for dsc passthrough
+Date: Tue, 8 Jun 2021 00:47:08 +0800
+Message-ID: <20210607164714.311325-25-stylon.wang@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210607164714.311325-1-stylon.wang@amd.com>
 References: <20210607164714.311325-1-stylon.wang@amd.com>
@@ -79,27 +78,27 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 85339bc0-812b-4eb7-3812-08d929d4287a
-X-MS-TrafficTypeDiagnostic: SA0PR12MB4479:
-X-Microsoft-Antispam-PRVS: <SA0PR12MB4479505F82D085097B3D8BA9FF389@SA0PR12MB4479.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5516;
+X-MS-Office365-Filtering-Correlation-Id: 7126d526-2bb3-4893-c06d-08d929d42c2f
+X-MS-TrafficTypeDiagnostic: MN2PR12MB2925:
+X-Microsoft-Antispam-PRVS: <MN2PR12MB29256241ABA779AA3BE886EDFF389@MN2PR12MB2925.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: TIfzhwwBMVjzdqQV/BoEq07ZX5YjmqNnfSFJQpd659q4ssq6zWedDR0U5kIvoqnQMHMA5WX+oXZHaRl63mUxn4lFNJIRS3aKb9YpeMd1uW3OpYZL9fYsowq00UGv+FXbdB4fuB61aLwlACO6rvvphSzPIcMoWLWBTyXoqsF1pbRmiK2Bw605UEP0MzDazIEUyB0jNmKYF8bIfulTLE5E77euNaiWpVFNh9+IyvtoHGmBv/PEVNK5qNYzpt7ul6TG/fmwVQf01e7Ifx+KPeGz/QtK7euQxI2KpXsXv/JKRNfPc9bNGOBCXEEDeD9XtJlVxpBZmIOe5TmAxgXenwT9W17iQX7HjpS6L/TqcHaLBV8coc/TnyTfriM4REv65I0b1kdwYpM1H8m7hvdvZPmkxYhxZ9qkTJMlsfaYy9h36HHwbGuxubyECFRMJUpu722nBYWQzEwzcVqS1sWF5/89N1a3cE6xO3a1rxTR+NTwv4FS0ROAWx9tIKKxUssj8oHL1q2RQHD4I1XPoKPx+JAs/xI9+pnbnkthdNIjTaPKS/EbEH6QblMWPpFw9VcWWt4HpzDBzUY9M/iYDXyba0d6xflB/7qpcjRGcF3b2mbKYYm0DVkaT3NMJBBFJt2ZTKHW7PX2b+RP7Id9DXVx8yTQeJUVsjgpft/7n6hafLY5Znn9yXRVmwIDS4K5CtsuQpz5
+X-Microsoft-Antispam-Message-Info: Na8rBBF+0pUbtjz5szv3ayC6LoixTbtiket2hvNkej7IN4vD76GH71Y2R4hLTMCyEwp295Yh0iVqvKnQILWo0kMPvclJsrfLytvI5gqgEltj9yUtH+JfAcKfK9+1Sae4m3/Z57EdXz8jBq+edIzMUQ0uIxWmrXRLjws2xcoUY+HadK799olHKCTqVx5fMAsyCY/AjOZomirmqfNv4P5ui1iKSyKoj42LfGic4y0o1MzI8v2qJrrjT17pMSLXtYTKp9d8XCyF3qIk1CfGKSG9YaGtGZsd8Z1PHJtkCoVxkO/W/q66tpiypGyHeYo5Ro7WJlhgU1/vhooBnHtzij0/DBmAKqScqoBiGwoSLIgI/PgHuA6fdx6vEjxTFKGYQx4+Bd29C0L8Ar77wGhGkfTrDbA2S3XzQNyljnvHLz04z0f15P+9dLB/N4zZzoMiOxeulFBr1SZvl9sUcUDtAbFM6buRLxfi3S6sZ7aMWCXO6lwQz+rifeL9vCPFqAxxGqtVgugEY8Hz6GMWjJB6QzhL0od37T/4zq1pu0VjETfe+3x4EUSFyTnkdLq/lLaNNakZ4XWcZF61xKS/5IxGyxC30ykYygFh/LAURasmEJdDZ6tY9qHE8tV7lIm5zb3vrlRoy665HVgR2Oa5S47d0CPsacxIySTSbuuySluoLV0CHeIglujq9vsrZqHwP1p6YUgm
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(376002)(39850400004)(136003)(396003)(346002)(46966006)(36840700001)(47076005)(70586007)(426003)(336012)(70206006)(86362001)(36860700001)(81166007)(82310400003)(44832011)(1076003)(2616005)(7696005)(16526019)(26005)(82740400003)(186003)(8676002)(36756003)(6916009)(8936002)(2906002)(54906003)(316002)(4326008)(356005)(5660300002)(478600001)(36900700001);
+ SFS:(4636009)(346002)(376002)(396003)(136003)(39860400002)(36840700001)(46966006)(356005)(426003)(81166007)(83380400001)(82740400003)(5660300002)(36756003)(86362001)(336012)(36860700001)(47076005)(82310400003)(186003)(7696005)(2616005)(70206006)(6916009)(70586007)(316002)(44832011)(26005)(54906003)(8936002)(8676002)(1076003)(16526019)(478600001)(2906002)(4326008)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2021 16:49:03.8110 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 85339bc0-812b-4eb7-3812-08d929d4287a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2021 16:49:10.0344 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7126d526-2bb3-4893-c06d-08d929d42c2f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT005.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT047.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4479
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB2925
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,50 +110,117 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Stylon Wang <stylon.wang@amd.com>, Aric Cyr <aric.cyr@amd.com>,
- Krunoslav Kovac <Krunoslav.Kovac@amd.com>, Eryk.Brol@amd.com,
- Sunpeng.Li@amd.com, Harry.Wentland@amd.com, Qingqing.Zhuo@amd.com,
- Rodrigo.Siqueira@amd.com, Anson.Jacob@amd.com, Aurabindo.Pillai@amd.com,
- Bhawanpreet.Lakha@amd.com, bindu.r@amd.com
+Cc: Stylon Wang <stylon.wang@amd.com>, Eryk.Brol@amd.com, Sunpeng.Li@amd.com,
+ Harry.Wentland@amd.com, Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com,
+ Anson.Jacob@amd.com, Fangzhi Zuo <Jerry.Zuo@amd.com>, Aurabindo.Pillai@amd.com,
+ Hersen Wu <hersenxs.wu@amd.com>, Bhawanpreet.Lakha@amd.com, bindu.r@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Aric Cyr <aric.cyr@amd.com>
+From: Fangzhi Zuo <Jerry.Zuo@amd.com>
 
-[Why]
-When calculating recout width for an MPO plane on a mode that's using
-ODM combine, driver can calculate a negative value, resulting in a
-crash.
+[Why & How]
+Add debugfs entry to force dsc decoding at PCON when DSC capable
+external RX is connected. In such case, it is free to test DSC
+decoding at external RX or at PCON.
 
-[How]
-For negative widths, use zero such that validation will prune the
-configuration correctly and disallow MPO.
-
-Signed-off-by: Aric Cyr <aric.cyr@amd.com>
-Reviewed-by: Krunoslav Kovac <Krunoslav.Kovac@amd.com>
+Signed-off-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
+Reviewed-by: Hersen Wu <hersenxs.wu@amd.com>
 Acked-by: Stylon Wang <stylon.wang@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc_resource.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  1 +
+ .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 50 ++++++++++++++++++-
+ 2 files changed, 50 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-index cd864cc83539..e0598dd9be94 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-@@ -783,6 +783,11 @@ static void calculate_recout(struct pipe_ctx *pipe_ctx)
- 			if (split_idx == split_count) {
- 				/* rightmost pipe is the remainder recout */
- 				data->recout.width -= data->h_active * split_count - data->recout.x;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index 7d39dfa7103b..fbec1a52e500 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -456,6 +456,7 @@ struct dsc_preferred_settings {
+ 	uint32_t dsc_num_slices_v;
+ 	uint32_t dsc_num_slices_h;
+ 	uint32_t dsc_bits_per_pixel;
++	bool dsc_force_disable_passthrough;
+ };
+ 
+ struct amdgpu_dm_connector {
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+index 9fbbd0159119..f1145086a468 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+@@ -887,6 +887,47 @@ static int output_bpc_show(struct seq_file *m, void *data)
+ 	return res;
+ }
+ 
++/*
++ * Example usage:
++ * Disable dsc passthrough, i.e.,: have dsc decoding at converver, not external RX
++ *   echo 1 /sys/kernel/debug/dri/0/DP-1/dsc_disable_passthrough
++ * Enable dsc passthrough, i.e.,: have dsc passthrough to external RX
++ *   echo 0 /sys/kernel/debug/dri/0/DP-1/dsc_disable_passthrough
++ */
++static ssize_t dp_dsc_passthrough_set(struct file *f, const char __user *buf,
++				 size_t size, loff_t *pos)
++{
++	struct amdgpu_dm_connector *aconnector = file_inode(f)->i_private;
++	char *wr_buf = NULL;
++	uint32_t wr_buf_size = 42;
++	int max_param_num = 1;
++	long param;
++	uint8_t param_nums = 0;
 +
-+				/* ODM combine cases with MPO we can get negative widths */
-+				if (data->recout.width < 0)
-+					data->recout.width = 0;
++	if (size == 0)
++		return -EINVAL;
 +
- 				data->recout.x = 0;
- 			} else
- 				data->recout.width = data->h_active - data->recout.x;
++	wr_buf = kcalloc(wr_buf_size, sizeof(char), GFP_KERNEL);
++
++	if (!wr_buf) {
++		DRM_DEBUG_DRIVER("no memory to allocate write buffer\n");
++		return -ENOSPC;
++	}
++
++	if (parse_write_buffer_into_params(wr_buf, size,
++					   &param, buf,
++					   max_param_num,
++					   &param_nums)) {
++		kfree(wr_buf);
++		return -EINVAL;
++	}
++
++	aconnector->dsc_settings.dsc_force_disable_passthrough = param;
++
++	kfree(wr_buf);
++	return 0;
++}
++
+ #ifdef CONFIG_DRM_AMD_DC_HDCP
+ /*
+  * Returns the HDCP capability of the Display (1.4 for now).
+@@ -2535,6 +2576,12 @@ static const struct file_operations dp_max_bpc_debugfs_fops = {
+ 	.llseek = default_llseek
+ };
+ 
++static const struct file_operations dp_dsc_disable_passthrough_debugfs_fops = {
++	.owner = THIS_MODULE,
++	.write = dp_dsc_passthrough_set,
++	.llseek = default_llseek
++};
++
+ static const struct {
+ 	char *name;
+ 	const struct file_operations *fops;
+@@ -2559,7 +2606,8 @@ static const struct {
+ 		{"dsc_chunk_size", &dp_dsc_chunk_size_debugfs_fops},
+ 		{"dsc_slice_bpg", &dp_dsc_slice_bpg_offset_debugfs_fops},
+ 		{"dp_dsc_fec_support", &dp_dsc_fec_support_fops},
+-		{"max_bpc", &dp_max_bpc_debugfs_fops}
++		{"max_bpc", &dp_max_bpc_debugfs_fops},
++		{"dsc_disable_passthrough", &dp_dsc_disable_passthrough_debugfs_fops},
+ };
+ 
+ #ifdef CONFIG_DRM_AMD_DC_HDCP
 -- 
 2.25.1
 
