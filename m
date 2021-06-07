@@ -2,121 +2,135 @@ Return-Path: <SRS0=JNIh=LB=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,PDS_BAD_THREAD_QP_64,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C7434C47095
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 15:30:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 659A5C47082
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 15:30:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7FCC3611AC
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 15:30:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7FCC3611AC
+	by mail.kernel.org (Postfix) with ESMTPS id 113DF61185
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 15:30:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 113DF61185
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF8CE897C8;
-	Mon,  7 Jun 2021 15:30:42 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam08on2083.outbound.protection.outlook.com [40.107.101.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53B5F897C8
- for <amd-gfx@lists.freedesktop.org>; Mon,  7 Jun 2021 15:30:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2D2789954;
+	Mon,  7 Jun 2021 15:30:46 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2085.outbound.protection.outlook.com [40.107.94.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 55CF789954
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Jun 2021 15:30:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IkJuGLCdpUnWkrZL9wd3/rY27KUCAtMgwQrTh4jkB1k7tJ2icCgj5xidDE7qwuAGAPzEkX8hBPAKT1f1tCTam3DXyXnNBVzHSgezHe4ap5AE8YIU4qmIFN3hqYOZv+4pLNZXr7+u4XFze4uM8piVOouLpEd/XbJjLfIUEFX0sFejTYkucEnwwQX/uybn9BwiC7P60qBcwgvYUO6n8uVnFad5zyOlD2DTHpEDE8oMda+vkkomThrry1CtnOKUzlVm8ZP76QEa7wR1octvsTdhyv2Czou4WphY9FPg12FUk0E7U3Fc7S1VDpoba+y1cYBKpg9faSkAb8KuTQvVUHgs5w==
+ b=PTndBO6RPHBU2sjiHni0FZ8tF0zBJtbESZjkqboRmsik4nLC5D3f668bMci8wyomULyl57+LluGF0pM78pZc9z7jOD4WIpysOEuDej7KmyIb8LbrrLfs2iVi/wHN3Xrowk5NNzitovDoaNSAOiquPtl57/cqFIlAz/N9fgrLukYMk/w30ORitLgyV+iHGlE7v5LcYwwZ4B/uHLy48b1aiM7qjIwJClGdgpfHS1OxU7DBqzyeWJ7uYUP4rjsv+VQft2kpqgSiNkhMNlzgpg/Wtgv41N8ShjZ8t5yn3ofqLiTmkxK0q0oKnifdWx8F/+qVkODCaZjDRZtnB/7WKaH5rQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ph+hfOYd7EsQiQoQAGwrQNUBxVdPjqDKdd8YYYpIC6s=;
- b=HrkLrRL2c9ew+nrqKGV8Q6f+lyg04lDbMgBtIyrCN4HJn8eXrcHQVMAuNMgWo1bzYqyzn/i0u4nlSq23gFViPHwQPaVitdue0wiT4WvvTxZCIo13EO2J9G1V/naVkV3rAX+kBspIFfbSwnEnTKIAwmYKmL2ssaOj8BsWhltwS5Py2UEa6w1z0ufagCGBwBjiyg7QKsfn4k/n2GfNNzMFea/oQVyqmitC+jlXo22QMbuIJ99+slqU/T73qCIWN77xAWZdKohV6+ie//HcvUhFVvGGrktMcUvAqklDvQNDf2P9FAhu584wOcmheTtBtl+7piINisfroldLsP8XpeWhlw==
+ bh=QZNiXdXsMISqoS8LYhM7hcV9tf2n1EqaAjh/g/xw05s=;
+ b=eHgO6vGgSYv4+j2MmQupd+uvbsWvt7ngIHJwu100E3eUDJJX8nbNsiZ0fQoPgsoBZofstG7HEJfCH4+YfG2ei9EYLqVo6T9HCAj5Wp3kkRda0BYvflhZU+c1f2BdLx/3Ar0FWklGx2FeOOrnT/pes/MUMQ9WBLsIOnUtHWFpqv7Ona1SwkXJ41JmT6zN6Qw3VgskEtGeNThdUUX0Y894DPOv+UcdJ+NJiogOgGsQl7B2wZIm8CpVX5qja6EhuWutjx8u3EYoNa8i61FxIigQLg2Ex1nmLnEx0oNkbupwAp0iMN04x5W5QKr5X+91ILqCwMv2zisPJJ3usTWIwrPpxA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ph+hfOYd7EsQiQoQAGwrQNUBxVdPjqDKdd8YYYpIC6s=;
- b=pB8Mg+xub1uIMPEE0DVvEIPt31JaS5ldoEv53ZBf0fC9uEs42dUB4PSBlSU7OjjKZu3K34PhBVogXDTxyG9ZTfaBX74T3JaaZJnzjI5LXXKzDGQtc4hjwW01T9+rvOPGqAWNC9zNOEi2TXCmNrTNU9uAfVSv6FBwSaYPLJ2Zx4g=
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
- by MN2PR12MB4568.namprd12.prod.outlook.com (2603:10b6:208:260::12)
+ bh=QZNiXdXsMISqoS8LYhM7hcV9tf2n1EqaAjh/g/xw05s=;
+ b=FiGgQduWJWA7yzaxcomUTJWzpjvhcknFGqWBJhnvqCv5BcRXOqdABWIHDfROc9LwTw6RBeeJZVknKvIUc+wdHSzX4MYDeDdVcsRIwwUEjGdrLSnCN7Y1PMbffX4aHEfdr/P5elUPrJBsQZk2o28ux/qIPgm+qLdDiBsgjnuJLKE=
+Received: from BL0PR12MB4755.namprd12.prod.outlook.com (2603:10b6:208:82::26)
+ by MN2PR12MB4237.namprd12.prod.outlook.com (2603:10b6:208:1d6::7)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.23; Mon, 7 Jun
- 2021 15:30:37 +0000
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::25f7:664:3a8f:25b6]) by MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::25f7:664:3a8f:25b6%9]) with mapi id 15.20.4195.030; Mon, 7 Jun 2021
- 15:30:37 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Hou, Xiaomeng (Matthew)" <Xiaomeng.Hou@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amd/pm: fix warning reported by kernel test robot
-Thread-Topic: [PATCH] drm/amd/pm: fix warning reported by kernel test robot
-Thread-Index: AQHXW5sitPpz9V0HP0Cx7WgLMdYiwKsIrNB6
-Date: Mon, 7 Jun 2021 15:30:37 +0000
-Message-ID: <MN2PR12MB448823078E49E89E4F6CC686F7389@MN2PR12MB4488.namprd12.prod.outlook.com>
-References: <20210607124549.9061-1-Xiaomeng.Hou@amd.com>
-In-Reply-To: <20210607124549.9061-1-Xiaomeng.Hou@amd.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.20; Mon, 7 Jun
+ 2021 15:30:43 +0000
+Received: from BL0PR12MB4755.namprd12.prod.outlook.com
+ ([fe80::2ce1:d92c:92e9:1689]) by BL0PR12MB4755.namprd12.prod.outlook.com
+ ([fe80::2ce1:d92c:92e9:1689%5]) with mapi id 15.20.4195.030; Mon, 7 Jun 2021
+ 15:30:43 +0000
+From: "Khaire, Rohit" <Rohit.Khaire@amd.com>
+To: "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Zhang, Hawking"
+ <Hawking.Zhang@amd.com>, "Deng, Emily" <Emily.Deng@amd.com>, "Liu, Monk"
+ <Monk.Liu@amd.com>, "Zhou, Peng Ju" <PengJu.Zhou@amd.com>, "Chen, Horace"
+ <Horace.Chen@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: Use PSP to program IH_RB_CNTL_RING1/2 on SRIOV
+Thread-Topic: [PATCH] drm/amdgpu: Use PSP to program IH_RB_CNTL_RING1/2 on
+ SRIOV
+Thread-Index: AQHXW6jBBOCm0Cq7+0e2cLfTYbZVMasInCcAgAANbpA=
+Date: Mon, 7 Jun 2021 15:30:43 +0000
+Message-ID: <BL0PR12MB4755039C3515004ADD1051AA87389@BL0PR12MB4755.namprd12.prod.outlook.com>
+References: <20210607142343.13509-1-rohit.khaire@amd.com>
+ <392d7f26-51d6-f60e-6081-870afe8276b7@amd.com>
+In-Reply-To: <392d7f26-51d6-f60e-6081-870afe8276b7@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-06-07T15:30:36.957Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
+msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-06-07T15:30:40Z; 
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=b1f91daf-0e22-4514-a2ec-a14e6ccee872;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
 authentication-results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [192.161.79.207]
+x-originating-ip: [165.204.55.250]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: f8a3efa1-1750-4ec9-2abe-08d929c93366
-x-ms-traffictypediagnostic: MN2PR12MB4568:
+x-ms-office365-filtering-correlation-id: 6fd38fbc-3a4a-4139-1c87-08d929c936e1
+x-ms-traffictypediagnostic: MN2PR12MB4237:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MN2PR12MB4568FD6D768DB0CC8631CCFCF7389@MN2PR12MB4568.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:22;
+x-microsoft-antispam-prvs: <MN2PR12MB4237B73370CE8FDAE03E53A087389@MN2PR12MB4237.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:457;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: T/CwDaxE18u6kD/5nRudoVh3tNgDmnTiTwVXJv8JD8ph0o6JCoiQaFJoI2D8sXCfihBk7s2gdgBp9CoeSjVhjSyjYI8AbJG3jpYRDSVhwkL19iKWGqiWlM2YX54fYAGvOR1sIdm2TWWbyyWB5v5nl2uk2Jw7xmDVR4pRJJbwgiAyjl1HB+kth+C85FPH8aQ7R3DHrvUiq4QxZwMly0rmGRHbZIyEFJBleAGjixOdl6hEfTT6gn+MhbXUUBvmYeZ6SERIIZz7S0W7nTDT1K+WaUIzmvdAdoMAGC+uzgQsp2cq2GZaoO71MARxgJxRtpsSoDCpdVYkV2Ks0Lx6oooWBI0znYMQVUwhzo+mFqfMDp0m2dER1bwMXLotLPeJgHgBYBfhPDgRAvahAQ74I7G/j/C3LpFGASgys3K6uaIELgk8Too+9XS8QRTGMAwA9vJoS7DE+6Sc3cDRrauYjncSSO6tCj2lEjWwp7VE9z9YHEir8aeRDvPykVrP3yJFR9gpHUWD/RDlV4kTRix/kH1pcZ3Q404vxgI3T9I98xK6l6uNZuomma86VNgT0Pp+h8rLzjTdorYM4NpjwnsbtwAvBrKBa1Rh13iZS1eVnWrqzTvvtI+ychV8CrbNTZk3PCaxGqgxbe70kU0JWibzh2bNRg==
+x-microsoft-antispam-message-info: EzkanDW0sehv66LOAqMQqR02aYE0bxFhPGkbl6Os/mmfOOqLsYmCpYItjvQRewA0lK004F98OQ7zv9rPvxyNl5DRyp2tKe8ax97PbSFinrNHIa4htgMwmEgxWUIf9P8CsjwZ/+ZhcEBBmEyZgEuGZgg1foDwnl7YCSS+gUKNFdkFZYWj/ynuTVis29XyyxzvOafbtN5BH7O+7DrPLefDnXTauZ/aYN5IbhkTdhQ/1R2lIWpIDwyIe5fzwFCCxuNtHTgsiOiSwvXpHLWjgSa2Lwf0rpMFpTI1amBxbJ2WOKcAej/1lMAaFVlvQWeB1+ZNtDyhncGN7U8gmY1pmFvAei39EGSp5SqcywLoIkNfGJdHcMwSgJ2wcpMK4yRe+Y5QH+Uy+rJPAc0hLGxA3yFgOjG1Hx/po/mLO5xf5lgmYVMdjeJYIxGKupYd2FqKurrGYfDLHNldvEiG2e4oi8fqcTROH/eF9dGgVFwMZpeXvkG0MZThOArF3jbEsX45FOM+YPiR/V02tr1qpCVFBPN9MbzPKl8F9P3RAP/XExwthGx1sUVcTGVWx/SDC8jtWj9qttdO5HTufC66KocJLr7D00u2tZkRIWEZti59EA4nEtSdk7M9egQhk3Ai4wWvVTKKcb0akEdO4TNhwquwb7vPXw==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(396003)(39850400004)(376002)(136003)(366004)(26005)(4326008)(6506007)(38100700002)(53546011)(2906002)(186003)(9686003)(86362001)(83380400001)(8676002)(166002)(66446008)(7696005)(66476007)(5660300002)(71200400001)(33656002)(66946007)(66556008)(45080400002)(478600001)(76116006)(8936002)(316002)(19627405001)(55016002)(122000001)(966005)(110136005)(54906003)(64756008)(52536014);
+ IPV:NLI; SFV:NSPM; H:BL0PR12MB4755.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(39860400002)(396003)(376002)(366004)(346002)(4326008)(83380400001)(122000001)(8676002)(2906002)(8936002)(26005)(478600001)(38100700002)(66446008)(64756008)(52536014)(5660300002)(66556008)(66946007)(86362001)(316002)(110136005)(76116006)(33656002)(6506007)(7696005)(55016002)(53546011)(6636002)(9686003)(71200400001)(921005)(186003)(66476007);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?9Bf76YXVkcBX+oMFW2lvHbD7tWTyhDUfy/riXRH/rCRV66e5SOZMltk9T8rp?=
- =?us-ascii?Q?ITqP8dNJXuGqyjAn6jBmxd06aJj4oA1WRUE/1iiUjBS3rp3J6A/0UyEJOI9N?=
- =?us-ascii?Q?o+DgsJ7XdxNNX059s/tWFthw7e/SaczBoCQPUP0f+IVBc08NNqFfa8d6P0kH?=
- =?us-ascii?Q?xz35dXGu/bWPiZsz6zuacEthm+9Fi11SSpnLUeD8dx5Tr9tjGa2tO0dOQTY5?=
- =?us-ascii?Q?RlpwOE2VXq9b/59KB7x9bMTm66a0ZqdCYdEjgrO+uBcT+sLi5MoNck2TnYTP?=
- =?us-ascii?Q?ClxHAnHO1Mnm5YilySjRD/+j7f2F/sAnljUgKmn8xqoPfh3RYgDiY60bGuEE?=
- =?us-ascii?Q?G1M0+K/aULMtpsaNpSrgSH2XWLYg6F6703b2XzsnPPFfbSc75euy7DfKtZ7c?=
- =?us-ascii?Q?USMJ2Gh2IQ2ecM9aAMVvb3AHP2dDNSmRJ9sYxJEaEneyHFvp0RuNgrkCndBt?=
- =?us-ascii?Q?iwEH/BtEsGvqWS9EZCc8qjKerHhQe7Ej8vmMdtPgFK7D/zJvJxG6ISu4dyXc?=
- =?us-ascii?Q?71nSmgKeomcd1IHU4XWx3SyYK9PWaJiX3deNZ+HFIZb3VPCvgwObZkTAlqqg?=
- =?us-ascii?Q?26DJaesM4NFOCRLQCXvSY8oqTV+alnSQSWVZv2LO/IgQlLOKyKorxnbM3mCK?=
- =?us-ascii?Q?nC7Q4ro00/vZZp5Ocn4rwbjiC/7Y81Gi/smxBUDAjN6bcyjKOsqfzbGIXOeH?=
- =?us-ascii?Q?v64fO3+cD/oBAnb2dQXjkHKfhg6beBEXmR6UGXtm+Z4JtF5tIOCrcKJelze6?=
- =?us-ascii?Q?bo7iF85FdyaxIXm6+f1pNrH/s/uqmZZyptL9mfGaF7odSjZfPNW8gDywnOop?=
- =?us-ascii?Q?hjckElwHBUqeV9K/mIqV8RUmIHq2FpjgoFFhsBlttgcbmPorDlSbtkI41b9L?=
- =?us-ascii?Q?7w8+dtWUS9399VpqNojnh6blMFOZIbMbEu9alzdwUR6DslWkcGmfC7KUWqSO?=
- =?us-ascii?Q?IuVy63kADNVE9s89NxMbvZUmYEip0Ygd2oRKXrkHeF8RpHBhKpZ509Z3Yn32?=
- =?us-ascii?Q?U/JXFTrvG8qvXra0ybCGJS39M4o+ZpOMC0DBJUC11VToB02NWA4FzkMI/H8F?=
- =?us-ascii?Q?anSv8yOcc8O0x8iVGpwZJUCKZIwVl2w4b+PBXPHRqYTIKu4NtSUKRWNMr3Eb?=
- =?us-ascii?Q?rl6hHOVJiLOlVGnrRtBedqtqAosxz2jS9IcrKRom9Gz9RswdjixWGTrUJO2T?=
- =?us-ascii?Q?mnoUZEwbyTzy+uprwVRGmQoRMAGEGKLL2pcKac1MJL3NHAbycQ5R9SBbv4Jt?=
- =?us-ascii?Q?0AerjupYTtLsROQNnOHlLfImm8Nbt3yrFqqxkoqDd9qIUbx825XL5wNL4L9T?=
- =?us-ascii?Q?H15ZCa6yI6lDV/dsmun4QRJn?=
+x-ms-exchange-antispam-messagedata: =?utf-8?B?NDZ6QjFMTkpZZkZmNU5qOG5hcVZiTit5VFJZakFKY2UzRXNtRHF2L1FDeGIz?=
+ =?utf-8?B?Tm1PbWZ5WGxYVGJqaGtqam9lVFVDQjBEL0J5QlBnNHBHSndUUWJuQVFFM0I3?=
+ =?utf-8?B?dFlXWHFnRGNaSklHWFJOOEcwTkNvZ3ZvOVRHb1RRc0NHRHVYZW1NUnVSeXNq?=
+ =?utf-8?B?ZThaQUVNYzk5L3VZQmV5Mk04VG1zUWZjRmRQTWdocUt4ZTNqcUFYTlRRY0JZ?=
+ =?utf-8?B?TXV1Y2ZobXRTanlFV0paOHp5aU1sR0ZDaS93aTZlMG45bnhJTFhlaUw1SHQ3?=
+ =?utf-8?B?YW1HNmJ3OGJGLzJVK2NGN1NUTW05ZkkxMjNkS0hUWG1ycmpJMHl1Y2JIbU1o?=
+ =?utf-8?B?RDdKN3BNTHlyc1lPcFk5dlB5ZkpQYWpLTGswME01NWNFcDlkR2d2SG1SNnBF?=
+ =?utf-8?B?QXQvRStZbDJwMTZ6NlJqR2psQnBWdDR5cXc4MGRURzNvb1V4OHBYMGZ6UDF4?=
+ =?utf-8?B?MnN1UnRVdEJIcFJySWQvMWhxaE5USkdSQ01lc1pNRjNUSEMwT2JzRm5rRms5?=
+ =?utf-8?B?VUlNbzhHQVBGMEpPc21iTXByOUtRUlVtTTJYT3Z5bXZ4VUJ6WlUxeXNpRk1R?=
+ =?utf-8?B?dDB5MmlQSjVySDBOUWVqdi9EK2ZxZlp6ZThrTDRocTBVQ3RwcDVjK2JsTXRN?=
+ =?utf-8?B?ZFl2YXF1ZE5IbHpPUTJ0eFVDdjhPZVJDbllaSDlXWGZMZ0ZEeFRyR1VNWWRn?=
+ =?utf-8?B?SHBteDhrS3NOaVlPaXlsTm5RRWFrY0kreFhaUkZFQ29odmQwclJQZWg1K3dZ?=
+ =?utf-8?B?NHk4L0tpcUVYZnUrNi9aT1FpclRrQ21tZExIc0MyeGhEN0ErWlRYYk44Zmln?=
+ =?utf-8?B?eE1hb0JzWmRxQ0FBT3dHeUlPamN4TW93VVJ2K2VxbXBqVUpJbmJkd3FkQWt4?=
+ =?utf-8?B?UGkwMkZpZ2hpcGNUSVpEYVFSWjdka1l6U3AwdW9ZTC9CZHk5enRzZ29zeXhz?=
+ =?utf-8?B?b1ZwV1pHUG1ZQk1RTHBvdmNzb3lodm96dUxRV0hZTUZGWjZWaXlhWlcyamo1?=
+ =?utf-8?B?SytsRGlrblhKWTZ6cEVFVnI2WWRKOGljQXFpdm85VVYrYThoSUF5UEZtMjlx?=
+ =?utf-8?B?dFBVaDV3WlUrcVovVFNjajg2TXRodjNLRUkvRGlQeWs0RlJyZktmay9ZYngw?=
+ =?utf-8?B?MEg1cmZvMXpKcThqQTBkOEN1bWR0bWlWS0l2dEFXR0RidXF4V2lSSm9Ddkph?=
+ =?utf-8?B?OEJjbzFoKzQyN3cwaDZtZTRRQU5ibTEwZEVWeXRuejFzQ25pcFYyeDJNTlli?=
+ =?utf-8?B?OVc1UDhLc0VUQ1FJYmdmYmlBMFp5ZmJ3S3VoYStKSDNvWXV3eU1QVXc2ekg2?=
+ =?utf-8?B?TjkvODQ1Wk1QK2IvMEl4eHpDdEJkbE1keXA4cU0xSUdFeUdDc1MyVVNSdDh4?=
+ =?utf-8?B?M3ZJaHFybmZwYitIREdXbDRxd215eWRhbzNjb2NhT1dTUWMraWZKY3ZTSml2?=
+ =?utf-8?B?RlNvQ1AvN21oTUJJMGpDdmtheWwwWjNneHVrRldtOGFORGwvb2ZhV0FsNWNz?=
+ =?utf-8?B?Q3ZMTmNOc3BodXpLM0ZBUDlMKzJTZ25YaFlha2E1WU5EdTlXNC95U00zT1hn?=
+ =?utf-8?B?azRkcUdmeEJoYkxQMW1LMm9pZ2ppQXZFQXMyUjFPd1R2RzQvQUpDbGxBVkx4?=
+ =?utf-8?B?ZzVRRkk0OWpKWWp6Wmt2dXQ2UDdXeHo4VU9YUXB5c2p3am5VUFBLaWZld25u?=
+ =?utf-8?B?bmxmaDZYUW56QlRiRlllU2luOGhTbERjN0E0NUdhQ29zeCtydm81UFhWNmlO?=
+ =?utf-8?Q?kC64jExJn/BQgolLgV7L0iH30hZeMRhObuEE6Pg?=
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f8a3efa1-1750-4ec9-2abe-08d929c93366
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Jun 2021 15:30:37.5043 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB4755.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6fd38fbc-3a4a-4139-1c87-08d929c936e1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Jun 2021 15:30:43.3534 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: B57upK48a9Cvy+dAwe/AzAR1E9tg51+okQ7Nw6dH6sVObDkTMK+YfSVHBeqrTkVCDHHSOl8jScyqSwdPxMgD3A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4568
+X-MS-Exchange-CrossTenant-userprincipalname: MBw4PkIFfhmmboLF5L4szJC5pasVZa+xW4VQe6GOHT0x/SP9hx3BjL7Y/MjRO8e/
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4237
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,216 +142,84 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Huang, Ray" <Ray.Huang@amd.com>, "Wang,
- Kevin\(Yang\)" <Kevin1.Wang@amd.com>
-Content-Type: multipart/mixed; boundary="===============1482032207=="
+Cc: "Ming, Davis" <Davis.Ming@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1482032207==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB448823078E49E89E4F6CC686F7389MN2PR12MB4488namp_"
+[AMD Public Use]
 
---_000_MN2PR12MB448823078E49E89E4F6CC686F7389MN2PR12MB4488namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+We don't need RING1 and RING2 functionality for SRIOV afaik.
 
-[Public]
+But looking at the description of the original commit message it affects RING0 too?
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Xiaomeng=
- Hou <Xiaomeng.Hou@amd.com>
-Sent: Monday, June 7, 2021 8:45 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Huang, Ray <Ray.Huang@amd.com>; Hou, Xiaomeng (Matthew) <Xiaomeng.Hou@a=
-md.com>; Wang, Kevin(Yang) <Kevin1.Wang@amd.com>
-Subject: [PATCH] drm/amd/pm: fix warning reported by kernel test robot
+" drm/amdgpu: add timeout flush mechanism to update wptr for self interrupt (v2)
 
-Kernel test robot throws warning ->
+outstanding log reaches threshold will trigger IH ring1/2's wptr
+reported, that will avoid generating interrupts to ring0 too frequent.
+But if ring1/2's wptr hasn't been increased for a long time, the outstanding log
+can't reach threshold so that driver can't get latest wptr info and
+miss some interrupts."
 
->> drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu13/yellow_carp_ppt.c:483:2:
-   warning: variable 'member_type' is used uninitialized whenever switch
-   default is taken [-Wsometimes-uninitialized]
-       default:
-       ^~~~~~~
-   drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu13/yellow_carp_ppt.c:487:47:
-   note: uninitialized use occurs here
-       return yellow_carp_get_smu_metrics_data(smu, member_type, value);
-                               ^~~~~~~~~~~
-   drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu13/yellow_carp_ppt.c:465:2:
-   note: variable 'member_type' is declared here
-       MetricsMember_t member_type;
-       ^
-   1 warning generated.
+Rohit
 
-Fix this warning by return errno when the clk type is unsupported.
+-----Original Message-----
+From: Koenig, Christian <Christian.Koenig@amd.com> 
+Sent: June 7, 2021 10:31 AM
+To: Khaire, Rohit <Rohit.Khaire@amd.com>; amd-gfx@lists.freedesktop.org; Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>; Deng, Emily <Emily.Deng@amd.com>; Liu, Monk <Monk.Liu@amd.com>; Zhou, Peng Ju <PengJu.Zhou@amd.com>; Chen, Horace <Horace.Chen@amd.com>
+Cc: Ming, Davis <Davis.Ming@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: Use PSP to program IH_RB_CNTL_RING1/2 on SRIOV
 
-Signed-off-by: Xiaomeng Hou <Xiaomeng.Hou@amd.com>
-Reported-by: kernel test robot <lkp@intel.com>
----
- drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Why are the ring 1&2 enabled on SRIOV in the first place?
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c b/drivers=
-/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
-index 031c49fb4582..0cd7902d5172 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
-@@ -728,7 +728,7 @@ static int yellow_carp_get_current_clk_freq(struct smu_=
-context *smu,
-                 return smu_cmn_send_smc_msg_with_param(smu,
-                                 SMU_MSG_GetFclkFrequency, 0, value);
-         default:
--               break;
-+               return -EINVAL;
-         }
+Christian.
 
-         return yellow_carp_get_smu_metrics_data(smu, member_type, value);
---
-2.17.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
-reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D04%7C01%7Calexande=
-r.deucher%40amd.com%7C78c8040ef84146dda0ab08d929b243e8%7C3dd8961fe4884e608e=
-11a82d994e183d%7C0%7C0%7C637586667893606471%7CUnknown%7CTWFpbGZsb3d8eyJWIjo=
-iMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdat=
-a=3Dz1sKNaF9lOApOndQEvUHKZcpS7LUaO7hKaUnHdi7Qug%3D&amp;reserved=3D0
-
---_000_MN2PR12MB448823078E49E89E4F6CC686F7389MN2PR12MB4488namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+Am 07.06.21 um 16:23 schrieb Rohit Khaire:
+> This is similar to IH_RB_CNTL programming in 
+> navi10_ih_toggle_ring_interrupts
 >
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
-ign=3D"Left">
-[Public]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Acked-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Xiaomeng Hou &lt;Xiaomeng.Hou=
-@amd.com&gt;<br>
-<b>Sent:</b> Monday, June 7, 2021 8:45 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Huang, Ray &lt;Ray.Huang@amd.com&gt;; Hou, Xiaomeng (Matthew) &l=
-t;Xiaomeng.Hou@amd.com&gt;; Wang, Kevin(Yang) &lt;Kevin1.Wang@amd.com&gt;<b=
-r>
-<b>Subject:</b> [PATCH] drm/amd/pm: fix warning reported by kernel test rob=
-ot</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Kernel test robot throws warning -&gt;<br>
-<br>
-&gt;&gt; drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu13/yellow_carp_ppt.c:483=
-:2:<br>
-&nbsp;&nbsp; warning: variable 'member_type' is used uninitialized whenever=
- switch<br>
-&nbsp;&nbsp; default is taken [-Wsometimes-uninitialized]<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ^~~~~~~<br>
-&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu13/yellow_carp_ppt.c=
-:487:47:<br>
-&nbsp;&nbsp; note: uninitialized use occurs here<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return yellow_carp_get_smu_metrics_dat=
-a(smu, member_type, value);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ^~~~~~~~~~~<br>
-&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu13/yellow_carp_ppt.c=
-:465:2:<br>
-&nbsp;&nbsp; note: variable 'member_type' is declared here<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MetricsMember_t member_type;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ^<br>
-&nbsp;&nbsp; 1 warning generated.<br>
-<br>
-Fix this warning by return errno when the clk type is unsupported.<br>
-<br>
-Signed-off-by: Xiaomeng Hou &lt;Xiaomeng.Hou@amd.com&gt;<br>
-Reported-by: kernel test robot &lt;lkp@intel.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c | 2 +-<br>
-&nbsp;1 file changed, 1 insertion(+), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c b/drivers=
-/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c<br>
-index 031c49fb4582..0cd7902d5172 100644<br>
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c<br>
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c<br>
-@@ -728,7 +728,7 @@ static int yellow_carp_get_current_clk_freq(struct smu_=
-context *smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return smu_cmn_send_smc_msg_with_param(smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SMU_MSG_GetFclkFrequency, 0, val=
-ue);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; break;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return -EINVAL;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return yellow_carp_get_smu=
-_metrics_data(smu, member_type, value);<br>
--- <br>
-2.17.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx@lists.freedesktop.org<br>
-<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
-F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D04%=
-7C01%7Calexander.deucher%40amd.com%7C78c8040ef84146dda0ab08d929b243e8%7C3dd=
-8961fe4884e608e11a82d994e183d%7C0%7C0%7C637586667893606471%7CUnknown%7CTWFp=
-bGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%=
-7C1000&amp;amp;sdata=3Dz1sKNaF9lOApOndQEvUHKZcpS7LUaO7hKaUnHdi7Qug%3D&amp;a=
-mp;reserved=3D0">https://nam11.safelinks.protection.outlook.com/?url=3Dhttp=
-s%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=
-=3D04%7C01%7Calexander.deucher%40amd.com%7C78c8040ef84146dda0ab08d929b243e8=
-%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637586667893606471%7CUnknown%=
-7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6M=
-n0%3D%7C1000&amp;amp;sdata=3Dz1sKNaF9lOApOndQEvUHKZcpS7LUaO7hKaUnHdi7Qug%3D=
-&amp;amp;reserved=3D0</a><br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_MN2PR12MB448823078E49E89E4F6CC686F7389MN2PR12MB4488namp_--
-
---===============1482032207==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+> Signed-off-by: Rohit Khaire <rohit.khaire@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/navi10_ih.c | 20 ++++++++++++++++++--
+>   1 file changed, 18 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c 
+> b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+> index eac564e8dd52..e41188c04846 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+> @@ -120,11 +120,27 @@ force_update_wptr_for_self_int(struct amdgpu_device *adev,
+>   	ih_rb_cntl = REG_SET_FIELD(ih_rb_cntl, IH_RB_CNTL_RING1,
+>   				   RB_USED_INT_THRESHOLD, threshold);
+>   
+> -	WREG32_SOC15(OSSSYS, 0, mmIH_RB_CNTL_RING1, ih_rb_cntl);
+> +	if (amdgpu_sriov_vf(adev) && amdgpu_sriov_reg_indirect_ih(adev)) {
+> +		if (psp_reg_program(&adev->psp, PSP_REG_IH_RB_CNTL_RING1, ih_rb_cntl)) {
+> +			DRM_ERROR("PSP program IH_RB_CNTL_RING1 failed!\n");
+> +			return;
+> +		}
+> +	} else {
+> +		WREG32_SOC15(OSSSYS, 0, mmIH_RB_CNTL_RING1, ih_rb_cntl);
+> +	}
+> +
+>   	ih_rb_cntl = RREG32_SOC15(OSSSYS, 0, mmIH_RB_CNTL_RING2);
+>   	ih_rb_cntl = REG_SET_FIELD(ih_rb_cntl, IH_RB_CNTL_RING2,
+>   				   RB_USED_INT_THRESHOLD, threshold);
+> -	WREG32_SOC15(OSSSYS, 0, mmIH_RB_CNTL_RING2, ih_rb_cntl);
+> +	if (amdgpu_sriov_vf(adev) && amdgpu_sriov_reg_indirect_ih(adev)) {
+> +		if (psp_reg_program(&adev->psp, PSP_REG_IH_RB_CNTL_RING2, ih_rb_cntl)) {
+> +			DRM_ERROR("PSP program IH_RB_CNTL_RING2 failed!\n");
+> +			return;
+> +		}
+> +	} else {
+> +		WREG32_SOC15(OSSSYS, 0, mmIH_RB_CNTL_RING2, ih_rb_cntl);
+> +	}
+> +
+>   	WREG32_SOC15(OSSSYS, 0, mmIH_CNTL2, ih_cntl);
+>   }
+>   
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1482032207==--
