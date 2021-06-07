@@ -7,48 +7,48 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A731DC47082
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 16:48:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 69B31C47094
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 16:48:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7752D60FE5
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 16:48:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7752D60FE5
+	by mail.kernel.org (Postfix) with ESMTPS id 3979560FDA
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 16:48:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3979560FDA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BBE56E93D;
-	Mon,  7 Jun 2021 16:48:55 +0000 (UTC)
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam08on2070.outbound.protection.outlook.com [40.107.100.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DC046E93D
- for <amd-gfx@lists.freedesktop.org>; Mon,  7 Jun 2021 16:48:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBADD6E945;
+	Mon,  7 Jun 2021 16:48:58 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2042.outbound.protection.outlook.com [40.107.237.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 310D26E946
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Jun 2021 16:48:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UfRmgGiIvQuqqTdAs5eH7ztAN+dsjFCcunuGh0R5R8fJ1hfbbMHh7sf2DdnhPnZNtAJEOvHc9J5pgCpiRjOYQmHiMCySULyyXOi17pum5e7Im5i7dGMataq7Z0PwoOVnU6R9kXS2G10TYo642BON9I1OzjitGiDMP/gYfl6SiFhZl/+nSI8J4F2JbrxAd29TGv21iO2VAJW3FnlDSRS9J5KlG5NE05D/BmsZT/RYTJ9qxr6tTP4p1XLnpVm5DzcNYLoBsO+x5g4UKfQ+t3aZb8t2xbAOQZ01VDxxIywV9WWtNtFe31k6yKcOenuhVbQq9c4ymQWG6dHFksNVefMFnw==
+ b=BvBn9NSF3sLI4npjJ8AVAO7k+2FPjfg7WbMmAMFbo0ydXBUyCAnGlLGqkVNLS4eBUYODE2fzqrIqYQ8of29Axy24LZqcB05pj90nRzt1AYYTqnMeIt3lR1Zz1nSyisC1ylL7FPxi3p/dMBvwqNvMT3RAhIjJ0gXXZSJg3YbNJzJFSD0HXlrCAx8yd6twps6ExVX4RL+P02NVkqgRAQv45cspWK8mTCT4M3SvwsKR9ND8jHfR42z1wP+XMAIepMEJDOuAtTQlTwSZb85f0RuJ5xnc08ddr33bQHVSTf71Vc/E8H8bjffjsKldHoupbXCCYofymUE1sbYvcizGp4TcFQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lzqH3C392GJKu0Onw8QmSHBbOyNGcmEzY/GY/cmtzKI=;
- b=DPfL51L4xo+W711h6ut23h9fcVzdfUUE0JVyKAZbmn/E2Lmn47n9smAbIZe8J8sw+dLyOTALw8EGzsC/9PpbO3kc0ezIplSRC7XgrTRuG1mElGqwGcuZB4r/tXKBdcXTtUhSEavqYCYPaeWLZlFQij5hyk2/xj3aHIIkIBsX/64qjcrSQjDcrytkCkbog6bw19CZqr1GHCovdR1FVzJWBsKJ1fiG+BoLDyleUp/dUvUAeWzdjt/MPozcJHVwsBS5+DiYk6AFgox+zXq0RXzLnzcb/FEN+uYtNj78hp1LcuSP4uPH/wJ1vdAxkgFmgfv3hunc61nFph68pwjRxa7axA==
+ bh=GdAbeej9nCBR7v9KT4PbuaJ91E09gvnoHnepJIvZJCk=;
+ b=dDuQ/AgkoUjClZh5+xLcBjsZZOxc3YngshxfCB6pF8F/XEVZopZ2vI6XousPGjNqEwG0bSsc2TyL6gzeqQDcvfxb84A7iaptNUaHB24sl+ux92x5PbJqj7E93M/0sbUc8FNg2DGfMqt2cMTPqDQYI9tfC0RQHXfYEMTVblR1YAWJkcanzqZsSJTt4u2ANq+MlqcSg6Rtt8XCbV64lpEGnwBmdXeoa3wJakhN29GVow4dqw/pLTkwv75agtI6UacjpnOTltqoasKNeAMBnW/tYiNzJXlpJoWrP+QVNhIRXz0OiUmbtRYWg25WqP3TZ7mexKhV+bh5nEPSqsg6gFGL1Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lzqH3C392GJKu0Onw8QmSHBbOyNGcmEzY/GY/cmtzKI=;
- b=NExlWgz8BuLria3nPLI01s9pJZczl1lC2mlciURII/QIfowMf69Eh6khDa+I903j954itv5bdetcaBgvQUVMfWNACTwvprJ48E0gWfV8yMcG7m8XplgAKtxh9yK/pviE6jEcWV/Qy1xuIl7YhEm9KagJy8jy7/7KCZgcjeDzswM=
-Received: from BN6PR2001CA0021.namprd20.prod.outlook.com
- (2603:10b6:404:b4::31) by MN2PR12MB3134.namprd12.prod.outlook.com
- (2603:10b6:208:c5::15) with Microsoft SMTP Server (version=TLS1_2,
+ bh=GdAbeej9nCBR7v9KT4PbuaJ91E09gvnoHnepJIvZJCk=;
+ b=W1UBcayoQKlXV0BES5rUwS6DmGNjZsdbyfifhLJMJ+Cs4xWUy5UUuxYfZK8cBGQTlQZTbKn4TG95wtZwCQBM3yJfVDYNHpMR6mvB+YTyrdpBUm8YN+BonRzQXhiK035YGohHWzD3gmqQmnXBGUSgQFW2aQ/I0MvY2EF6gC+4IMc=
+Received: from BN8PR15CA0042.namprd15.prod.outlook.com (2603:10b6:408:80::19)
+ by MWHPR1201MB0109.namprd12.prod.outlook.com (2603:10b6:301:52::14)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.23; Mon, 7 Jun
- 2021 16:48:51 +0000
-Received: from BN8NAM11FT044.eop-nam11.prod.protection.outlook.com
- (2603:10b6:404:b4:cafe::55) by BN6PR2001CA0021.outlook.office365.com
- (2603:10b6:404:b4::31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.21 via Frontend
- Transport; Mon, 7 Jun 2021 16:48:51 +0000
+ 2021 16:48:54 +0000
+Received: from BN8NAM11FT033.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:80:cafe::42) by BN8PR15CA0042.outlook.office365.com
+ (2603:10b6:408:80::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.15 via Frontend
+ Transport; Mon, 7 Jun 2021 16:48:54 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -57,19 +57,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT044.mail.protection.outlook.com (10.13.177.219) with Microsoft SMTP
+ BN8NAM11FT033.mail.protection.outlook.com (10.13.177.149) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4195.22 via Frontend Transport; Mon, 7 Jun 2021 16:48:50 +0000
+ 15.20.4195.22 via Frontend Transport; Mon, 7 Jun 2021 16:48:53 +0000
 Received: from stylon-rog.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Mon, 7 Jun 2021
- 11:48:46 -0500
+ 11:48:50 -0500
 From: Stylon Wang <stylon.wang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 19/30] drm/amd/display: Add Interface to set FIFO ERRDET SW
- Override
-Date: Tue, 8 Jun 2021 00:47:03 +0800
-Message-ID: <20210607164714.311325-20-stylon.wang@amd.com>
+Subject: [PATCH 20/30] drm/amd/display: Add interface for ADD & DROP PIXEL
+ Registers
+Date: Tue, 8 Jun 2021 00:47:04 +0800
+Message-ID: <20210607164714.311325-21-stylon.wang@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210607164714.311325-1-stylon.wang@amd.com>
 References: <20210607164714.311325-1-stylon.wang@amd.com>
@@ -79,27 +79,27 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ed0f0e84-35c2-4738-dea8-08d929d42073
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3134:
-X-Microsoft-Antispam-PRVS: <MN2PR12MB31343C26D437DC9759C2A50CFF389@MN2PR12MB3134.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:118;
+X-MS-Office365-Filtering-Correlation-Id: c7f60671-428e-4c99-a113-08d929d4227c
+X-MS-TrafficTypeDiagnostic: MWHPR1201MB0109:
+X-Microsoft-Antispam-PRVS: <MWHPR1201MB01095BDFAA97F9CEC688BD12FF389@MWHPR1201MB0109.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:53;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: FA68zh64NScRqwOmpHItlCpZzJQGySSihc4389YYEYvu9xvhdE8wCPF3dQRAgEmSbaxa73YqXq8pwsl9oGupCbnscCT+RmiyzY2XYc3tyKzDAvYnNkJO2V1duqtm1/bBJfn3tpZ65gv/CA1SQbhGSdJsgCO07v4rQ8KDxnhzinaZn2f9uO0XwScXdauf8MocdZcPrxKrF/JNRpKsFaoTloQBvB96JAwmFm9BQqpZGMa7TgCHYhdxBNKUU5Ss83Nv+Hvet42svBREUosMBabbJldgvzzVIwjJ+PvVQajTXdlY6qyQq+yG4C8dBMPSrXHB6lyAwb2tgcKHcs+bCLbWS8DapXwuSXUHflY0wowDz2onCDWqUKM3dbM0ZNj3WTMprgkksLNXtr95EC7WNfg8aGHLum6mNQoAoTY21wp33mDzfyduSIrascB47RIY6V/S6h86afYkdfViKeMEsZPlbm2j8luLVO6FHhHsCheBfiN/GiX1X4sKTEoolBeRwBvk54nDH6IQJzmMtBPC3XStHaCOuZ15h+eerl4olgvWSiXse9TRoFkPTqBBMYdAYfV8QMazKhihr8NtWkleaH1WTXcHekxrYJKIcSdG9mvCWrT6lmtjssnCVUih+9QwEvp6zLX7rP+vqzAVgriB/AjQTfygzilj18gmS6knHRjnVTvuaYD+oIEh9YVhPByPFbII
+X-Microsoft-Antispam-Message-Info: +HWjPt32RZFznvLb367E50zs/duafoouyaj8FkKfqaR4UQJlqkf9C4awAiY7hLN1VwVRMR/3dgRMWox02Ta3TY30RkghbIAf/t8zhLfVsWmzuOt/gs0WG08ak3aObeD7EjvQhk4jcIJabHe5ezDjVOYJoUd6wK8vNVJlLl1jcK5l0SI9ue7AhluBQZ1Waa4mXyyTJf2xdF5+peB9z2kJdYAFqgwPQBbDBEjswBn2atilEmo9g41/w+E8/0kTumMDX+tNi8rUS/XGeq/tm9ZXvKoklC3C/czwEuc6mOp9QFhX9e0h+bMdjJ1T5u6ZkyG97VJOHMXBAC+B3oWV6zEzDpCad5oJascKob6rkt2eXHWWUkbOtV5gCI1FT6qMzo99Ypd0jeJfc2asVAddgQtRw5Vr4l/4xvVXJ0JtWUYL9dsik14A0j+3gUvxgP0kfVNj6s+WMI4R4o08NXN6lRqrYPNlduHD1n5squRGN8BuknsS0WTJH/CYAuKL0nWN7K8SxirzF1NqwkZV+j9D8FuF+qHY593STSslvx0M1lRjmmWryvh51LVh7ZxDLGTLZbJiKuA/c8rqLuDJi0/tzy/61f/MW2HXoxa30XOHJYxJ3blxUq/2ugZeLQhBItRs21qyqEX93hB9tG7ZWBKHTEwod4t4BcVHY5WzY6/lCe+rgrkVwdehMiYcAaCHnIvj9beE
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(396003)(39850400004)(346002)(376002)(136003)(46966006)(36840700001)(4326008)(82310400003)(316002)(356005)(336012)(36860700001)(6916009)(7696005)(82740400003)(8936002)(70206006)(70586007)(478600001)(2616005)(1076003)(26005)(16526019)(186003)(2906002)(5660300002)(47076005)(36756003)(6666004)(54906003)(426003)(8676002)(86362001)(83380400001)(44832011)(81166007)(36900700001);
+ SFS:(4636009)(346002)(39860400002)(376002)(396003)(136003)(36840700001)(46966006)(54906003)(86362001)(2616005)(2906002)(36860700001)(30864003)(36756003)(47076005)(6916009)(186003)(4326008)(478600001)(82310400003)(336012)(426003)(1076003)(83380400001)(70206006)(70586007)(81166007)(82740400003)(8676002)(26005)(8936002)(5660300002)(316002)(6666004)(356005)(16526019)(7696005)(44832011)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2021 16:48:50.3476 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ed0f0e84-35c2-4738-dea8-08d929d42073
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2021 16:48:53.7594 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c7f60671-428e-4c99-a113-08d929d4227c
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT044.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT033.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3134
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1201MB0109
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,163 +125,284 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 From: Wesley Chalmers <Wesley.Chalmers@amd.com>
 
 [WHY]
-HW has handed down a new sequence which requires access to the FIFO
-ERRDET SW Override register.
+HW has handed down a new sequence that requires access to these
+registers.
 
 Signed-off-by: Wesley Chalmers <Wesley.Chalmers@amd.com>
 Reviewed-by: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
 Acked-by: Stylon Wang <stylon.wang@amd.com>
 ---
- .../gpu/drm/amd/display/dc/dcn20/dcn20_dccg.c | 10 +++++++
- .../gpu/drm/amd/display/dc/dcn20/dcn20_dccg.h | 29 +++++++++++++++++--
- .../gpu/drm/amd/display/dc/dcn21/dcn21_dccg.c |  1 +
- .../gpu/drm/amd/display/dc/dcn30/dcn30_dccg.c |  1 +
- .../drm/amd/display/dc/dcn301/dcn301_dccg.c   |  1 +
- drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h  |  2 ++
- 6 files changed, 41 insertions(+), 3 deletions(-)
+ .../gpu/drm/amd/display/dc/dcn20/dcn20_dccg.c | 26 ++++++++++
+ .../gpu/drm/amd/display/dc/dcn20/dcn20_dccg.h | 51 +++++++++++++++++--
+ .../gpu/drm/amd/display/dc/dcn21/dcn21_dccg.c |  2 +
+ .../drm/amd/display/dc/dcn21/dcn21_resource.c |  4 +-
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_dccg.c |  2 +
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_dccg.h | 17 ++++++-
+ .../drm/amd/display/dc/dcn301/dcn301_dccg.c   |  2 +
+ drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h  |  4 ++
+ 8 files changed, 101 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dccg.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dccg.c
-index 8774406120fc..5679983158e2 100644
+index 5679983158e2..5999b2da3a01 100644
 --- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dccg.c
 +++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dccg.c
-@@ -96,6 +96,15 @@ void dccg2_get_dccg_ref_freq(struct dccg *dccg,
- 	return;
+@@ -105,6 +105,30 @@ void dccg2_set_fifo_errdet_ovr_en(struct dccg *dccg,
+ 			DCCG_FIFO_ERRDET_OVR_EN, en ? 1 : 0);
  }
  
-+void dccg2_set_fifo_errdet_ovr_en(struct dccg *dccg,
-+		bool en)
++void dccg2_otg_add_pixel(struct dccg *dccg,
++		uint32_t otg_inst)
 +{
 +	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
 +
-+	REG_UPDATE(DISPCLK_FREQ_CHANGE_CNTL,
-+			DCCG_FIFO_ERRDET_OVR_EN, en ? 1 : 0);
++	REG_UPDATE_2(OTG_PIXEL_RATE_CNTL[otg_inst],
++			OTG_ADD_PIXEL[otg_inst], 0,
++			OTG_DROP_PIXEL[otg_inst], 0);
++	REG_UPDATE(OTG_PIXEL_RATE_CNTL[otg_inst],
++			OTG_ADD_PIXEL[otg_inst], 1);
++}
++
++void dccg2_otg_drop_pixel(struct dccg *dccg,
++		uint32_t otg_inst)
++{
++	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
++
++	REG_UPDATE_2(OTG_PIXEL_RATE_CNTL[otg_inst],
++			OTG_ADD_PIXEL[otg_inst], 0,
++			OTG_DROP_PIXEL[otg_inst], 0);
++	REG_UPDATE(OTG_PIXEL_RATE_CNTL[otg_inst],
++			OTG_DROP_PIXEL[otg_inst], 1);
 +}
 +
  void dccg2_init(struct dccg *dccg)
  {
  }
-@@ -103,6 +112,7 @@ void dccg2_init(struct dccg *dccg)
- static const struct dccg_funcs dccg2_funcs = {
+@@ -113,6 +137,8 @@ static const struct dccg_funcs dccg2_funcs = {
  	.update_dpp_dto = dccg2_update_dpp_dto,
  	.get_dccg_ref_freq = dccg2_get_dccg_ref_freq,
-+	.set_fifo_errdet_ovr_en = dccg2_set_fifo_errdet_ovr_en,
+ 	.set_fifo_errdet_ovr_en = dccg2_set_fifo_errdet_ovr_en,
++	.otg_add_pixel = dccg2_otg_add_pixel,
++	.otg_drop_pixel = dccg2_otg_drop_pixel,
  	.dccg_init = dccg2_init
  };
  
 diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dccg.h b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dccg.h
-index d407f33308b9..7e471c9ed477 100644
+index 7e471c9ed477..4369ae5bfff3 100644
 --- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dccg.h
 +++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dccg.h
-@@ -34,7 +34,8 @@
- 	DCCG_SRII(DTO_PARAM, DPPCLK, 1),\
+@@ -35,12 +35,18 @@
  	DCCG_SRII(DTO_PARAM, DPPCLK, 2),\
  	DCCG_SRII(DTO_PARAM, DPPCLK, 3),\
--	SR(REFCLK_CNTL)
-+	SR(REFCLK_CNTL),\
-+	SR(DISPCLK_FREQ_CHANGE_CNTL)
+ 	SR(REFCLK_CNTL),\
++	DCCG_SRII(PIXEL_RATE_CNTL, OTG, 0),\
++	DCCG_SRII(PIXEL_RATE_CNTL, OTG, 1),\
+ 	SR(DISPCLK_FREQ_CHANGE_CNTL)
  
  #define DCCG_REG_LIST_DCN2() \
  	DCCG_COMMON_REG_LIST_DCN_BASE(),\
-@@ -59,7 +60,16 @@
- 	DCCG_SF(DPPCLK0_DTO_PARAM, DPPCLK0_DTO_PHASE, mask_sh),\
- 	DCCG_SF(DPPCLK0_DTO_PARAM, DPPCLK0_DTO_MODULO, mask_sh),\
- 	DCCG_SF(REFCLK_CNTL, REFCLK_CLOCK_EN, mask_sh),\
--	DCCG_SF(REFCLK_CNTL, REFCLK_SRC_SEL, mask_sh)
-+	DCCG_SF(REFCLK_CNTL, REFCLK_SRC_SEL, mask_sh),\
-+	DCCG_SF(DISPCLK_FREQ_CHANGE_CNTL, DISPCLK_STEP_DELAY, mask_sh),\
-+	DCCG_SF(DISPCLK_FREQ_CHANGE_CNTL, DISPCLK_STEP_SIZE, mask_sh),\
-+	DCCG_SF(DISPCLK_FREQ_CHANGE_CNTL, DISPCLK_FREQ_RAMP_DONE, mask_sh),\
-+	DCCG_SF(DISPCLK_FREQ_CHANGE_CNTL, DISPCLK_MAX_ERRDET_CYCLES, mask_sh),\
-+	DCCG_SF(DISPCLK_FREQ_CHANGE_CNTL, DCCG_FIFO_ERRDET_RESET, mask_sh),\
-+	DCCG_SF(DISPCLK_FREQ_CHANGE_CNTL, DCCG_FIFO_ERRDET_STATE, mask_sh),\
-+	DCCG_SF(DISPCLK_FREQ_CHANGE_CNTL, DCCG_FIFO_ERRDET_OVR_EN, mask_sh),\
-+	DCCG_SF(DISPCLK_FREQ_CHANGE_CNTL, DISPCLK_CHG_FWD_CORR_DISABLE, mask_sh)
+ 	DCCG_SRII(DTO_PARAM, DPPCLK, 4),\
+-	DCCG_SRII(DTO_PARAM, DPPCLK, 5)
++	DCCG_SRII(DTO_PARAM, DPPCLK, 5),\
++	DCCG_SRII(PIXEL_RATE_CNTL, OTG, 2),\
++	DCCG_SRII(PIXEL_RATE_CNTL, OTG, 3),\
++	DCCG_SRII(PIXEL_RATE_CNTL, OTG, 4),\
++	DCCG_SRII(PIXEL_RATE_CNTL, OTG, 5)
+ 
+ #define DCCG_SF(reg_name, field_name, post_fix)\
+ 	.field_name = reg_name ## __ ## field_name ## post_fix
+@@ -48,6 +54,9 @@
+ #define DCCG_SFI(reg_name, field_name, field_prefix, inst, post_fix)\
+ 	.field_prefix ## _ ## field_name[inst] = reg_name ## __ ## field_prefix ## inst ## _ ## field_name ## post_fix
+ 
++#define DCCG_SFII(block, reg_name, field_prefix, field_name, inst, post_fix)\
++	.field_prefix ## _ ## field_name[inst] = block ## inst ## _ ## reg_name ## __ ## field_prefix ## inst ## _ ## field_name ## post_fix
++
+ #define DCCG_COMMON_MASK_SH_LIST_DCN_COMMON_BASE(mask_sh) \
+ 	DCCG_SFI(DPPCLK_DTO_CTRL, DTO_ENABLE, DPPCLK, 0, mask_sh),\
+ 	DCCG_SFI(DPPCLK_DTO_CTRL, DTO_DB_EN, DPPCLK, 0, mask_sh),\
+@@ -68,7 +77,13 @@
+ 	DCCG_SF(DISPCLK_FREQ_CHANGE_CNTL, DCCG_FIFO_ERRDET_RESET, mask_sh),\
+ 	DCCG_SF(DISPCLK_FREQ_CHANGE_CNTL, DCCG_FIFO_ERRDET_STATE, mask_sh),\
+ 	DCCG_SF(DISPCLK_FREQ_CHANGE_CNTL, DCCG_FIFO_ERRDET_OVR_EN, mask_sh),\
+-	DCCG_SF(DISPCLK_FREQ_CHANGE_CNTL, DISPCLK_CHG_FWD_CORR_DISABLE, mask_sh)
++	DCCG_SF(DISPCLK_FREQ_CHANGE_CNTL, DISPCLK_CHG_FWD_CORR_DISABLE, mask_sh),\
++	DCCG_SFII(OTG, PIXEL_RATE_CNTL, OTG, ADD_PIXEL, 0, mask_sh),\
++	DCCG_SFII(OTG, PIXEL_RATE_CNTL, OTG, ADD_PIXEL, 1, mask_sh),\
++	DCCG_SFII(OTG, PIXEL_RATE_CNTL, OTG, DROP_PIXEL, 0, mask_sh),\
++	DCCG_SFII(OTG, PIXEL_RATE_CNTL, OTG, DROP_PIXEL, 1, mask_sh)
++
 +
  
+ 
  #define DCCG_MASK_SH_LIST_DCN2(mask_sh) \
- 	DCCG_COMMON_MASK_SH_LIST_DCN_COMMON_BASE(mask_sh),\
-@@ -74,7 +84,16 @@
- 	type DPPCLK_DTO_ENABLE[6];\
- 	type DPPCLK_DTO_DB_EN[6];\
- 	type REFCLK_CLOCK_EN;\
--	type REFCLK_SRC_SEL;
-+	type REFCLK_SRC_SEL;\
-+	type DISPCLK_STEP_DELAY;\
-+	type DISPCLK_STEP_SIZE;\
-+	type DISPCLK_FREQ_RAMP_DONE;\
-+	type DISPCLK_MAX_ERRDET_CYCLES;\
-+	type DCCG_FIFO_ERRDET_RESET;\
-+	type DCCG_FIFO_ERRDET_STATE;\
-+	type DCCG_FIFO_ERRDET_OVR_EN;\
-+	type DISPCLK_CHG_FWD_CORR_DISABLE;\
-+	type DISPCLK_FREQ_CHANGE_CNTL;
+@@ -76,7 +91,27 @@
+ 	DCCG_SFI(DPPCLK_DTO_CTRL, DTO_ENABLE, DPPCLK, 4, mask_sh),\
+ 	DCCG_SFI(DPPCLK_DTO_CTRL, DTO_DB_EN, DPPCLK, 4, mask_sh),\
+ 	DCCG_SFI(DPPCLK_DTO_CTRL, DTO_ENABLE, DPPCLK, 5, mask_sh),\
+-	DCCG_SFI(DPPCLK_DTO_CTRL, DTO_DB_EN, DPPCLK, 5, mask_sh)
++	DCCG_SFI(DPPCLK_DTO_CTRL, DTO_DB_EN, DPPCLK, 5, mask_sh),\
++	DCCG_SFII(OTG, PIXEL_RATE_CNTL, OTG, ADD_PIXEL, 2, mask_sh),\
++	DCCG_SFII(OTG, PIXEL_RATE_CNTL, OTG, ADD_PIXEL, 3, mask_sh),\
++	DCCG_SFII(OTG, PIXEL_RATE_CNTL, OTG, ADD_PIXEL, 4, mask_sh),\
++	DCCG_SFII(OTG, PIXEL_RATE_CNTL, OTG, ADD_PIXEL, 5, mask_sh),\
++	DCCG_SFII(OTG, PIXEL_RATE_CNTL, OTG, DROP_PIXEL, 2, mask_sh),\
++	DCCG_SFII(OTG, PIXEL_RATE_CNTL, OTG, DROP_PIXEL, 3, mask_sh),\
++	DCCG_SFII(OTG, PIXEL_RATE_CNTL, OTG, DROP_PIXEL, 4, mask_sh),\
++	DCCG_SFII(OTG, PIXEL_RATE_CNTL, OTG, DROP_PIXEL, 5, mask_sh)
++
++#define DCCG_MASK_SH_LIST_DCN2_1(mask_sh) \
++	DCCG_COMMON_MASK_SH_LIST_DCN_COMMON_BASE(mask_sh),\
++	DCCG_SFI(DPPCLK_DTO_CTRL, DTO_ENABLE, DPPCLK, 4, mask_sh),\
++	DCCG_SFI(DPPCLK_DTO_CTRL, DTO_DB_EN, DPPCLK, 4, mask_sh),\
++	DCCG_SFI(DPPCLK_DTO_CTRL, DTO_ENABLE, DPPCLK, 5, mask_sh),\
++	DCCG_SFI(DPPCLK_DTO_CTRL, DTO_DB_EN, DPPCLK, 5, mask_sh),\
++	DCCG_SFII(OTG, PIXEL_RATE_CNTL, OTG, ADD_PIXEL, 2, mask_sh),\
++	DCCG_SFII(OTG, PIXEL_RATE_CNTL, OTG, ADD_PIXEL, 3, mask_sh),\
++	DCCG_SFII(OTG, PIXEL_RATE_CNTL, OTG, DROP_PIXEL, 2, mask_sh),\
++	DCCG_SFII(OTG, PIXEL_RATE_CNTL, OTG, DROP_PIXEL, 3, mask_sh)
++
+ 
+ #define DCCG_REG_FIELD_LIST(type) \
+ 	type DPPCLK0_DTO_PHASE;\
+@@ -93,7 +128,9 @@
+ 	type DCCG_FIFO_ERRDET_STATE;\
+ 	type DCCG_FIFO_ERRDET_OVR_EN;\
+ 	type DISPCLK_CHG_FWD_CORR_DISABLE;\
+-	type DISPCLK_FREQ_CHANGE_CNTL;
++	type DISPCLK_FREQ_CHANGE_CNTL;\
++	type OTG_ADD_PIXEL[MAX_PIPES];\
++	type OTG_DROP_PIXEL[MAX_PIPES];
  
  #define DCCG3_REG_FIELD_LIST(type) \
  	type PHYASYMCLK_FORCE_EN;\
-@@ -98,6 +117,7 @@ struct dccg_registers {
- 	uint32_t DPPCLK_DTO_CTRL;
+@@ -118,6 +155,7 @@ struct dccg_registers {
  	uint32_t DPPCLK_DTO_PARAM[6];
  	uint32_t REFCLK_CNTL;
-+	uint32_t DISPCLK_FREQ_CHANGE_CNTL;
+ 	uint32_t DISPCLK_FREQ_CHANGE_CNTL;
++	uint32_t OTG_PIXEL_RATE_CNTL[MAX_PIPES];
  	uint32_t HDMICHARCLK_CLOCK_CNTL[6];
  	uint32_t PHYASYMCLK_CLOCK_CNTL;
  	uint32_t PHYBSYMCLK_CLOCK_CNTL;
-@@ -117,6 +137,9 @@ void dccg2_get_dccg_ref_freq(struct dccg *dccg,
- 		unsigned int xtalin_freq_inKhz,
- 		unsigned int *dccg_ref_freq_inKhz);
+@@ -139,6 +177,11 @@ void dccg2_get_dccg_ref_freq(struct dccg *dccg,
  
-+void dccg2_set_fifo_errdet_ovr_en(struct dccg *dccg,
-+		bool en);
+ void dccg2_set_fifo_errdet_ovr_en(struct dccg *dccg,
+ 		bool en);
++void dccg2_otg_add_pixel(struct dccg *dccg,
++		uint32_t otg_inst);
++void dccg2_otg_drop_pixel(struct dccg *dccg,
++		uint32_t otg_inst);
 +
+ 
  void dccg2_init(struct dccg *dccg);
  
- struct dccg *dccg2_create(
 diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_dccg.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_dccg.c
-index 60cf3ff68cb0..6e1befbb4458 100644
+index 6e1befbb4458..33fc9aa8621b 100644
 --- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_dccg.c
 +++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_dccg.c
-@@ -100,6 +100,7 @@ void dccg21_update_dpp_dto(struct dccg *dccg, int dpp_inst, int req_dppclk)
- static const struct dccg_funcs dccg21_funcs = {
+@@ -101,6 +101,8 @@ static const struct dccg_funcs dccg21_funcs = {
  	.update_dpp_dto = dccg21_update_dpp_dto,
  	.get_dccg_ref_freq = dccg2_get_dccg_ref_freq,
-+	.set_fifo_errdet_ovr_en = dccg2_set_fifo_errdet_ovr_en,
+ 	.set_fifo_errdet_ovr_en = dccg2_set_fifo_errdet_ovr_en,
++	.otg_add_pixel = dccg2_otg_add_pixel,
++	.otg_drop_pixel = dccg2_otg_drop_pixel,
  	.dccg_init = dccg2_init
  };
  
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
+index 8e3f1d0b4cc3..f3d98e3ba624 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
+@@ -448,11 +448,11 @@ static const struct dccg_registers dccg_regs = {
+ };
+ 
+ static const struct dccg_shift dccg_shift = {
+-		DCCG_MASK_SH_LIST_DCN2(__SHIFT)
++		DCCG_MASK_SH_LIST_DCN2_1(__SHIFT)
+ };
+ 
+ static const struct dccg_mask dccg_mask = {
+-		DCCG_MASK_SH_LIST_DCN2(_MASK)
++		DCCG_MASK_SH_LIST_DCN2_1(_MASK)
+ };
+ 
+ #define opp_regs(id)\
 diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dccg.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dccg.c
-index b822a13e40ce..570f6eacd4e4 100644
+index 570f6eacd4e4..d445dfefc047 100644
 --- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dccg.c
 +++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dccg.c
-@@ -46,6 +46,7 @@
- static const struct dccg_funcs dccg3_funcs = {
+@@ -47,6 +47,8 @@ static const struct dccg_funcs dccg3_funcs = {
  	.update_dpp_dto = dccg2_update_dpp_dto,
  	.get_dccg_ref_freq = dccg2_get_dccg_ref_freq,
-+	.set_fifo_errdet_ovr_en = dccg2_set_fifo_errdet_ovr_en,
+ 	.set_fifo_errdet_ovr_en = dccg2_set_fifo_errdet_ovr_en,
++	.otg_add_pixel = dccg2_otg_add_pixel,
++	.otg_drop_pixel = dccg2_otg_drop_pixel,
  	.dccg_init = dccg2_init
  };
  
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dccg.h b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dccg.h
+index 029dda13a464..35a613bb08bf 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dccg.h
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dccg.h
+@@ -38,10 +38,25 @@
+ 
+ #define DCCG_REG_LIST_DCN30() \
+ 	DCCG_REG_LIST_DCN2(),\
++	DCCG_SRII(PIXEL_RATE_CNTL, OTG, 2),\
++	DCCG_SRII(PIXEL_RATE_CNTL, OTG, 3),\
++	DCCG_SRII(PIXEL_RATE_CNTL, OTG, 4),\
++	DCCG_SRII(PIXEL_RATE_CNTL, OTG, 5),\
+ 	SR(PHYASYMCLK_CLOCK_CNTL),\
+ 	SR(PHYBSYMCLK_CLOCK_CNTL),\
+ 	SR(PHYCSYMCLK_CLOCK_CNTL)
+ 
++#define DCCG_MASK_SH_LIST_DCN3AG(mask_sh) \
++	DCCG_MASK_SH_LIST_DCN2_1(mask_sh),\
++	DCCG_SF(HDMICHARCLK0_CLOCK_CNTL, HDMICHARCLK0_EN, mask_sh),\
++	DCCG_SF(HDMICHARCLK0_CLOCK_CNTL, HDMICHARCLK0_SRC_SEL, mask_sh),\
++	DCCG_SF(PHYASYMCLK_CLOCK_CNTL, PHYASYMCLK_FORCE_EN, mask_sh),\
++	DCCG_SF(PHYASYMCLK_CLOCK_CNTL, PHYASYMCLK_FORCE_SRC_SEL, mask_sh),\
++	DCCG_SF(PHYBSYMCLK_CLOCK_CNTL, PHYBSYMCLK_FORCE_EN, mask_sh),\
++	DCCG_SF(PHYBSYMCLK_CLOCK_CNTL, PHYBSYMCLK_FORCE_SRC_SEL, mask_sh),\
++	DCCG_SF(PHYCSYMCLK_CLOCK_CNTL, PHYCSYMCLK_FORCE_EN, mask_sh),\
++	DCCG_SF(PHYCSYMCLK_CLOCK_CNTL, PHYCSYMCLK_FORCE_SRC_SEL, mask_sh)
++
+ #define DCCG_MASK_SH_LIST_DCN3(mask_sh) \
+ 	DCCG_MASK_SH_LIST_DCN2(mask_sh),\
+ 	DCCG_SF(PHYASYMCLK_CLOCK_CNTL, PHYASYMCLK_FORCE_EN, mask_sh),\
+@@ -49,7 +64,7 @@
+ 	DCCG_SF(PHYBSYMCLK_CLOCK_CNTL, PHYBSYMCLK_FORCE_EN, mask_sh),\
+ 	DCCG_SF(PHYBSYMCLK_CLOCK_CNTL, PHYBSYMCLK_FORCE_SRC_SEL, mask_sh),\
+ 	DCCG_SF(PHYCSYMCLK_CLOCK_CNTL, PHYCSYMCLK_FORCE_EN, mask_sh),\
+-	DCCG_SF(PHYCSYMCLK_CLOCK_CNTL, PHYCSYMCLK_FORCE_SRC_SEL, mask_sh)
++	DCCG_SF(PHYCSYMCLK_CLOCK_CNTL, PHYCSYMCLK_FORCE_SRC_SEL, mask_sh),\
+ 
+ struct dccg *dccg3_create(
+ 	struct dc_context *ctx,
 diff --git a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_dccg.c b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_dccg.c
-index 420da414929c..6e6af02b38f9 100644
+index 6e6af02b38f9..97e9be87afd9 100644
 --- a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_dccg.c
 +++ b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_dccg.c
-@@ -45,6 +45,7 @@
- static const struct dccg_funcs dccg301_funcs = {
+@@ -46,6 +46,8 @@ static const struct dccg_funcs dccg301_funcs = {
  	.update_dpp_dto = dccg2_update_dpp_dto,
  	.get_dccg_ref_freq = dccg2_get_dccg_ref_freq,
-+	.set_fifo_errdet_ovr_en = dccg2_set_fifo_errdet_ovr_en,
+ 	.set_fifo_errdet_ovr_en = dccg2_set_fifo_errdet_ovr_en,
++	.otg_add_pixel = dccg2_otg_add_pixel,
++	.otg_drop_pixel = dccg2_otg_drop_pixel,
  	.dccg_init = dccg2_init
  };
  
 diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h b/drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h
-index 336c80a18175..693379c7e659 100644
+index 693379c7e659..c66a6099a7d7 100644
 --- a/drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h
 +++ b/drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h
-@@ -43,6 +43,8 @@ struct dccg_funcs {
- 	void (*get_dccg_ref_freq)(struct dccg *dccg,
- 			unsigned int xtalin_freq_inKhz,
+@@ -45,6 +45,10 @@ struct dccg_funcs {
  			unsigned int *dccg_ref_freq_inKhz);
-+	void (*set_fifo_errdet_ovr_en)(struct dccg *dccg,
-+			bool en);
+ 	void (*set_fifo_errdet_ovr_en)(struct dccg *dccg,
+ 			bool en);
++	void (*otg_add_pixel)(struct dccg *dccg,
++			uint32_t otg_inst);
++	void (*otg_drop_pixel)(struct dccg *dccg,
++			uint32_t otg_inst);
  	void (*dccg_init)(struct dccg *dccg);
  };
  
