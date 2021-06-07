@@ -2,131 +2,56 @@ Return-Path: <SRS0=JNIh=LB=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B8151C47082
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 08:29:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D1F2BC47082
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 08:53:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7F8306108E
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 08:29:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7F8306108E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 7A809610A8
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 08:53:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7A809610A8
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=tuxedocomputers.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BF076E84B;
-	Mon,  7 Jun 2021 08:29:41 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2075.outbound.protection.outlook.com [40.107.244.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B21DC6E84B
- for <amd-gfx@lists.freedesktop.org>; Mon,  7 Jun 2021 08:29:39 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=O6KwLAwqL6njGbZTZ3FOq+KlnW7Roqc/5cVhcb877jelA2FN7o7G7vjUunNn4FE5T5k69EMiEu8UzOcoce5deFy/E8HtwucOzOHJrq6xYgGYkKBDG9ZZ7GXBNZ5pOAN6prnZrmUvIgpX1usq4phKBIIz6wWxpfLmsFxyjBhT1WkQG1PZ3XzI4hrkL9Qh3cmKaxDwZ27pz1eywL9fj8LuL5EV7Z16gurny2LhA/yA1Kzrx/OCFEvCyhkqK6S8gl7ufCeLn4kjFglG8Dxtf2DPIhDQTk8t2gkI/GK6uwFBhRu0+rD6FeW6eVq0nte7XczyfMUZHECQO/HcogRZgnDabw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=W/nEXG3ZCrr/rf+bpLli7u03TD9wV8DCUcmhwwoKfzw=;
- b=MCkhCfqInLpVPfepmp2ELbZii0iC6UUMeJZGhEG0yCJrY8zrnBhmQL7tnQxesvxfZzrI22WUa4rIbXi4qTI4INf2dt415lAOChVH4JVekVezh4iNGa25y1PAuote3osb/CCikW6L1l9szKW7H28Fi7ygk4pUTLRSoI+Ngc34zEdn8WisD02QMG+nsOJGfdo6KdUeX9dJO3CLFirTt8X15CAwRg/hLvAg96eUxAQSD5V7J+ZapLbmqaRmLkQP1UisdHe4u1jmS4W1GLRjhSiYmQF0fxw5+ZcjWTEzUChYe5G90Aty8R6df+jtrN3qNwyS5yIC8bIjzQJqBIUYtw5jnQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=W/nEXG3ZCrr/rf+bpLli7u03TD9wV8DCUcmhwwoKfzw=;
- b=qU2/10jtx9USCPOMX9Vjz0Ettd0fXGifASKSMefR6WSh44c40Y5OGaJ/B+LI7YfE174hTwBp2S/qq8/gu5s797yeNFoyCT4wwWHa6JTJRctDsJU6KbEDOQKUjJJz46jXRZuFv49rDJ8hWVj+YNsgitGUC/cUsgSUJtroA1GeA6Y=
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
- DM5PR12MB1452.namprd12.prod.outlook.com (2603:10b6:4:a::20) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4195.24; Mon, 7 Jun 2021 08:29:35 +0000
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::14a7:9460:4e5f:880d]) by DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::14a7:9460:4e5f:880d%5]) with mapi id 15.20.4195.030; Mon, 7 Jun 2021
- 08:29:35 +0000
-From: "Quan, Evan" <Evan.Quan@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH V2 3/5] drm/amdgpu: correct the audio function initial
- Dstate 
-Thread-Topic: [PATCH V2 3/5] drm/amdgpu: correct the audio function initial
- Dstate 
-Thread-Index: AddbdTZp2Jsw9pV6Rwe3Mtg06CdvSQAAfMCw
-Date: Mon, 7 Jun 2021 08:29:35 +0000
-Message-ID: <DM6PR12MB2619C68E2B8CBFF28756A3ECE4389@DM6PR12MB2619.namprd12.prod.outlook.com>
-References: <CH0PR12MB5348105E602AC9F5B4E9D09497389@CH0PR12MB5348.namprd12.prod.outlook.com>
-In-Reply-To: <CH0PR12MB5348105E602AC9F5B4E9D09497389@CH0PR12MB5348.namprd12.prod.outlook.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-06-07T08:29:32Z; 
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP 2.0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=1b9b25c5-3d9b-4edf-88a1-d8621b5a5a77;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [165.204.134.244]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 095de346-cda4-40a2-64f7-08d9298e6206
-x-ms-traffictypediagnostic: DM5PR12MB1452:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM5PR12MB145260AE743C961EE4BFCF16E4389@DM5PR12MB1452.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 574mcLKxRdwjPeCCf6AauMfoMWT9S10cM4G/xJ7cfqDM4FepBEo5gBCZqRHdPxduhv6G0HZ4dUwHOETbAez+tCa/AB22tV2deI01XbBArMDfJBQWb21663GQBxtVW1UrbUGxUXiRx+fAd8IXE5VR+WUzJobzn3djgVAddbJj3zti9hUSYsiAjA+/58ZcaBGt57pEnSElnZ+BZv1uzcLZHWASHdvOxtfLBjGjL1gYKJx6PvxaAtUT8fBZiPJYR6UW7pzMjb8ZFKezFjN9cBAdO+IBOZZeJ18XOKVATDVa2ZWAI2WY6cAJ3BWjTAR0Cp6Mu/X5lF3Gr+tuKT6GG93mlWgTmEOdoOH/iwbvaVEFQbrGPiozMNLHquFVlfXci+0oWcLHO1ZgUy5aFAh/fYB96HExRwHYzqT0wFtntJlX2YaE/Kw4VIeywa8ncTI0MGX2V43LHgdjUwPZTxeyq3cEQy7X2WznQteWwQy/0iUmomabR3k3UY1ac8qmwY5vR8OcynNkpCqgRVxymuwpw3bQwCl6KklEwWgPrl7KGFG0onbPVCi2i9tloZerSbAul66m3cDXpRn8LaqMfIKVwutT3PECVGM3W8Wjvj+vTX+cYFU=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(346002)(366004)(376002)(136003)(396003)(71200400001)(186003)(26005)(8676002)(66946007)(64756008)(76116006)(66556008)(66446008)(66476007)(316002)(6506007)(110136005)(2906002)(53546011)(4326008)(52536014)(478600001)(7696005)(38100700002)(9686003)(122000001)(55016002)(4743002)(5660300002)(86362001)(8936002)(33656002)(83380400001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?utf-8?B?aE5xWE9EckNFYVBjYThHSU55K0JLVEE4eDI2bUd5SUhGTG5vS015K0xtay8x?=
- =?utf-8?B?RUxXUEJkdkRKeEdab3UwSC9rZHNnOHMrcnVMT1hiY0kxKzhKOUhqYllWbjRV?=
- =?utf-8?B?NVk5YUwyaDc0SU8vUlBISjBHdWltZS95SVZpNzNLTUs4VkFBOGFzQ3AvUFR2?=
- =?utf-8?B?djBTaXY3UmpCNS9iUlFtU0M1ZDE0Zkx6L3RYeVR0N2lxSHg5NVk4aGM0SmZa?=
- =?utf-8?B?dmFvalJjQVJxOFNLcS9VUU9uUVpxT3k2U2ZtZ2VoOUxVRUNFZGQ5WkNwQ1hm?=
- =?utf-8?B?eGxqK0VNZFN6Vm44RGQza2xEeHNGdW9ScHJyc29wWThoaDlRYTJxQythcnRR?=
- =?utf-8?B?eFgzMDFuTnAwc3l1SktPazhpNGh4cnZNeCthRC9CN3BrZDVNL3BGc2NGaVJF?=
- =?utf-8?B?UjZ2Vjh4SU4yNDhlK0dxK1hLTGFNOHVEN2ZEMXNSTkVWNjlDeUxLeWdVcnpw?=
- =?utf-8?B?TmZNbk9pMzd1VFc3WWFEanRBRitqTUVlMjZ3ZWNLVVVzbE5HQXpQRlp1emZI?=
- =?utf-8?B?MGY1eVlKUDJUdFFOcTQrRklZVXg5azk3bkR3bTAzeXFPa2VtTHhxSFhqRXhR?=
- =?utf-8?B?Q05nWk42TEZacjVQYVI1UkRaUU50OHgvL1llK0dmMnZ6RXFZRnE4WHNZSkJ6?=
- =?utf-8?B?VjdLWDdoNUxBK1g0bGtKZG1icjYxcllTME9mWmRQZ3R2R0RzRlNpUHI1VDVm?=
- =?utf-8?B?L09ZTFc1LzdsWmp5UUhtT0g1Nnl1YTFOWS9SdFVzVkRiUXlnTHJyWCt6TzdK?=
- =?utf-8?B?b3doOEU2RldCOEQzcXlKQ0htVVV4Z1RtUFpBWFIxaVJkK2xsQ3NqTkxtblB1?=
- =?utf-8?B?TFArbjdzVVdheFNnd3J4aHlwNUxrYTZFRndiek9nYXVMYzdCSCtNc0JDdHNp?=
- =?utf-8?B?WGszY3RMN2VJU3docUt0cTFzekM2c3prVlI0WVUyZzV4K2d1N1RtQ2txVTNo?=
- =?utf-8?B?bE1DN1dXUEhEYzk1OUFRbHUvQi94a3gvT2VCbm1LaTVLbTNuQSsxNSswZmFo?=
- =?utf-8?B?T0daRzA0UFhHbE5nOFVPRzJ6L0wxY3R2dmVVSU5FRkZmdUxEQkdTUzIzY2RN?=
- =?utf-8?B?RDRVRE1JQUV4RmkwNk4yZDdCc0hoVTlibWNPM2VyVmJUZlY4L3BFQXBKU1Ja?=
- =?utf-8?B?VjcxUTlLejQySGRvcUtaOGRvTUJvNmYzdGlyZDRqejlXT2J3WFFyaTl5SEF3?=
- =?utf-8?B?MzFvK2wwZXlpOXNjOUEzandaNEhqTUk0SlJvcEtFbmNDbGM4K3NMZDIvOENV?=
- =?utf-8?B?dnBLUlM5L2FNN2laZm91QnhFM3VrZEhGR3A2TEtQOFdzcXhBeHYzZnc4dFVz?=
- =?utf-8?B?UWw5UUVsRkNwRVJ0QjdOZzk4cFgxWnJ2RVM1ajhGRGordkRZMWx0SjBwR3ZW?=
- =?utf-8?B?NTVZM1d1Z0ViTUdCQTIzS0t0a2tPcFRCNkttTXFaMW1ETWlxQlVCT1RCa01Q?=
- =?utf-8?B?S2djZkc1NGRXRTVzT1FqL2RFNmVhK0tpb2Z1L2RFaVc4MTRRVEt2WUtUUHFR?=
- =?utf-8?B?cUFzUldUU1g3TUt3QmhRNi83ZTlRVHlRYkVROVBRN2dNQ28zREVKSE9KVHg0?=
- =?utf-8?B?UDgyN0h2di9LZk9Uckk5TXJLSFllb2hSeTZzdmk0UnVETG45RWFJcTk2bTh1?=
- =?utf-8?B?aUpzUzFQSmZCdkJpbU56UTBRM3EzQW1pK1FVNHZPUTVoVjNKTXNJOG5xRW9N?=
- =?utf-8?B?QU45bjZ4RHpETFpmK1NxTS9FOEhmcC95TEJHcFRhbk93RXM4QWxOaktsc25X?=
- =?utf-8?Q?fBGHbCs2ocd+y3A+3cfIIGcg1Dth3gAXvzJ4L4V?=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DBA46E882;
+	Mon,  7 Jun 2021 08:53:49 +0000 (UTC)
+Received: from srv6.fidu.org (srv6.fidu.org [159.69.62.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 008F16E882;
+ Mon,  7 Jun 2021 08:53:47 +0000 (UTC)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by srv6.fidu.org (Postfix) with ESMTP id A6B83C800E4;
+ Mon,  7 Jun 2021 10:53:46 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at srv6.fidu.org
+Received: from srv6.fidu.org ([127.0.0.1])
+ by localhost (srv6.fidu.org [127.0.0.1]) (amavisd-new, port 10024)
+ with LMTP id 0ltqZMD3laKR; Mon,  7 Jun 2021 10:53:46 +0200 (CEST)
+Received: from [IPv6:2003:e3:7f4f:6000:f5f4:4cdd:8015:9770]
+ (p200300E37F4f6000F5F44cDd80159770.dip0.t-ipconnect.de
+ [IPv6:2003:e3:7f4f:6000:f5f4:4cdd:8015:9770])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ (Authenticated sender: wse@tuxedocomputers.com)
+ by srv6.fidu.org (Postfix) with ESMTPSA id 9487DC800C8;
+ Mon,  7 Jun 2021 10:53:45 +0200 (CEST)
+Subject: Re: [PATCH 2/4] drm/uAPI: Add "active bpc" as feedback channel for
+ "max bpc" drm property
+To: Pekka Paalanen <ppaalanen@gmail.com>
+References: <20210604171723.10276-1-wse@tuxedocomputers.com>
+ <20210604171723.10276-3-wse@tuxedocomputers.com>
+ <20210607105234.4bb8aae6@eldfell>
+From: Werner Sembach <wse@tuxedocomputers.com>
+Message-ID: <f86b0eff-3383-7b0e-e893-3a1624b9271b@tuxedocomputers.com>
+Date: Mon, 7 Jun 2021 10:53:45 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 095de346-cda4-40a2-64f7-08d9298e6206
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Jun 2021 08:29:35.4897 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: u/b2Bt+ibU9gziW0JHSKkykwrCR+7KRguSNUFUUJ5JzuOGORTUE4Gi/8HGrdZntt
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1452
+In-Reply-To: <20210607105234.4bb8aae6@eldfell>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,169 +63,407 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: mripard@kernel.org, daniel@ffwll.ch, sunpeng.li@amd.com,
+ intel-gfx@lists.freedesktop.org, joonas.lahtinen@linux.intel.com,
+ maarten.lankhorst@linux.intel.com, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, airlied@linux.ie, jani.nikula@linux.intel.com,
+ amd-gfx@lists.freedesktop.org, tzimmermann@suse.de, rodrigo.vivi@intel.com,
+ alexander.deucher@amd.com, harry.wentland@amd.com, christian.koenig@amd.com
+Content-Type: multipart/mixed; boundary="===============0626386320=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
+This is a multi-part message in MIME format.
+--===============0626386320==
+Content-Type: multipart/alternative;
+ boundary="------------A66A79D3B8FEF5BF8F35E20A"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------A66A79D3B8FEF5BF8F35E20A
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
-
-> -----Original Message-----
-> From: Lazar, Lijo <Lijo.Lazar@amd.com>
-> Sent: Monday, June 7, 2021 4:19 PM
-> To: Quan, Evan <Evan.Quan@amd.com>; amd-gfx@lists.freedesktop.org
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-> Subject: RE: [PATCH V2 3/5] drm/amdgpu: correct the audio function initial
-> Dstate
-> 
-> [Public]
-> 
-> Thanks, that explains.
-> 
-> You may modify the comment to something like " amdgpu_get_audio_func()
-> makes a PMFW-aware D-state transition to update audio dev's D-state in
-> PMFW" (now it gives the impression that function makes audio dev to stay in
-> D0 state).
-[Quan, Evan] Sure. 
-Thanks,
-Evan
-> 
-> > > +		 * Via amdgpu_get_audio_func() below, the audio function
-> > > +		 * is guarded to be in D0 correctly.
-> 
+Am 07.06.21 um 09:52 schrieb Pekka Paalanen:
+> On Fri,  4 Jun 2021 19:17:21 +0200
+> Werner Sembach <wse@tuxedocomputers.com> wrote:
+>
+>> Add a new general drm property "active bpc" which can be used by graphic drivers
+>> to report the applied bit depth per pixel back to userspace.
+>>
+>> While "max bpc" can be used to change the color depth, there was no way to check
+>> which one actually got used. While in theory the driver chooses the best/highest
+>> color depth within the max bpc setting a user might not be fully aware what his
+>> hardware is or isn't capable off. This is meant as a quick way to double check
+>> the setup.
+>>
+>> In the future, automatic color calibration for screens might also depend on this
+>> information available.
+>>
+>> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+>> ---
+>>   drivers/gpu/drm/drm_atomic_uapi.c |  2 ++
+>>   drivers/gpu/drm/drm_connector.c   | 40 +++++++++++++++++++++++++++++++
+>>   include/drm/drm_connector.h       | 15 ++++++++++++
+>>   3 files changed, 57 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+>> index 268bb69c2e2f..7ae4e40936b5 100644
+>> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+>> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+>> @@ -873,6 +873,8 @@ drm_atomic_connector_get_property(struct drm_connector *connector,
+>>   		*val = 0;
+>>   	} else if (property == connector->max_bpc_property) {
+>>   		*val = state->max_requested_bpc;
+>> +	} else if (property == connector->active_bpc_property) {
+>> +		*val = state->active_bpc;
+>>   	} else if (connector->funcs->atomic_get_property) {
+>>   		return connector->funcs->atomic_get_property(connector,
+>>   				state, property, val);
+>> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+>> index 7631f76e7f34..5f42a5be5822 100644
+>> --- a/drivers/gpu/drm/drm_connector.c
+>> +++ b/drivers/gpu/drm/drm_connector.c
+>> @@ -1195,6 +1195,13 @@ static const struct drm_prop_enum_list dp_colorspaces[] = {
+>>    *	drm_connector_attach_max_bpc_property() to create and attach the
+>>    *	property to the connector during initialization.
+>>    *
+>> + * active bpc:
+>> + *	This read-only range property is used by userspace check the bit depth
+>> + *	actually applied by the GPU driver after evaluation all hardware
+>> + *	capabilities and max bpc. Drivers to use the function
+>> + *	drm_connector_attach_active_bpc_property() to create and attach the
+>> + *	property to the connector during initialization.
+>> + *
+> Hi Werner,
+>
+> the idea looks good to me, but the above doc could be a little more
+> fluent. May I suggest something like:
+>
+> 	This read-only range property tells userspace the pixel color
+> 	bit depth actually used by the hardware display engine on "the
+> 	cable" on a connector. The chosen value depends on hardware
+> 	capabilities, both display engine and connected monitor, and
+> 	the "max bpc" property. Drivers shall use
+> 	drm_connector_attach_active_bpc_property() to install this
+> 	property.
+>
+> There should also be something said about dithering done by the display
+> engine (not monitor), but I'm not sure how that should be worded. It
+> may also depend on if and how userspace can know about dithering. So if
+> a dithering related property is added later, maybe add a note here too
+> in that patch.
+For this, and the DSC that Ville Syrjälä mentioned, I guess "the same 
+behavior as max bpc" would be the most intuitive. But I don't know what 
+that is and it's also not mentioned in the documentation.
+>
+>
 > Thanks,
-> Lijo
-> 
-> -----Original Message-----
-> From: Quan, Evan <Evan.Quan@amd.com>
-> Sent: Monday, June 7, 2021 12:40 PM
-> To: Lazar, Lijo <Lijo.Lazar@amd.com>; amd-gfx@lists.freedesktop.org
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-> Subject: RE: [PATCH V2 3/5] drm/amdgpu: correct the audio function initial
-> Dstate
-> 
-> [AMD Official Use Only]
-> 
-> 
-> 
-> > -----Original Message-----
-> > From: Lazar, Lijo <Lijo.Lazar@amd.com>
-> > Sent: Friday, June 4, 2021 8:24 PM
-> > To: Quan, Evan <Evan.Quan@amd.com>; amd-gfx@lists.freedesktop.org
-> > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-> > Subject: Re: [PATCH V2 3/5] drm/amdgpu: correct the audio function
-> > initial Dstate
-> >
-> >
-> >
-> > On 6/4/2021 3:28 PM, Evan Quan wrote:
-> > > On driver loading, the ASIC is in D0 state. The bundled audio
-> > > function should be in the same state also.
-> > >
-> > > Change-Id: I136e196be7633e95883a7f6c33963f7583e9bad1
-> > > Signed-off-by: Evan Quan <evan.quan@amd.com>
-> > > ---
-> > > V1->V2:
-> > >    - Lijo: include the code in a seperate API for better readability
-> > >    - limit the change for Navi10 and later dGPUs
-> > >    - comments more about the background
-> > > ---
-> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 40
-> > +++++++++++++++++++++++++
-> > >   1 file changed, 40 insertions(+)
-> > >
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> > > index c354ffa62483..e9f2161738d1 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> > > @@ -123,6 +123,22 @@ void amdgpu_register_gpu_instance(struct
-> > amdgpu_device *adev)
-> > >   	mutex_unlock(&mgpu_info.mutex);
-> > >   }
-> > >
-> > > +static void amdgpu_get_audio_func(struct amdgpu_device *adev) {
-> > > +	struct pci_dev *p = NULL;
-> > > +
-> > > +	p = pci_get_domain_bus_and_slot(pci_domain_nr(adev->pdev-
-> > >bus),
-> > > +			adev->pdev->bus->number, 1);
-> > > +	if (p) {
-> > > +		pm_runtime_get_sync(&p->dev);
-> > > +
-> > > +		pm_runtime_mark_last_busy(&p->dev);
-> > > +		pm_runtime_put_autosuspend(&p->dev);
-> > > +
-> > > +		pci_dev_put(p);
-> > > +	}
-> > > +}
-> > > +
-> > >   /**
-> > >    * amdgpu_driver_load_kms - Main load function for KMS.
-> > >    *
-> > > @@ -212,9 +228,33 @@ int amdgpu_driver_load_kms(struct
-> > amdgpu_device *adev, unsigned long flags)
-> > >
-> > 	DPM_FLAG_MAY_SKIP_RESUME);
-> > >   		pm_runtime_use_autosuspend(dev->dev);
-> > >   		pm_runtime_set_autosuspend_delay(dev->dev, 5000);
-> > > +
-> > >   		pm_runtime_allow(dev->dev);
-> > > +
-> > >   		pm_runtime_mark_last_busy(dev->dev);
-> > >   		pm_runtime_put_autosuspend(dev->dev);
-> > > +
-> > > +		/*
-> > > +		 * For runpm implemented via BACO, PMFW will handle the
-> > > +		 * timing for BACO in and out:
-> > > +		 *   - put ASIC into BACO state only when both video and
-> > > +		 *     audio functions are in D3 state.
-> > > +		 *   - pull ASIC out of BACO state when either video or
-> > > +		 *     audio function is in D0 state.
-> > > +		 * Also, at startup, PMFW assumes both functions are in
-> > > +		 * D0 state.
-> > > +		 *
-> > > +		 * So if snd driver was loaded prior to amdgpu driver
-> > > +		 * and audio function was put into D3 state behind PMFW's
-> > > +		 * back, the BACO may not correctly kicks in and out.
-> > > +		 *
-> > > +		 * Via amdgpu_get_audio_func() below, the audio function
-> > > +		 * is guarded to be in D0 correctly.
-> > > +		 */
-> >
-> > On a second look at the comments - should runpm _get on audio dev be
-> > done before doing device_init (so that it's in D0 while FW is getting
-> > loaded) and put done here?
-> [Quan, Evan] It does not matter as long as all those are performed
-> before  .runtime_suspend() kicks.
-> The issue around here is : if the audio dev is already in D3 state before PMFW
-> alive, during .runtime_suspend there will be no Dstate transfer(D0->D3).
-> Thus no interrupt will go to PMFW and PMFW will be not aware of the audio
-> dev D3 state. With the proper audio dev D3 state, the baco state will never
-> kick in.
-> Via the amdgpu_get_audio_func(), the audio dev is put into D0 state. Then
-> on the succeeding .runtime_suspend(), there will be Dstate transfer(D0->D3)
-> and thus interrupt for PMFW.
-> 
-> BR
-> Evan
-> >
-> > Thanks,
-> > Lijo
-> >
-> > > +		if (amdgpu_device_supports_baco(dev) &&
-> > > +		    !(adev->flags & AMD_IS_APU) &&
-> > > +		    (adev->asic_type >= CHIP_NAVI10))
-> > > +			amdgpu_get_audio_func(adev);
-> > >   	}
-> > >
-> > >   	if (amdgpu_acpi_smart_shift_update(dev,
-> > AMDGPU_SS_DRV_LOAD))
-> > >
+> pq
+>
+>
+>>    * Connectors also have one standardized atomic property:
+>>    *
+>>    * CRTC_ID:
+>> @@ -2150,6 +2157,39 @@ int drm_connector_attach_max_bpc_property(struct drm_connector *connector,
+>>   }
+>>   EXPORT_SYMBOL(drm_connector_attach_max_bpc_property);
+>>   
+>> +/**
+>> + * drm_connector_attach_active_bpc_property - attach "active bpc" property
+>> + * @connector: connector to attach active bpc property on.
+>> + * @min: The minimum bit depth supported by the connector.
+>> + * @max: The maximum bit depth supported by the connector.
+>> + *
+>> + * This is used to check the applied bit depth on a connector.
+>> + *
+>> + * Returns:
+>> + * Zero on success, negative errno on failure.
+>> + */
+>> +int drm_connector_attach_active_bpc_property(struct drm_connector *connector,
+>> +					  int min, int max)
+>> +{
+>> +	struct drm_device *dev = connector->dev;
+>> +	struct drm_property *prop;
+>> +
+>> +	prop = connector->active_bpc_property;
+>> +	if (!prop) {
+>> +		prop = drm_property_create_range(dev, 0, "active bpc", min, max);
+>> +		if (!prop)
+>> +			return -ENOMEM;
+>> +
+>> +		connector->active_bpc_property = prop;
+>> +	}
+>> +
+>> +	drm_object_attach_property(&connector->base, prop, 0);
+>> +	connector->state->active_bpc = 0;
+>> +
+>> +	return 0;
+>> +}
+>> +EXPORT_SYMBOL(drm_connector_attach_active_bpc_property);
+>> +
+>>   /**
+>>    * drm_connector_set_vrr_capable_property - sets the variable refresh rate
+>>    * capable property for a connector
+>> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+>> index 1922b278ffad..c58cba2b6afe 100644
+>> --- a/include/drm/drm_connector.h
+>> +++ b/include/drm/drm_connector.h
+>> @@ -781,6 +781,13 @@ struct drm_connector_state {
+>>   	 */
+>>   	u8 max_bpc;
+>>   
+>> +	/**
+>> +	 * @active_bpc: Read only property set by the GPU driver to the actually
+>> +	 * applied bit depth of the pixels after evaluating all hardware
+>> +	 * limitations.
+>> +	 */
+>> +	u8 active_bpc;
+>> +
+>>   	/**
+>>   	 * @hdr_output_metadata:
+>>   	 * DRM blob property for HDR output metadata
+>> @@ -1380,6 +1387,12 @@ struct drm_connector {
+>>   	 */
+>>   	struct drm_property *max_bpc_property;
+>>   
+>> +	/**
+>> +	 * @active_bpc_property: Default connector property for the active bpc
+>> +	 * to be driven out of the connector.
+>> +	 */
+>> +	struct drm_property *active_bpc_property;
+>> +
+>>   #define DRM_CONNECTOR_POLL_HPD (1 << 0)
+>>   #define DRM_CONNECTOR_POLL_CONNECT (1 << 1)
+>>   #define DRM_CONNECTOR_POLL_DISCONNECT (1 << 2)
+>> @@ -1698,6 +1711,8 @@ int drm_connector_set_panel_orientation_with_quirk(
+>>   	int width, int height);
+>>   int drm_connector_attach_max_bpc_property(struct drm_connector *connector,
+>>   					  int min, int max);
+>> +int drm_connector_attach_active_bpc_property(struct drm_connector *connector,
+>> +					  int min, int max);
+>>   
+>>   /**
+>>    * struct drm_tile_group - Tile group metadata
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--------------A66A79D3B8FEF5BF8F35E20A
+Content-Type: text/html; charset=windows-1252
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;
+      charset=windows-1252">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">Am 07.06.21 um 09:52 schrieb Pekka
+      Paalanen:<br>
+    </div>
+    <blockquote type="cite" cite="mid:20210607105234.4bb8aae6@eldfell">
+      <pre class="moz-quote-pre" wrap="">On Fri,  4 Jun 2021 19:17:21 +0200
+Werner Sembach <a class="moz-txt-link-rfc2396E" href="mailto:wse@tuxedocomputers.com">&lt;wse@tuxedocomputers.com&gt;</a> wrote:
+
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">Add a new general drm property "active bpc" which can be used by graphic drivers
+to report the applied bit depth per pixel back to userspace.
+
+While "max bpc" can be used to change the color depth, there was no way to check
+which one actually got used. While in theory the driver chooses the best/highest
+color depth within the max bpc setting a user might not be fully aware what his
+hardware is or isn't capable off. This is meant as a quick way to double check
+the setup.
+
+In the future, automatic color calibration for screens might also depend on this
+information available.
+
+Signed-off-by: Werner Sembach <a class="moz-txt-link-rfc2396E" href="mailto:wse@tuxedocomputers.com">&lt;wse@tuxedocomputers.com&gt;</a>
+---
+ drivers/gpu/drm/drm_atomic_uapi.c |  2 ++
+ drivers/gpu/drm/drm_connector.c   | 40 +++++++++++++++++++++++++++++++
+ include/drm/drm_connector.h       | 15 ++++++++++++
+ 3 files changed, 57 insertions(+)
+
+diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+index 268bb69c2e2f..7ae4e40936b5 100644
+--- a/drivers/gpu/drm/drm_atomic_uapi.c
++++ b/drivers/gpu/drm/drm_atomic_uapi.c
+@@ -873,6 +873,8 @@ drm_atomic_connector_get_property(struct drm_connector *connector,
+ 		*val = 0;
+ 	} else if (property == connector-&gt;max_bpc_property) {
+ 		*val = state-&gt;max_requested_bpc;
++	} else if (property == connector-&gt;active_bpc_property) {
++		*val = state-&gt;active_bpc;
+ 	} else if (connector-&gt;funcs-&gt;atomic_get_property) {
+ 		return connector-&gt;funcs-&gt;atomic_get_property(connector,
+ 				state, property, val);
+diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+index 7631f76e7f34..5f42a5be5822 100644
+--- a/drivers/gpu/drm/drm_connector.c
++++ b/drivers/gpu/drm/drm_connector.c
+@@ -1195,6 +1195,13 @@ static const struct drm_prop_enum_list dp_colorspaces[] = {
+  *	drm_connector_attach_max_bpc_property() to create and attach the
+  *	property to the connector during initialization.
+  *
++ * active bpc:
++ *	This read-only range property is used by userspace check the bit depth
++ *	actually applied by the GPU driver after evaluation all hardware
++ *	capabilities and max bpc. Drivers to use the function
++ *	drm_connector_attach_active_bpc_property() to create and attach the
++ *	property to the connector during initialization.
++ *
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+Hi Werner,
+
+the idea looks good to me, but the above doc could be a little more
+fluent. May I suggest something like:
+
+	This read-only range property tells userspace the pixel color
+	bit depth actually used by the hardware display engine on "the
+	cable" on a connector. The chosen value depends on hardware
+	capabilities, both display engine and connected monitor, and
+	the "max bpc" property. Drivers shall use
+	drm_connector_attach_active_bpc_property() to install this
+	property.
+
+There should also be something said about dithering done by the display
+engine (not monitor), but I'm not sure how that should be worded. It
+may also depend on if and how userspace can know about dithering. So if
+a dithering related property is added later, maybe add a note here too
+in that patch.</pre>
+    </blockquote>
+    For this, and the DSC that Ville Syrjälä mentioned, I guess "the
+    same behavior as max bpc" would be the most intuitive. But I don't
+    know what that is and it's also not mentioned in the documentation.<br>
+    <blockquote type="cite" cite="mid:20210607105234.4bb8aae6@eldfell">
+      <pre class="moz-quote-pre" wrap="">
+
+
+Thanks,
+pq
+
+
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">  * Connectors also have one standardized atomic property:
+  *
+  * CRTC_ID:
+@@ -2150,6 +2157,39 @@ int drm_connector_attach_max_bpc_property(struct drm_connector *connector,
+ }
+ EXPORT_SYMBOL(drm_connector_attach_max_bpc_property);
+ 
++/**
++ * drm_connector_attach_active_bpc_property - attach "active bpc" property
++ * @connector: connector to attach active bpc property on.
++ * @min: The minimum bit depth supported by the connector.
++ * @max: The maximum bit depth supported by the connector.
++ *
++ * This is used to check the applied bit depth on a connector.
++ *
++ * Returns:
++ * Zero on success, negative errno on failure.
++ */
++int drm_connector_attach_active_bpc_property(struct drm_connector *connector,
++					  int min, int max)
++{
++	struct drm_device *dev = connector-&gt;dev;
++	struct drm_property *prop;
++
++	prop = connector-&gt;active_bpc_property;
++	if (!prop) {
++		prop = drm_property_create_range(dev, 0, "active bpc", min, max);
++		if (!prop)
++			return -ENOMEM;
++
++		connector-&gt;active_bpc_property = prop;
++	}
++
++	drm_object_attach_property(&amp;connector-&gt;base, prop, 0);
++	connector-&gt;state-&gt;active_bpc = 0;
++
++	return 0;
++}
++EXPORT_SYMBOL(drm_connector_attach_active_bpc_property);
++
+ /**
+  * drm_connector_set_vrr_capable_property - sets the variable refresh rate
+  * capable property for a connector
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index 1922b278ffad..c58cba2b6afe 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -781,6 +781,13 @@ struct drm_connector_state {
+ 	 */
+ 	u8 max_bpc;
+ 
++	/**
++	 * @active_bpc: Read only property set by the GPU driver to the actually
++	 * applied bit depth of the pixels after evaluating all hardware
++	 * limitations.
++	 */
++	u8 active_bpc;
++
+ 	/**
+ 	 * @hdr_output_metadata:
+ 	 * DRM blob property for HDR output metadata
+@@ -1380,6 +1387,12 @@ struct drm_connector {
+ 	 */
+ 	struct drm_property *max_bpc_property;
+ 
++	/**
++	 * @active_bpc_property: Default connector property for the active bpc
++	 * to be driven out of the connector.
++	 */
++	struct drm_property *active_bpc_property;
++
+ #define DRM_CONNECTOR_POLL_HPD (1 &lt;&lt; 0)
+ #define DRM_CONNECTOR_POLL_CONNECT (1 &lt;&lt; 1)
+ #define DRM_CONNECTOR_POLL_DISCONNECT (1 &lt;&lt; 2)
+@@ -1698,6 +1711,8 @@ int drm_connector_set_panel_orientation_with_quirk(
+ 	int width, int height);
+ int drm_connector_attach_max_bpc_property(struct drm_connector *connector,
+ 					  int min, int max);
++int drm_connector_attach_active_bpc_property(struct drm_connector *connector,
++					  int min, int max);
+ 
+ /**
+  * struct drm_tile_group - Tile group metadata
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+</pre>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <pre class="moz-quote-pre" wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------A66A79D3B8FEF5BF8F35E20A--
+
+--===============0626386320==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0626386320==--
