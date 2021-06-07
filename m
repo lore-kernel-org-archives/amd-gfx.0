@@ -5,39 +5,39 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8A1F5C47094
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 20:42:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1C679C47095
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 20:43:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5C1AC60FDA
+	by mail.kernel.org (Postfix) with ESMTPS id DE55661108
 	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 20:42:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5C1AC60FDA
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DE55661108
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C20256EA10;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E45006EA12;
 	Mon,  7 Jun 2021 20:42:44 +0000 (UTC)
 Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2089.outbound.protection.outlook.com [40.107.94.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E76086EA0B;
- Mon,  7 Jun 2021 20:42:43 +0000 (UTC)
+ (mail-mw2nam10on2059.outbound.protection.outlook.com [40.107.94.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1CDB6EA04;
+ Mon,  7 Jun 2021 20:42:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AeDSgs4d8xeR8oC2Pjwo4w3P8sDiR1dddJmpCNVdC+UEth+LkAfCbrOPEDwEJDYV8iFidqJtpfAoDifRlkZaWszpRqSw34cUFSDRdk8LIcx+XAngROZEPWq9ijv7lFhFbhi8fJZAMRByexvIqiF5F5iT/szpIC+/vOtEq0hQVVe7OgvGRfe1neUjN8cZbUkgZ3e48p6GPrIJ+AofXlYj/kGKiwIlySC9Q6fFOxtHMf4Lc7m84t/DDtLifFjjwTLQQ7wbmRIYQJDoN0Nz84zEQMAQdt0L4HpQQXj9lAl+hoLYOxky0HIm/YYTXZxnBVgKLhmFx9TW0nc/5hqLx2JpvA==
+ b=krY6ucNhjOEYKRrS9FIyD6ZYYusuxaRq3Pns9Y4prZ3TVp3nctfzk28u5TJujGYdqpjoWSn3Bah57zgAv9n73WcCfnl1nWNA6Yw/eQ9PxnapVaD05gxpFhwVwn+AQNTj8YdD6TyqvR6KIBSFtF0YNbP2l0pAcEgs7lkQfA0NFKNThRT6LShy85+tvPy912gMW+Ga6WRwJ9k9xyUBWhoQFfqPcL1lB3XAj+vFxXhZZzvFj+2HMiNWbhi6gLdZupFNHLH8p7oMZeKNGHR7Fq3wOxsw0Tdu4APOShXvxmLhlKjg1D//tm7AtuDiNrcSAJK2qVlESl/IiYXeitIHxk9BUQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TPKPnrddVPbEN1uQT1iXLcCa/cH/uvZqBGSpkg+C9cA=;
- b=WyqQUR/0z3117Dfdu2vE8hNMHMcE0VKhMUkeq7wZ/wqsazKVu2KpiaNiPDHX6SxlyCP4zXWzR3l+Y9ZjOEVu38BMeCQfurdhPrrI4vOrLtKIppmZbWW9fVLQQg1RA60sKc/FfPr+fG0L4/7g/IxwIyvqGvg/bv571xnseG2XkJcVZWwTibmDV/9djfXRSIOU3lMk1hJ6XW4qdIJ8bT88g3N2MNra9qHp8v7ph7QemD7fYyoYzRmwbQBIJhxU+RGW1p5X61DjEUahul1LVx5IiPSruOSIZqE1rl2+Me83e2VyxSHZipbNkjNSipGdfBLep7gbLOND7Y69jU3H4LaClw==
+ bh=+Y6by+cj+a5kSxkkXciWS4gzS7j6Iew/i6e/lGV+t/Q=;
+ b=K6A69cgfdFLv/yZfYbEKr4DVNpNU11sQCWvjX1oFe8mmC5purFkFvyuJmEDjwM2/2Zl6LTwuOvo+KSao8pxJcYb/vC7B6fbjGbp0/rpOduTQanWRGWE3A5ZQBPgIW3YBWNdhdYDsomL9X2adbOuJM6kW8lIpFjUDrTwuKr+RmLOg9hIxNb2LPLRt/lnOiO6cIDhaLggxPbrRRsp07z02BjdmLL34q4cJtplv4QxJYScN+uff6CSkpzayWomaAMQ932qfmcwtBIHrsvkIdfCiKCN6bb5uca2nfHyxpnwFIVkJbnZREdQ99OfBELBZqpTsdLTg/mGvbV4E2lK1ar8jyw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TPKPnrddVPbEN1uQT1iXLcCa/cH/uvZqBGSpkg+C9cA=;
- b=1pt/0hl3q1cMQJ39VrxJjcav3Ss2w/YkYDr2a1j8isNNlpRQrfZKUT0UY8SPEhYVAMCZ5pOCnGW9pG9PtEnY8FWuAm66OglQPIXfhXs77VfsUSlWatUePKlJaE6jwuwUcuqqKg/S9X7kSIKVs5TzXBZxivG4ZCq8G5fm/y+LH2Q=
+ bh=+Y6by+cj+a5kSxkkXciWS4gzS7j6Iew/i6e/lGV+t/Q=;
+ b=qLMqc15xlGSy7lyO+vyKDMSOKw0orVyPzoI/jvaZs1SCzd+dnvkyT6CTuHH/5JIVblV08jIgJzx5jdiTM9FTKAYD/DcEFsm5wpeeZisnFtj58EgR9JJ6Tzj2gdU6q2wrTZ5SbRKkNqHd0zo0koSoWuR2+T0oE8g1t9PJaGYML2k=
 Authentication-Results: linux-foundation.org; dkim=none (message not signed)
  header.d=none;linux-foundation.org; dmarc=none action=none
  header.from=amd.com;
@@ -45,18 +45,17 @@ Received: from SA0PR12MB4430.namprd12.prod.outlook.com (2603:10b6:806:70::20)
  by SA0PR12MB4495.namprd12.prod.outlook.com (2603:10b6:806:70::13)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.20; Mon, 7 Jun
- 2021 20:42:43 +0000
+ 2021 20:42:40 +0000
 Received: from SA0PR12MB4430.namprd12.prod.outlook.com
  ([fe80::5ce6:fed4:e00f:27e4]) by SA0PR12MB4430.namprd12.prod.outlook.com
  ([fe80::5ce6:fed4:e00f:27e4%5]) with mapi id 15.20.4195.030; Mon, 7 Jun 2021
- 20:42:43 +0000
+ 20:42:40 +0000
 From: Alex Sierra <alex.sierra@amd.com>
 To: akpm@linux-foundation.org, Felix.Kuehling@amd.com, linux-mm@kvack.org,
  rcampbell@nvidia.com
-Subject: [RFC PATCH v2 5/8] drm/amdkfd: generic type as sys mem on migration
- to ram
-Date: Mon,  7 Jun 2021 15:42:23 -0500
-Message-Id: <20210607204226.7743-6-alex.sierra@amd.com>
+Subject: [RFC PATCH v2 2/8] mm: remove extra ZONE_DEVICE struct page refcount
+Date: Mon,  7 Jun 2021 15:42:20 -0500
+Message-Id: <20210607204226.7743-3-alex.sierra@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210607204226.7743-1-alex.sierra@amd.com>
 References: <20210607204226.7743-1-alex.sierra@amd.com>
@@ -70,52 +69,52 @@ Received: from alex-MS-7B09.amd.com (165.204.78.1) by
  SN4PR0601CA0018.namprd06.prod.outlook.com (2603:10b6:803:2f::28) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.22 via Frontend
- Transport; Mon, 7 Jun 2021 20:42:42 +0000
+ Transport; Mon, 7 Jun 2021 20:42:40 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f6059f52-52f3-43c1-7eb3-08d929f4cc69
+X-MS-Office365-Filtering-Correlation-Id: 03884221-d9dd-4b52-883e-08d929f4cb00
 X-MS-TrafficTypeDiagnostic: SA0PR12MB4495:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <SA0PR12MB4495E60F2D234CFA403EA221FD389@SA0PR12MB4495.namprd12.prod.outlook.com>
+X-Microsoft-Antispam-PRVS: <SA0PR12MB4495E642316D97B10D52B488FD389@SA0PR12MB4495.namprd12.prod.outlook.com>
 X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 22FQzStFSuFaIEia+6+GDVqWwzPg0Ve6t6NJ6/fLVW2TQ6PtnRTuBkMgU6TCrM9kapimosJZjuiw9VJv6mYAFMEqq3F6Lq2teWAmHtqNGaABjO3NVpNdLRi6BNZMhvC6x3/en1J1Ioz/+meR9UDNIyKhuEi7ffez3TIsUVqYO73xOD8U/pSrMtUQYN/uo3nbn8t2steteV/UT1scQoayRoOqnxG1ic7CSs/GpaPLSjEFZfsHNq2tIpUl669I6HZocyZuA9jFu62TZe/GTILSf36pfqQIs5AuUjnzRADBi6ZILXbPExhMC0v84ss+ctF0V1xGALzfTn7680mAyPndT71MZ6WvsRG4+EyfkLEMUFYJ1FIZfUZDG7DjhmOHtwnr7ev3bskxVhjgZZwxMKx6V8T4SHi2IqP2WKyp2lCnDvvXVPEmjWfn6SW04MA6dDQ8GiqSHtT/Bv5W+wnEsqt6+lgg9zTaplNxsD00bp3p76SA4eQuytWfyhydwH4407FQ2MIlakH7RErps89CaIairCuUB/Z05VrUCHF/WyAybLm0hwRKvVmQhA4PTMJQpxxnde/OmLVDLFRqOZIlaC3Eo+JcncMSw7xB98IQlbmAx75siS1pUYtck7daFTaVAKzIbWTIPYiMAEaOviIdpMPesoSwC9Nc7xrciiIySgpT1OfWdL9GVYFBoSxDW2Ad5gAg
+X-Microsoft-Antispam-Message-Info: Ssgw0FocgGrtLADCtgqkPyBeRZOnYMiy+nLWmZfYHCtEfbH7cx/l/4fMw5c+FF9cyfsWS6z4jyezriiNjjEp4T+gLufNM4ZtZ8O58wLTggkHl8x79MW6HgMuoMtknaXfS7/yUxMLJP2WPzogfIDqFD6QOj79JueCDGDNigIUAQAgWHYWZ5RjvJZ/CmgQZHl+A8+jkWjV1qa5Wpyt2IvoFaNKq1XLyhvG9nB5Ip7kU/tDUKQRv/Nfp17f9Sfg8C10MFCJmO971QJo3t+hceLBa7EzDmaY+VqBl5DejdngXGQx7FFMiw6ay2KTIHiE8eqeXZ+p8+hp/f71ZGLfl8b2uD/m5yPfAlapldU8LCB1IY97wWbWQKb0SThVOV+UhBSsd4bV4LoAv7cMCMtW0tv7HsXtpeoCztBSnVRkvrxCLuxzGmErCJC9IXklaIOa7TEbpwojBWn8OhxkS55xg/3SdYfo40vjrOKl53ylAxFa+u5u4quDQuDUp5ffcwO+uzWcqlxy9Kcbn/4HGQFVIgQ/PXKFMHF1BibH4sBppw8LSwZrf7IiusOc7JzUSPZoIzOI3Iz4aRjbxoniMUxwaQJKXb28HlWxxlWmWEqw4Kt+Diffri0cLFpcyhwLgm8mNjxP/zWFcEH9uY1bFbLTo+ywCONv9ePoHLxlpNdUD0ZhTjQ=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SA0PR12MB4430.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(136003)(346002)(366004)(39860400002)(396003)(956004)(2616005)(6666004)(38100700002)(316002)(26005)(5660300002)(1076003)(2906002)(6486002)(66556008)(66476007)(186003)(4326008)(16526019)(66946007)(44832011)(52116002)(7696005)(478600001)(83380400001)(36756003)(8676002)(38350700002)(86362001)(8936002)(41533002);
+ SFS:(4636009)(376002)(136003)(346002)(366004)(39860400002)(396003)(956004)(2616005)(30864003)(6666004)(38100700002)(316002)(26005)(5660300002)(1076003)(2906002)(6486002)(66556008)(66476007)(186003)(4326008)(16526019)(66946007)(44832011)(52116002)(7696005)(478600001)(83380400001)(36756003)(8676002)(38350700002)(86362001)(8936002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?FDXbGk4mZOWcfXLHKwrYBvVBaNoLpGVVhepjYv+6WEAmy0dvwRfS/ijp4xyh?=
- =?us-ascii?Q?505hx4DX/3V72casCVW5AtD8U0nGhqAoWPS2DHHaqqcBYlbva6NSCnnYYLul?=
- =?us-ascii?Q?vyndLqpH7IomDOB6rXaw8FMC2NutJTWn9u2nyJZ/X+kuQ2cH/mLkP/eS/t9C?=
- =?us-ascii?Q?pDbQ9Ad3EszO0TavuoSzDB+pFVV3/d75PQRvDxbetuBVGuUJhyvIRSUDfheD?=
- =?us-ascii?Q?ATdDPgMqQ6n1ymfZ0CylxJNaZOcqdKSYMFlDj0Dv/tay0B7QMJn0I5KV93Jo?=
- =?us-ascii?Q?9CGtTcZq8ROueGkVzuM6pGmiXxk759SrhqzIerH5Pm+MxnN8zVxajnn/Cg1O?=
- =?us-ascii?Q?Vxi/qxFIx+/NrRUTMDVGm2ejtJB7ByrozvSUXbSQQVqaqT0879JB8Rc3Mfam?=
- =?us-ascii?Q?ZSsgC5R7oYUQFT1lEEovWTRoQBjzDi1XOyxz4EyjxYVULVCeuSL+16nAjIm9?=
- =?us-ascii?Q?WOQ3n4FYU2P9xRCRoYruxN0PAxCjfGw1LZgHX93vsgkE0NFuv50mo/iLF4B3?=
- =?us-ascii?Q?O+pjcy396MIlZ9WKEcTENmK0Yrotx29DknDI03n79BlbTeYYqhJaC7Jr249U?=
- =?us-ascii?Q?LkuXJycC3IiurRGSW0ABBdkqbCr/rJESE7Zc555NZ/qea1YAbczEqDqU4/a6?=
- =?us-ascii?Q?Ob6WmRIcnd//jorkvZPEcCXJm6H/HdvHqR7AXQOMCeqCfOuKcWRzIj9b5IMI?=
- =?us-ascii?Q?3FKlXw3+mbCfhYGylsINaPCd2xL6+E/mEMMBlhEIIx1i8lVE8RhEVR9zeBQP?=
- =?us-ascii?Q?GlfrPqJ9C4wk0XfrZo1KuBLWS8cqMMP9LQsGQVkJV/VfPQUFFMvx/N/Tw6Wt?=
- =?us-ascii?Q?OqzRsxzL/dOovpLYPSQ5yiOAG9H+xnK30/OEzE8+QLWgMpR5tDnu2o0w2hk3?=
- =?us-ascii?Q?LpMo/x7IWm2XrnAzYKwmPN/KmpVPRu3Upg8tQh+vPcLPiDNUX/rlgi/TX3q2?=
- =?us-ascii?Q?UCQhDHKJFMghArkos0KCFzmdh59VwyQhFxQPoe+SA5EPn3ICo3u4/uQOaaN8?=
- =?us-ascii?Q?4+9/4TumYsLj/3I3Tf1iRIY7BC7Blj+VZFQHPM1ZlIj85pRKozKd+HB71/AU?=
- =?us-ascii?Q?ieUublUK9dV4xURWOjNcm0DtdO4vZNwgtLnO2ofeq46uWKBKaC1heJOkgbly?=
- =?us-ascii?Q?lGr5rCUKM5Mabd+nBeSl9WDMECyrzU30+BDlx7OI3ZBflKB3QbQc3tim7c5r?=
- =?us-ascii?Q?bVjmqNtvcXWHJvzkrAc+q2h5d8Ha45NXtrFlxVI7ZO7tSl75fNRi5pl4jDLY?=
- =?us-ascii?Q?iP0wNxbWAHyRhPtAgpmhDqsQaI7UprD6uKDaik+JI4mAc2eWHJDLKSjrMBkT?=
- =?us-ascii?Q?EWgjIlrX0Hpmp/CCE736BUMT?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?X9eY/jnkJ3WZxKsvP3XU4BxddkDM7ISwRBzaZJpVTJ7hHxYHJjlrEbJJFoWC?=
+ =?us-ascii?Q?ZEqojXKnqoB6YQj/SACbDJ20e4eAv9Af67jktMOIMEJc9P4YBeHyvWwFvfXi?=
+ =?us-ascii?Q?1t4Gajs3sILefLTUlsVfVFWPl1gLDzqNOEAhSvHxsMOA9SAUCL+BJExpk3hT?=
+ =?us-ascii?Q?ViQ2oAg/z/fR/BWbCKulZ46QCeFGQ3sgAG34xbZM6j6OP/v19QbUODfF/V8/?=
+ =?us-ascii?Q?RPcvJH9pFtRxKJ0aVhqEBxjWHLRa6XDVoM6HlMmird39glUJGVDhUzrjm0oc?=
+ =?us-ascii?Q?fbwCB/oaLdCrWbtcCKkTi2mEAAJ+lLIpn2dsXANXwuKOmqrbYVt9tMkIceLb?=
+ =?us-ascii?Q?tI0psFzMGiAU3qSf2yVYCEJra+9KFYqaby0vcOajmpzZvRZVa4liqsIli0nv?=
+ =?us-ascii?Q?5KGYURgm0TFInHUTyQ+4SFTlxBQ+mbG7DctHu1a+9cm/JUNREIWGl4anI4WK?=
+ =?us-ascii?Q?UqNZsEcrAoqUSUnmnm6joFHPItkOgpMNmus8p0YHy52CRfMsdHhXl06ZH0z1?=
+ =?us-ascii?Q?x5oDCbDQU4jDeCY8ndKI8fHNzGIMkuw5DheZNIZNNff3Z8fqBAXkHzl93I12?=
+ =?us-ascii?Q?mntObIh4dKv2QYSi3oCoP/8NCWEXeSGy2fKCIXyjwq/sCqa+SC8ZoS10xFXL?=
+ =?us-ascii?Q?U0WQPPSIYk4GPOvN2ELvNM4poW3uOn7NVHRNGO12I20WxVXGSWdNV0G1x6gk?=
+ =?us-ascii?Q?/wWzaQPdKnN7bOIefJskTEQzNCZnEPrtNHITp3mb5pif2T/RBmeA/kNpAjYz?=
+ =?us-ascii?Q?C5etNe55VA9TUPRznVFw3ut9YM9kZ9SQrrca+2wXv11c4QyutgUdlV94S3sq?=
+ =?us-ascii?Q?QqK1Hp+pkWU07jvgLJ8+sTkx7mxeMu1Srw4v/JP/bRSATfqbrsRs51ZQQf0X?=
+ =?us-ascii?Q?XFzWunDHOrurZyTUkj6qiAP+NZH+yEXiHHsyLLokxb+G/xLadDIVy3XkaEG1?=
+ =?us-ascii?Q?oj7CeCzEYiLzzjgRopiyba9RUppHO93S280fiXIwlqFVTiqeKGrkabi5udkE?=
+ =?us-ascii?Q?eCgCrwZlFUWVSN+Z6zZaJJ71EkPAMYBzgFhBPhemztQZM1g7hQYgvPYdbNFA?=
+ =?us-ascii?Q?Verfru5byFLjFmVCCQcLPSi0ShPMZ9WazYdUMDiUYEwJ6ZfBqRdCCn0JPabE?=
+ =?us-ascii?Q?28zXh3iVLtQRHrSYZGtAoixjbMZA/hZQuUtDJgUJl4OtvT7JhlxQbSsS352i?=
+ =?us-ascii?Q?Kz5/+dV8sKq1uuv3B6iNUQhS++qeNZizxNFp36CoWVGyMCffnK1fDUSeuEVQ?=
+ =?us-ascii?Q?ha9Ji2KHach6CPaxX7CddKCcKWa5qL/nAV0WeUfdAQQpuIyhDUcvE82gnyWn?=
+ =?us-ascii?Q?anpjRoPNdtM3Pg/mm0ziSEqw?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f6059f52-52f3-43c1-7eb3-08d929f4cc69
+X-MS-Exchange-CrossTenant-Network-Message-Id: 03884221-d9dd-4b52-883e-08d929f4cb00
 X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB4430.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2021 20:42:42.8925 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2021 20:42:40.5827 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VceJZ8dd0nhAlTNr9mBR3Q7KIh60XHFZM41cNqcsMlVEJRphVOvdEhmZdHvO68/IQQHxbqMbyvToRCQgJC3wgg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: Cj+unjeU6ncObsiBzeD09ZKhIH/EwYCylrdLsCydnwxWqebGtmV2j7nz5jLytAcQfBkTcvde7wJ2nffXLNZ1gw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4495
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -135,32 +134,445 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Generic device type memory on VRAM to RAM migration,
-has similar access as System RAM from the CPU. This flag sets
-the source from the sender. Which in Generic type case,
-should be set as SYSTEM.
+From: Ralph Campbell <rcampbell@nvidia.com>
 
+ZONE_DEVICE struct pages have an extra reference count that complicates the
+code for put_page() and several places in the kernel that need to check the
+reference count to see that a page is not being used (gup, compaction,
+migration, etc.). Clean up the code so the reference count doesn't need to
+be treated specially for ZONE_DEVICE.
+
+v2:
+AS: merged this patch in linux 5.11 version
+
+Signed-off-by: Ralph Campbell <rcampbell@nvidia.com>
 Signed-off-by: Alex Sierra <alex.sierra@amd.com>
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ arch/powerpc/kvm/book3s_hv_uvmem.c     |  2 +-
+ drivers/gpu/drm/nouveau/nouveau_dmem.c |  2 +-
+ fs/dax.c                               |  4 +-
+ include/linux/dax.h                    |  2 +-
+ include/linux/memremap.h               |  7 +--
+ include/linux/mm.h                     | 44 -----------------
+ lib/test_hmm.c                         |  2 +-
+ mm/internal.h                          |  8 +++
+ mm/memremap.c                          | 68 +++++++-------------------
+ mm/migrate.c                           |  5 --
+ mm/page_alloc.c                        |  3 ++
+ mm/swap.c                              | 45 ++---------------
+ 12 files changed, 45 insertions(+), 147 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-index f5939449a99f..7b41006c1164 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-@@ -653,8 +653,9 @@ svm_migrate_vma_to_ram(struct amdgpu_device *adev, struct svm_range *prange,
- 	migrate.vma = vma;
- 	migrate.start = start;
- 	migrate.end = end;
--	migrate.flags = MIGRATE_VMA_SELECT_DEVICE_PRIVATE;
- 	migrate.pgmap_owner = SVM_ADEV_PGMAP_OWNER(adev);
-+	migrate.flags = adev->gmc.xgmi.connected_to_cpu ?
-+			MIGRATE_VMA_SELECT_SYSTEM : MIGRATE_VMA_SELECT_DEVICE_PRIVATE;
+diff --git a/arch/powerpc/kvm/book3s_hv_uvmem.c b/arch/powerpc/kvm/book3s_hv_uvmem.c
+index 84e5a2dc8be5..acee67710620 100644
+--- a/arch/powerpc/kvm/book3s_hv_uvmem.c
++++ b/arch/powerpc/kvm/book3s_hv_uvmem.c
+@@ -711,7 +711,7 @@ static struct page *kvmppc_uvmem_get_page(unsigned long gpa, struct kvm *kvm)
  
- 	size = 2 * sizeof(*migrate.src) + sizeof(uint64_t) + sizeof(dma_addr_t);
- 	size *= npages;
+ 	dpage = pfn_to_page(uvmem_pfn);
+ 	dpage->zone_device_data = pvt;
+-	get_page(dpage);
++	init_page_count(dpage);
+ 	lock_page(dpage);
+ 	return dpage;
+ out_clear:
+diff --git a/drivers/gpu/drm/nouveau/nouveau_dmem.c b/drivers/gpu/drm/nouveau/nouveau_dmem.c
+index 92987daa5e17..8bc7120e1216 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_dmem.c
++++ b/drivers/gpu/drm/nouveau/nouveau_dmem.c
+@@ -324,7 +324,7 @@ nouveau_dmem_page_alloc_locked(struct nouveau_drm *drm)
+ 			return NULL;
+ 	}
+ 
+-	get_page(page);
++	init_page_count(page);
+ 	lock_page(page);
+ 	return page;
+ }
+diff --git a/fs/dax.c b/fs/dax.c
+index 321f4ddc6643..7b4c6b35b098 100644
+--- a/fs/dax.c
++++ b/fs/dax.c
+@@ -560,14 +560,14 @@ static void *grab_mapping_entry(struct xa_state *xas,
+ 
+ /**
+  * dax_layout_busy_page_range - find first pinned page in @mapping
+- * @mapping: address space to scan for a page with ref count > 1
++ * @mapping: address space to scan for a page with ref count > 0
+  * @start: Starting offset. Page containing 'start' is included.
+  * @end: End offset. Page containing 'end' is included. If 'end' is LLONG_MAX,
+  *       pages from 'start' till the end of file are included.
+  *
+  * DAX requires ZONE_DEVICE mapped pages. These pages are never
+  * 'onlined' to the page allocator so they are considered idle when
+- * page->count == 1. A filesystem uses this interface to determine if
++ * page->count == 0. A filesystem uses this interface to determine if
+  * any page in the mapping is busy, i.e. for DMA, or other
+  * get_user_pages() usages.
+  *
+diff --git a/include/linux/dax.h b/include/linux/dax.h
+index 8909a91cd381..9487dc06b220 100644
+--- a/include/linux/dax.h
++++ b/include/linux/dax.h
+@@ -245,7 +245,7 @@ static inline bool dax_mapping(struct address_space *mapping)
+ 
+ static inline bool dax_layout_is_idle_page(struct page *page)
+ {
+-	return page_ref_count(page) == 1;
++	return page_ref_count(page) == 0;
+ }
+ 
+ #define dax_wait_page(_inode, _page, _wait_cb)				\
+diff --git a/include/linux/memremap.h b/include/linux/memremap.h
+index 79c49e7f5c30..327f32427d21 100644
+--- a/include/linux/memremap.h
++++ b/include/linux/memremap.h
+@@ -66,9 +66,10 @@ enum memory_type {
+ 
+ struct dev_pagemap_ops {
+ 	/*
+-	 * Called once the page refcount reaches 1.  (ZONE_DEVICE pages never
+-	 * reach 0 refcount unless there is a refcount bug. This allows the
+-	 * device driver to implement its own memory management.)
++	 * Called once the page refcount reaches 0. The reference count
++	 * should be reset to one with init_page_count(page) before reusing
++	 * the page. This allows the device driver to implement its own
++	 * memory management.
+ 	 */
+ 	void (*page_free)(struct page *page);
+ 
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index c9900aedc195..d8d79bb94be8 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -1117,39 +1117,6 @@ static inline bool is_zone_device_page(const struct page *page)
+ }
+ #endif
+ 
+-#ifdef CONFIG_DEV_PAGEMAP_OPS
+-void free_devmap_managed_page(struct page *page);
+-DECLARE_STATIC_KEY_FALSE(devmap_managed_key);
+-
+-static inline bool page_is_devmap_managed(struct page *page)
+-{
+-	if (!static_branch_unlikely(&devmap_managed_key))
+-		return false;
+-	if (!is_zone_device_page(page))
+-		return false;
+-	switch (page->pgmap->type) {
+-	case MEMORY_DEVICE_PRIVATE:
+-	case MEMORY_DEVICE_FS_DAX:
+-		return true;
+-	default:
+-		break;
+-	}
+-	return false;
+-}
+-
+-void put_devmap_managed_page(struct page *page);
+-
+-#else /* CONFIG_DEV_PAGEMAP_OPS */
+-static inline bool page_is_devmap_managed(struct page *page)
+-{
+-	return false;
+-}
+-
+-static inline void put_devmap_managed_page(struct page *page)
+-{
+-}
+-#endif /* CONFIG_DEV_PAGEMAP_OPS */
+-
+ static inline bool is_device_private_page(const struct page *page)
+ {
+ 	return IS_ENABLED(CONFIG_DEV_PAGEMAP_OPS) &&
+@@ -1196,17 +1163,6 @@ static inline void put_page(struct page *page)
+ {
+ 	page = compound_head(page);
+ 
+-	/*
+-	 * For devmap managed pages we need to catch refcount transition from
+-	 * 2 to 1, when refcount reach one it means the page is free and we
+-	 * need to inform the device driver through callback. See
+-	 * include/linux/memremap.h and HMM for details.
+-	 */
+-	if (page_is_devmap_managed(page)) {
+-		put_devmap_managed_page(page);
+-		return;
+-	}
+-
+ 	if (put_page_testzero(page))
+ 		__put_page(page);
+ }
+diff --git a/lib/test_hmm.c b/lib/test_hmm.c
+index 80a78877bd93..6998f10350ea 100644
+--- a/lib/test_hmm.c
++++ b/lib/test_hmm.c
+@@ -561,7 +561,7 @@ static struct page *dmirror_devmem_alloc_page(struct dmirror_device *mdevice)
+ 	}
+ 
+ 	dpage->zone_device_data = rpage;
+-	get_page(dpage);
++	init_page_count(dpage);
+ 	lock_page(dpage);
+ 	return dpage;
+ 
+diff --git a/mm/internal.h b/mm/internal.h
+index 25d2b2439f19..d3e58746f2d2 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -623,4 +623,12 @@ struct migration_target_control {
+ 	gfp_t gfp_mask;
+ };
+ 
++#ifdef CONFIG_DEV_PAGEMAP_OPS
++void free_zone_device_page(struct page *page);
++#else
++static inline void free_zone_device_page(struct page *page)
++{
++}
++#endif
++
+ #endif	/* __MM_INTERNAL_H */
+diff --git a/mm/memremap.c b/mm/memremap.c
+index 16b2fb482da1..614b3d600e95 100644
+--- a/mm/memremap.c
++++ b/mm/memremap.c
+@@ -12,6 +12,7 @@
+ #include <linux/types.h>
+ #include <linux/wait_bit.h>
+ #include <linux/xarray.h>
++#include "internal.h"
+ 
+ static DEFINE_XARRAY(pgmap_array);
+ 
+@@ -37,32 +38,6 @@ unsigned long memremap_compat_align(void)
+ EXPORT_SYMBOL_GPL(memremap_compat_align);
+ #endif
+ 
+-#ifdef CONFIG_DEV_PAGEMAP_OPS
+-DEFINE_STATIC_KEY_FALSE(devmap_managed_key);
+-EXPORT_SYMBOL(devmap_managed_key);
+-
+-static void devmap_managed_enable_put(struct dev_pagemap *pgmap)
+-{
+-	if (pgmap->type == MEMORY_DEVICE_PRIVATE ||
+-	    pgmap->type == MEMORY_DEVICE_FS_DAX)
+-		static_branch_dec(&devmap_managed_key);
+-}
+-
+-static void devmap_managed_enable_get(struct dev_pagemap *pgmap)
+-{
+-	if (pgmap->type == MEMORY_DEVICE_PRIVATE ||
+-	    pgmap->type == MEMORY_DEVICE_FS_DAX)
+-		static_branch_inc(&devmap_managed_key);
+-}
+-#else
+-static void devmap_managed_enable_get(struct dev_pagemap *pgmap)
+-{
+-}
+-static void devmap_managed_enable_put(struct dev_pagemap *pgmap)
+-{
+-}
+-#endif /* CONFIG_DEV_PAGEMAP_OPS */
+-
+ static void pgmap_array_delete(struct range *range)
+ {
+ 	xa_store_range(&pgmap_array, PHYS_PFN(range->start), PHYS_PFN(range->end),
+@@ -87,16 +62,6 @@ static unsigned long pfn_end(struct dev_pagemap *pgmap, int range_id)
+ 	return (range->start + range_len(range)) >> PAGE_SHIFT;
+ }
+ 
+-static unsigned long pfn_next(unsigned long pfn)
+-{
+-	if (pfn % 1024 == 0)
+-		cond_resched();
+-	return pfn + 1;
+-}
+-
+-#define for_each_device_pfn(pfn, map, i) \
+-	for (pfn = pfn_first(map, i); pfn < pfn_end(map, i); pfn = pfn_next(pfn))
+-
+ static void dev_pagemap_kill(struct dev_pagemap *pgmap)
+ {
+ 	if (pgmap->ops && pgmap->ops->kill)
+@@ -152,20 +117,18 @@ static void pageunmap_range(struct dev_pagemap *pgmap, int range_id)
+ 
+ void memunmap_pages(struct dev_pagemap *pgmap)
+ {
+-	unsigned long pfn;
+ 	int i;
+ 
+ 	dev_pagemap_kill(pgmap);
+ 	for (i = 0; i < pgmap->nr_range; i++)
+-		for_each_device_pfn(pfn, pgmap, i)
+-			put_page(pfn_to_page(pfn));
++		percpu_ref_put_many(pgmap->ref, pfn_end(pgmap, i) -
++						pfn_first(pgmap, i));
+ 	dev_pagemap_cleanup(pgmap);
+ 
+ 	for (i = 0; i < pgmap->nr_range; i++)
+ 		pageunmap_range(pgmap, i);
+ 
+ 	WARN_ONCE(pgmap->altmap.alloc, "failed to free all reserved pages\n");
+-	devmap_managed_enable_put(pgmap);
+ }
+ EXPORT_SYMBOL_GPL(memunmap_pages);
+ 
+@@ -361,8 +324,6 @@ void *memremap_pages(struct dev_pagemap *pgmap, int nid)
+ 		}
+ 	}
+ 
+-	devmap_managed_enable_get(pgmap);
+-
+ 	/*
+ 	 * Clear the pgmap nr_range as it will be incremented for each
+ 	 * successfully processed range. This communicates how many
+@@ -477,16 +438,10 @@ struct dev_pagemap *get_dev_pagemap(unsigned long pfn,
+ EXPORT_SYMBOL_GPL(get_dev_pagemap);
+ 
+ #ifdef CONFIG_DEV_PAGEMAP_OPS
+-void free_devmap_managed_page(struct page *page)
++static void free_device_private_page(struct page *page)
+ {
+-	/* notify page idle for dax */
+-	if (!is_device_private_page(page)) {
+-		wake_up_var(&page->_refcount);
+-		return;
+-	}
+ 
+ 	__ClearPageWaiters(page);
+-
+ 	mem_cgroup_uncharge(page);
+ 
+ 	/*
+@@ -513,4 +468,19 @@ void free_devmap_managed_page(struct page *page)
+ 	page->mapping = NULL;
+ 	page->pgmap->ops->page_free(page);
+ }
++
++void free_zone_device_page(struct page *page)
++{
++	switch (page->pgmap->type) {
++	case MEMORY_DEVICE_FS_DAX:
++		/* notify page idle */
++		wake_up_var(&page->_refcount);
++		return;
++	case MEMORY_DEVICE_PRIVATE:
++		free_device_private_page(page);
++		return;
++	default:
++		return;
++	}
++}
+ #endif /* CONFIG_DEV_PAGEMAP_OPS */
+diff --git a/mm/migrate.c b/mm/migrate.c
+index 20ca887ea769..8c2430d3e77b 100644
+--- a/mm/migrate.c
++++ b/mm/migrate.c
+@@ -376,11 +376,6 @@ static int expected_page_refs(struct address_space *mapping, struct page *page)
+ {
+ 	int expected_count = 1;
+ 
+-	/*
+-	 * Device private pages have an extra refcount as they are
+-	 * ZONE_DEVICE pages.
+-	 */
+-	expected_count += is_device_private_page(page);
+ 	if (mapping)
+ 		expected_count += thp_nr_pages(page) + page_has_private(page);
+ 
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index 519a60d5b6f7..4612c457d0b0 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -6210,6 +6210,9 @@ void __ref memmap_init_zone_device(struct zone *zone,
+ 
+ 		__init_single_page(page, pfn, zone_idx, nid);
+ 
++		/* ZONE_DEVICE pages start with a zero reference count. */
++		set_page_count(page, 0);
++
+ 		/*
+ 		 * Mark page reserved as it will need to wait for onlining
+ 		 * phase for it to be fully associated with a zone.
+diff --git a/mm/swap.c b/mm/swap.c
+index 2cca7141470c..0a12af814065 100644
+--- a/mm/swap.c
++++ b/mm/swap.c
+@@ -114,12 +114,11 @@ static void __put_compound_page(struct page *page)
+ void __put_page(struct page *page)
+ {
+ 	if (is_zone_device_page(page)) {
+-		put_dev_pagemap(page->pgmap);
+-
+ 		/*
+ 		 * The page belongs to the device that created pgmap. Do
+ 		 * not return it to page allocator.
+ 		 */
++		free_zone_device_page(page);
+ 		return;
+ 	}
+ 
+@@ -878,29 +877,18 @@ void release_pages(struct page **pages, int nr)
+ 		if (is_huge_zero_page(page))
+ 			continue;
+ 
++		if (!put_page_testzero(page))
++			continue;
++
+ 		if (is_zone_device_page(page)) {
+ 			if (lruvec) {
+ 				unlock_page_lruvec_irqrestore(lruvec, flags);
+ 				lruvec = NULL;
+ 			}
+-			/*
+-			 * ZONE_DEVICE pages that return 'false' from
+-			 * page_is_devmap_managed() do not require special
+-			 * processing, and instead, expect a call to
+-			 * put_page_testzero().
+-			 */
+-			if (page_is_devmap_managed(page)) {
+-				put_devmap_managed_page(page);
+-				continue;
+-			}
+-			if (put_page_testzero(page))
+-				put_dev_pagemap(page->pgmap);
++			free_zone_device_page(page);
+ 			continue;
+ 		}
+ 
+-		if (!put_page_testzero(page))
+-			continue;
+-
+ 		if (PageCompound(page)) {
+ 			if (lruvec) {
+ 				unlock_page_lruvec_irqrestore(lruvec, flags);
+@@ -1142,26 +1130,3 @@ void __init swap_setup(void)
+ 	 * _really_ don't want to cluster much more
+ 	 */
+ }
+-
+-#ifdef CONFIG_DEV_PAGEMAP_OPS
+-void put_devmap_managed_page(struct page *page)
+-{
+-	int count;
+-
+-	if (WARN_ON_ONCE(!page_is_devmap_managed(page)))
+-		return;
+-
+-	count = page_ref_dec_return(page);
+-
+-	/*
+-	 * devmap page refcounts are 1-based, rather than 0-based: if
+-	 * refcount is 1, then the page is free and the refcount is
+-	 * stable because nobody holds a reference on the page.
+-	 */
+-	if (count == 1)
+-		free_devmap_managed_page(page);
+-	else if (!count)
+-		__put_page(page);
+-}
+-EXPORT_SYMBOL(put_devmap_managed_page);
+-#endif
 -- 
 2.17.1
 
