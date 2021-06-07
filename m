@@ -7,47 +7,47 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 82D64C47094
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 13:45:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 24E3CC4743F
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 13:45:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4586061185
+	by mail.kernel.org (Postfix) with ESMTPS id EA04261159
 	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 13:45:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4586061185
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EA04261159
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A7A76E8D3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D433F6E8D4;
 	Mon,  7 Jun 2021 13:45:23 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2072.outbound.protection.outlook.com [40.107.244.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 894366E8CB
- for <amd-gfx@lists.freedesktop.org>; Mon,  7 Jun 2021 13:45:20 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam07on2070.outbound.protection.outlook.com [40.107.95.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AAA576E8D1
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Jun 2021 13:45:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ae0GAsodYo0+R27F/PdD4vPdW7B6IpJqepJNdTgMc8ZwpzDniz1czOcornCiIbyAU9IYUJqyPDDYq8YlufpVC9aGS1VMm3Y289/DYqyJCSKkBWjM1tVXhHBrR9cdfLJl30xfDsrXA/FVXlvjrSFYmHMtyJ1M8w0Q0Hcwyfr1i6cGPVkYagNfkrJsn4hGrKEb+wMgzs/dLFTJO0c6BcJ960GYoaqT88iKJmPnKa9P7Hl3MykQ7m6Wk65N/OKIKdWMHVMSqD8H0+jlT8R2sNI9TNU10BEiruuzZJj53Pv261Wvu4bpSL5DhKz7kWXWgjBP0mlWiZcANH7PnzgiN23uyw==
+ b=gA3OlNCNfdHcNgabkYap4L4qaqSi0kYb/pts1pB2eewuXjER1v9o177Q5lePwKkUd0pNE6coPTblGEdYMdkHor+nh/z1SzvIRqMDsSTSWnrrCc4phsYvvnAo7xL9AQ61HaRKx6v0RoJgXPVj3C0EAmXE7QiHtJJ5aHkTrdcdiaKN+Xk0YTnbq623un3u4VKcrF6dD68iq+/ill0uIShnkLs2ftzbO6s3e0ynxeklV9pbrZYTPTCHyJbWr5WsmePeGgRXEtRvZkJbGnwIXkjljeGuEqUmrHtZNqJUtfIuNkjyJ+XpWFpOr7op7JVosAv+aCkv+Eml4J2iY/l6Wn0t0w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7wDXV2f1y+0Jvv8VMVIoIczQlU/iK/oIB0J6teDkbMI=;
- b=YBEPay2M90GfI506rQerVkAHYqq+DTuxt/NOv24lzu9yl3Gb2qhIPvPOgGM/s6Q08Jo2CvfRINhxaYT647EQFthnRoUunxQct8oICGyVmicFHD4zJJdH53mDbWCpz+KVJ5HhW0SRpiZ6HHPB1786edO1WwVe0WtCrZwAszKiNP9BLfhv3MQdj3Mn0AoOMDTVzPxLM2pT8bDaan6k5usuLwzk1TM9m5+R1zihxhnwMQmERt+/c3ltyzYpp8JbC9q1ZTWgG8lMYICsmL92APx81dbTnIrv+hkdk9ZsAVbojDsA7pEWrHvDWOHLs0YF4bYPEVp5A6ntmJqeczNb+0pj1Q==
+ bh=z0oMKgfp7HEaaj5PWDnQ4HRdIBiaHHmceaoQcHNUbEY=;
+ b=RmUbouYkN2qG+02FwGxizrYkdDnr2++cl83JUbtn6qJd8eO1N9lft6MKcK3YdBDo6RERC5A6YT0kPBer3kgEA/N0bBgvjXsByeWlZvpuIiZ+YXqp+tJmFkdmgjmTglbppfAYXU6nilDf0gqrksqdr7FuoBQLvJz7T9Jw452sbUbBVfdynO6bHY8kI750PQyoA51AOQAmMbztLgyhjk14DoJ/QRrGva+RvKx2msevPwKPClHWMWyG1asi/bw75sldQjghpGDqrPC4CDHT93wnTi5KvMXnDEbIChGkK8ziiuqYRb1F+UgVEyijqgTXbAh9Mo0oL6y/L3JKE1f6H8Kx6w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7wDXV2f1y+0Jvv8VMVIoIczQlU/iK/oIB0J6teDkbMI=;
- b=XGa5pyb1sGiYZM/MZ4k/MucpKy3cYfJc5iPX7irKYVzWomgmrhnZScWFh+LzIzmn49irnqME5FTB62f6+qdme+301DKRAymDLVBW5fXlDs7mHDlcVC+bJi8/fMZRTaw4yfwG48LerzzkpzKpo142QHuDBLiCXjFLogSuGjka4GA=
-Received: from BN6PR18CA0012.namprd18.prod.outlook.com (2603:10b6:404:121::22)
- by CH2PR12MB4278.namprd12.prod.outlook.com (2603:10b6:610:ab::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.20; Mon, 7 Jun
+ bh=z0oMKgfp7HEaaj5PWDnQ4HRdIBiaHHmceaoQcHNUbEY=;
+ b=eGslWeUvDOFo9G8gKWvak0KE7+1U5G5HQrV+cGhnicieJHzgiABey/ag+0ePnQJ4UV39yU2QdDEBkKZ9w3v80fEvH3OFCR3QWkA0hbE5SEZsMzEgPfX4MTwbYkHMG7XX73SwFpUggiVGujoSaP/QcePkgTz6JrbuNJMo3/JPUTo=
+Received: from BN6PR18CA0011.namprd18.prod.outlook.com (2603:10b6:404:121::21)
+ by DM5PR12MB1164.namprd12.prod.outlook.com (2603:10b6:3:77::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.25; Mon, 7 Jun
  2021 13:45:19 +0000
 Received: from BN8NAM11FT039.eop-nam11.prod.protection.outlook.com
- (2603:10b6:404:121:cafe::71) by BN6PR18CA0012.outlook.office365.com
- (2603:10b6:404:121::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.20 via Frontend
+ (2603:10b6:404:121:cafe::6e) by BN6PR18CA0011.outlook.office365.com
+ (2603:10b6:404:121::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.15 via Frontend
  Transport; Mon, 7 Jun 2021 13:45:19 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
@@ -59,16 +59,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN8NAM11FT039.mail.protection.outlook.com (10.13.177.169) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4195.22 via Frontend Transport; Mon, 7 Jun 2021 13:45:18 +0000
+ 15.20.4195.22 via Frontend Transport; Mon, 7 Jun 2021 13:45:19 +0000
 Received: from grasider-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Mon, 7 Jun 2021
- 08:45:16 -0500
+ 08:45:17 -0500
 From: Graham Sider <Graham.Sider@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v5 6/9] drm/amd/pm: Add sienna cichlid throttler translation
-Date: Mon, 7 Jun 2021 09:44:36 -0400
-Message-ID: <20210607134439.28542-6-Graham.Sider@amd.com>
+Subject: [PATCH v5 7/9] drm/amd/pm: Add vangogh throttler translation
+Date: Mon, 7 Jun 2021 09:44:37 -0400
+Message-ID: <20210607134439.28542-7-Graham.Sider@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210607134439.28542-1-Graham.Sider@amd.com>
 References: <20210607134439.28542-1-Graham.Sider@amd.com>
@@ -78,27 +78,27 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 87257f25-c0dc-49e2-a27e-08d929ba7d0d
-X-MS-TrafficTypeDiagnostic: CH2PR12MB4278:
-X-Microsoft-Antispam-PRVS: <CH2PR12MB42788A1BEDA1C8C52F6E34BD8A389@CH2PR12MB4278.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: bbb116b3-0e43-48ad-babd-08d929ba7d6e
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1164:
+X-Microsoft-Antispam-PRVS: <DM5PR12MB1164E7696352B57D9C0803568A389@DM5PR12MB1164.namprd12.prod.outlook.com>
 X-MS-Oob-TLC-OOBClassifiers: OLM:2000;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: HC0HqIzVjSXwiQKsInuoN/gzSHFJ3OCOBgvlIcFG3glZrqvW4VxJ2vxHV0fKK1vS9vG5Y3vFAz3lpN3YrR5KTCQwGdcSm6cEf9d9+5fE2/YlIFks286Jn7DyqBXBhRWuCg2s3YhfcC8WNUIczFm8pmupLx17Hmk+AT/8NhFuZ3qQ85J2/qKK16jkULUzAiqfPMeBkQvyl8XWjSAa3Vd007AnUaBxEzZHzzslOS3DFBRQz7HMd3fuMoOtT5+yJ+M4o4E97nLxc5fmPr96aIQjIPZ67cfm5kClPD3Qmvgim4Y/ItlYwVVc+oQ4yYIf463Iq/GVqzzNP/c8/DDNKC7KmwdWgNw3kx8FYGXuPJZ/DioDVnRA5N1PYK4xKXuFr4wzoHAcPZR+8ZHEqOOJDvGFNL+Pjwry1hhrIJyHm4gcxqtLvnScasngrm1rWEPGjBDjH9I9s8DKiYZ7x3dPopXMlpLFr+miplMHmVPqBBrYUEA70Xo8n1bWIIJJ6ULvbHTDUHgrp1jgDRZsTdp7uAXaeoyrg69QzAGHUIXEHZpKM+5Kj8m/llxFUK2C1caeA9WefRgOmwMFT5T3R5ok8Z/BjpGvLee5EOFkIqp+Jf/PEKXrRCeUKsI3IfGh3vvn+LgGPV+Ezq0xek3huYfeJhYGUBLa6rkypf0yUxAiWzxVBHsLOFCrqij0Dt12s/rzgFH6
+X-Microsoft-Antispam-Message-Info: CGmmkQw+sf//YAGzq8rqInl/pcvK3Y74UUUbXaKc8g1Emp5N89E9Xodt0FBcPYzbomv8jVNcnkwtO4WyAqxOfmPERVWGJfP7dRViE0LKp37CWDgaWvmDLJ9seADYv3iNU9ARgpo5YFEcwRy+7E1ppX+31fuafIeIxpE4dHd9mT5Zq2zEx0G6Tc/4fj3Svl6itXhvfndq33SkPfv3JLgr9SlKTczHyOErg5knKQQLTAhkY6KTgXhhKO1QRsntq7kaiT85DXkm+frxfL0wUBFe0yTCvp8JYiTRYdxJtbr5CRHXTu9tSlg4uZmklny4ZuaFDcE7o/8MrgIprIqy6yJ8l5bVrdJXKbOQIBek+xSOT8nRUFBkfAAioYNp2s6iLPPGtr8e/SDxSxpTguTQn/oop/we2CLcblL6IhAttUD2vvHKql2KMM+KmPWvb1EzfEy4i7jj1i5ggo2k5AQ2QdfTLIKcC23HGTKZSiM8zx5bE1M7Ig9p2feBUWVt7Mm5GEj5nzbt5FF+qAOvL+/SmgLFlBDeQ6jYbRw8Xd0TWCs2llSbK0yviCLEYxZaIb0B0Di5lRELXLqc9qX/hRJ7PZ/fvWSbzs/Z3Qpbev7uUFOZ7vTaGfS5TFWPxwn5ip9Df+ikTkMy/gqsZyGZgKnR4SaXCP4ZJd1DGGGQtjne1+Cj8ynkVfESPYhqOSMS1ArLrmCS
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(396003)(346002)(136003)(39860400002)(376002)(46966006)(36840700001)(426003)(54906003)(336012)(5660300002)(82310400003)(316002)(70586007)(6916009)(86362001)(186003)(82740400003)(7696005)(47076005)(16526019)(36756003)(8676002)(36860700001)(81166007)(6666004)(83380400001)(26005)(8936002)(4326008)(356005)(1076003)(2616005)(478600001)(70206006)(2906002)(36900700001);
+ SFS:(4636009)(376002)(136003)(346002)(39860400002)(396003)(46966006)(36840700001)(54906003)(70586007)(2906002)(336012)(86362001)(316002)(356005)(82310400003)(47076005)(36756003)(70206006)(4326008)(83380400001)(81166007)(36860700001)(6666004)(26005)(82740400003)(6916009)(426003)(1076003)(2616005)(7696005)(478600001)(186003)(8936002)(16526019)(8676002)(5660300002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2021 13:45:18.7888 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 87257f25-c0dc-49e2-a27e-08d929ba7d0d
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2021 13:45:19.4271 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bbb116b3-0e43-48ad-babd-08d929ba7d6e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT039.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4278
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1164
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,93 +118,120 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Perform dependent to independent throttle status translation
-for sienna cichlid.
+for vangogh.
 
 Signed-off-by: Graham Sider <Graham.Sider@amd.com>
 ---
- .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 34 ++++++++++++++++---
- 1 file changed, 29 insertions(+), 5 deletions(-)
+ .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  | 38 ++++++++++++++-----
+ 1 file changed, 29 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-index 75acdb80c499..0e847a85d4a9 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-@@ -239,6 +239,27 @@ static struct cmn2asic_mapping sienna_cichlid_workload_map[PP_SMC_POWER_PROFILE_
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+index 77f532a49e37..589304367929 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+@@ -190,6 +190,20 @@ static struct cmn2asic_mapping vangogh_workload_map[PP_SMC_POWER_PROFILE_COUNT]
  	WORKLOAD_MAP(PP_SMC_POWER_PROFILE_CUSTOM,		WORKLOAD_PPLIB_CUSTOM_BIT),
  };
  
-+static const uint8_t sienna_cichlid_throttler_map[] = {
-+	[THROTTLER_TEMP_EDGE_BIT]	= (SMU_THROTTLER_TEMP_EDGE_BIT),
-+	[THROTTLER_TEMP_HOTSPOT_BIT]	= (SMU_THROTTLER_TEMP_HOTSPOT_BIT),
-+	[THROTTLER_TEMP_MEM_BIT]	= (SMU_THROTTLER_TEMP_MEM_BIT),
-+	[THROTTLER_TEMP_VR_GFX_BIT]	= (SMU_THROTTLER_TEMP_VR_GFX_BIT),
-+	[THROTTLER_TEMP_VR_MEM0_BIT]	= (SMU_THROTTLER_TEMP_VR_MEM0_BIT),
-+	[THROTTLER_TEMP_VR_MEM1_BIT]	= (SMU_THROTTLER_TEMP_VR_MEM1_BIT),
-+	[THROTTLER_TEMP_VR_SOC_BIT]	= (SMU_THROTTLER_TEMP_VR_SOC_BIT),
-+	[THROTTLER_TEMP_LIQUID0_BIT]	= (SMU_THROTTLER_TEMP_LIQUID0_BIT),
-+	[THROTTLER_TEMP_LIQUID1_BIT]	= (SMU_THROTTLER_TEMP_LIQUID1_BIT),
-+	[THROTTLER_TDC_GFX_BIT]		= (SMU_THROTTLER_TDC_GFX_BIT),
-+	[THROTTLER_TDC_SOC_BIT]		= (SMU_THROTTLER_TDC_SOC_BIT),
-+	[THROTTLER_PPT0_BIT]		= (SMU_THROTTLER_PPT0_BIT),
-+	[THROTTLER_PPT1_BIT]		= (SMU_THROTTLER_PPT1_BIT),
-+	[THROTTLER_PPT2_BIT]		= (SMU_THROTTLER_PPT2_BIT),
-+	[THROTTLER_PPT3_BIT]		= (SMU_THROTTLER_PPT3_BIT),
-+	[THROTTLER_FIT_BIT]		= (SMU_THROTTLER_FIT_BIT),
-+	[THROTTLER_PPM_BIT]		= (SMU_THROTTLER_PPM_BIT),
-+	[THROTTLER_APCC_BIT]		= (SMU_THROTTLER_APCC_BIT),
++static const uint8_t vangogh_throttler_map[] = {
++	[THROTTLER_STATUS_BIT_SPL]	= (SMU_THROTTLER_SPL_BIT),
++	[THROTTLER_STATUS_BIT_FPPT]	= (SMU_THROTTLER_FPPT_BIT),
++	[THROTTLER_STATUS_BIT_SPPT]	= (SMU_THROTTLER_SPPT_BIT),
++	[THROTTLER_STATUS_BIT_SPPT_APU]	= (SMU_THROTTLER_SPPT_APU_BIT),
++	[THROTTLER_STATUS_BIT_THM_CORE]	= (SMU_THROTTLER_TEMP_CORE_BIT),
++	[THROTTLER_STATUS_BIT_THM_GFX]	= (SMU_THROTTLER_TEMP_VR_GFX_BIT),
++	[THROTTLER_STATUS_BIT_THM_SOC]	= (SMU_THROTTLER_TEMP_VR_SOC_BIT),
++	[THROTTLER_STATUS_BIT_TDC_VDD]	= (SMU_THROTTLER_TDC_VDD_BIT),
++	[THROTTLER_STATUS_BIT_TDC_SOC]	= (SMU_THROTTLER_TDC_SOC_BIT),
++	[THROTTLER_STATUS_BIT_TDC_GFX]	= (SMU_THROTTLER_TDC_GFX_BIT),
++	[THROTTLER_STATUS_BIT_TDC_CVIP]	= (SMU_THROTTLER_TDC_CVIP_BIT),
 +};
 +
- static int
- sienna_cichlid_get_allowed_feature_mask(struct smu_context *smu,
- 				  uint32_t *feature_mask, uint32_t num)
-@@ -434,7 +455,7 @@ static int sienna_cichlid_tables_init(struct smu_context *smu)
+ static int vangogh_tables_init(struct smu_context *smu)
+ {
+ 	struct smu_table_context *smu_table = &smu->smu_table;
+@@ -226,7 +240,7 @@ static int vangogh_tables_init(struct smu_context *smu)
  		goto err0_out;
  	smu_table->metrics_time = 0;
  
--	smu_table->gpu_metrics_table_size = sizeof(struct gpu_metrics_v1_1);
-+	smu_table->gpu_metrics_table_size = sizeof(struct gpu_metrics_v1_3);
+-	smu_table->gpu_metrics_table_size = sizeof(struct gpu_metrics_v2_1);
++	smu_table->gpu_metrics_table_size = sizeof(struct gpu_metrics_v2_2);
  	smu_table->gpu_metrics_table = kzalloc(smu_table->gpu_metrics_table_size, GFP_KERNEL);
  	if (!smu_table->gpu_metrics_table)
  		goto err1_out;
-@@ -3617,8 +3638,8 @@ static ssize_t sienna_cichlid_get_gpu_metrics(struct smu_context *smu,
- 					      void **table)
+@@ -1632,8 +1646,8 @@ static ssize_t vangogh_get_legacy_gpu_metrics(struct smu_context *smu,
+ 				      void **table)
  {
  	struct smu_table_context *smu_table = &smu->smu_table;
--	struct gpu_metrics_v1_1 *gpu_metrics =
--		(struct gpu_metrics_v1_1 *)smu_table->gpu_metrics_table;
-+	struct gpu_metrics_v1_3 *gpu_metrics =
-+		(struct gpu_metrics_v1_3 *)smu_table->gpu_metrics_table;
- 	SmuMetricsExternal_t metrics_external;
- 	SmuMetrics_t *metrics =
- 		&(metrics_external.SmuMetrics);
-@@ -3632,7 +3653,7 @@ static ssize_t sienna_cichlid_get_gpu_metrics(struct smu_context *smu,
+-	struct gpu_metrics_v2_1 *gpu_metrics =
+-		(struct gpu_metrics_v2_1 *)smu_table->gpu_metrics_table;
++	struct gpu_metrics_v2_2 *gpu_metrics =
++		(struct gpu_metrics_v2_2 *)smu_table->gpu_metrics_table;
+ 	SmuMetrics_legacy_t metrics;
+ 	int ret = 0;
+ 
+@@ -1641,7 +1655,7 @@ static ssize_t vangogh_get_legacy_gpu_metrics(struct smu_context *smu,
  	if (ret)
  		return ret;
  
--	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 1, 1);
-+	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 1, 3);
+-	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 2, 1);
++	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 2, 2);
  
- 	gpu_metrics->temperature_edge = metrics->TemperatureEdge;
- 	gpu_metrics->temperature_hotspot = metrics->TemperatureHotspot;
-@@ -3667,6 +3688,9 @@ static ssize_t sienna_cichlid_get_gpu_metrics(struct smu_context *smu,
- 	gpu_metrics->current_dclk1 = metrics->CurrClock[PPCLK_DCLK_1];
+ 	gpu_metrics->temperature_gfx = metrics.GfxTemperature;
+ 	gpu_metrics->temperature_soc = metrics.SocTemperature;
+@@ -1674,20 +1688,23 @@ static ssize_t vangogh_get_legacy_gpu_metrics(struct smu_context *smu,
+ 	gpu_metrics->current_l3clk[0] = metrics.L3Frequency[0];
  
- 	gpu_metrics->throttle_status = metrics->ThrottlerStatus;
+ 	gpu_metrics->throttle_status = metrics.ThrottlerStatus;
 +	gpu_metrics->indep_throttle_status =
-+			smu_cmn_get_indep_throttler_status(metrics->ThrottlerStatus,
-+							   sienna_cichlid_throttler_map);
++			smu_cmn_get_indep_throttler_status(metrics.ThrottlerStatus,
++							   vangogh_throttler_map);
  
- 	gpu_metrics->current_fan_speed = metrics->CurrFanSpeed;
- 
-@@ -3689,7 +3713,7 @@ static ssize_t sienna_cichlid_get_gpu_metrics(struct smu_context *smu,
+ 	gpu_metrics->system_clock_counter = ktime_get_boottime_ns();
  
  	*table = (void *)gpu_metrics;
  
--	return sizeof(struct gpu_metrics_v1_1);
-+	return sizeof(struct gpu_metrics_v1_3);
+-	return sizeof(struct gpu_metrics_v2_1);
++	return sizeof(struct gpu_metrics_v2_2);
  }
  
- static int sienna_cichlid_enable_mgpu_fan_boost(struct smu_context *smu)
+ static ssize_t vangogh_get_gpu_metrics(struct smu_context *smu,
+ 				      void **table)
+ {
+ 	struct smu_table_context *smu_table = &smu->smu_table;
+-	struct gpu_metrics_v2_1 *gpu_metrics =
+-		(struct gpu_metrics_v2_1 *)smu_table->gpu_metrics_table;
++	struct gpu_metrics_v2_2 *gpu_metrics =
++		(struct gpu_metrics_v2_2 *)smu_table->gpu_metrics_table;
+ 	SmuMetrics_t metrics;
+ 	int ret = 0;
+ 
+@@ -1695,7 +1712,7 @@ static ssize_t vangogh_get_gpu_metrics(struct smu_context *smu,
+ 	if (ret)
+ 		return ret;
+ 
+-	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 2, 1);
++	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 2, 2);
+ 
+ 	gpu_metrics->temperature_gfx = metrics.Current.GfxTemperature;
+ 	gpu_metrics->temperature_soc = metrics.Current.SocTemperature;
+@@ -1735,12 +1752,15 @@ static ssize_t vangogh_get_gpu_metrics(struct smu_context *smu,
+ 	gpu_metrics->current_l3clk[0] = metrics.Current.L3Frequency[0];
+ 
+ 	gpu_metrics->throttle_status = metrics.Current.ThrottlerStatus;
++	gpu_metrics->indep_throttle_status =
++			smu_cmn_get_indep_throttler_status(metrics.Current.ThrottlerStatus,
++							   vangogh_throttler_map);
+ 
+ 	gpu_metrics->system_clock_counter = ktime_get_boottime_ns();
+ 
+ 	*table = (void *)gpu_metrics;
+ 
+-	return sizeof(struct gpu_metrics_v2_1);
++	return sizeof(struct gpu_metrics_v2_2);
+ }
+ 
+ static ssize_t vangogh_common_get_gpu_metrics(struct smu_context *smu,
 -- 
 2.17.1
 
