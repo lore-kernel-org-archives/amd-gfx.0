@@ -8,61 +8,60 @@ X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C914CC47082
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 17:18:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6BD56C47094
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 17:20:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8839761029
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 17:18:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8839761029
+	by mail.kernel.org (Postfix) with ESMTPS id 3881A6102A
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 17:20:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3881A6102A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC8A46E95F;
-	Mon,  7 Jun 2021 17:18:40 +0000 (UTC)
-Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
- [IPv6:2607:f8b0:4864:20::22e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 007D36E95E;
- Mon,  7 Jun 2021 17:18:39 +0000 (UTC)
-Received: by mail-oi1-x22e.google.com with SMTP id z3so18808108oib.5;
- Mon, 07 Jun 2021 10:18:39 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8C426E961;
+	Mon,  7 Jun 2021 17:20:32 +0000 (UTC)
+Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com
+ [IPv6:2607:f8b0:4864:20::32e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2FB446E961;
+ Mon,  7 Jun 2021 17:20:32 +0000 (UTC)
+Received: by mail-ot1-x32e.google.com with SMTP id
+ 5-20020a9d01050000b02903c700c45721so16398233otu.6; 
+ Mon, 07 Jun 2021 10:20:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=Bs0iIp2b+xLwRPkKeIWpOD/7m4nhQ2yrv+tV+dY2+Dk=;
- b=ZfJqjDRtbPhKwBfzpuNEpxC+DixbiXqh1fDLnKXYnFPI9Qlf1ttw6aMTd691KAb0Nw
- ap3EFjQ+F1P/azkjwjFcJeplW20c8Wy6rjIAmiBeQoqKJH06tOpZ1ZxK8mXwXNZmU4Mx
- z1Zyl6+qqWUh4SVUR92ud5048RIyYmOg+5JJNAI8yoCx9nbMxHazeBm79+GM1fF22BzC
- LSNRJ7TCk9ni35039MOrYp56Cn62e7XcsMy2W6AAr53IWdOXTJY2MN+62tsZ0I+Aeu6R
- He586b00SYq/ywaPZ6ehXU4jLQGpDiMhI0UNYVyK9P/mkSM36+TBm2C58avFcUFUoNH7
- iQdg==
+ :cc; bh=wIsZEzKuedmNrkE8sWmADzsVq5Ce7bsvNlcNsZxTnRY=;
+ b=g13yFXluOkzEJmOZQmZQEQXcaP5WqUhlO0+vdTKZ+lHxSMjjYXxAPEbAfNwkDboqTH
+ qb1kOYOjC10Rb2yEMyYhFHgRGH5aqUBpJqrCgamlEp/drI181Kw1NC0eP/fbQaUGqgjf
+ lhQ8uJNbtt3vMqD3kalgHbYJAztqVaWdAjhcwZHYRliQfsbFSc0aS426zQ9y/5lo9Z1a
+ cHbJ/l3t/8ToWpcggpaX0kcdYI3JX8mUD09TUlFI4VsveMbMVQtazwsktniMjcPPIjXy
+ mpaTh0FgX2P8TbVNDNi7o4rKHl2X3RFUUSKXmkWi3FtgMaVF018evvpg0idGYoIzmrcn
+ nXAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=Bs0iIp2b+xLwRPkKeIWpOD/7m4nhQ2yrv+tV+dY2+Dk=;
- b=r3hYAcUVCqcpVfUGebT2XfVehWxNqt1cGul5UqWfefrPT4BEYGgUa1wrg7f0K0Yu8G
- LNcqbrJUu5OZwA0lANr2wQ8GIVRdFL+1dX412ZQc7hqJa3pRM3VqUIiv4NH7UHWLw0qm
- LXigxvgzEn7iufZos/DHuzbjTrEqrWcVkOm1odVOkmClmyIGAAtoMlzqFeO3wOpF9twc
- SptQPLh/4WCMuYhn1T1VIt12wYOtVRaPzD5SmyQb3b2/gS0MQaD5hfOrRGR62zHxAzs5
- dZDIezlMVwrFSICNUdzxCBmARLQLe3khW9+9kZ8qHkVxviXmuqnW4ZcJXcdyoJ6LqzZy
- z7vg==
-X-Gm-Message-State: AOAM5319nuCNjcnHRHOhtOORWldoEI0iCgsN0MnYSXYlvSW6IYE/UH5N
- adKVpU7K2S3jQ9fPwI/Z1rAYU4y67ZSi2kU9rdg=
-X-Google-Smtp-Source: ABdhPJyirKNeUEEtw5y9m++p4gcGiiOq1LOMwU9dlkkw7YMYbr+3rPlg1bL7kJG8ZiRpSn4RBR+dXRzlWAbHbNNqDsM=
-X-Received: by 2002:a05:6808:249:: with SMTP id
- m9mr196398oie.120.1623086319382; 
- Mon, 07 Jun 2021 10:18:39 -0700 (PDT)
+ :message-id:subject:to:cc;
+ bh=wIsZEzKuedmNrkE8sWmADzsVq5Ce7bsvNlcNsZxTnRY=;
+ b=KxMQosWhF0mSWzpu6z0s0ngwlfscr+WtGFtrp2WcWW5Ft/t7iZi3WwVrxjwS4ND82+
+ QvWXvD1k/jHmPXoczDgwvRBgNod+cnC0wodqJJ697+rfjx72xMMlxHPaAcZTH3OM8ifp
+ nTxOhkYURyKDNrWnZsneloZTg3TtrG43sYehSjdT0V14vzFBXS+1R26FfqQkJEQr+NlW
+ gUoE4kQpGJf25n60Le0Bn+zhzMoXIxNbGYRQPPyVZnIBK6MmVCXxC+Zl+7lThO60N1dF
+ yZTaQZ0oqfYLHNBDg9Qh7fpxcQArXrBgvvinfmPcEQOMahdr+rCho2CRMGuiYfEVR/LH
+ arpQ==
+X-Gm-Message-State: AOAM530YX81eDPyZRBKypxVjIYggzFPzAeaLqgXslEqc7LXnFeM9wchM
+ mFmx7HUOORsq5boSeJBKIULULdkhBimO6vUeZdh7huWt
+X-Google-Smtp-Source: ABdhPJyEPIh1daP/HlBQeYnqMwlKB+lCnze26NeJPRgO+gQi876Ow+pkdIucW4umZTuqTIDRv1izuUb+vrRu7TofTFU=
+X-Received: by 2002:a9d:6548:: with SMTP id q8mr14588598otl.311.1623086431533; 
+ Mon, 07 Jun 2021 10:20:31 -0700 (PDT)
 MIME-Version: 1.0
-References: <ea7ecbef546a03ef71d65bfe82608bb347e6f3c2.1622883895.git.christophe.jaillet@wanadoo.fr>
- <99a5eba3-2d2a-65a8-9b03-a3d4043c5ec5@gmail.com>
-In-Reply-To: <99a5eba3-2d2a-65a8-9b03-a3d4043c5ec5@gmail.com>
+References: <20210607115615.83162-1-colin.king@canonical.com>
+In-Reply-To: <20210607115615.83162-1-colin.king@canonical.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 7 Jun 2021 13:18:28 -0400
-Message-ID: <CADnq5_PSw_zLDpdpAgxbUKLH54toLyxL23Ytw0q8G+xBzcaeRQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Fix a a typo in a comment
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Date: Mon, 7 Jun 2021 13:20:20 -0400
+Message-ID: <CADnq5_N=++KR_YjOO2DURYfe4Hp3b5=eDVh4Gp7xpcfPXFF8_w@mail.gmail.com>
+Subject: Re: [PATCH][next] drm/amd/display: Fix two spelling mistakes, clean
+ wide lines
+To: Colin King <colin.king@canonical.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,42 +73,67 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dave Airlie <airlied@linux.ie>, xinhui pan <Xinhui.Pan@amd.com>,
+Cc: Leo Li <sunpeng.li@amd.com>, xinhui pan <Xinhui.Pan@amd.com>,
  kernel-janitors@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
  Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, "Deucher,
- Alexander" <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QXBwbGllZC4gIFRoYW5rcyEKCkFsZXgKCk9uIE1vbiwgSnVuIDcsIDIwMjEgYXQgNjo0NiBBTSBD
-aHJpc3RpYW4gS8O2bmlnCjxja29lbmlnLmxlaWNodHp1bWVya2VuQGdtYWlsLmNvbT4gd3JvdGU6
-Cj4KPiBBbSAwNS4wNi4yMSB1bSAxMTowNiBzY2hyaWViIENocmlzdG9waGUgSkFJTExFVDoKPiA+
-IHMvdGhhbi90aGVuLwo+ID4KPiA+IFNpZ25lZC1vZmYtYnk6IENocmlzdG9waGUgSkFJTExFVCA8
-Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI+Cj4KPiBBY2tlZC1ieTogQ2hyaXN0aWFuIEvD
-tm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+Cj4gPiAtLS0KPiA+ICAgZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMgfCAyICstCj4gPiAgIDEgZmlsZSBjaGFuZ2Vk
-LCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQo+ID4KPiA+IGRpZmYgLS1naXQgYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9jcy5jCj4gPiBpbmRleCA4OWViYmYzNjNlMjcuLjE0NzYyMzZmNWM3YyAx
-MDA2NDQKPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jCj4g
-PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYwo+ID4gQEAgLTY2
-Miw3ICs2NjIsNyBAQCBzdGF0aWMgaW50IGFtZGdwdV9jc19zeW5jX3JpbmdzKHN0cnVjdCBhbWRn
-cHVfY3NfcGFyc2VyICpwKQo+ID4gICAgKiBAZXJyb3I6ICBlcnJvciBudW1iZXIKPiA+ICAgICog
-QGJhY2tvZmY6ICAgICAgICBpbmRpY2F0b3IgdG8gYmFja29mZiB0aGUgcmVzZXJ2YXRpb24KPiA+
-ICAgICoKPiA+IC0gKiBJZiBlcnJvciBpcyBzZXQgdGhhbiB1bnZhbGlkYXRlIGJ1ZmZlciwgb3Ro
-ZXJ3aXNlIGp1c3QgZnJlZSBtZW1vcnkKPiA+ICsgKiBJZiBlcnJvciBpcyBzZXQgdGhlbiB1bnZh
-bGlkYXRlIGJ1ZmZlciwgb3RoZXJ3aXNlIGp1c3QgZnJlZSBtZW1vcnkKPiA+ICAgICogdXNlZCBi
-eSBwYXJzaW5nIGNvbnRleHQuCj4gPiAgICAqKi8KPiA+ICAgc3RhdGljIHZvaWQgYW1kZ3B1X2Nz
-X3BhcnNlcl9maW5pKHN0cnVjdCBhbWRncHVfY3NfcGFyc2VyICpwYXJzZXIsIGludCBlcnJvciwK
-Pgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gYW1k
-LWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeApfX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcg
-bGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
-dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+Applied.  Thanks!
+
+Alex
+
+On Mon, Jun 7, 2021 at 7:58 AM Colin King <colin.king@canonical.com> wrote:
+>
+> From: Colin Ian King <colin.king@canonical.com>
+>
+> There are two spelling mistakes in dml_print messages, fix these and
+> clear up checkpatch warning on overly wide line length.
+>
+> Signed-off-by: Colin Ian King <colin.king@canonical.com>
+> ---
+>  .../drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c | 10 ++++++----
+>  1 file changed, 6 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
+> index c725160a095b..d655655baaba 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
+> @@ -1494,10 +1494,11 @@ static bool CalculatePrefetchSchedule(
+>                 dml_print(
+>                                 "DML:  Tsw: %fus = time to fetch enough pixel data and cursor data to feed the scalers init position and detile\n",
+>                                 (double) LinesToRequestPrefetchPixelData * LineTime);
+> -               dml_print("DML: To: %fus - time for propogation from scaler to optc\n", (*DSTYAfterScaler + ((double) (*DSTXAfterScaler) / (double) myPipe->HTotal)) * LineTime);
+> +               dml_print("DML: To: %fus - time for propagation from scaler to optc\n",
+> +                         (*DSTYAfterScaler + ((double) (*DSTXAfterScaler) /
+> +                         (double) myPipe->HTotal)) * LineTime);
+>                 dml_print("DML: Tvstartup - TSetup - Tcalc - Twait - Tpre - To > 0\n");
+> -               dml_print(
+> -                               "DML: Tslack(pre): %fus - time left over in schedule\n",
+> +               dml_print("DML: Tslack(pre): %fus - time left over in schedule\n",
+>                                 VStartup * LineTime - TimeForFetchingMetaPTE - 2 * TimeForFetchingRowInVBlank
+>                                                 - (*DSTYAfterScaler + ((double) (*DSTXAfterScaler) / (double) myPipe->HTotal)) * LineTime - TWait - TCalc - *TSetup);
+>                 dml_print("DML: row_bytes = dpte_row_bytes (per_pipe) = PixelPTEBytesPerRow = : %d\n", PixelPTEBytesPerRow);
+> @@ -3023,7 +3024,8 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
+>                         for (k = 0; k < v->NumberOfActivePlanes; ++k) {
+>                                 if (v->ImmediateFlipSupportedForPipe[k] == false) {
+>  #ifdef __DML_VBA_DEBUG__
+> -                                       dml_print("DML::%s: Pipe %0d not supporing iflip\n", __func__, k);
+> +                                       dml_print("DML::%s: Pipe %0d not supporting iflip\n",
+> +                                                 __func__, k);
+>  #endif
+>                                         v->ImmediateFlipSupported = false;
+>                                 }
+> --
+> 2.31.1
+>
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
