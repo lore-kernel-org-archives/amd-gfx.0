@@ -7,48 +7,48 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 95711C47082
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 16:48:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 10103C47094
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 16:48:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5D51760FE5
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 16:48:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5D51760FE5
+	by mail.kernel.org (Postfix) with ESMTPS id CDE5E60FE5
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 16:48:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CDE5E60FE5
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22E746E939;
-	Mon,  7 Jun 2021 16:48:38 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam07on2057.outbound.protection.outlook.com [40.107.95.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7BA246E939
- for <amd-gfx@lists.freedesktop.org>; Mon,  7 Jun 2021 16:48:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FC026E928;
+	Mon,  7 Jun 2021 16:48:41 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam08on2068.outbound.protection.outlook.com [40.107.102.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB1816E928
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Jun 2021 16:48:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PSWpNH8UOp7JQxvaFkdLrfnwoXbujNNLeYLECdAXmdDGTmaZRGwWFk57S1XCOpkKnB6DCgSDsGEL7yt8EsvGouiomsL2nDDGit/JdDCkfXXHSSmrnFqmAyGgwen/pwt1Bu96z05LNIbg5SZJM/HMuEqCpIDsk44oHNJ3Ue8MpEyaPWJAsTD4jXOcBdXeSTMEhbQhFpdRWOzBlba/zbyggakdCUZfWFIDUM5Y8UEkjDxa2sxkML3arlJ5PeLZ4qWbJToPx4UoRk35xcIsHudjo6BIDa48ZpgzdT8qOdfCNE4x2CYpOKfR92N5xTxcSITX/YY15qhyrE2XKCsO9cHJHQ==
+ b=hKPO6iwSy2acmnRLPccdJRIWCPa12tSUAhH30Fv57RY/ZyFSN3JIGAEr+ZhItWGBJUFjDRS7CWfxm4zX55knDz4m6eTA4zYA9y3d4D2hf/P7verAxj5iwznxZzCwCedKrGWp+2zEDqc6FdgCofpb0GTr4NOqvqiITGPFag+lnyJolu2Os9IHqeSl7WWEcumsgn780EkNLKfxA+WfbsrAgsEKJkHAjKcWij9UHTH8uPj3mhi/VsN8f7ocn+LHbj2RZ0D4EpE3ubwS0bhOBiGRlgK7i+3SMaRTrlMo3kFZWOOsKypdQla+e3BX2A9KoFEUYHO5uRH7HMCiZjjBq6Wq4g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nKZhbE0LjtvMtpIb3csv9juNDflk6wO5gJx6DSiRaH0=;
- b=LSOmzcIYUfyS5rBJ5rV8qu2Il7aZ7QqllVz3w3GHrQ9OuL2aQ1IMStRUM/ZjaR0ymDbMHbSETer0y6wmEh3UUo80d8dGY8ffy0im7Y5O/mMEzZlg7pQTaworvQKsrWp774UH+CdUZBPQ2W7Bz7WlpN2wUO0ZGEPzHXwrmk2DBwTx14uWdHIfhzQy25IFxfsJmbBI00Nv/rK/GvDoxA+mrJA2u19EuTv/kqGisZSlikgcu0T76Hq3TskLC89R2idk6dHT0DwGdT+zTpR4vQUmJQjxV8/LjibqUqgSkcdPZIFjQIvJN+GbT9L3c72hPqImNfiv4u2P/ry1c1EFbNvh8Q==
+ bh=ZzRwlP0IfVfQR8sp6qIfQ6Y453zmk65r93Md7NVA0DA=;
+ b=PVW5B1Pxw7fcgrIq9ZbT4CyKYzfZcwIlqJu9eve4J3uAdaAd5j9lJFoiVrYo+lZIhBMoIpkH+zThz1PtzMBKS6iG3Ktx/N9N95HfrRvWOod2BuRghcGqPlfehKOEwY90D5yTKNUY2nGBRrKwMzlzgOy2lw3YK317nXcsx5+RTNzvrja8laG0B2xRO68Boqjugl1+5wmArfkHvBwEt7tS9TLUjwRfk7l1BfdOQB9E4KtSihY5VfsSCZQeCqI2kf+djFl5Aek/8btJf8Ec9cFO1HMGmHMHfBeu57IUG1SkYeBInqnTdTT28T5xH+duBsJbuaz11MdF6PENIw3Vufk8OA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nKZhbE0LjtvMtpIb3csv9juNDflk6wO5gJx6DSiRaH0=;
- b=PCwwmrlxEumew/7TZV3YoX/06WugniQg10QwQmE6dlipFsR2AMpDCH9iusSz7AY45GzJnQeMn0/0cRG/BRN8tP65ZnsbMwO+5L033A22FvDgjsby/y6OVruBCQIDy/JVGvM4lxPTfd66IUXXm3C7eI4gYOLNKVrpp4OrGdtf7+U=
-Received: from BN6PR13CA0038.namprd13.prod.outlook.com (2603:10b6:404:13e::24)
- by MN2PR12MB3949.namprd12.prod.outlook.com (2603:10b6:208:167::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.25; Mon, 7 Jun
- 2021 16:48:34 +0000
-Received: from BN8NAM11FT058.eop-nam11.prod.protection.outlook.com
- (2603:10b6:404:13e:cafe::af) by BN6PR13CA0038.outlook.office365.com
- (2603:10b6:404:13e::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.9 via Frontend
- Transport; Mon, 7 Jun 2021 16:48:34 +0000
+ bh=ZzRwlP0IfVfQR8sp6qIfQ6Y453zmk65r93Md7NVA0DA=;
+ b=lTSMdl8A7O45WSiyM4Uos/4tVgg9AVX2JMPCuLep562UEGDhE7TqtXAw6LoYBt1chp3jaEz/Thdtbj9AaQqHOyWV7QMIkmvI8fCdJc5YgvhyJtCp9yYt193PIky1PQJmAuTKey6uJpfRkqwfQD+BCCp7WrvUOmiftDFC+eAoYFQ=
+Received: from BN6PR2001CA0032.namprd20.prod.outlook.com
+ (2603:10b6:405:16::18) by BYAPR12MB2695.namprd12.prod.outlook.com
+ (2603:10b6:a03:71::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.26; Mon, 7 Jun
+ 2021 16:48:37 +0000
+Received: from BN8NAM11FT049.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:405:16:cafe::80) by BN6PR2001CA0032.outlook.office365.com
+ (2603:10b6:405:16::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.20 via Frontend
+ Transport; Mon, 7 Jun 2021 16:48:37 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -57,19 +57,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT058.mail.protection.outlook.com (10.13.177.58) with Microsoft SMTP
+ BN8NAM11FT049.mail.protection.outlook.com (10.13.177.157) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4195.22 via Frontend Transport; Mon, 7 Jun 2021 16:48:34 +0000
+ 15.20.4195.22 via Frontend Transport; Mon, 7 Jun 2021 16:48:37 +0000
 Received: from stylon-rog.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Mon, 7 Jun 2021
- 11:48:30 -0500
+ 11:48:33 -0500
 From: Stylon Wang <stylon.wang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 14/30] drm/amd/display: Enable PSR Residency for multiple
- panels
-Date: Tue, 8 Jun 2021 00:46:58 +0800
-Message-ID: <20210607164714.311325-15-stylon.wang@amd.com>
+Subject: [PATCH 15/30] drm/amd/display: Release MST resources on switch from
+ MST to SST
+Date: Tue, 8 Jun 2021 00:46:59 +0800
+Message-ID: <20210607164714.311325-16-stylon.wang@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210607164714.311325-1-stylon.wang@amd.com>
 References: <20210607164714.311325-1-stylon.wang@amd.com>
@@ -79,27 +79,27 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 07ee1da4-373f-4361-7ebe-08d929d416c0
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3949:
-X-Microsoft-Antispam-PRVS: <MN2PR12MB394971A5FDF1598AF300E056FF389@MN2PR12MB3949.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2582;
+X-MS-Office365-Filtering-Correlation-Id: 5bc1fe7a-0935-432f-c83c-08d929d418a1
+X-MS-TrafficTypeDiagnostic: BYAPR12MB2695:
+X-Microsoft-Antispam-PRVS: <BYAPR12MB2695679BA8313EA736332202FF389@BYAPR12MB2695.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3383;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: rm/J2UclI/b54FMH8Oun0iyNa5nmuRGLT4xd/LoC8zMTWbNhuzR5Y5nkz/jkArLMlnKZekUggLvScRZ9menbEQjwvQYW8j4h1fOpSRCPaHQ+nPUsyvcXUArKD4JOub70khd4KW+TBcCnkgHwtbLRgKIHmpweYdBQIMud7Nu8ywvbzTZ0788o5o/tb/G9lqr05vSxXa42rnv8ZRX7SysOxOR1A8jRQ8PnFOMDtKyfianZkVuBgwhW1Wlm65SWvCYXR1X08/2MntkrCYkTZ3Tgywo7f2dI4lpO09wdn14YjmGiJ5OoQrbFLX3BTFA8Wye+KrI/RKrhE19yr4bN239tYuAG9U57pZ1BRN60RUSzC3bNXgHrFBaowrwiycr5wkMXM0bYHRrkWozNjbS36TA+EFGHQLNcWwxq2y9ajouoET+UZ5Qkf0iRACCaSptBkbQwkrnlhbBGaSzbj4dqFJPv35h9dwu+t1+GuguDVYUzLgw+jwuVXRXaHq716Q+jQ0GDaYtus66tmMaalr3/B/xvmGCRICSBMCMS/inrLgMb6HCNXzaS6ty6bBnRkZg41mOuRWiXzAKgfXDRGHNmhL91VFWgmpPTRf1aDLrsMe63L8bvTc+UIBS/wSIuPtFKavItndvX2wIWZcxXRMGTu/nxu57Jl2/TzxQiOVkGVn423Wfj7vmluLYIXbUjUV7N4pWf
+X-Microsoft-Antispam-Message-Info: umBAPjxNMcfu3NfToiwbqCfB8lQe4pO4Awt3NB56IPi/d9Maq7ijeOy0IL2z30TbrHogGqcm4zoa2Kt/UDdbZruEaLe7LALwn2/Up5XX/h6U9QTLvhtpVeTj08HTS34ce+RcCrHp1KixTgtqGp0ubLkc9qKpjBoen6dnt10uGRKy+MoMAS7Gu4+NARWqIKUQrXj+tlduW93otcB4EMom8onE7t473tX2rqWbQkisD1YqgTzqi1Q82HP6vPDC38068tct/n1N9Y96ww/KxN6D5N7SJLJ8M5SLw11HUzi7zT7LLiZR1s43Sh+P/fGknM9RSxmuvzLfWUhjZszk5lyh2A7ytnvLWV6QbKCIoBpG113NSus9WYYJYnHEPZxyQgfCUrZOrf4MjpARJ+JZWbDpb74F4S6LuMUZpYpvDRhoM70Nep//Jf8CbuH623+8hPhNVEZywefLriAo6trSq1ud5pF4UoYlBIWsruY1jKJ8S66bCjLt/3SEDyKPQ2R4xO56CFc7JdcQ3oXiXkc1q37bHoE3/NmjltlUyYrp6P7iXXCVQQuxsCAYP0IM//JTVx0oLwuvlnuZhf4cz765JLukIcRHegGPryNVCNbu8yoU65969sAxbRlYT2gQcXOFOScp4Szng0/hZEVlRt/k8zdLS+dSywi1AGymm0+bxioEwSYfhJ+nTP6Pj0I9cBm0qq/K
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(396003)(136003)(346002)(376002)(39860400002)(36840700001)(46966006)(36860700001)(1076003)(83380400001)(8936002)(2616005)(70206006)(82740400003)(336012)(6666004)(8676002)(82310400003)(26005)(16526019)(186003)(70586007)(2906002)(81166007)(356005)(6916009)(44832011)(316002)(54906003)(36756003)(478600001)(7696005)(86362001)(47076005)(5660300002)(4326008)(426003)(36900700001);
+ SFS:(4636009)(396003)(376002)(136003)(346002)(39860400002)(46966006)(36840700001)(16526019)(7696005)(316002)(54906003)(186003)(36756003)(26005)(478600001)(70206006)(44832011)(8936002)(6916009)(5660300002)(47076005)(86362001)(426003)(336012)(82740400003)(1076003)(82310400003)(2906002)(4326008)(36860700001)(8676002)(6666004)(356005)(81166007)(70586007)(2616005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2021 16:48:34.0715 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 07ee1da4-373f-4361-7ebe-08d929d416c0
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2021 16:48:37.2267 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5bc1fe7a-0935-432f-c83c-08d929d418a1
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT058.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT049.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3949
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2695
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,90 +111,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Stylon Wang <stylon.wang@amd.com>, Eryk.Brol@amd.com, Sunpeng.Li@amd.com,
+Cc: Vladimir Stempen <vladimir.stempen@amd.com>,
+ Stylon Wang <stylon.wang@amd.com>, Eryk.Brol@amd.com, Sunpeng.Li@amd.com,
  Harry.Wentland@amd.com, Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com,
- Anson.Jacob@amd.com, Aurabindo.Pillai@amd.com,
- Mikita Lipski <mikita.lipski@amd.com>, Bhawanpreet.Lakha@amd.com,
- Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>, bindu.r@amd.com
+ Wenjing Liu <Wenjing.Liu@amd.com>, Anson.Jacob@amd.com,
+ Aurabindo.Pillai@amd.com, Bhawanpreet.Lakha@amd.com, bindu.r@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Mikita Lipski <mikita.lipski@amd.com>
+From: Vladimir Stempen <vladimir.stempen@amd.com>
 
 [why]
-Allow specifying which panel to take PSR Residency
-measurements from.
-[how]
-Pass panel instance to DMUB through GPINT in the upper
-8 bits of the parameter.
+When OS overrides training link training parameters
+for MST device to SST mode, MST resources are not
+released and leak of the resource may result crash and
+incorrect MST discovery during following hot plugs.
 
-Signed-off-by: Mikita Lipski <mikita.lipski@amd.com>
-Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
+[how]
+Retaining sink object to be reused by SST link and
+releasing MST  resources.
+
+Signed-off-by: Vladimir Stempen <vladimir.stempen@amd.com>
+Reviewed-by: Wenjing Liu <Wenjing.Liu@amd.com>
 Acked-by: Stylon Wang <stylon.wang@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc_link.c | 8 ++++++--
- drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c | 7 ++++---
- drivers/gpu/drm/amd/display/dc/dce/dmub_psr.h | 3 ++-
- 3 files changed, 12 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-index ce637bf0cb81..d1ade55a8d47 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-@@ -2928,10 +2928,14 @@ void dc_link_get_psr_residency(const struct dc_link *link, uint32_t *residency)
- {
- 	struct dc  *dc = link->ctx->dc;
- 	struct dmub_psr *psr = dc->res_pool->psr;
-+	unsigned int panel_inst;
-+
-+	if (!dc_get_edp_link_panel_inst(dc, link, &panel_inst))
-+		return;
- 
--	// PSR residency measurements only supported on DMCUB
-+	/* PSR residency measurements only supported on DMCUB */
- 	if (psr != NULL && link->psr_settings.psr_feature_enabled)
--		psr->funcs->psr_get_residency(psr, residency);
-+		psr->funcs->psr_get_residency(psr, residency, panel_inst);
- 	else
- 		*residency = 0;
- }
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c b/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
-index c41db6d4e794..10d42ae0cffe 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
-@@ -327,12 +327,13 @@ static void dmub_psr_force_static(struct dmub_psr *dmub, uint8_t panel_inst)
- /*
-  * Get PSR residency from firmware.
-  */
--static void dmub_psr_get_residency(struct dmub_psr *dmub, uint32_t *residency)
-+static void dmub_psr_get_residency(struct dmub_psr *dmub, uint32_t *residency, uint8_t panel_inst)
- {
- 	struct dmub_srv *srv = dmub->ctx->dmub_srv->dmub;
-+	uint16_t param = (uint16_t)(panel_inst << 8);
- 
--	// Send gpint command and wait for ack
--	dmub_srv_send_gpint_command(srv, DMUB_GPINT__PSR_RESIDENCY, 0, 30);
-+	/* Send gpint command and wait for ack */
-+	dmub_srv_send_gpint_command(srv, DMUB_GPINT__PSR_RESIDENCY, param, 30);
- 
- 	dmub_srv_get_gpint_response(srv, residency);
- }
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.h b/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.h
-index bf73c7edbd9e..9675c269e649 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.h
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.h
-@@ -44,7 +44,8 @@ struct dmub_psr_funcs {
- 	void (*psr_set_level)(struct dmub_psr *dmub, uint16_t psr_level,
- 	uint8_t panel_inst);
- 	void (*psr_force_static)(struct dmub_psr *dmub, uint8_t panel_inst);
--	void (*psr_get_residency)(struct dmub_psr *dmub, uint32_t *residency);
-+	void (*psr_get_residency)(struct dmub_psr *dmub, uint32_t *residency,
-+	uint8_t panel_inst);
- };
- 
- struct dmub_psr *dmub_psr_create(struct dc_context *ctx);
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+index 87f955820c0f..919c94de2a20 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+@@ -1917,6 +1917,8 @@ static void set_dp_mst_mode(struct dc_link *link, bool mst_enable)
+ 		link->type = dc_connection_single;
+ 		link->local_sink = link->remote_sinks[0];
+ 		link->local_sink->sink_signal = SIGNAL_TYPE_DISPLAY_PORT;
++		dc_sink_retain(link->local_sink);
++		dm_helpers_dp_mst_stop_top_mgr(link->ctx, link);
+ 	} else if (mst_enable == true &&
+ 			link->type == dc_connection_single &&
+ 			link->remote_sinks[0] != NULL) {
 -- 
 2.25.1
 
