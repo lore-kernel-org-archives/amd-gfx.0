@@ -7,41 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 78254C48BE5
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 16:14:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 22A9AC47082
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 16:14:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4E607613FA
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 16:14:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4E607613FA
+	by mail.kernel.org (Postfix) with ESMTPS id DEBDE61628
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 16:14:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DEBDE61628
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04C516E917;
-	Mon,  7 Jun 2021 16:14:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2633A6E91E;
+	Mon,  7 Jun 2021 16:14:44 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DCD06E917;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA6A76E91D;
+ Mon,  7 Jun 2021 16:14:42 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 6AD6D6162D;
  Mon,  7 Jun 2021 16:14:41 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 1C9B76161F;
- Mon,  7 Jun 2021 16:14:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1623082480;
- bh=f80SMjVXuFIG2vJ6MBNISobFfAFhDGaZoem9OetOAbY=;
+ s=k20201202; t=1623082482;
+ bh=mYvHvXZJaZFo1WptzMlwCY+IEbNrIkIXURIIStBeZKI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=W69zjaYceNwq//dRUVFIePtkjk6zsPxK1JUUauaOb4ajtbMJGFpvrOrhJL9rtYZHU
- h6RpP2FuPBVA5NAmSBYAvyCDYrDKHxBqVY0FyIDmzOfI8lXMSjdDgIL2zkbMMjKuSe
- gcpSk25cr+IcCKC0JeQKqLSkxipuyxa1QFzjrszZNuY8hhe/trMcYpqnxvfhJ3NbO4
- fDe5I6s3pXy0Bz4VCWu+hMe/3Rebn5heiO+HTTYcTSDj41JP6ABMYO1gq/GeD2izcW
- KQQbt/9BFZ8z3BfU5nHlsiYxnvfV1MCDFaa+arTkIFGAIWJXZMnoLB9rmLuRivSMwf
- TJum/DdLLbxMA==
+ b=ExJNOpK41OvZ+98kiqxX0vMCQ1/UUn7qJ1si43Y2fz+zi5rST9oTAS+vdJLRCuTsY
+ aErGWWiJTY4EJ05AmwYUco7n2x/GoOqwNaJ2pzV7y5abrtLWWnjg5fKVaLvCTKHmaE
+ xjGkXEL/DUr5J8xApfOaKNfpWDcFUwIrfgQGNIJNSIVmxQpVyL6eTiFkbcYHOltG5c
+ yMcWACHa52zOh4T1UiRzSOGI1wWHvXL1ojaaT5B+LHrtfmCXGyU0sgRkjlUJbzp38d
+ lCAcxc/UZQETbNvYFFDDHaZG9lFlju56NPmKA7PUBIyVP5v/UNtqqd6lCkYQNxd7jX
+ LZLEmsvhFVqlA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 24/29] drm/amd/display: Allow bandwidth validation
- for 0 streams.
-Date: Mon,  7 Jun 2021 12:14:05 -0400
-Message-Id: <20210607161410.3584036-24-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 25/29] drm/amd/display: Fix overlay validation by
+ considering cursors
+Date: Mon,  7 Jun 2021 12:14:06 -0400
+Message-Id: <20210607161410.3584036-25-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210607161410.3584036-1-sashal@kernel.org>
 References: <20210607161410.3584036-1-sashal@kernel.org>
@@ -59,49 +59,84 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Roman Li <Roman.Li@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>, Bindu Ramamurthy <bindu.r@amd.com>
+Cc: Sasha Levin <sashal@kernel.org>, Harry Wentland <harry.wentland@amd.com>,
+ "Tianci . Yin" <tianci.yin@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
+ Daniel Wheeler <daniel.wheeler@amd.com>, Nicholas Choi <nicholas.choi@amd.com>,
+ dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>,
+ Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>,
+ Mark Yacoub <markyacoub@google.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Bindu Ramamurthy <bindu.r@amd.com>
+From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 
-[ Upstream commit ba8e59773ae59818695d1e20b8939282da80ec8c ]
+[ Upstream commit 33f409e60eb0c59a4d0d06a62ab4642a988e17f7 ]
 
-[Why]
-Bandwidth calculations are triggered for non zero streams, and
-in case of 0 streams, these calculations were skipped with
-pstate status not being updated.
+A few weeks ago, we saw a two cursor issue in a ChromeOS system. We
+fixed it in the commit:
 
-[How]
-As the pstate status is applicable for non zero streams, check
-added for allowing 0 streams inline with dcn internal bandwidth
-validations.
+ drm/amd/display: Fix two cursor duplication when using overlay
+ (read the commit message for more details)
 
-Signed-off-by: Bindu Ramamurthy <bindu.r@amd.com>
-Reviewed-by: Roman Li <Roman.Li@amd.com>
+After this change, we noticed that some IGT subtests related to
+kms_plane and kms_plane_scaling started to fail. After investigating
+this issue, we noticed that all subtests that fail have a primary plane
+covering the overlay plane, which is currently rejected by amdgpu dm.
+Fail those IGT tests highlight that our verification was too broad and
+compromises the overlay usage in our drive. This patch fixes this issue
+by ensuring that we only reject commits where the primary plane is not
+fully covered by the overlay when the cursor hardware is enabled. With
+this fix, all IGT tests start to pass again, which means our overlay
+support works as expected.
+
+Cc: Tianci.Yin <tianci.yin@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Nicholas Choi <nicholas.choi@amd.com>
+Cc: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
+Cc: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
+Cc: Mark Yacoub <markyacoub@google.com>
+Cc: Daniel Wheeler <daniel.wheeler@amd.com>
+
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-index 08062de3fbeb..2b1175bb2dae 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-@@ -2917,7 +2917,7 @@ bool dcn20_validate_bandwidth(struct dc *dc, struct dc_state *context,
- 	voltage_supported = dcn20_validate_bandwidth_internal(dc, context, false);
- 	dummy_pstate_supported = context->bw_ctx.bw.dcn.clk.p_state_change_support;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 6e31e899192c..29657844bac1 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -7272,7 +7272,7 @@ static int validate_overlay(struct drm_atomic_state *state)
+ 	int i;
+ 	struct drm_plane *plane;
+ 	struct drm_plane_state *old_plane_state, *new_plane_state;
+-	struct drm_plane_state *primary_state, *overlay_state = NULL;
++	struct drm_plane_state *primary_state, *cursor_state, *overlay_state = NULL;
  
--	if (voltage_supported && dummy_pstate_supported) {
-+	if (voltage_supported && (dummy_pstate_supported || !(context->stream_count))) {
- 		context->bw_ctx.bw.dcn.clk.p_state_change_support = false;
- 		goto restore_dml_state;
- 	}
+ 	/* Check if primary plane is contained inside overlay */
+ 	for_each_oldnew_plane_in_state_reverse(state, plane, old_plane_state, new_plane_state, i) {
+@@ -7302,6 +7302,14 @@ static int validate_overlay(struct drm_atomic_state *state)
+ 	if (!primary_state->crtc)
+ 		return 0;
+ 
++	/* check if cursor plane is enabled */
++	cursor_state = drm_atomic_get_plane_state(state, overlay_state->crtc->cursor);
++	if (IS_ERR(cursor_state))
++		return PTR_ERR(cursor_state);
++
++	if (drm_atomic_plane_disabling(plane->state, cursor_state))
++		return 0;
++
+ 	/* Perform the bounds check to ensure the overlay plane covers the primary */
+ 	if (primary_state->crtc_x < overlay_state->crtc_x ||
+ 	    primary_state->crtc_y < overlay_state->crtc_y ||
 -- 
 2.30.2
 
