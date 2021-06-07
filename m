@@ -7,128 +7,123 @@ X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4467BC47094
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 14:31:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 07975C47082
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 14:35:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F1B2761159
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 14:31:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F1B2761159
+	by mail.kernel.org (Postfix) with ESMTPS id C1E876109F
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 14:35:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C1E876109F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA8406E8E8;
-	Mon,  7 Jun 2021 14:31:14 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2068.outbound.protection.outlook.com [40.107.237.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72BC86E8E8
- for <amd-gfx@lists.freedesktop.org>; Mon,  7 Jun 2021 14:31:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78F766E8E9;
+	Mon,  7 Jun 2021 14:35:28 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2062.outbound.protection.outlook.com [40.107.243.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A08F6E8E9
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Jun 2021 14:35:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=edlFGbcFjz3WmgZ+6eShYerCw0juAqqT8eD+07IVPFeM4zIJuIB9mmsOWpE0xSCDoiIBG753NX1nsBLk8PM6bI2cDOPtV400+4iX8AHLwrhfW1qPbxbshjckcSFeopitXp5tPz+4CGh1B3EjBjUidy7U0awP49H2wVxvBMT7EDQ77CJI4UcBvlG1chscUIB+Ee/7Bg+1H1d6+ulG3CQFp3Wa2JW17ypQd0vpO1P6oB6gtlXINVQa9I5SeX5WkEHHEmDDeZlnzCbgy8/Wk2Qwl23R4fjbmTRIoC+VNOmP2TIMW1dcfOcxHqi8d2He9sm7sP4BQm+aRtPDfzTlFbmc/g==
+ b=PtF8f528CZ9QS+/FC6nGlH3is4U6rQ9Hh7Z9jRTDGAFdm/uMuB85SF/RZfyGu25+SRXxDOvVacdpI8AkHFw8uXlJR+MoCFZb1yAds0DZ5PJWurbGwGTiXSiHnzb0+SACoGiSZv7SljRUT1cZbgi5gl/9F+WasyoR+EAnF2ctZEKhYny+xVy+uA0G8cRU2TOBe3iPl+6OCAfsWTiYcdlydC733VMvSYz45/TymKk+aQ+YJjHxC3IPayV0LYR17KnNK3lhAiOQuDwOBpGIW+oG1RsCocCBSqZSs3TAjAiF2hliSWZEs6IQek75SbJF6GKld6iLg5kqBys++3sT2yyYEQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=G/M1hyHUKwcVJkp6ov1GAx8oRfhg3/ocsRBiLRZAxys=;
- b=mu05I+FXfb6gxwnMb698Fi0LArntSaZPRFNHf8grd4YrTE0fw+isyGisVdEbjm4RW5mnPxDD7D6wBUmCIRneJ8U3svFMtAeA0RWlEl4qQukefIK1AMtNyqfvG3LNsxBOvlByYlwZVf4I24l454a96vn2DVBpCINV5JTwKplD35y/3koWPvo42YmaLc0DX+4GkPOL4CH0EhebE/A3AZ4cx/z/zhpQppffhKJUSSDOIb8yo9r6y5qC8Qw4Qa7G7EXmnrfUYU2gvjsqPXahzY10d+1WwQBkhCzCCkE2dHuqLeSahNS3kSzdbNYffU5RMjja5c3vppgVRe8XaMUbjbjfNw==
+ bh=+krYgdWLztVF4nrfNn4cEZkRSZS94aAfwSvio3q/VMY=;
+ b=UE4BEEai1afGXOGnimJrO8Ma+mIV3JLbKqp2vnScA/2qr7s0JePfeQssTFGfQ4HQnYJCethrJNganVYDqvBIiE/NCGE3PuaneAfq5AjpAVNl9VK3NCiiO7OCxum5gutRAWiSmszVqQXFMQp+BKcsV1JulpRDJUwBrBhV7lqYg3uOUg55T1Kj30gih7by/GJozFwtJ0g+yPMpParAguuIOPoEJS7RgoMza7MXfeNJ3WgMmv28oV7WpXsWz/GTcOtccGCblp10uC7GDNFZgLYafir/pGbMa/xMGTtzXp+YZZtDT8nVuSVKHZtUt/eETsvdt35HZqIBrcDEyuTSrGe0sQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=G/M1hyHUKwcVJkp6ov1GAx8oRfhg3/ocsRBiLRZAxys=;
- b=f/Bp3A36yvomtn9TZlhSENrvlSKlIHJRQkZogKL+xMJNj6N9Le8oVnqQCsAE62JEc8BJCHcMf/9tftGGtcJqLtrtjL8utqC8Gr5tYEhMyH7nPxSg25cQkIKXzCGtszaJlxX73oY0qYfUNZvX2YvPtWKAIK0AF0trk8oLxZxmscc=
+ bh=+krYgdWLztVF4nrfNn4cEZkRSZS94aAfwSvio3q/VMY=;
+ b=DBb3jl/f2jWDnuSEfgHfcjDrwsOs449Tr8t7x6Y+v8OAFS1GL/ziCxLYbikmtVtVNG42zorjQKWWfodxPXwXt1BczqemOoflzPbdvTJICjCtf48lLrw1bVhf+Vq+Qn23HyiTiO49Xn+hjS5EBFk+QVqtdQ3M6RkNEnzEGE2K6c8=
 Authentication-Results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
- by MN2PR12MB4205.namprd12.prod.outlook.com (2603:10b6:208:198::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.24; Mon, 7 Jun
- 2021 14:31:06 +0000
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::6d4d:4674:1cf6:8d34]) by MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::6d4d:4674:1cf6:8d34%6]) with mapi id 15.20.4195.030; Mon, 7 Jun 2021
- 14:31:06 +0000
-Subject: Re: [PATCH] drm/amdgpu: Use PSP to program IH_RB_CNTL_RING1/2 on SRIOV
-To: Rohit Khaire <rohit.khaire@amd.com>, amd-gfx@lists.freedesktop.org,
- Alexander Deucher <Alexander.Deucher@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>, Emily Deng <Emily.Deng@amd.com>,
- Monk Liu <Monk.Liu@amd.com>, Peng Ju Zhou <PengJu.Zhou@amd.com>,
- Horace Chen <Horace.Chen@amd.com>
-References: <20210607142343.13509-1-rohit.khaire@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <392d7f26-51d6-f60e-6081-870afe8276b7@amd.com>
-Date: Mon, 7 Jun 2021 16:31:00 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
-In-Reply-To: <20210607142343.13509-1-rohit.khaire@amd.com>
+Received: from CH0PR12MB5348.namprd12.prod.outlook.com (2603:10b6:610:d7::9)
+ by CH0PR12MB5388.namprd12.prod.outlook.com (2603:10b6:610:d7::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.20; Mon, 7 Jun
+ 2021 14:35:25 +0000
+Received: from CH0PR12MB5348.namprd12.prod.outlook.com
+ ([fe80::80e7:eb2e:843d:91e9]) by CH0PR12MB5348.namprd12.prod.outlook.com
+ ([fe80::80e7:eb2e:843d:91e9%3]) with mapi id 15.20.4195.030; Mon, 7 Jun 2021
+ 14:35:25 +0000
+Subject: Re: [PATCH v5 7/9] drm/amd/pm: Add vangogh throttler translation
+To: Graham Sider <Graham.Sider@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20210607134439.28542-1-Graham.Sider@amd.com>
+ <20210607134439.28542-7-Graham.Sider@amd.com>
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+Message-ID: <26b9761c-eb4d-6c30-7817-18054efb6006@amd.com>
+Date: Mon, 7 Jun 2021 20:05:12 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
+In-Reply-To: <20210607134439.28542-7-Graham.Sider@amd.com>
 Content-Language: en-US
-X-Originating-IP: [2a02:908:1252:fb60:ce67:4e4d:875d:ffeb]
-X-ClientProxiedBy: AM9P195CA0009.EURP195.PROD.OUTLOOK.COM
- (2603:10a6:20b:21f::14) To MN2PR12MB3775.namprd12.prod.outlook.com
- (2603:10b6:208:159::19)
+X-Originating-IP: [165.204.159.242]
+X-ClientProxiedBy: MA1PR0101CA0018.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a00:21::28) To CH0PR12MB5348.namprd12.prod.outlook.com
+ (2603:10b6:610:d7::9)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2a02:908:1252:fb60:ce67:4e4d:875d:ffeb]
- (2a02:908:1252:fb60:ce67:4e4d:875d:ffeb) by
- AM9P195CA0009.EURP195.PROD.OUTLOOK.COM (2603:10a6:20b:21f::14) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4195.15 via Frontend Transport; Mon, 7 Jun 2021 14:31:04 +0000
+Received: from [10.252.81.250] (165.204.159.242) by
+ MA1PR0101CA0018.INDPRD01.PROD.OUTLOOK.COM (2603:1096:a00:21::28) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.22 via Frontend
+ Transport; Mon, 7 Jun 2021 14:35:22 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ca5b73bd-d9c7-43e1-af6c-08d929c0e24f
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4205:
+X-MS-Office365-Filtering-Correlation-Id: 7c65c968-1b6c-4b48-e2ea-08d929c17c9a
+X-MS-TrafficTypeDiagnostic: CH0PR12MB5388:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB4205AC527901B87E31EB0DE983389@MN2PR12MB4205.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5236;
+X-Microsoft-Antispam-PRVS: <CH0PR12MB53883F0F7D810FF9657D406F97389@CH0PR12MB5388.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: oaCFTNJfLbxx6Ioyala0LLWpzepBrWu3IlwhxHYY5FW/NqXyienCbxdyp/DbQLhP2844+FmNoY7jn1pcL3rd2ZsIM63IwaRg7NH/2h1v4WvPY9phd4pz3vljCwgf3dL0v8aIO27qDDgOoN+35+nS+c8dkfnaXwpQ87zbJJ0rPyM7oSqiW2Q2cLlJF82CORaiDZDqb4HGJiEbXjKyHG6xv9bHwJ/npZ/IpzPETYVVcZ4WXBJxjJrSzUwj2CJiPPmlqYF6/5KGyMCX+9d61UTxVu1ExBmOwOUH7/7Fjspb8OlIMaBZFAmVaBA7jZQKcvbdMztg+2JMu8YJQN0d9LH4mmfyB3apjFFg1NBAI8EwNkw3XN5G2UMciuxZfOZoufboMLhQVQflNn/p6MPQmCl2+seXJkd/n7NrTrvch97d4xpMh11tgL9AUXQVD/aAoUO7Lw9g037V5QZk0ZzpKpgFIZowQer0uKUje4RcphiEMBU/dHBENpsf6XTD0k7rXTEcOvEpPXRfQ8GmoSStO6I6LPSIlZSh00jG8TbQLgKTP0NLAFWCpyHMV6hSE0a78z2Z3j2RLw/PQ248+yoMxoDrlU8WWzugG9rpq9CaoCPqipAUADT0nAmZzMQeaUnPxzQB/r71VLZRfvBBSHHn7yGmSJljAo0rWjlOldSqEv7arEjKRsvH8xKdYakwOtNtMVwu
+X-Microsoft-Antispam-Message-Info: c7vuuPgbE2zUU0NV/15WHikvEmAZMJ7ESGgHHtbvVFUY0LX7DhUf92dIKBR8DknQRkReIzoutJP4j6nE56gCapyJzmgl7Bt6Lf98jcaA10oENmi2zH0Zz1e49mIiSbjw9ZtZR9OhD0pYbLK3AHolCevTf1VLqDOWo6drKFCZfbQTd9kWFwOGq2DLnIuUm2R5thSfg1O67mYjwcZfyQ34+RfA5ihZBjwc/ffTDKDSbOxYdxmPjBPxZw+I/njh7iHY48hhrOz4pQTfjEsCzgbHxXWZzGLUqfDOqc3wbqRP43uHky+kPjT5BCZkLQ20s+w8vxuCv8x8to0CZLwgC3WFzrQAeZjJwZWQS7QLn223tj1zLEsrEq3eZ5sElf8mKX5LLK9L0lt/HgS9iy4XRhFLz2llNoy8vqG+OVfMnB0fdf89C+gMJLikS4Q39FcyFj3KqZzJQDYeOWGqfhiEzlm/UBgO/4n5Xe2u3lxVzlPrNg4zJPAMoFPv6FOVxhIAXjc2416u3IU2rJmkUYuY2Mez9hJYME5bxmuO5AmF+79aVgHMLTqUwQYeAlmu5bL1RjbhgxmIYpiAmsxJ2G9DBQcXQTR8zjrLfb9ON9THegDqspS5SKRiqu0Hb+9lsd3yUpgk0BrlIcId4BRjCnhhuSUFXtYdHo4hjuTY6xUqbuqew8VLkJYOKrKqXnVXgvfZms40
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(376002)(396003)(39850400004)(366004)(346002)(2616005)(6486002)(8676002)(8936002)(86362001)(6666004)(83380400001)(2906002)(5660300002)(31696002)(110136005)(38100700002)(4326008)(316002)(66476007)(66556008)(16526019)(36756003)(186003)(31686004)(6636002)(66946007)(478600001)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:CH0PR12MB5348.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(346002)(376002)(136003)(396003)(39850400004)(31696002)(26005)(186003)(36756003)(86362001)(83380400001)(16526019)(16576012)(53546011)(316002)(956004)(6666004)(31686004)(5660300002)(2906002)(38100700002)(478600001)(4326008)(2616005)(8936002)(8676002)(6486002)(66946007)(66476007)(66556008)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?emgvbmtON1ZoMVdTakNwd3ZVYlR5bCtrTE5sNU81RytlanQxTHlBamtBTXdT?=
- =?utf-8?B?T3ppT3NuY0l4SDR4anhjb01qWWZRYWtXbGl5c0dlREhhU3ArdWlBeTlkaHJv?=
- =?utf-8?B?alcydW5mRllQeGtCNVJLVEhYSzJxNFJwaWNmZTFEaHljYlhnNEg5ZnhlSGFJ?=
- =?utf-8?B?SisxQXhLSE5NSDVtSTNQMWhSNkVCODhoeEVlOTFXOUlwNnZtYkZHSlF0bG1z?=
- =?utf-8?B?dmpyd3lndGFxNm9qV014Q0NCamJzZDk1NERWclpZRkw5NXlZekdPKzdHRVB4?=
- =?utf-8?B?TGl1K3BQc0RHZXUxY0RJYk9JV2FPWDR1VzlpWHd1YXpDODROLzVCbmxvbHhq?=
- =?utf-8?B?NXJZSTRTajhkaWlRNitEdDc1YnovSStkeHNyVmsvWmYyZENjaDc4ekM1bmVj?=
- =?utf-8?B?S2pYWWNTM05hbHkzei9KbzFDNjZtcS9LbXloZTA1cTlNbk1OZ2RoZmVMT0pM?=
- =?utf-8?B?YXRwbjlCVkpnanpnejVWd2wwSERTNnhtclN0SWVQdW4vTFVGcTd1alh0T3RI?=
- =?utf-8?B?Z01oL0RXaEVKVjJxYVU0K21NaXhFdG9vV2ZOOG51dE4rY2ZIRTVOcGJyaXQw?=
- =?utf-8?B?SnJ3M3JaR0NUSzZZcU5yanlFb01Jd1B3U2lpdzN0WGhyZ3FDbWhGS0dWTmZj?=
- =?utf-8?B?MjFyWU9FaDIwVnVpaUdSbUNsRFZydTB2NWlOTmo1SEpkbXNaSmYwdXpFeEpw?=
- =?utf-8?B?ckhSc1kxUEpVYjVpZVZKQTh5eDE5WHMzR0xvQzladlZKYkdqcThlaFVUVjVH?=
- =?utf-8?B?THVZanlqZlhzbVRQdW55U0UxKzRidzhPTWpjeHZ4aml1N3Y4SjJtRytXSE5P?=
- =?utf-8?B?TlQ2VWRxLzI2YXA5S2VWWmxsWFRnUjZtTk1rQ1VsRiszWEwwTkhQL3BsVzAz?=
- =?utf-8?B?VmdtR2xMa1F6YUJ2NzJmOUY1WlduVkVRbHIyMGY1eTRSSS9OT280R2ljcXRn?=
- =?utf-8?B?U0hTQllQQm5jaVpoU1RIdmp0eDlmYkM0d0hqaXNWQ1NxMDVSZGlPa0hNQmFE?=
- =?utf-8?B?OFJSV01ieXdYSnB5RFErRVFONk8wVll4c1hKemVvTkg1MHR3U2VhYzBkNXhp?=
- =?utf-8?B?NE9ubGJiMnVYdmh4dWdGL092RDljcnNWY0NlSHkyN3J1QkdrWHoySnJmVlNX?=
- =?utf-8?B?bXNhU2t2MHl0UHRaT0l1aEhEbmR5YmtWcXF6L3FLaFJ6YThRVjUvOTVhUzJP?=
- =?utf-8?B?UnpUZDFLd1EzdGZXQ3BPc3pWb2x6L3d1dU5xaUFaSVlDSjZmcXpkL0cwRWFa?=
- =?utf-8?B?NnZHL1ZMTCs2T0VUSldjTGtLcTNncEhFdHBMbUx3dnBsQ3h1Z2pBZmR4RFgz?=
- =?utf-8?B?TjJYeVNlRlZjb1dydHY5TW5WbHFoZW1nTVJ3L2YrZ0ptbFVFRnBrTDBOUjdU?=
- =?utf-8?B?YSttU2lWaDFZLzZKdDlaVjYxa3Y5L3lNRG5wS2h0dWpzZmUzTHdWNHN3OU4y?=
- =?utf-8?B?QWUrTExSTFd6TU1qYTI2MVNBL3N6cVovSW9WaVUzYnF4WkIvOUdXa2J3SVll?=
- =?utf-8?B?a09Rekh5MGRCdERlT25SZ1c5d20rOUlrQkNVNUhlbUxJa2t6ZXBpK0FQN083?=
- =?utf-8?B?QUlIQ20zVlhiS0FCb1RIV2s4SEtQdHc0TmFjOHlqUm5TV1NvUy92ZFdwVERa?=
- =?utf-8?B?Mk5JUDdlQi9HbW1FdFNjZnpPMUpCcS9QNTBEWXV4L2hXRmlOWGQ3azFTdXhl?=
- =?utf-8?B?dzNmZ2lTOENFY0w1Ly9qbEV4Wjh0TGgxK1VqYVRsZnNOeFJjWENFZ3dZMHFr?=
- =?utf-8?B?Q2QzSjEwclZEcGJyWHlUa0JWY2xvK0dOUGlDYTE5U3IxNnF1R1MyYWQ3TEpV?=
- =?utf-8?B?Nm9mUkpYVlFtc0tyNHJNd2tsTkJqN3lCTEZ5WWp2QTRBb1pjeU5jYUYrQjF2?=
- =?utf-8?Q?VZ/XroQYYhywW?=
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?SjU3SGF2SlZPc3ZlajhaOWFKY3Zsc2ZMUVZsT0hoaXBWU2ZZckQ5TmFPQlcv?=
+ =?utf-8?B?R1VDTU92b3ozeDhLQXdhazJ1RUdKc0dYeHlPZEVLREhaK3U4OE8yeU5VQnhO?=
+ =?utf-8?B?c1BGQTliN1JEdkVKRXpOVWJHelpZbis5dkcrQmdNcmRCc3FDaXJKWi9IMmhY?=
+ =?utf-8?B?UW1heUs2QmpwVk5aaXRQZGJhM0pGdEp1dFZZb01kUWVUa0x4aVV5T083eVE1?=
+ =?utf-8?B?b2t3S3lxS25KUWlqWXFRWHJTbVFVU0RCd2krMVRFenhRb1pjSDhQUkJkajZv?=
+ =?utf-8?B?byt4RHhrWnhyZytWcVlOTHBQYU1GeU9iczhSTzBxWDRMa2lSUUFjVzIzZy9Z?=
+ =?utf-8?B?azNhekRHM1FYVzZGaEM1UFQ1amJJVldnVUU5V1pDTnp6TGY0c1Z1S3NFaDlj?=
+ =?utf-8?B?THcxOERCaGVIL3E0c0VuRG5OMU8raGgyQmNFby9LcnBQRHI1R0hJWUZqSlNW?=
+ =?utf-8?B?NjQ4Y3AvSUdzWERtQXN2QWR1VTlZMjIyZFRCbExLeUg4aDRRSTYrL1k2UXBx?=
+ =?utf-8?B?c21vaXVZeTdLQ3RseEZCT0E2aVF0b21UZGdCNmJBdk90dUVSaDU5WXhaZ28v?=
+ =?utf-8?B?NFd4R1F5L2NHSnVxU096MGVEUUp5YThlU245Njh6cmhpTEZSc0huK2YrRTNs?=
+ =?utf-8?B?K0lhZmRLbVphOTVMK0trOUJ6eHc5NWRFbXU2ck5vaUlVVWZ2N3phUm5nYzFs?=
+ =?utf-8?B?VDNwTGcreXFxaU41OEs0UCt3UHFoV1RwKzZDeWZ0WkQ2NUVhck1aRVZ6OHVL?=
+ =?utf-8?B?cXBnazVOajhnRTJVSjFYY0YxK3dJVk9qNlBQYmR3STRnNUEvcEZGLzFlVnNC?=
+ =?utf-8?B?TjZwRXB2c2tJYXpOY2VHYXZOMnpjeUtCZ3RMSUpIMXJhclFZTzhkeVhiV3FS?=
+ =?utf-8?B?TTFoYWswUXpPb0NwcTJVakpPRjZnK0M3SHFKS2lmU3lQb0FESXYzMDd3b2J1?=
+ =?utf-8?B?QVNhZE50dlJKYndveDFqdk5ZbHYxODZiZjN6L2wzRDJuMXd6M1VSbUNKbHVl?=
+ =?utf-8?B?UW8zUjVyeHBuSWt6MDNKelVwMzJITVpxa0tETE1YQ2dGa2wzOTY5bHE3QUYz?=
+ =?utf-8?B?TmlRVnNDNkJvZmIxTGdDTWNEc3B5Y1BaUHpnNVovaHc1Y2lHN1hwZStpYmVZ?=
+ =?utf-8?B?YVBDS0tLbWhoWFQzbnR1UlVNVXJkSmkzMkhqMmE1UVdFYjJsVjJDR0ViWU9i?=
+ =?utf-8?B?NXREaE9qMUlNcUxQWGVXSUN4NDRSWmM2RVQvc3JCMnkvbVJnSzNuZEUwbUdD?=
+ =?utf-8?B?dmk2YWJTZmxpV2c1MXZRVHFqbG9oTDlhWERGaGhWdGpJNXluU2JnYVdmRVNP?=
+ =?utf-8?B?NUpBQXJ2c3lyY254eGRCZjdRTEV5SFJhVTcvcnpiT1htMkdJYUJqZkh5cnZo?=
+ =?utf-8?B?b3ZCU3lBbEFxck4raitBQ0RrMVhWRWRNb3RCUExUajZiVVQydWsyR2lqNGdQ?=
+ =?utf-8?B?VFVUeVIwVSszMC9MQ0didVV0ZFJJbVhqbXRZaVQvZUx3Z1VPN010a05mYnJn?=
+ =?utf-8?B?OUZPL3haZmtNK0RCRjg1WG5FWWJSckoxSnBTZThWOWk0b0hhSzJ6ZzRpdUJs?=
+ =?utf-8?B?TGd3dGFOYmZsRWFrQ1N3K3pLT3NWdUNKUStwL2JVejdleTFyWm9Vd3ZlOVJR?=
+ =?utf-8?B?REVTNjRReDlEYXZHb0R4SlBxS296TDgxVDdLaEdBeU5LdjEwNTdRWVdjdFZy?=
+ =?utf-8?B?TEp0MVBkRGtjZGRkQlU3NDk0WC9GNzkrdkNZL3ZTY2FzMnZQQUpaU08xaG1M?=
+ =?utf-8?Q?QuQYhYZZh6x0ET3XUYh2IQ3K+/c/LrgU2sHAulr?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ca5b73bd-d9c7-43e1-af6c-08d929c0e24f
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7c65c968-1b6c-4b48-e2ea-08d929c17c9a
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5348.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2021 14:31:06.0026 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2021 14:35:25.0028 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: o8UbAJmDSqIsnFwKIcj+MmA+MZmMqi0m4dYSCTeAXv0hfgQaNJ6PpZSmyPEKRpy/
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4205
+X-MS-Exchange-CrossTenant-UserPrincipalName: fkr1REH1IRu0hTOp6RcIV9aekr+gshsHJMXB0+RD6Q/Sx9a/potZlsIsrOww/9TD
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5388
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,60 +135,140 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Davis Ming <Davis.Ming@amd.com>
+Cc: Harish.Kasiviswanathan@amd.com, Elena.Sakhnovitch@amd.com
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Why are the ring 1&2 enabled on SRIOV in the first place?
 
-Christian.
 
-Am 07.06.21 um 16:23 schrieb Rohit Khaire:
-> This is similar to IH_RB_CNTL programming in
-> navi10_ih_toggle_ring_interrupts
->
-> Signed-off-by: Rohit Khaire <rohit.khaire@amd.com>
+On 6/7/2021 7:14 PM, Graham Sider wrote:
+> Perform dependent to independent throttle status translation
+> for vangogh.
+> 
+> Signed-off-by: Graham Sider <Graham.Sider@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/navi10_ih.c | 20 ++++++++++++++++++--
->   1 file changed, 18 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-> index eac564e8dd52..e41188c04846 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-> @@ -120,11 +120,27 @@ force_update_wptr_for_self_int(struct amdgpu_device *adev,
->   	ih_rb_cntl = REG_SET_FIELD(ih_rb_cntl, IH_RB_CNTL_RING1,
->   				   RB_USED_INT_THRESHOLD, threshold);
+>   .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  | 38 ++++++++++++++-----
+>   1 file changed, 29 insertions(+), 9 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+> index 77f532a49e37..589304367929 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+> @@ -190,6 +190,20 @@ static struct cmn2asic_mapping vangogh_workload_map[PP_SMC_POWER_PROFILE_COUNT]
+>   	WORKLOAD_MAP(PP_SMC_POWER_PROFILE_CUSTOM,		WORKLOAD_PPLIB_CUSTOM_BIT),
+>   };
 >   
-> -	WREG32_SOC15(OSSSYS, 0, mmIH_RB_CNTL_RING1, ih_rb_cntl);
-> +	if (amdgpu_sriov_vf(adev) && amdgpu_sriov_reg_indirect_ih(adev)) {
-> +		if (psp_reg_program(&adev->psp, PSP_REG_IH_RB_CNTL_RING1, ih_rb_cntl)) {
-> +			DRM_ERROR("PSP program IH_RB_CNTL_RING1 failed!\n");
-> +			return;
-> +		}
-> +	} else {
-> +		WREG32_SOC15(OSSSYS, 0, mmIH_RB_CNTL_RING1, ih_rb_cntl);
-> +	}
+> +static const uint8_t vangogh_throttler_map[] = {
+> +	[THROTTLER_STATUS_BIT_SPL]	= (SMU_THROTTLER_SPL_BIT),
+> +	[THROTTLER_STATUS_BIT_FPPT]	= (SMU_THROTTLER_FPPT_BIT),
+> +	[THROTTLER_STATUS_BIT_SPPT]	= (SMU_THROTTLER_SPPT_BIT),
+> +	[THROTTLER_STATUS_BIT_SPPT_APU]	= (SMU_THROTTLER_SPPT_APU_BIT),
+> +	[THROTTLER_STATUS_BIT_THM_CORE]	= (SMU_THROTTLER_TEMP_CORE_BIT),
+> +	[THROTTLER_STATUS_BIT_THM_GFX]	= (SMU_THROTTLER_TEMP_VR_GFX_BIT),
+> +	[THROTTLER_STATUS_BIT_THM_SOC]	= (SMU_THROTTLER_TEMP_VR_SOC_BIT),
+
+Above two mappings don't look correct. They essentially mean throttling 
+due to GFX/SOC domain temperatures in APU exceeding their limits, not 
+the VR temperatures. Except those mappings, rest of the patch series 
+looks good to me.
+
+Thanks,
+Lijo
+
+> +	[THROTTLER_STATUS_BIT_TDC_VDD]	= (SMU_THROTTLER_TDC_VDD_BIT),
+> +	[THROTTLER_STATUS_BIT_TDC_SOC]	= (SMU_THROTTLER_TDC_SOC_BIT),
+> +	[THROTTLER_STATUS_BIT_TDC_GFX]	= (SMU_THROTTLER_TDC_GFX_BIT),
+> +	[THROTTLER_STATUS_BIT_TDC_CVIP]	= (SMU_THROTTLER_TDC_CVIP_BIT),
+> +};
 > +
->   	ih_rb_cntl = RREG32_SOC15(OSSSYS, 0, mmIH_RB_CNTL_RING2);
->   	ih_rb_cntl = REG_SET_FIELD(ih_rb_cntl, IH_RB_CNTL_RING2,
->   				   RB_USED_INT_THRESHOLD, threshold);
-> -	WREG32_SOC15(OSSSYS, 0, mmIH_RB_CNTL_RING2, ih_rb_cntl);
-> +	if (amdgpu_sriov_vf(adev) && amdgpu_sriov_reg_indirect_ih(adev)) {
-> +		if (psp_reg_program(&adev->psp, PSP_REG_IH_RB_CNTL_RING2, ih_rb_cntl)) {
-> +			DRM_ERROR("PSP program IH_RB_CNTL_RING2 failed!\n");
-> +			return;
-> +		}
-> +	} else {
-> +		WREG32_SOC15(OSSSYS, 0, mmIH_RB_CNTL_RING2, ih_rb_cntl);
-> +	}
-> +
->   	WREG32_SOC15(OSSSYS, 0, mmIH_CNTL2, ih_cntl);
+>   static int vangogh_tables_init(struct smu_context *smu)
+>   {
+>   	struct smu_table_context *smu_table = &smu->smu_table;
+> @@ -226,7 +240,7 @@ static int vangogh_tables_init(struct smu_context *smu)
+>   		goto err0_out;
+>   	smu_table->metrics_time = 0;
+>   
+> -	smu_table->gpu_metrics_table_size = sizeof(struct gpu_metrics_v2_1);
+> +	smu_table->gpu_metrics_table_size = sizeof(struct gpu_metrics_v2_2);
+>   	smu_table->gpu_metrics_table = kzalloc(smu_table->gpu_metrics_table_size, GFP_KERNEL);
+>   	if (!smu_table->gpu_metrics_table)
+>   		goto err1_out;
+> @@ -1632,8 +1646,8 @@ static ssize_t vangogh_get_legacy_gpu_metrics(struct smu_context *smu,
+>   				      void **table)
+>   {
+>   	struct smu_table_context *smu_table = &smu->smu_table;
+> -	struct gpu_metrics_v2_1 *gpu_metrics =
+> -		(struct gpu_metrics_v2_1 *)smu_table->gpu_metrics_table;
+> +	struct gpu_metrics_v2_2 *gpu_metrics =
+> +		(struct gpu_metrics_v2_2 *)smu_table->gpu_metrics_table;
+>   	SmuMetrics_legacy_t metrics;
+>   	int ret = 0;
+>   
+> @@ -1641,7 +1655,7 @@ static ssize_t vangogh_get_legacy_gpu_metrics(struct smu_context *smu,
+>   	if (ret)
+>   		return ret;
+>   
+> -	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 2, 1);
+> +	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 2, 2);
+>   
+>   	gpu_metrics->temperature_gfx = metrics.GfxTemperature;
+>   	gpu_metrics->temperature_soc = metrics.SocTemperature;
+> @@ -1674,20 +1688,23 @@ static ssize_t vangogh_get_legacy_gpu_metrics(struct smu_context *smu,
+>   	gpu_metrics->current_l3clk[0] = metrics.L3Frequency[0];
+>   
+>   	gpu_metrics->throttle_status = metrics.ThrottlerStatus;
+> +	gpu_metrics->indep_throttle_status =
+> +			smu_cmn_get_indep_throttler_status(metrics.ThrottlerStatus,
+> +							   vangogh_throttler_map);
+>   
+>   	gpu_metrics->system_clock_counter = ktime_get_boottime_ns();
+>   
+>   	*table = (void *)gpu_metrics;
+>   
+> -	return sizeof(struct gpu_metrics_v2_1);
+> +	return sizeof(struct gpu_metrics_v2_2);
 >   }
 >   
-
+>   static ssize_t vangogh_get_gpu_metrics(struct smu_context *smu,
+>   				      void **table)
+>   {
+>   	struct smu_table_context *smu_table = &smu->smu_table;
+> -	struct gpu_metrics_v2_1 *gpu_metrics =
+> -		(struct gpu_metrics_v2_1 *)smu_table->gpu_metrics_table;
+> +	struct gpu_metrics_v2_2 *gpu_metrics =
+> +		(struct gpu_metrics_v2_2 *)smu_table->gpu_metrics_table;
+>   	SmuMetrics_t metrics;
+>   	int ret = 0;
+>   
+> @@ -1695,7 +1712,7 @@ static ssize_t vangogh_get_gpu_metrics(struct smu_context *smu,
+>   	if (ret)
+>   		return ret;
+>   
+> -	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 2, 1);
+> +	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 2, 2);
+>   
+>   	gpu_metrics->temperature_gfx = metrics.Current.GfxTemperature;
+>   	gpu_metrics->temperature_soc = metrics.Current.SocTemperature;
+> @@ -1735,12 +1752,15 @@ static ssize_t vangogh_get_gpu_metrics(struct smu_context *smu,
+>   	gpu_metrics->current_l3clk[0] = metrics.Current.L3Frequency[0];
+>   
+>   	gpu_metrics->throttle_status = metrics.Current.ThrottlerStatus;
+> +	gpu_metrics->indep_throttle_status =
+> +			smu_cmn_get_indep_throttler_status(metrics.Current.ThrottlerStatus,
+> +							   vangogh_throttler_map);
+>   
+>   	gpu_metrics->system_clock_counter = ktime_get_boottime_ns();
+>   
+>   	*table = (void *)gpu_metrics;
+>   
+> -	return sizeof(struct gpu_metrics_v2_1);
+> +	return sizeof(struct gpu_metrics_v2_2);
+>   }
+>   
+>   static ssize_t vangogh_common_get_gpu_metrics(struct smu_context *smu,
+> 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
