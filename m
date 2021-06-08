@@ -2,57 +2,52 @@ Return-Path: <SRS0=OOkP=LC=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DE308C4743F
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 17:19:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 85531C48BCD
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 17:43:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8821661351
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 17:19:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8821661351
+	by mail.kernel.org (Postfix) with ESMTPS id 5204F61003
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 17:43:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5204F61003
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=tuxedocomputers.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34CA96E21D;
-	Tue,  8 Jun 2021 17:19:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2AE7B6E0CE;
+	Tue,  8 Jun 2021 17:43:29 +0000 (UTC)
 Received: from srv6.fidu.org (srv6.fidu.org [IPv6:2a01:4f8:231:de0::2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AFFAB6E21D;
- Tue,  8 Jun 2021 17:19:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D09056E0CE;
+ Tue,  8 Jun 2021 17:43:27 +0000 (UTC)
 Received: from localhost (localhost.localdomain [127.0.0.1])
- by srv6.fidu.org (Postfix) with ESMTP id 1DBD7C800B9;
- Tue,  8 Jun 2021 19:19:32 +0200 (CEST)
+ by srv6.fidu.org (Postfix) with ESMTP id 7F84FC800DD;
+ Tue,  8 Jun 2021 19:43:26 +0200 (CEST)
 X-Virus-Scanned: Debian amavisd-new at srv6.fidu.org
 Received: from srv6.fidu.org ([127.0.0.1])
- by localhost (srv6.fidu.org [127.0.0.1]) (amavisd-new, port 10024)
- with LMTP id roLp7kKPlQRV; Tue,  8 Jun 2021 19:19:31 +0200 (CEST)
-Received: from [IPv6:2003:e3:7f4f:6000:f5f4:4cdd:8015:9770]
- (p200300E37F4F6000f5f44CDd80159770.dip0.t-ipconnect.de
- [IPv6:2003:e3:7f4f:6000:f5f4:4cdd:8015:9770])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
+ by localhost (srv6.fidu.org [127.0.0.1]) (amavisd-new, port 10026)
+ with LMTP id SRbOlgtfnunT; Tue,  8 Jun 2021 19:43:26 +0200 (CEST)
+Received: from wsembach-tuxedo.fritz.box
+ (p200300E37f4F60006a44b0068bFE089d.dip0.t-ipconnect.de
+ [IPv6:2003:e3:7f4f:6000:6a44:b006:8bfe:89d])
  (Authenticated sender: wse@tuxedocomputers.com)
- by srv6.fidu.org (Postfix) with ESMTPSA id A68A3C800B3;
- Tue,  8 Jun 2021 19:19:31 +0200 (CEST)
-Subject: Re: [PATCH 4/4] drm/i915/display: Add handling for new "active bpc"
- property
+ by srv6.fidu.org (Postfix) with ESMTPA id 7DE2BC800C1;
+ Tue,  8 Jun 2021 19:43:25 +0200 (CEST)
 From: Werner Sembach <wse@tuxedocomputers.com>
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-References: <20210604171723.10276-1-wse@tuxedocomputers.com>
- <20210604171723.10276-5-wse@tuxedocomputers.com> <YLpjTMegcjT22vQE@intel.com>
- <bd6a27e7-3ae5-ecb1-2fef-e5f8c1b6a2ac@tuxedocomputers.com>
- <96d10ed0-f8a2-1d0b-62dd-9d6173722506@tuxedocomputers.com>
-Message-ID: <210b4108-74a7-bf42-eab8-b98239ce3f1a@tuxedocomputers.com>
-Date: Tue, 8 Jun 2021 19:19:31 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@linux.ie, daniel@ffwll.ch,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org
+Subject: [PATCH 0/7] Add "activ bpc" and "active color format" drm property
+Date: Tue,  8 Jun 2021 19:43:13 +0200
+Message-Id: <20210608174320.37429-1-wse@tuxedocomputers.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <96d10ed0-f8a2-1d0b-62dd-9d6173722506@tuxedocomputers.com>
-Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,125 +59,32 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: sunpeng.li@amd.com, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, airlied@linux.ie,
- dri-devel@lists.freedesktop.org, tzimmermann@suse.de, rodrigo.vivi@intel.com,
- alexander.deucher@amd.com, christian.koenig@amd.com
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-CkFtIDA3LjA2LjIxIHVtIDIyOjMzIHNjaHJpZWIgV2VybmVyIFNlbWJhY2g6Cj4gQW0gMDcuMDYu
-MjEgdW0gMDg6NDcgc2NocmllYiBXZXJuZXIgU2VtYmFjaDoKPj4KPj4gQW0gMDQuMDYuMjEgdW0g
-MTk6MzAgc2NocmllYiBWaWxsZSBTeXJqw6Rsw6Q6Cj4+PiBPbiBGcmksIEp1biAwNCwgMjAyMSBh
-dCAwNzoxNzoyM1BNICswMjAwLCBXZXJuZXIgU2VtYmFjaCB3cm90ZToKPj4+PiBUaGlzIGNvbW1p
-dHMgaW1wbGVtZW50cyB0aGUgImFjdGl2ZSBicGMiIGRybSBwcm9wZXJ0eSBmb3IgdGhlIEludGVs
-IAo+Pj4+IEdQVSBkcml2ZXIuCj4+Pj4KPj4+PiBTaWduZWQtb2ZmLWJ5OiBXZXJuZXIgU2VtYmFj
-aCA8d3NlQHR1eGVkb2NvbXB1dGVycy5jb20+Cj4+Pj4gLS0tCj4+Pj4gwqAgZHJpdmVycy9ncHUv
-ZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5LmMgfCAxMyArKysrKysrKysrKysrCj4+Pj4g
-wqAgZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kcC5jwqDCoMKgwqDCoCB8wqAg
-OCArKysrKystLQo+Pj4+IMKgIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZHBf
-bXN0LmPCoCB8wqAgNCArKystCj4+Pj4gwqAgZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9p
-bnRlbF9oZG1pLmPCoMKgwqAgfMKgIDQgKysrLQo+Pj4+IMKgIDQgZmlsZXMgY2hhbmdlZCwgMjUg
-aW5zZXJ0aW9ucygrKSwgNCBkZWxldGlvbnMoLSkKPj4+Pgo+Pj4+IGRpZmYgLS1naXQgYS9kcml2
-ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXkuYyAKPj4+PiBiL2RyaXZlcnMv
-Z3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheS5jCj4+Pj4gaW5kZXggNjRlOTEwN2Q3
-MGY3Li5mNzg5OGQ5ZDc0MzggMTAwNjQ0Cj4+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUv
-ZGlzcGxheS9pbnRlbF9kaXNwbGF5LmMKPj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9k
-aXNwbGF5L2ludGVsX2Rpc3BsYXkuYwo+Pj4+IEBAIC0xMDE2NCw2ICsxMDE2NCw4IEBAIHN0YXRp
-YyB2b2lkIGludGVsX2F0b21pY19jb21taXRfdGFpbChzdHJ1Y3QgCj4+Pj4gaW50ZWxfYXRvbWlj
-X3N0YXRlICpzdGF0ZSkKPj4+PiDCoMKgwqDCoMKgIHN0cnVjdCBkcm1faTkxNV9wcml2YXRlICpk
-ZXZfcHJpdiA9IHRvX2k5MTUoZGV2KTsKPj4+PiDCoMKgwqDCoMKgIHN0cnVjdCBpbnRlbF9jcnRj
-X3N0YXRlICpuZXdfY3J0Y19zdGF0ZSwgKm9sZF9jcnRjX3N0YXRlOwo+Pj4+IMKgwqDCoMKgwqAg
-c3RydWN0IGludGVsX2NydGMgKmNydGM7Cj4+Pj4gK8KgwqDCoCBzdHJ1Y3QgZHJtX2Nvbm5lY3Rv
-ciAqY29ubmVjdG9yOwo+Pj4+ICvCoMKgwqAgc3RydWN0IGRybV9jb25uZWN0b3Jfc3RhdGUgKm5l
-d19jb25uX3N0YXRlOwo+Pj4+IMKgwqDCoMKgwqAgdTY0IHB1dF9kb21haW5zW0k5MTVfTUFYX1BJ
-UEVTXSA9IHt9Owo+Pj4+IMKgwqDCoMKgwqAgaW50ZWxfd2FrZXJlZl90IHdha2VyZWYgPSAwOwo+
-Pj4+IMKgwqDCoMKgwqAgaW50IGk7Cj4+Pj4gQEAgLTEwMzI0LDYgKzEwMzI2LDE3IEBAIHN0YXRp
-YyB2b2lkIAo+Pj4+IGludGVsX2F0b21pY19jb21taXRfdGFpbChzdHJ1Y3QgaW50ZWxfYXRvbWlj
-X3N0YXRlICpzdGF0ZSkKPj4+PiDCoMKgwqDCoMKgIH0KPj4+PiDCoMKgwqDCoMKgIGludGVsX3J1
-bnRpbWVfcG1fcHV0KCZkZXZfcHJpdi0+cnVudGltZV9wbSwgc3RhdGUtPndha2VyZWYpOwo+Pj4+
-IMKgICvCoMKgwqAgLyogRXh0cmFjdCBpbmZvcm1hdGlvbiBmcm9tIGNydGMgdG8gY29tbXVuaWNh
-dGUgaXQgdG8gCj4+Pj4gdXNlcnNwYWNlIGFzIGNvbm5lY3RvciBwcm9wZXJ0aWVzICovCj4+Pj4g
-K8KgwqDCoCBmb3JfZWFjaF9uZXdfY29ubmVjdG9yX2luX3N0YXRlKCZzdGF0ZS0+YmFzZSwgY29u
-bmVjdG9yLCAKPj4+PiBuZXdfY29ubl9zdGF0ZSwgaSkgewo+Pj4+ICvCoMKgwqDCoMKgwqDCoCBz
-dHJ1Y3QgZHJtX2NydGMgKmNydGMgPSBuZXdfY29ubl9zdGF0ZS0+Y3J0YzsKPj4+PiArwqDCoMKg
-wqDCoMKgwqAgaWYgKGNydGMpIHsKPj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBuZXdfY3J0
-Y19zdGF0ZSA9IAo+Pj4+IHRvX2ludGVsX2NydGNfc3RhdGUoZHJtX2F0b21pY19nZXRfbmV3X2Ny
-dGNfc3RhdGUoJnN0YXRlLT5iYXNlLCAKPj4+PiBjcnRjKSk7Cj4+PiBpbnRlbF9hdG9taWNfZ2V0
-X25ld19jcnRjX3N0YXRlKCkKPj4gVGhhbmtzLCB3aWxsIHVzZSB0aGF0Lgo+Pj4KPj4+PiArIG5l
-d19jb25uX3N0YXRlLT5hY3RpdmVfYnBjID0gbmV3X2NydGNfc3RhdGUtPnBpcGVfYnBwIC8gMzsK
-Pj4+PiArwqDCoMKgwqDCoMKgwqAgfQo+Pj4+ICvCoMKgwqDCoMKgwqDCoCBlbHNlCj4+Pj4gK8Kg
-wqDCoMKgwqDCoMKgwqDCoMKgwqAgbmV3X2Nvbm5fc3RhdGUtPmFjdGl2ZV9icGMgPSAwOwo+Pj4+
-ICvCoMKgwqAgfQo+Pj4gVGhpcyBhbHNvIHNlZW1zIHRvbyBsYXRlLiBJIHRoaW5rIHRoZSB3aG9s
-ZSB0aGluZyBzaG91bGQgYmUKPj4+IGRvbmUgc29tZXdoZXJlIGFyb3VuZCB0aGUgbm9ybWFsIHN3
-YXBfc3RhdGUoKSBzdHVmZi4KPj4gT2ssIHdpbGwgbG9vayBpbnRvIGl0Lgo+IFNvIEkgdHJpZWQg
-dG8gcHV0IGl0IGluIGludGVsX2F0b21pY19jb21taXQoKSBhZnRlciAKPiBkcm1fYXRvbWljX2hl
-bHBlcl9zd2FwX3N0YXRlKCkgYW5kIGJlZm9yZSAKPiBJTklUX1dPUksoJnN0YXRlLT5iYXNlLmNv
-bW1pdF93b3JrLCBpbnRlbF9hdG9taWNfY29tbWl0X3dvcmspICh3aGljaCAKPiBjcmVhdGVzIGEg
-d29ya2VyIGZvciBpbnRlbF9hdG9taWNfY29tbWl0X3RhaWwpLCBidXQgc29tZXdoZXJlIGluIAo+
-IGJldHdlZW4sIHRoZSBjb25uZWN0b3Jfc3RhdGUgc2VlbXMgdG8gY2hhbmdlOiBUaGUgYnBjIHdy
-aXR0ZW4gd2l0aCB0aGUgCj4gZm9yX2VhY2hfbmV3X2Nvbm5lY3Rvcl9pbl9zdGF0ZSgpIGxvb3As
-IGdldHMgZGlzY2FyZGVkLgoKVGhpcyB3YXMgbm90IHRoZSBwcm9ibGVtLiBTZXR0aW5nIHRoZSBk
-cm0gcHJvcGVydHkgaW1tdXRhYmxlIG1hZGUgaXQgCihhbHNvPykgaW1tdXRhYmxlIGZyb20gdGhl
-IGRyaXZlciBjb250ZXh0LCB3aGljaCBJIGRpZG4ndCB0ZXN0IHNlcGFyYXRlbHkuCgpSZW1vdmVk
-IHRoZSBpbW11dGFibGUgYWdhaW4gYW5kIG1vdmVkIHRoZSBsb29wLgoKPj4+Cj4+Pj4gKwo+Pj4+
-IMKgwqDCoMKgwqAgLyoKPj4+PiDCoMKgwqDCoMKgwqAgKiBEZWZlciB0aGUgY2xlYW51cCBvZiB0
-aGUgb2xkIHN0YXRlIHRvIGEgc2VwYXJhdGUgd29ya2VyIHRvIAo+Pj4+IG5vdAo+Pj4+IMKgwqDC
-oMKgwqDCoCAqIGltcGVkZSB0aGUgY3VycmVudCB0YXNrICh1c2Vyc3BhY2UgZm9yIGJsb2NraW5n
-IG1vZGVzZXRzKSAKPj4+PiB0aGF0Cj4+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9p
-OTE1L2Rpc3BsYXkvaW50ZWxfZHAuYyAKPj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3Bs
-YXkvaW50ZWxfZHAuYwo+Pj4+IGluZGV4IDY0MmM2MGYzZDliMS4uNjc4MjZiYTk3NmVkIDEwMDY0
-NAo+Pj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZHAuYwo+Pj4+
-ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZHAuYwo+Pj4+IEBAIC00
-NjcxLDEwICs0NjcxLDE0IEBAIGludGVsX2RwX2FkZF9wcm9wZXJ0aWVzKHN0cnVjdCBpbnRlbF9k
-cCAKPj4+PiAqaW50ZWxfZHAsIHN0cnVjdCBkcm1fY29ubmVjdG9yICpjb25uZWN0Cj4+Pj4gwqDC
-oMKgwqDCoMKgwqDCoMKgIGludGVsX2F0dGFjaF9mb3JjZV9hdWRpb19wcm9wZXJ0eShjb25uZWN0
-b3IpOwo+Pj4+IMKgIMKgwqDCoMKgwqAgaW50ZWxfYXR0YWNoX2Jyb2FkY2FzdF9yZ2JfcHJvcGVy
-dHkoY29ubmVjdG9yKTsKPj4+PiAtwqDCoMKgIGlmIChIQVNfR01DSChkZXZfcHJpdikpCj4+Pj4g
-K8KgwqDCoCBpZiAoSEFTX0dNQ0goZGV2X3ByaXYpKSB7Cj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKg
-IGRybV9jb25uZWN0b3JfYXR0YWNoX21heF9icGNfcHJvcGVydHkoY29ubmVjdG9yLCA2LCAxMCk7
-Cj4+Pj4gLcKgwqDCoCBlbHNlIGlmIChESVNQTEFZX1ZFUihkZXZfcHJpdikgPj0gNSkKPj4+PiAr
-wqDCoMKgwqDCoMKgwqAgZHJtX2Nvbm5lY3Rvcl9hdHRhY2hfYWN0aXZlX2JwY19wcm9wZXJ0eShj
-b25uZWN0b3IsIDYsIDEwKTsKPj4+PiArwqDCoMKgIH0KPj4+PiArwqDCoMKgIGVsc2UgaWYgKERJ
-U1BMQVlfVkVSKGRldl9wcml2KSA+PSA1KSB7Cj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgIGRybV9j
-b25uZWN0b3JfYXR0YWNoX21heF9icGNfcHJvcGVydHkoY29ubmVjdG9yLCA2LCAxMik7Cj4+Pj4g
-K8KgwqDCoMKgwqDCoMKgIGRybV9jb25uZWN0b3JfYXR0YWNoX2FjdGl2ZV9icGNfcHJvcGVydHko
-Y29ubmVjdG9yLCA2LCAxMik7Cj4+Pj4gK8KgwqDCoCB9Cj4+Pj4gwqAgwqDCoMKgwqDCoCAvKiBS
-ZWdpc3RlciBIRE1JIGNvbG9yc3BhY2UgZm9yIGNhc2Ugb2YgbHNwY29uICovCj4+Pj4gwqDCoMKg
-wqDCoCBpZiAoaW50ZWxfYmlvc19pc19sc3Bjb25fcHJlc2VudChkZXZfcHJpdiwgcG9ydCkpIHsK
-Pj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kcF9t
-c3QuYyAKPj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZHBfbXN0LmMK
-Pj4+PiBpbmRleCAyZGFhM2Y2Nzc5MWUuLjVhMTg2OWRjMjIxMCAxMDA2NDQKPj4+PiAtLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2RwX21zdC5jCj4+Pj4gKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kcF9tc3QuYwo+Pj4+IEBAIC04NDQsOCAr
-ODQ0LDEwIEBAIHN0YXRpYyBzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAKPj4+PiAqaW50ZWxfZHBfYWRk
-X21zdF9jb25uZWN0b3Ioc3RydWN0IGRybV9kcF9tc3RfdG9wb2xvCj4+Pj4gwqDCoMKgwqDCoMKg
-ICovCj4+Pj4gwqDCoMKgwqDCoCBjb25uZWN0b3ItPm1heF9icGNfcHJvcGVydHkgPQo+Pj4+IGlu
-dGVsX2RwLT5hdHRhY2hlZF9jb25uZWN0b3ItPmJhc2UubWF4X2JwY19wcm9wZXJ0eTsKPj4+PiAt
-wqDCoMKgIGlmIChjb25uZWN0b3ItPm1heF9icGNfcHJvcGVydHkpCj4+Pj4gK8KgwqDCoCBpZiAo
-Y29ubmVjdG9yLT5tYXhfYnBjX3Byb3BlcnR5KSB7Cj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgIGRy
-bV9jb25uZWN0b3JfYXR0YWNoX21heF9icGNfcHJvcGVydHkoY29ubmVjdG9yLCA2LCAxMik7Cj4+
-Pj4gK8KgwqDCoMKgwqDCoMKgIGRybV9jb25uZWN0b3JfYXR0YWNoX2FjdGl2ZV9icGNfcHJvcGVy
-dHkoY29ubmVjdG9yLCA2LCAxMik7Cj4+Pj4gK8KgwqDCoCB9Cj4+Pj4gwqAgwqDCoMKgwqDCoCBy
-ZXR1cm4gY29ubmVjdG9yOwo+Pj4+IMKgIGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkx
-NS9kaXNwbGF5L2ludGVsX2hkbWkuYyAKPj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3Bs
-YXkvaW50ZWxfaGRtaS5jCj4+Pj4gaW5kZXggZDY5ZjBhNmRjMjZkLi44YWY3OGIyN2I2Y2UgMTAw
-NjQ0Cj4+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9oZG1pLmMK
-Pj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2hkbWkuYwo+Pj4+
-IEBAIC0yNDYzLDggKzI0NjMsMTAgQEAgaW50ZWxfaGRtaV9hZGRfcHJvcGVydGllcyhzdHJ1Y3Qg
-aW50ZWxfaGRtaSAKPj4+PiAqaW50ZWxfaGRtaSwgc3RydWN0IGRybV9jb25uZWN0b3IgKmMKPj4+
-PiBkcm1fb2JqZWN0X2F0dGFjaF9wcm9wZXJ0eSgmY29ubmVjdG9yLT5iYXNlLAo+Pj4+IGNvbm5l
-Y3Rvci0+ZGV2LT5tb2RlX2NvbmZpZy5oZHJfb3V0cHV0X21ldGFkYXRhX3Byb3BlcnR5LCAwKTsK
-Pj4+PiDCoCAtwqDCoMKgIGlmICghSEFTX0dNQ0goZGV2X3ByaXYpKQo+Pj4+ICvCoMKgwqAgaWYg
-KCFIQVNfR01DSChkZXZfcHJpdikpIHsKPj4+PiDCoMKgwqDCoMKgwqDCoMKgwqAgZHJtX2Nvbm5l
-Y3Rvcl9hdHRhY2hfbWF4X2JwY19wcm9wZXJ0eShjb25uZWN0b3IsIDgsIDEyKTsKPj4+PiArwqDC
-oMKgwqDCoMKgwqAgZHJtX2Nvbm5lY3Rvcl9hdHRhY2hfYWN0aXZlX2JwY19wcm9wZXJ0eShjb25u
-ZWN0b3IsIDgsIDEyKTsKPj4+PiArwqDCoMKgIH0KPj4+PiDCoCB9Cj4+Pj4gwqAgwqAgLyoKPj4+
-PiAtLSAKPj4+PiAyLjI1LjEKPj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KPj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPj4gYW1kLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcKPj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9hbWQtZ2Z4Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
-dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+I started work on my proposal for better color handling in Linux display
+drivers: https://lkml.org/lkml/2021/5/12/764
+
+In this 2nd revision the first two read-only properties are now implemented for
+amdgpu and i915. I post it here to collect collect some additional feedback, if
+someone sees an improvement opportunity.
+
+I have already commited the first patch in this series independently as it fixes
+a function already in use.
+
+Some of the feedback from the first post is already implemented.
+
+The actual update of the values is implemented in patch three and four and six
+and seven in the atomic_commit_tail() function of amdgpu and atomic_commit()
+function of i915 respectively. They do get updated more often than needed with
+the current approach, but without harm since just the same value is written
+again. A check if the update is required would be the same amount of
+computation.
+
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
