@@ -2,125 +2,159 @@ Return-Path: <SRS0=OOkP=LC=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 84DD0C47094
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 01:39:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 93FF1C47095
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 01:39:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3934B61278
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 01:39:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3934B61278
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=nvidia.com
+	by mail.kernel.org (Postfix) with ESMTPS id 588A561278
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 01:39:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 588A561278
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8B9B6EA7D;
-	Tue,  8 Jun 2021 01:39:01 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam07on2066.outbound.protection.outlook.com [40.107.212.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8F516E442;
- Mon,  7 Jun 2021 23:18:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 73F796EA80;
+	Tue,  8 Jun 2021 01:39:02 +0000 (UTC)
+Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28F856EA56;
+ Tue,  8 Jun 2021 00:29:13 +0000 (UTC)
+Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
+ by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 1580BxQl154554;
+ Tue, 8 Jun 2021 00:29:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=from : to : cc :
+ subject : date : message-id : references : in-reply-to : content-type :
+ content-id : content-transfer-encoding : mime-version; s=corp-2020-01-29;
+ bh=UVlFCOe7iOaumc67zbX6/B6hwJ+V/FV3WjFQPjzQ6P0=;
+ b=n6dFSh6p5ymu2urtB8oZYIQxuSlJaMhVVOC+5lCFHzBs4jNsbCGYm8/W2yZT+e69lmoV
+ hkPuuClCHbKWjrMujteuQYCOuMfpWabU9JmW1k5cUkvluHyLEmmeeuPRLDlqNyXLYkM+
+ dLwS1mrEs6Cv23EuZlXpHb+oHLqssf8YpJT1FDNBA+/MedjGwMNfIiNHVxseQDUHwMXe
+ +YY0fzacPqOW/BmqobCqbRFqwIoM16+clpjgf+NRI2Enr93H8PGkNFRJVEtAMcY9Nwfq
+ cq1iOnoQqeGgkSB0SOE1pjTw95oBrrSoyVEXB1lDSdVYyu/AnPaIvb1YC2nW/hN+1im7 fA== 
+Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
+ by userp2120.oracle.com with ESMTP id 3914qujw9v-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 08 Jun 2021 00:29:07 +0000
+Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
+ by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 1580ARjt165302;
+ Tue, 8 Jun 2021 00:29:07 GMT
+Received: from nam02-bn1-obe.outbound.protection.outlook.com
+ (mail-bn1nam07lp2044.outbound.protection.outlook.com [104.47.51.44])
+ by aserp3020.oracle.com with ESMTP id 391ujw9j46-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 08 Jun 2021 00:29:06 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SxIwi4Xhcnkklb6lhyEtkOHNC+kNNzHXIoezBroFJweqL1X7rdEtS13l6MggGcPkb9tKpQsutosjc6FJoxfw4zUqs/4gfGvm9vTMjzsGB1BhFzN8b6Yw9VqlplFWyJfuSOWeB9e+Ce6NhC0yLAhDob7vu9xynLOKjRjGPRmcKwV+Kj2VEmbIX0sjZOkhww951HNn+A+8kI51nNU35344bFwk6Vpiof4f9ikc19cYBL0E1p9v1pSK8V5VNqTvOyDeuG+TlaKxNWM+DYqioevOdiIzDGjy0X7T2ppsHy1hHIZQneeDdWwqiGLIqCXCB7RQhNg/nc/mXsEMaigQCxvQyw==
+ b=daBj3mwIy6Wm1yce38Q+3FLqZn5D6wam49NooYm/9SUF+DR3UV1uAKUYJpAJIaprUkhXlppnTn6KI+9vnHvRnJnTsqyLUJ5yRNYcDKmsPSJe3Km3jkPrqejJiynomgK5E3uTrcpXY+nkeemTZpens12FAM8p6tlmqnlErEFUMdIvlIbzVAF3wlfveV5KV2X44x/Fd5Gv7h/yG+NgJ736VUMSkTLl98UHXI7N1qr/BhluMVz/+xNTjF4dSstOIx4LLgNmQ20G9Iwm2yAn1lH7rSZ+Jt5X8X+L282YKMcZajHx+wB09iCVJ1CdLkiT04UjLfGtw7Tiv1MU3nDjQ/i5mw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WcqCMQrGavgYjOt2lGIXN2oQn3dkrM4UhcUIjURHt0M=;
- b=dYyTx2EA95CQwtvWvJGbofqZaWcLG7jQk47A5wF7Ei/0VRwN9bLBv3iPIaYAe4LP+2VjQjMngj1dCFt/4+3VqCpiboCE1XP+U2aNhnNpUTNv3tiarMTigBsLpbGMSfrq7ylKgfbY1R1mTjoz+aWZPuxx+kd6+jcPLGdY84AGYS5+rLR3SZcopGzTfzoOrWLS2F424ushifWz7ScSJPHd2wMQ0Y2dv7ipaMNdiFl4gBdVitwJ2LTEowv1fo22PCNg14RbHwMrWMOMPsyMe430sGg0u6DueubS9F4JDuII4k54HLzqWbwSvlB/rCMyj4z+dlgP/Kvqem7ar3HXmRUTeg==
+ bh=UVlFCOe7iOaumc67zbX6/B6hwJ+V/FV3WjFQPjzQ6P0=;
+ b=VpEmuQBwwXfBFGznqBenHwKe8hPkxmZ5gCBPFwlLhuqI00NH2vIiAQXvwdZ1iRDdh2YpbYKCDhpL+iQCPjsoFRbY4tNnBwmfVSd5IozVbF5dLJFS0nZG+vdJSsblC2BfnW7jXm3G6JjSxyniBzH2wHbU2d9Hssaws4MvTfUXSolCiBhh+opMvTI75fjHO7v/s8RFcO60rnJxen08MpJEpN9ip7+aPOf4VAkGpr7TnG7KuIiLYZPaasLV9v+SDvUWlyHg3+G+cBtQRcAkh2usW1XYKTIkIQA8cShiIzuqdWtXmDCRQ30NB06DXneX+vq/AA16bc0wHRtyo4KYs7W74Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WcqCMQrGavgYjOt2lGIXN2oQn3dkrM4UhcUIjURHt0M=;
- b=MkT3r8M0OYsEVLO7cCOXyS5OTiRNjN7sizRQjEARwUa01DPPfMX0K0Tp7aH6w9nddh9AwelmTtGK54XDmi+N25V6z6J6pSzfIaWWYktx8jXZw5I96HB8HSerCS8BMxYU5H2pflFpU2vFF1uNNYfghNMHYmTYuI4lEml9y3rIIKLGYjLO24ceI2ToyUAF7HMO13snbfm6deOP7ZtHhz43SNU81sCn7AXiYfoOl8qUBUTje+zHtFc3k+5mJKqCjxMQV9IuQDjFGU+QMtEPxzT/CWcNbXWcBw4yjn6zYH4syd83AOO//h5aa0FtaqA1zfhhja4VD6Pce0tdDtIXf6Puwg==
-Authentication-Results: perches.com; dkim=none (message not signed)
- header.d=none;perches.com; dmarc=none action=none header.from=nvidia.com;
-Received: from BL0PR12MB5506.namprd12.prod.outlook.com (2603:10b6:208:1cb::22)
- by BL1PR12MB5318.namprd12.prod.outlook.com (2603:10b6:208:31d::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.21; Mon, 7 Jun
- 2021 23:18:39 +0000
-Received: from BL0PR12MB5506.namprd12.prod.outlook.com
- ([fe80::3d51:a3b9:8611:684e]) by BL0PR12MB5506.namprd12.prod.outlook.com
- ([fe80::3d51:a3b9:8611:684e%6]) with mapi id 15.20.4195.030; Mon, 7 Jun 2021
- 23:18:38 +0000
-Date: Mon, 7 Jun 2021 20:18:37 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Joe Perches <joe@perches.com>
-Subject: Re: [PATCH] treewide: Add missing semicolons to __assign_str uses
-Message-ID: <20210607231837.GA831267@nvidia.com>
-References: <cover.1621024265.git.bristot@redhat.com>
- <2c59beee3b36b15592bfbb9f26dee7f8b55fd814.1621024265.git.bristot@redhat.com>
- <20210603172902.41648183@gandalf.local.home>
- <1e068d21106bb6db05b735b4916bb420e6c9842a.camel@perches.com>
- <20210604122128.0d348960@oasis.local.home>
- <144460ce4f34a51dabb76e422a718573db77cdc8.camel@perches.com>
-Content-Disposition: inline
-In-Reply-To: <144460ce4f34a51dabb76e422a718573db77cdc8.camel@perches.com>
-X-Originating-IP: [47.55.113.94]
-X-ClientProxiedBy: BL1PR13CA0007.namprd13.prod.outlook.com
- (2603:10b6:208:256::12) To BL0PR12MB5506.namprd12.prod.outlook.com
- (2603:10b6:208:1cb::22)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from mlx.ziepe.ca (47.55.113.94) by
- BL1PR13CA0007.namprd13.prod.outlook.com (2603:10b6:208:256::12) with
+ bh=UVlFCOe7iOaumc67zbX6/B6hwJ+V/FV3WjFQPjzQ6P0=;
+ b=YVU9o6NqIN+xdNR6jHmggDkhpAJ0azo5Cr0SBfyvBSidrqCyUgWg7MyGpKDuwMHjGf6+q+0R9szXKHDzKvfKNXc5JVeUMviWe6uod8DlaLjHuL4kgYOmxv7Aqgyl31r3xsh83H2CE01dph0CbOoVyWTAEuZCSxc1iltRZw8cya0=
+Received: from DM6PR10MB4380.namprd10.prod.outlook.com (2603:10b6:5:223::19)
+ by DM8PR10MB5415.namprd10.prod.outlook.com (2603:10b6:8:35::23) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.10 via Frontend
- Transport; Mon, 7 Jun 2021 23:18:38 +0000
-Received: from jgg by mlx with local (Exim 4.94)	(envelope-from
- <jgg@nvidia.com>)	id 1lqOVx-003UGN-4z; Mon, 07 Jun 2021 20:18:37 -0300
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ea855673-a817-4d6b-036a-08d92a0a94b6
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5318:
-X-Microsoft-Antispam-PRVS: <BL1PR12MB531868D60C97342FEC81E141C2389@BL1PR12MB5318.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 1IQIx1Kt2aRGjU2JT97DmzuN4KpSkwPKVfdKyU0IUzq+uIc0ZdBJDlIXVKX0czRpEvtl1/rlvruGzP8W4QwKNAWQ4SQ696qtZKeZ/JHZPVEOGO5DT6ukNWcuVo3IPkBzGUHijB/mtXnRn4Jv7OIL05WjtfOnDdaqbAjXWe8xlDWcfCE60CVCxR4UT3KzjS6dN/rmebdAvKEhE9MK7CkVMPXEQB2DUMtWnakKFUxeyKoI8obrLm8bQWMNU7L/Vwr8vwWET5dNUP7zATZ67NKsFP9VUkEA0lPHFGFc17IQSxbrbU8Mh8rQg9D/zemTYCfTd5Sdi814M3bfLQNAyRYmJA6iqwhsMKdKibcU3dCJ40VRETy4n9pI71BnNtZlEKob/BCUW99/0szsyZ2YibVsyr8wvG6AchchcbIFhWHLcA88S4NwYhBC5VtlVPT9jMpsWhMNuEqiinlWwd1XFONHMUnCTwrPbrTnqcpd5rI8PDqNNTMTSHNqI0nyNu0/mKpboma0BGwM0p1Hh42EqWhjl4yDqItkAKqJBEgIhz5L7fCQsxKoNwePab9wLw4rXdjTJCP25j00FLxTYQfIubEoVXRLK675yZrIJr/krobFjLiTGneeMNY0PbBaXk+9gfi3OoZDsPnVcTGCYV2Wedid9A==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL0PR12MB5506.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(366004)(136003)(396003)(39860400002)(346002)(7416002)(478600001)(83380400001)(36756003)(8936002)(2906002)(66556008)(186003)(66946007)(6916009)(2616005)(66476007)(38100700002)(86362001)(4326008)(8676002)(4744005)(316002)(26005)(426003)(5660300002)(9746002)(1076003)(9786002)(33656002)(27376004);
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.23; Tue, 8 Jun
+ 2021 00:29:04 +0000
+Received: from DM6PR10MB4380.namprd10.prod.outlook.com
+ ([fe80::b8b4:5900:668b:c9c2]) by DM6PR10MB4380.namprd10.prod.outlook.com
+ ([fe80::b8b4:5900:668b:c9c2%5]) with mapi id 15.20.4195.030; Tue, 8 Jun 2021
+ 00:29:04 +0000
+From: Liam Howlett <liam.howlett@oracle.com>
+To: Alex Sierra <alex.sierra@amd.com>
+Subject: Re: [RFC PATCH v2 1/8] ext4/xfs: add page refcount helper
+Thread-Topic: [RFC PATCH v2 1/8] ext4/xfs: add page refcount helper
+Thread-Index: AQHXW93EOm+ULG7yHkuFMoDbrBIUu6sJQs8A
+Date: Tue, 8 Jun 2021 00:29:04 +0000
+Message-ID: <20210608002858.gegg6sl2z2dwwstb@revolver>
+References: <20210607204226.7743-1-alex.sierra@amd.com>
+ <20210607204226.7743-2-alex.sierra@amd.com>
+In-Reply-To: <20210607204226.7743-2-alex.sierra@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=oracle.com;
+x-originating-ip: [23.233.25.87]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 8825acba-9aa3-4236-05c7-08d92a146bd8
+x-ms-traffictypediagnostic: DM8PR10MB5415:
+x-microsoft-antispam-prvs: <DM8PR10MB5415D9BDAFC758A303103C07FD379@DM8PR10MB5415.namprd10.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:7219;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: PgeSNXxEJIbVHb0+BjJdQKi7DHUBjcB6rX6FejbqLrg7NvzI4aaYQ4SZyCIT3ihNaqIUR/Qp9OW6shU+rdsDeQQ1vPGTX+JoczcMz8J6q/ZnzfA5jO2qp9zuxOM5oGuV825p8jJ/6O3WvILg9v+MSt88pLQJAxJ6dIieZywVkcBykQkylBUW3pCnqWYMs5MwX/HsT6RYz+5LLacCMzxXWYiJFDQ+hPZmPEKgMuTPZulkfaxRdw8WZaRv3Q3YNpVQqxbDt5B6Lc8i7gIkSDxyZI897cJ+xYtARy5/NcSKmtMjDPQ77uxf41imyRoeTRmWvHPpQ/QT7wWrTY9PmfdvoFx2IsDvdJtn6RY3KGVDebr7WfeOSedVpRdicW5GWNgmLMg6JT9CSmsDiIVzIhMTlcmps6kZNI/SWiOVuEs8h4CsAbnlkdebHDXwmn/HFoUucKvdK1dNS3P5GoiKJhzOP7VNLH1pCmR2jOfnOPomZAXRbgk2WHJdJUwv3RsPeCOxAAwVIF8vZIw9IBQWSioNDKmaC2imFrJtu8xqD3/TL98fUF+6RWOrRbDJRdx2EqbJbpcZ75nhPB9MU/CIWbBjIpb+nYw8Q5eyiKxoCyJwh8M=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR10MB4380.namprd10.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(7916004)(366004)(136003)(346002)(376002)(396003)(39860400002)(7416002)(478600001)(71200400001)(122000001)(6486002)(2906002)(9686003)(6506007)(38100700002)(6916009)(83380400001)(54906003)(4326008)(1076003)(76116006)(91956017)(186003)(33716001)(86362001)(66946007)(66446008)(44832011)(66476007)(64756008)(66556008)(5660300002)(8676002)(8936002)(6512007)(26005)(316002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?yfBM5qtu8tW6vwBJ0j080dK2cZ8vkOmiwZLJ63PMA+/80r8loKMql6hfUJtv?=
- =?us-ascii?Q?6/bo86HhiNe2f9aiBnzKG4hmtbrNTVQVN0yMwYTXE0+44JTFlyj5VUPCdlh3?=
- =?us-ascii?Q?zXT0us0CVFTOq6IpG+kPrQ9iyYbsfAGp+P9v/x2G/nPCHp+2J1B89B/NEXUd?=
- =?us-ascii?Q?43NyjGvlkhtynXZ9+gKXfRo319yGsWXE8Bm4qVP2x8J6GsNlZ6JpBB78zlon?=
- =?us-ascii?Q?JuFGZw1w7PzLN4uFvfW3RV7Rw4AROjhJSAufSqHjpnzDZ4cWQFICGXNXyB1Z?=
- =?us-ascii?Q?a8OS6DDubFGFVGi2ZtPdAZCAVFPQ+jzlZcfh+j7Z/F1j4l726Imb1BZzt7RL?=
- =?us-ascii?Q?YvjCyCdhaS4MxEL7XJ6Qr4zGq01QA5KQdfa0bAStdAoJZkBuHH42IxknlE8N?=
- =?us-ascii?Q?krqaxuS5f0Q3uW1V6XB2Tzs1zzlRzPe7EeQzkBGAZWALu1pKkcaE3z67CuGT?=
- =?us-ascii?Q?4aW3/iuFkKePhFQWWAD0BgN9n2ZyGkg/SQC5JwiZHOY5W3+MJovVTXcoo2i4?=
- =?us-ascii?Q?Xhi3LVT2VxW3+7Jbup3Ls3Z2A0502lvQpkoDUsiJF1Z2o7XLYKPRKowZiiC0?=
- =?us-ascii?Q?3yVhtkjYo2DTJSl8xTkjw+ArZYHYEnOSKszHzRqJdACQi5vhSQeMJwYsSPwa?=
- =?us-ascii?Q?eqhGRK9pSpM+8c7pkEJX3B+5TOMS4N2U057w5Y2LtauHW0AKePCeCRFP5tya?=
- =?us-ascii?Q?ZBmIa0dSvfgOSYjgdGPgGe2jVSDVT69E94/HM5Rh2CtjSmUBpGsS9dcwhlJK?=
- =?us-ascii?Q?qyCM1GN1HDU6ZNX/Jg9TbRM/vnZZZ1jTt8QHYhSgNKVlSXDX3fTMUwEATJA+?=
- =?us-ascii?Q?o3DfCY1T6MscrU9x9qc/aqzf+Z4efgpjIedZgDIIyZX56CJDC/2IqAN5GNDq?=
- =?us-ascii?Q?IhPFRAItHkfHEWtba6cZTZIRipHhFMmD4Bo/pDW+TCVHNHi+3FczVbX0Jj72?=
- =?us-ascii?Q?U4JL5OpQuYz/ZNg+9otDanDtkI3MWVP3xac56nWxoUA42yEA5wdZh6sad4UE?=
- =?us-ascii?Q?tXcfX6BXEv3VCwEbEFVrrNab76IGdhT9hG0EQL6PlWSKLvI7oLIBptOmo5E0?=
- =?us-ascii?Q?lS3Yb5MZ+SzW2wyXMWw0g7OkvII/rdaRuJFmRS+KG+c/XxCMjIDM6GZLt89c?=
- =?us-ascii?Q?hmi89HoDAvgn2SqtZhNMLE8lVXxDJ2/YfA8OPJpFkj/6fQR1u+f1nZm2yeSQ?=
- =?us-ascii?Q?5ms2a6uMnSEZLYTV53qY8dkjWED1YMeoDgmLuaKOnL5z+KeIZo+WBhKpXdhg?=
- =?us-ascii?Q?OTEWOgO3p+d8j5Qxms6gqTsPeJA3rKOHB8opXaX1K+0Kbkcbxv8c6gM9LSj/?=
- =?us-ascii?Q?nncr1s2JcbTuYBXrU4ZST25Q?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ea855673-a817-4d6b-036a-08d92a0a94b6
-X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB5506.namprd12.prod.outlook.com
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Nc3DMo+GTejzIHcAhCMt+Sqan2RDJuhStPjI7Cf1T8vj6lAn2LGIngSFhqI7?=
+ =?us-ascii?Q?uIE3e6QPi+CKhH9ccYgKUdyl7xObhozVG/OfUrD1/Duw9P1pUiGxt0rBjFf7?=
+ =?us-ascii?Q?CBRtMjLN+6wPsLLeXKO+x4XtjirquqbrJL/jnRUzHr+l94dngNveXYiEiSRf?=
+ =?us-ascii?Q?5NHlz7wlCgb4BbWIEwG42tjdQnRcgW+Te2E3p28GDQn1/NKMDkZV85Mz25Mc?=
+ =?us-ascii?Q?CblfcAqQqkoalU4mrIrP1T/Wqk9XGiodjMvCkHU/eXQ7UqMxWnuR9xjKQT+w?=
+ =?us-ascii?Q?/Qt98tdLUiX3ABzEYnCUksjwLV85WOGbWTPVJbvBmO7UQ7ByyNZuJAyastvc?=
+ =?us-ascii?Q?96gnkxgDD7X8gMb6h6+xi/NoQlQZZn9yuYYF0aq1ZsKHvK5kJgsR59+TuVqn?=
+ =?us-ascii?Q?+/hEba1kaHDsJBDwV1VGU//IbM3NjUaHZuf9/ZNcqirTM97ESd6Rt7Ao7owz?=
+ =?us-ascii?Q?HlpYWjpZaZyb/IseDt0bye9dBZGuYTllGqGetS3Vt9MmWlj/HRKzMbw3MBdF?=
+ =?us-ascii?Q?HP3AeWSfX52L5i6DJXgEV4AANTCV7yV2ag5K3cgeKc9R7rVkExBnTcQl/h7M?=
+ =?us-ascii?Q?8MaVKf/qh7Pbml6xYshFIhmCMuQjpkcU+twkRBXEaqDoln/EqwSEjhJCHWiA?=
+ =?us-ascii?Q?oqY5zorqEJDJmInPUqCdhUazMbbz9B63BN/lsqUIonGb11EyH8QfB0DusADZ?=
+ =?us-ascii?Q?0SvXntIOigleNH3h4u1FMz5RBVnk10xHeT11mOCZgtQ1Y8VAuEcjc5F/IxJ1?=
+ =?us-ascii?Q?bhgxlKweYc9UgFhT2cIuTMggD76vfB9gvnUpxs7T5xV/mLnShY3QIQypvELz?=
+ =?us-ascii?Q?Sy7hwLq82/RTZEi4IFTo710se2gSC6Nk9HNmuV67oKo/vOjvZGjqOGnrTzJz?=
+ =?us-ascii?Q?FfEj3Tl4WRtT2wYPGigSYNBwaWhXspdJaNAxQJX2zxg9K6OU2/0sRcI6IOaa?=
+ =?us-ascii?Q?ccbSVuKx5xzxt2vPQ+YU9g8fo+z6fgvjlbMM1hUGss8BMWcBrx/MGLcbaGZd?=
+ =?us-ascii?Q?dfcLdN8fr/X4+5V+CJKXAmcLmXwZF20pzm8h4BjCI+Be68Pp97sYLF5pFAt8?=
+ =?us-ascii?Q?/IZTKp40WpUkyBFPStAAf/j141mx7iPlVOgKks55TG9iUGvSTaIYVodmwxyd?=
+ =?us-ascii?Q?rpTBt1BikrLrPU9PHnhCOmGamZLI3CLaoqNCOZWb2Ogc1bOEiPkLCQSIVA3o?=
+ =?us-ascii?Q?mVuk3+gxN1+hwyDCMewOIWBd+AqgQxjWAI9BU+IEvApcz4AsMR8L3AumJcnx?=
+ =?us-ascii?Q?08SrQqNl3vU2G1IfuEfbCMsIfgW3X7nIm2MUJaFkdojE/GHMCFmwOVEYGizi?=
+ =?us-ascii?Q?zA2l4v8TU7PEZmLjYNi8y/p8?=
+x-ms-exchange-transport-forked: True
+Content-ID: <00DF20E2546CAB448E48AEEDFD52FEB7@namprd10.prod.outlook.com>
+MIME-Version: 1.0
+X-OriginatorOrg: oracle.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2021 23:18:38.5967 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: neQlgCFaKGpzHFVPgyILIvzKgtLEt7yz1tRHrJ5G3XSQq+P1Tt3kJpJYuZGkAwLn
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5318
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR10MB4380.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8825acba-9aa3-4236-05c7-08d92a146bd8
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Jun 2021 00:29:04.6075 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: +Zek+B8hCj9c655HxPgYo5mEuvCAq6r8eSlScb9qT6p99iYRGv/0+SpDJhkF3j06DXQAOuMfPV2TTv72MrB02Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM8PR10MB5415
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=10008
+ signatures=668682
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999
+ spamscore=0
+ phishscore=0 suspectscore=0 mlxscore=0 bulkscore=0 adultscore=0
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2104190000 definitions=main-2106070161
+X-Proofpoint-ORIG-GUID: YF7_DijuX-Oo4dW9XB0jpqgWEHZ1XJOX
+X-Proofpoint-GUID: YF7_DijuX-Oo4dW9XB0jpqgWEHZ1XJOX
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=10008
+ signatures=668682
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 impostorscore=0
+ phishscore=0
+ spamscore=0 malwarescore=0 clxscore=1011 lowpriorityscore=0
+ priorityscore=1501 adultscore=0 mlxscore=0 mlxlogscore=999 bulkscore=0
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2104190000 definitions=main-2106070161
 X-Mailman-Approved-At: Tue, 08 Jun 2021 01:39:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -133,34 +167,125 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-nfs@vger.kernel.org, lima@lists.freedesktop.org,
- linux-rdma@vger.kernel.org, netdev@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- Steven Rostedt <rostedt@goodmis.org>, amd-gfx@lists.freedesktop.org,
- linux-media@vger.kernel.org
+Cc: "rcampbell@nvidia.com" <rcampbell@nvidia.com>,
+ "Felix.Kuehling@amd.com" <Felix.Kuehling@amd.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-mm@kvack.org" <linux-mm@kvack.org>,
+ "jglisse@redhat.com" <jglisse@redhat.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "jgg@nvidia.com" <jgg@nvidia.com>,
+ "akpm@linux-foundation.org" <akpm@linux-foundation.org>,
+ "hch@lst.de" <hch@lst.de>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jun 04, 2021 at 12:38:07PM -0700, Joe Perches wrote:
-> The __assign_str macro has an unusual ending semicolon but the vast
-> majority of uses of the macro already have semicolon termination.
+* Alex Sierra <alex.sierra@amd.com> [210607 16:43]:
+> From: Ralph Campbell <rcampbell@nvidia.com>
 > 
-> $ git grep -P '\b__assign_str\b' | wc -l
-> 551
-> $ git grep -P '\b__assign_str\b.*;' | wc -l
-> 480
+> There are several places where ZONE_DEVICE struct pages assume a reference
+> count == 1 means the page is idle and free. Instead of open coding this,
+> add a helper function to hide this detail.
 > 
-> Add semicolons to the __assign_str() uses without semicolon termination
-> and all the other uses without semicolon termination via additional defines
-> that are equivalent to __assign_str() with the eventual goal of removing
-> the semicolon from the __assign_str() macro definition.
+> Signed-off-by: Ralph Campbell <rcampbell@nvidia.com>
+> ---
+>  fs/dax.c            |  4 ++--
+>  fs/ext4/inode.c     |  5 +----
+>  fs/xfs/xfs_file.c   |  4 +---
+>  include/linux/dax.h | 10 ++++++++++
+>  4 files changed, 14 insertions(+), 9 deletions(-)
+> 
+> diff --git a/fs/dax.c b/fs/dax.c
+> index 26d5dcd2d69e..321f4ddc6643 100644
+> --- a/fs/dax.c
+> +++ b/fs/dax.c
+> @@ -358,7 +358,7 @@ static void dax_disassociate_entry(void *entry, struct address_space *mapping,
+>  	for_each_mapped_pfn(entry, pfn) {
+>  		struct page *page = pfn_to_page(pfn);
+>  
+> -		WARN_ON_ONCE(trunc && page_ref_count(page) > 1);
+> +		WARN_ON_ONCE(trunc && !dax_layout_is_idle_page(page));
+>  		WARN_ON_ONCE(page->mapping && page->mapping != mapping);
+>  		page->mapping = NULL;
+>  		page->index = 0;
+> @@ -372,7 +372,7 @@ static struct page *dax_busy_page(void *entry)
+>  	for_each_mapped_pfn(entry, pfn) {
+>  		struct page *page = pfn_to_page(pfn);
+>  
+> -		if (page_ref_count(page) > 1)
+> +		if (!dax_layout_is_idle_page(page))
+>  			return page;
+>  	}
+>  	return NULL;
+> diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
+> index c173c8405856..9ee00186412f 100644
+> --- a/fs/ext4/inode.c
+> +++ b/fs/ext4/inode.c
+> @@ -3972,10 +3972,7 @@ int ext4_break_layouts(struct inode *inode)
+>  		if (!page)
+>  			return 0;
+>  
+> -		error = ___wait_var_event(&page->_refcount,
+> -				atomic_read(&page->_refcount) == 1,
+> -				TASK_INTERRUPTIBLE, 0, 0,
+> -				ext4_wait_dax_page(ei));
+> +		error = dax_wait_page(ei, page, ext4_wait_dax_page);
+>  	} while (error == 0);
+>  
+>  	return error;
+> diff --git a/fs/xfs/xfs_file.c b/fs/xfs/xfs_file.c
+> index 5b0f93f73837..39565fe5f817 100644
+> --- a/fs/xfs/xfs_file.c
+> +++ b/fs/xfs/xfs_file.c
+> @@ -782,9 +782,7 @@ xfs_break_dax_layouts(
+>  		return 0;
+>  
+>  	*retry = true;
+> -	return ___wait_var_event(&page->_refcount,
+> -			atomic_read(&page->_refcount) == 1, TASK_INTERRUPTIBLE,
+> -			0, 0, xfs_wait_dax_page(inode));
+> +	return dax_wait_page(inode, page, xfs_wait_dax_page);
+>  }
+>  
+>  int
+> diff --git a/include/linux/dax.h b/include/linux/dax.h
+> index b52f084aa643..8909a91cd381 100644
+> --- a/include/linux/dax.h
+> +++ b/include/linux/dax.h
+> @@ -243,6 +243,16 @@ static inline bool dax_mapping(struct address_space *mapping)
+>  	return mapping->host && IS_DAX(mapping->host);
+>  }
+>  
+> +static inline bool dax_layout_is_idle_page(struct page *page)
+> +{
+> +	return page_ref_count(page) == 1;
+> +}
 
-Acked-by: Jason Gunthorpe <jgg@nvidia.com>
+If this races with page_ref_count(page) == 0, then it will return false
+that a page is idle when the page is being freed.  I don't know the code
+well enough to say if this is an issue or not so please let me know.
 
-Jason
+For example:
+!dax_layout_is_idle_page() will return true in dax_busy_page() above
+when the count is 0 and return the page.
+
+Maybe you are sure to have at least one reference when calling this?  It
+might be worth adding a comment.
+
+> +
+> +#define dax_wait_page(_inode, _page, _wait_cb)				\
+> +	___wait_var_event(&(_page)->_refcount,				\
+> +		dax_layout_is_idle_page(_page),				\
+> +		TASK_INTERRUPTIBLE, 0, 0, _wait_cb(_inode))
+> +
+>  #ifdef CONFIG_DEV_DAX_HMEM_DEVICES
+>  void hmem_register_device(int target_nid, struct resource *r);
+>  #else
+> -- 
+> 2.17.1
+> 
+> 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
