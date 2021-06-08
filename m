@@ -7,48 +7,48 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 04DD5C47082
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 04:34:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B63DDC47082
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 04:35:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AC81161249
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 04:34:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AC81161249
+	by mail.kernel.org (Postfix) with ESMTPS id 587E561249
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 04:35:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 587E561249
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3FDDA6EA96;
-	Tue,  8 Jun 2021 04:34:51 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2041.outbound.protection.outlook.com [40.107.220.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11FA56EA96
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Jun 2021 04:34:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B6666EA97;
+	Tue,  8 Jun 2021 04:35:00 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2073.outbound.protection.outlook.com [40.107.93.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA4C76EA97
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Jun 2021 04:34:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bN1wqBcbj/vRUBR/+j2ALII9VfpZDorUdXAMJ8zxNvmbJz9xh2RUqOCiuuD2wc9YDhajWu5Ogkus+lUw0BSE7+s954B54D+BMFgd3NMreJM6oe30s4jTnr7IntAHfz9RDyNlBM9WGtyJDjRpOIR07Zc478O4gnnHBLltq2VuLLNY3XmAcPFHRqftPHLxZkNuIonkDnA78TI/2Zw7ZSJSBiYDR8WrEnA1GBosd14l1fE5eRNevkGekqCNeWH/KxHuUAAmLmk60ip+Cfdwq8UrsAM7dXRSC/IRLZCVdV+qBeGTnnK5XCjAIHUFRrZU9zuqv79tzBMKEsQAxUJjWQf4tw==
+ b=Z/R838wxp7zxQZDUSZ0hrWtKMRHQ81EK2uJYOcY6f7oNzfMcWnfbHNXLp0AgqJmsw6ggnomnRmoMzdA6nbQoKzIncsohoVJmdLLaDqbZctYUTKWJl3nW1gq494ZxTnYUND1jzDlOXytINHX+GqnibfF43HCigO/lqoqAadiSxE1hsa0DrfuffHwME5jfD1O529mM0nI4f1v2ujhprje9E9Br62132xqu9hJztWePInzhDDTTjz9zlRVhZfWQ5UlrGHI5qeN7eClAFfO7e8c3LwbEuPONznGFIJYG3l9irD3jw7Sik2dLrnc+D4f+r/VPYnz6Bj4XbvEdNBMzVWAWfQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IxVdNRU7VFQ23/MJ/u11kd9UP3SKcN05SFupuNsTHzY=;
- b=TYNYSQiR+ST+3RvvZUzzJQPnELOd7B4Dli4jGSahtIALlYmfqFPyrV854t+MugESdaf2zs/2PhBoNGgkCxTyjqyk91w9emc/8tmiib+EWEvC1aCeN2FJftvx2ZT+ztguSefVFbfRR/yft1TU6/Z3BYR2ATMlnGJqoHhVHFgYTC5DBbk0ZIBshkmboxP9PswyXZCMhwV8a90GuDSHr+0AtR6jfE4XZuGEYVd/5W8TH7BQ024bE9+NzKxkeAKu80pEsrFjDuFe5g0GWE0pdaX6PIzyQ0ls1BSj0hxhydKcugh/kO0KIZ9iOh2wh32HqLvgfaSUbHuxx+nyTZKR7qOrGA==
+ bh=AFkPD0lEeCD7BJTbQCJJR8EYpYBe2rk535ODOUgIXVw=;
+ b=f1sXlKEjbUQ5/90kIZynv/IipGl7bi6M3U/+u2jluCS+FI1jrhye7POLqyFpmyaiG//9AXsHGmA1qaMzlQIzYYcs38sXBScrh7WNak7djx/44fBV9tUw7nHKEDNjuF1OTla+HzjpT7IPvV/eoRAsnopYdbQs5CNgYkm1XazduuYZmDKpjmWezVbUT6ZtaSrnbKA3HsnSxnLtUkYWIXOY9/zyAvWD/3kDN1NkXreUvDX72X9k8Zt/0W0ylgG+zuOpLB9wzRu844AitxAESuLnJAf+kt6FO4ffC90RsRUDps+6rsIUpXt0cQJY7ImUA0T1PQpbBHn6PyemllmjDCqaMA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IxVdNRU7VFQ23/MJ/u11kd9UP3SKcN05SFupuNsTHzY=;
- b=y68R0pjakGjNxzso5ypk9S7xw7x6UssjkGQByqTo/ihOB3WKq+dtmP+OH6jrBkkAWnKmjSbwMwR2ITBD+NnS7cr5VaiF6BVWW389GqAVdpPV/5gZJP0K5wv3YWv9EIkdG6DCio6KoayfIeCrraII5nEhhnaPt9/hKxcebNPTAAQ=
-Received: from BN0PR03CA0035.namprd03.prod.outlook.com (2603:10b6:408:e7::10)
- by DM6PR12MB4958.namprd12.prod.outlook.com (2603:10b6:5:20a::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.20; Tue, 8 Jun
- 2021 04:34:48 +0000
-Received: from BN8NAM11FT024.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:e7:cafe::c6) by BN0PR03CA0035.outlook.office365.com
- (2603:10b6:408:e7::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.20 via Frontend
- Transport; Tue, 8 Jun 2021 04:34:48 +0000
+ bh=AFkPD0lEeCD7BJTbQCJJR8EYpYBe2rk535ODOUgIXVw=;
+ b=xfAW7J1YFp3WnNqCU6q5HDiNo6vNcrwdRzqbc3tXdh/2KoZff2mUyWLDg/eCZQFNU+8aPcWFIYY3uvwTP3umxIjhbHGp3Tu8M2d5Bm309fe9YxwBVDC3VD33cX+1DLkVLuro72VShNXFnuE7IECiN38fU/Jkqfz8/EOgSpGcNGs=
+Received: from BN9PR03CA0408.namprd03.prod.outlook.com (2603:10b6:408:111::23)
+ by BYAPR12MB3333.namprd12.prod.outlook.com (2603:10b6:a03:a9::30)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.23; Tue, 8 Jun
+ 2021 04:34:57 +0000
+Received: from BN8NAM11FT050.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:111:cafe::3c) by BN9PR03CA0408.outlook.office365.com
+ (2603:10b6:408:111::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.23 via Frontend
+ Transport; Tue, 8 Jun 2021 04:34:57 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -57,47 +57,49 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT024.mail.protection.outlook.com (10.13.177.38) with Microsoft SMTP
+ BN8NAM11FT050.mail.protection.outlook.com (10.13.177.5) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4195.22 via Frontend Transport; Tue, 8 Jun 2021 04:34:48 +0000
+ 15.20.4195.22 via Frontend Transport; Tue, 8 Jun 2021 04:34:57 +0000
 Received: from equan-buildpc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Mon, 7 Jun 2021
- 23:34:46 -0500
+ 23:34:55 -0500
 From: Evan Quan <evan.quan@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH V3 1/5] drm/amd/pm: drop the incomplete fix for Navi14 runpm
- issue
-Date: Tue, 8 Jun 2021 12:34:27 +0800
-Message-ID: <20210608043431.1855151-1-evan.quan@amd.com>
+Subject: [PATCH V3 3/5] drm/amdgpu: make audio dev's D-state transition
+ PMFW-aware
+Date: Tue, 8 Jun 2021 12:34:29 +0800
+Message-ID: <20210608043431.1855151-3-evan.quan@amd.com>
 X-Mailer: git-send-email 2.29.0
+In-Reply-To: <20210608043431.1855151-1-evan.quan@amd.com>
+References: <20210608043431.1855151-1-evan.quan@amd.com>
 MIME-Version: 1.0
 X-Originating-IP: [10.180.168.240]
 X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 0f53b176-95f8-46e5-5027-08d92a36bfa9
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4958:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB4958507AE7BDC937D871B589E4379@DM6PR12MB4958.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
+X-MS-Office365-Filtering-Correlation-Id: badefb8a-12e9-4842-4cec-08d92a36c51e
+X-MS-TrafficTypeDiagnostic: BYAPR12MB3333:
+X-Microsoft-Antispam-PRVS: <BYAPR12MB3333558A9842ADC3BF3078C2E4379@BYAPR12MB3333.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 83lQp+FD5p5evywZy7aMwwyQSGX1K2bMSjwcU8D5StiUlibWoiMuF8OCeZyqTQ3gl8O2vxHNBC+9KjNKdgJhpf8drG34Gp0+K2Jw2rqJhY9Q7KW+bl2ci8tV3hXrXaRaT/KIBVnlKdodf8tQhkfAFWn1VyzdXN5/KBch0/p4S5Ri4YPjMpXnmd9n3UO9qBNgZ1hQj88KY2MTioz4UrwfU9QfeSsnp4v6jTX7lrwFJsF9N9s5F3DZpe8XC0U9TfoANp4mrvzjZ82k4SZ+JCvuQgxHDmXzJf/c7bC0Vqdj5zGX7rwG7O0ChjHpWmC0EttGyvJb4ywMZ85KVzTCqXnK7cjDBDyIJQodREyV7xXrsabvr5VFAdB+PACR9mV8FhN8u88/8xC7BHKYAWlZqNosTZx7NsORw6f3DeNygiVsWIGis4201rCYWNykPvJiqAigiFMV3jtJPhKeQT3uwuULrA5/FH7ow5pklYEWy+qWDdPf+UAgti5P3zIb2HXoLNx8TUVxyANF4FWOtft1FqUZny5vWdKYGSp6nKG0xTTGN0oew2GFP1qGdXEy1/OCS6BpeNKlKxDvoqByg9wORnPWeU99Xrra30EGy/UfBn8QYa9v+CQ5bbzE3DeYoY7j5UOlYDQ4wOTH1fi0kFmsPIHnXyMHcet6jUdTA4uFLM8Zs6QEWJ0ArDv1otglc40RnW1Zzy3WganJRC2uEu9ugUW09irfkIxmvrTw8tGfSaP1lJyRG1u6yDwm9SoHVSdWlbjfjJPzQFfAUaasAIBUrk5yT6w3LJ+9CJrh/QG778U62DL/tdX79kvSyylMVqCLeQ/0
+X-Microsoft-Antispam-Message-Info: Uza+btl8npRQ0L4gh0ei2O/BfMrn8PqM4S4kuGg+IEocuAms+jcq5V+4budtuSCELmUMy97P9EzGW6o8M+oMtE6RNaKXIEf7eTIl9aA6DMHoAabgMB6F0zWBHAXTObGNp85Y1MIFmG2x9Io0iDBHaISm3QVUKNpW/MoyLTGd5PTOvYJc/8ag+F6dBZbONK0ow0L6yeEwnySDKkeTmzVwmGapVzgJbI8p0YOGGG/0XjVX1k/+tXcgW+/f2dnkxJYAgelzBIl+4ey2DrLkMyFuoby9S5RRFqBRpuZet/95PQWHRHkEKb3TF/IgDAimkV7xT3Pc3XSBAplwHYaS62Bt2GqzYcHYHfWzws7VnPk0xcBFHxWrWXupGaoTB4KP3AzLsKW4P+S6L7/WwOdLzE0aN9aHu0d/9SYhxlfsM5ix1nmecz7a08kWvdxetCMDOATv4xrC5K/BgP2e8qZUq3Sesqk5sBfAPEJ/UoyIV+mHGEyNViopVzIcaHFjUN13AOqO1jNTVWNWPyH3mC5AhXz3llbK4kfoLFIvTG3w/LPBOBgpeWvjSfbC0uEhDYjUkdwEmn+6P7rUxepaxwQ/euTWpqGroD2RjxvQEOBaK2MujNpYe7qenVvbE+Wl/7rojv/tQYdIa3AgU/5hHqHmDXWInHZcpUVPT/KO0zznGb5KHY+GzqapirrcvH2HCc52WNbj
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(346002)(396003)(39860400002)(376002)(136003)(36840700001)(46966006)(70206006)(70586007)(81166007)(8676002)(5660300002)(83380400001)(7696005)(54906003)(1076003)(6666004)(2616005)(36860700001)(8936002)(36756003)(86362001)(336012)(426003)(356005)(82310400003)(44832011)(16526019)(26005)(966005)(186003)(47076005)(6916009)(4326008)(2906002)(82740400003)(478600001)(316002)(19627235002)(36900700001);
+ SFS:(4636009)(136003)(39860400002)(346002)(376002)(396003)(46966006)(36840700001)(7696005)(478600001)(47076005)(336012)(6916009)(4326008)(2906002)(2616005)(1076003)(356005)(16526019)(70206006)(82310400003)(186003)(81166007)(86362001)(70586007)(36756003)(44832011)(5660300002)(36860700001)(82740400003)(8676002)(8936002)(26005)(426003)(83380400001)(6666004)(316002)(54906003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2021 04:34:48.1341 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0f53b176-95f8-46e5-5027-08d92a36bfa9
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2021 04:34:57.2903 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: badefb8a-12e9-4842-4cec-08d92a36c51e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT024.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT050.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4958
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3333
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,77 +118,88 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-As the fix by adding PPSMC_MSG_PrepareMp1ForUnload is proved to
-be incomplete. Another fix(see link below) has been sent out.
-Link: https://lore.kernel.org/linux-pci/20210602021255.939090-1-evan.quan@amd.com/
+To correctly kick into BACO state, the audio dev's D-state
+transition(D0->D3) needs to be PMFW-aware. So, if the audio
+dev entered D3 state prior to our driver, we need to bring
+it back to D0 state and make sure there will be a D-state
+transition on runpm suspend.
 
-Change-Id: I2a39688cdf9009885594663cd9ec99d4cfca0088
+Change-Id: I136e196be7633e95883a7f6c33963f7583e9bad1
 Signed-off-by: Evan Quan <evan.quan@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       |  5 +---
- .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 26 +------------------
- 2 files changed, 2 insertions(+), 29 deletions(-)
+V1->V2:
+  - Lijo: include the code in a seperate API for better readability
+  - limit the change for Navi10 and later dGPUs
+  - comments more about the background
+v2->V3:
+  - Lijo: update the code comment further
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 42 +++++++++++++++++++++++++
+ 1 file changed, 42 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index 47ceb783e2a5..0e632eda4d10 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -2180,10 +2180,7 @@ static int psp_load_smu_fw(struct psp_context *psp)
- 	if ((amdgpu_in_reset(adev) &&
- 	     ras && adev->ras_enabled &&
- 	     (adev->asic_type == CHIP_ARCTURUS ||
--	      adev->asic_type == CHIP_VEGA20)) ||
--	     (adev->in_runpm &&
--	      adev->asic_type >= CHIP_NAVI10 &&
--	      adev->asic_type <= CHIP_NAVI12)) {
-+	      adev->asic_type == CHIP_VEGA20))) {
- 		ret = amdgpu_dpm_set_mp1_state(adev, PP_MP1_STATE_UNLOAD);
- 		if (ret) {
- 			DRM_WARN("Failed to set MP1 state prepare for reload\n");
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-index 695c65767258..267fbbdbff94 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-@@ -446,30 +446,6 @@ static int navi10_store_powerplay_table(struct smu_context *smu)
- 	return 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+index c354ffa62483..131ae2a17abf 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -123,6 +123,22 @@ void amdgpu_register_gpu_instance(struct amdgpu_device *adev)
+ 	mutex_unlock(&mgpu_info.mutex);
  }
  
--static int navi10_set_mp1_state(struct smu_context *smu,
--				enum pp_mp1_state mp1_state)
--{
--	struct amdgpu_device *adev = smu->adev;
--	uint32_t mp1_fw_flags;
--	int ret = 0;
--
--	ret = smu_cmn_set_mp1_state(smu, mp1_state);
--	if (ret)
--		return ret;
--
--	if (mp1_state == PP_MP1_STATE_UNLOAD) {
--		mp1_fw_flags = RREG32_PCIE(MP1_Public |
--					   (smnMP1_FIRMWARE_FLAGS & 0xffffffff));
--
--		mp1_fw_flags &= ~MP1_FIRMWARE_FLAGS__INTERRUPTS_ENABLED_MASK;
--
--		WREG32_PCIE(MP1_Public |
--			    (smnMP1_FIRMWARE_FLAGS & 0xffffffff), mp1_fw_flags);
--	}
--
--	return 0;
--}
--
- static int navi10_setup_pptable(struct smu_context *smu)
- {
- 	int ret = 0;
-@@ -3122,7 +3098,7 @@ static const struct pptable_funcs navi10_ppt_funcs = {
- 	.get_fan_parameters = navi10_get_fan_parameters,
- 	.post_init = navi10_post_smu_init,
- 	.interrupt_work = smu_v11_0_interrupt_work,
--	.set_mp1_state = navi10_set_mp1_state,
-+	.set_mp1_state = smu_cmn_set_mp1_state,
- };
++static void amdgpu_get_audio_func(struct amdgpu_device *adev)
++{
++	struct pci_dev *p = NULL;
++
++	p = pci_get_domain_bus_and_slot(pci_domain_nr(adev->pdev->bus),
++			adev->pdev->bus->number, 1);
++	if (p) {
++		pm_runtime_get_sync(&p->dev);
++
++		pm_runtime_mark_last_busy(&p->dev);
++		pm_runtime_put_autosuspend(&p->dev);
++
++		pci_dev_put(p);
++	}
++}
++
+ /**
+  * amdgpu_driver_load_kms - Main load function for KMS.
+  *
+@@ -212,9 +228,35 @@ int amdgpu_driver_load_kms(struct amdgpu_device *adev, unsigned long flags)
+ 						DPM_FLAG_MAY_SKIP_RESUME);
+ 		pm_runtime_use_autosuspend(dev->dev);
+ 		pm_runtime_set_autosuspend_delay(dev->dev, 5000);
++
+ 		pm_runtime_allow(dev->dev);
++
+ 		pm_runtime_mark_last_busy(dev->dev);
+ 		pm_runtime_put_autosuspend(dev->dev);
++
++		/*
++		 * For runpm implemented via BACO, PMFW will handle the
++		 * timing for BACO in and out:
++		 *   - put ASIC into BACO state only when both video and
++		 *     audio functions are in D3 state.
++		 *   - pull ASIC out of BACO state when either video or
++		 *     audio function is in D0 state.
++		 * Also, at startup, PMFW assumes both functions are in
++		 * D0 state.
++		 *
++		 * So if snd driver was loaded prior to amdgpu driver
++		 * and audio function was put into D3 state, there will
++		 * be no PMFW-aware D-state transition(D0->D3) on runpm
++		 * suspend. Thus the BACO will be not correctly kicked in.
++		 *
++		 * Via amdgpu_get_audio_func(), the audio dev is put
++		 * into D0 state. Then there will be a PMFW-aware D-state
++		 * transition(D0->D3) on runpm suspend.
++		 */
++		if (amdgpu_device_supports_baco(dev) &&
++		    !(adev->flags & AMD_IS_APU) &&
++		    (adev->asic_type >= CHIP_NAVI10))
++			amdgpu_get_audio_func(adev);
+ 	}
  
- void navi10_set_ppt_funcs(struct smu_context *smu)
+ 	if (amdgpu_acpi_smart_shift_update(dev, AMDGPU_SS_DRV_LOAD))
 -- 
 2.29.0
 
