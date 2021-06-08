@@ -2,125 +2,134 @@ Return-Path: <SRS0=OOkP=LC=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
-	URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C8129C47094
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 02:19:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0014EC47082
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 02:35:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 48CCA611BD
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 02:19:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 48CCA611BD
+	by mail.kernel.org (Postfix) with ESMTPS id A31A4610A1
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 02:35:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A31A4610A1
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E069B6EA88;
-	Tue,  8 Jun 2021 02:19:48 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam08on2080.outbound.protection.outlook.com [40.107.102.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC5B96EA88
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Jun 2021 02:19:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56D426EA78;
+	Tue,  8 Jun 2021 02:35:16 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2059.outbound.protection.outlook.com [40.107.220.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85F1F6EA78
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Jun 2021 02:35:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SmDB+yy3oz+gu8xc+92nnLLk/ILEKsTDoeHFlWdix0fxjIhH57paqZwTfbpiYccNPbFd4ZALPjqVzcYJWE6qNFuXmMC9nnq5/MEeas4xZIbC5PYsO6G/QH9FKCyvvbOhibO+5n4BrdosI+o1ftNKiJ71HEIyGgcTold1xNinJ3t9LXTBAEl7hZns3DcrUCj4lZ/H5EcITUo+H8BX+nQY4LlCye1X44rLrfTf/0pcIIzqRY9h9hWh2D9nyGPQSTjl8VT51EIaLnPqnYZDctCOoW1NermHz8uXszUYzcnmGQ0+YrU8l1SDX8/8IGAymNT10R83g+oHAT5IHkfm9E1FqQ==
+ b=Iqk17J2HBUodxA812efplbjaWVNdj/85qap9yfVofo29uUQ+WsqfdsB8j46z7yAS2aJIIyt/UNzWWC867JldtVIYnYDW42VwjEd0V2riaQD7MrXc7iAhP6jjz8d582lY07KomDjD8uqz7GBNiAF0M+zDvrgI3/muIRNTk5zjUksdMq3uibBc1hyUGNaVh13z28aml42GK0uwQck8/Raf0FWN+orDIaSaMXu3mzcBcMYko0G1/WekzidgO3Q7skiDU+tEGdMewky1lYbbljxMzTypXe5wDgvNNPaeUtHcvKttd0IaiUR2jrww0d/3SWlViCO8S6Xmb2sR1pAr5GD50Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sdguOMNuKLLFwqn5hMy7XrUv1voVXuCDZ+D5H8kNA6M=;
- b=RDfjRZe0juJKV5zw/M1fjHAqxKuTHnMn8zAq5ZxDDcbIWfZFsOtjPDEkW8jgBHBqBFIB/CQN2i/HYncPW0ICqRUeStiAVUIBd4dx3DThxrX9RLW/bvNWINVzta2yrqWCaKVWl9ZEYMDXU8olyuwTRQ9xE/Y4TitBOm1PsGbEzBdfl5aFUiZYWwT68Jye+PvE3pymaGWFN2PsOu0350I+sBV0s4MG+d+wwwIcfN5xetvHKXoJdotzUoiJ5OClt/psRa7fCkxs6f1612ck8K7ZBZKOB/UvboPCxZcOyUK1tCpQM9xCPRq7L+wyPpBpDLL1tFSkg0bPsZ7GXAQJ2QvKTQ==
+ bh=GHliAdf8pcubGqlyvkYS/4+Q/c5gTJiuYzWrDWNDK+U=;
+ b=T3DHqZzON6P87cUykKHQUa8zJV0Tv0IETXWj0ZEUL0yrlLlsSX5RkhruKEcUhwXGlVUbqqKHHbXsVet6Yz+ab0z7pjoYKsh41R5NFCdWo2Zgl2cS3KmifJdjUumS9r3+xb8xPyOButhDT4yWjWeudhy7MeCqBgOUUs3OXugfpPnv/1LM3PP5KY/+2N5akGDiKw54vUfnIZzfG5zrbsHDL/RGoGuwexNN83TeYnNd+Wvn1iQU1/xVVUV9M18mcbj/f4O3JCN+cTigdgDIfGewC8p2weOdVRCvFlIPb2mdUUTiEH/egK2rjRQI5da6jpv0CoG2iq7+7Fw1MLH0ODhjFQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sdguOMNuKLLFwqn5hMy7XrUv1voVXuCDZ+D5H8kNA6M=;
- b=XeoxkCGOs6wwK/JnHONZNBBwBlCRte56EpwBw4EbiSMB5SN8+OpXXRAuSSECXCmbAKR0aP+8uY5xnvstYk/6D4TYVj/+EGGU4Kmn19v8YJsFVCCHvv1QrrTmbcdeZqJD+faskQxu+3Apm3tl3uElPfQZM4m+vC9m6avt9rrnVZU=
+ bh=GHliAdf8pcubGqlyvkYS/4+Q/c5gTJiuYzWrDWNDK+U=;
+ b=2rwam4EXfaSJYsE0Ui/5CROQkmKpwHtHyi5kwEeDeUJcP0FcVDaEoDawyo87uI21KIwvc9R1Z7LP2pIHWfy5/1se5eBZ2x5su8KHdIvUzDmRoyZgG6XPcHzTlvRuoVarV2A+j26s7J8E68AEHXCmuNn+GXyOIixrqU09JuY+wq0=
 Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
- DM5PR12MB1353.namprd12.prod.outlook.com (2603:10b6:3:76::16) with
+ DM6PR12MB3369.namprd12.prod.outlook.com (2603:10b6:5:117::16) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4195.24; Tue, 8 Jun 2021 02:19:45 +0000
+ 15.20.4195.27; Tue, 8 Jun 2021 02:35:11 +0000
 Received: from DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::14a7:9460:4e5f:880d]) by DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::14a7:9460:4e5f:880d%5]) with mapi id 15.20.4195.030; Tue, 8 Jun 2021
- 02:19:45 +0000
+ 02:35:11 +0000
 From: "Quan, Evan" <Evan.Quan@amd.com>
-To: "Sider, Graham" <Graham.Sider@amd.com>, "amd-gfx@lists.freedesktop.org"
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH v5 9/9] drm/amd/pm: Add aldebaran throttler translation
-Thread-Topic: [PATCH v5 9/9] drm/amd/pm: Add aldebaran throttler translation
-Thread-Index: AQHXW6NhBSjOoCQspEG/Lzt9fkkfBqsJYgJw
-Date: Tue, 8 Jun 2021 02:19:44 +0000
-Message-ID: <DM6PR12MB2619E56750872D1CA71211EBE4379@DM6PR12MB2619.namprd12.prod.outlook.com>
-References: <20210607134439.28542-1-Graham.Sider@amd.com>
- <20210607134439.28542-9-Graham.Sider@amd.com>
-In-Reply-To: <20210607134439.28542-9-Graham.Sider@amd.com>
+Subject: RE: [PATCH V2 4/5] drm/amd/pm: clear the cached dpm feature status
+Thread-Topic: [PATCH V2 4/5] drm/amd/pm: clear the cached dpm feature status
+Thread-Index: AQHXWShNz4RQ8JhOG0ijdNT8ThOKqqsDvucAgARnz5CAAA52gIABMxsQ
+Date: Tue, 8 Jun 2021 02:35:11 +0000
+Message-ID: <DM6PR12MB2619D96904E624C42D6CDD27E4379@DM6PR12MB2619.namprd12.prod.outlook.com>
+References: <20210604095823.1403271-1-evan.quan@amd.com>
+ <20210604095823.1403271-4-evan.quan@amd.com>
+ <83d7ff01-061e-707a-0774-fc29e05c2684@amd.com>
+ <DM6PR12MB2619D1A458C9D391A5A57EE8E4389@DM6PR12MB2619.namprd12.prod.outlook.com>
+ <CH0PR12MB534847E329700B54168C4A1797389@CH0PR12MB5348.namprd12.prod.outlook.com>
+In-Reply-To: <CH0PR12MB534847E329700B54168C4A1797389@CH0PR12MB5348.namprd12.prod.outlook.com>
 Accept-Language: en-US, zh-CN
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-06-08T02:19:42Z; 
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
- Only-AIP 2.0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=a44c0bc2-41a0-4c2e-a0bc-21c48fbd4c1b;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-06-08T02:35:05Z; 
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP 2.0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=e3db6208-c94d-4b2c-805d-4f6d4b07e045;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1
 authentication-results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
 x-originating-ip: [165.204.134.244]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 920bfc0b-c77c-4cb6-e26f-08d92a23e1e2
-x-ms-traffictypediagnostic: DM5PR12MB1353:
+x-ms-office365-filtering-correlation-id: 43fe0d42-34ff-4f8c-f3e8-08d92a260a2f
+x-ms-traffictypediagnostic: DM6PR12MB3369:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM5PR12MB13538AC28D9B2EF0525D5C69E4379@DM5PR12MB1353.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:1091;
+x-microsoft-antispam-prvs: <DM6PR12MB33696E918CF165789EB22364E4379@DM6PR12MB3369.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8882;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: WMIgMEy6U8P31HgKBCVJ6Yop6WJCmK9xUqFVCYI0HDSRWLJikUSvi7TcW4RHTWRe6hMxJ/a3Z0oIVdiqJvZJTS52LnLMQE+d2GJsO8pT0iHTy9w39vQcX+thEM7ceow3QWMlabAK8ejoEJ0YGIo+5zUaoqvdP96PlxinpJSaa9XYXem9V+yC0EVdciy/fh3/LepSJ+p8G863/09aHGEpQibpTX3c2WLtUR2i7UoDGXYTXZAKnLV1Qfh4dTvGabR3eMSKhLdPAXoUfx/wdT8OaRFtinQT5hVp7tZul8cJ3hBh0IouJ4Ctz/wFH174fWGPUUeYc+hVki+TYwAdMemQgr2Daia7kQLPtLo4FeFccGOvukXisa+WNs60FWMH/B4W1BVCu9jRZQ8J5SnqSlRO3yf7a6FD2zgRWs9YYgUEF8geyS2GIUqPmiqpyCe+IDcuVeKHmjAnkwqkF/KbKBG4HSBi2aS7bvSlp6m/EG1bnh2RPzIhyCosrrp57ORKcN0b2sWkDKbRw6SCG3V/8xeK6MVQL0ZAHLwy5dVfV/4Jug5a5HftdmCdwKEO5Ptl58dQ1QM2GZnQ2L2tm/5snyh95a99hDwb+kF4RKUfL5e1W4Q2iS2W6+kTdO4pUzRrAZQTsT2dnqBfVO9Qg1oc9cpXsbXn2LXb5v8iBffHwMqNCc3qSZNLDt++kM2gWKR0MnbVpIjGaAN83PpWH4BaznNmtlYPn+1ybsLrT+aVhSy57Hk=
+x-microsoft-antispam-message-info: Cgl8FLqILeb9OZNsBRTVX6tKhiRyDEm7Z6TTDUmZ+6+rCu+Ej2+JobHdN5Xjj4KZAfA6KqUjAv0Tx0l8kRMGHpoKWQzbjvuyCN+YkJo468Jbdzx0H7Cl8mzLu31sNcq/AxVT4WBxlVeN1BHdRyBBjm3IJcdKhaUg0TAE40mQojz5patcrxjWqqpPU9Dnj1OAgDTXKUzRPBZB729U7wtZ5LiacUCRQ1SsjDQceEe7djF8z2QspdS+4EvT4p6l0F/VzF8LLi4sW9uEo3VKdCPVGl4kYt9Salvo6+d4G3SSPZEEyaS4HrxlmHweX2MUyTRB9zYnhqjnR+Cvqoj9q3NIBLXLNlYLRatSoosLR+wQCRz2J931aktfrxtk4sVj6U7wL67pJ3lvv6CzKHTPBfY3v7GpsirW/bTOmaATQhaznATxN5bgaj/R7M3hLRvnn/6LB8nGPsjKexrLIGGp3b125zuVkmmtWgo9YwZq9vOKcfD0m0pv5Yg2GE3y9k9oUOzQ0/KddXHXAklAPnyw6EeKWRe4oFPjdeZ9MFOBHpyvYwdo0Q7CoT7+USVFbBW5WcMqddDtZNOE3gAIcAErOAozYXyM0tU3PKOvoUl0bbXl+p0=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(136003)(366004)(396003)(39860400002)(376002)(4326008)(5660300002)(55016002)(110136005)(52536014)(54906003)(7696005)(316002)(2906002)(83380400001)(6506007)(71200400001)(86362001)(186003)(9686003)(26005)(122000001)(33656002)(8676002)(478600001)(8936002)(38100700002)(64756008)(76116006)(66476007)(66556008)(66446008)(53546011)(45080400002)(66946007)(966005);
+ SFS:(4636009)(366004)(376002)(136003)(346002)(396003)(39860400002)(9686003)(53546011)(5660300002)(76116006)(30864003)(52536014)(478600001)(2906002)(6506007)(33656002)(55016002)(83380400001)(66446008)(66946007)(64756008)(66556008)(66476007)(186003)(71200400001)(26005)(8676002)(316002)(8936002)(110136005)(122000001)(7696005)(38100700002)(86362001)(4326008);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?A5lPVwywPmMM+rN+E4XClvqgQ18f3oLsSg4mznUrYwBlT9Oy6egsOfojjso/?=
- =?us-ascii?Q?FLKsPUV4RO6ue9tLL2h1VPUtpTcozj3qcv/jMFriZRoFNjziwthZYvg4WjyW?=
- =?us-ascii?Q?gHEmqbs9zyA9H+JczETeh1KPugYrv0b6nczvfpHNG9iFvUW+RSBqvj+AIc42?=
- =?us-ascii?Q?qS0mNlvp01RVoax3HrVLfjYSGyna2siW2aCB9C+rPOyFJwnc1CRy54w0i7l3?=
- =?us-ascii?Q?MRRGPh8wlGq1M20Fir/ZbQpBgz5bKcyIkn/YMGR5yiATxSzGebwVdvcbeXXq?=
- =?us-ascii?Q?JGsSgIwiKcGrwy3KXqQB4Cufbx/SVRqFtfa1iY10QkS5C0dy7/pY8cCuKbmi?=
- =?us-ascii?Q?59c/x8fC0dxhNWV88cRdkg6dElXlt7vjm/AUVOhth8XwFjzoukSzaN9Fv95y?=
- =?us-ascii?Q?Jn6cRBsZeiyni253gG6BMP/itIt5k9EDgA60XG+sQ4is7q3Pp/AIa4hVCk5c?=
- =?us-ascii?Q?gLMErPtOPJF6mj8GZ1HL/pDffNdD6RgK7O6OuKuEtApOqWY4qiXeeE/zXEGV?=
- =?us-ascii?Q?iwBdwXKqnl/v1I8MhjmcM/A5K7XUE8gDt630I8kzC8TV2WAfUS2sJnYuEPXc?=
- =?us-ascii?Q?XeGLv8MEE6NJjHgivHTGynxpoU0feERDy40cnF3+N3kZNyW/4Sv6dPvQix13?=
- =?us-ascii?Q?vFyPNk568tU18Hf9pyEv2AVAlr/WSp2dWbXJ1k46xODZQMvgX1B9zrPdx8Rt?=
- =?us-ascii?Q?nbRciejcwPhurEziBPQgXCIzcWUppRHOPy7RogJpP9NkAtiJsJB3K3lsNU2/?=
- =?us-ascii?Q?4c/sYpyIl/zi4SQfq3B03LP9aJWuhVvipgoKCFgzbvUCFklmRO6wa4EejiQd?=
- =?us-ascii?Q?DNocyyIxeZztPz75edywciJBogN+LRPw3YiD+TZYwARNNxoKRmTvgFwAU7gf?=
- =?us-ascii?Q?3VHaQrzwII7bpEtlKNGAQC05S+rpqvAPjU0i/OjYUvwhA+zcGPn7RxgtzhzN?=
- =?us-ascii?Q?mCLxIZAKNObuFgR1zvMbM6HAzqNhFXnPtSCleXw4kNBWi4dpqKEKjvsVsaOp?=
- =?us-ascii?Q?mR1QZvPj8O/7V+yxPSIOOBkXqKAaSejJvaav/JpRtG81R1T/lf2/fFGLSkpl?=
- =?us-ascii?Q?bRWN5oWVaOMYAQ4bHI6SquFE5A2IoVCP41Aud3zSh5u9f90A+nK6YXjk9vYy?=
- =?us-ascii?Q?f0zBg+lMvYFxUi0PHr7Kj826QdylpoLZjiOr9ALQW0E/rzZrHieCwOcRQKCw?=
- =?us-ascii?Q?IqOV1vDKbMyl180uTYMGQQ+M4W4Nc3CBYlJ1yEZmDS1AoQMf1S+REcaCer6N?=
- =?us-ascii?Q?N+oHuVFYPP9hl+rZ7/NzAYr5m6BC92RV2u8HSjSa9ni1K1/9GmX/yUzvuTFj?=
- =?us-ascii?Q?zD6FR51EvV/KYsUHok7WM/Hm?=
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?STdWNEp6NWRmU052Zng0RUFMOG9VVUhrdktFZzRjbUZzSXZ2UVpDb01VVjRs?=
+ =?utf-8?B?RkVPbThYa1B0UGdYelR5TVd5QkhvUk93elFKa0xHMEVPOVR6RjZaMmRFczRX?=
+ =?utf-8?B?WkFrOG1uUXk0bnFnd21hR0d1R1dRdVM5NDY4Y3VTdk5NejlFK2ZIUHZlejlE?=
+ =?utf-8?B?R0t6ekp0NjZzRElDcVc2TjVxOHFSS0dFTTZYQjc3UHlsMEU5RGRpaUovZUl0?=
+ =?utf-8?B?bU02Y0llaEs3VVhsREo3WnNZTmdPeFpPa0RPT1V1QWMxc2pROCszMlZ0RGQ2?=
+ =?utf-8?B?Sk1rSDRPcDRSamNEVXpMYzBnc3dIM1FNKzgwQ1ltSjdDd1c3bE1SMlpFMGFB?=
+ =?utf-8?B?dkZIcXpBd3JFUmJORWZ4bzBmVE5Rc0wvTE9idXVMWFgzTm9uVUg5WmMyWmcx?=
+ =?utf-8?B?b201bkw4ZWZYWExxSmJ6N2NDYXNxQld2dXB6dE1HZGRWVnhFclE1N0RaUkYw?=
+ =?utf-8?B?UDZsVUcrWGZXNG4yWGE2ekV0V2ovd3lVcG9WRG1kclBDS3lkRzluMGZnS0p0?=
+ =?utf-8?B?YWhCeUZxOTlobEdWS25GZmJxcFZCWWgwYktDNG90blMrSjhQK3dSYzI2UEg3?=
+ =?utf-8?B?SUttc1dLbVRSa011Y1dQNFZ0ZWdWYWozZ1NGd1N5MklobVBHVW85Yy85QUww?=
+ =?utf-8?B?YUlRN1doUTZROG5xL25mUWVzZjMydGVQbXBGVGlLRlYrbjRTNGo0QkdxcHJv?=
+ =?utf-8?B?S2ZmYUkyYzAySUF4a3ExWWJFN295UzNmQzdEUGJVZTN6WVVXVE9oSXRSOXlr?=
+ =?utf-8?B?a3Z2cXRDVFZ2cDM5NFNwYjNXUjMzRHdWK0NRSktuNUMzL3l3SXVUVldlZDJW?=
+ =?utf-8?B?WXpRM2tGTmY5WU9FY2F1eWtQM0MzeGtMYUFNc3dzVkZ4NkJzS3FubnZYU24w?=
+ =?utf-8?B?MndTUHpDcWpWNmt6c2d5RDZLK1I4MTJObm9hT0E5RXY1YVpzdDBVWVJLWmNF?=
+ =?utf-8?B?V3pHTm5KQ1ZDSWUrSDM3cWlGRUlhcEh0akg4ZWlRSDY3NENHZWhadEVJSFlC?=
+ =?utf-8?B?K3k4U1A3MVBPZmtVUkdpcGxpRGMvbFRjb1pwd3REemVacC82ODRXUU16T3F1?=
+ =?utf-8?B?MjlicU5ra0s3RUxkTWZUMi9JWGVna0M5MEtnNXNWS204WERqZi9URWVFcm03?=
+ =?utf-8?B?YmZRMk9JZVVNY050L3lZOFVWUmRmQmwzYjlVTjJlRXhxZU8xS21TMGFBQVNT?=
+ =?utf-8?B?dnRpU2ZiYm5rRHV4WnNxYzZqY0Y4KzR2cGpFYzZERnVzSU1DQm5WaWpvU1Az?=
+ =?utf-8?B?SmRSZno3V1RlSDZEb2Q5NDJPTVJnaDhjK0RGMVVsYXdUYjdta2h1R1VmM25E?=
+ =?utf-8?B?RExzMHdkSG5wU25Nak0wSHhPc2xSM01PMnB6OFZaR0tjQTl2aTI2aExUZE9N?=
+ =?utf-8?B?TFZRbWd5WEFQYWNIaU91aVkxZFFrc2dWc1BUcW5UR1JaVmd4Y25WR3FsZU5v?=
+ =?utf-8?B?Vy82VmtUdlVOZTJ0TzlXa0todXB4bmNOWlhuRmI3MEtkT3FhdS8wblM3MkFR?=
+ =?utf-8?B?eG1TWVZzSDVHeUdwSGtzQU1HbUVOQ2VpMCtUS2VlVW1Rd0tkMUhUczlWbTAz?=
+ =?utf-8?B?VEMydWhLQTB2K1piVDJ1NnhQUjZ5VUVnSEZmb2J2TGtmYksyUmRtL285UEJD?=
+ =?utf-8?B?bDc0RTJFS3pzeGpZNWJTS0R5RVpxcWg0ditaUFYvaHpSSUU5SUthWDk2VSs4?=
+ =?utf-8?B?bko4VFdGRDJEeXBsMDloeGo2Znd4LzVLektTTXhnNm1ZamZaOWF6dHVJM090?=
+ =?utf-8?Q?8MhHXYiI4/I3zIuZneaiGKDvlA8RJpNCPxh4c7+?=
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 920bfc0b-c77c-4cb6-e26f-08d92a23e1e2
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Jun 2021 02:19:44.9391 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 43fe0d42-34ff-4f8c-f3e8-08d92a260a2f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Jun 2021 02:35:11.6854 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: M7y2wPxjo7VzWjXWby6gngq6B+kbG5TVLjYisk8bJL0x/8z6JjE8cFDqWAgJr3RF
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1353
+X-MS-Exchange-CrossTenant-userprincipalname: 0IwZ9hrRN539AISvtgt9r8VzuqciLv8KX3GkEjkGht4+OiEh8qEVC0/I5oh3TdsE
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3369
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,147 +141,312 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>, "Sider,
- Graham" <Graham.Sider@amd.com>, "Sakhnovitch,
- Elena \(Elen\)" <Elena.Sakhnovitch@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only]
+[Public]
 
-Series seems fine to me.
-Reviewed-by: Evan Quan <evan.quan@amd.com>
+Hi Lijo,
+
+Per original design, all non ASIC specific code goes to amdgpu_smu.c. To me, it sounds you want to separate some of them(from amdgpu_smu.c) into a new file. I'm OK with that.
+However as I said, to do that, we may need to make the bitmasks stored in feature->enabled non asic bundled/specific. I need more time to consider and will put that on my TODO list.
+For this specific patch, I will update it with code fit into smu_cmn_disable_all_features_with_exception(). Are you OK with that?
 
 BR
 Evan
 > -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
-> Graham Sider
-> Sent: Monday, June 7, 2021 9:45 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Kasiviswanathan, Harish <Harish.Kasiviswanathan@amd.com>; Sider,
-> Graham <Graham.Sider@amd.com>; Sakhnovitch, Elena (Elen)
-> <Elena.Sakhnovitch@amd.com>
-> Subject: [PATCH v5 9/9] drm/amd/pm: Add aldebaran throttler translation
+> From: Lazar, Lijo <Lijo.Lazar@amd.com>
+> Sent: Monday, June 7, 2021 4:05 PM
+> To: Quan, Evan <Evan.Quan@amd.com>; amd-gfx@lists.freedesktop.org
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+> Subject: RE: [PATCH V2 4/5] drm/amd/pm: clear the cached dpm feature
+> status
 > 
-> Perform dependent to independent throttle status translation for aldebaran.
+> [Public]
 > 
-> Signed-off-by: Graham Sider <Graham.Sider@amd.com>
-> ---
->  .../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    | 27 +++++++++++++++-
-> ---
->  1 file changed, 22 insertions(+), 5 deletions(-)
+> What about separating to smu_cmn_utils.c/smu_utils.c or similar which is
+> meant for software based common/util functions?  In general, it will have sw
+> based common funcs (not ASIC specific) and may be used outside (for ex: in
+> amdgpu_smu.c). smu_cmn continues to have the hw based
+> common/ppt_func routines.
 > 
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-> b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-> index 7a1abb3d6a7a..0845d4b30a0d 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-> @@ -191,6 +191,20 @@ static const struct cmn2asic_mapping
-> aldebaran_table_map[SMU_TABLE_COUNT] = {
->  	TAB_MAP(I2C_COMMANDS),
->  };
+> smu_cmn_to_asic_specific_index is also a good candidate for such a function
+> as it fetches the sw lookup map (may be moved later).
 > 
-> +static const uint8_t aldebaran_throttler_map[] = {
-> +	[THROTTLER_PPT0_BIT]		=
-> (SMU_THROTTLER_PPT0_BIT),
-> +	[THROTTLER_PPT1_BIT]		=
-> (SMU_THROTTLER_PPT1_BIT),
-> +	[THROTTLER_TDC_GFX_BIT]		=
-> (SMU_THROTTLER_TDC_GFX_BIT),
-> +	[THROTTLER_TDC_SOC_BIT]		=
-> (SMU_THROTTLER_TDC_SOC_BIT),
-> +	[THROTTLER_TDC_HBM_BIT]		=
-> (SMU_THROTTLER_TDC_MEM_BIT),
-> +	[THROTTLER_TEMP_GPU_BIT]	=
-> (SMU_THROTTLER_TEMP_GPU_BIT),
-> +	[THROTTLER_TEMP_MEM_BIT]	=
-> (SMU_THROTTLER_TEMP_MEM_BIT),
-> +	[THROTTLER_TEMP_VR_GFX_BIT]	=
-> (SMU_THROTTLER_TEMP_VR_GFX_BIT),
-> +	[THROTTLER_TEMP_VR_SOC_BIT]	=
-> (SMU_THROTTLER_TEMP_VR_SOC_BIT),
-> +	[THROTTLER_TEMP_VR_MEM_BIT]	=
-> (SMU_THROTTLER_TEMP_VR_MEM0_BIT),
-> +	[THROTTLER_APCC_BIT]		=
-> (SMU_THROTTLER_APCC_BIT),
-> +};
-> +
->  static int aldebaran_tables_init(struct smu_context *smu)  {
->  	struct smu_table_context *smu_table = &smu->smu_table; @@ -
-> 213,7 +227,7 @@ static int aldebaran_tables_init(struct smu_context *smu)
->  		return -ENOMEM;
->  	smu_table->metrics_time = 0;
+> Thanks,
+> Lijo
 > 
-> -	smu_table->gpu_metrics_table_size = sizeof(struct
-> gpu_metrics_v1_2);
-> +	smu_table->gpu_metrics_table_size = sizeof(struct
-> gpu_metrics_v1_3);
->  	smu_table->gpu_metrics_table = kzalloc(smu_table-
-> >gpu_metrics_table_size, GFP_KERNEL);
->  	if (!smu_table->gpu_metrics_table) {
->  		kfree(smu_table->metrics_table);
-> @@ -1713,8 +1727,8 @@ static ssize_t aldebaran_get_gpu_metrics(struct
-> smu_context *smu,
->  					 void **table)
->  {
->  	struct smu_table_context *smu_table = &smu->smu_table;
-> -	struct gpu_metrics_v1_2 *gpu_metrics =
-> -		(struct gpu_metrics_v1_2 *)smu_table->gpu_metrics_table;
-> +	struct gpu_metrics_v1_3 *gpu_metrics =
-> +		(struct gpu_metrics_v1_3 *)smu_table->gpu_metrics_table;
->  	SmuMetrics_t metrics;
->  	int i, ret = 0;
+> -----Original Message-----
+> From: Quan, Evan <Evan.Quan@amd.com>
+> Sent: Monday, June 7, 2021 1:04 PM
+> To: Lazar, Lijo <Lijo.Lazar@amd.com>; amd-gfx@lists.freedesktop.org
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+> Subject: RE: [PATCH V2 4/5] drm/amd/pm: clear the cached dpm feature
+> status
 > 
-> @@ -1724,7 +1738,7 @@ static ssize_t aldebaran_get_gpu_metrics(struct
-> smu_context *smu,
->  	if (ret)
->  		return ret;
+> [AMD Official Use Only]
 > 
-> -	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 1, 2);
-> +	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 1, 3);
+> Hi Lijo,
 > 
->  	gpu_metrics->temperature_edge = metrics.TemperatureEdge;
->  	gpu_metrics->temperature_hotspot = metrics.TemperatureHotspot;
-> @@ -1755,6 +1769,9 @@ static ssize_t aldebaran_get_gpu_metrics(struct
-> smu_context *smu,
->  	gpu_metrics->current_dclk0 = metrics.CurrClock[PPCLK_DCLK];
+> I got your concern. However, the problem is what amdgpu_smu.c can see is
+> SMU_FEATURE_xxxxx_BIT(e.g. SMU_FEATURE_BACO_BIT) related.
+> While the bit mask stored in feature->enabled is FEATURE_xxxxx_BIT(e.g.
+> FEATURE_BACO_BIT which is asic specific) related.
+> So, a SMU_FEATURE_BACO_BIT to FEATURE_BACO_BIT transfer is needed
+> and for now this asic specific operation is performed in
+> smu_cmn.c(smu_cmn_to_asic_specific_index).
 > 
->  	gpu_metrics->throttle_status = metrics.ThrottlerStatus;
-> +	gpu_metrics->indep_throttle_status =
-> +
-> 	smu_cmn_get_indep_throttler_status(metrics.ThrottlerStatus,
-> +
-> aldebaran_throttler_map);
+> The possible way to get this optimized I can see is either 1. try to fit this into
+> smu_cmn_disable_all_features_with_exception()
+> 2. make the bitmasks stored in feature->enabled are non asic specific ones.
+> This will involve extra efforts and risks.
+> I personally prefer the approach 1 above.
 > 
->  	gpu_metrics->current_fan_speed = 0;
+> Any thoughts?
 > 
-> @@ -1776,7 +1793,7 @@ static ssize_t aldebaran_get_gpu_metrics(struct
-> smu_context *smu,
-> 
->  	*table = (void *)gpu_metrics;
-> 
-> -	return sizeof(struct gpu_metrics_v1_2);
-> +	return sizeof(struct gpu_metrics_v1_3);
->  }
-> 
->  static int aldebaran_mode2_reset(struct smu_context *smu)
-> --
-> 2.17.1
-> 
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.
-> freedesktop.org%2Fmailman%2Flistinfo%2Famd-
-> gfx&amp;data=04%7C01%7Cevan.quan%40amd.com%7C1360514bfba14bf2f
-> 7b608d929ba82be%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C6
-> 37586703300653696%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMD
-> AiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=
-> xCJ5F1UI3MGbeMuKd0pXzQljcYncretn%2BcUFMGDi6yg%3D&amp;reserved
-> =0
+> BR
+> Evan
+> > -----Original Message-----
+> > From: Lazar, Lijo <Lijo.Lazar@amd.com>
+> > Sent: Friday, June 4, 2021 7:56 PM
+> > To: Quan, Evan <Evan.Quan@amd.com>; amd-gfx@lists.freedesktop.org
+> > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+> > Subject: Re: [PATCH V2 4/5] drm/amd/pm: clear the cached dpm feature
+> > status
+> >
+> >
+> >
+> > On 6/4/2021 3:28 PM, Evan Quan wrote:
+> > > For some ASICs, the real dpm feature disablement job is handled by
+> > > PMFW during baco reset and custom pptable loading. Cached dpm
+> > > feature status need to be cleared to pair that.
+> > >
+> > > Change-Id: I9e37d80e13599833301c04711b097fb37c2e41f9
+> > > Signed-off-by: Evan Quan <evan.quan@amd.com>
+> > > ---
+> > > V1->V2:
+> > >    - correct the setting for baco bit(pointed out by Lijo)
+> > > ---
+> > >   drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h       |  6 +++++
+> > >   drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 19
+> ++++++++++++-
+> > -
+> > >   .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   |  1 +
+> > >   .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   |  1 +
+> > >   drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c        | 25
+> > +++++++++++++++++++
+> > >   drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h        |  3 +++
+> > >   drivers/gpu/drm/amd/pm/swsmu/smu_internal.h   |  1 +
+> > >   7 files changed, 54 insertions(+), 2 deletions(-)
+> > >
+> > > diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+> > > b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+> > > index fb7438224872..3f9b2a839a37 100644
+> > > --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+> > > +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+> > > @@ -937,6 +937,12 @@ struct pptable_funcs {
+> > >   	 */
+> > >   	int (*disable_all_features_with_exception)(struct smu_context
+> > *smu,
+> > > enum smu_feature_mask mask);
+> > >
+> > > +	/**
+> > > +	 * @clear_cached_dpm_feature_status_with_exception: Clear
+> > cached dpm feature status with
+> > > +	 *                                                  exception to those in &mask.
+> > > +	 */
+> > > +	int (*clear_cached_dpm_feature_status_with_exception)(struct
+> > > +smu_context *smu, enum smu_feature_mask mask);
+> > > +
+> >
+> > Since this is a just a utility function which clears sw bitmask
+> > without touching hardware, do we need a ppt_func? In case that is
+> > needed, we already have this -
+> > smu_cmn_disable_all_features_with_exception. So, can't this remain as a
+> standalone smu_cmn function which can be called from anywhere?
+> > Nowadays, I get a red alert when a ppt_func gets added :)
+> >
+> > Thanks,
+> > Lijo
+> >
+> > >   	/**
+> > >   	 * @notify_display_change: Enable fast memory clock switching.
+> > >   	 *
+> > > diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> > > b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> > > index c9a31556e077..aba475d06507 100644
+> > > --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> > > +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> > > @@ -1352,6 +1352,16 @@ static int smu_hw_init(void *handle)
+> > >   	return 0;
+> > >   }
+> > >
+> > > +static void smu_reset_cached_dpm_feature_status(struct smu_context
+> > > +*smu) {
+> > > +	struct smu_feature *feature = &smu->smu_feature;
+> > > +
+> > > +	mutex_lock(&feature->mutex);
+> > > +	bitmap_zero(feature->enabled, feature->feature_num);
+> > > +	bitmap_zero(feature->supported, feature->feature_num);
+> > > +	mutex_unlock(&feature->mutex);
+> > > +}
+> > > +
+> > >   static int smu_disable_dpms(struct smu_context *smu)
+> > >   {
+> > >   	struct amdgpu_device *adev = smu->adev; @@ -1374,16 +1384,21
+> > @@
+> > > static int smu_disable_dpms(struct smu_context *smu)
+> > >   	 */
+> > >   	if (smu->uploading_custom_pp_table &&
+> > >   	    (adev->asic_type >= CHIP_NAVI10) &&
+> > > -	    (adev->asic_type <= CHIP_DIMGREY_CAVEFISH))
+> > > +	    (adev->asic_type <= CHIP_DIMGREY_CAVEFISH)) {
+> > > +		smu_reset_cached_dpm_feature_status(smu);
+> > >   		return 0;
+> > > +	}
+> > >
+> > >   	/*
+> > >   	 * For Sienna_Cichlid, PMFW will handle the features disablement
+> > properly
+> > >   	 * on BACO in. Driver involvement is unnecessary.
+> > >   	 */
+> > >   	if ((adev->asic_type == CHIP_SIENNA_CICHLID) &&
+> > > -	     use_baco)
+> > > +	     use_baco) {
+> > > +
+> > 	smu_clear_cached_dpm_feature_status_with_exception(smu,
+> > > +
+> > SMU_FEATURE_BACO_BIT);
+> > >   		return 0;
+> > > +	}
+> > >
+> > >   	/*
+> > >   	 * For gpu reset, runpm and hibernation through BACO, diff --git
+> > > a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> > > b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> > > index afd4bd850c63..8c3ea20fb0f6 100644
+> > > --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> > > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> > > @@ -3083,6 +3083,7 @@ static const struct pptable_funcs
+> > navi10_ppt_funcs = {
+> > >   	.get_enabled_mask = smu_cmn_get_enabled_mask,
+> > >   	.feature_is_enabled = smu_cmn_feature_is_enabled,
+> > >   	.disable_all_features_with_exception =
+> > > smu_cmn_disable_all_features_with_exception,
+> > > +	.clear_cached_dpm_feature_status_with_exception =
+> > > +smu_cmn_clear_cached_dpm_feature_status_with_exception,
+> > >   	.notify_display_change = smu_v11_0_notify_display_change,
+> > >   	.set_power_limit = smu_v11_0_set_power_limit,
+> > >   	.init_max_sustainable_clocks =
+> > > smu_v11_0_init_max_sustainable_clocks,
+> > > diff --git
+> a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> > > b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> > > index b4a2bb0f3f4c..14a14c30ee5e 100644
+> > > --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> > > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> > > @@ -3886,6 +3886,7 @@ static const struct pptable_funcs
+> > sienna_cichlid_ppt_funcs = {
+> > >   	.get_enabled_mask = smu_cmn_get_enabled_mask,
+> > >   	.feature_is_enabled = smu_cmn_feature_is_enabled,
+> > >   	.disable_all_features_with_exception =
+> > > smu_cmn_disable_all_features_with_exception,
+> > > +	.clear_cached_dpm_feature_status_with_exception =
+> > > +smu_cmn_clear_cached_dpm_feature_status_with_exception,
+> > >   	.notify_display_change = NULL,
+> > >   	.set_power_limit = smu_v11_0_set_power_limit,
+> > >   	.init_max_sustainable_clocks =
+> > > smu_v11_0_init_max_sustainable_clocks,
+> > > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> > > b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> > > index 0ceb7329838c..b9c38abc9d37 100644
+> > > --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> > > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> > > @@ -594,6 +594,31 @@ int
+> > smu_cmn_disable_all_features_with_exception(struct smu_context *smu,
+> > >   						   0);
+> > >   }
+> > >
+> > > +int
+> smu_cmn_clear_cached_dpm_feature_status_with_exception(struct
+> > smu_context *smu,
+> > > +							   enum
+> > smu_feature_mask mask) {
+> > > +	struct smu_feature *feature = &smu->smu_feature;
+> > > +	uint64_t features_to_disable = U64_MAX;
+> > > +	int skipped_feature_id;
+> > > +
+> > > +	skipped_feature_id = smu_cmn_to_asic_specific_index(smu,
+> > > +
+> > CMN2ASIC_MAPPING_FEATURE,
+> > > +							    mask);
+> > > +	if (skipped_feature_id < 0)
+> > > +		return -EINVAL;
+> > > +
+> > > +	features_to_disable &= ~(1ULL << skipped_feature_id);
+> > > +
+> > > +	mutex_lock(&feature->mutex);
+> > > +	bitmap_andnot(feature->enabled, feature->enabled,
+> > > +			(unsigned long *)(&features_to_disable),
+> > SMU_FEATURE_MAX);
+> > > +	bitmap_andnot(feature->supported, feature->supported,
+> > > +			(unsigned long *)(&features_to_disable),
+> > SMU_FEATURE_MAX);
+> > > +	mutex_unlock(&feature->mutex);
+> > > +
+> > > +	return 0;
+> > > +}
+> > > +
+> > >   int smu_cmn_get_smc_version(struct smu_context *smu,
+> > >   			    uint32_t *if_version,
+> > >   			    uint32_t *smu_version)
+> > > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+> > > b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+> > > index da6ff6f024f9..12ad07132d15 100644
+> > > --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+> > > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+> > > @@ -77,6 +77,9 @@ int smu_cmn_set_pp_feature_mask(struct
+> > smu_context *smu,
+> > >   int smu_cmn_disable_all_features_with_exception(struct smu_context
+> > *smu,
+> > >   						enum smu_feature_mask
+> > mask);
+> > >
+> > > +int
+> smu_cmn_clear_cached_dpm_feature_status_with_exception(struct
+> > smu_context *smu,
+> > > +							   enum
+> > smu_feature_mask mask);
+> > > +
+> > >   int smu_cmn_get_smc_version(struct smu_context *smu,
+> > >   			    uint32_t *if_version,
+> > >   			    uint32_t *smu_version);
+> > > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
+> > > b/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
+> > > index 33101dc93bcc..b12dcfab55fe 100644
+> > > --- a/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
+> > > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
+> > > @@ -58,6 +58,7 @@
+> > >   #define smu_feature_get_enabled_mask(smu, mask, num)
+> > 		smu_ppt_funcs(get_enabled_mask, 0, smu, mask, num)
+> > >   #define smu_feature_is_enabled(smu, mask)
+> > 	smu_ppt_funcs(feature_is_enabled, 0, smu, mask)
+> > >   #define smu_disable_all_features_with_exception(smu, mask)
+> > 	smu_ppt_funcs(disable_all_features_with_exception, 0, smu, mask)
+> > > +#define smu_clear_cached_dpm_feature_status_with_exception(smu,
+> > mask)
+> 	smu_ppt_funcs(clear_cached_dpm_feature_status_with_exception,
+> > 0, smu, mask)
+> > >   #define smu_is_dpm_running(smu)
+> > 	smu_ppt_funcs(is_dpm_running, 0 , smu)
+> > >   #define smu_notify_display_change(smu)
+> > 	smu_ppt_funcs(notify_display_change, 0, smu)
+> > >   #define smu_populate_umd_state_clk(smu)
+> > 		smu_ppt_funcs(populate_umd_state_clk, 0, smu)
+> > >
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
