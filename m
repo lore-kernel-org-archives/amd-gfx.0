@@ -2,117 +2,55 @@ Return-Path: <SRS0=OOkP=LC=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2F2FFC47082
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 10:06:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2B35CC47082
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 10:38:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EA9BC61029
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 10:06:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EA9BC61029
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 5568561278
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 10:38:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5568561278
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=igalia.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD29A6EB93;
-	Tue,  8 Jun 2021 10:06:46 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2087.outbound.protection.outlook.com [40.107.223.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16EF26EB93
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Jun 2021 10:06:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RE4KNtt4J1WFRUy3GANtCSAqo6oTNzWEAPU4jgpyWN/jlnA3VPe4wVnQg5H8H2FNyvcko7Non3wMUL7DvucHp4Qvc/AxqWwMFmsqm9znKswdPO9F+GjrUMcGcpp0wTAyl6tUQk2jtKvv3yyKjVLjc/aC6czrGGInl7ZpC7dGL7GeFq0OuLK2bVsu88SLc3evveXo8+/fhZIxMag19gEhlzTiW7TEkUzUoyJwtnG9HX9KQZspLMXVBvMbbPkYCV6HfFigdcx9dBHE9VB1ifPj4zGAcEBdI8JIBdVDZYZK70q9NufkVOA1LaYW/gwDHyE6AUzqONM/eyyiihC0mhIK7Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1lHGzjwDK2Pw/EPF68i3rczDPuHBQy+82zus5s4CaTA=;
- b=ebv/KxIv4jTfmYj+9bvov8JTg7s9nBY71h9SZroOjNw2Ey/8sPZg6GC2rKaHedluYkBqjQ/kUq3SCLEN+byMlrnuYhxtWPXSUdlQArlN7rVk/tKCog8HtgSEVZ4ZmFVm0LBJmTL0P2rkKyaHZ5wdwhKVcrHclsA1uN6aNufFF9fduOCj+Tp5ReWmbM0VOOXiuxWeMErAaVo0e9hWZcTgSIWL22IVRUy5qdybzvBgcE3Dnd9uoXrPXp5C+y45GNkro4ff3pzEYwVY4LBIEtUu9d3XKtlwg81DxuAM+iM9FgtKB2frC2wD0M3/ex5jlPVgfQiNs457TmH3eIclIvibTw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1lHGzjwDK2Pw/EPF68i3rczDPuHBQy+82zus5s4CaTA=;
- b=3IxsI3DNMH7oXABVq5HKhttqfWXP4DvMR1UyAdyudQkWGtUlCaqLEpSwwrFl9hGJAFN94g2Rt3JtFwSyj0nDcKu6zArMjrb3D2+A3s+pIN75ToKwIN0NLxJ316tTPic9rfyTzOjNYnK+bg8nXRw+7sfLAU/qvov5ao8gi7U4+PE=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5136.namprd12.prod.outlook.com (2603:10b6:5:393::23)
- by DM4PR12MB5104.namprd12.prod.outlook.com (2603:10b6:5:393::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.21; Tue, 8 Jun
- 2021 10:06:43 +0000
-Received: from DM4PR12MB5136.namprd12.prod.outlook.com
- ([fe80::4074:4943:244:a5fa]) by DM4PR12MB5136.namprd12.prod.outlook.com
- ([fe80::4074:4943:244:a5fa%6]) with mapi id 15.20.4173.037; Tue, 8 Jun 2021
- 10:06:43 +0000
-From: Nirmoy Das <nirmoy.das@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/1] drm/amdgpu: fix shadow bo skip condition
-Date: Tue,  8 Jun 2021 12:06:26 +0200
-Message-Id: <20210608100626.7750-1-nirmoy.das@amd.com>
-X-Mailer: git-send-email 2.31.1
-X-Originating-IP: [217.86.107.133]
-X-ClientProxiedBy: PR3P189CA0022.EURP189.PROD.OUTLOOK.COM
- (2603:10a6:102:52::27) To DM4PR12MB5136.namprd12.prod.outlook.com
- (2603:10b6:5:393::23)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A31836EB9C;
+	Tue,  8 Jun 2021 10:38:49 +0000 (UTC)
+Received: from fanzine.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1512989FC3;
+ Tue,  8 Jun 2021 10:38:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+ s=20170329; 
+ h=MIME-Version:Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID;
+ bh=sTScXVap1smEciCCWRVPGYalA2ax7y/w+lgkVVTYKF4=; 
+ b=lW6hHNIF3DHzaUnMn8hTq2HDxjatBeIdd0x/4sYl5uEy9+mISLr+lqd8SdndtP3QLE/wS7807N+wg5Kq4o3+0XiS/pY7rmFNzlieuR48N5/W39rZYzcAcYCLjrYNfoLoVGX0rMyWRhXHZYTeFbJ6wfe2MMic20kGyweYLL7c4eDuP5+anewvTkpDkSFj+qMTOZASMA6fbRMH3+TQ9Eqt/YGWf3awlqfNPLVThy96DsMTmwkuhRBQJshlyl6GP1rX6YhGnPwYHLJNv4ymNJ3MAoAugVBCuCeDRyA+4AE7pP+qFy/gIZs50puOpUacLXAmQ7R/sWqRZiKZlb/XZb5vRw==;
+Received: from 106.red-79-157-245.dynamicip.rima-tde.net ([79.157.245.106]
+ helo=[192.168.2.252]) by fanzine.igalia.com with esmtpsa 
+ (Cipher TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim)
+ id 1lqZ88-0002m9-TN; Tue, 08 Jun 2021 12:38:44 +0200
+Message-ID: <380e8cb0f18c6f4b21c20b382668316b8962159a.camel@igalia.com>
+Subject: Re: [Mesa-dev] XDC 2021: Registration & Call for Proposals now open!
+From: Samuel Iglesias =?ISO-8859-1?Q?Gons=E1lvez?= <siglesias@igalia.com>
+To: "Szwichtenberg, Radoslaw" <radoslaw.szwichtenberg@intel.com>, 
+ "events@lists.x.org"
+ <events@lists.x.org>, "xorg-devel@lists.freedesktop.org"
+ <xorg-devel@lists.freedesktop.org>, "wayland-devel@lists.freedesktop.org"
+ <wayland-devel@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "mesa-dev@lists.freedesktop.org"
+ <mesa-dev@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "etnaviv@lists.freedesktop.org"
+ <etnaviv@lists.freedesktop.org>, "freedreno@lists.freedesktop.org"
+ <freedreno@lists.freedesktop.org>, "nouveau@lists.freedesktop.org"
+ <nouveau@lists.freedesktop.org>, "intel-gfx@lists.freedesktop.org"
+ <intel-gfx@lists.freedesktop.org>
+Date: Tue, 08 Jun 2021 12:38:34 +0200
+In-Reply-To: <790BA4EE-E3F0-40B9-BE18-3646492F1CAE@intel.com>
+References: <790BA4EE-E3F0-40B9-BE18-3646492F1CAE@intel.com>
+User-Agent: Evolution 3.40.1 (3.40.1-1.fc34) 
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from brihaspati.fritz.box (217.86.107.133) by
- PR3P189CA0022.EURP189.PROD.OUTLOOK.COM (2603:10a6:102:52::27) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4219.21 via Frontend Transport; Tue, 8 Jun 2021 10:06:42 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 24f34325-8b89-4fe8-78b0-08d92a651e06
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5104:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM4PR12MB5104A2FFA4C058B733B2354E8B379@DM4PR12MB5104.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1388;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: R32rAhWwbOgdc01UQTkdQJYqu9+AgeoDk6TaYK+0zDZjSPqN4PQoBszqaBIosJ5SDLMo1Tlibczj/+PuzxVCZjupJ0YzRbci85Yd5kdGqwtxch5/lex2ShtoPerjpYRogwGhQhRqTFOivEfgYe/UPWFsN5bJcxJYQ8bQxOYxdwIWdygU0VYm66h3bn+wpxX5Ckf/I/h3JMFNbrhmOCiTNWQgXPITI/UrWxtqV8dGFRgXDCGJPAh2142kQBjgrOh53+rzTARjCA2Z+XYAjP6P1S+me91cjwbYIxLpdXx/OEg2PY35b8/8NBdbC6uZhak4XGHWZiBekX3x4Wx/LTYqFtPiIjxjL6BqJmDYUStq1bjxIoi+rvCc3f458twQFRUvH7RbC8QR0+dxGp0aKgih+TrTBCp7DN7c9BTBsLbE4NgbZtfxvY5wh6UCVIi7qMyBPkBhhXyG6azNzgiH1LtkNe1s9zfnI09fWpsYfCQt6GmZ6IsQU6yvlXWDBjRHe2NJY9/jPZycVhagn5B5PJUoKLMhcdD5YyFTn8jx5PLqb5RlPfrjDtcBLZcgLJyBaBrEJfnH3jz3PDc/pazrnPUas6/1r8fd7SN0v7nYppwebb1KRLCiIMQMmmKHaWzKhi8vxg5bbqrHyBhW6zL0M3y6S5+tQm6L/zVP9amBXUm8p8o=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5136.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(396003)(376002)(346002)(366004)(39860400002)(478600001)(6666004)(6916009)(86362001)(52116002)(5660300002)(16526019)(83380400001)(186003)(44832011)(8936002)(38100700002)(38350700002)(66476007)(36756003)(66946007)(66556008)(956004)(6486002)(2616005)(6506007)(6512007)(8676002)(26005)(2906002)(4326008)(1076003)(316002)(4744005);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?HgWKMW4TcOcuPim7gnQuotWBC2eJkDTl5ryXq7w5XTi6PTlxZ4HgzMG8zvoS?=
- =?us-ascii?Q?FEMd8/kzmdzYj7AJKSCUllGqiaUSPGba3dpPoPl7d/6HFRwKOkDFvttwJaZq?=
- =?us-ascii?Q?iCTzwftjGXuAjghuzYItwmLnYPCIHN8+5A59WFdYhyLbusFyC2CsCavSaAVh?=
- =?us-ascii?Q?ecRWmF4LHm3H6H99Q4RhUwUaiEV07gmRsCtstja3K+v0zadD9qLCy9jSmt+R?=
- =?us-ascii?Q?YYwGIs7cgCuB/YJMwbpfnfMSpJNE6Bipy2225K31keoEIO+FffrmlmuGuJsY?=
- =?us-ascii?Q?9KGv077vxbsMAuKzDbBsBVSjmco0tYv8UjI7U48XXREA3XwITcdWciInsuQ4?=
- =?us-ascii?Q?doZObyFscVCAZ5WrnO5YZ3ijEKhkySLot49RHsOA8wSySjsOKmNl1vo8aky5?=
- =?us-ascii?Q?hkrOWy1bLpfG7eHe+tb1kakH69dtz+PyACBUYkb522LEJ3ZFJY1MedddLdXh?=
- =?us-ascii?Q?H6KoYmtiVS5/7AdItPDv/GpXxPf8c97CVgbbeHFIAvOHGUzaKktK9w9g9osR?=
- =?us-ascii?Q?k9+y9TeVynQPMEQeSOhUGhpXAts5i53hTJfVa4H2v9O2u7q7eUZSbT10JmsF?=
- =?us-ascii?Q?49q9EIx+i1W/6CdzTUaYRdgoEDK13SDj/etZ5tbXH9dx2hatVAHUfc09h3Kd?=
- =?us-ascii?Q?seY+8ZklSNQtbGY+hfD8/+6oK0q4tLbvL7IBL3ykMKj4FqihO+pcAScHxdfX?=
- =?us-ascii?Q?hiRaA02dI+farqdiPQiZ//qGCpqWATYL/6QUia93VnUmFdfJaklxInO9z09P?=
- =?us-ascii?Q?+BAkugu8WdFwNMuzlvuvVQ0mshfSRF71llEMByp8w2D4lkFHKvI3a1yg7VaU?=
- =?us-ascii?Q?m4UHABHX8LlxGxtpbkdLsTpsb2rS4EPbl+Zp2jklhsRXgalh978QiHnghEMa?=
- =?us-ascii?Q?+uKe9tohEWgjVzm/JGpu0MuLJmcowJabSCSAA9sNX9g4Tg5mIGdfPM+6Vi9D?=
- =?us-ascii?Q?fHS9TMttGAHItPdaCh5lSJD2H7M00WfDT/g36OrJNHGEvdjtl1p0aEzXHj9V?=
- =?us-ascii?Q?Ir/pZ3uuShhSx6xhBQ9qIYcDm/r5J23zbjd4EyPZWjsAgNsHeRHsWBnBLAW3?=
- =?us-ascii?Q?IdgjdMfHesAy59BRetxFr8+tR+RGBy/PhsmaFvq9mfJYLTowQF0Irk36b0K6?=
- =?us-ascii?Q?IBG41yPvzKIKweuPxI51E4PY9IlERf1z4WPB0Ta3CNwCe0pYgu2Wfa6biHo1?=
- =?us-ascii?Q?tTy3MOvI4a2zCqizYfYBEyJX8XC8BGjcAqyoAWG8XHFRN9bL6U8mMvZcIRfY?=
- =?us-ascii?Q?ZtNvf16IV4GaMljgPMzdeHegzjdF9cCQRWlR6PFeI++VcN347ORA4XzfgGZM?=
- =?us-ascii?Q?Xn5s/Pw6R4DJaIv/Tu68FpXZ?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 24f34325-8b89-4fe8-78b0-08d92a651e06
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5136.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2021 10:06:43.5680 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MR6kYWMD9ODzAYOmcT/KcL8IVaoWagPbSG/BtolIY3jQYq7PzAzBElT/DAyQ15Z5BLumXJnsc/wzvC8kfwdEkg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5104
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,38 +62,138 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Nirmoy Das <nirmoy.das@amd.com>, Christian.Koenig@amd.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: "board@foundation.x.org" <board@foundation.x.org>
+Content-Type: multipart/mixed; boundary="===============0038999226=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Create shadow BOs only for no-compute VM context and only for dGPU.
-The existing if-condition would create shadow bo for compute context
-on dGPU which not what we wanted.
 
-Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+--===============0038999226==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-0Q47J+K4gENg3/THmwP5"
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 74c7d8b21c98..e2146caf6866 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -908,7 +908,7 @@ static int amdgpu_vm_pt_create(struct amdgpu_device *adev,
- 		return r;
- 
- 	bo = &(*vmbo)->bo;
--	if (vm->is_compute_context && (adev->flags & AMD_IS_APU)) {
-+	if (vm->is_compute_context || (adev->flags & AMD_IS_APU)) {
- 		(*vmbo)->shadow = NULL;
- 		return 0;
- 	}
--- 
-2.31.1
+
+--=-0Q47J+K4gENg3/THmwP5
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Kind reminder. Deadline is Sunday, 4 July 2021 :-)
+
+Sam
+
+On Thu, 2021-05-20 at 10:01 +0000, Szwichtenberg, Radoslaw wrote:
+> Hello!
+> =C2=A0
+> Registration & Call for Proposals are now open for XDC 2021, which
+> will
+> take place on September 15-17, 2021. This year we will repeat as
+> virtual event.
+> =C2=A0
+> https://indico.freedesktop.org/event/1/
+> =C2=A0
+> As usual, the conference is free of charge and open to the general
+> public. If you plan on attending, please make sure to register as
+> early
+> as possible!
+> =C2=A0
+> In order to register as attendee, you will therefore need to register
+> via the XDC website. As XDC moved to a new Indico infrastructure, if
+> you previously registered on the XDC website, you need to create a
+> new
+> account again.
+> =C2=A0
+> https://indico.freedesktop.org/event/1/registrations/1/
+> =C2=A0
+> In addition to registration, the CfP is now open for talks, workshops
+> and demos at XDC 2021. While any serious proposal will be gratefully
+> considered, topics of interest to X.Org and freedesktop.org
+> developers
+> are encouraged. The program focus is on new development, ongoing
+> challenges and anything else that will spark discussions among
+> attendees in the hallway track.
+> =C2=A0
+> We are open to talks across all layers of the graphics stack, from
+> the
+> kernel to desktop environments / graphical applications and about how
+> to make things better for the developers who build them. Head to the
+> CfP page to learn more:=C2=A0
+> =C2=A0
+> https://indico.freedesktop.org/event/1/abstracts/
+> =C2=A0
+> The deadline for submissions is Sunday, 4 July 2021.
+> =C2=A0
+> Last year we modified our Reimbursement Policy to accept speaker
+> expenses for X.Org virtual events like XDC 2021. Check it out here:
+> =C2=A0
+> https://www.x.org/wiki/XorgFoundation/Policies/Reimbursement/
+> =C2=A0
+> If you have any questions, please send me an email to
+> radoslaw.szwichtenberg@intel.com,=C2=A0=C2=A0adding on CC the X.org board
+> (board
+> at foundation.x.org).
+> =C2=A0
+> And don't forget, you can follow us on Twitter for all the latest
+> updates and to stay connected:
+> =C2=A0
+> =C2=A0
+> https://twitter.com/XOrgDevConf
+> =C2=A0
+> Best,
+> =C2=A0
+> Radek
+> =C2=A0
+> P.S: a DNS redirection (xdc2021.x.org) is work in progress. Please
+> use
+> the mentioned links for the moment.
+> =C2=A0
+> =C2=A0
+> Rados=C5=82aw Szwichtenberg
+> -------------------------------------------------
+> Intel Technology Poland sp. z o.o.
+> ul. Slowackiego 173, 80-298 Gdansk
+> KRS 101882 - NIP 957-07-52-316
+> =C2=A0
+> _______________________________________________
+> mesa-dev mailing list
+> mesa-dev@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/mesa-dev
+
+
+--=-0Q47J+K4gENg3/THmwP5
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEQP+ZAvaXWkfuKXiEf/S6MvF9w0MFAmC/SKoACgkQf/S6MvF9
+w0P3tRAAjmk0pVTC5YtEm9h3e3HeepckAKQV5XGEPqqtHtxmHZWzgqX/UoewWeOJ
+TgERDD6aPxl3mmzk0/ZO/+7H2VFE73UVNJm6+zo5iaE43rwbhpGi6lX6wFNDUygL
+/J9/AR/XeShuIc110rzAfubCIGFxIhY+WlybNEKGYxbf3uqodK51Zi6P2mg8dhFm
+Vi4ttVAwLV222pmUipnv8jRSuBYSG6tcML5xZwLsa4qxVbtz8x3sLCKqm+pIpwTi
+VcdCP5faZYqImM1g916D+4cOe3kmUqmJwRv5pQEqDMxZ/A0zwCls7NtpBEaAn+fT
+pH6RHvovP1pnOLPB7Z3mZIoHJPB+SgGDDmlSop3dhUbJ0eb+Vlu/Gg1VCOkOEPUt
+KyvFlcTfG8L8fzaDlS0Si0i4sQ5aY6jdlhI5TsESd9yslSDf/WNtZmld/mTZtkpq
+DHS2KfzXoL7pKb6WIQPxeNKy9tmbSnghjUQEaWClOy/n9roI54y7SpGtPiifClWe
+7/GvC09oqG2JpQBREncN7cnJ25pU4Fwx3TwbozsZVPWDIcMVqbOBADdFdmzo4Zbs
+x2VpffVEH+cDlCWmqbbW5ut/NGYwCPf+e9Maiu/5KLgjjBJDpA1qT3J/4ss50Lds
+JXamMrMdZGAT4wats6V1uC+bBPcnMoU17jqHo3Mf9HROHfFjQ0Y=
+=grJo
+-----END PGP SIGNATURE-----
+
+--=-0Q47J+K4gENg3/THmwP5--
+
+
+--===============0038999226==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0038999226==--
+
