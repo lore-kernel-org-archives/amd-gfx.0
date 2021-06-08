@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 00EF6C4743D
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 99384C47082
 	for <amd-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 21:40:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C94D2610E5
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 21:40:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C94D2610E5
+	by mail.kernel.org (Postfix) with ESMTPS id 63B06610F8
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 21:40:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 63B06610F8
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67F006EC41;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE3BA6EC3E;
 	Tue,  8 Jun 2021 21:40:26 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2084.outbound.protection.outlook.com [40.107.244.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6617C6EBA0
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Jun 2021 21:40:22 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2068.outbound.protection.outlook.com [40.107.220.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BEB1A6EC3E
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Jun 2021 21:40:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IQT3QDJyOpkOMDECJqE5N1PzMgCGCPbNe9yY4oQdNJd57rQeGpITUGnM8LmycBPO4T0MLLR+LY6aqbttj6VLUcO5Ua1BPJuxCPmGi6A4Mt3+AWCTvV4tVnDIUQVegz0nTaPLm2hG7piOCoa9xfusfoiMEkwwtxx++X0Z4QI56c4JoLvJxg8pw74s9FCSCtf/IQDgAMD9FXhe0AvMuurpDGY7mdiL0c6JMr6rh2gvh2bwkZCCQuXSytE+w28KEExGJXprvmtUE5oi3zA6/InCxUg1g7Qub4WA/X+Z8KcTzeUVmzgwbGJSLcrG69nlbhZnr6C6SF3W5vYbhr5HelTMQA==
+ b=AxgIp/iV1Ox0rcrT3iVjN4UCSiOlyoLzaeDI2LcF8q26oiN8WbTty4iY77z4PZYIYxZFLwz7DNH/2zlBxdFLi1Tm/ZfPx05zYGYkr4OGgfl8mk6MY5+Rr4aNA4w0KO7dDQRnMkgwOnT/ECyr6xhw2CTdhZNXAIYan44B/s2vb7bM0ZmqpRHEjbwHPIFSKSwsxJqViPQ/NuWnGe3xiHzWWvpphgcocJi8vgUwwvifMMFudX72lm5tI/q+OZJjmcDHIwtBH4q0YWZvaXJNxVAji+Bf8vB79ppGe/A6Vj2in2DBu0tzn3Zz+B92nXiRRgJA23xQZY222jjLho7YapKmEw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=c9ZN0zS7dWr/UByPOYTNOFCSxHuVkiMzdoVppLcnUzI=;
- b=TDtvbbjRAutNSpl0c7tZ897Xl0ATWu+kZ/EHpMAAdGmwvAp6pip/9EziSX0yDOXayp3E2/Wx6x5Idg3chB5pFBN7SA07YaHXTk+YPA3z2fVt0+sRLaPQ8tUEBl9LZgyZxxtIfAO85MfSfz3LJzd39vWF43FNW7rAt6nCW0ag8lEiPTYMLvh0SQpS7JYvtCujTHLdHPgcIa5RXjT7xoCF3DMbgYtijWL3dnonxXpwsJ9gzXD5JmoPOWKly8fiAuTUEfYg7k2ke+2HON/RvJziPWse4hED8OwjNhkovUtzMyxCpeSBMM15dck184JzT56d1GMGsLh+I8jVDcCgnslCPw==
+ bh=LTD8318Vf9mpXxChJteOMq/4vLDUqpx47mkNHnd597g=;
+ b=He9LABtC7axKBeGTPNxKPeVyZH+eZmtDrIsf3O4fQy+BDUQ/hYI9zvmLjKYhwAuBO6GHBqVHHFQ0hbUy4uuSl1pKYrJSaKAmdItIko/JofcpYN/p45iBM0S+4udxVpKY9Dr3Jv8aYV3Vr52ytH2/qV9Cg2uygckhZcTt0pyg1E/5TniTepvA37XRcaSNs+UbxPlFTfbnZ4igm8H33hgOp2+uj2Mu0Hmo3Lcd3FrAL0wzxnuV5dfx8rzGyDdQD9iCqVwK8LUpF0INZz66Fllkax7Xkq1y99bAgMUjP0HM5I/D93t5nFnbcyaiorwofRN0TjK0GOF7lU/Xf64vxmXWew==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=c9ZN0zS7dWr/UByPOYTNOFCSxHuVkiMzdoVppLcnUzI=;
- b=rC8wBbKPzMhuN2onHKbtOlxHeVfK7gvri8knrdt87JgGuiqSSTJQiZMI3ve8j9WHFuaLbz9CTPZFIbDnevYSPxssnK3XySlPv9NvhLEv5/6EpYbF4K0T80toTKf7MmFry1BFij8bLV7TtLi2gcHTcw6LX6pFQzPmKu6aVhdZl5s=
+ bh=LTD8318Vf9mpXxChJteOMq/4vLDUqpx47mkNHnd597g=;
+ b=sYng4h9s35D6W8X3jr/MW8FTgHfaX9ZA0g4boHYpqGVVY9HvABQNL61eQIZxba+EWF4jjrYFyBLtmnpx7/+bs5im7Ql4WkIARJfV2riOfjWMdcmZbRSUY6s5HW5hBhkWMNHCNfAOEvvJDgZVxTY6oCfAh5BrUE7TtghzmA3Rk+8=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -45,17 +45,16 @@ Received: from DM6PR12MB3962.namprd12.prod.outlook.com (2603:10b6:5:1ce::21)
  by DM6PR12MB4435.namprd12.prod.outlook.com (2603:10b6:5:2a6::23) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.24; Tue, 8 Jun
- 2021 21:40:21 +0000
+ 2021 21:40:24 +0000
 Received: from DM6PR12MB3962.namprd12.prod.outlook.com
  ([fe80::142:82e3:7e9d:55a0]) by DM6PR12MB3962.namprd12.prod.outlook.com
  ([fe80::142:82e3:7e9d:55a0%6]) with mapi id 15.20.4195.030; Tue, 8 Jun 2021
- 21:40:21 +0000
+ 21:40:24 +0000
 From: Luben Tuikov <luben.tuikov@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 12/40] drm/amdgpu: Remember to wait 10ms for write buffer
- flush v2
-Date: Tue,  8 Jun 2021 17:39:26 -0400
-Message-Id: <20210608213954.5517-13-luben.tuikov@amd.com>
+Subject: [PATCH 15/40] drm/amdgpu: Send STOP for the last byte of msg only
+Date: Tue,  8 Jun 2021 17:39:29 -0400
+Message-Id: <20210608213954.5517-16-luben.tuikov@amd.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210608213954.5517-1-luben.tuikov@amd.com>
 References: <20210608213954.5517-1-luben.tuikov@amd.com>
@@ -68,53 +67,53 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from localhost.localdomain (108.162.138.69) by
  YTBPR01CA0029.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:14::42) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4219.21 via Frontend Transport; Tue, 8 Jun 2021 21:40:21 +0000
+ 15.20.4219.21 via Frontend Transport; Tue, 8 Jun 2021 21:40:23 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 3e3bb251-df12-44d9-4925-08d92ac60450
+X-MS-Office365-Filtering-Correlation-Id: 8e4b5229-507f-4863-b9c3-08d92ac6060f
 X-MS-TrafficTypeDiagnostic: DM6PR12MB4435:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB44359EF888529234C946342E99379@DM6PR12MB4435.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB44350EC9689AE6C906BD435999379@DM6PR12MB4435.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4714;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Cx0S87UpwD04MBAA4KCm+o8ENjwH7fAAfs/NzVh/tknuOf4x1rn35l1BcPgzMh8e5je9upDc9YUGFChhCi0S+BHrryNM6js3FBKVp7rlmAxXOJJXoi7CZsCGlbAwvtaFwViVn05rs3P8ED5Vj4hEe+tEPHn0o7esVcoDluThx3ki0hgJ9yyx8XmlaGKDqa3VSJqziEKJAemmRICrGLoxy9lFti+duxKW5/4rNh1bdpolegLq+pSOB4Rip/Ixe7YZpTqAWSoe3ZoSrZsMwLICo0UVQWyes6eWb2sQsqtSSSnCDXjrZhKtdP4Idd6qm7KuzZjaHnvrZSQLykMwXpI7lv205V+F0uELgR9HQCjrycAQwCorG0sovf9kT9x4rQVrs2XOjxn3A69Lj7SWoAdyiYRNEUvBf2hB5WrAm4LJiYDEynR4PWezH8lK61LMU4Short3hreXJdtYfnbTopgSTzWNuWZ7p3qBfrfbIdrTGdOU8Iv7hqJbgyfQPIoyYLaVYLQg6gzuy8kp2RKTwwtMMP3kxnyEFeBDAUsLIFP4U8xQ6RVimoRrZb4e4rDCyHuCDfFrVMR1xaY86CCLr2G3AU17CCdg1cliH9evEFgqdmoK5X23NhqlN/DEeF8RQYFkFDV3TtY6gPkwjQniZy+K+pY8dUVxRZS2z+l2zDD5lKNmRHF3q6Lplgh/JsjJNv2N
+X-Microsoft-Antispam-Message-Info: R9fTYucOp/wCWRPt6rsePl74QRjmcJX+6nygWuJ9Hoy6tzJY3Z5p/pPFMfUZneg/zK40re0Wk8/o8fy4A6uK2wBQ76BOfnK8YCwHOtBMPN7FE3qGNbUuBbuNJ+r1hPg9yhZ4BzXVyrL1c/GX3eVWf2mu3oxDU3bnPBz/RfLMKtQL/9kIQ4cV8+TW0qxRofOgDhPih8wWR60z0vHXG1W603wqsSrkkI570w6DaHSGgjedukckdo+oQ2aSQQZJ3HhSLDfDc23rYaa4tHMAOsDdeFX0b+JHf1/gt1zu9zf9eeTjSZUkp8VVbG8jrVa3YZUVUjzOe2VklUDNj3yLPW4v6NUqp5YCLmOYlW/WgiUcq7RoP34WEtltZb8Y0CX49amAgPcJsZLyRZ/tLkXKJHOZQmgoie17dXFFJFb1w2DVkXnZrNrlx6RjwQakvybCftQUBwKZ95fgABDEUG6VEyTcIDYKaTQlfic+da/NKBdAKl80TUDih6mOL3H4OV0DU349YKif0npuFSXIgTRZlt+M+ax/22HCQzQ+ZRMNDbNGBX9cYlkbAWAWqpFEZaEdhZsM9h6BM62dtCeVjnvhaLGB3/P4g+yvc+WBfPBxtTop6ImjAuV7iuayvWztGJYEH036w0+ZvLlBJG0kMWL3+zSrEfbyarpMlFNSA5zo3V3crjOJhCRlFqmuCW3KXLtYJ4Ln
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB3962.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(4636009)(136003)(396003)(346002)(366004)(376002)(39850400004)(6916009)(8676002)(6506007)(6512007)(36756003)(6486002)(66476007)(38100700002)(38350700002)(26005)(16526019)(1076003)(8936002)(2906002)(54906003)(316002)(4326008)(66946007)(186003)(5660300002)(66556008)(83380400001)(52116002)(2616005)(956004)(55236004)(44832011)(86362001)(478600001)(69590400013);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?OSWZ2VmKIAzZ1wJfcAeuhcUDb0XPe+nRI2oePIMttkIDhmXEId3IxRg+N8sI?=
- =?us-ascii?Q?Yb3xA49N4a/on9a1wE2nBDrHL7R33TzeORXxUdZEO/L43EUq6ZQB09x2piXr?=
- =?us-ascii?Q?4nVzQxw9FJy9y+402zmQFcLr2t1jE+dKI/kSYc3or4X8k478WRA+eUau72g4?=
- =?us-ascii?Q?taDM7tUtq+3I31JEdnL/G6BM+DCbJjFjI37toFA1XbfYbSAexRmQPW5F9v6B?=
- =?us-ascii?Q?1sBWlqXL3lLlUQJH3tvKsHkEn+8HCTlPwIOS9PJ1GJ1V5/pNcNrKBgLJEV+/?=
- =?us-ascii?Q?r7363Jp8yGyYHeZBp42u6+6oDEsPOAvcWRkyStahxsdgYhmIUAQgMgdutePf?=
- =?us-ascii?Q?vle/Kl/RojpKUy8Tlvp9eDh7N5ceO+CUp3FvKMQ/gl4JzKDPN3J31yjRfqyL?=
- =?us-ascii?Q?qp46vfGZ827yNc2CKb0j0XVIeIw3rGDx4bfigqeO+EVUYGXS/jQjRKjCGm2X?=
- =?us-ascii?Q?R9/5ZIhVmBVrT+dyem8eU0iZ3o3f3oYfftU/sTiO6Meyi+eMwyJXgA1MLhXG?=
- =?us-ascii?Q?jjFjoJgVl7/2ycYUSoeBberDAdWHFbjuPwL1ejbSjTJPcwnpLB5cB/wBw7rb?=
- =?us-ascii?Q?ey1ln7yYDmxx2/J8UoRvNJQgM6NmTa/5Yy9BTVFeAUjX7g0FtNEIxOEsO/OF?=
- =?us-ascii?Q?+muI6FjghzJWoOezjk40JgvskgTku03pAaEZEleeMxHtpnNYJWyj+8DQTkOa?=
- =?us-ascii?Q?ItqZqzrupdL6y3ugZdX1uq+CwHJZOui3NK3hhbB/CIcgOhjYX3hYJ1quV1DH?=
- =?us-ascii?Q?DnEm/s9Njy8bd1kiu4OufKWx9LUjMgYLJDj0ulGwdoCJvE8nDkKC5iBSnE13?=
- =?us-ascii?Q?sKjmhEPu8dyx8fCZWpuwVvW8jWjIvXiUr0v5F8ACSeOMSYexkiHg5qbZuIQH?=
- =?us-ascii?Q?A1JdzIjlbWBOo2YN7qJkzf+lo2NQia5lKYJpCJrCHxjk+Jp2N1DamYN+k7tV?=
- =?us-ascii?Q?1XHClsrzTn7c8ukDZm24C+e5SDY/7lbfn/savagZhGo3LIuQtoFYBKzEDakr?=
- =?us-ascii?Q?UI0v0ti/ZdBU5Mg2Qf84zKKt5BbXY6/OlKscJtTAyjYExCzNpdpMruvHaPC0?=
- =?us-ascii?Q?tl9+ZQh7zKoLpCGmOxaGpbu0p/oHthan+dshWTpZQ5KKaEd1pQmSFIX8VS2s?=
- =?us-ascii?Q?bIL4zBhvav1N8ZP6QamUFXfCwH69RrS6B4PGES+Y/0YShdCpyhHTE6/cZvAF?=
- =?us-ascii?Q?sNDhsxYD0dZFGlBUkOldIc8K1BT+2oHi+J48NN7MOLAsmDUlt2a1xeR1Qj8l?=
- =?us-ascii?Q?RZWCstDQ2w+eEcGKY5r8HFJ3f9UtpO1Utz2uoRCBWVPUpieQgD9rb1ISuG/1?=
- =?us-ascii?Q?1WHSSO6AFK2EXT96YqP77jpD?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?DDafLhTciC1iBZq9qkuRRP/7qRN8p6jssEgJ8tlyftea/k2/dvYayWsHL2o/?=
+ =?us-ascii?Q?QPclIoY0IoshsRNG9PaiadZW3oX4lYU6+f0N+4x1eapYUAUgmqPRASnfMgbt?=
+ =?us-ascii?Q?CTXywy8ROJf9DV5i5n9WvTh1PSaDvh0Oe6CtMlUQU3/b1jKzmpYiMYM3BlT6?=
+ =?us-ascii?Q?F+vrWMsR0IUIoVgmYTYnUbD3G0AhQ5mwRzsG1gfkvai4FCROxIyw+vG0ha7k?=
+ =?us-ascii?Q?PY/Cy/WuwbrGBhR/LufuFAg+NRd4Gd11FhG8P26zsklnOb0CgThdtFb96vQx?=
+ =?us-ascii?Q?yF6L7GSr5eQK/9I0pxsEihfpFpgN5Kzh9rsFm1E/aoXVkzWHgtp5TlFrcuSj?=
+ =?us-ascii?Q?E8jvbb6L5Mq9YqtNYzmPN++fhbu+ympCPJs6sYEI/v9feagoWViFdjpcvFYt?=
+ =?us-ascii?Q?Uq2C9Ufpxz6zpTrHi0lbEw7O+UqywtNxVttAiZXvgTd+i8+10d3PjRYW+S8B?=
+ =?us-ascii?Q?UVc3IBeMVDoTnhKE4rUUBtJVJsiuYGNw2/mckvT4VXyUDYOBnY8s32iF9DjY?=
+ =?us-ascii?Q?eldTlUP63VwG5/sO1MHHvRw6oGQedwOfLYE66CE2GfekjcVNPT5HzOGBTUDA?=
+ =?us-ascii?Q?qTlDnRO7h3uV+IcUX0nJp726p1qLO+FyoMmdq8xObW+Pp4PYjh8GYGfwcwzd?=
+ =?us-ascii?Q?T1cfIthowUa/MgqWQREfHkow+r9ngxN0Z4qPvF6BJ6xW375ydNaAKh+b57Kn?=
+ =?us-ascii?Q?t3VAuXgw9Mfvn/93jZn5LSo9Mdu4PFwOhOSVLOxajWWHHTy11X8YyBucaNeR?=
+ =?us-ascii?Q?WEBkgUb8VCkh+Td0yxwiogB+3jNINeWyjYmNsrrgm6YQRbEA7uC+vaoKSkuA?=
+ =?us-ascii?Q?z0x5m80NAilUwgBdPJwVogHK4qr6qytfYB5TZHzDgoT2DBqrvw0iZ0TIMmd3?=
+ =?us-ascii?Q?f6g3cfOMj9n9Kwfd/+A7KAInoeDVnvI6FCyhOE3Bcs93cqsEUoUQS+uFD5oo?=
+ =?us-ascii?Q?PxZvGstS8wQqFtM5lSHVAvKlkEiXlLHw4JhBsLdCJ8d61UIKaGi49JB+wCdP?=
+ =?us-ascii?Q?HHhB6uNfZ4+6/VGlqQvpk91/X1yPxtzdWWD4oV/z05I4iuQxQURVwofHxVPZ?=
+ =?us-ascii?Q?516lUQJhw7e3Im2rSjspuvMqUxRCySC3BBzFuTo3RLQygcQgOcFVZqhv6ZMv?=
+ =?us-ascii?Q?qKeeZ0QT+UYUsGoz361bDQPd7QwPXjehVd7RjSx17tzACIp3QJN3crwPxPJx?=
+ =?us-ascii?Q?Y8oW2VGRrn0xaVkfVpsLU0ZshGWdGK8Y+cWgFKEnTq1/CqbfjLyNOQCbF+LJ?=
+ =?us-ascii?Q?Ed3Qb0OFfdVdUPUNn+AEV5wzH6My13MQmpQGUSryAtLED2SeyUDqmtxmD0cl?=
+ =?us-ascii?Q?wnpTi5ZJ8Nr76MQbQbWtl0zY?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3e3bb251-df12-44d9-4925-08d92ac60450
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8e4b5229-507f-4863-b9c3-08d92ac6060f
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3962.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2021 21:40:21.5066 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2021 21:40:24.4640 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ZPKaBFrjHOrUAMDNN/pwa9YB26uh3RC3NlD3SKOKt8/wN+0h9Qg6RVGxUnNswrEw
+X-MS-Exchange-CrossTenant-UserPrincipalName: E9goR4LrVDIrb+fDDOd9AMaM2sJWMMNNS01t1WjchaGrbn/FhnrTp2Mv8fknqoaa
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4435
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -127,9 +126,11 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- Luben Tuikov <luben.tuikov@amd.com>
+Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ Lijo Lazar <Lijo.Lazar@amd.com>, Luben Tuikov <luben.tuikov@amd.com>,
+ Stanley Yang <Stanley.Yang@amd.com>,
+ Alexander Deucher <Alexander.Deucher@amd.com>, Jean Delvare <jdelvare@suse.de>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
@@ -137,43 +138,77 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 
-EEPROM spec requests this.
+Let's just ignore the I2C_M_STOP hint from upper
+layer for SMU I2C code as there is no clean
+mapping between single per I2C message STOP flag
+at the kernel I2C layer and the SMU, per each byte
+STOP flag. We will just by default set it at the
+end of the SMU I2C message.
 
-v2: Only to be done for write data transactions.
-
+Cc: Jean Delvare <jdelvare@suse.de>
+Cc: Alexander Deucher <Alexander.Deucher@amd.com>
+Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
+Cc: Lijo Lazar <Lijo.Lazar@amd.com>
+Cc: Stanley Yang <Stanley.Yang@amd.com>
+Cc: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Suggested-by: Lazar Lijo <Lijo.Lazar@amd.com>
+Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
 Reviewed-by: Luben Tuikov <luben.tuikov@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c       | 4 ++--
+ drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c         | 4 ++--
+ drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c | 4 ++--
+ 3 files changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
-index 10551660343278..fe0e9b0c4d5a38 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
-@@ -55,6 +55,21 @@ int amdgpu_eeprom_xfer(struct i2c_adapter *i2c_adap,
- 		r = i2c_transfer(i2c_adap, msgs, ARRAY_SIZE(msgs));
- 		if (r <= 0)
- 			return r;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+index 72b02025b07e06..235e83e9f0feb7 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+@@ -1951,9 +1951,9 @@ static int arcturus_i2c_xfer(struct i2c_adapter *i2c_adap,
+ 				cmd->CmdConfig |= I2C_CMD_WRITE;
+ 				cmd->RegisterAddr = msg->buf[j];
+ 			}
+-			if ((msg[i].flags & I2C_M_STOP) ||
+-			    (!remaining_bytes))
++			if (!remaining_bytes)
+ 				cmd->CmdConfig |= CMDCONFIG_STOP_MASK;
 +
-+		/* Only for write data */
-+		if (!msgs[1].flags)
-+			/*
-+			 * According to EEPROM spec there is a MAX of 10 ms required for
-+			 * EEPROM to flush internal RX buffer after STOP was issued at the
-+			 * end of write transaction. During this time the EEPROM will not be
-+			 * responsive to any more commands - so wait a bit more.
-+			 *
-+			 * TODO Improve to wait for first ACK for slave address after
-+			 * internal write cycle done.
-+			 */
-+			msleep(10);
+ 			if ((j == 0) && !(msg[i].flags & I2C_M_NOSTART))
+ 				cmd->CmdConfig |= CMDCONFIG_RESTART_BIT;
+ 		}
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+index 289d09a5d711b9..b94c5a1d3eb756 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+@@ -2746,9 +2746,9 @@ static int navi10_i2c_xfer(struct i2c_adapter *i2c_adap,
+ 				cmd->CmdConfig |= I2C_CMD_WRITE;
+ 				cmd->RegisterAddr = msg->buf[j];
+ 			}
+-			if ((msg[i].flags & I2C_M_STOP) ||
+-			    (!remaining_bytes))
++			if (!remaining_bytes)
+ 				cmd->CmdConfig |= CMDCONFIG_STOP_MASK;
 +
+ 			if ((j == 0) && !(msg[i].flags & I2C_M_NOSTART))
+ 				cmd->CmdConfig |= CMDCONFIG_RESTART_BIT;
+ 		}
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+index e8e57462ce9d64..2fa667a86c1a54 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+@@ -3434,9 +3434,9 @@ static int sienna_cichlid_i2c_xfer(struct i2c_adapter *i2c_adap,
+ 				cmd->CmdConfig |= CMDCONFIG_READWRITE_MASK;
+ 				cmd->ReadWriteData = msg->buf[j];
+ 			}
+-			if ((msg[i].flags & I2C_M_STOP) ||
+-			    (!remaining_bytes))
++			if (!remaining_bytes)
+ 				cmd->CmdConfig |= CMDCONFIG_STOP_MASK;
 +
- 		bytes_transferred = r - EEPROM_OFFSET_LENGTH;
- 		eeprom_addr += bytes_transferred;
- 		msgs[0].buf[0] = ((eeprom_addr >> 8) & 0xff);
+ 			if ((j == 0) && !(msg[i].flags & I2C_M_NOSTART))
+ 				cmd->CmdConfig |= CMDCONFIG_RESTART_BIT;
+ 		}
 -- 
 2.32.0
 
