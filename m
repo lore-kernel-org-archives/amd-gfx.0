@@ -7,48 +7,48 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3764BC4743E
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 04:35:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3C42AC47082
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 04:35:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id ED19E61249
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 04:35:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ED19E61249
+	by mail.kernel.org (Postfix) with ESMTPS id 0492C61059
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 04:35:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0492C61059
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 249B46EA98;
-	Tue,  8 Jun 2021 04:35:00 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2077.outbound.protection.outlook.com [40.107.220.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59D086EA97
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Jun 2021 04:34:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A421E6EA99;
+	Tue,  8 Jun 2021 04:35:04 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2049.outbound.protection.outlook.com [40.107.237.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD1DA6EA99
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Jun 2021 04:35:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=T4H1gXz3IpFVXx7YQdzrtH2VOVsOK6w12HRRRjPkIug0yDJRANFNTTpMQGgS2P3UErm4jWXXoxluI8750EtNRKcZOuio/D9EE70STx8Dq/YG0I0YkEkHwa+DQuDvOiwd+cRM5TPMm2bnqtDQeR+f/RebjqUO7PRo05HtiqChRoklyg0LESq7/mFUh+8Bgo65fpZQNgu3EKVM8WFz31VKzKF4+j9wveGXVmbYj93os/YyAtBqxdUGzDPAwFFQ+HXOYT5+1EIuVr8BCTWwlM6ybxigeO3QhN6gkcdOe0MwJS3QdGSG2s8ILDGotTCGh65S7Tk4DIo3DJsU3/hzPCLYiQ==
+ b=WaFq0qIIbNHQ2BopJrzqGrkwrCy8EURbVLBrsv0EEme15rzYcVo6DHX1ANgKGENorW+cF5DL4t+m45/7ibZDfD+KsRjZhe9TTaTDmLVAKwG1d3NYKr4PcpPqd1hwKgEJ9Jn96x31aH41nNa2MBbG15OoandTvcJE8nyQkY6Ai3aXTN0/HFodT2f+eZjoeAAb8lPpBj8uKSE5HBzvXvtV0I1dRqpGo1DVLP+jluZryPBpGGn44ttR/pcFTyLx7M5BEM0HTezWh3ei+p4wDWkeibWSqcrt5skJUIg9XO29ylO6bex9x2u/0PvgMER6mqef2+374fTUgXgjcS2r+NJCbg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iWZ44ZqvFccioYaD2MFAIPI6K1OCwd7uC2lXMBUzA78=;
- b=PG9MUGb7DgGx9MNc5ELTvQBqUurFnrz3dpiYLk+M0Nqu+9sy13t2UVLg99BGk/z683d1wE0s8KIuL+z886gz5ov5OxyzccmadxnvSsxNXC8MEND6f86zKvJUoMSDUihn9UfMzeyt3LDFeEG9Je2CFYAUrMuPXwFX+CYnRVwaPOQ4y1FuotfPe2laz3VafPHVF1T/8/4FzFsfAzmVf4cdTYc7oqgslYoxtYc9/TNrkZf8V0zDFnhThtxwHbr459+K4v3Bj95xEZ1e5itn/F+Dvi1hFYUqFFGfcPBXiLioHhauENCNyTRdjKORIPLJuLRaV7/kiEcchLLTnCdZa1rYSQ==
+ bh=C59MYBVUMOnii/iQ5eqSqg54CnuGnK4zmX5jHbkUdQE=;
+ b=T8vMylryK/6ywR4MbQlXhL759xtAJiXAnGGb3yeGtJHOwOp8Q56i217R38q6a+WRs/TaNoQRFtMdkB5JGCan5050Djz7fFM056Bi1glF6eYxpQo/39euLaxxFtOoGpJTHjMFfNLWJNFmtRg+3QPZgU4Kz2OvUBuPMM7/eiqYUWDljUFPQvQyCm8C4CHpND3kA18qzQ8L5bkav2JWd8xuS28I1jvVxbN33jqkFx2LVC1tz/5pW3m9iwEwVNqm+6lGkxYRQj4I1sR3F5UZ/p2pwdabD4b2R9NWgce3SwNJpKZrNctcxquPr6fwIqZ7EhUeqEm7O7bu7Auoeq6iVpJcnw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iWZ44ZqvFccioYaD2MFAIPI6K1OCwd7uC2lXMBUzA78=;
- b=h0sZhELmv3+rJyn6j0jC+fsVJy/Qf4rgRppCBfjqoZH4Us/K+/yVivlusubi8/3knbxc9uPlULRVLpazSlZratLpoEy+reeLQYMvo1IyCLA8uXoqcsfiLvWbixuvtDordDj4jK1iPrjDeN5b2VH+GHqwu/X8Hp9NnmNVVWHd9xQ=
-Received: from BN0PR04CA0139.namprd04.prod.outlook.com (2603:10b6:408:ed::24)
- by BN6PR12MB1521.namprd12.prod.outlook.com (2603:10b6:405:f::11) with
+ bh=C59MYBVUMOnii/iQ5eqSqg54CnuGnK4zmX5jHbkUdQE=;
+ b=0bTIFR8sAR2dOKdROrXVTrMe+AyYpyMHOHHSFAIS4WgMSh45Uzo2xXKsPaXcLzh+BY41CIOToINEuXJyYXTxXbd0YYoPTqhnGVOb8Y7pmWo9+IRRA67s0nVs48u3uqMkUxNYDDQY+Pg+IaN7yhMyoiJMCcE1appc6+rAmT0kPx8=
+Received: from BN0PR04CA0016.namprd04.prod.outlook.com (2603:10b6:408:ee::21)
+ by CO6PR12MB5393.namprd12.prod.outlook.com (2603:10b6:5:356::9) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.27; Tue, 8 Jun
- 2021 04:34:55 +0000
-Received: from BN8NAM11FT025.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:ed:cafe::e0) by BN0PR04CA0139.outlook.office365.com
- (2603:10b6:408:ed::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.21 via Frontend
- Transport; Tue, 8 Jun 2021 04:34:55 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.20; Tue, 8 Jun
+ 2021 04:35:00 +0000
+Received: from BN8NAM11FT066.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:ee:cafe::74) by BN0PR04CA0016.outlook.office365.com
+ (2603:10b6:408:ee::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.20 via Frontend
+ Transport; Tue, 8 Jun 2021 04:35:00 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -57,19 +57,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT025.mail.protection.outlook.com (10.13.177.136) with Microsoft SMTP
+ BN8NAM11FT066.mail.protection.outlook.com (10.13.177.138) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4195.22 via Frontend Transport; Tue, 8 Jun 2021 04:34:54 +0000
+ 15.20.4195.22 via Frontend Transport; Tue, 8 Jun 2021 04:35:00 +0000
 Received: from equan-buildpc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Mon, 7 Jun 2021
- 23:34:52 -0500
+ 23:34:58 -0500
 From: Evan Quan <evan.quan@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH V3 2/5] drm/amd/pm: correct the runpm handling for BACO
- supported ASIC
-Date: Tue, 8 Jun 2021 12:34:28 +0800
-Message-ID: <20210608043431.1855151-2-evan.quan@amd.com>
+Subject: [PATCH V3 4/5] drm/amd/pm: update the cached dpm feature status
+Date: Tue, 8 Jun 2021 12:34:30 +0800
+Message-ID: <20210608043431.1855151-4-evan.quan@amd.com>
 X-Mailer: git-send-email 2.29.0
 In-Reply-To: <20210608043431.1855151-1-evan.quan@amd.com>
 References: <20210608043431.1855151-1-evan.quan@amd.com>
@@ -79,27 +78,27 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d1c83bf0-1e68-4f4a-ce2a-08d92a36c380
-X-MS-TrafficTypeDiagnostic: BN6PR12MB1521:
-X-Microsoft-Antispam-PRVS: <BN6PR12MB1521AF2246A54FF2DFE020EBE4379@BN6PR12MB1521.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
+X-MS-Office365-Filtering-Correlation-Id: d168d249-42bf-4c1e-02e2-08d92a36c6c4
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5393:
+X-Microsoft-Antispam-PRVS: <CO6PR12MB5393CF96240F36CB410940E2E4379@CO6PR12MB5393.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 5oBK/GOZgfSqqI/cdu3MCnFxrIG5ERYen3CIeF5aQUv+IBFUL+4j7++O29bRwKhPrIYU0s9yE1Gxfe2VmIsAdEU/PwaEyVh+sE7RiFkvxJBh1One/7UzvTj/e+d4lxHMUb1GkJ5hU97nj8yAbcGHHstwNSmV76P3bQctWdxwKwRBpRv1Th7BKdS274oA72w6KcR3UkLtHUQBrdkf0JEwxWAxytyG8rDqe15fy+dyl0j+dEUYTykRZ7M8B+/vSrPtdmxisw3BgGE7yLgyij8T/2+V6Q1Qyf0dYLpZkSubmMU3zzMdJVKFcBgzBBn2t6wd8zGox/0X4Znl8ry9iWZgRgCy2F0kGXm2tGGLMK8uZ0NA2pNochsJqDvuKjIPeynsMdTNJ7rTlEYsIpNrZnatGkzVN2QQvpaLwhgat6zktm4oNLV8Oq1qcuLIIHtBVPLgt6IwWijcU+Pl3Td62AJlfiBLPNbkA36dDaXLLxGfHhSASJVNwef/anorviierdZANfAOTzzQmKP2vp05O5YaNYEagGy92t4zSFCp9P4Ad4Wiql9M49aYdF9YOpN5/5sA4zN4k7oMwxJ/KL9bEL5K+AjqWqgtu/4iTkfLyiM6LZVTWDH60qhTijH+o1sa0rdAVa3PDwjkqjmYLPlZMq2aDRloX4vPzmBIgSg6eccfb40OMq3qqCBJdwwLPciKZC6K
+X-Microsoft-Antispam-Message-Info: Wd9z1dbxQKlb3IYl6qnGe63jA0z3MegUtLmyVMC09hGBgsWMYDy65noQLmFG5nW4PMAp5JImrSQswSgJYlUNN9TlsC5xdh8xX1mTbRyzKployhE2voRM1U9gFNE+EXsUJjzyaZVigq9AMdtOeMQuTUHrGaPoaBuahDX9ObjEOfWYNwLr7Bz8NGpAJFmiYeA6kGbdLuLGaFU2Cjw9G8p/qLapH3siBTJq7OtKi97qrAxOQy3eHAxYLhqWYbQuqorTevxrFRI91FelRJ9E/mm7s26bBHmeQmyijj7l0Ld9xRsUHERE0HDLEHRZhip1seYAqjkqLdIFp2w7MJY1xQD5nLGe5fR1cs+J4x9xJeAzt8GFwR2T5aQq9O6rNNm388Ms40A4LenJA+zni5iWlL0+7HMsVz2RMiZ2Ln0sQQF8tlT07TJkXY7Wj7oSzt2FU0fLDmmH/Kk7ECCD95pgUrpZc5cRGKQojCLUSnd7Kyx2vd5xqoPI/dGCKX73MF9aBIU3nD71b/F8Iwqc9Yq5yLaGEuZxvLaEIGzPU9pjhXBmD6ckKTSD9qaJ2puft3gc7baXQA+b+8sDyLHwB+u9AqdaNkFYnz1ac1BSAzmgcInWIns2cDI9Hw2Oc/zCSry8+vnuRUpNiszj8icZ3l9Rxsyc7YCwEqjiFXTzs5mGJkpsdvbtKqSFa0tzQ6F1F2KFGU4d
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(376002)(396003)(346002)(136003)(39860400002)(46966006)(36840700001)(54906003)(81166007)(6916009)(82740400003)(8676002)(356005)(47076005)(70206006)(70586007)(44832011)(7696005)(6666004)(478600001)(426003)(26005)(5660300002)(36756003)(2906002)(186003)(16526019)(2616005)(82310400003)(86362001)(83380400001)(36860700001)(66574015)(1076003)(316002)(8936002)(4326008)(336012)(36900700001);
+ SFS:(4636009)(346002)(39860400002)(376002)(136003)(396003)(36840700001)(46966006)(8676002)(316002)(36860700001)(86362001)(2906002)(8936002)(426003)(1076003)(36756003)(70586007)(6916009)(2616005)(82740400003)(81166007)(54906003)(7696005)(4326008)(6666004)(186003)(44832011)(356005)(478600001)(82310400003)(47076005)(5660300002)(15650500001)(70206006)(26005)(336012)(83380400001)(16526019)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2021 04:34:54.5800 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d1c83bf0-1e68-4f4a-ce2a-08d92a36c380
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2021 04:35:00.0541 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d168d249-42bf-4c1e-02e2-08d92a36c6c4
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT025.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT066.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1521
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5393
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,158 +117,166 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Via the fSMC_MSG_ArmD3 message, PMFW can properly act on the
-Dstate change. Driver involvement for determining the timing for
-BACO enter/exit is not needed.
+For some ASICs, the real dpm feature disablement job is handled by
+PMFW during baco reset and custom pptable loading. Cached dpm feature
+status need to be updated to pair that.
 
-Change-Id: Id9ab5e308ff1873888d0acd822c71b0a303fbb01
+Change-Id: I9e37d80e13599833301c04711b097fb37c2e41f9
 Signed-off-by: Evan Quan <evan.quan@amd.com>
 ---
 V1->V2:
-  - limit the changes for Navi1x and Sienna_Cichlid which support
-    the fSMC_MSG_ArmD3 message
+  - correct the setting for baco bit(pointed out by Lijo)
+v2->v3:
+  - Lijo: no new ppt_func
+  - fit the logic into existing API
 ---
- drivers/gpu/drm/amd/pm/inc/smu_v11_0.h        |  3 +++
- .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 27 +++++++++++++++++--
- .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 27 +++++++++++++++++--
- .../gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c    | 11 ++------
- 4 files changed, 55 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h     |  4 +-
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c   |  9 +++-
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c      | 47 +++++++++++++++++----
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h      |  1 +
+ drivers/gpu/drm/amd/pm/swsmu/smu_internal.h |  2 +-
+ 5 files changed, 50 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h b/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
-index a3b28979bc82..1962a5877191 100644
---- a/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
-+++ b/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
-@@ -244,6 +244,9 @@ int smu_v11_0_baco_set_state(struct smu_context *smu, enum smu_baco_state state)
- int smu_v11_0_baco_enter(struct smu_context *smu);
- int smu_v11_0_baco_exit(struct smu_context *smu);
+diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+index fb7438224872..46fa10b328e7 100644
+--- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+@@ -935,7 +935,9 @@ struct pptable_funcs {
+ 	 * @disable_all_features_with_exception: Disable all features with
+ 	 *                                       exception to those in &mask.
+ 	 */
+-	int (*disable_all_features_with_exception)(struct smu_context *smu, enum smu_feature_mask mask);
++	int (*disable_all_features_with_exception)(struct smu_context *smu,
++						   bool no_hw_disablement,
++						   enum smu_feature_mask mask);
  
-+int smu_v11_0_baco_set_armd3_sequence(struct smu_context *smu,
-+				      enum smu_v11_0_baco_seq baco_seq);
-+
- int smu_v11_0_mode1_reset(struct smu_context *smu);
+ 	/**
+ 	 * @notify_display_change: Enable fast memory clock switching.
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index 57da4dbe94c0..ae337eb41ffc 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -1382,7 +1382,9 @@ static int smu_disable_dpms(struct smu_context *smu)
+ 	if (smu->uploading_custom_pp_table &&
+ 	    (adev->asic_type >= CHIP_NAVI10) &&
+ 	    (adev->asic_type <= CHIP_DIMGREY_CAVEFISH))
+-		return 0;
++		return smu_disable_all_features_with_exception(smu,
++							       true,
++							       SMU_FEATURE_COUNT);
  
- int smu_v11_0_get_dpm_ultimate_freq(struct smu_context *smu, enum smu_clk_type clk_type,
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-index 267fbbdbff94..038b5f3c87b4 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-@@ -2243,6 +2243,29 @@ static int navi10_overdrive_get_gfx_clk_base_voltage(struct smu_context *smu,
- 	return 0;
+ 	/*
+ 	 * For Sienna_Cichlid, PMFW will handle the features disablement properly
+@@ -1390,7 +1392,9 @@ static int smu_disable_dpms(struct smu_context *smu)
+ 	 */
+ 	if ((adev->asic_type == CHIP_SIENNA_CICHLID) &&
+ 	     use_baco)
+-		return 0;
++		return smu_disable_all_features_with_exception(smu,
++							       true,
++							       SMU_FEATURE_BACO_BIT);
+ 
+ 	/*
+ 	 * For gpu reset, runpm and hibernation through BACO,
+@@ -1398,6 +1402,7 @@ static int smu_disable_dpms(struct smu_context *smu)
+ 	 */
+ 	if (use_baco && smu_feature_is_enabled(smu, SMU_FEATURE_BACO_BIT)) {
+ 		ret = smu_disable_all_features_with_exception(smu,
++							      false,
+ 							      SMU_FEATURE_BACO_BIT);
+ 		if (ret)
+ 			dev_err(adev->dev, "Failed to disable smu features except BACO.\n");
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+index 0ceb7329838c..a1af6f047fbe 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+@@ -575,23 +575,52 @@ int smu_cmn_set_pp_feature_mask(struct smu_context *smu,
+ 	return ret;
  }
  
-+static int navi10_baco_enter(struct smu_context *smu)
-+{
-+	struct amdgpu_device *adev = smu->adev;
-+
-+	if (adev->in_runpm)
-+		return smu_v11_0_baco_set_armd3_sequence(smu, BACO_SEQ_BACO);
-+	else
-+		return smu_v11_0_baco_enter(smu);
-+}
-+
-+static int navi10_baco_exit(struct smu_context *smu)
-+{
-+	struct amdgpu_device *adev = smu->adev;
-+
-+	if (adev->in_runpm) {
-+		/* Wait for PMFW handling for the Dstate change */
-+		msleep(10);
-+		return smu_v11_0_baco_set_armd3_sequence(smu, BACO_SEQ_ULPS);
-+	} else {
-+		return smu_v11_0_baco_exit(smu);
++/**
++ * smu_cmn_disable_all_features_with_exception - disable all dpm features
++ *                                               except this specified by
++ *                                               @mask
++ *
++ * @smu:               smu_context pointer
++ * @no_hw_disablement: whether real dpm disablement should be performed
++ *                     true: update the cache(about dpm enablement state) only
++ *                     false: real dpm disablement plus cache update
++ * @mask:              the dpm feature which should not be disabled
++ *                     SMU_FEATURE_COUNT: no exception, all dpm features
++ *                     to disable
++ *
++ * Returns:
++ * 0 on success or a negative error code on failure.
++ */
+ int smu_cmn_disable_all_features_with_exception(struct smu_context *smu,
++						bool no_hw_disablement,
+ 						enum smu_feature_mask mask)
+ {
++	struct smu_feature *feature = &smu->smu_feature;
+ 	uint64_t features_to_disable = U64_MAX;
+ 	int skipped_feature_id;
+ 
+-	skipped_feature_id = smu_cmn_to_asic_specific_index(smu,
+-							    CMN2ASIC_MAPPING_FEATURE,
+-							    mask);
+-	if (skipped_feature_id < 0)
+-		return -EINVAL;
++	if (mask != SMU_FEATURE_COUNT) {
++		skipped_feature_id = smu_cmn_to_asic_specific_index(smu,
++								    CMN2ASIC_MAPPING_FEATURE,
++								    mask);
++		if (skipped_feature_id < 0)
++			return -EINVAL;
+ 
+-	features_to_disable &= ~(1ULL << skipped_feature_id);
++		features_to_disable &= ~(1ULL << skipped_feature_id);
 +	}
-+}
-+
- static int navi10_set_default_od_settings(struct smu_context *smu)
- {
- 	OverDriveTable_t *od_table =
-@@ -3081,8 +3104,8 @@ static const struct pptable_funcs navi10_ppt_funcs = {
- 	.baco_is_support = smu_v11_0_baco_is_support,
- 	.baco_get_state = smu_v11_0_baco_get_state,
- 	.baco_set_state = smu_v11_0_baco_set_state,
--	.baco_enter = smu_v11_0_baco_enter,
--	.baco_exit = smu_v11_0_baco_exit,
-+	.baco_enter = navi10_baco_enter,
-+	.baco_exit = navi10_baco_exit,
- 	.get_dpm_ultimate_freq = smu_v11_0_get_dpm_ultimate_freq,
- 	.set_soft_freq_limited_range = smu_v11_0_set_soft_freq_limited_range,
- 	.set_default_od_settings = navi10_set_default_od_settings,
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-index a9e35c1255f9..9debeec1a85c 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-@@ -2109,6 +2109,29 @@ static int sienna_cichlid_run_btc(struct smu_context *smu)
- 	return smu_cmn_send_smc_msg(smu, SMU_MSG_RunDcBtc, NULL);
- }
  
-+static int sienna_cichlid_baco_enter(struct smu_context *smu)
-+{
-+	struct amdgpu_device *adev = smu->adev;
+-	return smu_cmn_feature_update_enable_state(smu,
+-						   features_to_disable,
+-						   0);
++	if (no_hw_disablement) {
++		mutex_lock(&feature->mutex);
++		bitmap_andnot(feature->enabled, feature->enabled,
++				(unsigned long *)(&features_to_disable), SMU_FEATURE_MAX);
++		mutex_unlock(&feature->mutex);
 +
-+	if (adev->in_runpm)
-+		return smu_v11_0_baco_set_armd3_sequence(smu, BACO_SEQ_BACO);
-+	else
-+		return smu_v11_0_baco_enter(smu);
-+}
-+
-+static int sienna_cichlid_baco_exit(struct smu_context *smu)
-+{
-+	struct amdgpu_device *adev = smu->adev;
-+
-+	if (adev->in_runpm) {
-+		/* Wait for PMFW handling for the Dstate change */
-+		msleep(10);
-+		return smu_v11_0_baco_set_armd3_sequence(smu, BACO_SEQ_ULPS);
++		return 0;
 +	} else {
-+		return smu_v11_0_baco_exit(smu);
++		return smu_cmn_feature_update_enable_state(smu,
++							   features_to_disable,
++							   0);
 +	}
-+}
-+
- static bool sienna_cichlid_is_mode1_reset_supported(struct smu_context *smu)
- {
- 	struct amdgpu_device *adev = smu->adev;
-@@ -3884,8 +3907,8 @@ static const struct pptable_funcs sienna_cichlid_ppt_funcs = {
- 	.baco_is_support = smu_v11_0_baco_is_support,
- 	.baco_get_state = smu_v11_0_baco_get_state,
- 	.baco_set_state = smu_v11_0_baco_set_state,
--	.baco_enter = smu_v11_0_baco_enter,
--	.baco_exit = smu_v11_0_baco_exit,
-+	.baco_enter = sienna_cichlid_baco_enter,
-+	.baco_exit = sienna_cichlid_baco_exit,
- 	.mode1_reset_is_support = sienna_cichlid_is_mode1_reset_supported,
- 	.mode1_reset = smu_v11_0_mode1_reset,
- 	.get_dpm_ultimate_freq = sienna_cichlid_get_dpm_ultimate_freq,
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-index e1e1c268f661..388c5cb5c647 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-@@ -1474,7 +1474,8 @@ int smu_v11_0_set_azalia_d3_pme(struct smu_context *smu)
- 	return smu_cmn_send_smc_msg(smu, SMU_MSG_BacoAudioD3PME, NULL);
  }
  
--static int smu_v11_0_baco_set_armd3_sequence(struct smu_context *smu, enum smu_v11_0_baco_seq baco_seq)
-+int smu_v11_0_baco_set_armd3_sequence(struct smu_context *smu,
-+				      enum smu_v11_0_baco_seq baco_seq)
- {
- 	return smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_ArmD3, baco_seq, NULL);
- }
-@@ -1578,16 +1579,8 @@ int smu_v11_0_baco_set_state(struct smu_context *smu, enum smu_baco_state state)
+ int smu_cmn_get_smc_version(struct smu_context *smu,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+index da6ff6f024f9..7b2a11e998a5 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+@@ -75,6 +75,7 @@ int smu_cmn_set_pp_feature_mask(struct smu_context *smu,
+ 				uint64_t new_mask);
  
- int smu_v11_0_baco_enter(struct smu_context *smu)
- {
--	struct amdgpu_device *adev = smu->adev;
- 	int ret = 0;
+ int smu_cmn_disable_all_features_with_exception(struct smu_context *smu,
++						bool no_hw_disablement,
+ 						enum smu_feature_mask mask);
  
--	/* Arcturus does not need this audio workaround */
--	if (adev->asic_type != CHIP_ARCTURUS) {
--		ret = smu_v11_0_baco_set_armd3_sequence(smu, BACO_SEQ_BACO);
--		if (ret)
--			return ret;
--	}
--
- 	ret = smu_v11_0_baco_set_state(smu, SMU_BACO_STATE_ENTER);
- 	if (ret)
- 		return ret;
+ int smu_cmn_get_smc_version(struct smu_context *smu,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h b/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
+index 33101dc93bcc..59f9cfff3d61 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
+@@ -57,7 +57,7 @@
+ #define smu_feature_set_allowed_mask(smu)				smu_ppt_funcs(set_allowed_mask, 0, smu)
+ #define smu_feature_get_enabled_mask(smu, mask, num)			smu_ppt_funcs(get_enabled_mask, 0, smu, mask, num)
+ #define smu_feature_is_enabled(smu, mask)				smu_ppt_funcs(feature_is_enabled, 0, smu, mask)
+-#define smu_disable_all_features_with_exception(smu, mask)		smu_ppt_funcs(disable_all_features_with_exception, 0, smu, mask)
++#define smu_disable_all_features_with_exception(smu, no_hw_disablement, mask)		smu_ppt_funcs(disable_all_features_with_exception, 0, smu, no_hw_disablement, mask)
+ #define smu_is_dpm_running(smu)						smu_ppt_funcs(is_dpm_running, 0 , smu)
+ #define smu_notify_display_change(smu)					smu_ppt_funcs(notify_display_change, 0, smu)
+ #define smu_populate_umd_state_clk(smu)					smu_ppt_funcs(populate_umd_state_clk, 0, smu)
 -- 
 2.29.0
 
