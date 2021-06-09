@@ -2,128 +2,121 @@ Return-Path: <SRS0=4Mkx=LD=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MIME_HTML_MOSTLY,SPF_HELO_NONE,SPF_PASS
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6E2A1C47095
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 04:14:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CFCECC48BCF
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 07:08:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E36FE60C3F
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 04:14:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E36FE60C3F
+	by mail.kernel.org (Postfix) with ESMTPS id 9A97D6136D
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 07:08:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9A97D6136D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9591F6EC78;
-	Wed,  9 Jun 2021 04:14:12 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2050.outbound.protection.outlook.com [40.107.223.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D295E6EC78
- for <amd-gfx@lists.freedesktop.org>; Wed,  9 Jun 2021 04:14:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 57E846E175;
+	Wed,  9 Jun 2021 07:08:41 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2068.outbound.protection.outlook.com [40.107.220.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C20706E175
+ for <amd-gfx@lists.freedesktop.org>; Wed,  9 Jun 2021 07:08:40 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZX2L8SlZJirJ+bemzhI80pNhwrDYIYgIeakcpGmV19w29jdtSnNri/s840zdYY2mdJJCTPK2gHL6rHR9UESnCTNSih6qp0z6SE1nnKK7R5f1lgAAh85vRPfaALjUrC234bO57xFOYzpliQ51BOjIB4fIb2+lSXbBXK3+LZ2SK1oDgoKaPJqihgiJw4gpriVj0VqCQGxUAZkPxzmtgoC0G/2saJkG2CHomT6KEAeLZyCzl/b1osEIRzIxYvORpWmhL7tg7MmbOzMmc2nIRRvtgpEGTEgkhy2uNKnM5brGM8nfup7VRWtXYd5Br/YKj5nKfUs1JnsFPOju8siBhb1OQg==
+ b=JSzBytQVfqO/1YK73sKQbSdlvJhsvfc3EflayZ7NW/n2kjh8UdXLYsRRCNx7xpwc0nHMZFI87MT6IhxrxbvX4L4+BMfpuj2fMfQ7+CzObPrCzzTUozAc96qFd3UsmlugztodflRuJeHEgFoWzGKOPiHlzI7BUxFWWHr7KP7KCRVIOIZVe83XM5z0g0hsNnjGhPqnkr9dzaePtjRHhEfDuz7EMChwyNgJnlp3qe0p4A2Rt7RWlyyw4w7kpPIYDovFHb4erVh2hDmhtwIOS7a61s1Qq+CY13+Oq1xECBCQOdYVmw2pqlVoxNAIR8rdSud1C2DGwZksrfJLTdyG1bfdig==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8nTxfYaZOasCuSDFrLZc+b/cBmU4roe6qCEvAZYI9dY=;
- b=JPKFDtEA/3+8X+DljPLa+21TojEldPX7xjNfXFak6017OGgbmS4DpZLnYlBZGFzmIDNa4MB0O0Ghh23d/OGVNGuJhEaskKRs6XHoB2z/296dnAd1DqvPeUyy8ondSvqRU8mPpzAqlAdajBUlm4e9AeAnpnoW3p7mE/ntYAWa5O5SNctQC/uufZPByfhLtWyjwe1Y31IwqrPxo7yYZ4pyx2O4JrssG4OuGjqmaa5qoKYA9Jtk5tY1OTVwyO7KqaBhYKYlP7LujjcSnzfaAC54ifMcua95ROUPjWnpY1X0+bbfrUHCC7hOMR+mNq+CjF5Gqr06DHpX7LXUJFCPzwVAjA==
+ bh=hDH/t3uuu3Qf1VA1VVuclgKPCXPnjUUhR8ju51NZufA=;
+ b=Iyki27xN0ipRBoe0w06FgVFc9M3H6zHtI4VfXpJQ8zi4deSOJAbYob46E69jB2iwqn1ply/2jhE44oHV9T5Dw9bTEicMS8btlKJgzBdSHiS8NNDhOtdYcgwnBFFK7JMu5VfSbosfLBvCipujvDvC+AwaHU+8fbvCVr1nbqouhHIw62+bFJyFu2o4VcK42iOtSk7AKtWVTV0FyoF1ij8dBJ66BYvAcGx3vZorb2IgBsXSkWfKgXAgk0Ming5kEY+SCtV5fKPIZV9MLJ06/dh5+hvSElvZ2ey21e5jsatVRxiBxAj3KU1MDsFDPrNs66TlvUThaFJbllIKmBRYMkkBMQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8nTxfYaZOasCuSDFrLZc+b/cBmU4roe6qCEvAZYI9dY=;
- b=o+kuFTZDe7EZUkSzbOEPq59YoAwGfat4iJVxtAwCIbBNgyjNqymFuff9BexH5i/HahknuP88qJ0fbS8tCwYDcYO4XfBUtllf7CNy30vk1dKxnbPQdG1nC6EYcCu+T9/keE19wSuAInEFyXf3L3cYySldzGVqV1FBDDJvkT4prpY=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+ bh=hDH/t3uuu3Qf1VA1VVuclgKPCXPnjUUhR8ju51NZufA=;
+ b=NinuYGuvXEdt9WZfjti7prHKOkDEj14IQUhBlT9WT+JmFgZIZ7JEZzkphf08/TF3kzbjj8R6GH7o8I77ugDqSGvkeJVw6iONEa1grKv6RVzyItrYP76VIiKRcvlZHkCGTR0eYqHfjgVuSUAvbZR1dBQcpib6X3KLanVjcv5/Md4=
 Received: from CH0PR12MB5348.namprd12.prod.outlook.com (2603:10b6:610:d7::9)
- by CH0PR12MB5235.namprd12.prod.outlook.com (2603:10b6:610:d2::5) with
+ by CH2PR12MB5563.namprd12.prod.outlook.com (2603:10b6:610:6a::17) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.21; Wed, 9 Jun
- 2021 04:14:04 +0000
+ 2021 07:08:38 +0000
 Received: from CH0PR12MB5348.namprd12.prod.outlook.com
  ([fe80::80e7:eb2e:843d:91e9]) by CH0PR12MB5348.namprd12.prod.outlook.com
  ([fe80::80e7:eb2e:843d:91e9%3]) with mapi id 15.20.4195.030; Wed, 9 Jun 2021
- 04:14:04 +0000
-Subject: Re: [PATCH v6 1/9] drm/amd/pm: Add u64 throttler status field to
- gpu_metrics
-To: Graham Sider <Graham.Sider@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20210608150810.9679-1-Graham.Sider@amd.com>
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-Message-ID: <0fbaa658-88b4-e6f9-1b15-e6a056dea7f0@amd.com>
-Date: Wed, 9 Jun 2021 09:43:50 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
-In-Reply-To: <20210608150810.9679-1-Graham.Sider@amd.com>
+ 07:08:37 +0000
+From: "Lazar, Lijo" <Lijo.Lazar@amd.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/pm: Only primary die supports power data
+Thread-Topic: [PATCH] drm/amd/pm: Only primary die supports power data
+Thread-Index: Addc/gkczx5lDivYTV6dTI1O8B/8fg==
+Date: Wed, 9 Jun 2021 07:08:37 +0000
+Message-ID: <CH0PR12MB53488C033DB25B63D0AF725697369@CH0PR12MB5348.namprd12.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
-X-Originating-IP: [165.204.159.242]
-X-ClientProxiedBy: BM1PR01CA0149.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:b00:68::19) To CH0PR12MB5348.namprd12.prod.outlook.com
- (2603:10b6:610:d7::9)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [10.252.81.250] (165.204.159.242) by
- BM1PR01CA0149.INDPRD01.PROD.OUTLOOK.COM (2603:1096:b00:68::19) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4219.21 via Frontend Transport; Wed, 9 Jun 2021 04:14:00 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 0a8e0674-5f77-448a-2e30-08d92afd04af
-X-MS-TrafficTypeDiagnostic: CH0PR12MB5235:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CH0PR12MB523551C2E6F0332AA8731DB797369@CH0PR12MB5235.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3968;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: NXMzOd3+2AeazMy5lQF0Dn6H8W41rEmG+EV2NwwMg5IcElfTvpMFMNOw5njwhs7P4ieXjQnd0eL0ddZI03VJ/XO1pnw7Um+AzaMP0FuYXNtn+jU5yKctc9AjNPyfXt079vCoHRyajcTbTuMExkzlqD//lkozJus8NWN6wfFlL2md+vJxhyYzEYqhGn4bC/LLQm/fK6lPTe2DxbfhU9cW0EE8L74drJnW1XD4NDcmtFNQu5YY4kHdvj0vv2nqYnf9An0Ka37VmCpNSF8Mz04ynYubEHNg+JWrNvHHZMqz16l8P55O/V1shJWW7fpfemeelGhpI+98xCDPW065XTtQ6KYTgXBioaeWG6XXdXrB29hVEnMlFiSiBmV3ZndqfILUE714Fvwu3YcISLaR9zqJ15s/S7QHXRVahE3IK1xgYKge4SRHE1W3Mq2mLYW7rxK4wy1EYmr2D5WaVZ1Zgvfb8qhrfl8X2lpyx0WbAyeczwdDmJWJk2aUmzyLKng0VrADh94ZnsgHP61GJbC2d/0f4SD1bxSrz4Es5um8XC9KQaPF0LEo7Rgvy4Bg9WnmLW13zolwq8OuNg1Y8TV1sIHvCjJdK9M6vNbKETLY5tgKHFY7ViyLRTA31unE9G4biMcZrCL0YgSBmuWGH0KXqZQO+5+omkbDI1NvUyhmnsZz/h0RxsdnXvFseQzw+8VU3Gyk
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-06-09T07:08:33Z; 
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP 2.0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=ef0d4082-e64f-405a-bbee-152c7815560d;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1
+authentication-results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+x-originating-ip: [117.222.147.144]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 0161d9b6-c7fc-4eda-2717-08d92b15676f
+x-ms-traffictypediagnostic: CH2PR12MB5563:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <CH2PR12MB55632905409412506419AA1997369@CH2PR12MB5563.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:7691;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: g7qLSuTedhdi5bNPh5u8WJ0UDdYIF7nP2D5GXO+9q+Q+dKXc57u3vc9JYxSGi0yEOIFbHsVGU4Y8XfTJ/9R7Ckkyf+FZiYvy0NNHJbv8Rz4+VHikDlwpww036gf6qhKUOdyBHmxz4jPV9ZL12mwEMy+4Jqn1PYI5tnZloxIbRvZAzmflMgM3bd4y51ghojzp5IoKQWWW9DzyU5yGzz0ME09BJc1kEIiw/Vt/QRujKZuLy2HnPt3lKOdunFZ7MnDQFR7Cf5Hs9vyHY5c/ii2Vz4DRPltjzNNzyX/14iKaFuvVS4jOG8LzKGeRn60m5yLjEN0JJgtkS2cHBno4gfMU9BMGu1BEsZPG7dH6QorEF4QQYDEojAc1QhR9Kz1ijl8Fb6RFX3qKEnQoH5P4aT5v8mmVHIsxBv2gfoBS7fcT7nHJ+gAkPpMUoVNWUdmXiUC3/qMS0nRbK7nD3BxzHXk3x1JQNYtdzAll4wTM/gVVDkHbOsrBkDfFXE9HvxP31joDUoXWDq4qDA7TzOT5mYLAm/OI/h5+/OUDOdnCqJgjsV5zY4KwQ69ASEPWi0a3OdN4MLGfCCRPLbDwWO469j6CuXUDMkdqDuV2CHh5K2/0KHo=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CH0PR12MB5348.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(39860400002)(376002)(136003)(366004)(346002)(8676002)(316002)(38100700002)(53546011)(86362001)(31686004)(4326008)(956004)(5660300002)(478600001)(26005)(186003)(16576012)(8936002)(2616005)(16526019)(6666004)(66556008)(66476007)(36756003)(66946007)(83380400001)(6486002)(2906002)(31696002)(45980500001)(43740500002);
+ SFS:(4636009)(366004)(376002)(346002)(39860400002)(396003)(136003)(7696005)(38100700002)(52536014)(33656002)(4326008)(6506007)(5660300002)(6916009)(86362001)(26005)(54906003)(316002)(186003)(2906002)(9686003)(66556008)(64756008)(66946007)(8936002)(66476007)(66446008)(83380400001)(55016002)(71200400001)(8676002)(478600001)(122000001)(76116006);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Ky92dnVpMU5OZWczSEZpMnowbUErendRR0pnTW9jbndVR3RkZWZ5K1pwVkR6?=
- =?utf-8?B?bTRoWW1pZmQ0b1BhMFl3WHdTU1BxcXZlS0JYM3h1MHhOYjJHdWxLK2s0NzBs?=
- =?utf-8?B?dVo5TFVCM3d3TFRpQStVcGJmZnpJTnJIZ2NBRGhoZUpjb0MyVEtPVk1OcFRG?=
- =?utf-8?B?Q09BdElnZE45N3J6RmhTMHkxVU5Iazl4bkpGVURBZHRaT2NsUm9IbFhkaEx2?=
- =?utf-8?B?YVpPOG9KNjJvMWwya2RpZEJobkU4YUlRRjUrTUVFTU9GTFF0N04weHYzREVo?=
- =?utf-8?B?UG1tZHo0SElpcTFVeXc4ZU1hQThuVEZaU1pwTGliRmNzY09KS0grcWI5cFgr?=
- =?utf-8?B?SjZITXhISG1TVEd1ekd0aUdXb3VQcHFPcXhkdFNVY1VjYVhmUTRKTGVKekg3?=
- =?utf-8?B?cGloQmIwUVpoNHpvVTBPVHd5d2RvWGdmaWVaQm41SzBsWXpPNkh5ZVVsZi9Y?=
- =?utf-8?B?VjBnUUM0MThtU1BGQ3lVRS9ETnZ5Tjl6Y0J6SFUrS2VmcTlEYWhSZU9Jc2RZ?=
- =?utf-8?B?S0VLVjZVVzlSelMvdjFXTitiTXptVm9mZ2M1MEZBZXd1YkFMSjFaUnRVNXha?=
- =?utf-8?B?cVJuL3RKNWZBbWhocFk4NTFJZ0prWmJRWE9KRmxOTkNPdlgweTVJRGN1MmZn?=
- =?utf-8?B?amtoeW9jaTZWd0Y4U29JSzcveXF0cDhlZGpTSk04QzhXdlRTaFR3aU81WEJN?=
- =?utf-8?B?dG1sL3FqSkpJaFNadklHakNCRFp4VWhFVkxmeVI4UEJ4YXl2Mmd2VnJBNnhS?=
- =?utf-8?B?eUpPQU51TTV1Y0JmQ1Bnb1lHTVM4NnZ6R0pBYWJBWDA1cEFaRFlXQVJlczIr?=
- =?utf-8?B?SDRiU0g5SkJXVUkrQjZuTW1JRlUxalRrdWlaWXp3WmRadUYySUpzQ0hTYWJ5?=
- =?utf-8?B?OHJ5V0YwMU84MStZbU9ERDA3YTZCUW5vL0kwaXZmTXBvbkNGQS9YRVA5S21P?=
- =?utf-8?B?RWFnQkg5dHNZdmJWU1k1d0hpK3NCbG1ld05oR2JpNlM3a1VhOXNINkFNVTFi?=
- =?utf-8?B?ayszTnp0dncrN0Y5MDMxNjd3MVdQMk4yNzNCMXJEcDdnTDkwbmpneWVRWXor?=
- =?utf-8?B?ekdjWm1XckZJeWdiQ3dBR3RHYVJkVnpZV3BEU1M5M3RiUVVUdWdxa3cxb2xi?=
- =?utf-8?B?ODBLVnF5dENmVzZQTzF4a3JkejdtUk1PRGhmbG9ub2U1Z0FHb1lGejJ3bzE3?=
- =?utf-8?B?cTU4N0dIK3pnY0xDL2k5bGxGZUhjL2FQeGN1NlRzVHNaTThwcUNPT1JXRHd4?=
- =?utf-8?B?aXBpdTN3bFJQcm9NcURldDBGSS9KWUVOcVpSK0V0ZDE4MklRY2h0ZFZVeHNL?=
- =?utf-8?B?enZJWjJpeVpoT0pBNHBySGZLZGlrd1A1OWJQMGxnNGFmSGF1YStVaWdNeVQw?=
- =?utf-8?B?V2tITkkzL25lTmNraWhOZlpwZE9GcTM3UUFUMytzZitFVmkrV0JZMS8yR0d0?=
- =?utf-8?B?UU1hN01ib1pEUjB3RGlDMFhEcnp2SHhydU1zbDFoUkF4L1RDaUlvbUtrNzlG?=
- =?utf-8?B?aHBKd2dXN2dsMkFLc1hDd2YrMi9wNTVnN0R6Zm9HS0Q5WmtpZGI2Nk9iTVE2?=
- =?utf-8?B?cTBqbUY3RzNKamFtWlhXby8rQjNpRFIybVU2eXA2T0oyM2Y2UFhyWU9EbUJw?=
- =?utf-8?B?SFA0RGNrcnVuWC9STG1oSDhYNnF3ZG5rWWRQcVNTaGVaM3M0LzRSUUQra2VZ?=
- =?utf-8?B?MjB6eC9zNlVJTFIvb29vckkrOWNyU1pvYUtGaVExUWJPOUVLYmVQVFFBa2Uz?=
- =?utf-8?Q?rNYAylZpq7VEviPn/Uim5QLQ9mSnwvVApb//rjT?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?ikJB2lpLy+C7Oh2nn8029hoZDi2Kne3d0OWordBlvwaRiG9qKwZRccyhr9m5?=
+ =?us-ascii?Q?gbqOwvB2f3F5vfO0Ow85g0Zn+hFXOd92BtIndj5Gvy0FIKf+WY8j359jA6PB?=
+ =?us-ascii?Q?dY0gFDDUUEHbChirgJFZq1NB/QHJn/IVQr4uylH1Yu5IP+oueqtsfVwUr9MT?=
+ =?us-ascii?Q?fpLS9r3KJMLLZMmQjndBJeFbhfxXtbXxLqZJ1YAX/GNIhtMjlk74u/a4ONDd?=
+ =?us-ascii?Q?rFTFkl/zEtp8r/dyQ4l2fzzR7kibdLmiCO3Jq9zy+B+EkcWDfEiHi1TO97kU?=
+ =?us-ascii?Q?L3znuu9s+hwtSEH+HCzl/Vsfw8xGB8JRp9Lx2OuCfJ7zqAmydCwf1eiByNZC?=
+ =?us-ascii?Q?57HqL5YIk6M1kkT0Ld1ArX8aRxndE5fL9BbDjUpj2Brd+m4SaKGro1ToLMI2?=
+ =?us-ascii?Q?AKQ/dPcjGlI21wEpYkZp6XrH97WIENiufcngZJHuhOse9WAnt+GYYQLkoH4z?=
+ =?us-ascii?Q?zTrF3bbai4SLDyZDigeMYMmDoJu0cvxccSL+tOH4iP0yDy+I3v/8T9zFislo?=
+ =?us-ascii?Q?VmRl0+5yjV9S8abneFTDtAbN4aZZU6yi1UgLw/HfksGcbUU99xngWhgQS93E?=
+ =?us-ascii?Q?cGmlSJ8NFou56gX/9j1tkbrxQ4S4+7SuCKgE/HwGdqgMBvFrif3iGA3rv+tI?=
+ =?us-ascii?Q?stACKb69fXWGsxiJysdunH1k/YlIdlyOiUYcR6jT1GaBbu/WC7bb+Ucltoo6?=
+ =?us-ascii?Q?o88vodzlpwplO2njTSYQWhPGWV159uA5ZrO3TUpHf3/7JdxeVWnVf5sfOEDH?=
+ =?us-ascii?Q?p/qOFT7GB0QnrVwS/0LX/TJGAdzjsffkoHZ4huiE+At9Q5mXLk8cZgxuDiaN?=
+ =?us-ascii?Q?ghRTtkqGGyqmm4H8RsptwUpw+ejMO1IYojSIpZ5ZJ0IiJ0FJ0zQozKP3+G3O?=
+ =?us-ascii?Q?WQyGYZL5cByZ5AbGCiuvGLXsPcwxuI3EYAivhI5G1aUGVUh5WY0Cci9hV8nm?=
+ =?us-ascii?Q?stpRUFBzGubUFMbfglQCjmVMDP+w9W/2UrinsVpvvUrFGoC4Of06R28QhmsJ?=
+ =?us-ascii?Q?ke4gQplBSE/mBYHAIV8mxD21ZUfIhTx+BgBfpJdu1xQQq71LH8NxFtssD10d?=
+ =?us-ascii?Q?qbKA9GDu9YPP7AUTQT2Wr2Qgfc8lzAQpp6TQeqyxWjZ0of7/BVrBa74g93u0?=
+ =?us-ascii?Q?JcO+vHcVJECzdX/0PvXnpR0nSNBiPjRCmve+t2tzygmrJSXn3iEV/g70UPbi?=
+ =?us-ascii?Q?VeAFCrIP40C/yH5k2SL7ydrCyySnnzms8Dp31ecSWaoENRPKbrsqaFdA8mE5?=
+ =?us-ascii?Q?zY6AlVrBbU5sSn3ACBptlCWCn8Dv3Rj+LdcBZSoninVmkv/8E9lDAJzg/zRJ?=
+ =?us-ascii?Q?jk3jocMP3ybiTmvgZd1q2tAM?=
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0a8e0674-5f77-448a-2e30-08d92afd04af
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5348.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jun 2021 04:14:04.5239 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5+POew5gO8jGWwDltAAKnAWuy/QUemNbb+ZY+gwU0FUeYw9WNQG4LjUIsJLpebOD
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5235
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5348.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0161d9b6-c7fc-4eda-2717-08d92b15676f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Jun 2021 07:08:37.7996 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: mLIsa5nmcm3wBSdMMjM6kJwqR4lKiqt6xlkbEgXycGNL0adaDDCZtI+nbazvHC4B
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB5563
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,124 +128,575 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Harish.Kasiviswanathan@amd.com, Elena.Sakhnovitch@amd.com
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Feng,
+ Kenneth" <Kenneth.Feng@amd.com>, "Quan, Evan" <Evan.Quan@amd.com>,
+ "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>, "Zhang,
+ Hawking" <Hawking.Zhang@amd.com>
+Content-Type: multipart/mixed; boundary="===============0069809965=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Series is
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+--===============0069809965==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_CH0PR12MB53488C033DB25B63D0AF725697369CH0PR12MB5348namp_"
 
-On 6/8/2021 8:38 PM, Graham Sider wrote:
-> This patch set adds support for a new ASIC independant u64 throttler
-> status field (indep_throttle_status). Piggybacks off the
-> gpu_metrics_v1_3 bump and similarly bumps gpu_metrics_v2 version (to
-> v2_2) to add field.
-> 
-> Signed-off-by: Graham Sider <Graham.Sider@amd.com>
-> ---
->   .../gpu/drm/amd/include/kgd_pp_interface.h    | 58 ++++++++++++++++++-
->   drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c        |  3 +
->   2 files changed, 60 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-> index 7bc7492f37b9..271018ce739b 100644
-> --- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-> +++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-> @@ -579,7 +579,7 @@ struct gpu_metrics_v1_3 {
->   	uint16_t			current_vclk1;
->   	uint16_t			current_dclk1;
->   
-> -	/* Throttle status */
-> +	/* Throttle status (ASIC dependent) */
->   	uint32_t			throttle_status;
->   
->   	/* Fans */
-> @@ -605,6 +605,9 @@ struct gpu_metrics_v1_3 {
->   	uint16_t			voltage_mem;
->   
->   	uint16_t			padding1;
-> +
-> +	/* Throttle status (ASIC independent) */
-> +	uint64_t			indep_throttle_status;
->   };
->   
->   /*
-> @@ -711,4 +714,57 @@ struct gpu_metrics_v2_1 {
->   	uint16_t			padding[3];
->   };
->   
-> +struct gpu_metrics_v2_2 {
-> +	struct metrics_table_header	common_header;
-> +
-> +	/* Temperature */
-> +	uint16_t			temperature_gfx; // gfx temperature on APUs
-> +	uint16_t			temperature_soc; // soc temperature on APUs
-> +	uint16_t			temperature_core[8]; // CPU core temperature on APUs
-> +	uint16_t			temperature_l3[2];
-> +
-> +	/* Utilization */
-> +	uint16_t			average_gfx_activity;
-> +	uint16_t			average_mm_activity; // UVD or VCN
-> +
-> +	/* Driver attached timestamp (in ns) */
-> +	uint64_t			system_clock_counter;
-> +
-> +	/* Power/Energy */
-> +	uint16_t			average_socket_power; // dGPU + APU power on A + A platform
-> +	uint16_t			average_cpu_power;
-> +	uint16_t			average_soc_power;
-> +	uint16_t			average_gfx_power;
-> +	uint16_t			average_core_power[8]; // CPU core power on APUs
-> +
-> +	/* Average clocks */
-> +	uint16_t			average_gfxclk_frequency;
-> +	uint16_t			average_socclk_frequency;
-> +	uint16_t			average_uclk_frequency;
-> +	uint16_t			average_fclk_frequency;
-> +	uint16_t			average_vclk_frequency;
-> +	uint16_t			average_dclk_frequency;
-> +
-> +	/* Current clocks */
-> +	uint16_t			current_gfxclk;
-> +	uint16_t			current_socclk;
-> +	uint16_t			current_uclk;
-> +	uint16_t			current_fclk;
-> +	uint16_t			current_vclk;
-> +	uint16_t			current_dclk;
-> +	uint16_t			current_coreclk[8]; // CPU core clocks
-> +	uint16_t			current_l3clk[2];
-> +
-> +	/* Throttle status (ASIC dependent) */
-> +	uint32_t			throttle_status;
-> +
-> +	/* Fans */
-> +	uint16_t			fan_pwm;
-> +
-> +	uint16_t			padding[3];
-> +
-> +	/* Throttle status (ASIC independent) */
-> +	uint64_t			indep_throttle_status;
-> +};
-> +
->   #endif
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-> index 0ceb7329838c..01645537d9ab 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-> @@ -773,6 +773,9 @@ void smu_cmn_init_soft_gpu_metrics(void *table, uint8_t frev, uint8_t crev)
->   	case METRICS_VERSION(2, 1):
->   		structure_size = sizeof(struct gpu_metrics_v2_1);
->   		break;
-> +	case METRICS_VERSION(2, 2):
-> +		structure_size = sizeof(struct gpu_metrics_v2_2);
-> +		break;
->   	default:
->   		return;
->   	}
-> 
+--_000_CH0PR12MB53488C033DB25B63D0AF725697369CH0PR12MB5348namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+[Public]
+
+On aldebaran, only primary die fetches valid power data. Show
+power/energy values as 0 on secondary die. Also, power limit should not
+be set through secondary die.
+
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+---
+.../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    | 57 +++++++++++++++----
+1 file changed, 46 insertions(+), 11 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/g=
+pu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+index 6ee9c4186f02..6fd78871f272 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+@@ -510,6 +510,16 @@ static int aldebaran_freqs_in_same_level(int32_t frequ=
+ency1,
+               return (abs(frequency1 - frequency2) <=3D EPSILON);
+}
++static bool aldebaran_is_primary(struct smu_context *smu)
++{
++             struct amdgpu_device *adev =3D smu->adev;
++
++             if (adev->smuio.funcs && adev->smuio.funcs->get_die_id)
++                             return adev->smuio.funcs->get_die_id(adev) =
+=3D=3D 0;
++
++             return true;
++}
++
+static int aldebaran_get_smu_metrics_data(struct smu_context *smu,
+                                                                           =
+      MetricsMember_t member,
+                                                                           =
+      uint32_t *value)
+@@ -563,7 +573,10 @@ static int aldebaran_get_smu_metrics_data(struct smu_c=
+ontext *smu,
+                               *value =3D metrics->AverageUclkActivity;
+                               break;
+               case METRICS_AVERAGE_SOCKETPOWER:
+-                              *value =3D metrics->AverageSocketPower << 8;
++                             /* Valid power data is available only from pr=
+imary die */
++                             *value =3D aldebaran_is_primary(smu) ?
++                                                             metrics->Aver=
+ageSocketPower << 8 :
++                                                             0;
+                               break;
+               case METRICS_TEMPERATURE_EDGE:
+                               *value =3D metrics->TemperatureEdge *
+@@ -1141,15 +1154,22 @@ static int aldebaran_get_power_limit(struct smu_con=
+text *smu)
+               if (!smu_cmn_feature_is_enabled(smu, SMU_FEATURE_PPT_BIT))
+                               return -EINVAL;
+-              ret =3D smu_cmn_send_smc_msg(smu, SMU_MSG_GetPptLimit, &powe=
+r_limit);
++             /* Valid power data is available only from primary die.
++             * For secondary die show the value as 0.
++             */
++             if (aldebaran_is_primary(smu)) {
++                             ret =3D smu_cmn_send_smc_msg(smu, SMU_MSG_Get=
+PptLimit,
++                                                                          =
+      &power_limit);
+-              if (ret) {
+-                              /* the last hope to figure out the ppt limit=
+ */
+-                              if (!pptable) {
+-                                              dev_err(smu->adev->dev, "Can=
+not get PPT limit due to pptable missing!");
+-                                              return -EINVAL;
++                             if (ret) {
++                                             /* the last hope to figure ou=
+t the ppt limit */
++                                             if (!pptable) {
++                                                             dev_err(smu->=
+adev->dev,
++                                                                          =
+   "Cannot get PPT limit due to pptable missing!");
++                                                             return -EINVA=
+L;
++                                             }
++                                             power_limit =3D pptable->PptL=
+imit;
+                               }
+-                              power_limit =3D pptable->PptLimit;
+               }
+                smu->current_power_limit =3D smu->default_power_limit =3D p=
+ower_limit;
+@@ -1159,6 +1179,15 @@ static int aldebaran_get_power_limit(struct smu_cont=
+ext *smu)
+               return 0;
+}
++static int aldebaran_set_power_limit(struct smu_context *smu, uint32_t n)
++{
++             /* Power limit can be set only through primary die */
++             if (aldebaran_is_primary(smu))
++                             return smu_v13_0_set_power_limit(smu, n);
++
++             return -EINVAL;
++}
++
+static int aldebaran_system_features_control(struct  smu_context *smu, bool=
+ enable)
+{
+               int ret;
+@@ -1730,10 +1759,16 @@ static ssize_t aldebaran_get_gpu_metrics(struct smu=
+_context *smu,
+               gpu_metrics->average_umc_activity =3D metrics.AverageUclkAct=
+ivity;
+               gpu_metrics->average_mm_activity =3D 0;
+-              gpu_metrics->average_socket_power =3D metrics.AverageSocketP=
+ower;
+-              gpu_metrics->energy_accumulator =3D
++             /* Valid power data is available only from primary die */
++             if (aldebaran_is_primary(smu)) {
++                             gpu_metrics->average_socket_power =3D metrics=
+.AverageSocketPower;
++                             gpu_metrics->energy_accumulator =3D
+                                               (uint64_t)metrics.EnergyAcc6=
+4bitHigh << 32 |
+                                               metrics.EnergyAcc64bitLow;
++             } else {
++                             gpu_metrics->average_socket_power =3D 0;
++                             gpu_metrics->energy_accumulator =3D 0;
++             }
+                gpu_metrics->average_gfxclk_frequency =3D metrics.AverageGf=
+xclkFrequency;
+               gpu_metrics->average_socclk_frequency =3D metrics.AverageSoc=
+clkFrequency;
+@@ -1898,7 +1933,7 @@ static const struct pptable_funcs aldebaran_ppt_funcs=
+ =3D {
+               .get_enabled_mask =3D smu_cmn_get_enabled_mask,
+               .feature_is_enabled =3D smu_cmn_feature_is_enabled,
+               .disable_all_features_with_exception =3D smu_cmn_disable_all=
+_features_with_exception,
+-              .set_power_limit =3D smu_v13_0_set_power_limit,
++             .set_power_limit =3D aldebaran_set_power_limit,
+               .init_max_sustainable_clocks =3D smu_v13_0_init_max_sustaina=
+ble_clocks,
+               .enable_thermal_alert =3D smu_v13_0_enable_thermal_alert,
+               .disable_thermal_alert =3D smu_v13_0_disable_thermal_alert,
+--
+2.17.1
+
+
+--_000_CH0PR12MB53488C033DB25B63D0AF725697369CH0PR12MB5348namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
+break-word">
+<p class=3D"msipheaderc10f11a2" align=3D"Left" style=3D"margin:0"><span sty=
+le=3D"font-size:10.0pt;font-family:Arial;color:#008000">[Public]</span></p>
+<br>
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">On aldebaran, only primary die fetches valid power d=
+ata. Show<o:p></o:p></p>
+<p class=3D"MsoNormal">power/energy values as 0 on secondary die. Also, pow=
+er limit should not<o:p></o:p></p>
+<p class=3D"MsoNormal">be set through secondary die.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Signed-off-by: Lijo Lazar &lt;lijo.lazar@amd.com&gt;=
+<o:p></o:p></p>
+<p class=3D"MsoNormal">---<o:p></o:p></p>
+<p class=3D"MsoNormal">.../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c&nbsp;&nbs=
+p;&nbsp; | 57 +++++++++++++++----<o:p></o:p></p>
+<p class=3D"MsoNormal">1 file changed, 46 insertions(+), 11 deletions(-)<o:=
+p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/alde=
+baran_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c<o:p></o:p>=
+</p>
+<p class=3D"MsoNormal">index 6ee9c4186f02..6fd78871f272 100644<o:p></o:p></=
+p>
+<p class=3D"MsoNormal">--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_p=
+pt.c<o:p></o:p></p>
+<p class=3D"MsoNormal">+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_p=
+pt.c<o:p></o:p></p>
+<p class=3D"MsoNormal">@@ -510,6 +510,16 @@ static int aldebaran_freqs_in_s=
+ame_level(int32_t frequency1,<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return (abs(frequency1 - frequency2) &lt;=
+=3D EPSILON);<o:p></o:p></p>
+<p class=3D"MsoNormal">}<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p></o:p></p>
+<p class=3D"MsoNormal">+static bool aldebaran_is_primary(struct smu_context=
+ *smu)<o:p></o:p></p>
+<p class=3D"MsoNormal">+{<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D smu-&gt;adev;<o:p></o:=
+p></p>
+<p class=3D"MsoNormal">+<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (adev-&gt;smuio.funcs &amp;&amp; adev-&gt;smuio.fu=
+ncs-&gt;get_die_id)<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return adev-&gt;smuio.funcs-&gt;=
+get_die_id(adev) =3D=3D 0;<o:p></o:p></p>
+<p class=3D"MsoNormal">+<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return true;<o:p></o:p></p>
+<p class=3D"MsoNormal">+}<o:p></o:p></p>
+<p class=3D"MsoNormal">+<o:p></o:p></p>
+<p class=3D"MsoNormal">static int aldebaran_get_smu_metrics_data(struct smu=
+_context *smu,<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;MetricsMember_t membe=
+r,<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;uint32_t *value)<o:p>=
+</o:p></p>
+<p class=3D"MsoNormal">@@ -563,7 +573,10 @@ static int aldebaran_get_smu_me=
+trics_data(struct smu_context *smu,<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *value =3D metrics-&g=
+t;AverageUclkActivity;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case METRICS_AVERAGE_SOCKETPOWER:<o:p></o:=
+p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *value =3D metrics-&gt;Ave=
+rageSocketPower &lt;&lt; 8;<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Valid power data is available=
+ only from primary die */<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *value =3D aldebaran_is_primary(=
+smu) ?<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; metrics-&gt;AverageSocketPower &lt;&lt; 8 :<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; 0;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case METRICS_TEMPERATURE_EDGE:<o:p></o:p><=
+/p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *value =3D metrics-&g=
+t;TemperatureEdge *<o:p></o:p></p>
+<p class=3D"MsoNormal">@@ -1141,15 +1154,22 @@ static int aldebaran_get_pow=
+er_limit(struct smu_context *smu)<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!smu_cmn_feature_is_enabled(smu, SMU_F=
+EATURE_PPT_BIT))<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<o:p><=
+/o:p></p>
+<p class=3D"MsoNormal"><o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_cmn_send_smc_msg(smu, SMU_MSG_GetPp=
+tLimit, &amp;power_limit);<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; /* Valid power data is available only from primary di=
+e.<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; * For secondary die show the value as 0.<o:p></o:p></=
+p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; */<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (aldebaran_is_primary(smu)) {<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_cmn_send_smc_msg(smu=
+, SMU_MSG_GetPptLimit,<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &amp;power_limit);<o:p></o:p></=
+p>
+<p class=3D"MsoNormal"><o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret) {<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* the last hope to figure=
+ out the ppt limit */<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!pptable) {<o:p></o:p>=
+</p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_e=
+rr(smu-&gt;adev-&gt;dev, &quot;Cannot get PPT limit due to pptable missing!=
+&quot;);<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retur=
+n -EINVAL;<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret) {<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* the last=
+ hope to figure out the ppt limit */<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!pptabl=
+e) {<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; dev_err(smu-&gt;adev-&gt;dev,<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;Cannot get PPT limit due to pptable mi=
+ssing!&quot;);<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; return -EINVAL;<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o:p=
+></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; power_limit=
+ =3D pptable-&gt;PptLimit;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; power_limit =3D pptable-&g=
+t;PptLimit;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&gt;current_power_limit =3D smu-=
+&gt;default_power_limit =3D power_limit;<o:p></o:p></p>
+<p class=3D"MsoNormal">@@ -1159,6 +1179,15 @@ static int aldebaran_get_powe=
+r_limit(struct smu_context *smu)<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<o:p></o:p></p>
+<p class=3D"MsoNormal">}<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p></o:p></p>
+<p class=3D"MsoNormal">+static int aldebaran_set_power_limit(struct smu_con=
+text *smu, uint32_t n)<o:p></o:p></p>
+<p class=3D"MsoNormal">+{<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; /* Power limit can be set only through primary die */=
+<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (aldebaran_is_primary(smu))<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return smu_v13_0_set_power_limit=
+(smu, n);<o:p></o:p></p>
+<p class=3D"MsoNormal">+<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return -EINVAL;<o:p></o:p></p>
+<p class=3D"MsoNormal">+}<o:p></o:p></p>
+<p class=3D"MsoNormal">+<o:p></o:p></p>
+<p class=3D"MsoNormal">static int aldebaran_system_features_control(struct&=
+nbsp; smu_context *smu, bool enable)<o:p></o:p></p>
+<p class=3D"MsoNormal">{<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;<o:p></o:p></p>
+<p class=3D"MsoNormal">@@ -1730,10 +1759,16 @@ static ssize_t aldebaran_get=
+_gpu_metrics(struct smu_context *smu,<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;average_umc_activity =3D m=
+etrics.AverageUclkActivity;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;average_mm_activity =3D 0;=
+<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;average_socket_power =3D metric=
+s.AverageSocketPower;<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;energy_accumulator =3D<o:p></o:=
+p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; /* Valid power data is available only from primary di=
+e */<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (aldebaran_is_primary(smu)) {<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;average_socket_p=
+ower =3D metrics.AverageSocketPower;<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;energy_accumulat=
+or =3D<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
+(uint64_t)metrics.EnergyAcc64bitHigh &lt;&lt; 32 |<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
+metrics.EnergyAcc64bitLow;<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; } else {<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;average_socket_p=
+ower =3D 0;<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;energy_accumulat=
+or =3D 0;<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; }<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;average_gfxclk_frequ=
+ency =3D metrics.AverageGfxclkFrequency;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;average_socclk_frequency =
+=3D metrics.AverageSocclkFrequency;<o:p></o:p></p>
+<p class=3D"MsoNormal">@@ -1898,7 +1933,7 @@ static const struct pptable_fu=
+ncs aldebaran_ppt_funcs =3D {<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_enabled_mask =3D smu_cmn_get_enabled_=
+mask,<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .feature_is_enabled =3D smu_cmn_feature_is=
+_enabled,<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .disable_all_features_with_exception =3D s=
+mu_cmn_disable_all_features_with_exception,<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; .set_power_limit =3D smu_v13_0_set_power_limit,=
+<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; .set_power_limit =3D aldebaran_set_power_limit,<o:p><=
+/o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .init_max_sustainable_clocks =3D smu_v13_0=
+_init_max_sustainable_clocks,<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .enable_thermal_alert =3D smu_v13_0_enable=
+_thermal_alert,<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .disable_thermal_alert =3D smu_v13_0_disab=
+le_thermal_alert,<o:p></o:p></p>
+<p class=3D"MsoNormal">-- <o:p></o:p></p>
+<p class=3D"MsoNormal">2.17.1<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+</body>
+</html>
+
+--_000_CH0PR12MB53488C033DB25B63D0AF725697369CH0PR12MB5348namp_--
+
+--===============0069809965==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0069809965==--
