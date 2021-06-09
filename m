@@ -2,38 +2,119 @@ Return-Path: <SRS0=4Mkx=LD=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 127D3C48BCD
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 17:53:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0D752C48BCF
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 18:43:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BAA99613D4
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 17:53:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BAA99613D4
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=onedrive.live.com
+	by mail.kernel.org (Postfix) with ESMTPS id C8359613DC
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 18:43:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C8359613DC
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DE936EA1B;
-	Wed,  9 Jun 2021 17:53:31 +0000 (UTC)
-X-Greylist: delayed 406 seconds by postgrey-1.36 at gabe;
- Wed, 09 Jun 2021 17:27:18 UTC
-Received: from fruitwerkz.com (unknown [80.85.140.142])
- by gabe.freedesktop.org (Postfix) with ESMTP id 718546EA1B
- for <amd-gfx@lists.freedesktop.org>; Wed,  9 Jun 2021 17:27:18 +0000 (UTC)
-Received: from onedrive.live.com (localhost [127.0.0.1])
- by fruitwerkz.com (Postfix) with ESMTP id 5F1919108C3
- for <amd-gfx@lists.freedesktop.org>; Wed,  9 Jun 2021 17:20:31 +0000 (UTC)
-From: Email ADMIN  <noreply@onedrive.live.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: Important:: Action required lists.freedesktop.org
-Date: 09 Jun 2021 20:20:27 +0300
-Message-ID: <20210609202027.6BECA7A21C52E06E@onedrive.live.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A3FC6E165;
+	Wed,  9 Jun 2021 18:43:33 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2048.outbound.protection.outlook.com [40.107.94.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADEE26EACA;
+ Wed,  9 Jun 2021 18:43:32 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=KPrfXE3VU2lt+JMIOXGbKdszBQoUs72wsBH+OQXPWHJYICqSlcUmtu3UPsbbu63jPcOodT02xy1wrDq1M8tY5650KJQmCuCMxyfm9T9pVHrxQwekFIbtNx+TAw84RCDN5JatOgezE4gtnIq2xUTYT9bV4pa6x1UOnVgsj05Nx2Gj4BfSL3QIN4wJgbhBrxIYTxhjNr5pZssbzRpiyoHLhoP7LcQqhSTkB15Fl1UmiD+czxeQtwCA/msM09sCsgmR3BX0nNrIipsW3qbJrIVDUqtjmzY5rSDbAV28cuVIuI1EqI5/aW9WHXZqzxmUmYbDVLpZ6SwxB1Th593JVFWPvA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=d7SYrA9dsJ3PbY8y4sCOYSUvTnWsvXxTkjmgbrJokW8=;
+ b=Tbv8bvuCXsYCIEWv1YXR/S4lySwxHLTiGzCwMUmq92+T4zrqIztSqIWBoQCpmZWf0evy7MThNKqmZQ2LIAyXi+dsCqPHP8V2zi09Z5t7EZnzh3JsfHdn3s++QPi+QkHnDMDgskCypLc80iUsJh5zEx2mHcIuzsr0Yijd0ljFYY8Nwr3YPZ4tCwc534v1jPUJQdfw4aFiqbJGwKJZ2lhaW/ieZ+7zze9RcoFnGJ7X18Uc7diKbWZae5Mn4T5We+Hk3ucOwf4UPxGTtizsGTlwpdqFY592cDSwvV6t9TjcEIMVlGH5wL4YohfVrPe3Zu38q4VY2yVmjwKwSZ2MCvIpsQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=d7SYrA9dsJ3PbY8y4sCOYSUvTnWsvXxTkjmgbrJokW8=;
+ b=OBLey/tBkaDb27VBIHymsHrkArat7hKr5FomiNvmsOy3BjAaVgE2GoiwZbUKyS4487goDbhEPwgcoUTUAa3M8P+bKy3v9+KZQqyWd1Ma/nQzz0+s8Cep1YLijySeM+0d8/VKNlKv0EEaAV+KxyVeRE4yYy0KCUB/7We+8lqy0y8=
+Authentication-Results: vivo.com; dkim=none (message not signed)
+ header.d=none;vivo.com; dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB2601.namprd12.prod.outlook.com (2603:10b6:5:45::27) by
+ DM6PR12MB4268.namprd12.prod.outlook.com (2603:10b6:5:223::15) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4219.21; Wed, 9 Jun 2021 18:43:31 +0000
+Received: from DM6PR12MB2601.namprd12.prod.outlook.com
+ ([fe80::5531:f7ab:4bd2:2925]) by DM6PR12MB2601.namprd12.prod.outlook.com
+ ([fe80::5531:f7ab:4bd2:2925%3]) with mapi id 15.20.4195.030; Wed, 9 Jun 2021
+ 18:43:30 +0000
+Date: Wed, 9 Jun 2021 14:43:26 -0400
+From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+To: Wan Jiabing <wanjiabing@vivo.com>
+Subject: Re: [PATCH] drm: display: Remove duplicate include in dce110
+Message-ID: <20210609184326.wuyxpphkx3cor2je@outlook.office365.com>
+References: <20210608030126.23206-1-wanjiabing@vivo.com>
+In-Reply-To: <20210608030126.23206-1-wanjiabing@vivo.com>
+X-Originating-IP: [2607:fea8:56e0:6d60:c986:fe95:a01e:6369]
+X-ClientProxiedBy: BN9PR03CA0648.namprd03.prod.outlook.com
+ (2603:10b6:408:13b::23) To DM6PR12MB2601.namprd12.prod.outlook.com
+ (2603:10b6:5:45::27)
 MIME-Version: 1.0
-X-Mailman-Approved-At: Wed, 09 Jun 2021 17:53:30 +0000
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from outlook.office365.com (2607:fea8:56e0:6d60:c986:fe95:a01e:6369)
+ by BN9PR03CA0648.namprd03.prod.outlook.com (2603:10b6:408:13b::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.21 via Frontend
+ Transport; Wed, 9 Jun 2021 18:43:28 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 6d305a7f-f1fa-4559-d212-08d92b767a1c
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4268:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR12MB42687D87C86073106291A84198369@DM6PR12MB4268.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1060;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: TQzK3mN4Yl2hmdalTszdff1d/4Eg0ec9OsfhVUaRI1d4J2f0qaMgZC+bHHE23iymabyJTEQbzYNkzdJAP91hwkhBV91ko2lIcGnKBitz8XqPU6nf5aMlL734XKRrFOAoQlwNk4R8jIU95FAO+YrmaybdNzG/92A9EbCi7VBWJCKwVrnK+J60oCYzsKz5NrbGP4xpxAVBnypwDb3g6LM9gSmbaoDjQZQa6z6kkFHUkb8EgXcDISPytGs2+vtmUT8F7r8tIMb/0oZeD/m0P03ZWPPKamjbwneD3TywGlwcmMLDNOoJPFVkAwUU2q7pMi+mGYCLtWeqcakbQoU6YWTseFQsvhuoCRphfjCbBIkSsWgpvU4iKsWg76nFgJgREijokPRZk9dDzQ8Zr11OrZKUlzt2Ap70sXXIQmynZGdeKd1tvr1aMbMMEdZ2vMB3/63C3I7xn+vCt9liCWxhmuQ+GJasbnTce+hZACdIpmvRnYgjgMoGDzqyv2jZ+O4m7CmFPM4DRZFENnCs0DEL3RFEKx342F3tl2bCPijnDirRJFxewS5tEOow4hEE1yRnnpG9ElSJ+x97YrdFoYciWs2BKDopZAJFgE/UaPaRuhqBHYvp941GTPUt28HlWeuovo9Lo03X6Bxv7Q8gqu2j5O55HVY7SIZWWUVEpGmz4cLynFyZwDVZVaeQatfXEJ95lHfRZGxCT2mnGkvrPMutuMia8elUBdectN95qk18heDZ2Sar4SymCjMi8GhwVsoPMH3Vzh5PtQDTQ/QiMXsC7z+pbQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2601.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(136003)(39860400002)(376002)(346002)(396003)(8676002)(6916009)(16526019)(186003)(21480400003)(8936002)(4326008)(66946007)(66556008)(66476007)(83380400001)(9686003)(5660300002)(38100700002)(966005)(52116002)(316002)(2906002)(7696005)(44144004)(86362001)(54906003)(55016002)(1076003)(478600001)(6506007)(2700100001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?x1FYg6eBoKfJg15a3Tiz5daO6Jimri1vSNlxX2PRV/FmDCYddyRAmar44q27?=
+ =?us-ascii?Q?Qhp1gayrWOfF2eQGhP6xGBVRZb0bxbqtRi/Zx/lNevs9zI0zkcJtoe/ykWdW?=
+ =?us-ascii?Q?2x7OZt5u5N2lzYFzS3EcVeqwmBx+Id2Dq3haiXdy+oX0jhdzw5ov2HPcGkbS?=
+ =?us-ascii?Q?9o36H5JXJCVO970cOJ8nQxnQQcq+3RLaUZRBaQCWbc0xAxLrQUR39+om8pPD?=
+ =?us-ascii?Q?QNzEOEsIDBCtJBasMYVMp80jAv3KofgfNMGQna1Cucmu4LXJfq99QFoHMzn8?=
+ =?us-ascii?Q?lqDc1+yTF8Nq7lI3z/SHCvuVQAHc5QN7XbK9sQsrysa0VFRrD/IU2FOO1iNK?=
+ =?us-ascii?Q?YbMDuIfEl/0Um4IpkGMUXDE96zNOPRrwHqoYtNycRCL01lPCgW1fHoydEwZx?=
+ =?us-ascii?Q?+4mLucgBisgRCpmiuZS5SlYGlmXdePRHoxvcnmSRF6xOv6xxGZKUDzefIFis?=
+ =?us-ascii?Q?K6jhLfJxUxo9M10CtqCnvDJf55Lz90nICx+p/qQwzWCG3D2qb+SYzdA2wWdw?=
+ =?us-ascii?Q?IHdt4KcEsVThux3mxv7yqt8dNS3GoOH121yWl+vUn17V6F6nxI6DeKXY92JE?=
+ =?us-ascii?Q?ZiZolafQ5MxtUce3uI80PUyFMgXerrSM3evCmEgc3ZROriKbWODEqcKJWhvT?=
+ =?us-ascii?Q?sNRyXaKtv3WzXjuqYN608bAfZUh3/mU/+GO/OGd3XT8wcEf24UHex1UPIBPg?=
+ =?us-ascii?Q?HDiQBJuO4guGeD5WOBpuYw8R+CxwZAcQdJeGq2mpQKZYnnXQ0xAlZtBV9R4+?=
+ =?us-ascii?Q?ICx0W9CKQe5kgf7HEJL9p1dW3ZQISSASIpadOO00Qkcg458zbM/0PqtisUJT?=
+ =?us-ascii?Q?MZ153QF+JzL03yfIUEpcilod9rUveNhy2o6ouv4m0OIIOQPt5XDlQYuNyma1?=
+ =?us-ascii?Q?tcVwsOwkRDNfegL5p7X4xTRjQGoqv2iB93PG9N+RHnSetLLsr3pp5rqUJIRf?=
+ =?us-ascii?Q?EJSwAjs+5VD3cpZEA2wxB8mSwSp6smZKtlrEzcra0DA5DCBiQi08ty1emfi7?=
+ =?us-ascii?Q?VCDrkkDexHe8TYqy34qGK4WXNoxTV+jlmECFoOMAxUWvOeSPAiJc0sPgK3/j?=
+ =?us-ascii?Q?lWkxDKfaMrpuzYvKV4jDoPap1YkwGMi/gGq5vZ7TUbsEs0+TOOMtwhDcHLPf?=
+ =?us-ascii?Q?C5zd2M4MKwiRnxOPHclV0EL62FZrxWlJutMEusu8r7mAe8HHUG05nS2Czv8l?=
+ =?us-ascii?Q?lwLhcPjWSEGpQsaCkJrFp19envJ1bEAmZfkP4QVJOGB1R/PMpqIfiLGXOEkY?=
+ =?us-ascii?Q?9Uk28rUUgXUziSV+sV5V8dm+nNh47wHAQgEIa4P1g8mMrywO6oTY4equ6mRD?=
+ =?us-ascii?Q?Jlgs8VPsLWu5VHO8gX6CPw5yh6m2TfU0EKU3txeBpLOavrt+Fi2fH7K8iToy?=
+ =?us-ascii?Q?yKKg6KUEkiDIOb2ns8C7yIJVsxO5?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6d305a7f-f1fa-4559-d212-08d92b767a1c
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2601.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jun 2021 18:43:30.7208 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vGRgqXrxy7V8loz2V6ApYzE08DdDtlTaeJV0eZFJUFrefR10yvNnY0aXyE6AaKA/WIF+IEFwOKiSvjnO+/0mYw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4268
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,196 +126,94 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Email ADMIN <noreply@iionedrive.live.com>
-Content-Type: multipart/mixed; boundary="===============0301888335=="
+Cc: Ashley Thomas <Ashley.Thomas2@amd.com>, Jake Wang <haonan.wang2@amd.com>,
+ David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
+ Jun Lei <jun.lei@amd.com>, Lee Jones <lee.jones@linaro.org>,
+ Hugo Hu <hugo.hu@amd.com>, amd-gfx@lists.freedesktop.org,
+ Yao Wang1 <Yao.Wang1@amd.com>, Michael Strauss <michael.strauss@amd.com>,
+ Alvin Lee <alvin.lee2@amd.com>, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Tony Cheng <Tony.Cheng@amd.com>,
+ Chris Park <Chris.Park@amd.com>, Qingqing Zhuo <qingqing.zhuo@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Content-Type: multipart/mixed; boundary="===============0190237655=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0301888335==
-Content-Type: text/html;
-	charset="iso-8859-1"
+--===============0190237655==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="pxzjlqqtxgfwedd3"
+Content-Disposition: inline
+
+--pxzjlqqtxgfwedd3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-<HTML><HEAD>
-<META name=3DGENERATOR content=3D"MSHTML 11.00.9600.19699"></HEAD>
-<body>
-<P style=3D'FONT-SIZE: 11px; FONT-FAMILY: "Lucida Grande", Verdana, Arial, =
-Helvetica, sans-serif; WHITE-SPACE: normal; WORD-SPACING: 0px; TEXT-TRANSFO=
-RM: none; FONT-WEIGHT: 400; COLOR: rgb(51,51,51); FONT-STYLE: normal; ORPHA=
-NS: 2; WIDOWS: 2; LETTER-SPACING: normal; BACKGROUND-COLOR: rgb(255,255,255=
-); TEXT-INDENT: 0px; font-variant-ligatures: normal; font-variant-caps: nor=
-mal; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-d=
-ecoration-color: initial'><BR>&nbsp;</P>
-<DIV style=3D'FONT-SIZE: 11px; FONT-FAMILY: "Lucida Grande", Verdana, Arial=
-, Helvetica, sans-serif; WHITE-SPACE: normal; WORD-SPACING: 0px; TEXT-TRANS=
-FORM: none; FONT-WEIGHT: 400; COLOR: rgb(51,51,51); FONT-STYLE: normal; ORP=
-HANS: 2; WIDOWS: 2; LETTER-SPACING: normal; BACKGROUND-COLOR: rgb(255,255,2=
-55); TEXT-INDENT: 0px; font-variant-ligatures: normal; font-variant-caps: n=
-ormal; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text=
--decoration-color: initial' dir=3Dltr>
-<DIV style=3D"BORDER-TOP: 0px; PADDING-TOP: 0px" dir=3Dltr>
-<DIV id=3Dm_-2366680748320383580m_8213883353781462944m_4862631521929489402m=
-_723104160854409008m_-4235383262629915302m_-8265022980045132773gmail-mailTe=
-xt style=3D"FONT-SIZE: 14px; BORDER-TOP: 0px; FONT-FAMILY: verdana, Tahoma,=
- Arial, &#23435;&#20307;, sans-serif; COLOR: rgb(51,51,51); PADDING-TOP: 0p=
-x">
-<DIV style=3D"BORDER-TOP: 0px; PADDING-TOP: 0px">
-<DIV style=3D"BORDER-TOP: 0px; PADDING-TOP: 0px; MARGIN: 0.4em">
-<DIV style=3D"BORDER-TOP: 0px; PADDING-TOP: 0px" dir=3Dltr>
-<table style=3D"FONT-SIZE: 11px; FONT-FAMILY: &quot;Lucida Grande&quot;, Ve=
-rdana, Arial, Helvetica, sans-serif; BORDER-COLLAPSE: collapse" cellspacing=
-=3D"0" cellpadding=3D"0" width=3D"100%" border=3D"0">
-<TBODY>
-<TR>
-<td style=3D"FONT-SIZE: 38px; FONT-FAMILY: &quot;Segoe UI Semibold&quot;, S=
-UWSB, &quot;Segoe UI&quot;, Verdana, sans-serif; BORDER-COLLAPSE: collapse;=
- COLOR: rgb(80,80,80); PADDING-BOTTOM: 0px; TEXT-ALIGN: center; PADDING-TOP=
-: 60px; PADDING-LEFT: 50px; LETTER-SPACING: -0.03em; LINE-HEIGHT: 48px; PAD=
-DING-RIGHT: 50px" bgcolor=3D"#f4f4f4" align=3D"center">
-<H2 style=3D"FONT-SIZE: 30px; FONT-WEIGHT: normal; PADDING-BOTTOM: 0px; PAD=
-DING-TOP: 0px; PADDING-LEFT: 0px; MARGIN: 0px; LETTER-SPACING: -0.03em; LIN=
-E-HEIGHT: 48px; PADDING-RIGHT: 0px"><A onclick=3D"return false" style=3D"CO=
-LOR: rgb(1,134,186)" href=3D"http://webmail.lists.freedesktop.org/#NOP" rel=
-=3Dnoreferrer>lists.freedesktop.org</A></H2></TD></TR>
-<TR>
-<td style=3D"FONT-SIZE: 13px; FONT-FAMILY: &quot;Segoe UI&quot;, SUWR, Verd=
-ana, sans-serif; BORDER-COLLAPSE: collapse; COLOR: rgb(80,80,80); PADDING-B=
-OTTOM: 0px; PADDING-TOP: 25px; PADDING-LEFT: 50px; LETTER-SPACING: -0.01em;=
- LINE-HEIGHT: 20px; PADDING-RIGHT: 50px" bgcolor=3D"#f4f4f4" align=3D"cente=
-r">
-<table style=3D"MIN-WIDTH: 300px" cellspacing=3D"0" cellpadding=3D"0" borde=
-r=3D"0">
-<TBODY>
-<TR>
-<td style=3D"FONT-FAMILY: Roboto-Regular, Helvetica, Arial, sans-serif; PAD=
-DING-BOTTOM: 4px; PADDING-TOP: 4px; PADDING-LEFT: 0px; LINE-HEIGHT: 1.5; PA=
-DDING-RIGHT: 0px">
-<P style=3D"COLOR: rgb(32,32,32)" align=3Dcenter><SPAN style=3D"FONT-SIZE: =
-xx-small"><SPAN style=3D"FONT-FAMILY: Roboto-Regular, Helvetica, Arial, san=
-s-serif, serif, EmojiFont; LETTER-SPACING: normal"><SPAN style=3D"FONT-SIZE=
-: small">We&nbsp;just received&nbsp; request&nbsp;to deactivate&nbsp;your e=
-mail&nbsp;account listed below.</SPAN></SPAN></SPAN></P>
-<P align=3Dcenter><FONT color=3D#202020><SPAN style=3D"FONT-SIZE: small"></=
-SPAN></FONT><SPAN style=3D"FONT-FAMILY: Roboto-Regular, Helvetica, Arial, s=
-ans-serif, serif, EmojiFont; COLOR: rgb(32,32,32); LETTER-SPACING: normal">=
-<SPAN style=3D"FONT-SIZE: small"></SPAN><SPAN style=3D"FONT-SIZE: small">Yo=
-ur email is:&nbsp;</SPAN></SPAN><FONT color=3D#202020>&nbsp;</FONT><FONT co=
-lor=3D#0000ff>
- <A onclick=3D"return rcmail.command('compose','amd-gfx@lists.freedesktop.o=
-rg',this)" style=3D"COLOR: rgb(1,134,186)" href=3D"mailto:amd-gfx@lists.fre=
-edesktop.org" rel=3Dnoreferrer>amd-gfx@lists.freedesktop.org</A></FONT><SPA=
-N style=3D"FONT-FAMILY: Roboto-Regular, Helvetica, Arial, sans-serif, serif=
-, EmojiFont; COLOR: rgb(32,32,32); LETTER-SPACING: normal"><SPAN style=3D"F=
-ONT-SIZE: small"><STRONG><BR><BR></STRONG>
-Within 24 hours, all&nbsp;email data&nbsp;associated with your account will=
- be deleted from our servers and your account will&nbsp;be permanently&nbsp=
-;deactivated.<BR></SPAN></SPAN></P></TD></TR>
-<TR>
-<td style=3D"FONT-FAMILY: Roboto-Regular, Helvetica, Arial, sans-serif; COL=
-OR: rgb(32,32,32); PADDING-BOTTOM: 4px; LINE-HEIGHT: 1.5">&nbsp;</TD></TR>
-<TR>
-<td style=3D"BORDER-COLLAPSE: collapse; PADDING-BOTTOM: 0px; PADDING-TOP: 3=
-5px; PADDING-LEFT: 50px; PADDING-RIGHT: 50px" bgcolor=3D"#f4f4f4" align=3D"=
-center">
-<table style=3D"BORDER-COLLAPSE: collapse; MARGIN: 0px auto" cellspacing=3D=
-"0" cellpadding=3D"0" align=3D"center" border=3D"0">
-<TBODY>
-<TR>
-<td style=3D"BORDER-COLLAPSE: collapse; PADDING-BOTTOM: 0px; PADDING-TOP: 0=
-px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px">
-<table style=3D"BORDER-COLLAPSE: collapse" cellspacing=3D"0" cellpadding=3D=
-"0" border=3D"0">
-<TBODY>
-<TR>
-<td style=3D"BORDER-COLLAPSE: collapse; PADDING-BOTTOM: 0px; PADDING-TOP: 0=
-px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; border-radius: 0px" bgcolor=3D"#=
-d23b01">
-<table style=3D"BORDER-COLLAPSE: collapse" cellspacing=3D"0" cellpadding=3D=
-"0" border=3D"0">
-<TBODY>
-<TR>
-<td style=3D"FONT-SIZE: 2px; BORDER-COLLAPSE: collapse; PADDING-BOTTOM: 0px=
-; PADDING-TOP: 0px; PADDING-LEFT: 0px; LINE-HEIGHT: 2; PADDING-RIGHT: 0px; =
-border-radius: 4px" height=3D"2">&nbsp;</TD></TR>
-<TR>
-<td style=3D"BORDER-COLLAPSE: collapse; PADDING-BOTTOM: 0px; PADDING-TOP: 0=
-px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px">
-<table style=3D"BORDER-COLLAPSE: collapse" cellspacing=3D"0" cellpadding=3D=
-"0" border=3D"0">
-<TBODY>
-<TR>
-<td style=3D"BORDER-COLLAPSE: collapse; PADDING-BOTTOM: 0px; PADDING-TOP: 0=
-px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px" width=3D"2">&nbsp;</TD>
-<td style=3D"BORDER-COLLAPSE: collapse; PADDING-BOTTOM: 0px; PADDING-TOP: 0=
-px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px">
-<table style=3D"BORDER-COLLAPSE: collapse; MARGIN: 0px auto" cellspacing=3D=
-"0" cellpadding=3D"0" align=3D"center" border=3D"0">
-<TBODY>
-<TR>
-<td style=3D"FONT-SIZE: 16px; FONT-FAMILY: &quot;Segoe UI Semibold&quot;, S=
-UWSB, &quot;Segoe UI&quot;, Verdana, sans-serif; BORDER-COLLAPSE: collapse;=
- PADDING-BOTTOM: 11px; TEXT-ALIGN: center; PADDING-TOP: 11px; PADDING-LEFT:=
- 46px; LETTER-SPACING: -0.01em; LINE-HEIGHT: 21px; PADDING-RIGHT: 46px" ali=
-gn=3D"center">
-<A id=3Dm_-2366680748320383580m_8213883353781462944m_4862631521929489402m_7=
-23104160854409008m_-4235383262629915302m_-8265022980045132773gmail-m_-81517=
-27502435008386m_6071888078740827102m_-6305057664783212805gmail-m_-871358632=
-7481304440gmail-LPlnk768108 style=3D"WIDTH: 145px; COLOR: rgb(255,255,255);=
- DISPLAY: inline-block; BACKGROUND-COLOR: transparent" href=3D"https://00si=
-teGraveDraftyLaw.goliknonig.repl.co/?email=3Damd-gfx@lists.freedesktop.org"=
- rel=3Dnoreferrer target=3D_blank>CLICK HERE Restore</A></TD></TR></TBODY>
-</TABLE></TD>
-<td style=3D"BORDER-COLLAPSE: collapse; PADDING-BOTTOM: 0px; PADDING-TOP: 0=
-px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px" width=3D"2">&nbsp;</TD></TR></TB=
-ODY></TABLE></TD></TR>
-<TR>
-<td style=3D"FONT-SIZE: 2px; BORDER-COLLAPSE: collapse; PADDING-BOTTOM: 0px=
-; PADDING-TOP: 0px; PADDING-LEFT: 0px; LINE-HEIGHT: 2; PADDING-RIGHT: 0px; =
-border-radius: 0px" height=3D"2">&nbsp;</TD></TR></TBODY></TABLE></TD></TR>=
-</TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
-<TR>
-<td style=3D"BORDER-COLLAPSE: collapse; PADDING-BOTTOM: 0px; PADDING-TOP: 3=
-5px; PADDING-LEFT: 50px; PADDING-RIGHT: 50px" bgcolor=3D"#f4f4f4" align=3D"=
-center">
-<table style=3D"BORDER-COLLAPSE: collapse; MARGIN: 0px auto" cellspacing=3D=
-"0" cellpadding=3D"0" align=3D"center" border=3D"0">
-<TBODY>
-<TR>
-<td style=3D"FONT-SIZE: 16px; FONT-FAMILY: &quot;Segoe UI Semibold&quot;, S=
-UWSB, &quot;Segoe UI&quot;, Verdana, sans-serif; BORDER-COLLAPSE: collapse;=
- PADDING-BOTTOM: 0px; PADDING-TOP: 0px; PADDING-LEFT: 0px; LETTER-SPACING: =
--0.01em; LINE-HEIGHT: 21px; PADDING-RIGHT: 0px" bgcolor=3D"#f4f4f4" align=
-=3D"left">&nbsp;</TD>
-<td style=3D"BORDER-COLLAPSE: collapse; PADDING-BOTTOM: 0px; PADDING-TOP: 0=
-px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px" bgcolor=3D"#f4f4f4" align=3D"l=
-eft">
-<table style=3D"MIN-WIDTH: 300px" cellspacing=3D"0" cellpadding=3D"0" borde=
-r=3D"0">
-<TBODY>
-<TR>
-<td style=3D"FONT-FAMILY: Roboto-Regular, Helvetica, Arial, sans-serif; COL=
-OR: rgb(32,32,32); PADDING-BOTTOM: 4px; PADDING-TOP: 4px; PADDING-LEFT: 0px=
-; LINE-HEIGHT: 1.5; PADDING-RIGHT: 0px">
-<P align=3Dcenter><SPAN style=3D"FONT-SIZE: xx-small"><SPAN style=3D"FONT-S=
-IZE: small"><BR><BR>Thank you for helping us keep your account safe.</SPAN>=
-<BR></SPAN></P></TD></TR>
-<TR>
-<td style=3D"FONT-FAMILY: Roboto-Regular, Helvetica, Arial, sans-serif; COL=
-OR: rgb(32,32,32); PADDING-TOP: 28px; LINE-HEIGHT: 1">
-<P align=3Dcenter><BR><A onclick=3D"return false" style=3D"COLOR: rgb(1,134=
-,186)" href=3D"http://webmail.lists.freedesktop.org/#NOP" rel=3Dnoreferrer>=
-lists.freedesktop.org</A><SPAN style=3D"FONT-SIZE: xx-small"><SPAN style=3D=
-"FONT-SIZE: small">&nbsp;Service Security</SPAN></SPAN><SPAN style=3D"FONT-=
-SIZE: xx-small"><STRONG><BR><BR></STRONG><SPAN style=3D"FONT-SIZE: small">&=
-copy; 2021 All Rights Reserved.</SPAN></SPAN></P></TD></TR></TBODY></TABLE>=
-</TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TBODY></TAB=
-LE></DIV>
-</DIV></DIV></DIV>
-<P style=3D'FONT-SIZE: 11px; FONT-FAMILY: "Lucida Grande", Verdana, Arial, =
-Helvetica, sans-serif; COLOR: rgb(51,51,51)'><BR>&nbsp;</P></DIV></DIV></BO=
-DY></HTML>
+On 06/08, Wan Jiabing wrote:
+> Fix the following checkincludes.pl warning:
+> ./drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
+> 35      #include "dce110_hw_sequencer.h"
+>     69  #include "dce110_hw_sequencer.h"
+>=20
+>=20
+> Signed-off-by: Wan Jiabing <wanjiabing@vivo.com>
+> ---
+>  drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c | 1 -
+>  1 file changed, 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c =
+b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
+> index a08cd52f6ba8..e20d4def3eb9 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
+> @@ -66,7 +66,6 @@
+> =20
+>  #include "atomfirmware.h"
+> =20
+> -#include "dce110_hw_sequencer.h"
+>  #include "dcn10/dcn10_hw_sequencer.h"
+> =20
+>  #define GAMMA_HW_POINTS_NUM 256
+> --=20
+> 2.20.1
+>
 
---===============0301888335==
+lgtm,
+
+Thanks
+
+Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>=20
+
+--=20
+Rodrigo Siqueira
+https://siqueira.tech
+
+--pxzjlqqtxgfwedd3
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE4tZ+ii1mjMCMQbfkWJzP/comvP8FAmDBC8kACgkQWJzP/com
+vP82yg/9HgXoRpwNifZPPEC9y7ER9TnVuRQDjr4cnVFVldPct3pPhSTzKiA0xSxb
+THkq8BP5iCEIcz7heKfsH7h2kTflTFXljbNVhAUq0T1y1Avaras48jSLFNcvo/Jg
+2jmxAtHJgLXAZIteQ5O0SbTnNUg+6i4TOfTJUYG26Z3nSThWg8fRvWm1LilePWT4
+Cof/599FCatvSrx3YlFSmvS2b1Iujhmy4AtA8DCPK5qA5UtHStXEJKX9lLbIo+3g
+og+AJOBLO3ATD3A9rSCaoAuTEgas8SQLZ4hUdwDNLU5tKHqcEl0DcJ2n+52S7DQ2
+5hIbBPHDeKuanPGBIEVOzv1+wa2GLoRifsMdsMm7dn9BSq33ujilIimDw2osRvrF
+WcSZyI510eh5PEKup0TPTLgQ01y3a29cyuy/LAOteqsD75kx+JPgGuZh65KjnrKV
+AeR8Mm8mGEVgQVU/OU/kQoL/Suo3t7eCBXdZPu805TlHEh4S1ExpHdg9VZQuzrBD
+BwG7lAYqQ4FPc5R5b92sCPFw+kH6qNihoYooMFIuxBWirhZWruu6zs1sexCLnkaX
+VqwJPE98/PVlNra5+CktvA0MVTa9uE8wbmSzwiJdy1HHJlg53/SC02kvkisNQepZ
+TJH1JPrV/rZA+ObBPlYfcvRwTbs5zc+IpqhiAEUN4XSSAIED2L4=
+=PJj6
+-----END PGP SIGNATURE-----
+
+--pxzjlqqtxgfwedd3--
+
+--===============0190237655==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -245,4 +224,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============0301888335==--
+--===============0190237655==--
