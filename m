@@ -7,38 +7,38 @@ X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1570AC48BCF
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 21:24:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4EAF3C48BCF
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 21:24:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DB4FB6139A
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 21:24:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DB4FB6139A
+	by mail.kernel.org (Postfix) with ESMTPS id 22334613EF
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 21:24:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 22334613EF
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=emersion.fr
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 79EE76EB46;
-	Wed,  9 Jun 2021 21:24:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9AC2D6EB54;
+	Wed,  9 Jun 2021 21:24:24 +0000 (UTC)
 Received: from mail-4317.protonmail.ch (mail-4317.protonmail.ch [185.70.43.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8040C6EB41;
- Wed,  9 Jun 2021 21:24:10 +0000 (UTC)
-Date: Wed, 09 Jun 2021 21:24:03 +0000
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B39EC6EB4C
+ for <amd-gfx@lists.freedesktop.org>; Wed,  9 Jun 2021 21:24:22 +0000 (UTC)
+Date: Wed, 09 Jun 2021 21:24:10 +0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
- s=protonmail3; t=1623273848;
- bh=CRpCmV6JJvjSWIefuOMH4SCsYiJSl92J72nXZg36ElE=;
+ s=protonmail3; t=1623273861;
+ bh=HOJnTStK1H9lEzyOT9wp33tz33iSfinHkHc1uA7cHQA=;
  h=Date:To:From:Cc:Reply-To:Subject:From;
- b=XTDKNX2oTSMf5r8Z9kCRg0LOrMUAnlSW83jpURVJFYUe2G9xmU1ff6Rlbn5CIhTDL
- wx+NewdFxon7fANrvUD8KISS5ZrZ+bLoDfAb2tCCai4lrkDgFja1bPdVeJevr+oCLi
- pjJWaE/zBfix/endv7nQNt6qXYl8anyDV/h84ZqNfAimI12uCMFu5TQNVXeyLH9P2Z
- 5OmKPb9HkvRdIoJlS1zkKomuiINMoqCZuHhmOFhriJebtRyM5gus5mTgFmKHVbbFra
- nlnSaw2toviWN2VQus1cd/1IMTreN2g0IOhcYIZuoBeW2I20EXBYZ54m9/k92sUd+M
- J31em3eI58x+Q==
+ b=eIHkNV2RswfouuTGnfK6xEBmk7KaBbLlKGHYmpg9cfPGWvDGItXEchqsKM1d6DXM1
+ 4cnjx8ymKKRfCRkuOEoXs0fWnW3YaJeQ42XyqaWLLEJlgC5ZPIhcGv3RwsOEI1uAr0
+ h687RKsGU1rDwGsCRUeXGfgzMPtlKfEoErHOV2R3xFVTQKeaBZF16mIrtvnI1Xs5Vu
+ TK5zQjAkWZ3w3Vs9DbO6XNp1flytul1c0WUm2G+IrLYGNQ8+YQVJgU5moUJnnFcvm+
+ LKxsZ0zzeWdxWwq/xlJ7bcgTEbyS1Qi4lzIUZj63HMhDmbC9ctpVY+FmGULv2Q470K
+ oDj9UlfpAz7Ww==
 To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
 From: Simon Ser <contact@emersion.fr>
-Subject: [PATCH v2 6/7] i915/display/dp: send a more fine-grained link-status
- uevent
-Message-ID: <s2nCZi12JRcxrixhDW8UTiJsEpPvIQhnFBMtgdRXMk@cp3-web-020.plabs.ch>
+Subject: [PATCH v2 7/7] drm/connector: add ref to drm_connector_get in iter
+ docs
+Message-ID: <KRoUI7OC9lRIvk3YzdGm6tcMVAVlG1fR78Ll7kTZZT4@cp3-web-051.plabs.ch>
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,29 +60,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When link-status changes, send a hotplug uevent which contains the
-connector and property ID. That way, user-space can more easily
-figure out that only the link-status property of this connector has
-been updated.
+Mention that connectors need to be referenced manually if they are
+to be accessed after the iteration has progressed or ended.
 
 Signed-off-by: Simon Ser <contact@emersion.fr>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 2 ++
- 1 file changed, 2 insertions(+)
+ include/drm/drm_connector.h | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 5c9222283044..0ce44a97dd14 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -5276,6 +5276,8 @@ static void intel_dp_modeset_retry_work_fn(struct work_struct *work)
- 	mutex_unlock(&connector->dev->mode_config.mutex);
- 	/* Send Hotplug uevent so userspace can reprobe */
- 	drm_kms_helper_hotplug_event(connector->dev);
-+	drm_sysfs_connector_status_event(connector,
-+					 connector->dev->mode_config.link_status_property);
- }
- 
- bool
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index 714d1a01c065..c1af1e4ca560 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -1735,6 +1735,11 @@ void drm_mode_put_tile_group(struct drm_device *dev,
+  * drm_connector_list_iter_begin(), drm_connector_list_iter_end() and
+  * drm_connector_list_iter_next() respectively the convenience macro
+  * drm_for_each_connector_iter().
++ *
++ * Note that the return value of drm_connector_list_iter_next() is only valid
++ * up to the next drm_connector_list_iter_next() or
++ * drm_connector_list_iter_end() call. If you want to use the connector later,
++ * then you need to grab your own reference first using drm_connector_get().
+  */
+ struct drm_connector_list_iter {
+ /* private: */
 -- 
 2.31.1
 
