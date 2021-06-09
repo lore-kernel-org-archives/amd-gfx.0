@@ -8,58 +8,58 @@ X-Spam-Status: No, score=-10.6 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0CCD8C48BCD
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 21:11:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 242EEC48BCD
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 21:12:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CA75760FEA
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 21:11:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CA75760FEA
+	by mail.kernel.org (Postfix) with ESMTPS id E450A613EF
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 21:12:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E450A613EF
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4828589E3B;
-	Wed,  9 Jun 2021 21:11:47 +0000 (UTC)
-Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
- [IPv6:2607:f8b0:4864:20::32c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9778189E3B;
- Wed,  9 Jun 2021 21:11:46 +0000 (UTC)
-Received: by mail-ot1-x32c.google.com with SMTP id
- l15-20020a05683016cfb02903fca0eacd15so1472111otr.7; 
- Wed, 09 Jun 2021 14:11:46 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DA9B6E252;
+	Wed,  9 Jun 2021 21:12:30 +0000 (UTC)
+Received: from mail-ot1-x332.google.com (mail-ot1-x332.google.com
+ [IPv6:2607:f8b0:4864:20::332])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E5106E332;
+ Wed,  9 Jun 2021 21:12:29 +0000 (UTC)
+Received: by mail-ot1-x332.google.com with SMTP id
+ i12-20020a05683033ecb02903346fa0f74dso25336672otu.10; 
+ Wed, 09 Jun 2021 14:12:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=VH3rwwEOTBktsGW6P22ZTU/VUmL/IO3btE6cu1C80Ps=;
- b=kkU8TwJT5Id3fmh2Sl2AH46PuradhB/XrIpeCemrg1wM3W3A/OtXodSG93fS3OjxLL
- kWEu50ukBGLnA5jjapnwcylXCBaRiQ4hB3jrrRVi7FLrp9yq0SEIzKxZKcqtsuC6uc4t
- jAvX2SJsPg5ZWvbkWPul+CguSHF2Jl9WVNdA1QoExuGRNT6me8n0T0xye3QdOyY+vMXI
- OgZI+pLZCT4YhnUtrS8uyMDWBy6sv1RXLpLwPSvG2GXaEz+LYM16LT9K6yUi7AFe809Z
- WoR/Wijb5vII9zLDf9Eqeu+QLCRA7uXv1kx5ewn46P5X1z5Dy4/OWLHujX1FrF7bfSif
- rPRQ==
+ :cc; bh=X+vTwOmzwLF/GmiUHSZdVNz6KHeSQoupkzPT9DlPZJE=;
+ b=UXdMRlhsFFSxm/2Mk/c3mHNqpjn4ns2S31aVCngPlEAlxhlPqMJeo2LAHOKakytmzB
+ Wm0FplBGGEnaeJ4svs6nd4fp65TxM2SKVMcrS6Ywn8NaPXs7xSLOvmhCmmcTiL5FTCM3
+ /qgxdqIBTYAVRqjOKiZfbDKgCEpUjd0KkgmeDWsDGN2XtaoiaZ/RYfkdyVhhdpkM3GIn
+ SnGoxWlPdVfOq9P81ZMRiAiy+b+OCkA82+RFmAIPMFy85yi6PGuXzSwFkZd8GYW188MT
+ 93bZSz8GyuYPMbEjwxAq8hn9ky0h5jxM/9hshAEqQEITHGp0z/1x4sXsl5MNrqNRp5IW
+ Ro3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=VH3rwwEOTBktsGW6P22ZTU/VUmL/IO3btE6cu1C80Ps=;
- b=Qug9Ghu1cjITjCvSpzCNJ50WtFkYeN7ig8R3Ywfe1BlimD61+DtEZsYsArjn8jZqDr
- vwaTYkJbs/1/Q5c6I066qA/mA4ISflECVrCYlAGwxNA7C+WE47P3qyzhHRKSXi7ZUhDC
- ZMtPFK3Jr4STyg0rdgX3stdyC/2JQ06nQSYmOJ74kYSB1QRYVg3aJ7jmxnVAkzoyVWtd
- e3kUZBJvFiX2joVswcRcbjlW2xiP+kWrBc0TO3nMJs65mPbpcjoc13ap2LEeM7aRG48x
- AWXc9pP2C2EqtsSpUmf9r14dXIuIdRUnVBC8behYr+R1XY1otNBnmOaJTJfmvspMDN0g
- tIQQ==
-X-Gm-Message-State: AOAM531ycEjEMxWlvrb37wC+O8QrKSQcTK4spvaZx9MqPPtOKmxI9lBZ
- /XXEjlVta11+QLdXPMfMMRaoZ6VJWoEjiZ6/GwY=
-X-Google-Smtp-Source: ABdhPJx4hEe6VVvmHzsO68zFInP3sXE1cld9nPHUn2tZYKdEegzAInUO59dC9UylbBKhZ5PheSO/1VpfZWGQJfhKTnc=
-X-Received: by 2002:a9d:6548:: with SMTP id q8mr1146711otl.311.1623273105948; 
- Wed, 09 Jun 2021 14:11:45 -0700 (PDT)
+ bh=X+vTwOmzwLF/GmiUHSZdVNz6KHeSQoupkzPT9DlPZJE=;
+ b=eo1/D9UH9O5bZWo9QUoYM0/DgS0bSK3JO1v3H2mHCOAz3wmCrNRsLBXgayNm5ZnGek
+ RJ7JZqGpIZGQy5VcHp0YVO6DfY0aVO3J+n31A7de6nNtyktIjpM+BtkgIjcHTpPU/kDE
+ siKllsQQXqkb34wjocQp1fzOhRGJ/aCsWxXmX8ncMxrLpnWwwcFYmj40NWT4oY8ht7R+
+ OVe4KUg95zTDX4hi3ewJuksiK6LanjpGYBjSl1FhzPnyxp2rq8Gd3ccBBQwy7YhJPSH7
+ e3kvjgLbubfC60Fg/rmStDUbUfgRIZP6HbXPqXVcS476xlwBJZ5vhp9Z5VWWXfW7Cu40
+ kGxA==
+X-Gm-Message-State: AOAM531A12L5pzNgSjGpUOZME8tjXCjkO4LBUsHniFBINEbL4JouLjsF
+ ASfeBhB4qIRMlgIjgBdfJVun6lyeDTeheMCzgzA=
+X-Google-Smtp-Source: ABdhPJy5gjHIlujtByvS9IHsso8aiM/8W+YZHouRkqXFR2/zW0it21pwmOAG+IooOSApA2+nBXEpbk7ROb81/QPfn6w=
+X-Received: by 2002:a9d:6287:: with SMTP id x7mr1212482otk.132.1623273148945; 
+ Wed, 09 Jun 2021 14:12:28 -0700 (PDT)
 MIME-Version: 1.0
-References: <1623233121-97926-1-git-send-email-jiapeng.chong@linux.alibaba.com>
-In-Reply-To: <1623233121-97926-1-git-send-email-jiapeng.chong@linux.alibaba.com>
+References: <1623233366-100202-1-git-send-email-jiapeng.chong@linux.alibaba.com>
+In-Reply-To: <1623233366-100202-1-git-send-email-jiapeng.chong@linux.alibaba.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 9 Jun 2021 17:11:34 -0400
-Message-ID: <CADnq5_Pe0Vkr8geptXv-NW1h-q7UXGPsveZXudr9BX576-f0-A@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Fix duplicate included clk_mgr.h
+Date: Wed, 9 Jun 2021 17:12:18 -0400
+Message-ID: <CADnq5_Ms6Hv=PpSWXEabE1C0oQ=B37Mz1HYfxjn+vF9e8kK9SA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: use ARRAY_SIZE for base60_refresh_rates
 To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,34 +85,36 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Applied.  Thanks!
 
-On Wed, Jun 9, 2021 at 6:05 AM Jiapeng Chong
+On Wed, Jun 9, 2021 at 6:09 AM Jiapeng Chong
 <jiapeng.chong@linux.alibaba.com> wrote:
 >
-> Clean up the following includecheck warning:
+> Use ARRAY_SIZE instead of dividing sizeof array with sizeof an
+> element.
 >
-> ./drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c: clk_mgr.h is
-> included more than once.
+> Clean up the following coccicheck warning:
 >
-> No functional change.
+> ./drivers/gpu/drm/amd/display/dc/core/dc_resource.c:448:47-48: WARNING:
+> Use ARRAY_SIZE.
 >
 > Reported-by: Abaci Robot <abaci@linux.alibaba.com>
 > Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 > ---
->  drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c | 1 -
->  1 file changed, 1 deletion(-)
+>  drivers/gpu/drm/amd/display/dc/core/dc_resource.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c
-> index c0e544d..1007051 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c
-> @@ -33,7 +33,6 @@
->  #include "clk_mgr.h"
->  #include "reg_helper.h"
->  #include "abm.h"
-> -#include "clk_mgr.h"
->  #include "hubp.h"
->  #include "dchubbub.h"
->  #include "timing_generator.h"
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+> index 57afe71..3f00989 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+> @@ -445,7 +445,7 @@ bool resource_are_vblanks_synchronizable(
+>  {
+>         uint32_t base60_refresh_rates[] = {10, 20, 5};
+>         uint8_t i;
+> -       uint8_t rr_count = sizeof(base60_refresh_rates)/sizeof(base60_refresh_rates[0]);
+> +       uint8_t rr_count = ARRAY_SIZE(base60_refresh_rates);
+>         uint64_t frame_time_diff;
+>
+>         if (stream1->ctx->dc->config.vblank_alignment_dto_params &&
 > --
 > 1.8.3.1
 >
