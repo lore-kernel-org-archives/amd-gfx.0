@@ -8,62 +8,59 @@ X-Spam-Status: No, score=-10.6 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 16C5AC48BCF
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 21:08:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0CCD8C48BCD
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 21:11:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C5E91613EE
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 21:08:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C5E91613EE
+	by mail.kernel.org (Postfix) with ESMTPS id CA75760FEA
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 21:11:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CA75760FEA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 576A46E098;
-	Wed,  9 Jun 2021 21:08:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4828589E3B;
+	Wed,  9 Jun 2021 21:11:47 +0000 (UTC)
 Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
  [IPv6:2607:f8b0:4864:20::32c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50F6F6E098
- for <amd-gfx@lists.freedesktop.org>; Wed,  9 Jun 2021 21:08:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9778189E3B;
+ Wed,  9 Jun 2021 21:11:46 +0000 (UTC)
 Received: by mail-ot1-x32c.google.com with SMTP id
- 6-20020a9d07860000b02903e83bf8f8fcso12335817oto.12
- for <amd-gfx@lists.freedesktop.org>; Wed, 09 Jun 2021 14:08:20 -0700 (PDT)
+ l15-20020a05683016cfb02903fca0eacd15so1472111otr.7; 
+ Wed, 09 Jun 2021 14:11:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=7rfZBfY1zc8KULYKkCDWiEa41Bb0UK6DpT86yaIUhCQ=;
- b=MWhCUawgGy+3MjjniFznpY0f+Tak8L1e1CX0xrsEaniyKyBFpD1xmOFXmZg+dJdVs5
- 3qZeL7HSKvW6vB4Hs0pmmF0NNwrtusRweR5TTYo6v/FtDhqCzoC4Oen2WfCyKB2nNPtB
- 04jmveNZ+hgvwyieeZMnWo7yJxCyMsEG/XM8qSUg5Xfnmj6QbRM+aV/Os4P80B1Iyalg
- I5f3stXzkRAn5oAI++OQxK1Tof7ndDIERDYNXcDs4DNqyayRB6/eNoBrtwe5KZtqqbKN
- Sw0Wvgsu9MhqByb/QJ9c7v3x5BmGLAPjTE92ivmROwu0G1S83p/5S4wyAzFEAZM2qn2y
- kC2Q==
+ :cc; bh=VH3rwwEOTBktsGW6P22ZTU/VUmL/IO3btE6cu1C80Ps=;
+ b=kkU8TwJT5Id3fmh2Sl2AH46PuradhB/XrIpeCemrg1wM3W3A/OtXodSG93fS3OjxLL
+ kWEu50ukBGLnA5jjapnwcylXCBaRiQ4hB3jrrRVi7FLrp9yq0SEIzKxZKcqtsuC6uc4t
+ jAvX2SJsPg5ZWvbkWPul+CguSHF2Jl9WVNdA1QoExuGRNT6me8n0T0xye3QdOyY+vMXI
+ OgZI+pLZCT4YhnUtrS8uyMDWBy6sv1RXLpLwPSvG2GXaEz+LYM16LT9K6yUi7AFe809Z
+ WoR/Wijb5vII9zLDf9Eqeu+QLCRA7uXv1kx5ewn46P5X1z5Dy4/OWLHujX1FrF7bfSif
+ rPRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=7rfZBfY1zc8KULYKkCDWiEa41Bb0UK6DpT86yaIUhCQ=;
- b=RztK2Zf/kJnFGiHVLYOV68rdPvFEs+/3XEcuroOhVzvURDBI79Mna2YAKl3X8u3Tp7
- dfEV37oFgxPrwmbK0ea07HGGiC82+I1yc+hPq8Z7J6W4IR4hvT01k46IVKQWLTUZcOx5
- e3quX5R5yYWF/aFlRZGZn17uSTzxJysN7ydfVyLqmkXSnjmX7jqO96GCtel0ND+UqOTF
- JljV6AEbGO+C3cbtid8Kk8hCPc65L5GKplJ8JAttQXrR2lqxti26IRu3QHEr/yXFnveW
- TbxoGdpRm1VatPvJ+6aFs7idn+mhDz5dl85bGAJPcKUvAcIMtU+dLcA6rg4rj3Dbo2Dq
- GTZw==
-X-Gm-Message-State: AOAM533lbL+0GxonRyin/DEoE+ECh1a38L9HjLUC+3HbnKJmkEwLhyOx
- uX9EU8UqwJgQTUPNeKlmQp16puKjK9GSEa9+XPY=
-X-Google-Smtp-Source: ABdhPJzLlROzMsuu7wrDWKhVZNOmcKLQjm6O+IN8ddUx4N6mSZQu3Ap5If0431MgouxZTquIWplDnnJ5KtjT25/TI7U=
-X-Received: by 2002:a05:6830:1e64:: with SMTP id
- m4mr1134765otr.23.1623272899560; 
- Wed, 09 Jun 2021 14:08:19 -0700 (PDT)
+ bh=VH3rwwEOTBktsGW6P22ZTU/VUmL/IO3btE6cu1C80Ps=;
+ b=Qug9Ghu1cjITjCvSpzCNJ50WtFkYeN7ig8R3Ywfe1BlimD61+DtEZsYsArjn8jZqDr
+ vwaTYkJbs/1/Q5c6I066qA/mA4ISflECVrCYlAGwxNA7C+WE47P3qyzhHRKSXi7ZUhDC
+ ZMtPFK3Jr4STyg0rdgX3stdyC/2JQ06nQSYmOJ74kYSB1QRYVg3aJ7jmxnVAkzoyVWtd
+ e3kUZBJvFiX2joVswcRcbjlW2xiP+kWrBc0TO3nMJs65mPbpcjoc13ap2LEeM7aRG48x
+ AWXc9pP2C2EqtsSpUmf9r14dXIuIdRUnVBC8behYr+R1XY1otNBnmOaJTJfmvspMDN0g
+ tIQQ==
+X-Gm-Message-State: AOAM531ycEjEMxWlvrb37wC+O8QrKSQcTK4spvaZx9MqPPtOKmxI9lBZ
+ /XXEjlVta11+QLdXPMfMMRaoZ6VJWoEjiZ6/GwY=
+X-Google-Smtp-Source: ABdhPJx4hEe6VVvmHzsO68zFInP3sXE1cld9nPHUn2tZYKdEegzAInUO59dC9UylbBKhZ5PheSO/1VpfZWGQJfhKTnc=
+X-Received: by 2002:a9d:6548:: with SMTP id q8mr1146711otl.311.1623273105948; 
+ Wed, 09 Jun 2021 14:11:45 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210603104208.5725-1-PengJu.Zhou@amd.com>
- <20210603104208.5725-2-PengJu.Zhou@amd.com>
-In-Reply-To: <20210603104208.5725-2-PengJu.Zhou@amd.com>
+References: <1623233121-97926-1-git-send-email-jiapeng.chong@linux.alibaba.com>
+In-Reply-To: <1623233121-97926-1-git-send-email-jiapeng.chong@linux.alibaba.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 9 Jun 2021 17:08:08 -0400
-Message-ID: <CADnq5_PCKfhUiDjLYQUkLjc79kCUZe+tpa-UT4pVCT++my45Mg@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amd/amdgpu: add instance_number check in
- amdgpu_discovery_get_ip_version
-To: Peng Ju Zhou <PengJu.Zhou@amd.com>
+Date: Wed, 9 Jun 2021 17:11:34 -0400
+Message-ID: <CADnq5_Pe0Vkr8geptXv-NW1h-q7UXGPsveZXudr9BX576-f0-A@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Fix duplicate included clk_mgr.h
+To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,76 +72,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Bokun Zhang <Bokun.Zhang@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: "Leo \(Sunpeng\) Li" <sunpeng.li@amd.com>, xinhui pan <Xinhui.Pan@amd.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Dave Airlie <airlied@linux.ie>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>, "Wentland,
+ Harry" <harry.wentland@amd.com>, Christian Koenig <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jun 3, 2021 at 6:42 AM Peng Ju Zhou <PengJu.Zhou@amd.com> wrote:
->
-> The original code returns IP version of instantce_0 for every IP. This implementation may be correct for most of IPs.
->
-> However, for certain IP block (VCN for example), it may have 2 instances and
-> both of them have the same hw_id, BUT they have different revision number (0 and 1).
->
-> In this case, the original amdgpu_discovery_get_ip_version cannot correct reflects
-> the result and returns false information
->
-> Signed-off-by: Bokun Zhang <Bokun.Zhang@amd.com>
-> Signed-off-by: Peng Ju Zhou <PengJu.Zhou@amd.com>
+Applied.  Thanks!
 
-This patch is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
+On Wed, Jun 9, 2021 at 6:05 AM Jiapeng Chong
+<jiapeng.chong@linux.alibaba.com> wrote:
+>
+> Clean up the following includecheck warning:
+>
+> ./drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c: clk_mgr.h is
+> included more than once.
+>
+> No functional change.
+>
+> Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+> Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 4 ++--
->  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.h | 2 +-
->  2 files changed, 3 insertions(+), 3 deletions(-)
+>  drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c | 1 -
+>  1 file changed, 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> index 99255c2f08f4..f949ed8bfd9e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> @@ -325,7 +325,7 @@ int amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
->         return 0;
->  }
->
-> -int amdgpu_discovery_get_ip_version(struct amdgpu_device *adev, int hw_id,
-> +int amdgpu_discovery_get_ip_version(struct amdgpu_device *adev, int hw_id, int number_instance,
->                                     int *major, int *minor, int *revision)
->  {
->         struct binary_header *bhdr;
-> @@ -357,7 +357,7 @@ int amdgpu_discovery_get_ip_version(struct amdgpu_device *adev, int hw_id,
->                 for (j = 0; j < num_ips; j++) {
->                         ip = (struct ip *)(adev->mman.discovery_bin + ip_offset);
->
-> -                       if (le16_to_cpu(ip->hw_id) == hw_id) {
-> +                       if ((le16_to_cpu(ip->hw_id) == hw_id) && (ip->number_instance == number_instance)) {
->                                 if (major)
->                                         *major = ip->major;
->                                 if (minor)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.h
-> index 1b1ae21b1037..02e340cd3a38 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.h
-> @@ -30,7 +30,7 @@
->  void amdgpu_discovery_fini(struct amdgpu_device *adev);
->  int amdgpu_discovery_reg_base_init(struct amdgpu_device *adev);
->  void amdgpu_discovery_harvest_ip(struct amdgpu_device *adev);
-> -int amdgpu_discovery_get_ip_version(struct amdgpu_device *adev, int hw_id,
-> +int amdgpu_discovery_get_ip_version(struct amdgpu_device *adev, int hw_id, int number_instance,
->                                      int *major, int *minor, int *revision);
->  int amdgpu_discovery_get_gfx_info(struct amdgpu_device *adev);
->
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c
+> index c0e544d..1007051 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c
+> @@ -33,7 +33,6 @@
+>  #include "clk_mgr.h"
+>  #include "reg_helper.h"
+>  #include "abm.h"
+> -#include "clk_mgr.h"
+>  #include "hubp.h"
+>  #include "dchubbub.h"
+>  #include "timing_generator.h"
 > --
-> 2.17.1
+> 1.8.3.1
 >
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
