@@ -2,67 +2,43 @@ Return-Path: <SRS0=4Mkx=LD=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.6 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 66373C48BCD
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 21:15:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 49D6AC48BCF
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 21:23:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 25D87613EE
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 21:15:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 25D87613EE
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id EB0986139A
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 21:23:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EB0986139A
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=emersion.fr
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C74AC6E23B;
-	Wed,  9 Jun 2021 21:15:16 +0000 (UTC)
-Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
- [IPv6:2607:f8b0:4864:20::334])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 56CCF6E23B;
- Wed,  9 Jun 2021 21:15:16 +0000 (UTC)
-Received: by mail-ot1-x334.google.com with SMTP id
- q5-20020a9d66450000b02903f18d65089fso9154312otm.11; 
- Wed, 09 Jun 2021 14:15:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=dY+o+I9YjgbuQFjtJhzXCirY8XIoJgc7jb+LLRGuVWA=;
- b=lEOrWAPpo2TsONLfsPjgQPQC9Tu4QsDNPlsEUKIXEz4YxGJVCpHENODUaM6m7OviLq
- Bnj0yTT8MvCdR19LCH0siDvvsVYXKAETz9RGDZ0XxWe6jeyi9R1haz65c0sJFHeuQOwu
- 9MhJSdT6f4eqlLrtkcNSC4zKZhqFNp5DqALmMsll4yKvg5u7VFRJNdwfact5oEv2vXPQ
- +XOORacSrKvKSkOM8NbvTMClS460eOZg13G11KBrJmsL8JiMaAr0LIZWthji5jXXLHEm
- t7G1DUGGNoPd/sbF9devLtX1SOhixREe5XufyrcwxAs6KFbdMPWs4zjP+6AzWsSaEcDy
- MfJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=dY+o+I9YjgbuQFjtJhzXCirY8XIoJgc7jb+LLRGuVWA=;
- b=jb/JMn6KcQ07TiYh0bUXbQJLQgP3BRVsokQ82bZ/TWLsqSuuAYMcVrEH4W2Ag0Hdz5
- 0iP4gufYdQ28yPoCwNPxiwYQvLhYzCO46bvsxiWXiL91SX3Ad+JXKgdJmsM5WshuadZi
- wsaYcWJpMIW+ydC5bw8LaBDv8Le72ZP45Rmiw3MNydo0B34EMnZ9m+JiYBYEz0HPA8Rb
- SL/GHO+h5IcOmq3lerOV4O52IOvocIOZzJXFmgYMlF64TFzuaVi1oBMAKycIrvYriD6a
- UurpkQimjzZfumGkZBrWuYjOMdDsPIgfXlkcnv4TgJE7nI+xUb2aLj5S6gwC0jhPriqp
- ovFg==
-X-Gm-Message-State: AOAM532GXfKW2v0FtuA3Jt0sHbXfx0qmReoLHGu7EZZZOrUcF/rPo/X2
- BKf7bk0hJdklghWgNxY1py3azhOyNHU3GCGPITZtgoWs
-X-Google-Smtp-Source: ABdhPJw8Yyop7qFQOPrXtKB6YTNlg7AEsfSxxuZALWB8KJBhbngOYLJMNMfXSMkgU5D05gk41DvORh3q41sGtOPxNpM=
-X-Received: by 2002:a05:6830:1e64:: with SMTP id
- m4mr1157634otr.23.1623273315719; 
- Wed, 09 Jun 2021 14:15:15 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 299266E406;
+	Wed,  9 Jun 2021 21:23:27 +0000 (UTC)
+Received: from mail1.protonmail.ch (mail1.protonmail.ch [185.70.40.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C19996E406;
+ Wed,  9 Jun 2021 21:23:25 +0000 (UTC)
+Date: Wed, 09 Jun 2021 21:23:19 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
+ s=protonmail3; t=1623273803;
+ bh=O59p1XnGFmzprEBJ1OBmXfghWF/+Fzjmwvd7LymMVa0=;
+ h=Date:To:From:Cc:Reply-To:Subject:From;
+ b=nQdklizb32UffrfpcVdBwM+QM0V9W/Oq6YVf2bfljWBA3cJG33B9HwI10ATflH+wM
+ lsS39ryKHSMQeVAAHi9VoV4OsYjlqdsUXMw5tEcvT8w9NPAlgWQ7IKiYXD+n+cpOs6
+ /ixJcT9tZzBLPcivL+C58UVjLFeaoAefEzYbkixOjc0AfCeXpLNUsf4kCp1ZS9qXIv
+ 9ZccMkydHhriMR7s5kFVqtvHDf/4EQPnnfJwhC4Ct7uVvPlzr56ReMxoEwGeRd2N2O
+ KdH/DtCGCYpQ8bA6mhgpwRg4aWKHXJin64RiAFgFeqSy2hwUceMP6avtKNNVHsbuGT
+ 64lkURxsdqETQ==
+To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+From: Simon Ser <contact@emersion.fr>
+Subject: [PATCH v2 0/7] drm: add per-connector hotplug events
+Message-ID: <s5D1m6hjidKxuxaN6qpewqhxco48P4poVuMf1zi4qA@cp3-web-012.plabs.ch>
 MIME-Version: 1.0
-References: <20210609030202.113368-1-wanjiabing@vivo.com>
- <20210609184756.rewxv73j2jj4bfys@outlook.office365.com>
-In-Reply-To: <20210609184756.rewxv73j2jj4bfys@outlook.office365.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 9 Jun 2021 17:15:04 -0400
-Message-ID: <CADnq5_P_npH90e6Vjr2qjsYbx2fF3MnerjJy=SzVM5ANR+EQcw@mail.gmail.com>
-Subject: Re: [PATCH] drm: display: Remove duplicated argument in dcn31
-To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,77 +50,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Chris Park <Chris.Park@amd.com>,
- Anson Jacob <anson.jacob@amd.com>, Harry Wentland <harry.wentland@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, LKML <linux-kernel@vger.kernel.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- David Airlie <airlied@linux.ie>,
- Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
- Colin Ian King <colin.king@canonical.com>, Leo Li <sunpeng.li@amd.com>,
- Wan Jiabing <wanjiabing@vivo.com>, Jun Lei <Jun.Lei@amd.com>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Alvin Lee <alvin.lee2@amd.com>
+Reply-To: Simon Ser <contact@emersion.fr>
+Cc: pekka.paalanen@collabora.com, michel@daenzer.net, daniel@fooishbar.org,
+ daniel@ffwll.ch, alexander.deucher@amd.com, harry.wentland@amd.com,
+ intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+When a uevent only updates a single connector, add a CONNECTOR property
+to the uevent. This allows user-space to ignore other connectors when
+handling the uevent. This is purely an optimization, drivers can still
+send a uevent without the CONNECTOR property.
 
-On Wed, Jun 9, 2021 at 2:48 PM Rodrigo Siqueira
-<Rodrigo.Siqueira@amd.com> wrote:
->
-> On 06/09, Wan Jiabing wrote:
-> > Fix the following coccicheck warning:
-> > ./drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c:
-> > 3539:12-42: duplicated argument to && or ||
-> > ./drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c:
-> > 5677:87-123: duplicated argument to && or ||
-> >
-> > Signed-off-by: Wan Jiabing <wanjiabing@vivo.com>
-> > ---
-> >  .../gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c    | 4 ++--
-> >  1 file changed, 2 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
-> > index d655655baaba..06fac59a3d40 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
-> > @@ -3536,7 +3536,7 @@ static bool CalculateBytePerPixelAnd256BBlockSizes(
-> >               *BytePerPixelDETC = 0;
-> >               *BytePerPixelY = 4;
-> >               *BytePerPixelC = 0;
-> > -     } else if (SourcePixelFormat == dm_444_16 || SourcePixelFormat == dm_444_16) {
-> > +     } else if (SourcePixelFormat == dm_444_16) {
-> >               *BytePerPixelDETY = 2;
-> >               *BytePerPixelDETC = 0;
-> >               *BytePerPixelY = 2;
-> > @@ -5674,7 +5674,7 @@ void dml31_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
-> >       for (k = 0; k < v->NumberOfActivePlanes; k++) {
-> >               if (v->ViewportWidth[k] > v->SurfaceWidthY[k] || v->ViewportHeight[k] > v->SurfaceHeightY[k]) {
-> >                       ViewportExceedsSurface = true;
-> > -                     if (v->SourcePixelFormat[k] != dm_444_64 && v->SourcePixelFormat[k] != dm_444_32 && v->SourcePixelFormat[k] != dm_444_16
-> > +                     if (v->SourcePixelFormat[k] != dm_444_64 && v->SourcePixelFormat[k] != dm_444_32
-> >                                       && v->SourcePixelFormat[k] != dm_444_16 && v->SourcePixelFormat[k] != dm_444_8
-> >                                       && v->SourcePixelFormat[k] != dm_rgbe) {
-> >                               if (v->ViewportWidthChroma[k] > v->SurfaceWidthC[k]
-> > --
-> > 2.20.1
-> >
->
-> + Anson
->
-> Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
->
-> --
-> Rodrigo Siqueira
-> https://siqueira.tech
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+The CONNECTOR property is already set when sending HDCP property update
+uevents, see drm_sysfs_connector_status_event.
+
+This has been tested with a wlroots patch [1].
+
+amdgpu and the probe-helper has been updated to use these new fine-grained
+uevents.
+
+[1]: https://github.com/swaywm/wlroots/pull/2959
+
+Simon Ser (7):
+  drm/sysfs: introduce drm_sysfs_connector_hotplug_event
+  drm/probe-helper: add drm_kms_helper_connector_hotplug_event
+  drm/connector: use drm_sysfs_connector_hotplug_event
+  amdgpu: use drm_kms_helper_connector_hotplug_event
+  drm/probe-helper: use drm_kms_helper_connector_hotplug_event
+  i915/display/dp: send a more fine-grained link-status uevent
+  drm/connector: add ref to drm_connector_get in iter docs
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  8 ++--
+ .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c |  4 +-
+ drivers/gpu/drm/drm_connector.c               |  2 +-
+ drivers/gpu/drm/drm_probe_helper.c            | 42 +++++++++++++++++--
+ drivers/gpu/drm/drm_sysfs.c                   | 25 +++++++++++
+ drivers/gpu/drm/i915/display/intel_dp.c       |  2 +
+ include/drm/drm_connector.h                   |  5 +++
+ include/drm/drm_probe_helper.h                |  1 +
+ include/drm/drm_sysfs.h                       |  1 +
+ 9 files changed, 79 insertions(+), 11 deletions(-)
+
+-- 
+2.31.1
+
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
