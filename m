@@ -7,47 +7,50 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AC591C47095
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 07:38:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5EA90C48BCF
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 07:38:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7E48A61361
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 07:38:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7E48A61361
+	by mail.kernel.org (Postfix) with ESMTPS id 28E466135D
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 07:38:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 28E466135D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=huawei.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 467466E25A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA24D6E329;
 	Wed,  9 Jun 2021 07:38:14 +0000 (UTC)
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A5D66E245;
- Wed,  9 Jun 2021 07:04:53 +0000 (UTC)
-Received: from dggemv711-chm.china.huawei.com (unknown [172.30.72.57])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4G0J206J4BzZdxh;
- Wed,  9 Jun 2021 15:02:00 +0800 (CST)
+Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [45.249.212.189])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0BC8E6E0E8;
+ Wed,  9 Jun 2021 06:59:40 +0000 (UTC)
+Received: from dggemv704-chm.china.huawei.com (unknown [172.30.72.56])
+ by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4G0Htq1Fb1z6vl6;
+ Wed,  9 Jun 2021 14:55:47 +0800 (CST)
 Received: from dggpeml500020.china.huawei.com (7.185.36.88) by
- dggemv711-chm.china.huawei.com (10.1.198.66) with Microsoft SMTP Server
+ dggemv704-chm.china.huawei.com (10.3.19.47) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2176.2; Wed, 9 Jun 2021 15:03:50 +0800
+ 15.1.2176.2; Wed, 9 Jun 2021 14:59:27 +0800
 Received: from huawei.com (10.175.127.227) by dggpeml500020.china.huawei.com
  (7.185.36.88) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.2; Wed, 9 Jun 2021
- 15:03:49 +0800
+ 14:59:26 +0800
 From: Baokun Li <libaokun1@huawei.com>
 To: <linux-kernel@vger.kernel.org>, Alex Deucher <alexander.deucher@amd.com>, 
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Pan,
  Xinhui"
  <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter
- <daniel@ffwll.ch>
-Subject: [PATCH -next v2] drm/radeon: use list_move instead of
- list_del/list_add in radeon_vm.c
-Date: Wed, 9 Jun 2021 15:12:59 +0800
-Message-ID: <20210609071259.1335938-1-libaokun1@huawei.com>
+ <daniel@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>, Felix Kuehling
+ <Felix.Kuehling@amd.com>, Nirmoy Das <nirmoy.das@amd.com>, Philip Yang
+ <Philip.Yang@amd.com>, Mihir Bhogilal Patel <Mihir.Patel@amd.com>, Roy Sun
+ <Roy.Sun@amd.com>
+Subject: [PATCH -next v2] drm/amdgpu: use list_move instead of
+ list_del/list_add in amdgpu_vm.c
+Date: Wed, 9 Jun 2021 15:08:31 +0800
+Message-ID: <20210609070831.1329840-1-libaokun1@huawei.com>
 X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
 X-Originating-IP: [10.175.127.227]
-X-ClientProxiedBy: dggems703-chm.china.huawei.com (10.3.19.180) To
+X-ClientProxiedBy: dggems702-chm.china.huawei.com (10.3.19.179) To
  dggpeml500020.china.huawei.com (7.185.36.88)
 X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Wed, 09 Jun 2021 07:38:13 +0000
@@ -63,15 +66,16 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Hulk Robot <hulkci@huawei.com>, kernel-janitors@vger.kernel.org,
- yuehaibing@huawei.com, amd-gfx@lists.freedesktop.org, yangjihong1@huawei.com,
- libaokun1@huawei.com, dri-devel@lists.freedesktop.org, yukuai3@huawei.com,
- weiyongjun1@huawei.com
+ yuehaibing@huawei.com, amd-gfx@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, yangjihong1@huawei.com, libaokun1@huawei.com,
+ dri-devel@lists.freedesktop.org, yukuai3@huawei.com, weiyongjun1@huawei.com,
+ linux-media@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Using list_move() instead of list_del() + list_add() in radeon_vm.c.
+Using list_move() instead of list_del() + list_add() in amdgpu_vm.c.
 
 Reported-by: Hulk Robot <hulkci@huawei.com>
 Signed-off-by: Baokun Li <libaokun1@huawei.com>
@@ -79,23 +83,23 @@ Signed-off-by: Baokun Li <libaokun1@huawei.com>
 V1->V2:
 	CC mailist
 
- drivers/gpu/drm/radeon/radeon_vm.c | 3 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 3 +--
  1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_vm.c b/drivers/gpu/drm/radeon/radeon_vm.c
-index 36a38adaaea9..b86c60ab0f7e 100644
---- a/drivers/gpu/drm/radeon/radeon_vm.c
-+++ b/drivers/gpu/drm/radeon/radeon_vm.c
-@@ -933,8 +933,7 @@ int radeon_vm_bo_update(struct radeon_device *rdev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 9e3ab3b6c105..684c13aae4d0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -2518,8 +2518,7 @@ int amdgpu_vm_bo_clear_mappings(struct amdgpu_device *adev,
+ 			list_add(&after->list, &tmp->bo_va->invalids);
  		}
- 		list_del_init(&bo_va->vm_status);
- 	} else {
--		list_del(&bo_va->vm_status);
--		list_add(&bo_va->vm_status, &vm->cleared);
-+		list_move(&bo_va->vm_status, &vm->cleared);
- 	}
- 	spin_unlock(&vm->status_lock);
  
+-		list_del(&tmp->list);
+-		list_add(&tmp->list, &removed);
++		list_move(&tmp->list, &removed);
+ 
+ 		tmp = amdgpu_vm_it_iter_next(tmp, saddr, eaddr);
+ 	}
 
 _______________________________________________
 amd-gfx mailing list
