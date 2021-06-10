@@ -2,132 +2,53 @@ Return-Path: <SRS0=2har=LE=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 269D1C47094
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Jun 2021 07:28:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0E750C47094
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Jun 2021 07:30:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D3DEB613F1
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Jun 2021 07:28:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D3DEB613F1
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 6B54F613F1
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Jun 2021 07:30:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6B54F613F1
+Authentication-Results: mail.kernel.org; dmarc=fail (p=reject dis=none) header.from=stz-bg.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C93D89CBC;
-	Thu, 10 Jun 2021 07:28:45 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2049.outbound.protection.outlook.com [40.107.220.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF45689CBC
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Jun 2021 07:28:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HUY39XCtC3hKAZfnC5Bva7vVYJQhDoUXRvx/Sx6S87fzhNHSdZ+T6nAjYzEz1j/fHzjy6uP89rSeyNxGb7wgQmTbjIlk0C7ffpJaPkxrytUSsEtsuOllL3UZe9e+UHmZbKOpJ3rnYRHsaKAFMVIqO5Z0DITFChd8FuPkivfel6W6yNp1Vfg/RZK4BMdZLtk/KK981g3y6x4etSspkXqTWb19+h1dhPJjv2AfyRC4I2DqzW5tf6rpDSB1Yloe0Zfe9Uv8kUrY3z1xmI3bUsTRveHtjY8wfVWH2W69anugMmN+ACWxIqfT+NoCAylbGdbWAzmeU/cJo9Fv8wgoewiebQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vbBiGsjOZiNceNIDX290KlpSSveVAPaTEPM8HuiRyOo=;
- b=G1dQ2fIsiWLjlqcPIo5S9CxgzGWbpmP01RrB24Ze12rQj9es+0vwo3fVaUR7g/ALD4V/EwZD8IgHR8D76rp4EVWU7n3OHhEaubWVlYP2W13dTrxgf41Bbt1lMgXLfDG2nb0TwgUullLvBORuKrCTpq1Vrft309PqtDxJJJGtd9SaW70fJkEwp/2t9yLc/L+1OhlfRbXxgFiSdkbkmts2kdLpQ7kHaZrdUYrf5Iq9hidc/fBbpbS+XmFJnwJ9eP7aa23rXrKxwBHabE/Qz/9wUzietUjdqBg+AJexnu2igaZMs5w2NTJYYkTxJMgQLU0i28wqVINi9zeUlOuo5wU4FQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vbBiGsjOZiNceNIDX290KlpSSveVAPaTEPM8HuiRyOo=;
- b=Rsd5D43sGlFZ1kmLvU+ykCc3v+TyCXw6GYA9qpGRaqiDNjQSuR6KSbT0Z9AN7+ja0h43lUyQpdL59f7qg8THXsccPHpaUPbaIc9yIqfGi6oxactYz38ZJ3wuXVDnkFs/fZ+1+w4EZ1/h6WvpuAaVctJ0AoMrhz02CpEhPh8eCHQ=
-Received: from DM4PR12MB5072.namprd12.prod.outlook.com (2603:10b6:5:38b::22)
- by DM6PR12MB5519.namprd12.prod.outlook.com (2603:10b6:5:1b5::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.23; Thu, 10 Jun
- 2021 07:28:41 +0000
-Received: from DM4PR12MB5072.namprd12.prod.outlook.com
- ([fe80::9d6f:2218:2f3c:a383]) by DM4PR12MB5072.namprd12.prod.outlook.com
- ([fe80::9d6f:2218:2f3c:a383%3]) with mapi id 15.20.4219.022; Thu, 10 Jun 2021
- 07:28:41 +0000
-From: "Chen, Horace" <Horace.Chen@amd.com>
-To: "Wang, YuBiao" <YuBiao.Wang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu: reset psp ring wptr during ring_create
-Thread-Topic: [PATCH] drm/amdgpu: reset psp ring wptr during ring_create
-Thread-Index: AQHXXNvhN0K1NWw8V0qNMm/IzYxFY6sM2rKA
-Date: Thu, 10 Jun 2021 07:28:41 +0000
-Message-ID: <DM4PR12MB507207057E1BF5A20E53C6EEE1359@DM4PR12MB5072.namprd12.prod.outlook.com>
-References: <20210609030145.1215878-1-YuBiao.Wang@amd.com>
-In-Reply-To: <20210609030145.1215878-1-YuBiao.Wang@amd.com>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-06-10T07:28:37Z; 
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
- Only-AIP 2.0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=e152133e-c718-47dd-ad2e-00009689150e;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_enabled: true
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_setdate: 2021-06-10T07:28:37Z
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_method: Standard
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_name: AMD Official Use
- Only-AIP 2.0
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_actionid: 49008e4c-ce4f-43fb-994b-0000c2ae0d39
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_contentbits: 0
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [165.204.134.244]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: d2a77f9e-3022-4130-c0ee-08d92be15f1a
-x-ms-traffictypediagnostic: DM6PR12MB5519:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB55191B0AE38ABCAA025EFE67E1359@DM6PR12MB5519.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:1186;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Ga4ycHQMGqcIS1S+ZmdruVthU8tHa+No93Lf3iBKrG9/yojx4tQ4E3coyPYAp1oFTti/qxb9hdLI7DNhvpEhmGcaeMBziYMP/6SfblPkdOIm0d91I2UwmlJ/6VQnrC83yoN+A0ELEOny5VbpMg0rotrRWr19Q6Pp8maIw1zMwKV3Rg/mk9Jew3ajqrYCzP17XzYxmDxLFgEeHezd3uDg2YPeakFtyJfKob2zEVoeZYyEpc9p7PW+6ioZBTcchQsx9ozbBLGU4fK8IK+aECwc/tumXsUWq/qMsKzpVEExGNYHA4AmcAxN5sLzW5VSKISF/xaqGb6WBUD9bMKx0kEev16z2mALGR2XkVFPKEpGRBmQ+S2SqlEtOd+Y7Ly+R4J2nu36/lIN9SaAyI4P3vTO4t+1alrQThl4bm1fenffCGVffMHmUmkd2Kb5RbaZ1bObSnQlLvMAt2jOCZkGhWCd+bt4niL/YBqc9Pf+HCNdImUlOwWdmjapO9Uvwz6yybcZzmjWfJlBp8UZ0BrWqrxEL2n/PZIM8MiRnNq3iH9wRhgnyAf+ItUVjJkz2zzFdpiWawuG+puYvwlTLu62KqxhHLTilvPdM1Wooo0gl1IPv41z+c+yr3lY0o9+yZhE0XW1x0xVtIhu6JfBtz57qxCO2A==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5072.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(136003)(376002)(396003)(366004)(346002)(76116006)(66946007)(33656002)(9686003)(8936002)(7696005)(6506007)(86362001)(26005)(53546011)(45080400002)(83380400001)(66476007)(66556008)(64756008)(66446008)(478600001)(186003)(4326008)(55016002)(2906002)(966005)(316002)(122000001)(52536014)(71200400001)(5660300002)(8676002)(54906003)(38100700002)(110136005);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?nw5l1/7sc6ZoZivyaO7v/s6PPuZlqGIpBXR8OzpUqu8a4zTxZ9vAZfYT8stA?=
- =?us-ascii?Q?8cOtkeDA/+SO0pjblh4sqYbWpYPXKRO0qtSkWCaiqoz4cjkpqs9yksatMpVB?=
- =?us-ascii?Q?gtn5sLn3ap1zQ2PaGMTybBTG1ZavVeWygaIagQYx0AjOeabXlDexqlflVpB0?=
- =?us-ascii?Q?ebvAz98lyf7kOH2wCh3DeS2V5L6wQJu1LrMAhkCxBtDEzwEdveOBqa6AGRU5?=
- =?us-ascii?Q?Yfjap2SdYDxmyYmqyfHRMXBxaHSJz0MySsYP8ksBlv3oAFUg6wuHKiu+Kah/?=
- =?us-ascii?Q?UtRM0VoNH9CX73dO+NSKXbR8w2mFw9/BJIuB+a4Q5A/OqydRvegtNoXs+GyZ?=
- =?us-ascii?Q?0OiOZucdaGE2Xhr4Chlp4Fobuno9VXmOPZIj37sb13niA3Xwt80yPblWlfyN?=
- =?us-ascii?Q?jftX0RT59KI/9ZwlVAdVFzosM7R+Ko/BX8btmSSf5weuHYH5hsURMuwVpDzZ?=
- =?us-ascii?Q?2+SKpjG6sLSQhg55MO/27RuDbt+zLf14wLNoWwnPg5ZdrOj8IIVFyo4bmaPO?=
- =?us-ascii?Q?4yHcMF6vcwhEBl1sX4viqTV+DbYtVXxqSV0mF5qzsflbbORrL6y3MfgTeEEY?=
- =?us-ascii?Q?IJ6MMBi7XKu5zndITqrUGqKzGB4o3Hz2noQof14xHLkw3A6Z8srotEHJyJkw?=
- =?us-ascii?Q?wUXHIOmgfvABQLK7MJRQijfeHlMsydy/cQAXz1NgiYNvmj+zMeITiWlz/CXF?=
- =?us-ascii?Q?rIr0IlWD7+kHBbwYNpCYzBflMBx9ao5fenmN1MGPi7pQ9dbyOex72R4cHIzF?=
- =?us-ascii?Q?4aH8gC4f1uLCMsN9Tg43PyXUrc5xjOszG8UEYS/oIhw0JD5W9/nIziOqJEbq?=
- =?us-ascii?Q?B2oB9Rt10sZeo0bz0h7L5XV7MK162Uyrw2TCoKCYFncMmptJcM6tybiQnDLL?=
- =?us-ascii?Q?HYJtbqmV4oQVD+MpKkmwDZaWCzKINjha/yDPUVESZoZMF0Ur1jdd6p5X5FKt?=
- =?us-ascii?Q?9GeCmvqMM6lgi5dM4b53yguJKHB+ztMjDYJLGBBSNCwEib8eein7cfELFSIT?=
- =?us-ascii?Q?bCeRjDLJ0++iwGvUbDTjCl6UbwFVIqfJY9cQOYibXUde5kCNbLYW3rh7mI5H?=
- =?us-ascii?Q?7thFLH4eiA4LdSyps9EoUZGVZxln8XjGPzWnaxW+5E/L9/xg5sDFb4+cXdKF?=
- =?us-ascii?Q?ZFwbokqA9lxjBByCHoMzsun+IFvJSB0O4mZW1+Z1WvMDtT4vtf4A9DIWFOBt?=
- =?us-ascii?Q?tWVs9kp+IoJqC4ePCHXUD5prAFXEcW2pwJVlVkTTruu8yeT1/59GIznVq4hq?=
- =?us-ascii?Q?KYtrCz17nMvwSgiGAbKlQRDZFD8KiGRa0Xy7ZpoRuGR3S/jDArV6Q3n5+3S8?=
- =?us-ascii?Q?4fpBqN5Ph1oxNLnM+tvhfKPh?=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D9C06E83B;
+	Thu, 10 Jun 2021 07:30:52 +0000 (UTC)
+X-Greylist: delayed 436 seconds by postgrey-1.36 at gabe;
+ Thu, 10 Jun 2021 04:57:43 UTC
+Received: from mail.stzbg.com (stz-bg.com [IPv6:2a02:6800:0:99::2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88BEF6E45D
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Jun 2021 04:57:43 +0000 (UTC)
+Received: from www.stz-bg.com (stz-bg.com [IPv6:2a02:6800:0:99::2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ (No client certificate requested)
+ (Authenticated sender: condor@stz-bg.com)
+ by mail.stzbg.com (Postfix) with ESMTPSA id 083782E0FAF
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Jun 2021 07:50:24 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stz-bg.com; s=mail;
+ t=1623300624;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=ayt21v/tbCLZ2rmf0ZHsZRID1r/DV5nwyUbga19Sc1E=;
+ b=YldAJdVYkWiO7DFInUvkJekrf+p24OnIBTnYlOIXCxQS8HraRhODwQzu6hkz2ohnEEGJXz
+ zZa/8jdck7Bn90tLeTaiI73DgrxpMQcLb2D7vnSRxKiocjN2gS4LCP79TG7KlRDUfpyMYa
+ PLSYQLpf1pE8DoRCUIFJlquUTAmFNN4=
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5072.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d2a77f9e-3022-4130-c0ee-08d92be15f1a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Jun 2021 07:28:41.1596 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: oNKn4LMQY3Men0JRJD3uAB8y+vYNw3CU1s9kN34lfQILMiVKggcI27lLHd20tVJI
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB5519
+Date: Thu, 10 Jun 2021 07:50:21 +0300
+From: Condor <condor@stz-bg.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: amdgpu warning/crash on kernel 5.12.9
+User-Agent: Roundcube Webmail/1.4.11
+Message-ID: <0323989d9331d25779ec6a2c140450f9@stz-bg.com>
+X-Sender: condor@stz-bg.com
+X-Mailman-Approved-At: Thu, 10 Jun 2021 07:30:51 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,71 +60,138 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Wang, YuBiao" <YuBiao.Wang@amd.com>, "Grodzovsky,
- Andrey" <Andrey.Grodzovsky@amd.com>, "Xiao, Jack" <Jack.Xiao@amd.com>, "Xu,
- Feifei" <Feifei.Xu@amd.com>, "Wang, Kevin\(Yang\)" <Kevin1.Wang@amd.com>,
- "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Tuikov,
- Luben" <Luben.Tuikov@amd.com>, "Deucher, 
- Alexander" <Alexander.Deucher@amd.com>, "Quan, Evan" <Evan.Quan@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>, "Liu, Monk" <Monk.Liu@amd.com>,
- Xiaojie Yuan <xiaojie.yuan@amd.com>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only]
+Hello,
 
-Reviewed-by: Horace Chen <horace.chen@amd.com>
+I receive warning/crash on kernel 5.12.9 on amdgpu. I paste the error 
+below, did you ppl need detailed information described 
+Documentation/admin-guide/reporting-bugs.rst or this is enought ?
 
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of YuBiao Wang
-Sent: Wednesday, June 9, 2021 11:02 AM
-To: amd-gfx@lists.freedesktop.org
-Cc: Wang, YuBiao <YuBiao.Wang@amd.com>; Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>; Xiao, Jack <Jack.Xiao@amd.com>; Xu, Feifei <Feifei.Xu@amd.com>; Chen, Horace <Horace.Chen@amd.com>; Wang, Kevin(Yang) <Kevin1.Wang@amd.com>; Xiaojie Yuan <xiaojie.yuan@amd.com>; Tuikov, Luben <Luben.Tuikov@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; Quan, Evan <Evan.Quan@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>; Liu, Monk <Monk.Liu@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>
-Subject: [PATCH] drm/amdgpu: reset psp ring wptr during ring_create
 
-[Why]
-psp ring wptr is not initialized properly in ring_create, which would lead to psp failure after several gpu reset.
+<6>[    6.591737] [drm] fb depth is 24
+<6>[    6.591738] [drm]    pitch is 10240
+<6>[    6.591780] fbcon: amdgpudrmfb (fb0) is primary device
+<4>[    6.831292] [drm] REG_WAIT timeout 1us * 100000 tries - 
+mpc2_assert_idle_mpcc line:480
+<4>[    6.831315] ------------[ cut here ]------------
+<4>[    6.831315] WARNING: CPU: 0 PID: 732 at 
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn30/dcn30_hwseq.c:959 
+dcn30_set_hubp_blank+0x214/0x220 [amdgpu]
+<4>[    6.831444] Modules linked in: joydev btusb btrtl btbcm 
+hid_generic btintel bluetooth usbhid uas iwlmvm ecdh_generic ecc hid 
+usb_storage usblp mac80211 snd_hda_codec_realtek intel_rapl_msr 
+snd_hda_codec_generic intel_rapl_common iwlwifi amdgpu(+) ledtrig_audio 
+snd_hda_codec_hdmi iommu_v2 gpu_sched drm_ttm_helper edac_mce_amd 
+snd_hda_intel ttm snd_intel_dspcfg drm_kms_helper snd_intel_sdw_acpi 
+snd_hda_codec kvm_amd snd_hda_core evdev wmi_bmof drm snd_hwdep kvm 
+agpgart igb irqbypass snd_pcm fb_sys_fops crct10dif_pclmul crc32_pclmul 
+xhci_pci cfg80211 syscopyarea dca snd_timer ghash_clmulni_intel 
+sysfillrect xhci_pci_renesas i2c_piix4 snd i2c_algo_bit sysimgblt rapl 
+soundcore ccp rfkill k10temp i2c_core xhci_hcd tpm_crb tpm_tis 
+tpm_tis_core wmi button acpi_cpufreq loop
+<4>[    6.831463] CPU: 0 PID: 732 Comm: udevd Not tainted 5.12.9 #1
+<4>[    6.831465] Hardware name: To Be Filled By O.E.M. To Be Filled By 
+O.E.M./X570 Phantom Gaming 4, BIOS P4.00 04/15/2021
+<4>[    6.831465] RIP: 0010:dcn30_set_hubp_blank+0x214/0x220 [amdgpu]
+<4>[    6.831587] Code: 31 f6 48 8b 07 48 8b 40 50 e8 18 b4 77 f6 48 8b 
+9b d0 02 00 00 48 85 db 75 df eb 8c 0f 0b e9 46 ff ff ff 0f 0b e9 be fe 
+ff ff <0f> 0b e9 42 fe ff ff 0f 1f 44 00 00 0f 1f 44 00 00 41 57 41 56 
+45
+<4>[    6.831588] RSP: 0018:ffffa90780cc7338 EFLAGS: 00010246
+<4>[    6.831590] RAX: 0000000000000000 RBX: 0000000000000001 RCX: 
+0000000000000003
+<4>[    6.831590] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 
+ffff9bdfd2ea0000
+<4>[    6.831591] RBP: ffff9bdfd3d801e8 R08: ffffa90780cc7324 R09: 
+ffffa90780cc7280
+<4>[    6.831591] R10: 0000000000000002 R11: 343a656e696c2063 R12: 
+ffff9bdfd3d801e8
+<4>[    6.831592] R13: ffff9bdfd07f0000 R14: 0000000000000000 R15: 
+ffff9bdfd3d801e8
+<4>[    6.831593] FS:  00007fa55e27f140(0000) GS:ffff9be6dea00000(0000) 
+knlGS:0000000000000000
+<4>[    6.831594] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+<4>[    6.831594] CR2: 00007fa55d9d6eb3 CR3: 00000001097bc000 CR4: 
+0000000000350ef0
+<4>[    6.831595] Call Trace:
+<4>[    6.831597]  dcn10_wait_for_mpcc_disconnect+0x116/0x190 [amdgpu]
+<4>[    6.831727]  dcn20_plane_atomic_disable+0x3e/0x150 [amdgpu]
+<4>[    6.831858]  dcn20_disable_plane+0x24/0x40 [amdgpu]
+<4>[    6.831985]  dcn10_init_pipes+0x307/0x3f0 [amdgpu]
+<4>[    6.832112]  dce110_enable_accelerated_mode+0x9c/0x260 [amdgpu]
+<4>[    6.832237]  dc_commit_state+0x97f/0xa80 [amdgpu]
+<4>[    6.832359]  amdgpu_dm_atomic_commit_tail+0x576/0x25e0 [amdgpu]
+<4>[    6.832489]  ? dcn30_validate_bandwidth+0x11f/0x270 [amdgpu]
+<4>[    6.832621]  ? kfree+0xba/0x3f0
+<4>[    6.832623]  ? dcn30_validate_bandwidth+0x11f/0x270 [amdgpu]
+<4>[    6.832743]  ? fill_dc_plane_info_and_addr+0x3b0/0x3b0 [amdgpu]
+<4>[    6.832870]  ? dm_plane_helper_prepare_fb+0x1db/0x240 [amdgpu]
+<4>[    6.832995]  ? drm_atomic_helper_setup_commit+0x74b/0x810 
+[drm_kms_helper]
+<4>[    6.833005]  commit_tail+0x94/0x130 [drm_kms_helper]
+<4>[    6.833014]  drm_atomic_helper_commit+0x113/0x140 [drm_kms_helper]
+<4>[    6.833023]  drm_client_modeset_commit_atomic+0x1e4/0x220 [drm]
+<4>[    6.833043]  drm_client_modeset_commit_locked+0x56/0x150 [drm]
+<4>[    6.833059]  drm_client_modeset_commit+0x24/0x40 [drm]
+<4>[    6.833075]  drm_fb_helper_set_par+0xa5/0xd0 [drm_kms_helper]
+<4>[    6.833084]  fbcon_init+0x264/0x4f0
+<4>[    6.833086]  visual_init+0xce/0x130
+<4>[    6.833089]  do_bind_con_driver.isra.0+0x1db/0x2e0
+<4>[    6.833091]  do_take_over_console+0x116/0x180
+<4>[    6.833092]  do_fbcon_takeover+0x5c/0xc0
+<4>[    6.833094]  register_framebuffer+0x1e4/0x300
+<4>[    6.833096]  __drm_fb_helper_initial_config_and_unlock+0x321/0x4a0 
+[drm_kms_helper]
+<4>[    6.833105]  amdgpu_fbdev_init+0xb9/0xf0 [amdgpu]
+<4>[    6.833207]  amdgpu_device_init.cold+0x1626/0x1ad6 [amdgpu]
+<4>[    6.833335]  ? is_acpi_device_node+0x21/0x30
+<4>[    6.833337]  amdgpu_driver_load_kms+0x64/0x230 [amdgpu]
+<4>[    6.833437]  amdgpu_pci_probe+0x11f/0x1b0 [amdgpu]
+<4>[    6.833533]  local_pci_probe+0x42/0x80
+<4>[    6.833536]  ? __cond_resched+0x16/0x40
+<4>[    6.833537]  pci_device_probe+0xfa/0x1b0
+<4>[    6.833539]  really_probe+0xed/0x430
+<4>[    6.833541]  driver_probe_device+0x4f/0xb0
+<4>[    6.833542]  device_driver_attach+0xa1/0xb0
+<4>[    6.833543]  __driver_attach+0x74/0x110
+<4>[    6.833545]  ? device_driver_attach+0xb0/0xb0
+<4>[    6.833546]  bus_for_each_dev+0x78/0xc0
+<4>[    6.833547]  bus_add_driver+0x10b/0x1c0
+<4>[    6.833548]  driver_register+0x8f/0xe0
+<4>[    6.833549]  ? 0xffffffffc07ec000
+<4>[    6.833550]  do_one_initcall+0x44/0x1d0
+<4>[    6.833552]  ? do_init_module+0x23/0x260
+<4>[    6.833554]  ? kmem_cache_alloc_trace+0xfd/0x210
+<4>[    6.833555]  do_init_module+0x5c/0x260
+<4>[    6.833557]  __do_sys_finit_module+0xa0/0xe0
+<4>[    6.833559]  do_syscall_64+0x33/0x80
+<4>[    6.833560]  entry_SYSCALL_64_after_hwframe+0x44/0xae
+<4>[    6.833562] RIP: 0033:0x7fa55e7af189
+<4>[    6.833563] Code: 48 8d 3d ca 19 0d 00 0f 05 eb a5 66 0f 1f 44 00 
+00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 
+0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d af dc 0c 00 f7 d8 64 89 01 
+48
+<4>[    6.833564] RSP: 002b:00007ffe8012a018 EFLAGS: 00000246 ORIG_RAX: 
+0000000000000139
+<4>[    6.833565] RAX: ffffffffffffffda RBX: 00000000012758d0 RCX: 
+00007fa55e7af189
+<4>[    6.833566] RDX: 0000000000000000 RSI: 00007fa55e89ba9d RDI: 
+0000000000000015
+<4>[    6.833566] RBP: 0000000000020000 R08: 0000000000000000 R09: 
+00007ffe8012a128
+<4>[    6.833567] R10: 0000000000000015 R11: 0000000000000246 R12: 
+00007fa55e89ba9d
+<4>[    6.833567] R13: 0000000000000000 R14: 00000000012699f0 R15: 
+00000000012758d0
+<4>[    6.833568] ---[ end trace 2b43039a34e51706 ]---
 
-[How]
-Set ring_wptr to zero in psp_ring_create.
 
-Signed-off-by: YuBiao Wang <YuBiao.Wang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/psp_v11_0.c | 1 +  drivers/gpu/drm/amd/amdgpu/psp_v3_1.c  | 1 +
- 2 files changed, 2 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-index 0fd1ed918627..3e6218799a0c 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-@@ -468,6 +468,7 @@ static int psp_v11_0_ring_create(struct psp_context *psp,
- 	struct amdgpu_device *adev = psp->adev;
- 
- 	if (amdgpu_sriov_vf(adev)) {
-+		ring->ring_wptr = 0;
- 		ret = psp_v11_0_ring_stop(psp, ring_type);
- 		if (ret) {
- 			DRM_ERROR("psp_v11_0_ring_stop_sriov failed!\n"); diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c b/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c
-index 908664a5774b..be05d9cbd41e 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c
-@@ -231,6 +231,7 @@ static int psp_v3_1_ring_create(struct psp_context *psp,
- 	psp_v3_1_reroute_ih(psp);
- 
- 	if (amdgpu_sriov_vf(adev)) {
-+		ring->ring_wptr = 0;
- 		ret = psp_v3_1_ring_stop(psp, ring_type);
- 		if (ret) {
- 			DRM_ERROR("psp_v3_1_ring_stop_sriov failed!\n");
---
-2.25.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7Chorace.chen%40amd.com%7Cf0c4d8c71e76407bef2008d92af30323%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637588045485244771%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=eozuFP5rS0dwOstJwqjeMWA%2BbhXAfjFDMRi1G%2FISzFI%3D&amp;reserved=0
+Kind Regards,
+HS
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
