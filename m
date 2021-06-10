@@ -2,82 +2,55 @@ Return-Path: <SRS0=2har=LE=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4BE55C48BDF
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Jun 2021 13:30:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B59C3C48BDF
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Jun 2021 13:59:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BC4FA613E7
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Jun 2021 13:30:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BC4FA613E7
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=cerno.tech
+	by mail.kernel.org (Postfix) with ESMTPS id 57115613F8
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Jun 2021 13:59:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 57115613F8
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B462B6ED1A;
-	Thu, 10 Jun 2021 13:30:33 +0000 (UTC)
-Received: from new4-smtp.messagingengine.com (new4-smtp.messagingengine.com
- [66.111.4.230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B57B86ED0B;
- Thu, 10 Jun 2021 12:50:40 +0000 (UTC)
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
- by mailnew.nyi.internal (Postfix) with ESMTP id CC96758081C;
- Thu, 10 Jun 2021 08:50:39 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute6.internal (MEProxy); Thu, 10 Jun 2021 08:50:39 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm3; bh=ABjQvZPhefKPvkmDBxKwIOrIqqn
- COuBM9y1z5h8KUQY=; b=ycp4+TgpTtbR5jT9KMPRYE4sBcEj+FBsxS9nTdsfZOj
- cSpPiUDTS3gWa357nXgCF9El9lT0DIQep8X0Udsdd09VASnSbBJSyT1c43fmdSmw
- Av52R1leCDt16LbTIGCkJCIuhd4yVmmSbzM0sPTrWLMG3WoOVidq1cWIX4LclG3W
- nZL2/B6jNbJt+gn21EmEUUw60j/aCBNfhhjV+b9oRazSYavvicwLdPCloMhjJODP
- VTjT3xkbCZ1W+YkWlNQEHH7GyTH7hXYu5az31JP33koYpX9z4/0gQ3fmrshBFQ13
- B2jgq6QPmy8I1BTQbvIVkUx8froL9X+n41F6yaJTqog==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=ABjQvZ
- PhefKPvkmDBxKwIOrIqqnCOuBM9y1z5h8KUQY=; b=oA90QSMA/V8RORuzFb8DJ0
- VzsmPr8HwvQBdZQTPPfB4ERXIQu6yhJbgQpEVn92RU5XFaP5nCuZI4SM2uRsihqL
- t2yYW87VTdIhPnGJ6j5QG8F0+ASTOycLJL4+i7ZDwdDm/7RqezIBOE2uKTONtU9r
- SsUjsnen3mRp0gmYbKg2pn17lMSKhAcTgifrDuNbS0vJzlp5RFFmpdfzAl1A4yXX
- RDM9UWvwVbfWRpSb8Jr/rPlRaUnC92Rmx3ttym0Krzzsrf+MPJ0rg63GcPsxz2dQ
- yMyM99ii5cfP4FemJHPR3DeQSozy5bplK+rAEMohXQ4Vata1mTggpZdPDVGIHB5w
- ==
-X-ME-Sender: <xms:ngrCYD8XED4n7-WHBO8_U_CHweXsVEjYZkS9Hp-CDzP9pi1UCV5yLg>
- <xme:ngrCYPubxjkWdsuNKcCzQJSe1vf8bReEJc3UJOg242fN9psTxLF8azDY5jJtjA4Q9
- zX0H--JeqP1CgKqzD8>
-X-ME-Received: <xmr:ngrCYBBEeHYpDamyMyCr_wVUnuyG4wlbgvFVCh94lmB9f8AJq7Ubm0jFW0DZ3UBpNXKm_cO-_v1MBUDXZU6QbIsdbzYgQaZlkBFq>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfedufedgheeiucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpeforgigihhm
- vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
- htvghrnhepleekgeehhfdutdeljefgleejffehfffgieejhffgueefhfdtveetgeehieeh
- gedunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmh
- grgihimhgvsegtvghrnhhordhtvggthh
-X-ME-Proxy: <xmx:ngrCYPfG_mFeRT1rQHnEaoFY77IJBmnCRuxNSNEeBO_G-n1k9JlZkA>
- <xmx:ngrCYINlNHr9QQ2MgOhbrCclkuIWUO1jJo1ZOytb49Tr2aI5yOKsCg>
- <xmx:ngrCYBmHLcvzL2-8mibihrvayc0G3UKH6Pjm5XETrD5x4mh9sGRccA>
- <xmx:nwrCYPm5xwdU3mEaFLKdJc8ReO3UwGIX6sOZOgvLf_itfBkrPN1BVQ>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 10 Jun 2021 08:50:38 -0400 (EDT)
-Date: Thu, 10 Jun 2021 14:50:36 +0200
-From: Maxime Ripard <maxime@cerno.tech>
-To: Werner Sembach <wse@tuxedocomputers.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 096AB6ED20;
+	Thu, 10 Jun 2021 13:59:14 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DA6B6E484;
+ Thu, 10 Jun 2021 13:59:12 +0000 (UTC)
+IronPort-SDR: WxsThHDg4YHzPkVhQRS+9U5EtHDpNfwiFT95AIr2xOM9TFoNvT6uCmzJIuECgz0WNqiq+W9F6u
+ 0DKSIJsPk9xw==
+X-IronPort-AV: E=McAfee;i="6200,9189,10011"; a="266453632"
+X-IronPort-AV: E=Sophos;i="5.83,263,1616482800"; d="scan'208";a="266453632"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jun 2021 06:59:10 -0700
+IronPort-SDR: XHbZH+HZrj2U71+lkWuQxpimHe/PQ3EjXTtquyCEop8srNKuzKq5h0bcD+r324eNVIKQ7C+9DI
+ Y2alSLaUCP4w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.83,263,1616482800"; d="scan'208";a="419721161"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
+ by orsmga002.jf.intel.com with SMTP; 10 Jun 2021 06:59:05 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Thu, 10 Jun 2021 16:59:05 +0300
+Date: Thu, 10 Jun 2021 16:59:05 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Maxime Ripard <maxime@cerno.tech>
 Subject: Re: [PATCH v2 4/7] drm/i915/display: Add handling for new "active
  bpc" property
-Message-ID: <20210610125036.33fpnaoz4xpiqslw@gilmour>
+Message-ID: <YMIaqZnWTAiixwXJ@intel.com>
 References: <20210608174320.37429-1-wse@tuxedocomputers.com>
  <20210608174320.37429-5-wse@tuxedocomputers.com>
+ <20210610125036.33fpnaoz4xpiqslw@gilmour>
 MIME-Version: 1.0
-In-Reply-To: <20210608174320.37429-5-wse@tuxedocomputers.com>
-X-Mailman-Approved-At: Thu, 10 Jun 2021 13:30:32 +0000
+Content-Disposition: inline
+In-Reply-To: <20210610125036.33fpnaoz4xpiqslw@gilmour>
+X-Patchwork-Hint: comment
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,117 +62,94 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: tzimmermann@suse.de, intel-gfx@lists.freedesktop.org, sunpeng.li@amd.com,
- dri-devel@lists.freedesktop.org, joonas.lahtinen@linux.intel.com,
- maarten.lankhorst@linux.intel.com, linux-kernel@vger.kernel.org,
- jani.nikula@linux.intel.com, airlied@linux.ie, amd-gfx@lists.freedesktop.org,
- daniel@ffwll.ch, rodrigo.vivi@intel.com, alexander.deucher@amd.com,
- harry.wentland@amd.com, christian.koenig@amd.com
-Content-Type: multipart/mixed; boundary="===============2038044074=="
+Cc: amd-gfx@lists.freedesktop.org, sunpeng.li@amd.com,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, airlied@linux.ie,
+ Werner Sembach <wse@tuxedocomputers.com>, tzimmermann@suse.de,
+ rodrigo.vivi@intel.com, alexander.deucher@amd.com, christian.koenig@amd.com
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Thu, Jun 10, 2021 at 02:50:36PM +0200, Maxime Ripard wrote:
+> Hi
+> =
 
---===============2038044074==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="2vxklm2zenejnoep"
-Content-Disposition: inline
+> On Tue, Jun 08, 2021 at 07:43:17PM +0200, Werner Sembach wrote:
+> > This commits implements the "active bpc" drm property for the Intel GPU=
+ driver.
+> > =
 
+> > Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+> > ---
+> >  drivers/gpu/drm/i915/display/intel_display.c | 14 ++++++++++++++
+> >  drivers/gpu/drm/i915/display/intel_dp.c      |  8 ++++++--
+> >  drivers/gpu/drm/i915/display/intel_dp_mst.c  |  4 +++-
+> >  drivers/gpu/drm/i915/display/intel_hdmi.c    |  4 +++-
+> >  4 files changed, 26 insertions(+), 4 deletions(-)
+> > =
 
---2vxklm2zenejnoep
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+> > diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu=
+/drm/i915/display/intel_display.c
+> > index 64e9107d70f7..50c11b8770a7 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_display.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_display.c
+> > @@ -10388,6 +10388,9 @@ static int intel_atomic_commit(struct drm_devic=
+e *dev,
+> >  {
+> >  	struct intel_atomic_state *state =3D to_intel_atomic_state(_state);
+> >  	struct drm_i915_private *dev_priv =3D to_i915(dev);
+> > +	struct drm_connector *connector;
+> > +	struct drm_connector_state *new_conn_state;
+> > +	int i;
+> >  	int ret =3D 0;
+> >  =
 
-Hi
+> >  	state->wakeref =3D intel_runtime_pm_get(&dev_priv->runtime_pm);
+> > @@ -10456,6 +10459,17 @@ static int intel_atomic_commit(struct drm_devi=
+ce *dev,
+> >  	intel_shared_dpll_swap_state(state);
+> >  	intel_atomic_track_fbs(state);
+> >  =
 
-On Tue, Jun 08, 2021 at 07:43:17PM +0200, Werner Sembach wrote:
-> This commits implements the "active bpc" drm property for the Intel GPU d=
-river.
->=20
-> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_display.c | 14 ++++++++++++++
->  drivers/gpu/drm/i915/display/intel_dp.c      |  8 ++++++--
->  drivers/gpu/drm/i915/display/intel_dp_mst.c  |  4 +++-
->  drivers/gpu/drm/i915/display/intel_hdmi.c    |  4 +++-
->  4 files changed, 26 insertions(+), 4 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/d=
-rm/i915/display/intel_display.c
-> index 64e9107d70f7..50c11b8770a7 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display.c
-> @@ -10388,6 +10388,9 @@ static int intel_atomic_commit(struct drm_device =
-*dev,
->  {
->  	struct intel_atomic_state *state =3D to_intel_atomic_state(_state);
->  	struct drm_i915_private *dev_priv =3D to_i915(dev);
-> +	struct drm_connector *connector;
-> +	struct drm_connector_state *new_conn_state;
-> +	int i;
->  	int ret =3D 0;
-> =20
->  	state->wakeref =3D intel_runtime_pm_get(&dev_priv->runtime_pm);
-> @@ -10456,6 +10459,17 @@ static int intel_atomic_commit(struct drm_device=
- *dev,
->  	intel_shared_dpll_swap_state(state);
->  	intel_atomic_track_fbs(state);
-> =20
-> +	/* Extract information from crtc to communicate it to userspace as conn=
-ector properties */
-> +	for_each_new_connector_in_state(&state->base, connector, new_conn_state=
-, i) {
-> +		struct intel_crtc *crtc =3D to_intel_crtc(new_conn_state->crtc);
-> +		if (crtc) {
-> +			struct intel_crtc_state *new_crtc_state =3D intel_atomic_get_new_crtc=
-_state(state, crtc);
-> +			new_conn_state->active_bpc =3D new_crtc_state->pipe_bpp / 3;
-> +		}
-> +		else
-> +			new_conn_state->active_bpc =3D 0;
-> +	}
-> +
+> > +	/* Extract information from crtc to communicate it to userspace as co=
+nnector properties */
+> > +	for_each_new_connector_in_state(&state->base, connector, new_conn_sta=
+te, i) {
+> > +		struct intel_crtc *crtc =3D to_intel_crtc(new_conn_state->crtc);
+> > +		if (crtc) {
+> > +			struct intel_crtc_state *new_crtc_state =3D intel_atomic_get_new_cr=
+tc_state(state, crtc);
+> > +			new_conn_state->active_bpc =3D new_crtc_state->pipe_bpp / 3;
+> > +		}
+> > +		else
+> > +			new_conn_state->active_bpc =3D 0;
+> > +	}
+> > +
+> =
 
-This seems fairly intrusive, but also commit / commit_tail might not be
-the best place to put this, we want to support it at the connector
-level.
+> This seems fairly intrusive, but also commit / commit_tail might not be
+> the best place to put this, we want to support it at the connector
+> level.
+> =
 
-Indeed, this will cause some issue if your HDMI output is a bridge for
-example, where the commit will be in an entirely different driver that
-has no dependency on the HDMI controller one.
+> Indeed, this will cause some issue if your HDMI output is a bridge for
+> example, where the commit will be in an entirely different driver that
+> has no dependency on the HDMI controller one.
+> =
 
-I think it would be best to do that assignment in atomic_check. That
-way, if the userspace does a commit with DRM_MODE_ATOMIC_TEST_ONLY it
-would know what the output state would have been like.
+> I think it would be best to do that assignment in atomic_check. That
+> way, if the userspace does a commit with DRM_MODE_ATOMIC_TEST_ONLY it
+> would know what the output state would have been like.
 
-Also, all of your patches don't follow the kernel coding style. Make
-sure you fix the issues reported by checkpatch --strict
+DRM_MODE_ATOMIC_TEST_ONLY isn't allowed to change anything.
 
-Maxime
+-- =
 
---2vxklm2zenejnoep
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCYMIKnAAKCRDj7w1vZxhR
-xb2ZAP9gRrPlS38/OW7s4dafkzTuRrBhOtSTdnrrw47FyKHLEgEA3XSy04q8E3/r
-yUuRKuVjbjdNwEqthkGS3cF45iKZxQA=
-=ikPa
------END PGP SIGNATURE-----
-
---2vxklm2zenejnoep--
-
---===============2038044074==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Ville Syrj=E4l=E4
+Intel
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============2038044074==--
