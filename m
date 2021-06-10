@@ -8,58 +8,60 @@ X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 113C9C48BD1
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Jun 2021 21:11:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 45C1FC48BDF
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Jun 2021 21:12:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D3E0B613DD
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Jun 2021 21:11:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D3E0B613DD
+	by mail.kernel.org (Postfix) with ESMTPS id 12A2E61428
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Jun 2021 21:12:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 12A2E61428
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 904A56EDF8;
-	Thu, 10 Jun 2021 21:11:13 +0000 (UTC)
-Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com
- [IPv6:2607:f8b0:4864:20::236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18A5F6EDF8
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Jun 2021 21:11:13 +0000 (UTC)
-Received: by mail-oi1-x236.google.com with SMTP id t40so3595028oiw.8
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Jun 2021 14:11:13 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0D536EDF9;
+	Thu, 10 Jun 2021 21:12:25 +0000 (UTC)
+Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com
+ [IPv6:2607:f8b0:4864:20::336])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 377076EDF9
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Jun 2021 21:12:25 +0000 (UTC)
+Received: by mail-ot1-x336.google.com with SMTP id
+ j11-20020a9d738b0000b02903ea3c02ded8so1097483otk.5
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Jun 2021 14:12:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=eahcO4PbtSHLsnM/rYcD+QgUDNeYUmND285tZYxzmjc=;
- b=rFP5y+RDyZ08tldNWHlmsG76G2+vCtf/yWHOnqRbSj22niO2OGICqE0cc9R7TWuMAm
- J7yllsE0xq5QuJdd42Zsl1y9+7IZV7ljk7qyaPMxAcIWKgp0YUUhtf/cJepRkHp7lC5y
- sCuucHCP8eggBXr5M1/8AOQgxjvtKIGvi9AssG72W+7WFhq/ArdfEmbdEBqdrs9toGGF
- PMWEGo9+bJ8ylwgSTZCJxOJSx3npCVbiYf/E9HHLrzGYaLwmxUe/3RHaOHbErZ0oPCBT
- 8Lb3hx0KIxY8h7P2C3pPfxGxYQgb8xXScihmvoGA5S2BdgI1JvWQuj1ZkNDeqd6LM2SU
- znEg==
+ :cc; bh=eLIVhWaiNeDNII/qZYtKRX0yrSzoFWuhSUzvfSUzmQY=;
+ b=ml5pwcXl4xzJSQn/nJj+nDjT7ER+j5J0i2nZQzHWyRdkCyjRafCjEDFq2nUoKpkT75
+ Qk+gIxq8ikezzP6EZy6WZ76qefhTTmR21EPMVWfr6YXTyV6CBRHuFkpugX/Z9Rhg3HeN
+ Go98EA+BEaULvQDNvfRYi1CjHWGQPSLus11rTXgwZSOmCa7mmwXnLaSrpBzZzjBVp3gv
+ jDj4k0xPE/nQQc5fBvkrTR4cHyjylLjMkNb5d02mAQs/a5RN6Spk7trlyL+U+Ffg/dH0
+ 5yBBaA8nNlzLor/TM3ox7sy5rRX6KDxujrSjtLaMMZmxNMgBN5TorkGHuJ5ugTyEvKhx
+ ob+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=eahcO4PbtSHLsnM/rYcD+QgUDNeYUmND285tZYxzmjc=;
- b=jQyFBgQNGebTinOpP2i+b7R8KV6HYq3wqWUJYb01ND6wrmupOwAVibSWe5AGpAtk3f
- fOR7L9zy4nVqGoZv7uP4L8u4+NQufGLJ2d1CFbhxgDSiFcACIg4TdAq1RF6ljD0wB5HY
- /ER9Dv8EceDEd0peMglV3UJGKc4wPLuK8+vVNhG2q/UvVTUevs7glTa66iFd+e923gc1
- 0OMrA7jdjSzfOGFqfLPkFD5HiE7azRn6bxp/mCB8zwxZNmc+hy2KMuf17cGTgLYJMPVY
- BjFMUBN6OemsDvQiw7S7lEPfrYIGUpGBF93Ou2vmtsehTO8S9xhep4PKla5SZKiH9QRB
- B0/A==
-X-Gm-Message-State: AOAM532OmVOqBn3FYXdahIab/b5EP+UexZyzaeW6Iu9rk2E8GfbnXHeR
- 4UcdVSVIKc4hk4ooy2y/SX2kHnRpgt4sAaJRwvs=
-X-Google-Smtp-Source: ABdhPJxRunI8UUQBaRZA28WMy8Ns3rSJwgvIY0AoNO8+5CFmXAltvHerQTUkgpkYAS20TzLExduVGOZsEzOQmTbGkzU=
-X-Received: by 2002:a05:6808:c3:: with SMTP id t3mr10855249oic.5.1623359472544; 
- Thu, 10 Jun 2021 14:11:12 -0700 (PDT)
+ bh=eLIVhWaiNeDNII/qZYtKRX0yrSzoFWuhSUzvfSUzmQY=;
+ b=GlmFXM1EDxnBaefjR5UybE5ivQzSCCDdvoKHTXbLzIWiPPvPLVXoWFyr1THkA1vc0I
+ lHO2WtgEGtYDJlMJDaImkDe96XKpKf8DQhDHktDRZBtjR98QxHA4dtY0mSDXfmnaNTCQ
+ bFaDhNOgWkNhUz5rGZsHN1PAYm3DzSP1h81d5+k7Q6t9eUwIUGJ71B4k722RvJm37nGL
+ 8ePFFV2SrlKQnrSm9HLB3WZFPzzFHj0k4TLs7jSgJSEgQJNGDnBSYOH0LbkS4hKhJpia
+ EKhzMIvEY1HonIhq33UbB+qE9Ej+r1EtXiiAeo4GeIdzB6wAvDFMuw95XVmfJJYQmYCk
+ FGXg==
+X-Gm-Message-State: AOAM532+M/nZ3ng7wSJRVxc/4t+CA88GZghtUzZzFJHwjBNdDNwPiARJ
+ PxHHYi8iNwqXAmNMZ5Hl57Rq65IQXV9F/Tn+Zpc=
+X-Google-Smtp-Source: ABdhPJyf043dxP7TrfbJuY84xiCa7y/R0nik6q3AiZVdAq07u6gaa0bMGk2oMAO62F5fn1le6BDdMpAjeaYPHh8QMrg=
+X-Received: by 2002:a05:6830:1e64:: with SMTP id
+ m4mr273782otr.23.1623359544629; 
+ Thu, 10 Jun 2021 14:12:24 -0700 (PDT)
 MIME-Version: 1.0
 References: <20210608213954.5517-1-luben.tuikov@amd.com>
- <20210608213954.5517-33-luben.tuikov@amd.com>
-In-Reply-To: <20210608213954.5517-33-luben.tuikov@amd.com>
+ <20210608213954.5517-34-luben.tuikov@amd.com>
+In-Reply-To: <20210608213954.5517-34-luben.tuikov@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 10 Jun 2021 17:11:01 -0400
-Message-ID: <CADnq5_P+7ioe-ZY+AnaNxy7fLnqxk0ffY0qgk4CTRpg=sdEJWQ@mail.gmail.com>
-Subject: Re: [PATCH 32/40] drm/amdgpu: Return result fix in RAS
+Date: Thu, 10 Jun 2021 17:12:13 -0400
+Message-ID: <CADnq5_OLmoW1QhT-5ztWtbgq0NuvzMK+=rsQfu4YxoMkF2SYZA@mail.gmail.com>
+Subject: Re: [PATCH 33/40] drm/amd/pm: Fix a bug in i2c_xfer
 To: Luben Tuikov <luben.tuikov@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,11 +74,8 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>,
- Lijo Lazar <Lijo.Lazar@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Stanley Yang <Stanley.Yang@amd.com>,
- Alexander Deucher <Alexander.Deucher@amd.com>, Jean Delvare <jdelvare@suse.de>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
@@ -84,145 +83,63 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On Tue, Jun 8, 2021 at 5:41 PM Luben Tuikov <luben.tuikov@amd.com> wrote:
 >
-> The low level EEPROM write method, doesn't return
-> 1, but the number of bytes written. Thus do not
-> compare to 1, instead, compare to greater than 0
-> for success.
+> "req" is now a pointer , i.e. it is no longer
+> allocated on the stack, thus taking its reference
+> and passing that is a bug.
 >
-> Other cleanup: if the lower layers returned
-> -errno, then return that, as opposed to
-> overwriting the error code with one-fits-all
-> -EINVAL. For instance, some return -EAGAIN.
+> This commit fixes this bug.
 >
-> Cc: Jean Delvare <jdelvare@suse.de>
-> Cc: Alexander Deucher <Alexander.Deucher@amd.com>
-> Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
-> Cc: Lijo Lazar <Lijo.Lazar@amd.com>
-> Cc: Stanley Yang <Stanley.Yang@amd.com>
-> Cc: Hawking Zhang <Hawking.Zhang@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
 > Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
 
+Can we just squash this into the original patch where this was broken?
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c    |  3 +--
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c       | 22 +++++++++++--------
->  .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c    |  2 +-
->  drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c    |  3 +--
->  4 files changed, 16 insertions(+), 14 deletions(-)
+>  drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c       | 2 +-
+>  drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c         | 2 +-
+>  drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c | 2 +-
+>  3 files changed, 3 insertions(+), 3 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
-> index a5a87affedabf1..a4815af111ed12 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
-> @@ -105,8 +105,7 @@ static int __amdgpu_eeprom_xfer(struct i2c_adapter *i2c_adap, u32 eeprom_addr,
->         int r;
->         u16 len;
->
-> -       r = 0;
-> -       for ( ; buf_size > 0;
-> +       for (r = 0; buf_size > 0;
->               buf_size -= len, eeprom_addr += len, eeprom_buf += len) {
->                 /* Set the EEPROM address we want to write to/read from.
->                  */
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> index e3ad081eddd40b..66c96c65e7eeb9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> @@ -355,8 +355,9 @@ static int amdgpu_ras_debugfs_ctrl_parse_data(struct file *f,
->   *     to see which blocks support RAS on a particular asic.
->   *
->   */
-> -static ssize_t amdgpu_ras_debugfs_ctrl_write(struct file *f, const char __user *buf,
-> -               size_t size, loff_t *pos)
-> +static ssize_t amdgpu_ras_debugfs_ctrl_write(struct file *f,
-> +                                            const char __user *buf,
-> +                                            size_t size, loff_t *pos)
->  {
->         struct amdgpu_device *adev = (struct amdgpu_device *)file_inode(f)->i_private;
->         struct ras_debug_if data;
-> @@ -370,7 +371,7 @@ static ssize_t amdgpu_ras_debugfs_ctrl_write(struct file *f, const char __user *
->
->         ret = amdgpu_ras_debugfs_ctrl_parse_data(f, buf, size, pos, &data);
->         if (ret)
-> -               return -EINVAL;
-> +               return ret;
->
->         if (data.op == 3) {
->                 ret = amdgpu_reserve_page_direct(adev, data.inject.address);
-> @@ -439,21 +440,24 @@ static ssize_t amdgpu_ras_debugfs_ctrl_write(struct file *f, const char __user *
->   * will reset EEPROM table to 0 entries.
->   *
->   */
-> -static ssize_t amdgpu_ras_debugfs_eeprom_write(struct file *f, const char __user *buf,
-> -               size_t size, loff_t *pos)
-> +static ssize_t amdgpu_ras_debugfs_eeprom_write(struct file *f,
-> +                                              const char __user *buf,
-> +                                              size_t size, loff_t *pos)
->  {
->         struct amdgpu_device *adev =
->                 (struct amdgpu_device *)file_inode(f)->i_private;
->         int ret;
->
->         ret = amdgpu_ras_eeprom_reset_table(
-> -                       &(amdgpu_ras_get_context(adev)->eeprom_control));
-> +               &(amdgpu_ras_get_context(adev)->eeprom_control));
->
-> -       if (ret == 1) {
-> +       if (ret > 0) {
-> +               /* Something was written to EEPROM.
-> +                */
->                 amdgpu_ras_get_context(adev)->flags = RAS_DEFAULT_FLAGS;
->                 return size;
->         } else {
-> -               return -EIO;
-> +               return ret;
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+> index 0db79a5236e1f1..7d9a2946806f58 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+> @@ -1957,7 +1957,7 @@ static int arcturus_i2c_xfer(struct i2c_adapter *i2c_adap,
+>                 }
 >         }
->  }
->
-> @@ -1991,7 +1995,7 @@ int amdgpu_ras_recovery_init(struct amdgpu_device *adev)
->         kfree(*data);
->         con->eh_data = NULL;
->  out:
-> -       dev_warn(adev->dev, "Failed to initialize ras recovery!\n");
-> +       dev_warn(adev->dev, "Failed to initialize ras recovery! (%d)\n", ret);
->
->         /*
->          * Except error threshold exceeding case, other failure cases in this
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-> index 17cea35275e46c..dc48c556398039 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-> @@ -335,7 +335,7 @@ int amdgpu_ras_eeprom_init(struct amdgpu_ras_eeprom_control *control,
->                 ret = amdgpu_ras_eeprom_reset_table(control);
+>         mutex_lock(&adev->smu.mutex);
+> -       r = smu_cmn_update_table(&adev->smu, SMU_TABLE_I2C_COMMANDS, 0, &req, true);
+> +       r = smu_cmn_update_table(&adev->smu, SMU_TABLE_I2C_COMMANDS, 0, req, true);
+>         mutex_unlock(&adev->smu.mutex);
+>         if (r)
+>                 goto fail;
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> index 2acf54967c6ab1..0568cbfb023459 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> @@ -2752,7 +2752,7 @@ static int navi10_i2c_xfer(struct i2c_adapter *i2c_adap,
+>                 }
 >         }
->
-> -       return ret == 1 ? 0 : -EIO;
-> +       return ret > 0 ? 0 : -EIO;
->  }
->
->  static void __encode_table_record_to_buff(struct amdgpu_ras_eeprom_control *control,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c b/drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c
-> index 65035256756679..7f48ee020bc03e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c
-> @@ -222,7 +222,7 @@ static uint32_t smu_v11_0_i2c_transmit(struct i2c_adapter *control,
->                                        u32 numbytes, u32 i2c_flag)
->  {
->         struct amdgpu_device *adev = to_amdgpu_device(control);
-> -       uint32_t bytes_sent, reg, ret = 0;
-> +       u32 bytes_sent, reg, ret = I2C_OK;
->         unsigned long  timeout_counter;
->
->         bytes_sent = 0;
-> @@ -290,7 +290,6 @@ static uint32_t smu_v11_0_i2c_transmit(struct i2c_adapter *control,
+>         mutex_lock(&adev->smu.mutex);
+> -       r = smu_cmn_update_table(&adev->smu, SMU_TABLE_I2C_COMMANDS, 0, &req, true);
+> +       r = smu_cmn_update_table(&adev->smu, SMU_TABLE_I2C_COMMANDS, 0, req, true);
+>         mutex_unlock(&adev->smu.mutex);
+>         if (r)
+>                 goto fail;
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> index 44ca3b3f83f4d9..091b3339faadb9 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> @@ -3440,7 +3440,7 @@ static int sienna_cichlid_i2c_xfer(struct i2c_adapter *i2c_adap,
+>                 }
 >         }
->
->         ret = smu_v11_0_i2c_poll_tx_status(control);
-> -
->  Err:
->         /* Any error, no point in proceeding */
->         if (ret != I2C_OK) {
+>         mutex_lock(&adev->smu.mutex);
+> -       r = smu_cmn_update_table(&adev->smu, SMU_TABLE_I2C_COMMANDS, 0, &req, true);
+> +       r = smu_cmn_update_table(&adev->smu, SMU_TABLE_I2C_COMMANDS, 0, req, true);
+>         mutex_unlock(&adev->smu.mutex);
+>         if (r)
+>                 goto fail;
 > --
 > 2.32.0
 >
