@@ -8,60 +8,60 @@ X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D98F1C48BDF
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Jun 2021 21:00:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 68ED0C48BDF
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Jun 2021 21:02:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A529C613B3
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Jun 2021 21:00:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A529C613B3
+	by mail.kernel.org (Postfix) with ESMTPS id 2F7D4613B3
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Jun 2021 21:02:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2F7D4613B3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D9486EDE7;
-	Thu, 10 Jun 2021 21:00:42 +0000 (UTC)
-Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
- [IPv6:2607:f8b0:4864:20::22d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05CF16EDE7
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Jun 2021 21:00:41 +0000 (UTC)
-Received: by mail-oi1-x22d.google.com with SMTP id u11so3590700oiv.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Jun 2021 14:00:40 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E32136EDED;
+	Thu, 10 Jun 2021 21:02:18 +0000 (UTC)
+Received: from mail-ot1-x329.google.com (mail-ot1-x329.google.com
+ [IPv6:2607:f8b0:4864:20::329])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 191126EDE9
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Jun 2021 21:02:18 +0000 (UTC)
+Received: by mail-ot1-x329.google.com with SMTP id
+ j11-20020a9d738b0000b02903ea3c02ded8so1070245otk.5
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Jun 2021 14:02:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=3is+BGZL8/9678eVDiplfm9nk5D6OdpkQWQ2XRZvFjg=;
- b=CXFHgzacy0e97+sqalocq81s55Krh5cNqdSIIK0vZkVVPwKTkzwxI4tuuAQuSX0Teg
- jb+l4gUaYYaUvUVs1j/Q+TfDwIM4j+0R+7qZBKDWov4MUY8VNpIq6sDQJXyz+u3Ymr2R
- 2moHFGPvAE2TW8fsRUZDOvg3zWbDPPkKkk83WwtdK1dn9ZEyhefiWmrJgi9srBrSGCxx
- 8QaLD5vq/T1PqVULv3TOwgcPSBLqWnQoaJT7+cLTCyqMaSzR0qnm+ZeNUt3elqypbg1F
- QF2dt9Mnwx+iVqQFbOUPTCw9vlkT/SYlCZEXKmNE9IEMgRMuNxNujoEcI5f/T3p3nDg+
- ycQg==
+ :cc; bh=lyY+9YtdR41VxVlz6S9obd9mt4oQ3sgiqhRpBoahbwg=;
+ b=UDRz5ijgdOdtRS+zKBS0rhGZVF1y1m/pO8rXlTV/XCt0uYG/SVoRSBOSZcHT0MLID1
+ MKcVlDlKZzozCJsm9kcGMBUxROHxUxUOInQRPuDZPj++h2P2HZlpymrLROORSDoDGOf6
+ CI2ycdMXGuS2jN1A/jsd5l3C6WBMYhFrl0ULTtAvjeX9ERdFe3aFtxydbprOdS4TAKTZ
+ 7Esb8AsVzd2KX8LkixyVoFRmnVux60+hWruc9Gmyc4pk4u4rfuQklub0aqcPjxDT0MOY
+ vUzB6CTyRBOYuCsgqP/+wcu9zmF7p/JLJxYiz1GYv6Zu+qP2kd3hcSS2B+/GWUmObSPW
+ EPSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=3is+BGZL8/9678eVDiplfm9nk5D6OdpkQWQ2XRZvFjg=;
- b=W8uEUw4zx8FtkmGec4BiwYDBP980rbBlbGb7v1wC3vPTTya57bD47KdjMJmirujwaL
- 4vDsuW6uVA1REZnGXvqT4kxBGHR9CYs7FIfjHkQngqRmOoObKWp9VqG7i/f/FxVYiuaq
- t6W3tDCvz6a/xfFjd3G4GPtkeHZf9NUGp1M67LjMfKRmHrhXevYx3MjuOm0rZzpWBq92
- SevuEcPKi3QS2LiZcj9ZCmsegjycYKWeL6bgp7oFwf1IUD3UABox8ZLpYDKrLBhc1egX
- ukOXVslqdLB83ARBu6KHO5RGnvwcKgQrm5aqa76CIbjx3Tohbr+Ezw2A8fGpOeA3ZkTX
- ahWA==
-X-Gm-Message-State: AOAM530QdKYTQL2BkSc2jjmWE5nVMN1gWn8KzWYtBrOjLImrcS18WZcu
- viyXSyG5xZ7c8pP2T8/LVmk48YxES93qxMO/lP8=
-X-Google-Smtp-Source: ABdhPJz2axsRYFzoFgXCsOQECnwlz4uxdbKpzHJSpD14A/WT+iOtPICvmsMZhidflvlr6tql9+qB1E1mrR7VdRs7om0=
-X-Received: by 2002:a05:6808:999:: with SMTP id
- a25mr245142oic.123.1623358840414; 
- Thu, 10 Jun 2021 14:00:40 -0700 (PDT)
+ :message-id:subject:to:cc;
+ bh=lyY+9YtdR41VxVlz6S9obd9mt4oQ3sgiqhRpBoahbwg=;
+ b=tAO36h6DDbRHFnVf5cDLMtTzV76kGIxBHMt6H6SLQnFi6me/dkvLMyNh2/dpERf/dx
+ jENdusnVQ2Xl9WybMobSfhDbpcyCBzXtfYeYVtno+lqQUNNcDZ1aBIFd6FN9ktbHvYik
+ y6wMg/Wnrmfz1fWvO5UPEpL1GYioea69yc8Xs2YFWsDLypCNRbaQgKROaC8D7sAdkwHr
+ IcOm4tjqhIfZOBoYn15rnfSMXoKs+8Mzp+XifURbFnyNrBnoj6XB46EEIdDhlbx2ZR9l
+ IWhw/9YdMV6T+wxlp4rgdCOVsxrzsk2YpGLNGEHt8kjUtk0xl+4orJE4hbhdImup6tKa
+ Y8pA==
+X-Gm-Message-State: AOAM532rY5f2pcslGl7KkFk7H+RRuTusE4y8BydVfcq8vEhKTRLR5RQZ
+ uayPqwFrqG3P20Wgo2bohsO9c+lLVrsbVMECtKY=
+X-Google-Smtp-Source: ABdhPJwAY3XZNsiKPhoNNVNdjLopXU89W+UdLRKfUqxdgiU8owXAO9fwJjpHxaNWwrYDYyIiyV3PBUXjiqL7PicMjKA=
+X-Received: by 2002:a05:6830:1e64:: with SMTP id
+ m4mr243817otr.23.1623358937537; 
+ Thu, 10 Jun 2021 14:02:17 -0700 (PDT)
 MIME-Version: 1.0
 References: <20210608213954.5517-1-luben.tuikov@amd.com>
- <20210608213954.5517-24-luben.tuikov@amd.com>
-In-Reply-To: <20210608213954.5517-24-luben.tuikov@amd.com>
+ <20210608213954.5517-25-luben.tuikov@amd.com>
+In-Reply-To: <20210608213954.5517-25-luben.tuikov@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 10 Jun 2021 17:00:29 -0400
-Message-ID: <CADnq5_M-SVXkbdX6eDELN_E8ORJZgrNUquDsFdL8XG0+b8sbXg@mail.gmail.com>
-Subject: Re: [PATCH 23/40] drm/amdgpu: Fix wrap-around bugs in RAS
+Date: Thu, 10 Jun 2021 17:02:06 -0400
+Message-ID: <CADnq5_O31yA5KZqP___54R+YSLvK3+o7t=RjHxvxA_FOExVU0g@mail.gmail.com>
+Subject: Re: [PATCH 24/40] drm/amdgpu: I2C class is HWMON
 To: Luben Tuikov <luben.tuikov@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,68 +79,93 @@ Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>,
  Stanley Yang <Stanley.Yang@amd.com>,
  Alexander Deucher <Alexander.Deucher@amd.com>, Jean Delvare <jdelvare@suse.de>,
  Hawking Zhang <Hawking.Zhang@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gVHVlLCBKdW4gOCwgMjAyMSBhdCA1OjQwIFBNIEx1YmVuIFR1aWtvdiA8bHViZW4udHVpa292
-QGFtZC5jb20+IHdyb3RlOgo+Cj4gRml4IHRoZSBzaXplIG9mIHRoZSBFRVBST00gZnJvbSAyNTYw
-MDAgYnl0ZXMKPiB0byAyNjIxNDQgYnl0ZXMgKDI1NiBLaUIpLgo+Cj4gRml4IGEgY291cGxlIG9y
-IHdyYXAgYXJvdW5kIGJ1Z3MuIElmIGEgdmFsaWQKPiB2YWx1ZS9hZGRyZXNzIGlzIDAgPD0gYWRk
-ciA8IHNpemUsIHRoZSBpbnZlcnNlIG9mCj4gdGhpcyBpbmVxdWFsaXR5IChiYXJyaW5nIG5lZ2F0
-aXZlIHZhbHVlcyB3aGljaAo+IG1ha2Ugbm8gc2Vuc2UgaGVyZSkgaXMgYWRkciA+PSBzaXplLiBG
-aXggdGhpcyBpbgo+IHRoZSBSQVMgY29kZS4KPgo+IENjOiBKZWFuIERlbHZhcmUgPGpkZWx2YXJl
-QHN1c2UuZGU+Cj4gQ2M6IEFsZXhhbmRlciBEZXVjaGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQu
-Y29tPgo+IENjOiBBbmRyZXkgR3JvZHpvdnNreSA8QW5kcmV5Lkdyb2R6b3Zza3lAYW1kLmNvbT4K
-PiBDYzogTGlqbyBMYXphciA8TGlqby5MYXphckBhbWQuY29tPgo+IENjOiBTdGFubGV5IFlhbmcg
-PFN0YW5sZXkuWWFuZ0BhbWQuY29tPgo+IENjOiBIYXdraW5nIFpoYW5nIDxIYXdraW5nLlpoYW5n
-QGFtZC5jb20+Cj4gU2lnbmVkLW9mZi1ieTogTHViZW4gVHVpa292IDxsdWJlbi50dWlrb3ZAYW1k
-LmNvbT4KCkFja2VkLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+
-Cgo+IC0tLQo+ICAuLi4vZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yYXNfZWVwcm9tLmMgICAg
-fCAyMCArKysrKysrKystLS0tLS0tLS0tCj4gIDEgZmlsZSBjaGFuZ2VkLCAxMCBpbnNlcnRpb25z
-KCspLCAxMCBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfcmFzX2VlcHJvbS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X3Jhc19lZXByb20uYwo+IGluZGV4IGYzMTZmYjExYjE2ZDllLi4zZWYzOGI5MGZjM2E4
-MyAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzX2Vl
-cHJvbS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhc19lZXBy
-b20uYwo+IEBAIC01MiwxMiArNTIsMTEgQEAKPiAgLyogQmFkIEdQVSB0YWcg4oCYQkFER+KAmSAq
-Lwo+ICAjZGVmaW5lIEVFUFJPTV9UQUJMRV9IRFJfQkFEIDB4NDI0MTQ0NDcKPgo+IC0vKiBBc3N1
-bWUgMiBNYml0IHNpemUgKi8KPiAtI2RlZmluZSBFRVBST01fU0laRV9CWVRFUyAyNTYwMDAKPiAt
-I2RlZmluZSBFRVBST01fUEFHRV9fU0laRV9CWVRFUyAyNTYKPiAtI2RlZmluZSBFRVBST01fSERS
-X1NUQVJUIDAKPiAtI2RlZmluZSBFRVBST01fUkVDT1JEX1NUQVJUIChFRVBST01fSERSX1NUQVJU
-ICsgRUVQUk9NX1RBQkxFX0hFQURFUl9TSVpFKQo+IC0jZGVmaW5lIEVFUFJPTV9NQVhfUkVDT1JE
-X05VTSAoKEVFUFJPTV9TSVpFX0JZVEVTIC0gRUVQUk9NX1RBQkxFX0hFQURFUl9TSVpFKSAvIEVF
-UFJPTV9UQUJMRV9SRUNPUkRfU0laRSkKPiArLyogQXNzdW1lIDItTWJpdCBzaXplICovCj4gKyNk
-ZWZpbmUgRUVQUk9NX1NJWkVfQllURVMgICAgICAgKDI1NiAqIDEwMjQpCj4gKyNkZWZpbmUgRUVQ
-Uk9NX0hEUl9TVEFSVCAgICAgICAgMAo+ICsjZGVmaW5lIEVFUFJPTV9SRUNPUkRfU1RBUlQgICAg
-IChFRVBST01fSERSX1NUQVJUICsgRUVQUk9NX1RBQkxFX0hFQURFUl9TSVpFKQo+ICsjZGVmaW5l
-IEVFUFJPTV9NQVhfUkVDT1JEX05VTSAgICgoRUVQUk9NX1NJWkVfQllURVMgLSBFRVBST01fVEFC
-TEVfSEVBREVSX1NJWkUpIC8gRUVQUk9NX1RBQkxFX1JFQ09SRF9TSVpFKQo+Cj4gICNkZWZpbmUg
-dG9fYW1kZ3B1X2RldmljZSh4KSAoY29udGFpbmVyX29mKHgsIHN0cnVjdCBhbWRncHVfcmFzLCBl
-ZXByb21fY29udHJvbCkpLT5hZGV2Cj4KPiBAQCAtNDAyLDkgKzQwMSw4IEBAIHN0YXRpYyB1aW50
-MzJfdCBfX2NvcnJlY3RfZWVwcm9tX2Rlc3RfYWRkcmVzcyh1aW50MzJfdCBjdXJyX2FkZHJlc3Mp
-Cj4gICAgICAgICB1aW50MzJfdCBuZXh0X2FkZHJlc3MgPSBjdXJyX2FkZHJlc3MgKyBFRVBST01f
-VEFCTEVfUkVDT1JEX1NJWkU7Cj4KPiAgICAgICAgIC8qIFdoZW4gYWxsIEVFUFJPTSBtZW1vcnkg
-dXNlZCBqdW1wIGJhY2sgdG8gMCBhZGRyZXNzICovCj4gLSAgICAgICBpZiAobmV4dF9hZGRyZXNz
-ID4gRUVQUk9NX1NJWkVfQllURVMpIHsKPiAtICAgICAgICAgICAgICAgRFJNX0lORk8oIlJlYWNo
-ZWQgZW5kIG9mIEVFUFJPTSBtZW1vcnksIGp1bXBpbmcgdG8gMCAiCj4gLSAgICAgICAgICAgICAg
-ICAgICAgICAgICJhbmQgb3ZlcnJpZGluZyBvbGQgcmVjb3JkIik7Cj4gKyAgICAgICBpZiAobmV4
-dF9hZGRyZXNzID49IEVFUFJPTV9TSVpFX0JZVEVTKSB7Cj4gKyAgICAgICAgICAgICAgIERSTV9J
-TkZPKCJSZWFjaGVkIGVuZCBvZiBFRVBST00gbWVtb3J5LCB3cmFwIGFyb3VuZCB0byAwLiIpOwo+
-ICAgICAgICAgICAgICAgICByZXR1cm4gRUVQUk9NX1JFQ09SRF9TVEFSVDsKPiAgICAgICAgIH0K
-Pgo+IEBAIC00NzYsNyArNDc0LDkgQEAgaW50IGFtZGdwdV9yYXNfZWVwcm9tX3Byb2Nlc3NfcmVj
-b2RzKHN0cnVjdCBhbWRncHVfcmFzX2VlcHJvbV9jb250cm9sICpjb250cm9sLAo+ICAgICAgICAg
-fQo+Cj4gICAgICAgICAvKiBJbiBjYXNlIG9mIG92ZXJmbG93IGp1c3Qgc3RhcnQgZnJvbSBiZWdp
-bm5pbmcgdG8gbm90IGxvc2UgbmV3ZXN0IHJlY29yZHMgKi8KPiAtICAgICAgIGlmICh3cml0ZSAm
-JiAoY29udHJvbC0+bmV4dF9hZGRyICsgRUVQUk9NX1RBQkxFX1JFQ09SRF9TSVpFICogbnVtID4g
-RUVQUk9NX1NJWkVfQllURVMpKQo+ICsgICAgICAgaWYgKHdyaXRlICYmCj4gKyAgICAgICAgICAg
-KGNvbnRyb2wtPm5leHRfYWRkciArCj4gKyAgICAgICAgICAgIEVFUFJPTV9UQUJMRV9SRUNPUkRf
-U0laRSAqIG51bSA+PSBFRVBST01fU0laRV9CWVRFUykpCj4gICAgICAgICAgICAgICAgIGNvbnRy
-b2wtPm5leHRfYWRkciA9IEVFUFJPTV9SRUNPUkRfU1RBUlQ7Cj4KPiAgICAgICAgIC8qCj4gLS0K
-PiAyLjMyLjAKPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-Zwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
-eApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4
-IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
-LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+On Tue, Jun 8, 2021 at 5:40 PM Luben Tuikov <luben.tuikov@amd.com> wrote:
+>
+> Set the auto-discoverable class of I2C bus to
+> HWMON. Remove SPD.
+>
+> Cc: Jean Delvare <jdelvare@suse.de>
+> Cc: Alexander Deucher <Alexander.Deucher@amd.com>
+> Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
+> Cc: Lijo Lazar <Lijo.Lazar@amd.com>
+> Cc: Stanley Yang <Stanley.Yang@amd.com>
+> Cc: Hawking Zhang <Hawking.Zhang@amd.com>
+> Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
+
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
+> ---
+>  drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c              | 2 +-
+>  drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c       | 2 +-
+>  drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c         | 2 +-
+>  drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c | 2 +-
+>  4 files changed, 4 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c b/drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c
+> index b8d6d308fb06a0..e403ba556e5590 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c
+> @@ -667,7 +667,7 @@ int smu_v11_0_i2c_control_init(struct i2c_adapter *control)
+>
+>         mutex_init(&adev->pm.smu_i2c_mutex);
+>         control->owner = THIS_MODULE;
+> -       control->class = I2C_CLASS_SPD | I2C_CLASS_HWMON;
+> +       control->class = I2C_CLASS_HWMON;
+>         control->dev.parent = &adev->pdev->dev;
+>         control->algo = &smu_v11_0_i2c_algo;
+>         snprintf(control->name, sizeof(control->name), "AMDGPU SMU");
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+> index c2d6d7c8129593..974740ac72fded 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+> @@ -2016,7 +2016,7 @@ static int arcturus_i2c_control_init(struct smu_context *smu, struct i2c_adapter
+>         int res;
+>
+>         control->owner = THIS_MODULE;
+> -       control->class = I2C_CLASS_SPD | I2C_CLASS_HWMON;
+> +       control->class = I2C_CLASS_HWMON;
+>         control->dev.parent = &adev->pdev->dev;
+>         control->algo = &arcturus_i2c_algo;
+>         control->quirks = &arcturus_i2c_control_quirks;
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> index 56000463f64e45..8ab06fa87edb04 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> @@ -2810,7 +2810,7 @@ static int navi10_i2c_control_init(struct smu_context *smu, struct i2c_adapter *
+>         int res;
+>
+>         control->owner = THIS_MODULE;
+> -       control->class = I2C_CLASS_SPD | I2C_CLASS_HWMON;
+> +       control->class = I2C_CLASS_HWMON;
+>         control->dev.parent = &adev->pdev->dev;
+>         control->algo = &navi10_i2c_algo;
+>         snprintf(control->name, sizeof(control->name), "AMDGPU SMU");
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> index 86804f3b0a951b..91614ae186f7f5 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> @@ -3498,7 +3498,7 @@ static int sienna_cichlid_i2c_control_init(struct smu_context *smu, struct i2c_a
+>         int res;
+>
+>         control->owner = THIS_MODULE;
+> -       control->class = I2C_CLASS_SPD | I2C_CLASS_HWMON;
+> +       control->class = I2C_CLASS_HWMON;
+>         control->dev.parent = &adev->pdev->dev;
+>         control->algo = &sienna_cichlid_i2c_algo;
+>         snprintf(control->name, sizeof(control->name), "AMDGPU SMU");
+> --
+> 2.32.0
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
