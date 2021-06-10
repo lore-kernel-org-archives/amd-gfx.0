@@ -8,60 +8,59 @@ X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5BEF2C48BDF
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Jun 2021 20:25:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BE7D2C48BD1
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Jun 2021 20:26:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DF19C613B0
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Jun 2021 20:25:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DF19C613B0
+	by mail.kernel.org (Postfix) with ESMTPS id 5B1C4613BC
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Jun 2021 20:26:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5B1C4613BC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 561666EDD3;
-	Thu, 10 Jun 2021 20:25:18 +0000 (UTC)
-Received: from mail-oo1-xc2a.google.com (mail-oo1-xc2a.google.com
- [IPv6:2607:f8b0:4864:20::c2a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8836A6EDD6
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Jun 2021 20:25:17 +0000 (UTC)
-Received: by mail-oo1-xc2a.google.com with SMTP id
- n17-20020a4ae1d10000b029024a49ea822bso188858oot.5
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Jun 2021 13:25:17 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E1C16EDD6;
+	Thu, 10 Jun 2021 20:26:19 +0000 (UTC)
+Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
+ [IPv6:2607:f8b0:4864:20::229])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 040626EDD6
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Jun 2021 20:26:18 +0000 (UTC)
+Received: by mail-oi1-x229.google.com with SMTP id r17so3480784oic.7
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Jun 2021 13:26:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=AMA9hCnxGrbpSsVjVpfVEXFpbog8yaB2qB25Z0THrIE=;
- b=ITt/RkSk5WoM8CJzMvLbTKxWL0A5ENV0J2BPIb31mF4Y661mY9IIq7krAp9YVcA+M8
- BVDVkMFqRo/sa3SLW+QeTlgqTXkjgMgv5EMaeb/18v9a9LnwSNhNwUlN51f/kKhpBvyt
- ujUaJRS75Cj7oxx1hTTlD8bL0swwe8HSAYKFEUwTiDPUvHFVEqKWa1D7F4YPlSXY7/dR
- F2CtitAK6TwQj5QmuUllgtXenlLxHPmbf8Pu/90+g3FO4yaHzuzT0yPSZHnStZxMsjKA
- Ffv7beywMdhZoGmHwz9wLeKGWxtxXra9/k3DTU4UbbKIgsL1lKKMcLzSschRpsUnLvCZ
- hWKw==
+ :cc; bh=Oiiy44tx6UvIpGu7+s1ovVJdOCp2amgVtM4HYv6jA5A=;
+ b=MPOy2ViSlvYmgjL5FmLShoBjoCjV76mAhFu3wj3XZdiedLkf5RbCSvUvYXcIMJhRL5
+ Hlsq47iLbGJeLYdjXqJ9GNVFCjhBPKIBJKS1zJpe2CQ1hK+GaPLnSYYH7AXhQ1slj3Ak
+ 23FOrlUh2rGSC/O2esyarupF8nAcPZyf5YF6fLmH3RRIHCf27EMbErYanCd0bp7S+Tgk
+ zT9u2fKdjtZfqTWBHICf7fXHaYP316JUvlqT6ICe9nwlWVpYPpm/gfcxmxg25kX/m5OT
+ 0hlYvL6BVzdzHBbH8+xsbny/1FF5ADWv3DzlBcs6bTTmV+am9ncqIIEv+7aqcUnamuvl
+ +A8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=AMA9hCnxGrbpSsVjVpfVEXFpbog8yaB2qB25Z0THrIE=;
- b=eNjabYMFYTzkQ8eW56+db7l3XGZNLc4HhGGVaErd1rMc3uDoyDyel4cxeZexnPalqn
- ZvGor6nZ98jGGL6vw+aPSAr+8c5GV4wuntsxj3iT9GD4x/o+AsvzPPMX3Nwl4ZBXcj5D
- uJUo92J0li5Iy2WdvzBmOL4Ni2pa+iNiEAv7c4cBge9xbAuGRlJTUZaM9TrrYwdn8G6P
- wn4Q+ALn3O0224HT7mA/OMqG7fvA6XKgpvzaDt2XBQ5D5yM9nvS4e3MtIJJ6wXosrGxs
- Ql7u7BhxXP+pj5UjDCb2Zn8MuibxzaF4sCNtGJmtZjo5dyl9A2tipjVSa4RDLZ1yHNLz
- r8ng==
-X-Gm-Message-State: AOAM5305FPGMm1WAr7b+3qVEZVOPieArCiynM5b1ooiuYFZ9LApOprWF
- TdCLug/mz11DS6udatt/L+hRlatrTC9BYeV7wDs=
-X-Google-Smtp-Source: ABdhPJxVMitZGbwopVIlc+EWfxZiViiFO/NgCAUzSB9IxYVLvF5dI/AIRhn5bq9S2MUE96hAdjFCchFZiIs4iYR+bv0=
-X-Received: by 2002:a4a:a283:: with SMTP id h3mr308315ool.90.1623356716871;
- Thu, 10 Jun 2021 13:25:16 -0700 (PDT)
+ bh=Oiiy44tx6UvIpGu7+s1ovVJdOCp2amgVtM4HYv6jA5A=;
+ b=uiGN9PgPUDG7zjY+caDzF9U451A5zwvjU6Kq5F3S/ym7XkUoNr2bPTzvIxqLQYgz2E
+ nA8JOQwcwc+bRKIxIBiT6R5ECpJ/JEz3ruvrIwcsKGE6XTlJvssF/7AMWosqyiD1wn9S
+ 7QKXOFH/CNXLVscp1Yv89oWqrt64DpP4kfjbYrtAJdxaVsmSVl767ymUFYbrKm3Z3ALj
+ RCTEVLxVfA1UyxjrErZUMj50cneQ1ILcCLeXVAYsF5rcLmT/yztU9CYSayU+ggvK/QwP
+ bqg41i1tn+Y2SvgGdcsd0O7xmbJBK3dnmvNk/6bpViqgJ1xgjexRbd8eSE93d63wfdYv
+ /hIA==
+X-Gm-Message-State: AOAM530YLwFtHVCaj+9eHH1y+4EG95nBOg/HGle+bf58jgaevcHr+R2g
+ hd9RSji0eTkepbIyscyNUUXG0yO85XMOkzFHbj62EHex3Y8=
+X-Google-Smtp-Source: ABdhPJyRIhupEiNb4lRXrbuVrGkvJ9W7HWCSdxzV1NvbZWLk+n8ze5iRxn9R3OrKx7LE/tB3ZXlf0V4/v8KWXn3Ip/k=
+X-Received: by 2002:a05:6808:999:: with SMTP id
+ a25mr174008oic.123.1623356777468; 
+ Thu, 10 Jun 2021 13:26:17 -0700 (PDT)
 MIME-Version: 1.0
 References: <20210608213954.5517-1-luben.tuikov@amd.com>
- <20210608213954.5517-17-luben.tuikov@amd.com>
-In-Reply-To: <20210608213954.5517-17-luben.tuikov@amd.com>
+ <20210608213954.5517-18-luben.tuikov@amd.com>
+In-Reply-To: <20210608213954.5517-18-luben.tuikov@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 10 Jun 2021 16:25:06 -0400
-Message-ID: <CADnq5_OuQsuAgLX-q4tUZ0eQtchRE2AZVGTo1UQ+OVegORqANA@mail.gmail.com>
-Subject: Re: [PATCH 16/40] drm/amd/pm: SMU I2C: Return number of messages
- processed
+Date: Thu, 10 Jun 2021 16:26:06 -0400
+Message-ID: <CADnq5_NqX866Feg6DzvuwbJbFfAhNipNt6dNzYcymLLjQYxOUg@mail.gmail.com>
+Subject: Re: [PATCH 17/40] drm/amdgpu/pm: ADD I2C quirk adapter table
 To: Luben Tuikov <luben.tuikov@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,8 +87,7 @@ On Tue, Jun 8, 2021 at 5:40 PM Luben Tuikov <luben.tuikov@amd.com> wrote:
 >
 > From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 >
-> Fix from number of processed bytes to number of
-> processed I2C messages.
+> To be used by kernel clients of the adapter.
 >
 > Cc: Jean Delvare <jdelvare@suse.de>
 > Cc: Alexander Deucher <Alexander.Deucher@amd.com>
@@ -98,302 +96,91 @@ On Tue, Jun 8, 2021 at 5:40 PM Luben Tuikov <luben.tuikov@amd.com> wrote:
 > Cc: Stanley Yang <Stanley.Yang@amd.com>
 > Cc: Hawking Zhang <Hawking.Zhang@amd.com>
 > Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+> Suggested-by: Lazar Lijo <Lijo.Lazar@amd.com>
 > Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
 > Reviewed-by: Luben Tuikov <luben.tuikov@amd.com>
 
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
->  .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c | 43 +++++++++++--------
->  .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 43 +++++++++++--------
->  .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 43 +++++++++++--------
->  3 files changed, 75 insertions(+), 54 deletions(-)
+>  drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c       | 7 +++++++
+>  drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c         | 6 ++++++
+>  drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c | 6 ++++++
+>  3 files changed, 19 insertions(+)
 >
 > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-> index 235e83e9f0feb7..409299a608e1b3 100644
+> index 409299a608e1b3..c2d6d7c8129593 100644
 > --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
 > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-> @@ -1913,9 +1913,8 @@ static int arcturus_i2c_xfer(struct i2c_adapter *i2c_adap,
->         struct smu_table_context *smu_table = &adev->smu.smu_table;
->         struct smu_table *table = &smu_table->driver_table;
->         SwI2cRequest_t *req, *res = (SwI2cRequest_t *)table->cpu_addr;
-> -       u16 bytes_to_transfer, remaining_bytes, msg_bytes;
-> -       u16 available_bytes = MAX_SW_I2C_COMMANDS;
-> -       int i, j, r, c;
-> +       short available_bytes = MAX_SW_I2C_COMMANDS;
-> +       int i, j, r, c, num_done = 0;
->         u8 slave;
+> @@ -2004,6 +2004,12 @@ static const struct i2c_algorithm arcturus_i2c_algo = {
+>         .functionality = arcturus_i2c_func,
+>  };
 >
->         /* only support a single slave addr per transaction */
-> @@ -1923,8 +1922,15 @@ static int arcturus_i2c_xfer(struct i2c_adapter *i2c_adap,
->         for (i = 0; i < num; i++) {
->                 if (slave != msgs[i].addr)
->                         return -EINVAL;
-> -               bytes_to_transfer += min(msgs[i].len, available_bytes);
-> -               available_bytes -= bytes_to_transfer;
 > +
-> +               available_bytes -= msgs[i].len;
-> +               if (available_bytes >= 0) {
-> +                       num_done++;
-> +               } else {
-> +                       /* This message and all the follwing won't be processed */
-> +                       available_bytes += msgs[i].len;
-> +                       break;
-> +               }
->         }
->
->         req = kzalloc(sizeof(*req), GFP_KERNEL);
-> @@ -1934,24 +1940,28 @@ static int arcturus_i2c_xfer(struct i2c_adapter *i2c_adap,
->         req->I2CcontrollerPort = 1;
->         req->I2CSpeed = I2C_SPEED_FAST_400K;
->         req->SlaveAddress = slave << 1; /* 8 bit addresses */
-> -       req->NumCmds = bytes_to_transfer;
-> +       req->NumCmds = MAX_SW_I2C_COMMANDS - available_bytes;;
->
-> -       remaining_bytes = bytes_to_transfer;
->         c = 0;
-> -       for (i = 0; i < num; i++) {
-> +       for (i = 0; i < num_done; i++) {
->                 struct i2c_msg *msg = &msgs[i];
->
-> -               msg_bytes = min(msg->len, remaining_bytes);
-> -               for (j = 0; j < msg_bytes; j++) {
-> +               for (j = 0; j < msg->len; j++) {
->                         SwI2cCmd_t *cmd = &req->SwI2cCmds[c++];
->
-> -                       remaining_bytes--;
->                         if (!(msg[i].flags & I2C_M_RD)) {
->                                 /* write */
->                                 cmd->CmdConfig |= I2C_CMD_WRITE;
->                                 cmd->RegisterAddr = msg->buf[j];
->                         }
-> -                       if (!remaining_bytes)
+> +static const struct i2c_adapter_quirks arcturus_i2c_control_quirks = {
+> +       .max_read_len = MAX_SW_I2C_COMMANDS,
+> +       .max_write_len = MAX_SW_I2C_COMMANDS,
+> +};
 > +
-> +                       /*
-> +                        * Insert STOP if we are at the last byte of either last
-> +                        * message for the transaction or the client explicitly
-> +                        * requires a STOP at this particular message.
-> +                        */
-> +                       if ((j == msg->len -1 ) &&
-> +                           ((i == num_done - 1) || (msg[i].flags & I2C_M_STOP)))
->                                 cmd->CmdConfig |= CMDCONFIG_STOP_MASK;
+>  static int arcturus_i2c_control_init(struct smu_context *smu, struct i2c_adapter *control)
+>  {
+>         struct amdgpu_device *adev = to_amdgpu_device(control);
+> @@ -2013,6 +2019,7 @@ static int arcturus_i2c_control_init(struct smu_context *smu, struct i2c_adapter
+>         control->class = I2C_CLASS_SPD | I2C_CLASS_HWMON;
+>         control->dev.parent = &adev->pdev->dev;
+>         control->algo = &arcturus_i2c_algo;
+> +       control->quirks = &arcturus_i2c_control_quirks;
+>         snprintf(control->name, sizeof(control->name), "AMDGPU SMU");
 >
->                         if ((j == 0) && !(msg[i].flags & I2C_M_NOSTART))
-> @@ -1964,21 +1974,18 @@ static int arcturus_i2c_xfer(struct i2c_adapter *i2c_adap,
->         if (r)
->                 goto fail;
->
-> -       remaining_bytes = bytes_to_transfer;
->         c = 0;
-> -       for (i = 0; i < num; i++) {
-> +       for (i = 0; i < num_done; i++) {
->                 struct i2c_msg *msg = &msgs[i];
->
-> -               msg_bytes = min(msg->len, remaining_bytes);
-> -               for (j = 0; j < msg_bytes; j++) {
-> +               for (j = 0; j < msg->len; j++) {
->                         SwI2cCmd_t *cmd = &res->SwI2cCmds[c++];
->
-> -                       remaining_bytes--;
->                         if (msg[i].flags & I2C_M_RD)
->                                 msg->buf[j] = cmd->Data;
->                 }
->         }
-> -       r = bytes_to_transfer;
-> +       r = num_done;
->
->  fail:
->         kfree(req);
+>         res = i2c_add_adapter(control);
 > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> index b94c5a1d3eb756..4010b891f25678 100644
+> index 4010b891f25678..56000463f64e45 100644
 > --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
 > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> @@ -2708,9 +2708,8 @@ static int navi10_i2c_xfer(struct i2c_adapter *i2c_adap,
->         struct smu_table_context *smu_table = &adev->smu.smu_table;
->         struct smu_table *table = &smu_table->driver_table;
->         SwI2cRequest_t *req, *res = (SwI2cRequest_t *)table->cpu_addr;
-> -       u16 bytes_to_transfer, remaining_bytes, msg_bytes;
-> -       u16 available_bytes = MAX_SW_I2C_COMMANDS;
-> -       int i, j, r, c;
-> +       short available_bytes = MAX_SW_I2C_COMMANDS;
-> +       int i, j, r, c, num_done = 0;
->         u8 slave;
+> @@ -2799,6 +2799,11 @@ static const struct i2c_algorithm navi10_i2c_algo = {
+>         .functionality = navi10_i2c_func,
+>  };
 >
->         /* only support a single slave addr per transaction */
-> @@ -2718,8 +2717,15 @@ static int navi10_i2c_xfer(struct i2c_adapter *i2c_adap,
->         for (i = 0; i < num; i++) {
->                 if (slave != msgs[i].addr)
->                         return -EINVAL;
-> -               bytes_to_transfer += min(msgs[i].len, available_bytes);
-> -               available_bytes -= bytes_to_transfer;
+> +static const struct i2c_adapter_quirks navi10_i2c_control_quirks = {
+> +       .max_read_len = MAX_SW_I2C_COMMANDS,
+> +       .max_write_len = MAX_SW_I2C_COMMANDS,
+> +};
 > +
-> +               available_bytes -= msgs[i].len;
-> +               if (available_bytes >= 0) {
-> +                       num_done++;
-> +               } else {
-> +                       /* This message and all the follwing won't be processed */
-> +                       available_bytes += msgs[i].len;
-> +                       break;
-> +               }
->         }
+>  static int navi10_i2c_control_init(struct smu_context *smu, struct i2c_adapter *control)
+>  {
+>         struct amdgpu_device *adev = to_amdgpu_device(control);
+> @@ -2809,6 +2814,7 @@ static int navi10_i2c_control_init(struct smu_context *smu, struct i2c_adapter *
+>         control->dev.parent = &adev->pdev->dev;
+>         control->algo = &navi10_i2c_algo;
+>         snprintf(control->name, sizeof(control->name), "AMDGPU SMU");
+> +       control->quirks = &navi10_i2c_control_quirks;
 >
->         req = kzalloc(sizeof(*req), GFP_KERNEL);
-> @@ -2729,24 +2735,28 @@ static int navi10_i2c_xfer(struct i2c_adapter *i2c_adap,
->         req->I2CcontrollerPort = 1;
->         req->I2CSpeed = I2C_SPEED_FAST_400K;
->         req->SlaveAddress = slave << 1; /* 8 bit addresses */
-> -       req->NumCmds = bytes_to_transfer;
-> +       req->NumCmds = MAX_SW_I2C_COMMANDS - available_bytes;;
->
-> -       remaining_bytes = bytes_to_transfer;
->         c = 0;
-> -       for (i = 0; i < num; i++) {
-> +       for (i = 0; i < num_done; i++) {
->                 struct i2c_msg *msg = &msgs[i];
->
-> -               msg_bytes = min(msg->len, remaining_bytes);
-> -               for (j = 0; j < msg_bytes; j++) {
-> +               for (j = 0; j < msg->len; j++) {
->                         SwI2cCmd_t *cmd = &req->SwI2cCmds[c++];
->
-> -                       remaining_bytes--;
->                         if (!(msg[i].flags & I2C_M_RD)) {
->                                 /* write */
->                                 cmd->CmdConfig |= I2C_CMD_WRITE;
->                                 cmd->RegisterAddr = msg->buf[j];
->                         }
-> -                       if (!remaining_bytes)
-> +
-> +                       /*
-> +                        * Insert STOP if we are at the last byte of either last
-> +                        * message for the transaction or the client explicitly
-> +                        * requires a STOP at this particular message.
-> +                        */
-> +                       if ((j == msg->len -1 ) &&
-> +                           ((i == num_done - 1) || (msg[i].flags & I2C_M_STOP)))
->                                 cmd->CmdConfig |= CMDCONFIG_STOP_MASK;
->
->                         if ((j == 0) && !(msg[i].flags & I2C_M_NOSTART))
-> @@ -2759,21 +2769,18 @@ static int navi10_i2c_xfer(struct i2c_adapter *i2c_adap,
->         if (r)
->                 goto fail;
->
-> -       remaining_bytes = bytes_to_transfer;
->         c = 0;
-> -       for (i = 0; i < num; i++) {
-> +       for (i = 0; i < num_done; i++) {
->                 struct i2c_msg *msg = &msgs[i];
->
-> -               msg_bytes = min(msg->len, remaining_bytes);
-> -               for (j = 0; j < msg_bytes; j++) {
-> +               for (j = 0; j < msg->len; j++) {
->                         SwI2cCmd_t *cmd = &res->SwI2cCmds[c++];
->
-> -                       remaining_bytes--;
->                         if (msg[i].flags & I2C_M_RD)
->                                 msg->buf[j] = cmd->Data;
->                 }
->         }
-> -       r = bytes_to_transfer;
-> +       r = num_done;
->
->  fail:
->         kfree(req);
+>         res = i2c_add_adapter(control);
+>         if (res)
 > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> index 2fa667a86c1a54..d5b750d84112fa 100644
+> index d5b750d84112fa..86804f3b0a951b 100644
 > --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
 > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> @@ -3396,9 +3396,8 @@ static int sienna_cichlid_i2c_xfer(struct i2c_adapter *i2c_adap,
->         struct smu_table_context *smu_table = &adev->smu.smu_table;
->         struct smu_table *table = &smu_table->driver_table;
->         SwI2cRequest_t *req, *res = (SwI2cRequest_t *)table->cpu_addr;
-> -       u16 bytes_to_transfer, remaining_bytes, msg_bytes;
-> -       u16 available_bytes = MAX_SW_I2C_COMMANDS;
-> -       int i, j, r, c;
-> +       short available_bytes = MAX_SW_I2C_COMMANDS;
-> +       int i, j, r, c, num_done = 0;
->         u8 slave;
+> @@ -3487,6 +3487,11 @@ static const struct i2c_algorithm sienna_cichlid_i2c_algo = {
+>         .functionality = sienna_cichlid_i2c_func,
+>  };
 >
->         /* only support a single slave addr per transaction */
-> @@ -3406,8 +3405,15 @@ static int sienna_cichlid_i2c_xfer(struct i2c_adapter *i2c_adap,
->         for (i = 0; i < num; i++) {
->                 if (slave != msgs[i].addr)
->                         return -EINVAL;
-> -               bytes_to_transfer += min(msgs[i].len, available_bytes);
-> -               available_bytes -= bytes_to_transfer;
+> +static const struct i2c_adapter_quirks sienna_cichlid_i2c_control_quirks = {
+> +       .max_read_len = MAX_SW_I2C_COMMANDS,
+> +       .max_write_len = MAX_SW_I2C_COMMANDS,
+> +};
 > +
-> +               available_bytes -= msgs[i].len;
-> +               if (available_bytes >= 0) {
-> +                       num_done++;
-> +               } else {
-> +                       /* This message and all the follwing won't be processed */
-> +                       available_bytes += msgs[i].len;
-> +                       break;
-> +               }
->         }
+>  static int sienna_cichlid_i2c_control_init(struct smu_context *smu, struct i2c_adapter *control)
+>  {
+>         struct amdgpu_device *adev = to_amdgpu_device(control);
+> @@ -3497,6 +3502,7 @@ static int sienna_cichlid_i2c_control_init(struct smu_context *smu, struct i2c_a
+>         control->dev.parent = &adev->pdev->dev;
+>         control->algo = &sienna_cichlid_i2c_algo;
+>         snprintf(control->name, sizeof(control->name), "AMDGPU SMU");
+> +       control->quirks = &sienna_cichlid_i2c_control_quirks;
 >
->         req = kzalloc(sizeof(*req), GFP_KERNEL);
-> @@ -3417,24 +3423,28 @@ static int sienna_cichlid_i2c_xfer(struct i2c_adapter *i2c_adap,
->         req->I2CcontrollerPort = 1;
->         req->I2CSpeed = I2C_SPEED_FAST_400K;
->         req->SlaveAddress = slave << 1; /* 8 bit addresses */
-> -       req->NumCmds = bytes_to_transfer;
-> +       req->NumCmds = MAX_SW_I2C_COMMANDS - available_bytes;;
->
-> -       remaining_bytes = bytes_to_transfer;
->         c = 0;
-> -       for (i = 0; i < num; i++) {
-> +       for (i = 0; i < num_done; i++) {
->                 struct i2c_msg *msg = &msgs[i];
->
-> -               msg_bytes = min(msg->len, remaining_bytes);
-> -               for (j = 0; j < msg_bytes; j++) {
-> +               for (j = 0; j < msg->len; j++) {
->                         SwI2cCmd_t *cmd = &req->SwI2cCmds[c++];
->
-> -                       remaining_bytes--;
->                         if (!(msg[i].flags & I2C_M_RD)) {
->                                 /* write */
->                                 cmd->CmdConfig |= CMDCONFIG_READWRITE_MASK;
->                                 cmd->ReadWriteData = msg->buf[j];
->                         }
-> -                       if (!remaining_bytes)
-> +
-> +                       /*
-> +                        * Insert STOP if we are at the last byte of either last
-> +                        * message for the transaction or the client explicitly
-> +                        * requires a STOP at this particular message.
-> +                        */
-> +                       if ((j == msg->len -1 ) &&
-> +                           ((i == num_done - 1) || (msg[i].flags & I2C_M_STOP)))
->                                 cmd->CmdConfig |= CMDCONFIG_STOP_MASK;
->
->                         if ((j == 0) && !(msg[i].flags & I2C_M_NOSTART))
-> @@ -3447,21 +3457,18 @@ static int sienna_cichlid_i2c_xfer(struct i2c_adapter *i2c_adap,
->         if (r)
->                 goto fail;
->
-> -       remaining_bytes = bytes_to_transfer;
->         c = 0;
-> -       for (i = 0; i < num; i++) {
-> +       for (i = 0; i < num_done; i++) {
->                 struct i2c_msg *msg = &msgs[i];
->
-> -               msg_bytes = min(msg->len, remaining_bytes);
-> -               for (j = 0; j < msg_bytes; j++) {
-> +               for (j = 0; j < msg->len; j++) {
->                         SwI2cCmd_t *cmd = &res->SwI2cCmds[c++];
->
-> -                       remaining_bytes--;
->                         if (msg[i].flags & I2C_M_RD)
->                                 msg->buf[j] = cmd->ReadWriteData;
->                 }
->         }
-> -       r = bytes_to_transfer;
-> +       r = num_done;
->
->  fail:
->         kfree(req);
+>         res = i2c_add_adapter(control);
+>         if (res)
 > --
 > 2.32.0
 >
