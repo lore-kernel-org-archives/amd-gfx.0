@@ -2,70 +2,70 @@ Return-Path: <SRS0=2har=LE=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.0 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_2 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BC438C48BCD
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Jun 2021 08:23:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EC885C47094
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Jun 2021 09:18:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8586B613FE
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Jun 2021 08:23:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8586B613FE
+	by mail.kernel.org (Postfix) with ESMTPS id B3BBB61406
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Jun 2021 09:18:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B3BBB61406
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CCC86EC84;
-	Thu, 10 Jun 2021 08:23:22 +0000 (UTC)
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D6496EC6D;
- Thu, 10 Jun 2021 08:23:20 +0000 (UTC)
-Received: by mail-lf1-x12f.google.com with SMTP id r5so1869463lfr.5;
- Thu, 10 Jun 2021 01:23:20 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 480E86EC8E;
+	Thu, 10 Jun 2021 09:18:05 +0000 (UTC)
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [IPv6:2a00:1450:4864:20::32b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDD2E6EC8E;
+ Thu, 10 Jun 2021 09:18:03 +0000 (UTC)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ k5-20020a05600c1c85b02901affeec3ef8so6115652wms.0; 
+ Thu, 10 Jun 2021 02:18:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:in-reply-to:references
- :mime-version; bh=tvqfHyNBngUi+gzgwhD+HPPQiG20JFWoWT08MBcVNqE=;
- b=IaZ2g8xpczLrvPriAU7Rv/lVIUDmjxDlCQNVG43JyPn0o5gtNoerdMVNsGD9aoeBJJ
- Hfb22SFnu5N84Rn48GRq6+Dz0rnPIQgHfrHGSjgkG0aJqDyL6Y+8ZON2Vx7fapzq1Jlm
- ScaDq3crWn6GXbJ3MGADkjKzOdQIietHCzDOJg30JsktTcbtBiDfrrQ6/LIZLmk/Olbr
- fzgraDccieLAnboJ2joPn5U4H3+V+/pabM0W+rsvIqzemR2ybzmfbi0/bD2IJ3jm1wxF
- MMIXfKOMAjqZLA6O1fFUkSFHxSff1oiPBFi4NFOeOAM/2i7crVoVGkPYcu6iptvFCEf1
- /ZCQ==
+ h=from:to:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Fmb4cueVtOXZ29A3KoEkc9R3bgHt8UwFR2vwnaO9L4o=;
+ b=cLz8LVCjuXmwIs0cUlJEHekrA55mhSzQQpmX2bxPLIrXyH+tB3AyaQVlj/jdabTEjj
+ BngJdUDDdMw+iN2PFR7UwhOFjppSQz2X9iz7AzjRxtBSi8Pv6XYOv025y5A7PKBmdpyX
+ jYLck3rzYgHh3I6x8h+LACBB8BeH0eS+fL8qaoYQnGiFSY9LH0AIIg5RTXpCJ6k8Thsw
+ ctZMvX7q7n4tHWUURcGzkJIHgRHD8kXh19JI+Ql297urgxfO4uaYsjnom4tyYkm0SdNE
+ koLzJWCnmTX8emeC5T6Ig+X6ZRJ74v74A0s6kCPiRcnSNmP+ous7+Lsd01Ki1u5mJpL8
+ fchQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
- :references:mime-version;
- bh=tvqfHyNBngUi+gzgwhD+HPPQiG20JFWoWT08MBcVNqE=;
- b=W9CT6om+8t7C7F/qrnkfACABIMXREWYN71R+Q4ftgajkRoYEkNTDZQSNImHyMhi/GA
- 5bWzdjgyp2+mESx7zimTuxfsUQmtevWUKCHRb+tOpQMkEZfpPh/T1MI5gic8e0kNSeC+
- Gipeg1dqRQxqdrN/gEmmo+n+kBawa6aluZwT5NVDAKSAnxLtkP9cjVN3M9YVrsRAZQps
- cPSXV/BDt2JAGWoCKnP9LCvv57Q/Kg9NCHdVNqg2zKf1wIshtQuOUPoqNqUFxyvvNpEx
- ZQtNbwn7DCdxC/Tp0RIReTXikMXxwyYOhDHAj82EKhges+XTnFWfBjKcRWRbfzGNAHmo
- q7+Q==
-X-Gm-Message-State: AOAM531Bu/IQAXBbcAdKXHM0GebFYoeg61bVFEO969wo0Rvf+g/s6cWa
- ykhdJ04UZ07fMef+7cBhd/M=
-X-Google-Smtp-Source: ABdhPJxcH2TMgG3WCcZ+Oxs38G1glk+4HDDDXtGsrbFmPPkwzsh/aUX0rTrr927lSA+BorFMcHh7Sw==
-X-Received: by 2002:a05:6512:3d1d:: with SMTP id
- d29mr1171053lfv.623.1623313398701; 
- Thu, 10 Jun 2021 01:23:18 -0700 (PDT)
-Received: from eldfell ([194.136.85.206])
- by smtp.gmail.com with ESMTPSA id v3sm228947lfa.77.2021.06.10.01.23.18
+ h=x-gm-message-state:from:to:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Fmb4cueVtOXZ29A3KoEkc9R3bgHt8UwFR2vwnaO9L4o=;
+ b=ZVlfxuPUDP5Mo8jkW36KFTudsZTKrS7giIa7s/QQ0tNJb6upvFVxk/I1Q9iJA/dBAq
+ atoE58cGp5RZN1tsYfEkP/Z3DIvX44ncbqtgljq17wRV+K3qxnU4Nnwc4shhtJEFfE5z
+ r97PmOVXdlQQ6IGf6aeJ9j6/9FDIG91EL3Bf8XxCRDgBAosbMYKcey5onNmzJFtUuB+C
+ tMnJf7RgyTFgVD7PCI8tppIGExJ6YF6glRA271RNDd7B0Df7z5Emi65XLe5r5VMYRe52
+ 6twUdy/R9XDf3L61U9RNI4fsYw8frFAvYtQv8+lbko+UlnS+gcI7Yb8CuD3tCFItuj8O
+ oLgg==
+X-Gm-Message-State: AOAM533dRIpD8Nf/YCwsJYmbY6Uu/GMzj3S02H/Tt9QF2Gn438Qv4WfE
+ UnXroeenyi85i5ya3x/o1AZlPW6XC3A=
+X-Google-Smtp-Source: ABdhPJzXaladOwixE+vJSP7w5UTqwMP1tNW7nfxmDEpeieNhhorC1gVgMhIdsQfiiWTcxL86s62eiQ==
+X-Received: by 2002:a05:600c:243:: with SMTP id 3mr4000102wmj.35.1623316682565; 
+ Thu, 10 Jun 2021 02:18:02 -0700 (PDT)
+Received: from abel.fritz.box ([2a02:908:1252:fb60:561f:e43a:edf5:8f95])
+ by smtp.gmail.com with ESMTPSA id v8sm3087445wrc.29.2021.06.10.02.18.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Jun 2021 01:23:18 -0700 (PDT)
-Date: Thu, 10 Jun 2021 11:23:15 +0300
-From: Pekka Paalanen <ppaalanen@gmail.com>
-To: Simon Ser <contact@emersion.fr>
-Subject: Re: [PATCH v2 1/7] drm/sysfs: introduce
- drm_sysfs_connector_hotplug_event
-Message-ID: <20210610112315.3370f1a4@eldfell>
-In-Reply-To: <I7ivMNimkOH0GJ5SVonqiNBfYEunXBeQpK7ehs64Bk@cp4-web-028.plabs.ch>
-References: <I7ivMNimkOH0GJ5SVonqiNBfYEunXBeQpK7ehs64Bk@cp4-web-028.plabs.ch>
-X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+ Thu, 10 Jun 2021 02:18:02 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: daniel@ffwll.ch, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Subject: Change how amdgpu stores fences in dma_resv objects
+Date: Thu, 10 Jun 2021 11:17:53 +0200
+Message-Id: <20210610091800.1833-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,133 +78,26 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, michel@daenzer.net,
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============0248960126=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0248960126==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- boundary="Sig_/zHgt6RgBo2EGXgKXtQy1VAZ"; protocol="application/pgp-signature"
+Since we can't find a consensus on hot to move forward with the dma_resv object I concentrated on changing the approach for amdgpu first.
 
---Sig_/zHgt6RgBo2EGXgKXtQy1VAZ
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+This new approach changes how the driver stores the command submission fence in the dma_resv object in DMA-buf exported BOs.
 
-On Wed, 09 Jun 2021 21:23:27 +0000
-Simon Ser <contact@emersion.fr> wrote:
+For exported BOs we now store the CS fence in a dma_fence_chain container and assign that one to the exclusive fences slot.
 
-> This function sends a hotplug uevent with a CONNECTOR property.
->=20
-> Signed-off-by: Simon Ser <contact@emersion.fr>
-> ---
->  drivers/gpu/drm/drm_sysfs.c | 25 +++++++++++++++++++++++++
->  include/drm/drm_sysfs.h     |  1 +
->  2 files changed, 26 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/drm_sysfs.c b/drivers/gpu/drm/drm_sysfs.c
-> index 968a9560b4aa..8423e44c3035 100644
-> --- a/drivers/gpu/drm/drm_sysfs.c
-> +++ b/drivers/gpu/drm/drm_sysfs.c
-> @@ -343,6 +343,31 @@ void drm_sysfs_hotplug_event(struct drm_device *dev)
->  }
->  EXPORT_SYMBOL(drm_sysfs_hotplug_event);
-> =20
-> +/**
-> + * drm_sysfs_connector_hotplug_event - generate a DRM uevent for any con=
-nector
-> + * change
-> + * @connector: connector which has changed
-> + *
-> + * Send a uevent for the DRM connector specified by @connector. This wil=
-l send
-> + * a uevent with the properties HOTPLUG=3D1 and CONNECTOR.
-> + */
-> +void drm_sysfs_connector_hotplug_event(struct drm_connector *connector)
-> +{
-> +	struct drm_device *dev =3D connector->dev;
-> +	char hotplug_str[] =3D "HOTPLUG=3D1", conn_id[21];
-> +	char *envp[] =3D { hotplug_str, conn_id, NULL };
-> +
-> +	snprintf(conn_id, sizeof(conn_id),
-> +		 "CONNECTOR=3D%u", connector->base.id);
-> +
-> +	drm_dbg_kms(connector->dev,
-> +		    "[CONNECTOR:%d:%s] generating connector hotplug event\n",
-> +		    connector->base.id, connector->name);
-> +
-> +	kobject_uevent_env(&dev->primary->kdev->kobj, KOBJ_CHANGE, envp);
-> +}
-> +EXPORT_SYMBOL(drm_sysfs_connector_hotplug_event);
+During synchronization this dma_fence_chain container is unpacked again and the containing fences handled individually.
 
-Hi,
+This has a little bit more overhead than the old approach, but it allows for waiting for the exclusive slot for writes again.
 
-I believe this change would be safe for Weston while Weston would not
-take advantage of the optimisation without patching it. The idea seems
-fine to me, and patching Weston to take advantage of this would be fine
-too.
+Regards,
+Christian.
 
-I can't say anything about the kernel internal details on how to
-implement this, and I don't recall if the per-connector epoch counter
-was supposed to the exposed to userspace, offering a different way to
-do the same.
-
-
-Thanks,
-pq
-
-> +
->  /**
->   * drm_sysfs_connector_status_event - generate a DRM uevent for connector
->   * property status change
-> diff --git a/include/drm/drm_sysfs.h b/include/drm/drm_sysfs.h
-> index d454ef617b2c..6273cac44e47 100644
-> --- a/include/drm/drm_sysfs.h
-> +++ b/include/drm/drm_sysfs.h
-> @@ -11,6 +11,7 @@ int drm_class_device_register(struct device *dev);
->  void drm_class_device_unregister(struct device *dev);
-> =20
->  void drm_sysfs_hotplug_event(struct drm_device *dev);
-> +void drm_sysfs_connector_hotplug_event(struct drm_connector *connector);
->  void drm_sysfs_connector_status_event(struct drm_connector *connector,
->  				      struct drm_property *property);
->  #endif
-
-
---Sig_/zHgt6RgBo2EGXgKXtQy1VAZ
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmDBy/MACgkQI1/ltBGq
-qqcnVg//b8urqcs7lXMMe2ZfhWKSTm8/at96q0h9H+5MBE6ilWXfDLY101tG8YsN
-mm0HvJJZBTAJmNnq5y2+7YPUXdF30mvSQTGIR0Zyi/DvRTBLRyMWZZ4+VMBQ8X1h
-HF2Jb0Vhur8lXClv2OpREnZZ2Aa/64u70/2UfWbPqqNaJQ5W9Ovy4IuGkMJwRrod
-1gSdHmC4ifwgXCbmNDUZ+ptu24Qg3B8ts38DiXz13c1pSpUiu8oyDbSwikySa1q4
-FaJJd/dRftIQV59uI37jnYv8hpTahvbp5lx+6+fV9K7d8YvoR6ADvHg8a5BnIk/L
-X+Becgicalj97JV+hbDyvzoGudJnhRn+qpanaMdfoa2JAQlpFcUSDJuAkD0vGDPq
-pJKsVJipdIOu5qHGYqhNomYQY3/1KCyfc8/0acsjKDybIyvaDC2YYw3ia+e2wmVe
-MjO7ZEd2107P3a4NBVjlK/43s5FvphpPROIBy0/Dbtb1lv7eMa8ojleunrp2ILCS
-EcYbMkyTlrex2ORhr0+MK/3NU3FYZZXRSXcGwG3HsXR9cKAeHZRPvBYkY73pLuCI
-08LOoyjJ7dUCeDrwqS/zN8FGOmNHwac0AYGXitnInzKIEaoNNDNR5bKlP9HPWCBs
-jiVsYd4HfH1fGETXigFUAV/nxfDpPv7KCWJpiI2D4Fx8wW9OJhw=
-=aB2J
------END PGP SIGNATURE-----
-
---Sig_/zHgt6RgBo2EGXgKXtQy1VAZ--
-
---===============0248960126==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0248960126==--
