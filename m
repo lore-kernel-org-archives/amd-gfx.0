@@ -8,59 +8,60 @@ X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E65D4C48BD1
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Jun 2021 16:55:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F2081C48BE5
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Jun 2021 17:01:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A2515613BA
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Jun 2021 16:55:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A2515613BA
+	by mail.kernel.org (Postfix) with ESMTPS id C1B6C61246
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Jun 2021 17:01:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C1B6C61246
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 596EA6E82D;
-	Fri, 11 Jun 2021 16:55:45 +0000 (UTC)
-Received: from mail-ot1-x332.google.com (mail-ot1-x332.google.com
- [IPv6:2607:f8b0:4864:20::332])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D470C6E820
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Jun 2021 16:55:43 +0000 (UTC)
-Received: by mail-ot1-x332.google.com with SMTP id
- h24-20020a9d64180000b029036edcf8f9a6so3779013otl.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Jun 2021 09:55:43 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 85F856E7DA;
+	Fri, 11 Jun 2021 17:01:42 +0000 (UTC)
+Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
+ [IPv6:2607:f8b0:4864:20::32f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C067F6E7DA
+ for <amd-gfx@lists.freedesktop.org>; Fri, 11 Jun 2021 17:01:41 +0000 (UTC)
+Received: by mail-ot1-x32f.google.com with SMTP id
+ 66-20020a9d02c80000b02903615edf7c1aso3742798otl.13
+ for <amd-gfx@lists.freedesktop.org>; Fri, 11 Jun 2021 10:01:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=qPeFWdSGUwPoLTtvdw+t3PTmisXJgjO/+2CUFTVvAnI=;
- b=XUkvVJHchQ+kAk+yIhaQge+ivcPZrMPs7PgXCmX/KvJOXnvFC9AlX8qrDopPUUqgFJ
- A6cWKqh0x2utyk0nrTYQ4xUF5IJfRxLrlUciJqc8HFJcyu+Tw2KDpt9TWXQ4Pk9SIvqC
- Ar7OJXl4mE/jWN5B6qYD0/9UgPaT8WS7GbxhxU6fFTgAPOc2NLJEHbnPWlTnhOO0dbjZ
- AaQMVp7DbrsJuV2h/4Qdzvb/PjPrwooKJpbp67YZpyhqzGF9VLwejTfS4NDUN22qelmo
- Sm2JJt1Pce+MFa1jKQXzEZr1e5LCkDnsZHAmvieRHEfRMiQX90yxi2f4tAb3XlchkPbN
- k+BQ==
+ :cc; bh=EOxLssMDgHe7xL+dylkE4S2F3e3lCUddBHS4Da7pGbI=;
+ b=MoRslqn6bVaH8kYFoki93v4smjX6NuNDaXeJIyCpsDBSkO9TxPlyfqrq9zNaIl3/c0
+ hovwujJgssU0z7lRTyHloaJ00B8mBcDwtJuk+DF7Xg6GnHuUffkPmBF49bwBjHkwWIwA
+ +NpCfi44BVYu+Qe9Rj2/xePRmKI2/WwyGGDi2pw8fJl8fep7EOgdpPp42S9Z2bFMd5Wg
+ I+SxtmTdbns6ydz8W5BQ67MWs2+QO0Edl3sehf2Q8suw6xWpcjnXE1z4LdLGwYdBwa58
+ P7kvGz9njOcNxHW35IoGThwEX2uGsxJqMXQLWWpyQiLvFgMXH+I21wI6z1mY41bZIkL2
+ WaoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=qPeFWdSGUwPoLTtvdw+t3PTmisXJgjO/+2CUFTVvAnI=;
- b=SpnVB9vFzXqQxKkX/ZiqSN+slSkplW1iNMK4lCrfqStdZx8+ljYY4vTAXqntcIuMt0
- 4XA33qs8LYl/KtSeZdpfFxdOVpgjUrZ8/M4hVYizNNSZE/8/XfNkyARGOzuNn8SvNeRo
- SfRsYSmqhzp+5Ajv7eAGkyPBjbkt70YjNL0Qo/ufhixuNVARZ0XNxXqOyf5JKAJkdFSW
- W/wXnWq/04tH0KvKD5ctQ8M7aXSkokQ++at/FClXfCmus3bUIol+7/jlnJtOJUX0/XcO
- 8DGvjGCR9xFX+ND1KhuCGcbtEcP4K2bYXSnxrKAju/481av8smW1MB5i02G2iX8ea6Rg
- dzIA==
-X-Gm-Message-State: AOAM530DEhrd3TVnf5vDNdWM7/Es3uuxkTmWNToV7jVXaC+94gFF+QK8
- HFuvAWGczrYHuMFt44hyePR5vFkgzCONP8aG0Kk=
-X-Google-Smtp-Source: ABdhPJyBS//Oq4DVmHLeNXOXVkN5codPHnBakK9v3hzJfJ7UcklZvbDU79heU6Lgoci8wYJYWHS5FK4k55lHB8ITY3M=
-X-Received: by 2002:a9d:6287:: with SMTP id x7mr4020375otk.132.1623430543221; 
- Fri, 11 Jun 2021 09:55:43 -0700 (PDT)
+ bh=EOxLssMDgHe7xL+dylkE4S2F3e3lCUddBHS4Da7pGbI=;
+ b=D5ugxmoDX6tUDyb2zvws3j52LAd0fkRmsN/AP7nx5dbf4LA+pPlfPOuXEhqh23LdDr
+ FnLUIP3Kj9XCmAY9LOCGnLxIbi3xWJ3cDJ8T7aituARTM1+00J2ziTbdn8RRhpl8GClI
+ BObSdsqJyxyYdnNuz9GUuYgHfsAULot3y6hNsOURgq3PGc4D40p2/W6mYR5d3vca+0Y1
+ MWlfGf+93b+0RyxsxVO0dSHWd8PYFEYzdoo5bPZfGkNmjgxi/e5C15cj38rpuFmE0dsR
+ v4Uj3bSP0sqQH4cGAWcmoAilSSNYFTMV6iWhrmB2IwfJM4UKnEQoKbidYEOIDiGmc+2/
+ H59A==
+X-Gm-Message-State: AOAM532cAubieyi244jnQxO8/egYkk0ziNkLiGFhIGBH+VFU+CIUU1vE
+ P6GMuVrjeZqzJW1aQdzzx0oos6h0CS5O1/7zt/I=
+X-Google-Smtp-Source: ABdhPJzpVvqrWlz9PdYxlV/zUxSVEoUBpr0oA5OC/6IAFDu1s+fvxKe9m2JoBX3pBGB8ACICZn6RdfR8z4gXhTfAQW4=
+X-Received: by 2002:a9d:6287:: with SMTP id x7mr4037997otk.132.1623430901072; 
+ Fri, 11 Jun 2021 10:01:41 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210611154839.109966-1-aurabindo.pillai@amd.com>
-In-Reply-To: <20210611154839.109966-1-aurabindo.pillai@amd.com>
+References: <20210608213954.5517-1-luben.tuikov@amd.com>
+ <20210608213954.5517-21-luben.tuikov@amd.com>
+In-Reply-To: <20210608213954.5517-21-luben.tuikov@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 11 Jun 2021 12:55:32 -0400
-Message-ID: <CADnq5_NC0_9+noqbqvm9u9QY-p1igpsv8YRHs9th96bn-a2rDw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: add dummy PG callback for beige goby
-To: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Date: Fri, 11 Jun 2021 13:01:30 -0400
+Message-ID: <CADnq5_N3OHc2_G08BbFJHx1sqErQDP_+uvCKHfXGA7=dziBxVw@mail.gmail.com>
+Subject: Re: [PATCH 20/40] drm/amdgpu: EEPROM respects I2C quirks
+To: Luben Tuikov <luben.tuikov@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,65 +73,143 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>,
+ Lijo Lazar <Lijo.Lazar@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Stanley Yang <Stanley.Yang@amd.com>,
+ Alexander Deucher <Alexander.Deucher@amd.com>, Jean Delvare <jdelvare@suse.de>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jun 11, 2021 at 11:48 AM Aurabindo Pillai
-<aurabindo.pillai@amd.com> wrote:
+On Tue, Jun 8, 2021 at 5:40 PM Luben Tuikov <luben.tuikov@amd.com> wrote:
 >
-> [Why&How]
-> PG registers are absent in beige goby, so programming these registers
-> generate call trace. Fix this by adding a dummy function in dcn303
-> initialization function which prevents writing to non existant registers.
+> Consult the i2c_adapter.quirks table for
+> the maximum read/write data length per bus
+> transaction. Do not exceed this transaction
+> limit.
 >
-> Fixes: 54f910c6372e ("drm/amd/display: Initial DC support for Beige Goby")
-> Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-
+> Cc: Jean Delvare <jdelvare@suse.de>
+> Cc: Alexander Deucher <Alexander.Deucher@amd.com>
+> Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
+> Cc: Lijo Lazar <Lijo.Lazar@amd.com>
+> Cc: Stanley Yang <Stanley.Yang@amd.com>
+> Cc: Hawking Zhang <Hawking.Zhang@amd.com>
+> Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
 > ---
->  drivers/gpu/drm/amd/display/dc/dcn303/dcn303_hwseq.c | 5 +++++
->  drivers/gpu/drm/amd/display/dc/dcn303/dcn303_hwseq.h | 1 +
->  drivers/gpu/drm/amd/display/dc/dcn303/dcn303_init.c  | 1 +
->  3 files changed, 7 insertions(+)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c | 80 +++++++++++++++++-----
+>  1 file changed, 64 insertions(+), 16 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_hwseq.c
-> index dc33ec8b7bdb..b48b732aa647 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_hwseq.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_hwseq.c
-> @@ -38,3 +38,8 @@ void dcn303_dsc_pg_control(struct dce_hwseq *hws, unsigned int dsc_inst, bool po
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
+> index 7fdb5bd2fc8bc8..94aeda1c7f8ca0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
+> @@ -32,20 +32,9 @@
+>
+>  #define EEPROM_OFFSET_SIZE 2
+>
+> -/**
+> - * amdgpu_eeprom_xfer -- Read/write from/to an I2C EEPROM device
+> - * @i2c_adap: pointer to the I2C adapter to use
+> - * @slave_addr: I2C address of the slave device
+> - * @eeprom_addr: EEPROM address from which to read/write
+> - * @eeprom_buf: pointer to data buffer to read into/write from
+> - * @buf_size: the size of @eeprom_buf
+> - * @read: True if reading from the EEPROM, false if writing
+> - *
+> - * Returns the number of bytes read/written; -errno on error.
+> - */
+> -int amdgpu_eeprom_xfer(struct i2c_adapter *i2c_adap,
+> -                      u16 slave_addr, u16 eeprom_addr,
+> -                      u8 *eeprom_buf, u16 buf_size, bool read)
+> +static int __amdgpu_eeprom_xfer(struct i2c_adapter *i2c_adap,
+> +                               u16 slave_addr, u16 eeprom_addr,
+> +                               u8 *eeprom_buf, u16 buf_size, bool read)
 >  {
->         /*DCN303 removes PG registers*/
+>         u8 eeprom_offset_buf[EEPROM_OFFSET_SIZE];
+>         struct i2c_msg msgs[] = {
+> @@ -65,8 +54,8 @@ int amdgpu_eeprom_xfer(struct i2c_adapter *i2c_adap,
+>         u16 len;
+>
+>         r = 0;
+> -       for (len = 0; buf_size > 0;
+> -            buf_size -= len, eeprom_addr += len, eeprom_buf += len) {
+> +       for ( ; buf_size > 0;
+> +             buf_size -= len, eeprom_addr += len, eeprom_buf += len) {
+>                 /* Set the EEPROM address we want to write to/read from.
+>                  */
+>                 msgs[0].buf[0] = (eeprom_addr >> 8) & 0xff;
+> @@ -120,3 +109,62 @@ int amdgpu_eeprom_xfer(struct i2c_adapter *i2c_adap,
+>
+>         return r < 0 ? r : eeprom_buf - p;
 >  }
 > +
-> +void dcn303_enable_power_gating_plane(struct dce_hwseq *hws, bool enable)
+> +/**
+> + * amdgpu_eeprom_xfer -- Read/write from/to an I2C EEPROM device
+> + * @i2c_adap: pointer to the I2C adapter to use
+> + * @slave_addr: I2C address of the slave device
+> + * @eeprom_addr: EEPROM address from which to read/write
+> + * @eeprom_buf: pointer to data buffer to read into/write from
+> + * @buf_size: the size of @eeprom_buf
+> + * @read: True if reading from the EEPROM, false if writing
+> + *
+> + * Returns the number of bytes read/written; -errno on error.
+> + */
+> +int amdgpu_eeprom_xfer(struct i2c_adapter *i2c_adap,
+> +                      u16 slave_addr, u16 eeprom_addr,
+> +                      u8 *eeprom_buf, u16 buf_size, bool read)
 > +{
-> +       /*DCN303 removes PG registers*/
+> +       const struct i2c_adapter_quirks *quirks = i2c_adap->quirks;
+> +       u16 limit;
+> +
+> +       if (!quirks)
+> +               limit = 0;
+> +       else if (read)
+> +               limit = quirks->max_read_len;
+> +       else
+> +               limit = quirks->max_write_len;
+> +
+> +       if (limit == 0) {
+> +               return __amdgpu_eeprom_xfer(i2c_adap, slave_addr, eeprom_addr,
+> +                                           eeprom_buf, buf_size, read);
+> +       } else if (limit <= EEPROM_OFFSET_SIZE) {
+> +               dev_err_ratelimited(&i2c_adap->dev,
+> +                                   "maddr:0x%04X size:0x%02X:quirk max_%s_len must be > %d",
+> +                                   eeprom_addr, buf_size,
+> +                                   read ? "read" : "write", EEPROM_OFFSET_SIZE);
+> +               return -EINVAL;
+
+I presume we handle this case properly at higher levels (i.e., split
+up EEPROM updates into smaller transactions)?
+
+Alex
+
+
+> +       } else {
+> +               u16 ps; /* Partial size */
+> +               int res = 0, r;
+> +
+> +               /* The "limit" includes all data bytes sent/received,
+> +                * which would include the EEPROM_OFFSET_SIZE bytes.
+> +                * Account for them here.
+> +                */
+> +               limit -= EEPROM_OFFSET_SIZE;
+> +               for ( ; buf_size > 0;
+> +                     buf_size -= ps, eeprom_addr += ps, eeprom_buf += ps) {
+> +                       ps = min(limit, buf_size);
+> +
+> +                       r = __amdgpu_eeprom_xfer(i2c_adap,
+> +                                                slave_addr, eeprom_addr,
+> +                                                eeprom_buf, ps, read);
+> +                       if (r < 0)
+> +                               return r;
+> +                       res += r;
+> +               }
+> +
+> +               return res;
+> +       }
 > +}
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_hwseq.h b/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_hwseq.h
-> index fc6cab720b6d..8b69a3b76c11 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_hwseq.h
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_hwseq.h
-> @@ -13,5 +13,6 @@
->  void dcn303_dpp_pg_control(struct dce_hwseq *hws, unsigned int dpp_inst, bool power_on);
->  void dcn303_hubp_pg_control(struct dce_hwseq *hws, unsigned int hubp_inst, bool power_on);
->  void dcn303_dsc_pg_control(struct dce_hwseq *hws, unsigned int dsc_inst, bool power_on);
-> +void dcn303_enable_power_gating_plane(struct dce_hwseq *hws, bool enable);
->
->  #endif /* __DC_HWSS_DCN303_H__ */
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_init.c b/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_init.c
-> index 86d4b303d02f..aa5dbbade2bd 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_init.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_init.c
-> @@ -16,4 +16,5 @@ void dcn303_hw_sequencer_construct(struct dc *dc)
->         dc->hwseq->funcs.dpp_pg_control = dcn303_dpp_pg_control;
->         dc->hwseq->funcs.hubp_pg_control = dcn303_hubp_pg_control;
->         dc->hwseq->funcs.dsc_pg_control = dcn303_dsc_pg_control;
-> +       dc->hwseq->funcs.enable_power_gating_plane = dcn303_enable_power_gating_plane;
->  }
 > --
 > 2.32.0
 >
