@@ -2,69 +2,128 @@ Return-Path: <SRS0=qfa3=LF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 782A4C48BE0
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Jun 2021 17:51:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 489F3C48BE0
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Jun 2021 17:55:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 32942613CF
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Jun 2021 17:51:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 32942613CF
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 16DE9613D3
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Jun 2021 17:55:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 16DE9613D3
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CEE7C6F3AD;
-	Fri, 11 Jun 2021 17:51:16 +0000 (UTC)
-Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
- [IPv6:2607:f8b0:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E9E4A6E06E
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Jun 2021 17:51:14 +0000 (UTC)
-Received: by mail-oi1-x22b.google.com with SMTP id r16so6271546oiw.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Jun 2021 10:51:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=9lR3ILe9evccIqwiksjVLibKEXYhxYQ1tYF8A5BfSoY=;
- b=k5XE+wiSHw84yM6FIMBnoaCVtJephQKnwX34SLAS0NtW5IisPCjTPgoIlXZaFxZbQa
- Cc+ICPI5kEzK8+kfe71T2+bPOUIieQYwoUqIraFOanB52oqtNQvZyd67rgbBDtleNL3g
- R9tzWbBWT+nCu0OBrbxXhOrEDOcDpHuRO+6kKtvlaNr7P7yVgLD52M0QhH7H+CepjT1s
- W1bZDg/BjV/sQHZx921oacf9JMh32Cs/6rUn0ySQ3FxRVhfxnbVDMmGYgkaGgHvaN0pr
- dEftkDXWCb6HhP1IbPDbF5QkPTvLHUp7SPWGMUqCLvBywcN9Y+a9uORwvITRkL/4E0mf
- 3+Wg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=9lR3ILe9evccIqwiksjVLibKEXYhxYQ1tYF8A5BfSoY=;
- b=nGgLKv0kgVM+wIySc8M+RsdqErU8ILTsGJVsD3E57o+QmknjdqFWmIsAvjKNcJH1qC
- rHovAdkNX3AS7rGb2snTG3kA4xqdY2UxpbLUh0KM2NifmizRy2tVDStEARamW9Va99Td
- fWO2tYHHSvNdJkF9tJ7PB6uHcecZRhyhAi4VZF9K1wKufDdA+0dhv3xGauTvF32qtPBS
- Tl3ZOhuPHznElfFcxwnLhrR3DVvmGo0QgE4EviTblIHvcaKP/Aw5B/+W3szUxG1VF3bk
- 8meB1NwoUaavslvBC2fL+YudA2vCNoidW5ObQlx3k7MMpl5IglouL4AFIDXBAlwpmhRN
- Vefw==
-X-Gm-Message-State: AOAM531juGuc/6gbkzHC5cDoeMl1JifY98/3yzHJldxweB6PrgwWrSwI
- suMnRQSIfwO6sz7lsue9KX3+vSEm20R2psZdusM=
-X-Google-Smtp-Source: ABdhPJyIF8xdkKakDCPLpQLTwsTPbHuKj4yoqMuXHIlFxL9kXtRyp/0JR0OjXQX2d4WqOvQxNNcs5U7ovBFNZNVZM0Y=
-X-Received: by 2002:a05:6808:999:: with SMTP id
- a25mr3231256oic.123.1623433874129; 
- Fri, 11 Jun 2021 10:51:14 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8ED216E06E;
+	Fri, 11 Jun 2021 17:55:34 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2069.outbound.protection.outlook.com [40.107.94.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 044D16E06E
+ for <amd-gfx@lists.freedesktop.org>; Fri, 11 Jun 2021 17:55:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=BZMoO9d5aPIa/V2P5zMwhDaJwC4mZKHkXA6HQXFNdThi619XHY23Md0mnClxEMh5qllk1wHa88oW7YdMJgZQyznx+hqFqO1NFSnQTfcsw2M+A03LEYBHTd/sVlfcSDcWhwN1eHs2wVnJgmSPjeKc/SlwoIHMyO7Q6hWO/udu3clz0g4Dr/k5QaOEnLOSsfCAZ5jF4UA84qSTpK586Y85Og9Sjj6YrORgnYddjkWfC1UcpYkFfAvBDVGpaANkMt4MztQHxEjZunJitFOWR9JjQ03yoUCHGAgfLKxbOgI0fClHqq8Spi2IZocoJqPk3uekU2/3xIt7tybejd9wit/VaQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SnmZ8Hkne4640jHM9scqI6EO+IOnqToStZGUHm5yijc=;
+ b=F37QcwvxV46AB0FPrXycbjpAt1Joyr4BWJyB43sv4AFjHlwVa/1nLuEm5BEbVllMCQRORXejtuSVL9jdlPodrNI2/hfMJqAdLAqgYF1toTQiPrlBFI2wk14Y+sYt+nWIUHkSw6w3lkSVwvifWxsKlsFQ+qbIOGR9z5EZ5zmjoLS4asjTRRN7VKnjgz7TlBxpsLKJAtH+0RXbcHTADe77F821Ibv0h0bIOec+ETpAVVEIq8xj6LlXg0nvUXWOHWHpzNX0NKSE0g2/bsE8PaFzgiFXhF711gzpu6TyRsvtVR9QFOdWSCPvrG4eWn8xUu8ZUoYL/dvvXM4Olau4LCm+vw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SnmZ8Hkne4640jHM9scqI6EO+IOnqToStZGUHm5yijc=;
+ b=f9bDMpE4k9rMZl7H36iztP4m3M3m4787r7cda9zzHvpUjNRsZBYk7eGtVhuh083h+Syn7OqTsb/scV3BZbD8BnWeT204iugx/HH1hFcqq8Bp8gjHWJqgdp9PKhO6rQyiteiskEFiZTFMjRBYhlJg48lZdbUSO9HFiLA0ulOeMRQ=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
+ by DM4PR12MB5374.namprd12.prod.outlook.com (2603:10b6:5:39a::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.21; Fri, 11 Jun
+ 2021 17:55:32 +0000
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::f0d0:ef63:9b7e:b13]) by DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::f0d0:ef63:9b7e:b13%4]) with mapi id 15.20.4219.024; Fri, 11 Jun 2021
+ 17:55:32 +0000
+Subject: Re: [PATCH 1/1] drm/amdkfd: Disable SVM per GPU, not per process
+To: Felix Kuehling <Felix.Kuehling@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20210610232916.23748-1-Felix.Kuehling@amd.com>
+From: philip yang <yangp@amd.com>
+Message-ID: <1ffd2a32-b7ab-b023-fe1a-95242b80c686@amd.com>
+Date: Fri, 11 Jun 2021 13:55:30 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
+In-Reply-To: <20210610232916.23748-1-Felix.Kuehling@amd.com>
+Content-Language: en-CA
+X-Originating-IP: [165.204.55.251]
+X-ClientProxiedBy: YTBPR01CA0029.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:14::42) To DM4PR12MB5149.namprd12.prod.outlook.com
+ (2603:10b6:5:390::14)
 MIME-Version: 1.0
-References: <20210608213954.5517-1-luben.tuikov@amd.com>
- <20210608213954.5517-39-luben.tuikov@amd.com>
- <CADnq5_NsmgQL6A6Q6mD4DHsKmA9dFhKLrnpHN6QQ7sLCDzQ+sQ@mail.gmail.com>
- <a04000e4-4d5f-560a-2193-0545ee3af8a5@amd.com>
-In-Reply-To: <a04000e4-4d5f-560a-2193-0545ee3af8a5@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 11 Jun 2021 13:51:03 -0400
-Message-ID: <CADnq5_Nt+4P0+6iVEd6JaNSu6rGjRpv7QCcoJedHmoiww8X4OQ@mail.gmail.com>
-Subject: Re: [PATCH 38/40] drm/amdgpu: RAS EEPROM table is now in debugfs
-To: Luben Tuikov <luben.tuikov@amd.com>
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [172.27.226.38] (165.204.55.251) by
+ YTBPR01CA0029.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:14::42) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4219.21 via Frontend Transport; Fri, 11 Jun 2021 17:55:32 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 31c7b08c-2a6a-476f-df2c-08d92d021b73
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5374:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM4PR12MB5374A906C0767851A5464728E6349@DM4PR12MB5374.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: NeepNB9pjYDQBbBOFIr5KmtdngUWtZLAZ7iDH2wRoHoiH/rgkZ0ZkFO4Hlg03YwE4jFU7SMeFaQUhOvO2xCgqRp4N8hnhVMgW4I/8lyQ/gigIzImA6vhtdoeL9/a2Z9Dzy8goskHijndkKsNNjD3kD0rTWI8VGvUXVJ0vHhI1UGzULjPhXudL1RR0Cg6sHESQzvvAEm91vRg/HDsIE/gjwLmJoptgSL2TXeD9D8TLp7NNMMqBJKt1SsiD67cw5AfAqMoP+2XEwt3HlaiAUKRrW7NwTpeFwoeUHf7j4qiLTDLCwUlBpRS7/GuSBFaYdceFMcqgcC6+dcJs5Audy+oaas7OBIlmi5IpWZIQk7KKYZ9ZwQu4WkKRAgn2LyXIYVqVSuMnKLmwqgVUo9uHiJb2C+9ghmdMYZ5XT8rPgvjLeoLBhh7NGV6gfNT8CWrrs9DL4GtPoKGc7obIgO1Pb/ybU0Gy3TEjvXgeNV6UM8eIyFUAUJbF528F16xXqthP3iACK0OS9b7lhH72G7QZllKHfWRpJftPcBdgqkVQ4OdCZYzi5bjSsB/4QpuQ7YCahKlGPaPa0vyPrp1w/gHl3Vqux5e8FvSzAbl20C0TsyZAZA+v+ZopNX2AeCVqHaoEY/GT1ED/wu3WqoVneHlVrVxWv3enOIh27xMBXGXvrv9ckVu35XH6SQ6n5hD8jvL2MSn
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(376002)(39860400002)(346002)(136003)(366004)(396003)(4326008)(5660300002)(8936002)(83380400001)(36756003)(478600001)(66946007)(8676002)(31686004)(26005)(53546011)(186003)(16576012)(6486002)(66476007)(16526019)(66556008)(2616005)(956004)(316002)(2906002)(38100700002)(31696002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S2M4K21YWFlCMDNyQ3VFS0JWUUR0NXB6Qmp0Y0ZWbjFvZDlqUXZSYkZWYU5u?=
+ =?utf-8?B?OTNqK3ZkdUtleXNySHpSSDVMSjRBeDZ5RWd0NzR1QWVTdDE5NWhPb1E2YmtD?=
+ =?utf-8?B?TjhZaGRBcytzOS9taTJ2UGhVZmxjZk45UCtXS2s0eTc3NEpCRnJRNFBWMUVk?=
+ =?utf-8?B?ZjJ2YVdSclRlbDgvSVg4YmNWQ3N1dGJ0SGhZWHZlUW1nM0lHUkJoOWgzSXVT?=
+ =?utf-8?B?bnU1aGhIek9sQnl6VHFWVFQrdFpWNFpuSFFwTGhNdW5zRi9TMlNRWVc3R2F4?=
+ =?utf-8?B?ay85Y3dDZjNFdFVTZ2dSbkd1SXRsMlZVT3hnVDZiQzFObDNUOFJ3YTYrNk1I?=
+ =?utf-8?B?dWJtQ2RJbEVLR0ZYL05sQklOREE0c212U25OZzdJY0ZMSzNBQnZadXo2a01q?=
+ =?utf-8?B?RzYrb2dqQTE0cWgzM256Vk84aFd6VXhjZTIrbnQva25qckduVHQ1WnNuTTdU?=
+ =?utf-8?B?b2w5bDRYUWJaSWw0c2dWb2NMNlhMY3llWkRJYzJWcUNyZmdmeVNFbmVpd2kv?=
+ =?utf-8?B?djl1Z2JiT0ZuWjBJbEFTV2MwV0VvNUlINjg4SWlUYzlabU9oNVRXM3R3eVov?=
+ =?utf-8?B?SFlsbjlKc3d4enhOemxjaVdCQjBwNVBrQzB2SnFFNlpMSlMyZ2lTUVdNSkVr?=
+ =?utf-8?B?eFlxcjlFaC83YTJLbGlmYStuRVB6TC9TSnFJNFdDOWZIQXo4Mm9KdGlIQW1m?=
+ =?utf-8?B?SWNjRmpSZUhpVXl3dGZNbGJKSGVqWUNKMkMvcVJqN2lPdUtxbjE4Y0pTSnp5?=
+ =?utf-8?B?UUpNN1pRc0VSSjY5cW1VMWlRZy9Wdksyc1JzK083WExNbVZFMjVualhJaEdr?=
+ =?utf-8?B?c254OE5ETlR0QTVMKzdEbVJCcjdFSSt3Y3NoNnZQcWFKR3l0UWN3RFN4SGw1?=
+ =?utf-8?B?WElObWFWWWJHRmdaOTRKd20zUFFXWE4vZngzdjNkRGFGeFEveEZKM0xMVkhv?=
+ =?utf-8?B?Wkl2QzJEU01vT2N4b1cvRHpJMTlrQVRiekMrVGJGT3Ztd0FHOCttbFgzQzFJ?=
+ =?utf-8?B?OVcxc28zUUhhUG1aYnFENS9OaFJ6U3BuZFRueWpIdVRXV254OWZQY0owazJB?=
+ =?utf-8?B?bFlpVnRUOVVEY0RmdjhmcWdNdWgzNkE1UU5HRVdBaDQvL1czek1lR1JlWFVv?=
+ =?utf-8?B?RHp2NDA0Y3Vjais0TzIyYW5NRGZFcWN3UFVxcU5YbzJzYWhwNS9jTDBvQkFH?=
+ =?utf-8?B?TldVbm83b1ZNTk1xNDJlOS9IdlpmbzNHcFdMOWpDV0xIbWpvbG1jcjRJRTFF?=
+ =?utf-8?B?OTFWNXJGbEtDZ0E2RE1kZTkzTEVQSDlwdU5UdkNhMVRCSi9TaEk2eVlLYzY1?=
+ =?utf-8?B?eUNIalpVdlRWejI3VEdDUTMyU3BFU2ZIMVpsekUybmFITlZGQUxOQ05lUytu?=
+ =?utf-8?B?dFE3R1JzY3BBVWxUS0poRU4wMjZaNjc4V25NU2hpSUZkTHh4OXh5aTVhTGRy?=
+ =?utf-8?B?WmpEaktSMGtDQSs3NjJlZkxyVmJ5M1l4Mm42a04xY3E3STMzbE9TNk9NNnpz?=
+ =?utf-8?B?K0JSQWJNS3NCUzBUSk5STThwdFVuUWtVNGhnOXFxRXk1dnVVeWp4L0hBc1lw?=
+ =?utf-8?B?enA5V2o3NWdZaWs3TXhVTDlUVm5aKzJVN21zVllWc0xTeXhCeDcyQUcxN1ZL?=
+ =?utf-8?B?THZhaEh4N2RsaUQ3L0lXNmdpaFNBa0NuQ1hSNTRuNGJETlk4c1dZSCtuK3Fn?=
+ =?utf-8?B?U3VsZHlUbW5mWlpGa3VOZUp3RlpoenExaG8yRGtsajJaa24raUxqOENIdTdp?=
+ =?utf-8?Q?q8qzBjB5fOJ5QMRaRTP1vn4TWO03BBpOxm9uNLM?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 31c7b08c-2a6a-476f-df2c-08d92d021b73
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2021 17:55:32.4952 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8DWXz/E4lPTXnJDhNYwz80D8nMiEANIUMJMKKFbyVXCGYP6CTKpK8BFCz8+vrEDt
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5374
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,458 +135,321 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>,
- Xinhui Pan <xinhui.pan@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Alexander Deucher <Alexander.Deucher@amd.com>,
- John Clements <john.clements@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: alex.sierra@amd.com
+Content-Type: multipart/mixed; boundary="===============0837172612=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jun 11, 2021 at 1:30 PM Luben Tuikov <luben.tuikov@amd.com> wrote:
->
-> On 2021-06-11 1:16 p.m., Alex Deucher wrote:
-> > On Tue, Jun 8, 2021 at 5:41 PM Luben Tuikov <luben.tuikov@amd.com> wrote:
-> >> Add "ras_eeprom_size" file in debugfs, which
-> >> reports the maximum size allocated to the RAS
-> >> table in EEROM, as the number of bytes and the
-> >> number of records it could store. For instance,
-> >>
-> >> $cat /sys/kernel/debug/dri/0/ras/ras_eeprom_size
-> >> 262144 bytes or 10921 records
-> >> $_
-> >>
-> >> Add "ras_eeprom_table" file in debugfs, which
-> >> dumps the RAS table stored EEPROM, in a formatted
-> >> way. For instance,
-> >>
-> >> $cat ras_eeprom_table
-> >>  Signature    Version  FirstOffs       Size   Checksum
-> >> 0x414D4452 0x00010000 0x00000014 0x000000EC 0x000000DA
-> >> Index  Offset ErrType Bank/CU          TimeStamp      Offs/Addr MemChl MCUMCID    RetiredPage
-> >>     0 0x00014      ue    0x00 0x00000000607608DC 0x000000000000   0x00    0x00 0x000000000000
-> >>     1 0x0002C      ue    0x00 0x00000000607608DC 0x000000001000   0x00    0x00 0x000000000001
-> >>     2 0x00044      ue    0x00 0x00000000607608DC 0x000000002000   0x00    0x00 0x000000000002
-> >>     3 0x0005C      ue    0x00 0x00000000607608DC 0x000000003000   0x00    0x00 0x000000000003
-> >>     4 0x00074      ue    0x00 0x00000000607608DC 0x000000004000   0x00    0x00 0x000000000004
-> >>     5 0x0008C      ue    0x00 0x00000000607608DC 0x000000005000   0x00    0x00 0x000000000005
-> >>     6 0x000A4      ue    0x00 0x00000000607608DC 0x000000006000   0x00    0x00 0x000000000006
-> >>     7 0x000BC      ue    0x00 0x00000000607608DC 0x000000007000   0x00    0x00 0x000000000007
-> >>     8 0x000D4      ue    0x00 0x00000000607608DD 0x000000008000   0x00    0x00 0x000000000008
-> >> $_
-> >>
-> >> Cc: Alexander Deucher <Alexander.Deucher@amd.com>
-> >> Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
-> >> Cc: John Clements <john.clements@amd.com>
-> >> Cc: Hawking Zhang <Hawking.Zhang@amd.com>
-> >> Cc: Xinhui Pan <xinhui.pan@amd.com>
-> >> Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
-> > Seems like a useful feature.  Just a few comments below.
-> >
-> > Alex
-> >
-> >
-> >> ---
-> >>  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c       |  12 +-
-> >>  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h       |   1 +
-> >>  .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c    | 241 +++++++++++++++++-
-> >>  .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h    |  10 +-
-> >>  4 files changed, 252 insertions(+), 12 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> >> index 1424f2cc2076c1..d791a360a92366 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> >> @@ -404,9 +404,9 @@ static ssize_t amdgpu_ras_debugfs_ctrl_write(struct file *f,
-> >>                 /* umc ce/ue error injection for a bad page is not allowed */
-> >>                 if ((data.head.block == AMDGPU_RAS_BLOCK__UMC) &&
-> >>                     amdgpu_ras_check_bad_page(adev, data.inject.address)) {
-> >> -                       dev_warn(adev->dev, "RAS WARN: 0x%llx has been marked "
-> >> -                                       "as bad before error injection!\n",
-> >> -                                       data.inject.address);
-> >> +                       dev_warn(adev->dev, "RAS WARN: inject: 0x%llx has "
-> >> +                                "already been marked as bad!\n",
-> >> +                                data.inject.address);
-> > This seems unrelated to this patch.
->
-> It's just cosmetic fix, to correctly align, as it seems that the previous alignment was arbitrary.
-> Just pressing TAB in Emacs does wonders. :-)
->
-> I was in this file and decided to fix this. It's just cosmetic. No functional change.
->
-> >
-> >>                         break;
-> >>                 }
-> >>
-> >> @@ -1301,6 +1301,12 @@ static struct dentry *amdgpu_ras_debugfs_create_ctrl_node(struct amdgpu_device *
-> >>                            &con->bad_page_cnt_threshold);
-> >>         debugfs_create_x32("ras_hw_enabled", 0444, dir, &adev->ras_hw_enabled);
-> >>         debugfs_create_x32("ras_enabled", 0444, dir, &adev->ras_enabled);
-> >> +       debugfs_create_file("ras_eeprom_size", S_IRUGO, dir, adev,
-> >> +                           &amdgpu_ras_debugfs_eeprom_size_ops);
-> >> +       con->de_ras_eeprom_table = debugfs_create_file("ras_eeprom_table",
-> >> +                                                      S_IRUGO, dir, adev,
-> >> +                                                      &amdgpu_ras_debugfs_eeprom_table_ops);
-> >> +       amdgpu_ras_debugfs_set_ret_size(&con->eeprom_control);
-> >>
-> >>         /*
-> >>          * After one uncorrectable error happens, usually GPU recovery will
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-> >> index 256cea5d34f2b6..283afd791db107 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-> >> @@ -318,6 +318,7 @@ struct amdgpu_ras {
-> >>         /* sysfs */
-> >>         struct device_attribute features_attr;
-> >>         struct bin_attribute badpages_attr;
-> >> +       struct dentry *de_ras_eeprom_table;
-> >>         /* block array */
-> >>         struct ras_manager *objs;
-> >>
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-> >> index dc4a845a32404c..677e379f5fb5e9 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-> >> @@ -27,6 +27,8 @@
-> >>  #include <linux/bits.h>
-> >>  #include "atom.h"
-> >>  #include "amdgpu_eeprom.h"
-> >> +#include <linux/debugfs.h>
-> >> +#include <linux/uaccess.h>
-> >>
-> >>  #define EEPROM_I2C_MADDR_VEGA20         0x0
-> >>  #define EEPROM_I2C_MADDR_ARCTURUS       0x40000
-> >> @@ -70,6 +72,13 @@
-> >>  #define RAS_OFFSET_TO_INDEX(_C, _O) (((_O) - \
-> >>                                       (_C)->ras_record_offset) / RAS_TABLE_RECORD_SIZE)
-> >>
-> >> +/* Given a 0-based relative record index, 0, 1, 2, ..., etc., off
-> >> + * of "fri", return the absolute record index off of the end of
-> >> + * the table header.
-> >> + */
-> >> +#define RAS_RI_TO_AI(_C, _I) (((_I) + (_C)->ras_fri) % \
-> >> +                             (_C)->ras_max_record_count)
-> >> +
-> >>  #define RAS_NUM_RECS(_tbl_hdr)  (((_tbl_hdr)->tbl_size - \
-> >>                                   RAS_TABLE_HEADER_SIZE) / RAS_TABLE_RECORD_SIZE)
-> >>
-> >> @@ -77,13 +86,10 @@
-> >>
-> >>  static bool __is_ras_eeprom_supported(struct amdgpu_device *adev)
-> >>  {
-> >> -       if ((adev->asic_type == CHIP_VEGA20) ||
-> >> -           (adev->asic_type == CHIP_ARCTURUS) ||
-> >> -           (adev->asic_type == CHIP_SIENNA_CICHLID) ||
-> >> -           (adev->asic_type == CHIP_ALDEBARAN))
-> >> -               return true;
-> >> -
-> >> -       return false;
-> >> +       return  adev->asic_type == CHIP_VEGA20 ||
-> >> +               adev->asic_type == CHIP_ARCTURUS ||
-> >> +               adev->asic_type == CHIP_SIENNA_CICHLID ||
-> >> +               adev->asic_type == CHIP_ALDEBARAN;
-> > Unrelated whitespace change.
->
-> It's more readable and succinct like this, no?
->
-> Do you want me to revert these? I mean, they're pleasing to have and change no functionality, and since I was in this file...
->
+--===============0837172612==
+Content-Type: text/html; charset=utf-8
+Content-Language: en-CA
+Content-Transfer-Encoding: 7bit
 
-Don't worry about respinning to break these out in this patch, but in
-general it's better to keep formatting cleanups separate from
-functional changes; makes it easier to review the functional changes.
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2021-06-10 7:29 p.m., Felix Kuehling
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:20210610232916.23748-1-Felix.Kuehling@amd.com">
+      <pre class="moz-quote-pre" wrap="">When some GPUs don't support SVM, don't disabe it for the entire process.
+That would be inconsistent with the information the process got from the
+topology, which indicates SVM support per GPU.
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Instead disable SVM support only for the unsupported GPUs. This is done
+by checking any per-device attributes against the bitmap of supported
+GPUs. Also use the supported GPU bitmap to initialize access bitmaps for
+new SVM address ranges.
 
-Alex
+Don't handle recoverable page faults from unsupported GPUs. (I don't
+think there will be unsupported GPUs that can generate recoverable page
+faults. But better safe than sorry.)
 
+Signed-off-by: Felix Kuehling <a class="moz-txt-link-rfc2396E" href="mailto:Felix.Kuehling@amd.com">&lt;Felix.Kuehling@amd.com&gt;</a></pre>
+    </blockquote>
+    <p>It's smart way to handle SVM support and non support GPUs mixed
+      on one system.</p>
+    <p>One suggestion inline. With or without the suggest change, this
+      is</p>
+    <p>Reviewed-by: Philip Yang <a class="moz-txt-link-rfc2396E" href="mailto:philip.yang@amd.com">&lt;philip.yang@amd.com&gt;</a><br>
+    </p>
+    <blockquote type="cite" cite="mid:20210610232916.23748-1-Felix.Kuehling@amd.com">
+      <pre class="moz-quote-pre" wrap="">
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c     |  3 --
+ drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c |  4 --
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h        |  2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c     |  1 -
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c         | 55 ++++++++++++--------
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.h         |  7 +++
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c    |  6 +--
+ 7 files changed, 44 insertions(+), 34 deletions(-)
 
-> Regards,
-> Luben
->
-> >
-> >>  }
-> >>
-> >>  static bool __get_eeprom_i2c_addr_arct(struct amdgpu_device *adev,
-> >> @@ -258,6 +264,8 @@ int amdgpu_ras_eeprom_reset_table(struct amdgpu_ras_eeprom_control *control)
-> >>         control->ras_num_recs = 0;
-> >>         control->ras_fri = 0;
-> >>
-> >> +       amdgpu_ras_debugfs_set_ret_size(control);
-> >> +
-> >>         mutex_unlock(&control->ras_tbl_mutex);
-> >>
-> >>         return res;
-> >> @@ -591,6 +599,8 @@ int amdgpu_ras_eeprom_append(struct amdgpu_ras_eeprom_control *control,
-> >>         res = amdgpu_ras_eeprom_append_table(control, record, num);
-> >>         if (!res)
-> >>                 res = amdgpu_ras_eeprom_update_header(control);
-> >> +       if (!res)
-> >> +               amdgpu_ras_debugfs_set_ret_size(control);
-> >>
-> >>         mutex_unlock(&control->ras_tbl_mutex);
-> >>         return res;
-> >> @@ -734,6 +744,223 @@ inline uint32_t amdgpu_ras_eeprom_max_record_count(void)
-> >>         return RAS_MAX_RECORD_COUNT;
-> >>  }
-> >>
-> >> +static ssize_t
-> >> +amdgpu_ras_debugfs_eeprom_size_read(struct file *f, char __user *buf,
-> >> +                                   size_t size, loff_t *pos)
-> >> +{
-> >> +       struct amdgpu_device *adev = (struct amdgpu_device *)file_inode(f)->i_private;
-> >> +       struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
-> >> +       struct amdgpu_ras_eeprom_control *control = ras ? &ras->eeprom_control : NULL;
-> >> +       u8 data[50];
-> >> +       int res;
-> >> +
-> >> +       if (!size)
-> >> +               return size;
-> >> +
-> >> +       if (!ras || !control) {
-> >> +               res = snprintf(data, sizeof(data), "Not supported\n");
-> >> +       } else {
-> >> +               res = snprintf(data, sizeof(data), "%d bytes or %d records\n",
-> >> +                              RAS_TBL_SIZE_BYTES, control->ras_max_record_count);
-> >> +       }
-> >> +
-> >> +       if (*pos >= res)
-> >> +               return 0;
-> >> +
-> >> +       res -= *pos;
-> >> +       res = min_t(size_t, res, size);
-> >> +
-> >> +       if (copy_to_user(buf, &data[*pos], res))
-> >> +               return -EINVAL;
-> >> +
-> >> +       *pos += res;
-> >> +
-> >> +       return res;
-> >> +}
-> >> +
-> >> +const struct file_operations amdgpu_ras_debugfs_eeprom_size_ops = {
-> >> +       .owner = THIS_MODULE,
-> >> +       .read = amdgpu_ras_debugfs_eeprom_size_read,
-> >> +       .write = NULL,
-> >> +       .llseek = default_llseek,
-> >> +};
-> >> +
-> >> +static const char *tbl_hdr_str = " Signature    Version  FirstOffs       Size   Checksum\n";
-> >> +static const char *tbl_hdr_fmt = "0x%08X 0x%08X 0x%08X 0x%08X 0x%08X\n";
-> >> +#define tbl_hdr_fmt_size (5 * (2+8) + 4 + 1)
-> >> +static const char *rec_hdr_str = "Index  Offset ErrType Bank/CU          TimeStamp      Offs/Addr MemChl MCUMCID    RetiredPage\n";
-> >> +static const char *rec_hdr_fmt = "%5d 0x%05X %7s    0x%02X 0x%016llX 0x%012llX   0x%02X    0x%02X 0x%012llX\n";
-> >> +#define rec_hdr_fmt_size (5 + 1 + 7 + 1 + 7 + 1 + 7 + 1 + 18 + 1 + 14 + 1 + 6 + 1 + 7 + 1 + 14 + 1)
-> >> +
-> >> +static const char *record_err_type_str[AMDGPU_RAS_EEPROM_ERR_COUNT] = {
-> >> +       "ignore",
-> >> +       "re",
-> >> +       "ue",
-> >> +};
-> >> +
-> >> +static loff_t amdgpu_ras_debugfs_table_size(struct amdgpu_ras_eeprom_control *control)
-> >> +{
-> >> +       return strlen(tbl_hdr_str) + tbl_hdr_fmt_size +
-> >> +               strlen(rec_hdr_str) + rec_hdr_fmt_size * control->ras_num_recs;
-> >> +}
-> >> +
-> >> +void amdgpu_ras_debugfs_set_ret_size(struct amdgpu_ras_eeprom_control *control)
-> >> +{
-> >> +       struct amdgpu_ras *ras = container_of(control, struct amdgpu_ras,
-> >> +                                             eeprom_control);
-> >> +       struct dentry *de = ras->de_ras_eeprom_table;
-> >> +
-> >> +       if (de)
-> >> +               d_inode(de)->i_size = amdgpu_ras_debugfs_table_size(control);
-> >> +}
-> >> +
-> >> +static ssize_t amdgpu_ras_debugfs_table_read(struct file *f, char __user *buf,
-> >> +                                            size_t size, loff_t *pos)
-> >> +{
-> >> +       struct amdgpu_device *adev = (struct amdgpu_device *)file_inode(f)->i_private;
-> >> +       struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
-> >> +       struct amdgpu_ras_eeprom_control *control = &ras->eeprom_control;
-> >> +       const size_t orig_size = size;
-> >> +       int res = -EINVAL;
-> >> +       size_t data_len;
-> >> +
-> >> +       mutex_lock(&control->ras_tbl_mutex);
-> >> +
-> >> +       /* We want *pos - data_len > 0, which means there's
-> >> +        * bytes to be printed from data.
-> >> +        */
-> >> +       data_len = strlen(tbl_hdr_str);
-> >> +       if (*pos < data_len) {
-> >> +               data_len -= *pos;
-> >> +               data_len = min_t(size_t, data_len, size);
-> >> +               if (copy_to_user(buf, &tbl_hdr_str[*pos], data_len))
-> >> +                       goto Out;
-> >> +               buf += data_len;
-> >> +               size -= data_len;
-> >> +               *pos += data_len;
-> >> +       }
-> >> +
-> >> +       data_len = strlen(tbl_hdr_str) + tbl_hdr_fmt_size;
-> >> +       if (*pos < data_len && size > 0) {
-> >> +               u8 data[tbl_hdr_fmt_size + 1];
-> >> +               loff_t lpos;
-> >> +
-> >> +               snprintf(data, sizeof(data), tbl_hdr_fmt,
-> >> +                        control->tbl_hdr.header,
-> >> +                        control->tbl_hdr.version,
-> >> +                        control->tbl_hdr.first_rec_offset,
-> >> +                        control->tbl_hdr.tbl_size,
-> >> +                        control->tbl_hdr.checksum);
-> >> +
-> >> +               data_len -= *pos;
-> >> +               data_len = min_t(size_t, data_len, size);
-> >> +               lpos = *pos - strlen(tbl_hdr_str);
-> >> +               if (copy_to_user(buf, &data[lpos], data_len))
-> >> +                       goto Out;
-> >> +               buf += data_len;
-> >> +               size -= data_len;
-> >> +               *pos += data_len;
-> >> +       }
-> >> +
-> >> +       data_len = strlen(tbl_hdr_str) + tbl_hdr_fmt_size + strlen(rec_hdr_str);
-> >> +       if (*pos < data_len && size > 0) {
-> >> +               loff_t lpos;
-> >> +
-> >> +               data_len -= *pos;
-> >> +               data_len = min_t(size_t, data_len, size);
-> >> +               lpos = *pos - strlen(tbl_hdr_str) - tbl_hdr_fmt_size;
-> >> +               if (copy_to_user(buf, &rec_hdr_str[lpos], data_len))
-> >> +                       goto Out;
-> >> +               buf += data_len;
-> >> +               size -= data_len;
-> >> +               *pos += data_len;
-> >> +       }
-> >> +
-> >> +       data_len = amdgpu_ras_debugfs_table_size(control);
-> >> +       if (*pos < data_len && size > 0) {
-> >> +               u8 dare[RAS_TABLE_RECORD_SIZE];
-> >> +               u8 data[rec_hdr_fmt_size + 1];
-> >> +               /* Find the starting record index
-> >> +                */
-> >> +               int s = (*pos - strlen(tbl_hdr_str) - tbl_hdr_fmt_size -
-> >> +                        strlen(rec_hdr_str)) / rec_hdr_fmt_size;
-> >> +               int r = (*pos - strlen(tbl_hdr_str) - tbl_hdr_fmt_size -
-> >> +                        strlen(rec_hdr_str)) % rec_hdr_fmt_size;
-> >> +               struct eeprom_table_record record;
-> >> +
-> >> +               for ( ; size > 0 && s < control->ras_num_recs; s++) {
-> >> +                       u32 ai = RAS_RI_TO_AI(control, s);
-> >> +                       /* Read a single record
-> >> +                        */
-> >> +                       res = __amdgpu_ras_eeprom_read(control, dare, ai, 1);
-> >> +                       if (res)
-> >> +                               goto Out;
-> >> +                       __decode_table_record_from_buf(control, &record, dare);
-> >> +                       snprintf(data, sizeof(data), rec_hdr_fmt,
-> >> +                                s,
-> >> +                                RAS_INDEX_TO_OFFSET(control, ai),
-> >> +                                record_err_type_str[record.err_type],
-> >> +                                record.bank,
-> >> +                                record.ts,
-> >> +                                record.offset,
-> >> +                                record.mem_channel,
-> >> +                                record.mcumc_id,
-> >> +                                record.retired_page);
-> >> +
-> >> +                       data_len = min_t(size_t, rec_hdr_fmt_size - r, size);
-> >> +                       if (copy_to_user(buf, &data[r], data_len))
-> >> +                               return -EINVAL;
-> >> +                       buf += data_len;
-> >> +                       size -= data_len;
-> >> +                       *pos += data_len;
-> >> +                       r = 0;
-> >> +               }
-> >> +       }
-> >> +       res = 0;
-> >> +Out:
-> >> +       mutex_unlock(&control->ras_tbl_mutex);
-> >> +       return res < 0 ? res : orig_size - size;
-> >> +}
-> >> +
-> >> +static ssize_t
-> >> +amdgpu_ras_debugfs_eeprom_table_read(struct file *f, char __user *buf,
-> >> +                                    size_t size, loff_t *pos)
-> >> +{
-> >> +       struct amdgpu_device *adev = (struct amdgpu_device *)file_inode(f)->i_private;
-> >> +       struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
-> >> +       struct amdgpu_ras_eeprom_control *control = ras ? &ras->eeprom_control : NULL;
-> >> +       u8 data[81];
-> >> +       int res;
-> >> +
-> >> +       if (!size)
-> >> +               return size;
-> >> +
-> >> +       if (!ras || !control) {
-> >> +               res = snprintf(data, sizeof(data), "Not supported\n");
-> >> +               if (*pos >= res)
-> >> +                       return 0;
-> >> +
-> >> +               res -= *pos;
-> >> +               res = min_t(size_t, res, size);
-> >> +
-> >> +               if (copy_to_user(buf, &data[*pos], res))
-> >> +                       return -EINVAL;
-> >> +
-> >> +               *pos += res;
-> >> +
-> >> +               return res;
-> >> +       } else {
-> >> +               return amdgpu_ras_debugfs_table_read(f, buf, size, pos);
-> >> +       }
-> >> +}
-> >> +
-> >> +const struct file_operations amdgpu_ras_debugfs_eeprom_table_ops = {
-> >> +       .owner = THIS_MODULE,
-> >> +       .read = amdgpu_ras_debugfs_eeprom_table_read,
-> >> +       .write = NULL,
-> >> +       .llseek = default_llseek,
-> >> +};
-> >> +
-> >>  /**
-> >>   * __verify_ras_table_checksum -- verify the RAS EEPROM table checksum
-> >>   * @control: pointer to control structure
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h
-> >> index edb0195ea2eb8c..430e08ab3313a2 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h
-> >> @@ -29,9 +29,10 @@
-> >>  struct amdgpu_device;
-> >>
-> >>  enum amdgpu_ras_eeprom_err_type {
-> >> -       AMDGPU_RAS_EEPROM_ERR_PLACE_HOLDER,
-> >> +       AMDGPU_RAS_EEPROM_ERR_NA,
-> >>         AMDGPU_RAS_EEPROM_ERR_RECOVERABLE,
-> >> -       AMDGPU_RAS_EEPROM_ERR_NON_RECOVERABLE
-> >> +       AMDGPU_RAS_EEPROM_ERR_NON_RECOVERABLE,
-> >> +       AMDGPU_RAS_EEPROM_ERR_COUNT,
-> >>  };
-> >>
-> >>  struct amdgpu_ras_eeprom_table_header {
-> >> @@ -121,4 +122,9 @@ int amdgpu_ras_eeprom_append(struct amdgpu_ras_eeprom_control *control,
-> >>
-> >>  inline uint32_t amdgpu_ras_eeprom_max_record_count(void);
-> >>
-> >> +void amdgpu_ras_debugfs_set_ret_size(struct amdgpu_ras_eeprom_control *control);
-> >> +
-> >> +extern const struct file_operations amdgpu_ras_debugfs_eeprom_size_ops;
-> >> +extern const struct file_operations amdgpu_ras_debugfs_eeprom_table_ops;
-> >> +
-> >>  #endif // _AMDGPU_RAS_EEPROM_H
-> >> --
-> >> 2.32.0
-> >>
-> >> _______________________________________________
-> >> amd-gfx mailing list
-> >> amd-gfx@lists.freedesktop.org
-> >> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7Cluben.tuikov%40amd.com%7C44ce5499d22045e9181108d92cfcab41%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637590285983174149%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=x5YnmU8DjF1AwNdP6s04B0%2F47%2BxOxaZKou2cairZ3t0%3D&amp;reserved=0
->
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index 5788a4656fa1..67541c30327a 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -1797,9 +1797,6 @@ static int kfd_ioctl_svm(struct file *filep, struct kfd_process *p, void *data)
+ 	struct kfd_ioctl_svm_args *args = data;
+ 	int r = 0;
+ 
+-	if (p-&gt;svm_disabled)
+-		return -EPERM;
+-
+ 	pr_debug(&quot;start 0x%llx size 0x%llx op 0x%x nattr 0x%x\n&quot;,
+ 		 args-&gt;start_addr, args-&gt;size, args-&gt;op, args-&gt;nattr);
+ 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c b/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
+index 91c50739b756..a9b329f0f862 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
+@@ -405,10 +405,6 @@ int kfd_init_apertures(struct kfd_process *process)
+ 			case CHIP_POLARIS12:
+ 			case CHIP_VEGAM:
+ 				kfd_init_apertures_vi(pdd, id);
+-				/* VI GPUs cannot support SVM with only
+-				 * 40 bits of virtual address space.
+-				 */
+-				process-&gt;svm_disabled = true;
+ 				break;
+ 			case CHIP_VEGA10:
+ 			case CHIP_VEGA12:
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index 329684ee5d6e..6dc22fa1e555 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -743,6 +743,7 @@ struct svm_range_list {
+ 	spinlock_t			deferred_list_lock;
+ 	atomic_t			evicted_ranges;
+ 	struct delayed_work		restore_work;
++	DECLARE_BITMAP(bitmap_supported, MAX_GPU_INSTANCE);
+ };
+ 
+ /* Process data */
+@@ -826,7 +827,6 @@ struct kfd_process {
+ 
+ 	/* shared virtual memory registered by this process */
+ 	struct svm_range_list svms;
+-	bool svm_disabled;
+ 
+ 	bool xnack_enabled;
+ };
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index f1f40bba5c60..09b98a83f670 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -1260,7 +1260,6 @@ static struct kfd_process *create_process(const struct task_struct *thread)
+ 	process-&gt;mm = thread-&gt;mm;
+ 	process-&gt;lead_thread = thread-&gt;group_leader;
+ 	process-&gt;n_pdds = 0;
+-	process-&gt;svm_disabled = false;
+ 	INIT_DELAYED_WORK(&amp;process-&gt;eviction_work, evict_process_worker);
+ 	INIT_DELAYED_WORK(&amp;process-&gt;restore_work, restore_process_worker);
+ 	process-&gt;last_restore_timestamp = get_jiffies_64();
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index 0f18bd0dc64e..420ca667be32 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -281,7 +281,8 @@ svm_range *svm_range_new(struct svm_range_list *svms, uint64_t start,
+ 
+ 	p = container_of(svms, struct kfd_process, svms);
+ 	if (p-&gt;xnack_enabled)
+-		bitmap_fill(prange-&gt;bitmap_access, MAX_GPU_INSTANCE);
++		bitmap_copy(prange-&gt;bitmap_access, svms-&gt;bitmap_supported,
++			    MAX_GPU_INSTANCE);
+ 
+ 	svm_range_set_default_attributes(&amp;prange-&gt;preferred_loc,
+ 					 &amp;prange-&gt;prefetch_loc,
+@@ -580,33 +581,25 @@ svm_range_check_attr(struct kfd_process *p,
+ 	int gpuidx;
+ 
+ 	for (i = 0; i &lt; nattr; i++) {</pre>
+    </blockquote>
+    <p>Because we are here, maybe use local variable to short the two
+      lines kfd_process_gpuidx_from_gpuid into one line<br>
+    </p>
+    <p>uint32_t val = attrs[i].value;</p>
+    <blockquote type="cite" cite="mid:20210610232916.23748-1-Felix.Kuehling@amd.com">
+      <pre class="moz-quote-pre" wrap="">
++		gpuidx = MAX_GPU_INSTANCE;
++
+ 		switch (attrs[i].type) {
+ 		case KFD_IOCTL_SVM_ATTR_PREFERRED_LOC:
+ 			if (attrs[i].value != KFD_IOCTL_SVM_LOCATION_SYSMEM &amp;&amp;
+-			    attrs[i].value != KFD_IOCTL_SVM_LOCATION_UNDEFINED &amp;&amp;
+-			    kfd_process_gpuidx_from_gpuid(p,
+-							  attrs[i].value) &lt; 0) {
+-				pr_debug(&quot;no GPU 0x%x found\n&quot;, attrs[i].value);
+-				return -EINVAL;
+-			}
++			    attrs[i].value != KFD_IOCTL_SVM_LOCATION_UNDEFINED)
++				gpuidx = kfd_process_gpuidx_from_gpuid(p,
++							       attrs[i].value);
+ 			break;
+ 		case KFD_IOCTL_SVM_ATTR_PREFETCH_LOC:
+-			if (attrs[i].value != KFD_IOCTL_SVM_LOCATION_SYSMEM &amp;&amp;
+-			    kfd_process_gpuidx_from_gpuid(p,
+-							  attrs[i].value) &lt; 0) {
+-				pr_debug(&quot;no GPU 0x%x found\n&quot;, attrs[i].value);
+-				return -EINVAL;
+-			}
++			if (attrs[i].value != KFD_IOCTL_SVM_LOCATION_SYSMEM)
++				gpuidx = kfd_process_gpuidx_from_gpuid(p,
++							       attrs[i].value);
+ 			break;
+ 		case KFD_IOCTL_SVM_ATTR_ACCESS:
+ 		case KFD_IOCTL_SVM_ATTR_ACCESS_IN_PLACE:
+ 		case KFD_IOCTL_SVM_ATTR_NO_ACCESS:
+ 			gpuidx = kfd_process_gpuidx_from_gpuid(p,
+ 							       attrs[i].value);
+-			if (gpuidx &lt; 0) {
+-				pr_debug(&quot;no GPU 0x%x found\n&quot;, attrs[i].value);
+-				return -EINVAL;
+-			}
+ 			break;
+ 		case KFD_IOCTL_SVM_ATTR_SET_FLAGS:
+ 			break;
+@@ -618,6 +611,15 @@ svm_range_check_attr(struct kfd_process *p,
+ 			pr_debug(&quot;unknown attr type 0x%x\n&quot;, attrs[i].type);
+ 			return -EINVAL;
+ 		}
++
++		if (gpuidx &lt; 0) {
++			pr_debug(&quot;no GPU 0x%x found\n&quot;, attrs[i].value);
++			return -EINVAL;
++		} else if (gpuidx &lt; MAX_GPU_INSTANCE &amp;&amp;
++			   !test_bit(gpuidx, p-&gt;svms.bitmap_supported)) {
++			pr_debug(&quot;GPU 0x%x not supported\n&quot;, attrs[i].value);
++			return -EINVAL;
++		}
+ 	}
+ 
+ 	return 0;
+@@ -1855,7 +1857,7 @@ static void svm_range_drain_retry_fault(struct svm_range_list *svms)
+ 
+ 	p = container_of(svms, struct kfd_process, svms);
+ 
+-	for (i = 0; i &lt; p-&gt;n_pdds; i++) {
++	for_each_set_bit(i, svms-&gt;bitmap_supported, p-&gt;n_pdds) {
+ 		pdd = p-&gt;pdds[i];
+ 		if (!pdd)
+ 			continue;
+@@ -2325,6 +2327,11 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
+ 	bool write_locked = false;
+ 	int r = 0;
+ 
++	if (!KFD_IS_SVM_API_SUPPORTED(adev-&gt;kfd.dev)) {
++		pr_debug(&quot;device does not support SVM\n&quot;);
++		return -EFAULT;
++	}
++
+ 	p = kfd_lookup_process_by_pasid(pasid);
+ 	if (!p) {
+ 		pr_debug(&quot;kfd process not founded pasid 0x%x\n&quot;, pasid);
+@@ -2472,6 +2479,7 @@ void svm_range_list_fini(struct kfd_process *p)
+ int svm_range_list_init(struct kfd_process *p)
+ {
+ 	struct svm_range_list *svms = &amp;p-&gt;svms;
++	int i;
+ 
+ 	svms-&gt;objects = RB_ROOT_CACHED;
+ 	mutex_init(&amp;svms-&gt;lock);
+@@ -2482,6 +2490,10 @@ int svm_range_list_init(struct kfd_process *p)
+ 	INIT_LIST_HEAD(&amp;svms-&gt;deferred_range_list);
+ 	spin_lock_init(&amp;svms-&gt;deferred_list_lock);
+ 
++	for (i = 0; i &lt; p-&gt;n_pdds; i++)
++		if (KFD_IS_SVM_API_SUPPORTED(p-&gt;pdds[i]-&gt;dev))
++			bitmap_set(svms-&gt;bitmap_supported, i, 1);
++
+ 	return 0;
+ }
+ 
+@@ -2978,14 +2990,15 @@ svm_range_get_attr(struct kfd_process *p, uint64_t start, uint64_t size,
+ 		svm_range_set_default_attributes(&amp;location, &amp;prefetch_loc,
+ 						 &amp;granularity, &amp;flags);
+ 		if (p-&gt;xnack_enabled)
+-			bitmap_fill(bitmap_access, MAX_GPU_INSTANCE);
++			bitmap_copy(bitmap_access, svms-&gt;bitmap_supported,
++				    MAX_GPU_INSTANCE);
+ 		else
+ 			bitmap_zero(bitmap_access, MAX_GPU_INSTANCE);
+ 		bitmap_zero(bitmap_aip, MAX_GPU_INSTANCE);
+ 		goto fill_values;
+ 	}
+-	bitmap_fill(bitmap_access, MAX_GPU_INSTANCE);
+-	bitmap_fill(bitmap_aip, MAX_GPU_INSTANCE);
++	bitmap_copy(bitmap_access, svms-&gt;bitmap_supported, MAX_GPU_INSTANCE);
++	bitmap_copy(bitmap_aip, svms-&gt;bitmap_supported, MAX_GPU_INSTANCE);
+ 
+ 	while (node) {
+ 		struct interval_tree_node *next;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+index 573f984b81fe..0c0fc399395e 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+@@ -175,6 +175,11 @@ void svm_range_dma_unmap(struct device *dev, dma_addr_t *dma_addr,
+ void svm_range_free_dma_mappings(struct svm_range *prange);
+ void svm_range_prefault(struct svm_range *prange, struct mm_struct *mm);
+ 
++/* SVM API and HMM page migration work together, device memory type
++ * is initialized to not 0 when page migration register device memory.
++ */
++#define KFD_IS_SVM_API_SUPPORTED(dev) ((dev)-&gt;pgmap.type != 0)
++
+ #else
+ 
+ struct kfd_process;
+@@ -201,6 +206,8 @@ static inline int svm_range_schedule_evict_svm_bo(
+ 	return -EINVAL;
+ }
+ 
++#define KFD_IS_SVM_API_SUPPORTED(dev) false
++
+ #endif /* IS_ENABLED(CONFIG_HSA_AMD_SVM) */
+ 
+ #endif /* KFD_SVM_H_ */
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+index f668b8cc2b57..ff4e296c1c58 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+@@ -36,6 +36,7 @@
+ #include &quot;kfd_topology.h&quot;
+ #include &quot;kfd_device_queue_manager.h&quot;
+ #include &quot;kfd_iommu.h&quot;
++#include &quot;kfd_svm.h&quot;
+ #include &quot;amdgpu_amdkfd.h&quot;
+ #include &quot;amdgpu_ras.h&quot;
+ 
+@@ -1441,10 +1442,7 @@ int kfd_topology_add_device(struct kfd_dev *gpu)
+ 		dev-&gt;node_props.capability |= (adev-&gt;ras_enabled != 0) ?
+ 			HSA_CAP_RASEVENTNOTIFY : 0;
+ 
+-	/* SVM API and HMM page migration work together, device memory type
+-	 * is initialized to not 0 when page migration register device memory.
+-	 */
+-	if (adev-&gt;kfd.dev-&gt;pgmap.type != 0)
++	if (KFD_IS_SVM_API_SUPPORTED(adev-&gt;kfd.dev))
+ 		dev-&gt;node_props.capability |= HSA_CAP_SVMAPI_SUPPORTED;
+ 
+ 	kfd_debug_print_topology();
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--===============0837172612==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0837172612==--
