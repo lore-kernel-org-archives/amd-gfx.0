@@ -7,63 +7,64 @@ X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2B3C0C48BE0
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Jun 2021 08:58:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F2D8FC48BE5
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Jun 2021 09:07:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9FE3B60BD3
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Jun 2021 08:58:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9FE3B60BD3
+	by mail.kernel.org (Postfix) with ESMTPS id C3D9F6100A
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Jun 2021 09:07:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C3D9F6100A
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 421866E874;
-	Fri, 11 Jun 2021 08:58:07 +0000 (UTC)
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [IPv6:2a00:1450:4864:20::42e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 454DC6E874
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Jun 2021 08:58:06 +0000 (UTC)
-Received: by mail-wr1-x42e.google.com with SMTP id a20so5229146wrc.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Jun 2021 01:58:06 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 701E16EE54;
+	Fri, 11 Jun 2021 09:07:29 +0000 (UTC)
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [IPv6:2a00:1450:4864:20::435])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E9A66EE55
+ for <amd-gfx@lists.freedesktop.org>; Fri, 11 Jun 2021 09:07:28 +0000 (UTC)
+Received: by mail-wr1-x435.google.com with SMTP id a11so5217096wrt.13
+ for <amd-gfx@lists.freedesktop.org>; Fri, 11 Jun 2021 02:07:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:content-transfer-encoding:in-reply-to;
- bh=FMEqqIZNJAnBlxmxIYr+7vjHX7UJFxwgE3aT0eL/IGM=;
- b=XvNx0x/oBjx2/7SqS5LOLZTE51+hILj83aFltbyvoo2BE41tgL7Z4DD+LRm340Og6V
- QxiPqFFxWJzBhcGU49hIKEX/NvIP8WOgV1UUIeFPXLdl0NKaZKunVwzyYGXtjbUzPVpb
- nJi6z+ivzQXt4pPJBtYza2cvLj3dt9jLdjcDY=
+ bh=v21KKQzll9R0YfaiRjmlIqWbMoPlP2MmVWyU0c10zBw=;
+ b=EN45abN0G4uSRlXtfQk1xxxIokti7e65qY9fPMwgXEEVlLVmguU+7A33VMbdvW+W1B
+ AdeTvFdjjkirtZmtu7cjyYAleSly4PkQX2HaNGrcGJVjjr+k3qlUbVcY01nWqojYrnjE
+ LkphDMSQVXeXrioXVeWefXGwYqUxzOsJj8RNk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:content-transfer-encoding
  :in-reply-to;
- bh=FMEqqIZNJAnBlxmxIYr+7vjHX7UJFxwgE3aT0eL/IGM=;
- b=tvJPi8FOcxCJcc5H4BKPLGOrYARnooOpNYKWCQPYV2Cl6wkjv4O0x0JxZBHFQuDcXq
- m6gSPMyPeLO7VqXdKy/cIFRlAz4VDMpQRHyRgWfWR125239SKzjQQ24WwltaiisYdrNP
- MFAggr6GsNmI0NVil4/73ZbwwtJ6GyfN5HY5HeEI/OdJT3u97AnfYFnIOYACy8wqJHki
- ah3DhUwa5SZKf6F8kZqYqQ8TBaTS5NVt0DraCMvW952LLVpemVV9ZKX0RzElrysP0ide
- 0YtqsDDfmniRHxAoaKB6RyQTWE/qBalWFHM1AMiCBAqPPkuH7lEFt3FjNiA6MwHSX1Gn
- wXtQ==
-X-Gm-Message-State: AOAM531NTR+4YcW+aclG/qPByV4mxxXTCEGTt1GOsHU+vmMRgzXnGEGX
- 2vCHQ8dIuTvfpavN5nHWnb1Nkw==
-X-Google-Smtp-Source: ABdhPJxoTR4/Rlgzq+4tok7htegrWc0im2HIOR6CtrNnzQAt2LflRyidsH/Pgdg3uIazwDhLzR1z9A==
-X-Received: by 2002:a5d:47ce:: with SMTP id o14mr2771240wrc.273.1623401884845; 
- Fri, 11 Jun 2021 01:58:04 -0700 (PDT)
+ bh=v21KKQzll9R0YfaiRjmlIqWbMoPlP2MmVWyU0c10zBw=;
+ b=tTyVwnhKl3ERJZM3WQmv8E3CanBdZ7OlTkdSIkMqWLly5nBYr8srJgnpZeFcPtujD4
+ klKx52ObM4eqjBqcamhawbCOp0VLO5AjcIR9yUu7h/7YibeNfV6NiQb5tcBGmVMTRu3G
+ shbd0pDEWGv6WwlBejbrLNohVW+DuvazJ0pashfyKW2uybClW6Go9xL9gqNI2m1Lsrji
+ mulHxbkix2cFDWDsYzJ5Q+4a1z/Vglgq8fRYWSIfr9malz56gUqM9mLjSoYUDCsid0kz
+ RsrHuW+T/ltLab/yohQLZZ6m+bQJJ5vUnmjvZk9gVLR3hMQfPpudmCtWN+w1kchrSixU
+ RCKg==
+X-Gm-Message-State: AOAM532Hb32bLA3vfh+6PFnpFgzbJOEU2ONGQTcFSke/CARxGffhoJJh
+ G0CTQpgxgORVVZkjUkq7widk4w==
+X-Google-Smtp-Source: ABdhPJxTEW1FkvNi27QxV8GfcShhg+CWBBWO9mLAxNj2IglWZ/6UBlEHd5CBYNiHXVKyDIP1DRnJpQ==
+X-Received: by 2002:adf:ef06:: with SMTP id e6mr2855936wro.393.1623402447481; 
+ Fri, 11 Jun 2021 02:07:27 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id t9sm6172571wmq.14.2021.06.11.01.58.04
+ by smtp.gmail.com with ESMTPSA id a12sm5295615wmj.36.2021.06.11.02.07.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 11 Jun 2021 01:58:04 -0700 (PDT)
-Date: Fri, 11 Jun 2021 10:58:02 +0200
+ Fri, 11 Jun 2021 02:07:27 -0700 (PDT)
+Date: Fri, 11 Jun 2021 11:07:25 +0200
 From: Daniel Vetter <daniel@ffwll.ch>
 To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
-Subject: Re: [PATCH 4/7] dma-buf: add dma_fence_chain_garbage_collect
-Message-ID: <YMMlmt0frb1Pfdo0@phenom.ffwll.local>
+Subject: Re: [PATCH 6/7] drm/amdgpu: unwrap fence chains in the explicit sync
+ fence
+Message-ID: <YMMnzbky0W72PH1d@phenom.ffwll.local>
 References: <20210610091800.1833-1-christian.koenig@amd.com>
- <20210610091800.1833-5-christian.koenig@amd.com>
+ <20210610091800.1833-7-christian.koenig@amd.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210610091800.1833-5-christian.koenig@amd.com>
+In-Reply-To: <20210610091800.1833-7-christian.koenig@amd.com>
 X-Operating-System: Linux phenom 5.10.32scarlett+ 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,309 +84,192 @@ Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jun 10, 2021 at 11:17:57AM +0200, Christian K=F6nig wrote:
-> Add some rather sophisticated lockless garbage collection
-> for dma_fence_chain objects.
-> =
-
-> For this keep all initialized dma_fence_chain nodes an a
-> queue and trigger garbage collection before a new one is
-> allocated.
+On Thu, Jun 10, 2021 at 11:17:59AM +0200, Christian K=F6nig wrote:
+> Unwrap a the explicit fence if it is a dma_fence_chain and
+> sync to the first fence not matching the owner rules.
 > =
 
 > Signed-off-by: Christian K=F6nig <christian.koenig@amd.com>
-
-Uh hand-rolled lockless list, I'm not a fan.
-
-But the real question here is why? This is a global list, so it's going to
-look great on your desktop, but gpus are for servers now and those are
-NUMA. So just from that pov doing garbage-collection individually still
-feels like a much better idea.
-
-So what's the problem your trying to solve here?
--Daniel
-
 > ---
->  drivers/dma-buf/dma-fence-chain.c | 160 +++++++++++++++++++++++++-----
->  include/linux/dma-fence-chain.h   |   5 +
->  2 files changed, 142 insertions(+), 23 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c | 118 +++++++++++++----------
+>  1 file changed, 68 insertions(+), 50 deletions(-)
 > =
 
-> diff --git a/drivers/dma-buf/dma-fence-chain.c b/drivers/dma-buf/dma-fenc=
-e-chain.c
-> index 1b4cb3e5cec9..c2f0b69eabb7 100644
-> --- a/drivers/dma-buf/dma-fence-chain.c
-> +++ b/drivers/dma-buf/dma-fence-chain.c
-> @@ -9,8 +9,53 @@
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_sync.c
+> index 1b2ceccaf5b0..862eb3c1c4c5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
+> @@ -28,6 +28,8 @@
+>   *    Christian K=F6nig <christian.koenig@amd.com>
+>   */
 >  =
 
->  #include <linux/dma-fence-chain.h>
->  =
-
-> +static struct dma_fence_chain __rcu *fifo_front;
-> +static struct dma_fence_chain __rcu **fifo_back =3D &fifo_front;
+> +#include <linux/dma-fence-chain.h>
 > +
->  static bool dma_fence_chain_enable_signaling(struct dma_fence *fence);
->  =
-
-> +/**
-> + * dma_fence_chain_enqueue - enqeue a chain node for garbage collection
-> + * @chain: the chain node to enqueue
-> + *
-> + * Add the chain node to the end of the gc fifo.
-> + */
-> +static void dma_fence_chain_enqueue(struct dma_fence_chain *chain)
-> +{
-> +	struct dma_fence_chain __rcu **tmp;
-> +
-> +	RCU_INIT_POINTER(chain->next, NULL);
-> +	tmp =3D xchg((struct dma_fence_chain __force ***)&fifo_back,
-> +		   &chain->next);
-> +
-> +	/* This is intentionally unordered since we only need the fifo for gc */
-> +	rcu_assign_pointer(*tmp, chain);
-> +}
-> +
-> +/**
-> + * dma_fence_chain_dequeue - deqeueue a chain node for garbage collection
-> + *
-> + * Remove the first chain node from the gc fifo while making sure that a=
-lways
-> + * keep at least one node on the fifo for lockless fifo implementation.
-> + * Returns the dequeued chain node or NULL.
-> + */
-> +static struct dma_fence_chain *dma_fence_chain_dequeue(void)
-> +{
-> +	struct dma_fence_chain *chain, *tmp;
-> +
-> +	rcu_read_lock();
-> +	chain =3D rcu_dereference(fifo_front);
-> +	/* Never dequeue the last chain node for lockless fifo */
-> +	if (unlikely(!chain || !rcu_access_pointer(chain->next))) {
-> +		rcu_read_unlock();
-> +		return NULL;
-> +	}
-> +	tmp =3D cmpxchg((struct dma_fence_chain __force **)&fifo_front,
-> +		      chain, rcu_access_pointer(chain->next));
-> +	rcu_read_unlock();
-> +	return tmp =3D=3D chain ? chain : NULL;
-> +}
-> +
->  /**
->   * dma_fence_chain_get_prev - use RCU to get a reference to the previous=
- fence
->   * @chain: chain node to get the previous node from
-> @@ -28,6 +73,43 @@ static struct dma_fence *dma_fence_chain_get_prev(stru=
-ct dma_fence_chain *chain)
->  	return prev;
+>  #include "amdgpu.h"
+>  #include "amdgpu_trace.h"
+>  #include "amdgpu_amdkfd.h"
+> @@ -186,6 +188,55 @@ int amdgpu_sync_vm_fence(struct amdgpu_sync *sync, s=
+truct dma_fence *fence)
+>  	return amdgpu_sync_fence(sync, fence);
 >  }
 >  =
 
-> +/**
-> + * dma_fence_chain_try_replace - try to replace the prev node
-> + * @chain: Chain node we try to replace prev.
-> + * @prev: the old prev node
-> + *
-> + * Try to replace the previous chain node when it or its containing fenc=
-e is
-> + * signaled. Returns true if we tried, false if we need to wait.
-> + */
-> +static bool dma_fence_chain_try_replace(struct dma_fence_chain *chain,
-> +					struct dma_fence *prev)
+> +/* Determine based on the owner and mode if we should sync to a fence or=
+ not */
+> +static bool amdgpu_sync_test_fence(struct amdgpu_device *adev,
+> +				   enum amdgpu_sync_mode mode,
+> +				   void *owner, struct dma_fence *f)
 > +{
-> +	struct dma_fence *replacement, *tmp;
-> +	struct dma_fence_chain *prev_chain;
+> +	void *fence_owner =3D amdgpu_sync_get_owner(f);
 > +
-> +	prev_chain =3D to_dma_fence_chain(prev);
-> +	if (prev_chain) {
-> +		if (!dma_fence_is_signaled(prev_chain->fence))
+> +	/* Always sync to moves, no matter what */
+> +	if (fence_owner =3D=3D AMDGPU_FENCE_OWNER_UNDEFINED)
+> +		return true;
+> +
+> +	/* We only want to trigger KFD eviction fences on
+> +	 * evict or move jobs. Skip KFD fences otherwise.
+> +	 */
+> +	if (fence_owner =3D=3D AMDGPU_FENCE_OWNER_KFD &&
+> +	    owner !=3D AMDGPU_FENCE_OWNER_UNDEFINED)
+> +		return false;
+> +
+> +	/* Never sync to VM updates either. */
+> +	if (fence_owner =3D=3D AMDGPU_FENCE_OWNER_VM &&
+> +	    owner !=3D AMDGPU_FENCE_OWNER_UNDEFINED)
+> +		return false;
+> +
+> +	/* Ignore fences depending on the sync mode */
+> +	switch (mode) {
+> +	case AMDGPU_SYNC_ALWAYS:
+> +		return true;
+> +
+> +	case AMDGPU_SYNC_NE_OWNER:
+> +		if (amdgpu_sync_same_dev(adev, f) &&
+> +		    fence_owner =3D=3D owner)
 > +			return false;
+> +		break;
 > +
-> +		replacement =3D dma_fence_chain_get_prev(prev_chain);
-> +	} else {
-> +		if (!dma_fence_is_signaled(prev))
+> +	case AMDGPU_SYNC_EQ_OWNER:
+> +		if (amdgpu_sync_same_dev(adev, f) &&
+> +		    fence_owner !=3D owner)
 > +			return false;
+> +		break;
 > +
-> +		replacement =3D NULL;
+> +	case AMDGPU_SYNC_EXPLICIT:
+> +		return false;
 > +	}
 > +
-> +	tmp =3D cmpxchg((struct dma_fence __force **)&chain->prev, prev,
-> +		      replacement);
-> +	if (tmp =3D=3D prev)
-> +		dma_fence_put(tmp);
-> +	else
-> +		dma_fence_put(replacement);
-> +
+> +	WARN(debug_evictions && fence_owner =3D=3D AMDGPU_FENCE_OWNER_KFD,
+> +	     "Adding eviction fence to sync obj");
 > +	return true;
 > +}
 > +
 >  /**
->   * dma_fence_chain_walk - chain walking function
->   * @fence: current chain node
-> @@ -38,8 +120,8 @@ static struct dma_fence *dma_fence_chain_get_prev(stru=
-ct dma_fence_chain *chain)
->   */
->  struct dma_fence *dma_fence_chain_walk(struct dma_fence *fence)
->  {
-> -	struct dma_fence_chain *chain, *prev_chain;
-> -	struct dma_fence *prev, *replacement, *tmp;
-> +	struct dma_fence_chain *chain;
-> +	struct dma_fence *prev;
+>   * amdgpu_sync_resv - sync to a reservation object
+>   *
+> @@ -211,67 +262,34 @@ int amdgpu_sync_resv(struct amdgpu_device *adev, st=
+ruct amdgpu_sync *sync,
 >  =
 
->  	chain =3D to_dma_fence_chain(fence);
->  	if (!chain) {
-> @@ -48,26 +130,8 @@ struct dma_fence *dma_fence_chain_walk(struct dma_fen=
-ce *fence)
->  	}
+>  	/* always sync to the exclusive fence */
+>  	f =3D dma_resv_excl_fence(resv);
+> -	r =3D amdgpu_sync_fence(sync, f);
+> +	dma_fence_chain_for_each(f, f) {
+
+Jason has some helper for deep-walking fence chains/arrays here I think.
+Might want to look into that, so that we have some consistency in how we
+pile up multiple exclusive fences.
+
+Anyway pretty much one of the versions I had in mind too, except I didn't
+type it up.
+
+Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+
+> +		struct dma_fence_chain *chain =3D to_dma_fence_chain(f);
+> +
+> +		if (amdgpu_sync_test_fence(adev, mode, owner, chain ?
+> +					   chain->fence : f)) {
+> +			r =3D amdgpu_sync_fence(sync, f);
+> +			dma_fence_put(f);
+> +			if (r)
+> +				return r;
+> +			break;
+> +		}
+> +	}
 >  =
 
->  	while ((prev =3D dma_fence_chain_get_prev(chain))) {
+>  	flist =3D dma_resv_shared_list(resv);
+> -	if (!flist || r)
+> -		return r;
+> +	if (!flist)
+> +		return 0;
+>  =
+
+>  	for (i =3D 0; i < flist->shared_count; ++i) {
+> -		void *fence_owner;
 > -
-> -		prev_chain =3D to_dma_fence_chain(prev);
-> -		if (prev_chain) {
-> -			if (!dma_fence_is_signaled(prev_chain->fence))
+>  		f =3D rcu_dereference_protected(flist->shared[i],
+>  					      dma_resv_held(resv));
+>  =
+
+> -		fence_owner =3D amdgpu_sync_get_owner(f);
+> -
+> -		/* Always sync to moves, no matter what */
+> -		if (fence_owner =3D=3D AMDGPU_FENCE_OWNER_UNDEFINED) {
+> +		if (amdgpu_sync_test_fence(adev, mode, owner, f)) {
+>  			r =3D amdgpu_sync_fence(sync, f);
+>  			if (r)
 > -				break;
-> -
-> -			replacement =3D dma_fence_chain_get_prev(prev_chain);
-> -		} else {
-> -			if (!dma_fence_is_signaled(prev))
-> -				break;
-> -
-> -			replacement =3D NULL;
 > -		}
 > -
-> -		tmp =3D cmpxchg((struct dma_fence __force **)&chain->prev,
-> -			      prev, replacement);
-> -		if (tmp =3D=3D prev)
-> -			dma_fence_put(tmp);
-> -		else
-> -			dma_fence_put(replacement);
-> +		if (!dma_fence_chain_try_replace(chain, prev))
-> +			break;
->  		dma_fence_put(prev);
+> -		/* We only want to trigger KFD eviction fences on
+> -		 * evict or move jobs. Skip KFD fences otherwise.
+> -		 */
+> -		if (fence_owner =3D=3D AMDGPU_FENCE_OWNER_KFD &&
+> -		    owner !=3D AMDGPU_FENCE_OWNER_UNDEFINED)
+> -			continue;
+> -
+> -		/* Never sync to VM updates either. */
+> -		if (fence_owner =3D=3D AMDGPU_FENCE_OWNER_VM &&
+> -		    owner !=3D AMDGPU_FENCE_OWNER_UNDEFINED)
+> -			continue;
+> -
+> -		/* Ignore fences depending on the sync mode */
+> -		switch (mode) {
+> -		case AMDGPU_SYNC_ALWAYS:
+> -			break;
+> -
+> -		case AMDGPU_SYNC_NE_OWNER:
+> -			if (amdgpu_sync_same_dev(adev, f) &&
+> -			    fence_owner =3D=3D owner)
+> -				continue;
+> -			break;
+> -
+> -		case AMDGPU_SYNC_EQ_OWNER:
+> -			if (amdgpu_sync_same_dev(adev, f) &&
+> -			    fence_owner !=3D owner)
+> -				continue;
+> -			break;
+> -
+> -		case AMDGPU_SYNC_EXPLICIT:
+> -			continue;
+> +				return r;
+>  		}
+> -
+> -		WARN(debug_evictions && fence_owner =3D=3D AMDGPU_FENCE_OWNER_KFD,
+> -		     "Adding eviction fence to sync obj");
+> -		r =3D amdgpu_sync_fence(sync, f);
+> -		if (r)
+> -			break;
 >  	}
->  =
-
-> @@ -205,7 +269,21 @@ static void dma_fence_chain_release(struct dma_fence=
- *fence)
->  	dma_fence_put(prev);
->  =
-
->  	dma_fence_put(chain->fence);
-> -	dma_fence_free(fence);
-> +	WRITE_ONCE(chain->fence, NULL);
-> +
-> +	/*
-> +	 * Don't garbage collect here to avoid recursion and potential stack
-> +	 * overflow.
-> +	 */
-> +	chain =3D dma_fence_chain_dequeue();
-> +	if (!chain)
-> +		return;
-> +
-> +	if (kref_read(&chain->base.refcount) ||
-> +	    READ_ONCE(chain->fence))
-> +		dma_fence_chain_enqueue(chain);
-> +	else
-> +		dma_fence_free(&chain->base);
+> -	return r;
+> +	return 0;
 >  }
 >  =
 
->  const struct dma_fence_ops dma_fence_chain_ops =3D {
-> @@ -218,6 +296,40 @@ const struct dma_fence_ops dma_fence_chain_ops =3D {
->  };
->  EXPORT_SYMBOL(dma_fence_chain_ops);
->  =
-
-> +/**
-> + * dma_fence_chain_garbage_collect - cleanup chain nodes
-> + *
-> + * Do some garbage collection and try to release chain nodes.
-> + */
-> +void dma_fence_chain_garbage_collect(void)
-> +{
-> +	struct dma_fence_chain *chain =3D dma_fence_chain_dequeue();
-> +
-> +	if (!chain)
-> +		return;
-> +
-> +	if (!dma_fence_get_rcu(&chain->base)) {
-> +		/* Unused, check if it's also clean */
-> +		if (likely(!READ_ONCE(chain->fence))) {
-> +			dma_fence_free(&chain->base);
-> +			return;
-> +		}
-> +
-> +	} else {
-> +		struct dma_fence *prev;
-> +
-> +		/* Used, do some chain walk */
-> +		prev =3D dma_fence_chain_get_prev(chain);
-> +		if (prev) {
-> +			dma_fence_chain_try_replace(chain, prev);
-> +			dma_fence_put(prev);
-> +		}
-> +		dma_fence_put(&chain->base);
-> +	}
-> +	dma_fence_chain_enqueue(chain);
-> +}
-> +EXPORT_SYMBOL(dma_fence_chain_garbage_collect);
-> +
 >  /**
->   * dma_fence_chain_init - initialize a fence chain
->   * @chain: the chain node to initialize
-> @@ -254,5 +366,7 @@ void dma_fence_chain_init(struct dma_fence_chain *cha=
-in,
->  =
-
->  	dma_fence_init(&chain->base, &dma_fence_chain_ops,
->  		       &chain->lock, context, seqno);
-> +	dma_fence_chain_enqueue(chain);
->  }
-> +
->  EXPORT_SYMBOL(dma_fence_chain_init);
-> diff --git a/include/linux/dma-fence-chain.h b/include/linux/dma-fence-ch=
-ain.h
-> index 5f45689a6d2e..b412b5396434 100644
-> --- a/include/linux/dma-fence-chain.h
-> +++ b/include/linux/dma-fence-chain.h
-> @@ -19,6 +19,7 @@
->   * @base: fence base class
->   * @lock: spinlock for fence handling
->   * @prev: previous fence of the chain
-> + * @next: next chain node for garbage collection
->   * @prev_seqno: original previous seqno before garbage collection
->   * @fence: encapsulated fence
->   * @cb: callback structure for signaling
-> @@ -27,6 +28,7 @@
->  struct dma_fence_chain {
->  	struct dma_fence base;
->  	struct dma_fence __rcu *prev;
-> +	struct dma_fence_chain __rcu *next;
->  	u64 prev_seqno;
->  	struct dma_fence *fence;
->  	union {
-> @@ -38,6 +40,8 @@ struct dma_fence_chain {
->  =
-
->  extern const struct dma_fence_ops dma_fence_chain_ops;
->  =
-
-> +void dma_fence_chain_garbage_collect(void);
-> +
->  /**
->   * to_dma_fence_chain - cast a fence to a dma_fence_chain
->   * @fence: fence to cast to a dma_fence_array
-> @@ -61,6 +65,7 @@ to_dma_fence_chain(struct dma_fence *fence)
->   */
->  static inline struct dma_fence_chain *dma_fence_chain_alloc(void)
->  {
-> +	dma_fence_chain_garbage_collect();
->  	return kmalloc(sizeof(struct dma_fence_chain), GFP_KERNEL);
->  };
->  =
-
 > -- =
 
 > 2.25.1
