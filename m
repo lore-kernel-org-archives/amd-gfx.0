@@ -2,69 +2,77 @@ Return-Path: <SRS0=qfa3=LF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-12.1 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 14D11C48BD1
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Jun 2021 14:52:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5FBC8C48BD1
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Jun 2021 14:53:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CADA4611CD
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Jun 2021 14:52:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CADA4611CD
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id 05FE7613EE
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Jun 2021 14:53:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 05FE7613EE
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 931E06E838;
-	Fri, 11 Jun 2021 14:52:07 +0000 (UTC)
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [IPv6:2a00:1450:4864:20::42b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B477E6EE9A
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Jun 2021 14:52:04 +0000 (UTC)
-Received: by mail-wr1-x42b.google.com with SMTP id f2so6367800wri.11
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Jun 2021 07:52:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=4LoyqH/pL2mhEAc9qjc8YOfLpOE6Aljc3R6meb3Zeis=;
- b=jrG4iKNN14+GZpLDHSMYpwX5jy1sYwylW0x7b0hxU8Shj+y5ugV3j2r6S4nBJ5r7ru
- QbfdHH6fKr5BTFArOdM6LRnldTXPB2bNeaSXmm1EbVg6nwEFbdOA/ajp7FEzL3GOrNg4
- SAPR3m1bMuhbcxd7fIHnHKvpgkrnX/4u5t1Lk=
+	by gabe.freedesktop.org (Postfix) with ESMTP id E6C1D6EE97;
+	Fri, 11 Jun 2021 14:53:14 +0000 (UTC)
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [IPv6:2a00:1450:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F0AA6E591;
+ Fri, 11 Jun 2021 14:53:13 +0000 (UTC)
+Received: by mail-wm1-x331.google.com with SMTP id
+ f16-20020a05600c1550b02901b00c1be4abso8827595wmg.2; 
+ Fri, 11 Jun 2021 07:53:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=PYz47Kpk149OD6JCGUi0G8oIJKajH8KhLCc+6vQzb9o=;
+ b=kfqV8U1ZVFqdFBPC5nPEHpP5exRrjbG++Pc6/DJiTgJv8Jf8aMm6/ogvlZz+6ISSRl
+ W5Xg5G/g4hSCd1Ii1pyJ00c/Lxojrqj0hXSHCHKcQ8hsmQbOAOhbass1voKrN+Oj1kvj
+ DxbT/7UXRQckP6bZ45BI9csD9tGJmgRcMYZQ0Lyn8//5TJ0eS/jKpfE6DsBMcyQLAgd8
+ XpVt/9ckuyV9IE6RbCbU6H2l7BhDp4k6yOyZNnLRgvGcxzo8i9VePJUceDfF8l+pdPeC
+ iqj04qM1YQTWVfDuXXcSOeraHvH0TkemXNeIwhHbv8jwMS1vDM3R75TazfD5j0i2cj73
+ 4CDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=4LoyqH/pL2mhEAc9qjc8YOfLpOE6Aljc3R6meb3Zeis=;
- b=pEGnpMfrqnQRyWBCcoRR1t2ejVSrWvPsacGa3kq68z+brFqur/n6rgbBsq03Uza1/K
- edDoRtaIzQ79Od6aDoxGX5/mfnjVvKVbzsgOBevnnsRkKqNjfOjFGviImFAsYxQapsTn
- WVDGSNepkR2yEweK+GOpjg8rWVQbuBo/nbMnpDnUIEW5sjAeaa/9oOIKLQ0RA1e7XUIo
- lC+FE3JJcrOSZW+z9bKgHtyQX6qmWtGNCjoO0wvG9o5KU5q71vds92Uo+9IWYGgBLVs3
- YOKILxlgxfGZuWH2HMHTjBkWznHEB15omOAI45PQyPz2WvDH2YjVNvS/9hbeS6e//hEZ
- r1QA==
-X-Gm-Message-State: AOAM531WJhK0YTXkJt/Whw+bq0uMGHZ8eeeqmuAhjlSY0Eo3jMp6lKsn
- yrnolFqEYf6wjjzdeDsRhjSCSSNG5a0Yxw==
-X-Google-Smtp-Source: ABdhPJwSG2yaJwNTsiM1yM7aQg2nz//PupOD39Qk51PWl+iU/2RAqE1RzyCfXj3ARkljhO6H0bZlHw==
-X-Received: by 2002:a5d:6584:: with SMTP id q4mr4501529wru.230.1623423123517; 
- Fri, 11 Jun 2021 07:52:03 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id g17sm9427748wrh.72.2021.06.11.07.52.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 11 Jun 2021 07:52:03 -0700 (PDT)
-Date: Fri, 11 Jun 2021 16:52:01 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
-Subject: Re: [PATCH 3/5] dma-buf: add dma_fence_chain_alloc/free v2
-Message-ID: <YMN4kUt7dpysElsD@phenom.ffwll.local>
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=PYz47Kpk149OD6JCGUi0G8oIJKajH8KhLCc+6vQzb9o=;
+ b=pmoqT65oZPb0+sER/LjBq3HvbAAK4JY+IaHRkE7uUhuZIezWhtzY3u/IKoNJPDmc8/
+ QgtxbrQwDNuKJ3KF+J9NcMHEg7ZwrabaKA7M5ZAAgAuX468LQCaiiiqmfhFZb3XD3Ync
+ m2wGSFoKHkxwTqKE/Phku6LH+LUVnZJZwM4Bi5UUqJhrX98OWq1DBcS2/WCbYZ6yh2ra
+ dwaBs3TuOSiERRiaLHF03/2zb5qHopBErtEs4XmRd5uggkhQg+tM8bdrnN+Od6ru5yFw
+ w6LKrE+BeXBaMhCW32POY4Bi/pVd9yUpe5vYfImpIhuz2XMnVDhZtKeOSlcXb3XOvLMq
+ MIIQ==
+X-Gm-Message-State: AOAM531SXxmC8ro1HtYe6bjfXYjsuz8v1n24OjhkqexfXR3Ei20i9Rcl
+ 6WXDQkk2/sv0ikwygDQkNbZabW2xC8k=
+X-Google-Smtp-Source: ABdhPJyLqPaSTOBW9sPKneXzFaTZN9ctm+MQseLZz1Z1Skmq3itR2ESTRRI3QstDqI2Uw8oDpV7QVw==
+X-Received: by 2002:a05:600c:4f0c:: with SMTP id
+ l12mr4343817wmq.123.1623423192219; 
+ Fri, 11 Jun 2021 07:53:12 -0700 (PDT)
+Received: from ?IPv6:2a02:908:1252:fb60:bd94:4b9a:99c4:4bc1?
+ ([2a02:908:1252:fb60:bd94:4b9a:99c4:4bc1])
+ by smtp.gmail.com with ESMTPSA id n9sm6356665wmc.20.2021.06.11.07.53.11
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 11 Jun 2021 07:53:11 -0700 (PDT)
+Subject: Re: [PATCH 1/5] dma-buf: fix dma_resv_test_signaled test_all handling
+To: Daniel Vetter <daniel@ffwll.ch>
 References: <20210611120301.10595-1-christian.koenig@amd.com>
- <20210611120301.10595-3-christian.koenig@amd.com>
+ <YMN3nr1mTj09p8lT@phenom.ffwll.local>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <2c91e4b4-e8c8-a9f5-420f-9cf0c1f9a67d@gmail.com>
+Date: Fri, 11 Jun 2021 16:53:11 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210611120301.10595-3-christian.koenig@amd.com>
-X-Operating-System: Linux phenom 5.10.32scarlett+ 
+In-Reply-To: <YMN3nr1mTj09p8lT@phenom.ffwll.local>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,270 +84,78 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jun 11, 2021 at 02:02:59PM +0200, Christian K=F6nig wrote:
-> Add a common allocation helper. Cleaning up the mix of kzalloc/kmalloc
-> and some unused code in the selftest.
-> =
-
-> v2: polish kernel doc a bit
-> =
-
-> Signed-off-by: Christian K=F6nig <christian.koenig@amd.com>
-> Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-
-Given how absolutely wrong I was I'm not sure this r-b here is justified
-:-)
-
-> ---
->  drivers/dma-buf/st-dma-fence-chain.c          | 16 ++++---------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        |  4 ++--
->  drivers/gpu/drm/drm_syncobj.c                 |  6 ++---
->  .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |  6 ++---
->  drivers/gpu/drm/msm/msm_gem_submit.c          |  6 ++---
->  include/linux/dma-fence-chain.h               | 23 +++++++++++++++++++
->  6 files changed, 36 insertions(+), 25 deletions(-)
-> =
-
-> diff --git a/drivers/dma-buf/st-dma-fence-chain.c b/drivers/dma-buf/st-dm=
-a-fence-chain.c
-> index 9525f7f56119..8ce1ea59d31b 100644
-> --- a/drivers/dma-buf/st-dma-fence-chain.c
-> +++ b/drivers/dma-buf/st-dma-fence-chain.c
-> @@ -58,28 +58,20 @@ static struct dma_fence *mock_fence(void)
->  	return &f->base;
->  }
->  =
-
-> -static inline struct mock_chain {
-> -	struct dma_fence_chain base;
-> -} *to_mock_chain(struct dma_fence *f) {
-> -	return container_of(f, struct mock_chain, base.base);
-> -}
-> -
->  static struct dma_fence *mock_chain(struct dma_fence *prev,
->  				    struct dma_fence *fence,
->  				    u64 seqno)
->  {
-> -	struct mock_chain *f;
-> +	struct dma_fence_chain *f;
->  =
-
-> -	f =3D kmalloc(sizeof(*f), GFP_KERNEL);
-> +	f =3D dma_fence_chain_alloc();
->  	if (!f)
->  		return NULL;
->  =
-
-> -	dma_fence_chain_init(&f->base,
-> -			     dma_fence_get(prev),
-> -			     dma_fence_get(fence),
-> +	dma_fence_chain_init(f, dma_fence_get(prev), dma_fence_get(fence),
->  			     seqno);
->  =
-
-> -	return &f->base.base;
-> +	return &f->base;
->  }
->  =
-
->  static int sanitycheck(void *arg)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_cs.c
-> index 90136f9dedd6..325e82621467 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> @@ -1124,7 +1124,7 @@ static int amdgpu_cs_process_syncobj_timeline_out_d=
-ep(struct amdgpu_cs_parser *p
->  =
-
->  		dep->chain =3D NULL;
->  		if (syncobj_deps[i].point) {
-> -			dep->chain =3D kmalloc(sizeof(*dep->chain), GFP_KERNEL);
-> +			dep->chain =3D dma_fence_chain_alloc();
->  			if (!dep->chain)
->  				return -ENOMEM;
->  		}
-> @@ -1132,7 +1132,7 @@ static int amdgpu_cs_process_syncobj_timeline_out_d=
-ep(struct amdgpu_cs_parser *p
->  		dep->syncobj =3D drm_syncobj_find(p->filp,
->  						syncobj_deps[i].handle);
->  		if (!dep->syncobj) {
-> -			kfree(dep->chain);
-> +			dma_fence_chain_free(dep->chain);
->  			return -EINVAL;
->  		}
->  		dep->point =3D syncobj_deps[i].point;
-> diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
-> index fdd2ec87cdd1..1c5b9ef6da37 100644
-> --- a/drivers/gpu/drm/drm_syncobj.c
-> +++ b/drivers/gpu/drm/drm_syncobj.c
-> @@ -861,7 +861,7 @@ static int drm_syncobj_transfer_to_timeline(struct dr=
-m_file *file_private,
->  				     &fence);
->  	if (ret)
->  		goto err;
-> -	chain =3D kzalloc(sizeof(struct dma_fence_chain), GFP_KERNEL);
-> +	chain =3D dma_fence_chain_alloc();
->  	if (!chain) {
->  		ret =3D -ENOMEM;
->  		goto err1;
-> @@ -1402,10 +1402,10 @@ drm_syncobj_timeline_signal_ioctl(struct drm_devi=
-ce *dev, void *data,
->  		goto err_points;
->  	}
->  	for (i =3D 0; i < args->count_handles; i++) {
-> -		chains[i] =3D kzalloc(sizeof(struct dma_fence_chain), GFP_KERNEL);
-> +		chains[i] =3D dma_fence_chain_alloc();
->  		if (!chains[i]) {
->  			for (j =3D 0; j < i; j++)
-> -				kfree(chains[j]);
-> +				dma_fence_chain_free(chains[j]);
->  			ret =3D -ENOMEM;
->  			goto err_chains;
->  		}
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu=
-/drm/i915/gem/i915_gem_execbuffer.c
-> index 66789111a24b..a22cb86730b3 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-> @@ -2983,7 +2983,7 @@ __free_fence_array(struct eb_fence *fences, unsigne=
-d int n)
->  	while (n--) {
->  		drm_syncobj_put(ptr_mask_bits(fences[n].syncobj, 2));
->  		dma_fence_put(fences[n].dma_fence);
-> -		kfree(fences[n].chain_fence);
-> +		dma_fence_chain_free(fences[n].chain_fence);
->  	}
->  	kvfree(fences);
->  }
-> @@ -3097,9 +3097,7 @@ add_timeline_fence_array(struct i915_execbuffer *eb,
->  				return -EINVAL;
->  			}
->  =
-
-> -			f->chain_fence =3D
-> -				kmalloc(sizeof(*f->chain_fence),
-> -					GFP_KERNEL);
-> +			f->chain_fence =3D dma_fence_chain_alloc();
->  			if (!f->chain_fence) {
->  				drm_syncobj_put(syncobj);
->  				dma_fence_put(fence);
-> diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/m=
-sm_gem_submit.c
-> index 5480852bdeda..6ff6df6c4791 100644
-> --- a/drivers/gpu/drm/msm/msm_gem_submit.c
-> +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-> @@ -586,9 +586,7 @@ static struct msm_submit_post_dep *msm_parse_post_dep=
-s(struct drm_device *dev,
->  				break;
->  			}
->  =
-
-> -			post_deps[i].chain =3D
-> -				kmalloc(sizeof(*post_deps[i].chain),
-> -				        GFP_KERNEL);
-> +			post_deps[i].chain =3D dma_fence_chain_alloc();
->  			if (!post_deps[i].chain) {
->  				ret =3D -ENOMEM;
->  				break;
-> @@ -605,7 +603,7 @@ static struct msm_submit_post_dep *msm_parse_post_dep=
-s(struct drm_device *dev,
->  =
-
->  	if (ret) {
->  		for (j =3D 0; j <=3D i; ++j) {
-> -			kfree(post_deps[j].chain);
-> +			dma_fence_chain_free(post_deps[j].chain);
->  			if (post_deps[j].syncobj)
->  				drm_syncobj_put(post_deps[j].syncobj);
->  		}
-> diff --git a/include/linux/dma-fence-chain.h b/include/linux/dma-fence-ch=
-ain.h
-> index c6eb3aa45668..7ec36d850363 100644
-> --- a/include/linux/dma-fence-chain.h
-> +++ b/include/linux/dma-fence-chain.h
-> @@ -12,6 +12,7 @@
->  =
-
->  #include <linux/dma-fence.h>
->  #include <linux/irq_work.h>
-> +#include <linux/slab.h>
->  =
-
->  /**
->   * struct dma_fence_chain - fence to represent an node of a fence chain
-> @@ -66,6 +67,28 @@ to_dma_fence_chain(struct dma_fence *fence)
->  	return container_of(fence, struct dma_fence_chain, base);
->  }
->  =
-
-> +/**
-> + * dma_fence_chain_alloc
-> + *
-> + * Returns a new dma_fence_chain object or NULL on failure.
-
-		struct dma_fence_chain for that hyperlink goodness
-
-> + */
-> +static inline struct dma_fence_chain *dma_fence_chain_alloc(void)
-> +{
-> +	return kmalloc(sizeof(struct dma_fence_chain), GFP_KERNEL);
-> +};
-> +
-> +/**
-> + * dma_fence_chain_free
-> + * @chain: chain node to free
-> + *
-> + * Frees up an allocated but not used dma_fence_chain node. This doesn't=
- need
-
-Same here.
-
-> + * an RCU grace period since the fence was never initialized nor publish=
-ed.
-
-I'd add even more clarification, like:
-
-"After dma_fence_chain_init() has been called the fence must be released
-by calling dma_fence_put(), and not through this function."
-
-That's still a notch too strict (in theory as long as the fence isn't
-published anywhere it's all fine), but it keeps the door open for some
-validation.
-
-With the doc polish:
-
-Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-
-
-> + */
-> +static inline void dma_fence_chain_free(struct dma_fence_chain *chain)
-> +{
-> +	kfree(chain);
-> +};
-> +
->  /**
->   * dma_fence_chain_for_each - iterate over all fences in chain
->   * @iter: current fence
-> -- =
-
-> 2.25.1
-> =
-
-
--- =
-
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+CgpBbSAxMS4wNi4yMSB1bSAxNjo0NyBzY2hyaWViIERhbmllbCBWZXR0ZXI6Cj4gT24gRnJpLCBK
+dW4gMTEsIDIwMjEgYXQgMDI6MDI6NTdQTSArMDIwMCwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToK
+Pj4gQXMgdGhlIG5hbWUgaW1wbGllcyBpZiB0ZXN0aW5nIGFsbCBmZW5jZXMgaXMgcmVxdWVzdGVk
+IHdlCj4+IHNob3VsZCBpbmRlZWQgdGVzdCBhbGwgZmVuY2VzIGFuZCBub3Qgc2tpcCB0aGUgZXhj
+bHVzaXZlCj4+IG9uZSBiZWNhdXNlIHdlIHNlZSBzaGFyZWQgb25lcy4KPj4KPj4gU2lnbmVkLW9m
+Zi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+IEhtIEkg
+dGhvdWdodCB3ZSd2ZSBoYWQgdGhlIHJ1bGUgdGhhdCB3aGVuIGJvdGggZmVuY2VzIGV4aXN0LCB0
+aGVuCj4gY29sbGVjdGl2ZWx5IHRoZSBzaGFyZWQgb25lcyBtdXN0IHNpZ25hbGUgbm8gZWFybGll
+ciB0aGFuIHRoZSBleGNsdXNpdmUKPiBvbmUuCj4KPiBUaGF0J3MgYXQgbGVhc3QgdGhlIGNvbnRy
+YWN0IHdlJ3ZlIGltcGxlbWVudGVkIGluIGRtYV9yZXN2LmguIEJ1dCBJJ3ZlCj4gYWxzbyBmb3Vu
+ZCBhIGJ1bmNoIG9mIGRyaXZlcnMgd2hvIGFyZSBhIGxvdCBtb3JlIHlvbG8gb24gdGhpcy4KPgo+
+IEkgdGhpbmsgdGhlcmUncyBhIHNvbGlkIGNhc2UgaGVyZSB0byBqdXN0IGFsd2F5cyB0YWtlIGFs
+bCB0aGUgZmVuY2VzIGlmIHdlCj4gYXNrIGZvciBhbGwgdGhlIHNoYXJlZCBvbmVzLCBidXQgaWYg
+d2UgZ28gdGhhdCB3YXkgdGhlbiBJJ2Qgc2F5Cj4gLSBjbGVhciBrZXJuZWxkb2MgcGF0Y2ggdG8g
+cmVhbGx5IGhhbW1lciB0aGlzIGluIChjdXJyZW50bHkgd2UncmUgbm90IGdvb2QKPiAgICBhdCBh
+bGwgaW4gdGhpcyByZWdhcmQpCj4gLSBnb2luZyB0aHJvdWdoIGRyaXZlcnMgYSBiaXQgdG8gY2hl
+Y2sgZm9yIHRoaXMgKEkgaGF2ZSBzb21lIG9mIHRoYXQgZG9uZQo+ICAgIGFscmVhZHkgaW4gbXkg
+ZWFybGllciBzZXJpZXMsIG5lZWQgdG8gcmVzcGluIGl0IGFuZCBzZW5kIGl0IG91dCkKPgo+IEJ1
+dCBJJ20ga2luZGEgbm90IHNlZWluZyB3aHkgdGhpcyBuZWVkcyB0byBiZSBpbiB0aGlzIHBhdGNo
+IHNlcmllcyBoZXJlLgoKWW91IG1lbnRpb25lZCB0aGF0IHRoaXMgaXMgYSBwcm9ibGVtIGluIHRo
+ZSBsYXN0IHBhdGNoIGFuZCBpZiB5b3UgYXNrIG1lIAp0aGF0J3MganVzdCBhIGJ1ZyBvciBhdCBs
+ZWFzdCB2ZXJ5IGluY29uc2lzdGVudC4KClNlZSBkbWFfcmVzdl93YWl0X3RpbWVvdXQoKSBhbHdh
+eXMgd2FpdHMgZm9yIGFsbCBmZW5jZXMsIGluY2x1ZGluZyB0aGUgCmV4Y2x1c2l2ZSBvbmUgZXZl
+biBpZiBzaGFyZWQgb25lcyBhcmUgcHJlc2VudC4gQnV0IApkbWFfcmVzdl90ZXN0X3NpZ25hbGVk
+KCkgaWdub3JlcyB0aGUgZXhjbHVzaXZlIG9uZSBpZiBzaGFyZWQgb25lcyBhcmUgCnByZXNlbnQu
+CgpUaGUgb25seSBvdGhlciBkcml2ZXIgSSBjb3VsZCBmaW5kIHRyeWluZyB0byBtYWtlIHVzZSBv
+ZiB0aGlzIGlzIG5vdXZlYXUgCmFuZCBJIGFscmVhZHkgcHJvdmlkZWQgYSBmaXggZm9yIHRoaXMg
+YXMgd2VsbC4KCkkganVzdCB0aGluayB0aGF0IHRoaXMgaXMgdGhlIG1vcmUgZGVmZW5zaXZlIGFw
+cHJvYWNoIHRvIGZpeCB0aGlzIGFuZCAKaGF2ZSBhdCBsZWFzdCB0aGUgY29yZSBmdW5jdGlvbnMg
+Y29uc2lzdGVudCBvbiB0aGUgaGFuZGxpbmcuCgpDaHJpc3RpYW4uCgo+IC1EYW5pZWwKPgo+PiAt
+LS0KPj4gICBkcml2ZXJzL2RtYS1idWYvZG1hLXJlc3YuYyB8IDMzICsrKysrKysrKysrKy0tLS0t
+LS0tLS0tLS0tLS0tLS0tLQo+PiAgIDEgZmlsZSBjaGFuZ2VkLCAxMiBpbnNlcnRpb25zKCspLCAy
+MSBkZWxldGlvbnMoLSkKPj4KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZG1hLWJ1Zi9kbWEtcmVz
+di5jIGIvZHJpdmVycy9kbWEtYnVmL2RtYS1yZXN2LmMKPj4gaW5kZXggZjI2YzcxNzQ3ZDQzLi5j
+NjZiZmRkZTk0NTQgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZG1hLWJ1Zi9kbWEtcmVzdi5jCj4+
+ICsrKyBiL2RyaXZlcnMvZG1hLWJ1Zi9kbWEtcmVzdi5jCj4+IEBAIC02MTUsMjUgKzYxNSwyMSBA
+QCBzdGF0aWMgaW5saW5lIGludCBkbWFfcmVzdl90ZXN0X3NpZ25hbGVkX3NpbmdsZShzdHJ1Y3Qg
+ZG1hX2ZlbmNlICpwYXNzZWRfZmVuY2UpCj4+ICAgICovCj4+ICAgYm9vbCBkbWFfcmVzdl90ZXN0
+X3NpZ25hbGVkKHN0cnVjdCBkbWFfcmVzdiAqb2JqLCBib29sIHRlc3RfYWxsKQo+PiAgIHsKPj4g
+LQl1bnNpZ25lZCBpbnQgc2VxLCBzaGFyZWRfY291bnQ7Cj4+ICsJc3RydWN0IGRtYV9mZW5jZSAq
+ZmVuY2U7Cj4+ICsJdW5zaWduZWQgaW50IHNlcTsKPj4gICAJaW50IHJldDsKPj4gICAKPj4gICAJ
+cmN1X3JlYWRfbG9jaygpOwo+PiAgIHJldHJ5Ogo+PiAgIAlyZXQgPSB0cnVlOwo+PiAtCXNoYXJl
+ZF9jb3VudCA9IDA7Cj4+ICAgCXNlcSA9IHJlYWRfc2VxY291bnRfYmVnaW4oJm9iai0+c2VxKTsK
+Pj4gICAKPj4gICAJaWYgKHRlc3RfYWxsKSB7Cj4+ICAgCQlzdHJ1Y3QgZG1hX3Jlc3ZfbGlzdCAq
+Zm9iaiA9IGRtYV9yZXN2X3NoYXJlZF9saXN0KG9iaik7Cj4+IC0JCXVuc2lnbmVkIGludCBpOwo+
+PiAtCj4+IC0JCWlmIChmb2JqKQo+PiAtCQkJc2hhcmVkX2NvdW50ID0gZm9iai0+c2hhcmVkX2Nv
+dW50Owo+PiArCQl1bnNpZ25lZCBpbnQgaSwgc2hhcmVkX2NvdW50Owo+PiAgIAo+PiArCQlzaGFy
+ZWRfY291bnQgPSBmb2JqID8gZm9iai0+c2hhcmVkX2NvdW50IDogMDsKPj4gICAJCWZvciAoaSA9
+IDA7IGkgPCBzaGFyZWRfY291bnQ7ICsraSkgewo+PiAtCQkJc3RydWN0IGRtYV9mZW5jZSAqZmVu
+Y2U7Cj4+IC0KPj4gICAJCQlmZW5jZSA9IHJjdV9kZXJlZmVyZW5jZShmb2JqLT5zaGFyZWRbaV0p
+Owo+PiAgIAkJCXJldCA9IGRtYV9yZXN2X3Rlc3Rfc2lnbmFsZWRfc2luZ2xlKGZlbmNlKTsKPj4g
+ICAJCQlpZiAocmV0IDwgMCkKPj4gQEAgLTY0MSwyNCArNjM3LDE5IEBAIGJvb2wgZG1hX3Jlc3Zf
+dGVzdF9zaWduYWxlZChzdHJ1Y3QgZG1hX3Jlc3YgKm9iaiwgYm9vbCB0ZXN0X2FsbCkKPj4gICAJ
+CQllbHNlIGlmICghcmV0KQo+PiAgIAkJCQlicmVhazsKPj4gICAJCX0KPj4gLQo+PiAtCQlpZiAo
+cmVhZF9zZXFjb3VudF9yZXRyeSgmb2JqLT5zZXEsIHNlcSkpCj4+IC0JCQlnb3RvIHJldHJ5Owo+
+PiAgIAl9Cj4+ICAgCj4+IC0JaWYgKCFzaGFyZWRfY291bnQpIHsKPj4gLQkJc3RydWN0IGRtYV9m
+ZW5jZSAqZmVuY2VfZXhjbCA9IGRtYV9yZXN2X2V4Y2xfZmVuY2Uob2JqKTsKPj4gLQo+PiAtCQlp
+ZiAoZmVuY2VfZXhjbCkgewo+PiAtCQkJcmV0ID0gZG1hX3Jlc3ZfdGVzdF9zaWduYWxlZF9zaW5n
+bGUoZmVuY2VfZXhjbCk7Cj4+IC0JCQlpZiAocmV0IDwgMCkKPj4gLQkJCQlnb3RvIHJldHJ5Owo+
+PiArCWZlbmNlID0gZG1hX3Jlc3ZfZXhjbF9mZW5jZShvYmopOwo+PiArCWlmIChmZW5jZSkgewo+
+PiArCQlyZXQgPSBkbWFfcmVzdl90ZXN0X3NpZ25hbGVkX3NpbmdsZShmZW5jZSk7Cj4+ICsJCWlm
+IChyZXQgPCAwKQo+PiArCQkJZ290byByZXRyeTsKPj4gICAKPj4gLQkJCWlmIChyZWFkX3NlcWNv
+dW50X3JldHJ5KCZvYmotPnNlcSwgc2VxKSkKPj4gLQkJCQlnb3RvIHJldHJ5Owo+PiAtCQl9Cj4+
+ICAgCX0KPj4gICAKPj4gKwlpZiAocmVhZF9zZXFjb3VudF9yZXRyeSgmb2JqLT5zZXEsIHNlcSkp
+Cj4+ICsJCWdvdG8gcmV0cnk7Cj4+ICsKPj4gICAJcmN1X3JlYWRfdW5sb2NrKCk7Cj4+ICAgCXJl
+dHVybiByZXQ7Cj4+ICAgfQo+PiAtLSAKPj4gMi4yNS4xCj4+CgpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
+bWFuL2xpc3RpbmZvL2FtZC1nZngK
