@@ -2,101 +2,69 @@ Return-Path: <SRS0=qfa3=LF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,DATE_IN_PAST_24_48,
-	DKIM_INVALID,DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E133AC48BE0
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Jun 2021 08:12:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2B3C0C48BE0
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Jun 2021 08:58:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9BD73610A5
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Jun 2021 08:12:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9BD73610A5
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 9FE3B60BD3
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Jun 2021 08:58:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9FE3B60BD3
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E3326EE47;
-	Fri, 11 Jun 2021 08:12:53 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2076.outbound.protection.outlook.com [40.107.244.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35B186EE47
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Jun 2021 08:12:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZM5e1Lc3IRw9e1rGATouogQq0lxmnxJucAFx2EfIcv8FduDyZcxhiOZ2S1Z0JMYV7NF1hR5I6RcrLj58yfo7eZ+rhBw2I/C32JUPXokiTVR/9MDABTJMwO0xdKEEgBNfBI8m8xOUIH/HQcgRBUl9kaT/mVM5QltulJodIsdINpp1IdgBqFhIbfqbqGQ7IMaqQpT2xpY98eA5kj7XGEwus2QuKAIxiijG7ez0K609TEODgHA3rW2oWblIxCoT2OzyJlB6w62k+9rqn0QzD7N/uA/KaCv28Tisvee4R7wHlvi1FwEoANROY1f4Q5RtwuVXd7xtY7FRt3diEj8uQ/pmlQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2yG6uhcqUoLDGkkTWuxgOfZB9RKjGFPmLsO6b4YFAj4=;
- b=lI+qgXWdzal44rhvcjs/Yu/jgBQR+go+eJCxyXxM64gTP3NydyUL/PMXg4t2oGnLtaNxn3bPNF1a2IWF0TolsCRu8EpY1pGdj2GjgEP8U7BWoH+RWA46+l2bhT/bE5M1usfqSK+QpQsy5Sg3HKmySmWfk28nXWZN3BulJehAWYO2hneAp+b6/dTbUI1Pvhy/H6SN7s/v4DeMHjg7vkPyriN+vF+Yk94eIvjeEkJALpeJW0t8otjFSsl4K62vuxBSdsLUTLQVkwNy+076Bhp1F3Jx8/bmKe4tIw/CsGQG/kwzkmQN8qkcZEjdvSJwhBLCGwUfWuxfTG9762pbgcSUyg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2yG6uhcqUoLDGkkTWuxgOfZB9RKjGFPmLsO6b4YFAj4=;
- b=xTcI9uI+RXQnt9JG15kug5ZMi4YtYtLRDiHoR/3NNyK8MfOkiFukikVQHFLvou13AahvmURCUOKuEjstfwjNEFo7b4rVIMF7wFECsVdCFTuaiNjgw23Jn7B7Tjez6Wz6bmkMkJNI8ORgVHuvJJ+SwsqfQg9w++uZSOmuVZse/pE=
-Received: from CO2PR05CA0062.namprd05.prod.outlook.com (2603:10b6:102:2::30)
- by MN2PR12MB3248.namprd12.prod.outlook.com (2603:10b6:208:a9::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.20; Fri, 11 Jun
- 2021 08:12:49 +0000
-Received: from CO1NAM11FT003.eop-nam11.prod.protection.outlook.com
- (2603:10b6:102:2:cafe::e) by CO2PR05CA0062.outlook.office365.com
- (2603:10b6:102:2::30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.9 via Frontend
- Transport; Fri, 11 Jun 2021 08:12:48 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT003.mail.protection.outlook.com (10.13.175.93) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4219.21 via Frontend Transport; Fri, 11 Jun 2021 08:12:48 +0000
-Received: from arun-Mandolin-PCO.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2242.4; Fri, 11 Jun 2021 03:12:45 -0500
-From: Sathishkumar S <sathishkumar.sundararaju@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd/pm: support ss metrics read on renoir
-Date: Thu, 10 Jun 2021 10:03:58 +0530
-Message-ID: <20210610043358.14997-1-sathishkumar.sundararaju@amd.com>
-X-Mailer: git-send-email 2.17.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 421866E874;
+	Fri, 11 Jun 2021 08:58:07 +0000 (UTC)
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [IPv6:2a00:1450:4864:20::42e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 454DC6E874
+ for <amd-gfx@lists.freedesktop.org>; Fri, 11 Jun 2021 08:58:06 +0000 (UTC)
+Received: by mail-wr1-x42e.google.com with SMTP id a20so5229146wrc.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 11 Jun 2021 01:58:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=FMEqqIZNJAnBlxmxIYr+7vjHX7UJFxwgE3aT0eL/IGM=;
+ b=XvNx0x/oBjx2/7SqS5LOLZTE51+hILj83aFltbyvoo2BE41tgL7Z4DD+LRm340Og6V
+ QxiPqFFxWJzBhcGU49hIKEX/NvIP8WOgV1UUIeFPXLdl0NKaZKunVwzyYGXtjbUzPVpb
+ nJi6z+ivzQXt4pPJBtYza2cvLj3dt9jLdjcDY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=FMEqqIZNJAnBlxmxIYr+7vjHX7UJFxwgE3aT0eL/IGM=;
+ b=tvJPi8FOcxCJcc5H4BKPLGOrYARnooOpNYKWCQPYV2Cl6wkjv4O0x0JxZBHFQuDcXq
+ m6gSPMyPeLO7VqXdKy/cIFRlAz4VDMpQRHyRgWfWR125239SKzjQQ24WwltaiisYdrNP
+ MFAggr6GsNmI0NVil4/73ZbwwtJ6GyfN5HY5HeEI/OdJT3u97AnfYFnIOYACy8wqJHki
+ ah3DhUwa5SZKf6F8kZqYqQ8TBaTS5NVt0DraCMvW952LLVpemVV9ZKX0RzElrysP0ide
+ 0YtqsDDfmniRHxAoaKB6RyQTWE/qBalWFHM1AMiCBAqPPkuH7lEFt3FjNiA6MwHSX1Gn
+ wXtQ==
+X-Gm-Message-State: AOAM531NTR+4YcW+aclG/qPByV4mxxXTCEGTt1GOsHU+vmMRgzXnGEGX
+ 2vCHQ8dIuTvfpavN5nHWnb1Nkw==
+X-Google-Smtp-Source: ABdhPJxoTR4/Rlgzq+4tok7htegrWc0im2HIOR6CtrNnzQAt2LflRyidsH/Pgdg3uIazwDhLzR1z9A==
+X-Received: by 2002:a5d:47ce:: with SMTP id o14mr2771240wrc.273.1623401884845; 
+ Fri, 11 Jun 2021 01:58:04 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id t9sm6172571wmq.14.2021.06.11.01.58.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 11 Jun 2021 01:58:04 -0700 (PDT)
+Date: Fri, 11 Jun 2021 10:58:02 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
+Subject: Re: [PATCH 4/7] dma-buf: add dma_fence_chain_garbage_collect
+Message-ID: <YMMlmt0frb1Pfdo0@phenom.ffwll.local>
+References: <20210610091800.1833-1-christian.koenig@amd.com>
+ <20210610091800.1833-5-christian.koenig@amd.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: aac0289a-37c0-4a2d-d35b-08d92cb0b330
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3248:
-X-Microsoft-Antispam-PRVS: <MN2PR12MB324848517835F481375EE5FE9D349@MN2PR12MB3248.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2657;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 5l5J9msyfU7Fkre32gMt496d0Aouoxq5JOsgfvMvd1t5vpgTvTmiElONXfYvmXNqwWHsuwdWunDqDy/3+3UV1xNyRWtB5aRQl3HUbKUf3CxJn5mdLhDClQUJ+tbUd6pWv6YK1gxOMOdgloMcNIxWoBdXBtB/crGvyz5Ha0Y3N/gNVEecp6e3EWDHKCv7GI15AmgMSi5IH5QV98PVjJKCoDYqgLTaeJ1FibrimkhBLfGDp4YtPZVUGUhTtf3445n8WLdaPpIWaI9rsMei7dzK/vXrKkqpT3hsskqI5Zmqx/gPjefL5pnvPlwmpKb8TJV77o/6CpokDwiyk+lR7oHNa0YJQSMBmv6WNUx0AaP1Pq63TMtSGNuiCUvz2KOdqinM5e3p0TcjTydl3aihh/na1CUcH7DAATFZ3snV0RgMJh+63K58LOWv7bdcJIzrAxjHBsabq2vMQ3VVIrlPV19Ljad23ncmK5ucFQtFUTr6efq7RAnqtTqi38b8kW/vF3WeVQm9P1FZKl8UanfMNCFuV3ZW2cW3F7j05UqjmeJeAL9kNc0On59LlEk+GmRuyuUJVo79fhotoL2kJG6iIUzsjydHD0ojsKuw/Bi2kX45sMC9VxtjhE3E8ZOe6VZ2rb8OMkpoGtIEbYhm3UTAiEXU34XZnlunOXhlzQVT6VtR039pVnmCTCwTh5Kc57x7akO3
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(346002)(376002)(396003)(39850400004)(136003)(46966006)(36840700001)(47076005)(5660300002)(70206006)(81166007)(70586007)(7696005)(36860700001)(6666004)(83380400001)(316002)(86362001)(1076003)(26005)(356005)(36756003)(2616005)(186003)(82310400003)(426003)(336012)(2906002)(6916009)(8936002)(8676002)(4326008)(54906003)(82740400003)(478600001)(16526019)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2021 08:12:48.0254 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: aac0289a-37c0-4a2d-d35b-08d92cb0b330
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT003.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3248
+Content-Disposition: inline
+In-Reply-To: <20210610091800.1833-5-christian.koenig@amd.com>
+X-Operating-System: Linux phenom 5.10.32scarlett+ 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,77 +76,327 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander Deucher <Alexander.Deucher@amd.com>,
- Sathishkumar S <sathishkumar.sundararaju@amd.com>,
- Lazar Lijo <Lijo.Lazar@amd.com>, Shashank Sharma <Shashank.Sharma@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-add support to read smart shift apu and dgpu power share
-on renoir.
+On Thu, Jun 10, 2021 at 11:17:57AM +0200, Christian K=F6nig wrote:
+> Add some rather sophisticated lockless garbage collection
+> for dma_fence_chain objects.
+> =
 
-Signed-off-by: Sathishkumar S <sathishkumar.sundararaju@amd.com>
----
- .../gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c   | 34 +++++++++++++++++++
- 1 file changed, 34 insertions(+)
+> For this keep all initialized dma_fence_chain nodes an a
+> queue and trigger garbage collection before a new one is
+> allocated.
+> =
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-index ccfcfcf18e4d..9a9c24a6ec35 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-@@ -1180,6 +1180,28 @@ static int renoir_get_smu_metrics_data(struct smu_context *smu,
- 	case METRICS_VOLTAGE_VDDSOC:
- 		*value = metrics->Voltage[1];
- 		break;
-+	case METRICS_SS_APU_SHARE:
-+		/* return the percentage of APU power with respect to APU's power limit.
-+		 * percentage is reported, this isn't boost value. Smartshift power
-+		 * boost/shift is only when the percentage is more than 100.
-+		 */
-+		if (metrics->StapmOriginalLimit > 0)
-+			*value =  (metrics->ApuPower * 100) / metrics->StapmOriginalLimit;
-+		else
-+			*value = 0;
-+		break;
-+	case METRICS_SS_DGPU_SHARE:
-+		/* return the percentage of dGPU power with respect to dGPU's power limit.
-+		 * percentage is reported, this isn't boost value. Smartshift power
-+		 * boost/shift is only when the percentage is more than 100.
-+		 */
-+		if ((metrics->dGpuPower > 0) &&
-+		    (metrics->StapmCurrentLimit > metrics->StapmOriginalLimit))
-+			*value = (metrics->dGpuPower * 100) /
-+				  (metrics->StapmCurrentLimit - metrics->StapmOriginalLimit);
-+		else
-+			*value = 0;
-+		break;
- 	default:
- 		*value = UINT_MAX;
- 		break;
-@@ -1251,6 +1273,18 @@ static int renoir_read_sensor(struct smu_context *smu,
- 						  (uint32_t *)data);
- 		*size = 4;
- 		break;
-+	case AMDGPU_PP_SENSOR_SS_APU_SHARE:
-+		ret = renoir_get_smu_metrics_data(smu,
-+						  METRICS_SS_APU_SHARE,
-+						  (uint32_t *)data);
-+		*size = 4;
-+		break;
-+	case AMDGPU_PP_SENSOR_SS_DGPU_SHARE:
-+		ret = renoir_get_smu_metrics_data(smu,
-+						  METRICS_SS_DGPU_SHARE,
-+						  (uint32_t *)data);
-+		*size = 4;
-+		break;
- 	default:
- 		ret = -EOPNOTSUPP;
- 		break;
--- 
-2.17.1
+> Signed-off-by: Christian K=F6nig <christian.koenig@amd.com>
 
+Uh hand-rolled lockless list, I'm not a fan.
+
+But the real question here is why? This is a global list, so it's going to
+look great on your desktop, but gpus are for servers now and those are
+NUMA. So just from that pov doing garbage-collection individually still
+feels like a much better idea.
+
+So what's the problem your trying to solve here?
+-Daniel
+
+> ---
+>  drivers/dma-buf/dma-fence-chain.c | 160 +++++++++++++++++++++++++-----
+>  include/linux/dma-fence-chain.h   |   5 +
+>  2 files changed, 142 insertions(+), 23 deletions(-)
+> =
+
+> diff --git a/drivers/dma-buf/dma-fence-chain.c b/drivers/dma-buf/dma-fenc=
+e-chain.c
+> index 1b4cb3e5cec9..c2f0b69eabb7 100644
+> --- a/drivers/dma-buf/dma-fence-chain.c
+> +++ b/drivers/dma-buf/dma-fence-chain.c
+> @@ -9,8 +9,53 @@
+>  =
+
+>  #include <linux/dma-fence-chain.h>
+>  =
+
+> +static struct dma_fence_chain __rcu *fifo_front;
+> +static struct dma_fence_chain __rcu **fifo_back =3D &fifo_front;
+> +
+>  static bool dma_fence_chain_enable_signaling(struct dma_fence *fence);
+>  =
+
+> +/**
+> + * dma_fence_chain_enqueue - enqeue a chain node for garbage collection
+> + * @chain: the chain node to enqueue
+> + *
+> + * Add the chain node to the end of the gc fifo.
+> + */
+> +static void dma_fence_chain_enqueue(struct dma_fence_chain *chain)
+> +{
+> +	struct dma_fence_chain __rcu **tmp;
+> +
+> +	RCU_INIT_POINTER(chain->next, NULL);
+> +	tmp =3D xchg((struct dma_fence_chain __force ***)&fifo_back,
+> +		   &chain->next);
+> +
+> +	/* This is intentionally unordered since we only need the fifo for gc */
+> +	rcu_assign_pointer(*tmp, chain);
+> +}
+> +
+> +/**
+> + * dma_fence_chain_dequeue - deqeueue a chain node for garbage collection
+> + *
+> + * Remove the first chain node from the gc fifo while making sure that a=
+lways
+> + * keep at least one node on the fifo for lockless fifo implementation.
+> + * Returns the dequeued chain node or NULL.
+> + */
+> +static struct dma_fence_chain *dma_fence_chain_dequeue(void)
+> +{
+> +	struct dma_fence_chain *chain, *tmp;
+> +
+> +	rcu_read_lock();
+> +	chain =3D rcu_dereference(fifo_front);
+> +	/* Never dequeue the last chain node for lockless fifo */
+> +	if (unlikely(!chain || !rcu_access_pointer(chain->next))) {
+> +		rcu_read_unlock();
+> +		return NULL;
+> +	}
+> +	tmp =3D cmpxchg((struct dma_fence_chain __force **)&fifo_front,
+> +		      chain, rcu_access_pointer(chain->next));
+> +	rcu_read_unlock();
+> +	return tmp =3D=3D chain ? chain : NULL;
+> +}
+> +
+>  /**
+>   * dma_fence_chain_get_prev - use RCU to get a reference to the previous=
+ fence
+>   * @chain: chain node to get the previous node from
+> @@ -28,6 +73,43 @@ static struct dma_fence *dma_fence_chain_get_prev(stru=
+ct dma_fence_chain *chain)
+>  	return prev;
+>  }
+>  =
+
+> +/**
+> + * dma_fence_chain_try_replace - try to replace the prev node
+> + * @chain: Chain node we try to replace prev.
+> + * @prev: the old prev node
+> + *
+> + * Try to replace the previous chain node when it or its containing fenc=
+e is
+> + * signaled. Returns true if we tried, false if we need to wait.
+> + */
+> +static bool dma_fence_chain_try_replace(struct dma_fence_chain *chain,
+> +					struct dma_fence *prev)
+> +{
+> +	struct dma_fence *replacement, *tmp;
+> +	struct dma_fence_chain *prev_chain;
+> +
+> +	prev_chain =3D to_dma_fence_chain(prev);
+> +	if (prev_chain) {
+> +		if (!dma_fence_is_signaled(prev_chain->fence))
+> +			return false;
+> +
+> +		replacement =3D dma_fence_chain_get_prev(prev_chain);
+> +	} else {
+> +		if (!dma_fence_is_signaled(prev))
+> +			return false;
+> +
+> +		replacement =3D NULL;
+> +	}
+> +
+> +	tmp =3D cmpxchg((struct dma_fence __force **)&chain->prev, prev,
+> +		      replacement);
+> +	if (tmp =3D=3D prev)
+> +		dma_fence_put(tmp);
+> +	else
+> +		dma_fence_put(replacement);
+> +
+> +	return true;
+> +}
+> +
+>  /**
+>   * dma_fence_chain_walk - chain walking function
+>   * @fence: current chain node
+> @@ -38,8 +120,8 @@ static struct dma_fence *dma_fence_chain_get_prev(stru=
+ct dma_fence_chain *chain)
+>   */
+>  struct dma_fence *dma_fence_chain_walk(struct dma_fence *fence)
+>  {
+> -	struct dma_fence_chain *chain, *prev_chain;
+> -	struct dma_fence *prev, *replacement, *tmp;
+> +	struct dma_fence_chain *chain;
+> +	struct dma_fence *prev;
+>  =
+
+>  	chain =3D to_dma_fence_chain(fence);
+>  	if (!chain) {
+> @@ -48,26 +130,8 @@ struct dma_fence *dma_fence_chain_walk(struct dma_fen=
+ce *fence)
+>  	}
+>  =
+
+>  	while ((prev =3D dma_fence_chain_get_prev(chain))) {
+> -
+> -		prev_chain =3D to_dma_fence_chain(prev);
+> -		if (prev_chain) {
+> -			if (!dma_fence_is_signaled(prev_chain->fence))
+> -				break;
+> -
+> -			replacement =3D dma_fence_chain_get_prev(prev_chain);
+> -		} else {
+> -			if (!dma_fence_is_signaled(prev))
+> -				break;
+> -
+> -			replacement =3D NULL;
+> -		}
+> -
+> -		tmp =3D cmpxchg((struct dma_fence __force **)&chain->prev,
+> -			      prev, replacement);
+> -		if (tmp =3D=3D prev)
+> -			dma_fence_put(tmp);
+> -		else
+> -			dma_fence_put(replacement);
+> +		if (!dma_fence_chain_try_replace(chain, prev))
+> +			break;
+>  		dma_fence_put(prev);
+>  	}
+>  =
+
+> @@ -205,7 +269,21 @@ static void dma_fence_chain_release(struct dma_fence=
+ *fence)
+>  	dma_fence_put(prev);
+>  =
+
+>  	dma_fence_put(chain->fence);
+> -	dma_fence_free(fence);
+> +	WRITE_ONCE(chain->fence, NULL);
+> +
+> +	/*
+> +	 * Don't garbage collect here to avoid recursion and potential stack
+> +	 * overflow.
+> +	 */
+> +	chain =3D dma_fence_chain_dequeue();
+> +	if (!chain)
+> +		return;
+> +
+> +	if (kref_read(&chain->base.refcount) ||
+> +	    READ_ONCE(chain->fence))
+> +		dma_fence_chain_enqueue(chain);
+> +	else
+> +		dma_fence_free(&chain->base);
+>  }
+>  =
+
+>  const struct dma_fence_ops dma_fence_chain_ops =3D {
+> @@ -218,6 +296,40 @@ const struct dma_fence_ops dma_fence_chain_ops =3D {
+>  };
+>  EXPORT_SYMBOL(dma_fence_chain_ops);
+>  =
+
+> +/**
+> + * dma_fence_chain_garbage_collect - cleanup chain nodes
+> + *
+> + * Do some garbage collection and try to release chain nodes.
+> + */
+> +void dma_fence_chain_garbage_collect(void)
+> +{
+> +	struct dma_fence_chain *chain =3D dma_fence_chain_dequeue();
+> +
+> +	if (!chain)
+> +		return;
+> +
+> +	if (!dma_fence_get_rcu(&chain->base)) {
+> +		/* Unused, check if it's also clean */
+> +		if (likely(!READ_ONCE(chain->fence))) {
+> +			dma_fence_free(&chain->base);
+> +			return;
+> +		}
+> +
+> +	} else {
+> +		struct dma_fence *prev;
+> +
+> +		/* Used, do some chain walk */
+> +		prev =3D dma_fence_chain_get_prev(chain);
+> +		if (prev) {
+> +			dma_fence_chain_try_replace(chain, prev);
+> +			dma_fence_put(prev);
+> +		}
+> +		dma_fence_put(&chain->base);
+> +	}
+> +	dma_fence_chain_enqueue(chain);
+> +}
+> +EXPORT_SYMBOL(dma_fence_chain_garbage_collect);
+> +
+>  /**
+>   * dma_fence_chain_init - initialize a fence chain
+>   * @chain: the chain node to initialize
+> @@ -254,5 +366,7 @@ void dma_fence_chain_init(struct dma_fence_chain *cha=
+in,
+>  =
+
+>  	dma_fence_init(&chain->base, &dma_fence_chain_ops,
+>  		       &chain->lock, context, seqno);
+> +	dma_fence_chain_enqueue(chain);
+>  }
+> +
+>  EXPORT_SYMBOL(dma_fence_chain_init);
+> diff --git a/include/linux/dma-fence-chain.h b/include/linux/dma-fence-ch=
+ain.h
+> index 5f45689a6d2e..b412b5396434 100644
+> --- a/include/linux/dma-fence-chain.h
+> +++ b/include/linux/dma-fence-chain.h
+> @@ -19,6 +19,7 @@
+>   * @base: fence base class
+>   * @lock: spinlock for fence handling
+>   * @prev: previous fence of the chain
+> + * @next: next chain node for garbage collection
+>   * @prev_seqno: original previous seqno before garbage collection
+>   * @fence: encapsulated fence
+>   * @cb: callback structure for signaling
+> @@ -27,6 +28,7 @@
+>  struct dma_fence_chain {
+>  	struct dma_fence base;
+>  	struct dma_fence __rcu *prev;
+> +	struct dma_fence_chain __rcu *next;
+>  	u64 prev_seqno;
+>  	struct dma_fence *fence;
+>  	union {
+> @@ -38,6 +40,8 @@ struct dma_fence_chain {
+>  =
+
+>  extern const struct dma_fence_ops dma_fence_chain_ops;
+>  =
+
+> +void dma_fence_chain_garbage_collect(void);
+> +
+>  /**
+>   * to_dma_fence_chain - cast a fence to a dma_fence_chain
+>   * @fence: fence to cast to a dma_fence_array
+> @@ -61,6 +65,7 @@ to_dma_fence_chain(struct dma_fence *fence)
+>   */
+>  static inline struct dma_fence_chain *dma_fence_chain_alloc(void)
+>  {
+> +	dma_fence_chain_garbage_collect();
+>  	return kmalloc(sizeof(struct dma_fence_chain), GFP_KERNEL);
+>  };
+>  =
+
+> -- =
+
+> 2.25.1
+> =
+
+
+-- =
+
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
