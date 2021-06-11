@@ -2,117 +2,71 @@ Return-Path: <SRS0=qfa3=LF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BB88BC48BE5
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Jun 2021 19:25:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A6186C48BD1
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Jun 2021 20:17:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 790C0613C3
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Jun 2021 19:25:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 790C0613C3
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 665B9610F8
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Jun 2021 20:17:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 665B9610F8
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2927F6E07B;
-	Fri, 11 Jun 2021 19:25:54 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2074.outbound.protection.outlook.com [40.107.92.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5226B6E07B
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Jun 2021 19:25:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oALb/N6CbOuR5el624fSYOIKixoUXT33njxi4QekhuBlTA/xWRFY9S7dEvTrERaRcfGGZCE1AH3xr0awNmeGeTCJXo+Xt/LwRs1E7+aeOfc2zorapoLn/Q6bFzaGBLnWWqdLh9VWvBsQ1FzK4ksBu4Id8IMLXY3yRzgyTLa6QqlIA7ijHXWotPhXWCm3N4kYmLVZQH+sMx/zfA6r0ZjJ0PUES+4QKkbon3hXSSJHRrdlD3vTHLIx+ST5l80UvsOg6BXaKGAgakMGINK5jyRo2Kn3IUBbhhJMYx/mxr1BTsCr3P8GzR1DgQMjSHLtwHyOpn0sprSjvN7M4VEgtvpI8w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=E7AxMjRafrK1AfJKPh5FgcEUU7d+Y0/bR51DoCeO6Go=;
- b=D0BU5ogqVB7YSiGXodYYXlrpmECBD4kUkj1N60fJ4eqLKtEvuygKhqEy7dpbsXHi/XKZoPejFF4UUvZqbwa5lNNAkYycfyhFQstXy8HWjxYJjdSg7gzysO6pMmeBDpuEU2XeAUe4ZYIZJTtctyzqBBlKP2cth2x3+nlLhGHf+BE3jrfWn82nsmZZDW3IGqh4JzaD99GPvbgEc2k+ht6mlN3yAx2qieKAkeL9/u5BB273WkkJMpbunZdV6KjrMNsIULjbR4IWBHLCbW4x7vBj3Pn5zm9nEdDJvuAXFkaFeWBtrq8tVUn8a/Cz5KgQyeJFzP6j7A4QPhLlUcA1pm0chA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=E7AxMjRafrK1AfJKPh5FgcEUU7d+Y0/bR51DoCeO6Go=;
- b=uXUPQdKj7B+Hqgwi36MAjSivkQPV/jRdvCm+EJ42sfnRN7L3sA3c9EKNQ+2S6WovgySc0JdRh3T/esYXRGudwL/FX3U/2t5PQAlPJ4+SNNLxA+VwnQ2kNo2SKdD4RgYnGfDL9FYZrDMwk7t2WH5L5vbF+Ep+Pbbhm0ZUVvRq8RY=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from DM5PR12MB4680.namprd12.prod.outlook.com (2603:10b6:4:a6::33) by
- DM6PR12MB2892.namprd12.prod.outlook.com (2603:10b6:5:182::22) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4195.23; Fri, 11 Jun 2021 19:25:49 +0000
-Received: from DM5PR12MB4680.namprd12.prod.outlook.com
- ([fe80::1d06:dcde:55f9:3eb7]) by DM5PR12MB4680.namprd12.prod.outlook.com
- ([fe80::1d06:dcde:55f9:3eb7%7]) with mapi id 15.20.4219.024; Fri, 11 Jun 2021
- 19:25:49 +0000
-From: Jonathan Kim <jonathan.kim@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdkfd: fix circular locking on get_wave_state
-Date: Fri, 11 Jun 2021 15:25:36 -0400
-Message-Id: <20210611192536.1808287-1-jonathan.kim@amd.com>
-X-Mailer: git-send-email 2.25.1
-X-Originating-IP: [165.204.55.251]
-X-ClientProxiedBy: YT1PR01CA0149.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2f::28) To DM5PR12MB4680.namprd12.prod.outlook.com
- (2603:10b6:4:a6::33)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04AA66F3CE;
+	Fri, 11 Jun 2021 20:17:46 +0000 (UTC)
+Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
+ [IPv6:2607:f8b0:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5558C6F3CE;
+ Fri, 11 Jun 2021 20:17:44 +0000 (UTC)
+Received: by mail-ot1-x331.google.com with SMTP id
+ 36-20020a9d0ba70000b02902e0a0a8fe36so4320634oth.8; 
+ Fri, 11 Jun 2021 13:17:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=9p32mYe7Vrajs1IOJMVIyOazGV2lSa3kgXtxyIYlRfo=;
+ b=Ft6zB5ioGG8h1L3EE9Lf/GydQz/GwgLh7aQQQ9qpDIgKjtw79vrNVTvv1EAYooD7cQ
+ 8AOIXvnxcqEjoxe1xOJ6guNOdhMcLyVX+TmH6LeGY+CaevmLM7adCzNteh35KhXMa7Qp
+ 0OAlqs/8bApwOlqRXLH+W2/AX9w1s3dK6PAORlzSI8ia/xczUg7OU80tUJ1axOxJE0s0
+ GvNYtCOoAk2/dgKEC8b6M0uZ5u2hehCi7WEaFUUuo6ozbmLAsT9MhaETL25XltZQXhNc
+ A1SjeSYOZiZNnA+rVSn1oaMUqtMwCmTdi52GwWTMEp14s9PnCGCrMLxGiHM5VJMai0u/
+ cnqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=9p32mYe7Vrajs1IOJMVIyOazGV2lSa3kgXtxyIYlRfo=;
+ b=bBwWzDLKnVm70l7rLAS3NvsYQM8G8fLMVPPqbea1xCZ3yjsbx4GDi0sdQLc9wNYUjC
+ pz8BaPTHcTOviRSnhxYXgbI2VI+6bkF9plm84fIdVvFCIBGRxPW46N7Usz2JAH4F+w/K
+ VXkMJnnqHmvmLjsqYw8pFu4gU5B1aak9yNC1OCvDSdkFI5DbSdHs3CJ+Q6/X/3hx9NRt
+ QAvNF6YK1RVsrFePeqfuLHnqSj14dyWyGz/EmzqnrHr9A1bc5qj1cs9JLnwWub5NXyNb
+ 0NjtsHgD0VRBHdQURbchzOE8Q07+fMAo74wsnHVDXY6/fxcvPQFDh/akf5Djv4kxR1T+
+ rjdg==
+X-Gm-Message-State: AOAM530GLhGmvIbASINThmSCJqvNZQF2Y6toRj6VRXt5+9M8OiFCf0tl
+ K1PRZV1sf5aGCuaW+kY8CAk4Vbpao96zXDyYBUk=
+X-Google-Smtp-Source: ABdhPJy7VEogX8XKzK9J9ugo/fbErQnYlr2DI9RmeV5jioOqqND8oqJVSWG05k240lI/8jj5UkJAlKQ1wTlRA+hinp8=
+X-Received: by 2002:a05:6830:1e64:: with SMTP id
+ m4mr4358987otr.23.1623442663385; 
+ Fri, 11 Jun 2021 13:17:43 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from jonathan-KFD.amd.com (165.204.55.251) by
- YT1PR01CA0149.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2f::28) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4219.21 via Frontend Transport; Fri, 11 Jun 2021 19:25:48 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 01d3aa0a-8720-45c4-ca42-08d92d0eb7e9
-X-MS-TrafficTypeDiagnostic: DM6PR12MB2892:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB2892D4AC59F1948CE20176AF85349@DM6PR12MB2892.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3968;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: rVDk1w1voLPJsV19e9HiE+JU6C+Kc3neJuAdrc3+SPZZZXGIsr4u1CQPBPqh3vcCU2sezgfSkvvHL2XaS2VfAUJ10awnQFgOyHEAWS9+CnjZlvPfb8hGW4Yturv4mcnOlGlHvLwZyhQZLElTGxSrouVc3LDTXEf6AnDGhQCvcF7ShgZPU7iMNssfVerCCilZ3C+uEKD24ZUWhX9HzgDTD1q8caWXO3DE8aDJy/ARUP1wf0P+fLrGBaPUdIWJcsBmHBzCJ1aM8MS7IFZh2Q/gZ65Xl1pz3zBcbNrQKEdJJ2s1YgtAkEUNiBx36Cc888BY0eAnKkyuivDZPNbj4a0+vg9h+6DZWLTikqRpTo9cOPIJFWkV4AxM6VmdYXqIznqqD/ZIAMUfLyeBLuL6a6f9DVCihWo8jLli1EvpTBv/k7jcoDkYD8SKux/ZfyGwnVG+OYIo0cfJ2RH6Df5kx8YpbNKa1cDpCWJadUJ/Up5asNB/Ym1rdy6CfEveml/NvVfC00Nq2Q50K7AU2qBnJ9Ca1VRE0ty4pBut6pvT2MMWAL84M+YQfLmlvry4U05R91idxedUNQyhL1rPKUDEqjr3NjTvPGRqX5wzkfeG41uqA/z5+xrsSQl8cWd6E5eG7icuwMrMqCMa8VXy7WMB/35kRw1+4fQBu1n3vJoqI5x/aIk=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB4680.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(366004)(376002)(39860400002)(396003)(346002)(8936002)(1076003)(2906002)(478600001)(2616005)(7696005)(44832011)(8676002)(316002)(6916009)(38100700002)(186003)(16526019)(52116002)(6486002)(38350700002)(4326008)(36756003)(6666004)(26005)(66476007)(5660300002)(83380400001)(66946007)(956004)(86362001)(54906003)(66556008);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?PVY5XxL+xDyjATrw24G1swVcPiGdCXI4tQ1evDLFXikKgLx6z9cxL0s88cVY?=
- =?us-ascii?Q?Npr02UMJYWlb72gpGCSOm8AAN/pJ2XEiHjroiERS9gCC66gCpbSCPy5xOE4A?=
- =?us-ascii?Q?X/n7hccuku/n7p4Pm0yKi7zWNsi+BI6fiCc6nB1Rso122b2ynOB+b6RQ7NLM?=
- =?us-ascii?Q?2UbWjFtWpqCDxfr9YHmuO9/6Zt6NBW3Hca3/BU62od/rX42l2kAgP3O4ds1r?=
- =?us-ascii?Q?WoEjfQIU61WNqPRGep6phiKc1Dm68MgWVkBd/qK9dNAngrwJS6JzwnIXtFjr?=
- =?us-ascii?Q?If4sx6hXGgDpi540pWoebuAcrARDR4nX6mmIujNvLoElVXqBO7lPBI8F/ECA?=
- =?us-ascii?Q?xNejxZGnq7Hj2twciAUlX4HN9o647JQlQTg393zaKItPAUj7KhqfNl1L8FP6?=
- =?us-ascii?Q?0oUd888caA7bwvMs6meOMNkJOw4keEmPQRTDDZTaRdX5/ShjNo/dyctSy+QP?=
- =?us-ascii?Q?K/rYPb2e5+C47QHQVlwBK/temnH4L2Ft3T/ZkLSHlouBc0efygvCUES+6V2b?=
- =?us-ascii?Q?2Rhk/D+q9ywGVvv3TjbynHna65vpRqv+sOD11XgPPdViNrXr4nqslFexj5Z2?=
- =?us-ascii?Q?mZ6FlQ4k5yRUEr2YGNHx/dxVXZFihVdOZfPyRYbLghuzWrUe+RERn27HkZ5C?=
- =?us-ascii?Q?S4CJLqkFPDd768E/lRgUQIhD5NOqaDKFg/6eQOduytEc4mEOkcQ9MAmzUiKj?=
- =?us-ascii?Q?8mx5pnkR56ARZfhZqPou2dB8l2ES+0HTTldyrMqodWNxZc9LGdP7jv3OWo2Q?=
- =?us-ascii?Q?yEDeWBLTWhPDJn4uqI3Bjz75HkNTg+1mnxOulvhM9U9LBXJNCFLfH1fGLgGd?=
- =?us-ascii?Q?PP7MVT1UtPYWc1tA4VkdC1V1vAvvYnAjTT8D9ZI+nkL8Cxuh0J2TnM2tTl+7?=
- =?us-ascii?Q?pds7LGg9tL9S9DlC5iqTmbe0GpgsH1tcn9ju2ql/jeTx8qHygFKqIYt4TA10?=
- =?us-ascii?Q?ZMLCF0GQ1v+xkfaQReDqdfqW2UDY9vAQ4s3b3TNXpjnEvdh263OHT3OLoQDW?=
- =?us-ascii?Q?QeG2L4SvABwv0o+abVrrnKa0tICYmkrjI/sJccxHjURI8UykK/UQCxm6PYVC?=
- =?us-ascii?Q?ybCn8MGCoACaIpFlRA/dXBb/joZMKdY3sOe47xLeDxvvJF4JZIzicH5F5dmq?=
- =?us-ascii?Q?8LGaP3VVfTmzImltXFbPrYGYs5pRKAnRo0LAIcAyRtljAkL0/0LoRkhywKo9?=
- =?us-ascii?Q?+HaPMBJb8zDivuCU2O2Vf78J1rVCjsSbeMA/RrAsteOFGJ/uFZM91vrJX/bN?=
- =?us-ascii?Q?4basIVQPV/Ol0JOtBUysgbMarRLC8fZm4kFoht3TevarnP6n8v/iUPsRnxTo?=
- =?us-ascii?Q?pTaKJJoyYTthxsWkp2fjjX0X?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 01d3aa0a-8720-45c4-ca42-08d92d0eb7e9
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB4680.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2021 19:25:48.9819 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eT8wxmR31BrDnORTJft9bOoJa4UYeFbSf2rswoCaFoval+GO5AwoEd9DVey5AuRs
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2892
+References: <20210604170107.2023162-1-markyacoub@chromium.org>
+ <906d0ab3-ddca-8cb9-68f5-1b495cc4be5c@amd.com>
+ <CAJUqKUr-s+r1Q-CEO6avH-X5T_Lwt3ZaG5tukygo0joHi8kCpA@mail.gmail.com>
+ <2e289387-0101-6141-a1c4-ae0438e0c2b8@amd.com>
+ <CADnq5_Nu=rzRw-jY7zf7Q6mjJQ=s4+vRTudb3383YG_h=twO9g@mail.gmail.com>
+In-Reply-To: <CADnq5_Nu=rzRw-jY7zf7Q6mjJQ=s4+vRTudb3383YG_h=twO9g@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 11 Jun 2021 16:17:32 -0400
+Message-ID: <CADnq5_Mh7m+rOcrkuwdpPeBdOA32Z3wgD2aimeMn6_ZcXAesRA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Verify Gamma & Degamma LUT sizes in
+ amdgpu_dm_atomic_check
+To: Harry Wentland <harry.wentland@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,69 +78,175 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Felix Kuehling <felix.kuehling@amd.com>,
- Jonathan Kim <jonathan.kim@amd.com>
+Cc: Mark Yacoub <markyacoub@chromium.org>, "Siqueira,
+ Rodrigo" <rodrigo.siqueira@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Sean Paul <seanpaul@chromium.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>, Mark Yacoub <markyacoub@google.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-get_wave_state acquires the mmap_lock on copy_to_user but so do
-mmu_notifiers.  mmu_notifiers allows dqm locking so do get_wave_state
-outside the dqm_lock to prevent circular locking.
+Just a heads up, your sender email and your signed-off-by don't match
+and you had some assignments in if clauses.  I've fixed those up.
 
-Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
----
- .../drm/amd/amdkfd/kfd_device_queue_manager.c | 27 +++++++++----------
- 1 file changed, 13 insertions(+), 14 deletions(-)
+Alex
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index edb14e4a9f33..e6366b408420 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -1678,25 +1678,24 @@ static int get_wave_state(struct device_queue_manager *dqm,
- 
- 	dqm_lock(dqm);
- 
--	if (q->properties.type != KFD_QUEUE_TYPE_COMPUTE ||
--	    q->properties.is_active || !q->device->cwsr_enabled) {
--		r = -EINVAL;
--		goto dqm_unlock;
--	}
--
- 	mqd_mgr = dqm->mqd_mgrs[KFD_MQD_TYPE_CP];
- 
--	if (!mqd_mgr->get_wave_state) {
--		r = -EINVAL;
--		goto dqm_unlock;
-+	if (q->properties.type != KFD_QUEUE_TYPE_COMPUTE ||
-+	    q->properties.is_active || !q->device->cwsr_enabled ||
-+	    !mqd_mgr->get_wave_state) {
-+		dqm_unlock(dqm);
-+		return -EINVAL;
- 	}
- 
--	r = mqd_mgr->get_wave_state(mqd_mgr, q->mqd, ctl_stack,
--			ctl_stack_used_size, save_area_used_size);
--
--dqm_unlock:
- 	dqm_unlock(dqm);
--	return r;
-+
-+	/*
-+	 * get_wave_state is outside the dqm lock to prevent circular locking
-+	 * and the queue should be protected against destruction by the process
-+	 * lock.
-+	 */
-+	return mqd_mgr->get_wave_state(mqd_mgr, q->mqd, ctl_stack,
-+			ctl_stack_used_size, save_area_used_size);
- }
- 
- static int process_termination_cpsch(struct device_queue_manager *dqm,
--- 
-2.25.1
 
+On Fri, Jun 11, 2021 at 1:35 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+>
+> Applied.  Thanks!
+>
+> On Thu, Jun 10, 2021 at 5:14 PM Harry Wentland <harry.wentland@amd.com> wrote:
+> >
+> >
+> >
+> > On 2021-06-07 10:53 a.m., Mark Yacoub wrote:
+> > > On Fri, Jun 4, 2021 at 4:17 PM Harry Wentland <harry.wentland@amd.com> wrote:
+> > >>
+> > >>
+> > >>
+> > >> On 2021-06-04 1:01 p.m., Mark Yacoub wrote:
+> > >>> From: Mark Yacoub <markyacoub@google.com>
+> > >>>
+> > >>> For each CRTC state, check the size of Gamma and Degamma LUTs  so
+> > >>> unexpected and larger sizes wouldn't slip through.
+> > >>>
+> > >>> TEST: IGT:kms_color::pipe-invalid-gamma-lut-sizes
+> > >>>
+> > >>> Signed-off-by: Mark Yacoub <markyacoub@chromium.org>
+> > >>> Change-Id: I9d513a38e8ac2af1b4bf802e1feb1a4d726fba4c
+> > >>> ---
+> > >>>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  3 ++
+> > >>>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  1 +
+> > >>>  .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 40 ++++++++++++++++---
+> > >>>  3 files changed, 38 insertions(+), 6 deletions(-)
+> > >>>
+> > >>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > >>> index 38d497d30dba8..f6cd522b42a80 100644
+> > >>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > >>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > >>> @@ -9402,6 +9402,9 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+> > >>>                       dm_old_crtc_state->dsc_force_changed == false)
+> > >>>                       continue;
+> > >>>
+> > >>> +             if ((ret = amdgpu_dm_verify_lut_sizes(new_crtc_state)))
+> > >>> +                     goto fail;
+> > >>> +
+> > >>>               if (!new_crtc_state->enable)
+> > >>>                       continue;
+> > >>>
+> > >>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> > >>> index 8bfe901cf2374..1b77cd2612691 100644
+> > >>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> > >>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> > >>> @@ -541,6 +541,7 @@ void amdgpu_dm_trigger_timing_sync(struct drm_device *dev);
+> > >>>  #define MAX_COLOR_LEGACY_LUT_ENTRIES 256
+> > >>>
+> > >>>  void amdgpu_dm_init_color_mod(void);
+> > >>> +int amdgpu_dm_verify_lut_sizes(const struct drm_crtc_state *crtc_state);
+> > >>>  int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc);
+> > >>>  int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
+> > >>>                                     struct dc_plane_state *dc_plane_state);
+> > >>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+> > >>> index 157fe4efbb599..da6f9fcc0b415 100644
+> > >>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+> > >>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+> > >>> @@ -284,6 +284,37 @@ static int __set_input_tf(struct dc_transfer_func *func,
+> > >>>       return res ? 0 : -ENOMEM;
+> > >>>  }
+> > >>>
+> > >>> +/**
+> > >>> + * Verifies that the Degamma and Gamma LUTs attached to the |crtc_state| are of
+> > >>> + * the expected size.
+> > >>> + * Returns 0 on success.
+> > >>> + */
+> > >>> +int amdgpu_dm_verify_lut_sizes(const struct drm_crtc_state *crtc_state)
+> > >>> +{
+> > >>> +     const struct drm_color_lut *lut = NULL;
+> > >>> +     uint32_t size = 0;
+> > >>> +
+> > >>> +     lut = __extract_blob_lut(crtc_state->degamma_lut, &size);
+> > >>> +     if (lut && size != MAX_COLOR_LUT_ENTRIES) {
+> > >>
+> > >> Isn't the point of the LUT size that it can be variable? Did you observe any
+> > >> problems with LUTs that are not of size 4096?
+> > > Is it supposed to be variable?
+> > > I'm basing my knowledge of LUTs on this IGT Test:
+> > > https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/blob/master/tests/kms_color_helper.c#L281>> It does check for invalid sizes and for the exact size, giving me the
+> > > impression that it's not too flexible.
+> > > Is variability of size an AMD specific behavior or should it be a DRM behavior?
+> > >>
+> > >> Legacy X-based userspace will give us 256 size LUTs. We can't break support for
+> > >> that. See MAX_COLOR_LEGACY_LUT_ENTRIES.
+> > > In the new function `amdgpu_dm_verify_lut_sizes`, I maintained parity
+> > > with the old behavior. In `amdgpu_dm_update_crtc_color_mgmt`, the
+> > > degamma size is only checked against `MAX_COLOR_LUT_ENTRIES` while
+> > > regamma_size size is checked against both MAX_COLOR_LUT_ENTRIES and
+> > > MAX_COLOR_LEGACY_LUT_ENTRIES:
+> > > https://gitlab.freedesktop.org/agd5f/linux/-/blob/amd-staging-drm-next/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c#L321>> Also, in the definition of MAX_COLOR_LEGACY_LUT_ENTRIES, it mentions
+> > > "Legacy gamm[sic] LUT" not degamma:
+> > > https://gitlab.freedesktop.org/agd5f/linux/-/blame/amd-staging-drm-next/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h#L616>> As well as the commit when it was introduced, it seems to be handling
+> > > gammas rather than degamma LUTs:
+> > > https://gitlab.freedesktop.org/agd5f/linux/-/commit/086247a4b2fba49800b27807f22bb894cd8363fb>> Let me know if this would be a bug in the old behavior and I can fix
+> > > it, or if i'm missing something.
+> >
+> > Ah, yes, you're right, of course. Thanks for walking me through it. :)
+> >
+> > Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+> >
+> > Harry
+> >
+> > >>
+> > >> Harry
+> > >>
+> > >>> +             DRM_DEBUG_DRIVER(
+> > >>> +                     "Invalid Degamma LUT size. Should be %u but got %u.\n",
+> > >>> +                     MAX_COLOR_LUT_ENTRIES, size);
+> > >>> +             return -EINVAL;
+> > >>> +     }
+> > >>> +
+> > >>> +     lut = __extract_blob_lut(crtc_state->gamma_lut, &size);
+> > >>> +     if (lut && size != MAX_COLOR_LUT_ENTRIES &&
+> > >>> +         size != MAX_COLOR_LEGACY_LUT_ENTRIES) {
+> > >>> +             DRM_DEBUG_DRIVER(
+> > >>> +                     "Invalid Gamma LUT size. Should be %u (or %u for legacy) but got %u.\n",
+> > >>> +                     MAX_COLOR_LUT_ENTRIES, MAX_COLOR_LEGACY_LUT_ENTRIES,
+> > >>> +                     size);
+> > >>> +             return -EINVAL;
+> > >>> +     }
+> > >>> +
+> > >>> +     return 0;
+> > >>> +}
+> > >>> +
+> > >>>  /**
+> > >>>   * amdgpu_dm_update_crtc_color_mgmt: Maps DRM color management to DC stream.
+> > >>>   * @crtc: amdgpu_dm crtc state
+> > >>> @@ -317,14 +348,11 @@ int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc)
+> > >>>       bool is_legacy;
+> > >>>       int r;
+> > >>>
+> > >>> -     degamma_lut = __extract_blob_lut(crtc->base.degamma_lut, &degamma_size);
+> > >>> -     if (degamma_lut && degamma_size != MAX_COLOR_LUT_ENTRIES)
+> > >>> -             return -EINVAL;
+> > >>> +     if ((r = amdgpu_dm_verify_lut_sizes(&crtc->base)))
+> > >>> +             return r;
+> > >>>
+> > >>> +     degamma_lut = __extract_blob_lut(crtc->base.degamma_lut, &degamma_size);
+> > >>>       regamma_lut = __extract_blob_lut(crtc->base.gamma_lut, &regamma_size);
+> > >>> -     if (regamma_lut && regamma_size != MAX_COLOR_LUT_ENTRIES &&
+> > >>> -         regamma_size != MAX_COLOR_LEGACY_LUT_ENTRIES)
+> > >>> -             return -EINVAL;
+> > >>>
+> > >>>       has_degamma =
+> > >>>               degamma_lut && !__is_lut_linear(degamma_lut, degamma_size);
+> > >>>
+> > >>
+> > > -Mark
+> > >
+> >
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
