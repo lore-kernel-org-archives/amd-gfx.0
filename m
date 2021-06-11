@@ -2,130 +2,69 @@ Return-Path: <SRS0=qfa3=LF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 85BA4C48BE0
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Jun 2021 17:37:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 782A4C48BE0
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Jun 2021 17:51:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 45B6461287
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Jun 2021 17:37:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 45B6461287
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 32942613CF
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Jun 2021 17:51:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 32942613CF
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA1C16F3C9;
-	Fri, 11 Jun 2021 17:37:31 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2053.outbound.protection.outlook.com [40.107.244.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D28576F3CE
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Jun 2021 17:37:30 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aSpeLgIomJor8f6Iney+gwrJ2FuFR03S+AatyLXkE/mG2C7y+Grt38MiBib44Zwkhssk+O0/yrN43cSaqnWCK4YiTn8O+qpDIxTdVZsDQgtf3ocRzB4u2GY0YWQqyBvyNYzdZa5YpEicnHWa6LYpGHmyFO874aBX8BEMVDIL6DV0MHc0fflIOO5me9DPsrB28r87HAZCFrE9ShXSvvkO0DgBYtB0cX1vcj+C6awzmt2EJRjHofCXnzYIU4UsdzQUeTBsXBa/WFk1B39jYhc90D4pWhkLp4l+Dc/TivdPGgd8Otn8d4IRglpc09YM/CnHoD1Z552M+tJJ3LCTpBv+dw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ovkHoTtdk3BUWqQHV2gbU4DOsXKHmrlEOaXa6WCix5E=;
- b=ccgql9qWuvrrVaiUCH6TKT7TJR0RbQmViAedLEUcLLeLQHp4KPlXwGLKliuAjLQJ3D5Vews/ci+gyYNnZrw4jwO5BNXH64sIDDMO1lDAZElXL3d24DLOsy+egd6R/detEbOa2+nvwnXZ9hRpQeMduIK6a+FCiUoffIYMu1AMwZmjoba719TpnEoL3uQVeqhUOOVqSV12JO/3J4vc2MTcPdvQuhhv1IdJUS5JBaowVHjnAnWVsZtyMeAWNUxxipo51sLl4Ti2PbX4EUwkeOExgeA5w2EC/WHatmUY7fBIZSYl6vcR8RKGSUIi1xdcKslPI/bu0SAaF5DIJ6jaIIview==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ovkHoTtdk3BUWqQHV2gbU4DOsXKHmrlEOaXa6WCix5E=;
- b=MbPcThH4sMFsXIgghU/cnoUO/dfADSjWfi0AFiEB/jIZZ8ykOBkENMJHOG1pyl6kKYcflsdi9t2EAdM1JmPKVTZAt/IIQa724or/hFUdtKXzY7wq8O/+qERhQzNoJyLAWgGG7ew517CRr9Tcpw+WzynSOpJomdS4m2ycK0trICw=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB3962.namprd12.prod.outlook.com (2603:10b6:5:1ce::21)
- by DM6PR12MB3084.namprd12.prod.outlook.com (2603:10b6:5:117::25) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.23; Fri, 11 Jun
- 2021 17:37:29 +0000
-Received: from DM6PR12MB3962.namprd12.prod.outlook.com
- ([fe80::142:82e3:7e9d:55a0]) by DM6PR12MB3962.namprd12.prod.outlook.com
- ([fe80::142:82e3:7e9d:55a0%6]) with mapi id 15.20.4219.024; Fri, 11 Jun 2021
- 17:37:29 +0000
-Subject: Re: [PATCH 20/40] drm/amdgpu: EEPROM respects I2C quirks
-From: Luben Tuikov <luben.tuikov@amd.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-References: <20210608213954.5517-1-luben.tuikov@amd.com>
- <20210608213954.5517-21-luben.tuikov@amd.com>
- <CADnq5_N3OHc2_G08BbFJHx1sqErQDP_+uvCKHfXGA7=dziBxVw@mail.gmail.com>
- <079adf2b-0791-0714-98de-a0bc8f9bdfe5@amd.com>
-Message-ID: <4124f932-84e5-1d44-903f-c867cb338c85@amd.com>
-Date: Fri, 11 Jun 2021 13:37:27 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
-In-Reply-To: <079adf2b-0791-0714-98de-a0bc8f9bdfe5@amd.com>
-Content-Language: en-CA
-X-Originating-IP: [108.162.138.69]
-X-ClientProxiedBy: YT1PR01CA0077.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2d::16) To DM6PR12MB3962.namprd12.prod.outlook.com
- (2603:10b6:5:1ce::21)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CEE7C6F3AD;
+	Fri, 11 Jun 2021 17:51:16 +0000 (UTC)
+Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
+ [IPv6:2607:f8b0:4864:20::22b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9E4A6E06E
+ for <amd-gfx@lists.freedesktop.org>; Fri, 11 Jun 2021 17:51:14 +0000 (UTC)
+Received: by mail-oi1-x22b.google.com with SMTP id r16so6271546oiw.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 11 Jun 2021 10:51:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=9lR3ILe9evccIqwiksjVLibKEXYhxYQ1tYF8A5BfSoY=;
+ b=k5XE+wiSHw84yM6FIMBnoaCVtJephQKnwX34SLAS0NtW5IisPCjTPgoIlXZaFxZbQa
+ Cc+ICPI5kEzK8+kfe71T2+bPOUIieQYwoUqIraFOanB52oqtNQvZyd67rgbBDtleNL3g
+ R9tzWbBWT+nCu0OBrbxXhOrEDOcDpHuRO+6kKtvlaNr7P7yVgLD52M0QhH7H+CepjT1s
+ W1bZDg/BjV/sQHZx921oacf9JMh32Cs/6rUn0ySQ3FxRVhfxnbVDMmGYgkaGgHvaN0pr
+ dEftkDXWCb6HhP1IbPDbF5QkPTvLHUp7SPWGMUqCLvBywcN9Y+a9uORwvITRkL/4E0mf
+ 3+Wg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=9lR3ILe9evccIqwiksjVLibKEXYhxYQ1tYF8A5BfSoY=;
+ b=nGgLKv0kgVM+wIySc8M+RsdqErU8ILTsGJVsD3E57o+QmknjdqFWmIsAvjKNcJH1qC
+ rHovAdkNX3AS7rGb2snTG3kA4xqdY2UxpbLUh0KM2NifmizRy2tVDStEARamW9Va99Td
+ fWO2tYHHSvNdJkF9tJ7PB6uHcecZRhyhAi4VZF9K1wKufDdA+0dhv3xGauTvF32qtPBS
+ Tl3ZOhuPHznElfFcxwnLhrR3DVvmGo0QgE4EviTblIHvcaKP/Aw5B/+W3szUxG1VF3bk
+ 8meB1NwoUaavslvBC2fL+YudA2vCNoidW5ObQlx3k7MMpl5IglouL4AFIDXBAlwpmhRN
+ Vefw==
+X-Gm-Message-State: AOAM531juGuc/6gbkzHC5cDoeMl1JifY98/3yzHJldxweB6PrgwWrSwI
+ suMnRQSIfwO6sz7lsue9KX3+vSEm20R2psZdusM=
+X-Google-Smtp-Source: ABdhPJyIF8xdkKakDCPLpQLTwsTPbHuKj4yoqMuXHIlFxL9kXtRyp/0JR0OjXQX2d4WqOvQxNNcs5U7ovBFNZNVZM0Y=
+X-Received: by 2002:a05:6808:999:: with SMTP id
+ a25mr3231256oic.123.1623433874129; 
+ Fri, 11 Jun 2021 10:51:14 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from localhost.localdomain (108.162.138.69) by
- YT1PR01CA0077.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2d::16) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4219.21 via Frontend Transport; Fri, 11 Jun 2021 17:37:28 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a17b99e8-deaf-4819-8cce-08d92cff95af
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3084:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB3084A9FCF9AD8390DB831B5999349@DM6PR12MB3084.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: M7JrKS1orRfKui45pK0kzZm29maeDD5vAkjnhWrBWy/JZrI24Xai3NdreA9KSjTvUdSXTKTrx2D/rB8q3TDvHsQc1KAtYqywG3GFWmPaMn4OWByrWV+DevD2mLFX2eFrCCkXZ/hzGPiKW3lTDbfhB03V6qQK9Hb/zaF8HtH2FY2IKQn8hRbfMNN374TJy21ZCuiBizaExTXYBf5uImfUycXeBBOk5BOaApPIFvJEr9O51dvQbQwHLh9I27aKVEOiclRPbsuZ/d8aeI+tF5Bc43k9jvUZINHCN1aSOi3Wd528QSoQEOf1lNctu2Edox7O7yTzlpafy3RK66vc0FM83phetuBSCWhtsgulz+Hpa8FpSb4UrpMiRM6F5tjZZS6y2mtmV10HC1cc/WEroV8KED7dv3PTImU9FKln3VrLKz4boy8mmKqyAV6sME9/J7laUY5IxuSfGWn1vavUn2N1WeA4yxT/zMiYdyPBpDZvZjEEbysBtGtw4wNeQ9gTSri+ZMUA9U+ybxuCdLvDxpy97pqxgAxRjZswILsSh203fGCZzNEr4wGbQBjogbxB3FOxmdtOzbF8O/Mgone3vPhNRU3TVoZMJ6CCQwLKDQIti/XRnzWwxdmxquCqJOIgnvHV1TDF58xKSR133IYxb7nrVl4JDVz1LHoYv9CXpO91tpVUx5Uh5Zz4LCwnVC6NlE1Nb33Kai/HV1d7D51AmqIOa+N+VzJSiC/WER8B7ajwgIM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3962.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(366004)(396003)(376002)(346002)(39860400002)(44832011)(8936002)(316002)(16526019)(6916009)(45080400002)(66556008)(8676002)(66476007)(6512007)(66946007)(6506007)(186003)(26005)(38100700002)(31696002)(83380400001)(4326008)(2906002)(956004)(31686004)(54906003)(5660300002)(36756003)(6486002)(86362001)(478600001)(55236004)(53546011)(2616005)(966005)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?b0U1V2FrdTRISFB4NENwbWdYYjJ4cjVIRWRpaGtzR3k4VU94Z2dVRzBFbjEr?=
- =?utf-8?B?U1h4cDh1cFpTKzlQU0NvWWlacWtTTzNvRTlrS29TRmt3R3luZEVtZSttQ0Fn?=
- =?utf-8?B?UCttNFhDU0M4TnhpQ2tSN0M4Ylc2SEJVN2lZd2w5ZEZBRnEvVmZZRi9wNkkv?=
- =?utf-8?B?ZlZOUklhL0ZYV1N4ZjRLelBTRjVVL252UVdqWWVaMHdMWEhZM0RPSGN2WnVC?=
- =?utf-8?B?SCs5WElLeEg5c0FvV0syZUVEQWtiakQ3LzdWNzJMUU5QQkh1a2d0RW1rTHNC?=
- =?utf-8?B?enFsNHlnb0tBOUhZNXZyM1pZQ0lkNEkyb2txU3NYT1dvUUVqd3k1TnRJK0E5?=
- =?utf-8?B?NHpNZ3pPK0xtN2l0MEEraXliL0g0QzFJcW51OHU1TFFqS0g0ZVI0TGtYKzJy?=
- =?utf-8?B?b2hyN2NkekkyYlNnNWJjRkRMc1dtMnZ3UFZNdWtOT2VDQ0Q3NlFZR3Erekl3?=
- =?utf-8?B?bzBib0ZWc051R25sQWlFVnlUNHB5bU5VejdNMFI5RnloOGRtc1lydm1hVnly?=
- =?utf-8?B?bjE4b0RlYVBjZy9kZ25YbGpsTmxhdjZrV05RcG1OS1lvUjBDTDFtNVByQy9I?=
- =?utf-8?B?dk1QUndSdWNHaWllczNsaXQ2UHc2MlA4Sk02YzdISHljRjR1eFlIRmpqcHZO?=
- =?utf-8?B?U01jeVYvN21uM0NDdDUzdmJRVUJrbGE2eDBSK0Jqb2g5eXBrR2RXSUdUWE56?=
- =?utf-8?B?VnlkTDlQRkI4YVBXaFpLcVlBUS9UdVlDMzVZTlZRYStNcWNLZmFBbnFlR0Qr?=
- =?utf-8?B?ekZXK2liVFNUUG0vZGFQZXNjdVFaWHpVdFlqYS80emtoR2lvY2pOSHIzTGFo?=
- =?utf-8?B?RUJ1Q1J6T3dkL2NUSThDRkY2aERzUm5ZU09TckV1RkZpVFVka3ZWc0xNQU5r?=
- =?utf-8?B?LzREaWhDTUJrdm1nNkN2Uzk1L0VUeFFmWEN3UGpDZlZCaktzbGx4eEZvTDND?=
- =?utf-8?B?WEMxdFU1eFNXOVlVL21RbkwzQkY0cWZjQkRCT3luV0Z1cXE4L2x5T2xTODRy?=
- =?utf-8?B?RWY0WG5qcVg3cnZrdjRtWjdrUlJEb0h6N29NMVpnMlNyMWVZaC9RaE5CSCtT?=
- =?utf-8?B?T2dtTFl1SXp6ZEpqV01UbHV0YTVEblFmWkJGRExYbkxMNVM4L0M5dERSc2xJ?=
- =?utf-8?B?eUx6TjVaM1dzRjFjNWhQVWtYUG5nSi9ITFhYMHdvK285OFNVWk1McVpoUFVk?=
- =?utf-8?B?YWh1dS85cjJjYUpxVktySEIyMm1GeHV5b1JzcFVkWEdTZ2M5ZlIyNHZIN0pQ?=
- =?utf-8?B?OFcycmpldkcvNng2WEQxSkU0VStpV0lISGVJWk9maTlJa3ZFZy9saFVOWHRm?=
- =?utf-8?B?ZCtwU0oxZDBwWGkxRHJnREk2Y2Y1N1IzbURoQ1R3ZDFHYllBUXRMVVkxV2hI?=
- =?utf-8?B?NFo0cGhzajJLeGd5cmU4bTVrRlZiakFOQVBDd2Jma20rWG5weUMyTW1aUW1W?=
- =?utf-8?B?bDVOOW5nczV2QS9nZG4zb1krZGNvQVFFUHJsOUtIZVo2Qmg0alFNRXNHWFNy?=
- =?utf-8?B?K2NZbkd3MDQwZ2NNT2JpRlkwcXR3eFpxZzBJdFdnbEpFRU1XbmhsMENlYVRP?=
- =?utf-8?B?YVBlVXVLZmFjejRjVHIwazVwV0xnZEdtdkV5cm95cGxXS0dXRFdLSzdFcW5i?=
- =?utf-8?B?WDRYalNzeDRiZ1RldnZ6ZHAyRjdSZGVuY3hFeENrL3RQL3VDTTNSQk5CNXlR?=
- =?utf-8?B?UXRZM1lUTlBLT1A1czdOcjZTSmlia3FTSk13L053WFViaTRraTFVUXYvY1pq?=
- =?utf-8?Q?EMwssUGmOdYFf9bFKGL4F90GM8dGefK8CYhqrcD?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a17b99e8-deaf-4819-8cce-08d92cff95af
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3962.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2021 17:37:29.1177 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: l2oXff1NsiM1d41PYxp5sjaQo7uRZshuusPm3zkbqyeTpN79RarG0RJPtKu/7D6Z
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3084
+References: <20210608213954.5517-1-luben.tuikov@amd.com>
+ <20210608213954.5517-39-luben.tuikov@amd.com>
+ <CADnq5_NsmgQL6A6Q6mD4DHsKmA9dFhKLrnpHN6QQ7sLCDzQ+sQ@mail.gmail.com>
+ <a04000e4-4d5f-560a-2193-0545ee3af8a5@amd.com>
+In-Reply-To: <a04000e4-4d5f-560a-2193-0545ee3af8a5@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 11 Jun 2021 13:51:03 -0400
+Message-ID: <CADnq5_Nt+4P0+6iVEd6JaNSu6rGjRpv7QCcoJedHmoiww8X4OQ@mail.gmail.com>
+Subject: Re: [PATCH 38/40] drm/amdgpu: RAS EEPROM table is now in debugfs
+To: Luben Tuikov <luben.tuikov@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,167 +77,456 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>,
- Lijo Lazar <Lijo.Lazar@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Stanley Yang <Stanley.Yang@amd.com>,
- Alexander Deucher <Alexander.Deucher@amd.com>, Jean Delvare <jdelvare@suse.de>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+ Xinhui Pan <xinhui.pan@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Alexander Deucher <Alexander.Deucher@amd.com>,
+ John Clements <john.clements@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2021-06-11 1:17 p.m., Luben Tuikov wrote:
-> On 2021-06-11 1:01 p.m., Alex Deucher wrote:
->> On Tue, Jun 8, 2021 at 5:40 PM Luben Tuikov <luben.tuikov@amd.com> wrote:
->>> Consult the i2c_adapter.quirks table for
->>> the maximum read/write data length per bus
->>> transaction. Do not exceed this transaction
->>> limit.
->>>
->>> Cc: Jean Delvare <jdelvare@suse.de>
->>> Cc: Alexander Deucher <Alexander.Deucher@amd.com>
->>> Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
->>> Cc: Lijo Lazar <Lijo.Lazar@amd.com>
->>> Cc: Stanley Yang <Stanley.Yang@amd.com>
->>> Cc: Hawking Zhang <Hawking.Zhang@amd.com>
->>> Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
->>> ---
->>>  drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c | 80 +++++++++++++++++-----
->>>  1 file changed, 64 insertions(+), 16 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
->>> index 7fdb5bd2fc8bc8..94aeda1c7f8ca0 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
->>> @@ -32,20 +32,9 @@
->>>
->>>  #define EEPROM_OFFSET_SIZE 2
->>>
->>> -/**
->>> - * amdgpu_eeprom_xfer -- Read/write from/to an I2C EEPROM device
->>> - * @i2c_adap: pointer to the I2C adapter to use
->>> - * @slave_addr: I2C address of the slave device
->>> - * @eeprom_addr: EEPROM address from which to read/write
->>> - * @eeprom_buf: pointer to data buffer to read into/write from
->>> - * @buf_size: the size of @eeprom_buf
->>> - * @read: True if reading from the EEPROM, false if writing
->>> - *
->>> - * Returns the number of bytes read/written; -errno on error.
->>> - */
->>> -int amdgpu_eeprom_xfer(struct i2c_adapter *i2c_adap,
->>> -                      u16 slave_addr, u16 eeprom_addr,
->>> -                      u8 *eeprom_buf, u16 buf_size, bool read)
->>> +static int __amdgpu_eeprom_xfer(struct i2c_adapter *i2c_adap,
->>> +                               u16 slave_addr, u16 eeprom_addr,
->>> +                               u8 *eeprom_buf, u16 buf_size, bool read)
->>>  {
->>>         u8 eeprom_offset_buf[EEPROM_OFFSET_SIZE];
->>>         struct i2c_msg msgs[] = {
->>> @@ -65,8 +54,8 @@ int amdgpu_eeprom_xfer(struct i2c_adapter *i2c_adap,
->>>         u16 len;
->>>
->>>         r = 0;
->>> -       for (len = 0; buf_size > 0;
->>> -            buf_size -= len, eeprom_addr += len, eeprom_buf += len) {
->>> +       for ( ; buf_size > 0;
->>> +             buf_size -= len, eeprom_addr += len, eeprom_buf += len) {
->>>                 /* Set the EEPROM address we want to write to/read from.
->>>                  */
->>>                 msgs[0].buf[0] = (eeprom_addr >> 8) & 0xff;
->>> @@ -120,3 +109,62 @@ int amdgpu_eeprom_xfer(struct i2c_adapter *i2c_adap,
->>>
->>>         return r < 0 ? r : eeprom_buf - p;
->>>  }
->>> +
->>> +/**
->>> + * amdgpu_eeprom_xfer -- Read/write from/to an I2C EEPROM device
->>> + * @i2c_adap: pointer to the I2C adapter to use
->>> + * @slave_addr: I2C address of the slave device
->>> + * @eeprom_addr: EEPROM address from which to read/write
->>> + * @eeprom_buf: pointer to data buffer to read into/write from
->>> + * @buf_size: the size of @eeprom_buf
->>> + * @read: True if reading from the EEPROM, false if writing
->>> + *
->>> + * Returns the number of bytes read/written; -errno on error.
->>> + */
->>> +int amdgpu_eeprom_xfer(struct i2c_adapter *i2c_adap,
->>> +                      u16 slave_addr, u16 eeprom_addr,
->>> +                      u8 *eeprom_buf, u16 buf_size, bool read)
->>> +{
->>> +       const struct i2c_adapter_quirks *quirks = i2c_adap->quirks;
->>> +       u16 limit;
->>> +
->>> +       if (!quirks)
->>> +               limit = 0;
->>> +       else if (read)
->>> +               limit = quirks->max_read_len;
->>> +       else
->>> +               limit = quirks->max_write_len;
->>> +
->>> +       if (limit == 0) {
->>> +               return __amdgpu_eeprom_xfer(i2c_adap, slave_addr, eeprom_addr,
->>> +                                           eeprom_buf, buf_size, read);
->>> +       } else if (limit <= EEPROM_OFFSET_SIZE) {
->>> +               dev_err_ratelimited(&i2c_adap->dev,
->>> +                                   "maddr:0x%04X size:0x%02X:quirk max_%s_len must be > %d",
->>> +                                   eeprom_addr, buf_size,
->>> +                                   read ? "read" : "write", EEPROM_OFFSET_SIZE);
->>> +               return -EINVAL;
->> I presume we handle this case properly at higher levels (i.e., split
->> up EEPROM updates into smaller transactions)?
-> Absolutely we do.
-> (We break it down twice: once per this limit and again per page size and page boundary. It'll work always. :-) )
+On Fri, Jun 11, 2021 at 1:30 PM Luben Tuikov <luben.tuikov@amd.com> wrote:
 >
-> But this is different--this means that the user has set a limit less than 2, which means we can't even send a set-address phase to set the EEPROM memory address offset we want to read or write from, and thus the chattiness.
+> On 2021-06-11 1:16 p.m., Alex Deucher wrote:
+> > On Tue, Jun 8, 2021 at 5:41 PM Luben Tuikov <luben.tuikov@amd.com> wrote:
+> >> Add "ras_eeprom_size" file in debugfs, which
+> >> reports the maximum size allocated to the RAS
+> >> table in EEROM, as the number of bytes and the
+> >> number of records it could store. For instance,
+> >>
+> >> $cat /sys/kernel/debug/dri/0/ras/ras_eeprom_size
+> >> 262144 bytes or 10921 records
+> >> $_
+> >>
+> >> Add "ras_eeprom_table" file in debugfs, which
+> >> dumps the RAS table stored EEPROM, in a formatted
+> >> way. For instance,
+> >>
+> >> $cat ras_eeprom_table
+> >>  Signature    Version  FirstOffs       Size   Checksum
+> >> 0x414D4452 0x00010000 0x00000014 0x000000EC 0x000000DA
+> >> Index  Offset ErrType Bank/CU          TimeStamp      Offs/Addr MemChl MCUMCID    RetiredPage
+> >>     0 0x00014      ue    0x00 0x00000000607608DC 0x000000000000   0x00    0x00 0x000000000000
+> >>     1 0x0002C      ue    0x00 0x00000000607608DC 0x000000001000   0x00    0x00 0x000000000001
+> >>     2 0x00044      ue    0x00 0x00000000607608DC 0x000000002000   0x00    0x00 0x000000000002
+> >>     3 0x0005C      ue    0x00 0x00000000607608DC 0x000000003000   0x00    0x00 0x000000000003
+> >>     4 0x00074      ue    0x00 0x00000000607608DC 0x000000004000   0x00    0x00 0x000000000004
+> >>     5 0x0008C      ue    0x00 0x00000000607608DC 0x000000005000   0x00    0x00 0x000000000005
+> >>     6 0x000A4      ue    0x00 0x00000000607608DC 0x000000006000   0x00    0x00 0x000000000006
+> >>     7 0x000BC      ue    0x00 0x00000000607608DC 0x000000007000   0x00    0x00 0x000000000007
+> >>     8 0x000D4      ue    0x00 0x00000000607608DD 0x000000008000   0x00    0x00 0x000000000008
+> >> $_
+> >>
+> >> Cc: Alexander Deucher <Alexander.Deucher@amd.com>
+> >> Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
+> >> Cc: John Clements <john.clements@amd.com>
+> >> Cc: Hawking Zhang <Hawking.Zhang@amd.com>
+> >> Cc: Xinhui Pan <xinhui.pan@amd.com>
+> >> Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
+> > Seems like a useful feature.  Just a few comments below.
+> >
+> > Alex
+> >
+> >
+> >> ---
+> >>  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c       |  12 +-
+> >>  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h       |   1 +
+> >>  .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c    | 241 +++++++++++++++++-
+> >>  .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h    |  10 +-
+> >>  4 files changed, 252 insertions(+), 12 deletions(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> >> index 1424f2cc2076c1..d791a360a92366 100644
+> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> >> @@ -404,9 +404,9 @@ static ssize_t amdgpu_ras_debugfs_ctrl_write(struct file *f,
+> >>                 /* umc ce/ue error injection for a bad page is not allowed */
+> >>                 if ((data.head.block == AMDGPU_RAS_BLOCK__UMC) &&
+> >>                     amdgpu_ras_check_bad_page(adev, data.inject.address)) {
+> >> -                       dev_warn(adev->dev, "RAS WARN: 0x%llx has been marked "
+> >> -                                       "as bad before error injection!\n",
+> >> -                                       data.inject.address);
+> >> +                       dev_warn(adev->dev, "RAS WARN: inject: 0x%llx has "
+> >> +                                "already been marked as bad!\n",
+> >> +                                data.inject.address);
+> > This seems unrelated to this patch.
 >
-> I just noticed that it is less-than-or-equal, which means the smallest limit the user can set which would work is 3. But 2 would also work, then all transfers would be 2 bytes long. Does it matter? I guess I can change this from LTE to LT, to mean that a minimum transfer of 2 is the smallest we support. I've changed it to LT. :-)
-
-Ooops, no!
-It was correct the way I had it.
-It has to be LTE due to the comment below, else the min(0, u16) is 0 and we'll not send anything. :-)
-
-Regards,
-Luben
-
+> It's just cosmetic fix, to correctly align, as it seems that the previous alignment was arbitrary.
+> Just pressing TAB in Emacs does wonders. :-)
 >
+> I was in this file and decided to fix this. It's just cosmetic. No functional change.
+>
+> >
+> >>                         break;
+> >>                 }
+> >>
+> >> @@ -1301,6 +1301,12 @@ static struct dentry *amdgpu_ras_debugfs_create_ctrl_node(struct amdgpu_device *
+> >>                            &con->bad_page_cnt_threshold);
+> >>         debugfs_create_x32("ras_hw_enabled", 0444, dir, &adev->ras_hw_enabled);
+> >>         debugfs_create_x32("ras_enabled", 0444, dir, &adev->ras_enabled);
+> >> +       debugfs_create_file("ras_eeprom_size", S_IRUGO, dir, adev,
+> >> +                           &amdgpu_ras_debugfs_eeprom_size_ops);
+> >> +       con->de_ras_eeprom_table = debugfs_create_file("ras_eeprom_table",
+> >> +                                                      S_IRUGO, dir, adev,
+> >> +                                                      &amdgpu_ras_debugfs_eeprom_table_ops);
+> >> +       amdgpu_ras_debugfs_set_ret_size(&con->eeprom_control);
+> >>
+> >>         /*
+> >>          * After one uncorrectable error happens, usually GPU recovery will
+> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+> >> index 256cea5d34f2b6..283afd791db107 100644
+> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+> >> @@ -318,6 +318,7 @@ struct amdgpu_ras {
+> >>         /* sysfs */
+> >>         struct device_attribute features_attr;
+> >>         struct bin_attribute badpages_attr;
+> >> +       struct dentry *de_ras_eeprom_table;
+> >>         /* block array */
+> >>         struct ras_manager *objs;
+> >>
+> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+> >> index dc4a845a32404c..677e379f5fb5e9 100644
+> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+> >> @@ -27,6 +27,8 @@
+> >>  #include <linux/bits.h>
+> >>  #include "atom.h"
+> >>  #include "amdgpu_eeprom.h"
+> >> +#include <linux/debugfs.h>
+> >> +#include <linux/uaccess.h>
+> >>
+> >>  #define EEPROM_I2C_MADDR_VEGA20         0x0
+> >>  #define EEPROM_I2C_MADDR_ARCTURUS       0x40000
+> >> @@ -70,6 +72,13 @@
+> >>  #define RAS_OFFSET_TO_INDEX(_C, _O) (((_O) - \
+> >>                                       (_C)->ras_record_offset) / RAS_TABLE_RECORD_SIZE)
+> >>
+> >> +/* Given a 0-based relative record index, 0, 1, 2, ..., etc., off
+> >> + * of "fri", return the absolute record index off of the end of
+> >> + * the table header.
+> >> + */
+> >> +#define RAS_RI_TO_AI(_C, _I) (((_I) + (_C)->ras_fri) % \
+> >> +                             (_C)->ras_max_record_count)
+> >> +
+> >>  #define RAS_NUM_RECS(_tbl_hdr)  (((_tbl_hdr)->tbl_size - \
+> >>                                   RAS_TABLE_HEADER_SIZE) / RAS_TABLE_RECORD_SIZE)
+> >>
+> >> @@ -77,13 +86,10 @@
+> >>
+> >>  static bool __is_ras_eeprom_supported(struct amdgpu_device *adev)
+> >>  {
+> >> -       if ((adev->asic_type == CHIP_VEGA20) ||
+> >> -           (adev->asic_type == CHIP_ARCTURUS) ||
+> >> -           (adev->asic_type == CHIP_SIENNA_CICHLID) ||
+> >> -           (adev->asic_type == CHIP_ALDEBARAN))
+> >> -               return true;
+> >> -
+> >> -       return false;
+> >> +       return  adev->asic_type == CHIP_VEGA20 ||
+> >> +               adev->asic_type == CHIP_ARCTURUS ||
+> >> +               adev->asic_type == CHIP_SIENNA_CICHLID ||
+> >> +               adev->asic_type == CHIP_ALDEBARAN;
+> > Unrelated whitespace change.
+>
+> It's more readable and succinct like this, no?
+>
+> Do you want me to revert these? I mean, they're pleasing to have and change no functionality, and since I was in this file...
+>
+
+Don't worry about respinning to break these out in this patch, but in
+general it's better to keep formatting cleanups separate from
+functional changes; makes it easier to review the functional changes.
+
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+
+Alex
+
+
 > Regards,
 > Luben
 >
->> Alex
->>
->>
->>> +       } else {
->>> +               u16 ps; /* Partial size */
->>> +               int res = 0, r;
->>> +
->>> +               /* The "limit" includes all data bytes sent/received,
->>> +                * which would include the EEPROM_OFFSET_SIZE bytes.
->>> +                * Account for them here.
->>> +                */
->>> +               limit -= EEPROM_OFFSET_SIZE;
->>> +               for ( ; buf_size > 0;
->>> +                     buf_size -= ps, eeprom_addr += ps, eeprom_buf += ps) {
->>> +                       ps = min(limit, buf_size);
->>> +
->>> +                       r = __amdgpu_eeprom_xfer(i2c_adap,
->>> +                                                slave_addr, eeprom_addr,
->>> +                                                eeprom_buf, ps, read);
->>> +                       if (r < 0)
->>> +                               return r;
->>> +                       res += r;
->>> +               }
->>> +
->>> +               return res;
->>> +       }
->>> +}
->>> --
->>> 2.32.0
->>>
->>> _______________________________________________
->>> amd-gfx mailing list
->>> amd-gfx@lists.freedesktop.org
->>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7Cluben.tuikov%40amd.com%7Cc8502a7f4dd94666468408d92cfa95e6%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637590277035962948%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=UsBaf7trds%2BjmJ8yhIaMoLNdq2Rxk3EXY5jztgzjFL0%3D&amp;reserved=0
-
+> >
+> >>  }
+> >>
+> >>  static bool __get_eeprom_i2c_addr_arct(struct amdgpu_device *adev,
+> >> @@ -258,6 +264,8 @@ int amdgpu_ras_eeprom_reset_table(struct amdgpu_ras_eeprom_control *control)
+> >>         control->ras_num_recs = 0;
+> >>         control->ras_fri = 0;
+> >>
+> >> +       amdgpu_ras_debugfs_set_ret_size(control);
+> >> +
+> >>         mutex_unlock(&control->ras_tbl_mutex);
+> >>
+> >>         return res;
+> >> @@ -591,6 +599,8 @@ int amdgpu_ras_eeprom_append(struct amdgpu_ras_eeprom_control *control,
+> >>         res = amdgpu_ras_eeprom_append_table(control, record, num);
+> >>         if (!res)
+> >>                 res = amdgpu_ras_eeprom_update_header(control);
+> >> +       if (!res)
+> >> +               amdgpu_ras_debugfs_set_ret_size(control);
+> >>
+> >>         mutex_unlock(&control->ras_tbl_mutex);
+> >>         return res;
+> >> @@ -734,6 +744,223 @@ inline uint32_t amdgpu_ras_eeprom_max_record_count(void)
+> >>         return RAS_MAX_RECORD_COUNT;
+> >>  }
+> >>
+> >> +static ssize_t
+> >> +amdgpu_ras_debugfs_eeprom_size_read(struct file *f, char __user *buf,
+> >> +                                   size_t size, loff_t *pos)
+> >> +{
+> >> +       struct amdgpu_device *adev = (struct amdgpu_device *)file_inode(f)->i_private;
+> >> +       struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
+> >> +       struct amdgpu_ras_eeprom_control *control = ras ? &ras->eeprom_control : NULL;
+> >> +       u8 data[50];
+> >> +       int res;
+> >> +
+> >> +       if (!size)
+> >> +               return size;
+> >> +
+> >> +       if (!ras || !control) {
+> >> +               res = snprintf(data, sizeof(data), "Not supported\n");
+> >> +       } else {
+> >> +               res = snprintf(data, sizeof(data), "%d bytes or %d records\n",
+> >> +                              RAS_TBL_SIZE_BYTES, control->ras_max_record_count);
+> >> +       }
+> >> +
+> >> +       if (*pos >= res)
+> >> +               return 0;
+> >> +
+> >> +       res -= *pos;
+> >> +       res = min_t(size_t, res, size);
+> >> +
+> >> +       if (copy_to_user(buf, &data[*pos], res))
+> >> +               return -EINVAL;
+> >> +
+> >> +       *pos += res;
+> >> +
+> >> +       return res;
+> >> +}
+> >> +
+> >> +const struct file_operations amdgpu_ras_debugfs_eeprom_size_ops = {
+> >> +       .owner = THIS_MODULE,
+> >> +       .read = amdgpu_ras_debugfs_eeprom_size_read,
+> >> +       .write = NULL,
+> >> +       .llseek = default_llseek,
+> >> +};
+> >> +
+> >> +static const char *tbl_hdr_str = " Signature    Version  FirstOffs       Size   Checksum\n";
+> >> +static const char *tbl_hdr_fmt = "0x%08X 0x%08X 0x%08X 0x%08X 0x%08X\n";
+> >> +#define tbl_hdr_fmt_size (5 * (2+8) + 4 + 1)
+> >> +static const char *rec_hdr_str = "Index  Offset ErrType Bank/CU          TimeStamp      Offs/Addr MemChl MCUMCID    RetiredPage\n";
+> >> +static const char *rec_hdr_fmt = "%5d 0x%05X %7s    0x%02X 0x%016llX 0x%012llX   0x%02X    0x%02X 0x%012llX\n";
+> >> +#define rec_hdr_fmt_size (5 + 1 + 7 + 1 + 7 + 1 + 7 + 1 + 18 + 1 + 14 + 1 + 6 + 1 + 7 + 1 + 14 + 1)
+> >> +
+> >> +static const char *record_err_type_str[AMDGPU_RAS_EEPROM_ERR_COUNT] = {
+> >> +       "ignore",
+> >> +       "re",
+> >> +       "ue",
+> >> +};
+> >> +
+> >> +static loff_t amdgpu_ras_debugfs_table_size(struct amdgpu_ras_eeprom_control *control)
+> >> +{
+> >> +       return strlen(tbl_hdr_str) + tbl_hdr_fmt_size +
+> >> +               strlen(rec_hdr_str) + rec_hdr_fmt_size * control->ras_num_recs;
+> >> +}
+> >> +
+> >> +void amdgpu_ras_debugfs_set_ret_size(struct amdgpu_ras_eeprom_control *control)
+> >> +{
+> >> +       struct amdgpu_ras *ras = container_of(control, struct amdgpu_ras,
+> >> +                                             eeprom_control);
+> >> +       struct dentry *de = ras->de_ras_eeprom_table;
+> >> +
+> >> +       if (de)
+> >> +               d_inode(de)->i_size = amdgpu_ras_debugfs_table_size(control);
+> >> +}
+> >> +
+> >> +static ssize_t amdgpu_ras_debugfs_table_read(struct file *f, char __user *buf,
+> >> +                                            size_t size, loff_t *pos)
+> >> +{
+> >> +       struct amdgpu_device *adev = (struct amdgpu_device *)file_inode(f)->i_private;
+> >> +       struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
+> >> +       struct amdgpu_ras_eeprom_control *control = &ras->eeprom_control;
+> >> +       const size_t orig_size = size;
+> >> +       int res = -EINVAL;
+> >> +       size_t data_len;
+> >> +
+> >> +       mutex_lock(&control->ras_tbl_mutex);
+> >> +
+> >> +       /* We want *pos - data_len > 0, which means there's
+> >> +        * bytes to be printed from data.
+> >> +        */
+> >> +       data_len = strlen(tbl_hdr_str);
+> >> +       if (*pos < data_len) {
+> >> +               data_len -= *pos;
+> >> +               data_len = min_t(size_t, data_len, size);
+> >> +               if (copy_to_user(buf, &tbl_hdr_str[*pos], data_len))
+> >> +                       goto Out;
+> >> +               buf += data_len;
+> >> +               size -= data_len;
+> >> +               *pos += data_len;
+> >> +       }
+> >> +
+> >> +       data_len = strlen(tbl_hdr_str) + tbl_hdr_fmt_size;
+> >> +       if (*pos < data_len && size > 0) {
+> >> +               u8 data[tbl_hdr_fmt_size + 1];
+> >> +               loff_t lpos;
+> >> +
+> >> +               snprintf(data, sizeof(data), tbl_hdr_fmt,
+> >> +                        control->tbl_hdr.header,
+> >> +                        control->tbl_hdr.version,
+> >> +                        control->tbl_hdr.first_rec_offset,
+> >> +                        control->tbl_hdr.tbl_size,
+> >> +                        control->tbl_hdr.checksum);
+> >> +
+> >> +               data_len -= *pos;
+> >> +               data_len = min_t(size_t, data_len, size);
+> >> +               lpos = *pos - strlen(tbl_hdr_str);
+> >> +               if (copy_to_user(buf, &data[lpos], data_len))
+> >> +                       goto Out;
+> >> +               buf += data_len;
+> >> +               size -= data_len;
+> >> +               *pos += data_len;
+> >> +       }
+> >> +
+> >> +       data_len = strlen(tbl_hdr_str) + tbl_hdr_fmt_size + strlen(rec_hdr_str);
+> >> +       if (*pos < data_len && size > 0) {
+> >> +               loff_t lpos;
+> >> +
+> >> +               data_len -= *pos;
+> >> +               data_len = min_t(size_t, data_len, size);
+> >> +               lpos = *pos - strlen(tbl_hdr_str) - tbl_hdr_fmt_size;
+> >> +               if (copy_to_user(buf, &rec_hdr_str[lpos], data_len))
+> >> +                       goto Out;
+> >> +               buf += data_len;
+> >> +               size -= data_len;
+> >> +               *pos += data_len;
+> >> +       }
+> >> +
+> >> +       data_len = amdgpu_ras_debugfs_table_size(control);
+> >> +       if (*pos < data_len && size > 0) {
+> >> +               u8 dare[RAS_TABLE_RECORD_SIZE];
+> >> +               u8 data[rec_hdr_fmt_size + 1];
+> >> +               /* Find the starting record index
+> >> +                */
+> >> +               int s = (*pos - strlen(tbl_hdr_str) - tbl_hdr_fmt_size -
+> >> +                        strlen(rec_hdr_str)) / rec_hdr_fmt_size;
+> >> +               int r = (*pos - strlen(tbl_hdr_str) - tbl_hdr_fmt_size -
+> >> +                        strlen(rec_hdr_str)) % rec_hdr_fmt_size;
+> >> +               struct eeprom_table_record record;
+> >> +
+> >> +               for ( ; size > 0 && s < control->ras_num_recs; s++) {
+> >> +                       u32 ai = RAS_RI_TO_AI(control, s);
+> >> +                       /* Read a single record
+> >> +                        */
+> >> +                       res = __amdgpu_ras_eeprom_read(control, dare, ai, 1);
+> >> +                       if (res)
+> >> +                               goto Out;
+> >> +                       __decode_table_record_from_buf(control, &record, dare);
+> >> +                       snprintf(data, sizeof(data), rec_hdr_fmt,
+> >> +                                s,
+> >> +                                RAS_INDEX_TO_OFFSET(control, ai),
+> >> +                                record_err_type_str[record.err_type],
+> >> +                                record.bank,
+> >> +                                record.ts,
+> >> +                                record.offset,
+> >> +                                record.mem_channel,
+> >> +                                record.mcumc_id,
+> >> +                                record.retired_page);
+> >> +
+> >> +                       data_len = min_t(size_t, rec_hdr_fmt_size - r, size);
+> >> +                       if (copy_to_user(buf, &data[r], data_len))
+> >> +                               return -EINVAL;
+> >> +                       buf += data_len;
+> >> +                       size -= data_len;
+> >> +                       *pos += data_len;
+> >> +                       r = 0;
+> >> +               }
+> >> +       }
+> >> +       res = 0;
+> >> +Out:
+> >> +       mutex_unlock(&control->ras_tbl_mutex);
+> >> +       return res < 0 ? res : orig_size - size;
+> >> +}
+> >> +
+> >> +static ssize_t
+> >> +amdgpu_ras_debugfs_eeprom_table_read(struct file *f, char __user *buf,
+> >> +                                    size_t size, loff_t *pos)
+> >> +{
+> >> +       struct amdgpu_device *adev = (struct amdgpu_device *)file_inode(f)->i_private;
+> >> +       struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
+> >> +       struct amdgpu_ras_eeprom_control *control = ras ? &ras->eeprom_control : NULL;
+> >> +       u8 data[81];
+> >> +       int res;
+> >> +
+> >> +       if (!size)
+> >> +               return size;
+> >> +
+> >> +       if (!ras || !control) {
+> >> +               res = snprintf(data, sizeof(data), "Not supported\n");
+> >> +               if (*pos >= res)
+> >> +                       return 0;
+> >> +
+> >> +               res -= *pos;
+> >> +               res = min_t(size_t, res, size);
+> >> +
+> >> +               if (copy_to_user(buf, &data[*pos], res))
+> >> +                       return -EINVAL;
+> >> +
+> >> +               *pos += res;
+> >> +
+> >> +               return res;
+> >> +       } else {
+> >> +               return amdgpu_ras_debugfs_table_read(f, buf, size, pos);
+> >> +       }
+> >> +}
+> >> +
+> >> +const struct file_operations amdgpu_ras_debugfs_eeprom_table_ops = {
+> >> +       .owner = THIS_MODULE,
+> >> +       .read = amdgpu_ras_debugfs_eeprom_table_read,
+> >> +       .write = NULL,
+> >> +       .llseek = default_llseek,
+> >> +};
+> >> +
+> >>  /**
+> >>   * __verify_ras_table_checksum -- verify the RAS EEPROM table checksum
+> >>   * @control: pointer to control structure
+> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h
+> >> index edb0195ea2eb8c..430e08ab3313a2 100644
+> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h
+> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h
+> >> @@ -29,9 +29,10 @@
+> >>  struct amdgpu_device;
+> >>
+> >>  enum amdgpu_ras_eeprom_err_type {
+> >> -       AMDGPU_RAS_EEPROM_ERR_PLACE_HOLDER,
+> >> +       AMDGPU_RAS_EEPROM_ERR_NA,
+> >>         AMDGPU_RAS_EEPROM_ERR_RECOVERABLE,
+> >> -       AMDGPU_RAS_EEPROM_ERR_NON_RECOVERABLE
+> >> +       AMDGPU_RAS_EEPROM_ERR_NON_RECOVERABLE,
+> >> +       AMDGPU_RAS_EEPROM_ERR_COUNT,
+> >>  };
+> >>
+> >>  struct amdgpu_ras_eeprom_table_header {
+> >> @@ -121,4 +122,9 @@ int amdgpu_ras_eeprom_append(struct amdgpu_ras_eeprom_control *control,
+> >>
+> >>  inline uint32_t amdgpu_ras_eeprom_max_record_count(void);
+> >>
+> >> +void amdgpu_ras_debugfs_set_ret_size(struct amdgpu_ras_eeprom_control *control);
+> >> +
+> >> +extern const struct file_operations amdgpu_ras_debugfs_eeprom_size_ops;
+> >> +extern const struct file_operations amdgpu_ras_debugfs_eeprom_table_ops;
+> >> +
+> >>  #endif // _AMDGPU_RAS_EEPROM_H
+> >> --
+> >> 2.32.0
+> >>
+> >> _______________________________________________
+> >> amd-gfx mailing list
+> >> amd-gfx@lists.freedesktop.org
+> >> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7Cluben.tuikov%40amd.com%7C44ce5499d22045e9181108d92cfcab41%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637590285983174149%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=x5YnmU8DjF1AwNdP6s04B0%2F47%2BxOxaZKou2cairZ3t0%3D&amp;reserved=0
+>
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
