@@ -1,72 +1,128 @@
-Return-Path: <SRS0=qfa3=LF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=63DL=LG=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A6186C48BD1
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Jun 2021 20:17:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 93169C48BE5
+	for <amd-gfx@archiver.kernel.org>; Sat, 12 Jun 2021 06:05:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 665B9610F8
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Jun 2021 20:17:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 665B9610F8
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 2089461263
+	for <amd-gfx@archiver.kernel.org>; Sat, 12 Jun 2021 06:05:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2089461263
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04AA66F3CE;
-	Fri, 11 Jun 2021 20:17:46 +0000 (UTC)
-Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
- [IPv6:2607:f8b0:4864:20::331])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5558C6F3CE;
- Fri, 11 Jun 2021 20:17:44 +0000 (UTC)
-Received: by mail-ot1-x331.google.com with SMTP id
- 36-20020a9d0ba70000b02902e0a0a8fe36so4320634oth.8; 
- Fri, 11 Jun 2021 13:17:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=9p32mYe7Vrajs1IOJMVIyOazGV2lSa3kgXtxyIYlRfo=;
- b=Ft6zB5ioGG8h1L3EE9Lf/GydQz/GwgLh7aQQQ9qpDIgKjtw79vrNVTvv1EAYooD7cQ
- 8AOIXvnxcqEjoxe1xOJ6guNOdhMcLyVX+TmH6LeGY+CaevmLM7adCzNteh35KhXMa7Qp
- 0OAlqs/8bApwOlqRXLH+W2/AX9w1s3dK6PAORlzSI8ia/xczUg7OU80tUJ1axOxJE0s0
- GvNYtCOoAk2/dgKEC8b6M0uZ5u2hehCi7WEaFUUuo6ozbmLAsT9MhaETL25XltZQXhNc
- A1SjeSYOZiZNnA+rVSn1oaMUqtMwCmTdi52GwWTMEp14s9PnCGCrMLxGiHM5VJMai0u/
- cnqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=9p32mYe7Vrajs1IOJMVIyOazGV2lSa3kgXtxyIYlRfo=;
- b=bBwWzDLKnVm70l7rLAS3NvsYQM8G8fLMVPPqbea1xCZ3yjsbx4GDi0sdQLc9wNYUjC
- pz8BaPTHcTOviRSnhxYXgbI2VI+6bkF9plm84fIdVvFCIBGRxPW46N7Usz2JAH4F+w/K
- VXkMJnnqHmvmLjsqYw8pFu4gU5B1aak9yNC1OCvDSdkFI5DbSdHs3CJ+Q6/X/3hx9NRt
- QAvNF6YK1RVsrFePeqfuLHnqSj14dyWyGz/EmzqnrHr9A1bc5qj1cs9JLnwWub5NXyNb
- 0NjtsHgD0VRBHdQURbchzOE8Q07+fMAo74wsnHVDXY6/fxcvPQFDh/akf5Djv4kxR1T+
- rjdg==
-X-Gm-Message-State: AOAM530GLhGmvIbASINThmSCJqvNZQF2Y6toRj6VRXt5+9M8OiFCf0tl
- K1PRZV1sf5aGCuaW+kY8CAk4Vbpao96zXDyYBUk=
-X-Google-Smtp-Source: ABdhPJy7VEogX8XKzK9J9ugo/fbErQnYlr2DI9RmeV5jioOqqND8oqJVSWG05k240lI/8jj5UkJAlKQ1wTlRA+hinp8=
-X-Received: by 2002:a05:6830:1e64:: with SMTP id
- m4mr4358987otr.23.1623442663385; 
- Fri, 11 Jun 2021 13:17:43 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B23D6E0B6;
+	Sat, 12 Jun 2021 06:05:56 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2083.outbound.protection.outlook.com [40.107.220.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B6F96E0B6
+ for <amd-gfx@lists.freedesktop.org>; Sat, 12 Jun 2021 06:05:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ADrBjqB/WvAZFXhZvr25UZUv4DZMTSulJNSWvgKhilqjYSgZaH0xtq1zxNX/2NliDEp/go4H6DhHBFuTcHqHvUmtgTRNMlsnmmvFX36Ylr+kNOlDENBPkZPO/yl/rghCjQxWdBA0NDkjQMSxzWBBhCvmdbDvxNxAwMsyT6hN2uFvecpp/VqV3rFz0DFIEdbsNpWGLSNppBVMdGKw6yqxDNnFVVaIY9KEFKPRvTUuuj5Gemd0VPv4TPE3AXLHJdDRF9e3IGl42/cl+N39aiUJkZco9EI4z6MeTNlQvtA8gobdZy+L/HHe7PEuVoqNE3VHISxJ6T+Kn6o6d1pfcXoJeg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7yf/dLT4RoB1mBZfTpv10BevzM/5nrqcn84pPjfoBv4=;
+ b=Fxi4Aei1LFENb/+6xjYmVCF1wGaPSrh2hKRKxaC2FwiAS5R2elumofqF+6GuE41aUQIakFpGtoSmvEhXN66nRHcyuB61a9A5UKiwj9GLPJ2cYTt8C542rQPIHpBR762sQbT6VG5oHXPuTJ43YgrB8ZnOadzk3+vHNwshOgMnty4yxYU+GBkC8Q7hU/zMuK6kiSmhzPx3DxqaHhkUtPFtLjmLYBBmuiW4q3rdeQpdOxK+6TzRbrWmbnwtHs27otX6BaTpIxTq5jkIbJIOS2Nxyxi29JepIPnttnyEZvI4j0zdJs0RrOTlmPs6zXw3DGZKYjWasA2T0EI7StyXXOtFPg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7yf/dLT4RoB1mBZfTpv10BevzM/5nrqcn84pPjfoBv4=;
+ b=FOVik9GDJzmrhZQJUsXKOOzQ9HDSnCHpkIGvv7Ih9MtpxKiX4LJWzlRiaP454qmF9eSqFp9sPlvolWnnSQeKayFY2D1bJ0uzaMkA/5m0Yz03AzhgILfoTlxYHXLJZIIm5Vibo/TTxhgmxMf7jjhKG0E7VxiUNNP4TEO74dLeqlg=
+Received: from BN9PR12MB5226.namprd12.prod.outlook.com (2603:10b6:408:11f::11)
+ by BN9PR12MB5180.namprd12.prod.outlook.com (2603:10b6:408:11d::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.20; Sat, 12 Jun
+ 2021 06:05:53 +0000
+Received: from BN9PR12MB5226.namprd12.prod.outlook.com
+ ([fe80::d863:def1:2b7e:fc89]) by BN9PR12MB5226.namprd12.prod.outlook.com
+ ([fe80::d863:def1:2b7e:fc89%7]) with mapi id 15.20.4219.024; Sat, 12 Jun 2021
+ 06:05:53 +0000
+From: "Clements, John" <John.Clements@amd.com>
+To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: correct psp ucode arrary start address
+Thread-Topic: [PATCH] drm/amdgpu: correct psp ucode arrary start address
+Thread-Index: AQHXXuPY4/2cPVk7OEa1Hds4+gD6basP5BRg
+Date: Sat, 12 Jun 2021 06:05:53 +0000
+Message-ID: <BN9PR12MB5226C9AAF63FEF00E1CF5CD4FB339@BN9PR12MB5226.namprd12.prod.outlook.com>
+References: <20210611170413.9447-1-Hawking.Zhang@amd.com>
+In-Reply-To: <20210611170413.9447-1-Hawking.Zhang@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2021-06-12T06:05:42Z; 
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
+ Unrestricted;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=e8aab4b9-0bc0-40b7-abfe-ccabafa26da2;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
+msip_justification: I confirm the recipients are approved for sharing this
+ content
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [165.204.134.244]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 94a5a1c3-dff1-409b-0306-08d92d68230f
+x-ms-traffictypediagnostic: BN9PR12MB5180:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <BN9PR12MB518032AF2ACB04816EB9FFF5FB339@BN9PR12MB5180.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:4303;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 3fCn9wU7YKTEX8nD0sbepovtF8Getics2u4bEmzGsmTjLB6t5PSmjteTORMDOkDbvcGNLDevX7bwzrMxuDWBl1a7hjohM5urk+Jp8HDT3FIyvite0p5G8qnhHoaJ9A2rmjyu9iImcwlew0162FrVJoxiL9UcNoZkkgeDFBPx635vh8nmbsVpcLY93HNy38zhOR7gJAi97NiUV0DhUHKRd/Uv4+fYuKV9vAqS+GHHxMF9jfeF44OvUFGcdkh3/oZx9KB+sQcCmH85mO96TZkhTpW6B2ZjbaAI8mgzhTWsvo8XfFo45r/qt9cBVezsGbRsyvG91gio8cnOmy/sBbROiqgpuD8jL++j5ZKcjwahtXH79LE/OAwRmiFXzS2JE28zqc3NJoXs6rdMdbW+WvpdRdMJyEMTGb+Ymslxu+GRDeu/1DO94NNvAJhnmHdqSsXWIUh62suznp2/NCdXGtw+aMzfYWQLzHsn579m4UzQ6Iv8hEGvgDOiFhftaIVAz/i6FfIzQ4lXedYMMNQxCsrQ+4liu6VqGh8GjfAYXLVUusdSSqvjDI1fko5ZKHP6nP+EXiVE13fLVFMT16cE1JQZzXgUG564POJXy5OMMxkDWLk=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5226.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(376002)(39860400002)(346002)(136003)(396003)(366004)(478600001)(4326008)(8676002)(26005)(66556008)(66476007)(86362001)(316002)(6506007)(71200400001)(83380400001)(110136005)(66446008)(76116006)(53546011)(122000001)(38100700002)(64756008)(2906002)(186003)(33656002)(6636002)(55016002)(5660300002)(52536014)(66946007)(7696005)(9686003)(8936002);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?uVtrZLHEHMX5DRLFPU3/eIe97OKU9L2fOdln6gDgtxzmsju9OxHEZuk6PGAm?=
+ =?us-ascii?Q?APkXVSCckGy1xy4ja/jTh2l0pGaP0VWk8S2OTwsf7Ge7HEMZwg+5IVTlWBKg?=
+ =?us-ascii?Q?MhOaUKcbYQ2KReeXI6bWJ8dK3f+pbEAB2tvqDZlVmLR2cJkXzatxhboDgUCf?=
+ =?us-ascii?Q?/44AsgPkrtqcG/tV+dNAtwo1xl29+R+hsAQOJG2GSdC6YvVbkmxjFQQy0oSZ?=
+ =?us-ascii?Q?+zEWpe0OTt3WJiYswcmB14U+ogEzsciJaTTFwN5KDWZ1Du25oLLc5qo5HaJj?=
+ =?us-ascii?Q?QLj4WX+r+mHpOcWzyw4+XbMy4YHmoMfq2S5h5G/wwh27hBV/AP3MJMnhlNKU?=
+ =?us-ascii?Q?UKVMcwmBnV65HDwaBIRdCtxwqdj921+HqG8SCQqZ7Akok+x0p4wWwd0H51k1?=
+ =?us-ascii?Q?CV61o6QbdAPvqIxe93+QUHOoO6d7O9KQXS0UP3e6TBJdEhGr+YB6eZt+6e3y?=
+ =?us-ascii?Q?debX0MzWpj4bZAdJVblts8/WdN1pY5NDH9FqEhXePUtyvcFI4E9IIxg1WhK/?=
+ =?us-ascii?Q?Irc1//94f7khbzUWHkOvfExyDsqs+96l4ZRos7g7tscQZdNDGzTvDeOzNMeQ?=
+ =?us-ascii?Q?KdkDJJVwme37Fl2u8AgbsfoAUTnko0MeDSBKkNgogl3s07dNEudM9HSzUGoa?=
+ =?us-ascii?Q?3Y3bAiTUy4AePG5chMiU+hMOH4aAwJjUU9CuAQmVvN/u3X/mJlDT1fGQ5EOj?=
+ =?us-ascii?Q?ZeiaRQ7Yk5bC9FNuFm6SJ380hplW+OfEKu+PvMtlOVdY1XZOb4QDd/T7a2eW?=
+ =?us-ascii?Q?n+XgzhEUA0XZddJFZEq9v4rFMouRJxJOndScvZeGMTyyKTv4kWJXPgxT8rqm?=
+ =?us-ascii?Q?akwvKj5M+F3ucqNaIXL6fELvUvf5Zy3aibyyvb4lGI/8Y3JtIvolTErtlbr2?=
+ =?us-ascii?Q?AuTOHOU7TKR4YQMfCNmY6OcpFu69HcgsiS6EfuzbcAeVuwlROhavqGpkmUwB?=
+ =?us-ascii?Q?3AQeHj3oUZTcXg6Alvi4lqhhMTdKASD/Y6cPGsNN6e8mjkkojGBe3t+m+dev?=
+ =?us-ascii?Q?W+XP2jn1ggsyytNLLT8LtqXwKAP4RcZtdn6pODytiDRTGjClMoPJ/Wi5xz4V?=
+ =?us-ascii?Q?o1YhKEn+UEFmOkx964MT5Rppzd+I24HIVHOnCm10qTqF/weg3Zc6Z+ZFMUoh?=
+ =?us-ascii?Q?KhlbmnOf1YMMAY4Hs/aaoWYGFeHsRZVNfzNiqW83N5GA4/PuEtCNznwOgRE0?=
+ =?us-ascii?Q?llPe4psg2drgrFLhUgpazHc3NNbbc75CTyEnMQYly5YeqCc3em6AcvPLZQHb?=
+ =?us-ascii?Q?jcPoshhlu7tOLCF5+zMbRbTFQvFNaQwjEm2ATPeApt3dHgLhP7wb3UKKfBnd?=
+ =?us-ascii?Q?Gzidm3MLDIJ1dCeOXDSLLUDT?=
 MIME-Version: 1.0
-References: <20210604170107.2023162-1-markyacoub@chromium.org>
- <906d0ab3-ddca-8cb9-68f5-1b495cc4be5c@amd.com>
- <CAJUqKUr-s+r1Q-CEO6avH-X5T_Lwt3ZaG5tukygo0joHi8kCpA@mail.gmail.com>
- <2e289387-0101-6141-a1c4-ae0438e0c2b8@amd.com>
- <CADnq5_Nu=rzRw-jY7zf7Q6mjJQ=s4+vRTudb3383YG_h=twO9g@mail.gmail.com>
-In-Reply-To: <CADnq5_Nu=rzRw-jY7zf7Q6mjJQ=s4+vRTudb3383YG_h=twO9g@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 11 Jun 2021 16:17:32 -0400
-Message-ID: <CADnq5_Mh7m+rOcrkuwdpPeBdOA32Z3wgD2aimeMn6_ZcXAesRA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Verify Gamma & Degamma LUT sizes in
- amdgpu_dm_atomic_check
-To: Harry Wentland <harry.wentland@amd.com>
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5226.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 94a5a1c3-dff1-409b-0306-08d92d68230f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Jun 2021 06:05:53.6585 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: iLjQhBQtEs6TOzo6XYvkBfn9QoPzz9RaeeD3Lac4s9U0P0GQ2YRiKMjnDj66dH1z8bcQ59cjD6brDiIKrt40og==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5180
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,175 +134,110 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Mark Yacoub <markyacoub@chromium.org>, "Siqueira,
- Rodrigo" <rodrigo.siqueira@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Sean Paul <seanpaul@chromium.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>, "Deucher,
- Alexander" <alexander.deucher@amd.com>, Mark Yacoub <markyacoub@google.com>
+Cc: "Li, Candice" <Candice.Li@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Just a heads up, your sender email and your signed-off-by don't match
-and you had some assignments in if clauses.  I've fixed those up.
+[AMD Official Use Only - Internal Distribution Only]
 
-Alex
+Reviewed-by: John Clements <John.Clements@amd.com>
 
+-----Original Message-----
+From: Zhang, Hawking <Hawking.Zhang@amd.com> 
+Sent: Saturday, June 12, 2021 1:04 AM
+To: amd-gfx@lists.freedesktop.org; Deucher, Alexander <Alexander.Deucher@amd.com>; Clements, John <John.Clements@amd.com>
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Li, Candice <Candice.Li@amd.com>
+Subject: [PATCH] drm/amdgpu: correct psp ucode arrary start address
 
-On Fri, Jun 11, 2021 at 1:35 PM Alex Deucher <alexdeucher@gmail.com> wrote:
->
-> Applied.  Thanks!
->
-> On Thu, Jun 10, 2021 at 5:14 PM Harry Wentland <harry.wentland@amd.com> wrote:
-> >
-> >
-> >
-> > On 2021-06-07 10:53 a.m., Mark Yacoub wrote:
-> > > On Fri, Jun 4, 2021 at 4:17 PM Harry Wentland <harry.wentland@amd.com> wrote:
-> > >>
-> > >>
-> > >>
-> > >> On 2021-06-04 1:01 p.m., Mark Yacoub wrote:
-> > >>> From: Mark Yacoub <markyacoub@google.com>
-> > >>>
-> > >>> For each CRTC state, check the size of Gamma and Degamma LUTs  so
-> > >>> unexpected and larger sizes wouldn't slip through.
-> > >>>
-> > >>> TEST: IGT:kms_color::pipe-invalid-gamma-lut-sizes
-> > >>>
-> > >>> Signed-off-by: Mark Yacoub <markyacoub@chromium.org>
-> > >>> Change-Id: I9d513a38e8ac2af1b4bf802e1feb1a4d726fba4c
-> > >>> ---
-> > >>>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  3 ++
-> > >>>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  1 +
-> > >>>  .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 40 ++++++++++++++++---
-> > >>>  3 files changed, 38 insertions(+), 6 deletions(-)
-> > >>>
-> > >>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > >>> index 38d497d30dba8..f6cd522b42a80 100644
-> > >>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > >>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > >>> @@ -9402,6 +9402,9 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
-> > >>>                       dm_old_crtc_state->dsc_force_changed == false)
-> > >>>                       continue;
-> > >>>
-> > >>> +             if ((ret = amdgpu_dm_verify_lut_sizes(new_crtc_state)))
-> > >>> +                     goto fail;
-> > >>> +
-> > >>>               if (!new_crtc_state->enable)
-> > >>>                       continue;
-> > >>>
-> > >>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> > >>> index 8bfe901cf2374..1b77cd2612691 100644
-> > >>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> > >>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> > >>> @@ -541,6 +541,7 @@ void amdgpu_dm_trigger_timing_sync(struct drm_device *dev);
-> > >>>  #define MAX_COLOR_LEGACY_LUT_ENTRIES 256
-> > >>>
-> > >>>  void amdgpu_dm_init_color_mod(void);
-> > >>> +int amdgpu_dm_verify_lut_sizes(const struct drm_crtc_state *crtc_state);
-> > >>>  int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc);
-> > >>>  int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
-> > >>>                                     struct dc_plane_state *dc_plane_state);
-> > >>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> > >>> index 157fe4efbb599..da6f9fcc0b415 100644
-> > >>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> > >>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> > >>> @@ -284,6 +284,37 @@ static int __set_input_tf(struct dc_transfer_func *func,
-> > >>>       return res ? 0 : -ENOMEM;
-> > >>>  }
-> > >>>
-> > >>> +/**
-> > >>> + * Verifies that the Degamma and Gamma LUTs attached to the |crtc_state| are of
-> > >>> + * the expected size.
-> > >>> + * Returns 0 on success.
-> > >>> + */
-> > >>> +int amdgpu_dm_verify_lut_sizes(const struct drm_crtc_state *crtc_state)
-> > >>> +{
-> > >>> +     const struct drm_color_lut *lut = NULL;
-> > >>> +     uint32_t size = 0;
-> > >>> +
-> > >>> +     lut = __extract_blob_lut(crtc_state->degamma_lut, &size);
-> > >>> +     if (lut && size != MAX_COLOR_LUT_ENTRIES) {
-> > >>
-> > >> Isn't the point of the LUT size that it can be variable? Did you observe any
-> > >> problems with LUTs that are not of size 4096?
-> > > Is it supposed to be variable?
-> > > I'm basing my knowledge of LUTs on this IGT Test:
-> > > https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/blob/master/tests/kms_color_helper.c#L281>> It does check for invalid sizes and for the exact size, giving me the
-> > > impression that it's not too flexible.
-> > > Is variability of size an AMD specific behavior or should it be a DRM behavior?
-> > >>
-> > >> Legacy X-based userspace will give us 256 size LUTs. We can't break support for
-> > >> that. See MAX_COLOR_LEGACY_LUT_ENTRIES.
-> > > In the new function `amdgpu_dm_verify_lut_sizes`, I maintained parity
-> > > with the old behavior. In `amdgpu_dm_update_crtc_color_mgmt`, the
-> > > degamma size is only checked against `MAX_COLOR_LUT_ENTRIES` while
-> > > regamma_size size is checked against both MAX_COLOR_LUT_ENTRIES and
-> > > MAX_COLOR_LEGACY_LUT_ENTRIES:
-> > > https://gitlab.freedesktop.org/agd5f/linux/-/blob/amd-staging-drm-next/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c#L321>> Also, in the definition of MAX_COLOR_LEGACY_LUT_ENTRIES, it mentions
-> > > "Legacy gamm[sic] LUT" not degamma:
-> > > https://gitlab.freedesktop.org/agd5f/linux/-/blame/amd-staging-drm-next/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h#L616>> As well as the commit when it was introduced, it seems to be handling
-> > > gammas rather than degamma LUTs:
-> > > https://gitlab.freedesktop.org/agd5f/linux/-/commit/086247a4b2fba49800b27807f22bb894cd8363fb>> Let me know if this would be a bug in the old behavior and I can fix
-> > > it, or if i'm missing something.
-> >
-> > Ah, yes, you're right, of course. Thanks for walking me through it. :)
-> >
-> > Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-> >
-> > Harry
-> >
-> > >>
-> > >> Harry
-> > >>
-> > >>> +             DRM_DEBUG_DRIVER(
-> > >>> +                     "Invalid Degamma LUT size. Should be %u but got %u.\n",
-> > >>> +                     MAX_COLOR_LUT_ENTRIES, size);
-> > >>> +             return -EINVAL;
-> > >>> +     }
-> > >>> +
-> > >>> +     lut = __extract_blob_lut(crtc_state->gamma_lut, &size);
-> > >>> +     if (lut && size != MAX_COLOR_LUT_ENTRIES &&
-> > >>> +         size != MAX_COLOR_LEGACY_LUT_ENTRIES) {
-> > >>> +             DRM_DEBUG_DRIVER(
-> > >>> +                     "Invalid Gamma LUT size. Should be %u (or %u for legacy) but got %u.\n",
-> > >>> +                     MAX_COLOR_LUT_ENTRIES, MAX_COLOR_LEGACY_LUT_ENTRIES,
-> > >>> +                     size);
-> > >>> +             return -EINVAL;
-> > >>> +     }
-> > >>> +
-> > >>> +     return 0;
-> > >>> +}
-> > >>> +
-> > >>>  /**
-> > >>>   * amdgpu_dm_update_crtc_color_mgmt: Maps DRM color management to DC stream.
-> > >>>   * @crtc: amdgpu_dm crtc state
-> > >>> @@ -317,14 +348,11 @@ int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc)
-> > >>>       bool is_legacy;
-> > >>>       int r;
-> > >>>
-> > >>> -     degamma_lut = __extract_blob_lut(crtc->base.degamma_lut, &degamma_size);
-> > >>> -     if (degamma_lut && degamma_size != MAX_COLOR_LUT_ENTRIES)
-> > >>> -             return -EINVAL;
-> > >>> +     if ((r = amdgpu_dm_verify_lut_sizes(&crtc->base)))
-> > >>> +             return r;
-> > >>>
-> > >>> +     degamma_lut = __extract_blob_lut(crtc->base.degamma_lut, &degamma_size);
-> > >>>       regamma_lut = __extract_blob_lut(crtc->base.gamma_lut, &regamma_size);
-> > >>> -     if (regamma_lut && regamma_size != MAX_COLOR_LUT_ENTRIES &&
-> > >>> -         regamma_size != MAX_COLOR_LEGACY_LUT_ENTRIES)
-> > >>> -             return -EINVAL;
-> > >>>
-> > >>>       has_degamma =
-> > >>>               degamma_lut && !__is_lut_linear(degamma_lut, degamma_size);
-> > >>>
-> > >>
-> > > -Mark
-> > >
-> >
+For ASICs that need to load sys_drv_aux and sos_aux, the sys_start_addr is not the start address of psp ucode array because the sys_drv_aux and sos_aux actaully located at the end of the ucode array, instead, the psp ucode arrary start address should be sos_hdr + sos_hdr_offset.
+
+Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 23 ++++++++++++++---------
+ 1 file changed, 14 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index 066d1cb1a5e1..f7fbf0604631 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -2957,19 +2957,21 @@ static int psp_init_sos_base_fw(struct amdgpu_device *adev)  {
+ 	const struct psp_firmware_header_v1_0 *sos_hdr;
+ 	const struct psp_firmware_header_v1_3 *sos_hdr_v1_3;
++	uint8_t *ucode_array_start_addr;
+ 
+ 	sos_hdr = (const struct psp_firmware_header_v1_0 *)adev->psp.sos_fw->data;
++	ucode_array_start_addr = (uint8_t *)sos_hdr +
++		le32_to_cpu(sos_hdr->header.ucode_array_offset_bytes);
+ 
+ 	if (adev->gmc.xgmi.connected_to_cpu || (adev->asic_type != CHIP_ALDEBARAN)) {
+ 		adev->psp.sos_fw_version = le32_to_cpu(sos_hdr->header.ucode_version);
+ 		adev->psp.sos_feature_version = le32_to_cpu(sos_hdr->sos.fw_version);
+ 
+ 		adev->psp.sys_bin_size = le32_to_cpu(sos_hdr->sos.offset_bytes);
+-		adev->psp.sys_start_addr = (uint8_t *)sos_hdr +
+-				le32_to_cpu(sos_hdr->header.ucode_array_offset_bytes);
++		adev->psp.sys_start_addr = ucode_array_start_addr;
+ 
+ 		adev->psp.sos_bin_size = le32_to_cpu(sos_hdr->sos.size_bytes);
+-		adev->psp.sos_start_addr = (uint8_t *)adev->psp.sys_start_addr +
++		adev->psp.sos_start_addr = ucode_array_start_addr +
+ 				le32_to_cpu(sos_hdr->sos.offset_bytes);
+ 	} else {
+ 		/* Load alternate PSP SOS FW */
+@@ -2979,11 +2981,11 @@ static int psp_init_sos_base_fw(struct amdgpu_device *adev)
+ 		adev->psp.sos_feature_version = le32_to_cpu(sos_hdr_v1_3->sos_aux.fw_version);
+ 
+ 		adev->psp.sys_bin_size = le32_to_cpu(sos_hdr_v1_3->sys_drv_aux.size_bytes);
+-		adev->psp.sys_start_addr = (uint8_t *)adev->psp.sys_start_addr +
++		adev->psp.sys_start_addr = ucode_array_start_addr +
+ 			le32_to_cpu(sos_hdr_v1_3->sys_drv_aux.offset_bytes);
+ 
+ 		adev->psp.sos_bin_size = le32_to_cpu(sos_hdr_v1_3->sos_aux.size_bytes);
+-		adev->psp.sos_start_addr = (uint8_t *)adev->psp.sys_start_addr +
++		adev->psp.sos_start_addr = ucode_array_start_addr +
+ 			le32_to_cpu(sos_hdr_v1_3->sos_aux.offset_bytes);
+ 	}
+ 
+@@ -3005,6 +3007,7 @@ int psp_init_sos_microcode(struct psp_context *psp,
+ 	const struct psp_firmware_header_v1_2 *sos_hdr_v1_2;
+ 	const struct psp_firmware_header_v1_3 *sos_hdr_v1_3;
+ 	int err = 0;
++	uint8_t *ucode_array_start_addr;
+ 
+ 	if (!chip_name) {
+ 		dev_err(adev->dev, "invalid chip name for sos microcode\n"); @@ -3021,6 +3024,8 @@ int psp_init_sos_microcode(struct psp_context *psp,
+ 		goto out;
+ 
+ 	sos_hdr = (const struct psp_firmware_header_v1_0 *)adev->psp.sos_fw->data;
++	ucode_array_start_addr = (uint8_t *)sos_hdr +
++		le32_to_cpu(sos_hdr->header.ucode_array_offset_bytes);
+ 	amdgpu_ucode_print_psp_hdr(&sos_hdr->header);
+ 
+ 	switch (sos_hdr->header.header_version_major) { @@ -3047,16 +3052,16 @@ int psp_init_sos_microcode(struct psp_context *psp,
+ 		if (sos_hdr->header.header_version_minor == 3) {
+ 			sos_hdr_v1_3 = (const struct psp_firmware_header_v1_3 *)adev->psp.sos_fw->data;
+ 			adev->psp.toc_bin_size = le32_to_cpu(sos_hdr_v1_3->v1_1.toc.size_bytes);
+-			adev->psp.toc_start_addr = (uint8_t *)adev->psp.sys_start_addr +
++			adev->psp.toc_start_addr = ucode_array_start_addr +
+ 				le32_to_cpu(sos_hdr_v1_3->v1_1.toc.offset_bytes);
+ 			adev->psp.kdb_bin_size = le32_to_cpu(sos_hdr_v1_3->v1_1.kdb.size_bytes);
+-			adev->psp.kdb_start_addr = (uint8_t *)adev->psp.sys_start_addr +
++			adev->psp.kdb_start_addr = ucode_array_start_addr +
+ 				le32_to_cpu(sos_hdr_v1_3->v1_1.kdb.offset_bytes);
+ 			adev->psp.spl_bin_size = le32_to_cpu(sos_hdr_v1_3->spl.size_bytes);
+-			adev->psp.spl_start_addr = (uint8_t *)adev->psp.sys_start_addr +
++			adev->psp.spl_start_addr = ucode_array_start_addr +
+ 				le32_to_cpu(sos_hdr_v1_3->spl.offset_bytes);
+ 			adev->psp.rl_bin_size = le32_to_cpu(sos_hdr_v1_3->rl.size_bytes);
+-			adev->psp.rl_start_addr = (uint8_t *)adev->psp.sys_start_addr +
++			adev->psp.rl_start_addr = ucode_array_start_addr +
+ 				le32_to_cpu(sos_hdr_v1_3->rl.offset_bytes);
+ 		}
+ 		break;
+--
+2.17.1
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
