@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D784EC2B9F4
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Jun 2021 14:32:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 52A88C4743C
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Jun 2021 14:32:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 75B6961246
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Jun 2021 14:32:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 75B6961246
+	by mail.kernel.org (Postfix) with ESMTPS id 1396361246
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Jun 2021 14:32:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1396361246
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22F3989C9D;
-	Mon, 14 Jun 2021 14:32:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD6A889CD3;
+	Mon, 14 Jun 2021 14:32:37 +0000 (UTC)
 Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2084.outbound.protection.outlook.com [40.107.94.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 70D7B89C9D
+ (mail-mw2nam10on2044.outbound.protection.outlook.com [40.107.94.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B939489C9D
  for <amd-gfx@lists.freedesktop.org>; Mon, 14 Jun 2021 14:32:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=L17CRcGlz2LhWdGmWwGjCfqU3cFJ+LHLbPKEkgF6r240r7kdqUAaaXlhXt81RlX2opGlOsX6MRhIE7+lftMKgeVV+3r1PwmmdjFMkfaR06NCBilVkV5Qd+SgnBccdyTVItu2LiWxm2hYJWFoYgJi2b2Rqddbkha58V+wPKfzM6N5/1NzJHWDYq+h/NEHm4JEJKi4Cizpl71cJpFasEAGenSVCBSy6IIQsqvIvPm1Nvu8EQBldQYqbQAyR2BKNflWR3lclGvs4a/kxm31pd/brze0/knV7IiCDGXD5g+4gnV4RjmSYQhMnnfNfGvJkQo+uBJDDkY5SrTlKeg/V1gAtg==
+ b=LMrt0rtoJOzMzsx7oDC+tW4a40T3iFcecthpFjDJnCKYCh5VCmb8qY9S9dK3TF/czsdK5MjuAIMr4Qt+InR+7HVaKRejKOKOY+9kR+XZ1NtkOBs4jAeeAoJjXopvMqPllWqlooMwn5rfrFqqfg2pRJyoKM67iDUUcN+QdaY/qH0xt6bk+MPonX5EyKi02N8ySqszVwPurPEBx2ImI7H+bUhbfwV5xaJrXjYxNWjhBLjP0wJvB7m55vFBT5+Dac3yrWsVH0BpiEeHQi8NnUzeDMfJqxV5WUChYhfAoAYRV5+rxdvvxmMPzM/2LUrH8Z2fT829Qv/1eO3ICn+A3nIRHw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Jd+2592uLdoAy6oYMdAU7x/X/9/uEKAaz4megLpOizw=;
- b=dw75rb/vcRSnQQuq8VYiQcdcdOtvNFueUy97nrGmf7lxhJ4PXu2KzbjQQ40ChNiyqv5YYoNQDis2EORqxeMwbAIl1QOc6odC9ek1gpa62f/6C3gaNfzcE/2Dy5mPWXz62HqFbRiZAS/CtwRtdGThkQN5HSMQA6aZPQG9K2mtSNV/wQA/9E8hu8AHR9VPLU5Mg5e/T8/dcgwcowzW8nDfebUeOaI6YvJjyxgZFaSvYwlPPDHniNBBR0XUKWJUQhxKtuoHCOeBnFna32JILxXuOd5dH27yI2yQOAKOpCGnTI1RNzrf2WMgI50M83UuxpO4VBlNN2M72ZzNScaw3wmhQw==
+ bh=mOjv755uwMg18BIu6ZEtK6TmPorfZaqqPHaUZ1avXSs=;
+ b=eS4pCfsV1zjjUvZFmMaYJr9tk7jFFcXap1VlHrAAVCfsVEEapfzHPVnpb1yosEz0s2FfSMbfbPCMvM1RL3ypiYkKJta8Gxz324lRs98fRM1cXtAlwKElqzxWDJEoXdGysCKSxqNI0Y9TdWCb5pJBylz5s+zhy0RiNwQHnfPRV17amXoR+2rxKB4pvsOadBjftWwj9E69TufKiixq9fn5gYW/Q4R2BfGxVghwIJ8pdpt+wAe9LebUTA9lfZfJt0UNw6I8mtiAZXDj6hGI4sZjpkCzlu5qsZhgIIgyXNlYNS/nzwowqNrOuvTm+QBd/6nPdUX3tWL0WwgnbPknn63cXw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Jd+2592uLdoAy6oYMdAU7x/X/9/uEKAaz4megLpOizw=;
- b=a7HFuDzgyysm0K/UPBBObMb0UENJkN9Wth4MY8bthHl3mK8WtLFpubRHWqrTcWAEwq3SlMBopNypzw0fZegxLnsopBFcUxwBjwtP+Jx54h8/dK2w7LhMtDyQyktyQxJiLjXNtQ5FoBkQP7a5zKd3oY3YSrX22sDVOj3cfCGFxzI=
+ bh=mOjv755uwMg18BIu6ZEtK6TmPorfZaqqPHaUZ1avXSs=;
+ b=xEylS8sbfnJ5giY38jHM1zI0uI0i5pQ4HGS8QDyBBfO6eq9j+Zetlnj72Bw5ZiVOik0jnZ+YugUxrsHp5lVp4B4F0CwqVuyM6C2FbEFa5OnYROsSXL5O31zpIlq7cThFvk5mo2JDBTaJBR3CwkC0iu6HHeM3uXIvtv5hWXs715A=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -45,17 +45,19 @@ Received: from DM4PR12MB5136.namprd12.prod.outlook.com (2603:10b6:5:393::23)
  by DM4PR12MB5328.namprd12.prod.outlook.com (2603:10b6:5:39f::12) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.23; Mon, 14 Jun
- 2021 14:32:32 +0000
+ 2021 14:32:34 +0000
 Received: from DM4PR12MB5136.namprd12.prod.outlook.com
  ([fe80::901b:72bb:a15:2a68]) by DM4PR12MB5136.namprd12.prod.outlook.com
  ([fe80::901b:72bb:a15:2a68%5]) with mapi id 15.20.4219.025; Mon, 14 Jun 2021
- 14:32:32 +0000
+ 14:32:34 +0000
 From: Nirmoy Das <nirmoy.das@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/3] drm/amdgpu: parameterize ttm BO destroy callback
-Date: Mon, 14 Jun 2021 16:32:15 +0200
-Message-Id: <20210614143217.10285-1-nirmoy.das@amd.com>
+Subject: [PATCH 2/3] drm/amdgpu: use separate ttm destroy callback
+Date: Mon, 14 Jun 2021 16:32:16 +0200
+Message-Id: <20210614143217.10285-2-nirmoy.das@amd.com>
 X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20210614143217.10285-1-nirmoy.das@amd.com>
+References: <20210614143217.10285-1-nirmoy.das@amd.com>
 X-Originating-IP: [217.86.117.118]
 X-ClientProxiedBy: FR0P281CA0009.DEUP281.PROD.OUTLOOK.COM
  (2603:10a6:d10:15::14) To DM4PR12MB5136.namprd12.prod.outlook.com
@@ -65,53 +67,53 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from brihaspati.fritz.box (217.86.117.118) by
  FR0P281CA0009.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:15::14) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4242.9 via Frontend Transport; Mon, 14 Jun 2021 14:32:31 +0000
+ 15.20.4242.9 via Frontend Transport; Mon, 14 Jun 2021 14:32:33 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 42ea000f-5879-4a99-45f4-08d92f413ef8
+X-MS-Office365-Filtering-Correlation-Id: 9e14464f-9cd1-41bd-db06-08d92f413fb0
 X-MS-TrafficTypeDiagnostic: DM4PR12MB5328:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM4PR12MB5328C5767BBFB5DD26AA73728B319@DM4PR12MB5328.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2803;
+X-Microsoft-Antispam-PRVS: <DM4PR12MB5328A9850D987CB3057D93538B319@DM4PR12MB5328.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:747;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: O6nr3Bp42kOiKvUa2sRJfCwXeA40FkI7v8XhMobcilr1EWHTV5AaE0iV9vAGsqrZyENndrymspIi4UY2WDTWVFYOFkN2H7q1HmEhv7Ekd6wWAljHlM5gUUz7vIJ8778LvEfZtQ69YtLvyPtUQsfoHDybzuUXdmESsjVy/j+MmGUBUDAK/zX4ywKRVQgBNWY5ZyyH2WIahbCWTRbGK4aEtlnwh52gJfkDH3h+nHJFpbHhk8d4fXNT9n3ZmAb1WbIKQaYIW5ID4OtvcGlOQJoUWGqJ+tx/PSluWM8p+bHzJ3znjgfq7FoHY3f5rey3KSbGot+JnOlpyKiSIQvwiNSr21cqYGISjmevAXePmxIVbzFIMTyqCNENa1PlYxPx2D8tNI7znY/7kSqmg2HD9eunQrCQA/Q/t6xer3pGnhsXAsWqcROyX2slZhQkbWl4QHmOzANmBrl1q38QzRmSk/ZhXCyW3m4VTXXLE7Gz4m0iY3dhhppa3EpDoGsXvaZQl1F3xblJqmM3otfIT0Kx1WGsN/+Qe3+Y1mQctFydfzFOFhxuPyHozm0kZmdpQbHaT3xJQm2DfenKKXmLSARjTwl2I5L04rNkV5wC9u2PzfHJDUgzjMcvkV512qsyyqSHXIuAbCyUhA/JEXnmWYtKwm4HYrvvEKsC2orcIRaKvGkSIcM=
+X-Microsoft-Antispam-Message-Info: TRFW6FB0jDlpALH9OQiURuvGRozSDEBMdyBCAdNj42t4UEHRxMViXhZG4+7sJD6Jy4UvTWVIJ5K72u1V5bz963TL7CkjauyyGAkZKu1rr0AA6VWO7+qFPzhUmi3QScNdSWhLf1+D9qo+O0nRkoGQZZC/T4RwXGJp4QQPZK6g+E3xGsrOOFozOw/wggmOAqc6hiYAquEgo0y4n6dDwOA0wljr1AcroZ/T5x55pGeX0CsrxVA0UTeOCQxV/6BIXeQ/zF9FopS6yMZc86H9seu2s0fjFICqQN+7SexZAoXXYKoTd63urVyYHnw2Vz56w9MGPameCFXvFnlA0Uj47m+NNo1nAXI1JTnhdIniIfF7sFJflbMxgxM+GiyhtmCdLmysXtsNzUjNoA2OmPXae/4Ig/7yrtSRJNXfa54rHF5293byE3tC7mcqhi68FEmgCfcGPltxDBuzr50QmgsE7HTxkYadwsUGJQ79nfaQLZ0/x1n8U4nq0noA1WaClREJ4T4fWOAJpAgMjfML/tT42vSlhHvx5k3dxADXcJHfkLkGAX8nju4zKCiMrPRxszvsuNwD6cymMUkcnnXP/ft4F3qsuQStQMGQBw3b2nMZmaV58oxwhIfmz74mCaz3ctgL7tmIfKLieLeAgHkBH7r9GNMMhQ==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM4PR12MB5136.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(4636009)(396003)(376002)(346002)(366004)(136003)(39860400002)(6512007)(44832011)(8676002)(83380400001)(38100700002)(1076003)(2906002)(6486002)(478600001)(956004)(6506007)(86362001)(316002)(36756003)(38350700002)(2616005)(8936002)(66946007)(6916009)(66476007)(5660300002)(26005)(186003)(16526019)(6666004)(4326008)(66556008)(52116002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?2FpDnXCDdKyYj96Uh4+ZXTVhotFvP8MaCBL5wLE0PpDtSRVRb0+jz9wDXV9p?=
- =?us-ascii?Q?n52m2dNsC6IP66XI1NXf5zuZ3ApRdf9GTXdvzQSO53kgv+PvOo89KB0/0ezN?=
- =?us-ascii?Q?7XkSBLEMUar/p2syZiaFTBj1KWIhA/bgoKpFrd4MNTLTm9unrdIqyXv/kDzu?=
- =?us-ascii?Q?iSJbWa6fQ/IgmknRbUfGgEt4wD9C2hTVsyzVHFqmGmRbhBkbNrCayWujQIxX?=
- =?us-ascii?Q?PLFvrZW60U5s3x0OVjqbe5oeINWBVqLve8kAxHvJtG7L6DhwqMFp3mrpKTij?=
- =?us-ascii?Q?EuNUwJOIBIwPtm6A6S1sN4ZpIKq41QQ3i3OYJRVXOwZPBugcmCVs2zBTfL3L?=
- =?us-ascii?Q?WaWTFgWtIAaG1P2p6R79JU+sP4Ypb2pEDLFCIf1VeqdVgje3eXxvjwBChLd/?=
- =?us-ascii?Q?9SqdPl43vT68cth2aYtj+9AoS5CljcPnf9PQ3saUCvON6kK+W/hMg8GHdhhi?=
- =?us-ascii?Q?XHTsJL4X8+XFJIgf0/T8eegni4T4W3O7R8xKZ/RrzVoLMoguMrA3jJ10jmze?=
- =?us-ascii?Q?liG3BwSijiCvL8rEfh1LYyMiI/62XcVgPvG70y9tZdJShV55zIN50zzOMWb4?=
- =?us-ascii?Q?rOQSGD5lY5wS34JcmKq7RHufleDnwUECCjsvEARSGnAiNbrk+QB97ybbTTby?=
- =?us-ascii?Q?D8T2pQrzuFMpa2gLb0KZX/jsdiUT/pjp8zT+qaQUPj4CQMVRoZ0YYwgE11bg?=
- =?us-ascii?Q?iKQNi0ZqdYEhxJSs7N59cZ0DCi9TiL8h5aXAer8tDVIOJlcCg63nqp0XVVir?=
- =?us-ascii?Q?QAHr6zMmMFsYulgWUa3ZMuRxSeJUYBTBNmY4+lJq+FHEq5bt9beTuC4V4guP?=
- =?us-ascii?Q?vKbaB7ZZEBH+ah+eLq8R4p8MxrIwbqvEjE++e50s+aJDvrrLpszqAhqiAyHK?=
- =?us-ascii?Q?Sk5AtPTFtziV2V4UqZIIG2ejizjKvNL53C8OwC3qsFyMVDOgKoGER+l1yd0b?=
- =?us-ascii?Q?7yFa9+tlVm7MC4ufMUOaIjvNDl7Z+5cMViIl/bu9DgHtuAAmQZW4mmSP89up?=
- =?us-ascii?Q?kBY9gDXwSaqusF4lWMLczVp2bZDTFq8pS4l3AEfvFxDCbRQspPUK3mS2/NLw?=
- =?us-ascii?Q?ONtaQZ1Yl+9oIsHInUXGsrrBf2aGzgwXkhVx22wgEichuwsmp+U775JaUEj/?=
- =?us-ascii?Q?dgLM8cF1SuqKzj4R4tC9M0yo53Px0GnS0GtfTdH+LpNid8SwAChDXKOeIYw7?=
- =?us-ascii?Q?liK7UGaaszWddPHsGEDsWItxp0TPKdLQybJLHnePYggeXf3aqDQWv6g4Qb2u?=
- =?us-ascii?Q?fgzmaOxauMRHu3D5SqoIpaPWLwCfhP83F7gm1VZoHgDSYy9AQ60HWy6r1Kgt?=
- =?us-ascii?Q?RJoSfhrxEvIG/deb1LcZbN19?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?w4Wt7uOAChJxg1aCtx3A+BSmhz2u7X4OtyIbK8gpomvkqcbE6C63LZ5NDQy+?=
+ =?us-ascii?Q?EYMCAtNFQp1jDDL+3KvDCsKALnBpvPLGlAuO+lQthAEcK/+b0VGPcLiRHEt+?=
+ =?us-ascii?Q?zj+EKA86dhQOahxawwxmwl1XbCI/uJKudI+5D1WiQ0r14Xim/feWWwKKuquw?=
+ =?us-ascii?Q?O/Wo58k29YM9fmw4CcGdiaNhQk+rWl+Vp6RE06UBgk6b5mxnJWiBCNZiqFj/?=
+ =?us-ascii?Q?CQwJTsDcfVHIuYoWJfw4YCbOpPd25v7ePT1Ru48kqTgcXdXOgMz3PDZ+kqRN?=
+ =?us-ascii?Q?sFERR/l1LSnE5afiSW/7UmnRp/+we7Bd2OURoC/xISHIyUhXHZpz/nb5wf78?=
+ =?us-ascii?Q?SIoFBXuZgYFI8OabIwKo3vOviHkxgIhXaYIvwPGZb92lHV9SIczIuIUU82pv?=
+ =?us-ascii?Q?FalA9GscH0RxoykEdifPEzLs8gXkZDwNCQTvVUlsJBdktqRX1gV4FkBijU44?=
+ =?us-ascii?Q?VFX1RgtIg9fJtwXdIexZr+C/gnKw/yzxNWJlQA0z6rfQijMca2aAylvcQ0hm?=
+ =?us-ascii?Q?d2Qtm82CVcHx+jjZQfDBEibstP36znmhs86Cvy9RNtTAZU/WsZjDO8etIw0F?=
+ =?us-ascii?Q?cSver3SOFS0srJ7pQN9z6GXspqlDISyoyiwFTF7Ryx7QPHUtNGz38XNK7eci?=
+ =?us-ascii?Q?PVb6iAKQrivCU3XMIDKUeku+hc+brnmWldCWWtNtGx7qr3LFaX9kZr+UVlCK?=
+ =?us-ascii?Q?aE5xaVEPr3gzlTjZeZVA/9tld4DL9xyiCMcK+vCgZGfYeFM4HIPOqOA+316n?=
+ =?us-ascii?Q?Fy239fWGoLONiaU7rWSA/XMhx75SEwqa1oWNBvzLx07iShoV5FZG89sfCA6J?=
+ =?us-ascii?Q?W6K8R0i9YxXlycLuavza2hPxUhK+67UoJ8dMYbgTPvpqydk/C0ONrNFZob2f?=
+ =?us-ascii?Q?+FUbBP5CojrCdXVAND8nwuRhh66ZlBcawtu3Y5A3HOazzYU4a3/xcR6fDeHt?=
+ =?us-ascii?Q?bCSB1CUtEi3WJ4VHrSy9qqadUCvl8krU+nqTR2npduMS/ZxtvbBOttKRhzAl?=
+ =?us-ascii?Q?f1H+1CH0OWN9s+v/cqBOEvsfwozJwzJcrLdWg0N1ocu6eIufg5syzkdkPXQJ?=
+ =?us-ascii?Q?Jr7UrsP4FBPJMwlgjB1NULNWBqiV742QXZkCXnPcWQ1CdqjSHOBppvHdKzY7?=
+ =?us-ascii?Q?PQCBhkPhxn6Rr2ZE0A7j8x6asedzLki9U6MGhLNGPIOrcNFHz17U+jxVR0XA?=
+ =?us-ascii?Q?IeQTEyruUN8gHkfCJupjLYfwXqB25f6gkIFOBHbw3+XipWKohkvioV5NVZsk?=
+ =?us-ascii?Q?4btiiM9hewcAwhXQqRqS7msyHZkMQWaFL2JeF1VFiEJmewVOqrGyncdM6/yQ?=
+ =?us-ascii?Q?KMcF6vQOisX76MC+FnJawjf1?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 42ea000f-5879-4a99-45f4-08d92f413ef8
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9e14464f-9cd1-41bd-db06-08d92f413fb0
 X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5136.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jun 2021 14:32:32.6778 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jun 2021 14:32:33.9292 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ozx1slx8qUhui5DfxhbWpb7bjKDKQhkwtrOCECsQRbWrhBxzfbz7ve9RJpeUhrzrrzU2OAHkOlG9Ymp/fYQLEg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: +G9cHTpxjsh94XEsu4YgnFAGcOfJLBOq6a0zs/qplaPNzyeuM9ip+hCVZZS5wo+zGc6jdca/RA2k/BfG6bLCXw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5328
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -130,73 +132,108 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Make provision to pass different ttm BO destroy callback
-while creating a amdgpu_bo.
+Use different ttm destroy callback for different type of amdgpu BO.
 
 Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 28 ++++++++++++++++++----
- 1 file changed, 24 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 47 ++++++++++++++++------
+ 1 file changed, 35 insertions(+), 12 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-index 9092ac12a270..71a65525eac4 100644
+index 71a65525eac4..d97c20346a8c 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -522,15 +522,17 @@ bool amdgpu_bo_support_uswc(u64 bo_flags)
-  * @adev: amdgpu device object
-  * @bp: parameters to be used for the buffer object
-  * @bo_ptr: pointer to the buffer object pointer
-+ * @destroy: ttm bo destroy callback
-  *
-- * Creates an &amdgpu_bo buffer object.
-+ * Creates an &amdgpu_bo buffer object with a specified ttm bo destroy callback.
-  *
-  * Returns:
-  * 0 for success or a negative error code on failure.
-  */
--int amdgpu_bo_create(struct amdgpu_device *adev,
-+static int amdgpu_bo_do_create(struct amdgpu_device *adev,
- 			       struct amdgpu_bo_param *bp,
--			       struct amdgpu_bo **bo_ptr)
-+			       struct amdgpu_bo **bo_ptr,
-+			       void (*destroy)(struct ttm_buffer_object *))
- {
- 	struct ttm_operation_ctx ctx = {
- 		.interruptible = (bp->type != ttm_bo_type_kernel),
-@@ -594,7 +596,7 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
- 
- 	r = ttm_bo_init_reserved(&adev->mman.bdev, &bo->tbo, size, bp->type,
- 				 &bo->placement, page_align, &ctx,  NULL,
--				 bp->resv, &amdgpu_bo_destroy);
-+				 bp->resv, destroy);
- 	if (unlikely(r != 0))
- 		return r;
- 
-@@ -638,6 +640,24 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
- 	return r;
+@@ -73,11 +73,9 @@ static void amdgpu_bo_subtract_pin_size(struct amdgpu_bo *bo)
+ 	}
  }
  
-+/**
-+ * amdgpu_bo_create - create an &amdgpu_bo buffer object
-+ * @adev: amdgpu device object
-+ * @bp: parameters to be used for the buffer object
-+ * @bo_ptr: pointer to the buffer object pointer
-+ *
-+ * Creates an &amdgpu_bo buffer object.
-+ *
-+ * Returns:
-+ * 0 for success or a negative error code on failure.
-+ */
-+int amdgpu_bo_create(struct amdgpu_device *adev,
-+			       struct amdgpu_bo_param *bp,
-+			       struct amdgpu_bo **bo_ptr)
-+{
-+	return amdgpu_bo_do_create(adev, bp, bo_ptr, &amdgpu_bo_destroy);
+-static void amdgpu_bo_destroy(struct ttm_buffer_object *tbo)
++static void amdgpu_bo_destroy_base(struct ttm_buffer_object *tbo)
+ {
+-	struct amdgpu_device *adev = amdgpu_ttm_adev(tbo->bdev);
+ 	struct amdgpu_bo *bo = ttm_to_amdgpu_bo(tbo);
+-	struct amdgpu_bo_user *ubo;
+ 
+ 	if (bo->tbo.pin_count > 0)
+ 		amdgpu_bo_subtract_pin_size(bo);
+@@ -87,18 +85,40 @@ static void amdgpu_bo_destroy(struct ttm_buffer_object *tbo)
+ 	if (bo->tbo.base.import_attach)
+ 		drm_prime_gem_destroy(&bo->tbo.base, bo->tbo.sg);
+ 	drm_gem_object_release(&bo->tbo.base);
++	amdgpu_bo_unref(&bo->parent);
 +}
 +
- /**
-  * amdgpu_bo_create_user - create an &amdgpu_bo_user buffer object
-  * @adev: amdgpu device object
++static void amdgpu_bo_destroy(struct ttm_buffer_object *tbo)
++{
++	struct amdgpu_bo *bo = ttm_to_amdgpu_bo(tbo);
++
++	amdgpu_bo_destroy_base(tbo);
++	kvfree(bo);
++}
++
++static void amdgpu_bo_user_destroy(struct ttm_buffer_object *tbo)
++{
++	struct amdgpu_bo *bo = ttm_to_amdgpu_bo(tbo);
++	struct amdgpu_bo_user *ubo;
++
++	amdgpu_bo_destroy_base(tbo);
++	ubo = to_amdgpu_bo_user(bo);
++	kfree(ubo->metadata);
++	kvfree(bo);
++}
++
++static void amdgpu_bo_vm_destroy(struct ttm_buffer_object *tbo)
++{
++	struct amdgpu_device *adev = amdgpu_ttm_adev(tbo->bdev);
++	struct amdgpu_bo *bo = ttm_to_amdgpu_bo(tbo);
++
++	amdgpu_bo_destroy_base(tbo);
+ 	/* in case amdgpu_device_recover_vram got NULL of bo->parent */
+ 	if (!list_empty(&bo->shadow_list)) {
+ 		mutex_lock(&adev->shadow_list_lock);
+ 		list_del_init(&bo->shadow_list);
+ 		mutex_unlock(&adev->shadow_list_lock);
+ 	}
+-	amdgpu_bo_unref(&bo->parent);
+-
+-	if (bo->tbo.type != ttm_bo_type_kernel) {
+-		ubo = to_amdgpu_bo_user(bo);
+-		kfree(ubo->metadata);
+-	}
+ 
+ 	kvfree(bo);
+ }
+@@ -115,8 +135,11 @@ static void amdgpu_bo_destroy(struct ttm_buffer_object *tbo)
+  */
+ bool amdgpu_bo_is_amdgpu_bo(struct ttm_buffer_object *bo)
+ {
+-	if (bo->destroy == &amdgpu_bo_destroy)
++	if (bo->destroy == &amdgpu_bo_destroy ||
++	    bo->destroy == &amdgpu_bo_user_destroy ||
++	    bo->destroy == &amdgpu_bo_vm_destroy)
+ 		return true;
++
+ 	return false;
+ }
+ 
+@@ -678,7 +701,7 @@ int amdgpu_bo_create_user(struct amdgpu_device *adev,
+ 	int r;
+ 
+ 	bp->bo_ptr_size = sizeof(struct amdgpu_bo_user);
+-	r = amdgpu_bo_create(adev, bp, &bo_ptr);
++	r = amdgpu_bo_do_create(adev, bp, &bo_ptr, &amdgpu_bo_user_destroy);
+ 	if (r)
+ 		return r;
+ 
+@@ -709,7 +732,7 @@ int amdgpu_bo_create_vm(struct amdgpu_device *adev,
+ 	 * num of amdgpu_vm_pt entries.
+ 	 */
+ 	BUG_ON(bp->bo_ptr_size < sizeof(struct amdgpu_bo_vm));
+-	r = amdgpu_bo_create(adev, bp, &bo_ptr);
++	r = amdgpu_bo_do_create(adev, bp, &bo_ptr, &amdgpu_bo_vm_destroy);
+ 	if (r)
+ 		return r;
+ 
 -- 
 2.31.1
 
