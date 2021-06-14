@@ -2,42 +2,42 @@ Return-Path: <SRS0=/TO6=LI=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2384DC2B9F4
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Jun 2021 17:46:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 92B63C47094
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Jun 2021 17:46:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E030760FDA
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Jun 2021 17:46:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E030760FDA
+	by mail.kernel.org (Postfix) with ESMTPS id 5E04660E09
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Jun 2021 17:46:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5E04660E09
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5AF86E0F0;
-	Mon, 14 Jun 2021 17:46:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B3856E0EC;
+	Mon, 14 Jun 2021 17:46:52 +0000 (UTC)
 Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2076.outbound.protection.outlook.com [40.107.236.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 886EE6E0EC
- for <amd-gfx@lists.freedesktop.org>; Mon, 14 Jun 2021 17:46:49 +0000 (UTC)
+ (mail-bn8nam11on2082.outbound.protection.outlook.com [40.107.236.82])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E8586E0EC
+ for <amd-gfx@lists.freedesktop.org>; Mon, 14 Jun 2021 17:46:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hwlOzOoRNU8VpK6b3MxAGnwH8LAY1Q5SjttSTZkl8w99vtyRDMcXKzw0JcYlEeOe4EFvX+Ye4C7bVeNAxWmWrPmVKhgWgYhIYLEC/Mru5nrqXiuJGhfHw0TBYdepWUTajPgxfBKfCdjuJV8jM8U/X1u33A6YE2giH4aEE3BpBqhSEAzfwPONmPRwbh8MlNjg+gW+iCJddUKHSFL5O1n7DG63GrdrgBrttYpAq3sMCj5MU5WuYrfadc6wuMOrKBWS+Uw1KbbJvqy4tgF1Rha4TlT0vRGZYOvd/MURYKHKnu0mfUi4yvTgIPpffGARzy1oD8NNqZ75X0pUwTymkwlhNQ==
+ b=URD59eUP3yrlR0lyCC6t/oqpcPP8I0Y2c10hrZekTOVrDYIux8ocnATtfvxBXZs/K+n9nUL5tC9zNRKnf//nC+A5elaFUqyu4Z0LLQxAyzAAo4EcsiylXFFd5GlR06Wn14uw+WWJL7iDRfNzmCOEDuAV0b2AoXWwCGqi3utDYGJEgOOP7+lZaCQnEQumduBjqM9+304xUfzNPdWDhR+Zq8h5nQV242N2fGRwmLR8Tlp3S92eJC8YFTqkAH69Luy4CN8Bj/KGzaaIf5ULfcbLelvwV41j6hmDOJyRfl2Y7FXG1f+j5nD0ReIsJmringkkbHlWcf7M/p+ijVqqAdCj1Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Kbpl/fK7WVHNVgZmgLWc3TDf0NNSdWjWov6baMKlWPs=;
- b=nCA3EIoX1m+2U+UUl5pwMn08aA715dO9DLzaCYbB7K/nFRfYNmVyrlqLh6jNt9zDDgPfdTRV/qEM/1uy6ITp3w2nulWUZYVU8dt9FPwRQyP+xoI4HOmfGz8hKQdJWCCcrIK1ax18MMbWayqeQiWqX3lPBcRmyMPvByzZFG84xIpGWxDVoMqh4/Cc9qJ1fMXxBVftyShMzFYtmVTCffHW8LKVuiXIEkfvgrIwsbQJp9ZLSF60qbIst/b+wavz7TyjuI5y/KAi6RqRgeOb5At5MlPfY0Bf58uji2CN+13ItG7xzpirXNBLSPjVg5kvcXKKfsLdAm/7tNR3HduUVdru/w==
+ bh=R+bciKcRwCogV1X2yodSGdAhM+x2xYXr2wN+/7X1+28=;
+ b=nPRksORje1+EB4LQENFqC2ZHYRGktYBawuItNs09ntDMMKDQ/A38wbuykJhYmEX2XQpetJalUsEwN4ICRUkpEZ8VTimqVtIHQkCT2vGIWITByXajWYh5Rpxv/pXuaWjx57KNjeeDmQxZw90v25jGdvbL0YJlr47zT/FhIwcQQ5BFeKH6Mq12amNrZYb4/WqEW9zyBeq/Fr0EGVenBykPEZW7HZDFsoRPQsjErAxA+onI/BkpvvNMfnklodS4qtm+pBGv9s0waC1oqQG0cLU57pj7t/e+2JdIBnln25VQQXGVpwrRjgXpVp3OfwkG2eRf+7tNlS5cYNnJxnxCJizFeQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Kbpl/fK7WVHNVgZmgLWc3TDf0NNSdWjWov6baMKlWPs=;
- b=weaEfiMNx07RVmRCMezssG/ABbaU7kbS3l90vDJrN4NVQZotZvE+JnfGnTlhVhkkNK655VsSO/vvY1fZh+n088Txy8ASKOg5IaTK9xYFTSPrLqbhT0EnUq7Gz+ltIJgLyWJ83EJPBKFDJiPTxyCDBnjUPdPjIM2LHqlv3BhndO4=
+ bh=R+bciKcRwCogV1X2yodSGdAhM+x2xYXr2wN+/7X1+28=;
+ b=ljUCKn2z8+KBhdvE6uF7k3uCL8oUJ/LX185pqFcw3D5nfvRYsAIrI8+UbBKIsaLT9qSfzH2+Dqn7QFpvoM/lPb2JWv+H13xhwlFajlSRlUrBx8vZ2QOtSBCOfZwwDTrRFzQfoloBMjovWwe2y5onrtrt6vikCNJ7p999NEmNP4g=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -45,17 +45,19 @@ Received: from DM6PR12MB3962.namprd12.prod.outlook.com (2603:10b6:5:1ce::21)
  by DM6PR12MB3690.namprd12.prod.outlook.com (2603:10b6:5:149::20) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.20; Mon, 14 Jun
- 2021 17:46:47 +0000
+ 2021 17:46:48 +0000
 Received: from DM6PR12MB3962.namprd12.prod.outlook.com
  ([fe80::142:82e3:7e9d:55a0]) by DM6PR12MB3962.namprd12.prod.outlook.com
  ([fe80::142:82e3:7e9d:55a0%6]) with mapi id 15.20.4219.025; Mon, 14 Jun 2021
- 17:46:47 +0000
+ 17:46:48 +0000
 From: Luben Tuikov <luben.tuikov@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 00/40] I2C fixes (revision 1)
-Date: Mon, 14 Jun 2021 13:45:52 -0400
-Message-Id: <20210614174632.20818-1-luben.tuikov@amd.com>
+Subject: [PATCH 01/40] drm/amdgpu: add a mutex for the smu11 i2c bus (v2)
+Date: Mon, 14 Jun 2021 13:45:53 -0400
+Message-Id: <20210614174632.20818-2-luben.tuikov@amd.com>
 X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20210614174632.20818-1-luben.tuikov@amd.com>
+References: <20210614174632.20818-1-luben.tuikov@amd.com>
 X-Originating-IP: [108.162.138.69]
 X-ClientProxiedBy: YTXPR0101CA0019.CANPRD01.PROD.OUTLOOK.COM
  (2603:10b6:b00::32) To DM6PR12MB3962.namprd12.prod.outlook.com
@@ -65,53 +67,53 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from localhost.localdomain (108.162.138.69) by
  YTXPR0101CA0019.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00::32) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4219.21 via Frontend Transport; Mon, 14 Jun 2021 17:46:46 +0000
+ 15.20.4219.21 via Frontend Transport; Mon, 14 Jun 2021 17:46:47 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: bc9b9885-5b85-4f9a-670e-08d92f5c61d1
+X-MS-Office365-Filtering-Correlation-Id: 2ba4066a-6fca-4bd4-4ee7-08d92f5c6233
 X-MS-TrafficTypeDiagnostic: DM6PR12MB3690:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB369075BC76270A5302A6B43099319@DM6PR12MB3690.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:372;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB3690F6E057DC3DF9073AAF6699319@DM6PR12MB3690.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: el4pKrjO6Ox2hl2TW7wCyf2JwfoZauUnN32WNFRKOV8f1DrlVRqJhHhbV05wRuvnIvxQydldB6xbxbH5QaaEIiBa5vFrvABbc0wb510HibKUOYhIZzf69vutjhHqslfWRnOIU2njYnrcGxWBzHug8zzq5vM0RVaetwS8t/iHBFCNcUXlfqyEDCDIjoE5J+G4S9IkqOhbt13C/YlzIK+M7apWRLW5UgkI5vzkfYTR8W5NsXrHienbNh3D/l0n17QTuZ6VxdOmksWg0XEFINv+zEiez6eQ8X5VSMIQ/SyhpQZRWTRW8Ngd3/o4ajBh1vJeMPveTRWXCU4D73kgW+kQwtgz8zS7XJI3S6dgba1TzlmjuBtOGsQZsQTC+wN/2l+xrOlHjDMpAofj9eRI0lcSE8W5mfpB5ue5CyHY4e3fcA7JcWKLmuPJB9b8KQDZpgXfDW4kBBlZrk9HVCpATn9wy1rtbKcduBeksoqoRms2mQVzuWXYI4lsxrDnmCCORbty0oNrIgSGL8FDN7T432jCt5wgGAdXQkkube2o5/Q0LGoI02powIUxffAD442bFDDz/ZBaMA8epK01RokUJaBi2UgAiFTal/Q41wO9itOMmrVM+1ljeeqsp6zWsLMjQ0oGpwyVHU7nccNptlKACERS3i1UuH1CG5Qt4nYOiWXR5KK3Q03X5f/heMiu4kr190jkLsHKX+0PfKHueJQCqRDKY7NmAkywtoTHZ7wEoBm96CQ9EAQUiht7y4DYReT3pV9z
+X-Microsoft-Antispam-Message-Info: Fa8Qqs6azSxtOe9FYyota9fLniv38nF1KXF8QWtmqF60e1Ndjo8NbWCoX32h4vdxEKlwbtt0syS8KrODyHA4l8LljNjBGVOoDp+8UnMW5sFf4tokCjZ7WTAeyDotg9/+LfMPtKGyxRacYEB6xuYb+OYNHMyE+VW9XrVXhAeU/cSepF1DP0b+zktTdzUw9JMeNMX/Rt2Ry5pW2V/J6/S/C7tmPRDqmeDsk/6Zau94dsjd6a/AciZmxrtA8dQJC3l6xK5xgEJOSUjuxBxhJsXk0EcioGN6xMLtODVHof5OX+DUiMGv137Qv32PwThZ+5ykJWL1WhnDNBRc0eXnP7QQg968d8qOeaut03E/g11Jl4UVGEobvuzPMHIv/pxFC/a/Ryc8MWGvonfN+Cvm0w4epSRNV8vroniT+85e8HOCYvgMt6vJKeNlCTsQ7w0krJzgtjsJ8s3XkekddRRbwPSBPZnOoSdwNs3BUUpCPELkFXkdj4zwWwAJ9AbDaYcHYAj8AAyBhi/JR2a9kwx+XCY6yFl4t4w1a5YLf0QJu1gjt07dRrvFB46ljqrbywMkN6f//XvX6VhMFucnwIZm9XzyJtsVRnJw20C8RO8bw+4VLNkxf6JNmcLFNXCE262rKhtgNiJcSdhkbK6PkQ+P4YT921vHJQLZFEdSRTMr1Qwgtf4lT3I0H9qSF/InTwvIwoxO
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB3962.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(366004)(39860400002)(346002)(136003)(396003)(66476007)(54906003)(6916009)(66556008)(6666004)(316002)(478600001)(966005)(66946007)(4326008)(83380400001)(26005)(55236004)(956004)(2616005)(6506007)(1076003)(186003)(16526019)(6486002)(52116002)(38100700002)(38350700002)(86362001)(6512007)(44832011)(36756003)(8936002)(8676002)(2906002)(5660300002)(69590400013)(357404004);
+ SFS:(4636009)(376002)(366004)(39860400002)(346002)(136003)(396003)(66476007)(54906003)(6916009)(66556008)(6666004)(316002)(478600001)(66946007)(4326008)(83380400001)(26005)(55236004)(956004)(2616005)(6506007)(1076003)(186003)(16526019)(6486002)(52116002)(38100700002)(38350700002)(86362001)(6512007)(44832011)(36756003)(8936002)(8676002)(2906002)(5660300002)(69590400013);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?54VcfxKQN42YUSmNsdODUYeGgadizxz/sZNFVLeFoeBixbhBneTXSA9lZtDt?=
- =?us-ascii?Q?HlGixhqQyXfIkJ0+XesEn3drqa3wKrqcvu+EgnUJeqNo5kud4CA3O2Z9Qayb?=
- =?us-ascii?Q?rNQIaqt3D0tZvWKj4DdmK0y7s8vd1Gjpll3ZGaCRX/r7Ljm+JOKhbZBe3oPo?=
- =?us-ascii?Q?2PuGnVsnYyoJD5WGWI+1RNM4YpoR7RoaXKN1AxXbzXnoMm4TMyIAcZ/C2k69?=
- =?us-ascii?Q?CR+sB0rT7e/YKlETCZdt2ZqlsCjI6Fr0FlQAHnqNiGZubEDKUafojwjHHyV/?=
- =?us-ascii?Q?2zpX7KOWAU1DxjNkSAhXQ9ICPldsmoBROzy7f/kItC3gdP1LnAM2tb51z1qK?=
- =?us-ascii?Q?tWNjN+slcKT2KiJ7ED1zggEcWhnbgRNEzZVBhHwmDSt8lQVEc3o3Em9Mb8T2?=
- =?us-ascii?Q?AJ184zJcf71bKRPrjaxnqsRpNyfui1Cf9+DUsss0aujnVsj/68NtiKSJY13L?=
- =?us-ascii?Q?VKGADYbrGdj38akUR6A0pSycCoFbZtD+d4HBUDGJenLqT14paQq1DuZ5MmyB?=
- =?us-ascii?Q?/bWs2ypR9aThzE5myvzWIGpaMldEI7RXwl3JedeR01t4HJxK5Qq759oMmasj?=
- =?us-ascii?Q?AGKLkLlwjsVc1jv2LSRy3UlCafBkStVJ+ZuIbYuSLA7zOkOEe3ZI6vwvv0YZ?=
- =?us-ascii?Q?L2wkiFCQPp9dVpDFNzbymGgefchpZh23SWLI++nf79Y6x1LK8d9sQiZlQHDr?=
- =?us-ascii?Q?2BuChPokMxq+z7YSptysNHDejhjkIEW1L6SMSQ1hYaRLcBd9uVfAf1xTRRsa?=
- =?us-ascii?Q?4I81cdoFe60/12KXjsHPeEqx2WQ7jd0PJX5/aKeYWvhbVHd5Zi74lUiKa1em?=
- =?us-ascii?Q?g39HGBC+SjA4jmANKjZPyZu8wbtSnOIfGlm+3xtOC5ebCBm3BzY/EqXMC7Pi?=
- =?us-ascii?Q?DReTASHleL0tCsqd065Jf4fxrsW2U+Y5meS2dOjlkNkwfUgSo2966h0u1Ksp?=
- =?us-ascii?Q?cLdigb+IhuQCq4EoVa4EKSEkxa6JyD1UGnAB4fKF2tB2x7VBkqBHkYCYQ0dn?=
- =?us-ascii?Q?RIQNAiQgO+knBWlXFOidvSBxTvy2wfUhyBt/dbwN17pwyzfcWSOFCmJhxwFz?=
- =?us-ascii?Q?7nHYg609cUVpgmUt7iRvy6P7D/X2eG6KunSgqcENNXmAl1DjWVUvlULdnSiZ?=
- =?us-ascii?Q?6LRdJipqou7it98+DfW2A/AaF17JpT51GmLjNTvt/KzwYItjyuqVMG6E9V6o?=
- =?us-ascii?Q?73YYJrzg0TX3XO8uqH8olEu9xy6znE0l5VjrKh4TWBLSHg9WCLZXygFsU97B?=
- =?us-ascii?Q?LKO/Cmpv3NWqv7xKc9XnjPV4RDTvmQROj+2Un4qhoLGrFpq6yJZdVxyvstSF?=
- =?us-ascii?Q?Om1ypiJv0zRwmIoRrlXi1FuL?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ob0Sdfb2t8bn+GfHpRdmQFlRwtkUB5OMwqctOOu4zfRTK57Scn3dy5xys1oX?=
+ =?us-ascii?Q?qHRWjnFMnt0zAKUH4V74BRiw1Msy+o+KVGefYiLBoeIsvGQdl1FoNkBp1Cz5?=
+ =?us-ascii?Q?ZpvSK/EP8KKBtb6sQjM2ABdVyx/OppMxYp8EIzmPU3nY49VmZ8UYaCLU89iO?=
+ =?us-ascii?Q?WX4T8G0+hydEmDaQkIXVvHFC0XY4T5IMVcHWiQwPbqT1lWbGRvW/HmzsTnST?=
+ =?us-ascii?Q?Or7Tfn//5P54EsdLA9oFxR4NoN48jNGzlh9AXDWcK6BmtryZnMyS/ExuXbEa?=
+ =?us-ascii?Q?x5ba1WVW1M2fw3iLVxVp4beLPK6UyJ1GfjghFi1qCkMN85ciDRpeUd6+93kF?=
+ =?us-ascii?Q?I+aZeVTgDlYPmvq/UKFFTxxL+jgzK9/NGkB+uXhVmjGoX68pc+lToc1MgiPl?=
+ =?us-ascii?Q?KrL2cUQOT2LNuqWIKnIAP65jTsaV/vXNJa0bAsNvvajXqGNvDOGIUGyA0J2V?=
+ =?us-ascii?Q?AjUYomWij/nrVuryoaHtIwVDK7cxfW0UtOMQ7JYCIJuUHo9EYSMLumkb+IKS?=
+ =?us-ascii?Q?4F7nBb6hji+sjADvI/7t5nwgMnTclgdXf2kJrqMQp0RSzfjahenVnmI2VdXW?=
+ =?us-ascii?Q?14IfX7G82ukt3O8vp66J5OlfyaVXrlYiNJX/t/xY/quaT8syisQuGvnKUX1N?=
+ =?us-ascii?Q?uhvR8mP2e80A8v90GCfZ+NcELJiOuvXVAxcqmqzamWc3oih8deJBxkjlGgQN?=
+ =?us-ascii?Q?M6Rs2ZNtaAkawj7CoGRnlL+1zUh/drIzBlj0O8d7D7Tsv//LqPJ1YlCnu/Yd?=
+ =?us-ascii?Q?IFss7K0L3WCqjijrNeUwFIjPWJY2QoPxA3uXabA/oCbFEbeuNhDz39aRdGJX?=
+ =?us-ascii?Q?Zldazf3ozL2OLEpul1vV4Y0RIiw90pwqALAX9t9QqxcZB71Cz9IG9Mxku9z4?=
+ =?us-ascii?Q?grsodnDV5Lad8ZB9tHOIJN8OlwtKW8YvVw37aMUJsSwyYIq0Ylk+RX/2Y6Nf?=
+ =?us-ascii?Q?h5/M3KREQcyGDQN63jiaGuuUCfaIsQsHgSoFMjPXom1PXIt2u+vAvk7KIujT?=
+ =?us-ascii?Q?Qz1omXS1M5toSwCGicqATAzF05SYuvR6v/uIlRSbrgQ/iRBH214h4X4WfJAz?=
+ =?us-ascii?Q?TKYXmPisB69tl/ojvncdmPl0i7mliOyGo7T9EMyb+zhjUBuldaLpMOIOGwDm?=
+ =?us-ascii?Q?/WNBjJ9DYI26nAdzTB7V0lKkfVLkCYdcPPzdW7VlgdkWF7STSDZoYocHKcEj?=
+ =?us-ascii?Q?nq8LsRdmkIdQ8IDFFERE/T3Q0OhSEbFWmKiwYzfmt2Y0N1RjLRyfO3sR/1hB?=
+ =?us-ascii?Q?t2igSBvF+y4WystTK+kcjBBp2sYxgyjTsyzADX7MAmHr7iVBwoD4HsGBnWIE?=
+ =?us-ascii?Q?hTg/hVT1flRopTIebPqwuDN7?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bc9b9885-5b85-4f9a-670e-08d92f5c61d1
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2ba4066a-6fca-4bd4-4ee7-08d92f5c6233
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3962.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jun 2021 17:46:47.5725 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jun 2021 17:46:48.1531 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: q/uwVUIk9msARNtYGXJI/2rRUNPcF3vjNilnv08PCjCFXaX94A6bdinGo9fk0JoT
+X-MS-Exchange-CrossTenant-UserPrincipalName: FX6PhIpaRb+FqS70yoTAh71rYZaGLBHlcbxhPycNzKib2EX2qh8+hTi+/vZuUyY+
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3690
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -124,107 +126,84 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>,
- Xinhui Pan <xinhui.pan@amd.com>, Guchun Chen <guchun.chen@amd.com>,
- Lijo Lazar <Lijo.Lazar@amd.com>, Luben Tuikov <luben.tuikov@amd.com>,
- Stanley Yang <Stanley.Yang@amd.com>,
- Alexander Deucher <Alexander.Deucher@amd.com>,
- John Clements <john.clements@amd.com>, Jean Delvare <jdelvare@suse.de>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Luben Tuikov <luben.tuikov@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-I2C fixes from various people. Some RAS touch-ups too.
+From: Alex Deucher <alexander.deucher@amd.com>
 
-A rebased tree can also be found here: 
-https://gitlab.freedesktop.org/ltuikov/linux/-/commits/i2c-rework-luben
+So we lock software as well as hardware access to the bus.
 
-Tested on Vega20 and Sienna Cichlid.
+v2: fix mutex handling.
 
-This first revision includes acks, squashes rev 1 patch 33 by
-absolving it into earlier commits it fixes, and includes a new patch,
-patch 40 to deal with driver aborts seen on large writes to an I2C
-EEPROM device.
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Luben Tuikov <luben.tuikov@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c | 19 +++++++++----------
+ drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h    |  1 +
+ 2 files changed, 10 insertions(+), 10 deletions(-)
 
-Aaron Rice (1):
-  drm/amdgpu: rework smu11 i2c for generic operation
-
-Alex Deucher (10):
-  drm/amdgpu: add a mutex for the smu11 i2c bus (v2)
-  drm/amdgpu/pm: rework i2c xfers on sienna cichlid (v4)
-  drm/amdgpu/pm: rework i2c xfers on arcturus (v4)
-  drm/amdgpu/pm: add smu i2c implementation for navi1x (v4)
-  drm/amdgpu: add new helper for handling EEPROM i2c transfers
-  drm/amdgpu/ras: switch ras eeprom handling to use generic helper
-  drm/amdgpu/ras: switch fru eeprom handling to use generic helper (v2)
-  drm/amdgpu: i2c subsystem uses 7 bit addresses
-  drm/amdgpu: add I2C_CLASS_HWMON to SMU i2c buses
-  drm/amdgpu: only set restart on first cmd of the smu i2c transaction
-
-Andrey Grodzovsky (6):
-  drm/amdgpu: Remember to wait 10ms for write buffer flush v2
-  dmr/amdgpu: Add RESTART handling also to smu_v11_0_i2c (VG20)
-  drm/amdgpu: Drop i > 0 restriction for issuing RESTART
-  drm/amdgpu: Send STOP for the last byte of msg only
-  drm/amd/pm: SMU I2C: Return number of messages processed
-  drm/amdgpu/pm: ADD I2C quirk adapter table
-
-Luben Tuikov (23):
-  drm/amdgpu: Fix Vega20 I2C to be agnostic (v2)
-  drm/amdgpu: Fixes to the AMDGPU EEPROM driver
-  drm/amdgpu: EEPROM respects I2C quirks
-  drm/amdgpu: I2C EEPROM full memory addressing
-  drm/amdgpu: RAS and FRU now use 19-bit I2C address
-  drm/amdgpu: Fix wrap-around bugs in RAS
-  drm/amdgpu: I2C class is HWMON
-  drm/amdgpu: RAS: EEPROM --> RAS
-  drm/amdgpu: Rename misspelled function
-  drm/amdgpu: RAS xfer to read/write
-  drm/amdgpu: EEPROM: add explicit read and write
-  drm/amd/pm: Extend the I2C quirk table
-  drm/amd/pm: Simplify managed I2C transfer functions
-  drm/amdgpu: Fix width of I2C address
-  drm/amdgpu: Return result fix in RAS
-  drm/amdgpu: Fix amdgpu_ras_eeprom_init()
-  drm/amdgpu: Simplify RAS EEPROM checksum calculations
-  drm/amdgpu: Use explicit cardinality for clarity
-  drm/amdgpu: Optimizations to EEPROM RAS table I/O
-  drm/amdgpu: RAS EEPROM table is now in debugfs
-  drm/amdgpu: Fix koops when accessing RAS EEPROM
-  drm/amdgpu: Use a single loop
-  drm/amdgpu: Correctly disable the I2C IP block
-
- drivers/gpu/drm/amd/amdgpu/Makefile           |    3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |    9 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c    |  239 ++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.h    |   37 +
- .../gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c    |   32 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c       |  114 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h       |    1 +
- .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c    | 1253 +++++++++++------
- .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h    |   68 +-
- drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c    |  319 +++--
- drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h       |    1 +
- .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c |  238 +---
- .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   |  118 ++
- .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   |  241 +---
- 14 files changed, 1682 insertions(+), 991 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.h
-
-Cc: Alexander Deucher <Alexander.Deucher@amd.com>
-Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
-Cc: Guchun Chen <guchun.chen@amd.com>
-Cc: Hawking Zhang <Hawking.Zhang@amd.com>
-Cc: Jean Delvare <jdelvare@suse.de>
-Cc: John Clements <john.clements@amd.com>
-Cc: Lijo Lazar <Lijo.Lazar@amd.com>
-Cc: Stanley Yang <Stanley.Yang@amd.com>
-Cc: Xinhui Pan <xinhui.pan@amd.com>
-
-base-commit: a6e6e5fdc06791ebf5dbcd1ac64d555fe23f30e5
+diff --git a/drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c b/drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c
+index 5c7d769aee3fba..1d8f6d5180e099 100644
+--- a/drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c
++++ b/drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c
+@@ -584,12 +584,11 @@ static void lock_bus(struct i2c_adapter *i2c, unsigned int flags)
+ {
+ 	struct amdgpu_device *adev = to_amdgpu_device(i2c);
+ 
+-	if (!smu_v11_0_i2c_bus_lock(i2c)) {
++	mutex_lock(&adev->pm.smu_i2c_mutex);
++	if (!smu_v11_0_i2c_bus_lock(i2c))
+ 		DRM_ERROR("Failed to lock the bus from SMU");
+-		return;
+-	}
+-
+-	adev->pm.bus_locked = true;
++	else
++		adev->pm.bus_locked = true;
+ }
+ 
+ static int trylock_bus(struct i2c_adapter *i2c, unsigned int flags)
+@@ -602,12 +601,11 @@ static void unlock_bus(struct i2c_adapter *i2c, unsigned int flags)
+ {
+ 	struct amdgpu_device *adev = to_amdgpu_device(i2c);
+ 
+-	if (!smu_v11_0_i2c_bus_unlock(i2c)) {
++	if (!smu_v11_0_i2c_bus_unlock(i2c))
+ 		DRM_ERROR("Failed to unlock the bus from SMU");
+-		return;
+-	}
+-
+-	adev->pm.bus_locked = false;
++	else
++		adev->pm.bus_locked = false;
++	mutex_unlock(&adev->pm.smu_i2c_mutex);
+ }
+ 
+ static const struct i2c_lock_operations smu_v11_0_i2c_i2c_lock_ops = {
+@@ -665,6 +663,7 @@ int smu_v11_0_i2c_control_init(struct i2c_adapter *control)
+ 	struct amdgpu_device *adev = to_amdgpu_device(control);
+ 	int res;
+ 
++	mutex_init(&adev->pm.smu_i2c_mutex);
+ 	control->owner = THIS_MODULE;
+ 	control->class = I2C_CLASS_SPD;
+ 	control->dev.parent = &adev->pdev->dev;
+diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+index f6e0e7d8a00771..d03e6fa2bf1adf 100644
+--- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
++++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+@@ -450,6 +450,7 @@ struct amdgpu_pm {
+ 
+ 	/* Used for I2C access to various EEPROMs on relevant ASICs */
+ 	struct i2c_adapter smu_i2c;
++	struct mutex		smu_i2c_mutex;
+ 	struct list_head	pm_attr_list;
+ };
+ 
 -- 
 2.32.0
 
