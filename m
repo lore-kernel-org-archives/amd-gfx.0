@@ -2,129 +2,67 @@ Return-Path: <SRS0=/TO6=LI=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D477BC4743C
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Jun 2021 15:26:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B33A5C2B9F4
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Jun 2021 15:59:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 95431613CC
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Jun 2021 15:26:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 95431613CC
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 7CB6661246
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Jun 2021 15:59:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7CB6661246
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77F0D89EBB;
-	Mon, 14 Jun 2021 15:26:07 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam08on2087.outbound.protection.outlook.com [40.107.102.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59E3989E7C;
- Mon, 14 Jun 2021 15:26:05 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iJRgT41iVrM6mCgV7tKYGcyv7pQN06GWr0qF0Dwhe2s9TV7KfXRGoQVHUJBw2DBtstJGM9YfKMAod70c3MtZqYpp51p2zS8/uCeqbZLInoVDRoXJBDYC2wn84qpa2/wXPDUu7sW48nLglIFUqNp7Yeo+7Z7AOSrAPYcyLbZD+AJtwPbgIQdppGgUObEhLxlTYXQFDBzaGzL3TBbiofIqCMBt+B2uOfVFjjOuvtbrReRgoOC5Mtwe4tgBvR8sQzrWlAxWIW6fdx5j2ZSVQti2tJg6If4PN7HTZyfmi2gA80J2cG2XNC/OL9VHfFMbs5Vg9DQi2TGmKjkyWUANJquSPg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WcDP1t8+lmMr7VhDBPLqgoYgGfcJGKhItKFVxSmGtqI=;
- b=Vj3FY+jMZy1HsMyuITiATRot/Lqtuse1jOIHDOhATObwgo7jV8pBM+LEErQ4yUwp9H50XkoQ5fjvw89cDjfLINTtOPfMg4c0BIZA79B/f2FEoYAbP872exc25pLPOmNl7gcHaAsspgB/e0wA/iXu04HvspwxuD/JIZ2Mv0bSRZRwtEw+XgtwwoEGrsOGLaryffHtD57c1YjjHULgR+iSXumyZs0MZr7MB5LUXbyGTUx/mKWmP3j9fUhf+viIYu+AxoX0RD+Bi//Kiol8gNZ28f56qtcO/cOcIMHCr1wtkimwVG7D3SOQOBwnV7/NG4RKH5ruun8znbCTWQQPLdDo4A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WcDP1t8+lmMr7VhDBPLqgoYgGfcJGKhItKFVxSmGtqI=;
- b=v5E8JyuFkBMGiYnLj4HxPfZ7scHZBLtTnH1//mYTee7/CZqnB+seCChq5M0sM8S1mgye5nbwkcpXFzthXolx0AjR8jDlZdJJCozCr2aq8JxRQYRXxxc9jzUNHATXM8kDvjkyPqiDbeqPROpyJd5bMfV6btBglmllccPt7Nom/Kc=
-Authentication-Results: redhat.com; dkim=none (message not signed)
- header.d=none;redhat.com; dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5129.namprd12.prod.outlook.com (2603:10b6:408:136::12)
- by BN9PR12MB5368.namprd12.prod.outlook.com (2603:10b6:408:105::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.22; Mon, 14 Jun
- 2021 15:26:03 +0000
-Received: from BN9PR12MB5129.namprd12.prod.outlook.com
- ([fe80::3c78:e58b:fba7:b8dd]) by BN9PR12MB5129.namprd12.prod.outlook.com
- ([fe80::3c78:e58b:fba7:b8dd%6]) with mapi id 15.20.4219.025; Mon, 14 Jun 2021
- 15:26:03 +0000
-Subject: Re: [RFC PATCH v2 1/8] ext4/xfs: add page refcount helper
-To: Matthew Wilcox <willy@infradead.org>, Alex Sierra <alex.sierra@amd.com>
-References: <20210607204226.7743-1-alex.sierra@amd.com>
- <20210607204226.7743-2-alex.sierra@amd.com>
- <YMEVN8XZbCnyPu9/@casper.infradead.org>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Message-ID: <652c22b4-8ca6-acf9-653c-c93166c83770@amd.com>
-Date: Mon, 14 Jun 2021 11:26:01 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
-In-Reply-To: <YMEVN8XZbCnyPu9/@casper.infradead.org>
-Content-Language: en-US
-X-Originating-IP: [142.116.203.225]
-X-ClientProxiedBy: YT2PR01CA0019.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:38::24) To BN9PR12MB5129.namprd12.prod.outlook.com
- (2603:10b6:408:136::12)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 355D289CA1;
+	Mon, 14 Jun 2021 15:59:44 +0000 (UTC)
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [IPv6:2a00:1450:4864:20::535])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 423CF89C86;
+ Mon, 14 Jun 2021 15:59:42 +0000 (UTC)
+Received: by mail-ed1-x535.google.com with SMTP id cb9so47250004edb.1;
+ Mon, 14 Jun 2021 08:59:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=oAo6qWwfla/zQj4s5qtRwWaGJwCOG62qXo2Ky4GvdO4=;
+ b=Jb2xnKKkCCR/EiTZ5CEdmKXDLgjYj4rhWlVhQuoeu3sR9nbdcxeviCq/uYXn5NWLRq
+ AILGo2aEeU+vfk0aJzYGovAfpCC6iz89eclFfcu0fXL0Dxujz4s6hb7umVcP4rua6S1R
+ kDDBfjsdH8FSfLyG8ctXEO7UpFKt7x4MZTgKusDQJOS+h0FSWBCRzaXoxbDHyjV1vqfK
+ u+PYdsdZaUNbAm5PdLih3BtpZ+h9C04OIQj8qQzufv3BN/w1zo2kvKUiWyoMaMkTI89T
+ pDQHpQuyCyHANWk+SnGN3qDl6+6bcPD2VmMRSuVi15dBED7/kKbOQA/U3uxpbvu0Vlcn
+ ehWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=oAo6qWwfla/zQj4s5qtRwWaGJwCOG62qXo2Ky4GvdO4=;
+ b=PY1YHYKnXPZp43ue5A773EdG5VdNlKPWKlA52TuO5/7HO0SjkTjB/so3uPYHkWrqpD
+ xwsX2/GfTGHHE+ClDzV1jmHb2Xb6Qz52M/Xuy2ULLiEfq21M6YuiwmQg+ymP9do5xqBz
+ NlFYPRFnLzPh1RuiJ4HTuHpU0WyGDaCrQi98BDrRhAUn+dqX+ccxCalKm4uBzzt8Zn/L
+ Woh6Q5d3IVOrNZawXkeVL2b78/ldBY7+LDZ61Tt/hsM4WIjC+xc9zYOCRZOf8kIaSYrP
+ s2LVS0ADBsWyrYA1QnkaQUHSdprraa+YK94r2MMIje8UmtP3q2MIAgDyj6WzUPdeith0
+ Ni2Q==
+X-Gm-Message-State: AOAM5329ITXq9E+M7VxsQ/MICmEqJPoo0FOQTDxhSqjq1eOZqwMZ5y50
+ /DVWEEo+XNhE8BgCNueLf2xH12Q0FqPtRBAFrcs=
+X-Google-Smtp-Source: ABdhPJykGh542EKVwndcqL7v7940RKSkiGDcrluyyKSF5XTLYi6zV7rLIAdPrZGXPgPgmJt64op0LE55eutXVy+WicA=
+X-Received: by 2002:a50:ee18:: with SMTP id g24mr17905076eds.11.1623686380809; 
+ Mon, 14 Jun 2021 08:59:40 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [192.168.2.100] (142.116.203.225) by
- YT2PR01CA0019.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:38::24) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4219.20 via Frontend Transport; Mon, 14 Jun 2021 15:26:02 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4916b2d9-e894-4756-67f2-08d92f48b8ab
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5368:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BN9PR12MB536864241D148B855EB004E492319@BN9PR12MB5368.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: L9/37U4gyD0pdCQV1d9oAlPSzQBOYXEV2CR0e0Pk7i51kVstGNe1bktqjUT9ZdHMVBlfKOYQtI4ui1zTrzXgz6UYq5P1fm2q8z13VAZSiilnbhDHadF5PBfQQBWgYcgzuTNYtSEtUXqtUNF490EJuy+r09fDcbSmQnBU6AKVW2kc0bDbr7US6hFSot0dd2fl9aRNwdQltlSJJ8kedl7IekElElfmqB5VXDbIiiEzgMnvpeLwJ4GuRkTpBLHgyG7x1Orw11zhVP81gBIFmVLO+FpAkYCDwHo+339NdyVQNc4Hy2cou0FMTzkopOmlFnaJ/pLmXmA0OLR1pOJ+OJOXZjyMsIGRujl3B+Z0nkPZmwqYSj4OJAGjl1J6RkU36dlLj3OWYdTdesyOILGw2zV6yEV72YudMyW3rBpJaKMlnXEATUcB0Hcn0lTQN6ncwp4XBpbgpSH0+PQK58fq1X+cAa7/HElDMuoT7cGCv0BhjjUP3GYb/TfMJXnk0Z6Si3RlGCPlALiK2lOaPZ8Vaa0FgTSqAv1Vg2eMxy6gnKnv9c8iVHZP71BZ4kbE/kw2SrpygGcNCbh0Ws1kLYJeNFYtV+4o8OE+WptJZfyASV96kw30LE7UvLH+6mCy1787Y6JP9inqAQMnaqjKs8ujXq42zHqtOu4FG6s1U5oy0b7mL2Mb89Pa/XlGvht6BAE+xaHr
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5129.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(136003)(396003)(366004)(346002)(39860400002)(66476007)(66946007)(83380400001)(66556008)(31686004)(16526019)(6486002)(186003)(16576012)(26005)(110136005)(86362001)(5660300002)(478600001)(8936002)(6636002)(38100700002)(2616005)(4326008)(956004)(2906002)(36756003)(316002)(44832011)(31696002)(8676002)(4744005)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N0xUWldwUFlwQ0dBbW5zWXNCVzVqZGNmZGJlVTZVU2YzSDhEalJUMENseHNO?=
- =?utf-8?B?L29Pa2xzZzVSQXY3MDU0ZFgzR3R5MkMrMmJGSmRtb0twL0s2Ulpkem5oRHBr?=
- =?utf-8?B?SlpEWmpMZHFNbXlmcnZKVDlWbDh0bnBEaHlPWnk0WlZDeURFNE5nOSsvczdM?=
- =?utf-8?B?c1NMS2hWT2QwZ0VwcEw1cHhuNjI0eElzUXZzdEwxZ0JMaXhzdm1iVVRtVEZB?=
- =?utf-8?B?cE5XVllwQ0h1SHdncHhiVVorcnh0WEpTZnVBaXNBODNvZnZudGhOUzlMQ3FM?=
- =?utf-8?B?YjhyQXczdXBHa0o0bC9sNXdYWU5NK01yOWpEVXpMa3lMRC9ONTB4UGh6amVv?=
- =?utf-8?B?NWxxOG11QzN6ek9jOHJwL2RDYmNnSXlFbTRjcHE4SFNkUkp5ajZxbngvNUVO?=
- =?utf-8?B?aitWYTI5L2NGdDZXYUdSWjZuZTRZWmpvR1JNVHJtSDEzR05JU202UGh4Z0tF?=
- =?utf-8?B?aDlta3hDQmkvSkhlTTFmZzFkYzRhQ1R0NHZ0b2R1QktQUnZObnJwQlU3aFlJ?=
- =?utf-8?B?Sy8wMWlnc1VJSGtCdWphT25Gak9SVkx6dFAwc1hKa0ttREpYS3B2eE5DV1hn?=
- =?utf-8?B?ekMvR3lnY0kwK3hvQk1uV2ZCOUI0VUloY3VKcDhnMjBuS3NGTGpJQTF6NTF3?=
- =?utf-8?B?cGdIVjQ0dUVvd0QxS0haZTNZeHJaK1lVNGlJRWFSVS8rMCtCdEt1Q21FRllR?=
- =?utf-8?B?N0wyRFNFdnUxQ0lFVHRpcXYvZGJpdVFSMTcrNUdXaWQxVXlMNDMwSXZxTDRr?=
- =?utf-8?B?ZkZsUU5vZXRqV1lENEhXK0UzbGU3ZEo4TkNhcVNQZGVCS2JIeCtmUEdqRHFw?=
- =?utf-8?B?eUdpRExUYzlPVWFoVCtseUgxYW0xUmdEaWVJTy81TVh2ZXQ1c0VEbzFpWXF4?=
- =?utf-8?B?WUg3VzNBdTYrTXJJSXQveUhTSlRvb204K0E2a3JpQ1owVGxsRDJVQnhUb21E?=
- =?utf-8?B?YVZ6Q3p1c2llR0kvRGRFUE1NczFlOFJZenVScHF5LzhxeVVIRlpmTEs0N0tw?=
- =?utf-8?B?aCtDeklCQURRbVpLeXZFSmxPbnliMmJxV0xWT2l5clVlOHNGbWYvd2VqRG9C?=
- =?utf-8?B?NFRrbnVoMHROTHVtdXRYNVE5ekxYUmJycnRHVUU5UGdIajFxMG9CQVhNTU5z?=
- =?utf-8?B?dDJtUDdCYUh3VkJkZFNkSUFPU2M0KzdGaVYzVlBaL0lqTFBmci81MmJRbG9S?=
- =?utf-8?B?MW1keVJWeFhQSG1aaUZhakQyR3ZEYzRiMWl1QVdFWWkxR1pNeG80ZWhHNWN1?=
- =?utf-8?B?djBTazFNdjA2Qk1ZcE1EWldob0RMSEt6di9hOFNIMEpCTjdSeC9XL0h3WWhY?=
- =?utf-8?B?TVNQbVlYTnNkbmpjUG1JZlZPZURFU0dvTTRLQ3E1WG1iVFNFZlFUbFF0RVpy?=
- =?utf-8?B?RWZVYnJmU0poTGMvOXBIVjVMQnJtOUZ2eXhBanhLWUcyNS92TGZvdFZoemRi?=
- =?utf-8?B?UGV6N2lBblRnbm94V2VydTJNOXFyWU5vMzhHQ2huRi9YRjQvWjFkaHFVSEE2?=
- =?utf-8?B?Ly9uOUhWNUlhVFhXWFRSbkVrenFzM2crOWdwQ2w4UGtjR1dVdlBER1RaTGNN?=
- =?utf-8?B?UmJmbk5NL2RNNEFIY1g0Q1ZJejhHWjI0bm1kdXh5T0RWRFNxYkdTSk5IYlRi?=
- =?utf-8?B?cFdMNUloSm5kTmRuSU5Veng0VGRwQ3QxSzVZQjNBS1FHQlJsckx0aXRRbXAy?=
- =?utf-8?B?bGk4RVY3ZEJmZHB1clh4UVFjRm1vNXlOWkdRMy9leTg4cE54SnBUZDdLays3?=
- =?utf-8?Q?nGmbjQPaG22JBUyhaTA4/C6/2/W5sYEA9Di2r9q?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4916b2d9-e894-4756-67f2-08d92f48b8ab
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5129.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jun 2021 15:26:03.5432 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HTcRzIzyeo8v1R2EP2dzlHgBo3bNi1rLRUggAZ2nNW47rVvWrE8N8uE6Ez0szzLNf+K7pZ88DNJlETBwmVSGSw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5368
+References: <20210608174320.37429-1-wse@tuxedocomputers.com>
+ <20210608174320.37429-3-wse@tuxedocomputers.com>
+ <20210610105524.4dd2a40f@eldfell>
+In-Reply-To: <20210610105524.4dd2a40f@eldfell>
+From: Mario Kleiner <mario.kleiner.de@gmail.com>
+Date: Mon, 14 Jun 2021 17:59:29 +0200
+Message-ID: <CAEsyxyjZoLSZSu76aJ6a_Hg_b=eH2Am6ioM=cLz05ciVDEqboQ@mail.gmail.com>
+Subject: Re: [PATCH v2 2/7] drm/uAPI: Add "active bpc" as feedback channel for
+ "max bpc" drm property
+To: Pekka Paalanen <ppaalanen@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,31 +74,257 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: rcampbell@nvidia.com, dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
- jglisse@redhat.com, amd-gfx@lists.freedesktop.org, jgg@nvidia.com,
- akpm@linux-foundation.org, hch@lst.de
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, tzimmermann@suse.de,
+ intel-gfx <intel-gfx@lists.freedesktop.org>, "Li,
+ Sun peng \(Leo\)" <sunpeng.li@amd.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>, joonas.lahtinen@linux.intel.com,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ LKML <linux-kernel@vger.kernel.org>, Werner Sembach <wse@tuxedocomputers.com>,
+ David Airlie <airlied@linux.ie>, Maxime Ripard <mripard@kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>, rodrigo.vivi@intel.com,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, "Koenig,
+ Christian" <christian.koenig@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QW0gMjAyMS0wNi0wOSB1bSAzOjIzIHAubS4gc2NocmllYiBNYXR0aGV3IFdpbGNveDoKPiBPbiBN
-b24sIEp1biAwNywgMjAyMSBhdCAwMzo0MjoxOVBNIC0wNTAwLCBBbGV4IFNpZXJyYSB3cm90ZToK
-Pj4gKysrIGIvaW5jbHVkZS9saW51eC9kYXguaAo+PiBAQCAtMjQzLDYgKzI0MywxNiBAQCBzdGF0
-aWMgaW5saW5lIGJvb2wgZGF4X21hcHBpbmcoc3RydWN0IGFkZHJlc3Nfc3BhY2UgKm1hcHBpbmcp
-Cj4+ICAJcmV0dXJuIG1hcHBpbmctPmhvc3QgJiYgSVNfREFYKG1hcHBpbmctPmhvc3QpOwo+PiAg
-fQo+PiAgCj4+ICtzdGF0aWMgaW5saW5lIGJvb2wgZGF4X2xheW91dF9pc19pZGxlX3BhZ2Uoc3Ry
-dWN0IHBhZ2UgKnBhZ2UpCj4+ICt7Cj4+ICsJcmV0dXJuIHBhZ2VfcmVmX2NvdW50KHBhZ2UpID09
-IDE7Cj4+ICt9Cj4gV2UgYWxyZWFkeSBoYXZlIHNvbWV0aGluZyBjYWxsZWQgYW4gaWRsZSBwYWdl
-LCBhbmQgdGhhdCdzIHF1aXRlIGEKPiBkaWZmZXJlbnQgdGhpbmcgZnJvbSB0aGlzLiAgSG93IGFi
-b3V0IGRheF9wYWdlX3VudXNlZCgpIChpdCdzIGEgdXNlCj4gY291bnQsIHNvIG9uY2UgaXQncyBn
-b3QgZG93biB0byBpdHMgbWluaW11bSB2YWx1ZSwgaXQncyB1bnVzZWQpPwo+CkhpIE1hdHRoZXcs
-CgpUaGFuayB5b3UgdmVyeSBtdWNoIGZvciB5b3VyIGZlZWRiYWNrLiBUaGlzIHBhdGNoIGxvb2tz
-IHN0cmFpZ2h0LWZvcndhcmQKZW5vdWdoLCBidXQgZG8gd2UgbmVlZCB0aGUgZmlsZXN5c3RlbSBt
-YWludGFpbmVycyB0byByZXZpZXcgdGhpcyBhcwp3ZWxsPyBJIGd1ZXNzIHdlIHNob3VsZCBDQyB0
-aGUgbGludXgtZXh0NCBhbmQgbGludXgteGZzIG1haWxpbmcgbGlzdHMgaW4KdGhlIG5leHQgcmV2
-aXNpb24uCgpIaSBSYWxwaCwKCkFyZSB5b3UgT0sgaWYgd2UgdXBkYXRlIHlvdXIgcGF0Y2ggd2l0
-aCB0aGlzIHN1Z2dlc3Rpb24/CgpUaGFua3MsCsKgIEZlbGl4CgoKX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
-bG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+On Thu, Jun 10, 2021 at 9:55 AM Pekka Paalanen <ppaalanen@gmail.com> wrote:
+>
+> On Tue,  8 Jun 2021 19:43:15 +0200
+> Werner Sembach <wse@tuxedocomputers.com> wrote:
+>
+> > Add a new general drm property "active bpc" which can be used by graphic drivers
+> > to report the applied bit depth per pixel back to userspace.
+> >
+
+Maybe "bit depth per pixel" -> "bit depth per pixel color component"
+for slightly more clarity?
+
+> > While "max bpc" can be used to change the color depth, there was no way to check
+> > which one actually got used. While in theory the driver chooses the best/highest
+> > color depth within the max bpc setting a user might not be fully aware what his
+> > hardware is or isn't capable off. This is meant as a quick way to double check
+> > the setup.
+> >
+> > In the future, automatic color calibration for screens might also depend on this
+> > information being available.
+> >
+> > Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+> > ---
+> >  drivers/gpu/drm/drm_atomic_uapi.c |  2 ++
+> >  drivers/gpu/drm/drm_connector.c   | 41 +++++++++++++++++++++++++++++++
+> >  include/drm/drm_connector.h       | 15 +++++++++++
+> >  3 files changed, 58 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+> > index 268bb69c2e2f..7ae4e40936b5 100644
+> > --- a/drivers/gpu/drm/drm_atomic_uapi.c
+> > +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+> > @@ -873,6 +873,8 @@ drm_atomic_connector_get_property(struct drm_connector *connector,
+> >               *val = 0;
+> >       } else if (property == connector->max_bpc_property) {
+> >               *val = state->max_requested_bpc;
+> > +     } else if (property == connector->active_bpc_property) {
+> > +             *val = state->active_bpc;
+> >       } else if (connector->funcs->atomic_get_property) {
+> >               return connector->funcs->atomic_get_property(connector,
+> >                               state, property, val);
+> > diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+> > index 7631f76e7f34..c0c3c09bfed0 100644
+> > --- a/drivers/gpu/drm/drm_connector.c
+> > +++ b/drivers/gpu/drm/drm_connector.c
+> > @@ -1195,6 +1195,14 @@ static const struct drm_prop_enum_list dp_colorspaces[] = {
+> >   *   drm_connector_attach_max_bpc_property() to create and attach the
+> >   *   property to the connector during initialization.
+> >   *
+> > + * active bpc:
+> > + *   This read-only range property tells userspace the pixel color bit depth
+> > + *   actually used by the hardware display engine on "the cable" on a
+> > + *   connector. The chosen value depends on hardware capabilities, both
+> > + *   display engine and connected monitor, and the "max bpc" property.
+> > + *   Drivers shall use drm_connector_attach_active_bpc_property() to install
+> > + *   this property.
+> > + *
+>
+> This description is now clear to me, but I wonder, is it also how
+> others understand it wrt. dithering?
+>
+> Dithering done on monitor is irrelevant, because we are talking about
+> "on the cable" pixels. But since we are talking about "on the cable"
+> pixels, also dithering done by the display engine must not factor in.
+> Should the dithering done by display engine result in higher "active
+> bpc" number than what is actually transmitted on the cable?
+>
+> I cannot guess what userspace would want exactly. I think the
+> strict "on the cable" interpretation is a safe bet, because it then
+> gives a lower limit on observed bpc. Dithering settings should be
+> exposed with other KMS properties, so userspace can factor those in.
+> But to be absolutely sure, we'd have to ask some color management
+> experts.
+>
+> Cc'ing Mario in case he has an opinion.
+>
+
+Thanks. I like this a lot, in fact such a connector property was on my
+todo list / wish list for something like that!
+
+I agree with the "active bpc" definition here in this patch and
+Pekka's comments. I want what goes out over the cable, not including
+any effects of dithering. At least AMD's amdpu-kms driver exposes
+"active bpc" already as a per-connector property in debugfs, and i use
+reported output from there a lot to debug problems with respect to HDR
+display or high color precision output, and to verify i'm not fooling
+myself wrt. what goes out, compared to what dithering may "fake" on
+top of it.
+
+Software like mine would greatly benefit from getting this directly
+off the connector, ie. as a RandR output property, just like with "max
+bpc", as mapping X11 output names to driver output names is a guessing
+game, directing regular users to those debugfs files is tedious and
+error prone, and many regular users don't have root permissions
+anyway.
+
+Sometimes one wants to prioritize "active bpc" over resolution or
+refresh rate, and especially on now more common HDR displays, and
+actual bit depth also changes depending on bandwidth requirements vs.
+availability, and how well DP link training went with a flaky or loose
+cable, like only getting 10 bpc for HDR-10 when running on less than
+maximum resolution or refresh rate, and the cable "just right". This
+can be very puzzling without actual feedback over true "active bpc".
+
+It would also be very beneficial to also have reporting and control
+over gpu dithering state via a read/write property. Some drivers like
+nouveau-kms have that, and i think some older non-atomic amd drivers
+had it at some point in time iirc, which was useful, also for
+debugging of dithering induced issues, when one wants to pass-through
+a 8 bpc framebuffer unmodified to special display equipment, and
+dithering silently kicked in and is messing things up.
+
+And a read only property for DSC active would be good to account for the future.
+
+> Since "active bpc" is related to "max bpc", the both should follow the
+> same definition. Do they do that now?
+>
+> Maybe a clarifying note about interaction with dithering would still be
+> good to have here.
+>
++1
+
+>
+> I recall reading some comments from you about having problems with
+> making this immutable. Is it properly immutable now?
+>
+> That is, drm_info reports the property as "(immutable)".
+> https://github.com/ascent12/drm_info
+>
+> If we are not sure if DSC could result in lower observed bpc than
+> "active bpc", then DSC state would need to be exposed as a KMS property
+> too, with a note that it invalidates what "active bpc" shows. Or maybe
+> "active bpc" should be "unknown" in that case?
+>
+
+Yes. Or could we have some way of disabling DSC per connector in the
+future? I'm not familiar with current implementations, but i'd very
+much would like to have a selectable tradeoff if i want a "pure" video
+signal and maybe not get some high resolution / refresh rate modes on
+low-bandwidth cables, or if i want max resolution/refresh but some
+lossy perceptual compression.
+
+thanks,
+-mario
+
+>
+> Thanks,
+> pq
+>
+> >   * Connectors also have one standardized atomic property:
+> >   *
+> >   * CRTC_ID:
+> > @@ -2150,6 +2158,39 @@ int drm_connector_attach_max_bpc_property(struct drm_connector *connector,
+> >  }
+> >  EXPORT_SYMBOL(drm_connector_attach_max_bpc_property);
+> >
+> > +/**
+> > + * drm_connector_attach_active_bpc_property - attach "active bpc" property
+> > + * @connector: connector to attach active bpc property on.
+> > + * @min: The minimum bit depth supported by the connector.
+> > + * @max: The maximum bit depth supported by the connector.
+> > + *
+> > + * This is used to check the applied bit depth on a connector.
+> > + *
+> > + * Returns:
+> > + * Zero on success, negative errno on failure.
+> > + */
+> > +int drm_connector_attach_active_bpc_property(struct drm_connector *connector,
+> > +                                       int min, int max)
+> > +{
+> > +     struct drm_device *dev = connector->dev;
+> > +     struct drm_property *prop;
+> > +
+> > +     prop = connector->active_bpc_property;
+> > +     if (!prop) {
+> > +             prop = drm_property_create_range(dev, 0, "active bpc", min, max);
+> > +             if (!prop)
+> > +                     return -ENOMEM;
+> > +
+> > +             connector->active_bpc_property = prop;
+> > +     }
+> > +
+> > +     drm_object_attach_property(&connector->base, prop, 0);
+> > +     connector->state->active_bpc = 0;
+> > +
+> > +     return 0;
+> > +}
+> > +EXPORT_SYMBOL(drm_connector_attach_active_bpc_property);
+> > +
+> >  /**
+> >   * drm_connector_set_vrr_capable_property - sets the variable refresh rate
+> >   * capable property for a connector
+> > diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+> > index 1922b278ffad..c58cba2b6afe 100644
+> > --- a/include/drm/drm_connector.h
+> > +++ b/include/drm/drm_connector.h
+> > @@ -781,6 +781,13 @@ struct drm_connector_state {
+> >        */
+> >       u8 max_bpc;
+> >
+> > +     /**
+> > +      * @active_bpc: Read only property set by the GPU driver to the actually
+> > +      * applied bit depth of the pixels after evaluating all hardware
+> > +      * limitations.
+> > +      */
+> > +     u8 active_bpc;
+> > +
+> >       /**
+> >        * @hdr_output_metadata:
+> >        * DRM blob property for HDR output metadata
+> > @@ -1380,6 +1387,12 @@ struct drm_connector {
+> >        */
+> >       struct drm_property *max_bpc_property;
+> >
+> > +     /**
+> > +      * @active_bpc_property: Default connector property for the active bpc
+> > +      * to be driven out of the connector.
+> > +      */
+> > +     struct drm_property *active_bpc_property;
+> > +
+> >  #define DRM_CONNECTOR_POLL_HPD (1 << 0)
+> >  #define DRM_CONNECTOR_POLL_CONNECT (1 << 1)
+> >  #define DRM_CONNECTOR_POLL_DISCONNECT (1 << 2)
+> > @@ -1698,6 +1711,8 @@ int drm_connector_set_panel_orientation_with_quirk(
+> >       int width, int height);
+> >  int drm_connector_attach_max_bpc_property(struct drm_connector *connector,
+> >                                         int min, int max);
+> > +int drm_connector_attach_active_bpc_property(struct drm_connector *connector,
+> > +                                       int min, int max);
+> >
+> >  /**
+> >   * struct drm_tile_group - Tile group metadata
+>
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
