@@ -2,68 +2,129 @@ Return-Path: <SRS0=/TO6=LI=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 60D0AC48BE8
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Jun 2021 14:50:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D477BC4743C
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Jun 2021 15:26:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3125C6128C
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Jun 2021 14:50:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3125C6128C
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=chromium.org
+	by mail.kernel.org (Postfix) with ESMTPS id 95431613CC
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Jun 2021 15:26:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 95431613CC
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0C0A89DF9;
-	Mon, 14 Jun 2021 14:50:10 +0000 (UTC)
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [IPv6:2a00:1450:4864:20::12d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 535C589C9C
- for <amd-gfx@lists.freedesktop.org>; Mon, 14 Jun 2021 14:49:10 +0000 (UTC)
-Received: by mail-lf1-x12d.google.com with SMTP id p7so21596613lfg.4
- for <amd-gfx@lists.freedesktop.org>; Mon, 14 Jun 2021 07:49:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=fech7tYZck6zv2qHonUddtrQGpKGJ8RrmWkjjaHmJ7M=;
- b=Ub6S4MhJ4z6qfCfj70stJKPzzcYOzpcnw06UXDh6GmusxEszu2yCkyrMHioE13mYyG
- mEPaZkh1xvubyrpxUaEhrlp7H9q9C9v91wbkpfyCG+gE9TtH9/QZK0go7IgLM5p6JneJ
- 3POpouBecuYRKgERdda5ygSeArJgEJ57gkHkk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=fech7tYZck6zv2qHonUddtrQGpKGJ8RrmWkjjaHmJ7M=;
- b=ijrbavE4h0ZqP7Q+312KIqRCKY8U7tbR+C8oOQk5UGtSQw5InRmhDlAlGo9n0jSPjd
- RDROfi0YDNwYvkPRs+cR85zSvhkji1yWvsn5BZm8TuoJbaQzxCpMazxUadEd5p4+O75c
- FsJI8V1mTZf6a1XJrGqs4M5jAEfWT+lsAHYJDDRqlgPJhO9cDQzTUuYeUlGbl1y/R+DA
- bHZupj1h3xAfnpIWmz8BXp6gwYqVMbrkfOmgl0XjMtB548zwg8OBxY/2iBGmdfWRbBNy
- ftW8Cxj0njet0ETOVM8kfUWPC3IQZcp4zw+SpCsBlEg51G+AslU0XHV2IjMMMs2EY3oN
- kS/w==
-X-Gm-Message-State: AOAM531pignitQ5hurlpJESVRPRTT9JYosxFpTuzCCn+w+KvJzIlyfYQ
- XHVFHYFtVz/bE3Ou7sOoIwofkGat3z8wRRl8RyYc+g==
-X-Google-Smtp-Source: ABdhPJxBzdSqGjo+ftstYBx5RJP6SDHONFqoSzBhtOR2X1m38cdTna3VOHBXhVqPZcWN0Wj0HwWSd2S/6gTubHw/wug=
-X-Received: by 2002:a05:6512:31c4:: with SMTP id
- j4mr12318793lfe.493.1623682148682; 
- Mon, 14 Jun 2021 07:49:08 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77F0D89EBB;
+	Mon, 14 Jun 2021 15:26:07 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam08on2087.outbound.protection.outlook.com [40.107.102.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59E3989E7C;
+ Mon, 14 Jun 2021 15:26:05 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=iJRgT41iVrM6mCgV7tKYGcyv7pQN06GWr0qF0Dwhe2s9TV7KfXRGoQVHUJBw2DBtstJGM9YfKMAod70c3MtZqYpp51p2zS8/uCeqbZLInoVDRoXJBDYC2wn84qpa2/wXPDUu7sW48nLglIFUqNp7Yeo+7Z7AOSrAPYcyLbZD+AJtwPbgIQdppGgUObEhLxlTYXQFDBzaGzL3TBbiofIqCMBt+B2uOfVFjjOuvtbrReRgoOC5Mtwe4tgBvR8sQzrWlAxWIW6fdx5j2ZSVQti2tJg6If4PN7HTZyfmi2gA80J2cG2XNC/OL9VHfFMbs5Vg9DQi2TGmKjkyWUANJquSPg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WcDP1t8+lmMr7VhDBPLqgoYgGfcJGKhItKFVxSmGtqI=;
+ b=Vj3FY+jMZy1HsMyuITiATRot/Lqtuse1jOIHDOhATObwgo7jV8pBM+LEErQ4yUwp9H50XkoQ5fjvw89cDjfLINTtOPfMg4c0BIZA79B/f2FEoYAbP872exc25pLPOmNl7gcHaAsspgB/e0wA/iXu04HvspwxuD/JIZ2Mv0bSRZRwtEw+XgtwwoEGrsOGLaryffHtD57c1YjjHULgR+iSXumyZs0MZr7MB5LUXbyGTUx/mKWmP3j9fUhf+viIYu+AxoX0RD+Bi//Kiol8gNZ28f56qtcO/cOcIMHCr1wtkimwVG7D3SOQOBwnV7/NG4RKH5ruun8znbCTWQQPLdDo4A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WcDP1t8+lmMr7VhDBPLqgoYgGfcJGKhItKFVxSmGtqI=;
+ b=v5E8JyuFkBMGiYnLj4HxPfZ7scHZBLtTnH1//mYTee7/CZqnB+seCChq5M0sM8S1mgye5nbwkcpXFzthXolx0AjR8jDlZdJJCozCr2aq8JxRQYRXxxc9jzUNHATXM8kDvjkyPqiDbeqPROpyJd5bMfV6btBglmllccPt7Nom/Kc=
+Authentication-Results: redhat.com; dkim=none (message not signed)
+ header.d=none;redhat.com; dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5129.namprd12.prod.outlook.com (2603:10b6:408:136::12)
+ by BN9PR12MB5368.namprd12.prod.outlook.com (2603:10b6:408:105::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.22; Mon, 14 Jun
+ 2021 15:26:03 +0000
+Received: from BN9PR12MB5129.namprd12.prod.outlook.com
+ ([fe80::3c78:e58b:fba7:b8dd]) by BN9PR12MB5129.namprd12.prod.outlook.com
+ ([fe80::3c78:e58b:fba7:b8dd%6]) with mapi id 15.20.4219.025; Mon, 14 Jun 2021
+ 15:26:03 +0000
+Subject: Re: [RFC PATCH v2 1/8] ext4/xfs: add page refcount helper
+To: Matthew Wilcox <willy@infradead.org>, Alex Sierra <alex.sierra@amd.com>
+References: <20210607204226.7743-1-alex.sierra@amd.com>
+ <20210607204226.7743-2-alex.sierra@amd.com>
+ <YMEVN8XZbCnyPu9/@casper.infradead.org>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Message-ID: <652c22b4-8ca6-acf9-653c-c93166c83770@amd.com>
+Date: Mon, 14 Jun 2021 11:26:01 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
+In-Reply-To: <YMEVN8XZbCnyPu9/@casper.infradead.org>
+Content-Language: en-US
+X-Originating-IP: [142.116.203.225]
+X-ClientProxiedBy: YT2PR01CA0019.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:38::24) To BN9PR12MB5129.namprd12.prod.outlook.com
+ (2603:10b6:408:136::12)
 MIME-Version: 1.0
-References: <20210604170107.2023162-1-markyacoub@chromium.org>
- <906d0ab3-ddca-8cb9-68f5-1b495cc4be5c@amd.com>
- <CAJUqKUr-s+r1Q-CEO6avH-X5T_Lwt3ZaG5tukygo0joHi8kCpA@mail.gmail.com>
- <2e289387-0101-6141-a1c4-ae0438e0c2b8@amd.com>
- <CADnq5_Nu=rzRw-jY7zf7Q6mjJQ=s4+vRTudb3383YG_h=twO9g@mail.gmail.com>
- <CADnq5_Mh7m+rOcrkuwdpPeBdOA32Z3wgD2aimeMn6_ZcXAesRA@mail.gmail.com>
-In-Reply-To: <CADnq5_Mh7m+rOcrkuwdpPeBdOA32Z3wgD2aimeMn6_ZcXAesRA@mail.gmail.com>
-From: Mark Yacoub <markyacoub@chromium.org>
-Date: Mon, 14 Jun 2021 10:48:57 -0400
-Message-ID: <CAJUqKUpz9L-fC0M7+3dz75WFQ9zNi_rpd_syvLACiY-NJoPD=g@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Verify Gamma & Degamma LUT sizes in
- amdgpu_dm_atomic_check
-To: Alex Deucher <alexdeucher@gmail.com>
-X-Mailman-Approved-At: Mon, 14 Jun 2021 14:50:09 +0000
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [192.168.2.100] (142.116.203.225) by
+ YT2PR01CA0019.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:38::24) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4219.20 via Frontend Transport; Mon, 14 Jun 2021 15:26:02 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 4916b2d9-e894-4756-67f2-08d92f48b8ab
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5368:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BN9PR12MB536864241D148B855EB004E492319@BN9PR12MB5368.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: L9/37U4gyD0pdCQV1d9oAlPSzQBOYXEV2CR0e0Pk7i51kVstGNe1bktqjUT9ZdHMVBlfKOYQtI4ui1zTrzXgz6UYq5P1fm2q8z13VAZSiilnbhDHadF5PBfQQBWgYcgzuTNYtSEtUXqtUNF490EJuy+r09fDcbSmQnBU6AKVW2kc0bDbr7US6hFSot0dd2fl9aRNwdQltlSJJ8kedl7IekElElfmqB5VXDbIiiEzgMnvpeLwJ4GuRkTpBLHgyG7x1Orw11zhVP81gBIFmVLO+FpAkYCDwHo+339NdyVQNc4Hy2cou0FMTzkopOmlFnaJ/pLmXmA0OLR1pOJ+OJOXZjyMsIGRujl3B+Z0nkPZmwqYSj4OJAGjl1J6RkU36dlLj3OWYdTdesyOILGw2zV6yEV72YudMyW3rBpJaKMlnXEATUcB0Hcn0lTQN6ncwp4XBpbgpSH0+PQK58fq1X+cAa7/HElDMuoT7cGCv0BhjjUP3GYb/TfMJXnk0Z6Si3RlGCPlALiK2lOaPZ8Vaa0FgTSqAv1Vg2eMxy6gnKnv9c8iVHZP71BZ4kbE/kw2SrpygGcNCbh0Ws1kLYJeNFYtV+4o8OE+WptJZfyASV96kw30LE7UvLH+6mCy1787Y6JP9inqAQMnaqjKs8ujXq42zHqtOu4FG6s1U5oy0b7mL2Mb89Pa/XlGvht6BAE+xaHr
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5129.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(376002)(136003)(396003)(366004)(346002)(39860400002)(66476007)(66946007)(83380400001)(66556008)(31686004)(16526019)(6486002)(186003)(16576012)(26005)(110136005)(86362001)(5660300002)(478600001)(8936002)(6636002)(38100700002)(2616005)(4326008)(956004)(2906002)(36756003)(316002)(44832011)(31696002)(8676002)(4744005)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N0xUWldwUFlwQ0dBbW5zWXNCVzVqZGNmZGJlVTZVU2YzSDhEalJUMENseHNO?=
+ =?utf-8?B?L29Pa2xzZzVSQXY3MDU0ZFgzR3R5MkMrMmJGSmRtb0twL0s2Ulpkem5oRHBr?=
+ =?utf-8?B?SlpEWmpMZHFNbXlmcnZKVDlWbDh0bnBEaHlPWnk0WlZDeURFNE5nOSsvczdM?=
+ =?utf-8?B?c1NMS2hWT2QwZ0VwcEw1cHhuNjI0eElzUXZzdEwxZ0JMaXhzdm1iVVRtVEZB?=
+ =?utf-8?B?cE5XVllwQ0h1SHdncHhiVVorcnh0WEpTZnVBaXNBODNvZnZudGhOUzlMQ3FM?=
+ =?utf-8?B?YjhyQXczdXBHa0o0bC9sNXdYWU5NK01yOWpEVXpMa3lMRC9ONTB4UGh6amVv?=
+ =?utf-8?B?NWxxOG11QzN6ek9jOHJwL2RDYmNnSXlFbTRjcHE4SFNkUkp5ajZxbngvNUVO?=
+ =?utf-8?B?aitWYTI5L2NGdDZXYUdSWjZuZTRZWmpvR1JNVHJtSDEzR05JU202UGh4Z0tF?=
+ =?utf-8?B?aDlta3hDQmkvSkhlTTFmZzFkYzRhQ1R0NHZ0b2R1QktQUnZObnJwQlU3aFlJ?=
+ =?utf-8?B?Sy8wMWlnc1VJSGtCdWphT25Gak9SVkx6dFAwc1hKa0ttREpYS3B2eE5DV1hn?=
+ =?utf-8?B?ekMvR3lnY0kwK3hvQk1uV2ZCOUI0VUloY3VKcDhnMjBuS3NGTGpJQTF6NTF3?=
+ =?utf-8?B?cGdIVjQ0dUVvd0QxS0haZTNZeHJaK1lVNGlJRWFSVS8rMCtCdEt1Q21FRllR?=
+ =?utf-8?B?N0wyRFNFdnUxQ0lFVHRpcXYvZGJpdVFSMTcrNUdXaWQxVXlMNDMwSXZxTDRr?=
+ =?utf-8?B?ZkZsUU5vZXRqV1lENEhXK0UzbGU3ZEo4TkNhcVNQZGVCS2JIeCtmUEdqRHFw?=
+ =?utf-8?B?eUdpRExUYzlPVWFoVCtseUgxYW0xUmdEaWVJTy81TVh2ZXQ1c0VEbzFpWXF4?=
+ =?utf-8?B?WUg3VzNBdTYrTXJJSXQveUhTSlRvb204K0E2a3JpQ1owVGxsRDJVQnhUb21E?=
+ =?utf-8?B?YVZ6Q3p1c2llR0kvRGRFUE1NczFlOFJZenVScHF5LzhxeVVIRlpmTEs0N0tw?=
+ =?utf-8?B?aCtDeklCQURRbVpLeXZFSmxPbnliMmJxV0xWT2l5clVlOHNGbWYvd2VqRG9C?=
+ =?utf-8?B?NFRrbnVoMHROTHVtdXRYNVE5ekxYUmJycnRHVUU5UGdIajFxMG9CQVhNTU5z?=
+ =?utf-8?B?dDJtUDdCYUh3VkJkZFNkSUFPU2M0KzdGaVYzVlBaL0lqTFBmci81MmJRbG9S?=
+ =?utf-8?B?MW1keVJWeFhQSG1aaUZhakQyR3ZEYzRiMWl1QVdFWWkxR1pNeG80ZWhHNWN1?=
+ =?utf-8?B?djBTazFNdjA2Qk1ZcE1EWldob0RMSEt6di9hOFNIMEpCTjdSeC9XL0h3WWhY?=
+ =?utf-8?B?TVNQbVlYTnNkbmpjUG1JZlZPZURFU0dvTTRLQ3E1WG1iVFNFZlFUbFF0RVpy?=
+ =?utf-8?B?RWZVYnJmU0poTGMvOXBIVjVMQnJtOUZ2eXhBanhLWUcyNS92TGZvdFZoemRi?=
+ =?utf-8?B?UGV6N2lBblRnbm94V2VydTJNOXFyWU5vMzhHQ2huRi9YRjQvWjFkaHFVSEE2?=
+ =?utf-8?B?Ly9uOUhWNUlhVFhXWFRSbkVrenFzM2crOWdwQ2w4UGtjR1dVdlBER1RaTGNN?=
+ =?utf-8?B?UmJmbk5NL2RNNEFIY1g0Q1ZJejhHWjI0bm1kdXh5T0RWRFNxYkdTSk5IYlRi?=
+ =?utf-8?B?cFdMNUloSm5kTmRuSU5Veng0VGRwQ3QxSzVZQjNBS1FHQlJsckx0aXRRbXAy?=
+ =?utf-8?B?bGk4RVY3ZEJmZHB1clh4UVFjRm1vNXlOWkdRMy9leTg4cE54SnBUZDdLays3?=
+ =?utf-8?Q?nGmbjQPaG22JBUyhaTA4/C6/2/W5sYEA9Di2r9q?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4916b2d9-e894-4756-67f2-08d92f48b8ab
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5129.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jun 2021 15:26:03.5432 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: HTcRzIzyeo8v1R2EP2dzlHgBo3bNi1rLRUggAZ2nNW47rVvWrE8N8uE6Ez0szzLNf+K7pZ88DNJlETBwmVSGSw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5368
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,183 +136,31 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Siqueira, Rodrigo" <rodrigo.siqueira@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Sean Paul <seanpaul@chromium.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>, "Deucher,
- Alexander" <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, Mark Yacoub <markyacoub@google.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: rcampbell@nvidia.com, dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
+ jglisse@redhat.com, amd-gfx@lists.freedesktop.org, jgg@nvidia.com,
+ akpm@linux-foundation.org, hch@lst.de
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-hmm I see, thanks for the heads up, I'll double check why it uses
-google email for sending.
-wrt the assignment in the if clauses, are those typically frowned upon?
-Thanks!
-
-On Fri, Jun 11, 2021 at 4:17 PM Alex Deucher <alexdeucher@gmail.com> wrote:
->
-> Just a heads up, your sender email and your signed-off-by don't match
-> and you had some assignments in if clauses.  I've fixed those up.
->
-> Alex
->
->
-> On Fri, Jun 11, 2021 at 1:35 PM Alex Deucher <alexdeucher@gmail.com> wrote:
-> >
-> > Applied.  Thanks!
-> >
-> > On Thu, Jun 10, 2021 at 5:14 PM Harry Wentland <harry.wentland@amd.com> wrote:
-> > >
-> > >
-> > >
-> > > On 2021-06-07 10:53 a.m., Mark Yacoub wrote:
-> > > > On Fri, Jun 4, 2021 at 4:17 PM Harry Wentland <harry.wentland@amd.com> wrote:
-> > > >>
-> > > >>
-> > > >>
-> > > >> On 2021-06-04 1:01 p.m., Mark Yacoub wrote:
-> > > >>> From: Mark Yacoub <markyacoub@google.com>
-> > > >>>
-> > > >>> For each CRTC state, check the size of Gamma and Degamma LUTs  so
-> > > >>> unexpected and larger sizes wouldn't slip through.
-> > > >>>
-> > > >>> TEST: IGT:kms_color::pipe-invalid-gamma-lut-sizes
-> > > >>>
-> > > >>> Signed-off-by: Mark Yacoub <markyacoub@chromium.org>
-> > > >>> Change-Id: I9d513a38e8ac2af1b4bf802e1feb1a4d726fba4c
-> > > >>> ---
-> > > >>>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  3 ++
-> > > >>>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  1 +
-> > > >>>  .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 40 ++++++++++++++++---
-> > > >>>  3 files changed, 38 insertions(+), 6 deletions(-)
-> > > >>>
-> > > >>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > > >>> index 38d497d30dba8..f6cd522b42a80 100644
-> > > >>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > > >>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > > >>> @@ -9402,6 +9402,9 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
-> > > >>>                       dm_old_crtc_state->dsc_force_changed == false)
-> > > >>>                       continue;
-> > > >>>
-> > > >>> +             if ((ret = amdgpu_dm_verify_lut_sizes(new_crtc_state)))
-> > > >>> +                     goto fail;
-> > > >>> +
-> > > >>>               if (!new_crtc_state->enable)
-> > > >>>                       continue;
-> > > >>>
-> > > >>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> > > >>> index 8bfe901cf2374..1b77cd2612691 100644
-> > > >>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> > > >>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> > > >>> @@ -541,6 +541,7 @@ void amdgpu_dm_trigger_timing_sync(struct drm_device *dev);
-> > > >>>  #define MAX_COLOR_LEGACY_LUT_ENTRIES 256
-> > > >>>
-> > > >>>  void amdgpu_dm_init_color_mod(void);
-> > > >>> +int amdgpu_dm_verify_lut_sizes(const struct drm_crtc_state *crtc_state);
-> > > >>>  int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc);
-> > > >>>  int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
-> > > >>>                                     struct dc_plane_state *dc_plane_state);
-> > > >>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> > > >>> index 157fe4efbb599..da6f9fcc0b415 100644
-> > > >>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> > > >>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> > > >>> @@ -284,6 +284,37 @@ static int __set_input_tf(struct dc_transfer_func *func,
-> > > >>>       return res ? 0 : -ENOMEM;
-> > > >>>  }
-> > > >>>
-> > > >>> +/**
-> > > >>> + * Verifies that the Degamma and Gamma LUTs attached to the |crtc_state| are of
-> > > >>> + * the expected size.
-> > > >>> + * Returns 0 on success.
-> > > >>> + */
-> > > >>> +int amdgpu_dm_verify_lut_sizes(const struct drm_crtc_state *crtc_state)
-> > > >>> +{
-> > > >>> +     const struct drm_color_lut *lut = NULL;
-> > > >>> +     uint32_t size = 0;
-> > > >>> +
-> > > >>> +     lut = __extract_blob_lut(crtc_state->degamma_lut, &size);
-> > > >>> +     if (lut && size != MAX_COLOR_LUT_ENTRIES) {
-> > > >>
-> > > >> Isn't the point of the LUT size that it can be variable? Did you observe any
-> > > >> problems with LUTs that are not of size 4096?
-> > > > Is it supposed to be variable?
-> > > > I'm basing my knowledge of LUTs on this IGT Test:
-> > > > https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/blob/master/tests/kms_color_helper.c#L281>> It does check for invalid sizes and for the exact size, giving me the
-> > > > impression that it's not too flexible.
-> > > > Is variability of size an AMD specific behavior or should it be a DRM behavior?
-> > > >>
-> > > >> Legacy X-based userspace will give us 256 size LUTs. We can't break support for
-> > > >> that. See MAX_COLOR_LEGACY_LUT_ENTRIES.
-> > > > In the new function `amdgpu_dm_verify_lut_sizes`, I maintained parity
-> > > > with the old behavior. In `amdgpu_dm_update_crtc_color_mgmt`, the
-> > > > degamma size is only checked against `MAX_COLOR_LUT_ENTRIES` while
-> > > > regamma_size size is checked against both MAX_COLOR_LUT_ENTRIES and
-> > > > MAX_COLOR_LEGACY_LUT_ENTRIES:
-> > > > https://gitlab.freedesktop.org/agd5f/linux/-/blob/amd-staging-drm-next/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c#L321>> Also, in the definition of MAX_COLOR_LEGACY_LUT_ENTRIES, it mentions
-> > > > "Legacy gamm[sic] LUT" not degamma:
-> > > > https://gitlab.freedesktop.org/agd5f/linux/-/blame/amd-staging-drm-next/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h#L616>> As well as the commit when it was introduced, it seems to be handling
-> > > > gammas rather than degamma LUTs:
-> > > > https://gitlab.freedesktop.org/agd5f/linux/-/commit/086247a4b2fba49800b27807f22bb894cd8363fb>> Let me know if this would be a bug in the old behavior and I can fix
-> > > > it, or if i'm missing something.
-> > >
-> > > Ah, yes, you're right, of course. Thanks for walking me through it. :)
-> > >
-> > > Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-> > >
-> > > Harry
-> > >
-> > > >>
-> > > >> Harry
-> > > >>
-> > > >>> +             DRM_DEBUG_DRIVER(
-> > > >>> +                     "Invalid Degamma LUT size. Should be %u but got %u.\n",
-> > > >>> +                     MAX_COLOR_LUT_ENTRIES, size);
-> > > >>> +             return -EINVAL;
-> > > >>> +     }
-> > > >>> +
-> > > >>> +     lut = __extract_blob_lut(crtc_state->gamma_lut, &size);
-> > > >>> +     if (lut && size != MAX_COLOR_LUT_ENTRIES &&
-> > > >>> +         size != MAX_COLOR_LEGACY_LUT_ENTRIES) {
-> > > >>> +             DRM_DEBUG_DRIVER(
-> > > >>> +                     "Invalid Gamma LUT size. Should be %u (or %u for legacy) but got %u.\n",
-> > > >>> +                     MAX_COLOR_LUT_ENTRIES, MAX_COLOR_LEGACY_LUT_ENTRIES,
-> > > >>> +                     size);
-> > > >>> +             return -EINVAL;
-> > > >>> +     }
-> > > >>> +
-> > > >>> +     return 0;
-> > > >>> +}
-> > > >>> +
-> > > >>>  /**
-> > > >>>   * amdgpu_dm_update_crtc_color_mgmt: Maps DRM color management to DC stream.
-> > > >>>   * @crtc: amdgpu_dm crtc state
-> > > >>> @@ -317,14 +348,11 @@ int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc)
-> > > >>>       bool is_legacy;
-> > > >>>       int r;
-> > > >>>
-> > > >>> -     degamma_lut = __extract_blob_lut(crtc->base.degamma_lut, &degamma_size);
-> > > >>> -     if (degamma_lut && degamma_size != MAX_COLOR_LUT_ENTRIES)
-> > > >>> -             return -EINVAL;
-> > > >>> +     if ((r = amdgpu_dm_verify_lut_sizes(&crtc->base)))
-> > > >>> +             return r;
-> > > >>>
-> > > >>> +     degamma_lut = __extract_blob_lut(crtc->base.degamma_lut, &degamma_size);
-> > > >>>       regamma_lut = __extract_blob_lut(crtc->base.gamma_lut, &regamma_size);
-> > > >>> -     if (regamma_lut && regamma_size != MAX_COLOR_LUT_ENTRIES &&
-> > > >>> -         regamma_size != MAX_COLOR_LEGACY_LUT_ENTRIES)
-> > > >>> -             return -EINVAL;
-> > > >>>
-> > > >>>       has_degamma =
-> > > >>>               degamma_lut && !__is_lut_linear(degamma_lut, degamma_size);
-> > > >>>
-> > > >>
-> > > > -Mark
-> > > >
-> > >
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+QW0gMjAyMS0wNi0wOSB1bSAzOjIzIHAubS4gc2NocmllYiBNYXR0aGV3IFdpbGNveDoKPiBPbiBN
+b24sIEp1biAwNywgMjAyMSBhdCAwMzo0MjoxOVBNIC0wNTAwLCBBbGV4IFNpZXJyYSB3cm90ZToK
+Pj4gKysrIGIvaW5jbHVkZS9saW51eC9kYXguaAo+PiBAQCAtMjQzLDYgKzI0MywxNiBAQCBzdGF0
+aWMgaW5saW5lIGJvb2wgZGF4X21hcHBpbmcoc3RydWN0IGFkZHJlc3Nfc3BhY2UgKm1hcHBpbmcp
+Cj4+ICAJcmV0dXJuIG1hcHBpbmctPmhvc3QgJiYgSVNfREFYKG1hcHBpbmctPmhvc3QpOwo+PiAg
+fQo+PiAgCj4+ICtzdGF0aWMgaW5saW5lIGJvb2wgZGF4X2xheW91dF9pc19pZGxlX3BhZ2Uoc3Ry
+dWN0IHBhZ2UgKnBhZ2UpCj4+ICt7Cj4+ICsJcmV0dXJuIHBhZ2VfcmVmX2NvdW50KHBhZ2UpID09
+IDE7Cj4+ICt9Cj4gV2UgYWxyZWFkeSBoYXZlIHNvbWV0aGluZyBjYWxsZWQgYW4gaWRsZSBwYWdl
+LCBhbmQgdGhhdCdzIHF1aXRlIGEKPiBkaWZmZXJlbnQgdGhpbmcgZnJvbSB0aGlzLiAgSG93IGFi
+b3V0IGRheF9wYWdlX3VudXNlZCgpIChpdCdzIGEgdXNlCj4gY291bnQsIHNvIG9uY2UgaXQncyBn
+b3QgZG93biB0byBpdHMgbWluaW11bSB2YWx1ZSwgaXQncyB1bnVzZWQpPwo+CkhpIE1hdHRoZXcs
+CgpUaGFuayB5b3UgdmVyeSBtdWNoIGZvciB5b3VyIGZlZWRiYWNrLiBUaGlzIHBhdGNoIGxvb2tz
+IHN0cmFpZ2h0LWZvcndhcmQKZW5vdWdoLCBidXQgZG8gd2UgbmVlZCB0aGUgZmlsZXN5c3RlbSBt
+YWludGFpbmVycyB0byByZXZpZXcgdGhpcyBhcwp3ZWxsPyBJIGd1ZXNzIHdlIHNob3VsZCBDQyB0
+aGUgbGludXgtZXh0NCBhbmQgbGludXgteGZzIG1haWxpbmcgbGlzdHMgaW4KdGhlIG5leHQgcmV2
+aXNpb24uCgpIaSBSYWxwaCwKCkFyZSB5b3UgT0sgaWYgd2UgdXBkYXRlIHlvdXIgcGF0Y2ggd2l0
+aCB0aGlzIHN1Z2dlc3Rpb24/CgpUaGFua3MsCsKgIEZlbGl4CgoKX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
+bG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
