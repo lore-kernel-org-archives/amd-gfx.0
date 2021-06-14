@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5AA1EC48BE6
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Jun 2021 17:46:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5B494C2B9F4
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Jun 2021 17:46:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1C52460FDA
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Jun 2021 17:46:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1C52460FDA
+	by mail.kernel.org (Postfix) with ESMTPS id 20DD460E09
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Jun 2021 17:46:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 20DD460E09
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D47DD6E0F1;
-	Mon, 14 Jun 2021 17:46:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C5D4C6E0FB;
+	Mon, 14 Jun 2021 17:46:53 +0000 (UTC)
 Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2089.outbound.protection.outlook.com [40.107.244.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5978D6E0EC
+ (mail-mw2nam12on2042.outbound.protection.outlook.com [40.107.244.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5DA56E0EC
  for <amd-gfx@lists.freedesktop.org>; Mon, 14 Jun 2021 17:46:51 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=obte6zd4HoaiCsMY0JJH6RPQ9Nw2CwYc1fSbGF5/9GVfAXq1AtHUdo5uLPaqkpSJ48I4o/Pd9pamws5umf2C50hcXPJ4BiKXIYEb1+HbgHMwRHbEo0e567WxTGsaLH+mVMc4AH0JOQ+n409g+t2llDSp5bpPw86dr1DpRiE2ikifk2DzDlUyvdmZeomsMVP0QPXtmirLVSVi48MChKSnnkbcjLlvSFnEOYeSF7jwSymWgxhA8mldv4K6ANhhwk0AybGm0yi6QM4HBxvu2Sg4LGEx3hRrXAMLgDnjkL9dpPECh7TI1ee5GZX05Ux+4pVznuctQvuwTN/pkzNI590Qtw==
+ b=dDKb2Ezfajdo8RFzKaUUhnlMy3Ca4gTJi/3pMBQCObywXKpQoSafLn/x1+JFPrZdza9msQQGipOjukE/pATdTljsEdVke+PJtvSKTEEiOgVg2t1PutefImX9V3QOgO68s2NXm1KiJP/Z7omJY/C4yWudEYBdfXGE1b78nATPpTpgGBhI0Ovv4lFRYrlzTNYln/z7Xr+wgJQX9m+DFmeoAS+qw2tXhVWZVoO1y1WwVGsyPpBe2ZQiMasCve60JD+oO+4kJlpUnajlFOgSR3qHmpQRY+6NnsLfKdMtrjzsqQ78HnfM/ZbNJosvkCmYN1hRnOk0HbQBVlpUt9unr8Htmg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=S8Bri4FBWYcc4NpwSeaK6ClT3lMR13plY77ozmruhjg=;
- b=ahlWgPPh8foDnFLFskCjIauHwE/t1fVD4TklDOigh2ioC//PljwL0L50IjBqtkhZk3jZL7mCz+pxdyAUdX+3CDaXkDpprnJdZ0+i3q5HUXyE8wecFX7kJSJkgeciDkm6X4/TJLga7UTKTIqJ/rwWesm4pbgtdlRwiyaC3/AhnAXFGSPW0WDQnaCE+LWNt1oVNHKMDzNUT0wdU2QpF8u5fVip8F8K7n2P6Cs8CaZCtZbMmR/XpY97T+bQNeE1UqwRHxEjyU3FqRCt819C4LORXo5YSksiRIaZoEC5DiZmdxXmGhstU2c/BD32vMBizz6i0qXKD78q5dGD4XWTOYp65g==
+ bh=WDawO31SHvSmO/+9E3e818K1ynoVSMho2U81di1jNCU=;
+ b=IJRUQ3E9JsN//lVF/IhtEcj69f1PY0ry4939uRO4wGN+v2eDoxtWofaXYGLaxtQQiLFiyEOAYEc4Alkq/F7DLAz5Roe47SKGuDFOr0xw5VIAi4WYF9WIxXj6D8SCHUdUkjogJRvKQ2O9g+aCsdk+S2iXnXRQzAbiX3mGJWnBy3hwmoShf9H5KINRGiUMuN92bnMBQZeYZkvp0aaNzfivyc3oMvAh8Of7h0+r5lZEbksz0i6l8jD+k3mLoBlGzfJWqMnpZVXJgvd5W6uQFaHXWNuNLzT0DTHEo4MOtRWK2ElLZN5FFBjiffAmn8QAM1VmIhDTr7zhPX2l+ZLZqBIUSQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=S8Bri4FBWYcc4NpwSeaK6ClT3lMR13plY77ozmruhjg=;
- b=jBqo5yfxKlnzojE3KKChrk4y9QqmilgJBSF+0TduvGy/97Gm4+4r+e7d3QZVG9JjkdQV+EeDaXOne4N5Egc1wd7dGocnxIRpsEThpRDTjCbQyOU8BefE22WVt/GxYv+LwFRP8q1mJgflQSUu7hCjFEPmYRg5aeXVqIKQPXUD0c8=
+ bh=WDawO31SHvSmO/+9E3e818K1ynoVSMho2U81di1jNCU=;
+ b=DqOY0u/NM5y34GbL0KAV+RRB3Jc6i31M9qFaIH95MKkLvu/H+QHrsbHuXImCmR9GSZgKp7I5//P+JCY/Rp5wXzjEo91mk4ZT7T/u0WRQrKuheM+ZwTQz4fTgMEY7tKB1KtDgI2WY31GeUrUjfnNQsWeBRZv6L0wMj09K2QpVXx0=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -45,16 +45,16 @@ Received: from DM6PR12MB3962.namprd12.prod.outlook.com (2603:10b6:5:1ce::21)
  by DM6PR12MB3690.namprd12.prod.outlook.com (2603:10b6:5:149::20) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.20; Mon, 14 Jun
- 2021 17:46:49 +0000
+ 2021 17:46:50 +0000
 Received: from DM6PR12MB3962.namprd12.prod.outlook.com
  ([fe80::142:82e3:7e9d:55a0]) by DM6PR12MB3962.namprd12.prod.outlook.com
  ([fe80::142:82e3:7e9d:55a0%6]) with mapi id 15.20.4219.025; Mon, 14 Jun 2021
  17:46:49 +0000
 From: Luben Tuikov <luben.tuikov@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 02/40] drm/amdgpu/pm: rework i2c xfers on sienna cichlid (v4)
-Date: Mon, 14 Jun 2021 13:45:54 -0400
-Message-Id: <20210614174632.20818-3-luben.tuikov@amd.com>
+Subject: [PATCH 03/40] drm/amdgpu/pm: rework i2c xfers on arcturus (v4)
+Date: Mon, 14 Jun 2021 13:45:55 -0400
+Message-Id: <20210614174632.20818-4-luben.tuikov@amd.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210614174632.20818-1-luben.tuikov@amd.com>
 References: <20210614174632.20818-1-luben.tuikov@amd.com>
@@ -67,53 +67,53 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from localhost.localdomain (108.162.138.69) by
  YTXPR0101CA0019.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00::32) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4219.21 via Frontend Transport; Mon, 14 Jun 2021 17:46:48 +0000
+ 15.20.4219.21 via Frontend Transport; Mon, 14 Jun 2021 17:46:49 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 231a0bc5-ea6a-42af-0e86-08d92f5c62a7
+X-MS-Office365-Filtering-Correlation-Id: 3629d020-78e5-40da-18f3-08d92f5c630b
 X-MS-TrafficTypeDiagnostic: DM6PR12MB3690:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB3690516F1F7464F59A4926FE99319@DM6PR12MB3690.namprd12.prod.outlook.com>
+X-Microsoft-Antispam-PRVS: <DM6PR12MB3690A24E3B7472222B6258AE99319@DM6PR12MB3690.namprd12.prod.outlook.com>
 X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: neA92Uf2lIzppt4ZAIGObEvmjteR6RrZo2347OnwWoOsl5woh345GcY+spPOZ1OzsmIlAfYUKnQVDMDv6dmotxgLggM0yA0kCvjX/ZqNU5i1MFAl2rFS0n+y7jwt2yaDjoig6pX38kHA6qbnYVn4nKr3VANejQRvjbd8KmPxDgTEEnHIeze2l0DTJGBNICA63LOMRP7KI/uJB2NASI7ARuH82ihcyhDjE51tjboeM28puzOrzNmL6Xl4tX8pM4Q4rG37+vVrSiwKlLsYxlQxcPkMODDoGxU3jffZTTyNROSUbfm8BX02RhePEQzAdrzxug9pi2c86m+Y23E790hcLKKr8f6nJRhFcIuFukZH5It7Z1vj7cB7/bKkqoseljetELqzjij+DVPOZoSQKk8+wLKq39Zf1IpN6AxBN5vMS4dw812bcJ7Mv2IFZiryAxZjcPtmvQTGYygbB9jR3ugQSSveLH3KtQrwU7bshxBEfE5mwkpL2/1eQj1h2UuIX9OeA0EEujZ0jKnhWFWoJ2oRvxN5JW68p/dBgb+2ITCgNfeQ+ugjrkTnk+hoBUn5EwD6DOI/2lCFqJUYqTeMhDe0mJiLcbAgFypt38Rw8KXt9f8p0jepzb4DOT4HU/6Q7v8UvKXkLJjlXjnE/C9VrqjEOMVi42O3QllKDrQ6fQ0Lh8ZRbveGlGIa1WvQblB6O+CV
+X-Microsoft-Antispam-Message-Info: A4hFtWPUCNFrD+ye+uKB/rqvT0xUlZQWjxPEOlXqS4Q4po4wyE8NfqH/Ne2qMj2l9OROX+T/8Am4Z6AyocBn4/oTuteZSFZq4JvdLbfdBPTQQmmE/LEW78JjMHg+JqlVibWYVOxAdxNWbMCrNjWPw0juzp19J+CKUH2WyPRCFbRnw34M13ym0w+ikEZwoWL4MFUMeKKPwbz95aEeObrvy5x0VtIBr+A+uF3sKt5b6QDkn6PIhY9+pp/gfkvw4j8TQSLU7anleuTWXEajtvD4BdJgOAU7xyPjq2i1L4vmMIt089GbXUzSWm7w+YdEBeLZSqh+opqLv4JNTzdZIEFQzdyzZiU12cmhU8JNEutJXq1fXZPrEKBYNqhZAYRjh/AljbY7/u6iLABt24qfamqL/jjElgc58nxISGt1cxVTRROZSrPt2bnMvi8IAxzmGU4N1FEX00zzwT9Sv9mHTOs9of8QbGy4XT1KFygZ6NtTCya8GPfpiSg0sWh/YVi1EwtHOCRwsmNdtB6UbW+w2zWL+GJEcRqtxe1kFUUcCJXKjSgW9XQGPk06onZG/ljP8SatDz0Z0mDfkB9ehSWhlM7ON3KRD6wf+kQ+gB9DpnB2GG54HgYzQq0yGmN9SlAl+0f8x8U2JMe1dCu02NmT3U/fz3DdFv/yVxHDthPHFkauKCRzBHb9/pBuCHWX58IC4pvA
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB3962.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(4636009)(376002)(366004)(39860400002)(346002)(136003)(396003)(66476007)(54906003)(6916009)(66556008)(6666004)(316002)(478600001)(66946007)(4326008)(83380400001)(26005)(55236004)(956004)(2616005)(6506007)(1076003)(186003)(16526019)(6486002)(52116002)(38100700002)(38350700002)(86362001)(6512007)(44832011)(36756003)(8936002)(8676002)(2906002)(5660300002)(69590400013);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?pDY0iMmiQbfLGxPmh6hmG8zEOyyIGPF07RbsmwdWXus8eUuJXBVMdN78da3r?=
- =?us-ascii?Q?86ExbWaEFxJ6dSTyvl9Bdl8zSGRNzxEOdrEts1IFmAcbcczySjgHX28FVc8T?=
- =?us-ascii?Q?X/b1uNCtg+yq0FvLcb4Wr0y88WxGtiZ+bIQE1bH9zaXbtUfMq7DWlGX3D+cZ?=
- =?us-ascii?Q?DPj6/XlPhdCqV/VI0YUtjZNhXcvkjMxG7StfenmdSh3xxShEaGjAQ/RxOaGc?=
- =?us-ascii?Q?qg3Pyk0/osfQnme2EhAEDHYqfsE6k7oLSosT2oRek9cFumil89c/iulWUXNZ?=
- =?us-ascii?Q?T6x9i9X7NDy5+SI/L1ncMyaWSxmaFA+FWaD63Rmv1hCFLxnIW1tQQlO+ufnq?=
- =?us-ascii?Q?DRUBoE4zMZQXh6DRcBmw/kFOSQkY95g6rRP6HG7kaAWd/5U4JJzmw2hiWVZx?=
- =?us-ascii?Q?hrvvG/Lcnba8m7ZmxH4HpDh3lMNawxV3OQwVqrrgeiO1Dt9C5vbdTYqY9VUO?=
- =?us-ascii?Q?ESrrq7EY5hmxpO+fOOlThAm4DP11QVbiUCvwWqCeAeUxpa1F7iewdlbDJTuy?=
- =?us-ascii?Q?f4MTKZP51uVM23MDlI25XyF8b9i8/EeKTYF16K5sSbw2oBDRqDeXiDehcbhc?=
- =?us-ascii?Q?yRLesNS/9FNU/VYBqH8IiVdxctu0DrwnDgPBvbEn4e3FXXxvymgSoU1016u+?=
- =?us-ascii?Q?HMu8ACEshbhptseRa9Yp7jhnmb5axP4Zttmksp/UdIdHm//GnRHpcgxs8CJL?=
- =?us-ascii?Q?54Qk9SeE/hbG4L+Pbx9FeNr7SecdbDXyRiltB8Pfmv4HGI7tmApVU9Y3hZx3?=
- =?us-ascii?Q?NAzeyXtzb4zi4JAwq2kOTF06PeFo6gU0Zepgu6MOel4rhD2uKVdxmV42Tr3R?=
- =?us-ascii?Q?MiA+x91KQ6ER3xUDjOYzP2I5/ClhFKa9kZAtmtdfimH4wFcxKtSs3ByEb831?=
- =?us-ascii?Q?aeXyNaLGM0L2YEjAJE/BArfh0QET3dmCu+OKeaUD9FJVsnodlPFSwD2vWCkb?=
- =?us-ascii?Q?tEFeO1WJ1b+Zu5NsUdFqfM5cuUVA0SZacmjqLac5T2whT5XkFYEJOKt6Qyn9?=
- =?us-ascii?Q?Rqcwm2Sec31lCm8TPphmsuJsqmjp581Sw+qNX00TRNA9Sh679q+xahO5fuzs?=
- =?us-ascii?Q?ZJQjTyrBccxyeXacYPuS3bEGwtpG1FOQwK/KNMj0enfBP/gCsWBJljxlsqmk?=
- =?us-ascii?Q?Ejw0rftrN28bSN/w96FpQ7yghxN/A5yAq5zVb/lozmy1m6Oe/+OQXxGfThgf?=
- =?us-ascii?Q?m/DQwF/v6mLKHx1ygcIZuYfEwqrCLnFrb7a5cdT+fHcWtKI/wuVKaRkcxmzg?=
- =?us-ascii?Q?W+jlUI27gb65wDNNd+uphhYm/y2V7G1sC2das6v/D+JRq1bnOUtzpbZ1BgHP?=
- =?us-ascii?Q?+8ff+qqsPY2pL346cuonpSse?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?63GQpor++yeXarNxMnw6agcXmT/A7MqL5AGhcGR6KHF+jx/fpWmkubc8y8CH?=
+ =?us-ascii?Q?IK5Iy45Ha0IsHLAwYoB9SDqIQ3qpWJ9VynhiK6KTw98fUwCoJ8eRnEsbl0LJ?=
+ =?us-ascii?Q?+IRn5BGBBMsXSjt8JP6L+NRF6KZ17iJZrXbV5a73exDPXfOC8VthxpTMOz8N?=
+ =?us-ascii?Q?+FOZ5HiXO3YESrbttXCXu+9GULVc9QHFGJN9e9tEayC6JhfO4q3dwBK0HJO/?=
+ =?us-ascii?Q?i9LBzPRBU9+MiNncW/JA1X3e91V4wxiSR642p4fQKWYadgZ0qqDVoERCcntX?=
+ =?us-ascii?Q?2vIjR93ZeMU98ForcD8c6lqjxawV2TuyoE9Q5FhOBaSVaK6Z/7LgQRG0bo9k?=
+ =?us-ascii?Q?cApCj4A/5eCYMKC1vVvW3lAn7PPMSsuR0r6FfXYLnqPwV5gQM7J42svJwXuX?=
+ =?us-ascii?Q?OZNePVlKnGCF92i+M//FSbcUQ3ByaCcPf7SYFvCnck3aX+Xwt+cbta7I8Los?=
+ =?us-ascii?Q?BTIlrKPjkKs2Yi+LjulnOj/3KQMpsZTdfS3mIAAK2wp5wWc8ot2XQxYL5HEc?=
+ =?us-ascii?Q?x3kAG2A85tBZ05KIos+SRKHX8IPfcRSqZfCu/LWZf0/DZAWWfJnBxyOsx9rn?=
+ =?us-ascii?Q?ddk7iUinF3If4kEoSq3hPu1HAylM3tAYkrwBzIW9+G7gxMunITav/C5NASXB?=
+ =?us-ascii?Q?YhLXCAcNphvRVqw0IaXdSCVaX8gJf97MymVHJHiJ22pnRSixH+Q1VPQ+Ivym?=
+ =?us-ascii?Q?ianaPZ4pijXapy93YaXgQFMV7qSvEAaiAkZd03HWYZD4tH/09AGzb6gyLQM5?=
+ =?us-ascii?Q?zIhCR0zReGl6/7izhTtw6P0zbye3dVPb42K5n7v1Do9nKaKIjlgPpx9rug3w?=
+ =?us-ascii?Q?kHTm07ybtoe5othxH4wFwO1BN4Xn8Qare9/VrDwebduE8+CDCXd4VbvNEGb+?=
+ =?us-ascii?Q?9HyEnBcG0VfgI97bz8P8fA5Pn1dgWs2CgGH1dzFhZSr2TQ1U9c9SRUxs2Kyd?=
+ =?us-ascii?Q?YDE+IN5yaC0QinoYlRl5MbrBFUbvoQsqtyFDx3gNb4wB+ehk/jSwG7eRX7WZ?=
+ =?us-ascii?Q?DjmRrHrXJUotlF2gc6wR+XRxs6Tj80ZWGUZLvSPG6+J34Xhlm2NQjJi5WOen?=
+ =?us-ascii?Q?YSi+h4i6qaJnTZLVsXG0v2t8ySD3EQiYvv3KVOFKRfZwxGhzCJlKOhvZGWiA?=
+ =?us-ascii?Q?blo6HV2XxjPXyFSa24PH5KDc/IlFDgenekkuSUMIhfC6FxNqpMawPBYhjji9?=
+ =?us-ascii?Q?qbhicZcRYShrT5SJm26ik92fjgs+E9b8slXZUaTEoloRBuIHjHhTYfRkMSee?=
+ =?us-ascii?Q?IGS69UjhUYGnTNgKegUan4e3/hW7BZS5OsGUn6d42Do31Cqefymf2VooMJft?=
+ =?us-ascii?Q?mVRIqjqYVFxhaDGIZ6bYJYCk?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 231a0bc5-ea6a-42af-0e86-08d92f5c62a7
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3629d020-78e5-40da-18f3-08d92f5c630b
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3962.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jun 2021 17:46:48.9787 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jun 2021 17:46:49.6903 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 56I6xc/AkJ2OxeRq9RUrTxpcU5U9tmjXgCZol37CfX38yjLA2rn6CtFfXbL1AAtG
+X-MS-Exchange-CrossTenant-UserPrincipalName: cN6Kw5CTSFm+9eVjcSE4Tn+7q8X0SaLkdZuJjeQp1JJ7l26RjAao5QfiPUFCVedn
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3690
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -145,24 +145,24 @@ Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
 Reviewed-by: Luben Tuikov <luben.tuikov@amd.com>
 ---
- .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 229 +++++-------------
+ .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c | 229 +++++-------------
  1 file changed, 58 insertions(+), 171 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-index c751f717a0daff..b4aa489e4a431a 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-@@ -3442,197 +3442,84 @@ static void sienna_cichlid_dump_pptable(struct smu_context *smu)
- 	dev_info(smu->adev->dev, "MmHubPadding[7] = 0x%x\n", pptable->MmHubPadding[7]);
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+index 094df6f87cfc41..a6447822deb09f 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+@@ -1936,197 +1936,84 @@ static int arcturus_dpm_set_vcn_enable(struct smu_context *smu, bool enable)
+ 	return ret;
  }
  
--static void sienna_cichlid_fill_i2c_req(SwI2cRequest_t  *req, bool write,
+-static void arcturus_fill_i2c_req(SwI2cRequest_t  *req, bool write,
 -				  uint8_t address, uint32_t numbytes,
 -				  uint8_t *data)
 -{
 -	int i;
 -
--	req->I2CcontrollerPort = 1;
+-	req->I2CcontrollerPort = 0;
 -	req->I2CSpeed = 2;
 -	req->SlaveAddress = address;
 -	req->NumCmds = numbytes;
@@ -172,9 +172,9 @@ index c751f717a0daff..b4aa489e4a431a 100644
 -
 -		/* First 2 bytes are always write for lower 2b EEPROM address */
 -		if (i < 2)
--			cmd->CmdConfig = CMDCONFIG_READWRITE_MASK;
+-			cmd->Cmd = 1;
 -		else
--			cmd->CmdConfig = write ? CMDCONFIG_READWRITE_MASK : 0;
+-			cmd->Cmd = write;
 -
 -
 -		/* Add RESTART for read  after address filled */
@@ -184,16 +184,16 @@ index c751f717a0daff..b4aa489e4a431a 100644
 -		cmd->CmdConfig |= (i == (numbytes - 1)) ? CMDCONFIG_STOP_MASK : 0;
 -
 -		/* Fill with data regardless if read or write to simplify code */
--		cmd->ReadWriteData = data[i];
+-		cmd->RegisterAddr = data[i];
 -	}
 -}
 -
--static int sienna_cichlid_i2c_read_data(struct i2c_adapter *control,
+-static int arcturus_i2c_read_data(struct i2c_adapter *control,
 -					       uint8_t address,
 -					       uint8_t *data,
 -					       uint32_t numbytes)
-+static int sienna_cichlid_i2c_xfer(struct i2c_adapter *i2c_adap,
-+				   struct i2c_msg *msgs, int num)
++static int arcturus_i2c_xfer(struct i2c_adapter *i2c_adap,
++			     struct i2c_msg *msgs, int num)
  {
 -	uint32_t  i, ret = 0;
 -	SwI2cRequest_t req;
@@ -222,7 +222,7 @@ index c751f717a0daff..b4aa489e4a431a 100644
  	}
  
 -	memset(&req, 0, sizeof(req));
--	sienna_cichlid_fill_i2c_req(&req, false, address, numbytes, data);
+-	arcturus_fill_i2c_req(&req, false, address, numbytes, data);
 -
 -	mutex_lock(&adev->smu.mutex);
 -	/* Now read data starting with that address */
@@ -235,9 +235,9 @@ index c751f717a0daff..b4aa489e4a431a 100644
 -
 -		/* Assume SMU  fills res.SwI2cCmds[i].Data with read bytes */
 -		for (i = 0; i < numbytes; i++)
--			data[i] = res->SwI2cCmds[i].ReadWriteData;
+-			data[i] = res->SwI2cCmds[i].Data;
 -
--		dev_dbg(adev->dev, "sienna_cichlid_i2c_read_data, address = %x, bytes = %d, data :",
+-		dev_dbg(adev->dev, "arcturus_i2c_read_data, address = %x, bytes = %d, data :",
 -				  (uint16_t)address, numbytes);
 +	req = kzalloc(sizeof(*req), GFP_KERNEL);
 +	if (!req)
@@ -246,7 +246,7 @@ index c751f717a0daff..b4aa489e4a431a 100644
 -		print_hex_dump(KERN_DEBUG, "data: ", DUMP_PREFIX_NONE,
 -			       8, 1, data, numbytes, false);
 -	} else
--		dev_err(adev->dev, "sienna_cichlid_i2c_read_data - error occurred :%x", ret);
+-		dev_err(adev->dev, "arcturus_i2c_read_data - error occurred :%x", ret);
 +	req->I2CcontrollerPort = 1;
 +	req->I2CSpeed = I2C_SPEED_FAST_400K;
 +	req->SlaveAddress = slave << 1; /* 8 bit addresses */
@@ -259,7 +259,7 @@ index c751f717a0daff..b4aa489e4a431a 100644
 +	for (i = 0; i < num; i++) {
 +		struct i2c_msg *msg = &msgs[i];
  
--static int sienna_cichlid_i2c_write_data(struct i2c_adapter *control,
+-static int arcturus_i2c_write_data(struct i2c_adapter *control,
 -						uint8_t address,
 -						uint8_t *data,
 -						uint32_t numbytes)
@@ -278,8 +278,8 @@ index c751f717a0daff..b4aa489e4a431a 100644
 +			remaining_bytes--;
 +			if (!(msg[i].flags & I2C_M_RD)) {
 +				/* write */
-+				cmd->CmdConfig |= CMDCONFIG_READWRITE_MASK;
-+				cmd->ReadWriteData = msg->buf[j];
++				cmd->CmdConfig |= I2C_CMD_WRITE;
++				cmd->RegisterAddr = msg->buf[j];
 +			}
 +			if ((msg[i].flags & I2C_M_STOP) ||
 +			    (!remaining_bytes))
@@ -290,7 +290,7 @@ index c751f717a0daff..b4aa489e4a431a 100644
  	}
 -
 -	memset(&req, 0, sizeof(req));
--	sienna_cichlid_fill_i2c_req(&req, true, address, numbytes, data);
+-	arcturus_fill_i2c_req(&req, true, address, numbytes, data);
 -
  	mutex_lock(&adev->smu.mutex);
 -	ret = smu_cmn_update_table(&adev->smu, SMU_TABLE_I2C_COMMANDS, 0, &req, true);
@@ -300,7 +300,7 @@ index c751f717a0daff..b4aa489e4a431a 100644
 +		goto fail;
  
 -	if (!ret) {
--		dev_dbg(adev->dev, "sienna_cichlid_i2c_write(), address = %x, bytes = %d , data: ",
+-		dev_dbg(adev->dev, "arcturus_i2c_write(), address = %x, bytes = %d , data: ",
 -					 (uint16_t)address, numbytes);
 -
 -		print_hex_dump(KERN_DEBUG, "data: ", DUMP_PREFIX_NONE,
@@ -314,12 +314,12 @@ index c751f717a0daff..b4aa489e4a431a 100644
 -		msleep(10);
 -
 -	} else
--		dev_err(adev->dev, "sienna_cichlid_i2c_write- error occurred :%x", ret);
+-		dev_err(adev->dev, "arcturus_i2c_write- error occurred :%x", ret);
 -
 -	return ret;
 -}
 -
--static int sienna_cichlid_i2c_xfer(struct i2c_adapter *i2c_adap,
+-static int arcturus_i2c_xfer(struct i2c_adapter *i2c_adap,
 -			      struct i2c_msg *msgs, int num)
 -{
 -	uint32_t  i, j, ret, data_size, data_chunk_size, next_eeprom_addr = 0;
@@ -342,26 +342,26 @@ index c751f717a0daff..b4aa489e4a431a 100644
 -			/* Insert the EEPROM dest addess, bits 0-15 */
 -			data_chunk[0] = ((next_eeprom_addr >> 8) & 0xff);
 -			data_chunk[1] = (next_eeprom_addr & 0xff);
--
--			if (msgs[i].flags & I2C_M_RD) {
--				ret = sienna_cichlid_i2c_read_data(i2c_adap,
--							     (uint8_t)msgs[i].addr,
--							     data_chunk, MAX_SW_I2C_COMMANDS);
--
--				memcpy(data_ptr, data_chunk + 2, data_chunk_size);
--			} else {
 +		struct i2c_msg *msg = &msgs[i];
  
--				memcpy(data_chunk + 2, data_ptr, data_chunk_size);
--
--				ret = sienna_cichlid_i2c_write_data(i2c_adap,
--							      (uint8_t)msgs[i].addr,
--							      data_chunk, MAX_SW_I2C_COMMANDS);
--			}
+-			if (msgs[i].flags & I2C_M_RD) {
+-				ret = arcturus_i2c_read_data(i2c_adap,
+-							     (uint8_t)msgs[i].addr,
+-							     data_chunk, MAX_SW_I2C_COMMANDS);
 +		msg_bytes = min(msg->len, remaining_bytes);
 +		for (j = 0; j < msg_bytes; j++) {
 +			SwI2cCmd_t *cmd = &res->SwI2cCmds[c++];
  
+-				memcpy(data_ptr, data_chunk + 2, data_chunk_size);
+-			} else {
+-
+-				memcpy(data_chunk + 2, data_ptr, data_chunk_size);
+-
+-				ret = arcturus_i2c_write_data(i2c_adap,
+-							      (uint8_t)msgs[i].addr,
+-							      data_chunk, MAX_SW_I2C_COMMANDS);
+-			}
+-
 -			if (ret) {
 -				num = -EIO;
 -				goto fail;
@@ -376,7 +376,7 @@ index c751f717a0daff..b4aa489e4a431a 100644
 -			data_chunk[1] = (next_eeprom_addr & 0xff);
 -
 -			if (msgs[i].flags & I2C_M_RD) {
--				ret = sienna_cichlid_i2c_read_data(i2c_adap,
+-				ret = arcturus_i2c_read_data(i2c_adap,
 -							     (uint8_t)msgs[i].addr,
 -							     data_chunk, (data_size % data_chunk_size) + 2);
 -
@@ -384,7 +384,7 @@ index c751f717a0daff..b4aa489e4a431a 100644
 -			} else {
 -				memcpy(data_chunk + 2, data_ptr, data_size % data_chunk_size);
 -
--				ret = sienna_cichlid_i2c_write_data(i2c_adap,
+-				ret = arcturus_i2c_write_data(i2c_adap,
 -							      (uint8_t)msgs[i].addr,
 -							      data_chunk, (data_size % data_chunk_size) + 2);
 -			}
@@ -395,7 +395,7 @@ index c751f717a0daff..b4aa489e4a431a 100644
 -			}
 +			remaining_bytes--;
 +			if (msg[i].flags & I2C_M_RD)
-+				msg->buf[j] = cmd->ReadWriteData;
++				msg->buf[j] = cmd->Data;
  		}
  	}
 +	r = bytes_to_transfer;
@@ -407,7 +407,7 @@ index c751f717a0daff..b4aa489e4a431a 100644
 +	return r;
  }
  
- static u32 sienna_cichlid_i2c_func(struct i2c_adapter *adap)
+ static u32 arcturus_i2c_func(struct i2c_adapter *adap)
 -- 
 2.32.0
 
