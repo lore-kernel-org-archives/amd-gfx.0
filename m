@@ -2,65 +2,101 @@ Return-Path: <SRS0=/TO6=LI=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C429FC48BE6
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Jun 2021 20:01:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 007D6C2B9F4
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Jun 2021 22:07:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8DCB661246
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Jun 2021 20:01:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8DCB661246
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id AAB836102A
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Jun 2021 22:07:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AAB836102A
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5168089CAD;
-	Mon, 14 Jun 2021 20:01:06 +0000 (UTC)
-Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
- [IPv6:2607:f8b0:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DFA989CD9
- for <amd-gfx@lists.freedesktop.org>; Mon, 14 Jun 2021 20:01:05 +0000 (UTC)
-Received: by mail-oi1-x231.google.com with SMTP id x196so15651960oif.10
- for <amd-gfx@lists.freedesktop.org>; Mon, 14 Jun 2021 13:01:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=V7TFbrkwRXbvZszfgSKyTerdC8b3H3hqRYt/we/H/9I=;
- b=o+gHYJ23mBt0QaGuN3YZGflqG6CC4Vc3yqTgNYfwtpOf498J775Wy8soS9Qfcd0TXU
- H+OepOXWUEcRMpG8JYirCaPliCOJblgMk2xYoQBAQGRB3j7z/X9C6ZhJoVghZ3hK5Qzs
- f1dhSyZ5lYCLAZK3a+cHdQGHN1GS50YsJNTl9xr+MPQ/SlE1VjCqpT04Gakt3ZoEd+Ss
- Gw+6zCe9/xAzNS8PKUbfY9btKwTnn8jewEda2GhQniiP2+YZv1D2W/POnTUbsKHHKLRx
- A4q2tjG4JHbYU451xMXGrG7DZ9FYBZestx+kaG+8c9lkE8RRNdUH9X16FACDLuukD/+q
- jlmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=V7TFbrkwRXbvZszfgSKyTerdC8b3H3hqRYt/we/H/9I=;
- b=VqmkC92w5hvy9neNKkaz+fm2bgKvc6X0DpGMhc05zNvgT+aBeesTX+/qRNn9n+OdrV
- F4FZh+sbjmYzBTuX4/5+ZvV/wIKrZub2L+s8oq45sFHELqUyLbNOqa2aWtCaH6gySySY
- KV66/8WFZUGG8pjj0IzlDTi3ajVBuBHr0kwdnW6HBsQNows+MqPbHt2RA9fcUivmp+HS
- 66HGvITyVmFm46cqrushFhkLs9nf3KAcvVcdYKvlT+ZUeA+AXeDOrAYbbSW5z9e0mXft
- ozyf/SQlsaU8vHrz0IUx8UxNJWrKiZK44XD6pOlZkrXN0TqT3R2X8FrE0dhdW3VWJfdE
- dEug==
-X-Gm-Message-State: AOAM530u63JuI9JbVkrdIdyaRB7O/altCgowEh5cA03WnFae/ZwL4wA5
- ov+8EGx0KI5WTYhaHNkvLl6MjqRoiHBLHujev9U=
-X-Google-Smtp-Source: ABdhPJy/ouKaFZi1u5pRE7+JrHHUFedN/SctyieswQyXH2ktYFGlVcsVCtlTucxx1CcHP7kfRWMFCcpdswH2jfqS93g=
-X-Received: by 2002:a05:6808:999:: with SMTP id
- a25mr11571483oic.123.1623700864672; 
- Mon, 14 Jun 2021 13:01:04 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 526D7898BF;
+	Mon, 14 Jun 2021 22:07:16 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2080.outbound.protection.outlook.com [40.107.94.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6D85898BF
+ for <amd-gfx@lists.freedesktop.org>; Mon, 14 Jun 2021 22:07:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=BPeRq6fTz5+ovoMEHAT3zhEel69pj7sHesV+DJGLTbtVkN8w6BGW955p4SfNoMoXRQRcGe0q0z5STkLVGANCFjeWNbvCqzXM69d2HuVhA0HxEqqn8g36AjJ6w10JPz+iuJBPNBKBqhPwSxCZyFDigNnIRRmW/s0NhbPMEf9q70HLeSLbbr5ocoZjLtsdM4Fy4EtG7Z5UeGKYqlT4HWQpve65oorZEUv/SokjfD+dHd8uH09oCBE4stKfwwmyKHr/A9xgcWodK8zpZ/QRkGvpiUM3PlcutwoFjvkJKCXJBQcqDb7jCSnvNlOLXXDZNLwqGKyHMBnah6u1ajWZSl9ffw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LtqzCmOmVgnjTesU6w5kVuAaJcu2Sl8WYiLN9fZ9v8g=;
+ b=Mh2Vtdm3sc8bq5MZZHRiBDSxdXwL163L9/lHdsbte8qEZovrWo4E5vYKl9aEOCOpKekLUxksdribaedKTk2ovd5V9rP3qGsOvJthFkourC2ZkbbOTVqQotDHT/MY4qUJpFbV/Viijs6np4nyPc/knEyuHjJlyCviNLwsGkRG/gLce1w+fC1zah6lfYIiy9PcYstzT9SaPPgdIAaWaMAQvmX13p6HMmlXJmqyqtYRx2urqX+rKZDTyICXcDZEeAZl3FadJHEYfopK4YZXcD7Cbh3Hq12bz3gBLzqUZmzHsT1r/mB7Ul3seHlknd9luLIrA7vlCuESQidp+0we6ctUQg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LtqzCmOmVgnjTesU6w5kVuAaJcu2Sl8WYiLN9fZ9v8g=;
+ b=FyJ+S6v5H9w0oLBgYuevA3BGPZnObcjK95NE2CQGNAcelQ+TaaTD8zfb7D19Eg52mLK7O39pcpara0W7f4Ncdpng4rkgX4MybI6Ze7hF5L5leUwmuqziJ4wqVuHpZIloYyaM4JI4vfVk8hV42JcUUDu4Fi+hLq3ZqTInz+8csa0=
+Received: from MW4PR04CA0390.namprd04.prod.outlook.com (2603:10b6:303:81::35)
+ by MN2PR12MB4336.namprd12.prod.outlook.com (2603:10b6:208:1df::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.24; Mon, 14 Jun
+ 2021 22:07:14 +0000
+Received: from CO1NAM11FT024.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:81:cafe::f0) by MW4PR04CA0390.outlook.office365.com
+ (2603:10b6:303:81::35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.20 via Frontend
+ Transport; Mon, 14 Jun 2021 22:07:14 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT024.mail.protection.outlook.com (10.13.174.162) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4219.21 via Frontend Transport; Mon, 14 Jun 2021 22:07:14 +0000
+Received: from Harpoon.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Mon, 14 Jun
+ 2021 17:07:12 -0500
+From: Felix Kuehling <Felix.Kuehling@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/1] drm/amdgpu: Use spinlock_irqsave for pasid_lock
+Date: Mon, 14 Jun 2021 18:07:02 -0400
+Message-ID: <20210614220702.11246-1-Felix.Kuehling@amd.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-References: <20210614192653.18239-1-nirmoy.das@amd.com>
-In-Reply-To: <20210614192653.18239-1-nirmoy.das@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 14 Jun 2021 16:00:53 -0400
-Message-ID: <CADnq5_PZtBA-iXC1LcpGvi-xeMtx8QkUxY5_m_zarWsoeuufBQ@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] drm/amdgpu: parameterize ttm BO destroy callback
-To: Nirmoy Das <nirmoy.das@amd.com>
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 6c6e6fb3-b945-4285-3e31-08d92f80c41c
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4336:
+X-Microsoft-Antispam-PRVS: <MN2PR12MB43366E8D4615862EB995209392319@MN2PR12MB4336.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1751;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: LxnPDYFZ2/gR89zazXrrMo6cOAx2qd7kEU12ppdckUxWPffo3ESoJc+VsC80+Vxh7BnnoGeNXNVKJf/eum70jFIj19sa5Gd7v3u9bfweGx/+EPobu3RC/mUUyZ0fUoxBavu8N/n9P1jodMhCQwoiIWEmfaAN/A6nvHZLPdCvK5VAgfEDoaDvgBcTzadfm36absiXQvQRYB0S+Bqw6GTbHqpxXx4fiqA+tKhzHuJHfVMZuYoFaAWzOQmILr3GRIeLaZU3hJUoduYOryQaXQ236/b6T9JJDR/SxQHz1dOp88UnOuNcuvqs89KZkdYnt9ieEPad/NBzMF9ZP8t+N8JBzZpS0bG3u/3MHRDSZvW4TZyS7jzI9bNtGANNT4+u41+OHc2FIGXaK2bzZYDWaW6tifPR94I8CTNPwsr+f0mpsblcqTP7tWrYkC9ci488fOSruVusmtkmytbMJvcIGYRdtaxvneZ1ksOukCZi9TsVX5lTjK2vx+8NNZgX9f2ei6B1SNX3SePRbMpgO1KHClvSA/J280IZL0iZ3ihoweo9ehDlmPVrd9PwUNOpjW+pJi3y8LVdJQxFsk6N0BSioUMLzi67rBXf5YiZxIx9aTRfRa0M+JSdel92Gi8x0H9IP5psC0apjkEImitGGLOgtXjUK9qes+gb1syULwzkgtcfMxZxVULNT+wQQmH2GLvqY582
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(136003)(396003)(39860400002)(376002)(346002)(46966006)(36840700001)(2906002)(83380400001)(478600001)(1076003)(82740400003)(82310400003)(47076005)(6666004)(356005)(81166007)(316002)(8676002)(6916009)(2616005)(7696005)(426003)(5660300002)(16526019)(186003)(36860700001)(36756003)(86362001)(336012)(8936002)(26005)(70586007)(70206006)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jun 2021 22:07:14.0591 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6c6e6fb3-b945-4285-3e31-08d92f80c41c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT024.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4336
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,168 +108,75 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Christian Koenig <Christian.Koenig@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jun 14, 2021 at 3:27 PM Nirmoy Das <nirmoy.das@amd.com> wrote:
->
-> Make provision to pass different ttm BO destroy callback
-> while creating a amdgpu_bo.
->
-> v2: pass destroy callback using amdgpu_bo_param.
->
-> Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 52 +++++++++++++++++-----
->  drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |  3 +-
->  2 files changed, 42 insertions(+), 13 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> index 9092ac12a270..f4f57a73d095 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> @@ -12,7 +12,7 @@
->   *
->   * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
->   * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> - * FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL
-> + * FITNEsS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL
->   * THE COPYRIGHT HOLDERS, AUTHORS AND/OR ITS SUPPLIERS BE LIABLE FOR ANY CLAIM,
->   * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
->   * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+This should fix a kernel LOCKDEP warning on Vega10:
+[  149.416604] ================================
+[  149.420877] WARNING: inconsistent lock state
+[  149.425152] 5.11.0-kfd-fkuehlin #517 Not tainted
+[  149.429770] --------------------------------
+[  149.434053] inconsistent {HARDIRQ-ON-W} -> {IN-HARDIRQ-W} usage.
+[  149.440059] swapper/3/0 [HC1[1]:SC0[0]:HE0:SE1] takes:
+[  149.445198] ffff9ac80e005d68 (&adev->vm_manager.pasid_lock){?.+.}-{2:2}, at: amdgpu_vm_get_task_info+0x25/0x90 [amdgpu]
+[  149.456252] {HARDIRQ-ON-W} state was registered at:
+[  149.461136]   lock_acquire+0x242/0x390
+[  149.464895]   _raw_spin_lock+0x2c/0x40
+[  149.468647]   amdgpu_vm_handle_fault+0x44/0x380 [amdgpu]
+[  149.474187]   gmc_v9_0_process_interrupt+0xa8/0x410 [amdgpu]
+...
 
-Unrelated whitespace change.  Please drop.
+Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-Alex
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 3b6c0b48d0b1..0b63686fc31a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -3394,11 +3394,12 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+ {
+ 	bool is_compute_context = false;
+ 	struct amdgpu_bo *root;
++	unsigned long irqflags;
+ 	uint64_t value, flags;
+ 	struct amdgpu_vm *vm;
+ 	int r;
+ 
+-	spin_lock(&adev->vm_manager.pasid_lock);
++	spin_lock_irqsave(&adev->vm_manager.pasid_lock, irqflags);
+ 	vm = idr_find(&adev->vm_manager.pasid_idr, pasid);
+ 	if (vm) {
+ 		root = amdgpu_bo_ref(vm->root.base.bo);
+@@ -3406,7 +3407,7 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+ 	} else {
+ 		root = NULL;
+ 	}
+-	spin_unlock(&adev->vm_manager.pasid_lock);
++	spin_unlock_irqrestore(&adev->vm_manager.pasid_lock, irqflags);
+ 
+ 	if (!root)
+ 		return false;
+@@ -3424,11 +3425,11 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+ 		goto error_unref;
+ 
+ 	/* Double check that the VM still exists */
+-	spin_lock(&adev->vm_manager.pasid_lock);
++	spin_lock_irqsave(&adev->vm_manager.pasid_lock, irqflags);
+ 	vm = idr_find(&adev->vm_manager.pasid_idr, pasid);
+ 	if (vm && vm->root.base.bo != root)
+ 		vm = NULL;
+-	spin_unlock(&adev->vm_manager.pasid_lock);
++	spin_unlock_irqrestore(&adev->vm_manager.pasid_lock, irqflags);
+ 	if (!vm)
+ 		goto error_unlock;
+ 
+-- 
+2.32.0
 
-> @@ -73,11 +73,9 @@ static void amdgpu_bo_subtract_pin_size(struct amdgpu_bo *bo)
->         }
->  }
->
-> -static void amdgpu_bo_destroy(struct ttm_buffer_object *tbo)
-> +static void amdgpu_bo_destroy_base(struct ttm_buffer_object *tbo)
->  {
-> -       struct amdgpu_device *adev = amdgpu_ttm_adev(tbo->bdev);
->         struct amdgpu_bo *bo = ttm_to_amdgpu_bo(tbo);
-> -       struct amdgpu_bo_user *ubo;
->
->         if (bo->tbo.pin_count > 0)
->                 amdgpu_bo_subtract_pin_size(bo);
-> @@ -87,18 +85,40 @@ static void amdgpu_bo_destroy(struct ttm_buffer_object *tbo)
->         if (bo->tbo.base.import_attach)
->                 drm_prime_gem_destroy(&bo->tbo.base, bo->tbo.sg);
->         drm_gem_object_release(&bo->tbo.base);
-> +       amdgpu_bo_unref(&bo->parent);
-> +}
-> +
-> +static void amdgpu_bo_destroy(struct ttm_buffer_object *tbo)
-> +{
-> +       struct amdgpu_bo *bo = ttm_to_amdgpu_bo(tbo);
-> +
-> +       amdgpu_bo_destroy_base(tbo);
-> +       kvfree(bo);
-> +}
-> +
-> +static void amdgpu_bo_user_destroy(struct ttm_buffer_object *tbo)
-> +{
-> +       struct amdgpu_bo *bo = ttm_to_amdgpu_bo(tbo);
-> +       struct amdgpu_bo_user *ubo;
-> +
-> +       amdgpu_bo_destroy_base(tbo);
-> +       ubo = to_amdgpu_bo_user(bo);
-> +       kfree(ubo->metadata);
-> +       kvfree(bo);
-> +}
-> +
-> +static void amdgpu_bo_vm_destroy(struct ttm_buffer_object *tbo)
-> +{
-> +       struct amdgpu_device *adev = amdgpu_ttm_adev(tbo->bdev);
-> +       struct amdgpu_bo *bo = ttm_to_amdgpu_bo(tbo);
-> +
-> +       amdgpu_bo_destroy_base(tbo);
->         /* in case amdgpu_device_recover_vram got NULL of bo->parent */
->         if (!list_empty(&bo->shadow_list)) {
->                 mutex_lock(&adev->shadow_list_lock);
->                 list_del_init(&bo->shadow_list);
->                 mutex_unlock(&adev->shadow_list_lock);
->         }
-> -       amdgpu_bo_unref(&bo->parent);
-> -
-> -       if (bo->tbo.type != ttm_bo_type_kernel) {
-> -               ubo = to_amdgpu_bo_user(bo);
-> -               kfree(ubo->metadata);
-> -       }
->
->         kvfree(bo);
->  }
-> @@ -115,8 +135,11 @@ static void amdgpu_bo_destroy(struct ttm_buffer_object *tbo)
->   */
->  bool amdgpu_bo_is_amdgpu_bo(struct ttm_buffer_object *bo)
->  {
-> -       if (bo->destroy == &amdgpu_bo_destroy)
-> +       if (bo->destroy == &amdgpu_bo_destroy ||
-> +           bo->destroy == &amdgpu_bo_user_destroy ||
-> +           bo->destroy == &amdgpu_bo_vm_destroy)
->                 return true;
-> +
->         return false;
->  }
->
-> @@ -592,9 +615,12 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
->         if (bp->type == ttm_bo_type_kernel)
->                 bo->tbo.priority = 1;
->
-> +       if (!bp->destroy)
-> +               bp->destroy = &amdgpu_bo_destroy;
-> +
->         r = ttm_bo_init_reserved(&adev->mman.bdev, &bo->tbo, size, bp->type,
->                                  &bo->placement, page_align, &ctx,  NULL,
-> -                                bp->resv, &amdgpu_bo_destroy);
-> +                                bp->resv, bp->destroy);
->         if (unlikely(r != 0))
->                 return r;
->
-> @@ -658,6 +684,7 @@ int amdgpu_bo_create_user(struct amdgpu_device *adev,
->         int r;
->
->         bp->bo_ptr_size = sizeof(struct amdgpu_bo_user);
-> +       bp->destroy = &amdgpu_bo_user_destroy;
->         r = amdgpu_bo_create(adev, bp, &bo_ptr);
->         if (r)
->                 return r;
-> @@ -689,6 +716,7 @@ int amdgpu_bo_create_vm(struct amdgpu_device *adev,
->          * num of amdgpu_vm_pt entries.
->          */
->         BUG_ON(bp->bo_ptr_size < sizeof(struct amdgpu_bo_vm));
-> +       bp->destroy = &amdgpu_bo_vm_destroy;
->         r = amdgpu_bo_create(adev, bp, &bo_ptr);
->         if (r)
->                 return r;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-> index e36b84516b4e..a8c702634e1b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-> @@ -55,7 +55,8 @@ struct amdgpu_bo_param {
->         u64                             flags;
->         enum ttm_bo_type                type;
->         bool                            no_wait_gpu;
-> -       struct dma_resv *resv;
-> +       struct dma_resv                 *resv;
-> +       void                            (*destroy)(struct ttm_buffer_object *bo);
->  };
->
->  /* bo virtual addresses in a vm */
-> --
-> 2.31.1
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
