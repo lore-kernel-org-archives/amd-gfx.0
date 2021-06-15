@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1F190C49EA2
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B0343C48BE8
 	for <amd-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 14:14:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E7FD6613CC
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 14:14:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E7FD6613CC
+	by mail.kernel.org (Postfix) with ESMTPS id 7E2A5613DA
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 14:14:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7E2A5613DA
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=tuxedocomputers.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 881456E3E5;
-	Tue, 15 Jun 2021 14:14:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B787B6E3DA;
+	Tue, 15 Jun 2021 14:14:39 +0000 (UTC)
 Received: from srv6.fidu.org (srv6.fidu.org [159.69.62.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8E556E328;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 513EC6E1B4;
  Tue, 15 Jun 2021 14:14:38 +0000 (UTC)
 Received: from localhost (localhost.localdomain [127.0.0.1])
- by srv6.fidu.org (Postfix) with ESMTP id 719ACC800B2;
- Tue, 15 Jun 2021 16:14:37 +0200 (CEST)
+ by srv6.fidu.org (Postfix) with ESMTP id EF3A3C800AF;
+ Tue, 15 Jun 2021 16:14:36 +0200 (CEST)
 X-Virus-Scanned: Debian amavisd-new at srv6.fidu.org
 Received: from srv6.fidu.org ([127.0.0.1])
  by localhost (srv6.fidu.org [127.0.0.1]) (amavisd-new, port 10026)
- with LMTP id a2AqiG0pZna1; Tue, 15 Jun 2021 16:14:37 +0200 (CEST)
+ with LMTP id DkCBs6n-haNd; Tue, 15 Jun 2021 16:14:36 +0200 (CEST)
 Received: from wsembach-tuxedo.fritz.box
  (p200300e37F3949009F7CF2Abd5Da2787.dip0.t-ipconnect.de
  [IPv6:2003:e3:7f39:4900:9f7c:f2ab:d5da:2787])
  (Authenticated sender: wse@tuxedocomputers.com)
- by srv6.fidu.org (Postfix) with ESMTPA id 07F97C80095;
- Tue, 15 Jun 2021 16:14:37 +0200 (CEST)
+ by srv6.fidu.org (Postfix) with ESMTPA id 90F91C80095;
+ Tue, 15 Jun 2021 16:14:36 +0200 (CEST)
 From: Werner Sembach <wse@tuxedocomputers.com>
 To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
  christian.koenig@amd.com, airlied@linux.ie, daniel@ffwll.ch,
@@ -44,10 +44,10 @@ To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
  rodrigo.vivi@intel.com, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  intel-gfx@lists.freedesktop.org
-Subject: [PATCH v3 06/14] drm/uAPI: Add "active color format" drm property as
- feedback for userspace
-Date: Tue, 15 Jun 2021 16:14:17 +0200
-Message-Id: <20210615141426.6001-7-wse@tuxedocomputers.com>
+Subject: [PATCH v3 04/14] drm/amd/display: Add handling for new "active bpc"
+ property
+Date: Tue, 15 Jun 2021 16:14:15 +0200
+Message-Id: <20210615141426.6001-5-wse@tuxedocomputers.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210615141426.6001-1-wse@tuxedocomputers.com>
 References: <20210615141426.6001-1-wse@tuxedocomputers.com>
@@ -69,131 +69,67 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add a new general drm property "active color format" which can be used by
-graphic drivers to report the used color format back to userspace.
-
-There was no way to check which color format got actually used on a given
-monitor. To surely predict this, one must know the exact capabilities of the
-monitor, the GPU, and the connection used and what the default behaviour of the
-used driver is (e.g. amdgpu prefers YCbCr 4:4:4 while i915 prefers RGB). This
-property helps eliminating the guessing on this point.
-
-In the future, automatic color calibration for screens might also depend on this
-information being available.
+This commit implements the "active bpc" drm property for the AMD GPU driver.
 
 Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
 ---
- drivers/gpu/drm/drm_connector.c | 56 +++++++++++++++++++++++++++++++++
- include/drm/drm_connector.h     |  8 +++++
- 2 files changed, 64 insertions(+)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 19 ++++++++++++++++++-
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  4 ++++
+ 2 files changed, 22 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index 02c310c1ac2d..2411b964c342 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -889,6 +889,14 @@ static const struct drm_prop_enum_list drm_dp_subconnector_enum_list[] = {
- 	{ DRM_MODE_SUBCONNECTOR_Native,	     "Native"    }, /* DP */
- };
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index cd1df5cf4815..f31bbcb11f03 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -7713,8 +7713,10 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
+ 				adev->mode_info.underscan_vborder_property,
+ 				0);
  
-+static const struct drm_prop_enum_list drm_active_color_format_enum_list[] = {
-+	{ 0, "unknown" },
-+	{ DRM_COLOR_FORMAT_RGB444, "rgb" },
-+	{ DRM_COLOR_FORMAT_YCRCB444, "ycbcr444" },
-+	{ DRM_COLOR_FORMAT_YCRCB422, "ycbcr422" },
-+	{ DRM_COLOR_FORMAT_YCRCB420, "ycbcr420" },
-+};
-+
- DRM_ENUM_NAME_FN(drm_get_dp_subconnector_name,
- 		 drm_dp_subconnector_enum_list)
+-	if (!aconnector->mst_port)
++	if (!aconnector->mst_port) {
+ 		drm_connector_attach_max_bpc_property(&aconnector->base, 8, 16);
++		drm_connector_attach_active_bpc_property(&aconnector->base, 8, 16);
++	}
  
-@@ -1205,6 +1213,14 @@ static const struct drm_prop_enum_list dp_colorspaces[] = {
-  *	Drivers shall use drm_connector_attach_active_bpc_property() to install
-  *	this property.
-  *
-+ * active color format:
-+ *	This read-only property tells userspace the color format actually used
-+ *	by the hardware display engine on "the cable" on a connector. The chosen
-+ *	value depends on hardware capabilities, both display engine and
-+ *	connected monitor. Drivers shall use
-+ *	drm_connector_attach_active_color_format_property() to install this
-+ *	property.
-+ *
-  * Connectors also have one standardized atomic property:
-  *
-  * CRTC_ID:
-@@ -2202,6 +2218,46 @@ void drm_connector_set_active_bpc_property(struct drm_connector *connector, int
- }
- EXPORT_SYMBOL(drm_connector_set_active_bpc_property);
+ 	/* This defaults to the max in the range, but we want 8bpc for non-edp. */
+ 	aconnector->base.state->max_bpc = (connector_type == DRM_MODE_CONNECTOR_eDP) ? 16 : 8;
+@@ -9083,6 +9085,21 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
+ 		mutex_unlock(&dm->dc_lock);
+ 	}
  
-+/**
-+ * drm_connector_attach_active_color_format_property - attach "active color format" property
-+ * @connector: connector to attach active color format property on.
-+ *
-+ * This is used to check the applied color format on a connector.
-+ *
-+ * Returns:
-+ * Zero on success, negative errno on failure.
-+ */
-+int drm_connector_attach_active_color_format_property(struct drm_connector *connector)
-+{
-+	struct drm_device *dev = connector->dev;
-+	struct drm_property *prop;
-+
-+	if (!connector->active_color_format_property) {
-+		prop = drm_property_create_enum(dev, DRM_MODE_PROP_IMMUTABLE, "active color format", drm_active_color_format_enum_list, ARRAY_SIZE(drm_active_color_format_enum_list));
-+		if (!prop)
-+			return -ENOMEM;
-+
-+		connector->active_color_format_property = prop;
-+		drm_object_attach_property(&connector->base, prop, 0);
++	/* Extract information from crtc to communicate it to userspace as connector properties */
++	for_each_new_connector_in_state(state, connector, new_con_state, i) {
++		struct drm_crtc *crtc = new_con_state->crtc;
++		if (crtc) {
++			new_crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
++			dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
++			if (dm_new_crtc_state->stream)
++				drm_connector_set_active_bpc_property(connector,
++					convert_dc_color_depth_into_bpc(
++					dm_new_crtc_state->stream->timing.display_color_depth));
++		}
++		else
++			drm_connector_set_active_bpc_property(connector, 0);
 +	}
 +
-+	return 0;
-+}
-+EXPORT_SYMBOL(drm_connector_attach_active_color_format_property);
-+
-+/**
-+ * drm_connector_set_active_color_format_property - sets the active color format property for a connector
-+ * @connector: drm connector
-+ * @active_color_format: color format for the connector currently active on "the cable"
-+ *
-+ * Should be used by atomic drivers to update the active color format over a connector.
-+ */
-+void drm_connector_set_active_color_format_property(struct drm_connector *connector, u32 active_color_format)
-+{
-+	drm_object_property_set_value(&connector->base, connector->active_color_format_property, active_color_format);
-+}
-+EXPORT_SYMBOL(drm_connector_set_active_color_format_property);
-+
- /**
-  * drm_connector_attach_hdr_output_metadata_property - attach "HDR_OUTPUT_METADA" property
-  * @connector: connector to attach the property on.
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index eee86de62a5f..99e4989dd6b3 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -1386,6 +1386,12 @@ struct drm_connector {
- 	 */
- 	struct drm_property *active_bpc_property;
+ 	/* Count number of newly disabled CRTCs for dropping PM refs later. */
+ 	for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state,
+ 				      new_crtc_state, i) {
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+index 5568d4e518e6..0cf38743ec47 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+@@ -409,6 +409,10 @@ dm_dp_add_mst_connector(struct drm_dp_mst_topology_mgr *mgr,
+ 	if (connector->max_bpc_property)
+ 		drm_connector_attach_max_bpc_property(connector, 8, 16);
  
-+	/**
-+	 * @active_color_format_property: Default connector property for the
-+	 * active color format to be driven out of the connector.
-+	 */
-+	struct drm_property *active_color_format_property;
++	connector->active_bpc_property = master->base.active_bpc_property;
++	if (connector->active_bpc_property)
++		drm_connector_attach_active_bpc_property(&aconnector->base, 8, 16);
 +
- #define DRM_CONNECTOR_POLL_HPD (1 << 0)
- #define DRM_CONNECTOR_POLL_CONNECT (1 << 1)
- #define DRM_CONNECTOR_POLL_DISCONNECT (1 << 2)
-@@ -1710,6 +1716,8 @@ int drm_connector_attach_max_bpc_property(struct drm_connector *connector,
- 					  int min, int max);
- int drm_connector_attach_active_bpc_property(struct drm_connector *connector, int min, int max);
- void drm_connector_set_active_bpc_property(struct drm_connector *connector, int active_bpc);
-+int drm_connector_attach_active_color_format_property(struct drm_connector *connector);
-+void drm_connector_set_active_color_format_property(struct drm_connector *connector, u32 active_color_format);
- 
- /**
-  * struct drm_tile_group - Tile group metadata
+ 	connector->vrr_capable_property = master->base.vrr_capable_property;
+ 	if (connector->vrr_capable_property)
+ 		drm_connector_attach_vrr_capable_property(connector);
 -- 
 2.25.1
 
