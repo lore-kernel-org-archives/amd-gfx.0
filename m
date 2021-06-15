@@ -7,44 +7,44 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 004DAC48BE8
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 15:49:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D0FA0C49EA3
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 15:49:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C151661879
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 15:49:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C151661879
+	by mail.kernel.org (Postfix) with ESMTPS id A7B66616E9
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 15:49:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A7B66616E9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71F1B6E3D8;
-	Tue, 15 Jun 2021 15:49:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D22916E3EB;
+	Tue, 15 Jun 2021 15:49:43 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB8D98994A;
- Tue, 15 Jun 2021 15:49:00 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id C32496162A;
- Tue, 15 Jun 2021 15:48:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 872408994A;
+ Tue, 15 Jun 2021 15:49:42 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 7F3666162B;
+ Tue, 15 Jun 2021 15:49:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1623772140;
- bh=dH7xJQayrZBIPMfOJf6UdvY+v0w6s/jfGmwldd66918=;
+ s=k20201202; t=1623772182;
+ bh=6NxuvCGk51nsXq5pGEu5nJ8b/BYRPTFhx9c/hZs7Fm0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=fMGe0Yvl0wEH8qas1aBqPugO6rxd8yjXx7rR9mY0MlpONUq9uC8IDdFqnE7ZXle2Q
- j0nv9JJdcYek2QvsvjQKP24BDjq4C0gXmIaChNucV2O3cLG9ntCg2zgJ5mvp7BRnVd
- ZxL4D2f6IQAgMxJEt2PYknp5pPq9rVBpz1w44ffTZ3w8LJzTCO8xMMB4mdPPqnviYX
- fM+gyi5Bubx1i2e23pWmH3WrnhChcztWaaVjGOlBn3Yzo+7C2J8NTYsK6MC99TkUHJ
- 93pssYfbCbWU8FywMbTNDxk3Wyv0MyflxsGM96xqwuDLK4dhSGd2M/cXq35mdVNQn8
- d9Cw67yJMIXZg==
+ b=D7wC9UXfhZtvf6axDRwJtO5H1mkbKsJorpDjEfv2jBAS82eiQP5FWOBeerzwRE06k
+ kJ25rgV/CDJxNsn9OuER6cJP+XdbPb1n5UNdGi8BP/MqNdrK94TwMRhKZKV4CW9scv
+ ySh6rJ26cPN7fejqIyBxLSebLbIBwX6L22CRfInfYopxnfO6n+wjOKRvfufg4VZy6t
+ 3yGGHcFBgVSYlAtJlW1pX9UegNXdwc1iutFeXnuS6yCkjuYwDU8rdbQ7I+SULApYyd
+ KGkFEXGnSWwHh4agCJSIOEwu9gj6FCQZZh6ka3/B3A+H7ot7MAqF8gLZPwVgTII9ug
+ QQX5c6m0F+eCQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.12 28/33] radeon: use memcpy_to/fromio for UVD fw
+Subject: [PATCH AUTOSEL 5.10 26/30] radeon: use memcpy_to/fromio for UVD fw
  upload
-Date: Tue, 15 Jun 2021 11:48:19 -0400
-Message-Id: <20210615154824.62044-28-sashal@kernel.org>
+Date: Tue, 15 Jun 2021 11:49:03 -0400
+Message-Id: <20210615154908.62388-26-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210615154824.62044-1-sashal@kernel.org>
-References: <20210615154824.62044-1-sashal@kernel.org>
+In-Reply-To: <20210615154908.62388-1-sashal@kernel.org>
+References: <20210615154908.62388-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -84,8 +84,8 @@ ZXIuZGV1Y2hlckBhbWQuY29tPgpTaWduZWQtb2ZmLWJ5OiBTYXNoYSBMZXZpbiA8c2FzaGFsQGtl
 cm5lbC5vcmc+Ci0tLQogZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fdXZkLmMgfCA0ICsr
 LS0KIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCgpkaWZm
 IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fdXZkLmMgYi9kcml2ZXJzL2dw
-dS9kcm0vcmFkZW9uL3JhZGVvbl91dmQuYwppbmRleCBkZmE5ZmRiZTk4ZGEuLjA2YmIyNGQ3YTlm
-ZSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fdXZkLmMKKysrIGIv
+dS9kcm0vcmFkZW9uL3JhZGVvbl91dmQuYwppbmRleCA1N2ZiM2ViM2E0YjQuLjFmNGUzMzk2ZDA5
+NyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fdXZkLmMKKysrIGIv
 ZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fdXZkLmMKQEAgLTI4Niw3ICsyODYsNyBAQCBp
 bnQgcmFkZW9uX3V2ZF9yZXN1bWUoc3RydWN0IHJhZGVvbl9kZXZpY2UgKnJkZXYpCiAJaWYgKHJk
 ZXYtPnV2ZC52Y3B1X2JvID09IE5VTEwpCiAJCXJldHVybiAtRUlOVkFMOwogCi0JbWVtY3B5KHJk
