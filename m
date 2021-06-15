@@ -7,34 +7,34 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 922B7C48BE5
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 14:14:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0DE96C49361
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 14:14:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5C5DF613CC
+	by mail.kernel.org (Postfix) with ESMTPS id DB9A3613CC
 	for <amd-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 14:14:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5C5DF613CC
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DB9A3613CC
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=tuxedocomputers.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5CB536E34B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D960A6E3F9;
 	Tue, 15 Jun 2021 14:14:41 +0000 (UTC)
-Received: from srv6.fidu.org (srv6.fidu.org [IPv6:2a01:4f8:231:de0::2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6D5C6E32F;
- Tue, 15 Jun 2021 14:14:38 +0000 (UTC)
+Received: from srv6.fidu.org (srv6.fidu.org [159.69.62.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDB4D89DB5;
+ Tue, 15 Jun 2021 14:14:37 +0000 (UTC)
 Received: from localhost (localhost.localdomain [127.0.0.1])
- by srv6.fidu.org (Postfix) with ESMTP id 3726EC800B1;
- Tue, 15 Jun 2021 16:14:37 +0200 (CEST)
+ by srv6.fidu.org (Postfix) with ESMTP id 73078C800AB;
+ Tue, 15 Jun 2021 16:14:36 +0200 (CEST)
 X-Virus-Scanned: Debian amavisd-new at srv6.fidu.org
 Received: from srv6.fidu.org ([127.0.0.1])
  by localhost (srv6.fidu.org [127.0.0.1]) (amavisd-new, port 10026)
- with LMTP id X4xK1ReBfyd7; Tue, 15 Jun 2021 16:14:37 +0200 (CEST)
+ with LMTP id uKqjFBh7Z-Zi; Tue, 15 Jun 2021 16:14:36 +0200 (CEST)
 Received: from wsembach-tuxedo.fritz.box
  (p200300e37F3949009F7CF2Abd5Da2787.dip0.t-ipconnect.de
  [IPv6:2003:e3:7f39:4900:9f7c:f2ab:d5da:2787])
  (Authenticated sender: wse@tuxedocomputers.com)
- by srv6.fidu.org (Postfix) with ESMTPA id C8355C800A1;
+ by srv6.fidu.org (Postfix) with ESMTPA id 112A4C80095;
  Tue, 15 Jun 2021 16:14:36 +0200 (CEST)
 From: Werner Sembach <wse@tuxedocomputers.com>
 To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
@@ -44,10 +44,10 @@ To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
  rodrigo.vivi@intel.com, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  intel-gfx@lists.freedesktop.org
-Subject: [PATCH v3 05/14] drm/i915/display: Add handling for new "active bpc"
- property
-Date: Tue, 15 Jun 2021 16:14:16 +0200
-Message-Id: <20210615141426.6001-6-wse@tuxedocomputers.com>
+Subject: [PATCH v3 02/14] drm/amd/display: Add missing cases
+ convert_dc_color_depth_into_bpc
+Date: Tue, 15 Jun 2021 16:14:13 +0200
+Message-Id: <20210615141426.6001-3-wse@tuxedocomputers.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210615141426.6001-1-wse@tuxedocomputers.com>
 References: <20210615141426.6001-1-wse@tuxedocomputers.com>
@@ -69,101 +69,29 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This commit implements the "active bpc" drm property for the Intel GPU driver.
+convert_dc_color_depth_into_bpc() that converts the enum dc_color_depth to an
+integer had the casses for COLOR_DEPTH_999 and COLOR_DEPTH_111111 missing.
 
 Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 14 ++++++++++++++
- drivers/gpu/drm/i915/display/intel_dp.c      |  8 ++++++--
- drivers/gpu/drm/i915/display/intel_dp_mst.c  |  5 +++++
- drivers/gpu/drm/i915/display/intel_hdmi.c    |  4 +++-
- 4 files changed, 28 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 6be1b31af07b..ee3669bd4662 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -10839,6 +10839,9 @@ static int intel_atomic_commit(struct drm_device *dev,
- {
- 	struct intel_atomic_state *state = to_intel_atomic_state(_state);
- 	struct drm_i915_private *dev_priv = to_i915(dev);
-+	struct drm_connector *connector;
-+	struct drm_connector_state *new_conn_state;
-+	int i;
- 	int ret = 0;
- 
- 	state->wakeref = intel_runtime_pm_get(&dev_priv->runtime_pm);
-@@ -10907,6 +10910,17 @@ static int intel_atomic_commit(struct drm_device *dev,
- 	intel_shared_dpll_swap_state(state);
- 	intel_atomic_track_fbs(state);
- 
-+	/* Extract information from crtc to communicate it to userspace as connector properties */
-+	for_each_new_connector_in_state(&state->base, connector, new_conn_state, i) {
-+		struct intel_crtc *crtc = to_intel_crtc(new_conn_state->crtc);
-+		if (crtc) {
-+			struct intel_crtc_state *new_crtc_state = intel_atomic_get_new_crtc_state(state, crtc);
-+			drm_connector_set_active_bpc_property(connector, new_crtc_state->pipe_bpp / 3);
-+		}
-+		else
-+			drm_connector_set_active_bpc_property(connector, 0);
-+	}
-+
- 	drm_atomic_state_get(&state->base);
- 	INIT_WORK(&state->base.commit_work, intel_atomic_commit_work);
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 5c9222283044..404a27e56ceb 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -4688,10 +4688,14 @@ intel_dp_add_properties(struct intel_dp *intel_dp, struct drm_connector *connect
- 		intel_attach_force_audio_property(connector);
- 
- 	intel_attach_broadcast_rgb_property(connector);
--	if (HAS_GMCH(dev_priv))
-+	if (HAS_GMCH(dev_priv)) {
- 		drm_connector_attach_max_bpc_property(connector, 6, 10);
--	else if (DISPLAY_VER(dev_priv) >= 5)
-+		drm_connector_attach_active_bpc_property(connector, 6, 10);
-+	}
-+	else if (DISPLAY_VER(dev_priv) >= 5) {
- 		drm_connector_attach_max_bpc_property(connector, 6, 12);
-+		drm_connector_attach_active_bpc_property(connector, 6, 12);
-+	}
- 
- 	/* Register HDMI colorspace for case of lspcon */
- 	if (intel_bios_is_lspcon_present(dev_priv, port)) {
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index b170e272bdee..16bfc59570a5 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -851,6 +851,11 @@ static struct drm_connector *intel_dp_add_mst_connector(struct drm_dp_mst_topolo
- 	if (connector->max_bpc_property)
- 		drm_connector_attach_max_bpc_property(connector, 6, 12);
- 
-+	connector->active_bpc_property =
-+		intel_dp->attached_connector->base.active_bpc_property;
-+	if (connector->active_bpc_property)
-+		drm_connector_attach_active_bpc_property(connector, 6, 12);
-+
- 	return connector;
- 
- err:
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index 7e51c98c475e..9160e21ac9d6 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -2513,8 +2513,10 @@ intel_hdmi_add_properties(struct intel_hdmi *intel_hdmi, struct drm_connector *c
- 	if (DISPLAY_VER(dev_priv) >= 10)
- 		drm_connector_attach_hdr_output_metadata_property(connector);
- 
--	if (!HAS_GMCH(dev_priv))
-+	if (!HAS_GMCH(dev_priv)) {
- 		drm_connector_attach_max_bpc_property(connector, 8, 12);
-+		drm_connector_attach_active_bpc_property(connector, 8, 12);
-+	}
- }
- 
- /*
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 44757720b15f..cd1df5cf4815 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -6705,6 +6705,10 @@ static int convert_dc_color_depth_into_bpc (enum dc_color_depth display_color_de
+ 			return 14;
+ 		case COLOR_DEPTH_161616:
+ 			return 16;
++		case COLOR_DEPTH_999:
++			return 9;
++		case COLOR_DEPTH_111111:
++			return 11;
+ 		default:
+ 			break;
+ 		}
 -- 
 2.25.1
 
