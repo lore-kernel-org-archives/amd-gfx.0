@@ -2,132 +2,75 @@ Return-Path: <SRS0=xdlw=LJ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-12.1 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9886CC48BDF
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 10:38:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 76246C48BDF
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 10:48:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6610A613DB
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 10:38:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6610A613DB
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 365E1610A3
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 10:48:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 365E1610A3
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 203DB89B18;
-	Tue, 15 Jun 2021 10:38:06 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2064.outbound.protection.outlook.com [40.107.244.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECE0089B18
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Jun 2021 10:38:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cm+fU9sjJtQXH6oYqwbK1wyBPvLt2P9VJJOzBe+bMvBuRTWMSn+KgWEuNxfbiZRSwU8Ks/glsvsLwREIL8QHWXHEs/7+qusxh5XWIE2DEQqx7UmPaBv/DuE1sD1Ci1i090ml+9zp01ZfC4gY61sAcw5vtNl2wuxWDB2tpjP6eQVBDq2za1x6hSuCPulAsR7ujHWRr3TXMXHqVC1j9XeqvaWmcv7sP1V3GtsOqtTY8h2LIEuwheDwFlBRRqOXlQqxCa2a5ddYyVYD2VgucgUGdessAt5hHsW5NNWwsI3AU7yPw3GJjsp5yzt1a4LGkp8TG8Mmz8abg+mrNYugGFFzHw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V35o/2iHRLFXj9F4XogK6w1yKSv+z3pz6Cj6pg9he4Q=;
- b=RVEtdfJCRK253wYCV17qialTyn85x/0fAa/hJJaLo2mAUv4VBO5gD20Hw+mTDFbA+r8a2bl3vN+VK8eugJ8AAqUJ9c1fHIKz5j+i0+NzYgQXHYGiFD+33HVXWM9bU5IxbiZ89L0fa+yM4DZvq7k8t3/YkoGhydIwn6OQnYKm0ciegt1Diwet9jmZFEiGx/kXHuoqlass+oLD1Jk315FNLA1GeSaVr1mT/rzIzrArOFSoXOPjNmEQdA8Q8qpAAcb3efeLxVNV6h+dGoKjL3Wxxi58Lx+r7IJ4m8XxVW3h79r8mIPj6PMxuMihzY6YfGMGtJZoWOIT/ayNbIb7U/5ELg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V35o/2iHRLFXj9F4XogK6w1yKSv+z3pz6Cj6pg9he4Q=;
- b=VFUuXBHouWcHUmaL+4D5q9rLVvzDn0IJSBR7F2NQOovKa+KafZ9hJDTpeg+W6l17RyA1INwnW2M8sYQHNQnxY0VqDJM9zJXsC0FqbDJO5Bgk7dWY2vSIH+DmS0eqWGMc/AFY/zxaDVkoxSzpFj9VjUUESWZRi7r7UkL6/nyzQKw=
-Received: from DM5PR12MB4680.namprd12.prod.outlook.com (2603:10b6:4:a6::33) by
- DM6PR12MB2890.namprd12.prod.outlook.com (2603:10b6:5:15e::24) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4195.23; Tue, 15 Jun 2021 10:38:03 +0000
-Received: from DM5PR12MB4680.namprd12.prod.outlook.com
- ([fe80::1d06:dcde:55f9:3eb7]) by DM5PR12MB4680.namprd12.prod.outlook.com
- ([fe80::1d06:dcde:55f9:3eb7%7]) with mapi id 15.20.4219.025; Tue, 15 Jun 2021
- 10:38:03 +0000
-From: "Kim, Jonathan" <Jonathan.Kim@amd.com>
-To: "Das, Nirmoy" <Nirmoy.Das@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 1/1] drm/amdkfd: remove unused variable
-Thread-Topic: [PATCH 1/1] drm/amdkfd: remove unused variable
-Thread-Index: AQHXYdHo/VSYFqscpUGwGKGQcdNBgqsU4K6AgAAAZwA=
-Date: Tue, 15 Jun 2021 10:38:03 +0000
-Message-ID: <DM5PR12MB468091114BF01CACCB90CD2785309@DM5PR12MB4680.namprd12.prod.outlook.com>
-References: <20210615103325.28587-1-nirmoy.das@amd.com>
- <0037a67f-d0d8-16e7-b174-721249600aa0@amd.com>
-In-Reply-To: <0037a67f-d0d8-16e7-b174-721249600aa0@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=e8cc018e-cd61-4281-a0eb-f238b3213876;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
- Official Use Only-AIP 2.0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-06-15T10:36:55Z;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [165.204.54.211]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 68e8732e-2c33-4506-7764-08d92fe9a797
-x-ms-traffictypediagnostic: DM6PR12MB2890:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB289098237B1037F47BEE9E9B85309@DM6PR12MB2890.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:3383;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: iJb5toj5jsa+eLMQe0G4gyVlRGySXks7drbjECBMJuhIVdVGohLcAe7y1N8P1tenO4IRf6xShG3YxygAXPC3Gt4knEQuC0pWuiQtDqzOv0JpNzSCEVmvtgjY0QpVVgEfBZNrMFArADv5n9ubvUeYD49kGEzxaF5WPwFDRLUEJNsH12SihUxt3vF9kU4FJOTLnnzRhu/OYa3K5LLwjJpLcrvho6skjdWxffpvqQ5CWZU+EgAtQ1R6mawkrYZm62fVGJPKFWYzZvQjAJTE6Y6VIRxRzHRlgPKPdP9UeGAcBV7OovJq3yukA+EZbkd7ukTxT2cJbVgMyQnz4bVwt+2bWPbqVmBRTjYKgUU2hjWPHcCKmVTi/yvpnOUxRhETKP9OR0nURV1e4+2/7J3hvP6+DdbosUYr62huACFcjBuD6mNBkNMjzG/2Jjr/V9LopUQrVlzxgkhqDF/+fQLQnQbyN7Aq35X2AqtXydqbZq3CKuB0wAXz0HgLsNeQppk70q+ThZ3hsQfhFBiIdbrB2wUyDt+XJGRnAR4yrW8adujEut7Hk6q6Ie7LrEqghbUXuUtdk8HWb2Lyyawghw59wEANQLSfvyWpZ3vNighdbTHDdMI=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB4680.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(39860400002)(136003)(376002)(366004)(396003)(5660300002)(2906002)(186003)(316002)(33656002)(86362001)(8676002)(55016002)(71200400001)(6506007)(110136005)(53546011)(26005)(83380400001)(7696005)(9686003)(122000001)(4326008)(76116006)(66556008)(52536014)(38100700002)(64756008)(66946007)(66476007)(66446008)(8936002)(478600001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?OVVmU0FTNG5JSFg1UENLTXR3ZFc2NDlpS213TUtJdWFLMjNERFVzSHNpSEFR?=
- =?utf-8?B?ZG1Tc3lYNXg2bE1MQTRSZlNmMWpVTXZVRWc4RzhYTGRrRSttNHlrdHFpUll1?=
- =?utf-8?B?NzRmb2ZQU3VMS1duL28wQzJSWUJIb25ERDNLWHNJZ0hWMnJBWXJ2cm1vRmx1?=
- =?utf-8?B?U0tVSkVKb2hwdkF0ZmRaaTFWRGJ5aGpoM1pNdHpJeFNSUWpDTzRtYUkvUG0w?=
- =?utf-8?B?U2pFM0hSYTMycjMrK29uUlprTWdUejRQaEhidGxkUW1YczZ5Rnl4S2piQVV5?=
- =?utf-8?B?dFF5VEloZDRPM2VXZjYvdVMwZGJxbS9Bb05ITGlNTi9Pajc1dUg0aHhIenpG?=
- =?utf-8?B?aG5oU2dTUS9uVXR3OFRGQmVmbkJTOGNPQkJsdlR6L1lIOW1LKytJZG1ZajdT?=
- =?utf-8?B?cWZxNXlCL25xeDJhRXFjZTVtSTgrbGdzZHhjTG5Nb0QxNkhPQ2hudi85NlBa?=
- =?utf-8?B?bzRUeGdwWEdlOThKWDltQVFVMTNhUTAyUkt2STZBVVI5NC9tb0gvTG41VnB5?=
- =?utf-8?B?bGJVbUk0MTdldklqVkZaUFNUL0JZY3dRREJ4WHdPOUxpdDY1dEgvQTNqTFFT?=
- =?utf-8?B?aEI5RWoyTk9saFhhTTNsVkhoSTZoL2pON3BTOUpuMGlyUzFXbExuaXVxNDVD?=
- =?utf-8?B?WEJHaEpaWFVIY3k5b1BFL3c5L000Wlk0Qmk3YmxlcURoYWZZK3hrWUtSbHBH?=
- =?utf-8?B?TmZGQS9TU09wd2ZEUXl6NU5ieHVlSGl5VGNPSGpFSkFDNlFsTWtnL1pvZ3N6?=
- =?utf-8?B?S3N2NFNoYkd3UnM1MjgzQXZWVlgxaTBrWnJHSnp2eTBUWU9pMncvL1RBbDg4?=
- =?utf-8?B?Z0JxRlFWTENqeTZVSEJRZXJwVGd6eXRKSTF2UHJabGh1OEo3TmFnMDRsWmg1?=
- =?utf-8?B?Z1hWOGRZWEV6NWNRbnZGQVFsQ0U4eHJlZmhxdkh0cDJxcGtqaUlLUnBGUUlo?=
- =?utf-8?B?Yk9JR2hoTWRxTW1uZkZBWVpWWXFGU0hmc1JHNUEyU3gySEZvUkY1RTFDcmlW?=
- =?utf-8?B?T1Y4cmtGMkZIeU0ycjVkQktZeDN1RklHaTlvTzlWcC80R3RKZUNhOGF2eEZ1?=
- =?utf-8?B?b0plc1NleGlkc0dTOWhGVFg1dXlwaFlNVTI4REd2eHQwOXAzTmhiemlCVWFw?=
- =?utf-8?B?ckI5SmxXd3RyTFUxc2xVSGZBY1oyNUNLeEJRdEVMUW5CZktMT2FmWjk0ZnRk?=
- =?utf-8?B?UkE5S2VvZFQ5UlUyUUNhL2llLzRWM3dIODNwY1VaTGtYQk1XUjRkZkE1V3lF?=
- =?utf-8?B?U28zMGY2QW5JMGt4Yy9ZTnMwNDZwVU5CdXp4VUhNNGVxMkovVS9ONWc4ajg2?=
- =?utf-8?B?VWF0R3pNYTJseHRpbkMxNEZKa1JLSm1McjRBVlFXNThRaFYwRTF4OFBSYWx4?=
- =?utf-8?B?VVl0b0tEM0owNzZXdVpmZVZGZkRLcDVxWXBWT2lmUFNXUjEwVVY3anNvYWxT?=
- =?utf-8?B?citNcDNDMTBOLzNxTStwcHhKb2xvODAxd09xVFNCTkw0T1B2L0hCcXNqa1hU?=
- =?utf-8?B?VGExVzdzTGpMeGhMT1lqZnVWU0kwbnh0bXkyRHR0MGZjdC93NlM0NDA3UU5Q?=
- =?utf-8?B?Y1gxTEQvdWJxZGF5Nzdjd0MrdjJPWGFVcnlPTjFDVFMxT2pjK01STmZNcVF3?=
- =?utf-8?B?R2dpM3V6Z3p1cjR0ZGcvUU5nVVFGL1dmdlNTTHNpQ1I2NHlJT2RTRkVqaG1v?=
- =?utf-8?B?U09hMlpVRjUyekpQZjYrdVNDY3NOYTVvNzFyQ1dWbGRFQUs1aDMrek1aT1pO?=
- =?utf-8?Q?v4xvXedrRsq3/p+LBf+WWNsv24+jJavM5BXWSp4?=
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8B0F898EE;
+	Tue, 15 Jun 2021 10:48:52 +0000 (UTC)
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [IPv6:2a00:1450:4864:20::534])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5FA94898EE
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Jun 2021 10:48:52 +0000 (UTC)
+Received: by mail-ed1-x534.google.com with SMTP id ba2so48685474edb.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Jun 2021 03:48:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=l+yxVdLx8ZhlrmcZW3EUnogEHMOBLwmaBhKjehUF8vA=;
+ b=TvdFbh1RGyPUNT4+M/eAYpvNzVdy1sNDT5yBYShVCQl4XvTq6gZFfN9E5NGzT5oEVr
+ D+y1GbA9XZDq1U7AYil6eSMD0XYXsZzBBFq+cySRFrXEMn1UMQD8cLTnSb4IbV8ke5t6
+ nkSm/XeKnk8+XuPNCQRvDZbeW5hGwGjsclKJ0CgBiOnW1LUZNmVQsDVX/xintYeZZXfu
+ 7LXwpnKrA6EVBY9JVgaWQ6oBKEM/02eUoUP323hTbViBrQg8rGmo/mWUQBgIw75jClv7
+ QyZxPRdoiWJLIX1w4pgHFjJarkbBR+G18jlf3qOdaKl+/Lh3a/EPvhZUSecgxuO7zvG4
+ 7gqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=l+yxVdLx8ZhlrmcZW3EUnogEHMOBLwmaBhKjehUF8vA=;
+ b=hDRfV2WqdY18MQnGbSA9M4HaMB6G5gmOCv9CJ36moVvwDYPfjSbQzrYWzMZisAhCgj
+ WWqOx1lPC2Jf6oK5O8lNwqLfD9oZn4j5Pj7XTHGBusgYyBkdHuOcz2PAE/fvxjKEhcRy
+ bMPS+1oFRlRtrw9C36QKCBnf3/4WC2pZEFHzzX1Ko/fKKzl/j83pZdSwTS7ZTJafwjnW
+ Y5ywOra7XVo4FfenJkTK2HDPjzKSb/aNTT2gMwZs0RaGZpGiwqwHezzfkklwYSeD+9O4
+ dIRWfvsVi4YRfgurVIXA5lXDfb/iMT1s5TEcbfBj8O+aXhpwK43FH/N3Stxhw7NhbPNu
+ iODg==
+X-Gm-Message-State: AOAM533dH9QpH2FKjHxTQ0dYpCdtHXHdM5b4LTQCe1QAlfj0QACimqKf
+ 0opKEuWC8whpRdh+Bb35n5TdyNQZfj8=
+X-Google-Smtp-Source: ABdhPJxJsSi6auXRPuDbx1/4/hR9MNFd8ythtrOK1+daGmCLuUbQo+VyBXi1+httkhaVn1bzUkinMA==
+X-Received: by 2002:a05:6402:1911:: with SMTP id
+ e17mr22358474edz.62.1623754131007; 
+ Tue, 15 Jun 2021 03:48:51 -0700 (PDT)
+Received: from ?IPv6:2a02:908:1252:fb60:f438:4e93:3853:400c?
+ ([2a02:908:1252:fb60:f438:4e93:3853:400c])
+ by smtp.gmail.com with ESMTPSA id s2sm7712908edt.53.2021.06.15.03.48.50
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 15 Jun 2021 03:48:50 -0700 (PDT)
+Subject: Re: [PATCH v2 1/2] drm/amdgpu: parameterize ttm BO destroy callback
+To: Nirmoy Das <nirmoy.das@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20210615092400.5023-1-nirmoy.das@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <88296228-0a02-6078-3a0c-85beaec35c5b@gmail.com>
+Date: Tue, 15 Jun 2021 12:48:49 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB4680.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 68e8732e-2c33-4506-7764-08d92fe9a797
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Jun 2021 10:38:03.4893 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: xT18zp8HwlUHLfXZWzMFACfvFWcfqHiJ/EoGiPIxYmq7uWINOqviZOANYbLUGwXm
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2890
+In-Reply-To: <20210615092400.5023-1-nirmoy.das@amd.com>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,62 +82,165 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Kuehling, Felix" <Felix.Kuehling@amd.com>
-Content-Type: text/plain; charset="us-ascii"
+Cc: Christian.Koenig@amd.com
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only]
 
-Thanks for the catch.
-Reviewed-by: Jonathan Kim <jonathan.kim@amd.com>
 
-> -----Original Message-----
-> From: Das, Nirmoy <Nirmoy.Das@amd.com>
-> Sent: Tuesday, June 15, 2021 6:35 AM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Kim, Jonathan <Jonathan.Kim@amd.com>; Kuehling, Felix
-> <Felix.Kuehling@amd.com>
-> Subject: Re: [PATCH 1/1] drm/amdkfd: remove unused variable
+Am 15.06.21 um 11:23 schrieb Nirmoy Das:
+> Make provision to pass different ttm BO destroy callback
+> while creating a amdgpu_bo.
 >
+> v2: remove whitespace.
+>      call amdgpu_bo_destroy_base() at the end for cleaner code.
 >
-> On 6/15/2021 12:33 PM, Nirmoy Das wrote:
-> > Remove it.
-> >
-> > CC: jonathan.kim@amd.com
-> > CC: felix.kuehling@amd.com
-> > Fixes: d7b132507384c("drm/amdkfd: fix circular locking on get_wave_state")
-> > Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
-> > ---
-> >   drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 3 +--
-> >   1 file changed, 1 insertion(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> > index e6366b408420..539212039876 100644
-> > --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> > @@ -997,7 +997,7 @@ static int start_nocpsch(struct
-> device_queue_manager *dqm)
-> >   {
-> >     pr_info("SW scheduler is used");
-> >     init_interrupts(dqm);
-> > -
-> > +
-> Please ignore this extra space. I will push without it once I get a r-b.
-> >     if (dqm->dev->device_info->asic_family == CHIP_HAWAII)
-> >             return pm_init(&dqm->packets, dqm);
-> >     dqm->sched_running = true;
-> > @@ -1674,7 +1674,6 @@ static int get_wave_state(struct
-> device_queue_manager *dqm,
-> >                       u32 *save_area_used_size)
-> >   {
-> >     struct mqd_manager *mqd_mgr;
-> > -   int r;
-> >
-> >     dqm_lock(dqm);
-> >
+> Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 48 ++++++++++++++++------
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |  3 +-
+>   2 files changed, 38 insertions(+), 13 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> index 9092ac12a270..8473d153650f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> @@ -73,11 +73,9 @@ static void amdgpu_bo_subtract_pin_size(struct amdgpu_bo *bo)
+>   	}
+>   }
+>
+> -static void amdgpu_bo_destroy(struct ttm_buffer_object *tbo)
+> +static void amdgpu_bo_destroy_base(struct ttm_buffer_object *tbo)
+
+I think you don't even need to rename the function.
+
+>   {
+> -	struct amdgpu_device *adev = amdgpu_ttm_adev(tbo->bdev);
+>   	struct amdgpu_bo *bo = ttm_to_amdgpu_bo(tbo);
+> -	struct amdgpu_bo_user *ubo;
+>
+>   	if (bo->tbo.pin_count > 0)
+>   		amdgpu_bo_subtract_pin_size(bo);
+> @@ -87,20 +85,38 @@ static void amdgpu_bo_destroy(struct ttm_buffer_object *tbo)
+>   	if (bo->tbo.base.import_attach)
+>   		drm_prime_gem_destroy(&bo->tbo.base, bo->tbo.sg);
+>   	drm_gem_object_release(&bo->tbo.base);
+> +	amdgpu_bo_unref(&bo->parent);
+> +	kvfree(bo);
+> +}
+> +
+> +static void amdgpu_bo_destroy(struct ttm_buffer_object *tbo)
+> +{
+> +	amdgpu_bo_destroy_base(tbo);
+> +}
+
+Nor has that wrapper here.
+
+Apart from that looks good to me.
+
+Christian.
+
+> +
+> +static void amdgpu_bo_user_destroy(struct ttm_buffer_object *tbo)
+> +{
+> +	struct amdgpu_bo *bo = ttm_to_amdgpu_bo(tbo);
+> +	struct amdgpu_bo_user *ubo;
+> +
+> +	ubo = to_amdgpu_bo_user(bo);
+> +	kfree(ubo->metadata);
+> +	amdgpu_bo_destroy_base(tbo);
+> +}
+> +
+> +static void amdgpu_bo_vm_destroy(struct ttm_buffer_object *tbo)
+> +{
+> +	struct amdgpu_device *adev = amdgpu_ttm_adev(tbo->bdev);
+> +	struct amdgpu_bo *bo = ttm_to_amdgpu_bo(tbo);
+> +
+>   	/* in case amdgpu_device_recover_vram got NULL of bo->parent */
+>   	if (!list_empty(&bo->shadow_list)) {
+>   		mutex_lock(&adev->shadow_list_lock);
+>   		list_del_init(&bo->shadow_list);
+>   		mutex_unlock(&adev->shadow_list_lock);
+>   	}
+> -	amdgpu_bo_unref(&bo->parent);
+> -
+> -	if (bo->tbo.type != ttm_bo_type_kernel) {
+> -		ubo = to_amdgpu_bo_user(bo);
+> -		kfree(ubo->metadata);
+> -	}
+>
+> -	kvfree(bo);
+> +	amdgpu_bo_destroy_base(tbo);
+>   }
+>
+>   /**
+> @@ -115,8 +131,11 @@ static void amdgpu_bo_destroy(struct ttm_buffer_object *tbo)
+>    */
+>   bool amdgpu_bo_is_amdgpu_bo(struct ttm_buffer_object *bo)
+>   {
+> -	if (bo->destroy == &amdgpu_bo_destroy)
+> +	if (bo->destroy == &amdgpu_bo_destroy ||
+> +	    bo->destroy == &amdgpu_bo_user_destroy ||
+> +	    bo->destroy == &amdgpu_bo_vm_destroy)
+>   		return true;
+> +
+>   	return false;
+>   }
+>
+> @@ -592,9 +611,12 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
+>   	if (bp->type == ttm_bo_type_kernel)
+>   		bo->tbo.priority = 1;
+>
+> +	if (!bp->destroy)
+> +		bp->destroy = &amdgpu_bo_destroy;
+> +
+>   	r = ttm_bo_init_reserved(&adev->mman.bdev, &bo->tbo, size, bp->type,
+>   				 &bo->placement, page_align, &ctx,  NULL,
+> -				 bp->resv, &amdgpu_bo_destroy);
+> +				 bp->resv, bp->destroy);
+>   	if (unlikely(r != 0))
+>   		return r;
+>
+> @@ -658,6 +680,7 @@ int amdgpu_bo_create_user(struct amdgpu_device *adev,
+>   	int r;
+>
+>   	bp->bo_ptr_size = sizeof(struct amdgpu_bo_user);
+> +	bp->destroy = &amdgpu_bo_user_destroy;
+>   	r = amdgpu_bo_create(adev, bp, &bo_ptr);
+>   	if (r)
+>   		return r;
+> @@ -689,6 +712,7 @@ int amdgpu_bo_create_vm(struct amdgpu_device *adev,
+>   	 * num of amdgpu_vm_pt entries.
+>   	 */
+>   	BUG_ON(bp->bo_ptr_size < sizeof(struct amdgpu_bo_vm));
+> +	bp->destroy = &amdgpu_bo_vm_destroy;
+>   	r = amdgpu_bo_create(adev, bp, &bo_ptr);
+>   	if (r)
+>   		return r;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+> index e36b84516b4e..a8c702634e1b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+> @@ -55,7 +55,8 @@ struct amdgpu_bo_param {
+>   	u64				flags;
+>   	enum ttm_bo_type		type;
+>   	bool				no_wait_gpu;
+> -	struct dma_resv	*resv;
+> +	struct dma_resv			*resv;
+> +	void				(*destroy)(struct ttm_buffer_object *bo);
+>   };
+>
+>   /* bo virtual addresses in a vm */
+> --
+> 2.31.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
