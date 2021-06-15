@@ -7,44 +7,44 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B72A0C48BE5
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 15:50:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 56AA5C49EA2
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 15:50:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 841A5617ED
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 15:50:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 841A5617ED
+	by mail.kernel.org (Postfix) with ESMTPS id 2F54C61925
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 15:50:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2F54C61925
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1ECB6E429;
-	Tue, 15 Jun 2021 15:50:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CCBA6E422;
+	Tue, 15 Jun 2021 15:50:36 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F1106E417;
- Tue, 15 Jun 2021 15:50:23 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 1948E6190A;
- Tue, 15 Jun 2021 15:50:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61BC36E41B;
+ Tue, 15 Jun 2021 15:50:35 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 4519361874;
+ Tue, 15 Jun 2021 15:50:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1623772223;
+ s=k20201202; t=1623772235;
  bh=XIYvHSSButC67HzU6fduVakbD0ni65gR3K7el6VrxOs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=WU9G5/LnUoaD5mhzT106Z9kBUbLZZgXZ5qnXyaj2Xp3ChZILWJK0gJ9hFFUqRzN9d
- WuC6m6Q0wfoNB0u3fV1NNZBp5dmlsb/4FYjBlhiyZSu4zkGAeVpRxZ1qh5P8s64Gak
- 4OnDLd3LPEsOvpJmpUoRWRu4i+uFvi+amDSFBynB1iQ3zBkin2hJ+LY7YfshcSZ60b
- U2kTSHVLCl3CUN9bHRSKwL/1i0FvAajb7U9ZxQqsTBaEkx/9T2UozgGb3k/y4wXPGM
- rLAmDeBifra91HO9LA8/w7f0epOqEWJ5nzI6O0xcAY3ypTYV5ftzGt8NEoZLEho2sD
- 58nP4HygE8gyg==
+ b=sDOU8b41Y6YUrOQjDjQQEFbWkBVTuHfZ1zyEFNroc6MSdWe7Ak8MqxylVqa9G6qy6
+ KnI5PkdDD8QA5E6NM1ditguWA8DHl7bMyPVmQhz3CPo2MkF2lVJ/M29CxE/S27Xz/9
+ FCR6Jj03kX+6kCc23zzjmstshnGkSwr0TIxwrPFlUvok3sUD94YR+UJzdtQpw8sD4I
+ ++jCE+rMVJBNmcR7DDxLbAQy6CGGBfsHCSE/7oSWAPnLq1yyvcQzrGFCaofvCU301z
+ d0EzvhwetBrOvXJtDAMggc9Xq5rhuULaVH3vDjK7m1Z6sejxJfCLaS3HTmZTAiP87Y
+ DWlWl7//5JLAg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.19 09/12] radeon: use memcpy_to/fromio for UVD fw
+Subject: [PATCH AUTOSEL 4.14 5/8] radeon: use memcpy_to/fromio for UVD fw
  upload
-Date: Tue, 15 Jun 2021 11:50:06 -0400
-Message-Id: <20210615155009.62894-9-sashal@kernel.org>
+Date: Tue, 15 Jun 2021 11:50:24 -0400
+Message-Id: <20210615155027.63048-5-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210615155009.62894-1-sashal@kernel.org>
-References: <20210615155009.62894-1-sashal@kernel.org>
+In-Reply-To: <20210615155027.63048-1-sashal@kernel.org>
+References: <20210615155027.63048-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
