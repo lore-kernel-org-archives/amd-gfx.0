@@ -2,77 +2,101 @@ Return-Path: <SRS0=JvQD=LK=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.2 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BF00CC48BE5
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Jun 2021 11:01:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E013CC48BE5
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Jun 2021 12:30:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8C31360FDC
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Jun 2021 11:01:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8C31360FDC
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 9D29E61359
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Jun 2021 12:30:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9D29E61359
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46BA96E56A;
-	Wed, 16 Jun 2021 11:01:50 +0000 (UTC)
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [IPv6:2a00:1450:4864:20::533])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A26C6E56A
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Jun 2021 11:01:49 +0000 (UTC)
-Received: by mail-ed1-x533.google.com with SMTP id t3so2092931edc.7
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Jun 2021 04:01:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:references:from:message-id:date:user-agent:mime-version
- :in-reply-to:content-transfer-encoding:content-language;
- bh=Mxly3IwcaaWQsjbhZn2WiayEjmRpPEvGL+Hs03Kzoug=;
- b=X2TbYIgJZyPNlefHt+s5CJDOzpG3ot+3BJgizGkkEPnPmPDyY5L0ClfjOCohgU4Nzd
- pxNpnn2zAr56DUEWd2YPL4CyAgdGxHvCMnkduNN2CTiUB70csGuE1Dik+c0JtmHDsqX/
- Ju/GBWV7Esph1UXewOYuQnhxRgVPPfTldy/A5WmOVebpS6nTGZqH574cfves+zPHi4At
- 0skbtzmEIlkZxkpVtPfVTHQ3ZVhXifFuH1WSNBghO7jKi7C5HtcN+q0W+DqXuz+Y52uh
- t4Vt61GPJ8Q2tWf08YrL7OsOicYRdi0/sr8fstTcBYlVi7ixNYnClp+iNRrr6sWZZT/D
- Zp2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=Mxly3IwcaaWQsjbhZn2WiayEjmRpPEvGL+Hs03Kzoug=;
- b=q4cCxg/iVB7snD8R7Lt+jjyS8nYpbH1J6vt38pFcIQ5InejF6U/BB8PUSKxCRQUaT1
- hm5IP+rfyCCJ7Y9PZHD+4OLVRpm7o4robMtzSzebctPeeW1FSLYvpqXj9qrbHQji8bJF
- B7w4smvxZfDGgDmVcv0DTpPJcstwdfX7cXFUx2k/MCBRQc5lQD4Ow8td9sETB21qOJAm
- RMvF8CGbWoHnAEOkSg7PRREW57aMjeMwakZzB6sY04hkSR4DoqO9fNoqJPYDeKOBckhK
- rSEma/uMzbHnOi/t8Qw79Pvcc9N2s9oJNUWa7UvCrcxclSeP1JYPjgYmkOfFRhL8msX/
- SDhQ==
-X-Gm-Message-State: AOAM530Pv95frIvyQImAUYHNkQgE4wkZw0tnFhi5aG+EpgfTD4q6JZkm
- ELfA/8lhaCRpIbgv/0TmVd4Pmg4C8v0=
-X-Google-Smtp-Source: ABdhPJzmwi1CUXoMayVzvQKxx9QqDTtPHxg3Uuh/QpLBHkB8G3qOBnfQqxbnTPlz6GAQhUhGp/mz9A==
-X-Received: by 2002:a05:6402:4316:: with SMTP id
- m22mr3395633edc.316.1623841308291; 
- Wed, 16 Jun 2021 04:01:48 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:afc4:3771:10a6:8a6d?
- ([2a02:908:1252:fb60:afc4:3771:10a6:8a6d])
- by smtp.gmail.com with ESMTPSA id j22sm1419913ejt.11.2021.06.16.04.01.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Jun 2021 04:01:47 -0700 (PDT)
-Subject: Re: [PATCH 1/2] drm/amdgpu: add gfx rlc enter/exit safe mode through
- emit ring
-To: Changfeng <Changfeng.Zhu@amd.com>, Ray.Huang@amd.com,
- amd-gfx@lists.freedesktop.org
-References: <20210616101440.11523-1-Changfeng.Zhu@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <7dad9ec1-6cd7-b352-2df9-33bd919ddeb8@gmail.com>
-Date: Wed, 16 Jun 2021 13:01:46 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3FC746E02D;
+	Wed, 16 Jun 2021 12:30:47 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2082.outbound.protection.outlook.com [40.107.236.82])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D91516E02D
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Jun 2021 12:30:45 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=kVx+0yhlQa77edpDTbIzhTAEObZopjVz+9tv7c+Uvrdr5N+xjCHulxd7Lsc2jNO+z07hCsQEVf3IEkuKbFNxUj3Otue8BWa2K2JznJPAeCCY5M9PjbK0hVMbU7RwiYKG2l92Y3GnOHgsfsjVMKJQQUrng+khX1mDIXIuUjF/GJBvI32/+SGd9V+2Y1j957K14IsxTEDLRFknI/P+lAUfJ/mLgFh3vHYikMBmrBYq7AIqN3Wbo/73IWmnQh4LpQfNgaimSnx/iPghCZAbSqi3X2yGEM5NEKePqoNjTAvnnQKeTsgVfwteLI3woCe689n+Q9m27/ASuMhH4hOYUfcf+w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LGbnCUJDRGXn4vYCaLmQVUafmBU5Cl+gSk2sZVaMu5M=;
+ b=UgnrLtSQ+62WjaPu9FBugiptVbek2RhmAadowmX7ukiaT5KEnJCHHvnn6PO12RYG5QepjomFM+yzyhwVlhPbhRe6ce1zkKWiMGmRgoWEE/dEgaOTcYFD8kdkDARouGOwnFmBewNgS90Q8ylF6eNesScZDvFEq9Obcv5BPZQJzrCfRoszNOX/89E61nrwXSXHoxRZRZMtCpmJEzdSHACHWo37YbwazO2FZhaSypjl6OyjtslQUyq+9gh6QPqfJ/muWN6U/GV7uqTlwrI1mbr+qVfQE0SCfITxDNKvm3qs2/Rn9Vy1vNQ6nFIEslMpGvgmz2FrnVW56Migf/BGE/LUKg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LGbnCUJDRGXn4vYCaLmQVUafmBU5Cl+gSk2sZVaMu5M=;
+ b=XG4KwAyIoxleQvLtfG/qtloKDbHJ8pjK2wv09zbPnHrmcw7SLHs0m2u1gWi8i2BW8Go+/HKf0rlIzxi35RJG75AGeCAvVq0VsmGQxKjQZbSU8aMwYOdGLXC8G0VdwDnbc5UtjFD60NsBXdFHEhsJmkw3LIZDTHM39xvjYk+RiH4=
+Received: from MWHPR1201CA0020.namprd12.prod.outlook.com
+ (2603:10b6:301:4a::30) by MN2PR12MB4271.namprd12.prod.outlook.com
+ (2603:10b6:208:1d7::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.24; Wed, 16 Jun
+ 2021 12:30:44 +0000
+Received: from CO1NAM11FT007.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:301:4a:cafe::f4) by MWHPR1201CA0020.outlook.office365.com
+ (2603:10b6:301:4a::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.16 via Frontend
+ Transport; Wed, 16 Jun 2021 12:30:43 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CO1NAM11FT007.mail.protection.outlook.com (10.13.174.131) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4242.16 via Frontend Transport; Wed, 16 Jun 2021 12:30:43 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Wed, 16 Jun
+ 2021 07:30:42 -0500
+Received: from stanley-test.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2242.4 via Frontend
+ Transport; Wed, 16 Jun 2021 07:30:41 -0500
+From: Stanley.Yang <Stanley.Yang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <hawking.zhang@amd.com>
+Subject: [PATCH Review 1/1] drm/amdgpu: force enable vega20 gaming sku gfx ras
+Date: Wed, 16 Jun 2021 20:30:40 +0800
+Message-ID: <20210616123040.32629-1-Stanley.Yang@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-In-Reply-To: <20210616101440.11523-1-Changfeng.Zhu@amd.com>
-Content-Language: en-US
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 4621deb8-16a4-4ab2-b97c-08d930c28f7a
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4271:
+X-Microsoft-Antispam-PRVS: <MN2PR12MB427193E0CA60B141DB25ADFC9A0F9@MN2PR12MB4271.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:346;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: MWfZAS4srbrun7gy9y0F+Bx0xM05aYEGZDyT/QBF9KbFGPuihGV7PhhaYhQOh1Qa+lcuvnsDCK/NORoA0wmE1AT6+7p26r4UA3KRhcy8wmV2Aex58m8dbCI44fjFr/tIrI93+MDolsnh1hPrRB/OtsimIfAr7kRR81nn/tQ2OCmtwbKR9IDLj7kiNOE+eiCvP0d3yzAIV+rU8Six3HnS4rFHlLhblLN3l2h4nb9H71BhceQmlJCQmEF53KprR4M02yU6cLmp/a5jqwTQQnbmXeAzZn6Y+XBtma471mgVDuuxc6I7JHRNJ90sryiOAxouDoQ6ibfJZhCASN/Vv7gBfSB1NLqOKQnruUM/0AFuo+UTkZVfuHNRP70hqoRLcMEdHTeic9omGwqw7+OFrNARCjyQQCUuRHS45xTGeeNHZS5Sh039ktbJbSh8OehwHDF5Jl2hbWMzmRIN8aVKMr9+SsYQhZ9wN1lCHiOBWOycf+Zlr2XWWd/FEpX8ewM4sBIgDrm2a7cn0VWyK4Whoc9OeehzArWF8IX5loSGXHlbF2Lui0hOLV9RR1uSRvXHshWS9AXYN63Cdg2wXAfKJu6KXejh5EhR+FgU6AawMiPSs9MsjVeabdwfSfQjBaLbiVJtKzJWJE6m7GpqjdEoM1UHHf+dPLvTnPEf+fO0avQ4cCl5QcxEtd59RoYXRRhCSp1u
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(376002)(346002)(396003)(39860400002)(136003)(36840700001)(46966006)(70586007)(5660300002)(4326008)(1076003)(6636002)(4744005)(70206006)(82310400003)(478600001)(36756003)(2906002)(26005)(186003)(426003)(8676002)(356005)(81166007)(7696005)(8936002)(82740400003)(47076005)(2616005)(86362001)(110136005)(316002)(336012)(36860700001)(83380400001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2021 12:30:43.7030 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4621deb8-16a4-4ab2-b97c-08d930c28f7a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT007.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4271
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,172 +108,34 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "Stanley.Yang" <Stanley.Yang@amd.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This needs a commit message and a bit of justification.
+Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Christian.
-
-Am 16.06.21 um 12:14 schrieb Changfeng:
-> From: changzhu <Changfeng.Zhu@amd.com>
->
-> From: Changfeng <Changfeng.Zhu@amd.com>
->
-> Change-Id: Ib6065f39d61872ac0497afd11789d98e56434b40
-> Signed-off-by: Changfeng <Changfeng.Zhu@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.c | 34 +++++++++++++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h |  4 +++
->   drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c   | 26 +++++++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/soc15.h      |  4 +--
->   4 files changed, 66 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.c
-> index 6373bfb47d55..d5978c3a0e02 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.c
-> @@ -51,6 +51,23 @@ void amdgpu_gfx_rlc_enter_safe_mode(struct amdgpu_device *adev)
->   	}
->   }
->   
-> +void amdgpu_gfx_rlc_emit_enter_safe_mode(struct amdgpu_device *adev, struct amdgpu_ring *ring)
-> +{
-> +	if (adev->gfx.rlc.in_safe_mode)
-> +		return;
-> +
-> +	/* if RLC is not enabled, do nothing */
-> +	if (!adev->gfx.rlc.funcs->is_rlc_enabled(adev))
-> +		return;
-> +
-> +	if (adev->cg_flags &
-> +	    (AMD_CG_SUPPORT_GFX_CGCG | AMD_CG_SUPPORT_GFX_MGCG |
-> +	     AMD_CG_SUPPORT_GFX_3D_CGCG)) {
-> +		adev->gfx.rlc.funcs->emit_set_safe_mode(adev, ring);
-> +		adev->gfx.rlc.in_safe_mode = true;
-> +	}
-> +}
-> +
->   /**
->    * amdgpu_gfx_rlc_exit_safe_mode - Set RLC out of safe mode
->    *
-> @@ -75,6 +92,23 @@ void amdgpu_gfx_rlc_exit_safe_mode(struct amdgpu_device *adev)
->   	}
->   }
->   
-> +void amdgpu_gfx_rlc_emit_exit_safe_mode(struct amdgpu_device *adev, struct amdgpu_ring *ring)
-> +{
-> +	if (!(adev->gfx.rlc.in_safe_mode))
-> +		return;
-> +
-> +	/* if RLC is not enabled, do nothing */
-> +	if (!adev->gfx.rlc.funcs->is_rlc_enabled(adev))
-> +		return;
-> +
-> +	if (adev->cg_flags &
-> +	    (AMD_CG_SUPPORT_GFX_CGCG | AMD_CG_SUPPORT_GFX_MGCG |
-> +	     AMD_CG_SUPPORT_GFX_3D_CGCG)) {
-> +		adev->gfx.rlc.funcs->emit_unset_safe_mode(adev, ring);
-> +		adev->gfx.rlc.in_safe_mode = false;
-> +	}
-> +}
-> +
->   /**
->    * amdgpu_gfx_rlc_init_sr - Init save restore block
->    *
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
-> index 7a4775ab6804..9e0eb4882b84 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
-> @@ -117,7 +117,9 @@ typedef struct _RLC_TABLE_OF_CONTENT {
->   struct amdgpu_rlc_funcs {
->   	bool (*is_rlc_enabled)(struct amdgpu_device *adev);
->   	void (*set_safe_mode)(struct amdgpu_device *adev);
-> +	void (*emit_set_safe_mode)(struct amdgpu_device *adev, struct amdgpu_ring *ring);
->   	void (*unset_safe_mode)(struct amdgpu_device *adev);
-> +	void (*emit_unset_safe_mode)(struct amdgpu_device *adev, struct amdgpu_ring *ring);
->   	int  (*init)(struct amdgpu_device *adev);
->   	u32  (*get_csb_size)(struct amdgpu_device *adev);
->   	void (*get_csb_buffer)(struct amdgpu_device *adev, volatile u32 *buffer);
-> @@ -194,7 +196,9 @@ struct amdgpu_rlc {
->   };
->   
->   void amdgpu_gfx_rlc_enter_safe_mode(struct amdgpu_device *adev);
-> +void amdgpu_gfx_rlc_emit_enter_safe_mode(struct amdgpu_device *adev, struct amdgpu_ring *ring);
->   void amdgpu_gfx_rlc_exit_safe_mode(struct amdgpu_device *adev);
-> +void amdgpu_gfx_rlc_emit_exit_safe_mode(struct amdgpu_device *adev, struct amdgpu_ring *ring);
->   int amdgpu_gfx_rlc_init_sr(struct amdgpu_device *adev, u32 dws);
->   int amdgpu_gfx_rlc_init_csb(struct amdgpu_device *adev);
->   int amdgpu_gfx_rlc_init_cpt(struct amdgpu_device *adev);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> index 14136de8abb8..3c93fcfffa85 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> @@ -4822,6 +4822,19 @@ static void gfx_v9_0_set_safe_mode(struct amdgpu_device *adev)
->   	}
->   }
->   
-> +static void gfx_v9_0_emit_set_safe_mode(struct amdgpu_device *adev, struct amdgpu_ring *ring)
-> +{
-> +	uint32_t data;
-> +	uint32_t reg;
-> +
-> +	data = RLC_SAFE_MODE__CMD_MASK;
-> +	data |= (1 << RLC_SAFE_MODE__MESSAGE__SHIFT);
-> +	reg = SOC15_REG_OFFSET(GC, 0, mmRLC_SAFE_MODE);
-> +
-> +	amdgpu_ring_emit_reg_write_reg_wait(ring, reg, reg, data, data);
-> +
-> +}
-> +
->   static void gfx_v9_0_unset_safe_mode(struct amdgpu_device *adev)
->   {
->   	uint32_t data;
-> @@ -4830,6 +4843,17 @@ static void gfx_v9_0_unset_safe_mode(struct amdgpu_device *adev)
->   	WREG32_SOC15(GC, 0, mmRLC_SAFE_MODE, data);
->   }
->   
-> +static void gfx_v9_0_emit_unset_safe_mode(struct amdgpu_device *adev, struct amdgpu_ring *ring)
-> +{
-> +	uint32_t data;
-> +	uint32_t reg;
-> +
-> +	data = RLC_SAFE_MODE__CMD_MASK;
-> +	reg = SOC15_REG_OFFSET(GC, 0, mmRLC_SAFE_MODE);
-> +
-> +	amdgpu_ring_emit_reg_write_reg_wait(ring, reg, reg, data, data);
-> +}
-> +
->   static void gfx_v9_0_update_gfx_cg_power_gating(struct amdgpu_device *adev,
->   						bool enable)
->   {
-> @@ -5121,7 +5145,9 @@ static bool gfx_v9_0_is_rlcg_access_range(struct amdgpu_device *adev, u32 offset
->   static const struct amdgpu_rlc_funcs gfx_v9_0_rlc_funcs = {
->   	.is_rlc_enabled = gfx_v9_0_is_rlc_enabled,
->   	.set_safe_mode = gfx_v9_0_set_safe_mode,
-> +	.emit_set_safe_mode = gfx_v9_0_emit_set_safe_mode,
->   	.unset_safe_mode = gfx_v9_0_unset_safe_mode,
-> +	.emit_unset_safe_mode = gfx_v9_0_emit_unset_safe_mode,
->   	.init = gfx_v9_0_rlc_init,
->   	.get_csb_size = gfx_v9_0_get_csb_size,
->   	.get_csb_buffer = gfx_v9_0_get_csb_buffer,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.h b/drivers/gpu/drm/amd/amdgpu/soc15.h
-> index 034cfdfc4dbe..717abf73f718 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/soc15.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.h
-> @@ -28,8 +28,8 @@
->   #include "nbio_v7_0.h"
->   #include "nbio_v7_4.h"
->   
-> -#define SOC15_FLUSH_GPU_TLB_NUM_WREG		6
-> -#define SOC15_FLUSH_GPU_TLB_NUM_REG_WAIT	3
-> +#define SOC15_FLUSH_GPU_TLB_NUM_WREG		8
-> +#define SOC15_FLUSH_GPU_TLB_NUM_REG_WAIT	5
->   
->   extern const struct amd_ip_funcs soc15_common_ip_funcs;
->   
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index f404c2321a6a..ca5a32944242 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -2083,7 +2083,9 @@ static void amdgpu_ras_get_quirks(struct amdgpu_device *adev)
+ 		return;
+ 
+ 	if (strnstr(ctx->vbios_version, "D16406",
+-		    sizeof(ctx->vbios_version)))
++		    sizeof(ctx->vbios_version)) ||
++		strnstr(ctx->vbios_version, "D36002",
++			sizeof(ctx->vbios_version)))
+ 		adev->ras_hw_enabled |= (1 << AMDGPU_RAS_BLOCK__GFX);
+ }
+ 
+-- 
+2.17.1
 
 _______________________________________________
 amd-gfx mailing list
