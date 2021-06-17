@@ -2,101 +2,118 @@ Return-Path: <SRS0=/AY/=LL=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 87D3EC2B9F4
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Jun 2021 14:21:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 92D23C2B9F4
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Jun 2021 15:18:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 38EF8613A9
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Jun 2021 14:21:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 38EF8613A9
+	by mail.kernel.org (Postfix) with ESMTPS id 3C8CE61411
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Jun 2021 15:18:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3C8CE61411
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4F416E8D9;
-	Thu, 17 Jun 2021 14:21:16 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam08on2083.outbound.protection.outlook.com [40.107.102.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D9406E8D9
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Jun 2021 14:21:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF94E6E90A;
+	Thu, 17 Jun 2021 15:18:04 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam08on2079.outbound.protection.outlook.com [40.107.101.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 227D66E90A;
+ Thu, 17 Jun 2021 15:18:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aFL8/09OYrcSqPIXdPFR/cLj0V7oONWQJgSJRG7yjk5PcOQnaicEYu0by6tNeeqQInDjzba/PyAXAqN34Y8JXFm9XS0nJ7/wNV7kpB9Ug2imoMQ7OgwTuldIELjw1srb4FeTVxDveKKsPjJnn04PnD4Rwtxi8HJU7MJI6Q1A5sMnpS0cqI47LahorLUUjLexvzgNxuaSowGNuPW/hvQgcJwo+a1u2gDQbxbqJqGKkLE+t8HrTR9PQxfUxSVOizbilmvNvmCnHh38uM9VcGpv2i8flNJPLexuC/QxcBuern+3P9AXs40EAFoxua3h83GkM6gDo4OsWH75xnvuLVkWJg==
+ b=BSKbggmrye6E/q9GUQ/zDcrpDQ/a+YL11vIFCpCuNd4gJXRocm9uL0TGzX+S1zUBYBcpsgOdrlsSa9NUcQ6g96aMe47WG1HJWeGGhWHeyqALjjttcDWjuIv2ODrNp1TBcsyeR26ZMYd59Ge/VO1MnB4efFE0UxfjNbVV4Zm1EOFnDBMjlMZmRFm3+M0+oYzszJjgc2KgfaCHHetjPpazHrLN5U6zOSpr8K7yzDGXH/zHdFXTkxkGNOWWXXobms2ZXk3Plfp+EROmSlSlHGvMX2cubEj0KOzHgXI1XQoGDONxfvl9h/bdiNwCTXfAv1gzCkYBXEPteTj64sEqADlzXg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1aqYh/zGS6Qb/UJjMwbTSZhpnsLQnWLJj/pLRiGAvV4=;
- b=SsFwI7dDNd8XL/2RsrHZ0uazQOwFJ2cUFiQq7tQPip/cXHvmPBZu0jo9bHRSXr6NGWZUF7A7NcWuefQkQJlGS/sxdRFMLDcNR32t9ya3kg9e3WnZXOzWbeNkGGas8GD44/QDigcFLQGLzS4DoLcf31m2e6cwQOTE+e/g7OvCzj+Es5oEzVDow6YGYBxRrpVH2gwJcucrc03syoT9fhIEUNL75QXarOuXsoem3qZwN8gV8Hl6JzgzAOgXdUAqBeRXh8nKd3/bTi3TgIACcJFn/0W0enNEFpDoISzL00hw5DCcnS2ebzO/jG8HajoQnXLsjOo+zu2q85rj0yeTkdF1rw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=0vTCKBj0SX1TNChLxKKivsBwKkvPBzLKm0hXJsAP19E=;
+ b=Wn8C6LfZmutlaFqzexEpn4nc8nD8aH/mV4SkPnn4zu9Qyam+kpFZGMPhWJKkA10NvncH4BzlBO+jBmr3RhROhcBlz4cVk20l6WEi5iq/dE987SJMxuTdVONlWWQRt0sVeM3y/0Xwi3rIkECadNIhQ7mQGqTAYbvVfLWmdVsEF+ORIa5u1wNytyHb6exYe0UmtIQp+Q9SItvNJZ9JE9kgzpz+n1wVFqLnIQw88hzPKWWEbVBTvTrI0y9gO1vAyaMn8ZRBoAEnaZJMTXDJcXVmirpodpurVBM1wFHdPHNAJA8KiU2ZuMXxS8Dq6/CllFKaHJLPeA2pJOcHiH8rO1qrKw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1aqYh/zGS6Qb/UJjMwbTSZhpnsLQnWLJj/pLRiGAvV4=;
- b=htxBRKDMNroHMQidGTGJL0SGf5TlbLw/gmvfzHMGXOQgV2A7puL54EC8rxBMroYbzAv6cBEBNkvSzCortXoBvLZYjNFkqfZtdmYROukqz07cmMyjhTYIjBRgStMDp1muos6QZg1evRgsMzTy9OCtZTsbcNHQaWovDgX8w5E0Sao=
-Received: from MWHPR02CA0001.namprd02.prod.outlook.com (2603:10b6:300:4b::11)
- by BN8PR12MB3316.namprd12.prod.outlook.com (2603:10b6:408:42::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.25; Thu, 17 Jun
- 2021 14:21:14 +0000
-Received: from CO1NAM11FT032.eop-nam11.prod.protection.outlook.com
- (2603:10b6:300:4b:cafe::ce) by MWHPR02CA0001.outlook.office365.com
- (2603:10b6:300:4b::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.19 via Frontend
- Transport; Thu, 17 Jun 2021 14:21:14 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ bh=0vTCKBj0SX1TNChLxKKivsBwKkvPBzLKm0hXJsAP19E=;
+ b=jjr4v8umTxQMRymeGR7uSYlujzp4StOUaHNPTjyhsxapsWlz+NTR0KOkm6uYnbrc1LqWMMywIvxmU5j0j5dxm+TpYBydqxXLlX6MrVU00/GdApVx+tuPSi7yfpxtp54W1pzfl9xh6UVd3fsI1hz/s+NmFUaUoyuL38owfl1SNdg=
+Authentication-Results: linux-foundation.org; dkim=none (message not signed)
+ header.d=none;linux-foundation.org; dmarc=none action=none
  header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT032.mail.protection.outlook.com (10.13.174.218) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4242.16 via Frontend Transport; Thu, 17 Jun 2021 14:21:14 +0000
-Received: from eric-HP-EliteBook-745-G4.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2242.4; Thu, 17 Jun 2021 09:21:13 -0500
-From: Eric Huang <jinhuieric.huang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdkfd: Set p2plink non-coherent in topology
-Date: Thu, 17 Jun 2021 10:20:59 -0400
-Message-ID: <20210617142059.400829-1-jinhuieric.huang@amd.com>
-X-Mailer: git-send-email 2.25.1
+Received: from DM6PR12MB4419.namprd12.prod.outlook.com (2603:10b6:5:2aa::20)
+ by DM5PR12MB1595.namprd12.prod.outlook.com (2603:10b6:4:3::15) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4242.19; Thu, 17 Jun 2021 15:18:02 +0000
+Received: from DM6PR12MB4419.namprd12.prod.outlook.com
+ ([fe80::b972:f4d6:9db3:5761]) by DM6PR12MB4419.namprd12.prod.outlook.com
+ ([fe80::b972:f4d6:9db3:5761%2]) with mapi id 15.20.4242.021; Thu, 17 Jun 2021
+ 15:18:02 +0000
+From: Alex Sierra <alex.sierra@amd.com>
+To: akpm@linux-foundation.org, Felix.Kuehling@amd.com, linux-mm@kvack.org,
+ rcampbell@nvidia.com, linux-ext4@vger.kernel.org, linux-xfs@vger.kernel.org
+Subject: [PATCH v3 0/8] Support DEVICE_GENERIC memory in migrate_vma_*
+Date: Thu, 17 Jun 2021 10:16:57 -0500
+Message-Id: <20210617151705.15367-1-alex.sierra@amd.com>
+X-Mailer: git-send-email 2.17.1
+X-Originating-IP: [165.204.78.1]
+X-ClientProxiedBy: SN4PR0501CA0088.namprd05.prod.outlook.com
+ (2603:10b6:803:22::26) To DM6PR12MB4419.namprd12.prod.outlook.com
+ (2603:10b6:5:2aa::20)
 MIME-Version: 1.0
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from alex-MS-7B09.amd.com (165.204.78.1) by
+ SN4PR0501CA0088.namprd05.prod.outlook.com (2603:10b6:803:22::26) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4264.9 via Frontend
+ Transport; Thu, 17 Jun 2021 15:18:00 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2c5f49f2-2b3c-40a8-a434-08d9319b2a09
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3316:
-X-Microsoft-Antispam-PRVS: <BN8PR12MB3316CF7475F563D1BD7C3683820E9@BN8PR12MB3316.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:324;
+X-MS-Office365-Filtering-Correlation-Id: 72caeba3-f7e2-486c-4ea6-08d931a318e3
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1595:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM5PR12MB1595B10E77C185FAF5A3B8C8FD0E9@DM5PR12MB1595.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: IvF9WM4TNVXYG3b0lmxnAzrxjaBJ9QHILo98fqxUJLZV66EeXxtryBgpV1aS28FPz9onsVeADTavW5UES3zFaCJLfbGQCt4F2lQxYsgmkLdFEGxdVOGbtU8SmjgLyJFmtyrL1FDN4e8r7DzXZr7leLMSqDeUpK+0tfEB9jaGyiZTvGBLjmMf3VRcduMTlyKuWih2iwiu22vPZYUvelSgVIK0rQoWuBjZcUJKbJ0VFZMX+inC/qym5yIJXKjY3MNapNbqTu7nYufhbS/28Wegp1MZjqeCIVG+PdNbWI6siML9kLGg740o6C4E0jdtLN1fMxnc71h+v+N9t6vlwgoVKOcIRaEjZFKXiSKYVdlGguqZt9kj0f5e5bMK+8Cs1tOBsYm4rhu+uySFaVf5lrEraL3tMieU8fj2YQcYl9ZaRaqPdRQALtNyLA73JQ0ZdGwiXwYrpFYnBxEgH4vbGdVBvLZK1nJaV9fbuxW3OnfYnQrUCtvCXKa6LuQ0DkDSntheKrN5YOJ45bCYQJE7db/yG58vkcZosx1/2gtiqZdkOgrHQd8UVvJEQ8WduRp9UVf8YeAdUVagY+nRpNvESn2+hPE1HD+S+CjF9+oSepLiGYa48MmpoFgxFE+RcWgSxp7TEP7fdtZ/9m5l4jllmtg3AvduEeQk0dw45diC84/WqG8MvbLX9fOYjugWQPozgu49
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(376002)(136003)(39860400002)(346002)(396003)(36840700001)(46966006)(26005)(336012)(316002)(5660300002)(82740400003)(86362001)(70586007)(70206006)(426003)(7696005)(82310400003)(186003)(81166007)(36756003)(47076005)(4744005)(356005)(36860700001)(478600001)(6666004)(16526019)(1076003)(8676002)(8936002)(4326008)(2906002)(2616005)(6916009)(36900700001);
+X-Microsoft-Antispam-Message-Info: p1gtpA4dRdisytZQ5rIHtkym8PFrc/M9UrJ9YptLWGUAwUe4VlD/tfpBflopqII2RyJaEf/od0cBKqzC/avQgDw40Pf53OeREuLe2viHCj3ivs1gxbWuABZUG56Gv0iJg9y6tH1YQWx0EVMElOghLYAqCMiY3wzZbafUnLoYIu54dvi0BzT0D2S54VVeS4bmX33avPpkFurqaG81HlIUjmAR5l9cwUmozTHNd4sSlRpTgA+eINMTkmoc6CssgZ+gixyal0fhxJeBRtQTXBEPe6nnuYbvOc693brIGZ31dOYc+o0OHwIdMCSUnivUPlYPLDIdm4e+TxWJ/BxbTKYeXWLTDc6/lLzbIgoSEGXTgkrI+OcB/FurEBkgpSHxtwq5y8bW/dW/Zo329r3U6gycx6EomZGJYTfp41jIIZcdaAlYgAjmMwa0AbJ+tOuHoYm+oIbJIKvVpXc023ZpZfHNhf/W1b96AS8+BuSmqaYrTKFgdjgWTmIiVgFkHhewbIdl1+FHmCLeTvvY3dCy4MQwQn2hss3cg8JAUDNYYugKIs8GOtmCjYr1TZSrbLOP3F1iFZlUCZYGC6Aj1NJZtkAmfBO2nasUa8flus7A2q+c3wyZZhw94XeGnkVD35KMH2RsrYOahdMJEGuQE5OU5OiD4Ha9Hjv7TJv7FgflzF5pwjv1u54HIJQerR9rzJk3OsIQE5WPzbzb8dfG+TulVGiIao4QeyZ5UMS8Yr+oj5n8C6IxujbsGrXemdqOGqADGJAYbhEUmUqriwAgt5C0vsDkm9RuxkHCPha/44dr27edlTbGDiQZIkvjNY4pywWvsV/AprULHpo5xavKY7dvgthTQg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4419.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(39860400002)(396003)(346002)(136003)(376002)(1076003)(86362001)(966005)(956004)(316002)(66476007)(66556008)(6666004)(36756003)(478600001)(2616005)(44832011)(66946007)(52116002)(7416002)(5660300002)(8936002)(83380400001)(26005)(4326008)(16526019)(6486002)(186003)(2906002)(7696005)(38100700002)(38350700002)(8676002)(41533002);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?6G5rVYljCq0uevLEsnVZVc7wR8dXbSLjFi40BL4YzosFBQqufuTw6bXuMA3Y?=
+ =?us-ascii?Q?o79S8L5gadZh4Z5vovYug9Wx7dkMgspdpar3CUd9qX9qsBUx8HCBuCUiBPFF?=
+ =?us-ascii?Q?VbJ9rTj29HKpAl5SCOVcPUj5AAbHnZ1HKjvDNoHWd3ZIROTYKeW+TN9LHr1d?=
+ =?us-ascii?Q?+5OiHGC99up7ERLQszjyKK0/zR6kt21on0Cu++Rqh6yjqJKC9xrIIZexy8LT?=
+ =?us-ascii?Q?Vy0h8Nz27e+rc39uyXaG+QW6IxoSlr0wegNgMfyArU2OfouonjqWnUvYZ3zz?=
+ =?us-ascii?Q?F48SRPDVHVhwY/wRacBJ3b3F8HuB8pKUpquKtTFwLYMJU+RWNiRs8/AeYfK+?=
+ =?us-ascii?Q?p9qdZ4+tRYmqtdBJdkJlUNzdj/yJ68QcwAe9yt0AXMAuCF1pJoblwqnKd0Az?=
+ =?us-ascii?Q?O4nt4n2aOmvM6INRbx5B3lajstaFbK5DvNVDcnGM/RXWrnzYKvq407JZZR+T?=
+ =?us-ascii?Q?F6JjP+tn4mqTFtx0G77ZfNCr0l9vvcic8y4bbqVzehPekimQ0H+7+6viraZW?=
+ =?us-ascii?Q?wI3J/c/P8uj2JjwyOP8FB5CKpqCnAdKDogDJaTpIn+Bdu0AQGrF+sGqHLpVy?=
+ =?us-ascii?Q?TT2PbBkadAtlpo/U/K01z3fYoXVK34QFerVLAgYTP/PLi0yUn34m9mrgZPCK?=
+ =?us-ascii?Q?r9awVsI0YL9GybXKIg/bgOLCph70qFfFucTKS56PXwuCyGINEUjsuHSRG8ya?=
+ =?us-ascii?Q?qMB7AdJ0FCg2D6So0jMZny9Sp3Y2LKaqYC7PH9ShCeFKFeehQ525vBmcH5no?=
+ =?us-ascii?Q?MPO1LRNZfHlWZgi2k+g0SeLCm0Kri14tfG7mEICqh8RIWHn50NY1YikJxIwz?=
+ =?us-ascii?Q?a56bSiOeDMo1OhcnT4vSPl+8pAMk8+vNsarZ2yOxLAh9d7/9rh4LSfTGmRDr?=
+ =?us-ascii?Q?0LjG+Y3U6rv4ZYNuvSDqicbPjyiUc5n4xONyKD13rv4PC8zw1xVKXYV6dBMt?=
+ =?us-ascii?Q?yZGz6ZkOfpnLw9ciBnw5LKyEWm4vtcwigNbuAvNz1h8Mqzg1qympvTh73W1z?=
+ =?us-ascii?Q?IjfPPZ2nfo0hpksBcaqLDH5gg9ggw3/asA1YAAxUO4ArC8Fgk0CJ/Q9/QkZ1?=
+ =?us-ascii?Q?aIZCOz/OcidjhYb99UuX5RvWH8Exe3Nmbgn93RbwYp6IiwB/annaQnZzZHVe?=
+ =?us-ascii?Q?CRM1lkmnLaWo7KhPpvSVkez+gQ0Ww9ZXgPbGtJLIo8Bhqx81a5HsgB15ZJxE?=
+ =?us-ascii?Q?5lPtLOMqv50G7gKb7E7vsIku6z9uvupfL7jj6/Cm8tKl+XzJWsGNeU/gfVnQ?=
+ =?us-ascii?Q?4PLCHmALZeF/u3rEcHZjUlpP35v2wGkXHoBk9cTEvQ65klphoI0X1PacK7/F?=
+ =?us-ascii?Q?0WHam9oHNxSZ5KwpG20UKqts?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2021 14:21:14.3003 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2c5f49f2-2b3c-40a8-a434-08d9319b2a09
+X-MS-Exchange-CrossTenant-Network-Message-Id: 72caeba3-f7e2-486c-4ea6-08d931a318e3
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4419.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2021 15:18:01.7780 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT032.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3316
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jn9PGHhZeBfu99+nAbhulrVyHiSf+q56GqQmnKMHVsax4HXvWa4V5+kRd1J1E4GwuR88yt8aYuW6fmv1GKbENA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1595
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,34 +125,100 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Eric Huang <jinhuieric.huang@amd.com>
+Cc: Alex Sierra <alex.sierra@amd.com>, dri-devel@lists.freedesktop.org,
+ jglisse@redhat.com, amd-gfx@lists.freedesktop.org, jgg@nvidia.com, hch@lst.de
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix non-coherent bit of p2plink properties flag
-which always is 0.
+v1:
+AMD is building a system architecture for the Frontier supercomputer with a
+coherent interconnect between CPUs and GPUs. This hardware architecture allows
+the CPUs to coherently access GPU device memory. We have hardware in our labs
+and we are working with our partner HPE on the BIOS, firmware and software
+for delivery to the DOE.
 
-Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 1 +
- 1 file changed, 1 insertion(+)
+The system BIOS advertises the GPU device memory (aka VRAM) as SPM
+(special purpose memory) in the UEFI system address map. The amdgpu driver looks
+it up with lookup_resource and registers it with devmap as MEMORY_DEVICE_GENERIC
+using devm_memremap_pages.
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-index d390aa369f7b..0705ff5eaa26 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-@@ -1404,6 +1404,7 @@ static void kfd_fill_iolink_non_crat_info(struct kfd_topology_device *dev)
- 
- 			inbound_link->flags = CRAT_IOLINK_FLAGS_ENABLED;
- 			kfd_set_iolink_no_atomics(peer_dev, dev, inbound_link);
-+			kfd_set_iolink_non_coherent(peer_dev, link, inbound_link);
- 		}
- 	}
- }
+Now we're trying to migrate data to and from that memory using the migrate_vma_*
+helpers so we can support page-based migration in our unified memory allocations,
+while also supporting CPU access to those pages.
+
+This patch series makes a few changes to make MEMORY_DEVICE_GENERIC pages behave
+correctly in the migrate_vma_* helpers. We are looking for feedback about this
+approach. If we're close, what's needed to make our patches acceptable upstream?
+If we're not close, any suggestions how else to achieve what we are trying to do
+(i.e. page migration and coherent CPU access to VRAM)?
+
+This work is based on HMM and our SVM memory manager that was recently upstreamed
+to Dave Airlie's drm-next branch
+https://lore.kernel.org/dri-devel/20210527205606.2660-6-Felix.Kuehling@amd.com/T/#r996356015e295780eb50453e7dbd5d0d68b47cbc
+On top of that we did some rework of our VRAM management for migrations to remove
+some incorrect assumptions, allow partially successful migrations and GPU memory
+mappings that mix pages in VRAM and system memory.
+https://patchwork.kernel.org/project/dri-devel/list/?series=489811
+
+v2:
+This patch series version has merged "[RFC PATCH v3 0/2]
+mm: remove extra ZONE_DEVICE struct page refcount" patch series made by
+Ralph Campbell. It also applies at the top of these series, our changes
+to support device generic type in migration_vma helpers.
+This has been tested in systems with device memory that has coherent
+access by CPU.
+
+Also addresses the following feedback made in v1:
+- Isolate in one patch kernel/resource.c modification, based
+on Christoph's feedback.
+- Add helpers check for generic and private type to avoid
+duplicated long lines.
+
+v3:
+- Include cover letter from v1
+- Rename dax_layout_is_idle_page func to dax_page_unused in patch
+ext4/xfs: add page refcount helper
+
+Patches 1-2 Rebased Ralph Campbell's ZONE_DEVICE page refcounting patches
+Patches 4-5 are for context to show how we are looking up the SPM 
+memory and registering it with devmap.
+Patches 3,6-8 are the changes we are trying to upstream or rework to 
+make them acceptable upstream.
+
+Alex Sierra (6):
+  kernel: resource: lookup_resource as exported symbol
+  drm/amdkfd: add SPM support for SVM
+  drm/amdkfd: generic type as sys mem on migration to ram
+  include/linux/mm.h: helpers to check zone device generic type
+  mm: add generic type support to migrate_vma helpers
+  mm: call pgmap->ops->page_free for DEVICE_GENERIC pages
+
+Ralph Campbell (2):
+  ext4/xfs: add page refcount helper
+  mm: remove extra ZONE_DEVICE struct page refcount
+
+ arch/powerpc/kvm/book3s_hv_uvmem.c       |  2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 15 ++++--
+ drivers/gpu/drm/nouveau/nouveau_dmem.c   |  2 +-
+ fs/dax.c                                 |  8 +--
+ fs/ext4/inode.c                          |  5 +-
+ fs/xfs/xfs_file.c                        |  4 +-
+ include/linux/dax.h                      | 10 ++++
+ include/linux/memremap.h                 |  7 +--
+ include/linux/mm.h                       | 52 +++---------------
+ kernel/resource.c                        |  2 +-
+ lib/test_hmm.c                           |  2 +-
+ mm/internal.h                            |  8 +++
+ mm/memremap.c                            | 69 +++++++-----------------
+ mm/migrate.c                             | 13 ++---
+ mm/page_alloc.c                          |  3 ++
+ mm/swap.c                                | 45 ++--------------
+ 16 files changed, 83 insertions(+), 164 deletions(-)
+
 -- 
-2.25.1
+2.17.1
 
 _______________________________________________
 amd-gfx mailing list
