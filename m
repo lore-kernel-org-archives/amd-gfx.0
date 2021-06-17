@@ -2,128 +2,74 @@ Return-Path: <SRS0=/AY/=LL=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AE912C2B9F4
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Jun 2021 16:19:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3D24FC2B9F4
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Jun 2021 16:51:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 61BC361003
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Jun 2021 16:19:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 61BC361003
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id EFB5C610A2
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Jun 2021 16:51:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EFB5C610A2
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E93336E1E6;
-	Thu, 17 Jun 2021 16:19:08 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2057.outbound.protection.outlook.com [40.107.243.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A0E96E1E6
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Jun 2021 16:19:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hXSNmwUyBt/DfuAMnIl+0OSNBvYUjQ1wclppQ8VCboWzVu6LSXUZlqZPTM5snYflRLLDhjXOG9eh6z+CiYV2wGeh1zMypmVtrBdIkoCDVNLWIeaD7DVzJtXGvLRrurQlGhO7UABsSsz7BNgjY83XJf1ZKryiuTL9VTZJyuWgNX2vIkAFy2XJbpyPR0QVlqsrYo1vvPZfZSdO1OnzZ5AOWQkfXPrHeE6/kjqQuFJqBFbxpyCCF9nMzjTqln8D2zY04LpeU5EaBJJQi8sZm6AT7vo1toLR93uVJL7hAcYAHcH8wEX1PTWAoC/7e2u8Vz8pCmmwhUDL/FNdRy9p2ktWPg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dPA/U3kr/DRirCdPWitdDBqnJ7ABaT/RSPCuVk07I2w=;
- b=jQw+4GLVFIBqQwYP/iHRJTIamFRhOA79lmqb0t5UmcAc7Yqy/qQpECxGaA/DqrcjR6kGE8cMPGr+5nRsFm9fWY3r8suSY/dxSach9/DTk4eaGEN59/+kpxrJ4yshEbl/Qog5MJlTZer88RZ5vxuOd5q0TV8sydEP7sqnT1VVpEk9rtrbfHm4DtsdFzml9vUQPSSG3nhqdhgIkxSCFbu8joIfoie20XCZDMSDlO1WRpfT1bt54AaGbDkyAConzZkQgPShlEtPJ5sqOjoi8SToug2p7IVhyoAOGqRS9xysOJJ3PxZg2sz2i4zCHJaq0Nzq2zM3nFcFA6Wrh/pO+XxoLQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dPA/U3kr/DRirCdPWitdDBqnJ7ABaT/RSPCuVk07I2w=;
- b=2+fwwOz11RsI0Jg6ltosFKa4PillZQUWE1F4DFRhTW5LdGFGiCE9mhKMU8OomF0H8MUG3A3bmQ8BXGOGjfUD+yZ0gXptGWVm7IULZbSUpNHs4ubDDe4/NX9WPnAN3ogyANDWTHue4w0Ta1li3obrH4d73avj7CZIFXqb5dNWRx8=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5129.namprd12.prod.outlook.com (2603:10b6:408:136::12)
- by BN9PR12MB5132.namprd12.prod.outlook.com (2603:10b6:408:119::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.19; Thu, 17 Jun
- 2021 16:19:04 +0000
-Received: from BN9PR12MB5129.namprd12.prod.outlook.com
- ([fe80::3c78:e58b:fba7:b8dd]) by BN9PR12MB5129.namprd12.prod.outlook.com
- ([fe80::3c78:e58b:fba7:b8dd%6]) with mapi id 15.20.4242.021; Thu, 17 Jun 2021
- 16:19:04 +0000
-Subject: Re: [PATCH] drm/amdkfd: Set p2plink non-coherent in topology
-To: Eric Huang <jinhuieric.huang@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20210617142059.400829-1-jinhuieric.huang@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Message-ID: <118a7111-430f-f408-2114-eb56194144ea@amd.com>
-Date: Thu, 17 Jun 2021 12:19:02 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
-In-Reply-To: <20210617142059.400829-1-jinhuieric.huang@amd.com>
-Content-Language: en-US
-X-Originating-IP: [142.186.84.51]
-X-ClientProxiedBy: YT2PR01CA0023.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:38::28) To BN9PR12MB5129.namprd12.prod.outlook.com
- (2603:10b6:408:136::12)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F59C6E939;
+	Thu, 17 Jun 2021 16:51:37 +0000 (UTC)
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [IPv6:2a00:1450:4864:20::429])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5AD626E93A
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Jun 2021 16:51:36 +0000 (UTC)
+Received: by mail-wr1-x429.google.com with SMTP id d11so5172282wrm.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Jun 2021 09:51:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=Xph7xOZciT1OS23ds0S75MT4wpAVrjZCa+wMUU04+lk=;
+ b=al4+jtWhcDfHo5HKPxSqnEPa7P2EtEIkKwOsYRdknQyP4C8elWI1n9BlxzzwFRpqXI
+ ZYaE9QkEP0ZF/q+VzCy5aEPLCZhsEsL8JhvlJo3MoXH+il3zm7hzDfKHM++bdEmNE6HU
+ Ue3HTA/fHBAf9jEhIjDlDelIivYxeGeSvXGK0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=Xph7xOZciT1OS23ds0S75MT4wpAVrjZCa+wMUU04+lk=;
+ b=IyDGUvbOpom/OHW74FKKjpNT935qm4a7nL1XqnqK8jyE2FNRsBDer6V+zGhDCk9+E3
+ c0wpLUSjWhcwxwEA9ZxJHRWH1/l3Hh4o1OoXNed9mbIS1PnQATGV6TMFV0zMPQCU1wJ6
+ E07osk2u1AjKys/HdgsejK3+XUfWMmLngxeH8+l8KKDmSbY+w5XjB+aZx9V81MdOsmS8
+ OAmyckFhXSl7G6YRXZwdQEziturS5Aam7z1c+YaYdHQefrGR0nzM5Dd/CEL/5fXdeUn0
+ 46ph4kK+oYQVEAzmoSSEmEMiGtzgzgmcOBqVvLv7glsRIPwNFxmwUex4BMVHs9EfDMnY
+ wcag==
+X-Gm-Message-State: AOAM533z8dFDbFtkRqVFAg9Pbclsthy+vyXNLJaj5i5D9SL6orKjCpm6
+ Qn2pRz1PuTCLR3mEvQZsIRGRoA==
+X-Google-Smtp-Source: ABdhPJxQemxwLaXlYo/6g9aQilKVfHx4rzfVfVz7y1kBPWm4rUvfqtdfCXM5u9pk2x181v5JGA2tjQ==
+X-Received: by 2002:a5d:6985:: with SMTP id g5mr6691466wru.396.1623948694936; 
+ Thu, 17 Jun 2021 09:51:34 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id x81sm1900224wmg.36.2021.06.17.09.51.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 17 Jun 2021 09:51:34 -0700 (PDT)
+Date: Thu, 17 Jun 2021 18:51:32 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
+Subject: Re: [PATCH 6/7] drm/amdgpu: unwrap fence chains in the explicit sync
+ fence
+Message-ID: <YMt9lA6JTdDA2KpG@phenom.ffwll.local>
+References: <20210610091800.1833-1-christian.koenig@amd.com>
+ <20210610091800.1833-7-christian.koenig@amd.com>
+ <YMMnzbky0W72PH1d@phenom.ffwll.local>
+ <51256567-84d3-76a9-31aa-aee96d01364a@gmail.com>
+ <YMN+211wnBJJIj1I@phenom.ffwll.local>
+ <1ee8f984-783a-7522-fe4f-1a9593004828@gmail.com>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [192.168.2.100] (142.186.84.51) by
- YT2PR01CA0023.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:38::28) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4242.19 via Frontend Transport; Thu, 17 Jun 2021 16:19:03 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d575926f-12b8-4b24-00e1-08d931ab9fab
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5132:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BN9PR12MB5132ABAF02A69178BA9E2FA3920E9@BN9PR12MB5132.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4502;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 3ZIdxHKVr7Cwx5zqXdvSx+NdkXt+EDcroG6mnJFPqajM7ZJIQ4qfgzjtTTdZeO5xKAMmZlDftCFTrztOmXT9K6hlm9QzOgcF3ivJr3E0GmVL1WSB2i4Hx3eEQ30MiK0g+dZvQi7JPusKxbrrDBhqWBx9JGN4OtRu/FKYgEiDesjatbxpzwcY0CY9wbRy3hW+eWEwji3uYhT3EGRZssdaQWHzhnxIoGIr7wLZHxsRB/vfBn3q7Wkp7Ci3fVs1n3A4etCaZG7juqWu3Y7N5XcC6nipjK5XUGPF/9Gs9MM2GSPkEDFTX9gW/R2NYr22hWbW4kwUNeLQS6UWz8mJxoqKiczPxgLW4ggFWktB9V3YrsqTw9ZZb0TX4f2PLoeKt7aCMGUvPJkoD9eE+J4H4IxXSBFrNhQ3jrDpom9gtvFwiLz5+t1RmtZZNv3FCqxiL93NCUK0iwFhR6mMi/FemiWw6vqDCJqDlrMvtf2UO5g+6wSz+6YjSxXFJk+zOdFp1wRO3Nz2RO/JlzEa5pDawY3PjCEzFANsKKtU33ESyxM5WSryh9NAR21C/VXAsDXg2tjN0/8Ecq1DK432kNUZCqxBiPAt8ZRZpPUHZbEcGTQ+BKkSDBTtgW/jJrjoaV8uTkxNjhJ9ZTkESnhOg6vUf2+XjVCVwMWu+/g//yu05HMolfhNz0l4FRgSG4ijlJ1P8qrm
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5129.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(39860400002)(136003)(376002)(366004)(346002)(66476007)(66556008)(8936002)(66946007)(478600001)(956004)(5660300002)(86362001)(8676002)(38100700002)(186003)(6486002)(16526019)(4744005)(31696002)(36756003)(2906002)(16576012)(31686004)(26005)(44832011)(316002)(2616005)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bnEwV3pLcGxTT3ludEdRcG5XaTNRVFpPTmFpMERzS3FwT052cFo5NGI4cE83?=
- =?utf-8?B?dzcvZjNGQzhVMy91UDhGYUtFR1pMQ1VnTE05dTNtR0FqWXdrS0lBQkNocHkv?=
- =?utf-8?B?elV4MEszMW9XRVEzdHZ3SnNPcUVvTFIwZWlVbVRoZjh4U21EZXVRN205d3VF?=
- =?utf-8?B?cFBQcWxQWUxyaDdxVC9sRU5HWDZWbWFnaFYrY3hvbGtLWFFwNk8wUDNJTHJs?=
- =?utf-8?B?cXI4QXQ1TFg5OTFkYnJvUjVsMHR4eGVpdTI5K3hlVkpvVkgyWCtFYjBxbVB5?=
- =?utf-8?B?Z2gvM04yZkp4U0xucjM2a0hGczBDMDhZQXF5ZDVhTHdLUlYxZVcxVWdDWUFZ?=
- =?utf-8?B?bXFLdVZaOVpnZEZqQzk5cWtIa3lzaVNCV3BycFlNSVBOUWhvczRENFJIRHlq?=
- =?utf-8?B?aFdJQ0lVMkJaVkpENUp0UDJIeWhKZEpvZHFNc1FmQlVHTWR0dkVUQ295UVl4?=
- =?utf-8?B?RHJsQjE3eHdPaGRiRDlkU2ZxWnVaMlVROTMwVVNEUlFXT1hUaFUwd2sxdCsv?=
- =?utf-8?B?ZWg5bXE0RVJQUytMWXRLRGhmcGJNNlB6TGxMT1F3ZlRiVlMwZnJHOGhoZDZp?=
- =?utf-8?B?WEdTR0l4V2loR1pHU1V5Y1hick4wRFJxVjNES1FQNndmdjFrT3F1cFU0Mm1W?=
- =?utf-8?B?SFQzdDIwaXVJZ1prYWJ2QnpRY1NzTnBLb1RHYjhnK3FaYXByWmZvQTV5ejc3?=
- =?utf-8?B?K2twbUpRdXhOaVVGL1N4aEFOd0hwWkgreGNTckJ5aWt3VEhHQVF2ZTM1MlRm?=
- =?utf-8?B?T3BPakVlVm0vV3FsMGQ2c2hKd3pETVJUcG5SVEM0MnpoSG1rL1M4NVZwditD?=
- =?utf-8?B?MUxiN2lVQVkydlU2dlFEYk9VK3RrVlVldGN1dkdLeDhnN1FEWHJib2lNYk1S?=
- =?utf-8?B?OFY1L05zQXBmTm45Y0tsc3puLzhSTmJGZE4yem9WSloybnRNdUFJVnNhM2hL?=
- =?utf-8?B?eVpjalJlbitIVWZick92djNIUlpGeWJmUXdxMVZ1djd0bDJSWmNSREFuQUEz?=
- =?utf-8?B?T25zRDAzY3NtNDlYeGp4dXVQWWxoT0lwdzV4TysyYnBZc2tFUC9uY3RZaTNP?=
- =?utf-8?B?VmJjd3NVaGVIVVpBcDBKUGs3bHVqcVRBeHYxN0lKWFRDQVM5cVlxWnV1TzIv?=
- =?utf-8?B?UnlxUFJjZmUzVUNEVCs2dkV2VzVFaUl3VG1kN1RBRUs1akZ2Y1F2YitndzVT?=
- =?utf-8?B?QjZ3NVhWUFdXcEFhTmRGUFU1TnNTYmxPRnlkUWN4bkMvZ1RRdUNHb0xnQmZl?=
- =?utf-8?B?NXBQdVo0UWpmQU5hcCt6U3FTZDVVYjY5OWxEbkhmc2pHdVN5Z2pKTU9wUk1t?=
- =?utf-8?B?U3FlbTNjU0FyTjVXK3RXR0ltVE04cEt0M3ZCWTNVMTJTOUYrUGhwY2JwUzRp?=
- =?utf-8?B?OC9WUTFxem1OYmMzOFdDZ01LY1hsREtSYXdXT1ZGelRpdU5wcUV4VXZlazQw?=
- =?utf-8?B?dENNNjZyT3hqU3ZOdWJVQyt1MHduclFDNnY3QXdrSDUwMXNZalk0Q3hpRzcv?=
- =?utf-8?B?T0Zod09JUDRMMmlnQlJ6VzBxVmN6MXhMRGorQzVPV2dMNDlaNGNwK2JjU3No?=
- =?utf-8?B?YWFMYXU2aFE2NHMxTzZvY2w0ZDI0M2c5bUdLNHByaVgweURVU2I4alBpcnFZ?=
- =?utf-8?B?WEs1RVlkdnNCTU1kV2lnSEJ0WUNNUXRHcSs1QUJTTWZOZjlleTJXbk9BaDI5?=
- =?utf-8?B?eFY1VE1pRTJ3WGwxMG83Q1pJY1dUcjdXeGxibG5lTDVwNkY2eWNzZGJnRGQw?=
- =?utf-8?Q?h+oi9djgQaTz5Y48HLeIWNumrOTzw6NaXsirETr?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d575926f-12b8-4b24-00e1-08d931ab9fab
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5129.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2021 16:19:03.9390 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: e86qbRBIRhDHzrtzEEZhAdCEIi7w8fMLiFlP9aIN/uG90gsjF3o9rmeZm67qE5YFH33B3tKT3RoqSwf1028Rjg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5132
+Content-Disposition: inline
+In-Reply-To: <1ee8f984-783a-7522-fe4f-1a9593004828@gmail.com>
+X-Operating-System: Linux phenom 5.10.0-7-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,27 +81,284 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-SWYgdGhpcyBpcyBmb3IgdGhlIERLTVMgYnJhbmNoLCB0aGUgcmV2aWV3IHNob3VsZCBnbyB0byBv
-dXIgaW50ZXJuYWwKcmV2aWV3IGxpc3QuCgpSZWdhcmRzLArCoCBGZWxpeAoKCkFtIDIwMjEtMDYt
-MTcgdW0gMTA6MjAgYS5tLiBzY2hyaWViIEVyaWMgSHVhbmc6Cj4gRml4IG5vbi1jb2hlcmVudCBi
-aXQgb2YgcDJwbGluayBwcm9wZXJ0aWVzIGZsYWcKPiB3aGljaCBhbHdheXMgaXMgMC4KPgo+IFNp
-Z25lZC1vZmYtYnk6IEVyaWMgSHVhbmcgPGppbmh1aWVyaWMuaHVhbmdAYW1kLmNvbT4KPiAtLS0K
-PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3RvcG9sb2d5LmMgfCAxICsKPiAgMSBm
-aWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRrZmQva2ZkX3RvcG9sb2d5LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtm
-ZC9rZmRfdG9wb2xvZ3kuYwo+IGluZGV4IGQzOTBhYTM2OWY3Yi4uMDcwNWZmNWVhYTI2IDEwMDY0
-NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF90b3BvbG9neS5jCj4gKysr
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3RvcG9sb2d5LmMKPiBAQCAtMTQwNCw2
-ICsxNDA0LDcgQEAgc3RhdGljIHZvaWQga2ZkX2ZpbGxfaW9saW5rX25vbl9jcmF0X2luZm8oc3Ry
-dWN0IGtmZF90b3BvbG9neV9kZXZpY2UgKmRldikKPiAgCj4gIAkJCWluYm91bmRfbGluay0+Zmxh
-Z3MgPSBDUkFUX0lPTElOS19GTEFHU19FTkFCTEVEOwo+ICAJCQlrZmRfc2V0X2lvbGlua19ub19h
-dG9taWNzKHBlZXJfZGV2LCBkZXYsIGluYm91bmRfbGluayk7Cj4gKwkJCWtmZF9zZXRfaW9saW5r
-X25vbl9jb2hlcmVudChwZWVyX2RldiwgbGluaywgaW5ib3VuZF9saW5rKTsKPiAgCQl9Cj4gIAl9
-Cj4gIH0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1k
-LWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9s
-aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+On Mon, Jun 14, 2021 at 09:25:44AM +0200, Christian K=F6nig wrote:
+> Am 11.06.21 um 17:18 schrieb Daniel Vetter:
+> > On Fri, Jun 11, 2021 at 12:09:19PM +0200, Christian K=F6nig wrote:
+> > > Am 11.06.21 um 11:07 schrieb Daniel Vetter:
+> > > > On Thu, Jun 10, 2021 at 11:17:59AM +0200, Christian K=F6nig wrote:
+> > > > > Unwrap a the explicit fence if it is a dma_fence_chain and
+> > > > > sync to the first fence not matching the owner rules.
+> > > > > =
+
+> > > > > Signed-off-by: Christian K=F6nig <christian.koenig@amd.com>
+> > > > > ---
+> > > > >    drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c | 118 +++++++++++++--=
+--------
+> > > > >    1 file changed, 68 insertions(+), 50 deletions(-)
+> > > > > =
+
+> > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c b/drivers/g=
+pu/drm/amd/amdgpu/amdgpu_sync.c
+> > > > > index 1b2ceccaf5b0..862eb3c1c4c5 100644
+> > > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
+> > > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
+> > > > > @@ -28,6 +28,8 @@
+> > > > >     *    Christian K=F6nig <christian.koenig@amd.com>
+> > > > >     */
+> > > > > +#include <linux/dma-fence-chain.h>
+> > > > > +
+> > > > >    #include "amdgpu.h"
+> > > > >    #include "amdgpu_trace.h"
+> > > > >    #include "amdgpu_amdkfd.h"
+> > > > > @@ -186,6 +188,55 @@ int amdgpu_sync_vm_fence(struct amdgpu_sync =
+*sync, struct dma_fence *fence)
+> > > > >    	return amdgpu_sync_fence(sync, fence);
+> > > > >    }
+> > > > > +/* Determine based on the owner and mode if we should sync to a =
+fence or not */
+> > > > > +static bool amdgpu_sync_test_fence(struct amdgpu_device *adev,
+> > > > > +				   enum amdgpu_sync_mode mode,
+> > > > > +				   void *owner, struct dma_fence *f)
+> > > > > +{
+> > > > > +	void *fence_owner =3D amdgpu_sync_get_owner(f);
+> > > > > +
+> > > > > +	/* Always sync to moves, no matter what */
+> > > > > +	if (fence_owner =3D=3D AMDGPU_FENCE_OWNER_UNDEFINED)
+> > > > > +		return true;
+> > > > > +
+> > > > > +	/* We only want to trigger KFD eviction fences on
+> > > > > +	 * evict or move jobs. Skip KFD fences otherwise.
+> > > > > +	 */
+> > > > > +	if (fence_owner =3D=3D AMDGPU_FENCE_OWNER_KFD &&
+> > > > > +	    owner !=3D AMDGPU_FENCE_OWNER_UNDEFINED)
+> > > > > +		return false;
+> > > > > +
+> > > > > +	/* Never sync to VM updates either. */
+> > > > > +	if (fence_owner =3D=3D AMDGPU_FENCE_OWNER_VM &&
+> > > > > +	    owner !=3D AMDGPU_FENCE_OWNER_UNDEFINED)
+> > > > > +		return false;
+> > > > > +
+> > > > > +	/* Ignore fences depending on the sync mode */
+> > > > > +	switch (mode) {
+> > > > > +	case AMDGPU_SYNC_ALWAYS:
+> > > > > +		return true;
+> > > > > +
+> > > > > +	case AMDGPU_SYNC_NE_OWNER:
+> > > > > +		if (amdgpu_sync_same_dev(adev, f) &&
+> > > > > +		    fence_owner =3D=3D owner)
+> > > > > +			return false;
+> > > > > +		break;
+> > > > > +
+> > > > > +	case AMDGPU_SYNC_EQ_OWNER:
+> > > > > +		if (amdgpu_sync_same_dev(adev, f) &&
+> > > > > +		    fence_owner !=3D owner)
+> > > > > +			return false;
+> > > > > +		break;
+> > > > > +
+> > > > > +	case AMDGPU_SYNC_EXPLICIT:
+> > > > > +		return false;
+> > > > > +	}
+> > > > > +
+> > > > > +	WARN(debug_evictions && fence_owner =3D=3D AMDGPU_FENCE_OWNER_K=
+FD,
+> > > > > +	     "Adding eviction fence to sync obj");
+> > > > > +	return true;
+> > > > > +}
+> > > > > +
+> > > > >    /**
+> > > > >     * amdgpu_sync_resv - sync to a reservation object
+> > > > >     *
+> > > > > @@ -211,67 +262,34 @@ int amdgpu_sync_resv(struct amdgpu_device *=
+adev, struct amdgpu_sync *sync,
+> > > > >    	/* always sync to the exclusive fence */
+> > > > >    	f =3D dma_resv_excl_fence(resv);
+> > > > > -	r =3D amdgpu_sync_fence(sync, f);
+> > > > > +	dma_fence_chain_for_each(f, f) {
+> > > > Jason has some helper for deep-walking fence chains/arrays here I t=
+hink.
+> > > > Might want to look into that, so that we have some consistency in h=
+ow we
+> > > > pile up multiple exclusive fences.
+> > > Well those helpers are not from Jason, but from me :)
+> > > =
+
+> > > But no, for now the deep inspection is not really helpful here since
+> > > grabbing a reference to a certain chain node is what that makes the h=
+andling
+> > > easier and faster here.
+> > > =
+
+> > > Thinking more about it that should also make it possible for the garb=
+age
+> > > collection to kick in properly.
+> > Hm this is tricky to reason about, but yeah with this here it's a true
+> > chain, and you just need to connect them. But then if a buffer is on
+> > multiple engines, collapsing things down occasionally might be useful.
+> > =
+
+> > But maybe we need to do that in the bigger rework where exclusive fences
+> > are also just in the dma_fence_list with a "this is an exclusive one bt=
+w"
+> > tag.
+> > =
+
+> > I think for the vk import case doing the deep scan makes more sense, it=
+'s
+> > a once-per-frame thing, and there's a much bigger chance that you have a
+> > pile of fences from different engines on it already.
+> =
+
+> The problem with Jasons IOCTL is that you *must* do a deep dive and flatt=
+en
+> out the fences.
+> =
+
+> Otherwise somebody could use it to create a deep fence structure with
+> dma_fence_arrays containing dma_fence_arrays, containing dma_fence_arrays
+> etc...
+> =
+
+> When you then release that structure you overwrite kernel stack because t=
+he
+> dma_fence_array does a dma_fence_put() on it's entries :)
+> =
+
+> The dma_fence_chain container is intentionally made in a way to prevent
+> that.
+
+I'm maybe too dense, but why can't we use a chain with Jason's work too?
+At least from high-level semantics it feels like we're doing exactly the
+same thing here as the import ioctl does. Only thing different is that the
+import ioctl doesn't do an actual CS or anything like that.
+-Daniel
+
+
+> > I think a comment explaining why we think deep scan isn't a good idea h=
+ere
+> > would be good, just so we can appreciate our foolishness when it all go=
+es
+> > wrong :-)
+> =
+
+> Ok, good point.
+> =
+
+> Thanks,
+> Christian.
+> =
+
+> > -Daniel
+> > =
+
+> > =
+
+> > > > Anyway pretty much one of the versions I had in mind too, except I =
+didn't
+> > > > type it up.
+> > > > =
+
+> > > > Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+> > > Thanks,
+> > > Christian.
+> > > =
+
+> > > > > +		struct dma_fence_chain *chain =3D to_dma_fence_chain(f);
+> > > > > +
+> > > > > +		if (amdgpu_sync_test_fence(adev, mode, owner, chain ?
+> > > > > +					   chain->fence : f)) {
+> > > > > +			r =3D amdgpu_sync_fence(sync, f);
+> > > > > +			dma_fence_put(f);
+> > > > > +			if (r)
+> > > > > +				return r;
+> > > > > +			break;
+> > > > > +		}
+> > > > > +	}
+> > > > >    	flist =3D dma_resv_shared_list(resv);
+> > > > > -	if (!flist || r)
+> > > > > -		return r;
+> > > > > +	if (!flist)
+> > > > > +		return 0;
+> > > > >    	for (i =3D 0; i < flist->shared_count; ++i) {
+> > > > > -		void *fence_owner;
+> > > > > -
+> > > > >    		f =3D rcu_dereference_protected(flist->shared[i],
+> > > > >    					      dma_resv_held(resv));
+> > > > > -		fence_owner =3D amdgpu_sync_get_owner(f);
+> > > > > -
+> > > > > -		/* Always sync to moves, no matter what */
+> > > > > -		if (fence_owner =3D=3D AMDGPU_FENCE_OWNER_UNDEFINED) {
+> > > > > +		if (amdgpu_sync_test_fence(adev, mode, owner, f)) {
+> > > > >    			r =3D amdgpu_sync_fence(sync, f);
+> > > > >    			if (r)
+> > > > > -				break;
+> > > > > -		}
+> > > > > -
+> > > > > -		/* We only want to trigger KFD eviction fences on
+> > > > > -		 * evict or move jobs. Skip KFD fences otherwise.
+> > > > > -		 */
+> > > > > -		if (fence_owner =3D=3D AMDGPU_FENCE_OWNER_KFD &&
+> > > > > -		    owner !=3D AMDGPU_FENCE_OWNER_UNDEFINED)
+> > > > > -			continue;
+> > > > > -
+> > > > > -		/* Never sync to VM updates either. */
+> > > > > -		if (fence_owner =3D=3D AMDGPU_FENCE_OWNER_VM &&
+> > > > > -		    owner !=3D AMDGPU_FENCE_OWNER_UNDEFINED)
+> > > > > -			continue;
+> > > > > -
+> > > > > -		/* Ignore fences depending on the sync mode */
+> > > > > -		switch (mode) {
+> > > > > -		case AMDGPU_SYNC_ALWAYS:
+> > > > > -			break;
+> > > > > -
+> > > > > -		case AMDGPU_SYNC_NE_OWNER:
+> > > > > -			if (amdgpu_sync_same_dev(adev, f) &&
+> > > > > -			    fence_owner =3D=3D owner)
+> > > > > -				continue;
+> > > > > -			break;
+> > > > > -
+> > > > > -		case AMDGPU_SYNC_EQ_OWNER:
+> > > > > -			if (amdgpu_sync_same_dev(adev, f) &&
+> > > > > -			    fence_owner !=3D owner)
+> > > > > -				continue;
+> > > > > -			break;
+> > > > > -
+> > > > > -		case AMDGPU_SYNC_EXPLICIT:
+> > > > > -			continue;
+> > > > > +				return r;
+> > > > >    		}
+> > > > > -
+> > > > > -		WARN(debug_evictions && fence_owner =3D=3D AMDGPU_FENCE_OWNER_=
+KFD,
+> > > > > -		     "Adding eviction fence to sync obj");
+> > > > > -		r =3D amdgpu_sync_fence(sync, f);
+> > > > > -		if (r)
+> > > > > -			break;
+> > > > >    	}
+> > > > > -	return r;
+> > > > > +	return 0;
+> > > > >    }
+> > > > >    /**
+> > > > > -- =
+
+> > > > > 2.25.1
+> > > > > =
+
+> =
+
+
+-- =
+
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
