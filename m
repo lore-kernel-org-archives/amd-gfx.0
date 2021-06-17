@@ -7,62 +7,96 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 43BEEC2B9F4
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Jun 2021 13:27:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 51F61C2B9F4
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Jun 2021 14:09:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E884061040
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Jun 2021 13:27:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E884061040
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=semihalf.com
+	by mail.kernel.org (Postfix) with ESMTPS id 180C56128B
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Jun 2021 14:09:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 180C56128B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 609AB6E139;
-	Thu, 17 Jun 2021 13:27:18 +0000 (UTC)
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [IPv6:2a00:1450:4864:20::22e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 048BE89857
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Jun 2021 08:18:48 +0000 (UTC)
-Received: by mail-lj1-x22e.google.com with SMTP id r16so7715090ljk.9
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Jun 2021 01:18:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=semihalf-com.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id;
- bh=V7muk8KKGe+XfFxd73JpvxGyl10Hv3uLmnfhj616AV4=;
- b=GZ36J/8v3yEHnIaE1bA/VdmqD+khFtpAsmwdiB0nNCQiKibY5jHVRtAtcWIArI7Ay5
- uxME1d+8o65hnBI0cnl0GzWgxH3acAMDWZrXGVb69uC+a/G5/643H+AX5OXXh4+BG92X
- P2sbCsJB0Buo/suKUUF5U//0qPmJYU+QcFM4L7liB/ygeOb0WENhbS//HJuEqE1I2EbQ
- 8QMjFtg/qZi2mO/wzR77OV6l4LB+aJq4ApdZfyUem/EgwyruJBeVWtKbDGYuf9Ptn9O2
- zyJMhTADsR5dkFQOiKf6XU7jRIvLxBnPcJVy8ZZUiBfP7VFiRM0eFGtXU+28PKFGLy2H
- Y28w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=V7muk8KKGe+XfFxd73JpvxGyl10Hv3uLmnfhj616AV4=;
- b=sqpGdL+hbrekSMiliEvQA2vnslB74+7ycCBoIUYCH7MEMIpcN+g3VcUtnnTzE1tK/a
- kxxbYWwaDjqF8KHcgUlkiTD+HnmlOlNgyGUU3gz/p6sJDWXgtmcxF8GKIpNvJZASr0l7
- ytnKjCdWfG/zcIuwUucyoGvc2/fBMG5GSB84PMEZGrSOwl2EalISiScsqen5RUmtaKwx
- BJFD10iErOTmzyyU6IjHC+UEwSsyHKgqILs0gXL3g2hdhvwwyW3CsiXu7KRidTDo8tEj
- PcBSg9fx1ommLggUbL0fW1vkv+BaICye7RHlJwxOv5NswpfdBHaumSHZIYgcik32737D
- kwiA==
-X-Gm-Message-State: AOAM532qx7DP28Jo1rBMf83dhdl97KfrwcJt8KEj368uVeWK10qeLa/K
- IahHxiQtxDCLEjf8QTPjqCdG
-X-Google-Smtp-Source: ABdhPJyvPKvE+pM6k9WPNugZFb7ICxZCC8iESxs+ncVii7E4DwD2+oRu+4hVdvEAkMp1HMV+j6cshQ==
-X-Received: by 2002:a2e:990c:: with SMTP id v12mr3572138lji.136.1623917927306; 
- Thu, 17 Jun 2021 01:18:47 -0700 (PDT)
-Received: from luke.goog-chromeos.semihalf.net ([83.142.187.85])
- by smtp.gmail.com with ESMTPSA id t6sm498685lfp.301.2021.06.17.01.18.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 17 Jun 2021 01:18:46 -0700 (PDT)
-From: Lukasz Bartosik <lb@semihalf.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>
-Subject: [PATCH v1] drm/amdgpu: fix framebuffer memory use after free
-Date: Thu, 17 Jun 2021 10:18:43 +0200
-Message-Id: <20210617081843.26987-1-lb@semihalf.com>
-X-Mailer: git-send-email 2.17.1
-X-Mailman-Approved-At: Thu, 17 Jun 2021 13:27:16 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBC416E8BC;
+	Thu, 17 Jun 2021 14:09:54 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam08on2072.outbound.protection.outlook.com [40.107.101.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF4986E8BC
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Jun 2021 14:09:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=gC0xup+WE3xYc70QTzX0OlTNA8CSsQRr5JwG+rAUEJRl+s4DqTq6kAzat2hO4oAwUG5wd+VTtfn4RZLSjcQ3mPbtqu415SoDKdmBnl0idxKxCb0S0X8UrY00pP28/DVq6is/hcF/4Q9POKq2dy9wdZTLm9DXeWwInmdSvji1lMtpw4W/rcy634EKzd6XhX9uo+2R84SBH2efrY0W4VcQiufIXgPy/NElF5vZ6lZmny9hovawkxK/i/7PcfiRJb92ebTc/zPghPxR7FmssZHIwUDThhfMyr4lLaTB7DePwN/5uZcJOAwCs0EeNNmbMzFHwDXPEbHMHaJU4iEzp2GtHw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=olP+sVujJrkNjDuk1SA18InkykzE3WcFw8iKRhVOg24=;
+ b=BjU0OyxpqW7qd9CgLHdb3hixYW9EduOnq59FdcJVEjRp4MCfWghJznvT4LuoTRHbUMVan3ohRchag9iUzaNiq0AViouHcxUEcXmiviYw7a9Bh5ZBLO5DtDeLsJHqcTiEnsyeGr/y0oUzgj+yfxR7gW3n+mBzswGHybmDEEhESWDV4+UxDVLRHJw6s4A7//jttxbZ/KX75jgCpGDOJk7M00Pl9+f7uK6ZcB7eW7Fbs6tDdoRrNmWrnCCq5Fz4nPKAHs+/IDFLCPgjqRRFnlarPZU1tPg3co/IxFL/PEdoirP2QsTBXrn8mnIRRGkGpNzU8fiohtlYnCT51HwFsGoQ7A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=olP+sVujJrkNjDuk1SA18InkykzE3WcFw8iKRhVOg24=;
+ b=AKvueSXJlnjfijjupSfHUZ7dsGPPphftRoKih5E9gd5iPQDDjtfncMr9D7mVyRJtamziuoh9KJk89FjR+qf0MndGFs0wbHD6Q6rvrmANd4929NVR6TZmFK/tFL4hAWskky5raIIqnLcFd0jeUOwbw0Nhdnja+FEyxyCi4LCygoE=
+Received: from DS7PR03CA0250.namprd03.prod.outlook.com (2603:10b6:5:3b3::15)
+ by BN9PR12MB5306.namprd12.prod.outlook.com (2603:10b6:408:103::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.18; Thu, 17 Jun
+ 2021 14:09:52 +0000
+Received: from DM6NAM11FT068.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:3b3:cafe::ae) by DS7PR03CA0250.outlook.office365.com
+ (2603:10b6:5:3b3::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.16 via Frontend
+ Transport; Thu, 17 Jun 2021 14:09:52 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DM6NAM11FT068.mail.protection.outlook.com (10.13.173.67) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4242.16 via Frontend Transport; Thu, 17 Jun 2021 14:09:52 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Thu, 17 Jun
+ 2021 09:09:51 -0500
+Received: from yifan.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2242.4 via Frontend
+ Transport; Thu, 17 Jun 2021 09:09:50 -0500
+From: Yifan Zhang <yifan1.zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: remove unused parameter in amdgpu_gart_bind
+Date: Thu, 17 Jun 2021 22:09:48 +0800
+Message-ID: <20210617140948.2558103-1-yifan1.zhang@amd.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: e54e32c0-8c73-469e-2738-08d9319993a2
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5306:
+X-Microsoft-Antispam-PRVS: <BN9PR12MB5306FDEA1BE74480717F2435C10E9@BN9PR12MB5306.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:331;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Tv+ETWx2xn1pfiEv3PFIvBc814YkggMXOdH/qRQaJSBRXddPJSWFafApZ4EozYPz2PEpUTsVe7YJcsqS9msr6QwDwNdtcqsqLrbKEGqQCIEKYpy5A71DVn0BBGgoD3HF0Cxmv4+PBd6PxblzlD8N+Uh1/Z7lhxhJxqhz5VC0QCAd5wzJtIrU9/qcJCIbaU0NPkMXqvZ0WAFpCP5NNbstFY6l+GFQLVLlBw1pgFipJESjzyuDJPjwRC7NCKqugi4GmvLgqWtmUp/8y/H06Z8zo1V/8ErwqeRxMJiU/xquiyG4ZvzwEkuY4KCTIn0P0Ykmv7wp6MgmJVTr2+I7yQwXviw0xnhE/GjVNYkXaqB+iemstkp8bMN96a9R1fbquHysOO+AZld+to60uFEz+m2nZd/A54NMbMAmGnEaG3pMypavWzkCukDCxyQysPWxlmuCyK0mbaxx7Y4XuFVc+7+IQdOGVEvZj6hWbIY7spToZqHlHV/Ss3KvhGTlsU56PDcPFVgGZkwIaTlNHsfa7gMj7mWX/h/ZJL3lAV4igpu1MR/Nye+1OaVV4dgx2CKVxScSpumSq5f2Ho01F8PBvJyYHuHQsH6EsPv8is5HIk7uRXrAMojKw4Ac9kr74AadsNsZedEbenzDbjCPhlEJHrOvL9V8xhXjMkFyU+nu1ygdv8vk1IXA4VnLVUYLd2MNjvol
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(376002)(39860400002)(346002)(136003)(396003)(46966006)(36840700001)(70586007)(82740400003)(83380400001)(86362001)(2616005)(6916009)(1076003)(336012)(70206006)(36860700001)(82310400003)(5660300002)(36756003)(356005)(26005)(4326008)(186003)(8676002)(81166007)(8936002)(426003)(7696005)(47076005)(316002)(478600001)(2906002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2021 14:09:52.5241 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e54e32c0-8c73-469e-2738-08d9319993a2
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT068.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5306
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,100 +108,93 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: upstream@semihalf.com, amd-gfx@lists.freedesktop.org,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-MIME-Version: 1.0
+Cc: Yifan Zhang <yifan1.zhang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-With option CONFIG_DEBUG_LIST enabled the kernel logs show list_add
-corruption warning. The warning originates from drm_framebuffer_init()
-function which adds framebuffer to a framebuffers list and is called by
-amdgpu_display_gem_fb_verify_and_init().
-If amdgpu_display_gem_fb_verify_and_init() encounters an error after
-calling drm_framebuffer_init() then framebuffer memory is released
-in amdgpu_display_user_framebuffer_create() without removing framebuffer
-from the list where it was added. Reuse of that memory by any other
-party cause corruption of the framebuffers linked list. This fix removes
-framebuffer from the linked list and unregisters it in case of failure.
+After commit 72a616bb953329bd97c6d6d4c64f3f40ed788a36,
+pagelist is no long used in amdgpu_gart_bind. Remove it.
 
-[   23.252465] ------------[ cut here ]------------
-[   23.252469] list_add corruption. next->prev should be prev (ffff9921c16203a8), but was 733a656c69665f6d. (next=ffff9920debec508).
-[   23.252506] WARNING: CPU: 1 PID: 1637 at lib/list_debug.c:25 __list_add_valid+0x56/0x8f
-[   23.252520] Modules linked in: xt_cgroup rfcomm cmac algif_hash algif_skcipher af_alg uinput xt_MASQUERADE uvcvideo videobuf2_vmalloc videobuf2_memops videobuf2_v4l2 videobuf2_common btusb btrtl btintel btbcm bluetooth ecdh_generic ecc iio_trig_sysfs snd_hda_codec_hdmi designware_i2s snd_hda_intel snd_intel_dspcfg i2c_piix4 snd_hda_codec snd_hwdep snd_hda_core acpi_als industrialio_triggered_buffer kfifo_buf industrialio snd_soc_acp_rn_rt5682_mach snd_soc_max98357a snd_soc_adau7002 snd_soc_acp_rt5682_mach snd_soc_acp_da7219mx98357_mach acp_audio_dma snd_soc_da7219 ip6table_nat fuse ath10k_pci ath10k_core ath mac80211 cfg80211 r8152 mii joydev
-[   23.252595] CPU: 1 PID: 1637 Comm: DrmThread Not tainted 5.13.0-rc6 #22
-[   23.252603] Hardware name: HP Grunt/Grunt, BIOS Google_Grunt.11031.162.0 04/08/2021
-[   23.252608] RIP: 0010:__list_add_valid+0x56/0x8f
-[   23.252616] Code: 47 4c 39 fb 0f 95 c1 4c 39 f3 0f 95 c0 20 c8 5b 41 5e 41 5f 5d c3 48 c7 c7 f4 37 9f bc 4c 89 f6 4c 89 f9 31 c0 e8 0c c7 c5 ff <0f> 0b eb 16 48 c7 c7 c2 f6 99 bc 4c 89 fe 4c 89 f1 31 c0 e8 f4 c6
-[   23.252622] RSP: 0018:fffface940c87ba0 EFLAGS: 00010246
-[   23.252629] RAX: 8ae6d9bca9cb6a00 RBX: ffff9920debec100 RCX: 8ae6d9bca9cb6a00
-[   23.252634] RDX: 0000000000000027 RSI: 00000000ffffdfff RDI: ffff9921ead12e48
-[   23.252638] RBP: fffface940c87bb8 R08: 0000000000000000 R09: fffface940c87938
-[   23.252643] R10: 00000000ffffdfff R11: ffffffffbcc821f0 R12: 0000000000000000
-[   23.252647] R13: ffff9920debec508 R14: ffff9921c16203a8 R15: ffff9920debec508
-[   23.252652] FS:  00007e6190717640(0000) GS:ffff9921ead00000(0000) knlGS:0000000000000000
-[   23.252658] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[   23.252662] CR2: 00002e7a09404000 CR3: 0000000120644000 CR4: 00000000001506e0
-[   23.252667] Call Trace:
-[   23.252676]  drm_framebuffer_init+0xfb/0x13c
-[   23.252685]  amdgpu_display_gem_fb_verify_and_init+0x4b/0x10a
-[   23.252693]  ? kmem_cache_alloc_trace+0x104/0x1dc
-[   23.252703]  amdgpu_display_user_framebuffer_create+0xe0/0x195
-[   23.252709]  drm_internal_framebuffer_create+0x2fd/0x3d4
-[   23.252718]  drm_mode_addfb2+0x39/0xd6
-[   23.252724]  ? drm_internal_framebuffer_create+0x3d4/0x3d4
-[   23.252731]  drm_ioctl_kernel+0x99/0xfb
-[   23.252739]  drm_ioctl+0x25a/0x3a4
-[   23.252745]  ? drm_internal_framebuffer_create+0x3d4/0x3d4
-[   23.252753]  amdgpu_drm_ioctl+0x49/0x7d
-[   23.252760]  __se_sys_ioctl+0x7c/0xb8
-[   23.252767]  do_syscall_64+0x5f/0xa9
-[   23.252774]  ? exit_to_user_mode_prepare+0x68/0x81
-[   23.252781]  entry_SYSCALL_64_after_hwframe+0x44/0xae
-[   23.252790] RIP: 0033:0x7e619b2aff07
-[   23.252796] Code: 3c 1c 48 f7 d8 49 39 c4 72 b2 e8 14 ff ff ff 85 c0 78 b7 48 83 c4 08 4c 89 e0 5b 41 5c 41 5d 5d c3 66 90 b8 10 00 00 00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 29 af 0b 00 f7 d8 64 89 01 48
-[   23.252801] RSP: 002b:00007e6190715e48 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-[   23.252808] RAX: ffffffffffffffda RBX: 4120acd8347d3800 RCX: 00007e619b2aff07
-[   23.252812] RDX: 00007e6190715e80 RSI: 00000000c06864b8 RDI: 000000000000001d
-[   23.252817] RBP: 00007e6190715e70 R08: 00007e61907160e8 R09: 00007e61907160f8
-[   23.252821] R10: 00007e6190716108 R11: 0000000000000246 R12: 000000000000001d
-[   23.252825] R13: 0000000000000168 R14: 00007e6190715e80 R15: 00000000c06864b8
-[   23.252830] ---[ end trace 34051e69065d2c6d ]---
-
-Fixes: 6eed95b00b45 ("drm/amd/display: Store tiling_flags in the framebuffer.")
-Signed-off-by: Lukasz Bartosik <lb@semihalf.com>
+Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c | 3 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h | 3 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c  | 7 +++----
+ 3 files changed, 5 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-index c13985fb35be..933190281b91 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-@@ -1085,14 +1085,17 @@ int amdgpu_display_gem_fb_verify_and_init(
- 			    mode_cmd->modifier[0]);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+index 1091ec5d3592..9fbd1e62948b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+@@ -300,7 +300,6 @@ int amdgpu_gart_map(struct amdgpu_device *adev, uint64_t offset,
+  * @adev: amdgpu_device pointer
+  * @offset: offset into the GPU's gart aperture
+  * @pages: number of pages to bind
+- * @pagelist: pages to bind
+  * @dma_addr: DMA addresses of pages
+  * @flags: page table entry flags
+  *
+@@ -309,7 +308,7 @@ int amdgpu_gart_map(struct amdgpu_device *adev, uint64_t offset,
+  * Returns 0 for success, -EINVAL for failure.
+  */
+ int amdgpu_gart_bind(struct amdgpu_device *adev, uint64_t offset,
+-		     int pages, struct page **pagelist, dma_addr_t *dma_addr,
++		     int pages, dma_addr_t *dma_addr,
+ 		     uint64_t flags)
+ {
+ 	if (!adev->gart.ready) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h
+index e104022197ae..6ff87de620db 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h
+@@ -64,7 +64,6 @@ int amdgpu_gart_map(struct amdgpu_device *adev, uint64_t offset,
+ 		    int pages, dma_addr_t *dma_addr, uint64_t flags,
+ 		    void *dst);
+ int amdgpu_gart_bind(struct amdgpu_device *adev, uint64_t offset,
+-		     int pages, struct page **pagelist,
+-		     dma_addr_t *dma_addr, uint64_t flags);
++		     int pages, dma_addr_t *dma_addr, uint64_t flags);
+ void amdgpu_gart_invalidate_tlb(struct amdgpu_device *adev);
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index e8033b6f2395..6297363ab740 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -857,7 +857,7 @@ static int amdgpu_ttm_gart_bind(struct amdgpu_device *adev,
+ 		uint64_t page_idx = 1;
  
- 		ret = -EINVAL;
--		goto err;
-+		goto err_fb_cleanup;
+ 		r = amdgpu_gart_bind(adev, gtt->offset, page_idx,
+-				ttm->pages, gtt->ttm.dma_address, flags);
++				gtt->ttm.dma_address, flags);
+ 		if (r)
+ 			goto gart_bind_fail;
+ 
+@@ -871,11 +871,10 @@ static int amdgpu_ttm_gart_bind(struct amdgpu_device *adev,
+ 		r = amdgpu_gart_bind(adev,
+ 				gtt->offset + (page_idx << PAGE_SHIFT),
+ 				ttm->num_pages - page_idx,
+-				&ttm->pages[page_idx],
+ 				&(gtt->ttm.dma_address[page_idx]), flags);
+ 	} else {
+ 		r = amdgpu_gart_bind(adev, gtt->offset, ttm->num_pages,
+-				     ttm->pages, gtt->ttm.dma_address, flags);
++				     gtt->ttm.dma_address, flags);
  	}
  
- 	ret = amdgpu_display_framebuffer_init(dev, rfb, mode_cmd, obj);
- 	if (ret)
--		goto err;
-+		goto err_fb_cleanup;
+ gart_bind_fail:
+@@ -951,7 +950,7 @@ static int amdgpu_ttm_backend_bind(struct ttm_device *bdev,
+ 	/* bind pages into GART page tables */
+ 	gtt->offset = (u64)bo_mem->start << PAGE_SHIFT;
+ 	r = amdgpu_gart_bind(adev, gtt->offset, ttm->num_pages,
+-		ttm->pages, gtt->ttm.dma_address, flags);
++		gtt->ttm.dma_address, flags);
  
- 	return 0;
-+err_fb_cleanup:
-+	drm_framebuffer_unregister_private(&rfb->base);
-+	drm_framebuffer_cleanup(&rfb->base);
- err:
- 	drm_dbg_kms(dev, "Failed to verify and init gem fb: %d\n", ret);
- 	rfb->base.obj[0] = NULL;
+ 	if (r)
+ 		DRM_ERROR("failed to bind %u pages at 0x%08llX\n",
 -- 
-2.32.0.272.g935e593368-goog
+2.25.1
 
 _______________________________________________
 amd-gfx mailing list
