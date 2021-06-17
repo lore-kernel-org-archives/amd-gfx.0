@@ -7,66 +7,65 @@ X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 25322C49361
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Jun 2021 16:58:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1C829C2B9F4
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Jun 2021 17:30:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E54A6610CD
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Jun 2021 16:58:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E54A6610CD
+	by mail.kernel.org (Postfix) with ESMTPS id A258F613E1
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Jun 2021 17:30:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A258F613E1
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C7BF6E943;
-	Thu, 17 Jun 2021 16:58:40 +0000 (UTC)
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [IPv6:2a00:1450:4864:20::429])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F86E6E943
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Jun 2021 16:58:39 +0000 (UTC)
-Received: by mail-wr1-x429.google.com with SMTP id m18so7569020wrv.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Jun 2021 09:58:39 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C22036E957;
+	Thu, 17 Jun 2021 17:30:29 +0000 (UTC)
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [IPv6:2a00:1450:4864:20::433])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4ACDB6E955
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Jun 2021 17:30:28 +0000 (UTC)
+Received: by mail-wr1-x433.google.com with SMTP id y7so7631005wrh.7
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Jun 2021 10:30:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:content-transfer-encoding:in-reply-to;
- bh=m0NN26eErCRg0kmRwH9+v0k4xd87uCWvx8nQO4DniHo=;
- b=ZYv8yPfG6qw2zUs/XTTYQhQeSzFNtGco8MYF7pOYpNBPz1TKHOKAma5qqd/PTpH+6c
- pmj0gh6j5ApgICukaD758fqIZseLHDXm/2JodKZ3zvMeAMdlaHCeZQjZHSgVctkjjscY
- KfNZvEgifMOJrNLlkEMdRHL8U4G5jhceOlr0M=
+ bh=VKjsPb3fMCD82yCubTQnXQ11fo4UZaoUuAoRoa8fU+s=;
+ b=LYE64+gU6GsbdZ3ljaR6NDVdeEdfR+hMQQMkPf8dNum9Pj2oGudcfZ/RS/JzmQMVLT
+ Mm63h+ZyUo16OQRJNuRNG9ADWmJNgcmPdWfiXzP3oPSdbCbJ8ZtntEfAu9RkKoK6Lf3m
+ CVVxpkCtbzXivnTmMEXhXEGHBp6NjvZ1TuKZY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:content-transfer-encoding
  :in-reply-to;
- bh=m0NN26eErCRg0kmRwH9+v0k4xd87uCWvx8nQO4DniHo=;
- b=At2hQRrmbVqPZw9tjDuv+d40mkQiZvoQX0cO3z7CWO7IPsSj+gQ+hfsUCJZ/XwHyLz
- VPLGpbJ/Wj8aQOKvxICXtmL/CK0QyUYoEs7iVBylszgaeWTvm/BSBUoiclujwhh9jwFG
- 7QFJDYRwsamdEgUG1vR4mj7W65kLL/4astG1Xq4guAWFBec6Hxz9T7DihiJhIc08sx57
- zSTPNZF4joHog63eI1lFHXEmcg8KXicviRbGHiHGC6/P/AW7Eh+veXpXy4UIvijAxjLa
- 9u61ac+k6VuXtV1pLCJmQuSqCfFA5cWh4GCllc+rALptnmn4ZnjcmL05O9oCNOipogZy
- 4rgw==
-X-Gm-Message-State: AOAM530/l1RH/jYHoZBws6pj5u9H6rCE5Ad3HGQwOdVjDOdzh6Qph+54
- age03jNenIpKcc8grSQoffOmuA==
-X-Google-Smtp-Source: ABdhPJzND9ghlEQoOtP44Nnyb0E/yzTEeRlM/h9bCP50Wcq98cnP9naHBDMXVQDtDRw/VOOJv1D6SA==
-X-Received: by 2002:adf:fb92:: with SMTP id a18mr7012708wrr.182.1623949118175; 
- Thu, 17 Jun 2021 09:58:38 -0700 (PDT)
+ bh=VKjsPb3fMCD82yCubTQnXQ11fo4UZaoUuAoRoa8fU+s=;
+ b=lnRdXWbz3J1jIpvnjVhvWlW3ileyv8GtHiryM3Ku3hooXo0Bjdr+lWJ8AlYKLBKGz2
+ 5iz/2ysWvuT3qb/bAQR1Tw2LAK85lHop+9q1Wbg3mDMwZCbOe8sil0V+UDxsKWXRONaB
+ anFjCpQFxF2B4TsSYudZUCAgVtaOe97VGyQO0tVkxhZEkKQ2Bm1DZPnK6pGPWRMa0ee4
+ EgwvTUwm+Tpm/33opfaRsDrTuxW+BuOUNbSmYkVTsCHnymXBqKTdKKYqyJ9hU2VklAG3
+ 2wUioubjpXCa6Go4Yw9WLHzUq2WL3YUe6ZPrXV7YJJ+lePHfS2tncdZoCvqBis3bGsux
+ XehA==
+X-Gm-Message-State: AOAM5334kvwpJEW0aFagE+LEjNARRkGWxdUEZDRXhR5tEgdZrwNff+yC
+ JRdrnUPsmNugIJlQBuBeAOviFg==
+X-Google-Smtp-Source: ABdhPJxKfIxjyPPs3id05Sig8SzR4i9jB56N51cHg3b/UeqChuSBHD1Fh+6wA4472aFmIly7PvwuZQ==
+X-Received: by 2002:a05:6000:188:: with SMTP id
+ p8mr7257378wrx.296.1623951026952; 
+ Thu, 17 Jun 2021 10:30:26 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id s7sm5879914wru.67.2021.06.17.09.58.37
+ by smtp.gmail.com with ESMTPSA id n6sm8004282wme.21.2021.06.17.10.30.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 17 Jun 2021 09:58:37 -0700 (PDT)
-Date: Thu, 17 Jun 2021 18:58:35 +0200
+ Thu, 17 Jun 2021 10:30:26 -0700 (PDT)
+Date: Thu, 17 Jun 2021 19:30:24 +0200
 From: Daniel Vetter <daniel@ffwll.ch>
 To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
-Subject: Re: [PATCH 1/5] dma-buf: fix dma_resv_test_signaled test_all handling
-Message-ID: <YMt/O2LqRpixWIPa@phenom.ffwll.local>
-References: <20210611120301.10595-1-christian.koenig@amd.com>
- <YMN3nr1mTj09p8lT@phenom.ffwll.local>
- <2c91e4b4-e8c8-a9f5-420f-9cf0c1f9a67d@gmail.com>
- <YMN5do2/KUt85h5W@phenom.ffwll.local>
- <a88eacc0-c572-b296-e30b-ec606d716f8f@gmail.com>
+Subject: Re: [PATCH 1/2] drm/amdgpu: unwrap fence chains in the explicit sync
+ fence
+Message-ID: <YMuGsGN/mxY+WU+q@phenom.ffwll.local>
+References: <20210614174536.5188-1-christian.koenig@amd.com>
+ <c474a0e1-e725-be64-0730-57231b5a8d15@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <a88eacc0-c572-b296-e30b-ec606d716f8f@gmail.com>
+In-Reply-To: <c474a0e1-e725-be64-0730-57231b5a8d15@gmail.com>
 X-Operating-System: Linux phenom 5.10.0-7-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,190 +78,189 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>
+Cc: Alex Deucher <Alexander.Deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jun 14, 2021 at 07:15:44PM +0200, Christian K=F6nig wrote:
-> Am 11.06.21 um 16:55 schrieb Daniel Vetter:
-> > On Fri, Jun 11, 2021 at 04:53:11PM +0200, Christian K=F6nig wrote:
-> > > =
+On Thu, Jun 17, 2021 at 09:44:25AM +0200, Christian K=F6nig wrote:
+> Alex do want to review those so that we can close the ticket?
 
-> > > Am 11.06.21 um 16:47 schrieb Daniel Vetter:
-> > > > On Fri, Jun 11, 2021 at 02:02:57PM +0200, Christian K=F6nig wrote:
-> > > > > As the name implies if testing all fences is requested we
-> > > > > should indeed test all fences and not skip the exclusive
-> > > > > one because we see shared ones.
-> > > > > =
-
-> > > > > Signed-off-by: Christian K=F6nig <christian.koenig@amd.com>
-> > > > Hm I thought we've had the rule that when both fences exist, then
-> > > > collectively the shared ones must signale no earlier than the exclu=
-sive
-> > > > one.
-> > > > =
-
-> > > > That's at least the contract we've implemented in dma_resv.h. But I=
-'ve
-> > > > also found a bunch of drivers who are a lot more yolo on this.
-> > > > =
-
-> > > > I think there's a solid case here to just always take all the fence=
-s if we
-> > > > ask for all the shared ones, but if we go that way then I'd say
-> > > > - clear kerneldoc patch to really hammer this in (currently we're n=
-ot good
-> > > >     at all in this regard)
-> > > > - going through drivers a bit to check for this (I have some of tha=
-t done
-> > > >     already in my earlier series, need to respin it and send it out)
-> > > > =
-
-> > > > But I'm kinda not seeing why this needs to be in this patch series =
-here.
-> > > You mentioned that this is a problem in the last patch and if you ask=
- me
-> > > that's just a bug or at least very inconsistent.
-> > > =
-
-> > > See dma_resv_wait_timeout() always waits for all fences, including the
-> > > exclusive one even if shared ones are present. But dma_resv_test_sign=
-aled()
-> > > ignores the exclusive one if shared ones are present.
-> > Hm the only one I thought I've mentioned is that dma_buf_poll doesn't u=
-se
-> > dma_fence_get_rcu_safe where I think it should. Different problem. I th=
-ink
-> > this is one you spotted.
-> > =
-
-> > > The only other driver I could find trying to make use of this is nouv=
-eau and
-> > > I already provided a fix for this as well.
-> > i915 also does this, and I think I've found a few more.
-> > =
-
-> > > I just think that this is the more defensive approach to fix this and=
- have
-> > > at least the core functions consistent on the handling.
-> > Oh fully agree, it's just current dma_resv docs aren't the greatest, and
-> > hacking on semantics without updating the docs isn't great. Especially
-> > when it's ad-hoc.
-> =
-
-> Well when the requirement that shared fences should always signal after t=
-he
-> exclusive fence is not documented anywhere then I would say that it is
-> naturally allowed to just add any fence to the list of shared fence and a=
-ny
-> code assuming something else is just broken and need fixing.
-
-That's not what I meant. I thought the rule is that the shared fences
-_together_ need to signal after the exclusive ones. Not each individual
-one.
-
-This means that if you have both exclusive  fences and shared fences, and
-you want to wait for just the shared fences, then you can ignore the
-exclusive ones.
-
-You have a patch series floating around which "fixes" this, but I think
-it's imcomplete. And I'm pretty sure it's a change of defacto rules, since
-not obeying this breaks a bunch of existing code (as you've noticed).
+Maybe I'm behind on mails, but 2nd patch still has the issues I think I'm
+seeing ...
 -Daniel
 
 > =
 
+> Thanks,
 > Christian.
 > =
 
-> > -Daniel
+> Am 14.06.21 um 19:45 schrieb Christian K=F6nig:
+> > Unwrap the explicit fence if it is a dma_fence_chain and
+> > sync to the first fence not matching the owner rules.
 > > =
 
-> > > Christian.
-> > > =
+> > Signed-off-by: Christian K=F6nig <christian.koenig@amd.com>
+> > Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c | 118 +++++++++++++----------
+> >   1 file changed, 68 insertions(+), 50 deletions(-)
+> > =
 
-> > > > -Daniel
-> > > > =
-
-> > > > > ---
-> > > > >    drivers/dma-buf/dma-resv.c | 33 ++++++++++++------------------=
----
-> > > > >    1 file changed, 12 insertions(+), 21 deletions(-)
-> > > > > =
-
-> > > > > diff --git a/drivers/dma-buf/dma-resv.c b/drivers/dma-buf/dma-res=
-v.c
-> > > > > index f26c71747d43..c66bfdde9454 100644
-> > > > > --- a/drivers/dma-buf/dma-resv.c
-> > > > > +++ b/drivers/dma-buf/dma-resv.c
-> > > > > @@ -615,25 +615,21 @@ static inline int dma_resv_test_signaled_si=
-ngle(struct dma_fence *passed_fence)
-> > > > >     */
-> > > > >    bool dma_resv_test_signaled(struct dma_resv *obj, bool test_al=
-l)
-> > > > >    {
-> > > > > -	unsigned int seq, shared_count;
-> > > > > +	struct dma_fence *fence;
-> > > > > +	unsigned int seq;
-> > > > >    	int ret;
-> > > > >    	rcu_read_lock();
-> > > > >    retry:
-> > > > >    	ret =3D true;
-> > > > > -	shared_count =3D 0;
-> > > > >    	seq =3D read_seqcount_begin(&obj->seq);
-> > > > >    	if (test_all) {
-> > > > >    		struct dma_resv_list *fobj =3D dma_resv_shared_list(obj);
-> > > > > -		unsigned int i;
-> > > > > -
-> > > > > -		if (fobj)
-> > > > > -			shared_count =3D fobj->shared_count;
-> > > > > +		unsigned int i, shared_count;
-> > > > > +		shared_count =3D fobj ? fobj->shared_count : 0;
-> > > > >    		for (i =3D 0; i < shared_count; ++i) {
-> > > > > -			struct dma_fence *fence;
-> > > > > -
-> > > > >    			fence =3D rcu_dereference(fobj->shared[i]);
-> > > > >    			ret =3D dma_resv_test_signaled_single(fence);
-> > > > >    			if (ret < 0)
-> > > > > @@ -641,24 +637,19 @@ bool dma_resv_test_signaled(struct dma_resv=
- *obj, bool test_all)
-> > > > >    			else if (!ret)
-> > > > >    				break;
-> > > > >    		}
-> > > > > -
-> > > > > -		if (read_seqcount_retry(&obj->seq, seq))
-> > > > > -			goto retry;
-> > > > >    	}
-> > > > > -	if (!shared_count) {
-> > > > > -		struct dma_fence *fence_excl =3D dma_resv_excl_fence(obj);
-> > > > > -
-> > > > > -		if (fence_excl) {
-> > > > > -			ret =3D dma_resv_test_signaled_single(fence_excl);
-> > > > > -			if (ret < 0)
-> > > > > -				goto retry;
-> > > > > +	fence =3D dma_resv_excl_fence(obj);
-> > > > > +	if (fence) {
-> > > > > +		ret =3D dma_resv_test_signaled_single(fence);
-> > > > > +		if (ret < 0)
-> > > > > +			goto retry;
-> > > > > -			if (read_seqcount_retry(&obj->seq, seq))
-> > > > > -				goto retry;
-> > > > > -		}
-> > > > >    	}
-> > > > > +	if (read_seqcount_retry(&obj->seq, seq))
-> > > > > +		goto retry;
-> > > > > +
-> > > > >    	rcu_read_unlock();
-> > > > >    	return ret;
-> > > > >    }
-> > > > > -- =
-
-> > > > > 2.25.1
-> > > > > =
-
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_sync.c
+> > index 1b2ceccaf5b0..862eb3c1c4c5 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
+> > @@ -28,6 +28,8 @@
+> >    *    Christian K=F6nig <christian.koenig@amd.com>
+> >    */
+> > +#include <linux/dma-fence-chain.h>
+> > +
+> >   #include "amdgpu.h"
+> >   #include "amdgpu_trace.h"
+> >   #include "amdgpu_amdkfd.h"
+> > @@ -186,6 +188,55 @@ int amdgpu_sync_vm_fence(struct amdgpu_sync *sync,=
+ struct dma_fence *fence)
+> >   	return amdgpu_sync_fence(sync, fence);
+> >   }
+> > +/* Determine based on the owner and mode if we should sync to a fence =
+or not */
+> > +static bool amdgpu_sync_test_fence(struct amdgpu_device *adev,
+> > +				   enum amdgpu_sync_mode mode,
+> > +				   void *owner, struct dma_fence *f)
+> > +{
+> > +	void *fence_owner =3D amdgpu_sync_get_owner(f);
+> > +
+> > +	/* Always sync to moves, no matter what */
+> > +	if (fence_owner =3D=3D AMDGPU_FENCE_OWNER_UNDEFINED)
+> > +		return true;
+> > +
+> > +	/* We only want to trigger KFD eviction fences on
+> > +	 * evict or move jobs. Skip KFD fences otherwise.
+> > +	 */
+> > +	if (fence_owner =3D=3D AMDGPU_FENCE_OWNER_KFD &&
+> > +	    owner !=3D AMDGPU_FENCE_OWNER_UNDEFINED)
+> > +		return false;
+> > +
+> > +	/* Never sync to VM updates either. */
+> > +	if (fence_owner =3D=3D AMDGPU_FENCE_OWNER_VM &&
+> > +	    owner !=3D AMDGPU_FENCE_OWNER_UNDEFINED)
+> > +		return false;
+> > +
+> > +	/* Ignore fences depending on the sync mode */
+> > +	switch (mode) {
+> > +	case AMDGPU_SYNC_ALWAYS:
+> > +		return true;
+> > +
+> > +	case AMDGPU_SYNC_NE_OWNER:
+> > +		if (amdgpu_sync_same_dev(adev, f) &&
+> > +		    fence_owner =3D=3D owner)
+> > +			return false;
+> > +		break;
+> > +
+> > +	case AMDGPU_SYNC_EQ_OWNER:
+> > +		if (amdgpu_sync_same_dev(adev, f) &&
+> > +		    fence_owner !=3D owner)
+> > +			return false;
+> > +		break;
+> > +
+> > +	case AMDGPU_SYNC_EXPLICIT:
+> > +		return false;
+> > +	}
+> > +
+> > +	WARN(debug_evictions && fence_owner =3D=3D AMDGPU_FENCE_OWNER_KFD,
+> > +	     "Adding eviction fence to sync obj");
+> > +	return true;
+> > +}
+> > +
+> >   /**
+> >    * amdgpu_sync_resv - sync to a reservation object
+> >    *
+> > @@ -211,67 +262,34 @@ int amdgpu_sync_resv(struct amdgpu_device *adev, =
+struct amdgpu_sync *sync,
+> >   	/* always sync to the exclusive fence */
+> >   	f =3D dma_resv_excl_fence(resv);
+> > -	r =3D amdgpu_sync_fence(sync, f);
+> > +	dma_fence_chain_for_each(f, f) {
+> > +		struct dma_fence_chain *chain =3D to_dma_fence_chain(f);
+> > +
+> > +		if (amdgpu_sync_test_fence(adev, mode, owner, chain ?
+> > +					   chain->fence : f)) {
+> > +			r =3D amdgpu_sync_fence(sync, f);
+> > +			dma_fence_put(f);
+> > +			if (r)
+> > +				return r;
+> > +			break;
+> > +		}
+> > +	}
+> >   	flist =3D dma_resv_shared_list(resv);
+> > -	if (!flist || r)
+> > -		return r;
+> > +	if (!flist)
+> > +		return 0;
+> >   	for (i =3D 0; i < flist->shared_count; ++i) {
+> > -		void *fence_owner;
+> > -
+> >   		f =3D rcu_dereference_protected(flist->shared[i],
+> >   					      dma_resv_held(resv));
+> > -		fence_owner =3D amdgpu_sync_get_owner(f);
+> > -
+> > -		/* Always sync to moves, no matter what */
+> > -		if (fence_owner =3D=3D AMDGPU_FENCE_OWNER_UNDEFINED) {
+> > +		if (amdgpu_sync_test_fence(adev, mode, owner, f)) {
+> >   			r =3D amdgpu_sync_fence(sync, f);
+> >   			if (r)
+> > -				break;
+> > -		}
+> > -
+> > -		/* We only want to trigger KFD eviction fences on
+> > -		 * evict or move jobs. Skip KFD fences otherwise.
+> > -		 */
+> > -		if (fence_owner =3D=3D AMDGPU_FENCE_OWNER_KFD &&
+> > -		    owner !=3D AMDGPU_FENCE_OWNER_UNDEFINED)
+> > -			continue;
+> > -
+> > -		/* Never sync to VM updates either. */
+> > -		if (fence_owner =3D=3D AMDGPU_FENCE_OWNER_VM &&
+> > -		    owner !=3D AMDGPU_FENCE_OWNER_UNDEFINED)
+> > -			continue;
+> > -
+> > -		/* Ignore fences depending on the sync mode */
+> > -		switch (mode) {
+> > -		case AMDGPU_SYNC_ALWAYS:
+> > -			break;
+> > -
+> > -		case AMDGPU_SYNC_NE_OWNER:
+> > -			if (amdgpu_sync_same_dev(adev, f) &&
+> > -			    fence_owner =3D=3D owner)
+> > -				continue;
+> > -			break;
+> > -
+> > -		case AMDGPU_SYNC_EQ_OWNER:
+> > -			if (amdgpu_sync_same_dev(adev, f) &&
+> > -			    fence_owner !=3D owner)
+> > -				continue;
+> > -			break;
+> > -
+> > -		case AMDGPU_SYNC_EXPLICIT:
+> > -			continue;
+> > +				return r;
+> >   		}
+> > -
+> > -		WARN(debug_evictions && fence_owner =3D=3D AMDGPU_FENCE_OWNER_KFD,
+> > -		     "Adding eviction fence to sync obj");
+> > -		r =3D amdgpu_sync_fence(sync, f);
+> > -		if (r)
+> > -			break;
+> >   	}
+> > -	return r;
+> > +	return 0;
+> >   }
+> >   /**
 > =
 
 
