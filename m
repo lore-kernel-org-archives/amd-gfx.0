@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2D8C6C2B9F4
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Jun 2021 12:03:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 58C7EC2B9F4
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Jun 2021 12:03:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DE2A361059
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Jun 2021 12:03:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DE2A361059
+	by mail.kernel.org (Postfix) with ESMTPS id 08BE361059
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Jun 2021 12:03:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 08BE361059
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33AA38986D;
-	Thu, 17 Jun 2021 12:03:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFBBD89C1F;
+	Thu, 17 Jun 2021 12:03:27 +0000 (UTC)
 Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2046.outbound.protection.outlook.com [40.107.244.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C16048945A
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Jun 2021 12:03:23 +0000 (UTC)
+ (mail-mw2nam12on2083.outbound.protection.outlook.com [40.107.244.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 35DF089C1F
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Jun 2021 12:03:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=h8zJV6JLQa7vqtCAFAjbXBt3P3SSRv1Yi9cymMZZ3/KfzLjPxQDZNHaBNp5LZqdaFZIMC6q46EoWnTMju7KIUdVzOEqT4neliFQdHuZ62dKrzuvZXEF5IDK4LQwHe1E7w8OV2AJig06m4btEkVnTYk50DOGs5JbWnSR9KaP7ok652UxV+uVXs19uqr6wU4IlYy6w+tUrbmReRFFQY5xPZD6PyW1yqu+Sgzmq7St0dJ0ebccKPoVUWM0p4eZYYg94bErh7xteyPTW71qWBX3+zef7lN0G7nZT73G7EiR/9OhOobCBbOAIAXLeK6TLK2O8qvT9ygwBp1C0RnJCsK/XxQ==
+ b=TgDbHa/WrzmFxK8J17kwWTT2y1IkspJrKq+bLcPFwiNu7UFkNlHkS930o2NvU8L4qApBlVBjII6HFlmP3A3az+sn4xu1Hjz10kb3BrIpIYWzjVDHALfxy3WPYdO+vzWM0sqqFamFeZ22ggominUOfohCS2SpjWFsXHCCtNEL8qoeUEDznYwa7nWhSTYtaHHWOc+lbmoIE7HKTUq2x+Y1Z3uSIKxUurc2o7+yQkOaIOa4Wx4hJrvZDXAOiXA5UrCcBY4h3S26ff5dAtYS0i2+srxOmIC6Z0kKTrMGoR51hC0RNPvsnKO6XUJMWCAv4aZh3IJfBSptOab5CXOD9XuIJw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GUOVFQ8TkEadJFSEO0t4307H1SRfhWnv0Qq5jfouNqE=;
- b=AbW0TcEx6XvWsJ+jCTNbgA9WygzjdRCZoXyulLaZQ8H5rz80/D89GuUhwKsT/O1A2/JzDsXdn2eb3mT904fcKpi7fnQhlWuv4vEcwsfwfYDjhoSKWq5buLIiz4jsQGZtzVJ3brRNAGJA+JmZNIAaVVs9mGdSRz2fgNi9v02/sUSkZ+rAo21QUCUn6EOgqB4AUA+JbaOuLIYteAHY8cC0Af2hAcpNZ7rgzOodLEQJ/ZFUHJ1ZXts6Z0udJsD04Brwbo1uRgSmZWlTrW8Tknk1v7TPslE/J8L7fk5XVOLW/cAKSlHiugHoDnFS0zWcxudnn85h1Q+pBrmT8vm1G0rGZg==
+ bh=nunFTehGAwqNLEHjuGHi2Xkq7N5Xg3zYhN+Eyzt5i1k=;
+ b=lXqH/1n7536sYF+agGXVyfj0XmMj1kM+/LFNDtfiA3y4AYeCNKen259EzDNwz4KmJjNy2r7oLTnOxjOcQ4kv4DbEU9VPjDD9kGt1O+t3xOScqbe3zF0lgBQPcidZq8FaPU9ahLXjxf36cAKVyLj/oZkXtgZL6h1XISTlXoXZMSlxqkfoWoxlYbjypQeXoDXEG94rCyp+YvdswNCi5pjj8ug/QYeP1yW/7MzcFkGdWwim5dDmXX3xg6p8XIRXam0DdIGmQFY3k+nT9nuQ1CcsF90khBLFYt2Z6o9kLfCdsm4aq0r5SWvEvlqxp4OjlwLct1ZL77hSA0DvWvYA83bhXw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GUOVFQ8TkEadJFSEO0t4307H1SRfhWnv0Qq5jfouNqE=;
- b=vRbEbSVEDIKZjvRWs14UZHp9ygiNTV9SXNjsBVj2HLlsgngcLZiM1qaQ2Gj+bCZayj/OPVTH5rIlY1tE7pdixySkNsVA6Cwl2yP5R+R0k2T6ojmk3q61wnsbvap3zo9USwzKqMibsqdJMfcN1kCOjgn+B7ChBgrhrKy4VZ/En7M=
+ bh=nunFTehGAwqNLEHjuGHi2Xkq7N5Xg3zYhN+Eyzt5i1k=;
+ b=iuC0kj6+1QT7q08N/KTQmMYLYVHLNv+QT5xh5Lba6LX97g+1nEEkYEu1WxPNb0dX80czxSlH3r6vBNp8HRRS0nCb/BgwDoQig4mA73aKEc47WgrzWS4omi3zrO4wd5FJZsrTxKJZoSYd02RN9C0SJpigIa67ymUtw7RFRza09js=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -45,18 +45,19 @@ Received: from DM4PR12MB5165.namprd12.prod.outlook.com (2603:10b6:5:394::9) by
  DM8PR12MB5446.namprd12.prod.outlook.com (2603:10b6:8:3c::21) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4242.15; Thu, 17 Jun 2021 12:03:22 +0000
+ 15.20.4242.15; Thu, 17 Jun 2021 12:03:25 +0000
 Received: from DM4PR12MB5165.namprd12.prod.outlook.com
  ([fe80::2091:3f28:3f68:508]) by DM4PR12MB5165.namprd12.prod.outlook.com
  ([fe80::2091:3f28:3f68:508%6]) with mapi id 15.20.4242.021; Thu, 17 Jun 2021
- 12:03:22 +0000
+ 12:03:25 +0000
 From: xinhui pan <xinhui.pan@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH v2 1/2] drm/amdkfd: Fix some double free when destroy queue
- fails
-Date: Thu, 17 Jun 2021 20:02:45 +0800
-Message-Id: <20210617120246.1730-1-xinhui.pan@amd.com>
+Subject: [PATCH v2 2/2] drm/amdkfd: Walk through list with dqm lock hold
+Date: Thu, 17 Jun 2021 20:02:46 +0800
+Message-Id: <20210617120246.1730-2-xinhui.pan@amd.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20210617120246.1730-1-xinhui.pan@amd.com>
+References: <20210617120246.1730-1-xinhui.pan@amd.com>
 X-Originating-IP: [165.204.134.244]
 X-ClientProxiedBy: HK2PR0302CA0018.apcprd03.prod.outlook.com
  (2603:1096:202::28) To DM4PR12MB5165.namprd12.prod.outlook.com
@@ -66,53 +67,53 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from pp-server-two.amd.com (165.204.134.244) by
  HK2PR0302CA0018.apcprd03.prod.outlook.com (2603:1096:202::28) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4264.7 via Frontend Transport; Thu, 17 Jun 2021 12:03:20 +0000
+ 15.20.4264.7 via Frontend Transport; Thu, 17 Jun 2021 12:03:23 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e8d0bae0-b445-42f8-c874-08d93187e780
+X-MS-Office365-Filtering-Correlation-Id: b4adb954-25db-431a-88aa-08d93187e90c
 X-MS-TrafficTypeDiagnostic: DM8PR12MB5446:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM8PR12MB544601753FB564E73150B7F5870E9@DM8PR12MB5446.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-Microsoft-Antispam-PRVS: <DM8PR12MB5446BE125B73D9E8493D21BF870E9@DM8PR12MB5446.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: kZUJZxf0xIM6F9RdtiiH3dXIZBdvooEN9tZFX+tfK8U4En6z5qw2RRm7aCD/6JvThe7L3PBDUypAYJLXRnoFbFZ8CbbzdoRVYiZfm1jtj0VDw9++bvMuVT8ODAK4Jcuo3Fs3XZK5lbrBcmZf5A+Ju1bOO8JEq/vt4ga8MBP9jruiR0hXYmzB1OaXkfXQmrCOKR8froHtiQJTvzDb4hTn/tgYeDcptMZdKl9p16lBXdS0e7USbYR1gxq5vXnpsECbSCdfvV6Ky64Y47cMmyc/J3C2q1oCrx+qJJaZ0+SBxOQiQYIpTOBMyKT2Sb9KqyPS0tbdqCaS/ulEMNdzh5lglLrjdk8FKVHrCEVhMN/FWqm2S9psiGHvWzbkuuw+xGsLxH+WxPA5SK8y21DWG+hA0qPgyy1iH5mhBdsACtvvTLFelxh3Lv9/mm13d6XA8wxMOJDGcr3dyo6n90nYxoY/2C8Dp6j0Q0kT2C/rmnSgQ+0uy3YyqbtYr+DFvMUvaMPDILSjaOqlk2Z8ZE0O3xzzh9KhQ0IZRBa8Jw+jBMg6csEjHcMD8PsOnV3a6YrHCVTs+1p4CjEWzM1hH8V2ZCtltqs3FmGNtWreJE/hQlrQu8KldnwIxbwv2WU3zcOYIHbfJv0n67RN1fZQUhiM6Kyu0cPPsgR9L+x6pUUneHCYeMuM+9IlukqLiobvODPoloH8
+X-Microsoft-Antispam-Message-Info: VIxFgrdYK7FUz25n6KlNNZh4RBIkwmXAQVgugMJqW3VrifSvZgAzI7ObT9qDTKGS7xuDvFgZ4YXE5EZYLcL7dRsae4DAqnL6wg5UXk2cXmF1pEtdxYyKgJ8zFPhR8mBYRDf1/C8Iflm5FALu/p27g+mXnO1vVkF0nbtILE6iG5hqUBgHff2EBMlBag6NXkz6XrVg3JL/jFpg2ay+wFutisXXO8qmOsaAzAoclxK2F1ftZP8LhtE/V8dJJ1j9CjvTbXX3qCPfNmCDCAmcYK4GCeFn0598xq9K6mHvffngBYNV2jKvrkAkr0HSZ6gIktjzqUjgFUlZ8GV0VOD5KSms3JsJnRA/XnH5fjnGxrxnxTPzShk4Kdn7iO/K1wBY9l2pMQMdcEHoR19mm3Ghc2jIxVeWFC8+8QwqAQgnkWL4vU0oYot6vUemiRW/5sFwDGk0OnDVyuJwZtrA70jzet409eMgfOfWw5CToDaGx/ozEi9NY/t+P3VlweCSpAXxknuUXrs+IlrnNMx00UzfhRLbYU9IvB4e7r4iO3MvAiCW5ClT+YHEVOJ87yyPk6rBR3d9mLtRZfQGS0/BuLDWp5CNPA8E+14daCCHdJPiH9uqNG5easQy1bGBo+1LEpEC88GLtQDkOYyMh7jr/QfkgIzusNolt7cIB50RhFJwhhgfEVA=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM4PR12MB5165.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(39860400002)(396003)(366004)(136003)(346002)(83380400001)(6666004)(38350700002)(4326008)(478600001)(186003)(7696005)(16526019)(5660300002)(26005)(38100700002)(316002)(1076003)(52116002)(8936002)(66476007)(66946007)(66556008)(36756003)(2906002)(6916009)(6486002)(86362001)(2616005)(956004)(8676002)(2304002);
+ SFS:(4636009)(376002)(39860400002)(396003)(366004)(136003)(346002)(83380400001)(6666004)(38350700002)(4326008)(478600001)(186003)(7696005)(16526019)(5660300002)(26005)(38100700002)(316002)(1076003)(52116002)(8936002)(66476007)(66946007)(66556008)(36756003)(2906002)(6916009)(6486002)(86362001)(2616005)(956004)(8676002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?4h1GE6b0shHJqUUGTuYw3ZZPKFpPWfJXkBuAJboA/7eFGFtPHAC1Be7ULnYH?=
- =?us-ascii?Q?3gmRAKSYKpx9C4vunJWnXMIAdkPUWpbPstkTnry9p9rARVjrIJUZWzMsLHXg?=
- =?us-ascii?Q?QwhONAWIH6GMafg4Tg52EZtdCuYD/9rdCoMtrmaOSrux7GjhdVQwu88m6sgm?=
- =?us-ascii?Q?1ETrIhcFgsRUbYnrLmgCK8d/RyZG3+aUWGVR5qIua32EZBvlikZVgANET+V3?=
- =?us-ascii?Q?y2DDgpSH8zkGdZC2aO3uiyGQ7zWcu6wvHcKFRrbH33OH2rmGKPXvXv0pcIOQ?=
- =?us-ascii?Q?imXkReWKMJXZc4Ry77toUENmQ5rRAolv5DFAmgAHjEE6rr/WgegEa0I2mI81?=
- =?us-ascii?Q?pbkRuPCmUyhpCR9oM4sO8BFV8JNb8+pvQXCDvCnvH8s+UdGbyFv6ejjUl8QP?=
- =?us-ascii?Q?6XW8I+My23zf8q4A0JuTqZy9tJ9fGy9G7vz8x4GAdukp/g5hAiQnov7kXl9k?=
- =?us-ascii?Q?tGfxuL202IbQ+9TIvJSk6RI7H6hJNie5zAERG/xmfR+zzwAB1ab+8aUMsq2I?=
- =?us-ascii?Q?6C9T7qtKw7yxTvLILLN+bWJIJq+dlo3GI3AuJtSmBKrq4PTwa3hkWJ64u1bJ?=
- =?us-ascii?Q?+Rnt/ZcSxCrJZcfbXir6Lor2N720Ka3kAxqp39vvzj/uyzInMGlJ7utnsGR+?=
- =?us-ascii?Q?G0sdq8ul4ujKHYPW+yhXzwhFb5AhjjO8J0Pm30QM90AdaY+ZdnZE1cCnNdRL?=
- =?us-ascii?Q?72lufG+PixlDv3vUIyx5+A0RS5wTQ/O2rtJhbV86wvldPnf66baBaS855IyT?=
- =?us-ascii?Q?NyKfbqjJ93VxDdvYKmBppqFpQD5Ml1LkrPwrimI17Nw4hwWF7me5u6cmAt7R?=
- =?us-ascii?Q?S1aybI/Y81nRETFd7HgLAse7hpmMOQAmU2WlCQNCxCQJP0JQa48xVGly6HDy?=
- =?us-ascii?Q?o4zrKxQuHt+e7RE0cxAosHtuTt8yOCu7wR4Q7oJgbhKn4EzoBnCRKVSukimA?=
- =?us-ascii?Q?ZVCtFAZvALuowF3T4Y4Uza1Aig6UCxDP25xqu3NCT64DeH03DbgyTn6wQaFQ?=
- =?us-ascii?Q?4d5uH4JGe1s09yYayllOw9nurP/cXQkRCMS0Fg2wonUzfbbpDRVzfIAxYBmd?=
- =?us-ascii?Q?1qZyEF+sSICbOed62HVEEf7jjEHs7wS+Tj3WLO256iLX6Id6yqf7NTM9hqhU?=
- =?us-ascii?Q?jH2YITSn7+Xr70eCaDRnnrn4El+KJQq3xrikIjGjs0HGLJSMr4IYIJFvane8?=
- =?us-ascii?Q?V2lxmUicTu/+KDkMdryEcyzY0kvbj+QLWUcV3EyIqk0/kEyZ8bMFU1GhxMGm?=
- =?us-ascii?Q?0Ejn/pqD2t1mH80nQ0e/ebOCK1tAy8CJ2RHQj9J1DiTBTpFXgW1xijx4mGjN?=
- =?us-ascii?Q?Dw/Dt3KOOkXLhq4Un92+xxnn?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?+Ey0Nob4AD6R7U3mVRublD1SpHzS6kLChRFl5edIAZRIqHwQBqKwWCS2PicB?=
+ =?us-ascii?Q?9N8ktOSOMvmBEPStMNDGrS5EPkjQ+n8d3bJ8+Tn1e5YYuJCNp0iUnTPymbKQ?=
+ =?us-ascii?Q?NN9oMwCndZyVr5F481Kmo76ZFnh6m/QCbtJnxHqh9eJbYK4VdIffBYqLyWm+?=
+ =?us-ascii?Q?ISQ7VjdYVtkW+EGG2Et7F/hlbLiQ6jHPLuqkH4KwuTqiubiNLtuqigO+i5le?=
+ =?us-ascii?Q?j6GabzT8LmOgZApgEjiZ5ptDUT76hw0aKKo/eCQj/iJBF1hBEtp6lcv7Puz/?=
+ =?us-ascii?Q?q7u5mxs1WsDriyALQnFZtIR774g8uRSKKnxm1QihH4f7AJqA2gIaDDfn6Q10?=
+ =?us-ascii?Q?QuhMposAXI1yFLwUH+iRtcHRQXmozbSweUzKxy0Cmj0wF1sPRo2DxJXB6o2F?=
+ =?us-ascii?Q?+8JuZb1uP++SfCi04Inj35XSPE6XsdDoUpA1Yu1P6NLQJ1KkNdJqSP49LkhC?=
+ =?us-ascii?Q?2P5X/xw3tQuHaPLhbaDCKY4YUcZPsuc5pYsaO7BPuYkXQAhuFtqqJJUv1ioo?=
+ =?us-ascii?Q?9TBKkaWVEzmojvHo9SL8TvaiA+O2rVEU6/9HMLg4Uwozftsosa1CZo8a98Sc?=
+ =?us-ascii?Q?BD1ZtvabytJmKUSO6+DIC7HwL92FPKP0FOyyc4QEIa5iQ1topzsh9Q7mkHEX?=
+ =?us-ascii?Q?Z+vjGhR93nYqHvUwOwvnOKL4FN4altgF/t2KQlKQuygZv/Q64BKf08/YwMyq?=
+ =?us-ascii?Q?xYofQaomHOwGCiLj1cqZpYTo2UhvaNohPITza0QAQeUHD3S8MMR0GG17eNSy?=
+ =?us-ascii?Q?MHcI7sKwtONe7Z5ISIvf7X81z80R3A5gh3Ec5hkdgt1aDTsav9JeyCvJ6Hst?=
+ =?us-ascii?Q?xn3sjNBZA/IdJP1JCNtVg9EMfPjgN5VSvDj7J8U8AEeheGeY8Ti0jN0Gedg+?=
+ =?us-ascii?Q?PpWzYaoGojtqIvwaq6c1mFvi962iRlzhp/Q2cmGzA88GjonL7THy3krDUBtc?=
+ =?us-ascii?Q?ALHqEgLGBilQjcg+KsRtiB2mwcOlch44EnoDxL/B0tt3ExX/kvoQQhv2Ezu9?=
+ =?us-ascii?Q?dQARk7dsIROf5ZR5pujhwZkbxkqeyQBZR7/2YXIFAyIsQJJleXJaJgnJTf2X?=
+ =?us-ascii?Q?xU3KryKT0cC3yiMJx+8vqaeJYyuzQd5IKhVEL+YtcsjYxq+3AStTdMN30cew?=
+ =?us-ascii?Q?yurM7tzb1LaWXz8krlnwIRY5iPZDg+ovE51mKB/fgGHcZdfYKvH+zFoHSwk6?=
+ =?us-ascii?Q?+1DCUlHVhtsq4W97tCIEEbv3b/qRBppCb0xKs2s/fIKHlZGywxc8vi6DEQwj?=
+ =?us-ascii?Q?YkJOO8oE0xEwntDyh8zre+88H+CfUewNtVWnpWANGnrueP8NN5U5qhwKIT9l?=
+ =?us-ascii?Q?R3UL0jBaYxqO4gf5eMDFgzev?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e8d0bae0-b445-42f8-c874-08d93187e780
+X-MS-Exchange-CrossTenant-Network-Message-Id: b4adb954-25db-431a-88aa-08d93187e90c
 X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5165.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2021 12:03:22.6955 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2021 12:03:25.1149 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JzUZcKRqIJvsUksFBXTrRYizdLK3U6ROBbEWLka2lgcubHg6vjQWu//6GNLJsZN1
+X-MS-Exchange-CrossTenant-UserPrincipalName: yLPWyTX7llgCAYmjRZFzufSIZooyHYWCBEDp+1gbYDVm0bP1uNO2Vv8uuux7EA+l
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM8PR12MB5446
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -132,125 +133,62 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Handle queue destroy failure while CP hang.
-Once CP got hang, kfd trigger GPU reset and set related flags to stop
-driver touching the queue. As we leave the queue as it is, we need keep
-the resource as it is too.
-
-Regardless user-space tries to destroy the queue again or not. We need
-put queue back to the list so process termination would do the cleanup
-work. What's more, if userspace tries to destroy the queue again, we
-would not free its resource twice.
-
-Kfd return -EIO in this case, so lets handle it now.
-
-Paste some error log below without this patch.
-
-amdgpu: Can't create new usermode queue because -1 queues were already
-created
-
-refcount_t: underflow; use-after-free.
-Call Trace:
- kobject_put+0xe6/0x1b0
- kfd_procfs_del_queue+0x37/0x50 [amdgpu]
- pqm_destroy_queue+0x17a/0x390 [amdgpu]
- kfd_ioctl_destroy_queue+0x57/0xc0 [amdgpu]
- kfd_ioctl+0x463/0x690 [amdgpu]
-
-BUG kmalloc-32 (Tainted: G        W        ): Object already free
-INFO: Allocated in allocate_sdma_mqd+0x30/0xb0 [amdgpu] age=4796 cpu=2
-pid=2511
- __slab_alloc+0x72/0x80
- kmem_cache_alloc_trace+0x81f/0x8c0
- allocate_sdma_mqd+0x30/0xb0 [amdgpu]
- create_queue_cpsch+0xbf/0x470 [amdgpu]
- pqm_create_queue+0x28d/0x6d0 [amdgpu]
- kfd_ioctl_create_queue+0x492/0xae0 [amdgpu]
-INFO: Freed in free_mqd_hiq_sdma+0x20/0x60 [amdgpu] age=2537 cpu=7
-pid=2511
- kfree+0x322/0x340
- free_mqd_hiq_sdma+0x20/0x60 [amdgpu]
- destroy_queue_cpsch+0x20c/0x330 [amdgpu]
- pqm_destroy_queue+0x1a3/0x390 [amdgpu]
- kfd_ioctl_destroy_queue+0x57/0xc0 [amdgpu]
+To avoid any list corruption.
 
 Signed-off-by: xinhui pan <xinhui.pan@amd.com>
 ---
- .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c   | 13 +++++++++++++
- drivers/gpu/drm/amd/amdkfd/kfd_process.c            |  4 +++-
- .../gpu/drm/amd/amdkfd/kfd_process_queue_manager.c  |  2 ++
- 3 files changed, 18 insertions(+), 1 deletion(-)
+ .../drm/amd/amdkfd/kfd_device_queue_manager.c | 22 ++++++++++---------
+ 1 file changed, 12 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index c069fa259b30..63a9a19a3987 100644
+index 63a9a19a3987..d62374746c93 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -1530,6 +1530,11 @@ static int destroy_queue_cpsch(struct device_queue_manager *dqm,
- 				KFD_UNMAP_QUEUES_FILTER_DYNAMIC_QUEUES, 0);
- 		if (retval == -ETIME)
- 			qpd->reset_wavefronts = true;
-+		/* In gpu reset? We leave the queue as it is, so do NOT
-+		 * cleanup the resource.
-+		 */
-+		else if (retval == -EIO)
-+			goto failed_execute_queue;
- 		if (q->properties.is_gws) {
- 			dqm->gws_queue_count--;
- 			qpd->mapped_gws_queue = false;
-@@ -1551,6 +1556,14 @@ static int destroy_queue_cpsch(struct device_queue_manager *dqm,
+@@ -1722,7 +1722,7 @@ static int process_termination_cpsch(struct device_queue_manager *dqm,
+ 		struct qcm_process_device *qpd)
+ {
+ 	int retval;
+-	struct queue *q, *next;
++	struct queue *q;
+ 	struct kernel_queue *kq, *kq_next;
+ 	struct mqd_manager *mqd_mgr;
+ 	struct device_process_node *cur, *next_dpn;
+@@ -1779,24 +1779,26 @@ static int process_termination_cpsch(struct device_queue_manager *dqm,
+ 		qpd->reset_wavefronts = false;
+ 	}
+ 
+-	dqm_unlock(dqm);
+-
+-	/* Outside the DQM lock because under the DQM lock we can't do
+-	 * reclaim or take other locks that others hold while reclaiming.
+-	 */
+-	if (found)
+-		kfd_dec_compute_active(dqm->dev);
+-
+ 	/* Lastly, free mqd resources.
+ 	 * Do free_mqd() after dqm_unlock to avoid circular locking.
+ 	 */
+-	list_for_each_entry_safe(q, next, &qpd->queues_list, list) {
++	while (!list_empty(&qpd->queues_list)) {
++		q = list_first_entry(&qpd->queues_list, struct queue, list);
+ 		mqd_mgr = dqm->mqd_mgrs[get_mqd_type_from_queue_type(
+ 				q->properties.type)];
+ 		list_del(&q->list);
+ 		qpd->queue_count--;
++		dqm_unlock(dqm);
+ 		mqd_mgr->free_mqd(mqd_mgr, q->mqd, q->mqd_mem_obj);
++		dqm_lock(dqm);
+ 	}
++	dqm_unlock(dqm);
++
++	/* Outside the DQM lock because under the DQM lock we can't do
++	 * reclaim or take other locks that others hold while reclaiming.
++	 */
++	if (found)
++		kfd_dec_compute_active(dqm->dev);
  
  	return retval;
- 
-+failed_execute_queue:
-+	/* Put queue back to the list, then we have chance to destroy it.
-+	 * FIXME: we do NOT want the queue in the runlist again.
-+	 */
-+	list_add(&q->list, &qpd->queues_list);
-+	qpd->queue_count++;
-+	if (q->properties.is_active)
-+		increment_queue_count(dqm, q->properties.type);
- failed_try_destroy_debugged_queue:
- 
- 	dqm_unlock(dqm);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index 09b98a83f670..984197e5929f 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -607,11 +607,13 @@ static int kfd_procfs_add_sysfs_files(struct kfd_process *p)
- 
- void kfd_procfs_del_queue(struct queue *q)
- {
--	if (!q)
-+	if (!q || !kobject_get_unless_zero(&q->kobj))
- 		return;
- 
- 	kobject_del(&q->kobj);
- 	kobject_put(&q->kobj);
-+	/* paired with the get above */
-+	kobject_put(&q->kobj);
  }
- 
- int kfd_process_create_wq(void)
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-index 95a6c36cea4c..0588e552b8ec 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-@@ -373,6 +373,7 @@ int pqm_destroy_queue(struct process_queue_manager *pqm, unsigned int qid)
- 		dqm = pqn->kq->dev->dqm;
- 		dqm->ops.destroy_kernel_queue(dqm, pqn->kq, &pdd->qpd);
- 		kernel_queue_uninit(pqn->kq, false);
-+		pqn->kq = NULL;
- 	}
- 
- 	if (pqn->q) {
-@@ -396,6 +397,7 @@ int pqm_destroy_queue(struct process_queue_manager *pqm, unsigned int qid)
- 		kfree(pqn->q->properties.cu_mask);
- 		pqn->q->properties.cu_mask = NULL;
- 		uninit_queue(pqn->q);
-+		pqn->q = NULL;
- 	}
- 
- 	list_del(&pqn->process_queue_list);
 -- 
 2.25.1
 
