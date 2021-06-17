@@ -7,48 +7,48 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3F0FDC2B9F4
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Jun 2021 19:25:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5CE61C49361
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Jun 2021 19:25:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 03634610CD
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Jun 2021 19:25:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 03634610CD
+	by mail.kernel.org (Postfix) with ESMTPS id 22A57610CD
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Jun 2021 19:25:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 22A57610CD
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8CB056E9A4;
-	Thu, 17 Jun 2021 19:25:54 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2080.outbound.protection.outlook.com [40.107.237.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD56B6E9A4
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Jun 2021 19:25:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE00A6E9A6;
+	Thu, 17 Jun 2021 19:25:56 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2084.outbound.protection.outlook.com [40.107.93.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D57636E9A6
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Jun 2021 19:25:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=H83hSAk+++1A4ub1R1AnnWVROlykZ45Wv9CNC5wlvVwSpwbEn3JJIsVskokOVhI4gfsylVn3IAopzgUQpU7GQQBrSdAx325f5MyvTGOFQiKqDTSQGUbEH2F+sqeJZQsjPNO/ge7nhoBHGIw13BCpC5KwWBEmk5t0hBbGaMYSkiUlU06jRkevHtCpcWwCsN5BbppUybMIXLUB2dpM3ok3As2HrvU8uCgb58y/+xI4mlJvsQeT1gWT6f6SGrQKxWVChV/QfLmGx7wuHdzNoEI1lmYspe+vc15WhGdcSko9SH3avJrjxpOFGRg34/z55xrJyRuU+dFO22IO9+iLJhCyEw==
+ b=LPBLrrTmgTltF3zGgw0Dd27BpT8zhpkWRh1Uk9hhQWKr/hUISDCA3UkN92KPdYy3NdUMQ+ltoVaUzKcglSZbdapZQdNV/hb+X42iK8BZtfS5nxIgbUu+fQ7Oo/jet5Io2OSqpwjBSO0QHWYjK6iJfMYBPtL9aHAdA5oTrSAZ4M8+5UC17cVCr4D8S0bkrrCnSftGQZKw8zswUyu3ZXtcicVMpphA2SyIWqZRprzESkq6DN4pYXk06G+GLzSJzafCa0nIoL6GIpJ/9A5IOFcUt9wRWUPRL5VTpHFXAlDbdySZ2NXAZ/AE2OVfFzkD3d25LCK1owujo0Wxb70VS9KjZg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HghwSLpcnHtQ64vj0mqaR1Rr3Ra4RlGz/nAVgJBGchk=;
- b=F9BKZ4kGPek9a3MmWFZlxSORTBeDB3XQ6EZiloouGR1fUdkJe6+gZxgkPQys9yTWw+mPkq+c3V2CgvlX4j8kLdJxk2ULfbH/xvVka0+JvSfr7Im+kJsv1x+UpdlbCVXhvfc7VS9ku7SOL6T68FnHYYRb7ZAQT/sP+ZBWXdSBDFANH0H6vrSMoUrnFgWGzOZd/Az7e4MPJifVDBWYnihvDHemVFO7PoQWDgBWh4MUK6F6nRG/uOeLMlgqfy17Gi6wAWZV8FKsgnjWxobNGCVlkHhdA/4vsrBW2Ofyvok5XuH0ieYubS/w8IPjvJAgrumIjly0ZwboAUb+G6nnG0BqBg==
+ bh=+q+6dPWIgVJgUDc6G4OV5Cn3UD15HEFBAc/wHY0MrT4=;
+ b=W5KMwN4I4T+uUyMJLJd6wKtrLw6udfphVELLQHEneTGnePBMoYSiLKdfr/MyvFlzzxu93kkVfprUDdkeWzcbg0p3vMzH1bl1LBi6SmNffo8H6QrpJ8wujBZcvgram2o2kojqXOxKSQuwiW9pHKfDza24JqVbl5jSKJ7Odm7CHtNO/X+x+iJO3b5DmZtdV+nH1LttUMzl5wzFpbLK6NFcriryHU/kLnosnyS9zxCZfomYx5eMRmjsz9FB2FOFNIds6j2VcTcF7iOKFKB2EDavopK3Gdv0qHuDfLeUtWEj3WHm3148UwDfWsC2G19klIrkJzhzE4bvaq2AZYECbBoaVQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HghwSLpcnHtQ64vj0mqaR1Rr3Ra4RlGz/nAVgJBGchk=;
- b=LlhFexwtWn+dldNLYtm8sA0wcU/3R/i6V8bcMxVmKjFGRel0DmpoAgdSU4613FLTcesE/rM9t6kvgWNe3C65/nbp58achazUICRvjOrNMf8Sagj4hVHYQqUK7Ml0If6TTjj7hVLEaanRVgALufWX+1XD+clY8jvBR22anwdcGi8=
-Received: from DM5PR07CA0130.namprd07.prod.outlook.com (2603:10b6:3:13e::20)
- by BL0PR12MB2433.namprd12.prod.outlook.com (2603:10b6:207:4a::25) with
+ bh=+q+6dPWIgVJgUDc6G4OV5Cn3UD15HEFBAc/wHY0MrT4=;
+ b=qW0aWCuT0l7T1FGMRzf/vJeB4z8ZEPMJ/eNwdbaL4wpWdSpmr0i0vt5N8fRtddefsTUgKfYWGXiQIHaj1OyQUbtzuzv50nf385yQMdtlDgyauNeCNmnmAu25Hdr/nM4FYnwgOkWV8u1RdVvFvn5LuT4h/qqnUlyHJR9b0EO170U=
+Received: from DS7PR03CA0163.namprd03.prod.outlook.com (2603:10b6:5:3b2::18)
+ by DM6PR12MB3644.namprd12.prod.outlook.com (2603:10b6:5:118::12) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.19; Thu, 17 Jun
- 2021 19:25:51 +0000
-Received: from DM6NAM11FT024.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:13e:cafe::8e) by DM5PR07CA0130.outlook.office365.com
- (2603:10b6:3:13e::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.18 via Frontend
- Transport; Thu, 17 Jun 2021 19:25:51 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.18; Thu, 17 Jun
+ 2021 19:25:54 +0000
+Received: from DM6NAM11FT018.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:3b2:cafe::49) by DS7PR03CA0163.outlook.office365.com
+ (2603:10b6:5:3b2::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.15 via Frontend
+ Transport; Thu, 17 Jun 2021 19:25:54 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -57,46 +57,48 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT024.mail.protection.outlook.com (10.13.172.159) with Microsoft SMTP
+ DM6NAM11FT018.mail.protection.outlook.com (10.13.172.110) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4242.16 via Frontend Transport; Thu, 17 Jun 2021 19:25:51 +0000
+ 15.20.4242.16 via Frontend Transport; Thu, 17 Jun 2021 19:25:54 +0000
 Received: from rocm-perf01.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Thu, 17 Jun
- 2021 14:25:50 -0500
+ 2021 14:25:53 -0500
 From: Joseph Greathouse <Joseph.Greathouse@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH umr 1/3] Improve handling of non-standard page tables in AI+
-Date: Thu, 17 Jun 2021 14:25:38 -0500
-Message-ID: <20210617192540.4272-1-Joseph.Greathouse@amd.com>
+Subject: [PATCH umr 2/3] Generalize decoding of PDEs and PTEs in AI+
+Date: Thu, 17 Jun 2021 14:25:39 -0500
+Message-ID: <20210617192540.4272-2-Joseph.Greathouse@amd.com>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20210617192540.4272-1-Joseph.Greathouse@amd.com>
+References: <20210617192540.4272-1-Joseph.Greathouse@amd.com>
 MIME-Version: 1.0
 X-Originating-IP: [10.180.168.240]
 X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: c6dff01c-b445-441a-52c4-08d931c5b7e9
-X-MS-TrafficTypeDiagnostic: BL0PR12MB2433:
-X-Microsoft-Antispam-PRVS: <BL0PR12MB24330B32C5C16C28C8DDA62EF90E9@BL0PR12MB2433.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Office365-Filtering-Correlation-Id: 34225e0a-385e-4376-4aba-08d931c5b9ab
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3644:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB36449D9E744E33897F1FAFBDF90E9@DM6PR12MB3644.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:883;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: S2I4Eey1WRf4adY4GhJwqIATfaMIdadfQxsVMn66jqqmKr1w3fjtEE1tWyhndliI6CD9Nnl8f35zy0xMDm+fEayDhQWDmss3OlkZaFA/WdYqT6pM2Z8bhBN3JwczAgzxkUF7edKsozfgj+aLrbhJ4BZ24duu955HOSUq/XknIgwLV0omUV4BJIgDyptNZsqNyAq+tmALRdYU3ljOtOm7E9XmfbTJmbYKerHpYbm0WJvHrLyOm0OrqCpaPWGTQGi1hbyFsyjCg8a+sbsBYHJ5sYk8A3+KkyK4QTcebBY0/eizUc16Y4YpTJgKDbI/ev7TkatVCyD8poTHArKMZY89tFpx0tPQxW+vRocKF9FINUErou1LPJZ2AtHdSO1GijJ+KlQ05wOlgkRVQK8Qz5m2LkrzcSNml2g4EC4I2LsYj0FbTYEaxJ9X+jP5LCpGUknK1Bk0JSMl7RCFISFpwWlV7O7jjG7RZXKgRIjL5/RONf/kbLMsbm2CxTB2mrVirBi44EekmLCK7AqDUxDogfdfLkzYzo/ThzeWoc1y6dvHe7ru9c2b0RUUeQ5399YLWQSu4JO+cHp/9MiJWTtRyMv6ZyrxLKCjTHqcISZSuxlWFZVHQIExFyJRHNY8FJnDvMRbUNY22XHnCZ4U26ZtBDHpcT9GEHvFriGMHcORm50yhcCTZMbYXbr2ekRS68vr2r+I
+X-Microsoft-Antispam-Message-Info: mqrHkFr3vUCbJ9aDAaNvJxc/u8G5wVtqwnAcHeBVYP7mqUj/DIX/tmXI7HJxi3/Zk+smcEmsv5cEFOc8JYzrX9CXUHt5lYcxfXWKWdYLBtwlaX+W6Fd4VvMH0MuCSFKBgDPmSFJHeiFBX1ID5kJTwIhxoNlLm2G6sW6eXV2O+5cTB2PmMKtkQdoCiTjbLSXbfM7GRoaLK2B9m/vtLH6alM64yOrfQTTa0FSNfxn57Yz/3hA78x7qLHTaOK7BsnDUAwsODB60DFOr9og7bDGQmEUU3YMIQEIYvfi0ICNPdZPlUbr4yxGPzo1I9TvEQG1iJSQoDhqJW5664LpacoDh6mrgbYskwY1tJN9c3skKebn9ZJbeQVGsaL2ZzG3tX29mxBzeXcz2rQSpwx2UsOwnGI9eNx+0QtU+6R5kjvNYviRcFazP3BiDZNaN3rXeQbGpBua3SA1PbA45ryikL0odMx4RipOgzlW+EOoQVs6nB8TRsR2glrumEGhbvqLjbvGPUTqIe5FCHHDDkRpatiNiKGmXMMzm3bCCXHylFNAobPr5Iy9wB4MwedzhRQ6RZijIMoXl5U+YWj6Ce3Np991KSupVEaxzLej2fuFl5poBN6eLNyGCye2oQimswUdcp04b4rh6QqeAttvn9sYpCEOefCYYMqVxozJ2Sle05VaO15z7PRMJEU05u2Gp1BBZJsjW
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(136003)(39860400002)(376002)(396003)(346002)(36840700001)(46966006)(70586007)(54906003)(70206006)(426003)(82740400003)(336012)(30864003)(1076003)(36860700001)(16526019)(81166007)(82310400003)(356005)(47076005)(6916009)(83380400001)(86362001)(4326008)(2906002)(478600001)(316002)(8936002)(186003)(8676002)(6666004)(2616005)(19627235002)(7696005)(36756003)(26005)(5660300002)(36900700001);
+ SFS:(4636009)(39860400002)(346002)(376002)(136003)(396003)(46966006)(36840700001)(47076005)(36860700001)(36756003)(7696005)(478600001)(86362001)(2906002)(4326008)(26005)(16526019)(426003)(82740400003)(83380400001)(186003)(6666004)(82310400003)(6916009)(70206006)(336012)(8676002)(316002)(70586007)(81166007)(8936002)(5660300002)(2616005)(54906003)(356005)(1076003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2021 19:25:51.2426 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c6dff01c-b445-441a-52c4-08d931c5b7e9
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2021 19:25:54.1945 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 34225e0a-385e-4376-4aba-08d931c5b9ab
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT024.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT018.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2433
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3644
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,339 +116,289 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fixes handling of GPUVM page table decoding when not using 4-level
-page tables with 512 entries per level. This includes:
+Brings decoding of PDEs and PTEs for AI+ chips into their own
+functions, so that we don't end up with subtly different decoding
+bugs in the variety of places such decodings are done.
 
-- Calculating actual size of top-most PDB based on total VM range,
-  page table depth, and page table block size.
-- Calculating size of PTB based on the page table block size
-  and the PDE0's block fragment size.
-- Handling PTE offset and masks from from PDE0 with P-bit, normal
-  PTBs, or PTBs from a translate-further layer.
-- When using a PTE with F bit to go one layer deeper, pull new
-  block fragment size out of that PTE to handle further-level PTBs
-  of non-standard sizes.
+Also fixes a minor bug where we were pulling PTE.PRT from bit 61
+instead of the proper bit 51.
 
 Signed-off-by: Joseph Greathouse <Joseph.Greathouse@amd.com>
 ---
- src/lib/read_vram.c | 199 ++++++++++++++++++++++++++++++++++----------
- 1 file changed, 153 insertions(+), 46 deletions(-)
+ src/lib/read_vram.c | 187 ++++++++++++++++++++++++++------------------
+ 1 file changed, 109 insertions(+), 78 deletions(-)
 
 diff --git a/src/lib/read_vram.c b/src/lib/read_vram.c
-index efcd081..049acd4 100644
+index 049acd4..2998873 100644
 --- a/src/lib/read_vram.c
 +++ b/src/lib/read_vram.c
-@@ -297,6 +297,26 @@ invalid_page:
- 	return -1;
+@@ -317,6 +317,104 @@ static uint64_t log2_vm_size(uint64_t page_table_start_addr, uint64_t page_table
+ 	return vm_bits;
  }
  
-+/** round_up_pot -- Round up value to next power of two */
-+static uint64_t round_up_pot(uint64_t x)
++typedef struct {
++	uint64_t
++		frag_size,
++		pte_base_addr,
++		valid,
++		system,
++		coherent,
++		pte,
++		further;
++} pde_fields_ai_t;
++
++typedef struct {
++	uint64_t
++		valid,
++		system,
++		coherent,
++		tmz,
++		execute,
++		read,
++		write,
++		fragment,
++		page_base_addr,
++		prt,
++		pde,
++		further,
++		mtype;
++} pte_fields_ai_t;
++
++/*
++ * PDE format on AI:
++ * 63:59 block fragment size
++ * 58:55 reserved
++ *   But if bit 56 is set, this is a PTE with 'further' set,
++ *   which makes it act like a PDE.
++ * 54 pde-is-pte
++ * 53:48 reserved
++ * 47:6 physical base address of PTE
++ * 2 cache coherent/snoop
++ * 1 system
++ * 0 valid
++ */
++static pde_fields_ai_t decode_pde_entry_ai(uint64_t pde_entry)
 +{
-+	uint64_t y = (64ULL * 1024 * 1024); // start at 64MiB
-+	while (y < x)
-+		y <<= 1;
-+	return y;
++	pde_fields_ai_t pde_fields;
++	pde_fields.frag_size     = (pde_entry >> 59) & 0x1F;
++	pde_fields.pte_base_addr = pde_entry & 0xFFFFFFFFFFC0ULL;
++	pde_fields.valid         = pde_entry & 1;
++	pde_fields.system        = (pde_entry >> 1) & 1;
++	pde_fields.coherent      = (pde_entry >> 2) & 1;
++	pde_fields.pte           = (pde_entry >> 54) & 1;
++	pde_fields.further       = (pde_entry >> 56) & 1;
++	return pde_fields;
 +}
 +
-+static uint64_t log2_vm_size(uint64_t page_table_start_addr, uint64_t page_table_end_addr)
++/*
++ * PTE format on AI and PI:
++ * 58:57 mtype
++ * 56 further
++ * 54 reserved
++ *   But if it is set, then this is actually a PDE with 'P'
++ *   bit set, which makes the PDE act like a PTE.
++ * 51 prt
++ * 47:12 4k physical page base address
++ * 11:7 fragment
++ * 6 write
++ * 5 read
++ * 4 exe
++ * 3 tmz (PI+)
++ * 2 snooped / coherent
++ * 1 system
++ * 0 valid
++ */
++static pte_fields_ai_t decode_pte_entry_ai(uint64_t pte_entry)
 +{
-+	uint64_t size_of_vm_bytes = page_table_end_addr - page_table_start_addr + 4096;
-+	size_of_vm_bytes = round_up_pot(size_of_vm_bytes);
-+	// Find the highest bit set to get an estimate for log2(size)
-+	uint32_t vm_bits = 0;
-+	while (size_of_vm_bytes >>= 1)
-+		vm_bits++;
-+	return vm_bits;
++	pte_fields_ai_t pte_fields;
++	pte_fields.valid          = pte_entry & 1;
++	pte_fields.system         = (pte_entry >> 1) & 1;
++	pte_fields.coherent       = (pte_entry >> 2) & 1;
++	pte_fields.tmz            = (pte_entry >> 3) & 1;
++	pte_fields.execute        = (pte_entry >> 4) & 1;
++	pte_fields.read           = (pte_entry >> 5) & 1;
++	pte_fields.write          = (pte_entry >> 6) & 1;
++	pte_fields.fragment       = (pte_entry >> 7) & 0x1F;
++	pte_fields.prt            = (pte_entry >> 51) & 1;
++	pte_fields.pde            = (pte_entry >> 54) & 1;
++	pte_fields.further        = (pte_entry >> 56) & 1;
++	pte_fields.mtype          = (pte_entry >> 57) & 3;
++
++	// PTEs hold physical address in 47:12
++	// PDEs hold physical address in 47:6, so if this is a PTE-as-PDE (further), need a differnt mask
++	if (pte_fields.further)
++		pte_fields.page_base_addr = pte_entry & 0xFFFFFFFFFFC0ULL;
++	else
++		pte_fields.page_base_addr = pte_entry & 0xFFFFFFFFF000ULL;
++
++	return pte_fields;
 +}
 +
  /**
   * umr_access_vram_ai - Access GPU mapped memory for GFX9+ platforms
   */
-@@ -304,17 +324,19 @@ static int umr_access_vram_ai(struct umr_asic *asic, uint32_t vmid,
- 			      uint64_t address, uint32_t size,
- 			      void *dst, int write_en)
- {
--	uint64_t start_addr, page_table_start_addr, page_table_base_addr,
--		 page_table_block_size, pte_idx, pde_idx, pte_entry, pde_entry,
-+	uint64_t start_addr, page_table_start_addr, page_table_end_addr, page_table_base_addr,
-+		 page_table_block_size, log2_ptb_entries, pte_idx, pde_idx, pte_entry, pde_entry,
- 		 pde_address, vm_fb_offset,
- 		 va_mask, offset_mask, system_aperture_low, system_aperture_high,
--		 fb_top, fb_bottom, pte_page_mask, agp_base, agp_bot, agp_top, prev_addr;
-+		 fb_top, fb_bottom, ptb_mask, pte_page_mask, agp_base, agp_bot, agp_top, prev_addr;
- 	uint32_t chunk_size, tmp, pde0_block_fragment_size;
- 	int pde_cnt, current_depth, page_table_depth, zfb, further;
- 	struct {
- 		uint32_t
- 			mmVM_CONTEXTx_PAGE_TABLE_START_ADDR_LO32,
- 			mmVM_CONTEXTx_PAGE_TABLE_START_ADDR_HI32,
-+			mmVM_CONTEXTx_PAGE_TABLE_END_ADDR_LO32,
-+			mmVM_CONTEXTx_PAGE_TABLE_END_ADDR_HI32,
- 			mmVM_CONTEXTx_CNTL,
- 			mmVM_CONTEXTx_PAGE_TABLE_BASE_ADDR_LO32,
- 			mmVM_CONTEXTx_PAGE_TABLE_BASE_ADDR_HI32,
-@@ -461,6 +483,12 @@ static int umr_access_vram_ai(struct umr_asic *asic, uint32_t vmid,
- 	sprintf(buf, "mm%sVM_CONTEXT%" PRIu32 "_PAGE_TABLE_START_ADDR_HI32", regprefix, vmid);
- 		registers.mmVM_CONTEXTx_PAGE_TABLE_START_ADDR_HI32 = umr_read_reg_by_name_by_ip(asic, hub, buf);
- 		page_table_start_addr |= (uint64_t)registers.mmVM_CONTEXTx_PAGE_TABLE_START_ADDR_HI32 << 44;
-+	sprintf(buf, "mm%sVM_CONTEXT%" PRIu32 "_PAGE_TABLE_END_ADDR_LO32", regprefix, vmid);
-+		registers.mmVM_CONTEXTx_PAGE_TABLE_END_ADDR_LO32 = umr_read_reg_by_name_by_ip(asic, hub, buf);
-+		page_table_end_addr = (uint64_t)registers.mmVM_CONTEXTx_PAGE_TABLE_END_ADDR_LO32 << 12;
-+	sprintf(buf, "mm%sVM_CONTEXT%" PRIu32 "_PAGE_TABLE_END_ADDR_HI32", regprefix, vmid);
-+		registers.mmVM_CONTEXTx_PAGE_TABLE_END_ADDR_HI32 = umr_read_reg_by_name_by_ip(asic, hub, buf);
-+		page_table_end_addr |= (uint64_t)registers.mmVM_CONTEXTx_PAGE_TABLE_END_ADDR_HI32 << 44;
+@@ -352,24 +450,9 @@ static int umr_access_vram_ai(struct umr_asic *asic, uint32_t vmid,
+ 			mmMC_VM_AGP_BOT,
+ 			mmMC_VM_AGP_TOP;
+ 	} registers;
+-	struct {
+-		uint64_t
+-			frag_size,
+-			pte_base_addr,
+-			valid,
+-			system,
+-			cache,
+-			pte;
+-	} pde_fields, pde_array[8];
+-	struct {
+-		uint64_t
+-			page_base_addr,
+-			fragment,
+-			system,
+-			valid,
+-			prt,
+-			further;
+-	} pte_fields;
++
++	pde_fields_ai_t pde_fields, pde_array[8];
++	pte_fields_ai_t pte_fields;
+ 	char buf[64];
+ 	unsigned char *pdst = dst;
+ 	char *hub, *vm0prefix, *regprefix;
+@@ -379,27 +462,6 @@ static int umr_access_vram_ai(struct umr_asic *asic, uint32_t vmid,
+ 	memset(&registers, 0, sizeof registers);
+ 	memset(&pde_array, 0xff, sizeof pde_array);
  
- 	sprintf(buf, "mm%sVM_CONTEXT%" PRIu32 "_CNTL", regprefix, vmid);
- 		tmp = registers.mmVM_CONTEXTx_CNTL = umr_read_reg_by_name_by_ip(asic, hub, buf);
-@@ -495,6 +523,8 @@ static int umr_access_vram_ai(struct umr_asic *asic, uint32_t vmid,
- 		asic->mem_funcs.vm_message(
- 				"mm%sVM_CONTEXT%" PRIu32 "_PAGE_TABLE_START_ADDR_LO32=0x%" PRIx32 "\n"
- 				"mm%sVM_CONTEXT%" PRIu32 "_PAGE_TABLE_START_ADDR_HI32=0x%" PRIx32 "\n"
-+				"mm%sVM_CONTEXT%" PRIu32 "_PAGE_TABLE_END_ADDR_LO32=0x%" PRIx32 "\n"
-+				"mm%sVM_CONTEXT%" PRIu32 "_PAGE_TABLE_END_ADDR_HI32=0x%" PRIx32 "\n"
- 				"mm%sVM_CONTEXT%" PRIu32 "_PAGE_TABLE_BASE_ADDR_LO32=0x%" PRIx32 "\n"
- 				"mm%sVM_CONTEXT%" PRIu32 "_PAGE_TABLE_BASE_ADDR_HI32=0x%" PRIx32 "\n"
- 				"mm%sVM_CONTEXT%" PRIu32 "_CNTL=0x%" PRIx32 "\n"
-@@ -513,6 +543,8 @@ static int umr_access_vram_ai(struct umr_asic *asic, uint32_t vmid,
- 				"mm%sMC_VM_AGP_TOP=0x%" PRIx32 "\n",
- 			regprefix, vmid, registers.mmVM_CONTEXTx_PAGE_TABLE_START_ADDR_LO32,
- 			regprefix, vmid, registers.mmVM_CONTEXTx_PAGE_TABLE_START_ADDR_HI32,
-+			regprefix, vmid, registers.mmVM_CONTEXTx_PAGE_TABLE_END_ADDR_LO32,
-+			regprefix, vmid, registers.mmVM_CONTEXTx_PAGE_TABLE_END_ADDR_HI32,
- 			regprefix, vmid, registers.mmVM_CONTEXTx_PAGE_TABLE_BASE_ADDR_LO32,
- 			regprefix, vmid, registers.mmVM_CONTEXTx_PAGE_TABLE_BASE_ADDR_HI32,
- 			regprefix, vmid, registers.mmVM_CONTEXTx_CNTL,
-@@ -535,10 +567,6 @@ static int umr_access_vram_ai(struct umr_asic *asic, uint32_t vmid,
- 	// transform page_table_base
- 	page_table_base_addr -= vm_fb_offset;
+-	/*
+-	 * PTE format on AI:
+-	 * 47:12 4k physical page base address
+-	 * 11:7 fragment
+-	 * 6 write
+-	 * 5 read
+-	 * 4 exe
+-	 * 3 reserved
+-	 * 2 snooped
+-	 * 1 system
+-	 * 0 valid
+-	 *
+-	 * PDE format on AI:
+-	 * 63:59 block fragment size
+-	 * 58:40 reserved
+-	 * 47:6 physical base address of PTE
+-	 * 2 cache coherent/snoop
+-	 * 1 system
+-	 * 0 valid
+-	 */
+-
+ 	hubid = vmid & 0xFF00;
+ 	vmid &= 0xFF;
  
--	// convert some defaults to actual values AFTER printing out to user
--	// page_table_block_size of 0 means 9 (512 entries)
--	if (!page_table_block_size)
--		page_table_block_size = 9;
- 	pde0_block_fragment_size = 0;
- 
- 	if (vmid == 0) {
-@@ -593,7 +621,9 @@ static int umr_access_vram_ai(struct umr_asic *asic, uint32_t vmid,
- 
- 		// defaults in case we have to bail out before fully decoding to a PTE
- 		pde_cnt = 0;
-+		ptb_mask = (1ULL << 9) - 1;
- 		pte_page_mask = (1ULL << 12) - 1;
-+		log2_ptb_entries = 9;
+@@ -627,13 +689,7 @@ static int umr_access_vram_ai(struct umr_asic *asic, uint32_t vmid,
  		further = 0;
  
  		if (page_table_depth >= 1) {
-@@ -608,8 +638,23 @@ static int umr_access_vram_ai(struct umr_asic *asic, uint32_t vmid,
+-			// decode PDE values
+-			pde_fields.frag_size     = (pde_entry >> 59) & 0x1F;
+-			pde_fields.pte_base_addr = pde_entry & 0xFFFFFFFFF000ULL;
+-			pde_fields.valid         = pde_entry & 1;
+-			pde_fields.system        = (pde_entry >> 1) & 1;
+-			pde_fields.cache         = (pde_entry >> 2) & 1;
+-			pde_fields.pte           = (pde_entry >> 54) & 1;
++			pde_fields = decode_pde_entry_ai(pde_entry);
+ 
  			// AI+ supports more than 1 level of PDEs so we iterate for all of the depths
  			pde_address = pde_fields.pte_base_addr;
+@@ -663,7 +719,7 @@ static int umr_access_vram_ai(struct umr_asic *asic, uint32_t vmid,
+ 						pde_fields.pte_base_addr,
+ 						pde_fields.valid,
+ 						pde_fields.system,
+-						pde_fields.cache,
++						pde_fields.coherent,
+ 						pde_fields.pte);
+ 			memcpy(&pde_array[pde_cnt++], &pde_fields, sizeof pde_fields);
  
--			// TODO: Should "page_table_block_size" just be 9 to account for potential PTB1 selectors?
--			va_mask = ((uint64_t)511 << ((page_table_depth)*9 + (12 + pde0_block_fragment_size + page_table_block_size)));
-+			/*
-+			 * Size of the first PDB depends on the total coverage of the
-+			 * page table and the PAGE_TABLE_BLOCK_SIZE.
-+			 * Entire table takes ceil(log2(total_vm_size)) bits
-+			 * All PDBs except the first one take 9 bits each
-+			 * The PTB covers at least 2 MiB (21 bits)
-+			 * And PAGE_TABLE_BLOCK_SIZE is log2(num 2MiB ranges PTB covers)
-+			 * As such, the formula for the size of the first PDB is:
-+			 *                       PDB1, PDB0, etc.      PTB covers at least 2 MiB
-+			 *                                        Block size can make it cover more
-+			 *   total_vm_bits - (9 * num_middle_pdbs) - (page_table_block_size + 21)
-+			 */
-+			int total_vm_bits = log2_vm_size(page_table_start_addr, page_table_end_addr);
-+			int top_pdb_bits = total_vm_bits - (9 * (page_table_depth - 1)) - (page_table_block_size + 21);
-+
-+			va_mask = (1ULL << top_pdb_bits) - 1;
-+			va_mask <<= (total_vm_bits - top_pdb_bits);
+@@ -712,13 +768,7 @@ static int umr_access_vram_ai(struct umr_asic *asic, uint32_t vmid,
+ 					}
+ 				}
  
- 			if ((asic->options.no_fold_vm_decode || memcmp(&pde_fields, &pde_array[pde_cnt], sizeof pde_fields)) && asic->options.verbose)
- 				asic->mem_funcs.vm_message("BASE=0x%016" PRIx64 ", VA=0x%012" PRIx64 ", PBA==0x%012" PRIx64 ", V=%" PRIu64 ", S=%" PRIu64 ", C=%" PRIu64 ", P=%" PRIu64 "\n",
-@@ -624,14 +669,19 @@ static int umr_access_vram_ai(struct umr_asic *asic, uint32_t vmid,
- 
- 			current_depth = page_table_depth;
- 			while (current_depth) {
--				pde_idx = address >> (9 * (current_depth - 1) + page_table_block_size + 12);
--				// mask only 9 bits
--				if (current_depth != page_table_depth)
--					pde_idx &= (1ULL << 9) - 1;
--
--
--				// TODO: redo va_mask
--				va_mask = ((uint64_t)511 << ((page_table_depth - pde_cnt)*9 + (12 + pde0_block_fragment_size + page_table_block_size)));
-+				// Every middle PDB has 512 entries, so shift a further 9 bits
-+				// for every layer beyond the first one.
-+				int amount_to_shift = (total_vm_bits - top_pdb_bits);
-+				amount_to_shift -= ((page_table_depth - current_depth)*9);
-+				pde_idx = address >> amount_to_shift;
-+
-+				// Middle layers need the upper bits masked out after the right-shift.
-+				// For the top-most layer, the va_mask is set above the while loop,
-+				// so we can skip re-setting it here.
-+				if (current_depth != page_table_depth) {
-+					pde_idx &= 511;
-+					va_mask = (uint64_t)511 << amount_to_shift;
-+				}
- 
- 				// read PDE entry
- 				prev_addr = pde_address + pde_idx * 8;
-@@ -671,9 +721,18 @@ static int umr_access_vram_ai(struct umr_asic *asic, uint32_t vmid,
- 				pde_fields.pte           = (pde_entry >> 54) & 1;
+-				// decode PDE values
+-				pde_fields.frag_size     = (pde_entry >> 59) & 0x1F;
+-				pde_fields.pte_base_addr = pde_entry & 0xFFFFFFFFF000ULL;
+-				pde_fields.valid         = pde_entry & 1;
+-				pde_fields.system        = (pde_entry >> 1) & 1;
+-				pde_fields.cache         = (pde_entry >> 2) & 1;
+-				pde_fields.pte           = (pde_entry >> 54) & 1;
++				pde_fields = decode_pde_entry_ai(pde_entry);
  				if (current_depth == 1) {
  					pde0_block_fragment_size = pde_fields.frag_size;
--					// page_table_block_size is the number of entries in a PTB that spans 2MB
--					page_table_block_size = 21 - (12 + pde0_block_fragment_size);
--					pte_page_mask = (1ULL << (12 + pde0_block_fragment_size)) - 1;
-+					/*
-+					 * page_table_block_size is the number of 2MiB regions covered by a PTB
-+					 * If we set it to 0, then PTB cover 2 MiB
-+					 * If it's 9 PTB cover 1024 MiB
-+					 * pde0_block_fragment_size tells us how many 4 KiB regions each PTE covers
-+					 * If it's 0 PTEs cover 4 KiB
-+					 * If it's 9 PTEs cover 2 MiB
-+					 * So the number of PTEs in a PTB is 2^(9+ptbs-pbfs)
-+					 */
-+					log2_ptb_entries = (9 + (page_table_block_size - pde0_block_fragment_size));
-+					ptb_mask = (1ULL << log2_ptb_entries) - 1;
-+					pte_page_mask = (1ULL << (pde0_block_fragment_size + 12)) - 1;
- 					if (asic->options.verbose)
- 						asic->mem_funcs.vm_message("pde0.pte = %u\npde0.block_fragment_size = %u\npage_table_block_size = %u\n",
- 							(unsigned)pde_fields.pte,
-@@ -723,9 +782,13 @@ static int umr_access_vram_ai(struct umr_asic *asic, uint32_t vmid,
- 				pde_address = pde_fields.pte_base_addr;
+ 					/*
+@@ -751,7 +801,7 @@ static int umr_access_vram_ai(struct umr_asic *asic, uint32_t vmid,
+ 								pde_fields.pte_base_addr,
+ 								pde_fields.valid,
+ 								pde_fields.system,
+-								pde_fields.cache,
++								pde_fields.coherent,
+ 								pde_fields.pte,
+ 								pde_fields.frag_size);
+ 						memcpy(&pde_array[pde_cnt++], &pde_fields, sizeof pde_fields);
+@@ -817,14 +867,8 @@ pte_further:
+ 					return -1;
  			}
  
--			// read PTE selector (to select from PTB0)
--			// TODO:  support for page_table_block_size > 9
--			pte_idx = (address >> (12 + pde0_block_fragment_size)) & ((1ULL << page_table_block_size) - 1);
-+			// If we fall through to here, we are pointing into PTB, so pull out
-+			// the index and mask.
-+			// At minimum, each PTE is 4 KiB (12 bits)
-+			// PDE0.BFS tells us how many of these 4 KiB page each PTE covers
-+			// So add those bits in.
-+			// We also calculated the PTE mask up above, to know how many PTEs are in this PTB
-+			pte_idx = (address >> (12 + pde0_block_fragment_size)) & ptb_mask;
- pte_further:
- 			// now read PTE entry for this page
- 			prev_addr = pde_fields.pte_base_addr + pte_idx*8;
-@@ -778,20 +841,74 @@ pde_is_pte:
- 					pte_fields.fragment,
- 					pte_fields.further);
+-			// decode PTE values
+ pde_is_pte:
+-			pte_fields.fragment       = (pte_entry >> 7)  & 0x1F;
+-			pte_fields.system         = (pte_entry >> 1) & 1;
+-			pte_fields.valid          = pte_entry & 1;
+-			pte_fields.prt            = (pte_entry >> 61) & 1;
+-			pte_fields.further        = (pte_entry >> 56) & 1;
+-			pte_fields.page_base_addr = pte_entry & (pte_fields.further ? 0xFFFFFFFFFFC0ULL : 0xFFFFFFFFF000ULL);
++			pte_fields = decode_pte_entry_ai(pte_entry);
  
--			if (pte_fields.further) {
--				if (page_table_block_size == 9) {
--					// this case doesn't make sense unless we support PTBS > 9
--					asic->mem_funcs.vm_message("[ERROR]: PTE.further is set and *CNTL.PAGE_TABLE_BLOCK_SIZE is 9...\n");
--					return -1;
-+			// How many bits in the address are used to index into the PTB?
-+			// If further is set, that means we jumped back to pde_is_pte,
-+			// and the va_mask was properly set down there.
-+			if (!further) {
-+				// total_vm_bits are all the bits in the VM space
-+				// We want to ignore the top-most PDB, which uses top_pdb_bits
-+				// We also want to ignore lower PDBs, which use 9 bits each
-+				int bits_to_use = total_vm_bits - top_pdb_bits - (9 * (page_table_depth - 1));
-+
-+				// At a minimum, we want to ignore the bottom 12 bits for a 4 KiB page
-+				int lower_bits_to_ignore = 12;
-+
-+				if (pde_fields.pte) {
-+					// We are in here because we're in PDE0 with P bit. So we don't want
-+					// to skip the 9 bits from PDB0.
-+					bits_to_use += 9;
-+
-+					// If the P bit is set, we are coming from PDE0, thus this entry
-+					// covers the whole page_table_block_size, instead of the PDE0.BFS.
-+					// So we want to ignore those bits in the address.
-+					lower_bits_to_ignore += page_table_block_size;
- 				} else {
--					pte_idx = (address >> 12) & ((1ULL << pde0_block_fragment_size) - 1);
--					pte_page_mask = (1ULL << 12) - 1;
--
--					// grab PTE base address from the PTE that has the F bit set.
--					pde_fields.pte_base_addr = pte_fields.page_base_addr;
--					further = 1;
--					goto pte_further;
-+					// If we are at an actual PTE, then based on PDE0.BFS, we want to ignore
-+					// some of the lowest bits.
-+					// If PDE0.BFS=0, the bottom 12 bits are used to index within the page
-+					// If PDE0.BFS=9, the bottom 21 bits are used to index within the page
-+					// etc.  These are the bits we want to ignore, and we already put 12 in.
-+					lower_bits_to_ignore += pde0_block_fragment_size;
- 				}
-+
-+				va_mask = (1 << bits_to_use) - 1;
-+				int mask_to_ignore = (1 << lower_bits_to_ignore) - 1;
-+				va_mask = va_mask & ~mask_to_ignore;
-+			}
-+
-+			uint32_t pte_block_fragment_size = 0;
-+			if (pte_fields.further) {
-+				// Going to go one more layer deep, so now we need the Further-PTE's
-+				// block_fragment_size. This tells us how many 4K pages each
-+				// last-layer-PTE covers.
-+				pte_block_fragment_size = (pte_entry >> 59) & 0x1F;
-+
-+				// Each entry covers the Further-PTE.block_fragment_size numbesr
-+				// of 4K pages so we can potentially ignore some low-order bits.
-+				int last_level_ptb_bits = 12 + pte_block_fragment_size;
-+				pte_idx = address >> last_level_ptb_bits;
-+
-+				// The total size covered by the last-layer-PTB is a function of
-+				// pde0_block_fragment_size, which tells us how many 4K entries the
-+				// PTB covers.
-+				// So number of bits needed to index the entries in the final PTE is:
-+				uint32_t num_entry_bits =  pde0_block_fragment_size - pte_block_fragment_size;
-+				// Clamp the index to the new last-level PTB's size.
-+				pte_idx &= ((1 << num_entry_bits) - 1);
-+
-+				uint32_t upper_mask = (1ULL << (12 + pde0_block_fragment_size)) - 1;
-+				pte_page_mask = (1ULL << last_level_ptb_bits) - 1;
-+				va_mask &= (upper_mask & ~pte_page_mask);
-+
-+				// grab PTE base address and other data from the PTE that has the F bit set.
-+				pde_fields.frag_size     = (pte_entry >> 59) & 0x1F;
-+				pde_fields.pte_base_addr = pte_entry & 0xFFFFFFFFFFC0ULL;
-+				pde_fields.valid         = pte_entry & 1;
-+				pde_fields.system        = (pte_entry >> 1) & 1;
-+				pde_fields.cache         = (pte_entry >> 2) & 1;
-+				pde_fields.pte            = 0;
-+				further = 1;
-+				goto pte_further;
+ 			if (asic->options.verbose)
+ 				asic->mem_funcs.vm_message("%s %s@{0x%" PRIx64 "/%" PRIx64"}==0x%016" PRIx64 ", VA=0x%012" PRIx64 ", PBA==0x%012" PRIx64 ", V=%" PRIu64 ", S=%" PRIu64 ", P=%" PRIu64 ", FS=%" PRIu64 ", F=%" PRIu64 "\n",
+@@ -901,12 +945,7 @@ pde_is_pte:
+ 				va_mask &= (upper_mask & ~pte_page_mask);
+ 
+ 				// grab PTE base address and other data from the PTE that has the F bit set.
+-				pde_fields.frag_size     = (pte_entry >> 59) & 0x1F;
+-				pde_fields.pte_base_addr = pte_entry & 0xFFFFFFFFFFC0ULL;
+-				pde_fields.valid         = pte_entry & 1;
+-				pde_fields.system        = (pte_entry >> 1) & 1;
+-				pde_fields.cache         = (pte_entry >> 2) & 1;
+-				pde_fields.pte            = 0;
++				pde_fields = decode_pde_entry_ai(pte_entry);
+ 				further = 1;
+ 				goto pte_further;
  			}
- 
- 			if (!pte_fields.system)
-@@ -802,11 +919,10 @@ pde_is_pte:
- 
- 			// compute starting address
- 			// this also accounts for PDE-is-PTE masking since current_depth > 0 at this point
--			// if we are processing a PTE leaf node then the page size is 12 bits
- 			if (!further)
- 				offset_mask = (1ULL << ((current_depth * 9) + (12 + pde0_block_fragment_size))) - 1;
- 			else
--				offset_mask = (1ULL << 12) - 1; // offset masks are always 12-bits wide with PTE.further set
-+				offset_mask = (1ULL << (12 + pte_block_fragment_size)) - 1;
- 
- 			start_addr = asic->mem_funcs.gpu_bus_to_cpu_address(asic, pte_fields.page_base_addr) + (address & offset_mask);
+@@ -928,12 +967,9 @@ pde_is_pte:
  		} else {
-@@ -935,15 +1051,6 @@ invalid_page:
- 	return -1;
- }
+ 			// in AI+ the BASE_ADDR is treated like a PDE entry...
+ 			// decode PDE values
+-			pde_fields.frag_size     = (page_table_base_addr >> 59) & 0x1F;
++			pde_fields = decode_pde_entry_ai(pde_entry);
+ 			pde0_block_fragment_size = pde_fields.frag_size;
+ 			pte_page_mask = (1ULL << (12 + pde0_block_fragment_size)) - 1;
+-			pde_fields.pte_base_addr = page_table_base_addr & 0xFFFFFFFFF000ULL;
+-			pde_fields.system        = (page_table_base_addr >> 1) & 1;
+-			pde_fields.valid         = page_table_base_addr & 1;
  
--/** round_up_pot -- Round up value to next power of two */
--static uint64_t round_up_pot(uint64_t x)
--{
--	uint64_t y = (64ULL * 1024 * 1024); // start at 64MiB
--	while (y < x)
--		y <<= 1;
--	return y;
--}
--
- /**
-  * umr_access_vram - Access GPU mapped memory
-  *
+ 			if ((asic->options.no_fold_vm_decode || memcmp(&pde_array[0], &pde_fields, sizeof pde_fields)) && asic->options.verbose)
+ 				asic->mem_funcs.vm_message("PDE=0x%016" PRIx64 ", PBA==0x%012" PRIx64 ", V=%" PRIu64 ", S=%" PRIu64 ", FS=%" PRIu64 "\n",
+@@ -953,12 +989,7 @@ pde_is_pte:
+ 			if (umr_read_vram(asic, UMR_LINEAR_HUB, pde_fields.pte_base_addr + pte_idx * 8, 8, &pte_entry) < 0)
+ 				return -1;
+ 
+-			// decode PTE values
+-			pte_fields.page_base_addr = pte_entry & 0xFFFFFFFFF000ULL;
+-			pte_fields.fragment       = (pte_entry >> 7)  & 0x1F;
+-			pte_fields.system         = (pte_entry >> 1) & 1;
+-			pte_fields.valid          = pte_entry & 1;
+-			pte_fields.prt            = 0;
++			pte_fields = decode_pte_entry_ai(pte_entry);
+ 
+ 			if (asic->options.verbose)
+ 				asic->mem_funcs.vm_message("\\-> PTE=0x%016" PRIx64 ", VA=0x%016" PRIx64 ", PBA==0x%012" PRIx64 ", F=%" PRIu64 ", V=%" PRIu64 ", S=%" PRIu64 "\n",
 -- 
 2.20.1
 
