@@ -2,66 +2,66 @@ Return-Path: <SRS0=S25v=LM=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.5 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5B5BDC48BE8
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Jun 2021 20:36:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 454D3C48BE8
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Jun 2021 20:38:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 23E2F613C2
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Jun 2021 20:36:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 23E2F613C2
+	by mail.kernel.org (Postfix) with ESMTPS id F06DA6124C
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Jun 2021 20:38:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F06DA6124C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3C476EA95;
-	Fri, 18 Jun 2021 20:36:14 +0000 (UTC)
-Received: from mail-ot1-x333.google.com (mail-ot1-x333.google.com
- [IPv6:2607:f8b0:4864:20::333])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36EB26EA95;
- Fri, 18 Jun 2021 20:36:14 +0000 (UTC)
-Received: by mail-ot1-x333.google.com with SMTP id
- w23-20020a9d5a970000b02903d0ef989477so10914624oth.9; 
- Fri, 18 Jun 2021 13:36:14 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9088B6EA98;
+	Fri, 18 Jun 2021 20:38:06 +0000 (UTC)
+Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com
+ [IPv6:2607:f8b0:4864:20::230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D4A3B6EA98;
+ Fri, 18 Jun 2021 20:38:05 +0000 (UTC)
+Received: by mail-oi1-x230.google.com with SMTP id s23so11881062oiw.9;
+ Fri, 18 Jun 2021 13:38:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=FwzvVbuJlgu6DBRUWFo9BEm/hzQ+wY0U0PlSZsQGHWY=;
- b=WdnhFyyu6n7P6JsoopbACwoe7AOK+QOg+3/Ko1PmYCVdMIS9EvhxqPe0fqh4xbv28G
- KQFDPBb7TRq7Fgk2W4R7099i+F1aW8MPrZwKy+1LSEYUzzEuodod0s6kK3yNfs8rlb3e
- sgPgI+EEWNOuaE/XLVE3Sb8oehkfPQxQuebacQnQ3s3wsVwZoFmR5/Kw+KU7zrADZyDK
- qeyEC4D8QyUHfcJsUtKp1JbWcaFW1YCI1HvXIDHw2gljF+Yd4flqBwhj8xsLMHYeXyTH
- IJbq8gN4BgMZVAqLoRwYa0/ZyR2pQLD7tiJ3Kn3cSE/E/0UYO3mTAZJsfM4Qyg22Zb69
- ioMw==
+ :cc; bh=NzQpDhklEQ/5JlkHM/IA/NZF6AkpVhxvXEzA5dRQIjI=;
+ b=p70oAnIs6IQq6Ii4vFXv91weYphLY4hkgeFYkNdbJQZ26R/K66sFhdHxqJs4SAkro0
+ XaRrirrgceTLhhbdLevolozfeNf2idvkRPM5qqIN5qRf0p+iD0jxmIPVMrPemAhpovbb
+ wu34ka+hGc7vqvV6Er3UrxFku3iCwBrRCtC1yYbfYrx0t7KeI2R9TMZ2GRYvZ/pzbtGz
+ ctMc97NUhOkBMxgNGPTyslklR/Ggvl8MDJIIK3/HrUAoaR/O1KNlVA3V9YxKHNq4oVLZ
+ SUqFtUqA7F+cGhOfTpGCB4mz5f4MFTfnD9yB3qabg5qAmtyB2+3v3cBC7ZziZ1UaXr62
+ Pabw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=FwzvVbuJlgu6DBRUWFo9BEm/hzQ+wY0U0PlSZsQGHWY=;
- b=IUwkVRn2I9fgAohV3zWBmaueQgJjkpwK1wsu8U1ZD5QeW8qb9SJ/jNZksgr7HVryH0
- if1Oe6wlhRAMInd8Rgl8xFMx97JbLHzXQ6MI47b+nk4UeYOHbG4uWBgPF6jx2Btwkntp
- I55Olhh8ffVD/vG22X74aRKss/gMT1ZENse7x0y3Nf30GGU4p0WX0QVEcskCbZ2YSjwI
- 6ej8cEsgl/Dc6oFTW72pVZBEXOwaNKDj8ejogvYzqWzJ+qbp7HUxpRUHSiqoRJCkwAiS
- rrHy5lOnumlCK3O6h3dcnMuZLCJVXZoVyJIAPxc0bWh7Bq2IpscaD66+5FQ+6d3FuqJe
- mN9A==
-X-Gm-Message-State: AOAM532GepSgeKeDRFieRmNszbXYMerg7381qRLWGHQ2FejF3A5kadKl
- lmrf3dcOoKmm21KjwOVtn34VWbwZkPque8ZuhX8=
-X-Google-Smtp-Source: ABdhPJzF78KAFsqPc87SewWRBrPw3zNm1t0kg3ndekO4Ac022ElkbsuZKs6pwn6DG0+gmaEZzECQIoIb8XCyvEaP2MI=
-X-Received: by 2002:a05:6830:33ef:: with SMTP id
- i15mr11036214otu.311.1624048573626; 
- Fri, 18 Jun 2021 13:36:13 -0700 (PDT)
+ bh=NzQpDhklEQ/5JlkHM/IA/NZF6AkpVhxvXEzA5dRQIjI=;
+ b=XWmsiephK2ihP2FRb0vmvp2acIbYusBUe49L2HMjuFRXzIcKvGteofzQFLsWeXSlHt
+ 946vgkGlZSHWO0qqqVvrEDDnrPDt5zMe3NeQL1PVpRJxNvTm1+ZUBJfOBfdnaXHnMkHz
+ MI3DSiaNFl1/QxjxEyVzEbDykEGVd8RgT6ItWhPcjwujhp59Eaxx2lmhpvHYeYgd5zNb
+ e9PKWpMWjQBPMiUwBNwIRswIiW3/rjuEBOpaOOG7f1qTV7R+FsJnErW4064+5C21IrsJ
+ zUwQqCZob4+jYT5xlEDCgDfxWZi0rTbWWv0SvlKPlmWMe69MxiL+F6PBJy55x4NtswXe
+ jH8w==
+X-Gm-Message-State: AOAM531h0BdgvfmqckxHxpRv6VLt/pMyI9JP96LP1VblOLarUyb7sCZD
+ 5rnbsjrHCmfkbQlw4H+/s/bbcrNq/e0JPVx463I=
+X-Google-Smtp-Source: ABdhPJwPkOTpTcBJLf0vMYnm7L/iRZoDmTGcxgxVQ2BTrNe/wrDM7fXiHCbU+D1ce1/UDivRGWO3a/Ma2FItssBnnk0=
+X-Received: by 2002:a05:6808:999:: with SMTP id
+ a25mr8503622oic.123.1624048685292; 
+ Fri, 18 Jun 2021 13:38:05 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210616205206.GA17547@embeddedor>
- <3e68b60f-a9af-1f58-076d-1d348e3bf892@amd.com>
-In-Reply-To: <3e68b60f-a9af-1f58-076d-1d348e3bf892@amd.com>
+References: <1623979403-50239-1-git-send-email-zhangshaokun@hisilicon.com>
+ <f934cbe6-369d-a7ad-ac03-3c8dcc6526a2@amd.com>
+In-Reply-To: <f934cbe6-369d-a7ad-ac03-3c8dcc6526a2@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 18 Jun 2021 16:36:02 -0400
-Message-ID: <CADnq5_MZ7vTxH6aB-rsZqSLGaffi6OwgVBDAFcT=16RRNw+UKA@mail.gmail.com>
-Subject: Re: [PATCH][next] drm/amd/display: Fix fall-through warning for Clang
+Date: Fri, 18 Jun 2021 16:37:54 -0400
+Message-ID: <CADnq5_MBP_ATmZuNrhLTeOCOkXH1SYet7NmdJcTYCKe6Wa34xg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Remove the repeated dpp1_full_bypass
+ declaration
 To: Harry Wentland <harry.wentland@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -74,14 +74,10 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>, Leo Li <sunpeng.li@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>, David Airlie <airlied@linux.ie>,
- linux-hardening@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+Cc: Shaokun Zhang <zhangshaokun@hisilicon.com>, Leo Li <sunpeng.li@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
@@ -89,56 +85,46 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Applied.  Thanks!
 
-Alex
-
-On Thu, Jun 17, 2021 at 3:20 PM Harry Wentland <harry.wentland@amd.com> wrote:
+On Fri, Jun 18, 2021 at 9:48 AM Harry Wentland <harry.wentland@amd.com> wrote:
 >
 >
 >
-> On 2021-06-16 4:52 p.m., Gustavo A. R. Silva wrote:
-> > In preparation to enable -Wimplicit-fallthrough for Clang, fix
-> > the following warning by replacing a /* fall through */ comment
-> > with the new pseudo-keyword macro fallthrough:
+> On 2021-06-17 9:23 p.m., Shaokun Zhang wrote:
+> > Function 'dpp1_full_bypass' is declared twice, so remove the repeated
+> > declaration and unnessary blank line.
 > >
-> > rivers/gpu/drm/amd/amdgpu/../display/dc/dce/dce_aux.c:672:4: warning: unannotated fall-through between switch labels [-Wimplicit-fallthrough]
-> >                         case AUX_TRANSACTION_REPLY_I2C_OVER_AUX_DEFER:
-> >                         ^
-> >
-> > Notice that Clang doesn't recognize /* fall through */ comments as
-> > implicit fall-through markings, so in order to globally enable
-> > -Wimplicit-fallthrough for Clang, these comments need to be
-> > replaced with fallthrough; in the whole codebase.
-> >
-> > Link: https://github.com/KSPP/linux/issues/115
-> > Signed-off-by: Gustavo A. R. Silva <gustavoars@kernel.org>
+> > Cc: Harry Wentland <harry.wentland@amd.com>
+> > Cc: Leo Li <sunpeng.li@amd.com>
+> > Cc: Alex Deucher <alexander.deucher@amd.com>
+> > Signed-off-by: Shaokun Zhang <zhangshaokun@hisilicon.com>
 >
 > Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 >
 > Harry
 >
 > > ---
-> > JFYI: We had thousands of these sorts of warnings and now we are down
-> >       to just 15 in linux-next. This is one of those last remaining
-> >       warnings.
+> >  drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp.h | 2 --
+> >  1 file changed, 2 deletions(-)
 > >
-> >  drivers/gpu/drm/amd/display/dc/dce/dce_aux.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp.h b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp.h
+> > index 9a1f40eb5c47..71b3a6949001 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp.h
+> > +++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp.h
+> > @@ -1497,8 +1497,6 @@ void dpp1_cnv_setup (
+> >               enum dc_color_space input_color_space,
+> >               struct cnv_alpha_2bit_lut *alpha_2bit_lut);
 > >
-> > diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c b/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c
-> > index 28631714f697..2fb88e54a4bf 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c
-> > @@ -668,7 +668,7 @@ bool dce_aux_transfer_with_retries(struct ddc_service *ddc,
-> >                               /* polling_timeout_period is in us */
-> >                               defer_time_in_ms += aux110->polling_timeout_period / 1000;
-> >                               ++aux_defer_retries;
-> > -                             /* fall through */
-> > +                             fallthrough;
-> >                       case AUX_TRANSACTION_REPLY_I2C_OVER_AUX_DEFER:
-> >                               retry_on_defer = true;
-> >                               fallthrough;
+> > -void dpp1_full_bypass(struct dpp *dpp_base);
+> > -
+> >  void dpp1_dppclk_control(
+> >               struct dpp *dpp_base,
+> >               bool dppclk_div,
 > >
 >
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
