@@ -2,66 +2,106 @@ Return-Path: <SRS0=S25v=LM=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D4D81C48BE8
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Jun 2021 17:41:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0548BC48BDF
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Jun 2021 18:38:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A39ED61261
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Jun 2021 17:41:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A39ED61261
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id B5CA2613E2
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Jun 2021 18:38:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B5CA2613E2
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 620676EA51;
-	Fri, 18 Jun 2021 17:41:52 +0000 (UTC)
-Received: from mail-oo1-xc29.google.com (mail-oo1-xc29.google.com
- [IPv6:2607:f8b0:4864:20::c29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA6F46EA52
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Jun 2021 17:41:50 +0000 (UTC)
-Received: by mail-oo1-xc29.google.com with SMTP id
- x22-20020a4a62160000b0290245cf6b7feeso2638144ooc.13
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Jun 2021 10:41:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=788q5XztB2C8+v/50NK5mXQJdzLrPOMMB/uqV5bDUbs=;
- b=JkuPTgyKdQvUnTMs6KalqR/3F4vm0h3GOgBxGgpkYoVwf00q+OWRgKt6h/KtDNW9X/
- CiTC6cm51IAiML4N98CP3CDMfC84crmoL+U2XA/TkEuNK2IN2euaIUikK2eUVK8fV6EX
- 1EhzRLhDk2xs257inkaEFbsuZ+WQ0Op+be8LdvSzhJLTkRgNBQ3kZ2hdV911cLds7e9M
- khMnrQ+fIpe5XQOmriWGpd1cp4mPY+C2j/WNYsigSX0zHt533P7g0rZ5x5qYvxvtt0rs
- 7SrmvrOTFXImuaLllDpfLvDD13bytvoenxBVAf6+ksBGBW/HNQ+18aGFIYZRVfguI6z3
- a9Qg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=788q5XztB2C8+v/50NK5mXQJdzLrPOMMB/uqV5bDUbs=;
- b=hCfnJuTCdrzq/eeODoY3vjbwMhWMPkyEIq6G5cVqxfob7W9fJdEGQmrU61nWUBvhq7
- W2V2JrXLkL0vufdfZBj0PLywAvMlr4IHuSbOYQCEpnDDMBUdoVmUTGHfWORbLyJ71E6u
- NXYrrX5S+a0c0F70/bNKt3gsKFviwjYNuCVXivd5dXKd8k5O175c19fj+BFn8tGb5Og4
- 1F0K2qPYDlFl0mlPtcQpmsEVdKhtVj9P1+bzfc/dwpt28VagOaBcVPZ7n4lntlTHR4r1
- GBtyYze2LNsKV+JaF/+sQ7QVJVQwY/ll4sWS2GOk2ppow4cDOXqvjaJ6Gk9Qm88h//qe
- Iv7A==
-X-Gm-Message-State: AOAM533JWfpyt8lyh9aZIxF/TzlwwEbFQpn9mBi8xd7r2EEE1Fz7BsIS
- j14ZmyLyqxH/wmsnw7xdSYKzOQ2EVPBPyKo4dsc=
-X-Google-Smtp-Source: ABdhPJyCqzYxF3yJXeSgJP9krcJf4P4YJvUxV07k4/IakGy0nQJl6SAMMU5hsNemKg8JxvGTJaL0UD1AV/RhiJMtEgE=
-X-Received: by 2002:a4a:acc8:: with SMTP id c8mr3215333oon.72.1624038110283;
- Fri, 18 Jun 2021 10:41:50 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4225C6EA6A;
+	Fri, 18 Jun 2021 18:38:12 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2086.outbound.protection.outlook.com [40.107.94.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4A0D6EA6A
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Jun 2021 18:38:10 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=aRU2gAR1iuZsM/y9fRszrj0EKQmo1eDwqvcJNCW6wpcF8sBq2SyUgqZfNF8ZPkGYGvUPopG54vjZvZQo/j44ckVOPNqEVh/DPEUfywPc+eXfkBZOGE1jw5lFKpJ+phPJw5P0TcGcH6xoBwLY4FPXMCd1wdXNv2x8PfQ99fOJtHaryPo7NoVSK/E2kveyvKngkLNFLwRSVNM08Rf6PoqEyVAlAFC5N6tNy0HjTTSXtpTL3tLLlI9a/Za2GSt7siO5CqIyKnEHyphgKX+BgxTiYJTq+rQjW9N6ykiX7qOj50+h81SjZZGb702sXQD1HMG46KIkHw67Wa/XC4m3SRcM1g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UsbMKXQoqt12xXLfWvRtSRrRgqqzBcalu6Snnwkclko=;
+ b=D0YguE4ESzTOOCftgbWYfDRuGlmNgRXAO2BPtcjSWtfoCkICnSeZpWFavaR+ozEQgQ9GjPFO9qdwrZt+CiiTNT25hM/OGRBzi3iUSN60ZRmWy8HX71PnqU3DvfwU/ZbYy/DRIO5kI06VqxpHVQuMg4yu7UqSERy02WRxNMtOc7QLWEUjAOWqs447QlJ9+FNFj2GzBCkbgRGM6uy3OCcNRYK1V3hHpnxijoM8PouLOjnWFu0I8Uf3uB0cQ5QnP14yfRdS1vFb941uilMbHshzyf9sBWrNc8A0Sf4Zlk+Y/9IZACib/q3CZCAuzrgoo+d1aOFOJTzGUcycCGqNGfsvGA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UsbMKXQoqt12xXLfWvRtSRrRgqqzBcalu6Snnwkclko=;
+ b=qUnMc16cJf59QXsBx1vCKgi/Xc2tGdIAOpMdAKmVDfVTB/OdIP9TmSDBbV8jV54FoqL+2MpsFDKUrsecHOLJEIjeVE+zkwKmjDncufs8QpVRDwPitURJ2wNz287FtXP9e6Ui1VysalH4KX4UybUJFeQM9+jE4ZRYhrJnPYldt+Q=
+Received: from MWHPR1601CA0001.namprd16.prod.outlook.com
+ (2603:10b6:300:da::11) by MWHPR1201MB2478.namprd12.prod.outlook.com
+ (2603:10b6:300:e5::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.21; Fri, 18 Jun
+ 2021 18:38:08 +0000
+Received: from CO1NAM11FT003.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:300:da:cafe::b7) by MWHPR1601CA0001.outlook.office365.com
+ (2603:10b6:300:da::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.16 via Frontend
+ Transport; Fri, 18 Jun 2021 18:38:08 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT003.mail.protection.outlook.com (10.13.175.93) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4242.16 via Frontend Transport; Fri, 18 Jun 2021 18:38:07 +0000
+Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Fri, 18 Jun
+ 2021 13:38:06 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB07.amd.com
+ (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Fri, 18 Jun
+ 2021 11:38:06 -0700
+Received: from bindu-HP-EliteDesk-705-G4-MT.amd.com (10.180.168.240) by
+ SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2242.4
+ via Frontend Transport; Fri, 18 Jun 2021 13:38:05 -0500
+From: Bindu Ramamurthy <bindu.r@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 09/12] drm/amd/display: Revert "Guard ASSR with internal
+ display flag"
+Date: Fri, 18 Jun 2021 14:37:33 -0400
+Message-ID: <20210618183736.647268-9-bindu.r@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20210618022337.2661813-1-yifan1.zhang@amd.com>
-In-Reply-To: <20210618022337.2661813-1-yifan1.zhang@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 18 Jun 2021 13:41:39 -0400
-Message-ID: <CADnq5_NY0eLo4J0VT6Z0E-17F65b0hvVr671wFQhXJksbqFzdw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Revert enlarging CP_MEC_DOORBELL_RANGE
- patches.
-To: Yifan Zhang <yifan1.zhang@amd.com>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: ffe6d32f-a1c3-4131-0f1d-08d9328837b6
+X-MS-TrafficTypeDiagnostic: MWHPR1201MB2478:
+X-Microsoft-Antispam-PRVS: <MWHPR1201MB2478674DE4938D8C6779B70BF50D9@MWHPR1201MB2478.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:949;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 0ZYOqpC4Y2wwLnVPgzSXZjrF3tb6VTXHYz0Q+0V7d92ECRO8ZfamxeTqqOQOy9FYjeOR481HEahFOZMT8aGB+7IzKdc3QE70QLlLpFZ14OHPc+rLDudG77IYKJ+bqeZaYct4PDzAKE0J2pqOYKeUGaKhDdr/XrSzEe8x53pZCgHvtMDLzgDJxsA40doKY+mtEA4AjdGD1yOv/G7+OgQHJ+lw1SnkmfmQo9r5saz/1GEDHskQ9iKWSFPZpptwrD2itJWgUciRLY+WIdVjCpRX1uBV1kJ6D8X4MiqeMrRvBk/J42MwJZfXupodGUpDSmOd5AgtCFoO5p7WcxjfkZfSnhP5cRQ0m6K01uuNX2soA0MlRHX/uR8TbjQafmnij3U6q1Mhdvzbdt0m6EOJ/kbeSzaTW8PhX6ZdHDKDfMRZQ2XQXSrdIWE0KZTbEYntkFk9S/ZJ9elwxPPknsnE+d3HhIFcHNFBGf9qGqH93LMlMcCJDamjCK29AjBs2HUsx1HRjPCURWOXsAwT2Jg3osD9DbIsVeCuhtYVZncrfbGKUz3V+9S23UM36HZck7sZ3PPeQ38R3rtAj+5ffaQdcyItrA0btrGJbQZbEC8QmFimI2UkYqeE+ekLejW0AO6gbdWX9K2bLTbGKSP2Ul/FDvCgATdifiRnQdeUJC4MtHqe4ns3sBDpMDKHbuNEsvvJZLgw
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(39860400002)(396003)(376002)(346002)(136003)(36840700001)(46966006)(336012)(82310400003)(70206006)(70586007)(186003)(86362001)(426003)(478600001)(7696005)(6666004)(26005)(36756003)(5660300002)(356005)(8936002)(8676002)(6916009)(2906002)(4326008)(36860700001)(1076003)(316002)(2616005)(54906003)(81166007)(82740400003)(47076005)(83380400001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2021 18:38:07.9636 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ffe6d32f-a1c3-4131-0f1d-08d9328837b6
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT003.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1201MB2478
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,79 +113,119 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Stylon Wang <stylon.wang@amd.com>,
+ Wesley Chalmers <Wesley.Chalmers@amd.com>, Eryk.Brol@amd.com,
+ Sunpeng.Li@amd.com, Harry.Wentland@amd.com, Qingqing.Zhuo@amd.com,
+ Rodrigo.Siqueira@amd.com, Anson.Jacob@amd.com, Aurabindo.Pillai@amd.com,
+ Bhawanpreet.Lakha@amd.com, bindu.r@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Probably better to revert each patch individually for upstream.  With
-that changed,
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+From: Stylon Wang <stylon.wang@amd.com>
 
-Alex
+[Why]
+1. Previous patch regresses on some embedded panels.
+2. Project coreboot doesn't support passing of internal display flag.
 
-On Thu, Jun 17, 2021 at 10:23 PM Yifan Zhang <yifan1.zhang@amd.com> wrote:
->
-> Revert "drm/amdgpu/gfx9: fix the doorbell missing when in CGPG issue."
-> Revert "drm/amdgpu/gfx10: enlarge CP_MEC_DOORBELL_RANGE_UPPER to cover full doorbell."
->
-> This revert commits:
-> a3b4cfb09aa9e73cc48caff77efc161a396aeddb.
-> feae47198886d0df7b43876916a0e4366f159b45
->
-> Reason for revert: side effect of enlarging CP_MEC_DOORBELL_RANGE may
-> cause some APUs fail to enter gfxoff in certain user cases.
->
-> Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 6 +-----
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c  | 6 +-----
->  2 files changed, 2 insertions(+), 10 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> index 7bfe6f9d3a52..15ae9e33b925 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> @@ -6974,12 +6974,8 @@ static int gfx_v10_0_kiq_init_register(struct amdgpu_ring *ring)
->         if (ring->use_doorbell) {
->                 WREG32_SOC15(GC, 0, mmCP_MEC_DOORBELL_RANGE_LOWER,
->                         (adev->doorbell_index.kiq * 2) << 2);
-> -               /* If GC has entered CGPG, ringing doorbell > first page doesn't
-> -                * wakeup GC. Enlarge CP_MEC_DOORBELL_RANGE_UPPER to workaround
-> -                * this issue.
-> -                */
->                 WREG32_SOC15(GC, 0, mmCP_MEC_DOORBELL_RANGE_UPPER,
-> -                       (adev->doorbell.size - 4));
-> +                       (adev->doorbell_index.userqueue_end * 2) << 2);
->         }
->
->         WREG32_SOC15(GC, 0, mmCP_HQD_PQ_DOORBELL_CONTROL,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> index 922420a2c102..044076ec1d03 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> @@ -3675,12 +3675,8 @@ static int gfx_v9_0_kiq_init_register(struct amdgpu_ring *ring)
->         if (ring->use_doorbell) {
->                 WREG32_SOC15(GC, 0, mmCP_MEC_DOORBELL_RANGE_LOWER,
->                                         (adev->doorbell_index.kiq * 2) << 2);
-> -               /* If GC has entered CGPG, ringing doorbell > first page doesn't
-> -                * wakeup GC. Enlarge CP_MEC_DOORBELL_RANGE_UPPER to workaround
-> -                * this issue.
-> -                */
->                 WREG32_SOC15(GC, 0, mmCP_MEC_DOORBELL_RANGE_UPPER,
-> -                                       (adev->doorbell.size - 4));
-> +                                       (adev->doorbell_index.userqueue_end * 2) << 2);
->         }
->
->         WREG32_SOC15_RLC(GC, 0, mmCP_HQD_PQ_DOORBELL_CONTROL,
-> --
-> 2.25.1
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+[How]
+This reverts "Guard ASSR with internal display flag" commit.
+
+Signed-off-by: Stylon Wang <stylon.wang@amd.com>
+Reviewed-by: Wesley Chalmers <Wesley.Chalmers@amd.com>
+Acked-by: Bindu Ramamurthy <bindu.r@amd.com>
+---
+ .../gpu/drm/amd/display/dc/core/dc_link_dp.c  | 58 ++++++-------------
+ 1 file changed, 17 insertions(+), 41 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+index 4326ac577756..10b749ef7fbb 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+@@ -1760,42 +1760,6 @@ enum link_training_result dc_link_dp_perform_link_training(
+ 	return status;
+ }
+ 
+-static enum dp_panel_mode try_enable_assr(struct dc_stream_state *stream)
+-{
+-	struct dc_link *link = stream->link;
+-	enum dp_panel_mode panel_mode = dp_get_panel_mode(link);
+-#ifdef CONFIG_DRM_AMD_DC_HDCP
+-	struct cp_psp *cp_psp = &stream->ctx->cp_psp;
+-#endif
+-
+-	/* ASSR must be supported on the panel */
+-	if (panel_mode == DP_PANEL_MODE_DEFAULT)
+-		return panel_mode;
+-
+-	/* eDP or internal DP only */
+-	if (link->connector_signal != SIGNAL_TYPE_EDP &&
+-		!(link->connector_signal == SIGNAL_TYPE_DISPLAY_PORT &&
+-		 link->is_internal_display))
+-		return DP_PANEL_MODE_DEFAULT;
+-
+-#ifdef CONFIG_DRM_AMD_DC_HDCP
+-	if (cp_psp && cp_psp->funcs.enable_assr) {
+-		if (!cp_psp->funcs.enable_assr(cp_psp->handle, link)) {
+-			/* since eDP implies ASSR on, change panel
+-			 * mode to disable ASSR
+-			 */
+-			panel_mode = DP_PANEL_MODE_DEFAULT;
+-		}
+-	} else
+-		panel_mode = DP_PANEL_MODE_DEFAULT;
+-
+-#else
+-	/* turn off ASSR if the implementation is not compiled in */
+-	panel_mode = DP_PANEL_MODE_DEFAULT;
+-#endif
+-	return panel_mode;
+-}
+-
+ bool perform_link_training_with_retries(
+ 	const struct dc_link_settings *link_setting,
+ 	bool skip_video_pattern,
+@@ -1808,7 +1772,7 @@ bool perform_link_training_with_retries(
+ 	uint8_t delay_between_attempts = LINK_TRAINING_RETRY_DELAY;
+ 	struct dc_stream_state *stream = pipe_ctx->stream;
+ 	struct dc_link *link = stream->link;
+-	enum dp_panel_mode panel_mode;
++	enum dp_panel_mode panel_mode = dp_get_panel_mode(link);
+ 	struct link_encoder *link_enc;
+ 	enum link_training_result status = LINK_TRAINING_CR_FAIL_LANE0;
+ 	struct dc_link_settings current_setting = *link_setting;
+@@ -1845,11 +1809,23 @@ bool perform_link_training_with_retries(
+ 			msleep(delay_dp_power_up_in_ms);
+ 		}
+ 
+-		panel_mode = try_enable_assr(stream);
++#ifdef CONFIG_DRM_AMD_DC_HDCP
++		if (panel_mode == DP_PANEL_MODE_EDP) {
++			struct cp_psp *cp_psp = &stream->ctx->cp_psp;
++
++			if (cp_psp && cp_psp->funcs.enable_assr) {
++				if (!cp_psp->funcs.enable_assr(cp_psp->handle, link)) {
++					/* since eDP implies ASSR on, change panel
++					 * mode to disable ASSR
++					 */
++					panel_mode = DP_PANEL_MODE_DEFAULT;
++				}
++			} else
++				panel_mode = DP_PANEL_MODE_DEFAULT;
++		}
++#endif
++
+ 		dp_set_panel_mode(link, panel_mode);
+-		DC_LOG_DETECTION_DP_CAPS("Link: %d ASSR enabled: %d\n",
+-			 link->link_index,
+-			 panel_mode != DP_PANEL_MODE_DEFAULT);
+ 
+ 		if (link->aux_access_disabled) {
+ 			dc_link_dp_perform_link_training_skip_aux(link, &current_setting);
+-- 
+2.25.1
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
