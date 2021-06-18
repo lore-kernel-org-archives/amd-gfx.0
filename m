@@ -2,56 +2,74 @@ Return-Path: <SRS0=S25v=LM=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-18.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,UNPARSEABLE_RELAY,
+	URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 523CDC49EBB
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Jun 2021 09:12:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 39CDEC49EA5
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Jun 2021 09:12:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1E7CB61175
+	by mail.kernel.org (Postfix) with ESMTPS id ECCFB60FD8
 	for <amd-gfx@archiver.kernel.org>; Fri, 18 Jun 2021 09:12:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1E7CB61175
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=tuxedocomputers.com
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ECCFB60FD8
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D3566E9E7;
-	Fri, 18 Jun 2021 09:11:52 +0000 (UTC)
-Received: from srv6.fidu.org (srv6.fidu.org [159.69.62.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4F836E9D8;
- Fri, 18 Jun 2021 09:11:45 +0000 (UTC)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by srv6.fidu.org (Postfix) with ESMTP id 83120C800B3;
- Fri, 18 Jun 2021 11:11:44 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at srv6.fidu.org
-Received: from srv6.fidu.org ([127.0.0.1])
- by localhost (srv6.fidu.org [127.0.0.1]) (amavisd-new, port 10026)
- with LMTP id Lk_qPjcuFfw2; Fri, 18 Jun 2021 11:11:44 +0200 (CEST)
-Received: from wsembach-tuxedo.fritz.box
- (p200300e37f3949001760E5710682cA7E.dip0.t-ipconnect.de
- [IPv6:2003:e3:7f39:4900:1760:e571:682:ca7e])
- (Authenticated sender: wse@tuxedocomputers.com)
- by srv6.fidu.org (Postfix) with ESMTPA id 24AD9C800BA;
- Fri, 18 Jun 2021 11:11:44 +0200 (CEST)
-From: Werner Sembach <wse@tuxedocomputers.com>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@linux.ie, daniel@ffwll.ch,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- intel-gfx@lists.freedesktop.org
-Subject: [PATCH v4 14/17] drm/i915/display: Add handling for new "preferred
- color format" property
-Date: Fri, 18 Jun 2021 11:11:13 +0200
-Message-Id: <20210618091116.14428-15-wse@tuxedocomputers.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210618091116.14428-1-wse@tuxedocomputers.com>
-References: <20210618091116.14428-1-wse@tuxedocomputers.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9B9E6E9C2;
+	Fri, 18 Jun 2021 09:11:55 +0000 (UTC)
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
+ [205.220.177.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59B6F6E9F5
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Jun 2021 09:11:51 +0000 (UTC)
+Received: from pps.filterd (m0246632.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 15I8VRJm021263; Fri, 18 Jun 2021 08:37:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : mime-version : content-type; s=corp-2020-01-29;
+ bh=iXmA2kYJS+r4Xe0FDNKeogg/oAJA0bHydZas7lXjRoA=;
+ b=MlFLQRA4Geu15h3+AyqYmvlyB18yyUKEDBKKDmWZSPbKsCZMY4k4m6amZSjuOVHspA75
+ mwmmYusKYyxzYA/o88plJzrEyVxAkcXRS0iLH9zfR5xkW3n6rhw6cmklsem1vJWg1tsV
+ +pb0HaZA0A6PxHFYHTHwPdAiZI+e8tvIoisFqI8CNkU/xSVrQMraF+OGPCe2+ztuUPRj
+ ATfpMwyp94ABM4EWtmsxE3mx2TyWTrSq2UX5fmqxrLt0CSNi1+qK309qy7XgFhFQj63X
+ G7/Yh6fiNSJ9JX2Ev18zF/Sgcc96SILzZNn6WqN+I6k8A5Yf1a41Ew3VjdkQAvaogEZ8 VA== 
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
+ by mx0b-00069f02.pphosted.com with ESMTP id 397w1y2r37-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 18 Jun 2021 08:37:41 +0000
+Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
+ by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 15I8ZPmJ038676;
+ Fri, 18 Jun 2021 08:37:40 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by aserp3030.oracle.com with ESMTP id 396wawhf7d-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 18 Jun 2021 08:37:40 +0000
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [127.0.0.1])
+ by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 15I8bJZM042909;
+ Fri, 18 Jun 2021 08:37:39 GMT
+Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
+ by aserp3030.oracle.com with ESMTP id 396wawhf74-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 18 Jun 2021 08:37:39 +0000
+Received: from abhmp0008.oracle.com (abhmp0008.oracle.com [141.146.116.14])
+ by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 15I8bV2R015132;
+ Fri, 18 Jun 2021 08:37:31 GMT
+Received: from mwanda (/102.222.70.252)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Fri, 18 Jun 2021 01:37:30 -0700
+Date: Fri, 18 Jun 2021 11:37:21 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Alex Deucher <alexander.deucher@amd.com>, Dave Airlie <airlied@redhat.com>
+Subject: [PATCH] drm/amdgpu: fix amdgpu_preempt_mgr_new()
+Message-ID: <YMxbQXg/Wqm0ACxt@mwanda>
 MIME-Version: 1.0
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
+X-Proofpoint-ORIG-GUID: O9dxSdX-U6cfZyGxH_AnkP1JpiesTef7
+X-Proofpoint-GUID: O9dxSdX-U6cfZyGxH_AnkP1JpiesTef7
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,96 +81,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Werner Sembach <wse@tuxedocomputers.com>
+Cc: David Airlie <airlied@linux.ie>, Felix Kuehling <Felix.Kuehling@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, kernel-janitors@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This commit implements the "preferred color format" drm property for the
-Intel GPU driver.
+There is a reversed if statement in amdgpu_preempt_mgr_new() so it
+always returns -ENOMEM.
 
-Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+Fixes: 09b020bb05a5 ("Merge tag 'drm-misc-next-2021-06-09' of git://anongit.freedesktop.org/drm/drm-misc into drm-next")
+Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c     | 7 ++++++-
- drivers/gpu/drm/i915/display/intel_dp_mst.c | 5 +++++
- drivers/gpu/drm/i915/display/intel_hdmi.c   | 6 ++++++
- 3 files changed, 17 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_preempt_mgr.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 214010f7cbec..4c01ab887904 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -616,9 +616,12 @@ intel_dp_output_format(struct drm_connector *connector,
- {
- 	struct intel_dp *intel_dp = intel_attached_dp(to_intel_connector(connector));
- 	const struct drm_display_info *info = &connector->display_info;
-+	const struct drm_connector_state *connector_state = connector->state;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_preempt_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_preempt_mgr.c
+index f6aff7ce5160..d02c8637f909 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_preempt_mgr.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_preempt_mgr.c
+@@ -71,7 +71,7 @@ static int amdgpu_preempt_mgr_new(struct ttm_resource_manager *man,
+ 	struct amdgpu_preempt_mgr *mgr = to_preempt_mgr(man);
  
- 	if (!connector->ycbcr_420_allowed ||
--	    !drm_mode_is_420_only(info, mode))
-+	    !(drm_mode_is_420_only(info, mode) ||
-+	    (drm_mode_is_420_also(info, mode) && connector_state &&
-+	    connector_state->preferred_color_format == DRM_COLOR_FORMAT_YCRCB420)))
- 		return INTEL_OUTPUT_FORMAT_RGB;
+ 	*res = kzalloc(sizeof(**res), GFP_KERNEL);
+-	if (*res)
++	if (!*res)
+ 		return -ENOMEM;
  
- 	if (intel_dp->dfp.rgb_to_ycbcr &&
-@@ -4691,11 +4694,13 @@ intel_dp_add_properties(struct intel_dp *intel_dp, struct drm_connector *connect
- 	if (HAS_GMCH(dev_priv)) {
- 		drm_connector_attach_max_bpc_property(connector, 6, 10);
- 		drm_connector_attach_active_bpc_property(connector, 6, 10);
-+		drm_connector_attach_preferred_color_format_property(connector);
- 		drm_connector_attach_active_color_format_property(connector);
- 		drm_connector_attach_active_color_range_property(connector);
- 	} else if (DISPLAY_VER(dev_priv) >= 5) {
- 		drm_connector_attach_max_bpc_property(connector, 6, 12);
- 		drm_connector_attach_active_bpc_property(connector, 6, 12);
-+		drm_connector_attach_preferred_color_format_property(connector);
- 		drm_connector_attach_active_color_format_property(connector);
- 		drm_connector_attach_active_color_range_property(connector);
- 	}
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index cb876175258f..67f0fb649876 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -856,6 +856,11 @@ static struct drm_connector *intel_dp_add_mst_connector(struct drm_dp_mst_topolo
- 	if (connector->active_bpc_property)
- 		drm_connector_attach_active_bpc_property(connector, 6, 12);
- 
-+	connector->preferred_color_format_property =
-+		intel_dp->attached_connector->base.preferred_color_format_property;
-+	if (connector->preferred_color_format_property)
-+		drm_connector_attach_preferred_color_format_property(connector);
-+
- 	connector->active_color_format_property =
- 		intel_dp->attached_connector->base.active_color_format_property;
- 	if (connector->active_color_format_property)
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index dacac23a6c30..bce253bc5b16 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -2153,6 +2153,11 @@ static int intel_hdmi_compute_output_format(struct intel_encoder *encoder,
- 		crtc_state->output_format = INTEL_OUTPUT_FORMAT_RGB;
- 	}
- 
-+	if (connector->ycbcr_420_allowed &&
-+	    conn_state->preferred_color_format == DRM_COLOR_FORMAT_YCRCB420 &&
-+	    drm_mode_is_420_also(&connector->display_info, adjusted_mode))
-+		crtc_state->output_format = INTEL_OUTPUT_FORMAT_YCBCR420;
-+
- 	ret = intel_hdmi_compute_clock(encoder, crtc_state);
- 	if (ret) {
- 		if (crtc_state->output_format != INTEL_OUTPUT_FORMAT_YCBCR420 &&
-@@ -2516,6 +2521,7 @@ intel_hdmi_add_properties(struct intel_hdmi *intel_hdmi, struct drm_connector *c
- 	if (!HAS_GMCH(dev_priv)) {
- 		drm_connector_attach_max_bpc_property(connector, 8, 12);
- 		drm_connector_attach_active_bpc_property(connector, 8, 12);
-+		drm_connector_attach_preferred_color_format_property(connector);
- 		drm_connector_attach_active_color_format_property(connector);
- 		drm_connector_attach_active_color_range_property(connector);
- 	}
+ 	ttm_resource_init(tbo, place, *res);
 -- 
-2.25.1
+2.30.2
 
 _______________________________________________
 amd-gfx mailing list
