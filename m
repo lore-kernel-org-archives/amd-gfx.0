@@ -1,121 +1,135 @@
-Return-Path: <SRS0=zUvk=LN=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=d91E=LO=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 761E2C2B9F4
-	for <amd-gfx@archiver.kernel.org>; Sat, 19 Jun 2021 18:32:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 732B7C48BDF
+	for <amd-gfx@archiver.kernel.org>; Sun, 20 Jun 2021 16:59:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 232046113C
-	for <amd-gfx@archiver.kernel.org>; Sat, 19 Jun 2021 18:32:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 232046113C
+	by mail.kernel.org (Postfix) with ESMTPS id 323F4610A1
+	for <amd-gfx@archiver.kernel.org>; Sun, 20 Jun 2021 16:59:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 323F4610A1
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 772986E042;
-	Sat, 19 Jun 2021 18:32:01 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam07on2060.outbound.protection.outlook.com [40.107.212.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FA266E042;
- Sat, 19 Jun 2021 18:32:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 484FF89D44;
+	Sun, 20 Jun 2021 16:59:39 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2060.outbound.protection.outlook.com [40.107.94.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3CC489C25;
+ Sun, 20 Jun 2021 16:59:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=csf55AZHbTbbhyfmbkUvTN3Grei+2bPUwfSr/uXC0fQUlCFMUX6eD1CrzMLJEA7eqGhm3FHQ+71ZYrvrtApjoVwFIMJIR0aQXoWEQCTZbCIK4KZxDceeUg7qDZGSq9wrs5fHO58OGQu+F3jDQQla6OQuEC3qvfkh7cEciK05bAtquAoj1FsaHfn9FB60yqIO1dKN6beNN/K01Kvg4D5TM2LmQ3c7+1aX4P0lPpQWElFWa37belE9DS7bTG9Z2y/hEyuVtGI944VoJa1FPxwBquMIcfN8vKOEoovbNjuOhIsr26frjceMYXMxbqxs1FAAt4WuXONK7W8yvJ5fefPrJw==
+ b=OJZtf0PHWkpw5FqbHBrkh6GYTAcBKXV4Tn74eJNQcWSdZN6mCZamEu2lf61YgtNeJ3tvU2fJ4TM4sBWksqKNvjWQ/to5mKUuOMDIC2n9rKzPkwVKbRadBjk49pVvfqiVKcUkXGNeF8e0/iVLNH1QYqX/cPSyYsfxcHqBN7hlAA5R+k9njj5nuqx2mNhn9EYF1aVOTxsq7J0zB6rf/4TAJVkBEBvvvcm/1BKY46Vr1IW35f7iRlE8w3GEHzw6POxvDo1zQfaSFSvEgZLrfrurl6upPiSeqdK3knegBKfGyZzjVdo/UeuyJLKpL0tkWpkVcnWClvC8UGby0XpeBFeBFA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VWRWykmz2xF5HYtWmGb+NCcKO3e4VW1k7YHzpd1oxlw=;
- b=jELwZwvQTpFFbhncmFLPNyFCaqx/TkK4AU1n29CDX5AAdxs4ucwnNGow/RsnBnjEySV0FliCJAj2RvdMCQ5YpUpfpnmsGWgcTjzuWCeOmcJfOIDhCUeNE/qU1sLuQgvWrRscaivGt9s7nKZSskrFJ+vjpImM+Fd/wjDvgokA+8/A9BaMJ/eDxrCvOthB1ovWw1qWhDr17bvTBzaju7e7x13oKpkVdgYq+x0gGgihO4kO98uVcvVVDAh6xnxJGHXEEFJlmoghu4Ek6rAGYFLdwgj5fymjERfh25qXodIJpcoFQEFXj65UMxznNiIe8BnP6n0VQOMkkW6BQIansyPmOg==
+ bh=bEwcvYxjefNKF5hLIL5fI74gAy0M7moofEBlw/F50fk=;
+ b=cp/ocYxN75K6WknoTSdHfrIlF1quqjgzpB1jiwOePCoWESGdob3htfzAgY3OW2WQTSdQvqXAHsskGtuRi7zTeH1M78XhFWHzJ2J7/7ObV/O2j3Jx2psHOYISL+0xHF53Jq6eY5y2xsShPJyD4AXj6OdTvWU6kHsueiEN9M5sS+MIMBTylmrVL0KA4l9vaI1Aze/jZBoWeZUJquVj/drOlXre+1rNUuZ8ONOMGoL7KtFM8x9BfJyODyU1aCgq1aLw22kqg3nMjbzCh/Yvrfg6vBnzFup8PDOie5Cd2S8h2GWMGHBOTT8MAG8IMYc9ECP6l8NRV0f/rDL8F/hp9oVxHA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VWRWykmz2xF5HYtWmGb+NCcKO3e4VW1k7YHzpd1oxlw=;
- b=HS2ycMY43fGe4vV4DvTjBm1uY7/bLTAqGm4Yb6iDKSbwbE9cWPvUAKxE5u/I4xaviHOp5VV8GdeDXAgttPM+oYM/MU+CFyJRQgUcZyEH0szbCKR19ys9qK8stZeD7j20G4dPMgJnBSoev168OAh5wpOy5rD/3YRQhg++FX6zz4M=
-Authentication-Results: linux-foundation.org; dkim=none (message not signed)
- header.d=none;linux-foundation.org; dmarc=none action=none
- header.from=amd.com;
-Received: from SA0PR12MB4430.namprd12.prod.outlook.com (2603:10b6:806:70::20)
- by SA0PR12MB4432.namprd12.prod.outlook.com (2603:10b6:806:98::16)
+ bh=bEwcvYxjefNKF5hLIL5fI74gAy0M7moofEBlw/F50fk=;
+ b=x0xT9HL1vEpg5oFFkWASxLc+LcRZTybDDFpNZtp4TyXTHNOh0qayc4gYhmgu0Mm6S0Rllg2WONtOF+KC9FyGdQGebbKVRt2xw5oFZqoFhLnov7Slpq253xDkP4KO9Nr0FgOvMBgxkkQPkRDS3bBsH5imVfHnErQeX949YfI8LtQ=
+Authentication-Results: vger.kernel.org; dkim=none (message not signed)
+ header.d=none;vger.kernel.org; dmarc=none action=none header.from=amd.com;
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
+ by MN2PR12MB4095.namprd12.prod.outlook.com (2603:10b6:208:1d1::11)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.19; Sat, 19 Jun
- 2021 18:31:57 +0000
-Received: from SA0PR12MB4430.namprd12.prod.outlook.com
- ([fe80::5ce6:fed4:e00f:27e4]) by SA0PR12MB4430.namprd12.prod.outlook.com
- ([fe80::5ce6:fed4:e00f:27e4%6]) with mapi id 15.20.4242.023; Sat, 19 Jun 2021
- 18:31:57 +0000
-From: Alex Sierra <alex.sierra@amd.com>
-To: akpm@linux-foundation.org, Felix.Kuehling@amd.com, linux-mm@kvack.org,
- rcampbell@nvidia.com, linux-ext4@vger.kernel.org, linux-xfs@vger.kernel.org
-Subject: [PATCH v3 1/8] ext4/xfs: add page refcount helper
-Date: Sat, 19 Jun 2021 13:31:38 -0500
-Message-Id: <20210619183138.26868-1-alex.sierra@amd.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20210617151705.15367-2-alex.sierra@amd.com>
-References: <20210617151705.15367-2-alex.sierra@amd.com>
-X-Originating-IP: [165.204.78.1]
-X-ClientProxiedBy: SN6PR04CA0093.namprd04.prod.outlook.com
- (2603:10b6:805:f2::34) To SA0PR12MB4430.namprd12.prod.outlook.com
- (2603:10b6:806:70::20)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.19; Sun, 20 Jun
+ 2021 16:59:32 +0000
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::6c9e:1e08:7617:f756]) by MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::6c9e:1e08:7617:f756%5]) with mapi id 15.20.4242.023; Sun, 20 Jun 2021
+ 16:59:32 +0000
+Subject: Re: [PATCH 0/4] delete useless function return values & remove
+ meaningless if(r) check code
+To: Bernard Zhao <bernard@vivo.com>, Alex Deucher
+ <alexander.deucher@amd.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20210619064349.26676-1-bernard@vivo.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Message-ID: <e6c51c79-52ae-5591-45c7-382d1a8f2b5d@amd.com>
+Date: Sun, 20 Jun 2021 18:59:27 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
+In-Reply-To: <20210619064349.26676-1-bernard@vivo.com>
+Content-Language: en-US
+X-Originating-IP: [2a02:908:1252:fb60:4fd6:7850:960c:7728]
+X-ClientProxiedBy: PR0P264CA0247.FRAP264.PROD.OUTLOOK.COM (2603:10a6:100::19)
+ To MN2PR12MB3775.namprd12.prod.outlook.com
+ (2603:10b6:208:159::19)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from alex-MS-7B09.amd.com (165.204.78.1) by
- SN6PR04CA0093.namprd04.prod.outlook.com (2603:10b6:805:f2::34) with Microsoft
+Received: from [IPv6:2a02:908:1252:fb60:4fd6:7850:960c:7728]
+ (2a02:908:1252:fb60:4fd6:7850:960c:7728) by
+ PR0P264CA0247.FRAP264.PROD.OUTLOOK.COM (2603:10a6:100::19) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4242.21 via Frontend Transport; Sat, 19 Jun 2021 18:31:57 +0000
+ 15.20.4242.15 via Frontend Transport; Sun, 20 Jun 2021 16:59:30 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d17b5f62-de2d-4741-89b9-08d93350853a
-X-MS-TrafficTypeDiagnostic: SA0PR12MB4432:
+X-MS-Office365-Filtering-Correlation-Id: 19cdc2a0-d0a8-44b7-a458-08d9340cc5f6
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4095:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <SA0PR12MB44329C3A6093DD84FE30F98DFD0C9@SA0PR12MB4432.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2399;
+X-Microsoft-Antispam-PRVS: <MN2PR12MB4095B4F4F4FED4CE4237A8A2830B9@MN2PR12MB4095.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:350;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: nPRIpYBSai5Mo0AwFTzD0k3bNiH46ZHAkp7Np40k8djxk6Ubi8tDUllxfzTiUaGSci5xHL0pXn4tytGW3ocTUfb/1a5v2iD5xglFYCiHudqktjAX+gnGbYy/HERN+x6CKVkGBLfzSTbj4yhnXnEDx/O7evMZGsrjMeZDHRMKI/xY/mRkJo8+IcdgUCusqXgLEWE5zK4fOYpxeEWsGPlM7dWhE/m4wR9Q452wmvtHs/OM1hqHF2sBhQZMf0Loq9gTn4EENglc3pvOLGY2gYk8w6tZWJckVpR5K+9H6qHkX0m3OM9BPJD7u+U4PTzGcmdbFXwsLGTf5QL8l1ftsrV12JNlKYz7NbBBWrOFv9ek1aryTErLLDrVIoeykefv4QE3qy7/ukCOSvv08IOqvTmrwkNMolbH+vIecb8Ybs2XQLrxD1J7+xDQ2KgD/4ySqEG4zHtCDzl6/g4rxmxyVKn099qk6PnbXfHoGsbn2mqHYndoRv7AF+ZZ8a+hJfjKfoBWQ9jEUKTFWY3C4ZZxS3NYGGjPmpqoz8pbxlZ0QDvv70UDX2P2MRYO/5afRK1ZS2L2TuJkiTjUi/EEoD1GcfNDWb46QR6uqDV7VyvN9k63UFzOWlxz0IucfLVpW5jso+B+18BZtNV2HhLZjHfo5exz7QvDqbQzG2DxhoFSY0X6G3o=
+X-Microsoft-Antispam-Message-Info: yFNHWfPyHDJcHZE1QZolGWBJP/Hfy5/iTOzGGL9MSjWGvJ0l2c+Z3RPWIv4Y9MnyqypUhPYDCAiF0RIXnY0KEcltz6DmoH10OzG0C/YD724AExu5fCDBzqi8dOAbYmEioJ/Y/nOJkzAiqzVdEcIOCg8XCAifiiT/Y1raIN9YCIWf4Nnqo9aXwIdx0p8+2okjhPJq7tKwbAWgwBjRaXFguaG1qRKJYGd7qy9NX4b8ylyGT3OqZUGOPI7wTSPLdL/APOIZsCeEw30Uro4YdAuKFHufpKvqA1rtEF2+qYMLHIy+yPuUX8fhO2d2vzMmVw3lPgk9f/XGZ5yXYIzWGHPwcI3FW4CG1uzJn88OxyjWFTyXXql2KMTYo9Kpvtw4eFe7kdVsy3O/ynWdcmVQEuUqSoxMUtbI0X1kP0+NuNanVlNVhzgRYUbdrOXynFpqzi1SqiaGaENCL4vfYAJwq4EvtLi9EzHhlU2NH3h/O7zQpc9lgz/8eyL4/RcjShG5SFXfpysFxtN8IxJAUu3ZDMIYMvMeSUtXQG02mJkf3+VuK5YUf6ZMOcPt3V6c1BgToMPQ1Tyg4SPuOXHs0hVbGobWuR47ez5XTgkr9jmOgTFwFJErk+hxbsR2eA5zm5sITkODwvmDMmtoFR1yS053FXXIBK0ZjMoPrzomzpGqRNDk18kZNrxV9tj1SttBngZ5mWdb
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB4430.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(136003)(376002)(396003)(366004)(39860400002)(38100700002)(38350700002)(36756003)(2906002)(6486002)(66476007)(66556008)(66946007)(478600001)(956004)(8936002)(2616005)(86362001)(8676002)(26005)(16526019)(186003)(316002)(1076003)(83380400001)(7416002)(44832011)(6666004)(4326008)(52116002)(5660300002)(7696005);
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(136003)(346002)(39860400002)(396003)(376002)(110136005)(5660300002)(2906002)(31696002)(38100700002)(478600001)(86362001)(8936002)(16526019)(186003)(8676002)(36756003)(83380400001)(31686004)(6666004)(316002)(66556008)(2616005)(6486002)(66946007)(66476007)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?cU/gDmLnu4VUOHLS8U5qGFM1C440+i91TS5ZqXmRLCV2ywsE5H+XP/nbN4Jl?=
- =?us-ascii?Q?O9mWs6jmrEhUu9lHYTsO1EaXpSvNF5ISpF3BMCjiXaBfG6j46ImetGLG/7R6?=
- =?us-ascii?Q?n2ZffsprUCqqy0063mZWOEipWmzTBEADmS3uuneV7kh1X2FXI1K0TSyKyakO?=
- =?us-ascii?Q?ut9wP0PLomxMWX6+sNYnlriMCqup7N49uR2g3+YOvceTE9joqYyUuHDHnrjN?=
- =?us-ascii?Q?yAsePCLcf8VtAsKEzza4oBESweDuFIUgbFnqKHrGdWVybFoIhVHXhoIyT5BY?=
- =?us-ascii?Q?3rj3S7BLBFCWsSMy899T4g35jgnpuk1qZKCC7L3XDQErqaL/rVu1yavY3oDb?=
- =?us-ascii?Q?fb/Yij9s8PeC/2MM/bzH0IxSmOsH9OCghDN7cq3qMicK2qRjp73Fxi+a5OyK?=
- =?us-ascii?Q?zoBRibChgU6cYCIKhLf9hV6bGPqtwO2qincxeW6qWxbdT1znCxEQyHQ0kbwU?=
- =?us-ascii?Q?Jfz/LSprcOag2yDdhZyPCyayQ4fjNh1EYA4wadousZy7+8W9cGMsLMZn3pM1?=
- =?us-ascii?Q?odBXr2vxgbIBHaK+cPVg9Ahpf4N+FlZflDHq8dIoXhL0IvmFIvSBMMHZzX21?=
- =?us-ascii?Q?xLnj97p5hBzIedhMGfOHe7maePpi764s9XP5GIxB75lpJyxCicDkC6shZTYs?=
- =?us-ascii?Q?hADb7pP6VbqFWc8dGAwmghN5KD6E/uI9xMV0dP/Yg8J5dK/DEXfKnJgeQJma?=
- =?us-ascii?Q?3joCR0AnJXzqoOGk5ZMWYG3m6kBeUnPEfPbZ//mfZsRyQPFAVBWJiusZ24KL?=
- =?us-ascii?Q?kV7E3hyOKrp0hRW4zfYuolxRNvUDZnnlnU4GxTE114vV5sorCpxMEqXB1HfL?=
- =?us-ascii?Q?CA4BnZt4P5hhITBjap8ABwU7U5fa3zoFVP0FTQK/TfGYsSkXPavN5psVArFo?=
- =?us-ascii?Q?TNJtDQAvsqx0UxhmqixOcH41GaeRJH/YGYLl5QMQhHeUN3fApUA6nfXeu4LJ?=
- =?us-ascii?Q?olzs2TNMl6Io7Viyuwe/d5VMSx3P8X3f6o6vIsJxPGKvpmBtm217EDFF8Huq?=
- =?us-ascii?Q?gElIyM16ht1uGe8Dqive/ljJiH85dXVCAak8b0LKXoi2Squjy9Hvhcf8j52u?=
- =?us-ascii?Q?rCdghdcqSZOfECLcSPrQMpiUyvWsz2CbKkfV2Rq0cyhKrmvO207BOqMc7yHv?=
- =?us-ascii?Q?hxa+Ob7PZjpPsxY/Ndri7V05HB9FrLd3eHUX8e0m6ldtRStHJPELq3CB+BRF?=
- =?us-ascii?Q?gZd6scY+jJZ1wuvZhJ6R6khC/LEFbOsngNtCon5rnlTlRj6JfQPydHYRI0o5?=
- =?us-ascii?Q?hA/kaDv1Hxd7wdZNlVqx2EBmZZBbuuGpTn2ZIoU9ROmUv6TGPrKdjfdcidbJ?=
- =?us-ascii?Q?y9hP3FQl+EbgsrnVZVX55BjQ?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N0lxWG9tRjhYQnN2b1pKMmJwZS9pUGduK2NrRk9za1hyc3puYkh6ZDRFdVdk?=
+ =?utf-8?B?cmhvK3lKTjI4VWRweTRTaFhYSXcrNXQ2NEM0U0dYdmhDUTBqT2JLUmtaRGZh?=
+ =?utf-8?B?OVJzK3ZCdHA1ckFWbkpjQUlJYVZ6eHBUaWt5VWJGbFJySGhDZjdoelVvWTl5?=
+ =?utf-8?B?MTY2a0ZnaWF5d2NmWTh0b1lWTlVQR1dwQURqRWk2VG9DVC9Pa1QvU0w5RlUx?=
+ =?utf-8?B?UnhJR2NMQ3BFMWhyQ1lwcitSeEUyRkpmSTdpSnNJbmNBRXgrMWxWODdXSXo2?=
+ =?utf-8?B?YmROZWJ4bVNDWGZHSUZ6YlNSZUdndHJFUVJiV1MzNlJ6QXlJTWg1Q25kM25i?=
+ =?utf-8?B?SldCWkJZMlNOcWlqeGNYZThIdjM4TUlEcDlHQ3g4ZDJTWFVRZjNyRGZ5bWt4?=
+ =?utf-8?B?SlhVbzhLTWMvTGEwNFZWV0JGMnNJRTlGcVVqdlRJbCsxdE1XQk84N0tRQnBL?=
+ =?utf-8?B?Z25nOElNRWNOWTlUWDBWREJQV3liUHJCQVh2M3lhUGh4RnZTN2piWEpmNHdt?=
+ =?utf-8?B?aGNNT0dEWWNLbm94aFlKUUFkQThMMnZiZ3UwdC9veE1LTTh4K3ZHUGczUHM5?=
+ =?utf-8?B?MUJJM2JGMHYwbjQzWkpIVncwd2RqTmZOdzFGRlM5cXpsZk0vV3JxRXFRQ21t?=
+ =?utf-8?B?Tm1hMEtWR1JoUkdqNUk2R1JqMGtoSVFJUjJHbEhsZjJ4ZFRJa3FMeTdwak9o?=
+ =?utf-8?B?Q2JmNVVSNC9saEhTVG8wbmxaWmcvZXNmclhRRmtrbXN5Zy9xa1RVcmx5eEVF?=
+ =?utf-8?B?c3E3MWdMdEJwSTlzZ2lvNTg1Tkd6bkZLZ1ZVLzFJUDdrNlFOY0dwclpnVWNG?=
+ =?utf-8?B?Q1VZMjMxaFYwWll0aEVjYVM3U2krbWlJdkdtOWl1OEw2bXYySHA1aEV2Q1lC?=
+ =?utf-8?B?N0szMnNUUE9mTjZVZEIvQTJtTGd1dFA4TVozMGU5RHFMTjRlNFZ1ekMrcURV?=
+ =?utf-8?B?WjVIZGpVMUZvaFRYQ1kzZSt1eTZKaW9MVGJEQXhGTEpoTWxOajJHeW1TaG14?=
+ =?utf-8?B?aW1EaGRTb1JzWHE2Q2ZFc0xXYkhuY3Z3L3dsdUFyWUxUUm5UNm5pT0gzNCs5?=
+ =?utf-8?B?TlhZQUF4THF5M290c0xmT2ppaFZEWW5pMlZidTZFcW9uMVRzOG94bGpIb0R6?=
+ =?utf-8?B?QnlNc3cxSUw3RnIvSTFhYzR0N2JhbjJ2eXpqQURmQWtUQ3UwZVhzZkcyNXY5?=
+ =?utf-8?B?RVp1OEhubHNZVldJYkNqcm5xeVlrNzVodHRlb1N4MGFOcUkrWnpHTll3NjFw?=
+ =?utf-8?B?dDloTEduYW1VNHlvMkRLaUZvNHZmcDhCaEx0WXVSUkp5bUViNDVubVd6MUs3?=
+ =?utf-8?B?TVBIVjRxWGxnV244dTA5SUVmaitMTzVqbEcwR1RlWitXRDN1ZFJMdmNRMVFQ?=
+ =?utf-8?B?V3U4eE8wUUI4OTIraGxrUVJ0TWhMeVhaazZMZ2hxVjMvdWEyVng4QVBWdEoz?=
+ =?utf-8?B?c3ZrVVRHNGN4TDE3RHBIOS9EYmp1ZnlBUlIxREhoWlJFN21wTnY3cjYxN0Fu?=
+ =?utf-8?B?U21pK0dJdHo4VjFiZm5idGgwcS9tdm5uWXhBV0ZNZG1saFF3T0NXQjBnZmly?=
+ =?utf-8?B?dEJLT2ZsUG9DWG81UFlVUjFqdzk0UWlKeWJvMytMc2Y4a1NQRHRpWEJNSHY1?=
+ =?utf-8?B?bTM5RmxWelJ6Z2NVL3BDQUo4ekRhOWdxRURsdEgrS1FIVEU1bmV2LzlzaDhy?=
+ =?utf-8?B?czB2WUxWYzlBSVVRS2JuOU93TnhaYzFhN2p4ZkFwbStxZXcydXdvRlk5R0NS?=
+ =?utf-8?B?NElOLzU4dmx0MW15Njlqb241UmVvSXF5ckNNWWhvcUFhb1NzbzQxa1h4eVJZ?=
+ =?utf-8?B?d3VnUWdNcnpGVFloTjdKSlJtVXkwOU04QnYxY0FpOEhCdGZmM2xWWE5NbjRt?=
+ =?utf-8?Q?tTM3KpRL2cyI0?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d17b5f62-de2d-4741-89b9-08d93350853a
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB4430.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 19cdc2a0-d0a8-44b7-a458-08d9340cc5f6
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2021 18:31:57.6735 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jun 2021 16:59:31.9610 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HQQW5mPlmfkGepmHx0JOI8HSc7vIIywKJNCD/KiKcFUdagxxaGZ2EgVp2DRxUImtghaqrgBBBg67+uQcfyFWXQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4432
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9olaTX5oGOkZRlysZoDWhQipnW57czRru3FNzgPQAZDnEB3NWLGc01IaXnqrp8YU
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4095
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,107 +141,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jglisse@redhat.com, jgg@nvidia.com, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, hch@lst.de
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ralph Campbell <rcampbell@nvidia.com>
+Am 19.06.21 um 08:43 schrieb Bernard Zhao:
+> Function radeon_fence_driver_init always returns success,
+> the function type maybe coule be changed to void.
+> This patch series will first delete the check of the return
+> value of the function call radeon_fence_driver_init, then,
+> optimise the function declaration and function to void type.
 
-There are several places where ZONE_DEVICE struct pages assume a reference
-count == 1 means the page is idle and free. Instead of open coding this,
-add a helper function to hide this detail.
+Please merge all of this into a single patch, I don't see any point 
+separating this.
 
-v3:
-[AS]: rename dax_layout_is_idle_page func to dax_page_unused
+Christian.
 
-Signed-off-by: Ralph Campbell <rcampbell@nvidia.com>
-Signed-off-by: Alex Sierra <alex.sierra@amd.com>
----
- fs/dax.c            |  4 ++--
- fs/ext4/inode.c     |  5 +----
- fs/xfs/xfs_file.c   |  4 +---
- include/linux/dax.h | 10 ++++++++++
- 4 files changed, 14 insertions(+), 9 deletions(-)
-
-diff --git a/fs/dax.c b/fs/dax.c
-index 26d5dcd2d69e..4820bb511d68 100644
---- a/fs/dax.c
-+++ b/fs/dax.c
-@@ -358,7 +358,7 @@ static void dax_disassociate_entry(void *entry, struct address_space *mapping,
- 	for_each_mapped_pfn(entry, pfn) {
- 		struct page *page = pfn_to_page(pfn);
- 
--		WARN_ON_ONCE(trunc && page_ref_count(page) > 1);
-+		WARN_ON_ONCE(trunc && !dax_page_unused(page));
- 		WARN_ON_ONCE(page->mapping && page->mapping != mapping);
- 		page->mapping = NULL;
- 		page->index = 0;
-@@ -372,7 +372,7 @@ static struct page *dax_busy_page(void *entry)
- 	for_each_mapped_pfn(entry, pfn) {
- 		struct page *page = pfn_to_page(pfn);
- 
--		if (page_ref_count(page) > 1)
-+		if (!dax_page_unused(page))
- 			return page;
- 	}
- 	return NULL;
-diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
-index c173c8405856..9ee00186412f 100644
---- a/fs/ext4/inode.c
-+++ b/fs/ext4/inode.c
-@@ -3972,10 +3972,7 @@ int ext4_break_layouts(struct inode *inode)
- 		if (!page)
- 			return 0;
- 
--		error = ___wait_var_event(&page->_refcount,
--				atomic_read(&page->_refcount) == 1,
--				TASK_INTERRUPTIBLE, 0, 0,
--				ext4_wait_dax_page(ei));
-+		error = dax_wait_page(ei, page, ext4_wait_dax_page);
- 	} while (error == 0);
- 
- 	return error;
-diff --git a/fs/xfs/xfs_file.c b/fs/xfs/xfs_file.c
-index 5b0f93f73837..39565fe5f817 100644
---- a/fs/xfs/xfs_file.c
-+++ b/fs/xfs/xfs_file.c
-@@ -782,9 +782,7 @@ xfs_break_dax_layouts(
- 		return 0;
- 
- 	*retry = true;
--	return ___wait_var_event(&page->_refcount,
--			atomic_read(&page->_refcount) == 1, TASK_INTERRUPTIBLE,
--			0, 0, xfs_wait_dax_page(inode));
-+	return dax_wait_page(inode, page, xfs_wait_dax_page);
- }
- 
- int
-diff --git a/include/linux/dax.h b/include/linux/dax.h
-index b52f084aa643..8b5da1d60dbc 100644
---- a/include/linux/dax.h
-+++ b/include/linux/dax.h
-@@ -243,6 +243,16 @@ static inline bool dax_mapping(struct address_space *mapping)
- 	return mapping->host && IS_DAX(mapping->host);
- }
- 
-+static inline bool dax_page_unused(struct page *page)
-+{
-+	return page_ref_count(page) == 1;
-+}
-+
-+#define dax_wait_page(_inode, _page, _wait_cb)				\
-+	___wait_var_event(&(_page)->_refcount,				\
-+		dax_page_unused(_page),				\
-+		TASK_INTERRUPTIBLE, 0, 0, _wait_cb(_inode))
-+
- #ifdef CONFIG_DEV_DAX_HMEM_DEVICES
- void hmem_register_device(int target_nid, struct resource *r);
- #else
--- 
-2.32.0
+>
+> Signed-off-by: Bernard Zhao <bernard@vivo.com>
+>
+> Bernard Zhao (4):
+>    drm/radeon: remove meaningless if(r) check code
+>    drm/radeon: remove meaningless if(r) check code
+>    drm/radeon: remove meaningless if(r) check code
+>    drm/radeon: delete useless return values
+>
+>   drivers/gpu/drm/radeon/cik.c          | 4 +---
+>   drivers/gpu/drm/radeon/evergreen.c    | 4 +---
+>   drivers/gpu/drm/radeon/ni.c           | 4 +---
+>   drivers/gpu/drm/radeon/r100.c         | 4 +---
+>   drivers/gpu/drm/radeon/r300.c         | 4 +---
+>   drivers/gpu/drm/radeon/r420.c         | 5 +----
+>   drivers/gpu/drm/radeon/r520.c         | 4 +---
+>   drivers/gpu/drm/radeon/r600.c         | 4 +---
+>   drivers/gpu/drm/radeon/radeon.h       | 2 +-
+>   drivers/gpu/drm/radeon/radeon_fence.c | 5 +----
+>   drivers/gpu/drm/radeon/rs400.c        | 4 +---
+>   drivers/gpu/drm/radeon/rs600.c        | 4 +---
+>   drivers/gpu/drm/radeon/rs690.c        | 4 +---
+>   drivers/gpu/drm/radeon/rv515.c        | 4 +---
+>   drivers/gpu/drm/radeon/rv770.c        | 4 +---
+>   drivers/gpu/drm/radeon/si.c           | 4 +---
+>   16 files changed, 16 insertions(+), 48 deletions(-)
+>
 
 _______________________________________________
 amd-gfx mailing list
