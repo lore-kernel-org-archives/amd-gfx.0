@@ -2,56 +2,45 @@ Return-Path: <SRS0=3j8t=LP=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1AFD4C49361
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 07:09:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E2302C48BE5
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 07:09:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DD4BD611BD
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 07:09:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DD4BD611BD
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=vivo.com
+	by mail.kernel.org (Postfix) with ESMTPS id 86AA561156
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 07:09:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 86AA561156
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=mit.edu
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8838389D83;
-	Mon, 21 Jun 2021 07:09:09 +0000 (UTC)
-Received: from mail-m17639.qiye.163.com (mail-m17639.qiye.163.com
- [59.111.176.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FE326EA55;
- Sat, 19 Jun 2021 06:44:15 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256;
- b=ngj+BTKOYbgYfs5VK1A8xTf6W1mXZIK+b8jn1iD8g6xTy2sN09M4lg2enVXi6xWLps4hx22ep5RUdZmisarR2aH4DqnaQyYYp/v68BrC6YER37DzEgnxXnlehABDg704ljIpz39JLBFSpXe3orkJcpUSrIU013TgfcguD0PnIMg=;
- s=default; c=relaxed/relaxed; d=vivo.com; v=1;
- bh=CVj/3Dl/OhwruS8V8xLzx1CekV7XbwZKp+qh38LDL3I=;
- h=date:mime-version:subject:message-id:from;
-Received: from ubuntu.localdomain (unknown [36.152.145.181])
- by mail-m17639.qiye.163.com (Hmail) with ESMTPA id B7D2638016B;
- Sat, 19 Jun 2021 14:44:12 +0800 (CST)
-From: Bernard Zhao <bernard@vivo.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH 3/4] drm/radeon: remove meaningless if(r) check code
-Date: Fri, 18 Jun 2021 23:43:47 -0700
-Message-Id: <20210619064349.26676-4-bernard@vivo.com>
-X-Mailer: git-send-email 2.31.0
-In-Reply-To: <20210619064349.26676-1-bernard@vivo.com>
-References: <20210619064349.26676-1-bernard@vivo.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F3ED89D86;
+	Mon, 21 Jun 2021 07:09:12 +0000 (UTC)
+X-Greylist: delayed 317 seconds by postgrey-1.36 at gabe;
+ Sun, 20 Jun 2021 14:20:18 UTC
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2253C89590;
+ Sun, 20 Jun 2021 14:20:18 +0000 (UTC)
+Received: from cwcc.thunk.org (pool-72-74-133-215.bstnma.fios.verizon.net
+ [72.74.133.215]) (authenticated bits=0)
+ (User authenticated as tytso@ATHENA.MIT.EDU)
+ by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 15KEEsxi001510
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Sun, 20 Jun 2021 10:14:55 -0400
+Received: by cwcc.thunk.org (Postfix, from userid 15806)
+ id 4EFFB15C3C9F; Sun, 20 Jun 2021 10:14:54 -0400 (EDT)
+Date: Sun, 20 Jun 2021 10:14:54 -0400
+From: "Theodore Ts'o" <tytso@mit.edu>
+To: Alex Sierra <alex.sierra@amd.com>
+Subject: Re: [PATCH v3 0/8] Support DEVICE_GENERIC memory in migrate_vma_*
+Message-ID: <YM9NXrGlhdp0qb7S@mit.edu>
+References: <20210617151705.15367-1-alex.sierra@amd.com>
 MIME-Version: 1.0
-X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgYFAkeWUFZS1VLWVdZKFlBSE83V1ktWUFJV1kPCR
- oVCBIfWUFZQkhOGlYYGB1NQk0fQk0eQxlVEwETFhoSFyQUDg9ZV1kWGg8SFR0UWUFZT0tIVUpKS0
- hKTFVLWQY+
-X-HM-Sender-Digest: e1kMHhlZQR0aFwgeV1kSHx4VD1lBWUc6Mgg6DTo4PD8KFUILDRVDTS5W
- ETcwFE9VSlVKTUlPS0NOS05ISk1OVTMWGhIXVRkeCRUaCR87DRINFFUYFBZFWVdZEgtZQVlITVVK
- TklVSk9OVUpDSllXWQgBWUFPSU9LNwY+
-X-HM-Tid: 0a7a23033dc6d994kuwsb7d2638016b
+Content-Disposition: inline
+In-Reply-To: <20210617151705.15367-1-alex.sierra@amd.com>
 X-Mailman-Approved-At: Mon, 21 Jun 2021 07:09:08 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,102 +53,46 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Bernard Zhao <bernard@vivo.com>
+Cc: rcampbell@nvidia.com, Felix.Kuehling@amd.com, amd-gfx@lists.freedesktop.org,
+ linux-xfs@vger.kernel.org, linux-mm@kvack.org, jglisse@redhat.com,
+ dri-devel@lists.freedesktop.org, jgg@nvidia.com, akpm@linux-foundation.org,
+ linux-ext4@vger.kernel.org, hch@lst.de
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Function radeon_fence_driver_init always returns success,
-remove meaningless if(r) check code.
+On Thu, Jun 17, 2021 at 10:16:57AM -0500, Alex Sierra wrote:
+> v1:
+> AMD is building a system architecture for the Frontier supercomputer with a
+> coherent interconnect between CPUs and GPUs. This hardware architecture allows
+> the CPUs to coherently access GPU device memory. We have hardware in our labs
+> and we are working with our partner HPE on the BIOS, firmware and software
+> for delivery to the DOE.
+> 
+> The system BIOS advertises the GPU device memory (aka VRAM) as SPM
+> (special purpose memory) in the UEFI system address map. The amdgpu driver looks
+> it up with lookup_resource and registers it with devmap as MEMORY_DEVICE_GENERIC
+> using devm_memremap_pages.
+> 
+> Now we're trying to migrate data to and from that memory using the migrate_vma_*
+> helpers so we can support page-based migration in our unified memory allocations,
+> while also supporting CPU access to those pages.
+> 
+> This patch series makes a few changes to make MEMORY_DEVICE_GENERIC pages behave
+> correctly in the migrate_vma_* helpers. We are looking for feedback about this
+> approach. If we're close, what's needed to make our patches acceptable upstream?
+> If we're not close, any suggestions how else to achieve what we are trying to do
+> (i.e. page migration and coherent CPU access to VRAM)?
 
-Signed-off-by: Bernard Zhao <bernard@vivo.com>
----
- drivers/gpu/drm/radeon/rs400.c | 4 +---
- drivers/gpu/drm/radeon/rs600.c | 4 +---
- drivers/gpu/drm/radeon/rs690.c | 4 +---
- drivers/gpu/drm/radeon/rv515.c | 4 +---
- drivers/gpu/drm/radeon/rv770.c | 4 +---
- 5 files changed, 5 insertions(+), 15 deletions(-)
+Is there a way we can test the codepaths touched by this patchset?  It
+doesn't have to be via a complete qemu simulation of the GPU device
+memory, but some way of creating MEMORY_DEVICE_GENERIC subject to
+migrate_vma_* helpers so we can test for regressions moving forward.
 
-diff --git a/drivers/gpu/drm/radeon/rs400.c b/drivers/gpu/drm/radeon/rs400.c
-index 8423bcc3302b..6383f7a34bd8 100644
---- a/drivers/gpu/drm/radeon/rs400.c
-+++ b/drivers/gpu/drm/radeon/rs400.c
-@@ -555,9 +555,7 @@ int rs400_init(struct radeon_device *rdev)
- 	/* initialize memory controller */
- 	rs400_mc_init(rdev);
- 	/* Fence driver */
--	r = radeon_fence_driver_init(rdev);
--	if (r)
--		return r;
-+	radeon_fence_driver_init(rdev);
- 	/* Memory manager */
- 	r = radeon_bo_init(rdev);
- 	if (r)
-diff --git a/drivers/gpu/drm/radeon/rs600.c b/drivers/gpu/drm/radeon/rs600.c
-index 5bf26058eec0..b2d22e25eee1 100644
---- a/drivers/gpu/drm/radeon/rs600.c
-+++ b/drivers/gpu/drm/radeon/rs600.c
-@@ -1132,9 +1132,7 @@ int rs600_init(struct radeon_device *rdev)
- 	rs600_mc_init(rdev);
- 	r100_debugfs_rbbm_init(rdev);
- 	/* Fence driver */
--	r = radeon_fence_driver_init(rdev);
--	if (r)
--		return r;
-+	radeon_fence_driver_init(rdev);
- 	/* Memory manager */
- 	r = radeon_bo_init(rdev);
- 	if (r)
-diff --git a/drivers/gpu/drm/radeon/rs690.c b/drivers/gpu/drm/radeon/rs690.c
-index 7bc302a89232..14fb0819b8c1 100644
---- a/drivers/gpu/drm/radeon/rs690.c
-+++ b/drivers/gpu/drm/radeon/rs690.c
-@@ -850,9 +850,7 @@ int rs690_init(struct radeon_device *rdev)
- 	rs690_mc_init(rdev);
- 	rv515_debugfs(rdev);
- 	/* Fence driver */
--	r = radeon_fence_driver_init(rdev);
--	if (r)
--		return r;
-+	radeon_fence_driver_init(rdev);
- 	/* Memory manager */
- 	r = radeon_bo_init(rdev);
- 	if (r)
-diff --git a/drivers/gpu/drm/radeon/rv515.c b/drivers/gpu/drm/radeon/rv515.c
-index 46a53dd38079..63fb06e8e2d7 100644
---- a/drivers/gpu/drm/radeon/rv515.c
-+++ b/drivers/gpu/drm/radeon/rv515.c
-@@ -648,9 +648,7 @@ int rv515_init(struct radeon_device *rdev)
- 	rv515_mc_init(rdev);
- 	rv515_debugfs(rdev);
- 	/* Fence driver */
--	r = radeon_fence_driver_init(rdev);
--	if (r)
--		return r;
-+	radeon_fence_driver_init(rdev);
- 	/* Memory manager */
- 	r = radeon_bo_init(rdev);
- 	if (r)
-diff --git a/drivers/gpu/drm/radeon/rv770.c b/drivers/gpu/drm/radeon/rv770.c
-index 88e29ebaad46..74499307285b 100644
---- a/drivers/gpu/drm/radeon/rv770.c
-+++ b/drivers/gpu/drm/radeon/rv770.c
-@@ -1941,9 +1941,7 @@ int rv770_init(struct radeon_device *rdev)
- 	/* Initialize clocks */
- 	radeon_get_clock_info(rdev->ddev);
- 	/* Fence driver */
--	r = radeon_fence_driver_init(rdev);
--	if (r)
--		return r;
-+	radeon_fence_driver_init(rdev);
- 	/* initialize AGP */
- 	if (rdev->flags & RADEON_IS_AGP) {
- 		r = radeon_agp_init(rdev);
--- 
-2.31.0
+Thanks,
 
+					- Ted
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
