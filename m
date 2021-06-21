@@ -2,120 +2,69 @@ Return-Path: <SRS0=3j8t=LP=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B3CA3C48BC2
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 19:24:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B8CA4C4743C
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 19:24:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7FB806128C
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 19:24:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7FB806128C
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 86B206128C
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 19:24:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 86B206128C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17D776E3F2;
-	Mon, 21 Jun 2021 19:24:10 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2055.outbound.protection.outlook.com [40.107.236.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D89756E3EF
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Jun 2021 19:24:08 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aZg3T7q3XjvI11K5M1gHKyZwSIF0awVxxhRvSmpM7breRx24A7C8pZ9rvjAZYtuzSHHPoh1hcV4peWK98euPjt3b4t76NnSyJ63SkieUedWBsMusvpRG70zEJI5g4fC1hIWKqm0BceqCHY0VwNo+tbzgqpre8fKU9ybvs44b5fySzbf4hOZlGvkGf1ih1Vnh7fSODip8siepyDiOpg4r+KOOZF5dWc6Y9lCIRyYPoVF6MeWYNeWP3u7jtOakXcuCO/pGUFtPD7aUUL6q3etMxWan1CdyBlYwo1GWMUTKN6gC3l8XSn7JQJXRibzewGds2y9M6hiQk73rRsc/KwSaOg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GPgMUMgYG8LM5pU09rKNNbydy4+CGSQYpqiRt//+qUI=;
- b=EtM2kbw26ITK+W3Fp5G3yVmUijV5L/z5avgOWTUXtGaGoukbzbEz+adMqZwp5kInBSjTlANKM24ye1X2w+ezC54tgK6xAFiuhGlaiYeSbeD2eDmLZ9/NRhtRydHVPyU2O1tzq+PBgDUe1KO/fbVYY9LR/kIyDckOk8u3kPmXkrHbxb7P6PgQUW3pPeI9iFBgIQqbFtP2Fq8dYXc5MpQWYosm5HwZyHOCnesicXDdgCd/mQfYb+Hh/XKT8cYbH/em3Itrw9+Z46iH1SU/pxdAo1b/vB7mCIt+yIUdBIHG8dbR5yx9hF+H6tDo77Z5zrJYJymbBFkv2MUw4VIFmQOldQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GPgMUMgYG8LM5pU09rKNNbydy4+CGSQYpqiRt//+qUI=;
- b=jAlltwRWS1pjeNds94P8V2BjBhzZaDx1OlijOSHkXiS00g9SPNQcpZaB+27K2FG+lgrDMq6JmzEUoKeEy4oyF8G96WicYfIhoWqrggpRQjjTv+YcpSpeVTwonh0U4ZMII+r/T93wRKtIS4Qi5vWJPuftfifTAqQ7UfpV7gRbd0M=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from DM5PR12MB4680.namprd12.prod.outlook.com (2603:10b6:4:a6::33) by
- DM5PR12MB2470.namprd12.prod.outlook.com (2603:10b6:4:b4::39) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4195.24; Mon, 21 Jun 2021 19:24:05 +0000
-Received: from DM5PR12MB4680.namprd12.prod.outlook.com
- ([fe80::1d06:dcde:55f9:3eb7]) by DM5PR12MB4680.namprd12.prod.outlook.com
- ([fe80::1d06:dcde:55f9:3eb7%7]) with mapi id 15.20.4242.023; Mon, 21 Jun 2021
- 19:24:05 +0000
-From: Jonathan Kim <jonathan.kim@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 4/4] drm/amdkfd: add direct link flag to link properties
-Date: Mon, 21 Jun 2021 15:23:48 -0400
-Message-Id: <20210621192348.2775943-4-jonathan.kim@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210621192348.2775943-1-jonathan.kim@amd.com>
-References: <20210621192348.2775943-1-jonathan.kim@amd.com>
-X-Originating-IP: [165.204.55.251]
-X-ClientProxiedBy: YTOPR0101CA0039.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:14::16) To DM5PR12MB4680.namprd12.prod.outlook.com
- (2603:10b6:4:a6::33)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 158356E3F4;
+	Mon, 21 Jun 2021 19:24:47 +0000 (UTC)
+Received: from mail-ot1-x32a.google.com (mail-ot1-x32a.google.com
+ [IPv6:2607:f8b0:4864:20::32a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B9F66E3E5;
+ Mon, 21 Jun 2021 19:24:45 +0000 (UTC)
+Received: by mail-ot1-x32a.google.com with SMTP id
+ 6-20020a9d07860000b02903e83bf8f8fcso18820972oto.12; 
+ Mon, 21 Jun 2021 12:24:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=dBJ5d1VMITTeIiGdzPkAixCEDqtOI+Of2asfGh+UAZ4=;
+ b=poWdRMlEM2ZoLHlzus9H+sJm2Gyv4Ad5UYLCdoksxIn2aeAMLa+dKaekWP8LifxgyJ
+ n2jVVjTuonYLSxe3ETtsIuLK6gvACWCDRPmuF5tYeQjeJRX7OY/u7vWBpL0kZJzHl5sj
+ Ny/XMZJGPL6fogHwoJFWsiHZjsbH13H9+wxt/q/eKq5DtLZntN4WMvAkk8EZkafocBEK
+ 6xqocdwV6n4EqRoI+ZBfp3axIcf4mR5Wn6oTb26BEs3yq9YTXbI3ZeEuQkoD5A+xRhEy
+ Pckce+Y9OeKX2dihb865SJYvyNOs4TOMg3c3iU7fvPH++FHzFI5BYoTOBQOjmtC3BaTY
+ AZFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=dBJ5d1VMITTeIiGdzPkAixCEDqtOI+Of2asfGh+UAZ4=;
+ b=I01HTtfmzmQP3MoEGDvrESgSBQ+kn6rVBhFonmcn5Y+ZZ+/VqbBcuTAShHr/lv5elA
+ uPmgEVHM1JUFbjwY9sNnX45xteh56aLmGNlOeZUJwDw6sZMKzSrCbTyGQWOSQ4RXGhKo
+ yrdDnRv3g3p6NpfGiDmWeGwOANS5Fgt+iVvvBjfIAh5wmA8JZdmYxBKeuE3wMNFBXZMq
+ rnnE8DfEQKYajsL8u2EA0I5dNiIhBCPRLZv5hRcGc3YN6d3mCKUBvGn1cERvIntagzXv
+ yw1nnyRC4fx2WqN20BuQpcqAmzO3mQvNezTIp3C/FMIdEd6pUBF19RG4vn9bVKX2vseN
+ TUgA==
+X-Gm-Message-State: AOAM531E368gzRIuQqs2tljGdLkkgizJfQEcgbahMexIqi7xvgLeyvSo
+ ss4EBe4brKabWaHrg2yaX945oUnp1HsWjOuiEoc=
+X-Google-Smtp-Source: ABdhPJxgnG68naVmqaj9VbYQpqtCzzRUWIKZ1A7mHfJtyBXgRWCjJn597bAS85CrpNuYd9PVyrIs804CEiOHGbIXZSQ=
+X-Received: by 2002:a9d:542:: with SMTP id 60mr12808otw.143.1624303483767;
+ Mon, 21 Jun 2021 12:24:43 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from jonathan-KFD.amd.com (165.204.55.251) by
- YTOPR0101CA0039.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:14::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.15 via Frontend
- Transport; Mon, 21 Jun 2021 19:24:04 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e52961ec-6f36-4fa1-d917-08d934ea2211
-X-MS-TrafficTypeDiagnostic: DM5PR12MB2470:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR12MB24705C4FB2B123315925F2C5850A9@DM5PR12MB2470.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3631;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: FS+MdU0YeQd4amMU8kOhlEQZT5AdxMSb7QYrHLAa9oS/A1I9Me7OCQ27WLZNvuhCuRu2/AwV/wirThaoX4SiTY2IuiDDeQgDCjC8Xev9SE1Ixd8yVC2nsNM0eIZaVXnkEF+YPWpfEJxhs1NrVlkdPWWN1KUJz6WJ8C7A/5C54pEcUZ8cEi4L0Q7LP+mBGl1pmBmY/b70HbJ8ea29c2ICWa6ZM6K0YPHrSQ3W7yrDbRxwyq1Os0GqcJOIIjr58ZQM4I6SzlyP7ih633QC0hANRjsXJjjcmlQGb8To9/QY2Z5nZ474KNaNWN5UqjimvoOW8BnNQgMOxC8nTkDys/D8cviDX++q0WJL+IweeNlR4wkTEJPMynumiIvsIQ4fO6en0VQiHBgl4D50yCJnvsvF5f83ydic7WfpPi+mM8T8pcGmKqhKrs2on27vmoTgcSjjVykH531N5rK1RL7HCsmDLTm9tLAUQSCSem0hVesDhSa5vpFi/GTdhq0Lfa4gRBzfbCI8SlfHUwCiyZIT1ryEMuOI9EkhiVSiuJImL7tVrXVOWCtYRsjoFzblkOeP+NEASXbhL/fKJ4qbnOeZS4rFoGCNoON57/HzJB87ydFcWUTI4aP6K+2avmBtv81MhQ4nX2+Z0zfqZupn4OOaqlCM9q/tjHN7iU+QB6uW24KMraU=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB4680.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(346002)(376002)(39860400002)(136003)(396003)(8676002)(66946007)(5660300002)(6666004)(2616005)(6486002)(8936002)(1076003)(7696005)(2906002)(86362001)(83380400001)(26005)(52116002)(16526019)(316002)(38350700002)(6916009)(956004)(36756003)(478600001)(186003)(38100700002)(44832011)(66476007)(4326008)(66556008);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?8x4KeXHiatNU7IU9Y3s4OdG+Qi9vFph43o+B7xb52zOzVt6kk0sav9HChkDZ?=
- =?us-ascii?Q?GOyY+j3drmuZBRHn/SvkJuM1GmZjWGyp3y4tU2MVLzjKcuB7+xgBGpuQ38cP?=
- =?us-ascii?Q?RaWR9O5hvXp4zMJuumfLGf8rQsp7zEuS/kTDRiQ+sCAFIRqibTaGXIVed7iC?=
- =?us-ascii?Q?MbQuLi09Jni97RL9svYtmGzkj9VrHyQQ2m9vdnrwYknyuI0VZftnMvZMGQuK?=
- =?us-ascii?Q?Hd2B084krk3SG6Ej81+HHYuyCVWS15dyQK9e10c74uyKVX8I/m0NvLHe4My9?=
- =?us-ascii?Q?T+G+cS5UytU3UbsQC0BNM/H8eqvXThkI+zAD29sT1Aj56hFUbszne1B8irCo?=
- =?us-ascii?Q?W6KcPEN67WtuGCF07n/hiSULAqJPzcDNUu2MZ3XxJyUHQTotnPdvLxxF8fo+?=
- =?us-ascii?Q?9rsLjeekwuSpsC2OAKZkOlggH1rWxePBQ2gN2oDGpyWmjPRaDkCBFUC9ep53?=
- =?us-ascii?Q?5egHH4BkVq3Qao0RMYEVItK+RCpddOY22payJ8Ej4p3vz8QgSSPmIWgMLH9i?=
- =?us-ascii?Q?y/g2rFcQ/wLWIpbWDPuSAKwRoBG0gNfH43CZDMTwu/cFTpZL4Bypf/91pu2+?=
- =?us-ascii?Q?/6qQh59E22rlEZ5WafRpBxRtAa1OvVSmCUqwS00ko1l5fjfdOO3sKPPQn+Fv?=
- =?us-ascii?Q?PfO06xpbGSLTNOUekZrL/NWyjeerGCXM7l54j4rN1rlTmrGpq8Wm1rIU0621?=
- =?us-ascii?Q?Ze+Bg4duUbnixbtT/KpMzW6r3P2q7vGbBrPFdWGbPFgoL0umds/XI0EsR7m1?=
- =?us-ascii?Q?YHfC8uQv8Nissoe4UNuc7vOA3NvsVRRXf56aecaOfEiQsLkfjXg54UO3Wd3h?=
- =?us-ascii?Q?RLk+b5xIwYjiPMe7qaFrLEeXPB4sNE8pGCkmCto12yY068RzkLyL2bNR2gQQ?=
- =?us-ascii?Q?7NVvQgF3AZo/yhR44Lnc6V2Yf/nev3/j4uBVgup7rHk0U84b1guIQH+FlyOQ?=
- =?us-ascii?Q?exJhzsoBnMiKMo3efGofDTvzGN0Abd7rmyrPRKTghSpE/mfG0FyAkKuEz0Eq?=
- =?us-ascii?Q?122v3PSvnr1HhVzohnM6RiqYicAMekDTRPod4DktbvM9Erb1aIYIcRBea5lr?=
- =?us-ascii?Q?ugMyMPjNCgE41DLCF7oCh3FeGajRBIWGyT+e/wqR21dmB18Rrb4k5SOZcydb?=
- =?us-ascii?Q?8KfkV+VaOx1u6W5NnYTNPzjhOJkzDWmAy4TVxyRjMEgVshtnHNk+FguvP37p?=
- =?us-ascii?Q?1IelioZ6E0BpU4OGw3AlwNv4WFU5t+2DtvpWZNGvoY1nuezX72f2/2ysz7ta?=
- =?us-ascii?Q?MRbbmx7ziTnXuW7Ir0vkflrG5wOdRIn29hecTeJBSRCbtwuTdrueXYk6+hXs?=
- =?us-ascii?Q?fvk+lE2gbqF530K0j75c2I7U?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e52961ec-6f36-4fa1-d917-08d934ea2211
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB4680.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jun 2021 19:24:04.9371 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: C5c9PUB7uiz1r28RU18btjCdM+smt0PCHTTlIPzx5TRvxDJUF9139iZRWYOSKJbK
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2470
+References: <20210618123615.11456-1-ogabbay@kernel.org>
+ <CAKMK7uFOfoxbD2Z5mb-qHFnUe5rObGKQ6Ygh--HSH9M=9bziGg@mail.gmail.com>
+ <YNCN0ulL6DQiRJaB@kroah.com> <20210621141217.GE1096940@ziepe.ca>
+ <CAFCwf10KvCh0zfHEHqYR-Na6KJh4j+9i-6+==QaMdHHpLH1yEA@mail.gmail.com>
+ <20210621175511.GI1096940@ziepe.ca>
+ <CAKMK7uEO1_B59DtM7N2g7kkH7pYtLM_WAkn+0f3FU3ps=XEjZQ@mail.gmail.com>
+In-Reply-To: <CAKMK7uEO1_B59DtM7N2g7kkH7pYtLM_WAkn+0f3FU3ps=XEjZQ@mail.gmail.com>
+From: Oded Gabbay <oded.gabbay@gmail.com>
+Date: Mon, 21 Jun 2021 22:24:16 +0300
+Message-ID: <CAFCwf11jOnewkbLuxUESswCJpyo7C0ovZj80UrnwUOZkPv2JYQ@mail.gmail.com>
+Subject: Re: [PATCH v3 1/2] habanalabs: define uAPI to export FD for DMA-BUF
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,76 +76,93 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Felix.Kuehling@amd.com, Jonathan Kim <jonathan.kim@amd.com>,
- Hawking.Zhang@amd.com
+Cc: Gal Pressman <galpress@amazon.com>, sleybo@amazon.com,
+ linux-rdma <linux-rdma@vger.kernel.org>, Greg KH <gregkh@linuxfoundation.org>,
+ Oded Gabbay <ogabbay@kernel.org>, Christoph Hellwig <hch@lst.de>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Doug Ledford <dledford@redhat.com>,
+ Tomer Tayar <ttayar@habana.ai>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ "airlied@gmail.com" <airlied@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Leon Romanovsky <leonro@nvidia.com>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Flag peers as a direct link if over PCIe or over xGMI if they are adjacent
-in the hive.
+On Mon, Jun 21, 2021 at 9:27 PM Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
+>
+> On Mon, Jun 21, 2021 at 7:55 PM Jason Gunthorpe <jgg@ziepe.ca> wrote:
+> > On Mon, Jun 21, 2021 at 07:26:14PM +0300, Oded Gabbay wrote:
+> > > On Mon, Jun 21, 2021 at 5:12 PM Jason Gunthorpe <jgg@ziepe.ca> wrote:
+> > > >
+> > > > On Mon, Jun 21, 2021 at 03:02:10PM +0200, Greg KH wrote:
+> > > > > On Mon, Jun 21, 2021 at 02:28:48PM +0200, Daniel Vetter wrote:
+> > > >
+> > > > > > Also I'm wondering which is the other driver that we share buffers
+> > > > > > with. The gaudi stuff doesn't have real struct pages as backing
+> > > > > > storage, it only fills out the dma_addr_t. That tends to blow up with
+> > > > > > other drivers, and the only place where this is guaranteed to work is
+> > > > > > if you have a dynamic importer which sets the allow_peer2peer flag.
+> > > > > > Adding maintainers from other subsystems who might want to chime in
+> > > > > > here. So even aside of the big question as-is this is broken.
+> > > > >
+> > > > > From what I can tell this driver is sending the buffers to other
+> > > > > instances of the same hardware,
+> > > >
+> > > > A dmabuf is consumed by something else in the kernel calling
+> > > > dma_buf_map_attachment() on the FD.
+> > > >
+> > > > What is the other side of this? I don't see any
+> > > > dma_buf_map_attachment() calls in drivers/misc, or added in this patch
+> > > > set.
+> > >
+> > > This patch-set is only to enable the support for the exporter side.
+> > > The "other side" is any generic RDMA networking device that will want
+> > > to perform p2p communication over PCIe with our GAUDI accelerator.
+> > > An example is indeed the mlnx5 card which has already integrated
+> > > support for being an "importer".
+> >
+> > It raises the question of how you are testing this if you aren't using
+> > it with the only intree driver: mlx5.
+>
+> For p2p dma-buf there's also amdgpu as a possible in-tree candiate
+> driver, that's why I added amdgpu folks. Otoh I'm not aware of AI+GPU
+> combos being much in use, at least with upstream gpu drivers (nvidia
+> blob is a different story ofc, but I don't care what they do in their
+> own world).
+> -Daniel
+> --
+We have/are doing three things:
+1. I wrote a simple "importer" driver that emulates an RDMA driver. It
+calls all the IB_UMEM_DMABUF functions, same as the mlnx5 driver does.
+And instead of using h/w, it accesses the bar directly. We wrote
+several tests that emulated the real application. i.e. asking the
+habanalabs driver to create dma-buf object and export its FD back to
+userspace. Then the userspace sends the FD to the "importer" driver,
+which attaches to it, get the SG list and accesses the memory on the
+GAUDI device. This gave me the confidence that how we integrated the
+exporter is basically correct/working.
 
-Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_crat.h     |  3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 11 +++++++++++
- 2 files changed, 13 insertions(+), 1 deletion(-)
+2. We are trying to do a POC with a MLNX card we have, WIP.
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.h b/drivers/gpu/drm/amd/amdkfd/kfd_crat.h
-index d1f6de5edfb9..0d661d60ece6 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.h
-@@ -232,8 +232,9 @@ struct crat_subtype_ccompute {
- #define CRAT_IOLINK_FLAGS_NO_ATOMICS_32_BIT	(1 << 2)
- #define CRAT_IOLINK_FLAGS_NO_ATOMICS_64_BIT	(1 << 3)
- #define CRAT_IOLINK_FLAGS_NO_PEER_TO_PEER_DMA	(1 << 4)
-+#define CRAT_IOLINK_FLAGS_DIRECT_LINK		(1 << 5)
- #define CRAT_IOLINK_FLAGS_BI_DIRECTIONAL 	(1 << 31)
--#define CRAT_IOLINK_FLAGS_RESERVED_MASK		0x7fffffe0
-+#define CRAT_IOLINK_FLAGS_RESERVED_MASK		0x7fffffc0
- 
- /*
-  * IO interface types
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-index b1ce072aa20b..037fa12ac1bc 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-@@ -1244,6 +1244,15 @@ static void kfd_set_iolink_non_coherent(struct kfd_topology_device *to_dev,
- 	}
- }
- 
-+static void kfd_set_iolink_direct_link(struct kfd_topology_device *dev,
-+					struct kfd_iolink_properties *link)
-+{
-+	if (link->iolink_type == CRAT_IOLINK_TYPE_PCIEXPRESS ||
-+			(link->iolink_type == CRAT_IOLINK_TYPE_XGMI &&
-+							link->max_bandwidth))
-+		link->flags |= CRAT_IOLINK_FLAGS_DIRECT_LINK;
-+}
-+
- static void kfd_fill_iolink_non_crat_info(struct kfd_topology_device *dev)
- {
- 	struct kfd_iolink_properties *link, *inbound_link;
-@@ -1256,6 +1265,7 @@ static void kfd_fill_iolink_non_crat_info(struct kfd_topology_device *dev)
- 	list_for_each_entry(link, &dev->io_link_props, list) {
- 		link->flags = CRAT_IOLINK_FLAGS_ENABLED;
- 		kfd_set_iolink_no_atomics(dev, NULL, link);
-+		kfd_set_iolink_direct_link(dev, link);
- 		peer_dev = kfd_topology_device_by_proximity_domain(
- 				link->node_to);
- 
-@@ -1270,6 +1280,7 @@ static void kfd_fill_iolink_non_crat_info(struct kfd_topology_device *dev)
- 			inbound_link->flags = CRAT_IOLINK_FLAGS_ENABLED;
- 			kfd_set_iolink_no_atomics(peer_dev, dev, inbound_link);
- 			kfd_set_iolink_non_coherent(peer_dev, link, inbound_link);
-+			kfd_set_iolink_direct_link(peer_dev, inbound_link);
- 		}
- 	}
- }
--- 
-2.25.1
+3. We are working with another 3rd party RDMA device that its driver
+is now adding support for being an "importer". also WIP
 
+In both points 2&3 We haven't yet reached the actual stage of checking
+this feature.
+
+Another thing I want to emphasize is that we are doing p2p only
+through the export/import of the FD. We do *not* allow the user to
+mmap the dma-buf as we do not support direct IO. So there is no access
+to these pages through the userspace.
+
+Thanks,
+Oded
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
