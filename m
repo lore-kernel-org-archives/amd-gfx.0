@@ -7,48 +7,48 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5BE3BC49361
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 07:01:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 91B04C48BE5
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 07:01:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 22EF06109E
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 07:01:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 22EF06109E
+	by mail.kernel.org (Postfix) with ESMTPS id 5F7436109E
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 07:01:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5F7436109E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 62AFC89C9D;
-	Mon, 21 Jun 2021 07:01:10 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam07on2060.outbound.protection.outlook.com [40.107.95.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8647689C9D
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Jun 2021 07:01:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1AFA689CB3;
+	Mon, 21 Jun 2021 07:01:14 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2048.outbound.protection.outlook.com [40.107.93.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 899B989CBE
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Jun 2021 07:01:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oQ3MP7UoKBM/jrNM0HDomsY70Ckoitf0CBrnzJt6/rB0KZUz3ZDaMWsVWWQM7b6TbnakyP5H+V5ffYVnzBqjxwLRwRpuqJm7wnMlY8H0ZasrOhE+kgHjGlcElkqgATLsdvvp4cgH03tz5f2IdNcUCAKEUMvwxoFtOazKFKG3xvXjwGaBDaSJP/AW5a89SCitFnGprqoHA8qERwYUF2NkMmSsBcOOroz8gOb7koZwsvzrpn3yMEhntUZvJJqBp0MK4axy5D7iFUp9KfGHa+DP38NKlTyWir5O2qSz8GpRulnLpaF5MQkHEobYoaFs1j4QWqccTqaVba7zPGzds2dmRA==
+ b=TBLgFYZ2E/TjZeUCH3I3+QORBWqegLgacKN7r6XoGwEWwZGQW1GZ3Dr1DXs8T8QS7HllhbPLAkV0DHw+chX1TZmR0kE3E50nCnIsRwJRjsyD/Xt3ntrK0J4I27QThGYLiwdsti1o77CwRhYcgz9RunY6fwYqhNig/YsLrrTifUKwqkq3z7MIwtBOtsitxOOW2EwEAcFhi9fu7APs4xz54ulz7exJ62T6lkDHwQZzMacCsxo20SGyAhdOOKOkqWsfYwJiCfPlx/ij+ak11ai/cJ/KGegK6GfD+j8DJiMtdvUJhh11jl+hk1tsFwA3rqsBYZxfYzldIJvciDm73jeS7w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=drVP3Z3Dgo1glMDQ9iN6rCQuEQDxJS/ShCZ3M4A3/OA=;
- b=TTM/yDiy9hSXBDNtOAstqIjy5tbZk2LI29Ga8jRRgxIupZ4pP4XSChgr2DyZIKprh63sBWjb3LX9Co7jquAUjOMQgP5QZ/gep5ItefAWLzLfr2oTnWedcVTkSqIZVcyPaVMMYVf8XVTGbPOr5Ogml1vAPMh5Xpua+eDOcEtl3y894stiOGTWieN5mr+j0e9LdEghUFrOz/EoxX6RbMF5k9DeA7bDd4Te/85MTLE2cCYltDKMe5oIAjqDOiiS5d0mYqnm9MjGOF/q8NSpHI5vYyUH8zdNymXFBT3PTZ4EPytdIPjyt3UYLufLbTBxTA0+cwavV3FXgcBNwl6BH1u+yQ==
+ bh=lM+cXc8lgZwAWgZ6z4nF6F0w8MWMPhWA5x9RuixrGg0=;
+ b=NtK8Y2NbAB24lIKLy0aW3XSEEWXvN1PTT9S8RqNSmNqMJciUeti1+aejhOOcfXTNDt7zgNXpZixBVsL6Ezw/S+sctBUjQ4YhuywBk5fLiKebfgFrnnaVvPN0lk+5AX5OQA6tR0oKvH2BinTWmtQKRvISdDMtxRiVRZ1Lx5yHB7meB4B2w3LPikGokakO3s72Z03XBj7Aofin5D2YfmVgviV8/ClnJ/8sthufsbF4krERw9fo02Trpv8P6MB1Csw4KxoY5J3N3BbBJYmQXxGYXR0bvfQcjDU0drJjhbiuemAYTpxANxjnGky08LeYKxKiBK4XfPeL54mlbzre4C6GtQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=drVP3Z3Dgo1glMDQ9iN6rCQuEQDxJS/ShCZ3M4A3/OA=;
- b=yxv5Ai9rLjjzPKVQMC9CIgv5xd2nlLrSiq28WI5MdiYObmRr7QUQAErw1YtuHfr3Na/HN2zHGRStNcJjTzDCTWsHZDrGkGN16Rfy6jdsdABQxK0O60UoF8DerChXDxilGg/LyYcXtjEQKOe7Wx0vCJMu1ueKOvqaYjQRLMSBUeY=
-Received: from DM5PR19CA0069.namprd19.prod.outlook.com (2603:10b6:3:116::31)
- by BN9PR12MB5337.namprd12.prod.outlook.com (2603:10b6:408:102::9) with
+ bh=lM+cXc8lgZwAWgZ6z4nF6F0w8MWMPhWA5x9RuixrGg0=;
+ b=USD2kScRAyNmu+4LfFrmOQecEfMm8FjWY8UacTP+dXUnHg63B1awzZdgPdJLsEg6Pnzgm8jaCJ/NPhQsDWtdcaIt+f3HXhR0cJzY5vtsEH2BR7XOSu+hrFPlEUHss0XxDcfn6DgSP4HDzFTwlAPYnqnfE2LsBoVDtYyrD1q81w4=
+Received: from DS7PR03CA0253.namprd03.prod.outlook.com (2603:10b6:5:3b3::18)
+ by BN9PR12MB5099.namprd12.prod.outlook.com (2603:10b6:408:118::11) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.19; Mon, 21 Jun
- 2021 07:01:07 +0000
-Received: from DM6NAM11FT018.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:116:cafe::cc) by DM5PR19CA0069.outlook.office365.com
- (2603:10b6:3:116::31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.15 via Frontend
- Transport; Mon, 21 Jun 2021 07:01:07 +0000
+ 2021 07:01:10 +0000
+Received: from DM6NAM11FT033.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:3b3:cafe::23) by DS7PR03CA0253.outlook.office365.com
+ (2603:10b6:5:3b3::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.19 via Frontend
+ Transport; Mon, 21 Jun 2021 07:01:10 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -57,19 +57,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT018.mail.protection.outlook.com (10.13.172.110) with Microsoft SMTP
+ DM6NAM11FT033.mail.protection.outlook.com (10.13.172.221) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4242.16 via Frontend Transport; Mon, 21 Jun 2021 07:01:07 +0000
+ 15.20.4242.16 via Frontend Transport; Mon, 21 Jun 2021 07:01:10 +0000
 Received: from equan-buildpc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Mon, 21 Jun
- 2021 02:01:05 -0500
+ 2021 02:01:07 -0500
 From: Evan Quan <evan.quan@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH V3 3/7] drm/amdgpu: fix NAK-G generation during PCI-e link
- width switch
-Date: Mon, 21 Jun 2021 15:00:36 +0800
-Message-ID: <20210621070040.494336-3-evan.quan@amd.com>
+Subject: [PATCH V3 4/7] drm/amdgpu: fix the hang caused by PCIe link width
+ switch
+Date: Mon, 21 Jun 2021 15:00:37 +0800
+Message-ID: <20210621070040.494336-4-evan.quan@amd.com>
 X-Mailer: git-send-email 2.29.0
 In-Reply-To: <20210621070040.494336-1-evan.quan@amd.com>
 References: <20210621070040.494336-1-evan.quan@amd.com>
@@ -79,27 +79,27 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 6b61af50-82e2-48d2-7f3d-08d934825801
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5337:
-X-Microsoft-Antispam-PRVS: <BN9PR12MB53375602E99B8487239A37E5E40A9@BN9PR12MB5337.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
+X-MS-Office365-Filtering-Correlation-Id: 12f555ab-323f-4ea1-4b57-08d9348259b5
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5099:
+X-Microsoft-Antispam-PRVS: <BN9PR12MB509923D92EB906673BB6CD4EE40A9@BN9PR12MB5099.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: NhY6ygijJIAoMVfRLD+6egoNABbhLu2E6NMVXI3qeYLQaLwawQN7Rwsl9ocarogg2t5bwzlUoKIBEE12UQKggREfvPm+AqEaZRowOsSlrgygLazeQXvHbKHqQaJqTh60ASV+NyZ+MJvhJuH35H9IKAQgc17yzhoQTBrhEjEvaGe58dVNyW41jOPgk6uRqh9ALkQDhPyTx6SzF8V41IvkIyi0IdaV85pw0U6eerrZWcAxBxF726l6wCjUBhRQ9T01qdvGibPowN5c0Rg+fyU3BEV9dVUD8NdfWOixztCpd5YBe5GjpGE318Ik8SJb5NGtGX2kQ9cP8RRAi/HBc6StwX/aovRRCM54yuXlp6EYJbY4fd3hgvIvj/8eHCICXxw5f7CmBTScnTfOE7G7s1io/7YYLtxoPXKD4Za1U6AvCI/l0Py3pAhTzwErpEKOgMaSjt/lUrhunkbvn6ikd6Xt4OgTOyAefBDKeR/xlosl/E0n4RKwYcsESTZK//ybgmkKShAA4HwiEWn5fnjPcm4N5TLDxx20fjR0WGaIc5DsEPn4ZFWk5Omt38GBae9K03QJqN5gRNnDiEUrqW5xXSV6P8WlmYi8fc0Lv55ZCvuIzenn9R2/4HwMUXIFvo16pB4t0ePuhm4VaZN40kQvQ+wNPlUJOBg+RGoBd8hw7EfEl8WKtGS7QXB0tdqXjHHKAdci
+X-Microsoft-Antispam-Message-Info: DpAOsYGbmyWC2l1Czuu+3I3P4AagzvShhqivX6z+FGU9Oh7Y5eiKoIMKPo2YtLsOVX0T3EhIUysMpVChoXpSzC0AWeVjYwh5duLaVk7Q5N0xgdc3Tq1QpKqLTPyQ2LridZGnAEHVH6LSJN6uLwvivKfIPOWt6GGO7LST7t0OCKzfcVZQDKXT2mZoba4VTh1YpwcYM+geacP+EeBhazgCDb86YrnVBoGe5mugy4wgEOnXak2H0aEGwcDLPMVE9PjZux02JuBg239J3CXtNna61kGoKnJsGAUXuiTw1vSdbaEJ+1VQsQ9WVfbawdKZnP2681NdCJW+riiDcEjxJF8Lt3iNqPgq1d1B+80iDbOZoX7HsfBkpcl5rd2onU6qEtAcN0R8TGHTEnizq+yRq5jy6lqKTpwPqC+5IqQUIEAgrN2WD0xMezyCtssof9SRuA/X1JKHCPnftgljTexjlsBRD9X5Q1/NT4Jg0ueLpJGC7iWr4Rjh2ho//6QIwpv6Cund/mk305FvX0Xcwg9E6XDq5YoRtsmI8ISlplVNxqeiBZkY3JEqnoQfvNfJvEjkF85+yrIYqE9URxV1HxfchUlyDMfkqJZota5c9AhLb5V4bB97xUt0NxdEpksE+VlhYqjgLxeb4fw/dKuEmanr3i3QHCSYJNbFaIev18FR0i/6gf+skuviCgvvWjabnz8W+LY4
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(39860400002)(346002)(376002)(136003)(396003)(46966006)(36840700001)(426003)(47076005)(81166007)(356005)(336012)(6666004)(82310400003)(36756003)(54906003)(70586007)(86362001)(70206006)(83380400001)(82740400003)(316002)(6916009)(2616005)(8676002)(44832011)(26005)(186003)(1076003)(7696005)(8936002)(36860700001)(478600001)(16526019)(5660300002)(2906002)(4326008)(36900700001);
+ SFS:(4636009)(39860400002)(396003)(376002)(136003)(346002)(36840700001)(46966006)(70586007)(82740400003)(356005)(426003)(83380400001)(2906002)(36756003)(6666004)(4326008)(81166007)(316002)(336012)(54906003)(2616005)(82310400003)(44832011)(47076005)(26005)(5660300002)(8936002)(186003)(16526019)(1076003)(7696005)(70206006)(36860700001)(86362001)(8676002)(6916009)(478600001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jun 2021 07:01:07.5442 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6b61af50-82e2-48d2-7f3d-08d934825801
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jun 2021 07:01:10.3982 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 12f555ab-323f-4ea1-4b57-08d9348259b5
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT018.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT033.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5337
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5099
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,95 +118,76 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-A lot of NAK-G being generated when link widht switching is happening.
-WA for this issue is to program the SPC to 4 symbols per clock during
-bootup when the native PCIE width is x4.
+SMU had set all the necessary fields for a link width switch
+but the width switch wasn't occurring because the link was idle
+in the L1 state. Setting LC_L1_RECONFIG_EN=0x1 will allow width
+switches to also be initiated while in L1 instead of waiting until
+the link is back in L0.
 
-Change-Id: I7a4d751e44bddc4bd1e97860cb4f53dfadc02a2c
+Change-Id: I6315681f6fb194036b20991512dd88fa65bc0d56
 Signed-off-by: Evan Quan <evan.quan@amd.com>
 ---
 V1->V2:
- - move the code to nbio_v2_3.c as that's where the pcie related changes
-   reside
+  - limit the change for Navi10 only
+V2->V3:
+  - move the code to nbio_v2_3.c
 ---
  drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h |  1 +
- drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c   | 28 ++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c   | 13 +++++++++++++
  drivers/gpu/drm/amd/amdgpu/nv.c          |  3 +++
- 3 files changed, 32 insertions(+)
+ 3 files changed, 17 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
-index 25ee53545837..43d074bb00a1 100644
+index 43d074bb00a1..45295dce5c3e 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
-@@ -93,6 +93,7 @@ struct amdgpu_nbio_funcs {
- 	void (*enable_aspm)(struct amdgpu_device *adev,
+@@ -94,6 +94,7 @@ struct amdgpu_nbio_funcs {
  			    bool enable);
  	void (*program_aspm)(struct amdgpu_device *adev);
-+	void (*apply_lc_spc_mode_wa)(struct amdgpu_device *adev);
+ 	void (*apply_lc_spc_mode_wa)(struct amdgpu_device *adev);
++	void (*apply_l1_link_width_reconfig_wa)(struct amdgpu_device *adev);
  };
  
  struct amdgpu_nbio {
 diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c b/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c
-index 05ddec7ba7e2..315d57bb373d 100644
+index 315d57bb373d..754b11dea6f0 100644
 --- a/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c
 +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c
-@@ -51,6 +51,8 @@
- #define mmBIF_MMSCH1_DOORBELL_RANGE		0x01d8
- #define mmBIF_MMSCH1_DOORBELL_RANGE_BASE_IDX	2
- 
-+#define smnPCIE_LC_LINK_WIDTH_CNTL		0x11140288
-+
- static void nbio_v2_3_remap_hdp_registers(struct amdgpu_device *adev)
- {
- 	WREG32_SOC15(NBIO, 0, mmREMAP_HDP_MEM_FLUSH_CNTL,
-@@ -463,6 +465,31 @@ static void nbio_v2_3_program_aspm(struct amdgpu_device *adev)
- 		WREG32_PCIE(smnPCIE_LC_CNTL3, data);
+@@ -490,6 +490,18 @@ static void nbio_v2_3_apply_lc_spc_mode_wa(struct amdgpu_device *adev)
+ 	}
  }
  
-+static void nbio_v2_3_apply_lc_spc_mode_wa(struct amdgpu_device *adev)
++static void nbio_v2_3_apply_l1_link_width_reconfig_wa(struct amdgpu_device *adev)
 +{
 +	uint32_t reg_data = 0;
-+	uint32_t link_width = 0;
 +
-+	if (!((adev->asic_type >= CHIP_NAVI10) &&
-+	     (adev->asic_type <= CHIP_NAVI12)))
++	if (adev->asic_type != CHIP_NAVI10)
 +		return;
 +
 +	reg_data = RREG32_PCIE(smnPCIE_LC_LINK_WIDTH_CNTL);
-+	link_width = (reg_data & PCIE_LC_LINK_WIDTH_CNTL__LC_LINK_WIDTH_RD_MASK)
-+		>> PCIE_LC_LINK_WIDTH_CNTL__LC_LINK_WIDTH_RD__SHIFT;
-+
-+	/*
-+	 * Program PCIE_LC_CNTL6.LC_SPC_MODE_8GT to 0x2 (4 symbols per clock data)
-+	 * if link_width is 0x3 (x4)
-+	 */
-+	if (0x3 == link_width) {
-+		reg_data = RREG32_PCIE(smnPCIE_LC_CNTL6);
-+		reg_data &= ~PCIE_LC_CNTL6__LC_SPC_MODE_8GT_MASK;
-+		reg_data |= (0x2 << PCIE_LC_CNTL6__LC_SPC_MODE_8GT__SHIFT);
-+		WREG32_PCIE(smnPCIE_LC_CNTL6, reg_data);
-+	}
++	reg_data |= PCIE_LC_LINK_WIDTH_CNTL__LC_L1_RECONFIG_EN_MASK;
++	WREG32_PCIE(smnPCIE_LC_LINK_WIDTH_CNTL, reg_data);
 +}
 +
  const struct amdgpu_nbio_funcs nbio_v2_3_funcs = {
  	.get_hdp_flush_req_offset = nbio_v2_3_get_hdp_flush_req_offset,
  	.get_hdp_flush_done_offset = nbio_v2_3_get_hdp_flush_done_offset,
-@@ -484,4 +511,5 @@ const struct amdgpu_nbio_funcs nbio_v2_3_funcs = {
- 	.remap_hdp_registers = nbio_v2_3_remap_hdp_registers,
+@@ -512,4 +524,5 @@ const struct amdgpu_nbio_funcs nbio_v2_3_funcs = {
  	.enable_aspm = nbio_v2_3_enable_aspm,
  	.program_aspm =  nbio_v2_3_program_aspm,
-+	.apply_lc_spc_mode_wa = nbio_v2_3_apply_lc_spc_mode_wa,
+ 	.apply_lc_spc_mode_wa = nbio_v2_3_apply_lc_spc_mode_wa,
++	.apply_l1_link_width_reconfig_wa = nbio_v2_3_apply_l1_link_width_reconfig_wa,
  };
 diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-index 455d0425787c..63c96ca8d2a2 100644
+index 63c96ca8d2a2..5231b3402990 100644
 --- a/drivers/gpu/drm/amd/amdgpu/nv.c
 +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-@@ -1411,6 +1411,9 @@ static int nv_common_hw_init(void *handle)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+@@ -1414,6 +1414,9 @@ static int nv_common_hw_init(void *handle)
+ 	if (adev->nbio.funcs->apply_lc_spc_mode_wa)
+ 		adev->nbio.funcs->apply_lc_spc_mode_wa(adev);
  
-+	if (adev->nbio.funcs->apply_lc_spc_mode_wa)
-+		adev->nbio.funcs->apply_lc_spc_mode_wa(adev);
++	if (adev->nbio.funcs->apply_l1_link_width_reconfig_wa)
++		adev->nbio.funcs->apply_l1_link_width_reconfig_wa(adev);
 +
  	/* enable pcie gen2/3 link */
  	nv_pcie_gen3_enable(adev);
