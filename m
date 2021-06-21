@@ -2,55 +2,47 @@ Return-Path: <SRS0=3j8t=LP=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7A7B4C49EA3
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 07:09:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F0AD9C49EA2
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 07:09:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3DD86611BD
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 07:09:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3DD86611BD
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=vivo.com
+	by mail.kernel.org (Postfix) with ESMTPS id B131B611BD
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 07:09:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B131B611BD
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=mikelr.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C0B489D99;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4AB1489D8E;
 	Mon, 21 Jun 2021 07:09:13 +0000 (UTC)
-Received: from mail-m176233.qiye.163.com (mail-m176233.qiye.163.com
- [59.111.176.233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB10A89CE3;
- Mon, 21 Jun 2021 01:34:18 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256;
- b=O7JOUViPH58toSHBRUGmwW0M9jOOSyOZKrenBo1/mSvbKs05dsH2f0iGZwc8+QcDUzqvJ+PdVxPi4mRct8KDwSWRbQBisHX17llaxhD4opEFJidhYvovbV5EzFMHA0y7CtbhBQu08kq8XbXqf0NyjeDCT06sDZt+wve8z44OAb0=;
- s=default; c=relaxed/relaxed; d=vivo.com; v=1;
- bh=nA77dwefWlFxLZGJhY5jKVIiNZ7p4Um7DetRWYuu1+s=;
- h=date:mime-version:subject:message-id:from;
-Received: from vivo.com (localhost [127.0.0.1])
- by mail-m176233.qiye.163.com (Hmail) with ESMTP id EAE418C00C9;
- Mon, 21 Jun 2021 09:33:41 +0800 (CST)
-Message-ID: <AFIAWADvD1*BeRWHpwhmBaqG.3.1624239221938.Hmail.bernard@vivo.com>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Subject: =?UTF-8?B?UmU6UmU6IFtQQVRDSCAwLzRdIGRlbGV0ZSB1c2VsZXNzIGZ1bmN0aW9uIHJldHVybiB2YWx1ZXMgJiByZW1vdmUgbWVhbmluZ2xlc3MgaWYocikgY2hlY2sgY29kZQ==?=
-X-Priority: 3
-X-Mailer: HMail Webmail Server V2.0 Copyright (c) 2016-163.com
-X-Originating-IP: 58.213.83.158
-In-Reply-To: <e6c51c79-52ae-5591-45c7-382d1a8f2b5d@amd.com>
-MIME-Version: 1.0
-Received: from bernard@vivo.com( [58.213.83.158) ] by ajax-webmail (
- [127.0.0.1] ) ; Mon, 21 Jun 2021 09:33:41 +0800 (GMT+08:00)
-From: Bernard <bernard@vivo.com>
-Date: Mon, 21 Jun 2021 09:33:41 +0800 (GMT+08:00)
-X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgYFAkeWUFZS1VLWVdZKFlBSE83V1ktWUFJV1kPCR
- oVCBIfWUFZQh5DT1ZOSUxKQ0JDHUhPH0JVEwETFhoSFyQUDg9ZV1kWGg8SFR0UWUFZT0tIVUpKS0
- 9ISFVLWQY+
-X-HM-Sender-Digest: e1kJHlYWEh9ZQU1PT0hCS0xPSU5ON1dZDB4ZWUEPCQ4eV1kSHx4VD1lB
- WUc6PTI6LDo*DT9KUTkeKSwzCwwTFjkaCjxVSFVKTUlPSUhCSUlJSU5KVTMWGhIXVRkeCRUaCR87
- DRINFFUYFBZFWVdZEgtZQVlOQ1VJSkhVQ0hVSk5DWVdZCAFZQU9CTU43Bg++
-X-HM-Tid: 0a7a2c33acd1d9abkuwseae418c00c9
+X-Greylist: delayed 596 seconds by postgrey-1.36 at gabe;
+ Mon, 21 Jun 2021 01:10:36 UTC
+Received: from yyz.mikelr.com (yyz.mikelr.com [170.75.163.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A17A89D84;
+ Mon, 21 Jun 2021 01:10:36 +0000 (UTC)
+Received: from glidewell.ykf.mikelr.com (198-84-194-208.cpe.teksavvy.com
+ [198.84.194.208])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (Client did not present a certificate)
+ by yyz.mikelr.com (Postfix) with ESMTPSA id D6AD84F834;
+ Sun, 20 Jun 2021 21:00:38 -0400 (EDT)
+From: Mikel Rychliski <mikel@mikelr.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/radeon: Fix NULL dereference when updating memory stats
+Date: Sun, 20 Jun 2021 20:59:50 -0400
+Message-Id: <20210621005950.24734-1-mikel@mikelr.com>
+X-Mailer: git-send-email 2.13.7
 X-Mailman-Approved-At: Mon, 21 Jun 2021 07:09:08 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,51 +55,177 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Mikel Rychliski <mikel@mikelr.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-CkZyb206ICJDaHJpc3RpYW4gS8O2bmlnIiA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgpEYXRl
-OiAyMDIxLTA2LTIxIDAwOjU5OjI3ClRvOiAgQmVybmFyZCBaaGFvIDxiZXJuYXJkQHZpdm8uY29t
-PixBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+LERhdmlkIEFpcmxpZSA8
-YWlybGllZEBsaW51eC5pZT4sRGFuaWVsIFZldHRlciA8ZGFuaWVsQGZmd2xsLmNoPixhbWQtZ2Z4
-QGxpc3RzLmZyZWVkZXNrdG9wLm9yZyxkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnLGxp
-bnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmcKU3ViamVjdDogUmU6IFtQQVRDSCAwLzRdIGRlbGV0
-ZSB1c2VsZXNzIGZ1bmN0aW9uIHJldHVybiB2YWx1ZXMgJiByZW1vdmUgbWVhbmluZ2xlc3MgaWYo
-cikgY2hlY2sgY29kZT5BbSAxOS4wNi4yMSB1bSAwODo0MyBzY2hyaWViIEJlcm5hcmQgWmhhbzoK
-Pj4gRnVuY3Rpb24gcmFkZW9uX2ZlbmNlX2RyaXZlcl9pbml0IGFsd2F5cyByZXR1cm5zIHN1Y2Nl
-c3MsCj4+IHRoZSBmdW5jdGlvbiB0eXBlIG1heWJlIGNvdWxlIGJlIGNoYW5nZWQgdG8gdm9pZC4K
-Pj4gVGhpcyBwYXRjaCBzZXJpZXMgd2lsbCBmaXJzdCBkZWxldGUgdGhlIGNoZWNrIG9mIHRoZSBy
-ZXR1cm4KPj4gdmFsdWUgb2YgdGhlIGZ1bmN0aW9uIGNhbGwgcmFkZW9uX2ZlbmNlX2RyaXZlcl9p
-bml0LCB0aGVuLAo+PiBvcHRpbWlzZSB0aGUgZnVuY3Rpb24gZGVjbGFyYXRpb24gYW5kIGZ1bmN0
-aW9uIHRvIHZvaWQgdHlwZS4KPgo+UGxlYXNlIG1lcmdlIGFsbCBvZiB0aGlzIGludG8gYSBzaW5n
-bGUgcGF0Y2gsIEkgZG9uJ3Qgc2VlIGFueSBwb2ludCAKPnNlcGFyYXRpbmcgdGhpcy4KPgo+Q2hy
-aXN0aWFuLgoKSGkKU3VyZSwgaSB3aWxsIHJlc3VibWl0IG9uZSBuZXcgcHRhY2gsIHRoYW5rcyEK
-QlIvL0Jlcm5hcmQKCj4+Cj4+IFNpZ25lZC1vZmYtYnk6IEJlcm5hcmQgWmhhbyA8YmVybmFyZEB2
-aXZvLmNvbT4KPj4KPj4gQmVybmFyZCBaaGFvICg0KToKPj4gICAgZHJtL3JhZGVvbjogcmVtb3Zl
-IG1lYW5pbmdsZXNzIGlmKHIpIGNoZWNrIGNvZGUKPj4gICAgZHJtL3JhZGVvbjogcmVtb3ZlIG1l
-YW5pbmdsZXNzIGlmKHIpIGNoZWNrIGNvZGUKPj4gICAgZHJtL3JhZGVvbjogcmVtb3ZlIG1lYW5p
-bmdsZXNzIGlmKHIpIGNoZWNrIGNvZGUKPj4gICAgZHJtL3JhZGVvbjogZGVsZXRlIHVzZWxlc3Mg
-cmV0dXJuIHZhbHVlcwo+Pgo+PiAgIGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vY2lrLmMgICAgICAg
-ICAgfCA0ICstLS0KPj4gICBkcml2ZXJzL2dwdS9kcm0vcmFkZW9uL2V2ZXJncmVlbi5jICAgIHwg
-NCArLS0tCj4+ICAgZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9uaS5jICAgICAgICAgICB8IDQgKy0t
-LQo+PiAgIGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vcjEwMC5jICAgICAgICAgfCA0ICstLS0KPj4g
-ICBkcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3IzMDAuYyAgICAgICAgIHwgNCArLS0tCj4+ICAgZHJp
-dmVycy9ncHUvZHJtL3JhZGVvbi9yNDIwLmMgICAgICAgICB8IDUgKy0tLS0KPj4gICBkcml2ZXJz
-L2dwdS9kcm0vcmFkZW9uL3I1MjAuYyAgICAgICAgIHwgNCArLS0tCj4+ICAgZHJpdmVycy9ncHUv
-ZHJtL3JhZGVvbi9yNjAwLmMgICAgICAgICB8IDQgKy0tLQo+PiAgIGRyaXZlcnMvZ3B1L2RybS9y
-YWRlb24vcmFkZW9uLmggICAgICAgfCAyICstCj4+ICAgZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9y
-YWRlb25fZmVuY2UuYyB8IDUgKy0tLS0KPj4gICBkcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JzNDAw
-LmMgICAgICAgIHwgNCArLS0tCj4+ICAgZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yczYwMC5jICAg
-ICAgICB8IDQgKy0tLQo+PiAgIGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vcnM2OTAuYyAgICAgICAg
-fCA0ICstLS0KPj4gICBkcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3J2NTE1LmMgICAgICAgIHwgNCAr
-LS0tCj4+ICAgZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9ydjc3MC5jICAgICAgICB8IDQgKy0tLQo+
-PiAgIGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vc2kuYyAgICAgICAgICAgfCA0ICstLS0KPj4gICAx
-NiBmaWxlcyBjaGFuZ2VkLCAxNiBpbnNlcnRpb25zKCspLCA0OCBkZWxldGlvbnMoLSkKPj4KPgoN
-Cg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
-eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+radeon_ttm_bo_destroy() is attempting to access the resource object to
+update memory counters. However, the resource object is already freed when
+ttm calls this function via the destroy callback. This causes an oops when
+a bo is freed:
+
+	BUG: kernel NULL pointer dereference, address: 0000000000000010
+	RIP: 0010:radeon_ttm_bo_destroy+0x2c/0x100 [radeon]
+	Call Trace:
+	 radeon_bo_unref+0x1a/0x30 [radeon]
+	 radeon_gem_object_free+0x33/0x50 [radeon]
+	 drm_gem_object_release_handle+0x69/0x70 [drm]
+	 drm_gem_handle_delete+0x62/0xa0 [drm]
+	 ? drm_mode_destroy_dumb+0x40/0x40 [drm]
+	 drm_ioctl_kernel+0xb2/0xf0 [drm]
+	 drm_ioctl+0x30a/0x3c0 [drm]
+	 ? drm_mode_destroy_dumb+0x40/0x40 [drm]
+	 radeon_drm_ioctl+0x49/0x80 [radeon]
+	 __x64_sys_ioctl+0x8e/0xd0
+
+Avoid the issue by updating the counters in the delete_mem_notify callback
+instead. Also, fix memory statistic updating in radeon_bo_move() to
+identify the source type correctly. The source type needs to be saved
+before the move, because the moved from object may be altered by the move.
+
+Fixes: bfa3357ef9ab ("drm/ttm: allocate resource object instead of embedding it v2")
+Signed-off-by: Mikel Rychliski <mikel@mikelr.com>
+---
+ drivers/gpu/drm/radeon/radeon_object.c | 23 +++--------------------
+ drivers/gpu/drm/radeon/radeon_object.h |  7 ++++---
+ drivers/gpu/drm/radeon/radeon_ttm.c    | 20 +++++++++++++++++---
+ 3 files changed, 24 insertions(+), 26 deletions(-)
+
+diff --git a/drivers/gpu/drm/radeon/radeon_object.c b/drivers/gpu/drm/radeon/radeon_object.c
+index bfaaa3c969a3..ea34c0661710 100644
+--- a/drivers/gpu/drm/radeon/radeon_object.c
++++ b/drivers/gpu/drm/radeon/radeon_object.c
+@@ -49,8 +49,8 @@ static void radeon_bo_clear_surface_reg(struct radeon_bo *bo);
+  * function are calling it.
+  */
+ 
+-static void radeon_update_memory_usage(struct radeon_bo *bo,
+-				       unsigned mem_type, int sign)
++void radeon_update_memory_usage(struct radeon_bo *bo,
++				unsigned int mem_type, int sign)
+ {
+ 	struct radeon_device *rdev = bo->rdev;
+ 
+@@ -76,8 +76,6 @@ static void radeon_ttm_bo_destroy(struct ttm_buffer_object *tbo)
+ 
+ 	bo = container_of(tbo, struct radeon_bo, tbo);
+ 
+-	radeon_update_memory_usage(bo, bo->tbo.resource->mem_type, -1);
+-
+ 	mutex_lock(&bo->rdev->gem.mutex);
+ 	list_del_init(&bo->list);
+ 	mutex_unlock(&bo->rdev->gem.mutex);
+@@ -726,25 +724,10 @@ int radeon_bo_check_tiling(struct radeon_bo *bo, bool has_moved,
+ 	return radeon_bo_get_surface_reg(bo);
+ }
+ 
+-void radeon_bo_move_notify(struct ttm_buffer_object *bo,
+-			   bool evict,
+-			   struct ttm_resource *new_mem)
++void radeon_bo_move_notify(struct radeon_bo *rbo)
+ {
+-	struct radeon_bo *rbo;
+-
+-	if (!radeon_ttm_bo_is_radeon_bo(bo))
+-		return;
+-
+-	rbo = container_of(bo, struct radeon_bo, tbo);
+ 	radeon_bo_check_tiling(rbo, 0, 1);
+ 	radeon_vm_bo_invalidate(rbo->rdev, rbo);
+-
+-	/* update statistics */
+-	if (!new_mem)
+-		return;
+-
+-	radeon_update_memory_usage(rbo, bo->resource->mem_type, -1);
+-	radeon_update_memory_usage(rbo, new_mem->mem_type, 1);
+ }
+ 
+ vm_fault_t radeon_bo_fault_reserve_notify(struct ttm_buffer_object *bo)
+diff --git a/drivers/gpu/drm/radeon/radeon_object.h b/drivers/gpu/drm/radeon/radeon_object.h
+index 1739c6a142cd..f97a17cce28b 100644
+--- a/drivers/gpu/drm/radeon/radeon_object.h
++++ b/drivers/gpu/drm/radeon/radeon_object.h
+@@ -133,6 +133,9 @@ static inline u64 radeon_bo_mmap_offset(struct radeon_bo *bo)
+ 	return drm_vma_node_offset_addr(&bo->tbo.base.vma_node);
+ }
+ 
++extern void radeon_update_memory_usage(struct radeon_bo *bo,
++				       unsigned int mem_type, int sign);
++
+ extern int radeon_bo_create(struct radeon_device *rdev,
+ 			    unsigned long size, int byte_align,
+ 			    bool kernel, u32 domain, u32 flags,
+@@ -160,9 +163,7 @@ extern void radeon_bo_get_tiling_flags(struct radeon_bo *bo,
+ 				u32 *tiling_flags, u32 *pitch);
+ extern int radeon_bo_check_tiling(struct radeon_bo *bo, bool has_moved,
+ 				bool force_drop);
+-extern void radeon_bo_move_notify(struct ttm_buffer_object *bo,
+-				  bool evict,
+-				  struct ttm_resource *new_mem);
++extern void radeon_bo_move_notify(struct radeon_bo *rbo);
+ extern vm_fault_t radeon_bo_fault_reserve_notify(struct ttm_buffer_object *bo);
+ extern int radeon_bo_get_surface_reg(struct radeon_bo *bo);
+ extern void radeon_bo_fence(struct radeon_bo *bo, struct radeon_fence *fence,
+diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c b/drivers/gpu/drm/radeon/radeon_ttm.c
+index ad2a5a791bba..c318a80853e5 100644
+--- a/drivers/gpu/drm/radeon/radeon_ttm.c
++++ b/drivers/gpu/drm/radeon/radeon_ttm.c
+@@ -199,7 +199,7 @@ static int radeon_bo_move(struct ttm_buffer_object *bo, bool evict,
+ 	struct ttm_resource *old_mem = bo->resource;
+ 	struct radeon_device *rdev;
+ 	struct radeon_bo *rbo;
+-	int r;
++	int r, old_type;
+ 
+ 	if (new_mem->mem_type == TTM_PL_TT) {
+ 		r = radeon_ttm_tt_bind(bo->bdev, bo->ttm, new_mem);
+@@ -216,6 +216,9 @@ static int radeon_bo_move(struct ttm_buffer_object *bo, bool evict,
+ 	if (WARN_ON_ONCE(rbo->tbo.pin_count > 0))
+ 		return -EINVAL;
+ 
++	/* Save old type for statistics update */
++	old_type = old_mem->mem_type;
++
+ 	rdev = radeon_get_rdev(bo->bdev);
+ 	if (old_mem->mem_type == TTM_PL_SYSTEM && bo->ttm == NULL) {
+ 		ttm_bo_move_null(bo, new_mem);
+@@ -261,7 +264,9 @@ static int radeon_bo_move(struct ttm_buffer_object *bo, bool evict,
+ out:
+ 	/* update statistics */
+ 	atomic64_add(bo->base.size, &rdev->num_bytes_moved);
+-	radeon_bo_move_notify(bo, evict, new_mem);
++	radeon_update_memory_usage(rbo, old_type, -1);
++	radeon_update_memory_usage(rbo, new_mem->mem_type, 1);
++	radeon_bo_move_notify(rbo);
+ 	return 0;
+ }
+ 
+@@ -682,7 +687,16 @@ bool radeon_ttm_tt_is_readonly(struct radeon_device *rdev,
+ static void
+ radeon_bo_delete_mem_notify(struct ttm_buffer_object *bo)
+ {
+-	radeon_bo_move_notify(bo, false, NULL);
++	struct radeon_bo *rbo;
++
++	if (!radeon_ttm_bo_is_radeon_bo(bo))
++		return;
++
++	rbo = container_of(bo, struct radeon_bo, tbo);
++
++	if (bo->resource)
++		radeon_update_memory_usage(rbo, bo->resource->mem_type, -1);
++	radeon_bo_move_notify(rbo);
+ }
+ 
+ static struct ttm_device_funcs radeon_bo_driver = {
+-- 
+2.13.7
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
