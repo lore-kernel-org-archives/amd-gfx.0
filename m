@@ -7,48 +7,49 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 69268C49361
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 07:01:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B791EC48BE5
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 07:01:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2C5696109E
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 07:01:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2C5696109E
+	by mail.kernel.org (Postfix) with ESMTPS id 7DC146109E
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 07:01:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7DC146109E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6BDC89C97;
-	Mon, 21 Jun 2021 07:01:03 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2082.outbound.protection.outlook.com [40.107.93.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8EF7A89C97
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Jun 2021 07:01:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3667689C9A;
+	Mon, 21 Jun 2021 07:01:10 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam08on20616.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e8b::616])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B15589C9A
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Jun 2021 07:01:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Xu7mGbu9GLz2d6N9Oh2lcfm1RbK6EcxoY2imXJkm5n5gs1bR+4I5WwrTu2SceH2kRoeVKNXtNHT7MhGRHljz5W9QxRB33MbGl8wmJOq8zLYxT75/LQ+SrklfUFTrS1O0YPeZG3bxa3/JOqv7yvC71JpfHiffTJDPeL3J5pqb7D0Ctk7TwlDlgg5QOvpO+L3F93RzcT7OYmui2Hhbxk8lfH3h/gm+qoxIpecwsj6y6zRjilaELs0zdY1r8uM9tdwmhhvW2DrCvLe5LQOlXMRGy4Lp6RxqpwjNcibCOsS40+QZpz4pD2pMuPskKN/n9nQDXKLWCgv2QQQkZVHjSUf9Tw==
+ b=i7pCQLzISBT+zHJdAhMDIiPS93e2tP672yFWD184I1lz3gHDbBXvfJgLXB3N04RbFE2EfWbpyGntSGHZdr9celDUMgZjQqooj/BObrx9VC6OhlUw9mA3vLniK6LI7dP3WamL3z4rQR6yj4qzty9ZtPtyDuinbdZOiSDEj8xBIswZQVHvwW+zKJTS0uStd03MsUPYgM3NEZ+xxLTWoTASRUToZt9AKDaCu/mWySK5dkaSJL8FRqaEwBvXsfIxRyQ6g6jML2UQjlx2saS2A576yi6jD37ZpyUg4vFb99DNNusKaZUebIAfIeJVh9KfHJKG16siu2Rofkap/21mz/QR5w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xhoj06bICdwYFuINWwLveX3MDd9VddyJKHubBUSkFb4=;
- b=ZfHaf3frxlbk5Uw78EF22dV52m85xWc+6HjpbjQY+6a/4wz5ArLsDAUA8T2k4D8ArTPX237v3tQkhDBjzrZFKsEz1Nmg29pIDAOPnZtjD0O0CR3p2nvLb/ap12y5JTu88OXaosyTp8170P6aNa+Zc7bEODoNU8qbV0PpI4qlL0tKX/KEGpc8JGcqe0w9RW7qPyGnlWWcVbGgYDmCxFl1liKbKaw6ailTR/uMIRxfu12Nug8bsrZKAa1h0AU2TDuXmPY8Z5wm/1pCDF2p/Rn7kC9nG0fFAD8iVbNHkmj4dhET++VzPIXO1QQ03VphSZ2w/w9saCsFy657qCC2EoE2Ag==
+ bh=TXcASLdmwE5XSdD88B4NvZ4T+T+xaJEJ03M9liZDamw=;
+ b=EGVNh2761B5ABZV0Sprcb7jqI5nR0zHLjk9ADBeSFd+mcceMe2I+UuTpMEQK7Nmf2kCsIhOU+r8IKkNxlEn2ZNWYoE+BG9vSHo+fHtHWwB0FL1SbWVJS/fqgXy4vv84j4mM1/6K31UX8TbI75EY/Bjmk0dW4GbDrenjXkd+Zo3ObnFecoaBhyoOo7WP3x81c/lBAsbXO/NQ0i81L2tZB1lgTc+ZpaasDdLx8yxAHCLQbMmtgZhQ6QhJXIlmHv/M3psjh+68SzskUl09Frw0FGMFBDOYCUqUzg9DT/EnSPbTar4Tq5aAF9KQaWfk98MO/6/4rCdLBNRJE7V3jqfQUjQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xhoj06bICdwYFuINWwLveX3MDd9VddyJKHubBUSkFb4=;
- b=p+oUns4WvYmyol4DIFy8aYim7+hwPFv1ErUUpM8XWmpNtu26XwLVS95DUiwHyEr2uTxYTvC/ZKdRiKg2ah/WUwOo1jDDLPPUChiPCRrMbrqy2wlyLERC8+b8FIkKN1b1XwbIUfbKgBpaW5PdvvWY5a5Z5VllGmmKYi8VXZLuQxg=
-Received: from DM5PR1401CA0016.namprd14.prod.outlook.com (2603:10b6:4:4a::26)
- by DM4PR12MB5101.namprd12.prod.outlook.com (2603:10b6:5:390::10) with
+ bh=TXcASLdmwE5XSdD88B4NvZ4T+T+xaJEJ03M9liZDamw=;
+ b=TnPwlOkheMIFyawhoXp3Ax/9MzEvpDlZyLw/VOWoMminrgTv6es8YDSfoOvhfLunn0FfsKy1mxxzEnY2x3r7RRMUwxdEKLuSfzDAg47v+Dh412ZwiLsAzfQxz+pahDWch9G1vmEtPAUpjfQnJ2hefiUt056zU7n0RyQykJtJhvQ=
+Received: from DS7PR03CA0265.namprd03.prod.outlook.com (2603:10b6:5:3b3::30)
+ by BN9PR12MB5066.namprd12.prod.outlook.com (2603:10b6:408:133::19) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.19; Mon, 21 Jun
- 2021 07:00:59 +0000
-Received: from DM6NAM11FT067.eop-nam11.prod.protection.outlook.com
- (2603:10b6:4:4a:cafe::4b) by DM5PR1401CA0016.outlook.office365.com
- (2603:10b6:4:4a::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.16 via Frontend
- Transport; Mon, 21 Jun 2021 07:00:59 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.18; Mon, 21 Jun
+ 2021 07:01:05 +0000
+Received: from DM6NAM11FT033.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:3b3:cafe::4a) by DS7PR03CA0265.outlook.office365.com
+ (2603:10b6:5:3b3::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.15 via Frontend
+ Transport; Mon, 21 Jun 2021 07:01:05 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -57,46 +58,49 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT067.mail.protection.outlook.com (10.13.172.76) with Microsoft SMTP
+ DM6NAM11FT033.mail.protection.outlook.com (10.13.172.221) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4242.16 via Frontend Transport; Mon, 21 Jun 2021 07:00:59 +0000
+ 15.20.4242.16 via Frontend Transport; Mon, 21 Jun 2021 07:01:04 +0000
 Received: from equan-buildpc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Mon, 21 Jun
- 2021 02:00:57 -0500
+ 2021 02:01:02 -0500
 From: Evan Quan <evan.quan@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH V3 1/7] drm/amdgpu: correct tcp harvest setting
-Date: Mon, 21 Jun 2021 15:00:34 +0800
-Message-ID: <20210621070040.494336-1-evan.quan@amd.com>
+Subject: [PATCH V3 2/7] drm/amdgpu: fix Navi1x tcp power gating hang when
+ issuing lightweight invalidaiton
+Date: Mon, 21 Jun 2021 15:00:35 +0800
+Message-ID: <20210621070040.494336-2-evan.quan@amd.com>
 X-Mailer: git-send-email 2.29.0
+In-Reply-To: <20210621070040.494336-1-evan.quan@amd.com>
+References: <20210621070040.494336-1-evan.quan@amd.com>
 MIME-Version: 1.0
 X-Originating-IP: [10.180.168.240]
 X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 912e0d4f-7733-4115-da9f-08d934825331
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5101:
-X-Microsoft-Antispam-PRVS: <DM4PR12MB5101EF18E0424C9270AA1757E40A9@DM4PR12MB5101.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 3b3c053b-0757-4cba-ea95-08d93482566f
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5066:
+X-Microsoft-Antispam-PRVS: <BN9PR12MB506633E956C2109DE30B882BE40A9@BN9PR12MB5066.namprd12.prod.outlook.com>
 X-MS-Oob-TLC-OOBClassifiers: OLM:3383;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 7uwCBQn5y8QaWXQbP28/3aFiDFrA81pBJt8XTVLmYdp0MtIlTySvL8ps7jpM9nqPIQtwF4WY33ejnzRR+tyopIMS6cl1Vm8C63y5y/sBcSKFvGYUwrtCEluIpwyhpdVfqi3dKcMA3aw1k1/kVQHLZG99FoZUVcVFwpEgtrILWNzYtGEwlD0IYUd4I/UOs+XzjumUTSlLii3ozcdheVCMUtwu4TdshRfPClXSbCH1pwTSQ2Y8iBAZS2hDSoAZlmGmrK+tIia5qLghEg1Z8TsYJyKNSazSRyOlwGYr/skfqjRNF5T28GOseZ/aQOAYCMdGKuA8xe0z6EXvEZDq1egyQWgDQcFpy10A+T/5aWW4MyTJn6goOhP4jDpPcVGpe0cR47J1mWdqwCFMeForZ4BPB2bavZeuXdmxDNf0Pt1VQkR4y7BvcKgSqmvCtTxxVtmVnzz8OWsopQ/+HQclF27TM1aoB7xJcqxtLL9oPZEsdmrkvoWJrP8XVaDDZ3olyp2LQDFHC/1dFSZgf9iS3aGXcDHrthlmR98Jo+ddt+ILY5h/0kGzlnepX33Fl+Ob2bPVohSH9qFBu2lHQHql4UMHjvHcq/oYJaAliZ3VX7sbDn79nr58kIpowjWPpw1Rnf6bZwq0iUnNAm9Aj5+HAl2ObFz2hVvrYEI6EFFUVQWmdWJgckbJQOlLYu41sOPi1YT/
+X-Microsoft-Antispam-Message-Info: ZN9IROiDkb5ZrrUVxczLsyP2sVQDS41gEgPGJRMmeXbIl1kJaYdC+EOz9POnpvdlr0u3YtY4UP4/Hy5STMUH0uzTk7AuiQrcflok9xQBgxCGpowMl4g/NO4jR05a6QiVmUDGID1J+9KWsWMF4DxGG9Q0JTOLitLMcIeEgW8jHtkobccZGrGWfveffZ7yxXBrAH9E/qFqMVF4hp92cnyhq5VlpTfJG5Md299pmQA4dsjSJxPR4+n4oL+2FmbvFto/vW3BjUXY+AqTb/Qzg5Z4ntycuxCk/b2EaRDULIq28nTpMGZBJ+ad4+irWr/0FUAob5rN6H8jm1gvctL6MYCwkOhkGgOFAe0hZ1OMv+TIhEvb6Hw3auT1lzrlfB8+dVZ+ocVY2IYd9++44YyLx37ouf3BQBOeah5XIXmGZbJ6jnd6RNcYJQ2uFADX0QK4tNiojxnjufQGuO286h2VmfrEW0FOPr2OGzdlMBvuWhAPwItdd/RrcgEGA8+ckXHthxlW/ABcjFgieViLuNILr0NHNR3Kebf25xJ2H60po0oOMo0ReRKNAwJwSYjLWS4hxGQ7VsDHvRDjQDTdlb4Ud4nSLMjf0Fn4z54Y/Y83ro8F69m4dWpa6Y1FcYiSgrSKQ+3jcb7SmbFzNSbb9L2q7+gwWeYEwjviblug0vNkIy5Y28qlVgnZ7Vkeh9ZqtYvQmvaRyjnWcco5UgNreXF7I+uzg3UovNdKJaZRmQPQMbUvow0=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(376002)(396003)(39860400002)(346002)(136003)(46966006)(36840700001)(44832011)(4326008)(6916009)(186003)(83380400001)(26005)(316002)(7696005)(6666004)(16526019)(478600001)(86362001)(70206006)(70586007)(2616005)(1076003)(81166007)(356005)(54906003)(336012)(36756003)(426003)(2906002)(82310400003)(8936002)(5660300002)(8676002)(36860700001)(47076005)(82740400003)(36900700001);
+ SFS:(4636009)(136003)(346002)(376002)(39860400002)(396003)(36840700001)(46966006)(2616005)(316002)(7696005)(186003)(426003)(86362001)(26005)(16526019)(47076005)(336012)(4326008)(6666004)(44832011)(82740400003)(36860700001)(5660300002)(36756003)(356005)(82310400003)(83380400001)(478600001)(81166007)(70206006)(54906003)(70586007)(8936002)(1076003)(8676002)(6916009)(2906002)(16393002)(32563001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jun 2021 07:00:59.4705 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 912e0d4f-7733-4115-da9f-08d934825331
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jun 2021 07:01:04.9114 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3b3c053b-0757-4cba-ea95-08d93482566f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT067.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT033.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5101
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5066
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,154 +119,131 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add missing settings for SQC bits. And correct some confusing logics
-around active wgp bitmap calculation.
+Fix TCP hang when a lightweight invalidation happens on Navi1x.
 
-Change-Id: If4992e175fd61d5609b00328cbe21f487517d039
+Change-Id: I5000fefa9ec48a5e863372d298354bed1562b332
 Signed-off-by: Evan Quan <evan.quan@amd.com>
 ---
 V1->V2:
-  - restore correct tcp_harvest setting for NV10 and NV12
-  - move asic type guard upper layer for better readability
+  - Alex: use ARRAY_SIZE instead of hard code
+  - limit the changes for Navi1x only
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 103 ++++++++++++++-----------
- 1 file changed, 57 insertions(+), 46 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 95 ++++++++++++++++++++++++++
+ 1 file changed, 95 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-index 15ae9e33b925..384b95fbad8b 100644
+index 384b95fbad8b..b170d5fb8993 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -5090,47 +5090,50 @@ static void gfx_v10_0_tcp_harvest(struct amdgpu_device *adev)
- 		4 + /* RMI */
- 		1); /* SQG */
- 
--	if (adev->asic_type == CHIP_NAVI10 ||
--	    adev->asic_type == CHIP_NAVI14 ||
--	    adev->asic_type == CHIP_NAVI12) {
--		mutex_lock(&adev->grbm_idx_mutex);
--		for (i = 0; i < adev->gfx.config.max_shader_engines; i++) {
--			for (j = 0; j < adev->gfx.config.max_sh_per_se; j++) {
--				gfx_v10_0_select_se_sh(adev, i, j, 0xffffffff);
--				wgp_active_bitmap = gfx_v10_0_get_wgp_active_bitmap_per_sh(adev);
--				/*
--				 * Set corresponding TCP bits for the inactive WGPs in
--				 * GCRD_SA_TARGETS_DISABLE
--				 */
--				gcrd_targets_disable_tcp = 0;
--				/* Set TCP & SQC bits in UTCL1_UTCL0_INVREQ_DISABLE */
--				utcl_invreq_disable = 0;
--
--				for (k = 0; k < max_wgp_per_sh; k++) {
--					if (!(wgp_active_bitmap & (1 << k))) {
--						gcrd_targets_disable_tcp |= 3 << (2 * k);
--						utcl_invreq_disable |= (3 << (2 * k)) |
--							(3 << (2 * (max_wgp_per_sh + k)));
--					}
-+	mutex_lock(&adev->grbm_idx_mutex);
-+	for (i = 0; i < adev->gfx.config.max_shader_engines; i++) {
-+		for (j = 0; j < adev->gfx.config.max_sh_per_se; j++) {
-+			gfx_v10_0_select_se_sh(adev, i, j, 0xffffffff);
-+			wgp_active_bitmap = gfx_v10_0_get_wgp_active_bitmap_per_sh(adev);
-+			/*
-+			 * Set corresponding TCP bits for the inactive WGPs in
-+			 * GCRD_SA_TARGETS_DISABLE
-+			 */
-+			gcrd_targets_disable_tcp = 0;
-+			/* Set TCP & SQC bits in UTCL1_UTCL0_INVREQ_DISABLE */
-+			utcl_invreq_disable = 0;
-+
-+			for (k = 0; k < max_wgp_per_sh; k++) {
-+				if (!(wgp_active_bitmap & (1 << k))) {
-+					gcrd_targets_disable_tcp |= 3 << (2 * k);
-+					gcrd_targets_disable_tcp |= 1 << (k + (max_wgp_per_sh * 2));
-+					utcl_invreq_disable |= (3 << (2 * k)) |
-+						(3 << (2 * (max_wgp_per_sh + k)));
- 				}
--
--				tmp = RREG32_SOC15(GC, 0, mmUTCL1_UTCL0_INVREQ_DISABLE);
--				/* only override TCP & SQC bits */
--				tmp &= 0xffffffff << (4 * max_wgp_per_sh);
--				tmp |= (utcl_invreq_disable & utcl_invreq_disable_mask);
--				WREG32_SOC15(GC, 0, mmUTCL1_UTCL0_INVREQ_DISABLE, tmp);
--
--				tmp = RREG32_SOC15(GC, 0, mmGCRD_SA_TARGETS_DISABLE);
--				/* only override TCP bits */
--				tmp &= 0xffffffff << (2 * max_wgp_per_sh);
--				tmp |= (gcrd_targets_disable_tcp & gcrd_targets_disable_mask);
--				WREG32_SOC15(GC, 0, mmGCRD_SA_TARGETS_DISABLE, tmp);
- 			}
--		}
- 
--		gfx_v10_0_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff);
--		mutex_unlock(&adev->grbm_idx_mutex);
-+			tmp = RREG32_SOC15(GC, 0, mmUTCL1_UTCL0_INVREQ_DISABLE);
-+			/* only override TCP & SQC bits */
-+			if (adev->asic_type == CHIP_NAVI14)
-+				tmp &= 0xff000000;
-+			else
-+				tmp &=0xfff00000;
-+			tmp |= (utcl_invreq_disable & utcl_invreq_disable_mask);
-+			WREG32_SOC15(GC, 0, mmUTCL1_UTCL0_INVREQ_DISABLE, tmp);
-+
-+			tmp = RREG32_SOC15(GC, 0, mmGCRD_SA_TARGETS_DISABLE);
-+			/* only override TCP & SQC bits */
-+			if (adev->asic_type == CHIP_NAVI14)
-+				tmp &= 0xfffc0000;
-+			else
-+				tmp &= 0xffff8000;
-+			tmp |= (gcrd_targets_disable_tcp & gcrd_targets_disable_mask);
-+			WREG32_SOC15(GC, 0, mmGCRD_SA_TARGETS_DISABLE, tmp);
-+		}
+@@ -7971,6 +7971,97 @@ static void gfx_v10_0_update_fine_grain_clock_gating(struct amdgpu_device *adev,
  	}
-+
-+	gfx_v10_0_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff);
-+	mutex_unlock(&adev->grbm_idx_mutex);
  }
  
- static void gfx_v10_0_get_tcc_info(struct amdgpu_device *adev)
-@@ -7408,7 +7411,10 @@ static int gfx_v10_0_hw_init(void *handle)
- 	 * init golden registers and rlc resume may override some registers,
- 	 * reconfig them here
- 	 */
--	gfx_v10_0_tcp_harvest(adev);
-+	if (adev->asic_type == CHIP_NAVI10 ||
-+	    adev->asic_type == CHIP_NAVI14 ||
-+	    adev->asic_type == CHIP_NAVI12)
-+		gfx_v10_0_tcp_harvest(adev);
- 
- 	r = gfx_v10_0_cp_resume(adev);
- 	if (r)
-@@ -9328,17 +9334,22 @@ static void gfx_v10_0_set_user_wgp_inactive_bitmap_per_sh(struct amdgpu_device *
- 
- static u32 gfx_v10_0_get_wgp_active_bitmap_per_sh(struct amdgpu_device *adev)
++static void gfx_v10_0_apply_medium_grain_clock_gating_workaround(struct amdgpu_device *adev)
++{
++	uint32_t reg_data = 0;
++	uint32_t reg_idx = 0;
++	uint32_t i;
++
++	const uint32_t tcp_ctrl_regs[] = {
++		mmCGTS_SA0_WGP00_CU0_TCP_CTRL_REG,
++		mmCGTS_SA0_WGP00_CU1_TCP_CTRL_REG,
++		mmCGTS_SA0_WGP01_CU0_TCP_CTRL_REG,
++		mmCGTS_SA0_WGP01_CU1_TCP_CTRL_REG,
++		mmCGTS_SA0_WGP02_CU0_TCP_CTRL_REG,
++		mmCGTS_SA0_WGP02_CU1_TCP_CTRL_REG,
++		mmCGTS_SA0_WGP10_CU0_TCP_CTRL_REG,
++		mmCGTS_SA0_WGP10_CU1_TCP_CTRL_REG,
++		mmCGTS_SA0_WGP11_CU0_TCP_CTRL_REG,
++		mmCGTS_SA0_WGP11_CU1_TCP_CTRL_REG,
++		mmCGTS_SA0_WGP12_CU0_TCP_CTRL_REG,
++		mmCGTS_SA0_WGP12_CU1_TCP_CTRL_REG,
++		mmCGTS_SA1_WGP00_CU0_TCP_CTRL_REG,
++		mmCGTS_SA1_WGP00_CU1_TCP_CTRL_REG,
++		mmCGTS_SA1_WGP01_CU0_TCP_CTRL_REG,
++		mmCGTS_SA1_WGP01_CU1_TCP_CTRL_REG,
++		mmCGTS_SA1_WGP02_CU0_TCP_CTRL_REG,
++		mmCGTS_SA1_WGP02_CU1_TCP_CTRL_REG,
++		mmCGTS_SA1_WGP10_CU0_TCP_CTRL_REG,
++		mmCGTS_SA1_WGP10_CU1_TCP_CTRL_REG,
++		mmCGTS_SA1_WGP11_CU0_TCP_CTRL_REG,
++		mmCGTS_SA1_WGP11_CU1_TCP_CTRL_REG,
++		mmCGTS_SA1_WGP12_CU0_TCP_CTRL_REG,
++		mmCGTS_SA1_WGP12_CU1_TCP_CTRL_REG
++	};
++
++	const uint32_t tcp_ctrl_regs_nv12[] = {
++		mmCGTS_SA0_WGP00_CU0_TCP_CTRL_REG,
++		mmCGTS_SA0_WGP00_CU1_TCP_CTRL_REG,
++		mmCGTS_SA0_WGP01_CU0_TCP_CTRL_REG,
++		mmCGTS_SA0_WGP01_CU1_TCP_CTRL_REG,
++		mmCGTS_SA0_WGP02_CU0_TCP_CTRL_REG,
++		mmCGTS_SA0_WGP02_CU1_TCP_CTRL_REG,
++		mmCGTS_SA0_WGP10_CU0_TCP_CTRL_REG,
++		mmCGTS_SA0_WGP10_CU1_TCP_CTRL_REG,
++		mmCGTS_SA0_WGP11_CU0_TCP_CTRL_REG,
++		mmCGTS_SA0_WGP11_CU1_TCP_CTRL_REG,
++		mmCGTS_SA1_WGP00_CU0_TCP_CTRL_REG,
++		mmCGTS_SA1_WGP00_CU1_TCP_CTRL_REG,
++		mmCGTS_SA1_WGP01_CU0_TCP_CTRL_REG,
++		mmCGTS_SA1_WGP01_CU1_TCP_CTRL_REG,
++		mmCGTS_SA1_WGP02_CU0_TCP_CTRL_REG,
++		mmCGTS_SA1_WGP02_CU1_TCP_CTRL_REG,
++		mmCGTS_SA1_WGP10_CU0_TCP_CTRL_REG,
++		mmCGTS_SA1_WGP10_CU1_TCP_CTRL_REG,
++		mmCGTS_SA1_WGP11_CU0_TCP_CTRL_REG,
++		mmCGTS_SA1_WGP11_CU1_TCP_CTRL_REG,
++	};
++
++	const uint32_t sm_ctlr_regs[] = {
++		mmCGTS_SA0_QUAD0_SM_CTRL_REG,
++		mmCGTS_SA0_QUAD1_SM_CTRL_REG,
++		mmCGTS_SA1_QUAD0_SM_CTRL_REG,
++		mmCGTS_SA1_QUAD1_SM_CTRL_REG
++	};
++
++	if (adev->asic_type == CHIP_NAVI12) {
++		for (i = 0; i < ARRAY_SIZE(tcp_ctrl_regs_nv12); i++) {
++			reg_idx = adev->reg_offset[GC_HWIP][0][mmCGTS_SA0_WGP00_CU0_TCP_CTRL_REG_BASE_IDX] +
++				  tcp_ctrl_regs_nv12[i];
++			reg_data = RREG32(reg_idx);
++			reg_data |= CGTS_SA0_WGP00_CU0_TCP_CTRL_REG__TCPI_LS_OVERRIDE_MASK;
++			WREG32(reg_idx, reg_data);
++		}
++	} else {
++		for (i = 0; i < ARRAY_SIZE(tcp_ctrl_regs); i++) {
++			reg_idx = adev->reg_offset[GC_HWIP][0][mmCGTS_SA0_WGP00_CU0_TCP_CTRL_REG_BASE_IDX] +
++				  tcp_ctrl_regs[i];
++			reg_data = RREG32(reg_idx);
++			reg_data |= CGTS_SA0_WGP00_CU0_TCP_CTRL_REG__TCPI_LS_OVERRIDE_MASK;
++			WREG32(reg_idx, reg_data);
++		}
++	}
++
++	for (i = 0; i < ARRAY_SIZE(sm_ctlr_regs); i++) {
++		reg_idx = adev->reg_offset[GC_HWIP][0][mmCGTS_SA0_QUAD0_SM_CTRL_REG_BASE_IDX] +
++			  sm_ctlr_regs[i];
++		reg_data = RREG32(reg_idx);
++		reg_data &= ~CGTS_SA0_QUAD0_SM_CTRL_REG__SM_MODE_MASK;
++		reg_data |= 2 << CGTS_SA0_QUAD0_SM_CTRL_REG__SM_MODE__SHIFT;
++		WREG32(reg_idx, reg_data);
++	}
++}
++
+ static int gfx_v10_0_update_gfx_clock_gating(struct amdgpu_device *adev,
+ 					    bool enable)
  {
--	u32 data, wgp_bitmask;
--	data = RREG32_SOC15(GC, 0, mmCC_GC_SHADER_ARRAY_CONFIG);
--	data |= RREG32_SOC15(GC, 0, mmGC_USER_SHADER_ARRAY_CONFIG);
-+	u32 disabled_mask =
-+		~amdgpu_gfx_create_bitmask(adev->gfx.config.max_cu_per_sh >> 1);
-+	u32 efuse_setting = 0;
-+	u32 vbios_setting = 0;
+@@ -7987,6 +8078,10 @@ static int gfx_v10_0_update_gfx_clock_gating(struct amdgpu_device *adev,
+ 		gfx_v10_0_update_3d_clock_gating(adev, enable);
+ 		/* ===  CGCG + CGLS === */
+ 		gfx_v10_0_update_coarse_grain_clock_gating(adev, enable);
 +
-+	efuse_setting = RREG32_SOC15(GC, 0, mmCC_GC_SHADER_ARRAY_CONFIG);
-+	efuse_setting &= CC_GC_SHADER_ARRAY_CONFIG__INACTIVE_WGPS_MASK;
-+	efuse_setting >>= CC_GC_SHADER_ARRAY_CONFIG__INACTIVE_WGPS__SHIFT;
- 
--	data &= CC_GC_SHADER_ARRAY_CONFIG__INACTIVE_WGPS_MASK;
--	data >>= CC_GC_SHADER_ARRAY_CONFIG__INACTIVE_WGPS__SHIFT;
-+	vbios_setting = RREG32_SOC15(GC, 0, mmGC_USER_SHADER_ARRAY_CONFIG);
-+	vbios_setting &= GC_USER_SHADER_ARRAY_CONFIG__INACTIVE_WGPS_MASK;
-+	vbios_setting >>= GC_USER_SHADER_ARRAY_CONFIG__INACTIVE_WGPS__SHIFT;
- 
--	wgp_bitmask =
--		amdgpu_gfx_create_bitmask(adev->gfx.config.max_cu_per_sh >> 1);
-+	disabled_mask |= efuse_setting | vbios_setting;
- 
--	return (~data) & wgp_bitmask;
-+	return (~disabled_mask);
- }
- 
- static u32 gfx_v10_0_get_cu_active_bitmap_per_sh(struct amdgpu_device *adev)
++		if ((adev->asic_type >= CHIP_NAVI10) &&
++		     (adev->asic_type <= CHIP_NAVI12))
++			gfx_v10_0_apply_medium_grain_clock_gating_workaround(adev);
+ 	} else {
+ 		/* CGCG/CGLS should be disabled before MGCG/MGLS
+ 		 * ===  CGCG + CGLS ===
 -- 
 2.29.0
 
