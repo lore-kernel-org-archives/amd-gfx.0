@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1EC9AC48BC2
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 39A6AC4743C
 	for <amd-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 17:13:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E716860FF2
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 17:13:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E716860FF2
+	by mail.kernel.org (Postfix) with ESMTPS id 05A116102A
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 17:13:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 05A116102A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 912C16E270;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9806D6E2BC;
 	Mon, 21 Jun 2021 17:13:42 +0000 (UTC)
 Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2059.outbound.protection.outlook.com [40.107.220.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 67BA46E270
+ (mail-co1nam11on2065.outbound.protection.outlook.com [40.107.220.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D42376E270
  for <amd-gfx@lists.freedesktop.org>; Mon, 21 Jun 2021 17:13:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YItqBkbAsw71rWpge1Tbw+UFGH1b7VYzyaHXM0KGgDkt0Zv+tRCBXFEyNKGl3x58wdC2YvIgwPYNOald8d/VRjQb20nBIvWY2TtMTFqZKSLhOzNNdpICSQ89vU6ahuSqNw89nJENvgOgyrVVr/JKfMdfuhdLhIUp17irwQcTEHKdJd2FA242u+ZNEIKA8Q2A0S8sXNEGv10aSkU26taGUp6TYHaMJx7lu2E4uMlw+koo0BZbO/s+IO/CytYddzLaHF0fAEthRo797nSHc4DZamBtjZ3HrzIMYypYlV/NSLw9iaDd8RaFKgR05G4crGP6JRKO7tKAxjnKRC39llBVsw==
+ b=nWU9cQgtql99pYOka2+W3YyXTIMUo0f4fq1Y+hVCBxL3kPFZBmoRlqyTpyj3jYQjf9zSn8xWKGLmws++IrtfV8r2QxiDvY3UKrLXZc4tHg1QiOwXgPzRtAroJLw3KPKD4OuKf6VTDvJCyIZeA++FvgWTS/KRegYg6HrPotzUw3YbT2yjVBMGHOdu9zzrxFKj0raTh8XlhirKlWLBeZn8WeDOp27+hrfKcif2O9Apkp1zja0KXqlEvEYmdvnBv0lRj0wpSL+URip62JIC6Hi2cJeOg5JlPC0zMaY9weH8Vs/vanitkVGNHBGDfH5DTtUt2m3ixTWxncAIoX+hokMVcg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8wDHqnmP9DYQpAmVvuqoRMatR+WdN+Yq77IgmWJnpTQ=;
- b=Mh4J6wxlKo+QOjSNZNrfxR3pcXCQZjjXguiow02OCZW/3pNGdNQFN91Fsz0u3cn5ZiHEuvD2pzXMnEBvCJSvqZjx61W71t3sJpkFRPZ/zXxREbqd7kYdrUemli9KJ/rrSgu+dYP11NqqKPBltVWAWhKXeIz5r5sjoBkxFhWk4ITxnm9w4CZp4L0PpujHsGZpCX4s1ZOurdit+XyU5u8f+wrIKK6YecwUZfvUUz8qkHD2qxrMKURRC832cvCdcQZXVDm7KB73ju95OncK5PJ60R3KV+Z6VR4Xmlo3TYisGu0QRhbO8rj5i+QApWv1npYLQns8l9CPafO5eokt1x4U3g==
+ bh=flB+eerWLqEvet0b6gwuywejJV8yGcduNDiqLYfHdiY=;
+ b=mhwYe6KGK3WIOUc+ZxPoZBnimXUgwSmvt093JEcZ2q7g5XW9rw+1yqqvtIDDzfEYCLPGygai9XDEt1HdMDMap+HRjFMrqWHEkXPJYK/e69j675b3EnszQW481j5WhssKbONeJtBlYnG/TPsobxhOz+v8aldFyjfU+c/xyVcJuggQz6UM7i0wMd8cACgQ8R02QLHPD55VkGoSappkoSHl19hYV0pB1nUJVcRIH3QaLdfcw6FqfTxGp0afi5BTQO0fgjRQlc1ztljnCqvkGb4fQ8wVE0YFRV0mbJ/3gONllniHchQamFu3IVKwVuJleAPqPG1D8rKx0anVGxnAUG9Uzw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8wDHqnmP9DYQpAmVvuqoRMatR+WdN+Yq77IgmWJnpTQ=;
- b=3OhsOUUPtbfhGRztc/YDiJypZWuj8StxaLsx9jvct1fsnLFMPvOW0TuhIiMJJMls7BWygNqBPtlloyjqnbdJEwwuZPChtDhNhYwHIh5eaQ1dhNZRVbRtxkF6zLX7iUqQSc0859ErhLFdFQZ8I3pHXZ87dQGSu5412LQfBgobJvI=
+ bh=flB+eerWLqEvet0b6gwuywejJV8yGcduNDiqLYfHdiY=;
+ b=tCqedueXM3gg2u3jLVlhi8vyD6d7JxxWkagMGD8jeWsZeDwXQBcetYs859WqmehpoQ0Mk0KJEVaNPagmJnhFO8eobvApN2PcAgqRR4I+qPWl91t4owVOxAKaCwtS8P7PNO+wvZf2l/abrjcW4P99VTCE2CU0r81sLgvDELQdr/Q=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -45,16 +45,16 @@ Received: from DM6PR12MB3962.namprd12.prod.outlook.com (2603:10b6:5:1ce::21)
  by DM6PR12MB2985.namprd12.prod.outlook.com (2603:10b6:5:116::18) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.16; Mon, 21 Jun
- 2021 17:13:39 +0000
+ 2021 17:13:40 +0000
 Received: from DM6PR12MB3962.namprd12.prod.outlook.com
  ([fe80::142:82e3:7e9d:55a0]) by DM6PR12MB3962.namprd12.prod.outlook.com
  ([fe80::142:82e3:7e9d:55a0%6]) with mapi id 15.20.4242.023; Mon, 21 Jun 2021
- 17:13:39 +0000
+ 17:13:40 +0000
 From: Luben Tuikov <luben.tuikov@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 42/43] drm/amdgpu: Use a single loop
-Date: Mon, 21 Jun 2021 13:12:20 -0400
-Message-Id: <20210621171221.5720-43-luben.tuikov@amd.com>
+Subject: [PATCH 43/43] drm/amdgpu: Correctly disable the I2C IP block
+Date: Mon, 21 Jun 2021 13:12:21 -0400
+Message-Id: <20210621171221.5720-44-luben.tuikov@amd.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210621171221.5720-1-luben.tuikov@amd.com>
 References: <20210621171221.5720-1-luben.tuikov@amd.com>
@@ -67,53 +67,53 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from localhost.localdomain (108.162.138.69) by
  YT1PR01CA0054.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2e::23) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4242.15 via Frontend Transport; Mon, 21 Jun 2021 17:13:07 +0000
+ 15.20.4242.15 via Frontend Transport; Mon, 21 Jun 2021 17:13:08 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 87e1f0f7-e1f3-48f9-aadc-08d934d7d71e
+X-MS-Office365-Filtering-Correlation-Id: c3683595-bd78-4834-5b0d-08d934d7d776
 X-MS-TrafficTypeDiagnostic: DM6PR12MB2985:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB2985A9EDFC983B3D337348AD990A9@DM6PR12MB2985.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2276;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB29857E26DE49CFFF959B4C94990A9@DM6PR12MB2985.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:935;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: /+ahEJ9d61vNlUBN0db9TkUX0Yac33Fu1IyJwyRpdSwIcxKFpyqJsybqiYqp8XTZp095DxEDHLVe3s9gg/VkoDuFLbdveg5gptNd5/s3t3rKn0QbjJX3ms/p18WJQKOwk0/GwENwVLLc5rKB5r2ZG8BkT2E4PJH35oWoA7YltUB6lErlqczz9zLpH/MSSC4J4oWmY7lQN54Ni87gqU3qGChTTsRtjzrPOvy/F0O6s803/g+uzSHrp5sgmXp0F/eyEA79XbWsUHSNDSLJ3f2PvmkkvBZqCTayN89hhbA4K4//Fno6LHp5U/3dxvHYbETF42jy7ZZFzs+7VIzSpajXRIBeDdTVCLQ3PZYDmIHV1DLmYJzIk2jRPKvv3sET0iAH2QrKZfpl8DVXyz6AUTpeGtmk3kgC0VaH4Xtr8cH7TmnziwFTcfMpQRlXN3eqbrsr8CvA8IT65+Jotzwku4UlwtENXR+irD5RNyUVURQvLpeWxlFQpLbOprmXmWvMXoGQvOiLNqOTvaDLp4vuxtDsv34sVU6y8/T7dNrJKz7C/QuPY5zx1qZ9/lWtBNI6N0H4uHpUYar7zJAimNFMzZ98TxFROSnng21GVE6EhNqNC101QFasNBOMYumBls5gyYtbSW+3nE9QsWNbO8RMrohhM1X1tcvFwp5y9GLt7cqYuidLjXk/rzKunnj7W4w6ZYdN
+X-Microsoft-Antispam-Message-Info: vLRD1hhjVNFoZIzmUE0rUhEzQmIj35diP3b/RMu31hWW/xlY9pb/hfWY0yc33rJ8Qg8X3R+zCi8TdfDZFyglRllrpVHRW/0icvBB/2Xf+kP5Tk9UXZEav9fwtDjL+xwaBM30tA/pWEzgvyi1/hnXIgCQD2Ca0nB82C1GryAsHkZpYzQgfN+RZshqIs2fok0SWq2SxJdCjNf5oPW7HnAXlgWxkPmuCuC/z/oNDrpD/rUtmsve/BxoSeCsNm9PcF9RgPRvJ1xtw1PyUQmgnDPNyWBS/PA9QWclww0LSEjlVuG6SsAzBPjpmYgeGmlj7OkXuTTG63PYc3UKjWybrMuz5OtNejd/XOVesowGWjZNTXNDepOePAk8y3qEyJYUgP/vDIhw6gu8OUuUcQ+ul/vX+EC1RkFRvUGUIt5RjtlQmAv9dlY0lAH0fgJ8XVST9x82VzS+DlAHYNRWJwWl2oE1V60PCKRGwGMrYj7XPZI27CrlEedcXrST6ldqHqYD0Msa+9mVxtTdQGDpwLu16xni9k1RI4ziWZbdUGbujrCscAlBlL/C5ccJi1J/j/HhHJNS6Jr8sEM3wt1GG2eOaeVyG0Brd+uLdlQ2Joe9L7iwR6Oe2aOPjiHWFKNF+X0/HKLOaoGBKOAPixOKl7kyuWcIdIYEZZz26faYvk3J0sKo8RUAJ8dTYcoPaI2/474M/jVZ
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB3962.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(4636009)(346002)(39860400002)(376002)(136003)(396003)(366004)(6666004)(55236004)(8676002)(316002)(6506007)(6486002)(54906003)(44832011)(8936002)(478600001)(66476007)(66946007)(956004)(2616005)(6512007)(66556008)(2906002)(52116002)(36756003)(38100700002)(38350700002)(86362001)(5660300002)(186003)(4326008)(1076003)(83380400001)(26005)(16526019)(6916009)(69590400013);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?QPn+lrQ7QnW8lZ2N/Kr0o9EwaWosPjPwEoPSwllqOuwFAZM8uvpnRNz/3Wdm?=
- =?us-ascii?Q?fmTw8I52GpuoOgNZXT9L2Ce0skQ9iQRMcVioXTZ55c7ktTGSgxgH5fKdfyey?=
- =?us-ascii?Q?/8TQJR2JzR0jteyuO38gqufm9tnhR9RqxfrIvy7noALj65odckd/lLShNlSE?=
- =?us-ascii?Q?xqvyDX+SQMvZtF0fR+bd3zSyrilc0Ln8ljBmVbf8quZE4Kujs6tRNL9/ykku?=
- =?us-ascii?Q?28FeJGH+5nC9G3yVCGbIVhQWaOmPx1FlijeOrPdMFEdLNP7PXdGF9BVAu1Zp?=
- =?us-ascii?Q?GH90eojNYwZ8AM0tpSSeOFyzYb+HGP8PunVQJxAQon6MntpUZHUmVA5YXqN6?=
- =?us-ascii?Q?LrsHFp2U7Z+dJiDxFCczQQ+J4pN9brOLy484ThNug7vTpK3VIhQdMb9RwJby?=
- =?us-ascii?Q?Bv5PbH8ScA9keVk4BK3MOn8xxUEqXz+qGjPyZGhpZfDJ35Hn9By/eSUcCRvx?=
- =?us-ascii?Q?KHcC0D0qy5TdLfuSnIXaF7Sai6w9kEhu0ckv4ytzFG8pNkF+v4Cq68vw+LuV?=
- =?us-ascii?Q?K4dX5qzkkx9ob/KFIPdPSsnRPk6G80RGo10IiapDBroGrF2sbvHUVJ+UVCIk?=
- =?us-ascii?Q?5spAgkmad+W5zhb1lB+ig4WBIj+EknP8x2GLpz7zpIp3BYm7YJePMQiI7A/k?=
- =?us-ascii?Q?FCQvhUp1T2pjHdQcoBu5jm7BsVVPf2JvTTbYhmf6Dkr7K+MXIiIkvyzVPsoC?=
- =?us-ascii?Q?8M9hTi0h06EWWC1ynpVbObswI2sEnhieU0ztgxvQkyWLM39q2N+BPF5NUIsG?=
- =?us-ascii?Q?NnesCpd8VYxFVIxZ66LfC+90Cb+BYKCo3LsIDkw60J1cJOLTA0cVx3TbDJkF?=
- =?us-ascii?Q?714sRcbSY4x+nW3ZQlJSZwDhWjQn+BIC7d1W6vgHcq1Yia1xueQQQMuTbnGx?=
- =?us-ascii?Q?2sAJxPbDEsPBnDGP7w7mxX8PMVvDMxB1og58isFqJQ+ckLm2b/LobXp7WOTa?=
- =?us-ascii?Q?BlIDeZePtgE67eRwJOBBnWrTNZiRz//URHPQbHPluArJhK8W+LbS/2vDjTeH?=
- =?us-ascii?Q?x0AEDkT7zAxYxLno7NWkJSnxc9KrmT3jp4u2mZrGNqCvuJMWhldJ7ty7nR/N?=
- =?us-ascii?Q?vhOKGmHTcjc4v3UHncY+be+jzdmGnTJ4421DTJUCNv2gMy3x6MbybXpneQIf?=
- =?us-ascii?Q?xSzCnL7v3cpJSijN3lzhG0rF0W6/EFc/mOzrRWNxz3pSVBc0hv5PzRXrQeFT?=
- =?us-ascii?Q?6D5gE0hehRto1mz9s+gn46sr6EgF6tUsEKNPPuPgGmxX4hUrWVzs8d3MJ7Qe?=
- =?us-ascii?Q?Lvda4h7kOwHMVLCgX/styPOaBTIpgKXFaF2v2GVwyCE/ltRQ7fYkxsHe6+P9?=
- =?us-ascii?Q?b28ag7TsBVjopXWyp7jzB6a+?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?tfeV/B+sBe2Mehl19iEN/wr2FtEJj+XQCd+7wRT6hcyf3skRRjAVxT4cR51P?=
+ =?us-ascii?Q?IjfRUVPU21QgSIUW0Wn76+bI4u57XVhZr6H6HBD1xYml6Fl15se5QLKgtFvC?=
+ =?us-ascii?Q?jJqBENF6RHEzEenPWSdAo4mZoLpbUH9G30WRmbbxFkPz1PUSvKxe+d32HHiP?=
+ =?us-ascii?Q?hIj5Oh5mfNyavdwjDx6Njdrwb4Md59KWP49c4/4rCUSk6WFBFwtjv1Zft76/?=
+ =?us-ascii?Q?W6O4R7e1+thDUA0Ji52FdZxSwvfwHjFtKOMF4y6ddbHuF+o2MxlDLyVQWKg1?=
+ =?us-ascii?Q?SPU+G4S2bgc42+3/yZhPeZWHv46wRjbLF7Jf4eH803vVM5Tv5rlutRgbESeq?=
+ =?us-ascii?Q?RGin/j0fcHR249M2Gjy274z1XqneEsqO+eGxiLpUbkRCU7UpR0QdQ87aUym7?=
+ =?us-ascii?Q?H0Btyz35nrkOdWMxFXq4SVkD19NYPw/lAh8/tIp4WgNERLeRjAYTaXxhM4gi?=
+ =?us-ascii?Q?2fz/8q4jrh2DxwTFVN2GZfQwoPMK3VP3ESglLQV+Iv49fDOOn5rNp/OykErw?=
+ =?us-ascii?Q?kcqIm0OcwRoS7Xd4QwFyzwjB+VYXNWjbHlV+Q+pFfR/BvdelJzAurHDGfZ4X?=
+ =?us-ascii?Q?2gGOTEOGQg/4CeOZjk3dDk+1B0UO1BwHs7WSJjhnAzU3rRPFyAB63UiHyZbO?=
+ =?us-ascii?Q?wx41gM5G82coN5W7DBvXnNkV5WUsu41mSKkdsSw0tpmqktFqSST25C2vji5p?=
+ =?us-ascii?Q?LbNEyHBcyzxusfRKU1i3Vvl+8drexhgTeuG7da/lLHqmKg6JSWA8SeOkudJq?=
+ =?us-ascii?Q?QCuM0XOm4dcG++YjendQ9k1ZsmgDezVSKo0NaF8t0gI3k7L43iJejAJoOVZA?=
+ =?us-ascii?Q?Yav6MRXPABJTeW6i5rDXxylo3PMDDG4qAFTnQPjobU4VDU+3Slea+g02sSIu?=
+ =?us-ascii?Q?1k9oePIZNQkYMva40MW7bypp05biLpeX+pApgwyLVfb+oWsf5fzUU2E3YMLj?=
+ =?us-ascii?Q?GZGnDJaS0sMqgiN8SGmQXWXJ1wnLHcdtSzbUnoFNXiXVhijLrf6QJ1ggBnB+?=
+ =?us-ascii?Q?ssjZqILyWiRTCruhh9rRCWB3b0C+cNE62yS6SFPi1ZC37Ya7lsvc3w6fAGBJ?=
+ =?us-ascii?Q?5+F87R9gaafg+VsyY/zOkxSUEVlssEujPZ3Qx+nKgVo7JRLnr6tOzlor7YzA?=
+ =?us-ascii?Q?MHlCHD0rVN6E0DY203vivngO0J9pRwYuBgjpC6nBVuVe4H9AGZt5iD43+L73?=
+ =?us-ascii?Q?ANMSTmk6uY/JknU4nIe/JY8xJueGAhvjAECyQ6fx4HIJRA7ZWFZsUjPWuJT3?=
+ =?us-ascii?Q?pig3VihUs2VQG71avOWl9IG5sEOdia+5U2CnnGEgpg6xLPxXBfiUz5rjN+/E?=
+ =?us-ascii?Q?Vj/eFW31tJyldUMw1ID4T3h+?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 87e1f0f7-e1f3-48f9-aadc-08d934d7d71e
+X-MS-Exchange-CrossTenant-Network-Message-Id: c3683595-bd78-4834-5b0d-08d934d7d776
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3962.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jun 2021 17:13:08.2229 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jun 2021 17:13:08.8076 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Wk/6eSgrWy9DjkdZlnZH+3pTPFfx0SmR9pOy0IC7J2aSmQ9ozmANQQRBRL95RIz/
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3s/MQf/GxhFkIaBBTgN25WWSWxlrcJvILxKk9kO/D27wx0yFN39wzm5jpTJS/00B
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2985
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -134,103 +134,170 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In smu_v11_0_i2c_transmit() use a single loop to
-transmit bytes, instead of two nested loops.
+On long transfers to the EEPROM device,
+i.e. write, it is observed that the driver aborts
+the transfer.
+
+The reason for this is that the driver isn't
+patient enough--the IC_STATUS register's contents
+is 0x27, which is MST_ACTIVITY | TFE | TFNF |
+ACTIVITY. That is, while the transmission FIFO is
+empty, we, the I2C master device, are still
+driving the bus.
+
+Implement the correct procedure to disable
+the block, as described in the DesignWare I2C
+Databook, section 3.8.3 Disabling DW_apb_i2c on
+page 56. Now there are no premature aborts on long
+data transfers.
 
 Cc: Alexander Deucher <Alexander.Deucher@amd.com>
 Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
 Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
-Reviewed-by: Alexander Deucher <Alexander.Deucher@amd.com>
+Acked-by: Alexander Deucher <Alexander.Deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c | 72 ++++++++++------------
- 1 file changed, 34 insertions(+), 38 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c | 80 +++++++++++++++++-----
+ 1 file changed, 62 insertions(+), 18 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c b/drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c
-index 7f48ee020bc03e..751ea2517c4380 100644
+index 751ea2517c4380..7d74d6204d8d0a 100644
 --- a/drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c
 +++ b/drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c
-@@ -243,49 +243,45 @@ static uint32_t smu_v11_0_i2c_transmit(struct i2c_adapter *control,
- 	/* Clear status bits */
- 	smu_v11_0_i2c_clear_status(control);
+@@ -54,12 +54,48 @@ static void smu_v11_0_i2c_set_clock_gating(struct i2c_adapter *control, bool en)
+ 	WREG32_SOC15(SMUIO, 0, mmSMUIO_PWRMGT, reg);
+ }
+ 
++/* The T_I2C_POLL_US is defined as follows:
++ *
++ * "Define a timer interval (t_i2c_poll) equal to 10 times the
++ *  signalling period for the highest I2C transfer speed used in the
++ *  system and supported by DW_apb_i2c. For instance, if the highest
++ *  I2C data transfer mode is 400 kb/s, then t_i2c_poll is 25 us."  --
++ * DesignWare DW_apb_i2c Databook, Version 1.21a, section 3.8.3.1,
++ * page 56, with grammar and syntax corrections.
++ *
++ * Vcc for our device is at 1.8V which puts it at 400 kHz,
++ * see Atmel AT24CM02 datasheet, section 8.3 DC Characteristics table, page 14.
++ *
++ * The procedure to disable the IP block is described in section
++ * 3.8.3 Disabling DW_apb_i2c on page 56.
++ */
++#define I2C_SPEED_MODE_FAST     2
++#define T_I2C_POLL_US           25
++#define I2C_MAX_T_POLL_COUNT    1000
+ 
+-static void smu_v11_0_i2c_enable(struct i2c_adapter *control, bool enable)
++static int smu_v11_0_i2c_enable(struct i2c_adapter *control, bool enable)
+ {
+ 	struct amdgpu_device *adev = to_amdgpu_device(control);
+ 
+ 	WREG32_SOC15(SMUIO, 0, mmCKSVII2C_IC_ENABLE, enable ? 1 : 0);
++
++	if (!enable) {
++		int ii;
++
++		for (ii = I2C_MAX_T_POLL_COUNT; ii > 0; ii--) {
++			u32 en_stat = RREG32_SOC15(SMUIO,
++						   0,
++						   mmCKSVII2C_IC_ENABLE_STATUS);
++			if (REG_GET_FIELD(en_stat, CKSVII2C_IC_ENABLE_STATUS, IC_EN))
++				udelay(T_I2C_POLL_US);
++			else
++				return I2C_OK;
++		}
++
++		return I2C_ABORT;
++	}
++
++	return I2C_OK;
+ }
+ 
+ static void smu_v11_0_i2c_clear_status(struct i2c_adapter *control)
+@@ -81,8 +117,13 @@ static void smu_v11_0_i2c_configure(struct i2c_adapter *control)
+ 	reg = REG_SET_FIELD(reg, CKSVII2C_IC_CON, IC_RESTART_EN, 1);
+ 	reg = REG_SET_FIELD(reg, CKSVII2C_IC_CON, IC_10BITADDR_MASTER, 0);
+ 	reg = REG_SET_FIELD(reg, CKSVII2C_IC_CON, IC_10BITADDR_SLAVE, 0);
+-	/* Standard mode */
+-	reg = REG_SET_FIELD(reg, CKSVII2C_IC_CON, IC_MAX_SPEED_MODE, 2);
++	/* The values of IC_MAX_SPEED_MODE are,
++	 * 1: standard mode, 0 - 100 Kb/s,
++	 * 2: fast mode, <= 400 Kb/s, or fast mode plus, <= 1000 Kb/s,
++	 * 3: high speed mode, <= 3.4 Mb/s.
++	 */
++	reg = REG_SET_FIELD(reg, CKSVII2C_IC_CON, IC_MAX_SPEED_MODE,
++			    I2C_SPEED_MODE_FAST);
+ 	reg = REG_SET_FIELD(reg, CKSVII2C_IC_CON, IC_MASTER_MODE, 1);
+ 
+ 	WREG32_SOC15(SMUIO, 0, mmCKSVII2C_IC_CON, reg);
+@@ -404,7 +445,6 @@ static void smu_v11_0_i2c_abort(struct i2c_adapter *control)
+ 	DRM_DEBUG_DRIVER("I2C_Abort() Done.");
+ }
  
 -
- 	timeout_counter = jiffies + msecs_to_jiffies(20);
+ static bool smu_v11_0_i2c_activity_done(struct i2c_adapter *control)
+ {
+ 	struct amdgpu_device *adev = to_amdgpu_device(control);
+@@ -416,7 +456,6 @@ static bool smu_v11_0_i2c_activity_done(struct i2c_adapter *control)
+ 	reg_ic_enable_status = RREG32_SOC15(SMUIO, 0, mmCKSVII2C_IC_ENABLE_STATUS);
+ 	reg_ic_enable = RREG32_SOC15(SMUIO, 0, mmCKSVII2C_IC_ENABLE);
  
- 	while (numbytes > 0) {
- 		reg = RREG32_SOC15(SMUIO, 0, mmCKSVII2C_IC_STATUS);
--		if (REG_GET_FIELD(reg, CKSVII2C_IC_STATUS, TFNF)) {
--			do {
--				reg = REG_SET_FIELD(reg, CKSVII2C_IC_DATA_CMD, DAT, data[bytes_sent]);
 -
--				/* Final message, final byte, must
--				 * generate a STOP, to release the
--				 * bus, i.e. don't hold SCL low.
--				 */
--				if (numbytes == 1 && i2c_flag & I2C_M_STOP)
--					reg = REG_SET_FIELD(reg,
--							    CKSVII2C_IC_DATA_CMD,
--							    STOP, 1);
--
--				if (bytes_sent == 0 && i2c_flag & I2C_X_RESTART)
--					reg = REG_SET_FIELD(reg,
--							    CKSVII2C_IC_DATA_CMD,
--							    RESTART, 1);
--
--				/* Write */
--				reg = REG_SET_FIELD(reg, CKSVII2C_IC_DATA_CMD, CMD, 0);
--				WREG32_SOC15(SMUIO, 0, mmCKSVII2C_IC_DATA_CMD, reg);
--
--				/* Record that the bytes were transmitted */
--				bytes_sent++;
--				numbytes--;
--
--				reg = RREG32_SOC15(SMUIO, 0, mmCKSVII2C_IC_STATUS);
--
--			} while (numbytes &&  REG_GET_FIELD(reg, CKSVII2C_IC_STATUS, TFNF));
--		}
-+		if (!REG_GET_FIELD(reg, CKSVII2C_IC_STATUS, TFNF)) {
-+			/*
-+			 * We waited for too long for the transmission
-+			 * FIFO to become not-full.  Exit the loop
-+			 * with error.
-+			 */
-+			if (time_after(jiffies, timeout_counter)) {
-+				ret |= I2C_SW_TIMEOUT;
-+				goto Err;
-+			}
-+		} else {
-+			reg = REG_SET_FIELD(reg, CKSVII2C_IC_DATA_CMD, DAT,
-+					    data[bytes_sent]);
+ 	if ((REG_GET_FIELD(reg_ic_enable, CKSVII2C_IC_ENABLE, ENABLE) == 0) &&
+ 	    (REG_GET_FIELD(reg_ic_enable_status, CKSVII2C_IC_ENABLE_STATUS, IC_EN) == 1)) {
+ 		/*
+@@ -446,6 +485,8 @@ static bool smu_v11_0_i2c_activity_done(struct i2c_adapter *control)
  
+ static void smu_v11_0_i2c_init(struct i2c_adapter *control)
+ {
++	int res;
++
+ 	/* Disable clock gating */
+ 	smu_v11_0_i2c_set_clock_gating(control, false);
+ 
+@@ -453,7 +494,9 @@ static void smu_v11_0_i2c_init(struct i2c_adapter *control)
+ 		DRM_WARN("I2C busy !");
+ 
+ 	/* Disable I2C */
+-	smu_v11_0_i2c_enable(control, false);
++	res = smu_v11_0_i2c_enable(control, false);
++	if (res != I2C_OK)
++		smu_v11_0_i2c_abort(control);
+ 
+ 	/* Configure I2C to operate as master and in standard mode */
+ 	smu_v11_0_i2c_configure(control);
+@@ -466,21 +509,22 @@ static void smu_v11_0_i2c_init(struct i2c_adapter *control)
+ static void smu_v11_0_i2c_fini(struct i2c_adapter *control)
+ {
+ 	struct amdgpu_device *adev = to_amdgpu_device(control);
+-	uint32_t reg_ic_enable_status, reg_ic_enable;
++	u32 status, enable, en_stat;
++	int res;
+ 
+-	smu_v11_0_i2c_enable(control, false);
++	res = smu_v11_0_i2c_enable(control, false);
++	if (res != I2C_OK) {
++		status  = RREG32_SOC15(SMUIO, 0, mmCKSVII2C_IC_STATUS);
++		enable  = RREG32_SOC15(SMUIO, 0, mmCKSVII2C_IC_ENABLE);
++		en_stat = RREG32_SOC15(SMUIO, 0, mmCKSVII2C_IC_ENABLE_STATUS);
+ 
+-	/* Double check if disabled, else force abort */
+-	reg_ic_enable_status = RREG32_SOC15(SMUIO, 0, mmCKSVII2C_IC_ENABLE_STATUS);
+-	reg_ic_enable = RREG32_SOC15(SMUIO, 0, mmCKSVII2C_IC_ENABLE);
+-
+-	if ((REG_GET_FIELD(reg_ic_enable, CKSVII2C_IC_ENABLE, ENABLE) == 0) &&
+-	    (REG_GET_FIELD(reg_ic_enable_status,
+-			   CKSVII2C_IC_ENABLE_STATUS, IC_EN) == 1)) {
 -		/*
--		 * We waited too long for the transmission FIFO to become not-full.
--		 * Exit the loop with error.
--		 */
--		if (time_after(jiffies, timeout_counter)) {
--			ret |= I2C_SW_TIMEOUT;
--			goto Err;
-+			/* Final message, final byte, must generate a
-+			 * STOP to release the bus, i.e. don't hold
-+			 * SCL low.
-+			 */
-+			if (numbytes == 1 && i2c_flag & I2C_M_STOP)
-+				reg = REG_SET_FIELD(reg,
-+						    CKSVII2C_IC_DATA_CMD,
-+						    STOP, 1);
-+
-+			if (bytes_sent == 0 && i2c_flag & I2C_X_RESTART)
-+				reg = REG_SET_FIELD(reg,
-+						    CKSVII2C_IC_DATA_CMD,
-+						    RESTART, 1);
-+
-+			/* Write */
-+			reg = REG_SET_FIELD(reg, CKSVII2C_IC_DATA_CMD, CMD, 0);
-+			WREG32_SOC15(SMUIO, 0, mmCKSVII2C_IC_DATA_CMD, reg);
-+
-+			/* Record that the bytes were transmitted */
-+			bytes_sent++;
-+			numbytes--;
- 		}
+-		 * Nobody is using I2C engine, but engine remains active because
+-		 * someone missed to send STOP
++		/* Nobody is using the I2C engine, yet it remains
++		 * active, possibly because someone missed to send
++		 * STOP.
+ 		 */
++		DRM_DEBUG_DRIVER("Aborting from fini: status:0x%08x "
++				 "enable:0x%08x enable_stat:0x%08x",
++				 status, enable, en_stat);
+ 		smu_v11_0_i2c_abort(control);
  	}
  
 -- 
