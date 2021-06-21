@@ -2,51 +2,66 @@ Return-Path: <SRS0=3j8t=LP=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
-	SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1FE69C4743C
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 16:15:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DF7E4C49EA7
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 16:26:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DA2F761001
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 16:15:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DA2F761001
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 8C5CE61406
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 16:26:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8C5CE61406
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71C3C89BFC;
-	Mon, 21 Jun 2021 16:15:12 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C0AA88E9B;
- Mon, 21 Jun 2021 15:30:01 +0000 (UTC)
-IronPort-SDR: 6j8rbMGYkkTYrq5Ok7S7kkumVgT2Xg6s/RKHy8FHW8NDcGIEnwTjVc+yDnawgol5o+Vjrhu2P/
- 68igcjmoNnRw==
-X-IronPort-AV: E=McAfee;i="6200,9189,10022"; a="206813993"
-X-IronPort-AV: E=Sophos;i="5.83,289,1616482800"; d="scan'208";a="206813993"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jun 2021 08:30:01 -0700
-IronPort-SDR: DmfOhncdRAQBSCbNgWYdDJGHgyQJMwZ+3eDGpV6TC//5TbAAw2FrLBKqhYSC7Z9H5jBZCk25R6
- /uKPHIS9/+Ow==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.83,289,1616482800"; d="scan'208";a="641354549"
-Received: from pl-dbox.sh.intel.com (HELO pl-dbox) ([10.239.159.39])
- by fmsmga005.fm.intel.com with ESMTP; 21 Jun 2021 08:29:57 -0700
-Date: Mon, 21 Jun 2021 23:22:30 +0800
-From: Philip Li <philip.li@intel.com>
-To: kernel test robot <lkp@intel.com>
-Subject: Re: [kbuild-all] Re: [PATCH] drm/radeon: Fix NULL dereference when
- updating memory stats
-Message-ID: <20210621152230.GC158568@pl-dbox>
-References: <20210621005950.24734-1-mikel@mikelr.com>
- <202106212201.hFOl2yUx-lkp@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9C106E210;
+	Mon, 21 Jun 2021 16:26:39 +0000 (UTC)
+Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
+ [IPv6:2607:f8b0:4864:20::32f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90D796E20F;
+ Mon, 21 Jun 2021 16:26:38 +0000 (UTC)
+Received: by mail-ot1-x32f.google.com with SMTP id
+ v22-20020a0568301416b029044e2d8e855eso9094942otp.8; 
+ Mon, 21 Jun 2021 09:26:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=yoCwDUxZJP3Ut8z/hr4sZH2+48UBBB2zck9Vy5dLtgU=;
+ b=pM+MoLSU0LSJh98DQrRsTPmTh+95pmfRHHbTmKcyhP9ovDKRhZcvBC02S/55ftG/og
+ ruYrldynFgVUzXcJ5cpWd8IKQzedGdpH4I+1WfQpqdIufPWiWf72S0LDFysmflufYM4y
+ 4wEreRKEOPdT1VnnTfvE5bFAmShhQkzdbAuUs7Mj25c7MYRwZ3OzmCVuPeHzDrwJTziw
+ rDSCsQLsvjXiYpI4vGyZmIa5HkJhW6dIjnKxwkKEFk6v9qnpGL7nodqGKszpOHNAzcK7
+ CHo/Eex5i6JrEqmb0tCi7M7hZujczlekBuIR9iw4PZd+ucMGW5rl9ynK99eEaKLIYyZD
+ Yulg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=yoCwDUxZJP3Ut8z/hr4sZH2+48UBBB2zck9Vy5dLtgU=;
+ b=rpLOWEW/hasjgA9Xm3B42x2aQQjYRtOnqRz1lT/0pKMUBX4YmwMXoTB9U3j58OtKGa
+ 4RlmnSwSZHeEkoh5G6/Z/1TZVoosNkpLGrZ7fTbVC/53sK14Y7HpGdYMd54Kcp/JXKQl
+ ATq7pdVXFp+gJMYvvXOQFVMOoPojlcmMKKEax5uCYbbCOtPHQSjKnLUuwpH2pndkaovF
+ OuDdMrtdhHgucN2sD9MJTkLRikYyrkg2u1SPB/PgQRKayvnOIAC2GmzH4pveecaZR7Cu
+ aVY+ya75D+UdaGxviYMA2anQhOezpCbji0k50m8MObkIxVCzYhhyMx73W+pCjMOjL7/I
+ WeFg==
+X-Gm-Message-State: AOAM531fthivmoJdRgyFmv4XcQLN+y49SJ/IOy3C9eWoxU7OPf3D2Ovt
+ jMXzTntplABUlDvFRD0SssCzUx1rIrTdZBbpEr4=
+X-Google-Smtp-Source: ABdhPJyCAxXTkhs7AspbVL/ypAtCWxFLyf2+jHwkfD8UredO9wC4bcv1TQdaRkBRCIklexFbhcAJuyI6ee0+SeGt/NU=
+X-Received: by 2002:a9d:4581:: with SMTP id x1mr22307079ote.145.1624292797889; 
+ Mon, 21 Jun 2021 09:26:37 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <202106212201.hFOl2yUx-lkp@intel.com>
-X-Mailman-Approved-At: Mon, 21 Jun 2021 16:15:11 +0000
+References: <20210618123615.11456-1-ogabbay@kernel.org>
+ <CAKMK7uFOfoxbD2Z5mb-qHFnUe5rObGKQ6Ygh--HSH9M=9bziGg@mail.gmail.com>
+ <YNCN0ulL6DQiRJaB@kroah.com> <20210621141217.GE1096940@ziepe.ca>
+In-Reply-To: <20210621141217.GE1096940@ziepe.ca>
+From: Oded Gabbay <oded.gabbay@gmail.com>
+Date: Mon, 21 Jun 2021 19:26:14 +0300
+Message-ID: <CAFCwf10KvCh0zfHEHqYR-Na6KJh4j+9i-6+==QaMdHHpLH1yEA@mail.gmail.com>
+Subject: Re: [PATCH v3 1/2] habanalabs: define uAPI to export FD for DMA-BUF
+To: Jason Gunthorpe <jgg@ziepe.ca>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,129 +73,70 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- kbuild-all@lists.01.org, David Airlie <airlied@linux.ie>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Mikel Rychliski <mikel@mikelr.com>,
+Cc: Gal Pressman <galpress@amazon.com>, sleybo@amazon.com,
+ linux-rdma <linux-rdma@vger.kernel.org>, Greg KH <gregkh@linuxfoundation.org>,
+ Oded Gabbay <ogabbay@kernel.org>, Christoph Hellwig <hch@lst.de>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Doug Ledford <dledford@redhat.com>, Tomer Tayar <ttayar@habana.ai>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
  Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+ "airlied@gmail.com" <airlied@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Leon Romanovsky <leonro@nvidia.com>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jun 21, 2021 at 10:41:57PM +0800, kernel test robot wrote:
-> Hi Mikel,
-> 
-> Thank you for the patch! Yet something to improve:
-> 
-> [auto build test ERROR on next-20210618]
-> [cannot apply to linus/master v5.13-rc7 v5.13-rc6 v5.13-rc5 v5.13-rc7]
-> [If your patch is applied to the wrong git tree, kindly drop us a note.
-> And when submitting patch, we suggest to use '--base' as documented in
-> https://git-scm.com/docs/git-format-patch]
-> 
-> url:    https://github.com/0day-ci/linux/commits/Mikel-Rychliski/drm-radeon-Fix-NULL-dereference-when-updating-memory-stats/20210621-091140
-> base:    e71e3a48a7e89fa71fb70bf4602367528864d2ff
-> config: mips-allyesconfig (attached as .config)
-> compiler: mips-linux-gcc (GCC) 9.3.0
-> reproduce (this is a W=1 build):
->         wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
->         chmod +x ~/bin/make.cross
->         # https://github.com/0day-ci/linux/commit/e5ec8682645a1ee2553fcb073d000802c11d2cb5
->         git remote add linux-review https://github.com/0day-ci/linux
->         git fetch --no-tags linux-review Mikel-Rychliski/drm-radeon-Fix-NULL-dereference-when-updating-memory-stats/20210621-091140
->         git checkout e5ec8682645a1ee2553fcb073d000802c11d2cb5
->         # save the attached .config to linux build tree
->         COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-9.3.0 make.cross ARCH=mips 
-> 
-> If you fix the issue, kindly add following tag as appropriate
-> Reported-by: kernel test robot <lkp@intel.com>
-> 
-> All errors (new ones prefixed by >>):
-Sorry for the broken report, kindly ignore this, we will fix
-this asap.
+On Mon, Jun 21, 2021 at 5:12 PM Jason Gunthorpe <jgg@ziepe.ca> wrote:
+>
+> On Mon, Jun 21, 2021 at 03:02:10PM +0200, Greg KH wrote:
+> > On Mon, Jun 21, 2021 at 02:28:48PM +0200, Daniel Vetter wrote:
+>
+> > > Also I'm wondering which is the other driver that we share buffers
+> > > with. The gaudi stuff doesn't have real struct pages as backing
+> > > storage, it only fills out the dma_addr_t. That tends to blow up with
+> > > other drivers, and the only place where this is guaranteed to work is
+> > > if you have a dynamic importer which sets the allow_peer2peer flag.
+> > > Adding maintainers from other subsystems who might want to chime in
+> > > here. So even aside of the big question as-is this is broken.
+> >
+> > From what I can tell this driver is sending the buffers to other
+> > instances of the same hardware,
+>
+> A dmabuf is consumed by something else in the kernel calling
+> dma_buf_map_attachment() on the FD.
+>
+> What is the other side of this? I don't see any
+> dma_buf_map_attachment() calls in drivers/misc, or added in this patch
+> set.
 
-> 
-> >> make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/drivers/accessibility/speakup/speakup_decpc.ko', needed by '__modinst'.
-> >> make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/drivers/base/test/test_async_driver_probe.ko', needed by '__modinst'.
-> >> make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/drivers/i2c/i2c-stub.ko', needed by '__modinst'.
-> >> make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/drivers/mtd/tests/mtd_nandbiterrs.ko', needed by '__modinst'.
-> >> make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/drivers/mtd/tests/mtd_nandecctest.ko', needed by '__modinst'.
-> >> make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/drivers/mtd/tests/mtd_oobtest.ko', needed by '__modinst'.
-> >> make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/drivers/mtd/tests/mtd_pagetest.ko', needed by '__modinst'.
-> >> make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/drivers/mtd/tests/mtd_readtest.ko', needed by '__modinst'.
-> >> make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/drivers/mtd/tests/mtd_speedtest.ko', needed by '__modinst'.
-> >> make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/drivers/mtd/tests/mtd_stresstest.ko', needed by '__modinst'.
-> >> make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/drivers/mtd/tests/mtd_subpagetest.ko', needed by '__modinst'.
-> >> make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/drivers/mtd/tests/mtd_torturetest.ko', needed by '__modinst'.
-> >> make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/drivers/ntb/hw/epf/ntb_hw_epf.ko', needed by '__modinst'.
-> >> make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/drivers/scsi/mpi3mr/mpi3mr.ko', needed by '__modinst'.
-> >> make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/drivers/scsi/pcmcia/aha152x_cs.ko', needed by '__modinst'.
-> >> make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/drivers/scsi/pcmcia/fdomain_cs.ko', needed by '__modinst'.
-> >> make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/drivers/scsi/pcmcia/nsp_cs.ko', needed by '__modinst'.
-> >> make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/drivers/scsi/pcmcia/qlogic_cs.ko', needed by '__modinst'.
-> >> make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/drivers/scsi/pcmcia/sym53c500_cs.ko', needed by '__modinst'.
-> >> make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/drivers/scsi/qlogicfas408.ko', needed by '__modinst'.
->    make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/drivers/spi/spi-loopback-test.ko', needed by '__modinst'.
->    make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/drivers/staging/gdm724x/gdmtty.ko', needed by '__modinst'.
->    make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/drivers/staging/gdm724x/gdmulte.ko', needed by '__modinst'.
->    make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/drivers/staging/rtl8188eu/r8188eu.ko', needed by '__modinst'.
->    make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/drivers/staging/rtl8192e/rtl8192e/r8192e_pci.ko', needed by '__modinst'.
->    make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/drivers/staging/rtl8192e/rtllib.ko', needed by '__modinst'.
->    make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/drivers/staging/rtl8192e/rtllib_crypt_ccmp.ko', needed by '__modinst'.
->    make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/drivers/staging/rtl8192e/rtllib_crypt_tkip.ko', needed by '__modinst'.
->    make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/drivers/staging/rtl8192e/rtllib_crypt_wep.ko', needed by '__modinst'.
->    make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/drivers/staging/rtl8192u/r8192u_usb.ko', needed by '__modinst'.
->    make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/drivers/staging/rtl8723bs/r8723bs.ko', needed by '__modinst'.
->    make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/drivers/staging/vt6655/vt6655_stage.ko', needed by '__modinst'.
->    make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/drivers/staging/vt6656/vt6656_stage.ko', needed by '__modinst'.
->    make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/kernel/trace/preemptirq_delay_test.ko', needed by '__modinst'.
->    make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/lib/percpu_test.ko', needed by '__modinst'.
->    make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/lib/test_bitops.ko', needed by '__modinst'.
->    make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/lib/test_blackhole_dev.ko', needed by '__modinst'.
->    make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/lib/test_bpf.ko', needed by '__modinst'.
->    make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/lib/test_kmod.ko', needed by '__modinst'.
->    make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/lib/test_lockup.ko', needed by '__modinst'.
->    make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/lib/test_module.ko', needed by '__modinst'.
->    make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/lib/test_static_key_base.ko', needed by '__modinst'.
->    make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/lib/test_static_keys.ko', needed by '__modinst'.
->    make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/lib/test_ubsan.ko', needed by '__modinst'.
->    make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/lib/test_user_copy.ko', needed by '__modinst'.
->    make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/lib/test_vmalloc.ko', needed by '__modinst'.
->    make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/samples/configfs/configfs_sample.ko', needed by '__modinst'.
->    make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/samples/connector/cn_test.ko', needed by '__modinst'.
->    make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/samples/ftrace/sample-trace-array.ko', needed by '__modinst'.
->    make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/samples/kdb/kdb_hello.ko', needed by '__modinst'.
->    make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/samples/kfifo/bytestream-example.ko', needed by '__modinst'.
->    make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/samples/kfifo/dma-example.ko', needed by '__modinst'.
->    make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/samples/kfifo/inttype-example.ko', needed by '__modinst'.
->    make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/samples/kfifo/record-example.ko', needed by '__modinst'.
->    make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/samples/kmemleak/kmemleak-test.ko', needed by '__modinst'.
->    make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/samples/kprobes/kprobe_example.ko', needed by '__modinst'.
->    make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/samples/kprobes/kretprobe_example.ko', needed by '__modinst'.
->    make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/samples/rpmsg/rpmsg_client_sample.ko', needed by '__modinst'.
->    make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/samples/trace_events/trace-events-sample.ko', needed by '__modinst'.
->    make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/samples/trace_printk/trace-printk.ko', needed by '__modinst'.
->    make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/samples/vfio-mdev/mbochs.ko', needed by '__modinst'.
->    make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/samples/vfio-mdev/mdpy-fb.ko', needed by '__modinst'.
->    make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/samples/vfio-mdev/mdpy.ko', needed by '__modinst'.
->    make[2]: *** No rule to make target '/tmp/kernel/mips-allyesconfig/gcc-9.3.0/e5ec8682645a1ee2553fcb073d000802c11d2cb5/lib/modules/5.13.0-rc6-next-20210618+/kernel/samples/vfio-mdev/mtty.ko', needed by '__modinst'.
->    make[2]: Target '__modinst' not remade because of errors.
->    make[1]: *** [Makefile:1874: modules_install] Error 2
->    make: *** [Makefile:222: __sub-make] Error 2
->    make: Target 'modules_install' not remade because of errors.
-> 
-> ---
-> 0-DAY CI Kernel Test Service, Intel Corporation
-> https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
+This patch-set is only to enable the support for the exporter side.
+The "other side" is any generic RDMA networking device that will want
+to perform p2p communication over PCIe with our GAUDI accelerator.
+An example is indeed the mlnx5 card which has already integrated
+support for being an "importer".
 
+This is *not* used for communication with another GAUDI device. If I
+want to communicate with another GAUDI device, our userspace
+communications library will use our internal network links, without
+any need for dma-buf.
 
-> _______________________________________________
-> kbuild-all mailing list -- kbuild-all@lists.01.org
-> To unsubscribe send an email to kbuild-all-leave@lists.01.org
+Oded
 
+>
+> AFAIK the only viable in-tree other side is in mlx5 (look in
+> umem_dmabuf.c)
+>
+> Though as we already talked habana has their own networking (out of
+> tree, presumably) so I suspect this is really to support some out of
+> tree stuff??
+>
+> Jason
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
