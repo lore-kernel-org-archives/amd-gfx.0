@@ -2,103 +2,117 @@ Return-Path: <SRS0=3j8t=LP=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+X-Spam-Status: No, score=-11.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 250E9C4743C
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 16:37:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 07B10C4743C
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 17:12:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D69D56100A
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 16:37:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D69D56100A
+	by mail.kernel.org (Postfix) with ESMTPS id 9B0AB60FF2
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 17:12:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9B0AB60FF2
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F89589F53;
-	Mon, 21 Jun 2021 16:37:27 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2068.outbound.protection.outlook.com [40.107.237.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD9E889F53
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Jun 2021 16:37:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D04089C5E;
+	Mon, 21 Jun 2021 17:12:38 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam08on2087.outbound.protection.outlook.com [40.107.100.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13BBC89BFD
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Jun 2021 17:12:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nX383s4tXIejBxVIj41fDJQi/yzLfmw3R8vvHH64Z3LzryPz0JVyqoZnSqSgYBULGxrnPDGLljYaXVmYBDO2xOdXC9IBE5dW4kWXVjlBjknGSTpBiregqrlBSeADN7ixGMM2C56r6KcbOu1JnsKIfYGvGG7wDkxtSqEljh0HmmUGWACAbPoy3e71mY+80YelOf1KVUqxjAajAvuuVCCBXWwxCVq2npJfPD6yg5JotruaXk7vuAa9a5MlLbrre5hD5Dk+S569kGZWSlH5DZzE6dv+59dZaBehvJsXaL7Z7bJeCjTliUTJh/k/DRHHwX1vP0gaBE4LsVUqK991KOhUSw==
+ b=dJ14gjWU8ohiOmfPUTAxTKWf0hbFNwgQbOzj/a4DYVhN2JGsF8h7w7WU8oUVMyDWNpom/jc1fRG/YjmYtP1TOHIYKhZ2TjvPYzV6DPOHzCrYdkMKasNubnUlMTq4n99VHJQ31EqkD8VbB+4/BOaBH0K36lcAuIQkWkGu/q7ouK08gCm7gqrJxQjawTVMWr3XSw+AuZz2atDbF0wmELNargb7aFTTmtFEajByFbIy6PEmz0QQelkRNui9+4ZJya5pBiVkc3Am72wqlyGvozpAWBnqnJ3z/GXjR13FneimpbywFP4q/fPGcOh6obf0ZmA97V4Z2z18YCp0q+xMwHNAnA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=++DKKSeW7nMzaDJne70sGeUbsDpaY3/WozhrAsqjiFs=;
- b=fXzFDaWWR1MaWwuXP3tN9IBKIUyTw+V7uaWwcZO9uOMtswewMwYCw9DFFfigLiGHmY1NFmlZXHl3lJLE3nIDKPwCSQPftwStz6HgDkNn4kKLsOqMRtzONYochzaSbpncWz5fl6RgbkTdsbrUF+vKUi4CurZpN3ojtMBuAAKdJzjULSLsB78XY96z8vzV7Ba0nsd/lRF1enaRZ3g5rSE8m0Wz7coFCmwbejrPSOheMLWkjeAEwOndG+hrSQysBQVbmc7FK+nDJ9dpESPH9VtOiCi9x/zHkQYiYxfLeXAwOKady89sVRzgvd1jlSXjodpLVGuyy38Z7aMSCVVCJgrCRA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=hJfxJzn5qcAV2UsBxrYPKS386+saZATNh1EaS7oHzbg=;
+ b=mTB/2rX1toRXkMYqW3q5vCwLq8J6Y+4QyHG5uS9RpI68ZMFQcd/gsZDcPRjv/j9Vf5nqGcbcTyox1x1r9scDaqLzMekeo+s0mUXfJMQSefq/SsU1GI87T5Qm4b3sNSGO16dBF4vilHCbQXeWmqqBGrr8/oYWpLHxyQnQe+iomkab/M0vaKnKT7iHcVZpnHecggHCKEkVaHV4mZE1hIhRuRzlNYG10BaCEdQU2MkpX5DarabmBiJ7u59rZpeYQNveMI/WW2sqiqpWDVCbJ+c/i+HE5urd2lrc8voTbZxOJZL8KR81JfQ8tLyAZge4XVYrpvPk1wd9Y/Wtswfdizi3IQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=++DKKSeW7nMzaDJne70sGeUbsDpaY3/WozhrAsqjiFs=;
- b=CIlfLy9f8EquiGOsTw9fcorRbO12uLnFC+/4xkVI9UYEXcSqUzBk4ZzVW2R34VlnrpsbqB023LMwaFABbmsU5FQvb71Nz46nQnwsI//3prk+hiUQysnSJamqLxNNhS0Rh2Zd21LV5q83xpu0yXvYCKO/xjNxdpJ+MxgmP5H6CIk=
-Received: from DM5PR12CA0069.namprd12.prod.outlook.com (2603:10b6:3:103::31)
- by DM6PR12MB3449.namprd12.prod.outlook.com (2603:10b6:5:3b::24) with
+ bh=hJfxJzn5qcAV2UsBxrYPKS386+saZATNh1EaS7oHzbg=;
+ b=SA3BKIZBsHjXd0xrI4P4YQLNTe1SDh0fwnr7tXV0SiU5sHNiDIanhw5jNuMteUyG3gzIyRh02toa3yIOaUVhJZQR9291gG33n+kzd6kGvd36iBHhwSFEnXCyX64RVO/+cyc+AbtcYuUqrV9hXn597dfJv5NvrMt8UnO8545oOPw=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB3962.namprd12.prod.outlook.com (2603:10b6:5:1ce::21)
+ by DM5PR12MB1258.namprd12.prod.outlook.com (2603:10b6:3:79::14) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.18; Mon, 21 Jun
- 2021 16:37:23 +0000
-Received: from DM6NAM11FT052.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:103:cafe::d6) by DM5PR12CA0069.outlook.office365.com
- (2603:10b6:3:103::31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.15 via Frontend
- Transport; Mon, 21 Jun 2021 16:37:23 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT052.mail.protection.outlook.com (10.13.172.111) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4242.16 via Frontend Transport; Mon, 21 Jun 2021 16:37:23 +0000
-Received: from rocm-perf01.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Mon, 21 Jun
- 2021 11:37:22 -0500
-From: Joseph Greathouse <Joseph.Greathouse@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v2 umr 3/3] Enhance printing of page tables in AI+
-Date: Mon, 21 Jun 2021 11:37:12 -0500
-Message-ID: <20210621163712.17852-1-Joseph.Greathouse@amd.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210617192540.4272-3-Joseph.Greathouse@amd.com>
-References: <20210617192540.4272-3-Joseph.Greathouse@amd.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.19; Mon, 21 Jun
+ 2021 17:12:35 +0000
+Received: from DM6PR12MB3962.namprd12.prod.outlook.com
+ ([fe80::142:82e3:7e9d:55a0]) by DM6PR12MB3962.namprd12.prod.outlook.com
+ ([fe80::142:82e3:7e9d:55a0%6]) with mapi id 15.20.4242.023; Mon, 21 Jun 2021
+ 17:12:35 +0000
+From: Luben Tuikov <luben.tuikov@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 00/43] I2C fixes (revision 2)
+Date: Mon, 21 Jun 2021 13:11:38 -0400
+Message-Id: <20210621171221.5720-1-luben.tuikov@amd.com>
+X-Mailer: git-send-email 2.32.0
+X-Originating-IP: [108.162.138.69]
+X-ClientProxiedBy: YT1PR01CA0054.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2e::23) To DM6PR12MB3962.namprd12.prod.outlook.com
+ (2603:10b6:5:1ce::21)
 MIME-Version: 1.0
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from localhost.localdomain (108.162.138.69) by
+ YT1PR01CA0054.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2e::23) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4242.15 via Frontend Transport; Mon, 21 Jun 2021 17:12:34 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 5e0696a9-26f0-4adf-9d1d-08d934d2d8a1
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3449:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB344986D172C123D195C5DD22F90A9@DM6PR12MB3449.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1227;
+X-MS-Office365-Filtering-Correlation-Id: dfdbc74f-6508-4fd7-4279-08d934d7c344
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1258:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM5PR12MB125882EDDA84AB5117B48782990A9@DM5PR12MB1258.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:161;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: IIeeXZ2eMgKaven9bO8cLB5o3ctEXmi7QVz7YH2+1fmU1xJnTjTuUkez/fow9/+VAoucdJgprS9lvqNJ0Zgpan1b2/ed/B5ARBqXSbVkahq4b7i5tB/UXCFmbb3BbkQId8VSRq5WrCOoI52C/Fo83NBKNuiFhXRvHz4cA5j+PfhWrD6ZUkFRcYUg/5G5nKeBxuqdhZEu2t6W/JXXxpk6eqt0wvP9nBsOQVtanGjk4HIDXK01Lkq3Ed5H2GXT7qwVAPgEgThxtGlI22WxVEj0Nd01oC9P1OuL1H/1jOiXDPAR70vl9cN7zmarBRPa8r7bhPtqKqn+Z8Q9AC70bmKlr3RGhqnPl0nVNHvzphhkbSJ3X4ECAkG/nkS+t4+VfdhcNl/5OJ3CY1xtsfsgm//wBRtD+QdGXDBJLHMuu5Fuj3WQowFObFiXsZkpmrCKQICE6QCDgfTQgjnFdmt6DGnC7oh/Ef86lVtlfAqDQETa1x73MtP1oYE8BfcoJlbTDo1kXIvfP2xNrWUVyG5ceXKZoNZnHBMEn7x+ZJgTWMqy6VSx0mUXiT5weA0Hz2em42Edrh+UOl0LWxZb+Omynf7bU9/oVxqgdd/xvynhTxqCaG22j0QJAHZCEzDuvpEvzaN07OWTPjEShCEwN9gvV9z0K+ss/rsS4Nf7p9zWiETDe2myDNzSkFV6ZBJdDefmd19U
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(376002)(346002)(39860400002)(136003)(396003)(46966006)(36840700001)(6666004)(316002)(2616005)(426003)(186003)(5660300002)(86362001)(16526019)(8936002)(478600001)(70206006)(83380400001)(26005)(70586007)(356005)(54906003)(336012)(81166007)(36860700001)(8676002)(47076005)(82310400003)(4326008)(1076003)(82740400003)(36756003)(6916009)(7696005)(2906002)(36900700001);
+X-Microsoft-Antispam-Message-Info: A0KLpoU03Ju9Pz2uMV1VCMpL1QwBmKZMJxQLikn5nBfVJACQN56UnsWYRYs++iez6bHR9PvLdxAEa999iq1aholtO5yZDnqRaFKLQkIe2aB7wptxU5ilgpfEFYhjgedmUd3KP21Zz1P3rzt/3LWIhHAZ2iGjj2QtvuvoA7Clx0mAg4YpiduOaZPA/n8rgydSGqzWwU3QqSSzR9jeMucmrPp0W1QXM641QrYzaH4DdcLzgc5+5E/cPDxppDdTV6XYHvOrU05pWApekjGmAS2l7rBsxidedfn5oYHLWZfsSt7MhmnrLduurxftCcf3c4sOpYo7U1zSiz9lTbSnCMr4xQzCCK+RhsTQxy5Q13MnSFmeN9ITd8Z2gLxuA/UKY8YFsMjTwKCAD1uwn2p0lGYKtcz0dRtkyHr15+W09ahNSxnv5ePlj+Va1hpxtOS9BNJLHn/KHj8SQGCPk6BiAr5JGlwV4qHCEEm5VC0bjgyPmtM3UIsOsCbh9EYYK4gA4m6CrxnhkrY1Ty3LyL+d20yKOYPseNH/dyOGreIXPnSfluIoNshbHCzH9lTfjNf6b71aYkM6DJoD0R3ok1WeFgKk7SuQd+xDo2M5TbgKnLhT3nU97FZSIkR2ReWsCJfPj8j19KOiiRaWt+/183A41a7IrSHxSgBDfWXXyURqPQslpqTY7K5KdtpmPQCa59ibsqgnxO9uL9bagCoLUnx12NJWM/kvUKIOEpJgg+C30Nso2XVDRDyuIy906A8T7EQhzkZ6
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3962.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(396003)(346002)(136003)(376002)(39860400002)(2616005)(55236004)(956004)(478600001)(8676002)(8936002)(54906003)(44832011)(6506007)(38350700002)(38100700002)(36756003)(83380400001)(2906002)(6916009)(6486002)(52116002)(86362001)(316002)(5660300002)(966005)(186003)(66476007)(66556008)(6512007)(4326008)(16526019)(66946007)(26005)(1076003)(69590400013)(357404004);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?rKvaVK17uTGCTpzVwfvHFkFU8mNzZV5VbF1+QvJR5FyEFssiQ0Glo3uUBuV6?=
+ =?us-ascii?Q?cEq5ljnQJ0e3Ecub24lZPXt4pXPh9sYo+d4f+4MI2vKtjlDnAVKqHHBhzHxP?=
+ =?us-ascii?Q?8T0MhDczNXXPVntHnCtm3JSz1KjVKVZmjwk8lE8sOMSjSHGr08lUio6XjpjL?=
+ =?us-ascii?Q?8LnCcbKrZ/AZWUk2gv4pTXryqYaJ75zDEvczl+MzfIRoR7Cv7eh3O7P5L1na?=
+ =?us-ascii?Q?K2Ea98O6qQmgLITAIUP1uyp+Dr/EqvCh8xr7YS/Kk0wjmWbvyH2JEkdbrURF?=
+ =?us-ascii?Q?Ao6Z0nw9GTEA+3oNqlJLZbX/0mDGneBZX7+4KdShrC7tdt2off09owQu0M+L?=
+ =?us-ascii?Q?WOdqjSuPJl1/Qrfj/w105tySM0ZVPtgNkTvcOrt6BsfqqfhRlFsCa11SXumd?=
+ =?us-ascii?Q?9+8rVv3inm2aTXDpjR3oapSNn365PmQrZVr46DKtC7oOvC7oDd91bkBqiJdw?=
+ =?us-ascii?Q?YE3tMiurC+4Iqcduu/9YgVS5LP2yoVdxhe/kX9lveTT9EB3iGkv6Tuled8Hg?=
+ =?us-ascii?Q?ojy+G738yA07KeBVuDEYdfPVPnRDa3kTaiRFvebE5EhOVE7czx9NiRzMctBW?=
+ =?us-ascii?Q?C9DNjMC5l/Z96Eg/REmwBX8AzU4nb870BvEzlflcfGCudjKGevhyn0oRIZpM?=
+ =?us-ascii?Q?E9F0j/ilFg0DV1XN0Cw14IQr8cNzM04zvU1Q5SQpyHqCb1CkHMh2HEq1GAZu?=
+ =?us-ascii?Q?1jm9AwJOfvxoaACeRchoYD2yMVGBgQoyoxgyzoYfJvrtZPehf8jKCgk0iSHO?=
+ =?us-ascii?Q?dIsKgCZzRsmWDYvnFvckLEyV436e9gaEr6A3LSbZjjgPNSSevaEUgdYUicBH?=
+ =?us-ascii?Q?YRYLM0uL6LwlXlVDH1jr0VpM/F4nP+9cfqy3UqGJaznkWRiZoFOSuGIwa/D7?=
+ =?us-ascii?Q?hofVsMg+rpRK7+h37qhyh3ui9dOhid0IyQhhtjIvimZkITIZnclMtWLCmR2V?=
+ =?us-ascii?Q?OQaM0gUMNjEP36YTup5Cf1NJngbNbns8N+inDEVr9FQRXbmRA+CNRGTfKp2q?=
+ =?us-ascii?Q?V/xW0YSwI28iRcoThUg1+vKEDDxArdBr0pKkIY5shW/YhrOSPizjo4pMlRu8?=
+ =?us-ascii?Q?3MtPYOW5bZaCp5GMJJn50xd7PEVXZtNjcWaBtCVkaJbSaE2z0IUob+sEgUhd?=
+ =?us-ascii?Q?5qOHFyyIJpnkgebmJrywK7HRb5DI0SRP0U5DDlj6XQutPkjKd/a4Au5i2T5K?=
+ =?us-ascii?Q?KIVDWVQ59ImG/X4zyCEte1PK+cYL0cq28ydmCn/F4ifes1DPj1BO6+creUs9?=
+ =?us-ascii?Q?/DSzxCnuTOJGBGhXmXwzxjUh6wWbXA97+vtf61MIfWd14nKhE4DHzuXu4NmA?=
+ =?us-ascii?Q?2++WoKgLbkHgF7TFroU8MyAs?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jun 2021 16:37:23.0803 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5e0696a9-26f0-4adf-9d1d-08d934d2d8a1
+X-MS-Exchange-CrossTenant-Network-Message-Id: dfdbc74f-6508-4fd7-4279-08d934d7c344
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3962.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jun 2021 17:12:34.9288 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT052.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3449
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: eEW9fDphcKHgmcGc661aMijBslAf159KfHvcwMHEwEye0Yvdnw3aTpF+A1o31Lf0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1258
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,299 +124,119 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tom.StDenis@amd.com, Joseph Greathouse <Joseph.Greathouse@amd.com>
+Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>,
+ Xinhui Pan <xinhui.pan@amd.com>, Guchun Chen <guchun.chen@amd.com>,
+ Lijo Lazar <Lijo.Lazar@amd.com>, Luben Tuikov <luben.tuikov@amd.com>,
+ Stanley Yang <Stanley.Yang@amd.com>,
+ Alexander Deucher <Alexander.Deucher@amd.com>,
+ John Clements <john.clements@amd.com>, Jean Delvare <jdelvare@suse.de>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Pulls print functions for GPUVM page tables on AI+ chips into their
-own set of generalized functions, so that we don't have subtly
-different printouts for different layers.
+I2C fixes from various people. Some RAS touch-ups too.
 
-Explicitly prints PDEs with P bit (which makes it a PTE) and makes
-the PTE with F bit set (further, which makes it a PDE) properly
-indent the next layer of the print.
+A rebased tree can also be found here: 
+https://gitlab.freedesktop.org/ltuikov/linux/-/commits/i2c-rework-luben
 
-Prints remaining fields from the PTE and PDE printouts, such as
-read/write/execute bits and MTYPE from PTE.
+Tested on Vega20 and Sienna Cichlid.
 
-v2: Correctly handle printing translate-further PTEs
+This first revision includes acks, squashes patch 33 by absolving it
+into earlier commits it fixes, and includes a new patch, patch 40 to
+deal with driver aborts seen on large writes to an I2C EEPROM device.
 
-Signed-off-by: Joseph Greathouse <Joseph.Greathouse@amd.com>
----
- src/lib/read_vram.c | 184 ++++++++++++++++++++++++++++++--------------
- 1 file changed, 127 insertions(+), 57 deletions(-)
+The second revision includes more Ack and R-B tags, and also includes
+a break up of revision 1 patch number 36, into 4 patches, in order to
+better show amdgpu_ras_eeprom.c rewrite.
 
-diff --git a/src/lib/read_vram.c b/src/lib/read_vram.c
-index 2998873..bea1232 100644
---- a/src/lib/read_vram.c
-+++ b/src/lib/read_vram.c
-@@ -415,6 +415,112 @@ static pte_fields_ai_t decode_pte_entry_ai(uint64_t pte_entry)
- 	return pte_fields;
- }
- 
-+static void print_pde_fields_ai(struct umr_asic *asic,
-+				pde_fields_ai_t pde_fields)
-+{
-+	asic->mem_funcs.vm_message(
-+			", PBA==0x%012" PRIx64 ", V=%" PRIu64
-+			", S=%" PRIu64 ", C=%" PRIu64
-+			", P=%" PRIu64 ", FS=%" PRIu64 "\n",
-+			pde_fields.pte_base_addr,
-+			pde_fields.valid,
-+			pde_fields.system,
-+			pde_fields.coherent,
-+			pde_fields.pte,
-+			pde_fields.frag_size);
-+}
-+static void print_base_ai(struct umr_asic *asic,
-+			  uint64_t pde_entry, uint64_t address,
-+			  uint64_t va_mask, pde_fields_ai_t pde_fields,
-+			  int is_base_not_pde)
-+{
-+	if (is_base_not_pde)
-+		asic->mem_funcs.vm_message("BASE");
-+	else
-+		asic->mem_funcs.vm_message("PDE");
-+	asic->mem_funcs.vm_message("=0x%016" PRIx64 ", VA=0x%012" PRIx64,
-+			pde_entry,
-+			address & va_mask);
-+	print_pde_fields_ai(asic, pde_fields);
-+}
-+
-+static void print_pde_ai(struct umr_asic *asic,
-+		const char * indentation, int pde_cnt,
-+		int page_table_depth, uint64_t prev_addr,
-+		uint64_t pde_idx, uint64_t pde_entry, uint64_t address,
-+		uint64_t va_mask, pde_fields_ai_t pde_fields)
-+{
-+	asic->mem_funcs.vm_message("%s ", &indentation[18-pde_cnt*3]);
-+	if (pde_fields.further)
-+		asic->mem_funcs.vm_message("PTE-FURTHER");
-+	else
-+		asic->mem_funcs.vm_message("PDE%d", page_table_depth - pde_cnt);
-+
-+	asic->mem_funcs.vm_message("@{0x%" PRIx64 "/%" PRIx64
-+			"}=0x%016" PRIx64 ", VA=0x%012" PRIx64,
-+			prev_addr,
-+			pde_idx,
-+			pde_entry,
-+			address & va_mask);
-+	print_pde_fields_ai(asic, pde_fields);
-+}
-+
-+static void print_pte_ai(struct umr_asic *asic,
-+		const char * indentation, int pde_cnt, uint64_t prev_addr,
-+		uint64_t pte_idx, uint64_t pte_entry, uint64_t address,
-+		uint64_t va_mask, pte_fields_ai_t pte_fields)
-+{
-+	if (asic == NULL) {
-+		asic->mem_funcs.vm_message("\\-> PTE");
-+	} else {
-+		asic->mem_funcs.vm_message("%s ",
-+				&indentation[18-pde_cnt*3]);
-+		if (pte_fields.pde)
-+			asic->mem_funcs.vm_message("PDE0-as-PTE");
-+		else
-+			asic->mem_funcs.vm_message("PTE");
-+		asic->mem_funcs.vm_message("@{0x%" PRIx64 "/%" PRIx64"}",
-+				prev_addr,
-+				pte_idx);
-+	}
-+	asic->mem_funcs.vm_message("=0x%016" PRIx64 ", VA=0x%012" PRIx64
-+			", PBA==0x%012" PRIx64 ", V=%" PRIu64
-+			", S=%" PRIu64 ", C=%" PRIu64 ", Z=%" PRIu64
-+			", X=%" PRIu64 ", R=%" PRIu64 ", W=%" PRIu64
-+			", FS=%" PRIu64 ", T=%" PRIu64 ", MTYPE=",
-+			pte_entry,
-+			address & va_mask,
-+			pte_fields.page_base_addr,
-+			pte_fields.valid,
-+			pte_fields.system,
-+			pte_fields.coherent,
-+			pte_fields.tmz,
-+			pte_fields.execute,
-+			pte_fields.read,
-+			pte_fields.write,
-+			pte_fields.fragment,
-+			pte_fields.prt,
-+			pte_fields.mtype);
-+	switch (pte_fields.mtype) {
-+		case 0:
-+			asic->mem_funcs.vm_message("NC\n");
-+			break;
-+		case 1:
-+			asic->mem_funcs.vm_message("RW\n");
-+			break;
-+		case 2:
-+			asic->mem_funcs.vm_message("CC\n");
-+			break;
-+		case 3:
-+			asic->mem_funcs.vm_message("UC\n");
-+			break;
-+		default:
-+			asic->mem_funcs.vm_message("Unknown (%" PRIu64")\n",
-+					pte_fields.mtype);
-+			break;
-+	}
-+}
-+
- /**
-  * umr_access_vram_ai - Access GPU mapped memory for GFX9+ platforms
-  */
-@@ -457,7 +563,7 @@ static int umr_access_vram_ai(struct umr_asic *asic, uint32_t vmid,
- 	unsigned char *pdst = dst;
- 	char *hub, *vm0prefix, *regprefix;
- 	unsigned hubid;
--	static const char *indentation = "               \\->";
-+	static const char *indentation = "                  \\->";
- 
- 	memset(&registers, 0, sizeof registers);
- 	memset(&pde_array, 0xff, sizeof pde_array);
-@@ -713,14 +819,7 @@ static int umr_access_vram_ai(struct umr_asic *asic, uint32_t vmid,
- 			va_mask <<= (total_vm_bits - top_pdb_bits);
- 
- 			if ((asic->options.no_fold_vm_decode || memcmp(&pde_fields, &pde_array[pde_cnt], sizeof pde_fields)) && asic->options.verbose)
--				asic->mem_funcs.vm_message("BASE=0x%016" PRIx64 ", VA=0x%012" PRIx64 ", PBA==0x%012" PRIx64 ", V=%" PRIu64 ", S=%" PRIu64 ", C=%" PRIu64 ", P=%" PRIu64 "\n",
--						pde_entry,
--						address & va_mask,
--						pde_fields.pte_base_addr,
--						pde_fields.valid,
--						pde_fields.system,
--						pde_fields.coherent,
--						pde_fields.pte);
-+				print_base_ai(asic, pde_entry, address, va_mask, pde_fields, 1);
- 			memcpy(&pde_array[pde_cnt++], &pde_fields, sizeof pde_fields);
- 
- 			current_depth = page_table_depth;
-@@ -783,27 +882,11 @@ static int umr_access_vram_ai(struct umr_asic *asic, uint32_t vmid,
- 					log2_ptb_entries = (9 + (page_table_block_size - pde0_block_fragment_size));
- 					ptb_mask = (1ULL << log2_ptb_entries) - 1;
- 					pte_page_mask = (1ULL << (pde0_block_fragment_size + 12)) - 1;
--					if (asic->options.verbose)
--						asic->mem_funcs.vm_message("pde0.pte = %u\npde0.block_fragment_size = %u\npage_table_block_size = %u\n",
--							(unsigned)pde_fields.pte,
--							(unsigned)pde0_block_fragment_size,
--							(unsigned)page_table_block_size);
- 				}
- 				if (!pde_fields.pte) {
- 					if ((asic->options.no_fold_vm_decode || memcmp(&pde_fields, &pde_array[pde_cnt], sizeof pde_fields)) && asic->options.verbose) {
--						asic->mem_funcs.vm_message("%s PDE%d@{0x%" PRIx64 "/%" PRIx64 "}=0x%016" PRIx64 ", VA=0x%012" PRIx64 ", PBA==0x%012" PRIx64 ", V=%" PRIu64 ", S=%" PRIu64 ", C=%" PRIu64 ", P=%" PRIu64 ", FS=%" PRIu64 "\n",
--								&indentation[15-pde_cnt*3],
--								page_table_depth - pde_cnt,
--								prev_addr,
--								pde_idx,
--								pde_entry,
--								address & va_mask,
--								pde_fields.pte_base_addr,
--								pde_fields.valid,
--								pde_fields.system,
--								pde_fields.coherent,
--								pde_fields.pte,
--								pde_fields.frag_size);
-+						print_pde_ai(asic, indentation, pde_cnt, page_table_depth, prev_addr,
-+								pde_idx, pde_entry, address, va_mask, pde_fields);
- 						memcpy(&pde_array[pde_cnt++], &pde_fields, sizeof pde_fields);
- 					}
- 				} else {
-@@ -870,21 +953,6 @@ pte_further:
- pde_is_pte:
- 			pte_fields = decode_pte_entry_ai(pte_entry);
- 
--			if (asic->options.verbose)
--				asic->mem_funcs.vm_message("%s %s@{0x%" PRIx64 "/%" PRIx64"}==0x%016" PRIx64 ", VA=0x%012" PRIx64 ", PBA==0x%012" PRIx64 ", V=%" PRIu64 ", S=%" PRIu64 ", P=%" PRIu64 ", FS=%" PRIu64 ", F=%" PRIu64 "\n",
--					&indentation[15-pde_cnt*3],
--					(pte_fields.further) ? "PTE-FURTHER" : "PTE",
--					prev_addr,
--					pte_idx,
--					pte_entry,
--					address & (((1ULL << page_table_block_size) - 1) << (12 + pde0_block_fragment_size)),
--					pte_fields.page_base_addr,
--					pte_fields.valid,
--					pte_fields.system,
--					pte_fields.prt,
--					pte_fields.fragment,
--					pte_fields.further);
--
- 			// How many bits in the address are used to index into the PTB?
- 			// If further is set, that means we jumped back to pde_is_pte,
- 			// and the va_mask was properly set down there.
-@@ -920,6 +988,17 @@ pde_is_pte:
- 				va_mask = va_mask & ~mask_to_ignore;
- 			}
- 
-+			if (asic->options.verbose) {
-+				if (pte_fields.further) {
-+					pde_fields = decode_pde_entry_ai(pte_entry);
-+					print_pde_ai(asic, indentation, pde_cnt, page_table_depth, prev_addr,
-+							pte_idx, pte_entry, address, va_mask, pde_fields);
-+				} else {
-+					print_pte_ai(asic, indentation, pde_cnt, prev_addr, pte_idx,
-+							pte_entry, address, va_mask, pte_fields);
-+				}
-+			}
-+
- 			uint32_t pte_block_fragment_size = 0;
- 			if (pte_fields.further) {
- 				// Going to go one more layer deep, so now we need the Further-PTE's
-@@ -946,6 +1025,7 @@ pde_is_pte:
- 
- 				// grab PTE base address and other data from the PTE that has the F bit set.
- 				pde_fields = decode_pde_entry_ai(pte_entry);
-+				pde_cnt++;
- 				further = 1;
- 				goto pte_further;
- 			}
-@@ -972,12 +1052,7 @@ pde_is_pte:
- 			pte_page_mask = (1ULL << (12 + pde0_block_fragment_size)) - 1;
- 
- 			if ((asic->options.no_fold_vm_decode || memcmp(&pde_array[0], &pde_fields, sizeof pde_fields)) && asic->options.verbose)
--				asic->mem_funcs.vm_message("PDE=0x%016" PRIx64 ", PBA==0x%012" PRIx64 ", V=%" PRIu64 ", S=%" PRIu64 ", FS=%" PRIu64 "\n",
--						page_table_base_addr,
--						pde_fields.pte_base_addr,
--						pde_fields.valid,
--						pde_fields.system,
--						pde_fields.frag_size);
-+				print_base_ai(asic, page_table_base_addr, address, -1, pde_fields, 0);
- 			memcpy(&pde_array[0], &pde_fields, sizeof pde_fields);
- 
- 			if (!pde_fields.valid)
-@@ -992,13 +1067,8 @@ pde_is_pte:
- 			pte_fields = decode_pte_entry_ai(pte_entry);
- 
- 			if (asic->options.verbose)
--				asic->mem_funcs.vm_message("\\-> PTE=0x%016" PRIx64 ", VA=0x%016" PRIx64 ", PBA==0x%012" PRIx64 ", F=%" PRIu64 ", V=%" PRIu64 ", S=%" PRIu64 "\n",
--					pte_entry,
--					address & ~((uint64_t)0xFFF),
--					pte_fields.page_base_addr,
--					pte_fields.fragment,
--					pte_fields.valid,
--					pte_fields.system);
-+				print_pte_ai(asic, NULL, 0, 0, 0, pte_entry, address,
-+						~((uint64_t)0xFFF), pte_fields);
- 
- 			if (pdst && !pte_fields.valid)
- 				goto invalid_page;
-@@ -1018,13 +1088,13 @@ next_page:
- 		if (asic->options.verbose) {
- 			if (pte_fields.system == 1) {
- 				asic->mem_funcs.vm_message("%s Computed address we will read from: %s:%" PRIx64 ", (reading: %" PRIu32 " bytes)\n",
--											&indentation[15-pde_cnt*3-3],
-+											&indentation[18-pde_cnt*3-3],
- 											"sys",
- 											start_addr,
- 											chunk_size);
- 			} else {
- 				asic->mem_funcs.vm_message("%s Computed address we will read from: %s:%" PRIx64 " (MCA:%" PRIx64"), (reading: %" PRIu32 " bytes)\n",
--											&indentation[15-pde_cnt*3-3],
-+											&indentation[18-pde_cnt*3-3],
- 											"vram",
- 											start_addr,
- 											start_addr + vm_fb_offset,
+Regards,
+Luben
+
+Aaron Rice (1):
+  drm/amdgpu: rework smu11 i2c for generic operation
+
+Alex Deucher (10):
+  drm/amdgpu: add a mutex for the smu11 i2c bus (v2)
+  drm/amdgpu/pm: rework i2c xfers on sienna cichlid (v4)
+  drm/amdgpu/pm: rework i2c xfers on arcturus (v4)
+  drm/amdgpu/pm: add smu i2c implementation for navi1x (v4)
+  drm/amdgpu: add new helper for handling EEPROM i2c transfers
+  drm/amdgpu/ras: switch ras eeprom handling to use generic helper
+  drm/amdgpu/ras: switch fru eeprom handling to use generic helper (v2)
+  drm/amdgpu: i2c subsystem uses 7 bit addresses
+  drm/amdgpu: add I2C_CLASS_HWMON to SMU i2c buses
+  drm/amdgpu: only set restart on first cmd of the smu i2c transaction
+
+Andrey Grodzovsky (6):
+  drm/amdgpu: Remember to wait 10ms for write buffer flush v2
+  dmr/amdgpu: Add RESTART handling also to smu_v11_0_i2c (VG20)
+  drm/amdgpu: Drop i > 0 restriction for issuing RESTART
+  drm/amdgpu: Send STOP for the last byte of msg only
+  drm/amd/pm: SMU I2C: Return number of messages processed
+  drm/amdgpu/pm: ADD I2C quirk adapter table
+
+Luben Tuikov (26):
+  drm/amdgpu: Fix Vega20 I2C to be agnostic (v2)
+  drm/amdgpu: Fixes to the AMDGPU EEPROM driver
+  drm/amdgpu: EEPROM respects I2C quirks
+  drm/amdgpu: I2C EEPROM full memory addressing
+  drm/amdgpu: RAS and FRU now use 19-bit I2C address
+  drm/amdgpu: Fix wrap-around bugs in RAS
+  drm/amdgpu: I2C class is HWMON
+  drm/amdgpu: RAS: EEPROM --> RAS
+  drm/amdgpu: Rename misspelled function
+  drm/amdgpu: RAS xfer to read/write
+  drm/amdgpu: EEPROM: add explicit read and write
+  drm/amd/pm: Extend the I2C quirk table
+  drm/amd/pm: Simplify managed I2C transfer functions
+  drm/amdgpu: Fix width of I2C address
+  drm/amdgpu: Return result fix in RAS
+  drm/amdgpu: Fix amdgpu_ras_eeprom_init()
+  drm/amdgpu: Simplify RAS EEPROM checksum calculations
+  drm/amdgpu: Use explicit cardinality for clarity
+  drm/amdgpu: Nerf buff
+  drm/amdgpu: Some renames
+  drm/amdgpu: Get rid of test function
+  drm/amdgpu: Optimize EEPROM RAS table I/O
+  drm/amdgpu: RAS EEPROM table is now in debugfs
+  drm/amdgpu: Fix koops when accessing RAS EEPROM
+  drm/amdgpu: Use a single loop
+  drm/amdgpu: Correctly disable the I2C IP block
+
+ drivers/gpu/drm/amd/amdgpu/Makefile           |    3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |    9 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c    |  239 ++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.h    |   37 +
+ .../gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c    |   32 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c       |  116 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h       |    1 +
+ .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c    | 1253 +++++++++++------
+ .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h    |   70 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c       |    2 +-
+ drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c    |  319 +++--
+ drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h       |    1 +
+ .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c |  238 +---
+ .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   |  118 ++
+ .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   |  241 +---
+ 15 files changed, 1685 insertions(+), 994 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.h
+
+Cc: Alexander Deucher <Alexander.Deucher@amd.com>
+Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
+Cc: Guchun Chen <guchun.chen@amd.com>
+Cc: Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: Jean Delvare <jdelvare@suse.de>
+Cc: John Clements <john.clements@amd.com>
+Cc: Lijo Lazar <Lijo.Lazar@amd.com>
+Cc: Stanley Yang <Stanley.Yang@amd.com>
+Cc: Xinhui Pan <xinhui.pan@amd.com>
+
+base-commit: 5d880fc07b8caaf734a066af61aef8d8c84da04c
 -- 
-2.20.1
-
+2.32.0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
