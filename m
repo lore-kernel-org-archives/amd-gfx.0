@@ -6,67 +6,69 @@ X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E4483C4743C
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 13:03:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3DBF3C4743C
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 13:03:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AF27361156
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 13:03:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AF27361156
+	by mail.kernel.org (Postfix) with ESMTPS id 006F361156
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 13:03:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 006F361156
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D24589E19;
-	Mon, 21 Jun 2021 13:03:31 +0000 (UTC)
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [IPv6:2a00:1450:4864:20::632])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FD2D89E19;
- Mon, 21 Jun 2021 13:03:31 +0000 (UTC)
-Received: by mail-ej1-x632.google.com with SMTP id gt18so28630322ejc.11;
- Mon, 21 Jun 2021 06:03:30 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E7F389FE8;
+	Mon, 21 Jun 2021 13:03:33 +0000 (UTC)
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [IPv6:2a00:1450:4864:20::62d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 49BC689FDB;
+ Mon, 21 Jun 2021 13:03:32 +0000 (UTC)
+Received: by mail-ej1-x62d.google.com with SMTP id gt18so28630442ejc.11;
+ Mon, 21 Jun 2021 06:03:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:subject:date:message-id:mime-version
+ h=from:to:subject:date:message-id:in-reply-to:references:mime-version
  :content-transfer-encoding;
- bh=RDB5CnfFEe47+mMXBp9Dz9bs9wkTyMiKMUMfQmnPkdA=;
- b=WR353TOhVbhUbwxifGbxF46swF8OjFP9AncMpa3BdLeaOaKmCC2JUPhfNq5ftHnCRA
- wJSciJAf74yi9I+tpRRf69CFh6veUmtotXAtQ8UU23pD44PDQpoIkkT0xqs7GCJgiWS0
- Cs8+p3f4TveJtviHTeX/x1i2lqWtVY7+5um78oLjUZxPU31vRst2MtoHcmAUEfUcWSed
- zsSsir/TTo5nihKfOV8svkZrcPwAyuKRYZLu59yi31wRB3sJ89TBW8g8g0ua1oaAb+I/
- FhvFvFD5A1/Dvhu3zvG45Wn4DpHpZNc7dmNEW1D74SJsKE909VJhGJDqYljTyohu6cER
- T8mg==
+ bh=TiHXO7JP6QF/TlhNPUn6GBOddFEqJ09ltmC4zViGvew=;
+ b=iWZJnpSYvoIc7VR5hoZ6pVw0UObiHwYug2ePRkJevmFtNx7p+1gE4bqfB745LFm7Do
+ fWDV001MXBdNnRQOwAibk1RS+vtfRDbm3wovAaVpDQKRRDQI+N2Ks77ji4FCT+ArjzR+
+ JFcEMen4CfeGNtoQaIZqOO4wixrPMT0K05m6rzDUfFdT2G26A7JFljxILQ8L9wDVuOA3
+ KroFRINXu3WvNJUEwUcxTwUKCbruDhwaxP+YoiO2ZVwhFbbht+OEXlwfHreGadXljVdn
+ Nolmeg9G7Aofz43IG4XkCAV+rkYsScUM9G2vTI0sYxZDLs1IcHH5pGpzaQJu2Uy4AEI1
+ sMzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=RDB5CnfFEe47+mMXBp9Dz9bs9wkTyMiKMUMfQmnPkdA=;
- b=a5G2JS3YtAgZ2/Ig6ClM2ognQ/buV5L/82yfMyU7vHhC8ZGZXm4d47BTTxuzJS9SZp
- TtfB/j5QAPtD1EE8oqeQn2yRvuSxkQYYzVDDZjugHGxirty4qd+vQdPvlt0DjzI2b85v
- gpIDg5oKeaMJXY8M7jRuB48I1JWBpeKViD+MmEN8MxwQxg0BukiS1tR3EMrI2HWkyjry
- JRqG0wZe8KR2FgF35WpKrnLRuvLFgZjL1DmxibxJmlH06qEdE7my7qrpnqeg+PLHC8yl
- ts2rdUUz1/vPEH4OcK1OVb3Zex+mcGDczZqg89yunApFZWCV2i4YD1Kk0ZKsyEwVxiuS
- eigw==
-X-Gm-Message-State: AOAM532DOhwCiGw3xdgifXn8u/AEbfppC5y6f/eO3ygn69xcxnKDr30A
- z2tnAPPUF8VGZkf0TU/Z385w/SEXDBc=
-X-Google-Smtp-Source: ABdhPJx8rX2dsSHDFdrnDvkrCbn9ozA0vl2/NcMUSoVpCD4/a/DBP8O2n1xUvpst062j7W2k2UJ2hQ==
-X-Received: by 2002:a17:906:6c92:: with SMTP id
- s18mr24282658ejr.246.1624280609659; 
- Mon, 21 Jun 2021 06:03:29 -0700 (PDT)
+ h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=TiHXO7JP6QF/TlhNPUn6GBOddFEqJ09ltmC4zViGvew=;
+ b=LetwoqbMAwTchwQtzpkGvMp7LpkK4Gqxm+Q6ubjfGqpll/yAyrg9Nef1CG9S+wdGeD
+ 5WmmO+tEu5akYf5cEAnUPd/IZeH2VWyK1Ivqib4Sc6iQ/Px8J5mHh9Hz99aGORDxYWUw
+ bjzWIAcvAPyiaZmTowzCkrOHXtf6N9oBt8k/e2XFlFEaptR3hun5oZFhBTUw1OiH5Dg2
+ sINppb8CSdDGq9Rl25+ETRxXQcn+V74D490+6drwVpyA1Tzz4ZpRGfebv5WBx0tQWXZg
+ eZKQ0nZSkCqrROiH6Y4C5T6wnjMIfY/lc73NYfMp2wOtN+yXyp5h+uviRpCAUk4Y/x5z
+ WJFA==
+X-Gm-Message-State: AOAM532YXW57NsCZ7b9dF/KZRRFNosWyiPDJo+D4Ji/leHnIcXHit99h
+ BwfbZNCtdrJXAV2CMuAVktB0xihZg08=
+X-Google-Smtp-Source: ABdhPJwJUO1G99EcRo8+JIZJJJ9Z6wwTZVLD0RMA36aaD0El+Rln+vOVjF7PNnM2L0oihYfvhRMGnA==
+X-Received: by 2002:a17:906:ce29:: with SMTP id
+ sd9mr4775332ejb.56.1624280611016; 
+ Mon, 21 Jun 2021 06:03:31 -0700 (PDT)
 Received: from abel.fritz.box ([2a02:908:1252:fb60:bd92:da7:4d23:8910])
- by smtp.gmail.com with ESMTPSA id w10sm5322375edv.34.2021.06.21.06.03.28
+ by smtp.gmail.com with ESMTPSA id w10sm5322375edv.34.2021.06.21.06.03.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 21 Jun 2021 06:03:29 -0700 (PDT)
+ Mon, 21 Jun 2021 06:03:30 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: dri-devel@lists.freedesktop.org, daniel.vetter@ffwll.ch,
  nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/3] drm/nouveau: wait for moving fence after pinning
-Date: Mon, 21 Jun 2021 15:03:26 +0200
-Message-Id: <20210621130328.11070-1-christian.koenig@amd.com>
+Subject: [PATCH 3/3] drm/amdgpu: wait for moving fence after pinning
+Date: Mon, 21 Jun 2021 15:03:28 +0200
+Message-Id: <20210621130328.11070-3-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20210621130328.11070-1-christian.koenig@amd.com>
+References: <20210621130328.11070-1-christian.koenig@amd.com>
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,18 +89,22 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 V2UgYWN0dWFsbHkgbmVlZCB0byB3YWl0IGZvciB0aGUgbW92aW5nIGZlbmNlIGFmdGVyIHBpbm5p
 bmcKdGhlIEJPIHRvIG1ha2Ugc3VyZSB0aGF0IHRoZSBwaW4gaXMgY29tcGxldGVkLgoKU2lnbmVk
 LW9mZi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgpDQzog
-c3RhYmxlQGtlcm5lbC5vcmcKLS0tCiBkcml2ZXJzL2dwdS9kcm0vbm91dmVhdS9ub3V2ZWF1X3By
-aW1lLmMgfCA4ICsrKysrKystCiAxIGZpbGUgY2hhbmdlZCwgNyBpbnNlcnRpb25zKCspLCAxIGRl
-bGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL25vdXZlYXUvbm91dmVhdV9w
-cmltZS5jIGIvZHJpdmVycy9ncHUvZHJtL25vdXZlYXUvbm91dmVhdV9wcmltZS5jCmluZGV4IDM0
-NzQ4ODY4NWY3NC4uNTkxNzM4NTQ1ZWJhIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vbm91
-dmVhdS9ub3V2ZWF1X3ByaW1lLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL25vdXZlYXUvbm91dmVh
-dV9wcmltZS5jCkBAIC05Myw3ICs5MywxMyBAQCBpbnQgbm91dmVhdV9nZW1fcHJpbWVfcGluKHN0
-cnVjdCBkcm1fZ2VtX29iamVjdCAqb2JqKQogCWlmIChyZXQpCiAJCXJldHVybiAtRUlOVkFMOwog
-Ci0JcmV0dXJuIDA7CisJaWYgKG52Ym8tPmJvLm1vdmluZykgeworCQlyZXQgPSBkbWFfZmVuY2Vf
-d2FpdChudmJvLT5iby5tb3ZpbmcsIHRydWUpOworCQlpZiAocmV0KQorCQkJbm91dmVhdV9ib191
-bnBpbihudmJvKTsKKwl9CisKKwlyZXR1cm4gcmV0OwogfQogCiB2b2lkIG5vdXZlYXVfZ2VtX3By
-aW1lX3VucGluKHN0cnVjdCBkcm1fZ2VtX29iamVjdCAqb2JqKQotLSAKMi4yNS4xCgpfX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcg
-bGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
-dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+c3RhYmxlQGtlcm5lbC5vcmcKLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+ZG1hX2J1Zi5jIHwgMTQgKysrKysrKysrKysrKy0KIDEgZmlsZSBjaGFuZ2VkLCAxMyBpbnNlcnRp
+b25zKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X2RtYV9idWYuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV9kbWFfYnVmLmMKaW5kZXggYmFhOTgwYTQ3N2Q5Li4zN2VjNTkzNjUwODAgMTAwNjQ0Ci0tLSBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kbWFfYnVmLmMKKysrIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RtYV9idWYuYwpAQCAtMjE0LDkgKzIxNCwyMSBA
+QCBzdGF0aWMgaW50IGFtZGdwdV9kbWFfYnVmX3BpbihzdHJ1Y3QgZG1hX2J1Zl9hdHRhY2htZW50
+ICphdHRhY2gpCiB7CiAJc3RydWN0IGRybV9nZW1fb2JqZWN0ICpvYmogPSBhdHRhY2gtPmRtYWJ1
+Zi0+cHJpdjsKIAlzdHJ1Y3QgYW1kZ3B1X2JvICpibyA9IGdlbV90b19hbWRncHVfYm8ob2JqKTsK
+KwlpbnQgcjsKIAogCS8qIHBpbiBidWZmZXIgaW50byBHVFQgKi8KLQlyZXR1cm4gYW1kZ3B1X2Jv
+X3BpbihibywgQU1ER1BVX0dFTV9ET01BSU5fR1RUKTsKKwlyID0gYW1kZ3B1X2JvX3Bpbihibywg
+QU1ER1BVX0dFTV9ET01BSU5fR1RUKTsKKwlpZiAocikKKwkJcmV0dXJuIHI7CisKKwlpZiAoYm8t
+PnRiby5tb3ZpbmcpIHsKKwkJciA9IGRtYV9mZW5jZV93YWl0KGJvLT50Ym8ubW92aW5nLCB0cnVl
+KTsKKwkJaWYgKHIpIHsKKwkJCWFtZGdwdV9ib191bnBpbihibyk7CisJCQlyZXR1cm4gcjsKKwkJ
+fQorCX0KKwlyZXR1cm4gMDsKIH0KIAogLyoqCi0tIAoyLjI1LjEKCl9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1n
+ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
+aWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
