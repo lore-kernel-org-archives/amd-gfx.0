@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 593F9C4743C
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A0743C48BC2
 	for <amd-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 17:12:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 26CFC60FF2
+	by mail.kernel.org (Postfix) with ESMTPS id 4D2F16054E
 	for <amd-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 17:12:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 26CFC60FF2
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4D2F16054E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B70D56E219;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CAACC6E21D;
 	Mon, 21 Jun 2021 17:12:44 +0000 (UTC)
 Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam08on2069.outbound.protection.outlook.com [40.107.100.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A84589BFD
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Jun 2021 17:12:40 +0000 (UTC)
+ (mail-bn8nam08on2080.outbound.protection.outlook.com [40.107.100.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0EE6989BFD
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Jun 2021 17:12:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aQqvyMozApkay8bk0ilPrJMvh9f+pF+UntRcVENJrcT7Ofmrn6xrMENP/1jSEmJlyBNhsRLSkdkjDqCNvE4wT2UE2Wlvwl6kUb8kV4A8L7A0zzITvdHxDyxTKrmqK/icpPW/xrr1XMpnxFSf7pIrQ5G+iqs1ALZjxSocbqC+IMToxnAAMUTn+4S6ZSSbs1GfEWRJZsRemdBYnAHEVjVbXZRIo/1NHToibcY4/uGRmVuMjvie9C9joUwe3tY9ec1D70AVst/xSfYpdqTU84DIwxmH/jVyAY3mLtE4sqwFQi9l5ANzZy/5oOCx2LiKOlgQTFXydi14GU01yjjr3x0eNw==
+ b=Mw+BOL5Ca+BW7PCEhTtnDkzQ3agMRpJZ4e7ATpthJgnjRKnfnd+A/rjoqaKS8+HQOT3fy9MOUl4UzjMZl3mB6+RRiknoWaufn0pCAvSBiy7c0qkMzikITnKtKyAQi8y3BikwAXDxq/xNkuMgrzSyB0FC6KZsLO05TMpsU8XTb0yHESBHgRNurqDGeYxtb6gnzVFle/6TQiQsOmvam6hVmlZjuUTLfMK5AVACTAUcHcCVgea98G09FegwykvPbh+fur5eg0tCnIIAlxfSWy/DpVf1spN/HoE4EeIJV3rBmsKMTO9GQRsaslgdOsxDo7GBok3KcYcHH1/qGF04+3qprA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=g1maoMhmHNrV/idgsmZu9RGm7aGeoRT9KQGiNyG68+o=;
- b=BIfbxrQQOLmGidjfvuvDbHSrxRmQcZjwTWWLPBd4zQuuIanj8FtN5UO2HYyDRrBxv6ZhtP8aGTUOjhdTrzBR5/ftcBgW3WpQ9GtP7WfNlh6iV2y6QkXCb3CfOsfavXxPUuCuyscbT7MTdAv+AluRR8e8Z1aaLEY7fkPqtZJajBv8RlFm5bL6tUktzab6rMH5gl091PrG6fJR6yNtNt78lJw+MLPFL5D7CJIPCZIxcGlm2TFCN8vSSTXXuMjYRU5gveb7NnXGvBhh1L610t6FMm+se78FYXkEhLZnmFjDij2E0GlQ+tY1YoRLstba1+KrQz9gEgVjTb7SSBFCz8v3bg==
+ bh=dh1G7BJP6p0SOI+NU+122a0gQO04PTRjimFBRA4SR0s=;
+ b=mYpmQojhhS3O5XXiZ3jT7N+UGFID9DToNQ283wp6Gr4xNMUjIO8pApZKTJl2zU6vbQWpKCYrl78ZscQgFhCv8beo6ZAC4nPIB+27mIO2o5bXRLcOGRYqcjlAWQZ6ne0pfWIE2sx+smulZQKsFVWo0GgnPJruuDAA2SBbtp5KiQFfBdGE+6JfFggb8aebOrV2whLYWGweRpwKA52LabcNQu/JxS1oVptImFdik0PN1XCWxVwSg9U8c2RNhPK7f1nH2cTZ7pfjVmXzo5u4/hYebOtLlArt0O3mAIOWccCmUQ1Dr861BhcqP4YCcTXl/UJxVHPHxX0boJYlYtYXz4mZaw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=g1maoMhmHNrV/idgsmZu9RGm7aGeoRT9KQGiNyG68+o=;
- b=ZoTmwd/EwjkpezawXyQPP7xVGi9SkYXB9NGBMnKI3AtN+nJeUa12S1g0nn441cXCS/sryjGttrMYsAO3wk1yWhkjSBM+R/SljEekbBrDU4KyK7GknnGS/2GoeqPDqG4WIcRjppFVkPPc0oYnqsSH0TvKSJUtdbyWvqlwTpYO6qY=
+ bh=dh1G7BJP6p0SOI+NU+122a0gQO04PTRjimFBRA4SR0s=;
+ b=F0+zpzu5ulV1n5CBSndgkw/73lV5coMR+ndoruSW5VISmJsuW76HTs9+Z5qzvLTD9rkPJ/ljMuhQzM6uxGHrnZfz793uPYz33w9Mzfg8Np6uYn7PMfkgd0l5DjZxVGIiY6/JTmI+R4E+nBL1DzhTBB3cg85VZPNnRv1AMUQkQUk=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -45,17 +45,17 @@ Received: from DM6PR12MB3962.namprd12.prod.outlook.com (2603:10b6:5:1ce::21)
  by DM5PR12MB1258.namprd12.prod.outlook.com (2603:10b6:3:79::14) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.19; Mon, 21 Jun
- 2021 17:12:38 +0000
+ 2021 17:12:37 +0000
 Received: from DM6PR12MB3962.namprd12.prod.outlook.com
  ([fe80::142:82e3:7e9d:55a0]) by DM6PR12MB3962.namprd12.prod.outlook.com
  ([fe80::142:82e3:7e9d:55a0%6]) with mapi id 15.20.4242.023; Mon, 21 Jun 2021
- 17:12:38 +0000
+ 17:12:37 +0000
 From: Luben Tuikov <luben.tuikov@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 05/43] drm/amdgpu: add new helper for handling EEPROM i2c
- transfers
-Date: Mon, 21 Jun 2021 13:11:43 -0400
-Message-Id: <20210621171221.5720-6-luben.tuikov@amd.com>
+Subject: [PATCH 04/43] drm/amdgpu/pm: add smu i2c implementation for navi1x
+ (v4)
+Date: Mon, 21 Jun 2021 13:11:42 -0400
+Message-Id: <20210621171221.5720-5-luben.tuikov@amd.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210621171221.5720-1-luben.tuikov@amd.com>
 References: <20210621171221.5720-1-luben.tuikov@amd.com>
@@ -70,51 +70,51 @@ Received: from localhost.localdomain (108.162.138.69) by
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
  15.20.4242.15 via Frontend Transport; Mon, 21 Jun 2021 17:12:37 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 427ad3b8-0a0b-4d64-0569-08d934d7c53f
+X-MS-Office365-Filtering-Correlation-Id: 3a7db2f6-abec-44cc-41f8-08d934d7c4c4
 X-MS-TrafficTypeDiagnostic: DM5PR12MB1258:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR12MB1258CE4D81FE2AA411399341990A9@DM5PR12MB1258.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-Microsoft-Antispam-PRVS: <DM5PR12MB1258CC3FC0C7D1BEC74F9B0A990A9@DM5PR12MB1258.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:663;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: DruYgOSg4JO/4fjKWJcEP2rl8QBClFyx6YHE+8om4yK1lGRX0l4dxcSQKY7LPJOpJAOQIAUTodWs9K48Zmd9B92idQ715aPq9h0ruaZY1EkITCcgUeXyUaJnrHVPcugp8XYYVXvFwS6UNxImr92egYPhjNy8/eIfXr+pXX0sFpa8QcxjUtZh/a4gb/VK6AdE+6RnzlIQsgkUYT+wWUX9vYXIIFN/dq78uKyqshMOEZYNk1sUzFUkC+cNkImbY0w5fgL17lOAjTfJavgvcv7IYQYhSx653qEW8ocfPJUdZyYUOBcGFrZ9IjilZ2g4UeCZJj5HBA/oLwwH5AvYBU540KAua5NeK6VS6bDbh/K/kBn+UVW6pGfity8I9D7r6xwrobGStIxkLKgi5LosSBKzGYVnTRvaG3FVgg6egYqXvwAG5FIK76+baj4q+dTu/u8/tQaQE45X2eXsibKIEe/3BwG1IU9a/wFnO2DwmdLGmnyY20Syb7oIgw/nfM2hzoJDCwQcum/M9303FCqxIXT3OKCK5fH6c22eaYb4XnKOFOf0nN7r9PVnz7HZFin7OxbSp3Vkg3Xf5NVMUMHDYddN5fNiUNYOOjcz+3PuWPzzNuLnEwHHDiZJxPBkDMS5wMus8DFTFZR3ICiy99yjMmzaDHzVCuKKzDmwqna8sfERd7n039cqEJMbqhnIMuqStOPG
+X-Microsoft-Antispam-Message-Info: 69NNBAndfhRfUL/mc9/kI/eKShFTPhkXKNhB2BuucJubGaOGC2yMJqI/2oavMaOeQlOqZ1rneV/udymY6CeAyAyTYNZg53ruMvGikDFT5pWNlFOteuDeetlk5DrnrdiQNpP6cavusYE/iM1+9jb1Ha7CTJMq9QcSFOot22/5NYI+LZ3NHj5G+FZKur5SS8AUy6QNlyC5l1Qwwhkb4AYXhk0p1j68/heQpSJgTYFWXy6Mu7fEgtXFvuCB7nBGF+MucIrkToWZLolTGkbjwcIjBQ9X2XTTlirsPxoFR0IXsQbMi5/Hy9Y+O+tVyn/kLckexyx7DiNJAxQqZSrA6Atl2HiwxuLu8AIztTvPfg1k88uhOHhXxv0nDBkL6Ke5EAONaPetJx5NTUKuKQ0JoTAAAGk5WzeHiN99RRPeRo44MzUjYYAnlmYuj3jNfqpCNTS7mjyKOVw++gKIsu4mz4POVROTv2eld9WnEHdtCbqBlsNtg8g9zAzYzwD1Gxauw0hNrGJ7o4stCItn0B3Je6oC++NhnAlr2DCidYrOL9osBoddqmTVeBQ9CGUQikrCpnmTSuMPVS3sAceCmt7cWrj1HsOsiKlBfDdeqZoUTUd7wrp18xD6H0gnLi0vJ/wJYZpCKtSsy1EIdQBcixUjNqspbWgKtrkqgqMrwVvMJXpf77LaPMNDnEowNgGpIm5qgkVQiGBHOc9+kS2e6btETAMaJg==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB3962.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(396003)(346002)(136003)(376002)(39860400002)(2616005)(55236004)(956004)(478600001)(8676002)(8936002)(54906003)(44832011)(6506007)(38350700002)(38100700002)(36756003)(83380400001)(2906002)(6916009)(6486002)(52116002)(6666004)(86362001)(316002)(5660300002)(186003)(66476007)(66556008)(6512007)(4326008)(16526019)(66946007)(26005)(1076003)(69590400013);
+ SFS:(4636009)(366004)(396003)(346002)(136003)(376002)(39860400002)(2616005)(55236004)(956004)(478600001)(8676002)(8936002)(54906003)(44832011)(6506007)(38350700002)(38100700002)(36756003)(83380400001)(2906002)(6916009)(6486002)(52116002)(6666004)(86362001)(316002)(5660300002)(186003)(66476007)(66556008)(6512007)(4326008)(16526019)(66946007)(26005)(1076003)(69590400013)(32563001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?LIU2AskINxYY9KcqOg2hKYv/wTpeZTcvYU/DP8VnV6FqQoRdOjLbNxdErvt/?=
- =?us-ascii?Q?6brKpvOttU4a5fkFaguKY+MNKFSXEV0PhdvvWqjke6H6+CWkSh6olojoX1cJ?=
- =?us-ascii?Q?0FAMliPS0quIqBuhf4yyRHoAavfp6thtbcG4PxuB4qP7O3toY/kATaJXjmRA?=
- =?us-ascii?Q?nfKZ134yQtyV9ME4V8vgv09vghvZ4320eiKpCfZtLCTxJtl8SJDxUpLCTJb2?=
- =?us-ascii?Q?v7gPi8QuXQCN8m5UdOH9ZtusgyLVF+JcreDo7+hXKm/aFdewQPTcovSmTFLP?=
- =?us-ascii?Q?dXEd5AWYUCAoglYXD4dM6d8W0EThFPR/6uAZGDgKAUNh/VmQ3Gzj2asBpph7?=
- =?us-ascii?Q?uzItk4hDOSeFxAjlm957wXeMzinBxbsniWJGtMNnmLbMMbdvzXppq5+igk/J?=
- =?us-ascii?Q?8Ii+BeNMXzIsWfz4fBSKaRuuiD8URJMwwLYLwP8NoNGveYtWVTIAQSpeTtwn?=
- =?us-ascii?Q?UbyX3B0g0RYCE6Ao0idpLXZPbix5ba0r/3fcHvL5Iz0QGZXIqm7G93BqbyPs?=
- =?us-ascii?Q?0ZAmlLfKv4QcwuwVxVY2NsM8q5JWLfRgPz1ldRSuD12BLVdIM/HG7MuVrYqQ?=
- =?us-ascii?Q?1zsiwxSTd5l6INfehuggMs2JS00ezH/MECZUohX8GFFjrrakA5aPLE+IyVDY?=
- =?us-ascii?Q?aR+1QhAthmknarPFna9JgHCBMDh9fo+t4C/UIWoiA4yxNXdxiXovX8nx2hmz?=
- =?us-ascii?Q?C7jvym+SdNZvRNpaP2ZQfsnZT71Iplu5Ftz1cCFgntlWtZSOWKe2jJgsTGYh?=
- =?us-ascii?Q?nIUAmivxlDu070JnGzJnqElmq6cKxJHrpAxOs4pD+R6sr/ZVHswBOLnWGBO/?=
- =?us-ascii?Q?HQYrInYFRv3CVy+vi1X33exqI6OekWWVXKzORIXid1y68kRylPvXnKoZyPmh?=
- =?us-ascii?Q?HnJcFQ/67iDGl+jqdBuuCIVNnbdSNDZhbZO29gvvOvE5ux8NswY74DFyj/cQ?=
- =?us-ascii?Q?1+gMCoXrvjoB098dAOpXhk1gpkgjlHJ/bJKN+Kmm1aLaelIJODg4bi3CF81o?=
- =?us-ascii?Q?8REMTqXChDkaFhPWlEWjZorY+tA+9Yfnymdii+vdU6lQDYAJojPtSaDarkQ9?=
- =?us-ascii?Q?SAgQAPGH280OSFJ439365ktiBY6eexHDsQA//WTamwTwGU5dnZ6nox7NGmCM?=
- =?us-ascii?Q?ZIxhdU+vSTJZMpcsf32xebB2iN+SnTzveTwqjGwcmlYY9C+F5gHaPZkDRIIv?=
- =?us-ascii?Q?m/bSxl6uReWg9FO43j+jDV9EdsE8ktSDM5+N/57BEU4SPAiusLnJbkG/BuoG?=
- =?us-ascii?Q?8PFHa7ujf6XEClnWFUEtka0PXeQVRd6p5eascefiPpYlqenv/8+v/wcZjDO9?=
- =?us-ascii?Q?ZJQ3q88uHMe1pFaDzGyapHB9?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?4c6a2BhwUedOeUYzTU/W1dNNZLmOwFueZ1T0RaY4ctm8vhArUS82An3nvuvt?=
+ =?us-ascii?Q?yYDiEGsspMPyfNsMK4sU6lO96UoNJ8DudQ8Uf6hP2+wwJMzolImMqYfDw6Wo?=
+ =?us-ascii?Q?UzK2dZyc+EvIcAQTlNdRMbFglfS2KCnWCdC92P7VZYMiVV3C7QcZZJrON0FB?=
+ =?us-ascii?Q?CDQZeabBfWFWlKwmWrFbF1RXoUa1kzcleVtbFjNZEUhvxLSVYBMIYWyQGqav?=
+ =?us-ascii?Q?td+g/mzK/hO8hTmq4H6yxCihail+LfYC6FIHMC+vBnIBLWHMMG/XDLIXWRCY?=
+ =?us-ascii?Q?TsEcXcfuIFX2rT5CatPDS5lBihAr7PHOyzI4j3V/1wcotjFC1R2znAjfZdIR?=
+ =?us-ascii?Q?nOyrEaFfB2NLBArFZbt0HW6DovhCTuKkyUeNLKtCcblWbbSXv8BV3v1gJ8dY?=
+ =?us-ascii?Q?7feHi/7aWBBwCjnGdQ3D49Lf2hTn3YYeEHkUCWrwHqNTbJTMjfkVfi6FIu1+?=
+ =?us-ascii?Q?W1Bj1CJypRXMEbI7GdyQZmA+k2FGozQH+QTgywBPKO+lbl5du1DFTxD6vb3F?=
+ =?us-ascii?Q?7Axv9yXrhz6SBkMnAQ7Yu6rCEmWvZqTcQmmQnmpKt2Kw3QPMP8kTY2MzeZbC?=
+ =?us-ascii?Q?TjcCdrOyQZtSfH/1NIok+iP6CTlTO0RFbjX+SMcV/n1x1Ek7bHeelUubnriv?=
+ =?us-ascii?Q?JdjdAcLaPGUIij/WZ3pobcHIO5ahPaLbd/EsDsTAiWTboa6CWsEbFHGAlT6c?=
+ =?us-ascii?Q?XwSF+wbGsJwhKHpnF5O3YfWOrYJ/C6e1zYZMconIM8+w9i2M/fFtPnnlCAYf?=
+ =?us-ascii?Q?5eR7IQbBCtWiA3w4vjweyMmLgWipai8PSiINxp6yV/YyU0REt8ub48/ae94G?=
+ =?us-ascii?Q?ffdd6yb9212nOdFPWo6/Io5mH7cwWZApDlAC5rgZn2bWkZAUednpJIlsdxOm?=
+ =?us-ascii?Q?UwdGh527/UNzk2oqdDTYP/Tvmi9Dbts3k+3I19iQGYVngDR8wneEoloe8sqg?=
+ =?us-ascii?Q?eStC9J6GNmLeWXwYn+HdjLrCtBtEeR/zlD2/0Qqna0LeLDsmSlHIPiPDp4X7?=
+ =?us-ascii?Q?IBONYI92Cfw6Z3CKlVgqRQlhSGxkBA9Dq9aJN61OLJMFNRsmqkwQCD4Uhv8k?=
+ =?us-ascii?Q?lYypK2+bvyC308ciiMV4DjSvizL0xiiWUiqrVpLoitd747AK7+WVu5gsZgj4?=
+ =?us-ascii?Q?6LLoadMpw7Ski1jM56EUy+lCNOg/N/ltmJ4gIPHeNI43x1yIWQUhBoztJg2i?=
+ =?us-ascii?Q?QYaptcaRrrVLePWKPwuK9pK3+PqibBw5DSKs6GbB1jGGYCUbVuP7jTYJX1Qm?=
+ =?us-ascii?Q?BVB/9aiUIKd+dU5gnSCMfw95qfWWfeZeacjg5/ZwMZcKUnlN35DMKTYrub0z?=
+ =?us-ascii?Q?wPkDD6W5jJsKsLYWphmNNXof?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 427ad3b8-0a0b-4d64-0569-08d934d7c53f
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3a7db2f6-abec-44cc-41f8-08d934d7c4c4
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3962.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jun 2021 17:12:38.2709 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jun 2021 17:12:37.6053 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3yvKcdoPw2i2H827101Ysh+hzn1Qe7oOe22faGd8ALGPF7AHZYfcrcaEemB4zFGS
+X-MS-Exchange-CrossTenant-UserPrincipalName: kJtkNIf+w2hxtm04LXss1zMMHLxAWhYCBwI2kRYAt+ECEq/we7fAAmgOsNRXsiay
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1258
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -136,146 +136,153 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Alex Deucher <alexander.deucher@amd.com>
 
-Encapsulates the i2c protocol handling so other parts of the
-driver can just tell it the offset and size of data to write.
+And handle more than just EEPROMs.
+
+v2: fix restart handling between transactions.
+v3: handle 7 to 8 bit addr conversion
+v4: Fix &req --> req. (Luben T)
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
 Reviewed-by: Luben Tuikov <luben.tuikov@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/Makefile        |  3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c | 67 ++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.h | 34 +++++++++++
- 3 files changed, 103 insertions(+), 1 deletion(-)
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.h
+ .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 116 ++++++++++++++++++
+ 1 file changed, 116 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-index c56320e78c0e1f..7d292485ca7cf2 100644
---- a/drivers/gpu/drm/amd/amdgpu/Makefile
-+++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-@@ -57,7 +57,8 @@ amdgpu-y += amdgpu_device.o amdgpu_kms.o \
- 	amdgpu_xgmi.o amdgpu_csa.o amdgpu_ras.o amdgpu_vm_cpu.o \
- 	amdgpu_vm_sdma.o amdgpu_discovery.o amdgpu_ras_eeprom.o amdgpu_nbio.o \
- 	amdgpu_umc.o smu_v11_0_i2c.o amdgpu_fru_eeprom.o amdgpu_rap.o \
--	amdgpu_fw_attestation.o amdgpu_securedisplay.o amdgpu_hdp.o
-+	amdgpu_fw_attestation.o amdgpu_securedisplay.o amdgpu_hdp.o \
-+	amdgpu_eeprom.o
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+index 1ba42b69ce7424..e02db86ced6108 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+@@ -2735,6 +2735,120 @@ static ssize_t navi10_get_legacy_gpu_metrics(struct smu_context *smu,
+ 	return sizeof(struct gpu_metrics_v1_3);
+ }
  
- amdgpu-$(CONFIG_PROC_FS) += amdgpu_fdinfo.o
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
-new file mode 100644
-index 00000000000000..10551660343278
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
-@@ -0,0 +1,67 @@
-+/*
-+ * Copyright 2021 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
-+
-+#include "amdgpu_eeprom.h"
-+#include "amdgpu.h"
-+
-+#define EEPROM_OFFSET_LENGTH 2
-+
-+int amdgpu_eeprom_xfer(struct i2c_adapter *i2c_adap,
-+		       u16 slave_addr, u16 eeprom_addr,
-+		       u8 *eeprom_buf, u16 bytes, bool read)
++static int navi10_i2c_xfer(struct i2c_adapter *i2c_adap,
++			   struct i2c_msg *msgs, int num)
 +{
-+	u8 eeprom_offset_buf[2];
-+	u16 bytes_transferred;
-+	struct i2c_msg msgs[] = {
-+		{
-+			.addr = slave_addr,
-+			.flags = 0,
-+			.len = EEPROM_OFFSET_LENGTH,
-+			.buf = eeprom_offset_buf,
-+		},
-+		{
-+			.addr = slave_addr,
-+			.flags = read ? I2C_M_RD: 0,
-+			.len = bytes,
-+			.buf = eeprom_buf,
-+		}
-+	};
-+	int r;
++	struct amdgpu_device *adev = to_amdgpu_device(i2c_adap);
++	struct smu_table_context *smu_table = &adev->smu.smu_table;
++	struct smu_table *table = &smu_table->driver_table;
++	SwI2cRequest_t *req, *res = (SwI2cRequest_t *)table->cpu_addr;
++	u16 bytes_to_transfer, remaining_bytes, msg_bytes;
++	u16 available_bytes = MAX_SW_I2C_COMMANDS;
++	int i, j, r, c;
++	u8 slave;
 +
-+	msgs[0].buf[0] = ((eeprom_addr >> 8) & 0xff);
-+	msgs[0].buf[1] = (eeprom_addr & 0xff);
-+
-+	while (msgs[1].len) {
-+		r = i2c_transfer(i2c_adap, msgs, ARRAY_SIZE(msgs));
-+		if (r <= 0)
-+			return r;
-+		bytes_transferred = r - EEPROM_OFFSET_LENGTH;
-+		eeprom_addr += bytes_transferred;
-+		msgs[0].buf[0] = ((eeprom_addr >> 8) & 0xff);
-+		msgs[0].buf[1] = (eeprom_addr & 0xff);
-+		msgs[1].buf += bytes_transferred;
-+		msgs[1].len -= bytes_transferred;
++	/* only support a single slave addr per transaction */
++	slave = msgs[0].addr;
++	for (i = 0; i < num; i++) {
++		if (slave != msgs[i].addr)
++			return -EINVAL;
++		bytes_to_transfer += min(msgs[i].len, available_bytes);
++		available_bytes -= bytes_to_transfer;
 +	}
 +
-+	return 0;
++	req = kzalloc(sizeof(*req), GFP_KERNEL);
++	if (!req)
++		return -ENOMEM;
++
++	req->I2CcontrollerPort = 1;
++	req->I2CSpeed = I2C_SPEED_FAST_400K;
++	req->SlaveAddress = slave << 1; /* 8 bit addresses */
++	req->NumCmds = bytes_to_transfer;
++
++	remaining_bytes = bytes_to_transfer;
++	c = 0;
++	for (i = 0; i < num; i++) {
++		struct i2c_msg *msg = &msgs[i];
++
++		msg_bytes = min(msg->len, remaining_bytes);
++		for (j = 0; j < msg_bytes; j++) {
++			SwI2cCmd_t *cmd = &req->SwI2cCmds[c++];
++
++			remaining_bytes--;
++			if (!(msg[i].flags & I2C_M_RD)) {
++				/* write */
++				cmd->CmdConfig |= I2C_CMD_WRITE;
++				cmd->RegisterAddr = msg->buf[j];
++			}
++			if ((msg[i].flags & I2C_M_STOP) ||
++			    (!remaining_bytes))
++				cmd->CmdConfig |= CMDCONFIG_STOP_MASK;
++			if ((i > 0) && !(msg[i].flags & I2C_M_NOSTART))
++				cmd->CmdConfig |= CMDCONFIG_RESTART_BIT;
++		}
++	}
++	mutex_lock(&adev->smu.mutex);
++	r = smu_cmn_update_table(&adev->smu, SMU_TABLE_I2C_COMMANDS, 0, req, true);
++	mutex_unlock(&adev->smu.mutex);
++	if (r)
++		goto fail;
++
++	remaining_bytes = bytes_to_transfer;
++	c = 0;
++	for (i = 0; i < num; i++) {
++		struct i2c_msg *msg = &msgs[i];
++
++		msg_bytes = min(msg->len, remaining_bytes);
++		for (j = 0; j < msg_bytes; j++) {
++			SwI2cCmd_t *cmd = &res->SwI2cCmds[c++];
++
++			remaining_bytes--;
++			if (msg[i].flags & I2C_M_RD)
++				msg->buf[j] = cmd->Data;
++		}
++	}
++	r = bytes_to_transfer;
++
++fail:
++	kfree(req);
++
++	return r;
 +}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.h
-new file mode 100644
-index 00000000000000..9301e5678910ad
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.h
-@@ -0,0 +1,34 @@
-+/*
-+ * Copyright 2021 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
 +
-+#ifndef _AMDGPU_EEPROM_H
-+#define _AMDGPU_EEPROM_H
-+
-+#include <linux/i2c.h>
-+
-+int amdgpu_eeprom_xfer(struct i2c_adapter *i2c_adap,
-+		       u16 slave_addr, u16 eeprom_addr,
-+		       u8 *eeprom_buf, u16 bytes, bool read);
++static u32 navi10_i2c_func(struct i2c_adapter *adap)
++{
++	return I2C_FUNC_I2C | I2C_FUNC_SMBUS_EMUL;
++}
 +
 +
-+#endif
++static const struct i2c_algorithm navi10_i2c_algo = {
++	.master_xfer = navi10_i2c_xfer,
++	.functionality = navi10_i2c_func,
++};
++
++static int navi10_i2c_control_init(struct smu_context *smu, struct i2c_adapter *control)
++{
++	struct amdgpu_device *adev = to_amdgpu_device(control);
++	int res;
++
++	control->owner = THIS_MODULE;
++	control->class = I2C_CLASS_SPD;
++	control->dev.parent = &adev->pdev->dev;
++	control->algo = &navi10_i2c_algo;
++	snprintf(control->name, sizeof(control->name), "AMDGPU SMU");
++
++	res = i2c_add_adapter(control);
++	if (res)
++		DRM_ERROR("Failed to register hw i2c, err: %d\n", res);
++
++	return res;
++}
++
++static void navi10_i2c_control_fini(struct smu_context *smu, struct i2c_adapter *control)
++{
++	i2c_del_adapter(control);
++}
++
+ static ssize_t navi10_get_gpu_metrics(struct smu_context *smu,
+ 				      void **table)
+ {
+@@ -3078,6 +3192,8 @@ static const struct pptable_funcs navi10_ppt_funcs = {
+ 	.set_default_dpm_table = navi10_set_default_dpm_table,
+ 	.dpm_set_vcn_enable = navi10_dpm_set_vcn_enable,
+ 	.dpm_set_jpeg_enable = navi10_dpm_set_jpeg_enable,
++	.i2c_init = navi10_i2c_control_init,
++	.i2c_fini = navi10_i2c_control_fini,
+ 	.print_clk_levels = navi10_print_clk_levels,
+ 	.force_clk_levels = navi10_force_clk_levels,
+ 	.populate_umd_state_clk = navi10_populate_umd_state_clk,
 -- 
 2.32.0
 
