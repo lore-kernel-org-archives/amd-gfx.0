@@ -2,75 +2,46 @@ Return-Path: <SRS0=0Dgm=LQ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 060AEC2B9F4
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Jun 2021 15:24:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5D949C2B9F4
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Jun 2021 15:25:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C8623600D1
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Jun 2021 15:24:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C8623600D1
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 2F978600D1
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Jun 2021 15:25:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2F978600D1
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=arm.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69B5A6E581;
-	Tue, 22 Jun 2021 15:24:56 +0000 (UTC)
-Received: from mail-ot1-x332.google.com (mail-ot1-x332.google.com
- [IPv6:2607:f8b0:4864:20::332])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 101DD6E581;
- Tue, 22 Jun 2021 15:24:56 +0000 (UTC)
-Received: by mail-ot1-x332.google.com with SMTP id
- 7-20020a9d0d070000b0290439abcef697so21588549oti.2; 
- Tue, 22 Jun 2021 08:24:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=4X+AcHyDDe3HhjQCq2G+eaJ8kvsIjHhuoyLFdEACcnQ=;
- b=F9cy62wh9RybK9h82fBHPpp8hPDnZx1s+Z0/GOTSU92eNMyNLfj1mmqR2+r3kT8aM1
- xYDm3xoWuWMpBQnf+yCUtYaytLMGRdU+gDGi6swnU2/1W4YjA3DmVGgEJEhpqqWEJhiE
- 01z+W8Xkif0R9mOOrdnFJqQd5G+uUqQGTMfvsT/2xP5BWwkuBCnE6fDDDeJPKFj99hpa
- IUTx7/RubZA8kR6BUpUTkctQ7E0FSq1LJm9p8lS8IeiHhgNrTRG9ObqVGWK0oLwjI4ER
- nWl4Jh30VyNTX8WV9ruVKyd0scG13WLdSbrapyE0pKhuHbHyEx+IQYLAiGL9vT11KyaE
- aOoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=4X+AcHyDDe3HhjQCq2G+eaJ8kvsIjHhuoyLFdEACcnQ=;
- b=Hg24sXjZJyQIh2lA2AJ+rJusCKu6v945U6TH39cxrHxL5mMm0zdNgQZXxEoiEVHRNG
- s1KYOfBHbTTp1CXuErFerLbOb8IG3fZm9sWoIkeKd/cYeHSw19SQELYjaR+7iC5nwMd1
- LL3TC2jr6NyW2G9PMcR5HV0/TytJr9KfstQXeXtqqvUqNIpPmJdK8y6OLrxZucNgJG5w
- ZqVRji68jRZpIvphLfVUpnBpX6xc+6u5xBs8RKB0c8EJxJ9RuHT0+BAMS21RYVulCU+c
- AdjXptIQRhhLQoqLghSSNUAtH3K3t1wDHTYDGccdPwbNZagz4KjLe7Ga7GL87Z7Gq6YZ
- r81w==
-X-Gm-Message-State: AOAM533XnuhupFMy2A6OqRRK5FUkKnkt8wVzoqNy13jXHfPANI+9G+bU
- axiPfokEcXQ9i4lpt1I69e94l6yL5MAJkj71miI=
-X-Google-Smtp-Source: ABdhPJxdbW8W5cXUxxqtgxKi95nj/EmM2JjajNW5+/OukMinRa2g08LQoWclCFHmO/psGwfcUIox+YZCnLKA4tnM/9A=
-X-Received: by 2002:a9d:4581:: with SMTP id x1mr3651165ote.145.1624375495284; 
- Tue, 22 Jun 2021 08:24:55 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D6A46E59F;
+	Tue, 22 Jun 2021 15:25:08 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id E7B3C6E593;
+ Tue, 22 Jun 2021 15:25:06 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0C59731B;
+ Tue, 22 Jun 2021 08:25:06 -0700 (PDT)
+Received: from e110455-lin.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com
+ [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C1ECC3F718;
+ Tue, 22 Jun 2021 08:25:05 -0700 (PDT)
+Received: by e110455-lin.cambridge.arm.com (Postfix, from userid 1000)
+ id 7C5A86837C9; Tue, 22 Jun 2021 16:25:04 +0100 (BST)
+Date: Tue, 22 Jun 2021 16:25:04 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Subject: Re: [PATCH v2 04/22] drm: Don't test for IRQ support in VBLANK ioctls
+Message-ID: <20210622152504.2sw6khajwydsoaqa@e110455-lin.cambridge.arm.com>
+References: <20210622141002.11590-1-tzimmermann@suse.de>
+ <20210622141002.11590-5-tzimmermann@suse.de>
 MIME-Version: 1.0
-References: <20210621175511.GI1096940@ziepe.ca>
- <CAKMK7uEO1_B59DtM7N2g7kkH7pYtLM_WAkn+0f3FU3ps=XEjZQ@mail.gmail.com>
- <CAFCwf11jOnewkbLuxUESswCJpyo7C0ovZj80UrnwUOZkPv2JYQ@mail.gmail.com>
- <20210621232912.GK1096940@ziepe.ca>
- <d358c740-fd3a-9ecd-7001-676e2cb44ec9@gmail.com>
- <CAFCwf11h_Nj_GEdCdeTzO5jgr-Y9em+W-v_pYUfz64i5Ac25yg@mail.gmail.com>
- <20210622120142.GL1096940@ziepe.ca>
- <CAFCwf10GmBjeJAFp0uJsMLiv-8HWAR==RqV9ZdMQz+iW9XWdTA@mail.gmail.com>
- <20210622121546.GN1096940@ziepe.ca>
- <CAFCwf13BuS+U3Pko_62hFPuvZPG26HQXuu-cxPmcADNPO22g9g@mail.gmail.com>
- <20210622151142.GA2431880@ziepe.ca>
-In-Reply-To: <20210622151142.GA2431880@ziepe.ca>
-From: Oded Gabbay <oded.gabbay@gmail.com>
-Date: Tue, 22 Jun 2021 18:24:28 +0300
-Message-ID: <CAFCwf1361iVGeGtcc8WsQeFmHMWY+J6UNkzJnrodFrsOh9zgqQ@mail.gmail.com>
-Subject: Re: [Linaro-mm-sig] [PATCH v3 1/2] habanalabs: define uAPI to export
- FD for DMA-BUF
-To: Jason Gunthorpe <jgg@ziepe.ca>
+Content-Disposition: inline
+In-Reply-To: <20210622141002.11590-5-tzimmermann@suse.de>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,94 +53,103 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- linux-rdma <linux-rdma@vger.kernel.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- sleybo@amazon.com, Gal Pressman <galpress@amazon.com>,
- dri-devel <dri-devel@lists.freedesktop.org>, Christoph Hellwig <hch@lst.de>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Doug Ledford <dledford@redhat.com>, Tomer Tayar <ttayar@habana.ai>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Greg KH <gregkh@linuxfoundation.org>, Alex Deucher <alexander.deucher@amd.com>,
- Leon Romanovsky <leonro@nvidia.com>, Oded Gabbay <ogabbay@kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: heiko@sntech.de, emma@anholt.net, airlied@linux.ie,
+ nouveau@lists.freedesktop.org, alexandre.torgue@foss.st.com,
+ dri-devel@lists.freedesktop.org, michal.simek@xilinx.com,
+ linux-tegra@vger.kernel.org, thierry.reding@gmail.com,
+ laurent.pinchart@ideasonboard.com, benjamin.gaignard@linaro.org,
+ mihail.atanassov@arm.com, festevam@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-samsung-soc@vger.kernel.org,
+ jy0922.shim@samsung.com, krzysztof.kozlowski@canonical.com,
+ linux-rockchip@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ wens@csie.org, jernej.skrabec@gmail.com, jonathanh@nvidia.com,
+ xinliang.liu@linaro.org, kong.kongxinwei@hisilicon.com,
+ james.qian.wang@arm.com, linux-imx@nxp.com,
+ linux-graphics-maintainer@vmware.com, linux-sunxi@lists.linux.dev,
+ bskeggs@redhat.com, chunkuang.hu@kernel.org, p.zabel@pengutronix.de,
+ puck.chen@hisilicon.com, s.hauer@pengutronix.de,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, inki.dae@samsung.com,
+ john.stultz@linaro.org, laurentiu.palcu@oss.nxp.com, matthias.bgg@gmail.com,
+ kernel@pengutronix.de, linux-arm-kernel@lists.infradead.org,
+ mcoquelin.stm32@gmail.com, amd-gfx@lists.freedesktop.org, hyun.kwon@xilinx.com,
+ tomba@kernel.org, jyri.sarha@iki.fi, yannick.fertre@foss.st.com,
+ Xinhui.Pan@amd.com, sw0312.kim@samsung.com, hjc@rock-chips.com,
+ christian.koenig@amd.com, kyungmin.park@samsung.com,
+ philippe.cornu@foss.st.com, daniel@ffwll.ch, alexander.deucher@amd.com,
+ tiantao6@hisilicon.com, shawnguo@kernel.org, brian.starkey@arm.com,
+ zackr@vmware.com, l.stach@pengutronix.de
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jun 22, 2021 at 6:11 PM Jason Gunthorpe <jgg@ziepe.ca> wrote:
->
-> On Tue, Jun 22, 2021 at 04:12:26PM +0300, Oded Gabbay wrote:
->
-> > > 1) Setting sg_page to NULL
-> > > 2) 'mapping' pages for P2P DMA without going through the iommu
-> > > 3) Allowing P2P DMA without using the p2p dma API to validate that it
-> > >    can work at all in the first place.
-> > >
-> > > All of these result in functional bugs in certain system
-> > > configurations.
-> > >
-> > > Jason
-> >
-> > Hi Jason,
-> > Thanks for the feedback.
-> > Regarding point 1, why is that a problem if we disable the option to
-> > mmap the dma-buf from user-space ?
->
-> Userspace has nothing to do with needing struct pages or not
->
-> Point 1 and 2 mostly go together, you supporting the iommu is not nice
-> if you dont have struct pages.
->
-> You should study Logan's patches I pointed you at as they are solving
-> exactly this problem.
-Yes, I do need to study them. I agree with you here. It appears I have
-a hole in my understanding.
-I'm missing the connection between iommu support (which I must have of
-course) and struct pages.
-
->
-> > In addition, I didn't see any problem with sg_page being NULL in the
-> > RDMA p2p dma-buf code. Did I miss something here ?
->
-> No, the design of the dmabuf requires the exporter to do the dma maps
-> and so it is only the exporter that is wrong to omit all the iommu and
-> p2p logic.
->
-> RDMA is OK today only because nobody has implemented dma buf support
-> in rxe/si - mainly because the only implementations of exporters don't
-Can you please educate me, what is rxe/si ?
-
-> set the struct page and are thus buggy.
-
-ok...
-so how come that patch-set was merged into 5.12 if it's buggy ?
-Because the current exporters are buggy ?  I probably need a history
-lesson here.
-But I understand why you think it's a bad idea to add a new buggy exporter.
-
->
-> > I will take two GAUDI devices and use one as an exporter and one as an
-> > importer. I want to see that the solution works end-to-end, with real
-> > device DMA from importer to exporter.
->
-> I can tell you it doesn't. Stuffing physical addresses directly into
-> the sg list doesn't involve any of the IOMMU code so any configuration
-> that requires IOMMU page table setup will not work.
->
-> Jason
-
-Yes, that's what I expect to see. But I want to see it with my own
-eyes and then figure out how to solve this.
-Maybe the result will be going to Logan's path, maybe something else,
-but I need to start by seeing the failure in a real system.
-
-Thanks for the information, it is really helpful.
-
-Oded
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+SGVsbG8sCgpPbiBUdWUsIEp1biAyMiwgMjAyMSBhdCAwNDowOTo0NFBNICswMjAwLCBUaG9tYXMg
+WmltbWVybWFubiB3cm90ZToKPiBGb3IgS01TIGRyaXZlcnMsIHJlcGxhY2UgdGhlIElSUSBjaGVj
+ayBpbiBWQkxBTksgaW9jdGxzIHdpdGggYSBjaGVjayBmb3IKPiB2Ymxhbmsgc3VwcG9ydC4gSVJR
+cyBtaWdodCBiZSBlbmFibGVkIHd0aG91dCB2YmxhbmtpbmcgYmVpbmcgc3VwcG9ydGVkLgo+IAo+
+IFRoaXMgY2hhbmdlIGFsc28gcmVtb3ZlcyB0aGUgRFJNIGZyYW1ld29yaydzIG9ubHkgZGVwZW5k
+ZW5jeSBvbiBJUlEgc3RhdGUKPiBmb3Igbm9uLWxlZ2FjeSBkcml2ZXJzLiBGb3IgbGVnYWN5IGRy
+aXZlcnMgd2l0aCB1c2Vyc3BhY2UgbW9kZXNldHRpbmcsCj4gdGhlIG9yaWdpbmFsIHRlc3QgcmVt
+YWlucyBpbiBkcm1fd2FpdF92YmxhbmtfaW9jdGwoKS4KPiAKPiB2MjoKPiAJKiBrZWVwIHRoZSBv
+bGQgdGVzdCBmb3IgbGVnYWN5IGRyaXZlcnMgaW4KPiAJICBkcm1fd2FpdF92YmxhbmtfaW9jdGwo
+KSAoRGFuaWVsKQo+IAo+IFNpZ25lZC1vZmYtYnk6IFRob21hcyBaaW1tZXJtYW5uIDx0emltbWVy
+bWFubkBzdXNlLmRlPgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vZHJtX2lycS5jICAgIHwgMTAg
+KysrLS0tLS0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vZHJtX3ZibGFuay5jIHwgMTMgKysrKysrKysr
+LS0tLQo+ICAyIGZpbGVzIGNoYW5nZWQsIDEyIGluc2VydGlvbnMoKyksIDExIGRlbGV0aW9ucygt
+KQo+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vZHJtX2lycS5jIGIvZHJpdmVycy9n
+cHUvZHJtL2RybV9pcnEuYwo+IGluZGV4IGMzYmQ2NjRlYTczMy4uMWQ3Nzg1NzIxMzIzIDEwMDY0
+NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9kcm1faXJxLmMKPiArKysgYi9kcml2ZXJzL2dwdS9k
+cm0vZHJtX2lycS5jCj4gQEAgLTc0LDEwICs3NCw4IEBACj4gICAqIG9ubHkgc3VwcG9ydHMgZGV2
+aWNlcyB3aXRoIGEgc2luZ2xlIGludGVycnVwdCBvbiB0aGUgbWFpbiBkZXZpY2Ugc3RvcmVkIGlu
+Cj4gICAqICZkcm1fZGV2aWNlLmRldiBhbmQgc2V0IGFzIHRoZSBkZXZpY2UgcGFyYW10ZXIgaW4g
+ZHJtX2Rldl9hbGxvYygpLgo+ICAgKgo+IC0gKiBUaGVzZSBJUlEgaGVscGVycyBhcmUgc3RyaWN0
+bHkgb3B0aW9uYWwuIERyaXZlcnMgd2hpY2ggcm9sbCB0aGVpciBvd24gb25seQo+IC0gKiBuZWVk
+IHRvIHNldCAmZHJtX2RldmljZS5pcnFfZW5hYmxlZCB0byBzaWduYWwgdGhlIERSTSBjb3JlIHRo
+YXQgdmJsYW5rCj4gLSAqIGludGVycnVwdHMgYXJlIHdvcmtpbmcuIFNpbmNlIHRoZXNlIGhlbHBl
+cnMgZG9uJ3QgYXV0b21hdGljYWxseSBjbGVhbiB1cCB0aGUKPiAtICogcmVxdWVzdGVkIGludGVy
+cnVwdCBsaWtlIGUuZy4gZGV2bV9yZXF1ZXN0X2lycSgpIHRoZXkncmUgbm90IHJlYWxseQo+ICsg
+KiBUaGVzZSBJUlEgaGVscGVycyBhcmUgc3RyaWN0bHkgb3B0aW9uYWwuIFNpbmNlIHRoZXNlIGhl
+bHBlcnMgZG9uJ3QgYXV0b21hdGljYWxseQo+ICsgKiBjbGVhbiB1cCB0aGUgcmVxdWVzdGVkIGlu
+dGVycnVwdCBsaWtlIGUuZy4gZGV2bV9yZXF1ZXN0X2lycSgpIHRoZXkncmUgbm90IHJlYWxseQo+
+ICAgKiByZWNvbW1lbmRlZC4KPiAgICovCj4gIAo+IEBAIC05MSw5ICs4OSw3IEBACj4gICAqIGFu
+ZCBhZnRlciB0aGUgaW5zdGFsbGF0aW9uLgo+ICAgKgo+ICAgKiBUaGlzIGlzIHRoZSBzaW1wbGlm
+aWVkIGhlbHBlciBpbnRlcmZhY2UgcHJvdmlkZWQgZm9yIGRyaXZlcnMgd2l0aCBubyBzcGVjaWFs
+Cj4gLSAqIG5lZWRzLiBEcml2ZXJzIHdoaWNoIG5lZWQgdG8gaW5zdGFsbCBpbnRlcnJ1cHQgaGFu
+ZGxlcnMgZm9yIG11bHRpcGxlCj4gLSAqIGludGVycnVwdHMgbXVzdCBpbnN0ZWFkIHNldCAmZHJt
+X2RldmljZS5pcnFfZW5hYmxlZCB0byBzaWduYWwgdGhlIERSTSBjb3JlCj4gLSAqIHRoYXQgdmJs
+YW5rIGludGVycnVwdHMgYXJlIGF2YWlsYWJsZS4KPiArICogbmVlZHMuCj4gICAqCj4gICAqIEBp
+cnEgbXVzdCBtYXRjaCB0aGUgaW50ZXJydXB0IG51bWJlciB0aGF0IHdvdWxkIGJlIHBhc3NlZCB0
+byByZXF1ZXN0X2lycSgpLAo+ICAgKiBpZiBjYWxsZWQgZGlyZWN0bHkgaW5zdGVhZCBvZiB1c2lu
+ZyB0aGlzIGhlbHBlciBmdW5jdGlvbi4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ry
+bV92YmxhbmsuYyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fdmJsYW5rLmMKPiBpbmRleCAzNDE3ZTFh
+Yzc5MTguLmE5OGE0YWFkNTAzNyAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vZHJtX3Zi
+bGFuay5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2RybV92YmxhbmsuYwo+IEBAIC0xNzQ4LDgg
+KzE3NDgsMTMgQEAgaW50IGRybV93YWl0X3ZibGFua19pb2N0bChzdHJ1Y3QgZHJtX2RldmljZSAq
+ZGV2LCB2b2lkICpkYXRhLAo+ICAJdW5zaWduZWQgaW50IHBpcGVfaW5kZXg7Cj4gIAl1bnNpZ25l
+ZCBpbnQgZmxhZ3MsIHBpcGUsIGhpZ2hfcGlwZTsKPiAgCj4gLQlpZiAoIWRldi0+aXJxX2VuYWJs
+ZWQpCj4gLQkJcmV0dXJuIC1FT1BOT1RTVVBQOwo+ICsJaWYgIChkcm1fY29yZV9jaGVja19mZWF0
+dXJlKGRldiwgRFJJVkVSX01PREVTRVQpKSB7Cj4gKwkJaWYgKCFkcm1fZGV2X2hhc192Ymxhbmso
+ZGV2KSkKPiArCQkJcmV0dXJuIC1FT1BOT1RTVVBQOwo+ICsJfSBlbHNlIHsKPiArCQlpZiAoIWRl
+di0+aXJxX2VuYWJsZWQpCj4gKwkJCXJldHVybiAtRU9QTk9UU1VQUDsKPiArCX0KCkZvciBhIHN5
+c3RlbSBjYWxsIHRoYXQgaXMgdXNlZCBxdWl0ZSBhIGxvdCBieSB1c2Vyc3BhY2Ugd2UgaGF2ZSBp
+bmNyZWFzZWQgdGhlIGNvZGUgc2l6ZQppbiBhIG5vdGljZWFibGUgd2F5LiBDYW4gd2Ugbm90IGNh
+Y2hlIGl0IHByaXZhdGVseT8KCkJlc3QgcmVnYXJkcywKTGl2aXUKCj4gIAo+ICAJaWYgKHZibHdh
+aXQtPnJlcXVlc3QudHlwZSAmIF9EUk1fVkJMQU5LX1NJR05BTCkKPiAgCQlyZXR1cm4gLUVJTlZB
+TDsKPiBAQCAtMjAyMyw3ICsyMDI4LDcgQEAgaW50IGRybV9jcnRjX2dldF9zZXF1ZW5jZV9pb2N0
+bChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB2b2lkICpkYXRhLAo+ICAJaWYgKCFkcm1fY29yZV9j
+aGVja19mZWF0dXJlKGRldiwgRFJJVkVSX01PREVTRVQpKQo+ICAJCXJldHVybiAtRU9QTk9UU1VQ
+UDsKPiAgCj4gLQlpZiAoIWRldi0+aXJxX2VuYWJsZWQpCj4gKwlpZiAoIWRybV9kZXZfaGFzX3Zi
+bGFuayhkZXYpKQo+ICAJCXJldHVybiAtRU9QTk9UU1VQUDsKPiAgCj4gIAljcnRjID0gZHJtX2Ny
+dGNfZmluZChkZXYsIGZpbGVfcHJpdiwgZ2V0X3NlcS0+Y3J0Y19pZCk7Cj4gQEAgLTIwODIsNyAr
+MjA4Nyw3IEBAIGludCBkcm1fY3J0Y19xdWV1ZV9zZXF1ZW5jZV9pb2N0bChzdHJ1Y3QgZHJtX2Rl
+dmljZSAqZGV2LCB2b2lkICpkYXRhLAo+ICAJaWYgKCFkcm1fY29yZV9jaGVja19mZWF0dXJlKGRl
+diwgRFJJVkVSX01PREVTRVQpKQo+ICAJCXJldHVybiAtRU9QTk9UU1VQUDsKPiAgCj4gLQlpZiAo
+IWRldi0+aXJxX2VuYWJsZWQpCj4gKwlpZiAoIWRybV9kZXZfaGFzX3ZibGFuayhkZXYpKQo+ICAJ
+CXJldHVybiAtRU9QTk9UU1VQUDsKPiAgCj4gIAljcnRjID0gZHJtX2NydGNfZmluZChkZXYsIGZp
+bGVfcHJpdiwgcXVldWVfc2VxLT5jcnRjX2lkKTsKPiAtLSAKPiAyLjMyLjAKPiAKCi0tIAo9PT09
+PT09PT09PT09PT09PT09PQp8IEkgd291bGQgbGlrZSB0byB8CnwgZml4IHRoZSB3b3JsZCwgIHwK
+fCBidXQgdGhleSdyZSBub3QgfAp8IGdpdmluZyBtZSB0aGUgICB8CiBcIHNvdXJjZSBjb2RlISAg
+LwogIC0tLS0tLS0tLS0tLS0tLQogICAgwq9cXyjjg4QpXy/CrwpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
+bWFuL2xpc3RpbmZvL2FtZC1nZngK
