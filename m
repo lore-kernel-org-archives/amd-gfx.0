@@ -8,63 +8,63 @@ X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 098BFC2B9F4
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Jun 2021 08:12:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 527E2C48BDF
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Jun 2021 08:12:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C955261353
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Jun 2021 08:12:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C955261353
+	by mail.kernel.org (Postfix) with ESMTPS id 22E0961289
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Jun 2021 08:12:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 22E0961289
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 62DF06E409;
-	Tue, 22 Jun 2021 08:12:51 +0000 (UTC)
-Received: from mail-pf1-x42f.google.com (mail-pf1-x42f.google.com
- [IPv6:2607:f8b0:4864:20::42f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 060196E332
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Jun 2021 07:15:39 +0000 (UTC)
-Received: by mail-pf1-x42f.google.com with SMTP id q192so9135171pfc.7
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Jun 2021 00:15:39 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D85C06E40C;
+	Tue, 22 Jun 2021 08:12:52 +0000 (UTC)
+Received: from mail-pj1-x1035.google.com (mail-pj1-x1035.google.com
+ [IPv6:2607:f8b0:4864:20::1035])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3E846E192
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Jun 2021 06:07:16 +0000 (UTC)
+Received: by mail-pj1-x1035.google.com with SMTP id g4so11483626pjk.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Jun 2021 23:07:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=date:from:to:subject:message-id:mime-version:content-disposition;
- bh=hYMNCenjCAhamfzLr7D05l56NW7Op2cCAbN+Ba2rTZA=;
- b=EdhUCpG7O4Q16Ez0skkCkQdvnmN5fFwngV683KHpsxyW6XJYaMwQRjGOgfYRCCpLSK
- I+njOcG95b3SWmK3C5Uc7vUD0m/+iOeIrjCNxJvs+wxuXjTUWfyO32lPP7sDmeTManiF
- 2l1g7L7d19r5vrfHerlrRI3cnE5iyQRQWs87Ov8mLkajWOrBiJ+SHb6hsFmjjqhpYefz
- DhUGoEmXcnRiamMcxKqjumtekd8zO0yMAykzFxT0e/e27k1ye9msSiBfQXESTqYNxNuD
- sjVm4XlL8itEuUlmXFbXBRZC5zZKE9ipWGz7kdtqtRMBX9aAgsJk+XpoWkm9h3S2G0qO
- 72GQ==
+ bh=C2BsSCuEEmRCddtgAxqVh2meXkFZVrya2AaC0x0Wyy4=;
+ b=Kx/SxTULRn3X9l2oxV9aWKSNrYRWKoHZPeqn9kHpKZsngkOXClFw+XgAcJfoStI/dh
+ MYzvkWlGqOAhg6IriLEsc36iWmI1OLZ3VPy94jdPZu7Jn6PAep8co3L8dOjzf53UTzQb
+ MNXVmFefn1Z37CkOwRc0CcyhK/CPiXAPUsCL9lU74gnnn8LfDOLUQzTs1lCX8xTKC4qE
+ 09kmWA629UUWajWfU4fRdtxeQy4mRsvAPOvN4nm0zrZRNNwVP+X7bxCUQD8RrDez5YXV
+ eIgWnN/Jvj/xnDcqaJdC6isoDvhoWMFulADt8+8BfKrKYK5nCnawtPwhDJuVnZcbovXe
+ 07Dw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:subject:message-id:mime-version
  :content-disposition;
- bh=hYMNCenjCAhamfzLr7D05l56NW7Op2cCAbN+Ba2rTZA=;
- b=PA9Bc5ScDR6jUEdas5s590s57Kp3LDdZKkewiDsl8Pl1ELXRYTVFS9A5lC9JRzK3UN
- iRnjLHIYK7WFDVw09W/j1+5auBmsJ52JU9LBvBapd8SoMBk/i2tm6oXjJNlE6gYJefo1
- LghZw3EECd1/KU0uDF55cgBG9HEsceEsskyQc1wiAR7Jogesqjz06mLOsifSigbzJtya
- IDdmv+pM3WkUu3vgkIG3z9jVw5/cJIcP9ey4kz0WhOTM+cL5f0rRTkxvX6ubuH783a8D
- zYZyY2WpKWwCpoFgAuLvidv1ubu6wvDxSWrb6pV02Lio7A0OxjAOAwzWTanpUHo4In40
- E/Mg==
-X-Gm-Message-State: AOAM530RaNUzkpvYiMwrdO0ZL5NvL2FQAmqJipt9nJuJFyS3Al0XI5jc
- kqFm6M5eqrZCFZ02CXr9BU0=
-X-Google-Smtp-Source: ABdhPJx6EN8dmlbBNZm3FErHhTPfGD/MEHfB2M3Jx4aPORDAgnRtIUsyttVHAvBAmUBtJGlGyKrBqg==
-X-Received: by 2002:aa7:81c5:0:b029:2f7:d4e3:78e9 with SMTP id
- c5-20020aa781c50000b02902f7d4e378e9mr2303784pfn.31.1624346139636; 
- Tue, 22 Jun 2021 00:15:39 -0700 (PDT)
+ bh=C2BsSCuEEmRCddtgAxqVh2meXkFZVrya2AaC0x0Wyy4=;
+ b=JwSfMkzjQuVw41jOhiyv8eju2s5zKNEFkxiJvKZZ9jGFruaiOLvjBU8kwhkGqFtHhf
+ ErVkZvUW7ou2eIDdvgVxST81mqWpUvpcdu0fLs+9GdUtPsJ9STV/ubw4qTarRiXD0f+B
+ vMZE6WTcG50dB4j7UJUduYQEj88VipCUYxLFqFmvUc3pykkNNOsNTW+yJC6taUIGbilK
+ oN9NvRpgMfMA/wSvWHbmdyXeEsDCcaHvT6DTgPk1SffsiLFmU23Nt9p0QcFcm0bdqrSf
+ sUm/zY4O94IruRO7Da1ayqkOUCJ+ePs40Wv8aWKUoE9oXXHe06DLhpOA3D4XM4QmKSYz
+ yzHQ==
+X-Gm-Message-State: AOAM5337VlSssYSjFr52FTtAxg71LZAtDAOeaQQjIUl345N8PR2LGqln
+ QtfF2IuVFG56GZKOjVDET/E=
+X-Google-Smtp-Source: ABdhPJx8l2KGaKCkgy34p/BeK5Eyz7A6wHlEC6idFHdIMX3GIUtiOIGgLvMBHUZKYoGYExuIAoD4+g==
+X-Received: by 2002:a17:903:2c3:b029:11b:cbb9:edfb with SMTP id
+ s3-20020a17090302c3b029011bcbb9edfbmr21135204plk.12.1624342036348; 
+ Mon, 21 Jun 2021 23:07:16 -0700 (PDT)
 Received: from reb0rn ([106.214.189.31])
- by smtp.gmail.com with ESMTPSA id s16sm17666959pfc.33.2021.06.22.00.15.37
+ by smtp.gmail.com with ESMTPSA id r128sm5272007pfc.138.2021.06.21.23.07.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 22 Jun 2021 00:15:39 -0700 (PDT)
-Date: Tue, 22 Jun 2021 12:45:30 +0530
+ Mon, 21 Jun 2021 23:07:15 -0700 (PDT)
+Date: Tue, 22 Jun 2021 11:37:06 +0530
 From: Aman Jain <ahjain2706@gmail.com>
 To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
  daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
 Subject: [PATCH] This patch replaces all the instances of dev_info with
- drm_info
-Message-ID: <YNGOEugOA232znQD@reb0rn>
+ drm_info macro
+Message-ID: <YNF+Cr9wHupnt3Za@reb0rn>
 MIME-Version: 1.0
 Content-Disposition: inline
 X-Mailman-Approved-At: Tue, 22 Jun 2021 08:12:50 +0000
@@ -92,22 +92,14 @@ drm_* macros to achieve drm-formatted logging
 
 Signed-off-by: Aman Jain <ahjain2706@gmail.com>
 ---
- drivers/gpu/drm/radeon/radeon_drv.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/radeon/radeon_drv.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
-index efeb115ae70e..639c447d9a1f 100644
+index efeb115ae70e..75e84914c29b 100644
 --- a/drivers/gpu/drm/radeon/radeon_drv.c
 +++ b/drivers/gpu/drm/radeon/radeon_drv.c
-@@ -49,6 +49,7 @@
- #include <drm/drm_probe_helper.h>
- #include <drm/drm_vblank.h>
- #include <drm/radeon_drm.h>
-+#include <drm/drm_print.h>
- 
- #include "radeon_drv.h"
- #include "radeon.h"
-@@ -308,7 +309,7 @@ static int radeon_pci_probe(struct pci_dev *pdev,
+@@ -308,7 +308,7 @@ static int radeon_pci_probe(struct pci_dev *pdev,
  		case CHIP_VERDE:
  		case CHIP_OLAND:
  		case CHIP_HAINAN:
@@ -116,7 +108,7 @@ index efeb115ae70e..639c447d9a1f 100644
  				 "SI support disabled by module param\n");
  			return -ENODEV;
  		}
-@@ -320,7 +321,7 @@ static int radeon_pci_probe(struct pci_dev *pdev,
+@@ -320,7 +320,7 @@ static int radeon_pci_probe(struct pci_dev *pdev,
  		case CHIP_HAWAII:
  		case CHIP_KABINI:
  		case CHIP_MULLINS:
