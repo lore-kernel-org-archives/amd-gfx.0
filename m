@@ -2,133 +2,71 @@ Return-Path: <SRS0=0Dgm=LQ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.0 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_2 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0431FC48BE5
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Jun 2021 06:40:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CFE34C2B9F4
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Jun 2021 06:46:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B79B2611BF
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Jun 2021 06:40:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B79B2611BF
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 96F0F61361
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Jun 2021 06:46:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 96F0F61361
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D7FB6E3D8;
-	Tue, 22 Jun 2021 06:40:35 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam08on2068.outbound.protection.outlook.com [40.107.101.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1BF566E3D8
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Jun 2021 06:40:34 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oDzbWasJeylp9R3CLy4YwJYejq2PRE72pJlQo2fdsHNQFeVSWsbTsAQrliOWeDVR+B1Bs1KGxlOfZMEbE04em6LQ+moDQNXdCpb49e7yT1SW2rQWuOeVHDelVDhIo8CfBWkePj2J7LEe4ZNl3YjdlV4pcRyJn1f9G6gGViKazZ12FNi6ks/Tex2zOG5d+6qmchrDk0+vZnT9OgJJuJPDYDi3nLSP0vHwvKxz4AvUJZrpz/5kWb5BQCdY1MJMvYtLY4o7h69PCjJnPeu45l3gZnrNa/3Llt0j2QGFgN3iSOTY/zVmYNWLGgC2GK34wj7cLkmDSoTdYIoGjxRho9iO6Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xJg1DdBauHJ9Nx/amwcB26FuZjpDX0LuH58L/ZDBmAY=;
- b=cOCRQf4UB+GFtljEnprsGkf4M2+oyhpH5zw6wa4RzpaukW7bWY0mXg7Ku1MgQMC4hi9YNsSwsBnbiXrxAhUrKOA54ZRETNlL93+IKrhunjw4CbbT6Y/2PKjCEjwIySHXmsq361VHa2t4JPLFkuLd6QZBWUyAAbkz3uR0frumxkM8Mdd3xpDwITDcIdvQewUua4HZ1NG39NoWXvsFuSYzX7kYWN0qKijF5sXHt/2y9rw7UiVaWqfk5DDQSWCJmDlsmxfwJr/IwlvCn5Y74mWFvMHfRvHaDkxTguyrxjbj+NChTjMbq9FwODMzpPwFB3lr29WCegYNeYYJ5Q5cPW3jag==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xJg1DdBauHJ9Nx/amwcB26FuZjpDX0LuH58L/ZDBmAY=;
- b=Tw+slSQwe9Bdtyf0MPJwXVl3zrPcpQEzKYzGdJrFOEuw1q17XFrrhb2ldmuY0iC1n1l5LWoF8+92Rk+/UrvEClPEuzeoXZMJCC/+EQw9KYw5fvICoR/oHStiyTH0kT74JuolMU8ehEjBX0UjvUOJumQUjBQVa2pMOCsr4g+41KM=
-Authentication-Results: vger.kernel.org; dkim=none (message not signed)
- header.d=none;vger.kernel.org; dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
- by MN2PR12MB4607.namprd12.prod.outlook.com (2603:10b6:208:a1::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.24; Tue, 22 Jun
- 2021 06:40:31 +0000
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::6c9e:1e08:7617:f756]) by MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::6c9e:1e08:7617:f756%5]) with mapi id 15.20.4242.023; Tue, 22 Jun 2021
- 06:40:31 +0000
-Subject: Re: [PATCH] This patch replaces all the instances of dev_info with
- drm_info macro
-To: Aman Jain <ahjain2706@gmail.com>, alexander.deucher@amd.com,
- airlied@linux.ie, daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <YNF+Cr9wHupnt3Za@reb0rn>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <43f6b863-2594-1eb1-c2ef-f8251a10336b@amd.com>
-Date: Tue, 22 Jun 2021 08:40:26 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
-In-Reply-To: <YNF+Cr9wHupnt3Za@reb0rn>
-Content-Language: en-US
-X-Originating-IP: [2a02:908:1252:fb60:9dfd:8ca7:7f8d:67e4]
-X-ClientProxiedBy: AM0PR03CA0077.eurprd03.prod.outlook.com
- (2603:10a6:208:69::18) To MN2PR12MB3775.namprd12.prod.outlook.com
- (2603:10b6:208:159::19)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 27DB889815;
+	Tue, 22 Jun 2021 06:46:54 +0000 (UTC)
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [IPv6:2a00:1450:4864:20::233])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85A5189216;
+ Tue, 22 Jun 2021 06:46:52 +0000 (UTC)
+Received: by mail-lj1-x233.google.com with SMTP id q23so18142878ljh.0;
+ Mon, 21 Jun 2021 23:46:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:in-reply-to:references
+ :mime-version; bh=5qnWo/SzLWfySyvC7Oz1YEdmg8IJi0qS1OM10gavIVM=;
+ b=qGOTF9ANdk9jqKq5x7XngP9yQf1BKuIkfVRzBYSYS5hJiOFL5O92U9pRYalQKJuJgu
+ kpM8d53zaRFQ59zEF5mJIbuDAcnRilSR0o23nMwA9e+qCMYFQU3Ta+L+lzN5I1mzc9Wt
+ UZ5madbcX7Avcr3Yk2+VWAw66Yzvb1Xy2FD7ad6A1zZamYs5qp0Km2uhFxZaYEwemkv7
+ in46kB4yCHhILncBQzG1lAWNlsrmQjA8913muxB9+Sa/842sFDcYKbeOJOGXmBNfNGkg
+ E81gX0B3lIjZwqBY/91/QxaTMDixTHaEGg0HQ8CF0oEzuAN68Hq9n31l5KStk/n6ZNp6
+ fK7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
+ :references:mime-version;
+ bh=5qnWo/SzLWfySyvC7Oz1YEdmg8IJi0qS1OM10gavIVM=;
+ b=nEMthWPYMMgv6QwHClwISyAhulq3BSNcvwW3mOj3B8dHAdTltR/gSJju5YiLfnKcWL
+ BSdxH1GCIeHEJaxQfjYG5OOWn9sk0VK7igC6LJAs2iHedNiURzKKuob6fy0+aCzEIWOW
+ iPM5ikxCOL+HJxzxShYLvdAn76QRSJVtboYoqtsatc9xpKaDwVDEQwmsm8Yv32zwxBEA
+ 0mQuwYNLvtAB3naxkwsKbtmQ01JdDota9KkuoMWUJ3xttTcYxnYpYk+MH3BrzHzOGdmt
+ Bltibm9XcRUh0f/nALBTyiXO3T7ZaWv+VuLfBaVdB6Ui5NW1Bm5oIo4F7p5JutPjjT3q
+ BXVg==
+X-Gm-Message-State: AOAM531h6A1muxrtzAnJWsUYfL4lh+OnfGmWBwXpslwOUPEI/L+0sXqq
+ SGaZiw5q4ETL+A73/grRJyw=
+X-Google-Smtp-Source: ABdhPJxt+x9fRCrxtpDUQmq8RAr+FIHUZ04aUI4+siOs7ZLczFPO/DuJWRh0z501SLJ1DSLjFL+zgA==
+X-Received: by 2002:a2e:9f45:: with SMTP id v5mr1826207ljk.171.1624344410861; 
+ Mon, 21 Jun 2021 23:46:50 -0700 (PDT)
+Received: from eldfell ([194.136.85.206])
+ by smtp.gmail.com with ESMTPSA id t7sm2101366lfe.172.2021.06.21.23.46.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 21 Jun 2021 23:46:50 -0700 (PDT)
+Date: Tue, 22 Jun 2021 09:46:39 +0300
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: Werner Sembach <wse@tuxedocomputers.com>
+Subject: Re: [PATCH v4 03/17] drm/uAPI: Add "active bpc" as feedback channel
+ for "max bpc" drm property
+Message-ID: <20210622094639.4f41003b@eldfell>
+In-Reply-To: <20210618091116.14428-4-wse@tuxedocomputers.com>
+References: <20210618091116.14428-1-wse@tuxedocomputers.com>
+ <20210618091116.14428-4-wse@tuxedocomputers.com>
+X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2a02:908:1252:fb60:9dfd:8ca7:7f8d:67e4]
- (2a02:908:1252:fb60:9dfd:8ca7:7f8d:67e4) by
- AM0PR03CA0077.eurprd03.prod.outlook.com (2603:10a6:208:69::18) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4219.20 via Frontend Transport; Tue, 22 Jun 2021 06:40:30 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: de51c4bf-3edd-4b4d-3ccd-08d93548a150
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4607:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB4607F212D23971C71C06F9B883099@MN2PR12MB4607.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 3Evhzh7w6ydxewyUO6NAHlwz+knA3o0Lf0dRKOHpVGhOHcOXGMwzzv24WHKQ4gxv/oVSXD9Bpd/JTP2y6xUFQN00GOH5sWU6LzYLFx/DPoM/6D+M+jyKhAiAjCBmB8wvUL/bdnMT8ZIZ6LlDf6nRAzO5lS9UzhMeqYFBDy/yiFP81+2fsfjidD5lsCCSwLHl8+z12PA0GE0Ba2JtCbtAg4fwuHCvU+TW2pe388EcFlhECN8K0D/jM+16aZqPi72kF4yh5TWkfssqWD7b9U5KtvnmRGOrXl9BLx/wdsH0Kjeo22xgX/a9iPG2DK/YHLGdQ2LYeiijXUCN21Y3Wnp9f6IiIhRR2MbfCeZFjVGSAwXg8xXp1lOB7BB+w51gbQrupbIyS6lZX972EvP26V2ELgjmhOIE9OybL+e/XQ1rU1S5lildlA/1b2QEdiMB8kr3/aKKUkIcarM7aDg71hX2qyfdcWEuH7Ixwugp90vKMIk+bm9Hh+nY4nkgu0hMlB2Ww+2nmhR/cOo3uYamMEJE+q2Et9LFOTb/jbDU+iXDC0eGkoKnc5qFSV562qOGOa+lWbgFF+UmC2wT7QOVleazovwcY5PBhAAXUCqbEUjoHUy0GeG7tiJTZm8GMqUxhzOPXqb4QgZS/cr4plHxMyn0RicG4QWsHPDyoGzwry37mr8412USK0O8qnMrjnPJND8g
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(366004)(39860400002)(346002)(376002)(396003)(31696002)(2616005)(36756003)(66556008)(66476007)(316002)(66946007)(86362001)(83380400001)(478600001)(2906002)(16526019)(6486002)(8936002)(31686004)(8676002)(6666004)(186003)(38100700002)(5660300002)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eWhHekJVN3JnNC9YUFZIQzFxN21tanZ5MldIOThRVmFnN2paRitPRUxOQmFJ?=
- =?utf-8?B?YkxmYUxuSFVtWmJBRkJCaHpscDZNT1JvQlI5TE5wNkMyMjI2N21UTFo5WkdQ?=
- =?utf-8?B?bUppaWNTZytSaVE5VUhwRkpBYmRHSzB5aGtLNEhlN29iTElhUldBOVU0Wk1Z?=
- =?utf-8?B?MU5nTzhTOWJ5Y0dvN1JVUmYwaUh1bFJPYlN2R0VrTXVXRk5IOWxpQXhJT2pM?=
- =?utf-8?B?enloTVY4R00xTTF3cXhpbSs5WDBZWFdXNlc1WTlyRk9kREVHcDQxZ3JrTnZH?=
- =?utf-8?B?aFpJVGd3OVp0cG5sQmlZS0xBMTNXNXdWd0szL2oyYXVOTGFTOGxOUmU3S1hl?=
- =?utf-8?B?Y21vVEVJVlM5SHRLeThOYnNrK05qRlJ0WlpWK3dwNGQ2NnNNRHdPY3NsUFlO?=
- =?utf-8?B?eCs2RFc1YVQzbzVDK3hxc093bXAxd3NoYndUNHhQd2luV3lPendoTFdWbzZX?=
- =?utf-8?B?eWhGN0VwWGJCLzMvTEtCMVBlMzljMWxVa0dqUlVkZjlIdnE4YThtaHlBckcx?=
- =?utf-8?B?Sm9oSW5mNTlLTSthODA4THlBNTVCMnVOTGwrNFhsUFhVYjZQbC96UWhtR29B?=
- =?utf-8?B?YU9hVmNEUDNUeEo2OHpmVFo5V2ZJd1RkakdOL3RqWWlqcFc3OUEwSXdjbTFm?=
- =?utf-8?B?c2p6QlplRWV0WkRVcWJYS20rVC9pQzB0WDFsNTlxdkJxenJlb014bWcvQ2d1?=
- =?utf-8?B?dEJGWDBjc1craFQ2TUN6U2hTZjZKVllESjJIcjRrODcrU2YvVGJlZDBtYnJB?=
- =?utf-8?B?VWIwd3FHVU9XdFB6bG1vYVlYVVlJL0RkVnEvV2pETjdWMVl1TnBoSmFaU3ZZ?=
- =?utf-8?B?TGtPOHRTS1RFbzB4blFlNXIrSkcyNldVS3dVamtWT0hTT3I5MUl3VFk0Z2FE?=
- =?utf-8?B?aE84Ykk2MFdqRFR6U1Fob3YxNjNRWUZsYXp0dnNyNDI0d2FTVE91MGF0RlBv?=
- =?utf-8?B?Q3d4UkJTRm9LVHAxME5ld2RsTjJ5cHlkYjhOQUlGVHlFTE13ZVZHbmU1UHcx?=
- =?utf-8?B?NmxIdU5Ib24rREhVazJXQllvczBBci9JTUlLRWw4eXg3T25aeGVwRTN3SDJE?=
- =?utf-8?B?SU9YSEd5SE9hY05WbzV0NWorNXFXNEF5MHZGK20wdUVtOW9zWEhQalh3cVJH?=
- =?utf-8?B?SmFyTUMzTld4N3pwd21RcVV3Wm8zSjBrdlJqakcvMlhlZjgzaW81bFhDQm1r?=
- =?utf-8?B?KzQ3dkNkL0svNFJyZUVoSm5VVmxTUnJ2T3QyLzFYcUsxSmxMVUlsOGZLQ2Ry?=
- =?utf-8?B?cTVCcTBEWXB3Tk5zeGJYQmFSOWhZQmt1bGZJMTUwSHpKMGxYQk9PSFBMNHQ4?=
- =?utf-8?B?K1dPc0VMNWNyYzZxL016Y1JYV2FzVFoxZ1Q2eG5xREtXTi9KYkxJU0VuZXJ4?=
- =?utf-8?B?SllGbmpwK0RMMVU0VDNvZmVmZ01BTVU5eVRKZ0l6endpLzNlcTBkVUxQNVZN?=
- =?utf-8?B?T3FhdlZOUnVvblZURzBJaGEzMW41STk3dHFhRTZVNTRtbHArNGlwMUM0Tjht?=
- =?utf-8?B?akZsY2M3NGNZbjQ1bFVyTEJ6cC9BcHIybjFRWnNsZnNndU9wNkR1TkhmM0Z3?=
- =?utf-8?B?NG15TnpISnVRTTIybHZjQ2tTUEQvNjVqQTFNc211bFEvVE83bkVnb2V6R29u?=
- =?utf-8?B?TFVHYzdndVB5a0RoZktqNk5RbXMrS0d3YVBUSVBnTVFTY1ZMTXVTeGRkTFBD?=
- =?utf-8?B?UnBlQmxsM2ZrQXZ5VE5MSjJ2TkVzSWF3MnBCdE9SL3JwUWJONktFaFNpVmVI?=
- =?utf-8?B?WDZOYTlPM0lydzMvZk9IR2xXUGFjYlBnYUFUK2o5UENmT1ZUVzVCclF4SFZn?=
- =?utf-8?B?dmRvSFRZYW5RV2VXTmJBKzN5WjUxNWEycG5iL3BKcTJZSFRYemY0b3RvaXFv?=
- =?utf-8?Q?opbWfF3uO4fqj?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: de51c4bf-3edd-4b4d-3ccd-08d93548a150
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2021 06:40:31.2592 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BvepQm3+B3j4oHzwjjEN+3gFnkYPIgV9xgGBoWAkWHgB3I5U7Ub4onJxehldZVRc
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4607
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,59 +78,198 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: amd-gfx@lists.freedesktop.org, tzimmermann@suse.de,
+ intel-gfx@lists.freedesktop.org, sunpeng.li@amd.com,
+ dri-devel@lists.freedesktop.org, joonas.lahtinen@linux.intel.com,
+ maarten.lankhorst@linux.intel.com, linux-kernel@vger.kernel.org,
+ mripard@kernel.org, airlied@linux.ie, jani.nikula@linux.intel.com,
+ daniel@ffwll.ch, rodrigo.vivi@intel.com, alexander.deucher@amd.com,
+ harry.wentland@amd.com, christian.koenig@amd.com
+Content-Type: multipart/mixed; boundary="===============1529409401=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 22.06.21 um 08:07 schrieb Aman Jain:
-> When a driver has multiple instances it is necessary to differentiate
-> between them in the logs. This was done with dev_info/warn/err since
-> DRM_INFO/WARN/ERROR don't do this. We now have drm_info/warn/err for
-> printing the relevant debug messages. Hence, this patch uses
-> drm_* macros to achieve drm-formatted logging
+--===============1529409401==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ boundary="Sig_/9B79vWVpJMlAP_qOfW3sima"; protocol="application/pgp-signature"
 
-Well first of all patches for radeon should have a drm/radeon prefix in 
-its subject line.
+--Sig_/9B79vWVpJMlAP_qOfW3sima
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-Then I don't think this patch makes sense since this is about the 
-hardware support of the module and not even remotely drm related.
+On Fri, 18 Jun 2021 11:11:02 +0200
+Werner Sembach <wse@tuxedocomputers.com> wrote:
 
-So we most likely don't want the drm-formating here in the first place.
-
-Regards,
-Christian.
-
->
-> Signed-off-by: Aman Jain <ahjain2706@gmail.com>
+> Add a new general drm property "active bpc" which can be used by graphic
+> drivers to report the applied bit depth per pixel back to userspace.
+>=20
+> While "max bpc" can be used to change the color depth, there was no way to
+> check which one actually got used. While in theory the driver chooses the
+> best/highest color depth within the max bpc setting a user might not be
+> fully aware what his hardware is or isn't capable off. This is meant as a
+> quick way to double check the setup.
+>=20
+> In the future, automatic color calibration for screens might also depend =
+on
+> this information being available.
+>=20
+> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
 > ---
->   drivers/gpu/drm/radeon/radeon_drv.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
-> index efeb115ae70e..75e84914c29b 100644
-> --- a/drivers/gpu/drm/radeon/radeon_drv.c
-> +++ b/drivers/gpu/drm/radeon/radeon_drv.c
-> @@ -308,7 +308,7 @@ static int radeon_pci_probe(struct pci_dev *pdev,
->   		case CHIP_VERDE:
->   		case CHIP_OLAND:
->   		case CHIP_HAINAN:
-> -			dev_info(&pdev->dev,
-> +			drm_info(&pdev->dev,
->   				 "SI support disabled by module param\n");
->   			return -ENODEV;
->   		}
-> @@ -320,7 +320,7 @@ static int radeon_pci_probe(struct pci_dev *pdev,
->   		case CHIP_HAWAII:
->   		case CHIP_KABINI:
->   		case CHIP_MULLINS:
-> -			dev_info(&pdev->dev,
-> +			drm_info(&pdev->dev,
->   				 "CIK support disabled by module param\n");
->   			return -ENODEV;
->   		}
+>  drivers/gpu/drm/drm_connector.c | 51 +++++++++++++++++++++++++++++++++
+>  include/drm/drm_connector.h     |  8 ++++++
+>  2 files changed, 59 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connec=
+tor.c
+> index da39e7ff6965..943f6b61053b 100644
+> --- a/drivers/gpu/drm/drm_connector.c
+> +++ b/drivers/gpu/drm/drm_connector.c
+> @@ -1197,6 +1197,14 @@ static const struct drm_prop_enum_list dp_colorspa=
+ces[] =3D {
+>   *	drm_connector_attach_max_bpc_property() to create and attach the
+>   *	property to the connector during initialization.
+>   *
+> + * active bpc:
+> + *	This read-only range property tells userspace the pixel color bit dep=
+th
+> + *	actually used by the hardware display engine on "the cable" on a
+> + *	connector. The chosen value depends on hardware capabilities, both
+> + *	display engine and connected monitor, and the "max bpc" property.
+> + *	Drivers shall use drm_connector_attach_active_bpc_property() to insta=
+ll
+> + *	this property.
+> + *
+>   * Connectors also have one standardized atomic property:
+>   *
+>   * CRTC_ID:
+> @@ -2152,6 +2160,49 @@ int drm_connector_attach_max_bpc_property(struct d=
+rm_connector *connector,
+>  }
+>  EXPORT_SYMBOL(drm_connector_attach_max_bpc_property);
+> =20
+> +/**
+> + * drm_connector_attach_active_bpc_property - attach "active bpc" proper=
+ty
+> + * @connector: connector to attach active bpc property on.
+> + * @min: The minimum bit depth supported by the connector.
+> + * @max: The maximum bit depth supported by the connector.
+> + *
+> + * This is used to check the applied bit depth on a connector.
+> + *
+> + * Returns:
+> + * Zero on success, negative errno on failure.
+> + */
+> +int drm_connector_attach_active_bpc_property(struct drm_connector *conne=
+ctor, int min, int max)
+> +{
+> +	struct drm_device *dev =3D connector->dev;
+> +	struct drm_property *prop;
+> +
+> +	if (!connector->active_bpc_property) {
+> +		prop =3D drm_property_create_range(dev, DRM_MODE_PROP_IMMUTABLE, "acti=
+ve bpc",
+> +						 min, max);
+> +		if (!prop)
+> +			return -ENOMEM;
+> +
+> +		connector->active_bpc_property =3D prop;
+> +		drm_object_attach_property(&connector->base, prop, 0);
+> +	}
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL(drm_connector_attach_active_bpc_property);
+> +
+> +/**
+> + * drm_connector_set_active_bpc_property - sets the active bits per colo=
+r property for a connector
+> + * @connector: drm connector
+> + * @active_bpc: bits per color for the connector currently active on "th=
+e cable"
+> + *
+> + * Should be used by atomic drivers to update the active bits per color =
+over a connector.
+> + */
+> +void drm_connector_set_active_bpc_property(struct drm_connector *connect=
+or, int active_bpc)
+> +{
+> +	drm_object_property_set_value(&connector->base, connector->active_bpc_p=
+roperty, active_bpc);
+> +}
+> +EXPORT_SYMBOL(drm_connector_set_active_bpc_property);
+> +
+>  /**
+>   * drm_connector_attach_hdr_output_metadata_property - attach "HDR_OUTPU=
+T_METADA" property
+>   * @connector: connector to attach the property on.
+> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+> index 714d1a01c065..eee86de62a5f 100644
+> --- a/include/drm/drm_connector.h
+> +++ b/include/drm/drm_connector.h
+> @@ -1380,6 +1380,12 @@ struct drm_connector {
+>  	 */
+>  	struct drm_property *max_bpc_property;
+> =20
+> +	/**
+> +	 * @active_bpc_property: Default connector property for the active bpc
+> +	 * to be driven out of the connector.
+> +	 */
+> +	struct drm_property *active_bpc_property;
+> +
+>  #define DRM_CONNECTOR_POLL_HPD (1 << 0)
+>  #define DRM_CONNECTOR_POLL_CONNECT (1 << 1)
+>  #define DRM_CONNECTOR_POLL_DISCONNECT (1 << 2)
+> @@ -1702,6 +1708,8 @@ int drm_connector_set_panel_orientation_with_quirk(
+>  	int width, int height);
+>  int drm_connector_attach_max_bpc_property(struct drm_connector *connecto=
+r,
+>  					  int min, int max);
+> +int drm_connector_attach_active_bpc_property(struct drm_connector *conne=
+ctor, int min, int max);
+> +void drm_connector_set_active_bpc_property(struct drm_connector *connect=
+or, int active_bpc);
+> =20
+>  /**
+>   * struct drm_tile_group - Tile group metadata
+
+Acked-by: Pekka Paalanen <pekka.paalanen@collabora.com>
+
+
+Thanks,
+pq
+
+--Sig_/9B79vWVpJMlAP_qOfW3sima
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmDRh08ACgkQI1/ltBGq
+qqefDxAAnTLRWiJXKt324iuUjpCGVbdJKhpZM0IKnG4RtItTZyLGLQgUzh95qRiN
+g3YnCGoMa3pxgSgMtq3j+PidIdjquAEfJs351qFJtIxuPjNrfWM0GBRmUQFQdauq
+2xyUju8k8LaqBiasR8ulgGGZYbOWfqgcZh6GamzsSU/39wec6Pmlx7Ehoa2cYjBp
+sL9fc7aemSh2igjWhIOdB53hB1r5DUAaDWqLxVuSQrKZnDlheDlbydbcVxfy6hG/
+J71k/4sPopKcVzi0/o3wRs8jRIulvQC9f3+PVm84XeVuOWwsgR7euepL/ZImBmiw
+1UwvLB4Q50ZAbKa4bi3VxC6E9taIjnc3LTvyM1wlMFyb3mWBgd549rMImyVdQfHf
+/Sol9zzE3BY81fo61KJ+4QIU/6S2uE2KIIpYBDKQm0k7CRscwRUXvnSOgGlY1uSZ
+uAkOck8vbxbUfZl5AGRKIA5ybHrtC6TqQJQ9fLS2naCo4s2zN8U30od21Gt0s7tC
+5uLTqGoKMUSb/8UigJyIZGz3enuTegtUf+LcANyzZstCjGj1IIbN/HbvgWFIC3cz
+L+EcnH9b9unBCpndvaMt0CzSGkEZmIXVCpCQYmr4OIV3xpngl5liayo6+BvhWUWt
+ok+4G8SrDoVM59h9MrEiTpOcFScFQB1dB+zThRWUd1r27nxZGnM=
+=nxUW
+-----END PGP SIGNATURE-----
+
+--Sig_/9B79vWVpJMlAP_qOfW3sima--
+
+--===============1529409401==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============1529409401==--
