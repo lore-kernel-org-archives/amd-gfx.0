@@ -2,127 +2,134 @@ Return-Path: <SRS0=0Dgm=LQ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.4 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,MIME_HTML_MOSTLY,PDS_BAD_THREAD_QP_64,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 75BCBC2B9F4
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Jun 2021 05:28:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 03949C2B9F4
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Jun 2021 06:08:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1897460FE3
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Jun 2021 05:28:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1897460FE3
+	by mail.kernel.org (Postfix) with ESMTPS id BAF2961002
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Jun 2021 06:08:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BAF2961002
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F1736E06B;
-	Tue, 22 Jun 2021 05:28:11 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2059.outbound.protection.outlook.com [40.107.243.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8B206E06B
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Jun 2021 05:28:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43E7B6E192;
+	Tue, 22 Jun 2021 06:08:15 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2078.outbound.protection.outlook.com [40.107.236.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 037E26E192
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Jun 2021 06:08:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NU0XPa735Z+XMKv/Td4dUd6quvLWdBEa9Mxi5ccPPq67U/OE8Rxw7Pb9HL+wpMBJpn01KT4TIxREBSAuWlAW5ufezOuj26lo+X1wKYAqHiltFzcptLHsVHnwnBHJ8wDpBA5P7PziAUMmB1K6j/MMiWjRGhQHvjGWhO/DRLXmHEtuawf0kWFr/qKkeeSeuMxPI8rvCMiFAfdLjx38eqKhR6ITl5YsWJo3PxIeILtvIkZsWaII0OM/ZLizKA4qx3xQcVJjlO6DCH8AZzUCSYqOFvb/vn+8FPF5LYRwXukg2en/7vCEpewhxyvIxQ+uWli7D1rjudCMe6cHGOf9JZ1isg==
+ b=Vfk1WrUcu1W7gWNP7Sx9dIdZl+B0ai9KAxIeoIbiH20z3A3Qor8QhjnFdlwcOTfWpmhnf3+8DYRpTaeABXfaZjogQxhFKZ623NKzsRzBPfqxob2UkIf+NwOuz9VvlzR3XjkHQJUEIpvFmoXfZgRAg4mYxmPsx2VLJn+mLbGDKzJS3lm40zktcf0foQofPBrzw9nlFRbZuOP1li8h7cbEe+/d918O4AWzi/SMN4apdE/wVCb7oCCmLEUjrpve3VN3gna5OIt6U1IsAnQD0Ix5R5oP+iZifuZ73U1IiBR5h4nXR2kfKummWEQnm9qW5rxyZmiRf5R+ShMTkhQaIQpqkQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1C8aVZ4jPV1XDxNbEwqFWcMVUWfOycAhwZCXg/PjlwA=;
- b=XqOMbkkRYQUxnz9X1gpMgh3XB33jg/qmCVg95J+mVLCuFV4pwGldThXgbiSLTOTkpuq5qPRafboHjrzwnifEn+Uz7ywbsBdo7ekS+Lb5EWP2FBaroX6m49qWY/EwfXxIReJ/nJ1my8XipCri8DUfZA2fflIvI1sBEWOzq0kjR5b3OagsMAhgZT8Ro+31LHMQdg0mEpnRH23BGgFc+BWoonPlrX9i9uVMIZs7RGQIyG5RI1giCDRugE7tG2qInHKKOUjdE5rmO+JT35gQOhlf/gCTR3XBsv0+buxgffudyL/BacgFzUu0dT8GQmMCE6zMA9NhVhliTDKR0INwGbXRPQ==
+ bh=Gy7dGxDbTotEr8Tnv0IbCmgXvbjZDli23aAlFJeFlNw=;
+ b=JWOSwyjh+d3/sZWdj5MvxkVE8UwpK+UqsZ9EqX4kJINT8hgtIjUX3x1axsBQ3ZkovDizsbAnDr1d72rJE8TdEFtsjUtaDWHfm+ljKeumVcTfTqVJrDMEH+3VdGciKBpdXcrecqlmnrXAkv8VdGpZq7brmel5gOispYNbcAtflVRMKmB5VFREyzUM6HBSfSlUss/WYFKd/+IbVpj1TsaT5IiPTPfyCp3FEMmkyQfYiWOMQhgVNmZQAV6pmL3HbphzN8ap1cUlqBxOTW9J+fZATaTIt1k8VpWD0Dyf+Y/1iC1QjQXm+oQczBPLl8kDCBntxf22hDoSFm1hMLjc1i7V0g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1C8aVZ4jPV1XDxNbEwqFWcMVUWfOycAhwZCXg/PjlwA=;
- b=bKhl9KHmoNpWnMtlt1Fw2T3DxXV4D63AuYCqkFeL3LZBEhpeTbQfm4VhR3R8o8DAef24EPFn736bYVwasa4wmSkbtvsRJLdXucJuGqlimdxnWV4G1cpvIkbNyRf24uGe+VC/k/ZC4mGvnh6/CqUjSt7X2l43nMPLGvMwVKnoJ6o=
-Received: from CO6PR12MB5473.namprd12.prod.outlook.com (2603:10b6:303:13e::8)
- by CO6PR12MB5442.namprd12.prod.outlook.com (2603:10b6:5:35b::22) with
+ bh=Gy7dGxDbTotEr8Tnv0IbCmgXvbjZDli23aAlFJeFlNw=;
+ b=C7gQeVHmacDjPQ74E5U5tVMXrdWQZ/03ouvzAbXTHzANc+eNLmjtY7BJxpJ2a4X1LLcCPQ6TAELeIJsdc4VkwulwA1sc4seqe7SJF3ze/Izn3EYaLpUNzS8EFHSv703dGT5w3grQ62QA91R2KsJNPfnhB/EgJFErk0e9Dxoek+A=
+Received: from CH0PR12MB5348.namprd12.prod.outlook.com (2603:10b6:610:d7::9)
+ by CH0PR12MB5186.namprd12.prod.outlook.com (2603:10b6:610:b9::19) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.19; Tue, 22 Jun
- 2021 05:28:06 +0000
-Received: from CO6PR12MB5473.namprd12.prod.outlook.com
- ([fe80::c8f7:5e9d:ca99:1dbb]) by CO6PR12MB5473.namprd12.prod.outlook.com
- ([fe80::c8f7:5e9d:ca99:1dbb%7]) with mapi id 15.20.4264.018; Tue, 22 Jun 2021
- 05:28:06 +0000
-From: "Wang, Kevin(Yang)" <Kevin1.Wang@amd.com>
-To: "Powell, Darren" <Darren.Powell@amd.com>, "amd-gfx@lists.freedesktop.org"
+ 2021 06:08:12 +0000
+Received: from CH0PR12MB5348.namprd12.prod.outlook.com
+ ([fe80::d532:d815:8c2c:e1bb]) by CH0PR12MB5348.namprd12.prod.outlook.com
+ ([fe80::d532:d815:8c2c:e1bb%7]) with mapi id 15.20.4242.023; Tue, 22 Jun 2021
+ 06:08:11 +0000
+From: "Lazar, Lijo" <Lijo.Lazar@amd.com>
+To: "Quan, Evan" <Evan.Quan@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH 1/1] amdgpu/pm: remove code duplication in show_power_cap
- calls
-Thread-Topic: [PATCH 1/1] amdgpu/pm: remove code duplication in show_power_cap
- calls
-Thread-Index: AQHXZx2PzIKs5vTIBUKeGzMQsvgcAqsffx5k
-Date: Tue, 22 Jun 2021 05:28:06 +0000
-Message-ID: <CO6PR12MB5473C117661C9441AF94AB91A2099@CO6PR12MB5473.namprd12.prod.outlook.com>
-References: <20210622041716.2295-1-darren.powell@amd.com>
-In-Reply-To: <20210622041716.2295-1-darren.powell@amd.com>
-Accept-Language: en-US, zh-CN
+Subject: RE: [PATCH V3 1/7] drm/amdgpu: correct tcp harvest setting
+Thread-Topic: [PATCH V3 1/7] drm/amdgpu: correct tcp harvest setting
+Thread-Index: AQHXZmsxWYSJtjLU9kmsZQUGxR3V46seX0oAgADvpgCAADwRsA==
+Date: Tue, 22 Jun 2021 06:08:11 +0000
+Message-ID: <CH0PR12MB5348A92078FAAEB0F132A78D97099@CH0PR12MB5348.namprd12.prod.outlook.com>
+References: <20210621070040.494336-1-evan.quan@amd.com>
+ <c4550aab-23b3-fcf9-5fc1-7c129743adb3@amd.com>
+ <DM6PR12MB2619DA78289C9BC237FF772AE4099@DM6PR12MB2619.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB2619DA78289C9BC237FF772AE4099@DM6PR12MB2619.namprd12.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-06-22T05:28:05.707Z;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD-Official
- Use
- Only; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard; 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-06-22T06:08:06Z; 
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP 2.0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=071d4373-c5ca-4cad-9c08-1f86d88eeba4;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1
 authentication-results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [165.204.134.244]
+x-originating-ip: [2401:4900:2352:9656:387c:82ed:cb97:f272]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 2351258b-04f5-487d-b59e-08d9353e83e9
-x-ms-traffictypediagnostic: CO6PR12MB5442:
+x-ms-office365-filtering-correlation-id: 2bb74b5c-8d6c-45cd-454c-08d935441d92
+x-ms-traffictypediagnostic: CH0PR12MB5186:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <CO6PR12MB544249EE4059289C1A4BE774A2099@CO6PR12MB5442.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:3276;
+x-microsoft-antispam-prvs: <CH0PR12MB5186B68668440637958094B197099@CH0PR12MB5186.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:4714;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: YvniQas/Xd6/mRX5RMgc3lY7izaxgOnlIrsa+8Xm4K4KsUhLdswhJQFVYiJTbhh3Ji27e7OC+pJeXaha/memm/QSpyD0pAZe022EIPq0UEoQyFaxEOFQzoA+ipNvxyJHbOxVZggmSgWl95d4+h9MzufrcbuZEv56NgjSIUkehk6F7aUpHm+zcO96rQUpsWnH/RYPaPtMZ5iaTGGqVR5eDMRbJVASFUFkVb0f8znkJ2q7wa+6xwS2DhQawkNutbiP5C/sFTUkaP1Mtzht0DCgGd3yMmF1gHWxFfHDCZQfG2RhOQKe9FbD+acU4UpXfBSJOt+IpG02dyzVsNGIRM2kP9YiIWDIWg47GyeVMaluR1k+uKkN2lp+S6u4Nd8ObcY90bpzQ3mY1Y7i6O9QHsVl3QV2gK4JUglFBvmnEcotsfHJfjGnkVxWpciNWsSW6IQzD0eqZYt7emzhgV4Ky9JbWBfUaLm1G2fxz8INbrs/fQbxiWCpft8apmucvOXo0AdJx/NPavHwx9FkTDL8BEvbVmMS7hJCyZhsg+H3RTPPbSYDxQBcNCMtDxx8PF1fcsNKnmwSUq3WtVbIFUjmYSM5XI/4MTN6nJO1ibpnd/wELy5EJqiC5vHJ8EpZ7d9Oj434nT+MMW1vsAcUE/ZGCWk4MsfRpRvxQ0CVNuZkFpB5vbEcdR0mkPrSTFVTP12pDKmI
+x-microsoft-antispam-message-info: D7HUzj0OKtmDwb/9x2J6cGbxtFRnRqGtEZtEOK94Qdxn3CfW7xCDYIy4O3XS/DO0k8xogyYH2eCAl2gssRhvfEaXkfDJJQiZJoM8gvJ5VSDAWdX20jvXZ2s54wKRSQVXp9mscVMs0sHuWoJbh3IjKXNr08xzNS8ie+bTDVNR2FnLOpGtoC+fMZRQ0i8u5CHCMNPrASBUmMDzjNtRJiuKB843U2XSrj/kmiEZyetYcP5U+eWltCeYa4FU/k0cnZ+8GDvG2lvEVC4tTm1iIYPR0rOXfeUzFuMG9Ih6GRfUHkYX1ND+DMghXC4VY4B74UqUd2vAXei1srSFK68SCAsla27mAjepyCnnOL+pkCyZbRXWZehYKJ5Adf7IgSKXpfdEyspff3vxhVikKdppAtVu8Ftjqdd1Q6W3GPca0U8pyAfa5sxfbCAUAX8Mw1EtLlZ8APbkdfHAFNLbyjmHoIq+OBP4qSTlAaLayVLjq51PyWTlwPXvVOtCUM+KBXC1Rerr7e0VrX4HX8VTCjcomqxo1lzM+6aQCdMiiA/yIryE+2kjJVSvBZy/bAePhZalunOrWndRZW7owklBH1o+WVs+sKXKfzh5eHF/mr1Pg/SlyN4=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5473.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(136003)(366004)(376002)(396003)(346002)(2906002)(8676002)(45080400002)(478600001)(86362001)(19627405001)(9686003)(966005)(8936002)(33656002)(186003)(6506007)(53546011)(71200400001)(5660300002)(66446008)(64756008)(66556008)(66476007)(66946007)(110136005)(83380400001)(166002)(7696005)(38100700002)(76116006)(91956017)(316002)(52536014)(55016002)(122000001)(26005)(21314003);
+ IPV:NLI; SFV:NSPM; H:CH0PR12MB5348.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(346002)(396003)(376002)(136003)(366004)(110136005)(38100700002)(186003)(52536014)(76116006)(316002)(4326008)(64756008)(2906002)(86362001)(8936002)(8676002)(66446008)(66946007)(66476007)(5660300002)(66556008)(122000001)(7696005)(33656002)(6506007)(53546011)(9686003)(71200400001)(55016002)(83380400001)(478600001);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?9ag3/uhhbYDJvSWZuvhNdW9KqYsop8kIZDHMNR3Er0rDhcCzPX7g8XOcAp?=
- =?iso-8859-1?Q?1U49Wfe8gZN/PXxuyLyzkWnZ8q0PI2WYiMG53OUP76yYdsBt5w5JHalIhD?=
- =?iso-8859-1?Q?A9Ew2l/JHO2eOSAzl0TpvxtJejiEXM8cfoazLDhKaUAkS51uwAMdUQAjC3?=
- =?iso-8859-1?Q?v7Db5k4xCk+s9xkhoQwu84WLGDEm1AP2rwCi4U7U8nyBO5Sf6p0MeF3P42?=
- =?iso-8859-1?Q?Tk5NeDlEAdO7q4jB5HtdSGplNm/8lLa2+4TVDr1yRXHQEn0F5gr4sve4lC?=
- =?iso-8859-1?Q?SNV38QuG83c2Tede/bzz80qOFGTv/gjQRjd1d3OL8H+Ubc23uZX8dacN+o?=
- =?iso-8859-1?Q?m1o36lanMOnWEG1M4+KHuSLS/nH1ysmCwW/cs2u+uLm1W2MOs8NFVvXUbt?=
- =?iso-8859-1?Q?nKUrpgeVagim4I/MXp2VI3gDPTLsdHAz7NZi3192xUCeRDkqLGlc+1eA3+?=
- =?iso-8859-1?Q?h7QxtYsD4sFuppje+JoqFt74GCz8cak2NYRQo9j5b7BosSAJmjyYiFtRjs?=
- =?iso-8859-1?Q?aUo1JXOmyBc/ymCJsjqgIoqEGbTRAJ0MBdMVFrysxsO+gF5FM5wWhM3KmG?=
- =?iso-8859-1?Q?L4h9LZpz4e/H6HaF5gkQfw4KSKmzWuU+o2MDYmo2w+AViQr6w1mTURgXhX?=
- =?iso-8859-1?Q?99hytKQZKn7nrWJf5U2HfFXsS00JkLM2KavduzpKFnp5ccxig1C/Ldy5av?=
- =?iso-8859-1?Q?8QcVjyqViGiG5AGNg0O/llolu6H1+zZyhp6urK3WxKeO4zE0vysBiREAuc?=
- =?iso-8859-1?Q?8TYKTRmao19zuGFEbu/hBUAphaz9ukA+E31/6pIkTi/x1zEuCtre1OHn1e?=
- =?iso-8859-1?Q?6P7N8HO0S2fHUxPGOcuozIbc5bSbeGoephs+UEzaSBjmcq9jxkaLrEYUxs?=
- =?iso-8859-1?Q?/LzgOrKzO0TlnFn5/7+YO3XR/ynQQ/1sIVAoXSIiI4BC4hTDyiXNhm6rnK?=
- =?iso-8859-1?Q?A8oVp9a+GUOvgzBMtnI55gFfdOGVAotXdelKEnLSF4tOggLddEByqW1YGK?=
- =?iso-8859-1?Q?A338ULjtre7Bl7R52bhL3ABHJ0Bq2rUd8TbOsGOGnJdg7bxk02Q7tFTZmj?=
- =?iso-8859-1?Q?U+mc2LaD96pkM6Qk9opKs4vl71VRG7kxpDiBsXWKK8mFNOn/WVykO5Al6c?=
- =?iso-8859-1?Q?Z0N6IbDIR11vTAZt5rFw8G5VLtom5XopYFF/L7fTF2VuQJ0uys+MPExx0g?=
- =?iso-8859-1?Q?Qs05oPs5VRM/LcYRAnWHtf0tv4yHnVbj7pjbMc8xT7r8xDvS17NWEKgvC0?=
- =?iso-8859-1?Q?DGtjXvKFSXfbMMA9Y+8ZORx5Pf6ZogYyrwGWyRkicbDgXkZar8Qq1oDUKf?=
- =?iso-8859-1?Q?4Nn8Iwkihh3upYNsC2VOgbbnyfFiEkDHW0mXr6FYDS5Di8JmMvlOt0yJVk?=
- =?iso-8859-1?Q?n00E7uxVEZ?=
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?R0RaYjRLVmdnSDdnbFlUdnVFUnJWVXJEaUphUTNhdzEvYUtUb0IyN2xvWGxz?=
+ =?utf-8?B?aVNaY1lOcFRNbmZDZDRFMXNuU29xQUY3ck1FRjQ3YmdzaGtMM1BFV21Yd3dT?=
+ =?utf-8?B?WEh3eTlLUXorbEtlMUVCU2FpYnhqSFBqSnZlaFNNcndyTSsxTlEvN0JYSms5?=
+ =?utf-8?B?aFJGNExzZUEyaDBXQVcraUFudFo3QWdJbVI4OE5mRnN0QXh6WmdVQkY5bzBu?=
+ =?utf-8?B?Wm5CbGVEMHZzY1NicVhPck5ieStGNVdwSC91YStrLzBaMW5rbVEreW0zd0pK?=
+ =?utf-8?B?VmgycXBqbXJVK0FRWGJtemUvM25qbGxkdHhzdEhGWUp5a2JBUithSEZwOHZh?=
+ =?utf-8?B?MjQ0Y0lNMGR1SThIWVg4ODF0cnBWb1BDeXZwUFZna1Q1WSt3SnZPSUVvbWpv?=
+ =?utf-8?B?Y2dLZ3oybkJtbVMvaEJMREpKbHhOM2d2Y2JlRFhjTEgzQXNzSzcwOXEvY1JY?=
+ =?utf-8?B?bmpxVVNsdjdlcUNFMm1Sd2NkeDMvMmpzVU9rcTJ1dXJjcitKODdOMTVESzVT?=
+ =?utf-8?B?S0RGT3Y5d1F4U2pMZG83d1p0cEpaWXhaMkxOMHRXdll0d29CeW1EaU1aZEpK?=
+ =?utf-8?B?M2MzRkoxWUJzTzh6Y1NhQ3djM2xUZWIxY3ZyYVNJNjNQNmVZcHkyK1l0Nzh0?=
+ =?utf-8?B?dmZJcVBSVGFBWHhvZmdPRXpkVnhJWmVWb3RJYWwzVUNoVElHelJnUmJNL0FY?=
+ =?utf-8?B?amdvWUFMc2xWT0d3QUQrNmY0aWdiUEdpOGo3eFNLLzg3ekd4TmpVdnFHbzYv?=
+ =?utf-8?B?NWowSExKRExIUXJSRktDQ21UVURLNG1XdnVDZ09rRG5zYktJZEQ2SVVYRW5r?=
+ =?utf-8?B?QVg2ZXRLdlZIdVoyT3Q1a296SWFLdlh6OE5IYjNhYXFwMGJPcW1HOUVRVHRw?=
+ =?utf-8?B?NkQ1bUlXd3p4NmdmY1hZUlo4Zy9SOGt3RnltRmZaQjB2Qzh1QWl5dmZIbUtu?=
+ =?utf-8?B?b1dLZG1EcFNRVUZra2d5dmN5dG5Ddk1KaDNHVWZrUU1PQ0oxV3hldHZ0R1pL?=
+ =?utf-8?B?N2tRd0FEYkNpSHFvTDA3R3FuV2ZLT1ZOUVJzRUZQSEVDR20rK1N6MnFodUJG?=
+ =?utf-8?B?d0ZIQ1NqVXBJWWowYjNFdHg3SnZUREN4ZWxxUENlN24xQmdodmhNWERqMTkx?=
+ =?utf-8?B?R3dLdmhuRDhIVGZjVFhlc3hPOWhsVDBabFpWMkM2bWNQdHdPVkpkWTkxK1pH?=
+ =?utf-8?B?TlBsaDRlSG9DZzdvaFNEYXRrSisxUnJGMGVsQWthcWlCT0d4aEt1ZlFxdTBp?=
+ =?utf-8?B?ZjNFUXB4RnNEY1JsaHVDZ3lwbmN2b05sNE5CNWh3S1BCTlk0YzBoajUyQW9J?=
+ =?utf-8?B?RC9SaXhQTnhhVW5PUi9vVG1BeWZpcFJVZ1IyYkJONWk1NGp6NmN6d3ZlU1dx?=
+ =?utf-8?B?QmU5a2ZycSs0clM3eHF5OXBFdW1ER0RET0h5OE9NQkdERGJhbWtBbmRROVRq?=
+ =?utf-8?B?RlV6eXVETTVzRk0zNTVXZktUeHV4RCsrMUNFWUpSd2tVVFRvUjByWXJzSit5?=
+ =?utf-8?B?bG9nMkhWbEczdWtYRURDNWk1NDg2UytkQVJHT05vWkFKUTNaNXgwVHIxajh2?=
+ =?utf-8?B?RGxKRjYrcGNERzRpSXR6LzlXakIrN3dCNzFiT0ZTOVJZMnVGSUErYk1Od25a?=
+ =?utf-8?B?SGdtSG14bTd1MmpXbFNTOWo5MEVJZlZhQkZhaDFEOFE2NEdncUtBRU5xaS9p?=
+ =?utf-8?B?alVTK01lTW5CRU9rUUljUTdScFV2N2lwS1lhTnAxRk82V2szdkJUVi9xRk1w?=
+ =?utf-8?B?ekFrWWhvbzdpZ3hOczFySzErTVNzZ1FyVEQvblN0ZWQ3aUhWK0NVeDNTT1Vy?=
+ =?utf-8?B?cXdnME9ncHcrVjJ3czMxTDhST0FHWGk1ZWtLOTMvajdJWWtFZjJDM28rZ3Zv?=
+ =?utf-8?Q?ANgwZ609YyEgZ?=
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5473.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2351258b-04f5-487d-b59e-08d9353e83e9
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Jun 2021 05:28:06.5090 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5348.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2bb74b5c-8d6c-45cd-454c-08d935441d92
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Jun 2021 06:08:11.8395 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: XrDaFgEiB/xEvYKDGkU2+30VZWxsOBxfTbFRDlaxt317iWFlBTlXhzedWIGI6lZH
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5442
+X-MS-Exchange-CrossTenant-userprincipalname: Dg++/sCsUhpHENg1z5EPw14rTqdhkp+/CM6hn3/ckShiswkvR9LdLJX1ppCiqxTI
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5186
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,578 +141,248 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1767767070=="
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1767767070==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CO6PR12MB5473C117661C9441AF94AB91A2099CO6PR12MB5473namp_"
+[Public]
 
---_000_CO6PR12MB5473C117661C9441AF94AB91A2099CO6PR12MB5473namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+AFAIK, that expression is legal (some code analyzer may warn on value of 4*max_wgp_per_sh); similar kind is used in rotate shift operations.
+
+Thanks,
+Lijo
+
+-----Original Message-----
+From: Quan, Evan <Evan.Quan@amd.com> 
+Sent: Tuesday, June 22, 2021 7:56 AM
+To: Lazar, Lijo <Lijo.Lazar@amd.com>; amd-gfx@lists.freedesktop.org
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+Subject: RE: [PATCH V3 1/7] drm/amdgpu: correct tcp harvest setting
 
 [AMD Official Use Only]
 
-Please optimize the following code together in new generic function.
+Thanks Lijo.
+However, I'm not quite sure whether " 0xffffffff << (4 * max_wgp_per_sh);" is a valid expression since it kind of triggers some overflow.
+Can that work for non-x86 platform or even work reliably for x86 platform?
 
-if (pp_funcs && pp_funcs->get_power_limit){}
-please check above codes before calling pm_runtime_xxx interfaces to avoid =
-empty operation in pm_runtime cycle.
-
-Reviewed-by: Kevin Wang <kevin1.wang@amd.com>
-
-Best Regards,
-Kevin
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Darren P=
-owell <darren.powell@amd.com>
-Sent: Tuesday, June 22, 2021 12:17 PM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Powell, Darren <Darren.Powell@amd.com>
-Subject: [PATCH 1/1] amdgpu/pm: remove code duplication in show_power_cap c=
-alls
-
-created generic function and call with enum from
- * amdgpu_hwmon_show_power_cap_max
- * amdgpu_hwmon_show_power_cap
- * amdgpu_hwmon_show_power_cap_default
-
-=3D=3D=3D Test =3D=3D=3D
-AMDGPU_PCI_ADDR=3D`lspci -nn | grep "VGA\|Display" | cut -d " " -f 1`
-AMDGPU_HWMON=3D`ls -la /sys/class/hwmon | grep $AMDGPU_PCI_ADDR | cut -d " =
-" -f 10`
-HWMON_DIR=3D/sys/class/hwmon/${AMDGPU_HWMON}
-
-cp pp_show_power_cap.txt{,.old}
-lspci -nn | grep "VGA\|Display" > pp_show_power_cap.test.log
-FILES=3D"
-power1_cap
-power1_cap_max
-power1_cap_default "
-
-for f in $FILES
-do
-  echo  $f =3D `cat $HWMON_DIR/$f` >> pp_show_power_cap.test.log
-done
-
-Signed-off-by: Darren Powell <darren.powell@amd.com>
----
- drivers/gpu/drm/amd/pm/amdgpu_pm.c | 86 +++++-------------------------
- 1 file changed, 14 insertions(+), 72 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/am=
-dgpu_pm.c
-index b2335a1d3f98..99c21d1a2c4e 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -2901,14 +2901,14 @@ static ssize_t amdgpu_hwmon_show_power_cap_min(stru=
-ct device *dev,
-         return sprintf(buf, "%i\n", 0);
- }
-
--static ssize_t amdgpu_hwmon_show_power_cap_max(struct device *dev,
--                                        struct device_attribute *attr,
--                                        char *buf)
-+static ssize_t amdgpu_hwmon_show_power_cap_generic(struct device *dev,
-+                                  struct device_attribute *attr,
-+                                  char *buf,
-+                                  enum pp_power_limit_level pp_limit_level=
-)
- {
-         struct amdgpu_device *adev =3D dev_get_drvdata(dev);
-         const struct amd_pm_funcs *pp_funcs =3D adev->powerplay.pp_funcs;
-         enum pp_power_type power_type =3D to_sensor_dev_attr(attr)->index;
--       enum pp_power_limit_level pp_limit_level =3D PP_PWR_LIMIT_MAX;
-         uint32_t limit;
-         ssize_t size;
-         int r;
-@@ -2941,85 +2941,27 @@ static ssize_t amdgpu_hwmon_show_power_cap_max(stru=
-ct device *dev,
-         return size;
- }
-
--static ssize_t amdgpu_hwmon_show_power_cap(struct device *dev,
-+static ssize_t amdgpu_hwmon_show_power_cap_max(struct device *dev,
-                                          struct device_attribute *attr,
-                                          char *buf)
- {
--       struct amdgpu_device *adev =3D dev_get_drvdata(dev);
--       const struct amd_pm_funcs *pp_funcs =3D adev->powerplay.pp_funcs;
--       enum pp_power_type power_type =3D to_sensor_dev_attr(attr)->index;
--       enum pp_power_limit_level pp_limit_level =3D PP_PWR_LIMIT_CURRENT;
--       uint32_t limit;
--       ssize_t size;
--       int r;
--
--       if (amdgpu_in_reset(adev))
--               return -EPERM;
--       if (adev->in_suspend && !adev->in_runpm)
--               return -EPERM;
--
--       r =3D pm_runtime_get_sync(adev_to_drm(adev)->dev);
--       if (r < 0) {
--               pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
--               return r;
--       }
--
--       if (pp_funcs && pp_funcs->get_power_limit)
--               r =3D pp_funcs->get_power_limit(adev->powerplay.pp_handle, =
-&limit,
--                                             pp_limit_level, power_type);
--       else
--               r =3D -ENODATA;
--
--       if (!r)
--               size =3D snprintf(buf, PAGE_SIZE, "%u\n", limit * 1000000);
--       else
--               size =3D snprintf(buf, PAGE_SIZE, "\n");
--
--       pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
--       pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
-+       return amdgpu_hwmon_show_power_cap_generic(dev, attr, buf, PP_PWR_L=
-IMIT_MAX);
-+}
-
--       return size;
-+static ssize_t amdgpu_hwmon_show_power_cap(struct device *dev,
-+                                        struct device_attribute *attr,
-+                                        char *buf)
-+{
-+       return amdgpu_hwmon_show_power_cap_generic(dev, attr, buf, PP_PWR_L=
-IMIT_CURRENT);
- }
-
- static ssize_t amdgpu_hwmon_show_power_cap_default(struct device *dev,
-                                          struct device_attribute *attr,
-                                          char *buf)
- {
--       struct amdgpu_device *adev =3D dev_get_drvdata(dev);
--       const struct amd_pm_funcs *pp_funcs =3D adev->powerplay.pp_funcs;
--       enum pp_power_type power_type =3D to_sensor_dev_attr(attr)->index;
--       enum pp_power_limit_level pp_limit_level =3D PP_PWR_LIMIT_DEFAULT;
--       uint32_t limit;
--       ssize_t size;
--       int r;
--
--       if (amdgpu_in_reset(adev))
--               return -EPERM;
--       if (adev->in_suspend && !adev->in_runpm)
--               return -EPERM;
--
--       r =3D pm_runtime_get_sync(adev_to_drm(adev)->dev);
--       if (r < 0) {
--               pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
--               return r;
--       }
--
--       if (pp_funcs && pp_funcs->get_power_limit)
--               r =3D pp_funcs->get_power_limit(adev->powerplay.pp_handle, =
-&limit,
--                                             pp_limit_level, power_type);
--       else
--               r =3D -ENODATA;
--
--       if (!r)
--               size =3D snprintf(buf, PAGE_SIZE, "%u\n", limit * 1000000);
--       else
--               size =3D snprintf(buf, PAGE_SIZE, "\n");
--
--       pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
--       pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
--
--       return size;
-+       return amdgpu_hwmon_show_power_cap_generic(dev, attr, buf, PP_PWR_L=
-IMIT_DEFAULT);
- }
-+
- static ssize_t amdgpu_hwmon_show_power_label(struct device *dev,
-                                          struct device_attribute *attr,
-                                          char *buf)
-
-base-commit: 1971ad5abcd8575efd12d2e6639fd8f58210a8d8
---
-2.31.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
-reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D04%7C01%7CKevin1.W=
-ang%40amd.com%7C502816aea3734f79bf5208d93534af53%7C3dd8961fe4884e608e11a82d=
-994e183d%7C0%7C0%7C637599322688052639%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wL=
-jAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=3DFn=
-BkxT957mNoTpd3jnEHBYQZV3ImGOfmy3K0ToGKNII%3D&amp;reserved=3D0
-
---_000_CO6PR12MB5473C117661C9441AF94AB91A2099CO6PR12MB5473namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:15pt;" al=
-ign=3D"Left">
-[AMD Official Use Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-</div>
-<div><span style=3D"font-family: &quot;segoe ui&quot;, &quot;segoe ui web (=
-west european)&quot;, &quot;segoe ui&quot;, -apple-system, blinkmacsystemfo=
-nt, roboto, &quot;helvetica neue&quot;, sans-serif; font-size: 12pt; color:=
- rgb(50, 49, 48); background-color: rgba(0, 0, 0, 0);">Please optimize the
- following code together in new generic function.</span><br>
-</div>
-<div><span style=3D"background-color: rgba(0, 0, 0, 0); color: rgb(50, 49, =
-48); font-family: &quot;segoe ui&quot;, &quot;segoe ui web (west european)&=
-quot;, &quot;segoe ui&quot;, -apple-system, blinkmacsystemfont, roboto, &qu=
-ot;helvetica neue&quot;, sans-serif; font-size: 12pt;"><br>
-</span></div>
-<div><span style=3D"background-color: rgba(0, 0, 0, 0); color: rgb(50, 49, =
-48); font-family: &quot;segoe ui&quot;, &quot;segoe ui web (west european)&=
-quot;, &quot;segoe ui&quot;, -apple-system, blinkmacsystemfont, roboto, &qu=
-ot;helvetica neue&quot;, sans-serif; font-size: 12pt;">if (pp_funcs &amp;&a=
-mp; pp_funcs-&gt;get_power_limit){}</span><br>
-</div>
-<div><span style=3D"background-color: rgba(0, 0, 0, 0); color: rgb(50, 49, =
-48); font-family: &quot;segoe ui&quot;, &quot;segoe ui web (west european)&=
-quot;, &quot;segoe ui&quot;, -apple-system, blinkmacsystemfont, roboto, &qu=
-ot;helvetica neue&quot;, sans-serif; font-size: 12pt;">please check above
- codes before calling pm_runtime_xxx interfaces to avoid empty operation in=
- pm_runtime cycle.</span></div>
-<div><br>
-</div>
-<div>Reviewed-by: Kevin Wang &lt;kevin1.wang@amd.com&gt;</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<span style=3D"margin:0px;font-size:14px;font-family:&quot;Segoe UI&quot;, =
-&quot;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-syst=
-em, BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;, sans-serif"><br=
->
-</span></div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<span style=3D"margin: 0px; font-size: 12pt; font-family: &quot;segoe ui&qu=
-ot;, &quot;segoe ui web (west european)&quot;, &quot;segoe ui&quot;, -apple=
--system, blinkmacsystemfont, roboto, &quot;helvetica neue&quot;, sans-serif=
-; color: rgb(50, 49, 48); background-color: rgba(0, 0, 0, 0);">Best Regards=
-,</span></div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<span style=3D"margin: 0px; font-size: 12pt; font-family: &quot;segoe ui&qu=
-ot;, &quot;segoe ui web (west european)&quot;, &quot;segoe ui&quot;, -apple=
--system, blinkmacsystemfont, roboto, &quot;helvetica neue&quot;, sans-serif=
-; color: rgb(50, 49, 48); background-color: rgba(0, 0, 0, 0);">Kevin</span>=
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
-lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Darren Powell &lt;darren.powe=
-ll@amd.com&gt;<br>
-<b>Sent:</b> Tuesday, June 22, 2021 12:17 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Powell, Darren &lt;Darren.Powell@amd.com&gt;<br>
-<b>Subject:</b> [PATCH 1/1] amdgpu/pm: remove code duplication in show_powe=
-r_cap calls</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
->
-<div class=3D"PlainText">created generic function and call with enum from<b=
-r>
-&nbsp;* amdgpu_hwmon_show_power_cap_max<br>
-&nbsp;* amdgpu_hwmon_show_power_cap<br>
-&nbsp;* amdgpu_hwmon_show_power_cap_default<br>
-<br>
-=3D=3D=3D Test =3D=3D=3D<br>
-AMDGPU_PCI_ADDR=3D`lspci -nn | grep &quot;VGA\|Display&quot; | cut -d &quot=
-; &quot; -f 1`<br>
-AMDGPU_HWMON=3D`ls -la /sys/class/hwmon | grep $AMDGPU_PCI_ADDR | cut -d &q=
-uot; &quot; -f 10`<br>
-HWMON_DIR=3D/sys/class/hwmon/${AMDGPU_HWMON}<br>
-<br>
-cp pp_show_power_cap.txt{,.old}<br>
-lspci -nn | grep &quot;VGA\|Display&quot; &gt; pp_show_power_cap.test.log<b=
-r>
-FILES=3D&quot;<br>
-power1_cap<br>
-power1_cap_max<br>
-power1_cap_default &quot;<br>
-<br>
-for f in $FILES<br>
-do<br>
-&nbsp; echo&nbsp; $f =3D `cat $HWMON_DIR/$f` &gt;&gt; pp_show_power_cap.tes=
-t.log<br>
-done<br>
-<br>
-Signed-off-by: Darren Powell &lt;darren.powell@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/pm/amdgpu_pm.c | 86 +++++------------------------=
--<br>
-&nbsp;1 file changed, 14 insertions(+), 72 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/am=
-dgpu_pm.c<br>
-index b2335a1d3f98..99c21d1a2c4e 100644<br>
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c<br>
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c<br>
-@@ -2901,14 +2901,14 @@ static ssize_t amdgpu_hwmon_show_power_cap_min(stru=
-ct device *dev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return sprintf(buf, &quot;=
-%i\n&quot;, 0);<br>
-&nbsp;}<br>
-&nbsp;<br>
--static ssize_t amdgpu_hwmon_show_power_cap_max(struct device *dev,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; struct device_attribute *attr,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; char *buf)<br>
-+static ssize_t amdgpu_hwmon_show_power_cap_generic(struct device *dev,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct device_attribute *=
-attr,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char *buf,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum pp_power_limit_level=
- pp_limit_level)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
- =3D dev_get_drvdata(dev);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct amd_pm_funcs =
-*pp_funcs =3D adev-&gt;powerplay.pp_funcs;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum pp_power_type power_t=
-ype =3D to_sensor_dev_attr(attr)-&gt;index;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum pp_power_limit_level pp_limit_le=
-vel =3D PP_PWR_LIMIT_MAX;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t limit;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ssize_t size;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
-@@ -2941,85 +2941,27 @@ static ssize_t amdgpu_hwmon_show_power_cap_max(stru=
-ct device *dev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return size;<br>
-&nbsp;}<br>
-&nbsp;<br>
--static ssize_t amdgpu_hwmon_show_power_cap(struct device *dev,<br>
-+static ssize_t amdgpu_hwmon_show_power_cap_max(struct device *dev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; struct device_attribute *attr,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; char *buf)<br>
-&nbsp;{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D dev_ge=
-t_drvdata(dev);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct amd_pm_funcs *pp_funcs =
-=3D adev-&gt;powerplay.pp_funcs;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum pp_power_type power_type =3D to_=
-sensor_dev_attr(attr)-&gt;index;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum pp_power_limit_level pp_limit_le=
-vel =3D PP_PWR_LIMIT_CURRENT;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t limit;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ssize_t size;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_in_reset(adev))<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return -EPERM;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;in_suspend &amp;&amp; !a=
-dev-&gt;in_runpm)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return -EPERM;<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D pm_runtime_get_sync(adev_to_drm=
-(adev)-&gt;dev);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r &lt; 0) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; pm_runtime_put_autosuspend(adev_to_drm(adev)-&gt;dev);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return r;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (pp_funcs &amp;&amp; pp_funcs-&gt;=
-get_power_limit)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; r =3D pp_funcs-&gt;get_power_limit(adev-&gt;powerplay.pp_handle,=
- &amp;limit,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pp_limit_level, power_type);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; r =3D -ENODATA;<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!r)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; size =3D snprintf(buf, PAGE_SIZE, &quot;%u\n&quot;, limit * 1000=
-000);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; size =3D snprintf(buf, PAGE_SIZE, &quot;\n&quot;);<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pm_runtime_mark_last_busy(adev_to_drm=
-(adev)-&gt;dev);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pm_runtime_put_autosuspend(adev_to_dr=
-m(adev)-&gt;dev);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return amdgpu_hwmon_show_power_cap_ge=
-neric(dev, attr, buf, PP_PWR_LIMIT_MAX);<br>
-+}<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return size;<br>
-+static ssize_t amdgpu_hwmon_show_power_cap(struct device *dev,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; struct device_attribute *attr,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; char *buf)<br>
-+{<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return amdgpu_hwmon_show_power_cap_ge=
-neric(dev, attr, buf, PP_PWR_LIMIT_CURRENT);<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;static ssize_t amdgpu_hwmon_show_power_cap_default(struct device *dev=
-,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; struct device_attribute *attr,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; char *buf)<br>
-&nbsp;{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D dev_ge=
-t_drvdata(dev);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct amd_pm_funcs *pp_funcs =
-=3D adev-&gt;powerplay.pp_funcs;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum pp_power_type power_type =3D to_=
-sensor_dev_attr(attr)-&gt;index;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum pp_power_limit_level pp_limit_le=
-vel =3D PP_PWR_LIMIT_DEFAULT;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t limit;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ssize_t size;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_in_reset(adev))<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return -EPERM;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;in_suspend &amp;&amp; !a=
-dev-&gt;in_runpm)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return -EPERM;<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D pm_runtime_get_sync(adev_to_drm=
-(adev)-&gt;dev);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r &lt; 0) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; pm_runtime_put_autosuspend(adev_to_drm(adev)-&gt;dev);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return r;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (pp_funcs &amp;&amp; pp_funcs-&gt;=
-get_power_limit)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; r =3D pp_funcs-&gt;get_power_limit(adev-&gt;powerplay.pp_handle,=
- &amp;limit,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pp_limit_level, power_type);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; r =3D -ENODATA;<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!r)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; size =3D snprintf(buf, PAGE_SIZE, &quot;%u\n&quot;, limit * 1000=
-000);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; size =3D snprintf(buf, PAGE_SIZE, &quot;\n&quot;);<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pm_runtime_mark_last_busy(adev_to_drm=
-(adev)-&gt;dev);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pm_runtime_put_autosuspend(adev_to_dr=
-m(adev)-&gt;dev);<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return size;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return amdgpu_hwmon_show_power_cap_ge=
-neric(dev, attr, buf, PP_PWR_LIMIT_DEFAULT);<br>
-&nbsp;}<br>
-+<br>
-&nbsp;static ssize_t amdgpu_hwmon_show_power_label(struct device *dev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; struct device_attribute *attr,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; char *buf)<br>
-<br>
-base-commit: 1971ad5abcd8575efd12d2e6639fd8f58210a8d8<br>
--- <br>
-2.31.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx@lists.freedesktop.org<br>
-<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
-F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D04%=
-7C01%7CKevin1.Wang%40amd.com%7C502816aea3734f79bf5208d93534af53%7C3dd8961fe=
-4884e608e11a82d994e183d%7C0%7C0%7C637599322688052639%7CUnknown%7CTWFpbGZsb3=
-d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000=
-&amp;amp;sdata=3DFnBkxT957mNoTpd3jnEHBYQZV3ImGOfmy3K0ToGKNII%3D&amp;amp;res=
-erved=3D0">https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
-F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D04%=
-7C01%7CKevin1.Wang%40amd.com%7C502816aea3734f79bf5208d93534af53%7C3dd8961fe=
-4884e608e11a82d994e183d%7C0%7C0%7C637599322688052639%7CUnknown%7CTWFpbGZsb3=
-d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000=
-&amp;amp;sdata=3DFnBkxT957mNoTpd3jnEHBYQZV3ImGOfmy3K0ToGKNII%3D&amp;amp;res=
-erved=3D0</a><br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_CO6PR12MB5473C117661C9441AF94AB91A2099CO6PR12MB5473namp_--
-
---===============1767767070==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+BR
+Evan
+> -----Original Message-----
+> From: Lazar, Lijo <Lijo.Lazar@amd.com>
+> Sent: Monday, June 21, 2021 8:08 PM
+> To: Quan, Evan <Evan.Quan@amd.com>; amd-gfx@lists.freedesktop.org
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+> Subject: Re: [PATCH V3 1/7] drm/amdgpu: correct tcp harvest setting
+> 
+> One minor comment below, apart from that the series looks good.
+> 
+> Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+> 
+> On 6/21/2021 12:30 PM, Evan Quan wrote:
+> > Add missing settings for SQC bits. And correct some confusing logics 
+> > around active wgp bitmap calculation.
+> >
+> > Change-Id: If4992e175fd61d5609b00328cbe21f487517d039
+> > Signed-off-by: Evan Quan <evan.quan@amd.com>
+> > ---
+> > V1->V2:
+> >    - restore correct tcp_harvest setting for NV10 and NV12
+> >    - move asic type guard upper layer for better readability
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 103 ++++++++++++++------
+> -----
+> >   1 file changed, 57 insertions(+), 46 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> > b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> > index 15ae9e33b925..384b95fbad8b 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> > @@ -5090,47 +5090,50 @@ static void gfx_v10_0_tcp_harvest(struct
+> amdgpu_device *adev)
+> >   		4 + /* RMI */
+> >   		1); /* SQG */
+> >
+> > -	if (adev->asic_type == CHIP_NAVI10 ||
+> > -	    adev->asic_type == CHIP_NAVI14 ||
+> > -	    adev->asic_type == CHIP_NAVI12) {
+> > -		mutex_lock(&adev->grbm_idx_mutex);
+> > -		for (i = 0; i < adev->gfx.config.max_shader_engines; i++) {
+> > -			for (j = 0; j < adev->gfx.config.max_sh_per_se; j++) {
+> > -				gfx_v10_0_select_se_sh(adev, i, j, 0xffffffff);
+> > -				wgp_active_bitmap =
+> gfx_v10_0_get_wgp_active_bitmap_per_sh(adev);
+> > -				/*
+> > -				 * Set corresponding TCP bits for the inactive
+> WGPs in
+> > -				 * GCRD_SA_TARGETS_DISABLE
+> > -				 */
+> > -				gcrd_targets_disable_tcp = 0;
+> > -				/* Set TCP & SQC bits in
+> UTCL1_UTCL0_INVREQ_DISABLE */
+> > -				utcl_invreq_disable = 0;
+> > -
+> > -				for (k = 0; k < max_wgp_per_sh; k++) {
+> > -					if (!(wgp_active_bitmap & (1 << k))) {
+> > -						gcrd_targets_disable_tcp |=
+> 3 << (2 * k);
+> > -						utcl_invreq_disable |= (3 <<
+> (2 * k)) |
+> > -							(3 << (2 *
+> (max_wgp_per_sh + k)));
+> > -					}
+> > +	mutex_lock(&adev->grbm_idx_mutex);
+> > +	for (i = 0; i < adev->gfx.config.max_shader_engines; i++) {
+> > +		for (j = 0; j < adev->gfx.config.max_sh_per_se; j++) {
+> > +			gfx_v10_0_select_se_sh(adev, i, j, 0xffffffff);
+> > +			wgp_active_bitmap =
+> gfx_v10_0_get_wgp_active_bitmap_per_sh(adev);
+> > +			/*
+> > +			 * Set corresponding TCP bits for the inactive WGPs in
+> > +			 * GCRD_SA_TARGETS_DISABLE
+> > +			 */
+> > +			gcrd_targets_disable_tcp = 0;
+> > +			/* Set TCP & SQC bits in
+> UTCL1_UTCL0_INVREQ_DISABLE */
+> > +			utcl_invreq_disable = 0;
+> > +
+> > +			for (k = 0; k < max_wgp_per_sh; k++) {
+> > +				if (!(wgp_active_bitmap & (1 << k))) {
+> > +					gcrd_targets_disable_tcp |= 3 << (2 *
+> k);
+> > +					gcrd_targets_disable_tcp |= 1 << (k +
+> (max_wgp_per_sh * 2));
+> > +					utcl_invreq_disable |= (3 << (2 * k)) |
+> > +						(3 << (2 * (max_wgp_per_sh
+> + k)));
+> >   				}
+> > -
+> > -				tmp = RREG32_SOC15(GC, 0,
+> mmUTCL1_UTCL0_INVREQ_DISABLE);
+> > -				/* only override TCP & SQC bits */
+> > -				tmp &= 0xffffffff << (4 * max_wgp_per_sh);
+> > -				tmp |= (utcl_invreq_disable &
+> utcl_invreq_disable_mask);
+> > -				WREG32_SOC15(GC, 0,
+> mmUTCL1_UTCL0_INVREQ_DISABLE, tmp);
+> > -
+> > -				tmp = RREG32_SOC15(GC, 0,
+> mmGCRD_SA_TARGETS_DISABLE);
+> > -				/* only override TCP bits */
+> > -				tmp &= 0xffffffff << (2 * max_wgp_per_sh);
+> > -				tmp |= (gcrd_targets_disable_tcp &
+> gcrd_targets_disable_mask);
+> > -				WREG32_SOC15(GC, 0,
+> mmGCRD_SA_TARGETS_DISABLE, tmp);
+> >   			}
+> > -		}
+> >
+> > -		gfx_v10_0_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff);
+> > -		mutex_unlock(&adev->grbm_idx_mutex);
+> > +			tmp = RREG32_SOC15(GC, 0,
+> mmUTCL1_UTCL0_INVREQ_DISABLE);
+> > +			/* only override TCP & SQC bits */
+> > +			if (adev->asic_type == CHIP_NAVI14)
+> > +				tmp &= 0xff000000;
+> > +			else
+> > +				tmp &=0xfff00000;
+> 
+> For the disable field mask calculation (which is the value that is 
+> applied finally), there is no ASIC check. The above code may utilize 
+> the same method as in the original code without ASIC check.
+> 
+> tmp &= 0xffffffff << (4 * max_wgp_per_sh);
+> 
+> Same for below case also - 3*max_wgp_per_sh.
+> 
+> Thanks,
+> Lijo
+> 
+> > +			tmp |= (utcl_invreq_disable &
+> utcl_invreq_disable_mask);
+> > +			WREG32_SOC15(GC, 0,
+> mmUTCL1_UTCL0_INVREQ_DISABLE, tmp);
+> > +
+> > +			tmp = RREG32_SOC15(GC, 0,
+> mmGCRD_SA_TARGETS_DISABLE);
+> > +			/* only override TCP & SQC bits */
+> > +			if (adev->asic_type == CHIP_NAVI14)
+> > +				tmp &= 0xfffc0000;
+> > +			else
+> > +				tmp &= 0xffff8000;
+> > +			tmp |= (gcrd_targets_disable_tcp &
+> gcrd_targets_disable_mask);
+> > +			WREG32_SOC15(GC, 0,
+> mmGCRD_SA_TARGETS_DISABLE, tmp);
+> > +		}
+> >   	}
+> > +
+> > +	gfx_v10_0_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff);
+> > +	mutex_unlock(&adev->grbm_idx_mutex);
+> >   }
+> >
+> >   static void gfx_v10_0_get_tcc_info(struct amdgpu_device *adev) @@
+> > -7408,7 +7411,10 @@ static int gfx_v10_0_hw_init(void *handle)
+> >   	 * init golden registers and rlc resume may override some registers,
+> >   	 * reconfig them here
+> >   	 */
+> > -	gfx_v10_0_tcp_harvest(adev);
+> > +	if (adev->asic_type == CHIP_NAVI10 ||
+> > +	    adev->asic_type == CHIP_NAVI14 ||
+> > +	    adev->asic_type == CHIP_NAVI12)
+> > +		gfx_v10_0_tcp_harvest(adev);
+> >
+> >   	r = gfx_v10_0_cp_resume(adev);
+> >   	if (r)
+> > @@ -9328,17 +9334,22 @@ static void
+> > gfx_v10_0_set_user_wgp_inactive_bitmap_per_sh(struct amdgpu_device
+> *
+> >
+> >   static u32 gfx_v10_0_get_wgp_active_bitmap_per_sh(struct
+> amdgpu_device *adev)
+> >   {
+> > -	u32 data, wgp_bitmask;
+> > -	data = RREG32_SOC15(GC, 0, mmCC_GC_SHADER_ARRAY_CONFIG);
+> > -	data |= RREG32_SOC15(GC, 0,
+> mmGC_USER_SHADER_ARRAY_CONFIG);
+> > +	u32 disabled_mask =
+> > +		~amdgpu_gfx_create_bitmask(adev-
+> >gfx.config.max_cu_per_sh >> 1);
+> > +	u32 efuse_setting = 0;
+> > +	u32 vbios_setting = 0;
+> > +
+> > +	efuse_setting = RREG32_SOC15(GC, 0,
+> mmCC_GC_SHADER_ARRAY_CONFIG);
+> > +	efuse_setting &=
+> CC_GC_SHADER_ARRAY_CONFIG__INACTIVE_WGPS_MASK;
+> > +	efuse_setting >>=
+> CC_GC_SHADER_ARRAY_CONFIG__INACTIVE_WGPS__SHIFT;
+> >
+> > -	data &= CC_GC_SHADER_ARRAY_CONFIG__INACTIVE_WGPS_MASK;
+> > -	data >>=
+> CC_GC_SHADER_ARRAY_CONFIG__INACTIVE_WGPS__SHIFT;
+> > +	vbios_setting = RREG32_SOC15(GC, 0,
+> mmGC_USER_SHADER_ARRAY_CONFIG);
+> > +	vbios_setting &=
+> GC_USER_SHADER_ARRAY_CONFIG__INACTIVE_WGPS_MASK;
+> > +	vbios_setting >>=
+> GC_USER_SHADER_ARRAY_CONFIG__INACTIVE_WGPS__SHIFT;
+> >
+> > -	wgp_bitmask =
+> > -		amdgpu_gfx_create_bitmask(adev-
+> >gfx.config.max_cu_per_sh >> 1);
+> > +	disabled_mask |= efuse_setting | vbios_setting;
+> >
+> > -	return (~data) & wgp_bitmask;
+> > +	return (~disabled_mask);
+> >   }
+> >
+> >   static u32 gfx_v10_0_get_cu_active_bitmap_per_sh(struct
+> > amdgpu_device *adev)
+> >
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1767767070==--
