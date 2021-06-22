@@ -7,48 +7,48 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 46C75C2B9F4
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Jun 2021 13:32:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E1E32C48BDF
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Jun 2021 13:32:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1054F613B1
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Jun 2021 13:32:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1054F613B1
+	by mail.kernel.org (Postfix) with ESMTPS id AC858613B2
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Jun 2021 13:32:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AC858613B2
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA5AA89C17;
-	Tue, 22 Jun 2021 13:32:35 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2076.outbound.protection.outlook.com [40.107.92.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1ECD989C17
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Jun 2021 13:32:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B21D6E069;
+	Tue, 22 Jun 2021 13:32:39 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2089.outbound.protection.outlook.com [40.107.223.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB0016E069
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Jun 2021 13:32:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NYzOuH9TF4YDpQ9q11YhBKpNOfqcXYf+bYJnGoJdQaTYpvDKn6nyxQjxSxmymqk4WtG9F8hdtrtmSHWIIP9lsttkwF+yiLqIbbaGikc+BF5BdAQYLnVO3Aq/YpLMkA0ddH5wbTL1WpydD1tGqFveSN15H4KLQmkIELk2Po98C0fmd9UQ3bJq4GTe7p/4fUiNMW/7YSiFhLXcyLartfnCCXNm/OGt2TiiJcWxk1QdJV7y/cXQyZ3mcH9penIH2NGnWFhLzrF3J1ZxQXBB1H/LNglFeWN60pGVH33hxeJI3mmWN+uXwVYj+KCs2wXkkTKFV/Tl90J7arYgTNoWf6/zPQ==
+ b=AdH6Hm2KBlPfCbPqVw40wZDbUo+5aEj31YDlg91qyVAivOdYTFEcdZVvOzQND/rRyOLE6PLkSjXpePzeKOle41xB4uOSTnzXlI3zsDluu0pVEtHwt04D6Fz/blI99hx2+lHLHrZ9AGz8RmwZpoJoE8sQb2CPceA/T4XY/b1KUNAlfLPVk2FzoffqmRJQiWo2QXFDILCwyFdrdub2CPdXuBvQrd6FLKMoHnLMMK4CIp5RR+KQhU8Lc3+Ol3rAbLlS5MxnqdLO8xaUNoPRMT/18JOAc5A/Gi91VVnUmvKswegusaawa0V/Kj9M3TlCHVL2WEkpnrbMIyRg5NVOrDGS8w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BERn0WFR8v5ZMGKGruf1MmSNlS8wgob649cRGniEa54=;
- b=SeXkgEZd+MSEokUwmiqGxQYgd1vwANiFOP2YXZP2QCyrv43nhdHqef1TXba9d28Yc8n6HOFZdcUwoHZK6Fl+sQA8tzmWLMSjipV8wjsUv6OuoJJCQItdcnnz9bDNKj93Ty0y2XU/s4eFlqOpd8lk7bp2Ii6Mxzki1RZLVzjY2dPlI3KAveKw/8ayxzTXs6hPey3nCgqzcRDmNSG1DiVD4bmABEfXGLLewrBciKaAXk6YDaSmSgK7v7p+YGIyKUB8sfz+iD/kuYRKBqPAxtg1e1YcI3vUzF/Z6DaydUERKwbWRZub5qaiDjDwXi7WV100IFAIjYqHQ5yi+Sitwi8ikg==
+ bh=H8zXk+iUYmCwP3gls5mIKdigAkP8n2bZI8MicXarulc=;
+ b=N2eR4EJ+Ebw6AN8T0I1JpocluAyADYJf6VnAQsUoJ2RupafI5zUXV7UlBR5rCj7ZSG61iQi9VklRgtyR0+BTBGOOBpaQw94k3kAVIwQTBkAv1NzPuj1o9CrPE2tNfC1fiQn8LLcDweDzWyNIXhfYxiYKeCo5oAWgIN0LlRHCuiP0vYN9GL+EAwSvuBWOt3NKPGBoL8kHhsg6EvTOY2MYeBmd/hmus5JxZOOyEl1CDyp21Eqac/BtgsUhPr+LuuLf+Q8S1nTj5/ncEn8+q7KFcyDhiPQP87C9vkjdEZTYGMpycAeKX3ZbB4n/i5iP8XJvvHtwTxewxYteg8zZampBPQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BERn0WFR8v5ZMGKGruf1MmSNlS8wgob649cRGniEa54=;
- b=0rsLnAmYAVBTl9hLDDxpyp/sxTp0WVIjxU1dQp6UCXT77xNft8EV+jZc1DQnCUUaUELW6dcEmFR4VGlgGzXiUkKX6doX8m+NMzk+eCGMGWqOLG1ELlNhBNif9V2KPwwMkxopYoIuW35SD8GguHCzWp2mWtZEBymzDruvOq7JLdQ=
-Received: from MWHPR1401CA0008.namprd14.prod.outlook.com
- (2603:10b6:301:4b::18) by MN2PR12MB4254.namprd12.prod.outlook.com
- (2603:10b6:208:1d0::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.19; Tue, 22 Jun
- 2021 13:32:32 +0000
-Received: from CO1NAM11FT023.eop-nam11.prod.protection.outlook.com
- (2603:10b6:301:4b:cafe::43) by MWHPR1401CA0008.outlook.office365.com
- (2603:10b6:301:4b::18) with Microsoft SMTP Server (version=TLS1_2,
+ bh=H8zXk+iUYmCwP3gls5mIKdigAkP8n2bZI8MicXarulc=;
+ b=MznbBAOXb/71WdlLq4a7dh5Y82qAUR4ITVlR7oKLGPAal32KkwrK9kBsf0jZQw2fXYnZWwzNTJMY6AHZZQA0a1fcEWECSQwhIbTtsJwOVFVixv7qIudBs9PGwqJHSonwVpjKmz6JdqVt6Kbkx61kLGWzTrGNC2AwRKmUlEL2pUs=
+Received: from MW4PR03CA0025.namprd03.prod.outlook.com (2603:10b6:303:8f::30)
+ by MW2PR12MB4682.namprd12.prod.outlook.com (2603:10b6:302:e::32) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.21; Tue, 22 Jun
+ 2021 13:32:35 +0000
+Received: from CO1NAM11FT019.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:8f:cafe::54) by MW4PR03CA0025.outlook.office365.com
+ (2603:10b6:303:8f::30) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4264.18 via Frontend
- Transport; Tue, 22 Jun 2021 13:32:32 +0000
+ Transport; Tue, 22 Jun 2021 13:32:35 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -57,46 +57,48 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT023.mail.protection.outlook.com (10.13.175.35) with Microsoft SMTP
+ CO1NAM11FT019.mail.protection.outlook.com (10.13.175.57) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4242.16 via Frontend Transport; Tue, 22 Jun 2021 13:32:31 +0000
+ 15.20.4242.16 via Frontend Transport; Tue, 22 Jun 2021 13:32:34 +0000
 Received: from Philip-Dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Tue, 22 Jun
- 2021 08:32:30 -0500
+ 2021 08:32:33 -0500
 From: Philip Yang <Philip.Yang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/4] drm/amdkfd: add helper function for kfd sysfs create
-Date: Tue, 22 Jun 2021 09:32:10 -0400
-Message-ID: <20210622133213.21393-1-Philip.Yang@amd.com>
+Subject: [PATCH 2/4] drm/amdkfd: fix sysfs kobj leak
+Date: Tue, 22 Jun 2021 09:32:11 -0400
+Message-ID: <20210622133213.21393-2-Philip.Yang@amd.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20210622133213.21393-1-Philip.Yang@amd.com>
+References: <20210622133213.21393-1-Philip.Yang@amd.com>
 MIME-Version: 1.0
 X-Originating-IP: [10.180.168.240]
 X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: dd9a172c-d711-407c-8837-08d93582303f
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4254:
-X-Microsoft-Antispam-PRVS: <MN2PR12MB42546DE6E53D05895E0DAFE2E6099@MN2PR12MB4254.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:207;
+X-MS-Office365-Filtering-Correlation-Id: b9695a30-54b3-481b-2519-08d9358231e0
+X-MS-TrafficTypeDiagnostic: MW2PR12MB4682:
+X-Microsoft-Antispam-PRVS: <MW2PR12MB468230D2B515A86758F04254E6099@MW2PR12MB4682.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:989;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: uy53nVyWINkRsacaIz0VqChFIq/tK63cqlFN/smhakDGvgwoCB5oByqCkM9gCWrvZRzlvikWGyXhJPI9HXqcRewWy4WgL0AABvjeXG4HdmT3tzMjCQScYWxGspvUJ05zIWMUx57uuEzAlgkKrVpyju9FhjS4se5poTWId2WAqVl0IK/sEwZJTQRLGKRlVzJIYM3UYBHLCSCkXkdaZtcrlmduuTMlwBHgBOAp+lvIE63XXMU/Qj0VtDbGyNTa6tDKAI2Hdir7dcNnWBsHJ2As6V3NTtuuoFbyQ1Q8ZNMPq4HVj6qYoptu7VwZpIi0lcKXeFbzRyx+iXATfxz7k6u50mS7QH+rDOcja4qBY1qG3Pu/te6CI4wnAp9bA5yb5pQx+8uxuJT6xJRR+JD5Egj8tD/+4Q72yYYBazA2Wxlloz2yHcnA7RH/yDCtjQIKhEZR2CLT4dMr1BK7lI4aZcu6/V3iciXK4qT8UTrv9rZ4Jd+pQ3OyRsbzN9aVScxXUmeR5/uj3FQDVKzMURyr2DEO/gwUZXqnrbYINggDmCdTeWa5hXe7EYY+jPl23Vjg9D8/Wv5BIKZN6aN7MBPa4RlShldRCxTK/VL2QUm8zjZ6UWBXUotOlaMF/nyyb30YI7NtZzc2owNyINWbSbt1u0TEpYK9gXcOVRFjEoFIUrfaTvf1xYFj0xNA4jZqVU21AKes
+X-Microsoft-Antispam-Message-Info: +Wl396YknCUc7Al9YAhWM5qhvAp94SVSt/uOOfnVUr2VpEvEsmlotR+CKr/uWIWqTPi89qucySszc7j4OrPBrRIhSbdrmoDKHONF+FEXUSO/GNCcDwPu/52gV3yurunPjELZt+GkjbN5o4YuVhrUxedTvAeh1hczdnORgp7jZo9M7eOVeE0S9ROg+TwwMngA5cEdXP8TSjVltdAQjHPf0nBQ+67REgS3MzPj6O+NOc1ZukTnb7IPxZja5wkzBNmYqeatZLPZCZ/ax3Dzy+9t5dUEr6McZlUkohIINrx3HN4jOz/y3earbqbtSOAY+0YtbpiTLUwFWmTjNtW6vBNyX0KYn6AeEklhIHbBnHiH7jxkbxOT+pVsn2SA+3nXRfSf1Za5AGzUUx8w4nsnEVzYss0R9+4x/HhIKsri6BQYvY3T7ZsydaxIO4EvqWEkMDQBQXW10XzEkn8IgHZllWElXZ0bWYwEVAChNbZBcgCc7oWbBLfY9SQZJT288+6zzTVN4CZUWI8Nf/OjXhclO+/kSWRzcLqrWJ6Jl7MZHTI7TLWfi1TchqHeqDGIJ0nXHDp4oCiN75vMLnrVyK6c4uzEOBU5UfOipi1etIgTaVqEm41Pa9wMwz8L+u0Jlpd0g315P9OY5PXHlrcae/e5rI7KjCAtbrFfOIMi6DEUH12ygRUoGtee656VdzIeys0Z0KLKPNV6OeX+T1qw4SR6gODtBmAskHZlbfuwOHv5IU6c7oU=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(136003)(396003)(39860400002)(376002)(346002)(46966006)(36840700001)(8936002)(70206006)(186003)(83380400001)(26005)(1076003)(2616005)(2906002)(81166007)(86362001)(356005)(36860700001)(478600001)(5660300002)(16526019)(82310400003)(6916009)(316002)(36756003)(7696005)(8676002)(47076005)(70586007)(82740400003)(6666004)(426003)(336012)(4326008)(36900700001);
+ SFS:(4636009)(39860400002)(136003)(396003)(376002)(346002)(46966006)(36840700001)(336012)(16526019)(70586007)(70206006)(356005)(1076003)(186003)(83380400001)(478600001)(36860700001)(86362001)(2906002)(26005)(7696005)(81166007)(36756003)(2616005)(6916009)(47076005)(8936002)(4326008)(426003)(316002)(8676002)(82310400003)(82740400003)(5660300002)(6666004)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2021 13:32:31.9457 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dd9a172c-d711-407c-8837-08d93582303f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2021 13:32:34.6680 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b9695a30-54b3-481b-2519-08d9358231e0
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT023.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT019.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4254
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB4682
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,211 +116,69 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-No functionality change. Modify kfd_sysfs_create_file to use kobject as
-parameter, so it becomes common helper function to remove duplicate code
-and will simplify new kfd sysfs file create in future.
+3 cases of kobj leak, which causes memory leak:
 
-Move pr_warn to helper function if sysfs file create failed. Set helper
-function as void return because caller doesn't use the helper function
-return value.
+kobj_type must have release() method to free memory from release
+callback. Don't need NULL default_attrs to init kobj.
+
+sysfs files created under kobj_status should be removed with kobj_status
+as parent kobject.
+
+Remove queue sysfs files when releasing queue from process MMU notifier
+release callback.
 
 Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_process.c | 119 ++++++++---------------
- 1 file changed, 39 insertions(+), 80 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c           | 14 ++++++--------
+ .../gpu/drm/amd/amdkfd/kfd_process_queue_manager.c |  1 +
+ 2 files changed, 7 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index 09b98a83f670..3147dc8bb051 100644
+index 3147dc8bb051..cfc36fceac8a 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -484,34 +484,31 @@ int kfd_procfs_add_queue(struct queue *q)
- 	return 0;
- }
+@@ -451,13 +451,9 @@ static const struct sysfs_ops procfs_stats_ops = {
+ 	.show = kfd_procfs_stats_show,
+ };
  
--static int kfd_sysfs_create_file(struct kfd_process *p, struct attribute *attr,
-+static void kfd_sysfs_create_file(struct kobject *kobj, struct attribute *attr,
- 				 char *name)
- {
--	int ret = 0;
-+	int ret;
- 
--	if (!p || !attr || !name)
--		return -EINVAL;
-+	if (!kobj || !attr || !name)
-+		return;
- 
- 	attr->name = name;
- 	attr->mode = KFD_SYSFS_FILE_MODE;
- 	sysfs_attr_init(attr);
- 
--	ret = sysfs_create_file(p->kobj, attr);
+-static struct attribute *procfs_stats_attrs[] = {
+-	NULL
+-};
 -
--	return ret;
-+	ret = sysfs_create_file(kobj, attr);
-+	if (ret)
-+		pr_warn("Create sysfs %s/%s failed %d", kobj->name, name, ret);
- }
+ static struct kobj_type procfs_stats_type = {
+ 	.sysfs_ops = &procfs_stats_ops,
+-	.default_attrs = procfs_stats_attrs,
++	.release = kfd_procfs_kobj_release,
+ };
  
--static int kfd_procfs_add_sysfs_stats(struct kfd_process *p)
-+static void kfd_procfs_add_sysfs_stats(struct kfd_process *p)
- {
--	int ret = 0;
-+	int ret;
- 	int i;
- 	char stats_dir_filename[MAX_SYSFS_FILENAME_LEN];
+ int kfd_procfs_add_queue(struct queue *q)
+@@ -946,9 +942,11 @@ static void kfd_process_wq_release(struct work_struct *work)
  
--	if (!p)
--		return -EINVAL;
--
--	if (!p->kobj)
--		return -EFAULT;
-+	if (!p || !p->kobj)
-+		return;
- 
- 	/*
- 	 * Create sysfs files for each GPU:
-@@ -521,63 +518,43 @@ static int kfd_procfs_add_sysfs_stats(struct kfd_process *p)
- 	 */
- 	for (i = 0; i < p->n_pdds; i++) {
- 		struct kfd_process_device *pdd = p->pdds[i];
--		struct kobject *kobj_stats;
- 
- 		snprintf(stats_dir_filename, MAX_SYSFS_FILENAME_LEN,
- 				"stats_%u", pdd->dev->id);
--		kobj_stats = kfd_alloc_struct(kobj_stats);
--		if (!kobj_stats)
--			return -ENOMEM;
-+		pdd->kobj_stats = kfd_alloc_struct(pdd->kobj_stats);
-+		if (!pdd->kobj_stats)
-+			return;
- 
--		ret = kobject_init_and_add(kobj_stats,
--						&procfs_stats_type,
--						p->kobj,
--						stats_dir_filename);
-+		ret = kobject_init_and_add(pdd->kobj_stats,
-+					   &procfs_stats_type,
-+					   p->kobj,
-+					   stats_dir_filename);
- 
- 		if (ret) {
- 			pr_warn("Creating KFD proc/stats_%s folder failed",
--					stats_dir_filename);
--			kobject_put(kobj_stats);
--			goto err;
-+				stats_dir_filename);
-+			kobject_put(pdd->kobj_stats);
-+			pdd->kobj_stats = NULL;
-+			return;
- 		}
- 
--		pdd->kobj_stats = kobj_stats;
--		pdd->attr_evict.name = "evicted_ms";
--		pdd->attr_evict.mode = KFD_SYSFS_FILE_MODE;
--		sysfs_attr_init(&pdd->attr_evict);
--		ret = sysfs_create_file(kobj_stats, &pdd->attr_evict);
--		if (ret)
--			pr_warn("Creating eviction stats for gpuid %d failed",
--					(int)pdd->dev->id);
--
-+		kfd_sysfs_create_file(pdd->kobj_stats, &pdd->attr_evict,
-+				      "evicted_ms");
- 		/* Add sysfs file to report compute unit occupancy */
--		if (pdd->dev->kfd2kgd->get_cu_occupancy != NULL) {
--			pdd->attr_cu_occupancy.name = "cu_occupancy";
--			pdd->attr_cu_occupancy.mode = KFD_SYSFS_FILE_MODE;
--			sysfs_attr_init(&pdd->attr_cu_occupancy);
--			ret = sysfs_create_file(kobj_stats,
--						&pdd->attr_cu_occupancy);
--			if (ret)
--				pr_warn("Creating %s failed for gpuid: %d",
--					pdd->attr_cu_occupancy.name,
--					(int)pdd->dev->id);
--		}
-+		if (pdd->dev->kfd2kgd->get_cu_occupancy)
-+			kfd_sysfs_create_file(pdd->kobj_stats,
-+					      &pdd->attr_cu_occupancy,
-+					      "cu_occupancy");
- 	}
--err:
--	return ret;
- }
- 
- 
--static int kfd_procfs_add_sysfs_files(struct kfd_process *p)
-+static void kfd_procfs_add_sysfs_files(struct kfd_process *p)
- {
--	int ret = 0;
- 	int i;
- 
--	if (!p)
--		return -EINVAL;
--
--	if (!p->kobj)
--		return -EFAULT;
-+	if (!p || !p->kobj)
-+		return;
- 
- 	/*
- 	 * Create sysfs files for each GPU:
-@@ -589,20 +566,14 @@ static int kfd_procfs_add_sysfs_files(struct kfd_process *p)
- 
- 		snprintf(pdd->vram_filename, MAX_SYSFS_FILENAME_LEN, "vram_%u",
- 			 pdd->dev->id);
--		ret = kfd_sysfs_create_file(p, &pdd->attr_vram, pdd->vram_filename);
--		if (ret)
--			pr_warn("Creating vram usage for gpu id %d failed",
--				(int)pdd->dev->id);
-+		kfd_sysfs_create_file(p->kobj, &pdd->attr_vram,
-+				      pdd->vram_filename);
- 
- 		snprintf(pdd->sdma_filename, MAX_SYSFS_FILENAME_LEN, "sdma_%u",
- 			 pdd->dev->id);
--		ret = kfd_sysfs_create_file(p, &pdd->attr_sdma, pdd->sdma_filename);
--		if (ret)
--			pr_warn("Creating sdma usage for gpu id %d failed",
--				(int)pdd->dev->id);
-+		kfd_sysfs_create_file(p->kobj, &pdd->attr_sdma,
-+					    pdd->sdma_filename);
- 	}
--
--	return ret;
- }
- 
- void kfd_procfs_del_queue(struct queue *q)
-@@ -800,28 +771,16 @@ struct kfd_process *kfd_create_process(struct file *filep)
- 			goto out;
- 		}
- 
--		process->attr_pasid.name = "pasid";
--		process->attr_pasid.mode = KFD_SYSFS_FILE_MODE;
--		sysfs_attr_init(&process->attr_pasid);
--		ret = sysfs_create_file(process->kobj, &process->attr_pasid);
--		if (ret)
--			pr_warn("Creating pasid for pid %d failed",
--					(int)process->lead_thread->pid);
-+		kfd_sysfs_create_file(process->kobj, &process->attr_pasid,
-+				      "pasid");
- 
- 		process->kobj_queues = kobject_create_and_add("queues",
- 							process->kobj);
- 		if (!process->kobj_queues)
- 			pr_warn("Creating KFD proc/queues folder failed");
- 
--		ret = kfd_procfs_add_sysfs_stats(process);
--		if (ret)
--			pr_warn("Creating sysfs stats dir for pid %d failed",
--				(int)process->lead_thread->pid);
--
--		ret = kfd_procfs_add_sysfs_files(process);
--		if (ret)
--			pr_warn("Creating sysfs usage file for pid %d failed",
--				(int)process->lead_thread->pid);
-+		kfd_procfs_add_sysfs_stats(process);
-+		kfd_procfs_add_sysfs_files(process);
- 	}
- out:
- 	if (!IS_ERR(process))
+ 			sysfs_remove_file(p->kobj, &pdd->attr_vram);
+ 			sysfs_remove_file(p->kobj, &pdd->attr_sdma);
+-			sysfs_remove_file(p->kobj, &pdd->attr_evict);
+-			if (pdd->dev->kfd2kgd->get_cu_occupancy != NULL)
+-				sysfs_remove_file(p->kobj, &pdd->attr_cu_occupancy);
++
++			sysfs_remove_file(pdd->kobj_stats, &pdd->attr_evict);
++			if (pdd->dev->kfd2kgd->get_cu_occupancy)
++				sysfs_remove_file(pdd->kobj_stats,
++						  &pdd->attr_cu_occupancy);
+ 			kobject_del(pdd->kobj_stats);
+ 			kobject_put(pdd->kobj_stats);
+ 			pdd->kobj_stats = NULL;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+index 95a6c36cea4c..243dd1efcdbf 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+@@ -153,6 +153,7 @@ void pqm_uninit(struct process_queue_manager *pqm)
+ 		if (pqn->q && pqn->q->gws)
+ 			amdgpu_amdkfd_remove_gws_from_process(pqm->process->kgd_process_info,
+ 				pqn->q->gws);
++		kfd_procfs_del_queue(pqn->q);
+ 		uninit_queue(pqn->q);
+ 		list_del(&pqn->process_queue_list);
+ 		kfree(pqn);
 -- 
 2.17.1
 
