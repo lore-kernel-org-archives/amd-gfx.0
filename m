@@ -2,66 +2,74 @@ Return-Path: <SRS0=0Dgm=LQ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CA130C48BDF
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Jun 2021 14:10:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D06D6C49EA5
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Jun 2021 14:10:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8B3B060238
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Jun 2021 14:10:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8B3B060238
+	by mail.kernel.org (Postfix) with ESMTPS id 7F1A46113D
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Jun 2021 14:10:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7F1A46113D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 32C4F6E157;
-	Tue, 22 Jun 2021 14:10:07 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DD216E157;
- Tue, 22 Jun 2021 14:10:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04A496E506;
+	Tue, 22 Jun 2021 14:10:10 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 65DC36E506;
+ Tue, 22 Jun 2021 14:10:08 +0000 (UTC)
 Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
  (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 7973F1FD45;
- Tue, 22 Jun 2021 14:10:04 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id A157D2198B;
+ Tue, 22 Jun 2021 14:10:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1624371004; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=Zlq4KKsU8/JYDA/ykAeVvIai2ocIqYe99RU3QFbsdmU=;
- b=0v86hE2VTLzEM17qBfcdZmBklmxzS3uxRZV1SGwrgbxnZmAHokY+cxJIQhfHXQDFhWrRxm
- mNSsxsvZmAOjtFc26K0Agh4sKMfhwApmhr0BdQOGEahrzoc9u05XpIb8lp8Vdh3amkGVfl
- uJFaYWGwO7i62UCyoBWD1fE9HlA/Wqc=
+ t=1624371006; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=SRAIM2b9hcMZtpj1XmOCRlAOXVW+Cbn/WAr682hqNSs=;
+ b=vqm9dI3V0nrHSjy2CtFLenVHqjz8WsHqZyyjhgNtOINrIavnieIQ310rzLkEAPtHq7VzGS
+ VHLPNnQEc6k693CAl2rM+uYgXq+OrJd5hMG3WynS3vDPiEhJD54dTYSd3GXskP1jP4nEyp
+ dxj1jZ3xfQ7o4TdmLLfQxD9AbLw4GdY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1624371004;
+ s=susede2_ed25519; t=1624371006;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=Zlq4KKsU8/JYDA/ykAeVvIai2ocIqYe99RU3QFbsdmU=;
- b=sBfw1F8RoZ7krrkKcsNIctjBZau4LKd5m6itT3fA/6O/2sq3gTvZ0OVWEe7BIVFr4IiY6O
- h8HM/7+JiMPvRoBQ==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=SRAIM2b9hcMZtpj1XmOCRlAOXVW+Cbn/WAr682hqNSs=;
+ b=xBXa4bW1nD4K8968XQUo8pVHbPuTILpO3mWKrxajgAUVry/PxbHgWYOtNoK22If5d4UBBj
+ w+UCYzGFnlkmd6Aw==
 Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id 74827118DD;
- Tue, 22 Jun 2021 14:10:03 +0000 (UTC)
+ by imap.suse.de (Postfix) with ESMTP id 9B8C8118DD;
+ Tue, 22 Jun 2021 14:10:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1624371004; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=Zlq4KKsU8/JYDA/ykAeVvIai2ocIqYe99RU3QFbsdmU=;
- b=0v86hE2VTLzEM17qBfcdZmBklmxzS3uxRZV1SGwrgbxnZmAHokY+cxJIQhfHXQDFhWrRxm
- mNSsxsvZmAOjtFc26K0Agh4sKMfhwApmhr0BdQOGEahrzoc9u05XpIb8lp8Vdh3amkGVfl
- uJFaYWGwO7i62UCyoBWD1fE9HlA/Wqc=
+ t=1624371006; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=SRAIM2b9hcMZtpj1XmOCRlAOXVW+Cbn/WAr682hqNSs=;
+ b=vqm9dI3V0nrHSjy2CtFLenVHqjz8WsHqZyyjhgNtOINrIavnieIQ310rzLkEAPtHq7VzGS
+ VHLPNnQEc6k693CAl2rM+uYgXq+OrJd5hMG3WynS3vDPiEhJD54dTYSd3GXskP1jP4nEyp
+ dxj1jZ3xfQ7o4TdmLLfQxD9AbLw4GdY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1624371004;
+ s=susede2_ed25519; t=1624371006;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=Zlq4KKsU8/JYDA/ykAeVvIai2ocIqYe99RU3QFbsdmU=;
- b=sBfw1F8RoZ7krrkKcsNIctjBZau4LKd5m6itT3fA/6O/2sq3gTvZ0OVWEe7BIVFr4IiY6O
- h8HM/7+JiMPvRoBQ==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=SRAIM2b9hcMZtpj1XmOCRlAOXVW+Cbn/WAr682hqNSs=;
+ b=xBXa4bW1nD4K8968XQUo8pVHbPuTILpO3mWKrxajgAUVry/PxbHgWYOtNoK22If5d4UBBj
+ w+UCYzGFnlkmd6Aw==
 Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id CKiPGzvv0WD3UAAALh3uQQ
- (envelope-from <tzimmermann@suse.de>); Tue, 22 Jun 2021 14:10:03 +0000
+ id AKIBJT3v0WD3UAAALh3uQQ
+ (envelope-from <tzimmermann@suse.de>); Tue, 22 Jun 2021 14:10:05 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
  christian.koenig@amd.com, Xinhui.Pan@amd.com, james.qian.wang@arm.com,
@@ -83,10 +91,12 @@ To: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
  emma@anholt.net, linux-graphics-maintainer@vmware.com, zackr@vmware.com,
  hyun.kwon@xilinx.com, laurent.pinchart@ideasonboard.com,
  michal.simek@xilinx.com
-Subject: [PATCH v2 00/22] Deprecate struct drm_device.irq_enabled
-Date: Tue, 22 Jun 2021 16:09:40 +0200
-Message-Id: <20210622141002.11590-1-tzimmermann@suse.de>
+Subject: [PATCH v2 02/22] drm/hibmc: Call drm_irq_uninstall() unconditionally
+Date: Tue, 22 Jun 2021 16:09:42 +0200
+Message-Id: <20210622141002.11590-3-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20210622141002.11590-1-tzimmermann@suse.de>
+References: <20210622141002.11590-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -110,93 +120,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Remove references to struct drm_device.irq_enabled from modern
-DRM drivers and core.
+Remove the check around drm_irq_uninstall(). The same test is
+done by the function internally. The tested state in irq_enabled
+is considered obsolete and should not be used by KMS drivers.
 
-KMS drivers enable IRQs for their devices internally. They don't
-have to keep track of the IRQ state via irq_enabled. For vblanking,
-it's cleaner to test for vblanking support directly than to test
-for enabled IRQs.
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+---
+ drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-This used to be a single patch, [1] but it's now a full series.
-
-The first 3 patches replace instances of irq_enabled that are not
-required.
-
-Patch 4 fixes vblank ioctls to actually test for vblank support
-instead of IRQs.
-
-THe rest of the patchset removes irq_enabled from all non-legacy
-drivers. The only exception is omapdrm, which has an internal
-dpendency on the field's value. For this drivers, the state gets
-duplicated internally.
-
-With the patchset applied, drivers can later switch over to plain
-Linux IRQ interfaces and DRM's IRQ midlayer can be declared legacy.
-
-v2:
-	* keep the original test for legacy drivers in
-	  drm_wait_vblank_ioctl() (Daniel)
-
-[1] https://lore.kernel.org/dri-devel/20210608090301.4752-1-tzimmermann@suse.de/
-
-Thomas Zimmermann (22):
-  drm/amdgpu: Track IRQ state in local device state
-  drm/hibmc: Call drm_irq_uninstall() unconditionally
-  drm/radeon: Track IRQ state in local device state
-  drm: Don't test for IRQ support in VBLANK ioctls
-  drm/komeda: Don't set struct drm_device.irq_enabled
-  drm/malidp: Don't set struct drm_device.irq_enabled
-  drm/exynos: Don't set struct drm_device.irq_enabled
-  drm/kirin: Don't set struct drm_device.irq_enabled
-  drm/imx: Don't set struct drm_device.irq_enabled
-  drm/mediatek: Don't set struct drm_device.irq_enabled
-  drm/nouveau: Don't set struct drm_device.irq_enabled
-  drm/omapdrm: Track IRQ state in local device state
-  drm/rockchip: Don't set struct drm_device.irq_enabled
-  drm/sti: Don't set struct drm_device.irq_enabled
-  drm/stm: Don't set struct drm_device.irq_enabled
-  drm/sun4i: Don't set struct drm_device.irq_enabled
-  drm/tegra: Don't set struct drm_device.irq_enabled
-  drm/tidss: Don't use struct drm_device.irq_enabled
-  drm/vc4: Don't set struct drm_device.irq_enabled
-  drm/vmwgfx: Don't set struct drm_device.irq_enabled
-  drm/xlnx: Don't set struct drm_device.irq_enabled
-  drm/zte: Don't set struct drm_device.irq_enabled
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c         |  6 +++---
- drivers/gpu/drm/arm/display/komeda/komeda_kms.c |  4 ----
- drivers/gpu/drm/arm/malidp_drv.c                |  4 ----
- drivers/gpu/drm/drm_irq.c                       | 10 +++-------
- drivers/gpu/drm/drm_vblank.c                    | 13 +++++++++----
- drivers/gpu/drm/exynos/exynos_drm_drv.c         | 10 ----------
- drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c |  3 +--
- drivers/gpu/drm/hisilicon/kirin/kirin_drm_drv.c |  2 --
- drivers/gpu/drm/imx/dcss/dcss-kms.c             |  3 ---
- drivers/gpu/drm/imx/imx-drm-core.c              | 11 -----------
- drivers/gpu/drm/mediatek/mtk_drm_drv.c          |  6 ------
- drivers/gpu/drm/nouveau/nouveau_drm.c           |  3 ---
- drivers/gpu/drm/omapdrm/omap_drv.h              |  2 ++
- drivers/gpu/drm/omapdrm/omap_irq.c              |  6 +++---
- drivers/gpu/drm/radeon/radeon_fence.c           |  2 +-
- drivers/gpu/drm/radeon/radeon_irq_kms.c         | 16 ++++++++--------
- drivers/gpu/drm/rockchip/rockchip_drm_drv.c     |  6 ------
- drivers/gpu/drm/sti/sti_compositor.c            |  2 --
- drivers/gpu/drm/stm/ltdc.c                      |  3 ---
- drivers/gpu/drm/sun4i/sun4i_drv.c               |  2 --
- drivers/gpu/drm/tegra/drm.c                     |  7 -------
- drivers/gpu/drm/tidss/tidss_irq.c               |  3 ---
- drivers/gpu/drm/vc4/vc4_kms.c                   |  1 -
- drivers/gpu/drm/vmwgfx/vmwgfx_irq.c             |  8 --------
- drivers/gpu/drm/xlnx/zynqmp_dpsub.c             |  2 --
- drivers/gpu/drm/zte/zx_drm_drv.c                |  6 ------
- 26 files changed, 30 insertions(+), 111 deletions(-)
-
-
-base-commit: 8c1323b422f8473421682ba783b5949ddd89a3f4
-prerequisite-patch-id: c2b2f08f0eccc9f5df0c0da49fa1d36267deb11d
-prerequisite-patch-id: c67e5d886a47b7d0266d81100837557fda34cb24
---
+diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+index f4bc5386574a..f8ef711bbe5d 100644
+--- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
++++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+@@ -253,8 +253,7 @@ static int hibmc_unload(struct drm_device *dev)
+ {
+ 	drm_atomic_helper_shutdown(dev);
+ 
+-	if (dev->irq_enabled)
+-		drm_irq_uninstall(dev);
++	drm_irq_uninstall(dev);
+ 
+ 	pci_disable_msi(to_pci_dev(dev->dev));
+ 
+-- 
 2.32.0
 
 _______________________________________________
