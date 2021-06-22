@@ -7,69 +7,69 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 930D8C49EA2
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Jun 2021 14:10:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2B5BEC2B9F4
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Jun 2021 14:10:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 65CB660238
+	by mail.kernel.org (Postfix) with ESMTPS id 045D261369
 	for <amd-gfx@archiver.kernel.org>; Tue, 22 Jun 2021 14:10:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 65CB660238
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 045D261369
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86A7F6E563;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA1796E573;
 	Tue, 22 Jun 2021 14:10:34 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE7B06E544;
- Tue, 22 Jun 2021 14:10:28 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2B316E529;
+ Tue, 22 Jun 2021 14:10:19 +0000 (UTC)
 Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
  (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 96FD8219A1;
- Tue, 22 Jun 2021 14:10:27 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 53BAA1FD69;
+ Tue, 22 Jun 2021 14:10:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1624371027; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1624371018; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=KvvPf5VVxLRXxpMGkvcLj0fmp5TpN4tW30HTU4DsL4w=;
- b=Z/TQZ0HVeofNL9z2II9l3fchJBA/mRTkbO0DYXYOStKeyCbYfddLOXOO2eNrZb9UK/Bxaz
- +VpAdsiG6CaHGKltGgw7eT1BFzEYOpRg+UAKlPBeukBY02t82vHdhJ+8/68doxa7bPmIFi
- xuzzzO//RY/FgNBeMBBjqok8chJfeXw=
+ bh=1/2SUgyNJ6qZ46Z/xSuAois20KfwJEcWjqgswNAfS8s=;
+ b=YNHy0+entGYS7XlPCVOpiq0nrocngglosi92NYAB9vGdAV83RfHUz/0n4vwqhv64QLndex
+ HPTPRds260DvyHGzhKz6qcXR+IiYSCwDLAP0Np5OrigEu1NIiXxiuUu3d987bHmEofd/rm
+ puKioIA8I6VprGhRZ9SH/ktK/uFXTjM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1624371027;
+ s=susede2_ed25519; t=1624371018;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=KvvPf5VVxLRXxpMGkvcLj0fmp5TpN4tW30HTU4DsL4w=;
- b=aW3hpWoeiblPCo/0EikBLzHSL/PHM/iH6vE+ZaknMVbn2z4u+UR+ZL1nKFMdOHiR+ghl7m
- wDya5myYBJgv81AQ==
+ bh=1/2SUgyNJ6qZ46Z/xSuAois20KfwJEcWjqgswNAfS8s=;
+ b=GT34c2VTQBAklfDH7r5JAUV2duf5ROPf1cpgLrnSLMXFpABuWdDCDgL6d6h3s3PMS8Tq7A
+ ++8HKKuFJKkouYCA==
 Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id 8F9F2118DD;
- Tue, 22 Jun 2021 14:10:26 +0000 (UTC)
+ by imap.suse.de (Postfix) with ESMTP id 494AF11A98;
+ Tue, 22 Jun 2021 14:10:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1624371027; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1624371018; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=KvvPf5VVxLRXxpMGkvcLj0fmp5TpN4tW30HTU4DsL4w=;
- b=Z/TQZ0HVeofNL9z2II9l3fchJBA/mRTkbO0DYXYOStKeyCbYfddLOXOO2eNrZb9UK/Bxaz
- +VpAdsiG6CaHGKltGgw7eT1BFzEYOpRg+UAKlPBeukBY02t82vHdhJ+8/68doxa7bPmIFi
- xuzzzO//RY/FgNBeMBBjqok8chJfeXw=
+ bh=1/2SUgyNJ6qZ46Z/xSuAois20KfwJEcWjqgswNAfS8s=;
+ b=YNHy0+entGYS7XlPCVOpiq0nrocngglosi92NYAB9vGdAV83RfHUz/0n4vwqhv64QLndex
+ HPTPRds260DvyHGzhKz6qcXR+IiYSCwDLAP0Np5OrigEu1NIiXxiuUu3d987bHmEofd/rm
+ puKioIA8I6VprGhRZ9SH/ktK/uFXTjM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1624371027;
+ s=susede2_ed25519; t=1624371018;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=KvvPf5VVxLRXxpMGkvcLj0fmp5TpN4tW30HTU4DsL4w=;
- b=aW3hpWoeiblPCo/0EikBLzHSL/PHM/iH6vE+ZaknMVbn2z4u+UR+ZL1nKFMdOHiR+ghl7m
- wDya5myYBJgv81AQ==
+ bh=1/2SUgyNJ6qZ46Z/xSuAois20KfwJEcWjqgswNAfS8s=;
+ b=GT34c2VTQBAklfDH7r5JAUV2duf5ROPf1cpgLrnSLMXFpABuWdDCDgL6d6h3s3PMS8Tq7A
+ ++8HKKuFJKkouYCA==
 Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id 0O3eIVLv0WD3UAAALh3uQQ
- (envelope-from <tzimmermann@suse.de>); Tue, 22 Jun 2021 14:10:26 +0000
+ id ML0LEUnv0WD3UAAALh3uQQ
+ (envelope-from <tzimmermann@suse.de>); Tue, 22 Jun 2021 14:10:17 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
  christian.koenig@amd.com, Xinhui.Pan@amd.com, james.qian.wang@arm.com,
@@ -91,9 +91,9 @@ To: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
  emma@anholt.net, linux-graphics-maintainer@vmware.com, zackr@vmware.com,
  hyun.kwon@xilinx.com, laurent.pinchart@ideasonboard.com,
  michal.simek@xilinx.com
-Subject: [PATCH v2 22/22] drm/zte: Don't set struct drm_device.irq_enabled
-Date: Tue, 22 Jun 2021 16:10:02 +0200
-Message-Id: <20210622141002.11590-23-tzimmermann@suse.de>
+Subject: [PATCH v2 13/22] drm/rockchip: Don't set struct drm_device.irq_enabled
+Date: Tue, 22 Jun 2021 16:09:53 +0200
+Message-Id: <20210622141002.11590-14-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210622141002.11590-1-tzimmermann@suse.de>
 References: <20210622141002.11590-1-tzimmermann@suse.de>
@@ -121,30 +121,30 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 The field drm_device.irq_enabled is only used by legacy drivers
-with userspace modesetting. Don't set it in zte.
+with userspace modesetting. Don't set it in rockchip.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/zte/zx_drm_drv.c | 6 ------
+ drivers/gpu/drm/rockchip/rockchip_drm_drv.c | 6 ------
  1 file changed, 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/zte/zx_drm_drv.c b/drivers/gpu/drm/zte/zx_drm_drv.c
-index 5506336594e2..064056503ebb 100644
---- a/drivers/gpu/drm/zte/zx_drm_drv.c
-+++ b/drivers/gpu/drm/zte/zx_drm_drv.c
-@@ -75,12 +75,6 @@ static int zx_drm_bind(struct device *dev)
- 		goto out_unbind;
- 	}
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_drv.c b/drivers/gpu/drm/rockchip/rockchip_drm_drv.c
+index b730b8d5d949..c8e60fd9ff24 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_drv.c
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_drv.c
+@@ -162,12 +162,6 @@ static int rockchip_drm_bind(struct device *dev)
+ 
+ 	drm_mode_config_reset(drm_dev);
  
 -	/*
--	 * We will manage irq handler on our own.  In this case, irq_enabled
--	 * need to be true for using vblank core support.
+-	 * enable drm irq mode.
+-	 * - with irq_enabled = true, we can use the vblank feature.
 -	 */
--	drm->irq_enabled = true;
+-	drm_dev->irq_enabled = true;
 -
- 	drm_mode_config_reset(drm);
- 	drm_kms_helper_poll_init(drm);
- 
+ 	ret = rockchip_drm_fbdev_init(drm_dev);
+ 	if (ret)
+ 		goto err_unbind_all;
 -- 
 2.32.0
 
