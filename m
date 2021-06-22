@@ -2,72 +2,117 @@ Return-Path: <SRS0=0Dgm=LQ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.0 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_2 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B7ACDC2B9F4
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Jun 2021 06:49:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0B016C2B9F4
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Jun 2021 06:57:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7CE7161107
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Jun 2021 06:49:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7CE7161107
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id AD2686112D
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Jun 2021 06:57:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AD2686112D
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D61E189BA9;
-	Tue, 22 Jun 2021 06:49:00 +0000 (UTC)
-Received: from mail-lj1-x244.google.com (mail-lj1-x244.google.com
- [IPv6:2a00:1450:4864:20::244])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B84D89B3B;
- Tue, 22 Jun 2021 06:49:00 +0000 (UTC)
-Received: by mail-lj1-x244.google.com with SMTP id k8so28420536lja.4;
- Mon, 21 Jun 2021 23:48:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:in-reply-to:references
- :mime-version; bh=AjSYCi901NK2XUQ4T1T6ypPHjvuphOZQdh9jmhJVLlo=;
- b=P0mNu+w7hZimQwRTECbw8esifmyq4yqjyWPiZ2X2deSCkX866AUn1wxi4zk8HrcNHr
- HO9TmZ7b3OSTPUd9N+dv5fcow4dv0MDkAJloJqAs1icrSgtpe7q5muPrprZO4m40x3+c
- AYDZcC57umhEXcrgg2H7B6pn9Tmpl9ftPfEsiS6T+SCtHNxLAbztzMkq/NyfwooMD2Nc
- ZI3ab005iPEdiIWNDXYVe0N/GIym6W+2tLdfpixAd4ZrkUXRDQwwTfA+WJdIBy6jnfIw
- rI6jkrmmmBGAPJBUsRDru0amCO4Xf4/f7S3RRhaufdAgABaTx6lcCHy2sUWKppgZujL/
- GC7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
- :references:mime-version;
- bh=AjSYCi901NK2XUQ4T1T6ypPHjvuphOZQdh9jmhJVLlo=;
- b=TLmaPQeg8IKDQDRFjbBkdKoP+WUL6r90MxBIL/qjodlTD4riU/Xl+6pF8quGJ0dY6u
- e4Ii7bPXxz+NAmqJEiPZ1A37gjHPS7jnK0fqmyn9DCEjAkNaSl0azhidbmArXXo49Sby
- rkOdItPaul/+j0irj1bJsp7OH0pLmqbqTF2nKCat+050xpUpuzBayeYagdhRNZUsVoet
- xBDTeJkwuRzBnvOsoKaVODQO3opPL1MAC109HU1veP74wTSq5xd6bRKhv3cJQb2bQ30D
- +mWD97hKGGsZvM3hjdo6Ht47VE2MdJjTuBnqFG7FTGs7FzHZS0I0hV/B9SY8p4ckMTdj
- UIgw==
-X-Gm-Message-State: AOAM531FCSVwiU0Hn4J0MYhZXFhTkqcRZUU3lM1KL94FwfA+fVSoXn7f
- 5v8H7Hswe6HjPGKKCf1K9Ks=
-X-Google-Smtp-Source: ABdhPJw8461dcmLUcxcl4t836vLxjmY/zjtutDFBj2liw0WTiHMRgOCa3/GL0nBmoYdXFLfJBL5lFg==
-X-Received: by 2002:a05:651c:516:: with SMTP id
- o22mr1947884ljp.29.1624344538448; 
- Mon, 21 Jun 2021 23:48:58 -0700 (PDT)
-Received: from eldfell ([194.136.85.206])
- by smtp.gmail.com with ESMTPSA id m19sm2111634lfl.75.2021.06.21.23.48.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 21 Jun 2021 23:48:58 -0700 (PDT)
-Date: Tue, 22 Jun 2021 09:48:54 +0300
-From: Pekka Paalanen <ppaalanen@gmail.com>
-To: Werner Sembach <wse@tuxedocomputers.com>
-Subject: Re: [PATCH v4 06/17] drm/uAPI: Add "active color format" drm
- property as feedback for userspace
-Message-ID: <20210622094854.06a967db@eldfell>
-In-Reply-To: <20210618091116.14428-7-wse@tuxedocomputers.com>
-References: <20210618091116.14428-1-wse@tuxedocomputers.com>
- <20210618091116.14428-7-wse@tuxedocomputers.com>
-X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7363989B9E;
+	Tue, 22 Jun 2021 06:57:30 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2040.outbound.protection.outlook.com [40.107.92.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5E3989B9E
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Jun 2021 06:57:28 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ALiu5dqpUiVPuz4QHYLrnoI3CbZRIEu7VZAXAN/3ErDwvhEGa6Je2TnimuSBfHqIitsOqO5AHexu2ZwCbUcfDSURP6/tKTCLEgfqnoOZzKC2Tt+SSqBOym3KN2vqWMsrK1czctNcDDy/0tJm/RKVW1en35qe6v1UPxYV58URu30rhL3laPXtGIlvxYWQcA8fNLiJE7uX7uL8olv1V2aVW6gxBI+JtUCke7OAjZGwWGCbJulrY2f6pm9OujVmdZzDYa+ArJzDnieFq4Otb3tl014v3vEoHJbyjVAC5dm3jsTTtuETw6tWlgYylB0SF7t1i1mbhVExqMna6SsDy9udow==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9pWyR8bhvYhmiUGDNsBhohq1r4lmeYTuGfnj2RxhbGw=;
+ b=X0QO4wBDU8lvYgrN3lT0Dn63iQk3LeMFLcIWJaL/UGfZ4uSB5ctduHqz3jnR8BZbjHDa9XC1ZllDFJqqsX3jCDjcbYDnsHevY9aK2lSCuKhey4oGX97p30adUiLV6DrAaZZ9gvyimRJOa2qAq6rF56aaWlEqEoYEu2cBoTAa/CCoalFFLe546kJ6VAsfNB3t7tG3AQbnIx4ZG5PNEFeVilwqqqfUfMgMd8SCa4mtOYp4WKJcUIc0z4TJySxBY3opS2XjTUbITPSfaEDguAkEiaUlyrBTQbEAs6EsQFrtjU6bpBa8k8QR78izCO/sxZx/Gm3zopx3QvTWIvLEVWhwWQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9pWyR8bhvYhmiUGDNsBhohq1r4lmeYTuGfnj2RxhbGw=;
+ b=c276ZZCohcNXzDVMXKRn4hTda2lL8PDnStD4y4Xaf2anQ/bLCd2bEzYvBlPuRSy8lcQ0ufKAbdpXdu/SudkqeF7JRLLckyDzXtDpHZTeFv5ydeEyygjDVWHImF3zvKc0RDT+0G03qRSfkfoy8oDDccP+lldFWhVSdTCNOjKLoZ4=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB5136.namprd12.prod.outlook.com (2603:10b6:5:393::23)
+ by DM4PR12MB5085.namprd12.prod.outlook.com (2603:10b6:5:388::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.18; Tue, 22 Jun
+ 2021 06:57:26 +0000
+Received: from DM4PR12MB5136.namprd12.prod.outlook.com
+ ([fe80::901b:72bb:a15:2a68]) by DM4PR12MB5136.namprd12.prod.outlook.com
+ ([fe80::901b:72bb:a15:2a68%5]) with mapi id 15.20.4242.023; Tue, 22 Jun 2021
+ 06:57:26 +0000
+From: Nirmoy Das <nirmoy.das@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 1/1] drm/amdgpu: add helper function for vm pasid
+Date: Tue, 22 Jun 2021 08:57:11 +0200
+Message-Id: <20210622065711.4589-1-nirmoy.das@amd.com>
+X-Mailer: git-send-email 2.32.0
+X-Originating-IP: [217.86.117.140]
+X-ClientProxiedBy: PR3P192CA0021.EURP192.PROD.OUTLOOK.COM
+ (2603:10a6:102:56::26) To DM4PR12MB5136.namprd12.prod.outlook.com
+ (2603:10b6:5:393::23)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from brihaspati.fritz.box (217.86.117.140) by
+ PR3P192CA0021.EURP192.PROD.OUTLOOK.COM (2603:10a6:102:56::26) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4242.18 via Frontend Transport; Tue, 22 Jun 2021 06:57:25 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: a5e55b23-6b26-4eee-0309-08d9354afe8c
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5085:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM4PR12MB508531904E3EE00D4C12C4D48B099@DM4PR12MB5085.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: aUN0o5IlsSvpLjSX7wXWBG8CZ7TH/XcTmJ5H9/Omz3KreoeVqCXHtEd4SBlJsFS9wkOsyRyRUIx2qxKUdCab39zBdOKWacRusjnxRh4O2NSV72InZwKrz11/WOZiRpyhJixjPsEcd8g/MjhNSfU4xUP37TPzt8nxHBdNsBSuFXPQ8hIKMC/gFqojeeGUjUIvU1hNkmL0y6KDXI+K2i4/Slo/nHGnO1OY5vZxhV9pG1M82g5u1DEmWNr8EOk/WWGjCJZHsH2yfmoe+om9/oQXkMI1KP7Rri7Whgd4UwyclWDLvjJogp2WumjZn+BiT2JliiFJnYz9wDtcw96gcdhEOmqNlGFqAX+aq+v5OD1G1lyWMGIIozHBtlsnqqWKqNxGjfLCiiZKKH55k/kvhdpJmQsnhHrlwjB/Ss2ChcEYSaJ0+rFBi/zeuODKY/p12AKLNn0uS8qOKrM737Du4U5m0/djeVpAif6qLLZgjv3cekKWaBw0HZ66QE1lZ7uxS9Dm3TEx3Gsmz0DZcky/R76LCVnmyo47Ucok0akOf2aYuZ+9/yi3Gxm0E+Vwq82/q/QrB5PLqt59gOXbl+gs3fVt3gQtkBs+pkip6fmAV2EoqssRImWzJShHXA47PNj9zB7fLB7x9x2pXxuv5u93TekWc3a89uDR27yK+8dX8pVV6Pw=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5136.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(366004)(39860400002)(136003)(376002)(396003)(38350700002)(38100700002)(16526019)(186003)(316002)(2616005)(6916009)(4326008)(478600001)(44832011)(6506007)(26005)(52116002)(6486002)(956004)(2906002)(8936002)(8676002)(6512007)(5660300002)(6666004)(83380400001)(66556008)(66476007)(66946007)(1076003)(86362001)(36756003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?4lMU+Atui+zK6UJ/XLuXzBddYo3iCr7j5r6rWQfwxzV5C5ZpyuAR3olLUHpo?=
+ =?us-ascii?Q?xJx54S6djcGwzkbNDHQvRmbsQdRxJC4gZY9vFaUfJphyirqy1gT6ep2yY7tR?=
+ =?us-ascii?Q?aMDdodiQxQoQXenrM5UOfGxnVJHzB4ui8smonhbxqdehOfWUb05deuOkMfQv?=
+ =?us-ascii?Q?+9LDHtyvRWP7QS91YEUpv4/81Nt4pVGkzQWtAP6fkOQglHUifBrbq52vXKkS?=
+ =?us-ascii?Q?njxFwRNoW+6VArgGRHSjWxTtXaDMHtGwkYloMG22s6QC/J9+xEeg1bNwm+So?=
+ =?us-ascii?Q?9v8Faa7p2r8ZIpBJPe6cjDS8iEypHerhvKxa/nOAVvOYBuZMne2pTRX5wnFT?=
+ =?us-ascii?Q?a2as36xJoFHzuf+WEA6fGjQ0B87jJwkPn9+FwuOlIapELKCfQIv4RFfYSwlo?=
+ =?us-ascii?Q?KsGKKuGwAL32o02G+8xJclVwq0lJf8O89xSHVRgzu2AEySLdv/RMtBmVzeo2?=
+ =?us-ascii?Q?EekvcSOSyC3yFnmcNF3pr0NnQAiB63HcnkIFGkFRE3OVtnQ+mbf/JUTvd4RN?=
+ =?us-ascii?Q?MwD/9c8gch/kmU5Oj6E0jT2E2MGS0aQu5euXAC1L8AUQrb7em6utcgMM7Kv6?=
+ =?us-ascii?Q?gH53A7UNIeLWBi62nP0vSaoy0RHqrXGpBFB98HYJhwH8SLKvNPTSq+ZrdjFK?=
+ =?us-ascii?Q?j3BXpFB/24bkgHro1gt80foL301SiVE9cHAeMTSj4YCeWhh7TUDSfANhd4Y6?=
+ =?us-ascii?Q?4z0vhVVaGLGcv7jSQgTQT91R+Q/q9i5UO5FuvP5rDq9PmCFsIZm5WgdEgr8w?=
+ =?us-ascii?Q?jyt95NsSE4ToEEeqAx+9GPgCij/89CfF9XcAL2N97KtTBjyXrtUwdB+ao/67?=
+ =?us-ascii?Q?lPsVMAQOlnkn+JXatJam9zxZjZ626MPJC20E+iqURwtz6VXk3Kgi0x8N3vAa?=
+ =?us-ascii?Q?N+rBY+NTFpZkI7F6k+T5c3UN0K+QlyXFZ+cjP4nHeR63mGcdTg3dzFU+l0y9?=
+ =?us-ascii?Q?zgW0D50Guq0WTYsZrxptyTQWA8bsGm7V/4ZAxGjXwcnLBPfVn+LgokEgnPnY?=
+ =?us-ascii?Q?FhAKxo9h5SmnVOgR3CIR5i+GYXvElUVVLW+zwIdM4Ni/ejjlOkMWpTfWutk3?=
+ =?us-ascii?Q?zBb2qislDZK42UeX/o4mx6+SsJQS2rA8TKj25hbME2j4E51qStVXutPcaRXD?=
+ =?us-ascii?Q?xaG9L55OfkvS/eKLYFELoXEpxufDi0c4acrRW/cVoAvY9wU2SYFDzbd7LNCN?=
+ =?us-ascii?Q?/1xMJvWE/w0q4Xw8iZYItL97EDgtYTRz3+rtmYnMLw28GOj4dxu6TukC+0gY?=
+ =?us-ascii?Q?2UU5wA0FaudQidB9evUPc5KF58Q+dt2hspEn61ODsDvdVmb96u62d/A3GGSP?=
+ =?us-ascii?Q?QSmMY+u+Wx8yIRwvdxTNWzyp?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a5e55b23-6b26-4eee-0309-08d9354afe8c
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5136.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2021 06:57:26.5400 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: v/fiFon4VS/f/HtGu8oiJySZ4Ifv2Kft6KhBuUofI4UkIrEUw28WWbDZLAcGVgGlIeH2tu14cTnidNzTAWlTEg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5085
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,221 +124,191 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, tzimmermann@suse.de,
- intel-gfx@lists.freedesktop.org, sunpeng.li@amd.com,
- dri-devel@lists.freedesktop.org, joonas.lahtinen@linux.intel.com,
- maarten.lankhorst@linux.intel.com, linux-kernel@vger.kernel.org,
- mripard@kernel.org, airlied@linux.ie, jani.nikula@linux.intel.com,
- daniel@ffwll.ch, rodrigo.vivi@intel.com, alexander.deucher@amd.com,
- harry.wentland@amd.com, christian.koenig@amd.com
-Content-Type: multipart/mixed; boundary="===============0453782163=="
+Cc: Felix.Kuehling@amd.com, Nirmoy Das <nirmoy.das@amd.com>,
+ Christian.Koenig@amd.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0453782163==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- boundary="Sig_/6W0+52WH5/FBENODx7AtHfw"; protocol="application/pgp-signature"
+Cleanup code related to vm pasid by adding helper functions.
 
---Sig_/6W0+52WH5/FBENODx7AtHfw
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 105 ++++++++++++-------------
+ 1 file changed, 50 insertions(+), 55 deletions(-)
 
-On Fri, 18 Jun 2021 11:11:05 +0200
-Werner Sembach <wse@tuxedocomputers.com> wrote:
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 63975bda8e76..6e476b173cbb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -87,6 +87,46 @@ struct amdgpu_prt_cb {
+ 	struct dma_fence_cb cb;
+ };
 
-> Add a new general drm property "active color format" which can be used by
-> graphic drivers to report the used color format back to userspace.
->=20
-> There was no way to check which color format got actually used on a given
-> monitor. To surely predict this, one must know the exact capabilities of
-> the monitor, the GPU, and the connection used and what the default
-> behaviour of the used driver is (e.g. amdgpu prefers YCbCr 4:4:4 while i9=
-15
-> prefers RGB). This property helps eliminating the guessing on this point.
->=20
-> In the future, automatic color calibration for screens might also depend =
-on
-> this information being available.
->=20
-> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
-> ---
->  drivers/gpu/drm/drm_connector.c | 61 +++++++++++++++++++++++++++++++++
->  include/drm/drm_connector.h     |  9 +++++
->  2 files changed, 70 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connec=
-tor.c
-> index 943f6b61053b..684d7abdf0eb 100644
-> --- a/drivers/gpu/drm/drm_connector.c
-> +++ b/drivers/gpu/drm/drm_connector.c
-> @@ -889,6 +889,14 @@ static const struct drm_prop_enum_list drm_dp_subcon=
-nector_enum_list[] =3D {
->  	{ DRM_MODE_SUBCONNECTOR_Native,	     "Native"    }, /* DP */
->  };
-> =20
-> +static const struct drm_prop_enum_list drm_active_color_format_enum_list=
-[] =3D {
-> +	{ 0, "unknown" },
-> +	{ DRM_COLOR_FORMAT_RGB444, "rgb" },
-> +	{ DRM_COLOR_FORMAT_YCRCB444, "ycbcr444" },
-> +	{ DRM_COLOR_FORMAT_YCRCB422, "ycbcr422" },
-> +	{ DRM_COLOR_FORMAT_YCRCB420, "ycbcr420" },
-> +};
-> +
->  DRM_ENUM_NAME_FN(drm_get_dp_subconnector_name,
->  		 drm_dp_subconnector_enum_list)
-> =20
-> @@ -1205,6 +1213,14 @@ static const struct drm_prop_enum_list dp_colorspa=
-ces[] =3D {
->   *	Drivers shall use drm_connector_attach_active_bpc_property() to insta=
-ll
->   *	this property.
->   *
-> + * active color format:
-> + *	This read-only property tells userspace the color format actually used
-> + *	by the hardware display engine on "the cable" on a connector. The cho=
-sen
-> + *	value depends on hardware capabilities, both display engine and
-> + *	connected monitor. Drivers shall use
-> + *	drm_connector_attach_active_color_format_property() to install this
-> + *	property.
-> + *
->   * Connectors also have one standardized atomic property:
->   *
->   * CRTC_ID:
-> @@ -2203,6 +2219,51 @@ void drm_connector_set_active_bpc_property(struct =
-drm_connector *connector, int
->  }
->  EXPORT_SYMBOL(drm_connector_set_active_bpc_property);
-> =20
-> +/**
-> + * drm_connector_attach_active_color_format_property - attach "active co=
-lor format" property
-> + * @connector: connector to attach active color format property on.
-> + *
-> + * This is used to check the applied color format on a connector.
-> + *
-> + * Returns:
-> + * Zero on success, negative errno on failure.
-> + */
-> +int drm_connector_attach_active_color_format_property(struct drm_connect=
-or *connector)
-> +{
-> +	struct drm_device *dev =3D connector->dev;
-> +	struct drm_property *prop;
-> +
-> +	if (!connector->active_color_format_property) {
-> +		prop =3D drm_property_create_enum(dev, DRM_MODE_PROP_IMMUTABLE, "activ=
-e color format",
-> +						drm_active_color_format_enum_list,
-> +						ARRAY_SIZE(drm_active_color_format_enum_list));
-> +		if (!prop)
-> +			return -ENOMEM;
-> +
-> +		connector->active_color_format_property =3D prop;
-> +		drm_object_attach_property(&connector->base, prop, 0);
-> +	}
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL(drm_connector_attach_active_color_format_property);
-> +
-> +/**
-> + * drm_connector_set_active_color_format_property - sets the active colo=
-r format property for a
-> + * connector
-> + * @connector: drm connector
-> + * @active_color_format: color format for the connector currently active=
- on "the cable"
-> + *
-> + * Should be used by atomic drivers to update the active color format ov=
-er a connector.
-> + */
-> +void drm_connector_set_active_color_format_property(struct drm_connector=
- *connector,
-> +						    u32 active_color_format)
-> +{
-> +	drm_object_property_set_value(&connector->base, connector->active_color=
-_format_property,
-> +				      active_color_format);
-> +}
-> +EXPORT_SYMBOL(drm_connector_set_active_color_format_property);
-> +
->  /**
->   * drm_connector_attach_hdr_output_metadata_property - attach "HDR_OUTPU=
-T_METADA" property
->   * @connector: connector to attach the property on.
-> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-> index eee86de62a5f..8a5197f14e87 100644
-> --- a/include/drm/drm_connector.h
-> +++ b/include/drm/drm_connector.h
-> @@ -1386,6 +1386,12 @@ struct drm_connector {
->  	 */
->  	struct drm_property *active_bpc_property;
-> =20
-> +	/**
-> +	 * @active_color_format_property: Default connector property for the
-> +	 * active color format to be driven out of the connector.
-> +	 */
-> +	struct drm_property *active_color_format_property;
-> +
->  #define DRM_CONNECTOR_POLL_HPD (1 << 0)
->  #define DRM_CONNECTOR_POLL_CONNECT (1 << 1)
->  #define DRM_CONNECTOR_POLL_DISCONNECT (1 << 2)
-> @@ -1710,6 +1716,9 @@ int drm_connector_attach_max_bpc_property(struct dr=
-m_connector *connector,
->  					  int min, int max);
->  int drm_connector_attach_active_bpc_property(struct drm_connector *conne=
-ctor, int min, int max);
->  void drm_connector_set_active_bpc_property(struct drm_connector *connect=
-or, int active_bpc);
-> +int drm_connector_attach_active_color_format_property(struct drm_connect=
-or *connector);
-> +void drm_connector_set_active_color_format_property(struct drm_connector=
- *connector,
-> +						    u32 active_color_format);
-> =20
->  /**
->   * struct drm_tile_group - Tile group metadata
++static int amdgpu_vm_pasid_alloc(struct amdgpu_device *adev,
++				 struct amdgpu_vm *vm,
++				 unsigned int pasid,
++				 unsigned int *vm_pasid)
++{
++	unsigned long flags;
++	int r;
++
++	if (!pasid)
++		return 0;
++
++	spin_lock_irqsave(&adev->vm_manager.pasid_lock, flags);
++	r = idr_alloc(&adev->vm_manager.pasid_idr, vm, pasid, pasid + 1,
++		      GFP_ATOMIC);
++	spin_unlock_irqrestore(&adev->vm_manager.pasid_lock, flags);
++	if (r < 0)
++		return r;
++	if (vm_pasid)
++		*vm_pasid = pasid;
++
++	return 0;
++}
++
++static void amdgpu_vm_pasid_remove(struct amdgpu_device *adev,
++				   unsigned int pasid,
++				   unsigned int *vm_pasid)
++{
++	unsigned long flags;
++
++	if (!pasid)
++		return;
++
++	spin_lock_irqsave(&adev->vm_manager.pasid_lock, flags);
++	idr_remove(&adev->vm_manager.pasid_idr, pasid);
++	spin_unlock_irqrestore(&adev->vm_manager.pasid_lock, flags);
++
++	if (vm_pasid)
++		*vm_pasid = 0;
++}
++
+ /*
+  * vm eviction_lock can be taken in MMU notifiers. Make sure no reclaim-FS
+  * happens while holding this lock anywhere to prevent deadlocks when
+@@ -2940,18 +2980,8 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm, u32 pasid)
 
-Acked-by: Pekka Paalanen <pekka.paalanen@collabora.com>
+ 	amdgpu_bo_unreserve(vm->root.bo);
 
+-	if (pasid) {
+-		unsigned long flags;
+-
+-		spin_lock_irqsave(&adev->vm_manager.pasid_lock, flags);
+-		r = idr_alloc(&adev->vm_manager.pasid_idr, vm, pasid, pasid + 1,
+-			      GFP_ATOMIC);
+-		spin_unlock_irqrestore(&adev->vm_manager.pasid_lock, flags);
+-		if (r < 0)
+-			goto error_free_root;
+-
+-		vm->pasid = pasid;
+-	}
++	if (amdgpu_vm_pasid_alloc(adev, vm, pasid, &vm->pasid))
++		goto error_free_root;
 
-Thanks,
-pq
+ 	INIT_KFIFO(vm->faults);
 
---Sig_/6W0+52WH5/FBENODx7AtHfw
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
+@@ -3038,19 +3068,11 @@ int amdgpu_vm_make_compute(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 	r = amdgpu_vm_check_clean_reserved(adev, vm);
+ 	if (r)
+ 		goto unreserve_bo;
++	r = amdgpu_vm_pasid_alloc(adev, vm, pasid, NULL);
++	if (r ==  -ENOSPC)
++		goto unreserve_bo;
 
------BEGIN PGP SIGNATURE-----
+-	if (pasid) {
+-		unsigned long flags;
+-
+-		spin_lock_irqsave(&adev->vm_manager.pasid_lock, flags);
+-		r = idr_alloc(&adev->vm_manager.pasid_idr, vm, pasid, pasid + 1,
+-			      GFP_ATOMIC);
+-		spin_unlock_irqrestore(&adev->vm_manager.pasid_lock, flags);
+-
+-		if (r == -ENOSPC)
+-			goto unreserve_bo;
+-		r = 0;
+-	}
++	r = 0;
 
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmDRh9cACgkQI1/ltBGq
-qqcWoA//dSSguGoiW9hFOa6yI3ULCPT9hDsCa0NFM2sgwJ9EmSSURnvVu8lAKkMZ
-Xw411ajkzv/+OcMl5WmAlhkcGRoAeCqlrffHBG9HCluWAMdTAJerfPtqVkoBQDZT
-IWbIJVJzAUXnGdq934McztX3FooLdRc3lAoM8p+/v0+mmDQtOHUtwE+vI/fBkL3I
-zeLEFGSCsPeFrQULQAQK61zkEaKZ+JV4cuTNxp8fbO7SYJjlnLGAYtAaWRrUnVQt
-rbxz7hpBSXIwG6IsW3U7BGsC6Idic8+ojn5Oudk6ljc34iXpeqEDlawbP5gsuv3k
-sOdZZXjpFH1O8EEiJfNatp0Z6B+VoIeVjLm0GxjC9RdHbsSrsixZZcBNpUSVj0Uh
-oemD6tnkKS6dEJiZqS9FY09ySD3UxG2M2tXR3UA6DJZIu5nbvtZb0+tf3vnWZeSd
-6K3DQqSLGJKoMvU3pmoOwKNZ09mroZ6L+hX5QPnx90npVTmzYJXZSUSvHozQ5aDf
-O97+6y12JGzdpjv3Tmk/KoGe/y3YZD7E8308rM1FmxObzmDnHUCRoK6sP2OL6XH6
-fN5af+1bT9HYZMoLplKqB1wEehBuLDUkLM3Ld/+QyIiBkcsciRe81V1Liuxr3pGC
-Id+CToFLL/oysa8LD9j4mMoqdMprOt+zgSmMnrD1fE6rhWPpvOE=
-=/Ofh
------END PGP SIGNATURE-----
+ 	/* Check if PD needs to be reinitialized and do it before
+ 	 * changing any other state, in case it fails.
+@@ -3089,35 +3111,23 @@ int amdgpu_vm_make_compute(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 	vm->is_compute_context = true;
 
---Sig_/6W0+52WH5/FBENODx7AtHfw--
+ 	if (vm->pasid) {
+-		unsigned long flags;
+-
+-		spin_lock_irqsave(&adev->vm_manager.pasid_lock, flags);
+-		idr_remove(&adev->vm_manager.pasid_idr, vm->pasid);
+-		spin_unlock_irqrestore(&adev->vm_manager.pasid_lock, flags);
+-
+ 		/* Free the original amdgpu allocated pasid
+ 		 * Will be replaced with kfd allocated pasid
+ 		 */
+ 		amdgpu_pasid_free(vm->pasid);
+-		vm->pasid = 0;
++		amdgpu_vm_pasid_remove(adev, vm->pasid, &vm->pasid);
+ 	}
 
---===============0453782163==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+ 	/* Free the shadow bo for compute VM */
+ 	amdgpu_bo_unref(&to_amdgpu_bo_vm(vm->root.bo)->shadow);
+-
+ 	if (pasid)
+ 		vm->pasid = pasid;
+
+ 	goto unreserve_bo;
+
+ free_idr:
+-	if (pasid) {
+-		unsigned long flags;
++	amdgpu_vm_pasid_remove(adev, pasid, NULL);
+
+-		spin_lock_irqsave(&adev->vm_manager.pasid_lock, flags);
+-		idr_remove(&adev->vm_manager.pasid_idr, pasid);
+-		spin_unlock_irqrestore(&adev->vm_manager.pasid_lock, flags);
+-	}
+ unreserve_bo:
+ 	amdgpu_bo_unreserve(vm->root.bo);
+ 	return r;
+@@ -3133,14 +3143,7 @@ int amdgpu_vm_make_compute(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+  */
+ void amdgpu_vm_release_compute(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+ {
+-	if (vm->pasid) {
+-		unsigned long flags;
+-
+-		spin_lock_irqsave(&adev->vm_manager.pasid_lock, flags);
+-		idr_remove(&adev->vm_manager.pasid_idr, vm->pasid);
+-		spin_unlock_irqrestore(&adev->vm_manager.pasid_lock, flags);
+-	}
+-	vm->pasid = 0;
++	amdgpu_vm_pasid_remove(adev, vm->pasid, &vm->pasid);
+ 	vm->is_compute_context = false;
+ }
+
+@@ -3164,15 +3167,7 @@ void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+
+ 	root = amdgpu_bo_ref(vm->root.bo);
+ 	amdgpu_bo_reserve(root, true);
+-	if (vm->pasid) {
+-		unsigned long flags;
+-
+-		spin_lock_irqsave(&adev->vm_manager.pasid_lock, flags);
+-		idr_remove(&adev->vm_manager.pasid_idr, vm->pasid);
+-		spin_unlock_irqrestore(&adev->vm_manager.pasid_lock, flags);
+-		vm->pasid = 0;
+-	}
+-
++	amdgpu_vm_pasid_remove(adev, vm->pasid, &vm->pasid);
+ 	dma_fence_wait(vm->last_unlocked, false);
+ 	dma_fence_put(vm->last_unlocked);
+
+--
+2.32.0
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0453782163==--
