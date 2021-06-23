@@ -2,66 +2,44 @@ Return-Path: <SRS0=KKXi=LR=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_2 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DEF63C4743C
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Jun 2021 11:14:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 60378C4743C
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Jun 2021 11:19:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A858861075
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Jun 2021 11:14:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A858861075
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id E17736102A
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Jun 2021 11:19:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E17736102A
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=tuxedocomputers.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 599BE6E8AB;
-	Wed, 23 Jun 2021 11:14:37 +0000 (UTC)
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [IPv6:2a00:1450:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FA9F6E8AB;
- Wed, 23 Jun 2021 11:14:36 +0000 (UTC)
-Received: by mail-lj1-x22b.google.com with SMTP id u20so2416054ljl.13;
- Wed, 23 Jun 2021 04:14:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:in-reply-to:references
- :mime-version; bh=sVCNkG1sjid0l6fkpvpwMveMxwqV4qVEQF+03S3gbMk=;
- b=Isyhss64Lo63ULrdcWdldg3vYy7t0wFmWBADC2lk5CeYqL/ia93o6sG6WtC0AoE99G
- nx2LRunRuYeLP4HcccRiXUeVeu0hI9A5xJ/KMd2sEIbZLqUmjq5JInhftZIJv+Sq/U1T
- K7uf8aAU8Yc96U+SqguGfHGLQ2frBV+qk0is0ra9ozBeYyms27veirfW4k3M7uA0t1gZ
- ufs2XYMgEqBNYThhmMRoqs/NnuYC2Pyn2u34ElQDSMY9gZqAQzlmXABtmlrvzIIUtUV4
- zxYLXbcjV5VSYqpACDmGzaev3ujPrYveGOAHF0n2CvlmbvL6t09teuefXabGuiSnw+Qn
- Xx7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
- :references:mime-version;
- bh=sVCNkG1sjid0l6fkpvpwMveMxwqV4qVEQF+03S3gbMk=;
- b=pcbiPZPwGlFZfbZ7Bli9Qw0vmWpmAbr3z2f50DHBsKGqOePbydTCmU2MBxVpizCDD1
- d92IC9IrPd0wXF5ncJ+IFLxajrfsuiBh2XtlD9MCKqgAPMs3T6ce3e61lUC4TvJ2HzSy
- uw5PYIn8KbX+3PEOU1zSN5hUKtGTiTg4GhfpHm5DNIJ3efHcqbXu3grDdBiwCnlcUHLg
- ZKnq1dv5ky6lElexBj1smWDMAP3uQwGggS7CvJWsuqoUUVbJsSX4VAl+8M+lZJcsRkNY
- Oxxk7iw3cVUEKQw4Nr+YAg1v+2fYDXVyFFnQNVHjy6rSLWN4ldW4AiNWIy2QJZTDHpEX
- hLFA==
-X-Gm-Message-State: AOAM532LzF3EGFS6k360Od5tcqJeNZlecn5SICnsff5aXYEagEerENn1
- Zty3nhGQbpRPfSRdrnTkHMs=
-X-Google-Smtp-Source: ABdhPJwgFL6X5sNyB5lAj2pWReVokn5IciFDnMioc3JNGQrae8usHzOmGagfauGFAy/RJNs1/LbboA==
-X-Received: by 2002:a2e:8584:: with SMTP id b4mr5964164lji.107.1624446874580; 
- Wed, 23 Jun 2021 04:14:34 -0700 (PDT)
-Received: from eldfell ([194.136.85.206])
- by smtp.gmail.com with ESMTPSA id b14sm2508766lfb.149.2021.06.23.04.14.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Jun 2021 04:14:34 -0700 (PDT)
-Date: Wed, 23 Jun 2021 14:14:23 +0300
-From: Pekka Paalanen <ppaalanen@gmail.com>
-To: Werner Sembach <wse@tuxedocomputers.com>
-Subject: Re: [PATCH v4 09/17] drm/uAPI: Add "active color range" drm
- property as feedback for userspace
-Message-ID: <20210623141423.3f6c3e9f@eldfell>
-In-Reply-To: <5947f768-dd87-6b39-ecfc-b7c4aaa88aca@tuxedocomputers.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E9A889FC5;
+	Wed, 23 Jun 2021 11:19:44 +0000 (UTC)
+Received: from srv6.fidu.org (srv6.fidu.org [IPv6:2a01:4f8:231:de0::2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA4D989FC5;
+ Wed, 23 Jun 2021 11:19:43 +0000 (UTC)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by srv6.fidu.org (Postfix) with ESMTP id B2A3DC800A7;
+ Wed, 23 Jun 2021 13:19:41 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at srv6.fidu.org
+Received: from srv6.fidu.org ([127.0.0.1])
+ by localhost (srv6.fidu.org [127.0.0.1]) (amavisd-new, port 10024)
+ with LMTP id VnxvvrRkcqOg; Wed, 23 Jun 2021 13:19:41 +0200 (CEST)
+Received: from [IPv6:2003:e3:7f39:4900:3156:839d:aed8:6ea6]
+ (p200300e37f3949003156839daED86Ea6.dip0.t-ipconnect.de
+ [IPv6:2003:e3:7f39:4900:3156:839d:aed8:6ea6])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ (Authenticated sender: wse@tuxedocomputers.com)
+ by srv6.fidu.org (Postfix) with ESMTPSA id 3B189C8009D;
+ Wed, 23 Jun 2021 13:19:41 +0200 (CEST)
+Subject: Re: [PATCH v4 09/17] drm/uAPI: Add "active color range" drm property
+ as feedback for userspace
+To: Pekka Paalanen <ppaalanen@gmail.com>
 References: <20210618091116.14428-1-wse@tuxedocomputers.com>
  <20210618091116.14428-10-wse@tuxedocomputers.com>
  <20210622100042.4041624a@eldfell>
@@ -69,8 +47,15 @@ References: <20210618091116.14428-1-wse@tuxedocomputers.com>
  <k_QeCRpur3SNNIspBiTHOTT6Oj1pSteEO3MzyQFUG0lSXmEqJUI2tMXJ6wR9chzUHGahdQApJZrUxdJvIv6s8aXr2DBdoHg-2PsGH4kEMyA=@emersion.fr>
  <20210623103256.01d680ba@eldfell>
  <5947f768-dd87-6b39-ecfc-b7c4aaa88aca@tuxedocomputers.com>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+ <20210623141423.3f6c3e9f@eldfell>
+From: Werner Sembach <wse@tuxedocomputers.com>
+Message-ID: <fe83dcd2-889d-f9de-fc4e-b25b1887cb80@tuxedocomputers.com>
+Date: Wed, 23 Jun 2021 13:19:41 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
+In-Reply-To: <20210623141423.3f6c3e9f@eldfell>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,91 +67,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: sunpeng.li@amd.com, Simon Ser <contact@emersion.fr>,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, airlied@linux.ie,
- amd-gfx@lists.freedesktop.org, tzimmermann@suse.de, rodrigo.vivi@intel.com,
+Cc: sunpeng.li@amd.com, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, airlied@linux.ie,
+ dri-devel@lists.freedesktop.org, tzimmermann@suse.de, rodrigo.vivi@intel.com,
  alexander.deucher@amd.com, christian.koenig@amd.com
-Content-Type: multipart/mixed; boundary="===============1352366075=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1352366075==
-Content-Type: multipart/signed; boundary="Sig_/gPEvcW1kQm+Ybq.N/v+Zg1q";
- protocol="application/pgp-signature"; micalg=pgp-sha256
-
---Sig_/gPEvcW1kQm+Ybq.N/v+Zg1q
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
-
-On Wed, 23 Jun 2021 12:17:40 +0200
-Werner Sembach <wse@tuxedocomputers.com> wrote:
-
-> Am 23.06.21 um 09:32 schrieb Pekka Paalanen:
-> > On Tue, 22 Jun 2021 11:48:52 +0000
-> > Simon Ser <contact@emersion.fr> wrote:
-> > =20
-> >> On Tuesday, June 22nd, 2021 at 11:50, Werner Sembach <wse@tuxedocomput=
-ers.com> wrote:
-> >> =20
-> >>> Unknown is when no monitor is connected or is when the
-> >>> connector/monitor is disabled.   =20
-> >> I think the other connector props (link-status, non-desktop, etc) don't
-> >> have a special "unset" value, and instead the value is set to a random
-> >> enum entry. User-space should ignore the prop on these disconnected
-> >> connectors anyways. =20
-> > That sounds fine to me. =20
->=20
-> Currently the only case for "not applicable" is when the monitor is
-> disconnected, but sicne the properties are so interdependent, there
-> might be a case in the future where e.g. a color format that has no
-> differentiation between full and limited arises. When there is no
-> special unset/not applicable option, the userspace has to know
-> exactly when an option is valid or not, possible requiring additional
-> logic.
->=20
-> Setting a "not applicable" value allows userspace to be more dumb,
-> without much hassle on the kernelspace side.
-
-That's a good point too. So "not applicable" would be a value, but
-"unknown" would not be.
-
-
-Thanks,
-pq
-
---Sig_/gPEvcW1kQm+Ybq.N/v+Zg1q
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmDTF48ACgkQI1/ltBGq
-qqe5aBAAqjWygSQjmKD6D7wupf6+Ir2Pto1tmAW7ioCbPvk4RutUtuKzbT4WoBku
-RtE2pHxKp2SiqKyo8rjRfgOR2gvDdOmfuKI5yfdKfPDZKhiyNIA2Wpyx9ntnFS+f
-HGVdWVFTJh61TfNtqC0FQqvEASiRPC7mnu9GzLtb69DU/0Jdu+NlALsH2FIYo1lb
-4+HpBXhq1sd3EsgqnWbnC8BquKmH0Whea27uEidyo0B1VdHdT+vDEJzc0juN7TSo
-xs3us/rckFCEkhP0dASPe9ieWsYfUQIklQw1oKb/4WHHy0O9lyW5x0qABTbD34oF
-jOy9byLTiWmXQuR9zLpiW24Qo6n58hRTQ2+10mFPif7j/brhobX/k1js+cO9sDRJ
-+BkFsAJ0eU+cajpPi/lUGMgyTRPTT49yv1tjfzwsZihnH02Att+PtlXuCdmAei2/
-6imtfO3ETUcbyqgbmOeqPkY4dXqY7bhRCt82KCmAf1Bx/gJz2rhrBOjwhwJbXTeF
-NwcsWiFljcfSE118AJlkdHDGXnq+NaXNIqbfeOTYN0moUePis31A8+j78AEtFkAh
-dapDvoirU08Z2MgQAElb3HfD9EZf+en8s7JvPn/VTCi7jxMVBUPqyzZf8pceQVwU
-Vh7z8kFjqJKrRwBOSp6EpGnKYW244wCIc/24cUwx34e4MmOWmNc=
-=r73d
------END PGP SIGNATURE-----
-
---Sig_/gPEvcW1kQm+Ybq.N/v+Zg1q--
-
---===============1352366075==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Am 23.06.21 um 13:14 schrieb Pekka Paalanen:
+> On Wed, 23 Jun 2021 12:17:40 +0200
+> Werner Sembach <wse@tuxedocomputers.com> wrote:
+>
+>> Am 23.06.21 um 09:32 schrieb Pekka Paalanen:
+>>> On Tue, 22 Jun 2021 11:48:52 +0000
+>>> Simon Ser <contact@emersion.fr> wrote:
+>>>  
+>>>> On Tuesday, June 22nd, 2021 at 11:50, Werner Sembach <wse@tuxedocomputers.com> wrote:
+>>>>  
+>>>>> Unknown is when no monitor is connected or is when the
+>>>>> connector/monitor is disabled.    
+>>>> I think the other connector props (link-status, non-desktop, etc) don't
+>>>> have a special "unset" value, and instead the value is set to a random
+>>>> enum entry. User-space should ignore the prop on these disconnected
+>>>> connectors anyways.  
+>>> That sounds fine to me.  
+>> Currently the only case for "not applicable" is when the monitor is
+>> disconnected, but sicne the properties are so interdependent, there
+>> might be a case in the future where e.g. a color format that has no
+>> differentiation between full and limited arises. When there is no
+>> special unset/not applicable option, the userspace has to know
+>> exactly when an option is valid or not, possible requiring additional
+>> logic.
+>>
+>> Setting a "not applicable" value allows userspace to be more dumb,
+>> without much hassle on the kernelspace side.
+> That's a good point too. So "not applicable" would be a value, but
+> "unknown" would not be.
+Ok, I have already renamed the "unknown" option to "not applicable" in my next revision (not yet posted to the mailing
+list).
+>
+>
+> Thanks,
+> pq
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1352366075==--
