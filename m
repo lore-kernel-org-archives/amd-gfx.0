@@ -2,73 +2,117 @@ Return-Path: <SRS0=KKXi=LR=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.0 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_2
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 33A96C48BE5
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Jun 2021 07:48:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5C379C4743C
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Jun 2021 07:56:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EC8E9613AE
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Jun 2021 07:48:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EC8E9613AE
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 1E86261185
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Jun 2021 07:56:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1E86261185
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E67866E819;
-	Wed, 23 Jun 2021 07:48:42 +0000 (UTC)
-Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
- [IPv6:2a00:1450:4864:20::230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14DB06E3EE;
- Wed, 23 Jun 2021 07:48:42 +0000 (UTC)
-Received: by mail-lj1-x230.google.com with SMTP id z22so1712715ljh.8;
- Wed, 23 Jun 2021 00:48:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:in-reply-to:references
- :mime-version; bh=8Ja036d3JX5UFLwHhqcTiZxQHalj0jmCs1SSzd3Ps7g=;
- b=vTd7g/CFs2LPVblL4xKzYuhjTS35tdOIgtfNiti+sM9OtDUzpWrZ1JxkW5z+eTyeN0
- W50qz5ltHipMxPN6UXRs0L+a1dyPTQgNvYqaRa80UqTfYiMbMzj7jEneQCiyGBUZ8ke4
- G8n6me9TcPQMmwASNiBevhhmPW9nXF9cRMVU2UNs7I1TD23cB7PKFQ9rxmMxAjYHFkvl
- H10MW4D8UImgZsi5xJiZujf8W4iN9km9VkLiYUzugTourigo+S5FqpArZMJgu9oZ2+uv
- LW+okYhd5qqiaX3R/uMUdXQlWKA/oR4ZJUn0PCGYS+CKp8X2OR46wfbC2bIW4VsxZ0g9
- 76bw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
- :references:mime-version;
- bh=8Ja036d3JX5UFLwHhqcTiZxQHalj0jmCs1SSzd3Ps7g=;
- b=V5uB6bgZyDJUy7MFIBjy/R1csgPI3cXpp9bcWQUXZYtNgVN5dWmPGUKveJ8QxYHq6Z
- yhnV3T0vHKQygmTb53jNLGUI73Y0BRBqcXZ32G4FUfeXhsSbEd/7s/kg5M5XtrU2qPGT
- DAYLw+xmrgvNMpA0w17qeqUM/9FkylrLelQF8Txi/ODmIv7/j/0bwDFMazYtZZ4b2CYI
- Mi+fIvFilpU2GC3Qy6YJX5H2uYGOMZRsngDPqX6P9FnHbSoXZCkHs3dmls1BZ1RmML4D
- Pv+sAFu2JkdLNObuEOra4meG1nwaltr7MzLnJAJpsyJNusSKyInG/3Weo57nYwdV4dYo
- 0UhA==
-X-Gm-Message-State: AOAM533ZSqVxDTXM5Equ7bc/4jsFUJB2KdU637mLF3drbi9jHRRInbPm
- cw/FaZC13x+mhotxKD7Oqyw=
-X-Google-Smtp-Source: ABdhPJx4wlG7+i1VWDQ8NRkNuIaxF+lWnUb575DmEObbBHN8yr47VcSizciFBdPLoKZWvwKX36yVBA==
-X-Received: by 2002:a2e:2e0d:: with SMTP id u13mr7106476lju.351.1624434520426; 
- Wed, 23 Jun 2021 00:48:40 -0700 (PDT)
-Received: from eldfell ([194.136.85.206])
- by smtp.gmail.com with ESMTPSA id x1sm230700lji.19.2021.06.23.00.48.39
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Jun 2021 00:48:40 -0700 (PDT)
-Date: Wed, 23 Jun 2021 10:48:36 +0300
-From: Pekka Paalanen <ppaalanen@gmail.com>
-To: Werner Sembach <wse@tuxedocomputers.com>
-Subject: Re: [PATCH v4 15/17] drm/uAPI: Move "Broadcast RGB" property from
- driver specific to general context
-Message-ID: <20210623104836.77734bad@eldfell>
-In-Reply-To: <70d89fe2-4e45-7ea9-2509-15257ef222f8@tuxedocomputers.com>
-References: <20210618091116.14428-1-wse@tuxedocomputers.com>
- <20210618091116.14428-16-wse@tuxedocomputers.com>
- <20210622102529.5266e87b@eldfell>
- <70d89fe2-4e45-7ea9-2509-15257ef222f8@tuxedocomputers.com>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C329C6E08C;
+	Wed, 23 Jun 2021 07:56:45 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam08on2045.outbound.protection.outlook.com [40.107.101.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0EEF86E064
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Jun 2021 07:56:45 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=QayrCZbOaPxskyBYp3cyGWOel917JQ6mdV9hq15HEFXWPTrO/JhpmDMBAbmo61wC30yngxxKI2+wOsmn7SADoGgBVcZvdgw92169GUEZRpCYi+vfJoevHIOJWkOiitJaekgT2jww+I6PjQaMChKFrQSkYxDAuI8scXricmmnp4Sk4UYqzRco90Ih4NQIMsSJWQu8JkvFcAS/kZ/G72vdmlzlrzfuipyWbJ+yajeRNppR1riKpwgiWD0mimdp0Xk1zk8YFloMq8fA+hnrqTXNxXcw98BZsOfcHOvxt/QdHRHLbcNGrL/isE8MIgLyWNgaslq7haLQ/8IDvp8h+vWlsQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uh7LK5ggIT3FvRRuYzQRO3Qr24eaXKn7lwuxhBelpIc=;
+ b=EeyhDh/HEuaoTq2syhp3h8c9ZtvNaOEwxKb1w4b+jRbpBAxREcHLvifPZo2hnlLgQB6t+WQTg9GVhldJui6VsXgAPpdXWQKtaKm41xI6ql87+dCL2Ahj2UYQvxWJuxCfeANAbJBvfwEUtCQ2Wift4NHyE42HcB0m+uLVgkRg2kdKuOeXVO15EB5v9n0L8a8dmrEvsbaz4nZAc/dpcFQHYxoXJsd9ccQ5kW0Z7yvy0bA0Yh5oYQnFKijKRvhlUhwGNduF7eYAwLfelxYOHrIU3Rvx0ItCJw7qMMFxKeJ62u0S89+3E2EXJrbYvZTzebE2kwymJGYhJFGcDNkBjuVFVw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uh7LK5ggIT3FvRRuYzQRO3Qr24eaXKn7lwuxhBelpIc=;
+ b=fUqXmzlzUMXNMx1PLZEGRdYuDKTgPyf/TljhsiqRK0byHSXNb+jzsMKVYMe7B6aK1pvp3kW7KdFIn14b7Van/4qkh4pne9YSTA85IahXLHh656qk1jVQouNIC73RK66eFsGVnvZNGm3ucicvDu180b2J5Sw6NnbebYYWW6LBF0I=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB5136.namprd12.prod.outlook.com (2603:10b6:5:393::23)
+ by DM6PR12MB5533.namprd12.prod.outlook.com (2603:10b6:5:1bc::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4264.18; Wed, 23 Jun
+ 2021 07:56:42 +0000
+Received: from DM4PR12MB5136.namprd12.prod.outlook.com
+ ([fe80::901b:72bb:a15:2a68]) by DM4PR12MB5136.namprd12.prod.outlook.com
+ ([fe80::901b:72bb:a15:2a68%4]) with mapi id 15.20.4264.019; Wed, 23 Jun 2021
+ 07:56:42 +0000
+From: Nirmoy Das <nirmoy.das@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 1/1] drm/amdgpu: cleanup pasid handling
+Date: Wed, 23 Jun 2021 09:56:27 +0200
+Message-Id: <20210623075627.14797-1-nirmoy.das@amd.com>
+X-Mailer: git-send-email 2.32.0
+X-Originating-IP: [217.86.115.200]
+X-ClientProxiedBy: PR0P264CA0195.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:100:1f::15) To DM4PR12MB5136.namprd12.prod.outlook.com
+ (2603:10b6:5:393::23)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from brihaspati.fritz.box (217.86.115.200) by
+ PR0P264CA0195.FRAP264.PROD.OUTLOOK.COM (2603:10a6:100:1f::15) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4264.18 via Frontend Transport; Wed, 23 Jun 2021 07:56:41 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 5649d982-9f4b-4d09-376e-08d9361c709f
+X-MS-TrafficTypeDiagnostic: DM6PR12MB5533:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR12MB553364897C214781C25116A88B089@DM6PR12MB5533.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: hA68+gXPQiZ39SnGHDpVsOhoN2NVnnZyB5395IQ20e8sg3zr13Osx69tg947yubkm2zWKMO6oCGq0MWDiBu2Jaj0T0CUON4OhAghGj+oekbqpdFvXLbmj9O2Dk9TQMwBTq5z+/IcRPu3Y4SfAg5bAhhj/nz9FdyDAUsVYiH5p7r7oaekF8ZUrz4aOCUwb9HmBJ7bO3cg26g9+jSArJ+mZt2teVTMYF8AZa0CHNTJyrphQMiMiv8ut8FUl0YORvlmNMxisFDCzdB8zztJ6Dnfm+2ZMlKb0/DZLTBYMibocv3+sqsfVekGH8bK1sfL13Djmiul/Ejl0qe5AWDT9oMYRqDyFRZnfjdAjhURqF+s+0d8hpb3i+jbbchqOBMD6NVqaVdZ5WDl6OAi855d9FDin16BAMwGA6zgkkvhDSchuoZnwgtk3p1ZjJiwciPaLpHg9FvAZ9asLmU1Qkw1np7hqo+W3C+Y0xHGRA9GiYD/l91XWFGAN1xduz44FFM/7T1YBDdYNFL2b6a425mk0jEIoaWHm7qIVbHrPvAGSOTG4h16tYiokQ9379n3XNIssK8ZA/w0KrYFzup04ZeN11I5wgkgfSpd5WKLzfnVHwJcFCgYWgtimZt2Zttj9w3XszkPmmR1F0hDQEQwRPM7znD5yw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5136.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(39860400002)(366004)(346002)(376002)(136003)(6506007)(52116002)(26005)(8676002)(16526019)(66556008)(44832011)(6486002)(66476007)(66946007)(956004)(36756003)(316002)(2616005)(8936002)(6512007)(186003)(86362001)(478600001)(1076003)(4326008)(5660300002)(6666004)(83380400001)(6916009)(38350700002)(38100700002)(2906002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?D6sjHBOPZzUaKaDteszhOSDdexdDmVDUebpUCCrMp10zPWHFPQYzHVGtQ/P6?=
+ =?us-ascii?Q?G7cMWaXF9+6UUkcNpVHiYA/cNNpZHcW2LrQ281N4pJh5zAQ+0wf6qY6qIxRL?=
+ =?us-ascii?Q?mbYPUNPnqInZctquXuYDudm5J7IKWQRFqb1x+ktMjtdVfz8NBgzMbo0XsmP5?=
+ =?us-ascii?Q?yA5KPmZo2gBwtpjWj6eOlvSPNMSyHqjKTsd1TNmIfCHtMPl06QD6kEO3kdx1?=
+ =?us-ascii?Q?7vaquRlNmYPYsPvI45BqfkUW+swSTMgZ+W5yWFd08UB8Sh2d2bBsVgRu72uS?=
+ =?us-ascii?Q?lwxoSLOl5TYW3Xd+d/VmD7EDMAbA5mR56OuDSOYxp/jFU7LLhI0t5gmyBm6S?=
+ =?us-ascii?Q?orcL7VwS9aulCzNjaFkI6MQNTvSV75mUd0+9ZW+nw7Ao4DJxiYI0Ciu0X1tM?=
+ =?us-ascii?Q?53RHn4ssGpMWdy7ggeVAf8HUYUFaHtMPRAUAMLNT8PqUoYmfiIJOAZMUrM78?=
+ =?us-ascii?Q?1heI/sJMxOd+ANXbbsxGUwy6GJU4FSCYarkV9iLHP7UVo1ziff2qkG4jfej8?=
+ =?us-ascii?Q?JGb/m9NvFq6QKPOtOV0CAVW8+gLOAza2lQIqNSAPALPo+Mc7w4r/hMVLV2wX?=
+ =?us-ascii?Q?uB0W9lG/fPp7aGjX36hp4U1zlkzN91wZeKsjH/yrICfC6MvEqikeCb0ojFc/?=
+ =?us-ascii?Q?Fe7/YwjTAG+Qfoj03SJXp43AErWERgrYvqP4Zl+GUKoWPN5JsOB/Y31Ee0a8?=
+ =?us-ascii?Q?oRXPLLUAG87a1MI8gu8luP6F9hPmJpb9QRhiYZ4wzX0ZjDYjtDYtULAYetle?=
+ =?us-ascii?Q?em1GIV9+wG+5aleCbxxYydu5NpToqAtjt/wUNkxqGgOByqr719nLcJ33Q71e?=
+ =?us-ascii?Q?ah9TS9CezwvAUQIuLOqVvdxsov2nDymY2zPRBJNpqBmm9keXmnvtuGVMOrFA?=
+ =?us-ascii?Q?wWUcBGN34YBXfjpghPDAiQftbWvJyatk9y01oy3J/43NeDeP8wyyTCD/Y4YJ?=
+ =?us-ascii?Q?mFDy7pufP+cO6qRNj7vPyfh9VMdks27epaKLiJoQACqBjsT0Un4zMR94Cmat?=
+ =?us-ascii?Q?TrcAenGenUKeq4cnMIh6dbSwrja8sVMkUGV9FYhLb+Y/UkpnstymHzvX8Bab?=
+ =?us-ascii?Q?EKN95yPe8uxLkeZFJ+9Hj7NQarwf+ZL3uwrIzDEtJV3qM0Ni/UyxQxyyiqtW?=
+ =?us-ascii?Q?+bXmi43xsSHSRQj/aE/pxhYh74uHfQK+nivaxLkfd9DVvJvyERmN4Ia8IeiN?=
+ =?us-ascii?Q?47bZHRN8MQ1MaYxR1C3qyiQQj9Lj/qGZ1aGY8pMx57vqI5F5XXj1hwi+Ce7F?=
+ =?us-ascii?Q?e71ZU4U5grgafQ3Op9xviHYbKEyrynpf6pcLQ45RDT1IcylVqlRyb40UBes9?=
+ =?us-ascii?Q?uas7A5SuRlRB/9hX9V3IHO65?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5649d982-9f4b-4d09-376e-08d9361c709f
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5136.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2021 07:56:42.8910 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pPLQERz6DvJhpuPREffCio7nLObiiYUxhonAtw2i3gT/erhQx/N/LcPxMwkJ2HVVQdKQW+7Irx163WPqOEdjbw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB5533
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,243 +124,278 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: mripard@kernel.org, daniel@ffwll.ch, sunpeng.li@amd.com,
- intel-gfx@lists.freedesktop.org, joonas.lahtinen@linux.intel.com,
- maarten.lankhorst@linux.intel.com, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, airlied@linux.ie, jani.nikula@linux.intel.com,
- amd-gfx@lists.freedesktop.org, tzimmermann@suse.de, rodrigo.vivi@intel.com,
- alexander.deucher@amd.com, harry.wentland@amd.com, christian.koenig@amd.com
-Content-Type: multipart/mixed; boundary="===============0909022898=="
+Cc: Felix.Kuehling@amd.com, Nirmoy Das <nirmoy.das@amd.com>,
+ Christian.Koenig@amd.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0909022898==
-Content-Type: multipart/signed; boundary="Sig_/m=u2eOUlQuyIDelbKBjlgiP";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+Cleanup code related to vm pasid by adding helper functions.
+Also replace idr with xarray as we actually need hash functionality.
 
---Sig_/m=u2eOUlQuyIDelbKBjlgiP
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 130 ++++++++++++-------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h |   3 +-
+ 2 files changed, 62 insertions(+), 71 deletions(-)
 
-On Tue, 22 Jun 2021 11:57:53 +0200
-Werner Sembach <wse@tuxedocomputers.com> wrote:
-
-> Am 22.06.21 um 09:25 schrieb Pekka Paalanen:
-> > On Fri, 18 Jun 2021 11:11:14 +0200
-> > Werner Sembach <wse@tuxedocomputers.com> wrote:
-> > =20
-> >> Add "Broadcast RGB" to general drm context so that more drivers besides
-> >> i915 and gma500 can implement it without duplicating code.
-> >>
-> >> Userspace can use this property to tell the graphic driver to use full=
- or
-> >> limited color range for a given connector, overwriting the default
-> >> behaviour/automatic detection.
-> >>
-> >> Possible options are:
-> >>     - Automatic (default/current behaviour)
-> >>     - Full
-> >>     - Limited 16:235
-> >>
-> >> In theory the driver should be able to automatically detect the monito=
-rs
-> >> capabilities, but because of flawed standard implementations in Monito=
-rs,
-> >> this might fail. In this case a manual overwrite is required to not ha=
-ve
-> >> washed out colors or lose details in very dark or bright scenes.
-> >>
-> >> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
-> >> ---
-> >>  drivers/gpu/drm/drm_atomic_helper.c |  4 +++
-> >>  drivers/gpu/drm/drm_atomic_uapi.c   |  4 +++
-> >>  drivers/gpu/drm/drm_connector.c     | 43 +++++++++++++++++++++++++++++
-> >>  include/drm/drm_connector.h         | 16 +++++++++++
-> >>  4 files changed, 67 insertions(+)
-> >>
-> >> diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm=
-_atomic_helper.c
-> >> index 90d62f305257..0c89d32efbd0 100644
-> >> --- a/drivers/gpu/drm/drm_atomic_helper.c
-> >> +++ b/drivers/gpu/drm/drm_atomic_helper.c
-> >> @@ -691,6 +691,10 @@ drm_atomic_helper_check_modeset(struct drm_device=
- *dev,
-> >>  			if (old_connector_state->preferred_color_format !=3D
-> >>  			    new_connector_state->preferred_color_format)
-> >>  				new_crtc_state->connectors_changed =3D true;
-> >> +
-> >> +			if (old_connector_state->preferred_color_range !=3D
-> >> +			    new_connector_state->preferred_color_range)
-> >> +				new_crtc_state->connectors_changed =3D true;
-> >>  		}
-> >> =20
-> >>  		if (funcs->atomic_check)
-> >> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_a=
-tomic_uapi.c
-> >> index c536f5e22016..c589bb1a8163 100644
-> >> --- a/drivers/gpu/drm/drm_atomic_uapi.c
-> >> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
-> >> @@ -798,6 +798,8 @@ static int drm_atomic_connector_set_property(struc=
-t drm_connector *connector,
-> >>  		state->max_requested_bpc =3D val;
-> >>  	} else if (property =3D=3D connector->preferred_color_format_propert=
-y) {
-> >>  		state->preferred_color_format =3D val;
-> >> +	} else if (property =3D=3D connector->preferred_color_range_property=
-) {
-> >> +		state->preferred_color_range =3D val;
-> >>  	} else if (connector->funcs->atomic_set_property) {
-> >>  		return connector->funcs->atomic_set_property(connector,
-> >>  				state, property, val);
-> >> @@ -877,6 +879,8 @@ drm_atomic_connector_get_property(struct drm_conne=
-ctor *connector,
-> >>  		*val =3D state->max_requested_bpc;
-> >>  	} else if (property =3D=3D connector->preferred_color_format_propert=
-y) {
-> >>  		*val =3D state->preferred_color_format;
-> >> +	} else if (property =3D=3D connector->preferred_color_range_property=
-) {
-> >> +		*val =3D state->preferred_color_range;
-> >>  	} else if (connector->funcs->atomic_get_property) {
-> >>  		return connector->funcs->atomic_get_property(connector,
-> >>  				state, property, val);
-> >> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_con=
-nector.c
-> >> index aea03dd02e33..9bc596638613 100644
-> >> --- a/drivers/gpu/drm/drm_connector.c
-> >> +++ b/drivers/gpu/drm/drm_connector.c
-> >> @@ -905,6 +905,12 @@ static const struct drm_prop_enum_list drm_active=
-_color_format_enum_list[] =3D {
-> >>  	{ DRM_COLOR_FORMAT_YCRCB420, "ycbcr420" },
-> >>  };
-> >> =20
-> >> +static const struct drm_prop_enum_list drm_preferred_color_range_enum=
-_list[] =3D {
-> >> +	{ DRM_MODE_COLOR_RANGE_UNSET, "Automatic" },
-> >> +	{ DRM_MODE_COLOR_RANGE_FULL, "Full" },
-> >> +	{ DRM_MODE_COLOR_RANGE_LIMITED_16_235, "Limited 16:235" }, =20
-> > Hi,
-> >
-> > the same question here about these numbers as I asked on the "active
-> > color range" property.
-> > =20
-> >> +};
-> >> +
-> >>  static const struct drm_prop_enum_list drm_active_color_range_enum_li=
-st[] =3D {
-> >>  	{ DRM_MODE_COLOR_RANGE_UNSET, "Unknown" },
-> >>  	{ DRM_MODE_COLOR_RANGE_FULL, "Full" },
-> >> @@ -1243,6 +1249,13 @@ static const struct drm_prop_enum_list dp_color=
-spaces[] =3D {
-> >>   *	drm_connector_attach_active_color_format_property() to install this
-> >>   *	property.
-> >>   *
-> >> + * Broadcast RGB:
-> >> + *	This property is used by userspace to change the used color range.=
- When
-> >> + *	used the driver will use the selected range if valid for the curre=
-nt
-> >> + *	color format. Drivers to use the function
-> >> + *	drm_connector_attach_preferred_color_format_property() to create a=
-nd
-> >> + *	attach the property to the connector during initialization. =20
-> > An important detail to document here is: does userspace need to
-> > take care that pixel data at the connector will already match the set
-> > range, or will the driver program the hardware to produce the set range=
-? =20
-> Since until now, the userspace didn't even know for sure if RGB or YCbCr =
-and therefore which full/limited format was
-> used I guess it's all kernel space conversion.
-> >
-> > If the former, then I'm afraid the preference/active property pair
-> > design does not work. Userspace needs to make sure the content is in
-> > the right range, so the driver cannot second-guess that afterwards.
-> >
-> > If the latter, then what does the driver assume about color range just
-> > before the automatic conversion to the final color range, and does the
-> > range conversion happen as the final step in the color pipeline?
-> >
-> > If I remember the discussion about Intel right, then the driver does
-> > the latter and assume that userspace programs KMS to always produce
-> > full range pixels. There is no provision for userspace to produce
-> > limited range pixels, IIRC. =20
-> I think I remember this too from an answer to one of the revisions of thi=
-s patchset.
-
-As long as you keep the old KMS property as is, just moving code so it
-is used by more drivers, this is fine and one can't do otherwise anyway.
-
-(The rest of this email is merely pondering the future, so not about
-this patch in particular.)
-
-
-But if we had a new, more general property for the range reported to
-monitors via infoframes, then it would be worth to re-visit the design.
-The HDR properties only set the infoframe and expect userspace to make
-sure that the pixels actually correspond to what the infoframes tell
-the monitor. One can't do HDR tone mapping automatically in the kernel,
-so in that sense the HDR property behaviour is obvious. But which
-behaviour would fit range property or others better, I'm not sure.
-
-Generally there seems to be two approaches to designing KMS properties:
-
-- Let userspace describe what data it has and what data should be sent
-  to a monitor, and let the kernel driver magically come up with a
-  conversion.
-
-- Only userspace understands how the pixel data is encoded, and
-  programs the transformations (DEGAMMA/CTM/GAMMA etc.) such, that the
-  result is what a monitor expects based on e.g. infoframes.
-
-Doing the former requires policy in the kernel. If there is a
-specification that uniquely defines what the conversion is, this is
-good. But if not or if there are artistic decisions to be made, like
-with HDR tone mapping, then it doesn't work.
-
-OTOH, the former approach allows the driver to use any and all hardware
-features it has to realize the conversion, perhaps taking advantage of
-even fixed-function hardware blocks. The latter approach is much harder
-to map to hardware features.
-
-This dilemma has been discussed in length in
-https://lists.freedesktop.org/archives/dri-devel/2021-June/311689.html
-
-
-Thanks,
-pq
-
---Sig_/m=u2eOUlQuyIDelbKBjlgiP
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmDS51QACgkQI1/ltBGq
-qqeBKw/+PoeZSjhutIb3s8nKAPEhWVVI4vJea4eC3RP32dtKCw5Xx3pjmwxGStXG
-QCO7I6RIaTrfpg+PVgTZgxzwQ63rV9ZHyYfZE/cdmsF6/HkpAr14NQlKcYXvZPQX
-bzo3/iAOBUEXP0GV+dfVWsTNOG4seXjUzqinE8mm+5qS/qLW18Oppkur7jjkgrmR
-yQoLqMPIyPbwKnJZk3YGfnJpvZV6XF+1+kqJ3dwdC2LzdM0OCZ4lVcQalgxSiIBN
-k+nDiqq6L/e26QTgOksWWbpSg9dhfldQwj7sneXY7BlvsiI4p+5M3AcSSCDZfcpF
-6fhWwvMACKOOnQpV0uBx/n4wntItbpa6Vo7Dvq9DfWXWB+janj0aYRn/tmBZLnas
-a67KCBHXzh6dod6CRdbP5oikcek4CkdjDODFF096xkX/2HHtp5E1XZ7IWNf651fW
-SvlagflTwMjbiZcNxkctkKR7ITiLE+g5yl0rnfPb4NE1DS1NSlseZnwjV5NYEeld
-4/1v5d4WoJlqxmT6UaXJd55e7nXFQ8IP3isaJFHVSvOzmOnLdzFa1km25Sn/cwJU
-6QBed0xJ3+FX5MCikFiUFAGwQ4lqSbNjwqlcxyvUBlpUuXs8RYapvkUVqSMdecSM
-OLc0HoFgIUPbNeNGV+2HZnBItWdCZrhu8qpKt4IABlBajK5DCq0=
-=a8BZ
------END PGP SIGNATURE-----
-
---Sig_/m=u2eOUlQuyIDelbKBjlgiP--
-
---===============0909022898==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 63975bda8e76..abba1e2de264 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -87,6 +87,45 @@ struct amdgpu_prt_cb {
+ 	struct dma_fence_cb cb;
+ };
+ 
++static int amdgpu_vm_pasid_insert(struct amdgpu_device *adev,
++				  struct amdgpu_vm *vm,
++				  unsigned long pasid,
++				  unsigned int *vm_pasid)
++{
++	unsigned long flags;
++	int r;
++
++	if (!pasid)
++		return 0;
++
++	xa_lock_irqsave(&adev->vm_manager.pasids, flags);
++	r = xa_err(__xa_store(&adev->vm_manager.pasids, pasid, vm, GFP_ATOMIC));
++	xa_unlock_irqrestore(&adev->vm_manager.pasids, flags);
++	if (r < 0)
++		return r;
++	if (vm_pasid)
++		*vm_pasid = pasid;
++
++	return 0;
++}
++
++static void amdgpu_vm_pasid_remove(struct amdgpu_device *adev,
++				   unsigned long pasid,
++				   unsigned int *vm_pasid)
++{
++	unsigned long flags;
++
++	if (!pasid)
++		return;
++
++	xa_lock_irqsave(&adev->vm_manager.pasids, flags);
++	__xa_erase(&adev->vm_manager.pasids, pasid);
++	xa_unlock_irqrestore(&adev->vm_manager.pasids, flags);
++
++	if (vm_pasid)
++		*vm_pasid = 0;
++}
++
+ /*
+  * vm eviction_lock can be taken in MMU notifiers. Make sure no reclaim-FS
+  * happens while holding this lock anywhere to prevent deadlocks when
+@@ -2940,18 +2979,9 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm, u32 pasid)
+ 
+ 	amdgpu_bo_unreserve(vm->root.bo);
+ 
+-	if (pasid) {
+-		unsigned long flags;
+-
+-		spin_lock_irqsave(&adev->vm_manager.pasid_lock, flags);
+-		r = idr_alloc(&adev->vm_manager.pasid_idr, vm, pasid, pasid + 1,
+-			      GFP_ATOMIC);
+-		spin_unlock_irqrestore(&adev->vm_manager.pasid_lock, flags);
+-		if (r < 0)
+-			goto error_free_root;
+-
+-		vm->pasid = pasid;
+-	}
++	r = amdgpu_vm_pasid_insert(adev, vm, pasid, &vm->pasid);
++	if (r)
++		goto error_free_root;
+ 
+ 	INIT_KFIFO(vm->faults);
+ 
+@@ -3038,19 +3068,9 @@ int amdgpu_vm_make_compute(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 	r = amdgpu_vm_check_clean_reserved(adev, vm);
+ 	if (r)
+ 		goto unreserve_bo;
+-
+-	if (pasid) {
+-		unsigned long flags;
+-
+-		spin_lock_irqsave(&adev->vm_manager.pasid_lock, flags);
+-		r = idr_alloc(&adev->vm_manager.pasid_idr, vm, pasid, pasid + 1,
+-			      GFP_ATOMIC);
+-		spin_unlock_irqrestore(&adev->vm_manager.pasid_lock, flags);
+-
+-		if (r == -ENOSPC)
+-			goto unreserve_bo;
+-		r = 0;
+-	}
++	r = amdgpu_vm_pasid_insert(adev, vm, pasid, NULL);
++	if (r)
++		goto unreserve_bo;
+ 
+ 	/* Check if PD needs to be reinitialized and do it before
+ 	 * changing any other state, in case it fails.
+@@ -3089,35 +3109,23 @@ int amdgpu_vm_make_compute(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 	vm->is_compute_context = true;
+ 
+ 	if (vm->pasid) {
+-		unsigned long flags;
+-
+-		spin_lock_irqsave(&adev->vm_manager.pasid_lock, flags);
+-		idr_remove(&adev->vm_manager.pasid_idr, vm->pasid);
+-		spin_unlock_irqrestore(&adev->vm_manager.pasid_lock, flags);
+-
+ 		/* Free the original amdgpu allocated pasid
+ 		 * Will be replaced with kfd allocated pasid
+ 		 */
+ 		amdgpu_pasid_free(vm->pasid);
+-		vm->pasid = 0;
++		amdgpu_vm_pasid_remove(adev, vm->pasid, &vm->pasid);
+ 	}
+ 
+ 	/* Free the shadow bo for compute VM */
+ 	amdgpu_bo_unref(&to_amdgpu_bo_vm(vm->root.bo)->shadow);
+-
+ 	if (pasid)
+ 		vm->pasid = pasid;
+ 
+ 	goto unreserve_bo;
+ 
+ free_idr:
+-	if (pasid) {
+-		unsigned long flags;
++	amdgpu_vm_pasid_remove(adev, pasid, NULL);
+ 
+-		spin_lock_irqsave(&adev->vm_manager.pasid_lock, flags);
+-		idr_remove(&adev->vm_manager.pasid_idr, pasid);
+-		spin_unlock_irqrestore(&adev->vm_manager.pasid_lock, flags);
+-	}
+ unreserve_bo:
+ 	amdgpu_bo_unreserve(vm->root.bo);
+ 	return r;
+@@ -3133,14 +3141,7 @@ int amdgpu_vm_make_compute(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+  */
+ void amdgpu_vm_release_compute(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+ {
+-	if (vm->pasid) {
+-		unsigned long flags;
+-
+-		spin_lock_irqsave(&adev->vm_manager.pasid_lock, flags);
+-		idr_remove(&adev->vm_manager.pasid_idr, vm->pasid);
+-		spin_unlock_irqrestore(&adev->vm_manager.pasid_lock, flags);
+-	}
+-	vm->pasid = 0;
++	amdgpu_vm_pasid_remove(adev, vm->pasid, &vm->pasid);
+ 	vm->is_compute_context = false;
+ }
+ 
+@@ -3164,15 +3165,7 @@ void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+ 
+ 	root = amdgpu_bo_ref(vm->root.bo);
+ 	amdgpu_bo_reserve(root, true);
+-	if (vm->pasid) {
+-		unsigned long flags;
+-
+-		spin_lock_irqsave(&adev->vm_manager.pasid_lock, flags);
+-		idr_remove(&adev->vm_manager.pasid_idr, vm->pasid);
+-		spin_unlock_irqrestore(&adev->vm_manager.pasid_lock, flags);
+-		vm->pasid = 0;
+-	}
+-
++	amdgpu_vm_pasid_remove(adev, vm->pasid, &vm->pasid);
+ 	dma_fence_wait(vm->last_unlocked, false);
+ 	dma_fence_put(vm->last_unlocked);
+ 
+@@ -3254,8 +3247,7 @@ void amdgpu_vm_manager_init(struct amdgpu_device *adev)
+ 	adev->vm_manager.vm_update_mode = 0;
+ #endif
+ 
+-	idr_init(&adev->vm_manager.pasid_idr);
+-	spin_lock_init(&adev->vm_manager.pasid_lock);
++	xa_init_flags(&adev->vm_manager.pasids, XA_FLAGS_LOCK_IRQ);
+ }
+ 
+ /**
+@@ -3267,8 +3259,8 @@ void amdgpu_vm_manager_init(struct amdgpu_device *adev)
+  */
+ void amdgpu_vm_manager_fini(struct amdgpu_device *adev)
+ {
+-	WARN_ON(!idr_is_empty(&adev->vm_manager.pasid_idr));
+-	idr_destroy(&adev->vm_manager.pasid_idr);
++	WARN_ON(!xa_empty(&adev->vm_manager.pasids));
++	xa_destroy(&adev->vm_manager.pasids);
+ 
+ 	amdgpu_vmid_mgr_fini(adev);
+ }
+@@ -3337,13 +3329,13 @@ void amdgpu_vm_get_task_info(struct amdgpu_device *adev, u32 pasid,
+ 	struct amdgpu_vm *vm;
+ 	unsigned long flags;
+ 
+-	spin_lock_irqsave(&adev->vm_manager.pasid_lock, flags);
++	xa_lock_irqsave(&adev->vm_manager.pasids, flags);
+ 
+-	vm = idr_find(&adev->vm_manager.pasid_idr, pasid);
++	vm = xa_load(&adev->vm_manager.pasids, pasid);
+ 	if (vm)
+ 		*task_info = vm->task_info;
+ 
+-	spin_unlock_irqrestore(&adev->vm_manager.pasid_lock, flags);
++	xa_unlock_irqrestore(&adev->vm_manager.pasids, flags);
+ }
+ 
+ /**
+@@ -3385,15 +3377,15 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+ 	struct amdgpu_vm *vm;
+ 	int r;
+ 
+-	spin_lock_irqsave(&adev->vm_manager.pasid_lock, irqflags);
+-	vm = idr_find(&adev->vm_manager.pasid_idr, pasid);
++	xa_lock_irqsave(&adev->vm_manager.pasids, irqflags);
++	vm = xa_load(&adev->vm_manager.pasids, pasid);
+ 	if (vm) {
+ 		root = amdgpu_bo_ref(vm->root.bo);
+ 		is_compute_context = vm->is_compute_context;
+ 	} else {
+ 		root = NULL;
+ 	}
+-	spin_unlock_irqrestore(&adev->vm_manager.pasid_lock, irqflags);
++	xa_unlock_irqrestore(&adev->vm_manager.pasids, irqflags);
+ 
+ 	if (!root)
+ 		return false;
+@@ -3411,11 +3403,11 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+ 		goto error_unref;
+ 
+ 	/* Double check that the VM still exists */
+-	spin_lock_irqsave(&adev->vm_manager.pasid_lock, irqflags);
+-	vm = idr_find(&adev->vm_manager.pasid_idr, pasid);
++	xa_lock_irqsave(&adev->vm_manager.pasids, irqflags);
++	vm = xa_load(&adev->vm_manager.pasids, pasid);
+ 	if (vm && vm->root.bo != root)
+ 		vm = NULL;
+-	spin_unlock_irqrestore(&adev->vm_manager.pasid_lock, irqflags);
++	xa_unlock_irqrestore(&adev->vm_manager.pasids, irqflags);
+ 	if (!vm)
+ 		goto error_unlock;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+index ddb85a85cbba..31c467764162 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+@@ -359,8 +359,7 @@ struct amdgpu_vm_manager {
+ 	/* PASID to VM mapping, will be used in interrupt context to
+ 	 * look up VM of a page fault
+ 	 */
+-	struct idr				pasid_idr;
+-	spinlock_t				pasid_lock;
++	struct xarray				pasids;
+ };
+ 
+ struct amdgpu_bo_va_mapping;
+-- 
+2.32.0
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0909022898==--
