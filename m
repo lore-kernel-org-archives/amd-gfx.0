@@ -2,76 +2,48 @@ Return-Path: <SRS0=KKXi=LR=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.0 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_2
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2D266C4743C
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Jun 2021 11:27:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AEF7DC49EA6
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Jun 2021 12:16:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0216061076
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Jun 2021 11:27:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0216061076
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 7EAFF6100A
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Jun 2021 12:16:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7EAFF6100A
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=arm.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8C016E8BE;
-	Wed, 23 Jun 2021 11:27:05 +0000 (UTC)
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [IPv6:2a00:1450:4864:20::12d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A2F46E8CA;
- Wed, 23 Jun 2021 11:27:05 +0000 (UTC)
-Received: by mail-lf1-x12d.google.com with SMTP id u13so3545196lfk.2;
- Wed, 23 Jun 2021 04:27:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:in-reply-to:references
- :mime-version; bh=xd2+3DATtHs1Io2NqAuv+460BtqKv5ZcSCJ7BTgVstU=;
- b=bEozGw9h+Nkl9Uzk4zzTS6fDAz0+MNgA39lpThBdjuM++/ghsOB4DjopvJ5PHTGDHR
- STtdly5fWmJbrMJYtGP7+Akj8qFdGQPKDO//gOx0adP6YXAZGaAw6fXjPWU3l0WHhcCB
- Ff9sRqBS5JoEePIzTDt1MJ+lMCiWMlT3LXHuATczr6cdvEdXWx/YkV2HATTDwcaNhI+8
- wvXE2aSjF7wbc6Wi6KshLemE32ELVBObyUOG+0g8ZaZIf4aITPZY5c94Elq1W6QMMF1l
- 1yMTJaGS3wRy1tCPvEvQw6gZgTkZWmkkxRc/UMDO2zxMtM1yX73VztbyAZ+mr1oBjQn5
- Gtng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
- :references:mime-version;
- bh=xd2+3DATtHs1Io2NqAuv+460BtqKv5ZcSCJ7BTgVstU=;
- b=hrX2wS7fUnVGq2GALb8qRoWpV6y/Sqi4eIcFOLG+6sjeygN8tKeNmVz5Hw94r51s/7
- PJjGMKHLPpA64hkbThAEt8AM2rrOhoYpIV9Xj7L7P8/9twym43u1RKA/Eyh0Mwo/g5dd
- IsJcbYcQB6iI/ORoP9qxCLZv/M86Qd2oF5BJ444lYcaxx95yv/FhLul7WMz08i76JZFb
- J7BgHNcesjeDHBQs6QL6gnJGIzCkWnMHLvy2u2JwQIqEpvXMXrvEUV0U7I3USUdQst05
- hyPw05x1RAMTweMcGD0/9iPaUV4KqDZM5af79h4mK/enPjSgE8yl0zdradvtwuOJVlN+
- kzgA==
-X-Gm-Message-State: AOAM531e732fdvPUDIN+ucHAsdMt9KhCQyMJvLL4fXW/0SgSNomsR1Qa
- pBwy9aiMuYjvamGkT0aJKag=
-X-Google-Smtp-Source: ABdhPJwZBX1ioJBa+Jg9KYidfHuap4/UvlzTR5mpBV9gHC2QBx0lfo8x94Mre7KVNM002ftXTbuhEw==
-X-Received: by 2002:a05:6512:308a:: with SMTP id
- z10mr6646754lfd.148.1624447623333; 
- Wed, 23 Jun 2021 04:27:03 -0700 (PDT)
-Received: from eldfell ([194.136.85.206])
- by smtp.gmail.com with ESMTPSA id a21sm289030ljj.21.2021.06.23.04.27.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Jun 2021 04:27:03 -0700 (PDT)
-Date: Wed, 23 Jun 2021 14:26:59 +0300
-From: Pekka Paalanen <ppaalanen@gmail.com>
-To: Werner Sembach <wse@tuxedocomputers.com>
-Subject: Re: [PATCH v4 15/17] drm/uAPI: Move "Broadcast RGB" property from
- driver specific to general context
-Message-ID: <20210623142659.16672192@eldfell>
-In-Reply-To: <2fc0547c-2968-1f52-4c07-82be58a41ef8@tuxedocomputers.com>
-References: <20210618091116.14428-1-wse@tuxedocomputers.com>
- <20210618091116.14428-16-wse@tuxedocomputers.com>
- <20210622102529.5266e87b@eldfell>
- <70d89fe2-4e45-7ea9-2509-15257ef222f8@tuxedocomputers.com>
- <20210623104836.77734bad@eldfell>
- <2fc0547c-2968-1f52-4c07-82be58a41ef8@tuxedocomputers.com>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30D286E8C7;
+	Wed, 23 Jun 2021 12:16:00 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 551936E8C5;
+ Wed, 23 Jun 2021 12:15:58 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 69258ED1;
+ Wed, 23 Jun 2021 05:15:57 -0700 (PDT)
+Received: from e110455-lin.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com
+ [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2AC093F718;
+ Wed, 23 Jun 2021 05:15:57 -0700 (PDT)
+Received: by e110455-lin.cambridge.arm.com (Postfix, from userid 1000)
+ id DA9E16837C9; Wed, 23 Jun 2021 13:15:55 +0100 (BST)
+Date: Wed, 23 Jun 2021 13:15:55 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Subject: Re: [PATCH v2 04/22] drm: Don't test for IRQ support in VBLANK ioctls
+Message-ID: <20210623121555.ttos325zjt55dynw@e110455-lin.cambridge.arm.com>
+References: <20210622141002.11590-1-tzimmermann@suse.de>
+ <20210622141002.11590-5-tzimmermann@suse.de>
+ <20210622152504.2sw6khajwydsoaqa@e110455-lin.cambridge.arm.com>
+ <f7e72a3c-df86-2d4b-2caa-bf91442290a9@suse.de>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <f7e72a3c-df86-2d4b-2caa-bf91442290a9@suse.de>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,276 +55,120 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: sunpeng.li@amd.com, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, airlied@linux.ie,
- dri-devel@lists.freedesktop.org, tzimmermann@suse.de, rodrigo.vivi@intel.com,
- alexander.deucher@amd.com, christian.koenig@amd.com
-Content-Type: multipart/mixed; boundary="===============1925973932=="
+Cc: emma@anholt.net, airlied@linux.ie, nouveau@lists.freedesktop.org,
+ alexandre.torgue@foss.st.com, dri-devel@lists.freedesktop.org,
+ matthias.bgg@gmail.com, thierry.reding@gmail.com,
+ laurent.pinchart@ideasonboard.com, benjamin.gaignard@linaro.org,
+ mihail.atanassov@arm.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-samsung-soc@vger.kernel.org, jy0922.shim@samsung.com,
+ krzysztof.kozlowski@canonical.com, michal.simek@xilinx.com,
+ jernej.skrabec@gmail.com, jonathanh@nvidia.com,
+ linux-rockchip@lists.infradead.org, kong.kongxinwei@hisilicon.com,
+ james.qian.wang@arm.com, linux-imx@nxp.com, xinliang.liu@linaro.org,
+ linux-graphics-maintainer@vmware.com, linux-sunxi@lists.linux.dev,
+ bskeggs@redhat.com, chunkuang.hu@kernel.org, mcoquelin.stm32@gmail.com,
+ puck.chen@hisilicon.com, s.hauer@pengutronix.de,
+ linux-mediatek@lists.infradead.org, laurentiu.palcu@oss.nxp.com,
+ linux-tegra@vger.kernel.org, wens@csie.org,
+ linux-arm-kernel@lists.infradead.org, amd-gfx@lists.freedesktop.org,
+ tomba@kernel.org, hyun.kwon@xilinx.com, shawnguo@kernel.org,
+ yannick.fertre@foss.st.com, Xinhui.Pan@amd.com, sw0312.kim@samsung.com,
+ hjc@rock-chips.com, kyungmin.park@samsung.com, philippe.cornu@foss.st.com,
+ kernel@pengutronix.de, alexander.deucher@amd.com, tiantao6@hisilicon.com,
+ jyri.sarha@iki.fi, christian.koenig@amd.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1925973932==
-Content-Type: multipart/signed; boundary="Sig_/hGX2jX8_vX=xEpb.UGXUxgp";
- protocol="application/pgp-signature"; micalg=pgp-sha256
-
---Sig_/hGX2jX8_vX=xEpb.UGXUxgp
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
-
-On Wed, 23 Jun 2021 12:10:14 +0200
-Werner Sembach <wse@tuxedocomputers.com> wrote:
-
-> Am 23.06.21 um 09:48 schrieb Pekka Paalanen:
-> > On Tue, 22 Jun 2021 11:57:53 +0200
-> > Werner Sembach <wse@tuxedocomputers.com> wrote:
-> > =20
-> >> Am 22.06.21 um 09:25 schrieb Pekka Paalanen: =20
-> >>> On Fri, 18 Jun 2021 11:11:14 +0200
-> >>> Werner Sembach <wse@tuxedocomputers.com> wrote:
-> >>>   =20
-> >>>> Add "Broadcast RGB" to general drm context so that more drivers besi=
-des
-> >>>> i915 and gma500 can implement it without duplicating code.
-> >>>>
-> >>>> Userspace can use this property to tell the graphic driver to use fu=
-ll or
-> >>>> limited color range for a given connector, overwriting the default
-> >>>> behaviour/automatic detection.
-> >>>>
-> >>>> Possible options are:
-> >>>>     - Automatic (default/current behaviour)
-> >>>>     - Full
-> >>>>     - Limited 16:235
-> >>>>
-> >>>> In theory the driver should be able to automatically detect the moni=
-tors
-> >>>> capabilities, but because of flawed standard implementations in Moni=
-tors,
-> >>>> this might fail. In this case a manual overwrite is required to not =
-have
-> >>>> washed out colors or lose details in very dark or bright scenes.
-> >>>>
-> >>>> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
-> >>>> ---
-> >>>>  drivers/gpu/drm/drm_atomic_helper.c |  4 +++
-> >>>>  drivers/gpu/drm/drm_atomic_uapi.c   |  4 +++
-> >>>>  drivers/gpu/drm/drm_connector.c     | 43 ++++++++++++++++++++++++++=
-+++
-> >>>>  include/drm/drm_connector.h         | 16 +++++++++++
-> >>>>  4 files changed, 67 insertions(+)
-> >>>>
-> >>>> diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/d=
-rm_atomic_helper.c
-> >>>> index 90d62f305257..0c89d32efbd0 100644
-> >>>> --- a/drivers/gpu/drm/drm_atomic_helper.c
-> >>>> +++ b/drivers/gpu/drm/drm_atomic_helper.c
-> >>>> @@ -691,6 +691,10 @@ drm_atomic_helper_check_modeset(struct drm_devi=
-ce *dev,
-> >>>>  			if (old_connector_state->preferred_color_format !=3D
-> >>>>  			    new_connector_state->preferred_color_format)
-> >>>>  				new_crtc_state->connectors_changed =3D true;
-> >>>> +
-> >>>> +			if (old_connector_state->preferred_color_range !=3D
-> >>>> +			    new_connector_state->preferred_color_range)
-> >>>> +				new_crtc_state->connectors_changed =3D true;
-> >>>>  		}
-> >>>> =20
-> >>>>  		if (funcs->atomic_check)
-> >>>> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm=
-_atomic_uapi.c
-> >>>> index c536f5e22016..c589bb1a8163 100644
-> >>>> --- a/drivers/gpu/drm/drm_atomic_uapi.c
-> >>>> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
-> >>>> @@ -798,6 +798,8 @@ static int drm_atomic_connector_set_property(str=
-uct drm_connector *connector,
-> >>>>  		state->max_requested_bpc =3D val;
-> >>>>  	} else if (property =3D=3D connector->preferred_color_format_prope=
-rty) {
-> >>>>  		state->preferred_color_format =3D val;
-> >>>> +	} else if (property =3D=3D connector->preferred_color_range_proper=
-ty) {
-> >>>> +		state->preferred_color_range =3D val;
-> >>>>  	} else if (connector->funcs->atomic_set_property) {
-> >>>>  		return connector->funcs->atomic_set_property(connector,
-> >>>>  				state, property, val);
-> >>>> @@ -877,6 +879,8 @@ drm_atomic_connector_get_property(struct drm_con=
-nector *connector,
-> >>>>  		*val =3D state->max_requested_bpc;
-> >>>>  	} else if (property =3D=3D connector->preferred_color_format_prope=
-rty) {
-> >>>>  		*val =3D state->preferred_color_format;
-> >>>> +	} else if (property =3D=3D connector->preferred_color_range_proper=
-ty) {
-> >>>> +		*val =3D state->preferred_color_range;
-> >>>>  	} else if (connector->funcs->atomic_get_property) {
-> >>>>  		return connector->funcs->atomic_get_property(connector,
-> >>>>  				state, property, val);
-> >>>> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_c=
-onnector.c
-> >>>> index aea03dd02e33..9bc596638613 100644
-> >>>> --- a/drivers/gpu/drm/drm_connector.c
-> >>>> +++ b/drivers/gpu/drm/drm_connector.c
-> >>>> @@ -905,6 +905,12 @@ static const struct drm_prop_enum_list drm_acti=
-ve_color_format_enum_list[] =3D {
-> >>>>  	{ DRM_COLOR_FORMAT_YCRCB420, "ycbcr420" },
-> >>>>  };
-> >>>> =20
-> >>>> +static const struct drm_prop_enum_list drm_preferred_color_range_en=
-um_list[] =3D {
-> >>>> +	{ DRM_MODE_COLOR_RANGE_UNSET, "Automatic" },
-> >>>> +	{ DRM_MODE_COLOR_RANGE_FULL, "Full" },
-> >>>> +	{ DRM_MODE_COLOR_RANGE_LIMITED_16_235, "Limited 16:235" },   =20
-> >>> Hi,
-> >>>
-> >>> the same question here about these numbers as I asked on the "active
-> >>> color range" property.
-> >>>   =20
-> >>>> +};
-> >>>> +
-> >>>>  static const struct drm_prop_enum_list drm_active_color_range_enum_=
-list[] =3D {
-> >>>>  	{ DRM_MODE_COLOR_RANGE_UNSET, "Unknown" },
-> >>>>  	{ DRM_MODE_COLOR_RANGE_FULL, "Full" },
-> >>>> @@ -1243,6 +1249,13 @@ static const struct drm_prop_enum_list dp_col=
-orspaces[] =3D {
-> >>>>   *	drm_connector_attach_active_color_format_property() to install t=
-his
-> >>>>   *	property.
-> >>>>   *
-> >>>> + * Broadcast RGB:
-> >>>> + *	This property is used by userspace to change the used color rang=
-e. When
-> >>>> + *	used the driver will use the selected range if valid for the cur=
-rent
-> >>>> + *	color format. Drivers to use the function
-> >>>> + *	drm_connector_attach_preferred_color_format_property() to create=
- and
-> >>>> + *	attach the property to the connector during initialization.   =20
-> >>> An important detail to document here is: does userspace need to
-> >>> take care that pixel data at the connector will already match the set
-> >>> range, or will the driver program the hardware to produce the set ran=
-ge?   =20
-> >> Since until now, the userspace didn't even know for sure if RGB or YCb=
-Cr and therefore which full/limited format was
-> >> used I guess it's all kernel space conversion. =20
-> >>> If the former, then I'm afraid the preference/active property pair
-> >>> design does not work. Userspace needs to make sure the content is in
-> >>> the right range, so the driver cannot second-guess that afterwards.
-> >>>
-> >>> If the latter, then what does the driver assume about color range just
-> >>> before the automatic conversion to the final color range, and does the
-> >>> range conversion happen as the final step in the color pipeline?
-> >>>
-> >>> If I remember the discussion about Intel right, then the driver does
-> >>> the latter and assume that userspace programs KMS to always produce
-> >>> full range pixels. There is no provision for userspace to produce
-> >>> limited range pixels, IIRC.   =20
-> >> I think I remember this too from an answer to one of the revisions of =
-this patchset. =20
-> > As long as you keep the old KMS property as is, just moving code so it
-> > is used by more drivers, this is fine and one can't do otherwise anyway.
-> >
-> > (The rest of this email is merely pondering the future, so not about
-> > this patch in particular.)
-> >
-> >
-> > But if we had a new, more general property for the range reported to
-> > monitors via infoframes, then it would be worth to re-visit the design.
-> > The HDR properties only set the infoframe and expect userspace to make
-> > sure that the pixels actually correspond to what the infoframes tell
-> > the monitor. One can't do HDR tone mapping automatically in the kernel,
-> > so in that sense the HDR property behaviour is obvious. But which
-> > behaviour would fit range property or others better, I'm not sure.
-> >
-> > Generally there seems to be two approaches to designing KMS properties:
-> >
-> > - Let userspace describe what data it has and what data should be sent
-> >   to a monitor, and let the kernel driver magically come up with a
-> >   conversion.
-> >
-> > - Only userspace understands how the pixel data is encoded, and
-> >   programs the transformations (DEGAMMA/CTM/GAMMA etc.) such, that the
-> >   result is what a monitor expects based on e.g. infoframes. =20
->=20
-> Why not both?
-
-Because "both" means you have overlapping sets of properties that might
-contradict each other. Or then you need a switch between the two models.
-
-> This patchset is thought to control what's happening "on the cable",
-> so if the input data is in a different format, the kernel has to
-> convert it.
-
-Right, if that is the desired semantics.
-
-That's not how the HDR property works. Kernel does not convert there.
-The HDR property only sets infoframes that the monitor interprets.
-
-> Maybe in the future there could be an additional set of "input-"
-> properties. aka "input bpc", "input color format", and "input color
-> range". With an additional constraint that if "input-" property =3D=3D
-> "active-" property the kernel is not allowed to do any conversion
-> regarding this aspect, giving userspace full control if wanted.
-
-If by "input" you mean "the result from userspace provided content
-going through the configured KMS pixel pipeline", then yes. But it's
-hard to put it into words accurately.
-
-The FB could contain whatever which userspace then programs DEGAMMA and
-CTM to produce what would be the "input" pixels for example.
-
-This is getting closer to the "abstract KMS pipeline" idea which has
-been predicted to fall apart in the email thread linked below.
-
-> > Doing the former requires policy in the kernel. If there is a
-> > specification that uniquely defines what the conversion is, this is
-> > good. But if not or if there are artistic decisions to be made, like
-> > with HDR tone mapping, then it doesn't work.
-> >
-> > OTOH, the former approach allows the driver to use any and all hardware
-> > features it has to realize the conversion, perhaps taking advantage of
-> > even fixed-function hardware blocks. The latter approach is much harder
-> > to map to hardware features.
-> >
-> > This dilemma has been discussed in length in
-> > https://lists.freedesktop.org/archives/dri-devel/2021-June/311689.html
-> >
-
-Thanks,
-pq
-
---Sig_/hGX2jX8_vX=xEpb.UGXUxgp
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmDTGoMACgkQI1/ltBGq
-qqdOSA//SgoOVw9niMLEzk2p1ki4oxn38LLDp3AbI/QGk3b1jS01sQXnIwH/cvLu
-wsiaHJ5ijHStH4cxsyHUWKXnxHcfVh9dQOD5O4ZEYcTPPan1UXI7DQKukLt4S/QJ
-h/k+dbGC5cLyiQkn6Q91D++LQit98y/K8jBq51x0kfG3Kzj3xafftE9a0DZ708vG
-yhkuzpkh5cTsVKtGReaWCji8OhTpNOe8OHZczk3Qiivwzm6hZPY6HwchNceF8uMV
-sIxxB9QJneMNoIZ3/AI8coi5zhzzCCyt/cwxj4EsmkhLcYDc7gvS0WBnsFxQsNRO
-IIjHChd0MUdpnnvzK+wKo48qm0ZM83ImnRrNlz3vMlU8TrRdLOU7uBM/QPOmUHLO
-t4djr2INSHwKxClctx8v5C/ekBAu0eBddAcrQoe9P+wnqtYw1AwLie8oMg9Pgb4I
-d0Wrlbu8k/qhkpLOgQAMlqhbOj73lQYxQsNmqaLggkwF9Ffxu1MtjWukKl5gSSxs
-sSUwNOPPM/of+L7w4dkGvy4EwJfQki7gYr5UI01Dbm0Pd9JLRf+ASZf+SPIiEPhh
-NbMS6ss6EKqJZGuaZ+/wiyJiF1zWtTRCp0jeDpd3xGiBkD3vpAmG8bUfioNZTgrd
-FKnPDcRy3RvY/O0k2vpePfIgK6cdC4EdpT+bfn/DHZ0q8KFLkj4=
-=ur7D
------END PGP SIGNATURE-----
-
---Sig_/hGX2jX8_vX=xEpb.UGXUxgp--
-
---===============1925973932==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1925973932==--
+SGkgVGhvbWFzLAoKT24gV2VkLCBKdW4gMjMsIDIwMjEgYXQgMDg6NDM6MDdBTSArMDIwMCwgVGhv
+bWFzIFppbW1lcm1hbm4gd3JvdGU6Cj4gSGkgTGl2aXUKPiAKPiBBbSAyMi4wNi4yMSB1bSAxNzoy
+NSBzY2hyaWViIExpdml1IER1ZGF1Ogo+ID4gSGVsbG8sCj4gPiAKPiA+IE9uIFR1ZSwgSnVuIDIy
+LCAyMDIxIGF0IDA0OjA5OjQ0UE0gKzAyMDAsIFRob21hcyBaaW1tZXJtYW5uIHdyb3RlOgo+ID4g
+PiBGb3IgS01TIGRyaXZlcnMsIHJlcGxhY2UgdGhlIElSUSBjaGVjayBpbiBWQkxBTksgaW9jdGxz
+IHdpdGggYSBjaGVjayBmb3IKPiA+ID4gdmJsYW5rIHN1cHBvcnQuIElSUXMgbWlnaHQgYmUgZW5h
+YmxlZCB3dGhvdXQgdmJsYW5raW5nIGJlaW5nIHN1cHBvcnRlZC4KPiA+ID4gCj4gPiA+IFRoaXMg
+Y2hhbmdlIGFsc28gcmVtb3ZlcyB0aGUgRFJNIGZyYW1ld29yaydzIG9ubHkgZGVwZW5kZW5jeSBv
+biBJUlEgc3RhdGUKPiA+ID4gZm9yIG5vbi1sZWdhY3kgZHJpdmVycy4gRm9yIGxlZ2FjeSBkcml2
+ZXJzIHdpdGggdXNlcnNwYWNlIG1vZGVzZXR0aW5nLAo+ID4gPiB0aGUgb3JpZ2luYWwgdGVzdCBy
+ZW1haW5zIGluIGRybV93YWl0X3ZibGFua19pb2N0bCgpLgo+ID4gPiAKPiA+ID4gdjI6Cj4gPiA+
+IAkqIGtlZXAgdGhlIG9sZCB0ZXN0IGZvciBsZWdhY3kgZHJpdmVycyBpbgo+ID4gPiAJICBkcm1f
+d2FpdF92YmxhbmtfaW9jdGwoKSAoRGFuaWVsKQo+ID4gPiAKPiA+ID4gU2lnbmVkLW9mZi1ieTog
+VGhvbWFzIFppbW1lcm1hbm4gPHR6aW1tZXJtYW5uQHN1c2UuZGU+Cj4gPiA+IC0tLQo+ID4gPiAg
+IGRyaXZlcnMvZ3B1L2RybS9kcm1faXJxLmMgICAgfCAxMCArKystLS0tLS0tCj4gPiA+ICAgZHJp
+dmVycy9ncHUvZHJtL2RybV92YmxhbmsuYyB8IDEzICsrKysrKysrKy0tLS0KPiA+ID4gICAyIGZp
+bGVzIGNoYW5nZWQsIDEyIGluc2VydGlvbnMoKyksIDExIGRlbGV0aW9ucygtKQo+ID4gPiAKPiA+
+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9kcm1faXJxLmMgYi9kcml2ZXJzL2dwdS9k
+cm0vZHJtX2lycS5jCj4gPiA+IGluZGV4IGMzYmQ2NjRlYTczMy4uMWQ3Nzg1NzIxMzIzIDEwMDY0
+NAo+ID4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vZHJtX2lycS5jCj4gPiA+ICsrKyBiL2RyaXZl
+cnMvZ3B1L2RybS9kcm1faXJxLmMKPiA+ID4gQEAgLTc0LDEwICs3NCw4IEBACj4gPiA+ICAgICog
+b25seSBzdXBwb3J0cyBkZXZpY2VzIHdpdGggYSBzaW5nbGUgaW50ZXJydXB0IG9uIHRoZSBtYWlu
+IGRldmljZSBzdG9yZWQgaW4KPiA+ID4gICAgKiAmZHJtX2RldmljZS5kZXYgYW5kIHNldCBhcyB0
+aGUgZGV2aWNlIHBhcmFtdGVyIGluIGRybV9kZXZfYWxsb2MoKS4KPiA+ID4gICAgKgo+ID4gPiAt
+ICogVGhlc2UgSVJRIGhlbHBlcnMgYXJlIHN0cmljdGx5IG9wdGlvbmFsLiBEcml2ZXJzIHdoaWNo
+IHJvbGwgdGhlaXIgb3duIG9ubHkKPiA+ID4gLSAqIG5lZWQgdG8gc2V0ICZkcm1fZGV2aWNlLmly
+cV9lbmFibGVkIHRvIHNpZ25hbCB0aGUgRFJNIGNvcmUgdGhhdCB2YmxhbmsKPiA+ID4gLSAqIGlu
+dGVycnVwdHMgYXJlIHdvcmtpbmcuIFNpbmNlIHRoZXNlIGhlbHBlcnMgZG9uJ3QgYXV0b21hdGlj
+YWxseSBjbGVhbiB1cCB0aGUKPiA+ID4gLSAqIHJlcXVlc3RlZCBpbnRlcnJ1cHQgbGlrZSBlLmcu
+IGRldm1fcmVxdWVzdF9pcnEoKSB0aGV5J3JlIG5vdCByZWFsbHkKPiA+ID4gKyAqIFRoZXNlIElS
+USBoZWxwZXJzIGFyZSBzdHJpY3RseSBvcHRpb25hbC4gU2luY2UgdGhlc2UgaGVscGVycyBkb24n
+dCBhdXRvbWF0aWNhbGx5Cj4gPiA+ICsgKiBjbGVhbiB1cCB0aGUgcmVxdWVzdGVkIGludGVycnVw
+dCBsaWtlIGUuZy4gZGV2bV9yZXF1ZXN0X2lycSgpIHRoZXkncmUgbm90IHJlYWxseQo+ID4gPiAg
+ICAqIHJlY29tbWVuZGVkLgo+ID4gPiAgICAqLwo+ID4gPiBAQCAtOTEsOSArODksNyBAQAo+ID4g
+PiAgICAqIGFuZCBhZnRlciB0aGUgaW5zdGFsbGF0aW9uLgo+ID4gPiAgICAqCj4gPiA+ICAgICog
+VGhpcyBpcyB0aGUgc2ltcGxpZmllZCBoZWxwZXIgaW50ZXJmYWNlIHByb3ZpZGVkIGZvciBkcml2
+ZXJzIHdpdGggbm8gc3BlY2lhbAo+ID4gPiAtICogbmVlZHMuIERyaXZlcnMgd2hpY2ggbmVlZCB0
+byBpbnN0YWxsIGludGVycnVwdCBoYW5kbGVycyBmb3IgbXVsdGlwbGUKPiA+ID4gLSAqIGludGVy
+cnVwdHMgbXVzdCBpbnN0ZWFkIHNldCAmZHJtX2RldmljZS5pcnFfZW5hYmxlZCB0byBzaWduYWwg
+dGhlIERSTSBjb3JlCj4gPiA+IC0gKiB0aGF0IHZibGFuayBpbnRlcnJ1cHRzIGFyZSBhdmFpbGFi
+bGUuCj4gPiA+ICsgKiBuZWVkcy4KPiA+ID4gICAgKgo+ID4gPiAgICAqIEBpcnEgbXVzdCBtYXRj
+aCB0aGUgaW50ZXJydXB0IG51bWJlciB0aGF0IHdvdWxkIGJlIHBhc3NlZCB0byByZXF1ZXN0X2ly
+cSgpLAo+ID4gPiAgICAqIGlmIGNhbGxlZCBkaXJlY3RseSBpbnN0ZWFkIG9mIHVzaW5nIHRoaXMg
+aGVscGVyIGZ1bmN0aW9uLgo+ID4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2RybV92
+YmxhbmsuYyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fdmJsYW5rLmMKPiA+ID4gaW5kZXggMzQxN2Ux
+YWM3OTE4Li5hOThhNGFhZDUwMzcgMTAwNjQ0Cj4gPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9k
+cm1fdmJsYW5rLmMKPiA+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2RybV92YmxhbmsuYwo+ID4g
+PiBAQCAtMTc0OCw4ICsxNzQ4LDEzIEBAIGludCBkcm1fd2FpdF92YmxhbmtfaW9jdGwoc3RydWN0
+IGRybV9kZXZpY2UgKmRldiwgdm9pZCAqZGF0YSwKPiA+ID4gICAJdW5zaWduZWQgaW50IHBpcGVf
+aW5kZXg7Cj4gPiA+ICAgCXVuc2lnbmVkIGludCBmbGFncywgcGlwZSwgaGlnaF9waXBlOwo+ID4g
+PiAtCWlmICghZGV2LT5pcnFfZW5hYmxlZCkKPiA+ID4gLQkJcmV0dXJuIC1FT1BOT1RTVVBQOwo+
+ID4gPiArCWlmICAoZHJtX2NvcmVfY2hlY2tfZmVhdHVyZShkZXYsIERSSVZFUl9NT0RFU0VUKSkg
+ewo+ID4gPiArCQlpZiAoIWRybV9kZXZfaGFzX3ZibGFuayhkZXYpKQo+ID4gPiArCQkJcmV0dXJu
+IC1FT1BOT1RTVVBQOwo+ID4gPiArCX0gZWxzZSB7Cj4gPiA+ICsJCWlmICghZGV2LT5pcnFfZW5h
+YmxlZCkKPiA+ID4gKwkJCXJldHVybiAtRU9QTk9UU1VQUDsKPiA+ID4gKwl9Cj4gPiAKPiA+IEZv
+ciBhIHN5c3RlbSBjYWxsIHRoYXQgaXMgdXNlZCBxdWl0ZSBhIGxvdCBieSB1c2Vyc3BhY2Ugd2Ug
+aGF2ZSBpbmNyZWFzZWQgdGhlIGNvZGUgc2l6ZQo+ID4gaW4gYSBub3RpY2VhYmxlIHdheS4gQ2Fu
+IHdlIG5vdCBjYWNoZSBpdCBwcml2YXRlbHk/Cj4gCj4gSSdtIG5vdCBxdWl0ZSBzdXJlIHRoYXQg
+SSB1bmRlcnN0YW5kIHlvdXIgY29uY2Vybi4gVGhlIGFkZGl0aW9uYWxseSBjYWxsZWQKPiBmdW5j
+dGlvbnMgYXJlIHRyaXZpYWwgb25lLWxpbmVyczsgcHJvYmFibHkgaW5saW5lZCBhbnl3YXkuCgpU
+aGV5IGFyZSBpbmxpbmVkLiBIb3dldmVyIHdlIHJlcGxhY2UgdGhlIHBvaW50ZXIgZGVyZWZlcmVu
+Y2UgKHdoaWNoIGNhbiBiZSBjYWxjdWxhdGVkCmF0IGNvbXBpbGUgdGltZSBhcyBvZmZzZXQgZnJv
+bSBhIGJhc2UgcG9pbnRlcikgd2l0aCB0aGUgY29kZSBpbgpkcm1fY29yZV9jaGVja19hbGxfZmVh
+dHVyZXMoKSB0aGF0IGRvZXMgMyBwb2ludGVyIGRlcmVmZXJlbmNlcywgbWFza2luZyBhbmQgbG9n
+aWNhbApBTkQgYmVmb3JlIGNoZWNraW5nIGZvciBtYXRjaGluZyB2YWx1ZS4KCj4gCj4gSG93ZXZl
+ciwgaXJxX2VuYWJsZWQgaXMgb25seSByZWxldmFudCBmb3IgbGVnYWN5IGRyaXZlcnMgYW5kIHdp
+bGwgZXZlbnR1YWxseQo+IGRpc2FwcGVhciBiZWhpbmQgQ09ORklHX0RSTV9MRUdBQ1kuIFdlIGNh
+biByZXdyaXRlIHRoZSB0ZXN0IGxpa2UgdGhpczoKCkkgZ2V0IHRoZSBwb2ludCB0aGF0IGlycV9l
+bmFibGVkIGlzIGxlZ2FjeS4gSG93ZXZlciB0aGUgSU9DVEwgY2FsbCBpcyBub3QgYW5kIHVzdWFs
+bHkKaXMgdXNlZCBpbiB0aW1lIGNyaXRpY2FsIGNvZGUgdG8gd2FpdCBmb3IgdmJsYW5rIGJlZm9y
+ZSBzdGFydGluZyB0aGUgb2xkIGJ1ZmZlcnMgZm9yCmEgbmV3IGZyYW1lLiBBdCA2MEh6IHRoYXQn
+cyBwcm9iYWJseSBsZXNzIG9mIGEgY29uY2VybiwgYnV0IGF0IDEyMEh6IHJlZnJlc2ggcmF0ZSBh
+bmQKcmVkdWNlZCB2YmxhbmsgdGltZSB5b3VyIHRpbWUgc2xpY2UgYWxsb2NhdGlvbiBmb3IgbmV3
+IHdvcmsgbWF0dGVycy4KCkJlc3QgcmVnYXJkcywKTGl2aXUKCj4gCj4gaWZkZWYgQ09ORklHX0RS
+TV9MRUdBQ1kKPiAgIGlmICh1bmxpa2VseShjaGVja19mZWF0dXJlKGRldiwgRFJJVkVSX0xFR0FD
+WSkpKSB7Cj4gICAgIGlmICghaXJxX2VuYWJsZWQpCj4gICAgICAgcmV0dXJuOwo+ICAgfSBlbHNl
+Cj4gI2VuZGlmCj4gICB7Cj4gICAgIGlmICghaGFzX3ZibGFua19zdXBwb3J0KGRldikpCj4gICAg
+ICAgcmV0dXJuOwo+ICAgfQo+IAo+IEFzIENPTkZJR19EUk1fTEVHQUNZIGlzIG1vc3QgbGlrZWx5
+IGRpc2FibGVkIG9uIGNvbmN1cnJlbnQgc3lzdGVtcywgd2UnZCBnZXQKPiBhIHNpbmdsZSB0ZXN0
+IGZvciB0aGUgbW9kZXJuIGRyaXZlcnMuIElmIERSTV9MRUdBQ1lpcyBvbiwgdGhlIGNvbXBpbGVy
+IGF0Cj4gbGVhc3Qga25vd3MgdGhhdCB0aGUgZWxzZSBicmFuY2ggaXMgcHJlZmVycmVkLgo+IAo+
+IEJlc3QgcmVnYXJkcwo+IFRob21hcwo+IAo+IC0tIAo+IFRob21hcyBaaW1tZXJtYW5uCj4gR3Jh
+cGhpY3MgRHJpdmVyIERldmVsb3Blcgo+IFNVU0UgU29mdHdhcmUgU29sdXRpb25zIEdlcm1hbnkg
+R21iSAo+IE1heGZlbGRzdHIuIDUsIDkwNDA5IE7DvHJuYmVyZywgR2VybWFueQo+IChIUkIgMzY4
+MDksIEFHIE7DvHJuYmVyZykKPiBHZXNjaMOkZnRzZsO8aHJlcjogRmVsaXggSW1lbmTDtnJmZmVy
+Cj4gCgoKCgotLSAKPT09PT09PT09PT09PT09PT09PT0KfCBJIHdvdWxkIGxpa2UgdG8gfAp8IGZp
+eCB0aGUgd29ybGQsICB8CnwgYnV0IHRoZXkncmUgbm90IHwKfCBnaXZpbmcgbWUgdGhlICAgfAog
+XCBzb3VyY2UgY29kZSEgIC8KICAtLS0tLS0tLS0tLS0tLS0KICAgIMKvXF8o44OEKV8vwq8KX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWls
+aW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
+ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
