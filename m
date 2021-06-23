@@ -2,136 +2,125 @@ Return-Path: <SRS0=KKXi=LR=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A818AC4743C
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Jun 2021 13:40:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 61E1AC48BC2
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Jun 2021 14:14:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 608AA61026
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Jun 2021 13:40:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 608AA61026
+	by mail.kernel.org (Postfix) with ESMTPS id 2B9946023E
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Jun 2021 14:14:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2B9946023E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 244886E8E2;
-	Wed, 23 Jun 2021 13:40:44 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2043.outbound.protection.outlook.com [40.107.223.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F39146E8E2
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Jun 2021 13:40:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DECC16E901;
+	Wed, 23 Jun 2021 14:14:00 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2060.outbound.protection.outlook.com [40.107.94.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A0936E901
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Jun 2021 14:14:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=amaRXVrtjLujPJhn6ownh2/NTxLOUQUOWFgFFX0VcFw9oi0yyqf8gUuPvpr2y7NMWeVVed361DaVZFyVKwhqpHLO0NEpfHEDxooj3CFlgPtJrwdB5F/vdVAOmGwmJoewa4S83C2TU095zMSKvlUXF5kajSW9tx5oafHOxfM3Fte3U+gap40fWFOTPFPOfqczfk+taUEAf/qEdyNjtsaxui6oUUVBmfRcyqyTeBAnUxX+j8wqmOBnHANtE3B3S3x0yaZ3VdAKBiV1QNaGqDMUAWIKpGJLtCZsc16L4Jb+SLzdKpFo95FRtA9DIWp/MLOwIKpGyRgNFffmPuNInfwyAA==
+ b=HilMLZLWLAPcLrcHS2A619BiP16Gyzunq+mhqaRs2X5X/xBYG3FUI65i27uoVLLS5ldm5Xs7JoERjrAMtz/Rk8IxOXEcIHa4J+z794b3oZhcSHXdsGJKoyielHfgYS/3sytCscBb+kKXVbD+NMgJbdJ4xKQtARv+rVWhA3v4QZgTVvXedpoGzmS9XxRa4YekVQlamaOw70DFbdQslrtxlkcOSnbAyqlPvnLGY7khLZVpxWdbqmLXpZSi1msmnjB9Pp1MT7MqQsb0Sfn5MkhS2tGdHZanUq5R0QyY5bjYeLF9aBWj2hlfNa6gAEyTG+tIHomErJKkxE0aW2SrXIeniQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CYat2Sbh0iFHwFD3r1t6a4w1j8qDOLzNFPRyMh39r8M=;
- b=g3KNH9Kl4KU7hHWCxTlv6ekVgJ1H77mYzl3vBy2SQzdFK02MgDcc9wiZUQwYswWmlrK38J11qpJ/tbHqFaNV2cvTsc7x4LeKtNhG/tbx+1jOoBVAZmAugQVcvPM7za9jT06Q+jWVuv60Q15GLlMg31t72bCHAqfAp3OWfkmverj+Mducv7O8Lq81kix9PT3z4auLH5aKq/L5DEHHKGElkK1sSe0DjBjqNt2MrQMiyyppw+dRFTFCZ7W7r7VQB3VE9cQ0471ianwZzinVlUsjA3WXz6cbs6iDsGbxBNBRO5IFVjRBI9/YmWrNDGeivLbRF8YTa5hIFcuKgneMMhPt8w==
+ bh=XMDmqwwM2gI9NoZpK8lsqF8OW87dD4JPDkCbuQ/Gd/w=;
+ b=CjI5kMSiIhvgPvE8w9xr6hQ1QrWA79C/nd3nMVXiW5egZSoyaF6UHPjkUK0bjIFC3RtdSB+5m8sARqncY+YI4kUN152yC164D/LHJxS2d/Vb5JUcWYIZFit860dqAr1/po/J3rB74MX5vCsKB2NDa4dsi8hhMaHDAUdhTLAvtX6pOZkDvE5+q/M0ifYLgsjZuoIZgeNr5+aGWN1oW7mZoE4VVevs0ZGxIfDH3gyO+zqXXVtuI2ZJ5cWhB+n2R8MqW853RsHjM2H9+zlZ2ovOO6sin4mUSqjdUO3CjkUXHER1p0HyXFA1HNTdN3EgAt0tqrsiRWa2zBinp1nPDCANAQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CYat2Sbh0iFHwFD3r1t6a4w1j8qDOLzNFPRyMh39r8M=;
- b=4adCfisiKSdlY5XcND4RA38Xdiylc8KMypvchw36ok8OhdcoZ7oc3xWoOWzKDz61acFMa6cC/w17JMf502Q8QCr9oEQb2lswbIVeHowpNUn9HY6r8iIJRZhk8wxRWr0OqkL50f480l9tJG4ZvnNWEezr70qELaTUot/vzTP2Oyg=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
- by MN2PR12MB4566.namprd12.prod.outlook.com (2603:10b6:208:26a::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.19; Wed, 23 Jun
- 2021 13:40:39 +0000
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::6c9e:1e08:7617:f756]) by MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::6c9e:1e08:7617:f756%5]) with mapi id 15.20.4242.024; Wed, 23 Jun 2021
- 13:40:39 +0000
-Subject: Re: [PATCH 2/2] drm/amdgpu: use xarray for storing pasid in vm
-To: "Das, Nirmoy" <nirmoy.das@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- amd-gfx@lists.freedesktop.org
-References: <20210623122506.7397-1-nirmoy.das@amd.com>
- <20210623122506.7397-2-nirmoy.das@amd.com>
- <f0c5f68f-8e54-c302-8f4a-b68f3898f391@gmail.com>
- <cd285927-7cd4-1d15-e21e-568acf15c4fe@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <28e42f72-6ffc-8eaa-83eb-5279c641d782@amd.com>
-Date: Wed, 23 Jun 2021 15:40:34 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
-In-Reply-To: <cd285927-7cd4-1d15-e21e-568acf15c4fe@amd.com>
-Content-Language: en-US
-X-Originating-IP: [2a02:908:1252:fb60:871f:87e2:f394:e667]
-X-ClientProxiedBy: AM4PR0701CA0028.eurprd07.prod.outlook.com
- (2603:10a6:200:42::38) To MN2PR12MB3775.namprd12.prod.outlook.com
- (2603:10b6:208:159::19)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2a02:908:1252:fb60:871f:87e2:f394:e667]
- (2a02:908:1252:fb60:871f:87e2:f394:e667) by
- AM4PR0701CA0028.eurprd07.prod.outlook.com (2603:10a6:200:42::38) with
+ bh=XMDmqwwM2gI9NoZpK8lsqF8OW87dD4JPDkCbuQ/Gd/w=;
+ b=o8JUtJRXgixguaBmJ7odSYDKifH5trI4ZqEcDR98LSV+lOzXxIw7y0r9uUqZ2hcCGy8uMpSHc9y0DGb9M3L9bnCcT1S9AJtnwsIP4jTjwnr3WqLJoE2JxYGkcoXe3RnIos6WOAgvtK5Au1OlugwoW6W4nvGXnsv84LB8YZJ0mwQ=
+Received: from DM6PR12MB3547.namprd12.prod.outlook.com (2603:10b6:5:18a::20)
+ by DM6PR12MB3817.namprd12.prod.outlook.com (2603:10b6:5:1c9::27) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4264.7 via Frontend
- Transport; Wed, 23 Jun 2021 13:40:38 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 296c4ba4-669b-49dd-3ae8-08d9364c7cf8
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4566:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB45666713AFC59288068B8A4283089@MN2PR12MB4566.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: DxKcWJMThYbXiWjYkiBREDnonclt1v7aB72qCELPRqwTJ3C53NdnZ5w5CgCOW1xAn1JaZm/FbWXFk0jToMafyuAZIk8K8KlyS5w8abtTGJtEwLQ/XTt8ukbvX+j2S3lo80LtUoznj+KJT5gZsf7qBZrFWtB6ThdONgNbAIEiZ0/ZsCZh99tCLubzQZ8BBerFjmgnbGxK4v7CGcg1bRpmLNfyPpo2/T64JB1v98C+q/V6Ccdn6nx0IsQipTR9fc9d39jfAPN6m0WVdHL+1GPtKiwJl0ojaGQC66CgfbH6v0aOikrVUDU3DXivpPXLDfL+YqMtjYEtcvYYULfIz3GXcp/4dXm+piyYk0iYyBxiLDC4jZxiGTeFmN24+fZwTDCB9MNbQxOTXRF4GY2lQwh+OyZztTl26XEsykjTv8Spqy4t3GOjcPwrvynRZ3lNcq9HvW5jksaXbd3mPI/L1Uh4cTZ8xDUf+WvW706cxUaYZoIfuDTMVFzv/GzgpApzS/bLysWNpja3Rb/0jMQ9k1+ttQA/4Q1c+7yYrshr0shcLcAhBPtXjOPkxDdAdb+VhOUKJnC5fgm3HrSsdQzE4YunNku/UsPbRpXkTFW6iF/+dE0CJAlDtZwg/24NdIBwo7aUqPe9AJsjKgc4L06ZiEjFyAifmj86BR81Z5qtjHOTFJQazUzbBaMJbpq9soaQrcxf
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(346002)(366004)(376002)(396003)(136003)(6486002)(31686004)(36756003)(8676002)(316002)(16526019)(66574015)(8936002)(186003)(110136005)(6666004)(4326008)(38100700002)(2616005)(478600001)(5660300002)(66946007)(31696002)(83380400001)(30864003)(2906002)(53546011)(86362001)(66476007)(66556008)(43740500002)(45980500001);
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.21; Wed, 23 Jun
+ 2021 14:13:57 +0000
+Received: from DM6PR12MB3547.namprd12.prod.outlook.com
+ ([fe80::5d51:1728:8288:432]) by DM6PR12MB3547.namprd12.prod.outlook.com
+ ([fe80::5d51:1728:8288:432%3]) with mapi id 15.20.4264.019; Wed, 23 Jun 2021
+ 14:13:56 +0000
+From: "StDenis, Tom" <Tom.StDenis@amd.com>
+To: "Greathouse, Joseph" <Joseph.Greathouse@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH v2 umr 3/3] Enhance printing of page tables in AI+
+Thread-Topic: [PATCH v2 umr 3/3] Enhance printing of page tables in AI+
+Thread-Index: AQHXZru2mF5Ixuf/YUuPnZqQWnzsHashpmyt
+Date: Wed, 23 Jun 2021 14:13:56 +0000
+Message-ID: <DM6PR12MB35470D89C130CFC81AE34F23F7089@DM6PR12MB3547.namprd12.prod.outlook.com>
+References: <20210617192540.4272-3-Joseph.Greathouse@amd.com>,
+ <20210621163712.17852-1-Joseph.Greathouse@amd.com>
+In-Reply-To: <20210621163712.17852-1-Joseph.Greathouse@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-06-23T14:13:56.284Z;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD-Official
+ Use
+ Only; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard; 
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [2607:f2c0:e4c0:b2:d3fb:b908:583b:772c]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: dcd84f12-dd15-46ba-0493-08d9365123c2
+x-ms-traffictypediagnostic: DM6PR12MB3817:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM6PR12MB3817A608CAD71676B767E954F7089@DM6PR12MB3817.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:2449;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: /eY+WAWWeqrfH87GTNiXIojoTsE9+9a3Gkbi9yZwZLHx2V268jNovuiVHUtlWui9kSW0EZnOtEsU5O4pFE+QgWBu7M2PXPZU+trmifvN3V0CY9fIKyWG/eQiaqISx1q3ketr5vLVrzL4TMeAgAW8sz7GD0h1kjWq83wugi9kpimT16CJMKQ+0DA3+ED5F0ox3BhD6Pj+3s9tShmr9tgdswkggqaUgefs170Ny4SKZviL3eulm0fKaleIzrimW/OKYiiOQVxmcYYBpuzwweABx1DdJISEvvj/uaoHOq/NIAE1tP6mEZTB7qivphGq3hKZVcCp2HVTIkoYtCqpCgMclBgJ2Vm4Gt8T8RqmCzmoIKQn07FPXBioPKhKOwG45E35o0Rd/A9Nnr664i4fVnFXT1qM4epejAIQLjm9n5f9IPU223IhptuneP56i7FVGCy1q2AeALiaNZ26temP02pPpuzJLZ0ihA0h9ADs3c4SjM8CbkkVnnFCuoqF4hJg0U7/hIMYQgozTLI/UsHQtqWlCvuywI2BgE/fqEjKZASIcjiy14rBXfEUlDzwjJIl8i8Z3l+X3Efrjw1wr30t241pImmcMp5emJwVt3VRE6URurk=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3547.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(396003)(366004)(39860400002)(346002)(376002)(86362001)(66446008)(66946007)(66556008)(66476007)(91956017)(33656002)(122000001)(76116006)(38100700002)(64756008)(71200400001)(55016002)(110136005)(53546011)(7696005)(52536014)(8936002)(83380400001)(6506007)(8676002)(316002)(186003)(5660300002)(2906002)(478600001)(9686003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WjNFM294VTgvNnd3T3Fib0NhN1FodlJ0SDFDRUZ5MXJIbk9uRThSZTh5Q3Bn?=
- =?utf-8?B?RksrWVdhS0RxRHZIL250UWRvcGZmbXFlWDVUZTRKUnE0U2NYZmQwWlJRNVRX?=
- =?utf-8?B?S2J3cHJpRzNtWVZjdDJqU2dmYjJ0UzgybFVpMERpdUVjcUhpWG52SDhxZUU4?=
- =?utf-8?B?c2gzUjdhOVluRkd2Q3UvbndjSDI2Y1ovNHQ3VFE0aVJFQUtZTnNsZVAyNktI?=
- =?utf-8?B?T0ErZ1p6MUJINTlHTEFhc0F0MFcxNk9tTnNJS3hpN0VpY1pLZmlDWFJnRlhs?=
- =?utf-8?B?M0x6RkovOFp1RWNFZ3U4Ry9CUVlncldFaFdTcWZranVFVG5sQ25aOWJ4T0pX?=
- =?utf-8?B?bi9pL21SV2N6L2lUV3VjNFN0YWd6OW5waTJMNmw3YlNDM3NMMW1UL2oxUXRD?=
- =?utf-8?B?a3lybUxRQ002b0xSMjlIbWxWQS9oNjhmQXptQ2xKTVlkVTY0R0l1UkZETkdZ?=
- =?utf-8?B?TnpmMjRDZW9iZVhEVnVSRDNPT2MrVFdwaUJ6NnFsUVB0dEZEd3BvcVFSbFgv?=
- =?utf-8?B?bzlHNmsrb3VLZDBUS3NBcThoTkNrVUZsMnRGNzYzTy9xZ1A1aUpJWVBJOG4z?=
- =?utf-8?B?SkpQUFdHUDNiRnUySjcvWVJEci92TnIyUWNKMmNoMWdrSW4wVEZNc2VWYjJK?=
- =?utf-8?B?UmRVK01oR2lEWVZyL2pubE40ejVRRjBvMWF3U3AwM0lSNlYzUjE2U3RMQURr?=
- =?utf-8?B?VERBV1FVTkxrSnpyWXd5NUUzMDVNSnlrY1NpM0tUTG5hR2prd0ZCZmQ4VGdT?=
- =?utf-8?B?OXY0bENEM1QyTVJzTEpGQS9MNFlwWkhKeXdjTXJvWUU5cEszWjlLckREUUFO?=
- =?utf-8?B?TVZxL0xJL3JMa3dhQnQyWEVxeE9VSkpkTWdGZzh4NFRPVzArNGZhazRxS2JG?=
- =?utf-8?B?QUdyY2lrUlh0QmRHdXByeUFCeXlDUFc4RUE4clFHK21rM2M1Ty9HbG1IOFZP?=
- =?utf-8?B?N0s5VGhxaWwza0FrNjF4QWJIcjJVNWdWTzJnR0xXWnJ5V3p5OGMyczJrR3ph?=
- =?utf-8?B?M2FxYUM2U1pGTVhZL1JjVXMvajg1ZFhLQnROS2FzSzNmSE9jb3dUanFQV0F5?=
- =?utf-8?B?d3Rlby8vZkFwNEd4dlJJYnpuaWJidjl0aDF0RUhNclVBSFF1THpDZW9wK0JE?=
- =?utf-8?B?L3d2dnM4V3F1SEhWekRWWXgwYmx3U2ZGK2FYRkpvR21SRWtpZVZEazJhOWwr?=
- =?utf-8?B?YXVoRWlPbUFKQm1sdEtmZFE3N0JDRk04K21ZYWNUMm9mNmdyN0RSRW5XZm1Q?=
- =?utf-8?B?VWZTWUtTSkFqMjBMRUdtclNBenlNYzBWM1c2Q0owZERTcWQ0MmhBMlJuQkxM?=
- =?utf-8?B?bmV3dWhGcjAwbHhVbVp6Wm9WK0xEZG1nalpmQmJ1N21xWE02OWRPUDVxYUU0?=
- =?utf-8?B?dGtGeXU4ZEJadEVWdm1FdHEzMkVwN1JPbzRUSFZLMG1GcmxDMDlrajBvNmxI?=
- =?utf-8?B?NDhwazU2MmVZWU9FWExaSUE3eG1saXNqVFk1TjRVaVRzb1ZySDArb1YrLytT?=
- =?utf-8?B?alNtZ1JSU0lncVo5ajdTNDBucTh4TVV4T0FCL3M5YU5Ndkp3UEtrWndzd3R2?=
- =?utf-8?B?VXJRVkkyZHFuLzM3b2FzOU9QQmRHajNGdmZqWWUvMm5GdkRPYTQ3V2J5SkZL?=
- =?utf-8?B?SkxXc0MrVnJQbGJPNjdOWlJvOERINUZVcFQrcVpaWnFIVjhGMkxmWHdhd1Bz?=
- =?utf-8?B?K2hxSG9oOGtSZGc4K1EzRlVhYWlhazNtaDhTT29CTkpLTGpmZDMvOTF6WDBN?=
- =?utf-8?B?RDhnQVlHcHhUeWJRTUdQRFExK05kNzBQckpJQ202U0N4aTMraytqQU1raVhI?=
- =?utf-8?B?ZGZlUnNlcExmeXZjeE1wcHNLaElLOTBhL3BwQ0pVSFM1TlA5ZWZaU2l5bUxq?=
- =?utf-8?Q?vzYpmp++uSWfD?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?qFrGYSnMaSEnSn6FgdRhgnEr2ySt3BJG6bz7EkDeNt8T70v1OBi/mBOVnI?=
+ =?iso-8859-1?Q?3LSeYPE9FjkdReKQf4NVf6mQNFWXIXAcyxAOPvmfg2qThHHMGS+GvY2K08?=
+ =?iso-8859-1?Q?rvwqa8BPqHKUFgURzfKXG2jl9w98OJehvY9V5nReedsQ1KQoV/cdL1oF8X?=
+ =?iso-8859-1?Q?JLaPDmKk4XE/RQ5S1hyq6i0SyAxXUXDfRR5xu7d2z2fa734Et0m/LJgDTz?=
+ =?iso-8859-1?Q?JlzASd7zzPh+jEa2/kygQCF3WvcPTewquDn921UM7/6Z/UozT8sQWiALeJ?=
+ =?iso-8859-1?Q?DfwaI+gz56bIlUDWM1LiVQDFQNyeA7uYCyDQuBjj4M6ZrOs9lrhjjhxw0i?=
+ =?iso-8859-1?Q?0BW4aSpHU2iUI6gV3z77H3rS7nY7DSOPgL14Q4iicjWhzluf98WclFhgZb?=
+ =?iso-8859-1?Q?ATt/GVBGlZqJD6CB/yyy0cooveH799Ln+LALaMNRu0QPyrw7bz3N3YQQqR?=
+ =?iso-8859-1?Q?YUua6QWCSvsQZZTgc721xhLXad3XluDcUbX4YihIp6rZjJl6jkZe2EoThR?=
+ =?iso-8859-1?Q?mm8RgU5eLIHLTe+jtutC65k/i5JxabufWy1NEeEEN08qfHs0qJHP3gFr2V?=
+ =?iso-8859-1?Q?CLiFfsrAi53gLJkE9I8ADfBDc9EonCm8i/BYeUMU82/0fAtbb3OwGZUWbF?=
+ =?iso-8859-1?Q?waLtLR1MK4wd8/Pe/uhsgxxCQ0yGGbY7yoB03LGkDv5DugZEYkGJUtUa3Y?=
+ =?iso-8859-1?Q?mfI0o3oqsT/lgeNBpQOPzJnfChfRHnoUow+E6TrSzLPDIDvJNvm+Djfjk7?=
+ =?iso-8859-1?Q?Rsvq2hV9kG5ZLbqSXCrGrxNYT7Q3E6TblLwzCh+vL8wt+np+IF3ce706Fr?=
+ =?iso-8859-1?Q?66m60RwkKrr7KqGJkx3e87rt8HQOE03k8Wi+9pRkfEixFrhBEm6UkuKTkQ?=
+ =?iso-8859-1?Q?JVPmac/0yM4RktJ3fXBNNbq9hpMclQffIxuCGlz+ye0lVm/MM+pJ0JqIN0?=
+ =?iso-8859-1?Q?IZwVEgz46L2dfxQzq9pKlR7e8WRQyYO2Q8DxGydqnch35uLT/ajWyiVu4Z?=
+ =?iso-8859-1?Q?eLyjCz4VwUUU8oGcFqiG79oO5etvas4cqlPyBIMv5K+Fo/hUD52suzZjVn?=
+ =?iso-8859-1?Q?+0/IugNv783e7w6ZDmcwYAFB32n28n/g67qO+6NOQa8yw+UNZZDLYrtsBU?=
+ =?iso-8859-1?Q?ALxXMq8//llWntG9T8H+MGwxIY0+Sz94mhjpQX2yRzd5DEgEZJStsgmdVw?=
+ =?iso-8859-1?Q?2joY6SxZdMyOSORtJKA4YcueE/1sgo6RDG54D4S3BCqdFzO3RlGuf9pnWn?=
+ =?iso-8859-1?Q?hg7I+iks9QQBBR5ZeJF9L+USgcuiEkHJnFqHxivGM5p78SnRo0bOKOIuVM?=
+ =?iso-8859-1?Q?GQoEj49dkdT6nxBgE1LdPY3FmC1dqiSU6e6SdOP5Na6mQwEtV25SwC74Mw?=
+ =?iso-8859-1?Q?xvgjDzn2q+uyWuAof4qge2UNdN9HA7Eq3pgBPP+skaNYlNx1n0MWU=3D?=
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 296c4ba4-669b-49dd-3ae8-08d9364c7cf8
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2021 13:40:39.3142 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zUGFKf+H16rYwZ8lyyrocX1OZS5fCCEcgD+P9pc0Pk8WoM0bVQrwnNGOTuvXHpUJ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4566
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3547.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dcd84f12-dd15-46ba-0493-08d9365123c2
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Jun 2021 14:13:56.9094 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Jxb+m9101XyoeudlfVFcFEdMdWhyfc0/Ea9IBdrAs60uC/TwqKaj4Yor9gNuKYZQCKxQT4tXOMhNIbWGmgLqzw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3817
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,231 +132,313 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Felix.Kuehling@amd.com
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-CgpBbSAyMy4wNi4yMSB1bSAxNToxMSBzY2hyaWViIERhcywgTmlybW95Ogo+Cj4gT24gNi8yMy8y
-MDIxIDI6NTAgUE0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+Cj4+Cj4+IEFtIDIzLjA2LjIx
-IHVtIDE0OjI1IHNjaHJpZWIgTmlybW95IERhczoKPj4+IFJlcGxhY2UgaWRyIHdpdGggeGFycmF5
-IGFzIHdlIGFjdHVhbGx5IG5lZWQgaGFzaCBmdW5jdGlvbmFsaXR5Lgo+Pj4gQ2xlYW51cCBjb2Rl
-IHJlbGF0ZWQgdG8gdm0gcGFzaWQgYnkgYWRkaW5nIGhlbHBlciBmdW5jdGlvbi4KPj4+Cj4+PiBT
-aWduZWQtb2ZmLWJ5OiBOaXJtb3kgRGFzIDxuaXJtb3kuZGFzQGFtZC5jb20+Cj4+PiAtLS0KPj4+
-IMKgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jIHwgMTM0IAo+Pj4gKysr
-KysrKysrKystLS0tLS0tLS0tLS0tLQo+Pj4gwqAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X3ZtLmggfMKgwqAgMyArLQo+Pj4gwqAgMiBmaWxlcyBjaGFuZ2VkLCA2MCBpbnNlcnRp
-b25zKCspLCA3NyBkZWxldGlvbnMoLSkKPj4+Cj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgCj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV92bS5jCj4+PiBpbmRleCBiZTg0MWQ2MmExZDQuLmUwNDdlNTZhNGJlMiAxMDA2
-NDQKPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jCj4+PiAr
-KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYwo+Pj4gQEAgLTg3LDYg
-Kzg3LDM5IEBAIHN0cnVjdCBhbWRncHVfcHJ0X2NiIHsKPj4+IMKgwqDCoMKgwqAgc3RydWN0IGRt
-YV9mZW5jZV9jYiBjYjsKPj4+IMKgIH07Cj4+PiDCoCArc3RhdGljIGludCBhbWRncHVfdm1fc2V0
-X3Bhc2lkKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoCBzdHJ1Y3QgYW1kZ3B1X3ZtICp2bSwKPj4+ICvCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgdW5zaWduZWQgbG9uZyBwYXNpZCkKPj4KPj4gU29t
-ZSBrZXJuZWxkb2MgcGxlYXNlIGRlc2NyaWJpbmcgd2h5IHdlIGhhdmUgdGhhdCBmdW5jdGlvbi4K
-Pgo+Cj4gQWxyaWdodC4KPgo+Cj4+Cj4+PiArewo+Pj4gK8KgwqDCoCB1bnNpZ25lZCBsb25nIGZs
-YWdzOwo+Pj4gK8KgwqDCoCBpbnQgcjsKPj4+ICsKPj4+ICvCoMKgwqAgaWYgKHBhc2lkKSB7Cj4+
-Cj4+IFlvdSBzaG91bGQgcHJvYmFibHkgcmVvcmRlciB0aGUgY29kZSBzbyB0aGF0IHRoZSBvbGQg
-cGFzaWQgaXMgZmlyc3QgCj4+IHJlbW92ZWQgYW5kIHRoZW4gZXZlbnR1YWxseSB0aGUgbmV3IG9u
-ZSBhZGRlZC4KPj4KPj4+ICsgeGFfbG9ja19pcnFzYXZlKCZhZGV2LT52bV9tYW5hZ2VyLnBhc2lk
-cywgZmxhZ3MpOwo+Pj4gK8KgwqDCoMKgwqDCoMKgIHIgPSB4YV9lcnIoX194YV9zdG9yZSgmYWRl
-di0+dm1fbWFuYWdlci5wYXNpZHMsIHBhc2lkLCB2bSwKPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgR0ZQX0FUT01JQykpOwo+Pj4gK8KgwqDCoMKgwqDCoMKg
-IHhhX3VubG9ja19pcnFyZXN0b3JlKCZhZGV2LT52bV9tYW5hZ2VyLnBhc2lkcywgZmxhZ3MpOwo+
-Pgo+PiBBcyBmYXIgYXMgSSBjYW4gc2VlIHRoaXMgY2FuIGp1c3QgdXNlIHhhX3N0b3JlKCkgd2hp
-Y2ggYWxzbyBkcm9wcyB0aGUgCj4+IG5lZWQgZm9yIEdGUF9BVE9NSUMgaGVyZS4KPgo+Cj4gRG8g
-d2UgbmVlZCB0byBoYXZlIHRoaXMgaXJxc2F2ZS9yZXN0b3JlIHRvIGtlZXAgcGFzc2lkcyBzYWZl
-IGZvciAKPiBhbWRncHVfdm1faGFuZGxlX2ZhdWx0KCkgPwoKTm8sIHdlIG5lZWQgdGhlIFZNIHNh
-ZmUgbm90IHRoZSBwYXNpZC4KCj4geGFfc3RvcmUoKSB0YWtlcyB0aGUgc3BpbmxvY2sgd2l0aG91
-dCBpcnEgZmxhZ3Mgc28gSSB3YW50ZWQgdG8ga2VlcCAKPiBvbGQgYmVoYXZpb3IuCgpZZWFoLCB0
-aGF0J3MgaW5kZWVkIHByb2JsZW1hdGljLiBZb3UgbmVlZCB0byBrZWVwIHRoYXQgc3RyYWlnaHQg
-b3IgCmxvY2tkZXAgd2lsbCBjb21wbGFpbi4KCklJUkMgdGhlcmUgaXMgYWxzbyBhIGZ1bmN0aW9u
-IHRvIHJlc2VydmUgYW4gZW50cnkgYmVmb3JlIHlvdSB0YWtlIHRoZSAKbG9jay4gTWF5YmUgdXNl
-IHRoYXQgb25lLgoKPgo+Cj4+Cj4+PiArwqDCoMKgwqDCoMKgwqAgaWYgKHIgPCAwKQo+Pj4gK8Kg
-wqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIHI7Cj4+PiArwqDCoMKgIH0gZWxzZSB7Cj4+PiAr
-wqDCoMKgwqDCoMKgwqAgdW5zaWduZWQgbG9uZyBpbmRleDsKPj4+ICvCoMKgwqDCoMKgwqDCoCBz
-dHJ1Y3QgYW1kZ3B1X3ZtICpyZXM7Cj4+PiArCj4+PiArwqDCoMKgwqDCoMKgwqAgeGFfbG9ja19p
-cnFzYXZlKCZhZGV2LT52bV9tYW5hZ2VyLnBhc2lkcywgZmxhZ3MpOwo+Pj4gK8KgwqDCoMKgwqDC
-oMKgIHhhX2Zvcl9lYWNoKCZhZGV2LT52bV9tYW5hZ2VyLnBhc2lkcywgaW5kZXgsIHJlcykgewo+
-Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgaWYgKHJlcyA9PSB2bSkgewo+Pj4gK8KgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBfX3hhX2VyYXNlKCZhZGV2LT52bV9tYW5hZ2VyLnBhc2lk
-cywgaW5kZXgpOwo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBicmVhazsKPj4+
-ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIH0KPj4+ICvCoMKgwqDCoMKgwqDCoCB9Cj4+PiArwqDC
-oMKgwqDCoMKgwqAgeGFfdW5sb2NrX2lycXJlc3RvcmUoJmFkZXYtPnZtX21hbmFnZXIucGFzaWRz
-LCBmbGFncyk7Cj4+Cj4+IFRoYXQgaXMgcmVhbGx5IHVnbHksIHdoeSBpcyB0aGF0IG5lY2Vzc2Fy
-eT8KPgo+IERvIHlvdSBtZWFuIHRoZSBsb2NrIGFyb3VuZCB4YV9mb3JfZWFjaCgpID8gSSB0aGlu
-ayBJIGNhbiBqdXN0IHVzZWQgCj4gbG9jayBhcm91bmQgX194YV9lcmFzZSgpIG9yIGp1c3QgeGFf
-ZXJhc2UoKSBpZiBqdXN0IHNpbXBsZSBzcGlubG9jayAKPiB3aXRob3V0IGZsYWdzIGlzIGVub3Vn
-aC4KCkkgbWVhbiB3aHkgeW91IHVzZSB4YV9mb3JfZWFjaCgpIGhlcmU/CgpKdXN0IF9feGFfZXJh
-c2Ugc2hvdWxkIGJlIGVub3VnaC4KCkNocmlzdGlhbi4KCj4KPgo+IFJlZ2FyZHMsCj4KPiBOaXJt
-b3kKPgo+Cj4+Cj4+IENocmlzdGlhbgo+Pgo+Pj4gK8KgwqDCoCB9Cj4+PiArCj4+PiArwqDCoMKg
-IHZtLT5wYXNpZCA9IHBhc2lkOwo+Pj4gKwo+Pj4gK8KgwqDCoCByZXR1cm4gMDsKPj4+ICt9Cj4+
-PiArCj4+PiDCoCAvKgo+Pj4gwqDCoCAqIHZtIGV2aWN0aW9uX2xvY2sgY2FuIGJlIHRha2VuIGlu
-IE1NVSBub3RpZmllcnMuIE1ha2Ugc3VyZSBubyAKPj4+IHJlY2xhaW0tRlMKPj4+IMKgwqAgKiBo
-YXBwZW5zIHdoaWxlIGhvbGRpbmcgdGhpcyBsb2NrIGFueXdoZXJlIHRvIHByZXZlbnQgZGVhZGxv
-Y2tzIHdoZW4KPj4+IEBAIC0yOTQwLDE4ICsyOTczLDkgQEAgaW50IGFtZGdwdV92bV9pbml0KHN0
-cnVjdCBhbWRncHVfZGV2aWNlIAo+Pj4gKmFkZXYsIHN0cnVjdCBhbWRncHVfdm0gKnZtLCB1MzIg
-cGFzaWQpCj4+PiDCoCDCoMKgwqDCoMKgIGFtZGdwdV9ib191bnJlc2VydmUodm0tPnJvb3QuYm8p
-Owo+Pj4gwqAgLcKgwqDCoCBpZiAocGFzaWQpIHsKPj4+IC3CoMKgwqDCoMKgwqDCoCB1bnNpZ25l
-ZCBsb25nIGZsYWdzOwo+Pj4gLQo+Pj4gLSBzcGluX2xvY2tfaXJxc2F2ZSgmYWRldi0+dm1fbWFu
-YWdlci5wYXNpZF9sb2NrLCBmbGFncyk7Cj4+PiAtwqDCoMKgwqDCoMKgwqAgciA9IGlkcl9hbGxv
-YygmYWRldi0+dm1fbWFuYWdlci5wYXNpZF9pZHIsIHZtLCBwYXNpZCwgcGFzaWQgCj4+PiArIDEs
-Cj4+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBHRlBfQVRPTUlDKTsKPj4+
-IC0gc3Bpbl91bmxvY2tfaXJxcmVzdG9yZSgmYWRldi0+dm1fbWFuYWdlci5wYXNpZF9sb2NrLCBm
-bGFncyk7Cj4+PiAtwqDCoMKgwqDCoMKgwqAgaWYgKHIgPCAwKQo+Pj4gLcKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqAgZ290byBlcnJvcl9mcmVlX3Jvb3Q7Cj4+PiAtCj4+PiAtwqDCoMKgwqDCoMKgwqAg
-dm0tPnBhc2lkID0gcGFzaWQ7Cj4+PiAtwqDCoMKgIH0KPj4+ICvCoMKgwqAgciA9IGFtZGdwdV92
-bV9zZXRfcGFzaWQoYWRldiwgdm0sIHBhc2lkKTsKPj4+ICvCoMKgwqAgaWYgKHIpCj4+PiArwqDC
-oMKgwqDCoMKgwqAgZ290byBlcnJvcl9mcmVlX3Jvb3Q7Cj4+PiDCoCDCoMKgwqDCoMKgIElOSVRf
-S0ZJRk8odm0tPmZhdWx0cyk7Cj4+PiDCoCBAQCAtMzAzOSwxOCArMzA2MywxMSBAQCBpbnQgYW1k
-Z3B1X3ZtX21ha2VfY29tcHV0ZShzdHJ1Y3QgCj4+PiBhbWRncHVfZGV2aWNlICphZGV2LCBzdHJ1
-Y3QgYW1kZ3B1X3ZtICp2bSwKPj4+IMKgwqDCoMKgwqAgaWYgKHIpCj4+PiDCoMKgwqDCoMKgwqDC
-oMKgwqAgZ290byB1bnJlc2VydmVfYm87Cj4+PiDCoCAtwqDCoMKgIGlmIChwYXNpZCkgewo+Pj4g
-LcKgwqDCoMKgwqDCoMKgIHVuc2lnbmVkIGxvbmcgZmxhZ3M7Cj4+PiAtCj4+PiAtIHNwaW5fbG9j
-a19pcnFzYXZlKCZhZGV2LT52bV9tYW5hZ2VyLnBhc2lkX2xvY2ssIGZsYWdzKTsKPj4+IC3CoMKg
-wqDCoMKgwqDCoCByID0gaWRyX2FsbG9jKCZhZGV2LT52bV9tYW5hZ2VyLnBhc2lkX2lkciwgdm0s
-IHBhc2lkLCBwYXNpZCAKPj4+ICsgMSwKPj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgIEdGUF9BVE9NSUMpOwo+Pj4gLSBzcGluX3VubG9ja19pcnFyZXN0b3JlKCZhZGV2LT52
-bV9tYW5hZ2VyLnBhc2lkX2xvY2ssIGZsYWdzKTsKPj4+IC0KPj4+IC3CoMKgwqDCoMKgwqDCoCBp
-ZiAociA9PSAtRU5PU1BDKQo+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZ290byB1bnJlc2Vy
-dmVfYm87Cj4+PiAtwqDCoMKgwqDCoMKgwqAgciA9IDA7Cj4+PiAtwqDCoMKgIH0KPj4+ICvCoMKg
-wqAgLyogcmVtb3ZlIHByZXZpb3VzIHtwYXNpZDp2bX0gZW50cnkgZmlyc3QgKi8KPj4+ICvCoMKg
-wqAgciA9IGFtZGdwdV92bV9zZXRfcGFzaWQoYWRldiwgdm0sIDApOwo+Pj4gK8KgwqDCoCByID0g
-YW1kZ3B1X3ZtX3NldF9wYXNpZChhZGV2LCB2bSwgcGFzaWQpOwo+Pj4gK8KgwqDCoCBpZiAocikK
-Pj4+ICvCoMKgwqDCoMKgwqDCoCBnb3RvIHVucmVzZXJ2ZV9ibzsKPj4+IMKgIMKgwqDCoMKgwqAg
-LyogQ2hlY2sgaWYgUEQgbmVlZHMgdG8gYmUgcmVpbml0aWFsaXplZCBhbmQgZG8gaXQgYmVmb3Jl
-Cj4+PiDCoMKgwqDCoMKgwqAgKiBjaGFuZ2luZyBhbnkgb3RoZXIgc3RhdGUsIGluIGNhc2UgaXQg
-ZmFpbHMuCj4+PiBAQCAtMzA2MSw3ICszMDc4LDcgQEAgaW50IGFtZGdwdV92bV9tYWtlX2NvbXB1
-dGUoc3RydWN0IAo+Pj4gYW1kZ3B1X2RldmljZSAqYWRldiwgc3RydWN0IGFtZGdwdV92bSAqdm0s
-Cj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgdG9f
-YW1kZ3B1X2JvX3ZtKHZtLT5yb290LmJvKSwKPj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBmYWxzZSk7Cj4+PiDCoMKgwqDCoMKgwqDCoMKgwqAgaWYg
-KHIpCj4+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBnb3RvIGZyZWVfaWRyOwo+Pj4gK8KgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgZ290byBmcmVlX3Bhc2lkX2VudHJ5Owo+Pj4gwqDCoMKgwqDCoCB9
-Cj4+PiDCoCDCoMKgwqDCoMKgIC8qIFVwZGF0ZSBWTSBzdGF0ZSAqLwo+Pj4gQEAgLTMwNzgsNyAr
-MzA5NSw3IEBAIGludCBhbWRncHVfdm1fbWFrZV9jb21wdXRlKHN0cnVjdCAKPj4+IGFtZGdwdV9k
-ZXZpY2UgKmFkZXYsIHN0cnVjdCBhbWRncHVfdm0gKnZtLAo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKg
-IHIgPSBhbWRncHVfYm9fc3luY193YWl0KHZtLT5yb290LmJvLAo+Pj4gwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIEFNREdQVV9GRU5DRV9PV05FUl9VTkRFRklORUQs
-IHRydWUpOwo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgIGlmIChyKQo+Pj4gLcKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqAgZ290byBmcmVlX2lkcjsKPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGdvdG8g
-ZnJlZV9wYXNpZF9lbnRyeTsKPj4+IMKgIMKgwqDCoMKgwqDCoMKgwqDCoCB2bS0+dXBkYXRlX2Z1
-bmNzID0gJmFtZGdwdV92bV9jcHVfZnVuY3M7Cj4+PiDCoMKgwqDCoMKgIH0gZWxzZSB7Cj4+PiBA
-QCAtMzA4OCwzMSArMzEwNSwxNCBAQCBpbnQgYW1kZ3B1X3ZtX21ha2VfY29tcHV0ZShzdHJ1Y3Qg
-Cj4+PiBhbWRncHVfZGV2aWNlICphZGV2LCBzdHJ1Y3QgYW1kZ3B1X3ZtICp2bSwKPj4+IMKgwqDC
-oMKgwqAgdm0tPmxhc3RfdXBkYXRlID0gTlVMTDsKPj4+IMKgwqDCoMKgwqAgdm0tPmlzX2NvbXB1
-dGVfY29udGV4dCA9IHRydWU7Cj4+PiDCoCAtwqDCoMKgIGlmICh2bS0+cGFzaWQpIHsKPj4+IC3C
-oMKgwqDCoMKgwqDCoCB1bnNpZ25lZCBsb25nIGZsYWdzOwo+Pj4gLQo+Pj4gLSBzcGluX2xvY2tf
-aXJxc2F2ZSgmYWRldi0+dm1fbWFuYWdlci5wYXNpZF9sb2NrLCBmbGFncyk7Cj4+PiAtwqDCoMKg
-wqDCoMKgwqAgaWRyX3JlbW92ZSgmYWRldi0+dm1fbWFuYWdlci5wYXNpZF9pZHIsIHZtLT5wYXNp
-ZCk7Cj4+PiAtIHNwaW5fdW5sb2NrX2lycXJlc3RvcmUoJmFkZXYtPnZtX21hbmFnZXIucGFzaWRf
-bG9jaywgZmxhZ3MpOwo+Pj4gLcKgwqDCoMKgwqDCoMKgIHZtLT5wYXNpZCA9IDA7Cj4+PiAtwqDC
-oMKgIH0KPj4+IC0KPj4+IMKgwqDCoMKgwqAgLyogRnJlZSB0aGUgc2hhZG93IGJvIGZvciBjb21w
-dXRlIFZNICovCj4+PiBhbWRncHVfYm9fdW5yZWYoJnRvX2FtZGdwdV9ib192bSh2bS0+cm9vdC5i
-byktPnNoYWRvdyk7Cj4+PiDCoCAtwqDCoMKgIGlmIChwYXNpZCkKPj4+IC3CoMKgwqDCoMKgwqDC
-oCB2bS0+cGFzaWQgPSBwYXNpZDsKPj4+IC0KPj4+IMKgwqDCoMKgwqAgZ290byB1bnJlc2VydmVf
-Ym87Cj4+PiDCoCAtZnJlZV9pZHI6Cj4+PiAtwqDCoMKgIGlmIChwYXNpZCkgewo+Pj4gLcKgwqDC
-oMKgwqDCoMKgIHVuc2lnbmVkIGxvbmcgZmxhZ3M7Cj4+PiArZnJlZV9wYXNpZF9lbnRyeToKPj4+
-ICvCoMKgwqAgYW1kZ3B1X3ZtX3NldF9wYXNpZChhZGV2LCB2bSwgMCk7Cj4+PiDCoCAtIHNwaW5f
-bG9ja19pcnFzYXZlKCZhZGV2LT52bV9tYW5hZ2VyLnBhc2lkX2xvY2ssIGZsYWdzKTsKPj4+IC3C
-oMKgwqDCoMKgwqDCoCBpZHJfcmVtb3ZlKCZhZGV2LT52bV9tYW5hZ2VyLnBhc2lkX2lkciwgcGFz
-aWQpOwo+Pj4gLSBzcGluX3VubG9ja19pcnFyZXN0b3JlKCZhZGV2LT52bV9tYW5hZ2VyLnBhc2lk
-X2xvY2ssIGZsYWdzKTsKPj4+IC3CoMKgwqAgfQo+Pj4gwqAgdW5yZXNlcnZlX2JvOgo+Pj4gwqDC
-oMKgwqDCoCBhbWRncHVfYm9fdW5yZXNlcnZlKHZtLT5yb290LmJvKTsKPj4+IMKgwqDCoMKgwqAg
-cmV0dXJuIHI7Cj4+PiBAQCAtMzEyOCwxNCArMzEyOCw3IEBAIGludCBhbWRncHVfdm1fbWFrZV9j
-b21wdXRlKHN0cnVjdCAKPj4+IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHN0cnVjdCBhbWRncHVfdm0g
-KnZtLAo+Pj4gwqDCoCAqLwo+Pj4gwqAgdm9pZCBhbWRncHVfdm1fcmVsZWFzZV9jb21wdXRlKHN0
-cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBzdHJ1Y3QgCj4+PiBhbWRncHVfdm0gKnZtKQo+Pj4g
-wqAgewo+Pj4gLcKgwqDCoCBpZiAodm0tPnBhc2lkKSB7Cj4+PiAtwqDCoMKgwqDCoMKgwqAgdW5z
-aWduZWQgbG9uZyBmbGFnczsKPj4+IC0KPj4+IC0gc3Bpbl9sb2NrX2lycXNhdmUoJmFkZXYtPnZt
-X21hbmFnZXIucGFzaWRfbG9jaywgZmxhZ3MpOwo+Pj4gLcKgwqDCoMKgwqDCoMKgIGlkcl9yZW1v
-dmUoJmFkZXYtPnZtX21hbmFnZXIucGFzaWRfaWRyLCB2bS0+cGFzaWQpOwo+Pj4gLSBzcGluX3Vu
-bG9ja19pcnFyZXN0b3JlKCZhZGV2LT52bV9tYW5hZ2VyLnBhc2lkX2xvY2ssIGZsYWdzKTsKPj4+
-IC3CoMKgwqAgfQo+Pj4gLcKgwqDCoCB2bS0+cGFzaWQgPSAwOwo+Pj4gK8KgwqDCoCBhbWRncHVf
-dm1fc2V0X3Bhc2lkKGFkZXYsIHZtLCAwKTsKPj4+IMKgwqDCoMKgwqAgdm0tPmlzX2NvbXB1dGVf
-Y29udGV4dCA9IGZhbHNlOwo+Pj4gwqAgfQo+Pj4gwqAgQEAgLTMxNTksMTUgKzMxNTIsNyBAQCB2
-b2lkIGFtZGdwdV92bV9maW5pKHN0cnVjdCBhbWRncHVfZGV2aWNlIAo+Pj4gKmFkZXYsIHN0cnVj
-dCBhbWRncHVfdm0gKnZtKQo+Pj4gwqAgwqDCoMKgwqDCoCByb290ID0gYW1kZ3B1X2JvX3JlZih2
-bS0+cm9vdC5ibyk7Cj4+PiDCoMKgwqDCoMKgIGFtZGdwdV9ib19yZXNlcnZlKHJvb3QsIHRydWUp
-Owo+Pj4gLcKgwqDCoCBpZiAodm0tPnBhc2lkKSB7Cj4+PiAtwqDCoMKgwqDCoMKgwqAgdW5zaWdu
-ZWQgbG9uZyBmbGFnczsKPj4+IC0KPj4+IC0gc3Bpbl9sb2NrX2lycXNhdmUoJmFkZXYtPnZtX21h
-bmFnZXIucGFzaWRfbG9jaywgZmxhZ3MpOwo+Pj4gLcKgwqDCoMKgwqDCoMKgIGlkcl9yZW1vdmUo
-JmFkZXYtPnZtX21hbmFnZXIucGFzaWRfaWRyLCB2bS0+cGFzaWQpOwo+Pj4gLSBzcGluX3VubG9j
-a19pcnFyZXN0b3JlKCZhZGV2LT52bV9tYW5hZ2VyLnBhc2lkX2xvY2ssIGZsYWdzKTsKPj4+IC3C
-oMKgwqDCoMKgwqDCoCB2bS0+cGFzaWQgPSAwOwo+Pj4gLcKgwqDCoCB9Cj4+PiAtCj4+PiArwqDC
-oMKgIGFtZGdwdV92bV9zZXRfcGFzaWQoYWRldiwgdm0sIDApOwo+Pj4gwqDCoMKgwqDCoCBkbWFf
-ZmVuY2Vfd2FpdCh2bS0+bGFzdF91bmxvY2tlZCwgZmFsc2UpOwo+Pj4gwqDCoMKgwqDCoCBkbWFf
-ZmVuY2VfcHV0KHZtLT5sYXN0X3VubG9ja2VkKTsKPj4+IMKgIEBAIC0zMjQ5LDggKzMyMzQsNyBA
-QCB2b2lkIGFtZGdwdV92bV9tYW5hZ2VyX2luaXQoc3RydWN0IAo+Pj4gYW1kZ3B1X2RldmljZSAq
-YWRldikKPj4+IMKgwqDCoMKgwqAgYWRldi0+dm1fbWFuYWdlci52bV91cGRhdGVfbW9kZSA9IDA7
-Cj4+PiDCoCAjZW5kaWYKPj4+IMKgIC3CoMKgwqAgaWRyX2luaXQoJmFkZXYtPnZtX21hbmFnZXIu
-cGFzaWRfaWRyKTsKPj4+IC3CoMKgwqAgc3Bpbl9sb2NrX2luaXQoJmFkZXYtPnZtX21hbmFnZXIu
-cGFzaWRfbG9jayk7Cj4+PiArwqDCoMKgIHhhX2luaXRfZmxhZ3MoJmFkZXYtPnZtX21hbmFnZXIu
-cGFzaWRzLCBYQV9GTEFHU19MT0NLX0lSUSk7Cj4+PiDCoCB9Cj4+PiDCoCDCoCAvKioKPj4+IEBA
-IC0zMjYyLDggKzMyNDYsOCBAQCB2b2lkIGFtZGdwdV92bV9tYW5hZ2VyX2luaXQoc3RydWN0IAo+
-Pj4gYW1kZ3B1X2RldmljZSAqYWRldikKPj4+IMKgwqAgKi8KPj4+IMKgIHZvaWQgYW1kZ3B1X3Zt
-X21hbmFnZXJfZmluaShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPj4+IMKgIHsKPj4+IC0g
-V0FSTl9PTighaWRyX2lzX2VtcHR5KCZhZGV2LT52bV9tYW5hZ2VyLnBhc2lkX2lkcikpOwo+Pj4g
-LcKgwqDCoCBpZHJfZGVzdHJveSgmYWRldi0+dm1fbWFuYWdlci5wYXNpZF9pZHIpOwo+Pj4gK8Kg
-wqDCoCBXQVJOX09OKCF4YV9lbXB0eSgmYWRldi0+dm1fbWFuYWdlci5wYXNpZHMpKTsKPj4+ICvC
-oMKgwqAgeGFfZGVzdHJveSgmYWRldi0+dm1fbWFuYWdlci5wYXNpZHMpOwo+Pj4gwqAgwqDCoMKg
-wqDCoCBhbWRncHVfdm1pZF9tZ3JfZmluaShhZGV2KTsKPj4+IMKgIH0KPj4+IEBAIC0zMzMyLDEz
-ICszMzE2LDEzIEBAIHZvaWQgYW1kZ3B1X3ZtX2dldF90YXNrX2luZm8oc3RydWN0IAo+Pj4gYW1k
-Z3B1X2RldmljZSAqYWRldiwgdTMyIHBhc2lkLAo+Pj4gwqDCoMKgwqDCoCBzdHJ1Y3QgYW1kZ3B1
-X3ZtICp2bTsKPj4+IMKgwqDCoMKgwqAgdW5zaWduZWQgbG9uZyBmbGFnczsKPj4+IMKgIC3CoMKg
-wqAgc3Bpbl9sb2NrX2lycXNhdmUoJmFkZXYtPnZtX21hbmFnZXIucGFzaWRfbG9jaywgZmxhZ3Mp
-Owo+Pj4gK8KgwqDCoCB4YV9sb2NrX2lycXNhdmUoJmFkZXYtPnZtX21hbmFnZXIucGFzaWRzLCBm
-bGFncyk7Cj4+PiDCoCAtwqDCoMKgIHZtID0gaWRyX2ZpbmQoJmFkZXYtPnZtX21hbmFnZXIucGFz
-aWRfaWRyLCBwYXNpZCk7Cj4+PiArwqDCoMKgIHZtID0geGFfbG9hZCgmYWRldi0+dm1fbWFuYWdl
-ci5wYXNpZHMsIHBhc2lkKTsKPj4+IMKgwqDCoMKgwqAgaWYgKHZtKQo+Pj4gwqDCoMKgwqDCoMKg
-wqDCoMKgICp0YXNrX2luZm8gPSB2bS0+dGFza19pbmZvOwo+Pj4gwqAgLSBzcGluX3VubG9ja19p
-cnFyZXN0b3JlKCZhZGV2LT52bV9tYW5hZ2VyLnBhc2lkX2xvY2ssIGZsYWdzKTsKPj4+ICvCoMKg
-wqAgeGFfdW5sb2NrX2lycXJlc3RvcmUoJmFkZXYtPnZtX21hbmFnZXIucGFzaWRzLCBmbGFncyk7
-Cj4+PiDCoCB9Cj4+PiDCoCDCoCAvKioKPj4+IEBAIC0zMzgwLDE1ICszMzY0LDE1IEBAIGJvb2wg
-YW1kZ3B1X3ZtX2hhbmRsZV9mYXVsdChzdHJ1Y3QgCj4+PiBhbWRncHVfZGV2aWNlICphZGV2LCB1
-MzIgcGFzaWQsCj4+PiDCoMKgwqDCoMKgIHN0cnVjdCBhbWRncHVfdm0gKnZtOwo+Pj4gwqDCoMKg
-wqDCoCBpbnQgcjsKPj4+IMKgIC3CoMKgwqAgc3Bpbl9sb2NrX2lycXNhdmUoJmFkZXYtPnZtX21h
-bmFnZXIucGFzaWRfbG9jaywgaXJxZmxhZ3MpOwo+Pj4gLcKgwqDCoCB2bSA9IGlkcl9maW5kKCZh
-ZGV2LT52bV9tYW5hZ2VyLnBhc2lkX2lkciwgcGFzaWQpOwo+Pj4gK8KgwqDCoCB4YV9sb2NrX2ly
-cXNhdmUoJmFkZXYtPnZtX21hbmFnZXIucGFzaWRzLCBpcnFmbGFncyk7Cj4+PiArwqDCoMKgIHZt
-ID0geGFfbG9hZCgmYWRldi0+dm1fbWFuYWdlci5wYXNpZHMsIHBhc2lkKTsKPj4+IMKgwqDCoMKg
-wqAgaWYgKHZtKSB7Cj4+PiDCoMKgwqDCoMKgwqDCoMKgwqAgcm9vdCA9IGFtZGdwdV9ib19yZWYo
-dm0tPnJvb3QuYm8pOwo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgIGlzX2NvbXB1dGVfY29udGV4dCA9
-IHZtLT5pc19jb21wdXRlX2NvbnRleHQ7Cj4+PiDCoMKgwqDCoMKgIH0gZWxzZSB7Cj4+PiDCoMKg
-wqDCoMKgwqDCoMKgwqAgcm9vdCA9IE5VTEw7Cj4+PiDCoMKgwqDCoMKgIH0KPj4+IC0gc3Bpbl91
-bmxvY2tfaXJxcmVzdG9yZSgmYWRldi0+dm1fbWFuYWdlci5wYXNpZF9sb2NrLCBpcnFmbGFncyk7
-Cj4+PiArwqDCoMKgIHhhX3VubG9ja19pcnFyZXN0b3JlKCZhZGV2LT52bV9tYW5hZ2VyLnBhc2lk
-cywgaXJxZmxhZ3MpOwo+Pj4gwqAgwqDCoMKgwqDCoCBpZiAoIXJvb3QpCj4+PiDCoMKgwqDCoMKg
-wqDCoMKgwqAgcmV0dXJuIGZhbHNlOwo+Pj4gQEAgLTM0MDYsMTEgKzMzOTAsMTEgQEAgYm9vbCBh
-bWRncHVfdm1faGFuZGxlX2ZhdWx0KHN0cnVjdCAKPj4+IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHUz
-MiBwYXNpZCwKPj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBnb3RvIGVycm9yX3VucmVmOwo+Pj4gwqAg
-wqDCoMKgwqDCoCAvKiBEb3VibGUgY2hlY2sgdGhhdCB0aGUgVk0gc3RpbGwgZXhpc3RzICovCj4+
-PiAtwqDCoMKgIHNwaW5fbG9ja19pcnFzYXZlKCZhZGV2LT52bV9tYW5hZ2VyLnBhc2lkX2xvY2ss
-IGlycWZsYWdzKTsKPj4+IC3CoMKgwqAgdm0gPSBpZHJfZmluZCgmYWRldi0+dm1fbWFuYWdlci5w
-YXNpZF9pZHIsIHBhc2lkKTsKPj4+ICvCoMKgwqAgeGFfbG9ja19pcnFzYXZlKCZhZGV2LT52bV9t
-YW5hZ2VyLnBhc2lkcywgaXJxZmxhZ3MpOwo+Pj4gK8KgwqDCoCB2bSA9IHhhX2xvYWQoJmFkZXYt
-PnZtX21hbmFnZXIucGFzaWRzLCBwYXNpZCk7Cj4+PiDCoMKgwqDCoMKgIGlmICh2bSAmJiB2bS0+
-cm9vdC5ibyAhPSByb290KQo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgIHZtID0gTlVMTDsKPj4+IC0g
-c3Bpbl91bmxvY2tfaXJxcmVzdG9yZSgmYWRldi0+dm1fbWFuYWdlci5wYXNpZF9sb2NrLCBpcnFm
-bGFncyk7Cj4+PiArwqDCoMKgIHhhX3VubG9ja19pcnFyZXN0b3JlKCZhZGV2LT52bV9tYW5hZ2Vy
-LnBhc2lkcywgaXJxZmxhZ3MpOwo+Pj4gwqDCoMKgwqDCoCBpZiAoIXZtKQo+Pj4gwqDCoMKgwqDC
-oMKgwqDCoMKgIGdvdG8gZXJyb3JfdW5sb2NrOwo+Pj4gwqAgZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5oIAo+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfdm0uaAo+Pj4gaW5kZXggZGRiODVhODVjYmJhLi4zMWM0Njc3NjQxNjIg
-MTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uaAo+
-Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmgKPj4+IEBAIC0z
-NTksOCArMzU5LDcgQEAgc3RydWN0IGFtZGdwdV92bV9tYW5hZ2VyIHsKPj4+IMKgwqDCoMKgwqAg
-LyogUEFTSUQgdG8gVk0gbWFwcGluZywgd2lsbCBiZSB1c2VkIGluIGludGVycnVwdCBjb250ZXh0
-IHRvCj4+PiDCoMKgwqDCoMKgwqAgKiBsb29rIHVwIFZNIG9mIGEgcGFnZSBmYXVsdAo+Pj4gwqDC
-oMKgwqDCoMKgICovCj4+PiAtwqDCoMKgIHN0cnVjdCBpZHLCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqAgcGFzaWRfaWRyOwo+Pj4gLcKgwqDCoCBzcGlubG9ja190wqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIHBhc2lkX2xvY2s7Cj4+PiArwqDCoMKgIHN0cnVjdCB4YXJyYXnCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcGFzaWRzOwo+Pj4gwqAgfTsKPj4+IMKgIMKgIHN0
-cnVjdCBhbWRncHVfYm9fdmFfbWFwcGluZzsKPj4KCl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
-dGluZm8vYW1kLWdmeAo=
+[AMD Official Use Only]
+
+Tested and pushed out to main.
+
+Thanks,
+Tom
+
+________________________________________
+From: Greathouse, Joseph <Joseph.Greathouse@amd.com>
+Sent: Monday, June 21, 2021 12:37
+To: amd-gfx@lists.freedesktop.org
+Cc: StDenis, Tom; Greathouse, Joseph
+Subject: [PATCH v2 umr 3/3] Enhance printing of page tables in AI+
+
+Pulls print functions for GPUVM page tables on AI+ chips into their
+own set of generalized functions, so that we don't have subtly
+different printouts for different layers.
+
+Explicitly prints PDEs with P bit (which makes it a PTE) and makes
+the PTE with F bit set (further, which makes it a PDE) properly
+indent the next layer of the print.
+
+Prints remaining fields from the PTE and PDE printouts, such as
+read/write/execute bits and MTYPE from PTE.
+
+v2: Correctly handle printing translate-further PTEs
+
+Signed-off-by: Joseph Greathouse <Joseph.Greathouse@amd.com>
+---
+ src/lib/read_vram.c | 184 ++++++++++++++++++++++++++++++--------------
+ 1 file changed, 127 insertions(+), 57 deletions(-)
+
+diff --git a/src/lib/read_vram.c b/src/lib/read_vram.c
+index 2998873..bea1232 100644
+--- a/src/lib/read_vram.c
++++ b/src/lib/read_vram.c
+@@ -415,6 +415,112 @@ static pte_fields_ai_t decode_pte_entry_ai(uint64_t pte_entry)
+        return pte_fields;
+ }
+
++static void print_pde_fields_ai(struct umr_asic *asic,
++                               pde_fields_ai_t pde_fields)
++{
++       asic->mem_funcs.vm_message(
++                       ", PBA==0x%012" PRIx64 ", V=%" PRIu64
++                       ", S=%" PRIu64 ", C=%" PRIu64
++                       ", P=%" PRIu64 ", FS=%" PRIu64 "\n",
++                       pde_fields.pte_base_addr,
++                       pde_fields.valid,
++                       pde_fields.system,
++                       pde_fields.coherent,
++                       pde_fields.pte,
++                       pde_fields.frag_size);
++}
++static void print_base_ai(struct umr_asic *asic,
++                         uint64_t pde_entry, uint64_t address,
++                         uint64_t va_mask, pde_fields_ai_t pde_fields,
++                         int is_base_not_pde)
++{
++       if (is_base_not_pde)
++               asic->mem_funcs.vm_message("BASE");
++       else
++               asic->mem_funcs.vm_message("PDE");
++       asic->mem_funcs.vm_message("=0x%016" PRIx64 ", VA=0x%012" PRIx64,
++                       pde_entry,
++                       address & va_mask);
++       print_pde_fields_ai(asic, pde_fields);
++}
++
++static void print_pde_ai(struct umr_asic *asic,
++               const char * indentation, int pde_cnt,
++               int page_table_depth, uint64_t prev_addr,
++               uint64_t pde_idx, uint64_t pde_entry, uint64_t address,
++               uint64_t va_mask, pde_fields_ai_t pde_fields)
++{
++       asic->mem_funcs.vm_message("%s ", &indentation[18-pde_cnt*3]);
++       if (pde_fields.further)
++               asic->mem_funcs.vm_message("PTE-FURTHER");
++       else
++               asic->mem_funcs.vm_message("PDE%d", page_table_depth - pde_cnt);
++
++       asic->mem_funcs.vm_message("@{0x%" PRIx64 "/%" PRIx64
++                       "}=0x%016" PRIx64 ", VA=0x%012" PRIx64,
++                       prev_addr,
++                       pde_idx,
++                       pde_entry,
++                       address & va_mask);
++       print_pde_fields_ai(asic, pde_fields);
++}
++
++static void print_pte_ai(struct umr_asic *asic,
++               const char * indentation, int pde_cnt, uint64_t prev_addr,
++               uint64_t pte_idx, uint64_t pte_entry, uint64_t address,
++               uint64_t va_mask, pte_fields_ai_t pte_fields)
++{
++       if (asic == NULL) {
++               asic->mem_funcs.vm_message("\\-> PTE");
++       } else {
++               asic->mem_funcs.vm_message("%s ",
++                               &indentation[18-pde_cnt*3]);
++               if (pte_fields.pde)
++                       asic->mem_funcs.vm_message("PDE0-as-PTE");
++               else
++                       asic->mem_funcs.vm_message("PTE");
++               asic->mem_funcs.vm_message("@{0x%" PRIx64 "/%" PRIx64"}",
++                               prev_addr,
++                               pte_idx);
++       }
++       asic->mem_funcs.vm_message("=0x%016" PRIx64 ", VA=0x%012" PRIx64
++                       ", PBA==0x%012" PRIx64 ", V=%" PRIu64
++                       ", S=%" PRIu64 ", C=%" PRIu64 ", Z=%" PRIu64
++                       ", X=%" PRIu64 ", R=%" PRIu64 ", W=%" PRIu64
++                       ", FS=%" PRIu64 ", T=%" PRIu64 ", MTYPE=",
++                       pte_entry,
++                       address & va_mask,
++                       pte_fields.page_base_addr,
++                       pte_fields.valid,
++                       pte_fields.system,
++                       pte_fields.coherent,
++                       pte_fields.tmz,
++                       pte_fields.execute,
++                       pte_fields.read,
++                       pte_fields.write,
++                       pte_fields.fragment,
++                       pte_fields.prt,
++                       pte_fields.mtype);
++       switch (pte_fields.mtype) {
++               case 0:
++                       asic->mem_funcs.vm_message("NC\n");
++                       break;
++               case 1:
++                       asic->mem_funcs.vm_message("RW\n");
++                       break;
++               case 2:
++                       asic->mem_funcs.vm_message("CC\n");
++                       break;
++               case 3:
++                       asic->mem_funcs.vm_message("UC\n");
++                       break;
++               default:
++                       asic->mem_funcs.vm_message("Unknown (%" PRIu64")\n",
++                                       pte_fields.mtype);
++                       break;
++       }
++}
++
+ /**
+  * umr_access_vram_ai - Access GPU mapped memory for GFX9+ platforms
+  */
+@@ -457,7 +563,7 @@ static int umr_access_vram_ai(struct umr_asic *asic, uint32_t vmid,
+        unsigned char *pdst = dst;
+        char *hub, *vm0prefix, *regprefix;
+        unsigned hubid;
+-       static const char *indentation = "               \\->";
++       static const char *indentation = "                  \\->";
+
+        memset(&registers, 0, sizeof registers);
+        memset(&pde_array, 0xff, sizeof pde_array);
+@@ -713,14 +819,7 @@ static int umr_access_vram_ai(struct umr_asic *asic, uint32_t vmid,
+                        va_mask <<= (total_vm_bits - top_pdb_bits);
+
+                        if ((asic->options.no_fold_vm_decode || memcmp(&pde_fields, &pde_array[pde_cnt], sizeof pde_fields)) && asic->options.verbose)
+-                               asic->mem_funcs.vm_message("BASE=0x%016" PRIx64 ", VA=0x%012" PRIx64 ", PBA==0x%012" PRIx64 ", V=%" PRIu64 ", S=%" PRIu64 ", C=%" PRIu64 ", P=%" PRIu64 "\n",
+-                                               pde_entry,
+-                                               address & va_mask,
+-                                               pde_fields.pte_base_addr,
+-                                               pde_fields.valid,
+-                                               pde_fields.system,
+-                                               pde_fields.coherent,
+-                                               pde_fields.pte);
++                               print_base_ai(asic, pde_entry, address, va_mask, pde_fields, 1);
+                        memcpy(&pde_array[pde_cnt++], &pde_fields, sizeof pde_fields);
+
+                        current_depth = page_table_depth;
+@@ -783,27 +882,11 @@ static int umr_access_vram_ai(struct umr_asic *asic, uint32_t vmid,
+                                        log2_ptb_entries = (9 + (page_table_block_size - pde0_block_fragment_size));
+                                        ptb_mask = (1ULL << log2_ptb_entries) - 1;
+                                        pte_page_mask = (1ULL << (pde0_block_fragment_size + 12)) - 1;
+-                                       if (asic->options.verbose)
+-                                               asic->mem_funcs.vm_message("pde0.pte = %u\npde0.block_fragment_size = %u\npage_table_block_size = %u\n",
+-                                                       (unsigned)pde_fields.pte,
+-                                                       (unsigned)pde0_block_fragment_size,
+-                                                       (unsigned)page_table_block_size);
+                                }
+                                if (!pde_fields.pte) {
+                                        if ((asic->options.no_fold_vm_decode || memcmp(&pde_fields, &pde_array[pde_cnt], sizeof pde_fields)) && asic->options.verbose) {
+-                                               asic->mem_funcs.vm_message("%s PDE%d@{0x%" PRIx64 "/%" PRIx64 "}=0x%016" PRIx64 ", VA=0x%012" PRIx64 ", PBA==0x%012" PRIx64 ", V=%" PRIu64 ", S=%" PRIu64 ", C=%" PRIu64 ", P=%" PRIu64 ", FS=%" PRIu64 "\n",
+-                                                               &indentation[15-pde_cnt*3],
+-                                                               page_table_depth - pde_cnt,
+-                                                               prev_addr,
+-                                                               pde_idx,
+-                                                               pde_entry,
+-                                                               address & va_mask,
+-                                                               pde_fields.pte_base_addr,
+-                                                               pde_fields.valid,
+-                                                               pde_fields.system,
+-                                                               pde_fields.coherent,
+-                                                               pde_fields.pte,
+-                                                               pde_fields.frag_size);
++                                               print_pde_ai(asic, indentation, pde_cnt, page_table_depth, prev_addr,
++                                                               pde_idx, pde_entry, address, va_mask, pde_fields);
+                                                memcpy(&pde_array[pde_cnt++], &pde_fields, sizeof pde_fields);
+                                        }
+                                } else {
+@@ -870,21 +953,6 @@ pte_further:
+ pde_is_pte:
+                        pte_fields = decode_pte_entry_ai(pte_entry);
+
+-                       if (asic->options.verbose)
+-                               asic->mem_funcs.vm_message("%s %s@{0x%" PRIx64 "/%" PRIx64"}==0x%016" PRIx64 ", VA=0x%012" PRIx64 ", PBA==0x%012" PRIx64 ", V=%" PRIu64 ", S=%" PRIu64 ", P=%" PRIu64 ", FS=%" PRIu64 ", F=%" PRIu64 "\n",
+-                                       &indentation[15-pde_cnt*3],
+-                                       (pte_fields.further) ? "PTE-FURTHER" : "PTE",
+-                                       prev_addr,
+-                                       pte_idx,
+-                                       pte_entry,
+-                                       address & (((1ULL << page_table_block_size) - 1) << (12 + pde0_block_fragment_size)),
+-                                       pte_fields.page_base_addr,
+-                                       pte_fields.valid,
+-                                       pte_fields.system,
+-                                       pte_fields.prt,
+-                                       pte_fields.fragment,
+-                                       pte_fields.further);
+-
+                        // How many bits in the address are used to index into the PTB?
+                        // If further is set, that means we jumped back to pde_is_pte,
+                        // and the va_mask was properly set down there.
+@@ -920,6 +988,17 @@ pde_is_pte:
+                                va_mask = va_mask & ~mask_to_ignore;
+                        }
+
++                       if (asic->options.verbose) {
++                               if (pte_fields.further) {
++                                       pde_fields = decode_pde_entry_ai(pte_entry);
++                                       print_pde_ai(asic, indentation, pde_cnt, page_table_depth, prev_addr,
++                                                       pte_idx, pte_entry, address, va_mask, pde_fields);
++                               } else {
++                                       print_pte_ai(asic, indentation, pde_cnt, prev_addr, pte_idx,
++                                                       pte_entry, address, va_mask, pte_fields);
++                               }
++                       }
++
+                        uint32_t pte_block_fragment_size = 0;
+                        if (pte_fields.further) {
+                                // Going to go one more layer deep, so now we need the Further-PTE's
+@@ -946,6 +1025,7 @@ pde_is_pte:
+
+                                // grab PTE base address and other data from the PTE that has the F bit set.
+                                pde_fields = decode_pde_entry_ai(pte_entry);
++                               pde_cnt++;
+                                further = 1;
+                                goto pte_further;
+                        }
+@@ -972,12 +1052,7 @@ pde_is_pte:
+                        pte_page_mask = (1ULL << (12 + pde0_block_fragment_size)) - 1;
+
+                        if ((asic->options.no_fold_vm_decode || memcmp(&pde_array[0], &pde_fields, sizeof pde_fields)) && asic->options.verbose)
+-                               asic->mem_funcs.vm_message("PDE=0x%016" PRIx64 ", PBA==0x%012" PRIx64 ", V=%" PRIu64 ", S=%" PRIu64 ", FS=%" PRIu64 "\n",
+-                                               page_table_base_addr,
+-                                               pde_fields.pte_base_addr,
+-                                               pde_fields.valid,
+-                                               pde_fields.system,
+-                                               pde_fields.frag_size);
++                               print_base_ai(asic, page_table_base_addr, address, -1, pde_fields, 0);
+                        memcpy(&pde_array[0], &pde_fields, sizeof pde_fields);
+
+                        if (!pde_fields.valid)
+@@ -992,13 +1067,8 @@ pde_is_pte:
+                        pte_fields = decode_pte_entry_ai(pte_entry);
+
+                        if (asic->options.verbose)
+-                               asic->mem_funcs.vm_message("\\-> PTE=0x%016" PRIx64 ", VA=0x%016" PRIx64 ", PBA==0x%012" PRIx64 ", F=%" PRIu64 ", V=%" PRIu64 ", S=%" PRIu64 "\n",
+-                                       pte_entry,
+-                                       address & ~((uint64_t)0xFFF),
+-                                       pte_fields.page_base_addr,
+-                                       pte_fields.fragment,
+-                                       pte_fields.valid,
+-                                       pte_fields.system);
++                               print_pte_ai(asic, NULL, 0, 0, 0, pte_entry, address,
++                                               ~((uint64_t)0xFFF), pte_fields);
+
+                        if (pdst && !pte_fields.valid)
+                                goto invalid_page;
+@@ -1018,13 +1088,13 @@ next_page:
+                if (asic->options.verbose) {
+                        if (pte_fields.system == 1) {
+                                asic->mem_funcs.vm_message("%s Computed address we will read from: %s:%" PRIx64 ", (reading: %" PRIu32 " bytes)\n",
+-                                                                                       &indentation[15-pde_cnt*3-3],
++                                                                                       &indentation[18-pde_cnt*3-3],
+                                                                                        "sys",
+                                                                                        start_addr,
+                                                                                        chunk_size);
+                        } else {
+                                asic->mem_funcs.vm_message("%s Computed address we will read from: %s:%" PRIx64 " (MCA:%" PRIx64"), (reading: %" PRIu32 " bytes)\n",
+-                                                                                       &indentation[15-pde_cnt*3-3],
++                                                                                       &indentation[18-pde_cnt*3-3],
+                                                                                        "vram",
+                                                                                        start_addr,
+                                                                                        start_addr + vm_fb_offset,
+--
+2.20.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
