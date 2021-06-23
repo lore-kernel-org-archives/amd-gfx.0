@@ -2,58 +2,58 @@ Return-Path: <SRS0=KKXi=LR=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 27FE0C49EA4
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Jun 2021 09:58:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DAA1AC4743C
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Jun 2021 10:10:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EBC256102A
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Jun 2021 09:58:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EBC256102A
+	by mail.kernel.org (Postfix) with ESMTPS id A4FF46112D
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Jun 2021 10:10:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A4FF46112D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=tuxedocomputers.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 819CF6E8A1;
-	Wed, 23 Jun 2021 09:58:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B5A988FBF;
+	Wed, 23 Jun 2021 10:10:17 +0000 (UTC)
 Received: from srv6.fidu.org (srv6.fidu.org [159.69.62.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 839456E0A8;
- Wed, 23 Jun 2021 09:58:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 77203892D7;
+ Wed, 23 Jun 2021 10:10:16 +0000 (UTC)
 Received: from localhost (localhost.localdomain [127.0.0.1])
- by srv6.fidu.org (Postfix) with ESMTP id EE319C8009D;
- Wed, 23 Jun 2021 11:58:50 +0200 (CEST)
+ by srv6.fidu.org (Postfix) with ESMTP id 33232C800AA;
+ Wed, 23 Jun 2021 12:10:15 +0200 (CEST)
 X-Virus-Scanned: Debian amavisd-new at srv6.fidu.org
 Received: from srv6.fidu.org ([127.0.0.1])
  by localhost (srv6.fidu.org [127.0.0.1]) (amavisd-new, port 10024)
- with LMTP id 5EkzRVUYpOD1; Wed, 23 Jun 2021 11:58:50 +0200 (CEST)
+ with LMTP id hBdQUpMP2XHn; Wed, 23 Jun 2021 12:10:14 +0200 (CEST)
 Received: from [IPv6:2003:e3:7f39:4900:3156:839d:aed8:6ea6]
- (p200300e37f3949003156839daED86Ea6.dip0.t-ipconnect.de
+ (p200300e37f3949003156839Daed86eA6.dip0.t-ipconnect.de
  [IPv6:2003:e3:7f39:4900:3156:839d:aed8:6ea6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
  (No client certificate requested)
  (Authenticated sender: wse@tuxedocomputers.com)
- by srv6.fidu.org (Postfix) with ESMTPSA id 6935BC80099;
- Wed, 23 Jun 2021 11:58:50 +0200 (CEST)
-Subject: Re: [PATCH v4 17/17] drm/amd/display: Add handling for new "Broadcast
- RGB" property
+ by srv6.fidu.org (Postfix) with ESMTPSA id 9CBDDC8009D;
+ Wed, 23 Jun 2021 12:10:14 +0200 (CEST)
+Subject: Re: [PATCH v4 15/17] drm/uAPI: Move "Broadcast RGB" property from
+ driver specific to general context
 To: Pekka Paalanen <ppaalanen@gmail.com>
 References: <20210618091116.14428-1-wse@tuxedocomputers.com>
- <20210618091116.14428-18-wse@tuxedocomputers.com>
- <20210622102955.1e0488b1@eldfell>
- <ded3d448-4837-f38d-9878-f5d764712db7@tuxedocomputers.com>
- <20210623110156.4791505e@eldfell>
+ <20210618091116.14428-16-wse@tuxedocomputers.com>
+ <20210622102529.5266e87b@eldfell>
+ <70d89fe2-4e45-7ea9-2509-15257ef222f8@tuxedocomputers.com>
+ <20210623104836.77734bad@eldfell>
 From: Werner Sembach <wse@tuxedocomputers.com>
-Message-ID: <ef491826-6aaa-754d-cc89-9190974d8767@tuxedocomputers.com>
-Date: Wed, 23 Jun 2021 11:58:47 +0200
+Message-ID: <2fc0547c-2968-1f52-4c07-82be58a41ef8@tuxedocomputers.com>
+Date: Wed, 23 Jun 2021 12:10:14 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <20210623110156.4791505e@eldfell>
-Content-Language: de-DE
+In-Reply-To: <20210623104836.77734bad@eldfell>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,107 +69,183 @@ Cc: sunpeng.li@amd.com, intel-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, airlied@linux.ie,
  dri-devel@lists.freedesktop.org, tzimmermann@suse.de, rodrigo.vivi@intel.com,
  alexander.deucher@amd.com, christian.koenig@amd.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QW0gMjMuMDYuMjEgdW0gMTA6MDEgc2NocmllYiBQZWtrYSBQYWFsYW5lbjoKPiBPbiBUdWUsIDIy
-IEp1biAyMDIxIDExOjI4OjU3ICswMjAwCj4gV2VybmVyIFNlbWJhY2ggPHdzZUB0dXhlZG9jb21w
-dXRlcnMuY29tPiB3cm90ZToKPgo+PiBBbSAyMi4wNi4yMSB1bSAwOToyOSBzY2hyaWViIFBla2th
-IFBhYWxhbmVuOgo+Pj4gT24gRnJpLCAxOCBKdW4gMjAyMSAxMToxMToxNiArMDIwMAo+Pj4gV2Vy
-bmVyIFNlbWJhY2ggPHdzZUB0dXhlZG9jb21wdXRlcnMuY29tPiB3cm90ZToKPj4+ICAKPj4+PiBU
-aGlzIGNvbW1pdCBpbXBsZW1lbnRzIHRoZSAiQnJvYWRjYXN0IFJHQiIgZHJtIHByb3BlcnR5IGZv
-ciB0aGUgQU1EIEdQVQo+Pj4+IGRyaXZlci4KPj4+Pgo+Pj4+IFNpZ25lZC1vZmYtYnk6IFdlcm5l
-ciBTZW1iYWNoIDx3c2VAdHV4ZWRvY29tcHV0ZXJzLmNvbT4KPj4+PiAtLS0KPj4+PiAgLi4uL2dw
-dS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIHwgMjIgKysrKysrKysrKysr
-KystLS0tLQo+Pj4+ICAuLi4vZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX21zdF90eXBlcy5j
-ICAgfCAgNCArKysrCj4+Pj4gIDIgZmlsZXMgY2hhbmdlZCwgMjEgaW5zZXJ0aW9ucygrKSwgNSBk
-ZWxldGlvbnMoLSkKPj4+Pgo+Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rp
-c3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
-L2FtZGdwdV9kbS9hbWRncHVfZG0uYwo+Pj4+IGluZGV4IDlmZmQyZjlkM2Q3NS4uYzVkYmY5NDhh
-NDdhIDEwMDY0NAo+Pj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVf
-ZG0vYW1kZ3B1X2RtLmMKPj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1k
-Z3B1X2RtL2FtZGdwdV9kbS5jCj4+Pj4gQEAgLTUyNTIsNyArNTI1Miw4IEBAIGdldF9hc3BlY3Rf
-cmF0aW8oY29uc3Qgc3RydWN0IGRybV9kaXNwbGF5X21vZGUgKm1vZGVfaW4pCj4+Pj4gIH0KPj4+
-PiAgCj4+Pj4gIHN0YXRpYyBlbnVtIGRjX2NvbG9yX3NwYWNlCj4+Pj4gLWdldF9vdXRwdXRfY29s
-b3Jfc3BhY2UoY29uc3Qgc3RydWN0IGRjX2NydGNfdGltaW5nICpkY19jcnRjX3RpbWluZykKPj4+
-PiArZ2V0X291dHB1dF9jb2xvcl9zcGFjZShjb25zdCBzdHJ1Y3QgZGNfY3J0Y190aW1pbmcgKmRj
-X2NydGNfdGltaW5nLAo+Pj4+ICsJCSAgICAgICBlbnVtIGRybV9tb2RlX2NvbG9yX3JhbmdlIHBy
-ZWZlcnJlZF9jb2xvcl9yYW5nZSkKPj4+PiAgewo+Pj4+ICAJZW51bSBkY19jb2xvcl9zcGFjZSBj
-b2xvcl9zcGFjZSA9IENPTE9SX1NQQUNFX1NSR0I7Cj4+Pj4gIAo+Pj4+IEBAIC01MjY3LDEzICs1
-MjY4LDE3IEBAIGdldF9vdXRwdXRfY29sb3Jfc3BhY2UoY29uc3Qgc3RydWN0IGRjX2NydGNfdGlt
-aW5nICpkY19jcnRjX3RpbWluZykKPj4+PiAgCQkgKiByZXNwZWN0aXZlbHkKPj4+PiAgCQkgKi8K
-Pj4+PiAgCQlpZiAoZGNfY3J0Y190aW1pbmctPnBpeF9jbGtfMTAwaHogPiAyNzAzMDApIHsKPj4+
-PiAtCQkJaWYgKGRjX2NydGNfdGltaW5nLT5mbGFncy5ZX09OTFkpCj4+Pj4gKwkJCWlmIChkY19j
-cnRjX3RpbWluZy0+ZmxhZ3MuWV9PTkxZCj4+Pj4gKwkJCQkJfHwgcHJlZmVycmVkX2NvbG9yX3Jh
-bmdlID09Cj4+Pj4gKwkJCQkJCURSTV9NT0RFX0NPTE9SX1JBTkdFX0xJTUlURURfMTZfMjM1KQo+
-Pj4+ICAJCQkJY29sb3Jfc3BhY2UgPQo+Pj4+ICAJCQkJCUNPTE9SX1NQQUNFX1lDQkNSNzA5X0xJ
-TUlURUQ7Cj4+Pj4gIAkJCWVsc2UKPj4+PiAgCQkJCWNvbG9yX3NwYWNlID0gQ09MT1JfU1BBQ0Vf
-WUNCQ1I3MDk7ICAKPj4+IEhpLAo+Pj4KPj4+IGRvZXMgdGhpcyBtZWFuIHRoYXQgYW1kZ3B1IHdv
-dWxkIGJlIHVzaW5nIGEgcHJvcGVydHkgbmFtZWQgIkJyb2FkY2FzdAo+Pj4gUkdCIiB0byBjb250
-cm9sIHRoZSByYW5nZSBvZiBZQ2JDciB0b28/ICAKPj4gWWVzLCBiZWNhdXNlIEkgYXZvaWRlZCBj
-cmVhdGluZyBhIG5ldyBwcm9wZXJ0eSwgYnV0IEknbSBub3QgcmVhbGx5IGhhcHB5IHdpdGggaXQg
-ZWl0aGVyLgo+Pgo+PiBQb3NzaWJpbGl0eSAxOiBVc2UgIkJyb2FkY2FzdCBSR0IiIGZvciBZJ0Ni
-Q3IgdG9vIGFuZCBjbGFyaWZ5IGluIGRvY3VtZW50YXRpb24KPj4gwqDCoMKgIC0gc3RpbGwgY29u
-ZnVzaW5nIG5hbWUKPj4gwqDCoMKgIC0gbGltaXRlZCBkb2VzIG5vdCBtZWFuIHNvbWV0aGluZyBh
-IGxpdHRsZSBiaXQgZGlmZmVyZW50IGZvciBZJ0NiQ3IgYW5kIG5vdCBzdHJpY3RseSAxNi0yMzU6
-Cj4+IGh0dHBzOi8vd3d3Lmtlcm5lbC5vcmcvZG9jL2h0bWwvdjUuMTIvdXNlcnNwYWNlLWFwaS9t
-ZWRpYS92NGwvY29sb3JzcGFjZXMtZGVmcy5odG1sI2MuVjRMLnY0bDJfcXVhbnRpemF0aW9uICwg
-YnV0IG5hbWUKPj4gb2Ygb3B0aW9uIGlzIGdpdmVuIGJ5IHByZWV4aXN0aW5nIHByb3BlcnR5Cj4+
-Cj4+IFBvc3NpYmlsaXR5IDI6IERlcHJlY2F0ZSAiQnJvYWRjYXN0IFJHQiIgYW5kIGEgYSBtb3Jl
-IG5ldXRyYWwgc291bmRpbmcgInByZWZlcnJlZCBjb2xvciByYW5nZSIsIHdpdGggdGhlIG1vcmUg
-bmV1dHJhbAo+PiBzb3VuZGluZyAibGltaXRlZCIgb3B0aW9uIGluc3RlYWQgb2YgIkxpbWl0ZWQg
-MTY6MjM1Igo+PiDCoMKgwqAgLSBXaGF0J3MgdGhlIHJlbGF0aW9uIGJldHdlZW4gdGhlIDI/IHBx
-IG1lbnRpb25lZCBvbiB0aGUgYW1kZ3B1Cj4+IGdpdGxhYiB0aGF0IHRoZXJlIGlzIGEgcG9zaWJp
-bGl0eSBmb3IgdXNlcnNwYWNlIHRvIGhhdmUgb25seSB0aGUgbmV3Cj4+IG9yIHRoZSBvbGQgb25l
-IHNob3duCj4gSXQncyBqdXN0IGFuIGlkZWEgdGhhdCB3ZSBjb3VsZCBkZWNpZGUgdG8gZXhwb3Nl
-IG9ubHkgb25lIG9yIHRoZSBvdGhlcgo+IHByb3BlcnR5LiBJdCB3b3VsZCBuZWVkIHRvIGJlIGVu
-Z2luZWVyZWQgaW4gY29kZSwgZ28gdGhyb3VnaCB0aGUgVUFQSQo+IHZhbGlkYXRpb24gd2l0aCB1
-c2Vyc3BhY2UgZXRjLiBJJ20gbm90IGF3YXJlIG9mIHRoaXMgYmVpbmcgZG9uZSBiZWZvcmUKPiBl
-eGFjdGx5IGxpa2UgdGhpcywgYnV0IERSTSBjbGllbnQgY2FwcyBleGlzdC4KPgo+PiDCoMKgwqAg
-LSBBbHRlcm5hdGl2ZWx5IGlnbm9yZSAiQnJvYWRjYXN0IFJHQiIgd2hlbiAicHJlZmVycmVkIGNv
-bG9yIHJhbmdlIiBpcyBzZXQgYW5kIGhhdmUgdGhlbSBjb2V4aXN0Pwo+IERldGVybWluaW5nICJp
-cyBzZXQiIG1lYW5zIHdlIHdvdWxkIG5lZWQgInVuc2V0IiB2YWx1ZSBmb3IgInByZWZlcnJlZAo+
-IGNvbG9yIHJhbmdlIi4gQnV0IHRoZXJlIGlzIG5vIG5vdGlvbiBvZiB3aG8gc2V0IGl0LiBJZiBz
-b21lIEtNUyBjbGllbnQKPiBkZWNpZGVzIHRvIHNldCBpdCwgdGhlbiBpdCB3aWxsIGxpa2VseSBy
-ZW1haW4gc2V0LCBldmVuIGlmIHlvdSBuZXh0Cj4gc3RhcnQgYW5vdGhlciBLTVMgY2xpZW50IHdo
-byBkb2VzIG5vdCB1c2UgdGhpcyBwcm9wZXJ0eSAtIGl0IHdvdWxkIGp1c3QKPiBjb25mdXNlIHVz
-ZXJzIHdoZW4gIkJyb2FkY2FzdCBSR0IiIHNpbGVudGx5IHN0b3BwZWQgd29ya2luZyB3aGlsZSBp
-dAo+IHN0aWxsIGV4aXN0cy4KVW5zZXQgd291bGQgYmUgdGhlICJhdXRvIiBvcHRpb24uIEJ1dCBp
-IHRoaW5rIHRoaXMgcHJvYmxlbSBleGlzdHMgYWxyZWFkeSBlLmcuIGEgS01TIGNsaWVudCBpcyB1
-bmF3YXJlIG9mIHRoZSBuZXcKInByZWZlcnJlZCBjb2xvciBmb3JtYXQiIHByb3BlcnR5IGFuZCBz
-ZXRzICJCcm9hZGNhc3QgUkdCIiBvbiBpbnRlbCB3aGljaCBkb2VzIG5vdGhpbmcgaW4gdGhlIGNh
-c2Ugb2YgWSdDYkNyLgoKU2luY2UgdGhlIHByb3BlcnRpZXMgYWZmZWN0aW5nIGVhY2ggb3RoZXIs
-IGhhdmluZyBvbmx5IG9uZSBub3QgYXQgZGVmYXVsdCwgcG90ZW50aWFsbHkgYnJlYWtzIEtNUyBj
-bGllbnRzIHVuYXdhcmUgb2YKdGhlbSByZWdhcmRsZXNzLgo+Cj4gU28gSSBkb24ndCB0aGluayB0
-aGlzIGlzIGEgZ29vZCBzb2x1dGlvbi4KPgo+IFdoZW4gY29uc2lkZXJpbmcgYSBuZXcgcHJvcGVy
-dHksIHdoYXQgSSB3cm90ZSBqdXN0IGVhcmxpZXIgZml0IGhlcmU6Cj4gaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvYXJjaGl2ZXMvZHJpLWRldmVsLzIwMjEtSnVuZS8zMTIyNDguaHRtbAo+
-Cj4gVGhlcmUgYXJlIG1vcmUgcXVlc3Rpb25zIHRoYXQganVzdCB3aGF0IGRvZXMgdGhlIGxpbWl0
-ZWQgcmFuZ2UgYWN0dWFsbHkKPiBtZWFuLgo+Cj4+PiBUaGF0IGlzIHN1cnByaXNpbmcuIElmIHRo
-aXMgaXMgdHJ1bHkgd2FudGVkLCB0aGVuIHRoZSBkb2N1bWVudGF0aW9uIG9mCj4+PiAiQnJvYWRj
-YXN0IFJHQiIgbXVzdCBzYXkgdGhhdCBpdCBhcHBsaWVzIHRvIFlDYkNyIHRvby4KPj4+Cj4+PiBE
-b2VzIGFtZGdwdSBkbyB0aGUgc2FtZSBhcyBpbnRlbCB3cnQuIHRvIHRoZSBxdWVzdGlvbiBhYm91
-dCB3aG9zZQo+Pj4gcmVzcG9uc2liaWxpdHkgaXQgaXMgdG8gbWFrZSB0aGUgcGl4ZWxzIGF0IHRo
-ZSBjb25uZWN0b3IgdG8gbWF0Y2ggdGhlCj4+PiBzZXQgcmFuZ2U/ICAKPj4gSSBndWVzcyB0aGUg
-a2VybmVsIGRyaXZlciBkb2VzIHRoZSBjb252ZXJzaW9uLCBidXQgaSBoYXZlIHRvIGNoZWNrCj4+
-IGZvciBib3RoLgo+Pgo+PiBGb3IgSW50ZWwgSSBkaWQgbm90IGNoYW5nZSB0aGUgYmVoYXZpb3Ig
-b2YgQm9yYWRjYXN0IFJHQiwgYnV0IGkgdGhpbmsKPj4gaXQncyBub3QgY2xlYXJseSBzcGVjaWZp
-ZWQgaW4gdGhlIGRvY3Mgd2hlcmUgdGhlIGNvbnZlcnNpb24gaGFwcGVucy4KPiBSaWdodCwgYXQg
-dGhlIHZlcnkgbGVhc3QgdGhlIGN1cnJlbnQgYmVoYXZpb3VyIG5lZWRzIHRvIGJlIGRvY3VtZW50
-ZWQKPiBiZWZvcmUgZW5yb2xsaW5nIHRoaXMgcHJvcGVydHkgdG8gYW55IG1vcmUgZHJpdmVycywg
-c28gdGhhdCB0aG9zZQo+IGRyaXZlcnMgY2FuIHRoZW4gYmUgcmV2aWV3ZWQgdG8gd29yayB0aGUg
-c2FtZSB3YXkuCj4KPiBZb3Ugbm90aWNlIEkgZGlkbid0IGFjdHVhbGx5IGFuc3dlciB5b3VyIHF1
-ZXN0aW9uIDEgb3IgMi4gSSBkb24ndCBrbm93Lgo+IEdvaW5nIHdpdGggMSBpcyBlYXN5IGNvbXBh
-cmVkIHRvIDIsIGV2ZW4gaWYgdGhlIG5hbWVzIGFyZSBhd2t3YXJkIGJ1dAo+IGl0IHRlY2huaWNh
-bGx5IHNob3VsZG4ndCBjYXVzZSBhbnkgcHJvYmxlbXMuIDIgbWF5IG9yIG1heSBub3QgYmUKPiBi
-ZXR0ZXIsIGFuZCB1bnRpbCB3ZSBoYXZlIGFuc3dlcnMgdG8gd2hpY2ggZGVzaWduIGlzIGJldHRl
-ciwgaXQncyBtYXliZQo+IGJlc3QgdG8gbGVhdmUgb3B0aW9uIDIgYWxvbmU/Ck9LLCBJIHdpbGwg
-dHJ5IHRvIHZhbGlkYXRlIHRoZSBiZWhhdmlvciBvZiB0aGUgSW50ZWwgZHJpdmVyIGFuZCBiZSBk
-ZXRhaWxlZCBpbiB0aGUgZG9jdW1lbnRhdGlvbiwgYnV0IGtlZXAgdGhlCmltcGxlbWVudGF0aW9u
-IGxpa2UgdGhpcyBub3cgKHVubGVzcyB0aGUgaW50ZWwgZHJpdmVyIGRvZXMgc29tZXRoaW5nIGRp
-ZmZlcmVudCB0aGVuIEkgdGhvdWdodCBvZmMpLgo+Cj4KPiBUaGFua3MsCj4gcHEKX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
-c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
-cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+Am 23.06.21 um 09:48 schrieb Pekka Paalanen:
+> On Tue, 22 Jun 2021 11:57:53 +0200
+> Werner Sembach <wse@tuxedocomputers.com> wrote:
+>
+>> Am 22.06.21 um 09:25 schrieb Pekka Paalanen:
+>>> On Fri, 18 Jun 2021 11:11:14 +0200
+>>> Werner Sembach <wse@tuxedocomputers.com> wrote:
+>>>  
+>>>> Add "Broadcast RGB" to general drm context so that more drivers besides
+>>>> i915 and gma500 can implement it without duplicating code.
+>>>>
+>>>> Userspace can use this property to tell the graphic driver to use full or
+>>>> limited color range for a given connector, overwriting the default
+>>>> behaviour/automatic detection.
+>>>>
+>>>> Possible options are:
+>>>>     - Automatic (default/current behaviour)
+>>>>     - Full
+>>>>     - Limited 16:235
+>>>>
+>>>> In theory the driver should be able to automatically detect the monitors
+>>>> capabilities, but because of flawed standard implementations in Monitors,
+>>>> this might fail. In this case a manual overwrite is required to not have
+>>>> washed out colors or lose details in very dark or bright scenes.
+>>>>
+>>>> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+>>>> ---
+>>>>  drivers/gpu/drm/drm_atomic_helper.c |  4 +++
+>>>>  drivers/gpu/drm/drm_atomic_uapi.c   |  4 +++
+>>>>  drivers/gpu/drm/drm_connector.c     | 43 +++++++++++++++++++++++++++++
+>>>>  include/drm/drm_connector.h         | 16 +++++++++++
+>>>>  4 files changed, 67 insertions(+)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
+>>>> index 90d62f305257..0c89d32efbd0 100644
+>>>> --- a/drivers/gpu/drm/drm_atomic_helper.c
+>>>> +++ b/drivers/gpu/drm/drm_atomic_helper.c
+>>>> @@ -691,6 +691,10 @@ drm_atomic_helper_check_modeset(struct drm_device *dev,
+>>>>  			if (old_connector_state->preferred_color_format !=
+>>>>  			    new_connector_state->preferred_color_format)
+>>>>  				new_crtc_state->connectors_changed = true;
+>>>> +
+>>>> +			if (old_connector_state->preferred_color_range !=
+>>>> +			    new_connector_state->preferred_color_range)
+>>>> +				new_crtc_state->connectors_changed = true;
+>>>>  		}
+>>>>  
+>>>>  		if (funcs->atomic_check)
+>>>> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+>>>> index c536f5e22016..c589bb1a8163 100644
+>>>> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+>>>> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+>>>> @@ -798,6 +798,8 @@ static int drm_atomic_connector_set_property(struct drm_connector *connector,
+>>>>  		state->max_requested_bpc = val;
+>>>>  	} else if (property == connector->preferred_color_format_property) {
+>>>>  		state->preferred_color_format = val;
+>>>> +	} else if (property == connector->preferred_color_range_property) {
+>>>> +		state->preferred_color_range = val;
+>>>>  	} else if (connector->funcs->atomic_set_property) {
+>>>>  		return connector->funcs->atomic_set_property(connector,
+>>>>  				state, property, val);
+>>>> @@ -877,6 +879,8 @@ drm_atomic_connector_get_property(struct drm_connector *connector,
+>>>>  		*val = state->max_requested_bpc;
+>>>>  	} else if (property == connector->preferred_color_format_property) {
+>>>>  		*val = state->preferred_color_format;
+>>>> +	} else if (property == connector->preferred_color_range_property) {
+>>>> +		*val = state->preferred_color_range;
+>>>>  	} else if (connector->funcs->atomic_get_property) {
+>>>>  		return connector->funcs->atomic_get_property(connector,
+>>>>  				state, property, val);
+>>>> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+>>>> index aea03dd02e33..9bc596638613 100644
+>>>> --- a/drivers/gpu/drm/drm_connector.c
+>>>> +++ b/drivers/gpu/drm/drm_connector.c
+>>>> @@ -905,6 +905,12 @@ static const struct drm_prop_enum_list drm_active_color_format_enum_list[] = {
+>>>>  	{ DRM_COLOR_FORMAT_YCRCB420, "ycbcr420" },
+>>>>  };
+>>>>  
+>>>> +static const struct drm_prop_enum_list drm_preferred_color_range_enum_list[] = {
+>>>> +	{ DRM_MODE_COLOR_RANGE_UNSET, "Automatic" },
+>>>> +	{ DRM_MODE_COLOR_RANGE_FULL, "Full" },
+>>>> +	{ DRM_MODE_COLOR_RANGE_LIMITED_16_235, "Limited 16:235" },  
+>>> Hi,
+>>>
+>>> the same question here about these numbers as I asked on the "active
+>>> color range" property.
+>>>  
+>>>> +};
+>>>> +
+>>>>  static const struct drm_prop_enum_list drm_active_color_range_enum_list[] = {
+>>>>  	{ DRM_MODE_COLOR_RANGE_UNSET, "Unknown" },
+>>>>  	{ DRM_MODE_COLOR_RANGE_FULL, "Full" },
+>>>> @@ -1243,6 +1249,13 @@ static const struct drm_prop_enum_list dp_colorspaces[] = {
+>>>>   *	drm_connector_attach_active_color_format_property() to install this
+>>>>   *	property.
+>>>>   *
+>>>> + * Broadcast RGB:
+>>>> + *	This property is used by userspace to change the used color range. When
+>>>> + *	used the driver will use the selected range if valid for the current
+>>>> + *	color format. Drivers to use the function
+>>>> + *	drm_connector_attach_preferred_color_format_property() to create and
+>>>> + *	attach the property to the connector during initialization.  
+>>> An important detail to document here is: does userspace need to
+>>> take care that pixel data at the connector will already match the set
+>>> range, or will the driver program the hardware to produce the set range?  
+>> Since until now, the userspace didn't even know for sure if RGB or YCbCr and therefore which full/limited format was
+>> used I guess it's all kernel space conversion.
+>>> If the former, then I'm afraid the preference/active property pair
+>>> design does not work. Userspace needs to make sure the content is in
+>>> the right range, so the driver cannot second-guess that afterwards.
+>>>
+>>> If the latter, then what does the driver assume about color range just
+>>> before the automatic conversion to the final color range, and does the
+>>> range conversion happen as the final step in the color pipeline?
+>>>
+>>> If I remember the discussion about Intel right, then the driver does
+>>> the latter and assume that userspace programs KMS to always produce
+>>> full range pixels. There is no provision for userspace to produce
+>>> limited range pixels, IIRC.  
+>> I think I remember this too from an answer to one of the revisions of this patchset.
+> As long as you keep the old KMS property as is, just moving code so it
+> is used by more drivers, this is fine and one can't do otherwise anyway.
+>
+> (The rest of this email is merely pondering the future, so not about
+> this patch in particular.)
+>
+>
+> But if we had a new, more general property for the range reported to
+> monitors via infoframes, then it would be worth to re-visit the design.
+> The HDR properties only set the infoframe and expect userspace to make
+> sure that the pixels actually correspond to what the infoframes tell
+> the monitor. One can't do HDR tone mapping automatically in the kernel,
+> so in that sense the HDR property behaviour is obvious. But which
+> behaviour would fit range property or others better, I'm not sure.
+>
+> Generally there seems to be two approaches to designing KMS properties:
+>
+> - Let userspace describe what data it has and what data should be sent
+>   to a monitor, and let the kernel driver magically come up with a
+>   conversion.
+>
+> - Only userspace understands how the pixel data is encoded, and
+>   programs the transformations (DEGAMMA/CTM/GAMMA etc.) such, that the
+>   result is what a monitor expects based on e.g. infoframes.
+
+Why not both?
+
+This patchset is thought to control what's happening "on the cable", so if the input data is in a different format, the
+kernel has to convert it.
+
+Maybe in the future there could be an additional set of "input-" properties. aka "input bpc", "input color format", and
+"input color range". With an additional constraint that if "input-" property == "active-" property the kernel is not
+allowed to do any conversion regarding this aspect, giving userspace full control if wanted.
+
+>
+> Doing the former requires policy in the kernel. If there is a
+> specification that uniquely defines what the conversion is, this is
+> good. But if not or if there are artistic decisions to be made, like
+> with HDR tone mapping, then it doesn't work.
+>
+> OTOH, the former approach allows the driver to use any and all hardware
+> features it has to realize the conversion, perhaps taking advantage of
+> even fixed-function hardware blocks. The latter approach is much harder
+> to map to hardware features.
+>
+> This dilemma has been discussed in length in
+> https://lists.freedesktop.org/archives/dri-devel/2021-June/311689.html
+>
+>
+> Thanks,
+> pq
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
