@@ -7,48 +7,48 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 679B3C2B9F4
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Jun 2021 02:10:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B9AB8C2B9F4
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Jun 2021 02:37:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 310AE60FF1
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Jun 2021 02:10:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 310AE60FF1
+	by mail.kernel.org (Postfix) with ESMTPS id 798A061166
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Jun 2021 02:37:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 798A061166
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3CC0A6E854;
-	Wed, 23 Jun 2021 02:10:28 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2073.outbound.protection.outlook.com [40.107.244.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 916A06E425
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Jun 2021 02:10:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E95FC6E04E;
+	Wed, 23 Jun 2021 02:37:26 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam07on2071.outbound.protection.outlook.com [40.107.95.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E75C6E04E
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Jun 2021 02:37:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Z6uJd6/oE4TXgYFuxkNsAW+/LGK64HWZb90Y8wzOTmYnEzimyOQa3EE6P7AvrfdY7kVWcok72yOvAfUM0iicX0hD1JNShqDgMQpBhhxuOwozjzDGQKKieKG4BSmPsk3vnjret4qrGdqM8WHcGcYlTNd5AXZRY0U24B9X4O4GrDF8shMnWFWgqsU17Teuy8ygg+JTfdOjDwNKAZFFpf39pj/AbYK6Isd1oywaq8kiaAKMoePn8R4lv7luKtiuiPR8CnWAz0Lrgtnd3GwdstvX9cLJz4wst5u9lb+5vqvSRhuzQoohjPLqLIhNGxTmvz2TL+9J2bJYP+nEG7BJSnqmEw==
+ b=FZnO/UD717KazV7bHPl5FchSyKcI/i61oqUNVYBC8AW+ZIXHQzQCSLSF3eAm/my7qX1FWQ+/QV80WnaVgTXp92iFO8V1r21tA2UFJ5JNROPjh3G4ACRUDnY83thM7+odkOtIP/3LKAbN8NQzOex39Hg8S/DPeG/DtYkOydYaXlqU7rsYuCar21c96N1HqhFUa1sBmZnhmOUK3LEvUCvTeAoelu8WIzqI2Is8kfoyuKGOqttMy65BlQ3bo8JlW3CcklROz7b5IgC7m386k6TtWs4vV2UDQBjmaqxOmwix+XLCNyRAEKZebLmd80jpVZQWrA/Cw9+L2jrHE2WkuDhAnQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Gr5LDiGoH6UT3a6xdMPHl/sLG54iZlt9qRL/eddxZMU=;
- b=Ngkq02IT3n2icYw2A40yG69M3Xra3sBYZdzcWh3zzF57D4OuqQihArc6BNqO4mAdNzgcP0wCA6RahQQm6cBN/KMu0LwC2FehzF4/EgZm0uf58JJE623j+I7uQI1ydwM9B8Rbv3VecJAQQ5xttuWr/eM2uIgsWa0TuUX0wHS3cD/If8sLkiFNx8bXLpX9mrCBWp2wvsPHHmTCDwplFiJngl6gmC7STtCoYOaZduyfH5Z0SXuDlrVPZc+aNdS4femwT4AOlM/BomIQIZ7wJrNERQs13PNpApZqbiW+JPvYeI3yEFuDhoH1aT3DNsLmu6PT4RWEXq93YO5Bf+xq3f6YtQ==
+ bh=m73jGTlBV7jo+F28G0JUQYTrNpWEIVQtU8fO/7RnPMU=;
+ b=I+SfIkuBuCuKWG+D5rM9Lt2n1yYbSVK3lcYnyAGqvaY2xdvTXI4QsL7F0qITF2iTf51PLjWt66Vh/W2qeSsveSBG4xlVJp1GileUjPxJZIShpPkjus9AVSCpWev9kRZ/igw+nsdANInMUTlVE0Vaa9hZQFKJz8bONhOItstiGDDXqug11VsohSo9pgvMtEowNdxzmhbXB8KhwhTIKTFB78Jl+6jBsq3vhL4JWEDcFjeEMFGFcQkMVNwJgX1dx20dboy7S//dTfB/8+n5Wv6+r18MwTypuqhSVsUUqSnaQEXiZB/C7yFX3e8+6PtlHlUZG6y1IHM2/8cbJj3kafP63g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Gr5LDiGoH6UT3a6xdMPHl/sLG54iZlt9qRL/eddxZMU=;
- b=5k3X07bskfoPmLaYcNNbTn+Rf9s8FkvAu+1MvHfHmmt4y6cccs7rccf3w/qQUhh4zQd/7XwbDa9zyU0v6ARmYxJtl6adrabQSYnfHATLaIpNzpmerFHIvNglP+xvsyD5MWHgYrGDxwFNiUNzCY7hkZUO354nq6B+BAv9TUvLUR0=
-Received: from MW4PR03CA0349.namprd03.prod.outlook.com (2603:10b6:303:dc::24)
- by CH2PR12MB3830.namprd12.prod.outlook.com (2603:10b6:610:2f::30)
+ bh=m73jGTlBV7jo+F28G0JUQYTrNpWEIVQtU8fO/7RnPMU=;
+ b=o7jyHfMaNCFDjOd2id6OMdRfGR23fgMeb870FOaJoC/z6FEjqXWhBAntuszCoHF2iCIqfyGR2apyp6zEGQjmpAhRY6H9YVsoZ162GcL6Tz5bujQxDT0G5R+O1j5hasVkpA6OVMrfYP8xQsDG1aDFbNu2gEgYwY8P/0ahB7WF0To=
+Received: from MW2PR2101CA0033.namprd21.prod.outlook.com (2603:10b6:302:1::46)
+ by MN2PR12MB4238.namprd12.prod.outlook.com (2603:10b6:208:199::11)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.21; Wed, 23 Jun
- 2021 02:10:24 +0000
-Received: from CO1NAM11FT049.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:dc:cafe::d0) by MW4PR03CA0349.outlook.office365.com
- (2603:10b6:303:dc::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.19 via Frontend
- Transport; Wed, 23 Jun 2021 02:10:24 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4264.18; Wed, 23 Jun
+ 2021 02:37:24 +0000
+Received: from CO1NAM11FT067.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:302:1:cafe::93) by MW2PR2101CA0033.outlook.office365.com
+ (2603:10b6:302:1::46) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4287.5 via Frontend
+ Transport; Wed, 23 Jun 2021 02:37:24 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -57,46 +57,46 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT049.mail.protection.outlook.com (10.13.175.50) with Microsoft SMTP
+ CO1NAM11FT067.mail.protection.outlook.com (10.13.174.212) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4264.18 via Frontend Transport; Wed, 23 Jun 2021 02:10:24 +0000
-Received: from aaliu.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Tue, 22 Jun
- 2021 21:10:22 -0500
-From: Aaron Liu <aaron.liu@amd.com>
+ 15.20.4264.18 via Frontend Transport; Wed, 23 Jun 2021 02:37:24 +0000
+Received: from dapowell-ubuntu-200400-1.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.4; Tue, 22 Jun 2021 21:37:21 -0500
+From: Darren Powell <darren.powell@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: enable tmz on yellow carp
-Date: Wed, 23 Jun 2021 10:10:09 +0800
-Message-ID: <20210623021009.2138018-1-aaron.liu@amd.com>
-X-Mailer: git-send-email 2.25.1
+Subject: [PATCH 1/1] amdgpu/pm: remove code duplication in show_power_cap calls
+Date: Tue, 22 Jun 2021 22:34:28 -0400
+Message-ID: <20210623023428.2124-1-darren.powell@amd.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
 X-Originating-IP: [10.180.168.240]
 X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 524320f9-8929-40ce-f103-08d935ec0fb8
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3830:
-X-Microsoft-Antispam-PRVS: <CH2PR12MB3830960D8165C7005072E89CF0089@CH2PR12MB3830.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:353;
+X-MS-Office365-Filtering-Correlation-Id: 8c0e833f-24a6-4573-ac81-08d935efd58f
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4238:
+X-Microsoft-Antispam-PRVS: <MN2PR12MB42380B9A04E375BAE4EF6DCDF0089@MN2PR12MB4238.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:62;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: da32JYtNJCN9bv2vGs9L4recnxah2gURousDCjqAAroWB/wWbr9bVDzl52RAOGgwnewqUdnmd0Y5xJYLVe1XBwO4FZ6ngsg3hkDSvJU3rfBLfxiTFUbnnHc4S+PGqadAGVNIpcm1sZ4v7wQMEqSfM84QDb24nx2vIZWkVZkmEES/rm5csXHBtRc/iIzWTxrjan8EmTJrhpBAfVEiZnw3Df//NrYzayjMdmYzKyfCZlwX5xJ7WXV0Y45NRWXnlP9zOOWyGuS/gbATBr2Sc7oDreyp+t4e/K0WEYmeMRJ/tGMyc06Tlk/zHCBOtdg7JUayVJAo5UurPtGVF+VTo5GlF6a4OMhLWVcSr+F4C2rupBBOue92OSNJEzuVDXQ+wnvTJJT2cYf8dKLZQkbMTrkaYWesmpjDvVW0aikZTDxpF58SQUmPCPRUmJbiItssl81Z+IgDFazR0VkfRvoQVfGmVQcnGM4ZnI6GpUC8nxYZG9ZeMlSHu1smGT42fgdku2ImKLAjudtBfnrTxy2s8v0ybIX6PXggPlsRWIa8LUpkYI6StDuWFC7kGSUDLIz9UbM0nmRWKxUTX7/Ixh2c2T7XfmaUAo+8eM8Fdscquy5aoJR20dVPURfSOt9JbBtoZ0suJJg7fKp2WKPIiW7Arl+SCs5D66KaL3OPZkg/7aUJQVBEd4LRv28lhdeuw7nSG11L
+X-Microsoft-Antispam-Message-Info: Xyg6qWbO/TzUe9nYtNmeQzxr1BwELXa3MoR3YhKxaGE9JnLH42orJz1uC72PCp2ukwAOcA13ArcuLlTN0+d5MSV37ZVDGAF5zPbfAMG267E+r2ns9Ztt9ZHDOxXFwH4FYN59L1bFHCFkvSYeLIeip6DH5+LoHJ/D/5UN835RnlOo/NKkD0R+/ENolrIp9gmUGR46zAy0nVYrYrGq2lG1LVXtyOwdiErBnPNA9naIWQk8EiQUFptTEiOWILAOErVFpjK9K9yTms/hUScfvFA6tWa3UbaxIl8GK9IgsPIoWKFkegl6Ujni58izsrRthWLVPJlFKgfMStXzMhsIjl7lVnDq8rnT8gSCh9RCjsZISV6jCDbRAAtUano/tiVhu8farQquOJvw2WvwWJOOgyd7lqur4mMgwHVMQCfK+pCEmfGGzfUzGLkkMAy7aDDTFLZxO3HY6feZxCd8Tbx9da3knvzmOheekuIjaxR5Kll+0dZNWOHGobBNju+azZLSTN7FfUaWTr47JWwHAj3L93Ss8oS/Pr3EYaGypXkPQN2X0esvV09vhzlL2SNQMDz8fiN3HIzx0rHIgeh/xoywVWdjkyzbSnGG852HNZEAtbsupTIBW0hlA2czWrA+BUl2o7JsrmgHN69AeDw7eFPErAqh40F/RXNeXLml1z6r3iuoOW0i+NapqBzL74kVdrIS7sxZ
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(396003)(346002)(376002)(136003)(39860400002)(36840700001)(46966006)(83380400001)(36860700001)(47076005)(186003)(70586007)(82310400003)(6916009)(70206006)(16526019)(81166007)(356005)(26005)(4744005)(44832011)(54906003)(316002)(8676002)(86362001)(1076003)(2616005)(36756003)(336012)(6666004)(82740400003)(2906002)(5660300002)(7696005)(8936002)(4326008)(478600001)(426003)(36900700001);
+ SFS:(4636009)(39860400002)(376002)(346002)(136003)(396003)(36840700001)(46966006)(356005)(81166007)(82740400003)(4326008)(5660300002)(36756003)(1076003)(7696005)(316002)(6916009)(336012)(426003)(478600001)(16526019)(2616005)(2906002)(8676002)(86362001)(8936002)(70206006)(70586007)(44832011)(26005)(47076005)(36860700001)(82310400003)(83380400001)(186003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2021 02:10:24.0259 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 524320f9-8929-40ce-f103-08d935ec0fb8
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2021 02:37:24.3525 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8c0e833f-24a6-4573-ac81-08d935efd58f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT049.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT067.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3830
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4238
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,34 +108,187 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Ray.Huang@amd.com, Aaron Liu <aaron.liu@amd.com>
+Cc: Darren Powell <darren.powell@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The tmz functions are verified on yellow carp. So enable it by
-default.
+ v2: reorder to check pointers before calling pm_runtime_* functions
 
-Signed-off-by: Aaron Liu <aaron.liu@amd.com>
+ created generic function and call with enum from
+ * amdgpu_hwmon_show_power_cap_max
+ * amdgpu_hwmon_show_power_cap
+ * amdgpu_hwmon_show_power_cap_default
+
+=== Test ===
+AMDGPU_PCI_ADDR=`lspci -nn | grep "VGA\|Display" | cut -d " " -f 1`
+AMDGPU_HWMON=`ls -la /sys/class/hwmon | grep $AMDGPU_PCI_ADDR | cut -d " " -f 10`
+HWMON_DIR=/sys/class/hwmon/${AMDGPU_HWMON}
+
+cp pp_show_power_cap.txt{,.old}
+lspci -nn | grep "VGA\|Display" > pp_show_power_cap.test.log
+FILES="
+power1_cap
+power1_cap_max
+power1_cap_default "
+
+for f in $FILES
+do
+  echo  $f = `cat $HWMON_DIR/$f` >> pp_show_power_cap.test.log
+done
+
+Signed-off-by: Darren Powell <darren.powell@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c | 96 ++++++------------------------
+ 1 file changed, 19 insertions(+), 77 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-index 3014985cbf47..1525d957e114 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-@@ -553,6 +553,7 @@ void amdgpu_gmc_tmz_set(struct amdgpu_device *adev)
- 	case CHIP_NAVI14:
- 	case CHIP_NAVI12:
- 	case CHIP_VANGOGH:
-+	case CHIP_YELLOW_CARP:
- 		/* Don't enable it by default yet.
- 		 */
- 		if (amdgpu_tmz < 1) {
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+index b2335a1d3f98..fa63160e6405 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+@@ -2901,14 +2901,14 @@ static ssize_t amdgpu_hwmon_show_power_cap_min(struct device *dev,
+ 	return sprintf(buf, "%i\n", 0);
+ }
+ 
+-static ssize_t amdgpu_hwmon_show_power_cap_max(struct device *dev,
+-					 struct device_attribute *attr,
+-					 char *buf)
++static ssize_t amdgpu_hwmon_show_power_cap_generic(struct device *dev,
++				   struct device_attribute *attr,
++				   char *buf,
++				   enum pp_power_limit_level pp_limit_level)
+ {
+ 	struct amdgpu_device *adev = dev_get_drvdata(dev);
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+ 	enum pp_power_type power_type = to_sensor_dev_attr(attr)->index;
+-	enum pp_power_limit_level pp_limit_level = PP_PWR_LIMIT_MAX;
+ 	uint32_t limit;
+ 	ssize_t size;
+ 	int r;
+@@ -2918,17 +2918,17 @@ static ssize_t amdgpu_hwmon_show_power_cap_max(struct device *dev,
+ 	if (adev->in_suspend && !adev->in_runpm)
+ 		return -EPERM;
+ 
++	if ( !(pp_funcs && pp_funcs->get_power_limit))
++		return -ENODATA;
++
+ 	r = pm_runtime_get_sync(adev_to_drm(adev)->dev);
+ 	if (r < 0) {
+ 		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+ 		return r;
+ 	}
+ 
+-	if (pp_funcs && pp_funcs->get_power_limit)
+-		r = pp_funcs->get_power_limit(adev->powerplay.pp_handle, &limit,
+-					      pp_limit_level, power_type);
+-	else
+-		r = -ENODATA;
++	r = pp_funcs->get_power_limit(adev->powerplay.pp_handle, &limit,
++				      pp_limit_level, power_type);
+ 
+ 	if (!r)
+ 		size = snprintf(buf, PAGE_SIZE, "%u\n", limit * 1000000);
+@@ -2941,85 +2941,27 @@ static ssize_t amdgpu_hwmon_show_power_cap_max(struct device *dev,
+ 	return size;
+ }
+ 
+-static ssize_t amdgpu_hwmon_show_power_cap(struct device *dev,
++static ssize_t amdgpu_hwmon_show_power_cap_max(struct device *dev,
+ 					 struct device_attribute *attr,
+ 					 char *buf)
+ {
+-	struct amdgpu_device *adev = dev_get_drvdata(dev);
+-	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	enum pp_power_type power_type = to_sensor_dev_attr(attr)->index;
+-	enum pp_power_limit_level pp_limit_level = PP_PWR_LIMIT_CURRENT;
+-	uint32_t limit;
+-	ssize_t size;
+-	int r;
+-
+-	if (amdgpu_in_reset(adev))
+-		return -EPERM;
+-	if (adev->in_suspend && !adev->in_runpm)
+-		return -EPERM;
+-
+-	r = pm_runtime_get_sync(adev_to_drm(adev)->dev);
+-	if (r < 0) {
+-		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+-		return r;
+-	}
+-
+-	if (pp_funcs && pp_funcs->get_power_limit)
+-		r = pp_funcs->get_power_limit(adev->powerplay.pp_handle, &limit,
+-					      pp_limit_level, power_type);
+-	else
+-		r = -ENODATA;
+-
+-	if (!r)
+-		size = snprintf(buf, PAGE_SIZE, "%u\n", limit * 1000000);
+-	else
+-		size = snprintf(buf, PAGE_SIZE, "\n");
+-
+-	pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
+-	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
++	return amdgpu_hwmon_show_power_cap_generic(dev, attr, buf, PP_PWR_LIMIT_MAX);
++}
+ 
+-	return size;
++static ssize_t amdgpu_hwmon_show_power_cap(struct device *dev,
++					 struct device_attribute *attr,
++					 char *buf)
++{
++	return amdgpu_hwmon_show_power_cap_generic(dev, attr, buf, PP_PWR_LIMIT_CURRENT);
+ }
+ 
+ static ssize_t amdgpu_hwmon_show_power_cap_default(struct device *dev,
+ 					 struct device_attribute *attr,
+ 					 char *buf)
+ {
+-	struct amdgpu_device *adev = dev_get_drvdata(dev);
+-	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	enum pp_power_type power_type = to_sensor_dev_attr(attr)->index;
+-	enum pp_power_limit_level pp_limit_level = PP_PWR_LIMIT_DEFAULT;
+-	uint32_t limit;
+-	ssize_t size;
+-	int r;
+-
+-	if (amdgpu_in_reset(adev))
+-		return -EPERM;
+-	if (adev->in_suspend && !adev->in_runpm)
+-		return -EPERM;
+-
+-	r = pm_runtime_get_sync(adev_to_drm(adev)->dev);
+-	if (r < 0) {
+-		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+-		return r;
+-	}
+-
+-	if (pp_funcs && pp_funcs->get_power_limit)
+-		r = pp_funcs->get_power_limit(adev->powerplay.pp_handle, &limit,
+-					      pp_limit_level, power_type);
+-	else
+-		r = -ENODATA;
+-
+-	if (!r)
+-		size = snprintf(buf, PAGE_SIZE, "%u\n", limit * 1000000);
+-	else
+-		size = snprintf(buf, PAGE_SIZE, "\n");
+-
+-	pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
+-	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+-
+-	return size;
++	return amdgpu_hwmon_show_power_cap_generic(dev, attr, buf, PP_PWR_LIMIT_DEFAULT);
+ }
++
+ static ssize_t amdgpu_hwmon_show_power_label(struct device *dev,
+ 					 struct device_attribute *attr,
+ 					 char *buf)
+
+base-commit: 1971ad5abcd8575efd12d2e6639fd8f58210a8d8
 -- 
-2.25.1
+2.31.1
 
 _______________________________________________
 amd-gfx mailing list
