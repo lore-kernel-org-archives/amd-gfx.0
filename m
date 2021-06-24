@@ -2,85 +2,75 @@ Return-Path: <SRS0=QFXE=LS=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.0 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6C8D6C48BDF
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 12:57:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A20CFC48BDF
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 13:01:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 32DA56128D
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 12:57:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 32DA56128D
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
+	by mail.kernel.org (Postfix) with ESMTPS id 64D4F61003
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 13:01:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 64D4F61003
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CADAE6EAE3;
-	Thu, 24 Jun 2021 12:57:49 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E5596EADA;
- Thu, 24 Jun 2021 12:57:48 +0000 (UTC)
-Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
- (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 7CFC81FD40;
- Thu, 24 Jun 2021 12:57:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1624539466; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=nlRQ0RGts2fg2n9D/bEIlhwvWJbNJH9fkaGW/6cqJVk=;
- b=u3LjD6oZssj/mJkoGStiSAvIHllAs+WCZqbgI6BOg34/wy6NHBbzTQ1JSVyR10sH/NyAAw
- pJl/nhBITtCxww7p96mvF926pQTQ0Gnk+voDz/USxmzhEd10NSPQzg7wj0bremchN+1FAC
- 43RglR2P5jMZtZBUFtwX3C3sZNzp5eg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1624539466;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=nlRQ0RGts2fg2n9D/bEIlhwvWJbNJH9fkaGW/6cqJVk=;
- b=skIn5fqMc0iuV1PMO3x3WjCWGfF0W6cyrE+GtqtdFjaVEN9HzBM8/z3ojcgJYirCjjhOr/
- y3pCmtMNeAOKcwCA==
-Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id 81AF511A97;
- Thu, 24 Jun 2021 12:57:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1624539466; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=nlRQ0RGts2fg2n9D/bEIlhwvWJbNJH9fkaGW/6cqJVk=;
- b=u3LjD6oZssj/mJkoGStiSAvIHllAs+WCZqbgI6BOg34/wy6NHBbzTQ1JSVyR10sH/NyAAw
- pJl/nhBITtCxww7p96mvF926pQTQ0Gnk+voDz/USxmzhEd10NSPQzg7wj0bremchN+1FAC
- 43RglR2P5jMZtZBUFtwX3C3sZNzp5eg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1624539466;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=nlRQ0RGts2fg2n9D/bEIlhwvWJbNJH9fkaGW/6cqJVk=;
- b=skIn5fqMc0iuV1PMO3x3WjCWGfF0W6cyrE+GtqtdFjaVEN9HzBM8/z3ojcgJYirCjjhOr/
- y3pCmtMNeAOKcwCA==
-Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id V0K6HkmB1GBJTAAALh3uQQ
- (envelope-from <tzimmermann@suse.de>); Thu, 24 Jun 2021 12:57:45 +0000
-Subject: Re: [PATCH v3 04/27] drm: Don't test for IRQ support in VBLANK ioctls
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Thierry Reding <thierry.reding@gmail.com>
-References: <20210624072916.27703-1-tzimmermann@suse.de>
- <20210624072916.27703-5-tzimmermann@suse.de> <87im23u1ok.fsf@intel.com>
- <b5e7729f-ed11-e9ca-386e-562feb2bd2b7@suse.de> <877dijtzl2.fsf@intel.com>
- <af21db75-584f-aec0-9659-d5386f27b4ea@suse.de>
- <YNR0m2DJsdIW3NAZ@orome.fritz.box> <87zgvfsalz.fsf@intel.com>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Message-ID: <0b0b7cda-9808-f0ed-4122-2d8eeaa8f7c3@suse.de>
-Date: Thu, 24 Jun 2021 14:57:44 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id D4B9A6EADA;
+	Thu, 24 Jun 2021 13:01:39 +0000 (UTC)
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [IPv6:2a00:1450:4864:20::636])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E4136EADA
+ for <amd-gfx@lists.freedesktop.org>; Thu, 24 Jun 2021 13:01:38 +0000 (UTC)
+Received: by mail-ej1-x636.google.com with SMTP id gn32so9445128ejc.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 24 Jun 2021 06:01:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=bKnihQGJPT8SQCUfJnBpGgQdFUbHtuV5QyEHuxRVi54=;
+ b=NsND0aP0DThaZWoFUOm9xUHKGGvEm9XR39NEDtclO9DJ95+ntIVtldhK6tsx5j7GPd
+ NpuH+yi9tfNFZzmJlGibFiKf/78BnZOYpQ2JLx+u0AlFPg8OxXooU2449zL9vge6OzCH
+ xRe56M5Dk9VY6FrD6EbGmzsSkr7DOtV9aXSbgskDnTz2JX+BZMcaSJ6RJpBWhXcLp11I
+ QY1W7S1eyVwIhdPnmoW49NH2ISrmnBWCMjWLN7qr1Odfuhut50PMHSChKPGit0cJY/V7
+ 78Cr/vzNVNW/8/Fd42Y0KQFqGbrit2U/45fa9eTvo9HwbuVzBpHlw7Yv1RNuwrusWnCF
+ 6TVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=bKnihQGJPT8SQCUfJnBpGgQdFUbHtuV5QyEHuxRVi54=;
+ b=mre1n8olvgcMP0cvBfQ9wUifFPLy8RvyX7hjHgKGa7dEb8Yu/lxv2WzOE44Lk30uB0
+ T23jlKHdk9r+G1Qxm5S0JSVR3IWVuNVrgyP/6Xgxio6myCjBmL6mwAI4/v+k8hWER6m2
+ BwC8bNuhlltHqByXpqqvNGCKXfG11cK2l1vw3FY4DrIpIlHdXGzCI31DQMqGb3ju/TQz
+ zhu2wdVgfHly2O4p3Q1iqAFwzF4hX5HxbosR5c2+vZcBb084QZgoYmzLaXtrOdoQ0un1
+ o1i4ZGORJOy9KQ0H+H1u3Gf/Jk/kKKRbAFTqhaGNbcE2aR+ehe2Rojq8pYkA9P0GeYNS
+ K/Lw==
+X-Gm-Message-State: AOAM532jBWr39zKx5k6NiFvmnn9xUbmfCbZw5cB0dYjHqEwxAhxYjELA
+ L0K32Sb+RvDk1rL/onRDeq4G60xeXUo=
+X-Google-Smtp-Source: ABdhPJxEeGm8dJ6rhrdWtnL3lWbHk++9CJaTnakB8r39z7Pv2h2KF2TnZg6c4io8GtHrTYVSmUXCuw==
+X-Received: by 2002:a17:907:7b82:: with SMTP id
+ ne2mr5025803ejc.271.1624539697327; 
+ Thu, 24 Jun 2021 06:01:37 -0700 (PDT)
+Received: from ?IPv6:2a02:908:1252:fb60:8a1c:e700:29c4:44b6?
+ ([2a02:908:1252:fb60:8a1c:e700:29c4:44b6])
+ by smtp.gmail.com with ESMTPSA id s7sm1230483ejd.88.2021.06.24.06.01.36
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 24 Jun 2021 06:01:36 -0700 (PDT)
+Subject: Re: [PATCH v2] drm/amdgpu: Restore msix after FLR
+To: Peng Ju Zhou <PengJu.Zhou@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20210624053132.3458-1-PengJu.Zhou@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <a550d028-a8ae-b783-dfc7-809c3f350380@gmail.com>
+Date: Thu, 24 Jun 2021 15:01:36 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <87zgvfsalz.fsf@intel.com>
+In-Reply-To: <20210624053132.3458-1-PengJu.Zhou@amd.com>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,232 +82,63 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: hamohammed.sa@gmail.com, emma@anholt.net, airlied@linux.ie,
- nouveau@lists.freedesktop.org, laurentiu.palcu@oss.nxp.com,
- liviu.dudau@arm.com, alexandre.torgue@foss.st.com,
- dri-devel@lists.freedesktop.org, linux@armlinux.org.uk, melissa.srw@gmail.com,
- matthias.bgg@gmail.com, laurent.pinchart@ideasonboard.com,
- benjamin.gaignard@linaro.org, mihail.atanassov@arm.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-samsung-soc@vger.kernel.org,
- jy0922.shim@samsung.com, krzysztof.kozlowski@canonical.com, tomba@kernel.org,
- michal.simek@xilinx.com, jernej.skrabec@gmail.com, jonathanh@nvidia.com,
- linux-rockchip@lists.infradead.org, wens@csie.org, james.qian.wang@arm.com,
- linux-imx@nxp.com, xinliang.liu@linaro.org,
- Daniel Vetter <daniel.vetter@ffwll.ch>, linux-graphics-maintainer@vmware.com,
- kong.kongxinwei@hisilicon.com, s.hauer@pengutronix.de, bskeggs@redhat.com,
- chunkuang.hu@kernel.org, mcoquelin.stm32@gmail.com, puck.chen@hisilicon.com,
- intel-gfx@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- rodrigo.vivi@intel.com, linux-tegra@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, amd-gfx@lists.freedesktop.org,
- hyun.kwon@xilinx.com, rodrigosiqueiramelo@gmail.com, shawnguo@kernel.org,
- yannick.fertre@foss.st.com, Xinhui.Pan@amd.com, sw0312.kim@samsung.com,
- hjc@rock-chips.com, linux-sunxi@lists.linux.dev, kyungmin.park@samsung.com,
- kieran.bingham+renesas@ideasonboard.com, philippe.cornu@foss.st.com,
- kernel@pengutronix.de, alexander.deucher@amd.com, tiantao6@hisilicon.com,
- jyri.sarha@iki.fi, christian.koenig@amd.com
-Content-Type: multipart/mixed; boundary="===============0634176486=="
+Cc: "Emily.Deng" <Emily.Deng@amd.com>
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============0634176486==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="uZAbLLO6gAsgbliLJ4wVdD8Q3Prh3JDl0"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---uZAbLLO6gAsgbliLJ4wVdD8Q3Prh3JDl0
-Content-Type: multipart/mixed; boundary="lmd8tCC7cJwEr0gUau7cSsDcSUmocjFNc";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Thierry Reding <thierry.reding@gmail.com>
-Cc: hamohammed.sa@gmail.com, emma@anholt.net, airlied@linux.ie,
- nouveau@lists.freedesktop.org, rodrigo.vivi@intel.com, liviu.dudau@arm.com,
- alexandre.torgue@foss.st.com, dri-devel@lists.freedesktop.org,
- michal.simek@xilinx.com, melissa.srw@gmail.com, linux-tegra@vger.kernel.org,
- laurent.pinchart@ideasonboard.com, benjamin.gaignard@linaro.org,
- linux@armlinux.org.uk, mihail.atanassov@arm.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-samsung-soc@vger.kernel.org,
- jy0922.shim@samsung.com, krzysztof.kozlowski@canonical.com,
- linux-rockchip@lists.infradead.org, linux-mediatek@lists.infradead.org,
- wens@csie.org, jernej.skrabec@gmail.com, jonathanh@nvidia.com,
- xinliang.liu@linaro.org, kong.kongxinwei@hisilicon.com,
- james.qian.wang@arm.com, linux-imx@nxp.com,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- linux-graphics-maintainer@vmware.com, intel-gfx@lists.freedesktop.org,
- bskeggs@redhat.com, chunkuang.hu@kernel.org, puck.chen@hisilicon.com,
- s.hauer@pengutronix.de, rodrigosiqueiramelo@gmail.com,
- laurentiu.palcu@oss.nxp.com, matthias.bgg@gmail.com, kernel@pengutronix.de,
- linux-arm-kernel@lists.infradead.org, mcoquelin.stm32@gmail.com,
- amd-gfx@lists.freedesktop.org, hyun.kwon@xilinx.com, tomba@kernel.org,
- jyri.sarha@iki.fi, yannick.fertre@foss.st.com, Xinhui.Pan@amd.com,
- sw0312.kim@samsung.com, hjc@rock-chips.com, christian.koenig@amd.com,
- linux-sunxi@lists.linux.dev, kyungmin.park@samsung.com,
- kieran.bingham+renesas@ideasonboard.com, philippe.cornu@foss.st.com,
- alexander.deucher@amd.com, tiantao6@hisilicon.com, shawnguo@kernel.org
-Message-ID: <0b0b7cda-9808-f0ed-4122-2d8eeaa8f7c3@suse.de>
-Subject: Re: [PATCH v3 04/27] drm: Don't test for IRQ support in VBLANK ioctls
-References: <20210624072916.27703-1-tzimmermann@suse.de>
- <20210624072916.27703-5-tzimmermann@suse.de> <87im23u1ok.fsf@intel.com>
- <b5e7729f-ed11-e9ca-386e-562feb2bd2b7@suse.de> <877dijtzl2.fsf@intel.com>
- <af21db75-584f-aec0-9659-d5386f27b4ea@suse.de>
- <YNR0m2DJsdIW3NAZ@orome.fritz.box> <87zgvfsalz.fsf@intel.com>
-In-Reply-To: <87zgvfsalz.fsf@intel.com>
-
---lmd8tCC7cJwEr0gUau7cSsDcSUmocjFNc
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-
-Hi
-
-Am 24.06.21 um 14:36 schrieb Jani Nikula:
-> On Thu, 24 Jun 2021, Thierry Reding <thierry.reding@gmail.com> wrote:
->> On Thu, Jun 24, 2021 at 11:07:57AM +0200, Thomas Zimmermann wrote:
->>> Hi
->>>
->>> Am 24.06.21 um 10:51 schrieb Jani Nikula:
->>>> On Thu, 24 Jun 2021, Thomas Zimmermann <tzimmermann@suse.de> wrote:
->>>>> Hi
->>>>>
->>>>> Am 24.06.21 um 10:06 schrieb Jani Nikula:
->>>>>> On Thu, 24 Jun 2021, Thomas Zimmermann <tzimmermann@suse.de> wrote=
-:
->>>>>>> diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_v=
-blank.c
->>>>>>> index 3417e1ac7918..10fe16bafcb6 100644
->>>>>>> --- a/drivers/gpu/drm/drm_vblank.c
->>>>>>> +++ b/drivers/gpu/drm/drm_vblank.c
->>>>>>> @@ -1748,8 +1748,16 @@ int drm_wait_vblank_ioctl(struct drm_devic=
-e *dev, void *data,
->>>>>>>     	unsigned int pipe_index;
->>>>>>>     	unsigned int flags, pipe, high_pipe;
->>>>>>> -	if (!dev->irq_enabled)
->>>>>>> -		return -EOPNOTSUPP;
->>>>>>> +#if defined(CONFIG_DRM_LEGACY)
->>>>>>> +	if  (unlikely(drm_core_check_feature(dev, DRIVER_LEGACY))) {
->>>>>>> +		if (!dev->irq_enabled)
->>>>>>> +			return -EOPNOTSUPP;
->>>>>>> +	} else /* if DRIVER_MODESET */
->>>>>>> +#endif
->>>>>>> +	{
->>>>>>> +		if (!drm_dev_has_vblank(dev))
->>>>>>> +			return -EOPNOTSUPP;
->>>>>>> +	}
->>>>>>
->>>>>> Sheesh I hate this kind of inline #ifdefs.
->>>>>>
->>>>>> Two alternate suggestions that I believe should be as just efficie=
-nt:
->>>>>
->>>>> Or how about:
->>>>>
->>>>> static bool drm_wait_vblank_supported(struct drm_device *dev)
->>>>>
->>>>> {
->>>>>
->>>>> if defined(CONFIG_DRM_LEGACY)
->>>>> 	if  (unlikely(drm_core_check_feature(dev, DRIVER_LEGACY)))
->>>>>
->>>>> 		return dev->irq_enabled;
->>>>>
->>>>> #endif
->>>>> 	return drm_dev_has_vblank(dev);
->>>>>
->>>>> }
->>>>>
->>>>>
->>>>> ?
->>>>>
->>>>> It's inline, but still readable.
->>>>
->>>> It's definitely better than the original, but it's unclear to me why=
-
->>>> you'd prefer this over option 2) below. I guess the only reason I ca=
-n
->>>> think of is emphasizing the conditional compilation. However,
->>>> IS_ENABLED() is widely used in this manner specifically to avoid inl=
-ine
->>>> #if, and the compiler optimizes it away.
->>>
->>> It's simply more readable to me as the condition is simpler. But opti=
-on 2 is
->>> also ok.
->>
->> Perhaps do something like this, then:
->>
->> 	if (IS_ENABLED(CONFIG_DRM_LEGACY)) {
->> 		if (unlikely(drm_core_check_feature(dev, DRIVER_LEGACY)))
->> 			return dev->irq_enabled;
->> 	}
->>
->> 	return drm_dev_has_vblank(dev);
->>
->> That's about just as readable as the variant involving the preprocesso=
-r
->> but has all the benefits of not using the preprocessor.
->=20
-> Looks like a winner to me. :)
-
-That's the most readable.
-
-But I just remembered that irq_enabled will likely become legacy-only in =
-
-the device structure. We'll need an ifdef variant then. :/
-
-Best regards
-Thomas
-
->=20
-> BR,
-> Jani.
->=20
->=20
-
---=20
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
-(HRB 36809, AG N=C3=BCrnberg)
-Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
 
 
---lmd8tCC7cJwEr0gUau7cSsDcSUmocjFNc--
+Am 24.06.21 um 07:31 schrieb Peng Ju Zhou:
+> From: "Emily.Deng" <Emily.Deng@amd.com>
+>
+> After FLR, the msix will be cleared, so need to re-enable it.
+>
+> Signed-off-by: Emily.Deng <Emily.Deng@amd.com>
+> Signed-off-by: Peng Ju Zhou <PengJu.Zhou@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c | 13 +++++++++++++
+>   1 file changed, 13 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+> index 90f50561b43a..ba9edafd4fc6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+> @@ -277,6 +277,18 @@ static bool amdgpu_msi_ok(struct amdgpu_device *adev)
+>   	return true;
+>   }
+>   
+> +void amdgpu_restore_msix(struct amdgpu_device *adev)
+> +{
+> +#ifdef PCI_IRQ_MSIX
 
---uZAbLLO6gAsgbliLJ4wVdD8Q3Prh3JDl0
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+Please drop that ifdef, the macro is always defined upstream.
 
------BEGIN PGP SIGNATURE-----
+Christian.
 
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmDUgUgFAwAAAAAACgkQlh/E3EQov+Bk
-HA/9GKE6DtrNVTmNxi2Q1NuMTT4X0e/U8VAQ+IlFKl8xxDejBHRg5B2w4IWO1ryG0fVvwJTmulCJ
-4oIF7texau6jTumwKhAXbRwUOjdRyO1EVchjVjZ9OCG9+pab1hN4k6aH8EmG1Jbk47pgPrcn72Eb
-/Wk9L3GlqhVg/h5/gXnNXX7lE3N/zwms6VexWkqGXOQN8/eRK03NFHIaim9TH2ZwA52ePGCFxf7X
-qGCSxGUsTDfpjp1wh7vHkZQu8Xob/WUqBe8VD4l6qSxXmaaK6GX8PkcR/KHSaEQTbT9+xeiaARfc
-fL+AAzsKgwT7VHQiBtiDp+vTFSb7Smqb1njcV6XKoT22ChKIkwXgosP0un57vun3nbUCINjkSWhH
-sIDquVu33/iLM0phsJJGzNBVZIZ/TKjNZLN0xKL14t3QCiGaPmgK2T4oIIddEpEWDpC44+ReNuG+
-gmDsDDCGlph9N3IQ3hFbmZEbE3zq3wpoNZc8waPul0MIh3NP4oVXqFWKfZQHe5ZG2L+SsXA0mD3V
-JQ4YgpDzpqDrPVZN3e7IDy5AIAq8lHKQ7HjDnk9BAeU07ugunwtotH8nLRpsxEoH2rqRPHWLbskz
-MH+boqUIKPbGSWWh3OCLIsONS9XZR5dnZG2etdxPgteJRgWatYNmdaacVJzZt/epo1ZxEnEZXi3C
-DRk=
-=+AeC
------END PGP SIGNATURE-----
-
---uZAbLLO6gAsgbliLJ4wVdD8Q3Prh3JDl0--
-
---===============0634176486==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+> +	u16 ctrl;
+> +
+> +	pci_read_config_word(adev->pdev, adev->pdev->msix_cap + PCI_MSIX_FLAGS, &ctrl);
+> +	ctrl &= ~PCI_MSIX_FLAGS_ENABLE;
+> +	pci_write_config_word(adev->pdev, adev->pdev->msix_cap + PCI_MSIX_FLAGS, ctrl);
+> +	ctrl |= PCI_MSIX_FLAGS_ENABLE;
+> +	pci_write_config_word(adev->pdev, adev->pdev->msix_cap + PCI_MSIX_FLAGS, ctrl);
+> +#endif
+> +}
+>   /**
+>    * amdgpu_irq_init - initialize interrupt handling
+>    *
+> @@ -558,6 +570,7 @@ void amdgpu_irq_gpu_reset_resume_helper(struct amdgpu_device *adev)
+>   {
+>   	int i, j, k;
+>   
+> +	amdgpu_restore_msix(adev);
+>   	for (i = 0; i < AMDGPU_IRQ_CLIENTID_MAX; ++i) {
+>   		if (!adev->irq.client[i].sources)
+>   			continue;
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0634176486==--
