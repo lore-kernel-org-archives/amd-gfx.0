@@ -2,83 +2,95 @@ Return-Path: <SRS0=QFXE=LS=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 986FBC49EA5
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 07:06:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 89AB4C49EA7
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 07:29:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6973B613D3
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 07:06:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6973B613D3
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+	by mail.kernel.org (Postfix) with ESMTPS id 4F9EF6100A
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 07:29:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4F9EF6100A
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 256BF6EA1C;
-	Thu, 24 Jun 2021 07:06:30 +0000 (UTC)
-Received: from mail-qk1-x733.google.com (mail-qk1-x733.google.com
- [IPv6:2607:f8b0:4864:20::733])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D31B6E99E
- for <amd-gfx@lists.freedesktop.org>; Thu, 24 Jun 2021 00:45:13 +0000 (UTC)
-Received: by mail-qk1-x733.google.com with SMTP id o6so10113018qkh.4
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Jun 2021 17:45:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ziepe.ca; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=EFcFEiW34m53hHVRH/hYAOinlbr3mbVvwuYYaYtTuh8=;
- b=G1KDqzwpGU22cmRZBgDHPWa87kbMIhmgX8Prq4EL0fmRPLBrFBeajfqHskFpu8RKTX
- yPnWNNhZxtgtf1LNFARLTco5JxjiV2oulGE5y/6osdL4RwXiUVMTAG5ut6nrvgtCxcyW
- WNdQQ1Be+uGC+xnXPFnIEB+CnxBIJjQavpHiEs+mnCS/UyCcFsHD23X3fg/71TBLMoTI
- hf7TgXvMgDwaZel4MR99dGUXP8aAPP1F5KANaExTx3B1Gzybwmv9QfKVsJCcbxExhAHC
- HBloe8ZRqPH9mLrrauCiklIS4IB5euV3NwN6tbG+Ga5k1mdv/+36MmqpccO7p5tm0V0m
- ZRWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=EFcFEiW34m53hHVRH/hYAOinlbr3mbVvwuYYaYtTuh8=;
- b=fNwnGQBDcn6SzIIFS9jemmmHdXX+CrGt9jHskcdnff+WgbIrVU1FRvXlhg3nbwEYVU
- aoB0Jhsx6d8MOp/WUQJ4QAk3cFTgx1YESEb3TXDv4a0/pixXEHvThD78qiZ6ExzC4pW0
- 24QeQDS1tSP0uXUs3oeZGjt51+ucN7M3LqbpzCuvT1bE9jwglH+FTnIVpLIaaMPv3Pqm
- CTIE0XjDmIxuvB76EadSly3qyzJ14Bn6puOQoJ7Rd2F5r0nIx8qTYXJYt1EwyVhc+DlS
- Hm++44meFvUjk0CQtwpQL7dNntARsidhdCFPnFsErW2M9o7x+0mYN29FtrMJBKrjFxtL
- Ps1w==
-X-Gm-Message-State: AOAM530dpeFbrNvCq7wRHuxOepNSN0FZDu6r3gSa6Axib2qqGzpDGjzA
- gUPyihxQuBWusVpMJBhMO0kWSA==
-X-Google-Smtp-Source: ABdhPJyllJgYeDzAla5FLLIkN9PiWxiijQsV7UXnwLjZeIyw9AzKaK9eZnxQ5B0p88Zubn0YY0PqUA==
-X-Received: by 2002:a37:b205:: with SMTP id b5mr3007100qkf.208.1624495512436; 
- Wed, 23 Jun 2021 17:45:12 -0700 (PDT)
-Received: from ziepe.ca
- (hlfxns017vw-47-55-113-94.dhcp-dynamic.fibreop.ns.bellaliant.net.
- [47.55.113.94])
- by smtp.gmail.com with ESMTPSA id n207sm1169771qka.101.2021.06.23.17.45.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Jun 2021 17:45:11 -0700 (PDT)
-Received: from jgg by mlx with local (Exim 4.94) (envelope-from <jgg@ziepe.ca>)
- id 1lwDUV-00Bris-8h; Wed, 23 Jun 2021 21:45:11 -0300
-Date: Wed, 23 Jun 2021 21:45:11 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Oded Gabbay <oded.gabbay@gmail.com>
-Subject: Re: [Linaro-mm-sig] [PATCH v3 1/2] habanalabs: define uAPI to export
- FD for DMA-BUF
-Message-ID: <20210624004511.GA1096940@ziepe.ca>
-References: <20210622154027.GS1096940@ziepe.ca>
- <09df4a03-d99c-3949-05b2-8b49c71a109e@amd.com>
- <20210622160538.GT1096940@ziepe.ca>
- <d600a638-9e55-6249-b574-0986cd5cea1e@gmail.com>
- <20210623182435.GX1096940@ziepe.ca>
- <CAFCwf111O0_YB_tixzEUmaKpGAHMNvMaOes2AfMD4x68Am4Yyg@mail.gmail.com>
- <20210623185045.GY1096940@ziepe.ca>
- <CAFCwf12tW_WawFfAfrC8bgVhTRnDA7DuM+0V8w3JsUZpA2j84w@mail.gmail.com>
- <20210623193456.GZ1096940@ziepe.ca>
- <CAFCwf13vM2T-eJUu42ht5jdXpRCF3UZh0Ow=vwN9QqZ=KNUBsQ@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C86816EA3A;
+	Thu, 24 Jun 2021 07:29:24 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 515306E986;
+ Thu, 24 Jun 2021 07:29:23 +0000 (UTC)
+Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 78F6C21966;
+ Thu, 24 Jun 2021 07:29:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1624519760; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=EUVgQWZjNSlPOwlQJU4bzYuB/YGQiDl3S47gswQlIkM=;
+ b=wglcSBsLTBQ3ei6BxYK5d9SydJ3e5F+a66G6BOyOTZLEwKvHbcKirhkaVkn4HGdih7Jkuv
+ lm1BMokphzYz7V1K+KM1ymEyHRMfFtGQeVAZ09yEBlWAn/dJ/UjhXzGC3T2SZ+Bfi8Tzu6
+ MfrG1ShNojJgurv+fjncCU2DgW3B+uc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1624519760;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=EUVgQWZjNSlPOwlQJU4bzYuB/YGQiDl3S47gswQlIkM=;
+ b=D758gxqI1uHlShUSzY4ZWAkhFsDHW/tqXNK29CYpEb5M/mK2EKbmmiPOUOndQe3D2qVknN
+ LMsG8ZKa3NvPvnDA==
+Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ by imap.suse.de (Postfix) with ESMTP id 4F58611A97;
+ Thu, 24 Jun 2021 07:29:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1624519760; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=EUVgQWZjNSlPOwlQJU4bzYuB/YGQiDl3S47gswQlIkM=;
+ b=wglcSBsLTBQ3ei6BxYK5d9SydJ3e5F+a66G6BOyOTZLEwKvHbcKirhkaVkn4HGdih7Jkuv
+ lm1BMokphzYz7V1K+KM1ymEyHRMfFtGQeVAZ09yEBlWAn/dJ/UjhXzGC3T2SZ+Bfi8Tzu6
+ MfrG1ShNojJgurv+fjncCU2DgW3B+uc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1624519760;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=EUVgQWZjNSlPOwlQJU4bzYuB/YGQiDl3S47gswQlIkM=;
+ b=D758gxqI1uHlShUSzY4ZWAkhFsDHW/tqXNK29CYpEb5M/mK2EKbmmiPOUOndQe3D2qVknN
+ LMsG8ZKa3NvPvnDA==
+Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
+ id dLt+Ek801GAJfwAALh3uQQ
+ (envelope-from <tzimmermann@suse.de>); Thu, 24 Jun 2021 07:29:19 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, james.qian.wang@arm.com,
+ liviu.dudau@arm.com, mihail.atanassov@arm.com, brian.starkey@arm.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ inki.dae@samsung.com, jy0922.shim@samsung.com, sw0312.kim@samsung.com,
+ kyungmin.park@samsung.com, krzysztof.kozlowski@canonical.com,
+ xinliang.liu@linaro.org, tiantao6@hisilicon.com, john.stultz@linaro.org,
+ kong.kongxinwei@hisilicon.com, puck.chen@hisilicon.com,
+ laurentiu.palcu@oss.nxp.com, l.stach@pengutronix.de,
+ p.zabel@pengutronix.de, shawnguo@kernel.org, s.hauer@pengutronix.de,
+ kernel@pengutronix.de, festevam@gmail.com, linux-imx@nxp.com,
+ chunkuang.hu@kernel.org, matthias.bgg@gmail.com, bskeggs@redhat.com,
+ tomba@kernel.org, hjc@rock-chips.com, heiko@sntech.de,
+ benjamin.gaignard@linaro.org, yannick.fertre@foss.st.com,
+ philippe.cornu@foss.st.com, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com, wens@csie.org, jernej.skrabec@gmail.com,
+ thierry.reding@gmail.com, jonathanh@nvidia.com, jyri.sarha@iki.fi,
+ emma@anholt.net, linux-graphics-maintainer@vmware.com, zackr@vmware.com,
+ hyun.kwon@xilinx.com, laurent.pinchart@ideasonboard.com,
+ michal.simek@xilinx.com, jani.nikula@linux.intel.com,
+ rodrigo.vivi@intel.com, linux@armlinux.org.uk,
+ kieran.bingham+renesas@ideasonboard.com, rodrigosiqueiramelo@gmail.com,
+ melissa.srw@gmail.com, hamohammed.sa@gmail.com
+Subject: [PATCH v3 00/27] Deprecate struct drm_device.irq_enabled
+Date: Thu, 24 Jun 2021 09:28:49 +0200
+Message-Id: <20210624072916.27703-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAFCwf13vM2T-eJUu42ht5jdXpRCF3UZh0Ow=vwN9QqZ=KNUBsQ@mail.gmail.com>
-X-Mailman-Approved-At: Thu, 24 Jun 2021 07:06:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,83 +102,117 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-rdma <linux-rdma@vger.kernel.org>,
- Christian =?utf-8?B?S8O2bmln?= <ckoenig.leichtzumerken@gmail.com>,
- sleybo@amazon.com, Leon Romanovsky <leonro@nvidia.com>,
- Gal Pressman <galpress@amazon.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Doug Ledford <dledford@redhat.com>, Tomer Tayar <ttayar@habana.ai>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Greg KH <gregkh@linuxfoundation.org>, Alex Deucher <alexander.deucher@amd.com>,
- Christoph Hellwig <hch@lst.de>, Oded Gabbay <ogabbay@kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
+Cc: linux-samsung-soc@vger.kernel.org, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, amd-gfx@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, linux-tegra@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jun 23, 2021 at 10:39:48PM +0300, Oded Gabbay wrote:
-> On Wed, Jun 23, 2021 at 10:34 PM Jason Gunthorpe <jgg@ziepe.ca> wrote:
-> >
-> > On Wed, Jun 23, 2021 at 10:00:29PM +0300, Oded Gabbay wrote:
-> > > On Wed, Jun 23, 2021 at 9:50 PM Jason Gunthorpe <jgg@ziepe.ca> wrote:
-> > > >
-> > > > On Wed, Jun 23, 2021 at 09:43:04PM +0300, Oded Gabbay wrote:
-> > > >
-> > > > > Can you please explain why it is so important to (allow) access them
-> > > > > through the CPU ?
-> > > >
-> > > > It is not so much important, as it reflects significant design choices
-> > > > that are already tightly baked into alot of our stacks.
-> > > >
-> > > > A SGL is CPU accessible by design - that is baked into this thing and
-> > > > places all over the place assume it. Even in RDMA we have
-> > > > RXE/SWI/HFI1/qib that might want to use the CPU side (grep for sg_page
-> > > > to see)
-> > > >
-> > > > So, the thing at the top of the stack - in this case the gaudi driver
-> > > > - simply can't assume what the rest of the stack is going to do and
-> > > > omit the CPU side. It breaks everything.
-> > > >
-> > > > Logan's patch series is the most fully developed way out of this
-> > > > predicament so far.
-> > >
-> > > I understand the argument and I agree that for the generic case, the
-> > > top of the stack can't assume anything.
-> > > Having said that, in this case the SGL is encapsulated inside a dma-buf object.
-> > >
-> > > Maybe its a stupid/over-simplified suggestion, but can't we add a
-> > > property to the dma-buf object,
-> > > that will be set by the exporter, which will "tell" the importer it
-> > > can't use any CPU fallback ? Only "real" p2p ?
-> >
-> > The block stack has been trying to do something like this.
-> >
-> > The flag doesn't solve the DMA API/IOMMU problems though.
-> hmm, I thought using dma_map_resource will solve the IOMMU issues,
-> no ?
+Remove references to struct drm_device.irq_enabled from modern
+DRM drivers and core.
 
-dma_map_resource() will configure the IOMMU but it is not the correct
-API to use when building a SG list for DMA, that would be dma_map_sg
-or sgtable.
+KMS drivers enable IRQs for their devices internally. They don't
+have to keep track of the IRQ state via irq_enabled. For vblanking,
+it's cleaner to test for vblanking support directly than to test
+for enabled IRQs.
 
-So it works, but it is an API abuse to build things this way.
+The first 3 patches replace uses of irq_enabled that are not
+required.
 
-> If I use dma_map_resource to set the addresses inside the SGL before I
-> export the dma-buf, and guarantee no one will use the SGL in the
-> dma-buf for any other purpose than device p2p, what else is needed ?
+Patch 4 fixes vblank ioctls to actually test for vblank support
+instead of IRQs (for KMS drivers).
 
-You still have to check the p2p stuff to ensure that p2p is even
-possible
+The rest of the patchset removes irq_enabled from all non-legacy
+drivers. The only exceptions are i915 and omapdrm, which have an
+internal dpendency on the field's value. For these drivers, the
+state gets duplicated internally.
 
-And this approach is misusing all the APIs and has been NAK'd by
-Christoph, so up to Greg if he wants to take it or insist you work
-with Logan to get the proper generlized solution finished.
+With the patchset applied, drivers can later switch over to plain
+Linux IRQ interfaces and DRM's IRQ midlayer can be declared legacy.
 
-Jason
+v3:
+	* update armada, i915, rcar-du and vkms as well (Laurent)
+	* optimize drm_wait_vblank_ioctl() for KMS (Liviu)
+	* move imx/dcss changes into their own patch (Laurentiu)
+	* doc cleanups
+v2:
+	* keep the original test for legacy drivers in
+	  drm_wait_vblank_ioctl() (Daniel)
+
+Thomas Zimmermann (27):
+  drm/amdgpu: Track IRQ state in local device state
+  drm/hibmc: Call drm_irq_uninstall() unconditionally
+  drm/radeon: Track IRQ state in local device state
+  drm: Don't test for IRQ support in VBLANK ioctls
+  drm/armada: Don't set struct drm_device.irq_enabled
+  drm/i915: Track IRQ state in local device state
+  drm/komeda: Don't set struct drm_device.irq_enabled
+  drm/malidp: Don't set struct drm_device.irq_enabled
+  drm/exynos: Don't set struct drm_device.irq_enabled
+  drm/kirin: Don't set struct drm_device.irq_enabled
+  drm/imx: Don't set struct drm_device.irq_enabled
+  drm/imx/dcss: Don't set struct drm_device.irq_enabled
+  drm/mediatek: Don't set struct drm_device.irq_enabled
+  drm/nouveau: Don't set struct drm_device.irq_enabled
+  drm/omapdrm: Track IRQ state in local device state
+  drm/rcar-du: Don't set struct drm_device.irq_enabled
+  drm/rockchip: Don't set struct drm_device.irq_enabled
+  drm/sti: Don't set struct drm_device.irq_enabled
+  drm/stm: Don't set struct drm_device.irq_enabled
+  drm/sun4i: Don't set struct drm_device.irq_enabled
+  drm/tegra: Don't set struct drm_device.irq_enabled
+  drm/tidss: Don't use struct drm_device.irq_enabled
+  drm/vc4: Don't set struct drm_device.irq_enabled
+  drm/vkms: Don't set struct drm_device.irq_enabled
+  drm/vmwgfx: Don't set struct drm_device.irq_enabled
+  drm/xlnx: Don't set struct drm_device.irq_enabled
+  drm/zte: Don't set struct drm_device.irq_enabled
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c         |  6 +++---
+ drivers/gpu/drm/arm/display/komeda/komeda_kms.c |  4 ----
+ drivers/gpu/drm/arm/malidp_drv.c                |  4 ----
+ drivers/gpu/drm/armada/armada_drv.c             |  2 --
+ drivers/gpu/drm/drm_irq.c                       | 13 ++++---------
+ drivers/gpu/drm/drm_vblank.c                    | 16 ++++++++++++----
+ drivers/gpu/drm/exynos/exynos_drm_drv.c         | 10 ----------
+ drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c |  3 +--
+ drivers/gpu/drm/hisilicon/kirin/kirin_drm_drv.c |  2 --
+ drivers/gpu/drm/i915/i915_drv.h                 |  2 ++
+ drivers/gpu/drm/i915/i915_irq.c                 |  8 ++++----
+ drivers/gpu/drm/imx/dcss/dcss-kms.c             |  3 ---
+ drivers/gpu/drm/imx/imx-drm-core.c              | 11 -----------
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c          |  6 ------
+ drivers/gpu/drm/nouveau/nouveau_drm.c           |  3 ---
+ drivers/gpu/drm/omapdrm/omap_drv.h              |  2 ++
+ drivers/gpu/drm/omapdrm/omap_irq.c              |  6 +++---
+ drivers/gpu/drm/radeon/radeon_fence.c           |  2 +-
+ drivers/gpu/drm/radeon/radeon_irq_kms.c         | 16 ++++++++--------
+ drivers/gpu/drm/rcar-du/rcar_du_drv.c           |  2 --
+ drivers/gpu/drm/rockchip/rockchip_drm_drv.c     |  6 ------
+ drivers/gpu/drm/sti/sti_compositor.c            |  2 --
+ drivers/gpu/drm/stm/ltdc.c                      |  3 ---
+ drivers/gpu/drm/sun4i/sun4i_drv.c               |  2 --
+ drivers/gpu/drm/tegra/drm.c                     |  7 -------
+ drivers/gpu/drm/tidss/tidss_irq.c               |  3 ---
+ drivers/gpu/drm/vc4/vc4_kms.c                   |  1 -
+ drivers/gpu/drm/vkms/vkms_drv.c                 |  2 --
+ drivers/gpu/drm/vmwgfx/vmwgfx_irq.c             |  8 --------
+ drivers/gpu/drm/xlnx/zynqmp_dpsub.c             |  2 --
+ drivers/gpu/drm/zte/zx_drm_drv.c                |  6 ------
+ 31 files changed, 40 insertions(+), 123 deletions(-)
+
+
+base-commit: 8c1323b422f8473421682ba783b5949ddd89a3f4
+prerequisite-patch-id: c2b2f08f0eccc9f5df0c0da49fa1d36267deb11d
+prerequisite-patch-id: c67e5d886a47b7d0266d81100837557fda34cb24
+--
+2.32.0
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
