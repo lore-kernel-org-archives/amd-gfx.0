@@ -2,66 +2,48 @@ Return-Path: <SRS0=nR5r=LT=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.2 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5D711C49EAB
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2BEE0C49EA7
 	for <amd-gfx@archiver.kernel.org>; Fri, 25 Jun 2021 07:28:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 318FA6141A
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Jun 2021 07:28:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 318FA6141A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=chromium.org
+	by mail.kernel.org (Postfix) with ESMTPS id C29146141A
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Jun 2021 07:28:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C29146141A
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 690E56ECDE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 534116ECDD;
 	Fri, 25 Jun 2021 07:28:43 +0000 (UTC)
-Received: from mail-qk1-x72f.google.com (mail-qk1-x72f.google.com
- [IPv6:2607:f8b0:4864:20::72f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4107D6E084
- for <amd-gfx@lists.freedesktop.org>; Thu, 24 Jun 2021 19:54:13 +0000 (UTC)
-Received: by mail-qk1-x72f.google.com with SMTP id c23so16632789qkc.10
- for <amd-gfx@lists.freedesktop.org>; Thu, 24 Jun 2021 12:54:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=yLU/znLEYcMatLvsNLPxqHr+hLgDBPcs6sZq6gszBjg=;
- b=GQbv7pRK0BnAbmi0dbOfDIfyOww+e6i3XhyjehX6SPR4oipgAUrJveJSK3UwZb3aC0
- wh9veSVnT1OOviK4NmDD6bu9SUxgr0Jx8os+6VCEAitgkNQdBPx65/0UfkhXD8hrSZDk
- Uood+37czLlByvNi+TV4mJ68VrXGDp0yeYr/Y=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=yLU/znLEYcMatLvsNLPxqHr+hLgDBPcs6sZq6gszBjg=;
- b=QIACtfcL03odp9hlhAX+DDe+OAOwsQ+2RD4REcDbfjba0Ydg7TaeEBfUWhCjpNDRN4
- Imn9JFxhPXvICWLWxsq2qyq97x3/2h/kChued3HW91qI1s847oqTgDlzDACt7fpcEEkj
- 6MUSoYf2QcQP3gYT6y1ePXqkf5J1eu4x7/h7ORn1gzVPFpIGtekkwjYsPEzMnvy48d39
- hE7LChkPchQ9qL94vmb8caQSBwtmP2Bm3rO2hkyjNGdZ5dg3a9QO+GXgL30weZ5PlWhj
- huMh+5mPE5gvmhOTaFBs5SjJlq8h+tIrlu5kcO2LtDe5e3ka58/WOkbcMxEkirtoarzQ
- J+2Q==
-X-Gm-Message-State: AOAM530jwJqhFFEc1aD6q5C97gZX5OYCdtgh6jg0b3Adh4PjiktW72aa
- ukp28oEsktObg1gk+gnHVWNl0HvmDQR8Vg==
-X-Google-Smtp-Source: ABdhPJztKqcMb0v95sMPx7DTu8CCq0Hfd1OWdIvL1I+D4kvV3S6vcRrooHytimFLHkfruxfHlmKGMg==
-X-Received: by 2002:a05:620a:414a:: with SMTP id
- k10mr7303374qko.37.1624564452264; 
- Thu, 24 Jun 2021 12:54:12 -0700 (PDT)
-Received: from markyacoub.nyc.corp.google.com
- ([2620:0:1003:416:6bf4:ce97:2a5a:b53c])
- by smtp.gmail.com with ESMTPSA id h5sm3298458qkg.122.2021.06.24.12.54.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 24 Jun 2021 12:54:11 -0700 (PDT)
-From: Mark Yacoub <markyacoub@chromium.org>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amd/display: Remove assignments in if clauses.
-Date: Thu, 24 Jun 2021 15:54:03 -0400
-Message-Id: <20210624195403.1050871-1-markyacoub@chromium.org>
-X-Mailer: git-send-email 2.32.0.93.g670b81a890-goog
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 884D86EAB4;
+ Thu, 24 Jun 2021 08:12:42 +0000 (UTC)
+Received: by verein.lst.de (Postfix, from userid 2407)
+ id 01CD167373; Thu, 24 Jun 2021 10:12:38 +0200 (CEST)
+Date: Thu, 24 Jun 2021 10:12:37 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Subject: Re: [Linaro-mm-sig] [PATCH v3 1/2] habanalabs: define uAPI to
+ export FD for DMA-BUF
+Message-ID: <20210624081237.GA30289@lst.de>
+References: <20210622154027.GS1096940@ziepe.ca>
+ <09df4a03-d99c-3949-05b2-8b49c71a109e@amd.com>
+ <20210622160538.GT1096940@ziepe.ca>
+ <d600a638-9e55-6249-b574-0986cd5cea1e@gmail.com>
+ <20210623182435.GX1096940@ziepe.ca>
+ <CAFCwf111O0_YB_tixzEUmaKpGAHMNvMaOes2AfMD4x68Am4Yyg@mail.gmail.com>
+ <20210623185045.GY1096940@ziepe.ca>
+ <CAFCwf12tW_WawFfAfrC8bgVhTRnDA7DuM+0V8w3JsUZpA2j84w@mail.gmail.com>
+ <20210624053421.GA25165@lst.de>
+ <9571ac7c-3a58-b013-b849-e26c3727e9b2@amd.com>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <9571ac7c-3a58-b013-b849-e26c3727e9b2@amd.com>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 X-Mailman-Approved-At: Fri, 25 Jun 2021 07:28:40 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -74,55 +56,64 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, Mark Yacoub <markyacoub@chromium.org>,
- seanpaul@chromium.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Oded Gabbay <oded.gabbay@gmail.com>,
+ linux-rdma <linux-rdma@vger.kernel.org>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ sleybo@amazon.com, Oded Gabbay <ogabbay@kernel.org>,
+ Gal Pressman <galpress@amazon.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Doug Ledford <dledford@redhat.com>,
+ Tomer Tayar <ttayar@habana.ai>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Greg KH <gregkh@linuxfoundation.org>, Alex Deucher <alexander.deucher@amd.com>,
+ Leon Romanovsky <leonro@nvidia.com>, Christoph Hellwig <hch@lst.de>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fixes Commit a46b6bd5 (drm/amd/display: Verify Gamma & Degamma LUT sizes
-in amdgpu_dm_atomic_check)
+On Thu, Jun 24, 2021 at 10:07:14AM +0200, Christian K=F6nig wrote:
+> The key point is that accessing the underlying pages even when DMA-bufs a=
+re =
 
-Tested on Zork: IGT:kms_color
+> backed by system memory is illegal. Daniel even created a patch which =
 
-Signed-off-by: Mark Yacoub <markyacoub@chromium.org>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c       | 3 ++-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c | 3 ++-
- 2 files changed, 4 insertions(+), 2 deletions(-)
+> mangles the page pointers in sg_tables used by DMA-buf to make sure that =
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 91e13ae388b7f..c0cc4ca5fdf60 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -7792,7 +7792,8 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
- 		    old_crtc_state->vrr_enabled == new_crtc_state->vrr_enabled)
- 			continue;
- 
--		if ((ret = amdgpu_dm_verify_lut_sizes(new_crtc_state)))
-+		ret = amdgpu_dm_verify_lut_sizes(new_crtc_state);
-+		if (ret)
- 			goto fail;
- 
- 		if (!new_crtc_state->enable)
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-index 9543b10e7e0bf..6acc460a3e982 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-@@ -342,7 +342,8 @@ int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc)
- 	bool is_legacy;
- 	int r;
- 
--	if ((r = amdgpu_dm_verify_lut_sizes(&crtc->base)))
-+	r = amdgpu_dm_verify_lut_sizes(&crtc->base);
-+	if (r)
- 		return r;
- 
- 	degamma_lut = __extract_blob_lut(crtc->base.degamma_lut, &degamma_size);
--- 
-2.32.0.93.g670b81a890-goog
+> people don't try to use them.
 
+Which is another goddamn layering violation of a subsystem that has no
+business at all poking into the scatterlist structure, yes.
+
+> So the conclusion is that using sg_table in the DMA-buf framework was jus=
+t =
+
+> the wrong data structure and we should have invented a new one.
+
+I think so.
+
+> But then people would have complained that we have a duplicated =
+
+> infrastructure (which is essentially true).
+
+I doubt it.  At least if you had actually talked to the relevant people.
+Which seems to be a major issue with what is going on GPU land.
+
+> My best plan to get out of this mess is that we change the DMA-buf =
+
+> interface to use an array of dma_addresses instead of the sg_table object =
+
+> and I have already been working on this actively the last few month.
+
+Awesome!  I have a bit of related work on the DMA mapping subsystems, so
+let's sync up as soon as you have some first sketches.
+
+Btw, one thing I noticed when looking over the dma-buf instances is that
+there is a lot of duplicated code for creating a sg_table from pages,
+and then mapping it.  It would be good if we could move toward common
+helpers instead of duplicating that all over again.
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
