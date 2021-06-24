@@ -2,48 +2,77 @@ Return-Path: <SRS0=QFXE=LS=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-7.0 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 959D5C49EA6
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 11:20:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 08B9FC49EAB
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 12:01:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5BD846124C
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 11:20:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5BD846124C
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id CB917613E3
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 12:01:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CB917613E3
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C49A46EAC1;
-	Thu, 24 Jun 2021 11:20:26 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0BAF6EABE;
- Thu, 24 Jun 2021 11:20:24 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 40412613C5;
- Thu, 24 Jun 2021 11:20:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1624533624;
- bh=yeBxxI9RxIG1SBqoCQkOp8CWXVUmYQbT3KrhCdThdUQ=;
- h=Date:From:To:cc:Subject:From;
- b=h/uUXhqyme6NlwDRYS288PXCjbfgX3cO68nvhdbShTtcWiUCCFVN/lpxUTNwaT6Ng
- Co+4182vvnP77I/IlfJZ6NjSZ2eamUoa3E8ymWMJ48XG5VzmPhppOlNSO3U5daWq6/
- cmNoJp5UixUE4C1nhdTB1Li4yaf67syfRxE1fz1gUPjDR3tybyc7VTn1AHiEbpdad5
- Ca1ArlpbK875RpjhW+HaDyzuVVpUT9Pe9bFEF9DLGjGvPgx8xF67PrwNXJ1cq1GKgs
- ViBHsz8iDe1bOUepqReha5pnu8MO5nQ7IL8uAeGYK9SJjMmq5vQEPMV1tAwiqyBpvB
- fDDhfVaY6xwmw==
-Date: Thu, 24 Jun 2021 13:20:21 +0200 (CEST)
-From: Jiri Kosina <jikos@kernel.org>
-To: Alex Deucher <alexander.deucher@amd.com>, 
- =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@linux.ie>
-Subject: [PATCH] drm/amdgpu: Fix resource leak on probe error path
-Message-ID: <nycvar.YFH.7.76.2106241319430.18969@cbobk.fhfr.pm>
-User-Agent: Alpine 2.21 (LSU 202 2017-01-01)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC2B66EB69;
+	Thu, 24 Jun 2021 12:01:40 +0000 (UTC)
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [IPv6:2a00:1450:4864:20::333])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B73206EB61;
+ Thu, 24 Jun 2021 12:01:38 +0000 (UTC)
+Received: by mail-wm1-x333.google.com with SMTP id
+ t11-20020a1cc30b0000b02901cec841b6a0so4739666wmf.0; 
+ Thu, 24 Jun 2021 05:01:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=WvUvm5hWnbpKvx8lC8t4mJz6e0uKheDES6Tk0i+zY+w=;
+ b=ulOl1WR6hUsemVsWu+nXQKAaF+NWBGm9rArEOLeaoN0WxBaALD4ZQdlEtLUwiyntGS
+ 6aCzvNYrxKlD5RcUH9is5U5vKg0MMhLQGX5wphQ1t0LH3vRbjIejDfUNRl6yOZmEdArX
+ ER4/AMzQk4RBswWBd14g4JyfQMQGAaQQl4ui6PTfaGCfGogzHiHmR0HN3yKrkh/cTjSY
+ DP2SS855aTgplaldxRVj7hkHvGVB5OucvNpiMP2/osl+xTvYX1oZFoe3TRDpf2HWT8kC
+ VWqIAp/206jzxPaefTLjmUt197n96j5inNoBvy2OtVPTiEtJy5ooWX2wRmaQY3coNk4A
+ U1/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=WvUvm5hWnbpKvx8lC8t4mJz6e0uKheDES6Tk0i+zY+w=;
+ b=VNeS7I6vGn15LM+u7ql+dBy4CoUFe7LgYcEVKjTnu6HyhtDNSyMYjXJu9aJ3mbFhk3
+ LxGkQvYa+5Lv/ltfeVvH3ORGJsJUa7hmKqMiw9goBSiCkx6KMRomsPN0thv8HgCHg6Js
+ t8vlwyb4Y8GYiN0eXujk9fXx4+ivqLtGHbvR5UIcrvjJ/SreDfiUCrpZIi4OjZBHoOTX
+ xQH823rqWvg72jVlzV4Eo2lp9xB8ncjqOCzi1i+wx90/o0Oe2wgajHSuf/WmZiphv9xa
+ jweHA9ZEPkMjEHlGnE2L4KZjVwlGY+WaVqSBzdZ89TGorkLnumGPV0G/Egk5qZkqdHaQ
+ sFSw==
+X-Gm-Message-State: AOAM530I6yM/ArZ4ATI9hOFw6DGQ78ESP3TGRIjW3xe4PHx5WOVyfnfR
+ cPforl5HOBg5BLOtd2I9Uqs=
+X-Google-Smtp-Source: ABdhPJzn2HGsmWMVY2UrZXCNwuzUPp/4W4zcfowMlCWK89vJwbYcDL9+9zVkS5DWjagvR0lWoKHFhQ==
+X-Received: by 2002:a05:600c:1c08:: with SMTP id
+ j8mr3921135wms.73.1624536097480; 
+ Thu, 24 Jun 2021 05:01:37 -0700 (PDT)
+Received: from localhost ([62.96.65.119])
+ by smtp.gmail.com with ESMTPSA id e3sm3089350wro.26.2021.06.24.05.01.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 24 Jun 2021 05:01:36 -0700 (PDT)
+Date: Thu, 24 Jun 2021 14:03:39 +0200
+From: Thierry Reding <thierry.reding@gmail.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Subject: Re: [PATCH v3 04/27] drm: Don't test for IRQ support in VBLANK ioctls
+Message-ID: <YNR0m2DJsdIW3NAZ@orome.fritz.box>
+References: <20210624072916.27703-1-tzimmermann@suse.de>
+ <20210624072916.27703-5-tzimmermann@suse.de>
+ <87im23u1ok.fsf@intel.com>
+ <b5e7729f-ed11-e9ca-386e-562feb2bd2b7@suse.de>
+ <877dijtzl2.fsf@intel.com>
+ <af21db75-584f-aec0-9659-d5386f27b4ea@suse.de>
 MIME-Version: 1.0
+In-Reply-To: <af21db75-584f-aec0-9659-d5386f27b4ea@suse.de>
+User-Agent: Mutt/2.0.7 (481f3800) (2021-05-04)
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,74 +84,161 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Vojtech Pavlik <vojtech@ucw.cz>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: hamohammed.sa@gmail.com, heiko@sntech.de, emma@anholt.net, airlied@linux.ie,
+ nouveau@lists.freedesktop.org, rodrigo.vivi@intel.com, liviu.dudau@arm.com,
+ alexandre.torgue@foss.st.com, dri-devel@lists.freedesktop.org,
+ michal.simek@xilinx.com, melissa.srw@gmail.com, linux-tegra@vger.kernel.org,
+ laurent.pinchart@ideasonboard.com, benjamin.gaignard@linaro.org,
+ linux@armlinux.org.uk, mihail.atanassov@arm.com, festevam@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-samsung-soc@vger.kernel.org,
+ jy0922.shim@samsung.com, krzysztof.kozlowski@canonical.com,
+ linux-rockchip@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ wens@csie.org, jernej.skrabec@gmail.com, jonathanh@nvidia.com,
+ xinliang.liu@linaro.org, kong.kongxinwei@hisilicon.com,
+ james.qian.wang@arm.com, linux-imx@nxp.com,
+ Daniel Vetter <daniel.vetter@ffwll.ch>, linux-graphics-maintainer@vmware.com,
+ intel-gfx@lists.freedesktop.org, bskeggs@redhat.com, chunkuang.hu@kernel.org,
+ p.zabel@pengutronix.de, puck.chen@hisilicon.com, s.hauer@pengutronix.de,
+ maarten.lankhorst@linux.intel.com, Jani Nikula <jani.nikula@linux.intel.com>,
+ inki.dae@samsung.com, rodrigosiqueiramelo@gmail.com, john.stultz@linaro.org,
+ mripard@kernel.org, laurentiu.palcu@oss.nxp.com, matthias.bgg@gmail.com,
+ kernel@pengutronix.de, linux-arm-kernel@lists.infradead.org,
+ mcoquelin.stm32@gmail.com, amd-gfx@lists.freedesktop.org, hyun.kwon@xilinx.com,
+ tomba@kernel.org, jyri.sarha@iki.fi, yannick.fertre@foss.st.com,
+ Xinhui.Pan@amd.com, sw0312.kim@samsung.com, hjc@rock-chips.com,
+ christian.koenig@amd.com, linux-sunxi@lists.linux.dev,
+ kyungmin.park@samsung.com, kieran.bingham+renesas@ideasonboard.com,
+ philippe.cornu@foss.st.com, daniel@ffwll.ch, alexander.deucher@amd.com,
+ tiantao6@hisilicon.com, shawnguo@kernel.org, brian.starkey@arm.com,
+ zackr@vmware.com, l.stach@pengutronix.de
+Content-Type: multipart/mixed; boundary="===============1352650212=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Jiri Kosina <jkosina@suse.cz>
 
-This reverts commit 4192f7b5768912ceda82be2f83c87ea7181f9980.
+--===============1352650212==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="Lm2ZaOZ7foAeT6XX"
+Content-Disposition: inline
 
-It is not true (as stated in the reverted commit changelog) that we never 
-unmap the BAR on failure; it actually does happen properly on 
-amdgpu_driver_load_kms() -> amdgpu_driver_unload_kms() -> 
-amdgpu_device_fini() error path.
 
-What's worse, this commit actually completely breaks resource freeing on 
-probe failure (like e.g. failure to load microcode), as 
-amdgpu_driver_unload_kms() notices adev->rmmio being NULL and bails too 
-early, leaving all the resources that'd normally be freed in 
-amdgpu_acpi_fini() and amdgpu_device_fini() still hanging around, leading 
-to all sorts of oopses when someone tries to, for example, access the 
-sysfs and procfs resources which are still around while the driver is 
-gone.
+--Lm2ZaOZ7foAeT6XX
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Fixes: 4192f7b57689 ("drm/amdgpu: unmap register bar on device init failure")
-Reported-by: Vojtech Pavlik <vojtech@ucw.cz>
-Signed-off-by: Jiri Kosina <jkosina@suse.cz>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 8 ++------
- 1 file changed, 2 insertions(+), 6 deletions(-)
+On Thu, Jun 24, 2021 at 11:07:57AM +0200, Thomas Zimmermann wrote:
+> Hi
+>=20
+> Am 24.06.21 um 10:51 schrieb Jani Nikula:
+> > On Thu, 24 Jun 2021, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+> > > Hi
+> > >=20
+> > > Am 24.06.21 um 10:06 schrieb Jani Nikula:
+> > > > On Thu, 24 Jun 2021, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+> > > > > diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_v=
+blank.c
+> > > > > index 3417e1ac7918..10fe16bafcb6 100644
+> > > > > --- a/drivers/gpu/drm/drm_vblank.c
+> > > > > +++ b/drivers/gpu/drm/drm_vblank.c
+> > > > > @@ -1748,8 +1748,16 @@ int drm_wait_vblank_ioctl(struct drm_devic=
+e *dev, void *data,
+> > > > >    	unsigned int pipe_index;
+> > > > >    	unsigned int flags, pipe, high_pipe;
+> > > > > -	if (!dev->irq_enabled)
+> > > > > -		return -EOPNOTSUPP;
+> > > > > +#if defined(CONFIG_DRM_LEGACY)
+> > > > > +	if  (unlikely(drm_core_check_feature(dev, DRIVER_LEGACY))) {
+> > > > > +		if (!dev->irq_enabled)
+> > > > > +			return -EOPNOTSUPP;
+> > > > > +	} else /* if DRIVER_MODESET */
+> > > > > +#endif
+> > > > > +	{
+> > > > > +		if (!drm_dev_has_vblank(dev))
+> > > > > +			return -EOPNOTSUPP;
+> > > > > +	}
+> > > >=20
+> > > > Sheesh I hate this kind of inline #ifdefs.
+> > > >=20
+> > > > Two alternate suggestions that I believe should be as just efficien=
+t:
+> > >=20
+> > > Or how about:
+> > >=20
+> > > static bool drm_wait_vblank_supported(struct drm_device *dev)
+> > >=20
+> > > {
+> > >=20
+> > > if defined(CONFIG_DRM_LEGACY)
+> > > 	if  (unlikely(drm_core_check_feature(dev, DRIVER_LEGACY)))
+> > >=20
+> > > 		return dev->irq_enabled;
+> > >=20
+> > > #endif
+> > > 	return drm_dev_has_vblank(dev);
+> > >=20
+> > > }
+> > >=20
+> > >=20
+> > > ?
+> > >=20
+> > > It's inline, but still readable.
+> >=20
+> > It's definitely better than the original, but it's unclear to me why
+> > you'd prefer this over option 2) below. I guess the only reason I can
+> > think of is emphasizing the conditional compilation. However,
+> > IS_ENABLED() is widely used in this manner specifically to avoid inline
+> > #if, and the compiler optimizes it away.
+>=20
+> It's simply more readable to me as the condition is simpler. But option 2=
+ is
+> also ok.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 57ec108b5972..0f1c0e17a587 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3414,13 +3414,13 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 	r = amdgpu_device_get_job_timeout_settings(adev);
- 	if (r) {
- 		dev_err(adev->dev, "invalid lockup_timeout parameter syntax\n");
--		goto failed_unmap;
-+		return r;
- 	}
- 
- 	/* early init functions */
- 	r = amdgpu_device_ip_early_init(adev);
- 	if (r)
--		goto failed_unmap;
-+		return r;
- 
- 	/* doorbell bar mapping and doorbell index init*/
- 	amdgpu_device_doorbell_init(adev);
-@@ -3646,10 +3646,6 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- failed:
- 	amdgpu_vf_error_trans_all(adev);
- 
--failed_unmap:
--	iounmap(adev->rmmio);
--	adev->rmmio = NULL;
--
- 	return r;
- }
- 
--- 
-2.12.3
+Perhaps do something like this, then:
 
+	if (IS_ENABLED(CONFIG_DRM_LEGACY)) {
+		if (unlikely(drm_core_check_feature(dev, DRIVER_LEGACY)))
+			return dev->irq_enabled;
+	}
+
+	return drm_dev_has_vblank(dev);
+
+That's about just as readable as the variant involving the preprocessor
+but has all the benefits of not using the preprocessor.
+
+Thierry
+
+--Lm2ZaOZ7foAeT6XX
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmDUdJsACgkQ3SOs138+
+s6GX9A/+JnX2q7LN8UzemTORS9HFtHwUAvUZS/tcgEtSUkLf0Sf8oIREq4vU6mR3
+gZ3hsE5Hn381Tc/ec7MCrbJG09BKGgg3XM2CZetMfKaEK+rL58OZhwSihyprbqKf
+uDFxqXSEKRX2mufyn2NjwLaIv7tVG8oL0jCwdW0Pj+s4rX9X1qWbU85JKZ2LFVhY
+Syt9T/2kOp0Btnx6KWiezWZU7kliWtXr55PcfVfwcPmM8ISrBkLR2BT5ZBd5CJtv
+sBWAgFMUBwAWbkszskSrxD1iGkmdZ7Ik0a3278+AdxEUZmL99gg3fG33CMH7Dt0Q
+9c+ZouwJlyGKEPY3ZahWwNW28nYlLBH1Gojqkmrjf9MYP0uTGkEW6rKYjQWs/ZI2
+Fuzmvo/i8pLhSxlYYpAFHScIQW7z6AiRNFHAq0O4eXCIFN0VK1QVRje3KrDawWVf
+KOIxC08UAGY+rfOcGABxDdutsiegkLqjUYDOORbul5Jda/4kt2izbUOGKOMrS1wt
+uiRoVoyw8p9jqpKMb+fNZHSWkkSHrqrUS09iyNM0eE3f8KOQwVAoExV40Hg4h2fp
+1NM98icmiHuCD6BfCHJrzKeBltLOqY8nY4JwkBLzwKnWmnAFNW+6U5mSOriTV9Vz
+JjFitWRGitM+/oADAzUvPspL3TTGCBzwiAUPSVsBgnTmeiseOX8=
+=4o32
+-----END PGP SIGNATURE-----
+
+--Lm2ZaOZ7foAeT6XX--
+
+--===============1352650212==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============1352650212==--
