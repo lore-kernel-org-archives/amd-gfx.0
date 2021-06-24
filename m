@@ -2,71 +2,48 @@ Return-Path: <SRS0=nR5r=LT=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-5.2 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 75DB9C2B9F4
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Jun 2021 07:28:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0FA06C48BC2
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Jun 2021 07:28:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CEF556141E
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Jun 2021 07:28:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CEF556141E
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=uniontech.com
+	by mail.kernel.org (Postfix) with ESMTPS id 8222A6141E
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Jun 2021 07:28:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8222A6141E
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 910EB6E0E5;
-	Fri, 25 Jun 2021 07:28:41 +0000 (UTC)
-X-Greylist: delayed 531 seconds by postgrey-1.36 at gabe;
- Fri, 25 Jun 2021 01:45:51 UTC
-Received: from smtphy.263.net (syd-smtp02.263.net [13.237.61.158])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B211F6E9D8;
- Fri, 25 Jun 2021 01:45:51 +0000 (UTC)
-Received: from smtp.263.net (unknown [211.157.147.162])
- by smtphy.263.net (Postfix) with ESMTPS id 0C92E1200A1;
- Fri, 25 Jun 2021 09:36:59 +0800 (CST)
-Received: from regular1.263xmail.com (unknown [192.168.165.182])
- by smtp.263.net (Postfix) with ESMTP id 613B9231;
- Fri, 25 Jun 2021 09:36:50 +0800 (CST)
-Received: from localhost (unknown [192.168.167.137])
- by regular1.263xmail.com (Postfix) with ESMTP id 9BE94E65;
- Fri, 25 Jun 2021 09:36:45 +0800 (CST)
-X-MAIL-GRAY: 0
-X-MAIL-DELIVERY: 1
-X-ADDR-CHECKED: 0
-X-SKE-CHECKED: 1
-X-ABS-CHECKED: 1
-X-ANTISPAM-LEVEL: 2
-Received: from bj-wm-cp-9 (unknown [192.168.167.113])
- by smtp.263.net (postfix) whith ESMTP id
- P14259T140505477224192S1624585005531423_; 
- Fri, 25 Jun 2021 09:36:45 +0800 (CST)
-X-UNIQUE-TAG: <5dc28952703ead30559dc3583043fc9e>
-X-RL-SENDER: huqiqiao@uniontech.com
-X-SENDER: huqiqiao@uniontech.com
-X-LOGIN-NAME: wmsendmail@net263.com
-X-FST-TO: ckoenig.leichtzumerken@gmail.com
-X-RCPT-COUNT: 6
-X-SENDER-IP: 192.168.167.113
-X-ATTACHMENT-NUM: 0
-X-System-Flag: 0
-Date: Fri, 25 Jun 2021 09:36:45 +0800 (CST)
-From: =?UTF-8?B?6IOh5aWH5ben?= <huqiqiao@uniontech.com>
-To: =?UTF-8?B?Q2hyaXN0aWFuIEvDtm5pZyA=?= <ckoenig.leichtzumerken@gmail.com>, 
- =?UTF-8?B?YWlybGllZCA=?= <airlied@linux.ie>, 
- =?UTF-8?B?ZGFuaWVsIA==?= <daniel@ffwll.ch>
-Message-ID: <1588518222.11998.1624585005279.JavaMail.xmail@bj-wm-cp-9>
-References: <20210623091242.12861-1-huqiqiao@uniontech.com>,
- <e18c2147-cc19-7493-5feb-de28e3102d3f@gmail.com>
-Subject: =?UTF-8?B?UmU6UmU6IFtQQVRDSF0gZHJtL2FtZGdwdTp1c2Uga3ZjYWxsb2MgaW5zdGVhZCBvZiBrdm1hbGxvY19hcnJheQ==?=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39ADC6ECDC;
+	Fri, 25 Jun 2021 07:28:43 +0000 (UTC)
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8CCC6EB86;
+ Thu, 24 Jun 2021 13:22:26 +0000 (UTC)
+Received: by verein.lst.de (Postfix, from userid 2407)
+ id 6FB1567373; Thu, 24 Jun 2021 15:22:23 +0200 (CEST)
+Date: Thu, 24 Jun 2021 15:22:23 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Subject: Re: [Linaro-mm-sig] [PATCH v3 1/2] habanalabs: define uAPI to
+ export FD for DMA-BUF
+Message-ID: <20210624132223.GA22258@lst.de>
+References: <20210622160538.GT1096940@ziepe.ca>
+ <d600a638-9e55-6249-b574-0986cd5cea1e@gmail.com>
+ <20210623182435.GX1096940@ziepe.ca>
+ <CAFCwf111O0_YB_tixzEUmaKpGAHMNvMaOes2AfMD4x68Am4Yyg@mail.gmail.com>
+ <20210623185045.GY1096940@ziepe.ca>
+ <CAFCwf12tW_WawFfAfrC8bgVhTRnDA7DuM+0V8w3JsUZpA2j84w@mail.gmail.com>
+ <20210624053421.GA25165@lst.de>
+ <9571ac7c-3a58-b013-b849-e26c3727e9b2@amd.com>
+ <20210624081237.GA30289@lst.de>
+ <899fe0ce-b6d7-c138-04b6-4b12405f8d93@amd.com>
 MIME-Version: 1.0
-X-Send-Individually: 0
-X-Reply-Previous-EmailId: 
-X-SENDER-IP: 58.240.82.166
-X-Priority: 3
+Content-Disposition: inline
+In-Reply-To: <899fe0ce-b6d7-c138-04b6-4b12405f8d93@amd.com>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 X-Mailman-Approved-At: Fri, 25 Jun 2021 07:28:40 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,76 +56,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?B?YW1kLWdmeCA=?= <amd-gfx@lists.freedesktop.org>,
- =?UTF-8?B?ZHJpLWRldmVsIA==?= <dri-devel@lists.freedesktop.org>,
- =?UTF-8?B?bGludXgta2VybmVsIA==?= <linux-kernel@vger.kernel.org>
-Content-Type: multipart/mixed; boundary="===============1766308830=="
+Cc: Oded Gabbay <oded.gabbay@gmail.com>,
+ linux-rdma <linux-rdma@vger.kernel.org>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ sleybo@amazon.com, Oded Gabbay <ogabbay@kernel.org>,
+ Gal Pressman <galpress@amazon.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Doug Ledford <dledford@redhat.com>,
+ Tomer Tayar <ttayar@habana.ai>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Greg KH <gregkh@linuxfoundation.org>, Alex Deucher <alexander.deucher@amd.com>,
+ Leon Romanovsky <leonro@nvidia.com>, Christoph Hellwig <hch@lst.de>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1766308830==
-Content-Type: text/html;  charset=utf-8
-Content-Transfer-Encoding: base64
+On Thu, Jun 24, 2021 at 11:52:47AM +0200, Christian K=F6nig wrote:
+> I've already converted a bunch of the GPU drivers, but there are at least=
+ 6 =
 
-PHN0eWxlPnRhYmxlLmN1c3RvbVRhYmxlQ2xhc3NOYW1lIHttYXJnaW4tYm90dG9tOiAxMHB4O2Jv
-cmRlci1jb2xsYXBzZTogY29sbGFwc2U7ZGlzcGxheTogdGFibGU7fS5jdXN0b21UYWJsZUNsYXNz
-TmFtZSB0ZCwgLmN1c3RvbVRhYmxlQ2xhc3NOYW1lIHRoIHtib3JkZXI6IDFweCBzb2xpZCAjZGRk
-O308L3N0eWxlPjxwIHN0eWxlPSJtYXJnaW46MHB4OyI+PGJyPjwvcD48cCBzdHlsZT0ibWFyZ2lu
-OjBweDsiPk9LLCBJJ2xsIHJldmlzZSBpdCBhbmQgc3VibWl0IGl0IGFnYWluPC9wPjxwIHN0eWxl
-PSJtYXJnaW46MHB4OyI+PGJyPjwvcD48cCBzdHlsZT0ibWFyZ2luOjBweDsiPkdlb3JnZS48L3A+
-PHAgc3R5bGU9Im1hcmdpbjowcHg7Ij48YnI+DQogJm5ic3A7PC9wPjxkaXYgc3R5bGU9InBhZGRp
-bmc6NXB4O3BhZGRpbmctbGVmdDowcHg7Ym9yZGVyLXRvcDpzb2xpZCAjOTk5IDEuMHB0O2ZvbnQt
-ZmFtaWx5OiBhcmlhbDsgZm9udC1zaXplOjEycHg7bWFyZ2luLWJvdHRvbToyMHB4OyI+PHAgc3R5
-bGU9Im1hcmdpbjowcHg7Ij48c3Ryb25nPkZyb206PC9zdHJvbmc+ICJDaHJpc3RpYW4gS8O2bmln
-ICZsdDtja29lbmlnLmxlaWNodHp1bWVya2VuQGdtYWlsLmNvbSZndDsiPC9wPjxwIHN0eWxlPSJt
-YXJnaW46MHB4OyI+PHN0cm9uZz5Ubzo8L3N0cm9uZz4gImh1cWlxaWFvICZsdDtodXFpcWlhb0B1
-bmlvbnRlY2guY29tJmd0OyIsImFpcmxpZWQgJmx0O2FpcmxpZWRAbGludXguaWUmZ3Q7IiwiZGFu
-aWVsICZsdDtkYW5pZWxAZmZ3bGwuY2gmZ3Q7IjwvcD48cCBzdHlsZT0ibWFyZ2luOjBweDsiPjxz
-dHJvbmc+Q0M6PC9zdHJvbmc+ICJkcmktZGV2ZWwgJmx0O2RyaS1kZXZlbEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcmZ3Q7IiwiYW1kLWdmeCAmbHQ7YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcm
-Z3Q7IiwibGludXgta2VybmVsICZsdDtsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnJmd0OyI8
-L3A+PHAgc3R5bGU9Im1hcmdpbjowcHg7Ij48c3Ryb25nPlNlbnQ6PC9zdHJvbmc+IDIwMjEtMDYt
-MjQgMjE6MTQ8L3A+PHAgc3R5bGU9Im1hcmdpbjowcHg7Ij48c3Ryb25nPlN1YmplY3Q6PC9zdHJv
-bmc+IFJlOiBbUEFUQ0hdIGRybS9hbWRncHU6dXNlIGt2Y2FsbG9jIGluc3RlYWQgb2Yga3ZtYWxs
-b2NfYXJyYXk8L3A+PC9kaXY+PHAgc3R5bGU9Im1hcmdpbjowcHg7Ij48YnI+DQogJm5ic3A7PGJy
-PkFtIDIzLjA2LjIxIHVtIDExOjEyIHNjaHJpZWIgaHVxaXFpYW86ICZuYnNwOzxicj4mZ3Q7IGt2
-bWFsbG9jX2FycmF5ICsgX19HRlBfWkVSTyBpcyB0aGUgc2FtZSB3aXRoIGt2Y2FsbG9jLiAmbmJz
-cDs8YnI+Jmd0OyAmbmJzcDs8YnI+Jmd0OyBTaWduZWQtb2ZmLWJ5OiBodXFpcWlhbyAmbHQ7aHVx
-aXFpYW9AdW5pb250ZWNoLmNvbSZndDsgJm5ic3A7PGJyPiZndDsgLS0tICZuYnNwOzxicj4mZ3Q7
-IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jIHwgNSArKy0tLSAmbmJzcDs8
-YnI+Jmd0OyAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKSAm
-bmJzcDs8YnI+Jmd0OyAmbmJzcDs8YnI+Jmd0OyBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfdm0uYyAmbmJzcDs8YnI+Jmd0OyBpbmRleCA5YWNlZTRhNWIyYmEuLjUwZWRjNzM1MjViMCAx
-MDA2NDQgJm5ic3A7PGJyPiZndDsgLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X3ZtLmMgJm5ic3A7PGJyPiZndDsgKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X3ZtLmMgJm5ic3A7PGJyPiZndDsgQEAgLTkwOCw5ICs5MDgsOCBAQCBzdGF0aWMgaW50
-IGFtZGdwdV92bV9hbGxvY19wdHMoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsICZuYnNwOzxi
-cj4mZ3Q7IHVuc2lnbmVkIG51bV9lbnRyaWVzOyAmbmJzcDs8YnI+Jmd0OyANCiAmbmJzcDs8YnI+
-Jmd0OyBudW1fZW50cmllcyA9IGFtZGdwdV92bV9udW1fZW50cmllcyhhZGV2LCBjdXJzb3ItJmd0
-O2xldmVsKTsgJm5ic3A7PGJyPiZndDsgLSBlbnRyeS0mZ3Q7ZW50cmllcyA9IGt2bWFsbG9jX2Fy
-cmF5KG51bV9lbnRyaWVzLCAmbmJzcDs8YnI+Jmd0OyAtIHNpemVvZigqZW50cnktJmd0O2VudHJp
-ZXMpLCAmbmJzcDs8YnI+Jmd0OyAtIEdGUF9LRVJORUwgfCBfX0dGUF9aRVJPKTsgJm5ic3A7PGJy
-PiZndDsgKyBlbnRyeS0mZ3Q7ZW50cmllcyA9IGt2Y2FsbG9jKG51bV9lbnRyaWVzLCAmbmJzcDs8
-YnI+Jmd0OyArIHNpemVvZigqZW50cnktJmd0O2VudHJpZXMpLCBHRlBfS0VSTkVMKTsgJm5ic3A7
-PGJyPg0KICZuYnNwOzxicj5Tb3VuZHMgbGlrZSBhIGdvb2QgaWRlYSBpbiBnZW5lcmFsLCBidXQg
-dGhlIGluZGVudGF0aW9uIG9uIHRoZSBzZWNvbmQgDQogJm5ic3A7PGJyPmxpbmUgc2VlbXMgdG8g
-YmUgb2YuICZuYnNwOzxicj4NCiAmbmJzcDs8YnI+Q2hyaXN0aWFuLiAmbmJzcDs8YnI+DQogJm5i
-c3A7PGJyPiZndDsgaWYgKCFlbnRyeS0mZ3Q7ZW50cmllcykgJm5ic3A7PGJyPiZndDsgcmV0dXJu
-IC1FTk9NRU07ICZuYnNwOzxicj4mZ3Q7IH0gJm5ic3A7PGJyPg0KICZuYnNwOzxicj4NCiAmbmJz
-cDs8YnI+DQogJm5ic3A7PGJyPg0KIDwvcD4=
+> GPU still needing to be fixed and on top of that comes VA-API and a few =
 
+> others.
+>
+> What are your plans for the DMA mapping subsystem?
 
+Building a new API that allows batched DMA mapping without the scatterlist.
+The main input for my use case would be bio_vecs, but I plan to make it
+a little flexible, and the output would be a list of [dma_addr,len]
+tuples, with the API being flexible enough to just return a single
+[dma_addr,len] for the common IOMMU coalescing case.
 
---===============1766308830==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+>
+>> Btw, one thing I noticed when looking over the dma-buf instances is that
+>> there is a lot of duplicated code for creating a sg_table from pages,
+>> and then mapping it.  It would be good if we could move toward common
+>> helpers instead of duplicating that all over again.
+>
+> Can you give an example?
 
+Take a look at the get_sg_table and put_sg_table helpers in udmabuf.
+Those would also be useful in armda, i915, tegra, gntdev-dmabuf, mbochs
+in one form or another.
+
+Similar for variants that use a contigous regions.
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1766308830==--
