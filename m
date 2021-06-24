@@ -7,45 +7,44 @@ X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 46ADFC49EA6
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 10:47:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 82B63C49EA5
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 10:48:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C911B61400
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 10:47:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C911B61400
+	by mail.kernel.org (Postfix) with ESMTPS id 3213D613FF
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 10:48:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3213D613FF
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D6866EB53;
-	Thu, 24 Jun 2021 10:47:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39D096EB58;
+	Thu, 24 Jun 2021 10:48:36 +0000 (UTC)
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0B626EB4E;
- Thu, 24 Jun 2021 10:47:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DBA816EB55;
+ Thu, 24 Jun 2021 10:48:34 +0000 (UTC)
 Received: from pendragon.ideasonboard.com (62-78-145-57.bb.dnainternet.fi
  [62.78.145.57])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 842B9532;
- Thu, 24 Jun 2021 12:47:39 +0200 (CEST)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 571A61254;
+ Thu, 24 Jun 2021 12:48:33 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1624531659;
- bh=ZNycYCdpm5oEjlFfF/sEqNXjEFO/n03c+byQ10Bt5bw=;
+ s=mail; t=1624531713;
+ bh=fIk5wMEN1B7CMPOBGbKPIoyHWGb/NJbW3Q+hz7HFjMM=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=CGN9DVFsEHoPFf+pGvo+BS5Oqq8sbq0BRLQS9wPa02YfsZbZHe42KSDL8SiS8nknQ
- Dlh8v3FIrtFZ+aIelYdI0hq6VcbgqVLgvJq3npv5I27MKCnHAHxEiouigFeN+ZPJ+I
- gY9uoWeAbXhjpnjIo6lsntNy9MnvXU5it7HqZ5l0=
-Date: Thu, 24 Jun 2021 13:47:08 +0300
+ b=OoLj5b8l/ofOHdX9hMnRB54xFpHcmL5qCdyqf0btt+Wqy//1J8rGXdoC24H1uq8n1
+ 048gJuhXofMiwBWBvQAq72XeLSOhwF8Jn/QOm5PZoqoyR+V/AZX9s6u3YYgXawYOjf
+ yqs50G3bJBKCjDvGArnYQnXaHNQWu9PnXSCiArt0=
+Date: Thu, 24 Jun 2021 13:48:03 +0300
 From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 To: Thomas Zimmermann <tzimmermann@suse.de>
-Subject: Re: [PATCH v3 16/27] drm/rcar-du: Don't set struct
- drm_device.irq_enabled
-Message-ID: <YNRirARS1AIVncc+@pendragon.ideasonboard.com>
+Subject: Re: [PATCH v3 24/27] drm/vkms: Don't set struct drm_device.irq_enabled
+Message-ID: <YNRi4yR6lQTix7ar@pendragon.ideasonboard.com>
 References: <20210624072916.27703-1-tzimmermann@suse.de>
- <20210624072916.27703-17-tzimmermann@suse.de>
+ <20210624072916.27703-25-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210624072916.27703-17-tzimmermann@suse.de>
+In-Reply-To: <20210624072916.27703-25-tzimmermann@suse.de>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,31 +92,31 @@ Hi Thomas,
 
 Thank you for the patch.
 
-On Thu, Jun 24, 2021 at 09:29:05AM +0200, Thomas Zimmermann wrote:
+On Thu, Jun 24, 2021 at 09:29:13AM +0200, Thomas Zimmermann wrote:
 > The field drm_device.irq_enabled is only used by legacy drivers
-> with userspace modesetting. Don't set it in rcar-du.
+> with userspace modesetting. Don't set it in vkms.
 > 
 > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 
 Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 
 > ---
->  drivers/gpu/drm/rcar-du/rcar_du_drv.c | 2 --
+>  drivers/gpu/drm/vkms/vkms_drv.c | 2 --
 >  1 file changed, 2 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/rcar-du/rcar_du_drv.c b/drivers/gpu/drm/rcar-du/rcar_du_drv.c
-> index bfbff90588cb..e289a66594a7 100644
-> --- a/drivers/gpu/drm/rcar-du/rcar_du_drv.c
-> +++ b/drivers/gpu/drm/rcar-du/rcar_du_drv.c
-> @@ -593,8 +593,6 @@ static int rcar_du_probe(struct platform_device *pdev)
->  		goto error;
+> diff --git a/drivers/gpu/drm/vkms/vkms_drv.c b/drivers/gpu/drm/vkms/vkms_drv.c
+> index 027ffe759440..496de38ad983 100644
+> --- a/drivers/gpu/drm/vkms/vkms_drv.c
+> +++ b/drivers/gpu/drm/vkms/vkms_drv.c
+> @@ -163,8 +163,6 @@ static int vkms_create(struct vkms_config *config)
+>  		goto out_devres;
 >  	}
 >  
-> -	rcdu->ddev.irq_enabled = 1;
+> -	vkms_device->drm.irq_enabled = true;
 > -
->  	/*
->  	 * Register the DRM device with the core and the connectors with
->  	 * sysfs.
+>  	ret = drm_vblank_init(&vkms_device->drm, 1);
+>  	if (ret) {
+>  		DRM_ERROR("Failed to vblank\n");
 
 -- 
 Regards,
