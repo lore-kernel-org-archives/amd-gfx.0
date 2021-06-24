@@ -7,69 +7,69 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C779FC49EA7
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 07:30:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1DBB2C49EB7
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 07:30:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8EA2C6100A
+	by mail.kernel.org (Postfix) with ESMTPS id DE3186100A
 	for <amd-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 07:30:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8EA2C6100A
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DE3186100A
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 500A66EAD6;
-	Thu, 24 Jun 2021 07:29:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 357A36EB0A;
+	Thu, 24 Jun 2021 07:29:50 +0000 (UTC)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F0376EAAD;
- Thu, 24 Jun 2021 07:29:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 852F86EAAD;
+ Thu, 24 Jun 2021 07:29:48 +0000 (UTC)
 Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
  (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id DDA282197E;
- Thu, 24 Jun 2021 07:29:44 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 31F3321993;
+ Thu, 24 Jun 2021 07:29:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1624519784; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1624519787; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Xjs21v6BnfmrQjHBwA75w2YxFbj1HlLjWbOZJ/QzXvw=;
- b=bvGZslElWp3cvYxsGTdqKJVgTX65K6gI6/QZrd4U1OC+4rdC5X9p89hC0+0K5yyaCLWf6J
- 18TYf93KDpP55DJCYI/HY/bNv+V2TcBieox7lCzax5e+n8ByklWYQvNnyBscPma7nYwcLH
- /O6bocU34eFxsu8n17GgPpXwHf06XOo=
+ bh=d7Kf4EUufAIb4zXr7EWzO2nAMhAVG0SYrCzqH76F7IE=;
+ b=xeV4cOYpUH2IJ2CFWznWh3XaKcwkmIYJnScxzTaRyA9zs+gtMsVrFOm5wc2p141M3fpNZS
+ LhbeXzeTA/nC1mX2bliLyJrUfTFjBjfb/BIETUdxTvKBX1VvD753VW7oLjtBi4Ln3Yqxfr
+ 3NSf+1/TxyLq8sahOKAOP1sYcvbdylo=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1624519784;
+ s=susede2_ed25519; t=1624519787;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Xjs21v6BnfmrQjHBwA75w2YxFbj1HlLjWbOZJ/QzXvw=;
- b=kjRe2RcTWj4qXzYhfn48TEVlfZ9OAktBibhiYOEjZsSc3y7tnJFVJ2er0oaJc3IGWKHgRq
- GXasydqwCgXgICDg==
+ bh=d7Kf4EUufAIb4zXr7EWzO2nAMhAVG0SYrCzqH76F7IE=;
+ b=6pE92AN8ojtf7l4NDfoBxrr3IdcS3j3IU15Kym/YQ1Hxr2TKfurBjlmvQT4m5F36K6whcW
+ KrT7D5MECQMPWHCw==
 Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id C19E211C9B;
- Thu, 24 Jun 2021 07:29:43 +0000 (UTC)
+ by imap.suse.de (Postfix) with ESMTP id 1565D11C9B;
+ Thu, 24 Jun 2021 07:29:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1624519784; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1624519787; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Xjs21v6BnfmrQjHBwA75w2YxFbj1HlLjWbOZJ/QzXvw=;
- b=bvGZslElWp3cvYxsGTdqKJVgTX65K6gI6/QZrd4U1OC+4rdC5X9p89hC0+0K5yyaCLWf6J
- 18TYf93KDpP55DJCYI/HY/bNv+V2TcBieox7lCzax5e+n8ByklWYQvNnyBscPma7nYwcLH
- /O6bocU34eFxsu8n17GgPpXwHf06XOo=
+ bh=d7Kf4EUufAIb4zXr7EWzO2nAMhAVG0SYrCzqH76F7IE=;
+ b=xeV4cOYpUH2IJ2CFWznWh3XaKcwkmIYJnScxzTaRyA9zs+gtMsVrFOm5wc2p141M3fpNZS
+ LhbeXzeTA/nC1mX2bliLyJrUfTFjBjfb/BIETUdxTvKBX1VvD753VW7oLjtBi4Ln3Yqxfr
+ 3NSf+1/TxyLq8sahOKAOP1sYcvbdylo=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1624519784;
+ s=susede2_ed25519; t=1624519787;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Xjs21v6BnfmrQjHBwA75w2YxFbj1HlLjWbOZJ/QzXvw=;
- b=kjRe2RcTWj4qXzYhfn48TEVlfZ9OAktBibhiYOEjZsSc3y7tnJFVJ2er0oaJc3IGWKHgRq
- GXasydqwCgXgICDg==
+ bh=d7Kf4EUufAIb4zXr7EWzO2nAMhAVG0SYrCzqH76F7IE=;
+ b=6pE92AN8ojtf7l4NDfoBxrr3IdcS3j3IU15Kym/YQ1Hxr2TKfurBjlmvQT4m5F36K6whcW
+ KrT7D5MECQMPWHCw==
 Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id IEd5Lmc01GAJfwAALh3uQQ
- (envelope-from <tzimmermann@suse.de>); Thu, 24 Jun 2021 07:29:43 +0000
+ id EF1cBGo01GAJfwAALh3uQQ
+ (envelope-from <tzimmermann@suse.de>); Thu, 24 Jun 2021 07:29:46 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
  christian.koenig@amd.com, Xinhui.Pan@amd.com, james.qian.wang@arm.com,
@@ -94,9 +94,9 @@ To: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
  rodrigo.vivi@intel.com, linux@armlinux.org.uk,
  kieran.bingham+renesas@ideasonboard.com, rodrigosiqueiramelo@gmail.com,
  melissa.srw@gmail.com, hamohammed.sa@gmail.com
-Subject: [PATCH v3 21/27] drm/tegra: Don't set struct drm_device.irq_enabled
-Date: Thu, 24 Jun 2021 09:29:10 +0200
-Message-Id: <20210624072916.27703-22-tzimmermann@suse.de>
+Subject: [PATCH v3 23/27] drm/vc4: Don't set struct drm_device.irq_enabled
+Date: Thu, 24 Jun 2021 09:29:12 +0200
+Message-Id: <20210624072916.27703-24-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210624072916.27703-1-tzimmermann@suse.de>
 References: <20210624072916.27703-1-tzimmermann@suse.de>
@@ -125,33 +125,27 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 The field drm_device.irq_enabled is only used by legacy drivers
-with userspace modesetting. Don't set it in tegra.
+with userspace modesetting. Don't set it in vc4.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 ---
- drivers/gpu/drm/tegra/drm.c | 7 -------
- 1 file changed, 7 deletions(-)
+ drivers/gpu/drm/vc4/vc4_kms.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/tegra/drm.c b/drivers/gpu/drm/tegra/drm.c
-index f96c237b2242..8d27c21ddf48 100644
---- a/drivers/gpu/drm/tegra/drm.c
-+++ b/drivers/gpu/drm/tegra/drm.c
-@@ -1188,13 +1188,6 @@ static int host1x_drm_probe(struct host1x_device *dev)
- 			goto device;
- 	}
+diff --git a/drivers/gpu/drm/vc4/vc4_kms.c b/drivers/gpu/drm/vc4/vc4_kms.c
+index 6a1a9e1d72ce..f0b3e4cf5bce 100644
+--- a/drivers/gpu/drm/vc4/vc4_kms.c
++++ b/drivers/gpu/drm/vc4/vc4_kms.c
+@@ -880,7 +880,6 @@ int vc4_kms_load(struct drm_device *dev)
+ 	/* Set support for vblank irq fast disable, before drm_vblank_init() */
+ 	dev->vblank_disable_immediate = true;
  
--	/*
--	 * We don't use the drm_irq_install() helpers provided by the DRM
--	 * core, so we need to set this manually in order to allow the
--	 * DRM_IOCTL_WAIT_VBLANK to operate correctly.
--	 */
--	drm->irq_enabled = true;
--
- 	/* syncpoints are used for full 32-bit hardware VBLANK counters */
- 	drm->max_vblank_count = 0xffffffff;
- 
+-	dev->irq_enabled = true;
+ 	ret = drm_vblank_init(dev, dev->mode_config.num_crtc);
+ 	if (ret < 0) {
+ 		dev_err(dev->dev, "failed to initialize vblank\n");
 -- 
 2.32.0
 
