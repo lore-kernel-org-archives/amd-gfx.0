@@ -2,74 +2,54 @@ Return-Path: <SRS0=QFXE=LS=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.0 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 157E5C48BDF
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 12:02:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7A26BC49EAB
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 12:36:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D70A7613DA
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 12:02:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D70A7613DA
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 388F6613F6
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 12:36:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 388F6613F6
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66E6E6EB62;
-	Thu, 24 Jun 2021 12:02:31 +0000 (UTC)
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [IPv6:2a00:1450:4864:20::334])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 256EA6EB62;
- Thu, 24 Jun 2021 12:02:30 +0000 (UTC)
-Received: by mail-wm1-x334.google.com with SMTP id
- u8-20020a7bcb080000b02901e44e9caa2aso3354776wmj.4; 
- Thu, 24 Jun 2021 05:02:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=+SpIYl8f+mm4xc/wATx8xxQwIh7YjYdlE5uQ7ip0aaU=;
- b=A4ZJSYnWcvNDaAGkscckQ1T0JedTdFDVSuL2YBNdwwF7acWK0AZcsU5zvsVBjaEnE0
- vsxLXeiOkPXV0sDkt5mf5/o226lI7HBeiLI3sEq1aMRGbypsf6Bch2Kg62wRL1La4pDI
- oGZydtxItkAsfL83TfuEmUWoDMxV7rufPNivK3ryBzWPLuL+5usBc6MglcCUM6IzelM8
- Nz6qtrU0C9W4JeYrs7rwBFAjukEAoFywD8y16Q8wkRFeIXm2GbxrFHrfjHBLNTda9rqV
- SY0IiWXgH48K8ZPh9MWtQ5Dh1jLdaybwti7HCY0TZjkN9TbYA/yL3MNnHzS9FYivGbwv
- lUKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=+SpIYl8f+mm4xc/wATx8xxQwIh7YjYdlE5uQ7ip0aaU=;
- b=JwWySRSrae4yzNjJApTF+dyBb/ry5QMyc5FX9Gs7VMLVeq2opPzH4XBMDl1zDWjjHz
- g37f5TqkI6MvaBltty5I6jbf0yntrWB1LL6m9k8hwYv8WfzY6yN4v4Y7Xyx/wpWNrYrS
- v6YzNQaP9MnpeGePd69weFmQ6neEjyMffX49wU63ITn2TZ/hy5xvij2wGXBszdVIi7+R
- Fx1g0hogWCGW2WfhxhWb5wxmrDgCIng5d61bww+y/tA8qVh65+PpChymZWI/Z1XiilnI
- ror5YAfJ4wXlKtImnq8WyWptlZsum8nz/ouB5RHf7Yf5ie5EvQ1q1oXs1MpLDrpazPar
- ojAw==
-X-Gm-Message-State: AOAM533p+aQZdEogF92aEXcnwOBQ7fuyOJRmxR+k91oLFOL+fGQFL8pz
- ZoLGYNXcaUgJraFWfdfexyg=
-X-Google-Smtp-Source: ABdhPJwnAQpQT/2sEz7viSMJ7t/+2zmdWLWtmPK9rh67Szq5oWv4lL/lZy1xAEGpP06+iHH3w5wUNg==
-X-Received: by 2002:a05:600c:4a19:: with SMTP id
- c25mr3844668wmp.125.1624536148907; 
- Thu, 24 Jun 2021 05:02:28 -0700 (PDT)
-Received: from localhost ([62.96.65.119])
- by smtp.gmail.com with ESMTPSA id c12sm2972417wrw.46.2021.06.24.05.02.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 24 Jun 2021 05:02:27 -0700 (PDT)
-Date: Thu, 24 Jun 2021 14:04:30 +0200
-From: Thierry Reding <thierry.reding@gmail.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Subject: Re: [PATCH v3 21/27] drm/tegra: Don't set struct
- drm_device.irq_enabled
-Message-ID: <YNR0zpVzMxQauzet@orome.fritz.box>
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF7DA6EADD;
+	Thu, 24 Jun 2021 12:36:54 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E7A56EADC;
+ Thu, 24 Jun 2021 12:36:52 +0000 (UTC)
+IronPort-SDR: PxUC/b1ItYPPpVU6IIq7zENtuORmHzVSihDLjFBpawGUxH4MzBtrlq+FRZAB0Rvayp0Ner2Qx9
+ 7s6YEtvQW6uQ==
+X-IronPort-AV: E=McAfee;i="6200,9189,10024"; a="205631908"
+X-IronPort-AV: E=Sophos;i="5.83,296,1616482800"; d="scan'208";a="205631908"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jun 2021 05:36:51 -0700
+IronPort-SDR: 9KysYK/2HzWxqWorwm4RDCvD9fzYUECjO+Kr/55Zbl/DRmlbCimO4edKqAHIWPRoPcJqgJVxQB
+ +d0WGJ9B4vNg==
+X-IronPort-AV: E=Sophos;i="5.83,296,1616482800"; d="scan'208";a="487740905"
+Received: from schulke-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.252.59.242])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jun 2021 05:36:27 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Thierry Reding <thierry.reding@gmail.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>
+Subject: Re: [PATCH v3 04/27] drm: Don't test for IRQ support in VBLANK ioctls
+In-Reply-To: <YNR0m2DJsdIW3NAZ@orome.fritz.box>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 References: <20210624072916.27703-1-tzimmermann@suse.de>
- <20210624072916.27703-22-tzimmermann@suse.de>
+ <20210624072916.27703-5-tzimmermann@suse.de> <87im23u1ok.fsf@intel.com>
+ <b5e7729f-ed11-e9ca-386e-562feb2bd2b7@suse.de> <877dijtzl2.fsf@intel.com>
+ <af21db75-584f-aec0-9659-d5386f27b4ea@suse.de>
+ <YNR0m2DJsdIW3NAZ@orome.fritz.box>
+Date: Thu, 24 Jun 2021 15:36:24 +0300
+Message-ID: <87zgvfsalz.fsf@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <20210624072916.27703-22-tzimmermann@suse.de>
-User-Agent: Mutt/2.0.7 (481f3800) (2021-05-04)
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,82 +72,112 @@ Cc: hamohammed.sa@gmail.com, heiko@sntech.de, emma@anholt.net, airlied@linux.ie,
  linux-rockchip@lists.infradead.org, linux-mediatek@lists.infradead.org,
  wens@csie.org, jernej.skrabec@gmail.com, jonathanh@nvidia.com,
  xinliang.liu@linaro.org, kong.kongxinwei@hisilicon.com,
- james.qian.wang@arm.com, linux-imx@nxp.com, intel-gfx@lists.freedesktop.org,
- linux-graphics-maintainer@vmware.com, linux-sunxi@lists.linux.dev,
- bskeggs@redhat.com, chunkuang.hu@kernel.org, p.zabel@pengutronix.de,
- puck.chen@hisilicon.com, s.hauer@pengutronix.de,
- maarten.lankhorst@linux.intel.com, Daniel Vetter <daniel.vetter@ffwll.ch>,
- mripard@kernel.org, inki.dae@samsung.com, rodrigosiqueiramelo@gmail.com,
- john.stultz@linaro.org, jani.nikula@linux.intel.com,
+ james.qian.wang@arm.com, linux-imx@nxp.com,
+ Daniel Vetter <daniel.vetter@ffwll.ch>, linux-graphics-maintainer@vmware.com,
+ intel-gfx@lists.freedesktop.org, bskeggs@redhat.com, chunkuang.hu@kernel.org,
+ p.zabel@pengutronix.de, puck.chen@hisilicon.com, s.hauer@pengutronix.de,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, inki.dae@samsung.com,
+ rodrigosiqueiramelo@gmail.com, john.stultz@linaro.org,
  laurentiu.palcu@oss.nxp.com, matthias.bgg@gmail.com, kernel@pengutronix.de,
  linux-arm-kernel@lists.infradead.org, mcoquelin.stm32@gmail.com,
  amd-gfx@lists.freedesktop.org, hyun.kwon@xilinx.com, tomba@kernel.org,
  jyri.sarha@iki.fi, yannick.fertre@foss.st.com, Xinhui.Pan@amd.com,
  sw0312.kim@samsung.com, hjc@rock-chips.com, christian.koenig@amd.com,
- kyungmin.park@samsung.com, kieran.bingham+renesas@ideasonboard.com,
- philippe.cornu@foss.st.com, daniel@ffwll.ch, alexander.deucher@amd.com,
- tiantao6@hisilicon.com, shawnguo@kernel.org, brian.starkey@arm.com,
- zackr@vmware.com, l.stach@pengutronix.de
-Content-Type: multipart/mixed; boundary="===============1807719015=="
+ linux-sunxi@lists.linux.dev, kyungmin.park@samsung.com,
+ kieran.bingham+renesas@ideasonboard.com, philippe.cornu@foss.st.com,
+ daniel@ffwll.ch, alexander.deucher@amd.com, tiantao6@hisilicon.com,
+ shawnguo@kernel.org, brian.starkey@arm.com, zackr@vmware.com,
+ l.stach@pengutronix.de
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Thu, 24 Jun 2021, Thierry Reding <thierry.reding@gmail.com> wrote:
+> On Thu, Jun 24, 2021 at 11:07:57AM +0200, Thomas Zimmermann wrote:
+>> Hi
+>> 
+>> Am 24.06.21 um 10:51 schrieb Jani Nikula:
+>> > On Thu, 24 Jun 2021, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+>> > > Hi
+>> > > 
+>> > > Am 24.06.21 um 10:06 schrieb Jani Nikula:
+>> > > > On Thu, 24 Jun 2021, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+>> > > > > diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
+>> > > > > index 3417e1ac7918..10fe16bafcb6 100644
+>> > > > > --- a/drivers/gpu/drm/drm_vblank.c
+>> > > > > +++ b/drivers/gpu/drm/drm_vblank.c
+>> > > > > @@ -1748,8 +1748,16 @@ int drm_wait_vblank_ioctl(struct drm_device *dev, void *data,
+>> > > > >    	unsigned int pipe_index;
+>> > > > >    	unsigned int flags, pipe, high_pipe;
+>> > > > > -	if (!dev->irq_enabled)
+>> > > > > -		return -EOPNOTSUPP;
+>> > > > > +#if defined(CONFIG_DRM_LEGACY)
+>> > > > > +	if  (unlikely(drm_core_check_feature(dev, DRIVER_LEGACY))) {
+>> > > > > +		if (!dev->irq_enabled)
+>> > > > > +			return -EOPNOTSUPP;
+>> > > > > +	} else /* if DRIVER_MODESET */
+>> > > > > +#endif
+>> > > > > +	{
+>> > > > > +		if (!drm_dev_has_vblank(dev))
+>> > > > > +			return -EOPNOTSUPP;
+>> > > > > +	}
+>> > > > 
+>> > > > Sheesh I hate this kind of inline #ifdefs.
+>> > > > 
+>> > > > Two alternate suggestions that I believe should be as just efficient:
+>> > > 
+>> > > Or how about:
+>> > > 
+>> > > static bool drm_wait_vblank_supported(struct drm_device *dev)
+>> > > 
+>> > > {
+>> > > 
+>> > > if defined(CONFIG_DRM_LEGACY)
+>> > > 	if  (unlikely(drm_core_check_feature(dev, DRIVER_LEGACY)))
+>> > > 
+>> > > 		return dev->irq_enabled;
+>> > > 
+>> > > #endif
+>> > > 	return drm_dev_has_vblank(dev);
+>> > > 
+>> > > }
+>> > > 
+>> > > 
+>> > > ?
+>> > > 
+>> > > It's inline, but still readable.
+>> > 
+>> > It's definitely better than the original, but it's unclear to me why
+>> > you'd prefer this over option 2) below. I guess the only reason I can
+>> > think of is emphasizing the conditional compilation. However,
+>> > IS_ENABLED() is widely used in this manner specifically to avoid inline
+>> > #if, and the compiler optimizes it away.
+>> 
+>> It's simply more readable to me as the condition is simpler. But option 2 is
+>> also ok.
+>
+> Perhaps do something like this, then:
+>
+> 	if (IS_ENABLED(CONFIG_DRM_LEGACY)) {
+> 		if (unlikely(drm_core_check_feature(dev, DRIVER_LEGACY)))
+> 			return dev->irq_enabled;
+> 	}
+>
+> 	return drm_dev_has_vblank(dev);
+>
+> That's about just as readable as the variant involving the preprocessor
+> but has all the benefits of not using the preprocessor.
 
---===============1807719015==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="ENqalYeZVO/RAx3+"
-Content-Disposition: inline
+Looks like a winner to me. :)
+
+BR,
+Jani.
 
 
---ENqalYeZVO/RAx3+
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, Jun 24, 2021 at 09:29:10AM +0200, Thomas Zimmermann wrote:
-> The field drm_device.irq_enabled is only used by legacy drivers
-> with userspace modesetting. Don't set it in tegra.
->=20
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-> ---
->  drivers/gpu/drm/tegra/drm.c | 7 -------
->  1 file changed, 7 deletions(-)
-
-Acked-by: Thierry Reding <treding@nvidia.com>
-
---ENqalYeZVO/RAx3+
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmDUdM4ACgkQ3SOs138+
-s6Ed0A/5ASxTJhpMIfL1u/g0kk5pjZX8ukNK72+ftE+sJWJhxDmTGuM+EzcPNaNg
-sKT+65FK2YsGeoA5fnN9QKWuUyS+bpExys5n39Aty+YN4tI4CV7CbU9OJeYm9Iru
-i+Ziu6gkJl2SYom/+cxuU42UkUDkQkWofYRel+HJZeDMogSRAIhiiQy5/fadGiJc
-36fJrXjueiB3EZjkg7CubNsLgy08qblR+sZGpuq4RIc3aVe6j6U8QxHiZ1eA7tMD
-ki2Nmub5WThcAUGn/ky+FD9m/yfieoI9sPkVWRpAF0oa6SDp6YO/oPFf2hJzl4jk
-HPXABfAWIYFTEzjFkGdRHjOfGgahPAXvwd1ku5zjBuFSH3vM9kNaNRuIQe2Rg9ti
-p3+b5RfPlO/1fiVRkuzXwROpjWNW44Y+eVVyee84h813aqYh9OOLJVrmxmrzZ1Xx
-mzDTvyZXuxtVb79T4XSkb0LnRw3wrraylMLP1X4/QTqttUBoWgYeKM5MwDgy+6zH
-Bx1VWtnjn9NmwEPfRmPpwIQNByNJ2DG/E8wZmEfeqJAEHo1SLOYaBixh9W7DUlWC
-e9mZFcD+tYSTurqcg0mS5T1mSPJGyCjcZFP27RkFRSc9JbRAQt2uuKcr1R54mjTh
-gAJ6mf8hPIWA8Q6ro+2TgW8p0X/wbPsnZdXjZrTGBsV1QA84k+M=
-=pLLR
------END PGP SIGNATURE-----
-
---ENqalYeZVO/RAx3+--
-
---===============1807719015==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+-- 
+Jani Nikula, Intel Open Source Graphics Center
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1807719015==--
