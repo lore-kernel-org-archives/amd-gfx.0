@@ -2,106 +2,72 @@ Return-Path: <SRS0=nR5r=LT=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 65F23C2B9F4
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Jun 2021 06:44:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 75DB9C2B9F4
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Jun 2021 07:28:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1EC0F6140E
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Jun 2021 06:44:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1EC0F6140E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id CEF556141E
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Jun 2021 07:28:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CEF556141E
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=uniontech.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 620C46ECC8;
-	Fri, 25 Jun 2021 06:44:36 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2070.outbound.protection.outlook.com [40.107.220.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1006F6ECC8
- for <amd-gfx@lists.freedesktop.org>; Fri, 25 Jun 2021 06:44:34 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BnoKfOy9fd0SJ/1Gnl8lG0lgJm4XL5x+ypKtt4am7exeDSVnJp3h4u5IsQ17APV1mcW1AITahF+vjfR9WdNbyKtPvTce/Ngqk8p0uCsMytDzesVtHrXplSFFjGcA0E9hg2Ija5mFv8hG4zpxrwndozljwUcvX3LqxYF9dXOsWl5Gj7haqYiNwynB1UxVNS+nLJh4zsz9T3SnhRXgMl92rujqeS9j2zWas0gUupie8SUqc46X3YtAYETdy01ENRthAzF4/Wu6+D0tNRDQMkceKksL6yXT6gsfipjokFvRdNtulBheAwb0aMw6asXO5QrpRgip594Dmnf7cjLQYx9x7A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ghCgtUQOPH4z/yyBNsPK8ekeOcZMXg35muDiQrLNiHg=;
- b=h4acEhTQhtiR7PYHUNA31qtxDJPOGGP4kC2+CRuVfZGhwZHBiNN6lg5lV+rqCpZaXZvHqF+TsRyPYx3ftQTisOLzNx9GqXPu/zQ5s2VGAewKPtzBFJbKyfs+9J/fMwMre/FAotAAeXDVlc2em+nGBG3McPy/raloDzdUszXFCJM7UWR7VRG1DHxdU9VoZEUOl0allIwXWRW8CTB26tZnovHwx++NljiPu1z3UTuHoYxUeyChUlbn+rlOy0Wk5fbYqUs4o92Bm1uIR4UpIaPz0Fd3a+Hqr1lTNUSSdAuz18MyUKg+Naw3yjKx1k2WEGH7rL9AvNSO9tkvjgrYnhoWsQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ghCgtUQOPH4z/yyBNsPK8ekeOcZMXg35muDiQrLNiHg=;
- b=tRmULsc7mHxq4falRzRPtukaiXlXS/fJq2o3pUdbhHPjkZ3oA/TOYxeORIjum/UpOMY03S7fw2JhNKQCQ9fVFdD0Lwzpl4dLiIKZd/Sh1M/OJCfHtWd26WmauZik7N7QksoUqgbAeyjad23OxK3heno+soiouMvzoWwVWI1iUIo=
-Received: from DM5PR21CA0018.namprd21.prod.outlook.com (2603:10b6:3:ac::28) by
- BN9PR12MB5292.namprd12.prod.outlook.com (2603:10b6:408:105::9) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4242.23; Fri, 25 Jun 2021 06:44:33 +0000
-Received: from DM6NAM11FT011.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:ac:cafe::6f) by DM5PR21CA0018.outlook.office365.com
- (2603:10b6:3:ac::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4287.4 via Frontend
- Transport; Fri, 25 Jun 2021 06:44:33 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT011.mail.protection.outlook.com (10.13.172.108) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4264.18 via Frontend Transport; Fri, 25 Jun 2021 06:44:32 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Fri, 25 Jun
- 2021 01:44:30 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Fri, 25 Jun
- 2021 01:44:30 -0500
-Received: from z-bu18.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4 via Frontend
- Transport; Fri, 25 Jun 2021 01:44:29 -0500
-From: Peng Ju Zhou <PengJu.Zhou@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v3] drm/amdgpu: Restore msix after FLR
-Date: Fri, 25 Jun 2021 14:44:22 +0800
-Message-ID: <20210625064422.30590-1-PengJu.Zhou@amd.com>
-X-Mailer: git-send-email 2.17.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 910EB6E0E5;
+	Fri, 25 Jun 2021 07:28:41 +0000 (UTC)
+X-Greylist: delayed 531 seconds by postgrey-1.36 at gabe;
+ Fri, 25 Jun 2021 01:45:51 UTC
+Received: from smtphy.263.net (syd-smtp02.263.net [13.237.61.158])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B211F6E9D8;
+ Fri, 25 Jun 2021 01:45:51 +0000 (UTC)
+Received: from smtp.263.net (unknown [211.157.147.162])
+ by smtphy.263.net (Postfix) with ESMTPS id 0C92E1200A1;
+ Fri, 25 Jun 2021 09:36:59 +0800 (CST)
+Received: from regular1.263xmail.com (unknown [192.168.165.182])
+ by smtp.263.net (Postfix) with ESMTP id 613B9231;
+ Fri, 25 Jun 2021 09:36:50 +0800 (CST)
+Received: from localhost (unknown [192.168.167.137])
+ by regular1.263xmail.com (Postfix) with ESMTP id 9BE94E65;
+ Fri, 25 Jun 2021 09:36:45 +0800 (CST)
+X-MAIL-GRAY: 0
+X-MAIL-DELIVERY: 1
+X-ADDR-CHECKED: 0
+X-SKE-CHECKED: 1
+X-ABS-CHECKED: 1
+X-ANTISPAM-LEVEL: 2
+Received: from bj-wm-cp-9 (unknown [192.168.167.113])
+ by smtp.263.net (postfix) whith ESMTP id
+ P14259T140505477224192S1624585005531423_; 
+ Fri, 25 Jun 2021 09:36:45 +0800 (CST)
+X-UNIQUE-TAG: <5dc28952703ead30559dc3583043fc9e>
+X-RL-SENDER: huqiqiao@uniontech.com
+X-SENDER: huqiqiao@uniontech.com
+X-LOGIN-NAME: wmsendmail@net263.com
+X-FST-TO: ckoenig.leichtzumerken@gmail.com
+X-RCPT-COUNT: 6
+X-SENDER-IP: 192.168.167.113
+X-ATTACHMENT-NUM: 0
+X-System-Flag: 0
+Date: Fri, 25 Jun 2021 09:36:45 +0800 (CST)
+From: =?UTF-8?B?6IOh5aWH5ben?= <huqiqiao@uniontech.com>
+To: =?UTF-8?B?Q2hyaXN0aWFuIEvDtm5pZyA=?= <ckoenig.leichtzumerken@gmail.com>, 
+ =?UTF-8?B?YWlybGllZCA=?= <airlied@linux.ie>, 
+ =?UTF-8?B?ZGFuaWVsIA==?= <daniel@ffwll.ch>
+Message-ID: <1588518222.11998.1624585005279.JavaMail.xmail@bj-wm-cp-9>
+References: <20210623091242.12861-1-huqiqiao@uniontech.com>,
+ <e18c2147-cc19-7493-5feb-de28e3102d3f@gmail.com>
+Subject: =?UTF-8?B?UmU6UmU6IFtQQVRDSF0gZHJtL2FtZGdwdTp1c2Uga3ZjYWxsb2MgaW5zdGVhZCBvZiBrdm1hbGxvY19hcnJheQ==?=
 MIME-Version: 1.0
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 847f2f99-c711-4a00-ec9c-08d937a4b07e
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5292:
-X-Microsoft-Antispam-PRVS: <BN9PR12MB5292309087935695C55300ABF8069@BN9PR12MB5292.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3044;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: op96XsA7V/PoFxBSkBiEdBfc/I6xUh3EYoeUNzsV8MuhDQw09E+WKanF0oZxFrG56+SH7uJ0Nqv/vPilaN7RhZhfTYN7TbPzC10hx5SGh88bLH6QXLYY8RoUub+zpyBY3RSKwYF8t9odS1W0fy1ihlCa7CDLW6wq6L3GtN2A6vOqiZrt618pU9/f16AFKXxJzBlm2HdeLwI76oZjAcLiQrBhTNsiLIj/oSefQqWh2nF97yYiDMh87We/XnjwF3t+vzbkf5o9wDlV9kifAEZrphP2yJ2znV7TyKnBg8Ig3FS1o+acm886AqKHmmXCY9Li4J7PHJoztpHhNfEDbcj8MYoVGeFofOIi6u3JVElO8ynD3Mb3KazLdHT2EJ/nN7YJKmvEX4115wkMhNri2VopgN+mfXaNzYh4fTAA2IFVW9jIko4D7tCn01AaKdaTX+PD9wRMYT6urjjQMwfd80jxQI8pQga4CF2ZKYSfZlqFNKLVizndPIkIJYWeWpHTBGCQkgBOi70sG1e4IewB+/nIc7y6X/Ex+Cvg27WS4hCviOxyU/g4WulQc/RZwR2TVrrB4M2JhhDb1LCpZGAThPuOc66g03RyINgJ7B0RvpuiTLfB1ji9YtSjqy2OQ7h1a6ytqqnB+3gUxO+0zqGOwUSP85Yz59/tNnTLa100Yec7QURJOi7W6I51Z9NUbLz2aDjQC22xaksCCqCHSs5vGjvzl0Jpx/bjw/0171OwPDFfB98=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(39860400002)(376002)(346002)(136003)(396003)(46966006)(36840700001)(8676002)(6666004)(7696005)(54906003)(426003)(8936002)(5660300002)(316002)(2906002)(478600001)(70586007)(70206006)(2616005)(336012)(4326008)(1076003)(186003)(47076005)(86362001)(26005)(36756003)(6916009)(82310400003)(81166007)(82740400003)(356005)(36860700001)(83380400001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2021 06:44:32.3768 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 847f2f99-c711-4a00-ec9c-08d937a4b07e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT011.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5292
+X-Send-Individually: 0
+X-Reply-Previous-EmailId: 
+X-SENDER-IP: 58.240.82.166
+X-Priority: 3
+X-Mailman-Approved-At: Fri, 25 Jun 2021 07:28:40 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,55 +79,76 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Emily.Deng" <Emily.Deng@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: =?UTF-8?B?YW1kLWdmeCA=?= <amd-gfx@lists.freedesktop.org>,
+ =?UTF-8?B?ZHJpLWRldmVsIA==?= <dri-devel@lists.freedesktop.org>,
+ =?UTF-8?B?bGludXgta2VybmVsIA==?= <linux-kernel@vger.kernel.org>
+Content-Type: multipart/mixed; boundary="===============1766308830=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: "Emily.Deng" <Emily.Deng@amd.com>
+--===============1766308830==
+Content-Type: text/html;  charset=utf-8
+Content-Transfer-Encoding: base64
 
-After FLR, the msix will be cleared, so need to re-enable it.
+PHN0eWxlPnRhYmxlLmN1c3RvbVRhYmxlQ2xhc3NOYW1lIHttYXJnaW4tYm90dG9tOiAxMHB4O2Jv
+cmRlci1jb2xsYXBzZTogY29sbGFwc2U7ZGlzcGxheTogdGFibGU7fS5jdXN0b21UYWJsZUNsYXNz
+TmFtZSB0ZCwgLmN1c3RvbVRhYmxlQ2xhc3NOYW1lIHRoIHtib3JkZXI6IDFweCBzb2xpZCAjZGRk
+O308L3N0eWxlPjxwIHN0eWxlPSJtYXJnaW46MHB4OyI+PGJyPjwvcD48cCBzdHlsZT0ibWFyZ2lu
+OjBweDsiPk9LLCBJJ2xsIHJldmlzZSBpdCBhbmQgc3VibWl0IGl0IGFnYWluPC9wPjxwIHN0eWxl
+PSJtYXJnaW46MHB4OyI+PGJyPjwvcD48cCBzdHlsZT0ibWFyZ2luOjBweDsiPkdlb3JnZS48L3A+
+PHAgc3R5bGU9Im1hcmdpbjowcHg7Ij48YnI+DQogJm5ic3A7PC9wPjxkaXYgc3R5bGU9InBhZGRp
+bmc6NXB4O3BhZGRpbmctbGVmdDowcHg7Ym9yZGVyLXRvcDpzb2xpZCAjOTk5IDEuMHB0O2ZvbnQt
+ZmFtaWx5OiBhcmlhbDsgZm9udC1zaXplOjEycHg7bWFyZ2luLWJvdHRvbToyMHB4OyI+PHAgc3R5
+bGU9Im1hcmdpbjowcHg7Ij48c3Ryb25nPkZyb206PC9zdHJvbmc+ICJDaHJpc3RpYW4gS8O2bmln
+ICZsdDtja29lbmlnLmxlaWNodHp1bWVya2VuQGdtYWlsLmNvbSZndDsiPC9wPjxwIHN0eWxlPSJt
+YXJnaW46MHB4OyI+PHN0cm9uZz5Ubzo8L3N0cm9uZz4gImh1cWlxaWFvICZsdDtodXFpcWlhb0B1
+bmlvbnRlY2guY29tJmd0OyIsImFpcmxpZWQgJmx0O2FpcmxpZWRAbGludXguaWUmZ3Q7IiwiZGFu
+aWVsICZsdDtkYW5pZWxAZmZ3bGwuY2gmZ3Q7IjwvcD48cCBzdHlsZT0ibWFyZ2luOjBweDsiPjxz
+dHJvbmc+Q0M6PC9zdHJvbmc+ICJkcmktZGV2ZWwgJmx0O2RyaS1kZXZlbEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcmZ3Q7IiwiYW1kLWdmeCAmbHQ7YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcm
+Z3Q7IiwibGludXgta2VybmVsICZsdDtsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnJmd0OyI8
+L3A+PHAgc3R5bGU9Im1hcmdpbjowcHg7Ij48c3Ryb25nPlNlbnQ6PC9zdHJvbmc+IDIwMjEtMDYt
+MjQgMjE6MTQ8L3A+PHAgc3R5bGU9Im1hcmdpbjowcHg7Ij48c3Ryb25nPlN1YmplY3Q6PC9zdHJv
+bmc+IFJlOiBbUEFUQ0hdIGRybS9hbWRncHU6dXNlIGt2Y2FsbG9jIGluc3RlYWQgb2Yga3ZtYWxs
+b2NfYXJyYXk8L3A+PC9kaXY+PHAgc3R5bGU9Im1hcmdpbjowcHg7Ij48YnI+DQogJm5ic3A7PGJy
+PkFtIDIzLjA2LjIxIHVtIDExOjEyIHNjaHJpZWIgaHVxaXFpYW86ICZuYnNwOzxicj4mZ3Q7IGt2
+bWFsbG9jX2FycmF5ICsgX19HRlBfWkVSTyBpcyB0aGUgc2FtZSB3aXRoIGt2Y2FsbG9jLiAmbmJz
+cDs8YnI+Jmd0OyAmbmJzcDs8YnI+Jmd0OyBTaWduZWQtb2ZmLWJ5OiBodXFpcWlhbyAmbHQ7aHVx
+aXFpYW9AdW5pb250ZWNoLmNvbSZndDsgJm5ic3A7PGJyPiZndDsgLS0tICZuYnNwOzxicj4mZ3Q7
+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jIHwgNSArKy0tLSAmbmJzcDs8
+YnI+Jmd0OyAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKSAm
+bmJzcDs8YnI+Jmd0OyAmbmJzcDs8YnI+Jmd0OyBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfdm0uYyAmbmJzcDs8YnI+Jmd0OyBpbmRleCA5YWNlZTRhNWIyYmEuLjUwZWRjNzM1MjViMCAx
+MDA2NDQgJm5ic3A7PGJyPiZndDsgLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X3ZtLmMgJm5ic3A7PGJyPiZndDsgKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X3ZtLmMgJm5ic3A7PGJyPiZndDsgQEAgLTkwOCw5ICs5MDgsOCBAQCBzdGF0aWMgaW50
+IGFtZGdwdV92bV9hbGxvY19wdHMoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsICZuYnNwOzxi
+cj4mZ3Q7IHVuc2lnbmVkIG51bV9lbnRyaWVzOyAmbmJzcDs8YnI+Jmd0OyANCiAmbmJzcDs8YnI+
+Jmd0OyBudW1fZW50cmllcyA9IGFtZGdwdV92bV9udW1fZW50cmllcyhhZGV2LCBjdXJzb3ItJmd0
+O2xldmVsKTsgJm5ic3A7PGJyPiZndDsgLSBlbnRyeS0mZ3Q7ZW50cmllcyA9IGt2bWFsbG9jX2Fy
+cmF5KG51bV9lbnRyaWVzLCAmbmJzcDs8YnI+Jmd0OyAtIHNpemVvZigqZW50cnktJmd0O2VudHJp
+ZXMpLCAmbmJzcDs8YnI+Jmd0OyAtIEdGUF9LRVJORUwgfCBfX0dGUF9aRVJPKTsgJm5ic3A7PGJy
+PiZndDsgKyBlbnRyeS0mZ3Q7ZW50cmllcyA9IGt2Y2FsbG9jKG51bV9lbnRyaWVzLCAmbmJzcDs8
+YnI+Jmd0OyArIHNpemVvZigqZW50cnktJmd0O2VudHJpZXMpLCBHRlBfS0VSTkVMKTsgJm5ic3A7
+PGJyPg0KICZuYnNwOzxicj5Tb3VuZHMgbGlrZSBhIGdvb2QgaWRlYSBpbiBnZW5lcmFsLCBidXQg
+dGhlIGluZGVudGF0aW9uIG9uIHRoZSBzZWNvbmQgDQogJm5ic3A7PGJyPmxpbmUgc2VlbXMgdG8g
+YmUgb2YuICZuYnNwOzxicj4NCiAmbmJzcDs8YnI+Q2hyaXN0aWFuLiAmbmJzcDs8YnI+DQogJm5i
+c3A7PGJyPiZndDsgaWYgKCFlbnRyeS0mZ3Q7ZW50cmllcykgJm5ic3A7PGJyPiZndDsgcmV0dXJu
+IC1FTk9NRU07ICZuYnNwOzxicj4mZ3Q7IH0gJm5ic3A7PGJyPg0KICZuYnNwOzxicj4NCiAmbmJz
+cDs8YnI+DQogJm5ic3A7PGJyPg0KIDwvcD4=
 
-Signed-off-by: Emily.Deng <Emily.Deng@amd.com>
-Signed-off-by: Peng Ju Zhou <PengJu.Zhou@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-index 90f50561b43a..26e63cb5d8d5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-@@ -277,6 +277,16 @@ static bool amdgpu_msi_ok(struct amdgpu_device *adev)
- 	return true;
- }
- 
-+void amdgpu_restore_msix(struct amdgpu_device *adev)
-+{
-+	u16 ctrl;
-+
-+	pci_read_config_word(adev->pdev, adev->pdev->msix_cap + PCI_MSIX_FLAGS, &ctrl);
-+	ctrl &= ~PCI_MSIX_FLAGS_ENABLE;
-+	pci_write_config_word(adev->pdev, adev->pdev->msix_cap + PCI_MSIX_FLAGS, ctrl);
-+	ctrl |= PCI_MSIX_FLAGS_ENABLE;
-+	pci_write_config_word(adev->pdev, adev->pdev->msix_cap + PCI_MSIX_FLAGS, ctrl);
-+}
- /**
-  * amdgpu_irq_init - initialize interrupt handling
-  *
-@@ -558,6 +568,7 @@ void amdgpu_irq_gpu_reset_resume_helper(struct amdgpu_device *adev)
- {
- 	int i, j, k;
- 
-+	amdgpu_restore_msix(adev);
- 	for (i = 0; i < AMDGPU_IRQ_CLIENTID_MAX; ++i) {
- 		if (!adev->irq.client[i].sources)
- 			continue;
--- 
-2.17.1
+
+--===============1766308830==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============1766308830==--
