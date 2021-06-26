@@ -1,46 +1,47 @@
 Return-Path: <SRS0=DKNW=LW=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B884BC2B9F4
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Jun 2021 07:08:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 37055C49EA7
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Jun 2021 07:08:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E137961469
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Jun 2021 07:08:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E137961469
+	by mail.kernel.org (Postfix) with ESMTPS id F1ECC61A0F
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Jun 2021 07:08:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F1ECC61A0F
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=pohw.nl
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86A4389D44;
-	Mon, 28 Jun 2021 07:08:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0206789F6B;
+	Mon, 28 Jun 2021 07:08:35 +0000 (UTC)
+X-Greylist: delayed 2940 seconds by postgrey-1.36 at gabe;
+ Sat, 26 Jun 2021 11:22:24 UTC
 Received: from s01.spamexperts.axc.nl (s01.spamexperts.axc.nl
  [IPv6:2a0b:7280:100:0:465:b0ff:fe00:2043])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A27F56E077
- for <amd-gfx@lists.freedesktop.org>; Sun, 27 Jun 2021 08:05:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CF706EE24
+ for <amd-gfx@lists.freedesktop.org>; Sat, 26 Jun 2021 11:22:24 +0000 (UTC)
 Received: from [2a0b:7280:100:0:45b:2eff:fe00:204b] (helo=vserver9.axc.nl)
  by s01.spamexperts.axc.nl with esmtps (TLSv1.2:AES128-GCM-SHA256:128)
  (Exim 4.92) (envelope-from <koos2021@pohw.nl>)
- id 1lxPnK-00057v-8X; Sun, 27 Jun 2021 10:05:38 +0200
+ id 1lx5cj-0003YU-7C; Sat, 26 Jun 2021 12:33:22 +0200
 Received: from mail.axc.nl ([185.182.56.42])
  by vserver9.axc.nl with esmtp (Exim 4.94.2)
  (envelope-from <koos2021@pohw.nl>)
- id 1lxPnI-008fnQ-MK; Sun, 27 Jun 2021 10:05:33 +0200
+ id 1lx5ch-004XYm-ID; Sat, 26 Jun 2021 12:33:16 +0200
 From: Koos Pol <koos2021@pohw.nl>
-Subject: [BUG] AMD Ryzen 7 4700H Renoir: brightness + external screen do not
- work
+Subject: AMD Ryzen 7 4700H Renoir: brightness + external screen do not work
 To: harry.wentland@amd.com, sunpeng.li@amd.com, Felix.Kuehling@amd.com
-Message-ID: <bf70facf-2b4f-8f1b-93f1-ed27c1b1f58d@pohw.nl>
-Date: Sun, 27 Jun 2021 10:05:32 +0200
+Message-ID: <f9ac6c91-9b0f-971e-45e8-7ca9b575d904@pohw.nl>
+Date: Sat, 26 Jun 2021 12:33:15 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+ Thunderbird/78.10.0
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="------------2AF2B08F6CD3D6D5F80397F6"
+Content-Type: multipart/mixed; boundary="------------A32A9362F369702F6E419CE4"
 Content-Language: en-US
 PrimaryMX: Accepted email from trusted host. Hint: This skips spam scanning so
  make sure other host is not vulnerable
 SPFCheck: Server passes SPF test, -30 Spam score
 X-Relay-Host: 185.182.56.42
-X-Spam-Status: No, message_size=938482 larger than 200K
+X-Spam-Status: No, message_size=934788 larger than 200K
 SpamTally: Final spam score: -120
 X-AuthUser: 
 X-Originating-IP: 2a0b:7280:100:0:45b:2eff:fe00:204b
@@ -51,20 +52,20 @@ Authentication-Results: spamexperts.axc.nl; auth=pass
 X-SpamExperts-Outgoing-Class: ham
 X-SpamExperts-Outgoing-Evidence: Combined (0.02)
 X-Recommended-Action: accept
-X-Filter-ID: Pt3MvcO5N4iKaDQ5O6lkdGlMVN6RH8bjRMzItlySaT9deA3hv0+pzbsmQS0nB925PUtbdvnXkggZ
+X-Filter-ID: Pt3MvcO5N4iKaDQ5O6lkdGlMVN6RH8bjRMzItlySaT+z0LcbnTqqCAz6V4aXnAFJPUtbdvnXkggZ
  3YnVId/Y5jcf0yeVQAvfjHznO7+bT5zH3UJDd5IAkX4R4yqtUh/YnDjk7PfyKpeRZpRDz5ntdGBl
  pBQyhz6E35EmRPc7z8yUXKA4W4bGm/49gEnTrKlCRAFykA0Dm4OfWwY250GT2zhpj9Dg8b2Vf25J
- gFZN5yy+fJ4PMO/8A2ZdgS6KVxhNQaXPwIlI4yu/PH1NWDdGRT5eeEwlPj2oHcDLoRgBoXi5OST3
+ gFZN5yy+fJ4PMO/8A2ZdgS6KVxhNQaXPwIlI4yu/PH1NWDdGRTgX1LK41IAttrSqWsvEon+5OST3
  gDj4J/pDB5x0B8MsegT2ik24muu2ydYplTvRTJrWcYGHH7qaCfpKeXrKCDNStWGyQEBUIXZPZiWm
  o449n9fWzqLxFFhktMsCu2fa0ctFo7eiHZj5A+HOrV53iEoTj033NohGj0b46vpTzV3uy3L2fqKM
  vVXdbV48kcbS4I2YnKoeLNp8xRAQ4w0rggyIcHlK5Xt74cx9xpLTapBBgzaHJ8wZUB9yHHjdXHMv
  ZkIbBDR74gJbVbPBrBcfl9lTwxIV2q6Bx7QSwCblIaa1RWtLR0Mn2ASypXTCTfApisVZPVE5xgLw
  XEbnvqUcIYfce/3rQVKMGxoNzw5BvTMggXVMCGd+6szRw8j5OyKHxUYsTdY3wqPggT6O/OP85Eoz
  rxMg36Jn7L4UIiMZgOGil2hsR99u5gXb6tWyU4Ig+a0jiD6XqsJZtjQxlyCdsexfPG9jW+WbuFhq
- jEqfzvhUS6wbpv4CPsZRJRHlTgfW5UsTU8kMQrfDDA1AR3COXYPFnXt9fjNwW52u4+VQIjbu2bRk
+ jEqfzvhUS6wbpv4CPsZRJRHlTgfW5UsTU8kMQrfDDA1AR3COXYMGAmbxwEJjTFSO0/PzD+q/2bRk
  WbJQMsEazexAznFikdS7s8mmsO50UZZLsOWpVemB8TCZIr9HrMylFnbe6yAX+hDVT1gSSnPziYiS
- Ds4YpkFaBGBDpBY0WgoDQXL5wpeAhm8XynDlcGH5WefXNvZEeujBRIVvYhWTtYzM0YNK9w4X+ANV
- a6qk6JaCyRhPyQ5RXxKF5tPxTxfD0dMN+t5ZEnchFVqYWk0hh/vV0fZJgLYYea9UFovY5MRTbWm7
+ Ds4YpkFaBGBDpBY0WgoDQXL5wpeAhm8XynDlcGH5WefXNvZEv+dKbg2gFor5BpywWW4vAUfhq8SN
+ +tcsrXWYZHIMi89RXxKF5tPxTxfD0dMN+t5ZEnchFVqYWk0hh/vV0fZJgLYYea9UFovY5MRTbWm7
  2QEAzbaNULPHOqBtG56wlHSEd0qZ+tnZPz5lwjPmwNaSNAkxWNH5P6FbH/ttszd9CfyUkxE+SK4C
  kqqQuY/ADtB7LlMKuKK3ISb41EpkR3ZUmBNA9Wvpl+YLhcShHi2ZjMwuxtKT/sarkjfs2250zlFm
  z/bOFQtp+ZYiFF12reOeIg==
@@ -86,132 +87,7 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 This is a multi-part message in MIME format.
---------------2AF2B08F6CD3D6D5F80397F6
-Content-Type: multipart/alternative;
- boundary="------------091FC1381D6FDCBCA5F76C9D"
-
-
---------------091FC1381D6FDCBCA5F76C9D
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Hello,
-
-[I posted this email yesterday to this mailinglist without being 
-subscribed. Some of you may have received this email already yesterday.]
-
-I'm running into a kernel problem on openSUSE. After investigation and 
-various tests, the openSUSE kernel maintainer determined it's an 
-upstream kernel issue, which I should report upstream. I believe this 
-mailing list should be the correct starting point for my bug report. 
-Please correct me if this is not the case.
-
-The original bug report can be found here: 
-https://bugzilla.opensuse.org/show_bug.cgi?id=1186896
-
-=== Summary===
-I don't have brightness control or an external screen, without disabling 
-acpi.
-If I disable acpi (kernel boot option "acpi=off") than I do have 
-brightness control, and the external screen works too. But obviously I 
-then don't have any acpi functionality (single core, no Fn keys, etc)
-
-===Details===
-Laptop: Clevo NL51RU
-BIOS: insyde 1.07.05
-
-Distribution:
-openSUSE Leap 15.2/15.3 + Tumbleweed
-
-Recent kernels tried (from the openSUSE repos):
-kernel-default-5.12.12
-kernel-default-5.13.rc7
-
-CPU: Rhyzen 7 4700U
-Graphics:
-# lspci -nnk | grep -A3 VGA
-05:00.0 VGA compatible controller [0300]: Advanced Micro Devices, Inc. 
-[AMD/ATI] Renoir [1002:1636] (rev c2)
-         Subsystem: CLEVO/KAPOK Computer Device [1558:a500]
-
-
-Detailed symptoms:
-
-*Boot option**
-* 	*Boots?**
-* 	*Brightness?**
-* 	*Notes**
-*
--
-	No
-	
-	Hangs at "switching to amdgpudrmfb from EFI VGA" [*]
-nomodeset
-	Yes
-	No
-	Any attempt to set the brightness results in a pop-up of the external 
-monitor widget [**]
-amdgpu.backlight=0
-	No
-	
-	Hangs at "switching to amdgpudrmfb from EFI VGA" [*]
-amdgpu.backlight=0 nomodeset
-	Yes
-	No
-	
-acpi=off
-	Yes
-	Yes
-	No acpi functionality
-
-
-[*]
-For ease of reference: these are the last 4 lines from the boot log if 
-the laptop hangs:
-     [drm] amdgpu kernel modesetting enabled.
-     Virtual CRAT table created for CPU
-     amdgpu: Topology: Add CPU node
-     fb0: switching to amdgpudrmfb from EFI VGA
-
-[**]
-For those two scenarios above where the laptop boots fine, but without 
-brightness control, there is this funny additional symptom:
-Turning the scroll wheel over de battery icon in the system tray doesn't 
-do anything. No change in brightness. But I do get the immediate and 
-unexplainable popup of the external monitor widget (see attachment).
-
-Peculiarly, the settings are correctly registered.
-
-rietgors:# cd 
-/sys/devices/pci0000:00/0000:00:08.1/0000:05:00.0/backlight/acpi_video0
-
-Before:
-rietgors:# cat actual_brightness max_brightness
-21
-49
-
-After:
-rietgors:# cat actual_brightness max_brightness
-36
-49
-
-Oddly, the max_brightness value is 49. But in the scenario where I *do* 
-have brightness control (acpi=off), the max_brightness is 255.
-
-Exactly the same happens when I directly echo values in the "brightness" 
-device from the command line. No change in brightness but an immediate 
-popup of the external monitor widget.
-
-
-Please be aware: I think I'm computer savvy, but working with or on the 
-kernel is way out of my comfort zone. I'd be happy to investigate and 
-try further. But I probably will need detailed instructions.
-
-Thanks,
-Koos
-
-
---------------091FC1381D6FDCBCA5F76C9D
+--------------A32A9362F369702F6E419CE4
 Content-Type: text/html; charset=utf-8
 Content-Transfer-Encoding: 8bit
 
@@ -222,28 +98,21 @@ Content-Transfer-Encoding: 8bit
   <body>
     Hello,<br>
     <br>
-    [I posted this email yesterday to this mailinglist without being
-    subscribed. Some of you may have received this email already
-    yesterday.]<br>
-    <br>
     I'm running into a kernel problem on openSUSE. After investigation
     and various tests, the openSUSE kernel maintainer determined it's an
     upstream kernel issue, which I should report upstream. I believe
     this mailing list should be the correct starting point for my bug
     report. Please correct me if this is not the case.<br>
     <br>
-    The original bug report can be found here: <a
-      class="moz-txt-link-freetext"
-      href="https://bugzilla.opensuse.org/show_bug.cgi?id=1186896"
-      moz-do-not-send="true">https://bugzilla.opensuse.org/show_bug.cgi?id=1186896</a><br>
+    The original bug report can be found here:
+    <a class="moz-txt-link-freetext" href="https://bugzilla.opensuse.org/show_bug.cgi?id=1186896">https://bugzilla.opensuse.org/show_bug.cgi?id=1186896</a><br>
     <br>
     === Summary===<br>
     I don't have brightness control or an external screen, without
     disabling acpi. <br>
     If I disable acpi (kernel boot option "acpi=off") than I do have
     brightness control, and the external screen works too. But obviously
-    I then don't have any acpi functionality (single core, no Fn keys,
-    etc)<br>
+    I then don't have any acpi functionality (single core, Fn keys, etc)<br>
     <br>
     ===Details===<br>
     Laptop: Clevo NL51RU<br>
@@ -298,7 +167,7 @@ Content-Transfer-Encoding: 8bit
           <td valign="top">No<br>
           </td>
           <td valign="top">Any attempt to set the brightness results in
-            a pop-up of the external monitor widget [**]<br>
+            the external monitor widget to popup<br>
           </td>
         </tr>
         <tr>
@@ -335,15 +204,6 @@ Content-Transfer-Encoding: 8bit
       </tbody>
     </table>
     <br>
-    [*]<br>
-    For ease of reference: these are the last 4 lines from the boot log
-    if the laptop hangs:<br>
-        [drm] amdgpu kernel modesetting enabled.<br>
-        Virtual CRAT table created for CPU<br>
-        amdgpu: Topology: Add CPU node<br>
-        fb0: switching to amdgpudrmfb from EFI VGA<br>
-    <br>
-    [**]<br>
     For those two scenarios above where the laptop boots fine, but
     without brightness control, there is this funny additional symptom:<br>
     Turning the scroll wheel over de battery icon in the system tray
@@ -366,13 +226,21 @@ Content-Transfer-Encoding: 8bit
     36<br>
     49<br>
     <br>
-    Oddly, the max_brightness value is 49. But in the scenario where I
-    *do* have brightness control (acpi=off), the max_brightness is 255.<br>
+    Oddly, the max_brightness value is now 49. But in the scenario where
+    I *do* have brightness control (acpi=off), the max_brightness value
+    is 255.<br>
     <br>
     Exactly the same happens when I directly echo values in the
     "brightness" device from the command line. No change in brightness
     but an immediate popup of the external monitor widget.<br>
     <br>
+    [*]<br>
+    For ease of reference: these are the last 4 lines from the boot log
+    if the laptop hangs:<br>
+        [drm] amdgpu kernel modesetting enabled.<br>
+        Virtual CRAT table created for CPU<br>
+        amdgpu: Topology: Add CPU node<br>
+        fb0: switching to amdgpudrmfb from EFI VGA<br>
     <br>
     Please be aware: I think I'm computer savvy, but working with or on
     the kernel is way out of my comfort zone. I'd be happy to
@@ -385,9 +253,7 @@ Content-Transfer-Encoding: 8bit
   </body>
 </html>
 
---------------091FC1381D6FDCBCA5F76C9D--
-
---------------2AF2B08F6CD3D6D5F80397F6
+--------------A32A9362F369702F6E419CE4
 Content-Type: image/png;
  name="ext_screen_widget.png"
 Content-Transfer-Encoding: base64
@@ -1957,7 +1823,7 @@ CkdlfgrBDuPuUkq8iuxVW1sbhqG0tnYwdSH3AADejLrh4I4BWowBZ1mGJIcIiJpzlBZr4fJR
 f1QbqRHLyUjwdaz81Y4KYxsZcdB6QRBgpcyXhUIhn897nod2Rv3RdLhogEbg6DuGyTmUjl2T
 y+VQT47Tp/TCWDQ4nm4tpUTswwB8EAQ1NTVIWkEQBEEQhmEURfggGtNeZCgrK0MyVnQ0Agfj
 0zTN5XKe5zETo/0b5Ss0iPMr51fOr5xf/TN+9X8y6QyIsdECVwAAAABJRU5ErkJggg==
---------------2AF2B08F6CD3D6D5F80397F6
+--------------A32A9362F369702F6E419CE4
 Content-Type: image/jpeg;
  name="boot_log.jpg"
 Content-Transfer-Encoding: base64
@@ -13119,7 +12985,7 @@ nf8AXxN/6JWiiuj7L9Tjl/F+4v8A/MVu/wDdb+laGsf8fWp/7rf0oorN/BIup8L9TCu/9Wn+
 /wCgtVvRf+Rc8X/9ett/6NWiirn0/rsW/hXyMTTP+QDZf9dn/ktNm/4/bX/cWiisnujegQRf
 8t/o38qut/yEJP8Ari//AKCaKKcPhL+zH1K8f+rj/wCuUn9a3JP+SWx/9f6/yloooqbxMZfB
 /Xcw7n/kHzf7y/8AoQqzq/8Ax5ad/wBcz/OiitXsznif/9k=
---------------2AF2B08F6CD3D6D5F80397F6
+--------------A32A9362F369702F6E419CE4
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -13130,4 +12996,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---------------2AF2B08F6CD3D6D5F80397F6--
+--------------A32A9362F369702F6E419CE4--
