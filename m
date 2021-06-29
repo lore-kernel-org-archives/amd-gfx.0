@@ -2,62 +2,130 @@ Return-Path: <SRS0=w1A1=LX=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AB012C11F66
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Jun 2021 11:02:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 52C85C11F66
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Jun 2021 11:05:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5357E61DC2
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Jun 2021 11:02:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5357E61DC2
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=tuxedocomputers.com
+	by mail.kernel.org (Postfix) with ESMTPS id 0ED6861DBF
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Jun 2021 11:05:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0ED6861DBF
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5B076E845;
-	Tue, 29 Jun 2021 11:02:10 +0000 (UTC)
-Received: from srv6.fidu.org (srv6.fidu.org [159.69.62.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5A4A6E842;
- Tue, 29 Jun 2021 11:02:08 +0000 (UTC)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by srv6.fidu.org (Postfix) with ESMTP id 1F7E8C80062;
- Tue, 29 Jun 2021 13:02:07 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at srv6.fidu.org
-Received: from srv6.fidu.org ([127.0.0.1])
- by localhost (srv6.fidu.org [127.0.0.1]) (amavisd-new, port 10024)
- with LMTP id c6i2xe2oxy6M; Tue, 29 Jun 2021 13:02:06 +0200 (CEST)
-Received: from [IPv6:2003:e3:7f39:4900:84eb:1779:dd70:1696]
- (p200300e37f39490084eB1779Dd701696.dip0.t-ipconnect.de
- [IPv6:2003:e3:7f39:4900:84eb:1779:dd70:1696])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- (Authenticated sender: wse@tuxedocomputers.com)
- by srv6.fidu.org (Postfix) with ESMTPSA id E2958C80042;
- Tue, 29 Jun 2021 13:02:05 +0200 (CEST)
-Subject: Re: [PATCH v4 03/17] drm/uAPI: Add "active bpc" as feedback channel
- for "max bpc" drm property
-From: Werner Sembach <wse@tuxedocomputers.com>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@linux.ie, daniel@ffwll.ch,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- intel-gfx@lists.freedesktop.org
-References: <20210618091116.14428-1-wse@tuxedocomputers.com>
- <20210618091116.14428-4-wse@tuxedocomputers.com>
- <18bbd0cf-4c37-ce9d-eb63-de4131a201e1@tuxedocomputers.com>
-Message-ID: <11cd3340-46a1-9a6a-88f5-95c225863509@tuxedocomputers.com>
-Date: Tue, 29 Jun 2021 13:02:05 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA1D86E84C;
+	Tue, 29 Jun 2021 11:05:12 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam07on2042.outbound.protection.outlook.com [40.107.212.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11FDB6E84C;
+ Tue, 29 Jun 2021 11:05:12 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Oy3UHiw5Nuu8VGi6fpjhDPDSIKLfIqgvTN5HmhCMq/P+E99fHWWF0Kd+yR0O/p7eZw7xRvP64iS0WgoMDY9Nb1qr8PpsbVOLrB9ffdwk0L4WgfPV5TvloAYXni01w6TBkOiRcNOvtnzRnzWCHTE3StBIq0ROgqTsjLKmVdQJED4MaqRX/F5UTitzIaRtgqUGY9gWtfam8Wrswrr0XRkIJGlvg659sRquI+Jzd0BoognfOsdl/49VXpCGwrYUuns2eto1W4DEoo28LXjLEVWIX5Q8d4PeV1TYIVjU1FuffatvseJYp6FLfFG58MlDTgUdMwArXYcmRZxlZEdS4LWDjQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qnWu1MB8UAgbzOo0Pnyf+Dyrqyrmv9qvvcXQrlfBD/M=;
+ b=OIIpA3eRbP5NYKUb6eG7LOsVhZ+vKwpQIYfCtdmq7RbEHkuF/CeEM6ma9wMo3LGCv0w5aIWm0iujgTgLIrMTmpNVvy93LxWJleftBRCdN/5SRVWvKUpdXVX0HnlRYLwP+N3gexZLfs/EWmhKrKxS86GmgyuQrYd6nBzJWL9v1ze0GtOVS29xYPpX0FPXnxcqi9z1GD23W28JQyp0+ClNtBmqGTyvMlJvcnGxT6M+0Yh1twVBC1mQnH3K1elLhG4fgzrJEHg5O5eoZDBi4TusfyaGo/T8EaE+zuUV9W0jpvAD29SVkrGdTarmYkTgtXoLK/QDJpwex4z4E5cHdRvwlA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qnWu1MB8UAgbzOo0Pnyf+Dyrqyrmv9qvvcXQrlfBD/M=;
+ b=qtUadhAYpu+4RTFgueCNzWPi9dCPxD3bJIDX9E8c+wgCSTZUUcltrPmKJSj56UA/vt1g+m5HuP9B7NbVz4oFUIsffK/paJ5SQoqmauU+zpGdCG2n3UNkxu1F0zNgvzPIV9kGUXq8ZCjbO2gcebXlv19s/dSt+HF9g7eRSdrxjRI=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
+ by BL0PR12MB2515.namprd12.prod.outlook.com (2603:10b6:207:40::30)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4264.23; Tue, 29 Jun
+ 2021 11:05:10 +0000
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::6c9e:1e08:7617:f756]) by MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::6c9e:1e08:7617:f756%5]) with mapi id 15.20.4264.026; Tue, 29 Jun 2021
+ 11:05:10 +0000
+Subject: Re: [PATCH v2 1/2] drm/amdgpu: return early for non-TTM_PL_TT type BOs
+To: Nirmoy Das <nirmoy.das@amd.com>, dri-devel@lists.freedesktop.org
+References: <20210629073629.3069-1-nirmoy.das@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Message-ID: <844ab0e2-ccea-b2a3-cbf4-744726a2a026@amd.com>
+Date: Tue, 29 Jun 2021 13:05:04 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
-MIME-Version: 1.0
-In-Reply-To: <18bbd0cf-4c37-ce9d-eb63-de4131a201e1@tuxedocomputers.com>
+In-Reply-To: <20210629073629.3069-1-nirmoy.das@amd.com>
 Content-Language: en-US
+X-Originating-IP: [2a02:908:1252:fb60:acb7:5516:6a55:2bf5]
+X-ClientProxiedBy: PR3P195CA0001.EURP195.PROD.OUTLOOK.COM
+ (2603:10a6:102:b6::6) To MN2PR12MB3775.namprd12.prod.outlook.com
+ (2603:10b6:208:159::19)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [IPv6:2a02:908:1252:fb60:acb7:5516:6a55:2bf5]
+ (2a02:908:1252:fb60:acb7:5516:6a55:2bf5) by
+ PR3P195CA0001.EURP195.PROD.OUTLOOK.COM (2603:10a6:102:b6::6) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4264.19 via Frontend Transport; Tue, 29 Jun 2021 11:05:09 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 868ee2b1-3597-4745-2599-08d93aedc2d0
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2515:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BL0PR12MB2515D819DFCD8E4F156D4D0983029@BL0PR12MB2515.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: UzxoOT2kLomaA9PWIUYZYHxL7mrb8gRlJnfqYBQ54/VqcJODnx0xgoqjNk1Pb5YUEmV3N236/gwwrjFwVhoWRzTWA0+itWITAuDjEgdzBpM76s+yOCPk0xT6w672ByryGOrSFfj6VpWFT16HcZka+7Ny1dlzYHHo4AEGl4rrIAnNK7GHhQsAXyrlJ/Hf1Yld63mk9nseM0EnmpU+3hvN948zyoX7gBXj5b8UMmx65QxCqMm+bN4GkY8VjoWJ+qRYcRFbVtpPJj6NP1ZJGfrnnRJXx+LtS6GFP8zJFq/ufwsvzhPRUxaBg5xEBY0TFa1rBGUfrtnMcWw9chFJSFhMfFYWOvcvRYT04Xy8SUoYG+2KU6EEpRIqS4ObrKI35QYKnkyWOLIjrkp6tWUpkbV/POsuezbVx2lsx1FG0ugEqg/lOPOyP6zOY7rejNT2evx0PoOaexWiCGpflP0esn86QXs6tDAA/24lk3TjZ7K5ueM/b6xZxc70LFV0WaaC+KNW3GC7cdv4tr4AvYl6jhQMX1ZYTsFkIpp3+JggrYuQZ6++LzOSNgE7VXB/L1Nwt4Pj32pMdWfKc+KnEp7jfNi0reyP1mI/xJM6EHO24S/xbIFfFpThDwjN4g5i4o1ftCp3gz10iepBqLpl+OOhN2pkX0/IVC+e7Gw6l1PjzlLiWD600HtPmtdt5p5vgciM+ZOGBF7OkWs9KNytbsUBhLInu0i/lfEOI7NIgy5U6T/sdv4++Vg20T637m4/TOq6NKfh
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(366004)(39860400002)(136003)(376002)(346002)(478600001)(38100700002)(83380400001)(316002)(66574015)(16526019)(5660300002)(186003)(8936002)(31686004)(2616005)(2906002)(6486002)(4326008)(66476007)(86362001)(66556008)(36756003)(450100002)(8676002)(31696002)(6666004)(66946007)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?M3lHdDVrSURHbkppK3BOT0U5OTBmWFRjbWhJZnU0b053U2RnMkxWOE91dHZR?=
+ =?utf-8?B?TTc2WVFZdXNjLys5b0tLOG5HWTN5Nkl1bDBtUllINDBIUktMZnJDRG4rcnd4?=
+ =?utf-8?B?enBBSzVERlQ4UTlPQThaZDVWMGhkRTBHV1NtUFBUUFRYMm41ajM4aWFjZVd0?=
+ =?utf-8?B?OVpqdk05Q2tkS2dZaFVyTzJCdkkxdko1eTJwYjRhcGlNckNzSmVwMkVRZzlq?=
+ =?utf-8?B?QXJOVm05ZmN4Q1BEemkrSUFjUHpiM2ptenZxNG5VWVkrVmcyRkpWVFVKblhn?=
+ =?utf-8?B?bHQraXgwb3N6TTZpOGdQNC8vWmxOOTN1UDRDR0dKTEk4SVVKaW1LNHVlRGc4?=
+ =?utf-8?B?aEFKY3dMVWpuR3o2RFBhcFZJd1V5RUVMRlY5M1BaTlF6V2FpL1d2VWtRanhP?=
+ =?utf-8?B?RzEvdXY1cWJpRUpOeDJnR1JDTHlpUTlmOU9QdjRBN0dPenVCUnlQcVBkK3RT?=
+ =?utf-8?B?dHRFMkliTThtcjVNenlBdzdITWVFNTdPNjE3bS9LeEdoTm9PazMvN2h0Ulla?=
+ =?utf-8?B?ZzY3cDhSeVdlL1ppT05lQ09UcHFDZmd6cWYwWHR1RmRnR1lyL1NTTUYycitn?=
+ =?utf-8?B?SzluSTh4UnhWSmF2QWk1UHE1c25BUUIydkhzL1lnZitjdHp4Vm5KR1ZaUTRv?=
+ =?utf-8?B?SGt6djQ1MkNPT2xGWkpMa2JIQjhxYm1Xc0pJdVZ5d1lOWlY4cGZtZC80N0J4?=
+ =?utf-8?B?RVB2L0NDQk5seERDOVFBajlyMW5idnhPUGNDaWI5MFRhRGxvYVJjc0VxNEhX?=
+ =?utf-8?B?b0hsbCs4TWZLMk85SnpHZjV0L2NXejUyQjF0OTA4TlM0RytaZDVGV3BxcGgr?=
+ =?utf-8?B?c2lSN1ZPMkVSTEl1REZWNlUyN01aV0dwMm1yOXBwSkdxbXF6Y2tWdVlQVGFF?=
+ =?utf-8?B?b3RNZzJmTzllU2pNbUNIYVl0aldBT0FMWkhEa0NYeXdxYkRhcnlmUGg0M1pE?=
+ =?utf-8?B?S0tzK2p5MkJSWkp5NGZMS3Q3dTBOeE5QRUlZSGpKK2I1MFN5V09WaUliSmJW?=
+ =?utf-8?B?cjVJR1hUNkRiUEZsUmVBdXVna0M5VC8rVythS2dBSFc1dGZhVjYwUTNOOUha?=
+ =?utf-8?B?NWZiN09BY24zbXJUaUNFY1ZCQ1R3R01wVGFOTVJaVGIvUVZLekx2dFpReC94?=
+ =?utf-8?B?YXZmUEtKVnREaUhHOUZJU0V2Q3J1OStaN2RLSEVvVFRaMlZCUHhyOE5ZNXhO?=
+ =?utf-8?B?TmRndmhmSE1DQW9ydDQvVHZSc3hYbmpRVjBHUmEram1RN0NIWEgram9WaGtG?=
+ =?utf-8?B?TnRWL2RwY3NuNXBkU285V3ZqMVpvTWJHZXNzcGRzcGF0N21mYjEvQVhBOGhI?=
+ =?utf-8?B?a1VGdm4yMzdKcU84dVZQYW9vaWRVN0pjRGdkWG1BKzN6enZVMVg3cVZmbXZl?=
+ =?utf-8?B?aE84aWQybmtDSEMwSENla09sNzY4aXFER3hOcFVzTUwrR3lFc2V0OXNDckpq?=
+ =?utf-8?B?S0dpV01rUnNwak9pTFpxRHVzazBrNjdHMm5DZGFpYWdwdEVxZ1FDOGlNZ3dP?=
+ =?utf-8?B?SCtxVHdRaGErdGNpeHVKM3hERkZHSE94NTJKeWp1QXUxVytITUdBVmVqd0FG?=
+ =?utf-8?B?RFp5cXFHV29KRVMvWkZocklWeFVGSDhmNkVJbXpmNVJhM0tCVmZaTEM4THIx?=
+ =?utf-8?B?c0M2ZDFwN3RBeXhNbkU0RFI1QkMxQUZCL1ppRm1zNjJIVnZQNTdMZWRaVFJn?=
+ =?utf-8?B?R3RtdXplUUtNblNLMElFSVZaWWpzcjUzeVJHSGV4NXIvRlNpYUh2OHhmNVUz?=
+ =?utf-8?B?UytOWS9YRWJWNiszY09RclhUQUdUcUhhQWxxNGthbXg4b0g3c2M2WEgzS2Jp?=
+ =?utf-8?B?VHY1RlhtaFpyc1dtc0Q0Q21zWkNuaG1Rb1FOZ1RPQTk5c0MxejRnRENXcmtS?=
+ =?utf-8?Q?FwhrYZqWJIJoV?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 868ee2b1-3597-4745-2599-08d93aedc2d0
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2021 11:05:10.2305 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ydPA0/jZcIXQ0AVzh/cSAZrS9EkZC6j07AwM3Le8avRC+vvCTw4F6qgmBrHN63S2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2515
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,165 +137,32 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Felix.Kuehling@amd.com, amd-gfx@lists.freedesktop.org
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 28.06.21 um 19:03 schrieb Werner Sembach:
-> Am 18.06.21 um 11:11 schrieb Werner Sembach:
->> Add a new general drm property "active bpc" which can be used by graphic
->> drivers to report the applied bit depth per pixel back to userspace.
->>
->> While "max bpc" can be used to change the color depth, there was no way to
->> check which one actually got used. While in theory the driver chooses the
->> best/highest color depth within the max bpc setting a user might not be
->> fully aware what his hardware is or isn't capable off. This is meant as a
->> quick way to double check the setup.
->>
->> In the future, automatic color calibration for screens might also depend on
->> this information being available.
->>
->> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
->> ---
->>  drivers/gpu/drm/drm_connector.c | 51 +++++++++++++++++++++++++++++++++
->>  include/drm/drm_connector.h     |  8 ++++++
->>  2 files changed, 59 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
->> index da39e7ff6965..943f6b61053b 100644
->> --- a/drivers/gpu/drm/drm_connector.c
->> +++ b/drivers/gpu/drm/drm_connector.c
->> @@ -1197,6 +1197,14 @@ static const struct drm_prop_enum_list dp_colorspaces[] = {
->>   *	drm_connector_attach_max_bpc_property() to create and attach the
->>   *	property to the connector during initialization.
->>   *
->> + * active bpc:
->> + *	This read-only range property tells userspace the pixel color bit depth
->> + *	actually used by the hardware display engine on "the cable" on a
->> + *	connector. The chosen value depends on hardware capabilities, both
->> + *	display engine and connected monitor, and the "max bpc" property.
->> + *	Drivers shall use drm_connector_attach_active_bpc_property() to install
->> + *	this property.
->> + *
-> Regarding "on the cable" and dithering: As far as I can tell, what the dithering option does, is setting a hardware
-> register here:
->
-> - https://elixir.bootlin.com/linux/v5.13/source/drivers/gpu/drm/i915/display/intel_display.c#L4534
->
-> - https://elixir.bootlin.com/linux/v5.13/source/drivers/gpu/drm/i915/display/intel_display.c#L4571
->
-> So dithering seems to be calculated by fixed purpose hardware/firmware outside of the driver?
->
-> The Intel driver does not seem to set a target bpc/bpp for this hardware so I guess it defaults to 6 or 8 bpc?
-
-Never mind it does. This switch-case does affect the dithering output:
-https://elixir.bootlin.com/linux/v5.13/source/drivers/gpu/drm/i915/display/intel_display.c#L4537
-
-As found in this documentation p.548:
-https://01.org/sites/default/files/documentation/intel-gfx-prm-osrc-lkf-vol02c-commandreference-registers-part2.pdf
-
-So max bpc and active bpc are affecting/affected by the bpc after dithering.
-
->
-> Similar things happen on amd. Here the output dither depth seems to be written to a fixed value however:
->
-> - https://elixir.bootlin.com/linux/v5.13/source/drivers/gpu/drm/amd/display/dc/dce/dce_transform.c#L828
->
-> - https://elixir.bootlin.com/linux/v5.13/source/drivers/gpu/drm/amd/display/dc/dce/dce_transform.c#L769
->
-> Does anyone know about a resource where I can read up on the used registers and what this hardware actually does?
-Searching now for a similar register reference for AMD GPUs.
->
-> My proposal for now: "max bpc" affects what happens before dither, so I would keep "active bpc" the same and add another
-> drm property "dither active: true/false". No additional property to control dither, as amdgpu does have one already
-> (which isn't always active?) and Intel driver does only seem prepared for dithering at 6bpc (albeit I don't know why to
-> dither at 6bpc and what depth to dither to?).
->
->>   * Connectors also have one standardized atomic property:
->>   *
->>   * CRTC_ID:
->> @@ -2152,6 +2160,49 @@ int drm_connector_attach_max_bpc_property(struct drm_connector *connector,
->>  }
->>  EXPORT_SYMBOL(drm_connector_attach_max_bpc_property);
->>  
->> +/**
->> + * drm_connector_attach_active_bpc_property - attach "active bpc" property
->> + * @connector: connector to attach active bpc property on.
->> + * @min: The minimum bit depth supported by the connector.
->> + * @max: The maximum bit depth supported by the connector.
->> + *
->> + * This is used to check the applied bit depth on a connector.
->> + *
->> + * Returns:
->> + * Zero on success, negative errno on failure.
->> + */
->> +int drm_connector_attach_active_bpc_property(struct drm_connector *connector, int min, int max)
->> +{
->> +	struct drm_device *dev = connector->dev;
->> +	struct drm_property *prop;
->> +
->> +	if (!connector->active_bpc_property) {
->> +		prop = drm_property_create_range(dev, DRM_MODE_PROP_IMMUTABLE, "active bpc",
->> +						 min, max);
->> +		if (!prop)
->> +			return -ENOMEM;
->> +
->> +		connector->active_bpc_property = prop;
->> +		drm_object_attach_property(&connector->base, prop, 0);
->> +	}
->> +
->> +	return 0;
->> +}
->> +EXPORT_SYMBOL(drm_connector_attach_active_bpc_property);
->> +
->> +/**
->> + * drm_connector_set_active_bpc_property - sets the active bits per color property for a connector
->> + * @connector: drm connector
->> + * @active_bpc: bits per color for the connector currently active on "the cable"
->> + *
->> + * Should be used by atomic drivers to update the active bits per color over a connector.
->> + */
->> +void drm_connector_set_active_bpc_property(struct drm_connector *connector, int active_bpc)
->> +{
->> +	drm_object_property_set_value(&connector->base, connector->active_bpc_property, active_bpc);
->> +}
->> +EXPORT_SYMBOL(drm_connector_set_active_bpc_property);
->> +
->>  /**
->>   * drm_connector_attach_hdr_output_metadata_property - attach "HDR_OUTPUT_METADA" property
->>   * @connector: connector to attach the property on.
->> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
->> index 714d1a01c065..eee86de62a5f 100644
->> --- a/include/drm/drm_connector.h
->> +++ b/include/drm/drm_connector.h
->> @@ -1380,6 +1380,12 @@ struct drm_connector {
->>  	 */
->>  	struct drm_property *max_bpc_property;
->>  
->> +	/**
->> +	 * @active_bpc_property: Default connector property for the active bpc
->> +	 * to be driven out of the connector.
->> +	 */
->> +	struct drm_property *active_bpc_property;
->> +
->>  #define DRM_CONNECTOR_POLL_HPD (1 << 0)
->>  #define DRM_CONNECTOR_POLL_CONNECT (1 << 1)
->>  #define DRM_CONNECTOR_POLL_DISCONNECT (1 << 2)
->> @@ -1702,6 +1708,8 @@ int drm_connector_set_panel_orientation_with_quirk(
->>  	int width, int height);
->>  int drm_connector_attach_max_bpc_property(struct drm_connector *connector,
->>  					  int min, int max);
->> +int drm_connector_attach_active_bpc_property(struct drm_connector *connector, int min, int max);
->> +void drm_connector_set_active_bpc_property(struct drm_connector *connector, int active_bpc);
->>  
->>  /**
->>   * struct drm_tile_group - Tile group metadata
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+QW0gMjkuMDYuMjEgdW0gMDk6MzYgc2NocmllYiBOaXJtb3kgRGFzOgo+IFJldHVybiBlYXJseSBm
+b3Igbm9uLVRUTV9QTF9UVCBCT3Mgc28gdGhhdCB3ZSBkb24ndCBwYXNzCj4gd3JvbmcgcG9pbnRl
+ciB0byBhbWRncHVfZ3R0X21ncl9oYXNfZ2FydF9hZGRyKCkgd2hpY2ggYXNzdW1lcwo+IHR0bV9y
+ZXNvdXJjZSBhcmd1bWVudCB0byBiZSBUVE1fUExfVFQgdHlwZSBCTydzLgo+Cj4gdjI6IG1lcmdl
+IGlmLWNvbmRpdGlvbnMKPgo+IFNpZ25lZC1vZmYtYnk6IE5pcm1veSBEYXMgPG5pcm1veS5kYXNA
+YW1kLmNvbT4KCj4gLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRt
+LmMgfCAzICsrLQo+ICAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlv
+bigtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90
+dG0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYwo+IGluZGV4IGI0
+NjcyNmU0N2JjZS4uMjA4YmMzZWMxYWZmIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV90dG0uYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV90dG0uYwo+IEBAIC05MjYsNyArOTI2LDggQEAgc3RhdGljIGludCBhbWRncHVfdHRt
+X2JhY2tlbmRfYmluZChzdHJ1Y3QgdHRtX2RldmljZSAqYmRldiwKPiAgIAkgICAgYm9fbWVtLT5t
+ZW1fdHlwZSA9PSBBTURHUFVfUExfT0EpCj4gICAJCXJldHVybiAtRUlOVkFMOwo+Cj4gLQlpZiAo
+IWFtZGdwdV9ndHRfbWdyX2hhc19nYXJ0X2FkZHIoYm9fbWVtKSkgewo+ICsJaWYgKChib19tZW0t
+Pm1lbV90eXBlICE9IFRUTV9QTF9UVCkgfHwKClBsZWFzZSBkcm9wIHRoZSBleHRyYSAoKSwgYXBh
+cnQgZnJvbSB0aGF0IHRoZSBwYXRjaCBpcyBSZXZpZXdlZC1ieTogCkNocmlzdGlhbiBLw7ZuaWcg
+PGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KCj4gKwkgICAgIWFtZGdwdV9ndHRfbWdyX2hhc19n
+YXJ0X2FkZHIoYm9fbWVtKSkgewo+ICAgCQlndHQtPm9mZnNldCA9IEFNREdQVV9CT19JTlZBTElE
+X09GRlNFVDsKPiAgIAkJcmV0dXJuIDA7Cj4gICAJfQo+IC0tCj4gMi4zMi4wCj4KCl9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBs
+aXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
