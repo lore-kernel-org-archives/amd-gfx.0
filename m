@@ -2,64 +2,118 @@ Return-Path: <SRS0=w1A1=LX=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.6 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8E793C11F66
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Jun 2021 14:13:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6A4A7C11F66
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Jun 2021 14:14:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2F67461DB3
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Jun 2021 14:13:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2F67461DB3
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 394E9610E6
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Jun 2021 14:14:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 394E9610E6
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6B3489A6D;
-	Tue, 29 Jun 2021 14:13:56 +0000 (UTC)
-Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
- [IPv6:2607:f8b0:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C477889A6D;
- Tue, 29 Jun 2021 14:13:55 +0000 (UTC)
-Received: by mail-oi1-x229.google.com with SMTP id w127so26399318oig.12;
- Tue, 29 Jun 2021 07:13:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=9S74JOYKz4LXepAVSvI+OSnTg73GPaPI8C818Hw5YPk=;
- b=ShXSPy8YMVhdt22psjM2H/xzDJHwTrwFTtKnFd5gNVvcP1+y/mFrTJKiMCoAsCEB+z
- C0nKQBL+gsQTXwKtGcYYS5ZmaFpeUyctoGMgmQCoW+fgTnGyAs2uxcpCwfeG1aqm4HpE
- fObBt7t0faOt9criSYFEiYmXwA4kkSEFCCH2aYI/bxkSMpvNwBNTWqhekgqfD/zkPK+F
- XrlUsrmDUVI3CHHthYm9Bs/qtX9C6Tnk3AUlq8JJDfKL23rmTT5+ryArU8hqTMFrfnLY
- NVE/WrjBduyEErUfWLnUGF8EiMnTsIEVwNic93YNwhRmUGrRTQ4WVavJqucxhq9zxoCY
- AJ+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=9S74JOYKz4LXepAVSvI+OSnTg73GPaPI8C818Hw5YPk=;
- b=IUDmmRWGTHMebMCoxhwSk/cQzBUSNc0AdBjpTbt4Pl1v12vmIb4sSHFFof2kq2spkT
- YA2YboWXGgWbCOKA/X8JQyBGnXakrEkAIhdOQbJZsk8Hv6Rq036gF4iL3RnPd48BxZKd
- tg8BTKPGSzLVrftpnpC1h7R3fVEkaBtgkBLkpYwpEFWhai2rRXz+0nyVbZ2Ua7ckAyKp
- KgXTWEM7jo6krS8X2Hq/8fDpQMn8mBDyY+fvOQS3SIeeSjaJxv8Sug4A6xbb/+8uWVQJ
- 15W1F/fRJBUBbqJ+S7ltnj8giTiqWDFmz78WHUTJ0rTN75hZJdJMEn/0bQHFTdsAMRkb
- KllA==
-X-Gm-Message-State: AOAM530ru/J/QHaDJnEhlMtkdmgfiL6F7Qa2+laG0IoZi3mlGG3YSvYt
- rGFIzNUTne7/fNfyg+Fi85sf+bNKcdWtx3d+Jyk=
-X-Google-Smtp-Source: ABdhPJzCdYX0N4mTrzK7aUZy7qMqiG6PLxkKbsaTfO7H+HsBUvBayQ0BzLqCi+DthYsgFHsoYAjTiFDKGiob8LBFffo=
-X-Received: by 2002:aca:3446:: with SMTP id b67mr11009940oia.120.1624976035000; 
- Tue, 29 Jun 2021 07:13:55 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D20456E89B;
+	Tue, 29 Jun 2021 14:14:37 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2045.outbound.protection.outlook.com [40.107.236.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91D2A6E898
+ for <amd-gfx@lists.freedesktop.org>; Tue, 29 Jun 2021 14:14:36 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=B7tuPOvyp2fl9sUwpVFdo2b6eshpbZyzEO7taVroMIOZ7SOt074oS97MSzdFzNS56Rci0L9r54C/vVChEu4VjfMN5j+xbj0hDGo89ZQbqPWCyGC70vyyn54UrMqQEXo1BdybTCYISnoJiGu5V7XFMy4gssawCRBUCsvarFPqgpwhMDiOVXdzx+6HFjUK4sO9N2QWAUKFRKcNCsRtqHQsB3Uq7nuByR0rqxl9rOIwhZMm9itdGsAVaiN76MQfE3E5mL925NJpeHB21K8OpIIR0WNme7ufBWQ6a2SGxzJP7D8yDg69Y+SUaR7TxsUBivfl+mrNcUxc75dSUfLGeOAmyw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wGkHZryNtgPQ74hZqYdvOSzOPLDByHKqA11V/8wtOsc=;
+ b=FNWqBxVfhFsU66FUrOEdNVsEitYJ5uGEG0jRJ2vvWobtC55Qw4N9rTyo8IFGBBMODgfOnZGGfSNB9k4i92gfSlTtVy1RM/zTeduUkF45LsZO2KgVORhWHWYEK93PayZZ+rCnVTzPClMJ8iNJ+qR8N3x4pkyiLVEuFwWAHKPQ0o/o5kvmngk9FT8XAnagQDWp25KRLXEkZTWFXXqlPcRUQ0HsxOQZUsithSbvqkIXS7kicQQ0ley+GJkGv/FRec4VKw4t2q9rtX+h3mEAkixwbo8oMlWoxsZGknHQg4NDHGptPf0iofBQ/K60aulKWI6DsikdPGjXDj3v+jgsSaewUw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wGkHZryNtgPQ74hZqYdvOSzOPLDByHKqA11V/8wtOsc=;
+ b=RoULilKrtvSnh40ju38tUSJHagn/9PPuSAauPAqefBMY6KfjxFYhdBdHTWjtdPoI4Sx6t6WR1X9Z25kWfmPcnvxt43bVQ8QI+jR8UBGO83F9zD4NfJ/TMIExDOx39Zov23ac0LK7JRGuXC++F+E86dqxE/ZsI5c2AbtywdwWwD8=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
+ by BL1PR12MB5031.namprd12.prod.outlook.com (2603:10b6:208:31a::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4287.21; Tue, 29 Jun
+ 2021 14:14:34 +0000
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::8cb6:59d6:24d0:4dc3]) by BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::8cb6:59d6:24d0:4dc3%7]) with mapi id 15.20.4287.022; Tue, 29 Jun 2021
+ 14:14:34 +0000
+From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: add license to umc_8_7_0_sh_mask.h
+Date: Tue, 29 Jun 2021 10:14:19 -0400
+Message-Id: <20210629141419.279179-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.31.1
+X-Originating-IP: [192.161.79.198]
+X-ClientProxiedBy: MN2PR08CA0017.namprd08.prod.outlook.com
+ (2603:10b6:208:239::22) To BL1PR12MB5144.namprd12.prod.outlook.com
+ (2603:10b6:208:316::6)
 MIME-Version: 1.0
-References: <20210628105334.27559-1-lukas.bulwahn@gmail.com>
-In-Reply-To: <20210628105334.27559-1-lukas.bulwahn@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 29 Jun 2021 10:13:43 -0400
-Message-ID: <CADnq5_Nqhr756=kzFSkDExyP-OQJopPmjz5Bnia1bbOWp2b7xg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: rectify line endings in umc v8_7_0 IP headers
-To: Lukas Bulwahn <lukas.bulwahn@gmail.com>
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from localhost.localdomain (192.161.79.198) by
+ MN2PR08CA0017.namprd08.prod.outlook.com (2603:10b6:208:239::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4264.19 via Frontend
+ Transport; Tue, 29 Jun 2021 14:14:34 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 23a74a2f-8d60-4e2b-02b8-08d93b083868
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5031:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BL1PR12MB5031C1C31690C65272192DFDF7029@BL1PR12MB5031.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: OBK5RK/mz10r2PKpqx1ApunFR1oVVG0yEYbwP+DWyPYHL34qnuyQ5YjblRlzv8w9oqJQQmEwXej0snbOfoJ7IGi8PO2z9sI6xPwX1Xkd/JS2a2xpJpvnD7/yASPKpxhqinta/15TRIp64l7fEXIg6lEIaHYMVZtgtc2EE6Zf5gIIOBID8RHUucIEgLOHf8IkzBofUZ3i9M4ffyXjEsY0qiCH2ETkVt7MxY2vq/5yuiE8QWBMsjmfTEyTDhCv0Q+NI/mW3M6Z8h5M/33G9WVHlAkaqSvmZuuGDuLj39hFtKP3cGAFic0t+6RMjX9+bde0ou9JMs2Ncav52WbkQCfAFxx1Omhh6ZeoL3wCcJuf6Ks3T8HmjNe7H1NwMORd4udGlA9UqUhCLdhz5T9S+Iiby5KYCB9hl7hvPc/EOXUeLuqqYgUW2EqbYzGg9XR+6YWIgLk/d4UjONTCoQ/ErtGawf1X0G0HvQ+yYgQKrVrpfhqmxTkbonaN0XJMzwCeUt/vqcfwDToYd1U8VoxSZ9R1Ygi3yZ+XtP6SbbSzh9gv8fzJdfT7cz/JmyfLZqlFsq6X4Ybkua6M60GArRmoRSL7yCMth2Oc96D4c+4Z7tnWDANCH8WDvDpOMvfwTLtzIZTbU7Hcz23+iHFCiIIdBEW1ukNOAJagTTNeT8AxHyLtqT1Q2tsYtYf1VpGGa8HMLVkvaCiBrPAIsCFZP766YN63xnIgQ3IOXQ/f6pdjcLkR+42dgBUG40YsW0gwPwsNiytu
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(396003)(39860400002)(346002)(366004)(376002)(6666004)(83380400001)(1076003)(86362001)(5660300002)(316002)(36756003)(66946007)(26005)(2906002)(52116002)(6512007)(6506007)(38100700002)(38350700002)(6916009)(8676002)(186003)(4326008)(66476007)(16526019)(956004)(2616005)(8936002)(478600001)(6486002)(66556008)(69590400013);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?HPRuyQJvYSzY4D4/X7LFbpw2Y/bOqWkmOOWDQgmGmz7hoDcolIrlZkFgfY1t?=
+ =?us-ascii?Q?sP4n0SNyBrd6/zB/HVVMx0Hu+zfOdzqas/NIEQ83aznXVocabgu6RafWtuU7?=
+ =?us-ascii?Q?7jwZwww80zkMgs1nCqUboFANjtxTEPjTiK0rWVTMIuJrJivkxuFQQ/QnzPkI?=
+ =?us-ascii?Q?BTGiMKTcgvkqsC99j03ExWr2ab2AN+ZCHT76Huq/yny74S9FBdG7m3k6oCGX?=
+ =?us-ascii?Q?8gICQfKF5G9vhDKTyVE0kzAZjHpu+HA5Rc0AJd12EATqF3QttkBtICuhethD?=
+ =?us-ascii?Q?nfWGeW525/SylP0oenUMFOdzmVjOjkIkXhxRC9CCqnJmnsyFmxQesMIfaknU?=
+ =?us-ascii?Q?fR4jRLdLXTP/UeTzjhaWQtH6SvJJQqGuKSXsgCCNztY7NOGmGRZ5fA3nnL4V?=
+ =?us-ascii?Q?nNRf0lk4MGTd8T7Wid5JbrORGs8GfRrTq7HkOq1afkdevi43PeKL1h4bzkzb?=
+ =?us-ascii?Q?l3W5eJQI8wkGNFekVHYD4UFU5nsuD6pWWvkDlY37YBG0d7U5Stoxoz/u0Q4/?=
+ =?us-ascii?Q?/Yb5ZCW8huUEPN+CEXpfF+qrT19lDxSdNxGVl3xsnD5tVKUbOXpS6ZWyvjRC?=
+ =?us-ascii?Q?p8EmYYMaU6pD4K1X9TeZUyP66gDJ5221AjoMn65YBpxD6GCKOSt4zblAsRyp?=
+ =?us-ascii?Q?TQMJHjPkTxToHxPD5YL2MuRCI+XUJs+13cR6TIvrFnINkQJlU8+aFjr6JXcu?=
+ =?us-ascii?Q?IyPS00J/Mozrhwfbzq4qDtebOjQ2EQJ5loTt31CREjvh1lAl90IgrTLPT234?=
+ =?us-ascii?Q?DIVjdvmt/v+gGel0Yji5C7IQM8RaUO+xsCx4VrwhCGmZiP8IrFKWkhiWLAYk?=
+ =?us-ascii?Q?LpqoKZC+iDH9QEa+ZqYPfipCdRJvdP4mC7SF6Ni7eYDXdZwEgrKpUW6xEjex?=
+ =?us-ascii?Q?b4szRGCCpKWhiif1tymLQ+2MLSN4jqX9T7BeRGypzcnrqjO7KM0yVw3sE+ac?=
+ =?us-ascii?Q?btqK27Kbe8GOamSHIf/uN4txqS5FM2MbmGNk6H0zbgW0ivgsHuii1+kGRHx7?=
+ =?us-ascii?Q?Um8FHWAQEGi2f4eD/UJaD7XGVmd3ejQV9+D9c2t5YNiX4zm07ju7N6fcIWgH?=
+ =?us-ascii?Q?rXgKUgtcDun954mTDnPlCCwZSxaX8Oq1TKzqIH2ZJ91W6kK9g2Lxgh2HU77A?=
+ =?us-ascii?Q?JDRW1bt24UDF9TgnhnA1VZH4UilvnUKl+1vxPGoJ5LpMRc8TvEfswBSOBOet?=
+ =?us-ascii?Q?NOstuNzdqd8s7B7doJHGMNEswJ51ZAk04QwRnuFQjgB7RDqmjCyb0EhnMUHF?=
+ =?us-ascii?Q?pU6iWqUhZhVxD7GdzDeVkur7DwGnlDlmxADXlvk9vuCsRVOV8NGtz/lg4dmB?=
+ =?us-ascii?Q?cYMv8NgF+9XRWGPHLgIQWMiG?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 23a74a2f-8d60-4e2b-02b8-08d93b083868
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2021 14:14:34.3943 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +xenIpdpL5OVHjFyBI3fU5rTS/KHqTu+cdG9oJM+7MprdTSUx8Cjx9rxcNHBbkLW+IiJ47dDZ2hDiD4tEwfgtg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5031
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,206 +125,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dwaipayan Ray <dwaipayanray1@gmail.com>,
- LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- John Clements <john.clements@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks.
+Was missing. Add it.
 
-Alex
+Fixes: 6b36fa6143f6ca ("drm/amdgpu: add umc v8_7_0 IP headers")
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ .../include/asic_reg/umc/umc_8_7_0_sh_mask.h  | 21 +++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
-On Mon, Jun 28, 2021 at 6:53 AM Lukas Bulwahn <lukas.bulwahn@gmail.com> wrote:
->
-> Commit 6b36fa6143f6 ("drm/amdgpu: add umc v8_7_0 IP headers") adds the new
-> file ./drivers/gpu/drm/amd/include/asic_reg/umc/umc_8_7_0_sh_mask.h with
-> DOS line endings, which is very uncommon for the kernel repository.
->
-> Rectify the line endings in this file with dos2unix.
->
-> Identified by a checkpatch evaluation on the whole kernel repository and
-> spot-checking for really unexpected checkpatch rule violations.
->
-> Reported-by: Dwaipayan Ray <dwaipayanray1@gmail.com>
-> Signed-off-by: Lukas Bulwahn <lukas.bulwahn@gmail.com>
-> ---
->  .../include/asic_reg/umc/umc_8_7_0_sh_mask.h  | 158 +++++++++---------
->  1 file changed, 79 insertions(+), 79 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/include/asic_reg/umc/umc_8_7_0_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/umc/umc_8_7_0_sh_mask.h
-> index 4c5097fa0c09..d5ef91d3c391 100644
-> --- a/drivers/gpu/drm/amd/include/asic_reg/umc/umc_8_7_0_sh_mask.h
-> +++ b/drivers/gpu/drm/amd/include/asic_reg/umc/umc_8_7_0_sh_mask.h
-> @@ -1,79 +1,79 @@
-> -#ifndef _umc_8_7_0_SH_MASK_HEADER
-> -#define _umc_8_7_0_SH_MASK_HEADER
-> -
-> -//UMCCH0_0_GeccErrCntSel
-> -#define UMCCH0_0_GeccErrCntSel__GeccErrCntCsSel__SHIFT                                                        0x0
-> -#define UMCCH0_0_GeccErrCntSel__GeccErrInt__SHIFT                                                             0xc
-> -#define UMCCH0_0_GeccErrCntSel__GeccErrCntEn__SHIFT                                                           0xf
-> -#define UMCCH0_0_GeccErrCntSel__PoisonCntEn__SHIFT                                                            0x10
-> -#define UMCCH0_0_GeccErrCntSel__GeccErrCntCsSel_MASK                                                          0x0000000FL
-> -#define UMCCH0_0_GeccErrCntSel__GeccErrInt_MASK                                                               0x00003000L
-> -#define UMCCH0_0_GeccErrCntSel__GeccErrCntEn_MASK                                                             0x00008000L
-> -#define UMCCH0_0_GeccErrCntSel__PoisonCntEn_MASK                                                              0x00030000L
-> -//UMCCH0_0_GeccErrCnt
-> -#define UMCCH0_0_GeccErrCnt__GeccErrCnt__SHIFT                                                                0x0
-> -#define UMCCH0_0_GeccErrCnt__GeccUnCorrErrCnt__SHIFT                                                          0x10
-> -#define UMCCH0_0_GeccErrCnt__GeccErrCnt_MASK                                                                  0x0000FFFFL
-> -#define UMCCH0_0_GeccErrCnt__GeccUnCorrErrCnt_MASK                                                            0xFFFF0000L
-> -//MCA_UMC_UMC0_MCUMC_STATUST0
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__ErrorCode__SHIFT                                                         0x0
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__ErrorCodeExt__SHIFT                                                      0x10
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__RESERV22__SHIFT                                                          0x16
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__AddrLsb__SHIFT                                                           0x18
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__RESERV30__SHIFT                                                          0x1e
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__ErrCoreId__SHIFT                                                         0x20
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__RESERV38__SHIFT                                                          0x26
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__Scrub__SHIFT                                                             0x28
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__RESERV41__SHIFT                                                          0x29
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__Poison__SHIFT                                                            0x2b
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__Deferred__SHIFT                                                          0x2c
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__UECC__SHIFT                                                              0x2d
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__CECC__SHIFT                                                              0x2e
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__RESERV47__SHIFT                                                          0x2f
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__Transparent__SHIFT                                                       0x34
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__SyndV__SHIFT                                                             0x35
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__RESERV54__SHIFT                                                          0x36
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__TCC__SHIFT                                                               0x37
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__ErrCoreIdVal__SHIFT                                                      0x38
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__PCC__SHIFT                                                               0x39
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__AddrV__SHIFT                                                             0x3a
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__MiscV__SHIFT                                                             0x3b
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__En__SHIFT                                                                0x3c
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__UC__SHIFT                                                                0x3d
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__Overflow__SHIFT                                                          0x3e
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__Val__SHIFT                                                               0x3f
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__ErrorCode_MASK                                                           0x000000000000FFFFL
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__ErrorCodeExt_MASK                                                        0x00000000003F0000L
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__RESERV22_MASK                                                            0x0000000000C00000L
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__AddrLsb_MASK                                                             0x000000003F000000L
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__RESERV30_MASK                                                            0x00000000C0000000L
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__ErrCoreId_MASK                                                           0x0000003F00000000L
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__RESERV38_MASK                                                            0x000000C000000000L
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__Scrub_MASK                                                               0x0000010000000000L
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__RESERV41_MASK                                                            0x0000060000000000L
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__Poison_MASK                                                              0x0000080000000000L
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__Deferred_MASK                                                            0x0000100000000000L
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__UECC_MASK                                                                0x0000200000000000L
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__CECC_MASK                                                                0x0000400000000000L
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__RESERV47_MASK                                                            0x000F800000000000L
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__Transparent_MASK                                                         0x0010000000000000L
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__SyndV_MASK                                                               0x0020000000000000L
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__RESERV54_MASK                                                            0x0040000000000000L
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__TCC_MASK                                                                 0x0080000000000000L
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__ErrCoreIdVal_MASK                                                        0x0100000000000000L
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__PCC_MASK                                                                 0x0200000000000000L
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__AddrV_MASK                                                               0x0400000000000000L
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__MiscV_MASK                                                               0x0800000000000000L
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__En_MASK                                                                  0x1000000000000000L
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__UC_MASK                                                                  0x2000000000000000L
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__Overflow_MASK                                                            0x4000000000000000L
-> -#define MCA_UMC_UMC0_MCUMC_STATUST0__Val_MASK                                                                 0x8000000000000000L
-> -//MCA_UMC_UMC0_MCUMC_ADDRT0
-> -#define MCA_UMC_UMC0_MCUMC_ADDRT0__ErrorAddr__SHIFT                                                           0x0
-> -#define MCA_UMC_UMC0_MCUMC_ADDRT0__LSB__SHIFT                                                                 0x38
-> -#define MCA_UMC_UMC0_MCUMC_ADDRT0__Reserved__SHIFT                                                            0x3e
-> -#define MCA_UMC_UMC0_MCUMC_ADDRT0__ErrorAddr_MASK                                                             0x00FFFFFFFFFFFFFFL
-> -#define MCA_UMC_UMC0_MCUMC_ADDRT0__LSB_MASK                                                                   0x3F00000000000000L
-> -#define MCA_UMC_UMC0_MCUMC_ADDRT0__Reserved_MASK                                                              0xC000000000000000L
-> -
-> -#endif
-> +#ifndef _umc_8_7_0_SH_MASK_HEADER
-> +#define _umc_8_7_0_SH_MASK_HEADER
-> +
-> +//UMCCH0_0_GeccErrCntSel
-> +#define UMCCH0_0_GeccErrCntSel__GeccErrCntCsSel__SHIFT                                                        0x0
-> +#define UMCCH0_0_GeccErrCntSel__GeccErrInt__SHIFT                                                             0xc
-> +#define UMCCH0_0_GeccErrCntSel__GeccErrCntEn__SHIFT                                                           0xf
-> +#define UMCCH0_0_GeccErrCntSel__PoisonCntEn__SHIFT                                                            0x10
-> +#define UMCCH0_0_GeccErrCntSel__GeccErrCntCsSel_MASK                                                          0x0000000FL
-> +#define UMCCH0_0_GeccErrCntSel__GeccErrInt_MASK                                                               0x00003000L
-> +#define UMCCH0_0_GeccErrCntSel__GeccErrCntEn_MASK                                                             0x00008000L
-> +#define UMCCH0_0_GeccErrCntSel__PoisonCntEn_MASK                                                              0x00030000L
-> +//UMCCH0_0_GeccErrCnt
-> +#define UMCCH0_0_GeccErrCnt__GeccErrCnt__SHIFT                                                                0x0
-> +#define UMCCH0_0_GeccErrCnt__GeccUnCorrErrCnt__SHIFT                                                          0x10
-> +#define UMCCH0_0_GeccErrCnt__GeccErrCnt_MASK                                                                  0x0000FFFFL
-> +#define UMCCH0_0_GeccErrCnt__GeccUnCorrErrCnt_MASK                                                            0xFFFF0000L
-> +//MCA_UMC_UMC0_MCUMC_STATUST0
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__ErrorCode__SHIFT                                                         0x0
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__ErrorCodeExt__SHIFT                                                      0x10
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__RESERV22__SHIFT                                                          0x16
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__AddrLsb__SHIFT                                                           0x18
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__RESERV30__SHIFT                                                          0x1e
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__ErrCoreId__SHIFT                                                         0x20
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__RESERV38__SHIFT                                                          0x26
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__Scrub__SHIFT                                                             0x28
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__RESERV41__SHIFT                                                          0x29
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__Poison__SHIFT                                                            0x2b
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__Deferred__SHIFT                                                          0x2c
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__UECC__SHIFT                                                              0x2d
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__CECC__SHIFT                                                              0x2e
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__RESERV47__SHIFT                                                          0x2f
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__Transparent__SHIFT                                                       0x34
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__SyndV__SHIFT                                                             0x35
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__RESERV54__SHIFT                                                          0x36
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__TCC__SHIFT                                                               0x37
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__ErrCoreIdVal__SHIFT                                                      0x38
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__PCC__SHIFT                                                               0x39
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__AddrV__SHIFT                                                             0x3a
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__MiscV__SHIFT                                                             0x3b
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__En__SHIFT                                                                0x3c
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__UC__SHIFT                                                                0x3d
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__Overflow__SHIFT                                                          0x3e
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__Val__SHIFT                                                               0x3f
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__ErrorCode_MASK                                                           0x000000000000FFFFL
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__ErrorCodeExt_MASK                                                        0x00000000003F0000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__RESERV22_MASK                                                            0x0000000000C00000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__AddrLsb_MASK                                                             0x000000003F000000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__RESERV30_MASK                                                            0x00000000C0000000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__ErrCoreId_MASK                                                           0x0000003F00000000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__RESERV38_MASK                                                            0x000000C000000000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__Scrub_MASK                                                               0x0000010000000000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__RESERV41_MASK                                                            0x0000060000000000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__Poison_MASK                                                              0x0000080000000000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__Deferred_MASK                                                            0x0000100000000000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__UECC_MASK                                                                0x0000200000000000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__CECC_MASK                                                                0x0000400000000000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__RESERV47_MASK                                                            0x000F800000000000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__Transparent_MASK                                                         0x0010000000000000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__SyndV_MASK                                                               0x0020000000000000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__RESERV54_MASK                                                            0x0040000000000000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__TCC_MASK                                                                 0x0080000000000000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__ErrCoreIdVal_MASK                                                        0x0100000000000000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__PCC_MASK                                                                 0x0200000000000000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__AddrV_MASK                                                               0x0400000000000000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__MiscV_MASK                                                               0x0800000000000000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__En_MASK                                                                  0x1000000000000000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__UC_MASK                                                                  0x2000000000000000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__Overflow_MASK                                                            0x4000000000000000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0__Val_MASK                                                                 0x8000000000000000L
-> +//MCA_UMC_UMC0_MCUMC_ADDRT0
-> +#define MCA_UMC_UMC0_MCUMC_ADDRT0__ErrorAddr__SHIFT                                                           0x0
-> +#define MCA_UMC_UMC0_MCUMC_ADDRT0__LSB__SHIFT                                                                 0x38
-> +#define MCA_UMC_UMC0_MCUMC_ADDRT0__Reserved__SHIFT                                                            0x3e
-> +#define MCA_UMC_UMC0_MCUMC_ADDRT0__ErrorAddr_MASK                                                             0x00FFFFFFFFFFFFFFL
-> +#define MCA_UMC_UMC0_MCUMC_ADDRT0__LSB_MASK                                                                   0x3F00000000000000L
-> +#define MCA_UMC_UMC0_MCUMC_ADDRT0__Reserved_MASK                                                              0xC000000000000000L
-> +
-> +#endif
-> --
-> 2.17.1
->
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/umc/umc_8_7_0_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/umc/umc_8_7_0_sh_mask.h
+index d5ef91d3c391..20329da53b0a 100644
+--- a/drivers/gpu/drm/amd/include/asic_reg/umc/umc_8_7_0_sh_mask.h
++++ b/drivers/gpu/drm/amd/include/asic_reg/umc/umc_8_7_0_sh_mask.h
+@@ -1,3 +1,24 @@
++/*
++ * Copyright (C) 2020  Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included
++ * in all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
++ * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
++ * AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
++ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
++ */
++
+ #ifndef _umc_8_7_0_SH_MASK_HEADER
+ #define _umc_8_7_0_SH_MASK_HEADER
+ 
+-- 
+2.31.1
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
