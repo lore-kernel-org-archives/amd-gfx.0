@@ -2,101 +2,62 @@ Return-Path: <SRS0=w1A1=LX=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B795DC11F68
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Jun 2021 10:34:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 057BDC11F66
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Jun 2021 10:36:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6ED3761D7A
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Jun 2021 10:34:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6ED3761D7A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=foss.st.com
+	by mail.kernel.org (Postfix) with ESMTPS id CFF1661DA7
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Jun 2021 10:36:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CFF1661DA7
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=daenzer.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68AB289D64;
-	Tue, 29 Jun 2021 10:34:41 +0000 (UTC)
-X-Greylist: delayed 4503 seconds by postgrey-1.36 at gabe;
- Tue, 29 Jun 2021 10:34:39 UTC
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3410089CFA;
- Tue, 29 Jun 2021 10:34:39 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 15T9CNdD011848; Tue, 29 Jun 2021 11:18:52 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=X80iUh6QaVW3Kbhqm1Aj0gKrTFwcCwrTAiEMB/p3SAE=;
- b=M/Gpy87EawNbKSyujei9NTa2BHd1JzRtJKVCH/vGpuB6iraaPrj9PBwQUVfPYsXuEi4b
- U89GAVJiC3lC/DeWbQZw4SzKasVUu1BcPrrJ7NZxZM/Smb2odqyFeMS6jULMOgYVGCCC
- 7shI7zTjLrdvIi8p8jGiR0A6FaS4SklEqli6BK9D/Mj3iOJjHrxGKf+6SCFwQH4pwaNm
- FIfKIo1Zm3wn5NTvQkCPDKPrXkwNoscqO+xFO6IthXTt+0IG3S0BxM/PWWed4gkPPOVt
- ebi8/NeZQMSpte6HtHZ0b399eEymWAv+MRO6617GH2iDTs8JEBlA/XIWEgcBFur5uiNf 4w== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 39fc116d9j-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 29 Jun 2021 11:18:52 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C74F710002A;
- Tue, 29 Jun 2021 11:18:46 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5D8BF21BF75;
- Tue, 29 Jun 2021 11:18:46 +0200 (CEST)
-Received: from lmecxl0951.lme.st.com (10.75.127.49) by SFHDAG2NODE3.st.com
- (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Tue, 29 Jun
- 2021 11:18:43 +0200
-Subject: Re: [PATCH v4 19/27] drm/stm: Don't set struct drm_device.irq_enabled
-To: Thomas Zimmermann <tzimmermann@suse.de>, <daniel@ffwll.ch>,
- <airlied@linux.ie>, <alexander.deucher@amd.com>,
- <christian.koenig@amd.com>, <Xinhui.Pan@amd.com>,
- <james.qian.wang@arm.com>, <liviu.dudau@arm.com>,
- <mihail.atanassov@arm.com>, <brian.starkey@arm.com>,
- <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
- <inki.dae@samsung.com>, <jy0922.shim@samsung.com>,
- <sw0312.kim@samsung.com>, <kyungmin.park@samsung.com>,
- <krzysztof.kozlowski@canonical.com>, <xinliang.liu@linaro.org>,
- <tiantao6@hisilicon.com>, <john.stultz@linaro.org>,
- <kong.kongxinwei@hisilicon.com>, <puck.chen@hisilicon.com>,
- <laurentiu.palcu@oss.nxp.com>, <l.stach@pengutronix.de>,
- <p.zabel@pengutronix.de>, <shawnguo@kernel.org>,
- <s.hauer@pengutronix.de>, <kernel@pengutronix.de>,
- <festevam@gmail.com>, <linux-imx@nxp.com>, <chunkuang.hu@kernel.org>,
- <matthias.bgg@gmail.com>, <bskeggs@redhat.com>, <tomba@kernel.org>,
- <hjc@rock-chips.com>, <heiko@sntech.de>, <philippe.cornu@foss.st.com>,
- <mcoquelin.stm32@gmail.com>, <alexandre.torgue@foss.st.com>,
- <wens@csie.org>, <jernej.skrabec@gmail.com>,
- <thierry.reding@gmail.com>, <jonathanh@nvidia.com>,
- <jyri.sarha@iki.fi>, <emma@anholt.net>,
- <linux-graphics-maintainer@vmware.com>, <zackr@vmware.com>,
- <hyun.kwon@xilinx.com>, <laurent.pinchart@ideasonboard.com>,
- <michal.simek@xilinx.com>, <jani.nikula@linux.intel.com>,
- <rodrigo.vivi@intel.com>, <linux@armlinux.org.uk>,
- <kieran.bingham+renesas@ideasonboard.com>,
- <rodrigosiqueiramelo@gmail.com>, <melissa.srw@gmail.com>,
- <hamohammed.sa@gmail.com>
-References: <20210625082222.3845-1-tzimmermann@suse.de>
- <20210625082222.3845-20-tzimmermann@suse.de>
-From: yannick Fertre <yannick.fertre@foss.st.com>
-Message-ID: <1c946098-bf82-4028-1543-ba9e4f960aa3@foss.st.com>
-Date: Tue, 29 Jun 2021 11:18:42 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8AD9D89DB8;
+	Tue, 29 Jun 2021 10:36:24 +0000 (UTC)
+Received: from netline-mail3.netline.ch (mail.netline.ch [148.251.143.180])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 5330189DB8
+ for <amd-gfx@lists.freedesktop.org>; Tue, 29 Jun 2021 10:36:23 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by netline-mail3.netline.ch (Postfix) with ESMTP id 407BA20201B;
+ Tue, 29 Jun 2021 12:36:21 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at netline-mail3.netline.ch
+Received: from netline-mail3.netline.ch ([127.0.0.1])
+ by localhost (netline-mail3.netline.ch [127.0.0.1]) (amavisd-new, port 10024)
+ with LMTP id gVWRM_l7JYvk; Tue, 29 Jun 2021 12:36:21 +0200 (CEST)
+Received: from thor (24.99.2.85.dynamic.wline.res.cust.swisscom.ch
+ [85.2.99.24])
+ by netline-mail3.netline.ch (Postfix) with ESMTPA id AF0E320201A;
+ Tue, 29 Jun 2021 12:36:20 +0200 (CEST)
+Received: from localhost ([::1]) by thor with esmtp (Exim 4.94.2)
+ (envelope-from <michel@daenzer.net>)
+ id 1lyB6I-000jTl-Pe; Tue, 29 Jun 2021 12:36:19 +0200
+Subject: Re: AMDGPU error: "[drm:amdgpu_dm_atomic_commit_tail [amdgpu]]
+ *ERROR* Waiting for fences timed out!"
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ Alex Deucher <alexdeucher@gmail.com>
+References: <a4ba9456-812b-5280-75fd-6dd66d1f9718@riseup.net>
+ <22c25fa6-b3eb-b778-8598-3ce1947a3d0b@daenzer.net>
+ <CADnq5_OVjssNi2niLZQs-TOyN5T5EFOnpwmpmbvHRgh_M0B=wg@mail.gmail.com>
+ <7a9f2682-559d-57ec-4879-b1e6f743c375@daenzer.net>
+ <CADnq5_O+FjF0R0OEMyPZ-hzg7d2Fx87NBUjax8_XLF4b71oKmg@mail.gmail.com>
+ <7ecaff42-68e4-7566-0da1-fa3475fcacb3@daenzer.net>
+ <CADnq5_MEFyQA6s7+4FKKq3qT_6i2ue=n5+CswPpB3H5Kt3ybuw@mail.gmail.com>
+ <65f5567e-4c5c-6e20-a379-e7182bcacb1f@daenzer.net>
+ <c2b9b42d-55e1-fa5d-8e10-ea474fcd9221@daenzer.net>
+ <BL1PR12MB514478C04EC9E42F39F9C8BDF7039@BL1PR12MB5144.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+Message-ID: <5e2067cd-62fe-d3c5-ea0d-69393b0d7883@daenzer.net>
+Date: Tue, 29 Jun 2021 12:36:14 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <20210625082222.3845-20-tzimmermann@suse.de>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.49]
-X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.790
- definitions=2021-06-29_05:2021-06-25,
- 2021-06-29 signatures=0
+In-Reply-To: <BL1PR12MB514478C04EC9E42F39F9C8BDF7039@BL1PR12MB5144.namprd12.prod.outlook.com>
+Content-Language: en-CA
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,52 +69,18 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-samsung-soc@vger.kernel.org, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org,
- linux-mediatek@lists.infradead.org, amd-gfx@lists.freedesktop.org,
- Daniel Vetter <daniel.vetter@ffwll.ch>, linux-tegra@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: xgqt <xgqt@riseup.net>, amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello Thomas,
-thanks for the patch.
-
-Tested-by: Yannick Fertre <yannick.fertre@foss.st.com>
-
-Best regards
-
-
-On 6/25/21 10:22 AM, Thomas Zimmermann wrote:
-> The field drm_device.irq_enabled is only used by legacy drivers
-> with userspace modesetting. Don't set it in stm.
-> 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-> ---
->   drivers/gpu/drm/stm/ltdc.c | 3 ---
->   1 file changed, 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
-> index 08b71248044d..e9c5a52f041a 100644
-> --- a/drivers/gpu/drm/stm/ltdc.c
-> +++ b/drivers/gpu/drm/stm/ltdc.c
-> @@ -1339,9 +1339,6 @@ int ltdc_load(struct drm_device *ddev)
->   		goto err;
->   	}
->   
-> -	/* Allow usage of vblank without having to call drm_irq_install */
-> -	ddev->irq_enabled = 1;
-> -
->   	clk_disable_unprepare(ldev->pixel_clk);
->   
->   	pinctrl_pm_select_sleep_state(ddev->dev);
-> 
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gMjAyMS0wNi0yOCA3OjE2IHAubS4sIERldWNoZXIsIEFsZXhhbmRlciB3cm90ZToKPiAKPiBU
+aGFua3MgZm9yIG5hcnJvd2luZyB0aGlzIGRvd24uwqAgVGhlcmUgaXMgbmV3IFBDTyBTRE1BIGZp
+cm13YXJlIGF2YWlsYWJsZSAoYXR0YWNoZWQpLsKgIENhbiB5b3UgdHJ5IGl0PwoKU3VyZSwgSSds
+bCB0cnkgaXQsIHRoYW5rcy4KCgotLSAKRWFydGhsaW5nIE1pY2hlbCBEw6RuemVyICAgICAgICAg
+ICAgICAgfCAgICAgICAgICAgICAgIGh0dHBzOi8vcmVkaGF0LmNvbQpMaWJyZSBzb2Z0d2FyZSBl
+bnRodXNpYXN0ICAgICAgICAgICAgIHwgICAgICAgICAgICAgTWVzYSBhbmQgWCBkZXZlbG9wZXIK
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
