@@ -7,34 +7,34 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 94955C11F6F
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Jun 2021 15:11:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2B4FFC11F8E
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Jun 2021 15:11:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 663746147D
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Jun 2021 15:11:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 663746147D
+	by mail.kernel.org (Postfix) with ESMTPS id F40D761477
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Jun 2021 15:11:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F40D761477
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=tuxedocomputers.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 812436EA33;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF86F6EA36;
 	Wed, 30 Jun 2021 15:10:34 +0000 (UTC)
 Received: from srv6.fidu.org (srv6.fidu.org [159.69.62.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A63666EA0E;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED47D6EA20;
  Wed, 30 Jun 2021 15:10:29 +0000 (UTC)
 Received: from localhost (localhost.localdomain [127.0.0.1])
- by srv6.fidu.org (Postfix) with ESMTP id 34000C8009C;
+ by srv6.fidu.org (Postfix) with ESMTP id B2DE0C80097;
  Wed, 30 Jun 2021 17:10:28 +0200 (CEST)
 X-Virus-Scanned: Debian amavisd-new at srv6.fidu.org
 Received: from srv6.fidu.org ([127.0.0.1])
  by localhost (srv6.fidu.org [127.0.0.1]) (amavisd-new, port 10026)
- with LMTP id jx9tQJGs-7kH; Wed, 30 Jun 2021 17:10:28 +0200 (CEST)
+ with LMTP id PAD_QfqalFaJ; Wed, 30 Jun 2021 17:10:28 +0200 (CEST)
 Received: from wsembach-tuxedo.fritz.box
  (p200300e37F394900095779a208783f8e.dip0.t-ipconnect.de
  [IPv6:2003:e3:7f39:4900:957:79a2:878:3f8e])
  (Authenticated sender: wse@tuxedocomputers.com)
- by srv6.fidu.org (Postfix) with ESMTPA id 445D3C80095;
+ by srv6.fidu.org (Postfix) with ESMTPA id AB3D4C80098;
  Wed, 30 Jun 2021 17:10:26 +0200 (CEST)
 From: Werner Sembach <wse@tuxedocomputers.com>
 To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
@@ -44,10 +44,10 @@ To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
  rodrigo.vivi@intel.com, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, emil.l.velikov@gmail.com
-Subject: [PATCH v5 11/17] drm/i915/display: Add handling for new "active color
- range" property
-Date: Wed, 30 Jun 2021 17:10:12 +0200
-Message-Id: <20210630151018.330354-12-wse@tuxedocomputers.com>
+Subject: [PATCH v5 13/17] drm/amd/display: Add handling for new "preferred
+ color format" property
+Date: Wed, 30 Jun 2021 17:10:14 +0200
+Message-Id: <20210630151018.330354-14-wse@tuxedocomputers.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210630151018.330354-1-wse@tuxedocomputers.com>
 References: <20210630151018.330354-1-wse@tuxedocomputers.com>
@@ -69,78 +69,81 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This commit implements the "active color range" drm property for the Intel
-GPU driver.
+This commit implements the "preferred color format" drm property for the
+AMD GPU driver.
 
 Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 7 +++++++
- drivers/gpu/drm/i915/display/intel_dp.c      | 1 +
- drivers/gpu/drm/i915/display/intel_dp_mst.c  | 5 +++++
- drivers/gpu/drm/i915/display/intel_hdmi.c    | 1 +
- 4 files changed, 14 insertions(+)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 30 +++++++++++++++----
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  4 +++
+ 2 files changed, 28 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index be38f7148285..b0bcb42a97fc 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -10940,9 +10940,16 @@ static int intel_atomic_commit(struct drm_device *dev,
- 			drm_connector_set_active_color_format_property(connector,
- 				convert_intel_output_format_into_drm_color_format(
- 					new_crtc_state->output_format));
-+			drm_connector_set_active_color_range_property(connector,
-+				new_crtc_state->limited_color_range ||
-+				new_crtc_state->output_format != INTEL_OUTPUT_FORMAT_RGB ?
-+					DRM_MODE_COLOR_RANGE_LIMITED_16_235 :
-+					DRM_MODE_COLOR_RANGE_FULL);
- 		} else {
- 			drm_connector_set_active_bpc_property(connector, 0);
- 			drm_connector_set_active_color_format_property(connector, 0);
-+			drm_connector_set_active_color_range_property(connector,
-+								      DRM_MODE_COLOR_RANGE_UNSET);
- 		}
- 	}
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 6b85bcdeb238..fd33f753244d 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -4688,6 +4688,7 @@ intel_dp_add_properties(struct intel_dp *intel_dp, struct drm_connector *connect
- 		intel_attach_force_audio_property(connector);
- 
- 	intel_attach_broadcast_rgb_property(connector);
-+	drm_connector_attach_active_color_range_property(connector);
- 	if (HAS_GMCH(dev_priv)) {
- 		drm_connector_attach_max_bpc_property(connector, 6, 10);
- 		drm_connector_attach_active_bpc_property(connector, 6, 10);
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index 3e4237df3360..cb876175258f 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -861,6 +861,11 @@ static struct drm_connector *intel_dp_add_mst_connector(struct drm_dp_mst_topolo
- 	if (connector->active_color_format_property)
- 		drm_connector_attach_active_color_format_property(connector);
- 
-+	connector->active_color_range_property =
-+		intel_dp->attached_connector->base.active_color_range_property;
-+	if (connector->active_color_range_property)
-+		drm_connector_attach_active_color_range_property(connector);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index b4acedac1ac9..02a5809d4993 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -5346,15 +5346,32 @@ static void fill_stream_properties_from_drm_display_mode(
+ 	timing_out->h_border_right = 0;
+ 	timing_out->v_border_top = 0;
+ 	timing_out->v_border_bottom = 0;
+-	/* TODO: un-hardcode */
+-	if (drm_mode_is_420_only(info, mode_in)
+-			|| (drm_mode_is_420_also(info, mode_in) && aconnector->force_yuv420_output))
 +
- 	return connector;
++	if (connector_state
++			&& (connector_state->preferred_color_format == DRM_COLOR_FORMAT_YCRCB420
++			|| aconnector->force_yuv420_output) && drm_mode_is_420(info, mode_in))
+ 		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
+-	else if ((connector->display_info.color_formats & DRM_COLOR_FORMAT_YCRCB444)
+-			&& stream->signal == SIGNAL_TYPE_HDMI_TYPE_A)
++	else if (connector_state
++			&& connector_state->preferred_color_format == DRM_COLOR_FORMAT_YCRCB444
++			&& connector->display_info.color_formats & DRM_COLOR_FORMAT_YCRCB444)
+ 		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR444;
+-	else
++	else if (connector_state
++			&& connector_state->preferred_color_format == DRM_COLOR_FORMAT_RGB444
++			&& !drm_mode_is_420_only(info, mode_in))
+ 		timing_out->pixel_encoding = PIXEL_ENCODING_RGB;
++	else
++		/*
++		 * connector_state->preferred_color_format not possible
++		 * || connector_state->preferred_color_format == 0 (auto)
++		 * || connector_state->preferred_color_format == DRM_COLOR_FORMAT_YCRCB422
++		 */
++		if (drm_mode_is_420_only(info, mode_in))
++			timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
++		else if ((connector->display_info.color_formats & DRM_COLOR_FORMAT_YCRCB444)
++				&& stream->signal == SIGNAL_TYPE_HDMI_TYPE_A)
++			timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR444;
++		else
++			timing_out->pixel_encoding = PIXEL_ENCODING_RGB;
  
- err:
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index 367aba57b55f..3ee25e0cc3b9 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -2505,6 +2505,7 @@ intel_hdmi_add_properties(struct intel_hdmi *intel_hdmi, struct drm_connector *c
+ 	timing_out->timing_3d_format = TIMING_3D_FORMAT_NONE;
+ 	timing_out->display_color_depth = convert_color_depth_from_display_info(
+@@ -7756,6 +7773,7 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
+ 	if (!aconnector->mst_port) {
+ 		drm_connector_attach_max_bpc_property(&aconnector->base, 8, 16);
+ 		drm_connector_attach_active_bpc_property(&aconnector->base, 8, 16);
++		drm_connector_attach_preferred_color_format_property(&aconnector->base);
+ 		drm_connector_attach_active_color_format_property(&aconnector->base);
+ 		drm_connector_attach_active_color_range_property(&aconnector->base);
+ 	}
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+index b5d57bbbdd20..2563788ba95a 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+@@ -413,6 +413,10 @@ dm_dp_add_mst_connector(struct drm_dp_mst_topology_mgr *mgr,
+ 	if (connector->active_bpc_property)
+ 		drm_connector_attach_active_bpc_property(&aconnector->base, 8, 16);
  
- 	intel_attach_force_audio_property(connector);
- 	intel_attach_broadcast_rgb_property(connector);
-+	drm_connector_attach_active_color_range_property(connector);
- 	intel_attach_aspect_ratio_property(connector);
- 
- 	intel_attach_hdmi_colorspace_property(connector);
++	connector->preferred_color_format_property = master->base.preferred_color_format_property;
++	if (connector->preferred_color_format_property)
++		drm_connector_attach_preferred_color_format_property(&aconnector->base);
++
+ 	connector->active_color_format_property = master->base.active_color_format_property;
+ 	if (connector->active_color_format_property)
+ 		drm_connector_attach_active_color_format_property(&aconnector->base);
 -- 
 2.25.1
 
