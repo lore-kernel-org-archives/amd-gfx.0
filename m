@@ -2,139 +2,106 @@ Return-Path: <SRS0=pC1i=LY=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3D1B1C11F65
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Jun 2021 09:55:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9F5F5C11F65
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Jun 2021 10:10:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 034C361D08
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Jun 2021 09:55:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 034C361D08
+	by mail.kernel.org (Postfix) with ESMTPS id 4FAC16162C
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Jun 2021 10:10:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4FAC16162C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 902A76E976;
-	Wed, 30 Jun 2021 09:55:20 +0000 (UTC)
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam08on2081.outbound.protection.outlook.com [40.107.100.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 10B3E6E976;
- Wed, 30 Jun 2021 09:55:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0744C6E0EB;
+	Wed, 30 Jun 2021 10:10:24 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2052.outbound.protection.outlook.com [40.107.94.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 449276E0EB
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Jun 2021 10:10:23 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mJ8tvMw19IN0v7BMDKO1iTzGCtIay7Rw1ufnWwt4pbeKq0mtZH+brWZRT8AfSXzunN4dEdKbhDZsq85zDGSFWbJpKuGzBA+lRmLi9ni7WghYjRhpoK19l8NKzx50J2T1CLnbRucoNU5lWDlHSP/pA1bntNbPSBx1/Q3KLMJwpYd+rQlu1FAaAZk0lkOvdH2XgYpF+jX+4MGBJKnMC6WRKl0BH2zw52YeHmX+RNJStZqZFU0j9VyNe+0/MBWYrCXXivcDpmKdTKtAFDKGvRPy7Mhhya3rKf02ut9Ra3Aey5T5B52hHOytQi9ql9VjjhssRR0PijE4nJVyd7TXFr63ow==
+ b=a7e3aZIF7zbq1W82h086nms4gLdHBEzk+MTF0VpUtVndscH0wlrD7nl0JWYOYTQT90BmImuLu9M45t2nhh+Z79KZ7rvEmIMyOJGFpb2eAVS1hxLdKH4WlRO3W0qveq/2ork3SyqbuTIkpGgu9l96aJLw9x/VqX8tMQ1uFx0bMzJ7Fs3V/UrY8POnGzGhtyCictaUFvOd1mwU8oDVSsEL8EElY0bbz4LHAPuEEo2TZZCWkYHQsxnuMzuA3UDIuloE0ppuba4R69zeOVn+D2xbsrh6gHTsdowmA1iE9OM+x86hE0qPVtLquQ6Lg58+Z9XTkgmU/wwbVCMJICCqBNhEOg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qoQcQ7fwpxF2UvNtN9XQjUnpGRiwq4usOh4K3qC84As=;
- b=JQUnbOKZn+Q6g40fl9aL54VA+ZUTirzDYM8duRBiByCkaY4OJ/rB2PW5ijVktUP+e3YMoj8IQ4YE19wQDkChsbCDUH1X53JjVNGjxRTufvC3uIk4a8qGG1Ep+MteyYr1AvM9lhj/gIwamAiKDnXUebbHVfR0FfUFtVRvs5E3vUsEvuenMgp4TV0L3D+/32FW1QSdytSNFZJPB/kq5ABnEZkn8BSl8CzXOQdci36asyRFMH3+2kmQoOUaHoDw/lr/toeuViwDnXPSOfKIRvg8uOJ52JOlZBmB97BoPmNAElAuhLAZG5VBRj7Q1xEJjBOSuT10t05v7IroljM/gMMjlQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=uQjnrD1S0xl9nopeym4kMJkPox7PgVsDpg3GspcD7Cs=;
+ b=QkwwoX1SoBBdz8q4j7TFHaEAg0pJyMsc/qRZnz5KoFJ/urWK42vhbJ18u/zznieDzaYOPx9Mo63YJ98j49aCGGGYKCkRfZ6mT+eq9HW57eGzP6tp27qSigIq/hZNovtrG2n4bTf19bU79K31MtSHGit5pntlZ4W8IBOVKaNgFRjBcFgOQBi9jMJcqZ2XxCtYFza7Q+CMPjasFeCrKcaQC61b4HTRpopyVC9BLfnu06aafZlZWsRaX06DLTxaPRINSTwqmtCY5T+/eXPAqcY/ji7tBP2lu9qgYqKK3+1YzeDbrhStcBRRauhYzG1GNMwSuyNNWsBHO1ZcWFJoNmw7qg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qoQcQ7fwpxF2UvNtN9XQjUnpGRiwq4usOh4K3qC84As=;
- b=z+dK9lKtb0TWr0ejysbItYSO8oeu3+b1Jhc0Bg+Kyw0h3ymUp/bky7VQiSW8cyIYF+gI1IaTywwu66C4L1pkiR3HRVDeUt96ni/mzNs+TDeSloRFLBjhck7lyZDK6rVWhU9QMyxrA7LzyGsk+Mh8nEfUx0CJOZ+ncJoPANvOT4Q=
-Authentication-Results: vger.kernel.org; dkim=none (message not signed)
- header.d=none;vger.kernel.org; dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
- by MN2PR12MB4638.namprd12.prod.outlook.com (2603:10b6:208:ff::31)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4264.20; Wed, 30 Jun
- 2021 09:55:15 +0000
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::6c9e:1e08:7617:f756]) by MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::6c9e:1e08:7617:f756%5]) with mapi id 15.20.4264.026; Wed, 30 Jun 2021
- 09:55:15 +0000
-Subject: Re: [PATCH v3] drm/radeon: Fix NULL dereference when updating memory
- stats
-To: Mikel Rychliski <mikel@mikelr.com>,
- Alex Deucher <alexander.deucher@amd.com>, "Pan, Xinhui"
- <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>,
- =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas.hellstrom@linux.intel.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <085b7f51-15b8-42e0-fcf0-66da839542c8@amd.com>
- <20210624045121.15643-1-mikel@mikelr.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <18a31cb0-9dae-0dc2-e33b-7ec555b586a8@amd.com>
-Date: Wed, 30 Jun 2021 11:55:09 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
-In-Reply-To: <20210624045121.15643-1-mikel@mikelr.com>
-Content-Language: en-US
-X-Originating-IP: [2a02:908:1252:fb60:fd79:22d7:4c21:2421]
-X-ClientProxiedBy: PR3P189CA0056.EURP189.PROD.OUTLOOK.COM
- (2603:10a6:102:53::31) To MN2PR12MB3775.namprd12.prod.outlook.com
- (2603:10b6:208:159::19)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2a02:908:1252:fb60:fd79:22d7:4c21:2421]
- (2a02:908:1252:fb60:fd79:22d7:4c21:2421) by
- PR3P189CA0056.EURP189.PROD.OUTLOOK.COM (2603:10a6:102:53::31) with Microsoft
+ bh=uQjnrD1S0xl9nopeym4kMJkPox7PgVsDpg3GspcD7Cs=;
+ b=LIBIQVdCJoAB+IG8jQRFoKYc0/bHXZOcsWh8awM9c58pj1+mSRhrhkEDYvjTYP36DmZ4se2uW9G5qqMzA19V2g4QP/T18MPUSy1P4rof6B8j3cYTBVfwNnVsZD7gXanLGiNa7MUYDjoW32uEj4SQBlRWDFLlQ8/rZghsAMF5I+I=
+Received: from DM5PR15CA0030.namprd15.prod.outlook.com (2603:10b6:4:4b::16) by
+ BYAPR12MB3462.namprd12.prod.outlook.com (2603:10b6:a03:ad::16) with
+ Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4287.23 via Frontend Transport; Wed, 30 Jun 2021 09:55:14 +0000
+ 15.20.4264.20; Wed, 30 Jun 2021 10:10:21 +0000
+Received: from DM6NAM11FT018.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:4:4b:cafe::89) by DM5PR15CA0030.outlook.office365.com
+ (2603:10b6:4:4b::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4287.22 via Frontend
+ Transport; Wed, 30 Jun 2021 10:10:20 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT018.mail.protection.outlook.com (10.13.172.110) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4287.22 via Frontend Transport; Wed, 30 Jun 2021 10:10:20 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Wed, 30 Jun
+ 2021 05:10:19 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Wed, 30 Jun
+ 2021 03:10:19 -0700
+Received: from yubiwang-dev-linux.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2242.4
+ via Frontend Transport; Wed, 30 Jun 2021 05:10:16 -0500
+From: YuBiao Wang <YuBiao.Wang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/1] drm/amdgpu: Read clock counter via MMIO to reduce delay
+ (v4)
+Date: Wed, 30 Jun 2021 18:10:12 +0800
+Message-ID: <20210630101012.2006307-1-YuBiao.Wang@amd.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 6eeb5d85-f609-41f8-31a5-08d93bad2916
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4638:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB46385C89BD75C05AD652A40D83019@MN2PR12MB4638.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:356;
+X-MS-Office365-Filtering-Correlation-Id: aacc6b6c-3c1f-44cd-f9c0-08d93baf4484
+X-MS-TrafficTypeDiagnostic: BYAPR12MB3462:
+X-Microsoft-Antispam-PRVS: <BYAPR12MB3462E7F226C4CE8FD8CCFE42E5019@BYAPR12MB3462.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4714;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: QsySLWquBTzdGuSQtUF8f2WhJhT4mklGKqkKfGOK9uxzZOESmlCdoixiZumV0BTNeHsHzois3voJ8YY2ij5DFgyFeC9HpYBRIB9skUrnLwh2SnnU4wVYjFyaSA1kINcwb4IhiLX2A1by1BjOGsKdPPVlwS4Xcpa4Ut73UOV2WAi0AXPlDZGdO6b8p/LdbNOIH0PYf9JA+d5TLmqQCevVv7pfXGT45LvWtDcgO5vT4xhmbQGjB4dB1JyATJ3Fv/9RzmmubpTSNqBLLIl8Bhoe1pbBAQDPqn5kVhayMR8R36m/aW6CG8mKRNFQdse9YoK6/D3mtSBtkK09/P8Sa+1OlTgEEKOcnr4k8PzU8UsCFnwCNpFMMzaZ4c0Ke7GGbWypQerSJK6zgHdVyvAf8bBYB9vn+vQPrG8H5DSqpy23/eX7dGcDiZmG6PGsbC3Hj7e889i30MJbwFGK2tGOEMYI2mPFL/gU3Ane8s2rsXTbo7EN+zF1JnVMIz1fEKbn4kv9gRWXb4yVMmkVAtZrtujGPl0l3HmUI1zksifZ8bjCSo8QvqBsJCjUgxc5/CDRrz4shkRn3rWtk5ysmJL/6FbXAhzGp6VRkVdFS8I8QfnSdeYUGyqfAogKyi5Q2R+c9IaPScTHYQl9pl15HOXX8lmtzpJf1Vv0zoIS8DGB2uD5J+2N9ijdYV5JL9GB4EJy7hv/ks7UNzkaiArZP5H3+dIJkgABOrA4ZH94OjL9/vvb12kvrxsWSKpgxHYa1LF4S4oQgI+0+WrKKaePH1w6pku8tA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(346002)(366004)(39860400002)(136003)(376002)(83380400001)(478600001)(36756003)(16526019)(921005)(186003)(31686004)(5660300002)(316002)(2906002)(31696002)(6666004)(8936002)(66476007)(2616005)(6486002)(86362001)(38100700002)(110136005)(66946007)(66556008)(8676002)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: Web9QyLrXKBy0nwlII+xuziNuVhSBSNbJJYyOiQlpbs6rlxHJxISp6lzk8WxF2a/iv/WCBd9wItdFRlIVyWiHf0hWyRK63k32ITNjgxjFy37rlLZS2HNVdUNd01T7zGP9kXofzLCvv5VNbD8qa5W3pEjnjq2xIgsCY+ftCkr7mQzB7S4WhjG6dmP835SaPVLz3HWFD8ZtUlKY4SKB+oyptlzrqE+BF+QtEl7dCUik3Tfi/3W1NyR4fvRmPPGQMPzl2MhRbCWHRSH/5mdrbZjHsVDq1NLxJcnU09UkElijVRTE4Tx+7mYYPy0shlNQmdztcLkY1FWku5kmK7zaFWas2Va3OHcz//pSZD/E69axR0CISbUqPMQqXrSUTizQ9ldZl0Lo842yrf8zc+POhoRjhG12n3dxtk1FZB9oW5Zi6s1eYDbzJeDJPXmoLJrfrzUBFoDeINrIIGZ3KI7fY3iEyP72T+i/jgC4L91w2Arlre+S3ky8NQEgsYYRwIYxE/+hB+2xPJqwN8IksS+pu0N6Su1IJwBqfEMy89xhfnoAE78hHULHHyJ6SI4/M0ozh0nbqlbdpJSmnLluPL/qNOv4ObmcmzVnn1OVQcAS5+HMUOS5fk2Kwo5lKMW61pwT3ClUDd4eQ7UmD8Vqcx9S5yv5eqs0YMGajX/M/yL/8LTa4GU9mOXjIcVk5r2OVKA85j3ghveSpvoO12pjTtZXCZtJ6tW5iLI+Mj/7BfEV7nMqls=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(376002)(396003)(346002)(136003)(39860400002)(36840700001)(46966006)(316002)(86362001)(70586007)(26005)(426003)(83380400001)(6916009)(47076005)(5660300002)(2906002)(82740400003)(70206006)(54906003)(36756003)(6666004)(4326008)(2616005)(7696005)(82310400003)(81166007)(8936002)(1076003)(8676002)(478600001)(186003)(336012)(36860700001)(356005)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VDRkekw4V1ltcTd0UGQ0K2IrUWFRV000d2FIY2lsMGM0LzZFMzBpNkZNbThZ?=
- =?utf-8?B?RmxtNjRMTWtkeGc0am9FTHAzelo4S0hycXhuazhxWExLdXFsdk1uNEhzaEVl?=
- =?utf-8?B?d3AxY0xjSHZjTkVKQ2hGOXlXWlkwbEdJZyt6ZSsveC94Z2hnMXJmNEhPRTh0?=
- =?utf-8?B?bEZhWW1kRW50R1lUQmI0dnVXREZwWjFvcVdCZEQxL1NvMEFNRkJoSisrb3J4?=
- =?utf-8?B?TW1vektNSUtjUlNBc090ZnZ0ck1KeGpQMUVwV0prUXJKb2ZFT2E3OTVmZXRK?=
- =?utf-8?B?bjRjbS9lR3FzN0ZacC9BV1hscjR4aHh6U25nVHc4OVB5YWJLb2xJVnpxK08z?=
- =?utf-8?B?NEdxR245cnV6WmRBZURwTm93NnR2cFVZU3pGUkwzR3NWeDZDQytsM3M2R3Vh?=
- =?utf-8?B?THJUVUJPTGJnU1EzYUNGeEdnbnN4L2ZFMVdyMHZFbnZnaTFZVzBMVHRnTkJk?=
- =?utf-8?B?QW9Pc1RZb2RhOVRxT1ViM3ZOUFAvQmZUcnk4RVk5MU9xdlZsZ25MZU5vNmp5?=
- =?utf-8?B?MXBhTURheE1QMkVjbSt3c3UzcEdxMU1KY3ZHWWUzQWQvM2FCcmFlRGFBb05w?=
- =?utf-8?B?bDMwR1ZiSzV4ZENCVnB3NEdCTTd4MWUxYnE1eVZxMmdzVWh5Y1VsUkxja21J?=
- =?utf-8?B?aVpQd04xUGdyYi9nNDhjZnV0UzNIdDNJSWkwb3FIczBtaTVLYlRYbiswY3RU?=
- =?utf-8?B?a1JHOU9vaXFtQlFaYWxaWkxSSHZ4c05uQWhFaFljZUl0c1A4VElSaEswUzJM?=
- =?utf-8?B?OWVneEN5bzg1MG9QMXVXZFBhNi9ORmt4M0c2N0F0VGJqbzJ2aHkrMXBwc2hV?=
- =?utf-8?B?TzA0cUJPdU1aRUdYTmdBMU5sSlMxdllpOEwxNXNIRklTMEFRZzYwVUdYcTJw?=
- =?utf-8?B?VWRZek9IOXh5clQ3emp3dkxhcjc5aUs5UkViS2tZVWIrWEw5enRqcXhIL2NQ?=
- =?utf-8?B?UW15RW5aMEZ4UGhuU21sTkdTUno3OTZpb0hYR1dibUZoTlBwd0tpRzQ4YTFR?=
- =?utf-8?B?QjY3NTA3YXlCMnBYN3JSYjJpaCtTMTQ2Y3YveXVEdDVQa2FqNG5jUlhiWGFC?=
- =?utf-8?B?UlN6NFJSWTRwdFQxR1RMMTFBdFhSUFIzaUsyYjZLL0hiaE9JZVlMbjFTdWpO?=
- =?utf-8?B?dW1jRlhhSWMxU3ovVkV4YUR1NkswSFJHR3Y2ZlNySVZzQUswM0djK0RmNUdz?=
- =?utf-8?B?S2ZkM29nQmFGZVVKYkNqT21zSmM5ZmhuS24wOSs1MHZ2M1NiTVpIb2QwaUor?=
- =?utf-8?B?K2FmRHZoZE52UWkrVWR3cTEwL3c1bTkrZkRJalorb3hKa2FXZ0VBUjZnNTlp?=
- =?utf-8?B?dWZGZmEzaG43WlJ2RDVXM1FmTDFQQ0lKdUZUaEh4blhaNzVERStyL3pNa2Vr?=
- =?utf-8?B?WWRId1VNSUxFWmd6TWgzNURXQ3BuckUxZ0hyMmQ5QlQwM25zd3V2RHBaV0Fa?=
- =?utf-8?B?aWl3SEI2a3plZ1ZiZHY0TmxSRUxvdXN1Nm04NW9raGlQcVZlazNsNTBDVzRV?=
- =?utf-8?B?NFF6MzZOc2pXQmpsSFowdEZvOEhTelEvdW91T0lDY3ozdmNrb2ZPY0pzTXo4?=
- =?utf-8?B?WFVWR3J3QkdyaXVidklJSldQOGxuNDFQUmtURHBVU1VOY2ZuWGgwRjRuL29Q?=
- =?utf-8?B?bzAraGRiaG1pNnBscmdXNmY5OVRjbVorTnI1Smo0L1BlR21xalpQOVVzOUtj?=
- =?utf-8?B?YXRlb1A4Z2NERE9sMTdZWEp4eGJaVThVS1JFSUdZdVJTbDJwbStxRFo0bkhk?=
- =?utf-8?B?UFBTcDFPT3Y1ZUZ3VnlxaUdGV3RwcUVid01DTFhTTnN3Uk8xb2xiZnJlMmYy?=
- =?utf-8?B?VkhLSW96Y3ROaDg1NjRTeExZcU9yaFJNUXU3OGN3SS90ZVBkcUtycGRZdUFw?=
- =?utf-8?Q?aGqXoZ24EZss2?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6eeb5d85-f609-41f8-31a5-08d93bad2916
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2021 09:55:15.5856 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2021 10:10:20.3367 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: aacc6b6c-3c1f-44cd-f9c0-08d93baf4484
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4xUm2bwUwrk1Peaf9VRvX5+2mKY9Fmy8gXtQBDgglItWqPbxPrV+wDa1Y2Ya5nqw
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4638
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT018.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3462
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,182 +113,68 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: YuBiao Wang <YuBiao.Wang@amd.com>,
+ Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>, Jack Xiao <Jack.Xiao@amd.com>,
+ Feifei Xu <Feifei.Xu@amd.com>, horace.chen@amd.com,
+ Kevin Wang <Kevin1.Wang@amd.com>, Tuikov Luben <Luben.Tuikov@amd.com>,
+ Deucher Alexander <Alexander.Deucher@amd.com>, Evan Quan <Evan.Quan@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Monk
+ Liu <Monk.Liu@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 24.06.21 um 06:51 schrieb Mikel Rychliski:
-> radeon_ttm_bo_destroy() is attempting to access the resource object to
-> update memory counters. However, the resource object is already freed when
-> ttm calls this function via the destroy callback. This causes an oops when
-> a bo is freed:
->
-> 	BUG: kernel NULL pointer dereference, address: 0000000000000010
-> 	RIP: 0010:radeon_ttm_bo_destroy+0x2c/0x100 [radeon]
-> 	Call Trace:
-> 	 radeon_bo_unref+0x1a/0x30 [radeon]
-> 	 radeon_gem_object_free+0x33/0x50 [radeon]
-> 	 drm_gem_object_release_handle+0x69/0x70 [drm]
-> 	 drm_gem_handle_delete+0x62/0xa0 [drm]
-> 	 ? drm_mode_destroy_dumb+0x40/0x40 [drm]
-> 	 drm_ioctl_kernel+0xb2/0xf0 [drm]
-> 	 drm_ioctl+0x30a/0x3c0 [drm]
-> 	 ? drm_mode_destroy_dumb+0x40/0x40 [drm]
-> 	 radeon_drm_ioctl+0x49/0x80 [radeon]
-> 	 __x64_sys_ioctl+0x8e/0xd0
->
-> Avoid the issue by updating the counters in the delete_mem_notify callback
-> instead. Also, fix memory statistic updating in radeon_bo_move() to
-> identify the source type correctly. The source type needs to be saved
-> before the move, because the moved from object may be altered by the move.
->
-> Fixes: bfa3357ef9ab ("drm/ttm: allocate resource object instead of embedding it v2")
-> Signed-off-by: Mikel Rychliski <mikel@mikelr.com>
+[Why]
+GPU timing counters are read via KIQ under sriov, which will introduce
+a delay.
 
-So, back from vacation. I've reviewed and pushed the patch to drm-misc-next.
+[How]
+It could be directly read by MMIO.
 
-Thanks for the help,
-Christian.
+v2: Add additional check to prevent carryover issue.
+v3: Only check for carryover for once to prevent performance issue.
+v4: Add comments of the rough frequency where carryover happens.
 
-> ---
->   drivers/gpu/drm/radeon/radeon_object.c | 29 ++++++++++++-----------------
->   drivers/gpu/drm/radeon/radeon_object.h |  2 +-
->   drivers/gpu/drm/radeon/radeon_ttm.c    | 13 ++++++++++---
->   3 files changed, 23 insertions(+), 21 deletions(-)
->
-> diff --git a/drivers/gpu/drm/radeon/radeon_object.c b/drivers/gpu/drm/radeon/radeon_object.c
-> index bfaaa3c969a3..56ede9d63b12 100644
-> --- a/drivers/gpu/drm/radeon/radeon_object.c
-> +++ b/drivers/gpu/drm/radeon/radeon_object.c
-> @@ -49,23 +49,23 @@ static void radeon_bo_clear_surface_reg(struct radeon_bo *bo);
->    * function are calling it.
->    */
->   
-> -static void radeon_update_memory_usage(struct radeon_bo *bo,
-> -				       unsigned mem_type, int sign)
-> +static void radeon_update_memory_usage(struct ttm_buffer_object *bo,
-> +				       unsigned int mem_type, int sign)
->   {
-> -	struct radeon_device *rdev = bo->rdev;
-> +	struct radeon_device *rdev = radeon_get_rdev(bo->bdev);
->   
->   	switch (mem_type) {
->   	case TTM_PL_TT:
->   		if (sign > 0)
-> -			atomic64_add(bo->tbo.base.size, &rdev->gtt_usage);
-> +			atomic64_add(bo->base.size, &rdev->gtt_usage);
->   		else
-> -			atomic64_sub(bo->tbo.base.size, &rdev->gtt_usage);
-> +			atomic64_sub(bo->base.size, &rdev->gtt_usage);
->   		break;
->   	case TTM_PL_VRAM:
->   		if (sign > 0)
-> -			atomic64_add(bo->tbo.base.size, &rdev->vram_usage);
-> +			atomic64_add(bo->base.size, &rdev->vram_usage);
->   		else
-> -			atomic64_sub(bo->tbo.base.size, &rdev->vram_usage);
-> +			atomic64_sub(bo->base.size, &rdev->vram_usage);
->   		break;
->   	}
->   }
-> @@ -76,8 +76,6 @@ static void radeon_ttm_bo_destroy(struct ttm_buffer_object *tbo)
->   
->   	bo = container_of(tbo, struct radeon_bo, tbo);
->   
-> -	radeon_update_memory_usage(bo, bo->tbo.resource->mem_type, -1);
-> -
->   	mutex_lock(&bo->rdev->gem.mutex);
->   	list_del_init(&bo->list);
->   	mutex_unlock(&bo->rdev->gem.mutex);
-> @@ -727,24 +725,21 @@ int radeon_bo_check_tiling(struct radeon_bo *bo, bool has_moved,
->   }
->   
->   void radeon_bo_move_notify(struct ttm_buffer_object *bo,
-> -			   bool evict,
-> +			   unsigned int old_type,
->   			   struct ttm_resource *new_mem)
->   {
->   	struct radeon_bo *rbo;
->   
-> +	radeon_update_memory_usage(bo, old_type, -1);
-> +	if (new_mem)
-> +		radeon_update_memory_usage(bo, new_mem->mem_type, 1);
-> +
->   	if (!radeon_ttm_bo_is_radeon_bo(bo))
->   		return;
->   
->   	rbo = container_of(bo, struct radeon_bo, tbo);
->   	radeon_bo_check_tiling(rbo, 0, 1);
->   	radeon_vm_bo_invalidate(rbo->rdev, rbo);
-> -
-> -	/* update statistics */
-> -	if (!new_mem)
-> -		return;
-> -
-> -	radeon_update_memory_usage(rbo, bo->resource->mem_type, -1);
-> -	radeon_update_memory_usage(rbo, new_mem->mem_type, 1);
->   }
->   
->   vm_fault_t radeon_bo_fault_reserve_notify(struct ttm_buffer_object *bo)
-> diff --git a/drivers/gpu/drm/radeon/radeon_object.h b/drivers/gpu/drm/radeon/radeon_object.h
-> index 1739c6a142cd..1afc7992ef91 100644
-> --- a/drivers/gpu/drm/radeon/radeon_object.h
-> +++ b/drivers/gpu/drm/radeon/radeon_object.h
-> @@ -161,7 +161,7 @@ extern void radeon_bo_get_tiling_flags(struct radeon_bo *bo,
->   extern int radeon_bo_check_tiling(struct radeon_bo *bo, bool has_moved,
->   				bool force_drop);
->   extern void radeon_bo_move_notify(struct ttm_buffer_object *bo,
-> -				  bool evict,
-> +				  unsigned int old_type,
->   				  struct ttm_resource *new_mem);
->   extern vm_fault_t radeon_bo_fault_reserve_notify(struct ttm_buffer_object *bo);
->   extern int radeon_bo_get_surface_reg(struct radeon_bo *bo);
-> diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c b/drivers/gpu/drm/radeon/radeon_ttm.c
-> index ad2a5a791bba..a06d4cc2fb1c 100644
-> --- a/drivers/gpu/drm/radeon/radeon_ttm.c
-> +++ b/drivers/gpu/drm/radeon/radeon_ttm.c
-> @@ -199,7 +199,7 @@ static int radeon_bo_move(struct ttm_buffer_object *bo, bool evict,
->   	struct ttm_resource *old_mem = bo->resource;
->   	struct radeon_device *rdev;
->   	struct radeon_bo *rbo;
-> -	int r;
-> +	int r, old_type;
->   
->   	if (new_mem->mem_type == TTM_PL_TT) {
->   		r = radeon_ttm_tt_bind(bo->bdev, bo->ttm, new_mem);
-> @@ -216,6 +216,9 @@ static int radeon_bo_move(struct ttm_buffer_object *bo, bool evict,
->   	if (WARN_ON_ONCE(rbo->tbo.pin_count > 0))
->   		return -EINVAL;
->   
-> +	/* Save old type for statistics update */
-> +	old_type = old_mem->mem_type;
-> +
->   	rdev = radeon_get_rdev(bo->bdev);
->   	if (old_mem->mem_type == TTM_PL_SYSTEM && bo->ttm == NULL) {
->   		ttm_bo_move_null(bo, new_mem);
-> @@ -261,7 +264,7 @@ static int radeon_bo_move(struct ttm_buffer_object *bo, bool evict,
->   out:
->   	/* update statistics */
->   	atomic64_add(bo->base.size, &rdev->num_bytes_moved);
-> -	radeon_bo_move_notify(bo, evict, new_mem);
-> +	radeon_bo_move_notify(bo, old_type, new_mem);
->   	return 0;
->   }
->   
-> @@ -682,7 +685,11 @@ bool radeon_ttm_tt_is_readonly(struct radeon_device *rdev,
->   static void
->   radeon_bo_delete_mem_notify(struct ttm_buffer_object *bo)
->   {
-> -	radeon_bo_move_notify(bo, false, NULL);
-> +	unsigned int old_type = TTM_PL_SYSTEM;
-> +
-> +	if (bo->resource)
-> +		old_type = bo->resource->mem_type;
-> +	radeon_bo_move_notify(bo, old_type, NULL);
->   }
->   
->   static struct ttm_device_funcs radeon_bo_driver = {
+Signed-off-by: YuBiao Wang <YuBiao.Wang@amd.com>
+Acked-by: Horace Chen <horace.chen@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+index ff7e9f49040e..9355494002a1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -7609,7 +7609,7 @@ static int gfx_v10_0_soft_reset(void *handle)
+ 
+ static uint64_t gfx_v10_0_get_gpu_clock_counter(struct amdgpu_device *adev)
+ {
+-	uint64_t clock;
++	uint64_t clock, clock_lo, clock_hi, hi_check;
+ 
+ 	amdgpu_gfx_off_ctrl(adev, false);
+ 	mutex_lock(&adev->gfx.gpu_clock_mutex);
+@@ -7620,8 +7620,15 @@ static uint64_t gfx_v10_0_get_gpu_clock_counter(struct amdgpu_device *adev)
+ 			((uint64_t)RREG32_SOC15(SMUIO, 0, mmGOLDEN_TSC_COUNT_UPPER_Vangogh) << 32ULL);
+ 		break;
+ 	default:
+-		clock = (uint64_t)RREG32_SOC15(SMUIO, 0, mmGOLDEN_TSC_COUNT_LOWER) |
+-			((uint64_t)RREG32_SOC15(SMUIO, 0, mmGOLDEN_TSC_COUNT_UPPER) << 32ULL);
++		clock_hi = RREG32_SOC15_NO_KIQ(SMUIO, 0, mmGOLDEN_TSC_COUNT_UPPER);
++		clock_lo = RREG32_SOC15_NO_KIQ(SMUIO, 0, mmGOLDEN_TSC_COUNT_LOWER);
++		hi_check = RREG32_SOC15_NO_KIQ(SMUIO, 0, mmGOLDEN_TSC_COUNT_UPPER);
++		/* Carryover happens every 4 Giga time cycles counts which is roughly 42 secs */
++		if (hi_check != clock_hi) {
++			clock_lo = RREG32_SOC15_NO_KIQ(SMUIO, 0, mmGOLDEN_TSC_COUNT_LOWER);
++			clock_hi = hi_check;
++		}
++		clock = (uint64_t)clock_lo | ((uint64_t)clock_hi << 32ULL);
+ 		break;
+ 	}
+ 	mutex_unlock(&adev->gfx.gpu_clock_mutex);
+-- 
+2.25.1
 
 _______________________________________________
 amd-gfx mailing list
