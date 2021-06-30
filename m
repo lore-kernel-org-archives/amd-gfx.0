@@ -2,71 +2,72 @@ Return-Path: <SRS0=pC1i=LY=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.0 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_2 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-2.0 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_2 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A76FBC11F68
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Jun 2021 08:21:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 99EDBC11F69
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Jun 2021 08:41:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6C13361D05
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Jun 2021 08:21:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6C13361D05
+	by mail.kernel.org (Postfix) with ESMTPS id 4C6FB61CF6
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Jun 2021 08:41:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4C6FB61CF6
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00CFE6E94D;
-	Wed, 30 Jun 2021 08:21:56 +0000 (UTC)
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [IPv6:2a00:1450:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9736A6E8D0;
- Wed, 30 Jun 2021 08:21:54 +0000 (UTC)
-Received: by mail-lj1-x22b.google.com with SMTP id r16so2090210ljk.9;
- Wed, 30 Jun 2021 01:21:54 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 15AD96E971;
+	Wed, 30 Jun 2021 08:41:40 +0000 (UTC)
+Received: from mail-lj1-x242.google.com (mail-lj1-x242.google.com
+ [IPv6:2a00:1450:4864:20::242])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4EB56E0EC;
+ Wed, 30 Jun 2021 08:41:38 +0000 (UTC)
+Received: by mail-lj1-x242.google.com with SMTP id c11so2180152ljd.6;
+ Wed, 30 Jun 2021 01:41:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=date:from:to:cc:subject:message-id:in-reply-to:references
- :mime-version; bh=hZsvTLZOLa73TaoUFrO86oENQd+0mQCVdwH24gWx43k=;
- b=DgQzfN/7iPgfgzWuMdVHu/wR0geA31ByXd6YZMg/u3mN0nrZy55bUX93RrOxrVyzea
- aCCSmp2orxNAnz2QHWtc9EbF+T0aeWJT0SIWO9HE2faqYVJu2BSbe2xhokzDY2REQ2k+
- 4XJROrW6yNMTwJDyr7mL/MQk8XfdmNtRz4QLe2R3eFO2gEU4oIybELseKDXeaSXxYUc3
- 5nOT26bw4UtNT9WwfL8ZA7gCq2q/TLzkjSb33qTxuXMguv4Yhhm4u8E6xSDWjMPQwHfC
- 0J7ZOtsUdswpt91k63RAyX5obB49HssBECKDUsNVzd7JMuQ6glpYt3bAzDnLZxM/MsSh
- dGrg==
+ :mime-version; bh=Utd+KHsgCpC09PaarvdINj/RaB0PktYgXudSQXUyFn8=;
+ b=GuYv6YFticc8azldffZ6ePW4EI5jTgqJxw2tFY8PhSRjMzVNrUlIwKt8LXWimpirtN
+ 8xt6D1F4aVn9HyKquYIKxHGyOwBMnWyOS5DFu6XOOpsc+I3aWdwgcHFgEOsxBJOlOwK7
+ jjwo0ksGjQVpbNQ58stEyPKc+w7IoyFlT0fZPZOTEUSM92qikVSIUxiJFmzALHh5deJD
+ /i4gEABuoEl+gfEMV8nrkxPGcglEsiZTy8Coaps5RxBJjJaOdVul8dJ981qyksT011SH
+ V75g+/QwPRk+fesdqPt98jQ5ep7ewcSPSoBa52VCfylpXF8kb8WR/zC+FcRnrrxZKDMv
+ uxHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
  :references:mime-version;
- bh=hZsvTLZOLa73TaoUFrO86oENQd+0mQCVdwH24gWx43k=;
- b=lPzc8y0ai4irSEwpNi5G3OYfofu3KPIyQfWmoNU+xiDyZ70hL7rNbn2T4m5Kbx4/UP
- 2Ec5N7JVXU2iHdOVxoyHZsP+dHab6aZadN539Zzj34+e7mIGBinMofSD2phyDBIsDxUj
- GSrTzNsayBcij/HXJd0AYJ2uvtod053oebceJLWwKHOS6b3709mlsVRWD0VEmNJUVD0V
- fuF2XSnQTcold5A7jkTTwtu2MU1/0rPuqD/K4fOqygeQe0A6vnC+ZQ402t/wNhN1FbGH
- 8CuBnDTx4mxPThcrc+SRvLKvXSwgoNGlmNG9/7xwRpkmOgDK65xo1GbqoAwjv5s/LP7Y
- 029Q==
-X-Gm-Message-State: AOAM531ai+x+FMvLem8KyM0oy78GpIAjNuZb/0eBWVyMYYXM4YUx+ROG
- Dx7U+c+8Kj+9l4g/eY3DH/Y=
-X-Google-Smtp-Source: ABdhPJyQ2kBBBjZ329tk3iOGWtBvA7R4zWVLnLft0NfFi9Hf3QYoWO2nGq/YRNBGVkyWV4i9QaZxmQ==
-X-Received: by 2002:a2e:b179:: with SMTP id a25mr7052329ljm.151.1625041312867; 
- Wed, 30 Jun 2021 01:21:52 -0700 (PDT)
+ bh=Utd+KHsgCpC09PaarvdINj/RaB0PktYgXudSQXUyFn8=;
+ b=r0gSG7bjrv+pKjvliiN2f46ne415G1YVhH4M5NeRTmnMHjNmlWKKdRt/U8EKYz3K8z
+ 0XUt2PoZ1oppJlGZNF22pr7X7sX00sZgCDfhrcOrJbXDQp6JP+yAIgRjJWvLqIrRulFq
+ WdLyK3Y460vGTMpO8kdpM/iuvjpxSzcPDbZuZ1udIAr2CgfGJOsRnq8i2BFGfwhedd1T
+ +RFl7QXhSHY4tSn9SXULFiZ1LDwvWK+S3jthp0yQl8FV28UJLVpg8LzFohVOM2VSqtrq
+ ri1bIs3heGdqNXVacb6t6l06fwxcQvNq7ljHZVvtxvmfmr1nDvvqEW9jmmftAqnYoIhN
+ VCGg==
+X-Gm-Message-State: AOAM531egois7V7Hsz13Sh416BBlSMNYKIP/xIfhU8NgP6G/lffjusz2
+ HsbO+Bbi9wIk5ITdCOBmE/I=
+X-Google-Smtp-Source: ABdhPJwMwwTwweeGYLKzaQ5DxXMwv1DJUPtIbNy+C44mil48CET5mB3NCGhFDsA2hoU+EbrQIDuLqw==
+X-Received: by 2002:a2e:a22a:: with SMTP id i10mr6916389ljm.505.1625042497165; 
+ Wed, 30 Jun 2021 01:41:37 -0700 (PDT)
 Received: from eldfell ([194.136.85.206])
- by smtp.gmail.com with ESMTPSA id o15sm1483903lfu.134.2021.06.30.01.21.52
+ by smtp.gmail.com with ESMTPSA id t24sm2144839ljj.97.2021.06.30.01.41.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 30 Jun 2021 01:21:52 -0700 (PDT)
-Date: Wed, 30 Jun 2021 11:21:41 +0300
+ Wed, 30 Jun 2021 01:41:36 -0700 (PDT)
+Date: Wed, 30 Jun 2021 11:41:33 +0300
 From: Pekka Paalanen <ppaalanen@gmail.com>
 To: Werner Sembach <wse@tuxedocomputers.com>
-Subject: Re: [PATCH v4 03/17] drm/uAPI: Add "active bpc" as feedback channel
- for "max bpc" drm property
-Message-ID: <20210630112141.319f67eb@eldfell>
-In-Reply-To: <11cd3340-46a1-9a6a-88f5-95c225863509@tuxedocomputers.com>
+Subject: Re: [PATCH v4 12/17] drm/uAPI: Add "preferred color format" drm
+ property as setting for userspace
+Message-ID: <20210630114133.47397e2f@eldfell>
+In-Reply-To: <6d8716e0-e68a-e7b7-a341-a7471c413e9c@tuxedocomputers.com>
 References: <20210618091116.14428-1-wse@tuxedocomputers.com>
- <20210618091116.14428-4-wse@tuxedocomputers.com>
- <18bbd0cf-4c37-ce9d-eb63-de4131a201e1@tuxedocomputers.com>
- <11cd3340-46a1-9a6a-88f5-95c225863509@tuxedocomputers.com>
+ <20210618091116.14428-13-wse@tuxedocomputers.com>
+ <20210622101516.6a53831c@eldfell>
+ <jIDQ2rRRMWlhDDPf08Z8xZlEE8HTBx7fHsylFdK0joSSFVyES8D444Giyiji9zbIm7dU4QpbsXZLvIDTbGW0wEoUWKsMEI4evizn0UdGMvM=@emersion.fr>
+ <20210629141712.21f00c38@eldfell>
+ <6d8716e0-e68a-e7b7-a341-a7471c413e9c@tuxedocomputers.com>
 X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -80,276 +81,161 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, tzimmermann@suse.de,
- intel-gfx@lists.freedesktop.org, sunpeng.li@amd.com,
- dri-devel@lists.freedesktop.org, joonas.lahtinen@linux.intel.com,
- maarten.lankhorst@linux.intel.com, linux-kernel@vger.kernel.org,
- mripard@kernel.org, airlied@linux.ie, jani.nikula@linux.intel.com,
- daniel@ffwll.ch, rodrigo.vivi@intel.com, alexander.deucher@amd.com,
- harry.wentland@amd.com, christian.koenig@amd.com
-Content-Type: multipart/mixed; boundary="===============0828784133=="
+Cc: sunpeng.li@amd.com, Simon Ser <contact@emersion.fr>,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, airlied@linux.ie,
+ amd-gfx@lists.freedesktop.org, tzimmermann@suse.de, rodrigo.vivi@intel.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com
+Content-Type: multipart/mixed; boundary="===============0921198341=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0828784133==
-Content-Type: multipart/signed; boundary="Sig_/d+W4/r3y/cicXeDeLKMi=2J";
+--===============0921198341==
+Content-Type: multipart/signed; boundary="Sig_/Tp8h1QbNa__rs7AOnEMkfQg";
  protocol="application/pgp-signature"; micalg=pgp-sha256
 
---Sig_/d+W4/r3y/cicXeDeLKMi=2J
+--Sig_/Tp8h1QbNa__rs7AOnEMkfQg
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, 29 Jun 2021 13:02:05 +0200
+On Tue, 29 Jun 2021 13:39:18 +0200
 Werner Sembach <wse@tuxedocomputers.com> wrote:
 
-> Am 28.06.21 um 19:03 schrieb Werner Sembach:
-> > Am 18.06.21 um 11:11 schrieb Werner Sembach: =20
-> >> Add a new general drm property "active bpc" which can be used by graph=
-ic
-> >> drivers to report the applied bit depth per pixel back to userspace.
-> >>
-> >> While "max bpc" can be used to change the color depth, there was no wa=
-y to
-> >> check which one actually got used. While in theory the driver chooses =
-the
-> >> best/highest color depth within the max bpc setting a user might not be
-> >> fully aware what his hardware is or isn't capable off. This is meant a=
-s a
-> >> quick way to double check the setup.
-> >>
-> >> In the future, automatic color calibration for screens might also depe=
-nd on
-> >> this information being available.
-> >>
-> >> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
-> >> ---
-> >>  drivers/gpu/drm/drm_connector.c | 51 +++++++++++++++++++++++++++++++++
-> >>  include/drm/drm_connector.h     |  8 ++++++
-> >>  2 files changed, 59 insertions(+)
-> >>
-> >> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_con=
-nector.c
-> >> index da39e7ff6965..943f6b61053b 100644
-> >> --- a/drivers/gpu/drm/drm_connector.c
-> >> +++ b/drivers/gpu/drm/drm_connector.c
-> >> @@ -1197,6 +1197,14 @@ static const struct drm_prop_enum_list dp_color=
-spaces[] =3D {
-> >>   *	drm_connector_attach_max_bpc_property() to create and attach the
-> >>   *	property to the connector during initialization.
-> >>   *
-> >> + * active bpc:
-> >> + *	This read-only range property tells userspace the pixel color bit =
-depth
-> >> + *	actually used by the hardware display engine on "the cable" on a
-> >> + *	connector. The chosen value depends on hardware capabilities, both
-> >> + *	display engine and connected monitor, and the "max bpc" property.
-> >> + *	Drivers shall use drm_connector_attach_active_bpc_property() to in=
-stall
-> >> + *	this property.
-> >> + * =20
-> > Regarding "on the cable" and dithering: As far as I can tell, what the =
-dithering option does, is setting a hardware
-> > register here:
+> Am 29.06.21 um 13:17 schrieb Pekka Paalanen:
+> > On Tue, 29 Jun 2021 08:12:54 +0000
+> > Simon Ser <contact@emersion.fr> wrote:
+> > =20
+> >> On Tuesday, June 22nd, 2021 at 09:15, Pekka Paalanen <ppaalanen@gmail.=
+com> wrote:
+> >> =20
+> >>> yes, I think this makes sense, even if it is a property that one can't
+> >>> tell for sure what it does before hand.
+> >>>
+> >>> Using a pair of properties, preference and active, to ask for somethi=
+ng
+> >>> and then check what actually worked is good for reducing the
+> >>> combinatorial explosion caused by needing to "atomic TEST_ONLY commit"
+> >>> test different KMS configurations. Userspace has a better chance of
+> >>> finding a configuration that is possible.
+> >>>
+> >>> OTOH, this has the problem than in UI one cannot tell the user in
+> >>> advance which options are truly possible. Given that KMS properties a=
+re
+> >>> rarely completely independent, and in this case known to depend on
+> >>> several other KMS properties, I think it is good enough to know after
+> >>> the fact.
+> >>>
+> >>> If a driver does not use what userspace prefers, there is no way to
+> >>> understand why, or what else to change to make it happen. That problem
+> >>> exists anyway, because TEST_ONLY commits do not give useful feedback
+> >>> but only a yes/no.   =20
+> >> By submitting incremental atomic reqs with TEST_ONLY (i.e. only changi=
+ng one
+> >> property at a time), user-space can discover which property makes the =
+atomic
+> >> commit fail. =20
+> > That works if the properties are independent of each other. Color
+> > range, color format, bpc and more may all be interconnected,
+> > allowing only certain combinations to work.
 > >
-> > - https://elixir.bootlin.com/linux/v5.13/source/drivers/gpu/drm/i915/di=
-splay/intel_display.c#L4534
+> > If all these properties have "auto" setting too, then it would be
+> > possible to probe each property individually, but that still does not
+> > tell which combinations are valid.
 > >
-> > - https://elixir.bootlin.com/linux/v5.13/source/drivers/gpu/drm/i915/di=
-splay/intel_display.c#L4571
-> >
-> > So dithering seems to be calculated by fixed purpose hardware/firmware =
-outside of the driver?
-> >
-> > The Intel driver does not seem to set a target bpc/bpp for this hardwar=
-e so I guess it defaults to 6 or 8 bpc? =20
+> > If you probe towards a certain configuration by setting the properties
+> > one by one, then depending on the order you pick the properties, you
+> > may come to a different conclusion on which property breaks the
+> > configuration. =20
 >=20
-> Never mind it does. This switch-case does affect the dithering output:
-> https://elixir.bootlin.com/linux/v5.13/source/drivers/gpu/drm/i915/displa=
-y/intel_display.c#L4537
+> My mind crossed another point that must be considered: When plugin in
+> a Monitor a list of possible Resolutions+Framerate combinations is
+> created for xrandr and other userspace (I guess by atomic checks? but
+> I don't know).
 
 Hi,
 
-I obviously do not know the intel driver or hardware at all, but
-to me that just looks like translating from bits per pixel to bits per
-channel in RGB mapping?
+I would not think so, but I hope to be corrected if I'm wrong.
 
-> As found in this documentation p.548:
-> https://01.org/sites/default/files/documentation/intel-gfx-prm-osrc-lkf-v=
-ol02c-commandreference-registers-part2.pdf
+My belief is that the driver collects a list of modes from EDID, some
+standard modes, and maybe some other hardcoded modes, and then
+validates each entry against all the known limitations like vertical
+and horizontal frequency limits, discarding modes that do not fit.
+
+Not all limitations are known during that phase, which is why KMS
+property "link-status" exists. When userspace actually programs a mode
+(not a TEST_ONLY commit), the link training may fail. The kernel prunes
+the mode from the list and sets the link status property to signal
+failure, and sends a hotplug uevent. Userspace needs to re-check the
+mode list and try again.
+
+That is a generic escape hatch for when TEST_ONLY commit succeeds, but
+in reality the hardware cannot do it, you just cannot know until you
+actually try for real. It causes end user visible flicker if it happens
+on an already running connector, but since it usually happens when
+turning a connector on to begin with, there is no flicker to be seen,
+just a small delay in finding a mode that works.
+
+> During this drm
+> properties are already considered, which is no problem atm because as
+> far as i can tell there is currently no drm property that would make
+> a certain Resolutions+Framerate combination unreachable that would be
+> possible with everything on default.
+
+I would not expect KMS properties to be considered at all. It would
+reject modes that are actually possible if the some KMS properties were
+changed. So at least going forward, current KMS property values cannot
+factor in.
+
+> However for example forcing YCbCr420 encoding would limit the
+> available resolutions (my screen for example only supports YCbCr420
+> on 4k@60 and @50Hz and on no other resolution or frequency (native is
+> 2560x1440@144Hz).
 >=20
-> So max bpc and active bpc are affecting/affected by the bpc after ditheri=
-ng.
+> So would a "force color format" that does not get resetted on
+> repluging/reenabling a monitor break the output, for example, of an
+> not updated xrandr, unaware of this new property?
 
-By definition, if the cable carries N bpc, then dithering does not
-change that. The cable still carries N bpc, but due to spatial or
-temporal dithering, the *observed* color resolution may or may not be
-higher than the cable bpc.
+Yes, not because the mode list would be missing the mode, but because
+actually setting the mode would fail.
 
-Of course, if the cable bpc is 8, and dithering targets 6 bpc, then 2
-LSB on the cable are always zero, right?
+RandR in particular is problematic, because it does not actually
+understand any KMS properties, it is merely a relay. So anything
+that *uses* RandR protocol or xrandr command would also need to be
+patched to understand the new properties.
 
-Maybe one would want to do that if the monitor has a 6 bit panel and it
-simply ignored the 2 LSB, and the cable cannot go down to 6 bpc.
-
-So, what does "max bpc" mean right now?
-
-It seems like dither on/off is insufficient information, one would also
-need to control the dithering target bpc. I suppose the driver has a
-policy on how it chooses the target bpc, but what is that policy? Is
-the dither target bpc the cable bpc or the sink bpc?
-
-Needless to say, I'm quite confused.
+The kernel automatically resetting *some* properties in *some*
+occasions seems really fragile and complicated to me, which is why I'm
+a lot more keen to see a "reset everything to sensible defaults"
+generic mechanism added to KMS.
 
 
 Thanks,
 pq
 
-> >
-> > Similar things happen on amd. Here the output dither depth seems to be =
-written to a fixed value however:
-> >
-> > - https://elixir.bootlin.com/linux/v5.13/source/drivers/gpu/drm/amd/dis=
-play/dc/dce/dce_transform.c#L828
-> >
-> > - https://elixir.bootlin.com/linux/v5.13/source/drivers/gpu/drm/amd/dis=
-play/dc/dce/dce_transform.c#L769
-> >
-> > Does anyone know about a resource where I can read up on the used regis=
-ters and what this hardware actually does? =20
-> Searching now for a similar register reference for AMD GPUs.
-> >
-> > My proposal for now: "max bpc" affects what happens before dither, so I=
- would keep "active bpc" the same and add another
-> > drm property "dither active: true/false". No additional property to con=
-trol dither, as amdgpu does have one already
-> > (which isn't always active?) and Intel driver does only seem prepared f=
-or dithering at 6bpc (albeit I don't know why to
-> > dither at 6bpc and what depth to dither to?).
-> > =20
-> >>   * Connectors also have one standardized atomic property:
-> >>   *
-> >>   * CRTC_ID:
-> >> @@ -2152,6 +2160,49 @@ int drm_connector_attach_max_bpc_property(struc=
-t drm_connector *connector,
-> >>  }
-> >>  EXPORT_SYMBOL(drm_connector_attach_max_bpc_property);
-> >> =20
-> >> +/**
-> >> + * drm_connector_attach_active_bpc_property - attach "active bpc" pro=
-perty
-> >> + * @connector: connector to attach active bpc property on.
-> >> + * @min: The minimum bit depth supported by the connector.
-> >> + * @max: The maximum bit depth supported by the connector.
-> >> + *
-> >> + * This is used to check the applied bit depth on a connector.
-> >> + *
-> >> + * Returns:
-> >> + * Zero on success, negative errno on failure.
-> >> + */
-> >> +int drm_connector_attach_active_bpc_property(struct drm_connector *co=
-nnector, int min, int max)
-> >> +{
-> >> +	struct drm_device *dev =3D connector->dev;
-> >> +	struct drm_property *prop;
-> >> +
-> >> +	if (!connector->active_bpc_property) {
-> >> +		prop =3D drm_property_create_range(dev, DRM_MODE_PROP_IMMUTABLE, "a=
-ctive bpc",
-> >> +						 min, max);
-> >> +		if (!prop)
-> >> +			return -ENOMEM;
-> >> +
-> >> +		connector->active_bpc_property =3D prop;
-> >> +		drm_object_attach_property(&connector->base, prop, 0);
-> >> +	}
-> >> +
-> >> +	return 0;
-> >> +}
-> >> +EXPORT_SYMBOL(drm_connector_attach_active_bpc_property);
-> >> +
-> >> +/**
-> >> + * drm_connector_set_active_bpc_property - sets the active bits per c=
-olor property for a connector
-> >> + * @connector: drm connector
-> >> + * @active_bpc: bits per color for the connector currently active on =
-"the cable"
-> >> + *
-> >> + * Should be used by atomic drivers to update the active bits per col=
-or over a connector.
-> >> + */
-> >> +void drm_connector_set_active_bpc_property(struct drm_connector *conn=
-ector, int active_bpc)
-> >> +{
-> >> +	drm_object_property_set_value(&connector->base, connector->active_bp=
-c_property, active_bpc);
-> >> +}
-> >> +EXPORT_SYMBOL(drm_connector_set_active_bpc_property);
-> >> +
-> >>  /**
-> >>   * drm_connector_attach_hdr_output_metadata_property - attach "HDR_OU=
-TPUT_METADA" property
-> >>   * @connector: connector to attach the property on.
-> >> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-> >> index 714d1a01c065..eee86de62a5f 100644
-> >> --- a/include/drm/drm_connector.h
-> >> +++ b/include/drm/drm_connector.h
-> >> @@ -1380,6 +1380,12 @@ struct drm_connector {
-> >>  	 */
-> >>  	struct drm_property *max_bpc_property;
-> >> =20
-> >> +	/**
-> >> +	 * @active_bpc_property: Default connector property for the active b=
-pc
-> >> +	 * to be driven out of the connector.
-> >> +	 */
-> >> +	struct drm_property *active_bpc_property;
-> >> +
-> >>  #define DRM_CONNECTOR_POLL_HPD (1 << 0)
-> >>  #define DRM_CONNECTOR_POLL_CONNECT (1 << 1)
-> >>  #define DRM_CONNECTOR_POLL_DISCONNECT (1 << 2)
-> >> @@ -1702,6 +1708,8 @@ int drm_connector_set_panel_orientation_with_qui=
-rk(
-> >>  	int width, int height);
-> >>  int drm_connector_attach_max_bpc_property(struct drm_connector *conne=
-ctor,
-> >>  					  int min, int max);
-> >> +int drm_connector_attach_active_bpc_property(struct drm_connector *co=
-nnector, int min, int max);
-> >> +void drm_connector_set_active_bpc_property(struct drm_connector *conn=
-ector, int active_bpc);
-> >> =20
-> >>  /**
-> >>   * struct drm_tile_group - Tile group metadata =20
-> > _______________________________________________
-> > amd-gfx mailing list
-> > amd-gfx@lists.freedesktop.org
-> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx =20
-
-
---Sig_/d+W4/r3y/cicXeDeLKMi=2J
+--Sig_/Tp8h1QbNa__rs7AOnEMkfQg
 Content-Type: application/pgp-signature
 Content-Description: OpenPGP digital signature
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmDcKZUACgkQI1/ltBGq
-qqeqdg/8CF5zxg8SC07EblgJxP2vCkieAX19ZtS60gATvWdGS+YPe2s3KgxYoT/5
-D9Dy00MHpCRAIsfuQzHUywPyh4ikcBfQhSShHhCx2wj39AI4bzScJqqseHweXPKB
-528knact4LDNt01vtLE04ICXq+jiQWyGqaiDoEpxgVC2cVT7gYfZh5fSfWfZuVRu
-Zqcetbv95nxFRA0Zsb139J5LqDuyIncewfIyzvYJ5TSWrVSyesCFsuwH5WS7XpTK
-GxVvGvAMHH9M3TMnWRyGE96fWxjpmyJlkPHE6RPA08CjXvKd+NzFKs2tBkmiI7A+
-L1/qwiWsQSt6lrqlXULcVV0RU4KUJChIIEYbWvKjGlUpuqiISavGJX6ulv623TpX
-DZcYgAEd2GWiHV9J3nr0N9o7G3B/GZlp43helBstOgCq2pwP0XDepbUgSDi3Sjf5
-t1gmFPTrvbo6LXo9iuuvLnUooS17raiGmxV9JgIY+gFul9AhlPDzUIsX7U3fM60P
-UE4VNbkS9HZLFFPlNrE/bScWasiHw0TPrO76nHBNALPu7Si/IiUbsAWtKm5eOB+V
-cVov1b1bDEDE5pxKW/hoWewg6HGBTsCEOsY4frDG/hE9Kvg3V58eYOCclBQYqQxw
-aPqTJuyFi6jkc+Mu0sMcd3U00hKz4QLdDqMLgknnqEKAXvhZqX8=
-=PU5d
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmDcLj0ACgkQI1/ltBGq
+qqcTDA/+KOwdyUCxLR2F52H2WswPypUhnSRkLN2GGEcODKU3fzIHRHiZLkbs2kA6
+KXLPMkiWJnC34xZvFyhZfnrzYW2pf3Z8ghXDV/JEcwKFDfKFtlYfWPT6bdctLtmC
+jRy5h7GUUKm2btxfZy9Fd8Mr1Eew87A+2xpd36aifSvGydYy1sv80s1/pX+CXH6M
+MlFjIryNpLR8UIiUVqm8E348EpVj6kdoekgVXsH0zOSwqZj9eWPZ7lh+uVfNL4VH
+GWQyf//VFQRsSyWcYz5XkpzpHlGbjE4RduDrXr+QnHXFmbKva6ScZh/87lsFL4Gx
+jV/JfgPX8rEp6NObnIurHPZduYHDKCOgLklHWa9oJMNBPc1MbSkeHV6bOkAPWw/z
+tRDkOKX9L+j1eElMssDbyNuuIF7MwwupeQXYRb5b+N/Sy8wtdP3HRLlKcGZ/TQQk
+WSt3PpSMTwcEx/q3iXDGl1Gn0o6IVf9jOteaCcYq70laNR9SpNAtPPDcX6lQcpeI
+o/4+xyd/Zf6EjUonJ9F822vNHo/nytpdU1kET+m+D84NTxDmDDxulFMe8RTgpMOW
++PsSsJTxZNJTzv4vCfGMsfRTR20X/NaPyDv3DNMygvQOkg926E4BlVlFGrPqy00a
+8cDItAdW+Vo8MorSquONB+dssJJQyIc4xelAL+r5DdOHi2n/ICA=
+=eBOQ
 -----END PGP SIGNATURE-----
 
---Sig_/d+W4/r3y/cicXeDeLKMi=2J--
+--Sig_/Tp8h1QbNa__rs7AOnEMkfQg--
 
---===============0828784133==
+--===============0921198341==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -360,4 +246,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============0828784133==--
+--===============0921198341==--
