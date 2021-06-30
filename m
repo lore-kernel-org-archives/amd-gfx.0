@@ -2,75 +2,57 @@ Return-Path: <SRS0=pC1i=LY=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.1 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 52F2BC11F65
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Jun 2021 09:20:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B511BC11F65
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Jun 2021 09:42:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1B54C61D0D
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Jun 2021 09:20:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1B54C61D0D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 5E41361C9B
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Jun 2021 09:42:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5E41361C9B
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=tuxedocomputers.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D328A89083;
-	Wed, 30 Jun 2021 09:20:39 +0000 (UTC)
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [IPv6:2a00:1450:4864:20::52d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DBACC89083
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Jun 2021 09:20:38 +0000 (UTC)
-Received: by mail-ed1-x52d.google.com with SMTP id m1so2206553edq.8
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Jun 2021 02:20:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=63+a1bsMx3GD1//mZ42lIYSEPhNH4GaWQBk7Zzabeo4=;
- b=viMGUjAwiPE6TK46toNArsA4fMO7T0/m/i8hwPbGWJ8U+NaHxfDqKq5WTqfH9vj+Uh
- Wq1Uij9NDVjC2nva//SPceuukw6j/XZR9PgEPJn1t/PmaJ7MfLHddwmaP/ccCkkeFXrM
- KhJJ9OOpEDFfsr0Ucqiuu1giZ677SQBl9UjtihMTyWjwo4tN6VzhbiFi4d/EYGSV9OgW
- K1ERGHChuCAlG0VhWpksxxMwcNJ5orh+IsbCD27UyAyPScR8wYIrz1GOzxcuFlul4R3e
- oBewZ4dkH+3EDSGUd2zRe+MkyB0B3Gij/qYMM4UYJ1znUu2xoplZKyuHUC0bt2KdxAzV
- o7tw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=63+a1bsMx3GD1//mZ42lIYSEPhNH4GaWQBk7Zzabeo4=;
- b=oKvj3hM5qvIb389Dtzcvqw2OiX5XClfOyLQ53QgFFFO2cPLl5lXBTWsfQDM5BUPKzq
- SDw+i22F9SMCPULE6mMBRjlD0hDtBdIihowQe61AYQ8n7h9FqvEC2ONrvHewnjOvO7n1
- pEirqUGvXBMZ54HRZDmuepexS6nfmOpTzARvf6meiuW5VM3N87guVygptVmpGPqQME30
- YfpYFexOaQhbc+KNpPgOGC3YthcuT6TYDc2ss9290B3G46c2q/llhRH12XmDrU4+hiNA
- R/YseEDKCvh7dXxE7h6eOfPpeg3YolwZtLp3BsrWhlsYDOkLXgr8xhW3smZQGLpLT8bc
- x7oA==
-X-Gm-Message-State: AOAM5339peaWCWEYRrrvPqCIAdsmCMWcd6VIl7L4kkxBbfklDepthAKd
- k5s8uHGc4M8mGBl2KSbiIBo=
-X-Google-Smtp-Source: ABdhPJy1KvJMBlBvff9nk2WShIt2/vgkUyBA3I46mxTdva8M7a3kpFUT/sY1uPgeGE2K0q4MhvBjzA==
-X-Received: by 2002:a05:6402:268f:: with SMTP id
- w15mr42290379edd.228.1625044837443; 
- Wed, 30 Jun 2021 02:20:37 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:fd79:22d7:4c21:2421?
- ([2a02:908:1252:fb60:fd79:22d7:4c21:2421])
- by smtp.gmail.com with ESMTPSA id lv10sm6512097ejb.8.2021.06.30.02.20.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Jun 2021 02:20:36 -0700 (PDT)
-Subject: Re: [PATCH 1/1] drm/amdgpu: Read clock counter via MMIO to reduce
- delay
-To: YuBiao Wang <YuBiao.Wang@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20210629100129.1913032-1-YuBiao.Wang@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <70d0a944-9af7-9d17-3df1-b35b865e0e70@gmail.com>
-Date: Wed, 30 Jun 2021 11:20:34 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 215756E098;
+	Wed, 30 Jun 2021 09:42:19 +0000 (UTC)
+Received: from srv6.fidu.org (srv6.fidu.org [159.69.62.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D4F2B89FAD;
+ Wed, 30 Jun 2021 09:42:17 +0000 (UTC)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by srv6.fidu.org (Postfix) with ESMTP id 753E9C80078;
+ Wed, 30 Jun 2021 11:42:16 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at srv6.fidu.org
+Received: from srv6.fidu.org ([127.0.0.1])
+ by localhost (srv6.fidu.org [127.0.0.1]) (amavisd-new, port 10024)
+ with LMTP id YoMZQy5UXmsu; Wed, 30 Jun 2021 11:42:13 +0200 (CEST)
+Received: from [IPv6:2003:e3:7f39:4900:3452:53ea:4253:eacd]
+ (p200300e37F394900345253ea4253EaCd.dip0.t-ipconnect.de
+ [IPv6:2003:e3:7f39:4900:3452:53ea:4253:eacd])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ (Authenticated sender: wse@tuxedocomputers.com)
+ by srv6.fidu.org (Postfix) with ESMTPSA id 0854EC80077;
+ Wed, 30 Jun 2021 11:42:13 +0200 (CEST)
+Subject: Re: [PATCH v4 03/17] drm/uAPI: Add "active bpc" as feedback channel
+ for "max bpc" drm property
+To: Pekka Paalanen <ppaalanen@gmail.com>
+References: <20210618091116.14428-1-wse@tuxedocomputers.com>
+ <20210618091116.14428-4-wse@tuxedocomputers.com>
+ <18bbd0cf-4c37-ce9d-eb63-de4131a201e1@tuxedocomputers.com>
+ <11cd3340-46a1-9a6a-88f5-95c225863509@tuxedocomputers.com>
+ <20210630112141.319f67eb@eldfell>
+From: Werner Sembach <wse@tuxedocomputers.com>
+Message-ID: <ca2827b5-9f6f-164b-6b3f-3f01898d3202@tuxedocomputers.com>
+Date: Wed, 30 Jun 2021 11:42:10 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <20210629100129.1913032-1-YuBiao.Wang@amd.com>
+In-Reply-To: <20210630112141.319f67eb@eldfell>
 Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,81 +65,221 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>,
- Jack Xiao <Jack.Xiao@amd.com>, Feifei Xu <Feifei.Xu@amd.com>,
- horace.chen@amd.com, Kevin Wang <Kevin1.Wang@amd.com>,
- Tuikov Luben <Luben.Tuikov@amd.com>,
- Deucher Alexander <Alexander.Deucher@amd.com>, Evan Quan <Evan.Quan@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Monk Liu <Monk.Liu@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: sunpeng.li@amd.com, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ airlied@linux.ie, amd-gfx@lists.freedesktop.org, tzimmermann@suse.de,
+ rodrigo.vivi@intel.com, alexander.deucher@amd.com, christian.koenig@amd.com
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 29.06.21 um 12:01 schrieb YuBiao Wang:
-> [Why]
-> GPU timing counters are read via KIQ under sriov, which will introduce
-> a delay.
+
+Am 30.06.21 um 10:21 schrieb Pekka Paalanen:
+> On Tue, 29 Jun 2021 13:02:05 +0200
+> Werner Sembach <wse@tuxedocomputers.com> wrote:
 >
-> [How]
-> It could be directly read by MMIO.
+>> Am 28.06.21 um 19:03 schrieb Werner Sembach:
+>>> Am 18.06.21 um 11:11 schrieb Werner Sembach:
+>>>> Add a new general drm property "active bpc" which can be used by graphic
+>>>> drivers to report the applied bit depth per pixel back to userspace.
+>>>>
+>>>> While "max bpc" can be used to change the color depth, there was no way to
+>>>> check which one actually got used. While in theory the driver chooses the
+>>>> best/highest color depth within the max bpc setting a user might not be
+>>>> fully aware what his hardware is or isn't capable off. This is meant as a
+>>>> quick way to double check the setup.
+>>>>
+>>>> In the future, automatic color calibration for screens might also depend on
+>>>> this information being available.
+>>>>
+>>>> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+>>>> ---
+>>>>   drivers/gpu/drm/drm_connector.c | 51 +++++++++++++++++++++++++++++++++
+>>>>   include/drm/drm_connector.h     |  8 ++++++
+>>>>   2 files changed, 59 insertions(+)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+>>>> index da39e7ff6965..943f6b61053b 100644
+>>>> --- a/drivers/gpu/drm/drm_connector.c
+>>>> +++ b/drivers/gpu/drm/drm_connector.c
+>>>> @@ -1197,6 +1197,14 @@ static const struct drm_prop_enum_list dp_colorspaces[] = {
+>>>>    *	drm_connector_attach_max_bpc_property() to create and attach the
+>>>>    *	property to the connector during initialization.
+>>>>    *
+>>>> + * active bpc:
+>>>> + *	This read-only range property tells userspace the pixel color bit depth
+>>>> + *	actually used by the hardware display engine on "the cable" on a
+>>>> + *	connector. The chosen value depends on hardware capabilities, both
+>>>> + *	display engine and connected monitor, and the "max bpc" property.
+>>>> + *	Drivers shall use drm_connector_attach_active_bpc_property() to install
+>>>> + *	this property.
+>>>> + *
+>>> Regarding "on the cable" and dithering: As far as I can tell, what the dithering option does, is setting a hardware
+>>> register here:
+>>>
+>>> - https://elixir.bootlin.com/linux/v5.13/source/drivers/gpu/drm/i915/display/intel_display.c#L4534
+>>>
+>>> - https://elixir.bootlin.com/linux/v5.13/source/drivers/gpu/drm/i915/display/intel_display.c#L4571
+>>>
+>>> So dithering seems to be calculated by fixed purpose hardware/firmware outside of the driver?
+>>>
+>>> The Intel driver does not seem to set a target bpc/bpp for this hardware so I guess it defaults to 6 or 8 bpc?
+>> Never mind it does. This switch-case does affect the dithering output:
+>> https://elixir.bootlin.com/linux/v5.13/source/drivers/gpu/drm/i915/display/intel_display.c#L4537
+> Hi,
 >
-> v2: Add additional check to prevent carryover issue.
-> v3: Only check for carryover for once to prevent performance issue.
+> I obviously do not know the intel driver or hardware at all, but
+> to me that just looks like translating from bits per pixel to bits per
+> channel in RGB mapping?
+No, if i understand the documentation correctly: Writing bit depth here 
+with dithering enabled sets the dithering target bpc.
 >
-> Signed-off-by: YuBiao Wang <YuBiao.Wang@amd.com>
-> Acked-by: Horace Chen <horace.chen@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 12 ++++++++++--
->   1 file changed, 10 insertions(+), 2 deletions(-)
+>> As found in this documentation p.548:
+>> https://01.org/sites/default/files/documentation/intel-gfx-prm-osrc-lkf-vol02c-commandreference-registers-part2.pdf
+>>
+>> So max bpc and active bpc are affecting/affected by the bpc after dithering.
+> By definition, if the cable carries N bpc, then dithering does not
+> change that. The cable still carries N bpc, but due to spatial or
+> temporal dithering, the *observed* color resolution may or may not be
+> higher than the cable bpc.
+Yes, and max bpc and active bpc tell the cable bpc ist not the 
+*observed* bpc.
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> index ff7e9f49040e..82a5b7ab8dc5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> @@ -7610,6 +7610,7 @@ static int gfx_v10_0_soft_reset(void *handle)
->   static uint64_t gfx_v10_0_get_gpu_clock_counter(struct amdgpu_device *adev)
->   {
->   	uint64_t clock;
-> +	uint64_t clock_lo, clock_hi, hi_check;
+> Of course, if the cable bpc is 8, and dithering targets 6 bpc, then 2
+> LSB on the cable are always zero, right?
+I would assume that in this case only 6 bpc are actually send? Isn't the 
+whole thing of dithering that you can't send, for example, 8 bpc?
+>
+> Maybe one would want to do that if the monitor has a 6 bit panel and it
+> simply ignored the 2 LSB, and the cable cannot go down to 6 bpc.
 
-You could put that on one line.
+Is there dithering actually doing this? aka is my assumption above wrong?
 
->   
->   	amdgpu_gfx_off_ctrl(adev, false);
->   	mutex_lock(&adev->gfx.gpu_clock_mutex);
-> @@ -7620,8 +7621,15 @@ static uint64_t gfx_v10_0_get_gpu_clock_counter(struct amdgpu_device *adev)
->   			((uint64_t)RREG32_SOC15(SMUIO, 0, mmGOLDEN_TSC_COUNT_UPPER_Vangogh) << 32ULL);
->   		break;
->   	default:
-> -		clock = (uint64_t)RREG32_SOC15(SMUIO, 0, mmGOLDEN_TSC_COUNT_LOWER) |
-> -			((uint64_t)RREG32_SOC15(SMUIO, 0, mmGOLDEN_TSC_COUNT_UPPER) << 32ULL);
-> +		clock_hi = RREG32_SOC15_NO_KIQ(SMUIO, 0, mmGOLDEN_TSC_COUNT_UPPER);
-> +		clock_lo = RREG32_SOC15_NO_KIQ(SMUIO, 0, mmGOLDEN_TSC_COUNT_LOWER);
-> +		hi_check = RREG32_SOC15_NO_KIQ(SMUIO, 0, mmGOLDEN_TSC_COUNT_UPPER);
-> +		// If carryover happens, update lower count again.
+AMD code that confused me before, is hinting that you might be right: 
+https://elixir.bootlin.com/linux/v5.13/source/drivers/gpu/drm/amd/display/dc/dce/dce_transform.c#L826
 
-That is obvious and doesn't need a comment, but what you should comment 
-is how unlikely a carry over is.
+there is a set_clamp depth and a separate DCP_SPATIAL_DITHER_DEPTH_30BPP
 
-E.g. something like carry over only happens every x clock cycles which 
-are roughly ~y days/weeks/month etc...
+>
+> So, what does "max bpc" mean right now?
+>
+> It seems like dither on/off is insufficient information, one would also
+> need to control the dithering target bpc. I suppose the driver has a
+> policy on how it chooses the target bpc, but what is that policy? Is
+> the dither target bpc the cable bpc or the sink bpc?
+>
+> Needless to say, I'm quite confused.
 
-And as Monk noted as well please use kernel style comments.
+... We need someone who knows what dithering on intel and amd gpu 
+actually means.
 
-Regards,
-Christian.
+But I don't want this to become a blocker for this patchset, because if 
+there is no dithering, which seems to be the norm, the active bpc 
+property is already really usefull as it is. So add a note to the docs 
+that the value might be invalid when dithering is active for now?
 
-> +		if (hi_check != clock_hi) {
-> +			clock_lo = RREG32_SOC15_NO_KIQ(SMUIO, 0, mmGOLDEN_TSC_COUNT_LOWER);
-> +			clock_hi = hi_check;
-> +		}
-> +		clock = (uint64_t)clock_lo | ((uint64_t)clock_hi << 32ULL);
->   		break;
->   	}
->   	mutex_unlock(&adev->gfx.gpu_clock_mutex);
-
+>
+>
+> Thanks,
+> pq
+>
+>>> Similar things happen on amd. Here the output dither depth seems to be written to a fixed value however:
+>>>
+>>> - https://elixir.bootlin.com/linux/v5.13/source/drivers/gpu/drm/amd/display/dc/dce/dce_transform.c#L828
+>>>
+>>> - https://elixir.bootlin.com/linux/v5.13/source/drivers/gpu/drm/amd/display/dc/dce/dce_transform.c#L769
+>>>
+>>> Does anyone know about a resource where I can read up on the used registers and what this hardware actually does?
+>> Searching now for a similar register reference for AMD GPUs.
+>>> My proposal for now: "max bpc" affects what happens before dither, so I would keep "active bpc" the same and add another
+>>> drm property "dither active: true/false". No additional property to control dither, as amdgpu does have one already
+>>> (which isn't always active?) and Intel driver does only seem prepared for dithering at 6bpc (albeit I don't know why to
+>>> dither at 6bpc and what depth to dither to?).
+>>>   
+>>>>    * Connectors also have one standardized atomic property:
+>>>>    *
+>>>>    * CRTC_ID:
+>>>> @@ -2152,6 +2160,49 @@ int drm_connector_attach_max_bpc_property(struct drm_connector *connector,
+>>>>   }
+>>>>   EXPORT_SYMBOL(drm_connector_attach_max_bpc_property);
+>>>>   
+>>>> +/**
+>>>> + * drm_connector_attach_active_bpc_property - attach "active bpc" property
+>>>> + * @connector: connector to attach active bpc property on.
+>>>> + * @min: The minimum bit depth supported by the connector.
+>>>> + * @max: The maximum bit depth supported by the connector.
+>>>> + *
+>>>> + * This is used to check the applied bit depth on a connector.
+>>>> + *
+>>>> + * Returns:
+>>>> + * Zero on success, negative errno on failure.
+>>>> + */
+>>>> +int drm_connector_attach_active_bpc_property(struct drm_connector *connector, int min, int max)
+>>>> +{
+>>>> +	struct drm_device *dev = connector->dev;
+>>>> +	struct drm_property *prop;
+>>>> +
+>>>> +	if (!connector->active_bpc_property) {
+>>>> +		prop = drm_property_create_range(dev, DRM_MODE_PROP_IMMUTABLE, "active bpc",
+>>>> +						 min, max);
+>>>> +		if (!prop)
+>>>> +			return -ENOMEM;
+>>>> +
+>>>> +		connector->active_bpc_property = prop;
+>>>> +		drm_object_attach_property(&connector->base, prop, 0);
+>>>> +	}
+>>>> +
+>>>> +	return 0;
+>>>> +}
+>>>> +EXPORT_SYMBOL(drm_connector_attach_active_bpc_property);
+>>>> +
+>>>> +/**
+>>>> + * drm_connector_set_active_bpc_property - sets the active bits per color property for a connector
+>>>> + * @connector: drm connector
+>>>> + * @active_bpc: bits per color for the connector currently active on "the cable"
+>>>> + *
+>>>> + * Should be used by atomic drivers to update the active bits per color over a connector.
+>>>> + */
+>>>> +void drm_connector_set_active_bpc_property(struct drm_connector *connector, int active_bpc)
+>>>> +{
+>>>> +	drm_object_property_set_value(&connector->base, connector->active_bpc_property, active_bpc);
+>>>> +}
+>>>> +EXPORT_SYMBOL(drm_connector_set_active_bpc_property);
+>>>> +
+>>>>   /**
+>>>>    * drm_connector_attach_hdr_output_metadata_property - attach "HDR_OUTPUT_METADA" property
+>>>>    * @connector: connector to attach the property on.
+>>>> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+>>>> index 714d1a01c065..eee86de62a5f 100644
+>>>> --- a/include/drm/drm_connector.h
+>>>> +++ b/include/drm/drm_connector.h
+>>>> @@ -1380,6 +1380,12 @@ struct drm_connector {
+>>>>   	 */
+>>>>   	struct drm_property *max_bpc_property;
+>>>>   
+>>>> +	/**
+>>>> +	 * @active_bpc_property: Default connector property for the active bpc
+>>>> +	 * to be driven out of the connector.
+>>>> +	 */
+>>>> +	struct drm_property *active_bpc_property;
+>>>> +
+>>>>   #define DRM_CONNECTOR_POLL_HPD (1 << 0)
+>>>>   #define DRM_CONNECTOR_POLL_CONNECT (1 << 1)
+>>>>   #define DRM_CONNECTOR_POLL_DISCONNECT (1 << 2)
+>>>> @@ -1702,6 +1708,8 @@ int drm_connector_set_panel_orientation_with_quirk(
+>>>>   	int width, int height);
+>>>>   int drm_connector_attach_max_bpc_property(struct drm_connector *connector,
+>>>>   					  int min, int max);
+>>>> +int drm_connector_attach_active_bpc_property(struct drm_connector *connector, int min, int max);
+>>>> +void drm_connector_set_active_bpc_property(struct drm_connector *connector, int active_bpc);
+>>>>   
+>>>>   /**
+>>>>    * struct drm_tile_group - Tile group metadata
+>>> _______________________________________________
+>>> amd-gfx mailing list
+>>> amd-gfx@lists.freedesktop.org
+>>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
