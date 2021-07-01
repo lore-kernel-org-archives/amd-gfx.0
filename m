@@ -5,67 +5,62 @@ X-Spam-Level:
 X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4A0F6C11F64
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 14:11:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5C462C11F64
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 15:57:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1AB5B613FB
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 14:11:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1AB5B613FB
+	by mail.kernel.org (Postfix) with ESMTPS id 2C07161374
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 15:57:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2C07161374
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 071516EB1E;
-	Thu,  1 Jul 2021 14:11:01 +0000 (UTC)
-Received: from mail-ot1-x332.google.com (mail-ot1-x332.google.com
- [IPv6:2607:f8b0:4864:20::332])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64FDE6EB1A;
- Thu,  1 Jul 2021 14:10:59 +0000 (UTC)
-Received: by mail-ot1-x332.google.com with SMTP id
- d21-20020a9d72d50000b02904604cda7e66so6610231otk.7; 
- Thu, 01 Jul 2021 07:10:59 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF82D6EB4D;
+	Thu,  1 Jul 2021 15:57:46 +0000 (UTC)
+Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com
+ [IPv6:2607:f8b0:4864:20::22f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9ACD6EB4D
+ for <amd-gfx@lists.freedesktop.org>; Thu,  1 Jul 2021 15:57:45 +0000 (UTC)
+Received: by mail-oi1-x22f.google.com with SMTP id 11so7825076oid.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 01 Jul 2021 08:57:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=jz622EkPDOO0jRJK6nnuecEbMpbzVkwpMk8xLpE5AT8=;
- b=Lu5njjPFq9UfLbuRn1qgwP4Iz8FoX7Ll2EoFKuj/WQdaOp8U46OTib7P4B4WF7yoON
- 6nJ6bv1J1jpm94gqMyb6oPn/2KAblFztx+vfSHeCrMGCY93nXFy27qqnKBUdj+/6f5Xk
- 42gXKcU4sLuXQvd+fygybp4+z/VthEnK/JgyXoGaS1tZZhzbqvpf5lS8uxGhX8aha5mv
- T8tlS9FFbFCcMcWj4AkOd64YWm158w3ijhSBZk08FbpkbtzfpRt64D/6n0auBk8a45Tz
- I0Q43Qi5GaNK2BIVKuOsTDrNtIS/1LcwiTWw1/BeUs8l0FwAogJ+KXdmmL4WYjKs5i4l
- LJzw==
+ :cc; bh=psB9xnbSWvF7j5xihYd+44fpXRZkFhx+Qe4ij00Mxg8=;
+ b=RGhVKsBvyGZTCEz4x4AFDUmE7A/2NISrRsuOmsTxMTjR5GTZBztWckZFz/uzZJV8hc
+ hscNjo2OzOJN1x2e4KqtCxhMMmJKFSu/3kP67gmcixKDHQSG6blRqNEMXY8gNa5rqDR+
+ mf2G517Qkcru8WT0YROM31812S54dGfDLELlLVr1Li3IM4/NQP1rcn9wI31fPQghGV9L
+ 6chyOllBszgqdk0/C3z0TPddCjZuS+mKvDY7387SrxREJ+owuvkw26RAg0suxpKMN0QB
+ vhT1yEOVFb9PR6frYlO8kC7mfXqc1VdiBqZ6Aj/diS1yfVsbpL44CC3DBWR6qVpEG6+0
+ BL9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=jz622EkPDOO0jRJK6nnuecEbMpbzVkwpMk8xLpE5AT8=;
- b=EmHQ068SDjZHwLyRy0viZv9D/8gd9g/cKoUGOMi5DFesk9FWtP0xgKlkZQ365spNRK
- 3ClrWpjr0QWjDamvQ6c2ezC4LSxnUxQo83zc5i0ROLmPikx1BkbXN8AC+IGlcF92B4ZO
- LJ3V7fNsB2C+0STltDn+uqoCDdmmf2A30Xp9edg6728TEx9DzMUZrEGYiDxmXKJ1u5Jh
- 9dh6VFgK/ibb6xq2z/ssbUHUwL6JnQEduFyz+T5PBVxUpnFFOsufXacKsxnMSRFOIRuZ
- iAP/rsmyiN2ztI5jf1b2kP2MCtMQ7ZMwNYj83Oa26OlGa/LOUoqyC6SJRd8sL3SIneba
- zbYw==
-X-Gm-Message-State: AOAM533vERgkFogbGi41l5pTfv4YFhLNcfgcS+cJfi4NRj/DZdpIaJRk
- EZGoVrd0aSYvIKM2JgWDS/MH0SHU/9obYtm9b1Q=
-X-Google-Smtp-Source: ABdhPJyqxV1ouPcVCCqvimMHLIoYJqGBXrxpF+udZDiUtYj/Xs7kCt/u/5BQEvKlmZA4X31sV0/ItEVk1wbgovomWwA=
-X-Received: by 2002:a05:6830:14cd:: with SMTP id
- t13mr162668otq.23.1625148658790; 
- Thu, 01 Jul 2021 07:10:58 -0700 (PDT)
+ bh=psB9xnbSWvF7j5xihYd+44fpXRZkFhx+Qe4ij00Mxg8=;
+ b=VJ5b/k2HCUEQ5qTHruXQfgR6RMvTLXnjXhFQGKzMjHdt0BWlR087mRQBlVegmTX8KM
+ XA6y45BmvHTrgEE0tmiCbCA+IdJQSBDDnnSIF6lCA86ED6YOxwIlKSxxGAYf1N5+/lIi
+ QkZgylwtSvq4Yy7MaksTIjFdo0LBSGNPnZll+b5v1ulnN53beebcBdQwoHEbAAqQhmTF
+ dptj0oaZhzthiGW5G2X/YXsesnxGxwGdgmkRoX1y2Op3jdxIqP49fJuJ/Rj2bl06nTFd
+ aDYsgXP0IMAAWdAs1LUJSBLUCt0TrkynWaStmP4L861GdwaQi1EQJjnZUIafLeXOu6ER
+ HqNA==
+X-Gm-Message-State: AOAM5335Cs+oXZPtzZ1oLu6lNpWd040z8OEZAc/OyFzKWvEOQTpELmoI
+ i4Jvrgwr0594D3jdHKlHDl9ym2MnynG1H65RkQY=
+X-Google-Smtp-Source: ABdhPJz3AFYOZ/zuwXi0mrU8Tfw9/rE2EThNYmGsYCkzCdPsu8TknHW4D2tiqIzoaRmTERmq7acQ9Yf0Cd5zSHIc/4o=
+X-Received: by 2002:aca:ac15:: with SMTP id v21mr1805863oie.5.1625155065095;
+ Thu, 01 Jul 2021 08:57:45 -0700 (PDT)
 MIME-Version: 1.0
-References: <nycvar.YFH.7.76.2106241135440.18969@cbobk.fhfr.pm>
- <YNRnDTD1fdpZOXB8@suse.com>
- <nycvar.YFH.7.76.2106241310000.18969@cbobk.fhfr.pm>
- <nycvar.YFH.7.76.2107011032520.18969@cbobk.fhfr.pm>
-In-Reply-To: <nycvar.YFH.7.76.2107011032520.18969@cbobk.fhfr.pm>
+References: <20210701043743.10663-1-Emily.Deng@amd.com>
+ <PH0PR12MB54175493FA2801261FDBD0358F009@PH0PR12MB5417.namprd12.prod.outlook.com>
+In-Reply-To: <PH0PR12MB54175493FA2801261FDBD0358F009@PH0PR12MB5417.namprd12.prod.outlook.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 1 Jul 2021 10:10:47 -0400
-Message-ID: <CADnq5_PCZGH=CB5+7kDcpX-7X-uxzB-OeGPavJ3=3tnpyeU54w@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amdgpu: Avoid printing of stack contents on
- firmware load error
-To: Jiri Kosina <jikos@kernel.org>
+Date: Thu, 1 Jul 2021 11:57:34 -0400
+Message-ID: <CADnq5_PTUb8RgM1oJw19c=Q7g0LtBOTA8Sb2YXuucO4+0_oVxQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Correct the irq numbers for virtual ctrc
+To: "Deng, Emily" <Emily.Deng@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,104 +72,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, Vojtech Pavlik <vojtech@ucw.cz>,
- LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-Alex
-
-On Thu, Jul 1, 2021 at 4:33 AM Jiri Kosina <jikos@kernel.org> wrote:
+On Thu, Jul 1, 2021 at 5:18 AM Deng, Emily <Emily.Deng@amd.com> wrote:
 >
-> On Thu, 24 Jun 2021, Jiri Kosina wrote:
+> [AMD Official Use Only]
 >
-> > From: Jiri Kosina <jkosina@suse.cz>
-> >
-> > In case when psp_init_asd_microcode() fails to load ASD microcode file,
-> > psp_v12_0_init_microcode() tries to print the firmware filename that
-> > failed to load before bailing out.
-> >
-> > This is wrong because:
-> >
-> > - the firmware filename it would want it print is an incorrect one as
-> >   psp_init_asd_microcode() and psp_v12_0_init_microcode() are loading
-> >   different filenames
-> > - it tries to print fw_name, but that's not yet been initialized by that
-> >   time, so it prints random stack contents, e.g.
-> >
-> >     amdgpu 0000:04:00.0: Direct firmware load for amdgpu/renoir_asd.bin failed with error -2
-> >     amdgpu 0000:04:00.0: amdgpu: fail to initialize asd microcode
-> >     amdgpu 0000:04:00.0: amdgpu: psp v12.0: Failed to load firmware "\xfeTO\x8e\xff\xff"
-> >
-> > Fix that by bailing out immediately, instead of priting the bogus error
-> > message.
+> Ping......
 >
-> Friendly ping on this one too; priting a few bytes of stack is not a
-> *huge* info leak, but I believe it should be fixed nevertheless.
->
-> Thanks.
->
+> >-----Original Message-----
+> >From: Emily Deng <Emily.Deng@amd.com>
+> >Sent: Thursday, July 1, 2021 12:38 PM
+> >To: amd-gfx@lists.freedesktop.org
+> >Cc: Deng, Emily <Emily.Deng@amd.com>; Zhao, Victor <Victor.Zhao@amd.com>
+> >Subject: [PATCH] drm/amdgpu: Correct the irq numbers for virtual ctrc
 > >
-> > Reported-by: Vojtech Pavlik <vojtech@ucw.cz>
-> > Signed-off-by: Jiri Kosina <jkosina@suse.cz>
->
->
-> > ---
+> >Signed-off-by: Emily Deng <Emily.Deng@amd.com>
+> >Signed-off-by: Victor <Victor.Zhao@amd.com>
+> >---
+> > drivers/gpu/drm/amd/amdgpu/dce_virtual.c | 2 +-
+> > 1 file changed, 1 insertion(+), 1 deletion(-)
 > >
-> > v1 -> v2: remove now-unused label
+> >diff --git a/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
+> >b/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
+> >index 33324427b555..7e0d8c092c7e 100644
+> >--- a/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
+> >+++ b/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
+> >@@ -766,7 +766,7 @@ static const struct amdgpu_irq_src_funcs
+> >dce_virtual_crtc_irq_funcs = {
 > >
-> >  drivers/gpu/drm/amd/amdgpu/psp_v12_0.c | 7 +++----
-> >  1 file changed, 3 insertions(+), 4 deletions(-)
+> > static void dce_virtual_set_irq_funcs(struct amdgpu_device *adev)  {
+> >-      adev->crtc_irq.num_types = AMDGPU_CRTC_IRQ_VBLANK6 + 1;
+> >+      adev->crtc_irq.num_types = adev->mode_info.num_crtc;
+> >       adev->crtc_irq.funcs = &dce_virtual_crtc_irq_funcs;  }
 > >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c
-> > index c4828bd3264b..b0ee77ee80b9 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c
-> > @@ -67,7 +67,7 @@ static int psp_v12_0_init_microcode(struct psp_context *psp)
-> >
-> >       err = psp_init_asd_microcode(psp, chip_name);
-> >       if (err)
-> > -             goto out;
-> > +             return err;
-> >
-> >       snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_ta.bin", chip_name);
-> >       err = request_firmware(&adev->psp.ta_fw, fw_name, adev->dev);
-> > @@ -80,7 +80,7 @@ static int psp_v12_0_init_microcode(struct psp_context *psp)
-> >       } else {
-> >               err = amdgpu_ucode_validate(adev->psp.ta_fw);
-> >               if (err)
-> > -                     goto out2;
-> > +                     goto out;
-> >
-> >               ta_hdr = (const struct ta_firmware_header_v1_0 *)
-> >                                adev->psp.ta_fw->data;
-> > @@ -105,10 +105,9 @@ static int psp_v12_0_init_microcode(struct psp_context *psp)
-> >
-> >       return 0;
-> >
-> > -out2:
-> > +out:
-> >       release_firmware(adev->psp.ta_fw);
-> >       adev->psp.ta_fw = NULL;
-> > -out:
-> >       if (err) {
-> >               dev_err(adev->dev,
-> >                       "psp v12.0: Failed to load firmware \"%s\"\n",
-> > --
-> > 2.12.3
-> >
->
-> --
-> Jiri Kosina
-> SUSE Labs
+> >--
+> >2.25.1
 >
 > _______________________________________________
 > amd-gfx mailing list
