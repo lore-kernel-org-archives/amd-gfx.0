@@ -2,82 +2,67 @@ Return-Path: <SRS0=iwxs=L6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.0 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_2 autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5606AC07E96
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 07:09:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5D2E3C07E96
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 07:26:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 205C46195D
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 07:09:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 205C46195D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id E2DB761992
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 07:26:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E2DB761992
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=xenosoft.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CB3C898CC;
-	Tue,  6 Jul 2021 07:09:49 +0000 (UTC)
-Received: from mail-lj1-x244.google.com (mail-lj1-x244.google.com
- [IPv6:2a00:1450:4864:20::244])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F27D3898C4;
- Tue,  6 Jul 2021 07:09:47 +0000 (UTC)
-Received: by mail-lj1-x244.google.com with SMTP id q4so27762759ljp.13;
- Tue, 06 Jul 2021 00:09:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:in-reply-to:references
- :mime-version; bh=XTwFZwCKVq9Sz5cd3f/6YRq5RojDWHq5cppUZPQkbP4=;
- b=RkvvDEF2uuX1+YlI6AUAdIvz8aAz2luib+bPJWFYjswXxACwdMeAFhf1O5iongluds
- CmV9H5WDQ+PNDmFlW4HUeOhlHsUFIemDftA9rVi8HkYUDmRUY7FtVxpmxRj0MDUiZ6I3
- SqXFJhEGl0KCNvNzSULVw90p0mHCPv/+M7LTTK0RwwuH1qJSDuGtXKT99ZIklkF19GT8
- 5mR14wOrL5+z5NX7jh/ZO1472pEMku3Nn+MHn3knQztdpPMSdMKT20/zPVzqc+Sam72o
- 8zY+QCzZ3lbGj8jOHI8dE0AFJ8BCYvCF3lBFdo29WxeZQgZmmybvJ4KaHcWXu70ob847
- fohg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
- :references:mime-version;
- bh=XTwFZwCKVq9Sz5cd3f/6YRq5RojDWHq5cppUZPQkbP4=;
- b=OZ560cXbJ//mypWVvx4De3OPMnskGjjT2R0LqCC/helhFRab24WFMzrDXhyzOKp+BW
- 6624gKiohNkrdrKe3NyHA45x0Cih0kB8L7Og91EPC40tVH4LkiwjMFEvFJQDUjcUaI2q
- v9ycJc5ZxYTn8kmMbUXCpJRWsrmMnTxcaOwpjtNZxYbyWStKAAemkGCIRLmdLNyVCsu6
- pW6f5gSEnNWZjGkFGiXOSXIbd25haij2Cs7d2laZbb8fmbmnIDb99KrXYTOi7lhL6Uf6
- VH3Xi9NOoUBepxHz/tSQcKYIGQFMhqwOjdJFDmWFWmKGQmQApHMOnZ6+RrzGhRY10cPS
- ELow==
-X-Gm-Message-State: AOAM530Cndi804DMlUYmvPa6xLTGIsqJdncJUb9KjNTv815rv0AGECga
- kVvkKPeWMrJIr8F+xlKdQ9c=
-X-Google-Smtp-Source: ABdhPJx7oakSSjCc2PwbGlv8Ixe0ENwl8BCsPbYEqtToms1n55+qyNuPUCo5DbyKLOTHVYr1gmFVEQ==
-X-Received: by 2002:a05:651c:178b:: with SMTP id
- bn11mr13993658ljb.43.1625555386111; 
- Tue, 06 Jul 2021 00:09:46 -0700 (PDT)
-Received: from eldfell ([194.136.85.206])
- by smtp.gmail.com with ESMTPSA id m25sm272683lfo.12.2021.07.06.00.09.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 Jul 2021 00:09:45 -0700 (PDT)
-Date: Tue, 6 Jul 2021 10:09:42 +0300
-From: Pekka Paalanen <ppaalanen@gmail.com>
-To: Werner Sembach <wse@tuxedocomputers.com>
-Subject: Re: [PATCH v4 12/17] drm/uAPI: Add "preferred color format" drm
- property as setting for userspace
-Message-ID: <20210706100942.3754a8e3@eldfell>
-In-Reply-To: <102bf05f-7081-c53b-ab0b-f2698c7540e9@tuxedocomputers.com>
-References: <20210618091116.14428-1-wse@tuxedocomputers.com>
- <20210618091116.14428-13-wse@tuxedocomputers.com>
- <20210622101516.6a53831c@eldfell>
- <jIDQ2rRRMWlhDDPf08Z8xZlEE8HTBx7fHsylFdK0joSSFVyES8D444Giyiji9zbIm7dU4QpbsXZLvIDTbGW0wEoUWKsMEI4evizn0UdGMvM=@emersion.fr>
- <20210629141712.21f00c38@eldfell>
- <6d8716e0-e68a-e7b7-a341-a7471c413e9c@tuxedocomputers.com>
- <20210630114133.47397e2f@eldfell>
- <d3674d49-8bca-7ecf-1735-7bff2d9d526e@tuxedocomputers.com>
- <20210701110714.61f3e2af@eldfell>
- <b7144386-a98b-faf9-b425-c1157d9d0241@tuxedocomputers.com>
- <20210701162446.14f4f577@eldfell>
- <102bf05f-7081-c53b-ab0b-f2698c7540e9@tuxedocomputers.com>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9899789956;
+	Tue,  6 Jul 2021 07:26:11 +0000 (UTC)
+Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de
+ [85.215.255.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C79C898F0;
+ Mon,  5 Jul 2021 16:54:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1625503702;
+ s=strato-dkim-0002; d=xenosoft.de;
+ h=In-Reply-To:Date:Message-ID:From:References:Cc:To:Subject:Cc:Date:
+ From:Subject:Sender;
+ bh=GL/SEjFclEbv+ueFVl5DcM/7AsJmzOXwlhf+RAxWh2U=;
+ b=j99RYuCcqQYXApJ/VFnfwbtENq4D1X9FlNNG3r01uaMwpWyxCiPJJh68A5bJvL9wMl
+ 3JyGFG0W2n6lYAbV2Hj+8TGc5Ex9ni6vwnZXi1DHYd0i9eOsSe5vo85zDObdyoeemwz/
+ aEQqTQefYCOGZbApa5JtpdEy8EkgehLZA4Thb/SqFmmZtZ+iK9Y+eDTFHPtdnXuPxhFC
+ kF07DUStajeDo4U4Prrg95AHMGKCUGP8p7DetxRV/imQu/87t4kvQ2hN6oP7+Mi7mn0Z
+ TKGMLFGfr8zo6Ldl0wTxE/mnX5ymnYUka77xHzymhTpbGFG55lVx5hyZJIi2+oBDj/QG
+ 2Edg==
+Authentication-Results: strato.com;
+    dkim=none
+X-RZG-AUTH: ":L2QefEenb+UdBJSdRCXu93KJ1bmSGnhMdmOod1DhGM4l4Hio94KKxRySfLxnHvJzedV4hZQiYXCAp5NvAFkGNAfx9ALYQynABVYTFWoNejc="
+X-RZG-CLASS-ID: mo00
+Received: from [IPv6:2a01:598:a836:4cf1:442:36e0:ea94:ce76]
+ by smtp.strato.de (RZmta 47.28.1 AUTH)
+ with ESMTPSA id D02c3ax65GmLNkt
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Mon, 5 Jul 2021 18:48:21 +0200 (CEST)
+Subject: Re: Xorg doesn't work anymore after the latest DRM updates
+To: "Das, Nirmoy" <nirmoy.das@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+References: <20210509224926.GA31035@embeddedor>
+ <CADnq5_OWk+rXK5xrwu0YOMVC45WyQgFQBTUNkcF8oO3ucp+=XQ@mail.gmail.com>
+ <ba5f2a73-58e8-6b3e-4048-bb19f238be51@embeddedor.com>
+ <4e0a3130-4c20-aa8a-f32a-6c3f0d9cd6f8@xenosoft.de>
+ <345042b3-7b96-63d9-d4a5-f31c4441ddaf@amd.com>
+From: Christian Zigotzky <chzigotzky@xenosoft.de>
+Message-ID: <d22b9f68-3692-2819-33a4-123b7182daf3@xenosoft.de>
+Date: Mon, 5 Jul 2021 18:48:21 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
+In-Reply-To: <345042b3-7b96-63d9-d4a5-f31c4441ddaf@amd.com>
+Content-Language: de-DE
+X-Mailman-Approved-At: Tue, 06 Jul 2021 07:26:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,336 +74,153 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: sunpeng.li@amd.com, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- airlied@linux.ie, amd-gfx@lists.freedesktop.org, tzimmermann@suse.de,
- rodrigo.vivi@intel.com, alexander.deucher@amd.com, christian.koenig@amd.com
-Content-Type: multipart/mixed; boundary="===============0253560179=="
+Cc: Darren Stevens <darren@stevens-zone.net>, "R.T.Dickinson" <rtd2@xtra.co.nz>,
+ LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ mad skateman <madskateman@gmail.com>,
+ linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
+ Christian Zigotzky <info@xenosoft.de>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0253560179==
-Content-Type: multipart/signed; boundary="Sig_/z2Dax/eoTBxuhffMJDUbe+M";
- protocol="application/pgp-signature"; micalg=pgp-sha256
-
---Sig_/z2Dax/eoTBxuhffMJDUbe+M
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, 5 Jul 2021 17:49:42 +0200
-Werner Sembach <wse@tuxedocomputers.com> wrote:
-
-> Am 01.07.21 um 15:24 schrieb Pekka Paalanen:
-> > On Thu, 1 Jul 2021 14:50:13 +0200
-> > Werner Sembach <wse@tuxedocomputers.com> wrote:
-> > =20
-> >> Am 01.07.21 um 10:07 schrieb Pekka Paalanen:
-> >> =20
-> >>> On Wed, 30 Jun 2021 11:20:18 +0200
-> >>> Werner Sembach <wse@tuxedocomputers.com> wrote:
-> >>>   =20
-> >>>> Am 30.06.21 um 10:41 schrieb Pekka Paalanen:
-> >>>>   =20
-> >>>>> On Tue, 29 Jun 2021 13:39:18 +0200
-> >>>>> Werner Sembach <wse@tuxedocomputers.com> wrote:
-> >>>>>     =20
-> >>>>>> Am 29.06.21 um 13:17 schrieb Pekka Paalanen:     =20
-> >>>>>>> On Tue, 29 Jun 2021 08:12:54 +0000
-> >>>>>>> Simon Ser <contact@emersion.fr> wrote:
-> >>>>>>>        =20
-> >>>>>>>> On Tuesday, June 22nd, 2021 at 09:15, Pekka Paalanen <ppaalanen@=
-gmail.com> wrote:
-> >>>>>>>>        =20
-> >>>>>>>>> yes, I think this makes sense, even if it is a property that on=
-e can't
-> >>>>>>>>> tell for sure what it does before hand.
-> >>>>>>>>>
-> >>>>>>>>> Using a pair of properties, preference and active, to ask for s=
-omething
-> >>>>>>>>> and then check what actually worked is good for reducing the
-> >>>>>>>>> combinatorial explosion caused by needing to "atomic TEST_ONLY =
-commit"
-> >>>>>>>>> test different KMS configurations. Userspace has a better chanc=
-e of
-> >>>>>>>>> finding a configuration that is possible.
-> >>>>>>>>>
-> >>>>>>>>> OTOH, this has the problem than in UI one cannot tell the user =
-in
-> >>>>>>>>> advance which options are truly possible. Given that KMS proper=
-ties are
-> >>>>>>>>> rarely completely independent, and in this case known to depend=
- on
-> >>>>>>>>> several other KMS properties, I think it is good enough to know=
- after
-> >>>>>>>>> the fact.
-> >>>>>>>>>
-> >>>>>>>>> If a driver does not use what userspace prefers, there is no wa=
-y to
-> >>>>>>>>> understand why, or what else to change to make it happen. That =
-problem
-> >>>>>>>>> exists anyway, because TEST_ONLY commits do not give useful fee=
-dback
-> >>>>>>>>> but only a yes/no.     =20
-> >>>>>>>> By submitting incremental atomic reqs with TEST_ONLY (i.e. only =
-changing one
-> >>>>>>>> property at a time), user-space can discover which property make=
-s the atomic
-> >>>>>>>> commit fail.     =20
-> >>>>>>> That works if the properties are independent of each other. Color
-> >>>>>>> range, color format, bpc and more may all be interconnected,
-> >>>>>>> allowing only certain combinations to work.
-> >>>>>>>
-> >>>>>>> If all these properties have "auto" setting too, then it would be
-> >>>>>>> possible to probe each property individually, but that still does=
- not
-> >>>>>>> tell which combinations are valid.
-> >>>>>>>
-> >>>>>>> If you probe towards a certain configuration by setting the prope=
-rties
-> >>>>>>> one by one, then depending on the order you pick the properties, =
-you
-> >>>>>>> may come to a different conclusion on which property breaks the
-> >>>>>>> configuration.     =20
-> >>>>>> My mind crossed another point that must be considered: When plugin=
- in
-> >>>>>> a Monitor a list of possible Resolutions+Framerate combinations is
-> >>>>>> created for xrandr and other userspace (I guess by atomic checks? =
-but
-> >>>>>> I don't know).     =20
-> >>>>> Hi,
-> >>>>>
-> >>>>> I would not think so, but I hope to be corrected if I'm wrong.
-> >>>>>
-> >>>>> My belief is that the driver collects a list of modes from EDID, so=
-me
-> >>>>> standard modes, and maybe some other hardcoded modes, and then
-> >>>>> validates each entry against all the known limitations like vertical
-> >>>>> and horizontal frequency limits, discarding modes that do not fit.
-> >>>>>
-> >>>>> Not all limitations are known during that phase, which is why KMS
-> >>>>> property "link-status" exists. When userspace actually programs a m=
-ode
-> >>>>> (not a TEST_ONLY commit), the link training may fail. The kernel pr=
-unes
-> >>>>> the mode from the list and sets the link status property to signal
-> >>>>> failure, and sends a hotplug uevent. Userspace needs to re-check the
-> >>>>> mode list and try again.
-> >>>>>
-> >>>>> That is a generic escape hatch for when TEST_ONLY commit succeeds, =
-but
-> >>>>> in reality the hardware cannot do it, you just cannot know until you
-> >>>>> actually try for real. It causes end user visible flicker if it hap=
-pens
-> >>>>> on an already running connector, but since it usually happens when
-> >>>>> turning a connector on to begin with, there is no flicker to be see=
-n,
-> >>>>> just a small delay in finding a mode that works.
-> >>>>>     =20
-> >>>>>> During this drm
-> >>>>>> properties are already considered, which is no problem atm because=
- as
-> >>>>>> far as i can tell there is currently no drm property that would ma=
-ke
-> >>>>>> a certain Resolutions+Framerate combination unreachable that would=
- be
-> >>>>>> possible with everything on default.     =20
-> >>>>> I would not expect KMS properties to be considered at all. It would
-> >>>>> reject modes that are actually possible if the some KMS properties =
-were
-> >>>>> changed. So at least going forward, current KMS property values can=
-not
-> >>>>> factor in.     =20
-> >>>> At least the debugfs variable "force_yuv420_output" did change the=20
-> >>>> available modes here:=20
-> >>>> https://elixir.bootlin.com/linux/v5.13/source/drivers/gpu/drm/amd/di=
-splay/amdgpu_dm/amdgpu_dm.c#L5165=20
-> >>>> before my patch=20
-> >>>> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/c=
-ommit/?id=3D68eb3ae3c63708f823aeeb63bb15197c727bd9bf   =20
-> >>> Hi,
-> >>>
-> >>> debugfs is not proper UAPI, so we can just ignore it. Display servers
-> >>> cannot be expected to poke in debugfs. Debugfs is not even supposed to
-> >>> exist in production systems, but I'm sure people use it for hacking
-> >>> stuff. But that's all it is for: developer testing and hacking.   =20
-> >> e.g. Ubuntu has it active by default, but only read (and writable) by =
-root. =20
-> > Hi,
-> >
-> > that's normal, yes. Root can do damage anyway, and it's useful for
-> > debugging. KMS clients OTOH often do not run as root.
-> > =20
-> >>>   =20
-> >>>> Forcing a color format via a DRM property in this function would=20
-> >>>> reintroduce the problem.   =20
-> >>> The property would need to be defined differently because its presence
-> >>> could otherwise break existing userspace. Well, I suppose it could
-> >>> break existing userspace no matter what, so we would need the generic
-> >>> "reset to sane defaults" mechanism first IMO.
-> >>>
-> >>> DRM has client caps for exposing video modes that old userspace might
-> >>> not expect, to avoid breaking old userspace. Care needs to be taken
-> >>> with all new UAPI, because if a kernel upgrade makes something wrong,
-> >>> it's the kernel's fault no matter what userspace is doing, in princip=
-le.   =20
-> >> Can you give me a link describing how I define this caps? =20
-> > I don't have any, but you can find all the existing ones by grepping
-> > for DRM_CLIENT_CAP_.
-> >
-> > I'm not saying that we need it, but mentioning them as a possible
-> > workaround if userspace breakage seems imminent or is proven.
-> > =20
-> >>> Debugfs has no problem breaking userspace AFAIU, since it's not proper
-> >>> UAPI.
-> >>>   =20
-> >>>> And I think i915 driver works similar in this regard.
-> >>>>   =20
-> >>>>>     =20
-> >>>>>> However for example forcing YCbCr420 encoding would limit the
-> >>>>>> available resolutions (my screen for example only supports YCbCr420
-> >>>>>> on 4k@60 and @50Hz and on no other resolution or frequency (native=
- is
-> >>>>>> 2560x1440@144Hz).
-> >>>>>>
-> >>>>>> So would a "force color format" that does not get resetted on
-> >>>>>> repluging/reenabling a monitor break the output, for example, of an
-> >>>>>> not updated xrandr, unaware of this new property?     =20
-> >>>>> Yes, not because the mode list would be missing the mode, but becau=
-se
-> >>>>> actually setting the mode would fail.     =20
-> >>>> Well, like described above, I think the mode would actually be missi=
-ng,=20
-> >>>> which is also an unexpected behavior from a user perspective.   =20
-> >>> I think that is not how the property should work.
-> >>>
-> >>> If KMS properties would affect the list of modes, then userspace would
-> >>> need to set the properties for real (TEST_ONLY cannot change anything)
-> >>> and re-fetch the mode lists (maybe there is a hotplug event, maybe
-> >>> not). That workflow just doesn't work.   =20
-> >> The properties are set before the list is created in the first place.
-> >> Because, in my example, the properties get set before the monitor is
-> >> plugged in and the list can only be created as soon as the monitor is
-> >> plugged in. =20
-> > That's just an accident, it's not what I mean.
-> >
-> > What I mean is, we cannot have the KMS properties affect the list of
-> > modes, because then userspace that want to use specific values on those
-> > properties would have to program those properties first, and then get
-> > the list of modes. KMS UAPI does not work that way AFAIK.
-> >
-> > If the initial mode list is created on hotplug like you say, then the
-> > initial list could already be missing some modes that would be valid if
-> > some KMS properties had different values. =20
->=20
-> Depends if the mode list is created by TEST_ONLY:
-
-Hi,
-
-I'm pretty sure it's not created by any kind of atomic test probing,
-exactly because some properties might affect the result. Also because
-of legacy: the mode lists predate atomic by far. It just doesn't make
-sense to prune the mode list based on current arbitrary property values.
-
-The function drm_helper_probe_single_connector_modes() looks relevant
-to me. It has a big comment that seems to point towards more things to
-look at.
-
-
-Thanks,
-pq
-
-> - The force properties should return false on TEST_ONLY
->=20
-> - The force properties should not prevent the mode from showing up in the=
- list
->=20
-> If the list is created by TEST_ONLY both things can't be fulfilled at the=
- same time obviously.
->=20
-> I hope some can give more insights or has an idea how the properties coul=
-d work best.
->=20
-> > =20
-> >>> A very interesting question is when should link-status failure not dr=
-op
-> >>> the current mode from the mode list, if other KMS properties affect t=
-he
-> >>> bandwidth etc. requirements of the mode. That mechanism is engineered
-> >>> for old userspace that doesn't actually handle link-status but does
-> >>> handle hotplug, so the hotplug triggers re-fetching the mode list and
-> >>> userspace maybe trying again with a better luck since the offending
-> >>> mode is gone. How to keep that working when introducing KMS properties
-> >>> forcing the cable format, I don't know.
-> >>>
-> >>> As long as the other affecting KMS properties are all "auto", the
-> >>> driver will probably exhaust all possibilities to make the mode work
-> >>> before signalling link-status failure and pruning the mode.
-> >>> Theoretically, as I have no idea what drivers actually do.   =20
-> >> Isn't that exactly how the "preferred color format" property works in
-> >> my patchset now? =20
-> > There was an argument that "preferred" with no guarantees is not
-> > useful enough. So I'm considering the force property instead.
-> > The problem is, "auto" is not the only possible value.
-> >
-> > When the value is not "auto", should link failure drop the mode or not?
-> > Userspace might change the value back to "auto" next time. If you
-> > dropped the mode, it would be gone. If you didn't drop the mode,
-> > userspace might be stuck picking the same non-working mode again and
-> > again if it doesn't know about the force mode property.
-> >
-> > You could argue that changing the value back to "auto" needs to reset
-> > the mode list, but that only gets us back to the "need to set
-> > properties before getting mode list".
-> >
-> > Maybe there needs to be an assumption that if "force color format" is
-> > not "auto", then link failure does not drop modes and userspace knows
-> > to handle this. Messy.
-> >
-> > I'm afraid I just don't know to give any clear answer. It's also
-> > possible that, as I'm not a kernel dev, I have some false assumptions
-> > here.
-> >
-> >
-> > Thanks,
-> > pq
-> > _______________________________________________
-> > amd-gfx mailing list
-> > amd-gfx@lists.freedesktop.org
-> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx =20
-
-
---Sig_/z2Dax/eoTBxuhffMJDUbe+M
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmDkAbYACgkQI1/ltBGq
-qqcPQw/9HbDu7ifTsttDDq9v9WlV542lloLz89NaONco2iQ/EntkKQAVGOJ3wc9q
-63lQRmektjAlLfWc6Wdq0JLVrxfgEKezXK+3HGWL7PMH2QxClzBVNwmYR/9cJnUi
-gh+4R55sp6sKS476ifc+Qha4lfsOmb0UUY8Q3VKQFavCpLauiw9d5M+rVGZvviSP
-ym0sitWiTw7N8opt6ybAaEjgDJBWCmBIf/0i2lTBiN+jWsPoNO8P1PuGh+MGQ+c6
-rAxPWlQCD7FJspz78tOifVCWzyAibZbt+QzRuEfNIuLhBGvAyajBlD5ssx4pVPWK
-yWbsw9Nn1MVfyNoAUUa3MeolFxdGSlZYaG5kDMUL9rl63A6ETrRGmnh3B61+dT8p
-CSFE1cYuGdcrB4T9hc7x69bGU/AWflpknfVYD/xuRjoCr9QTDFzbzf020nA3oy7R
-r3VLWqikz6jtM/YLnKhcJN5Hmgi31unx8OukC/j75kqQWSECKTYxeInk21TNByAb
-oqOx3gPMK/1JdBePlxNhODCmKqwWtWQHnx5rKf2PW3LJF34Nvh8sinq9PnWPc/O1
-M69sjUq4SI0WpOelJ5daT2Of0/uHywym45+i3T2urzehr6DMpF4HG+tt4eQJRWLD
-X/Nx+k2wDbUwoeSDX1T/tyceWJcoVz4Zh7g1ICKv/RVBZk09prw=
-=NVpM
------END PGP SIGNATURE-----
-
---Sig_/z2Dax/eoTBxuhffMJDUbe+M--
-
---===============0253560179==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0253560179==--
+SGkgTmlybW95LAoKTWFueSB0aGFua3MgZm9yIHRoaXMgaW5mb3JtYXRpb24uIFdlIHdpbGwgdGVz
+dCB0aGlzIHBhdGNoIGFzYXAuCgpIYXZlIGEgbmljZSBkYXksCkNocmlzdGlhbgoKT24gMDUgSnVs
+eSAyMDIxIGF0IDEwOjI2cG0sIE5pcm1veSB3cm90ZToKID4gSGkgQ2hyaXN0aWFuLAogPgogPgog
+PiBUaGlzIGlzc3VlIGxvb2tzIHNpbWlsYXIgdG8gdGhlIG9uZSBNaWtlbCBSeWNobGlza2kgZml4
+ZWQgcmVjZW50bHnCoCA6IApodHRwczovL3BhdGNod29yay5mcmVlZGVza3RvcC5vcmcvcGF0Y2gv
+NDQwNzkxLiBMZXQgdXMga25vdyBpZiB0aGlzIGhlbHBzLgogPgogPgogPiBSZWdhcmRzLAogPgog
+PiBOaXJtb3kKID4KID4gT24gNy8zLzIwMjEgOTozMCBBTSwgQ2hyaXN0aWFuIFppZ290emt5IHdy
+b3RlOgogPj4gSGkgQWxsLAogPj4KID4+IFhvcmcgZG9lc24ndCB3b3JrIGFueW1vcmUgYWZ0ZXIg
+dGhlIGxhdGVzdCBEUk0gdXBkYXRlcy4gWzFdCiA+PgogPj4gRXJyb3IgbWVzc2FnZXM6CiA+Pgog
+Pj4gSnVsIDAzIDA4OjU0OjUxIEZpZW5peCBzeXN0ZW1kWzFdOiBTdGFydGluZyBMaWdodCBEaXNw
+bGF5IE1hbmFnZXIuLi4KID4+IEp1bCAwMyAwODo1NDo1MSBGaWVuaXggc3lzdGVtZFsxXTogU3Rh
+cnRlZCBMaWdodCBEaXNwbGF5IE1hbmFnZXIuCiA+PiBKdWwgMDMgMDg6NTQ6NTEgRmllbml4IGtl
+cm5lbDogQlVHOiBLZXJuZWwgTlVMTCBwb2ludGVyIGRlcmVmZXJlbmNlIApvbiByZWFkIGF0IDB4
+MDAwMDAwMTAKID4+IEp1bCAwMyAwODo1NDo1MSBGaWVuaXgga2VybmVsOiBGYXVsdGluZyBpbnN0
+cnVjdGlvbiBhZGRyZXNzOiAKMHhjMDAwMDAwMDAwNjMwNzUwCiA+PiBKdWwgMDMgMDg6NTQ6NTEg
+Rmllbml4IGtlcm5lbDogT29wczogS2VybmVsIGFjY2VzcyBvZiBiYWQgYXJlYSwgc2lnOiAKMTEg
+WyMxXQogPj4gSnVsIDAzIDA4OjU0OjUxIEZpZW5peCBrZXJuZWw6IEJFIFBBR0VfU0laRT00SyBQ
+UkVFTVBUIFNNUCBOUl9DUFVTPTQgCkNvcmVOZXQgR2VuZXJpYwogPj4gSnVsIDAzIDA4OjU0OjUx
+IEZpZW5peCBrZXJuZWw6IE1vZHVsZXMgbGlua2VkIGluOiBhbGdpZl9za2NpcGhlciAKYm5lcCB0
+dW5lcl9zaW1wbGUgdHVuZXJfdHlwZXMgdGVhNTc2NyB0dW5lciB0ZGE3NDMyIHR2YXVkaW8gbXNw
+MzQwMCBidHR2IAp0ZWE1NzV4IHR2ZWVwcm9tIHZpZGVvYnVmX2RtYV9zZyB2aWRlb2J1Zl9jb3Jl
+IHJjX2NvcmUgdmlkZW9kZXYgbWMgYnR1c2IgCmJ0cnRsIGJ0YmNtIGJ0aW50ZWwgYmx1ZXRvb3Ro
+IGVjZGhfZ2VuZXJpYyBlY2MgdWlvX3BkcnZfZ2VuaXJxIHVpbwogPj4gSnVsIDAzIDA4OjU0OjUx
+IEZpZW5peCBrZXJuZWw6IENQVTogMyBQSUQ6IDQzMDAgQ29tbTogWG9yZy53cmFwIE5vdCAKdGFp
+bnRlZCA1LjE0LjAtYTNfQS1FT05fWDUwMDAtMDc2MzctZzNkYmRiMzhlMjg2OS1kaXJ0eSAjMQog
+Pj4gSnVsIDAzIDA4OjU0OjUxIEZpZW5peCBrZXJuZWw6IE5JUDrCoCBjMDAwMDAwMDAwNjMwNzUw
+IExSOiAKYzAwMDAwMDAwMDYwZmVkYyBDVFI6IGMwMDAwMDAwMDA2MzA3MjgKID4+IEp1bCAwMyAw
+ODo1NDo1MSBGaWVuaXgga2VybmVsOiBSRUdTOiBjMDAwMDAwMDhkOTAzNDcwIFRSQVA6IDAzMDAg
+Tm90IAp0YWludGVkwqAgKDUuMTQuMC1hM19BLUVPTl9YNTAwMC0wNzYzNy1nM2RiZGIzOGUyODY5
+LWRpcnR5KQogPj4gSnVsIDAzIDA4OjU0OjUxIEZpZW5peCBrZXJuZWw6IE1TUjrCoCAwMDAwMDAw
+MDgwMDI5MDAyIDxDRSxFRSxNRT7CoCAKQ1I6IDIwMDAwMjIywqAgWEVSOiAyMDAwMDAwMAogPj4g
+SnVsIDAzIDA4OjU0OjUxIEZpZW5peCBrZXJuZWw6IERFQVI6IDAwMDAwMDAwMDAwMDAwMTAgRVNS
+OiAKMDAwMDAwMDAwMDAwMDAwMCBJUlFNQVNLOiAwCiA+PsKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIEdQUjAwOiBjMDAwMDAwMDAw
+NjBmZWRjIApjMDAwMDAwMDhkOTAzNzEwIGMwMDAwMDAwMDE5MGM0MDAgYzAwMDAwMDA4NWQ1OWMw
+MAogPj7CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoCBHUFIwNDogYzAwMDAwMDA4ZDkwMzViOCAKZmZmZmZmZmZmZmZmZmZmZiBjMDAw
+MDAwMDg3MGE0OTAwIGMwMDAwMDAwODViNjJkMDAKID4+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgR1BSMDg6IDAwMDAwMDAwMDAw
+MDAwMGYgCjAwMDAwMDAwMDAwMDAwMDAgYzAwMDAwMDAwMDYzMDcyOCAwMDAwMDAwMDAwMDAwMDAz
+CiA+PsKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgIEdQUjEyOiAwMDAwMDAwMDIwMDAwMjIyIApjMDAwMDAwMDNmZmZlYWMwIDAwMDAw
+MDAwZmZlNTEwNzAgMDAwMDAwMDAwMDg2MDA3YwogPj7CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBHUFIxNjogMDAwMDAwMDAwMDg2
+MjgyMCAKMDAwMDAwMDBmZmI3ZWM2OCAwMDAwMDAwMDAwMDAwMDAwIDAwMDAwMDAwZmZmZmZmZmYK
+ID4+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqAgR1BSMjA6IDAwMDAwMDAwYzA0MDY0YTAgCjAwMDAwMDAwMDA0NTAwODggMDAwMDAw
+MDBmZmNhNzllNCA1ZGVhZGJlZWYwMDAwMTIyCiA+PsKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIEdQUjI0OiA1ZGVhZGJlZWYwMDAw
+MTAwIAowMDAwMDAwMDAwMDAwMDAwIGMwMDAwMDAwODc2MDI4ZjAgYzAwMDAwMDA4MGJkNDAwMAog
+Pj7CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoCBHUFIyODogYzAwMDAwMDA4NzYwM2M0OCAKYzAwMDAwMDA4NWQ1OWQ3OCBjMDAwMDAw
+MDg1ZDU5YzAwIGMwMDAwMDAwODVkNTljNzgKID4+IEp1bCAwMyAwODo1NDo1MSBGaWVuaXgga2Vy
+bmVsOiBOSVAgW2MwMDAwMDAwMDA2MzA3NTBdIAoucmFkZW9uX3R0bV9ib19kZXN0cm95KzB4Mjgv
+MHhjMAogPj4gSnVsIDAzIDA4OjU0OjUxIEZpZW5peCBrZXJuZWw6IExSIFtjMDAwMDAwMDAwNjBm
+ZWRjXSAKLnR0bV9ib19wdXQrMHgyZWMvMHgzNDQKID4+IEp1bCAwMyAwODo1NDo1MSBGaWVuaXgg
+a2VybmVsOiBDYWxsIFRyYWNlOgogPj4gSnVsIDAzIDA4OjU0OjUxIEZpZW5peCBrZXJuZWw6IFtj
+MDAwMDAwMDhkOTAzNzEwXSBbYzAwMDAwMDAwMDYwZmJlNF0gCi50dG1fYm9fY2xlYW51cF9tZW10
+eXBlX3VzZSsweDU0LzB4NjAgKHVucmVsaWFibGUpCiA+PiBKdWwgMDMgMDg6NTQ6NTEgRmllbml4
+IGtlcm5lbDogW2MwMDAwMDAwOGQ5MDM3OTBdIFtjMDAwMDAwMDAwNjBmZWRjXSAKLnR0bV9ib19w
+dXQrMHgyZWMvMHgzNDQKID4+IEp1bCAwMyAwODo1NDo1MSBGaWVuaXgga2VybmVsOiBbYzAwMDAw
+MDA4ZDkwMzgyMF0gW2MwMDAwMDAwMDA2MzBiNTBdIAoucmFkZW9uX2JvX3VucmVmKzB4MjgvMHgz
+YwogPj4gSnVsIDAzIDA4OjU0OjUxIEZpZW5peCBrZXJuZWw6IFtjMDAwMDAwMDhkOTAzOGEwXSBb
+YzAwMDAwMDAwMDZkMWY2Y10gCi5yYWRlb25fdm1fZmluaSsweDFiMC8weDFiOAogPj4gSnVsIDAz
+IDA4OjU0OjUxIEZpZW5peCBrZXJuZWw6IFtjMDAwMDAwMDhkOTAzOTQwXSBbYzAwMDAwMDAwMDYx
+OGUzOF0gCi5yYWRlb25fZHJpdmVyX3Bvc3RjbG9zZV9rbXMrMHgxMjgvMHgxNzgKID4+IEp1bCAw
+MyAwODo1NDo1MSBGaWVuaXgga2VybmVsOiBbYzAwMDAwMDA4ZDkwMzllMF0gW2MwMDAwMDAwMDA1
+ZGViMTRdIAouZHJtX2ZpbGVfZnJlZSsweDFkOC8weDI3OAogPj4gSnVsIDAzIDA4OjU0OjUxIEZp
+ZW5peCBrZXJuZWw6IFtjMDAwMDAwMDhkOTAzYWEwXSBbYzAwMDAwMDAwMDVkZWYwMF0gCi5kcm1f
+cmVsZWFzZSsweDY0LzB4YzgKID4+IEp1bCAwMyAwODo1NDo1MSBGaWVuaXgga2VybmVsOiBbYzAw
+MDAwMDA4ZDkwM2IzMF0gW2MwMDAwMDAwMDAxNzYzNmNdIAouX19mcHV0KzB4MTFjLzB4MjVjCiA+
+PiBKdWwgMDMgMDg6NTQ6NTEgRmllbml4IGtlcm5lbDogW2MwMDAwMDAwOGQ5MDNiZDBdIFtjMDAw
+MDAwMDAwMDhiMWU4XSAKLnRhc2tfd29ya19ydW4rMHhhNC8weGJjCiA+PiBKdWwgMDMgMDg6NTQ6
+NTEgRmllbml4IGtlcm5lbDogW2MwMDAwMDAwOGQ5MDNjNzBdIFtjMDAwMDAwMDAwMDA0YmY0XSAK
+LmRvX25vdGlmeV9yZXN1bWUrMHgxNDQvMHgyZjAKID4+IEp1bCAwMyAwODo1NDo1MSBGaWVuaXgg
+a2VybmVsOiBbYzAwMDAwMDA4ZDkwM2Q3MF0gW2MwMDAwMDAwMDAwMGIzODBdIAouc3lzY2FsbF9l
+eGl0X3ByZXBhcmUrMHgxMTAvMHgxMzAKID4+IEp1bCAwMyAwODo1NDo1MSBGaWVuaXgga2VybmVs
+OiBbYzAwMDAwMDA4ZDkwM2UxMF0gW2MwMDAwMDAwMDAwMDA2ODhdIApzeXN0ZW1fY2FsbF9jb21t
+b24rMHgxMDAvMHgxZmMKID4+IEp1bCAwMyAwODo1NDo1MSBGaWVuaXgga2VybmVsOiAtLS0gaW50
+ZXJydXB0OiBjMDAgYXQgMHgzZjRmNTgKID4+IEp1bCAwMyAwODo1NDo1MSBGaWVuaXgga2VybmVs
+OiBOSVA6wqAgMDAwMDAwMDAwMDNmNGY1OCBMUjogCjAwMDAwMDAwMDAzZjRmMmMgQ1RSOiAwMDAw
+MDAwMDAwMDAwMDAwCiA+PiBKdWwgMDMgMDg6NTQ6NTEgRmllbml4IGtlcm5lbDogUkVHUzogYzAw
+MDAwMDA4ZDkwM2U4MCBUUkFQOiAwYzAwIE5vdCAKdGFpbnRlZMKgICg1LjE0LjAtYTNfQS1FT05f
+WDUwMDAtMDc2MzctZzNkYmRiMzhlMjg2OS1kaXJ0eSkKID4+IEp1bCAwMyAwODo1NDo1MSBGaWVu
+aXgga2VybmVsOiBNU1I6wqAgMDAwMDAwMDAwMDAyZDAwMiA8Q0UsRUUsUFIsTUU+wqAgCkNSOiAy
+MDAwMDQyMMKgIFhFUjogMDAwMDAwMDAKID4+IEp1bCAwMyAwODo1NDo1MSBGaWVuaXgga2VybmVs
+OiBJUlFNQVNLOiAwCiA+PsKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgIEdQUjAwOiAwMDAwMDAwMDAwMDAwMDA2IAowMDAwMDAwMGZm
+Y2E2NmEwIDAwMDAwMDAwZjc5OGEzMTAgMDAwMDAwMDAwMDAwMDAwMAogPj7CoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBHUFIwNDog
+MDAwMDAwMDAwMDAwMDAwMCAKMDAwMDAwMDAwMDAwMDAwMCAwMDAwMDAwMDAwMDAwMDAwIDAwMDAw
+MDAwMDAwMDAwMDAKID4+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqAgR1BSMDg6IDAwMDAwMDAwMDAwMDAwMDAgCjAwMDAwMDAwMDAw
+MDAwMDAgMDAwMDAwMDAwMDAwMDAwMCAwMDAwMDAwMDAwMDAwMDAwCiA+PsKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIEdQUjEyOiAw
+MDAwMDAwMDAwMDAwMDAwIAowMDAwMDAwMDAwNDRmZmY0IDAwMDAwMDAwZmZlNTEwNzAgMDAwMDAw
+MDAwMDg2MDA3YwogPj7CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoCBHUFIxNjogMDAwMDAwMDAwMDg2MjgyMCAKMDAwMDAwMDBmZmI3
+ZWM2OCAwMDAwMDAwMDAwMDAwMDAwIDAwMDAwMDAwZmZmZmZmZmYKID4+wqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgR1BSMjA6IDAw
+MDAwMDAwYzA0MDY0YTAgCjAwMDAwMDAwMDA0NTAwODggMDAwMDAwMDBmZmNhNzllNCAwMDAwMDAw
+MDAwNDMxN2FjCiA+PsKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgIEdQUjI0OiAwMDAwMDAwMDAwNDMxN2I4IAowMDAwMDAwMGZmY2E2
+NmQwIDAwMDAwMDAwMDAwMDAwMDEgMDAwMDAwMDBmZmNhNjczYwogPj7CoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBHUFIyODogMDAw
+MDAwMDAwMDAwMDAwMSAKMDAwMDAwMDAwMDAwMDAwMCAwMDAwMDAwMDAwNDFjZmY0IDAwMDAwMDAw
+MDAwMDAwMDMKID4+IEp1bCAwMyAwODo1NDo1MSBGaWVuaXgga2VybmVsOiBOSVAgWzAwMDAwMDAw
+MDAzZjRmNThdIDB4M2Y0ZjU4CiA+PiBKdWwgMDMgMDg6NTQ6NTEgRmllbml4IGtlcm5lbDogTFIg
+WzAwMDAwMDAwMDAzZjRmMmNdIDB4M2Y0ZjJjCiA+PiBKdWwgMDMgMDg6NTQ6NTEgRmllbml4IGtl
+cm5lbDogLS0tIGludGVycnVwdDogYzAwCiA+PiBKdWwgMDMgMDg6NTQ6NTEgRmllbml4IGtlcm5l
+bDogSW5zdHJ1Y3Rpb24gZHVtcDoKID4+IEp1bCAwMyAwODo1NDo1MSBGaWVuaXgga2VybmVsOiA0
+MGMyZmZmNCA0ZTgwMDAyMCA3YzA4MDJhNiBmYmMxZmZmMCAKZjgwMTAwMTAgM2JjM2ZmODggZmJl
+MWZmZjggMzhhMGZmZmYKID4+IEp1bCAwMyAwODo1NDo1MSBGaWVuaXgga2VybmVsOiBmODIxZmY4
+MSA3YzdmMWI3OCBlOTIzMDE2OCA3ZmMzZjM3OCAKPDgwODkwMDEwPiA0YmZmZmY1MSBlODdmMDIw
+OCAzODYzMWRmOAogPj4gSnVsIDAzIDA4OjU0OjUxIEZpZW5peCBrZXJuZWw6IC0tLVsgZW5kIHRy
+YWNlIGRkZjczZDJkNzAwNTgzODAgXS0tLQogPj4gSnVsIDAzIDA4OjU0OjUxIEZpZW5peCBrZXJu
+ZWw6CiA+PiBKdWwgMDMgMDg6NTQ6NTEgRmllbml4IHN5c3RlbWRbMV06IGxpZ2h0ZG0uc2Vydmlj
+ZTogTWFpbiBwcm9jZXNzIApleGl0ZWQsIGNvZGU9ZXhpdGVkLCBzdGF0dXM9MS9GQUlMVVJFCiA+
+PiBKdWwgMDMgMDg6NTQ6NTEgRmllbml4IHN5c3RlbWRbMV06IGxpZ2h0ZG0uc2VydmljZTogRmFp
+bGVkIHdpdGggCnJlc3VsdCAnZXhpdC1jb2RlJy4KID4+IEp1bCAwMyAwODo1NDo1MSBGaWVuaXgg
+YXZhaGktZGFlbW9uWzM4NTddOiBSZWdpc3RlcmluZyBuZXcgYWRkcmVzcyAKcmVjb3JkIGZvciAy
+YTAyOjgxMDk6ODljMDplYmZjOmQzNzI6ZjA2Yzo5MjQ3OjdkNTQgb24gZW5QNDA5NnA0czQuKi4K
+ID4+IEp1bCAwMyAwODo1NDo1MSBGaWVuaXggc3lzdGVtZFsxXTogbGlnaHRkbS5zZXJ2aWNlOiBT
+Y2hlZHVsZWQgCnJlc3RhcnQgam9iLCByZXN0YXJ0IGNvdW50ZXIgaXMgYXQgMS4KID4+IEp1bCAw
+MyAwODo1NDo1MSBGaWVuaXggc3lzdGVtZFsxXTogU3RvcHBlZCBMaWdodCBEaXNwbGF5IE1hbmFn
+ZXIuCiA+PgogPj4gLS0tLQogPj4gU3lzdGVtczogQS1FT04gQW1pZ2FPbmUgWDEwMDAgYW5kIFg1
+MDAwIHdpdGggUmFkZW9uIEhENjk3MCBncmFwaGljcyAKY2FyZHMuIFsyXSBbM10gWzRdCiA+Pgog
+Pj4gVGhlIGJpZ2dlc3QgcHJvYmxlbSBpcywgdGhhdCBJIGRvbid0IGhhdmUgdGltZSBmb3IgYmlz
+ZWN0aW5nIGFuZCAKZml4aW5nIHRoaXMgaXNzdWUuCiA+PgogPj4gQ2hlZXJzLAogPj4gQ2hyaXN0
+aWFuCiA+PgogPj4gWzFdIApodHRwczovL2dpdC5rZXJuZWwub3JnL3B1Yi9zY20vbGludXgva2Vy
+bmVsL2dpdC90b3J2YWxkcy9saW51eC5naXQvY29tbWl0Lz9pZD1lMDU4YTg0YmZkZGM0MmJhMzU2
+YTIzMTZmMmNmMTE0MTk3NDYyNWM5CiA+PiBbMl0gaHR0cDovL3dpa2kuYW1pZ2Eub3JnL2luZGV4
+LnBocD90aXRsZT1YNTAwMAogPj4gWzNdIGh0dHBzOi8vZW4ud2lraXBlZGlhLm9yZy93aWtpL0Ft
+aWdhT25lX1gxMDAwCiA+PiBbNF0gaHR0cHM6Ly9mb3J1bS5oeXBlcmlvbi1lbnRlcnRhaW5tZW50
+LmNvbS92aWV3dG9waWMucGhwP2Y9NTgmdD00Mzc4CgoKX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0
+cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
+aXN0aW5mby9hbWQtZ2Z4Cg==
