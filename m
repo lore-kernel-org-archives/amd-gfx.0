@@ -7,41 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9D174C47E4B
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 11:16:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4CB69C11F66
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 11:16:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 42F6C61C4E
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 11:16:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 42F6C61C4E
+	by mail.kernel.org (Postfix) with ESMTPS id 26D7361C67
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 11:16:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 26D7361C67
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 339E36E0EE;
-	Tue,  6 Jul 2021 11:16:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D2DA6E0F1;
+	Tue,  6 Jul 2021 11:16:15 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 969306E0E4;
- Tue,  6 Jul 2021 11:16:11 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 83FF161C66;
- Tue,  6 Jul 2021 11:16:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71B0E6E0E9;
+ Tue,  6 Jul 2021 11:16:14 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 585F061C58;
+ Tue,  6 Jul 2021 11:16:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1625570171;
- bh=AmhewlvES5UyHKfmAiA0a647bptNq1F0Ynm8xpreryE=;
+ s=k20201202; t=1625570174;
+ bh=V5xozR4nuZSnCU9y6noaDhHo7F8Fk/JOZVL7sZpw1Xo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=trkjcPcez1Qs5Ghycse5y7NR5Z5I9Nw6OK3LfwkGzbh+J2hhuDLkHFDusEuzF2yLH
- UHPfkBWLTcPM/Hb8455ApGTOIPJaJfw8Ik6bSKJG6K2kvNhIkBWGvt6yHhbdntJphq
- SyQQPTswRftSd/Y7kOAPVXUXabXORtuo++DkdXE3OloVPUgjY74EoEP8WSAaa1FT2g
- Jzhq4p0s9U/1816CC93FKxW/d3O1tmKq8zS8dpznOkBtSNuG3266pxzlBwUPTQOPZR
- PqyMBsDydfHUiiItyDSLvQzURuCdsAxrKo+fRX9DPS2JoLplMTThRRvtkPWMeDv2Jj
- /xeN5RbBM6VbA==
+ b=MnnSY9l41T5LfCBomUXFBpMmdonm+2kv+FPUbdsWA0DnH88sjGmSPgbL3l8tFCxOg
+ 1k2zIPuCWRrut9RLnVxwB44o19j4aBKdXyaJxtQ20yqzWuhEwOe/AYsR3iYjpnO0g9
+ Q15Gzh4I3vQWlmRTiTJc/Orb6b+rW9lPD1cfNhKxvxNPbvDQwqRG3pUj38z0ALfRPR
+ L1NJIMjk/zVEJ6Jlqr08RnqHsZwgNIjr4h/ZJHhKFFt/1bYUg0l7DOyGPSKphT47AJ
+ 3oPU7BN7qHssSc2XdzgAGUCHzKICDHbHZcvAUy62GvXGcECMhmDDCEYBGHNc1d0khc
+ eMANmRLf9SaKw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.13 090/189] drm/amd/display: Update scaling settings
- on modeset
-Date: Tue,  6 Jul 2021 07:12:30 -0400
-Message-Id: <20210706111409.2058071-90-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.13 092/189] drm/amd/display: Set
+ DISPCLK_MAX_ERRDET_CYCLES to 7
+Date: Tue,  6 Jul 2021 07:12:32 -0400
+Message-Id: <20210706111409.2058071-92-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210706111409.2058071-1-sashal@kernel.org>
 References: <20210706111409.2058071-1-sashal@kernel.org>
@@ -60,51 +60,46 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Stylon Wang <stylon.wang@amd.com>, Sasha Levin <sashal@kernel.org>,
- Roman Li <roman.li@amd.com>, amd-gfx@lists.freedesktop.org,
- Daniel Wheeler <daniel.wheeler@amd.com>, dri-devel@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>,
- Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
+ Wesley Chalmers <Wesley.Chalmers@amd.com>, amd-gfx@lists.freedesktop.org,
+ Daniel Wheeler <daniel.wheeler@amd.com>,
+ Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>,
+ dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Roman Li <roman.li@amd.com>
+From: Wesley Chalmers <Wesley.Chalmers@amd.com>
 
-[ Upstream commit c521fc316d12fb9ea7b7680e301d673bceda922e ]
+[ Upstream commit 3577e1678772ce3ede92af3a75b44a4b76f9b4ad ]
 
-[Why]
-We update scaling settings when scaling mode has been changed.
-However when changing mode from native resolution the scaling mode previously
-set gets ignored.
+[WHY]
+DISPCLK_MAX_ERRDET_CYCLES must be 7 to prevent connection loss when
+changing DENTIST_DISPCLK_WDIVIDER from 126 to 127 and back.
 
-[How]
-Perform scaling settings update on modeset.
-
-Signed-off-by: Roman Li <roman.li@amd.com>
-Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
+Signed-off-by: Wesley Chalmers <Wesley.Chalmers@amd.com>
+Reviewed-by: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
 Acked-by: Stylon Wang <stylon.wang@amd.com>
 Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 62663e287b21..58577f7a57c1 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -9472,7 +9472,8 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
- 	BUG_ON(dm_new_crtc_state->stream == NULL);
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+index 6a10daec15cc..793554e61c52 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+@@ -243,7 +243,7 @@ void dcn20_dccg_init(struct dce_hwseq *hws)
+ 	REG_WRITE(MILLISECOND_TIME_BASE_DIV, 0x1186a0);
  
- 	/* Scaling or underscan settings */
--	if (is_scaling_state_different(dm_old_conn_state, dm_new_conn_state))
-+	if (is_scaling_state_different(dm_old_conn_state, dm_new_conn_state) ||
-+				drm_atomic_crtc_needs_modeset(new_crtc_state))
- 		update_stream_scaling_settings(
- 			&new_crtc_state->mode, dm_new_conn_state, dm_new_crtc_state->stream);
+ 	/* This value is dependent on the hardware pipeline delay so set once per SOC */
+-	REG_WRITE(DISPCLK_FREQ_CHANGE_CNTL, 0x801003c);
++	REG_WRITE(DISPCLK_FREQ_CHANGE_CNTL, 0xe01003c);
+ }
  
+ void dcn20_disable_vga(
 -- 
 2.30.2
 
