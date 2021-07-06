@@ -2,104 +2,82 @@ Return-Path: <SRS0=iwxs=L6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-7.0 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_2 autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6CE9EC07E9C
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 06:46:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5606AC07E96
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 07:09:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 28F916194E
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 06:46:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 28F916194E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 205C46195D
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 07:09:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 205C46195D
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8603B89823;
-	Tue,  6 Jul 2021 06:46:08 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2061.outbound.protection.outlook.com [40.107.223.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB4E2897F9
- for <amd-gfx@lists.freedesktop.org>; Tue,  6 Jul 2021 06:46:06 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iFcELEWy2ijVYAFToGrDM/k53KlLY+Sn+eekGcr9eK+hZPPdlUUlLdsWqQDw28/CbYawCYtjbF6zXV8srYgUkfaLLuUR2DFgkFUcsGoZiqZ7VMv23P3CZDKvknWRjdxEFOhInuNb9Cyxv+XLGuJ7QlYTv8+nazYYhHaiLe3t6brMGwP0m1cL8wm79A7EfKxc8Lgc1n3c4lpk1E6W/JqSigvwNG2suU+tO8dquiKX1TmgALGxy48ZzThCoWFQ9IOR6viaSXe6nUVNRvUytKjwAGnen2JJads0cbEB2H7C52uzqkLPjuJN8tYv7YTkh+Yb+rxRcNSc1taqLJoXP9wTkw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9vObakdBcJBqW++O9Rng2X6AkBcpdIhkVC5tVmfD0Lk=;
- b=I5zjwo2AsIqqEWDvKts41oZNyi5OJmA/diXIKorQGY2WVWRLZNQx5+6OVONm84eD7szHv8cBlNQ3Ejl7eCGMQA1iJQhXI2FWzGlRIn75a9cfBm7hu+MnWdOkDU/dgNWjaV1ygdJh7GGQG1xoWqHpk69wNMpuFWczcsPrDoTKtssTYU4gXX8P84qLQIzLRPtVtz3IhCXB4QWCWZvrVWs4aH4BvwVl5eRSRaIRvUzsyiWPJhpi7IuV1eX/NIBl0GYmthrtFFT2O12jB9mmXp/zC3jDUi3JEjinYgXXI6d4TpYiZPkpbrMVtzSyaOQZoQSqLGVSIc3bZF1ofjc4uiiLTA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9vObakdBcJBqW++O9Rng2X6AkBcpdIhkVC5tVmfD0Lk=;
- b=mjwNyZoYCV6xHLwWgp4K3WzE2svyzPNV2/S0OB8r9RbAKgeGOKGoJBrPyh6JAZ0l6OD98h7wu4LgYIgkFW0sed1/g59F7WUCveHwG7GBpAxSFI8xUQDoRO78TdC8ZEqvJVZm0VD+NSV4ibBMIHgIvgn6IpoffFcse931S6kThpY=
-Received: from DM5PR19CA0061.namprd19.prod.outlook.com (2603:10b6:3:116::23)
- by BYAPR12MB2679.namprd12.prod.outlook.com (2603:10b6:a03:72::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4287.31; Tue, 6 Jul
- 2021 06:46:01 +0000
-Received: from DM6NAM11FT048.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:116:cafe::30) by DM5PR19CA0061.outlook.office365.com
- (2603:10b6:3:116::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4287.22 via Frontend
- Transport; Tue, 6 Jul 2021 06:46:01 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT048.mail.protection.outlook.com (10.13.173.114) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4287.22 via Frontend Transport; Tue, 6 Jul 2021 06:46:00 +0000
-Received: from equan-buildpc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Tue, 6 Jul 2021
- 01:45:58 -0500
-From: Evan Quan <evan.quan@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH V2 2/3] drm/amd/pm: update the gpu metrics data retrieving for
- Sienna Cichlid
-Date: Tue, 6 Jul 2021 14:45:35 +0800
-Message-ID: <20210706064536.123524-2-evan.quan@amd.com>
-X-Mailer: git-send-email 2.29.0
-In-Reply-To: <20210706064536.123524-1-evan.quan@amd.com>
-References: <20210706064536.123524-1-evan.quan@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CB3C898CC;
+	Tue,  6 Jul 2021 07:09:49 +0000 (UTC)
+Received: from mail-lj1-x244.google.com (mail-lj1-x244.google.com
+ [IPv6:2a00:1450:4864:20::244])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F27D3898C4;
+ Tue,  6 Jul 2021 07:09:47 +0000 (UTC)
+Received: by mail-lj1-x244.google.com with SMTP id q4so27762759ljp.13;
+ Tue, 06 Jul 2021 00:09:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:in-reply-to:references
+ :mime-version; bh=XTwFZwCKVq9Sz5cd3f/6YRq5RojDWHq5cppUZPQkbP4=;
+ b=RkvvDEF2uuX1+YlI6AUAdIvz8aAz2luib+bPJWFYjswXxACwdMeAFhf1O5iongluds
+ CmV9H5WDQ+PNDmFlW4HUeOhlHsUFIemDftA9rVi8HkYUDmRUY7FtVxpmxRj0MDUiZ6I3
+ SqXFJhEGl0KCNvNzSULVw90p0mHCPv/+M7LTTK0RwwuH1qJSDuGtXKT99ZIklkF19GT8
+ 5mR14wOrL5+z5NX7jh/ZO1472pEMku3Nn+MHn3knQztdpPMSdMKT20/zPVzqc+Sam72o
+ 8zY+QCzZ3lbGj8jOHI8dE0AFJ8BCYvCF3lBFdo29WxeZQgZmmybvJ4KaHcWXu70ob847
+ fohg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
+ :references:mime-version;
+ bh=XTwFZwCKVq9Sz5cd3f/6YRq5RojDWHq5cppUZPQkbP4=;
+ b=OZ560cXbJ//mypWVvx4De3OPMnskGjjT2R0LqCC/helhFRab24WFMzrDXhyzOKp+BW
+ 6624gKiohNkrdrKe3NyHA45x0Cih0kB8L7Og91EPC40tVH4LkiwjMFEvFJQDUjcUaI2q
+ v9ycJc5ZxYTn8kmMbUXCpJRWsrmMnTxcaOwpjtNZxYbyWStKAAemkGCIRLmdLNyVCsu6
+ pW6f5gSEnNWZjGkFGiXOSXIbd25haij2Cs7d2laZbb8fmbmnIDb99KrXYTOi7lhL6Uf6
+ VH3Xi9NOoUBepxHz/tSQcKYIGQFMhqwOjdJFDmWFWmKGQmQApHMOnZ6+RrzGhRY10cPS
+ ELow==
+X-Gm-Message-State: AOAM530Cndi804DMlUYmvPa6xLTGIsqJdncJUb9KjNTv815rv0AGECga
+ kVvkKPeWMrJIr8F+xlKdQ9c=
+X-Google-Smtp-Source: ABdhPJx7oakSSjCc2PwbGlv8Ixe0ENwl8BCsPbYEqtToms1n55+qyNuPUCo5DbyKLOTHVYr1gmFVEQ==
+X-Received: by 2002:a05:651c:178b:: with SMTP id
+ bn11mr13993658ljb.43.1625555386111; 
+ Tue, 06 Jul 2021 00:09:46 -0700 (PDT)
+Received: from eldfell ([194.136.85.206])
+ by smtp.gmail.com with ESMTPSA id m25sm272683lfo.12.2021.07.06.00.09.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 06 Jul 2021 00:09:45 -0700 (PDT)
+Date: Tue, 6 Jul 2021 10:09:42 +0300
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: Werner Sembach <wse@tuxedocomputers.com>
+Subject: Re: [PATCH v4 12/17] drm/uAPI: Add "preferred color format" drm
+ property as setting for userspace
+Message-ID: <20210706100942.3754a8e3@eldfell>
+In-Reply-To: <102bf05f-7081-c53b-ab0b-f2698c7540e9@tuxedocomputers.com>
+References: <20210618091116.14428-1-wse@tuxedocomputers.com>
+ <20210618091116.14428-13-wse@tuxedocomputers.com>
+ <20210622101516.6a53831c@eldfell>
+ <jIDQ2rRRMWlhDDPf08Z8xZlEE8HTBx7fHsylFdK0joSSFVyES8D444Giyiji9zbIm7dU4QpbsXZLvIDTbGW0wEoUWKsMEI4evizn0UdGMvM=@emersion.fr>
+ <20210629141712.21f00c38@eldfell>
+ <6d8716e0-e68a-e7b7-a341-a7471c413e9c@tuxedocomputers.com>
+ <20210630114133.47397e2f@eldfell>
+ <d3674d49-8bca-7ecf-1735-7bff2d9d526e@tuxedocomputers.com>
+ <20210701110714.61f3e2af@eldfell>
+ <b7144386-a98b-faf9-b425-c1157d9d0241@tuxedocomputers.com>
+ <20210701162446.14f4f577@eldfell>
+ <102bf05f-7081-c53b-ab0b-f2698c7540e9@tuxedocomputers.com>
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 817eda46-979f-4c6b-2c4f-08d94049b7d0
-X-MS-TrafficTypeDiagnostic: BYAPR12MB2679:
-X-Microsoft-Antispam-PRVS: <BYAPR12MB26797C3696E47A83B16B2932E41B9@BYAPR12MB2679.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3276;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Wh+wl94yLtrXJtPaBY1XhRCC7JyaqfukNpsDhiSxdG19vqL7eRBHvCRTbL2qQcW6laxXZLIp94mvF7KuR6ErAwQJvCCdJ1SuciEdxaVeTqSACAFjvRTabHRhWApCjhAUqACV4tWxu4GxM+5KnV6SvlzOv4Vm+rK/3xi9h6GnDk7gorSVeje5qGRzMYs2dT1HAc3q/Q8BXRsnVq9J4dqyugF/lrVgu9yButysQYFlI8YV18zI2illbUgJ/Nli1ybzzhA/5wBf9bsiR7SQng7hRu+tX7ZVYAOwFK/lkpPRzAho/DT9/XDVxosmaQiYbqvvZZ2OZxBp7W39jruXfZB2bCsAWSpzNKVmIagLnmF7UGYbljvh62cwtvQkgnBQ18xybuqD8pMDu7FGAxUcCKk8XtCFZucdzDJ+DtGON+oNXLnygaE2ata5Efz1kxPLlpRCSMgzTp8kTk1IgUnqPaq0ckZaYw1KOQUHbRDomglvc5MeaxOvkQrMjJ2VDMfbGfX7+RuKbn6SsaVg2uqeyDKp4GhzdvW3fjF88qA0CQPPIH0pu0vQbxMIxvlib28pfQi8//uFGcJgaSpDdyvE11EB4eaPPp+RIYQHLbmhIMR/GTOwH/cy7mcXHMcj3/iJsA5Bg7dhI9kjue/IceGkz9KElc5cbUfj63v7TPxbALYyG7gnSDSX+Bpy5mH138Ic6Lm0KODfF7c+fPUKuxCI8wtfDiLvFbzyyZlqEKtIKVN4ye8=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(376002)(136003)(396003)(346002)(39860400002)(36840700001)(46966006)(316002)(7696005)(2906002)(15650500001)(6916009)(478600001)(70206006)(5660300002)(54906003)(186003)(16526019)(8936002)(8676002)(26005)(336012)(426003)(86362001)(1076003)(4326008)(83380400001)(82310400003)(44832011)(30864003)(356005)(82740400003)(6666004)(47076005)(36756003)(2616005)(81166007)(36860700001)(70586007)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2021 06:46:00.9290 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 817eda46-979f-4c6b-2c4f-08d94049b7d0
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT048.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2679
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,344 +89,336 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Lijo.Lazar@amd.com,
- Evan Quan <evan.quan@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: sunpeng.li@amd.com, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ airlied@linux.ie, amd-gfx@lists.freedesktop.org, tzimmermann@suse.de,
+ rodrigo.vivi@intel.com, alexander.deucher@amd.com, christian.koenig@amd.com
+Content-Type: multipart/mixed; boundary="===============0253560179=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Due to the structure layout change: "uint32_t ThrottlerStatus" -> "
-uint8_t  ThrottlingPercentage[THROTTLER_COUNT]".
+--===============0253560179==
+Content-Type: multipart/signed; boundary="Sig_/z2Dax/eoTBxuhffMJDUbe+M";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 
-Change-Id: I5ea15c1ea5152e480f4e379193c5848bf2b85dd4
-Signed-off-by: Evan Quan <evan.quan@amd.com>
---
-V1->V2:
-  - update the way for handling the new Metrics structure(Lijo)
----
- .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 216 ++++++++++++------
- 1 file changed, 145 insertions(+), 71 deletions(-)
+--Sig_/z2Dax/eoTBxuhffMJDUbe+M
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-index fb5b3ea61273..83d8e53ca1f8 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-@@ -489,6 +489,26 @@ static int sienna_cichlid_tables_init(struct smu_context *smu)
- 	return -ENOMEM;
- }
- 
-+static uint32_t sienna_cichlid_get_throttler_status_locked(struct smu_context *smu)
-+{
-+	struct smu_table_context *smu_table= &smu->smu_table;
-+	SmuMetricsExternal_t *metrics_ext =
-+		(SmuMetricsExternal_t *)(smu_table->metrics_table);
-+	uint32_t throttler_status = 0;
-+	int i;
-+
-+	if ((smu->adev->asic_type == CHIP_SIENNA_CICHLID) &&
-+	     (smu->smc_fw_version >= 0x3A4300)) {
-+		for (i = 0; i < THROTTLER_COUNT; i++)
-+			throttler_status |=
-+				(metrics_ext->SmuMetrics_V2.ThrottlingPercentage[i] ? 1U << i : 0);
-+	} else {
-+		throttler_status = metrics_ext->SmuMetrics.ThrottlerStatus;
-+	}
-+
-+	return throttler_status;
-+}
-+
- static int sienna_cichlid_get_smu_metrics_data(struct smu_context *smu,
- 					       MetricsMember_t member,
- 					       uint32_t *value)
-@@ -496,6 +516,11 @@ static int sienna_cichlid_get_smu_metrics_data(struct smu_context *smu,
- 	struct smu_table_context *smu_table= &smu->smu_table;
- 	SmuMetrics_t *metrics =
- 		&(((SmuMetricsExternal_t *)(smu_table->metrics_table))->SmuMetrics);
-+	SmuMetrics_V2_t *metrics_v2 =
-+		&(((SmuMetricsExternal_t *)(smu_table->metrics_table))->SmuMetrics_V2);
-+	bool use_metrics_v2 = ((smu->adev->asic_type == CHIP_SIENNA_CICHLID) &&
-+		(smu->smc_fw_version >= 0x3A4300)) ? true : false;
-+	uint16_t average_gfx_activity;
- 	int ret = 0;
- 
- 	mutex_lock(&smu->metrics_lock);
-@@ -510,78 +535,96 @@ static int sienna_cichlid_get_smu_metrics_data(struct smu_context *smu,
- 
- 	switch (member) {
- 	case METRICS_CURR_GFXCLK:
--		*value = metrics->CurrClock[PPCLK_GFXCLK];
-+		*value = use_metrics_v2 ? metrics_v2->CurrClock[PPCLK_GFXCLK] :
-+			metrics->CurrClock[PPCLK_GFXCLK];
- 		break;
- 	case METRICS_CURR_SOCCLK:
--		*value = metrics->CurrClock[PPCLK_SOCCLK];
-+		*value = use_metrics_v2 ? metrics_v2->CurrClock[PPCLK_SOCCLK] :
-+			metrics->CurrClock[PPCLK_SOCCLK];
- 		break;
- 	case METRICS_CURR_UCLK:
--		*value = metrics->CurrClock[PPCLK_UCLK];
-+		*value = use_metrics_v2 ? metrics_v2->CurrClock[PPCLK_UCLK] :
-+			metrics->CurrClock[PPCLK_UCLK];
- 		break;
- 	case METRICS_CURR_VCLK:
--		*value = metrics->CurrClock[PPCLK_VCLK_0];
-+		*value = use_metrics_v2 ? metrics_v2->CurrClock[PPCLK_VCLK_0] :
-+			metrics->CurrClock[PPCLK_VCLK_0];
- 		break;
- 	case METRICS_CURR_VCLK1:
--		*value = metrics->CurrClock[PPCLK_VCLK_1];
-+		*value = use_metrics_v2 ? metrics_v2->CurrClock[PPCLK_VCLK_1] :
-+			metrics->CurrClock[PPCLK_VCLK_1];
- 		break;
- 	case METRICS_CURR_DCLK:
--		*value = metrics->CurrClock[PPCLK_DCLK_0];
-+		*value = use_metrics_v2 ? metrics_v2->CurrClock[PPCLK_DCLK_0] :
-+			metrics->CurrClock[PPCLK_DCLK_0];
- 		break;
- 	case METRICS_CURR_DCLK1:
--		*value = metrics->CurrClock[PPCLK_DCLK_1];
-+		*value = use_metrics_v2 ? metrics_v2->CurrClock[PPCLK_DCLK_1] :
-+			metrics->CurrClock[PPCLK_DCLK_1];
- 		break;
- 	case METRICS_CURR_DCEFCLK:
--		*value = metrics->CurrClock[PPCLK_DCEFCLK];
-+		*value = use_metrics_v2 ? metrics_v2->CurrClock[PPCLK_DCEFCLK] :
-+			metrics->CurrClock[PPCLK_DCEFCLK];
- 		break;
- 	case METRICS_CURR_FCLK:
--		*value = metrics->CurrClock[PPCLK_FCLK];
-+		*value = use_metrics_v2 ? metrics_v2->CurrClock[PPCLK_FCLK] :
-+			metrics->CurrClock[PPCLK_FCLK];
- 		break;
- 	case METRICS_AVERAGE_GFXCLK:
--		if (metrics->AverageGfxActivity <= SMU_11_0_7_GFX_BUSY_THRESHOLD)
--			*value = metrics->AverageGfxclkFrequencyPostDs;
-+		average_gfx_activity = use_metrics_v2 ? metrics_v2->AverageGfxActivity :
-+			metrics->AverageGfxActivity;
-+		if (average_gfx_activity <= SMU_11_0_7_GFX_BUSY_THRESHOLD)
-+			*value = use_metrics_v2 ? metrics_v2->AverageGfxclkFrequencyPostDs :
-+				metrics->AverageGfxclkFrequencyPostDs;
- 		else
--			*value = metrics->AverageGfxclkFrequencyPreDs;
-+			*value = use_metrics_v2 ? metrics_v2->AverageGfxclkFrequencyPreDs :
-+				metrics->AverageGfxclkFrequencyPreDs;
- 		break;
- 	case METRICS_AVERAGE_FCLK:
--		*value = metrics->AverageFclkFrequencyPostDs;
-+		*value = use_metrics_v2 ? metrics_v2->AverageFclkFrequencyPostDs :
-+			metrics->AverageFclkFrequencyPostDs;
- 		break;
- 	case METRICS_AVERAGE_UCLK:
--		*value = metrics->AverageUclkFrequencyPostDs;
-+		*value = use_metrics_v2 ? metrics_v2->AverageUclkFrequencyPostDs :
-+			metrics->AverageUclkFrequencyPostDs;
- 		break;
- 	case METRICS_AVERAGE_GFXACTIVITY:
--		*value = metrics->AverageGfxActivity;
-+		*value = use_metrics_v2 ? metrics_v2->AverageGfxActivity :
-+			metrics->AverageGfxActivity;
- 		break;
- 	case METRICS_AVERAGE_MEMACTIVITY:
--		*value = metrics->AverageUclkActivity;
-+		*value = use_metrics_v2 ? metrics_v2->AverageUclkActivity :
-+			metrics->AverageUclkActivity;
- 		break;
- 	case METRICS_AVERAGE_SOCKETPOWER:
--		*value = metrics->AverageSocketPower << 8;
-+		*value = use_metrics_v2 ? metrics_v2->AverageSocketPower << 8 :
-+			metrics->AverageSocketPower << 8;
- 		break;
- 	case METRICS_TEMPERATURE_EDGE:
--		*value = metrics->TemperatureEdge *
-+		*value = (use_metrics_v2 ? metrics_v2->TemperatureEdge : metrics->TemperatureEdge) *
- 			SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
- 		break;
- 	case METRICS_TEMPERATURE_HOTSPOT:
--		*value = metrics->TemperatureHotspot *
-+		*value = (use_metrics_v2 ? metrics_v2->TemperatureHotspot : metrics->TemperatureHotspot) *
- 			SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
- 		break;
- 	case METRICS_TEMPERATURE_MEM:
--		*value = metrics->TemperatureMem *
-+		*value = (use_metrics_v2 ? metrics_v2->TemperatureMem : metrics->TemperatureMem) *
- 			SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
- 		break;
- 	case METRICS_TEMPERATURE_VRGFX:
--		*value = metrics->TemperatureVrGfx *
-+		*value = (use_metrics_v2 ? metrics_v2->TemperatureVrGfx : metrics->TemperatureVrGfx) *
- 			SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
- 		break;
- 	case METRICS_TEMPERATURE_VRSOC:
--		*value = metrics->TemperatureVrSoc *
-+		*value = (use_metrics_v2 ? metrics_v2->TemperatureVrSoc : metrics->TemperatureVrSoc) *
- 			SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
- 		break;
- 	case METRICS_THROTTLER_STATUS:
--		*value = metrics->ThrottlerStatus;
-+		*value = sienna_cichlid_get_throttler_status_locked(smu);
- 		break;
- 	case METRICS_CURR_FANSPEED:
--		*value = metrics->CurrFanSpeed;
-+		*value = use_metrics_v2 ? metrics_v2->CurrFanSpeed : metrics->CurrFanSpeed;
- 		break;
- 	default:
- 		*value = UINT_MAX;
-@@ -3567,65 +3610,94 @@ static ssize_t sienna_cichlid_get_gpu_metrics(struct smu_context *smu,
- 	SmuMetricsExternal_t metrics_external;
- 	SmuMetrics_t *metrics =
- 		&(metrics_external.SmuMetrics);
-+	SmuMetrics_V2_t *metrics_v2 =
-+		&(metrics_external.SmuMetrics_V2);
- 	struct amdgpu_device *adev = smu->adev;
--	uint32_t smu_version;
-+	bool use_metrics_v2 = ((adev->asic_type == CHIP_SIENNA_CICHLID) &&
-+		(smu->smc_fw_version >= 0x3A4300)) ? true : false;
-+	uint16_t average_gfx_activity;
- 	int ret = 0;
- 
--	ret = smu_cmn_get_metrics_table(smu,
--					&metrics_external,
--					true);
--	if (ret)
-+	mutex_lock(&smu->metrics_lock);
-+	ret = smu_cmn_get_metrics_table_locked(smu,
-+					       &metrics_external,
-+					       true);
-+	if (ret) {
-+		mutex_unlock(&smu->metrics_lock);
- 		return ret;
-+	}
- 
- 	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 1, 3);
- 
--	gpu_metrics->temperature_edge = metrics->TemperatureEdge;
--	gpu_metrics->temperature_hotspot = metrics->TemperatureHotspot;
--	gpu_metrics->temperature_mem = metrics->TemperatureMem;
--	gpu_metrics->temperature_vrgfx = metrics->TemperatureVrGfx;
--	gpu_metrics->temperature_vrsoc = metrics->TemperatureVrSoc;
--	gpu_metrics->temperature_vrmem = metrics->TemperatureVrMem0;
--
--	gpu_metrics->average_gfx_activity = metrics->AverageGfxActivity;
--	gpu_metrics->average_umc_activity = metrics->AverageUclkActivity;
--	gpu_metrics->average_mm_activity = metrics->VcnActivityPercentage;
--
--	gpu_metrics->average_socket_power = metrics->AverageSocketPower;
--	gpu_metrics->energy_accumulator = metrics->EnergyAccumulator;
--
--	if (metrics->AverageGfxActivity <= SMU_11_0_7_GFX_BUSY_THRESHOLD)
--		gpu_metrics->average_gfxclk_frequency = metrics->AverageGfxclkFrequencyPostDs;
-+	gpu_metrics->temperature_edge =
-+		use_metrics_v2 ? metrics_v2->TemperatureEdge : metrics->TemperatureEdge;
-+	gpu_metrics->temperature_hotspot =
-+		use_metrics_v2 ? metrics_v2->TemperatureHotspot : metrics->TemperatureHotspot;
-+	gpu_metrics->temperature_mem =
-+		use_metrics_v2 ? metrics_v2->TemperatureMem : metrics->TemperatureMem;
-+	gpu_metrics->temperature_vrgfx =
-+		use_metrics_v2 ? metrics_v2->TemperatureVrGfx : metrics->TemperatureVrGfx;
-+	gpu_metrics->temperature_vrsoc =
-+		use_metrics_v2 ? metrics_v2->TemperatureVrSoc : metrics->TemperatureVrSoc;
-+	gpu_metrics->temperature_vrmem =
-+		use_metrics_v2 ? metrics_v2->TemperatureVrMem0 : metrics->TemperatureVrMem0;
-+
-+	gpu_metrics->average_gfx_activity =
-+		use_metrics_v2 ? metrics_v2->AverageGfxActivity : metrics->AverageGfxActivity;
-+	gpu_metrics->average_umc_activity =
-+		use_metrics_v2 ? metrics_v2->AverageUclkActivity : metrics->AverageUclkActivity;
-+	gpu_metrics->average_mm_activity =
-+		use_metrics_v2 ? metrics_v2->VcnActivityPercentage : metrics->VcnActivityPercentage;
-+
-+	gpu_metrics->average_socket_power =
-+		use_metrics_v2 ? metrics_v2->AverageSocketPower : metrics->AverageSocketPower;
-+	gpu_metrics->energy_accumulator =
-+		use_metrics_v2 ? metrics_v2->EnergyAccumulator : metrics->EnergyAccumulator;
-+
-+	average_gfx_activity = use_metrics_v2 ? metrics_v2->AverageGfxActivity : metrics->AverageGfxActivity;
-+	if (average_gfx_activity <= SMU_11_0_7_GFX_BUSY_THRESHOLD)
-+		gpu_metrics->average_gfxclk_frequency =
-+			use_metrics_v2 ? metrics_v2->AverageGfxclkFrequencyPostDs : metrics->AverageGfxclkFrequencyPostDs;
- 	else
--		gpu_metrics->average_gfxclk_frequency = metrics->AverageGfxclkFrequencyPreDs;
--	gpu_metrics->average_uclk_frequency = metrics->AverageUclkFrequencyPostDs;
--	gpu_metrics->average_vclk0_frequency = metrics->AverageVclk0Frequency;
--	gpu_metrics->average_dclk0_frequency = metrics->AverageDclk0Frequency;
--	gpu_metrics->average_vclk1_frequency = metrics->AverageVclk1Frequency;
--	gpu_metrics->average_dclk1_frequency = metrics->AverageDclk1Frequency;
--
--	gpu_metrics->current_gfxclk = metrics->CurrClock[PPCLK_GFXCLK];
--	gpu_metrics->current_socclk = metrics->CurrClock[PPCLK_SOCCLK];
--	gpu_metrics->current_uclk = metrics->CurrClock[PPCLK_UCLK];
--	gpu_metrics->current_vclk0 = metrics->CurrClock[PPCLK_VCLK_0];
--	gpu_metrics->current_dclk0 = metrics->CurrClock[PPCLK_DCLK_0];
--	gpu_metrics->current_vclk1 = metrics->CurrClock[PPCLK_VCLK_1];
--	gpu_metrics->current_dclk1 = metrics->CurrClock[PPCLK_DCLK_1];
--
--	gpu_metrics->throttle_status = metrics->ThrottlerStatus;
-+		gpu_metrics->average_gfxclk_frequency =
-+			use_metrics_v2 ? metrics_v2->AverageGfxclkFrequencyPreDs : metrics->AverageGfxclkFrequencyPreDs;
-+	gpu_metrics->average_uclk_frequency =
-+		use_metrics_v2 ? metrics_v2->AverageUclkFrequencyPostDs : metrics->AverageUclkFrequencyPostDs;
-+	gpu_metrics->average_vclk0_frequency =
-+		use_metrics_v2 ? metrics_v2->AverageVclk0Frequency : metrics->AverageVclk0Frequency;
-+	gpu_metrics->average_dclk0_frequency =
-+		use_metrics_v2 ? metrics_v2->AverageDclk0Frequency : metrics->AverageDclk0Frequency;
-+	gpu_metrics->average_vclk1_frequency =
-+		use_metrics_v2 ? metrics_v2->AverageVclk1Frequency : metrics->AverageVclk1Frequency;
-+	gpu_metrics->average_dclk1_frequency =
-+		use_metrics_v2 ? metrics_v2->AverageDclk1Frequency : metrics->AverageDclk1Frequency;
-+
-+	gpu_metrics->current_gfxclk =
-+		use_metrics_v2 ? metrics_v2->CurrClock[PPCLK_GFXCLK] : metrics->CurrClock[PPCLK_GFXCLK];
-+	gpu_metrics->current_socclk =
-+		use_metrics_v2 ? metrics_v2->CurrClock[PPCLK_SOCCLK] : metrics->CurrClock[PPCLK_SOCCLK];
-+	gpu_metrics->current_uclk =
-+		use_metrics_v2 ? metrics_v2->CurrClock[PPCLK_UCLK] : metrics->CurrClock[PPCLK_UCLK];
-+	gpu_metrics->current_vclk0 =
-+		use_metrics_v2 ? metrics_v2->CurrClock[PPCLK_VCLK_0] : metrics->CurrClock[PPCLK_VCLK_0];
-+	gpu_metrics->current_dclk0 =
-+		use_metrics_v2 ? metrics_v2->CurrClock[PPCLK_DCLK_0] : metrics->CurrClock[PPCLK_DCLK_0];
-+	gpu_metrics->current_vclk1 =
-+		use_metrics_v2 ? metrics_v2->CurrClock[PPCLK_VCLK_1] : metrics->CurrClock[PPCLK_VCLK_1];
-+	gpu_metrics->current_dclk1 =
-+		use_metrics_v2 ? metrics_v2->CurrClock[PPCLK_DCLK_1] : metrics->CurrClock[PPCLK_DCLK_1];
-+
-+	gpu_metrics->throttle_status = sienna_cichlid_get_throttler_status_locked(smu);
- 	gpu_metrics->indep_throttle_status =
--			smu_cmn_get_indep_throttler_status(metrics->ThrottlerStatus,
-+			smu_cmn_get_indep_throttler_status(gpu_metrics->throttle_status,
- 							   sienna_cichlid_throttler_map);
- 
--	gpu_metrics->current_fan_speed = metrics->CurrFanSpeed;
-+	gpu_metrics->current_fan_speed = use_metrics_v2 ? metrics_v2->CurrFanSpeed : metrics->CurrFanSpeed;
- 
--	ret = smu_cmn_get_smc_version(smu, NULL, &smu_version);
--	if (ret)
--		return ret;
--
--	if (((adev->asic_type == CHIP_SIENNA_CICHLID) && smu_version > 0x003A1E00) ||
--	      ((adev->asic_type == CHIP_NAVY_FLOUNDER) && smu_version > 0x00410400)) {
--		gpu_metrics->pcie_link_width = metrics->PcieWidth;
--		gpu_metrics->pcie_link_speed = link_speed[metrics->PcieRate];
-+	if (((adev->asic_type == CHIP_SIENNA_CICHLID) && smu->smc_fw_version > 0x003A1E00) ||
-+	      ((adev->asic_type == CHIP_NAVY_FLOUNDER) && smu->smc_fw_version > 0x00410400)) {
-+		gpu_metrics->pcie_link_width = use_metrics_v2 ? metrics_v2->PcieWidth : metrics->PcieWidth;
-+		gpu_metrics->pcie_link_speed = link_speed[use_metrics_v2 ? metrics_v2->PcieRate : metrics->PcieRate];
- 	} else {
- 		gpu_metrics->pcie_link_width =
- 				smu_v11_0_get_current_pcie_link_width(smu);
-@@ -3633,6 +3705,8 @@ static ssize_t sienna_cichlid_get_gpu_metrics(struct smu_context *smu,
- 				smu_v11_0_get_current_pcie_link_speed(smu);
- 	}
- 
-+	mutex_unlock(&smu->metrics_lock);
-+
- 	gpu_metrics->system_clock_counter = ktime_get_boottime_ns();
- 
- 	*table = (void *)gpu_metrics;
--- 
-2.29.0
+On Mon, 5 Jul 2021 17:49:42 +0200
+Werner Sembach <wse@tuxedocomputers.com> wrote:
+
+> Am 01.07.21 um 15:24 schrieb Pekka Paalanen:
+> > On Thu, 1 Jul 2021 14:50:13 +0200
+> > Werner Sembach <wse@tuxedocomputers.com> wrote:
+> > =20
+> >> Am 01.07.21 um 10:07 schrieb Pekka Paalanen:
+> >> =20
+> >>> On Wed, 30 Jun 2021 11:20:18 +0200
+> >>> Werner Sembach <wse@tuxedocomputers.com> wrote:
+> >>>   =20
+> >>>> Am 30.06.21 um 10:41 schrieb Pekka Paalanen:
+> >>>>   =20
+> >>>>> On Tue, 29 Jun 2021 13:39:18 +0200
+> >>>>> Werner Sembach <wse@tuxedocomputers.com> wrote:
+> >>>>>     =20
+> >>>>>> Am 29.06.21 um 13:17 schrieb Pekka Paalanen:     =20
+> >>>>>>> On Tue, 29 Jun 2021 08:12:54 +0000
+> >>>>>>> Simon Ser <contact@emersion.fr> wrote:
+> >>>>>>>        =20
+> >>>>>>>> On Tuesday, June 22nd, 2021 at 09:15, Pekka Paalanen <ppaalanen@=
+gmail.com> wrote:
+> >>>>>>>>        =20
+> >>>>>>>>> yes, I think this makes sense, even if it is a property that on=
+e can't
+> >>>>>>>>> tell for sure what it does before hand.
+> >>>>>>>>>
+> >>>>>>>>> Using a pair of properties, preference and active, to ask for s=
+omething
+> >>>>>>>>> and then check what actually worked is good for reducing the
+> >>>>>>>>> combinatorial explosion caused by needing to "atomic TEST_ONLY =
+commit"
+> >>>>>>>>> test different KMS configurations. Userspace has a better chanc=
+e of
+> >>>>>>>>> finding a configuration that is possible.
+> >>>>>>>>>
+> >>>>>>>>> OTOH, this has the problem than in UI one cannot tell the user =
+in
+> >>>>>>>>> advance which options are truly possible. Given that KMS proper=
+ties are
+> >>>>>>>>> rarely completely independent, and in this case known to depend=
+ on
+> >>>>>>>>> several other KMS properties, I think it is good enough to know=
+ after
+> >>>>>>>>> the fact.
+> >>>>>>>>>
+> >>>>>>>>> If a driver does not use what userspace prefers, there is no wa=
+y to
+> >>>>>>>>> understand why, or what else to change to make it happen. That =
+problem
+> >>>>>>>>> exists anyway, because TEST_ONLY commits do not give useful fee=
+dback
+> >>>>>>>>> but only a yes/no.     =20
+> >>>>>>>> By submitting incremental atomic reqs with TEST_ONLY (i.e. only =
+changing one
+> >>>>>>>> property at a time), user-space can discover which property make=
+s the atomic
+> >>>>>>>> commit fail.     =20
+> >>>>>>> That works if the properties are independent of each other. Color
+> >>>>>>> range, color format, bpc and more may all be interconnected,
+> >>>>>>> allowing only certain combinations to work.
+> >>>>>>>
+> >>>>>>> If all these properties have "auto" setting too, then it would be
+> >>>>>>> possible to probe each property individually, but that still does=
+ not
+> >>>>>>> tell which combinations are valid.
+> >>>>>>>
+> >>>>>>> If you probe towards a certain configuration by setting the prope=
+rties
+> >>>>>>> one by one, then depending on the order you pick the properties, =
+you
+> >>>>>>> may come to a different conclusion on which property breaks the
+> >>>>>>> configuration.     =20
+> >>>>>> My mind crossed another point that must be considered: When plugin=
+ in
+> >>>>>> a Monitor a list of possible Resolutions+Framerate combinations is
+> >>>>>> created for xrandr and other userspace (I guess by atomic checks? =
+but
+> >>>>>> I don't know).     =20
+> >>>>> Hi,
+> >>>>>
+> >>>>> I would not think so, but I hope to be corrected if I'm wrong.
+> >>>>>
+> >>>>> My belief is that the driver collects a list of modes from EDID, so=
+me
+> >>>>> standard modes, and maybe some other hardcoded modes, and then
+> >>>>> validates each entry against all the known limitations like vertical
+> >>>>> and horizontal frequency limits, discarding modes that do not fit.
+> >>>>>
+> >>>>> Not all limitations are known during that phase, which is why KMS
+> >>>>> property "link-status" exists. When userspace actually programs a m=
+ode
+> >>>>> (not a TEST_ONLY commit), the link training may fail. The kernel pr=
+unes
+> >>>>> the mode from the list and sets the link status property to signal
+> >>>>> failure, and sends a hotplug uevent. Userspace needs to re-check the
+> >>>>> mode list and try again.
+> >>>>>
+> >>>>> That is a generic escape hatch for when TEST_ONLY commit succeeds, =
+but
+> >>>>> in reality the hardware cannot do it, you just cannot know until you
+> >>>>> actually try for real. It causes end user visible flicker if it hap=
+pens
+> >>>>> on an already running connector, but since it usually happens when
+> >>>>> turning a connector on to begin with, there is no flicker to be see=
+n,
+> >>>>> just a small delay in finding a mode that works.
+> >>>>>     =20
+> >>>>>> During this drm
+> >>>>>> properties are already considered, which is no problem atm because=
+ as
+> >>>>>> far as i can tell there is currently no drm property that would ma=
+ke
+> >>>>>> a certain Resolutions+Framerate combination unreachable that would=
+ be
+> >>>>>> possible with everything on default.     =20
+> >>>>> I would not expect KMS properties to be considered at all. It would
+> >>>>> reject modes that are actually possible if the some KMS properties =
+were
+> >>>>> changed. So at least going forward, current KMS property values can=
+not
+> >>>>> factor in.     =20
+> >>>> At least the debugfs variable "force_yuv420_output" did change the=20
+> >>>> available modes here:=20
+> >>>> https://elixir.bootlin.com/linux/v5.13/source/drivers/gpu/drm/amd/di=
+splay/amdgpu_dm/amdgpu_dm.c#L5165=20
+> >>>> before my patch=20
+> >>>> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/c=
+ommit/?id=3D68eb3ae3c63708f823aeeb63bb15197c727bd9bf   =20
+> >>> Hi,
+> >>>
+> >>> debugfs is not proper UAPI, so we can just ignore it. Display servers
+> >>> cannot be expected to poke in debugfs. Debugfs is not even supposed to
+> >>> exist in production systems, but I'm sure people use it for hacking
+> >>> stuff. But that's all it is for: developer testing and hacking.   =20
+> >> e.g. Ubuntu has it active by default, but only read (and writable) by =
+root. =20
+> > Hi,
+> >
+> > that's normal, yes. Root can do damage anyway, and it's useful for
+> > debugging. KMS clients OTOH often do not run as root.
+> > =20
+> >>>   =20
+> >>>> Forcing a color format via a DRM property in this function would=20
+> >>>> reintroduce the problem.   =20
+> >>> The property would need to be defined differently because its presence
+> >>> could otherwise break existing userspace. Well, I suppose it could
+> >>> break existing userspace no matter what, so we would need the generic
+> >>> "reset to sane defaults" mechanism first IMO.
+> >>>
+> >>> DRM has client caps for exposing video modes that old userspace might
+> >>> not expect, to avoid breaking old userspace. Care needs to be taken
+> >>> with all new UAPI, because if a kernel upgrade makes something wrong,
+> >>> it's the kernel's fault no matter what userspace is doing, in princip=
+le.   =20
+> >> Can you give me a link describing how I define this caps? =20
+> > I don't have any, but you can find all the existing ones by grepping
+> > for DRM_CLIENT_CAP_.
+> >
+> > I'm not saying that we need it, but mentioning them as a possible
+> > workaround if userspace breakage seems imminent or is proven.
+> > =20
+> >>> Debugfs has no problem breaking userspace AFAIU, since it's not proper
+> >>> UAPI.
+> >>>   =20
+> >>>> And I think i915 driver works similar in this regard.
+> >>>>   =20
+> >>>>>     =20
+> >>>>>> However for example forcing YCbCr420 encoding would limit the
+> >>>>>> available resolutions (my screen for example only supports YCbCr420
+> >>>>>> on 4k@60 and @50Hz and on no other resolution or frequency (native=
+ is
+> >>>>>> 2560x1440@144Hz).
+> >>>>>>
+> >>>>>> So would a "force color format" that does not get resetted on
+> >>>>>> repluging/reenabling a monitor break the output, for example, of an
+> >>>>>> not updated xrandr, unaware of this new property?     =20
+> >>>>> Yes, not because the mode list would be missing the mode, but becau=
+se
+> >>>>> actually setting the mode would fail.     =20
+> >>>> Well, like described above, I think the mode would actually be missi=
+ng,=20
+> >>>> which is also an unexpected behavior from a user perspective.   =20
+> >>> I think that is not how the property should work.
+> >>>
+> >>> If KMS properties would affect the list of modes, then userspace would
+> >>> need to set the properties for real (TEST_ONLY cannot change anything)
+> >>> and re-fetch the mode lists (maybe there is a hotplug event, maybe
+> >>> not). That workflow just doesn't work.   =20
+> >> The properties are set before the list is created in the first place.
+> >> Because, in my example, the properties get set before the monitor is
+> >> plugged in and the list can only be created as soon as the monitor is
+> >> plugged in. =20
+> > That's just an accident, it's not what I mean.
+> >
+> > What I mean is, we cannot have the KMS properties affect the list of
+> > modes, because then userspace that want to use specific values on those
+> > properties would have to program those properties first, and then get
+> > the list of modes. KMS UAPI does not work that way AFAIK.
+> >
+> > If the initial mode list is created on hotplug like you say, then the
+> > initial list could already be missing some modes that would be valid if
+> > some KMS properties had different values. =20
+>=20
+> Depends if the mode list is created by TEST_ONLY:
+
+Hi,
+
+I'm pretty sure it's not created by any kind of atomic test probing,
+exactly because some properties might affect the result. Also because
+of legacy: the mode lists predate atomic by far. It just doesn't make
+sense to prune the mode list based on current arbitrary property values.
+
+The function drm_helper_probe_single_connector_modes() looks relevant
+to me. It has a big comment that seems to point towards more things to
+look at.
+
+
+Thanks,
+pq
+
+> - The force properties should return false on TEST_ONLY
+>=20
+> - The force properties should not prevent the mode from showing up in the=
+ list
+>=20
+> If the list is created by TEST_ONLY both things can't be fulfilled at the=
+ same time obviously.
+>=20
+> I hope some can give more insights or has an idea how the properties coul=
+d work best.
+>=20
+> > =20
+> >>> A very interesting question is when should link-status failure not dr=
+op
+> >>> the current mode from the mode list, if other KMS properties affect t=
+he
+> >>> bandwidth etc. requirements of the mode. That mechanism is engineered
+> >>> for old userspace that doesn't actually handle link-status but does
+> >>> handle hotplug, so the hotplug triggers re-fetching the mode list and
+> >>> userspace maybe trying again with a better luck since the offending
+> >>> mode is gone. How to keep that working when introducing KMS properties
+> >>> forcing the cable format, I don't know.
+> >>>
+> >>> As long as the other affecting KMS properties are all "auto", the
+> >>> driver will probably exhaust all possibilities to make the mode work
+> >>> before signalling link-status failure and pruning the mode.
+> >>> Theoretically, as I have no idea what drivers actually do.   =20
+> >> Isn't that exactly how the "preferred color format" property works in
+> >> my patchset now? =20
+> > There was an argument that "preferred" with no guarantees is not
+> > useful enough. So I'm considering the force property instead.
+> > The problem is, "auto" is not the only possible value.
+> >
+> > When the value is not "auto", should link failure drop the mode or not?
+> > Userspace might change the value back to "auto" next time. If you
+> > dropped the mode, it would be gone. If you didn't drop the mode,
+> > userspace might be stuck picking the same non-working mode again and
+> > again if it doesn't know about the force mode property.
+> >
+> > You could argue that changing the value back to "auto" needs to reset
+> > the mode list, but that only gets us back to the "need to set
+> > properties before getting mode list".
+> >
+> > Maybe there needs to be an assumption that if "force color format" is
+> > not "auto", then link failure does not drop modes and userspace knows
+> > to handle this. Messy.
+> >
+> > I'm afraid I just don't know to give any clear answer. It's also
+> > possible that, as I'm not a kernel dev, I have some false assumptions
+> > here.
+> >
+> >
+> > Thanks,
+> > pq
+> > _______________________________________________
+> > amd-gfx mailing list
+> > amd-gfx@lists.freedesktop.org
+> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx =20
+
+
+--Sig_/z2Dax/eoTBxuhffMJDUbe+M
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmDkAbYACgkQI1/ltBGq
+qqcPQw/9HbDu7ifTsttDDq9v9WlV542lloLz89NaONco2iQ/EntkKQAVGOJ3wc9q
+63lQRmektjAlLfWc6Wdq0JLVrxfgEKezXK+3HGWL7PMH2QxClzBVNwmYR/9cJnUi
+gh+4R55sp6sKS476ifc+Qha4lfsOmb0UUY8Q3VKQFavCpLauiw9d5M+rVGZvviSP
+ym0sitWiTw7N8opt6ybAaEjgDJBWCmBIf/0i2lTBiN+jWsPoNO8P1PuGh+MGQ+c6
+rAxPWlQCD7FJspz78tOifVCWzyAibZbt+QzRuEfNIuLhBGvAyajBlD5ssx4pVPWK
+yWbsw9Nn1MVfyNoAUUa3MeolFxdGSlZYaG5kDMUL9rl63A6ETrRGmnh3B61+dT8p
+CSFE1cYuGdcrB4T9hc7x69bGU/AWflpknfVYD/xuRjoCr9QTDFzbzf020nA3oy7R
+r3VLWqikz6jtM/YLnKhcJN5Hmgi31unx8OukC/j75kqQWSECKTYxeInk21TNByAb
+oqOx3gPMK/1JdBePlxNhODCmKqwWtWQHnx5rKf2PW3LJF34Nvh8sinq9PnWPc/O1
+M69sjUq4SI0WpOelJ5daT2Of0/uHywym45+i3T2urzehr6DMpF4HG+tt4eQJRWLD
+X/Nx+k2wDbUwoeSDX1T/tyceWJcoVz4Zh7g1ICKv/RVBZk09prw=
+=NVpM
+-----END PGP SIGNATURE-----
+
+--Sig_/z2Dax/eoTBxuhffMJDUbe+M--
+
+--===============0253560179==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0253560179==--
