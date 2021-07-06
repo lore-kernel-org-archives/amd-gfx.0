@@ -7,41 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E936BC11F6F
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 11:25:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 290FAC07E96
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 11:25:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B29B961C6C
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 11:25:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B29B961C6C
+	by mail.kernel.org (Postfix) with ESMTPS id F1E9F61EB7
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 11:25:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F1E9F61EB7
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6904B6E42E;
-	Tue,  6 Jul 2021 11:25:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A709D6E435;
+	Tue,  6 Jul 2021 11:25:47 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F1896E42D;
- Tue,  6 Jul 2021 11:25:12 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 8671461CA3;
- Tue,  6 Jul 2021 11:25:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF84A6E423;
+ Tue,  6 Jul 2021 11:25:46 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id CDC3E61EC4;
+ Tue,  6 Jul 2021 11:25:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1625570712;
- bh=N0yqi/fE7VKWJ21/uelkUPX4mEQZlqAA9NU03kqqLWU=;
+ s=k20201202; t=1625570746;
+ bh=sq4FR28qT3ecGDxkRRfT2wgAZvuM7kKOwPjlT6KPaUo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=oyY/254Wr5ro0jWp1HxtIxCbAROu9P8pjTFXzD5jUrBcHj41HoAl/UKWoO6mjbj5W
- 4f/v9ZhuyWrDTJ0zUWR1Aey0fojB8a31vIgh8WiTXxHPMoW30/IwD92HYjuQs6EMAu
- IFL2R1pFWcZdQUW83lyTlYOlFHG8pTcanoJvVFY1sYUZhMk6+7uKaw9v+KHz41lg4b
- JHOKQOoa7bnn4jNROl7kXrtwNA3KeNFmGCKtx/mIqnLmRwjCpiLtzi6ufB0eQBrngo
- 6Me3EslIcOVSy7480tEhgCTUSNYr1g99E1dl79euy41MI2/jw9O7zZbuoPDQUOJrbZ
- yIPHmtZ0uzCUg==
+ b=VHovagydwhOT9CWWKG5eeIPi85I6ud6/K4JAImgvpHWcNNnW5dn4pJi+FXA1+pAOZ
+ SIFLc4QQIDcuAj3TIzu/RhjWlRfAPWal55S0oCELk85YLfUzmzB6AH2lchlTwjQ9aB
+ hY5YkSY0wXnC8bgkFGUQgDjsLemdNnjh+OdnTsNOo9nv6zofpBKw9As4u0V8JA8UuK
+ IBY75lgXJmUXAF01HmqejN3CyvTYvygLIiz/PrjJQw/v4sovRCVbPwHrxdo0LCHVZ0
+ l4NpR+qo+XsnLKj5PxRH63s4/ic/LEPiiTiRe+04JcZjVm5IJR1juDSM7uYSlxxR1P
+ SBWGdu5W0Qlcg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 07/74] drm/amd/display: fix use_max_lb flag for
- 420 pixel formats
-Date: Tue,  6 Jul 2021 07:23:55 -0400
-Message-Id: <20210706112502.2064236-7-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 35/74] drm/amd/display: Update scaling settings on
+ modeset
+Date: Tue,  6 Jul 2021 07:24:23 -0400
+Message-Id: <20210706112502.2064236-35-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210706112502.2064236-1-sashal@kernel.org>
 References: <20210706112502.2064236-1-sashal@kernel.org>
@@ -60,53 +60,51 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Stylon Wang <stylon.wang@amd.com>, Sasha Levin <sashal@kernel.org>,
- Aric Cyr <Aric.Cyr@amd.com>, amd-gfx@lists.freedesktop.org,
- Daniel Wheeler <daniel.wheeler@amd.com>,
- Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
+ Roman Li <roman.li@amd.com>, amd-gfx@lists.freedesktop.org,
+ Daniel Wheeler <daniel.wheeler@amd.com>, dri-devel@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
+From: Roman Li <roman.li@amd.com>
 
-[ Upstream commit 8809a7a4afe90ad9ffb42f72154d27e7c47551ae ]
+[ Upstream commit c521fc316d12fb9ea7b7680e301d673bceda922e ]
 
-Right now the flag simply selects memory config 0 when flag is true
-however 420 modes benefit more from memory config 3.
+[Why]
+We update scaling settings when scaling mode has been changed.
+However when changing mode from native resolution the scaling mode previously
+set gets ignored.
 
-Signed-off-by: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
-Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
+[How]
+Perform scaling settings update on modeset.
+
+Signed-off-by: Roman Li <roman.li@amd.com>
+Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
 Acked-by: Stylon Wang <stylon.wang@amd.com>
 Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp_dscl.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp_dscl.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp_dscl.c
-index d67e0abeee93..11a89d873384 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp_dscl.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp_dscl.c
-@@ -484,10 +484,13 @@ static enum lb_memory_config dpp1_dscl_find_lb_memory_config(struct dcn10_dpp *d
- 	int vtaps_c = scl_data->taps.v_taps_c;
- 	int ceil_vratio = dc_fixpt_ceil(scl_data->ratios.vert);
- 	int ceil_vratio_c = dc_fixpt_ceil(scl_data->ratios.vert_c);
--	enum lb_memory_config mem_cfg = LB_MEMORY_CONFIG_0;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 6e31e899192c..fca466d4806b 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -6832,7 +6832,8 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
+ 	BUG_ON(dm_new_crtc_state->stream == NULL);
  
--	if (dpp->base.ctx->dc->debug.use_max_lb)
--		return mem_cfg;
-+	if (dpp->base.ctx->dc->debug.use_max_lb) {
-+		if (scl_data->format == PIXEL_FORMAT_420BPP8
-+				|| scl_data->format == PIXEL_FORMAT_420BPP10)
-+			return LB_MEMORY_CONFIG_3;
-+		return LB_MEMORY_CONFIG_0;
-+	}
+ 	/* Scaling or underscan settings */
+-	if (is_scaling_state_different(dm_old_conn_state, dm_new_conn_state))
++	if (is_scaling_state_different(dm_old_conn_state, dm_new_conn_state) ||
++				drm_atomic_crtc_needs_modeset(new_crtc_state))
+ 		update_stream_scaling_settings(
+ 			&new_crtc_state->mode, dm_new_conn_state, dm_new_crtc_state->stream);
  
- 	dpp->base.caps->dscl_calc_lb_num_partitions(
- 			scl_data, LB_MEMORY_CONFIG_1, &num_part_y, &num_part_c);
 -- 
 2.30.2
 
