@@ -2,59 +2,68 @@ Return-Path: <SRS0=iwxs=L6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BF2EEC07E9E
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 13:22:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 59B53C07E96
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 13:46:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5B3C7619D1
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 13:22:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5B3C7619D1
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=igalia.com
+	by mail.kernel.org (Postfix) with ESMTPS id 14DA861C85
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 13:46:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 14DA861C85
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA5916E4B3;
-	Tue,  6 Jul 2021 13:22:40 +0000 (UTC)
-Received: from fanzine.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C36389E14;
- Tue,  6 Jul 2021 10:35:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
- s=20170329; 
- h=MIME-Version:Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID;
- bh=eO0X2dxTENjGPuJ76Tjdry0CigxXgCvGPfL7EUF+NQg=; 
- b=kJoF35Cvfr+nP3bkbhXpFyyKa8F6QWTSgvE3mxi2+ZRjpGZ4QfqFi6pbk2Yc8Np14ETRyHZKESGmIWEzCmFi9/ciI0wQ1FJwJF1V7I7BClhV5hfW1oc3/v7FVDPyEk5pzC9Pmmyf5SgoFxt9BIgZmJySh1c4bGLuNbGN83RztYcnXi3DwgeSeN2h0BiTgxR3//cFNIiWc+JLzQPr9BR5wfMvL+3/HbLFROBVQL/hPYwOtsMqInSiwYGoKWf6paUji+//x1fjGyuyZuwkU9TOIhN6omkgZgKcycbFBEfivzcdGpSUtt7fHXz7w4eBk6ezhm+Opb9ppp4mIMB98hvi0w==;
-Received: from 152.red-88-9-105.dynamicip.rima-tde.net ([88.9.105.152]
- helo=[192.168.2.220]) by fanzine.igalia.com with esmtpsa 
- (Cipher TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim)
- id 1m0iQA-0006Cl-9r; Tue, 06 Jul 2021 12:35:18 +0200
-Message-ID: <e5c5331a680da672aa850604527f2ef8f23a0556.camel@igalia.com>
-Subject: Re: [Mesa-dev] XDC 2021: Registration & Call for Proposals now open!
-From: Samuel Iglesias =?ISO-8859-1?Q?Gons=E1lvez?= <siglesias@igalia.com>
-To: "Szwichtenberg, Radoslaw" <radoslaw.szwichtenberg@intel.com>, 
- "events@lists.x.org"
- <events@lists.x.org>, "xorg-devel@lists.freedesktop.org"
- <xorg-devel@lists.freedesktop.org>, "wayland-devel@lists.freedesktop.org"
- <wayland-devel@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "mesa-dev@lists.freedesktop.org"
- <mesa-dev@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "etnaviv@lists.freedesktop.org"
- <etnaviv@lists.freedesktop.org>, "freedreno@lists.freedesktop.org"
- <freedreno@lists.freedesktop.org>, "nouveau@lists.freedesktop.org"
- <nouveau@lists.freedesktop.org>, "intel-gfx@lists.freedesktop.org"
- <intel-gfx@lists.freedesktop.org>
-Date: Tue, 06 Jul 2021 12:35:08 +0200
-In-Reply-To: <c40f6f761610aa2c8076cac1dda87844af96c7ad.camel@igalia.com>
-References: <790BA4EE-E3F0-40B9-BE18-3646492F1CAE@intel.com>
- <380e8cb0f18c6f4b21c20b382668316b8962159a.camel@igalia.com>
- <0032ceefa7c39bdd03907565ab9762ad6007eb80.camel@igalia.com>
- <c40f6f761610aa2c8076cac1dda87844af96c7ad.camel@igalia.com>
-User-Agent: Evolution 3.40.2 (3.40.2-1.fc34) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3CCD6E49D;
+	Tue,  6 Jul 2021 13:46:05 +0000 (UTC)
+Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
+ [IPv6:2607:f8b0:4864:20::22b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF8206E49A;
+ Tue,  6 Jul 2021 13:46:04 +0000 (UTC)
+Received: by mail-oi1-x22b.google.com with SMTP id h9so24604995oih.4;
+ Tue, 06 Jul 2021 06:46:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=P8uEMl95CcElB/VMdkCpxQdT/gNuuy9S+LwKiPgsqZY=;
+ b=JnNq6A1PzKrmVm04br5T+cm8I9KY4qBZPOkNrk9HUTPLW1TQXae287oX0gIMl2b7Aj
+ j5wgUydF+bW5O7Q3fktCfPQrM0ECZiLgktOTRS5J3yNaQET4mHFVw9+E/CJpJ3n1GuLb
+ pFwHGCkhVD6KMOsgTpUXYxoPcq2TS5uuW5uZO0YwtBvNUFkl9qR2cCHxd1ayML8jGo48
+ 1suYx40m2Rf0rfmLTlPH5BjJKoplC6HETWN+YaD2M5oCVvMdIRoYvltAu1gVnLSTxv6k
+ 4GQaE7IYqIo5B2rqHhACt9LSw9MjCsOc42qikKf4r988dlw+Yb7v89C8bFKoJ42a/tOw
+ uLgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=P8uEMl95CcElB/VMdkCpxQdT/gNuuy9S+LwKiPgsqZY=;
+ b=MyZEU5FUYI9h5QqSTaxLTa+QvzlkV+SdsQUWeiaf6Br3c3ZSwmiwF7A5ftJwVn63JR
+ /ZzK0h++Q/ME6H7qunnMGoqo+9VfhQwzKXYY1XNpQsa3clla21x9q7qXGWJUp5MMvNay
+ iW2Nc2sbvCSVhP2Yv+xhnJN8V3nFsEZ9B+iymRnj1K4OAjWsj+dOys4N2kziYvUCoHmI
+ C+kajZdpuLPYGNxrZfbkSBaHpXFPGbe9Fbd9++q4oA0MIrE2edceibDO2G2Yc0CCITPr
+ 3dO+huElUicnrv7CQCYB/oZZUcz1Zp9FRXUWPQWg+QjUH/eBw1KsrAlVFO5KRKNx+DGL
+ kIRA==
+X-Gm-Message-State: AOAM531kHlMDNTlPn7IjoH7p2yWwiR9pYzB8ughpyn3ENSHxTDGkq93i
+ DS6YNQpq5z7jdFFIVE+TCQCFQJOAOLNTZsMhTB4=
+X-Google-Smtp-Source: ABdhPJwkExmHGJOJByLgza0xDf2376NCdcPCGetUEbvBprZgERi3BWg3OcXrM2D0nNnQMkdKxEFEevgjnQXUmb/8m1o=
+X-Received: by 2002:aca:5843:: with SMTP id m64mr529242oib.130.1625579163840; 
+ Tue, 06 Jul 2021 06:46:03 -0700 (PDT)
 MIME-Version: 1.0
-X-Mailman-Approved-At: Tue, 06 Jul 2021 13:22:39 +0000
+References: <20210705130314.11519-1-ogabbay@kernel.org>
+ <YOQXBWpo3whVjOyh@phenom.ffwll.local>
+ <20210706122110.GA18273@lst.de> <YORLTmyoXDtoM9Ta@phenom.ffwll.local>
+ <CAFCwf114KEH-kO6w+nmbqKKdaGuqy3iOpHJi=5ZWqT3cgDm4Cw@mail.gmail.com>
+ <CAKMK7uHfCbNQJwbXgLC9ibk71kVG7TBK4bfFxzX82ziSgqG9nw@mail.gmail.com>
+In-Reply-To: <CAKMK7uHfCbNQJwbXgLC9ibk71kVG7TBK4bfFxzX82ziSgqG9nw@mail.gmail.com>
+From: Oded Gabbay <oded.gabbay@gmail.com>
+Date: Tue, 6 Jul 2021 16:45:36 +0300
+Message-ID: <CAFCwf12DJbk-CYJeRc3E5RCu+++ghO=9xwRo7vy=8VhH+z3bHA@mail.gmail.com>
+Subject: Re: [Linaro-mm-sig] [PATCH v4 0/2] Add p2p via dmabuf to habanalabs
+To: Daniel Vetter <daniel@ffwll.ch>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,208 +75,144 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "board@foundation.x.org" <board@foundation.x.org>
-Content-Type: multipart/mixed; boundary="===============0944752138=="
+Cc: Gal Pressman <galpress@amazon.com>, sleybo@amazon.com,
+ linux-rdma <linux-rdma@vger.kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Oded Gabbay <ogabbay@kernel.org>,
+ "Linux-Kernel@Vger. Kernel. Org" <linux-kernel@vger.kernel.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Doug Ledford <dledford@redhat.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Alex Deucher <alexander.deucher@amd.com>, Dave Airlie <airlied@gmail.com>,
+ Christoph Hellwig <hch@lst.de>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Leon Romanovsky <leonro@nvidia.com>,
+ Linux Media Mailing List <linux-media@vger.kernel.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Tue, Jul 6, 2021 at 4:17 PM Daniel Vetter <daniel@ffwll.ch> wrote:
+>
+> On Tue, Jul 6, 2021 at 2:46 PM Oded Gabbay <oded.gabbay@gmail.com> wrote:
+> >
+> > On Tue, Jul 6, 2021 at 3:23 PM Daniel Vetter <daniel@ffwll.ch> wrote:
+> > >
+> > > On Tue, Jul 06, 2021 at 02:21:10PM +0200, Christoph Hellwig wrote:
+> > > > On Tue, Jul 06, 2021 at 10:40:37AM +0200, Daniel Vetter wrote:
+> > > > > > Greg, I hope this will be good enough for you to merge this code.
+> > > > >
+> > > > > So we're officially going to use dri-devel for technical details review
+> > > > > and then Greg for merging so we don't have to deal with other merge
+> > > > > criteria dri-devel folks have?
+> > > > >
+> > > > > I don't expect anything less by now, but it does make the original claim
+> > > > > that drivers/misc will not step all over accelerators folks a complete
+> > > > > farce under the totally-not-a-gpu banner.
+> > > > >
+> > > > > This essentially means that for any other accelerator stack that doesn't
+> > > > > fit the dri-devel merge criteria, even if it's acting like a gpu and uses
+> > > > > other gpu driver stuff, you can just send it to Greg and it's good to go.
+> > > > >
+> > > > > There's quite a lot of these floating around actually (and many do have
+> > > > > semi-open runtimes, like habanalabs have now too, just not open enough to
+> > > > > be actually useful). It's going to be absolutely lovely having to explain
+> > > > > to these companies in background chats why habanalabs gets away with their
+> > > > > stack and they don't.
+> > > >
+> > > > FYI, I fully agree with Daniel here.  Habanlabs needs to open up their
+> > > > runtime if they want to push any additional feature in the kernel.
+> > > > The current situation is not sustainable.
+> > Well, that's like, your opinion...
+> >
+> > >
+> > > Before anyone replies: The runtime is open, the compiler is still closed.
+> > > This has become the new default for accel driver submissions, I think
+> > > mostly because all the interesting bits for non-3d accelerators are in the
+> > > accel ISA, and no longer in the runtime. So vendors are fairly happy to
+> > > throw in the runtime as a freebie.
+> > >
+> > > It's still incomplete, and it's still useless if you want to actually hack
+> > > on the driver stack.
+> > > -Daniel
+> > > --
+> > I don't understand what's not sustainable here.
+> >
+> > There is zero code inside the driver that communicates or interacts
+> > with our TPC code (TPC is the Tensor Processing Core).
+> > Even submitting works to the TPC is done via a generic queue
+> > interface. And that queue IP is common between all our engines
+> > (TPC/DMA/NIC). The driver provides all the specs of that queue IP,
+> > because the driver's code is handling that queue. But why is the TPC
+> > compiler code even relevant here ?
+>
+> Can I use the hw how it's intended to be used without it?
+You can use the h/w with the userspace stack we are providing in our
+github repos + website.
+Part of the userspace stack is open sourced, part is closed source.
+And I'm actively working on opening up more stuff as we go along.
 
---===============0944752138==
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-jzTYU/+fjqNUHUXyrwxJ"
+>
+> If the answer is no, then essentially what you're doing with your
+> upstream driver is getting all the benefits of an upstream driver,
+> while upstream gets nothing. We can't use your stack, not as-is. Sure
+> we can use the queue, but we can't actually submit anything
+> interesting. And I'm pretty sure the point of your hw is to do more
+> than submit no-op packets to a queue.
+>
+> This is all "I want my cake and eat it too" approach to upstreaming,
+> and it's totally fine attitude to have, but if you don't see why
+> there's maybe an different side to it then I don't get what you're
+> arguing. Upstream isn't free lunch for nothing.
+>
+> Frankly I'm starting to assume you're arguing this all in bad faith
+> just because habanalabds doesn't want to actually have an open driver
+> stack, so any attack is good, no matter what. Which is also what
+> everyone else does who submits their accel driver to upstream, and
+> which gets us back to the starting point of this sub-thread of me
+> really appreciation how this will improve background discussions going
+> forward for everyone.
+>
+> Like if the requirement for accel drivers truly is that you can submit
+> a dummy command to the queues then I have about 5-10 drivers at least
+> I could merge instantly. For something like the intel gpu driver it
+> would be about 50 lines of code (including all the structure boiler
+> plate the ioctls require)in userspace to submit a dummy queue command.
+> GPU and accel vendors would really love that, because it would allow
+> them to freeload on upstream and do essentially nothing in return.
+>
+> And we'd end up with an unmaintainable disaster of a gpu or well
+> accelerator subsystem because there's nothing you can change or
+> improve because all the really useful bits of the stack are closed.
+> And ofc that's not any companies problem anymore, so ofc you with the
+> habanalabs hat on don't care and call this *extreme*.
+>
+> > btw, you can today see our TPC code at
+> > https://github.com/HabanaAI/Habana_Custom_Kernel
+> > There is a link there to the TPC user guide and link to download the
+> > LLVM compiler.
+>
+> I got stuck clicking links before I found the source for that llvm
+> compiler. Can you give me a direct link to the repo with sourcecode
+> instead please?
+The source code for the LLVM compiler is not available yet. That's one
+of the parts I'm working on getting in the open.
+Having said that, I don't think (and I'm not alone at this) that this
+should be a pre-requirement for upstreaming kernel drivers of any
+type.
+And we had this discussion in the past, I'm sure we are both tired of
+repeating ourselves.
 
-
---=-jzTYU/+fjqNUHUXyrwxJ
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, 2021-07-06 at 09:38 +0200, Samuel Iglesias Gons=C3=A1lvez wrote:
-> Hi!
->=20
-> We have decided to extend the Call for Proposals until September 1st
-> or
-> until we will all the available talk slots, whichever occurs first.
->=20
-> Remember that talks will get accepted by order of submission. If you
-> are thinking on proposing a talk for XDC, do it as soon as possible.
->=20
-
-Due to the overwhelming last minute response, we have filled all the
-pending slots for full and half-slot talks. Thanks a lot!
-
-Therefore, we close the CfP for full and half-slot talks. However, we
-stil welcome proposals for workshops, demos and lightning talks...
-Don't forget to submit yours!
-
-Sam
-
-> Thanks,
->=20
-> Sam
->=20
-> On Sat, 2021-06-26 at 08:35 +0200, Samuel Iglesias Gons=C3=A1lvez wrote:
-> > One week!
-> >=20
-> > Don't forget to submit your proposals!
-> >=20
-> > Sam
-> >=20
-> > On Tue, 2021-06-08 at 12:38 +0200, Samuel Iglesias Gons=C3=A1lvez wrote=
-:
-> > > Kind reminder. Deadline is Sunday, 4 July 2021 :-)
-> > >=20
-> > > Sam
-> > >=20
-> > > On Thu, 2021-05-20 at 10:01 +0000, Szwichtenberg, Radoslaw wrote:
-> > > > Hello!
-> > > > =C2=A0
-> > > > Registration & Call for Proposals are now open for XDC 2021,
-> > > > which
-> > > > will
-> > > > take place on September 15-17, 2021. This year we will repeat
-> > > > as
-> > > > virtual event.
-> > > > =C2=A0
-> > > > https://indico.freedesktop.org/event/1/
-> > > > =C2=A0
-> > > > As usual, the conference is free of charge and open to the
-> > > > general
-> > > > public. If you plan on attending, please make sure to register
-> > > > as
-> > > > early
-> > > > as possible!
-> > > > =C2=A0
-> > > > In order to register as attendee, you will therefore need to
-> > > > register
-> > > > via the XDC website. As XDC moved to a new Indico
-> > > > infrastructure,
-> > > > if
-> > > > you previously registered on the XDC website, you need to
-> > > > create
-> > > > a
-> > > > new
-> > > > account again.
-> > > > =C2=A0
-> > > > https://indico.freedesktop.org/event/1/registrations/1/
-> > > > =C2=A0
-> > > > In addition to registration, the CfP is now open for talks,
-> > > > workshops
-> > > > and demos at XDC 2021. While any serious proposal will be
-> > > > gratefully
-> > > > considered, topics of interest to X.Org and freedesktop.org
-> > > > developers
-> > > > are encouraged. The program focus is on new development,
-> > > > ongoing
-> > > > challenges and anything else that will spark discussions among
-> > > > attendees in the hallway track.
-> > > > =C2=A0
-> > > > We are open to talks across all layers of the graphics stack,
-> > > > from
-> > > > the
-> > > > kernel to desktop environments / graphical applications and
-> > > > about
-> > > > how
-> > > > to make things better for the developers who build them. Head
-> > > > to
-> > > > the
-> > > > CfP page to learn more:=C2=A0
-> > > > =C2=A0
-> > > > https://indico.freedesktop.org/event/1/abstracts/
-> > > > =C2=A0
-> > > > The deadline for submissions is Sunday, 4 July 2021.
-> > > > =C2=A0
-> > > > Last year we modified our Reimbursement Policy to accept
-> > > > speaker
-> > > > expenses for X.Org virtual events like XDC 2021. Check it out
-> > > > here:
-> > > > =C2=A0
-> > > > https://www.x.org/wiki/XorgFoundation/Policies/Reimbursement/
-> > > > =C2=A0
-> > > > If you have any questions, please send me an email to
-> > > > radoslaw.szwichtenberg@intel.com,=C2=A0=C2=A0adding on CC the X.org=
- board
-> > > > (board
-> > > > at foundation.x.org).
-> > > > =C2=A0
-> > > > And don't forget, you can follow us on Twitter for all the
-> > > > latest
-> > > > updates and to stay connected:
-> > > > =C2=A0
-> > > > =C2=A0
-> > > > https://twitter.com/XOrgDevConf
-> > > > =C2=A0
-> > > > Best,
-> > > > =C2=A0
-> > > > Radek
-> > > > =C2=A0
-> > > > P.S: a DNS redirection (xdc2021.x.org) is work in progress.
-> > > > Please
-> > > > use
-> > > > the mentioned links for the moment.
-> > > > =C2=A0
-> > > > =C2=A0
-> > > > Rados=C5=82aw Szwichtenberg
-> > > > -------------------------------------------------
-> > > > Intel Technology Poland sp. z o.o.
-> > > > ul. Slowackiego 173, 80-298 Gdansk
-> > > > KRS 101882 - NIP 957-07-52-316
-> > > > =C2=A0
-> > > > _______________________________________________
-> > > > mesa-dev mailing list
-> > > > mesa-dev@lists.freedesktop.org
-> > > > https://lists.freedesktop.org/mailman/listinfo/mesa-dev
-> > >=20
-> > > _______________________________________________
-> > > mesa-dev mailing list
-> > > mesa-dev@lists.freedesktop.org
-> > > https://lists.freedesktop.org/mailman/listinfo/mesa-dev
-> >=20
-> > _______________________________________________
-> > mesa-dev mailing list
-> > mesa-dev@lists.freedesktop.org
-> > https://lists.freedesktop.org/mailman/listinfo/mesa-dev
->=20
-> _______________________________________________
-> mesa-dev mailing list
-> mesa-dev@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/mesa-dev
-
-
---=-jzTYU/+fjqNUHUXyrwxJ
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEQP+ZAvaXWkfuKXiEf/S6MvF9w0MFAmDkMdwACgkQf/S6MvF9
-w0PDng/+JI0yNYCicuRjVkocfF5HSgCeuTIqm7OZoUDBk71JFfleOOP/sSLNzd7k
-AFoS5j4jeTQ4Tw3DZZ16fNMMMid+GzK7bJm/ouY9Uo3L8vk41ua0VjG43rffKYxm
-xuoi9OTNlK0e02IoNcOhetypYRFnOsO07m5dJBg0JvOj3Aj7K9ri9CpFzGdN+VrZ
-RIYuar3exYS3buWBNbntINhrp4F3x+1qq+WsntUgGbXH0fMbOk43xsuA1C+6YS7f
-y4DsON9yCGBGTNvS6FBzjPgkjQJJxjqYxk2mke092Ak6ud0WPX/pBQ/bDWVWrG/r
-Wr0DZXBLwkMqvHWrdR7/vCVqElWpDf0zkTiIIeh1qi/iqdi+sxX1VhrA+PNgbOrZ
-fFLVQ50puX+y8OdqM9gvwsK4LB4CbOPUw0ZLK/Ke+dNbhrMPojx15bN3Oyz+ZGUD
-tJPeBkIS6Aq6KCpiL6QkatjpeoXyRotWnYKShp3IVynNe/l0b3K62JP/fV6iOcWr
-wqaGLZGKczCTaiuQD/Mx3g4s4tc7LdfmAt58z9NyibYDp2k8dJzr0i7BwCFcwPyG
-6jbItBcc+53TtjxcT21aadAncnVD/50P572NmDagyYpdCKk11Yd3PE6HxdJsf8YX
-U/jujZFRO9eW8kdmYtiy1j2EKEEfrNEOv447e+6iOo1rs7lX47k=
-=+Ggb
------END PGP SIGNATURE-----
-
---=-jzTYU/+fjqNUHUXyrwxJ--
-
-
---===============0944752138==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+>
+> Thanks, Daniel
+> --
+> Daniel Vetter
+> Software Engineer, Intel Corporation
+> http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0944752138==--
-
