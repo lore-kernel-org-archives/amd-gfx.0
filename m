@@ -6,48 +6,47 @@ X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
 	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7EF79C11F67
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 17:36:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1D0AAC07E96
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 18:03:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4B7BE61C3F
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 17:36:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4B7BE61C3F
+	by mail.kernel.org (Postfix) with ESMTPS id DA25C61C63
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 18:03:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DA25C61C63
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45EC16E048;
-	Tue,  6 Jul 2021 17:36:09 +0000 (UTC)
-Received: from mail-ot1-x32a.google.com (mail-ot1-x32a.google.com
- [IPv6:2607:f8b0:4864:20::32a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4B986E048
- for <amd-gfx@lists.freedesktop.org>; Tue,  6 Jul 2021 17:36:07 +0000 (UTC)
-Received: by mail-ot1-x32a.google.com with SMTP id
- h24-20020a9d64180000b029036edcf8f9a6so22372964otl.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 06 Jul 2021 10:36:07 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B8D36E081;
+	Tue,  6 Jul 2021 18:03:17 +0000 (UTC)
+Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com
+ [IPv6:2607:f8b0:4864:20::236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EB326E081
+ for <amd-gfx@lists.freedesktop.org>; Tue,  6 Jul 2021 18:03:15 +0000 (UTC)
+Received: by mail-oi1-x236.google.com with SMTP id h9so232403oih.4
+ for <amd-gfx@lists.freedesktop.org>; Tue, 06 Jul 2021 11:03:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=UAvpvptXG6sMkQz+gf0B/1SxifjIkdjKCH8sm6hLVss=;
- b=VykMUkCUg7WcIEKsR1v4RBrI2NiKhIwMgV+BRVA0h1SvtWJEdi9m1qCCccVZziliFj
- qBlBMH+TnRCrISUoXKFEYq86K2054AAs5F5INJ5GSJLHKD1Qf4iQDfLSgfcflxvogC6g
- kX++oMx5RF5cu+sGrdeqLrJSxn9RpJvqmO3q4=
+ :cc; bh=dktWyNUxLR/AUElofB65u1HHbgT9UFWQxsLDt5+3GUI=;
+ b=ZIIokBg2jBdWhCL7gcGwLmSOV/agdcYoB8F8XpjDEzGo/EAdbxyLxT2KnOuf5bltwl
+ pm+fOZsYW3HUoIFT3TIvRq2nRbvDgFJ8xTd28wsNILl09Ma0QamzwXibQlK77/l+SPuM
+ Yen/KPmVu+16q5wchrC9LcRS3jJH6JO4ussxE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=UAvpvptXG6sMkQz+gf0B/1SxifjIkdjKCH8sm6hLVss=;
- b=tBsrmY9s9REXfX5I2/r1u88K9txRmGtp6HifIYIR3V6FeqUeAALRsT88HpB7VpB09j
- V/z4fP4Je42O6AXAgds3PS6f0ckf+2QonRZ48aq1aj960gzfHf5SBQElKI5zwb40V6bi
- 41wft1YxXV4xscANGnrRMrobfc5f9qIspIL3Uv/vfUgGFW6flgOLW4U6FtYVJCMVBavR
- BGx6u8yXrf672kFPfMavFkjKMeXWvdtnPXtRUvx5PSZ14gq+Ivrfy8fvAPlMvChcZzg5
- Oj1uIgMUqKqnRTc1T5vQfaemgAsjth3dcvL2mfONp+BJFnhFHHa9HOLWBXwPEBhaNHI7
- +lgQ==
-X-Gm-Message-State: AOAM530NPnkgBfMcVdlzS6fwY7XGzxYieAdYVXVZMsF3XtCZfOQl3RFm
- 68wngwGsAuJvgpRmpm87R0/alzVov2d7O8fFndUF6g==
-X-Google-Smtp-Source: ABdhPJz36ON+djVou1Lu0bUXqr7/f1L1bt2WJsjaaZuWE3eVLCbRks9b/YMgcJJgp0E9upbbebjDolDn3fGr+cA7dq8=
-X-Received: by 2002:a9d:27a4:: with SMTP id c33mr16150759otb.281.1625592967188; 
- Tue, 06 Jul 2021 10:36:07 -0700 (PDT)
+ bh=dktWyNUxLR/AUElofB65u1HHbgT9UFWQxsLDt5+3GUI=;
+ b=A0Ut7enoHRV3pLQ+NPDi0jE17oSpsGFEyu6mNUQlpz0AAeG3Of8BUugSgnDzpfM7bW
+ +u5Qoaj++6ccxmgLM3TbEIZLBEBqJ3m5kbhcoCdl4+8hJEuxaHhJMGNL2wLKqiUxJ0fz
+ ew42ah9RJDk2u6jisVv5mVL0l5yLkyd8jwcUg6u/pd+PlgNL1FV2hUBlQpq1EHuLLshz
+ DXVp6aoDrav3OFNHJl1ez/FrO0D9SldkhnBb39Y6WfT1EUAe3ssdL8if/O5DL7mXZjXM
+ eY3zvlq1k7zrL3JyfivXylhOvUDNsMqsUteLTFUJFg9TVNk1XX3C9pLrvEfuFGdx4VQ5
+ MbUg==
+X-Gm-Message-State: AOAM530VcyJZfaEGz52tm3jJ6Hlv4hD3pN85QGIQAf3st8couIvAtyIc
+ /qalo5VqXpBUd9VGh+ITWwosWRYvrWJdHNgcclN66A==
+X-Google-Smtp-Source: ABdhPJyoboKypUddRjaA6y8obByeJeHKz79Uj26M4/V8g6nwCtOZ07vtesXFU4/AmECSu0n8jYcSgN9fkXKjIXlafdU=
+X-Received: by 2002:aca:eb43:: with SMTP id j64mr1370482oih.101.1625594594921; 
+ Tue, 06 Jul 2021 11:03:14 -0700 (PDT)
 MIME-Version: 1.0
 References: <20210705130314.11519-1-ogabbay@kernel.org>
  <YOQXBWpo3whVjOyh@phenom.ffwll.local>
@@ -58,10 +57,11 @@ References: <20210705130314.11519-1-ogabbay@kernel.org>
  <20210706152542.GP4604@ziepe.ca>
  <CAKMK7uH7Ar6+uAOU_Sj-mf89V9WCru+66CV5bO9h-WAAv7Mgdg@mail.gmail.com>
  <20210706162953.GQ4604@ziepe.ca>
-In-Reply-To: <20210706162953.GQ4604@ziepe.ca>
+ <CAKMK7uGXUgjyjch57J3UnC7SA3-4g87Ft7tLjj9fFkgyKkKdrg@mail.gmail.com>
+In-Reply-To: <CAKMK7uGXUgjyjch57J3UnC7SA3-4g87Ft7tLjj9fFkgyKkKdrg@mail.gmail.com>
 From: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Tue, 6 Jul 2021 19:35:55 +0200
-Message-ID: <CAKMK7uGXUgjyjch57J3UnC7SA3-4g87Ft7tLjj9fFkgyKkKdrg@mail.gmail.com>
+Date: Tue, 6 Jul 2021 20:03:03 +0200
+Message-ID: <CAKMK7uHA7otRWTcMBDG4CNxNCs9GriOdGvWad4Fx-Y0teJuLxA@mail.gmail.com>
 Subject: Re: [PATCH v4 0/2] Add p2p via dmabuf to habanalabs
 To: Jason Gunthorpe <jgg@ziepe.ca>
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -94,103 +94,123 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jul 6, 2021 at 6:29 PM Jason Gunthorpe <jgg@ziepe.ca> wrote:
+I should stop typing and prep dinner, but I found some too hilarious
+typos below.
+
+On Tue, Jul 6, 2021 at 7:35 PM Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
 >
-> On Tue, Jul 06, 2021 at 05:49:01PM +0200, Daniel Vetter wrote:
->
-> > The other thing to keep in mind is that one of these drivers supports
-> > 25 years of product generations, and the other one doesn't.
->
-> Sure, but that is the point, isn't it? To have an actually useful
-> thing you need all of this mess
->
-> > > My argument is that an in-tree open kernel driver is a big help to
-> > > reverse engineering an open userspace. Having the vendors
-> > > collaboration to build that monstrous thing can only help the end goal
-> > > of an end to end open stack.
+> On Tue, Jul 6, 2021 at 6:29 PM Jason Gunthorpe <jgg@ziepe.ca> wrote:
 > >
-> > Not sure where this got lost, but we're totally fine with vendors
-> > using the upstream driver together with their closed stack. And most
-> > of the drivers we do have in upstream are actually, at least in parts,
-> > supported by the vendor. E.g. if you'd have looked the drm/arm driver
-> > you picked is actually 100% written by ARM engineers. So kinda
-> > unfitting example.
->
-> So the argument with Habana really boils down to how much do they need
-> to show in the open source space to get a kernel driver? You want to
-> see the ISA or compiler at least?
-
-Yup. We dont care about any of the fancy pieces you build on top, nor
-does the compiler need to be the optimizing one. Just something that's
-good enough to drive the hw in some demons to see how it works and all
-that. Generally that's also not that hard to reverse engineer, if
-someone is bored enough, the real fancy stuff tends to be in how you
-optimize the generated code. And make it fit into the higher levels
-properly.
-
-> That at least doesn't seem "extreme" to me.
->
-> > > For instance a vendor with an in-tree driver has a strong incentive to
-> > > sort out their FW licensing issues so it can be redistributed.
+> > On Tue, Jul 06, 2021 at 05:49:01PM +0200, Daniel Vetter wrote:
 > >
-> > Nvidia has been claiming to try and sort out the FW problem for years.
-> > They even managed to release a few things, but I think the last one is
-> > 2-3 years late now. Partially the reason is that there don't have a
-> > stable api between the firmware and driver, it's all internal from the
-> > same source tree, and they don't really want to change that.
->
-> Right, companies have no incentive to work in a sane way if they have
-> their own parallel world. I think drawing them part by part into the
-> standard open workflows and expectations is actually helpful to
-> everyone.
-
-Well we do try to get them on board part-by-part generally starting
-with the kernel and ending with a proper compiler instead of the usual
-llvm hack job, but for whatever reasons they really like their
-in-house stuff, see below for what I mean.
-
-> > > > I don't think the facts on the ground support your claim here, aside
-> > > > from the practical problem that nvidia is unwilling to even create an
-> > > > open driver to begin with. So there isn't anything to merge.
+> > > The other thing to keep in mind is that one of these drivers supports
+> > > 25 years of product generations, and the other one doesn't.
+> >
+> > Sure, but that is the point, isn't it? To have an actually useful
+> > thing you need all of this mess
+> >
+> > > > My argument is that an in-tree open kernel driver is a big help to
+> > > > reverse engineering an open userspace. Having the vendors
+> > > > collaboration to build that monstrous thing can only help the end goal
+> > > > of an end to end open stack.
 > > >
-> > > The internet tells me there is nvgpu, it doesn't seem to have helped.
+> > > Not sure where this got lost, but we're totally fine with vendors
+> > > using the upstream driver together with their closed stack. And most
+> > > of the drivers we do have in upstream are actually, at least in parts,
+> > > supported by the vendor. E.g. if you'd have looked the drm/arm driver
+> > > you picked is actually 100% written by ARM engineers. So kinda
+> > > unfitting example.
 > >
-> > Not sure which one you mean, but every once in a while they open up a
-> > few headers, or a few programming specs, or a small driver somewhere
-> > for a very specific thing, and then it dies again or gets obfuscated
-> > for the next platform, or just never updated. I've never seen anything
-> > that comes remotely to something complete, aside from tegra socs,
-> > which are fully supported in upstream afaik.
+> > So the argument with Habana really boils down to how much do they need
+> > to show in the open source space to get a kernel driver? You want to
+> > see the ISA or compiler at least?
 >
-> I understand nvgpu is the tegra driver that people actualy
-> use. nouveau may have good tegra support but is it used in any actual
-> commercial product?
+> Yup. We dont care about any of the fancy pieces you build on top, nor
+> does the compiler need to be the optimizing one. Just something that's
+> good enough to drive the hw in some demons to see how it works and all
 
-I think it was almost the case. Afaik they still have their internal
-userspace stack working on top of nvidia, at least last year someone
-fixed up a bunch of issues in the tegra+nouveau combo to enable format
-modifiers properly across the board. But also nvidia is never going to
-sell you that as the officially supported thing, unless your ask comes
-back with enormous amounts of sold hardware.
+s/demons/demos/ but hw tends to be funky enough that either fits :-)
 
-And it's not just nvidia, it's pretty much everyone. Like a soc
-company I don't want to know started collaborating with upstream and
-the reverse-engineered mesa team on a kernel driver, seems to work
-pretty well for current hardware. But for the next generation they
-decided it's going to be again only their in-house tree that
-completele ignores drivers/gpu/drm, and also tosses all the
-foundational work they helped build on the userspace side. And this is
-consistent across all companies, over the last 20 years I know of
-(often non-public) stories across every single company where they
-decided that all the time invested into community/upstream
-collaboration isn't useful anymore, we go all vendor solo for the next
-one.
+> that. Generally that's also not that hard to reverse engineer, if
+> someone is bored enough, the real fancy stuff tends to be in how you
+> optimize the generated code. And make it fit into the higher levels
+> properly.
+>
+> > That at least doesn't seem "extreme" to me.
+> >
+> > > > For instance a vendor with an in-tree driver has a strong incentive to
+> > > > sort out their FW licensing issues so it can be redistributed.
+> > >
+> > > Nvidia has been claiming to try and sort out the FW problem for years.
+> > > They even managed to release a few things, but I think the last one is
+> > > 2-3 years late now. Partially the reason is that there don't have a
+> > > stable api between the firmware and driver, it's all internal from the
+> > > same source tree, and they don't really want to change that.
+> >
+> > Right, companies have no incentive to work in a sane way if they have
+> > their own parallel world. I think drawing them part by part into the
+> > standard open workflows and expectations is actually helpful to
+> > everyone.
+>
+> Well we do try to get them on board part-by-part generally starting
+> with the kernel and ending with a proper compiler instead of the usual
+> llvm hack job, but for whatever reasons they really like their
+> in-house stuff, see below for what I mean.
+>
+> > > > > I don't think the facts on the ground support your claim here, aside
+> > > > > from the practical problem that nvidia is unwilling to even create an
+> > > > > open driver to begin with. So there isn't anything to merge.
+> > > >
+> > > > The internet tells me there is nvgpu, it doesn't seem to have helped.
+> > >
+> > > Not sure which one you mean, but every once in a while they open up a
+> > > few headers, or a few programming specs, or a small driver somewhere
+> > > for a very specific thing, and then it dies again or gets obfuscated
+> > > for the next platform, or just never updated. I've never seen anything
+> > > that comes remotely to something complete, aside from tegra socs,
+> > > which are fully supported in upstream afaik.
+> >
+> > I understand nvgpu is the tegra driver that people actualy
+> > use. nouveau may have good tegra support but is it used in any actual
+> > commercial product?
+>
+> I think it was almost the case. Afaik they still have their internal
+> userspace stack working on top of nvidia, at least last year someone
+> fixed up a bunch of issues in the tegra+nouveau combo to enable format
+> modifiers properly across the board. But also nvidia is never going to
+> sell you that as the officially supported thing, unless your ask comes
+> back with enormous amounts of sold hardware.
+>
+> And it's not just nvidia, it's pretty much everyone. Like a soc
+> company I don't want to know started collaborating with upstream and
 
-Most of those you luckily don't hear about anymore, all it results in
-the upstream driver being 1-2 years late or so. But even the good ones
-where we collaborate well can't seem to help themselves and want to
-throw it all away every few years.
--Daniel
+s/know/name/ I do know them unfortunately quite well ...
+
+Cheers, Daniel
+
+> the reverse-engineered mesa team on a kernel driver, seems to work
+> pretty well for current hardware. But for the next generation they
+> decided it's going to be again only their in-house tree that
+> completele ignores drivers/gpu/drm, and also tosses all the
+> foundational work they helped build on the userspace side. And this is
+> consistent across all companies, over the last 20 years I know of
+> (often non-public) stories across every single company where they
+> decided that all the time invested into community/upstream
+> collaboration isn't useful anymore, we go all vendor solo for the next
+> one.
+>
+> Most of those you luckily don't hear about anymore, all it results in
+> the upstream driver being 1-2 years late or so. But even the good ones
+> where we collaborate well can't seem to help themselves and want to
+> throw it all away every few years.
+> -Daniel
+> --
+> Daniel Vetter
+> Software Engineer, Intel Corporation
+> http://blog.ffwll.ch
+
+
+
 -- 
 Daniel Vetter
 Software Engineer, Intel Corporation
