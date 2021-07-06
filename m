@@ -2,66 +2,77 @@ Return-Path: <SRS0=iwxs=L6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-5.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7ED7CC07E9B
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 09:45:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1474DC11F67
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 10:03:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4C6AA61996
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 09:45:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4C6AA61996
+	by mail.kernel.org (Postfix) with ESMTPS id D6DDE619A1
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 10:03:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D6DDE619A1
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4187089DD3;
-	Tue,  6 Jul 2021 09:45:18 +0000 (UTC)
-Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
- [IPv6:2607:f8b0:4864:20::32c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB1AF89DC7;
- Tue,  6 Jul 2021 09:45:16 +0000 (UTC)
-Received: by mail-ot1-x32c.google.com with SMTP id
- d21-20020a9d72d50000b02904604cda7e66so20984104otk.7; 
- Tue, 06 Jul 2021 02:45:16 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC0F78951E;
+	Tue,  6 Jul 2021 10:03:49 +0000 (UTC)
+Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
+ [IPv6:2607:f8b0:4864:20::22d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B282D894EB;
+ Tue,  6 Jul 2021 10:03:48 +0000 (UTC)
+Received: by mail-oi1-x22d.google.com with SMTP id r29so7532973oiw.13;
+ Tue, 06 Jul 2021 03:03:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=dz+mf5b0jxNjbTow/jqpUwCBlNrUahNX3010uoWnq3c=;
- b=GebIlLsG3wnD9bFmhGClYwFbSd5NUry7hy9yznhxk6JYeX7btEUsh1ljWnT3SOG7L9
- VD1fSU4APIJ61ZlkwlZGuzqefuKMTR3YLWKOwTksMQnGj1pEo22y2iil/+luGVXtaNTi
- WHixboA9iwiFbSJ7W54NrYsCzLdX1eRgrdE07Yth8XUt7fAI0M0mi9Hey8aoFuubCHNr
- YdJfkvFfv65cXqQIJPA9u+i80+EQ2gbGUnCAIwH/5L2SVy5AhbqizBw5lKu3jgT3MaKW
- vfj0d+m6UELsbl4c9sYUCMYWgrh61wHZTF0+7tv1Y61rhUDdvhdEOMQxTrQAEKpDzrdm
- VAIA==
+ :cc; bh=2N5mg5wsB0KABxRgrRrxbIQeCbB+YJIprU67LIbfneo=;
+ b=dfFi3wnvc63SAvvRhbgEI87/6ooxwCvTJW1r7lIZKJNTzXyNVMWX7dQB++bkmTQwV2
+ H/IlTU1s/3+HM6Aoy3Y0X81/XCAVqe0b0Vg58mJp0ZILm4Z2CJ+puNb5ncxYzu/7LPp2
+ +8ke/ohSu7L+COLs3LR/JDOtcj6VgXyeBomPY+1P0mlUzoSLbhI1VXzqQe9K+c/sa9p/
+ Scpl+KbJ+/IfH4hBWnZqod7utqmP/Hq8XnsPIQ9kHmU2GSgiXRlFRRM7iDMdGgaAIDZ9
+ 5GlUdEk9SEx4KsNZBhTmTYw6w8tHMS+/q4lIRlmCnZQB0O4UFWd2qMS3+p6dFf07h2e8
+ ERsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=dz+mf5b0jxNjbTow/jqpUwCBlNrUahNX3010uoWnq3c=;
- b=SYx5XbQx69TiE3SnGoJ29Dik/IZdJS8Fn31h03+12ZNYezYEAfyUFSus/WnEzt/RZs
- J00oZU/jXjLiaYyJj3EIby40HuGa8SnHAw6RAZJNfXGHGlwN8A8FE+Vy1iRvTJJpBvkq
- O3Ve00O1VhhKNqHlgwQEtHUCQhvISPGihpgbIvIAKM+dKktbmM02Lol3/BKv/f0biESw
- AWwOiDWhbqh62bWRQWrtemnLJ1czxo4P8oJgLy7LCtqn2G0UEtgZMqulPbDVhRJGbKT6
- m8rTgWXFL6rKWL89wwiFhNbgkakIgQH8ITaqJ+5ulaAZiYjURE6lgPEalI91ktbx6B+3
- Ox5A==
-X-Gm-Message-State: AOAM5310SGmZpQm6zMeprFm7t05YOSolW+r1g7NvvSrbvhelLIYco2t9
- PHoPlNNHrrSsEA9VvguKdfL+0ah8WJW+BJEIMYU=
-X-Google-Smtp-Source: ABdhPJxBf9teTevWqibbqk3iMkxs2oQg8YD+AXIuIYOH7OAlTf44SDRKjAvd1Ntt8xB1TbhYFmVyQUa43hqNw+WGnbA=
-X-Received: by 2002:a9d:76d7:: with SMTP id p23mr14460048otl.145.1625564715878; 
- Tue, 06 Jul 2021 02:45:15 -0700 (PDT)
+ bh=2N5mg5wsB0KABxRgrRrxbIQeCbB+YJIprU67LIbfneo=;
+ b=bChFMMbJv6RDNLfTEe87FX2FFi1+9tbIO1kX9NJ/bj7r5hS0dP922Km2Vwpb16CVS1
+ sflVC8OxPtr9wBeRUD5AqttElCvKz9re9ofxxAJSt0EJQGIpO7IqJ0/4RAqjFTEz0P9d
+ KaE0zmAv/5+D4P6+WSPp8YfMUB6tEuESo75sUs5a0x/noSawW2Cb/5FOlBUzUmtw74/P
+ 6RX5kwAdazMbLII5+gDzsLDiQMiusqjzaZ0TsF0i/Op5NcFUpIgbKkqyUt1rxQeuqiFH
+ 6UiRbPLIEFCGv4196D9swp4Tevv5woLzIf50ruW5JJKOjAN5152NQ/1NKsM6/Bj88cnv
+ rvvQ==
+X-Gm-Message-State: AOAM530AioZoC73yRvJD8mx/mj3uU8x+JnToLC+grneGrK2hYs7Dcvr1
+ +S+XQLk+IGUXh7zhplhYhy8rEBZakG+nyFWjvmo=
+X-Google-Smtp-Source: ABdhPJxXg9vfgqi5VnITV/trPjGjJznTbHk8XvIhqVWfNLh12IDiUiljcMyFHQl4PX1KtOaIuT9dhledABPG7RICBhw=
+X-Received: by 2002:aca:3bc3:: with SMTP id i186mr2805715oia.102.1625565827920; 
+ Tue, 06 Jul 2021 03:03:47 -0700 (PDT)
 MIME-Version: 1.0
 References: <20210705130314.11519-1-ogabbay@kernel.org>
- <20210705130314.11519-3-ogabbay@kernel.org>
- <20210705165226.GJ4604@ziepe.ca>
-In-Reply-To: <20210705165226.GJ4604@ziepe.ca>
+ <YOQXBWpo3whVjOyh@phenom.ffwll.local>
+In-Reply-To: <YOQXBWpo3whVjOyh@phenom.ffwll.local>
 From: Oded Gabbay <oded.gabbay@gmail.com>
-Date: Tue, 6 Jul 2021 12:44:49 +0300
-Message-ID: <CAFCwf100mkROMw9+2LgW7d3jKnaeZ4nmfWm7HtXuUE7NF4B8pg@mail.gmail.com>
-Subject: Re: [PATCH v4 2/2] habanalabs: add support for dma-buf exporter
-To: Jason Gunthorpe <jgg@ziepe.ca>
+Date: Tue, 6 Jul 2021 13:03:20 +0300
+Message-ID: <CAFCwf10_rTYL2Fy6tCRVAUCf4-6_TtcWCv5gEEkGnQ0KxqMUBg@mail.gmail.com>
+Subject: Re: [PATCH v4 0/2] Add p2p via dmabuf to habanalabs
+To: Oded Gabbay <ogabbay@kernel.org>, 
+ "Linux-Kernel@Vger. Kernel. Org" <linux-kernel@vger.kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Gal Pressman <galpress@amazon.com>, sleybo@amazon.com, 
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>, linux-rdma <linux-rdma@vger.kernel.org>, 
+ Linux Media Mailing List <linux-media@vger.kernel.org>,
+ Doug Ledford <dledford@redhat.com>, 
+ Dave Airlie <airlied@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, 
+ Leon Romanovsky <leonro@nvidia.com>, Christoph Hellwig <hch@lst.de>, 
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, 
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,93 +84,122 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Gal Pressman <galpress@amazon.com>, sleybo@amazon.com,
- linux-rdma <linux-rdma@vger.kernel.org>,
- Daniel Vetter <daniel.vetter@ffwll.ch>, Oded Gabbay <ogabbay@kernel.org>,
- "Linux-Kernel@Vger. Kernel. Org" <linux-kernel@vger.kernel.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Doug Ledford <dledford@redhat.com>, Christoph Hellwig <hch@lst.de>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Alex Deucher <alexander.deucher@amd.com>, Tomer Tayar <ttayar@habana.ai>,
- Dave Airlie <airlied@gmail.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Leon Romanovsky <leonro@nvidia.com>,
- Linux Media Mailing List <linux-media@vger.kernel.org>
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jul 5, 2021 at 7:52 PM Jason Gunthorpe <jgg@ziepe.ca> wrote:
+On Tue, Jul 6, 2021 at 11:40 AM Daniel Vetter <daniel@ffwll.ch> wrote:
 >
-> On Mon, Jul 05, 2021 at 04:03:14PM +0300, Oded Gabbay wrote:
+> On Mon, Jul 05, 2021 at 04:03:12PM +0300, Oded Gabbay wrote:
+> > Hi,
+> > I'm sending v4 of this patch-set following the long email thread.
+> > I want to thank Jason for reviewing v3 and pointing out the errors, saving
+> > us time later to debug it :)
+> >
+> > I consulted with Christian on how to fix patch 2 (the implementation) and
+> > at the end of the day I shamelessly copied the relevant content from
+> > amdgpu_vram_mgr_alloc_sgt() and amdgpu_dma_buf_attach(), regarding the
+> > usage of dma_map_resource() and pci_p2pdma_distance_many(), respectively.
+> >
+> > I also made a few improvements after looking at the relevant code in amdgpu.
+> > The details are in the changelog of patch 2.
+> >
+> > I took the time to write an import code into the driver, allowing me to
+> > check real P2P with two Gaudi devices, one as exporter and the other as
+> > importer. I'm not going to include the import code in the product, it was
+> > just for testing purposes (although I can share it if anyone wants).
+> >
+> > I run it on a bare-metal environment with IOMMU enabled, on a sky-lake CPU
+> > with a white-listed PCIe bridge (to make the pci_p2pdma_distance_many happy).
+> >
+> > Greg, I hope this will be good enough for you to merge this code.
 >
-> > +     rc = sg_alloc_table(*sgt, nents, GFP_KERNEL | __GFP_ZERO);
-> > +     if (rc)
-> > +             goto error_free;
->
-> If you are not going to include a CPU list then I suggest setting
-> sg_table->orig_nents == 0
->
-> And using only the nents which is the length of the DMA list.
->
-> At least it gives some hope that other parts of the system could
-> detect this.
-
-Will do.
->
-> > +
-> > +     /* Merge pages and put them into the scatterlist */
-> > +     cur_page = 0;
-> > +     for_each_sgtable_sg((*sgt), sg, i) {
->
-> for_each_sgtable_sg should never be used when working with
-> sg_dma_address() type stuff, here and everywhere else. The DMA list
-> should be iterated using the for_each_sgtable_dma_sg() macro.
-
-Thanks, will change that.
-
->
-> > +     /* In case we got a large memory area to export, we need to divide it
-> > +      * to smaller areas because each entry in the dmabuf sgt can only
-> > +      * describe unsigned int.
-> > +      */
->
-> Huh? This is forming a SGL, it should follow the SGL rules which means
-> you have to fragment based on the dma_get_max_seg_size() of the
-> importer device.
->
-hmm
-I don't see anyone in drm checking this value (and using it) when
-creating the SGL when exporting dmabuf. (e.g.
-amdgpu_vram_mgr_alloc_sgt)
-Are you sure we need this check ? Maybe I'm mistaken but if that's a
-real concern, then most of the drm drivers are broken.
-
-> > +     hl_dmabuf->pages = kcalloc(hl_dmabuf->npages, sizeof(*hl_dmabuf->pages),
-> > +                                                             GFP_KERNEL);
-> > +     if (!hl_dmabuf->pages) {
-> > +             rc = -ENOMEM;
-> > +             goto err_free_dmabuf_wrapper;
-> > +     }
->
-> Why not just create the SGL directly? Is there a reason it needs to
-> make a page list?
-Well the idea behind it was that we have two points of entry to this
-code path (export dmabuf from address, and export dmabuf from handle)
-and
-we want that the map function later on will be agnostic to it and
-behave the same in both cases.
-
-Having said that, if we need to consider the max segment size
-according to dma_get_max_seg_size() when creating the SGL, I agree
-this code is redundant and I will remove it.
+> So we're officially going to use dri-devel for technical details review
+> and then Greg for merging so we don't have to deal with other merge
+> criteria dri-devel folks have?
+I'm glad to receive any help or review, regardless of the subsystem
+the person giving that help belongs to.
 
 >
-> Jason
+> I don't expect anything less by now, but it does make the original claim
+> that drivers/misc will not step all over accelerators folks a complete
+> farce under the totally-not-a-gpu banner.
+>
+> This essentially means that for any other accelerator stack that doesn't
+> fit the dri-devel merge criteria, even if it's acting like a gpu and uses
+> other gpu driver stuff, you can just send it to Greg and it's good to go.
+
+What's wrong with Greg ??? ;)
+
+On a more serious note, yes, I do think the dri-devel merge criteria
+is very extreme, and effectively drives-out many AI accelerator
+companies that want to contribute to the kernel but can't/won't open
+their software IP and patents.
+
+I think the expectation from AI startups (who are 90% of the deep
+learning field) to cooperate outside of company boundaries is not
+realistic, especially on the user-side, where the real IP of the
+company resides.
+
+Personally I don't think there is a real justification for that at
+this point of time, but if it will make you (and other people here)
+happy I really don't mind creating a non-gpu accelerator subsystem
+that will contain all the totally-not-a-gpu accelerators, and will
+have a more relaxed criteria for upstreaming. Something along an
+"rdma-core" style library looks like the correct amount of user-level
+open source that should be enough.
+
+The question is, what will happen later ? Will it be sufficient to
+"allow" us to use dmabuf and maybe other gpu stuff in the future (e.g.
+hmm) ?
+
+If the community and dri-devel maintainers (and you among them) will
+assure me it is good enough, then I'll happily contribute my work and
+personal time to organize this effort and implement it.
+
+Thanks,
+oded
+
+>
+> There's quite a lot of these floating around actually (and many do have
+> semi-open runtimes, like habanalabs have now too, just not open enough to
+> be actually useful). It's going to be absolutely lovely having to explain
+> to these companies in background chats why habanalabs gets away with their
+> stack and they don't.
+>
+> Or maybe we should just merge them all and give up on the idea of having
+> open cross-vendor driver stacks for these accelerators.
+>
+> Thanks, Daniel
+>
+> >
+> > Thanks,
+> > Oded
+> >
+> > Oded Gabbay (1):
+> >   habanalabs: define uAPI to export FD for DMA-BUF
+> >
+> > Tomer Tayar (1):
+> >   habanalabs: add support for dma-buf exporter
+> >
+> >  drivers/misc/habanalabs/Kconfig             |   1 +
+> >  drivers/misc/habanalabs/common/habanalabs.h |  26 ++
+> >  drivers/misc/habanalabs/common/memory.c     | 480 +++++++++++++++++++-
+> >  drivers/misc/habanalabs/gaudi/gaudi.c       |   1 +
+> >  drivers/misc/habanalabs/goya/goya.c         |   1 +
+> >  include/uapi/misc/habanalabs.h              |  28 +-
+> >  6 files changed, 532 insertions(+), 5 deletions(-)
+> >
+> > --
+> > 2.25.1
+> >
+>
+> --
+> Daniel Vetter
+> Software Engineer, Intel Corporation
+> http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
