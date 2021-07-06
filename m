@@ -7,41 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2854BC07E9B
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 81E93C07E9C
 	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 11:18:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F1AC161D13
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 11:18:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F1AC161D13
+	by mail.kernel.org (Postfix) with ESMTPS id 58D4461D0D
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 11:18:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 58D4461D0D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55BAF6E255;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA5B66E25A;
 	Tue,  6 Jul 2021 11:18:45 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37DF66E24D;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 832526E24D;
+ Tue,  6 Jul 2021 11:18:44 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 7FA1C61D09;
  Tue,  6 Jul 2021 11:18:43 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id D79F861C65;
- Tue,  6 Jul 2021 11:18:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1625570323;
- bh=Ix9/zcKoy7BIBKCHzKGocvecCkbEtmdiGceJiXA6MVc=;
+ s=k20201202; t=1625570324;
+ bh=LmPYPspyED4WBFtx+BnP0s9Gg5Ua+lcvDotTG9WIFAI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Toh/4HmmAV2kLJ4hGcs9RcyP+z0y25WbC5zePCru5fGLL+xx8/Ak8/gRRVx526Xg6
- 8hmKo+EYS2w2KfI1hknNwXCA28aHLPiDkpSyKpyFj+j0JajIvbKoyZEuJCuHlRR78O
- f7sqv4fPfgojzDzVzGF4yFsihL5fAac0TNlVykvPiyi0oF0JcCCnd1RoJL+wVN6o3C
- di5z1jm4j+Nk1AcrI8SzBXFfXD+xFi9DyTNT3qmfbhowAcGJuJFM5lmM6Y2ijR5hBq
- yhE66eW7QlDN6mzLPu2ho7inhWwOBXkdyPTw6qQ52f7XvezcKQ9eeUMcRSM6wEwn/D
- xPq16gshuaNMA==
+ b=NOuhUcqF3cWAmPfTlmKNa74aEdfKLF/l40Ad9tJ27vKNK4r1Jf7PqH2mYyibcUivN
+ /BAOmKzPF1hIRTI05mi4dI38W2nGY1G7zz/fVUgczoXYWqoF8HpwuSUoE6VqWU9O3l
+ hsgcn5ZphCboPQRxUBy0d6MFyfi87nxIGobhNh/CuvBJ/9gqOfdGA6Wyxs31UhPyrj
+ PYkJgPp1hhgJvq7iTkNt31dwZjaSg7sY12VMhCw/mo+QDGJEn7OoJTu7+Egvi8IBOW
+ mg1/IVTUGSET+JbJH0IPC1iVlKWNutaQ8WJLANDHZeObG5yhbSwTXCaZn5Y/ICu9Vr
+ 9pwHBRIOphRjQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.12 011/160] drm/amd/display: fix potential gpu reset
- deadlock
-Date: Tue,  6 Jul 2021 07:15:57 -0400
-Message-Id: <20210706111827.2060499-11-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.12 012/160] drm/amdgpu: change the default timeout
+ for kernel compute queues
+Date: Tue,  6 Jul 2021 07:15:58 -0400
+Message-Id: <20210706111827.2060499-12-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210706111827.2060499-1-sashal@kernel.org>
 References: <20210706111827.2060499-1-sashal@kernel.org>
@@ -59,66 +59,65 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Qingqing Zhuo <Qingqing.Zhuo@amd.com>,
- Roman Li <Roman.Li@amd.com>, amd-gfx@lists.freedesktop.org,
- Daniel Wheeler <daniel.wheeler@amd.com>, dri-devel@lists.freedesktop.org,
- Wayne Lin <Wayne.Lin@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- Lang Yu <Lang.Yu@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Sasha Levin <sashal@kernel.org>, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Roman Li <Roman.Li@amd.com>
-
-[ Upstream commit cf8b92a75646735136053ce51107bfa8cfc23191 ]
-
-[Why]
-In gpu reset dc_lock acquired in dm_suspend().
-Asynchronously handle_hpd_rx_irq can also be called
-through amdgpu_dm_irq_suspend->flush_work, which also
-tries to acquire dc_lock. That causes a deadlock.
-
-[How]
-Check if amdgpu executing reset before acquiring dc_lock.
-
-Signed-off-by: Lang Yu <Lang.Yu@amd.com>
-Signed-off-by: Roman Li <Roman.Li@amd.com>
-Reviewed-by: Qingqing Zhuo <Qingqing.Zhuo@amd.com>
-Acked-by: Wayne Lin <Wayne.Lin@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index eed494630583..d95569e0e53a 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -2624,13 +2624,15 @@ static void handle_hpd_rx_irq(void *param)
- 		}
- 	}
- 
--	mutex_lock(&adev->dm.dc_lock);
-+	if (!amdgpu_in_reset(adev))
-+		mutex_lock(&adev->dm.dc_lock);
- #ifdef CONFIG_DRM_AMD_DC_HDCP
- 	result = dc_link_handle_hpd_rx_irq(dc_link, &hpd_irq_data, NULL);
- #else
- 	result = dc_link_handle_hpd_rx_irq(dc_link, NULL, NULL);
- #endif
--	mutex_unlock(&adev->dm.dc_lock);
-+	if (!amdgpu_in_reset(adev))
-+		mutex_unlock(&adev->dm.dc_lock);
- 
- out:
- 	if (result && !is_mst_root_connector) {
--- 
-2.30.2
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+RnJvbTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgoKWyBVcHN0cmVh
+bSBjb21taXQgNjczODdkZmUwZjY2MzBmMmQ0ZjQxMmNlNzdkZWJlYzIzYTQ5ZGI3YSBdCgpDaGFu
+Z2UgdG8gNjBzLiAgVGhpcyBtYXRjaGVzIHdoYXQgd2UgYWxyZWFkeSBkbyBpbiB2aXJ0dWFsaXph
+dGlvbi4KSW5maW5pdGUgdGltZW91dCBjYW4gbGVhZCB0byBkZWFkbG9ja3MgaW4gdGhlIGtlcm5l
+bC4KClJldmlld2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5j
+b20+CkFja2VkLWJ5OiBEYW5pZWwgVmV0dGVyIDxkYW5pZWwudmV0dGVyQGZmd2xsLmNoPgpTaWdu
+ZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+ClNpZ25l
+ZC1vZmYtYnk6IFNhc2hhIExldmluIDxzYXNoYWxAa2VybmVsLm9yZz4KLS0tCiBkcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgfCA4ICsrKy0tLS0tCiBkcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMgICAgfCA0ICsrLS0KIDIgZmlsZXMgY2hhbmdl
+ZCwgNSBpbnNlcnRpb25zKCspLCA3IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwppbmRleCBhMzJiNDFlNGMyNGUuLjFiNjlhYTc0MDU2ZCAx
+MDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCisr
+KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwpAQCAtMzE0MSw4
+ICszMTQxLDggQEAgc3RhdGljIGludCBhbWRncHVfZGV2aWNlX2dldF9qb2JfdGltZW91dF9zZXR0
+aW5ncyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIAlpbnQgcmV0ID0gMDsKIAogCS8qCi0J
+ICogQnkgZGVmYXVsdCB0aW1lb3V0IGZvciBub24gY29tcHV0ZSBqb2JzIGlzIDEwMDAwLgotCSAq
+IEFuZCB0aGVyZSBpcyBubyB0aW1lb3V0IGVuZm9yY2VkIG9uIGNvbXB1dGUgam9icy4KKwkgKiBC
+eSBkZWZhdWx0IHRpbWVvdXQgZm9yIG5vbiBjb21wdXRlIGpvYnMgaXMgMTAwMDAKKwkgKiBhbmQg
+NjAwMDAgZm9yIGNvbXB1dGUgam9icy4KIAkgKiBJbiBTUi1JT1Ygb3IgcGFzc3Rocm91Z2ggbW9k
+ZSwgdGltZW91dCBmb3IgY29tcHV0ZQogCSAqIGpvYnMgYXJlIDYwMDAwIGJ5IGRlZmF1bHQuCiAJ
+ICovCkBAIC0zMTUxLDEwICszMTUxLDggQEAgc3RhdGljIGludCBhbWRncHVfZGV2aWNlX2dldF9q
+b2JfdGltZW91dF9zZXR0aW5ncyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIAlpZiAoYW1k
+Z3B1X3NyaW92X3ZmKGFkZXYpKQogCQlhZGV2LT5jb21wdXRlX3RpbWVvdXQgPSBhbWRncHVfc3Jp
+b3ZfaXNfcHBfb25lX3ZmKGFkZXYpID8KIAkJCQkJbXNlY3NfdG9famlmZmllcyg2MDAwMCkgOiBt
+c2Vjc190b19qaWZmaWVzKDEwMDAwKTsKLQllbHNlIGlmIChhbWRncHVfcGFzc3Rocm91Z2goYWRl
+dikpCi0JCWFkZXYtPmNvbXB1dGVfdGltZW91dCA9ICBtc2Vjc190b19qaWZmaWVzKDYwMDAwKTsK
+IAllbHNlCi0JCWFkZXYtPmNvbXB1dGVfdGltZW91dCA9IE1BWF9TQ0hFRFVMRV9USU1FT1VUOwor
+CQlhZGV2LT5jb21wdXRlX3RpbWVvdXQgPSAgbXNlY3NfdG9famlmZmllcyg2MDAwMCk7CiAKIAlp
+ZiAoc3RybmxlbihpbnB1dCwgQU1ER1BVX01BWF9USU1FT1VUX1BBUkFNX0xFTkdUSCkpIHsKIAkJ
+d2hpbGUgKCh0aW1lb3V0X3NldHRpbmcgPSBzdHJzZXAoJmlucHV0LCAiLCIpKSAmJgpkaWZmIC0t
+Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCmluZGV4IGU5MmU3ZGVhNzFkYS4uZjk3Mjhl
+ZTEwMjk4IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2
+LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCkBAIC0yNzIs
+OSArMjcyLDkgQEAgbW9kdWxlX3BhcmFtX25hbWVkKG1zaSwgYW1kZ3B1X21zaSwgaW50LCAwNDQ0
+KTsKICAqICAgZm9yIFNETUEgYW5kIFZpZGVvLgogICoKICAqIEJ5IGRlZmF1bHQod2l0aCBubyBs
+b2NrdXBfdGltZW91dCBzZXR0aW5ncyksIHRoZSB0aW1lb3V0IGZvciBhbGwgbm9uLWNvbXB1dGUo
+R0ZYLCBTRE1BIGFuZCBWaWRlbykKLSAqIGpvYnMgaXMgMTAwMDAuIEFuZCB0aGVyZSBpcyBubyB0
+aW1lb3V0IGVuZm9yY2VkIG9uIGNvbXB1dGUgam9icy4KKyAqIGpvYnMgaXMgMTAwMDAuIFRoZSB0
+aW1lb3V0IGZvciBjb21wdXRlIGlzIDYwMDAwLgogICovCi1NT0RVTEVfUEFSTV9ERVNDKGxvY2t1
+cF90aW1lb3V0LCAiR1BVIGxvY2t1cCB0aW1lb3V0IGluIG1zIChkZWZhdWx0OiBmb3IgYmFyZSBt
+ZXRhbCAxMDAwMCBmb3Igbm9uLWNvbXB1dGUgam9icyBhbmQgaW5maW5pdHkgdGltZW91dCBmb3Ig
+Y29tcHV0ZSBqb2JzOyAiCitNT0RVTEVfUEFSTV9ERVNDKGxvY2t1cF90aW1lb3V0LCAiR1BVIGxv
+Y2t1cCB0aW1lb3V0IGluIG1zIChkZWZhdWx0OiBmb3IgYmFyZSBtZXRhbCAxMDAwMCBmb3Igbm9u
+LWNvbXB1dGUgam9icyBhbmQgNjAwMDAgZm9yIGNvbXB1dGUgam9iczsgIgogCQkiZm9yIHBhc3N0
+aHJvdWdoIG9yIHNyaW92LCAxMDAwMCBmb3IgYWxsIGpvYnMuIgogCQkiIDA6IGtlZXAgZGVmYXVs
+dCB2YWx1ZS4gbmVnYXRpdmU6IGluZmluaXR5IHRpbWVvdXQpLCAiCiAJCSJmb3JtYXQ6IGZvciBi
+YXJlIG1ldGFsIFtOb24tQ29tcHV0ZV0gb3IgW0dGWCxDb21wdXRlLFNETUEsVmlkZW9dOyAiCi0t
+IAoyLjMwLjIKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
+Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
