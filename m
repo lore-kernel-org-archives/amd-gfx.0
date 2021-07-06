@@ -7,44 +7,44 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 01B9BC11F6E
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 11:21:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C4607C07E96
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 11:22:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C6E5461CDA
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 11:21:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C6E5461CDA
+	by mail.kernel.org (Postfix) with ESMTPS id 9267A61DF1
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 11:22:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9267A61DF1
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7EA976E3AE;
-	Tue,  6 Jul 2021 11:21:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24F816E3C1;
+	Tue,  6 Jul 2021 11:22:11 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 098DE6E3AE;
- Tue,  6 Jul 2021 11:21:08 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E3EDA61DBB;
- Tue,  6 Jul 2021 11:21:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C80CC6E3C1;
+ Tue,  6 Jul 2021 11:22:10 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id B124161DF2;
+ Tue,  6 Jul 2021 11:22:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1625570467;
- bh=yQK+7EMPW+anCuBOtmGBLrgSUk/BCsTb+VKx6gKoMiU=;
+ s=k20201202; t=1625570530;
+ bh=0I6sraG7t8CfgmD4CJhp+GC2kCQuB1+mEYLSPFGqnhs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=UjRvVEA9KyHjCXluSZ5kRVFszc+87RCSDcVZwE2kZXByfEkI9awGR22QlIkjWojJ5
- RKP49lOX8uYDz6lU3kHfLle8Njf5jcyqJybeh1DPk8rghO9CsGyk9fRu0nUpGapFA5
- tp7W4RARzK/T2KJY9R1FppT+z+2COgyPmwNiJbWp6N/Q3R2Qm796Q88svouMQkD8uk
- dIGqpbPEWko8YHSDAdw0lEEK+NHpJPcgim7/Fd9jSH75tm4as8u5GOXjIJcPBsqkMg
- 4yMHOc9+MrP1EzXA+3UzMVEHBuyk9NH8B76ONU+AVlxP5TQjbH1vRxWmqeco5LahUJ
- q6AEY6OtHIogA==
+ b=cxUit1XTti+l9VJm4q02FtuWggqPxswj/MCBzj08Oz8S0J1F3D9l8xwVa4YKyLgDW
+ ih/mOz2QJbK5WkazB9cnxHxDD3X9s+uDbBPJQllrxAFecwJegl3OMhg10/VktoLmHA
+ gJ8H5wy/MbQW4+bsBh5oPE941kWz/bbf9fNaHXv+LPHM/yBS+Mal07QOXoZMKsuLA7
+ miJ0xkDGChuDUL9cbi/BSwbE+2/n32nJTd18lu6Z6qroIZkWnvJ2eqg0fvkMZNg5vo
+ e0QhzjL0CyZxO16cykrkrOP5dIdBP4r8+VJV3Os0x+e+6Q+BIhUtA3KaB0Kh7bAdMx
+ vWrNyZ3WRtjdg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.12 119/160] drm/amd/display: Fix edp_bootup_bl_level
- initialization issue
-Date: Tue,  6 Jul 2021 07:17:45 -0400
-Message-Id: <20210706111827.2060499-119-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 005/137] drm/amd/display: fix HDCP reset sequence
+ on reinitialize
+Date: Tue,  6 Jul 2021 07:19:51 -0400
+Message-Id: <20210706112203.2062605-5-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210706111827.2060499-1-sashal@kernel.org>
-References: <20210706111827.2060499-1-sashal@kernel.org>
+In-Reply-To: <20210706112203.2062605-1-sashal@kernel.org>
+References: <20210706112203.2062605-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -59,49 +59,37 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Logush Oliver <ollogush@amd.com>, Charlene Liu <Charlene.Liu@amd.com>,
- Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org,
- Daniel Wheeler <daniel.wheeler@amd.com>, dri-devel@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>, Bindu Ramamurthy <bindu.r@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Sasha Levin <sashal@kernel.org>, Wenjing Liu <Wenjing.Liu@amd.com>,
+ amd-gfx@lists.freedesktop.org, Daniel Wheeler <daniel.wheeler@amd.com>,
+ Brandon Syu <Brandon.Syu@amd.com>, Wayne Lin <waynelin@amd.com>,
+ dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Logush Oliver <ollogush@amd.com>
-
-[ Upstream commit eeb90e26ed05dd44553d557057bf35f08f853af8 ]
-
-[why]
-Updating the file to fix the missing line
-
-Signed-off-by: Logush Oliver <ollogush@amd.com>
-Reviewed-by: Charlene Liu <Charlene.Liu@amd.com>
-Acked-by: Bindu Ramamurthy <bindu.r@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-index 9f9fda3118d1..500bcd0ecf4d 100644
---- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-+++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-@@ -1944,7 +1944,7 @@ static enum bp_result get_integrated_info_v2_1(
- 		info_v2_1->edp1_info.edp_pwr_down_bloff_to_vary_bloff;
- 	info->edp1_info.edp_panel_bpc =
- 		info_v2_1->edp1_info.edp_panel_bpc;
--	info->edp1_info.edp_bootup_bl_level =
-+	info->edp1_info.edp_bootup_bl_level = info_v2_1->edp1_info.edp_bootup_bl_level;
- 
- 	info->edp2_info.edp_backlight_pwm_hz =
- 	le16_to_cpu(info_v2_1->edp2_info.edp_backlight_pwm_hz);
--- 
-2.30.2
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+RnJvbTogQnJhbmRvbiBTeXUgPEJyYW5kb24uU3l1QGFtZC5jb20+CgpbIFVwc3RyZWFtIGNvbW1p
+dCA5OWMyNDhjNDFjMjE5OWJkMzQyMzJjZThlNzI5ZDE4YzRiMzQzYjY0IF0KClt3aHldCldoZW4g
+c2V0dXAgaXMgY2FsbGVkIGFmdGVyIGhkY3AgaGFzIGFscmVhZHkgc2V0dXAsCml0IHdvdWxkIGNh
+dXNlIHRvIGRpc2FibGUgSERDUCBmbG93IHdvbuKAmXQgZXhlY3V0ZS4KCltob3ddCkRvbid0IGNs
+ZWFuIHVwIGhkY3AgY29udGVudCB0byBiZSAwLgoKU2lnbmVkLW9mZi1ieTogQnJhbmRvbiBTeXUg
+PEJyYW5kb24uU3l1QGFtZC5jb20+ClJldmlld2VkLWJ5OiBXZW5qaW5nIExpdSA8V2VuamluZy5M
+aXVAYW1kLmNvbT4KQWNrZWQtYnk6IFdheW5lIExpbiA8d2F5bmVsaW5AYW1kLmNvbT4KVGVzdGVk
+LWJ5OiBEYW5pZWwgV2hlZWxlciA8ZGFuaWVsLndoZWVsZXJAYW1kLmNvbT4KU2lnbmVkLW9mZi1i
+eTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgpTaWduZWQtb2ZmLWJ5
+OiBTYXNoYSBMZXZpbiA8c2FzaGFsQGtlcm5lbC5vcmc+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9kaXNwbGF5L21vZHVsZXMvaGRjcC9oZGNwLmMgfCAxIC0KIDEgZmlsZSBjaGFuZ2VkLCAxIGRl
+bGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L21vZHVs
+ZXMvaGRjcC9oZGNwLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvbW9kdWxlcy9oZGNw
+L2hkY3AuYwppbmRleCAyMGU1NTRlNzcxZDEuLmZhOGFlZWMzMDRlZiAxMDA2NDQKLS0tIGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L21vZHVsZXMvaGRjcC9oZGNwLmMKKysrIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9kaXNwbGF5L21vZHVsZXMvaGRjcC9oZGNwLmMKQEAgLTI2MCw3ICsyNjAs
+NiBAQCBlbnVtIG1vZF9oZGNwX3N0YXR1cyBtb2RfaGRjcF9zZXR1cChzdHJ1Y3QgbW9kX2hkY3Ag
+KmhkY3AsCiAJc3RydWN0IG1vZF9oZGNwX291dHB1dCBvdXRwdXQ7CiAJZW51bSBtb2RfaGRjcF9z
+dGF0dXMgc3RhdHVzID0gTU9EX0hEQ1BfU1RBVFVTX1NVQ0NFU1M7CiAKLQltZW1zZXQoaGRjcCwg
+MCwgc2l6ZW9mKHN0cnVjdCBtb2RfaGRjcCkpOwogCW1lbXNldCgmb3V0cHV0LCAwLCBzaXplb2Yo
+b3V0cHV0KSk7CiAJaGRjcC0+Y29uZmlnID0gKmNvbmZpZzsKIAlIRENQX1RPUF9JTlRFUkZBQ0Vf
+VFJBQ0UoaGRjcCk7Ci0tIAoyLjMwLjIKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
+YW1kLWdmeAo=
