@@ -2,66 +2,78 @@ Return-Path: <SRS0=iwxs=L6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 231F2C07E9B
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 12:07:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5FB75C11F69
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 12:23:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DAFB2621C2
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 12:07:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DAFB2621C2
+	by mail.kernel.org (Postfix) with ESMTPS id 1EA4762300
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 12:23:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1EA4762300
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F0D46E486;
-	Tue,  6 Jul 2021 12:07:29 +0000 (UTC)
-Received: from mail-ot1-x32a.google.com (mail-ot1-x32a.google.com
- [IPv6:2607:f8b0:4864:20::32a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 490C76E47E
- for <amd-gfx@lists.freedesktop.org>; Tue,  6 Jul 2021 12:07:28 +0000 (UTC)
-Received: by mail-ot1-x32a.google.com with SMTP id
- 59-20020a9d0ac10000b0290462f0ab0800so21279640otq.11
- for <amd-gfx@lists.freedesktop.org>; Tue, 06 Jul 2021 05:07:28 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B1F189DF7;
+	Tue,  6 Jul 2021 12:23:48 +0000 (UTC)
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [IPv6:2a00:1450:4864:20::42b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED0CA89DAB
+ for <amd-gfx@lists.freedesktop.org>; Tue,  6 Jul 2021 12:23:46 +0000 (UTC)
+Received: by mail-wr1-x42b.google.com with SMTP id n9so8512767wrs.13
+ for <amd-gfx@lists.freedesktop.org>; Tue, 06 Jul 2021 05:23:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=WcNmYFoVq/ChvnRLLz8y8GO0+i8J4bMWB+VjEQPLnks=;
- b=QVMHrhlmo2ibuidoQxhVz5hwgR1e05RHJ/DimP+nmrXG5MVnOYxKTWrOq/wxpPSWvA
- a5h6rRLQWWxW3mJRUTgnmqL+qZ7bF7rdk21SMW8Avw2cB4jHYdPjciERnvX32pr8VvEO
- Z5ZA96sJsf/kxb0WSNt9JNbRG5rVmuA8Tl8TI=
+ h=date:from:to:cc:subject:message-id:mail-followup-to:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=uNyqHLQRNkYk8ghNPCyy058MytEY7ye/Hosx5rgh6L0=;
+ b=I861MRXnVEJLWhlPliO+jitKdknn/PB69GvRAM/Y4b8ranu/45I6eMeXTNi9dKuJ0j
+ WYk89i6CPtBnGLN6nluhfnivHJjMYYzeqUVC8YHPJKGLDAkmLUXMmITr5S5TPlVgR6z+
+ pWlut4ORszisRKb8vPQRzvBskW4VntzJL5DP8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=WcNmYFoVq/ChvnRLLz8y8GO0+i8J4bMWB+VjEQPLnks=;
- b=Zx5ngp1LKCZnz4MJ6+I611Kby1BmsNjA2bkYvtsr7RVnL3yZKmN/KAJYt0gUmWOUfY
- kDD/WIgrdVnKAZtRxpUJBpC5a/vJRsgrOLFj03+tr5BQ/kTBgfmGdRA8qFSH1QJKKj/A
- HLq3hkZwLWuielQJboA7hldgQfcdn9QnEW1Vmoe1Wlva9vX9gjogfFS4MyKcaIB38av3
- 3A5NfPAMxtv3ooGAcw5sHjTr9VLyrCu6rHkjxOpgd9wYZLIy3GsTn6J0UW12rspL93Db
- /7ZwFATtZ5AQI2PrAapBVkXEeZpNYK1EeoXj+7KaUmRSGbcUdxLhkrYTLeLtoWDmAXz4
- lnCQ==
-X-Gm-Message-State: AOAM532fy8yEsQYFMJsYWSzSSCXXVkLehhiA65lgY7OJg2td3pvStTNo
- RndeNbzSxPHUi4yT8eSeSKnAo8oN5X8B5FfuOsLEsQ==
-X-Google-Smtp-Source: ABdhPJwsYN9q2cifnmDtRIZy3RgGdXbUzehpGTh80XUrZGM5+QnYXdLNwwHR8y5jrVFit4pnaIXnz2XDBGzy0FHJBNU=
-X-Received: by 2002:a05:6830:2366:: with SMTP id
- r6mr14617354oth.188.1625573247505; 
- Tue, 06 Jul 2021 05:07:27 -0700 (PDT)
-MIME-Version: 1.0
+ h=x-gm-message-state:date:from:to:cc:subject:message-id
+ :mail-followup-to:references:mime-version:content-disposition
+ :in-reply-to;
+ bh=uNyqHLQRNkYk8ghNPCyy058MytEY7ye/Hosx5rgh6L0=;
+ b=ZhF0uCvIoVUu0Zqd2QGWMihrgwNpioeID9GHvj5MglkwUkgZhWo0W7xCKTQUbZX6GD
+ eFIG6PcZGAGi7jSzTuQK5nkaa0jtBfDVD6BeI2gg/9NvbJjAgxoZOKNqvtCSRRviud+u
+ +EWaglHJhNZ+DUBAzKCQCqVJaa1UDZPfygy0k2MC9DI5f7ZyUZqCFX+87GxxY0g8R8ox
+ 7mPUPo7Hl3oSt67mrsZAQXY7CIo0ixgwTjTYcFXYLolu1Bj+Vut8yRmqVxDv44Uy6iP9
+ X+q4bTf1xQ87uGnhGKaAlRwPHrG083qN8tFH4oAZWi36QZDLoFK+eDpefNhwCNVs9TSI
+ O98w==
+X-Gm-Message-State: AOAM5333seR+itgx2ENW2OeclB6pjkwH12ewSs41Ds0px/lL0inOku61
+ p72kFMe1aB9P1Y6RuC2i6dP91Q==
+X-Google-Smtp-Source: ABdhPJxolizhwmybAQ3VsffOuvUoyS5FTxRrVw3O2VuBLsJFS1lJdSAYSr7mbyMR8j36zn3HCunCMA==
+X-Received: by 2002:adf:a41e:: with SMTP id d30mr3249053wra.10.1625574225475; 
+ Tue, 06 Jul 2021 05:23:45 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id 31sm18348673wrs.79.2021.07.06.05.23.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 06 Jul 2021 05:23:44 -0700 (PDT)
+Date: Tue, 6 Jul 2021 14:23:42 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Christoph Hellwig <hch@lst.de>
+Subject: Re: [Linaro-mm-sig] [PATCH v4 0/2] Add p2p via dmabuf to habanalabs
+Message-ID: <YORLTmyoXDtoM9Ta@phenom.ffwll.local>
+Mail-Followup-To: Christoph Hellwig <hch@lst.de>,
+ Oded Gabbay <ogabbay@kernel.org>, linux-kernel@vger.kernel.org,
+ gregkh@linuxfoundation.org, sumit.semwal@linaro.org,
+ christian.koenig@amd.com, galpress@amazon.com, sleybo@amazon.com,
+ dri-devel@lists.freedesktop.org, jgg@ziepe.ca,
+ linux-rdma@vger.kernel.org, linux-media@vger.kernel.org,
+ dledford@redhat.com, airlied@gmail.com, alexander.deucher@amd.com,
+ leonro@nvidia.com, amd-gfx@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org
 References: <20210705130314.11519-1-ogabbay@kernel.org>
  <YOQXBWpo3whVjOyh@phenom.ffwll.local>
- <CAFCwf10_rTYL2Fy6tCRVAUCf4-6_TtcWCv5gEEkGnQ0KxqMUBg@mail.gmail.com>
- <CAKMK7uEAJZUHNLreBB839BZOfnTGNU4rCx-0k55+67Nbxtdx3A@mail.gmail.com>
- <CAKMK7uHpKFVm55O_NB=WYCsv0iUt92ZUn6eCzifH=unbhe3J8g@mail.gmail.com>
-In-Reply-To: <CAKMK7uHpKFVm55O_NB=WYCsv0iUt92ZUn6eCzifH=unbhe3J8g@mail.gmail.com>
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Tue, 6 Jul 2021 14:07:16 +0200
-Message-ID: <CAKMK7uFGr=ugyKj0H3ctbh28Jnr25vAgXPBaDBMmfErCxYVo3w@mail.gmail.com>
-Subject: Re: [PATCH v4 0/2] Add p2p via dmabuf to habanalabs
-To: Oded Gabbay <oded.gabbay@gmail.com>
+ <20210706122110.GA18273@lst.de>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20210706122110.GA18273@lst.de>
+X-Operating-System: Linux phenom 5.10.0-7-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,242 +85,53 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: sleybo@amazon.com, linux-rdma <linux-rdma@vger.kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Oded Gabbay <ogabbay@kernel.org>,
- "Linux-Kernel@Vger. Kernel. Org" <linux-kernel@vger.kernel.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Gal Pressman <galpress@amazon.com>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Jason Gunthorpe <jgg@ziepe.ca>, Doug Ledford <dledford@redhat.com>,
- Christoph Hellwig <hch@lst.de>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>, Dave Airlie <airlied@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Leon Romanovsky <leonro@nvidia.com>,
- Linux Media Mailing List <linux-media@vger.kernel.org>
+Cc: sleybo@amazon.com, linux-rdma@vger.kernel.org, gregkh@linuxfoundation.org,
+ Oded Gabbay <ogabbay@kernel.org>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, galpress@amazon.com,
+ linaro-mm-sig@lists.linaro.org, jgg@ziepe.ca, dledford@redhat.com,
+ amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, airlied@gmail.com,
+ sumit.semwal@linaro.org, christian.koenig@amd.com, leonro@nvidia.com,
+ linux-media@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jul 6, 2021 at 12:47 PM Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
-> On Tue, Jul 6, 2021 at 12:36 PM Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
-> > On Tue, Jul 6, 2021 at 12:03 PM Oded Gabbay <oded.gabbay@gmail.com> wrote:
-> > >
-> > > On Tue, Jul 6, 2021 at 11:40 AM Daniel Vetter <daniel@ffwll.ch> wrote:
-> > > >
-> > > > On Mon, Jul 05, 2021 at 04:03:12PM +0300, Oded Gabbay wrote:
-> > > > > Hi,
-> > > > > I'm sending v4 of this patch-set following the long email thread.
-> > > > > I want to thank Jason for reviewing v3 and pointing out the errors, saving
-> > > > > us time later to debug it :)
-> > > > >
-> > > > > I consulted with Christian on how to fix patch 2 (the implementation) and
-> > > > > at the end of the day I shamelessly copied the relevant content from
-> > > > > amdgpu_vram_mgr_alloc_sgt() and amdgpu_dma_buf_attach(), regarding the
-> > > > > usage of dma_map_resource() and pci_p2pdma_distance_many(), respectively.
-> > > > >
-> > > > > I also made a few improvements after looking at the relevant code in amdgpu.
-> > > > > The details are in the changelog of patch 2.
-> > > > >
-> > > > > I took the time to write an import code into the driver, allowing me to
-> > > > > check real P2P with two Gaudi devices, one as exporter and the other as
-> > > > > importer. I'm not going to include the import code in the product, it was
-> > > > > just for testing purposes (although I can share it if anyone wants).
-> > > > >
-> > > > > I run it on a bare-metal environment with IOMMU enabled, on a sky-lake CPU
-> > > > > with a white-listed PCIe bridge (to make the pci_p2pdma_distance_many happy).
-> > > > >
-> > > > > Greg, I hope this will be good enough for you to merge this code.
-> > > >
-> > > > So we're officially going to use dri-devel for technical details review
-> > > > and then Greg for merging so we don't have to deal with other merge
-> > > > criteria dri-devel folks have?
-> > > I'm glad to receive any help or review, regardless of the subsystem
-> > > the person giving that help belongs to.
-> > >
-> > > >
-> > > > I don't expect anything less by now, but it does make the original claim
-> > > > that drivers/misc will not step all over accelerators folks a complete
-> > > > farce under the totally-not-a-gpu banner.
-> > > >
-> > > > This essentially means that for any other accelerator stack that doesn't
-> > > > fit the dri-devel merge criteria, even if it's acting like a gpu and uses
-> > > > other gpu driver stuff, you can just send it to Greg and it's good to go.
-> > >
-> > > What's wrong with Greg ??? ;)
-> > >
-> > > On a more serious note, yes, I do think the dri-devel merge criteria
-> > > is very extreme, and effectively drives-out many AI accelerator
-> > > companies that want to contribute to the kernel but can't/won't open
-> > > their software IP and patents.
-> > >
-> > > I think the expectation from AI startups (who are 90% of the deep
-> > > learning field) to cooperate outside of company boundaries is not
-> > > realistic, especially on the user-side, where the real IP of the
-> > > company resides.
-> > >
-> > > Personally I don't think there is a real justification for that at
-> > > this point of time, but if it will make you (and other people here)
-> > > happy I really don't mind creating a non-gpu accelerator subsystem
-> > > that will contain all the totally-not-a-gpu accelerators, and will
-> > > have a more relaxed criteria for upstreaming. Something along an
-> > > "rdma-core" style library looks like the correct amount of user-level
-> > > open source that should be enough.
+On Tue, Jul 06, 2021 at 02:21:10PM +0200, Christoph Hellwig wrote:
+> On Tue, Jul 06, 2021 at 10:40:37AM +0200, Daniel Vetter wrote:
+> > > Greg, I hope this will be good enough for you to merge this code.
+> > 
+> > So we're officially going to use dri-devel for technical details review
+> > and then Greg for merging so we don't have to deal with other merge
+> > criteria dri-devel folks have?
+> > 
+> > I don't expect anything less by now, but it does make the original claim
+> > that drivers/misc will not step all over accelerators folks a complete
+> > farce under the totally-not-a-gpu banner.
+> > 
+> > This essentially means that for any other accelerator stack that doesn't
+> > fit the dri-devel merge criteria, even if it's acting like a gpu and uses
+> > other gpu driver stuff, you can just send it to Greg and it's good to go.
+> > 
+> > There's quite a lot of these floating around actually (and many do have
+> > semi-open runtimes, like habanalabs have now too, just not open enough to
+> > be actually useful). It's going to be absolutely lovely having to explain
+> > to these companies in background chats why habanalabs gets away with their
+> > stack and they don't.
+> 
+> FYI, I fully agree with Daniel here.  Habanlabs needs to open up their
+> runtime if they want to push any additional feature in the kernel.
+> The current situation is not sustainable.
 
-On the "rdma-core" idea, afaik rdma NIC do not have fully programmable
-cores in their hw, for which you'd need some kind of compiler to make
-use of the hardware and the interfaces the kernel provides? So not
-really compareable, but also my understanding is that rdma-core does
-actually allow you to reasonable use&drive all the hw features and
-kernel interfaces fully.
+Before anyone replies: The runtime is open, the compiler is still closed.
+This has become the new default for accel driver submissions, I think
+mostly because all the interesting bits for non-3d accelerators are in the
+accel ISA, and no longer in the runtime. So vendors are fairly happy to
+throw in the runtime as a freebie.
 
-So we actually want less on dri-devel, because for compute/accel chips
-we're currently happy with a vendor userspace. It just needs to be
-functional and complete, and open in its entirety.
-
-Now if there's going to be a AI/NN/spatial compute core runtime with
-all the things included that's cross-vendor that's obviously going to
-be great, but that's strictly a bonus. And eventually the long-term
-goal, once we have a few open stacks from various vendors. But atm we
-have 0 open stacks, so one thing at a time.
-
-> > > The question is, what will happen later ? Will it be sufficient to
-> > > "allow" us to use dmabuf and maybe other gpu stuff in the future (e.g.
-> > > hmm) ?
-> > >
-> > > If the community and dri-devel maintainers (and you among them) will
-> > > assure me it is good enough, then I'll happily contribute my work and
-> > > personal time to organize this effort and implement it.
-> >
-> > I think dri-devel stance is pretty clear and well known: We want the
-> > userspace to be open, because that's where most of the driver stack
-> > is. Without an open driver stack there's no way to ever have anything
-> > cross-vendor.
-> >
-> > And that includes the compiler and anything else you need to drive the hardware.
-> >
-> > Afaik linux cpu arch ports are also not accepted if there's no open
-> > gcc or llvm port around, because without that the overall stack just
-> > becomes useless.
-> >
-> > If that means AI companies don't want to open our their hw specs
-> > enough to allow that, so be it - all you get in that case is
-> > offloading the kernel side  of the stack for convenience, with zero
-> > long term prospects to ever make this into a cross vendor subsystem
-> > stack that does something useful. If the business case says you can't
-> > open up your hw enough for that, I really don't see the point in
-> > merging such a driver, it'll be an unmaintainable stack by anyone else
-> > who's not having access to those NDA covered specs and patents and
-> > everything.
-> >
-> > If the stack is actually cross vendor to begin with that's just bonus,
-> > but generally that doesn't happen voluntarily and needs a few years to
-> > decades to get there. So that's not really something we require.
-> >
-> > tldr; just a runtime isn't enough for dri-devel.
-> >
-> > Now Greg seems to be happy to merge kernel drivers that aren't useful
-> > with the open bits provided, so *shrug*.
-> >
-> > Cheers, Daniel
-> >
-> > PS: If requiring an actually useful open driver stack is somehow
-> > *extreme* I have no idea why we even bother with merging device
-> > drivers to upstream. Just make a stable driver api and done, vendors
-> > can then do whatever they feel like and protect their "valuable IP and
-> > patents" or whatever it is.
->
-> So perhaps this isn't clear, so let's explain this differently.
->
-> The deal when having a driver in upstream is that both the vendor and
-> upstream benefits:
-> - vendor gets their driver carried and adjusted in upstream, because
-> there's no stable uapi, and the benefit of being included everywhere
-
-s/uapi/kernel driver api/ ofc, but I got it right in the first reply at least.
+It's still incomplete, and it's still useless if you want to actually hack
+on the driver stack.
 -Daniel
-
-> by default
-> - upstream gets the benefit to be able to hack around in more drivers,
-> which generally leads to a more robust subsystem and driver
-> architecture
->
-> Now what you want is to have the benefits for you, without giving the
-> wider community the benefit of actually being able to hack on your
-> driver stack. Because you prefer to keep critical pieces of it
-> protected and closed, which makes sure no one can create a new
-> cross-vendor stack without your permission. Or without investing a lot
-> of time into reverse-engineering the hardware. That's not extreme,
-> that's just preferring to have your cake and eat it too.
->
-> And frankly on dri-devel we don't take such a loopsided deal. Greg
-> otoh seems to be totally fine, or not really understand what it takes
-> to build an accelerator stack, or I dunno what, but he's happy merging
-> them.
->
-> Cheers, Daniel
->
->
-> > > Thanks,
-> > > oded
-> > >
-> > > >
-> > > > There's quite a lot of these floating around actually (and many do have
-> > > > semi-open runtimes, like habanalabs have now too, just not open enough to
-> > > > be actually useful). It's going to be absolutely lovely having to explain
-> > > > to these companies in background chats why habanalabs gets away with their
-> > > > stack and they don't.
-> > > >
-> > > > Or maybe we should just merge them all and give up on the idea of having
-> > > > open cross-vendor driver stacks for these accelerators.
-> > > >
-> > > > Thanks, Daniel
-> > > >
-> > > > >
-> > > > > Thanks,
-> > > > > Oded
-> > > > >
-> > > > > Oded Gabbay (1):
-> > > > >   habanalabs: define uAPI to export FD for DMA-BUF
-> > > > >
-> > > > > Tomer Tayar (1):
-> > > > >   habanalabs: add support for dma-buf exporter
-> > > > >
-> > > > >  drivers/misc/habanalabs/Kconfig             |   1 +
-> > > > >  drivers/misc/habanalabs/common/habanalabs.h |  26 ++
-> > > > >  drivers/misc/habanalabs/common/memory.c     | 480 +++++++++++++++++++-
-> > > > >  drivers/misc/habanalabs/gaudi/gaudi.c       |   1 +
-> > > > >  drivers/misc/habanalabs/goya/goya.c         |   1 +
-> > > > >  include/uapi/misc/habanalabs.h              |  28 +-
-> > > > >  6 files changed, 532 insertions(+), 5 deletions(-)
-> > > > >
-> > > > > --
-> > > > > 2.25.1
-> > > > >
-> > > >
-> > > > --
-> > > > Daniel Vetter
-> > > > Software Engineer, Intel Corporation
-> > > > http://blog.ffwll.ch
-> >
-> >
-> >
-> > --
-> > Daniel Vetter
-> > Software Engineer, Intel Corporation
-> > http://blog.ffwll.ch
->
->
->
-> --
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
-
-
-
 -- 
 Daniel Vetter
 Software Engineer, Intel Corporation
