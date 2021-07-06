@@ -2,68 +2,122 @@ Return-Path: <SRS0=iwxs=L6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 59B53C07E96
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 13:46:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C40D7C07E96
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 13:51:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 14DA861C85
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 13:46:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 14DA861C85
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 8834661C98
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 13:51:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8834661C98
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3CCD6E49D;
-	Tue,  6 Jul 2021 13:46:05 +0000 (UTC)
-Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
- [IPv6:2607:f8b0:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF8206E49A;
- Tue,  6 Jul 2021 13:46:04 +0000 (UTC)
-Received: by mail-oi1-x22b.google.com with SMTP id h9so24604995oih.4;
- Tue, 06 Jul 2021 06:46:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=P8uEMl95CcElB/VMdkCpxQdT/gNuuy9S+LwKiPgsqZY=;
- b=JnNq6A1PzKrmVm04br5T+cm8I9KY4qBZPOkNrk9HUTPLW1TQXae287oX0gIMl2b7Aj
- j5wgUydF+bW5O7Q3fktCfPQrM0ECZiLgktOTRS5J3yNaQET4mHFVw9+E/CJpJ3n1GuLb
- pFwHGCkhVD6KMOsgTpUXYxoPcq2TS5uuW5uZO0YwtBvNUFkl9qR2cCHxd1ayML8jGo48
- 1suYx40m2Rf0rfmLTlPH5BjJKoplC6HETWN+YaD2M5oCVvMdIRoYvltAu1gVnLSTxv6k
- 4GQaE7IYqIo5B2rqHhACt9LSw9MjCsOc42qikKf4r988dlw+Yb7v89C8bFKoJ42a/tOw
- uLgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=P8uEMl95CcElB/VMdkCpxQdT/gNuuy9S+LwKiPgsqZY=;
- b=MyZEU5FUYI9h5QqSTaxLTa+QvzlkV+SdsQUWeiaf6Br3c3ZSwmiwF7A5ftJwVn63JR
- /ZzK0h++Q/ME6H7qunnMGoqo+9VfhQwzKXYY1XNpQsa3clla21x9q7qXGWJUp5MMvNay
- iW2Nc2sbvCSVhP2Yv+xhnJN8V3nFsEZ9B+iymRnj1K4OAjWsj+dOys4N2kziYvUCoHmI
- C+kajZdpuLPYGNxrZfbkSBaHpXFPGbe9Fbd9++q4oA0MIrE2edceibDO2G2Yc0CCITPr
- 3dO+huElUicnrv7CQCYB/oZZUcz1Zp9FRXUWPQWg+QjUH/eBw1KsrAlVFO5KRKNx+DGL
- kIRA==
-X-Gm-Message-State: AOAM531kHlMDNTlPn7IjoH7p2yWwiR9pYzB8ughpyn3ENSHxTDGkq93i
- DS6YNQpq5z7jdFFIVE+TCQCFQJOAOLNTZsMhTB4=
-X-Google-Smtp-Source: ABdhPJwkExmHGJOJByLgza0xDf2376NCdcPCGetUEbvBprZgERi3BWg3OcXrM2D0nNnQMkdKxEFEevgjnQXUmb/8m1o=
-X-Received: by 2002:aca:5843:: with SMTP id m64mr529242oib.130.1625579163840; 
- Tue, 06 Jul 2021 06:46:03 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38DF76E4B5;
+	Tue,  6 Jul 2021 13:51:38 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1anam02on2070.outbound.protection.outlook.com [40.107.96.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EF136E4B5
+ for <amd-gfx@lists.freedesktop.org>; Tue,  6 Jul 2021 13:51:37 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=XRi2Uwe4Mrw2mWmpbJJNlQI8jZuAvP3WR5NPQTLroppkI+8pr5AuCrb/pmCiBOUqvbhlyHnHnxIbGqVsZ+hX+ymj0m5Spv4QOhd9yTMnDQcMBS7L53mHLqJE5x4KSzIAkyyeoclu8yof7YTe7ngHUqTHLTaCe7vuH9lyUDh9u3L81gsRG8ElXF119n7z+aD67fslucZjYo2cIi2mZBDIuNeBwK0LUf0YKV93TZd0PMe+lIua2q/zzGPxQYl5nVSN+0qFmC0syauu16X07iamcnkd8880Oal4R0Mya0aha7ZYHJjaq5b++Yg5Ey9FSTGv4Lqf8BaGOOJ1E3wM61X/WA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1FfNo70nctdBkKCQ31wIVwXxIC/vPFSZ9YqYtmMayTU=;
+ b=UhCwKu1VRNObXjalCebdCuF/tSrl3qWT2w5/EONeaCgYpZXFnURGW00KThDgdF2KYm5iiysdrKQsaE6vWp8Rt/7kc2k2J0JMX+DIyOrfy/RZ6Zsy6c9dVoM/YQ3FXeFvb+zqBIAh8T1CsahGqekBSPUqZ+b33tZ2ciDJcfETQPg7r4JWbc+zZ+2fPJXBASFqHslOpOlLqTzxA06iMFM7ukpS1KkHpsBzZCOxMfgCahrlNxQpuxou0S6N3v3wKE6MthACsSOGAxQNv9puoQh1Q0/y4a2lrvtZ8VziqoPpSJ5LExeqalitEXJ1DyXXZpRhNIMok17WdmrGpMHn2zcWPQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1FfNo70nctdBkKCQ31wIVwXxIC/vPFSZ9YqYtmMayTU=;
+ b=UEgEb1O6JZ/YxOOlfHlVlt8NMDs7V3zoH6P31jV+aAvrCbmOPl2Go3VO6jx0SB4Bvsi91E+ipY3k0527uciF1a/CChgCo0QO74QqbCsyolWXEFobXPjTqcuAjTq9LpDGn3BAr4XKXmQsayzqvSZd7S387iWJCcJ2R0/Rndl3kGM=
+Received: from CY4PR12MB1287.namprd12.prod.outlook.com (2603:10b6:903:40::8)
+ by CY4PR12MB1623.namprd12.prod.outlook.com (2603:10b6:910:6::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4287.23; Tue, 6 Jul
+ 2021 13:51:34 +0000
+Received: from CY4PR12MB1287.namprd12.prod.outlook.com
+ ([fe80::2cb6:690b:e6a0:d008]) by CY4PR12MB1287.namprd12.prod.outlook.com
+ ([fe80::2cb6:690b:e6a0:d008%3]) with mapi id 15.20.4287.033; Tue, 6 Jul 2021
+ 13:51:34 +0000
+From: "Chen, Guchun" <Guchun.Chen@amd.com>
+To: "Deng, Emily" <Emily.Deng@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: Correct the irq numbers for virtual ctrc
+Thread-Topic: [PATCH] drm/amdgpu: Correct the irq numbers for virtual ctrc
+Thread-Index: AQHXckAvR1zOcBiZJE+OMptfflPmzqs19zvA
+Date: Tue, 6 Jul 2021 13:51:34 +0000
+Message-ID: <CY4PR12MB12879CF8864C4F50059C0058F11B9@CY4PR12MB1287.namprd12.prod.outlook.com>
+References: <20210706082312.71013-1-Emily.Deng@amd.com>
+In-Reply-To: <20210706082312.71013-1-Emily.Deng@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-07-06T13:51:06Z; 
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP 2.0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=e4cd5145-7076-45bf-b189-39a79a7c42ab;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 13b42e7c-2736-4bf1-39b9-08d940852b18
+x-ms-traffictypediagnostic: CY4PR12MB1623:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <CY4PR12MB16231A9CCE53A51A899C280AF11B9@CY4PR12MB1623.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:5236;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: MnVM5/h4Z5IDvtbGDXdYWlttbAmAgAGaRIFOIa4Yv4BOes3JczRb+o1ht1I2t67+1OHbXWz/Q7hgAJ7PSD0Behdn1fnjIXTFBJIYfR4HZBglA+RGWbzyX4Gv7TZfHWrSYxre5ItrKpyYMsnxNmhOIaD1u8TFNOptFRnTjOeiYnZZmiuyvSfBB3jmegwNY01O2SRAbKmCO47NrPTOKGokO1cAtDwzdwLLqVVoF1roIZ2n0wyGqEfvkuSNV2HR2q6MI9GIZXlAeIFJDQeCKKi6YFXTzO6VEgVfF8M1Ogxr40bdDo4tbuqtGJl8wLoSbnxT0wxBrFUtH6xkXIx7Su1sO8J8Pg9SPybD0M/6hdqTgByc92VnGLBfPf+jx2lNqfzIo1Rtlc4c4nVhoMXKEewsukndDxQnaZCxeJi+uqb6S+Ps903H6H0y1KF7CdQLWgpvUVrKmELno51hrkWn2Vd7HDyy8XWSj7FOOad8zrKmSOLKdKMAPScLXTN2Y9d2WaxUM/rfXE6zJP0IutrsNVRXOwoTjP4BIG1kVvMeAq1K5Eamb1YH0KwaSMuL6JVR5sUjslLH4RMfQ8dpEHehp6A00/OPLLb/n+X+Rt5qMmc3o9b/444n5uJLKvu8/NEiKfuzSQ20nst2y+/92au04LEDEw==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY4PR12MB1287.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(39860400002)(366004)(376002)(396003)(136003)(110136005)(71200400001)(6506007)(53546011)(316002)(4326008)(55016002)(86362001)(33656002)(186003)(26005)(7696005)(2906002)(966005)(9686003)(478600001)(64756008)(66556008)(122000001)(83380400001)(38100700002)(66446008)(66476007)(8936002)(52536014)(5660300002)(76116006)(8676002)(45080400002)(66946007);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?EBj2iw/4HhtFAVL5FP5dPJ6cFfuoh0KuIMKrewUSK4KEP8fbNtZ88k3K1Dd7?=
+ =?us-ascii?Q?P4j14Xp1UlsF4L850cU2lPsKyummKvpJKyG1noSiFRXBU89+QitvomNdw14y?=
+ =?us-ascii?Q?daPKcaBeIFlAwOoUXVvE7JFZiGq8TnxHqsAtIu2h05ZmaEAwggVXgqekZEAL?=
+ =?us-ascii?Q?tqhmWtlkDBe1qC7CbtSJak066LsUEnPWEPjZrWS0xcBcd/t43BgxnOElB99X?=
+ =?us-ascii?Q?tt2o1kPBb+2W5Q3WOoGnaHK3C+uSMaXdqXKO95tHAh6o5zbQ+vJbdrTt+Uvu?=
+ =?us-ascii?Q?ajr70BkGA33y4RnJcWlVmRKoM+/qksAIRBWlNzCrAUBDUo3WnFsiMPV66sWQ?=
+ =?us-ascii?Q?Z9SGsSNXYY/htW8O6gIs2BESWa8tl8BwA4H4BK4yHoVTG1Z98SIldQHwCW6C?=
+ =?us-ascii?Q?qQXN/6IrKk7suY5TVWc3kJka4QbqGfzmfcYBUm0n2+lXyWIR8aCmdZ9gQ9P2?=
+ =?us-ascii?Q?fAhfsT/ZmxVAIjsHG84zanRIqiYtr3PlTnRCyqYhu8F/ak1IIxIcpe1DEyIX?=
+ =?us-ascii?Q?wx+vBAWpdKDQsVc0WdC3gcrZcC6wCJJzXZwxYmK/uFY1SbF4vSeENlL0Dix5?=
+ =?us-ascii?Q?8YzwkSkC5bf50Rq/Fxs9hPO5+0wFHTZRSDcZGMFpbjAmu99DTDx47Fwa2CF6?=
+ =?us-ascii?Q?KnliNnRi66lwlJKr0etRhYzzIWgR9sHscoKovrDxWc4/7ZQ+GTES+VMCWZab?=
+ =?us-ascii?Q?E9HZSqxvmz5UAcBrBlpEVadQ7fItn11/tCmYB1B9RIDChCDnFx6cltb0boTl?=
+ =?us-ascii?Q?pDzn4ZVh6Y9Z6GflRU93aWo6Z3SI30DDUsdmwRrpGWGayOME/1MWR6csa4Jb?=
+ =?us-ascii?Q?KhwNJKfntd46Ca5rJwqqjfIg4jqGRCz6P2BkedTrBiKWHftTSpU4yuDc9L3t?=
+ =?us-ascii?Q?sGhFKs2iSIgO1cw02scaOM9ACmnAh9AJe2wqNdklSw6LtpP/qC2AqFP+xWPf?=
+ =?us-ascii?Q?UVC7dV3q3Vhjxlo9/6dYhvGCbvtEKOSGzDT6hT8H4zAl9eZW1zatkaTV/jc6?=
+ =?us-ascii?Q?BqGUYeNYxYO9NNXtt1z6OBEJMoFkONpGRbNOTkTphxG+RvZ8GvDs+13YP42h?=
+ =?us-ascii?Q?o4NJAKLk0x6Wc2OF8r2a4M3WmxuLks/ZJyTWGnAOdZFhFP3IhKMjpzGhrBsU?=
+ =?us-ascii?Q?m43TXhNrINhOJo9s6oyDOl/9sa2eAj6mHVtIwX06g358ZIej0DRpiU/4wKwb?=
+ =?us-ascii?Q?/wHeuVuYHaeDj9WIywFtKwNCG25T/Foczv9OnU9io3/QR+C3jH8+PQOC9uHo?=
+ =?us-ascii?Q?eBBBLtrOFvQKN2+NOkxa8gFjldULGgPNnf/L2MKtlhMkPYpKpfUGrtacsMKr?=
+ =?us-ascii?Q?O0iQVWqC5eCJbfZvPaENxOCX?=
 MIME-Version: 1.0
-References: <20210705130314.11519-1-ogabbay@kernel.org>
- <YOQXBWpo3whVjOyh@phenom.ffwll.local>
- <20210706122110.GA18273@lst.de> <YORLTmyoXDtoM9Ta@phenom.ffwll.local>
- <CAFCwf114KEH-kO6w+nmbqKKdaGuqy3iOpHJi=5ZWqT3cgDm4Cw@mail.gmail.com>
- <CAKMK7uHfCbNQJwbXgLC9ibk71kVG7TBK4bfFxzX82ziSgqG9nw@mail.gmail.com>
-In-Reply-To: <CAKMK7uHfCbNQJwbXgLC9ibk71kVG7TBK4bfFxzX82ziSgqG9nw@mail.gmail.com>
-From: Oded Gabbay <oded.gabbay@gmail.com>
-Date: Tue, 6 Jul 2021 16:45:36 +0300
-Message-ID: <CAFCwf12DJbk-CYJeRc3E5RCu+++ghO=9xwRo7vy=8VhH+z3bHA@mail.gmail.com>
-Subject: Re: [Linaro-mm-sig] [PATCH v4 0/2] Add p2p via dmabuf to habanalabs
-To: Daniel Vetter <daniel@ffwll.ch>
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY4PR12MB1287.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 13b42e7c-2736-4bf1-39b9-08d940852b18
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Jul 2021 13:51:34.6522 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: xbfDGph8hfIvytrMqvEZdmzejTjEDCWWsQoEZw8nTZxFhIFS4XSgahQGQ7XdjDQ9wckdrXt3yhEbriGE9j3Lmg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1623
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,143 +129,53 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Gal Pressman <galpress@amazon.com>, sleybo@amazon.com,
- linux-rdma <linux-rdma@vger.kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Oded Gabbay <ogabbay@kernel.org>,
- "Linux-Kernel@Vger. Kernel. Org" <linux-kernel@vger.kernel.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Jason Gunthorpe <jgg@ziepe.ca>, Doug Ledford <dledford@redhat.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>, Dave Airlie <airlied@gmail.com>,
- Christoph Hellwig <hch@lst.de>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Leon Romanovsky <leonro@nvidia.com>,
- Linux Media Mailing List <linux-media@vger.kernel.org>
+Cc: "Deng, Emily" <Emily.Deng@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jul 6, 2021 at 4:17 PM Daniel Vetter <daniel@ffwll.ch> wrote:
->
-> On Tue, Jul 6, 2021 at 2:46 PM Oded Gabbay <oded.gabbay@gmail.com> wrote:
-> >
-> > On Tue, Jul 6, 2021 at 3:23 PM Daniel Vetter <daniel@ffwll.ch> wrote:
-> > >
-> > > On Tue, Jul 06, 2021 at 02:21:10PM +0200, Christoph Hellwig wrote:
-> > > > On Tue, Jul 06, 2021 at 10:40:37AM +0200, Daniel Vetter wrote:
-> > > > > > Greg, I hope this will be good enough for you to merge this code.
-> > > > >
-> > > > > So we're officially going to use dri-devel for technical details review
-> > > > > and then Greg for merging so we don't have to deal with other merge
-> > > > > criteria dri-devel folks have?
-> > > > >
-> > > > > I don't expect anything less by now, but it does make the original claim
-> > > > > that drivers/misc will not step all over accelerators folks a complete
-> > > > > farce under the totally-not-a-gpu banner.
-> > > > >
-> > > > > This essentially means that for any other accelerator stack that doesn't
-> > > > > fit the dri-devel merge criteria, even if it's acting like a gpu and uses
-> > > > > other gpu driver stuff, you can just send it to Greg and it's good to go.
-> > > > >
-> > > > > There's quite a lot of these floating around actually (and many do have
-> > > > > semi-open runtimes, like habanalabs have now too, just not open enough to
-> > > > > be actually useful). It's going to be absolutely lovely having to explain
-> > > > > to these companies in background chats why habanalabs gets away with their
-> > > > > stack and they don't.
-> > > >
-> > > > FYI, I fully agree with Daniel here.  Habanlabs needs to open up their
-> > > > runtime if they want to push any additional feature in the kernel.
-> > > > The current situation is not sustainable.
-> > Well, that's like, your opinion...
-> >
-> > >
-> > > Before anyone replies: The runtime is open, the compiler is still closed.
-> > > This has become the new default for accel driver submissions, I think
-> > > mostly because all the interesting bits for non-3d accelerators are in the
-> > > accel ISA, and no longer in the runtime. So vendors are fairly happy to
-> > > throw in the runtime as a freebie.
-> > >
-> > > It's still incomplete, and it's still useless if you want to actually hack
-> > > on the driver stack.
-> > > -Daniel
-> > > --
-> > I don't understand what's not sustainable here.
-> >
-> > There is zero code inside the driver that communicates or interacts
-> > with our TPC code (TPC is the Tensor Processing Core).
-> > Even submitting works to the TPC is done via a generic queue
-> > interface. And that queue IP is common between all our engines
-> > (TPC/DMA/NIC). The driver provides all the specs of that queue IP,
-> > because the driver's code is handling that queue. But why is the TPC
-> > compiler code even relevant here ?
->
-> Can I use the hw how it's intended to be used without it?
-You can use the h/w with the userspace stack we are providing in our
-github repos + website.
-Part of the userspace stack is open sourced, part is closed source.
-And I'm actively working on opening up more stuff as we go along.
+[Public]
 
->
-> If the answer is no, then essentially what you're doing with your
-> upstream driver is getting all the benefits of an upstream driver,
-> while upstream gets nothing. We can't use your stack, not as-is. Sure
-> we can use the queue, but we can't actually submit anything
-> interesting. And I'm pretty sure the point of your hw is to do more
-> than submit no-op packets to a queue.
->
-> This is all "I want my cake and eat it too" approach to upstreaming,
-> and it's totally fine attitude to have, but if you don't see why
-> there's maybe an different side to it then I don't get what you're
-> arguing. Upstream isn't free lunch for nothing.
->
-> Frankly I'm starting to assume you're arguing this all in bad faith
-> just because habanalabds doesn't want to actually have an open driver
-> stack, so any attack is good, no matter what. Which is also what
-> everyone else does who submits their accel driver to upstream, and
-> which gets us back to the starting point of this sub-thread of me
-> really appreciation how this will improve background discussions going
-> forward for everyone.
->
-> Like if the requirement for accel drivers truly is that you can submit
-> a dummy command to the queues then I have about 5-10 drivers at least
-> I could merge instantly. For something like the intel gpu driver it
-> would be about 50 lines of code (including all the structure boiler
-> plate the ioctls require)in userspace to submit a dummy queue command.
-> GPU and accel vendors would really love that, because it would allow
-> them to freeload on upstream and do essentially nothing in return.
->
-> And we'd end up with an unmaintainable disaster of a gpu or well
-> accelerator subsystem because there's nothing you can change or
-> improve because all the really useful bits of the stack are closed.
-> And ofc that's not any companies problem anymore, so ofc you with the
-> habanalabs hat on don't care and call this *extreme*.
->
-> > btw, you can today see our TPC code at
-> > https://github.com/HabanaAI/Habana_Custom_Kernel
-> > There is a link there to the TPC user guide and link to download the
-> > LLVM compiler.
->
-> I got stuck clicking links before I found the source for that llvm
-> compiler. Can you give me a direct link to the repo with sourcecode
-> instead please?
-The source code for the LLVM compiler is not available yet. That's one
-of the parts I'm working on getting in the open.
-Having said that, I don't think (and I'm not alone at this) that this
-should be a pre-requirement for upstreaming kernel drivers of any
-type.
-And we had this discussion in the past, I'm sure we are both tired of
-repeating ourselves.
+A spelling typo in subject.
 
->
-> Thanks, Daniel
-> --
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
+s/ctrc/crtc
+
+Regards,
+Guchun
+
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Emily Deng
+Sent: Tuesday, July 6, 2021 4:23 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Deng, Emily <Emily.Deng@amd.com>
+Subject: [PATCH] drm/amdgpu: Correct the irq numbers for virtual ctrc
+
+The irq number should be decided by num_crtc, and the num_crtc could change by parameter.
+
+Signed-off-by: Emily Deng <Emily.Deng@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/dce_virtual.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_virtual.c b/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
+index 33324427b555..7e0d8c092c7e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
+@@ -766,7 +766,7 @@ static const struct amdgpu_irq_src_funcs dce_virtual_crtc_irq_funcs = {
+ 
+ static void dce_virtual_set_irq_funcs(struct amdgpu_device *adev)  {
+-	adev->crtc_irq.num_types = AMDGPU_CRTC_IRQ_VBLANK6 + 1;
++	adev->crtc_irq.num_types = adev->mode_info.num_crtc;
+ 	adev->crtc_irq.funcs = &dce_virtual_crtc_irq_funcs;  }
+ 
+--
+2.25.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7Cguchun.chen%40amd.com%7Ca4ebf76a046d421cf07c08d94057515e%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637611566042100458%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=kh2vwkTyod4ajvt03GB6%2F%2B4FYc%2BwZLCC%2FusgWuijPCU%3D&amp;reserved=0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
