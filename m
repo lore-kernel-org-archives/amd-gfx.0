@@ -2,64 +2,65 @@ Return-Path: <SRS0=iwxs=L6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 575A6C07E9B
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 14:39:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D147EC07E96
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 15:26:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 23A3B613B2
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 14:39:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 23A3B613B2
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id 9DBD36141C
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 15:26:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9DBD36141C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B7F46E4D2;
-	Tue,  6 Jul 2021 14:39:32 +0000 (UTC)
-Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
- [IPv6:2607:f8b0:4864:20::32c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 614426E4D2
- for <amd-gfx@lists.freedesktop.org>; Tue,  6 Jul 2021 14:39:31 +0000 (UTC)
-Received: by mail-ot1-x32c.google.com with SMTP id
- 7-20020a9d0d070000b0290439abcef697so21786056oti.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 06 Jul 2021 07:39:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C5086E4FE;
+	Tue,  6 Jul 2021 15:26:13 +0000 (UTC)
+Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
+ [IPv6:2607:f8b0:4864:20::22d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7219D6E4FE;
+ Tue,  6 Jul 2021 15:26:12 +0000 (UTC)
+Received: by mail-oi1-x22d.google.com with SMTP id r29so8533180oiw.13;
+ Tue, 06 Jul 2021 08:26:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=zm0DaryDqZq3vejGZ3jPeBiO1tR+wTWZk5xnShXCnO4=;
- b=G30UzRcjxEx6Xt1b6aM3vMaunEynpsORVhKQH6x0woz09DwXifJzfkCwSyC/RCtJF6
- 0dlH0FE/N9kBHKK6ACyKzCL9AAOx7O6sYOnj6Loko6p9DlXanIsMowNmzYBNl9TxrrVf
- GOw2Y2m6AMmOya+oUGFCdCcJKjukWk6zcmTM4=
+ :cc; bh=w2eAq2G01Bet4muv8xBvSxbgi0B+md3//Y5qHP0O3G8=;
+ b=b9vQOKl2dGzKP3tFq4e7Mx6iP4z3rPwm7RMfqSC1Bo6Y17H52+i/DT4dSBua051Iy3
+ H/TADdyu93N2+ZsvinXhsgnXErofkUDyYr2CJxKg/cuI9/Z+eXOTzgKrikLtIj53H0SO
+ OtSe+OarQC3/6BuLPyShQBuNtrFagVBGxIswNPPCijlpohn8KWQ32o2jfFkRT4K/Hpf5
+ LJFEpRWZC4yrcwY3dT9dS87ANVskb933925ZaNhjcEgqzuJGZotBnlFQTAOpONwUSwcc
+ OP7wrAeNFdODDY1DOdAceJvlj1gArJFmrn5cRrXR8+KACy6In853tUu9tGA1rovsBFaV
+ uThA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=zm0DaryDqZq3vejGZ3jPeBiO1tR+wTWZk5xnShXCnO4=;
- b=QJPqhyeCrfis5CYny4SBSBiOTPQkMcGdgQy28z2GYJJrebiDazYOEC9OayNfy0cWwh
- Nj1vJn6Fy6D69mguOsU51VpdM7dp8Zwav/FRhySacjaiEURP6EKR/WwUsGisMtqYq5Lm
- zIvQfnGsO8++bDldN+i3OoWCaq3tTmUthW68Tb0ZA7AcPg0MWF41f9W5sgi8fHXS12BF
- R0KpeSPvRklbwKX31nhqDfEbJizAAWwEkiMv9cr7LVVVvDvDjuTGbobHuWnakk75jTRk
- HGnXkc4WzCs/MkeC6bRk/eBpwbLU/u/gC8aaSq5VbhsqeUEW9bC6q4BU3DwF19wc0CSN
- IIfg==
-X-Gm-Message-State: AOAM530NOMCBtWXYHDR+nEBLZzW86kfRJmWL6xzn6UCngibxrSzAWxud
- gwMfYyCitx9SVhadlJo6MGSsDrOZ+VkRsEMfojIjjw==
-X-Google-Smtp-Source: ABdhPJzgkWaB0S4HP/SYLFWoigqz0+uVa0qbfzt618JpPtslruMLA86ntCgmp9G7+R8uc+hgYBv5HiSGfZAE493M7OE=
-X-Received: by 2002:a9d:27a4:: with SMTP id c33mr15519363otb.281.1625582370636; 
- Tue, 06 Jul 2021 07:39:30 -0700 (PDT)
+ bh=w2eAq2G01Bet4muv8xBvSxbgi0B+md3//Y5qHP0O3G8=;
+ b=FmUaL98V6bf/JkbNJxTN8kbBOwQwmfryYbr/hPpKq20XovRc3ILM5cYtrnAYUlbgHb
+ vXp0AB6UNvIR6c6DA6+8GohT+COiGie3abIJ+KGhU1FDxSNRcyf4dcJoyzUQ6wlsbAU/
+ M+Xi9FW678B5Qh0yw99VQp+UayVAYIss0qIsvHQH3pNxXavUX9A0dR5k2Xj1zHYACpwZ
+ jqrcWT1fGuyjVeiVghL7gll6jKKm2Sa0YE2KpuvLo8w+wjBt501qtShff7sSORCAJZhe
+ /L+NyXaOv6zEZJr+YRyWuyM8fAUcA4cBFlmjKm+0Qg6iauTg4B9gMzZPUmKfPKY+AETR
+ P12A==
+X-Gm-Message-State: AOAM533i1WevIju0x1iN00Cgjrl4ZKflOcH0/UH55oa9sYRKdOkBynuX
+ 83vEGTbYU0484Cbbx8CULg0N5fYNIhtFgsTyoLc=
+X-Google-Smtp-Source: ABdhPJzwULEvfrF85bAMkeqO5Vtm349xcz5bNFcYDKxb2SxpX8XXeQVkPvFpiWm4BXrd0g0I7ALU+ZQCWnWhLUFWx3s=
+X-Received: by 2002:aca:f12:: with SMTP id 18mr14381235oip.123.1625585171669; 
+ Tue, 06 Jul 2021 08:26:11 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210705130314.11519-1-ogabbay@kernel.org>
- <YOQXBWpo3whVjOyh@phenom.ffwll.local>
- <CAFCwf10_rTYL2Fy6tCRVAUCf4-6_TtcWCv5gEEkGnQ0KxqMUBg@mail.gmail.com>
- <CAKMK7uEAJZUHNLreBB839BZOfnTGNU4rCx-0k55+67Nbxtdx3A@mail.gmail.com>
- <20210706142357.GN4604@ziepe.ca>
-In-Reply-To: <20210706142357.GN4604@ziepe.ca>
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Tue, 6 Jul 2021 16:39:19 +0200
-Message-ID: <CAKMK7uELNzwUe+hhVWRg=Pk5Wt_vOOX922H48Kd6dTyO2PeBbg@mail.gmail.com>
-Subject: Re: [PATCH v4 0/2] Add p2p via dmabuf to habanalabs
-To: Jason Gunthorpe <jgg@ziepe.ca>
+References: <a836cafa-86a9-3d72-1f02-f9f2d58ee127@amd.com>
+ <20210702230455.31196-1-luben.tuikov@amd.com>
+In-Reply-To: <20210702230455.31196-1-luben.tuikov@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 6 Jul 2021 11:25:59 -0400
+Message-ID: <CADnq5_MMc0b6Cy+A46oqa1Pdy=GFZjFmC8NqJK=rOV6B-Ba7aQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Return error if no RAS
+To: Luben Tuikov <luben.tuikov@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,101 +72,184 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Oded Gabbay <oded.gabbay@gmail.com>, Gal Pressman <galpress@amazon.com>,
- sleybo@amazon.com, linux-rdma <linux-rdma@vger.kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Oded Gabbay <ogabbay@kernel.org>,
- "Linux-Kernel@Vger. Kernel. Org" <linux-kernel@vger.kernel.org>,
+Cc: "Chen, Guchun" <guchun.chen@amd.com>, Dave Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>, xinhui pan <Xinhui.Pan@amd.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Nirmoy Das <nirmoy.das@amd.com>,
+ "Stanley.Yang" <Stanley.Yang@amd.com>,
  Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Doug Ledford <dledford@redhat.com>, Christoph Hellwig <hch@lst.de>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>, Dave Airlie <airlied@gmail.com>,
+ Tom Rix <trix@redhat.com>, Alexander Deucher <Alexander.Deucher@amd.com>,
+ John Clements <john.clements@amd.com>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Leon Romanovsky <leonro@nvidia.com>,
- Linux Media Mailing List <linux-media@vger.kernel.org>
+ Dennis Li <Dennis.Li@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jul 6, 2021 at 4:23 PM Jason Gunthorpe <jgg@ziepe.ca> wrote:
+On Fri, Jul 2, 2021 at 7:05 PM Luben Tuikov <luben.tuikov@amd.com> wrote:
 >
-> On Tue, Jul 06, 2021 at 12:36:51PM +0200, Daniel Vetter wrote:
+> In amdgpu_ras_query_error_count() return an error
+> if the device doesn't support RAS. This prevents
+> that function from having to always set the values
+> of the integer pointers (if set), and thus
+> prevents function side effects--always to have to
+> set values of integers if integer pointers set,
+> regardless of whether RAS is supported or
+> not--with this change this side effect is
+> mitigated.
 >
-> > If that means AI companies don't want to open our their hw specs
-> > enough to allow that, so be it - all you get in that case is
-> > offloading the kernel side  of the stack for convenience, with zero
-> > long term prospects to ever make this into a cross vendor subsystem
-> > stack that does something useful.
+> Also, if no pointers are set, don't count, since
+> we've no way of reporting the counts.
 >
-> I don't think this is true at all - nouveau is probably the best
-> example.
+> Also, give this function a kernel-doc.
 >
-> nouveau reverse engineered a userspace stack for one of these devices.
+> Cc: Alexander Deucher <Alexander.Deucher@amd.com>
+> Cc: John Clements <john.clements@amd.com>
+> Cc: Hawking Zhang <Hawking.Zhang@amd.com>
+> Reported-by: Tom Rix <trix@redhat.com>
+> Fixes: a46751fbcde505 ("drm/amdgpu: Fix RAS function interface")
+> Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 49 ++++++++++++++++++-------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h |  6 +--
+>  2 files changed, 38 insertions(+), 17 deletions(-)
 >
-> How much further ahead would they have been by now if they had a
-> vendor supported, fully featured, open kernel driver to build the
-> userspace upon?
-
-There is actually tons of example here, most of the arm socs have
-fully open kernel drivers, supported by the vendor (out of tree).
-
-The hard part is the userspace driver and all the things you're
-submitting to it. We've had open kernel drivers for mail/qualcomm/...
-years before any believable open implementation started existing.
-Typing up the memory manager and hw submission queue handling is
-comparitively trivial. Generally the kernel driver is also done last,
-you bring up the userspace first, often by just directly programming
-the hw from userspace. Kernel driver only gets in the way with this
-stuff (nouveau is entirely developed as a userspace driver, as the
-most extreme example).
-
-This is a bit different for the display side, but nowadays those
-drivers are fully in-kernel so they're all open. Well except the
-nvidia one, and I've not heard of nvidia working on even an
-out-of-tree open display driver, so that won't help the in-tree effort
-at all.
-
-Where it would have helped is if this open driver would come with
-redistributable firmware, because that is right now the thing making
-nouveau reverse-engineering painful enough to be non-feasible. Well
-not the reverse-engineering, but the "shipping the result as a working
-driver stack".
-
-I don't think the facts on the ground support your claim here, aside
-from the practical problem that nvidia is unwilling to even create an
-open driver to begin with. So there isn't anything to merge.
-
-> > open up your hw enough for that, I really don't see the point in
-> > merging such a driver, it'll be an unmaintainable stack by anyone else
-> > who's not having access to those NDA covered specs and patents and
-> > everything.
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> index c6ae63893dbdb2..ed698b2be79023 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> @@ -813,7 +813,7 @@ static int amdgpu_ras_enable_all_features(struct amdgpu_device *adev,
 >
-> My perspective from RDMA is that the drivers are black boxes. I can
-> hack around the interface layers but there is a lot of wild stuff in
-> there that can't be understood without access to the HW documentation.
+>  /* query/inject/cure begin */
+>  int amdgpu_ras_query_error_status(struct amdgpu_device *adev,
+> -       struct ras_query_if *info)
+> +                                 struct ras_query_if *info)
+>  {
+>         struct ras_manager *obj = amdgpu_ras_find_obj(adev, &info->head);
+>         struct ras_err_data err_data = {0, 0, 0, NULL};
+> @@ -1047,17 +1047,32 @@ int amdgpu_ras_error_inject(struct amdgpu_device *adev,
+>         return ret;
+>  }
+>
+> -/* get the total error counts on all IPs */
+> -void amdgpu_ras_query_error_count(struct amdgpu_device *adev,
+> -                                 unsigned long *ce_count,
+> -                                 unsigned long *ue_count)
+> +/**
+> + * amdgpu_ras_query_error_count -- Get error counts of all IPs
+> + * adev: pointer to AMD GPU device
+> + * ce_count: pointer to an integer to be set to the count of correctible errors.
+> + * ue_count: pointer to an integer to be set to the count of uncorrectible
+> + * errors.
+> + *
+> + * If set, @ce_count or @ue_count, count and return the corresponding
+> + * error counts in those integer pointers. Return 0 if the device
+> + * supports RAS. Return -EINVAL if the device doesn't support RAS.
+> + */
+> +int amdgpu_ras_query_error_count(struct amdgpu_device *adev,
+> +                                unsigned long *ce_count,
+> +                                unsigned long *ue_count)
+>  {
+>         struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+>         struct ras_manager *obj;
+>         unsigned long ce, ue;
+>
+>         if (!adev->ras_enabled || !con)
+> -               return;
+> +               return -EINVAL;
 
-There's shipping gpu drivers with entirely reverse-engineered stacks.
-And I don't mean "shipping in fedora" but "shipping in Chrome tablets
-sold by OEM partners of Google". So it's very much possible, even if
-the vendor is maximally stubborn about things.
+Maybe return -ENOTSUPP or -ENODEV here or something like that since
+the device doesn't support RAS in that case?  Other than that, looks
+good to me.
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-> I think only HW that has open specs, like say NVMe, can really be
-> properly community oriented. Otherwise we have to work in a community
-> partnership with the vendor.
+Alex
 
-Well sure that's the ideal case, but most vendors in the accel space
-arent interested actual partnership with the wider community. It's
-"merge this kernel driver and have no further demands about anything
-else". Well there are some who are on board, but it does take pretty
-enormous amounts of coercion.
--Daniel
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+
+> +
+> +       /* Don't count since no reporting.
+> +        */
+> +       if (!ce_count && !ue_count)
+> +               return 0;
+>
+>         ce = 0;
+>         ue = 0;
+> @@ -1065,9 +1080,11 @@ void amdgpu_ras_query_error_count(struct amdgpu_device *adev,
+>                 struct ras_query_if info = {
+>                         .head = obj->head,
+>                 };
+> +               int res;
+>
+> -               if (amdgpu_ras_query_error_status(adev, &info))
+> -                       return;
+> +               res = amdgpu_ras_query_error_status(adev, &info);
+> +               if (res)
+> +                       return res;
+>
+>                 ce += info.ce_count;
+>                 ue += info.ue_count;
+> @@ -1078,6 +1095,8 @@ void amdgpu_ras_query_error_count(struct amdgpu_device *adev,
+>
+>         if (ue_count)
+>                 *ue_count = ue;
+> +
+> +       return 0;
+>  }
+>  /* query/inject/cure end */
+>
+> @@ -2145,9 +2164,10 @@ static void amdgpu_ras_counte_dw(struct work_struct *work)
+>
+>         /* Cache new values.
+>          */
+> -       amdgpu_ras_query_error_count(adev, &ce_count, &ue_count);
+> -       atomic_set(&con->ras_ce_count, ce_count);
+> -       atomic_set(&con->ras_ue_count, ue_count);
+> +       if (amdgpu_ras_query_error_count(adev, &ce_count, &ue_count) == 0) {
+> +               atomic_set(&con->ras_ce_count, ce_count);
+> +               atomic_set(&con->ras_ue_count, ue_count);
+> +       }
+>
+>         pm_runtime_mark_last_busy(dev->dev);
+>  Out:
+> @@ -2320,9 +2340,10 @@ int amdgpu_ras_late_init(struct amdgpu_device *adev,
+>
+>         /* Those are the cached values at init.
+>          */
+> -       amdgpu_ras_query_error_count(adev, &ce_count, &ue_count);
+> -       atomic_set(&con->ras_ce_count, ce_count);
+> -       atomic_set(&con->ras_ue_count, ue_count);
+> +       if (amdgpu_ras_query_error_count(adev, &ce_count, &ue_count) == 0) {
+> +               atomic_set(&con->ras_ce_count, ce_count);
+> +               atomic_set(&con->ras_ue_count, ue_count);
+> +       }
+>
+>         return 0;
+>  cleanup:
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+> index 283afd791db107..4d9c63f2f37718 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+> @@ -491,9 +491,9 @@ int amdgpu_ras_request_reset_on_boot(struct amdgpu_device *adev,
+>  void amdgpu_ras_resume(struct amdgpu_device *adev);
+>  void amdgpu_ras_suspend(struct amdgpu_device *adev);
+>
+> -void amdgpu_ras_query_error_count(struct amdgpu_device *adev,
+> -                                 unsigned long *ce_count,
+> -                                 unsigned long *ue_count);
+> +int amdgpu_ras_query_error_count(struct amdgpu_device *adev,
+> +                                unsigned long *ce_count,
+> +                                unsigned long *ue_count);
+>
+>  /* error handling functions */
+>  int amdgpu_ras_add_bad_pages(struct amdgpu_device *adev,
+> --
+> 2.32.0
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
