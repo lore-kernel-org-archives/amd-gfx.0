@@ -7,41 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 83FB5C07E96
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 11:19:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1EE6AC07E9B
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 11:19:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4CDA761D4B
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 11:19:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4CDA761D4B
+	by mail.kernel.org (Postfix) with ESMTPS id E512E61D3E
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 11:19:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E512E61D3E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66AD26E2DC;
-	Tue,  6 Jul 2021 11:19:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 201446E2E1;
+	Tue,  6 Jul 2021 11:19:44 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE9356E2D7;
- Tue,  6 Jul 2021 11:19:40 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id DE1C661D6C;
- Tue,  6 Jul 2021 11:19:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A47F6E2DF;
+ Tue,  6 Jul 2021 11:19:43 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 52E8561241;
+ Tue,  6 Jul 2021 11:19:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1625570380;
- bh=P923ERhE2scix0Bmb5FE8KAJFqLGlHL+1sVq8aBO464=;
+ s=k20201202; t=1625570383;
+ bh=i09kXPCbvTLasuCF6x0xbGddtyuLPQXaRHxe8X5l2eA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=OR1874jyFm7FeT7bRMRXVEZBeZoWS0lqkYy7RkWmGqbQpNAMmS37HTnIDjLxVTZ3z
- IMhf3hiyj43OYYhx4v+uIgY/qofaeGgWJotIlMhZfHcOorpXZUqsxChNDvC90+1Zwc
- 3Xy6mU2HJHvx+ZbGfTRhCBZb2/BewUMNg+eCllRYzMg030IO1OebZqvM/RG9AIkT2f
- iRFXEPqRW4Uo6jU9+lyWs1GOGXTlcu5dknlpowzrlhTXNOBIWYh8Aw5eFAm/xz0CQN
- RxraxNankSdqxMQoyX0GBNsqe6QEfdyjk0MRy3ZEJirrgfzCuuBkLYYQ4JuSc3tOxM
- BoVD3JmOVJ1gA==
+ b=uyNxSymlLAFr6ehacsq6RtzAGjI2qN96FDeT/i+dItBtrc5hahNV8vFVPlZ7zw+Cg
+ JmB6jPQlB7zPGBk66FozHLOBgE8ed3J/XhoUFuPJrUEDIAlRkvo9lGuk+pKMY7Kh2d
+ U75FujEx2rCQsIk7a5CF0jHXpCf6u6UrUIjT1fA86AuywrjsfTakXtbLhtGcCtOZQU
+ QrRDAJov2YUxeH/cmZou3S6EcBMAaxa1wjkmAZv3fdXUEUBf5rYrJTtudfVhGbB0Sy
+ 9rVDvxbdCpVPry7LvhAKGpsSCZwY4ez628hb+2rQ4Fco3vWy3ZhEzHu5TscBrDSiEO
+ yijxxuTowKOrw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.12 055/160] drm/amdgpu: fix sdma firmware version
- error in sriov
-Date: Tue,  6 Jul 2021 07:16:41 -0400
-Message-Id: <20210706111827.2060499-55-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.12 057/160] drm/amdgpu: remove unsafe optimization
+ to drop preamble ib
+Date: Tue,  6 Jul 2021 07:16:43 -0400
+Message-Id: <20210706111827.2060499-57-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210706111827.2060499-1-sashal@kernel.org>
 References: <20210706111827.2060499-1-sashal@kernel.org>
@@ -59,53 +59,68 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Kevin Wang <kevin1.wang@amd.com>,
- dri-devel@lists.freedesktop.org, "Stanley . Yang" <Stanley.Yang@amd.com>,
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
+Cc: Sasha Levin <sashal@kernel.org>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Jiansong Chen <Jiansong.Chen@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Kevin Wang <kevin1.wang@amd.com>
+From: Jiansong Chen <Jiansong.Chen@amd.com>
 
-[ Upstream commit 2b8f731849800e3948763ccaff31cceac526789b ]
+[ Upstream commit 7d9c70d23550eb86a1bec1954ccaa8d6ec3a3328 ]
 
-Re-adjust the function return order to avoid empty sdma version in the
-sriov environment. (read amdgpu_firmware_info)
+Take the situation with gfxoff, the optimization may cause
+corrupt CE ram contents. In addition emit_cntxcntl callback
+has similar optimization which firmware can handle properly
+even for power feature.
 
-Signed-off-by: Kevin Wang <kevin1.wang@amd.com>
-Reviewed-by: Stanley.Yang <Stanley.Yang@amd.com>
+Signed-off-by: Jiansong Chen <Jiansong.Chen@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c | 11 +----------
+ 1 file changed, 1 insertion(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-index 32c6aa03d267..f884d43d4ff0 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-@@ -145,9 +145,6 @@ static int sdma_v5_2_init_microcode(struct amdgpu_device *adev)
- 	struct amdgpu_firmware_info *info = NULL;
- 	const struct common_firmware_header *header = NULL;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+index 97c11aa47ad0..7892958d5f59 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+@@ -131,7 +131,7 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned num_ibs,
+ 	struct amdgpu_device *adev = ring->adev;
+ 	struct amdgpu_ib *ib = &ibs[0];
+ 	struct dma_fence *tmp = NULL;
+-	bool skip_preamble, need_ctx_switch;
++	bool need_ctx_switch;
+ 	unsigned patch_offset = ~0;
+ 	struct amdgpu_vm *vm;
+ 	uint64_t fence_ctx;
+@@ -228,7 +228,6 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned num_ibs,
+ 	if (need_ctx_switch)
+ 		status |= AMDGPU_HAVE_CTX_SWITCH;
  
--	if (amdgpu_sriov_vf(adev) && (adev->asic_type == CHIP_SIENNA_CICHLID))
--		return 0;
+-	skip_preamble = ring->current_ctx == fence_ctx;
+ 	if (job && ring->funcs->emit_cntxcntl) {
+ 		status |= job->preamble_status;
+ 		status |= job->preemption_status;
+@@ -246,14 +245,6 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned num_ibs,
+ 	for (i = 0; i < num_ibs; ++i) {
+ 		ib = &ibs[i];
+ 
+-		/* drop preamble IBs if we don't have a context switch */
+-		if ((ib->flags & AMDGPU_IB_FLAG_PREAMBLE) &&
+-		    skip_preamble &&
+-		    !(status & AMDGPU_PREAMBLE_IB_PRESENT_FIRST) &&
+-		    !amdgpu_mcbp &&
+-		    !amdgpu_sriov_vf(adev)) /* for SRIOV preemption, Preamble CE ib must be inserted anyway */
+-			continue;
 -
- 	DRM_DEBUG("\n");
- 
- 	switch (adev->asic_type) {
-@@ -182,6 +179,9 @@ static int sdma_v5_2_init_microcode(struct amdgpu_device *adev)
- 		       (void *)&adev->sdma.instance[0],
- 		       sizeof(struct amdgpu_sdma_instance));
- 
-+	if (amdgpu_sriov_vf(adev) && (adev->asic_type == CHIP_SIENNA_CICHLID))
-+		return 0;
-+
- 	DRM_DEBUG("psp_load == '%s'\n",
- 		  adev->firmware.load_type == AMDGPU_FW_LOAD_PSP ? "true" : "false");
- 
+ 		if (job && ring->funcs->emit_frame_cntl) {
+ 			if (secure != !!(ib->flags & AMDGPU_IB_FLAGS_SECURE)) {
+ 				amdgpu_ring_emit_frame_cntl(ring, false, secure);
 -- 
 2.30.2
 
