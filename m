@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 42424C11F7A
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 11:20:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0771BC11F7F
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 11:20:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 19DEF61D5E
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 11:20:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 19DEF61D5E
+	by mail.kernel.org (Postfix) with ESMTPS id D23B661D67
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 11:20:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D23B661D67
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9777C6E32F;
-	Tue,  6 Jul 2021 11:20:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F4B36E32A;
+	Tue,  6 Jul 2021 11:20:26 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47D8F6E321;
- Tue,  6 Jul 2021 11:20:20 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 3241061D77;
- Tue,  6 Jul 2021 11:20:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FD596E32A;
+ Tue,  6 Jul 2021 11:20:25 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 1E47B61D8D;
+ Tue,  6 Jul 2021 11:20:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1625570420;
- bh=G63BblunKZo6IBkhyx265xaH7Dped8bfAg8LOz5lRa0=;
+ s=k20201202; t=1625570425;
+ bh=gUjBXyHgh1qeAFYc4TA5i+/1RBDq93iXS7C8BapeqiY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Ox8tfzMFCaXWzhr2d/f9jHn6/WY5cmUJZxr6ItI+44Tei8rfJPLZ2nipuELlV8tCC
- OnVLyCIElR1q8z3fzLeOfJ4Pi+f52Tq5Q5u0aawIlZJpEnEH9LAspUpAcm3MuJSwyE
- CZNetusPfe+siydg7yAWCvTtsppZfdnA+js35zTLoBRIISyyK+lXvZmyRkE4GAVnJQ
- CiwoFibor190dFoUZ4iJZOiNgBuxvX83pL5AUuF2kX4qYwMNHBslgNRWgnSFTDoYgq
- vt+c3jXxaVqcA512IlHPDjlEUBM3/ocsR+ubLWFalQRJ3ehMvngqQzxz+o8vnx1p1d
- Vtz+EHI/FmjGw==
+ b=UGW2ZTod8xnl614EEzSxgMYegXEizw2aTUvebf5S9tXWLx6bdTNJrjAVr16F21TEF
+ dPjKZqgVYRsYGSzIyk+dOuzYMKfDIqfAUDvJLsWhoDSMyMGaXE/oJwKI/52rJMJsIX
+ uQGjMpyg3kiluN3ExBhRAdHzfkrzQnE56euo3Tcex1FCejhbdpIWM4QaM/On35fvD0
+ ku9htd+azSqklm2GVzBh+bhezr+EHk+03Vr6DAMNqGntiAoeWs3r3afEGSbOwibofN
+ QekaB1tywJJQamClhdBYovGN0wsQHhRi/TuVNnU3h+M9iZQyJ1wlcU3WFpaWC/rzl3
+ 7XiVdv5m3sxzQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.12 084/160] drm/amdkfd: use allowed domain for vmbo
- validation
-Date: Tue,  6 Jul 2021 07:17:10 -0400
-Message-Id: <20210706111827.2060499-84-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.12 088/160] drm/amd/display: Verify Gamma & Degamma
+ LUT sizes in amdgpu_dm_atomic_check
+Date: Tue,  6 Jul 2021 07:17:14 -0400
+Message-Id: <20210706111827.2060499-88-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210706111827.2060499-1-sashal@kernel.org>
 References: <20210706111827.2060499-1-sashal@kernel.org>
@@ -59,58 +59,128 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Felix Kuehling <Felix.Kuehling@amd.com>,
- amd-gfx@lists.freedesktop.org, Nirmoy Das <nirmoy.das@amd.com>,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Sasha Levin <sashal@kernel.org>, Mark Yacoub <markyacoub@chromium.org>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogTmlybW95IERhcyA8bmlybW95LmRhc0BhbWQuY29tPgoKWyBVcHN0cmVhbSBjb21taXQg
-YmMwNTcxNmQ0ZmRkMDY1MDEzNjMzNjAyYzU5NjBhMmJmMTUxMWI5YyBdCgpGaXhlcyBoYW5kbGlu
-ZyB3aGVuIHBhZ2UgdGFibGVzIGFyZSBpbiBzeXN0ZW0gbWVtb3J5LgoKdjM6IHJlbW92ZSBzdHJ1
-Y3QgYW1kZ3B1X3ZtX3BhcnNlci4KdjI6IHJlbW92ZSB1bndhbnRlZCB2YXJpYWJsZS4KICAgIGNo
-YW5nZSBhbWRncHVfYW1ka2ZkX3ZhbGlkYXRlIGluc3RlYWQgb2YgYW1kZ3B1X2FtZGtmZF9ib192
-YWxpZGF0ZS4KClNpZ25lZC1vZmYtYnk6IE5pcm1veSBEYXMgPG5pcm1veS5kYXNAYW1kLmNvbT4K
-UmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4K
-UmV2aWV3ZWQtYnk6IEZlbGl4IEt1ZWhsaW5nIDxGZWxpeC5LdWVobGluZ0BhbWQuY29tPgpTaWdu
-ZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+ClNpZ25l
-ZC1vZmYtYnk6IFNhc2hhIExldmluIDxzYXNoYWxAa2VybmVsLm9yZz4KLS0tCiAuLi4vZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ3B1dm0uYyAgfCAyMSArKysrLS0tLS0tLS0tLS0t
-LS0tCiAxIGZpbGUgY2hhbmdlZCwgNCBpbnNlcnRpb25zKCspLCAxNyBkZWxldGlvbnMoLSkKCmRp
-ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkX2dwdXZt
-LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkX2dwdXZtLmMKaW5k
-ZXggYWMwYTQzMmE5YmY3Li4zYzNmMDVkMWY0ZGEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ3B1dm0uYworKysgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkX2dwdXZtLmMKQEAgLTQ5LDEyICs0OSw2IEBAIHN0YXRp
-YyBzdHJ1Y3QgewogCXNwaW5sb2NrX3QgbWVtX2xpbWl0X2xvY2s7CiB9IGtmZF9tZW1fbGltaXQ7
-CiAKLS8qIFN0cnVjdCB1c2VkIGZvciBhbWRncHVfYW1ka2ZkX2JvX3ZhbGlkYXRlICovCi1zdHJ1
-Y3QgYW1kZ3B1X3ZtX3BhcnNlciB7Ci0JdWludDMyX3QgICAgICAgIGRvbWFpbjsKLQlib29sICAg
-ICAgICAgICAgd2FpdDsKLX07Ci0KIHN0YXRpYyBjb25zdCBjaGFyICogY29uc3QgZG9tYWluX2Jp
-dF90b19zdHJpbmdbXSA9IHsKIAkJIkNQVSIsCiAJCSJHVFQiLApAQCAtMzM3LDExICszMzEsOSBA
-QCBzdGF0aWMgaW50IGFtZGdwdV9hbWRrZmRfYm9fdmFsaWRhdGUoc3RydWN0IGFtZGdwdV9ibyAq
-Ym8sIHVpbnQzMl90IGRvbWFpbiwKIAlyZXR1cm4gcmV0OwogfQogCi1zdGF0aWMgaW50IGFtZGdw
-dV9hbWRrZmRfdmFsaWRhdGUodm9pZCAqcGFyYW0sIHN0cnVjdCBhbWRncHVfYm8gKmJvKQorc3Rh
-dGljIGludCBhbWRncHVfYW1ka2ZkX3ZhbGlkYXRlX3ZtX2JvKHZvaWQgKl91bnVzZWQsIHN0cnVj
-dCBhbWRncHVfYm8gKmJvKQogewotCXN0cnVjdCBhbWRncHVfdm1fcGFyc2VyICpwID0gcGFyYW07
-Ci0KLQlyZXR1cm4gYW1kZ3B1X2FtZGtmZF9ib192YWxpZGF0ZShibywgcC0+ZG9tYWluLCBwLT53
-YWl0KTsKKwlyZXR1cm4gYW1kZ3B1X2FtZGtmZF9ib192YWxpZGF0ZShibywgYm8tPmFsbG93ZWRf
-ZG9tYWlucywgZmFsc2UpOwogfQogCiAvKiB2bV92YWxpZGF0ZV9wdF9wZF9ib3MgLSBWYWxpZGF0
-ZSBwYWdlIHRhYmxlIGFuZCBkaXJlY3RvcnkgQk9zCkBAIC0zNTUsMjAgKzM0NywxNSBAQCBzdGF0
-aWMgaW50IHZtX3ZhbGlkYXRlX3B0X3BkX2JvcyhzdHJ1Y3QgYW1kZ3B1X3ZtICp2bSkKIHsKIAlz
-dHJ1Y3QgYW1kZ3B1X2JvICpwZCA9IHZtLT5yb290LmJhc2UuYm87CiAJc3RydWN0IGFtZGdwdV9k
-ZXZpY2UgKmFkZXYgPSBhbWRncHVfdHRtX2FkZXYocGQtPnRiby5iZGV2KTsKLQlzdHJ1Y3QgYW1k
-Z3B1X3ZtX3BhcnNlciBwYXJhbTsKIAlpbnQgcmV0OwogCi0JcGFyYW0uZG9tYWluID0gQU1ER1BV
-X0dFTV9ET01BSU5fVlJBTTsKLQlwYXJhbS53YWl0ID0gZmFsc2U7Ci0KLQlyZXQgPSBhbWRncHVf
-dm1fdmFsaWRhdGVfcHRfYm9zKGFkZXYsIHZtLCBhbWRncHVfYW1ka2ZkX3ZhbGlkYXRlLAotCQkJ
-CQkmcGFyYW0pOworCXJldCA9IGFtZGdwdV92bV92YWxpZGF0ZV9wdF9ib3MoYWRldiwgdm0sIGFt
-ZGdwdV9hbWRrZmRfdmFsaWRhdGVfdm1fYm8sIE5VTEwpOwogCWlmIChyZXQpIHsKIAkJcHJfZXJy
-KCJmYWlsZWQgdG8gdmFsaWRhdGUgUFQgQk9zXG4iKTsKIAkJcmV0dXJuIHJldDsKIAl9CiAKLQly
-ZXQgPSBhbWRncHVfYW1ka2ZkX3ZhbGlkYXRlKCZwYXJhbSwgcGQpOworCXJldCA9IGFtZGdwdV9h
-bWRrZmRfdmFsaWRhdGVfdm1fYm8oTlVMTCwgcGQpOwogCWlmIChyZXQpIHsKIAkJcHJfZXJyKCJm
-YWlsZWQgdG8gdmFsaWRhdGUgUERcbiIpOwogCQlyZXR1cm4gcmV0OwotLSAKMi4zMC4yCgpfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
-bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
-ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+From: Mark Yacoub <markyacoub@chromium.org>
+
+[ Upstream commit 03fc4cf45d30533d54f0f4ebc02aacfa12f52ce2 ]
+
+For each CRTC state, check the size of Gamma and Degamma LUTs  so
+unexpected and larger sizes wouldn't slip through.
+
+TEST: IGT:kms_color::pipe-invalid-gamma-lut-sizes
+
+v2: fix assignments in if clauses, Mark's email.
+
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Mark Yacoub <markyacoub@chromium.org>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  4 ++
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  1 +
+ .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 41 ++++++++++++++++---
+ 3 files changed, 40 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 217b5e50eebe..2efd31a9163c 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -9484,6 +9484,10 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 			dm_old_crtc_state->dsc_force_changed == false)
+ 			continue;
+ 
++		ret = amdgpu_dm_verify_lut_sizes(new_crtc_state);
++		if (ret)
++			goto fail;
++
+ 		if (!new_crtc_state->enable)
+ 			continue;
+ 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index 52cc81705280..250adc92dfd0 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -529,6 +529,7 @@ void amdgpu_dm_trigger_timing_sync(struct drm_device *dev);
+ #define MAX_COLOR_LEGACY_LUT_ENTRIES 256
+ 
+ void amdgpu_dm_init_color_mod(void);
++int amdgpu_dm_verify_lut_sizes(const struct drm_crtc_state *crtc_state);
+ int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc);
+ int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
+ 				      struct dc_plane_state *dc_plane_state);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+index 157fe4efbb59..a022e5bb30a5 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+@@ -284,6 +284,37 @@ static int __set_input_tf(struct dc_transfer_func *func,
+ 	return res ? 0 : -ENOMEM;
+ }
+ 
++/**
++ * Verifies that the Degamma and Gamma LUTs attached to the |crtc_state| are of
++ * the expected size.
++ * Returns 0 on success.
++ */
++int amdgpu_dm_verify_lut_sizes(const struct drm_crtc_state *crtc_state)
++{
++	const struct drm_color_lut *lut = NULL;
++	uint32_t size = 0;
++
++	lut = __extract_blob_lut(crtc_state->degamma_lut, &size);
++	if (lut && size != MAX_COLOR_LUT_ENTRIES) {
++		DRM_DEBUG_DRIVER(
++			"Invalid Degamma LUT size. Should be %u but got %u.\n",
++			MAX_COLOR_LUT_ENTRIES, size);
++		return -EINVAL;
++	}
++
++	lut = __extract_blob_lut(crtc_state->gamma_lut, &size);
++	if (lut && size != MAX_COLOR_LUT_ENTRIES &&
++	    size != MAX_COLOR_LEGACY_LUT_ENTRIES) {
++		DRM_DEBUG_DRIVER(
++			"Invalid Gamma LUT size. Should be %u (or %u for legacy) but got %u.\n",
++			MAX_COLOR_LUT_ENTRIES, MAX_COLOR_LEGACY_LUT_ENTRIES,
++			size);
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
+ /**
+  * amdgpu_dm_update_crtc_color_mgmt: Maps DRM color management to DC stream.
+  * @crtc: amdgpu_dm crtc state
+@@ -317,14 +348,12 @@ int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc)
+ 	bool is_legacy;
+ 	int r;
+ 
+-	degamma_lut = __extract_blob_lut(crtc->base.degamma_lut, &degamma_size);
+-	if (degamma_lut && degamma_size != MAX_COLOR_LUT_ENTRIES)
+-		return -EINVAL;
++	r = amdgpu_dm_verify_lut_sizes(&crtc->base);
++	if (r)
++		return r;
+ 
++	degamma_lut = __extract_blob_lut(crtc->base.degamma_lut, &degamma_size);
+ 	regamma_lut = __extract_blob_lut(crtc->base.gamma_lut, &regamma_size);
+-	if (regamma_lut && regamma_size != MAX_COLOR_LUT_ENTRIES &&
+-	    regamma_size != MAX_COLOR_LEGACY_LUT_ENTRIES)
+-		return -EINVAL;
+ 
+ 	has_degamma =
+ 		degamma_lut && !__is_lut_linear(degamma_lut, degamma_size);
+-- 
+2.30.2
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
