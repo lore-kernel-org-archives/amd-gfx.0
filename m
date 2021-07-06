@@ -2,51 +2,57 @@ Return-Path: <SRS0=iwxs=L6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 92BAFC07E9C
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 19:06:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CEC5FC07E9E
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 19:09:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 91B8761C56
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 19:06:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 91B8761C56
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id 6C97D61C83
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 19:09:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6C97D61C83
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 100D66E09A;
-	Tue,  6 Jul 2021 19:06:46 +0000 (UTC)
-Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
- [IPv6:2607:f8b0:4864:20::22e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66ED26E09A
- for <amd-gfx@lists.freedesktop.org>; Tue,  6 Jul 2021 19:06:45 +0000 (UTC)
-Received: by mail-oi1-x22e.google.com with SMTP id s24so464915oiw.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 06 Jul 2021 12:06:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F34326E0F5;
+	Tue,  6 Jul 2021 19:09:21 +0000 (UTC)
+Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
+ [IPv6:2607:f8b0:4864:20::335])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A86836E0F5;
+ Tue,  6 Jul 2021 19:09:20 +0000 (UTC)
+Received: by mail-ot1-x335.google.com with SMTP id
+ t24-20020a9d7f980000b029046f4a1a5ec4so22701531otp.1; 
+ Tue, 06 Jul 2021 12:09:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Cze9q/VE+a6yI42hd67oagAB5dC7U4ivnSzhtQwqaOI=;
- b=GPHRCG+aFrGscJLP0HYtzo9kfjEmTdwAcrvk9gEqOOYE+hLUV5ZCPdqyGPm8uAyTgp
- ihQtUO4cKxZnn63A3//koJf5ll5ptPP5S9JIwueh0JMCLVDmtojHXX/w7VjJlgmppj5n
- C6nun/eDPcyweXxnOUb4dT4rP5KZ+uny5SOwE=
+ :cc; bh=RMq2M4n/8G9joj1/fKzknwNfEb3Och+oaBZy1vpsqNk=;
+ b=u5t3SzlPBuZ7kxA4R+Q9uEDCV/k/WI9AahppzXD5e+PtZ6ubJV2HKEseHSj0x5NaYu
+ k9zSTwO+7ZLrfYvzFE10Ye4cXIylQ9aU+Irx3QMybgiJ+6KH1MEzuadRNRhCoMSW70jU
+ UPmVzcY4Mr0gpgTl2Vr1Dgw/eGKfyFR8G+rppi6rtgYYwsbOrrSdjZiOvay6ZS9SAtcZ
+ EsRg/lJDTlkDdKRp9E50obeCJsCG3zkxWq5Zxs5ws6TB6rzJKoFyIghAL+9N4iMdvudx
+ nTEfeQACROazrLe6LnLogkA1DbrkE/44HhfrjDt6npDbyU7pGEdhN+WcteCmzK1CyJRt
+ Wfaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=Cze9q/VE+a6yI42hd67oagAB5dC7U4ivnSzhtQwqaOI=;
- b=HmW0QFR9RGzw5Fz/zzVELFBEUXML1raQcn6d4QQZ7y56fYq9qNSzL4ZwGn3G8VkEkn
- bslju+sltTungG6IaBHeoBCX+dF+ufLfmhJ0c8IANPs4VUpPUiSN2chB9cO2DBuZbkue
- /LVNChw754TtTQ6y6KlC+nB/+Z9LhWRsZS3gwCIOUD7ecrolYkOwTJvexEQbGXRC1iv0
- 5lGUOhcks4YsQu4AYwhmtsHlP5wqt65dwuJOM6x03/E5zvwlqBRq44Moq6HMIfxhTWSr
- FL5Jys0yTmIU9Na2MJUdcyrb5lJ+CrfyVyOv6xbheDZFcSWL4nvLWZFhfB39EW0ePLXh
- XR4A==
-X-Gm-Message-State: AOAM533fXHNx5jI49LC5Hnk/xbphCXC4V4hbMWmZYeidYcl7OWc8epXe
- eF7sfufBFvbFiCuuR+aQQDfmAIi7vp/lue2YXN5itw==
-X-Google-Smtp-Source: ABdhPJyInYDir1RlqJeuNxLe17GHh3QXPCOEC6Z5TVykCU4Dmlj7zioQiTtgUQGFPOxVZCRMuBlEXkq+wdnMhGM+viw=
-X-Received: by 2002:aca:eb43:: with SMTP id j64mr1571660oih.101.1625598404635; 
- Tue, 06 Jul 2021 12:06:44 -0700 (PDT)
+ bh=RMq2M4n/8G9joj1/fKzknwNfEb3Och+oaBZy1vpsqNk=;
+ b=IerOhPR5C4up7N5DHcNL/t4PO6dmiY8/WTEvEuV/ZPgmwEtskIvfVHDESOlqrqO/JQ
+ YkSjGb9iPmIy1p0ww4Ej/2pTxsl39P4tgm+k99Z7bNn6rs7avkEeQ4ViaZizn+R4Kn49
+ q47swYYejhgRKjbRTLFSX6bsQ7KKDAhejb4ND2TpFq4FNopWCzWeS5K6OwJnrddf/7rR
+ 5u3PjBF8RS2obU+63vWqlFMglb8E07PHWR2nQPcfSPXpQsM56hC7b3GMh0hJomwFHAsP
+ 0VcpvwEbRt5LnFr5RD78rvR53ZgoZycU5JjyRT4vpbWLWLa4ulW1PB0oPp7fTvJrxH6o
+ 7DfQ==
+X-Gm-Message-State: AOAM533kzV+cnGqyU0vqNac1K6qe5X3vK67dQui+q1ZRGRvWDWmbja41
+ zMhOSbv+mfV6LEl8KZCMkwmQYvO0Kxe/NwKvISY=
+X-Google-Smtp-Source: ABdhPJyLpn/Denq9D9uHdx73/8YwQSIZY5Ozg7ZymqbObwdA3ulC3UM5xsQZ0IVJAYJMGH6zXWQRmXGXRh7rAeiRNss=
+X-Received: by 2002:a05:6830:4119:: with SMTP id
+ w25mr16836757ott.132.1625598559910; 
+ Tue, 06 Jul 2021 12:09:19 -0700 (PDT)
 MIME-Version: 1.0
 References: <20210705130314.11519-1-ogabbay@kernel.org>
  <YOQXBWpo3whVjOyh@phenom.ffwll.local>
@@ -60,9 +66,9 @@ References: <20210705130314.11519-1-ogabbay@kernel.org>
  <CAKMK7uGXUgjyjch57J3UnC7SA3-4g87Ft7tLjj9fFkgyKkKdrg@mail.gmail.com>
  <20210706183145.GT4604@ziepe.ca>
 In-Reply-To: <20210706183145.GT4604@ziepe.ca>
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Tue, 6 Jul 2021 21:06:33 +0200
-Message-ID: <CAKMK7uEEPmr4voCp7dL4Kws08HSzq5iOGcwWvarw-Mj7X9WReA@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 6 Jul 2021 15:09:08 -0400
+Message-ID: <CADnq5_My3h=2BK5Kb8FHcDE9NjsXmrAF2auhgnugnmPyHSbb3g@mail.gmail.com>
 Subject: Re: [PATCH v4 0/2] Add p2p via dmabuf to habanalabs
 To: Jason Gunthorpe <jgg@ziepe.ca>
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -76,27 +82,28 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Oded Gabbay <oded.gabbay@gmail.com>, Gal Pressman <galpress@amazon.com>,
- sleybo@amazon.com, linux-rdma <linux-rdma@vger.kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Oded Gabbay <ogabbay@kernel.org>,
- "Linux-Kernel@Vger. Kernel. Org" <linux-kernel@vger.kernel.org>,
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ linux-rdma <linux-rdma@vger.kernel.org>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>, sleybo@amazon.com,
+ Gal Pressman <galpress@amazon.com>,
  Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
+ "Linux-Kernel@Vger. Kernel. Org" <linux-kernel@vger.kernel.org>,
  "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Doug Ledford <dledford@redhat.com>, Christoph Hellwig <hch@lst.de>,
+ Doug Ledford <dledford@redhat.com>,
  amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>, Dave Airlie <airlied@gmail.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Leon Romanovsky <leonro@nvidia.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Alex Deucher <alexander.deucher@amd.com>, Christoph Hellwig <hch@lst.de>,
+ Oded Gabbay <ogabbay@kernel.org>, Leon Romanovsky <leonro@nvidia.com>,
  Linux Media Mailing List <linux-media@vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jul 6, 2021 at 8:31 PM Jason Gunthorpe <jgg@ziepe.ca> wrote:
+On Tue, Jul 6, 2021 at 2:31 PM Jason Gunthorpe <jgg@ziepe.ca> wrote:
+>
 > On Tue, Jul 06, 2021 at 07:35:55PM +0200, Daniel Vetter wrote:
+>
 > > Yup. We dont care about any of the fancy pieces you build on top, nor
 > > does the compiler need to be the optimizing one. Just something that's
 > > good enough to drive the hw in some demons to see how it works and all
@@ -122,20 +129,7 @@ On Tue, Jul 6, 2021 at 8:31 PM Jason Gunthorpe <jgg@ziepe.ca> wrote:
 > don't care about upstream, you can hack your way through everything,
 > and indulge in single generation thinking. Fork the whole kernel for 3
 > years, EOL, no problem!
-
-It's not entirely hopeless in embedded either. Sure there's the giant
-pile of sell&forget abandonware, but there are lots of embedded things
-where multi-year to multi-decade support is required. And an upstream
-gfx stack beats anything the vendor has to offer on that, easily.
-
-And on the server side it's actually pretty hard to convince customers
-of the upstream driver benefits, because they don't want or can't
-abandon nvidia and have just learned to accept the pain. They either
-build a few abstraction layers on top (and demand the vendor support
-those), or they flat out demand you support the nvidia broprietary
-interfaces. And AMD has been trying to move the needle here for years,
-with not that much success.
-
+>
 > It is the enterprise world, particularly with an opinionated company
 > like RH saying NO stuck in the middle that really seems to drive
 > things toward upstream.
@@ -157,34 +151,26 @@ with not that much success.
 > IHMO upstream success is found by motivating the customer to demand
 > and make it "easy" for the vendor to supply it.
 
-Yup, exactly same situation here. The problem seems to be a bit that
-gpu vendor stubbornness is higher than established customer demand
-even, or they just don't care, and so in the last few years that
-customer demand has resulted in payment to consulting shops and hiring
-of engineers into reverse-engineering a full driver, instead of
-customer and vendor splitting the difference and the vendor
-upstreaming their stack. And that's for companies who've done it in
-the past, or at least collaborated on parts like the kernel driver, so
-I really have no clue why they don't just continue. We have
-well-established customers who do want it all open and upstream,
-across kernel and userspace pieces.
+I think this is one of the last big challenges on Linux.  It's REALLY
+hard to align new products with Linux kernel releases and distro
+kernels.  Hardware cycles are too short and drivers (at least for
+GPUs) are too big to really fit well with the current Linux release
+model.  In many cases enterprise distros have locked down on a kernel
+version around the same time we are doing new chip bring up.  You are
+almost always off by one when it comes to kernel version alignment.
+Even if you can get the initial code upstream in the right kernel
+version, it tends to be aligned to such early silicon that you end up
+needing a pile of additional patches to make production cards work.
+Those changes are often deemed "too big" for stable kernel fixes.  The
+only real way to deal with that effectively is with vendor provided
+packaged drivers using something like dkms to cover launch.  Thus you
+need to do your bring up against latest upstream and then backport, or
+do your bring up against some older kernel and forward port for
+upstream.  You end up doing everything twice.  Things get better with
+sustaining support in subsequent distro releases, but it doesn't help
+at product launch.  I don't know what the right solution for this is.
 
-And it looks like it's going to repeat itself a few more times
-unfortunately. I'm not sure when exactly the lesson will sink in.
-
-Maybe I missed some, but looking at current render/compute drivers I
-think (but not even sure on that) only drm/lima is a hobbyist project
-and perhaps you want to include drm/nouveau as not paid by customers
-and more something redhat does out of principle. All the others are
-paid for by customers, with vendor involvement ranging from "just
-helping out with the kernel driver" to "pays for pretty much all of
-the development". And still apparently that's not enough demand for an
-upstream driver stack.
--Daniel
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+Alex
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
