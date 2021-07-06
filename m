@@ -7,41 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 56BFCC07E9B
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 11:17:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7235EC11F6C
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 11:17:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 30C9961CC3
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 11:17:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 30C9961CC3
+	by mail.kernel.org (Postfix) with ESMTPS id 38ED861C9B
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 11:17:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 38ED861C9B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CD706E162;
-	Tue,  6 Jul 2021 11:17:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DD6A6E223;
+	Tue,  6 Jul 2021 11:17:28 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC2E46E133;
- Tue,  6 Jul 2021 11:17:02 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id AD43561C95;
- Tue,  6 Jul 2021 11:17:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D30F6E217;
+ Tue,  6 Jul 2021 11:17:27 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 5324A61CC3;
+ Tue,  6 Jul 2021 11:17:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1625570222;
- bh=IloEIHZ6H7uEgqGDO3TXEOTuOxpsyBiUrf0vYoTrYxk=;
+ s=k20201202; t=1625570247;
+ bh=+gJwqH3qnoQPAxy9N5oXl0R72nGKihjj2Ere3lD/uGE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=cVonxpC9Mhr0o2Nod4+mmx163DZ0VmB2SRUBamODCgmZpFjmmJYfilRFuTB14PCGT
- CoxJhA4jgO3GEQONPdczFoH6nkszOhEhvYh2ZK7vLtxvwMT+qPx4Nqb3QlClnrIdZS
- 5s2goPboO4gYW5HH6Jr/NqQhF05LHC86C5dJQdxevIwGgMp64WWcHoXlig0BE4cHn7
- cw1AqcWaqFHSi6VuEeLMLy69HWNdua7LVA5oYvvOO/g2v2QRICUI3uPtWzEWjeLJ3n
- 3ODYd8DV62Yl2MkXV/Kd7futddXvI5RTWsJ3kpk5w80b0q/QRFEXzmF/z+8LdupODo
- mLu0dcwimjJeA==
+ b=c96PTx90zQu2iIZsfxotCuXhno1bl6k4tYzcCrxodzq+VhCAxWiXNvCOBesZehdtN
+ 1vMZEsYpLzgXey0r57aYd0pfwPqZ/wx0MB3xh3FeKoCSW4Q1kIGB9iHe9dMC6RbPdr
+ QN5o6WJBWkMQwDIb9eSF4m9yzP/St+wC5F4+TrZjnY0tTv1JuwmAbv2ujQUYONY1Wt
+ xv5+3N90q6qCpoABuPwLjT6FFFjqGxd4twgRbpHbhsJsJdU6iK5GIcFm6pChE7duWc
+ m3XBmnu3HE71ytT8utvgQJBbG2pfuX9t4laFOAgUMxRdoq0lxTg7Mrku+Iq26dCXjy
+ L/Xemd9T8g/zQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.13 129/189] drm/amdkfd: Walk through list with dqm
- lock hold
-Date: Tue,  6 Jul 2021 07:13:09 -0400
-Message-Id: <20210706111409.2058071-129-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.13 146/189] Revert "drm/amdgpu/gfx9: fix the
+ doorbell missing when in CGPG issue."
+Date: Tue,  6 Jul 2021 07:13:26 -0400
+Message-Id: <20210706111409.2058071-146-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210706111409.2058071-1-sashal@kernel.org>
 References: <20210706111409.2058071-1-sashal@kernel.org>
@@ -59,77 +59,49 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Felix Kuehling <Felix.Kuehling@amd.com>,
- xinhui pan <xinhui.pan@amd.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Yifan Zhang <yifan1.zhang@amd.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Sasha Levin <sashal@kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: xinhui pan <xinhui.pan@amd.com>
+From: Yifan Zhang <yifan1.zhang@amd.com>
 
-[ Upstream commit 56f221b6389e7ab99c30bbf01c71998ae92fc584 ]
+[ Upstream commit 962f2f1ae273399e357a3192d5413ca57f9b4885 ]
 
-To avoid any list corruption.
+This reverts commit 631003101c516ea29a74aee59666708857b9a805.
 
-Signed-off-by: xinhui pan <xinhui.pan@amd.com>
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Reason for revert: side effect of enlarging CP_MEC_DOORBELL_RANGE may
+cause some APUs fail to enter gfxoff in certain user cases.
+
+Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../drm/amd/amdkfd/kfd_device_queue_manager.c | 22 ++++++++++---------
- 1 file changed, 12 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index e9b3e2e32bf8..f0bad74af230 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -1709,7 +1709,7 @@ static int process_termination_cpsch(struct device_queue_manager *dqm,
- 		struct qcm_process_device *qpd)
- {
- 	int retval;
--	struct queue *q, *next;
-+	struct queue *q;
- 	struct kernel_queue *kq, *kq_next;
- 	struct mqd_manager *mqd_mgr;
- 	struct device_process_node *cur, *next_dpn;
-@@ -1766,24 +1766,26 @@ static int process_termination_cpsch(struct device_queue_manager *dqm,
- 		qpd->reset_wavefronts = false;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index c09225d065c2..516467e962b7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -3673,12 +3673,8 @@ static int gfx_v9_0_kiq_init_register(struct amdgpu_ring *ring)
+ 	if (ring->use_doorbell) {
+ 		WREG32_SOC15(GC, 0, mmCP_MEC_DOORBELL_RANGE_LOWER,
+ 					(adev->doorbell_index.kiq * 2) << 2);
+-		/* If GC has entered CGPG, ringing doorbell > first page doesn't
+-		 * wakeup GC. Enlarge CP_MEC_DOORBELL_RANGE_UPPER to workaround
+-		 * this issue.
+-		 */
+ 		WREG32_SOC15(GC, 0, mmCP_MEC_DOORBELL_RANGE_UPPER,
+-					(adev->doorbell.size - 4));
++					(adev->doorbell_index.userqueue_end * 2) << 2);
  	}
  
--	dqm_unlock(dqm);
--
--	/* Outside the DQM lock because under the DQM lock we can't do
--	 * reclaim or take other locks that others hold while reclaiming.
--	 */
--	if (found)
--		kfd_dec_compute_active(dqm->dev);
--
- 	/* Lastly, free mqd resources.
- 	 * Do free_mqd() after dqm_unlock to avoid circular locking.
- 	 */
--	list_for_each_entry_safe(q, next, &qpd->queues_list, list) {
-+	while (!list_empty(&qpd->queues_list)) {
-+		q = list_first_entry(&qpd->queues_list, struct queue, list);
- 		mqd_mgr = dqm->mqd_mgrs[get_mqd_type_from_queue_type(
- 				q->properties.type)];
- 		list_del(&q->list);
- 		qpd->queue_count--;
-+		dqm_unlock(dqm);
- 		mqd_mgr->free_mqd(mqd_mgr, q->mqd, q->mqd_mem_obj);
-+		dqm_lock(dqm);
- 	}
-+	dqm_unlock(dqm);
-+
-+	/* Outside the DQM lock because under the DQM lock we can't do
-+	 * reclaim or take other locks that others hold while reclaiming.
-+	 */
-+	if (found)
-+		kfd_dec_compute_active(dqm->dev);
- 
- 	return retval;
- }
+ 	WREG32_SOC15_RLC(GC, 0, mmCP_HQD_PQ_DOORBELL_CONTROL,
 -- 
 2.30.2
 
