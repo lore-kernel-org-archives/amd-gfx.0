@@ -7,41 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3778FC11F6A
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 11:18:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A0839C11F70
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 11:18:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F1AED61CF2
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 11:18:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F1AED61CF2
+	by mail.kernel.org (Postfix) with ESMTPS id 7207F61D05
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 11:18:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7207F61D05
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD9786E237;
-	Tue,  6 Jul 2021 11:18:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C08C6E23D;
+	Tue,  6 Jul 2021 11:18:36 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9F93895C3;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C62FE6E23D;
+ Tue,  6 Jul 2021 11:18:35 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id DF3B661D00;
  Tue,  6 Jul 2021 11:18:34 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 874F061CEF;
- Tue,  6 Jul 2021 11:18:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1625570314;
- bh=0I6sraG7t8CfgmD4CJhp+GC2kCQuB1+mEYLSPFGqnhs=;
+ s=k20201202; t=1625570315;
+ bh=43o12DKparZTph3QHIxzT2RGZNQMhr45ctVvpCSwr1E=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=iwhr8ai6xUZSz3qGl7wKDfrrBRluCJZbE/Ar4cBba6bhLbeYfMo2wZUupxdl5wDUQ
- L8I2z9CSRNaUWfgtp7FM4euxUeK2u79QJ24gtUmGAJ4HnjJcwG/hUW/LhYCn+qF3Fa
- Ju32vVEkJTgrOcecYT3qlBO8DCoT1e0thD+uh0whX1ub6BCSfAn0Um8QIlAvTT5nCg
- 8kZNoOmnyPUXmcjUdYWVumDgUQJJxjpCSknf5Kl6Fn6UPOJJ630SnZz6GcpYd3wR2O
- icP7gAIkWNZQSOMVcMHeZGKkPLUZac/Cto0JMZKCfyiLlPRyP4+5HpR4T8wONZYt4I
- sr2bAYIEDPcnQ==
+ b=B5J/KunLp3ThfmRRvyXiprGXXfOCmo2ooA0m8xwnacA3ctGfYSrWbqBo/CfsWrbvW
+ 3yv47z/TuJpmA0CpopC0M/lTNmmI3k6NaDp7cp48PVFGu3THwjAmP+BMpFub7pd1jC
+ ZldrBRLZ+jtQkl3Ywn6ryuRNgV0Lo+cQoZ82PexB3x8gl439au/jWwtXAMeXJLPsIq
+ malMN275pl5mJES4qLMWbn9U0VHlI8PMIaM7/lYMeUgWYQLbm5P2LZAR4rYnOIl2We
+ 9asyusO7gkrykMzIczgJwiDKC4MC3h1qaUPRgM5pJKPlYnvdqHCYy3AGZR0m7iMVn+
+ dbbBS4pmjjK5A==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.12 005/160] drm/amd/display: fix HDCP reset sequence
- on reinitialize
-Date: Tue,  6 Jul 2021 07:15:51 -0400
-Message-Id: <20210706111827.2060499-5-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.12 006/160] drm/amd/amdgpu/sriov disable all ip hw
+ status by default
+Date: Tue,  6 Jul 2021 07:15:52 -0400
+Message-Id: <20210706111827.2060499-6-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210706111827.2060499-1-sashal@kernel.org>
 References: <20210706111827.2060499-1-sashal@kernel.org>
@@ -59,37 +59,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Wenjing Liu <Wenjing.Liu@amd.com>,
- amd-gfx@lists.freedesktop.org, Daniel Wheeler <daniel.wheeler@amd.com>,
- Brandon Syu <Brandon.Syu@amd.com>, Wayne Lin <waynelin@amd.com>,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Sasha Levin <sashal@kernel.org>, Jack Zhang <Jack.Zhang1@amd.com>,
+ dri-devel@lists.freedesktop.org, Emily Deng <Emily.Deng@amd.com>,
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogQnJhbmRvbiBTeXUgPEJyYW5kb24uU3l1QGFtZC5jb20+CgpbIFVwc3RyZWFtIGNvbW1p
-dCA5OWMyNDhjNDFjMjE5OWJkMzQyMzJjZThlNzI5ZDE4YzRiMzQzYjY0IF0KClt3aHldCldoZW4g
-c2V0dXAgaXMgY2FsbGVkIGFmdGVyIGhkY3AgaGFzIGFscmVhZHkgc2V0dXAsCml0IHdvdWxkIGNh
-dXNlIHRvIGRpc2FibGUgSERDUCBmbG93IHdvbuKAmXQgZXhlY3V0ZS4KCltob3ddCkRvbid0IGNs
-ZWFuIHVwIGhkY3AgY29udGVudCB0byBiZSAwLgoKU2lnbmVkLW9mZi1ieTogQnJhbmRvbiBTeXUg
-PEJyYW5kb24uU3l1QGFtZC5jb20+ClJldmlld2VkLWJ5OiBXZW5qaW5nIExpdSA8V2VuamluZy5M
-aXVAYW1kLmNvbT4KQWNrZWQtYnk6IFdheW5lIExpbiA8d2F5bmVsaW5AYW1kLmNvbT4KVGVzdGVk
-LWJ5OiBEYW5pZWwgV2hlZWxlciA8ZGFuaWVsLndoZWVsZXJAYW1kLmNvbT4KU2lnbmVkLW9mZi1i
-eTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgpTaWduZWQtb2ZmLWJ5
-OiBTYXNoYSBMZXZpbiA8c2FzaGFsQGtlcm5lbC5vcmc+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9kaXNwbGF5L21vZHVsZXMvaGRjcC9oZGNwLmMgfCAxIC0KIDEgZmlsZSBjaGFuZ2VkLCAxIGRl
-bGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L21vZHVs
-ZXMvaGRjcC9oZGNwLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvbW9kdWxlcy9oZGNw
-L2hkY3AuYwppbmRleCAyMGU1NTRlNzcxZDEuLmZhOGFlZWMzMDRlZiAxMDA2NDQKLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L21vZHVsZXMvaGRjcC9oZGNwLmMKKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9kaXNwbGF5L21vZHVsZXMvaGRjcC9oZGNwLmMKQEAgLTI2MCw3ICsyNjAs
-NiBAQCBlbnVtIG1vZF9oZGNwX3N0YXR1cyBtb2RfaGRjcF9zZXR1cChzdHJ1Y3QgbW9kX2hkY3Ag
-KmhkY3AsCiAJc3RydWN0IG1vZF9oZGNwX291dHB1dCBvdXRwdXQ7CiAJZW51bSBtb2RfaGRjcF9z
-dGF0dXMgc3RhdHVzID0gTU9EX0hEQ1BfU1RBVFVTX1NVQ0NFU1M7CiAKLQltZW1zZXQoaGRjcCwg
-MCwgc2l6ZW9mKHN0cnVjdCBtb2RfaGRjcCkpOwogCW1lbXNldCgmb3V0cHV0LCAwLCBzaXplb2Yo
-b3V0cHV0KSk7CiAJaGRjcC0+Y29uZmlnID0gKmNvbmZpZzsKIAlIRENQX1RPUF9JTlRFUkZBQ0Vf
-VFJBQ0UoaGRjcCk7Ci0tIAoyLjMwLjIKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
-YW1kLWdmeAo=
+From: Jack Zhang <Jack.Zhang1@amd.com>
+
+[ Upstream commit 95ea3dbc4e9548d35ab6fbf67675cef8c293e2f5 ]
+
+Disable all ip's hw status to false before any hw_init.
+Only set it to true until its hw_init is executed.
+
+The old 5.9 branch has this change but somehow the 5.11 kernrel does
+not have this fix.
+
+Without this change, sriov tdr have gfx IB test fail.
+
+Signed-off-by: Jack Zhang <Jack.Zhang1@amd.com>
+Review-by: Emily Deng <Emily.Deng@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 85d90e857693..a32b41e4c24e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -2818,7 +2818,7 @@ static int amdgpu_device_ip_reinit_early_sriov(struct amdgpu_device *adev)
+ 		AMD_IP_BLOCK_TYPE_IH,
+ 	};
+ 
+-	for (i = 0; i < ARRAY_SIZE(ip_order); i++) {
++	for (i = 0; i < adev->num_ip_blocks; i++) {
+ 		int j;
+ 		struct amdgpu_ip_block *block;
+ 
+-- 
+2.30.2
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
