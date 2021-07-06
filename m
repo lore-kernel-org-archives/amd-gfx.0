@@ -2,67 +2,105 @@ Return-Path: <SRS0=iwxs=L6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 35446C07E9B
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 14:09:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C1A18C07E96
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 14:13:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0294D61949
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 14:09:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0294D61949
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id 787F061949
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 14:13:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 787F061949
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B89656E4C5;
-	Tue,  6 Jul 2021 14:09:38 +0000 (UTC)
-Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
- [IPv6:2607:f8b0:4864:20::331])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 70B176E4C4
- for <amd-gfx@lists.freedesktop.org>; Tue,  6 Jul 2021 14:09:37 +0000 (UTC)
-Received: by mail-ot1-x331.google.com with SMTP id
- i12-20020a05683033ecb02903346fa0f74dso21654036otu.10
- for <amd-gfx@lists.freedesktop.org>; Tue, 06 Jul 2021 07:09:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=oa36JT6ZXXdeNbOW7MRMPItJC85KRkSUT3t0lipsRGE=;
- b=I3PSWk0qdtLFBmphAZxkzdBLbBanHnSZ0lDy0Hh/Ww45NThwfPWgOKeOhk0qySlDno
- N76byVhIjKXABiEeqkETac6DodkM4w9tLHdTxMThwhYfWv577ISzp1xMGs578F8PpfZ1
- q9Lvgwe7Uqz9k9WBl4dQSoOJQ0Uhiw8dS3XsY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=oa36JT6ZXXdeNbOW7MRMPItJC85KRkSUT3t0lipsRGE=;
- b=kuoWAXOz9pMLDqyOdKH1rU3AAOR9tErExc5yb/QI4uh7Ox685FMEGSgELv+qv7/XHP
- Lj9pWYdMVL/zAR0jUvfV7psioS/nHYxv82aGmA9tcWoRYLRCJNLPtw2V/HdWqlz88m2V
- MPaEYIIDJBmolQjC+b1q3mAjGXUQdO8IkJ6CMmz8NTpPLmPfl8lJggvAvdB2iB5Bm66a
- Jac9F8PYNKaxy2J2xxLlkD9lkaVIYJPOeVhFoxdjfGBBnVIaHHTA5UAUrns+C/XucDru
- 0aOnsr42IgP5zAWSub34LaangwNtw45eE26s8Ei84KYiLxylPL4Jzw6VRU0VJo/BQAtV
- 7QMA==
-X-Gm-Message-State: AOAM531qdSig9/1CWA37hnuX+zu1S9kqoXIOSgPRnWN2al6J3/6ytcH/
- o1Dd368nCn0jOyRJ8t00GhRG0qRukqyqpys5XluiAA==
-X-Google-Smtp-Source: ABdhPJwzXN/NwcfTnIiFRue1K5cnhWHoor7mzX3yGgIo+ac7YSL8ymVa3l8VD8fedtiFTq2s+GtWnKhr2VvW4LOuy6E=
-X-Received: by 2002:a05:6830:2366:: with SMTP id
- r6mr15034001oth.188.1625580576688; 
- Tue, 06 Jul 2021 07:09:36 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E1DC6E4C1;
+	Tue,  6 Jul 2021 14:13:44 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2056.outbound.protection.outlook.com [40.107.236.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A53E6E4C1
+ for <amd-gfx@lists.freedesktop.org>; Tue,  6 Jul 2021 14:13:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=XiJHFP+sf1P+dcUujIO/WdMJINyo4LTBQ4kubSnNny1gXoFJ3J4CwyMhQ8R4dYBcL9gHXrdm9D9/R3mZsmrLuFRD7UBlNl4miIsbdIpz5+rAfUexY9RSZeb+/VgGPysz2K/GFdg7w0G36vd6h3La5dGV3z7TN1aweYgO0rFKKVELzd+jAtZAx6CglqZhuk6VRicFcoJJvFcGDRrvO5b/gli/x66DrasH9si4M/OkDepxWvGLi2K4Rc7V8DrIsaMaUCZpeJYE0VzqgDt/d3I3uDNGHIdOM47F5gO9FTy892WWXNh57zyR68owBSGiinWjg8BLTBHjRzDE27xctBygzA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SWo6sEttAkmrGRO2uMmjfLrRryU0GXnORmXATCySmxI=;
+ b=mzT96KpZp9cHEyvpBJWfvnxBoriZrxQAAzwYKy3OZw+FWI4mKDJbN906RiJBs81TjvjXAdQ9HHqIq9Eh4UvGfcgh3a5SZeyl5RsKQ32IG2MVpn0RURsQBtG3y6YiascpaBrMb/G7iMT/MCoTWnN/rXNBzaXHHgmtEw1Pw/FPvkTXtWZKxMtWk8W1LP3xX2xphwYO5ujRhOY2jLyo5rOHwXfqaNh1cXquD8L/na9t/Vi4kFsGWig5pbQ4sj425I9mYZhDJBudV4v+LHhcBBdwNUCXgnr5zRTxJuSVB2Ro2Hx/7M3+SPq+wUQHsH+cG8JibCRm71VxDPSDF0Oi6gr8jQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SWo6sEttAkmrGRO2uMmjfLrRryU0GXnORmXATCySmxI=;
+ b=lsscY72B/TSPvQd3d4qtPaYlDsxBhknpI1vytXMeTBeFE6N9ap9W1fT8oFXurVIk93wb82KcT1cbj7vSokNgAfzyhWOENghUrOKH/jVIuZHzcRnsGPTWfh+TglFmLMoL9WfKS7DvvFVoM14LwGep2ghKvasA2fT/lUOgfJ7IgAM=
+Received: from MW4PR03CA0150.namprd03.prod.outlook.com (2603:10b6:303:8c::35)
+ by MWHPR1201MB2541.namprd12.prod.outlook.com (2603:10b6:300:e5::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4287.27; Tue, 6 Jul
+ 2021 14:13:40 +0000
+Received: from CO1NAM11FT055.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:8c:cafe::2) by MW4PR03CA0150.outlook.office365.com
+ (2603:10b6:303:8c::35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4308.19 via Frontend
+ Transport; Tue, 6 Jul 2021 14:13:40 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT055.mail.protection.outlook.com (10.13.175.129) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4287.22 via Frontend Transport; Tue, 6 Jul 2021 14:13:40 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Tue, 6 Jul 2021
+ 09:13:39 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Tue, 6 Jul 2021
+ 07:13:39 -0700
+Received: from emiy-Z10PA-U8-Series.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2242.4
+ via Frontend Transport; Tue, 6 Jul 2021 09:13:38 -0500
+From: Emily Deng <Emily.Deng@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: Correct the irq numbers for virtual crtc
+Date: Tue, 6 Jul 2021 22:13:35 +0800
+Message-ID: <20210706141335.2494-1-Emily.Deng@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20210705130314.11519-1-ogabbay@kernel.org>
- <YOQXBWpo3whVjOyh@phenom.ffwll.local>
- <CAFCwf10_rTYL2Fy6tCRVAUCf4-6_TtcWCv5gEEkGnQ0KxqMUBg@mail.gmail.com>
- <CAKMK7uEAJZUHNLreBB839BZOfnTGNU4rCx-0k55+67Nbxtdx3A@mail.gmail.com>
- <CAKMK7uHpKFVm55O_NB=WYCsv0iUt92ZUn6eCzifH=unbhe3J8g@mail.gmail.com>
- <CAKMK7uFGr=ugyKj0H3ctbh28Jnr25vAgXPBaDBMmfErCxYVo3w@mail.gmail.com>
- <20210706134430.GL4604@ziepe.ca>
-In-Reply-To: <20210706134430.GL4604@ziepe.ca>
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Tue, 6 Jul 2021 16:09:25 +0200
-Message-ID: <CAKMK7uFEZjp2_WBhtkVxSNQ-1WcBSr3NDotY0fjz0iLRw8Barw@mail.gmail.com>
-Subject: Re: [PATCH v4 0/2] Add p2p via dmabuf to habanalabs
-To: Jason Gunthorpe <jgg@ziepe.ca>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 25430bde-ebbd-434c-fd14-08d940884154
+X-MS-TrafficTypeDiagnostic: MWHPR1201MB2541:
+X-Microsoft-Antispam-PRVS: <MWHPR1201MB25411E9B27171C5CC41855C18F1B9@MWHPR1201MB2541.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1360;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: d/lxhMv/63Bsnw+MA0XkiSXc1h5Ig9aJFAKndV3ScXhu0s1n4ZGuD18QDWXSpfFKvq/m/JplBIbt/OTUOm9j6Md2fXkfAv402fhPP9Mx8b3lhgOvu7aXeqLRIWxNfT0XcPY6EwuSGSFufbyY41fuEbYIK/0VyaLLIRRBtLzeoxwzxYSRsoul0B2JswAPXVbmEXLyGVyJJyYHvjBuPGP0HX/RCzkKl1sCM9maf4V2JL2yvJFlZ0OeJ8OmLuTqkpGrHh0vocuE69sd5a2BuDUcYYg5jDitEKTyEbTkwcyKE5xOpfZ+kHbIK3jagjDzwF1UtPCJXiME1NLTsYP10zyTzpRgVBesymJi7AFYIYtsvqIoVh2W2d+NZdwVZLuJALwx0uPQ0Ye2tatFsRUu/FvdRLrrgBamT1nqlcVMppfQh8e0dG+QMxhFpx6DtFTEiOTDPnpoySsZ+NHVqKeXmWaBEZmQZRox+gLV+4SWydsfXU6k5sfOBFZU/BepQiBYOaxfs62iGneToWRZQ60X/biHXxKStbDOVSxS4FNcCoxZvxZsc5o4Me+rvahgL3Qe4ZLxyaYjAj9774kEs6EA3+TgbHfHUKW2zCiD5y0xj6rTsWf8e0hzxyepvUMKK9J+dHIyNr5Gl5KIc3s0nj7C2yb66KWLEGDkrLSuqr8657ntwP22LREGt7KH4Ovo58YpzrWfMyPG3FN1pROcqdF5quO9x7VjInmQkujmNENHbkRwA5g=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(346002)(376002)(136003)(39860400002)(396003)(36840700001)(46966006)(2906002)(478600001)(70206006)(82740400003)(5660300002)(4744005)(316002)(1076003)(36756003)(4326008)(70586007)(2616005)(36860700001)(186003)(426003)(8936002)(47076005)(26005)(356005)(83380400001)(81166007)(8676002)(336012)(86362001)(82310400003)(6666004)(7696005)(6916009)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2021 14:13:40.3805 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 25430bde-ebbd-434c-fd14-08d940884154
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT055.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1201MB2541
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,146 +112,36 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Oded Gabbay <oded.gabbay@gmail.com>, Gal Pressman <galpress@amazon.com>,
- sleybo@amazon.com, linux-rdma <linux-rdma@vger.kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Oded Gabbay <ogabbay@kernel.org>,
- "Linux-Kernel@Vger. Kernel. Org" <linux-kernel@vger.kernel.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Doug Ledford <dledford@redhat.com>, Christoph Hellwig <hch@lst.de>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>, Dave Airlie <airlied@gmail.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Leon Romanovsky <leonro@nvidia.com>,
- Linux Media Mailing List <linux-media@vger.kernel.org>
+Cc: Emily Deng <Emily.Deng@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jul 6, 2021 at 3:44 PM Jason Gunthorpe <jgg@ziepe.ca> wrote:
->
-> On Tue, Jul 06, 2021 at 02:07:16PM +0200, Daniel Vetter wrote:
->
-> > On the "rdma-core" idea, afaik rdma NIC do not have fully programmable
-> > cores in their hw, for which you'd need some kind of compiler to make
-> > use of the hardware and the interfaces the kernel provides? So not
-> > really compareable, but also my understanding is that rdma-core does
-> > actually allow you to reasonable use&drive all the hw features and
-> > kernel interfaces fully.
->
-> The whole HPC stack has speciality compilers of course. OpenMP, PGAS,
-> etc. These compilers map onto library primitives that eventually boil
-> down into rdma-core calls. Even the HW devices have various
-> programmability that are being targetted with compilers now. People
-> are making NIC devices with ARM cores/etc - P4 is emerging for some
-> packet processing tasks.
+The irq number should be decided by num_crtc, and the num_crtc could change
+by parameter.
 
-Well it depends which compilers we're talking about here, and what
-kind of features. Higher level compilers that break down some fancy
-language like OpenMP into what that actually should do on a given
-hardware like gpu, or rdma-connected cluster, or whatever, we really
-don't care about. You don't need that to drive the hardware. Usually
-that stuff works by breaking some of the code down into cpu compiler
-IR (most of this is built on top of LLVM IR nowadays), interspersed
-with library calls to the runtime.
+Signed-off-by: Emily Deng <Emily.Deng@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/dce_virtual.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Now the thing I care about here is if things doen't get compiled down
-to cpu code, but to some other IR (SPIR-V is starting to win, but very
-often ist still a hacked up version of LLVM IR), which then in a
-hw-specific backend gets compiled down to instructions that run on the
-hw. I had no idea that rdma NICs can do that, but it sounds like? I
-guess maybe some openmpi operations could be done directly on the rdma
-chip, but I'm not sure why you'd want a backend compiler here.
-
-Anyway, for anything that works like a gpu accelerator, like 3d accel,
-or parallel compute accel (aka gpgpu) or spatial compute accel (aka
-NN/AI) or maybe even fpga accel most of the magic to use the hardware
-is in this backend compiler, which translates from an IR into whatever
-your accelerator consumes. That's the part we really care about for
-modern accelerators because without that defacto the hardware is
-useless. Generally these chips have full-blown, if special purpose
-ISA, with register files, spilling, branches, loops and other control
-flow (sometimes only execution masks on simpler hw).
-
-> rdma-core can drive all the kernel interfaces with at least an ioctl
-> wrapper, and it has a test suite that tries to cover this. It does not
-> exercise the full HW capability, programmability, etc of every single
-> device.
->
-> I actually don't entirely know what everyone has built on top of
-> rdma-core, or how I'd try to map it the DRI ideas you are trying to
-> explain.
->
-> Should we ban all Intel RDMA drivers because they are shipping
-> proprietary Intel HPC compilers and proprietary Intel MPI which drives
-> their RDMA HW? Or is that OK because there are open analogs for some
-> of that stuff? And yes, the open versions are inferior in various
-> metrics.
->
-> Pragmatically what I want to see is enough RDMA common/open user space
-> to understand the uAPI and thus more about how the kernel driver
-> works. Forcing everyone into rdma-core has already prevented a number
-> of uAPI mistakes in drivers that would have been bad - so at least
-> this level really is valuable.
->
-> > So we actually want less on dri-devel, because for compute/accel chips
-> > we're currently happy with a vendor userspace. It just needs to be
-> > functional and complete, and open in its entirety.
->
-> In a sense yes: DRI doesn't insist on a single code base to act as the
-> kernel interface, but that is actually the thing that has brought the
-> most value to RDMA, IMHO.
-
-So in practice we're not that different in DRI wrt userspace - if
-there is an established cross-vendor project in the given area, we do
-expect the userspace side to be merged there. And nowadays most of the
-feature work is done that way, it's just that we don't have a single
-project like rdma-core for this. We do still allow per-driver submit
-interfaces because hw is just not standardized enough there, the
-standards are at a higher level. Which is why it just doesn't make
-sense to talk about a kernel driver as something that's useful
-stand-alone at all.
-
-> We've certainly had some interesting successes because of this. The
-> first submission for AWS's EFA driver proposed to skip the rdma-core
-> step, which was rejected. However since EFA has been in that ecosystem
-> it has benefited greatly, I think.
->
-> However, in another sense no: RDMA hasn't been blocking, say Intel,
-> just because they have built proprietary stuff on top of our open
-> stack.
-
-Oh we allow this too. We only block the initial submission if the
-proprietary stuff is the only thing out there.
-
-> Honestly, I think GPU is approaching this backwards. Wayland should
-> have been designed to prevent proprietary userspace stacks.
-
-That's not possible without some serious cans of worms though. Wayland
-is a protocol, and you can't forbid people from implementing it.
-Otherwise all the compatible open implementations of closed protocols
-wouldn't be possible either.
-
-Now the implementation is a different thing, and there a few
-compositors have succumbed to market pressure and enabled the nvidia
-stack, as a mostly separate piece from supporting the open stack. And
-that's largely because nvidia managed to completely kill the open
-source r/e effort through firmware licensing and crypto-key based
-verified loading, so unless you install the proprietary stack you
-actually can't make use of the hardware at all - well display works
-without the firmware, but 3d/compute just doesn't. So you just can't
-use nvidia hw without accepting their proprietary driver licenses and
-all that entails for the latest hardware.
-
-So I'm not clear what you're suggesting here we should do different.
--Daniel
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_virtual.c b/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
+index 33324427b555..7e0d8c092c7e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
+@@ -766,7 +766,7 @@ static const struct amdgpu_irq_src_funcs dce_virtual_crtc_irq_funcs = {
+ 
+ static void dce_virtual_set_irq_funcs(struct amdgpu_device *adev)
+ {
+-	adev->crtc_irq.num_types = AMDGPU_CRTC_IRQ_VBLANK6 + 1;
++	adev->crtc_irq.num_types = adev->mode_info.num_crtc;
+ 	adev->crtc_irq.funcs = &dce_virtual_crtc_irq_funcs;
+ }
+ 
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+2.25.1
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
