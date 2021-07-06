@@ -2,42 +2,77 @@ Return-Path: <SRS0=iwxs=L6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6C896C07E9B
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 16:32:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 75857C07E96
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 16:32:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 305BD61C29
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 16:32:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 305BD61C29
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=canonical.com
+	by mail.kernel.org (Postfix) with ESMTPS id 4541861C29
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 16:32:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4541861C29
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29B436E523;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DB146E525;
 	Tue,  6 Jul 2021 16:32:47 +0000 (UTC)
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89D816E0C5;
- Tue,  6 Jul 2021 15:36:51 +0000 (UTC)
-Received: from 1.general.cking.uk.vpn ([10.172.193.212])
- by youngberry.canonical.com with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
- (envelope-from <colin.king@canonical.com>)
- id 1m0n7x-0007LE-Rt; Tue, 06 Jul 2021 15:36:49 +0000
-To: Philip Yang <Philip.Yang@amd.com>, Felix Kuehling
- <Felix.Kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>
-From: Colin Ian King <colin.king@canonical.com>
-Subject: re: drm/amdkfd: implement counters for vm fault and migration
-Message-ID: <d4710cb9-d463-5245-127d-4cfa1bc704d2@canonical.com>
-Date: Tue, 6 Jul 2021 16:36:45 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+Received: from mail-il1-x129.google.com (mail-il1-x129.google.com
+ [IPv6:2607:f8b0:4864:20::129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E66D6E4F4
+ for <amd-gfx@lists.freedesktop.org>; Tue,  6 Jul 2021 14:56:20 +0000 (UTC)
+Received: by mail-il1-x129.google.com with SMTP id o10so21025725ils.6
+ for <amd-gfx@lists.freedesktop.org>; Tue, 06 Jul 2021 07:56:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ziepe.ca; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=a8/qLLqO6eL91stH3wL0KRpl9T08Ic+NpnQGQ6x06VA=;
+ b=j2sPe5/YeFhkbk8Ao1wBoSJI3mHjTKeYtGS/ylikxffAh4pjlXAic9iDxRv5Mv0c88
+ o5b7lMNG7FTsdoBh7D7HFqLBpXx4OWDvWQolA2AYbIKyYGFb/BJCIZ86BrUQNsb/C3Zk
+ XsAk6eIa1iX7IreWpvN3CU6N8yZIaUepsXSqCVxrBMKOSQwVo+4QlVdlIX3ICQnCZ+RN
+ LgJrLxii8/f54h0waeGuOrMJGYXgQlD5kGp/v5vw+plNVj3amj0GPy79B+VVJnzMwf0X
+ slP6aAspIJPeReLpfjtTCTHLR7t2wU8m1oRA1naFZ3fVxAxznodtagNFx7SXVX3ixwEZ
+ eBuQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=a8/qLLqO6eL91stH3wL0KRpl9T08Ic+NpnQGQ6x06VA=;
+ b=e/MFhB/RXGc5K8K9XEmfpyFNf67GviWEsNf6hnw4RpejP7MtRaoR3BupnIKTq28X4T
+ TUcZdO2SJxVlALilHHLk4BSHu3LDRzFFr9Cyh5xrxg/8HFB7JlgKreF19oAwH96k/24H
+ mZudJnyCs5Wc26K4Z0MG4namC4+3pjQZhk7hQGM/04Op2GfXkeiREqAHY+1RcQ9j+fCi
+ TrvoA4CDWz/u+izihk/0p5lkN8cr0GahNqN2HfdyWyW1fEFaGJWQ6TdncKvxUl3aL4X0
+ s6yNO8sm5oY4D7K6QrNqn4dVcz3OJ4xceWkZKAotEv3WGdi2OWU3ghkrgQK4YDVqRC28
+ bAzw==
+X-Gm-Message-State: AOAM531/R3QvN22ksOsZDwD8eluejapj/xHeL+/nKLn0Jg2l3QmC79Gi
+ RJ/iwl2gRrF/jNMMDBkpcnKTtw==
+X-Google-Smtp-Source: ABdhPJwog3epP3zDyPdL9Dn1Mv3QQbO1xKAP/j5dh3/z+a/bJ15P6+dhr9KB3Du7HHV3+Ab4fMGLOg==
+X-Received: by 2002:a92:dd05:: with SMTP id n5mr14308230ilm.72.1625583379441; 
+ Tue, 06 Jul 2021 07:56:19 -0700 (PDT)
+Received: from ziepe.ca ([206.223.160.26])
+ by smtp.gmail.com with ESMTPSA id l18sm8626632ilo.64.2021.07.06.07.56.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 06 Jul 2021 07:56:19 -0700 (PDT)
+Received: from jgg by mlx with local (Exim 4.94) (envelope-from <jgg@ziepe.ca>)
+ id 1m0mUj-004Rth-V9; Tue, 06 Jul 2021 11:56:17 -0300
+Date: Tue, 6 Jul 2021 11:56:17 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
+Subject: Re: [PATCH v4 0/2] Add p2p via dmabuf to habanalabs
+Message-ID: <20210706145617.GO4604@ziepe.ca>
+References: <20210705130314.11519-1-ogabbay@kernel.org>
+ <YOQXBWpo3whVjOyh@phenom.ffwll.local>
+ <CAFCwf10_rTYL2Fy6tCRVAUCf4-6_TtcWCv5gEEkGnQ0KxqMUBg@mail.gmail.com>
+ <CAKMK7uEAJZUHNLreBB839BZOfnTGNU4rCx-0k55+67Nbxtdx3A@mail.gmail.com>
+ <CAKMK7uHpKFVm55O_NB=WYCsv0iUt92ZUn6eCzifH=unbhe3J8g@mail.gmail.com>
+ <CAKMK7uFGr=ugyKj0H3ctbh28Jnr25vAgXPBaDBMmfErCxYVo3w@mail.gmail.com>
+ <20210706134430.GL4604@ziepe.ca>
+ <CAKMK7uFEZjp2_WBhtkVxSNQ-1WcBSr3NDotY0fjz0iLRw8Barw@mail.gmail.com>
 MIME-Version: 1.0
-Content-Language: en-US
+Content-Disposition: inline
+In-Reply-To: <CAKMK7uFEZjp2_WBhtkVxSNQ-1WcBSr3NDotY0fjz0iLRw8Barw@mail.gmail.com>
 X-Mailman-Approved-At: Tue, 06 Jul 2021 16:32:45 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -50,257 +85,71 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: Oded Gabbay <oded.gabbay@gmail.com>, Gal Pressman <galpress@amazon.com>,
+ sleybo@amazon.com, linux-rdma <linux-rdma@vger.kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Oded Gabbay <ogabbay@kernel.org>,
+ "Linux-Kernel@Vger. Kernel. Org" <linux-kernel@vger.kernel.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Doug Ledford <dledford@redhat.com>, Christoph Hellwig <hch@lst.de>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Alex Deucher <alexander.deucher@amd.com>, Dave Airlie <airlied@gmail.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Leon Romanovsky <leonro@nvidia.com>,
+ Linux Media Mailing List <linux-media@vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+On Tue, Jul 06, 2021 at 04:09:25PM +0200, Daniel Vetter wrote:
+> Anyway, for anything that works like a gpu accelerator, like 3d accel,
+> or parallel compute accel (aka gpgpu) or spatial compute accel (aka
+> NN/AI) or maybe even fpga accel most of the magic to use the hardware
+> is in this backend compiler, which translates from an IR into whatever
+> your accelerator consumes. That's the part we really care about for
+> modern accelerators because without that defacto the hardware is
+> useless. Generally these chips have full-blown, if special purpose
+> ISA, with register files, spilling, branches, loops and other control
+> flow (sometimes only execution masks on simpler hw).
 
-Static analysis with Coverity on linux-next has found a potential null
-pointer dereference in function svm_range_restore_pages in
-drivers/gpu/drm/amd/amdkfd/kfd_svm.c from the following commit:
+I don't know if I see it so clearly as you do - at the end of the day
+the user keys in the program in some proprietary (or open!) language
+and and wack of propritary magic transforms it to "make it work".
 
-commit d4ebc2007040a0aff01bfe1b194085d3867328fd
-Author: Philip Yang <Philip.Yang@amd.com>
-Date:   Tue Jun 22 00:12:32 2021 -0400
+There are many barriers that prevent someone without the secret
+knowledge from duplicating the end result of a working program. An
+accelerator ISA is certainly one example, but I wouldn't overly focus
+on it as the only blocker.
 
-    drm/amdkfd: implement counters for vm fault and migration
+Like you said below the NVIDIA GPU ISA seems known but the HW is still
+not really useful for other reasons.
 
-The analysis is as follows:
+Habana seems to have gone the other way, the HW is fully useful but we
+don't have the ISA transformation and other details.
 
-2397 int
-2398 svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
-2399                        uint64_t addr)
-2400{
-2401        struct mm_struct *mm = NULL;
-2402        struct svm_range_list *svms;
-2403        struct svm_range *prange;
-2404        struct kfd_process *p;
-2405        uint64_t timestamp;
-2406        int32_t best_loc;
-2407        int32_t gpuidx = MAX_GPU_INSTANCE;
-2408        bool write_locked = false;
-2409        int r = 0;
-2410
+Both cases seem to have ended up with something useless, and I have a
+hard time saying nouveau has more right to be in the kernel tree than
+Habana does.
 
-    1. Condition !(adev->kfd.dev->pgmap.type != 0), taking false branch.
+> > Honestly, I think GPU is approaching this backwards. Wayland should
+> > have been designed to prevent proprietary userspace stacks.
+> 
+> That's not possible without some serious cans of worms though. Wayland
+> is a protocol, and you can't forbid people from implementing it.
+> Otherwise all the compatible open implementations of closed protocols
+> wouldn't be possible either.
 
-2411        if (!KFD_IS_SVM_API_SUPPORTED(adev->kfd.dev)) {
-2412                pr_debug("device does not support SVM\n");
-2413                return -EFAULT;
-2414        }
-2415
-2416        p = kfd_lookup_process_by_pasid(pasid);
+Well, in many ways so is Linux, but nobody would seriously
+re-implement Linux just to produce a driver.
 
-    2. Condition !p, taking false branch.
+> So I'm not clear what you're suggesting here we should do different.
 
-2417        if (!p) {
-2418                pr_debug("kfd process not founded pasid 0x%x\n", pasid);
-2419                return -ESRCH;
-2420        }
+Not enabling proprietary stacks as above would be a good start.
 
-    3. Condition !p->xnack_enabled, taking false branch.
-
-2421        if (!p->xnack_enabled) {
-2422                pr_debug("XNACK not enabled for pasid 0x%x\n", pasid);
-2423                return -EFAULT;
-2424        }
-2425        svms = &p->svms;
-2426
-
-    4. Condition 0 /* __builtin_types_compatible_p() */, taking false
-branch.
-    5. Condition 1 /* __builtin_types_compatible_p() */, taking true branch.
-    6. Falling through to end of if statement.
-    7. Condition !!branch, taking false branch.
-    8. Condition ({...; !!branch;}), taking false branch.
-
-2427        pr_debug("restoring svms 0x%p fault address 0x%llx\n", svms,
-addr);
-2428
-2429        mm = get_task_mm(p->lead_thread);
-
-    9. Condition !mm, taking false branch.
-
-2430        if (!mm) {
-2431                pr_debug("svms 0x%p failed to get mm\n", svms);
-2432                r = -ESRCH;
-2433                goto out;
-2434        }
-2435
-2436        mmap_read_lock(mm);
-2437retry_write_locked:
-2438        mutex_lock(&svms->lock);
-2439        prange = svm_range_from_addr(svms, addr, NULL);
-
-    10. Condition !prange, taking true branch.
-    18. Condition !prange, taking true branch.
-2440        if (!prange) {
-    11. Condition 0 /* __builtin_types_compatible_p() */, taking false
-branch.
-    12. Condition 1 /* __builtin_types_compatible_p() */, taking true
-branch.
-    13. Falling through to end of if statement.
-    14. Condition !!branch, taking false branch.
-    15. Condition ({...; !!branch;}), taking false branch.
-    19. Condition 0 /* __builtin_types_compatible_p() */, taking false
-branch.
-    20. Condition 1 /* __builtin_types_compatible_p() */, taking true
-branch.
-    21. Falling through to end of if statement.
-    22. Condition !!branch, taking false branch.
-    23. Condition ({...; !!branch;}), taking false branch.
-
-2441                pr_debug("failed to find prange svms 0x%p address
-[0x%llx]\n",
-2442                         svms, addr);
-
-    16. Condition !write_locked, taking true branch.
-    24. Condition !write_locked, taking false branch.
-
-2443                if (!write_locked) {
-2444                        /* Need the write lock to create new range
-with MMU notifier.
-2445                         * Also flush pending deferred work to make
-sure the interval
-2446                         * tree is up to date before we add a new range
-2447                         */
-2448                        mutex_unlock(&svms->lock);
-2449                        mmap_read_unlock(mm);
-2450                        mmap_write_lock(mm);
-2451                        write_locked = true;
-
-    17. Jumping to label retry_write_locked.
-
-2452                        goto retry_write_locked;
-2453                }
-2454                prange = svm_range_create_unregistered_range(adev,
-p, mm, addr);
-
-    25. Condition !prange, taking true branch.
-    26. var_compare_op: Comparing prange to null implies that prange
-might be null.
-
-2455                if (!prange) {
-
-    27. Condition 0 /* __builtin_types_compatible_p() */, taking false
-branch.
-    28. Condition 1 /* __builtin_types_compatible_p() */, taking true
-branch.
-    29. Falling through to end of if statement.
-    30. Condition !!branch, taking false branch.
-    31. Condition ({...; !!branch;}), taking false branch.
-
-2456                        pr_debug("failed to create unregistered
-range svms 0x%p address [0x%llx]\n",
-2457                                 svms, addr);
-2458                        mmap_write_downgrade(mm);
-2459                        r = -EFAULT;
-
-    32. Jumping to label out_unlock_svms.
-
-2460                        goto out_unlock_svms;
-2461                }
-2462        }
-2463        if (write_locked)
-2464                mmap_write_downgrade(mm);
-2465
-2466        mutex_lock(&prange->migrate_mutex);
-2467
-2468        if (svm_range_skip_recover(prange)) {
-2469                amdgpu_gmc_filter_faults_remove(adev, addr, pasid);
-2470                goto out_unlock_range;
-2471        }
-2472
-2473        timestamp = ktime_to_us(ktime_get()) -
-prange->validate_timestamp;
-2474        /* skip duplicate vm fault on different pages of same range */
-2475        if (timestamp < AMDGPU_SVM_RANGE_RETRY_FAULT_PENDING) {
-2476                pr_debug("svms 0x%p [0x%lx %lx] already restored\n",
-2477                         svms, prange->start, prange->last);
-2478                goto out_unlock_range;
-2479        }
-2480
-2481        best_loc = svm_range_best_restore_location(prange, adev,
-&gpuidx);
-2482        if (best_loc == -1) {
-2483                pr_debug("svms %p failed get best restore loc [0x%lx
-0x%lx]\n",
-2484                         svms, prange->start, prange->last);
-2485                r = -EACCES;
-2486                goto out_unlock_range;
-2487        }
-2488
-2489        pr_debug("svms %p [0x%lx 0x%lx] best restore 0x%x, actual
-loc 0x%x\n",
-2490                 svms, prange->start, prange->last, best_loc,
-2491                 prange->actual_loc);
-2492
-2493        if (prange->actual_loc != best_loc) {
-2494                if (best_loc) {
-2495                        r = svm_migrate_to_vram(prange, best_loc, mm);
-2496                        if (r) {
-2497                                pr_debug("svm_migrate_to_vram failed
-(%d) at %llx, falling back to system memory\n",
-2498                                         r, addr);
-2499                                /* Fallback to system memory if
-migration to
-2500                                 * VRAM failed
-2501                                 */
-2502                                if (prange->actual_loc)
-2503                                        r =
-svm_migrate_vram_to_ram(prange, mm);
-2504                                else
-2505                                        r = 0;
-2506                        }
-2507                } else {
-2508                        r = svm_migrate_vram_to_ram(prange, mm);
-2509                }
-2510                if (r) {
-2511                        pr_debug("failed %d to migrate svms %p
-[0x%lx 0x%lx]\n",
-2512                                 r, svms, prange->start, prange->last);
-2513                        goto out_unlock_range;
-2514                }
-2515        }
-2516
-2517        r = svm_range_validate_and_map(mm, prange, gpuidx, false,
-false);
-2518        if (r)
-2519                pr_debug("failed %d to map svms 0x%p [0x%lx 0x%lx]
-to gpus\n",
-2520                         r, svms, prange->start, prange->last);
-2521
-2522out_unlock_range:
-2523        mutex_unlock(&prange->migrate_mutex);
-2524out_unlock_svms:
-2525        mutex_unlock(&svms->lock);
-2526        mmap_read_unlock(mm);
-2527
-
-    Dereference after null check (FORWARD_NULL)
-    33. var_deref_model: Passing null pointer prange to
-svm_range_count_fault, which dereferences it.
-
-2528        svm_range_count_fault(adev, p, prange, gpuidx);
-
-
-The jump in line 2460 to out_unlock_svms will occur if prange is null,
-however, calling svm_range_count_fault with a null prange will cause a
-null pointer deference when it calls svm_range_get_pdd_by_adev and
-dereferences the pointer as follows:
-
-    p = container_of(prange->svms, struct kfd_process, svms);
-
-Colin
-
+Jason
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
