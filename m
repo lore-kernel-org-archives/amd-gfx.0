@@ -2,78 +2,81 @@ Return-Path: <SRS0=iwxs=L6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5FB75C11F69
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 12:23:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2A0E6C07E9B
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 12:46:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1EA4762300
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 12:23:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1EA4762300
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id EA76A61C88
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 12:46:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EA76A61C88
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B1F189DF7;
-	Tue,  6 Jul 2021 12:23:48 +0000 (UTC)
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [IPv6:2a00:1450:4864:20::42b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED0CA89DAB
- for <amd-gfx@lists.freedesktop.org>; Tue,  6 Jul 2021 12:23:46 +0000 (UTC)
-Received: by mail-wr1-x42b.google.com with SMTP id n9so8512767wrs.13
- for <amd-gfx@lists.freedesktop.org>; Tue, 06 Jul 2021 05:23:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:mail-followup-to:references
- :mime-version:content-disposition:in-reply-to;
- bh=uNyqHLQRNkYk8ghNPCyy058MytEY7ye/Hosx5rgh6L0=;
- b=I861MRXnVEJLWhlPliO+jitKdknn/PB69GvRAM/Y4b8ranu/45I6eMeXTNi9dKuJ0j
- WYk89i6CPtBnGLN6nluhfnivHJjMYYzeqUVC8YHPJKGLDAkmLUXMmITr5S5TPlVgR6z+
- pWlut4ORszisRKb8vPQRzvBskW4VntzJL5DP8=
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4C2F6E489;
+	Tue,  6 Jul 2021 12:46:18 +0000 (UTC)
+Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
+ [IPv6:2607:f8b0:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51FDC6E069;
+ Tue,  6 Jul 2021 12:46:17 +0000 (UTC)
+Received: by mail-ot1-x331.google.com with SMTP id
+ t24-20020a9d7f980000b029046f4a1a5ec4so21461754otp.1; 
+ Tue, 06 Jul 2021 05:46:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
+ bh=sCjXp3xF1YSalO2+qz5OYyZixLhy0ty98Vfkg+SLNfU=;
+ b=NebIVlImsk/VQNEBC9xhHI8KKnEPayGZn2ZyIMxFnPx0YDhqtNAWoIKAXIXd7A6yI1
+ Z/ZqdKIIzbjxYaq/e/KIf4Ty2v8ZKxhCT2fZu+d5f+oLC5pZRukodlHjEJ63d9cYEnZH
+ Z8FGRRxvPytz47HM1SRivXkHFZHPHo67ltwBZfLhKd4wvK1s2l09//DgjYPbQ2QzlM1w
+ UwYRJ80jYqhAcKo/vKem03qSyf3ye/3jPTBdjCxDdMDf4kgNIN0M8pNZTgQviynWgyra
+ a1HZFz50KvOSjqacuprw+IsW3+7YMHolQy0dGBV0wg4zyt0xWwtlY8NdkbeuXI9GWgZ1
+ H/8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id
- :mail-followup-to:references:mime-version:content-disposition
- :in-reply-to;
- bh=uNyqHLQRNkYk8ghNPCyy058MytEY7ye/Hosx5rgh6L0=;
- b=ZhF0uCvIoVUu0Zqd2QGWMihrgwNpioeID9GHvj5MglkwUkgZhWo0W7xCKTQUbZX6GD
- eFIG6PcZGAGi7jSzTuQK5nkaa0jtBfDVD6BeI2gg/9NvbJjAgxoZOKNqvtCSRRviud+u
- +EWaglHJhNZ+DUBAzKCQCqVJaa1UDZPfygy0k2MC9DI5f7ZyUZqCFX+87GxxY0g8R8ox
- 7mPUPo7Hl3oSt67mrsZAQXY7CIo0ixgwTjTYcFXYLolu1Bj+Vut8yRmqVxDv44Uy6iP9
- X+q4bTf1xQ87uGnhGKaAlRwPHrG083qN8tFH4oAZWi36QZDLoFK+eDpefNhwCNVs9TSI
- O98w==
-X-Gm-Message-State: AOAM5333seR+itgx2ENW2OeclB6pjkwH12ewSs41Ds0px/lL0inOku61
- p72kFMe1aB9P1Y6RuC2i6dP91Q==
-X-Google-Smtp-Source: ABdhPJxolizhwmybAQ3VsffOuvUoyS5FTxRrVw3O2VuBLsJFS1lJdSAYSr7mbyMR8j36zn3HCunCMA==
-X-Received: by 2002:adf:a41e:: with SMTP id d30mr3249053wra.10.1625574225475; 
- Tue, 06 Jul 2021 05:23:45 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id 31sm18348673wrs.79.2021.07.06.05.23.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 Jul 2021 05:23:44 -0700 (PDT)
-Date: Tue, 6 Jul 2021 14:23:42 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Christoph Hellwig <hch@lst.de>
-Subject: Re: [Linaro-mm-sig] [PATCH v4 0/2] Add p2p via dmabuf to habanalabs
-Message-ID: <YORLTmyoXDtoM9Ta@phenom.ffwll.local>
-Mail-Followup-To: Christoph Hellwig <hch@lst.de>,
- Oded Gabbay <ogabbay@kernel.org>, linux-kernel@vger.kernel.org,
- gregkh@linuxfoundation.org, sumit.semwal@linaro.org,
- christian.koenig@amd.com, galpress@amazon.com, sleybo@amazon.com,
- dri-devel@lists.freedesktop.org, jgg@ziepe.ca,
- linux-rdma@vger.kernel.org, linux-media@vger.kernel.org,
- dledford@redhat.com, airlied@gmail.com, alexander.deucher@amd.com,
- leonro@nvidia.com, amd-gfx@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to;
+ bh=sCjXp3xF1YSalO2+qz5OYyZixLhy0ty98Vfkg+SLNfU=;
+ b=kFjKT5FFCCjhHTaIPpw1aa1/zCrxDn+lg7NlDKuyWj386Qqs327bpFfFIxm1x3HCYi
+ QDLDDNuqsNNBV2BLbBbqTvqYpixgpX7TA67Zc2OJxRjF+mYGWVNWE7H5Kfusz5dCMb36
+ h4DqVqgyYXz3ieN1v12LGMytWKVDJn1NHINFMM9IhjtJLaFNvkH6s96kYwicU5XM0g7r
+ CCxxKtRJuxxgGyoxoquolJLUKHGkIJHB/YwuoketqurwI8fOwHoJrUrDScjI/yKibXfU
+ t/Mom9E3kXb3+lsPLS/JWDWqFV5EVCpPfl9uflJ949ICetmNbEeIBgWjFKJWDgKXAyLL
+ 41JA==
+X-Gm-Message-State: AOAM533gexpDUgdINlPEQwuLCxzj7m7Dr4+nnjkR4CHog9KlGg6DI2DG
+ aC4i5YqIuqgsXc7xzh2byyW9QhcRRV71tQETaio=
+X-Google-Smtp-Source: ABdhPJzKl+ncA9+SgwqYnKj9X6RvPNw8/DFp4We+uboCS13WvUQF4K4WE0yutJoNe8KTfvhc9SuTE16Alt3g9Wb5p6M=
+X-Received: by 2002:a05:6830:159a:: with SMTP id
+ i26mr5598551otr.339.1625575576243; 
+ Tue, 06 Jul 2021 05:46:16 -0700 (PDT)
+MIME-Version: 1.0
 References: <20210705130314.11519-1-ogabbay@kernel.org>
  <YOQXBWpo3whVjOyh@phenom.ffwll.local>
- <20210706122110.GA18273@lst.de>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210706122110.GA18273@lst.de>
-X-Operating-System: Linux phenom 5.10.0-7-amd64 
+ <20210706122110.GA18273@lst.de> <YORLTmyoXDtoM9Ta@phenom.ffwll.local>
+In-Reply-To: <YORLTmyoXDtoM9Ta@phenom.ffwll.local>
+From: Oded Gabbay <oded.gabbay@gmail.com>
+Date: Tue, 6 Jul 2021 15:45:49 +0300
+Message-ID: <CAFCwf114KEH-kO6w+nmbqKKdaGuqy3iOpHJi=5ZWqT3cgDm4Cw@mail.gmail.com>
+Subject: Re: [Linaro-mm-sig] [PATCH v4 0/2] Add p2p via dmabuf to habanalabs
+To: Christoph Hellwig <hch@lst.de>, Oded Gabbay <ogabbay@kernel.org>, 
+ "Linux-Kernel@Vger. Kernel. Org" <linux-kernel@vger.kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Gal Pressman <galpress@amazon.com>, sleybo@amazon.com, 
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>, linux-rdma <linux-rdma@vger.kernel.org>, 
+ Linux Media Mailing List <linux-media@vger.kernel.org>,
+ Doug Ledford <dledford@redhat.com>, 
+ Dave Airlie <airlied@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, 
+ Leon Romanovsky <leonro@nvidia.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, 
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,57 +88,67 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: sleybo@amazon.com, linux-rdma@vger.kernel.org, gregkh@linuxfoundation.org,
- Oded Gabbay <ogabbay@kernel.org>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, galpress@amazon.com,
- linaro-mm-sig@lists.linaro.org, jgg@ziepe.ca, dledford@redhat.com,
- amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, airlied@gmail.com,
- sumit.semwal@linaro.org, christian.koenig@amd.com, leonro@nvidia.com,
- linux-media@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jul 06, 2021 at 02:21:10PM +0200, Christoph Hellwig wrote:
-> On Tue, Jul 06, 2021 at 10:40:37AM +0200, Daniel Vetter wrote:
-> > > Greg, I hope this will be good enough for you to merge this code.
-> > 
-> > So we're officially going to use dri-devel for technical details review
-> > and then Greg for merging so we don't have to deal with other merge
-> > criteria dri-devel folks have?
-> > 
-> > I don't expect anything less by now, but it does make the original claim
-> > that drivers/misc will not step all over accelerators folks a complete
-> > farce under the totally-not-a-gpu banner.
-> > 
-> > This essentially means that for any other accelerator stack that doesn't
-> > fit the dri-devel merge criteria, even if it's acting like a gpu and uses
-> > other gpu driver stuff, you can just send it to Greg and it's good to go.
-> > 
-> > There's quite a lot of these floating around actually (and many do have
-> > semi-open runtimes, like habanalabs have now too, just not open enough to
-> > be actually useful). It's going to be absolutely lovely having to explain
-> > to these companies in background chats why habanalabs gets away with their
-> > stack and they don't.
-> 
-> FYI, I fully agree with Daniel here.  Habanlabs needs to open up their
-> runtime if they want to push any additional feature in the kernel.
-> The current situation is not sustainable.
+On Tue, Jul 6, 2021 at 3:23 PM Daniel Vetter <daniel@ffwll.ch> wrote:
+>
+> On Tue, Jul 06, 2021 at 02:21:10PM +0200, Christoph Hellwig wrote:
+> > On Tue, Jul 06, 2021 at 10:40:37AM +0200, Daniel Vetter wrote:
+> > > > Greg, I hope this will be good enough for you to merge this code.
+> > >
+> > > So we're officially going to use dri-devel for technical details review
+> > > and then Greg for merging so we don't have to deal with other merge
+> > > criteria dri-devel folks have?
+> > >
+> > > I don't expect anything less by now, but it does make the original claim
+> > > that drivers/misc will not step all over accelerators folks a complete
+> > > farce under the totally-not-a-gpu banner.
+> > >
+> > > This essentially means that for any other accelerator stack that doesn't
+> > > fit the dri-devel merge criteria, even if it's acting like a gpu and uses
+> > > other gpu driver stuff, you can just send it to Greg and it's good to go.
+> > >
+> > > There's quite a lot of these floating around actually (and many do have
+> > > semi-open runtimes, like habanalabs have now too, just not open enough to
+> > > be actually useful). It's going to be absolutely lovely having to explain
+> > > to these companies in background chats why habanalabs gets away with their
+> > > stack and they don't.
+> >
+> > FYI, I fully agree with Daniel here.  Habanlabs needs to open up their
+> > runtime if they want to push any additional feature in the kernel.
+> > The current situation is not sustainable.
+Well, that's like, your opinion...
 
-Before anyone replies: The runtime is open, the compiler is still closed.
-This has become the new default for accel driver submissions, I think
-mostly because all the interesting bits for non-3d accelerators are in the
-accel ISA, and no longer in the runtime. So vendors are fairly happy to
-throw in the runtime as a freebie.
+>
+> Before anyone replies: The runtime is open, the compiler is still closed.
+> This has become the new default for accel driver submissions, I think
+> mostly because all the interesting bits for non-3d accelerators are in the
+> accel ISA, and no longer in the runtime. So vendors are fairly happy to
+> throw in the runtime as a freebie.
+>
+> It's still incomplete, and it's still useless if you want to actually hack
+> on the driver stack.
+> -Daniel
+> --
+I don't understand what's not sustainable here.
 
-It's still incomplete, and it's still useless if you want to actually hack
-on the driver stack.
--Daniel
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+There is zero code inside the driver that communicates or interacts
+with our TPC code (TPC is the Tensor Processing Core).
+Even submitting works to the TPC is done via a generic queue
+interface. And that queue IP is common between all our engines
+(TPC/DMA/NIC). The driver provides all the specs of that queue IP,
+because the driver's code is handling that queue. But why is the TPC
+compiler code even relevant here ?
+
+btw, you can today see our TPC code at
+https://github.com/HabanaAI/Habana_Custom_Kernel
+There is a link there to the TPC user guide and link to download the
+LLVM compiler.
+
+Oded
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
