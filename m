@@ -6,62 +6,49 @@ X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
 	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 046D4C07E96
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 17:30:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7EF79C11F67
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 17:36:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A366C61C56
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 17:30:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A366C61C56
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+	by mail.kernel.org (Postfix) with ESMTPS id 4B7BE61C3F
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 17:36:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4B7BE61C3F
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D6176E54C;
-	Tue,  6 Jul 2021 17:30:35 +0000 (UTC)
-Received: from mail-qv1-xf2c.google.com (mail-qv1-xf2c.google.com
- [IPv6:2607:f8b0:4864:20::f2c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 565B56E54C
- for <amd-gfx@lists.freedesktop.org>; Tue,  6 Jul 2021 17:28:30 +0000 (UTC)
-Received: by mail-qv1-xf2c.google.com with SMTP id h18so10144046qve.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 06 Jul 2021 10:28:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ziepe.ca; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=px11FX2o2NfOVHHhqnYnIhPQRFcjzs1+EmS0dsyOJPw=;
- b=NF9XyW3fJY3iSvOKRIQQV+C9O8LDLzSL5nLvOmxEd2aIXF2R2INnN2ppJQUbhi6DTV
- bkLZ9RPPT44Eqt9TFVlwTbLNxtdPmHz8R3OsArM3R4sQi8ODLHQSjGR3OgBwMKyXtHNF
- K9ejcbRJRLCLTPyFEbwQzuBzfEgTPnMj6hMROdxPpkzmYY6xp0eWqzR8mSjb/sLAqfbB
- lSEkuCODAJl2x64EYiUVYfnC8YDK58ifVoE9B2fQ6/omp+mfhARrfLpa+fypn8XD9z9S
- kyOUZYLc41KEvRUUGGnMouFoGD5+qIuQ+IqsTll4iXp+lukaxhYtEoRakxbU44SzNWt/
- gwjg==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45EC16E048;
+	Tue,  6 Jul 2021 17:36:09 +0000 (UTC)
+Received: from mail-ot1-x32a.google.com (mail-ot1-x32a.google.com
+ [IPv6:2607:f8b0:4864:20::32a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4B986E048
+ for <amd-gfx@lists.freedesktop.org>; Tue,  6 Jul 2021 17:36:07 +0000 (UTC)
+Received: by mail-ot1-x32a.google.com with SMTP id
+ h24-20020a9d64180000b029036edcf8f9a6so22372964otl.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 06 Jul 2021 10:36:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=UAvpvptXG6sMkQz+gf0B/1SxifjIkdjKCH8sm6hLVss=;
+ b=VykMUkCUg7WcIEKsR1v4RBrI2NiKhIwMgV+BRVA0h1SvtWJEdi9m1qCCccVZziliFj
+ qBlBMH+TnRCrISUoXKFEYq86K2054AAs5F5INJ5GSJLHKD1Qf4iQDfLSgfcflxvogC6g
+ kX++oMx5RF5cu+sGrdeqLrJSxn9RpJvqmO3q4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=px11FX2o2NfOVHHhqnYnIhPQRFcjzs1+EmS0dsyOJPw=;
- b=QbR/i8EbR/ynrOS/LDZKFOd7dsKTpRaFqVJt1ExclKlS5yIkbtfLLftkdaHZ8IDq4T
- HkwaMsKN+lIOAsWgPXioBkERtTbtJpmNYPD+rhH0QecdbO36+7hbsDEWOvxXwBEIyMl0
- Aw1pTSwg/NWWpatfgzSHxe7EE+lskJKEGaUsZsUJwMbma1KGmuSkH0zn1KxOJ9bC8XI4
- /I0kElad/hnQU+7RSXHIN+d5YZiIJDWkxZsIFSyvqxqRfF9Z+HOzNAryw0raxrEc7jMN
- +G1migUhhCJvK7SYQ2TcS3R8b8xfMVJavDwMfuwqS82u64S6AfBK+Xoh2W3ySLfH6Hyl
- F5Jg==
-X-Gm-Message-State: AOAM531oFpGAJ4D2YvId8RS0e9z2LYQ8tPSkq66/1un6riMurmRyZB4b
- SE4TfKN4zMzwxGXgCHH2l1oMng==
-X-Google-Smtp-Source: ABdhPJy+jZYEROJ3qIspffgyVpxmDj4ZiVgCcQDd9MnAGWHJKAq+GyoBJWW0gIXqY5aoWofm1iZXqA==
-X-Received: by 2002:a0c:eb8f:: with SMTP id x15mr19333838qvo.42.1625592509542; 
- Tue, 06 Jul 2021 10:28:29 -0700 (PDT)
-Received: from ziepe.ca ([206.223.160.26])
- by smtp.gmail.com with ESMTPSA id g13sm5694745qtx.96.2021.07.06.10.28.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 Jul 2021 10:28:29 -0700 (PDT)
-Received: from jgg by mlx with local (Exim 4.94) (envelope-from <jgg@ziepe.ca>)
- id 1m0os0-004V5Z-2n; Tue, 06 Jul 2021 14:28:28 -0300
-Date: Tue, 6 Jul 2021 14:28:28 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-Subject: Re: [PATCH v4 0/2] Add p2p via dmabuf to habanalabs
-Message-ID: <20210706172828.GR4604@ziepe.ca>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=UAvpvptXG6sMkQz+gf0B/1SxifjIkdjKCH8sm6hLVss=;
+ b=tBsrmY9s9REXfX5I2/r1u88K9txRmGtp6HifIYIR3V6FeqUeAALRsT88HpB7VpB09j
+ V/z4fP4Je42O6AXAgds3PS6f0ckf+2QonRZ48aq1aj960gzfHf5SBQElKI5zwb40V6bi
+ 41wft1YxXV4xscANGnrRMrobfc5f9qIspIL3Uv/vfUgGFW6flgOLW4U6FtYVJCMVBavR
+ BGx6u8yXrf672kFPfMavFkjKMeXWvdtnPXtRUvx5PSZ14gq+Ivrfy8fvAPlMvChcZzg5
+ Oj1uIgMUqKqnRTc1T5vQfaemgAsjth3dcvL2mfONp+BJFnhFHHa9HOLWBXwPEBhaNHI7
+ +lgQ==
+X-Gm-Message-State: AOAM530NPnkgBfMcVdlzS6fwY7XGzxYieAdYVXVZMsF3XtCZfOQl3RFm
+ 68wngwGsAuJvgpRmpm87R0/alzVov2d7O8fFndUF6g==
+X-Google-Smtp-Source: ABdhPJz36ON+djVou1Lu0bUXqr7/f1L1bt2WJsjaaZuWE3eVLCbRks9b/YMgcJJgp0E9upbbebjDolDn3fGr+cA7dq8=
+X-Received: by 2002:a9d:27a4:: with SMTP id c33mr16150759otb.281.1625592967188; 
+ Tue, 06 Jul 2021 10:36:07 -0700 (PDT)
+MIME-Version: 1.0
 References: <20210705130314.11519-1-ogabbay@kernel.org>
  <YOQXBWpo3whVjOyh@phenom.ffwll.local>
  <CAFCwf10_rTYL2Fy6tCRVAUCf4-6_TtcWCv5gEEkGnQ0KxqMUBg@mail.gmail.com>
@@ -70,11 +57,13 @@ References: <20210705130314.11519-1-ogabbay@kernel.org>
  <CAKMK7uELNzwUe+hhVWRg=Pk5Wt_vOOX922H48Kd6dTyO2PeBbg@mail.gmail.com>
  <20210706152542.GP4604@ziepe.ca>
  <CAKMK7uH7Ar6+uAOU_Sj-mf89V9WCru+66CV5bO9h-WAAv7Mgdg@mail.gmail.com>
- <CAKMK7uGvO0h7iZ3vKGe8GouESkr79y1gP1JXbfV82sRiaT-d1A@mail.gmail.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAKMK7uGvO0h7iZ3vKGe8GouESkr79y1gP1JXbfV82sRiaT-d1A@mail.gmail.com>
-X-Mailman-Approved-At: Tue, 06 Jul 2021 17:30:33 +0000
+ <20210706162953.GQ4604@ziepe.ca>
+In-Reply-To: <20210706162953.GQ4604@ziepe.ca>
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Tue, 6 Jul 2021 19:35:55 +0200
+Message-ID: <CAKMK7uGXUgjyjch57J3UnC7SA3-4g87Ft7tLjj9fFkgyKkKdrg@mail.gmail.com>
+Subject: Re: [PATCH v4 0/2] Add p2p via dmabuf to habanalabs
+To: Jason Gunthorpe <jgg@ziepe.ca>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,7 +86,7 @@ Cc: Oded Gabbay <oded.gabbay@gmail.com>, Gal Pressman <galpress@amazon.com>,
  Doug Ledford <dledford@redhat.com>, Christoph Hellwig <hch@lst.de>,
  amd-gfx list <amd-gfx@lists.freedesktop.org>,
  Alex Deucher <alexander.deucher@amd.com>, Dave Airlie <airlied@gmail.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  Leon Romanovsky <leonro@nvidia.com>,
  Linux Media Mailing List <linux-media@vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
@@ -105,43 +94,107 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jul 06, 2021 at 06:07:17PM +0200, Daniel Vetter wrote:
+On Tue, Jul 6, 2021 at 6:29 PM Jason Gunthorpe <jgg@ziepe.ca> wrote:
+>
+> On Tue, Jul 06, 2021 at 05:49:01PM +0200, Daniel Vetter wrote:
+>
+> > The other thing to keep in mind is that one of these drivers supports
+> > 25 years of product generations, and the other one doesn't.
+>
+> Sure, but that is the point, isn't it? To have an actually useful
+> thing you need all of this mess
+>
+> > > My argument is that an in-tree open kernel driver is a big help to
+> > > reverse engineering an open userspace. Having the vendors
+> > > collaboration to build that monstrous thing can only help the end goal
+> > > of an end to end open stack.
+> >
+> > Not sure where this got lost, but we're totally fine with vendors
+> > using the upstream driver together with their closed stack. And most
+> > of the drivers we do have in upstream are actually, at least in parts,
+> > supported by the vendor. E.g. if you'd have looked the drm/arm driver
+> > you picked is actually 100% written by ARM engineers. So kinda
+> > unfitting example.
+>
+> So the argument with Habana really boils down to how much do they need
+> to show in the open source space to get a kernel driver? You want to
+> see the ISA or compiler at least?
 
-> Also on your claim that drivers/gpu is a non-upstream disaster: I've
-> also learned that that for drivers/rdma there's the upstream driver,
-> and then there's the out-of-tree hackjob the vendor actually
-> supports.
+Yup. We dont care about any of the fancy pieces you build on top, nor
+does the compiler need to be the optimizing one. Just something that's
+good enough to drive the hw in some demons to see how it works and all
+that. Generally that's also not that hard to reverse engineer, if
+someone is bored enough, the real fancy stuff tends to be in how you
+optimize the generated code. And make it fit into the higher levels
+properly.
 
-In the enterprise world everyone has their out of tree backport
-drivers. It varies on the vendor how much deviation there is from the
-upstream driver and what commercial support relationship the vendor
-has with the enterprise distros.
+> That at least doesn't seem "extreme" to me.
+>
+> > > For instance a vendor with an in-tree driver has a strong incentive to
+> > > sort out their FW licensing issues so it can be redistributed.
+> >
+> > Nvidia has been claiming to try and sort out the FW problem for years.
+> > They even managed to release a few things, but I think the last one is
+> > 2-3 years late now. Partially the reason is that there don't have a
+> > stable api between the firmware and driver, it's all internal from the
+> > same source tree, and they don't really want to change that.
+>
+> Right, companies have no incentive to work in a sane way if they have
+> their own parallel world. I think drawing them part by part into the
+> standard open workflows and expectations is actually helpful to
+> everyone.
 
-> So seems to be about the same level of screwed up, if you ask the
-> vendor they tell you the upstream driver isn't a thing they care about
-> and it's just done for a bit of goodwill. 
+Well we do try to get them on board part-by-part generally starting
+with the kernel and ending with a proper compiler instead of the usual
+llvm hack job, but for whatever reasons they really like their
+in-house stuff, see below for what I mean.
 
-Sounds like you should get a new RDMA supplier :)
+> > > > I don't think the facts on the ground support your claim here, aside
+> > > > from the practical problem that nvidia is unwilling to even create an
+> > > > open driver to begin with. So there isn't anything to merge.
+> > >
+> > > The internet tells me there is nvgpu, it doesn't seem to have helped.
+> >
+> > Not sure which one you mean, but every once in a while they open up a
+> > few headers, or a few programming specs, or a small driver somewhere
+> > for a very specific thing, and then it dies again or gets obfuscated
+> > for the next platform, or just never updated. I've never seen anything
+> > that comes remotely to something complete, aside from tegra socs,
+> > which are fully supported in upstream afaik.
+>
+> I understand nvgpu is the tegra driver that people actualy
+> use. nouveau may have good tegra support but is it used in any actual
+> commercial product?
 
-To be fair Intel is getting better, they got their new RDMA HW support
-merged into v5.14 after about 2 years in the out of tree world. Though
-it is still incomplete compared to their out of tree driver, the gap
-is much smaller now.
+I think it was almost the case. Afaik they still have their internal
+userspace stack working on top of nvidia, at least last year someone
+fixed up a bunch of issues in the tegra+nouveau combo to enable format
+modifiers properly across the board. But also nvidia is never going to
+sell you that as the officially supported thing, unless your ask comes
+back with enormous amounts of sold hardware.
 
-> amounts of volume, then suddenly it's an option ... Minus the fw issue
-> for nvidia, upstream does support all the gpus you can buy right now
-> and that can run on linux with some vendor driver (aka excluding apple
-> M1 and ofc upcoming products from most vendors).
+And it's not just nvidia, it's pretty much everyone. Like a soc
+company I don't want to know started collaborating with upstream and
+the reverse-engineered mesa team on a kernel driver, seems to work
+pretty well for current hardware. But for the next generation they
+decided it's going to be again only their in-house tree that
+completele ignores drivers/gpu/drm, and also tosses all the
+foundational work they helped build on the userspace side. And this is
+consistent across all companies, over the last 20 years I know of
+(often non-public) stories across every single company where they
+decided that all the time invested into community/upstream
+collaboration isn't useful anymore, we go all vendor solo for the next
+one.
 
-I would look at how many actual commercial systems are running the
-upstream/inbox stack. I personally know of quite a few sites with big
-HPC RDMA deployments running pure inbox kernels, no add on kernel
-modules, with full commercial support.
-
-If you can say that kind of arrangment is also common place in the GPU
-world then I will happily be wrong.
-
-Jason
+Most of those you luckily don't hear about anymore, all it results in
+the upstream driver being 1-2 years late or so. But even the good ones
+where we collaborate well can't seem to help themselves and want to
+throw it all away every few years.
+-Daniel
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
