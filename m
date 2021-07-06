@@ -1,65 +1,131 @@
-Return-Path: <SRS0=ZRVW=L5=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=iwxs=L6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
-	NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2DCFAC07E9B
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Jul 2021 15:49:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 11798C07E99
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 00:52:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 93EB96135F
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Jul 2021 15:49:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 93EB96135F
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=tuxedocomputers.com
+	by mail.kernel.org (Postfix) with ESMTPS id BAA6D6195E
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 00:52:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BAA6D6195E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26A9689950;
-	Mon,  5 Jul 2021 15:49:46 +0000 (UTC)
-Received: from srv6.fidu.org (srv6.fidu.org [IPv6:2a01:4f8:231:de0::2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E7EC8989C;
- Mon,  5 Jul 2021 15:49:44 +0000 (UTC)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by srv6.fidu.org (Postfix) with ESMTP id E5B5BC800A0;
- Mon,  5 Jul 2021 17:49:42 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at srv6.fidu.org
-Received: from srv6.fidu.org ([127.0.0.1])
- by localhost (srv6.fidu.org [127.0.0.1]) (amavisd-new, port 10024)
- with LMTP id JvsjUy3tFcaD; Mon,  5 Jul 2021 17:49:42 +0200 (CEST)
-Received: from [IPv6:2003:e3:7f39:4900:3bb7:60d3:9bbf:a050]
- (p200300E37F3949003BB760d39bBFa050.dip0.t-ipconnect.de
- [IPv6:2003:e3:7f39:4900:3bb7:60d3:9bbf:a050])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- (Authenticated sender: wse@tuxedocomputers.com)
- by srv6.fidu.org (Postfix) with ESMTPSA id 3FDC4C80091;
- Mon,  5 Jul 2021 17:49:42 +0200 (CEST)
-Subject: Re: [PATCH v4 12/17] drm/uAPI: Add "preferred color format" drm
- property as setting for userspace
-To: Pekka Paalanen <ppaalanen@gmail.com>
-References: <20210618091116.14428-1-wse@tuxedocomputers.com>
- <20210618091116.14428-13-wse@tuxedocomputers.com>
- <20210622101516.6a53831c@eldfell>
- <jIDQ2rRRMWlhDDPf08Z8xZlEE8HTBx7fHsylFdK0joSSFVyES8D444Giyiji9zbIm7dU4QpbsXZLvIDTbGW0wEoUWKsMEI4evizn0UdGMvM=@emersion.fr>
- <20210629141712.21f00c38@eldfell>
- <6d8716e0-e68a-e7b7-a341-a7471c413e9c@tuxedocomputers.com>
- <20210630114133.47397e2f@eldfell>
- <d3674d49-8bca-7ecf-1735-7bff2d9d526e@tuxedocomputers.com>
- <20210701110714.61f3e2af@eldfell>
- <b7144386-a98b-faf9-b425-c1157d9d0241@tuxedocomputers.com>
- <20210701162446.14f4f577@eldfell>
-From: Werner Sembach <wse@tuxedocomputers.com>
-Message-ID: <102bf05f-7081-c53b-ab0b-f2698c7540e9@tuxedocomputers.com>
-Date: Mon, 5 Jul 2021 17:49:42 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id C17A3898AF;
+	Tue,  6 Jul 2021 00:52:17 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2043.outbound.protection.outlook.com [40.107.220.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BCDC898AF;
+ Tue,  6 Jul 2021 00:52:16 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=mT3MzTbZN/7eqs4kfuKDidR5JOEw2kPvd1HD8GW5ZkLwOS7PrtHfnBuPUeBghjCuIcTCFBnyFkwQI33hCxYSr1773ZtotKbLbGH54ic6rq5nDYLMDjziVqj97EdmbnSVyZKJLPphpw2lY1YMEiJJcBwvfyvP6JjhP9hbxiEyWiofYZiGMWcmoIbCz6nIhIi4RrTMt6S4+dJ/i8aJMcXGnDt2dxUra0BaJ9PUPXdXN9IcEZJOBk8wD9fcFd9Iv5s+ZYZ+aStaSMLtbNQuW3XgCbkW57caq+IUVVi+Ykvrh4Ydzbag3JgNkn6S3ES7A7kftK3gJX9Fhur2GlVsQE09/w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=41bfLhI6d3IfIzfJ3JRC2Lhkk3UOuqbn68hp3GBdZro=;
+ b=k2mYnpLmGntQJ7AF8+Dri8KITp0OF+Rh+Fun0S6HkraDWy7OQoJai9VwkClcuZsqM/s0XVhjUC1FWAr6dEo7b7jw0+VCCh7CA4MCX+6jQM/QdMjwLEELUcGrR/42Hg+xuMK1mDNQwxLZW446RKzKsC4HSTrlWs7M/1J6+be6VLqIxTQXVeOQheVEobaEu9PKTZUDJm/ino/jx9ilEmbPDsfGthJ5rbiuytPtJrHUvH39QFW/GGDxO9seJpszCpPg1rM66Z2w6n/+7/zBD7V1S2+gDEMPXQg2/hIZr/iohyvCOQTD6HrJYUz0oBsuJHJp8Tx9mXzLUtIyHD9w3exKpw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=41bfLhI6d3IfIzfJ3JRC2Lhkk3UOuqbn68hp3GBdZro=;
+ b=V1Jkwsi78UAa/QIaWyGIzcGXmzBz0ObPyBtARrUx3wPbcUKiJ8OaQDMhgh15MzPjyiPs06p/BWw12+aNwzmq8XWGdeyfpQY2xN2ktwkrhpO5XSgy4/uXVbpCyIKPTEx3zEHtQ5uv3r2i95Job3R4gJKw2dIxwEHCHKmB2ZdbfpY=
+Authentication-Results: vger.kernel.org; dkim=none (message not signed)
+ header.d=none;vger.kernel.org; dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB3962.namprd12.prod.outlook.com (2603:10b6:5:1ce::21)
+ by DM6PR12MB4699.namprd12.prod.outlook.com (2603:10b6:5:36::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.19; Tue, 6 Jul
+ 2021 00:52:14 +0000
+Received: from DM6PR12MB3962.namprd12.prod.outlook.com
+ ([fe80::50f2:699c:121d:f257]) by DM6PR12MB3962.namprd12.prod.outlook.com
+ ([fe80::50f2:699c:121d:f257%4]) with mapi id 15.20.4287.033; Tue, 6 Jul 2021
+ 00:52:13 +0000
+Subject: Re: [PATCH 1/4] drm/amdgpu: fix a signedness bug in
+ __verify_ras_table_checksum()
+From: Luben Tuikov <luben.tuikov@amd.com>
+To: Dan Carpenter <dan.carpenter@oracle.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+References: <YOAsdyWeZAHF0oll@mwanda>
+ <bb78075f-2249-8311-2f75-c0dfaa333ec4@amd.com>
+Message-ID: <c60af259-f8ab-f495-ebc3-6b58af91c708@amd.com>
+Date: Mon, 5 Jul 2021 20:52:11 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
+In-Reply-To: <bb78075f-2249-8311-2f75-c0dfaa333ec4@amd.com>
+Content-Language: en-CA
+X-Originating-IP: [108.162.138.69]
+X-ClientProxiedBy: YT1PR01CA0027.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::40)
+ To DM6PR12MB3962.namprd12.prod.outlook.com
+ (2603:10b6:5:1ce::21)
 MIME-Version: 1.0
-In-Reply-To: <20210701162446.14f4f577@eldfell>
-Content-Language: en-US
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from localhost.localdomain (108.162.138.69) by
+ YT1PR01CA0027.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::40) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4287.23 via Frontend Transport; Tue, 6 Jul 2021 00:52:12 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: d8fe59f2-9fd1-4012-fa3a-08d940184b20
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4699:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR12MB4699D2927817306705FEF86A991B9@DM6PR12MB4699.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: EmhZFtC/qI8d0UG8NslOOrgJCMhg06qa4zGvMVMRk+vgkEZ97EYE/QEFr+e+kU8btTwH43Qhs9X6Lmo3QfA3MQ5q5/BWButV+43KkGqscsFldukZOqxNgmz8iNwyv32GonnU95Ou/xsdmkqrmEKSIRSHkaBcrej9z/7euOhvjNxsjnxRzv2zDcoBiR2j/+gN5Bu3Sql+rTEvir8S9hYaNTQ7stnICZhT8YlIZDx+5L4+gkVLiHsJzWLCbkaQGpHQYDeQQhC/DXq5JmwcNp5dEkrLMjEJEMuiPL8wCN9fwqFZv3hZmGQGAIDn2+sEiTwl5VWF/fZ+FaVQ53FQRj3nhrrUaL9wR5pCZ+fzGBd0LTGe6JyDvJSKLEaqqGtjydg03j5v4QBFpwDzKCG3PPSdUSM0EqINCCCgco8aH+HAhxn0aebAMEIckNWXF/LCdI9UNNWAaQMF36qnGZmLr2GOctTx933FFr/Mh9H8EXWZSIysxTYmqzPvCEP9Enbvtdog9fTcTwdwmjzWU1vnfBIqMtEwZKX8PGNIccG4K2ImkZ6DEVm8hhEbBzVhU7OvN7a9K/Vn8pc/Nx0TqfJivt78OxKZ359ZHH4qyT3nrByn8LBBbK7ZvbeqDivUQYDOGCD6AQeg5yn4XZpJ/jG4x7+5FhH3R5vDLlc2WqWH1h4MYT+wmDgr7IMQg5Gv02LkKUAo1yPMAOnvcYUBlR/OjnK5n25O9U1/o/iCti4OTzSaN8w=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3962.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(366004)(39860400002)(396003)(136003)(376002)(55236004)(186003)(2616005)(16526019)(36756003)(66946007)(6512007)(66556008)(5660300002)(26005)(31686004)(83380400001)(6636002)(110136005)(66476007)(31696002)(44832011)(2906002)(53546011)(4326008)(6506007)(316002)(956004)(86362001)(8676002)(38100700002)(54906003)(478600001)(8936002)(6486002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N09FdDRnY1A5V2JMK0RnTWpmSklKMzIwTjBRQnVEZUpndWh2ODdzUXRDcC92?=
+ =?utf-8?B?VWQ2OFVNcWM3QmVmaGpUTjU3YW53V2JDaXc1c2lhaytTaFFVU2dFdzZaV3VQ?=
+ =?utf-8?B?aFdXNE80cURRV1RnaG9jUTBZeEZHcVR5SVpYaEFrSzJTN3dZTlEvczRQM2Vi?=
+ =?utf-8?B?cUF6cWwweERnL1pjY0hYUU0yQ2NBSnEwYjlKZlVFMkx6c2orRm40QmNiR2F4?=
+ =?utf-8?B?TE56cEltSDBRenN5TmRjMkswRjF2aUxCZ3kvalZLcFA1bGFvdTNvMDlOK1Z4?=
+ =?utf-8?B?VmxZbFdmSFQvVHRrTUNrbjVkNnFCaCtsUHdXdDdCRmRVcHpoWWpkYWVNZzJq?=
+ =?utf-8?B?VjJ3Z29iblpoNjhGVEhXeDl6L2ZsYTB2emRKdnc5eTRTNDhCVkR2Qmpja28z?=
+ =?utf-8?B?d1dXWGhPd2wrYzIyaXBFZ3k4alV1T2hobGk5UWg5TWZSZHgvTXVnbksrK3FL?=
+ =?utf-8?B?Q0dJVldldk91QStpUzNrQS84ZXRRemVjM3NQTm9TZXVTSVJERXVMQ3BaOTkx?=
+ =?utf-8?B?NXpHM3NaN1M3RHJwdXpmSDRyVTNYODVsQmdrLzNQTWNlQldWR01JTFcrTlU2?=
+ =?utf-8?B?bHZnWXhmQ1J4eFI1MWpHekVVZGpFRHhJVVR3QnFrd1BrM2dPdi9sT0hNWDRG?=
+ =?utf-8?B?OTJFWE4xOHI2eWh2ZjFXRjdEQ1FIeVBETzRQSCsrU1JGYVFZbDIyTWNDVDVl?=
+ =?utf-8?B?aE1ReXdZSGI3SGlMSEx6MmdhcHNaUXl4WGltckVsL3FGV2paVkthOFlkdTlw?=
+ =?utf-8?B?Z0xwT21Qd080ajFwd2V2NzBlb2VPUWNBZysrMHlBbGpua21zVlRLMWVvdS9O?=
+ =?utf-8?B?WjdjejdPclhESFNFeTJOTWUzb3NOaGsyL2lOMXAyM1pXU1dFQ3U1c3VKd1Rx?=
+ =?utf-8?B?Tzd6SEFnQURMREFhTnVGRkZpZ21IaHVTT1BEbGJIUUJjckJ4VDNSKytxT1pk?=
+ =?utf-8?B?b202TnJuck9Pblh4Q1RBOVFDc1l4TnQ2Z0VQUDQ2aVNoOHdBdHVDTzV6ZGx3?=
+ =?utf-8?B?TUh2NnIxR24rbGw5N2xkOWZYMFJjQ2c1Y1IzNWZVZHRCc0h3QmVHb2Mza2FO?=
+ =?utf-8?B?bEVuMDU5ZDdxVnRUTkNUVmFwaStFT0hPQjlqSkluZlJjSUFCTjVuSnJ0a0dJ?=
+ =?utf-8?B?QnFnNUZUTGJ4S3IyT0tGSXJyU0R3RjZBTUVhUVMrZ0N1Sm03YWs5aEhleGMz?=
+ =?utf-8?B?aDJDQWxoZUNXb1BVbDZOTER2Vm1TSVpyM1VPVkRnR2xNNmkvSFVzMEwyUmZH?=
+ =?utf-8?B?Mno1RHRsRDV6ejZ0ZUIxQXhEMmZOeUF0UXh6Y1pJNWpPbmZQdDJ5UVlmRFFM?=
+ =?utf-8?B?dEJaYTQwYVFEVXNXUCtjL0ZaRUFhZ0QxMHl5WW9HS1JQV09XMEpxVWsrNW9a?=
+ =?utf-8?B?SktDbzZyL2NZcTdDVlMwcVB6MzcvVkFlSXFoaVh0Z0lIREFYOExRbDVEaEJh?=
+ =?utf-8?B?d3k4SnRDRjFQK01QRVJENCt2VTFvcmtHL3Y0dWNBOUVhNDhtdS8ybXk0QU00?=
+ =?utf-8?B?cEVaYlUrMTg2ekkzV0dwaVFMcmJIcU9aTUNDTEo1TEpndE0vQ1hidkFKL2hB?=
+ =?utf-8?B?SG8yQmQrNnh2R1Zjd0xVUllFRTBUL21YbWpMRytLQnRDRkUyZXp6a1lTamh0?=
+ =?utf-8?B?SmdyRlJvVU9xdURRN2Jpd3dRUmxpdVI4TE0yTTJBQkFKeUpoWUh0VFBvOTdG?=
+ =?utf-8?B?cnlsdXBhcnpuZTRGbUxBTzN1anRqL0pYTVVuMytESEVVQ3NHcjdESVE5WWg5?=
+ =?utf-8?Q?5jv8Hb67bJa/9w9R5KrXz5S62HT/Z3ViQuKdtu2?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d8fe59f2-9fd1-4012-fa3a-08d940184b20
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3962.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2021 00:52:13.5989 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6p9Au5sZ05UhF4JPbQzmgXp5P8iipkcwCboa2aB5EbnMQo9iw/3hTM5J680lNwoY
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4699
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,236 +137,66 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: sunpeng.li@amd.com, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- airlied@linux.ie, amd-gfx@lists.freedesktop.org, tzimmermann@suse.de,
- rodrigo.vivi@intel.com, alexander.deucher@amd.com, christian.koenig@amd.com
+Cc: Guchun Chen <guchun.chen@amd.com>, David Airlie <airlied@linux.ie>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, kernel-janitors@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, John Clements <john.clements@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Dennis Li <Dennis.Li@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Alex,
 
-Am 01.07.21 um 15:24 schrieb Pekka Paalanen:
-> On Thu, 1 Jul 2021 14:50:13 +0200
-> Werner Sembach <wse@tuxedocomputers.com> wrote:
+I think we should pull these through amd-staging-drm-next.
+
+Regards,
+Luben
+
+On 2021-07-04 11:18 a.m., Luben Tuikov wrote:
+> Series is,
+> Reviewed-by: Luben Tuikov <luben.tuikov@amd.com>
 >
->> Am 01.07.21 um 10:07 schrieb Pekka Paalanen:
+> Regards,
+> Luben
+>
+> On 2021-07-03 5:44 a.m., Dan Carpenter wrote:
+>> If amdgpu_eeprom_read() returns a negative error code then the error
+>> handling checks:
 >>
->>> On Wed, 30 Jun 2021 11:20:18 +0200
->>> Werner Sembach <wse@tuxedocomputers.com> wrote:
->>>  
->>>> Am 30.06.21 um 10:41 schrieb Pekka Paalanen:
->>>>  
->>>>> On Tue, 29 Jun 2021 13:39:18 +0200
->>>>> Werner Sembach <wse@tuxedocomputers.com> wrote:
->>>>>    
->>>>>> Am 29.06.21 um 13:17 schrieb Pekka Paalanen:    
->>>>>>> On Tue, 29 Jun 2021 08:12:54 +0000
->>>>>>> Simon Ser <contact@emersion.fr> wrote:
->>>>>>>       
->>>>>>>> On Tuesday, June 22nd, 2021 at 09:15, Pekka Paalanen <ppaalanen@gmail.com> wrote:
->>>>>>>>       
->>>>>>>>> yes, I think this makes sense, even if it is a property that one can't
->>>>>>>>> tell for sure what it does before hand.
->>>>>>>>>
->>>>>>>>> Using a pair of properties, preference and active, to ask for something
->>>>>>>>> and then check what actually worked is good for reducing the
->>>>>>>>> combinatorial explosion caused by needing to "atomic TEST_ONLY commit"
->>>>>>>>> test different KMS configurations. Userspace has a better chance of
->>>>>>>>> finding a configuration that is possible.
->>>>>>>>>
->>>>>>>>> OTOH, this has the problem than in UI one cannot tell the user in
->>>>>>>>> advance which options are truly possible. Given that KMS properties are
->>>>>>>>> rarely completely independent, and in this case known to depend on
->>>>>>>>> several other KMS properties, I think it is good enough to know after
->>>>>>>>> the fact.
->>>>>>>>>
->>>>>>>>> If a driver does not use what userspace prefers, there is no way to
->>>>>>>>> understand why, or what else to change to make it happen. That problem
->>>>>>>>> exists anyway, because TEST_ONLY commits do not give useful feedback
->>>>>>>>> but only a yes/no.    
->>>>>>>> By submitting incremental atomic reqs with TEST_ONLY (i.e. only changing one
->>>>>>>> property at a time), user-space can discover which property makes the atomic
->>>>>>>> commit fail.    
->>>>>>> That works if the properties are independent of each other. Color
->>>>>>> range, color format, bpc and more may all be interconnected,
->>>>>>> allowing only certain combinations to work.
->>>>>>>
->>>>>>> If all these properties have "auto" setting too, then it would be
->>>>>>> possible to probe each property individually, but that still does not
->>>>>>> tell which combinations are valid.
->>>>>>>
->>>>>>> If you probe towards a certain configuration by setting the properties
->>>>>>> one by one, then depending on the order you pick the properties, you
->>>>>>> may come to a different conclusion on which property breaks the
->>>>>>> configuration.    
->>>>>> My mind crossed another point that must be considered: When plugin in
->>>>>> a Monitor a list of possible Resolutions+Framerate combinations is
->>>>>> created for xrandr and other userspace (I guess by atomic checks? but
->>>>>> I don't know).    
->>>>> Hi,
->>>>>
->>>>> I would not think so, but I hope to be corrected if I'm wrong.
->>>>>
->>>>> My belief is that the driver collects a list of modes from EDID, some
->>>>> standard modes, and maybe some other hardcoded modes, and then
->>>>> validates each entry against all the known limitations like vertical
->>>>> and horizontal frequency limits, discarding modes that do not fit.
->>>>>
->>>>> Not all limitations are known during that phase, which is why KMS
->>>>> property "link-status" exists. When userspace actually programs a mode
->>>>> (not a TEST_ONLY commit), the link training may fail. The kernel prunes
->>>>> the mode from the list and sets the link status property to signal
->>>>> failure, and sends a hotplug uevent. Userspace needs to re-check the
->>>>> mode list and try again.
->>>>>
->>>>> That is a generic escape hatch for when TEST_ONLY commit succeeds, but
->>>>> in reality the hardware cannot do it, you just cannot know until you
->>>>> actually try for real. It causes end user visible flicker if it happens
->>>>> on an already running connector, but since it usually happens when
->>>>> turning a connector on to begin with, there is no flicker to be seen,
->>>>> just a small delay in finding a mode that works.
->>>>>    
->>>>>> During this drm
->>>>>> properties are already considered, which is no problem atm because as
->>>>>> far as i can tell there is currently no drm property that would make
->>>>>> a certain Resolutions+Framerate combination unreachable that would be
->>>>>> possible with everything on default.    
->>>>> I would not expect KMS properties to be considered at all. It would
->>>>> reject modes that are actually possible if the some KMS properties were
->>>>> changed. So at least going forward, current KMS property values cannot
->>>>> factor in.    
->>>> At least the debugfs variable "force_yuv420_output" did change the 
->>>> available modes here: 
->>>> https://elixir.bootlin.com/linux/v5.13/source/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c#L5165 
->>>> before my patch 
->>>> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=68eb3ae3c63708f823aeeb63bb15197c727bd9bf  
->>> Hi,
->>>
->>> debugfs is not proper UAPI, so we can just ignore it. Display servers
->>> cannot be expected to poke in debugfs. Debugfs is not even supposed to
->>> exist in production systems, but I'm sure people use it for hacking
->>> stuff. But that's all it is for: developer testing and hacking.  
->> e.g. Ubuntu has it active by default, but only read (and writable) by root.
-> Hi,
->
-> that's normal, yes. Root can do damage anyway, and it's useful for
-> debugging. KMS clients OTOH often do not run as root.
->
->>>  
->>>> Forcing a color format via a DRM property in this function would 
->>>> reintroduce the problem.  
->>> The property would need to be defined differently because its presence
->>> could otherwise break existing userspace. Well, I suppose it could
->>> break existing userspace no matter what, so we would need the generic
->>> "reset to sane defaults" mechanism first IMO.
->>>
->>> DRM has client caps for exposing video modes that old userspace might
->>> not expect, to avoid breaking old userspace. Care needs to be taken
->>> with all new UAPI, because if a kernel upgrade makes something wrong,
->>> it's the kernel's fault no matter what userspace is doing, in principle.  
->> Can you give me a link describing how I define this caps?
-> I don't have any, but you can find all the existing ones by grepping
-> for DRM_CLIENT_CAP_.
->
-> I'm not saying that we need it, but mentioning them as a possible
-> workaround if userspace breakage seems imminent or is proven.
->
->>> Debugfs has no problem breaking userspace AFAIU, since it's not proper
->>> UAPI.
->>>  
->>>> And I think i915 driver works similar in this regard.
->>>>  
->>>>>    
->>>>>> However for example forcing YCbCr420 encoding would limit the
->>>>>> available resolutions (my screen for example only supports YCbCr420
->>>>>> on 4k@60 and @50Hz and on no other resolution or frequency (native is
->>>>>> 2560x1440@144Hz).
->>>>>>
->>>>>> So would a "force color format" that does not get resetted on
->>>>>> repluging/reenabling a monitor break the output, for example, of an
->>>>>> not updated xrandr, unaware of this new property?    
->>>>> Yes, not because the mode list would be missing the mode, but because
->>>>> actually setting the mode would fail.    
->>>> Well, like described above, I think the mode would actually be missing, 
->>>> which is also an unexpected behavior from a user perspective.  
->>> I think that is not how the property should work.
->>>
->>> If KMS properties would affect the list of modes, then userspace would
->>> need to set the properties for real (TEST_ONLY cannot change anything)
->>> and re-fetch the mode lists (maybe there is a hotplug event, maybe
->>> not). That workflow just doesn't work.  
->> The properties are set before the list is created in the first place.
->> Because, in my example, the properties get set before the monitor is
->> plugged in and the list can only be created as soon as the monitor is
->> plugged in.
-> That's just an accident, it's not what I mean.
->
-> What I mean is, we cannot have the KMS properties affect the list of
-> modes, because then userspace that want to use specific values on those
-> properties would have to program those properties first, and then get
-> the list of modes. KMS UAPI does not work that way AFAIK.
->
-> If the initial mode list is created on hotplug like you say, then the
-> initial list could already be missing some modes that would be valid if
-> some KMS properties had different values.
+>> 	if (res < buf_size) {
+>>
+>> The problem is that "buf_size" is a u32 so negative values are type
+>> promoted to a high positive values and the condition is false.  Fix
+>> this by changing the type of "buf_size" to int.
+>>
+>> Fixes: 79beb6114014 ("drm/amdgpu: Optimize EEPROM RAS table I/O")
+>> Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+>> ---
+>> It's hard for me to tell the exact upper bound that "buf_size" can be,
+>> but if it's over USHRT_MAX then we are well toasted.
+>>
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c | 3 +--
+>>  1 file changed, 1 insertion(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+>> index fc70620369e4..f07a456506ef 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+>> @@ -978,9 +978,8 @@ const struct file_operations amdgpu_ras_debugfs_eeprom_table_ops = {
+>>  static int __verify_ras_table_checksum(struct amdgpu_ras_eeprom_control *control)
+>>  {
+>>  	struct amdgpu_device *adev = to_amdgpu_device(control);
+>> -	int res;
+>> +	int buf_size, res;
+>>  	u8  csum, *buf, *pp;
+>> -	u32 buf_size;
+>>  
+>>  	buf_size = RAS_TABLE_HEADER_SIZE +
+>>  		control->ras_num_recs * RAS_TABLE_RECORD_SIZE;
 
-Depends if the mode list is created by TEST_ONLY:
-
-- The force properties should return false on TEST_ONLY
-
-- The force properties should not prevent the mode from showing up in the list
-
-If the list is created by TEST_ONLY both things can't be fulfilled at the same time obviously.
-
-I hope some can give more insights or has an idea how the properties could work best.
-
->
->>> A very interesting question is when should link-status failure not drop
->>> the current mode from the mode list, if other KMS properties affect the
->>> bandwidth etc. requirements of the mode. That mechanism is engineered
->>> for old userspace that doesn't actually handle link-status but does
->>> handle hotplug, so the hotplug triggers re-fetching the mode list and
->>> userspace maybe trying again with a better luck since the offending
->>> mode is gone. How to keep that working when introducing KMS properties
->>> forcing the cable format, I don't know.
->>>
->>> As long as the other affecting KMS properties are all "auto", the
->>> driver will probably exhaust all possibilities to make the mode work
->>> before signalling link-status failure and pruning the mode.
->>> Theoretically, as I have no idea what drivers actually do.  
->> Isn't that exactly how the "preferred color format" property works in
->> my patchset now?
-> There was an argument that "preferred" with no guarantees is not
-> useful enough. So I'm considering the force property instead.
-> The problem is, "auto" is not the only possible value.
->
-> When the value is not "auto", should link failure drop the mode or not?
-> Userspace might change the value back to "auto" next time. If you
-> dropped the mode, it would be gone. If you didn't drop the mode,
-> userspace might be stuck picking the same non-working mode again and
-> again if it doesn't know about the force mode property.
->
-> You could argue that changing the value back to "auto" needs to reset
-> the mode list, but that only gets us back to the "need to set
-> properties before getting mode list".
->
-> Maybe there needs to be an assumption that if "force color format" is
-> not "auto", then link failure does not drop modes and userspace knows
-> to handle this. Messy.
->
-> I'm afraid I just don't know to give any clear answer. It's also
-> possible that, as I'm not a kernel dev, I have some false assumptions
-> here.
->
->
-> Thanks,
-> pq
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
