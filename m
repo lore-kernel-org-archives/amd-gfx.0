@@ -7,41 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 36E18C11F66
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 11:15:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 50F65C07E9E
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 11:15:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0C96C61C43
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 11:15:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0C96C61C43
+	by mail.kernel.org (Postfix) with ESMTPS id 26E2361C40
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 11:15:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 26E2361C40
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67B9F6E060;
-	Tue,  6 Jul 2021 11:15:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C46886E047;
+	Tue,  6 Jul 2021 11:15:10 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5C7C6E05A;
- Tue,  6 Jul 2021 11:15:03 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id B5C1561A14;
- Tue,  6 Jul 2021 11:15:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 682516E047;
+ Tue,  6 Jul 2021 11:15:10 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 4D45061C31;
+ Tue,  6 Jul 2021 11:15:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1625570103;
- bh=woZHgorVR7Q0m33QF4ihy7qs1+znD/0nAYjA2QP/kTQ=;
+ s=k20201202; t=1625570110;
+ bh=Ct3Y7jkwoKYSQltROAjqMjbfy7zwRvvP9DDxZboJejs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Ize0dZTODvAeupeSDMYUtdXXCB/tfgFhrbT3QhhEP1T6HxO+3y2nk4He4V2d2oOim
- 68QW0T8CN5D7IwZf+buAvrpLBe8HETW5n9jWzyIKkxWL2En/qEEn9vqwN1i7/6gnee
- +4DB1AVsWwtR6s9KIcVxYuekTx0/Rt6ZmyOVMhoBTdSoebhng+l74nSuD91VfN10Ge
- hY+BJMubt8BPJJG/Zdghy+abp7lQ9mPfsgooz9g+on2xU64719ZAGJHaJFjMqiZEC6
- N/76Vxt1K/hNyucJjSYJU09zpPhcR/rZPmGRjpwZ3RKNQOLldy/4bGQu4H54rb195N
- TVz4kxYpb1kmw==
+ b=uVXUZ9OuLwcb4l5EUVj5qm0Uhp4fkUJzcKQyin/OesamvS9Ettk0x4rb7kpYlsb7B
+ pf1d8xyXqgYaDag73ZBsNGZhwsp8JCIAYzg0QeFuv7udrwh8R6XqPGNiZf9d/hSQoo
+ YjIIv6c45D4FVlDzNNYpTpEJ7DVjWVKehnY5bq5w/DYur7YjVsaHUAP6iquf02ewdy
+ KESZD2Ceu4QJmrcdfznLwSl2upkRKTmw12zdBBsIb9NkEC2mz3Uzdqr0FDkbxbDziq
+ KV5WuJaOswN42HRniwVpiYOThfgQ7S3/vieNwBSOZBmj1Ed5u8mC2xlsKq5iLTHLR8
+ HtV1Z3iYK9aTw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.13 037/189] drm/amdgpu/display: restore the
- backlight on modeset (v2)
-Date: Tue,  6 Jul 2021 07:11:37 -0400
-Message-Id: <20210706111409.2058071-37-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.13 042/189] drm/amd/pm: fix return value in
+ aldebaran_set_mp1_state()
+Date: Tue,  6 Jul 2021 07:11:42 -0400
+Message-Id: <20210706111409.2058071-42-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210706111409.2058071-1-sashal@kernel.org>
 References: <20210706111409.2058071-1-sashal@kernel.org>
@@ -59,47 +59,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- Harry Wentland <harry.wentland@amd.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
+Cc: Sasha Levin <sashal@kernel.org>, Feifei Xu <Feifei.Xu@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Deucher <alexander.deucher@amd.com>
+From: Feifei Xu <Feifei.Xu@amd.com>
 
-[ Upstream commit 7230362c78d441020a47d7d5ca81f8a3d07bd9f0 ]
+[ Upstream commit 5051cb794ac5d92154e186d87cdc12cba613f4f6 ]
 
-To stay consistent with the user's setting.
+For default cases,we should return 0. Otherwise resume will
+abort because of the wrong return value.
 
-v2: rebase on multi-eDP support
-
-Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1337
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Feifei Xu <Feifei.Xu@amd.com>
+Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 875fd187463e..62663e287b21 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -8967,6 +8967,12 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
- 	/* Update audio instances for each connector. */
- 	amdgpu_dm_commit_audio(dev, state);
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+index dcbe3a72da09..16ad4683eb69 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+@@ -1779,10 +1779,8 @@ static int aldebaran_set_mp1_state(struct smu_context *smu,
+ 	case PP_MP1_STATE_UNLOAD:
+ 		return smu_cmn_set_mp1_state(smu, mp1_state);
+ 	default:
+-		return -EINVAL;
++		return 0;
+ 	}
+-
+-	return 0;
+ }
  
-+#if defined(CONFIG_BACKLIGHT_CLASS_DEVICE) ||		\
-+	defined(CONFIG_BACKLIGHT_CLASS_DEVICE_MODULE)
-+	/* restore the backlight level */
-+	if (dm->backlight_dev)
-+		amdgpu_dm_backlight_set_level(dm, dm->brightness[0]);
-+#endif
- 	/*
- 	 * send vblank event on all events not handled in flip and
- 	 * mark consumed event for drm_atomic_helper_commit_hw_done
+ static const struct pptable_funcs aldebaran_ppt_funcs = {
 -- 
 2.30.2
 
