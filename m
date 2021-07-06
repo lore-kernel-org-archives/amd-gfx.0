@@ -7,41 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BC46AC11F6A
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 11:20:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 01B9BC11F6E
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 11:21:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 92D7E61DA6
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 11:20:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 92D7E61DA6
+	by mail.kernel.org (Postfix) with ESMTPS id C6E5461CDA
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 11:21:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C6E5461CDA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 326FF6E3A0;
-	Tue,  6 Jul 2021 11:20:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EA976E3AE;
+	Tue,  6 Jul 2021 11:21:08 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF98C6E372;
- Tue,  6 Jul 2021 11:20:50 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id B4BCA61DA4;
- Tue,  6 Jul 2021 11:20:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 098DE6E3AE;
+ Tue,  6 Jul 2021 11:21:08 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id E3EDA61DBB;
+ Tue,  6 Jul 2021 11:21:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1625570450;
- bh=pOJ1w1dBinbT0HX1LaUNE1gDjLBmaqvMRUrFCRootGg=;
+ s=k20201202; t=1625570467;
+ bh=yQK+7EMPW+anCuBOtmGBLrgSUk/BCsTb+VKx6gKoMiU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=E5AsPV2XrHdaF9RwuZPu6/5N+G86fXNTY6rj+hR4iIymu83tei9k/TUbkTL6medCH
- yKaFB97UOhGQscCuV9AXkg4rNoOT7qbWfTY7fXS0SedpmGJcP1wHUK0lTQ6DhJKM8X
- 1Gsmg9u7CHMbfMW9m13lfLaqlt0vhtQW4OH3DMlaUOLptTcu3uhkN4tPs4ygDABB+u
- W2Q+FtdD3SfVMv142uBSMykKwY9j4eK/lALyPv2ZMHwYLiELcWZHJMTwgyEEl2Hhc2
- Nwe6f5Fia+ALe15EX5AcB8q+mFAZHR0Zi5C4rHgi7aMHpCGr2aGC6qhe96WWOA2GLu
- dnslguFBk42HA==
+ b=UjRvVEA9KyHjCXluSZ5kRVFszc+87RCSDcVZwE2kZXByfEkI9awGR22QlIkjWojJ5
+ RKP49lOX8uYDz6lU3kHfLle8Njf5jcyqJybeh1DPk8rghO9CsGyk9fRu0nUpGapFA5
+ tp7W4RARzK/T2KJY9R1FppT+z+2COgyPmwNiJbWp6N/Q3R2Qm796Q88svouMQkD8uk
+ dIGqpbPEWko8YHSDAdw0lEEK+NHpJPcgim7/Fd9jSH75tm4as8u5GOXjIJcPBsqkMg
+ 4yMHOc9+MrP1EzXA+3UzMVEHBuyk9NH8B76ONU+AVlxP5TQjbH1vRxWmqeco5LahUJ
+ q6AEY6OtHIogA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.12 108/160] drm/amdkfd: Walk through list with dqm
- lock hold
-Date: Tue,  6 Jul 2021 07:17:34 -0400
-Message-Id: <20210706111827.2060499-108-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.12 119/160] drm/amd/display: Fix edp_bootup_bl_level
+ initialization issue
+Date: Tue,  6 Jul 2021 07:17:45 -0400
+Message-Id: <20210706111827.2060499-119-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210706111827.2060499-1-sashal@kernel.org>
 References: <20210706111827.2060499-1-sashal@kernel.org>
@@ -59,77 +59,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Felix Kuehling <Felix.Kuehling@amd.com>,
- xinhui pan <xinhui.pan@amd.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
+Cc: Logush Oliver <ollogush@amd.com>, Charlene Liu <Charlene.Liu@amd.com>,
+ Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org,
+ Daniel Wheeler <daniel.wheeler@amd.com>, dri-devel@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>, Bindu Ramamurthy <bindu.r@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: xinhui pan <xinhui.pan@amd.com>
+From: Logush Oliver <ollogush@amd.com>
 
-[ Upstream commit 56f221b6389e7ab99c30bbf01c71998ae92fc584 ]
+[ Upstream commit eeb90e26ed05dd44553d557057bf35f08f853af8 ]
 
-To avoid any list corruption.
+[why]
+Updating the file to fix the missing line
 
-Signed-off-by: xinhui pan <xinhui.pan@amd.com>
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Signed-off-by: Logush Oliver <ollogush@amd.com>
+Reviewed-by: Charlene Liu <Charlene.Liu@amd.com>
+Acked-by: Bindu Ramamurthy <bindu.r@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../drm/amd/amdkfd/kfd_device_queue_manager.c | 22 ++++++++++---------
- 1 file changed, 12 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index 3d66565a618f..b2e55917c308 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -1712,7 +1712,7 @@ static int process_termination_cpsch(struct device_queue_manager *dqm,
- 		struct qcm_process_device *qpd)
- {
- 	int retval;
--	struct queue *q, *next;
-+	struct queue *q;
- 	struct kernel_queue *kq, *kq_next;
- 	struct mqd_manager *mqd_mgr;
- 	struct device_process_node *cur, *next_dpn;
-@@ -1769,24 +1769,26 @@ static int process_termination_cpsch(struct device_queue_manager *dqm,
- 		qpd->reset_wavefronts = false;
- 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
+index 9f9fda3118d1..500bcd0ecf4d 100644
+--- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
++++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
+@@ -1944,7 +1944,7 @@ static enum bp_result get_integrated_info_v2_1(
+ 		info_v2_1->edp1_info.edp_pwr_down_bloff_to_vary_bloff;
+ 	info->edp1_info.edp_panel_bpc =
+ 		info_v2_1->edp1_info.edp_panel_bpc;
+-	info->edp1_info.edp_bootup_bl_level =
++	info->edp1_info.edp_bootup_bl_level = info_v2_1->edp1_info.edp_bootup_bl_level;
  
--	dqm_unlock(dqm);
--
--	/* Outside the DQM lock because under the DQM lock we can't do
--	 * reclaim or take other locks that others hold while reclaiming.
--	 */
--	if (found)
--		kfd_dec_compute_active(dqm->dev);
--
- 	/* Lastly, free mqd resources.
- 	 * Do free_mqd() after dqm_unlock to avoid circular locking.
- 	 */
--	list_for_each_entry_safe(q, next, &qpd->queues_list, list) {
-+	while (!list_empty(&qpd->queues_list)) {
-+		q = list_first_entry(&qpd->queues_list, struct queue, list);
- 		mqd_mgr = dqm->mqd_mgrs[get_mqd_type_from_queue_type(
- 				q->properties.type)];
- 		list_del(&q->list);
- 		qpd->queue_count--;
-+		dqm_unlock(dqm);
- 		mqd_mgr->free_mqd(mqd_mgr, q->mqd, q->mqd_mem_obj);
-+		dqm_lock(dqm);
- 	}
-+	dqm_unlock(dqm);
-+
-+	/* Outside the DQM lock because under the DQM lock we can't do
-+	 * reclaim or take other locks that others hold while reclaiming.
-+	 */
-+	if (found)
-+		kfd_dec_compute_active(dqm->dev);
- 
- 	return retval;
- }
+ 	info->edp2_info.edp_backlight_pwm_hz =
+ 	le16_to_cpu(info_v2_1->edp2_info.edp_backlight_pwm_hz);
 -- 
 2.30.2
 
