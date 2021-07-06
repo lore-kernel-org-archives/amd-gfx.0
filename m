@@ -2,75 +2,66 @@ Return-Path: <SRS0=iwxs=L6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CEC5FC07E9E
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 19:09:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F36F4C07E96
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 21:44:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6C97D61C83
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 19:09:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6C97D61C83
+	by mail.kernel.org (Postfix) with ESMTPS id C0DFF61C92
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 21:44:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C0DFF61C92
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F34326E0F5;
-	Tue,  6 Jul 2021 19:09:21 +0000 (UTC)
-Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
- [IPv6:2607:f8b0:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A86836E0F5;
- Tue,  6 Jul 2021 19:09:20 +0000 (UTC)
-Received: by mail-ot1-x335.google.com with SMTP id
- t24-20020a9d7f980000b029046f4a1a5ec4so22701531otp.1; 
- Tue, 06 Jul 2021 12:09:20 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 987E06E5BB;
+	Tue,  6 Jul 2021 21:44:45 +0000 (UTC)
+Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com
+ [IPv6:2607:f8b0:4864:20::22f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BD036E037;
+ Tue,  6 Jul 2021 21:44:44 +0000 (UTC)
+Received: by mail-oi1-x22f.google.com with SMTP id z3so107861oib.9;
+ Tue, 06 Jul 2021 14:44:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=RMq2M4n/8G9joj1/fKzknwNfEb3Och+oaBZy1vpsqNk=;
- b=u5t3SzlPBuZ7kxA4R+Q9uEDCV/k/WI9AahppzXD5e+PtZ6ubJV2HKEseHSj0x5NaYu
- k9zSTwO+7ZLrfYvzFE10Ye4cXIylQ9aU+Irx3QMybgiJ+6KH1MEzuadRNRhCoMSW70jU
- UPmVzcY4Mr0gpgTl2Vr1Dgw/eGKfyFR8G+rppi6rtgYYwsbOrrSdjZiOvay6ZS9SAtcZ
- EsRg/lJDTlkDdKRp9E50obeCJsCG3zkxWq5Zxs5ws6TB6rzJKoFyIghAL+9N4iMdvudx
- nTEfeQACROazrLe6LnLogkA1DbrkE/44HhfrjDt6npDbyU7pGEdhN+WcteCmzK1CyJRt
- Wfaw==
+ :cc; bh=02NGKANC6bWRviktL9XwvAT8xDpibT4kcz5eISh/RS0=;
+ b=Jr+EhbKVszQ7Dl4PYYZKnvaWVb/MSuomxwnEc1wXFqNiUUwIJFdeGCuVKV0BoTFVe4
+ 1gMXZ43NFBElK2Bha/35aW1zVuwUI40RpETpyPXISezds6jPxZWW/J8zKIp8e8hr0gL6
+ gL3cBQ/kKYoRm43yP4kbMfwKEeuH8FuwohI1spoXtreMogVoacJv1LzcN+CT8ckhg4Fp
+ W38vLGaVD/csV/Ob6zAgCn0UOORtuej0EzXjMSW1A+MEsZ2ukim95KMkJgBVPLzBXi9g
+ l1ApVUqcP62AgYMPkRVI+E1NWiEOPg87QHTDjfnuNFgJq4GuUrOnUHQiT1sPgcgZC7QE
+ Tw9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=RMq2M4n/8G9joj1/fKzknwNfEb3Och+oaBZy1vpsqNk=;
- b=IerOhPR5C4up7N5DHcNL/t4PO6dmiY8/WTEvEuV/ZPgmwEtskIvfVHDESOlqrqO/JQ
- YkSjGb9iPmIy1p0ww4Ej/2pTxsl39P4tgm+k99Z7bNn6rs7avkEeQ4ViaZizn+R4Kn49
- q47swYYejhgRKjbRTLFSX6bsQ7KKDAhejb4ND2TpFq4FNopWCzWeS5K6OwJnrddf/7rR
- 5u3PjBF8RS2obU+63vWqlFMglb8E07PHWR2nQPcfSPXpQsM56hC7b3GMh0hJomwFHAsP
- 0VcpvwEbRt5LnFr5RD78rvR53ZgoZycU5JjyRT4vpbWLWLa4ulW1PB0oPp7fTvJrxH6o
- 7DfQ==
-X-Gm-Message-State: AOAM533kzV+cnGqyU0vqNac1K6qe5X3vK67dQui+q1ZRGRvWDWmbja41
- zMhOSbv+mfV6LEl8KZCMkwmQYvO0Kxe/NwKvISY=
-X-Google-Smtp-Source: ABdhPJyLpn/Denq9D9uHdx73/8YwQSIZY5Ozg7ZymqbObwdA3ulC3UM5xsQZ0IVJAYJMGH6zXWQRmXGXRh7rAeiRNss=
-X-Received: by 2002:a05:6830:4119:: with SMTP id
- w25mr16836757ott.132.1625598559910; 
- Tue, 06 Jul 2021 12:09:19 -0700 (PDT)
+ bh=02NGKANC6bWRviktL9XwvAT8xDpibT4kcz5eISh/RS0=;
+ b=qvbWaBdKN8q3+Wj/6OuoGcqMKAtvTzgc8kcXXqv5ztTFL90NS7/+JEtubdjkFif3XT
+ ZyMMPeajmSQKfk08DJhXOGBuVcwL4Gynyw/e0kvvdLPv7uzjQPCqYrmQUc9ovcJehLut
+ 5UA0TC2aWGjs9ENw3jw34UQtH//KESZku8ybLBlqyWh2Yb3hOIW74LL41s4L9Qwkh0x/
+ OqCsi86J5VIwKrfpadu4enGKQ/NbdTEew5Bp3ElkrgKOTqTrYTaVCHyn/OQ5KESHE7Jj
+ XNr9ok3k7UFj53C0hgqDdeEvdoTkOwz55W74cmwBdcEak9o3Pee/GNwph0TtKUreOM+I
+ u72g==
+X-Gm-Message-State: AOAM530780rl2wdq/bbpi8m9i+kWj/XSw3ElPV4ULLnfcfsJItIoSehm
+ UH/Oo1bkny5DYgBBV9MIvxmLK2ESygZi8qVR7IM=
+X-Google-Smtp-Source: ABdhPJyJt9TJEJerAMmCKYsbved+w6V/cNsXV68GF6PloP4xXpQNkMpmSAMYxKqeYYk3SHLvNpM8HdrL6BTx20w4ZxY=
+X-Received: by 2002:aca:ac15:: with SMTP id v21mr2045269oie.5.1625607883766;
+ Tue, 06 Jul 2021 14:44:43 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210705130314.11519-1-ogabbay@kernel.org>
- <YOQXBWpo3whVjOyh@phenom.ffwll.local>
- <CAFCwf10_rTYL2Fy6tCRVAUCf4-6_TtcWCv5gEEkGnQ0KxqMUBg@mail.gmail.com>
- <CAKMK7uEAJZUHNLreBB839BZOfnTGNU4rCx-0k55+67Nbxtdx3A@mail.gmail.com>
- <20210706142357.GN4604@ziepe.ca>
- <CAKMK7uELNzwUe+hhVWRg=Pk5Wt_vOOX922H48Kd6dTyO2PeBbg@mail.gmail.com>
- <20210706152542.GP4604@ziepe.ca>
- <CAKMK7uH7Ar6+uAOU_Sj-mf89V9WCru+66CV5bO9h-WAAv7Mgdg@mail.gmail.com>
- <20210706162953.GQ4604@ziepe.ca>
- <CAKMK7uGXUgjyjch57J3UnC7SA3-4g87Ft7tLjj9fFkgyKkKdrg@mail.gmail.com>
- <20210706183145.GT4604@ziepe.ca>
-In-Reply-To: <20210706183145.GT4604@ziepe.ca>
+References: <20210706111409.2058071-1-sashal@kernel.org>
+ <20210706111409.2058071-113-sashal@kernel.org>
+In-Reply-To: <20210706111409.2058071-113-sashal@kernel.org>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 6 Jul 2021 15:09:08 -0400
-Message-ID: <CADnq5_My3h=2BK5Kb8FHcDE9NjsXmrAF2auhgnugnmPyHSbb3g@mail.gmail.com>
-Subject: Re: [PATCH v4 0/2] Add p2p via dmabuf to habanalabs
-To: Jason Gunthorpe <jgg@ziepe.ca>
+Date: Tue, 6 Jul 2021 17:44:32 -0400
+Message-ID: <CADnq5_ObmVRjwUB5Lw0bLZLL-+=CqvGkJZ+2DY5ZDh+uN-oo0g@mail.gmail.com>
+Subject: Re: [PATCH AUTOSEL 5.13 113/189] drm/amdgpu/gfx9: fix the doorbell
+ missing when in CGPG issue.
+To: Sasha Levin <sashal@kernel.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,95 +73,65 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- linux-rdma <linux-rdma@vger.kernel.org>,
- Daniel Vetter <daniel.vetter@ffwll.ch>, sleybo@amazon.com,
- Gal Pressman <galpress@amazon.com>,
+Cc: Yifan Zhang <yifan1.zhang@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>,
+ LKML <linux-kernel@vger.kernel.org>,
  Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- "Linux-Kernel@Vger. Kernel. Org" <linux-kernel@vger.kernel.org>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Doug Ledford <dledford@redhat.com>,
  amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Alex Deucher <alexander.deucher@amd.com>, Christoph Hellwig <hch@lst.de>,
- Oded Gabbay <ogabbay@kernel.org>, Leon Romanovsky <leonro@nvidia.com>,
- Linux Media Mailing List <linux-media@vger.kernel.org>
+ Alex Deucher <alexander.deucher@amd.com>, "for 3.8" <stable@vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jul 6, 2021 at 2:31 PM Jason Gunthorpe <jgg@ziepe.ca> wrote:
+On Tue, Jul 6, 2021 at 7:16 AM Sasha Levin <sashal@kernel.org> wrote:
 >
-> On Tue, Jul 06, 2021 at 07:35:55PM +0200, Daniel Vetter wrote:
+> From: Yifan Zhang <yifan1.zhang@amd.com>
 >
-> > Yup. We dont care about any of the fancy pieces you build on top, nor
-> > does the compiler need to be the optimizing one. Just something that's
-> > good enough to drive the hw in some demons to see how it works and all
-> > that. Generally that's also not that hard to reverse engineer, if
-> > someone is bored enough, the real fancy stuff tends to be in how you
-> > optimize the generated code. And make it fit into the higher levels
-> > properly.
+> [ Upstream commit 631003101c516ea29a74aee59666708857b9a805 ]
 >
-> Seems reasonable to me
+> If GC has entered CGPG, ringing doorbell > first page doesn't wakeup GC.
+> Enlarge CP_MEC_DOORBELL_RANGE_UPPER to workaround this issue.
 >
-> > And it's not just nvidia, it's pretty much everyone. Like a soc
-> > company I don't want to know started collaborating with upstream and
-> > the reverse-engineered mesa team on a kernel driver, seems to work
-> > pretty well for current hardware.
->
-> What I've seen is that this only works with customer demand. Companies
-> need to hear from their customers that upstream is what is needed, and
-> companies cannot properly hear that until they are at least already
-> partially invested in the upstream process and have the right
-> customers that are sophisticated enough to care.
->
-> Embedded makes everything 10x worse because too many customers just
-> don't care about upstream, you can hack your way through everything,
-> and indulge in single generation thinking. Fork the whole kernel for 3
-> years, EOL, no problem!
->
-> It is the enterprise world, particularly with an opinionated company
-> like RH saying NO stuck in the middle that really seems to drive
-> things toward upstream.
->
-> Yes, vendors can work around Red Hat's No (and NVIDIA GPU is such an
-> example) but it is incredibly time consuming, expensive and becoming
-> more and more difficult every year.
->
-> The big point is this:
->
-> > But also nvidia is never going to sell you that as the officially
-> > supported thing, unless your ask comes back with enormous amounts of
-> > sold hardware.
->
-> I think this is at the core of Linux's success in the enterprise
-> world. Big customers who care demanding open source. Any vendor, even
-> nvidia will want to meet customer demands.
->
-> IHMO upstream success is found by motivating the customer to demand
-> and make it "easy" for the vendor to supply it.
+> Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
+> Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
 
-I think this is one of the last big challenges on Linux.  It's REALLY
-hard to align new products with Linux kernel releases and distro
-kernels.  Hardware cycles are too short and drivers (at least for
-GPUs) are too big to really fit well with the current Linux release
-model.  In many cases enterprise distros have locked down on a kernel
-version around the same time we are doing new chip bring up.  You are
-almost always off by one when it comes to kernel version alignment.
-Even if you can get the initial code upstream in the right kernel
-version, it tends to be aligned to such early silicon that you end up
-needing a pile of additional patches to make production cards work.
-Those changes are often deemed "too big" for stable kernel fixes.  The
-only real way to deal with that effectively is with vendor provided
-packaged drivers using something like dkms to cover launch.  Thus you
-need to do your bring up against latest upstream and then backport, or
-do your bring up against some older kernel and forward port for
-upstream.  You end up doing everything twice.  Things get better with
-sustaining support in subsequent distro releases, but it doesn't help
-at product launch.  I don't know what the right solution for this is.
+This should be dropped.  It was already reverted.
 
 Alex
+
+
+> ---
+>  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> index 516467e962b7..c09225d065c2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> @@ -3673,8 +3673,12 @@ static int gfx_v9_0_kiq_init_register(struct amdgpu_ring *ring)
+>         if (ring->use_doorbell) {
+>                 WREG32_SOC15(GC, 0, mmCP_MEC_DOORBELL_RANGE_LOWER,
+>                                         (adev->doorbell_index.kiq * 2) << 2);
+> +               /* If GC has entered CGPG, ringing doorbell > first page doesn't
+> +                * wakeup GC. Enlarge CP_MEC_DOORBELL_RANGE_UPPER to workaround
+> +                * this issue.
+> +                */
+>                 WREG32_SOC15(GC, 0, mmCP_MEC_DOORBELL_RANGE_UPPER,
+> -                                       (adev->doorbell_index.userqueue_end * 2) << 2);
+> +                                       (adev->doorbell.size - 4));
+>         }
+>
+>         WREG32_SOC15_RLC(GC, 0, mmCP_HQD_PQ_DOORBELL_CONTROL,
+> --
+> 2.30.2
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
