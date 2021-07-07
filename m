@@ -2,123 +2,128 @@ Return-Path: <SRS0=5bFg=L7=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A065BC07E95
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Jul 2021 09:07:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E7DB2C07E95
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Jul 2021 09:08:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 439FC61CB9
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Jul 2021 09:07:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 439FC61CB9
+	by mail.kernel.org (Postfix) with ESMTPS id A809261108
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Jul 2021 09:08:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A809261108
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02F2E6E855;
-	Wed,  7 Jul 2021 09:07:15 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2041.outbound.protection.outlook.com [40.107.92.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 366E36E855
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 Jul 2021 09:07:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6709B6E858;
+	Wed,  7 Jul 2021 09:08:03 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2070.outbound.protection.outlook.com [40.107.223.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B3AB6E858
+ for <amd-gfx@lists.freedesktop.org>; Wed,  7 Jul 2021 09:08:01 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EsAulGDHYeG0ycKPpIYXmG05HVuWOJ4Ic39HtLSuW5UNfArcuwsdrN76tQ1+I6GzBaZGyMVMUxKqKEn3gD4apNLlatpqyimDhq4N7HFAb9AMb4HLoQG7rhSsFk5/6vyWOgp9M6sKVJ9Wko6j42XLIXit0bKkF2pzUmlbE9+WtSiVWWDqlwdlg8cwm3RNRnGmkewGMMGVH/cbXC/S+MKi/BnO6j/xxEjNCH3IYG3z0vRJXpu77bkQH9LJsrG6LZ4YqKjMvrNcqDNJ7jon4lo3I2HwP8kEEGv/OW7akm6JoEzU36CYuBKOUXBz3qLs7h2P7w3zYno/kRrntrVJkJIQUw==
+ b=e/VgmLnSXULWgWLLYcSox2BKE1bFCI/FLQtCLycVfiLLpXF0r1PHyCDVamoaBW5B8iGCwBqdbnKuZueUf6XWcpa+tlXPgS5Pwc0gPKq2P07YAd2s8KxVvrGK/K0l/97T6pLTK1iM7Msp3GLRHq6t44+hyw0hLRQo3QIsI19Zzlr1R65PDoqFzExNFPgqe9G+6LP1Jx9J8mKJ8vNDE43ijEUQOcIur7c9RSZyhI+vmcFUl1Z/ocfyKoV29ZJx3whkrk7sy1naSDr5S8+PrpZWWxfBWDOy+Aief8hTC9ilqPhOi4Dj5xPBwXJn9h6rAGaAzIgLPh0j3BJCHjtJVkOcAA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PDR0gJAZX+U71Rpkr19Oq9VipnXFe9DzdPDb5q65bSg=;
- b=YE51XDDE0yP47YCIGygvEiu8S0DC/VgPWeIFoXRDYq0sSVuAwBrSDOFpLA08Yp7YXRJVk55riULxSpZ7fu932vc/ftvm8F+pv77XT9R35ZFTbYQomuE5/ac+pSf/KoHkQgtpzu16OouJ9KPKAoH7pc8NUal1GBCaE0pymNjezQkjwU1i+nLQkZtLAxn9ECD1QI7a6+f5LG+tVnQAEX9QjzuCDGXgp61WSy8kxw8eOTao0tVdP5ojs0HkB5O7wcgPU4XutVzZax/TEgd0j3+MHov2EFfgZEguVRtzeVdHTbjEn2pBVmUWLfyrT7Jm0mcgdpgG8wGi2C5CKYlFlnwNxQ==
+ bh=CkEch+wdtT9hqz+Ba/SDSH4mBTZmc1b0NU9goGEhNqk=;
+ b=RLxS7+jz7WIaC3U2pNgRL5wxfr5kUUNG/aiukO9DgbCR0k98UepiNoRAtl0psPBQdblv6iAMm4Q75NRukMXjhGODLjJjcCnXC3IZ7vySrQIT/2EAysyDIQHaT2DqmwVRl2GXme1JEpy+C7bCbgBYyZCVfpfjgiB5n3CFNiG1tgYTFvOM0l27XC9iwatsRYSdKHs9H0uBpTefzDLIVvG9V5tcd0I6vUOGpCTR7V/YfEjyMYcBXAY+WR1JcyREmz1o/+tJgJmTokHuNiGen2f0DhsA7tHTJqKeQGcBUcXdOahQBZJqPWtd9tMMoZUnGpzeLtnbXUDSN8dTUf+0gX3/cQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PDR0gJAZX+U71Rpkr19Oq9VipnXFe9DzdPDb5q65bSg=;
- b=eODHwBAf2gfU8zO5zXVs8+Jryu9W+yGt7PL5yJV4iU76jOun5gvmajI00rh42plu1sxLzm+OVrpZGikFU6mQE93yhC9qrwJcaPlv+JVAyxmmW0T6B+xNYak3lf6U8Lmt3hTSt89+uqPs9LAWQVOJzJdPyMQvhmdgFZ4RbxQl1fY=
-Received: from BL1PR12MB5237.namprd12.prod.outlook.com (2603:10b6:208:30b::18)
- by BL1PR12MB5175.namprd12.prod.outlook.com (2603:10b6:208:318::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4287.27; Wed, 7 Jul
- 2021 09:07:11 +0000
-Received: from BL1PR12MB5237.namprd12.prod.outlook.com
- ([fe80::3495:174c:48e3:4012]) by BL1PR12MB5237.namprd12.prod.outlook.com
- ([fe80::3495:174c:48e3:4012%3]) with mapi id 15.20.4287.033; Wed, 7 Jul 2021
- 09:07:11 +0000
-From: "Liu, Aaron" <Aaron.Liu@amd.com>
-To: "Hou, Xiaomeng (Matthew)" <Xiaomeng.Hou@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amd/display: update header file name
-Thread-Topic: [PATCH] drm/amd/display: update header file name
-Thread-Index: AQHXcw8sI0N7iGu8LUqAS6tjE4+UEKs3OHfA
-Date: Wed, 7 Jul 2021 09:07:11 +0000
-Message-ID: <BL1PR12MB523760F3AB1AB7CF2E8D2132F01A9@BL1PR12MB5237.namprd12.prod.outlook.com>
-References: <20210707090440.30958-1-Xiaomeng.Hou@amd.com>
-In-Reply-To: <20210707090440.30958-1-Xiaomeng.Hou@amd.com>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-07-07T09:07:08Z; 
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
- Only-AIP 2.0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=a91e2f5a-b1e4-465c-ae7e-d7f6df255d77;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
-authentication-results: amd.com; dkim=none (message not signed)
+ bh=CkEch+wdtT9hqz+Ba/SDSH4mBTZmc1b0NU9goGEhNqk=;
+ b=Q2ivH8OiJvVqjeVbidu8TtzULfyEIuaXlE5qiBs8WCXS7BgmUOWXVscW1/GB5uwL7XXbgQjEDh5xtXdxbYlF4KLkrt6q/2mLTHkdPXJDvmtxIKGYKT339JJN0YA1yRldPryCl3lyMKJJEC/CsWxuTiOViddvEPuQKVy4dpLa6pg=
+Authentication-Results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 1b048da9-2268-4f80-a934-08d941269b25
-x-ms-traffictypediagnostic: BL1PR12MB5175:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BL1PR12MB517501E213345AAD47CF818BF01A9@BL1PR12MB5175.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:626;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: poccbNlpRjC7ABTTVC2r0jgu+fYW8Fn/3x+ucmTSnIliiBBeqI7BC75tf5TceGQCU0Avdx1fVsh8Tp/3iW+sOS8sJHUkI/UQV2pewIp5LHUZ8aqKS6Or7ENbaJdrdVzwq9/puTUX7XMqdkCUU8z9Ck8jvFFoPHhtd37/Mt2/ojuEymO7QxrPILb5uHLvQJiCYLlhpvNyqkqQCfHyHkXtM8LKNkSMcwV/GzE+32cv6LoFEUjXfXEdIw7gCzv8fnUW0clcOWiMZrDjj/+OmYXMyywhfDp4u3hWm77wMd1hDUH0sr9HLwMEOchRqX4tDU4NLvOp0bfi2HmwMX2F0IgeDHdeTe0c5MQAOS6BvURxSW5HyfuuJXA6hWN+4m58+ZZOhTiyQz6jPfJLvBNQq4mKEVD2PFaR/SjS6hQy4ZU5q3L5O3uWVDkQPWago9TmEG6VB0v4OMVMbW9n4HxCTMt3iLimuj72OBoL2ObKqjoMTZEkrg3RE1bo713t+2lFFiMWFruhgR2QB3VwcXAtq5GEp5Vygtb81Rbx+Fu5hX5xaNk4imgvtJX5NlUTBS2aJNG4mJu5JfMApKA3SjIhB55HCJGGyPWAyNBsC179vC2n3BoIzqhsMZqrNsNy89fkbO36HWksgZKw9Y2zj11weEtGfg==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5237.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(346002)(366004)(136003)(396003)(39860400002)(110136005)(83380400001)(15650500001)(38100700002)(26005)(66556008)(86362001)(66946007)(2906002)(7696005)(478600001)(53546011)(186003)(55016002)(66446008)(8676002)(5660300002)(52536014)(76116006)(33656002)(4326008)(71200400001)(8936002)(122000001)(66476007)(6506007)(9686003)(64756008)(316002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?GY/OgNhyGLb8kCJKdFSmUEWoIxVlvH2YDkC0Od1Dfq6nMYOGD1cRR2bdSXuP?=
- =?us-ascii?Q?LQcsETUZSyZb1gRIVqZX6RjBzDxp7P+Llw1GXRoNwVzBMncz90wTDsrDNtxG?=
- =?us-ascii?Q?gw5Wo0LcGyq02nQg9D8TqbPGPEYaFgcDwWm204T1Wt3dRpRbeu0N+0/pNyyB?=
- =?us-ascii?Q?V/cgrP0zJ4mGsQeqRWWtOjZ9g53iuATIayHVDUtTgch775OeOQZvMpMqC67w?=
- =?us-ascii?Q?8vGNFNMi9rdPiMigJ7py0L0+bD4wkLPOf1rBYfz40WsL8RkdXMe5QWkUVyn0?=
- =?us-ascii?Q?QBdPw00hcGDQhkK1WgSXrzuFo0vFlp2CB6613JPeWoEJ1Io5MtZzql1UV3JS?=
- =?us-ascii?Q?8XXIokRFd+SUBWPK1YABfP9J/qcsA+xsNzKq7XrYG3rgmx46r6lHTPFJpyXX?=
- =?us-ascii?Q?WCqM9DuuJGoQYxtf8AztsUKaAwRWb2IRw4SnwOdFsHwOR9b8cRXEkh0tAk5I?=
- =?us-ascii?Q?+EIOPXe6FodB8eGAYjNJFVl4m6mq1t4RjWY4EGoFZZ5dfH66nsTyCUbsqHGf?=
- =?us-ascii?Q?I3JIzoYRgyWJtz2OilDU85Ei9FB4F/Aek7cSPjiuVd6Paett4xsqc/Y2PzkN?=
- =?us-ascii?Q?M754UFPStZMty+ZQHd4PxCudtCLpog/jaJHXBzw1UTFGKNfYUFMEoWcKj4/h?=
- =?us-ascii?Q?fECej5KIrmZQUKQSfB8TwNTm/B7sUJbMAR730KcF9gGVuLA+soBOLQv0N8t7?=
- =?us-ascii?Q?n/bqg22exB3KWweCnpJR3N+FfqgkCLAQLK9dP0RcaS2z3gCtRhZZHF7d8zwT?=
- =?us-ascii?Q?2de4VB+w5TYUfYhfK57b3j0UUGWQklpWsyvCHtf+e2LLbHDeh0zmrkmGmW39?=
- =?us-ascii?Q?KV7Dg3YXk5oIDuvRpCcEHnDUHc/u7X1k/mn5bynvHY+EsOxXJ2w8nCgb7+8W?=
- =?us-ascii?Q?X7UKtUs53JxFy1NfokzXBd6awYHPYeQhY89sJdQk11ZUdBiliFzes1YohoPs?=
- =?us-ascii?Q?gXJaguvpkpr/tKwOOhjZ7x8wOr8QEJTZAMFhgcoIjlB9Lk6xofOtP1ovYAY6?=
- =?us-ascii?Q?aWvcBGPyBPrWbj63pF2AVH1I1+0ENQQ+lMQ1uelikLr+rWI/j7KC9atq2yxP?=
- =?us-ascii?Q?qQpHxZauCPSZY4Y39+xxbgXWg7NOjESo8bOciSNQ7hwXBvfcxv/IwlcQoGhc?=
- =?us-ascii?Q?xi99Uj90mxLieQrx4Hh8c7LRLyGOJWrmxs6TjUcfO2vlvBPG0TxUZqdCCRJf?=
- =?us-ascii?Q?CVQiKl3Q8C+v48waz7xiterFPvcAurfXAbOSq0Owpkzt2Xm/fEWK7NC6mEil?=
- =?us-ascii?Q?ueNWdrxDwhvtPpfzDq+v3ed2ptM3bb+10U8SpZfcuxpvAwTufD3CqbnbKmka?=
- =?us-ascii?Q?89dFrwAdUDTw3hTv/uRY5VOy?=
+Received: from CH0PR12MB5348.namprd12.prod.outlook.com (2603:10b6:610:d7::9)
+ by CH0PR12MB5074.namprd12.prod.outlook.com (2603:10b6:610:e1::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4287.27; Wed, 7 Jul
+ 2021 09:07:59 +0000
+Received: from CH0PR12MB5348.namprd12.prod.outlook.com
+ ([fe80::240c:be22:4f42:8068]) by CH0PR12MB5348.namprd12.prod.outlook.com
+ ([fe80::240c:be22:4f42:8068%9]) with mapi id 15.20.4308.021; Wed, 7 Jul 2021
+ 09:07:59 +0000
+Subject: Re: [PATCH 5/7] drm/amd/pm: drop the unnecessary intermediate
+ percent-based transition
+To: Evan Quan <evan.quan@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20210707015647.139127-1-evan.quan@amd.com>
+ <20210707015647.139127-5-evan.quan@amd.com>
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+Message-ID: <5b46c57a-f51d-2ea0-feac-0b30899555ac@amd.com>
+Date: Wed, 7 Jul 2021 14:37:47 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
+In-Reply-To: <20210707015647.139127-5-evan.quan@amd.com>
+Content-Language: en-US
+X-ClientProxiedBy: SG3P274CA0016.SGPP274.PROD.OUTLOOK.COM (2603:1096:4:be::28)
+ To CH0PR12MB5348.namprd12.prod.outlook.com
+ (2603:10b6:610:d7::9)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [172.31.157.114] (165.204.158.249) by
+ SG3P274CA0016.SGPP274.PROD.OUTLOOK.COM (2603:1096:4:be::28) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4308.19 via Frontend Transport; Wed, 7 Jul 2021 09:07:57 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 9a4373ae-05fd-427e-272f-08d94126b78c
+X-MS-TrafficTypeDiagnostic: CH0PR12MB5074:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <CH0PR12MB507469987A6121F90A0F1EDD971A9@CH0PR12MB5074.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2582;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 0Ph1pVDx2KaPm3Xcpw4ez0NvL4w5PUTSyO/lwOWKEi9UZkARL32ZchCWOJhtN75UdMnBT9zCntT8q3FjPOhYMRNT3ZnJP741CVPzy91iv5TSL/UO+qFXm04h1n4zpeceTxQz9ja85kbr6ToMUJC5S5xSgzFV2M25C6EsixpZ1yNwUh34s59dddODRm+HHAYAKzd/FF4zfMn2TjNBKSHXBIKMJDvpTWef3JKMEejTaaEm3VebfHikV3++i6liE0LJbzeK8nQA5VNN5p57AwbiPVc9A1QXoUlLYuExyZWzHVFvydLCh0rIVsMYYKWyhL9kjJE7zXCr4i/2mLYADcUZwxVZUlpksp1X2YSjhhAgrIIxaRGqFtXQ7lYzFDrtKDrikE/U/0uc7oWEYcuoXX7i7khr+sThGjNI+akd8qls6/MBuvia9O4e55dI3wdKqCPBN0GAop+6Xw7PO3HlvP3Gi7e7Of3yY8i3tLbXZTsRa4EKXs2dTC1ioRKmBdt4KlE3B5nKnQM7wYf7ZQqjWx4O1OAzxY5ovD7okeP0s2RLYOYOjbpnveUp1KG5h8ybfDWiTaSN2uqtDrZsxpgnBuzHGAodmlYvgGYX4bllOPLAbdFDHEW9+DQ7mu5p5T8wi0FkDs04fhm4mEzyc1+mjpr7ZnPFGfTj8Rsqao98xHlkIjVDnGUAj26YEejPous2e4r2YBd+psDS+XxiSCvzJUV9kwP8v7TN/Og598ffJDB9sFA=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH0PR12MB5348.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(376002)(366004)(136003)(346002)(396003)(31696002)(26005)(31686004)(8936002)(2616005)(8676002)(956004)(38100700002)(6666004)(66476007)(83380400001)(2906002)(186003)(478600001)(6486002)(53546011)(4326008)(5660300002)(36756003)(66556008)(316002)(16576012)(30864003)(66946007)(86362001)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NldkTkF5anlaeWZjQy9IK090NHQ1Q3pzSUlQTWZKUmhYaXdUN1BtRDdiUHUv?=
+ =?utf-8?B?RjZtRENXdSszSk9xQmhOWVFVR045bkhtN3lGODVSdFJYWjVyOXNzOENYOWs1?=
+ =?utf-8?B?bHVscDdzZ2MrN1IzanVvaEo2eWFtQkRhMzdTN28rSEVoOTBjYkxVdEtqYXlX?=
+ =?utf-8?B?TjNKcFUyOEpNbzFGK3h3ejZoT0pZVEhybiszc053UldENmE1NU83RVJUSU5L?=
+ =?utf-8?B?WG5aS1ZhdENEZnEydTMxVDV0K1FCTUl0SDZNUm5GVkhmUHI2T1loUG9WRVFO?=
+ =?utf-8?B?L1RnbHlCb2NSRzVoSTAvcWNVcGhmTzcxQkRKMDR5YUozQ3FYZGxIMFQrMndB?=
+ =?utf-8?B?SjUreFVHbHlzeVV4aXE2d2k1TzYxZUVrUnBuZHpJanoxbXM3eW9mOGpHMm0z?=
+ =?utf-8?B?d0F4dTljcmROWU1DWVVldWtZMG4wQUMvbzhocDhKZ0E5R0graEoxSDJLektH?=
+ =?utf-8?B?MHR2RU5XMGlQMWFQeDJTSURIQ2ltaTd2Rm1pZ1ZuZ3BjaGxkNnE0aDZoZ2s1?=
+ =?utf-8?B?SUdHREhVam9zVnZCd1RvTythOFdlYXhmWmN6ZDNIMk03VFRjZmY4NDdBTXhF?=
+ =?utf-8?B?b1g4WUhhTkRJZmxVRnZZbE1FSFM5R09rRjFsdHV2enJvd1FIL0Y2NGZGanhF?=
+ =?utf-8?B?OW5UQzBxNjZhM29acjZGbTlpSjlnenBSYUM2Si94N0R3MnhYUjBkWUhHY2hl?=
+ =?utf-8?B?MjVGNlRLbVhDd2xvNXR6MkhFeGdvd1VjaFk1SE1hZnZFN2VIeG41NTU4RHMr?=
+ =?utf-8?B?MWxJZWVMTHJwa3RiVVdYdi8xVFVRUnRnMzY5eXBOZjcvbDNyYm43aWVTcDZr?=
+ =?utf-8?B?K20vNHRCMUt2bXB6Nk01OE94aWhOdWZ4Q0pBdFVvOEJHSUdDbHF5ejFaanFk?=
+ =?utf-8?B?SmRwdzdzU3UvR2ZmZktudS9VS3locllrVTgzWjVjNFZXMnNtWTB4dElrdCt6?=
+ =?utf-8?B?SCs4WW43YVhBU0pCdXhWZHN5RldQRzUwSG5NZndGUU9vUzJVb3RJMGgrOFpB?=
+ =?utf-8?B?bWlvWHROb3Yvb01JYTRuYVE0Sy8ydE1WNll0aEFMT2VRZVIyTFptZ01tSVAy?=
+ =?utf-8?B?R3JtVlYySjAvMnlGRVViNjg0T3piWHFPVG5vSHdPeU5iNURvaEhtUTQ2aTND?=
+ =?utf-8?B?elVBS2p0TUtGdk9Id2Y2Z0h4WFIzZXh6V2hneVFvYitNME02VDRHRlBrT3ln?=
+ =?utf-8?B?eW55V2h2aFJqN25BZTBpL3hyVnZTQithMVQxWnNrTlQrY04vTnZSdko4K2RT?=
+ =?utf-8?B?eW9LcFBLMXQweCtrU01xMHFvblRXWG9DTlduZU4xNGlPbTkxc3AvQkprRDNz?=
+ =?utf-8?B?VVljcklTVWptbEZXSU5qc2orblVCR2pINlVXbWtlN0xuTW5OQUphWVpWclZo?=
+ =?utf-8?B?emtidDA3TjNpYlNNcld4K29vZ0hFdkRMdDNqOHlhNG9pR3o2MWozRG5ueXZI?=
+ =?utf-8?B?UDNqY3VwNzlkVjlpK3h5MkRjMkdoemtINFJoL3ZjS1U0cm5uNStHUHFEbjVm?=
+ =?utf-8?B?Rm5HU1NqU2treE1HYld2cmJPcDdjS3U4ODJDcWtOMHhVK21GMTJBeHg3T0tS?=
+ =?utf-8?B?bGJXTVZ5S252c1o2QTdyV3VPMXRGRHl2Kzg2cnYrYW9Cb255dzJabnlkWjRh?=
+ =?utf-8?B?RzJoRUpZbkxucWZFUnF2T0x5d3d6eVJDRXVFSG1mNFN5d0ZqKy9SSlRNQkdh?=
+ =?utf-8?B?dWpJRTVlVzNWeFpXNGpjbVRFMTVPWFpmL3BsdGhSLzlwZ3UwUTBCd1NzQkVM?=
+ =?utf-8?Q?glACKd2jrjp4TlXMgeh76DIhn+B6EN2F2AgeBpf?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9a4373ae-05fd-427e-272f-08d94126b78c
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5348.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5237.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1b048da9-2268-4f80-a934-08d941269b25
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Jul 2021 09:07:11.5532 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: /KcM00wo8iVAC0mRoO+Jh2He71MiDNrfe21IOHRcoI5TQNzpwo3JQVoTWyy6WWsa
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5175
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2021 09:07:59.4858 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ihpYSfPGTgiJJZfRkH3vqwwZ5Tc6d9TxCAw1I1e8PU9/iRP88LJAF1QIwILCbzLR
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5074
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,55 +135,353 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas@amd.com>
-Content-Type: text/plain; charset="us-ascii"
+Cc: Alexander.Deucher@amd.com
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only]
+As mentioned in another patch, renaming function to set_/get_ pwm will 
+clarify things better. The scale is 0-255 in hwmon as well.
 
-Reviewed-by: Aaron Liu <aaron.liu@amd.com>
+Thanks,
+Lijo
 
---
-Best Regards
-Aaron Liu
-
-> -----Original Message-----
-> From: Hou, Xiaomeng (Matthew) <Xiaomeng.Hou@amd.com>
-> Sent: Wednesday, July 7, 2021 5:05 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Liu, Aaron <Aaron.Liu@amd.com>; Kazlauskas, Nicholas
-> <Nicholas.Kazlauskas@amd.com>; Hou, Xiaomeng (Matthew)
-> <Xiaomeng.Hou@amd.com>
-> Subject: [PATCH] drm/amd/display: update header file name
+On 7/7/2021 7:26 AM, Evan Quan wrote:
+> Currently, the readout of fan speed pwm is transited into percent-based
+> and then pwm-based. However, the transition into percent-based is totally
+> unnecessary and make the final output less accurate.
 > 
-> Update the register header file name.
-> 
-> Signed-off-by: Xiaomeng Hou <Xiaomeng.Hou@amd.com>
+> Change-Id: Ib99e088cda1875b4e2601f7077a178af6fe8a6cb
+> Signed-off-by: Evan Quan <evan.quan@amd.com>
 > ---
->  drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_smu.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>   drivers/gpu/drm/amd/pm/amdgpu_pm.c                 |  4 ----
+>   .../gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c    |  4 ++--
+>   .../gpu/drm/amd/pm/powerplay/hwmgr/smu7_thermal.c  | 12 ++++++------
+>   .../gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c  |  2 +-
+>   .../drm/amd/pm/powerplay/hwmgr/vega10_thermal.c    | 10 +++++-----
+>   .../gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c  |  2 +-
+>   .../drm/amd/pm/powerplay/hwmgr/vega20_thermal.c    | 12 ++++++------
+>   drivers/gpu/drm/amd/pm/powerplay/si_dpm.c          | 10 +++++-----
+>   drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c          | 12 ++----------
+>   drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c     | 14 +++++++-------
+>   10 files changed, 35 insertions(+), 47 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_smu.c
-> b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_smu.c
-> index beea961749e1..8c2b77eb9459 100644
-> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_smu.c
-> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_smu.c
-> @@ -31,8 +31,8 @@
->  #include "dcn31_smu.h"
+> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> index 769f58d5ae1a..e9c98e3f4cfb 100644
+> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> @@ -2469,8 +2469,6 @@ static ssize_t amdgpu_hwmon_set_pwm1(struct device *dev,
+>   		return err;
+>   	}
+>   
+> -	value = (value * 100) / 255;
+> -
+>   	if (adev->powerplay.pp_funcs->set_fan_speed_percent)
+>   		err = amdgpu_dpm_set_fan_speed_percent(adev, value);
+>   	else
+> @@ -2515,8 +2513,6 @@ static ssize_t amdgpu_hwmon_get_pwm1(struct device *dev,
+>   	if (err)
+>   		return err;
+>   
+> -	speed = (speed * 255) / 100;
+> -
+>   	return sprintf(buf, "%i\n", speed);
+>   }
+>   
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+> index 0541bfc81c1b..aa353a628c50 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+> @@ -3212,7 +3212,7 @@ static int smu7_force_dpm_level(struct pp_hwmgr *hwmgr,
+>   
+>   	if (!ret) {
+>   		if (level == AMD_DPM_FORCED_LEVEL_PROFILE_PEAK && hwmgr->dpm_level != AMD_DPM_FORCED_LEVEL_PROFILE_PEAK)
+> -			smu7_fan_ctrl_set_fan_speed_percent(hwmgr, 100);
+> +			smu7_fan_ctrl_set_fan_speed_percent(hwmgr, 255);
+>   		else if (level != AMD_DPM_FORCED_LEVEL_PROFILE_PEAK && hwmgr->dpm_level == AMD_DPM_FORCED_LEVEL_PROFILE_PEAK)
+>   			smu7_fan_ctrl_reset_fan_speed_to_default(hwmgr);
+>   	}
+> @@ -4988,7 +4988,7 @@ static void smu7_set_fan_control_mode(struct pp_hwmgr *hwmgr, uint32_t mode)
+>   {
+>   	switch (mode) {
+>   	case AMD_FAN_CTRL_NONE:
+> -		smu7_fan_ctrl_set_fan_speed_percent(hwmgr, 100);
+> +		smu7_fan_ctrl_set_fan_speed_percent(hwmgr, 255);
+>   		break;
+>   	case AMD_FAN_CTRL_MANUAL:
+>   		if (phm_cap_enabled(hwmgr->platform_descriptor.platformCaps,
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_thermal.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_thermal.c
+> index 6cfe148ed45b..70ccc127e3fd 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_thermal.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_thermal.c
+> @@ -70,12 +70,12 @@ int smu7_fan_ctrl_get_fan_speed_percent(struct pp_hwmgr *hwmgr,
+>   		return -EINVAL;
+>   
+>   
+> -	tmp64 = (uint64_t)duty * 100;
+> +	tmp64 = (uint64_t)duty * 255;
+>   	do_div(tmp64, duty100);
+>   	*speed = (uint32_t)tmp64;
+>   
+> -	if (*speed > 100)
+> -		*speed = 100;
+> +	if (*speed > 255)
+> +		*speed = 255;
+>   
+>   	return 0;
+>   }
+> @@ -214,8 +214,8 @@ int smu7_fan_ctrl_set_fan_speed_percent(struct pp_hwmgr *hwmgr,
+>   	if (hwmgr->thermal_controller.fanInfo.bNoFan)
+>   		return 0;
+>   
+> -	if (speed > 100)
+> -		speed = 100;
+> +	if (speed > 255)
+> +		speed = 255;
+>   
+>   	if (PP_CAP(PHM_PlatformCaps_MicrocodeFanControl))
+>   		smu7_fan_ctrl_stop_smc_fan_control(hwmgr);
+> @@ -227,7 +227,7 @@ int smu7_fan_ctrl_set_fan_speed_percent(struct pp_hwmgr *hwmgr,
+>   		return -EINVAL;
+>   
+>   	tmp64 = (uint64_t)speed * duty100;
+> -	do_div(tmp64, 100);
+> +	do_div(tmp64, 255);
+>   	duty = (uint32_t)tmp64;
+>   
+>   	PHM_WRITE_VFPF_INDIRECT_FIELD(hwmgr->device, CGS_IND_REG__SMC,
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
+> index 25979106fd25..44c5e2588046 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
+> @@ -4199,7 +4199,7 @@ static void vega10_set_fan_control_mode(struct pp_hwmgr *hwmgr, uint32_t mode)
+>   
+>   	switch (mode) {
+>   	case AMD_FAN_CTRL_NONE:
+> -		vega10_fan_ctrl_set_fan_speed_percent(hwmgr, 100);
+> +		vega10_fan_ctrl_set_fan_speed_percent(hwmgr, 255);
+>   		break;
+>   	case AMD_FAN_CTRL_MANUAL:
+>   		if (PP_CAP(PHM_PlatformCaps_MicrocodeFanControl))
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
+> index 9b46b27bd30c..6b4c4294afca 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
+> @@ -78,11 +78,11 @@ int vega10_fan_ctrl_get_fan_speed_percent(struct pp_hwmgr *hwmgr,
+>   
+>   	if (hwmgr->thermal_controller.
+>   			advanceFanControlParameters.usMaxFanRPM != 0)
+> -		percent = current_rpm * 100 /
+> +		percent = current_rpm * 255 /
+>   			hwmgr->thermal_controller.
+>   			advanceFanControlParameters.usMaxFanRPM;
+>   
+> -	*speed = percent > 100 ? 100 : percent;
+> +	*speed = percent > 255 ? 255 : percent;
+>   
+>   	return 0;
+>   }
+> @@ -257,8 +257,8 @@ int vega10_fan_ctrl_set_fan_speed_percent(struct pp_hwmgr *hwmgr,
+>   	if (hwmgr->thermal_controller.fanInfo.bNoFan)
+>   		return 0;
+>   
+> -	if (speed > 100)
+> -		speed = 100;
+> +	if (speed > 255)
+> +		speed = 255;
+>   
+>   	if (PP_CAP(PHM_PlatformCaps_MicrocodeFanControl))
+>   		vega10_fan_ctrl_stop_smc_fan_control(hwmgr);
+> @@ -270,7 +270,7 @@ int vega10_fan_ctrl_set_fan_speed_percent(struct pp_hwmgr *hwmgr,
+>   		return -EINVAL;
+>   
+>   	tmp64 = (uint64_t)speed * duty100;
+> -	do_div(tmp64, 100);
+> +	do_div(tmp64, 255);
+>   	duty = (uint32_t)tmp64;
+>   
+>   	WREG32_SOC15(THM, 0, mmCG_FDO_CTRL0,
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
+> index 0791309586c5..cbe5f8027ee0 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
+> @@ -2769,7 +2769,7 @@ static void vega20_set_fan_control_mode(struct pp_hwmgr *hwmgr, uint32_t mode)
+>   {
+>   	switch (mode) {
+>   	case AMD_FAN_CTRL_NONE:
+> -		vega20_fan_ctrl_set_fan_speed_percent(hwmgr, 100);
+> +		vega20_fan_ctrl_set_fan_speed_percent(hwmgr, 255);
+>   		break;
+>   	case AMD_FAN_CTRL_MANUAL:
+>   		if (PP_CAP(PHM_PlatformCaps_MicrocodeFanControl))
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_thermal.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_thermal.c
+> index 43d754952bd9..eb007c00d7c6 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_thermal.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_thermal.c
+> @@ -129,12 +129,12 @@ int vega20_fan_ctrl_get_fan_speed_percent(struct pp_hwmgr *hwmgr,
+>   	if (!duty100)
+>   		return -EINVAL;
+>   
+> -	tmp64 = (uint64_t)duty * 100;
+> +	tmp64 = (uint64_t)duty * 255;
+>   	do_div(tmp64, duty100);
+>   	*speed = (uint32_t)tmp64;
+>   
+> -	if (*speed > 100)
+> -		*speed = 100;
+> +	if (*speed > 255)
+> +		*speed = 255;
+>   
+>   	return 0;
+>   }
+> @@ -147,8 +147,8 @@ int vega20_fan_ctrl_set_fan_speed_percent(struct pp_hwmgr *hwmgr,
+>   	uint32_t duty;
+>   	uint64_t tmp64;
+>   
+> -	if (speed > 100)
+> -		speed = 100;
+> +	if (speed > 255)
+> +		speed = 255;
+>   
+>   	if (PP_CAP(PHM_PlatformCaps_MicrocodeFanControl))
+>   		vega20_fan_ctrl_stop_smc_fan_control(hwmgr);
+> @@ -160,7 +160,7 @@ int vega20_fan_ctrl_set_fan_speed_percent(struct pp_hwmgr *hwmgr,
+>   		return -EINVAL;
+>   
+>   	tmp64 = (uint64_t)speed * duty100;
+> -	do_div(tmp64, 100);
+> +	do_div(tmp64, 255);
+>   	duty = (uint32_t)tmp64;
+>   
+>   	WREG32_SOC15(THM, 0, mmCG_FDO_CTRL0,
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c b/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
+> index 15c0b8af376f..96ca359c10a5 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
+> @@ -6555,12 +6555,12 @@ static int si_dpm_get_fan_speed_percent(void *handle,
+>   	if (duty100 == 0)
+>   		return -EINVAL;
+>   
+> -	tmp64 = (u64)duty * 100;
+> +	tmp64 = (u64)duty * 255;
+>   	do_div(tmp64, duty100);
+>   	*speed = (u32)tmp64;
+>   
+> -	if (*speed > 100)
+> -		*speed = 100;
+> +	if (*speed > 255)
+> +		*speed = 255;
+>   
+>   	return 0;
+>   }
+> @@ -6580,7 +6580,7 @@ static int si_dpm_set_fan_speed_percent(void *handle,
+>   	if (si_pi->fan_is_controlled_by_smc)
+>   		return -EINVAL;
+>   
+> -	if (speed > 100)
+> +	if (speed > 255)
+>   		return -EINVAL;
+>   
+>   	duty100 = (RREG32(CG_FDO_CTRL1) & FMAX_DUTY100_MASK) >> FMAX_DUTY100_SHIFT;
+> @@ -6589,7 +6589,7 @@ static int si_dpm_set_fan_speed_percent(void *handle,
+>   		return -EINVAL;
+>   
+>   	tmp64 = (u64)speed * duty100;
+> -	do_div(tmp64, 100);
+> +	do_div(tmp64, 255);
+>   	duty = (u32)tmp64;
+>   
+>   	tmp = RREG32(CG_FDO_CTRL0) & ~FDO_STATIC_DUTY_MASK;
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> index 54fb3d7d23ee..94c15526ad21 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> @@ -2565,23 +2565,17 @@ static int smu_get_fan_speed_percent(void *handle, u32 *speed)
+>   {
+>   	struct smu_context *smu = handle;
+>   	int ret = 0;
+> -	uint32_t percent;
+>   
+>   	if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
+>   		return -EOPNOTSUPP;
+>   
+>   	mutex_lock(&smu->mutex);
+>   
+> -	if (smu->ppt_funcs->get_fan_speed_percent) {
+> -		ret = smu->ppt_funcs->get_fan_speed_percent(smu, &percent);
+> -		if (!ret) {
+> -			*speed = percent > 100 ? 100 : percent;
+> -		}
+> -	}
+> +	if (smu->ppt_funcs->get_fan_speed_percent)
+> +		ret = smu->ppt_funcs->get_fan_speed_percent(smu, speed);
+>   
+>   	mutex_unlock(&smu->mutex);
+>   
+> -
+>   	return ret;
+>   }
+>   
+> @@ -2596,8 +2590,6 @@ static int smu_set_fan_speed_percent(void *handle, u32 speed)
+>   	mutex_lock(&smu->mutex);
+>   
+>   	if (smu->ppt_funcs->set_fan_speed_percent) {
+> -		if (speed > 100)
+> -			speed = 100;
+>   		ret = smu->ppt_funcs->set_fan_speed_percent(smu, speed);
+>   		if (!ret && !(smu->user_dpm_profile.flags & SMU_DPM_USER_PROFILE_RESTORE)) {
+>   			smu->user_dpm_profile.custom_fan_speed |= SMU_CUSTOM_FAN_SPEED_PWM;
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+> index 0cdf55a0dba2..f0ae0920c07e 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+> @@ -1191,8 +1191,8 @@ smu_v11_0_set_fan_speed_percent(struct smu_context *smu, uint32_t speed)
+>   	uint32_t duty100, duty;
+>   	uint64_t tmp64;
+>   
+> -	if (speed > 100)
+> -		speed = 100;
+> +	if (speed > 255)
+> +		speed = 255;
+>   
+>   	if (smu_v11_0_auto_fan_control(smu, 0))
+>   		return -EINVAL;
+> @@ -1203,7 +1203,7 @@ smu_v11_0_set_fan_speed_percent(struct smu_context *smu, uint32_t speed)
+>   		return -EINVAL;
+>   
+>   	tmp64 = (uint64_t)speed * duty100;
+> -	do_div(tmp64, 100);
+> +	do_div(tmp64, 255);
+>   	duty = (uint32_t)tmp64;
+>   
+>   	WREG32_SOC15(THM, 0, mmCG_FDO_CTRL0,
+> @@ -1274,12 +1274,12 @@ int smu_v11_0_get_fan_speed_percent(struct smu_context *smu,
+>   	if (!duty100)
+>   		return -EINVAL;
+>   
+> -	tmp64 = (uint64_t)duty * 100;
+> +	tmp64 = (uint64_t)duty * 255;
+>   	do_div(tmp64, duty100);
+>   	*speed = (uint32_t)tmp64;
+>   
+> -	if (*speed > 100)
+> -		*speed = 100;
+> +	if (*speed > 255)
+> +		*speed = 255;
+>   
+>   	return 0;
+>   }
+> @@ -1320,7 +1320,7 @@ smu_v11_0_set_fan_control_mode(struct smu_context *smu,
+>   
+>   	switch (mode) {
+>   	case AMD_FAN_CTRL_NONE:
+> -		ret = smu_v11_0_set_fan_speed_percent(smu, 100);
+> +		ret = smu_v11_0_set_fan_speed_percent(smu, 255);
+>   		break;
+>   	case AMD_FAN_CTRL_MANUAL:
+>   		ret = smu_v11_0_auto_fan_control(smu, 0);
 > 
->  #include "yellow_carp_offset.h"
-> -#include "mp/mp_13_0_1_offset.h"
-> -#include "mp/mp_13_0_1_sh_mask.h"
-> +#include "mp/mp_13_0_2_offset.h"
-> +#include "mp/mp_13_0_2_sh_mask.h"
-> 
->  #define REG(reg_name) \
->  	(MP0_BASE.instance[0].segment[reg ## reg_name ## _BASE_IDX] +
-> reg ## reg_name)
-> --
-> 2.17.1
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
