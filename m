@@ -2,51 +2,82 @@ Return-Path: <SRS0=5bFg=L7=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-2.0 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E00A3C07E95
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Jul 2021 10:46:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 06DC1C11F66
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Jul 2021 12:17:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A841C60FF0
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Jul 2021 10:46:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A841C60FF0
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id C055161CA8
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Jul 2021 12:17:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C055161CA8
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 534E26E08E;
-	Wed,  7 Jul 2021 10:46:40 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1AF4D6E08E;
- Wed,  7 Jul 2021 10:46:39 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 8815C61CAA;
- Wed,  7 Jul 2021 10:46:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1625654797;
- bh=x/6yJbDlJx88gXff2NPaDoOf2VTEmW/FiSuagMfWqrE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=DeSb7RTenYR1UxkiWCo6aig5ZaRjJCOaklGoahkm78lFkC7RH6QMYEC6DGriMJnFZ
- MjTG84pV43p9AGNw5QcyjNi5ISj4L6msunpox/EgkIsIFrK10P6LQO/zkhAtyvKwsB
- rNdDnEKkMhFito12aHrPihmkN9G4u5/sc1TLRPy6xuiaiFCtakU67dptaeszT//Ope
- Q8x3sbojAks+WaQHC4pSb28iGhVWeISBoa5xXgLZqOmkss+XIW1/I9m6G8STIUpA3R
- /gZUWs9Lqmpxl+JxTf77MmGgyQFuZXRTrSXTz+0RGcslFjui0OEJvBQ/XscTjNaWyR
- yxszLHWpW3qtg==
-Date: Wed, 7 Jul 2021 06:46:36 -0400
-From: Sasha Levin <sashal@kernel.org>
-To: Felix Kuehling <felix.kuehling@amd.com>
-Subject: Re: [PATCH AUTOSEL 5.13 113/189] drm/amdgpu/gfx9: fix the doorbell
- missing when in CGPG issue.
-Message-ID: <YOWGDHa3fdUPsdRS@sashalap>
-References: <20210706111409.2058071-1-sashal@kernel.org>
- <20210706111409.2058071-113-sashal@kernel.org>
- <CADnq5_ObmVRjwUB5Lw0bLZLL-+=CqvGkJZ+2DY5ZDh+uN-oo0g@mail.gmail.com>
- <affee955-54bc-11c3-8ccd-5678f7aee687@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B8DD6E10C;
+	Wed,  7 Jul 2021 12:17:15 +0000 (UTC)
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [IPv6:2a00:1450:4864:20::431])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9AFBC6E10C;
+ Wed,  7 Jul 2021 12:17:14 +0000 (UTC)
+Received: by mail-wr1-x431.google.com with SMTP id i94so2821733wri.4;
+ Wed, 07 Jul 2021 05:17:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:references:from:message-id:date:user-agent:mime-version
+ :in-reply-to:content-transfer-encoding:content-language;
+ bh=gFcpO09X9eqmjEev1StyvxVCY7X0AALnaeQkmkAwWuA=;
+ b=ZjJsQUBAGSRzwkesl+g70QlwkbvYhuHJtn9TzO41zn/XqXK0HsPfSJXxQ1uubM80r2
+ QYeHYcYzl3pdaIKusWL8Cd7Wu51RMb/uf3qRgfVEUeKySy/8psgPpeGYTaM+zPTnUhPF
+ 9xKe5V78YV9n8JpqoYRiJqSsCkiLrBbIA9ZtSqYpocicMRidvhtcTJamlaqtccNRyFEN
+ 02DbkAeA4CUIOThsqvoQeKbSJh5ta3Oe42xfSOVaXDxn0ln/B0etndt5ICGG0ZrG3npQ
+ LpRDrwUb4cIJSkCzDubfh19bl4gMUkqIeaYnL4XjUhz4gGqkC155BwFDxgWq0MBa3QsZ
+ xebw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=gFcpO09X9eqmjEev1StyvxVCY7X0AALnaeQkmkAwWuA=;
+ b=q/aj8SpX7UZU0ny42h1yLC6XfOmzr5fRVZaZxrjZyS3OfaUC+mxngZzARPzygBrE40
+ qKU0RgQPlt+POWVSaX9Sx7I1CDOwFalw6E6pmNwRgSDqhNQ2eSmK+5YYD+Qo1Z3qjfwD
+ jnQcLeqtmMBUjFxn169JrO1+YfWKAsdZnbHd451x3nCkRM3B1fo4InlMI+aN1tgFMwYc
+ QELAnpFqQOOjmIKanA2jc7ygC06Rr79ljrUcQtFCJTaHbzlXXlw0A2qWuoxfc4QM9GF8
+ BiAxfv/9MQSWee31kR/kYX2YKh6OitSm7+3l896WzWk9fnKaq6EnjnVZwcvsPzOjGaX9
+ wkjQ==
+X-Gm-Message-State: AOAM531Q2RfHEIb1/qIbWZATsPcKuFyaCbcIREB0kXSShSKYtbaJDx5u
+ auODCg2c2kBuSvN0HiVB2Ag=
+X-Google-Smtp-Source: ABdhPJw+KpKKmv799GNloUfwlu8fKZlyMeia+T+6lyR5kx2E0g6ByA5UB8esUFEyQkPer8zSwXyRww==
+X-Received: by 2002:a5d:680b:: with SMTP id w11mr15450397wru.426.1625660233375; 
+ Wed, 07 Jul 2021 05:17:13 -0700 (PDT)
+Received: from ?IPv6:2a02:908:1252:fb60:7671:3328:2129:96b5?
+ ([2a02:908:1252:fb60:7671:3328:2129:96b5])
+ by smtp.gmail.com with ESMTPSA id u2sm13550473wmc.42.2021.07.07.05.17.12
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 07 Jul 2021 05:17:12 -0700 (PDT)
+Subject: Re: [Linaro-mm-sig] [PATCH v4 0/2] Add p2p via dmabuf to habanalabs
+To: Christoph Hellwig <hch@lst.de>, Oded Gabbay <ogabbay@kernel.org>,
+ linux-kernel@vger.kernel.org, gregkh@linuxfoundation.org,
+ sumit.semwal@linaro.org, christian.koenig@amd.com, galpress@amazon.com,
+ sleybo@amazon.com, dri-devel@lists.freedesktop.org, jgg@ziepe.ca,
+ linux-rdma@vger.kernel.org, linux-media@vger.kernel.org,
+ dledford@redhat.com, airlied@gmail.com, alexander.deucher@amd.com,
+ leonro@nvidia.com, amd-gfx@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org
+References: <20210705130314.11519-1-ogabbay@kernel.org>
+ <YOQXBWpo3whVjOyh@phenom.ffwll.local> <20210706122110.GA18273@lst.de>
+ <YORLTmyoXDtoM9Ta@phenom.ffwll.local>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <9af554b1-e4d8-4dd4-5a6a-830f3112941d@gmail.com>
+Date: Wed, 7 Jul 2021 14:17:11 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <affee955-54bc-11c3-8ccd-5678f7aee687@amd.com>
+In-Reply-To: <YORLTmyoXDtoM9Ta@phenom.ffwll.local>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,40 +89,67 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Yifan Zhang <yifan1.zhang@amd.com>, LKML <linux-kernel@vger.kernel.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Alex Deucher <alexdeucher@gmail.com>, "for 3.8" <stable@vger.kernel.org>
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jul 06, 2021 at 07:09:37PM -0400, Felix Kuehling wrote:
->Am 2021-07-06 um 5:44 p.m. schrieb Alex Deucher:
->> On Tue, Jul 6, 2021 at 7:16 AM Sasha Levin <sashal@kernel.org> wrote:
->>> From: Yifan Zhang <yifan1.zhang@amd.com>
+Am 06.07.21 um 14:23 schrieb Daniel Vetter:
+> On Tue, Jul 06, 2021 at 02:21:10PM +0200, Christoph Hellwig wrote:
+>> On Tue, Jul 06, 2021 at 10:40:37AM +0200, Daniel Vetter wrote:
+>>>> Greg, I hope this will be good enough for you to merge this code.
+>>> So we're officially going to use dri-devel for technical details review
+>>> and then Greg for merging so we don't have to deal with other merge
+>>> criteria dri-devel folks have?
 >>>
->>> [ Upstream commit 631003101c516ea29a74aee59666708857b9a805 ]
+>>> I don't expect anything less by now, but it does make the original claim
+>>> that drivers/misc will not step all over accelerators folks a complete
+>>> farce under the totally-not-a-gpu banner.
 >>>
->>> If GC has entered CGPG, ringing doorbell > first page doesn't wakeup GC.
->>> Enlarge CP_MEC_DOORBELL_RANGE_UPPER to workaround this issue.
+>>> This essentially means that for any other accelerator stack that doesn't
+>>> fit the dri-devel merge criteria, even if it's acting like a gpu and uses
+>>> other gpu driver stuff, you can just send it to Greg and it's good to go.
 >>>
->>> Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
->>> Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
->>> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
->>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
->>> Signed-off-by: Sasha Levin <sashal@kernel.org>
->> This should be dropped.  It was already reverted.
->
->Patch 146 of this series is the corresponding revert.
+>>> There's quite a lot of these floating around actually (and many do have
+>>> semi-open runtimes, like habanalabs have now too, just not open enough to
+>>> be actually useful). It's going to be absolutely lovely having to explain
+>>> to these companies in background chats why habanalabs gets away with their
+>>> stack and they don't.
+>> FYI, I fully agree with Daniel here.  Habanlabs needs to open up their
+>> runtime if they want to push any additional feature in the kernel.
+>> The current situation is not sustainable.
+> Before anyone replies: The runtime is open, the compiler is still closed.
+> This has become the new default for accel driver submissions, I think
+> mostly because all the interesting bits for non-3d accelerators are in the
+> accel ISA, and no longer in the runtime. So vendors are fairly happy to
+> throw in the runtime as a freebie.
 
-I'll drop both, thanks!
+Well a compiler and runtime makes things easier, but the real question 
+is if they are really required for upstreaming a kernel driver?
 
--- 
-Thanks,
-Sasha
+I mean what we need is to be able to exercise the functionality. So 
+wouldn't (for example) an assembler be sufficient?
+
+> It's still incomplete, and it's still useless if you want to actually hack
+> on the driver stack.
+
+Yeah, when you want to hack on it in the sense of extending it then this 
+requirement is certainly true.
+
+But as far as I can see userspace don't need to be extendable to justify 
+a kernel driver. It just needs to have enough glue to thoughtfully 
+exercise the relevant kernel interfaces.
+
+Applying that to GPUs I think what you need to be able to is to write 
+shaders, but that doesn't need to be in a higher language requiring a 
+compiler and runtime. Released opcodes and a low level assembler should 
+be sufficient.
+
+Regards,
+Christian.
+
+> -Daniel
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
