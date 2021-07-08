@@ -1,129 +1,106 @@
-Return-Path: <SRS0=5bFg=L7=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=sNMb=MA=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7AD44C07E95
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Jul 2021 18:50:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 58FC6C07E95
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Jul 2021 03:28:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 40B6661CAA
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Jul 2021 18:50:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 40B6661CAA
+	by mail.kernel.org (Postfix) with ESMTPS id 0AC5361CD7
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Jul 2021 03:28:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0AC5361CD7
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C932F6E1A5;
-	Wed,  7 Jul 2021 18:50:56 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam08on2052.outbound.protection.outlook.com [40.107.102.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 217A06E1A5
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 Jul 2021 18:50:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90C586E20C;
+	Thu,  8 Jul 2021 03:28:35 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2078.outbound.protection.outlook.com [40.107.94.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7B556E20C
+ for <amd-gfx@lists.freedesktop.org>; Thu,  8 Jul 2021 03:28:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=E9j8/Vs2c5WkVM/2TaNqtF9kDqPc8PL3CIDjbKz9swmHx9Y5H/wX6HhlvwiJbEMkiGRB4KwWv/WS8T2uqCoSDbkkXZNO21yekpI6B+y2+M1SDEppnDY8C9JqcGftaLVPHwOf5Zys7gvCsliigAXPVnL+AbtX/PjtZRVEInmf0tZqf7fcb8HEjptrQ6tLCohQWLqBIMaMHapXxmvrGpljFzaBh5JgceIwPIRQqTZMQiJ46vGCES2E25ODq+6aCEW1rMgQjUHdyOEYRmrSXapB/Nr/dtS2JCssTdihBo0p5I/trOMo5juHWNhwMLs6qO60MNyg04/lhMgAcIg6VjKnyg==
+ b=mvzWVhqElRXrrDisuT9zce/oXmMBeykP+WReQE3Z4qFlQukubYYhdaivFi22bJC660+Jbnq876JcXGpCswXlsPynoKMq7gsW8L6Sal/iPbjip2q5dGSl7HUJLt/akdcc87Cw8+M9L9kWUZryAhVwzNeOuFc1Aw6Hm5STZglio9NDvn4WIumQiH7ZIHctrWitDgXRQ0EgeWyOIBYetDUxWYOffdv618OFMgcVA9hnKop8YU6m6gDpEG5jcOsjQX3c8gJIvpQx/mN3dhi9Lro786kL0IMWJPpBeKIfjcVqtIxaGwR7xXWxHJq5d6gPwBrN53Lw4EzFDm5oC3nH/DwkLQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZQAHCvaT2YHnYf6gh68aCG57BYeD7wxuMz7l3QdNjEE=;
- b=feeJ+Msa7Zi5xaFvvJ9kFVJ3Lm3pmry/pFdZlZO5fC5a8nunU7rbGtADt8T4gqxznG8jStLdn6TZQOuRKeJcOvjcN9uzUoWwQbhL2VQ0Qdwmio1yifi/2cmkXm9H1sJN5Jgt5P1xXrpQqkJ9FDSCKAotCdLjzxtqIWy+Mlr54nRhyEvOSNE9/8nYkY0Xosim3pjxKUd744fZve7UNfwSUkAx2FZXB89jxEbS9qqobmY735GK26W8Zyo/CAAidBQ2WrktNs9OvrQXRXwur8q/6rOn5ksLP9WTXq/Y9BAJP36cqqTQuJGlsA0JnfsQnts6AxN4ZJOfrJeWD4UaK/KNrg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=FBl9eVp9CqlNv132+3RRu6+lK304Ve3s5R8TWI6/uBY=;
+ b=N6PTjfIumvNq13B7HcSiGlvA7fod+IVWEaqDItigVLAtdIT8X4V8PjRTrzxSR4ueS6zs+OaymJhFTfe2jY0uqsAiVGSBT2gVS5KWrvJtb+jow4DmR93olwqcWDXz6XWKHpBbgXWvTKwLUKOraYRh9FEDc+F9j4StMN1Mt1Xc7DBNcuAwNgKVrHX5wnSQmRHOjWKPPjvwjJS4i8Ow3jstRSsY1BXUBfBpxskS9bQQGiPkZJ7qr9pKD/ZaczQZm6N4ePEeqIQiq5833RtVuiXff8PdWXz7Zt8YsysudgeUXAa3vm1AbY4hBbzvwGvwz1aHk85O4J9HMLGnbdYN1wKWTg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZQAHCvaT2YHnYf6gh68aCG57BYeD7wxuMz7l3QdNjEE=;
- b=12Ell+klUsaxwXXL7Yehd6EMe1fuACB5DjMmnCQF8h/5DanSOFJ5BH3GEPTwTmLaSrQghvc6fGWh1YzyVb1U/e6DkRlcG0z6ZXRZeuwOEKIyl8B9ZuPC1ndcFljfEIMGUGehkKWa5Jw3t+AjTBqimK1ejl4CzQep/mpatVBsis8=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5129.namprd12.prod.outlook.com (2603:10b6:408:136::12)
- by BN9PR12MB5244.namprd12.prod.outlook.com (2603:10b6:408:101::17)
+ bh=FBl9eVp9CqlNv132+3RRu6+lK304Ve3s5R8TWI6/uBY=;
+ b=ghh10w6x0LHhV/r98Ae/tNwAanieK4hCyuj/pR39tu6Pm/665Yo0gxXQwoSkv4MhPnlfEhdI9Av70K9L/s4gCUYIx3XO/ocEKVOSNTTCPImMJSUL5kzq3O51DD1NgHmha3SGJ8D+65axHNLX0p4zqGnrwRbL6KeZq2y3braWTYg=
+Received: from BN1PR12CA0014.namprd12.prod.outlook.com (2603:10b6:408:e1::19)
+ by BY5PR12MB4289.namprd12.prod.outlook.com (2603:10b6:a03:204::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4308.20; Wed, 7 Jul
- 2021 18:50:53 +0000
-Received: from BN9PR12MB5129.namprd12.prod.outlook.com
- ([fe80::b891:a906:28f0:fdb]) by BN9PR12MB5129.namprd12.prod.outlook.com
- ([fe80::b891:a906:28f0:fdb%3]) with mapi id 15.20.4287.033; Wed, 7 Jul 2021
- 18:50:53 +0000
-Subject: Re: [PATCH] drm/amdkfd: handle fault counters on invalid address
-To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20210707183409.23316-1-Philip.Yang@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-Message-ID: <96eaa05e-984b-9489-7c17-82a754479a7d@amd.com>
-Date: Wed, 7 Jul 2021 14:50:51 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
-In-Reply-To: <20210707183409.23316-1-Philip.Yang@amd.com>
-Content-Language: en-US
-X-ClientProxiedBy: YT1PR01CA0004.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::17)
- To BN9PR12MB5129.namprd12.prod.outlook.com
- (2603:10b6:408:136::12)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4308.21; Thu, 8 Jul
+ 2021 03:28:31 +0000
+Received: from BN8NAM11FT059.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:e1:cafe::85) by BN1PR12CA0014.outlook.office365.com
+ (2603:10b6:408:e1::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4308.21 via Frontend
+ Transport; Thu, 8 Jul 2021 03:28:31 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BN8NAM11FT059.mail.protection.outlook.com (10.13.177.120) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4308.20 via Frontend Transport; Thu, 8 Jul 2021 03:28:30 +0000
+Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Wed, 7 Jul 2021
+ 22:28:30 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB07.amd.com
+ (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Wed, 7 Jul 2021
+ 20:28:30 -0700
+Received: from stanley-test.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2242.4 via Frontend
+ Transport; Wed, 7 Jul 2021 22:28:23 -0500
+From: Stanley.Yang <Stanley.Yang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH Review 1/1] drm/amdgpu: initialize umc ras function
+Date: Thu, 8 Jul 2021 11:28:21 +0800
+Message-ID: <20210708032821.23553-1-Stanley.Yang@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [172.27.226.80] (165.204.55.251) by
- YT1PR01CA0004.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::17) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4308.19 via Frontend Transport; Wed, 7 Jul 2021 18:50:52 +0000
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 5ad957f1-677e-4d7b-ac6e-08d941782579
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5244:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BN9PR12MB52446B8642463545B576A8D0921A9@BN9PR12MB5244.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+X-MS-Office365-Filtering-Correlation-Id: f7629e71-8b46-41e8-0fc0-08d941c07578
+X-MS-TrafficTypeDiagnostic: BY5PR12MB4289:
+X-Microsoft-Antispam-PRVS: <BY5PR12MB42899B650870FB19769AD4E99A199@BY5PR12MB4289.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1332;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: chFWOJe+BlbRyweCI0BqkTD+RwQQp7GqkyaEJQIwTtSibnnRFp+rgznD5MVjj6Jnk7dERaKALIZakEGNhQMn8LDnn4Wa0lRgAOGiOWBv1KJDDnB+d/F+QrElic8+1mFdoDeW//C2U1PXQAuzot+XzfQ1wVhD9eASybH5SXP+YJWBeDp9A4ez9tGJBqLMxLz5LN7FwPzQfsca0rjO7JslqB7WRJgdPmvgjKUquqX8Bvgtb/IoFeiSr/I5pJj+R5PX3mUXd39O2lpizg5zLrXFiMHek4LqAnnWner9LAjgqx7In1XgM1tSAlOSgJ41wxVG6j5APG7bVEKEcMe06sBQyR/aJjwmqBcjYnhR2v95oPh0EwW2p0wsUXHF79FfkcxA8F6cIe8W2XSsr62uzDQQf085uf1svC4pahKKwE5qeQkxeyIPN7yi29eniL846VA1Hwmhfs/QEvmUjMT4yS1wwb3UOQ1sdvlqw/4piyr3h0tuhYG9xyWUleI3chXsO3plFTMATnEGq5UnDo2J5ST/v8uewmbFXh61HsrWfwhmItwc5biPf7bvSLsC7r9rlcwkqIT6RX8Loj6EaDSqHJ/KDO/TF2lw+OKrIHzCgiMt+eKxN/MD0jyNFWT/r9fdnXgd/tfL5bz9l30ewVVeAr9FvFZHVjypXsvitwDDVkrv8ikmTqI/3dDrno2ldrU5CCxrge3SogsFCKiskJW0HSlyPXrt1SgO3nxFqtVGJZ1aLuomJ/P4/s6ID6K28PHYevCt
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5129.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(136003)(346002)(376002)(366004)(39860400002)(316002)(86362001)(83380400001)(44832011)(8676002)(26005)(478600001)(2616005)(31686004)(36756003)(16576012)(2906002)(5660300002)(31696002)(66476007)(6486002)(36916002)(53546011)(66556008)(956004)(8936002)(66946007)(38100700002)(186003)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: gX+suXRVJsT2CwuGssw5YlEg14gpCRIGBV0x5kGDwCS/DshFAIoALVex0227hAKLbv33329c8SiLG3TR0J4Gfim9ktg0KtmYRHAcQ2U4AITqVcp0jk91SFSCuustoLbY4doWavcQ8zHdhLh41YywBIIVUl3Xbtke2VAZjoLEVbszoPhnNKlfoorjdtVZLHZpNP8+ZKbymNyMuYQH6XjOmb6YZJo4k8yXclCHE4TYb0edMiiBPlT4Gy0rBo+M6hki8aiey2jLVAGYJSJbCw6BZEB3lQEYV404KSriZMeyuaaIIqynVvWRVcV7Hf4cl95nsGdzNGsQsrJfsU4YOhp0X0H46mFUFpwDd3yP+W/cZszNRW9CktXDRyRirYmtlDQQq8rX7slP3XR/VdlGYuZErCItGBxfV/D7R8Qhp87JTau/aGc/D4DJinmr8JRRJHyyWOSN6zGkVg+NfxYSymI7Ly9FMPbOo7xeNoHFatMGmJLv1RL+rPk/QD7oroqeeVTSMm9LO5yvp3X4VBVXs0BaD/0DbAtFteJtPYw5f6JmpYKLDucIjuk6e1z8ClcXSDcZh1dJui9x1EhmpdWW8ZwBUsNnGd4aBq7ldb7TN8Me58xVqOjcGyZtaLmTzV1NW8gP1ybcjfGWY+Dt3h2N8fUqKOg7MLHuHOUwNp+BnOcegsUFNu8GS18q8nZVGaMzp2Ghzv5hGCaBBnO+6Cy6miaIsXsqI7e+I27guUU69iw6Vxo=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(376002)(396003)(39860400002)(346002)(136003)(46966006)(36840700001)(4326008)(83380400001)(1076003)(82740400003)(36860700001)(478600001)(26005)(81166007)(356005)(7696005)(36756003)(336012)(2906002)(54906003)(2616005)(5660300002)(186003)(86362001)(316002)(47076005)(6916009)(70206006)(70586007)(8676002)(82310400003)(8936002)(426003)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N1FSZ010MUl6OVl0c0tVZEZtOVpqdHF4MEwxcUxmYjBFTjd3ZXJ0Q25zVG5o?=
- =?utf-8?B?cnI3YnF6UDhBazVGVFFlUTlCWHY4Y1dHVi9tbHRlUEV2ZmVGRUJpL1lBejNO?=
- =?utf-8?B?aWIydFVzR2NENmpkTTgybzgza2MzcVlYMm00TVlkNWxESndXbUx2eTRBTXY2?=
- =?utf-8?B?b2dkZ1grdisydENORk9ZTDY2a2hyZUFzMFBuMzJOK0hleXdHdGN5dDhBMmZj?=
- =?utf-8?B?dHJDTVZreUNJTDMrazBDdk9rd0YzcXRJbmV5ekdWMWVSaiswb1pzWmJSZk02?=
- =?utf-8?B?MENXL0o5Zm5mbHJlQlp6SG5rbDA2cU9QbDFnZkZyWnVJc04zSW5rMlFJcDdI?=
- =?utf-8?B?dDlxOHpXN1Jrb1A1RHJTdlFEcWw3ekdKbVJUOTlyNVdUWjl3d1ZmS2dGbkJ6?=
- =?utf-8?B?Nm00dGJ0YjY4QmJlbEQvK2dSU1JlVGpRTTZmTWVCZGxHMUtsYWNFQjBnMG0y?=
- =?utf-8?B?OHYydnk0d1dqWG1STTRnVmpZRkRaRWoyYS9rVjNpUVRrQUdWYTJWbEQwNGZY?=
- =?utf-8?B?V2JMeFdhMkF1V0FUOGZmaDgrQy9oUE1weGdBT2xBOFpsRHN2NlRjSW1pY3ZC?=
- =?utf-8?B?L283dzZKbnlBcTJ6OUo1bEpUZFNucVJqT2ZQRHZyK3BkakdpQmVTcVQ0SVh1?=
- =?utf-8?B?RVhKRmY4MStKcXgvU2ZGRUhoTHBnUUcvMGRobnZiWEQxd09WdGFGRjNLK2xN?=
- =?utf-8?B?L252bEdBb001T2xGSTFWZHV0R1FxSjV5UWNzeWR3VW0zbEpPZ0JrVDJ1ZWZB?=
- =?utf-8?B?YTRjRWRNclZFbFFQUTFlUEx4ZE40V3FkZkZveElFYURoT1c3S0htV0dLcWc2?=
- =?utf-8?B?MTExQWwrRWJMK1VrbnU4N09YdE5aMDJ2NU9XSWpGMXZsVGNCUzQ5QUw2eUQ2?=
- =?utf-8?B?ank3Zkt5MWllRUVTdkJxd1RQZkVqTERZS3NySDJaVC9Ec3E2bHBrWlVBWjc3?=
- =?utf-8?B?WEVWZStJbUMyQnEybld4MGJLbE5CdXRwczEvVWRNVzMyWUtIdmZsQVd1d2JH?=
- =?utf-8?B?NlYzeHVCQnlEYVVJcU9CNVp0TEdGSG1VQzNrOGp2Y3VMYkxKN1pRME9hcUo4?=
- =?utf-8?B?ZTJhSjFwNkVSTU82UG1ub1lJUWtVQ09obkx6V2V5L05FUy9hdUM3aDhMRWc4?=
- =?utf-8?B?bXNodndUais3emNUM3NKOHdkY3NPN3FwQy9KVHhZbTFKWm9ZY3M3d1dQK3k4?=
- =?utf-8?B?dXVWWGM3Z1hvdytmbHMxL3hSWlhJM0FReDMzTUh1WWxPNW5rQlRPK0hESmVG?=
- =?utf-8?B?VWpOVWFYdUVqWFlKR2NjUWJreHJ6QWZqenBzZHBXK09EeGU1WVZvV05LYk9q?=
- =?utf-8?B?bEJZSnFQOGl5ZE40eTdRT0ZveThQaE1wTzU5ZDBFbUZLRnhxQXJSTFVPemww?=
- =?utf-8?B?WHFVbWdKR1BOTUpCcm1kQ1FpcjdrbDEwaVRKaUo1TTA5R1ZTWkMzWEZUQWhx?=
- =?utf-8?B?WERSTFhqZEpJaEtlQUQ4VzMxSy9RdjRMaW9GUGI2S01WN1hod3llcnNEclow?=
- =?utf-8?B?bktTb0M1ZisvTlgzcGJRODFQa1dUQU9iQzJITERqVVpWcDJ2ejIzVXNjZ1ly?=
- =?utf-8?B?MHZsbldoa3VRamQxL0hPNEJMYmJjOXd6UG5JTXpsZ2xNdE9TQnRNNXZVU0Zp?=
- =?utf-8?B?dmxDekFEUnNlVm1wMUpzV05qTXVFTVJzbUd5SzBucCtvdG5PRWhJdjFjb3VJ?=
- =?utf-8?B?R3BKSklCeEs0SWpPUG5MdnJ5MlI4RXdycUtuY0VDME91NkphbXp6aG1meUFx?=
- =?utf-8?Q?39kkNUg8rdIWO93mj4cXcWBOc/Su/cij/pQLNNc?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5ad957f1-677e-4d7b-ac6e-08d941782579
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5129.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2021 18:50:53.1502 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2021 03:28:30.9435 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f7629e71-8b46-41e8-0fc0-08d941c07578
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: YiYPZAZ38ps2hXQGmaDlkjpVfLMJbOUg3Ut15sjD2q5d4RIBHvWu4lM838vwJZ/I89kSS4Kq8T34tsXd/2G4PA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5244
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT059.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4289
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,77 +112,110 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Alexander.Deucher@amd.com, "Stanley .
+ Yang" <Stanley.Yang@amd.com>, John Clements <john.clements@amd.com>,
+ Hawking.Zhang@amd.com
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2021-07-07 2:34 p.m., Philip Yang wrote:
-> prange is NULL if vm fault retry on invalid address, for this case, can
-> not use prange to get pdd, use adev to get gpuidx and then get pdd
-> instead, then increase pdd vm fault counter.
->
-> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+From: John Clements <john.clements@amd.com>
 
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+support umc ras function initialization for aldebaran
 
+Change-Id: I84155d4d3eaae86a8c1bd2331b1964946c47f6da
+Signed-off-by: John Clements <john.clements@amd.com>
+Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 13 +++++++++++++
+ drivers/gpu/drm/amd/amdgpu/umc_v6_7.c | 15 +++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/umc_v6_7.h | 12 ++++++++++++
+ 3 files changed, 40 insertions(+)
 
-> ---
->   drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 30 +++++++++++++++++-----------
->   1 file changed, 18 insertions(+), 12 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> index 31f3f24cef6a..e7e99c5070b9 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> @@ -2375,21 +2375,27 @@ static bool svm_range_skip_recover(struct svm_range *prange)
->   
->   static void
->   svm_range_count_fault(struct amdgpu_device *adev, struct kfd_process *p,
-> -		      struct svm_range *prange, int32_t gpuidx)
-> +		      int32_t gpuidx)
->   {
->   	struct kfd_process_device *pdd;
->   
-> -	if (gpuidx == MAX_GPU_INSTANCE)
-> -		/* fault is on different page of same range
-> -		 * or fault is skipped to recover later
-> -		 */
-> -		pdd = svm_range_get_pdd_by_adev(prange, adev);
-> -	else
-> -		/* fault recovered
-> -		 * or fault cannot recover because GPU no access on the range
-> -		 */
-> -		pdd = kfd_process_device_from_gpuidx(p, gpuidx);
-> +	/* fault is on different page of same range
-> +	 * or fault is skipped to recover later
-> +	 * or fault is on invalid virtual address
-> +	 */
-> +	if (gpuidx == MAX_GPU_INSTANCE) {
-> +		uint32_t gpuid;
-> +		int r;
->   
-> +		r = kfd_process_gpuid_from_kgd(p, adev, &gpuid, &gpuidx);
-> +		if (r < 0)
-> +			return;
-> +	}
-> +
-> +	/* fault is recovered
-> +	 * or fault cannot recover because GPU no access on the range
-> +	 */
-> +	pdd = kfd_process_device_from_gpuidx(p, gpuidx);
->   	if (pdd)
->   		WRITE_ONCE(pdd->faults, pdd->faults + 1);
->   }
-> @@ -2525,7 +2531,7 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
->   	mutex_unlock(&svms->lock);
->   	mmap_read_unlock(mm);
->   
-> -	svm_range_count_fault(adev, p, prange, gpuidx);
-> +	svm_range_count_fault(adev, p, gpuidx);
->   
->   	mmput(mm);
->   out:
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index 3332c9e0a4e2..42d7244573b5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -53,6 +53,7 @@
+ #include "mmhub_v1_7.h"
+ #include "umc_v6_1.h"
+ #include "umc_v6_0.h"
++#include "umc_v6_7.h"
+ #include "hdp_v4_0.h"
+ 
+ #include "ivsrcid/vmc/irqsrcs_vmc_1_0.h"
+@@ -1163,6 +1164,18 @@ static void gmc_v9_0_set_umc_funcs(struct amdgpu_device *adev)
+ 		adev->umc.channel_idx_tbl = &umc_v6_1_channel_idx_tbl[0][0];
+ 		adev->umc.ras_funcs = &umc_v6_1_ras_funcs;
+ 		break;
++	case CHIP_ALDEBARAN:
++		adev->umc.max_ras_err_cnt_per_query = UMC_V6_7_TOTAL_CHANNEL_NUM;
++		adev->umc.channel_inst_num = UMC_V6_7_CHANNEL_INSTANCE_NUM;
++		adev->umc.umc_inst_num = UMC_V6_7_UMC_INSTANCE_NUM;
++		adev->umc.channel_offs = UMC_V6_7_PER_CHANNEL_OFFSET;
++		if (!adev->gmc.xgmi.connected_to_cpu)
++			adev->umc.ras_funcs = &umc_v6_7_ras_funcs;
++		if (1 & adev->smuio.funcs->get_die_id(adev))
++			adev->umc.channel_idx_tbl = &umc_v6_7_channel_idx_tbl_first[0][0];
++		else
++			adev->umc.channel_idx_tbl = &umc_v6_7_channel_idx_tbl_second[0][0];
++		break;
+ 	default:
+ 		break;
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c b/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c
+index 3a8f787374c0..7da12110425c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c
++++ b/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c
+@@ -28,6 +28,21 @@
+ #include "umc/umc_6_7_0_offset.h"
+ #include "umc/umc_6_7_0_sh_mask.h"
+ 
++const uint32_t
++	umc_v6_7_channel_idx_tbl_second[UMC_V6_7_UMC_INSTANCE_NUM][UMC_V6_7_CHANNEL_INSTANCE_NUM] = {
++		{28, 12, 6, 22},	{19, 3, 9, 25},
++		{20, 4, 30, 14},	{11, 27, 1, 17},
++		{24, 8, 2, 18},		{15, 31, 5, 21},
++		{16, 0, 26, 10},	{7, 23, 29, 13}
++};
++const uint32_t
++	umc_v6_7_channel_idx_tbl_first[UMC_V6_7_UMC_INSTANCE_NUM][UMC_V6_7_CHANNEL_INSTANCE_NUM] = {
++		{19, 3, 9, 25},		{28, 12, 6, 22},
++		{11, 27, 1, 17},	{20, 4, 30, 14},
++		{15, 31, 5, 21},	{24, 8, 2, 18},
++		{7, 23, 29, 13},	{16, 0, 26, 10}
++};
++
+ static inline uint32_t get_umc_v6_7_reg_offset(struct amdgpu_device *adev,
+ 					      uint32_t umc_inst,
+ 					      uint32_t ch_inst)
+diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v6_7.h b/drivers/gpu/drm/amd/amdgpu/umc_v6_7.h
+index 4eb85f247e96..aa282687e0e4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/umc_v6_7.h
++++ b/drivers/gpu/drm/amd/amdgpu/umc_v6_7.h
+@@ -32,6 +32,18 @@
+ 
+ #define UMC_V6_7_INST_DIST	0x40000
+ 
++/* number of umc channel instance with memory map register access */
++#define UMC_V6_7_CHANNEL_INSTANCE_NUM		4
++/* number of umc instance with memory map register access */
++#define UMC_V6_7_UMC_INSTANCE_NUM		8
++/* total channel instances in one umc block */
++#define UMC_V6_7_TOTAL_CHANNEL_NUM	(UMC_V6_7_CHANNEL_INSTANCE_NUM * UMC_V6_7_UMC_INSTANCE_NUM)
++/* UMC regiser per channel offset */
++#define UMC_V6_7_PER_CHANNEL_OFFSET		0x400
+ extern const struct amdgpu_umc_ras_funcs umc_v6_7_ras_funcs;
++extern const uint32_t
++	umc_v6_7_channel_idx_tbl_second[UMC_V6_7_UMC_INSTANCE_NUM][UMC_V6_7_CHANNEL_INSTANCE_NUM];
++extern const uint32_t
++	umc_v6_7_channel_idx_tbl_first[UMC_V6_7_UMC_INSTANCE_NUM][UMC_V6_7_CHANNEL_INSTANCE_NUM];
+ 
+ #endif
+-- 
+2.17.1
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
