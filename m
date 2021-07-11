@@ -8,67 +8,64 @@ X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 017FFC07E9B
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Jul 2021 07:18:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 692B4C07E99
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Jul 2021 07:18:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C31F8613EE
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Jul 2021 07:18:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C31F8613EE
+	by mail.kernel.org (Postfix) with ESMTPS id 16B9E61153
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Jul 2021 07:18:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 16B9E61153
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmx.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 749B289B42;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0C1C89B57;
 	Mon, 12 Jul 2021 07:18:38 +0000 (UTC)
-X-Greylist: delayed 308 seconds by postgrey-1.36 at gabe;
- Sun, 11 Jul 2021 17:30:06 UTC
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45CEE89ACC;
- Sun, 11 Jul 2021 17:30:06 +0000 (UTC)
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F68A6EBA0;
+ Sun, 11 Jul 2021 09:22:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
- s=badeba3b8450; t=1626024603;
- bh=AnCY0pjNVPxfMlK/RMJloKhD8Gf9lUzrKmoISOVbvLE=;
+ s=badeba3b8450; t=1625995333;
+ bh=WENbbXKHypPbtLkNhlny7Y9SGiMZm5hTSJ7Ipm0gl4w=;
  h=X-UI-Sender-Class:From:To:Cc:Subject:Date;
- b=Z2Z+NpPbjrlBjmFDmnz2ulOxTGl6LM0nCUd7j9eAeS2XzY9ob+vG8/AoUbwUjzhaM
- M497caiFpHIz/Rkfnd+7MCiXLgOZIb0ys8hhYO7CODUrJgSKRGhr7UW22xhWNjLR84
- yCQzAcK3AIz/0I8kK32m+BUsLYC5XNOMG/4TxNO4=
+ b=d4hCcG9Sa4pJzCJ2sdiW/9T+2W9joSFboPTlA/S+n9x1esx87qImekD0JOjbOs84B
+ TdUJ9i6iwJvxeEa+J6TbpZUuzG1Bk+ihyzqqxAPYvqfa42iNz7kPxz5BLmguyAh+L2
+ kzVpKYWn7UE4h+ArDWDPn8Xz2BoArUQmyw3Zy+Ak=
 X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
 Received: from localhost.localdomain ([83.52.228.41]) by mail.gmx.net
- (mrgmx005 [212.227.17.184]) with ESMTPSA (Nemesis) id
- 1MUGe1-1lbRWo0pRD-00RIK7; Sun, 11 Jul 2021 19:24:53 +0200
+ (mrgmx105 [212.227.17.174]) with ESMTPSA (Nemesis) id
+ 1MpUYu-1lNcU43ckO-00pss9; Sun, 11 Jul 2021 11:22:13 +0200
 From: Len Baker <len.baker@gmx.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
 Subject: [PATCH] drm/amd/display: Fix identical code for different branches
-Date: Sun, 11 Jul 2021 19:24:33 +0200
-Message-Id: <20210711172433.2777-1-len.baker@gmx.com>
+Date: Sun, 11 Jul 2021 11:21:47 +0200
+Message-Id: <20210711092147.17689-1-len.baker@gmx.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-Provags-ID: V03:K1:Y3gzwZrH3SZG80PK9ruDRlopijLNaqyUfz3yCTcTZ7jUMp6kn+f
- Tx5otUZe2s3OfMm9+BPkH8unLbEPc1a0/kZhoUaW1YOK9gmNKBKJCwvmzXP6leaVdpatS8U
- B1iXIqAzC8kSVw2eSqWvCGxztVaLL3RG3KB72Mt1bGw91fWJsF7kByjyIwuIHITd1MHps79
- uD4CRPByosFd4JbGAY7nA==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:UCiGv2++TLQ=:sfXYGqrdwxlyUhO4/d9c5Y
- cCZgcBOy3GiNTq4tAmXEwpIQMJkc1Sru4NOG4GUk3D4/9s73dX8dlTJCtPrs06A0Hgm4hrUfi
- axIkuz0aUXYkzVR9vl3b/NlspFd6bx6BUApijS+QgESN580XQ2s0L3CWKtdVDe1zUXT4wUtpk
- KBzRBlQWqRGy36kM53dtAN13mMP+jt/dJjERGlUV2+4R+0latYylDOvFqU3dwy5SQRZe1zy/0
- 1Slp4AghHV4PuUyrqdLkYAfj2q91zZYkUNETw5V0kJCd9K7QSMSa4THpCmBNDHQxopkxhQRjw
- +qZunvntkawIh+vdq75Id6SUsweyxADJfOioAdE9T+oNQht0j+wG5fYZV4we4Sy9FOYS/Lu18
- QJXvp4ugZ28RPBLSXRVEKqqOuN7ciwVxmji+S1TT3aZM6uQQ6w4Qv3OPBT/jaASsgwwwrRGxl
- hA0izeGycX+WtM+rMHgyNpXk7JFu0Bx88rPhaBDZODKij68qEKlfwy4LsXt4r3c4324jcW4Jt
- b6X9gPp64ZahgkBDzEz87y93baYE0E5GyG98Gq0QA4H2hFnuo8ugCmNQlsOB1K3/1bwBerEnp
- iX7ooqIR5e1lAO8SpheKreAgYIECy5h9xcJvH7oWoPPJKzh49wzhp74oeke4e85gYyYtuwHY7
- EFu+oXf848yQZbkyvpUprxSEXsM0m9UEk8LhqPgJYUEVQZJYO6zQ2qEruPzgdU5OaNzO6TTo0
- JrNbBQjNEsvWX7x4NGnRmQt2Qk1RWld6SycjJfgEBvn0TTQS1tESTx9UPO0ZGDJXF87BIcQXD
- m1mLMEcXT/B95/+unXVJB2cL9PtPz5GGewGewUx8JXQj8+d8BOQK4KupGP4XJ50aXAmc5NA2/
- bk0dZPfO+aokc/m7YR/OjB63AZnTSa/O4NhclJFU6r/HzP8bPa0nmj/hqoNSCHhTzWTP1+nvd
- +0itQfuZSBSqcIcOGEQB0HSoSQNl3XVe5rZ1QS4FbdHXdOiOoO2XSvog/9EhFv3VwdgGb9e4q
- JSsM3lv15qlz9fgqB3ZQJpFoDOBPPvTR6ebh5pW6klmV6J770WVtVfqDXfBV2I4DD7FqptpUG
- jelt/88eDZnAfJEbyum7i3rRJ1YUHrO6rSn
+X-Provags-ID: V03:K1:/IuBeSovGxms/bS/ManJQVFm2qckWcH9aApxRuNJWFP4LR8z71f
+ WqdnptBTNgqgIQLGkKmxGqt4Rs/4rfpdbw4L96o5BE7cYpEi+Arrkw/q7+AGj0QuTyfkoIu
+ vuLo9NM6DrL36g8Mj0RVcrdjJj5JgBRpafLqxaDZVrXHx+8+77dBdZbNB5Te7EqbKvKaKuj
+ XQ3uwQefHQ8U+xPBXZxDg==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:27N+sIFYS10=:04DDPkQ0NmrLbqTyHnHIuL
+ 2IJld4kYpTpObc1hu40Qh4OZYwQ+dQh+M2rRzhB3v4JMktlw+VVDsYuGMaUKuudPshC1u/kWn
+ jwdPrN1SxFnVGik3FOWY4wWfuJE1hs5ZUWYc+Uw6tGTXYlsxR6BuAKi+LL04w7VmOWZlRvIyN
+ NMI8N6CFi7jpa+o2KsonCdEcWiuD6mmvL6nb074OYofjrGaYbmwJx8o3CScjwDIyKX+jn97A7
+ /ltW/xLRiiwFdtnCgnXdEGvrKsIJ372HdPHvQeq6tK7rf0MDmB6HMHk+mk0CpigsiOqCZo7qm
+ LnULHVGlxeWpBihAa81FgFfpY7UkrdQWnTOux2Yd0fTsXNk6pj4mN4eBNE0Cs2pcvtaUPs1xa
+ rBIt1LK2puPVIoFq+tqg5uMJFmuQ5H2cmt+gQ7gZAkFtDYJQgM1njBwWf9q4wwJgPHbsGFBbw
+ PfoVpXl6XBMEiA6oqJL3QqECkDF4xs074lC1y8ZZuuwya8srJYARjB8o4rn1eR8Div0jP2QgT
+ 00SbLuY0Y6RwrH39tRNj3QUS25WxIP+0Rt6mMMHD2xU77qBMGY69bbe5vQfvffl3092Lmu+5T
+ cYpgtXIbrKLOldu0ZBZi/MWKotamRSRlKRyLDH05V9n5knbaFBs7TvZ1UC8vYn4o1DG8F8tro
+ DW3huPoT0KhubTa1QzjC/g3xAUQICKh2rxTJrkShsauyPawB5ZYrg/eCndLhr0tKHyDttbzMe
+ 9eY+Ma07vvfKUWD/DBiQTNtCipxPcofVQ135/pniEleK5AqWFoDy+2DLiVg+2NiMvcfo7cd4k
+ i3f6DdFgsR+nV8EecJt7Tx9hSGB3IAzjIlxDyiJ3EYfFY1XuAwByPeX48P6zb0gP8tbQ2+BUs
+ qEw70MZyG64ITev4owMwmcW0QQYPLFkwhVbwORQ73DwBk/q1NfMeB+l8eE0NeP6GaiH524yRT
+ tCJK+rEvE3GEdQ4//SOcBYGidKfcmAuhQSNzny0TF15Nzzj0pElcMnUSpuZje3Pby06bH25DZ
+ LwYbKJ1lMlhaPbJkbquwKANtQDPCEAHzhU9tVqUMEcUjA0jI+UwcOz4Yg+PYP/XuR1B13YC1G
+ kWv6iVId9HSHxXA2bN26UtRLhZMCYJqJAvl
 X-Mailman-Approved-At: Mon, 12 Jul 2021 07:18:38 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -81,45 +78,46 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Martin Tsai <martin.tsai@amd.com>, Kees Cook <keescook@chromium.org>,
- Wenjing Liu <wenjing.liu@amd.com>, Yu-ting Shen <Yu-ting.Shen@amd.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Len Baker <len.baker@gmx.com>, dri-devel@lists.freedesktop.org,
- George Shen <George.Shen@amd.com>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Cc: Felipe <Felipe.Clark@amd.com>, Aric Cyr <aric.cyr@amd.com>,
+ dri-devel@lists.freedesktop.org, Eryk Brol <eryk.brol@amd.com>,
+ Qingqing Zhuo <qingqing.zhuo@amd.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, "Max.Tseng" <Max.Tseng@amd.com>,
+ AMDramini <Reza.Amini@amd.com>, Len Baker <len.baker@gmx.com>,
+ Alvin Lee <alvin.lee2@amd.com>, Anthony Koo <Anthony.Koo@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The branches of the "if" statement are the same. So remove the
-unnecessary if and goto statements.
+The ternary expression:
 
-Addresses-Coverity-ID: 1456916 ("Identical code for different branches")
-Fixes: 4c283fdac08ab ("drm/amd/display: Add HDCP module")
+vrr->state == VRR_STATE_ACTIVE_VARIABLE ? max_refresh :	max_refresh;
+
+has identical then and else expressions. So, simplify the code.
+
+Addresses-Coverity-ID: 1471122 ("Identical code for different branches")
+Fixes: 9bc4162665827 ("drm/amd/display: Implement VSIF V3 extended refresh rate feature")
 Signed-off-by: Len Baker <len.baker@gmx.com>
 ---
- drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/display/modules/freesync/freesync.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c
-index de872e7958b0..d0c565567102 100644
---- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c
-+++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c
-@@ -305,10 +305,8 @@ static enum mod_hdcp_status wait_for_ready(struct mod_hdcp *hdcp,
- 				hdcp, "bcaps_read"))
- 			goto out;
- 	}
--	if (!mod_hdcp_execute_and_set(check_ksv_ready,
--			&input->ready_check, &status,
--			hdcp, "ready_check"))
--		goto out;
-+	mod_hdcp_execute_and_set(check_ksv_ready, &input->ready_check, &status,
-+				 hdcp, "ready_check");
- out:
- 	return status;
- }
+diff --git a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
+index 3f4f44b44e6a..54374c7d309b 100644
+--- a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
++++ b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
+@@ -613,9 +613,8 @@ static void build_vrr_infopacket_data_v3(const struct mod_vrr_params *vrr,
+ 			(vrr->state == VRR_STATE_INACTIVE) ? min_refresh :
+ 			max_refresh; // Non-fs case, program nominal range
+
+-	max_programmed = (vrr->state == VRR_STATE_ACTIVE_FIXED) ? fixed_refresh :
+-			(vrr->state == VRR_STATE_ACTIVE_VARIABLE) ? max_refresh :
+-			max_refresh;// Non-fs case, program nominal range
++	max_programmed = (vrr->state == VRR_STATE_ACTIVE_FIXED) ?
++		fixed_refresh : max_refresh;
+
+ 	/* PB7 = FreeSync Minimum refresh rate (Hz) */
+ 	infopacket->sb[7] = min_programmed & 0xFF;
 --
 2.25.1
 
