@@ -2,70 +2,53 @@ Return-Path: <SRS0=L2kD=ME=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 692B4C07E99
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Jul 2021 07:18:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E3C0EC07E9B
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Jul 2021 07:18:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 16B9E61153
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Jul 2021 07:18:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 16B9E61153
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmx.com
+	by mail.kernel.org (Postfix) with ESMTPS id 7214661153
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Jul 2021 07:18:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7214661153
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0C1C89B57;
-	Mon, 12 Jul 2021 07:18:38 +0000 (UTC)
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F68A6EBA0;
- Sun, 11 Jul 2021 09:22:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
- s=badeba3b8450; t=1625995333;
- bh=WENbbXKHypPbtLkNhlny7Y9SGiMZm5hTSJ7Ipm0gl4w=;
- h=X-UI-Sender-Class:From:To:Cc:Subject:Date;
- b=d4hCcG9Sa4pJzCJ2sdiW/9T+2W9joSFboPTlA/S+n9x1esx87qImekD0JOjbOs84B
- TdUJ9i6iwJvxeEa+J6TbpZUuzG1Bk+ihyzqqxAPYvqfa42iNz7kPxz5BLmguyAh+L2
- kzVpKYWn7UE4h+ArDWDPn8Xz2BoArUQmyw3Zy+Ak=
-X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
-Received: from localhost.localdomain ([83.52.228.41]) by mail.gmx.net
- (mrgmx105 [212.227.17.174]) with ESMTPSA (Nemesis) id
- 1MpUYu-1lNcU43ckO-00pss9; Sun, 11 Jul 2021 11:22:13 +0200
-From: Len Baker <len.baker@gmx.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Subject: [PATCH] drm/amd/display: Fix identical code for different branches
-Date: Sun, 11 Jul 2021 11:21:47 +0200
-Message-Id: <20210711092147.17689-1-len.baker@gmx.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4AFD789B66;
+	Mon, 12 Jul 2021 07:18:39 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0060.hostedemail.com
+ [216.40.44.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45EB889A5E;
+ Sun, 11 Jul 2021 17:45:55 +0000 (UTC)
+Received: from omf09.hostedemail.com (clb03-v110.bra.tucows.net [216.40.38.60])
+ by smtprelay08.hostedemail.com (Postfix) with ESMTP id 37FAE182CF66A;
+ Sun, 11 Jul 2021 17:45:54 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by
+ omf09.hostedemail.com (Postfix) with ESMTPA id 7BF461E04D4; 
+ Sun, 11 Jul 2021 17:45:50 +0000 (UTC)
+Message-ID: <a8f75357ab3bd3b37269e51a38aafa997307570f.camel@perches.com>
+Subject: Re: [PATCH] drm/amd/display: Fix identical code for different branches
+From: Joe Perches <joe@perches.com>
+To: Len Baker <len.baker@gmx.com>, Harry Wentland <harry.wentland@amd.com>, 
+ Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>, Daniel
+ Vetter <daniel@ffwll.ch>
+Date: Sun, 11 Jul 2021 10:45:48 -0700
+In-Reply-To: <20210711172433.2777-1-len.baker@gmx.com>
+References: <20210711172433.2777-1-len.baker@gmx.com>
+User-Agent: Evolution 3.40.0-1 
 MIME-Version: 1.0
-X-Provags-ID: V03:K1:/IuBeSovGxms/bS/ManJQVFm2qckWcH9aApxRuNJWFP4LR8z71f
- WqdnptBTNgqgIQLGkKmxGqt4Rs/4rfpdbw4L96o5BE7cYpEi+Arrkw/q7+AGj0QuTyfkoIu
- vuLo9NM6DrL36g8Mj0RVcrdjJj5JgBRpafLqxaDZVrXHx+8+77dBdZbNB5Te7EqbKvKaKuj
- XQ3uwQefHQ8U+xPBXZxDg==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:27N+sIFYS10=:04DDPkQ0NmrLbqTyHnHIuL
- 2IJld4kYpTpObc1hu40Qh4OZYwQ+dQh+M2rRzhB3v4JMktlw+VVDsYuGMaUKuudPshC1u/kWn
- jwdPrN1SxFnVGik3FOWY4wWfuJE1hs5ZUWYc+Uw6tGTXYlsxR6BuAKi+LL04w7VmOWZlRvIyN
- NMI8N6CFi7jpa+o2KsonCdEcWiuD6mmvL6nb074OYofjrGaYbmwJx8o3CScjwDIyKX+jn97A7
- /ltW/xLRiiwFdtnCgnXdEGvrKsIJ372HdPHvQeq6tK7rf0MDmB6HMHk+mk0CpigsiOqCZo7qm
- LnULHVGlxeWpBihAa81FgFfpY7UkrdQWnTOux2Yd0fTsXNk6pj4mN4eBNE0Cs2pcvtaUPs1xa
- rBIt1LK2puPVIoFq+tqg5uMJFmuQ5H2cmt+gQ7gZAkFtDYJQgM1njBwWf9q4wwJgPHbsGFBbw
- PfoVpXl6XBMEiA6oqJL3QqECkDF4xs074lC1y8ZZuuwya8srJYARjB8o4rn1eR8Div0jP2QgT
- 00SbLuY0Y6RwrH39tRNj3QUS25WxIP+0Rt6mMMHD2xU77qBMGY69bbe5vQfvffl3092Lmu+5T
- cYpgtXIbrKLOldu0ZBZi/MWKotamRSRlKRyLDH05V9n5knbaFBs7TvZ1UC8vYn4o1DG8F8tro
- DW3huPoT0KhubTa1QzjC/g3xAUQICKh2rxTJrkShsauyPawB5ZYrg/eCndLhr0tKHyDttbzMe
- 9eY+Ma07vvfKUWD/DBiQTNtCipxPcofVQ135/pniEleK5AqWFoDy+2DLiVg+2NiMvcfo7cd4k
- i3f6DdFgsR+nV8EecJt7Tx9hSGB3IAzjIlxDyiJ3EYfFY1XuAwByPeX48P6zb0gP8tbQ2+BUs
- qEw70MZyG64ITev4owMwmcW0QQYPLFkwhVbwORQ73DwBk/q1NfMeB+l8eE0NeP6GaiH524yRT
- tCJK+rEvE3GEdQ4//SOcBYGidKfcmAuhQSNzny0TF15Nzzj0pElcMnUSpuZje3Pby06bH25DZ
- LwYbKJ1lMlhaPbJkbquwKANtQDPCEAHzhU9tVqUMEcUjA0jI+UwcOz4Yg+PYP/XuR1B13YC1G
- kWv6iVId9HSHxXA2bN26UtRLhZMCYJqJAvl
+X-Rspamd-Server: rspamout05
+X-Rspamd-Queue-Id: 7BF461E04D4
+X-Stat-Signature: 7ma6bo74edffc1o15s1gyp3aqp9y57xd
+X-Session-Marker: 6A6F6540706572636865732E636F6D
+X-Session-ID: U2FsdGVkX1/HO52DK1P6z6FVcGIy7yHO2Mioju5SxhI=
+X-HE-Tag: 1626025550-417702
 X-Mailman-Approved-At: Mon, 12 Jul 2021 07:18:38 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,48 +61,56 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Felipe <Felipe.Clark@amd.com>, Aric Cyr <aric.cyr@amd.com>,
- dri-devel@lists.freedesktop.org, Eryk Brol <eryk.brol@amd.com>,
- Qingqing Zhuo <qingqing.zhuo@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, "Max.Tseng" <Max.Tseng@amd.com>,
- AMDramini <Reza.Amini@amd.com>, Len Baker <len.baker@gmx.com>,
- Alvin Lee <alvin.lee2@amd.com>, Anthony Koo <Anthony.Koo@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Martin Tsai <martin.tsai@amd.com>, Kees Cook <keescook@chromium.org>,
+ Wenjing Liu <wenjing.liu@amd.com>, Yu-ting Shen <Yu-ting.Shen@amd.com>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, George Shen <George.Shen@amd.com>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The ternary expression:
+On Sun, 2021-07-11 at 19:24 +0200, Len Baker wrote:
+> The branches of the "if" statement are the same. So remove the
+> unnecessary if and goto statements.
+> =
 
-vrr->state == VRR_STATE_ACTIVE_VARIABLE ? max_refresh :	max_refresh;
+> Addresses-Coverity-ID: 1456916 ("Identical code for different branches")
+> Fixes: 4c283fdac08ab ("drm/amd/display: Add HDCP module")
+> Signed-off-by: Len Baker <len.baker@gmx.com>
 
-has identical then and else expressions. So, simplify the code.
+I'm not a big fan of this type of change.
 
-Addresses-Coverity-ID: 1471122 ("Identical code for different branches")
-Fixes: 9bc4162665827 ("drm/amd/display: Implement VSIF V3 extended refresh rate feature")
-Signed-off-by: Len Baker <len.baker@gmx.com>
----
- drivers/gpu/drm/amd/display/modules/freesync/freesync.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+It's currently the same style used for six tests in this function
+and changing this last one would just make it harder to see the
+code blocks as consistent.
 
-diff --git a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-index 3f4f44b44e6a..54374c7d309b 100644
---- a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-+++ b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-@@ -613,9 +613,8 @@ static void build_vrr_infopacket_data_v3(const struct mod_vrr_params *vrr,
- 			(vrr->state == VRR_STATE_INACTIVE) ? min_refresh :
- 			max_refresh; // Non-fs case, program nominal range
+I doubt any reasonable compiler would produce different objects.
 
--	max_programmed = (vrr->state == VRR_STATE_ACTIVE_FIXED) ? fixed_refresh :
--			(vrr->state == VRR_STATE_ACTIVE_VARIABLE) ? max_refresh :
--			max_refresh;// Non-fs case, program nominal range
-+	max_programmed = (vrr->state == VRR_STATE_ACTIVE_FIXED) ?
-+		fixed_refresh : max_refresh;
+> diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c b=
+/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c
+[]
+> @@ -305,10 +305,8 @@ static enum mod_hdcp_status wait_for_ready(struct mo=
+d_hdcp *hdcp,
+> =A0				hdcp, "bcaps_read"))
+> =A0			goto out;
+> =A0	}
+> -	if (!mod_hdcp_execute_and_set(check_ksv_ready,
+> -			&input->ready_check, &status,
+> -			hdcp, "ready_check"))
+> -		goto out;
+> +	mod_hdcp_execute_and_set(check_ksv_ready, &input->ready_check, &status,
+> +				 hdcp, "ready_check");
+> =A0out:
+> =A0	return status;
+> =A0}
+> --
+> 2.25.1
+> =
 
- 	/* PB7 = FreeSync Minimum refresh rate (Hz) */
- 	infopacket->sb[7] = min_programmed & 0xFF;
---
-2.25.1
+
 
 _______________________________________________
 amd-gfx mailing list
