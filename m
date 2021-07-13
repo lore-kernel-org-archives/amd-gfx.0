@@ -2,78 +2,122 @@ Return-Path: <SRS0=Y2YZ=MF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MIME_HTML_MOSTLY,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D5009C07E95
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Jul 2021 09:06:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3E705C07E95
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Jul 2021 09:36:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9D17D61375
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Jul 2021 09:06:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9D17D61375
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 05A2561158
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Jul 2021 09:36:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 05A2561158
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65CD06E063;
-	Tue, 13 Jul 2021 09:06:58 +0000 (UTC)
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [IPv6:2a00:1450:4864:20::32d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1F086E060
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Jul 2021 09:06:56 +0000 (UTC)
-Received: by mail-wm1-x32d.google.com with SMTP id
- a5-20020a7bc1c50000b02901e3bbe0939bso1834084wmj.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Jul 2021 02:06:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language;
- bh=lch75avGerQ3fui/8NiI1IOlRO9vqgC0WZlUMg+WvhM=;
- b=ltM8t+nXXBypaS+qx4WXpEeUjfPmd2ZvckaXK95YuZJ+p4u5YTQTmbZCaCPw17qxvK
- W3phqdITu07Vq4Z7uOGO3TxUQ2S5xEvgp4IK+HfwGqBE/4gJ0GzN683y+pEU2Z1riXk2
- GYcB1/gQCQhV9jlntZfFubsnEj/U9lJOTC5lH6/cPgR0ybZux2luJx0IrSv43SCpoALc
- LkfONz4PIvzpuuLIEHYRHQTuvU0stbXdRueAfp/bSSmK/rJU/l3cr1+5qBGyZykhquD+
- Duq/tr6j15mfG4r1vCR73liDxS4/9vuI1yzo0LDTLvJrTbxbms9WxEBlsGrrZtbhhkQ7
- pYAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language;
- bh=lch75avGerQ3fui/8NiI1IOlRO9vqgC0WZlUMg+WvhM=;
- b=BWYWKHeIfkdlUnfoZbsV8jHbgdKUtQGI9WczXD9FVgdiCKZqBRB6wv+dg7dfbzDSxJ
- 06M1NtlKSrvssIYJVKq+TthIRflx9F34s0YkEhQBsOmy5nWPveeIzqWHsS1iCMeYzq9w
- W6oth+D3ssFxwqxRTgiyqIEgip7+h44qDy1acj+/7UwLch4jY+G6F8WkVatCunv37RbS
- MMjhHqidNYEw1LdtdDA/7US9FQjWdH9vxVTk4+Lvp9RuMvQ17M8GD6HlqNijOxYyMRMk
- QoC2mBqPUOQBBq6ZKAuhE0BTTpZBjXqcIk6dPw0uXF3UnWOxRtzXCzz91WlDw1Zy2AHe
- TFWg==
-X-Gm-Message-State: AOAM530/31agfXkcA1ba5++ljQpJwqF9nTlRQXFwg89bqP1rhsyzk0TW
- GDNJL1SNrYiOrf54YTc8Gs3DLgsQLro=
-X-Google-Smtp-Source: ABdhPJx3iRETTXp8xU6PLw+vdxCXEsrEHy2PqYDUlBibmWuSGJwizDAXFwSK9WlrMMc5H2efMrDfQQ==
-X-Received: by 2002:a1c:f203:: with SMTP id s3mr18946124wmc.138.1626167215310; 
- Tue, 13 Jul 2021 02:06:55 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:7f5a:cff:4644:b698?
- ([2a02:908:1252:fb60:7f5a:cff:4644:b698])
- by smtp.gmail.com with ESMTPSA id f5sm18594389wrg.67.2021.07.13.02.06.54
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 13 Jul 2021 02:06:54 -0700 (PDT)
-Subject: Re: [RFC PATCH v2] drm/amdgpu/ttm: optimize vram access in
- amdgpu_ttm_access_memory()
-To: "Wang, Kevin(Yang)" <Kevin1.Wang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20210713032329.7393-1-kevin1.wang@amd.com>
- <8536eff2-c869-9b06-2586-0f3cef928a96@gmail.com>
- <CO6PR12MB54734AF103090E1C567E4EF7A2149@CO6PR12MB5473.namprd12.prod.outlook.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <0bb6a0e8-5366-3625-9357-ca2335890abb@gmail.com>
-Date: Tue, 13 Jul 2021 11:06:53 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
-MIME-Version: 1.0
-In-Reply-To: <CO6PR12MB54734AF103090E1C567E4EF7A2149@CO6PR12MB5473.namprd12.prod.outlook.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B64FB89E3B;
+	Tue, 13 Jul 2021 09:36:38 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2076.outbound.protection.outlook.com [40.107.92.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE2DF89E3B
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Jul 2021 09:36:37 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VfUJq86kwQkPCD0OB/C7Od0cnSuFOPaO4Fzt5dw+xM6hoMoCcgOBdOORqnv/C72frOmfN9mlgwJoZ7d/oAsOu/5GHDIxWyLDgaKDHOPyYt6QIq6kK8NVO/SXUia87j9vsxxsU+jiQwbh/z0UyLLfAQzYqTFHUo5pu0/sulIEIHtBbQV+UKxlG7r2yZXB5BAVYHYcH3LPIzltDhf5f7B7ZJs47oVWePsWBMAImxwFbSS9Dw8Nq0oPwHiq5wZa6vpa1JAbQyBKJSFDzp/d9ZUCUykfWzSJzEBfWbxtXWm8zwDTwrSIWTMyThoLH+OaB8x+UEUY4Rbw0Vlq4q39GYKPWw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SvHdu28sDGpNXOm8HyANFcs/d8lmVspeMKoMaZB8VYs=;
+ b=Xq9kAYOBp5cI3WNYq2IIMZ7okj2+dyMbD4YLDfUgqQRCT7jW77AY+e6Jx5+aReaGUHy/imMc0i8/Tbj56usnlWF8I0QMxqPluLezLY/K1/aRO1oN0vGMfRQmEixelMXE5Bt2h5seJMc0QPP5Z9khdDEg20RwtVwSDre5nol55L8o8pllVPt94HQxQJrQHJSh2e6gXNzGsk8/oS8QGUshFegi+O9LO/a6fYvfDf/Nho8gblds/OsSPibQIUPgeDizDPQbXar2DBUbSg9Upc5x7vPMPfpJcYGQqT9QPR8asu6t8yjPbT/nCkG716L1yNP24vBBkqV0WS+6q9kGOI2rHQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SvHdu28sDGpNXOm8HyANFcs/d8lmVspeMKoMaZB8VYs=;
+ b=Cck9h6FMs9TrvUIiDr/ce4UzUWu9+tpJJIODUNnxp7evesAsagWmoy26tDGiF5teOwe0gHjVIMLZTy/kLja59RVw09uMkOFxKJkgdqY81aq3gRLZqM48+fF8EfAnfkPgZwoVuUE7r/mPFUbaxJFHY90bKul11JjMM0jyF0kiPI4=
+Received: from BN9PR12MB5226.namprd12.prod.outlook.com (2603:10b6:408:11f::11)
+ by BN9PR12MB5193.namprd12.prod.outlook.com (2603:10b6:408:11a::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4308.20; Tue, 13 Jul
+ 2021 09:36:36 +0000
+Received: from BN9PR12MB5226.namprd12.prod.outlook.com
+ ([fe80::d863:def1:2b7e:fc89]) by BN9PR12MB5226.namprd12.prod.outlook.com
+ ([fe80::d863:def1:2b7e:fc89%9]) with mapi id 15.20.4308.027; Tue, 13 Jul 2021
+ 09:36:36 +0000
+From: "Clements, John" <John.Clements@amd.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: Resolve bug in UMC 6.7 UMC error offset
+Thread-Topic: [PATCH] drm/amdgpu: Resolve bug in UMC 6.7 UMC error offset
+Thread-Index: Add3ynqQDrdXffQvTkm667otpc5Z8w==
+Date: Tue, 13 Jul 2021 09:36:36 +0000
+Message-ID: <BN9PR12MB5226592BA32F2E749A39B9D5FB149@BN9PR12MB5226.namprd12.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-07-13T09:36:33Z; 
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
+ Only-AIP 2.0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=08f4fded-8b17-460a-abfd-361a8dc47a38;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
+authentication-results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 7a335f87-b1be-477b-c201-08d945e1b55a
+x-ms-traffictypediagnostic: BN9PR12MB5193:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <BN9PR12MB5193FC3A0502518BABE1E998FB149@BN9PR12MB5193.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:6108;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: Bg3Gnzj+J5cqcUoRtOuZUncKFCLFXlKEjnKA18M6LOtLAULe59jhNzfRJj71U6sJzHSpe/OZnys3J7cPiT5L/RDaNBCzsX7tZZWm+/mQIYXnw22AXtnaj4Df+Xtzo/UeDGIpbaPK69a6nHGKW2NDGT1SYQAKjrLmvcvtu1xnCCwyxMoqpybQIZiCrn44KJYEnY5N/Ty+EwPfO1xbNDSv23FQjP05tDplgZTqV5wDC/36f54gbmyh+7Z+kyXc7adadPr/EfXY/zoWLnabypTM4pPh/bNKaTBLrFSWKTpUsO1Yl5j8vkoZXinupTGKv7R6S2mawXv5TfOryg+oAQ58BVEYZx+5m14HyeRe4DDf7YR7Yj30oRh0yg/gJLnXsr7I6cwiR8ebcaWtsWXqZjStVhvsMgg8Hus1Bif+7JwU0a4q8T5CfP+rNpXHNJNwo1rbJqyFWPjxfjvSTQhA0+Uv/NhllkxWQepRuzzWZ5QV0n/+zpVA0Wf2lBBlKVx9hvAjvkOYN9XOFHm8iB0qD5kgWoghPLAcq8zhP6erS87CGGEYPjLKWzLXicM7o5NPXZvc4JAkiGRc8403pjI6G4CfE8v2zq+oWCtNl+WjN/uyjEy5gHAMAbjAVdFvVCl/7kM4aGEwS+HUQdKBaqY5T7rzlQ==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5226.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(346002)(39860400002)(136003)(366004)(376002)(99936003)(38100700002)(86362001)(558084003)(316002)(7696005)(55016002)(122000001)(9686003)(4326008)(26005)(6506007)(478600001)(186003)(33656002)(6916009)(52536014)(71200400001)(5660300002)(2906002)(8676002)(8936002)(66446008)(76116006)(64756008)(66476007)(66556008)(66946007)(66616009);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?LonlVOSwlYffqq2jqZLeiA1/oJPYxIYeKtyqJZRf/UFFW7aya9ww1xyNVu+v?=
+ =?us-ascii?Q?0ThJG+0PJ5PGNXL2iNEQJpo7s/85wGBZbGD/YlOy8mZ0qfhu+YUuywWeE0p/?=
+ =?us-ascii?Q?2GxxkMw8loDkZeDF6eSQj3or6c6SgooFHENFQ/BjxjUgcVlSqel5vzVEwJZ1?=
+ =?us-ascii?Q?bKpELapOGtqhLPsGmoeT6wkJEg4Wr3HPG1OUn7ZXjgzz0O/y6J4Xk3AaNNNp?=
+ =?us-ascii?Q?Exlp6Pi7k62o0dEGBMVF/T8C5tlnQ5KFFfaRM/YBWLiESZsmbcFtszVFU4Jb?=
+ =?us-ascii?Q?4TF8SiHvmjfehc9qUYOGvcEQGnXWSkr/z7CqNQlc4q7GpnahTGwFf0D9uVMc?=
+ =?us-ascii?Q?3+htpQNH+hPGAThNaAohv8qBA6mnlgvLC7sHmskaqD9da9wOlLDe2B7U3GD7?=
+ =?us-ascii?Q?cdLL1n+8o2Ex7g8Pi6vsTXrup+vUzhqz1W7UOHSmwfo0EYgs+bCzeEfS38vx?=
+ =?us-ascii?Q?/y6eGiRWxkZ9M7DfS54I7uQiHcYjwJqgmy6h2bHTX8bvpFpGAjBlescwccgU?=
+ =?us-ascii?Q?Z4eS8Kd6jA2SoxSYkEP8dxrtkKndNih7Wznw7WT7FY7tW3na7h+Qq/lCBu8W?=
+ =?us-ascii?Q?H/P1NZq3cG/DJ+y6EysjKYTDVWU/UbqMnWdqy7xaLYlRthCmIRmmkoicSOJW?=
+ =?us-ascii?Q?u0eO3KNex64BE0bqgdj0FueT6PcmSASSeT6R039eh9R7zqm43POqnAgLV8ao?=
+ =?us-ascii?Q?Q1452/fj4GAi/n/Hpjmv50Bygagdp++nuYiY43B5BLTYD6HiQP83JPUxj0pH?=
+ =?us-ascii?Q?cy9veKim15vsVuKeS0bknZ5DGHSWQdBpZpwoEbfcNou3aBQX1ooHEYSgiMDi?=
+ =?us-ascii?Q?dI1yslMFEhbuB4Ffg1a9/arFTtbgWbcm2UCxLV9yRsA8x/bw151Szqq0I8Ih?=
+ =?us-ascii?Q?oqBnHM+RE4C2aH8geyQHpQolo8ubyrcxqUUk7JVOf73O7Lcf4hCRBec7c/yd?=
+ =?us-ascii?Q?tZit47ci5CBwEXjWOuHdmQlTr7C4RzMFWYhCn9+2UVFKqOflHK5R/wGKo2Mf?=
+ =?us-ascii?Q?SeKlnjqaprVAQzImJIobwnVBRCNSZCDPmQdnM7PfH26Gap3d5yUgmmLUmx+r?=
+ =?us-ascii?Q?Swa4yO9Yz600BbGUnrK1zHAd0nuyFvRFy5is6SX5cZnypnSQE7yf3wX5C+Wf?=
+ =?us-ascii?Q?mOdjSb8HCfEKcHBM5pyyzi7UjMKor8X4h0IVeJIRjj5Iou4EUodVwT89NspG?=
+ =?us-ascii?Q?3HzSoAm59fla3azmAlmmfTIWZJaVCkxAPmDfpmR50bpywYK/uzpSxB3c8RjX?=
+ =?us-ascii?Q?/OzKWUmIQk0QSp5QiAce6t3wfkWkJnyJti+j6e1SHRZNqnnkuPvTKho0wygu?=
+ =?us-ascii?Q?nT+t4vWArhDGkRI589ILNU59?=
+Content-Type: multipart/mixed;
+ boundary="_004_BN9PR12MB5226592BA32F2E749A39B9D5FB149BN9PR12MB5226namp_"
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5226.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7a335f87-b1be-477b-c201-08d945e1b55a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Jul 2021 09:36:36.0853 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: /wPXX3wxwFwLSj92UOnoflQdKtkfbgzQRjkrRMka3ZJXjnL9jFSIvvGbBfjBJVnqEPvTjAmmmF6xwXe4PX+cWQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5193
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,663 +129,127 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Lazar,
- Lijo" <Lijo.Lazar@amd.com>, "Min, Frank" <Frank.Min@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>, "Zhang,
- Hawking" <Hawking.Zhang@amd.com>
-Content-Type: multipart/mixed; boundary="===============2064931324=="
+Cc: "Zhang, Hawking" <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---===============2064931324==
+--_004_BN9PR12MB5226592BA32F2E749A39B9D5FB149BN9PR12MB5226namp_
 Content-Type: multipart/alternative;
- boundary="------------A986A046A06A327DA64C9D3D"
-Content-Language: en-US
+	boundary="_000_BN9PR12MB5226592BA32F2E749A39B9D5FB149BN9PR12MB5226namp_"
 
-This is a multi-part message in MIME format.
---------------A986A046A06A327DA64C9D3D
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 8bit
+--_000_BN9PR12MB5226592BA32F2E749A39B9D5FB149BN9PR12MB5226namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-See below.
+[AMD Official Use Only]
 
-Am 13.07.21 um 10:32 schrieb Wang, Kevin(Yang):
->
-> [AMD Official Use Only]
->
->
-> <comments inline>
->
-> ------------------------------------------------------------------------
-> *From:* Christian König <ckoenig.leichtzumerken@gmail.com>
-> *Sent:* Tuesday, July 13, 2021 3:11 PM
-> *To:* Wang, Kevin(Yang) <Kevin1.Wang@amd.com>; 
-> amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-> *Cc:* Lazar, Lijo <Lijo.Lazar@amd.com>; Deucher, Alexander 
-> <Alexander.Deucher@amd.com>; Min, Frank <Frank.Min@amd.com>; Koenig, 
-> Christian <Christian.Koenig@amd.com>; Zhang, Hawking 
-> <Hawking.Zhang@amd.com>
-> *Subject:* Re: [RFC PATCH v2] drm/amdgpu/ttm: optimize vram access in 
-> amdgpu_ttm_access_memory()
-> Am 13.07.21 um 05:23 schrieb Kevin Wang:
-> > 1. using vram aper to access vram if possible
-> > 2. avoid MM_INDEX/MM_DATA is not working when mmio protect feature is
-> > enabled.
-> >
-> > Signed-off-by: Kevin Wang <kevin1.wang@amd.com>
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 126 +++++++++++++++++-------
-> >   1 file changed, 89 insertions(+), 37 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c 
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> > index 2aa2eb5de37a..8f6f605bc459 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> > @@ -1407,6 +1407,91 @@ static bool 
-> amdgpu_ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
-> >        return ttm_bo_eviction_valuable(bo, place);
-> >   }
-> >
-> > +static void amdgpu_ttm_vram_mm_align_access(struct amdgpu_device 
-> *adev, loff_t pos,
-> > +                                         uint32_t *value, bool write)
->
-> Please drop the _vram_ and _align_ part from the name. Just
-> amdgpu_device_mm_access.
->
-> [kevin]: I will correct it in next patch.
->
-> > +{
-> > +     unsigned long flags;
-> > +
-> > +     BUG_ON(!IS_ALIGNED(pos, 4));
-> > +
-> > + spin_lock_irqsave(&adev->mmio_idx_lock, flags);
-> > +     WREG32_NO_KIQ(mmMM_INDEX, ((uint32_t)pos) | 0x80000000);
-> > +     WREG32_NO_KIQ(mmMM_INDEX_HI, pos >> 31);
-> > +     if (write)
-> > +             WREG32_NO_KIQ(mmMM_DATA, *value);
-> > +     else
-> > +             *value = RREG32_NO_KIQ(mmMM_DATA);
-> > + spin_unlock_irqrestore(&adev->mmio_idx_lock, flags);
-> > +}
->
-> That should still be in amdgpu_device.c and you completely messed up the
-> drm_dev_enter()/drm_dev_exit() annotation.
->
-> Looks like you are working on an old branch where that is not yet merged?
->
-> [kevin]: yes, I'm working on amd-staging-drm-next branch, the 
-> following patch (from drm-next-misc) is not merged into this branch.
+Submitting patch to resolve bug in UMC 6.7 error offset calculation
 
-Ok then just wait a bit. Alex wanted to update the amd-staging-drm-next 
-branch in the next few days.
+Thank you,
+John Clements
 
-There is an internal mail thread about that, maybe ping him on this.
+--_000_BN9PR12MB5226592BA32F2E749A39B9D5FB149BN9PR12MB5226namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Christian.
-
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-> drm/amdgpu: Guard against write accesses after device removal
->
-> This should prevent writing to memory or IO ranges possibly
-> already allocated for other uses after our device is removed.
->
-> v5:
-> Protect more places wher memcopy_to/form_io takes place
-> Protect IB submissions
->
-> v6: Switch to !drm_dev_enter instead of scoping entire code
-> with brackets.
->
-> v7:
-> Drop guard of HW ring commands emission protection since they
-> are in GART and not in MMIO.
->
-> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
->
->
-> > +
-> > +static void amdgpu_ttm_vram_mm_access(struct amdgpu_device *adev, 
-> loff_t pos,
-> > +                                   void *buf, size_t size, bool write)
-> > +{
-> > +     while (size) {
-> > +             uint64_t aligned_pos = ALIGN_DOWN(pos, 4);
-> > +             uint64_t bytes = 4 - (pos & 0x3);
-> > +             uint32_t shift = (pos & 0x3) * 8;
-> > +             uint32_t mask = 0xffffffff << shift;
-> > +             uint32_t value = 0;
-> > +
-> > +             if (size < bytes) {
-> > +                     mask &= 0xffffffff >> (bytes - size) * 8;
-> > +                     bytes = size;
-> > +             }
-> > +
-> > +             if (mask != 0xffffffff) {
-> > + amdgpu_ttm_vram_mm_align_access(adev, aligned_pos, &value, false);
-> > +                     if (write) {
-> > +                             value &= ~mask;
-> > +                             value |= (*(uint32_t *)buf << shift) & 
-> mask;
-> > + amdgpu_ttm_vram_mm_align_access(adev, aligned_pos, &value, true);
-> > +                     } else {
-> > +                             value = (value & mask) >> shift;
-> > +                             memcpy(buf, &value, bytes);
-> > +                     }
-> > +             } else {
-> > + amdgpu_ttm_vram_mm_align_access(adev, aligned_pos, buf, write);
-> > +             }
-> > +
-> > +             pos += bytes;
-> > +             buf += bytes;
-> > +             size -= bytes;
-> > +     }
-> > +}
-> > +
-> > +static void amdgpu_ttm_vram_access(struct amdgpu_device *adev, 
-> loff_t pos,
-> > +                                void *buf, size_t size, bool write)
-> > +{
-> > +     uint64_t last;
-> > +
-> > +#ifdef CONFIG_64BIT
-> > +     last = min(pos + size, adev->gmc.visible_vram_size);
-> > +     if (last > pos) {
-> > +             void __iomem *addr = adev->mman.aper_base_kaddr + pos;
-> > +             size_t count = last - pos;
-> > +
-> > +             if (write) {
-> > +                     memcpy_toio(addr, buf, count);
-> > +                     mb();
-> > +                     amdgpu_device_flush_hdp(adev, NULL);
-> > +             } else {
-> > + amdgpu_device_invalidate_hdp(adev, NULL);
-> > +                     mb();
-> > +                     memcpy_fromio(buf, addr, count);
-> > +             }
-> > +
-> > +             if (count == size)
-> > +                     return;
-> > +
-> > +             pos += count;
-> > +             buf += count;
-> > +             size -= count;
-> > +     }
-> > +#endif
->
-> I would put this as a separate function into amdgpu_device.c.
->
-> But all of this should only be the second step since we need a much
-> smaller patch for backporting first.
->
-> > +
-> > +     amdgpu_ttm_vram_mm_access(adev, pos, buf, size, write);
-> > +}
-> > +
-> >   /**
-> >    * amdgpu_ttm_access_memory - Read or Write memory that backs a 
-> buffer object.
-> >    *
-> > @@ -1426,8 +1511,6 @@ static int amdgpu_ttm_access_memory(struct 
-> ttm_buffer_object *bo,
-> >        struct amdgpu_bo *abo = ttm_to_amdgpu_bo(bo);
-> >        struct amdgpu_device *adev = amdgpu_ttm_adev(abo->tbo.bdev);
-> >        struct amdgpu_res_cursor cursor;
-> > -     unsigned long flags;
-> > -     uint32_t value = 0;
-> >        int ret = 0;
-> >
-> >        if (bo->mem.mem_type != TTM_PL_VRAM)
-> > @@ -1435,41 +1518,10 @@ static int amdgpu_ttm_access_memory(struct 
-> ttm_buffer_object *bo,
-> >
-> >        amdgpu_res_first(&bo->mem, offset, len, &cursor);
-> >        while (cursor.remaining) {
-> > -             uint64_t aligned_pos = cursor.start & ~(uint64_t)3;
-> > -             uint64_t bytes = 4 - (cursor.start & 3);
-> > -             uint32_t shift = (cursor.start & 3) * 8;
-> > -             uint32_t mask = 0xffffffff << shift;
-> > -
-> > -             if (cursor.size < bytes) {
-> > -                     mask &= 0xffffffff >> (bytes - cursor.size) * 8;
-> > -                     bytes = cursor.size;
-> > -             }
-> > -
-> > -             if (mask != 0xffffffff) {
-> > - spin_lock_irqsave(&adev->mmio_idx_lock, flags);
-> > -                     WREG32_NO_KIQ(mmMM_INDEX, 
-> ((uint32_t)aligned_pos) | 0x80000000);
-> > -                     WREG32_NO_KIQ(mmMM_INDEX_HI, aligned_pos >> 31);
-> > -                     value = RREG32_NO_KIQ(mmMM_DATA);
-> > -                     if (write) {
-> > -                             value &= ~mask;
-> > -                             value |= (*(uint32_t *)buf << shift) & 
-> mask;
-> > - WREG32_NO_KIQ(mmMM_DATA, value);
-> > -                     }
-> > - spin_unlock_irqrestore(&adev->mmio_idx_lock, flags);
-> > -                     if (!write) {
-> > -                             value = (value & mask) >> shift;
-> > -                             memcpy(buf, &value, bytes);
-> > -                     }
->
-> This here is the problematic part and should use
-> amdgpu_ttm_vram_access() instead.
->
-> That should be implemented first since we might need to backport that.
->
-> Regards,
-> Christian.
->
-> > -             } else {
-> > -                     bytes = cursor.size & ~0x3ULL;
-> > - amdgpu_device_vram_access(adev, cursor.start,
-> > - (uint32_t *)buf, bytes,
-> > - write);
-> > -             }
-> > -
-> > -             ret += bytes;
-> > -             buf = (uint8_t *)buf + bytes;
-> > -             amdgpu_res_next(&cursor, bytes);
-> > +             amdgpu_ttm_vram_access(adev, cursor.start, buf, 
-> cursor.size, write);
-> > +             ret += cursor.size;
-> > +             buf += cursor.size;
-> > +             amdgpu_res_next(&cursor, cursor.size);
-> >        }
-> >
-> >        return ret;
->
-
-
---------------A986A046A06A327DA64C9D3D
-Content-Type: text/html; charset=windows-1252
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html;
-      charset=windows-1252">
-  </head>
-  <body>
-    See below.<br>
-    <br>
-    <div class="moz-cite-prefix">Am 13.07.21 um 10:32 schrieb Wang,
-      Kevin(Yang):<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:CO6PR12MB54734AF103090E1C567E4EF7A2149@CO6PR12MB5473.namprd12.prod.outlook.com">
-      <meta http-equiv="Content-Type" content="text/html;
-        charset=windows-1252">
-      <style type="text/css" style="display:none;">P {margin-top:0;margin-bottom:0;}</style>
-      <p
-        style="font-family:Arial;font-size:10pt;color:#0000FF;margin:15pt;"
-        align="Left">
-        [AMD Official Use Only]<br>
-      </p>
-      <br>
-      <div>
-        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-          font-size: 12pt; color: rgb(0, 0, 0);">
-          &lt;comments inline&gt;</div>
-        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-          font-size: 12pt; color: rgb(0, 0, 0);">
-          <br>
-        </div>
-        <hr tabindex="-1" style="display:inline-block; width:98%">
-        <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
-            face="Calibri, sans-serif" color="#000000"><b>From:</b>
-            Christian König <a class="moz-txt-link-rfc2396E" href="mailto:ckoenig.leichtzumerken@gmail.com">&lt;ckoenig.leichtzumerken@gmail.com&gt;</a><br>
-            <b>Sent:</b> Tuesday, July 13, 2021 3:11 PM<br>
-            <b>To:</b> Wang, Kevin(Yang) <a class="moz-txt-link-rfc2396E" href="mailto:Kevin1.Wang@amd.com">&lt;Kevin1.Wang@amd.com&gt;</a>;
-            <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
-            <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx@lists.freedesktop.org">&lt;amd-gfx@lists.freedesktop.org&gt;</a><br>
-            <b>Cc:</b> Lazar, Lijo <a class="moz-txt-link-rfc2396E" href="mailto:Lijo.Lazar@amd.com">&lt;Lijo.Lazar@amd.com&gt;</a>; Deucher,
-            Alexander <a class="moz-txt-link-rfc2396E" href="mailto:Alexander.Deucher@amd.com">&lt;Alexander.Deucher@amd.com&gt;</a>; Min, Frank
-            <a class="moz-txt-link-rfc2396E" href="mailto:Frank.Min@amd.com">&lt;Frank.Min@amd.com&gt;</a>; Koenig, Christian
-            <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt;</a>; Zhang, Hawking
-            <a class="moz-txt-link-rfc2396E" href="mailto:Hawking.Zhang@amd.com">&lt;Hawking.Zhang@amd.com&gt;</a><br>
-            <b>Subject:</b> Re: [RFC PATCH v2] drm/amdgpu/ttm: optimize
-            vram access in amdgpu_ttm_access_memory()</font>
-          <div> </div>
-        </div>
-        <div class="BodyFragment"><font size="2"><span
-              style="font-size:11pt">
-              <div class="PlainText">Am 13.07.21 um 05:23 schrieb Kevin
-                Wang:<br>
-                &gt; 1. using vram aper to access vram if possible<br>
-                &gt; 2. avoid MM_INDEX/MM_DATA is not working when mmio
-                protect feature is<br>
-                &gt; enabled.<br>
-                &gt;<br>
-                &gt; Signed-off-by: Kevin Wang
-                <a class="moz-txt-link-rfc2396E" href="mailto:kevin1.wang@amd.com">&lt;kevin1.wang@amd.com&gt;</a><br>
-                &gt; ---<br>
-                &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 126
-                +++++++++++++++++-------<br>
-                &gt;   1 file changed, 89 insertions(+), 37 deletions(-)<br>
-                &gt;<br>
-                &gt; diff --git
-                a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-                b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c<br>
-                &gt; index 2aa2eb5de37a..8f6f605bc459 100644<br>
-                &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c<br>
-                &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c<br>
-                &gt; @@ -1407,6 +1407,91 @@ static bool
-                amdgpu_ttm_bo_eviction_valuable(struct ttm_buffer_object
-                *bo,<br>
-                &gt;        return ttm_bo_eviction_valuable(bo, place);<br>
-                &gt;   }<br>
-                &gt;   <br>
-                &gt; +static void amdgpu_ttm_vram_mm_align_access(struct
-                amdgpu_device *adev, loff_t pos,<br>
-                &gt; +                                         uint32_t
-                *value, bool write)<br>
-                <br>
-                Please drop the _vram_ and _align_ part from the name.
-                Just <br>
-                amdgpu_device_mm_access.</div>
-              <div class="PlainText"><br>
-              </div>
-              <div class="PlainText">[kevin]: I will correct it in next
-                patch.</div>
-              <div class="PlainText"><br>
-                &gt; +{<br>
-                &gt; +     unsigned long flags;<br>
-                &gt; +<br>
-                &gt; +     BUG_ON(!IS_ALIGNED(pos, 4));<br>
-                &gt; +<br>
-                &gt; +    
-                spin_lock_irqsave(&amp;adev-&gt;mmio_idx_lock, flags);<br>
-                &gt; +     WREG32_NO_KIQ(mmMM_INDEX, ((uint32_t)pos) |
-                0x80000000);<br>
-                &gt; +     WREG32_NO_KIQ(mmMM_INDEX_HI, pos &gt;&gt;
-                31);<br>
-                &gt; +     if (write)<br>
-                &gt; +             WREG32_NO_KIQ(mmMM_DATA, *value);<br>
-                &gt; +     else<br>
-                &gt; +             *value = RREG32_NO_KIQ(mmMM_DATA);<br>
-                &gt; +    
-                spin_unlock_irqrestore(&amp;adev-&gt;mmio_idx_lock,
-                flags);<br>
-                &gt; +}<br>
-                <br>
-                That should still be in amdgpu_device.c and you
-                completely messed up the <br>
-                drm_dev_enter()/drm_dev_exit() annotation.<br>
-                <br>
-                Looks like you are working on an old branch where that
-                is not yet merged?</div>
-              <div class="PlainText"><br>
-              </div>
-              <div class="PlainText">[kevin]: yes, I'm working on
-                amd-staging-drm-next branch, the following patch (from
-                drm-next-misc) is not merged into this branch.</div>
-            </span></font></div>
-      </div>
-    </blockquote>
-    <br>
-    Ok then just wait a bit. Alex wanted to update the
-    amd-staging-drm-next branch in the next few days.<br>
-    <br>
-    There is an internal mail thread about that, maybe ping him on this.<br>
-    <br>
-    Christian.<br>
-    <br>
-    <blockquote type="cite"
-cite="mid:CO6PR12MB54734AF103090E1C567E4EF7A2149@CO6PR12MB5473.namprd12.prod.outlook.com">
-      <div>
-        <div class="BodyFragment"><font size="2"><span
-              style="font-size:11pt">
-              <div class="PlainText"><br>
-              </div>
-              drm/amdgpu: Guard against write accesses after device
-              removal
-              <div><br>
-              </div>
-              <div>This should prevent writing to memory or IO ranges
-                possibly</div>
-              <div>already allocated for other uses after our device is
-                removed.</div>
-              <div><br>
-              </div>
-              <div>v5:</div>
-              <div>Protect more places wher memcopy_to/form_io takes
-                place</div>
-              <div>Protect IB submissions</div>
-              <div><br>
-              </div>
-              <div>v6: Switch to !drm_dev_enter instead of scoping
-                entire code</div>
-              <div>with brackets.</div>
-              <div><br>
-              </div>
-              <div>v7:</div>
-              <div>Drop guard of HW ring commands emission protection
-                since they</div>
-              <div>are in GART and not in MMIO.</div>
-              <div><br>
-              </div>
-              <div>Signed-off-by: Andrey Grodzovsky
-                <a class="moz-txt-link-rfc2396E" href="mailto:andrey.grodzovsky@amd.com">&lt;andrey.grodzovsky@amd.com&gt;</a></div>
-              Reviewed-by: Alex Deucher
-              <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher@amd.com">&lt;alexander.deucher@amd.com&gt;</a>
-              <div class="PlainText"><span
-                  style="box-sizing:border-box;font-family:&quot;Segoe
-                  UI&quot;, system-ui, &quot;Apple Color Emoji&quot;,
-                  &quot;Segoe UI Emoji&quot;, sans-serif;font-size:14px"></span><br>
-                <br>
-                &gt; +<br>
-                &gt; +static void amdgpu_ttm_vram_mm_access(struct
-                amdgpu_device *adev, loff_t pos,<br>
-                &gt; +                                   void *buf,
-                size_t size, bool write)<br>
-                &gt; +{<br>
-                &gt; +     while (size) {<br>
-                &gt; +             uint64_t aligned_pos =
-                ALIGN_DOWN(pos, 4);<br>
-                &gt; +             uint64_t bytes = 4 - (pos &amp; 0x3);<br>
-                &gt; +             uint32_t shift = (pos &amp; 0x3) * 8;<br>
-                &gt; +             uint32_t mask = 0xffffffff &lt;&lt;
-                shift;<br>
-                &gt; +             uint32_t value = 0;<br>
-                &gt; +<br>
-                &gt; +             if (size &lt; bytes) {<br>
-                &gt; +                     mask &amp;= 0xffffffff
-                &gt;&gt; (bytes - size) * 8;<br>
-                &gt; +                     bytes = size;<br>
-                &gt; +             }<br>
-                &gt; +<br>
-                &gt; +             if (mask != 0xffffffff) {<br>
-                &gt; +                    
-                amdgpu_ttm_vram_mm_align_access(adev, aligned_pos,
-                &amp;value, false);<br>
-                &gt; +                     if (write) {<br>
-                &gt; +                             value &amp;= ~mask;<br>
-                &gt; +                             value |= (*(uint32_t
-                *)buf &lt;&lt; shift) &amp; mask;<br>
-                &gt; +                            
-                amdgpu_ttm_vram_mm_align_access(adev, aligned_pos,
-                &amp;value, true);<br>
-                &gt; +                     } else {<br>
-                &gt; +                             value = (value &amp;
-                mask) &gt;&gt; shift;<br>
-                &gt; +                             memcpy(buf,
-                &amp;value, bytes);<br>
-                &gt; +                     }<br>
-                &gt; +             } else {<br>
-                &gt; +                    
-                amdgpu_ttm_vram_mm_align_access(adev, aligned_pos, buf,
-                write);<br>
-                &gt; +             }<br>
-                &gt; +<br>
-                &gt; +             pos += bytes;<br>
-                &gt; +             buf += bytes;<br>
-                &gt; +             size -= bytes;<br>
-                &gt; +     }<br>
-                &gt; +}<br>
-                &gt; +<br>
-                &gt; +static void amdgpu_ttm_vram_access(struct
-                amdgpu_device *adev, loff_t pos,<br>
-                &gt; +                                void *buf, size_t
-                size, bool write)<br>
-                &gt; +{<br>
-                &gt; +     uint64_t last;<br>
-                &gt; +<br>
-                &gt; +#ifdef CONFIG_64BIT<br>
-                &gt; +     last = min(pos + size,
-                adev-&gt;gmc.visible_vram_size);<br>
-                &gt; +     if (last &gt; pos) {<br>
-                &gt; +             void __iomem *addr =
-                adev-&gt;mman.aper_base_kaddr + pos;<br>
-                &gt; +             size_t count = last - pos;<br>
-                &gt; +<br>
-                &gt; +             if (write) {<br>
-                &gt; +                     memcpy_toio(addr, buf,
-                count);<br>
-                &gt; +                     mb();<br>
-                &gt; +                     amdgpu_device_flush_hdp(adev,
-                NULL);<br>
-                &gt; +             } else {<br>
-                &gt; +                    
-                amdgpu_device_invalidate_hdp(adev, NULL);<br>
-                &gt; +                     mb();<br>
-                &gt; +                     memcpy_fromio(buf, addr,
-                count);<br>
-                &gt; +             }<br>
-                &gt; +<br>
-                &gt; +             if (count == size)<br>
-                &gt; +                     return;<br>
-                &gt; +<br>
-                &gt; +             pos += count;<br>
-                &gt; +             buf += count;<br>
-                &gt; +             size -= count;<br>
-                &gt; +     }<br>
-                &gt; +#endif<br>
-                <br>
-                I would put this as a separate function into
-                amdgpu_device.c.<br>
-                <br>
-                But all of this should only be the second step since we
-                need a much <br>
-                smaller patch for backporting first.<br>
-                <br>
-                &gt; +<br>
-                &gt; +     amdgpu_ttm_vram_mm_access(adev, pos, buf,
-                size, write);<br>
-                &gt; +}<br>
-                &gt; +<br>
-                &gt;   /**<br>
-                &gt;    * amdgpu_ttm_access_memory - Read or Write
-                memory that backs a buffer object.<br>
-                &gt;    *<br>
-                &gt; @@ -1426,8 +1511,6 @@ static int
-                amdgpu_ttm_access_memory(struct ttm_buffer_object *bo,<br>
-                &gt;        struct amdgpu_bo *abo =
-                ttm_to_amdgpu_bo(bo);<br>
-                &gt;        struct amdgpu_device *adev =
-                amdgpu_ttm_adev(abo-&gt;tbo.bdev);<br>
-                &gt;        struct amdgpu_res_cursor cursor;<br>
-                &gt; -     unsigned long flags;<br>
-                &gt; -     uint32_t value = 0;<br>
-                &gt;        int ret = 0;<br>
-                &gt;   <br>
-                &gt;        if (bo-&gt;mem.mem_type != TTM_PL_VRAM)<br>
-                &gt; @@ -1435,41 +1518,10 @@ static int
-                amdgpu_ttm_access_memory(struct ttm_buffer_object *bo,<br>
-                &gt;   <br>
-                &gt;        amdgpu_res_first(&amp;bo-&gt;mem, offset,
-                len, &amp;cursor);<br>
-                &gt;        while (cursor.remaining) {<br>
-                &gt; -             uint64_t aligned_pos = cursor.start
-                &amp; ~(uint64_t)3;<br>
-                &gt; -             uint64_t bytes = 4 - (cursor.start
-                &amp; 3);<br>
-                &gt; -             uint32_t shift = (cursor.start &amp;
-                3) * 8;<br>
-                &gt; -             uint32_t mask = 0xffffffff &lt;&lt;
-                shift;<br>
-                &gt; -<br>
-                &gt; -             if (cursor.size &lt; bytes) {<br>
-                &gt; -                     mask &amp;= 0xffffffff
-                &gt;&gt; (bytes - cursor.size) * 8;<br>
-                &gt; -                     bytes = cursor.size;<br>
-                &gt; -             }<br>
-                &gt; -<br>
-                &gt; -             if (mask != 0xffffffff) {<br>
-                &gt; -                    
-                spin_lock_irqsave(&amp;adev-&gt;mmio_idx_lock, flags);<br>
-                &gt; -                     WREG32_NO_KIQ(mmMM_INDEX,
-                ((uint32_t)aligned_pos) | 0x80000000);<br>
-                &gt; -                     WREG32_NO_KIQ(mmMM_INDEX_HI,
-                aligned_pos &gt;&gt; 31);<br>
-                &gt; -                     value =
-                RREG32_NO_KIQ(mmMM_DATA);<br>
-                &gt; -                     if (write) {<br>
-                &gt; -                             value &amp;= ~mask;<br>
-                &gt; -                             value |= (*(uint32_t
-                *)buf &lt;&lt; shift) &amp; mask;<br>
-                &gt; -                            
-                WREG32_NO_KIQ(mmMM_DATA, value);<br>
-                &gt; -                     }<br>
-                &gt; -                    
-                spin_unlock_irqrestore(&amp;adev-&gt;mmio_idx_lock,
-                flags);<br>
-                &gt; -                     if (!write) {<br>
-                &gt; -                             value = (value &amp;
-                mask) &gt;&gt; shift;<br>
-                &gt; -                             memcpy(buf,
-                &amp;value, bytes);<br>
-                &gt; -                     }<br>
-                <br>
-                This here is the problematic part and should use <br>
-                amdgpu_ttm_vram_access() instead.<br>
-                <br>
-                That should be implemented first since we might need to
-                backport that.<br>
-                <br>
-                Regards,<br>
-                Christian.<br>
-                <br>
-                &gt; -             } else {<br>
-                &gt; -                     bytes = cursor.size &amp;
-                ~0x3ULL;<br>
-                &gt; -                    
-                amdgpu_device_vram_access(adev, cursor.start,<br>
-                &gt; -                                              
-                (uint32_t *)buf, bytes,<br>
-                &gt; -                                              
-                write);<br>
-                &gt; -             }<br>
-                &gt; -<br>
-                &gt; -             ret += bytes;<br>
-                &gt; -             buf = (uint8_t *)buf + bytes;<br>
-                &gt; -             amdgpu_res_next(&amp;cursor, bytes);<br>
-                &gt; +             amdgpu_ttm_vram_access(adev,
-                cursor.start, buf, cursor.size, write);<br>
-                &gt; +             ret += cursor.size;<br>
-                &gt; +             buf += cursor.size;<br>
-                &gt; +             amdgpu_res_next(&amp;cursor,
-                cursor.size);<br>
-                &gt;        }<br>
-                &gt;   <br>
-                &gt;        return ret;<br>
-                <br>
-              </div>
-            </span></font></div>
-      </div>
-    </blockquote>
-    <br>
-  </body>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
+break-word">
+<p class=3D"msipheadera4477989" align=3D"Left" style=3D"margin:0"><span sty=
+le=3D"font-size:10.0pt;font-family:Arial;color:#0000FF">[AMD Official Use O=
+nly]</span></p>
+<br>
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Submitting patch to resolve bug in UMC 6.7 error off=
+set calculation<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thank you,<o:p></o:p></p>
+<p class=3D"MsoNormal">John Clements<o:p></o:p></p>
+</div>
+</body>
 </html>
 
---------------A986A046A06A327DA64C9D3D--
+--_000_BN9PR12MB5226592BA32F2E749A39B9D5FB149BN9PR12MB5226namp_--
 
---===============2064931324==
+--_004_BN9PR12MB5226592BA32F2E749A39B9D5FB149BN9PR12MB5226namp_
+Content-Type: application/octet-stream;
+	name="0001-drm-amdgpu-Resolve-bug-in-UMC-6.7-UMC-error-offset-c.patch"
+Content-Description:  0001-drm-amdgpu-Resolve-bug-in-UMC-6.7-UMC-error-offset-c.patch
+Content-Disposition: attachment;
+	filename="0001-drm-amdgpu-Resolve-bug-in-UMC-6.7-UMC-error-offset-c.patch";
+	size=1235; creation-date="Tue, 13 Jul 2021 09:35:00 GMT";
+	modification-date="Tue, 13 Jul 2021 09:35:00 GMT"
+Content-Transfer-Encoding: base64
+
+RnJvbSBkNWZjNzhlZTcwYTU0ZWFhNDhkYTMxMWJkOTMyMGM3ZWQ5NjRmYzM1IE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBKb2huIENsZW1lbnRzIDxqb2huLmNsZW1lbnRzQGFtZC5jb20+
+CkRhdGU6IFR1ZSwgMTMgSnVsIDIwMjEgMTc6MzM6NTMgKzA4MDAKU3ViamVjdDogW1BBVENIIDEv
+MV0gZHJtL2FtZGdwdTogUmVzb2x2ZSBidWcgaW4gVU1DIDYuNyBVTUMgZXJyb3Igb2Zmc2V0CiBj
+YWxjdWxhdGlvbgoKVXNlIGNvcnJlY3QgY2hhbm5lbCBhbmQgaW5zdGFuY2UgdmFsdWVzCgpDaGFu
+Z2UtSWQ6IElkZGIxMWQxYmE2MmY3NzUxNjk4ZmJjNDQ0MGZlMTczMDYzNDNmYmU0Ci0tLQogZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYyB8IDQgKystLQogMSBmaWxlIGNoYW5n
+ZWQsIDIgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvZ21jX3Y5XzAuYwppbmRleCA2MDBlYWYxOTcxZDIuLmUzMTU4MjA0OTY1ZiAxMDA2NDQKLS0t
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYworKysgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jCkBAIC0xMTcxLDggKzExNzEsOCBAQCBzdGF0aWMg
+dm9pZCBnbWNfdjlfMF9zZXRfdW1jX2Z1bmNzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQog
+CQlicmVhazsKIAljYXNlIENISVBfQUxERUJBUkFOOgogCQlhZGV2LT51bWMubWF4X3Jhc19lcnJf
+Y250X3Blcl9xdWVyeSA9IFVNQ19WNl83X1RPVEFMX0NIQU5ORUxfTlVNOwotCQlhZGV2LT51bWMu
+Y2hhbm5lbF9pbnN0X251bSA9IFVNQ19WNl83X0NIQU5ORUxfSU5TVEFOQ0VfTlVNOwotCQlhZGV2
+LT51bWMudW1jX2luc3RfbnVtID0gVU1DX1Y2XzdfVU1DX0lOU1RBTkNFX05VTTsKKwkJYWRldi0+
+dW1jLmNoYW5uZWxfaW5zdF9udW0gPSBVTUNfVjZfN19VTUNfSU5TVEFOQ0VfTlVNOworCQlhZGV2
+LT51bWMudW1jX2luc3RfbnVtID0gVU1DX1Y2XzdfQ0hBTk5FTF9JTlNUQU5DRV9OVU07CiAJCWFk
+ZXYtPnVtYy5jaGFubmVsX29mZnMgPSBVTUNfVjZfN19QRVJfQ0hBTk5FTF9PRkZTRVQ7CiAJCWlm
+ICghYWRldi0+Z21jLnhnbWkuY29ubmVjdGVkX3RvX2NwdSkKIAkJCWFkZXYtPnVtYy5yYXNfZnVu
+Y3MgPSAmdW1jX3Y2XzdfcmFzX2Z1bmNzOwotLSAKMi4xNy4xCgo=
+
+--_004_BN9PR12MB5226592BA32F2E749A39B9D5FB149BN9PR12MB5226namp_
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -752,4 +260,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============2064931324==--
+--_004_BN9PR12MB5226592BA32F2E749A39B9D5FB149BN9PR12MB5226namp_--
