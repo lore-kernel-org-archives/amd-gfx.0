@@ -7,31 +7,29 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B425CC07E95
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Jul 2021 20:46:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E96BBC07E95
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Jul 2021 21:01:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7B2D761284
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Jul 2021 20:46:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7B2D761284
+	by mail.kernel.org (Postfix) with ESMTPS id A926D61152
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Jul 2021 21:01:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A926D61152
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0881B6E12D;
-	Tue, 13 Jul 2021 20:46:02 +0000 (UTC)
-X-Greylist: delayed 419 seconds by postgrey-1.36 at gabe;
- Tue, 13 Jul 2021 20:46:00 UTC
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6BA8B6E12E;
+	Tue, 13 Jul 2021 21:01:36 +0000 (UTC)
 Received: from svt-ETHLX-2.amd.com (unknown [165.204.54.251])
- by gabe.freedesktop.org (Postfix) with ESMTP id 48EB06E12D
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Jul 2021 20:46:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 1A1C76E12E
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Jul 2021 21:01:35 +0000 (UTC)
 Received: by svt-ETHLX-2.amd.com (Postfix, from userid 0)
- id 97C4618402A1; Tue, 13 Jul 2021 16:39:00 -0400 (EDT)
+ id C416118402AF; Tue, 13 Jul 2021 17:01:34 -0400 (EDT)
 From: Bokun Zhang <bokun.zhang@amd.com>
 To: amd-gfx@lists.freedesktop.org
 Subject: [PATCH] drm/amd/amdgpu: Rewrite the code for single VCN enablemebt
-Date: Tue, 13 Jul 2021 16:38:58 -0400
-Message-Id: <20210713203858.36881-1-bokun.zhang@amd.com>
+Date: Tue, 13 Jul 2021 17:01:33 -0400
+Message-Id: <20210713210133.39216-1-bokun.zhang@amd.com>
 X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -56,8 +54,8 @@ and the logic of the code does not make any sense anymore
 
 The code has been rewritten for single VCN enablement
 
+Change-Id: I2c3d0bf6d7d446e2a014c83ee535b3c4bf20abf9
 Signed-off-by: Bokun Zhang <bokun.zhang@amd.com>
-Change-Id: I44f3346717c418c0d66afe3da93de1275978acc5
 ---
  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 23 -----------------
  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h |  3 ---
@@ -99,10 +97,10 @@ index 84b025405578..9492b505e69b 100644
  {
  	unsigned size;
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-index c66e184e2d53..d9e48e3d8ef8 100644
+index d74c62b49795..7b168f2c1ac3 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-@@ -296,9 +296,6 @@ int amdgpu_vcn_resume(struct amdgpu_device *adev);
+@@ -297,9 +297,6 @@ int amdgpu_vcn_resume(struct amdgpu_device *adev);
  void amdgpu_vcn_ring_begin_use(struct amdgpu_ring *ring);
  void amdgpu_vcn_ring_end_use(struct amdgpu_ring *ring);
  
@@ -113,10 +111,10 @@ index c66e184e2d53..d9e48e3d8ef8 100644
  int amdgpu_vcn_dec_ring_test_ib(struct amdgpu_ring *ring, long timeout);
  int amdgpu_vcn_dec_sw_ring_test_ring(struct amdgpu_ring *ring);
 diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-index 91e844356a30..048389b718d4 100644
+index c3580de3ea9c..7507d32a340a 100644
 --- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-@@ -94,9 +94,7 @@ static int vcn_v3_0_early_init(void *handle)
+@@ -88,9 +88,7 @@ static int vcn_v3_0_early_init(void *handle)
  	int i;
  
  	if (amdgpu_sriov_vf(adev)) {
@@ -127,7 +125,7 @@ index 91e844356a30..048389b718d4 100644
  		adev->vcn.harvest_config = 0;
  		adev->vcn.num_enc_rings = 1;
  
-@@ -157,8 +155,7 @@ static int vcn_v3_0_sw_init(void *handle)
+@@ -151,8 +149,7 @@ static int vcn_v3_0_sw_init(void *handle)
  		adev->firmware.fw_size +=
  			ALIGN(le32_to_cpu(hdr->ucode_size_bytes), PAGE_SIZE);
  
@@ -137,7 +135,7 @@ index 91e844356a30..048389b718d4 100644
  			adev->firmware.ucode[AMDGPU_UCODE_ID_VCN1].ucode_id = AMDGPU_UCODE_ID_VCN1;
  			adev->firmware.ucode[AMDGPU_UCODE_ID_VCN1].fw = adev->vcn.fw;
  			adev->firmware.fw_size +=
-@@ -323,18 +320,28 @@ static int vcn_v3_0_hw_init(void *handle)
+@@ -322,18 +319,28 @@ static int vcn_v3_0_hw_init(void *handle)
  				continue;
  
  			ring = &adev->vcn.inst[i].ring_dec;
@@ -175,7 +173,7 @@ index 91e844356a30..048389b718d4 100644
  	} else {
  		for (i = 0; i < adev->vcn.num_vcn_inst; ++i) {
 -- 
-2.25.1
+2.20.1
 
 _______________________________________________
 amd-gfx mailing list
