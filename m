@@ -2,70 +2,104 @@ Return-Path: <SRS0=Y2YZ=MF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BB3EEC07E95
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Jul 2021 13:33:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2B6A6C11F66
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Jul 2021 14:06:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 84C8C61166
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Jul 2021 13:33:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 84C8C61166
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id E628C61249
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Jul 2021 14:06:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E628C61249
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC1FC6E0A5;
-	Tue, 13 Jul 2021 13:32:58 +0000 (UTC)
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [IPv6:2a00:1450:4864:20::332])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0C2F89807
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Jul 2021 13:32:57 +0000 (UTC)
-Received: by mail-wm1-x332.google.com with SMTP id l6so5370136wmq.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Jul 2021 06:32:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=6CWHFtXhpCFJrQSuXJAwjb489EAQsGDMO2zOi12Btsw=;
- b=u+fqiq39zYs2H2coIKETERiRVxHe0wHVujw2fp1cNUjFMjRrOxj5YEe5fZQR1OUQxG
- 0KHTKAWNGlWKPqzvnTd9BhabxlbbbhAjskhHTaggxODW+xlQzNCGJkT7yBeIjmdtcRW4
- b75x1c3VJ3sxk2VDpbhuoKuv/Zh6yttPY6zJ2al1iA4YHO3E/iLUgHEwa8x0zqwMs1Dz
- 7fV2T3b2KPTk5KlrAsQbap6+jjHj5TLvg/lk0bP1k5xmdeodkYJFwdsWhQEwY918x0qy
- 1enaGe8K1nru94QmNb0NA6SXm71LmPQI8oNeCIbO6S97A7TVPKyJ7lFxps4g4oplrCf0
- ZVlQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=6CWHFtXhpCFJrQSuXJAwjb489EAQsGDMO2zOi12Btsw=;
- b=Qcoa2mnNa8/8iwjE3mw1qAO70EVWhXR9p6Hatv5gEXHcS1KUrYGUw+ygPEX2UKNyKN
- ARdUHwhxG3C2Kvm9XG3kWFTXqVoTWEQjEs9MyMzIqdWKU8A3R+im6O1inbGHngV72INl
- 6HNDOGkZYXkivl9Egxg7SmH2vZTz3uZcl0mMuO/gy9pPv1t8WipS+xngH4Eq9E5SEAdN
- xTQ/VWI8HqE9A6nRy3QHwELC7p5kcnJNw5/U8k0wcZFjjooltJc8C50XXyHDyk7anPwR
- WJx5f0a8vBP9J74bhJltCRyuVVz9Kyg+3sgPqEh18EbYGzTGs05hKbJphL4z06p89k1w
- ZgqA==
-X-Gm-Message-State: AOAM53005lqhrwMt95J9Kb/YYhyRsseGFyApDxUiEPgSak8h1pwsp2a4
- NOrFq5bhRM9S5+WGadXjD3hoo8Knglc=
-X-Google-Smtp-Source: ABdhPJzp9VceuKxRhQIAIdWT5rPvzWow0xSXe1qF/Rn7lZYf5fVDX/sq1r0ogEcaCdcGAx6yBrkT8w==
-X-Received: by 2002:a7b:c002:: with SMTP id c2mr5151224wmb.118.1626183176616; 
- Tue, 13 Jul 2021 06:32:56 -0700 (PDT)
-Received: from abel.fritz.box ([2a02:908:1252:fb60:b849:f266:6e77:b501])
- by smtp.gmail.com with ESMTPSA id x1sm15532568wmc.31.2021.07.13.06.32.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 13 Jul 2021 06:32:56 -0700 (PDT)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: jinhuieric.huang@amd.com
-Subject: [PATCH] drm/amdgpu: further lower VRAM allocation overhead
-Date: Tue, 13 Jul 2021 15:32:55 +0200
-Message-Id: <20210713133255.16456-1-christian.koenig@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71CB26E0B6;
+	Tue, 13 Jul 2021 14:06:45 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2087.outbound.protection.outlook.com [40.107.220.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE8A36E0A2;
+ Tue, 13 Jul 2021 14:06:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=mmBwsPbpbS/sF/Ln7rB2oRUkut2X23NCEhkgNjODNoq/9PnL4UMc1sIi5jjv7Bxni65TKUZtIOBew2QurkwiXbpljKsDEFyaXk6P5okRKtT9WeA48ot1MGYd3p+4iQTqeoshX68cRWrlUVIRlHhPR4a9W+a3Bg0k0AmVf0QsJJoXlGnwhoyNW2V0N2EmBsN7SWYLvh0neyKLHbjbfwykUGBv9UbwmEjO5h3tjGn9SDbw60wxQzfQ0Insro5sRO1Yfe5rexOH8aGmuWUCp0VTtlsnzEAH+LzobEnkW4ElApeQAS3DpKfphjf8cMOL/eVVN6BvdYgTSxX+Z3EuW5JZxA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qd8IIfD0bszQJ/xagT9tftQ6EflpeXEtc1GeoG/ML3U=;
+ b=ZYhFv0XbuNHEXsx4gdDeLjRc2ZOgb84sKkTLHL6OSWv59iRKAEmNfzAsDH2qiENn+SjM8GeWZAGPThi/CPf3XoJ8zDmDN7Ye+r3J2dZzK9hi//0jbAUD9LfIiS1R6hiDIL94HIrN0XiT5ID00jB7dFCHzQBY3KWwSbJJBi6Rl111c5VN1Y/UaQmCXXYahyZDxvKuITyY2v16+I/a0oOyfBfs6oCtWX1yHVEQqoB3JKqRBUjRIn+HNs81J2/MZt1VyslCs8O2rnRHzEsmWyY4LM6TNpezVneGsscXALgpDqR6IrVWONLfTxNtlgzQ6b7S96tm8giJS+b1W9/r3bD11A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=infradead.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qd8IIfD0bszQJ/xagT9tftQ6EflpeXEtc1GeoG/ML3U=;
+ b=kCbIGTdMtmmpB84H5Zhkj0ikYq0m7NDQ6RlXI389khUZlPAqMk7j0Bxr22XDQEtUZbfGyu6IiFvHnmj9aeLPKjL9Hgz4lKrDt7SMxIvvP7fWGmB9r9ukmOtjgWvnIRUSdeD8HTgKgiWwXMhBs2yxX7M++Jzcs4T2H2/rXu8C45k=
+Received: from MW4PR04CA0222.namprd04.prod.outlook.com (2603:10b6:303:87::17)
+ by SN1PR12MB2573.namprd12.prod.outlook.com (2603:10b6:802:2b::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4308.25; Tue, 13 Jul
+ 2021 14:06:40 +0000
+Received: from CO1NAM11FT032.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:87:cafe::c9) by MW4PR04CA0222.outlook.office365.com
+ (2603:10b6:303:87::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4308.21 via Frontend
+ Transport; Tue, 13 Jul 2021 14:06:40 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; infradead.org; dkim=none (message not signed)
+ header.d=none;infradead.org; dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT032.mail.protection.outlook.com (10.13.174.218) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4308.20 via Frontend Transport; Tue, 13 Jul 2021 14:06:40 +0000
+Received: from atma2.hitronhub.home (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Tue, 13 Jul
+ 2021 09:06:37 -0500
+From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+To: Harry Wentland <harry.wentland@amd.com>, <christian.koenig@amd.com>,
+ "Peter Zijlstra" <peterz@infradead.org>, Daniel Vetter <daniel@ffwll.ch>,
+ <roman.li@amd.com>, <anson.jacob@amd.com>, <hersenxs.wu@amd.com>,
+ <jerry.zuo@amd.com>, <sunpeng.li@amd.com>, <aric.cyr@amd.com>
+Subject: [PATCH v2 0/4] drm/amd/display: Base changes for isolating FPU
+ operation in a single place
+Date: Tue, 13 Jul 2021 10:06:08 -0400
+Message-ID: <20210713140612.2721113-1-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 4ddf8c9c-1afd-4f7f-2b7d-08d946076fb0
+X-MS-TrafficTypeDiagnostic: SN1PR12MB2573:
+X-Microsoft-Antispam-PRVS: <SN1PR12MB2573B63DF163975C3A54A38298149@SN1PR12MB2573.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3173;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: P+keckb8ExSR4+LIydNjUpZEGfuLI2Fs2UwmH2KftQrfQZErQmqOwMWKyu4FhlY9xojKSGWO5kaQsx+iWvZBeMK8QKbkpldV9DW7bHlAXKd1w5eM8NpMT/lbbiDIim+bZxjjDOiRjHpy0D9FTSYCsZ6g3hv2JQtg627JR8aWRwAHTxtToGuv+25NsMjV7mdV5LPh2aSwYHE1/o/XY9iXb9I+AxIySRd0zcUsa72aw1lHrTtPup15YPqtMMDzRCJATc2WBYyigJl2Wu1gJGFtKjkoWpSeXfaXt23WXRz8NO6YYdVjJcN6tn/2fSiT8jD+PLDe1Lre9x+g3ym5awPHRv5HpHU92BhxQdgLj6tvjxRNObYVfsTOiag+Qmd/FHCyTNhKO9WOMipMR/kjwD3sWQ3c9fif1QA3e8zE2DIXSDnQZSyizqxGBQpDy8mk+VUkk0RIKIP9pnUbjyifOSnMs/E9sTCgux2huPobo15NQGVdfrePWVTzSHczYGL8B06OvdaGE9GsTgi0GjKuyP9LSb/PriTpl+kyY22bUihxzmpRJ+rNq+TD3zFqYsV/dFOkLNL3L2/eQxHt+Jq6ly4Z8GJT6HYwHYaf6jsNJ11coDB0C13NMlkwX7CWqhOcho/4OcMWKSzpBcjBQew2x8Dua6T0IvH3Qt+t+QXE3EAbtxCQ/Lvjln3pTzLaIGqzowLNOgvHWnIYJ3HVITLd4EY3ikxtVO4VyzSwr8jjC86/PaD5MpaPKcKkgJy/1aapM3mh
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(39860400002)(136003)(376002)(346002)(396003)(36840700001)(46966006)(16526019)(1076003)(5660300002)(26005)(186003)(921005)(6636002)(82740400003)(8676002)(82310400003)(2906002)(6666004)(36756003)(478600001)(36860700001)(70586007)(70206006)(86362001)(47076005)(83380400001)(316002)(81166007)(54906003)(336012)(356005)(110136005)(4326008)(2616005)(8936002)(426003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2021 14:06:40.0468 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4ddf8c9c-1afd-4f7f-2b7d-08d946076fb0
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT032.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2573
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,95 +111,127 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: felix.kuehling@amd.com, amd-gfx@lists.freedesktop.org, Luugi.Marsan@amd.com,
- Jenny-Jing.Liu@amd.com, Chris.Mason@amd.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Rm9yIGFsbG9jYXRpb25zIGxhcmdlciB0aGFuIDQ4TWlCIHdlIG5lZWQgbW9yZSB0aGFuIGEgcGFn
-ZSBmb3IgdGhlCmhvdXNla2VlcGluZyBpbiB0aGUgd29yc3QgY2FzZSByZXN1bHRpbmcgaW4gdGhl
-IHVzdWFsIHZtYWxsb2Mgb3ZlcmhlYWQuCgpUcnkgdG8gYXZvaWQgdGhpcyBieSBhc3N1bWluZyB0
-aGUgZ29vZCBjYXNlIGFuZCBvbmx5IGZhbGxpbmcgYmFjayB0byB0aGUKd29yc3QgY2FzZSBpZiB0
-aGlzIGRpZG4ndCB3b3JrZWQuCgpTaWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJp
-c3RpYW4ua29lbmlnQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X3ZyYW1fbWdyLmMgfCA4MCArKysrKysrKysrKysrKystLS0tLQogMSBmaWxlIGNoYW5nZWQs
-IDYwIGluc2VydGlvbnMoKyksIDIwIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92cmFtX21nci5jIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X3ZyYW1fbWdyLmMKaW5kZXggMmZkNzdjMzZhMWZmLi5hYjhjNWUyOGRm
-N2IgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92cmFtX21n
-ci5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92cmFtX21nci5jCkBA
-IC0zNjEsMTkgKzM2MSwyMyBAQCBzdGF0aWMgdm9pZCBhbWRncHVfdnJhbV9tZ3JfdmlydF9zdGFy
-dChzdHJ1Y3QgdHRtX3Jlc291cmNlICptZW0sCiAgKiBAbWFuOiBUVE0gbWVtb3J5IHR5cGUgbWFu
-YWdlcgogICogQHRibzogVFRNIEJPIHdlIG5lZWQgdGhpcyByYW5nZSBmb3IKICAqIEBwbGFjZTog
-cGxhY2VtZW50IGZsYWdzIGFuZCByZXN0cmljdGlvbnMKLSAqIEBtZW06IHRoZSByZXN1bHRpbmcg
-bWVtIG9iamVjdAorICogQG51bV9ub2RlczogbnVtYmVyIG9mIHBhZ2Ugbm9kZXMgdG8gdXNlLgor
-ICogQHBhZ2VzX3Blcl9ub2RlOiBudW1iZXIgb2YgcGFnZXMgcGVyIG5vZGUgdG8gdXNlLgorICog
-QHJlczogdGhlIHJlc3VsdGluZyBtZW0gb2JqZWN0CiAgKgogICogQWxsb2NhdGUgVlJBTSBmb3Ig
-dGhlIGdpdmVuIEJPLgogICovCiBzdGF0aWMgaW50IGFtZGdwdV92cmFtX21ncl9uZXcoc3RydWN0
-IHR0bV9yZXNvdXJjZV9tYW5hZ2VyICptYW4sCiAJCQkgICAgICAgc3RydWN0IHR0bV9idWZmZXJf
-b2JqZWN0ICp0Ym8sCiAJCQkgICAgICAgY29uc3Qgc3RydWN0IHR0bV9wbGFjZSAqcGxhY2UsCisJ
-CQkgICAgICAgdW5zaWduZWQgbG9uZyBudW1fbm9kZXMsCisJCQkgICAgICAgdW5zaWduZWQgbG9u
-ZyBwYWdlc19wZXJfbm9kZSwKIAkJCSAgICAgICBzdHJ1Y3QgdHRtX3Jlc291cmNlICoqcmVzKQog
-ewotCXVuc2lnbmVkIGxvbmcgbHBmbiwgbnVtX25vZGVzLCBwYWdlc19wZXJfbm9kZSwgcGFnZXNf
-bGVmdCwgcGFnZXM7CiAJc3RydWN0IGFtZGdwdV92cmFtX21nciAqbWdyID0gdG9fdnJhbV9tZ3Io
-bWFuKTsKIAlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IHRvX2FtZGdwdV9kZXZpY2UobWdy
-KTsKIAl1aW50NjRfdCB2aXNfdXNhZ2UgPSAwLCBtZW1fYnl0ZXMsIG1heF9ieXRlczsKKwl1bnNp
-Z25lZCBsb25nIGxwZm4sIHBhZ2VzX2xlZnQsIHBhZ2VzOwogCXN0cnVjdCB0dG1fcmFuZ2VfbWdy
-X25vZGUgKm5vZGU7CiAJc3RydWN0IGRybV9tbSAqbW0gPSAmbWdyLT5tbTsKIAllbnVtIGRybV9t
-bV9pbnNlcnRfbW9kZSBtb2RlOwpAQCAtMzk1LDIxICszOTksNiBAQCBzdGF0aWMgaW50IGFtZGdw
-dV92cmFtX21ncl9uZXcoc3RydWN0IHR0bV9yZXNvdXJjZV9tYW5hZ2VyICptYW4sCiAJCWdvdG8g
-ZXJyb3Jfc3ViOwogCX0KIAotCWlmIChwbGFjZS0+ZmxhZ3MgJiBUVE1fUExfRkxBR19DT05USUdV
-T1VTKSB7Ci0JCXBhZ2VzX3Blcl9ub2RlID0gfjB1bDsKLQkJbnVtX25vZGVzID0gMTsKLQl9IGVs
-c2UgewotI2lmZGVmIENPTkZJR19UUkFOU1BBUkVOVF9IVUdFUEFHRQotCQlwYWdlc19wZXJfbm9k
-ZSA9IEhQQUdFX1BNRF9OUjsKLSNlbHNlCi0JCS8qIGRlZmF1bHQgdG8gMk1CICovCi0JCXBhZ2Vz
-X3Blcl9ub2RlID0gMlVMIDw8ICgyMFVMIC0gUEFHRV9TSElGVCk7Ci0jZW5kaWYKLQkJcGFnZXNf
-cGVyX25vZGUgPSBtYXhfdCh1aW50MzJfdCwgcGFnZXNfcGVyX25vZGUsCi0JCQkJICAgICAgIHRi
-by0+cGFnZV9hbGlnbm1lbnQpOwotCQludW1fbm9kZXMgPSBESVZfUk9VTkRfVVBfVUxMKFBGTl9V
-UChtZW1fYnl0ZXMpLCBwYWdlc19wZXJfbm9kZSk7Ci0JfQotCiAJbm9kZSA9IGt2bWFsbG9jKHN0
-cnVjdF9zaXplKG5vZGUsIG1tX25vZGVzLCBudW1fbm9kZXMpLAogCQkJR0ZQX0tFUk5FTCB8IF9f
-R0ZQX1pFUk8pOwogCWlmICghbm9kZSkgewpAQCAtNDMxLDEwICs0MjAsMTUgQEAgc3RhdGljIGlu
-dCBhbWRncHVfdnJhbV9tZ3JfbmV3KHN0cnVjdCB0dG1fcmVzb3VyY2VfbWFuYWdlciAqbWFuLAog
-CWkgPSAwOwogCXNwaW5fbG9jaygmbWdyLT5sb2NrKTsKIAl3aGlsZSAocGFnZXNfbGVmdCkgewot
-CQl1aW50MzJfdCBhbGlnbm1lbnQgPSB0Ym8tPnBhZ2VfYWxpZ25tZW50OworCQl1bnNpZ25lZCBs
-b25nIGFsaWdubWVudCA9IHRiby0+cGFnZV9hbGlnbm1lbnQ7CisKKwkJaWYgKGkgPj0gbnVtX25v
-ZGVzKSB7CisJCQlyID0gLUUyQklHOworCQkJZ290byBlcnJvcl9mcmVlOworCQl9CiAKIAkJaWYg
-KHBhZ2VzID49IHBhZ2VzX3Blcl9ub2RlKQotCQkJYWxpZ25tZW50ID0gcGFnZXNfcGVyX25vZGU7
-CisJCQlhbGlnbm1lbnQgPSBtYXgoYWxpZ25tZW50LCBwYWdlc19wZXJfbm9kZSk7CiAKIAkJciA9
-IGRybV9tbV9pbnNlcnRfbm9kZV9pbl9yYW5nZShtbSwgJm5vZGUtPm1tX25vZGVzW2ldLCBwYWdl
-cywKIAkJCQkJCWFsaWdubWVudCwgMCwgcGxhY2UtPmZwZm4sCkBAIC00ODMsNiArNDc3LDUyIEBA
-IHN0YXRpYyBpbnQgYW1kZ3B1X3ZyYW1fbWdyX25ldyhzdHJ1Y3QgdHRtX3Jlc291cmNlX21hbmFn
-ZXIgKm1hbiwKIAlyZXR1cm4gcjsKIH0KIAorLyoqCisgKiBhbWRncHVfdnJhbV9tZ3JfYWxsb2Mg
-LSBhbGxvY2F0ZSBuZXcgcmFuZ2UKKyAqCisgKiBAbWFuOiBUVE0gbWVtb3J5IHR5cGUgbWFuYWdl
-cgorICogQHRibzogVFRNIEJPIHdlIG5lZWQgdGhpcyByYW5nZSBmb3IKKyAqIEBwbGFjZTogcGxh
-Y2VtZW50IGZsYWdzIGFuZCByZXN0cmljdGlvbnMKKyAqIEByZXM6IHRoZSByZXN1bHRpbmcgbWVt
-IG9iamVjdAorICoKKyAqIEFsbG9jYXRlIFZSQU0gZm9yIHRoZSBnaXZlbiBCTy4KKyAqLworc3Rh
-dGljIGludCBhbWRncHVfdnJhbV9tZ3JfYWxsb2Moc3RydWN0IHR0bV9yZXNvdXJjZV9tYW5hZ2Vy
-ICptYW4sCisJCQkJIHN0cnVjdCB0dG1fYnVmZmVyX29iamVjdCAqdGJvLAorCQkJCSBjb25zdCBz
-dHJ1Y3QgdHRtX3BsYWNlICpwbGFjZSwKKwkJCQkgc3RydWN0IHR0bV9yZXNvdXJjZSAqKnJlcykK
-K3sKKwl1bnNpZ25lZCBsb25nIG51bV9ub2RlcywgcGFnZXNfcGVyX25vZGU7CisJc3RydWN0IHR0
-bV9yYW5nZV9tZ3Jfbm9kZSAqbm9kZTsKKwlpbnQgcjsKKworCWlmIChwbGFjZS0+ZmxhZ3MgJiBU
-VE1fUExfRkxBR19DT05USUdVT1VTKQorCQlyZXR1cm4gYW1kZ3B1X3ZyYW1fbWdyX25ldyhtYW4s
-IHRibywgcGxhY2UsIDEsIH4wdWwsIHJlcyk7CisKKyNpZmRlZiBDT05GSUdfVFJBTlNQQVJFTlRf
-SFVHRVBBR0UKKwlwYWdlc19wZXJfbm9kZSA9IEhQQUdFX1BNRF9OUjsKKyNlbHNlCisJLyogZGVm
-YXVsdCB0byAyTUIgKi8KKwlwYWdlc19wZXJfbm9kZSA9IDJVTCA8PCAoMjBVTCAtIFBBR0VfU0hJ
-RlQpOworI2VuZGlmCisJcGFnZXNfcGVyX25vZGUgPSBtYXhfdCh1aW50MzJfdCwgcGFnZXNfcGVy
-X25vZGUsIHRiby0+cGFnZV9hbGlnbm1lbnQpOworCW51bV9ub2RlcyA9IERJVl9ST1VORF9VUF9V
-TEwoUEZOX1VQKHRiby0+YmFzZS5zaXplKSwgcGFnZXNfcGVyX25vZGUpOworCisJaWYgKHN0cnVj
-dF9zaXplKG5vZGUsIG1tX25vZGVzLCBudW1fbm9kZXMpID4gUEFHRV9TSVpFKSB7CisJCXNpemVf
-dCBzaXplID0gUEFHRV9TSVpFOworCisJCXNpemUgLT0gc2l6ZW9mKHN0cnVjdCB0dG1fcmFuZ2Vf
-bWdyX25vZGUpOworCQlzaXplIC89IHNpemVvZihzdHJ1Y3QgZHJtX21tX25vZGUpOworCQlyID0g
-YW1kZ3B1X3ZyYW1fbWdyX25ldyhtYW4sIHRibywgcGxhY2UsIHNpemUsIHBhZ2VzX3Blcl9ub2Rl
-LAorCQkJCQlyZXMpOworCQlpZiAociAhPSAtRTJCSUcpCisJCQlyZXR1cm4gcjsKKwl9CisKKwly
-ZXR1cm4gYW1kZ3B1X3ZyYW1fbWdyX25ldyhtYW4sIHRibywgcGxhY2UsIG51bV9ub2RlcywgcGFn
-ZXNfcGVyX25vZGUsCisJCQkJICAgcmVzKTsKK30KKwogLyoqCiAgKiBhbWRncHVfdnJhbV9tZ3Jf
-ZGVsIC0gZnJlZSByYW5nZXMKICAqCkBAIC02ODAsNyArNzIwLDcgQEAgc3RhdGljIHZvaWQgYW1k
-Z3B1X3ZyYW1fbWdyX2RlYnVnKHN0cnVjdCB0dG1fcmVzb3VyY2VfbWFuYWdlciAqbWFuLAogfQog
-CiBzdGF0aWMgY29uc3Qgc3RydWN0IHR0bV9yZXNvdXJjZV9tYW5hZ2VyX2Z1bmMgYW1kZ3B1X3Zy
-YW1fbWdyX2Z1bmMgPSB7Ci0JLmFsbG9jCT0gYW1kZ3B1X3ZyYW1fbWdyX25ldywKKwkuYWxsb2MJ
-PSBhbWRncHVfdnJhbV9tZ3JfYWxsb2MsCiAJLmZyZWUJPSBhbWRncHVfdnJhbV9tZ3JfZGVsLAog
-CS5kZWJ1Zwk9IGFtZGdwdV92cmFtX21ncl9kZWJ1ZwogfTsKLS0gCjIuMjUuMQoKX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
-c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
-cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+Hi,
+
+In the display core, we utilize floats and doubles units for calculating
+modesetting parameters. One side effect of our approach to use double-precision
+is the fact that we spread multiple FPU access across our driver, which means
+that we can accidentally clobber user space FPU state.
+
+# Challenges
+
+1. Keep in mind that this FPU code is ingrained in our display driver and
+performs several crucial tasks. Additionally, we already have multiple
+architectures available in the kernel and a large set of users; in other words,
+we prefer to avoid a radical approach that might break our user's system.
+
+2. We share our display code with other OSs; thus, we need to maintain the
+interoperability between these two systems.
+
+3. We need a mechanism for identifying which function uses FPU registers;
+fortunately, Peter Zijlstra wrote a series a couple of months ago where he
+introduced an FPU check for objtool. I used the following command for
+identifying the potential FPU usage:
+
+ ./tools/objtool/objtool check -Ffa "drivers/gpu/drm/amd/display/dc/ANY_FILE.o"
+
+4. Since our code heavily relies on FPU and the fact that we spread
+kernel_fpu_begin/end across multiple functions, we can have some complex
+scenarios that will require code refactoring. However, we want to avoid
+complicated changes since this is a formula to introduce regressions; we want
+something that allows us to fix it in small, safe, and reliable steps.
+
+5. Unfortunately, for legacy reasons, we have some problems in how we program
+our FPU access, which in some weird scenarios can generate situations where we
+try to enter in the fpu mode multiple times or exit too early.
+
+# Our approach
+
+For trying to solve this problem, we came up with the following strategy:
+
+1. Keep in mind that we are using kernel_fpu_begin/end spread in various areas
+and sometimes across multiple functions. If we try to move some of the
+functions to an isolated place, we can generate a situation where we can call
+the FPU protection more than once, causing multiple warnings. We can deal with
+this problem by adding a thin management layer around the kernel_fpu_begin/end
+used inside the display.
+
+2. We will need a trace mechanism for this FPU management inside our display
+code.
+
+3. After we get the thin layer that manages FPU, we can start to move each
+function that uses FPU to a centralized place. Our DQE runs multiple tests in
+different ASICs every week; we can take advantage of this to ensure that our
+FPU patches work does not introduce any regression. The idea is to work on a
+specific part of the code every week (e.g., week 1: DCN2, week 1: DCN2.1,
+etc.).
+
+4. Finally, after we can isolate the FPU operations in a single place, we can
+altogether remove the FPU flags from other files and eliminate an unnecessary
+code introduced to deal with this problem. We can also remove the thin layer
+added in the step 3.
+
+# This series
+
+To maintain the interoperability between multiple OSes, we already have a
+define named DC_FP_START/END, which is a straightforward wrapper to
+kernel_fpu_begin/end in the Linux side. In this series, I decided to expand the
+scope of this DC_FP_* wrapper to trace FPU entrance and exit in the display
+code, but I also add a mechanism for managing the entrance and exit of
+kernel_fpu_begin/end. You can see the details on how I did that in the last two
+patches.
+
+I also isolate a simple function that requires FPU access to demonstrate my
+strategy for isolating this FPU access in a single place. If this series gets
+accepted, the following steps consist of moving all FPU functions weekly until
+we isolate everything in the fpu_operation folder.
+
+Changes since V1:
+- Use a better name for variables.
+- Update documentation.
+- Avoid preemption.
+
+* See update details per commit message
+
+Best Regards
+Rodrigo Siqueira
+
+Rodrigo Siqueira (4):
+  drm/amd/display: Introduce FPU directory inside DC
+  drm/amd/display: Add FPU event trace
+  drm/amd/display: Add control mechanism for FPU utilization
+  drm/amd/display: Add DC_FP helper to check FPU state
+
+ .../gpu/drm/amd/display/amdgpu_dm/Makefile    |   3 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_trace.h   |  24 ++++
+ .../gpu/drm/amd/display/amdgpu_dm/dc_fpu.c    | 114 ++++++++++++++++++
+ .../gpu/drm/amd/display/amdgpu_dm/dc_fpu.h    |  34 ++++++
+ drivers/gpu/drm/amd/display/dc/Makefile       |   1 +
+ drivers/gpu/drm/amd/display/dc/dc_trace.h     |   3 +
+ .../drm/amd/display/dc/dcn20/dcn20_resource.c |  41 +------
+ .../drm/amd/display/dc/dcn20/dcn20_resource.h |   2 -
+ .../drm/amd/display/dc/dcn21/dcn21_resource.c |   2 +
+ .../amd/display/dc/fpu_operations/Makefile    |  58 +++++++++
+ .../drm/amd/display/dc/fpu_operations/dcn2x.c | 104 ++++++++++++++++
+ .../drm/amd/display/dc/fpu_operations/dcn2x.h |  33 +++++
+ drivers/gpu/drm/amd/display/dc/os_types.h     |   6 +-
+ 13 files changed, 382 insertions(+), 43 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/fpu_operations/Makefile
+ create mode 100644 drivers/gpu/drm/amd/display/dc/fpu_operations/dcn2x.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/fpu_operations/dcn2x.h
+
+-- 
+2.25.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
