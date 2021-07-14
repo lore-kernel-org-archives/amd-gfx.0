@@ -2,61 +2,59 @@ Return-Path: <SRS0=RZx8=MG=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0E8C0C11F67
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 18:20:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 59C7BC07E9C
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 18:36:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CE0A560FEB
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 18:20:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CE0A560FEB
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=tuxedocomputers.com
+	by mail.kernel.org (Postfix) with ESMTPS id 29BC9613C8
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 18:36:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 29BC9613C8
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=canonical.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C1B689C99;
-	Wed, 14 Jul 2021 18:20:57 +0000 (UTC)
-Received: from srv6.fidu.org (srv6.fidu.org [IPv6:2a01:4f8:231:de0::2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B34C89C83;
- Wed, 14 Jul 2021 18:20:55 +0000 (UTC)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by srv6.fidu.org (Postfix) with ESMTP id 4ED02C8007F;
- Wed, 14 Jul 2021 20:20:54 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at srv6.fidu.org
-Received: from srv6.fidu.org ([127.0.0.1])
- by localhost (srv6.fidu.org [127.0.0.1]) (amavisd-new, port 10024)
- with LMTP id 2zIN8GVCgxDm; Wed, 14 Jul 2021 20:20:54 +0200 (CEST)
-Received: from [IPv6:2003:e3:7f13:3500:839f:11f6:c93a:c68b]
- (p200300E37F133500839f11f6c93ac68b.dip0.t-ipconnect.de
- [IPv6:2003:e3:7f13:3500:839f:11f6:c93a:c68b])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- (Authenticated sender: wse@tuxedocomputers.com)
- by srv6.fidu.org (Postfix) with ESMTPSA id E2C1EC8007C;
- Wed, 14 Jul 2021 20:20:52 +0200 (CEST)
-Subject: Re: [PATCH v5 17/17] drm/amd/display: Add handling for new "Broadcast
- RGB" property
-To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@linux.ie, daniel@ffwll.ch,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, emil.l.velikov@gmail.com
-References: <20210630151018.330354-1-wse@tuxedocomputers.com>
- <20210630151018.330354-18-wse@tuxedocomputers.com>
-From: Werner Sembach <wse@tuxedocomputers.com>
-Message-ID: <206d45be-86d9-9cc3-0b4a-317342221988@tuxedocomputers.com>
-Date: Wed, 14 Jul 2021 20:20:52 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 541426E48D;
+	Wed, 14 Jul 2021 18:36:03 +0000 (UTC)
+X-Greylist: delayed 332 seconds by postgrey-1.36 at gabe;
+ Wed, 14 Jul 2021 17:14:02 UTC
+Received: from smtp-relay-canonical-0.canonical.com
+ (smtp-relay-canonical-0.canonical.com [185.125.188.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 491806E432
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Jul 2021 17:14:02 +0000 (UTC)
+Received: from localhost (1.general.cking.uk.vpn [10.172.193.212])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id D841540616; 
+ Wed, 14 Jul 2021 17:08:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1626282508;
+ bh=DAhaMqtw5C577LQ/86AWeIBpEHxNYnclBIEh7gDqyRs=;
+ h=From:To:Subject:Date:Message-Id:MIME-Version:Content-Type;
+ b=hGj93JOz4sro6FFib6OFcRkkCEj08LkdkXruz9NsF78S3lLGUa9Zc5u/sxX5Si9YR
+ 3x3gsuFUNOyJa/sno36q9lWN6smJKvXRRPX9MgdnteZZcQE7w3bBStaxfkGuqIPUTW
+ uCX3mdzNcdbgsApBlI83EgTGE/ke8I7SGfX9z413ZwPf7sX/45f+Tu6gPEmOPudLMG
+ cfeydL7tviF3q9igjU2ar3tPL+ypF+CPkhAULnoUl16h2LclBPPSEzwK5qvN0EpVtG
+ syz3WWkyOrdiY7nEULFP2zsFwZZPeuyYf9b9C6ttX4+r5VeGQhZHh66kEpZ+e7kUjE
+ WMsSubseTWtog==
+From: Colin King <colin.king@canonical.com>
+To: Evan Quan <evan.quan@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Pan@freedesktop.org, Xinhui <Xinhui.Pan@amd.com>,
+	David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+	amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH] drm/amd/powerplay: remove redundant assignment to usTMax
+Date: Wed, 14 Jul 2021 18:08:28 +0100
+Message-Id: <20210714170828.147618-1-colin.king@canonical.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-In-Reply-To: <20210630151018.330354-18-wse@tuxedocomputers.com>
-Content-Language: de-DE
+X-Mailman-Approved-At: Wed, 14 Jul 2021 18:36:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,92 +66,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 30.06.21 um 17:10 schrieb Werner Sembach:
-> This commit implements the "Broadcast RGB" drm property for the AMD GPU
-> driver.
->
-> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
-> ---
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 14 +++++++++++---
->   .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    |  4 ++++
->   2 files changed, 15 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 02a5809d4993..80d5a11fb0c5 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -5247,7 +5247,8 @@ get_aspect_ratio(const struct drm_display_mode *mode_in)
->   }
->   
->   static enum dc_color_space
-> -get_output_color_space(const struct dc_crtc_timing *dc_crtc_timing)
-> +get_output_color_space(const struct dc_crtc_timing *dc_crtc_timing,
-> +		       enum drm_mode_color_range preferred_color_range)
->   {
->   	enum dc_color_space color_space = COLOR_SPACE_SRGB;
->   
-> @@ -5278,7 +5279,10 @@ get_output_color_space(const struct dc_crtc_timing *dc_crtc_timing)
->   	}
->   	break;
->   	case PIXEL_ENCODING_RGB:
-> -		color_space = COLOR_SPACE_SRGB;
-> +		if (preferred_color_range == DRM_MODE_COLOR_RANGE_LIMITED_16_235)
-> +			color_space = COLOR_SPACE_SRGB_LIMITED;
-> +		else
-> +			color_space = COLOR_SPACE_SRGB;
->   		break;
+From: Colin Ian King <colin.king@canonical.com>
 
-After some testing I found out, that what I did here, was useless.
+Struct element usTMax is being assigned a hard coded value that
+is never read and it is being re-assigned a new value immediately
+afterwards. The assignment is redundant and can be removed.
 
-amdgpu actually never sets the quantization_range range in the 
-hdmi_avi_infoframe and from that I guess any quantization range, besides 
-the default one, is not implemented in multiple places
+Addresses-Coverity: ("Unused value")
+Signed-off-by: Colin Ian King <colin.king@canonical.com>
+---
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/process_pptables_v1_0.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-Until limited RGB is properly implemented in amdgpu there kind of is no 
-purpose of generalizing the Broadcast RGB switch.
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/process_pptables_v1_0.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/process_pptables_v1_0.c
+index f2a55c1413f5..20e528c166f9 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/process_pptables_v1_0.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/process_pptables_v1_0.c
+@@ -977,8 +977,6 @@ static int init_thermal_controller(
+ 			= le16_to_cpu(tonga_fan_table->usPWMMed);
+ 		hwmgr->thermal_controller.advanceFanControlParameters.usPWMHigh
+ 			= le16_to_cpu(tonga_fan_table->usPWMHigh);
+-		hwmgr->thermal_controller.advanceFanControlParameters.usTMax
+-			= 10900;                  /* hard coded */
+ 		hwmgr->thermal_controller.advanceFanControlParameters.usTMax
+ 			= le16_to_cpu(tonga_fan_table->usTMax);
+ 		hwmgr->thermal_controller.advanceFanControlParameters.ucFanControlMode
+-- 
+2.31.1
 
->   
->   	default:
-> @@ -5424,7 +5428,10 @@ static void fill_stream_properties_from_drm_display_mode(
->   
->   	timing_out->aspect_ratio = get_aspect_ratio(mode_in);
->   
-> -	stream->output_color_space = get_output_color_space(timing_out);
-> +	stream->output_color_space = get_output_color_space(timing_out,
-> +							    connector_state ?
-> +							    connector_state->preferred_color_range :
-> +							    DRM_MODE_COLOR_RANGE_UNSET);
->   
->   	stream->out_transfer_func->type = TF_TYPE_PREDEFINED;
->   	stream->out_transfer_func->tf = TRANSFER_FUNCTION_SRGB;
-> @@ -7775,6 +7782,7 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
->   		drm_connector_attach_active_bpc_property(&aconnector->base, 8, 16);
->   		drm_connector_attach_preferred_color_format_property(&aconnector->base);
->   		drm_connector_attach_active_color_format_property(&aconnector->base);
-> +		drm_connector_attach_preferred_color_range_property(&aconnector->base);
->   		drm_connector_attach_active_color_range_property(&aconnector->base);
->   	}
->   
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> index 2563788ba95a..80e1389fd0ec 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> @@ -421,6 +421,10 @@ dm_dp_add_mst_connector(struct drm_dp_mst_topology_mgr *mgr,
->   	if (connector->active_color_format_property)
->   		drm_connector_attach_active_color_format_property(&aconnector->base);
->   
-> +	connector->preferred_color_range_property = master->base.preferred_color_range_property;
-> +	if (connector->preferred_color_range_property)
-> +		drm_connector_attach_preferred_color_range_property(&aconnector->base);
-> +
->   	connector->active_color_range_property = master->base.active_color_range_property;
->   	if (connector->active_color_range_property)
->   		drm_connector_attach_active_color_range_property(&aconnector->base);
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
