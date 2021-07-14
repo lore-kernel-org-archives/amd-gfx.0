@@ -2,41 +2,76 @@ Return-Path: <SRS0=RZx8=MG=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.0 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F3A72C07E9A
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 08:15:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 007BAC07E9A
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 08:33:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7A83B613AF
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 08:15:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7A83B613AF
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=dudau.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id B929C613B0
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 08:33:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B929C613B0
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D5FC6E197;
-	Wed, 14 Jul 2021 08:15:48 +0000 (UTC)
-X-Greylist: delayed 531 seconds by postgrey-1.36 at gabe;
- Wed, 14 Jul 2021 08:15:46 UTC
-Received: from smtp.dudau.co.uk (dliviu.plus.com [80.229.23.120])
- by gabe.freedesktop.org (Postfix) with ESMTP id CF3E46E19B;
- Wed, 14 Jul 2021 08:15:46 +0000 (UTC)
-Received: from mail.dudau.co.uk (bart.dudau.co.uk [192.168.14.2])
- by smtp.dudau.co.uk (Postfix) with SMTP id E18A64111345;
- Wed, 14 Jul 2021 09:06:53 +0100 (BST)
-Received: by mail.dudau.co.uk (sSMTP sendmail emulation);
- Wed, 14 Jul 2021 09:06:53 +0100
-From: Liviu Dudau <liviu@dudau.co.uk>
-To: Harry Wentland <harry.wentland@amd.com>
-Subject: [PATCH] drm/amd/display: Fix 10bit 4K display on CIK GPUs
-Date: Wed, 14 Jul 2021 09:06:52 +0100
-Message-Id: <20210714080652.113381-1-liviu@dudau.co.uk>
-X-Mailer: git-send-email 2.32.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6716B8980C;
+	Wed, 14 Jul 2021 08:33:45 +0000 (UTC)
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [IPv6:2a00:1450:4864:20::332])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A2A78980C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Jul 2021 08:33:44 +0000 (UTC)
+Received: by mail-wm1-x332.google.com with SMTP id
+ l17-20020a05600c1d11b029021f84fcaf75so3375911wms.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Jul 2021 01:33:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=RIO21b4UQtB82o6z/EeNRhrcHk7c+4Y1sfyFrAwXS04=;
+ b=eCoPTBSSL+XtXgtICaThPzAOvS80HQjcd5oyvXnFQWCQO0inALZs41C52FA+knCeaA
+ wUUibybQdqV/i6ULhGPZk+7B9KYw+v7s5svSHBKUUl48IDrLpw/IPO814ecRfWSo/sDg
+ um+7mcCRfXMZBoX/nVFF6J5+9TVafBAFWlILnxY4aNlP/inRT3UZvsvWwCVm5PfW+k7z
+ ZP2Vfj0Y7HpSLNZmzl69fzJWDeB1lhwUk2VKT+v5X+3sarXKV4VmaSH/yzYlLDoPu0ls
+ YXP4ZXRu+NeBL+wbYs4E6MM9M25dZeHvfH8DkYC1uny/A27EHXXnZjUCB2to+jQIaiKp
+ Bi0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=RIO21b4UQtB82o6z/EeNRhrcHk7c+4Y1sfyFrAwXS04=;
+ b=VjNfBhYiLLZwQHcngXrLD0WgSZiaN4OeE08dLo0n91xXEuqgaZPStpU7WSvqw0/M98
+ d5Dw/Xf53uxTLfTQRLZYzduDg5Q23NS35ErxhwZvxcI/vsZqlca3dI4R5gXt1lrkQEyg
+ smUkYQ0V2r53cxz70yaUQHKanqVFcwx6gCNUv21IByZULShqj/ABtR500nrE1yFgVOal
+ LPs+MXv63syvOF7ymy7TS3JhnGY9UIUc6CrNBH0lwrRDx+SgLlwB50IQ7DFeZDbWWWvE
+ DLmVZ74eVyTuIgdibLbumHOmUkDXaMQvyW5kpfSlza8lGiFd+CXK9PP938FcnPju1BGc
+ ycaw==
+X-Gm-Message-State: AOAM532XGOGhXUAMh+t245KQOBc1yg/WoyJkDCPY+CIO/92L2bA3vSZG
+ JRbER1fcReuasK4zIZdi9as=
+X-Google-Smtp-Source: ABdhPJyVVi8nx2A9S6R5EQJ3xWdXaxK5ouCtoCApYrgNuyu90ePMZ2E3t91lQzdsnMO3xdxhKm3Gtg==
+X-Received: by 2002:a7b:c4d2:: with SMTP id g18mr9800162wmk.146.1626251623316; 
+ Wed, 14 Jul 2021 01:33:43 -0700 (PDT)
+Received: from ?IPv6:2a02:908:1252:fb60:fe2b:fec6:eeb5:c7dc?
+ ([2a02:908:1252:fb60:fe2b:fec6:eeb5:c7dc])
+ by smtp.gmail.com with ESMTPSA id l2sm1253145wms.21.2021.07.14.01.33.42
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 14 Jul 2021 01:33:42 -0700 (PDT)
+Subject: Re: [PATCH] drm/amdgpu: further lower VRAM allocation overhead
+To: Eric Huang <jinhuieric.huang@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20210713191739.458131-1-jinhuieric.huang@amd.com>
+ <a1cad35e-e24d-3078-bbc2-1534a625d932@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <7ac4af39-5dd9-1eac-3208-dcfecb422269@gmail.com>
+Date: Wed, 14 Jul 2021 10:33:42 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
+In-Reply-To: <a1cad35e-e24d-3078-bbc2-1534a625d932@amd.com>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,46 +83,121 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Liviu Dudau <liviu@dudau.co.uk>, Mario Kleiner <mario.kleiner.de@gmail.com>,
- Leo Li <sunpeng.li@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Felix Kuehling <Felix.Kuehling@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Commit 72a7cf0aec0c ("drm/amd/display: Keep linebuffer pixel depth at
-30bpp for DCE-11.0.") doesn't seems to have fixed 10bit 4K rendering over
-DisplayPort for CIK GPUs. On my machine with a HAWAII GPU I get a broken
-image that looks like it has an effective resolution of 1920x1080 but
-scaled up in an irregular way. Reverting the commit or applying this
-patch fixes the problem on v5.14-rc1.
-
-Fixes: 72a7cf0aec0c ("drm/amd/display: Keep linebuffer pixel depth at 30bpp for DCE-11.0.")
-Signed-off-by: Liviu Dudau <liviu@dudau.co.uk>
----
- drivers/gpu/drm/amd/display/dc/core/dc_resource.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-index a6a67244a322e..1596f6b7fed7c 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-@@ -1062,7 +1062,7 @@ bool resource_build_scaling_params(struct pipe_ctx *pipe_ctx)
- 	 * so use only 30 bpp on DCE_VERSION_11_0. Testing with DCE 11.2 and 8.3
- 	 * did not show such problems, so this seems to be the exception.
- 	 */
--	if (plane_state->ctx->dce_version != DCE_VERSION_11_0)
-+	if (plane_state->ctx->dce_version > DCE_VERSION_11_0)
- 		pipe_ctx->plane_res.scl_data.lb_params.depth = LB_PIXEL_DEPTH_36BPP;
- 	else
- 		pipe_ctx->plane_res.scl_data.lb_params.depth = LB_PIXEL_DEPTH_30BPP;
--- 
-2.32.0
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+SGkgRXJpYywKCmZlZWwgZnJlZSB0byBwdXNoIGludG8gYW1kLXN0YWdpbmctZGttcy01LjExLCBi
+dXQgcGxlYXNlIGRvbid0IHB1c2ggaXQgCmludG8gYW1kLXN0YWdpbmctZHJtLW5leHQuCgpUaGUg
+bGF0ZXIgd2lsbCBqdXN0IGNhdXNlIGEgbWVyZ2UgZmFpbHVyZSB3aGljaCBBbGV4IG5lZWRzIHRv
+IHJlc29sdmUgCm1hbnVhbGx5LgoKSSBjYW4gdGFrZSBjYXJlIG9mIHB1c2hpbmcgdG8gYW1kLXN0
+YWdpbmctZHJtLW5leHQgYXMgc29vbiBhcyB0aGF0IGlzIApyZWJhc2VkIG9uIGxhdGVzdCB1cHN0
+cmVhbS4KClJlZ2FyZHMsCkNocmlzdGlhbi4KCkFtIDEzLjA3LjIxIHVtIDIxOjE5IHNjaHJpZWIg
+RXJpYyBIdWFuZzoKPiBIaSBDaHJpc3RpYW4vRmVsaXgsCj4KPiBJZiB5b3UgZG9uJ3QgaGF2ZSBv
+YmplY3Rpb24sIGl0IHdpbGwgYmUgcHVzaGVkIGludG8gCj4gYW1kLXN0YWdpbmctZGttcy01LjEx
+IGFuZCBhbWQtc3RhZ2luZy1kcm0tbmV4dC4KPgo+IFRoYW5rcywKPiBFcmljCj4KPiBPbiAyMDIx
+LTA3LTEzIDM6MTcgcC5tLiwgRXJpYyBIdWFuZyB3cm90ZToKPj4gRm9yIGFsbG9jYXRpb25zIGxh
+cmdlciB0aGFuIDQ4TWlCIHdlIG5lZWQgbW9yZSB0aGFuIGEgcGFnZSBmb3IgdGhlCj4+IGhvdXNl
+a2VlcGluZyBpbiB0aGUgd29yc3QgY2FzZSByZXN1bHRpbmcgaW4gdGhlIHVzdWFsIHZtYWxsb2Mg
+b3ZlcmhlYWQuCj4+Cj4+IFRyeSB0byBhdm9pZCB0aGlzIGJ5IGFzc3VtaW5nIHRoZSBnb29kIGNh
+c2UgYW5kIG9ubHkgZmFsbGluZyBiYWNrIHRvIHRoZQo+PiB3b3JzdCBjYXNlIGlmIHRoaXMgZGlk
+bid0IHdvcmtlZC4KPj4KPj4gU2lnbmVkLW9mZi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0
+aWFuLmtvZW5pZ0BhbWQuY29tPgo+PiBTaWduZWQtb2ZmLWJ5OiBFcmljIEh1YW5nIDxqaW5odWll
+cmljLmh1YW5nQGFtZC5jb20+Cj4+IFJldmlld2VkLWJ5OiBGZWxpeCBLdWVobGluZyA8RmVsaXgu
+S3VlaGxpbmdAYW1kLmNvbT4KPj4gLS0tCj4+IMKgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV92cmFtX21nci5jIHwgNzEgKysrKysrKysrKysrKysrLS0tLS0KPj4gwqAgMSBmaWxl
+IGNoYW5nZWQsIDUzIGluc2VydGlvbnMoKyksIDE4IGRlbGV0aW9ucygtKQo+Pgo+PiBkaWZmIC0t
+Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZyYW1fbWdyLmMgCj4+IGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZyYW1fbWdyLmMKPj4gaW5kZXggYmU0
+MjYxYzQ1MTJlLi5lY2JlMDVlMWRiNjYgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV92cmFtX21nci5jCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV92cmFtX21nci5jCj4+IEBAIC0zNjEsOSArMzYxLDExIEBAIHN0YXRpYyB2
+b2lkIGFtZGdwdV92cmFtX21ncl92aXJ0X3N0YXJ0KHN0cnVjdCAKPj4gdHRtX3Jlc291cmNlICpt
+ZW0sCj4+IMKgIHN0YXRpYyBpbnQgYW1kZ3B1X3ZyYW1fbWdyX25ldyhzdHJ1Y3QgdHRtX3Jlc291
+cmNlX21hbmFnZXIgKm1hbiwKPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoCBzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3QgKnRibywKPj4gwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjb25zdCBzdHJ1Y3QgdHRtX3BsYWNlICpwbGFjZSwKPj4g
+K8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB1bnNpZ25lZCBsb25nIG51bV9u
+b2RlcywKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB1bnNpZ25lZCBs
+b25nIHBhZ2VzX3Blcl9ub2RlLAo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgIHN0cnVjdCB0dG1fcmVzb3VyY2UgKm1lbSkKPj4gwqAgewo+PiAtwqDCoMKgIHVuc2ln
+bmVkIGxvbmcgbHBmbiwgbnVtX25vZGVzLCBwYWdlc19wZXJfbm9kZSwgcGFnZXNfbGVmdCwgcGFn
+ZXM7Cj4+ICvCoMKgwqAgdW5zaWduZWQgbG9uZyBscGZuLCBwYWdlc19sZWZ0LCBwYWdlczsKPj4g
+wqDCoMKgwqDCoCBzdHJ1Y3QgYW1kZ3B1X3ZyYW1fbWdyICptZ3IgPSB0b192cmFtX21ncihtYW4p
+Owo+PiDCoMKgwqDCoMKgIHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gdG9fYW1kZ3B1X2Rl
+dmljZShtZ3IpOwo+PiDCoMKgwqDCoMKgIHVpbnQ2NF90IHZpc191c2FnZSA9IDAsIG1lbV9ieXRl
+cywgbWF4X2J5dGVzOwo+PiBAQCAtMzkzLDIxICszOTUsNiBAQCBzdGF0aWMgaW50IGFtZGdwdV92
+cmFtX21ncl9uZXcoc3RydWN0IAo+PiB0dG1fcmVzb3VyY2VfbWFuYWdlciAqbWFuLAo+PiDCoMKg
+wqDCoMKgwqDCoMKgwqAgcmV0dXJuIC1FTk9TUEM7Cj4+IMKgwqDCoMKgwqAgfQo+PiDCoCAtwqDC
+oMKgIGlmIChwbGFjZS0+ZmxhZ3MgJiBUVE1fUExfRkxBR19DT05USUdVT1VTKSB7Cj4+IC3CoMKg
+wqDCoMKgwqDCoCBwYWdlc19wZXJfbm9kZSA9IH4wdWw7Cj4+IC3CoMKgwqDCoMKgwqDCoCBudW1f
+bm9kZXMgPSAxOwo+PiAtwqDCoMKgIH0gZWxzZSB7Cj4+IC0jaWZkZWYgQ09ORklHX1RSQU5TUEFS
+RU5UX0hVR0VQQUdFCj4+IC3CoMKgwqDCoMKgwqDCoCBwYWdlc19wZXJfbm9kZSA9IEhQQUdFX1BN
+RF9OUjsKPj4gLSNlbHNlCj4+IC3CoMKgwqDCoMKgwqDCoCAvKiBkZWZhdWx0IHRvIDJNQiAqLwo+
+PiAtwqDCoMKgwqDCoMKgwqAgcGFnZXNfcGVyX25vZGUgPSAyVUwgPDwgKDIwVUwgLSBQQUdFX1NI
+SUZUKTsKPj4gLSNlbmRpZgo+PiAtwqDCoMKgwqDCoMKgwqAgcGFnZXNfcGVyX25vZGUgPSBtYXhf
+dCh1aW50MzJfdCwgcGFnZXNfcGVyX25vZGUsCj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoCBtZW0tPnBhZ2VfYWxpZ25tZW50KTsKPj4gLcKgwqDCoMKgwqDC
+oMKgIG51bV9ub2RlcyA9IERJVl9ST1VORF9VUChtZW0tPm51bV9wYWdlcywgcGFnZXNfcGVyX25v
+ZGUpOwo+PiAtwqDCoMKgIH0KPj4gLQo+PiDCoMKgwqDCoMKgIG5vZGVzID0ga3ZtYWxsb2NfYXJy
+YXkoKHVpbnQzMl90KW51bV9ub2Rlcywgc2l6ZW9mKCpub2RlcyksCj4+IMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgR0ZQX0tFUk5FTCB8IF9fR0ZQX1pFUk8pOwo+PiDC
+oMKgwqDCoMKgIGlmICghbm9kZXMpIHsKPj4gQEAgLTQzNSw3ICs0MjIsMTIgQEAgc3RhdGljIGlu
+dCBhbWRncHVfdnJhbV9tZ3JfbmV3KHN0cnVjdCAKPj4gdHRtX3Jlc291cmNlX21hbmFnZXIgKm1h
+biwKPj4gwqDCoMKgwqDCoCBpID0gMDsKPj4gwqDCoMKgwqDCoCBzcGluX2xvY2soJm1nci0+bG9j
+ayk7Cj4+IMKgwqDCoMKgwqAgd2hpbGUgKHBhZ2VzX2xlZnQpIHsKPj4gLcKgwqDCoMKgwqDCoMKg
+IHVpbnQzMl90IGFsaWdubWVudCA9IG1lbS0+cGFnZV9hbGlnbm1lbnQ7Cj4+ICvCoMKgwqDCoMKg
+wqDCoCB1bnNpZ25lZCBsb25nIGFsaWdubWVudCA9IG1lbS0+cGFnZV9hbGlnbm1lbnQ7Cj4+ICsK
+Pj4gK8KgwqDCoMKgwqDCoMKgIGlmIChpID49IG51bV9ub2Rlcykgewo+PiArwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoCByID0gLUUyQklHOwo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBnb3RvIGVy
+cm9yOwo+PiArwqDCoMKgwqDCoMKgwqAgfQo+PiDCoCDCoMKgwqDCoMKgwqDCoMKgwqAgaWYgKHBh
+Z2VzID49IHBhZ2VzX3Blcl9ub2RlKQo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBhbGln
+bm1lbnQgPSBwYWdlc19wZXJfbm9kZTsKPj4gQEAgLTQ5Miw2ICs0ODQsNDkgQEAgc3RhdGljIGlu
+dCBhbWRncHVfdnJhbV9tZ3JfbmV3KHN0cnVjdCAKPj4gdHRtX3Jlc291cmNlX21hbmFnZXIgKm1h
+biwKPj4gwqDCoMKgwqDCoCByZXR1cm4gcjsKPj4gwqAgfQo+PiDCoCArLyoqCj4+ICsgKiBhbWRn
+cHVfdnJhbV9tZ3JfYWxsb2MgLSBhbGxvY2F0ZSBuZXcgcmFuZ2UKPj4gKyAqCj4+ICsgKiBAbWFu
+OiBUVE0gbWVtb3J5IHR5cGUgbWFuYWdlcgo+PiArICogQHRibzogVFRNIEJPIHdlIG5lZWQgdGhp
+cyByYW5nZSBmb3IKPj4gKyAqIEBwbGFjZTogcGxhY2VtZW50IGZsYWdzIGFuZCByZXN0cmljdGlv
+bnMKPj4gKyAqIEBtZW06IHRoZSByZXN1bHRpbmcgbWVtIG9iamVjdAo+PiArICoKPj4gKyAqIEFs
+bG9jYXRlIFZSQU0gZm9yIHRoZSBnaXZlbiBCTy4KPj4gKyAqLwo+PiArc3RhdGljIGludCBhbWRn
+cHVfdnJhbV9tZ3JfYWxsb2Moc3RydWN0IHR0bV9yZXNvdXJjZV9tYW5hZ2VyICptYW4sCj4+ICvC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3Qg
+KnRibywKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGNvbnN0IHN0cnVjdCB0
+dG1fcGxhY2UgKnBsYWNlLAo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3Ry
+dWN0IHR0bV9yZXNvdXJjZSAqbWVtKQo+PiArewo+PiArwqDCoMKgIHVuc2lnbmVkIGxvbmcgbnVt
+X25vZGVzLCBwYWdlc19wZXJfbm9kZTsKPj4gK8KgwqDCoCBpbnQgcjsKPj4gKwo+PiArwqDCoMKg
+IGlmIChwbGFjZS0+ZmxhZ3MgJiBUVE1fUExfRkxBR19DT05USUdVT1VTKQo+PiArwqDCoMKgwqDC
+oMKgwqAgcmV0dXJuIGFtZGdwdV92cmFtX21ncl9uZXcobWFuLCB0Ym8sIHBsYWNlLCAxLCB+MHVs
+LCBtZW0pOwo+PiArCj4+ICsjaWZkZWYgQ09ORklHX1RSQU5TUEFSRU5UX0hVR0VQQUdFCj4+ICvC
+oMKgwqAgcGFnZXNfcGVyX25vZGUgPSBIUEFHRV9QTURfTlI7Cj4+ICsjZWxzZQo+PiArwqDCoMKg
+IC8qIGRlZmF1bHQgdG8gMk1CICovCj4+ICvCoMKgwqAgcGFnZXNfcGVyX25vZGUgPSAyVUwgPDwg
+KDIwVUwgLSBQQUdFX1NISUZUKTsKPj4gKyNlbmRpZgo+PiArwqDCoMKgIHBhZ2VzX3Blcl9ub2Rl
+ID0gbWF4X3QodWludDMyX3QsIHBhZ2VzX3Blcl9ub2RlLAo+PiArwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgIG1lbS0+cGFnZV9hbGlnbm1lbnQpOwo+PiArwqDCoMKgIG51bV9u
+b2RlcyA9IERJVl9ST1VORF9VUChtZW0tPm51bV9wYWdlcywgcGFnZXNfcGVyX25vZGUpOwo+PiAr
+Cj4+ICvCoMKgwqAgaWYgKHNpemVvZihzdHJ1Y3QgZHJtX21tX25vZGUpICogbnVtX25vZGVzID4g
+UEFHRV9TSVpFKSB7Cj4+ICvCoMKgwqDCoMKgwqDCoCByID0gYW1kZ3B1X3ZyYW1fbWdyX25ldyht
+YW4sIHRibywgcGxhY2UsCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgUEFHRV9T
+SVpFIC8gc2l6ZW9mKHN0cnVjdCBkcm1fbW1fbm9kZSksCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqAgcGFnZXNfcGVyX25vZGUswqDCoMKgIG1lbSk7Cj4+ICvCoMKgwqDCoMKgwqDC
+oCBpZiAociAhPSAtRTJCSUcpCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiByOwo+
+PiArwqDCoMKgIH0KPj4gKwo+PiArwqDCoMKgIHJldHVybiBhbWRncHVfdnJhbV9tZ3JfbmV3KG1h
+biwgdGJvLCBwbGFjZSwgbnVtX25vZGVzLCAKPj4gcGFnZXNfcGVyX25vZGUsCj4+ICvCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgbWVtKTsKPj4gK30KPj4gKwo+PiDCoCAvKioK
+Pj4gwqDCoCAqIGFtZGdwdV92cmFtX21ncl9kZWwgLSBmcmVlIHJhbmdlcwo+PiDCoMKgICoKPj4g
+QEAgLTY5Myw3ICs3MjgsNyBAQCBzdGF0aWMgdm9pZCBhbWRncHVfdnJhbV9tZ3JfZGVidWcoc3Ry
+dWN0IAo+PiB0dG1fcmVzb3VyY2VfbWFuYWdlciAqbWFuLAo+PiDCoCB9Cj4+IMKgIMKgIHN0YXRp
+YyBjb25zdCBzdHJ1Y3QgdHRtX3Jlc291cmNlX21hbmFnZXJfZnVuYyAKPj4gYW1kZ3B1X3ZyYW1f
+bWdyX2Z1bmMgPSB7Cj4+IC3CoMKgwqAgLmFsbG9jwqDCoMKgID0gYW1kZ3B1X3ZyYW1fbWdyX25l
+dywKPj4gK8KgwqDCoCAuYWxsb2PCoMKgwqAgPSBhbWRncHVfdnJhbV9tZ3JfYWxsb2MsCj4+IMKg
+wqDCoMKgwqAgLmZyZWXCoMKgwqAgPSBhbWRncHVfdnJhbV9tZ3JfZGVsLAo+PiDCoMKgwqDCoMKg
+IC5kZWJ1Z8KgwqDCoCA9IGFtZGdwdV92cmFtX21ncl9kZWJ1Zwo+PiDCoCB9Owo+Cj4gX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxp
+bmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4CgpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
