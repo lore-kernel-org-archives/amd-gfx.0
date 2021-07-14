@@ -2,71 +2,77 @@ Return-Path: <SRS0=RZx8=MG=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.0 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 77FB8C07E9A
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 11:15:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 537BFC07E9A
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 12:08:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E75BB613B0
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 11:15:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E75BB613B0
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id 1A483613B2
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 12:08:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1A483613B2
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 981366E20C;
-	Wed, 14 Jul 2021 11:15:05 +0000 (UTC)
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [IPv6:2a00:1450:4864:20::42f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5F036E214
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Jul 2021 11:15:04 +0000 (UTC)
-Received: by mail-wr1-x42f.google.com with SMTP id g16so2738737wrw.5
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Jul 2021 04:15:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=i8/A30K8hudwTNghCdg8ZkcE46hRfkXp+xmcc8OkaCs=;
- b=garYAm0nyapXuSIT0H9wMaBmUorVzFAfU/jlf94Y9S/O55Q2w/dd0L+cbKlcKYgn+n
- OlAK6z3zcyfa1wvxMdrgRDKC4A2UghHj9lkS6yFe/wPT2UolaCZIPv+U7v48bl7BMciA
- L3mKXIBuVp+SJS6l0XVyv3P0wtRSZaE9E5k5c=
+	by gabe.freedesktop.org (Postfix) with ESMTP id D10366E231;
+	Wed, 14 Jul 2021 12:08:56 +0000 (UTC)
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [IPv6:2a00:1450:4864:20::329])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7CBC6E231
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Jul 2021 12:08:55 +0000 (UTC)
+Received: by mail-wm1-x329.google.com with SMTP id
+ l8-20020a05600c1d08b02902333d79327aso655556wms.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Jul 2021 05:08:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=vpgDvZwpqAPEXdihCzerjal/G7+W542vgwjOiQtJHQw=;
+ b=FHhR96Vq53QvytXPsE3GQogkukE9r6hoQeDvZdK/fGs8/KBf8cV2nINmvZ7Bey9ki5
+ JLU+s208YhiBkYOS6giiRn13NZV6VsvweiAfSEfk6a9mZ3pA5NiqRCrCJM5ZNlIjD3DH
+ Pkrjt6JIYnuDGQs9MB61B7aGgAgHJiMjV65B6+PkecHoujzEN6d/psrOoPYHdUZSjWwW
+ VVYLPxon1or+8NNKxY1cRdZNp4x2PajPHSjkaUcJmuCPggYazTCT8qQDWeOEKYnE8e1H
+ dqpEyRt4N9bVTPauI5bQklNxslTGAmZQd9B7k5Zfqx3WbqE4x2Fa2z26SKae3/j0TOGy
+ iu6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=i8/A30K8hudwTNghCdg8ZkcE46hRfkXp+xmcc8OkaCs=;
- b=kDL/C4DAgI9mGMckcpyu4c3udM5cJ5xFLpR4KhuDSwPnj5ke2C4cXyGi0D0KqpJDsv
- gqY1B/4JwGk37je6aAgfCSb/IbzuHR6Lo4+7ITKVPiQT1rjL2sYjppy6ioKAgfu+d6D1
- 5yWd81u2boQjc+1tixw4LchK5r7KqA/VEqQwxGEjLIAv5Wo/cAoKMD7FAK7YQRZtgzVi
- JfgPWUkfuXcLYVNEkYEdTwO3NPWRRanDHDj6mfT0DfXkBsifN+y5UlpiVNDHSK0RVOwP
- QgjbDADtvabCpETnCT/ZqaiqQaQGekWmO+ONjOVauPdpWWUU3qGydW2YFQi6ZVUvSejJ
- EOWg==
-X-Gm-Message-State: AOAM530Ef+0qIJLYFywJcqAwUSxFLlV+EGN/lMr8qeV3tYRK9g2K+k2f
- tGWO54/a1syvaGXxhyQ7bOKHBA==
-X-Google-Smtp-Source: ABdhPJyBNry25zXPTDcV0L0tWlzyF8WITqBCoYUMx1j4Uuqkk4hk+w/VhuOnMb5N17J9hKkni/zuAA==
-X-Received: by 2002:a05:6000:551:: with SMTP id
- b17mr12123386wrf.32.1626261303434; 
- Wed, 14 Jul 2021 04:15:03 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id m6sm2853947wrw.9.2021.07.14.04.15.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 14 Jul 2021 04:15:02 -0700 (PDT)
-Date: Wed, 14 Jul 2021 13:15:01 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Subject: Re: [PATCH v3 1/1] drm/ttm: Fix COW check
-Message-ID: <YO7HNStidzhlHYe0@phenom.ffwll.local>
-References: <20210712220636.475675-1-Felix.Kuehling@amd.com>
- <YO6/8DWgD9d6tJcr@phenom.ffwll.local>
- <acc33c53-b56a-0da4-5706-414a444c6459@amd.com>
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=vpgDvZwpqAPEXdihCzerjal/G7+W542vgwjOiQtJHQw=;
+ b=FIaVsNDP4XOKlv4bzOduX71iVOzil13CakPG8lYGF/bmfUMgr5nb1D8xtcJHUv0v//
+ eFrivHMy/qXu/ss2HD69C4jRcDtS2LdZehFY8JdKmw1rpAjKBK/V9jbMpIq9lXO2+4Mw
+ hxqP+1q/tVPQ6JZNwyYICGber8LBiPPGWA9atRcZasl6EWPhP6OZf3ZCu7lqar0/Tmv+
+ nZsTR6ydMaMjyu8SyYqqtQCv/JCsVzDtH8Xi3FrGcwSd5xYmGOD4rM7lOvXHx0R21/jV
+ ixE58zbtHalTiXbxGRuALqykwll31eIcwov2y4vBaszlSl3SJ/hwDkc+EEbhY5ZMkp23
+ S4lg==
+X-Gm-Message-State: AOAM530M62RrDJ2ePeHZq4tDN11SzxTRmXC9aG6GFPinDB/g7e4GBrcw
+ hlNiC3hmzA5P+ncNnMJV9KD4/CFWFBw=
+X-Google-Smtp-Source: ABdhPJxmCm4VcoAsl4Lf9YpDls+i031kLIDOJQzUzs4ZmWGjechxAPvLbI40r8uBHQP+GZO7ldgNjQ==
+X-Received: by 2002:a05:600c:4a17:: with SMTP id
+ c23mr3721692wmp.50.1626264534430; 
+ Wed, 14 Jul 2021 05:08:54 -0700 (PDT)
+Received: from ?IPv6:2a02:908:1252:fb60:fe2b:fec6:eeb5:c7dc?
+ ([2a02:908:1252:fb60:fe2b:fec6:eeb5:c7dc])
+ by smtp.gmail.com with ESMTPSA id n5sm2383905wri.31.2021.07.14.05.08.53
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 14 Jul 2021 05:08:53 -0700 (PDT)
+Subject: Re: [PATCH] drm/amdgpu: further lower VRAM allocation overhead
+To: Felix Kuehling <felix.kuehling@amd.com>, jinhuieric.huang@amd.com
+References: <20210713133255.16456-1-christian.koenig@amd.com>
+ <1bd98b6c-ba8e-de16-9e6a-2c4ab6ab01cf@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <20b7513e-47f4-0247-2e31-840388f03321@gmail.com>
+Date: Wed, 14 Jul 2021 14:08:52 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <acc33c53-b56a-0da4-5706-414a444c6459@amd.com>
-X-Operating-System: Linux phenom 5.10.0-7-amd64 
+In-Reply-To: <1bd98b6c-ba8e-de16-9e6a-2c4ab6ab01cf@amd.com>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,216 +84,114 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>, amd-gfx@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: amd-gfx@lists.freedesktop.org, Luugi.Marsan@amd.com, Jenny-Jing.Liu@amd.com,
+ Chris.Mason@amd.com
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jul 14, 2021 at 12:51:15PM +0200, Christian K=F6nig wrote:
-> Am 14.07.21 um 12:44 schrieb Daniel Vetter:
-> > On Mon, Jul 12, 2021 at 06:06:36PM -0400, Felix Kuehling wrote:
-> > > KFD Thunk maps invisible VRAM BOs with PROT_NONE, MAP_PRIVATE.
-> > > is_cow_mapping returns true for these mappings. Add a check for
-> > > vm_flags & VM_WRITE to avoid mmap failures on private read-only or
-> > > PROT_NONE mappings.
-> > > =
-
-> > > v2: protect against mprotect making a mapping writable after the fact
-> > > v3: update driver-specific vm_operations_structs
-> > > =
-
-> > > Fixes: f91142c62161 ("drm/ttm: nuke VM_MIXEDMAP on BO mappings v3")
-> > > Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
-> > > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > So looking at vmf_insert_pfn_prot() and the comment there we can't have
-> > VM_PFNMAP and is_cow_mapping ever be true, or things break. On platforms
-> > without pte_special at least.
-> =
-
-> Key idea is that we never end up in vmf_insert_pfn_prot() because the vma=
- is
-> mapped with PROT_NONE.
-
-Ah right if it's PROT_NONE then it's ok. But the code here only checks for
-VM_WRITE, not VM_READ, so PROT_READ can get through and go boom? Or
-something else I'm missing?
-
-Maybe time for a few amdgpu mmap tests that go through the combos and make
-sure it works/fails all correctly.
--Daniel
-
-> > So I'm not sure this is a great idea, and definitely not for all drivers
-> =
-
-> Yeah, I'm absolutely not happy with this either but it seemed to be the
-> least painful thing to do.
-> =
-
-> > ...
-> > =
-
-> > Can we clear VM_MAYWRITE instead to force this to be a non-cow mapping
-> > instead?
-> =
-
-> Well we have considered forcefully setting VM_SHARED, which won't work
-> easily for a couple of reasons.
-> =
-
-> But clearing VM_MAYWRITE in amdgpu/amdkfd may actually work as well.
-> =
-
-> Felix can you test this?
-> =
-
-> Thanks,
-> Christian.
-> =
-
-> > -Daniel
-> > =
-
-> > > ---
-> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c  |  3 ++-
-> > >   drivers/gpu/drm/nouveau/nouveau_gem.c    |  3 ++-
-> > >   drivers/gpu/drm/radeon/radeon_gem.c      |  3 ++-
-> > >   drivers/gpu/drm/ttm/ttm_bo_vm.c          | 14 +++++++++++++-
-> > >   drivers/gpu/drm/vmwgfx/vmwgfx_ttm_glue.c |  1 +
-> > >   include/drm/ttm/ttm_bo_api.h             |  4 ++++
-> > >   6 files changed, 24 insertions(+), 4 deletions(-)
-> > > =
-
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_gem.c
-> > > index b3404c43a911..1aa750a6a5d2 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> > > @@ -79,7 +79,8 @@ static const struct vm_operations_struct amdgpu_gem=
-_vm_ops =3D {
-> > >   	.fault =3D amdgpu_gem_fault,
-> > >   	.open =3D ttm_bo_vm_open,
-> > >   	.close =3D ttm_bo_vm_close,
-> > > -	.access =3D ttm_bo_vm_access
-> > > +	.access =3D ttm_bo_vm_access,
-> > > +	.mprotect =3D ttm_bo_vm_mprotect
-> > >   };
-> > >   static void amdgpu_gem_object_free(struct drm_gem_object *gobj)
-> > > diff --git a/drivers/gpu/drm/nouveau/nouveau_gem.c b/drivers/gpu/drm/=
-nouveau/nouveau_gem.c
-> > > index 5b27845075a1..164ea564bb7a 100644
-> > > --- a/drivers/gpu/drm/nouveau/nouveau_gem.c
-> > > +++ b/drivers/gpu/drm/nouveau/nouveau_gem.c
-> > > @@ -70,7 +70,8 @@ static const struct vm_operations_struct nouveau_tt=
-m_vm_ops =3D {
-> > >   	.fault =3D nouveau_ttm_fault,
-> > >   	.open =3D ttm_bo_vm_open,
-> > >   	.close =3D ttm_bo_vm_close,
-> > > -	.access =3D ttm_bo_vm_access
-> > > +	.access =3D ttm_bo_vm_access,
-> > > +	.mprotect =3D ttm_bo_vm_mprotect
-> > >   };
-> > >   void
-> > > diff --git a/drivers/gpu/drm/radeon/radeon_gem.c b/drivers/gpu/drm/ra=
-deon/radeon_gem.c
-> > > index 458f92a70887..c19ad07eb7b5 100644
-> > > --- a/drivers/gpu/drm/radeon/radeon_gem.c
-> > > +++ b/drivers/gpu/drm/radeon/radeon_gem.c
-> > > @@ -77,7 +77,8 @@ static const struct vm_operations_struct radeon_gem=
-_vm_ops =3D {
-> > >   	.fault =3D radeon_gem_fault,
-> > >   	.open =3D ttm_bo_vm_open,
-> > >   	.close =3D ttm_bo_vm_close,
-> > > -	.access =3D ttm_bo_vm_access
-> > > +	.access =3D ttm_bo_vm_access,
-> > > +	.mprotect =3D ttm_bo_vm_mprotect
-> > >   };
-> > >   static void radeon_gem_object_free(struct drm_gem_object *gobj)
-> > > diff --git a/drivers/gpu/drm/ttm/ttm_bo_vm.c b/drivers/gpu/drm/ttm/tt=
-m_bo_vm.c
-> > > index f56be5bc0861..fb325bad5db6 100644
-> > > --- a/drivers/gpu/drm/ttm/ttm_bo_vm.c
-> > > +++ b/drivers/gpu/drm/ttm/ttm_bo_vm.c
-> > > @@ -542,17 +542,29 @@ int ttm_bo_vm_access(struct vm_area_struct *vma=
-, unsigned long addr,
-> > >   }
-> > >   EXPORT_SYMBOL(ttm_bo_vm_access);
-> > > +int ttm_bo_vm_mprotect(struct vm_area_struct *vma, unsigned long sta=
-rt,
-> > > +		       unsigned long end, unsigned long newflags)
-> > > +{
-> > > +	/* Enforce no COW since would have really strange behavior with it.=
- */
-> > > +	if (is_cow_mapping(newflags) && (newflags & VM_WRITE))
-> > > +		return -EINVAL;
-> > > +
-> > > +	return 0;
-> > > +}
-> > > +EXPORT_SYMBOL(ttm_bo_vm_mprotect);
-> > > +
-> > >   static const struct vm_operations_struct ttm_bo_vm_ops =3D {
-> > >   	.fault =3D ttm_bo_vm_fault,
-> > >   	.open =3D ttm_bo_vm_open,
-> > >   	.close =3D ttm_bo_vm_close,
-> > >   	.access =3D ttm_bo_vm_access,
-> > > +	.mprotect =3D ttm_bo_vm_mprotect,
-> > >   };
-> > >   int ttm_bo_mmap_obj(struct vm_area_struct *vma, struct ttm_buffer_o=
-bject *bo)
-> > >   {
-> > >   	/* Enforce no COW since would have really strange behavior with it=
-. */
-> > > -	if (is_cow_mapping(vma->vm_flags))
-> > > +	if (is_cow_mapping(vma->vm_flags) && (vma->vm_flags & VM_WRITE))
-> > >   		return -EINVAL;
-> > >   	ttm_bo_get(bo);
-> > > diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_glue.c b/drivers/gpu/d=
-rm/vmwgfx/vmwgfx_ttm_glue.c
-> > > index e6b1f98ec99f..e4bf7dc99320 100644
-> > > --- a/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_glue.c
-> > > +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_glue.c
-> > > @@ -61,6 +61,7 @@ int vmw_mmap(struct file *filp, struct vm_area_stru=
-ct *vma)
-> > >   		.fault =3D vmw_bo_vm_fault,
-> > >   		.open =3D ttm_bo_vm_open,
-> > >   		.close =3D ttm_bo_vm_close,
-> > > +		.mprotect =3D ttm_bo_vm_mprotect,
-> > >   #ifdef CONFIG_TRANSPARENT_HUGEPAGE
-> > >   		.huge_fault =3D vmw_bo_vm_huge_fault,
-> > >   #endif
-> > > diff --git a/include/drm/ttm/ttm_bo_api.h b/include/drm/ttm/ttm_bo_ap=
-i.h
-> > > index f681bbdbc698..40eb95875355 100644
-> > > --- a/include/drm/ttm/ttm_bo_api.h
-> > > +++ b/include/drm/ttm/ttm_bo_api.h
-> > > @@ -605,6 +605,10 @@ void ttm_bo_vm_close(struct vm_area_struct *vma);
-> > >   int ttm_bo_vm_access(struct vm_area_struct *vma, unsigned long addr,
-> > >   		     void *buf, int len, int write);
-> > > +
-> > > +int ttm_bo_vm_mprotect(struct vm_area_struct *vma, unsigned long sta=
-rt,
-> > > +		       unsigned long end, unsigned long newflags);
-> > > +
-> > >   bool ttm_bo_delayed_delete(struct ttm_device *bdev, bool remove_all=
-);
-> > >   vm_fault_t ttm_bo_vm_dummy_page(struct vm_fault *vmf, pgprot_t prot=
-);
-> > > -- =
-
-> > > 2.32.0
-> > > =
-
-> =
-
-
--- =
-
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+QW0gMTMuMDcuMjEgdW0gMTg6MTEgc2NocmllYiBGZWxpeCBLdWVobGluZzoKPiBBbSAyMDIxLTA3
+LTEzIHVtIDk6MzIgYS5tLiBzY2hyaWViIENocmlzdGlhbiBLw7ZuaWc6Cj4+IEZvciBhbGxvY2F0
+aW9ucyBsYXJnZXIgdGhhbiA0OE1pQiB3ZSBuZWVkIG1vcmUgdGhhbiBhIHBhZ2UgZm9yIHRoZQo+
+PiBob3VzZWtlZXBpbmcgaW4gdGhlIHdvcnN0IGNhc2UgcmVzdWx0aW5nIGluIHRoZSB1c3VhbCB2
+bWFsbG9jIG92ZXJoZWFkLgo+Pgo+PiBUcnkgdG8gYXZvaWQgdGhpcyBieSBhc3N1bWluZyB0aGUg
+Z29vZCBjYXNlIGFuZCBvbmx5IGZhbGxpbmcgYmFjayB0byB0aGUKPj4gd29yc3QgY2FzZSBpZiB0
+aGlzIGRpZG4ndCB3b3JrZWQuCj4+Cj4+IFNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcg
+PGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KPj4gLS0tCj4+ICAgZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X3ZyYW1fbWdyLmMgfCA4MCArKysrKysrKysrKysrKystLS0tLQo+PiAg
+IDEgZmlsZSBjaGFuZ2VkLCA2MCBpbnNlcnRpb25zKCspLCAyMCBkZWxldGlvbnMoLSkKPj4KPj4g
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92cmFtX21nci5j
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZyYW1fbWdyLmMKPj4gaW5kZXgg
+MmZkNzdjMzZhMWZmLi5hYjhjNWUyOGRmN2IgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV92cmFtX21nci5jCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV92cmFtX21nci5jCj4+IEBAIC0zNjEsMTkgKzM2MSwyMyBAQCBzdGF0
+aWMgdm9pZCBhbWRncHVfdnJhbV9tZ3JfdmlydF9zdGFydChzdHJ1Y3QgdHRtX3Jlc291cmNlICpt
+ZW0sCj4+ICAgICogQG1hbjogVFRNIG1lbW9yeSB0eXBlIG1hbmFnZXIKPj4gICAgKiBAdGJvOiBU
+VE0gQk8gd2UgbmVlZCB0aGlzIHJhbmdlIGZvcgo+PiAgICAqIEBwbGFjZTogcGxhY2VtZW50IGZs
+YWdzIGFuZCByZXN0cmljdGlvbnMKPj4gLSAqIEBtZW06IHRoZSByZXN1bHRpbmcgbWVtIG9iamVj
+dAo+PiArICogQG51bV9ub2RlczogbnVtYmVyIG9mIHBhZ2Ugbm9kZXMgdG8gdXNlLgo+PiArICog
+QHBhZ2VzX3Blcl9ub2RlOiBudW1iZXIgb2YgcGFnZXMgcGVyIG5vZGUgdG8gdXNlLgo+PiArICog
+QHJlczogdGhlIHJlc3VsdGluZyBtZW0gb2JqZWN0Cj4+ICAgICoKPj4gICAgKiBBbGxvY2F0ZSBW
+UkFNIGZvciB0aGUgZ2l2ZW4gQk8uCj4+ICAgICovCj4+ICAgc3RhdGljIGludCBhbWRncHVfdnJh
+bV9tZ3JfbmV3KHN0cnVjdCB0dG1fcmVzb3VyY2VfbWFuYWdlciAqbWFuLAo+PiAgIAkJCSAgICAg
+ICBzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3QgKnRibywKPj4gICAJCQkgICAgICAgY29uc3Qgc3Ry
+dWN0IHR0bV9wbGFjZSAqcGxhY2UsCj4+ICsJCQkgICAgICAgdW5zaWduZWQgbG9uZyBudW1fbm9k
+ZXMsCj4+ICsJCQkgICAgICAgdW5zaWduZWQgbG9uZyBwYWdlc19wZXJfbm9kZSwKPj4gICAJCQkg
+ICAgICAgc3RydWN0IHR0bV9yZXNvdXJjZSAqKnJlcykKPj4gICB7Cj4+IC0JdW5zaWduZWQgbG9u
+ZyBscGZuLCBudW1fbm9kZXMsIHBhZ2VzX3Blcl9ub2RlLCBwYWdlc19sZWZ0LCBwYWdlczsKPj4g
+ICAJc3RydWN0IGFtZGdwdV92cmFtX21nciAqbWdyID0gdG9fdnJhbV9tZ3IobWFuKTsKPj4gICAJ
+c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSB0b19hbWRncHVfZGV2aWNlKG1ncik7Cj4+ICAg
+CXVpbnQ2NF90IHZpc191c2FnZSA9IDAsIG1lbV9ieXRlcywgbWF4X2J5dGVzOwo+PiArCXVuc2ln
+bmVkIGxvbmcgbHBmbiwgcGFnZXNfbGVmdCwgcGFnZXM7Cj4+ICAgCXN0cnVjdCB0dG1fcmFuZ2Vf
+bWdyX25vZGUgKm5vZGU7Cj4+ICAgCXN0cnVjdCBkcm1fbW0gKm1tID0gJm1nci0+bW07Cj4+ICAg
+CWVudW0gZHJtX21tX2luc2VydF9tb2RlIG1vZGU7Cj4+IEBAIC0zOTUsMjEgKzM5OSw2IEBAIHN0
+YXRpYyBpbnQgYW1kZ3B1X3ZyYW1fbWdyX25ldyhzdHJ1Y3QgdHRtX3Jlc291cmNlX21hbmFnZXIg
+Km1hbiwKPj4gICAJCWdvdG8gZXJyb3Jfc3ViOwo+PiAgIAl9Cj4+ICAgCj4+IC0JaWYgKHBsYWNl
+LT5mbGFncyAmIFRUTV9QTF9GTEFHX0NPTlRJR1VPVVMpIHsKPj4gLQkJcGFnZXNfcGVyX25vZGUg
+PSB+MHVsOwo+PiAtCQludW1fbm9kZXMgPSAxOwo+PiAtCX0gZWxzZSB7Cj4+IC0jaWZkZWYgQ09O
+RklHX1RSQU5TUEFSRU5UX0hVR0VQQUdFCj4+IC0JCXBhZ2VzX3Blcl9ub2RlID0gSFBBR0VfUE1E
+X05SOwo+PiAtI2Vsc2UKPj4gLQkJLyogZGVmYXVsdCB0byAyTUIgKi8KPj4gLQkJcGFnZXNfcGVy
+X25vZGUgPSAyVUwgPDwgKDIwVUwgLSBQQUdFX1NISUZUKTsKPj4gLSNlbmRpZgo+PiAtCQlwYWdl
+c19wZXJfbm9kZSA9IG1heF90KHVpbnQzMl90LCBwYWdlc19wZXJfbm9kZSwKPj4gLQkJCQkgICAg
+ICAgdGJvLT5wYWdlX2FsaWdubWVudCk7Cj4+IC0JCW51bV9ub2RlcyA9IERJVl9ST1VORF9VUF9V
+TEwoUEZOX1VQKG1lbV9ieXRlcyksIHBhZ2VzX3Blcl9ub2RlKTsKPj4gLQl9Cj4+IC0KPj4gICAJ
+bm9kZSA9IGt2bWFsbG9jKHN0cnVjdF9zaXplKG5vZGUsIG1tX25vZGVzLCBudW1fbm9kZXMpLAo+
+PiAgIAkJCUdGUF9LRVJORUwgfCBfX0dGUF9aRVJPKTsKPj4gICAJaWYgKCFub2RlKSB7Cj4+IEBA
+IC00MzEsMTAgKzQyMCwxNSBAQCBzdGF0aWMgaW50IGFtZGdwdV92cmFtX21ncl9uZXcoc3RydWN0
+IHR0bV9yZXNvdXJjZV9tYW5hZ2VyICptYW4sCj4+ICAgCWkgPSAwOwo+PiAgIAlzcGluX2xvY2so
+Jm1nci0+bG9jayk7Cj4+ICAgCXdoaWxlIChwYWdlc19sZWZ0KSB7Cj4+IC0JCXVpbnQzMl90IGFs
+aWdubWVudCA9IHRiby0+cGFnZV9hbGlnbm1lbnQ7Cj4+ICsJCXVuc2lnbmVkIGxvbmcgYWxpZ25t
+ZW50ID0gdGJvLT5wYWdlX2FsaWdubWVudDsKPj4gKwo+PiArCQlpZiAoaSA+PSBudW1fbm9kZXMp
+IHsKPj4gKwkJCXIgPSAtRTJCSUc7Cj4+ICsJCQlnb3RvIGVycm9yX2ZyZWU7Cj4+ICsJCX0KPj4g
+ICAKPj4gICAJCWlmIChwYWdlcyA+PSBwYWdlc19wZXJfbm9kZSkKPj4gLQkJCWFsaWdubWVudCA9
+IHBhZ2VzX3Blcl9ub2RlOwo+PiArCQkJYWxpZ25tZW50ID0gbWF4KGFsaWdubWVudCwgcGFnZXNf
+cGVyX25vZGUpOwo+IEkgZG9uJ3QgdW5kZXJzdGFuZCB0aGlzIGNoYW5nZS4gSXMgdGhpcyBhbiB1
+bnJlbGF0ZWQgZml4PyBwYWdlc19wZXJfbm9kZQo+IGlzIGFscmVhZHkgYnVtcGVkIHVwIHRvIHRi
+by0+cGFnZV9hbGlnbm1lbnQgaW4gYW1kZ3B1X3ZyYW1fbWdyX2FsbG9jLiBTbwo+IHRoaXMgIm1h
+eCIgb3BlcmF0aW9uIGhlcmUgc2VlbXMgcmVkdW5kYW50LgoKT2gsIHllcyBnb29kIHBvaW50LiBJ
+J3ZlIHRvdGFsbHkgbWlzc2VkIHRoYXQgYW5kIHdhcyB3b25kZXJpbmcgd2h5IHRoaXMgCmhlcmUg
+aXNuJ3QgYSBwcm9ibGVtLgoKPgo+IE90aGVyIHRoYW4gdGhhdCwgdGhlIHBhdGNoIGlzCj4KPiBS
+ZXZpZXdlZC1ieTogRmVsaXggS3VlaGxpbmcgPEZlbGl4Lkt1ZWhsaW5nQGFtZC5jb20+CgpUaGFu
+a3MsCkNocmlzdGlhbi4KCj4KPiBASmluSHVpRXJpYywgY2FuIHlvdSBjb25maXJtIHRoZSBwZXJm
+b3JtYW5jZSBpbXByb3ZlbWVudD8KPgo+IFRoYW5rcywKPiAgwqAgRmVsaXgKPgo+Cj4+ICAgCj4+
+ICAgCQlyID0gZHJtX21tX2luc2VydF9ub2RlX2luX3JhbmdlKG1tLCAmbm9kZS0+bW1fbm9kZXNb
+aV0sIHBhZ2VzLAo+PiAgIAkJCQkJCWFsaWdubWVudCwgMCwgcGxhY2UtPmZwZm4sCj4+IEBAIC00
+ODMsNiArNDc3LDUyIEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3ZyYW1fbWdyX25ldyhzdHJ1Y3QgdHRt
+X3Jlc291cmNlX21hbmFnZXIgKm1hbiwKPj4gICAJcmV0dXJuIHI7Cj4+ICAgfQo+PiAgIAo+PiAr
+LyoqCj4+ICsgKiBhbWRncHVfdnJhbV9tZ3JfYWxsb2MgLSBhbGxvY2F0ZSBuZXcgcmFuZ2UKPj4g
+KyAqCj4+ICsgKiBAbWFuOiBUVE0gbWVtb3J5IHR5cGUgbWFuYWdlcgo+PiArICogQHRibzogVFRN
+IEJPIHdlIG5lZWQgdGhpcyByYW5nZSBmb3IKPj4gKyAqIEBwbGFjZTogcGxhY2VtZW50IGZsYWdz
+IGFuZCByZXN0cmljdGlvbnMKPj4gKyAqIEByZXM6IHRoZSByZXN1bHRpbmcgbWVtIG9iamVjdAo+
+PiArICoKPj4gKyAqIEFsbG9jYXRlIFZSQU0gZm9yIHRoZSBnaXZlbiBCTy4KPj4gKyAqLwo+PiAr
+c3RhdGljIGludCBhbWRncHVfdnJhbV9tZ3JfYWxsb2Moc3RydWN0IHR0bV9yZXNvdXJjZV9tYW5h
+Z2VyICptYW4sCj4+ICsJCQkJIHN0cnVjdCB0dG1fYnVmZmVyX29iamVjdCAqdGJvLAo+PiArCQkJ
+CSBjb25zdCBzdHJ1Y3QgdHRtX3BsYWNlICpwbGFjZSwKPj4gKwkJCQkgc3RydWN0IHR0bV9yZXNv
+dXJjZSAqKnJlcykKPj4gK3sKPj4gKwl1bnNpZ25lZCBsb25nIG51bV9ub2RlcywgcGFnZXNfcGVy
+X25vZGU7Cj4+ICsJc3RydWN0IHR0bV9yYW5nZV9tZ3Jfbm9kZSAqbm9kZTsKPj4gKwlpbnQgcjsK
+Pj4gKwo+PiArCWlmIChwbGFjZS0+ZmxhZ3MgJiBUVE1fUExfRkxBR19DT05USUdVT1VTKQo+PiAr
+CQlyZXR1cm4gYW1kZ3B1X3ZyYW1fbWdyX25ldyhtYW4sIHRibywgcGxhY2UsIDEsIH4wdWwsIHJl
+cyk7Cj4+ICsKPj4gKyNpZmRlZiBDT05GSUdfVFJBTlNQQVJFTlRfSFVHRVBBR0UKPj4gKwlwYWdl
+c19wZXJfbm9kZSA9IEhQQUdFX1BNRF9OUjsKPj4gKyNlbHNlCj4+ICsJLyogZGVmYXVsdCB0byAy
+TUIgKi8KPj4gKwlwYWdlc19wZXJfbm9kZSA9IDJVTCA8PCAoMjBVTCAtIFBBR0VfU0hJRlQpOwo+
+PiArI2VuZGlmCj4+ICsJcGFnZXNfcGVyX25vZGUgPSBtYXhfdCh1aW50MzJfdCwgcGFnZXNfcGVy
+X25vZGUsIHRiby0+cGFnZV9hbGlnbm1lbnQpOwo+PiArCW51bV9ub2RlcyA9IERJVl9ST1VORF9V
+UF9VTEwoUEZOX1VQKHRiby0+YmFzZS5zaXplKSwgcGFnZXNfcGVyX25vZGUpOwo+PiArCj4+ICsJ
+aWYgKHN0cnVjdF9zaXplKG5vZGUsIG1tX25vZGVzLCBudW1fbm9kZXMpID4gUEFHRV9TSVpFKSB7
+Cj4+ICsJCXNpemVfdCBzaXplID0gUEFHRV9TSVpFOwo+PiArCj4+ICsJCXNpemUgLT0gc2l6ZW9m
+KHN0cnVjdCB0dG1fcmFuZ2VfbWdyX25vZGUpOwo+PiArCQlzaXplIC89IHNpemVvZihzdHJ1Y3Qg
+ZHJtX21tX25vZGUpOwo+PiArCQlyID0gYW1kZ3B1X3ZyYW1fbWdyX25ldyhtYW4sIHRibywgcGxh
+Y2UsIHNpemUsIHBhZ2VzX3Blcl9ub2RlLAo+PiArCQkJCQlyZXMpOwo+PiArCQlpZiAociAhPSAt
+RTJCSUcpCj4+ICsJCQlyZXR1cm4gcjsKPj4gKwl9Cj4+ICsKPj4gKwlyZXR1cm4gYW1kZ3B1X3Zy
+YW1fbWdyX25ldyhtYW4sIHRibywgcGxhY2UsIG51bV9ub2RlcywgcGFnZXNfcGVyX25vZGUsCj4+
+ICsJCQkJICAgcmVzKTsKPj4gK30KPj4gKwo+PiAgIC8qKgo+PiAgICAqIGFtZGdwdV92cmFtX21n
+cl9kZWwgLSBmcmVlIHJhbmdlcwo+PiAgICAqCj4+IEBAIC02ODAsNyArNzIwLDcgQEAgc3RhdGlj
+IHZvaWQgYW1kZ3B1X3ZyYW1fbWdyX2RlYnVnKHN0cnVjdCB0dG1fcmVzb3VyY2VfbWFuYWdlciAq
+bWFuLAo+PiAgIH0KPj4gICAKPj4gICBzdGF0aWMgY29uc3Qgc3RydWN0IHR0bV9yZXNvdXJjZV9t
+YW5hZ2VyX2Z1bmMgYW1kZ3B1X3ZyYW1fbWdyX2Z1bmMgPSB7Cj4+IC0JLmFsbG9jCT0gYW1kZ3B1
+X3ZyYW1fbWdyX25ldywKPj4gKwkuYWxsb2MJPSBhbWRncHVfdnJhbV9tZ3JfYWxsb2MsCj4+ICAg
+CS5mcmVlCT0gYW1kZ3B1X3ZyYW1fbWdyX2RlbCwKPj4gICAJLmRlYnVnCT0gYW1kZ3B1X3ZyYW1f
+bWdyX2RlYnVnCj4+ICAgfTsKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
+eAo=
