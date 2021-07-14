@@ -2,136 +2,123 @@ Return-Path: <SRS0=RZx8=MG=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-7.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D57D4C07E9A
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 13:31:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 53864C07E9A
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 14:21:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9917A61040
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 13:31:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9917A61040
+	by mail.kernel.org (Postfix) with ESMTPS id ED0836115B
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 14:21:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ED0836115B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 416086E2C8;
-	Wed, 14 Jul 2021 13:31:21 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2047.outbound.protection.outlook.com [40.107.237.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A42106E2C8;
- Wed, 14 Jul 2021 13:31:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 89CEA6E2EF;
+	Wed, 14 Jul 2021 14:21:46 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2054.outbound.protection.outlook.com [40.107.223.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A7A16E2EF
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Jul 2021 14:21:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Va050JMZSMnxR8SahEYLq7ME/0vnvqFEsWFne9nEihMYg2ZcwraaPLG6AOxe/97aQVxsdJr4mxu1rvJ0f202rhN5m/vfh/snfsZTNYWt0GUBbPXWBwnfBz8GbpXO+s+Tu4jyrGNx3UCRPYSwHixfW0b1WFzJrADouS/eid2C5u4Tejtjstwm9U6bSPAobmNItJVz1EQu2c41JcIWo3mlHWMI5S8wC+So+fTaq/6REnBlaC0eAH24buUhpQbZSQ5s4PZaB2Zd5OVf8rBTapFJppEXRD8GWIivJNMzMcSsPz1+CLvDq0+jPFmh+sVdPPk8UVLtphwpV3eXsBcM+6b/tA==
+ b=arLLYSYLRuMGyI3rnOoBkNDyQmBOtgN2c6BLSrXqF8VkTuWyywZ4bmvLzF6mterI7PaPXuUrH1x+TFIMZSe36fsrVaBmaK54Dc1fJCPgtEVs5CndPFYUR896WitNrP6sNCrjfVKn2VaR3PEZFNY70j9gE/VtLaB2HrrFvmV3IKyUCqtiR0rEp/QIhO9VNuwUIOhmzkMRBMzrsre2+QdVnV/eJfMMVsDUHbMw6Y5ynOO1Oenqg6bFf35aMflOU72WB2T5PL8FGI//i3BOclF3zPPnbmsBRljIroOiCEPSIYzgobped2ijP0dxqWORPbFEpVpAZ6YWiVZuv8cFCO9q1g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=F8oKhMC67LbkbnIbIETgAAi29THxVte7vAH+QdMrgcY=;
- b=CMOt5I10IJ/Gbma+4t+nB1aIPaeItRhUp+6UJwbaZ1V2uwfia5jkXlBV+KFLTqChgvwO8BAvXlbKHm9j/VlVqU/KO6Mvt/XQSp6wGiRJQZgtiSkGS84HWmw5n7/+9WG/U0fFcpaInkcZnqYW4UQSmSX+QRGHtctmpulZ8rR88oz8Lx+YOM24Kke8InpAQZtYtIYjHdF8m6zeBBqTZDQT6YmpAdA7UxSbLJKlvsEo1PCGivNRdE60eGca2cqAgrST19joFjwSPjZGUsBBWeW3hIjEAaZGIvfikhVw5OglDGaOW/SfIagalQdjjo5q1M4SXRdAuqU1U70oV9lbLz44pw==
+ bh=sknL7bCDP/iFBdpjlYZOoPhK23l/CZTBwkyMtVZ/1vw=;
+ b=gLa9w+D7UMaygGEKJwd+YdteS6Ai8KrNZDGPfJRLbnRLdYDk2bA6XXtpjSTbTWyJerp/sbqUlMuby4DQGTDQHJnN7JxrtAzr09Vze7RdSwfQUYHuFhWuLpLtsm+jZlW1pYiwuEaSFqhmcWrZFnx2A2hDYPQV+zX9wfEk2HViLJ68NxPVlP6x8o7CGu8DY88lxiz2cxEnnNlIfswwCfO6xdrtHTJiQhnXrGBbYl44ZM4+TBYEzdfM6tHq+SRReFI3G+P4Bn0UEAThnzCoHhr8SciYacRT/PDfyQZZPhswCWVw1b3lNNSYlMjPGwiLNeFKw9Z0giGoEYIHccaEU3gDOw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=F8oKhMC67LbkbnIbIETgAAi29THxVte7vAH+QdMrgcY=;
- b=P3CZFGkWDdZVDI7wkduTFu+/WCPRcEyJltw6JLGkxnTnFsoDPE3YtE6rM4TmdM8oHuCDHPpQUfWaoYO5YJsRNZZ1WEZqWNNLU+dYIM2VtyzeoXUr34vgmo+zl4xcZPHTepx+TMWH3Wp9peGIVOVrmEJ0LNRS005eauqkclopt9c=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
- by MN2PR12MB3837.namprd12.prod.outlook.com (2603:10b6:208:166::30)
+ bh=sknL7bCDP/iFBdpjlYZOoPhK23l/CZTBwkyMtVZ/1vw=;
+ b=N5CN7RgHBYQsMrn1eCp69i32yrUvECS664Vzs82aV4AwLZHHHpDsxJaA/dp9mqyXkLLdBx8UvxC0pLSURBqF2I4TFNMw759aeqy3ZU+HtAWvtFhRO8K55vWnY89VJjFjlj+qZuwkGivQWCuaF+AO8KkQr2wZBZmDwt/3ebQh9AI=
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
+ by BL1PR12MB5190.namprd12.prod.outlook.com (2603:10b6:208:31c::23)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4331.21; Wed, 14 Jul
- 2021 13:31:18 +0000
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::6c9e:1e08:7617:f756]) by MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::6c9e:1e08:7617:f756%5]) with mapi id 15.20.4308.027; Wed, 14 Jul 2021
- 13:31:18 +0000
-Subject: Re: [PATCH v2 4/4] drm/amd/display: Add DC_FP helper to check FPU
- state
-To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Peter Zijlstra <peterz@infradead.org>, Daniel Vetter <daniel@ffwll.ch>,
- roman.li@amd.com, anson.jacob@amd.com, hersenxs.wu@amd.com,
- jerry.zuo@amd.com, sunpeng.li@amd.com, aric.cyr@amd.com
-References: <20210713140612.2721113-1-Rodrigo.Siqueira@amd.com>
- <20210713140612.2721113-5-Rodrigo.Siqueira@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <4eec1a65-1c2f-1598-9443-09a0c415b869@amd.com>
-Date: Wed, 14 Jul 2021 15:31:12 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
-In-Reply-To: <20210713140612.2721113-5-Rodrigo.Siqueira@amd.com>
+ 2021 14:21:43 +0000
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::8cb6:59d6:24d0:4dc3]) by BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::8cb6:59d6:24d0:4dc3%9]) with mapi id 15.20.4331.021; Wed, 14 Jul 2021
+ 14:21:43 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "Du, Xiaojian" <Xiaojian.Du@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/amdgpu: update the golden setting for vangogh
+Thread-Topic: [PATCH] drm/amdgpu: update the golden setting for vangogh
+Thread-Index: AQHXeJNQA1fGqLl/x0yLLD8j8XPrIKtChb8w
+Date: Wed, 14 Jul 2021 14:21:43 +0000
+Message-ID: <BL1PR12MB5144BF5302C21A6E022CCF84F7139@BL1PR12MB5144.namprd12.prod.outlook.com>
+References: <20210714093203.9191-1-Xiaojian.Du@amd.com>
+In-Reply-To: <20210714093203.9191-1-Xiaojian.Du@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-X-ClientProxiedBy: PR0P264CA0065.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:100:1d::29) To MN2PR12MB3775.namprd12.prod.outlook.com
- (2603:10b6:208:159::19)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2a02:908:1252:fb60:fe2b:fec6:eeb5:c7dc]
- (2a02:908:1252:fb60:fe2b:fec6:eeb5:c7dc) by
- PR0P264CA0065.FRAP264.PROD.OUTLOOK.COM (2603:10a6:100:1d::29) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4308.20 via Frontend Transport; Wed, 14 Jul 2021 13:31:16 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 77134063-4fd7-43b5-b97b-08d946cba93d
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3837:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB3837D92FA4E6E8E49B0354BA83139@MN2PR12MB3837.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 54B22bM9CCVlEXIt2utYDwmV6oQQ9tG4uGQ2F4mFa9P4wYYZ7j1QSJjYAH2c8rQ+mBidh4pF+hRsbh2rhNJc5EccEdWgRimGJ/AqFmUug0Os8N7fDjcINeVsaJ3dBRnSAl9VX1qG/Jdnucg6ANsWTMEx+zy/nlqxz1kD6MMXcDgsZSnlHvA/N3YwiKBBowhkixXy/xjHowGaYRw8r+z+KImImd53rLNF3TjsMOETvfgSiR5oIQCeRi/HEqsBkfO+WeD9T11BPbakZoxBGECd2mwK2RJu+1B0S/Cg2LVRT9TaK0a12VDhGfJ6GAQvQKWP4BE6FpYWkh+gMyIhg1ftfTUbNHGWvLLFQ2VBJ70Yhc9im3wuBD3bgV5VyHbQdvKRHkNJnh3wLd6oDnFBLBXMhHuoXqfV2Fe+3MYrhYH2dXCSxlihwNzhsNecXtP2x3SMUzRTVyZkHVr9P3XCyQeqU3gGua7i4Pa6W+1EPyAHtF9xlf7iislrJ9997IE5YThQXfgG3Kl7jb5jLq5Q4RP2//3QW12BUetMDQMd2+V3NHMq5RcgKUh1UC3SfbJObDkQ3gDRDuEQIO9z3iHa/x5u5x8OzEMmzx6R/H6EygFglfkU70w5XPEO6PgwbYgZKmNH1HiUnXnMmSJflUUz6zKgM7MOrWTfjnnGyI4C1NwGuyns6pBRfspGRfo+NZpdyjSBSvWhsV5r8jjVqDPnNBRr9vRLA+pYzrwRYnBldwXqTomZlzXefgyO87jtgSpHAo4i
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(376002)(366004)(396003)(346002)(39860400002)(66556008)(66476007)(66946007)(6636002)(2616005)(186003)(478600001)(86362001)(6486002)(31696002)(36756003)(83380400001)(921005)(6666004)(31686004)(110136005)(8936002)(4326008)(2906002)(8676002)(316002)(5660300002)(38100700002)(43740500002)(45980500001);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-07-14T14:21:42.733Z;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD-Official
+ Use
+ Only; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard; 
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 43a9a79f-b712-4063-161b-08d946d2b46a
+x-ms-traffictypediagnostic: BL1PR12MB5190:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <BL1PR12MB51900F12FA9F40BA792A9DC0F7139@BL1PR12MB5190.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:1824;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: DULo0QBKw0QJjv5ldGpAxdREqNUR7snOWUH2CPdAKYQuwu73SjgLLG0timd7sCJs5htNpbq/jq0Hgc32M8i/02CgpdpQfUNPy7wCfIuHxpsKgQclt96iGjVeRf0on3TbITXLJdSCIAqzyEGMvVxl+3597P51TgHSNDs8Y9/LgY7h9uefSZRD97gl8s304SYfQVUpUjE6YyC4ldj0/FPVIN1vAhHTWy4b7TBy9KioAZSv1pDs8pgTNdR1eMV8+Gtfs/g9zaQw5k8AVOHGC0FIU8pgYyUIy8RQS+EmgxBjulDw0CpB3p/IU0E4M1uHDVqDMzaf7pev6ZORrj8kTnCZKpXGN2kFdFribEKCZViIP6zcvGOELSX4Hdjyg/B4c5J87ftU/jvjUNEQrJIKMWFD8xfGDHNLgYyhZGKoE4DOtx/aZw/G9E7z9yazEmELxMmBQowWggOEhDZZiL0f/kx6n835sph3Vhq5VtVlg+R6BiZQvIFbV87SwYEr4dhv+EMyZTKwH8bOkLEtxsy614KO2bxc7fNLeL1A1qtooPS5Alo+3XVKcB5QfDT3keAHCQ7bJ8oNnRzO3DQ2OMzJDBjhxdeQRyOHmLt/FDnFuh3hJCl6uKQmOrIU+RJ5azD9p+CFTTM4UyS//hi3S+I3JJQtLr3MKfFreV8iOIEyy0Y3G+j9p8orSHeTmDpNffH23/86XdB++wykxs0Oe1cplSeWHA==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(396003)(39860400002)(376002)(136003)(366004)(55016002)(316002)(2906002)(7696005)(166002)(38100700002)(86362001)(66476007)(8676002)(9686003)(19627405001)(64756008)(66556008)(66446008)(26005)(186003)(6506007)(53546011)(66946007)(8936002)(122000001)(76116006)(966005)(4326008)(83380400001)(478600001)(52536014)(110136005)(71200400001)(33656002)(15650500001)(5660300002)(45080400002)(38070700004);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?clVCaHo4K2JnRUNPVFROQnhNS1EvdE5wbkJyV0FyYWlLdGk1MTd5NEJVYzUr?=
- =?utf-8?B?MU1wdTVkWDlmZWpXSUlyYVZXbWJwdk16VUN1SW5uVTUxSkJ5S0Q2Ty9HVlky?=
- =?utf-8?B?Y1hXd1lTV0pEc2QwWmRmSWV3amU5VURhM1JtOHV6c3JjV0pDWFd4UFBZVXNZ?=
- =?utf-8?B?dnZTcStPbTZFSWtBNDhaZFdkU053bDZUZ2daSys5RXc1NEhDMVJyb0JXMEhv?=
- =?utf-8?B?V2NXd1dZTkhKeXVtU3U2Z1B2RjdlbXBRZDNIaUx1QnQ0Y3c4b0QyTGlXVjhp?=
- =?utf-8?B?dU5lbUdQYmZXM2ZZVlBJVjc5RkVsaVpiTUY2UFVHaFhUeFlzdVFTdFlnTml2?=
- =?utf-8?B?ZU5hWDM0Z0JXWDlyWnYrcVpYUktNbG96UFRhRzRpbVgrZ2JsZUE4V1FaSHhl?=
- =?utf-8?B?QlpRQzdXVkxuZk5sVVpuV1ExekY0ZHovVlBSOElCelhCaXVQQkV3cW13dHhF?=
- =?utf-8?B?M2NNVDZMUzVtNWtjS1lxU255ZlhESDZJQnBIZDM0Vzk2Z1lRMDlJeUc2WVU2?=
- =?utf-8?B?b3ZkYjZLVFFjM243MmM2VE9qVDd0cDhucENJRGd5UTY0cW5yNTFtU2dNdlVh?=
- =?utf-8?B?d2xvRVVIZFdNTWtyQ2FGOFJ3VFF4TnJvQUtiNENqdFhjLzM0QnU4SGwyc3hP?=
- =?utf-8?B?UnplUWtFOFpHM0N6YlhOZitjN1pYU08wbHlhRWpqdkZqZmpwakkxTWpHMEhL?=
- =?utf-8?B?K0JqNEk3SlBvdXRPbzVYZU80QUtmZjFOYVQ5ckxWQnFmbDg4QkJPMmw4V0Fj?=
- =?utf-8?B?U2x1VXBGeEJzaHFFZ2IrYjZ0UGdZQ2xJejN4c0QwV3B6ZzlVVmFKYmZYNkZs?=
- =?utf-8?B?bEtNNEZZcmNuVnhSa2MwRFF2SDVXWU4yd3dJVi83YzdiSmora0RLVmhlY1lt?=
- =?utf-8?B?NnFQYjFWZTZGbmZnd2pJQXB3cmY5ZjFHeE1NNUE4UkNMOVYydEh0ZXR2Y1l2?=
- =?utf-8?B?UStnUHBtc0F2T25VSHhJUTUyc1ZTNVFXZmQ5bUdQc0x4T0IyWWMwRXJVb3Rm?=
- =?utf-8?B?UFBDbGRkZDFzNW5TS3VsVWQzelg1OVVVVER3dUkzeityVUxGK1BYMmtJcXRs?=
- =?utf-8?B?NmVLVXY2WnJCVkJ4czgvQXJWQTJwMUNkRWRNV0VwKzVZYytFYzF0OEhBMXZO?=
- =?utf-8?B?K09FRFZBTUVVNmtMb3gra1BhaWF3SytPc2c3bk9DR2tFcE1tNTlKdit5VUVU?=
- =?utf-8?B?eFVoY2thWEZMQ0NQRnFxaXg0SnVhRnFPS3cxd3JadUx6MGNrbG9pRjA4WE45?=
- =?utf-8?B?TnEzd0RSOFFwcmdkUm9QcE9BK2pLamRCNG52TTY3K0JhVVRRbkhhdUg2SCtP?=
- =?utf-8?B?NDh0d3ROQlViY0d4NzltOWxydjNlSmwrbm5ka0RSWUJaQVNQekMrM2hiRmVZ?=
- =?utf-8?B?RGU5cXB3cmIzTklZNXh0ckgvZzBFYWFxNHZmK3EwRzF3dFpvOUNNWlNEYUNX?=
- =?utf-8?B?amxiNUtDM3drYm4wZ0NseWxaQytYRGVzL2E2TWZ3cGl6eU1vQ1dLZ21sVUVr?=
- =?utf-8?B?R29oRGtZbWRtcVZwcXlTcUROeDZHWTcveitubEtsZ2t3Ly94OFJwb2U5bjZL?=
- =?utf-8?B?bG5yVWxZdVNZUUwzUEsyS2haeU5NRGtwUUY4Wit2UU5ZTGF3K3M3eDY2K3N3?=
- =?utf-8?B?RjFQZHBmUmJaSWphdWVSaFh1elpYcmMxS2FKeVFYMkRIYzROclRuZWFCWmsz?=
- =?utf-8?B?NnlFdzNjSFNncVlCeDV6eEhVOTdVTWh0Q3BKOEJIT291UFptVENBb2ZLS3RT?=
- =?utf-8?B?NFU1Y0hENEJrdi9HbnpxWjFsUUZQd1BPRzZvamRNWmFScmtTd2twZXRkeUpw?=
- =?utf-8?B?U1orZ1orL1Y2V2d3b1lYYlJkQ3J5MWlOQVBrZnIxTWJKbmlSenlVd2pFcy83?=
- =?utf-8?Q?Vw2FksKhUDkbC?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?lk2vKxPv2KCrh2SwRbQTMKA3eubIealLK39Ffyqk+YSx6xFUdYZ9fJtTNQl1?=
+ =?us-ascii?Q?3f32GTZWfRV+4nAevZWWoqKK8X94dr2DRVgYS5vxxkaj1U/hvbsQ3Zxh6kjK?=
+ =?us-ascii?Q?JazpvU9ufObYUhczNHnghZ0KPCZnb0kOOraq3LyqF4YnN+ZHzvILpc2FPt3x?=
+ =?us-ascii?Q?xxb/xQ8FIxegz2dzbYwxuNTTsCSsgQAk7Qzx9zOB6Jl1GpLdhRrr/BpTp0HO?=
+ =?us-ascii?Q?/oNla+pRM0kgZQe57R+PBDzZC9WOKHGJQ5I+leI+kYn6vObKZs+Mp6vvNn3l?=
+ =?us-ascii?Q?pl4RwuFuuzBdzimVmZbqO8vEA7w2Dsx8/b+dtf2ZSXlCgXZYDbY2+CQudW7z?=
+ =?us-ascii?Q?nBrfCEx+cHqtSgTZIHxEM98t0x2lHKHEByAX6s0ftCv9naN1hZixr9WZzoOr?=
+ =?us-ascii?Q?7MGuR54VC4WYIl1dkzwrF8Pl60c2kGZ0v2Rp5C800/i6L/5yGDalcE/JO/z3?=
+ =?us-ascii?Q?0Je+s9xCAVEYbwcCmO6NVRgp5jIwJucT9dib6de9wrOLcLcnR6wVJIEec0Wa?=
+ =?us-ascii?Q?vj0mVDHQtaJX3OEzdECmlp4onbWx6slhnfmzqLouoS4RxFh+SxrM2UWXIrel?=
+ =?us-ascii?Q?bTrmMIHqg7P+TXhJHmyFWZ6UcFcQhciccFna+EQ/HlverkzXq+QVtIh68VwZ?=
+ =?us-ascii?Q?gr4X5cSItESSqWU35IDtuHNsBMSOFvMYId53mPZY0I0Kg5QIT4mEN2xcnFgP?=
+ =?us-ascii?Q?It2lT7e37cjhAnJsxkOq0kO3bX0fdE4NRxmp+tRldk9j6I+GN34HmgfTJvHc?=
+ =?us-ascii?Q?8V+DzwhqipICNln+Wq9ifjUhmGe8YNtURmwXwvb6s/vg/ORELjhDo/w6s2ZF?=
+ =?us-ascii?Q?WP1ONNszmBkU3P4P9G+9VEv/r2IqRn1jHr0NaORFih33bwwFIHaJQNn8t9dN?=
+ =?us-ascii?Q?NXIeCY8CTfkn14F79gsZfM9Gd89PI/1cCv2iXzyD7jmxhQ0l6BfUZ0kIOGeX?=
+ =?us-ascii?Q?ZbTVbqNUSssujbOXy9qfGadzjiLWkyGiqgNH8iPOxiUtrZwSIYcl20062Y/j?=
+ =?us-ascii?Q?dBd2U8IG/wbKXae6fFIXcC9P6rjSWVFnOD+q9fM5QixTxd1t3L2bGBAIgnBQ?=
+ =?us-ascii?Q?17HvrgxceE2pkMgZEBjxplPkHu4ttvLuQ6mq4iSJa7SVlpqSLzr8XwJj19nK?=
+ =?us-ascii?Q?JVLiUHBsvQlBOD29o6j1BxlVvxY9ur44Crd+0gYbhSoeTocDkNxDY5m+rEti?=
+ =?us-ascii?Q?EY7k1e2ctr9Ahhjxu9MEN+9I5mIeDqDjOY3CyV7JsDwd82bOeX3rczsGx6jA?=
+ =?us-ascii?Q?bVQc98Fd3I2HPrVkoLjyokChDxKvcUNWnlYnegY6kAtcXDtx2lmuP48vwrbb?=
+ =?us-ascii?Q?FEEO1PeY6EoXCilvSZg0PgBO?=
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 77134063-4fd7-43b5-b97b-08d946cba93d
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2021 13:31:18.3314 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0Mh1SSXLqGYmz2iAjCEzA3RsjRu7O+C3W0lhcYXFgeCqDwozP8FP+Y4IZZ5GUhOX
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3837
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 43a9a79f-b712-4063-161b-08d946d2b46a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Jul 2021 14:21:43.2249 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Nc2xuQoxWJx1d6ksUdAlZxU+eUDQQpcp/cgUKu3rAMY9QfvxWkpAot3ZqAwloXeIh88tmlulH5xsBVYaPOBZ2Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5190
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,150 +130,176 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: "Huang, Ray" <Ray.Huang@amd.com>
+Content-Type: multipart/mixed; boundary="===============0373292198=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 13.07.21 um 16:06 schrieb Rodrigo Siqueira:
-> To fully isolate FPU operations in a single place, we must avoid
-> situations where compilers spill FP values to registers due to FP enable
-> in a specific C file. Note that even if we isolate all FPU functions in
-> a single file and call its interface from other files, the compiler
-> might enable the use of FPU before we call DC_FP_START. Nevertheless, it
-> is the programmer's responsibility to invoke DC_FP_START/END in the
-> correct place. To highlight situations where developers forgot to use
-> the FP protection before calling the DC FPU interface functions, we
-> introduce a helper that checks if the function is invoked under FP
-> protection. If not, it will trigger a kernel warning.
+--===============0373292198==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BL1PR12MB5144BF5302C21A6E022CCF84F7139BL1PR12MB5144namp_"
+
+--_000_BL1PR12MB5144BF5302C21A6E022CCF84F7139BL1PR12MB5144namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+[AMD Official Use Only]
+
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+________________________________
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Xiaojian=
+ Du <Xiaojian.Du@amd.com>
+Sent: Wednesday, July 14, 2021 5:32 AM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Huang, Ray <Ray.Huang@amd.com>; Du, Xiaojian <Xiaojian.Du@amd.com>
+Subject: [PATCH] drm/amdgpu: update the golden setting for vangogh
+
+This patch is to update the golden setting for vangogh.
+
+Signed-off-by: Xiaojian Du <Xiaojian.Du@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/gfx_v10_0.c
+index 705fa3027199..9144836798c5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -3383,6 +3383,7 @@ static const struct soc15_reg_golden golden_settings_=
+gc_10_3_vangogh[] =3D
+         SOC15_REG_GOLDEN_VALUE(GC, 0, mmPA_SC_ENHANCE_2, 0xffffffbf, 0x000=
+00020),
+         SOC15_REG_GOLDEN_VALUE(GC, 0, mmSPI_CONFIG_CNTL_1_Vangogh, 0xfffff=
+fff, 0x00070103),
+         SOC15_REG_GOLDEN_VALUE(GC, 0, mmSQG_CONFIG, 0x000017ff, 0x00001000=
+),
++       SOC15_REG_GOLDEN_VALUE(GC, 0, mmSX_DEBUG_1, 0x00010000, 0x00010020)=
+,
+         SOC15_REG_GOLDEN_VALUE(GC, 0, mmTA_CNTL_AUX, 0xfff7ffff, 0x0103000=
+0),
+         SOC15_REG_GOLDEN_VALUE(GC, 0, mmUTCL1_CTRL, 0xffffffff, 0x00400000=
+),
+         SOC15_REG_GOLDEN_VALUE(GC, 0, mmVGT_GS_MAX_WAVE_ID, 0x00000fff, 0x=
+000000ff),
+--
+2.17.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
+reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D04%7C01%7Calexande=
+r.deucher%40amd.com%7Cb620c2e4fb6546e5cb2908d946aa56f3%7C3dd8961fe4884e608e=
+11a82d994e183d%7C0%7C0%7C637618520145692637%7CUnknown%7CTWFpbGZsb3d8eyJWIjo=
+iMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdat=
+a=3Dt5Jq4s7bJ0oFkSElQuwdMUy%2ByOD7oB1V36hCoAcb4sk%3D&amp;reserved=3D0
+
+--_000_BL1PR12MB5144BF5302C21A6E022CCF84F7139BL1PR12MB5144namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-> Changes since V1:
-> - Remove fp_enable variables
-> - Rename dc_is_fp_enabled to dc_assert_fp_enabled
-> - Replace wrong variable type
->
-> Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-> ---
->   .../gpu/drm/amd/display/amdgpu_dm/dc_fpu.c    | 22 +++++++++++++++++++
->   .../gpu/drm/amd/display/amdgpu_dm/dc_fpu.h    |  1 +
->   .../drm/amd/display/dc/dcn20/dcn20_resource.c |  2 ++
->   .../drm/amd/display/dc/fpu_operations/dcn2x.c | 17 ++++++++++++++
->   4 files changed, 42 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
-> index 73179e9e859a..74153a2816f9 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
-> @@ -41,6 +41,28 @@
->   
->   static DEFINE_PER_CPU(int, fpu_recursion_depth);
->   
-> +/**
-> + * dc_assert_fp_enabled - Check if FPU protection is enabled
-> + *
-> + * This function tells if the code is already under FPU protection or not. A
-> + * function that works as an API for a set of FPU operations can use this
-> + * function for checking if the caller invoked it after DC_FP_START(). For
-> + * example, take a look at dcn2x.c file.
-> + *
-> + * Return:
-> + * Return true if we already enabled FPU protection, otherwise return false.
-> + */
-> +inline bool dc_assert_fp_enabled(void)
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:15pt;" al=
+ign=3D"Left">
+[AMD Official Use Only]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces@lists.freedesktop.org&gt; on behalf of Xiaojian Du &lt;Xiaojian.Du@a=
+md.com&gt;<br>
+<b>Sent:</b> Wednesday, July 14, 2021 5:32 AM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> Huang, Ray &lt;Ray.Huang@amd.com&gt;; Du, Xiaojian &lt;Xiaojian.=
+Du@amd.com&gt;<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: update the golden setting for vangogh</=
+font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">This patch is to update the golden setting for van=
+gogh.<br>
+<br>
+Signed-off-by: Xiaojian Du &lt;Xiaojian.Du@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 1 +<br>
+&nbsp;1 file changed, 1 insertion(+)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/gfx_v10_0.c<br>
+index 705fa3027199..9144836798c5 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c<br>
+@@ -3383,6 +3383,7 @@ static const struct soc15_reg_golden golden_settings_=
+gc_10_3_vangogh[] =3D<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SOC15_REG_GOLDEN_VALUE(GC,=
+ 0, mmPA_SC_ENHANCE_2, 0xffffffbf, 0x00000020),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SOC15_REG_GOLDEN_VALUE(GC,=
+ 0, mmSPI_CONFIG_CNTL_1_Vangogh, 0xffffffff, 0x00070103),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SOC15_REG_GOLDEN_VALUE(GC,=
+ 0, mmSQG_CONFIG, 0x000017ff, 0x00001000),<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SOC15_REG_GOLDEN_VALUE(GC, 0, mmSX_DE=
+BUG_1, 0x00010000, 0x00010020),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SOC15_REG_GOLDEN_VALUE(GC,=
+ 0, mmTA_CNTL_AUX, 0xfff7ffff, 0x01030000),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SOC15_REG_GOLDEN_VALUE(GC,=
+ 0, mmUTCL1_CTRL, 0xffffffff, 0x00400000),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SOC15_REG_GOLDEN_VALUE(GC,=
+ 0, mmVGT_GS_MAX_WAVE_ID, 0x00000fff, 0x000000ff),<br>
+-- <br>
+2.17.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx@lists.freedesktop.org<br>
+<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
+F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D04%=
+7C01%7Calexander.deucher%40amd.com%7Cb620c2e4fb6546e5cb2908d946aa56f3%7C3dd=
+8961fe4884e608e11a82d994e183d%7C0%7C0%7C637618520145692637%7CUnknown%7CTWFp=
+bGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%=
+7C3000&amp;amp;sdata=3Dt5Jq4s7bJ0oFkSElQuwdMUy%2ByOD7oB1V36hCoAcb4sk%3D&amp=
+;amp;reserved=3D0">https://nam11.safelinks.protection.outlook.com/?url=3Dht=
+tps%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;da=
+ta=3D04%7C01%7Calexander.deucher%40amd.com%7Cb620c2e4fb6546e5cb2908d946aa56=
+f3%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637618520145692637%7CUnknow=
+n%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI=
+6Mn0%3D%7C3000&amp;amp;sdata=3Dt5Jq4s7bJ0oFkSElQuwdMUy%2ByOD7oB1V36hCoAcb4s=
+k%3D&amp;amp;reserved=3D0</a><br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
 
-Assert indicates that you print a warning if the condition isn't meet, 
-but you only return the condition.
+--_000_BL1PR12MB5144BF5302C21A6E022CCF84F7139BL1PR12MB5144namp_--
 
-Either rename the function or raise the warning directly.
-
-> +{
-> +	int *pcpu, depth = 0;
-> +
-> +	pcpu = get_cpu_ptr(&fpu_recursion_depth);
-> +	depth = this_cpu_read(fpu_recursion_depth);
-> +	put_cpu_ptr(&fpu_recursion_depth);
-
-Again this doesn't make sense.
-
-Either you use this_cpu_read() or your use get_cpu_ptr()/put_cpu_ptr(), 
-but not both.
-
-> +
-> +	return depth > 1;
-> +}
-> +
->   /**
->    * dc_fpu_begin - Enables FPU protection
->    * @function_name: A string containing the function name for debug purposes
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.h b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.h
-> index fb54983c5c60..97941794b77c 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.h
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.h
-> @@ -27,6 +27,7 @@
->   #ifndef __DC_FPU_H__
->   #define __DC_FPU_H__
->   
-> +bool dc_assert_fp_enabled(void);
->   void dc_fpu_begin(const char *function_name, const int line);
->   void dc_fpu_end(const char *function_name, const int line);
->   
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-> index f99b09643a52..d0b34c7f99dc 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-> @@ -2355,7 +2355,9 @@ int dcn20_populate_dml_pipes_from_context(
->   	}
->   
->   	/* populate writeback information */
-> +	DC_FP_START();
->   	dc->res_pool->funcs->populate_dml_writeback_from_context(dc, res_ctx, pipes);
-> +	DC_FP_END();
->   
->   	return pipe_cnt;
->   }
-> diff --git a/drivers/gpu/drm/amd/display/dc/fpu_operations/dcn2x.c b/drivers/gpu/drm/amd/display/dc/fpu_operations/dcn2x.c
-> index c815d6c01d64..d8183da0c2b0 100644
-> --- a/drivers/gpu/drm/amd/display/dc/fpu_operations/dcn2x.c
-> +++ b/drivers/gpu/drm/amd/display/dc/fpu_operations/dcn2x.c
-> @@ -41,6 +41,22 @@
->    *    that deals with FP register is contained within this call.
->    * 3. All function that needs to be accessed outside this file requires a
->    *    public interface that not uses any FPU reference.
-> + * 4. Developers should not use DC_FP_START/END in this file, but they need to
-
-This needs to be harder, e.g. "Developers must not use....".
-
-Regards,
-Christian.
-
-> + *    ensure that the caller invokes it before access any function available in
-> + *    this file. For this reason, public API in this file must invoke
-> + *    ASSERT(dc_assert_fp_enabled());
-> + *
-> + * Let's expand a little bit more the idea in the code pattern number for. To
-> + * fully isolate FPU operations in a single place, we must avoid situations
-> + * where compilers spill FP values to registers due to FP enable in a specific
-> + * C file. Note that even if we isolate all FPU functions in a single file and
-> + * call its interface from other files, the compiler might enable the use of
-> + * FPU before we call DC_FP_START. Nevertheless, it is the programmer's
-> + * responsibility to invoke DC_FP_START/END in the correct place. To highlight
-> + * situations where developers forgot to use the FP protection before calling
-> + * the DC FPU interface functions, we introduce a helper that checks if the
-> + * function is invoked under FP protection. If not, it will trigger a kernel
-> + * warning.
->    */
->   
->   static noinline void _dcn20_populate_dml_writeback_from_context(struct dc *dc,
-> @@ -83,5 +99,6 @@ static noinline void _dcn20_populate_dml_writeback_from_context(struct dc *dc,
->   void dcn20_populate_dml_writeback_from_context(struct dc *dc,
->   	struct resource_context *res_ctx, display_e2e_pipe_params_st *pipes)
->   {
-> +	ASSERT(dc_assert_fp_enabled());
->   	_dcn20_populate_dml_writeback_from_context(dc, res_ctx, pipes);
->   }
+--===============0373292198==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0373292198==--
