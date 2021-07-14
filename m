@@ -2,136 +2,127 @@ Return-Path: <SRS0=RZx8=MG=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B3ABDC11F66
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 13:28:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F3AD8C07E9A
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 13:29:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 78F4D613B9
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 13:28:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 78F4D613B9
+	by mail.kernel.org (Postfix) with ESMTPS id B228360230
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 13:29:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B228360230
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 31A5089D1D;
-	Wed, 14 Jul 2021 13:28:41 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2067.outbound.protection.outlook.com [40.107.244.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA7AE89D1D;
- Wed, 14 Jul 2021 13:28:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C78B6E2D5;
+	Wed, 14 Jul 2021 13:29:26 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam07on2074.outbound.protection.outlook.com [40.107.212.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFAFB6E2D1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Jul 2021 13:29:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ia998np3B4r49km1PWfagls8cH/ADdAybu08eYolTZt1rLwXALi+fo7OOZacCchgIjzbnkWF6eJfGA+fx3N982ewQ1T9TlSMNYNMDlr9KiQdMt/kfO2bKbRK09GdpusPbCtVL4hM/IFJm4l8cQfP1SuxLPIE+YYVoYimjuK7CR8/xBEetLlS+qUmtf8tIQ4Pfeh7xBWeWEVnYT+nzt2C67tR5CznID7Yrc7BYS7XPIgHi/9JtP04d2FEhL4qreeEDc6dE1Zx+brMnlNUu0jiDPVYT54UWjaefcqI3Z5VNXQnoFkOrXjDhx5zT5pptmJGTXEPiyzGFo2x0poV1HMY3Q==
+ b=TLC4b6s3f9VxRNJX4SK69HFpgsV3Jc2NUtPp63XPq8ZaO0sOjmdJx1xJvTLeDka1DFDKw48qVk19mYx0iemeiJSxxxKgq+hkxKKKsx8A5l5r5qxtpduMYxZmi6NRw2qu5Z8Hlw7xl2AbB+Em+WlvyVVXFd6vAdKTu6tweC8K9ApQo6uvq+6monhkcwBZGvYRO6RLaysnKaiLSsB+//jZr9gbR0Otuydd0pR2CBhuCXVZOPAUfifpW4vMdBZQVIb3m89fvam1V8puUHVP6ECHD8AJ+fMgCkXDuTB5BPC6GkLzr59W245j5wywCrqbC50qCw0qbNtUQ9d9xMBhYpPhdQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cQfwejAnvp4LZ1s04Vp6v1QD/Zedb9GT/K0bGU+UUVg=;
- b=VfFTibRKMSjORy2kUCTobqM6yMsxBT2u2BCsuBFiY7gMr3wWM1+XJ7fZCp/o3oC8Zbal3/+gGZ357Fo4iW9lx3uIm7ALUaTR6S35c6gQyo9id5fRcEJ6P34ddvFq7Ep7zSj776EtbT0O6iCx6DAr+jRVm/YoCeJuB5/rZtwp2QoITR9Fcabk1cV+8TTZsdKO39CxtEpGweFywiMAMudj2GijFp6ovfrfx28iVa2N4ccN5ddyZZLhm2SQv0wF4slRpMZjT2V6hauwbf9Dv1Lc0CeN8wPN9j74NnifKSbu1GO1VKhNx0XIOeKVFK5jxlXVU4ljOHHmHL+pHUAQVOUmiw==
+ bh=17GU+G3CCSbDY10GppRsgt9nbRMHr7vIwzZMu1vx2rA=;
+ b=WYxzLTeYNy7vOQPdpmkIbD5nxWtr/X5secheb6mkJLDT4Zaun5tWdxTT/PwJoHoHAxoe3yWKl9OoNktR6GKidrK9mms2tbTppsFjfMQYkdVCrNCvTP0QvQi2WWeTq6WmyK4zP3003bZRPO36JOCTVWgnGKSXtDLqlpMSdg6Lw35XGKkQHJpO2Z347v3/SfGHpT3spPjh0i38gOCJIqKvoJXf9v/VodmHpBvACM5EmpNkyW3Pif74kqBTSTb4QUPc8MduuZ4PKGmw2bU8h1MbZLGcpFxnAKrjluRdjpNWHPMfvGww5L6gSfWcysytK/UbE8LuCg75mS98zfrQggA07A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cQfwejAnvp4LZ1s04Vp6v1QD/Zedb9GT/K0bGU+UUVg=;
- b=Jg0iAvLC46CYK3sTQhXVAgBtDjQi/TUHQyIVpUw80ZL9DF38g2qy3W2XmJpvy90JJeBf2cvqPWlmeKcHxDVKAR0Zxl1NdGDW2SZZEF9JfGb0DDit+X4YbPO+5DeF/25FilyaIATwVWQvne7Xfcmr2RKbtbu5dM/f+xfyeaBA4es=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
- by MN2PR12MB4566.namprd12.prod.outlook.com (2603:10b6:208:26a::19)
+ bh=17GU+G3CCSbDY10GppRsgt9nbRMHr7vIwzZMu1vx2rA=;
+ b=L7xHdTcIV+SXJ2X8HStTUgef9ORTGZqArNKnv+pF4KeSV8utKx0YTxKQ7oxjsjdYejxcSehTQ0Z1weg4GyOZvkU4AKZx6OwAzeEah+lCh8StRI7gqBsgMDp2PAzD2wD1ah5pdhdXflcoR0W1SDHXWq2gI7Ng3uFM+ZLJsOgR6MU=
+Received: from BN9PR12MB5145.namprd12.prod.outlook.com (2603:10b6:408:136::20)
+ by BN9PR12MB5225.namprd12.prod.outlook.com (2603:10b6:408:11e::8)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4308.22; Wed, 14 Jul
- 2021 13:28:38 +0000
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::6c9e:1e08:7617:f756]) by MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::6c9e:1e08:7617:f756%5]) with mapi id 15.20.4308.027; Wed, 14 Jul 2021
- 13:28:38 +0000
-Subject: Re: [PATCH v2 3/4] drm/amd/display: Add control mechanism for FPU
- utilization
-To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Peter Zijlstra <peterz@infradead.org>, Daniel Vetter <daniel@ffwll.ch>,
- roman.li@amd.com, anson.jacob@amd.com, hersenxs.wu@amd.com,
- jerry.zuo@amd.com, sunpeng.li@amd.com, aric.cyr@amd.com
-References: <20210713140612.2721113-1-Rodrigo.Siqueira@amd.com>
- <20210713140612.2721113-4-Rodrigo.Siqueira@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <ee26b06b-f1a0-5a8f-388c-13c1072ae03e@amd.com>
-Date: Wed, 14 Jul 2021 15:28:29 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
-In-Reply-To: <20210713140612.2721113-4-Rodrigo.Siqueira@amd.com>
-Content-Language: en-US
-X-ClientProxiedBy: PR3P189CA0009.EURP189.PROD.OUTLOOK.COM
- (2603:10a6:102:52::14) To MN2PR12MB3775.namprd12.prod.outlook.com
- (2603:10b6:208:159::19)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2a02:908:1252:fb60:fe2b:fec6:eeb5:c7dc]
- (2a02:908:1252:fb60:fe2b:fec6:eeb5:c7dc) by
- PR3P189CA0009.EURP189.PROD.OUTLOOK.COM (2603:10a6:102:52::14) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4308.21 via Frontend Transport; Wed, 14 Jul 2021 13:28:33 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4f4b9c7c-47d1-486a-28a4-08d946cb49f7
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4566:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB45668EAF0F7BE05BCC5FB5A383139@MN2PR12MB4566.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:196;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ixPhHAxEdm9OcJtxp74g7+8kmFH8iSeXJM24xl8lGA+PgcA/NJhL1mriD9fiqtPj9R/jY5NVgxFTzz3iYcs2ThCjA1PPE4j/O4UJRvxLDucQ0VHE8hJeNNgJb87OpBWEIHpPPg3OUr9HAVw0XTDXUDiXgs0h4BIPmpAH+ByiVscQUATrGfZVjIWk78w0rT4H9U41F93Y+vY8Q+8u+9VGjt5BScE82RIXqNtTDBq4t9h5cyhwFGJiGooqN3bmQyQdxTcZZ8h76W7eogEh9PofSADY4ndxVvFm0g+7cRlcpsW7toz5hHFrSkt7tPW0ZkQ+4QUMtIJ2g+X2HgTl3sP6w5SL41gJCW6pcy316PhOp81ODRmPfrrS86I5FEMrQd3k1Hoa2+SvbmMhZW7yA28T1wFYu8dME/iplmuZJ2hSdBcbD8C87nLV+sTIMxY9iXbf76F+dXrnCH5Px+22ucgydcKzl0V+CpiATABRDIZkR53clo6amXFiOG4KFz1WNuckGWdxAJPcRFSyihciLd9XVO4Mhul86Jb2EP92/crUYdJmdA8msDAEiT6yOG911yQgVoi1cAIopvhkoIzOF3uGD8jCJXjl/kTJKfh5Nr6im/y5/CzG6RjZFpZJc4evGmgaqZUxz8tfMUHGUJg+lyICvFznEM/9nVkjGf2FIBvrNUQvEC99gEYWGdCqWdjGt6CsnbkKrpRDKK8tB93bRxe371dz/nMlaDoBUY7V4UtJpnuQz7yFUzeBqZ8ve7r1SdIM
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(396003)(346002)(376002)(39860400002)(366004)(316002)(2906002)(6636002)(31696002)(110136005)(186003)(83380400001)(86362001)(36756003)(478600001)(66556008)(66476007)(66946007)(4326008)(5660300002)(38100700002)(31686004)(6486002)(921005)(2616005)(8676002)(6666004)(8936002)(43740500002)(45980500001);
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4331.21; Wed, 14 Jul
+ 2021 13:29:23 +0000
+Received: from BN9PR12MB5145.namprd12.prod.outlook.com
+ ([fe80::494e:c22a:4e4d:1dc9]) by BN9PR12MB5145.namprd12.prod.outlook.com
+ ([fe80::494e:c22a:4e4d:1dc9%4]) with mapi id 15.20.4331.022; Wed, 14 Jul 2021
+ 13:29:22 +0000
+From: "Wang, Chao-kai (Stylon)" <Stylon.Wang@amd.com>
+To: "Chen, Guchun" <Guchun.Chen@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "Wentland, Harry" <Harry.Wentland@amd.com>,
+ "Kazlauskas, Nicholas" <Nicholas.Kazlauskas@amd.com>, "Siqueira, Rodrigo"
+ <Rodrigo.Siqueira@amd.com>, "Yin, Tianci (Rico)" <Tianci.Yin@amd.com>, "Chen, 
+ Jiansong (Simon)" <Jiansong.Chen@amd.com>
+Subject: Re: [PATCH] drm/amd/display: avoid printing ERROR for unknown CEA
+ parse(v2)
+Thread-Topic: [PATCH] drm/amd/display: avoid printing ERROR for unknown CEA
+ parse(v2)
+Thread-Index: AQHXeIu9UqDS6vmMhUa4hy3FV9d6aqtCd05g
+Date: Wed, 14 Jul 2021 13:29:22 +0000
+Message-ID: <BN9PR12MB5145B11D6ABBB6FA1BA28F3EFF139@BN9PR12MB5145.namprd12.prod.outlook.com>
+References: <20210714083901.9312-1-guchun.chen@amd.com>
+In-Reply-To: <20210714083901.9312-1-guchun.chen@amd.com>
+Accept-Language: en-CA, en-US
+Content-Language: en-CA
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-07-14T13:29:22.536Z;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD-Official
+ Use
+ Only; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard; 
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 74b875a4-c4cf-4a45-5e17-08d946cb6499
+x-ms-traffictypediagnostic: BN9PR12MB5225:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <BN9PR12MB5225EAB9C4DDDD20F46C386EFF139@BN9PR12MB5225.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:6430;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: dED0K5N4anDLp+5z+FunVR5aQSlAn3z2sVBbJD6kHInEpAzWSuysPzsT4A9vupTI5RCcZSqXXqnzi+XPHFarwp2cZ3+Y8hQTwIdbeiySSQCpmZ2gZuTDU/zl4Jdz2AqaaTkuHUp40H6pHlO16alVyn/u7bC3Tg2uBhKfdS9wy4w34fwtuB/fzRVcKSiH52+LGGw2dCvr5tQHp5VYnBaVYZaghqbXZ4hciMUhVozSSzinSXoUYd2Usydw1KA5g22twsQFwmZxyYTvxPPuhIKmslAEbyRGKsGRvlwz3D/vy2RbNrxAD6hlbs+E/wRF4jpY6YWV7vVdhIyd8DTORWlLrMEldbGwRfvxKqvP1zqw7UKqnxYx6zXbdxaTCJcmdzC+MW2hnJGM9i96o3RhUtOv5cp/p4JN0kILHP3o1pEaetwmxUfXKvAxSS54v8duiSCPZQai/wvIBwsN26tpVXXusioKfJTZJbt6tk2jKdVLW4WCvQL1iV0EfqZsfoH6oKXLPov6UGNQbQT3L+ZeCVC4+LIC+CDrrNeX9kZ/5FbNO3pnf7ptWtsVPvBObSzeH0LAriTvLP95hNHDcqDj3wQc4i8nPNVak1/+r6ViLGRpHb20Xe5tOEBR/XRsufe5a8gQ9rKbBCZQQOoSjK80akSH9SN/PlySNgXNC+am69SFoA05b2gPsassqhYlIN/2xUyoEQlzVvRr4qL4HdPrcSW2mpAqwbdJMHR2KUxT3HzRbs6rIJase00JXNQXqhUd04v1aNOCl3BUlejB59xuA63lrbPg8FhBbYaq8pgOuTDF4b2ZhHhe2AwrECkwL71xlDJrPyQS3r65RKYgijekiIktPwwKvfM7k20f43slv1ocmFQ=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5145.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(366004)(376002)(346002)(396003)(136003)(166002)(921005)(8936002)(52536014)(2906002)(66556008)(38100700002)(66476007)(8676002)(66446008)(91956017)(6506007)(64756008)(53546011)(66946007)(76116006)(478600001)(7696005)(6636002)(5660300002)(26005)(122000001)(186003)(55016002)(9686003)(86362001)(19627405001)(316002)(71200400001)(110136005)(33656002)(83380400001)(38070700004);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QWUvWHNlc1R0ZERPSlpLMGpGZkNsaThuTTlaTTdKQjZUV05yRmFWa2NzRkQz?=
- =?utf-8?B?Q1haUnVwR1FmME5mYnhVeUZQMmxraFR6NUNWUThxZms4T0hGSkhneHpsb253?=
- =?utf-8?B?SnhkSDVFU0NEWFByQlVvMk92SG5jUlZtRmFKMGJ4dnJSZlVSV1RZdStEY1A2?=
- =?utf-8?B?S3ZONlBwM2JRdGVZTGJJTDlkajdwOCtXeHRMN2lvUUpabVNRZWY3Yy8wbnJj?=
- =?utf-8?B?czUrTmNRaU5KSmZDYzlNYXNQb251RklPOEEyNUliYkNRa3pjS3dFc21EWGo0?=
- =?utf-8?B?TEQ3QzNwRWdUTGdEUXVtN0swVUxNTVYxeU5RajBnUmZrTDgwNzhTRWJyZ1Uv?=
- =?utf-8?B?VDFvRU5qMFhoYXc1QjF6V2RGd2t5ZHd4NGd4eW1URkZKM1lyeGFGV2NsZzlk?=
- =?utf-8?B?d0xpY2ZQMUdoUjdhSHFoUlQ4L2xyTHZySktYSEpZanlLYmllYTZiM3d5Ull3?=
- =?utf-8?B?ZndYcmRhYmtuUnRJQ0tIQmQwakNocjZ3ak9aVndtQmdRd0IxMWYwRklrT3k3?=
- =?utf-8?B?dllsdGVRZ2pPQVBnUTBKZ1JLYTAzZTJCWkIvbE9ZRjc2Q3pEUU40YzNSYkFq?=
- =?utf-8?B?WlMvc0FPektzREZQOW9ZaFFqbVd6cEtxNlRVeHFPcHhuMmU4RzBDbTEybVlU?=
- =?utf-8?B?b3BWZThuWWdoWE1FQ3BrOUJGMTREZS9IKzhWQzIvM1RweHFHUEJBTW5aY2t0?=
- =?utf-8?B?MWdKbko3QjlzTktwbTVZNHBpUWdkR0E4TFVWZk41TjhITi9ZVSt4OWxjM2Qy?=
- =?utf-8?B?YnFUeFdDSWZmMW53NDNKSVJOcjR3bDhNdWQzSWN3WlRIZW1ONEk0bllqNEp3?=
- =?utf-8?B?VnRkeWtpL0oxUVVHU0RhYW1zSS8rcXBYdWczQWFhaXNpZTJnNERmVDFRSjBM?=
- =?utf-8?B?RnVnZGY4OVJ5SzhLZUg4RmNVL05VMWZiYTJQUzc2bFJrMHRVTGYyblJMbkIx?=
- =?utf-8?B?TWlINzdXdm1xNWszWi9yYTUweG9MVTNhVFJWZlhqQ1N0NFE3Nk90Ny9SR0Vm?=
- =?utf-8?B?TzdwbXBiSGEzUVlESGRIdkVjWDF1K3d1eW1OTnhncEU5ZzRKSWpwemczenRU?=
- =?utf-8?B?VHpxWXFZWEVzS0VkNXZvOE9ZcXE5L09FSitjQTN3UWhHTGQrRDIzZmxLUVRR?=
- =?utf-8?B?Rld0THBHb25qei9JVUpZb3RmajlvZ04vVXRmMlB3WklNSmJtV0p3MWUza3NK?=
- =?utf-8?B?dkYrSExLd3ZnSVVVMURIejdrZkd6bjNHMjRpVkRZSVRxREN1eVd4TkV1cFRT?=
- =?utf-8?B?dGdwNnIrNG05WkVJYmhyZGhGQW1tTlZmSWFrWDFreldCc2NGbFlZU3RYWXQ1?=
- =?utf-8?B?aFU2djhKazVuUWdHM3puL1pVRUhRNENLUU5oYUF4eS9raXlHak9XQ2JZLzdQ?=
- =?utf-8?B?NFdTTlZXQ3habEJLTUxmdk84QXVtZmNwdnMvd0lUaWJxUkhuZlNXZWZ5M0c2?=
- =?utf-8?B?cTBXM0pWWWVjVDZVQk0yTk9hRHhYaFEzOW0vcmtqdG04WVhHTFFYUTBoeG1k?=
- =?utf-8?B?cjR0WVNWeTdROFhKMXN0MEgwd1VYSi9FRWJ6TnlqeGNDT2g2ekhWVHVTNE5Y?=
- =?utf-8?B?bVpkUzBTZVFQdS9TanhWYTRrbGpqL285WCs4alNHQ3dweWc3cGU4UGl4YkMy?=
- =?utf-8?B?dTRmTUFMTlYydVZJbXBINWFFOFFvdks4Yk56RjJSbVR1TkNKTkV1M1MvcUkx?=
- =?utf-8?B?VDlRckJKdGN2NkRIdEpOdXpBUnZhZDNvQjF1ZjVkSjlHSTFBa3RvRHFENVNI?=
- =?utf-8?B?bXNSWE9UVEFtczh1Y3JFLzdiMUNpaXVMbk8vVzZaRTYzNFowdzRPQjRXYm5M?=
- =?utf-8?B?RE9WOEYwZ0x5YkVsREc4UG5SOGQ5VnViRkZyVEd6Y0ZQajBaRWxIYnp4QW1r?=
- =?utf-8?Q?0QAPKq8jjhGdq?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?32CqlU1I5hZ/rN8sdcALclG6He1O9V5NQog3RJXI1awkbGAbVeeQLC78wLgF?=
+ =?us-ascii?Q?JEIz0psjTMdf9ryVvEpV8HD6z3PCdxxV3pIioYUWG708eWkbtQqIDTao46Hd?=
+ =?us-ascii?Q?u2HQXsbpeKwq4tTOXifq5qGXawHivggohxEVK2WV3l52wr9MXA4oTy98y9MZ?=
+ =?us-ascii?Q?cWicBw+fT9IYwv6KwTvuCNM6Y2Sc2htd9+AP+x5OTT46EPrifiT3SK2w1Lwd?=
+ =?us-ascii?Q?lR1AtIWuHrwgzn7GYJDHGkFBAf5ZO4z/iFohBrAXDTyZLT1wl2gSx+jbRe14?=
+ =?us-ascii?Q?F/g0MMe/Fl2RNBNok8CCoIWvc8nkfg45R5J81I0UxIYe6muTWLRvLPzCUmbV?=
+ =?us-ascii?Q?34xWU9vq6/fYvIz2gBODM2XM6O4s5YDkfR3li4S/jhOK4iDBJywMObOh5Thh?=
+ =?us-ascii?Q?YnopfjjtLuL9LsXSAax+X7KVlo1fxEe+QL7PxzjAuXRXMVESU+D54XvvEic0?=
+ =?us-ascii?Q?VR49iBPbMbUFfsfUEx67uQVkxigb8wXCfj7GJOqGK6AM2hUf9m4ptPCn1nXo?=
+ =?us-ascii?Q?QtxkZvt1DBem49bdk2UQVtWn0tYguecUBW8O2CnKSeHiljQ3ddb9hI8Z0v8W?=
+ =?us-ascii?Q?JoY7AmNhS/GBu6Vxvm0/VuswsL2azmdC7XGCDCoHQ/4wgjvksDsfs81LaNw5?=
+ =?us-ascii?Q?CBYOl7bMXmprWrt2VLu4clEYTDBjlWphwia5BONQgn6Nk9JRoK7OssIgaNXW?=
+ =?us-ascii?Q?T6wZTcwyA96UL1q4gC6rjyDdQ/u1ZiBTOfBZD8U3tDZo4taKjv6iTJd9/jSu?=
+ =?us-ascii?Q?m0sfeAaT6YQkt5R2YrfOerkYfttKIwnmv4Dw8F7ogh/AL41qJMNOPw7fc7ok?=
+ =?us-ascii?Q?qtUedbu8U7yG3qXrRKqZjDcsH4kx+aMS3LhUxEqL4ID5qUgHIQWw6U39SHD6?=
+ =?us-ascii?Q?rE7wqyVxOFOibQ/eOVBZ8LlPepypsajUG5gUY2X/8rQmxtOwjOkEdUN6vVm6?=
+ =?us-ascii?Q?5v9Rcn4Q4NRtD0wT0xtKGqJImCgPwBH/KURFDCPETy0+59YtpgJof0CfYMZY?=
+ =?us-ascii?Q?xB8NzQOnVVkH8w41qp7ebLXt4OLG5sj5+GX4MxnS+A4rdqGLLIQapxFePs9U?=
+ =?us-ascii?Q?/EvDQGpL3ZuatLji6AIYpWasokOaAqdReszx9NLaZZFu2EDelmHwVikOtfne?=
+ =?us-ascii?Q?SopkSHAx5oqiXOJDmc9rcGBhgD0028kwRhB8gqWiMUicWve9byi9y/knIiW5?=
+ =?us-ascii?Q?xjf5NW/lW9KS2y8w2FHXcWiQzw3bzb+bn+TG+fAMRNSYmag3dvaIlSX7X9Vl?=
+ =?us-ascii?Q?P/2nd2L+V7hnMqKdMCjw5fO7qFuDYi9V1FhPjjUxl+9Q8dLEdR1B+ymOJz0c?=
+ =?us-ascii?Q?uwtWTuZX6pAc3Kc8+geq+Ea6?=
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4f4b9c7c-47d1-486a-28a4-08d946cb49f7
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2021 13:28:38.4774 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Rr6uPbP18SLH3NSpSYjX9EVzbbGkvsxTidOWc53SbDk5JWRg3Bh5iZ4cQbZnizS+
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4566
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5145.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 74b875a4-c4cf-4a45-5e17-08d946cb6499
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Jul 2021 13:29:22.9236 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: rGYgoJjHuBT4LVXrKRx2JDUx0HaG0RHMKdcmkYhB3F6PiaOoLyry+n16YH34FzFPgOoyTRMSaZX7vYLBklzH6w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5225
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,146 +134,283 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============1279493003=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 13.07.21 um 16:06 schrieb Rodrigo Siqueira:
-> DC invokes DC_FPU_START/END in multiple parts of the code; this can
-> create a situation where we invoke this FPU operation in a nested way or
-> exit too early. For avoiding this situation, this commit adds a
-> mechanism where dc_fpu_begin/end manages the access to
-> kernel_fpu_begin/end.
->
-> Change since V1:
-> - Use a better variable names
-> - Use get_cpu_ptr and put_cpu_ptr to better balance preemption enable
-> and disable
->
-> Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-> ---
->   .../amd/display/amdgpu_dm/amdgpu_dm_trace.h   | 13 ++++---
->   .../gpu/drm/amd/display/amdgpu_dm/dc_fpu.c    | 36 ++++++++++++++++---
->   drivers/gpu/drm/amd/display/dc/dc_trace.h     |  4 +--
->   3 files changed, 42 insertions(+), 11 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
-> index 230bb12c405e..fdcaea22b456 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
-> @@ -638,23 +638,26 @@ TRACE_EVENT(amdgpu_refresh_rate_track,
->   );
->   
->   TRACE_EVENT(dcn_fpu,
-> -	    TP_PROTO(bool begin, const char *function, const int line),
-> -	    TP_ARGS(begin, function, line),
-> +	    TP_PROTO(bool begin, const char *function, const int line, const int recursion_depth),
-> +	    TP_ARGS(begin, function, line, recursion_depth),
->   
->   	    TP_STRUCT__entry(
->   			     __field(bool, begin)
->   			     __field(const char *, function)
->   			     __field(int, line)
-> +			     __field(int, recursion_depth)
->   	    ),
->   	    TP_fast_assign(
->   			   __entry->begin = begin;
->   			   __entry->function = function;
->   			   __entry->line = line;
-> +			   __entry->recursion_depth = recursion_depth;
->   	    ),
-> -	    TP_printk("%s()+%d: %s",
-> +	    TP_printk("%s: recursion_depth: %d: %s()+%d:",
-> +		      __entry->begin ? "begin" : "end",
-> +		      __entry->recursion_depth,
->   		      __entry->function,
-> -		      __entry->line,
-> -		      __entry->begin ? "begin" : "end"
-> +		      __entry->line
->   	    )
->   );
->   
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
-> index d5d156a4517e..73179e9e859a 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
-> @@ -28,6 +28,19 @@
->   
->   #include <asm/fpu/api.h>
->   
-> +/**
-> + * DOC: DC FPU manipulation overview
-> + *
-> + * DC core uses FPU operations in multiple parts of the code, which requires a
-> + * more specialized way to manage these areas' entrance. To fulfill this
-> + * requirement, we created some wrapper functions that encapsulate
-> + * kernel_fpu_begin/end to better fit our need in the display component. In
-> + * summary, in this file, you can find functions related to FPU operation
-> + * management.
-> + */
-> +
-> +static DEFINE_PER_CPU(int, fpu_recursion_depth);
-> +
->   /**
->    * dc_fpu_begin - Enables FPU protection
->    * @function_name: A string containing the function name for debug purposes
-> @@ -43,8 +56,16 @@
->    */
->   void dc_fpu_begin(const char *function_name, const int line)
->   {
-> -	TRACE_DCN_FPU(true, function_name, line);
-> -	kernel_fpu_begin();
-> +	int *pcpu;
-> +
-> +	pcpu = get_cpu_ptr(&fpu_recursion_depth);
-> +	*pcpu = this_cpu_inc_return(fpu_recursion_depth);
+--===============1279493003==
+Content-Language: en-CA
+Content-Type: multipart/alternative;
+	boundary="_000_BN9PR12MB5145B11D6ABBB6FA1BA28F3EFF139BN9PR12MB5145namp_"
 
-That doesn't make sense. Please don't use this_cpu_inc_return() in 
-combination with get_cpu_ptr().
+--_000_BN9PR12MB5145B11D6ABBB6FA1BA28F3EFF139BN9PR12MB5145namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Christian.
+[AMD Official Use Only]
 
-> +
-> +	if (*pcpu == 1)
-> +		kernel_fpu_begin();
-> +
-> +	TRACE_DCN_FPU(true, function_name, line, *pcpu);
-> +	put_cpu_ptr(&fpu_recursion_depth);
->   }
->   
->   /**
-> @@ -59,6 +80,13 @@ void dc_fpu_begin(const char *function_name, const int line)
->    */
->   void dc_fpu_end(const char *function_name, const int line)
->   {
-> -	TRACE_DCN_FPU(false, function_name, line);
-> -	kernel_fpu_end();
-> +	int *pcpu;
-> +
-> +	pcpu = get_cpu_ptr(&fpu_recursion_depth);
-> +	*pcpu = this_cpu_dec_return(fpu_recursion_depth);
-> +	if (*pcpu <= 0)
-> +		kernel_fpu_end();
-> +
-> +	TRACE_DCN_FPU(false, function_name, line, *pcpu);
-> +	put_cpu_ptr(&fpu_recursion_depth);
->   }
-> diff --git a/drivers/gpu/drm/amd/display/dc/dc_trace.h b/drivers/gpu/drm/amd/display/dc/dc_trace.h
-> index d598ba697e45..c711797e5c9e 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dc_trace.h
-> +++ b/drivers/gpu/drm/amd/display/dc/dc_trace.h
-> @@ -38,5 +38,5 @@
->   #define TRACE_DCN_CLOCK_STATE(dcn_clocks) \
->   	trace_amdgpu_dm_dc_clocks_state(dcn_clocks)
->   
-> -#define TRACE_DCN_FPU(begin, function, line) \
-> -	trace_dcn_fpu(begin, function, line)
-> +#define TRACE_DCN_FPU(begin, function, line, ref_count) \
-> +	trace_dcn_fpu(begin, function, line, ref_count)
+Hi Guchun,
+
+This patch looks good to me.
+
+
+Regards
+
+Stylon Wang
+
+MTS Software Development Eng.  |  AMD
+Display Solution Team
+
+O +(886) 2-3789-3667 ext. 23667  C +(886) 921-897-142
+
+---------------------------------------------------------------------------=
+-------------------------------------------------------
+
+6F, 3, YuanCyu St (NanKang Software Park) Taipei, Taiwan
+
+Facebook<https://www.facebook.com/AMD> |  Twitter<https://twitter.com/AMD> =
+|  amd.com<http://www.amd.com/>
+
+
+
+________________________________
+From: Chen, Guchun <Guchun.Chen@amd.com>
+Sent: July 14, 2021 4:39 PM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Wentland=
+, Harry <Harry.Wentland@amd.com>; Wang, Chao-kai (Stylon) <Stylon.Wang@amd.=
+com>; Kazlauskas, Nicholas <Nicholas.Kazlauskas@amd.com>; Siqueira, Rodrigo=
+ <Rodrigo.Siqueira@amd.com>; Yin, Tianci (Rico) <Tianci.Yin@amd.com>; Chen,=
+ Jiansong (Simon) <Jiansong.Chen@amd.com>
+Cc: Chen, Guchun <Guchun.Chen@amd.com>
+Subject: [PATCH] drm/amd/display: avoid printing ERROR for unknown CEA pars=
+e(v2)
+
+For the unknown CEA parse case on DMUB-enabled ASICs, dmesg will
+print an error message like below, this will be captured by
+automation tools as it has the word like ERROR during boot up
+and treated as a false error, as it does not break bootup process.
+So use DRM_WARN printing for this.
+
+[drm:amdgpu_dm_update_freesync_caps [amdgpu]] *ERROR* Unknown EDID CEA pars=
+er results
+
+v2: Use DRM_WARN to print such info.
+
+Signed-off-by: Guchun Chen <guchun.chen@amd.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
+u/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 03db86bfaec8..f7ed4d20d168 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -10700,7 +10700,7 @@ static bool dm_edid_parser_send_cea(struct amdgpu_d=
+isplay_manager *dm,
+                 vsdb->min_refresh_rate_hz =3D output->amd_vsdb.min_frame_r=
+ate;
+                 vsdb->max_refresh_rate_hz =3D output->amd_vsdb.max_frame_r=
+ate;
+         } else {
+-               DRM_ERROR("Unknown EDID CEA parser results\n");
++               DRM_WARN("Unknown EDID CEA parser results\n");
+                 return false;
+         }
+
+--
+2.17.1
+
+
+--_000_BN9PR12MB5145B11D6ABBB6FA1BA28F3EFF139BN9PR12MB5145namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:15pt;" al=
+ign=3D"Left">
+[AMD Official Use Only]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 11pt; color: rgb(0, 0, 0);">
+Hi Guchun,</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 11pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 11pt; color: rgb(0, 0, 0);">
+This patch looks good to me.</div>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 11pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 11pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 11pt; color: rgb(0, 0, 0);">
+Regards</div>
+<div id=3D"Signature">
+<div>
+<div></div>
+<div></div>
+<div></div>
+<div id=3D"divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; color=
+:#000000; font-family:Calibri,Helvetica,sans-serif">
+<p style=3D"margin-top:0px; margin-bottom:0px; margin-top:0; margin-bottom:=
+0"></p>
+<p style=3D"margin:0in 0in 0.0001pt; font-size:11pt; font-family:Calibri,sa=
+ns-serif; color:rgb(32,31,30); text-align:start; background-color:rgb(255,2=
+55,255)">
+<span style=3D"margin:0px; font-size:9pt; font-family:Arial,sans-serif; col=
+or:black"><u><b>Stylon Wang</b></u></span></p>
+<p style=3D"margin:0in 0in 0.0001pt; font-size:11pt; font-family:Calibri,sa=
+ns-serif; color:rgb(32,31,30); text-align:start; background-color:rgb(255,2=
+55,255)">
+<span style=3D"margin:0px; font-size:9pt; font-family:Arial,sans-serif; col=
+or:black">MTS Software Development Eng.&nbsp;&nbsp;|<b>&nbsp;&nbsp;AMD</b><=
+br>
+Display Solution Team</span></p>
+<p style=3D"margin:0in 0in 0.0001pt; font-size:11pt; font-family:Calibri,sa=
+ns-serif; color:rgb(32,31,30); text-align:start; background-color:rgb(255,2=
+55,255)">
+<span style=3D"margin:0px; font-size:9pt; font-family:Arial,sans-serif; col=
+or:black"><b style=3D"color:rgb(32,31,30); font-family:Calibri,sans-serif; =
+font-size:14.6667px; background-color:rgb(255,255,255)"><span style=3D"marg=
+in:0px; font-size:9pt; font-family:Arial,sans-serif; color:black">O</span><=
+/b><span style=3D"margin:0px; font-size:9pt; font-family:Arial,sans-serif; =
+color:black; background-color:rgb(255,255,255)">&nbsp;+(886)
+ 2-3789-3667 ext. 23667&nbsp;&nbsp;<b>C</b>&nbsp;+(886) 921-897-142</span><=
+br>
+</span></p>
+<p style=3D"margin:0in 0in 0.0001pt; font-size:11pt; font-family:Calibri,sa=
+ns-serif; color:rgb(32,31,30); text-align:start; background-color:rgb(255,2=
+55,255)">
+<b><span style=3D"margin:0px; font-size:9pt; color:rgb(242,101,34); letter-=
+spacing:-1.4pt">-----------------------------------------------------------=
+-----------------------------------------------------------------------</sp=
+an></b><b><span style=3D"margin:0px; font-size:9pt; color:rgb(242,101,34)">=
+</span></b></p>
+<p style=3D"margin:0in 0in 0.0001pt; font-size:11pt; font-family:Calibri,sa=
+ns-serif; color:rgb(32,31,30); text-align:start; background-color:rgb(255,2=
+55,255)">
+<span style=3D"margin:0px; font-size:9pt; font-family:Arial,sans-serif; col=
+or:black"><span tabindex=3D"0" style=3D"margin:0px; padding:1px 0px; border=
+-width:0px 0px 1px; border-bottom-style:dashed">6F, 3, YuanCyu St (NanKang =
+Software Park) Taipei, Taiwan</span></span></p>
+<p style=3D"margin:0in 0in 0.0001pt; font-size:11pt; font-family:Calibri,sa=
+ns-serif; color:rgb(32,31,30); text-align:start; background-color:rgb(255,2=
+55,255)">
+<span style=3D"margin:0px; font-size:9pt; font-family:Arial,sans-serif; col=
+or:black"><a href=3D"https://www.facebook.com/AMD" target=3D"_blank" rel=3D=
+"noopener noreferrer" style=3D"margin:0px"><span style=3D"margin:0px">Faceb=
+ook</span></a>&nbsp;|&nbsp;&nbsp;<a href=3D"https://twitter.com/AMD" target=
+=3D"_blank" rel=3D"noopener noreferrer" style=3D"margin:0px"><span style=3D=
+"margin:0px">Twitter</span></a>&nbsp;|&nbsp;&nbsp;<a href=3D"http://www.amd=
+.com/" target=3D"_blank" rel=3D"noopener noreferrer" style=3D"margin:0px"><=
+span style=3D"margin:0px">amd.com</span></a></span><span style=3D"margin:0p=
+x; font-size:10pt; font-family:Arial,sans-serif; color:black">&nbsp;</span>=
+</p>
+<p style=3D"margin:0in 0in 0.0001pt; font-size:11pt; font-family:Calibri,sa=
+ns-serif; color:rgb(32,31,30); text-align:start; background-color:rgb(255,2=
+55,255)">
+&nbsp;</p>
+<p style=3D"margin-top:0px; margin-bottom:0px; margin-top:0; margin-bottom:=
+0"></p>
+</div>
+</div>
+</div>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Chen, Guchun &lt;Guch=
+un.Chen@amd.com&gt;<br>
+<b>Sent:</b> July 14, 2021 4:39 PM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;; Wentland, Harry &lt;Harry.Wentland@amd.com&gt;; Wang, Chao-kai (Stylon=
+) &lt;Stylon.Wang@amd.com&gt;; Kazlauskas, Nicholas &lt;Nicholas.Kazlauskas=
+@amd.com&gt;; Siqueira, Rodrigo &lt;Rodrigo.Siqueira@amd.com&gt;;
+ Yin, Tianci (Rico) &lt;Tianci.Yin@amd.com&gt;; Chen, Jiansong (Simon) &lt;=
+Jiansong.Chen@amd.com&gt;<br>
+<b>Cc:</b> Chen, Guchun &lt;Guchun.Chen@amd.com&gt;<br>
+<b>Subject:</b> [PATCH] drm/amd/display: avoid printing ERROR for unknown C=
+EA parse(v2)</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">For the unknown CEA parse case on DMUB-enabled ASI=
+Cs, dmesg will<br>
+print an error message like below, this will be captured by<br>
+automation tools as it has the word like ERROR during boot up<br>
+and treated as a false error, as it does not break bootup process.<br>
+So use DRM_WARN printing for this.<br>
+<br>
+[drm:amdgpu_dm_update_freesync_caps [amdgpu]] *ERROR* Unknown EDID CEA pars=
+er results<br>
+<br>
+v2: Use DRM_WARN to print such info.<br>
+<br>
+Signed-off-by: Guchun Chen &lt;guchun.chen@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-<br>
+&nbsp;1 file changed, 1 insertion(+), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
+u/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+index 03db86bfaec8..f7ed4d20d168 100644<br>
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+@@ -10700,7 +10700,7 @@ static bool dm_edid_parser_send_cea(struct amdgpu_d=
+isplay_manager *dm,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; vsdb-&gt;min_refresh_rate_hz =3D output-&gt;amd_vsdb.=
+min_frame_rate;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; vsdb-&gt;max_refresh_rate_hz =3D output-&gt;amd_vsdb.=
+max_frame_rate;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; DRM_ERROR(&quot;Unknown EDID CEA parser results\n&quot;);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; DRM_WARN(&quot;Unknown EDID CEA parser results\n&quot;);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return false;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+-- <br>
+2.17.1<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_BN9PR12MB5145B11D6ABBB6FA1BA28F3EFF139BN9PR12MB5145namp_--
+
+--===============1279493003==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============1279493003==--
