@@ -2,130 +2,118 @@ Return-Path: <SRS0=bMdI=MH=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8BB2EC636C8
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Jul 2021 19:40:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 01E0DC636C9
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Jul 2021 19:59:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4F79F6120A
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Jul 2021 19:40:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4F79F6120A
+	by mail.kernel.org (Postfix) with ESMTPS id C02BC6128C
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Jul 2021 19:59:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C02BC6128C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61EAC6E8B1;
-	Thu, 15 Jul 2021 19:40:35 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2065.outbound.protection.outlook.com [40.107.94.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 480726E8AE;
- Thu, 15 Jul 2021 19:40:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BFBC6E8B3;
+	Thu, 15 Jul 2021 19:59:39 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam08on2045.outbound.protection.outlook.com [40.107.100.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62B2C6E8B3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Jul 2021 19:59:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eeS6ZslvTRCQnW20UhBD8QYZdMiTeBFP2Vs5RCmsoXtjNJu13kQRUrCwxfjTzYzL28vzq53RIjg5JIatdXx619A2XMLVsq5jD9H8B/HXuh8LA9LKqPWu4dbLzI7JcY6GTkhuPBVeEmEzi+Q2z++ffCBQrWcjo28O+o+uV0xCseouaQEqQcY9DLKX+jfkh8DutC63MHTLwByXHySNM5DIzeagIKN0uN0uYGVcpXiQFh+qFjQddLsVHGYJp8YlJHVUTwLLuMlyDjfvfxqxS4tkadyqFRT5jgsWxm/hsTcu1NT+zDKeb0iHxBakzL72FxBZKiBC5yo+/sgQ4VuixnnJow==
+ b=JJAVWlnJhFt7PHAvgUJadep9zgYDdwV2q8kcZthb91nzoYGZS0eKOOph3HlmmW57qjKReZoPPwQpqoin0VR7nBfrxS3xL5GgxnOq3S68Q1ctvTEnJMIZGyFvUYbWflTrxyyNVNnKTCnJzG85deqGVIVQ2gBbKnIUqRw6yTUkyYtO7iL9oGEm6T7Gm3MTmAntu58mVqBTCvVhpHoWlM2jsqOVNkK13YmoTrxmnnrTbr/AwAYBhh8HAhNLwokbM5fN85C+/hR6b0u2kVZ1Aeifq6k+q1JSZP8cCESZvx/jru6oiR8/n74/Oy7tfKexEocrrzyyMJ5Wv4qJWdXfsc4pHA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=x66VtHXq5j23GdI5KF1s79wRXt6F/MzX0iT4Lrr3FPo=;
- b=U4Vj0Kkh/Dcqx/SHP9i/UWAWk4gG44OY1KgMPCbLAJO1aY5s1PXsb9oQSwAjiEZjffzVnz3mADkipLoxBj2VeG8yOjBKn64ZElKs2iy6yUHtTClcen5VpnU5h8dnsZHDEZU9dmMYpm88DJfiC1kc1OuBMBhO20XnoQ2pPLbrXClLhOa4EEQIBn5tVFv0pYGFkWjaEBFXrOsACidObEidh384ddw1+MKLK+QYSSKob3qvj9VFTWbei48J1FnIWpuc4ylEEXKltfqdBRto6YlcGWLaANejsum/EPUF1HfDarUVKV7PbINsISY8ExWK2YR36WHBgdqTqmNuoeai7iN6yg==
+ bh=2lkjA3O3TsfXYFy4NfKHomn1Ue+/e2uoOyTSpKcV64U=;
+ b=P9CuGgqtPD0b5qPeEhdO71G05djQhBEx2xvEHpOTZcT9LR0ZPLbTzyVai5W00fZI7GVco9NRnoUUQ0g+pEh2KY4UfUWHWS4qtq/NKN/Eg7aiQwLHh2EO3Yjof45lvXY0sZ5QbUTQvrSf7b3qEc3NN0y3xlb0lxY6MwyuLHzpwHaFfRBFg1W/baSHYSux4SjfWG7/mi/lZqzRZToSv1GBVg5oaBFLoOtZM6HMkOkj9bY7uSrUPbuDz7spt459aoe+UMVXCgzqsf9uAanndG0N4HmntMxUEwDbUprbvNz4BBwpKx/qQIvh+iNwD8Vu3R05a/LAqmlEy50ax31D/YmCGg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=x66VtHXq5j23GdI5KF1s79wRXt6F/MzX0iT4Lrr3FPo=;
- b=4w75TlqLvFiUj7+/WygfCPsvx0QlUXqvjqZd8iCWe5iUv4+XCajgdTSKOpz5LEsjPmcD8XRNaFmd4i+qRMhf04CSqvIfDacwmnia+R2OL3oyeiLcic4dWjfm1y49eTTx34w2l6MnIzQlr51kX6I8XAynfgEb06g+hoZTWbeckfU=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by CO6PR12MB5409.namprd12.prod.outlook.com (2603:10b6:5:357::7) with
+ bh=2lkjA3O3TsfXYFy4NfKHomn1Ue+/e2uoOyTSpKcV64U=;
+ b=ivAZEWIEMDvwpdUwgN3BW61vRQxQr3EZzjPXlGey1vtSDBMEclOX4D1T7WAzOaWuLQllP+l6quzeJvxHbC+9uDDn+QVaL/6rKyXOveOYhsa3/Lkq56+1ipq00BJUWd11JTnqksxKJSROq48qeGke3J4lORyLscx5czPvuhx5Wtw=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from SA0PR12MB4430.namprd12.prod.outlook.com (2603:10b6:806:70::20)
+ by SA0PR12MB4413.namprd12.prod.outlook.com (2603:10b6:806:9e::9) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4287.23; Thu, 15 Jul
- 2021 19:40:31 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::39db:7a51:9e0d:9b19]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::39db:7a51:9e0d:9b19%5]) with mapi id 15.20.4331.023; Thu, 15 Jul 2021
- 19:40:31 +0000
-Subject: Re: [PATCH] drm/amd/display: Fix 10bit 4K display on CIK GPUs
-To: Mario Kleiner <mario.kleiner.de@gmail.com>,
- Alex Deucher <alexdeucher@gmail.com>
-References: <20210714080652.113381-1-liviu@dudau.co.uk>
- <CADnq5_OA-em2jM-vmwaM7xxycOS-18EPC0r_myb7REy9b4h_vA@mail.gmail.com>
- <CAEsyxyhurQ2vm=xwaRMqT8z+PJ2R60hYXt6kL8HnaB4zwbee3Q@mail.gmail.com>
-From: Harry Wentland <harry.wentland@amd.com>
-Message-ID: <ea5363b5-a54e-383d-f5bd-214bb8b50c96@amd.com>
-Date: Thu, 15 Jul 2021 15:40:27 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
-In-Reply-To: <CAEsyxyhurQ2vm=xwaRMqT8z+PJ2R60hYXt6kL8HnaB4zwbee3Q@mail.gmail.com>
-Content-Language: en-US
-X-ClientProxiedBy: YQXPR0101CA0033.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c00:15::46) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4308.22; Thu, 15 Jul
+ 2021 19:59:36 +0000
+Received: from SA0PR12MB4430.namprd12.prod.outlook.com
+ ([fe80::d0d3:a97e:6b7f:ab39]) by SA0PR12MB4430.namprd12.prod.outlook.com
+ ([fe80::d0d3:a97e:6b7f:ab39%7]) with mapi id 15.20.4331.023; Thu, 15 Jul 2021
+ 19:59:36 +0000
+From: Alex Sierra <alex.sierra@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdkfd: avoid conflicting address mappings
+Date: Thu, 15 Jul 2021 14:59:11 -0500
+Message-Id: <20210715195911.6673-1-alex.sierra@amd.com>
+X-Mailer: git-send-email 2.32.0
+X-ClientProxiedBy: SN7PR04CA0044.namprd04.prod.outlook.com
+ (2603:10b6:806:120::19) To SA0PR12MB4430.namprd12.prod.outlook.com
+ (2603:10b6:806:70::20)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [192.168.50.3] (198.200.67.154) by
- YQXPR0101CA0033.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c00:15::46) with
+Received: from alex-MS-7B09.amd.com (165.204.78.1) by
+ SN7PR04CA0044.namprd04.prod.outlook.com (2603:10b6:806:120::19) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4331.21 via Frontend
- Transport; Thu, 15 Jul 2021 19:40:30 +0000
+ Transport; Thu, 15 Jul 2021 19:59:36 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e9361e33-4395-4623-63f5-08d947c86813
-X-MS-TrafficTypeDiagnostic: CO6PR12MB5409:
+X-MS-Office365-Filtering-Correlation-Id: 18e1b878-6ea2-4fc1-2258-08d947cb128d
+X-MS-TrafficTypeDiagnostic: SA0PR12MB4413:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CO6PR12MB54094BED7442446BDA74F3208C129@CO6PR12MB5409.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-Microsoft-Antispam-PRVS: <SA0PR12MB4413E4610A4C0F4D7D203D23FD129@SA0PR12MB4413.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
 X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: kd6CotyhToScYnzEr66P6SHEL64S4MHdLcI4ohChIzyEuutXzNn3eCYZPrlqFHpP9z25fo3pXm2jGwSaOfdfTStCLnmtLSr4T5SjwLwv8KsXWC3Dbk6Y544DilnT9/7bm1ZPKSIHbnGV0XFCfNXSzf1C1RMsNhUWiQAbO0V+Tl+5QRQroT6DQbV9Wkj3n7eXeD5wKmoDweQ4dZshEYYCClc//tLkyRueacu0zR8gyOt4T7ZmXvywfEjfyAHXZs3Tl+t8uiDMn3ugkWWs63egGEXQp/q6UIDF8fPAVWUAbRazh4XaBMw6D8vCcLzvXog9nAuHkdG1ebBbn6eoAZssDeUf/VeVmaGgm0G6cGo0pVEai5IniZCl6ggAofadC7Im5iUj5+CptKtOEZKiV50KAqqtmcUdpV7gZKsozis/nGyW0U/O9Nq3a6i5UjEdFBaJkdGwkHPv6ApOLAzJxKAW2y0rKxlyZNMhh5iUzpJTMLjRouOyasxo/QVwjV+hoztVEVrbYPTG69bLb64JW7iscmn14a6FzAW2MgW50MUgnwkjrh64zyTkezb+45vTyI2wjFtKhlazOdxuuuyNBNsspBelVS3nUXGDwQFHm94eQogvHhhyjVEfh+WFcHlD4hSrn70iYal1g87xaAxfrN13bvlustozYtoVYJ/tGNMMXCSz33L7RphH1YglNlGYa5ZbPxgjqSosKEfA1VUd+7mIwm8IYYqe+ccOX1RI/gfiLReNE3mj7I9rlpP07DyLPeL4
+X-Microsoft-Antispam-Message-Info: +Oi/RzX2ngF/hu4DGAGU7bzmoI1ZFdVQVyvDPwEIJ4MSw0IlAx7PgevLH/Miz6eWV4boeQGt1f9oYbq5SSyBiFPa3AvHxafuzqfiMKmT8eImHduZ4xobWI3kJz1CiH/PZV2VVhVELu8IAtNtmq66SsRjclxqAshjlZWPP9sVhJiF2DMhf6nhqMyU48JlXns08LIb3qVg0a+BRQYC4ur+YHHjpgoQC8LO/VJbSe4ckiajaPLqEeC28Eve9B0+63lpUPDmBtN/YpkBje3cqAJ2EVM1D9p1quXHk/p6L7xfcuYvjdUAQteouNWJ9BQ4O+E7nH/kdZrXX0O1fcam1zPdC2eDmqpCu77zEtzQqfjQ51jkA5J4+h82t0RHNF6ALDFhs6+rUqEc9om+k/5zRsGR2gz2oIOvdr2ddalxzf8aqj27Ity8WW2iEQRuf+6J6VM/HGTHmF4mJ2s06zuFhq24kyCd5dPs12/ZcSIJk3P8Dy5GPMTrwOR+Cj28aZpWj5Ww3gWLa94itE2DFAGgD7jl9WDpzXcwYXvKgRCbChUKRlccsHOSFv8u1zS1Nik51607lKQpMXchNochHutwy0dxJIN5BAhIkhrM1P2KxAh6yPa9n0M287K2POKP24FjGbTgFohdKz4DmF4sqbFQ4mvd4SZinYL0EsQgnMJmYxyi6hck2PLPwPCTIVENbr62Olv2yQgZY60ko6YKWTdsx1ei2w==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(376002)(346002)(136003)(366004)(39860400002)(26005)(2906002)(186003)(8936002)(66556008)(66946007)(6666004)(8676002)(83380400001)(6486002)(4326008)(66476007)(53546011)(54906003)(86362001)(316002)(5660300002)(110136005)(966005)(31686004)(36756003)(31696002)(44832011)(16576012)(2616005)(38100700002)(956004)(478600001)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:SA0PR12MB4430.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(396003)(366004)(376002)(346002)(136003)(956004)(2616005)(6486002)(86362001)(44832011)(83380400001)(186003)(8936002)(8676002)(1076003)(316002)(66946007)(478600001)(7696005)(52116002)(2906002)(6666004)(36756003)(38100700002)(38350700002)(26005)(66556008)(66476007)(5660300002)(6916009)(4326008);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bDZKNWYvQ2ZMWjVXMTMwYVArc0huTXlXaitqYXVkOGlJL2V6VnNDcTBON3NY?=
- =?utf-8?B?aUNPVkpuMWtyMzBNWlNmZWxiSDhmY01Ud1hFMzkxMUVvVVgzZlBBS0l4UVBj?=
- =?utf-8?B?VGhreEg0TUxDL1JTeEFyWnlhS3pwbHpOVDRCWWFlaVhjY2ZmdjQxdXFiSGpk?=
- =?utf-8?B?dG55WVV0djd2RGU4S0pUbnJhYU9ROGYxazZjWmZCcVl1dU5QSWpveExvanN2?=
- =?utf-8?B?VFdSMGQ0WWVKcHVNMGtnbDJsZ1FabTlOMWpRN1A2TFdyZ3N4dXhXUlJPTWZS?=
- =?utf-8?B?eEl3Y2oxUjF4ZVYvaDc5V3hNVzNVZFhVVk1wSENxTW10YjNZelV3L1ZUVkZl?=
- =?utf-8?B?cFA4UGtydENnTGpuRVFxanVLcFRvOWV5MC9kdGN2ekFJTTd6akJFbEo5Uk11?=
- =?utf-8?B?YVIza29FZEhlWk52Vk80d3NTczU1eVVKK2IyTU9lOXkvSnYyWEM3SXk3NExD?=
- =?utf-8?B?MXppU3BmdisrRFJjaHJhUm5NQVRaNldQdGJDYWl4MTM5TGZmRzVjVVMyWXRt?=
- =?utf-8?B?Q20yY0RsZk9kbFNFWVVxYk5VZUZDTWRTVUZrN1JqZm91RTY4bWFIL0FDdnRE?=
- =?utf-8?B?eGpZSis4dER4SkRDQnV1YmJLOFlCQ0JxZStFTkEyNUJhUkljZGI4YkIzemlv?=
- =?utf-8?B?U05waURhRkNUN3pvNlVRSFNKcnkvUUc0NTRHNHBHUE5qWHRydjE5dmx0Y1Fk?=
- =?utf-8?B?REtHb3NFdEhrQXRCZ01kRk1ZUzJ4RG1DSTVmSldJckJuQS9vNWRZd2hCenQ5?=
- =?utf-8?B?N1o3dEJSMmFnRThLTHBKNS9aNEZId1Bic3hyTXlqWnRNWkFjYllaNTJGeTh3?=
- =?utf-8?B?YUgvWWJPRldEZ1lUS01OUmwxOWpEUStSRVpvNFVidFpuNElYLzFBeVVncVAv?=
- =?utf-8?B?czY2Ujh3dG9uT0F1QXh1QnlLbG1CcEJ6dHd1STUwWVJheUFweVRYdG5kRkZt?=
- =?utf-8?B?Q2ttQUNzeGMyWjVyWXNYTGZsSXNWTlJTbXFsSktyMmx5dmhnM28zeit2WkMw?=
- =?utf-8?B?T2ZBU2lNdzlSejY1c1ZDcTdLWENScStDQ0dnSnE5TFBMNTZMNU16K3Z0T1ND?=
- =?utf-8?B?YWFLWkRVdjh3MnRDemVwWEpDRGpNSVZzUUg0SHJWT2xnOW1EMmsyUGpRSlRh?=
- =?utf-8?B?MjJWVnB6cml6SUdNTnpxOUJQVitEMGxOQnhQUG8wV1FxOGNJb0ExT1V0V0ZM?=
- =?utf-8?B?L2oxUXI4eVhuOFkxWjNxSG5ramFzL3d3UFRMUEl0V1lQWDZ1RlRiTDVZd0l6?=
- =?utf-8?B?S1hMSmVJQkFOZmtvMFhmdXhOUkwrbTZQQUxpbi9TU3RaclJhOTY0UEt2SS9a?=
- =?utf-8?B?NS9mTmpDc2hDRHFKVCtjdkdacElyZFllcnBMTkVRVDkrbzRFMXlRZExKMXZj?=
- =?utf-8?B?Y1gxZzNxN1hVU3YwcFVwZ0h4STNpWDFBWlJOUThZYUdWSlI4eVRaby9kWXVT?=
- =?utf-8?B?R1ZzcjdQUnh5dW94Mm5vdjVwSFFuUzJlSUJSV09ra01kSTVZN1JnMkxMVTho?=
- =?utf-8?B?WFB1L2VqeHRMSEpkamFVNXNjZk0yMjBrZ3R1S2lkNnZ0Vnd4WlduSC9oWjdD?=
- =?utf-8?B?WUdUOUNlMXljYThLdXd4TVdGS2Z3S2RWT3dSdU5kUEFUTWlReUUyWVJOV3B2?=
- =?utf-8?B?NkdadjVYRmtIcXZ3RDVVWXdXN2hUN0t1V3VMOS91eDVKcFRFQnZIdnpkaUFR?=
- =?utf-8?B?R0lWTVRTOHBRckRSTzZMSDgvYUtOc2d6bFhzUDFTSk9teHgwdlhha2hHNzhw?=
- =?utf-8?Q?pZNUK2S+2CDUJgtQqwlJqcaPdis+Dt5qFB8Cr+l?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?THXAI+Y4Mn2ENvX8sWXFs9wzOslitQhrk3+0OjGrTDU6+UzFFuHxsFE1u9FW?=
+ =?us-ascii?Q?ktNP4JmTlBGjiyAfQ/9bzC03ka0T+Te8McuAWXIjvWW0MU9mInd56WJPu2E4?=
+ =?us-ascii?Q?MrCz4l71GeE4WNOkTOpTuJ0WyDaMMjuveBDqlH6afAnSu8h259TminBTeySO?=
+ =?us-ascii?Q?97updBhD1MBNB4KbsVtBo0TPnB5x6NYaJ0Tin+MCmiRikPZlIaQDwSGNtSJf?=
+ =?us-ascii?Q?5MfxOFR9fYcHjx38iKMFLt2v8pDlvpvPsTuxE8j4p6RaXUYzQHR62nWxFoM/?=
+ =?us-ascii?Q?o+NCEWHLUpHn8bFT2UUL7Kg09qnxP7dIdj62T1+cqbt+ZqIJjnDpgJlNqo1x?=
+ =?us-ascii?Q?Gavzh1iS5rTDWQZYtqzOCtChfZBhnCN0Iuu2auG8LDdozQRBTx2lKw5csbcn?=
+ =?us-ascii?Q?XJtHv9ViYUsqyUcRPedMgafph1E3R4/qZSfkBrQwnaNGpYCmkJg/c4CyUlr1?=
+ =?us-ascii?Q?gyjs33UyLkEkr7pxijvfHj2Y6TdKq915p7T7Mok4uZV/30Ima6GvTX2fv8Kn?=
+ =?us-ascii?Q?hvGrel2vYIsrX+jOgH9kpqLcG738C100NaWEje8oR4Zzz8cSbGwYHDMhFbZv?=
+ =?us-ascii?Q?HtjBlAX2u7Vbz67Ju8EqjVDr5DpwpuH6SIucCKcd1sdW36X2miiaMO+gnw2q?=
+ =?us-ascii?Q?IbCigHx+B0CLJENvEQgCIIjyhMxFEBXfIHdo/BWSYnn1dVbn8oeAA/Q6tpeJ?=
+ =?us-ascii?Q?gM9lVLToKgJzXyVKy0NnGi1b2fQp3bpxakCyKLys+XVZ+yVn0MVNkmYuExz9?=
+ =?us-ascii?Q?VE0AezJpfJB34iFPs/ppbGRe0jK7ktT1Djsrgq4cEge466PudnrxACEsw3vI?=
+ =?us-ascii?Q?4G9VXOppLnyEJm5hfd9+iQImfAtd+7oEcP14ypC0nONmkEM4oCtBOULjSyvp?=
+ =?us-ascii?Q?zLSZ0LlbEdP48SeeZlmLKEeE/8TRRTwX6RpkzXEQtbsydeyE0adUFwvmBoEg?=
+ =?us-ascii?Q?Ib+VxjfEURlpYut1ioDoeqxUExMyX8vgI+UyH867PG4QCp33tZ5XjuEQR2Co?=
+ =?us-ascii?Q?dt8CFkAW0sOILVcfxMypLlE2CYfJiErFw3/tGUjJo5N3F3YG2ntgxbHOMAQn?=
+ =?us-ascii?Q?1WUJ1cAfjpj7YqWMCO2lfo/nkixHrN3ntcThQoBVgWRgOGPcCdaVKq531X+p?=
+ =?us-ascii?Q?lF3U4Z+BzivofGMoWdFKRG2dfrLvBDl+YxM0HTL5oYYe4Ws2u7h9r8jiklJC?=
+ =?us-ascii?Q?MfOI85HaCYZ5uPcjNzgYq0LeeaW7weePeKkKkjrxEGTwHV5FOMMlKFA1O0Nj?=
+ =?us-ascii?Q?Psq7c7omJBXA4UtSP5jv1xlNEKCmfbkdtfIpejjTSQAVhCKfTwYOMygqBkBq?=
+ =?us-ascii?Q?zBeQp/TmLX+DwdKCFKlRhAW3?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e9361e33-4395-4623-63f5-08d947c86813
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 18e1b878-6ea2-4fc1-2258-08d947cb128d
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB4430.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2021 19:40:31.6052 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2021 19:59:36.6570 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0bkmJMxZRFKBzwdn+LBnZz/C7APmwdEXPYOCQpBYUlZsxaDKwN5VbT61ADixtp2lMCJA98kh5M9kl9ok1zR9+A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5409
+X-MS-Exchange-CrossTenant-UserPrincipalName: UVlVCRA28uM/DHR50f0qSGAHhVIrG3mRSUKYLOwWSBYtBKX627cMeDFCaZowOomsFj2GVifyfoyoUSSyhu2p4w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4413
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,96 +125,189 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Liviu Dudau <liviu@dudau.co.uk>, Leo Li <sunpeng.li@amd.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, LKML <linux-kernel@vger.kernel.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: Alex Sierra <alex.sierra@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+[Why]
+Avoid conflict with address ranges mapped by SVM
+mechanism that try to be allocated again through
+ioctl_alloc in the same process. And viceversa.
 
+[How]
+For ioctl_alloc_memory_of_gpu allocations
+Check if the address range passed into ioctl memory
+alloc does not exist already in the kfd_process
+svms->objects interval tree.
 
-On 2021-07-15 3:19 p.m., Mario Kleiner wrote:
-> On Thu, Jul 15, 2021 at 6:10 PM Alex Deucher <alexdeucher@gmail.com> wrote:
->>
->> On Wed, Jul 14, 2021 at 4:15 AM Liviu Dudau <liviu@dudau.co.uk> wrote:
->>>
->>> Commit 72a7cf0aec0c ("drm/amd/display: Keep linebuffer pixel depth at
->>> 30bpp for DCE-11.0.") doesn't seems to have fixed 10bit 4K rendering over
->>> DisplayPort for CIK GPUs. On my machine with a HAWAII GPU I get a broken
->>> image that looks like it has an effective resolution of 1920x1080 but
->>> scaled up in an irregular way. Reverting the commit or applying this
->>> patch fixes the problem on v5.14-rc1.
->>>
->>> Fixes: 72a7cf0aec0c ("drm/amd/display: Keep linebuffer pixel depth at 30bpp for DCE-11.0.")
->>> Signed-off-by: Liviu Dudau <liviu@dudau.co.uk>
->>
->> Harry or Mario any ideas?  Maybe we need finer grained DCE version
->> checking?  I don't remember all of the caveats of this stuff.  DCE11
->> and older is getting to be pretty old at this point.  I can just apply
->> this if you don't have any insights.
->>
->> Alex
->>
-> 
-> Hi Alex
-> 
-> I'd be fine with applying this. As my original commit says, photometer
-> measurements showed that increasing the line buffer depth was only
-> needed for my DCN-1 RavenRidge, not for my DCE-11.2 Polaris11 or a
-> DCE-8.3 cik, so this should probably not cause harm to the increased
-> precision modes.
-> 
-> Note that given the hardware and USB-C/DP-HDMI adapters i have, I only
-> tested this on a 2560x1440@144 Hz DP monitor with DCN-1, DCE-11.2, and
-> a 2560x1440@100 Hz HDMI monitor iirc with DCN-1, DCE-8.3, and i think
-> on a 2880x1800@60 Hz MBP Retina eDP panel with DCE-11.2. These are the
-> highest resolution/framerate monitors I have atm.I don't have access
-> to any 4k monitors, so maybe the problem is somehow specific to such
-> high resolutions? Maybe somewhere else in the code something would
-> need to be adapted? Lacking actual hw docs, my coding here is by
-> pattern matching against existing DC code, guessing and testing on my
-> limited hw samples.
-> 
-> Acked-by: Mario Kleiner <mario.kleiner.de@gmail.com>
+For SVM allocations
+Look for the address range into the interval tree VA from
+the VM inside of each pdds used in a kfd_process.
 
-Makes sense.
+Signed-off-by: Alex Sierra <alex.sierra@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 13 +++++
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c     | 68 ++++++++++++++++++------
+ 2 files changed, 66 insertions(+), 15 deletions(-)
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index 67541c30327a..f39baaa22a62 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -1251,6 +1251,7 @@ static int kfd_ioctl_alloc_memory_of_gpu(struct file *filep,
+ 	struct kfd_process_device *pdd;
+ 	void *mem;
+ 	struct kfd_dev *dev;
++	struct svm_range_list *svms = &p->svms;
+ 	int idr_handle;
+ 	long err;
+ 	uint64_t offset = args->mmap_offset;
+@@ -1259,6 +1260,18 @@ static int kfd_ioctl_alloc_memory_of_gpu(struct file *filep,
+ 	if (args->size == 0)
+ 		return -EINVAL;
+ 
++#if IS_ENABLED(CONFIG_HSA_AMD_SVM)
++	mutex_lock(&svms->lock);
++	if (interval_tree_iter_first(&svms->objects,
++				     args->va_addr >> PAGE_SHIFT,
++				     (args->va_addr + args->size - 1) >> PAGE_SHIFT)) {
++		pr_err("Address: 0x%llx already allocated by SVM\n",
++			args->va_addr);
++		mutex_unlock(&svms->lock);
++		return -EADDRINUSE;
++	}
++	mutex_unlock(&svms->lock);
++#endif
+ 	dev = kfd_device_by_id(args->gpu_id);
+ 	if (!dev)
+ 		return -EINVAL;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index 31f3f24cef6a..43b31f00951a 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -2581,9 +2581,46 @@ int svm_range_list_init(struct kfd_process *p)
+ 	return 0;
+ }
+ 
++/**
++ * svm_range_is_vm_bo_mapped - check if virtual address range mapped already
++ * @p: current kfd_process
++ * @start: range start address, in pages
++ * @last: range last address, in pages
++ *
++ * The purpose is to avoid virtual address ranges already allocated by
++ * kfd_ioctl_alloc_memory_of_gpu ioctl.
++ * It looks for each pdd in the kfd_process.
++ *
++ * Context: Process context
++ *
++ * Return 0 - OK, if the range is not mapped.
++ * Otherwise error code:
++ * -EADDRINUSE - if address is mapped already by kfd_ioctl_alloc_memory_of_gpu
++ * -EFAULT - if VM does not exist in specific pdd
++ */
++static int
++svm_range_is_vm_bo_mapped(struct kfd_process *p, uint64_t start, uint64_t last)
++{
++	uint32_t i;
++
++	for (i = 0; i < p->n_pdds; i++) {
++		struct amdgpu_vm *vm = drm_priv_to_vm(p->pdds[i]->drm_priv);
++
++		if (!vm)
++			return -EFAULT;
++
++		if (interval_tree_iter_first(&vm->va, start, last)) {
++			pr_debug("Range [0x%llx 0x%llx] already mapped\n", start, last);
++			return -EADDRINUSE;
++		}
++	}
++
++	return 0;
++}
++
+ /**
+  * svm_range_is_valid - check if virtual address range is valid
+- * @mm: current process mm_struct
++ * @mm: current kfd_process
+  * @start: range start address, in pages
+  * @size: range size, in pages
+  *
+@@ -2592,28 +2629,27 @@ int svm_range_list_init(struct kfd_process *p)
+  * Context: Process context
+  *
+  * Return:
+- *  true - valid svm range
+- *  false - invalid svm range
++ *  0 - OK, otherwise error code
+  */
+-static bool
+-svm_range_is_valid(struct mm_struct *mm, uint64_t start, uint64_t size)
++static int
++svm_range_is_valid(struct kfd_process *p, uint64_t start, uint64_t size)
+ {
+ 	const unsigned long device_vma = VM_IO | VM_PFNMAP | VM_MIXEDMAP;
+ 	struct vm_area_struct *vma;
+ 	unsigned long end;
++	unsigned long start_unchg = start;
+ 
+ 	start <<= PAGE_SHIFT;
+ 	end = start + (size << PAGE_SHIFT);
+-
+ 	do {
+-		vma = find_vma(mm, start);
++		vma = find_vma(p->mm, start);
+ 		if (!vma || start < vma->vm_start ||
+ 		    (vma->vm_flags & device_vma))
+-			return false;
++			return -EFAULT;
+ 		start = min(end, vma->vm_end);
+ 	} while (start < end);
+ 
+-	return true;
++	return svm_range_is_vm_bo_mapped(p, start_unchg, (end - 1) >> PAGE_SHIFT);
+ }
+ 
+ /**
+@@ -2913,9 +2949,9 @@ svm_range_set_attr(struct kfd_process *p, uint64_t start, uint64_t size,
+ 
+ 	svm_range_list_lock_and_flush_work(svms, mm);
+ 
+-	if (!svm_range_is_valid(mm, start, size)) {
+-		pr_debug("invalid range\n");
+-		r = -EFAULT;
++	r = svm_range_is_valid(p, start, size);
++	if (r) {
++		pr_debug("invalid range r=%d\n", r);
+ 		mmap_write_unlock(mm);
+ 		goto out;
+ 	}
+@@ -3016,15 +3052,17 @@ svm_range_get_attr(struct kfd_process *p, uint64_t start, uint64_t size,
+ 	uint32_t flags = 0xffffffff;
+ 	int gpuidx;
+ 	uint32_t i;
++	int r = 0;
+ 
+ 	pr_debug("svms 0x%p [0x%llx 0x%llx] nattr 0x%x\n", &p->svms, start,
+ 		 start + size - 1, nattr);
+ 
+ 	mmap_read_lock(mm);
+-	if (!svm_range_is_valid(mm, start, size)) {
+-		pr_debug("invalid range\n");
++	r = svm_range_is_valid(p, start, size);
++	if (r) {
++		pr_debug("invalid range r=%d\n", r);
+ 		mmap_read_unlock(mm);
+-		return -EINVAL;
++		return r;
+ 	}
+ 	mmap_read_unlock(mm);
+ 
+-- 
+2.32.0
 
-Harry
-
-> 
-> -mario
-> 
->>> ---
->>>  drivers/gpu/drm/amd/display/dc/core/dc_resource.c | 2 +-
->>>  1 file changed, 1 insertion(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
->>> index a6a67244a322e..1596f6b7fed7c 100644
->>> --- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
->>> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
->>> @@ -1062,7 +1062,7 @@ bool resource_build_scaling_params(struct pipe_ctx *pipe_ctx)
->>>          * so use only 30 bpp on DCE_VERSION_11_0. Testing with DCE 11.2 and 8.3
->>>          * did not show such problems, so this seems to be the exception.
->>>          */
->>> -       if (plane_state->ctx->dce_version != DCE_VERSION_11_0)
->>> +       if (plane_state->ctx->dce_version > DCE_VERSION_11_0)
->>>                 pipe_ctx->plane_res.scl_data.lb_params.depth = LB_PIXEL_DEPTH_36BPP;
->>>         else
->>>                 pipe_ctx->plane_res.scl_data.lb_params.depth = LB_PIXEL_DEPTH_30BPP;
->>> --
->>> 2.32.0
->>>
->>> _______________________________________________
->>> amd-gfx mailing list
->>> amd-gfx@lists.freedesktop.org
->>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx>
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
