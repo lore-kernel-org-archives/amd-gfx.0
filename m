@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	MAILING_LIST_MULTI,SPF_HELO_NONE autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 56EABC1B08C
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Jul 2021 13:08:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CF71BC07E96
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Jul 2021 13:08:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 23594613C4
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Jul 2021 13:08:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 23594613C4
+	by mail.kernel.org (Postfix) with ESMTPS id 99BB3613C4
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Jul 2021 13:08:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 99BB3613C4
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linuxfoundation.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D7736E83F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 856426E841;
 	Thu, 15 Jul 2021 13:08:20 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5C936E7EF
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Jul 2021 12:41:21 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 19C03613C7;
- Thu, 15 Jul 2021 12:41:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E08B6E7EF
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Jul 2021 12:42:18 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 85C5D613CA;
+ Thu, 15 Jul 2021 12:42:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1626352881;
- bh=MJHMftYUzy9z6xElgjZaqh90crfFT2xoKxCGVdFImGA=;
+ s=korg; t=1626352938;
+ bh=bjhKWfEgVfB6lpultbn9FaXetTLP6kjARSKmqq1WCCY=;
  h=Subject:To:Cc:From:Date:From;
- b=AlqettwmrHuyd8j74dGylG37BQMGlY9BIrS7/0Qmoa8d1oyRM2VCWwQ7Dd0Rbi1bj
- hyeTCP8F2SJtdhm/HcF6wXsPNGBCZN2umYzqRDOrcK2C5F5S4iOK0KzvSihdZDACYG
- PfgrtgraC5dzMLuZiahZ2Z5sZDnECnJLZu9/AhAI=
+ b=IXBtRrei9LqpAx4TEaVUvhiUzMVBzyy94RhwKKg/Pkdnj+BY/RAE26eTOVAXXBX60
+ DdaP4xgobtGYwMjtoerYVT9Xi8/iyCVX0OSGJh/mukZU9EjC6FXKfGsDCeLm7Y+CJL
+ RZt0uoxWbc6w5ukONcPGypUiM/DpKq4z0m+/R/s0=
 Subject: Patch "drm/amd/display: Reject non-zero src_y and src_x for video
- planes" has been added to the 5.10-stable tree
+ planes" has been added to the 5.12-stable tree
 To: Roman.Li@amd.com, alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
  christian.koenig@amd.com, danny.wang@amd.com, gregkh@linuxfoundation.org,
  harry.wentland@amd.com, hersenxs.wu@amd.com, nicholas.kazlauskas@amd.com
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 15 Jul 2021 14:40:09 +0200
-Message-ID: <1626352809101193@kroah.com>
+Date: Thu, 15 Jul 2021 14:40:31 +0200
+Message-ID: <16263528313118@kroah.com>
 MIME-Version: 1.0
 X-stable: commit
 X-Patchwork-Hint: ignore 
@@ -63,12 +63,12 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 ClRoaXMgaXMgYSBub3RlIHRvIGxldCB5b3Uga25vdyB0aGF0IEkndmUganVzdCBhZGRlZCB0aGUg
 cGF0Y2ggdGl0bGVkCgogICAgZHJtL2FtZC9kaXNwbGF5OiBSZWplY3Qgbm9uLXplcm8gc3JjX3kg
-YW5kIHNyY194IGZvciB2aWRlbyBwbGFuZXMKCnRvIHRoZSA1LjEwLXN0YWJsZSB0cmVlIHdoaWNo
+YW5kIHNyY194IGZvciB2aWRlbyBwbGFuZXMKCnRvIHRoZSA1LjEyLXN0YWJsZSB0cmVlIHdoaWNo
 IGNhbiBiZSBmb3VuZCBhdDoKICAgIGh0dHA6Ly93d3cua2VybmVsLm9yZy9naXQvP3A9bGludXgv
 a2VybmVsL2dpdC9zdGFibGUvc3RhYmxlLXF1ZXVlLmdpdDthPXN1bW1hcnkKClRoZSBmaWxlbmFt
 ZSBvZiB0aGUgcGF0Y2ggaXM6CiAgICAgZHJtLWFtZC1kaXNwbGF5LXJlamVjdC1ub24temVyby1z
 cmNfeS1hbmQtc3JjX3gtZm9yLXZpZGVvLXBsYW5lcy5wYXRjaAphbmQgaXQgY2FuIGJlIGZvdW5k
-IGluIHRoZSBxdWV1ZS01LjEwIHN1YmRpcmVjdG9yeS4KCklmIHlvdSwgb3IgYW55b25lIGVsc2Us
+IGluIHRoZSBxdWV1ZS01LjEyIHN1YmRpcmVjdG9yeS4KCklmIHlvdSwgb3IgYW55b25lIGVsc2Us
 IGZlZWxzIGl0IHNob3VsZCBub3QgYmUgYWRkZWQgdG8gdGhlIHN0YWJsZSB0cmVlLApwbGVhc2Ug
 bGV0IDxzdGFibGVAdmdlci5rZXJuZWwub3JnPiBrbm93IGFib3V0IGl0LgoKCkZyb20gYzZjNmE3
 MTIxOTlhYjM1NWNlMzMzZmE1NzY0YTU5NTA2YmIxMDdjMSBNb24gU2VwIDE3IDAwOjAwOjAwIDIw
@@ -100,7 +100,7 @@ Z2toQGxpbnV4Zm91bmRhdGlvbi5vcmc+CgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxh
 eS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMgfCAgIDE3ICsrKysrKysrKysrKysrKysrCiAxIGZpbGUg
 Y2hhbmdlZCwgMTcgaW5zZXJ0aW9ucygrKQoKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
 bGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3Bs
-YXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCkBAIC0zNzAyLDYgKzM3MDIsMjMgQEAgc3RhdGljIGlu
+YXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCkBAIC0zODg0LDYgKzM4ODQsMjMgQEAgc3RhdGljIGlu
 dCBmaWxsX2RjX3NjYWxpbmdfaW5mbyhjb25zdCBzdAogCSAgICAgc2NhbGluZ19pbmZvLT5zcmNf
 cmVjdC55ICE9IDApKQogCQlyZXR1cm4gLUVJTlZBTDsKIAorCS8qCisJICogRm9yIHJlYXNvbnMg
 d2UgZG9uJ3QgKHlldCkgZnVsbHkgdW5kZXJzdGFuZCBhIG5vbi16ZXJvCisJICogc3JjX3kgY29v
@@ -116,10 +116,10 @@ cmNfcmVjdC54ICE9IDAgfHwKKwkgICAgIHNjYWxpbmdfaW5mby0+c3JjX3JlY3QueSAhPSAwKSkK
 KwkJcmV0dXJuIC1FSU5WQUw7CisKIAlzY2FsaW5nX2luZm8tPnNyY19yZWN0LndpZHRoID0gc3Rh
 dGUtPnNyY193ID4+IDE2OwogCWlmIChzY2FsaW5nX2luZm8tPnNyY19yZWN0LndpZHRoID09IDAp
 CiAJCXJldHVybiAtRUlOVkFMOwoKClBhdGNoZXMgY3VycmVudGx5IGluIHN0YWJsZS1xdWV1ZSB3
-aGljaCBtaWdodCBiZSBmcm9tIGhhcnJ5LndlbnRsYW5kQGFtZC5jb20gYXJlCgpxdWV1ZS01LjEw
+aGljaCBtaWdodCBiZSBmcm9tIGhhcnJ5LndlbnRsYW5kQGFtZC5jb20gYXJlCgpxdWV1ZS01LjEy
 L2RybS1hbWQtZGlzcGxheS12ZXJpZnktZ2FtbWEtZGVnYW1tYS1sdXQtc2l6ZXMtaW4tYW0ucGF0
-Y2gKcXVldWUtNS4xMC9kcm0tYW1kLWRpc3BsYXktZml4LWluY29ycnJlY3QtdmFsaWQtaXJxLWNo
-ZWNrLnBhdGNoCnF1ZXVlLTUuMTAvZHJtLWFtZC1kaXNwbGF5LXJlamVjdC1ub24temVyby1zcmNf
+Y2gKcXVldWUtNS4xMi9kcm0tYW1kLWRpc3BsYXktZml4LWluY29ycnJlY3QtdmFsaWQtaXJxLWNo
+ZWNrLnBhdGNoCnF1ZXVlLTUuMTIvZHJtLWFtZC1kaXNwbGF5LXJlamVjdC1ub24temVyby1zcmNf
 eS1hbmQtc3JjX3gtZm9yLXZpZGVvLXBsYW5lcy5wYXRjaApfX19fX19fX19fX19fX19fX19fX19f
 X19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxp
 c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
