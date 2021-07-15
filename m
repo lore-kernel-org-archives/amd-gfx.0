@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9FBA4C12002
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 04:07:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0D2B4C636CA
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 04:07:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7416C610D1
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 04:07:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7416C610D1
+	by mail.kernel.org (Postfix) with ESMTPS id C51B8613BB
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 04:07:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C51B8613BB
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linuxfoundation.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 794516E8EC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC5806E8ED;
 	Fri, 16 Jul 2021 04:07:09 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0E906E89E
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Jul 2021 19:00:42 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 2705D61411;
- Thu, 15 Jul 2021 19:00:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C674B6E88B
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Jul 2021 18:51:40 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 1CFE0613CC;
+ Thu, 15 Jul 2021 18:51:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1626375642;
- bh=EGz4e5SLuBHfeNsdavJb+QjlZ8PNnhysJZHoaxwkzak=;
+ s=korg; t=1626375099;
+ bh=MgamP868/Zj+DqI7rtnk4hFbHLVm/gY445+0wZNPZlE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=tqL7l6TxA6o13SX/ZigeZGVdvdJFeazHc/NXuBxz4H4mGIn9BreglHpD5r0qpyUND
- 5YLnZhQcMjOda4TV0UY0qsVTcZDWith7rXRQcvRbTMtjE9airuZoAo+/xlfVKnRvcO
- roV/TmIfVzI4EsAD0uSgPs8Z/f+zMOm11HFOwnKU=
+ b=L83WaBE1fxFqp7f5n3GPnO4Z8owkNbSDhsfoO3zGVJoLZosv2R/vwE2exLiUJOALh
+ qXrATmQ5nT17dgxzt2aIvjft89pLm8qWbB99yjV/nHA3cgz/eaVjecgb7gIGlX6cqI
+ vBbUvc1aIVirYAnd8WuzNNFD92fQn+9x0JRDr7h0=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: linux-kernel@vger.kernel.org
-Subject: [PATCH 5.12 175/242] drm/amd/display: Reject non-zero src_y and src_x
+Subject: [PATCH 5.10 160/215] drm/amd/display: Reject non-zero src_y and src_x
  for video planes
-Date: Thu, 15 Jul 2021 20:38:57 +0200
-Message-Id: <20210715182624.027757405@linuxfoundation.org>
+Date: Thu, 15 Jul 2021 20:38:52 +0200
+Message-Id: <20210715182627.809638053@linuxfoundation.org>
 X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20210715182551.731989182@linuxfoundation.org>
-References: <20210715182551.731989182@linuxfoundation.org>
+In-Reply-To: <20210715182558.381078833@linuxfoundation.org>
+References: <20210715182558.381078833@linuxfoundation.org>
 User-Agent: quilt/0.66
 MIME-Version: 1.0
 X-Mailman-Approved-At: Fri, 16 Jul 2021 04:07:08 +0000
@@ -90,7 +90,7 @@ Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyB8
 ICAgMTcgKysrKysrKysrKysrKysrKysKIDEgZmlsZSBjaGFuZ2VkLCAxNyBpbnNlcnRpb25zKCsp
 CgotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5j
 CisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMK
-QEAgLTM4ODQsNiArMzg4NCwyMyBAQCBzdGF0aWMgaW50IGZpbGxfZGNfc2NhbGluZ19pbmZvKGNv
+QEAgLTM3MDIsNiArMzcwMiwyMyBAQCBzdGF0aWMgaW50IGZpbGxfZGNfc2NhbGluZ19pbmZvKGNv
 bnN0IHN0CiAJICAgICBzY2FsaW5nX2luZm8tPnNyY19yZWN0LnkgIT0gMCkpCiAJCXJldHVybiAt
 RUlOVkFMOwogCisJLyoKKwkgKiBGb3IgcmVhc29ucyB3ZSBkb24ndCAoeWV0KSBmdWxseSB1bmRl
 cnN0YW5kIGEgbm9uLXplcm8KKwkgKiBzcmNfeSBjb29yZGluYXRlIGludG8gYW4gTlYxMiBidWZm
