@@ -2,53 +2,67 @@ Return-Path: <SRS0=bMdI=MH=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.6 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6C8D3C1B08C
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Jul 2021 15:51:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 067B6C07E96
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Jul 2021 16:04:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2D0AA613E4
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Jul 2021 15:51:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2D0AA613E4
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=daenzer.net
+	by mail.kernel.org (Postfix) with ESMTPS id CE8D06102A
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Jul 2021 16:04:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CE8D06102A
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 06B796E87F;
-	Thu, 15 Jul 2021 15:51:38 +0000 (UTC)
-Received: from netline-mail3.netline.ch (mail.netline.ch [148.251.143.180])
- by gabe.freedesktop.org (Postfix) with ESMTP id 555436E87F;
- Thu, 15 Jul 2021 15:51:36 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by netline-mail3.netline.ch (Postfix) with ESMTP id 1AE5920201E;
- Thu, 15 Jul 2021 17:51:35 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at netline-mail3.netline.ch
-Received: from netline-mail3.netline.ch ([127.0.0.1])
- by localhost (netline-mail3.netline.ch [127.0.0.1]) (amavisd-new, port 10024)
- with LMTP id sx6L0055-jNz; Thu, 15 Jul 2021 17:51:34 +0200 (CEST)
-Received: from thor (24.99.2.85.dynamic.wline.res.cust.swisscom.ch
- [85.2.99.24])
- by netline-mail3.netline.ch (Postfix) with ESMTPA id 76FC820201D;
- Thu, 15 Jul 2021 17:51:34 +0200 (CEST)
-Received: from [::1] by thor with esmtp (Exim 4.94.2)
- (envelope-from <michel@daenzer.net>)
- id 1m43e1-0002oe-9T; Thu, 15 Jul 2021 17:51:25 +0200
-To: Alex Deucher <alexdeucher@gmail.com>, Sam Ravnborg <sam@ravnborg.org>
-References: <20210714220858.5553-1-alexander.deucher@amd.com>
- <YO+++Tj94RRjVqwV@ravnborg.org>
- <CADnq5_Oj1Totqe=fGeF3AeQsodR9_6ki7EChs3CmJzC7txMu1A@mail.gmail.com>
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
-Subject: Re: [pull] amdgpu, amdkfd drm-fixes-5.14
-Message-ID: <7e831a9a-5365-552a-0f14-7b43847302fb@daenzer.net>
-Date: Thu, 15 Jul 2021 17:51:10 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC99F6E880;
+	Thu, 15 Jul 2021 16:04:28 +0000 (UTC)
+Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com
+ [IPv6:2607:f8b0:4864:20::32b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C88126E880;
+ Thu, 15 Jul 2021 16:04:26 +0000 (UTC)
+Received: by mail-ot1-x32b.google.com with SMTP id
+ v32-20020a0568300920b02904b90fde9029so6674483ott.7; 
+ Thu, 15 Jul 2021 09:04:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=pDgo4aZEEERbVkoaBcaAe2QHHX9WVxAXJi1OtCjtkTM=;
+ b=YqCnUt7Dm2F4+/3Rb71Adj77P9AGyQtomoFeo1/XCi/Fm5LB6jzB/pYpJUaAHoPxes
+ jcDgGYADmp4xBu2KQGrQlNslohr/NFj1U3q+KruDrAfGGOjtF+XJKR0NdT+hDS0yjMxO
+ ePw3zpXowf/yp63GDp2P3AYAJXfXCqP5lkpuytglp/wMRKEdjpeSkgb46tDhwwY1MgcF
+ HSLzU3TdpuO7ANbm9fiNbBsJv5dVIzVx5a7a70P5sd0J0DMOdF7Y6n7Vzb1TUKBt/iFh
+ nN1AM2F3Ljd8sfIQCYJEDNK0hoK07iaREQEDYRl/4Vr5jJa9bAP6vHb0qCwBp9gJ/0f/
+ Ebyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=pDgo4aZEEERbVkoaBcaAe2QHHX9WVxAXJi1OtCjtkTM=;
+ b=ChmwyXVGMl7WMge9idTXYqqgYFe4hU6DrReBp0asPOYS9S/JBD0+ttI8RtNSAhiLDy
+ vPTkRhaH3Mp74TVoBE2XElTNioaWhLkW6MDcT4hqGLNorrHgK+VjU41jjE5+3l5WDDZD
+ 9Y94BVtqlF0Steupoa1awzqYrIv7fMBc3sGR64xmkppBmpDlUcqhv0rBPqc1U2OUbIw0
+ JgzdOdtIt+nFX74A/SU1H65EuobO4hkiQgZ+qEvCMSgilu9a8pHSlcxvsXB/id3rYYQS
+ qiZ/HEo5sKWmy2Za9hp8aSwKmVpybmFA7j5e78M9CwyJqYeRKDbt3OISnZVb1JEftA9w
+ FgBQ==
+X-Gm-Message-State: AOAM531h7mdg/0+4KscW8GbzzRT1GllMN7y/GDPrVJKYzZX9MFWKQLi3
+ hb5ffiKAv+kV/dwzFb3vVRKGsOoei5q+qP47iVqWXCAl
+X-Google-Smtp-Source: ABdhPJytpHPsR7Psh+/kvUqKqvdOAb+qm1HyOVCZ8FzhnBWZ9JWAfapoFgqqNcWF62mrNZTJ0whN3cjvEj8Au3UfNSQ=
+X-Received: by 2002:a05:6830:14cd:: with SMTP id
+ t13mr4401878otq.23.1626365066132; 
+ Thu, 15 Jul 2021 09:04:26 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CADnq5_Oj1Totqe=fGeF3AeQsodR9_6ki7EChs3CmJzC7txMu1A@mail.gmail.com>
-Content-Language: en-CA
+References: <20210715143740.28403-1-colin.king@canonical.com>
+In-Reply-To: <20210715143740.28403-1-colin.king@canonical.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 15 Jul 2021 12:04:14 -0400
+Message-ID: <CADnq5_NHEksy0hfBaFWEPO8Dz3gMJgojqk5R8sSN_+7aVSht7Q@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/display: make a const array common_rates
+ static, makes object smaller
+To: Colin King <colin.king@canonical.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,38 +74,68 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
+Cc: Leo Li <sunpeng.li@amd.com>, xinhui pan <Xinhui.Pan@amd.com>,
+ kernel-janitors@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
  Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gMjAyMS0wNy0xNSA0OjA3IHAubS4sIEFsZXggRGV1Y2hlciB3cm90ZToKPiBPbiBUaHUsIEp1
-bCAxNSwgMjAyMSBhdCAxMjo1MiBBTSBTYW0gUmF2bmJvcmcgPHNhbUByYXZuYm9yZy5vcmc+IHdy
-b3RlOgo+PiBPbiBXZWQsIEp1bCAxNCwgMjAyMSBhdCAwNjowODo1OFBNIC0wNDAwLCBBbGV4IERl
-dWNoZXIgd3JvdGU6Cj4+PiBIaSBEYXZlLCBEYW5pZWwsCj4+Pgo+Pj4gRml4ZXMgZm9yIDUuMTQu
-ICBUaGUgYmlnIGNoYW5nZSBoZXJlIGlzIHVuaWZ5aW5nIHRoZSBTTVUxMyBjb2RlLiAgVGhpcyB3
-YXMKPj4+IG5ldyBjb2RlIGFkZGVkIGluIDUuMTQgdG8gc3VwcG9ydCBZZWxsb3cgQ2FycCwgYnV0
-IHdlJ3ZlIHNpbmNlIGNsZWFuZWQgaXQKPj4+IHVwIGFuZCByZW1vdmVkIGEgbG90IG9mIGR1cGxp
-Y2F0aW9uLCBzbyBiZXR0ZXIgdG8gbWVyZ2UgaXQgbm93IHRvIGZhY2lsaXRhdGUKPj4+IGFueSBi
-dWcgZml4ZXMgaW4gdGhlIGZ1dHVyZSB0aGF0IG5lZWQgdG8gZ28gYmFjayB0byB0aGlzIGtlcm5l
-bCB2aWEgc3RhYmxlLgo+Pj4gT25seSBhZmZlY3RzIFllbGxvdyBDYXJwIHdoaWNoIGlzIG5ldyBm
-b3IgNS4xNCBhbnl3YXkgc28gbm90IG11Y2ggY2hhbmNlIGZvcgo+Pj4gcmVncmVzc2lvbnMuICBU
-aGUgcmVzdCBpcyBqdXN0IHN0YW5kYXJkIGJ1ZyBmaXhlcy4KPj4KPj4gVGhpcyBwdWxsIHNlZW1z
-IG5vdCB0byBpbmNsdWRlIGFueSBmaXhlcyBmb3IgdGhlIFc9MSB3YXJuaW5ncyB0aGF0Cj4+IGhh
-cyBjcmVwdCBpbiBhZ2Fpbi4gSXQgd291bGQgYmUgbmljZSBpZiB0aGUgYW1kZ3B1IGNvdWxkIGJl
-IHdhcm5pbmcgZnJlZQo+PiBhZ2FpbiwgdGhpcyB3b3VsZCBtYXliZSBtb3RpdmF0ZSB0aGUgb3Ro
-ZXJzIHRvIGZpeCB0aGVpcnMgdG9vIHNvIHdlCj4+IGNvdWxkIGtlZXAgbW9zdC9hbGwgb2YgZHJp
-dmVycy9ncHUvIGZyZWUgb2YgVz0xIHdhcm5pbmdzLgo+IAo+IFdlIGhhdmVuJ3QgcmVhbGx5IGJl
-ZW4gbW9uaXRvcmluZyB0aGUgVz0xIHN0dWZmIHRoYXQgY2xvc2VseS4gIEknbGwKPiBzZWUgd2hh
-dCB3ZSBjYW4gZG8gZ29pbmcgZm9yd2FyZC4KCklNSE8ga2VlcGluZyB0aGUgVz0xIGJ1aWxkIGNs
-ZWFuIGlzbid0IHJlYWxpc3RpYyB3aXRob3V0IGVuZm9yY2luZyBpdCBpbiBDSS4KCgotLSAKRWFy
-dGhsaW5nIE1pY2hlbCBEw6RuemVyICAgICAgICAgICAgICAgfCAgICAgICAgICAgICAgIGh0dHBz
-Oi8vcmVkaGF0LmNvbQpMaWJyZSBzb2Z0d2FyZSBlbnRodXNpYXN0ICAgICAgICAgICAgIHwgICAg
-ICAgICAgICAgTWVzYSBhbmQgWCBkZXZlbG9wZXIKX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9hbWQtZ2Z4Cg==
+On Thu, Jul 15, 2021 at 10:37 AM Colin King <colin.king@canonical.com> wrote:
+>
+> From: Colin Ian King <colin.king@canonical.com>
+>
+> Don't populate the const array common_rates on the stack but instead it
+> static. Makes the object code smaller by 80 bytes:
+>
+> Before:
+>    text    data     bss     dec     hex filename
+>  268019   98322     256  366597   59805 ../display/amdgpu_dm/amdgpu_dm.o
+>
+> After:
+>    text    data     bss     dec     hex filename
+>  267843   98418     256  366517   597b5 ../display/amdgpu_dm/amdgpu_dm.o
+>
+> Reduction of 80 bytes
+>
+> (gcc version 10.3.0)
+>
+> Signed-off-by: Colin Ian King <colin.king@canonical.com>
+
+Applied.  Thanks!
+
+Alex
+
+> ---
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 2d48bb09645f..b196bb6eafc0 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -7580,8 +7580,10 @@ static uint add_fs_modes(struct amdgpu_dm_connector *aconnector)
+>          * 60       - Commonly used
+>          * 48,72,96 - Multiples of 24
+>          */
+> -       const uint32_t common_rates[] = { 23976, 24000, 25000, 29970, 30000,
+> -                                        48000, 50000, 60000, 72000, 96000 };
+> +       static const uint32_t common_rates[] = {
+> +               23976, 24000, 25000, 29970, 30000,
+> +               48000, 50000, 60000, 72000, 96000
+> +       };
+>
+>         /*
+>          * Find mode with highest refresh rate with the same resolution
+> --
+> 2.31.1
+>
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
