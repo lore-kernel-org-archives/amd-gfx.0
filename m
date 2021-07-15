@@ -2,64 +2,64 @@ Return-Path: <SRS0=bMdI=MH=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.6 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 22E76C07E96
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Jul 2021 16:10:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 87C1EC5CFC2
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Jul 2021 17:07:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D5BF861103
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Jul 2021 16:10:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D5BF861103
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id CECAF613C3
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Jul 2021 17:07:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CECAF613C3
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=daenzer.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FA876E87E;
-	Thu, 15 Jul 2021 16:10:13 +0000 (UTC)
-Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
- [IPv6:2607:f8b0:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 875486E87E;
- Thu, 15 Jul 2021 16:10:12 +0000 (UTC)
-Received: by mail-oi1-x22b.google.com with SMTP id u15so7239863oiw.3;
- Thu, 15 Jul 2021 09:10:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=6c3zyMYOnu8f5V0VEW0ba+C0gb8GX+p+9qHajQ6vagk=;
- b=ky2omVb78fdTIgHSoV6mfHrwbcyGxVRmdbWzk6MLrtzpjB+9YIZzxHelwVAd3LKV+Q
- UFfn8+ds8zYXDUtMiGqgx84L44tIlAoRVa+N5bFrVFkWHb75GKPrhJ4j8FuZ7lfPnKOH
- +pg0qcn15QrD/RSLV4aTO1lDeB0xnh/5ly3iKrn/mRauK97lweuJU1NKYaygj+qSpn4P
- nFMMlBRguz6x3SapXagwLr4hg4RS+OFC0uGStRO3oCLY6ybHJ2Hlk04guFvmj7UDN1av
- bhMM5oKTtP47NEZGDVj5rgKq+9RbecBcmQMnTknECHpOxLIagKTGkInBHvzAIK1G6Kow
- QbKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=6c3zyMYOnu8f5V0VEW0ba+C0gb8GX+p+9qHajQ6vagk=;
- b=SbNiqPsDQ2pBWYEVIjnCH/3basxEwtAEDQg/zb3CpuBxODE/VU3s4kgLIX7x8lNFcf
- 9J/JvIKnF+Td1Z3ugDjuTbLIy+Y8hz4Za6Kl7msFbrbtcT1SbM8/pgkMv9bUNhW2TDkw
- i84R6tTKLi0ezrd/Vj9V5+k957gBZ38gMUGP2s1xzAqfJRhgCeZ0rLbBgTdowGFmevFo
- He/V8rGiFPoPxOnHxF7rEOvdJYyvQOur93PC6QFilweApwWwlr3z9eBj3YWAkBv+lWbF
- cZRCsuMSFspWdShgmpaLn55oOdPIfTpNS3dNqwH9sRgH/TYhQPSfv55oue2ddbGHHLii
- FbBQ==
-X-Gm-Message-State: AOAM530EvJ18SQ7F1HTa7/rduenKvqo5O/B/Oo5TBrMzPsLwqJ486p9U
- Zfu21J/xcguLJHp7M1N0u5o0DOYX1WtUjMfX1N8=
-X-Google-Smtp-Source: ABdhPJzEq72ZaeVqWHRV9xBl988kk8YBBxczyWyRPiiSGDCmqJSum/5U8fkHz6YIoJumevbUrAXhI5T4FOdLnqOhd9c=
-X-Received: by 2002:aca:ac15:: with SMTP id v21mr8249953oie.5.1626365411814;
- Thu, 15 Jul 2021 09:10:11 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 890AD6E82A;
+	Thu, 15 Jul 2021 17:07:26 +0000 (UTC)
+Received: from netline-mail3.netline.ch (mail.netline.ch [148.251.143.180])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 3814F6E82A
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Jul 2021 17:07:25 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by netline-mail3.netline.ch (Postfix) with ESMTP id 6A0B720201E;
+ Thu, 15 Jul 2021 19:07:24 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at netline-mail3.netline.ch
+Received: from netline-mail3.netline.ch ([127.0.0.1])
+ by localhost (netline-mail3.netline.ch [127.0.0.1]) (amavisd-new, port 10024)
+ with LMTP id n33mXFi4lw5O; Thu, 15 Jul 2021 19:07:24 +0200 (CEST)
+Received: from thor (24.99.2.85.dynamic.wline.res.cust.swisscom.ch
+ [85.2.99.24])
+ by netline-mail3.netline.ch (Postfix) with ESMTPA id C077A20201D;
+ Thu, 15 Jul 2021 19:07:23 +0200 (CEST)
+Received: from [::1] by thor with esmtp (Exim 4.94.2)
+ (envelope-from <michel@daenzer.net>)
+ id 1m44pW-0003N7-GW; Thu, 15 Jul 2021 19:07:22 +0200
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ Alex Deucher <alexdeucher@gmail.com>
+References: <a4ba9456-812b-5280-75fd-6dd66d1f9718@riseup.net>
+ <22c25fa6-b3eb-b778-8598-3ce1947a3d0b@daenzer.net>
+ <CADnq5_OVjssNi2niLZQs-TOyN5T5EFOnpwmpmbvHRgh_M0B=wg@mail.gmail.com>
+ <7a9f2682-559d-57ec-4879-b1e6f743c375@daenzer.net>
+ <CADnq5_O+FjF0R0OEMyPZ-hzg7d2Fx87NBUjax8_XLF4b71oKmg@mail.gmail.com>
+ <7ecaff42-68e4-7566-0da1-fa3475fcacb3@daenzer.net>
+ <CADnq5_MEFyQA6s7+4FKKq3qT_6i2ue=n5+CswPpB3H5Kt3ybuw@mail.gmail.com>
+ <65f5567e-4c5c-6e20-a379-e7182bcacb1f@daenzer.net>
+ <c2b9b42d-55e1-fa5d-8e10-ea474fcd9221@daenzer.net>
+ <BL1PR12MB514478C04EC9E42F39F9C8BDF7039@BL1PR12MB5144.namprd12.prod.outlook.com>
+ <5e2067cd-62fe-d3c5-ea0d-69393b0d7883@daenzer.net>
+ <7f461adc-8868-0b76-cedb-d8be8d527218@daenzer.net>
+Subject: Re: AMDGPU error: "[drm:amdgpu_dm_atomic_commit_tail [amdgpu]]
+ *ERROR* Waiting for fences timed out!"
+Message-ID: <aaa5b549-6cb5-4030-e383-aeb9f470b96d@daenzer.net>
+Date: Thu, 15 Jul 2021 19:07:22 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-References: <20210714080652.113381-1-liviu@dudau.co.uk>
-In-Reply-To: <20210714080652.113381-1-liviu@dudau.co.uk>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 15 Jul 2021 12:10:01 -0400
-Message-ID: <CADnq5_OA-em2jM-vmwaM7xxycOS-18EPC0r_myb7REy9b4h_vA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Fix 10bit 4K display on CIK GPUs
-To: Liviu Dudau <liviu@dudau.co.uk>
+In-Reply-To: <7f461adc-8868-0b76-cedb-d8be8d527218@daenzer.net>
+Content-Language: en-CA
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,62 +71,30 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Mario Kleiner <mario.kleiner.de@gmail.com>, Leo Li <sunpeng.li@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: xgqt <xgqt@riseup.net>, amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jul 14, 2021 at 4:15 AM Liviu Dudau <liviu@dudau.co.uk> wrote:
->
-> Commit 72a7cf0aec0c ("drm/amd/display: Keep linebuffer pixel depth at
-> 30bpp for DCE-11.0.") doesn't seems to have fixed 10bit 4K rendering over
-> DisplayPort for CIK GPUs. On my machine with a HAWAII GPU I get a broken
-> image that looks like it has an effective resolution of 1920x1080 but
-> scaled up in an irregular way. Reverting the commit or applying this
-> patch fixes the problem on v5.14-rc1.
->
-> Fixes: 72a7cf0aec0c ("drm/amd/display: Keep linebuffer pixel depth at 30bpp for DCE-11.0.")
-> Signed-off-by: Liviu Dudau <liviu@dudau.co.uk>
-
-Harry or Mario any ideas?  Maybe we need finer grained DCE version
-checking?  I don't remember all of the caveats of this stuff.  DCE11
-and older is getting to be pretty old at this point.  I can just apply
-this if you don't have any insights.
-
-Alex
-
-> ---
->  drivers/gpu/drm/amd/display/dc/core/dc_resource.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-> index a6a67244a322e..1596f6b7fed7c 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-> @@ -1062,7 +1062,7 @@ bool resource_build_scaling_params(struct pipe_ctx *pipe_ctx)
->          * so use only 30 bpp on DCE_VERSION_11_0. Testing with DCE 11.2 and 8.3
->          * did not show such problems, so this seems to be the exception.
->          */
-> -       if (plane_state->ctx->dce_version != DCE_VERSION_11_0)
-> +       if (plane_state->ctx->dce_version > DCE_VERSION_11_0)
->                 pipe_ctx->plane_res.scl_data.lb_params.depth = LB_PIXEL_DEPTH_36BPP;
->         else
->                 pipe_ctx->plane_res.scl_data.lb_params.depth = LB_PIXEL_DEPTH_30BPP;
-> --
-> 2.32.0
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gMjAyMS0wNy0wOCA2OjEzIHAubS4sIE1pY2hlbCBEw6RuemVyIHdyb3RlOgo+IE9uIDIwMjEt
+MDYtMjkgMTI6MzYgcC5tLiwgTWljaGVsIETDpG56ZXIgd3JvdGU6Cj4+IE9uIDIwMjEtMDYtMjgg
+NzoxNiBwLm0uLCBEZXVjaGVyLCBBbGV4YW5kZXIgd3JvdGU6Cj4+Pgo+Pj4gVGhhbmtzIGZvciBu
+YXJyb3dpbmcgdGhpcyBkb3duLsKgIFRoZXJlIGlzIG5ldyBQQ08gU0RNQSBmaXJtd2FyZSBhdmFp
+bGFibGUgKGF0dGFjaGVkKS7CoCBDYW4geW91IHRyeSBpdD8KPj4KPj4gU3VyZSwgSSdsbCB0cnkg
+aXQsIHRoYW5rcy4KPiAKPiBTbyBmYXIsIHNvIGdvb2Q7IG5vIGhhbmcgaW4gYSB3ZWVrLiBJJ2xs
+IHRyeSB0aGUgcmVzdCBvZiB0aGUgbmV3IGZpcm13YXJlIGFzIHdlbGwgbm93LCB3aWxsIGZvbGxv
+dyB1cCBpZiB0aGVyZSdzIGEgaGFuZyBhZ2Fpbi4KClVuZm9ydHVuYXRlbHksIEkgaGl0IGEgaGFu
+ZyBhZ2FpblswXSB3aXRoIHRoZSBuZXcgZmlybXdhcmUuIEknbSBub3cgYmFjayB0byB0ZXN0aW5n
+IHdpdGggdGhlIG9sZCBTRE1BIGZpcm13YXJlLgoKQlRXLCBzaW5jZSB0aGUgc3ltcHRvbXMgaW5j
+bHVkZSBHUFUgcGFnZSBmYXVsdHMsIHNvbWV0aGluZyBtaWdodCBiZSBnb2luZyB3cm9uZyB3aXRo
+IEdQVSBwYWdlIHRhYmxlIHVwZGF0ZXMgdmlhIFNETUEuCgoKWzBdIFRyaWdnZXJlZCBieSBmdXJp
+b3VzbHkgcmVzaXppbmcgdGhlIGd0azQtZGVtbyAiT3BlbkdMIFRyYW5zaXRpb25zIGFuZCBFZmZl
+Y3RzIiB3aW5kb3csIHdoaWNoIGluIGEgV2F5bGFuZCBzZXNzaW9uIEkgY2FuIG90aGVyd2lzZSBy
+ZWNvbW1lbmQgYXMgYSBqYXctZHJvcHBpbmcgZXhwZXJpZW5jZS4gOikKCi0tIApFYXJ0aGxpbmcg
+TWljaGVsIETDpG56ZXIgICAgICAgICAgICAgICB8ICAgICAgICAgICAgICAgaHR0cHM6Ly9yZWRo
+YXQuY29tCkxpYnJlIHNvZnR3YXJlIGVudGh1c2lhc3QgICAgICAgICAgICAgfCAgICAgICAgICAg
+ICBNZXNhIGFuZCBYIGRldmVsb3BlcgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
+ZC1nZngK
