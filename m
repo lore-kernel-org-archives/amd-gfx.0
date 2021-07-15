@@ -2,101 +2,66 @@ Return-Path: <SRS0=bMdI=MH=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+X-Spam-Status: No, score=-10.6 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B16F9C636C9
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Jul 2021 19:06:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 00835C636CA
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Jul 2021 19:20:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7CB0D61404
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Jul 2021 19:06:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7CB0D61404
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id A0AEE613DF
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Jul 2021 19:20:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A0AEE613DF
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFE5B6E8A5;
-	Thu, 15 Jul 2021 19:06:10 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2079.outbound.protection.outlook.com [40.107.94.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 120C16E8A5;
- Thu, 15 Jul 2021 19:06:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Q8PMJg7LwmBDxWcItDoTiY+rSJW7LCdOjMpFR+OnMRumlyGwNXBgxGJ6hWIvdwJb3c9oEHkvVbzU4ebjxgUvSZeIFtmhCIH+ZoyMHvvKpdky0D1+UDdMIDUFphRYnn8N5v9oP4sKAbqdy5NhmD5nxQGCUKnvNyhvEob4QJjbU0xaJ8cjM+KEp4utJxLQT9iLgAeehlqhfDgqlOZm9XHKbKKKGS631tnTY4rx1bANwpBrcg+LOz+FVfeOQzPMn3I11rw+oZU93m9DMaSdG35rGeimy02d5Zr8fPpsEeW62VNzi7LQb9K1+R5q7Je1ixsflBJNnmBasTg1Puf1Q5M5Ow==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=provifNjivI/IZ8V+b2/h5ZRyzp9SQWU6Vt3bQVDrAc=;
- b=MGvak5J0JxYUGCWBrhT2DYSl10y/YnwoSlh7hxyo6M5CqAnmhstx/Xqw3ty6RXXIOTHmBfVkOQrlAH9lHqSyEFn6p58gZi0CZ9+8pHUWPvzKvYoqMJXHxw9M9xYVqMY7QGMqvH5ZKy/jKr+YwApnD4Gy1v5swpiRGVIwCvmql6PQat1R0zcpJ873xK2jKEKnJRnDk924LHEet9t6MGJntOweRv0kHNSr7nOucsOZMC3PXqBA+Dr/dvslTX2A7qvQLhsTwGCYpI9JjOCnseF5JTD7Aah6hvlqorGwEY6ajXtQNW2B5MqneqW4vwsQ0amR8MW+bOQf5IyxCm2hNlJKSQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=provifNjivI/IZ8V+b2/h5ZRyzp9SQWU6Vt3bQVDrAc=;
- b=S00PzfJFuh787UOvP4yDAqHAg3yev87Iw/p/fsCZ0OMadwmRgKDMFcwt6exG9p5NDZPrrJs3V86v0GuIniHrlf6wd+L3T/WohtblAHHEYAJwrcRq9H979tUB1mdKkkPCWM7Kvkx2KMMCsJWeFmVSLKZG9v05znWh4+fw+zgKbxA=
-Received: from BN6PR18CA0020.namprd18.prod.outlook.com (2603:10b6:404:121::30)
- by BL0PR12MB5556.namprd12.prod.outlook.com (2603:10b6:208:1cf::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4331.21; Thu, 15 Jul
- 2021 19:06:07 +0000
-Received: from BN8NAM11FT042.eop-nam11.prod.protection.outlook.com
- (2603:10b6:404:121:cafe::a2) by BN6PR18CA0020.outlook.office365.com
- (2603:10b6:404:121::30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4331.22 via Frontend
- Transport; Thu, 15 Jul 2021 19:06:07 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT042.mail.protection.outlook.com (10.13.177.85) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4331.21 via Frontend Transport; Thu, 15 Jul 2021 19:06:07 +0000
-Received: from Harpoon.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Thu, 15 Jul
- 2021 14:06:06 -0500
-From: Felix Kuehling <Felix.Kuehling@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
-Subject: [PATCH 1/1] drm/amdgpu: workaround failed COW checks for Thunk VMAs
-Date: Thu, 15 Jul 2021 15:05:37 -0400
-Message-ID: <20210715190537.585456-1-Felix.Kuehling@amd.com>
-X-Mailer: git-send-email 2.32.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DACC6E8AB;
+	Thu, 15 Jul 2021 19:20:07 +0000 (UTC)
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [IPv6:2a00:1450:4864:20::636])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9E526E8AB;
+ Thu, 15 Jul 2021 19:20:06 +0000 (UTC)
+Received: by mail-ej1-x636.google.com with SMTP id gb6so11118163ejc.5;
+ Thu, 15 Jul 2021 12:20:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=ihOfb0tc3xVL5q8N3onToRfW8DW3UJeYLmddd1YjXNw=;
+ b=TNgFfAfMluhQ3/TAFnzR108JbZSD2t2Cg2OhHV+y5IzE4VZgg1atgOSY+17DQV4w2c
+ au925Ps4U0kh4odD9rUI8rvZ8i8ZVpvl5YuAvvi1UdsMvzHYryfDULnip10C99VCRPlP
+ Z3Bd9lXqcSyqY11k16uH3Pyu5BSAfZ2ylIIIzQD7lxNYjEI6xTXO2Uoriff7B5obchay
+ /uynkrtBj0a+NGRdJDqlyJRt4vgm8Stvy/RUVvzDwA6SaqTpF9rlpqCL/iJM5AAMfPws
+ vK/Jz0snmMnTjnh6Q/EQhTW9IdDcJdk3Ezysmcrxz+8s5cfzdi1W0iY7vB6RrgSUeVlG
+ Kb1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=ihOfb0tc3xVL5q8N3onToRfW8DW3UJeYLmddd1YjXNw=;
+ b=VPAK1Cr7eKxhSnY+8Vm2hEHl9evG/O1D/IG3O1mpF4LGSCuTMhR6yzb8+fmexP25vF
+ Vr6IvCbMNwHMUGtYkRp6Kb2mMg9imHuHB2sJAzYCWpS7HBGVObgD5tcYkdsM3asI3J1y
+ knn0VL6gw03dszlMwvfQAEULhHbR9QXcjar/6Rn60zOR5mu1XZ7sbcWLUly4WW1ua6Mf
+ RUxYJR2M5HjO0MOAlyyOnF32e39VmSnS/WcLdl6KFWLjvo/3qQxRbwiK01uKAmIzdjvY
+ c7vI9fru4vxIb2gvZnCJvb2LRgnw1Y8eUVWMkn3vEeBA0TfPKQ8+DEyxAd63HB8IKIv2
+ wlMg==
+X-Gm-Message-State: AOAM531VErlGE6hC82o0Ppdpr+zdLBg5/6u6d6jIAcS7uegOL9spI+2/
+ IKjTuo86y3pG3o9tvuQEadrr97oPsMrWQwz+iTo=
+X-Google-Smtp-Source: ABdhPJzFJhZDB3GiTntdV5Ju70ZAArFbxHINZyOxXMcxKyzPXkyoe3NFdbQONOO97TDXsNpV1EreDhU1j7OBkscM1O0=
+X-Received: by 2002:a17:906:4a8d:: with SMTP id
+ x13mr7186041eju.349.1626376805330; 
+ Thu, 15 Jul 2021 12:20:05 -0700 (PDT)
 MIME-Version: 1.0
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 44378c5a-d66e-4e5f-2f62-08d947c39a0d
-X-MS-TrafficTypeDiagnostic: BL0PR12MB5556:
-X-Microsoft-Antispam-PRVS: <BL0PR12MB5556C1B33895A57BC6047EA792129@BL0PR12MB5556.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: xKH3gGP7v43xFUKmsxZzcwqqajqzMq59oCNcAUusbRzFo61EF32CdFfJHkyle6pabgH7v6bQw5KpNvUebJmqp+wjb80roIKzepetPZ8RoMhAQ3vPmcBnR/eH/NrL5hfZZoi3Kj8qdJkd9gEM0FIygGbwPL7r0B4fA3WCP4/KGLN2rKjTGN1TExJ2zpiSKzoX+ljj2dlW5T89jSisvQiJHZ8J3cN/TX/rzbKSxLZqVKsQp7m4wFNuq3y3IbIsE41OCTQf0EynlQxAlAPb1RtvOPLUvvXJRIsvhGPd4+w9z78nlkcKrz/TwT1VtDvHzR3XLTycyJdRCJI4SBgfB6erlbQdg5klUJ/+b4j7qRJFuyXXBCMH4D0CtbGFelVT8S6YdsLf07v9c/okj3vHxe16NVvZUtTtFEf/RZFEzJGL+ZXUligndEgUL3eCMGY88pZfNSb3THofi4xUvY3tFkyaHimuumdUI80iAADH0xtQlwIntropNXPE6XGUsurLR0hpW5gtdBk22GScGreI3dZfG7007nUT/pMgJZ8NHfN5wKf/aGw6wj+UW10npMHzXBsLZbN2OL/jiBJ7kyzM6QgOXYG68Uqu8uBcB/8+bkvXTsaWLfVjXWt8oMHK2iofFlXVBkPuBS0jeiSIGtltAVAwBE/wQnfYepjN4FhsMJq3SrxmQ8O5Nnv+B/hBUlWWoVHweeUtOzWjOQt50fYjD4WBaaxwsz9mKkrFWFPTqUNtyxY=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(346002)(396003)(376002)(39860400002)(136003)(36840700001)(46966006)(70206006)(70586007)(8676002)(4326008)(16526019)(478600001)(186003)(26005)(5660300002)(8936002)(6666004)(1076003)(336012)(2616005)(426003)(81166007)(83380400001)(7696005)(316002)(82310400003)(356005)(2906002)(36860700001)(47076005)(82740400003)(36756003)(86362001)(54906003)(110136005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2021 19:06:07.7826 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 44378c5a-d66e-4e5f-2f62-08d947c39a0d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT042.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB5556
+References: <20210714080652.113381-1-liviu@dudau.co.uk>
+ <CADnq5_OA-em2jM-vmwaM7xxycOS-18EPC0r_myb7REy9b4h_vA@mail.gmail.com>
+In-Reply-To: <CADnq5_OA-em2jM-vmwaM7xxycOS-18EPC0r_myb7REy9b4h_vA@mail.gmail.com>
+From: Mario Kleiner <mario.kleiner.de@gmail.com>
+Date: Thu, 15 Jul 2021 21:19:53 +0200
+Message-ID: <CAEsyxyhurQ2vm=xwaRMqT8z+PJ2R60hYXt6kL8HnaB4zwbee3Q@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Fix 10bit 4K display on CIK GPUs
+To: Alex Deucher <alexdeucher@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,52 +73,87 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: daniel.vetter@ffwll.ch, christian.koenig@amd.com,
- Daniel Vetter <daniel.vetter@intel.com>
+Cc: Liviu Dudau <liviu@dudau.co.uk>, Leo Li <sunpeng.li@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-KFD Thunk maps invisible VRAM BOs with PROT_NONE, MAP_PRIVATE.
-is_cow_mapping returns true for these mappings, which causes mmap to fail
-in ttm_bo_mmap_obj.
+On Thu, Jul 15, 2021 at 6:10 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+>
+> On Wed, Jul 14, 2021 at 4:15 AM Liviu Dudau <liviu@dudau.co.uk> wrote:
+> >
+> > Commit 72a7cf0aec0c ("drm/amd/display: Keep linebuffer pixel depth at
+> > 30bpp for DCE-11.0.") doesn't seems to have fixed 10bit 4K rendering over
+> > DisplayPort for CIK GPUs. On my machine with a HAWAII GPU I get a broken
+> > image that looks like it has an effective resolution of 1920x1080 but
+> > scaled up in an irregular way. Reverting the commit or applying this
+> > patch fixes the problem on v5.14-rc1.
+> >
+> > Fixes: 72a7cf0aec0c ("drm/amd/display: Keep linebuffer pixel depth at 30bpp for DCE-11.0.")
+> > Signed-off-by: Liviu Dudau <liviu@dudau.co.uk>
+>
+> Harry or Mario any ideas?  Maybe we need finer grained DCE version
+> checking?  I don't remember all of the caveats of this stuff.  DCE11
+> and older is getting to be pretty old at this point.  I can just apply
+> this if you don't have any insights.
+>
+> Alex
+>
 
-As a workaround, clear VM_MAYWRITE for PROT_NONE-COW mappings. This
-should prevent the mapping from ever becoming writable and makes
-is_cow_mapping(vm_flags) false.
+Hi Alex
 
-Fixes: f91142c62161 ("drm/ttm: nuke VM_MIXEDMAP on BO mappings v3")
-Suggested-by: Daniel Vetter <daniel.vetter@intel.com>
-Tested-by: Felix Kuehling <Felix.Kuehling@amd.com>
-Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+I'd be fine with applying this. As my original commit says, photometer
+measurements showed that increasing the line buffer depth was only
+needed for my DCN-1 RavenRidge, not for my DCE-11.2 Polaris11 or a
+DCE-8.3 cik, so this should probably not cause harm to the increased
+precision modes.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index b3404c43a911..9f952b7fc197 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -255,6 +255,15 @@ static int amdgpu_gem_object_mmap(struct drm_gem_object *obj, struct vm_area_str
- 	if (bo->flags & AMDGPU_GEM_CREATE_NO_CPU_ACCESS)
- 		return -EPERM;
- 
-+	/* Workaround for Thunk bug creating PROT_NONE,MAP_PRIVATE mappings
-+	 * for debugger access to invisible VRAM. Should have used MAP_SHARED
-+	 * instead. Clearing VM_MAYWRITE prevents the mapping from ever
-+	 * becoming writable and makes is_cow_mapping(vm_flags) false.
-+	 */
-+	if (is_cow_mapping(vma->vm_flags) &&
-+	    !(vma->vm_flags & (VM_READ | VM_WRITE | VM_EXEC)))
-+		vma->vm_flags &= ~VM_MAYWRITE;
-+
- 	return drm_gem_ttm_mmap(obj, vma);
- }
- 
--- 
-2.32.0
+Note that given the hardware and USB-C/DP-HDMI adapters i have, I only
+tested this on a 2560x1440@144 Hz DP monitor with DCN-1, DCE-11.2, and
+a 2560x1440@100 Hz HDMI monitor iirc with DCN-1, DCE-8.3, and i think
+on a 2880x1800@60 Hz MBP Retina eDP panel with DCE-11.2. These are the
+highest resolution/framerate monitors I have atm.I don't have access
+to any 4k monitors, so maybe the problem is somehow specific to such
+high resolutions? Maybe somewhere else in the code something would
+need to be adapted? Lacking actual hw docs, my coding here is by
+pattern matching against existing DC code, guessing and testing on my
+limited hw samples.
 
+Acked-by: Mario Kleiner <mario.kleiner.de@gmail.com>
+
+-mario
+
+> > ---
+> >  drivers/gpu/drm/amd/display/dc/core/dc_resource.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+> > index a6a67244a322e..1596f6b7fed7c 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+> > +++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+> > @@ -1062,7 +1062,7 @@ bool resource_build_scaling_params(struct pipe_ctx *pipe_ctx)
+> >          * so use only 30 bpp on DCE_VERSION_11_0. Testing with DCE 11.2 and 8.3
+> >          * did not show such problems, so this seems to be the exception.
+> >          */
+> > -       if (plane_state->ctx->dce_version != DCE_VERSION_11_0)
+> > +       if (plane_state->ctx->dce_version > DCE_VERSION_11_0)
+> >                 pipe_ctx->plane_res.scl_data.lb_params.depth = LB_PIXEL_DEPTH_36BPP;
+> >         else
+> >                 pipe_ctx->plane_res.scl_data.lb_params.depth = LB_PIXEL_DEPTH_30BPP;
+> > --
+> > 2.32.0
+> >
+> > _______________________________________________
+> > amd-gfx mailing list
+> > amd-gfx@lists.freedesktop.org
+> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
