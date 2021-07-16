@@ -7,42 +7,42 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3BCFBC636CA
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BE763C07E95
 	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 07:13:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E00A8613DF
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 07:13:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E00A8613DF
+	by mail.kernel.org (Postfix) with ESMTPS id 6F16D611AE
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 07:13:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6F16D611AE
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96D4D6E925;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0BF46E926;
 	Fri, 16 Jul 2021 07:13:17 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org
  [IPv6:2001:8b0:10b:1236::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E1236E913;
- Fri, 16 Jul 2021 06:18:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF0E56E90E;
+ Fri, 16 Jul 2021 06:21:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
  References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
  Content-Type:Content-ID:Content-Description;
- bh=YF5b8TNXnQcbiaEvFAaNqUDv1lgagsKKhX10bSFvUTo=; b=sqNZerJ2NfaOjzmouDqVOEgUxH
- 3oMlW7vdLWOG4TnyeuXQKYg2N1l5qqFACYpROZdmOPyoaqFX35AT9x2rOMe2v/Z/UKbOdhOENcdSV
- v2yInzYd3hKcOEZuzoXG2Tchc8co4oEoNEaJ20LeTASbXvnnlhztW/dilemKPiITr2/8eDWOpQq9n
- d9rIs+jaX8+oo1UrlVwdQzR4OL5gvx8Fm8U2r8ruByVCIQwqQQcvdFMtjJeXdJB73kv4Vnjy7a0KJ
- ON4N4OnkGUiSU3Y/9DVc1mEU3W5nqtMzLed1FojqNAnGuo7NOmoxFYPh04123B/rL4UKC75N/SVyg
- hhVZFMMg==;
+ bh=aSVhkxQ4oZroaS//zkndjisEcrFxS9kKgiUt3PZVNe8=; b=Q4U9970CPbVXAIeJ6cHePLZPfQ
+ GTuuZa0Gg/5LRptQ+TwUQSKqatmLUVS2udxmulOOiu0kz20ecxvg25NURwP89Ay4hFxiE6dy84wCJ
+ 0Dn8I5R4v7ruZOegkbnxejDmjX53UFiQs3Y3tXytEDbXyUFAxT6wKYWq1FwfFVQYxDRSpFx8Rcxit
+ cczj6lvyajlwh+ugYEbuTCBh9uid1zqfkDNGLBiaYfEeN+b3kvr13DorMmUxLgUWOE4HBG3AesDnQ
+ AAPQp13tSkvbm8frYYNpUgSh+CrmOOuRCycpiBM6R25r5hFolqrqyWanUFSAtANufxrEcmerJn/Yy
+ nQblM3uw==;
 Received: from [2001:4bb8:184:8b7c:6b57:320d:f068:19c6] (helo=localhost)
  by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1m4H9i-004CsF-5q; Fri, 16 Jul 2021 06:17:12 +0000
+ id 1m4HBc-004CyC-Gy; Fri, 16 Jul 2021 06:19:17 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: David Airlie <airlied@linux.ie>,
 	Daniel Vetter <daniel@ffwll.ch>
-Subject: [PATCH 1/7] vgaarb: remove VGA_DEFAULT_DEVICE
-Date: Fri, 16 Jul 2021 08:16:28 +0200
-Message-Id: <20210716061634.2446357-2-hch@lst.de>
+Subject: [PATCH 4/7] vgaarb: cleanup vgaarb.h
+Date: Fri, 16 Jul 2021 08:16:31 +0200
+Message-Id: <20210716061634.2446357-5-hch@lst.de>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210716061634.2446357-1-hch@lst.de>
 References: <20210716061634.2446357-1-hch@lst.de>
@@ -77,30 +77,128 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The define is entirely unused.
+Merge the different CONFIG_VGA_ARB ifdef blocks, remove superflous
+externs, and regularize the stubs for !CONFIG_VGA_ARB.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- include/linux/vgaarb.h | 6 ------
- 1 file changed, 6 deletions(-)
+ include/linux/vgaarb.h | 90 ++++++++++++++++++++----------------------
+ 1 file changed, 42 insertions(+), 48 deletions(-)
 
 diff --git a/include/linux/vgaarb.h b/include/linux/vgaarb.h
-index dc6ddce92066..26ec8a057d2a 100644
+index fdce9007d57e..05171fc7e26a 100644
 --- a/include/linux/vgaarb.h
 +++ b/include/linux/vgaarb.h
-@@ -42,12 +42,6 @@
+@@ -33,6 +33,8 @@
+ 
+ #include <video/vga.h>
+ 
++struct pci_dev;
++
+ /* Legacy VGA regions */
+ #define VGA_RSRC_NONE	       0x00
+ #define VGA_RSRC_LEGACY_IO     0x01
+@@ -42,23 +44,47 @@
  #define VGA_RSRC_NORMAL_IO     0x04
  #define VGA_RSRC_NORMAL_MEM    0x08
  
--/* Passing that instead of a pci_dev to use the system "default"
-- * device, that is the one used by vgacon. Archs will probably
-- * have to provide their own vga_default_device();
-- */
--#define VGA_DEFAULT_DEVICE     (NULL)
+-struct pci_dev;
 -
- struct pci_dev;
+-/* For use by clients */
+-
+-#if defined(CONFIG_VGA_ARB)
+-extern void vga_set_legacy_decoding(struct pci_dev *pdev,
+-				    unsigned int decodes);
+-#else
++#ifdef CONFIG_VGA_ARB
++void vga_set_legacy_decoding(struct pci_dev *pdev, unsigned int decodes);
++int vga_get(struct pci_dev *pdev, unsigned int rsrc, int interruptible);
++void vga_put(struct pci_dev *pdev, unsigned int rsrc);
++struct pci_dev *vga_default_device(void);
++void vga_set_default_device(struct pci_dev *pdev);
++int vga_remove_vgacon(struct pci_dev *pdev);
++int vga_client_register(struct pci_dev *pdev, void *cookie,
++			void (*irq_set_state)(void *cookie, bool state),
++			unsigned int (*set_vga_decode)(void *cookie, bool state));
++#else /* CONFIG_VGA_ARB */
+ static inline void vga_set_legacy_decoding(struct pci_dev *pdev,
+-					   unsigned int decodes) { };
+-#endif
+-
+-#if defined(CONFIG_VGA_ARB)
+-extern int vga_get(struct pci_dev *pdev, unsigned int rsrc, int interruptible);
+-#else
+-static inline int vga_get(struct pci_dev *pdev, unsigned int rsrc, int interruptible) { return 0; }
+-#endif
++		unsigned int decodes)
++{
++};
++static inline int vga_get(struct pci_dev *pdev, unsigned int rsrc,
++		int interruptible)
++{
++	return 0;
++}
++static inline void vga_put(struct pci_dev *pdev, unsigned int rsrc)
++{
++}
++static inline struct pci_dev *vga_default_device(void)
++{
++	return NULL;
++}
++static inline void vga_set_default_device(struct pci_dev *pdev)
++{
++}
++static inline int vga_remove_vgacon(struct pci_dev *pdev)
++{
++	return 0;
++}
++static inline int vga_client_register(struct pci_dev *pdev, void *cookie,
++				      void (*irq_set_state)(void *cookie, bool state),
++				      unsigned int (*set_vga_decode)(void *cookie, bool state))
++{
++	return 0;
++}
++#endif /* CONFIG_VGA_ARB */
  
- /* For use by clients */
+ /**
+  * vga_get_interruptible
+@@ -90,36 +116,4 @@ static inline int vga_get_uninterruptible(struct pci_dev *pdev,
+        return vga_get(pdev, rsrc, 0);
+ }
+ 
+-#if defined(CONFIG_VGA_ARB)
+-extern void vga_put(struct pci_dev *pdev, unsigned int rsrc);
+-#else
+-static inline void vga_put(struct pci_dev *pdev, unsigned int rsrc)
+-{
+-}
+-#endif
+-
+-
+-#ifdef CONFIG_VGA_ARB
+-extern struct pci_dev *vga_default_device(void);
+-extern void vga_set_default_device(struct pci_dev *pdev);
+-extern int vga_remove_vgacon(struct pci_dev *pdev);
+-#else
+-static inline struct pci_dev *vga_default_device(void) { return NULL; }
+-static inline void vga_set_default_device(struct pci_dev *pdev) { }
+-static inline int vga_remove_vgacon(struct pci_dev *pdev) { return 0; }
+-#endif
+-
+-#if defined(CONFIG_VGA_ARB)
+-int vga_client_register(struct pci_dev *pdev, void *cookie,
+-			void (*irq_set_state)(void *cookie, bool state),
+-			unsigned int (*set_vga_decode)(void *cookie, bool state));
+-#else
+-static inline int vga_client_register(struct pci_dev *pdev, void *cookie,
+-				      void (*irq_set_state)(void *cookie, bool state),
+-				      unsigned int (*set_vga_decode)(void *cookie, bool state))
+-{
+-	return 0;
+-}
+-#endif
+-
+ #endif /* LINUX_VGA_H */
 -- 
 2.30.2
 
