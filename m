@@ -2,54 +2,132 @@ Return-Path: <SRS0=OLwD=MI=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 16E73C636CB
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 07:13:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C92CEC07E95
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 07:14:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CECEE613DF
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 07:13:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CECEE613DF
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
+	by mail.kernel.org (Postfix) with ESMTPS id 95474613F0
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 07:14:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 95474613F0
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54F386E928;
-	Fri, 16 Jul 2021 07:13:18 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org
- [IPv6:2001:8b0:10b:1236::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B96356E90E;
- Fri, 16 Jul 2021 06:22:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
- References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
- Content-Type:Content-ID:Content-Description;
- bh=POrh8TT8rL33I5j7m4S6Q8p5Nh+x8Ba5lIisohE8mc0=; b=qCAZ7/56ZEGN23250LJGg3r+yp
- +1tKia6C2UbxyRWHqO2WN8/tvGxqIqlR3+mcmmh2rS/XjTLRw5lxasw5rXY9GTGFl+zVTmfadiLpb
- iZXFbA2n2CWt+knRPY3eDAj+FsIrjTqILtnZHrn/B5Yu4hOl2ZXggl96TAs/uWsNkbKmNiJ28YUHg
- i1S8uv8c38vvn3Y6VPtDOwa0RrQ79mmBq5kdPBvizeBxlI/brx9gaHjeJmoy3BlYNLbkHoXUp1Lpe
- MPmhmW1VC+WyTvIxzn91zyJ5koPIylwFYSNE7m9niYwbPGEVCiUyuA41YSty1QyuTFCOTj2g6nFs+
- 8so40APg==;
-Received: from [2001:4bb8:184:8b7c:6b57:320d:f068:19c6] (helo=localhost)
- by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1m4HCO-004D0U-5H; Fri, 16 Jul 2021 06:20:09 +0000
-From: Christoph Hellwig <hch@lst.de>
-To: David Airlie <airlied@linux.ie>,
-	Daniel Vetter <daniel@ffwll.ch>
-Subject: [PATCH 5/7] vgaarb: provide a vga_client_unregister wrapper
-Date: Fri, 16 Jul 2021 08:16:32 +0200
-Message-Id: <20210716061634.2446357-6-hch@lst.de>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210716061634.2446357-1-hch@lst.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 27F456E919;
+	Fri, 16 Jul 2021 07:14:12 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2075.outbound.protection.outlook.com [40.107.243.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22CFC6E919;
+ Fri, 16 Jul 2021 07:14:11 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=c7rKeOpefamX+MRtYspqu+id9hQrWOLM2CK3tjGl2hD04Olu1d/tg6AD8WDh26yzXvkOc9otkf1ZrMmPArod6bXX5/HwP3AVEbWEj1iznI7AnmHlOy4nwxugNCyrudvFU62eFIGX17dkzOEfgIuZEZCetKZkj7plm7sarB+NCJcWWJKMbRG5h2ui3jJvntTEUoouj13A0NyiYNNxCNnXn86CmxTvu8OFPfAfyhQq57FGWf3qNRppBL/LeFbGH7cFGNdRXJ3G7UTHfa1lhvNHrgr4n4VOtNDHCU58E2IfpgyG9AtI6V5S5oOExnYSuRjrt9EcI9XY8Kv7B4m15fokqw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6s3HULAHpH/8G3nZpJEN6arzpcIWy4KVbDhKnSw3FME=;
+ b=ZvTVYrwngDT3dN+XKZzffGvaOUVtCgKecMdC7/SmG1Mtc5m1jasad1j9QesEBL187nLvmo0jWKFPraCXqHQ04WgUngQtCWbPFP4a8IQOB4nwbM1Sw25H9orKsaQrsss0sixvycjv2N2/kbf+OALQpTOoDjyWgUuKLlzQ/jMv5qbRNu/a4hNi7jR2bQn3BZUcWJ0W9MRgw2jNBN7+DlZQ98EsE+DySzCnicf7GZSFZRIsJBtPWv1Oqw2lwo9SaR9EMghtmvwLC9w3Nc5eQsZKqFh5yEE1ta8expVw5pNdovFbvajp+ojXWIeXQrInwtBfi2Z04DTqMesdtxiU7qAxYg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6s3HULAHpH/8G3nZpJEN6arzpcIWy4KVbDhKnSw3FME=;
+ b=YtbENP1PMZDclWraJ60WcK17ksjWoMGcEPTNuoju0AQp1pX4JUnK1/Jsx7nqGICGQNgz8tDY9La1C/MjGHEAgR3ZQszsgWc8uLtQXBTza1nSS0b3+wkk14ePUZvM25ObcRu8vCikiJMNYIaPsdK3px4Vh8V/5EP1yl12Up9neq4=
+Authentication-Results: vger.kernel.org; dkim=none (message not signed)
+ header.d=none;vger.kernel.org; dmarc=none action=none header.from=amd.com;
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
+ by MN2PR12MB3790.namprd12.prod.outlook.com (2603:10b6:208:164::31)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4331.21; Fri, 16 Jul
+ 2021 07:14:09 +0000
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::6c9e:1e08:7617:f756]) by MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::6c9e:1e08:7617:f756%5]) with mapi id 15.20.4331.026; Fri, 16 Jul 2021
+ 07:14:09 +0000
+Subject: Re: [PATCH 1/7] vgaarb: remove VGA_DEFAULT_DEVICE
+To: Christoph Hellwig <hch@lst.de>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>
 References: <20210716061634.2446357-1-hch@lst.de>
+ <20210716061634.2446357-2-hch@lst.de>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Message-ID: <f171831b-3281-5a5a-04d3-2d69cb77f1a2@amd.com>
+Date: Fri, 16 Jul 2021 09:14:02 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
+In-Reply-To: <20210716061634.2446357-2-hch@lst.de>
+Content-Language: en-US
+X-ClientProxiedBy: AM0PR05CA0085.eurprd05.prod.outlook.com
+ (2603:10a6:208:136::25) To MN2PR12MB3775.namprd12.prod.outlook.com
+ (2603:10b6:208:159::19)
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- casper.infradead.org. See http://www.infradead.org/rpr.html
-X-Mailman-Approved-At: Fri, 16 Jul 2021 07:13:14 +0000
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [IPv6:2a02:908:1252:fb60:e013:2fad:8ece:8234]
+ (2a02:908:1252:fb60:e013:2fad:8ece:8234) by
+ AM0PR05CA0085.eurprd05.prod.outlook.com (2603:10a6:208:136::25) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4331.21 via Frontend
+ Transport; Fri, 16 Jul 2021 07:14:06 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 8aebc0f1-1977-42dd-bc36-08d948294ddd
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3790:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MN2PR12MB379002903B1A1EC4D253D1B883119@MN2PR12MB3790.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: M8BCX88+XcAp4FVhXnz7Mj63uVnAfZRXeoC+KyodQ76SZ7Z20857UPuhcUZ9SyAWm+pRP5Glb/RFOCmbJBYadjlXyFJujIg9vLqk+QlGmT/NAh8ZxAbawEaXwunUm2RrNGAqvvzbxAAkBgsm8LBVM+Fxdv0LkGCBYIn8tmkTxhZ7TiA2oTCfgxT39AYojn7dyqHv5dJtN+nWG2dWMI2nM71r5bGXWiy0WZSZpoanSXhqz5DVks6AVMMzhJdbujM2YtkMxYQIcIWAzeJGD+OqsQqsDZuApRGeQ5IIX2tewYYQXiB0DwQQxgKaS9zk4KCEcj3BBre3MpKOpN6G+ktso2Ff0LClHc7leIbW+bmqB4uiVDlJqdHKqz1guOOFJF7Bc0fYWojMlgWSpmRcFUdP+zl9qiaSTeT4EOcUhK5ZchrlwUrlCgDPWeuK3uAxPbyd5Dz1UHamGkd61Rj6UTU+Moq0tffm4+uXKgwOyVyI/FGhAaXRwDmpD8oBQgu7rZ5Zw2728Xc4MLZ9My/7GUQuGlu6oXGh8s6Fo6tgFxWTCANXPpCywfD9Y1zBHdCtWpQerYqUAgRpSjjQ4sn/wWgug+mGrmAQ8PFroHgyMlaJ2PEGnLoscQKy/2shbpdQbWmd6ROYfmYm4DEtDhR1Pc/sdx6G78/JqslW6E/DUyH9WExxJk9jh4pKull1HIWj2mgXlXOMznst8vNOGzlN3qRtYl2KjqSMIudEtqTIjR45GcQNwfQCRGs5qLKzC6V8wC72
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(136003)(366004)(376002)(396003)(346002)(38100700002)(5660300002)(110136005)(2616005)(83380400001)(8676002)(66946007)(4744005)(186003)(31686004)(6486002)(86362001)(316002)(8936002)(6666004)(2906002)(54906003)(478600001)(36756003)(66476007)(4326008)(66556008)(7416002)(31696002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y09KM3Y4Rzh6Nm1TZEFpaG1Gc0d3VVoxdkFNbnVUdWdjZjlRVm9RZzd3b2to?=
+ =?utf-8?B?ZUpVOEJOb2dYNkoxWU9sVklnaU9zbkI4c1I4VE1lelQzalJ5RmtiZ3JtMnRM?=
+ =?utf-8?B?a2plY20ya2Z3N1FBODRZdFU3eUVNSkhpSEpzOUtNWU1KWHNrSXorLzlCVTAy?=
+ =?utf-8?B?MWlyM3FTMWRrSlhKdTNMTDlyUFF0SGFxRWRjV3dqVEtlSm9HZ3huR0tTeEdT?=
+ =?utf-8?B?SlM5bmpGdHFEWmVBNmIrdllwT3RaVCtlQWhla1hwM3ptc2dDaHBFZkJKamRi?=
+ =?utf-8?B?RTg2SGs2OFd6V3BabTNXRjFaSGUzVHRUNXpueXNGRG5qMXFhc0h2YVNaSEJ5?=
+ =?utf-8?B?b3dHdGpJQVJmMW1IRzNldUZ3dDdseUJMTjFmdUdXYVN6YXpKWEY0cm9qZ1ZK?=
+ =?utf-8?B?VkJRSnBMWi9va00vMkZ0Q0UydzdhazA3ZThZbEdqNmZKMzVnZnRPZnNpTnhs?=
+ =?utf-8?B?TGNBdWtveXdTS0pYMVhxYkdWOTVHMVR0Q2dydWNwUE5xYVR5NkRkOWFONSth?=
+ =?utf-8?B?TG5Xa2dub2ZMRGpPMU8xRWpiSis5dXdHSVFyTEZnS1MvSDkxY1IwSlpHeEhP?=
+ =?utf-8?B?RzVjcEtaMFZCZ0lUL1hGajN3T1JUWEk3VEM5SWhIYmFodElHKzJYRkgzTm1V?=
+ =?utf-8?B?K2RoR25RNDUyUTRjRUFiKzNrZzFvanpxTzR3K2wvb3RhckRpa21CeFMzcGRQ?=
+ =?utf-8?B?Q3JzeWhZd25ZNm9TWkFIR3VEeDNPNENXckw4cjQzdEZUV05qVjg0WUNIbXp0?=
+ =?utf-8?B?aTZocVdrRmt3eHdkaGMxbkNIc1dKQU1NSmZtWnhTT00zeEdxS1JwN0EyQlJH?=
+ =?utf-8?B?aVZaZmdvYTJQTEpnODhJWExtcVphVmxpU2sxZnpmSGlUSGVjdTVlTkMxTjRB?=
+ =?utf-8?B?RkNZYjBldDFwK1ZwUUx0NklpR2tQd1dsZWVJZWxTWXFHRnQ2b2RjQ3VCSlha?=
+ =?utf-8?B?TkQ5RWlvQjZjNHdRVXRIZHJRd3gzWmE2VGI3eWJ3ZzFEYzB5ZmF3N0M0QzNF?=
+ =?utf-8?B?T3JxRDhZUldLdWV4ZjFtd2ZUTnlndDRyeWRyeGluTFlJZEFqYVFwV21RVzdC?=
+ =?utf-8?B?b3d0ajF4U3ZvWkluNkxVbzN1Y1JyS3g5eDgycURpLzd3ejBFRzZCUkM1aW5Z?=
+ =?utf-8?B?cHBzdjdyYkpOa2Y0cXVOQjE0VEw2ekdZb1p3RHJRcXI5cGR3VzkwVW9hZXBP?=
+ =?utf-8?B?YTljck5WTE56M3hodlF6WmJzNDJHVkx5amowNHo1WEJ5V042ZlR4Ry85OGF5?=
+ =?utf-8?B?YlZMYmt0UE93RGxIR2hza1dONE9xY215Ly92ckd0SWcrbk1vOGRtRDRtQ2Z1?=
+ =?utf-8?B?ZHhVeW81aXVWekVScG5CcUZGNGZoUVkveUtrVGozMjdybUhNRngzQmIxajFC?=
+ =?utf-8?B?Nkxhc1NjUFNYTWV4aXlxMHpNYjh6NTZEenRYTUdJbGxCVVhlN3puZ3RHQS90?=
+ =?utf-8?B?MDVUK1B0Z3F5ZytHdVpPOGlRNWQ2Q0oxaWw5YjloeHY0UTBWZFV5V1MySXBT?=
+ =?utf-8?B?ZVZ3QmhFZnVieHM4M1RORTZ1VHhxNGdjTWZRNUc0WXpHdmgzYUVrSWxHRVl5?=
+ =?utf-8?B?R01lVEFMdGNJRHdSYm5QYVRPRDVmQXFuYVpaQzh6Uzhta0xBMTF5YjNZVzkw?=
+ =?utf-8?B?Z1Z5T1lNM05mSy9YTk1xQk9WT1BGMkEwN2hVTVM1VjQvZk9SV21YMU5ZTkFq?=
+ =?utf-8?B?aDd0dDZuc3Y3Wmh3c1p6cXp0MjVDSUZFTCtteHA1TURnNmZQK3MzelhQdkV3?=
+ =?utf-8?B?aTQrKzhyL3oyWkVGa2wwcWE3OFZsQ2NPNDRNNFp6OWNIZm9LY3JuRW9qSzhv?=
+ =?utf-8?B?TG5xSkxsMmdmRlBFV2xrUXgxTWU2ZDFpbktDbytGOGw2ajlPcExHMXpDUGVz?=
+ =?utf-8?Q?9naPV9ygiMwep?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8aebc0f1-1977-42dd-bc36-08d948294ddd
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jul 2021 07:14:08.9800 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: R9rR080WXzQ96bzhGe5JYvFUP4o+NFOr9ZU4CFxN3nOtx8UrnYZ8tc6beqgX1q9N
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3790
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,150 +143,34 @@ Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, kvm@vger.kernel.org,
  amd-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Alex Williamson <alex.williamson@redhat.com>,
  Jani Nikula <jani.nikula@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Alex Williamson <alex.williamson@redhat.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Alex Deucher <alexander.deucher@amd.com>, intel-gfx@lists.freedesktop.org,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Ben Skeggs <bskeggs@redhat.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add a trivial wrapper for the unregister case that sets all fields to
-NULL.
-
-Signed-off-by: Christoph Hellwig <hch@lst.de>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
- drivers/gpu/drm/drm_irq.c                  | 4 ++--
- drivers/gpu/drm/i915/display/intel_vga.c   | 2 +-
- drivers/gpu/drm/nouveau/nouveau_vga.c      | 2 +-
- drivers/gpu/drm/radeon/radeon_device.c     | 2 +-
- drivers/gpu/vga/vgaarb.c                   | 3 +--
- drivers/vfio/pci/vfio_pci.c                | 2 +-
- include/linux/vgaarb.h                     | 5 +++++
- 8 files changed, 13 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index d303e88e3c23..53afe0198e52 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3838,7 +3838,7 @@ void amdgpu_device_fini_sw(struct amdgpu_device *adev)
- 		vga_switcheroo_fini_domain_pm_ops(adev->dev);
- 	}
- 	if ((adev->pdev->class >> 8) == PCI_CLASS_DISPLAY_VGA)
--		vga_client_register(adev->pdev, NULL, NULL, NULL);
-+		vga_client_unregister(adev->pdev);
- 
- 	if (IS_ENABLED(CONFIG_PERF_EVENTS))
- 		amdgpu_pmu_fini(adev);
-diff --git a/drivers/gpu/drm/drm_irq.c b/drivers/gpu/drm/drm_irq.c
-index c3bd664ea733..c87b0fb384e4 100644
---- a/drivers/gpu/drm/drm_irq.c
-+++ b/drivers/gpu/drm/drm_irq.c
-@@ -140,7 +140,7 @@ int drm_irq_install(struct drm_device *dev, int irq)
- 	if (ret < 0) {
- 		dev->irq_enabled = false;
- 		if (drm_core_check_feature(dev, DRIVER_LEGACY))
--			vga_client_register(to_pci_dev(dev->dev), NULL, NULL, NULL);
-+			vga_client_unregister(to_pci_dev(dev->dev));
- 		free_irq(irq, dev);
- 	} else {
- 		dev->irq = irq;
-@@ -203,7 +203,7 @@ int drm_irq_uninstall(struct drm_device *dev)
- 	DRM_DEBUG("irq=%d\n", dev->irq);
- 
- 	if (drm_core_check_feature(dev, DRIVER_LEGACY))
--		vga_client_register(to_pci_dev(dev->dev), NULL, NULL, NULL);
-+		vga_client_unregister(to_pci_dev(dev->dev));
- 
- 	if (dev->driver->irq_uninstall)
- 		dev->driver->irq_uninstall(dev);
-diff --git a/drivers/gpu/drm/i915/display/intel_vga.c b/drivers/gpu/drm/i915/display/intel_vga.c
-index f002b82ba9c0..833f9ec14493 100644
---- a/drivers/gpu/drm/i915/display/intel_vga.c
-+++ b/drivers/gpu/drm/i915/display/intel_vga.c
-@@ -158,5 +158,5 @@ void intel_vga_unregister(struct drm_i915_private *i915)
- {
- 	struct pci_dev *pdev = to_pci_dev(i915->drm.dev);
- 
--	vga_client_register(pdev, NULL, NULL, NULL);
-+	vga_client_unregister(pdev);
- }
-diff --git a/drivers/gpu/drm/nouveau/nouveau_vga.c b/drivers/gpu/drm/nouveau/nouveau_vga.c
-index 7c4b374b3eca..de7a3a860139 100644
---- a/drivers/gpu/drm/nouveau/nouveau_vga.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_vga.c
-@@ -118,7 +118,7 @@ nouveau_vga_fini(struct nouveau_drm *drm)
- 		return;
- 	pdev = to_pci_dev(dev->dev);
- 
--	vga_client_register(pdev, NULL, NULL, NULL);
-+	vga_client_unregister(pdev);
- 
- 	if (pci_is_thunderbolt_attached(pdev))
- 		return;
-diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
-index 46eea01950cb..d781914f8bcb 100644
---- a/drivers/gpu/drm/radeon/radeon_device.c
-+++ b/drivers/gpu/drm/radeon/radeon_device.c
-@@ -1530,7 +1530,7 @@ void radeon_device_fini(struct radeon_device *rdev)
- 		vga_switcheroo_unregister_client(rdev->pdev);
- 	if (rdev->flags & RADEON_IS_PX)
- 		vga_switcheroo_fini_domain_pm_ops(rdev->dev);
--	vga_client_register(rdev->pdev, NULL, NULL, NULL);
-+	vga_client_unregister(rdev->pdev);
- 	if (rdev->rio_mem)
- 		pci_iounmap(rdev->pdev, rdev->rio_mem);
- 	rdev->rio_mem = NULL;
-diff --git a/drivers/gpu/vga/vgaarb.c b/drivers/gpu/vga/vgaarb.c
-index 3ed3734f66d9..85b765b80abf 100644
---- a/drivers/gpu/vga/vgaarb.c
-+++ b/drivers/gpu/vga/vgaarb.c
-@@ -877,8 +877,7 @@ EXPORT_SYMBOL(vga_set_legacy_decoding);
-  * This function does not check whether a client for @pdev has been registered
-  * already.
-  *
-- * To unregister just call this function with @irq_set_state and @set_vga_decode
-- * both set to NULL for the same @pdev as originally used to register them.
-+ * To unregister just call vga_client_unregister().
-  *
-  * Returns: 0 on success, -1 on failure
-  */
-diff --git a/drivers/vfio/pci/vfio_pci.c b/drivers/vfio/pci/vfio_pci.c
-index 318864d52837..47d13a1fb7fb 100644
---- a/drivers/vfio/pci/vfio_pci.c
-+++ b/drivers/vfio/pci/vfio_pci.c
-@@ -1967,7 +1967,7 @@ static void vfio_pci_vga_uninit(struct vfio_pci_device *vdev)
- 
- 	if (!vfio_pci_is_vga(pdev))
- 		return;
--	vga_client_register(pdev, NULL, NULL, NULL);
-+	vga_client_unregister(pdev);
- 	vga_set_legacy_decoding(pdev, VGA_RSRC_NORMAL_IO | VGA_RSRC_NORMAL_MEM |
- 					      VGA_RSRC_LEGACY_IO |
- 					      VGA_RSRC_LEGACY_MEM);
-diff --git a/include/linux/vgaarb.h b/include/linux/vgaarb.h
-index 05171fc7e26a..7bca61a08700 100644
---- a/include/linux/vgaarb.h
-+++ b/include/linux/vgaarb.h
-@@ -116,4 +116,9 @@ static inline int vga_get_uninterruptible(struct pci_dev *pdev,
-        return vga_get(pdev, rsrc, 0);
- }
- 
-+static inline void vga_client_unregister(struct pci_dev *pdev)
-+{
-+	vga_client_register(pdev, NULL, NULL, NULL);
-+}
-+
- #endif /* LINUX_VGA_H */
--- 
-2.30.2
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+QW0gMTYuMDcuMjEgdW0gMDg6MTYgc2NocmllYiBDaHJpc3RvcGggSGVsbHdpZzoKPiBUaGUgZGVm
+aW5lIGlzIGVudGlyZWx5IHVudXNlZC4KPgo+IFNpZ25lZC1vZmYtYnk6IENocmlzdG9waCBIZWxs
+d2lnIDxoY2hAbHN0LmRlPgoKSSdtIG5vdCBhbiBleHBlcnQgZm9yIHRoaXMgcGFydGljdWxhciBj
+b2RlLCBidXQgYXQgbGVhc3Qgb2YgaGFuZCAKZXZlcnl0aGluZyB5b3UgZG8gaGVyZSBtYWtlcyB0
+b3RhbGx5IHNlbnNlLgoKV2hvbGUgc2VyaWVzIGlzIEFja2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmln
+IDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+CgpSZWdhcmRzLApDaHJpc3RpYW4uCgo+IC0tLQo+
+ICAgaW5jbHVkZS9saW51eC92Z2FhcmIuaCB8IDYgLS0tLS0tCj4gICAxIGZpbGUgY2hhbmdlZCwg
+NiBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9pbmNsdWRlL2xpbnV4L3ZnYWFyYi5oIGIv
+aW5jbHVkZS9saW51eC92Z2FhcmIuaAo+IGluZGV4IGRjNmRkY2U5MjA2Ni4uMjZlYzhhMDU3ZDJh
+IDEwMDY0NAo+IC0tLSBhL2luY2x1ZGUvbGludXgvdmdhYXJiLmgKPiArKysgYi9pbmNsdWRlL2xp
+bnV4L3ZnYWFyYi5oCj4gQEAgLTQyLDEyICs0Miw2IEBACj4gICAjZGVmaW5lIFZHQV9SU1JDX05P
+Uk1BTF9JTyAgICAgMHgwNAo+ICAgI2RlZmluZSBWR0FfUlNSQ19OT1JNQUxfTUVNICAgIDB4MDgK
+PiAgIAo+IC0vKiBQYXNzaW5nIHRoYXQgaW5zdGVhZCBvZiBhIHBjaV9kZXYgdG8gdXNlIHRoZSBz
+eXN0ZW0gImRlZmF1bHQiCj4gLSAqIGRldmljZSwgdGhhdCBpcyB0aGUgb25lIHVzZWQgYnkgdmdh
+Y29uLiBBcmNocyB3aWxsIHByb2JhYmx5Cj4gLSAqIGhhdmUgdG8gcHJvdmlkZSB0aGVpciBvd24g
+dmdhX2RlZmF1bHRfZGV2aWNlKCk7Cj4gLSAqLwo+IC0jZGVmaW5lIFZHQV9ERUZBVUxUX0RFVklD
+RSAgICAgKE5VTEwpCj4gLQo+ICAgc3RydWN0IHBjaV9kZXY7Cj4gICAKPiAgIC8qIEZvciB1c2Ug
+YnkgY2xpZW50cyAqLwoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
+aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
