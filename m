@@ -7,43 +7,42 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7A718C636CB
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 07:13:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3BCFBC636CA
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 07:13:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 02EE7611AE
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 07:13:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 02EE7611AE
+	by mail.kernel.org (Postfix) with ESMTPS id E00A8613DF
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 07:13:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E00A8613DF
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 905C66E924;
-	Fri, 16 Jul 2021 07:13:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96D4D6E925;
+	Fri, 16 Jul 2021 07:13:17 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org
  [IPv6:2001:8b0:10b:1236::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E49F66E90E;
- Fri, 16 Jul 2021 06:20:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E1236E913;
+ Fri, 16 Jul 2021 06:18:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
  References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
  Content-Type:Content-ID:Content-Description;
- bh=VR1glNZml+cTngi5rUbI6ULJ1OKrHv//v+DP7nQTGl0=; b=dzDy1eMNhsQwHC+WQNrYul8CWx
- Y6mW9QCyzhNbeeF0ctSnl3+YbpQ8Jh9vBAmic9Pbe9HZIFMJjlhdYcuQdGMTOYsGDmFtk7dbnIHyt
- hI8ustbwqloWrGN2tDNDY5bLp8yNvxuAcROI2N9dkeq1cmvCK2zCYRaeoFlihgD1gqTIhoqJ6byaz
- /491z9uRA1UAhyS7qHI0TPdWk/MJtxfOdOxQgjZAjN15C/A4ELKuJzf909nFSuQyH6WDwwXA25LoL
- YZWipdUHiN6IwSrcqZJ1UCiJAo4J1RaoRhFwvTIgsWSxbOtZwe924AkvrIMeKh7g6vBYZg6eAMQ91
- IA/x8RVQ==;
+ bh=YF5b8TNXnQcbiaEvFAaNqUDv1lgagsKKhX10bSFvUTo=; b=sqNZerJ2NfaOjzmouDqVOEgUxH
+ 3oMlW7vdLWOG4TnyeuXQKYg2N1l5qqFACYpROZdmOPyoaqFX35AT9x2rOMe2v/Z/UKbOdhOENcdSV
+ v2yInzYd3hKcOEZuzoXG2Tchc8co4oEoNEaJ20LeTASbXvnnlhztW/dilemKPiITr2/8eDWOpQq9n
+ d9rIs+jaX8+oo1UrlVwdQzR4OL5gvx8Fm8U2r8ruByVCIQwqQQcvdFMtjJeXdJB73kv4Vnjy7a0KJ
+ ON4N4OnkGUiSU3Y/9DVc1mEU3W5nqtMzLed1FojqNAnGuo7NOmoxFYPh04123B/rL4UKC75N/SVyg
+ hhVZFMMg==;
 Received: from [2001:4bb8:184:8b7c:6b57:320d:f068:19c6] (helo=localhost)
  by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1m4HAg-004CuL-CT; Fri, 16 Jul 2021 06:18:16 +0000
+ id 1m4H9i-004CsF-5q; Fri, 16 Jul 2021 06:17:12 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: David Airlie <airlied@linux.ie>,
 	Daniel Vetter <daniel@ffwll.ch>
-Subject: [PATCH 3/7] vgaarb: move the kerneldoc for vga_set_legacy_decoding to
- vgaarb.c
-Date: Fri, 16 Jul 2021 08:16:30 +0200
-Message-Id: <20210716061634.2446357-4-hch@lst.de>
+Subject: [PATCH 1/7] vgaarb: remove VGA_DEFAULT_DEVICE
+Date: Fri, 16 Jul 2021 08:16:28 +0200
+Message-Id: <20210716061634.2446357-2-hch@lst.de>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210716061634.2446357-1-hch@lst.de>
 References: <20210716061634.2446357-1-hch@lst.de>
@@ -78,61 +77,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Kerneldoc comments should be at the implementation side, not in the
-header just declaring the prototype.
+The define is entirely unused.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- drivers/gpu/vga/vgaarb.c | 11 +++++++++++
- include/linux/vgaarb.h   | 13 -------------
- 2 files changed, 11 insertions(+), 13 deletions(-)
+ include/linux/vgaarb.h | 6 ------
+ 1 file changed, 6 deletions(-)
 
-diff --git a/drivers/gpu/vga/vgaarb.c b/drivers/gpu/vga/vgaarb.c
-index fccc7ef5153a..3ed3734f66d9 100644
---- a/drivers/gpu/vga/vgaarb.c
-+++ b/drivers/gpu/vga/vgaarb.c
-@@ -834,6 +834,17 @@ static void __vga_set_legacy_decoding(struct pci_dev *pdev,
- 	spin_unlock_irqrestore(&vga_lock, flags);
- }
- 
-+/**
-+ * vga_set_legacy_decoding
-+ * @pdev: pci device of the VGA card
-+ * @decodes: bit mask of what legacy regions the card decodes
-+ *
-+ * Indicates to the arbiter if the card decodes legacy VGA IOs, legacy VGA
-+ * Memory, both, or none. All cards default to both, the card driver (fbdev for
-+ * example) should tell the arbiter if it has disabled legacy decoding, so the
-+ * card can be left out of the arbitration process (and can be safe to take
-+ * interrupts at any time.
-+ */
- void vga_set_legacy_decoding(struct pci_dev *pdev, unsigned int decodes)
- {
- 	__vga_set_legacy_decoding(pdev, decodes, false);
 diff --git a/include/linux/vgaarb.h b/include/linux/vgaarb.h
-index ca5160218538..fdce9007d57e 100644
+index dc6ddce92066..26ec8a057d2a 100644
 --- a/include/linux/vgaarb.h
 +++ b/include/linux/vgaarb.h
-@@ -46,19 +46,6 @@ struct pci_dev;
+@@ -42,12 +42,6 @@
+ #define VGA_RSRC_NORMAL_IO     0x04
+ #define VGA_RSRC_NORMAL_MEM    0x08
+ 
+-/* Passing that instead of a pci_dev to use the system "default"
+- * device, that is the one used by vgacon. Archs will probably
+- * have to provide their own vga_default_device();
+- */
+-#define VGA_DEFAULT_DEVICE     (NULL)
+-
+ struct pci_dev;
  
  /* For use by clients */
- 
--/**
-- *     vga_set_legacy_decoding
-- *
-- *     @pdev: pci device of the VGA card
-- *     @decodes: bit mask of what legacy regions the card decodes
-- *
-- *     Indicates to the arbiter if the card decodes legacy VGA IOs,
-- *     legacy VGA Memory, both, or none. All cards default to both,
-- *     the card driver (fbdev for example) should tell the arbiter
-- *     if it has disabled legacy decoding, so the card can be left
-- *     out of the arbitration process (and can be safe to take
-- *     interrupts at any time.
-- */
- #if defined(CONFIG_VGA_ARB)
- extern void vga_set_legacy_decoding(struct pci_dev *pdev,
- 				    unsigned int decodes);
 -- 
 2.30.2
 
