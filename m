@@ -2,46 +2,71 @@ Return-Path: <SRS0=OLwD=MI=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 75F64C07E95
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 16:47:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CF4E5C12002
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 17:49:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 25766613E8
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 16:47:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 25766613E8
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=mit.edu
+	by mail.kernel.org (Postfix) with ESMTPS id 81DFE60241
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 17:49:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 81DFE60241
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmx.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC04A6E9C8;
-	Fri, 16 Jul 2021 16:47:11 +0000 (UTC)
-Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF9176E9A4;
- Fri, 16 Jul 2021 15:07:49 +0000 (UTC)
-Received: from callcc.thunk.org (96-65-121-81-static.hfc.comcastbusiness.net
- [96.65.121.81]) (authenticated bits=0)
- (User authenticated as tytso@ATHENA.MIT.EDU)
- by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 16GF7fnw014809
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 16 Jul 2021 11:07:42 -0400
-Received: by callcc.thunk.org (Postfix, from userid 15806)
- id D6FEA4202F5; Fri, 16 Jul 2021 11:07:40 -0400 (EDT)
-Date: Fri, 16 Jul 2021 11:07:40 -0400
-From: "Theodore Y. Ts'o" <tytso@mit.edu>
-To: Felix Kuehling <felix.kuehling@amd.com>
-Subject: Re: [PATCH v3 0/8] Support DEVICE_GENERIC memory in migrate_vma_*
-Message-ID: <YPGgvNxfOCx/Sp0g@mit.edu>
-References: <20210617151705.15367-1-alex.sierra@amd.com>
- <YM9NXrGlhdp0qb7S@mit.edu>
- <905418d1-9099-0ea8-a6e6-84cc8ef3d0b0@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3338D6E093;
+	Fri, 16 Jul 2021 17:49:38 +0000 (UTC)
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E490A6E0F6;
+ Fri, 16 Jul 2021 17:10:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
+ s=badeba3b8450; t=1626455447;
+ bh=Pt36AD0Nu5k0fbxEQXWvyPyfVzFALEn1A5TbDs2AJ7Y=;
+ h=X-UI-Sender-Class:Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=aEUPHNsvu/d0rzE3QHFPwwMmZ67g8AX0dhU9RnIRFaJFLTXRpA0EWYO8ZIlvBjVAm
+ 5NSDeqVIGNhOzHXFkBBBh18AgPRfP8UjCW+tWz4uB6yGaO/5bAHRrHTMO/NSVyamwS
+ lFS6s6603Dp+uUGY+wWa7H82ReXyo4yqYtvKdGSM=
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Received: from titan ([83.52.228.41]) by mail.gmx.net (mrgmx104
+ [212.227.17.174]) with ESMTPSA (Nemesis) id 1N1Obb-1l7Cyi1tCl-012oN6; Fri, 16
+ Jul 2021 19:10:47 +0200
+Date: Fri, 16 Jul 2021 19:10:33 +0200
+From: Len Baker <len.baker@gmx.com>
+To: Joe Perches <joe@perches.com>
+Subject: Re: [PATCH] drm/amd/display: Fix identical code for different branches
+Message-ID: <20210716155945.GB3963@titan>
+References: <20210711172433.2777-1-len.baker@gmx.com>
+ <a8f75357ab3bd3b37269e51a38aafa997307570f.camel@perches.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <905418d1-9099-0ea8-a6e6-84cc8ef3d0b0@amd.com>
-X-Mailman-Approved-At: Fri, 16 Jul 2021 16:47:10 +0000
+In-Reply-To: <a8f75357ab3bd3b37269e51a38aafa997307570f.camel@perches.com>
+X-Provags-ID: V03:K1:tknC4RB6K2nifhTruEF26tbsJxBnMGIVp9cOt81aQXtyJTmAq9P
+ FxIHD6edXVQGIoqmJSP3oZggE8rrQLFwbV6A3cyodIVj5xflnakUjoVI2g7LHo+d3UxHxcQ
+ 0uy/cPOFnxvMYUWPSPJLBj13KZl4OztMqAjfx64DVk6sEyV8BRimd2ony1C5K7v+NEnQy5t
+ JcNfEpDm+ex9IquyfYg/A==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:any4VDceyKI=:CrTU5xcsAMBu/MytkSpvhZ
+ 34d7pqRxO0i3EdHxsL25V9jpZKEyuZ0kaEqORqOl22dPYPe6K7sr2He5Y1ZwMXeYZeuy9w4LS
+ dryS1avqt5WT/KvwipqKd5AdyCod6+mkMIKk4k7RUpB0jHQrm7yLCvw2WGaZnx0dJCi5UYbhe
+ GPgrGZJMawNJl7kySUz+8ocF/ab7Brtd4z92ORwHAmZv303TwQCvPt+u/tkXsdSKjzShfXjfd
+ Gj8kI9TqyaHyBXHvdQjFbgG1DM4wGlR3fZUjHhkZyZJkDkDImfOdKbsb/dFaR3i15q48CXby5
+ Igyi4Ybhq/j5N97qwEsc7Q2gXuv/eHTpEBeAMzx3lyjQpiJqvh8dk7FDv+kocQi0prB0YvKuu
+ lLwLwq5vDMr7qmSE7lHjsNj+sj8EXyoDdRjldWQnheBTU9v8MTE99BZrLsEsMukaYvI3jN7Wp
+ qv+re+3r5PpWMapK00jEATMHmutsWBw223tUYbzDVeU1HGOX+eGhQCYliPt0HoBaAEWK+fqpA
+ ZdzRn8I03x1a+FxzdwwlUHRWX1EvMzJumc2ABxayGARuWtsqjprsAYMOwCPrlO3m8J5aLSQI7
+ D+j19+CalgmGVrXU/rU5N+SIYlB+C0m2h57+38ShhSVbfHoAHg+3pFORYG5/ceDXqwUoVNKIC
+ 22knhhBvQxTDBg5xT7D9dm+vYO4RFJQFb9kyqx62y/LGIUKAhzcMi026X847mbmZr8EvZ9X0s
+ 3g7FhI+xcKV2jcnWjCQBu7GihRtikkFr2eRNiPe2kAP+G4joEVul3mevWh/rzwd4vqoi3PDaV
+ J6TKRkdrx6ARBps5mTCXGoD+tso2CB7bjRxyA9/Etcwbp5AjE+QENz7RwLy9cP5t7smcp89io
+ 8+32kSRvCMaj2ItjOyQPCY6bzLQqAyDqrT0NkHe2xBoO+1VeK+MSviDdDK794NSKO1kcePQkN
+ y5wBO7chBX0oOZDpxEBgJedai5LywrW9gLgjEJcDd/+b5vEm2mX42aoceopgLmhhUfc24qLGa
+ ByKA8l+wD1oQQJZlmwLEzqk+gxpvMN7P6npbyrYEKV2FlixHjaWgeRNi/nXxUsrfp5VfYpQuk
+ ZrXfMHERgT5JXyZcvsqv8iSKWsGedi8guRB
+X-Mailman-Approved-At: Fri, 16 Jul 2021 17:49:37 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,42 +78,65 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Sierra <alex.sierra@amd.com>, rcampbell@nvidia.com,
- amd-gfx@lists.freedesktop.org, linux-xfs@vger.kernel.org, linux-mm@kvack.org,
- jglisse@redhat.com, dri-devel@lists.freedesktop.org, jgg@nvidia.com,
- akpm@linux-foundation.org, linux-ext4@vger.kernel.org, hch@lst.de
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Martin Tsai <martin.tsai@amd.com>, Kees Cook <keescook@chromium.org>,
+ Leo Li <sunpeng.li@amd.com>, Yu-ting Shen <Yu-ting.Shen@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, Wenjing Liu <wenjing.liu@amd.com>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, David Airlie <airlied@linux.ie>,
+ Len Baker <len.baker@gmx.com>, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, George Shen <George.Shen@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jun 23, 2021 at 05:49:55PM -0400, Felix Kuehling wrote:
-> 
-> I can think of two ways to test the changes for MEMORY_DEVICE_GENERIC in
-> this patch series in a way that is reproducible without special hardware and
-> firmware:
-> 
-> For the reference counting changes we could use the dax driver with hmem and
-> use efi_fake_mem on the kernel command line to create some DEVICE_GENERIC
-> pages. I'm open to suggestions for good user mode tests to exercise dax
-> functionality on this type of memory.
+On Sun, Jul 11, 2021 at 10:45:48AM -0700, Joe Perches wrote:
+> On Sun, 2021-07-11 at 19:24 +0200, Len Baker wrote:
+> > The branches of the "if" statement are the same. So remove the
+> > unnecessary if and goto statements.
+> >
+> > Addresses-Coverity-ID: 1456916 ("Identical code for different branches")
+> > Fixes: 4c283fdac08ab ("drm/amd/display: Add HDCP module")
+> > Signed-off-by: Len Baker <len.baker@gmx.com>
+>
+> I'm not a big fan of this type of change.
+>
+> It's currently the same style used for six tests in this function
+> and changing this last one would just make it harder to see the
+> code blocks as consistent.
+>
+> I doubt any reasonable compiler would produce different objects.
 
-Sorry for the thread necromancy, but now that the merge window is
-past....
+Ok, thanks for the review. I leave it as is.
 
-Today I test ext4's dax support, without having any $$$ DAX hardware,
-by using the kernel command line "memmap=4G!9G:memmap=9G!14G" which
-reserves memory so that creates two pmem device and then I run
-xfstests with DAX enabled using qemu or using a Google Compute Engine
-VM, using TEST_DEV=/dev/pmem0 and SCRATCH_DEV=/dev/pmem1.
+> > diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c=
+ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c
+> []
+> > @@ -305,10 +305,8 @@ static enum mod_hdcp_status wait_for_ready(struct =
+mod_hdcp *hdcp,
+> > =A0				hdcp, "bcaps_read"))
+> > =A0			goto out;
+> > =A0	}
+> > -	if (!mod_hdcp_execute_and_set(check_ksv_ready,
+> > -			&input->ready_check, &status,
+> > -			hdcp, "ready_check"))
+> > -		goto out;
+> > +	mod_hdcp_execute_and_set(check_ksv_ready, &input->ready_check, &statu=
+s,
+> > +				 hdcp, "ready_check");
+> > =A0out:
+> > =A0	return status;
+> > =A0}
+> > --
+> > 2.25.1
+> >
 
-If you can give me a recipe for what kernel configs I should enable,
-and what magic kernel command line arguments to use, then I'd be able
-to test your patch set with ext4.
-
-Cheers,
-
-						- Ted
+Thanks,
+Len
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
