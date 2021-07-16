@@ -2,51 +2,48 @@ Return-Path: <SRS0=OLwD=MI=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BF13CC07E95
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 07:13:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 780FBC636CD
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 07:13:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5D25E613E9
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 07:13:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5D25E613E9
+	by mail.kernel.org (Postfix) with ESMTPS id 4AFB9611AE
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 07:13:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4AFB9611AE
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1D186E922;
-	Fri, 16 Jul 2021 07:13:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F12AB6E923;
+	Fri, 16 Jul 2021 07:13:16 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org
  [IPv6:2001:8b0:10b:1236::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC1BD6E90E;
- Fri, 16 Jul 2021 06:22:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 194846E90E;
+ Fri, 16 Jul 2021 06:17:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
- References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
- Content-Type:Content-ID:Content-Description;
- bh=QEK+KmUpqEVYeABztaGsomTup/cuJPtMjSQmQNmnaeU=; b=CBLLPmi1cHqDxd9jBgNdwFecLM
- 8Shpk0ZMRVvvgKYlZ8G94PanX+EV1SPy32xgUazLM5KP7RiDDQZp7sm3AW6qqsS2EDR3miLIqTv36
- yq/zMp+rIBxgXvs55OWnbl9G87OqnVue9P5srldGoZb7KGJiJwxr8fyvuP7oHAKwAnX6IRX8UZ+VR
- gTQzM/uAHdLgpMtWDXL5KyrJG6bBRSGr2TFW/GzAeRwl7J+D/Si+k+ca/pFx6wiV/XB36u77DZ3KR
- kfckmmKUO6c+fetvaqIfibaCr9SIYtrKEmwg0QzVb0wYA88lZjiVMewt8LVHPA28M3Zttf6pV79GF
- E2YYDuJQ==;
+ Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:In-Reply-To:References;
+ bh=hXKXpHy9bGS1uK5ljrzn6TAqp0ZG8VouCBfEiDPy5WA=; b=GJEd673PlZ7AR7tV1dxC6wtjsA
+ UVpNI30sgXvL/Ry0x/2wOpyL+R4hVH7b+FVk44+PcY2U23pbL9UsP7EVpXGN28XR9ttgeZiV2z7Am
+ M3G9wLjcCf2+hUP7WWVUU5LYENQtqKW1m5VSe50ac7qmR7lIuZzI70dS71V7szcjFa9XCDPjltDGt
+ MA7CqwCSw51SF4wN865Znt0Hi4BzkaXSHseL8hTa+yAMz/tGzmHdNxoZKtZrtEEB090i6RWKUZrWU
+ hDhdPWeWoFSbSQo5ZxZ8BT+70Qh/GL4QAscek3l89/HjCwtXLGYQ5m+z4m+sqS4y3VTKswXFV3PZa
+ OtpHoarg==;
 Received: from [2001:4bb8:184:8b7c:6b57:320d:f068:19c6] (helo=localhost)
  by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1m4HDN-004D3r-1Z; Fri, 16 Jul 2021 06:20:58 +0000
+ id 1m4H9G-004CpP-Od; Fri, 16 Jul 2021 06:16:40 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: David Airlie <airlied@linux.ie>,
 	Daniel Vetter <daniel@ffwll.ch>
-Subject: [PATCH 6/7] vgaarb: remove the unused irq_set_state argument to
- vga_client_register
-Date: Fri, 16 Jul 2021 08:16:33 +0200
-Message-Id: <20210716061634.2446357-7-hch@lst.de>
+Subject: misc vgaarb cleanups
+Date: Fri, 16 Jul 2021 08:16:27 +0200
+Message-Id: <20210716061634.2446357-1-hch@lst.de>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210716061634.2446357-1-hch@lst.de>
-References: <20210716061634.2446357-1-hch@lst.de>
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
  casper.infradead.org. See http://www.infradead.org/rpr.html
@@ -78,199 +75,20 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-All callers pass NULL as the irq_set_state argument, so remove it and
-the ->irq_set_state member in struct vga_device.
+Hi all,
 
-Signed-off-by: Christoph Hellwig <hch@lst.de>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  2 +-
- drivers/gpu/drm/i915/display/intel_vga.c   |  2 +-
- drivers/gpu/drm/nouveau/nouveau_vga.c      |  2 +-
- drivers/gpu/drm/radeon/radeon_device.c     |  2 +-
- drivers/gpu/vga/vgaarb.c                   | 23 +---------------------
- drivers/vfio/pci/vfio_pci.c                |  2 +-
- include/linux/vgaarb.h                     |  4 +---
- 7 files changed, 7 insertions(+), 30 deletions(-)
+this series cleans up a bunch of lose ends in the vgaarb code.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 53afe0198e52..e433fab6bcf6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3715,7 +3715,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 	/* this will fail for cards that aren't VGA class devices, just
- 	 * ignore it */
- 	if ((adev->pdev->class >> 8) == PCI_CLASS_DISPLAY_VGA)
--		vga_client_register(adev->pdev, adev, NULL, amdgpu_device_vga_set_decode);
-+		vga_client_register(adev->pdev, adev, amdgpu_device_vga_set_decode);
- 
- 	if (amdgpu_device_supports_px(ddev)) {
- 		px = true;
-diff --git a/drivers/gpu/drm/i915/display/intel_vga.c b/drivers/gpu/drm/i915/display/intel_vga.c
-index 833f9ec14493..0222719e0824 100644
---- a/drivers/gpu/drm/i915/display/intel_vga.c
-+++ b/drivers/gpu/drm/i915/display/intel_vga.c
-@@ -147,7 +147,7 @@ int intel_vga_register(struct drm_i915_private *i915)
- 	 * then we do not take part in VGA arbitration and the
- 	 * vga_client_register() fails with -ENODEV.
- 	 */
--	ret = vga_client_register(pdev, i915, NULL, intel_vga_set_decode);
-+	ret = vga_client_register(pdev, i915, intel_vga_set_decode);
- 	if (ret && ret != -ENODEV)
- 		return ret;
- 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_vga.c b/drivers/gpu/drm/nouveau/nouveau_vga.c
-index de7a3a860139..d071c11249a3 100644
---- a/drivers/gpu/drm/nouveau/nouveau_vga.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_vga.c
-@@ -94,7 +94,7 @@ nouveau_vga_init(struct nouveau_drm *drm)
- 		return;
- 	pdev = to_pci_dev(dev->dev);
- 
--	vga_client_register(pdev, dev, NULL, nouveau_vga_set_decode);
-+	vga_client_register(pdev, dev, nouveau_vga_set_decode);
- 
- 	/* don't register Thunderbolt eGPU with vga_switcheroo */
- 	if (pci_is_thunderbolt_attached(pdev))
-diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
-index d781914f8bcb..11e8e42d99b3 100644
---- a/drivers/gpu/drm/radeon/radeon_device.c
-+++ b/drivers/gpu/drm/radeon/radeon_device.c
-@@ -1434,7 +1434,7 @@ int radeon_device_init(struct radeon_device *rdev,
- 	/* if we have > 1 VGA cards, then disable the radeon VGA resources */
- 	/* this will fail for cards that aren't VGA class devices, just
- 	 * ignore it */
--	vga_client_register(rdev->pdev, rdev, NULL, radeon_vga_set_decode);
-+	vga_client_register(rdev->pdev, rdev, radeon_vga_set_decode);
- 
- 	if (rdev->flags & RADEON_IS_PX)
- 		runtime = true;
-diff --git a/drivers/gpu/vga/vgaarb.c b/drivers/gpu/vga/vgaarb.c
-index 85b765b80abf..4bde017f6f22 100644
---- a/drivers/gpu/vga/vgaarb.c
-+++ b/drivers/gpu/vga/vgaarb.c
-@@ -72,9 +72,7 @@ struct vga_device {
- 	unsigned int io_norm_cnt;	/* normal IO count */
- 	unsigned int mem_norm_cnt;	/* normal MEM count */
- 	bool bridge_has_one_vga;
--	/* allow IRQ enable/disable hook */
- 	void *cookie;
--	void (*irq_set_state)(void *cookie, bool enable);
- 	unsigned int (*set_vga_decode)(void *cookie, bool decode);
- };
- 
-@@ -218,13 +216,6 @@ int vga_remove_vgacon(struct pci_dev *pdev)
- #endif
- EXPORT_SYMBOL(vga_remove_vgacon);
- 
--static inline void vga_irq_set_state(struct vga_device *vgadev, bool state)
--{
--	if (vgadev->irq_set_state)
--		vgadev->irq_set_state(vgadev->cookie, state);
--}
--
--
- /* If we don't ever use VGA arb we should avoid
-    turning off anything anywhere due to old X servers getting
-    confused about the boot device not being VGA */
-@@ -325,10 +316,8 @@ static struct vga_device *__vga_tryget(struct vga_device *vgadev,
- 			if ((match & conflict->decodes) & VGA_RSRC_LEGACY_IO)
- 				pci_bits |= PCI_COMMAND_IO;
- 
--			if (pci_bits) {
--				vga_irq_set_state(conflict, false);
-+			if (pci_bits)
- 				flags |= PCI_VGA_STATE_CHANGE_DECODES;
--			}
- 		}
- 
- 		if (change_bridge)
-@@ -365,9 +354,6 @@ static struct vga_device *__vga_tryget(struct vga_device *vgadev,
- 
- 	pci_set_vga_state(vgadev->pdev, true, pci_bits, flags);
- 
--	if (!vgadev->bridge_has_one_vga)
--		vga_irq_set_state(vgadev, true);
--
- 	vgadev->owns |= wants;
- lock_them:
- 	vgadev->locks |= (rsrc & VGA_RSRC_LEGACY_MASK);
-@@ -855,15 +841,10 @@ EXPORT_SYMBOL(vga_set_legacy_decoding);
-  * vga_client_register - register or unregister a VGA arbitration client
-  * @pdev: pci device of the VGA client
-  * @cookie: client cookie to be used in callbacks
-- * @irq_set_state: irq state change callback
-  * @set_vga_decode: vga decode change callback
-  *
-  * Clients have two callback mechanisms they can use.
-  *
-- * @irq_set_state callback: If a client can't disable its GPUs VGA
-- * resources, then we need to be able to ask it to turn off its irqs when we
-- * turn off its mem and io decoding.
-- *
-  * @set_vga_decode callback: If a client can disable its GPU VGA resource, it
-  * will get a callback from this to set the encode/decode state.
-  *
-@@ -882,7 +863,6 @@ EXPORT_SYMBOL(vga_set_legacy_decoding);
-  * Returns: 0 on success, -1 on failure
-  */
- int vga_client_register(struct pci_dev *pdev, void *cookie,
--			void (*irq_set_state)(void *cookie, bool state),
- 			unsigned int (*set_vga_decode)(void *cookie,
- 						       bool decode))
- {
-@@ -895,7 +875,6 @@ int vga_client_register(struct pci_dev *pdev, void *cookie,
- 	if (!vgadev)
- 		goto bail;
- 
--	vgadev->irq_set_state = irq_set_state;
- 	vgadev->set_vga_decode = set_vga_decode;
- 	vgadev->cookie = cookie;
- 	ret = 0;
-diff --git a/drivers/vfio/pci/vfio_pci.c b/drivers/vfio/pci/vfio_pci.c
-index 47d13a1fb7fb..cc7d7592e7b1 100644
---- a/drivers/vfio/pci/vfio_pci.c
-+++ b/drivers/vfio/pci/vfio_pci.c
-@@ -1954,7 +1954,7 @@ static int vfio_pci_vga_init(struct vfio_pci_device *vdev)
- 	if (!vfio_pci_is_vga(pdev))
- 		return 0;
- 
--	ret = vga_client_register(pdev, vdev, NULL, vfio_pci_set_vga_decode);
-+	ret = vga_client_register(pdev, vdev, vfio_pci_set_vga_decode);
- 	if (ret)
- 		return ret;
- 	vga_set_legacy_decoding(pdev, vfio_pci_set_vga_decode(vdev, false));
-diff --git a/include/linux/vgaarb.h b/include/linux/vgaarb.h
-index 7bca61a08700..ea45d3e86fff 100644
---- a/include/linux/vgaarb.h
-+++ b/include/linux/vgaarb.h
-@@ -52,7 +52,6 @@ struct pci_dev *vga_default_device(void);
- void vga_set_default_device(struct pci_dev *pdev);
- int vga_remove_vgacon(struct pci_dev *pdev);
- int vga_client_register(struct pci_dev *pdev, void *cookie,
--			void (*irq_set_state)(void *cookie, bool state),
- 			unsigned int (*set_vga_decode)(void *cookie, bool state));
- #else /* CONFIG_VGA_ARB */
- static inline void vga_set_legacy_decoding(struct pci_dev *pdev,
-@@ -79,7 +78,6 @@ static inline int vga_remove_vgacon(struct pci_dev *pdev)
- 	return 0;
- }
- static inline int vga_client_register(struct pci_dev *pdev, void *cookie,
--				      void (*irq_set_state)(void *cookie, bool state),
- 				      unsigned int (*set_vga_decode)(void *cookie, bool state))
- {
- 	return 0;
-@@ -118,7 +116,7 @@ static inline int vga_get_uninterruptible(struct pci_dev *pdev,
- 
- static inline void vga_client_unregister(struct pci_dev *pdev)
- {
--	vga_client_register(pdev, NULL, NULL, NULL);
-+	vga_client_register(pdev, NULL, NULL);
- }
- 
- #endif /* LINUX_VGA_H */
--- 
-2.30.2
-
+Diffstat:
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |   11 +-
+ drivers/gpu/drm/drm_irq.c                  |    4 
+ drivers/gpu/drm/i915/display/intel_vga.c   |    9 +-
+ drivers/gpu/drm/nouveau/nouveau_vga.c      |    8 -
+ drivers/gpu/drm/radeon/radeon_device.c     |   11 +-
+ drivers/gpu/vga/vgaarb.c                   |   67 +++++-----------
+ drivers/vfio/pci/vfio_pci.c                |   11 +-
+ include/linux/vgaarb.h                     |  118 ++++++++++-------------------
+ 8 files changed, 93 insertions(+), 146 deletions(-)
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
