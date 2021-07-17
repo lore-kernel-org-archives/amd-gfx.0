@@ -5,39 +5,39 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6D9D5C636CA
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CEF09C63799
 	for <amd-gfx@archiver.kernel.org>; Sat, 17 Jul 2021 19:22:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3A3E260200
+	by mail.kernel.org (Postfix) with ESMTPS id A0F5161165
 	for <amd-gfx@archiver.kernel.org>; Sat, 17 Jul 2021 19:22:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3A3E260200
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A0F5161165
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 978B26EAC2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAAD76EAC3;
 	Sat, 17 Jul 2021 19:22:04 +0000 (UTC)
 Received: from NAM02-BN1-obe.outbound.protection.outlook.com
  (mail-bn1nam07on2057.outbound.protection.outlook.com [40.107.212.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A1EED6EAAD;
- Sat, 17 Jul 2021 19:22:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCEAF6EAA7;
+ Sat, 17 Jul 2021 19:22:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=juNKgQtDu/BcrcrQXDbxz80QAr+4n8QsSIJY7X/CJTmUwEYD9eXCR5xdaVYhcTDV+0woBW6UEYPsaHH8yf+oKKKSryzSoegMXjEmbQXNqOu+P5XCAM/EUcbR8eG7pRgzyjmAWP9/cF4XsY7HHeqFEP+DtQX0t+Det3zrc+ijVhpZJGzVyUor0Ux3J1Ikb+DehtTZE87JVHndSnKC969HBNoyxlmk9m6Svcl6TPH01LkNSE+Wu1mZFqELFrQqMGecSDWmQAgzcmTcc1cCdAF9SAKf56TI6S6A7i33vp9CFPGYZJcdFTlvrlYtmmVeLMVXBzpLWvpNgAX4ClczxuHSmA==
+ b=RJM2zCgBUgOc9S8BU62IRIjzUZMnsgBVHcFrDVHNoaft0Rkw/oHG9hJi/EBZQmeftqrb7PnutNyp/Qm/4HWBnIk5hWgAC6P6pokwqlztWq9Af9TdT0r/+DpKfJ1uJd8P+lrsIcydVAbPe1Rzq1g9OBScJARS+EHIpt+azSIxCIjV2Qz3yaWqb2+Dv/D2Ni3JM5INfp3ap/gGQkUwKw1sEndqpA7JDTSiTDy4aEXiBqBU+I5zIIbPqdFmfvKcFvaVj/m6PVc7cF+9cmbpG4VNfrl5Yi2RM2DihhQZtqGDNOPkW5lyBJsfxv9wfiGHejCMjKgfTC2FOTofSAHmYItWig==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=707xnJfuFhrp+6dAh962xzl7si469vWZYp4BZWlrkTo=;
- b=SpbX9KQugp7MCAHGlIIvTWxF2LmYG+BKB7o5yjylqAlilXEHyxdid17LkU8DqOBOeOBYs8RcSawH9nF1aij/xPETVdoTRcF3tVUaxmSslv5hWEDFTADuWmMebE7JZ3T+4rxRwMpgv8ay9DZu9WBdxHZFUC9s5cL6xP4LSzhcQEtWG+fOwSJyx7uH5XxTsP8x/8uTuOd1UMe2yC5jTvH8B7CQKmA7WgZeYBDw3zyy6zh/RvJ3JzwFBiO8gSvnJBWpBj4vDxblVNrwoCoVfKbIgmtCxrgh51MfotQeRwPleMGSZhtPc7f/AUnqYQyCjge7JGsLQiXg1cRmckrHT2n1JQ==
+ bh=aRvbV4JGMbUEpWoe93Bb/nFVKCW02HMvzadh9Q75HKg=;
+ b=Mjdjcoz1FDDHHBsP7YvGyhXV2YQPQcPegdrShp0gBXVOzQQ2WlOFlCMytZL7z+WMK75/nbdzqHUbZKKysYg0XgKaW6Zf0i802uGnEDJ5jMYagkLgSCbM/Si1GFkxl2TN046SdFCDbwm6v0/0vvWyG7mgmYMjtVj9Ia5QhH1exPhn/VeykmBj0e5L5QGstxxdmk4EvhPy5amHjeriztpJoSVqd/izZCrENnoRqEAEKYn9y/Qr3cLGmZGyFduykKced8vbES1TqiHu9WnNngiA2cVD496XnLss6Q8fqKKZmQF8mBrWJe/muR8yBJrbkSE5mafC5VwFnfAs5J3SRrF29Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=707xnJfuFhrp+6dAh962xzl7si469vWZYp4BZWlrkTo=;
- b=5tMeas0m3k0B/QBW7vt2hfKwrtxcRCehJFUY6NuF6W9nKDGhWRuPHmu/2koaHAYnSXdgoxfa2mfcxtp2bSQexvPwz2+M90I6GODuHFPIIhj/0ljV4SkOmffCdGOHmen4JMp8J+HWG1F0v1Y9o/x/ieusoSRMQagl0K3zE96+IaY=
+ bh=aRvbV4JGMbUEpWoe93Bb/nFVKCW02HMvzadh9Q75HKg=;
+ b=yZdDh+z2ff4iMbUknvV4IN6ISX0wY5JKTyJDgq4mAlGniSvwSEQ+pYWMleyBOSqdAypOT+8XLv9t4vwsn0yVdnUSgmnC4X0pR9zIQ1jl4gZAltR5nGFTARTqKPJC+xzdbQDgE/ggoSHLbj2AmiOxkA1LOtZAHn+A7eRL8iUsa5M=
 Authentication-Results: linux-foundation.org; dkim=none (message not signed)
  header.d=none;linux-foundation.org; dmarc=none action=none
  header.from=amd.com;
@@ -45,17 +45,17 @@ Received: from SA0PR12MB4430.namprd12.prod.outlook.com (2603:10b6:806:70::20)
  by SN6PR12MB4670.namprd12.prod.outlook.com (2603:10b6:805:11::22)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4308.22; Sat, 17 Jul
- 2021 19:21:58 +0000
+ 2021 19:21:57 +0000
 Received: from SA0PR12MB4430.namprd12.prod.outlook.com
  ([fe80::d0d3:a97e:6b7f:ab39]) by SA0PR12MB4430.namprd12.prod.outlook.com
  ([fe80::d0d3:a97e:6b7f:ab39%7]) with mapi id 15.20.4331.029; Sat, 17 Jul 2021
- 19:21:58 +0000
+ 19:21:57 +0000
 From: Alex Sierra <alex.sierra@amd.com>
 To: akpm@linux-foundation.org, Felix.Kuehling@amd.com, linux-mm@kvack.org,
  rcampbell@nvidia.com, linux-ext4@vger.kernel.org, linux-xfs@vger.kernel.org
-Subject: [PATCH v4 13/13] tools: update test_hmm script to support SP config
-Date: Sat, 17 Jul 2021 14:21:35 -0500
-Message-Id: <20210717192135.9030-14-alex.sierra@amd.com>
+Subject: [PATCH v4 10/13] lib: test_hmm add module param for zone device type
+Date: Sat, 17 Jul 2021 14:21:32 -0500
+Message-Id: <20210717192135.9030-11-alex.sierra@amd.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210717192135.9030-1-alex.sierra@amd.com>
 References: <20210717192135.9030-1-alex.sierra@amd.com>
@@ -68,54 +68,54 @@ Received: from alex-MS-7B09.amd.com (165.204.78.1) by
  SN4PR0201CA0067.namprd02.prod.outlook.com (2603:10b6:803:20::29) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4331.22 via Frontend
- Transport; Sat, 17 Jul 2021 19:21:54 +0000
+ Transport; Sat, 17 Jul 2021 19:21:52 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 81c63fea-588e-4ab3-b0bd-08d949582332
+X-MS-Office365-Filtering-Correlation-Id: a35122d8-478c-48b2-471e-08d9495821f9
 X-MS-TrafficTypeDiagnostic: SN6PR12MB4670:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <SN6PR12MB46705EE64FF76F3A9664E574FD109@SN6PR12MB4670.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4714;
+X-Microsoft-Antispam-PRVS: <SN6PR12MB4670F846D23B99C86DEA433EFD109@SN6PR12MB4670.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1923;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: lzRubaDRxtU8ctmhTypHDJF4J8NyuAATR7qvuK0City4kggLrmijU+jXXFb8pruCvobYJs+LG8cHsfC+k7x0nxJwusDiDTi28laWlpyvpgCK6FFg3JIS5EoqTGZxlZns0o35XxI5DHXkW4DH13PpCK/4tgfkwG6xC4pFuYE6FTyo8gMTITYlarhmdLV8xyn5QL8Dk9L6/WTDlVuZtDmFWSvD2A5Hw05YRf5woAo8/gjD4ahYEtBQla4lSdpFogXOAIVbWkPUvDWIRJ48O/lkBvlNRK/KJ+GQMxlxnhLkTa3x2WvOODkWjpErwYgMq+HqY2zD/Fkg2GFB/ikeq+k96osNXwFw/aihWaDxK9TMXUxBAkQSCo+a9Xa4yJ4SMTOxp3Sbdr9J2/DPE34pmjCzDPU9GBFW0wOxeRkI9k0YctURHcCnSyk80pF8agZhw3I7WFh9QlXJGerxSfFrvfXBJMLUDTRLBRydEBW7oLOH/cfMcVzq0Yzc/r+Xnclht1UkXq8AVpWouHryUT8vT0aieO1QhjzJK5Qa41E3pQsHCnBjzRkJTsaiHqdDNZweG1ZTdMaH8GMJwE8ueetV2KeXK/C1gQgjB+HrnINu+h/gvhVUNWomeRZf8JdGIhtQ2i0v0bnlMdlKc2utvQ13zxEVkPUTcmKnmZAZzw266+SII1Y9HAVE0wPODNVqBiKvnQLMWuKC9sA+9cLohsUkWRDnbQ==
+X-Microsoft-Antispam-Message-Info: i0Ro7dV4dFX7Nmq6KVH9TVtLBvBeg5AAqP6yNC3ORCNsL6FV8zzUB/jFgslnlqx/GT44sv5njEudFG+9X3/zpLnJaj+DfoHki+k3M19RNQtQIhMPUwAZqu9QLUt0vgn9EWFrSxyi1kzpTu3XpeDzPFzktNrJ8fofMRBUpyPJYDz5uBUv/yGxhYxPaxi4c+O6Qz6uyCMLKDF2AwUEyCrnoWBzIm9i6x41+z6/0ZtgZrODZwesVkZp5YXpJXrXJNZnh+oGMLc+SwbizONxKik2zIhm1LgzQJ2XBMsuZ7VoUxOY+eSGA3Ledce+YSXyYC6N71GS8V+D3vIzMb1C0su5kqJfr1d+GM5a+t1w6FUyPll/QoMbFjptr4ILJ7r1bIRCDQkpNWPFb1DyreXCc9cl1PpZtej+gXmtPAajJhYiFrZFK+uKMhK8+jtArVQXTzMHstUNEEmK110FpQySLRg8onQQpzdGsqKv5KiHH7mgTrbxal8EpnPFBLb9Ufsv4GGv4tervz7OpePNc2UGKeMgD20B7EmIfI6DoUJMkAaOVO81OymOZ3GMXW3/l1t+ZBRqsDekzIfbgH+nV8vdkUM41X6OHm5dd7YNI9TqnzBoZszNUf6GDL8oMTR5GucM6t5YhmJtoptoZ+fuDLCi6BtQCacuyFjnHUPey2VYqNrgSIgtkhrEfdIh0JLjvtMeKej2AO2Gc6sjOkUaVE7fykm0Yw==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SA0PR12MB4430.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(4636009)(366004)(52116002)(2616005)(26005)(5660300002)(2906002)(7696005)(7416002)(1076003)(4326008)(6486002)(6666004)(186003)(8676002)(956004)(66946007)(86362001)(316002)(36756003)(44832011)(8936002)(38350700002)(38100700002)(66476007)(83380400001)(508600001)(66556008);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?zGmR3L6TrWoP2ei+sSFhjnxheJtnwQwLYJ3LHQcYVY6k4jSY40FYQCt/hPSq?=
- =?us-ascii?Q?KybdOrSjPIPe63mTRjCx6/lNOeNXOmR4GkMGZeQfy/CxSEJIYBbXcvP0pRAE?=
- =?us-ascii?Q?Ve6kHXF0Fe5cUQ+1YK9qkA2hmvVADiartdDB/yVKD2AE+W5UjloyiWVC/boa?=
- =?us-ascii?Q?gZqnVqakduuGb2tTS1Q1/iOrKCaoXgdXBku8t4T8oUVVf6ZU8y2JmWdGWG9e?=
- =?us-ascii?Q?6N0Q7vea6LhiTnzd2pLL88PkzoAHqSxXElKn9pN5/xn4mcrWf6pdR09kCj6g?=
- =?us-ascii?Q?QhpeAFxpPAxiII+vEOOWwy3qjCpRB/kBpfO24hzJa6BuETuaKWXf7yIXmR2U?=
- =?us-ascii?Q?oklt1bcAQVtdQYr9sicSVAAkzUh5uUN/V+6+OGMgCsENzcSqTqlEm+pUkaWw?=
- =?us-ascii?Q?QAOBKxHeUuxga5V6qUFka4d80YDrUkWFsmqxHmhj6BkWJ7mEnAmGXy/e2wed?=
- =?us-ascii?Q?Xv9PWW/fGm5dF50N4XaVtdX9+FIUu36CsiNzLdSkinHTJkKbpoHwr0ESqHS4?=
- =?us-ascii?Q?cnDN0c60AzgGMTpJtjsAB5065caIqK8sqOCZDQ2kmDXf4ErA0PB1oR8vWtnP?=
- =?us-ascii?Q?J3mH4XD+09YnNP4rpiI4oie6xvq93CDfPxVJPsf7E3eR+1gLWwcWkAVSn+DF?=
- =?us-ascii?Q?DQ+2RppFvGttuM4wSzoMMXaBvRvIlgWWRcWNhJ66qWfKlocrq1IeRRLvh5HE?=
- =?us-ascii?Q?ht69w+gvUMXohFnkPTkzzb/I6Fn9MCSuJhLIh3eFbndWgP3qeart/wU6mxb3?=
- =?us-ascii?Q?4HIaP6C17me2nEXQHdAjcU4Gjoz+5MvFPVE93QnHaeTlFkZCok3Ce6hrRb6a?=
- =?us-ascii?Q?xr+wgnIhZlpDTeWsjR9938SAGtd6aJCCClBZa/Xnm7xP9yNOg2jbbMpkpg1J?=
- =?us-ascii?Q?f5X6rt8m1gAimxCHBAwkDyKPN3UA1qGM1bzMc+lwk1aNcrS/0jNvABQpzkU+?=
- =?us-ascii?Q?g+sabWkGGMNlEtT5SJ7pzJcLjbpEqfoBW/Q5IXbBvais/SjKL4pPD+Mpbilz?=
- =?us-ascii?Q?c5XFm9GOHb4GTYtudUXody6ozYUH10LH4AVe54p+Oo80Hr6fcwVhp51An074?=
- =?us-ascii?Q?ImSIydcNVlw5+qomgtEGnV3rBgwywpUh7DbTkcARuGOwzNVRqz0cX+OyWlLO?=
- =?us-ascii?Q?z9Xdcb2FC59sXtljISnC+Zg5fcgZb5HLj4kzkhqAk6dk1zBS1poGEhvqhQ9G?=
- =?us-ascii?Q?FaBOLQfeAKkLsRK9znqikjJ3cy0X74J6jTVJ/P222+gFJl4IZ1XujXdAGoZs?=
- =?us-ascii?Q?dY7PqROzwvX6A3o3C7gdFH/axUQPlXhhKfCFenzzXg/OtsDLQARjIBpYpqDR?=
- =?us-ascii?Q?O1AlpCzc/MhpHrjv9UxTDslW?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?UNpJ+LDDLVABxWIPtZ5+98T5T03pjdkD3R3b8sSV7FltycOJIolAo/ABXwSX?=
+ =?us-ascii?Q?PnQ9tfRTn+viah7rRPfXRdptERb/uCrzem187cGcaeJELpKNUWDmdyKw08uG?=
+ =?us-ascii?Q?AJe3kzjcl2hS6FJlWad9w3mvdcIwGVycWvR361GLL0vB5JnrWK9S7qLAt1WD?=
+ =?us-ascii?Q?KkRkdrDJDWMwrZwZ/+cQy7n/SySp1dw0RVXYEvzpS+l+M4Kx59LxSfgogh7G?=
+ =?us-ascii?Q?9HZvB6TrlZfzmowHrv4o6U5Arc+BhFcwkFdF1K1KiWChF9vEzjKHrvxBMc/Y?=
+ =?us-ascii?Q?AJMEbO9fMjBX/EzXAuOjWxR3ffmrPUAojHhkVtOv+wd8lcarqajPs7cxJxr0?=
+ =?us-ascii?Q?Ot3Pc1MBqSumJ7rIZ6KTUcm50r8DP0TAH5ER6DWQ/AMpOAnSKQWb9pGbpI6o?=
+ =?us-ascii?Q?LL44W9BxoYlRC1KBkI8xowh3rTwWlwuT8V0zjjSe7tpfCQxEPVKqrelpl/3p?=
+ =?us-ascii?Q?ki2AoVoAknLCVcL/HVsvCN2Z/50s4a4jASAaG1qDmMx9b8VQ+vhCiM/4ElN6?=
+ =?us-ascii?Q?L5YrmsrUn8jwRXdxVnnhfi292lZZQCQElc3gHEHM+p4640OyEpcS9pn8y9xP?=
+ =?us-ascii?Q?KeYJK668aJN1gHoE8L79FaJlAnHOvS/uk+xsmYl7R1YWqeMdGYt7lzhf3IPH?=
+ =?us-ascii?Q?jqGQwDeUrg3ETKphmaf76i86f8VV1Q48TcuTDUsfivqcY3UJWYXXh4XJ3RHf?=
+ =?us-ascii?Q?OS/L0g3y1hdBvYJCC547VOrRMp7byIpaXXHWry0wJlTERoJ7KmhgQod/kJn4?=
+ =?us-ascii?Q?Nu1N8hs51332HLDaIfYLcBoXyT9YP7oVomqMH0vRNYG/qgsHg4AKhRZF/1iA?=
+ =?us-ascii?Q?4guzfzRCZ7a7GQJy1EvSsU/G1aSc65pIydiaVzMq19dHJjEcMfKFVycYqELV?=
+ =?us-ascii?Q?Kc4WwMFV3w7MBm9WmP02fdxSMlKYOKPnA6lWxsjb8ESnM1NCU0od99Ra2cUU?=
+ =?us-ascii?Q?lqvItXIu91+LV+uFtKcAMpqQcK+nWHM58VKjbZ4ns+p2gIQYmUkahKwmYHkv?=
+ =?us-ascii?Q?cVx7yivOZKy0ONUMLZ5Ye1kPlYwSjPBiv7MNbHA4Ia/JGv7OuLDyYjxOznk/?=
+ =?us-ascii?Q?2afMEEIwGYg2X/x7Q3FEG2sMdOw3y4yS0uPtwSGPSSMC2sa82YvIuxXl7TCn?=
+ =?us-ascii?Q?OMht8ckfcXCyxpC/b446IBs+HfuXqXYxLofBiSMOnWzcjIYOsxsdl9NkLaI4?=
+ =?us-ascii?Q?BYN2urAR24/K0kiLKvG/DsgPcTAZVidOHv0OWhHIyz350LKs478lC2jhxwZw?=
+ =?us-ascii?Q?NMWgMe4j6s+3PxKB+cpfukLBJDw3/B2HxDZ67QOmCkhCTBfrAa/fD8sZIuWo?=
+ =?us-ascii?Q?hf64xzbku+V2a3vi9NWjOMad?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 81c63fea-588e-4ab3-b0bd-08d949582332
+X-MS-Exchange-CrossTenant-Network-Message-Id: a35122d8-478c-48b2-471e-08d9495821f9
 X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB4430.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2021 19:21:54.7344 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2021 19:21:52.6934 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: d3d89DOdyUPpMJllcwFW2JAt/V9fPPbJbxKdMdVXmblKTsSTgXZvQ8PmjL41SL4Jg/mjJlJofz2GX2TXJ8+Vag==
+X-MS-Exchange-CrossTenant-UserPrincipalName: nLmhyzSCPRPl+sTyJmGoT9M+cQ4rw1HhWOtKd/vk7eqa7lRj/CoBhLPH58DgYCyy3I0pi1kO+Kpi6YbmJ/bm1Q==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB4670
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -135,68 +135,121 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add two more parameters to set spm_addr_dev0 & spm_addr_dev1
-addresses. These two parameters configure the start SP
-addresses for each device in test_hmm driver.
-Consequently, this configures zone device type as generic.
+In order to configure device generic in test_hmm, two
+module parameters should be passed, which correspon to the
+SP start address of each device (2) spm_addr_dev0 &
+spm_addr_dev1. If no parameters are passed, private device
+type is configured.
 
 Signed-off-by: Alex Sierra <alex.sierra@amd.com>
 ---
- tools/testing/selftests/vm/test_hmm.sh | 20 +++++++++++++++++---
- 1 file changed, 17 insertions(+), 3 deletions(-)
+ lib/test_hmm.c      | 45 +++++++++++++++++++++++++++++++++------------
+ lib/test_hmm_uapi.h |  1 +
+ 2 files changed, 34 insertions(+), 12 deletions(-)
 
-diff --git a/tools/testing/selftests/vm/test_hmm.sh b/tools/testing/selftests/vm/test_hmm.sh
-index 0647b525a625..3eeabe94399f 100755
---- a/tools/testing/selftests/vm/test_hmm.sh
-+++ b/tools/testing/selftests/vm/test_hmm.sh
-@@ -40,7 +40,18 @@ check_test_requirements()
+diff --git a/lib/test_hmm.c b/lib/test_hmm.c
+index 3cd91ca31dd7..3c2e1fbedbd4 100644
+--- a/lib/test_hmm.c
++++ b/lib/test_hmm.c
+@@ -33,6 +33,16 @@
+ #define DEVMEM_CHUNK_SIZE		(256 * 1024 * 1024U)
+ #define DEVMEM_CHUNKS_RESERVE		16
  
- load_driver()
- {
--	modprobe $DRIVER > /dev/null 2>&1
-+	if [ $# -eq 0 ]; then
-+		modprobe $DRIVER > /dev/null 2>&1
-+	else
-+		if [ $# -eq 2 ]; then
-+			modprobe $DRIVER spm_addr_dev0=$1 spm_addr_dev1=$2
-+				> /dev/null 2>&1
-+		else
-+			echo "Missing module parameters. Make sure pass"\
-+			"spm_addr_dev0 and spm_addr_dev1"
-+			usage
-+		fi
-+	fi
- 	if [ $? == 0 ]; then
- 		major=$(awk "\$2==\"HMM_DMIRROR\" {print \$1}" /proc/devices)
- 		mknod /dev/hmm_dmirror0 c $major 0
-@@ -58,7 +69,7 @@ run_smoke()
- {
- 	echo "Running smoke test. Note, this test provides basic coverage."
- 
--	load_driver
-+	load_driver $1 $2
- 	$(dirname "${BASH_SOURCE[0]}")/hmm-tests
- 	unload_driver
- }
-@@ -75,6 +86,9 @@ usage()
- 	echo "# Smoke testing"
- 	echo "./${TEST_NAME}.sh smoke"
- 	echo
-+	echo "# Smoke testing with SPM enabled"
-+	echo "./${TEST_NAME}.sh smoke <spm_addr_dev0> <spm_addr_dev1>"
-+	echo
- 	exit 0
++static unsigned long spm_addr_dev0;
++module_param(spm_addr_dev0, long, 0644);
++MODULE_PARM_DESC(spm_addr_dev0,
++		"Specify start address for SPM (special purpose memory) used for device 0. By setting this Generic device type will be used. Make sure spm_addr_dev1 is set too");
++
++static unsigned long spm_addr_dev1;
++module_param(spm_addr_dev1, long, 0644);
++MODULE_PARM_DESC(spm_addr_dev1,
++		"Specify start address for SPM (special purpose memory) used for device 1. By setting this Generic device type will be used. Make sure spm_addr_dev0 is set too");
++
+ static const struct dev_pagemap_ops dmirror_devmem_ops;
+ static const struct mmu_interval_notifier_ops dmirror_min_ops;
+ static dev_t dmirror_dev;
+@@ -450,11 +460,11 @@ static int dmirror_write(struct dmirror *dmirror, struct hmm_dmirror_cmd *cmd)
+ 	return ret;
  }
  
-@@ -84,7 +98,7 @@ function run_test()
- 		usage
- 	else
- 		if [ "$1" = "smoke" ]; then
--			run_smoke
-+			run_smoke $2 $3
- 		else
- 			usage
- 		fi
+-static bool dmirror_allocate_chunk(struct dmirror_device *mdevice,
++static int dmirror_allocate_chunk(struct dmirror_device *mdevice,
+ 				   struct page **ppage)
+ {
+ 	struct dmirror_chunk *devmem;
+-	struct resource *res;
++	struct resource *res = NULL;
+ 	unsigned long pfn;
+ 	unsigned long pfn_first;
+ 	unsigned long pfn_last;
+@@ -462,14 +472,26 @@ static bool dmirror_allocate_chunk(struct dmirror_device *mdevice,
+ 
+ 	devmem = kzalloc(sizeof(*devmem), GFP_KERNEL);
+ 	if (!devmem)
+-		return false;
++		return -ENOMEM;
++
++	if (!spm_addr_dev0 && !spm_addr_dev1) {
++		res = request_free_mem_region(&iomem_resource, DEVMEM_CHUNK_SIZE,
++					      "hmm_dmirror");
++		devmem->pagemap.type = MEMORY_DEVICE_PRIVATE;
++		mdevice->zone_device_type = HMM_DMIRROR_MEMORY_DEVICE_PRIVATE;
++	} else if (spm_addr_dev0 && spm_addr_dev1) {
++		res = lookup_resource(&iomem_resource, MINOR(mdevice->cdevice.dev) ?
++							spm_addr_dev0 :
++							spm_addr_dev1);
++		devmem->pagemap.type = MEMORY_DEVICE_GENERIC;
++		mdevice->zone_device_type = HMM_DMIRROR_MEMORY_DEVICE_GENERIC;
++	} else {
++		pr_err("Both spm_addr_dev parameters should be set\n");
++	}
+ 
+-	res = request_free_mem_region(&iomem_resource, DEVMEM_CHUNK_SIZE,
+-				      "hmm_dmirror");
+ 	if (IS_ERR(res))
+ 		goto err_devmem;
+ 
+-	mdevice->zone_device_type = HMM_DMIRROR_MEMORY_DEVICE_PRIVATE;
+ 	devmem->pagemap.type = MEMORY_DEVICE_PRIVATE;
+ 	devmem->pagemap.range.start = res->start;
+ 	devmem->pagemap.range.end = res->end;
+@@ -1097,10 +1119,8 @@ static int dmirror_device_init(struct dmirror_device *mdevice, int id)
+ 	if (ret)
+ 		return ret;
+ 
+-	/* Build a list of free ZONE_DEVICE private struct pages */
+-	dmirror_allocate_chunk(mdevice, NULL);
+-
+-	return 0;
++	/* Build a list of free ZONE_DEVICE struct pages */
++	return dmirror_allocate_chunk(mdevice, NULL);
+ }
+ 
+ static void dmirror_device_remove(struct dmirror_device *mdevice)
+@@ -1113,8 +1133,9 @@ static void dmirror_device_remove(struct dmirror_device *mdevice)
+ 				mdevice->devmem_chunks[i];
+ 
+ 			memunmap_pages(&devmem->pagemap);
+-			release_mem_region(devmem->pagemap.range.start,
+-					   range_len(&devmem->pagemap.range));
++			if (devmem->pagemap.type == MEMORY_DEVICE_PRIVATE)
++				release_mem_region(devmem->pagemap.range.start,
++						   range_len(&devmem->pagemap.range));
+ 			kfree(devmem);
+ 		}
+ 		kfree(mdevice->devmem_chunks);
+diff --git a/lib/test_hmm_uapi.h b/lib/test_hmm_uapi.h
+index ee88701793d5..17a6b5059871 100644
+--- a/lib/test_hmm_uapi.h
++++ b/lib/test_hmm_uapi.h
+@@ -65,6 +65,7 @@ enum {
+ enum {
+ 	/* 0 is reserved to catch uninitialized type fields */
+ 	HMM_DMIRROR_MEMORY_DEVICE_PRIVATE = 1,
++	HMM_DMIRROR_MEMORY_DEVICE_GENERIC,
+ };
+ 
+ #endif /* _LIB_TEST_HMM_UAPI_H */
 -- 
 2.32.0
 
