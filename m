@@ -2,116 +2,102 @@ Return-Path: <SRS0=SWRn=ML=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3B7DAC07E9B
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jul 2021 21:19:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 87E86C07E95
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jul 2021 23:18:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A81A56113A
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jul 2021 21:19:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A81A56113A
+	by mail.kernel.org (Postfix) with ESMTPS id 1A59160FE9
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jul 2021 23:18:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1A59160FE9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 718AF6E1EC;
-	Mon, 19 Jul 2021 21:19:12 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2041.outbound.protection.outlook.com [40.107.94.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 369BC6E1EC
- for <amd-gfx@lists.freedesktop.org>; Mon, 19 Jul 2021 21:19:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C01196E053;
+	Mon, 19 Jul 2021 23:18:30 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2078.outbound.protection.outlook.com [40.107.237.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE8856E053
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 Jul 2021 23:18:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cfdXBspHR981JtZnkcgA8g+jkVRA61ep4dZ4L9NuZQ/JgL0uBAcnEsccOKGYlEdb+uWVZYU+Hz8hA33paDNSB70ouHRLZtLpuNs5rVbiHh38FQG7vKYFu2LzIAgQSNTYZqAiKmas8T41ierPI4UmNWsPXbj1e6N0/T2HaHUcRUcUj6+Xj/MvkawKhkerl1WJvF2Xi7dwB/+pzwK4R+zh6Kxci3vaiFwQamRB7mPXS8pU6w4CF9HGEZcJ4UK1FWbSWIEhM/zbKy3DhWJ3eZM3fZvI8B6FOhgEhHzE7AIzKXk0iohQF3tacVcGd0VebzWhwMtohkwHO7/RfZ6EmJ36oQ==
+ b=KOis2nHikE5oye+LOI1KY/iRLvdAROTU19vYa52qbjho8foVoJFIbLyN/tFuYS7ZTvbqoCZYF+VpDJLIxaTHN9Frjw7Aq3KWf9wUXEx2OtY5hLSKIfHcJzKIzwM8nFJV/EoSODhFOGnIxrTquXV02l362wSQX+41fRsNQyoCHV29UabYqh4a3x8Hb+xo86sqbGlrt75rUoJvU3tFYgLez/jvJp6JFf9jWHp97Qj0XmqTLhgjG8ozfPG9V2+M/K9eBfklG9iZzyNoIKwyzdZbBff9lwU1ZLPjvWL7cLyrDBmXWFnjdTdEGdyYQVwS1qiarzlocyhUK0vahXQE8TXk2g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=H7eXuMxW0G+nAREr0kt8/rXMNnE6w+2AhFwUgLNprQA=;
- b=PfhmRgzV7k4zxEs6YD+D91JJ7AtgaNsIc7JqwROGeodu2OUFcxwNkiUimdTxaCZuZpxnAhdow7aIxDPpgVkAdVxF3ZyvPZgljZ0CnjxDrERBZJk1mhM400zCc8/O26kKiTOqDounHS95eZq0I4Taiv874VNuju7Db+1jw/uoNPOgIUGr60Oug1EpVAuxbmAQoqkbsfmI5Pu7vIgOAeG2azHcHNM89k/qm08oDDfC0u704R4gokewCIyZl8i5JNRwh+MGGkV51Jd4zAk+kFR2fcV6P9hFB6a+YdPptlQSvlRappePJ9SjuhigL7EtLpkOjQ8qAWywUrnublUE+4gNFA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=ISAdK+KimwEeW/S6dRtS1wESpDKvLCCWRHN5KurnBOg=;
+ b=KzcwbDa7PocdGKLKTmpzNjdtRHE4VV74uty08HnWVoDEkx2bbkuF9zc0OsnL1OLKphSL56HzBIq8VO9D4kMsq4HV1btAQnp4LQ+KkVOdoEzfGWyE/VppdfX7CtGISS6pmzujYidTIJeyQ3RJ84+kyGVbZEZeDWLJuOQPTfHvV77Pqa+WOZeShoOwMaw6PDxjRsre3tiWWD7syUDKVZluUrfFvJ6bgUUMrQytFU3iYTjivKBbX+Fm7/DM/7uv5PeCCAdeUewxLOPjG5Fa83k7/PdjhRR+Jf75QOjVBaf852sATlpwzlN0ddPJ4aL+3KuBAWQ2yKQDVnpOltHE06eg6Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=H7eXuMxW0G+nAREr0kt8/rXMNnE6w+2AhFwUgLNprQA=;
- b=ZaQFS7nQfzC/SEral/Zm2F218hrr36fdbHQ4qgcKBbhO3iQh906SmE84+tUPkbkA0Pch4TNWsgk+KyBXcLjc/ZN4P2ZVlUbtGNS4r4/G/xXdOrDpKeFRz5MxVbnteh9V0MafQc99V82GZx/Vrqj40qj454jdrdvHwNfJPwEqZRQ=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB4430.namprd12.prod.outlook.com (2603:10b6:806:70::20)
- by SN1PR12MB2413.namprd12.prod.outlook.com (2603:10b6:802:2b::29)
+ bh=ISAdK+KimwEeW/S6dRtS1wESpDKvLCCWRHN5KurnBOg=;
+ b=uUYMA5hzJVvX5ejqPBqTNHwO+a/m3p/Tq/SJgSDdU5dH7dsMLJ+jW+wsxYfW0NMPt1pYbEaPMZNBH/bw1KIZfDbZO25gRMWWw5ONx1SZxZPC0XvmQPKmB6Be3cxhCSxEKuff8muOHEcYpmYcHm1nFzeJ2rYEedtw+VaQ9aDYbyI=
+Received: from BN9PR03CA0238.namprd03.prod.outlook.com (2603:10b6:408:f8::33)
+ by BY5PR12MB3827.namprd12.prod.outlook.com (2603:10b6:a03:1ab::16)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4331.24; Mon, 19 Jul
- 2021 21:19:09 +0000
-Received: from SA0PR12MB4430.namprd12.prod.outlook.com
- ([fe80::d0d3:a97e:6b7f:ab39]) by SA0PR12MB4430.namprd12.prod.outlook.com
- ([fe80::d0d3:a97e:6b7f:ab39%7]) with mapi id 15.20.4331.032; Mon, 19 Jul 2021
- 21:19:09 +0000
-From: Alex Sierra <alex.sierra@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdkfd: avoid conflicting address mappings
-Date: Mon, 19 Jul 2021 16:18:57 -0500
-Message-Id: <20210719211857.29954-1-alex.sierra@amd.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4331.21; Mon, 19 Jul
+ 2021 23:18:26 +0000
+Received: from BN8NAM11FT051.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:f8:cafe::9e) by BN9PR03CA0238.outlook.office365.com
+ (2603:10b6:408:f8::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4331.23 via Frontend
+ Transport; Mon, 19 Jul 2021 23:18:26 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT051.mail.protection.outlook.com (10.13.177.66) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4331.21 via Frontend Transport; Mon, 19 Jul 2021 23:18:26 +0000
+Received: from localhost.localdomain.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.4; Mon, 19 Jul 2021 18:18:25 -0500
+From: Luben Tuikov <luben.tuikov@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/pm: Fix a bug communicating with the SMU (v5)
+Date: Mon, 19 Jul 2021 19:18:13 -0400
+Message-ID: <20210719231813.16524-1-luben.tuikov@amd.com>
 X-Mailer: git-send-email 2.32.0
-X-ClientProxiedBy: SN2PR01CA0012.prod.exchangelabs.com (2603:10b6:804:2::22)
- To SA0PR12MB4430.namprd12.prod.outlook.com (2603:10b6:806:70::20)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from alex-MS-7B09.amd.com (165.204.78.1) by
- SN2PR01CA0012.prod.exchangelabs.com (2603:10b6:804:2::22) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4331.21 via Frontend Transport; Mon, 19 Jul 2021 21:19:08 +0000
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ae0aba4a-1903-45be-ef51-08d94afad8e1
-X-MS-TrafficTypeDiagnostic: SN1PR12MB2413:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <SN1PR12MB24134DCD3BCABBF61780E4CDFDE19@SN1PR12MB2413.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5516;
+X-MS-Office365-Filtering-Correlation-Id: 2adc4f65-397a-47d7-38e6-08d94b0b82d1
+X-MS-TrafficTypeDiagnostic: BY5PR12MB3827:
+X-Microsoft-Antispam-PRVS: <BY5PR12MB38279DA3033C12BA3ED9DFA499E19@BY5PR12MB3827.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1923;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: J5YZSKpuU2S9uRdxR04t1DdaT4Z2TFBX/4rjC+vW9fF02ez4t0xBZmFyEP0AnSYPa9h8ePjZeHlNtxEjxcpEb7+UFUzqqgJDSY+YBvnPa4W1BNq7p//F+t+lX2mLDjFDsLQK/X0hYblVMcpqdPqR79NgS0v5FqNWoewWHSSX/l7GLe8PKg7BZlJRKRy97JNNkRhz6f9zINxhyh+nWKtswG1t6SEe2IwJguFW0E8vp+uCxN+UdFIbhaek5xECa5yzkfgeAhyZhgpPRO2fwZ8RPi57i0XHR0+CbAo1YghkOr5P5LA5PH16Rpjtmd/7u0RQFwaIlF+bRxrg4GONKdKL+O9ySvk2Di5XZasp5r//ywYaE3dDWLgc14FijCbzNSZqh7zhrp9mFT62vAdGupLldiCnEFwid4KhN7wmwbOeC39TS0FC2HIUOAD0ImQXtInOSMjVpgjtwpgulhdn49klwLRIDRau3gQUHB0NBroeeGb1Fdih86wGz4PkcVTuaOtMxvZU7n0v5F8+/wmNyBy1nw///Arn6Y86nrcIi/E6udRTbJvsUqPOfd2twOVljwhyZoHPyCuwzLTemPXV5LQ2IWJH8P/c5S3orl2pb4iBoQerr0Lyf5aKBQsAC0KZqg2s4KZ4Xtyl5NeUowmrx5KOs07WVPzlOq2ZlubJ+y8S9a6bOC75QC7ZSuG2zaZs5rJomGFkelKwEWUSIVL6IfOI2Q==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB4430.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(39860400002)(376002)(346002)(136003)(366004)(7696005)(478600001)(316002)(6916009)(2616005)(956004)(83380400001)(36756003)(186003)(44832011)(38350700002)(38100700002)(6486002)(8936002)(66476007)(8676002)(6666004)(5660300002)(4326008)(2906002)(1076003)(52116002)(66946007)(66556008)(26005)(86362001);
+X-Microsoft-Antispam-Message-Info: aTuw1TE1TYWq0c9XlZp4IJmsK7HSes2IrBebDLQtPfCW/6QqKdGBvsjFZ59JtWppolmWmoVI3auL4nkjxI+0G0OlVnc3cWPVZ+XI24owM63B2QS02I+0OD+ZjIQLoDEUyKyD18+3cWlUYgu5m8OIy4jZ8SDKQDE+MdN38Kimut/jaNHGExSNTVMBRPDSXBCalRZRlkfdIclAkA6jJGs8YX3dTNjgAYS3lf9R9k7r/D0oy5iXFIHLrSEgfnVuP6RelFM2AnhmndHebrPYbC+4WPNg4ZAM7pCPBbj0MHwy047MyEc48jNZM9qiVgQ4qsbA7ubJCuKz4kbawEWoP0mpcnf/HQ2UWiuV/H3bbY5LI6ETBH1PoNzSyCg37puKlZy+9pPPCFHeQWMGDsj3QboYJbj8/QaPlq8O0AbLVdghgpBSlJMJIq4Eyuh5GJYIMGU6CNNr2+ODT/zTbSjyvxn6LKsa6S+zpea5+B2bpIej6SYmaLmM8gxxpTAHrH51LldFwgn9MubulmVixwrKU8/5iRE1F/04se3k8nYBBvR0BBd0ZxKbbM+WvoidY+ev1S2HHE+J3x3Z+dhY6QupuNPq7N5s0TijYlfG9qjAlPyoGreg4XuY5GdtB/JUZysvaNBD5SyF5zYzc0jLjpSp/b/ovxnYdbdUxeBlBoDIhEtd7UXzOFFgnnXgQ846PX5DKRsJNLGklFJLL5C/JyewV2VSaMPo6g1jIgiEC4ZCqIBYoCU=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(346002)(39860400002)(376002)(136003)(396003)(36840700001)(46966006)(82740400003)(30864003)(6916009)(82310400003)(5660300002)(70206006)(336012)(36756003)(54906003)(478600001)(356005)(36860700001)(81166007)(4326008)(7696005)(2616005)(70586007)(47076005)(1076003)(83380400001)(86362001)(316002)(2906002)(186003)(8936002)(6666004)(426003)(44832011)(26005)(16526019)(8676002)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?npncjKVWImhMKQSr16d6jRamvtKN6QMUBfgWOZRTOO5V8RdiMuoHKMoXLHEV?=
- =?us-ascii?Q?qnbdH0oTapJcH9LPc8qYD23gVGi9lsdh005K3zi5yO2YyhHiE63Y6u9Qi45F?=
- =?us-ascii?Q?f5InYrB24VLAfUlEcTgVhOqrpQrqWRbBuUQzKJufROghwM70wni1DA7mcIXV?=
- =?us-ascii?Q?4rUMDSvbFJyeOUS6JQHEvwEono3Agl0JfxX22hfvZDXlaQZ/Q7X4oMCcWKsJ?=
- =?us-ascii?Q?wm9eKfCkm4pA4lLsM0kpQnZJxIflPfByirrXB/QReWkfU4mwMi1VP+M/G9uA?=
- =?us-ascii?Q?o9QS6CnWYL9nX3FSSpjFP6kB2XOyPlF1aOflTPaiOBM2Bwxr1zgRTFdMOoyq?=
- =?us-ascii?Q?xYScwsrfaW66Sa82rwUliuwDkJBWobHDyja6F+oPbn365JlvZXboFjol2QD9?=
- =?us-ascii?Q?FnEPKOMxYLdyl7LOadCjeFJclIrfgLazGUtpCRxD695l+utzL6OdD2Ueaj6g?=
- =?us-ascii?Q?b5FJaaxroXeNAGooseOf2H34tkNKD6AIXqSV6dzGZLvNl2+BI/jzgMDcfcOj?=
- =?us-ascii?Q?7ZlRCX3tOE2hD3zBFoZmrJW7jfunhoEnpdfBuVPZieLXl8q/Px8Ko3ZqWbyn?=
- =?us-ascii?Q?r9jihf/mlJpEABJZU6EdWMwBauaof6GFei7FdzFbAC6yZXFSlmezyS52FRGE?=
- =?us-ascii?Q?LmXGpkURy4vKK6TEiWRMmzc9Q+tjeZh12f72BHpWziJhE3G+gX+2Yba07nMy?=
- =?us-ascii?Q?dD9FH+cPP6BnTu4M8uatDjyDG0zSOXs9sXp9pZxXgSnBIYvZmNYXYvfp3Kfb?=
- =?us-ascii?Q?bVE4xdAKR5LuwCeberTpR4JHHTpbRn5Szg4IqbTR9hyJDgX1himfUsOVKUqP?=
- =?us-ascii?Q?g8C1DYS7axEItAYh1t0GX9IXEpqcO/IPtvH4fc+6EKYECJAXIgpPZze7ym5X?=
- =?us-ascii?Q?bS1M4JJEJ5dMxhhuU5IPKdRtWRFyceM9yXCCDgeJqCyXfcKviEL4TXkhbrNc?=
- =?us-ascii?Q?xlnHClIUUrlxzwZlUCgBMqufE+iAV6PkBqk7Ed02gaepFNI9jDHaxwp3XfV1?=
- =?us-ascii?Q?E1a+WvxE3eE0RDKUXe1J5vlqY4qU2wvf86gLElaEHh357TZIO+EtDp9+lvgi?=
- =?us-ascii?Q?NsxofxwGQIDYM0l3PQ5nFi7QGdJDJd06murYhu5dgwLV2iL+gd9sNYGsQmW0?=
- =?us-ascii?Q?dTqrqCQShafPI1VOEQjgr7CFdVqdM+MUAf5nmfDLj4aSzadNTqcA3ektQGtX?=
- =?us-ascii?Q?I0eHM6k/SBJXxbkY1bDb8cfy4Ad1ht0Op+MMnUIohCwmHBtllva2uOL5fhde?=
- =?us-ascii?Q?tO6BpG2hmQxeoqnmKngUV8zbgAhXa1NB+MhUIWBlLWqD9mVjC9yfFbTQGStv?=
- =?us-ascii?Q?d5ZkQKaXjskB3SiUAxQunhkp?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ae0aba4a-1903-45be-ef51-08d94afad8e1
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB4430.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jul 2021 21:19:09.2482 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jul 2021 23:18:26.0579 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2adc4f65-397a-47d7-38e6-08d94b0b82d1
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 14i3IJ/6qXYxxyp4HAwRjqQNjVcs9rXRoI/KaBR5vJqpmXAewMH9Dcu9IlryArrN1o6mcM6Er6wrQueZXgMi+A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2413
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT051.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB3827
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,197 +109,442 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Sierra <alex.sierra@amd.com>
+Cc: Alex Deucher <Alexander.Deucher@amd.com>, Lijo Lazar <Lijo.Lazar@amd.com>,
+ Luben Tuikov <luben.tuikov@amd.com>, Evan Quan <evan.quan@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why]
-Avoid conflict with address ranges mapped by SVM
-mechanism that try to be allocated again through
-ioctl_alloc in the same process. And viceversa.
+This fixes a bug which if we probe a non-existing
+I2C device, and the SMU returns 0xFF, from then on
+we can never communicate with the SMU, because the
+code before this patch reads and interprets 0xFF
+as a terminal error, and thus we never write 0
+into register 90 to clear the status (and
+subsequently send a new command to the SMU.)
 
-[How]
-For ioctl_alloc_memory_of_gpu allocations
-Check if the address range passed into ioctl memory
-alloc does not exist already in the kfd_process
-svms->objects interval tree.
+It is not an error that the SMU returns status
+0xFF. This means that the SMU executed the last
+command successfully (execution status), but the
+command result is an error of some sort (execution
+result), depending on what the command was.
 
-For SVM allocations
-Look for the address range into the interval tree VA from
-the VM inside of each pdds used in a kfd_process.
+When doing a status check of the SMU, before we
+send a new command, the only status which
+precludes us from sending a new command is 0--the
+SMU hasn't finished executing a previous command,
+and 0xFC--the SMU is busy.
 
-Signed-off-by: Alex Sierra <alex.sierra@amd.com>
+This bug was seen as the following line in the
+kernel log,
+
+amdgpu: Msg issuing pre-check failed(0xff) and SMU may be not in the right state!
+
+when subsequent SMU commands, not necessarily
+related to I2C, were sent to the SMU.
+
+This patch fixes this bug.
+
+v2: Add a comment to the description of
+__smu_cmn_poll_stat() to explain why we're NOT
+defining the SMU FW return codes as macros, but
+are instead hard-coding them. Such a change, can
+be followed up by a subsequent patch.
+
+v3: The changes are,
+a) Add comments to break labels in
+   __smu_cmn_reg2errno().
+
+b) When an unknown/unspecified/undefined result is
+   returned back from the SMU, map that to
+   -EREMOTEIO, to distinguish failure at the SMU
+   FW.
+
+c) Add kernel-doc to
+   smu_cmn_send_msg_without_waiting(),
+   smu_cmn_wait_for_response(),
+   smu_cmn_send_smc_msg_with_param().
+
+d) In smu_cmn_send_smc_msg_with_param(), since we
+   wait for completion of the command, if the
+   result of the completion is
+   undefined/unknown/unspecified, we print that to
+   the kernel log.
+
+v4: a) Add macros as requested, though redundant, to
+    be removed when SMU consolidates for all
+    ASICs--see comment in code.
+    b) Get out if the SMU code is unknown.
+
+v5: Rename the macro names.
+
+Cc: Alex Deucher <Alexander.Deucher@amd.com>
+Cc: Evan Quan <evan.quan@amd.com>
+Cc: Lijo Lazar <Lijo.Lazar@amd.com>
+Fixes: fcb1fe9c9e0031 ("drm/amd/powerplay: pre-check the SMU state before issuing message")
+Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 13 ++++
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c     | 79 +++++++++++++++++++-----
- 2 files changed, 75 insertions(+), 17 deletions(-)
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c | 288 +++++++++++++++++++++----
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h |   3 +-
+ 2 files changed, 244 insertions(+), 47 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 67541c30327a..f39baaa22a62 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -1251,6 +1251,7 @@ static int kfd_ioctl_alloc_memory_of_gpu(struct file *filep,
- 	struct kfd_process_device *pdd;
- 	void *mem;
- 	struct kfd_dev *dev;
-+	struct svm_range_list *svms = &p->svms;
- 	int idr_handle;
- 	long err;
- 	uint64_t offset = args->mmap_offset;
-@@ -1259,6 +1260,18 @@ static int kfd_ioctl_alloc_memory_of_gpu(struct file *filep,
- 	if (args->size == 0)
- 		return -EINVAL;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+index c902fdf322c1be..baf26d5bfb8ff4 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+@@ -55,7 +55,7 @@
  
-+#if IS_ENABLED(CONFIG_HSA_AMD_SVM)
-+	mutex_lock(&svms->lock);
-+	if (interval_tree_iter_first(&svms->objects,
-+				     args->va_addr >> PAGE_SHIFT,
-+				     (args->va_addr + args->size - 1) >> PAGE_SHIFT)) {
-+		pr_err("Address: 0x%llx already allocated by SVM\n",
-+			args->va_addr);
-+		mutex_unlock(&svms->lock);
-+		return -EADDRINUSE;
+ #undef __SMU_DUMMY_MAP
+ #define __SMU_DUMMY_MAP(type)	#type
+-static const char* __smu_message_names[] = {
++static const char * const __smu_message_names[] = {
+ 	SMU_MESSAGE_TYPES
+ };
+ 
+@@ -76,55 +76,258 @@ static void smu_cmn_read_arg(struct smu_context *smu,
+ 	*arg = RREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_82);
+ }
+ 
+-int smu_cmn_wait_for_response(struct smu_context *smu)
++/* Redefine the SMU error codes here.
++ *
++ * Note that these definitions are redundant and should be removed
++ * when the SMU has exported a unified header file containing these
++ * macros, which header file we can just include and use the SMU's
++ * macros. At the moment, these error codes are defined by the SMU
++ * per-ASIC unfortunately, yet we're a one driver for all ASICs.
++ */
++#define SMU_RESP_NONE           0
++#define SMU_RESP_OK             1
++#define SMU_RESP_CMD_FAIL       0xFF
++#define SMU_RESP_CMD_UNKNOWN    0xFE
++#define SMU_RESP_CMD_BAD_PREREQ 0xFD
++#define SMU_RESP_BUSY_OTHER     0xFC
++#define SMU_RESP_DEBUG_END      0xFB
++
++/**
++ * __smu_cmn_poll_stat -- poll for a status from the SMU
++ * smu: a pointer to SMU context
++ *
++ * Returns the status of the SMU, which could be,
++ *    0, the SMU is busy with your previous command;
++ *    1, execution status: success, execution result: success;
++ * 0xFF, execution status: success, execution result: failure;
++ * 0xFE, unknown command;
++ * 0xFD, valid command, but bad (command) prerequisites;
++ * 0xFC, the command was rejected as the SMU is busy;
++ * 0xFB, "SMC_Result_DebugDataDumpEnd".
++ *
++ * The values here are not defined by macros, because I'd rather we
++ * include a single header file which defines them, which is
++ * maintained by the SMU FW team, so that we're impervious to firmware
++ * changes. At the moment those values are defined in various header
++ * files, one for each ASIC, yet here we're a single ASIC-agnostic
++ * interface. Such a change can be followed-up by a subsequent patch.
++ */
++static u32 __smu_cmn_poll_stat(struct smu_context *smu)
+ {
+ 	struct amdgpu_device *adev = smu->adev;
+-	uint32_t cur_value, i, timeout = adev->usec_timeout * 20;
++	int timeout = adev->usec_timeout * 20;
++	u32 reg;
+ 
+-	for (i = 0; i < timeout; i++) {
+-		cur_value = RREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_90);
+-		if ((cur_value & MP1_C2PMSG_90__CONTENT_MASK) != 0)
+-			return cur_value;
++	for ( ; timeout > 0; timeout--) {
++		reg = RREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_90);
++		if ((reg & MP1_C2PMSG_90__CONTENT_MASK) != 0)
++			break;
+ 
+ 		udelay(1);
+ 	}
+ 
+-	/* timeout means wrong logic */
+-	if (i == timeout)
+-		return -ETIME;
+-
+-	return RREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_90);
++	return reg;
+ }
+ 
+-int smu_cmn_send_msg_without_waiting(struct smu_context *smu,
+-				     uint16_t msg, uint32_t param)
++static void __smu_cmn_reg_print_error(struct smu_context *smu,
++				      u32 reg_c2pmsg_90,
++				      int msg_index,
++				      u32 param,
++				      enum smu_message_type msg)
+ {
+ 	struct amdgpu_device *adev = smu->adev;
+-	int ret;
++	const char *message = smu_get_message_name(smu, msg);
+ 
+-	ret = smu_cmn_wait_for_response(smu);
+-	if (ret != 0x1) {
+-		dev_err(adev->dev, "Msg issuing pre-check failed(0x%x) and "
+-		       "SMU may be not in the right state!\n", ret);
+-		if (ret != -ETIME)
+-			ret = -EIO;
+-		return ret;
++	switch (reg_c2pmsg_90) {
++	case SMU_RESP_NONE:
++		dev_err_ratelimited(adev->dev,
++				    "SMU: I'm not done with your previous command!");
++		break;
++	case SMU_RESP_OK:
++		/* The SMU executed the command. It completed with a
++		 * successful result.
++		 */
++		break;
++	case SMU_RESP_CMD_FAIL:
++		/* The SMU executed the command. It completed with an
++		 * unsuccessful result.
++		 */
++		break;
++	case SMU_RESP_CMD_UNKNOWN:
++		dev_err_ratelimited(adev->dev,
++				    "SMU: unknown command: index:%d param:0x%08X message:%s",
++				    msg_index, param, message);
++		break;
++	case SMU_RESP_CMD_BAD_PREREQ:
++		dev_err_ratelimited(adev->dev,
++				    "SMU: valid command, bad prerequisites: index:%d param:0x%08X message:%s",
++				    msg_index, param, message);
++		break;
++	case SMU_RESP_BUSY_OTHER:
++		dev_err_ratelimited(adev->dev,
++				    "SMU: I'm very busy for your command: index:%d param:0x%08X message:%s",
++				    msg_index, param, message);
++		break;
++	case SMU_RESP_DEBUG_END:
++		dev_err_ratelimited(adev->dev,
++				    "SMU: I'm debugging!");
++		break;
++	default:
++		dev_err_ratelimited(adev->dev,
++				    "SMU: response:0x%08X for index:%d param:0x%08X message:%s?",
++				    reg_c2pmsg_90, msg_index, param, message);
++		break;
 +	}
-+	mutex_unlock(&svms->lock);
-+#endif
- 	dev = kfd_device_by_id(args->gpu_id);
- 	if (!dev)
- 		return -EINVAL;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 31f3f24cef6a..043ee0467916 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -2581,9 +2581,54 @@ int svm_range_list_init(struct kfd_process *p)
- 	return 0;
++}
++
++static int __smu_cmn_reg2errno(struct smu_context *smu, u32 reg_c2pmsg_90)
++{
++	int res;
++
++	switch (reg_c2pmsg_90) {
++	case SMU_RESP_NONE:
++		/* The SMU is busy--still executing your command.
++		 */
++		res = -ETIME;
++		break;
++	case SMU_RESP_OK:
++		res = 0;
++		break;
++	case SMU_RESP_CMD_FAIL:
++		/* Command completed successfully, but the command
++		 * status was failure.
++		 */
++		res = -EIO;
++		break;
++	case SMU_RESP_CMD_UNKNOWN:
++		/* Unknown command--ignored by the SMU.
++		 */
++		res = -EOPNOTSUPP;
++		break;
++	case SMU_RESP_CMD_BAD_PREREQ:
++		/* Valid command--bad prerequisites.
++		 */
++		res = -EINVAL;
++		break;
++	case SMU_RESP_BUSY_OTHER:
++		/* The SMU is busy with other commands. The client
++		 * should retry in 10 us.
++		 */
++		res = -EBUSY;
++		break;
++	default:
++		/* Unknown or debug response from the SMU.
++		 */
++		res = -EREMOTEIO;
++		break;
+ 	}
+ 
++	return res;
++}
++
++static void __smu_cmn_send_msg(struct smu_context *smu,
++			       u16 msg,
++			       u32 param)
++{
++	struct amdgpu_device *adev = smu->adev;
++
+ 	WREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_90, 0);
+ 	WREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_82, param);
+ 	WREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_66, msg);
++}
+ 
+-	return 0;
++/**
++ * smu_cmn_send_msg_without_waiting -- send the message; don't wait for status
++ * @smu: pointer to an SMU context
++ * @msg_index: message index
++ * @param: message parameter to send to the SMU
++ *
++ * Send a message to the SMU with the parameter passed. Do not wait
++ * for status/result of the message, thus the "without_waiting".
++ *
++ * Return 0 on success, -errno on error if we weren't able to _send_
++ * the message for some reason. See __smu_cmn_reg2errno() for details
++ * of the -errno.
++ */
++int smu_cmn_send_msg_without_waiting(struct smu_context *smu,
++				     uint16_t msg_index,
++				     uint32_t param)
++{
++	u32 reg;
++	int res;
++
++	if (smu->adev->in_pci_err_recovery)
++		return 0;
++
++	mutex_lock(&smu->message_lock);
++	reg = __smu_cmn_poll_stat(smu);
++	res = __smu_cmn_reg2errno(smu, reg);
++	if (reg == SMU_RESP_NONE ||
++	    reg == SMU_RESP_BUSY_OTHER ||
++	    res == -EREMOTEIO)
++		goto Out;
++	__smu_cmn_send_msg(smu, msg_index, param);
++	res = 0;
++Out:
++	mutex_unlock(&smu->message_lock);
++	return res;
  }
  
 +/**
-+ * svm_range_is_vm_bo_mapped - check if virtual address range mapped already
-+ * @p: current kfd_process
-+ * @start: range start address, in pages
-+ * @last: range last address, in pages
++ * smu_cmn_wait_for_response -- wait for response from the SMU
++ * @smu: pointer to an SMU context
 + *
-+ * The purpose is to avoid virtual address ranges already allocated by
-+ * kfd_ioctl_alloc_memory_of_gpu ioctl.
-+ * It looks for each pdd in the kfd_process.
++ * Wait for status from the SMU.
 + *
-+ * Context: Process context
-+ *
-+ * Return 0 - OK, if the range is not mapped.
-+ * Otherwise error code:
-+ * -EADDRINUSE - if address is mapped already by kfd_ioctl_alloc_memory_of_gpu
-+ * -ERESTARTSYS - A wait for the buffer to become unreserved was interrupted by
-+ * a signal. Release all buffer reservations and return to user-space.
++ * Return 0 on success, -errno on error, indicating the execution
++ * status and result of the message being waited for. See
++ * __smu_cmn_reg2errno() for details of the -errno.
 + */
-+static int
-+svm_range_is_vm_bo_mapped(struct kfd_process *p, uint64_t start, uint64_t last)
++int smu_cmn_wait_for_response(struct smu_context *smu)
 +{
-+	uint32_t i;
-+	int r;
++	u32 reg;
 +
-+	for (i = 0; i < p->n_pdds; i++) {
-+		struct amdgpu_vm *vm;
-+
-+		if (!p->pdds[i]->drm_priv)
-+			continue;
-+
-+		vm = drm_priv_to_vm(p->pdds[i]->drm_priv);
-+		r = amdgpu_bo_reserve(vm->root.bo, false);
-+		if (r)
-+			return r;
-+		if (interval_tree_iter_first(&vm->va, start, last)) {
-+			pr_debug("Range [0x%llx 0x%llx] already mapped\n", start, last);
-+			amdgpu_bo_unreserve(vm->root.bo);
-+			return -EADDRINUSE;
-+		}
-+		amdgpu_bo_unreserve(vm->root.bo);
-+	}
-+
-+	return 0;
++	reg = __smu_cmn_poll_stat(smu);
++	return __smu_cmn_reg2errno(smu, reg);
 +}
 +
- /**
-  * svm_range_is_valid - check if virtual address range is valid
-- * @mm: current process mm_struct
-+ * @mm: current kfd_process
-  * @start: range start address, in pages
-  * @size: range size, in pages
-  *
-@@ -2592,28 +2637,27 @@ int svm_range_list_init(struct kfd_process *p)
-  * Context: Process context
-  *
-  * Return:
-- *  true - valid svm range
-- *  false - invalid svm range
-+ *  0 - OK, otherwise error code
-  */
--static bool
--svm_range_is_valid(struct mm_struct *mm, uint64_t start, uint64_t size)
-+static int
-+svm_range_is_valid(struct kfd_process *p, uint64_t start, uint64_t size)
++/**
++ * smu_cmn_send_smc_msg_with_param -- send a message with parameter
++ * @smu: pointer to an SMU context
++ * @msg: message to send
++ * @param: parameter to send to the SMU
++ * @read_arg: pointer to u32 to return a value from the SMU back
++ *            to the caller
++ *
++ * Send the message @msg with parameter @param to the SMU, wait for
++ * completion of the command, and return back a value from the SMU in
++ * @read_arg pointer.
++ *
++ * Return 0 on success, -errno on error, if we weren't able to send
++ * the message or if the message completed with some kind of
++ * error. See __smu_cmn_reg2errno() for details of the -errno.
++ *
++ * If we weren't able to send the message to the SMU, we also print
++ * the error to the standard log.
++ *
++ * Command completion status is printed only if the -errno is
++ * -EREMOTEIO, indicating that the SMU returned back an
++ * undefined/unknown/unspecified result. All other cases are
++ * well-defined, not printed, but instead given back to the client to
++ * decide what further to do.
++ *
++ * The return value, @read_arg is read back regardless, to give back
++ * more information to the client, which on error would most likely be
++ * @param, but we can't assume that. This also eliminates more
++ * conditionals.
++ */
+ int smu_cmn_send_smc_msg_with_param(struct smu_context *smu,
+ 				    enum smu_message_type msg,
+ 				    uint32_t param,
+ 				    uint32_t *read_arg)
  {
- 	const unsigned long device_vma = VM_IO | VM_PFNMAP | VM_MIXEDMAP;
- 	struct vm_area_struct *vma;
- 	unsigned long end;
-+	unsigned long start_unchg = start;
+-	struct amdgpu_device *adev = smu->adev;
+-	int ret = 0, index = 0;
++	int res, index;
++	u32 reg;
  
- 	start <<= PAGE_SHIFT;
- 	end = start + (size << PAGE_SHIFT);
+ 	if (smu->adev->in_pci_err_recovery)
+ 		return 0;
+@@ -136,31 +339,24 @@ int smu_cmn_send_smc_msg_with_param(struct smu_context *smu,
+ 		return index == -EACCES ? 0 : index;
+ 
+ 	mutex_lock(&smu->message_lock);
+-	ret = smu_cmn_send_msg_without_waiting(smu, (uint16_t)index, param);
+-	if (ret)
+-		goto out;
 -
- 	do {
--		vma = find_vma(mm, start);
-+		vma = find_vma(p->mm, start);
- 		if (!vma || start < vma->vm_start ||
- 		    (vma->vm_flags & device_vma))
--			return false;
-+			return -EFAULT;
- 		start = min(end, vma->vm_end);
- 	} while (start < end);
- 
--	return true;
-+	return svm_range_is_vm_bo_mapped(p, start_unchg, (end - 1) >> PAGE_SHIFT);
+-	ret = smu_cmn_wait_for_response(smu);
+-	if (ret != 0x1) {
+-		if (ret == -ETIME) {
+-			dev_err(adev->dev, "message: %15s (%d) \tparam: 0x%08x is timeout (no response)\n",
+-				smu_get_message_name(smu, msg), index, param);
+-		} else {
+-			dev_err(adev->dev, "failed send message: %15s (%d) \tparam: 0x%08x response %#x\n",
+-				smu_get_message_name(smu, msg), index, param,
+-				ret);
+-			ret = -EIO;
+-		}
+-		goto out;
++	reg = __smu_cmn_poll_stat(smu);
++	res = __smu_cmn_reg2errno(smu, reg);
++	if (reg == SMU_RESP_NONE ||
++	    reg == SMU_RESP_BUSY_OTHER ||
++	    res == -EREMOTEIO) {
++		__smu_cmn_reg_print_error(smu, reg, index, param, msg);
++		goto Out;
+ 	}
+-
++	__smu_cmn_send_msg(smu, (uint16_t) index, param);
++	reg = __smu_cmn_poll_stat(smu);
++	res = __smu_cmn_reg2errno(smu, reg);
++	if (res == -EREMOTEIO)
++		__smu_cmn_reg_print_error(smu, reg, index, param, msg);
+ 	if (read_arg)
+ 		smu_cmn_read_arg(smu, read_arg);
+-
+-	ret = 0; /* 0 as driver return value */
+-out:
++Out:
+ 	mutex_unlock(&smu->message_lock);
+-	return ret;
++	return res;
  }
  
- /**
-@@ -2913,9 +2957,9 @@ svm_range_set_attr(struct kfd_process *p, uint64_t start, uint64_t size,
+ int smu_cmn_send_smc_msg(struct smu_context *smu,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+index 9add5f16ff562a..16993daa2ae042 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+@@ -27,7 +27,8 @@
  
- 	svm_range_list_lock_and_flush_work(svms, mm);
- 
--	if (!svm_range_is_valid(mm, start, size)) {
--		pr_debug("invalid range\n");
--		r = -EFAULT;
-+	r = svm_range_is_valid(p, start, size);
-+	if (r) {
-+		pr_debug("invalid range r=%d\n", r);
- 		mmap_write_unlock(mm);
- 		goto out;
- 	}
-@@ -3016,17 +3060,18 @@ svm_range_get_attr(struct kfd_process *p, uint64_t start, uint64_t size,
- 	uint32_t flags = 0xffffffff;
- 	int gpuidx;
- 	uint32_t i;
-+	int r = 0;
- 
- 	pr_debug("svms 0x%p [0x%llx 0x%llx] nattr 0x%x\n", &p->svms, start,
- 		 start + size - 1, nattr);
- 
- 	mmap_read_lock(mm);
--	if (!svm_range_is_valid(mm, start, size)) {
--		pr_debug("invalid range\n");
--		mmap_read_unlock(mm);
--		return -EINVAL;
--	}
-+	r = svm_range_is_valid(p, start, size);
- 	mmap_read_unlock(mm);
-+	if (r) {
-+		pr_debug("invalid range r=%d\n", r);
-+		return r;
-+	}
- 
- 	for (i = 0; i < nattr; i++) {
- 		switch (attrs[i].type) {
+ #if defined(SWSMU_CODE_LAYER_L2) || defined(SWSMU_CODE_LAYER_L3) || defined(SWSMU_CODE_LAYER_L4)
+ int smu_cmn_send_msg_without_waiting(struct smu_context *smu,
+-				     uint16_t msg, uint32_t param);
++				     uint16_t msg_index,
++				     uint32_t param);
+ int smu_cmn_send_smc_msg_with_param(struct smu_context *smu,
+ 				    enum smu_message_type msg,
+ 				    uint32_t param,
 -- 
 2.32.0
 
