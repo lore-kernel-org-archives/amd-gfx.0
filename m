@@ -2,106 +2,130 @@ Return-Path: <SRS0=SWRn=ML=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7B827C12002
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jul 2021 05:58:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B1481C636C9
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jul 2021 07:21:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2C46260FE9
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jul 2021 05:58:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2C46260FE9
+	by mail.kernel.org (Postfix) with ESMTPS id 6E38661019
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jul 2021 07:21:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6E38661019
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94B8D89F6B;
-	Mon, 19 Jul 2021 05:58:28 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2083.outbound.protection.outlook.com [40.107.244.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C254189F6B
- for <amd-gfx@lists.freedesktop.org>; Mon, 19 Jul 2021 05:58:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09C6689D66;
+	Mon, 19 Jul 2021 07:21:54 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2061.outbound.protection.outlook.com [40.107.237.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF9B089D66
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 Jul 2021 07:21:51 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IZ6LioYJiAtRKWF7u2l2Gp36rriw7Mht0gi7xlXLfFrr22Zqq/DWx0ZzrfZh4M+rvNXjqXnNySO9iNUWhbDreZyhMoSnhti3KW6so8BxgjyPC/MutCNVyIyf2lNJsLJLYx3prGoXyPginSkqIoic1SuDp98o8SVrEzYxtRpEFRVyeMresu8vou5pl6uGU18YkxPhbRaxdG7LTxwI9AxCASqXvj+oTMaG57MUKnhqKiA2q0JeQxg9KkXIshGe3t9KEwPJexnQcCMb2Tgz8iE+lgaJryDPDtZCGvby0QA1HCdT4VRSQxp7IxxtXbkdvcAeWy63AvAZoUS076FQRzJhLw==
+ b=LeD9dHd3gtB9c+9RQmSBFDuJEAlvBOH02CITnDso3igyUmbi9yebDTfV+MwnACX6EZeSiNeePlQqiER7cE1kcMre87To+ZO0Rqk3oODjuIQcDROWR76AZoAEq45a70QYtBww+08LXBJjDaT/e2ujRorg562U01LceSVBHHRBZoPtLgY1B8DofgHOtyNNBdywqBiluTT8whwfwKqpIr2WPE2CbNIE0nPraNcSeW1TNWc95TPUUykGeV7NBufKdfVp70QczS9H1DbrRkgGFISlDrMWnuPiqVaBojM5M3k3otWKEa7Ou1y2Rh4CIWceorZS2dHunBwzq/I1eKz4hbRHuw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PHhgnU2iwX9ATz3Pl8X3NHfP/QvBxonFdFMJdwbTGNc=;
- b=CHE+W8XVZQVgvyZi3fQwqd8c3xPs1hkXA1XiyfonElc9HbG2Rg/PvDecNUlCa3vDtsHyhbvARXGuxEASvEE9Yej9HC8IpbUKSs/smt3srXGrcQDkaeuYkKcFalgIvKiVPXOyUhJDalAJvqk2u6H4GE8hz5Y0pftUeNuWUi/YxQQ964yyZbteLfWCMas+iaXNwAPaw+zhx77lS57RnPmOJ7IdWoUp1D2EN6rjQ+bH6/ktolqy0FUO2CDmOTHvVzTdhxaLKtByLYWhio0FX7iaBtIkibZkZYLL6kv2U5w4vB7RpZfcxpy+DcsS/ebE6+OHc36kYm+kNpgRn+kpJ38f9g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=v18U3u7N6PLqnj0x0nbcQgrFFzFrMRWfabrdQJV5UmY=;
+ b=JB14n+r4M7PY/pViEF/OaEwE4uXsXeUrYC6fxtnvp/xiNb9PNphTxPyjpg/JY461UpyEgKrJ/dsB7bEQ99ljuuhZKeVIuc88ExI8HqD47THwu7n3eZJ3kC4bnf8p26RWISMvKknqPu9N9FPJNfnLZKM3tIBAvwL9ygFIxm+zVM8XQITYjvw3t9SnQ2tZCLf/xxocC7wazp0liF170KW+Kw/RbJ0ghYvUoX8dEAGBqQxlInkEkXnnQJnh7NM7LIzurY7xFEBU087fzYCNVwgKlGZMWX0lp8uIoWmpBRCxSGT8B0h44YuTNQKAeivEwSwOQx1MZymq6NTqUOEVvicy2Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PHhgnU2iwX9ATz3Pl8X3NHfP/QvBxonFdFMJdwbTGNc=;
- b=A/rHqbgjKZtT5F6WhKY2qwtiY5T9av0IVXCwsWgVsnBJNNxQErjq7m9jAmDePyrY7f8kGxUuSSbwl4kfaR2peYfIw5CO0Yb0kU3R6PJ4qfseWpbw6FWtwKLDmHeL/CO/4Uq1B4b4wXdxqLcX8aBH9XS7h1x3Ci38YwITbWrGFqI=
-Received: from DM6PR13CA0046.namprd13.prod.outlook.com (2603:10b6:5:134::23)
- by MN2PR12MB4638.namprd12.prod.outlook.com (2603:10b6:208:ff::31) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4331.23; Mon, 19 Jul
- 2021 05:58:25 +0000
-Received: from DM6NAM11FT018.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:134:cafe::66) by DM6PR13CA0046.outlook.office365.com
- (2603:10b6:5:134::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4352.10 via Frontend
- Transport; Mon, 19 Jul 2021 05:58:25 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT018.mail.protection.outlook.com (10.13.172.110) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4331.21 via Frontend Transport; Mon, 19 Jul 2021 05:58:25 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Mon, 19 Jul
- 2021 00:58:24 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Mon, 19 Jul
- 2021 00:58:24 -0500
-Received: from wayne-build.amd.com (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2242.4 via Frontend
- Transport; Mon, 19 Jul 2021 00:58:22 -0500
-From: Jingwen Chen <Jingwen.Chen2@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd/amdgpu: vm entities should have kernel priority
-Date: Mon, 19 Jul 2021 13:57:55 +0800
-Message-ID: <20210719055754.244832-1-Jingwen.Chen2@amd.com>
-X-Mailer: git-send-email 2.25.1
+ bh=v18U3u7N6PLqnj0x0nbcQgrFFzFrMRWfabrdQJV5UmY=;
+ b=fWJ1JOsjarD5yvtTcUrzMSU36rCkvb3d1R3jCpm8/sKQnVHV6Sep2j7lnBUFXerBP7GgN3av1m9J6dNQs5OhquVsY+rdg/lnt+KXSe5WmmJBF6Qskk01etCOpbm5V6Gq3zbyfmwj4DFDKo1e4eqvW3azTEKFe/Oy7bOwlmbdecc=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5349.namprd12.prod.outlook.com (2603:10b6:208:31f::7)
+ by BL1PR12MB5063.namprd12.prod.outlook.com (2603:10b6:208:31a::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4331.22; Mon, 19 Jul
+ 2021 07:21:49 +0000
+Received: from BL1PR12MB5349.namprd12.prod.outlook.com
+ ([fe80::9991:fa53:1b0a:372c]) by BL1PR12MB5349.namprd12.prod.outlook.com
+ ([fe80::9991:fa53:1b0a:372c%4]) with mapi id 15.20.4331.032; Mon, 19 Jul 2021
+ 07:21:49 +0000
+Subject: Re: [PATCH 2/3] drm/amdkfd: report xgmi bandwidth between direct
+ peers to the kfd
+To: Jonathan Kim <jonathan.kim@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20210716164312.896939-1-jonathan.kim@amd.com>
+ <20210716164312.896939-2-jonathan.kim@amd.com>
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+Message-ID: <19e8ee08-c4b7-ffd7-0805-84c93402d76a@amd.com>
+Date: Mon, 19 Jul 2021 12:51:37 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
+In-Reply-To: <20210716164312.896939-2-jonathan.kim@amd.com>
+Content-Language: en-US
+X-ClientProxiedBy: SG3P274CA0004.SGPP274.PROD.OUTLOOK.COM (2603:1096:4:be::16)
+ To BL1PR12MB5349.namprd12.prod.outlook.com
+ (2603:10b6:208:31f::7)
 MIME-Version: 1.0
-X-EOPAttributedMessage: 0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [172.31.157.114] (165.204.158.249) by
+ SG3P274CA0004.SGPP274.PROD.OUTLOOK.COM (2603:1096:4:be::16) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4331.21 via Frontend Transport; Mon, 19 Jul 2021 07:21:47 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 50a47ae3-b94e-4d83-bf7e-08d94a7a38ff
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4638:
-X-Microsoft-Antispam-PRVS: <MN2PR12MB463816A246A130AB22FB4EE5B7E19@MN2PR12MB4638.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+X-MS-Office365-Filtering-Correlation-Id: 1663e6b5-6fdc-4e11-81ac-08d94a85df70
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5063:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BL1PR12MB5063952665118486CD54000497E19@BL1PR12MB5063.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: kY+mRZb67g1bDYB3oInT3zqjT5i1caefYwY3Aczay6VPltrQxvzFyNRlG9mmtEZauLp7sEu7PDmKY57s7nWZHIsO9hXtQZjg/n5/x/IIOW7AhW5jpRLtug18r95iPGSBHGpUcdz9PAbI8urkHsRT+pWvWtXoYy4qPtlNWCTP0LnJbrl77WlFVk/l9KQOP5H4xfADDmvnVtrVyxZ0k05zAXvGRgWEJiKZth47Yl7tQAFood49D0WszZLK0wZcsHyA2N6LeIImkMu392Bd1uJXm7ZlivHnvIDzfUY6JM//AhqY7u2ghhnnpErjn9rUI8pdL4bjilUXqegwjOTa4+hoRLSeobeuxiGEhqlUDwcqCVwGzON1i+H1iiwS/1Tdat4KD7xNRGQgRNdjRUZ0oFiGM8jPiinWNkiwLqLMhYoceVocUqR2M+nbPU99lvYGCm15tvb6EyRiBMxn3fDHBx0IojF42VNg7WsewVkrsfaHGAOxJ4ip6hD03K52b1Bx+TdiohDgxjlTF5A6yycVoYivNdX6q6S9AFMcv4dJ+rB8wMz5WZIGPXoH5A382KFANP0RmP4wnhNZbYIMiASCzLc3qnVQXFHxOVcx5ze2tXEBUPt+7Cvv2fu9krnHefoHIxGNJbqHIDnyIIWF5SWeX5OeZrhq9sI+Wr3FdvO2gnqFm2qqFDqkYnC3Ek6OaxtlPLM8eZzoz4Nj9vA+p5A4Wk1OyPuV+OdNZU+gZPeNJf6aw9w=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(396003)(376002)(136003)(346002)(39860400002)(46966006)(36840700001)(36860700001)(336012)(2616005)(426003)(356005)(8676002)(1076003)(36756003)(5660300002)(7696005)(83380400001)(6666004)(186003)(4326008)(478600001)(70206006)(70586007)(86362001)(47076005)(82740400003)(81166007)(26005)(2906002)(54906003)(82310400003)(8936002)(6916009)(316002)(36900700001);
+X-Microsoft-Antispam-Message-Info: gu3fwnr/5IKlsDL2+CBM0YWA8QunOjIXRYefolfYoEGalKAtDXJfLyiGnHIO1FJYf6jx3mxL5l9ztVaQGGG5ExByYDJL88Vc2uK0KtzxonEJq7nxCUxdKSCmdVkLVz7+24sUTs5QRAH4fffMhthV1+ih1ArUjdAcjf3pl0elNzkeWaKqCzc9o07mTvqsbIonxhxMRkit0TgvOdUF2MnYSopBnnhhtsQNsR28VaLLy71gbIPEfLnvok2MeJ5sq/w7/AJIegkhb69VJSNYX3yv0B8vjk4ihWOiYDAoPjIZRdhrixkL5cLdjETQuy6gbypCB/qAsHnkEvKOhSV9pGZkiiKDJxcax+yZW32NvMJmJAqTwYQzs48gB4okcWrVV0VJlUrIIQlDI+rSei6h0Ttb90VknPBKMru+s1Pk83tPmBFTj1iEpxAojXCmSIfnapkJzrWJQBfejfh+/0SqlDRqChTFcqsnd/B8l6rdub8ejk221nbzlVb7wkYc1+SAbw1U9Insv4k+zrHVOD517QwqfrHE2rXLQxadMLveJa6pLMumKsm4qHRRu7HN+pzhzadhv/R0FmDyTh/GwZJCe5/JlixW9mrzqwt0ndFEhdOE6Wgy3AqBmMcpZuqWYz3/WwDDN2AOGws2eCrhj+4EtBg/swowIzAiyFjIvBdJSyzeY/OUIXu6MhVsLmFi+P1e7r5Ase5GqFPCniGagt4dYluo3X8fNoJmFWCgNdppz2VE1Tc=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5349.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(396003)(366004)(376002)(346002)(39860400002)(2906002)(31686004)(6486002)(5660300002)(110136005)(316002)(186003)(2616005)(26005)(66476007)(66556008)(38100700002)(53546011)(956004)(16576012)(6666004)(8936002)(86362001)(83380400001)(8676002)(66946007)(478600001)(36756003)(4326008)(31696002)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RGJVdVpwNFRJK2laSyt6N1RMTmxCMUhwME1tbDhBcUVnR1pzaStGMEZFaHov?=
+ =?utf-8?B?TDkxQ2J0REZicy9XQk10MEI3YVQ0NC9RbGwxOW14cTVaczhRWjY3SUo1T1Bn?=
+ =?utf-8?B?OWUwOGREZDNjSi9NRDl0WldXUkRCY1RXM0g0R0hXbk5CYlJMMXBLc3BxRGU0?=
+ =?utf-8?B?NFhUL1JJZm43V0RHTDFNdjZxVUtlTGdrMzlhRWNwd0JvaURoVDZpc3J5amk4?=
+ =?utf-8?B?RUp2RFNIYm56cVRrOVRNN0FVUmE4aC91dWllOW5MakJhK0dBSUZ2eTZpMzFs?=
+ =?utf-8?B?TjdHc0JUZ0hsQjJLaDk4ODA5SW1LMGZDY0RuU2h1NFZzdS9ZZGdvQlV5R3Ft?=
+ =?utf-8?B?TjIrK1Q5Qlc0bitveU1ubW9jSWkrOUhPc05tOTlhYXhPRWRQSWdGVkxQOTRu?=
+ =?utf-8?B?R0hYRU50OEFXZXhLZHJTMEE3MWR1SmY3ZDNxMnB5Tk5RRVlZaFozQ0xqUS9k?=
+ =?utf-8?B?ZjBKeVo1aW0yVmEvYlpWa3Z0dFpIbGJDK0RDaGZqMkNEalZhRFBDSUhHZXJK?=
+ =?utf-8?B?Y3FUdzlJYjJ5andiNmFVUU14Uk5ObDNvMmZKYklGR0dqR0lGQVRwMHM3WUsy?=
+ =?utf-8?B?SE5xKzVLWUhLYXpTS1Bjc1NhVElabmxyZytTbTRpeFVrNGNTOXloak9hRXBO?=
+ =?utf-8?B?YTVaQTVlTjc0cUVzanM1YVRiSm53cGdUa3NBS2pINzAzb2h3VWF6eHk2WG9l?=
+ =?utf-8?B?dFJmUlMrOUJsOFRSb3F3Y2IwbGdybVpFSFZKaUpTMDRaTkJRRnBYRi9iaHFP?=
+ =?utf-8?B?RE9pWEtCcU5UKzdXak1Zc29KZjJ3c25oRUNyTE0rVndPUHNUSEN4RW1hMkpN?=
+ =?utf-8?B?dHdnUzBQdDdGRGhGUktvY0ZrUTBMakpsd0cycW1vam81d05XenlRN0pIc244?=
+ =?utf-8?B?Q282eUZONThITGJHeXFVY2hDcUMyd3RZeUF0akFWTFpyek5kbVpVcjFtc2tW?=
+ =?utf-8?B?c2VDd3lRZkJ4QmhsRmJDYWNiY0s1L2JPVExueDRoLzBrR0V4S29DcnRSbUhj?=
+ =?utf-8?B?dkFYc1U0QjFJUGlWU2tvTUVyaHFmMjI0Y05EajRicG9ZemIwRS9TN01tRDFp?=
+ =?utf-8?B?SUMxVmp1dlpUcjF4LytNaVM2ZmlFcTZHRzdQQmNzOW5objBuWVdoY05aS2wy?=
+ =?utf-8?B?cWFhcUszYVBUcDF4UHNzalhYZlpYWTQrdzNTaVVLU2RJRmxvQ3ViNjdTRDdN?=
+ =?utf-8?B?YklBMVZLSElUWG9rbGgyTitBUHljVGxESFVWUmFoMFVCWWswQk9OUXlNSXBr?=
+ =?utf-8?B?Y21lT3pLaS9FcG5FSGZ0YkVmVUplc20zZ2FGUmgxR2dPbHVMSThqQTBQNVRh?=
+ =?utf-8?B?MmlETkdsMUJjd2hqa3FuRnBWV0V2bXZoTXlid0RIazhYNzdoQXk1MGhQUVAr?=
+ =?utf-8?B?cndZTzYybTBkMk9HRmE1RWRObkV4UmtLc1pKb2dab3NMT3dyUmZ0eENoTThx?=
+ =?utf-8?B?bHBtSVJHeTZCeUpwVlZIUUEwNVZYNDlJS0pndFFDK2ZreXQzejNVQnd3VHF3?=
+ =?utf-8?B?QTAzaFR5Ykw5cy9jTVk5V2REOU9nakdpNFVlSnBIUkVxYm1ORXhoTkFieUNy?=
+ =?utf-8?B?dlFnenAxZVNRTnl3U05nQzJ2dW4vL1draG1hcTVrUG1HcHhqbWlzanRNY0M2?=
+ =?utf-8?B?R2FmYncxcWN5NWk2RUNCTnhsT0I1Rmx0NTJyVjdzNWpPQ0FLL1VaZGJrSmk4?=
+ =?utf-8?B?cGRVNHhqdFZweis3MXVrQllKeXdGWldRTDB6MlkvN1JUK0hNN3Y2SW9SNEY4?=
+ =?utf-8?Q?kANgWnoUcdkpXgS/hReXSepOCFKdV3p3AL3moDC?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jul 2021 05:58:25.1236 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 50a47ae3-b94e-4d83-bf7e-08d94a7a38ff
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1663e6b5-6fdc-4e11-81ac-08d94a85df70
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5349.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jul 2021 07:21:49.0907 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT018.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4638
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: xYHNm3HFirllX979+Rmjl0X1/+QcREdJ64ioIGjYbYYm1fLXsbdnjWoMqREqfW5v
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5063
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,53 +137,148 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: horace.chen@amd.com, Jingwen Chen <Jingwen.Chen2@amd.com>, monk.liu@amd.com
-Content-Type: text/plain; charset="us-ascii"
+Cc: Felix.Kuehling@amd.com
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why]
-Current vm_pte entities have NORMAL priority, in SRIOV multi-vf
-use case, the vf flr happens first and then job time out is found.
-There can be several jobs timeout during a very small time slice.
-And if the innocent sdma job time out is found before the real bad
-job, then the innocent sdma job will be set to guilty as it only
-has NORMAL priority. This will lead to a page fault after
-resubmitting job.
 
-[How]
-sdma should always have KERNEL priority. The kernel job will always
-be resubmitted.
 
-Signed-off-by: Jingwen Chen <Jingwen.Chen2@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+On 7/16/2021 10:13 PM, Jonathan Kim wrote:
+> Report the min/max bandwidth in megabytes to the kfd for direct
+> xgmi connections only.
+> 
+> v2: change reporting from num links to bandwidth
+> 
+> Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 23 ++++++++++++++++++++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h |  1 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c   | 12 +++++++++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h   |  2 ++
+>   drivers/gpu/drm/amd/amdkfd/kfd_crat.c      | 12 +++++++++++
+>   5 files changed, 50 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> index bfab2f9fdd17..3978578a1c49 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> @@ -553,6 +553,29 @@ uint8_t amdgpu_amdkfd_get_xgmi_hops_count(struct kgd_dev *dst, struct kgd_dev *s
+>   	return  (uint8_t)ret;
+>   }
+>   
+> +int amdgpu_amdkfd_get_xgmi_bandwidth_mbytes(struct kgd_dev *dst, struct kgd_dev *src, bool is_min)
+> +{
+> +	struct amdgpu_device *adev = (struct amdgpu_device *)dst, *peer_adev;
+> +	int num_links;
+> +
+> +	if (adev->asic_type != CHIP_ALDEBARAN)
+> +		return 0;
+> +
+> +	if (src)
+> +		peer_adev = (struct amdgpu_device *)src;
+> +
+> +	num_links = is_min ? 1 : amdgpu_xgmi_get_num_links(adev, peer_adev);
+> +	if (num_links < 0) {
+> +		DRM_ERROR("amdgpu: failed to get xgmi num links between node %d and %d. ret = %d\n",
+> +			adev->gmc.xgmi.physical_node_id,
+> +			peer_adev->gmc.xgmi.physical_node_id, num_links);
+> +		num_links = 0;
+> +	}
+> +
+> +	/* Aldebaran xGMI DPM is defeatured so assume x16 x 25Gbps for bandwidth. */
+> +	return (num_links * 16 * 25000)/BITS_PER_BYTE;
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 358316d6a38c..f7526b67cc5d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -2923,13 +2923,13 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm)
- 	INIT_LIST_HEAD(&vm->done);
- 
- 	/* create scheduler entities for page table updates */
--	r = drm_sched_entity_init(&vm->immediate, DRM_SCHED_PRIORITY_NORMAL,
-+	r = drm_sched_entity_init(&vm->immediate, DRM_SCHED_PRIORITY_KERNEL,
- 				  adev->vm_manager.vm_pte_scheds,
- 				  adev->vm_manager.vm_pte_num_scheds, NULL);
- 	if (r)
- 		return r;
- 
--	r = drm_sched_entity_init(&vm->delayed, DRM_SCHED_PRIORITY_NORMAL,
-+	r = drm_sched_entity_init(&vm->delayed, DRM_SCHED_PRIORITY_KERNEL,
- 				  adev->vm_manager.vm_pte_scheds,
- 				  adev->vm_manager.vm_pte_num_scheds, NULL);
- 	if (r)
--- 
-2.25.1
+Instead of having ASIC family checks and bandwidth info in interface 
+functions, better to have this info come from base layer (amdgpu_xgmi or 
+xgmi ip). That will help to handle other ASICs.
 
+Thanks,
+Lijo
+
+>   uint64_t amdgpu_amdkfd_get_mmio_remap_phys_addr(struct kgd_dev *kgd)
+>   {
+>   	struct amdgpu_device *adev = (struct amdgpu_device *)kgd;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+> index 81264517d532..e12fccb2d2c4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+> @@ -226,6 +226,7 @@ uint32_t amdgpu_amdkfd_get_num_gws(struct kgd_dev *kgd);
+>   uint32_t amdgpu_amdkfd_get_asic_rev_id(struct kgd_dev *kgd);
+>   int amdgpu_amdkfd_get_noretry(struct kgd_dev *kgd);
+>   uint8_t amdgpu_amdkfd_get_xgmi_hops_count(struct kgd_dev *dst, struct kgd_dev *src);
+> +int amdgpu_amdkfd_get_xgmi_bandwidth_mbytes(struct kgd_dev *dst, struct kgd_dev *src, bool is_min);
+>   
+>   /* Read user wptr from a specified user address space with page fault
+>    * disabled. The memory must be pinned and mapped to the hardware when
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+> index 8567d5d77346..258cf86b32f6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+> @@ -486,6 +486,18 @@ int amdgpu_xgmi_get_hops_count(struct amdgpu_device *adev,
+>   	return	-EINVAL;
+>   }
+>   
+> +int amdgpu_xgmi_get_num_links(struct amdgpu_device *adev,
+> +		struct amdgpu_device *peer_adev)
+> +{
+> +	struct psp_xgmi_topology_info *top = &adev->psp.xgmi_context.top_info;
+> +	int i;
+> +
+> +	for (i = 0 ; i < top->num_nodes; ++i)
+> +		if (top->nodes[i].node_id == peer_adev->gmc.xgmi.node_id)
+> +			return top->nodes[i].num_links;
+> +	return	-EINVAL;
+> +}
+> +
+>   int amdgpu_xgmi_add_device(struct amdgpu_device *adev)
+>   {
+>   	struct psp_xgmi_topology_info *top_info;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
+> index 12969c0830d5..d2189bf7d428 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
+> @@ -59,6 +59,8 @@ int amdgpu_xgmi_remove_device(struct amdgpu_device *adev);
+>   int amdgpu_xgmi_set_pstate(struct amdgpu_device *adev, int pstate);
+>   int amdgpu_xgmi_get_hops_count(struct amdgpu_device *adev,
+>   		struct amdgpu_device *peer_adev);
+> +int amdgpu_xgmi_get_num_links(struct amdgpu_device *adev,
+> +		struct amdgpu_device *peer_adev);
+>   uint64_t amdgpu_xgmi_get_relative_phy_addr(struct amdgpu_device *adev,
+>   					   uint64_t addr);
+>   static inline bool amdgpu_xgmi_same_hive(struct amdgpu_device *adev,
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+> index c6b02aee4993..40ce6239c813 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+> @@ -1989,6 +1989,13 @@ static int kfd_fill_gpu_direct_io_link_to_cpu(int *avail_size,
+>   		sub_type_hdr->flags |= CRAT_IOLINK_FLAGS_BI_DIRECTIONAL;
+>   		sub_type_hdr->io_interface_type = CRAT_IOLINK_TYPE_XGMI;
+>   		sub_type_hdr->num_hops_xgmi = 1;
+> +		if (adev->asic_type == CHIP_ALDEBARAN) {
+> +			sub_type_hdr->minimum_bandwidth_mbs =
+> +					amdgpu_amdkfd_get_xgmi_bandwidth_mbytes(
+> +							kdev->kgd, NULL, true);
+> +			sub_type_hdr->maximum_bandwidth_mbs =
+> +					sub_type_hdr->minimum_bandwidth_mbs;
+> +		}
+>   	} else {
+>   		sub_type_hdr->io_interface_type = CRAT_IOLINK_TYPE_PCIEXPRESS;
+>   	}
+> @@ -2033,6 +2040,11 @@ static int kfd_fill_gpu_xgmi_link_to_gpu(int *avail_size,
+>   	sub_type_hdr->proximity_domain_to = proximity_domain_to;
+>   	sub_type_hdr->num_hops_xgmi =
+>   		amdgpu_amdkfd_get_xgmi_hops_count(kdev->kgd, peer_kdev->kgd);
+> +	sub_type_hdr->maximum_bandwidth_mbs =
+> +		amdgpu_amdkfd_get_xgmi_bandwidth_mbytes(kdev->kgd, peer_kdev->kgd, false);
+> +	sub_type_hdr->minimum_bandwidth_mbs = sub_type_hdr->maximum_bandwidth_mbs ?
+> +		amdgpu_amdkfd_get_xgmi_bandwidth_mbytes(kdev->kgd, NULL, true) : 0;
+> +
+>   	return 0;
+>   }
+>   
+> 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
