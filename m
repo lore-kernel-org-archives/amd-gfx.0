@@ -7,130 +7,132 @@ X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0D637C07E95
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jul 2021 15:48:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DA6C0C07E95
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jul 2021 15:50:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A5AD561370
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jul 2021 15:48:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A5AD561370
+	by mail.kernel.org (Postfix) with ESMTPS id A1A8361166
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jul 2021 15:50:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A1A8361166
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AA7F89198;
-	Mon, 19 Jul 2021 15:48:19 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam07on2086.outbound.protection.outlook.com [40.107.95.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21A6089198
- for <amd-gfx@lists.freedesktop.org>; Mon, 19 Jul 2021 15:48:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E7E289D1D;
+	Mon, 19 Jul 2021 15:50:32 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam07on2046.outbound.protection.outlook.com [40.107.212.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0376A89D1D
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 Jul 2021 15:50:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lNT1p57gJAGqrn1b3NrDr3ga+h791VnTyWtYl5Ql5rAFGGHKWYv2TTweoeoYotvYJL29qCoFFhc6z7XGK8M+/zj6FCykgWWP+om3JWnqiQrFW1nzR0LVrHxKadrhoQDkdh4Iu7YmqB96tXob0Ck30bvIbBcINaUpvmkfzrzNyI/kco53xPZTVlop3nXbfmLujbCSlfq174oYuDsC2ZlGy6u+eEqVveWPeHpj0lHH5HoKMDS7Pn7HKvkVVdx3iHRSfQ+ogel0mdzIq5QF6fw0o2ZehWXt1MzdReiloK3DP96Lv3y34+byYD7Qx+R0jryTEHYqbeFGQ6+gs12vDuywXQ==
+ b=ZolsytXUfMEi+5cJrqgPvJt2//3JTxFGq/3/u664o7o/O0NUoG6w5BLBv6k3BDRQPjDFsrHDwi5wmiuUUZwtkwoeT1fiQwMdReNqsu7PcLhGSCK/mhaRxVHL/jBQALI2Eqgl0g+m21WAHz1rs6A2iP3HcClAjnpfgmO2e3OY73aLLrzzUL981S/bQTWCu6inCIS5X+q9NFugJBm6C8SZ66bBwhBp3KJsfvs6VAieXsPJ17hSXw9+uBiUi2eRE7O1HeUmQ8b8cN39qe7Js+1Wq+13tpXuAvV6BBFd+MYkrhRk0Fd6sKHsG76x8QwmqgI4wXAGP4cE9ASsXP4nAyxy3Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QWhKDxrhjMWcr68LAZflrcTh3VgKfSOoFGT7AKT6Ekc=;
- b=S1PPbQWwuP36wYa6Q3FN0blTuaK2i9rjDCisEdKvT4fCyrQisrRQzN3sGcM6VO+0e36UAB9DDyG6AfFeK91mrt5sW+pEGWY6aavGbrkp4fApAS7E4iw7cf/9d7m+5zFtynPoxPkIKOdy2jrgwaO0UnMUMu85DaHY7sCK5RIOEFQTkgZkQma4dkxrBqI1gKJAcM544e+1Q2rHwg0l8dwv07NY06jR9uoSRBbGFvn0DBCbduESRySgzAgGrtEhZ/i8AU5YDYXXVZbz5Knyx7VEuTRUWTqoSswYCLl7IHZHOgQFJVo9lbtsYx9FJiK6IqXM4gxCI87EGbb502SqWckgOw==
+ bh=ps4vvmQ0rWYUWJcpgvRm0SE5W77V4NRFCER7mfbKTas=;
+ b=RtFPo9rFicytYls7ArEA+5NwTX/9Wsp+Ihj3js054Ct1/QOclApmsQSjILHgIA1xwfFhvMz7qDUKe1qQHEX1oGf1AjCUEJkSxRIJ01jX1fdgtqAlOOl4aEZINI96DjylI7nbY+I2vp8nNXJFDojGR8jirKMI7VCywm0I/8teF8GV5oiAGLa0A31eEh1ENB0K4KS1vfAU2QNxHQQKsFBctCIgDNB1o8WRRS1i/lBkICBcMZiJIVwngqZuNN7fPJ/R55WqasjGV5KGO+LzUzg8UpK6lTw7G4kuuAdIzuPD6CiwL+vFbpb/LbWLhJd8kUNeoO5so2ADm2HnfznWyHWf3g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QWhKDxrhjMWcr68LAZflrcTh3VgKfSOoFGT7AKT6Ekc=;
- b=UTSwMQGYf3cVW78ZuuKuDowaWufz5xZCgykyiT8ISXM+m/wj99EcjQQVqpDplUprrJpvMgjqDAxrVXSUuUL/hJDGLj2hlZoKLTCrSfA5w3ZehRHkdy6N1q2i7h8XS6Kkklb8o2l46qV7LvJ09DocCqofyyi01B8kHUHmFcHPsCM=
+ bh=ps4vvmQ0rWYUWJcpgvRm0SE5W77V4NRFCER7mfbKTas=;
+ b=a6UiocnqEnNEzDJcn+MQKEcHynAqJ8gjY2fxN79ThBcXkM0sS/UYFBDP2FjHxQ6Pj1fB52b5PLoshFK/7ttXulO7M5RxA/IFbrnRs9pflQSxdRP/8BTYnnyqQzDTHQjsBZ+po+S8jy1Lb5phnG1lWozolWSxiYtP9neR8IOJBfw=
 Received: from DM5PR12MB4680.namprd12.prod.outlook.com (2603:10b6:4:a6::33) by
- DM6PR12MB4043.namprd12.prod.outlook.com (2603:10b6:5:216::14) with
+ DM6PR12MB4530.namprd12.prod.outlook.com (2603:10b6:5:2aa::19) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4331.26; Mon, 19 Jul 2021 15:48:16 +0000
+ 15.20.4331.23; Mon, 19 Jul 2021 15:50:29 +0000
 Received: from DM5PR12MB4680.namprd12.prod.outlook.com
  ([fe80::1d06:dcde:55f9:3eb7]) by DM5PR12MB4680.namprd12.prod.outlook.com
  ([fe80::1d06:dcde:55f9:3eb7%7]) with mapi id 15.20.4331.032; Mon, 19 Jul 2021
- 15:48:16 +0000
+ 15:50:29 +0000
 From: "Kim, Jonathan" <Jonathan.Kim@amd.com>
-To: "Kuehling, Felix" <Felix.Kuehling@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 3/3] drm/amdkfd: report pcie bandwidth to the kfd
-Thread-Topic: [PATCH 3/3] drm/amdkfd: report pcie bandwidth to the kfd
-Thread-Index: AQHXemGzeTVUENNxH0iHkpf4plOXxKtGpsMAgAPOglA=
-Date: Mon, 19 Jul 2021 15:48:16 +0000
-Message-ID: <DM5PR12MB4680555CB22D897DB6F66D6085E19@DM5PR12MB4680.namprd12.prod.outlook.com>
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 2/3] drm/amdkfd: report xgmi bandwidth between direct
+ peers to the kfd
+Thread-Topic: [PATCH 2/3] drm/amdkfd: report xgmi bandwidth between direct
+ peers to the kfd
+Thread-Index: AQHXemGzV9RvInrj80ePyyv8CyogaqtJ6KiAgACNsYA=
+Date: Mon, 19 Jul 2021 15:50:29 +0000
+Message-ID: <DM5PR12MB46808DDD944D1DF12636E09E85E19@DM5PR12MB4680.namprd12.prod.outlook.com>
 References: <20210716164312.896939-1-jonathan.kim@amd.com>
- <20210716164312.896939-3-jonathan.kim@amd.com>
- <5c495819-ee12-9267-13d3-4b07e8a27e11@amd.com>
-In-Reply-To: <5c495819-ee12-9267-13d3-4b07e8a27e11@amd.com>
+ <20210716164312.896939-2-jonathan.kim@amd.com>
+ <19e8ee08-c4b7-ffd7-0805-84c93402d76a@amd.com>
+In-Reply-To: <19e8ee08-c4b7-ffd7-0805-84c93402d76a@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=75cc8936-9c40-419a-b4e4-68486dba8792;
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=4b309fe6-edd2-4958-b175-f3eb7616abec;
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
  Official Use Only-AIP 2.0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-07-19T15:44:53Z;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-07-19T15:48:45Z;
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
 authentication-results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 8a5c2296-72f4-4f59-fc04-08d94acc9ffb
-x-ms-traffictypediagnostic: DM6PR12MB4043:
+x-ms-office365-filtering-correlation-id: d8795a84-749c-415b-2d42-08d94acceefa
+x-ms-traffictypediagnostic: DM6PR12MB4530:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB40439C0DD4B5E2DDF3C625C885E19@DM6PR12MB4043.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:5797;
+x-microsoft-antispam-prvs: <DM6PR12MB4530E9B39219ADBA7143E4C685E19@DM6PR12MB4530.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:5516;
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: GwLk75+3W7QOth6xkcTmnDls0JKtpTt5kmOlA1y/1VmHE33/Vj92PrbqAd5PoGwjULRlUoReAXYJcg0sfVokCpNhgqPfI3aZyyv3z7HDMXfKHH03Sjqout4DHbs5YdsXBGTOnewG/VqZfel0sgJvWRjZ0OqFwP7inYQXu4qPSFC3JgS208zvtCqIpL5nZuKofgTLw8w3CwIiz1LBK8QnBQkdaktODwX4qQvRWm/1jiJJESEymOyKOItJ5ldXChxoZ7/1GooJV3X4KIc4fACPIXU52T2ap4cs0WEOIi8HWxbvtXt41pKlj1sp1qugt5mj56XC754/fuPaXuI7R7sK9AXGxRRpyC+TxFxr1sb7jNeERdbMoUu3LMp8g9YmTE31k5nX8axbGhXD/A/NcAhZoR00F19p0VCF8RgqBaCF25K/8npnEDgNSFH2mGX9dWR8IQj1qAwJpvQ0VEKNt7eWcezLSQdJ4QXFbbSD08vrtEZhg9ZrMCBOlJqmeee0HKaRpkZCF7h8tZNeH8vuJCaSuTnN38+riViNOwGoWy2IIHKLGtU7VnfYO2+Q5tXhBXr2KoLgb8EzN9ljr5W4hXeOuRMRq8EhDQk42/+LhyEaIEGkckVkbp3sGIy0RgE3FPWtithmYl07KKlXW0c4SvxwAvJH3l+wUBLoTU4WnSPJ8hClwguLR3FoDntrX59JDu0lI3rYEbCSg7uK8o3daniSpg==
+x-microsoft-antispam-message-info: ZuCBfcFn86vZ5k6i9J9OBoueyUVlmfg8P/OhDWXtPYtOlX/SB8vyeRxknZHLkERxAPBqY9Bs2523xkpzfpo1/6lRzB2Vq79WOAbpUavpnyKG7FNevtPJhmteOkeow0xbLgAGYSj77WfQarpx5YrcCo0/CRwCuE9QINMawZk+a9z12nfsuLw2Dl517rHo6OjwwEp/oUqLTmwVtaui2LERRQkvpqhEIVksqU9X/7nDorLnsLUo4PPVXaI7W+8Sg3tzY1kqy5o/7i3owSB8QZz+vOuzHXgTwvnsn5b4K6rmBcY7F0ZDoqeULExJssoaUlNlJd9j0D7l4LVC58oYyepo2wXJPLabPN5h7eYssFWwmRdy4vDe7OOSkH4tRTFm6s9WQOVfhfdhSOIDhrwdf6A7EYzhBeRErQiqsYXRFcrt/QiKQreBjMrPa04d62wDgkgDLLao/1kmgM7BWjU31J7cD4RryKx9SmFTfF/jAPDFr9wo3PV52a57hAcQ0de90zwkOuRTjfHwd/ZxJ6LI/SZFYh68zfuWJP/08rHbusL/DrNJ4wd1HBBHoGHLrFtS82f97eitjw0XEoQ0/5F+uCrKQxWelPnrZ6zbWs849POwJ1XH0KnsTliZS7f1rMb35lOyDBfxcOlbawBJckyDOyyw2OnLvTtbaMnqoU5OKHqNQJ7RyxgmeX7s5zTEyJLwPHCxy9Zx50oxUhWZXz9rsxAiEQ==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM5PR12MB4680.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(136003)(346002)(366004)(39860400002)(376002)(33656002)(53546011)(6506007)(38100700002)(316002)(55016002)(83380400001)(9686003)(86362001)(186003)(122000001)(7696005)(64756008)(5660300002)(66556008)(66446008)(8936002)(478600001)(76116006)(8676002)(66476007)(2906002)(52536014)(110136005)(66946007)(71200400001)(38070700004);
+ SFS:(4636009)(366004)(39860400002)(136003)(376002)(346002)(396003)(9686003)(33656002)(38100700002)(316002)(122000001)(55016002)(4326008)(8676002)(86362001)(66476007)(71200400001)(66446008)(66556008)(6506007)(186003)(110136005)(2906002)(8936002)(83380400001)(66946007)(52536014)(53546011)(478600001)(64756008)(5660300002)(7696005)(76116006)(38070700004);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?S2ZLb3RDYUFrL0RLLzRaSG5Yd2NFT3pXNGVLSUFvV1hNODd6QXVKUkNkZElQ?=
- =?utf-8?B?bExLc3UzSC9OMVU3THZENVpvZ3VMM1RZd2R0RTBMeENpOHlVMEZHeG5ESnlm?=
- =?utf-8?B?aG9CRFgyTjl6cnRUYThBOGNldWhpVjhKNVlLSVA3MEVYUW4vclpGVGVzZ3V5?=
- =?utf-8?B?eWE1WnRURjEwWFY4Rm1DTHZRaW84TFZFTjF3R3F6V2d6V0drZlR4NStHYUJM?=
- =?utf-8?B?QVVjaGE0SXBaSkJDZXh2ejhrOU90U1VjS1djZTNmL2RLa1lHTWNvdXY0WTdz?=
- =?utf-8?B?SUFXbWpuM2JKck5pKytvY3BHbnpVUTRWOHorWG8rNWVBNXRLVmx0S0l1cUFC?=
- =?utf-8?B?NUp5UTcySk5GT2VUcXpLS1YvMXhLbmZhZ3h1d09qZTIwUDE0cXd2R2ZjaWpB?=
- =?utf-8?B?MVZZYWt3UEpQblo2YjhhMitGUTMwckpoSFZuRkNqWTNVd2tGeXR4VHRNSE1X?=
- =?utf-8?B?UEgzYnAwRnBvNTl3a2luWVNyTUV4UVV1SXova1ZhN1FNZk1YY3kxeDVCY2Ja?=
- =?utf-8?B?RGF3Sy9yUy9ET1hVQlY5TC80R2ErTENHYmh5VktuSTBRRVFJR3hFTStieXhK?=
- =?utf-8?B?ODhSUWRibWpNZU80VmpsNGhXaFowZjQvVTU2MXhVOUpvTlUwUHdqNVhkL3Fj?=
- =?utf-8?B?YzFSSEI5MmpGOFFPRHZuMUxmTDlOYXpYbVlqMUJkT3JQTjllbC9QeTNqN3RP?=
- =?utf-8?B?S1VZOTN0cWVnWVBVaVNmRzFJSHpiUk1aSFQ1ejdCdEZ6QnlBcHJGU0FMT1hs?=
- =?utf-8?B?Rjkya0tkWVFoalg0dmZVckpsbjZMYUx4MGhWR1JCMEFoaElWMGw5MFNTT0VK?=
- =?utf-8?B?V1c5SEtPaHhOK0RXdVM0OUtDZTMzZExzZmNrZmlmWjgraHVNN0d5WnloZCt4?=
- =?utf-8?B?WE9pQXgwclN4RkZ6eUY2SDJSM2t4OHpORHNqZzdzUXNpNDVTYys3NDhTbVFB?=
- =?utf-8?B?YjNsbG54clBZM1FTZy9RQTRUYUlzQUNIdzV2YXV3MUdrQW9NR0FkTkN5TWQ4?=
- =?utf-8?B?aGd0RUhUcUlzY2M4bm1lMmNuVXRCZVR6UU9GRjRzbkRFb01xVlJzRW16Z3lC?=
- =?utf-8?B?QUJ3NEdtd0grbFI0NFBpMWJvbHp3bGNXNmJLZHlVNDl0YXlIUWhlTjJBVFRr?=
- =?utf-8?B?VndmN1RUVDEzenlxNFNTR1l1UTRyN2hwUGs1MjVZNWRxbjFsNEdRbFJEeFc4?=
- =?utf-8?B?cjVHWDFBWFpNYVpTVjlWVmJ0V0tyY0pFNDdXd1J3TzVwTXhBcENBVE5EQ3Mr?=
- =?utf-8?B?ZzdZVHdTS2lGZE1RWnBPbzhudnhQTWlyTDZLY20zY2ZHUEkyNGh4NzlZY0gw?=
- =?utf-8?B?eUJONVQ2cWNmVnRBMDRmRDhiYmNsUkNidjFoMTFUUkRNM3NYeGJ5MTFOaGdm?=
- =?utf-8?B?bjB1eFhJMXUrb01DZ2Y1MzNsZkRjWlRoeWx0a3pncE5Eb0htYU92czd0MG01?=
- =?utf-8?B?dFJUNHE2SzFzVUNYbERuUCt3ck4zVnBsUWdMUjEvSlE0VmR3TUJBV0dVSWxU?=
- =?utf-8?B?b0lnQVplV3djRzc3QlNGTUFWTEc2bFVOd3N0bzVzeUgzYjcwellKUTFPOEZz?=
- =?utf-8?B?ckE0M3gzYUJWeUdIbkhXQUcwOXphSVVLQ2hQMjdrR2NFaTM3dk81VDloc3BR?=
- =?utf-8?B?eDRLZWxHckRJTmtOd2FrQUdaVVJ5alhjNVZCaUNZeGpLWUFyVFZ0dGc1ajRK?=
- =?utf-8?B?WnVIRUY4UjVLOVJueUhWc1pPcjc3RkxOZXR1dWdyc2JIV1RQREFEaGhQVGgr?=
- =?utf-8?B?Ukd6QTJjeVU4d2V5eWtjR3dzRXdQTDBCNE5QZGh4d283K0NwZFJGRHU2d0hX?=
- =?utf-8?B?MkJCQ3hNUVhCZXg3OHV1eDlqRDI1NHM2ZzExbUhDTW5aNE5obnpNNlRIMVZJ?=
- =?utf-8?Q?Nx/ZbndyrRELU?=
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?YTZ0WlVieEpLdzQxTzAyWDI4OFBPc3dVUEVtU0NWcTRBNzYySGcybks0OHpq?=
+ =?utf-8?B?ekVYVDlmQVFCV0JwWStHM015RzhtYWM0cFU1SGg3cThKQmRVZEVHVW91ZVlT?=
+ =?utf-8?B?dnB2RWgwN3B4bVZVV05JUjQrK3R5N1V1SWRnaituYnJ4d013WGRDcDcwSldE?=
+ =?utf-8?B?UmV3OWVaZ0Nwa1BxWDVCc2wvMXArZStxSE40RE5NNWdKZno0RVNTenc5Rzk2?=
+ =?utf-8?B?UFdzVUFBLzRZVFVVZmVCcXNrWnBMdktSMVRkTHoxWVBPcTdmT3k5MVNRcTRW?=
+ =?utf-8?B?emxyNEdJVEFzZnZEWTdCbkVSSkMvVzV0RDlqSTY0STFhZW9kRllxYitEckFZ?=
+ =?utf-8?B?VWI3dE5YY0EvZzFIRkFvb1liTFc2eVFqOXJXamRwZHM3Q29ldEFFOVJCZXV0?=
+ =?utf-8?B?Tnh2K3B3ODNxcUl6bUtrbzBOcWY1cG1QbFdGQUVWV05IUDhDU0M0aUVFdTlz?=
+ =?utf-8?B?bDkzRFJzTS9pSDhseXZLVWhlRTMvWURDS21BQXdDbDNOdlZVTXhYOHhKdENl?=
+ =?utf-8?B?eUxWUkQrdVdWNlEyT1p1NzVOMEo5aEx5SjN3QzJDbktRY2RvWHdFWUZrb1ll?=
+ =?utf-8?B?V3g3MVZZbEg4Skh3ZWErNXlITmhDUWlmaGVEbDdBa29pdTRaSzVyUnJhcHpO?=
+ =?utf-8?B?Qk9BRE5IVFR1Qks4WmhXNGxUbnhLY0NoZmVHcDYrREhMd0o5cGRacWJlSVRH?=
+ =?utf-8?B?VGlXMW00MTNrQXJ4NDhKYVBwaW9vREVhNFlkTmFkR1QzSnh3dDFPR0FJaUxJ?=
+ =?utf-8?B?R3VhMElqTEJUNlMrZzArblJlbGt1dXZNQkt6RjU1OXJiWm5jL3RIZWZ2c0lJ?=
+ =?utf-8?B?Q3JhelowWld0a3VGSDRPNVZtL2d0dzd5RXNzUlZVL0lMdmRqc1FudFM1Y2lE?=
+ =?utf-8?B?cmFYNWxNT1F6UzgwWDlQL2t3VFEvSzBBcGtTT3NuRjJhdkJCelhFZUM0MmNN?=
+ =?utf-8?B?SHdhOHl0cm4rUjJ3bXFVbkRYczlFN0U0U3VDNTg0R0NjYXVUUm5LTmUxa3Jt?=
+ =?utf-8?B?Q1ZQcU5MbzUwOWxBc0Z3bjdTdWh5ZVRuOWI0Z1Rac1V5aXhZVnBzSnRhaThh?=
+ =?utf-8?B?NklITmxsZTRha3IrT0o2SEZETVNyYnorWlVhRDE1eFN5WVR0V08xaWxNSXF1?=
+ =?utf-8?B?UFh1OUVidGhDZjdBL0p2ZUZiYnd3ZGRmWjJlQzVXSCt1dDJRZTlEREFkNFVu?=
+ =?utf-8?B?MU03UEZQUlBvdkNBdVdkQk9uelFvYis1bTdwL0VKZ3pjVWFqMjN0dHBRMVdS?=
+ =?utf-8?B?ZGZuT09TSnM2cUQ2VmR1RE5DODdpU1NvUnNRLzNwNXZON1h0T3E3aGVmd2Rh?=
+ =?utf-8?B?eDdRaUdaZHVYdzYxYjNRSk5FQzlpNTBkSnNyVG12TWhKMmpaRUZjR0UrSkYr?=
+ =?utf-8?B?MUQveGEvajNPQXNhZjF6MTl5aTNrc3dOalAzRmxrMlNkaTl6T0lpTTkvNXdC?=
+ =?utf-8?B?dE5nUkUwb1NwK0VaanFlOHB6SCt3ZU1DaHVXdVdrMVREbkZaYkYwYXJaNitz?=
+ =?utf-8?B?UldQQmZMVzlWSFFOZ0FrRHhPMkZBSnAyd25aVlBIdGdTQU9kZHZwSVVUSmpi?=
+ =?utf-8?B?UnYrcHErV1dTTjA5eVRSMkQ3cEYrYStlVjJOWFBpSFA2M0V0T3pKaTRTd0FZ?=
+ =?utf-8?B?d1djaXdMTFQ3RVk4SjVCdTBQbEU3ZENhQzlCU2NvQm42VUFjeWxqWmZDUmZp?=
+ =?utf-8?B?ZlJ6Y3M2UFZBVC9lN0M1UkVsYW55VDRISEpheU5vZWZEaitYUGUrZHlhajNO?=
+ =?utf-8?B?N2d3RnRtWGpPc3h1UjBYUzZCbUREdWxOSncwQWZyWGZmRmI5V2J3WG5vdDV3?=
+ =?utf-8?B?Y1dheHNUY1hzK0pZQW1aNlpGakxlWlJCamJUU1M5WWZyMllhZFhicURNbHhR?=
+ =?utf-8?Q?v9Ey2Ky/dGGpK?=
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB4680.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8a5c2296-72f4-4f59-fc04-08d94acc9ffb
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Jul 2021 15:48:16.6431 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d8795a84-749c-415b-2d42-08d94acceefa
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Jul 2021 15:50:29.1773 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: HfnuuHvRSbxNBCv4f4KYANbK96Ubo/n8knElHzW85aSbUJKDNE0dinAAx20X4/9w
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4043
+X-MS-Exchange-CrossTenant-userprincipalname: HCRhh5RR3GFiQVT/iEEy3q+L5ectUuQCbWjCq5Jx7s9ek5kVVHcQhRuA11hqM+Hl
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4530
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,6 +144,7 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "Kuehling, Felix" <Felix.Kuehling@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
@@ -150,175 +153,189 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 [AMD Official Use Only]
 
 > -----Original Message-----
-> From: Kuehling, Felix <Felix.Kuehling@amd.com>
-> Sent: Saturday, July 17, 2021 1:37 AM
+> From: Lazar, Lijo <Lijo.Lazar@amd.com>
+> Sent: Monday, July 19, 2021 3:22 AM
 > To: Kim, Jonathan <Jonathan.Kim@amd.com>; amd-
 > gfx@lists.freedesktop.org
-> Subject: Re: [PATCH 3/3] drm/amdkfd: report pcie bandwidth to the kfd
+> Cc: Kuehling, Felix <Felix.Kuehling@amd.com>
+> Subject: Re: [PATCH 2/3] drm/amdkfd: report xgmi bandwidth between
+> direct peers to the kfd
 >
-> Am 2021-07-16 um 12:43 p.m. schrieb Jonathan Kim:
-> > Similar to xGMI reporting the min/max bandwidth between direct peers,
-> > PCIe will report the min/max bandwidth to the KFD.
+>
+>
+> On 7/16/2021 10:13 PM, Jonathan Kim wrote:
+> > Report the min/max bandwidth in megabytes to the kfd for direct xgmi
+> > connections only.
 > >
-> > v2: change to bandwidth
+> > v2: change reporting from num links to bandwidth
 > >
 > > Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
 > > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 61
-> > ++++++++++++++++++++++
-> drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h |  1 +
-> >  drivers/gpu/drm/amd/amdkfd/kfd_crat.c      |  4 ++
-> >  3 files changed, 66 insertions(+)
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 23
+> ++++++++++++++++++++++
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h |  1 +
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c   | 12 +++++++++++
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h   |  2 ++
+> >   drivers/gpu/drm/amd/amdkfd/kfd_crat.c      | 12 +++++++++++
+> >   5 files changed, 50 insertions(+)
 > >
 > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
 > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> > index 3978578a1c49..b7db52f1a9d1 100644
+> > index bfab2f9fdd17..3978578a1c49 100644
 > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
 > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> > @@ -21,6 +21,7 @@
-> >   */
+> > @@ -553,6 +553,29 @@ uint8_t
+> amdgpu_amdkfd_get_xgmi_hops_count(struct kgd_dev *dst, struct kgd_dev
+> *s
+> >     return  (uint8_t)ret;
+> >   }
 > >
-> >  #include "amdgpu_amdkfd.h"
-> > +#include "amd_pcie.h"
-> >  #include "amd_shared.h"
-> >
-> >  #include "amdgpu.h"
-> > @@ -576,6 +577,66 @@ int
-> amdgpu_amdkfd_get_xgmi_bandwidth_mbytes(struct kgd_dev *dst, struct
-> kgd_dev
-> >     return (num_links * 16 * 25000)/BITS_PER_BYTE;  }
-> >
-> > +int amdgpu_amdkfd_get_pcie_bandwidth_mbytes(struct kgd_dev *dev,
-> bool
-> > +is_min) {
-> > +   struct amdgpu_device *adev = (struct amdgpu_device *)dev;
-> > +   int num_lanes_shift = is_min ? ffs(adev->pm.pcie_mlw_mask >>
+> > +int amdgpu_amdkfd_get_xgmi_bandwidth_mbytes(struct kgd_dev *dst,
+> > +struct kgd_dev *src, bool is_min) {
+> > +   struct amdgpu_device *adev = (struct amdgpu_device *)dst,
+> *peer_adev;
+> > +   int num_links;
 > > +
->       CAIL_PCIE_LINK_WIDTH_SUPPORT_SHIFT) - 1 :
-> > +                           fls(adev->pm.pcie_mlw_mask >>
+> > +   if (adev->asic_type != CHIP_ALDEBARAN)
+> > +           return 0;
 > > +
->       CAIL_PCIE_LINK_WIDTH_SUPPORT_SHIFT) - 1;
-> > +   int gen_speed_shift = is_min ? ffs(adev->pm.pcie_gen_mask >>
+> > +   if (src)
+> > +           peer_adev = (struct amdgpu_device *)src;
 > > +
->       CAIL_PCIE_LINK_SPEED_SUPPORT_SHIFT) - 1 :
-> > +                           fls(adev->pm.pcie_gen_mask >>
+> > +   num_links = is_min ? 1 : amdgpu_xgmi_get_num_links(adev,
+> peer_adev);
+> > +   if (num_links < 0) {
+> > +           DRM_ERROR("amdgpu: failed to get xgmi num links between
+> node %d and %d. ret = %d\n",
+> > +                   adev->gmc.xgmi.physical_node_id,
+> > +                   peer_adev->gmc.xgmi.physical_node_id, num_links);
+> > +           num_links = 0;
+> > +   }
 > > +
->       CAIL_PCIE_LINK_SPEED_SUPPORT_SHIFT) - 1;
+> > +   /* Aldebaran xGMI DPM is defeatured so assume x16 x 25Gbps for
+> bandwidth. */
+> > +   return (num_links * 16 * 25000)/BITS_PER_BYTE;
 >
-> The shifting is not necessary because you undo it below. I think this would
-> do the trick and be more readable:
->
->       int num_lanes_shift = (is_min ? ffs(adev->pm.pcie_mlw_mask) :
->                                       fls(adev->pm.pcie_mlw_mask)) - 1;
->       int gen_speed_shift = (is_min ? ffs(adev->pm.pcie_gen_mask) :
->                                       fls(adev->pm.pcie_gen_mask)) - 1;
+> Instead of having ASIC family checks and bandwidth info in interface
+> functions, better to have this info come from base layer (amdgpu_xgmi or
+> xgmi ip). That will help to handle other ASICs.
 
-Ok thanks for the review and suggestion.  I've adjusted your suggestion by masking pcie_gen_mask with CAIL_PCIE_LINK_SPEED_SUPPORT_MASK as the mask sets some non-speed related lower bits.
+Ok.  We can revisit this as a follow up.  Maybe the full solution is a link width/speed support mask analogous to pcie.
 
 Thanks,
 
 Jon
 
->       uint32_t num_lanes_mask = 1 << num_lanes_shift;
->       uint32_t gen_speed_mask = 1 << gen_speed_shift;
 >
-> With that fixed, this patch is
+> Thanks,
+> Lijo
 >
-> Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
->
->
-> > +   uint32_t num_lanes_mask = (1UL << num_lanes_shift) <<
-> CAIL_PCIE_LINK_WIDTH_SUPPORT_SHIFT;
-> > +   uint32_t gen_speed_mask = (1UL << gen_speed_shift) <<
-> CAIL_PCIE_LINK_SPEED_SUPPORT_SHIFT;
-> > +   int num_lanes_factor = 0, gen_speed_mbits_factor = 0;
-> > +
-> > +   switch (num_lanes_mask) {
-> > +   case CAIL_PCIE_LINK_WIDTH_SUPPORT_X1:
-> > +           num_lanes_factor = 1;
-> > +           break;
-> > +   case CAIL_PCIE_LINK_WIDTH_SUPPORT_X2:
-> > +           num_lanes_factor = 2;
-> > +           break;
-> > +   case CAIL_PCIE_LINK_WIDTH_SUPPORT_X4:
-> > +           num_lanes_factor = 4;
-> > +           break;
-> > +   case CAIL_PCIE_LINK_WIDTH_SUPPORT_X8:
-> > +           num_lanes_factor = 8;
-> > +           break;
-> > +   case CAIL_PCIE_LINK_WIDTH_SUPPORT_X12:
-> > +           num_lanes_factor = 12;
-> > +           break;
-> > +   case CAIL_PCIE_LINK_WIDTH_SUPPORT_X16:
-> > +           num_lanes_factor = 16;
-> > +           break;
-> > +   case CAIL_PCIE_LINK_WIDTH_SUPPORT_X32:
-> > +           num_lanes_factor = 32;
-> > +           break;
-> > +   }
-> > +
-> > +   switch (gen_speed_mask) {
-> > +   case CAIL_PCIE_LINK_SPEED_SUPPORT_GEN1:
-> > +           gen_speed_mbits_factor = 2500;
-> > +           break;
-> > +   case CAIL_PCIE_LINK_SPEED_SUPPORT_GEN2:
-> > +           gen_speed_mbits_factor = 5000;
-> > +           break;
-> > +   case CAIL_PCIE_LINK_SPEED_SUPPORT_GEN3:
-> > +           gen_speed_mbits_factor = 8000;
-> > +           break;
-> > +   case CAIL_PCIE_LINK_SPEED_SUPPORT_GEN4:
-> > +           gen_speed_mbits_factor = 16000;
-> > +           break;
-> > +   case CAIL_PCIE_LINK_SPEED_SUPPORT_GEN5:
-> > +           gen_speed_mbits_factor = 32000;
-> > +           break;
-> > +   }
-> > +
-> > +   return (num_lanes_factor *
-> gen_speed_mbits_factor)/BITS_PER_BYTE;
-> > +}
-> > +
-> >  uint64_t amdgpu_amdkfd_get_mmio_remap_phys_addr(struct kgd_dev
+> >   uint64_t amdgpu_amdkfd_get_mmio_remap_phys_addr(struct kgd_dev
 > *kgd)
-> > {
-> >     struct amdgpu_device *adev = (struct amdgpu_device *)kgd; diff --git
-> > a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+> >   {
+> >     struct amdgpu_device *adev = (struct amdgpu_device *)kgd; diff
+> > --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
 > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> > index e12fccb2d2c4..5d73f3108d13 100644
+> > index 81264517d532..e12fccb2d2c4 100644
 > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
 > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> > @@ -227,6 +227,7 @@ uint32_t amdgpu_amdkfd_get_asic_rev_id(struct
-> > kgd_dev *kgd);  int amdgpu_amdkfd_get_noretry(struct kgd_dev *kgd);
-> > uint8_t amdgpu_amdkfd_get_xgmi_hops_count(struct kgd_dev *dst, struct
-> > kgd_dev *src);  int amdgpu_amdkfd_get_xgmi_bandwidth_mbytes(struct
-> > kgd_dev *dst, struct kgd_dev *src, bool is_min);
-> > +int amdgpu_amdkfd_get_pcie_bandwidth_mbytes(struct kgd_dev *dev,
-> bool
-> > +is_min);
+> > @@ -226,6 +226,7 @@ uint32_t amdgpu_amdkfd_get_num_gws(struct
+> kgd_dev *kgd);
+> >   uint32_t amdgpu_amdkfd_get_asic_rev_id(struct kgd_dev *kgd);
+> >   int amdgpu_amdkfd_get_noretry(struct kgd_dev *kgd);
+> >   uint8_t amdgpu_amdkfd_get_xgmi_hops_count(struct kgd_dev *dst,
+> > struct kgd_dev *src);
+> > +int amdgpu_amdkfd_get_xgmi_bandwidth_mbytes(struct kgd_dev *dst,
+> > +struct kgd_dev *src, bool is_min);
 > >
-> >  /* Read user wptr from a specified user address space with page fault
-> >   * disabled. The memory must be pinned and mapped to the hardware
-> > when diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+> >   /* Read user wptr from a specified user address space with page fault
+> >    * disabled. The memory must be pinned and mapped to the hardware
+> > when diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+> > index 8567d5d77346..258cf86b32f6 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+> > @@ -486,6 +486,18 @@ int amdgpu_xgmi_get_hops_count(struct
+> amdgpu_device *adev,
+> >     return  -EINVAL;
+> >   }
+> >
+> > +int amdgpu_xgmi_get_num_links(struct amdgpu_device *adev,
+> > +           struct amdgpu_device *peer_adev)
+> > +{
+> > +   struct psp_xgmi_topology_info *top = &adev-
+> >psp.xgmi_context.top_info;
+> > +   int i;
+> > +
+> > +   for (i = 0 ; i < top->num_nodes; ++i)
+> > +           if (top->nodes[i].node_id == peer_adev->gmc.xgmi.node_id)
+> > +                   return top->nodes[i].num_links;
+> > +   return  -EINVAL;
+> > +}
+> > +
+> >   int amdgpu_xgmi_add_device(struct amdgpu_device *adev)
+> >   {
+> >     struct psp_xgmi_topology_info *top_info; diff --git
+> > a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
+> > index 12969c0830d5..d2189bf7d428 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
+> > @@ -59,6 +59,8 @@ int amdgpu_xgmi_remove_device(struct
+> amdgpu_device *adev);
+> >   int amdgpu_xgmi_set_pstate(struct amdgpu_device *adev, int pstate);
+> >   int amdgpu_xgmi_get_hops_count(struct amdgpu_device *adev,
+> >             struct amdgpu_device *peer_adev);
+> > +int amdgpu_xgmi_get_num_links(struct amdgpu_device *adev,
+> > +           struct amdgpu_device *peer_adev);
+> >   uint64_t amdgpu_xgmi_get_relative_phy_addr(struct amdgpu_device
+> *adev,
+> >                                        uint64_t addr);
+> >   static inline bool amdgpu_xgmi_same_hive(struct amdgpu_device *adev,
+> > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
 > > b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-> > index 40ce6239c813..eada22b9ea69 100644
+> > index c6b02aee4993..40ce6239c813 100644
 > > --- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
 > > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-> > @@ -1998,6 +1998,10 @@ static int kfd_fill_gpu_direct_io_link_to_cpu(int
+> > @@ -1989,6 +1989,13 @@ static int kfd_fill_gpu_direct_io_link_to_cpu(int
 > *avail_size,
-> >             }
+> >             sub_type_hdr->flags |=
+> CRAT_IOLINK_FLAGS_BI_DIRECTIONAL;
+> >             sub_type_hdr->io_interface_type =
+> CRAT_IOLINK_TYPE_XGMI;
+> >             sub_type_hdr->num_hops_xgmi = 1;
+> > +           if (adev->asic_type == CHIP_ALDEBARAN) {
+> > +                   sub_type_hdr->minimum_bandwidth_mbs =
+> > +
+>       amdgpu_amdkfd_get_xgmi_bandwidth_mbytes(
+> > +                                                   kdev->kgd, NULL,
+> true);
+> > +                   sub_type_hdr->maximum_bandwidth_mbs =
+> > +                                   sub_type_hdr-
+> >minimum_bandwidth_mbs;
+> > +           }
 > >     } else {
 > >             sub_type_hdr->io_interface_type =
 > CRAT_IOLINK_TYPE_PCIEXPRESS;
-> > +           sub_type_hdr->minimum_bandwidth_mbs =
-> > +
->       amdgpu_amdkfd_get_pcie_bandwidth_mbytes(kdev->kgd, true);
-> > +           sub_type_hdr->maximum_bandwidth_mbs =
-> > +
->       amdgpu_amdkfd_get_pcie_bandwidth_mbytes(kdev->kgd, false);
 > >     }
+> > @@ -2033,6 +2040,11 @@ static int kfd_fill_gpu_xgmi_link_to_gpu(int
+> *avail_size,
+> >     sub_type_hdr->proximity_domain_to = proximity_domain_to;
+> >     sub_type_hdr->num_hops_xgmi =
+> >             amdgpu_amdkfd_get_xgmi_hops_count(kdev->kgd,
+> peer_kdev->kgd);
+> > +   sub_type_hdr->maximum_bandwidth_mbs =
+> > +           amdgpu_amdkfd_get_xgmi_bandwidth_mbytes(kdev->kgd,
+> peer_kdev->kgd, false);
+> > +   sub_type_hdr->minimum_bandwidth_mbs = sub_type_hdr-
+> >maximum_bandwidth_mbs ?
+> > +           amdgpu_amdkfd_get_xgmi_bandwidth_mbytes(kdev->kgd,
+> NULL, true) : 0;
+> > +
+> >     return 0;
+> >   }
 > >
-> >     sub_type_hdr->proximity_domain_from = proximity_domain;
+> >
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
