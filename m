@@ -2,133 +2,65 @@ Return-Path: <SRS0=SWRn=ML=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0E00BC07E9D
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jul 2021 20:47:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1A4B1C07E95
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jul 2021 20:51:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BEA016115B
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jul 2021 20:47:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BEA016115B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id BEF75610F7
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jul 2021 20:51:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BEF75610F7
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B15389872;
-	Mon, 19 Jul 2021 20:47:08 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2040.outbound.protection.outlook.com [40.107.244.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0193389872;
- Mon, 19 Jul 2021 20:47:06 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TYGfd5DXDfAZtkBepJZVnlyMtGaWSSUZkeU2P5a280NXKHHsz7b0NzEnBwB7vR6+9aY8ylRF1xxIQd4lA6sQ0m1TpYO7HafiNFQFOpmPsORVXOab2skyYxa5NSPV5R+igQZrcmjC5a6BDlflOE7/p2PMVtRkx+ItY+3vMRFiDRefK6Typ5paMgSwVGBGTUn9pOo0c1H8OxB/amRGR1BD9NbEMuR4wmG/zQfR/KKmChEgVqtZneynDBAS6V5kUMtrqsoKTUS4VMIVJepnSJjqsPdAMhnPTPv8BKGZOjBuuaWIGDWmOtZIcmI8+TiINzG4e5fFWP+Abvcg/A8erL0jTQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JX3SQ3Or61skBf6/NfUIptE4NTvuGN0ceBJeg6YzNtA=;
- b=KlCxbxX9IlWHiOO7eiudUuVBFdPzHGA0c8os2BU17CMXGf+IGaN4BHwC3gtSypCXq565BBCh5RaYuqJSIV67Z6VveRYJfQ10WJs9xQmQWYAsUtEiXzr3/jNRXZqjPv3bCrzjZ68w4sebuVp1xMmu5G1QiRgzXdIokKXtlcuuGuWVDK3KJdkkoIbKToPJUNVcnKPIBzPEYKRNKELxusEg2/Q7ETqa+FUvzOn64PLYdqkV6EH8vZK07azUzvZwhuS8biQ04CC5/gbudtV9jXSX7QcIa0s2o1yDCNjryKhir7fZCfto0at20rt5YC2Vc0K7IjP7/oGLgqQXTv+NqRvHSQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JX3SQ3Or61skBf6/NfUIptE4NTvuGN0ceBJeg6YzNtA=;
- b=tDC0qvMQbQEkBjFfL1x0vgNdOK5mLF2/Aj8aLAnikE2dy3AH3azPz1dRnQFEBViO4SHZD65mp25yR7RtZIrxIDks8X0rXEPChpX7zFCWknp86sTAsdarknGDPdU9K7GepfUvKtofdcaLfsEEN1cxyzBn/K+RIHnPbRyi19WCDHg=
-Received: from DM4PR12MB5374.namprd12.prod.outlook.com (2603:10b6:5:39a::11)
- by DM4PR12MB5263.namprd12.prod.outlook.com (2603:10b6:5:39b::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4331.21; Mon, 19 Jul
- 2021 20:47:05 +0000
-Received: from DM4PR12MB5374.namprd12.prod.outlook.com
- ([fe80::6958:68e2:61a1:466f]) by DM4PR12MB5374.namprd12.prod.outlook.com
- ([fe80::6958:68e2:61a1:466f%3]) with mapi id 15.20.4331.033; Mon, 19 Jul 2021
- 20:47:05 +0000
-From: "Zeng, Oak" <Oak.Zeng@amd.com>
-To: "Sierra Guiza, Alejandro (Alex)" <Alex.Sierra@amd.com>,
- "akpm@linux-foundation.org" <akpm@linux-foundation.org>, "Kuehling, Felix"
- <Felix.Kuehling@amd.com>, "linux-mm@kvack.org" <linux-mm@kvack.org>,
- "rcampbell@nvidia.com" <rcampbell@nvidia.com>, "linux-ext4@vger.kernel.org"
- <linux-ext4@vger.kernel.org>, "linux-xfs@vger.kernel.org"
- <linux-xfs@vger.kernel.org>
-Subject: Re: [PATCH v4 06/13] include/linux/mm.h: helpers to check zone device
- generic type
-Thread-Topic: [PATCH v4 06/13] include/linux/mm.h: helpers to check zone
- device generic type
-Thread-Index: AQHXe0ER59bX/5sOz0+NLdfh5DYtsqtKhOUA
-Date: Mon, 19 Jul 2021 20:47:04 +0000
-Message-ID: <25BBA6FE-5134-4CF8-B0B2-BF3BE907AC38@amd.com>
-References: <20210717192135.9030-1-alex.sierra@amd.com>
- <20210717192135.9030-7-alex.sierra@amd.com>
-In-Reply-To: <20210717192135.9030-7-alex.sierra@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Microsoft-MacOutlook/16.49.21050901
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 1ed1e2d4-a4bc-4d9d-7485-08d94af65e26
-x-ms-traffictypediagnostic: DM4PR12MB5263:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM4PR12MB52634722A79FB80E967DAC2680E19@DM4PR12MB5263.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:2803;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: YFV0xcTrVCoecCWYpEgqgxjwO0ZuFVwN/PoQuOdaVuH1sgx5za4ZLgd6bZQEn+kxFvpu9pgwOlq7Ld4GYhfLdkrs5ht8ldhfZ19/al1V6GXu6lPbLMGOB1tl+8xjPlysZpsmHnZcKMeJQcs+TF/Q1kOarCXzLPdcClGQIQI9Snv7KtkAQWqQ/RC0L9siM02RWFWJoQc+FnIMqkAo/QJrGbkJh6NfbRnRIFom6FxhQsOxxMt4z3qhVFyXyG4Buq6mwIYxJgmUqCCT7Vu+fGTqITX438aHIUSkA/n1pfgZZAR2RkSwI7oWVlf2c0GtKe+fYAH6WvsdWsua39hn5J+qhLz8W6sdthiWqjbs2lzqLiBxv4aCJolrY8jIL5t+FebGUxaj8GQST4fzr/0eKiDleI8qDT/TyCiEy2tUIQjRtiM0UhraNU09+YnCcKCDVR9VjzJ049i06gqayxnON/Uxk4U3HNdzOvANiYvx6ne3bLDubAx/SUb5vPCVxJM5DwLSbnT7DqqAuHl+lL0eBDec/PD/cJrpI+3Roeoq8U17V/+oM9YImKKXhoDr0P7A1jHMHs3suUU5YGl06B9R+kSDVGcYEqV2n7EAT4V4vefoyFc5B7fkW5C38d6TQ9jZ+8di9RSE9fFss28IpokaYskR669fhRiIy9pYSBWIWy0JnItKDLItXozMtM6TxyAbeOpXGCYkZ4AbGkTJdRqUWd6lH3TL9SRn4sXy3ArD4MrnAnqZ5zH+Kim9LebDS0PN8A3G1sUV+hPEBYNr69FYCaGb4A==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5374.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(396003)(39860400002)(346002)(376002)(366004)(71200400001)(2906002)(8936002)(122000001)(66946007)(8676002)(91956017)(76116006)(316002)(110136005)(66446008)(66476007)(66556008)(64756008)(45080400002)(2616005)(54906003)(966005)(36756003)(26005)(6506007)(6512007)(478600001)(186003)(86362001)(33656002)(7416002)(5660300002)(4326008)(6486002)(38100700002)(41533002)(45980500001)(38070700004);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?ZlJ2ZWtFWHE5U0czVnY0Ym9PQm5WU2haalZhUTZSRTEraHBCWlJtaC82THhB?=
- =?utf-8?B?NWVFbDlHUGRnejFaRkc5anJWSi9xcHNmNGJsVVVLT0lRRE1FbVB1MzdxN0JV?=
- =?utf-8?B?cjNSaG51R0lNQldxL0ZzQnM3cW5BRkJFclA2NU8vSTVJVzZRc1YyL0l1emtx?=
- =?utf-8?B?RXhnNVRWcm1IakRvNkVvNGRvb2tOQTdOT3FiaFhDUVJ3VE15a0RkNXRCeG9s?=
- =?utf-8?B?V25LWGM2OXdVUElneFdxUzRZV1VCamhqZVVFdkNTTmFZSEhoejF5NkgxVVVZ?=
- =?utf-8?B?NW9ZR0NnTG5vTEhCL1EwRVBBeFF1RVBpRmJlanQwcms2UUxDTVpJck1HOThT?=
- =?utf-8?B?bG1LQWJ6blcrRmJRSTRtV0hLd3Zvb3AvSmFYdThuQnRHc0tYOVNiUjEyUzlx?=
- =?utf-8?B?T3hra2FxT2lTK0FvMElLWmJPZ1BJWGFJQnFmNUFIU0JTMmlwbHY5QnBPeW5L?=
- =?utf-8?B?VlhSVmRsT204eElIekhDaStkRU41bGRVWlZtSjNtQ20yOWVQTnNZUGozdVJZ?=
- =?utf-8?B?NG0zektZTjcxYlRZdW93MWg5T29DSXJtTURDcVQzaC9Yd1hwRGg0eTg5anlM?=
- =?utf-8?B?ZzVvUEZKWEVJZVdXWnl0RStrSGhXcTJNUm11WTBFSzFPeitSSENYRTFiWnN4?=
- =?utf-8?B?TGZad0pRNXZwVStNRGQ0L1VHckQ1Sk9SY20xVnlTUi9Xa2Z1azRqcDRHQjdP?=
- =?utf-8?B?QmRzS2FneEFPOFBnNjJvSlVhZzZnSVVwZ0hMQTJXQVAxVVdsR1M0WXlNbFZU?=
- =?utf-8?B?VkdBcHdnS3htbW4xYzZjY1FKZndJendSSGI3cktzd2dud1YvQW1ZUVR6Nkp1?=
- =?utf-8?B?OWtNd21uQTZteWR3djJZN0lsZ3ZhMVA2MjZ5ZFJEdHRGeStxSnVIb2d1MFFj?=
- =?utf-8?B?ZFh6alBDamN0RmtraE9JMnVQbk1ndFJYQU5WRmZ2WS84YU1NMXV0K1dkb3Jp?=
- =?utf-8?B?VFlydEJpZjUrY0hyUTlCZ3lucjNmdXFGbG5LbXNjUmpwN2EzT1hBSzZpUjd4?=
- =?utf-8?B?NnlwWW11Y2xpNHdRanNMRGZXRTQ3djYwQldIR0x6ZDJHYTIvd3ZpdXlQVjdE?=
- =?utf-8?B?Q3JPSWoySklwMUM2WnkwTENTWHprenlzZ3RidmNFMlpQU29iWktyM1pKSnNG?=
- =?utf-8?B?L0lBVjNwYk9wOTNJa09PaldUNWZrN0F0VGRqMTJVdDBSbWd0KzJpa1hNNlNR?=
- =?utf-8?B?WjlhZE1tRWNLZWw5TmZUS2taN1gvRk9MdzM4d1BaU0N4c2FVaEhLYXM4cGtE?=
- =?utf-8?B?VmlJNXg3Wm0yQ3ZpdlZwenVlNTRBdjl1aWRwa0Jtd2tSbUNINmpSazY5ZTV5?=
- =?utf-8?B?NW8xRThOQkNLM21WSUN0REJrd0VMR2FPbG9WaTFXSGhKUGRFSUwrRkl1SEhO?=
- =?utf-8?B?clNPZU5RRmxEaWdsRERKQXZuNS94US9lNHRGN2tKUDFxeDlqd2RHc2R6QVJJ?=
- =?utf-8?B?Q0xtdHNhT2dTMkVBT1g3d0t4YlRNUzQ0THVjL0g3OVBHb3VpNFZiZ1B1NThC?=
- =?utf-8?B?bnFlUmRvZ2VzU2prUENUOGh1eXdCbzZsbGxWNjAvRCt0VjFCakp5YjFwbVlB?=
- =?utf-8?B?Rnh5Y3VWTzMyMC9FNnJEamdsbFBINm01WUp3a2Joejlzb0VaaGRHc0FmZmVK?=
- =?utf-8?B?ZzNOU2FhVm1SUWRRNE9yenlZSVVyRHVYbEd0UmtTNzdIekRrczgrN1dYdE9E?=
- =?utf-8?B?UjRmRVVjejF6dlpjNjlWV2ZPbUlFMC9GS0lwQkF1OHRhcWNSUzlUOHp6QXBF?=
- =?utf-8?B?QUFCend6cW40R01SeTJmSzZwOFhPMGR0RXk3dkFxNUNqN2pCMjhUNFlDcTF5?=
- =?utf-8?B?UmxtWVQwQThuTVgxanVkUT09?=
-Content-ID: <5D6C144B8F654F49974F1FFAFDE60CFB@namprd12.prod.outlook.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CBE689C28;
+	Mon, 19 Jul 2021 20:51:55 +0000 (UTC)
+Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
+ [IPv6:2607:f8b0:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6AE3189C28
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 Jul 2021 20:51:53 +0000 (UTC)
+Received: by mail-oi1-x22e.google.com with SMTP id a132so11376557oib.6
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 Jul 2021 13:51:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=fkLu/wXIFBjD7uf4b9PWPZ2VOKlEIJWvofqOhEUXDaY=;
+ b=aZeETijX99z6xnnuKrA2RmOL9HDtrwMZgyrtYU5+of7b5ZSo3DKOaJ8ksDvwWHHMGe
+ 92gZ/7DkTqnt3OWJdCsFw+ZGJw+phA6SAA2FyhvwBw+pUvStc5G4atsllfNqNvrsvyRj
+ DujCvJRK73AEhnJrT9N06B2aC6CEKMFuOnNmF1xyfTQJ7Zawgw7N+SDc/wRxrUqT/bRG
+ 0zqIXIoWrA89w7yHkJDwAmAFQi/610p2m6a2ynFsLiOpD8poelVweJgg/6QALhNMhcPZ
+ IUhCYbRdX1CkKuiSDrJOdCYvTYBSATOb9McZWqRBLtydP1/0vLtJ2f5UwMPgxrJKPJDy
+ +1Hg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=fkLu/wXIFBjD7uf4b9PWPZ2VOKlEIJWvofqOhEUXDaY=;
+ b=hL2w5g+T9u647VFsb1AHmUUohWoVoBwZBeFWdZxid93pG+h1IymjPjlI8v6GtFR7Nq
+ Q05/jAkIK//Fyf12X17yd5GR0BS4bv0U9c4NZD+ozXkpLYnGHt8QIvFTPrcDTvcAv0/1
+ NmUktJf9NyVcL4aEUU1XGXSCK0DfcxXPZsIirwVF2ovWsg0fMKNVmAzP5dhG7FknP6by
+ gTRPYaSoY8XTs1aQzr7hA2Xi3qKda7E+/wqCTHHTXzenBtAGhjb53LI9gjzq0lSS+qBJ
+ XOgo0hdGT0Cc+6koza/U21dc4NTOw6NUeX89QgB5bObELacjvz9BWerTHUmMIqus8Dn9
+ 1R2Q==
+X-Gm-Message-State: AOAM533xCkIh9WasPsr57QFC5vWDrbBWiRRMiMoyHWVcuoyeesAGQWvc
+ G34wYCV4MB8DQlmw5l09755XnPlFVdM3wwBe324=
+X-Google-Smtp-Source: ABdhPJx5LLu8Ytdn9sGtSM5tYRpYyNly66vwBPz1RxAWOW9qow4j1ClIPRsDYOyfHSWls1zg0lIBtFixcrUifuGgTGQ=
+X-Received: by 2002:a05:6808:1390:: with SMTP id
+ c16mr3066764oiw.123.1626727912676; 
+ Mon, 19 Jul 2021 13:51:52 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1ed1e2d4-a4bc-4d9d-7485-08d94af65e26
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Jul 2021 20:47:05.0609 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: RPtqYAHX7QFOXR/5HgjL1/h6YHmdpUGqTRBd9HrMn03guw+jjj+hZlzRuEq6OSIU
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5263
+References: <20210719161637.57819-1-luben.tuikov@amd.com>
+In-Reply-To: <20210719161637.57819-1-luben.tuikov@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 19 Jul 2021 16:51:41 -0400
+Message-ID: <CADnq5_NGMa7yN1Mpb8pYvYZJ-te4vGz4KdFRVxK=_xNSGJeXdQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/pm: Fix a bug communicating with the SMU (v4)
+To: Luben Tuikov <luben.tuikov@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,52 +72,475 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "jglisse@redhat.com" <jglisse@redhat.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "jgg@nvidia.com" <jgg@nvidia.com>, "hch@lst.de" <hch@lst.de>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Alex Deucher <Alexander.Deucher@amd.com>, Lijo Lazar <Lijo.Lazar@amd.com>,
+ Evan Quan <evan.quan@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-DQoNClJlZ2FyZHMsDQpPYWsgDQoNCiANCg0K77u/T24gMjAyMS0wNy0xNywgMzoyMiBQTSwgImFt
-ZC1nZnggb24gYmVoYWxmIG9mIEFsZXggU2llcnJhIiA8YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZyBvbiBiZWhhbGYgb2YgQWxleC5TaWVycmFAYW1kLmNvbT4gd3JvdGU6DQoN
-CiAgICBUd28gaGVscGVycyBhZGRlZC4gT25lIGNoZWNrcyBpZiB6b25lIGRldmljZSBwYWdlIGlz
-IGdlbmVyaWMNCiAgICB0eXBlLiBUaGUgb3RoZXIgaWYgcGFnZSBpcyBlaXRoZXIgcHJpdmF0ZSBv
-ciBnZW5lcmljIHR5cGUuDQoNCiAgICBTaWduZWQtb2ZmLWJ5OiBBbGV4IFNpZXJyYSA8YWxleC5z
-aWVycmFAYW1kLmNvbT4NCiAgICAtLS0NCiAgICAgaW5jbHVkZS9saW51eC9tbS5oIHwgOCArKysr
-KysrKw0KICAgICAxIGZpbGUgY2hhbmdlZCwgOCBpbnNlcnRpb25zKCspDQoNCiAgICBkaWZmIC0t
-Z2l0IGEvaW5jbHVkZS9saW51eC9tbS5oIGIvaW5jbHVkZS9saW51eC9tbS5oDQogICAgaW5kZXgg
-ZDhkNzliYjk0YmU4Li5mNWIyNDdhNjMwNDQgMTAwNjQ0DQogICAgLS0tIGEvaW5jbHVkZS9saW51
-eC9tbS5oDQogICAgKysrIGIvaW5jbHVkZS9saW51eC9tbS5oDQogICAgQEAgLTExMjUsNiArMTEy
-NSwxNCBAQCBzdGF0aWMgaW5saW5lIGJvb2wgaXNfZGV2aWNlX3ByaXZhdGVfcGFnZShjb25zdCBz
-dHJ1Y3QgcGFnZSAqcGFnZSkNCiAgICAgCQlwYWdlLT5wZ21hcC0+dHlwZSA9PSBNRU1PUllfREVW
-SUNFX1BSSVZBVEU7DQogICAgIH0NCg0KICAgICtzdGF0aWMgaW5saW5lIGJvb2wgaXNfZGV2aWNl
-X3BhZ2UoY29uc3Qgc3RydWN0IHBhZ2UgKnBhZ2UpDQoNClRoZSBmdW5jdGlvbiBuYW1lIGhlcmUg
-aXMgY29uZnVzaW5nLiBUaGVvcmV0aWNhbGx5IGFzIGxvbmcgYXMgcGFnZSdzIHpvbmUgbnVtYmVy
-IGlzIFpPTkVfREVWSUNFLCB0aGVuIHRoZSBwYWdlIGlzIGEgZGV2aWNlIHBhZ2UuIFlvdSBwdXQg
-dGhlIGNvbmRpdGlvbiBtb3JlIHN0cmljdCBiZWxvdyBqdXN0IGJlY2F1c2UgdGhlIGtmZCBzdm0g
-aW1wbGVtZW50YXRpb24gb25seSB1c2VzIE1FTU9SWV9ERVZJQ0VfUFJJVkFURS9HRU5FUklDLiBC
-dXQgTUVNT1JZX0RFVklDRV9GU19EQVggYW5kIE1FTU9SWV9ERVZJQ0VfUENJX1AyUERNQSBpcyBh
-bHNvIGRldmljZSBtZW1vcnkgKGNvbXBhcmVkIHRvIG5vcm1hbCBjcHUgc3lzdGVtIG1lbW9yeSku
-DQoNCiAgICArew0KICAgICsJcmV0dXJuIElTX0VOQUJMRUQoQ09ORklHX0RFVl9QQUdFTUFQX09Q
-UykgJiYNCiAgICArCQlpc196b25lX2RldmljZV9wYWdlKHBhZ2UpICYmDQogICAgKwkJKHBhZ2Ut
-PnBnbWFwLT50eXBlID09IE1FTU9SWV9ERVZJQ0VfUFJJVkFURSB8fA0KICAgICsJCSBwYWdlLT5w
-Z21hcC0+dHlwZSA9PSBNRU1PUllfREVWSUNFX0dFTkVSSUMpOw0KICAgICt9DQogICAgKw0KICAg
-ICBzdGF0aWMgaW5saW5lIGJvb2wgaXNfcGNpX3AycGRtYV9wYWdlKGNvbnN0IHN0cnVjdCBwYWdl
-ICpwYWdlKQ0KICAgICB7DQogICAgIAlyZXR1cm4gSVNfRU5BQkxFRChDT05GSUdfREVWX1BBR0VN
-QVBfT1BTKSAmJg0KICAgIC0tIA0KICAgIDIuMzIuMA0KDQogICAgX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCiAgICBhbWQtZ2Z4IG1haWxpbmcgbGlzdA0K
-ICAgIGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQogICAgaHR0cHM6Ly9uYW0xMS5zYWZl
-bGlua3MucHJvdGVjdGlvbi5vdXRsb29rLmNvbS8/dXJsPWh0dHBzJTNBJTJGJTJGbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnJTJGbWFpbG1hbiUyRmxpc3RpbmZvJTJGYW1kLWdmeCZhbXA7ZGF0YT0wNCU3
-QzAxJTdDb2FrLnplbmclNDBhbWQuY29tJTdDNmEwMTg0NWZkMTUyNDM2MGQ3OWEwOGQ5NDk1ODMz
-NjUlN0MzZGQ4OTYxZmU0ODg0ZTYwOGUxMWE4MmQ5OTRlMTgzZCU3QzAlN0MwJTdDNjM3NjIxNDY1
-NDMxODUxMjkyJTdDVW5rbm93biU3Q1RXRnBiR1pzYjNkOGV5SldJam9pTUM0d0xqQXdNREFpTENK
-UUlqb2lWMmx1TXpJaUxDSkJUaUk2SWsxaGFXd2lMQ0pYVkNJNk1uMCUzRCU3QzEwMDAmYW1wO3Nk
-YXRhPW5IYmxaZEdZeVl1UVZ3cyUyQmdHNEhnbktwR2lRWENmeHhFbldadW96S3k5ZyUzRCZhbXA7
-cmVzZXJ2ZWQ9MA0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
-dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+On Mon, Jul 19, 2021 at 12:16 PM Luben Tuikov <luben.tuikov@amd.com> wrote:
+>
+> This fixes a bug which if we probe a non-existing
+> I2C device, and the SMU returns 0xFF, from then on
+> we can never communicate with the SMU, because the
+> code before this patch reads and interprets 0xFF
+> as a terminal error, and thus we never write 0
+> into register 90 to clear the status (and
+> subsequently send a new command to the SMU.)
+>
+> It is not an error that the SMU returns status
+> 0xFF. This means that the SMU executed the last
+> command successfully (execution status), but the
+> command result is an error of some sort (execution
+> result), depending on what the command was.
+>
+> When doing a status check of the SMU, before we
+> send a new command, the only status which
+> precludes us from sending a new command is 0--the
+> SMU hasn't finished executing a previous command,
+> and 0xFC--the SMU is busy.
+>
+> This bug was seen as the following line in the
+> kernel log,
+>
+> amdgpu: Msg issuing pre-check failed(0xff) and SMU may be not in the right state!
+>
+> when subsequent SMU commands, not necessarily
+> related to I2C, were sent to the SMU.
+>
+> This patch fixes this bug.
+>
+> v2: Add a comment to the description of
+> __smu_cmn_poll_stat() to explain why we're NOT
+> defining the SMU FW return codes as macros, but
+> are instead hard-coding them. Such a change, can
+> be followed up by a subsequent patch.
+>
+> v3: The changes are,
+> a) Add comments to break labels in
+>    __smu_cmn_reg2errno().
+>
+> b) When an unknown/unspecified/undefined result is
+>    returned back from the SMU, map that to
+>    -EREMOTEIO, to distinguish failure at the SMU
+>    FW.
+>
+> c) Add kernel-doc to
+>    smu_cmn_send_msg_without_waiting(),
+>    smu_cmn_wait_for_response(),
+>    smu_cmn_send_smc_msg_with_param().
+>
+> d) In smu_cmn_send_smc_msg_with_param(), since we
+>    wait for completion of the command, if the
+>    result of the completion is
+>    undefined/unknown/unspecified, we print that to
+>    the kernel log.
+>
+> v4: a) Add macros as requested, though redundant, to
+>     be removed when SMU consolidates for all
+>     ASICs--see comment in code.
+>     b) Get out if the SMU code is unknown.
+>
+> Cc: Alex Deucher <Alexander.Deucher@amd.com>
+> Cc: Evan Quan <evan.quan@amd.com>
+> Cc: Lijo Lazar <Lijo.Lazar@amd.com>
+> Fixes: fcb1fe9c9e0031 ("drm/amd/powerplay: pre-check the SMU state before issuing message")
+> Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
+> ---
+>  drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c | 294 +++++++++++++++++++++----
+>  drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h |   3 +-
+>  2 files changed, 250 insertions(+), 47 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> index c902fdf322c1be..9b30737bd541d6 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> @@ -55,7 +55,7 @@
+>
+>  #undef __SMU_DUMMY_MAP
+>  #define __SMU_DUMMY_MAP(type)  #type
+> -static const char* __smu_message_names[] = {
+> +static const char * const __smu_message_names[] = {
+>         SMU_MESSAGE_TYPES
+>  };
+>
+> @@ -76,55 +76,264 @@ static void smu_cmn_read_arg(struct smu_context *smu,
+>         *arg = RREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_82);
+>  }
+>
+> -int smu_cmn_wait_for_response(struct smu_context *smu)
+> +/* Redefine the SMU error codes here.
+> + *
+> + * Note that these definitions are redundant and should be removed
+> + * when the SMU has exported a unified header file containing these
+> + * macros, which header file we can just include and use the SMU's
+> + * macros. At the moment, these error codes are defined by the SMU
+> + * per-ASIC unfortunately, yet we're a one driver for all ASICs.
+> + */
+> +
+> +#define SMU_BUSY           0
+
+This is really a response per se, it's just that the SMU hasn't
+updated the response register yet.
+Maybe SMU_RESP_NONE
+
+> +#define SMU_GOOD           1
+> +#define SMU_CMD_FAIL       0xFF
+> +#define SMU_CMD_UNKNOWN    0xFE
+> +#define SMU_CMD_BAD_PREREQ 0xFD
+> +#define SMU_BUSY_OTHER     0xFC
+> +#define SMU_DEBUG_END      0xFB
+
+I'd change the macros to include RESP for consistency E.g.,
+#define SMU_RESP_OK           1
+#define SMU_RESP_CMD_FAIL       0xFF
+etc.
+
+> +
+> +/**
+> + * __smu_cmn_poll_stat -- poll for a status from the SMU
+> + * smu: a pointer to SMU context
+> + *
+> + * Returns the status of the SMU, which could be,
+> + *    0, the SMU is busy with your previous command;
+> + *    1, execution status: success, execution result: success;
+> + * 0xFF, execution status: success, execution result: failure;
+> + * 0xFE, unknown command;
+> + * 0xFD, valid command, but bad (command) prerequisites;
+> + * 0xFC, the command was rejected as the SMU is busy;
+> + * 0xFB, "SMC_Result_DebugDataDumpEnd".
+> + *
+> + * The values here are not defined by macros, because I'd rather we
+> + * include a single header file which defines them, which is
+> + * maintained by the SMU FW team, so that we're impervious to firmware
+> + * changes. At the moment those values are defined in various header
+> + * files, one for each ASIC, yet here we're a single ASIC-agnostic
+> + * interface. Such a change can be followed-up by a subsequent patch.
+> + */
+> +static u32 __smu_cmn_poll_stat(struct smu_context *smu)
+>  {
+>         struct amdgpu_device *adev = smu->adev;
+> -       uint32_t cur_value, i, timeout = adev->usec_timeout * 20;
+> +       int timeout = adev->usec_timeout * 20;
+> +       u32 reg;
+>
+> -       for (i = 0; i < timeout; i++) {
+> -               cur_value = RREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_90);
+> -               if ((cur_value & MP1_C2PMSG_90__CONTENT_MASK) != 0)
+> -                       return cur_value;
+> +       for ( ; timeout > 0; timeout--) {
+> +               reg = RREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_90);
+> +               if ((reg & MP1_C2PMSG_90__CONTENT_MASK) != 0)
+> +                       break;
+>
+>                 udelay(1);
+>         }
+>
+> -       /* timeout means wrong logic */
+> -       if (i == timeout)
+> -               return -ETIME;
+> -
+> -       return RREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_90);
+> +       return reg;
+>  }
+>
+> -int smu_cmn_send_msg_without_waiting(struct smu_context *smu,
+> -                                    uint16_t msg, uint32_t param)
+> +static void __smu_cmn_reg_print_error(struct smu_context *smu,
+> +                                     u32 reg_c2pmsg_90,
+> +                                     int msg_index,
+> +                                     u32 param,
+> +                                     enum smu_message_type msg)
+>  {
+>         struct amdgpu_device *adev = smu->adev;
+> -       int ret;
+> +       const char *message = smu_get_message_name(smu, msg);
+>
+> -       ret = smu_cmn_wait_for_response(smu);
+> -       if (ret != 0x1) {
+> -               dev_err(adev->dev, "Msg issuing pre-check failed(0x%x) and "
+> -                      "SMU may be not in the right state!\n", ret);
+> -               if (ret != -ETIME)
+> -                       ret = -EIO;
+> -               return ret;
+> +       switch (reg_c2pmsg_90) {
+> +       case SMU_BUSY:
+> +               dev_err_ratelimited(adev->dev,
+> +                                   "SMU: I'm not done with your previous command!");
+> +               break;
+> +       case SMU_GOOD:
+> +               /* The SMU executed the command. It completed with a
+> +                * successful result.
+> +                */
+> +               break;
+> +       case SMU_CMD_FAIL:
+> +               /* The SMU executed the command. It completed with an
+> +                * unsuccessful result.
+> +                */
+> +               break;
+> +       case SMU_CMD_UNKNOWN:
+> +               dev_err_ratelimited(adev->dev,
+> +                                   "SMU: unknown command: index:%d param:0x%08X message:%s",
+> +                                   msg_index, param, message);
+> +               break;
+> +       case SMU_CMD_BAD_PREREQ:
+> +               dev_err_ratelimited(adev->dev,
+> +                                   "SMU: valid command, bad prerequisites: index:%d param:0x%08X message:%s",
+> +                                   msg_index, param, message);
+> +               break;
+> +       case SMU_BUSY_OTHER:
+> +               dev_err_ratelimited(adev->dev,
+> +                                   "SMU: I'm very busy for your command: index:%d param:0x%08X message:%s",
+> +                                   msg_index, param, message);
+> +               break;
+> +       case SMU_DEBUG_END:
+> +               dev_err_ratelimited(adev->dev,
+> +                                   "SMU: I'm debugging!");
+> +               break;
+> +       default:
+> +               dev_err_ratelimited(adev->dev,
+> +                                   "SMU: response:0x%08X for index:%d param:0x%08X message:%s?",
+> +                                   reg_c2pmsg_90, msg_index, param, message);
+> +               break;
+> +       }
+> +}
+> +
+> +static int __smu_cmn_reg2errno(struct smu_context *smu, u32 reg_c2pmsg_90)
+> +{
+> +       int res;
+> +
+> +       switch (reg_c2pmsg_90) {
+> +       case SMU_BUSY:
+> +               /* The SMU is busy--still executing your command.
+> +                */
+> +               res = -ETIME;
+> +               break;
+> +       case SMU_GOOD:
+> +               res = 0;
+> +               break;
+> +       case SMU_CMD_FAIL:
+> +               /* Command completed successfully, but the command
+> +                * status was failure.
+> +                */
+> +               res = -EIO;
+> +               break;
+> +       case SMU_CMD_UNKNOWN:
+> +               /* Unknown command--ignored by the SMU.
+> +                */
+> +               res = -EOPNOTSUPP;
+> +               break;
+> +       case SMU_CMD_BAD_PREREQ:
+> +               /* Valid command--bad prerequisites.
+> +                */
+> +               res = -EIO;
+
+Maybe -EINVAL would be better here to differentiate it from other cases.
+
+
+> +               break;
+> +       case SMU_BUSY_OTHER:
+> +               /* The SMU is busy with other commands. The client
+> +                * should retry in 10 us.
+> +                */
+> +               res = -EBUSY;
+> +               break;
+> +       case SMU_DEBUG_END:
+> +               /* Debug message.
+> +                */
+> +               res = -EIO;
+
+Maybe -EREMOTEIO here as well since this seems more logically grouped
+with the default.
+
+> +               break;
+> +       default:
+> +               /* Unknown result from the SMU.
+> +                */
+> +               res = -EREMOTEIO;
+> +               break;
+>         }
+>
+> +       return res;
+> +}
+> +
+> +static void __smu_cmn_send_msg(struct smu_context *smu,
+> +                              u16 msg,
+> +                              u32 param)
+> +{
+> +       struct amdgpu_device *adev = smu->adev;
+> +
+>         WREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_90, 0);
+>         WREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_82, param);
+>         WREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_66, msg);
+> +}
+>
+> -       return 0;
+> +/**
+> + * smu_cmn_send_msg_without_waiting -- send the message; don't wait for status
+> + * @smu: pointer to an SMU context
+> + * @msg_index: message index
+> + * @param: message parameter to send to the SMU
+> + *
+> + * Send a message to the SMU with the parameter passed. Do not wait
+> + * for status/result of the message, thus the "without_waiting".
+> + *
+> + * Return 0 on success, -errno on error if we weren't able to _send_
+> + * the message for some reason. See __smu_cmn_reg2errno() for details
+> + * of the -errno.
+> + */
+> +int smu_cmn_send_msg_without_waiting(struct smu_context *smu,
+> +                                    uint16_t msg_index,
+> +                                    uint32_t param)
+> +{
+> +       u32 reg;
+> +       int res;
+> +
+> +       if (smu->adev->in_pci_err_recovery)
+> +               return 0;
+> +
+> +       mutex_lock(&smu->message_lock);
+> +       reg = __smu_cmn_poll_stat(smu);
+> +       res = __smu_cmn_reg2errno(smu, reg);
+> +       if (reg == SMU_BUSY ||
+> +           reg == SMU_BUSY_OTHER ||
+> +           res == -EREMOTEIO)
+> +               goto Out;
+> +       __smu_cmn_send_msg(smu, msg_index, param);
+> +       res = 0;
+> +Out:
+> +       mutex_unlock(&smu->message_lock);
+> +       return res;
+>  }
+>
+> +/**
+> + * smu_cmn_wait_for_response -- wait for response from the SMU
+> + * @smu: pointer to an SMU context
+> + *
+> + * Wait for status from the SMU.
+> + *
+> + * Return 0 on success, -errno on error, indicating the execution
+> + * status and result of the message being waited for. See
+> + * __smu_cmn_reg2errno() for details of the -errno.
+> + */
+> +int smu_cmn_wait_for_response(struct smu_context *smu)
+> +{
+> +       u32 reg;
+> +
+> +       reg = __smu_cmn_poll_stat(smu);
+> +       return __smu_cmn_reg2errno(smu, reg);
+> +}
+> +
+> +/**
+> + * smu_cmn_send_smc_msg_with_param -- send a message with parameter
+> + * @smu: pointer to an SMU context
+> + * @msg: message to send
+> + * @param: parameter to send to the SMU
+> + * @read_arg: pointer to u32 to return a value from the SMU back
+> + *            to the caller
+> + *
+> + * Send the message @msg with parameter @param to the SMU, wait for
+> + * completion of the command, and return back a value from the SMU in
+> + * @read_arg pointer.
+> + *
+> + * Return 0 on success, -errno on error, if we weren't able to send
+> + * the message or if the message completed with some kind of
+> + * error. See __smu_cmn_reg2errno() for details of the -errno.
+> + *
+> + * If we weren't able to send the message to the SMU, we also print
+> + * the error to the standard log.
+> + *
+> + * Command completion status is printed only if the -errno is
+> + * -EREMOTEIO, indicating that the SMU returned back an
+> + * undefined/unknown/unspecified result. All other cases are
+> + * well-defined, not printed, but instead given back to the client to
+> + * decide what further to do.
+> + *
+> + * The return value, @read_arg is read back regardless, to give back
+> + * more information to the client, which on error would most likely be
+> + * @param, but we can't assume that. This also eliminates more
+> + * conditionals.
+> + */
+>  int smu_cmn_send_smc_msg_with_param(struct smu_context *smu,
+>                                     enum smu_message_type msg,
+>                                     uint32_t param,
+>                                     uint32_t *read_arg)
+>  {
+> -       struct amdgpu_device *adev = smu->adev;
+> -       int ret = 0, index = 0;
+> +       int res, index;
+> +       u32 reg;
+>
+>         if (smu->adev->in_pci_err_recovery)
+>                 return 0;
+> @@ -136,31 +345,24 @@ int smu_cmn_send_smc_msg_with_param(struct smu_context *smu,
+>                 return index == -EACCES ? 0 : index;
+>
+>         mutex_lock(&smu->message_lock);
+> -       ret = smu_cmn_send_msg_without_waiting(smu, (uint16_t)index, param);
+> -       if (ret)
+> -               goto out;
+> -
+> -       ret = smu_cmn_wait_for_response(smu);
+> -       if (ret != 0x1) {
+> -               if (ret == -ETIME) {
+> -                       dev_err(adev->dev, "message: %15s (%d) \tparam: 0x%08x is timeout (no response)\n",
+> -                               smu_get_message_name(smu, msg), index, param);
+> -               } else {
+> -                       dev_err(adev->dev, "failed send message: %15s (%d) \tparam: 0x%08x response %#x\n",
+> -                               smu_get_message_name(smu, msg), index, param,
+> -                               ret);
+> -                       ret = -EIO;
+> -               }
+> -               goto out;
+> +       reg = __smu_cmn_poll_stat(smu);
+> +       res = __smu_cmn_reg2errno(smu, reg);
+> +       if (reg == SMU_BUSY ||
+> +           reg == SMU_BUSY_OTHER ||
+> +           res == -EREMOTEIO) {
+> +               __smu_cmn_reg_print_error(smu, reg, index, param, msg);
+> +               goto Out;
+>         }
+> -
+> +       __smu_cmn_send_msg(smu, (uint16_t) index, param);
+> +       reg = __smu_cmn_poll_stat(smu);
+> +       res = __smu_cmn_reg2errno(smu, reg);
+> +       if (res == -EREMOTEIO)
+> +               __smu_cmn_reg_print_error(smu, reg, index, param, msg);
+>         if (read_arg)
+>                 smu_cmn_read_arg(smu, read_arg);
+> -
+> -       ret = 0; /* 0 as driver return value */
+> -out:
+> +Out:
+>         mutex_unlock(&smu->message_lock);
+> -       return ret;
+> +       return res;
+>  }
+>
+>  int smu_cmn_send_smc_msg(struct smu_context *smu,
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+> index 9add5f16ff562a..16993daa2ae042 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+> @@ -27,7 +27,8 @@
+>
+>  #if defined(SWSMU_CODE_LAYER_L2) || defined(SWSMU_CODE_LAYER_L3) || defined(SWSMU_CODE_LAYER_L4)
+>  int smu_cmn_send_msg_without_waiting(struct smu_context *smu,
+> -                                    uint16_t msg, uint32_t param);
+> +                                    uint16_t msg_index,
+> +                                    uint32_t param);
+>  int smu_cmn_send_smc_msg_with_param(struct smu_context *smu,
+>                                     enum smu_message_type msg,
+>                                     uint32_t param,
+> --
+> 2.32.0
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
