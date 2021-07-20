@@ -2,129 +2,103 @@ Return-Path: <SRS0=mcQQ=MM=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E60ABC07E9B
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 15:13:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 54DA4C07E95
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 15:26:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 953A161009
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 15:13:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 953A161009
+	by mail.kernel.org (Postfix) with ESMTPS id 0CA8661029
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 15:26:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0CA8661029
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51CDC89E35;
-	Tue, 20 Jul 2021 15:13:48 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2058.outbound.protection.outlook.com [40.107.243.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51E7189E08
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Jul 2021 15:13:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9EC689CA0;
+	Tue, 20 Jul 2021 15:25:59 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam07on2056.outbound.protection.outlook.com [40.107.95.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B7CF989CA0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Jul 2021 15:25:58 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lAyoAillS2hZCnxDmHHvWPyzhihkNrspM+wQ6qZDAa1Hq76YGFV3IRCrx9iUmqNXJhXGN0aQxehkVOZWAi6xXCTKHrjhS47U3EVYQaxVBbzHul4HputKpxq92dm5sCymyCnN6dD3Q1+LW9BlDRQR+JNi9hYtlRVk2SUVvDYcYEMTCapimyy01S5S4C9r2+32jpEDLPwaiW8jxo4TMO1BNCTCx5fEzLJaSXcD3w1MDg/Quj/gGxqS6C2pCK2BK0Xd9Y7QozGYqEgeFEGms786ElkCb+hyWifpAXn+/8cKh7RN8Ai1kZ15IoEfJID7bh9joPEiuvhDL86/1SUSDnh/Dw==
+ b=OjbRpF47DqlvsRdrigo6GX74CvxaWtyNl6ism/7uMicFoKUSxDZOT334ghn9CDM+s544WMN0B3RwYFgJWerdmhIjekUVZ1sqaW9S4UDjxHQW9Kz62SNJ8/2pXfcLqJJci2+AYpgujAQM451a4BmtDmYv+ADh9TYJLSIz5pGASbCxzo8Qo6bHTk73f7XsoF3zA4otHrOOm6YtMjASIT0OPFCOmi21gsmIfCpGeT6j0ItjOliR0GApJ+o2xP4aKM1HoHA9UKr3LiANfLizHGLISbZwbuSaORJcCcYIzlweC6LLol5NDnP737eabnwv0d5XPWVBeHQeZURHspUFOW7kSA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NZLV7P2chgCxplyRwEyMkJsImbD/PavLuFA8jcnjCpE=;
- b=PaACWcmECqWub9lhYZsjqryNeBLTjOAbxd5H4rCrnIjj/U2Inx8UJry8W/a2/hoCFMIdFtjbMB65JZ7sgqlfHJVpJbHA6uuF5bWX0sOsK6agJwrdUuvun5eCDAZJmpGCpknFPKLWCqXg6aiGP+CKFKOzLt+rualmsijUcsmQzBnqXcngEJ6Qxfe/LxXu2/rBNrC5CyEnxdJ5VPi88pWblSImwUinCYyY21WwndO+zN5/GtleTiWixqaCJ1FI9utLvSDZodZOlv6os72OlwDRJLTMn0zAzHfHlIo34plTo1VdaNCZ3ytGIzkYDQoqLg7P7ht/QV9iICHxf1hLXvxzxA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=JvlZ0CAJlBCFOrYTxgN6zUvZ5D9++8A4fucYn5BX8cE=;
+ b=XjGbT4k3DmF5EUBGFZ0sLNUgNGUXu/2fRqbvUhNtr3HEGS3kFanwltQHi+be/Vsnl/cDYJlmhPEXmyl0I4k79/8P+gmE5l+LdVmj+Qo418lzlIBeMnEEZxvo9n8zrjL5op3PIN7F350PLWlRTJud7zIqKxk+mF4+5EwN11qm/6BuWqtpPdP0Tu7Z99mzPYnM5G+0wvdgF3GFtasZ552XKuX8CYVCTRsPQzqSsVK3B430YHb6zYXYcvRaSILDui+YXYCUIgjFlsCaoau/fpP2WOraCHR0GAmtcD4A/GxLkmqsAG3Odzm3LiK7fwlQIDZcst6b9RmUaL9AonOeIdXSIQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NZLV7P2chgCxplyRwEyMkJsImbD/PavLuFA8jcnjCpE=;
- b=k8Ois+Ut1GIh3ueXAj+aM0LSfiOPDLiZvlPMocGZU+iKkzvMd6oVwZp6hXffddEagVS9O5KQY1vHoo9vY7kuB7fQLy5pbQfoas0GfQsrNRsd4WFq1BPmgIpcl9hzvbDTmbzbUqnCBy/39azr3/XKlnsh4x4ZyRUOdRxqSuC6iHE=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB3962.namprd12.prod.outlook.com (2603:10b6:5:1ce::21)
- by DM6PR12MB3690.namprd12.prod.outlook.com (2603:10b6:5:149::20) with
+ bh=JvlZ0CAJlBCFOrYTxgN6zUvZ5D9++8A4fucYn5BX8cE=;
+ b=AjVN1mE5wA5e3uNgFTb29Q29eG9tJVvhLzd07JFk3aNSdC4Z6WV3xYn5ONcnodMdTVQGrOKKBlU4gWYZWvk7K9hwp4TnkbvHOTaB7zznVRciy1ZeOgqvA6DcDCS5NCgVR8z1SlF5UFhxWLHti9sPJjGRTHuZELp4/eP1O8aNygQ=
+Received: from DM6PR14CA0048.namprd14.prod.outlook.com (2603:10b6:5:18f::25)
+ by MWHPR12MB1583.namprd12.prod.outlook.com (2603:10b6:301:11::17) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4331.21; Tue, 20 Jul
- 2021 15:13:43 +0000
-Received: from DM6PR12MB3962.namprd12.prod.outlook.com
- ([fe80::50f2:699c:121d:f257]) by DM6PR12MB3962.namprd12.prod.outlook.com
- ([fe80::50f2:699c:121d:f257%4]) with mapi id 15.20.4331.034; Tue, 20 Jul 2021
- 15:13:43 +0000
-Subject: Re: [PATCH] drm/amdgpu: Clear doorbell interrupt status after BACO
- exit for SIENNA_CICHLID
-To: Chengzhe Liu <ChengZhe.Liu@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20210720075737.1583824-1-ChengZhe.Liu@amd.com>
-From: Luben Tuikov <luben.tuikov@amd.com>
-Message-ID: <38849956-c545-6e8c-a935-67a01999a9e8@amd.com>
-Date: Tue, 20 Jul 2021 11:13:41 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
-In-Reply-To: <20210720075737.1583824-1-ChengZhe.Liu@amd.com>
-Content-Language: en-CA
-X-ClientProxiedBy: YT1PR01CA0091.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2d::30) To DM6PR12MB3962.namprd12.prod.outlook.com
- (2603:10b6:5:1ce::21)
+ 2021 15:25:56 +0000
+Received: from DM6NAM11FT029.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:18f:cafe::d2) by DM6PR14CA0048.outlook.office365.com
+ (2603:10b6:5:18f::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4331.21 via Frontend
+ Transport; Tue, 20 Jul 2021 15:25:56 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DM6NAM11FT029.mail.protection.outlook.com (10.13.173.23) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4331.21 via Frontend Transport; Tue, 20 Jul 2021 15:25:55 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Tue, 20 Jul
+ 2021 10:25:55 -0500
+Received: from Bumblebee.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2242.4 via Frontend
+ Transport; Tue, 20 Jul 2021 10:25:54 -0500
+From: Anson Jacob <Anson.Jacob@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/amdgpu: Update debugfs link_settings output link_rate
+ field in hex
+Date: Tue, 20 Jul 2021 11:25:46 -0400
+Message-ID: <20210720152546.654510-1-Anson.Jacob@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from localhost.localdomain (108.162.138.69) by
- YT1PR01CA0091.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2d::30) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4331.21 via Frontend Transport; Tue, 20 Jul 2021 15:13:42 +0000
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 3814b4f1-0cd2-427a-9993-08d94b90f68d
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3690:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB36905ADC7A6527AFB421C69599E29@DM6PR12MB3690.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
+X-MS-Office365-Filtering-Correlation-Id: 504facd1-9b24-4d6e-fcf9-08d94b92ab38
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1583:
+X-Microsoft-Antispam-PRVS: <MWHPR12MB158388FDB31EC99484F9C346EBE29@MWHPR12MB1583.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2512;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: NqpCagJHEdwkVQKO9iBRVJGPT4kaHRrzxHm1wrFAGo+yMeCzx8oaKCs4kjjT5MPCzkFyPBCASyePu1F0kAioBHc+FLoPgo7TBuLT4dEJNa9ipksqqjP4bg3aqNs/97rJkJapccYyuGAsCCgF0hNUO9zrMjQc4aTHDcgYMK5/Fpt3vea7wHSYjDqjB1z79/5QqqSCPJAq6IWl98r5C58TYcrM39X5buoUHpVxQiqpb1Kk47YEwSjV7RLniC5RT7s/GvQErGonPRIIABwE6PnbMdXVR20I8UrlZBLgjgZZy5NqxBGCyqPfW+mPSXlF/srNY8vzZCFTp61MICD+/p4Aas/zSlQa8HqkvVBzMt6djwYfL/le9uWsCxBqfsNX9SBfVYwB0+yxTqAaB4u5KOYJ+++DVcxWjNQpMImBk7ikNzfxXMgEtPzhjOqAEjHKuqiCbPNeW9ypjPbG4z2Mh06tg4i7Nmc+FFsCzEyyR7YaEsasyMeu3tIEbK2dMJWv85LTksXC2cXVtBBzoUjstiUy0VJOETPIEin8zPip3TaE7xjwdc/wGXzwJlx8/y1LH71ygEMF1eh7KB9Djh8MZG0UtcJu5vyhOamMU2OMGCq30Ke3bQl4p5XY5upuh2F9Gt9kKaOPkFduRMn+sTIS2D6T87M4KoNoVZPUQr10Vx7xIGXaSGV3xhYOhV1P0nIQI2bJDnz9/gkGVmku2L++mOXMs8swmwzjChiFSQclwezYL0I=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3962.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(39860400002)(346002)(376002)(136003)(396003)(5660300002)(6506007)(26005)(8676002)(186003)(478600001)(66556008)(31696002)(53546011)(36756003)(2616005)(956004)(55236004)(4326008)(66476007)(8936002)(44832011)(2906002)(86362001)(31686004)(54906003)(6512007)(316002)(66946007)(38100700002)(6486002)(45980500001)(43740500002);
+X-Microsoft-Antispam-Message-Info: 8as+/oclLJyLvr/b78chC0HtTVIYFIcWSwxcnD1oSD2r+rkhe5202yAlmeAmbOjbXSZz4S/JdNFn+O8733aE2Nro9KUrDcPntpjqCW4QVnIgSTURRj8torvHF/qANClz9Dvz5SR5Rh6Nzgi+ls+jnySHxgyukPt+O7X4YUc5+Kqcp/71p46FEAtITv2oFq8Bx/42YyVvW9SDSIKEvjoryIahPh0L6/HC9/uAMejVgMKR/VC5KF14elBfLFCQ6v8ce+XJHBQj9S66p+MMWq23FX1QaRoXgEfaVWp4xFnZr0DknU0Dtho0XUA33gQCqSWF2mTQh/2lvhKcIV+758KyG96mdWSLfgUJV2kX7nlshmCQp6/txN2T1w84VaiA9TT/lB0vXxEGkPwyp099jVdDgkPxEILGQuE1ZD+qQGtnz6zkmuvLYFr65ETq606gGFqb3dcT4A8XF3l8thu8gWadNBek07ra6Ik3i/kwmrhUEpu8xpSiwfj+gat9eWSDQEn6Ug0Ld9e1go1jcYqsiR94fHv5Itiqch9dbrKVkuKbzAXkUpfD2OH4N+VXMEwi4l3MGfPKZm8Ml1rI/1Bn/lJqYo66Qwuv7Sjxx4hKFAp9NZ1lJMRCtK7YJvBZ8rhqmfMrEepKxSTOXe5dDYX5LVPqix6lhfQhTIhvl88oWpMEEm1UpvRHdS6OrxMC+1Rup0Zhxod+5yYGI+TyRITxR8qTALa0mmufFcnpbYFH++9eTPo=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(346002)(396003)(136003)(39860400002)(376002)(36840700001)(46966006)(316002)(54906003)(478600001)(2906002)(5660300002)(47076005)(336012)(2616005)(426003)(70206006)(70586007)(6916009)(8936002)(86362001)(26005)(36860700001)(7696005)(82740400003)(81166007)(356005)(8676002)(83380400001)(4326008)(1076003)(82310400003)(36756003)(6666004)(15650500001)(186003)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TkRxMUhkZCtrdk1OVG5KSkhRY25MczU1MFdIRzh4TWVZb2VMMmpoR0ZiWkd6?=
- =?utf-8?B?WjhteFpjbTB5Qm1EcE9CNmRqN3Q4bXVXYk53NUFxWUI3RlZTKzRRYWRFN3pH?=
- =?utf-8?B?YUVLVG12MnVtNlgzbldSZXN6UDZlUWEyalBLOGkvUFVHNGtpQ0FVM1UyK0o5?=
- =?utf-8?B?L2xEV29EOUJjUDQyRmtOMzBMbEhWK0hmalJObGdIb000N2Rmanh5SDVUK3VM?=
- =?utf-8?B?bHR1Sll0WlNkYjZRNWpqaG40dUNjZVF1YlROQURabVpLbFFLaDJRaVJnT1dp?=
- =?utf-8?B?OGd5VWJsSjdkcS8wYVEydGZqQVN1cm1wSkxTZlBnWFdZWkFoT1YxRk9HbDZh?=
- =?utf-8?B?NzZ1VEVqWFB0UWRFSisxdGprRzFjL2IrYkxzQTVpRTA4bGpOYThiYzZGK1BI?=
- =?utf-8?B?SFdYRDE5cTFVSmkzcUhrdGRPQmtlenM4ZFBvWnRZZEVGUjc4SVJib0R5ZnFZ?=
- =?utf-8?B?SGZ3TlpJajdVT0sxVXhWS0h3K3lqQm1Ja09mNTM4TjFLK204dTAzRHNYVWtj?=
- =?utf-8?B?b2txYy9ZVXBTMjIwUzBEbXNWZTlFNGI4UDRLS0IyU1A1WFBlN0VJREozR00y?=
- =?utf-8?B?cSsxYkplNFJVcExCYXpjNitHQWJxcXhaV3NIYjZseDlXN1AveVFRVVgxRTlQ?=
- =?utf-8?B?M1NDN3ZNZ0ZlNzh1R3hnUUpKaFNrdHJuenpaMGVXWHR6aENzOFpEZG0yN3o4?=
- =?utf-8?B?OWxLMkdUWEZVaGYrT0kxUWZoOWRTR3lOMGZKTE9Wd2JGekwwVkpWUHZqdURY?=
- =?utf-8?B?UGlZQk5HU1VqMHVObzFxZjdDcGN5bjBRWmpZcW0yb2lDTjFJbmoxQUR1OFNY?=
- =?utf-8?B?VEV3LzE1RmloSlVrN05kZUt5ei9kTnM3VVdIT3UxZWJEbG5GS1VTN0FMbjg1?=
- =?utf-8?B?TmZVT0tGK2E1RHpuNitsS1V6VXhVaFUxcVhLS0FUL0N3dU81bWhYbkV3UmQ4?=
- =?utf-8?B?cW83MEtPVk11d2RmaUFjNGJPbU1uYnAwRm5VY0ZjS3NvSzIvVGpvdVVrU0Rk?=
- =?utf-8?B?Kysvbk0vL2U4dFdVMmlUTGFvaSt1ejVaNXVpWWVNTWxoY0ZIcDg3OTA5UlRk?=
- =?utf-8?B?SEtLTjZYQ1pBMUFtQ0tHYlBnT2Z6VlJ5YW91SFpmZm13K0piZ3g3U1h1Y3c1?=
- =?utf-8?B?c3U4Z3pSb0hSbWFDUk9lODRLNmVqSjg0UkQzZWNwVUIzOTRabjNHUFJKbWFY?=
- =?utf-8?B?Nm5MbGNBZjdzSlRQc1dCOERPakVlK3QvUlJ2SjU5cVFnbG10QWJiL2ZrQldv?=
- =?utf-8?B?RGM0djErQnhuWEE2Yy8rakd6TGxpV2RDcW9aL1ErNnNyZUZvRGpncmNaMlIv?=
- =?utf-8?B?YmVQbFU0ek1sbnA1WGFwWnhSSFppSUFJRDlEdStjTDR4bXg2amxnM1JCVVRi?=
- =?utf-8?B?MGd1cEdONm91VWNYemNVUnlsdEhEZG92ZSsydHdEWXgwWlN6VENIdmtyakh1?=
- =?utf-8?B?eDRqSFlaU3RZM2ljcFdHbzRaZTdlQjBEWGttaUNHcHRsbzZOOWJHTXltSUNI?=
- =?utf-8?B?VVUyY1NVVG5RN2hubC9vYTdHQm40WmtYWWhLKzBrUlZTY3lpTWUyc1k0OWhF?=
- =?utf-8?B?dlBrWUJRekJWcVVqaHJ4bnFMTDByL1FSTWZ2L0d0V1BTQnV1QUlSOGhnV2tO?=
- =?utf-8?B?dXE2dUtXUXNYcERWTVovVTlVUmF2d21EZWZseDR5ZElibmJtMnFMRDFrdXlU?=
- =?utf-8?B?RW13S1FqTjF3TGFMMnBVbkd3Z3FsWjJ6b2ZrT1pQR3l4SHBjQi96LzdFMDJN?=
- =?utf-8?Q?RkVNTB6ifRIFvG1Bb6rCYsZTDvo19Q7t4e7Hc5E?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3814b4f1-0cd2-427a-9993-08d94b90f68d
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3962.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jul 2021 15:13:43.5393 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jul 2021 15:25:55.8573 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 504facd1-9b24-4d6e-fcf9-08d94b92ab38
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bvKt1jDCT7ROGBCLqWVj/bCCwdovatj3D2+y4PBoLw6Z9LXu6Yj10SYSt7+tYVCQ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3690
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT029.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1583
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,176 +110,78 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jack Xiao <Jack.Xiao@amd.com>, Feifei Xu <Feifei.Xu@amd.com>,
- Kevin Wang <Kevin1.Wang@amd.com>,
- Deucher Alexander <Alexander.Deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
-Content-Type: multipart/mixed; boundary="===============0039731042=="
+Cc: stylon.wang@amd.com, sunpeng.li@amd.com, nirmoy.das@amd.com,
+ Nicholas.Kazlauskas@amd.com, Anson Jacob <Anson.Jacob@amd.com>,
+ aurabindo.pillai@amd.com, hersenxs.wu@amd.com, Wayne.Lin@amd.com,
+ mikita.lipski@amd.com, harry.wentland@amd.com, christian.koenig@amd.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0039731042==
-Content-Type: text/html; charset=utf-8
-Content-Language: en-CA
-Content-Transfer-Encoding: 8bit
+link_rate is updated via debugfs using hex values, set it to output
+in hex as well.
 
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <div class="moz-cite-prefix">Yeah, looks fine.<br>
-      <br>
-      A few nitpicks:<br>
-      <br>
-      The title seems too long. You can just say &quot;Sienna Cichlid&quot;, as
-      opposed to using the macro name in the title.<br>
-      Perhaps you can add Sienna Cichlid in the description of the
-      commit as well.<br>
-      <br>
-      On 2021-07-20 3:57 a.m., Chengzhe Liu wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:20210720075737.1583824-1-ChengZhe.Liu@amd.com">
-      <pre class="moz-quote-pre" wrap="">In passthrough mode, if we unloaded driver in BACO mode(RTPM). Kernel would</pre>
-    </blockquote>
-    <br>
-    Unfinished sentence above. Perhaps you mean to say:<br>
-    <br>
-    <i>On Sienna Cichlid, in pass-through mode, if we unload the driver<br>
-      in BACO mode (RTPM),</i><i> </i><i>then the kernel would receive
-      thousands<br>
-      of interrupts.</i><br>
-    <br>
-    Note the use of present (neutral) tense--it's stating a fact.<br>
-    <blockquote type="cite" cite="mid:20210720075737.1583824-1-ChengZhe.Liu@amd.com">
-      <pre class="moz-quote-pre" wrap="">
-receive thousands of unhandled interrupts. That's because there was
-doorbell moniter interrupt on BIF, so KVM would keep injecting</pre>
-    </blockquote>
-    <br>
-    Spell: monit<b>o</b>r.<br>
-    Use present tense to state a fact: <i>so KVM keeps injecting ...<br>
-      <br>
-    </i>
-    <blockquote type="cite" cite="mid:20210720075737.1583824-1-ChengZhe.Liu@amd.com">
-      <pre class="moz-quote-pre" wrap="">
-interrupt to guest VM. So we should clear door bell interrupt status</pre>
-    </blockquote>
-    <br>
-    <i>interrupt<b>s</b> to the guest VM. So we should clear the
-      doorbell interrupt ...</i><br>
-    <br>
-    <blockquote type="cite" cite="mid:20210720075737.1583824-1-ChengZhe.Liu@amd.com">
-      <pre class="moz-quote-pre" wrap="">
-after BACO exit.
+eg: Resolution: 1920x1080@144Hz
+cat /sys/kernel/debug/dri/0/DP-1/link_settings
+Current:  4  0x14  0  Verified:  4  0x1e  0  Reported:  4  0x1e  16  Preferred:  0  0x0  0
 
-Signed-off-by: Chengzhe Liu <a class="moz-txt-link-rfc2396E" href="mailto:ChengZhe.Liu@amd.com">&lt;ChengZhe.Liu@amd.com&gt;</a>
+echo "4 0x1e" > /sys/kernel/debug/dri/0/DP-1/link_settings
+
+cat /sys/kernel/debug/dri/0/DP-1/link_settings
+Current:  4  0x1e  0  Verified:  4  0x1e  0  Reported:  4  0x1e  16  Preferred:  4  0x1e  0
+
+Signed-off-by: Anson Jacob <Anson.Jacob@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  3 +++
- drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h   |  1 +
- drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c     | 20 ++++++++++++++++++++
- 3 files changed, 24 insertions(+)
+ .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c    | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 37fa199be8b3..109a76ca4535 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -5265,6 +5265,9 @@ int amdgpu_device_baco_exit(struct drm_device *dev)
- 	    adev-&gt;nbio.funcs-&gt;enable_doorbell_interrupt)
- 		adev-&gt;nbio.funcs-&gt;enable_doorbell_interrupt(adev, true);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+index f1145086a468..1d15a9af9956 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+@@ -197,29 +197,29 @@ static ssize_t dp_link_settings_read(struct file *f, char __user *buf,
  
-+	if (amdgpu_passthrough(adev) &amp;&amp; adev-&gt;nbio.funcs-&gt;clear_doorbell_interrupt)
-+		adev-&gt;nbio.funcs-&gt;clear_doorbell_interrupt(adev);
-+
- 	return 0;</pre>
-    </blockquote>
-    <br>
-    Seems like a long line--perhaps checkpatch.pl would complain about
-    it.<br>
-    You can break it after the &amp;&amp;:<br>
-    <br>
-    <font face="monospace">if (amdgpu_passthrough(adev) &amp;&amp;<br>
-      &nbsp;&nbsp;&nbsp; adev-&gt;nbio.funcs-&gt;...)</font><br>
-    <br>
-    <blockquote type="cite" cite="mid:20210720075737.1583824-1-ChengZhe.Liu@amd.com">
-      <pre class="moz-quote-pre" wrap="">
- }
+ 	rd_buf_ptr = rd_buf;
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
-index 45295dce5c3e..843052205bd5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
-@@ -95,6 +95,7 @@ struct amdgpu_nbio_funcs {
- 	void (*program_aspm)(struct amdgpu_device *adev);
- 	void (*apply_lc_spc_mode_wa)(struct amdgpu_device *adev);
- 	void (*apply_l1_link_width_reconfig_wa)(struct amdgpu_device *adev);
-+	void (*clear_doorbell_interrupt)(struct amdgpu_device *adev);
- };
+-	str_len = strlen("Current:  %d  %d  %d  ");
+-	snprintf(rd_buf_ptr, str_len, "Current:  %d  %d  %d  ",
++	str_len = strlen("Current:  %d  0x%x  %d  ");
++	snprintf(rd_buf_ptr, str_len, "Current:  %d  0x%x  %d  ",
+ 			link->cur_link_settings.lane_count,
+ 			link->cur_link_settings.link_rate,
+ 			link->cur_link_settings.link_spread);
+ 	rd_buf_ptr += str_len;
  
- struct amdgpu_nbio {
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c b/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c
-index 7b79eeaa88aa..044dc63d2e86 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c
-@@ -508,6 +508,25 @@ static void nbio_v2_3_apply_l1_link_width_reconfig_wa(struct amdgpu_device *adev
- 	WREG32_PCIE(smnPCIE_LC_LINK_WIDTH_CNTL, reg_data);
- }
+-	str_len = strlen("Verified:  %d  %d  %d  ");
+-	snprintf(rd_buf_ptr, str_len, "Verified:  %d  %d  %d  ",
++	str_len = strlen("Verified:  %d  0x%x  %d  ");
++	snprintf(rd_buf_ptr, str_len, "Verified:  %d  0x%x  %d  ",
+ 			link->verified_link_cap.lane_count,
+ 			link->verified_link_cap.link_rate,
+ 			link->verified_link_cap.link_spread);
+ 	rd_buf_ptr += str_len;
  
-+static void nbio_v2_3_clear_doorbell_interrupt(struct amdgpu_device *adev)
-+{
-+	uint32_t reg, reg_data;
-+
-+	if (adev-&gt;asic_type != CHIP_SIENNA_CICHLID)
-+		return;
-+
-+	reg = RREG32_SOC15(NBIO, 0, mmBIF_RB_CNTL);
-+
-+	/*Clear Interrupt Status*/</pre>
-    </blockquote>
-    <br>
-    You could make it more readable:<br>
-    <br>
-    <font face="monospace">/* Clear the interrupt status.<br>
-      &nbsp;*/<br>
-      if ((reg &amp; ...) == 0) {</font><br>
-    <br>
-    Regards,<br>
-    Luben<br>
-    <br>
-    <blockquote type="cite" cite="mid:20210720075737.1583824-1-ChengZhe.Liu@amd.com">
-      <pre class="moz-quote-pre" wrap="">+	if ((reg &amp; BIF_RB_CNTL__RB_ENABLE_MASK) == 0) {
-+		reg = RREG32_SOC15(NBIO, 0, mmBIF_DOORBELL_INT_CNTL);
-+		if (reg &amp; BIF_DOORBELL_INT_CNTL__DOORBELL_INTERRUPT_STATUS_MASK) {
-+				reg_data = 1 &lt;&lt; BIF_DOORBELL_INT_CNTL__DOORBELL_INTERRUPT_CLEAR__SHIFT;
-+				WREG32_SOC15(NBIO, 0, mmBIF_DOORBELL_INT_CNTL, reg_data);
-+		}
-+	}
-+}
-+
- const struct amdgpu_nbio_funcs nbio_v2_3_funcs = {
- 	.get_hdp_flush_req_offset = nbio_v2_3_get_hdp_flush_req_offset,
- 	.get_hdp_flush_done_offset = nbio_v2_3_get_hdp_flush_done_offset,
-@@ -531,4 +550,5 @@ const struct amdgpu_nbio_funcs nbio_v2_3_funcs = {
- 	.program_aspm =  nbio_v2_3_program_aspm,
- 	.apply_lc_spc_mode_wa = nbio_v2_3_apply_lc_spc_mode_wa,
- 	.apply_l1_link_width_reconfig_wa = nbio_v2_3_apply_l1_link_width_reconfig_wa,
-+	.clear_doorbell_interrupt = nbio_v2_3_clear_doorbell_interrupt,
- };
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---===============0039731042==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+-	str_len = strlen("Reported:  %d  %d  %d  ");
+-	snprintf(rd_buf_ptr, str_len, "Reported:  %d  %d  %d  ",
++	str_len = strlen("Reported:  %d  0x%x  %d  ");
++	snprintf(rd_buf_ptr, str_len, "Reported:  %d  0x%x  %d  ",
+ 			link->reported_link_cap.lane_count,
+ 			link->reported_link_cap.link_rate,
+ 			link->reported_link_cap.link_spread);
+ 	rd_buf_ptr += str_len;
+ 
+-	str_len = strlen("Preferred:  %d  %d  %d  ");
+-	snprintf(rd_buf_ptr, str_len, "Preferred:  %d  %d  %d\n",
++	str_len = strlen("Preferred:  %d  0x%x  %d  ");
++	snprintf(rd_buf_ptr, str_len, "Preferred:  %d  0x%x  %d\n",
+ 			link->preferred_link_setting.lane_count,
+ 			link->preferred_link_setting.link_rate,
+ 			link->preferred_link_setting.link_spread);
+-- 
+2.25.1
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0039731042==--
