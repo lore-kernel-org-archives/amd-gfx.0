@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 80618C07E9B
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CC5DCC07E95
 	for <amd-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 15:44:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5462C610CC
+	by mail.kernel.org (Postfix) with ESMTPS id A2520610CC
 	for <amd-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 15:44:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5462C610CC
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A2520610CC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00B306E439;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 245CF6E436;
 	Tue, 20 Jul 2021 15:44:23 +0000 (UTC)
 Received: from NAM02-DM3-obe.outbound.protection.outlook.com
  (mail-dm3nam07on2065.outbound.protection.outlook.com [40.107.95.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 124116E439
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 596426E43A
  for <amd-gfx@lists.freedesktop.org>; Tue, 20 Jul 2021 15:44:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DMtEV2jPfgoHTGEywyLWWBhfXlT0WZ//WV3MfNeIPJcBWmsI/CcrpVo6hI00bUFyx5SlgHk97N5RkQk0mg7IazQ/oPZuKRhAtsd2sozaA8vr0wD1GAOXUzBnpPO5Rl2aYbTVxJC8ZP5ZWlPLuSGn3PU3/UJ7EnJIu7z40oHDFESVV+MWG1UAEkA8bk0CVaQKu0bAcZgZbueJsyiEnpFpgb/6oroBfgErztgvlftrq8/4ReUxM+x44ER/HdmXZwA8L3PF6g+B7FgcIqpWw7K4Hn0Jb/58RRbCuG426020Emi9lvzFhAr1B1VQ55JUY9K8b233tMVR8IMQew3UUxSxgw==
+ b=jPNiwmivVEjqCI+p+6/y2eF3qV2B1pLZgeIQmIKsv3fgUXu2jKWCxXyA4U+SJuCxiRJ0A8rSLbruHRCmjOhYA4xkQC8n/FvTx77pdAdAJjgl1YLZcRbEGd/vif0CO2CsgjlleMlDCY7tn8/AJ9ECwvBJ99cPsL6G50xhUthvI245KYqYZD2ooV/d4ekAoC8TX1CxyeFDmkV89j3W4IEyJTGjVoLYKRXlGXot8N8gYatZgetv+wyyQOjg2GeQS+SHvoXQ9Y3yJ5L+jNUF0rF26bg5JML9BI/RuCijgD1VIYjj/ll4wQSvucVV9YCo8GgggkM6Bu51hSv3+m3wlAapJw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Cw3mgBAyqoYvb8t7LpgexDT5i4HyQ2ZyabDjtdr/phA=;
- b=KYb9KDImrwMth6t/AokFuNb34HaWxkVloXuoHyASkH3fLT2sUCm9RkVhvjeyBua3u78OhosIGQrd74b+DjjwUVjq7gSgQvxDhIZ2zprEkL/LNgGQ/KPMj6LyTo1z+bxURfp4Eh94LXEQtixP79bfvkTHWCbjX7GNfc6Vi1Vdl6dqwPZrhFJKE2rFhBXzOwR9rfq8mhzh58BhyGROphD7gX43pEye04jiYUEDyGWh19aQof0ARfs0ZjoloKnv9YYJcdR1Rw2iVwkqueBEaZVqPaA2zIb9uNLiuo7SE/OAhLiWDbJjRiJvtDvzOzKYWJT1B43ClaAVWLrkRN7KQpSlSA==
+ bh=ePjlpbM7c4ENRZ2+98MChOLfOYKvunJPdVDkiTshwtM=;
+ b=dmB60mxu1lbM7az3QUwV7mFIQypy5dy4vnaAfUNbckHjGTbdQ1cF8XEi7/ht+5j0u5xM29kmpm9t+9z38S2tu4TyzZY4WAc+xPlVOw41lM5QxNz+TcZHiSeI3Re7FhLN434cTjOxPIVKquk+ge+fX0Ubf98Xif893rD8B1n1JLXxabuGld/xIPTuGxUfDVATdT3vXRhW28H8OECIKmcv6ZOXCntliOCe76rGT5Z8GY0qyReNdqpNT3IYERFQOhnloZLLf9Kr3UQSIqa2v4d79XQGKXajFG7BBREDzaUVSxfCGDPcRT3ubQHmSu9Xv2hFQoIarxs+s6RsO+jhtSb3Gg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Cw3mgBAyqoYvb8t7LpgexDT5i4HyQ2ZyabDjtdr/phA=;
- b=X0aGZ+1/x3OgAGMahfPcJfM+5nGmq1ke+rMNm/rGJYk8MTk8AAV+j2ib/VrPXpRvHQuZGgvp0kObkevCKCTcya6d1rSRyjSbPxARjA830PyGeirnpn/AbppUJKgimxYc8oEzfUUNo573jzMjpII+PJWzPAX/+5e/ou7tXFpSNtA=
+ bh=ePjlpbM7c4ENRZ2+98MChOLfOYKvunJPdVDkiTshwtM=;
+ b=YrHrl3+Bx+L1Id3Gl9TnwKQx8VVqyXUmdHIdH27TKv7WT4XXhuvhEe1K5s58mGMBetFAPV7qqBdDZtI24BK1UTF78lxpuh2RFSPRdZedrWeR2lW+yxutseZ0J0fxM0Io3BKFnTx1DxFM88ZJ6Pa+W/N2cXE3EKst2jB/I1Qxoi4=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -45,16 +45,16 @@ Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
  by BL1PR12MB5349.namprd12.prod.outlook.com (2603:10b6:208:31f::7)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4331.29; Tue, 20 Jul
- 2021 15:44:19 +0000
+ 2021 15:44:20 +0000
 Received: from BL1PR12MB5144.namprd12.prod.outlook.com
  ([fe80::8cb6:59d6:24d0:4dc3]) by BL1PR12MB5144.namprd12.prod.outlook.com
  ([fe80::8cb6:59d6:24d0:4dc3%9]) with mapi id 15.20.4331.034; Tue, 20 Jul 2021
- 15:44:19 +0000
+ 15:44:20 +0000
 From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 17/29] drm/amdgpu: add mp 11.0.8 header for cyan_skillfish
-Date: Tue, 20 Jul 2021 11:43:37 -0400
-Message-Id: <20210720154349.1599827-18-alexander.deucher@amd.com>
+Subject: [PATCH 18/29] drm/amdgpu: add psp v11.0.8 driver for cyan_skillfish
+Date: Tue, 20 Jul 2021 11:43:38 -0400
+Message-Id: <20210720154349.1599827-19-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210720154349.1599827-1-alexander.deucher@amd.com>
 References: <20210720154349.1599827-1-alexander.deucher@amd.com>
@@ -66,54 +66,54 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from tr4.amd.com (165.204.84.11) by
  MN2PR01CA0024.prod.exchangelabs.com (2603:10b6:208:10c::37) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4331.22 via Frontend Transport; Tue, 20 Jul 2021 15:44:18 +0000
+ 15.20.4331.22 via Frontend Transport; Tue, 20 Jul 2021 15:44:19 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 54c79229-9cd9-41f7-fbaa-08d94b953ca9
+X-MS-Office365-Filtering-Correlation-Id: 3f47f925-7b40-4b69-bd72-08d94b953d48
 X-MS-TrafficTypeDiagnostic: BL1PR12MB5349:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BL1PR12MB5349E0378AAB96D5638EAAEBF7E29@BL1PR12MB5349.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-Microsoft-Antispam-PRVS: <BL1PR12MB53495F320C68D07FF80B2795F7E29@BL1PR12MB5349.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:62;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: KmsNGFLHZEccK4BrGgkWN8RXGdNf8rlfZdU5mVDMWQtxIXgmGC+OVFn4LmhZs8m1gFsoPD4ZbSudV31RweQRxHTvsuv0Oi03C9LtaAPdJGwXny4f3pZOZCG363hGEoG0hACjD0zYqu+MNfXIE3Xh9oS7BFqy+rULPGAUNd8qB0vSKRDLwX9heBs5jwIfnSCMfRUfDwA8MDEmbevblJFNuZV/9TX0mpdgTBosuT+vGvXodYWJLFczVQWDYC3tlLeWcPqNtBzc65ygbC++xuUTYOE6Q9ZTyTVFcMQIHUcuUyoDsfiVYSH6Z4wD3KmJVUhw1gP7TrNzW7qBlqxNF93D5w9oYYOE+t3FWMBo6FQnS94ighdJ/Tp8VVrX2O8NUnor/GQC55wCJ2+yKRccUMsEn8fkF5QuMUfuLw3UtZ/fZyW96a/qWFws76LAdZVI42btDyQEoHt2x2J4k2TmD6+m4EvcC7qiZy+1CICQ4K4A8l5zY7YpLAKZcDF+pxl31CDmdLN9ihHHd/9t+lCH2HBj+KzlPEycYWvtbAuj9wPqrNZbDnhYz6uBWKdE0HrOIMooDYeIzsLRZGEDKJcCU89B1ystYQ5vjgD711rgKwhTiao+FqoHPf+hXScOCNU8IrbA0t54fdF9oH96jR6YO/Y+YmlBG66YLo0afjGVIrzLFbIbsgIMMbdD/rMmSRw6c2/gJ5W2P3e2KczLGloFlABhGQ==
+X-Microsoft-Antispam-Message-Info: 4WAlCJ0PbYj5AR+F7GAcX8KHGIxnIzooleCz39HXJ4c+kQ4aF8ui3q5QWAa6Zxk1VUN3Vljh8o//9nSZQDK/+f0zrV1z0fEpNz1KEoxWBJna8O5ufFJpvfK9kROaBHeMPKGuVSl023n08TprN+KzHS6srvqToFLb3mASyleLq0JYNzb0fUD2352635OZIcniiA/D6RkCqBtk4h8kymxjll91PPvhlk24kEd9GJMORnQK3xII5NsUAlrLXR3ZWQ3rkMO1TR7l1FEitwikL+0huwkiSXoJ0EfA/D3A0XkHqJ0xtZKnUmzjMQLdEmrilzWfB8M2UlLNo+DscETQF/QaMadvdczQ9TjugMXM9D7FFRfzNhGsqIInxmIvkUwryc87P9xag7GaCKl78KlwOfi3PEjXUaIW1qoeeHn0aJ/h5oS3U2442L5qD6dDpRMEd+GGQSEQnjkq+iYsc5OzkgT4ZHBCELOCXmfJDytN/966b1wGoFHVTzpUDb4BMynh+D9r60Ve8NgVCzEoPyiyUPTmShxtSVfUn853HzD92+rtGU7mpOlru6KDHD+4ljsg95afMXYt18uhrlS2gXnWE2Rdmpwroz2kxMTw8p3viyJ9K7NDE2Q4sXG38bHjhpADPeZIqHRQ0vKTWfLwJAWHzDCCon64JCnp9DwdeEGEpFBpVE+1fTy9qVYT7uAyszukQWUyjIXGnYye2jrs9MD3qkxEiw==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(346002)(376002)(396003)(39860400002)(136003)(2616005)(86362001)(6916009)(38100700002)(6486002)(83380400001)(54906003)(6666004)(956004)(30864003)(478600001)(316002)(1076003)(4326008)(52116002)(2906002)(66946007)(38350700002)(66476007)(5660300002)(8936002)(36756003)(7696005)(66556008)(8676002)(26005)(186003);
+ SFS:(4636009)(366004)(346002)(376002)(396003)(39860400002)(136003)(2616005)(86362001)(6916009)(38100700002)(6486002)(83380400001)(54906003)(6666004)(956004)(478600001)(316002)(1076003)(4326008)(52116002)(2906002)(66946007)(38350700002)(66476007)(5660300002)(8936002)(36756003)(7696005)(66556008)(8676002)(26005)(186003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?FTPy2huGEOdRioXyC+FrxMAYiQqWBgW3hcgAgWwbpcgWW724pNbHpr3G+he9?=
- =?us-ascii?Q?i/Avy0HGlcB0hxC3q7A4IpNW0FklNLcdyWGCw5C7FHPjgWXabP9dX57JAuBZ?=
- =?us-ascii?Q?HH+b8kLXJIvBG7RamYNeb4kub1ba/Qh0BeuXwiMSUUiFnHX/5oIqmuIlLLYe?=
- =?us-ascii?Q?f5sZC5ab9Zm1ICvapLapvCs0tt8ZASskFPRG/hApgHfP+Yiz1eTxmY2CBUvI?=
- =?us-ascii?Q?tzsE4dF1h7v8U+Gdgg6Af7IFYaylmt2XxxhprC+5RUBVhM6BM5E3Yfc+Rluw?=
- =?us-ascii?Q?eHB9SN0qwSZdmUSPfGEgGDCvgiAd7EEYvSx/21ez/BSYrcK8gVuwGcouKjnU?=
- =?us-ascii?Q?ubjusLxVoOd2vBnaax17HQVS2vmBe0L+LqYM1Eu0BGhM9lwKzqHdbFS3wpie?=
- =?us-ascii?Q?JDtzV6DjM8HUrGtdOO/mgzWq3kYZjA0xcewYkibjdtCX/KWwX+jTBZOP/FMQ?=
- =?us-ascii?Q?IzijsZbHaHR9HDaAIyZBoauiQmI3/vn32lGx3rZvYDHfTszSJsl+VIwDvjcO?=
- =?us-ascii?Q?zYD4V7peLqGMBUXuSw7/bekkXaQ/x0wJwtTR3Aqm4mgzGGNZVF2y1/wHirvq?=
- =?us-ascii?Q?N5FerET29psmYl1W3Iy4BFhQLZa6xhWv/Lvg7Ppev8aMCK8lrSjBXzmJWDJv?=
- =?us-ascii?Q?UBfNrC9k8VaubEeoKa3uA3LKc7N8q8VRdaQvQByPYjKhx1GR/qeYWItcZylN?=
- =?us-ascii?Q?XJxdpOzNkFTUkYaAXMklzgEPWW3DMRqIl3JhZdnE5fpZLW4UbVezC26K5kAt?=
- =?us-ascii?Q?GLze1NgxVNXdBlX19U94vMNbui9gdA6Wcirukb8BDsJit4hINBCHbt7IgIci?=
- =?us-ascii?Q?mRCfkzKXbGd2t/GUZzR7LW49JB7NmDgXWCxUVCeYUH8B5r0/gE5tOu076qSK?=
- =?us-ascii?Q?Og0xNiLZewdlt7LGqtR4UNXM/NzFXNhrMSQQeTFX2laZ0GGbF8neEdWQj+tr?=
- =?us-ascii?Q?EnZ3PaX4z4qP12iCDcdmoAxGXU19H8eiDerlUOEcip0fW1F/HSJakCVp/jO+?=
- =?us-ascii?Q?tDIhH3I3f9mKaMmeSV5fGK3OC81bhIxN7bD4xm3rGgXA6Xv8eMba3Tahr5Uw?=
- =?us-ascii?Q?C2Rh/+birWMSUajwQM0id7QtKXuWUS64cDInedL00E3DiEWL7AgGQwCKqXJK?=
- =?us-ascii?Q?dfXiFBMsIN1y79MBo8cIY2AOV9lSw6vmgoxggc3dzTWSIBk+pGoNq0y6lTfr?=
- =?us-ascii?Q?8Go67Lky+BzCkZq+wKIVt3DGVN9IKtUt6abYOwd8XJ0TmX7fWaBQhB+q7TPu?=
- =?us-ascii?Q?VG0NjZzyb/8VBVwEgx2CAv/e4OceTq7vms1omBDHiNZMa+UkHVqHSCYXiYu5?=
- =?us-ascii?Q?Ye2VBT/ptv52iJpBg7Vmeuwm?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?zkGXCe4gnkDo/n49sE+ZEz2Vk6uYSdxpmybaRCNxyKWBZigYAGNFnO2CPuWr?=
+ =?us-ascii?Q?UcZS5X/dLMyaxqDhMyvSuYgAfVZjB4JrSvAJhOrtRmHMmwdz01xxZDl6PKPD?=
+ =?us-ascii?Q?Re94WT/IBx7i2LqCEEBnu1j0K60m/2Sft5MSsFxq/DleW3OaMyZzUXUa5tzV?=
+ =?us-ascii?Q?JhaUxgbikWbtZITOMuMMgGhobGc7psa1yDqyoZIFU9MLI181g0+35OpNK240?=
+ =?us-ascii?Q?2q6C5qD1AbOPH7zHm7SPgYuHpl4u2Tf4OKqPKjZPyYySp/dznl5EdNwItoEy?=
+ =?us-ascii?Q?DlM5RoqvQfXPrbE5tWtb3EJhGSyBUu/46twCkudQ/X5z5wFaHllx87HWMmjL?=
+ =?us-ascii?Q?R0pV9Q2klsvIJkV39u5/ubi/qWEPnmUV6B711l0f9Z8JXAlCMKRdiLQtYbqD?=
+ =?us-ascii?Q?npkMHhtKe448h0YmGqbDPYH9audWLBy4aJtcoxBUaOzAmWjyGbpe+y2UbrGt?=
+ =?us-ascii?Q?N2f/aZTgViNdWYRPgqdBgXanmrPBmxnGIMc5PX0KbunYR6wzVdtK9QqQhcMi?=
+ =?us-ascii?Q?0VAnDSOhqmknJo+KUxKTjlIBKeaPDcA0pa0apy6Cvb3f39qa4NokxwgAOZ8Z?=
+ =?us-ascii?Q?y12jRxsEVu6Ye0bm2u+UunK6sL7eiSabKOzTD0P3FGJIMpAlD8N3ddoVyQjh?=
+ =?us-ascii?Q?/0u99f+7coL/SbtlbnTUn2ifH6ArI6uoznqQbZPsbrsErumfIU2PglOt5UFB?=
+ =?us-ascii?Q?LRlLfmzVXZUfRzXbV1Vz3mghqzBRPcuBqC/b+mFpBXUZcrxl3o/CcT4RqanW?=
+ =?us-ascii?Q?XM1fVXFv5Kbrq+NE5rbRbO44OfC4yCGH2qNRosDiTQUP6dahERZj4TyQS/DP?=
+ =?us-ascii?Q?ZlDDbn6OP6gAlpfwFU+C26qQDdWGYsMdyfyPyR8OGWLTvUuMSf4uZpdn9IQ0?=
+ =?us-ascii?Q?0kiK5hSQjzvWmJownk1DixrW6LKIkGk07EoDDcwQWkotlT5hfu+J5phLHeGE?=
+ =?us-ascii?Q?clyFj28BMpo30WF1FGj5N7hSbkgUJhdaUXTUOOq+DqUtALPCbopr9n1gTmZQ?=
+ =?us-ascii?Q?uiBPQY0jXPLUqKp/cq8IUBWD9sfpdfPxn0vjhPl9Sbtwj7YMyyctS2mpdHX7?=
+ =?us-ascii?Q?njHpDPfxEzS/kQfFgdjPycfmkKszZ96T75JpHbrCOM++I8+zSjsv0bg+X0su?=
+ =?us-ascii?Q?ieU+eaocALviXolpncyjemy8DEJmO49znNnjGwEn56M7/EdzGlbVN2TbeRF8?=
+ =?us-ascii?Q?zkWZLXGuGYXq25Ruxqzema1MnipJSwG97FYqNOk6RJVkom7C5/HCLj3qMQRu?=
+ =?us-ascii?Q?ot5hPFzxojmP/RlCz/s+N9l/YCQF8JFx9WLowlqnPf8jvfLgtLpneaGbE1oC?=
+ =?us-ascii?Q?LQnZ4cEZl5g2VXZVyVDiseki?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 54c79229-9cd9-41f7-fbaa-08d94b953ca9
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3f47f925-7b40-4b69-bd72-08d94b953d48
 X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jul 2021 15:44:19.3442 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jul 2021 15:44:20.2472 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VfQR1M2so1SFxW3yzcOa3ay1BZ5w6Vi1pHZu/E/fBtnN4QDqCCkNMTPgzYA3r1B7XU+m7w7Jb+MBfCREZEboIg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: xfoaxHXRrBJr/uUhWT1w+2JqLF7n/mCdNWglWff5vtMzURg6t6hN12oR+pB2Io7TLDM4keMb8/ul8rIuGDJwmA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5349
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -134,23 +134,38 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Lang Yu <lang.yu@amd.com>
 
-The cyan_skillfish will use the mp 11.0.8.
+Introduce the psp v11.0.8 driver for cyan_skillfish.
 
 Signed-off-by: Lang Yu <lang.yu@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- .../include/asic_reg/mp/mp_11_0_8_offset.h    | 352 ++++++++++++++++++
- 1 file changed, 352 insertions(+)
- create mode 100644 drivers/gpu/drm/amd/include/asic_reg/mp/mp_11_0_8_offset.h
+ drivers/gpu/drm/amd/amdgpu/Makefile      |   1 +
+ drivers/gpu/drm/amd/amdgpu/psp_v11_0_8.c | 208 +++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/psp_v11_0_8.h |  30 ++++
+ 3 files changed, 239 insertions(+)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/psp_v11_0_8.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/psp_v11_0_8.h
 
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/mp/mp_11_0_8_offset.h b/drivers/gpu/drm/amd/include/asic_reg/mp/mp_11_0_8_offset.h
+diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+index aa5ca7e227e6..f089794bbdd5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/Makefile
++++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+@@ -112,6 +112,7 @@ amdgpu-y += \
+ 	psp_v3_1.o \
+ 	psp_v10_0.o \
+ 	psp_v11_0.o \
++	psp_v11_0_8.o \
+ 	psp_v12_0.o \
+ 	psp_v13_0.o
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0_8.c b/drivers/gpu/drm/amd/amdgpu/psp_v11_0_8.c
 new file mode 100644
-index 000000000000..19293ccaec23
+index 000000000000..ff13e1beb49b
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/include/asic_reg/mp/mp_11_0_8_offset.h
-@@ -0,0 +1,352 @@
++++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0_8.c
+@@ -0,0 +1,208 @@
 +/*
-+ * Copyright (C) 2021  Advanced Micro Devices, Inc.
++ * Copyright 2021 Advanced Micro Devices, Inc.
 + *
 + * Permission is hereby granted, free of charge, to any person obtaining a
 + * copy of this software and associated documentation files (the "Software"),
@@ -159,346 +174,238 @@ index 000000000000..19293ccaec23
 + * and/or sell copies of the Software, and to permit persons to whom the
 + * Software is furnished to do so, subject to the following conditions:
 + *
-+ * The above copyright notice and this permission notice shall be included
-+ * in all copies or substantial portions of the Software.
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
 + *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-+ * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
-+ * AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
 + */
-+#ifndef _mp_11_0_8_OFFSET_HEADER
-+#define _mp_11_0_8_OFFSET_HEADER
++#include "amdgpu.h"
++#include "amdgpu_psp.h"
++#include "amdgpu_ucode.h"
++#include "soc15_common.h"
++#include "psp_v11_0_8.h"
 +
++#include "mp/mp_11_0_8_offset.h"
 +
++static int psp_v11_0_8_ring_init(struct psp_context *psp,
++			      enum psp_ring_type ring_type)
++{
++	int ret = 0;
++	struct psp_ring *ring;
++	struct amdgpu_device *adev = psp->adev;
 +
-+// addressBlock: mp_SmuMp0_SmnDec
-+// base address: 0x0
-+#define mmMP0_SMN_C2PMSG_32                                                                            0x0060
-+#define mmMP0_SMN_C2PMSG_32_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_33                                                                            0x0061
-+#define mmMP0_SMN_C2PMSG_33_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_34                                                                            0x0062
-+#define mmMP0_SMN_C2PMSG_34_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_35                                                                            0x0063
-+#define mmMP0_SMN_C2PMSG_35_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_36                                                                            0x0064
-+#define mmMP0_SMN_C2PMSG_36_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_37                                                                            0x0065
-+#define mmMP0_SMN_C2PMSG_37_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_38                                                                            0x0066
-+#define mmMP0_SMN_C2PMSG_38_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_39                                                                            0x0067
-+#define mmMP0_SMN_C2PMSG_39_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_40                                                                            0x0068
-+#define mmMP0_SMN_C2PMSG_40_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_41                                                                            0x0069
-+#define mmMP0_SMN_C2PMSG_41_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_42                                                                            0x006a
-+#define mmMP0_SMN_C2PMSG_42_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_43                                                                            0x006b
-+#define mmMP0_SMN_C2PMSG_43_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_44                                                                            0x006c
-+#define mmMP0_SMN_C2PMSG_44_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_45                                                                            0x006d
-+#define mmMP0_SMN_C2PMSG_45_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_46                                                                            0x006e
-+#define mmMP0_SMN_C2PMSG_46_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_47                                                                            0x006f
-+#define mmMP0_SMN_C2PMSG_47_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_48                                                                            0x0070
-+#define mmMP0_SMN_C2PMSG_48_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_49                                                                            0x0071
-+#define mmMP0_SMN_C2PMSG_49_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_50                                                                            0x0072
-+#define mmMP0_SMN_C2PMSG_50_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_51                                                                            0x0073
-+#define mmMP0_SMN_C2PMSG_51_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_52                                                                            0x0074
-+#define mmMP0_SMN_C2PMSG_52_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_53                                                                            0x0075
-+#define mmMP0_SMN_C2PMSG_53_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_54                                                                            0x0076
-+#define mmMP0_SMN_C2PMSG_54_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_55                                                                            0x0077
-+#define mmMP0_SMN_C2PMSG_55_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_56                                                                            0x0078
-+#define mmMP0_SMN_C2PMSG_56_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_57                                                                            0x0079
-+#define mmMP0_SMN_C2PMSG_57_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_58                                                                            0x007a
-+#define mmMP0_SMN_C2PMSG_58_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_59                                                                            0x007b
-+#define mmMP0_SMN_C2PMSG_59_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_60                                                                            0x007c
-+#define mmMP0_SMN_C2PMSG_60_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_61                                                                            0x007d
-+#define mmMP0_SMN_C2PMSG_61_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_62                                                                            0x007e
-+#define mmMP0_SMN_C2PMSG_62_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_63                                                                            0x007f
-+#define mmMP0_SMN_C2PMSG_63_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_64                                                                            0x0080
-+#define mmMP0_SMN_C2PMSG_64_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_65                                                                            0x0081
-+#define mmMP0_SMN_C2PMSG_65_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_66                                                                            0x0082
-+#define mmMP0_SMN_C2PMSG_66_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_67                                                                            0x0083
-+#define mmMP0_SMN_C2PMSG_67_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_68                                                                            0x0084
-+#define mmMP0_SMN_C2PMSG_68_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_69                                                                            0x0085
-+#define mmMP0_SMN_C2PMSG_69_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_70                                                                            0x0086
-+#define mmMP0_SMN_C2PMSG_70_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_71                                                                            0x0087
-+#define mmMP0_SMN_C2PMSG_71_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_72                                                                            0x0088
-+#define mmMP0_SMN_C2PMSG_72_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_73                                                                            0x0089
-+#define mmMP0_SMN_C2PMSG_73_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_74                                                                            0x008a
-+#define mmMP0_SMN_C2PMSG_74_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_75                                                                            0x008b
-+#define mmMP0_SMN_C2PMSG_75_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_76                                                                            0x008c
-+#define mmMP0_SMN_C2PMSG_76_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_77                                                                            0x008d
-+#define mmMP0_SMN_C2PMSG_77_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_78                                                                            0x008e
-+#define mmMP0_SMN_C2PMSG_78_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_79                                                                            0x008f
-+#define mmMP0_SMN_C2PMSG_79_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_80                                                                            0x0090
-+#define mmMP0_SMN_C2PMSG_80_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_81                                                                            0x0091
-+#define mmMP0_SMN_C2PMSG_81_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_82                                                                            0x0092
-+#define mmMP0_SMN_C2PMSG_82_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_83                                                                            0x0093
-+#define mmMP0_SMN_C2PMSG_83_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_84                                                                            0x0094
-+#define mmMP0_SMN_C2PMSG_84_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_85                                                                            0x0095
-+#define mmMP0_SMN_C2PMSG_85_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_86                                                                            0x0096
-+#define mmMP0_SMN_C2PMSG_86_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_87                                                                            0x0097
-+#define mmMP0_SMN_C2PMSG_87_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_88                                                                            0x0098
-+#define mmMP0_SMN_C2PMSG_88_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_89                                                                            0x0099
-+#define mmMP0_SMN_C2PMSG_89_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_90                                                                            0x009a
-+#define mmMP0_SMN_C2PMSG_90_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_91                                                                            0x009b
-+#define mmMP0_SMN_C2PMSG_91_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_92                                                                            0x009c
-+#define mmMP0_SMN_C2PMSG_92_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_93                                                                            0x009d
-+#define mmMP0_SMN_C2PMSG_93_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_94                                                                            0x009e
-+#define mmMP0_SMN_C2PMSG_94_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_95                                                                            0x009f
-+#define mmMP0_SMN_C2PMSG_95_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_96                                                                            0x00a0
-+#define mmMP0_SMN_C2PMSG_96_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_97                                                                            0x00a1
-+#define mmMP0_SMN_C2PMSG_97_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_98                                                                            0x00a2
-+#define mmMP0_SMN_C2PMSG_98_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_99                                                                            0x00a3
-+#define mmMP0_SMN_C2PMSG_99_BASE_IDX                                                                   0
-+#define mmMP0_SMN_C2PMSG_100                                                                           0x00a4
-+#define mmMP0_SMN_C2PMSG_100_BASE_IDX                                                                  0
-+#define mmMP0_SMN_C2PMSG_101                                                                           0x00a5
-+#define mmMP0_SMN_C2PMSG_101_BASE_IDX                                                                  0
-+#define mmMP0_SMN_C2PMSG_102                                                                           0x00a6
-+#define mmMP0_SMN_C2PMSG_102_BASE_IDX                                                                  0
-+#define mmMP0_SMN_C2PMSG_103                                                                           0x00a7
-+#define mmMP0_SMN_C2PMSG_103_BASE_IDX                                                                  0
-+#define mmMP0_SMN_IH_CREDIT                                                                            0x00c1
-+#define mmMP0_SMN_IH_CREDIT_BASE_IDX                                                                   0
-+#define mmMP0_SMN_IH_SW_INT                                                                            0x00c2
-+#define mmMP0_SMN_IH_SW_INT_BASE_IDX                                                                   0
-+#define mmMP0_SMN_IH_SW_INT_CTRL                                                                       0x00c3
-+#define mmMP0_SMN_IH_SW_INT_CTRL_BASE_IDX                                                              0
++	ring = &psp->km_ring;
 +
++	ring->ring_type = ring_type;
 +
-+// addressBlock: mp_SmuMp1_SmnDec
-+// base address: 0x0
-+#define mmMP1_SMN_C2PMSG_32                                                                            0x0260
-+#define mmMP1_SMN_C2PMSG_32_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_33                                                                            0x0261
-+#define mmMP1_SMN_C2PMSG_33_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_34                                                                            0x0262
-+#define mmMP1_SMN_C2PMSG_34_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_35                                                                            0x0263
-+#define mmMP1_SMN_C2PMSG_35_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_36                                                                            0x0264
-+#define mmMP1_SMN_C2PMSG_36_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_37                                                                            0x0265
-+#define mmMP1_SMN_C2PMSG_37_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_38                                                                            0x0266
-+#define mmMP1_SMN_C2PMSG_38_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_39                                                                            0x0267
-+#define mmMP1_SMN_C2PMSG_39_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_40                                                                            0x0268
-+#define mmMP1_SMN_C2PMSG_40_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_41                                                                            0x0269
-+#define mmMP1_SMN_C2PMSG_41_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_42                                                                            0x026a
-+#define mmMP1_SMN_C2PMSG_42_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_43                                                                            0x026b
-+#define mmMP1_SMN_C2PMSG_43_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_44                                                                            0x026c
-+#define mmMP1_SMN_C2PMSG_44_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_45                                                                            0x026d
-+#define mmMP1_SMN_C2PMSG_45_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_46                                                                            0x026e
-+#define mmMP1_SMN_C2PMSG_46_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_47                                                                            0x026f
-+#define mmMP1_SMN_C2PMSG_47_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_48                                                                            0x0270
-+#define mmMP1_SMN_C2PMSG_48_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_49                                                                            0x0271
-+#define mmMP1_SMN_C2PMSG_49_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_50                                                                            0x0272
-+#define mmMP1_SMN_C2PMSG_50_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_51                                                                            0x0273
-+#define mmMP1_SMN_C2PMSG_51_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_52                                                                            0x0274
-+#define mmMP1_SMN_C2PMSG_52_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_53                                                                            0x0275
-+#define mmMP1_SMN_C2PMSG_53_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_54                                                                            0x0276
-+#define mmMP1_SMN_C2PMSG_54_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_55                                                                            0x0277
-+#define mmMP1_SMN_C2PMSG_55_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_56                                                                            0x0278
-+#define mmMP1_SMN_C2PMSG_56_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_57                                                                            0x0279
-+#define mmMP1_SMN_C2PMSG_57_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_58                                                                            0x027a
-+#define mmMP1_SMN_C2PMSG_58_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_59                                                                            0x027b
-+#define mmMP1_SMN_C2PMSG_59_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_60                                                                            0x027c
-+#define mmMP1_SMN_C2PMSG_60_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_61                                                                            0x027d
-+#define mmMP1_SMN_C2PMSG_61_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_62                                                                            0x027e
-+#define mmMP1_SMN_C2PMSG_62_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_63                                                                            0x027f
-+#define mmMP1_SMN_C2PMSG_63_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_64                                                                            0x0280
-+#define mmMP1_SMN_C2PMSG_64_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_65                                                                            0x0281
-+#define mmMP1_SMN_C2PMSG_65_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_66                                                                            0x0282
-+#define mmMP1_SMN_C2PMSG_66_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_67                                                                            0x0283
-+#define mmMP1_SMN_C2PMSG_67_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_68                                                                            0x0284
-+#define mmMP1_SMN_C2PMSG_68_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_69                                                                            0x0285
-+#define mmMP1_SMN_C2PMSG_69_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_70                                                                            0x0286
-+#define mmMP1_SMN_C2PMSG_70_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_71                                                                            0x0287
-+#define mmMP1_SMN_C2PMSG_71_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_72                                                                            0x0288
-+#define mmMP1_SMN_C2PMSG_72_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_73                                                                            0x0289
-+#define mmMP1_SMN_C2PMSG_73_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_74                                                                            0x028a
-+#define mmMP1_SMN_C2PMSG_74_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_75                                                                            0x028b
-+#define mmMP1_SMN_C2PMSG_75_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_76                                                                            0x028c
-+#define mmMP1_SMN_C2PMSG_76_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_77                                                                            0x028d
-+#define mmMP1_SMN_C2PMSG_77_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_78                                                                            0x028e
-+#define mmMP1_SMN_C2PMSG_78_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_79                                                                            0x028f
-+#define mmMP1_SMN_C2PMSG_79_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_80                                                                            0x0290
-+#define mmMP1_SMN_C2PMSG_80_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_81                                                                            0x0291
-+#define mmMP1_SMN_C2PMSG_81_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_82                                                                            0x0292
-+#define mmMP1_SMN_C2PMSG_82_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_83                                                                            0x0293
-+#define mmMP1_SMN_C2PMSG_83_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_84                                                                            0x0294
-+#define mmMP1_SMN_C2PMSG_84_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_85                                                                            0x0295
-+#define mmMP1_SMN_C2PMSG_85_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_86                                                                            0x0296
-+#define mmMP1_SMN_C2PMSG_86_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_87                                                                            0x0297
-+#define mmMP1_SMN_C2PMSG_87_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_88                                                                            0x0298
-+#define mmMP1_SMN_C2PMSG_88_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_89                                                                            0x0299
-+#define mmMP1_SMN_C2PMSG_89_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_90                                                                            0x029a
-+#define mmMP1_SMN_C2PMSG_90_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_91                                                                            0x029b
-+#define mmMP1_SMN_C2PMSG_91_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_92                                                                            0x029c
-+#define mmMP1_SMN_C2PMSG_92_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_93                                                                            0x029d
-+#define mmMP1_SMN_C2PMSG_93_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_94                                                                            0x029e
-+#define mmMP1_SMN_C2PMSG_94_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_95                                                                            0x029f
-+#define mmMP1_SMN_C2PMSG_95_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_96                                                                            0x02a0
-+#define mmMP1_SMN_C2PMSG_96_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_97                                                                            0x02a1
-+#define mmMP1_SMN_C2PMSG_97_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_98                                                                            0x02a2
-+#define mmMP1_SMN_C2PMSG_98_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_99                                                                            0x02a3
-+#define mmMP1_SMN_C2PMSG_99_BASE_IDX                                                                   0
-+#define mmMP1_SMN_C2PMSG_100                                                                           0x02a4
-+#define mmMP1_SMN_C2PMSG_100_BASE_IDX                                                                  0
-+#define mmMP1_SMN_C2PMSG_101                                                                           0x02a5
-+#define mmMP1_SMN_C2PMSG_101_BASE_IDX                                                                  0
-+#define mmMP1_SMN_C2PMSG_102                                                                           0x02a6
-+#define mmMP1_SMN_C2PMSG_102_BASE_IDX                                                                  0
-+#define mmMP1_SMN_C2PMSG_103                                                                           0x02a7
-+#define mmMP1_SMN_C2PMSG_103_BASE_IDX                                                                  0
-+#define mmMP1_SMN_IH_CREDIT                                                                            0x02c1
-+#define mmMP1_SMN_IH_CREDIT_BASE_IDX                                                                   0
-+#define mmMP1_SMN_IH_SW_INT                                                                            0x02c2
-+#define mmMP1_SMN_IH_SW_INT_BASE_IDX                                                                   0
-+#define mmMP1_SMN_IH_SW_INT_CTRL                                                                       0x02c3
-+#define mmMP1_SMN_IH_SW_INT_CTRL_BASE_IDX                                                              0
-+#define mmMP1_SMN_FPS_CNT                                                                              0x02c4
-+#define mmMP1_SMN_FPS_CNT_BASE_IDX                                                                     0
-+#define mmMP1_SMN_EXT_SCRATCH0                                                                         0x03c0
-+#define mmMP1_SMN_EXT_SCRATCH0_BASE_IDX                                                                0
-+#define mmMP1_SMN_EXT_SCRATCH1                                                                         0x03c1
-+#define mmMP1_SMN_EXT_SCRATCH1_BASE_IDX                                                                0
-+#define mmMP1_SMN_EXT_SCRATCH2                                                                         0x03c2
-+#define mmMP1_SMN_EXT_SCRATCH2_BASE_IDX                                                                0
-+#define mmMP1_SMN_EXT_SCRATCH3                                                                         0x03c3
-+#define mmMP1_SMN_EXT_SCRATCH3_BASE_IDX                                                                0
-+#define mmMP1_SMN_EXT_SCRATCH4                                                                         0x03c4
-+#define mmMP1_SMN_EXT_SCRATCH4_BASE_IDX                                                                0
-+#define mmMP1_SMN_EXT_SCRATCH5                                                                         0x03c5
-+#define mmMP1_SMN_EXT_SCRATCH5_BASE_IDX                                                                0
-+#define mmMP1_SMN_EXT_SCRATCH6                                                                         0x03c6
-+#define mmMP1_SMN_EXT_SCRATCH6_BASE_IDX                                                                0
-+#define mmMP1_SMN_EXT_SCRATCH7                                                                         0x03c7
-+#define mmMP1_SMN_EXT_SCRATCH7_BASE_IDX                                                                0
++	/* allocate 4k Page of Local Frame Buffer memory for ring */
++	ring->ring_size = 0x1000;
++	ret = amdgpu_bo_create_kernel(adev, ring->ring_size, PAGE_SIZE,
++				      AMDGPU_GEM_DOMAIN_VRAM,
++				      &adev->firmware.rbuf,
++				      &ring->ring_mem_mc_addr,
++				      (void **)&ring->ring_mem);
++	if (ret) {
++		ring->ring_size = 0;
++		return ret;
++	}
 +
++	return 0;
++}
++
++static int psp_v11_0_8_ring_stop(struct psp_context *psp,
++			       enum psp_ring_type ring_type)
++{
++	int ret = 0;
++	struct amdgpu_device *adev = psp->adev;
++
++	if (amdgpu_sriov_vf(adev)) {
++		/* Write the ring destroy command*/
++		WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_101,
++			     GFX_CTRL_CMD_ID_DESTROY_GPCOM_RING);
++		/* there might be handshake issue with hardware which needs delay */
++		mdelay(20);
++		/* Wait for response flag (bit 31) */
++		ret = psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, mmMP0_SMN_C2PMSG_101),
++				   0x80000000, 0x80000000, false);
++	} else {
++		/* Write the ring destroy command*/
++		WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_64,
++			     GFX_CTRL_CMD_ID_DESTROY_RINGS);
++		/* there might be handshake issue with hardware which needs delay */
++		mdelay(20);
++		/* Wait for response flag (bit 31) */
++		ret = psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, mmMP0_SMN_C2PMSG_64),
++				   0x80000000, 0x80000000, false);
++	}
++
++	return ret;
++}
++
++static int psp_v11_0_8_ring_create(struct psp_context *psp,
++				 enum psp_ring_type ring_type)
++{
++	int ret = 0;
++	unsigned int psp_ring_reg = 0;
++	struct psp_ring *ring = &psp->km_ring;
++	struct amdgpu_device *adev = psp->adev;
++
++	if (amdgpu_sriov_vf(adev)) {
++		ret = psp_v11_0_8_ring_stop(psp, ring_type);
++		if (ret) {
++			DRM_ERROR("psp_v11_0_8_ring_stop_sriov failed!\n");
++			return ret;
++		}
++
++		/* Write low address of the ring to C2PMSG_102 */
++		psp_ring_reg = lower_32_bits(ring->ring_mem_mc_addr);
++		WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_102, psp_ring_reg);
++		/* Write high address of the ring to C2PMSG_103 */
++		psp_ring_reg = upper_32_bits(ring->ring_mem_mc_addr);
++		WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_103, psp_ring_reg);
++
++		/* Write the ring initialization command to C2PMSG_101 */
++		WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_101,
++			     GFX_CTRL_CMD_ID_INIT_GPCOM_RING);
++
++		/* there might be handshake issue with hardware which needs delay */
++		mdelay(20);
++
++		/* Wait for response flag (bit 31) in C2PMSG_101 */
++		ret = psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, mmMP0_SMN_C2PMSG_101),
++				   0x80000000, 0x8000FFFF, false);
++
++	} else {
++		/* Wait for sOS ready for ring creation */
++		ret = psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, mmMP0_SMN_C2PMSG_64),
++				   0x80000000, 0x80000000, false);
++		if (ret) {
++			DRM_ERROR("Failed to wait for trust OS ready for ring creation\n");
++			return ret;
++		}
++
++		/* Write low address of the ring to C2PMSG_69 */
++		psp_ring_reg = lower_32_bits(ring->ring_mem_mc_addr);
++		WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_69, psp_ring_reg);
++		/* Write high address of the ring to C2PMSG_70 */
++		psp_ring_reg = upper_32_bits(ring->ring_mem_mc_addr);
++		WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_70, psp_ring_reg);
++		/* Write size of ring to C2PMSG_71 */
++		psp_ring_reg = ring->ring_size;
++		WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_71, psp_ring_reg);
++		/* Write the ring initialization command to C2PMSG_64 */
++		psp_ring_reg = ring_type;
++		psp_ring_reg = psp_ring_reg << 16;
++		WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_64, psp_ring_reg);
++
++		/* there might be handshake issue with hardware which needs delay */
++		mdelay(20);
++
++		/* Wait for response flag (bit 31) in C2PMSG_64 */
++		ret = psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, mmMP0_SMN_C2PMSG_64),
++				   0x80000000, 0x8000FFFF, false);
++	}
++
++	return ret;
++}
++
++static int psp_v11_0_8_ring_destroy(struct psp_context *psp,
++				  enum psp_ring_type ring_type)
++{
++	int ret = 0;
++	struct psp_ring *ring = &psp->km_ring;
++	struct amdgpu_device *adev = psp->adev;
++
++	ret = psp_v11_0_8_ring_stop(psp, ring_type);
++	if (ret)
++		DRM_ERROR("Fail to stop psp ring\n");
++
++	amdgpu_bo_free_kernel(&adev->firmware.rbuf,
++			      &ring->ring_mem_mc_addr,
++			      (void **)&ring->ring_mem);
++
++	return ret;
++}
++
++static uint32_t psp_v11_0_8_ring_get_wptr(struct psp_context *psp)
++{
++	uint32_t data;
++	struct amdgpu_device *adev = psp->adev;
++
++	if (amdgpu_sriov_vf(adev))
++		data = RREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_102);
++	else
++		data = RREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_67);
++
++	return data;
++}
++
++static void psp_v11_0_8_ring_set_wptr(struct psp_context *psp, uint32_t value)
++{
++	struct amdgpu_device *adev = psp->adev;
++
++	if (amdgpu_sriov_vf(adev)) {
++		WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_102, value);
++		WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_101,
++			     GFX_CTRL_CMD_ID_CONSUME_CMD);
++	} else
++		WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_67, value);
++}
++
++static const struct psp_funcs psp_v11_0_8_funcs = {
++	.ring_init = psp_v11_0_8_ring_init,
++	.ring_create = psp_v11_0_8_ring_create,
++	.ring_stop = psp_v11_0_8_ring_stop,
++	.ring_destroy = psp_v11_0_8_ring_destroy,
++	.ring_get_wptr = psp_v11_0_8_ring_get_wptr,
++	.ring_set_wptr = psp_v11_0_8_ring_set_wptr,
++};
++
++void psp_v11_0_8_set_psp_funcs(struct psp_context *psp)
++{
++	psp->funcs = &psp_v11_0_8_funcs;
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0_8.h b/drivers/gpu/drm/amd/amdgpu/psp_v11_0_8.h
+new file mode 100644
+index 000000000000..890377a5afe0
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0_8.h
+@@ -0,0 +1,30 @@
++/*
++ * Copyright 2021 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++#ifndef __PSP_V11_0_8_H__
++#define __PSP_V11_0_8_H__
++
++#include "amdgpu_psp.h"
++
++void psp_v11_0_8_set_psp_funcs(struct psp_context *psp);
 +
 +#endif
 -- 
