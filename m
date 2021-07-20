@@ -7,48 +7,48 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7003BC636C8
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 03:33:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7B549C07E9B
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 03:34:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E01CF610D0
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 03:33:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E01CF610D0
+	by mail.kernel.org (Postfix) with ESMTPS id 218026113B
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 03:34:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 218026113B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 988B889C83;
-	Tue, 20 Jul 2021 03:33:53 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2045.outbound.protection.outlook.com [40.107.92.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72A6489C83
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Jul 2021 03:33:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CDEF689CAA;
+	Tue, 20 Jul 2021 03:34:00 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2059.outbound.protection.outlook.com [40.107.236.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B09389CAA
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Jul 2021 03:33:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AR7+IaOiYuP8Vpr2jMqnRdijLPaY+VC4S5y2CFvRqO5McEz7a45rhHMP9o+DyRLeEnnhFgoJOCUAdcULKfL27KGcUFvEFH4j84Z/FmSi3UoQV8DXpWu+gCOpxWNfeBTU6DGftlEcvamyoKZhBDQhWwsLHgqMNPvPBHcDBwJXX93jt9NKqVLqWoq1zOUY0rKGLlQzgsQGhHn3aBxcH5POj03whqSkLNhK1MPR/6M7jV6IwB2KNd4h/1KcaHyRpomjZ9bC9NjU7ejFvOPql9WiZrJDdjtegh2mRjoJevzugQ9GCdHuL6md+OJEL+RiuU4WWF7bLvWd7dSqAPR6P7NxNQ==
+ b=G3mlJX+5dyzXTec0R8AcWyD6lFsGNuvUDpgg1GXbSgAwFYHc+ZYLmYftlMze5UsHAhVJw8rPI4r9ivRkzEzzJ2sdvSd2FjlBHsVOLqttOxXsklGIATkOq3joXrhx7lndHU89xDqIJaNaCUV+o5u3WV68oRLPQ7Swj2jKhdtvpCQuscw12oYVk311DVi41pOEgSwF2nnz5Ut8cni5olb+8BFCS+MHnpKpXNZBE/6EeeqJWFJHLYslaJj1aUGTNo7cw6qmpAQlO/wxpjIb98BHPVDcMpJ1p3dLYoigJ9DoxT+IR1to3SllUxZHbhNff7n9/8GHUsnYqoZdmKWwuspwjQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ci0ndf52P4BEQ0sD6SGhuva7apNkvTu+zhsF72HxdUo=;
- b=k/N2aPlABcys+VnVO3MZk9der+/3XSh1xGtDqaNwbQF9kl9syUUoywSkUtSV2/pSWCn0hH7Wr6MndT98r+dI+2b2uHnpKXgjrenaUEnq1Q7uNRiDFs/RSzVR8eFMsOJpedwpsw08XFsFK6GmPTUW67YNkg9jNr8CCaCPWO5FHDCMRLTWWlQf1yy78wCfFlLTonKg+XFOaC1BYrGHzGAkgCzDuOLodbK1OmfRKdBC8/v3WgufVw8wUE9HBrvMBIbFCc4JFxX4nH5PfKW/2TbXxBXOOmEU+Uo3VDGruWEhDKR2bLNItIOixBFwjRgwms6EWzWfIhOcaVXMNtfj88vHMw==
+ bh=GoR5GANOnIExxerq/E+Sz8e/xbiIFLV2/HYITA/9bWI=;
+ b=UbP8UN1UAOsiCqZ+me5WDqea616+oUai1GPlziR+WNkRktsJWAmaOu+7krDMr16BvSKHfUbA0+yPNy1kPppg7VoBa/yQuBzNYH4Rl73KtYzKUGXuJOH9G+D6uKpNZXqBxWgprV82NZHC9R80LMu+qoWG+B7SbBkWNgLVeoHjqbvyS7IripRm7A1c8chbbjJzDG5D3bzr3YFHlkZPoLB+NpDJxJZjpPT14E1JPDrDcXjIZJER4e19OyP/w9tFJfnXSJCYBDQ0vOYed7lM27Awn+GwvjhHnUoofPy222WtbxyofIs7NNsxEKPWtA6ew5CI1f9UkjUaxUAbI4TkRZyQKA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ci0ndf52P4BEQ0sD6SGhuva7apNkvTu+zhsF72HxdUo=;
- b=l2uFNZFRoRx9KGjXeUD61D9Xhf5Mu5eC34QH+uvIhSMIDklncyjmMZiU4keItZ4qHNrHf+Gdhtqk1A+acdaH/SJLpRqm2muX1Dd15AoEXm+zMJDKaEnVGD7ywBX6mOI7a1nFfZpm4F8DTUyKqdVAxQKdOJZm76uTc8s9oZD23JY=
-Received: from DM5PR15CA0068.namprd15.prod.outlook.com (2603:10b6:3:ae::30) by
- SN1PR12MB2495.namprd12.prod.outlook.com (2603:10b6:802:32::17) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4331.26; Tue, 20 Jul 2021 03:33:49 +0000
-Received: from DM6NAM11FT037.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:ae:cafe::c0) by DM5PR15CA0068.outlook.office365.com
- (2603:10b6:3:ae::30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4331.21 via Frontend
- Transport; Tue, 20 Jul 2021 03:33:49 +0000
+ bh=GoR5GANOnIExxerq/E+Sz8e/xbiIFLV2/HYITA/9bWI=;
+ b=iRmNvCkOIiND+Z3hal3RTau5XANEfib/ewpeCQrAXkLJZAeBHrpozClVDIZj/eMm/wSVE42fdske00kECvNtJewsEBNkiailAMP+O2eC5kIJbwhRUCkFnzo9mkWLThZYwoHP9Savv3Kj+AUFxneURx7IWVlX4/iKkfJdE3eV/t4=
+Received: from DM5PR19CA0052.namprd19.prod.outlook.com (2603:10b6:3:116::14)
+ by MN2PR12MB4016.namprd12.prod.outlook.com (2603:10b6:208:16b::30) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4331.25; Tue, 20 Jul
+ 2021 03:33:57 +0000
+Received: from DM6NAM11FT033.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:3:116:cafe::72) by DM5PR19CA0052.outlook.office365.com
+ (2603:10b6:3:116::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4331.22 via Frontend
+ Transport; Tue, 20 Jul 2021 03:33:57 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -57,19 +57,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT037.mail.protection.outlook.com (10.13.172.122) with Microsoft SMTP
+ DM6NAM11FT033.mail.protection.outlook.com (10.13.172.221) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4331.21 via Frontend Transport; Tue, 20 Jul 2021 03:33:48 +0000
+ 15.20.4331.21 via Frontend Transport; Tue, 20 Jul 2021 03:33:56 +0000
 Received: from stylon-T495.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Mon, 19 Jul
- 2021 22:33:45 -0500
+ 2021 22:33:52 -0500
 From: Stylon Wang <stylon.wang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/2] drm/amd/display: Revert "Re-enable 'Guard ASSR with
- internal display flag'"
-Date: Tue, 20 Jul 2021 11:33:16 +0800
-Message-ID: <20210720033317.686726-2-stylon.wang@amd.com>
+Subject: [PATCH 2/2] drm/amd/display: Fix ASSR regression on embedded panels
+Date: Tue, 20 Jul 2021 11:33:17 +0800
+Message-ID: <20210720033317.686726-3-stylon.wang@amd.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210720033317.686726-1-stylon.wang@amd.com>
 References: <20210720033317.686726-1-stylon.wang@amd.com>
@@ -79,28 +78,28 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ae8f72f8-5ca7-4d14-4eb9-08d94b2f2feb
-X-MS-TrafficTypeDiagnostic: SN1PR12MB2495:
-X-Microsoft-Antispam-PRVS: <SN1PR12MB2495B2B36205F310BE78A2B0FFE29@SN1PR12MB2495.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
+X-MS-Office365-Filtering-Correlation-Id: 126c84c7-65be-4efa-e2fe-08d94b2f34a5
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4016:
+X-Microsoft-Antispam-PRVS: <MN2PR12MB40164B709F331E4999E39041FFE29@MN2PR12MB4016.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 0XtwtZ8DhGmjH9y8vRTQHqJM0k3CeMC2LX8dEIlOWPrvEhwrCvruIniKI0u0OwhTb3CbUq+NQzuEheDNvPIWCHvb3H9mb835pxi7vg/X6iyq1wwWQjHNZ+phWpd1gz12J9o08wy5DdrQFnawRk7nk6AYIWbtntfZYLmKqy0lcPg9Ejftwz4zqjECYFfr8t4SU4SguVJcQSURgaINGhKEtwLDAfb+Mhk+iVbHR/CGqCQGK3g5TaimKcMIB7zSKSPkKDbtITTO1DpWitAK5BqUzlCfFJtHnEAyYQHEYWEvszRG/JYGId7VAVFJW6YAeVc9uoByGpy41dYNMOHfJ/Hr4kOxPqTm5v8yaWRhV9J5DBhKYDE0JtJxCvSIfLtj68+5lHsxT8nSDwl5SuQt+KqphPwLM/qnxq8TXY0ZmfC9oisdof5RXcCHxRwFXMg3SNdcM3vFfUv/e8vcYSi+6yGIdMh3zuWTdjSrr9MhxDHJ1Au4VkyGL/pcdUS5+8FnuMd3cslvO4kBf83RwcKobYU5nKQfFRmioBgqIZ5TumxTgV0LAiFjFoDpe++v/4kXuzKjB8vkneggfJzacJBvxkcwhj2ENEl4wICr3x0zGY/dv34VE9F0DJFpyR99b+gnfHkr9NEh5nB4KN+VSUWBfvyTLD5QiofHlUfH+RCkSWfjFHZeD7ioIuk4SL5K8Fgzx7xk3FRG1qPj6eWhpPLRNa6uRabIAAgU5xInIAMGblhDEG8=
+X-Microsoft-Antispam-Message-Info: YSSGpbrhdyeSdsNS33apSCO0EdmJGrQptyB96Wx4eJxt4u1w/u7tNXUmPPVpXhqJnfxq/hdNeamrvXSjKt1E5E/xUdIRON9XEk/vbvLjkuySbYlBNesc8w4MGDOWfVF5o8SDuU9dijK7s79R0rnk+yn5tqy1BaPD2/mAIfmUQe/JoaSXgQKgLuIoz4wm0ODKUvl3vDiFLDd50zUegSLLraZnhqGnIFuxFRNdzyfr3x4PICklnnqJGwmlMWRvFyTJn4MQ0o7Zz5S77Dyy98teyMSeL+GnUT64PdO0i75JHIZUvI1n2FSHK8654C3xGHJwy9JwR/rHNzFcBnqdbR+rYKlnisX46992E0dV4/cIUp2FFp2ODVO1IKgPx/jPkzUvYg1Si8/gpdTrwpUGcRDJ5mqQ/Bq8V/OD09qIzahp9VFq2sY+IDJOwBi+Vi1CiARaqtYqFH9wMMExNPIcCgie0CWk1RZk+M02aLHPFN0oce2krZd/In7V2UsCIy1gl01UsKX6IwHTUyhxrNV9X0NSuRxF6n+JSOqlCFc2b3NLNXmokwEXTR6T48Irn7asmU+CIRnHFZbfCZiF+ECIaxOLOqFyQrOs2+Kfbs1CPs7SDgCm7ts4mIr4W94e73G6r1sTkKB2LX/TQqwrvJZG1T9Ngpd5cACS6A48GipEsgNwn4GsDJUxSQ2ESSVp6TIG21R+e/tw3nK9xZL1ZMj8PuHEggp8uvyF/OdBgdosTQjByuE=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(136003)(376002)(396003)(346002)(39860400002)(36840700001)(46966006)(26005)(186003)(16526019)(1076003)(6916009)(81166007)(83380400001)(8676002)(7696005)(8936002)(36756003)(82310400003)(356005)(36860700001)(6666004)(82740400003)(47076005)(2616005)(426003)(86362001)(5660300002)(70586007)(70206006)(478600001)(336012)(54906003)(316002)(4326008)(2906002)(44832011)(36900700001);
+ SFS:(4636009)(376002)(396003)(346002)(136003)(39860400002)(46966006)(36840700001)(44832011)(82310400003)(36756003)(2616005)(316002)(8676002)(70206006)(54906003)(47076005)(336012)(8936002)(1076003)(86362001)(6916009)(6666004)(70586007)(426003)(82740400003)(478600001)(5660300002)(83380400001)(81166007)(7696005)(4326008)(16526019)(356005)(186003)(26005)(2906002)(36860700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jul 2021 03:33:48.8092 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ae8f72f8-5ca7-4d14-4eb9-08d94b2f2feb
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jul 2021 03:33:56.7269 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 126c84c7-65be-4efa-e2fe-08d94b2f34a5
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT037.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT033.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2495
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4016
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,97 +121,46 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 [Why]
-A new change that simplifies the ASSR enabling and guarding is found
-that also fixes regression on some embedded panels.
+Regression found in some embedded panels traces back to the earliest
+upstreamed ASSR patch. The changed code flow are causing problems
+with some panels.
 
 [How]
-Revert the ASSR changes in preparation for upcoming patch.
+- Change ASSR enabling code while preserving original code flow
+  as much as possible
+- Simplify the code on guarding with internal display flag
 
 Signed-off-by: Stylon Wang <stylon.wang@amd.com>
 ---
- .../gpu/drm/amd/display/dc/core/dc_link_dp.c  | 54 ++++++-------------
- 1 file changed, 17 insertions(+), 37 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-index 8b35cd9d4c01..cc62124b0b82 100644
+index cc62124b0b82..f56e061d35bc 100644
 --- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
 +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-@@ -1752,38 +1752,6 @@ enum link_training_result dc_link_dp_perform_link_training(
- 	return status;
- }
- 
--static enum dp_panel_mode try_enable_assr(struct dc_stream_state *stream)
--{
--	struct dc_link *link = stream->link;
--	enum dp_panel_mode panel_mode = dp_get_panel_mode(link);
--#ifdef CONFIG_DRM_AMD_DC_HDCP
--	struct cp_psp *cp_psp = &stream->ctx->cp_psp;
--#endif
--
--	/* ASSR must be supported on the panel */
--	if (panel_mode == DP_PANEL_MODE_DEFAULT)
--		return panel_mode;
--
--	/* eDP or internal DP only */
--	if (link->connector_signal != SIGNAL_TYPE_EDP &&
--		!(link->connector_signal == SIGNAL_TYPE_DISPLAY_PORT &&
--		 link->is_internal_display))
--		return DP_PANEL_MODE_DEFAULT;
--
--#ifdef CONFIG_DRM_AMD_DC_HDCP
--	if (cp_psp && cp_psp->funcs.enable_assr) {
--		if (!cp_psp->funcs.enable_assr(cp_psp->handle, link)) {
--			/* since eDP implies ASSR on, change panel
--			 * mode to disable ASSR
--			 */
--			panel_mode = DP_PANEL_MODE_DEFAULT;
--		}
--	} else
--		panel_mode = DP_PANEL_MODE_DEFAULT;
--#endif
--	return panel_mode;
--}
--
- bool perform_link_training_with_retries(
- 	const struct dc_link_settings *link_setting,
- 	bool skip_video_pattern,
-@@ -1796,7 +1764,7 @@ bool perform_link_training_with_retries(
- 	uint8_t delay_between_attempts = LINK_TRAINING_RETRY_DELAY;
- 	struct dc_stream_state *stream = pipe_ctx->stream;
- 	struct dc_link *link = stream->link;
--	enum dp_panel_mode panel_mode;
-+	enum dp_panel_mode panel_mode = dp_get_panel_mode(link);
- 	struct link_encoder *link_enc;
- 	enum link_training_result status = LINK_TRAINING_CR_FAIL_LANE0;
- 	struct dc_link_settings current_setting = *link_setting;
-@@ -1832,11 +1800,23 @@ bool perform_link_training_with_retries(
- 			msleep(delay_dp_power_up_in_ms);
+@@ -1811,8 +1811,7 @@ bool perform_link_training_with_retries(
+ 					 */
+ 					panel_mode = DP_PANEL_MODE_DEFAULT;
+ 				}
+-			} else
+-				panel_mode = DP_PANEL_MODE_DEFAULT;
++			}
  		}
+ #endif
  
--		panel_mode = try_enable_assr(stream);
-+#ifdef CONFIG_DRM_AMD_DC_HDCP
-+		if (panel_mode == DP_PANEL_MODE_EDP) {
-+			struct cp_psp *cp_psp = &stream->ctx->cp_psp;
-+
-+			if (cp_psp && cp_psp->funcs.enable_assr) {
-+				if (!cp_psp->funcs.enable_assr(cp_psp->handle, link)) {
-+					/* since eDP implies ASSR on, change panel
-+					 * mode to disable ASSR
-+					 */
-+					panel_mode = DP_PANEL_MODE_DEFAULT;
-+				}
-+			} else
-+				panel_mode = DP_PANEL_MODE_DEFAULT;
-+		}
-+#endif
-+
- 		dp_set_panel_mode(link, panel_mode);
--		DC_LOG_DETECTION_DP_CAPS("Link: %d ASSR enabled: %d\n",
--			 link->link_index,
--			 panel_mode != DP_PANEL_MODE_DEFAULT);
+@@ -4643,7 +4642,10 @@ enum dp_panel_mode dp_get_panel_mode(struct dc_link *link)
+ 		}
+ 	}
  
- 		if (link->aux_access_disabled) {
- 			dc_link_dp_perform_link_training_skip_aux(link, &current_setting);
+-	if (link->dpcd_caps.panel_mode_edp) {
++	if (link->dpcd_caps.panel_mode_edp &&
++		(link->connector_signal == SIGNAL_TYPE_EDP ||
++		 (link->connector_signal == SIGNAL_TYPE_DISPLAY_PORT &&
++		  link->is_internal_display))) {
+ 		return DP_PANEL_MODE_EDP;
+ 	}
+ 
 -- 
 2.32.0
 
