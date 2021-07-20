@@ -2,67 +2,70 @@ Return-Path: <SRS0=mcQQ=MM=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EACAFC07E95
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 13:34:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3CE75C07E95
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 13:50:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 90222610D2
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 13:34:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 90222610D2
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id C21C761186
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 13:50:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C21C761186
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 50D126E069;
-	Tue, 20 Jul 2021 13:34:22 +0000 (UTC)
-Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
- [IPv6:2607:f8b0:4864:20::22e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A92D86E069
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Jul 2021 13:34:20 +0000 (UTC)
-Received: by mail-oi1-x22e.google.com with SMTP id r80so10738943oie.13
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Jul 2021 06:34:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=RJyxclES43ElcjUdkXlGtDKBfmQc2t69hoGHk1FefN4=;
- b=SCqGY7X5jVwTrkAi/KLlL8DIAGebKALBGQ8gKzWPzZuFpkWRHs0G/+noCp66ymsO97
- jKhEF1n48vFRKFZNlyJDgTLcCto5yCqc6XU8z/ue9PIlbvho8kw96FHeueksb6MZkgQ2
- Rpk6WI6Ex4445T1+i92EPMTkRD8gT+lexw//lEZ/t+aXRN/lUjzsPMPY8fd8HXisyIIw
- LK0/pnVcn4DLTVob+PKfkNUM4HEsHEXDO9Mtyo5OV3Sy++NzD+FcU3TRdP8tViAR5Xi8
- 7prstGIpGpe75QPqCy60JcXcplpXX6pY+iqkXbsc7ULZsjeiTzTgvA48rRZvuUIkmUPL
- mwkA==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8583E89DB2;
+	Tue, 20 Jul 2021 13:50:57 +0000 (UTC)
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [IPv6:2a00:1450:4864:20::436])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE06F89DB5
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Jul 2021 13:50:56 +0000 (UTC)
+Received: by mail-wr1-x436.google.com with SMTP id c12so8075518wrt.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Jul 2021 06:50:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=sI4lOFqRzupKkYq98Gmd5BUFkdbcZOoG/UvAcZHjLDY=;
+ b=QBbwhpFEg138cFF13OlHokR7JOS4muXESJoP0GE8o7KEv35eNms/xuto9Ggx61MJnV
+ pv5yMUhlTXtwC0gs7+LZigEVtzx6FeEYFBjFZISkgcMiS1iksMJxxE9AQ75qX/XxMULb
+ sMeC2UURwOTw9xD6wYT2FjKji3DINZHhYE1LY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=RJyxclES43ElcjUdkXlGtDKBfmQc2t69hoGHk1FefN4=;
- b=qI364AolvjvtrnkqVBfJ7KiRUpkxFsvAhSXkDrdpKhwCeHhvw9tejModD3XPIZN/2q
- zvu+9u7G38C1km5MpRDNVrdWZ3ri/2zQZrrpMmCNSBqlXZnLV5B/RuoNtY8JyIGtLa+I
- XOvr487eo5FJa1ohwL7e/MeNz3XmsFx36hsggkjPc38XIC2nOLgVaDOxGwD333rUAxfp
- LmxCWKeS82e1q9iDHmMroPTuUvPttuErxaXxHKSt2gxO83NJozBmDktVdbV43dn02ptc
- WAzDcKXviU5Yr6zHRnwg0pGBj6SUWwdN2JNwzecDYYe+yEKjigOw7QVfQZtzqVGhI05r
- cURg==
-X-Gm-Message-State: AOAM533bh1CxFMIj3d/ZgijD06ARqwtX0i7Ki9gjm5R14jlOCK8QJsuG
- hj6v2mOOrVVEoHM0PWJ6t2igN9wfzqoX5jRgIVU=
-X-Google-Smtp-Source: ABdhPJwMnSDn6B/Jt2lWiRrY6pfoSfwK7suMzXuMwTR9ak6Fq0zkMYSIKgTKrI5ZiA5Kji6eHE/IVD3+SzxZzkCibLU=
-X-Received: by 2002:a05:6808:1390:: with SMTP id
- c16mr5178171oiw.123.1626788060101; 
- Tue, 20 Jul 2021 06:34:20 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=sI4lOFqRzupKkYq98Gmd5BUFkdbcZOoG/UvAcZHjLDY=;
+ b=Z//XeJ41wAB1NYtRJruXlH0F1IgZfiOi0mzUbfRG2GDc+tSjVVRip7kCSlYH345fiR
+ 8jvZ03cySxfwZj6i76o1hnoCWq6MSf3KhlZKydzKV6zaeO7iPwsvqKYRznH+ND2a2wTt
+ GDqP47S0FjEq15l06Ypox9/iK63VU5MR6fY2KGvxFUVja9it6ehkwT3m0Enkgq6kDjMc
+ jgpgyIp34/039ENtc2EVoUPFtKzCi5K48q6hN75Ba/SY/vtoZSYZTbixOmzmyYXJ5i4r
+ UP1QrqtQCeEg+aDoohzyBHk3UyWePJHhcaUjCFox/j6RqNJdm7loVuICFJgwT0sRei01
+ Kkhw==
+X-Gm-Message-State: AOAM532XpCiKlQ4JycWxuji3DJY2WENu3BZ1aMw0gnubIGOrgCdm82sa
+ UlKyEU9FfnweXQNW9eRft32YIdkGCQkdZw==
+X-Google-Smtp-Source: ABdhPJxQV3Ee2pwcwbIe/vS8ucyfghhnzHjKP4KrgLfr14bAgT3gr9xSuwjFXjaR+rGwh3KUvvzTOA==
+X-Received: by 2002:adf:c803:: with SMTP id d3mr30463317wrh.345.1626789055598; 
+ Tue, 20 Jul 2021 06:50:55 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id f2sm23731613wrq.69.2021.07.20.06.50.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 20 Jul 2021 06:50:54 -0700 (PDT)
+Date: Tue, 20 Jul 2021 15:50:52 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Subject: Re: [PATCH 1/7] vgaarb: remove VGA_DEFAULT_DEVICE
+Message-ID: <YPbUvIYmu3WfyM2C@phenom.ffwll.local>
+References: <20210716061634.2446357-1-hch@lst.de>
+ <20210716061634.2446357-2-hch@lst.de>
+ <f171831b-3281-5a5a-04d3-2d69cb77f1a2@amd.com>
 MIME-Version: 1.0
-References: <20210720033317.686726-1-stylon.wang@amd.com>
- <20210720033317.686726-3-stylon.wang@amd.com>
-In-Reply-To: <20210720033317.686726-3-stylon.wang@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 20 Jul 2021 09:34:07 -0400
-Message-ID: <CADnq5_Pp4eriLdjT=1Bk=b1H22czzxcsSY1S=xHg_Axhnj_aVg@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amd/display: Fix ASSR regression on embedded
- panels
-To: Stylon Wang <stylon.wang@amd.com>
+Content-Disposition: inline
+In-Reply-To: <f171831b-3281-5a5a-04d3-2d69cb77f1a2@amd.com>
+X-Operating-System: Linux phenom 5.10.0-7-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,72 +77,75 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Eryk Brol <Eryk.Brol@amd.com>, "Leo \(Sunpeng\) Li" <Sunpeng.Li@amd.com>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
- Qingqing Zhuo <Qingqing.Zhuo@amd.com>, "Siqueira,
- Rodrigo" <Rodrigo.Siqueira@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Anson Jacob <Anson.Jacob@amd.com>, Aurabindo Pillai <Aurabindo.Pillai@amd.com>,
- "Wentland, Harry" <Harry.Wentland@amd.com>, Bindu Ramamurthy <bindu.r@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, kvm@vger.kernel.org,
+ David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Alex Williamson <alex.williamson@redhat.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, Christoph Hellwig <hch@lst.de>,
+ Ben Skeggs <bskeggs@redhat.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jul 19, 2021 at 11:34 PM Stylon Wang <stylon.wang@amd.com> wrote:
->
-> [Why]
-> Regression found in some embedded panels traces back to the earliest
-> upstreamed ASSR patch. The changed code flow are causing problems
-> with some panels.
->
-> [How]
-> - Change ASSR enabling code while preserving original code flow
->   as much as possible
-> - Simplify the code on guarding with internal display flag
->
-> Signed-off-by: Stylon Wang <stylon.wang@amd.com>
+On Fri, Jul 16, 2021 at 09:14:02AM +0200, Christian K=F6nig wrote:
+> Am 16.07.21 um 08:16 schrieb Christoph Hellwig:
+> > The define is entirely unused.
+> > =
 
-Series is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+> > Signed-off-by: Christoph Hellwig <hch@lst.de>
+> =
 
-> ---
->  drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 8 +++++---
->  1 file changed, 5 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> index cc62124b0b82..f56e061d35bc 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> @@ -1811,8 +1811,7 @@ bool perform_link_training_with_retries(
->                                          */
->                                         panel_mode = DP_PANEL_MODE_DEFAULT;
->                                 }
-> -                       } else
-> -                               panel_mode = DP_PANEL_MODE_DEFAULT;
-> +                       }
->                 }
->  #endif
->
-> @@ -4643,7 +4642,10 @@ enum dp_panel_mode dp_get_panel_mode(struct dc_link *link)
->                 }
->         }
->
-> -       if (link->dpcd_caps.panel_mode_edp) {
-> +       if (link->dpcd_caps.panel_mode_edp &&
-> +               (link->connector_signal == SIGNAL_TYPE_EDP ||
-> +                (link->connector_signal == SIGNAL_TYPE_DISPLAY_PORT &&
-> +                 link->is_internal_display))) {
->                 return DP_PANEL_MODE_EDP;
->         }
->
-> --
-> 2.32.0
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+> I'm not an expert for this particular code, but at least of hand everythi=
+ng
+> you do here makes totally sense.
+> =
+
+> Whole series is Acked-by: Christian K=F6nig <christian.koenig@amd.com>
+
+Care to also push this into drm-misc-next since you looked already?
+-Daniel
+
+> =
+
+> Regards,
+> Christian.
+> =
+
+> > ---
+> >   include/linux/vgaarb.h | 6 ------
+> >   1 file changed, 6 deletions(-)
+> > =
+
+> > diff --git a/include/linux/vgaarb.h b/include/linux/vgaarb.h
+> > index dc6ddce92066..26ec8a057d2a 100644
+> > --- a/include/linux/vgaarb.h
+> > +++ b/include/linux/vgaarb.h
+> > @@ -42,12 +42,6 @@
+> >   #define VGA_RSRC_NORMAL_IO     0x04
+> >   #define VGA_RSRC_NORMAL_MEM    0x08
+> > -/* Passing that instead of a pci_dev to use the system "default"
+> > - * device, that is the one used by vgacon. Archs will probably
+> > - * have to provide their own vga_default_device();
+> > - */
+> > -#define VGA_DEFAULT_DEVICE     (NULL)
+> > -
+> >   struct pci_dev;
+> >   /* For use by clients */
+> =
+
+
+-- =
+
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
