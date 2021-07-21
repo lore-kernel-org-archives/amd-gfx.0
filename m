@@ -2,125 +2,67 @@ Return-Path: <SRS0=ovQZ=MN=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-10.6 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 94F3CC12002
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 14:07:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4315AC12002
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 14:36:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5A51861248
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 14:07:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5A51861248
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 0424F61221
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 14:36:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0424F61221
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A5A86EB84;
-	Wed, 21 Jul 2021 14:07:27 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2046.outbound.protection.outlook.com [40.107.244.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DD196EB88
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Jul 2021 14:07:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jgC6ilTbAJ/5A1quShV7rVXq3W8DQoAKmq2eXau29Y44WZ9E7FZpgnc0+ls1F+zitOGwjcNFf9I+9Ko/ZpjzHB973P+tXuTnQWkYhQmnHLGpVK5kfvnbv1VXFFTZDiL3Ra432KEL0BagViKTdniX+DhJm8yzpc6ucQ0ff+sewaz/go2FhiuxY2p7JnK2qPV5pOC/J0XjA+09UzTNVMn3Yp+bYov+Zv1iueWKYCrJFa+c8fR3wd19UHyITh4hkzr4B/jG3I8HRFrv7/AACNj4IUDXsg1iuRDnHOPGsW0Vij41KyK1hV1nk+IRO8tmPAD66GCvwgDpc3F5a5sknX456A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PQdahHRoZd791gXJlYTTGc5VeYLeWRshXVPHElETdUc=;
- b=UJbolinMHAwZPoJgW2c7fAEmtY4DdapMbey0W4Z2MP0gsZ6Z5izeL5e22Jle5Pbfyeg1cllyqq0CjYgToalXgzZexW5RTeWUyvG/E9SYxB1cAIqqxibEcE5jK0a6yYd+0mH7BOnfCm9IOtj+q/7vHiqBzrFcJjvkutyU0OZjEPIWym5xgFqJFT9CYEUp29eCbvCb4hUAiNEMfBNQKIapXp5QLBJ+JDJRtALe9ch4i9q32d7Zavr7HkP+7IBaa5vA+ig500ZzYKqWTDj0JJ5zagWDEQbaFTo9Ad20xrZkN1Px8tC3aOLL6Rl6wLJumTs2+kr5ip8gzrPgUCKRuClV7A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PQdahHRoZd791gXJlYTTGc5VeYLeWRshXVPHElETdUc=;
- b=elaGlu7tf8CMFRIEZFFakyH5V5YoSagT1MngXvlSse+gVj25W6KDScq+aylZG0Xs6XARJrpf0abXIeKWMhIcbevWOE1rZWLRnxLMRvDo3jsF868/7cHu7pR76Z4Ppf4jxSOTNKXRneJXi0FhsFOVq3dcoifwOu8ZEY4i/1CUX/E=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by BL1PR12MB5029.namprd12.prod.outlook.com (2603:10b6:208:310::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4331.21; Wed, 21 Jul
- 2021 14:07:23 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::8cb6:59d6:24d0:4dc3]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::8cb6:59d6:24d0:4dc3%9]) with mapi id 15.20.4352.025; Wed, 21 Jul 2021
- 14:07:23 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Wang, Chao-kai (Stylon)" <Stylon.Wang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH v2 0/2] Fix regression on embedded panels caused by
- enabling ASSR
-Thread-Topic: [PATCH v2 0/2] Fix regression on embedded panels caused by
- enabling ASSR
-Thread-Index: AQHXfeh77mcbgKBEKUSX6A27r8Xq1qtNd4wC
-Date: Wed, 21 Jul 2021 14:07:23 +0000
-Message-ID: <BL1PR12MB5144DB522EE6D72995C4E2D4F7E39@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20210720033317.686726-1-stylon.wang@amd.com>,
- <20210721042524.754014-1-stylon.wang@amd.com>
-In-Reply-To: <20210721042524.754014-1-stylon.wang@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-07-21T14:07:22.362Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 1b16727c-9e76-40b2-7d10-08d94c50dcd0
-x-ms-traffictypediagnostic: BL1PR12MB5029:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BL1PR12MB5029E7FD32502F08319D6F43F7E39@BL1PR12MB5029.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:3826;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: xcdH8fjYda2dY8Vb/ngBqClw7YOUhjaUHh8ZJJAvZ4OsOuEg/Pz/Br2Fl5uL1aPpT9yF30Rikzvwv0QuyF7sLn72T1oIBXkCcgX7/gRkWlOD+H73WB1HIa8GR8SruozT4gZoeJighrFXmHkfAIwqAC0GfemGCGC9HOhfu8ec9rv3DHMDOG+olWAKccIpgYcdvzcc1FHJ+dR50ptnaXbHLqMKqJoZEY+tocLvpYl6TSPOmk2KJ9GcLRLT3LqK7NSX7Uub0VT5Z428B/7jJGxGo/MgUeDb2/Y4ktQOVvwhNYGP/gTe8XiT+RDvziGeus+YNgazhFon6LhrnWnuLDQcoElE/Eqhb68WpQV2K01307JTkhEYoHIQAOjeu4iSy5bVq0ONOMMBEvPJNTg/Vt2lL3Olx7fD+rLf1b6WPtx0ZYLF8OrOhbllJ62YZntbkYFmp9cNcKjNeEzr4Ynm+bjENyfp4Ja97tDl1b1Mdo6YCAqwrPuNxnpXGQ8XQAp/UiCtCPNtQhEaZuMn6m2MWsr/tiD+KHcQoULbPMAJNH78E+LcByHTm+IzTq2zxcxnNjn0PQ4f141bIQ+Ex78oByc7PUmexiPF0Y1DUqjqdnURCCXs51UsatI+l4gnikkW+YQbjJ/rUIWA8g2OyLvpBhbpA+oNxLIhTzA9Wc0bdluS6DKl71Hp/CwBoH7GCxYDr08e3Pc7fiCNEUc/EIWV32iP/g==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(54906003)(45080400002)(33656002)(316002)(8936002)(122000001)(2906002)(66556008)(966005)(64756008)(66446008)(8676002)(52536014)(76116006)(110136005)(508600001)(7696005)(5660300002)(19627405001)(71200400001)(66476007)(83380400001)(4326008)(186003)(26005)(166002)(86362001)(66946007)(6506007)(53546011)(38100700002)(55016002)(9686003)(38070700004);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?W7IVSUjBHcPT2Z+jZU9h66Oq5Z5sDq91aRewMpnNPzd2osyKXtwX1k7wy+Gl?=
- =?us-ascii?Q?assUTnzQg7UE2KqjVVaTk20OIM6Ne2Wjl19Zi56LRN8N7FgCq1AeDwG6XNCH?=
- =?us-ascii?Q?BF8uPyIkWOUw3vFFrI1MjLPPMkleb3zndntcXZMJAJCtSxbM2c3/bMe8tqJr?=
- =?us-ascii?Q?yHftEsUEvJcg08iYsX365ekxlVTQ8TXY5cWSGD3GruXWv5dg1v8vafpGwjAa?=
- =?us-ascii?Q?Iq60sz9fmpr8796RaidEHNzu4V/n3igQARaNK0hXLR/5LL7sBGObPAVE9npL?=
- =?us-ascii?Q?/HqboeW+POTz1iPJWoSi3m7jx3dZt0+W2y7RglUqQbQiq5eWG1wEbzYrw1CI?=
- =?us-ascii?Q?YsgfGPeLTtj626Otuse9aG8qkIyte6L465BPHDqYniHE7vbf5Lc1FrtjFRGv?=
- =?us-ascii?Q?3jfnW5/FHliHNQ76JGJDt/ARCtZgArMrL5ZPZ3Qefo9gsiK21yDk4LBoFGsd?=
- =?us-ascii?Q?vducNv0gZkC6kzlTpYMTBjf4K2ac4vykrLNIl8BT7ONTajiwFJrIkkPqflIF?=
- =?us-ascii?Q?PW10Kj7TC+mLfhONzj7M8uq1nsLmBr2c0UvDB2Dz4GR/3NxlzYnzG4B2Eq+D?=
- =?us-ascii?Q?LoE+SBJhKKJ6LIhcLyaNIky+JsPMfnq+Z5ZWihEUJ5Z89qq/6QD7qijI0GTo?=
- =?us-ascii?Q?YJ6OAss4o0M4B264jayRD4Njvy3yaBU0L7NFFpoaXCcmmzhcTTLArj2iK/iS?=
- =?us-ascii?Q?ROfpC/8V81rfHT0PFGmZkjz8rVkjWYZjk3A/8D/aUQ60wZ6OgLAVUetRBqSM?=
- =?us-ascii?Q?AXzE45kgk2F1QLAPyaeOHOG70iSjOEJL5XZ6PUATOUHNl8HJsQCdgD5YZ9UW?=
- =?us-ascii?Q?MAxtJzx9ibkxLzq1i3oxWPxLzfFbGDFWt2sLWfM9UO5xlFEBDBtZ95BTn9JW?=
- =?us-ascii?Q?LCH1g9f6aisLOK7rlAX0KYnw2IAlsTNeGM7nt95ro3wv7CnAsUy9v3i3jSnU?=
- =?us-ascii?Q?13eveeciC3NQZTxnuQdDR8fxnQo11rdPgTa+i0GJ+zOdcLsj4FzhLWW9o0Vm?=
- =?us-ascii?Q?Zpwi3BgSawrV47Djafj3MZS3KGrl9+9vd3TFIwPmVwyLVNm8rlUcE73jyFua?=
- =?us-ascii?Q?U6kO48WQUbWn+BAM1br3VmaSOjX4mzsj4vNWvzeFutzd49rBWzRvkr+M1vU6?=
- =?us-ascii?Q?Glv2/WAEN5I0Xm6HTPls5529Lg6uaCNDESoMMrrpF/TbwwF1VlHT0rWtdiad?=
- =?us-ascii?Q?zEoJGjheKm/K+0pfkCgJ8ZNA01KalTaN95wfX6jGzlqT6zJ+r9Wf9yFM6B6Y?=
- =?us-ascii?Q?VSryx1IUt7/G9Qz6JECRIsdY4/fFhwQDTKz8n3HULvljMUePz4yS13WyUG+Y?=
- =?us-ascii?Q?jrPSNRAyUYfIBZ6ARxgt4PJM?=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93E73891B1;
+	Wed, 21 Jul 2021 14:36:12 +0000 (UTC)
+Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
+ [IPv6:2607:f8b0:4864:20::32f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FC7D89109;
+ Wed, 21 Jul 2021 14:36:10 +0000 (UTC)
+Received: by mail-ot1-x32f.google.com with SMTP id
+ 31-20020a9d0ea20000b02904d360fbc71bso1497187otj.10; 
+ Wed, 21 Jul 2021 07:36:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=jb//JA0HCehT+ryTpbbhEgNEGTC456eMZeBfSEzmc1w=;
+ b=WQL1YTyH9Fi7gcKwTGq1psAt+IdH/cU6PV/LEEcnvhUv/3FG/MdRKFO3WnjJOcohpb
+ nknCyEeXw4AkO7lX32FiC/ryqimhK7i82AwqMBuBuYGXDZ9A8sWj/QPUaMeGna/dtxj/
+ CMwFvE9RqBtue0aNSGsPiOah6YK8HzgQ/0jyTuRr4fjI4EGbUTQ5pTUtaglZAHyQIONR
+ DYE6bmHR2JShkwqN+UJtKtk2KpuG53PhIT3A2lRC4Ep/hlHX2dJxwrQlTBJUNlxmyU/U
+ DHl8gPshd4SnZhtz26unPkfCSyCypXJDQgfBK2pKrgDM4kz1tVbEmRc8ILIwYdyTvvuX
+ 8Bhw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=jb//JA0HCehT+ryTpbbhEgNEGTC456eMZeBfSEzmc1w=;
+ b=kTGAPUhE7sXiCQzLctmK1r5CXFMALp1idX9M4lwcafvJJCobLt44vXTLz9sym7Uplq
+ +5SAtTOQUJw4hOMDGExRUc+FJ922XZ9Y62vSY+pU9FV2f4yGcH7r/S/L/Mfrva05CdG5
+ IpOCd6C4iMZZjEEvETNN1LkpuGDrR1am30yBYdA11t/8CudRjuPy2VrfOtq9DoOTH2qh
+ SsIz8XLyoJnr4aadHd6sGO9pdBgNR4jC4aIV3qKD70y0Nc3vCJdFowqGOm6JjHtAHPIF
+ Mu9eAh6zA+m82HZESXacqk8nRT07Y3w6S039gyo018HK8Q00mh5JEF598FVY4NVydbnj
+ 2dMQ==
+X-Gm-Message-State: AOAM531C0ACUH0LfLTR2y356tYKElDRCOjVtMy9zNorBVnaai9WSbGi5
+ lf+cGrZ31sr/2fxbgFaElZZSExwXAKVNkbQjwAI=
+X-Google-Smtp-Source: ABdhPJzElHKkv6pbiZK6/Z+v9k7EoyFqJh/QCfKga0NBCGjPSYlvzX5wuz9QJ9aBOf0j3Nbn1uebTBgMIOAag3b7vuk=
+X-Received: by 2002:a05:6830:1c2f:: with SMTP id
+ f15mr16186401ote.23.1626878170040; 
+ Wed, 21 Jul 2021 07:36:10 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1b16727c-9e76-40b2-7d10-08d94c50dcd0
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Jul 2021 14:07:23.3708 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: DtVmk+Nwd9dp/h2XojJovo7gQf9TsWT2KTO0frG9rad7F8KbtHXxkBiddIH78fvYBeFIR0Ev5n8eL3Ckop3EYQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5029
+References: <20210720172216.59613-1-kai.heng.feng@canonical.com>
+In-Reply-To: <20210720172216.59613-1-kai.heng.feng@canonical.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 21 Jul 2021 10:35:59 -0400
+Message-ID: <CADnq5_NH-zKwwgfhT5uDwzoVGZgRfK8p4v2AVNvWmPcQAUzYsg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/acp: Make PM domain really work
+To: Kai-Heng Feng <kai.heng.feng@canonical.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,184 +74,195 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Li, Sun peng \(Leo\)" <Sunpeng.Li@amd.com>, "Lakha,
- Bhawanpreet" <Bhawanpreet.Lakha@amd.com>, "Zhuo,
- Qingqing" <Qingqing.Zhuo@amd.com>, "Siqueira,
- Rodrigo" <Rodrigo.Siqueira@amd.com>, "Jacob, Anson" <Anson.Jacob@amd.com>,
- "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>, "Wentland,
- Harry" <Harry.Wentland@amd.com>, "R, Bindu" <Bindu.R@amd.com>
-Content-Type: multipart/mixed; boundary="===============1782334239=="
+Cc: Song Liu <songliubraving@fb.com>, David Airlie <airlied@linux.ie>,
+ Alexei Starovoitov <ast@kernel.org>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ Nirmoy Das <nirmoy.das@amd.com>, Lee Jones <lee.jones@linaro.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ John Fastabend <john.fastabend@gmail.com>, Andrii Nakryiko <andrii@kernel.org>,
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ Yonghong Song <yhs@fb.com>,
+ Maruthi Srinivas Bayyavarapu <Maruthi.Bayyavarapu@amd.com>,
+ KP Singh <kpsingh@kernel.org>, Evan Quan <evan.quan@amd.com>,
+ Deepak R Varma <mh12gx2825@gmail.com>,
+ "open list:BPF Safe dynamic programs and tools" <netdev@vger.kernel.org>,
+ xinhui pan <Xinhui.Pan@amd.com>, open list <linux-kernel@vger.kernel.org>,
+ Christian Koenig <christian.koenig@amd.com>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>,
+ "open list:BPF Safe dynamic programs and tools" <bpf@vger.kernel.org>,
+ Martin KaFai Lau <kafai@fb.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1782334239==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BL1PR12MB5144DB522EE6D72995C4E2D4F7E39BL1PR12MB5144namp_"
-
---_000_BL1PR12MB5144DB522EE6D72995C4E2D4F7E39BL1PR12MB5144namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-[Public]
-
-Series looks good to me. Thanks!
+Applied.  Thanks!  I've removed the unused variables when I applied.
 
 Alex
 
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Stylon W=
-ang <stylon.wang@amd.com>
-Sent: Wednesday, July 21, 2021 12:25 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Wang, Chao-kai (Stylon) <Stylon.Wang@amd.com>; Li, Sun peng (Leo) <Sunp=
-eng.Li@amd.com>; Wentland, Harry <Harry.Wentland@amd.com>; Zhuo, Qingqing <=
-Qingqing.Zhuo@amd.com>; Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>; Jacob=
-, Anson <Anson.Jacob@amd.com>; Pillai, Aurabindo <Aurabindo.Pillai@amd.com>=
-; Lakha, Bhawanpreet <Bhawanpreet.Lakha@amd.com>; R, Bindu <Bindu.R@amd.com=
+On Tue, Jul 20, 2021 at 1:31 PM Kai-Heng Feng
+<kai.heng.feng@canonical.com> wrote:
 >
-Subject: [PATCH v2 0/2] Fix regression on embedded panels caused by enablin=
-g ASSR
-
-Previous ASSR-enabling patches cause blank screen on some embedded
-panels. This patch set minimize the changes made to code logic prior to
-the ASSR change and also improve on code readability.
-
-Changes from prior rev1 to now:
-
-v2:
- - Update reviewed-by and bug links
-
-Stylon Wang (2):
-  drm/amd/display: Revert "Re-enable 'Guard ASSR with internal display
-    flag'"
-  drm/amd/display: Fix ASSR regression on embedded panels
-
- .../gpu/drm/amd/display/dc/core/dc_link_dp.c  | 58 +++++++------------
- 1 file changed, 20 insertions(+), 38 deletions(-)
-
---
-2.32.0
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
-reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D04%7C01%7Calexande=
-r.deucher%40amd.com%7C448d5309ea364844350d08d94bff9c47%7C3dd8961fe4884e608e=
-11a82d994e183d%7C0%7C0%7C637624383495009435%7CUnknown%7CTWFpbGZsb3d8eyJWIjo=
-iMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdat=
-a=3DKuBaIHeinOgubF5Mp%2FnZA45ia6FrxVdrNtTBwf7OqPE%3D&amp;reserved=3D0
-
---_000_BL1PR12MB5144DB522EE6D72995C4E2D4F7E39BL1PR12MB5144namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+> Devices created by mfd_add_hotplug_devices() don't really increase the
+> index of its name, so get_mfd_cell_dev() cannot find any device, hence a
+> NULL dev is passed to pm_genpd_add_device():
+> [   56.974926] (NULL device *): amdgpu: device acp_audio_dma.0.auto added to pm domain
+> [   56.974933] (NULL device *): amdgpu: Failed to add dev to genpd
+> [   56.974941] [drm:amdgpu_device_ip_init [amdgpu]] *ERROR* hw_init of IP block <acp_ip> failed -22
+> [   56.975810] amdgpu 0000:00:01.0: amdgpu: amdgpu_device_ip_init failed
+> [   56.975839] amdgpu 0000:00:01.0: amdgpu: Fatal error during GPU init
+> [   56.977136] ------------[ cut here ]------------
+> [   56.977143] kernel BUG at mm/slub.c:4206!
+> [   56.977158] invalid opcode: 0000 [#1] SMP NOPTI
+> [   56.977167] CPU: 1 PID: 1648 Comm: modprobe Not tainted 5.12.0-051200rc8-generic #202104182230
+> [   56.977175] Hardware name: To Be Filled By O.E.M. To Be Filled By O.E.M./FM2A68M-HD+, BIOS P5.20 02/13/2019
+> [   56.977180] RIP: 0010:kfree+0x3bf/0x410
+> [   56.977195] Code: 89 e7 48 d3 e2 f7 da e8 5f 0d 02 00 80 e7 02 75 3e 44 89 ee 4c 89 e7 e8 ef 5f fd ff e9 fa fe ff ff 49 8b 44 24 08 a8 01 75 b7 <0f> 0b 4c 8b 4d b0 48 8b 4d a8 48 89 da 4c 89 e6 41 b8 01 00 00 00
+> [   56.977202] RSP: 0018:ffffa48640ff79f0 EFLAGS: 00010246
+> [   56.977210] RAX: 0000000000000000 RBX: ffff9286127d5608 RCX: 0000000000000000
+> [   56.977215] RDX: 0000000000000000 RSI: ffffffffc099d0fb RDI: ffff9286127d5608
+> [   56.977220] RBP: ffffa48640ff7a48 R08: 0000000000000001 R09: 0000000000000001
+> [   56.977224] R10: 0000000000000000 R11: ffff9286087d8458 R12: fffff3ae0449f540
+> [   56.977229] R13: 0000000000000000 R14: dead000000000122 R15: dead000000000100
+> [   56.977234] FS:  00007f9de5929540(0000) GS:ffff928612e80000(0000) knlGS:0000000000000000
+> [   56.977240] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [   56.977245] CR2: 00007f697dd97160 CR3: 00000001110f0000 CR4: 00000000001506e0
+> [   56.977251] Call Trace:
+> [   56.977261]  amdgpu_dm_encoder_destroy+0x1b/0x30 [amdgpu]
+> [   56.978056]  drm_mode_config_cleanup+0x4f/0x2e0 [drm]
+> [   56.978147]  ? kfree+0x3dd/0x410
+> [   56.978157]  ? drm_managed_release+0xc8/0x100 [drm]
+> [   56.978232]  drm_mode_config_init_release+0xe/0x10 [drm]
+> [   56.978311]  drm_managed_release+0x9d/0x100 [drm]
+> [   56.978388]  devm_drm_dev_init_release+0x4d/0x70 [drm]
+> [   56.978450]  devm_action_release+0x15/0x20
+> [   56.978459]  release_nodes+0x77/0xc0
+> [   56.978469]  devres_release_all+0x3f/0x50
+> [   56.978477]  really_probe+0x245/0x460
+> [   56.978485]  driver_probe_device+0xe9/0x160
+> [   56.978492]  device_driver_attach+0xab/0xb0
+> [   56.978499]  __driver_attach+0x8f/0x150
+> [   56.978506]  ? device_driver_attach+0xb0/0xb0
+> [   56.978513]  bus_for_each_dev+0x7e/0xc0
+> [   56.978521]  driver_attach+0x1e/0x20
+> [   56.978528]  bus_add_driver+0x135/0x1f0
+> [   56.978534]  driver_register+0x91/0xf0
+> [   56.978540]  __pci_register_driver+0x54/0x60
+> [   56.978549]  amdgpu_init+0x77/0x1000 [amdgpu]
+> [   56.979246]  ? 0xffffffffc0dbc000
+> [   56.979254]  do_one_initcall+0x48/0x1d0
+> [   56.979265]  ? kmem_cache_alloc_trace+0x120/0x230
+> [   56.979274]  ? do_init_module+0x28/0x280
+> [   56.979282]  do_init_module+0x62/0x280
+> [   56.979288]  load_module+0x71c/0x7a0
+> [   56.979296]  __do_sys_finit_module+0xc2/0x120
+> [   56.979305]  __x64_sys_finit_module+0x1a/0x20
+> [   56.979311]  do_syscall_64+0x38/0x90
+> [   56.979319]  entry_SYSCALL_64_after_hwframe+0x44/0xae
+> [   56.979328] RIP: 0033:0x7f9de54f989d
+> [   56.979335] Code: 00 c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d c3 f5 0c 00 f7 d8 64 89 01 48
+> [   56.979342] RSP: 002b:00007ffe3c395a28 EFLAGS: 00000246 ORIG_RAX: 0000000000000139
+> [   56.979350] RAX: ffffffffffffffda RBX: 0000560df3ef4330 RCX: 00007f9de54f989d
+> [   56.979355] RDX: 0000000000000000 RSI: 0000560df3a07358 RDI: 000000000000000f
+> [   56.979360] RBP: 0000000000040000 R08: 0000000000000000 R09: 0000000000000000
+> [   56.979365] R10: 000000000000000f R11: 0000000000000246 R12: 0000560df3a07358
+> [   56.979369] R13: 0000000000000000 R14: 0000560df3ef4460 R15: 0000560df3ef4330
+> [   56.979377] Modules linked in: amdgpu(+) iommu_v2 gpu_sched drm_ttm_helper ttm drm_kms_helper cec rc_core i2c_algo_bit fb_sys_fops syscopyarea sysfillrect sysimgblt nft_counter xt_tcpudp ipt_REJECT nf_reject_ipv4 xt_conntrack iptable_nat nf_nat nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 iptable_mangle iptable_raw iptable_security ip_set nf_tables libcrc32c nfnetlink ip6_tables iptable_filter bpfilter input_leds binfmt_misc edac_mce_amd kvm_amd ccp kvm snd_hda_codec_realtek snd_hda_codec_generic crct10dif_pclmul snd_hda_codec_hdmi ledtrig_audio ghash_clmulni_intel aesni_intel snd_hda_intel snd_intel_dspcfg snd_seq_midi crypto_simd snd_intel_sdw_acpi cryptd snd_hda_codec snd_seq_midi_event snd_rawmidi snd_hda_core snd_hwdep snd_seq fam15h_power k10temp snd_pcm snd_seq_device snd_timer snd mac_hid soundcore sch_fq_codel nct6775 hwmon_vid drm ip_tables x_tables autofs4 dm_mirror dm_region_hash dm_log hid_generic usbhid hid uas usb_storage r8169 crc32_pclmul realtek ahci xhci_pci i2c
+ _piix4
+> [   56.979521]  xhci_pci_renesas libahci video
+> [   56.979541] ---[ end trace cb8f6a346f18da7b ]---
 >
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
-ign=3D"Left">
-[Public]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Series looks good to me. Thanks!</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Alex</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Stylon Wang &lt;stylon.wang@a=
-md.com&gt;<br>
-<b>Sent:</b> Wednesday, July 21, 2021 12:25 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Wang, Chao-kai (Stylon) &lt;Stylon.Wang@amd.com&gt;; Li, Sun pen=
-g (Leo) &lt;Sunpeng.Li@amd.com&gt;; Wentland, Harry &lt;Harry.Wentland@amd.=
-com&gt;; Zhuo, Qingqing &lt;Qingqing.Zhuo@amd.com&gt;; Siqueira, Rodrigo &l=
-t;Rodrigo.Siqueira@amd.com&gt;; Jacob, Anson &lt;Anson.Jacob@amd.com&gt;;
- Pillai, Aurabindo &lt;Aurabindo.Pillai@amd.com&gt;; Lakha, Bhawanpreet &lt=
-;Bhawanpreet.Lakha@amd.com&gt;; R, Bindu &lt;Bindu.R@amd.com&gt;<br>
-<b>Subject:</b> [PATCH v2 0/2] Fix regression on embedded panels caused by =
-enabling ASSR</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Previous ASSR-enabling patches cause blank screen =
-on some embedded<br>
-panels. This patch set minimize the changes made to code logic prior to<br>
-the ASSR change and also improve on code readability.<br>
-<br>
-Changes from prior rev1 to now:<br>
-<br>
-v2:<br>
-&nbsp;- Update reviewed-by and bug links <br>
-<br>
-Stylon Wang (2):<br>
-&nbsp; drm/amd/display: Revert &quot;Re-enable 'Guard ASSR with internal di=
-splay<br>
-&nbsp;&nbsp;&nbsp; flag'&quot;<br>
-&nbsp; drm/amd/display: Fix ASSR regression on embedded panels<br>
-<br>
-&nbsp;.../gpu/drm/amd/display/dc/core/dc_link_dp.c&nbsp; | 58 +++++++------=
-------<br>
-&nbsp;1 file changed, 20 insertions(+), 38 deletions(-)<br>
-<br>
--- <br>
-2.32.0<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx@lists.freedesktop.org<br>
-<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
-F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D04%=
-7C01%7Calexander.deucher%40amd.com%7C448d5309ea364844350d08d94bff9c47%7C3dd=
-8961fe4884e608e11a82d994e183d%7C0%7C0%7C637624383495009435%7CUnknown%7CTWFp=
-bGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%=
-7C1000&amp;amp;sdata=3DKuBaIHeinOgubF5Mp%2FnZA45ia6FrxVdrNtTBwf7OqPE%3D&amp=
-;amp;reserved=3D0">https://nam11.safelinks.protection.outlook.com/?url=3Dht=
-tps%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;da=
-ta=3D04%7C01%7Calexander.deucher%40amd.com%7C448d5309ea364844350d08d94bff9c=
-47%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637624383495009435%7CUnknow=
-n%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI=
-6Mn0%3D%7C1000&amp;amp;sdata=3DKuBaIHeinOgubF5Mp%2FnZA45ia6FrxVdrNtTBwf7OqP=
-E%3D&amp;amp;reserved=3D0</a><br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_BL1PR12MB5144DB522EE6D72995C4E2D4F7E39BL1PR12MB5144namp_--
-
---===============1782334239==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+> Instead of finding MFD hotplugged device by its name, simply iterate
+> over the child devices to avoid the issue.
+>
+> BugLink: https://bugs.launchpad.net/bugs/1920674
+> Fixes: 25030321ba28 ("drm/amd: add pm domain for ACP IP sub blocks")
+> Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c | 49 +++++++++++++------------
+>  1 file changed, 25 insertions(+), 24 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
+> index b8655ff73a658..8522f46d5d725 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
+> @@ -160,17 +160,28 @@ static int acp_poweron(struct generic_pm_domain *genpd)
+>         return 0;
+>  }
+>
+> -static struct device *get_mfd_cell_dev(const char *device_name, int r)
+> +static int acp_genpd_add_device(struct device *dev, void *data)
+>  {
+> -       char auto_dev_name[25];
+> -       struct device *dev;
+> +       struct generic_pm_domain *gpd = data;
+> +       int ret;
+> +
+> +       ret = pm_genpd_add_device(gpd, dev);
+> +       if (ret)
+> +               dev_err(dev, "Failed to add dev to genpd %d\n", ret);
+>
+> -       snprintf(auto_dev_name, sizeof(auto_dev_name),
+> -                "%s.%d.auto", device_name, r);
+> -       dev = bus_find_device_by_name(&platform_bus_type, NULL, auto_dev_name);
+> -       dev_info(dev, "device %s added to pm domain\n", auto_dev_name);
+> +       return ret;
+> +}
+>
+> -       return dev;
+> +static int acp_genpd_remove_device(struct device *dev, void *data)
+> +{
+> +       int ret;
+> +
+> +       ret = pm_genpd_remove_device(dev);
+> +       if (ret)
+> +               dev_err(dev, "Failed to remove dev from genpd %d\n", ret);
+> +
+> +       /* Continue to remove */
+> +       return 0;
+>  }
+>
+>  /**
+> @@ -341,15 +352,10 @@ static int acp_hw_init(void *handle)
+>         if (r)
+>                 goto failure;
+>
+> -       for (i = 0; i < ACP_DEVS ; i++) {
+> -               dev = get_mfd_cell_dev(adev->acp.acp_cell[i].name, i);
+> -               r = pm_genpd_add_device(&adev->acp.acp_genpd->gpd, dev);
+> -               if (r) {
+> -                       dev_err(dev, "Failed to add dev to genpd\n");
+> -                       goto failure;
+> -               }
+> -       }
+> -
+> +       r = device_for_each_child(adev->acp.parent, &adev->acp.acp_genpd->gpd,
+> +                                 acp_genpd_add_device);
+> +       if (r)
+> +               goto failure;
+>
+>         /* Assert Soft reset of ACP */
+>         val = cgs_read_register(adev->acp.cgs_device, mmACP_SOFT_RESET);
+> @@ -458,13 +464,8 @@ static int acp_hw_fini(void *handle)
+>                 udelay(100);
+>         }
+>
+> -       for (i = 0; i < ACP_DEVS ; i++) {
+> -               dev = get_mfd_cell_dev(adev->acp.acp_cell[i].name, i);
+> -               ret = pm_genpd_remove_device(dev);
+> -               /* If removal fails, dont giveup and try rest */
+> -               if (ret)
+> -                       dev_err(dev, "remove dev from genpd failed\n");
+> -       }
+> +       device_for_each_child(adev->acp.parent, NULL,
+> +                             acp_genpd_remove_device);
+>
+>         mfd_remove_devices(adev->acp.parent);
+>         kfree(adev->acp.acp_res);
+> --
+> 2.31.1
+>
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1782334239==--
