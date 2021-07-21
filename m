@@ -2,133 +2,122 @@ Return-Path: <SRS0=ovQZ=MN=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 39040C07E9B
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 09:25:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B6F3CC636C9
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 11:45:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EE8C4611CE
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 09:25:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EE8C4611CE
+	by mail.kernel.org (Postfix) with ESMTPS id 6B7286109F
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 11:45:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6B7286109F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B07546E580;
-	Wed, 21 Jul 2021 09:25:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E6316E85D;
+	Wed, 21 Jul 2021 11:45:03 +0000 (UTC)
 Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2073.outbound.protection.outlook.com [40.107.244.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 953DC6E580
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Jul 2021 09:25:07 +0000 (UTC)
+ (mail-mw2nam12on2065.outbound.protection.outlook.com [40.107.244.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4920C6E85D;
+ Wed, 21 Jul 2021 11:45:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VR4AIM7ShQJuQYBNgodzglRnHZiI/NKh1Ek/gt6aAnH6QjLfAm0Edlinhbs7heaB+2S6IDAgf4FTawQybEGfxkWNxR23+3WUMIy5ANTLLEjGFGYOcjr4kV1q9zKf4y2CD5MMvr8BjcAVmkCDePMcgf1nG5r5CoOmEualZolKAujY743Z8BHOr46pi5B0SgR2EfKnI8mF3iZtYoPF5VYZD0TVOK4khhSSQl70ndBR2ZTERMnyEk/PjgUHgWWlXXWEBuOv5bukbi2jwTybcJO9QkaGw6pTzbpzk8tIZpxjUoiDZPZguPuT68bYft7elgmkV0ERNuWt7/E2XWYuLIpGrA==
+ b=mFfbFtXYjqLUC20sEZsW0YzHofIXvLtIwPQKgbNnuPZMfUv/MF8uvHP0vXMuQCJSeYyOAwJ8X0edBKc4MWDEDgiorByuv6zi9AYK1dH+vlVOomc+e37dx21mol1p0ZXBnteeQDvEfxnI5PXFjgMYnHrtmUAAwr+41tdvGTIzX/WORjdrwz0mMdcWL4aizoGdnt80OvHR0u9QF03yc6zO6hTcDc3Z4KGWFqLRCptn1S82Tx+rrnMUd6HxWJnAk4Rem6zjDZTr5cu6iGgI5BLdraxIz5Ie2aD1q8GkiUoIUKXdumw5eaNWRxaEUmQw8n8gl0b1hOpsihYr4P1QvY84SQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=v1BFGaixkxZdkRR2bddfb1VJH22Pl3oS1qYDHoyyY2c=;
- b=PRTWW2eGTYteEeSEYvnrJQvwlU1yhb/l9Qr514rcTXAFelbbx/qRqVEYlWXahQkCrP41kDaZgMrfOLov27hoYDY4icmAGOWcfJ9LDjTfNwQnrdtj9Mv6OqYOCOZ5GR3/Xq7PWfb7B+ajpWKv5QE5dLipvM7szud0lVS6N0THhqjjmwreqTqbhQSzG/b8EDzOJlV2gsvZyR8fYb0c69WEBmBhexaT/5yFjn7oualNRvhAFaMnY+9MyGu8xtR14oDrEjFMPtSKafoXxE4Wmh+Xh2JFSBfo7HaiPctGZEW3jMeCbB0ObBz3Na/LkmlNPT2xy7FSOvi++GQjuYBe4M5QRw==
+ bh=9XWhFyw93QKX1y4EM5i+DnVz/9xOTPKgouU3HNXWPKE=;
+ b=Ta0nyWxiTL875BsA1XqVP2ko7seXbB5Vo1wbn0j7s74oUHkO6e1hMf2EP5j/q8tV10dw7rg6DgxUjNERpg5MoF1tDiT6FmIYdyVhZ94pWyrfsx/fvukjEqAZUaQ3+3xhFniIs2zpxO6BGJ/JomUdRXKdpcPbkPfpNG9nkE6LFMbRUb335K2flQxTocxAA5QujH0jkWEvaJV96SF9gSuqX4X6SQs+21OGfK2KvJbcJ8zCaSZePb3taG9+hQad1p28uVhXUUFdeWPTIBNBpZr9I0z8/sA8Rv1lmWmFfi4DUeaH8dBcgM89M9mtywUXJuYYchHvfeIGo2c1eAYgDwhQyw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=v1BFGaixkxZdkRR2bddfb1VJH22Pl3oS1qYDHoyyY2c=;
- b=ITMXl1LjKHbNxOvFA5UZxE+JuSOXwRBhu4MsU48dMDaCyUbOgNuoKT+7YuTsVnRwpU9IcFYuJq3yiRTf2Pgkqhx3m7VpE/eAw/TaW68fVWQ/sZBKEHff0vn7+lqZTIBPyX8KECqBaqPSmhd4KIGbgDhph5gHKkp0caTD7PfSjeE=
+ bh=9XWhFyw93QKX1y4EM5i+DnVz/9xOTPKgouU3HNXWPKE=;
+ b=FqN8o6p/sZefJnRbAsekPi2KESnEoj619eTLXIw14BxC3Un/NULp2pB8rEuEOuOKBtS9inApMn0Xl6q3wN4mVoVwydt5dPdIyki5gsc5+mV3up4gGbnBAvfhVpIm+GzTURF6OrrGvGqEHwwHPxOstdVRaWfLh7O0N8Pop5jCFKU=
 Authentication-Results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
- by MN2PR12MB4047.namprd12.prod.outlook.com (2603:10b6:208:1de::20)
+Received: from CH2PR12MB5564.namprd12.prod.outlook.com (2603:10b6:610:65::24)
+ by CH2PR12MB5516.namprd12.prod.outlook.com (2603:10b6:610:6b::23)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4264.19; Wed, 21 Jul
- 2021 09:25:04 +0000
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::6c9e:1e08:7617:f756]) by MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::6c9e:1e08:7617:f756%5]) with mapi id 15.20.4331.034; Wed, 21 Jul 2021
- 09:25:04 +0000
-Subject: Re: [RFC v2 2/2] drm/amd/display: Use PPC FPU functions
-To: Christoph Hellwig <hch@infradead.org>
-References: <20210721044801.840501-1-Anson.Jacob@amd.com>
- <20210721044801.840501-3-Anson.Jacob@amd.com>
- <9094cea1-602e-6e71-4ff7-c06fd04af6c5@amd.com>
- <YPfECUtD0SRCjrSm@infradead.org>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <6d49b3b3-7772-3559-dc1d-246915e72512@amd.com>
-Date: Wed, 21 Jul 2021 11:24:57 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
-In-Reply-To: <YPfECUtD0SRCjrSm@infradead.org>
-Content-Language: en-US
-X-ClientProxiedBy: AM3PR05CA0095.eurprd05.prod.outlook.com
- (2603:10a6:207:1::21) To MN2PR12MB3775.namprd12.prod.outlook.com
- (2603:10b6:208:159::19)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4331.23; Wed, 21 Jul
+ 2021 11:45:00 +0000
+Received: from CH2PR12MB5564.namprd12.prod.outlook.com
+ ([fe80::a1f2:ad80:7e9f:db24]) by CH2PR12MB5564.namprd12.prod.outlook.com
+ ([fe80::a1f2:ad80:7e9f:db24%4]) with mapi id 15.20.4331.034; Wed, 21 Jul 2021
+ 11:45:00 +0000
+Date: Wed, 21 Jul 2021 07:44:57 -0400
+From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Subject: Re: [PATCH v3 2/4] drm/amd/display: Add FPU event trace
+Message-ID: <20210721114457.jhponmsgeliwalkc@outlook.office365.com>
+References: <20210720004914.3060879-1-Rodrigo.Siqueira@amd.com>
+ <20210720004914.3060879-3-Rodrigo.Siqueira@amd.com>
+ <88027c93-b254-875d-c640-8aeb6dbdd0ac@amd.com>
+Content-Disposition: inline
+In-Reply-To: <88027c93-b254-875d-c640-8aeb6dbdd0ac@amd.com>
+X-ClientProxiedBy: YT1PR01CA0013.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::26)
+ To CH2PR12MB5564.namprd12.prod.outlook.com
+ (2603:10b6:610:65::24)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2a02:908:1252:fb60:9bcf:837a:d18c:dc66]
- (2a02:908:1252:fb60:9bcf:837a:d18c:dc66) by
- AM3PR05CA0095.eurprd05.prod.outlook.com (2603:10a6:207:1::21) with Microsoft
+Received: from outlook.office365.com (2607:fea8:56e0:6d60:97a3:bc2c:353f:aaca)
+ by YT1PR01CA0013.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::26) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4331.22 via Frontend Transport; Wed, 21 Jul 2021 09:25:01 +0000
+ 15.20.4352.24 via Frontend Transport; Wed, 21 Jul 2021 11:44:59 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 160c28df-4443-4e1b-fa77-08d94c296bf1
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4047:
+X-MS-Office365-Filtering-Correlation-Id: e5b79c63-d69a-47ca-509d-08d94c3cf883
+X-MS-TrafficTypeDiagnostic: CH2PR12MB5516:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB40475FF107E5AA7E36F8561E83E39@MN2PR12MB4047.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
+X-Microsoft-Antispam-PRVS: <CH2PR12MB551699D396F1A4817817A5D398E39@CH2PR12MB5516.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:568;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 7fS2kfSLXE7hBbPbuloY18kQnj/8WaWjKxqw46pnV80T2sFnc75fT7UZgDng15OYhL/7pWUyzlFOO7scVI37PBQROqXG3m51DzsMoNA2G+Jvb5pVpCHhBA+/wKiSVq3T/oGw2xaV6HNKqFl/7MQJB6apw116tbT5jXeI1SzvvG6GNyqw8POo6KxH3BV53QbKnRmdYns8ld36YaBWgNsa1OjrwkG172ncpXSjZqmg1rlblwQ+J+Pfuz2ZcXKVpeOqZcu7qBCN1xjG5eh0ki1GPCDI6QTCnqGGlFIanJdFLRLSz0oFZ7xQqM5fomhxA5Ty3vgzg7b9he6HOO/jDFclj63LsH9SlrONIBW1QO27bcQuk9Xy4vPgkHPEAKwMKsCBXZyTrdnj/PMrE1tcWF/v9Prb4Ea/F6mPgDr8xtx3ncVxc0EsbUAt9aksyanoIr2Wj4gDW1T0JT7JIiKRvQazoAfOlQkz+xlUSzvDy90aU5hWWYd1YW9XbqOP3vzdQUCMjXdIUxH9IDoooWWi9WUO3geo/YKvF22pVEGO7posG7wqnOWSuEEO5i3x7oCP/3NFr91jl64BtM+sRqFmNvrI342WFx4DmI0FAmiwtFI2M+/tn1Q2HzAtab9hyU7SJhFMfPx4betMG8VfOZeieogXeRymcJMhyINep3G7sC3QiR9jbySzA7TPd2WjsN69iWfPnoJt+zhQ6MGJlSMDhdr7BdrzIz9kVtaydHFVd04JuPE=
+X-Microsoft-Antispam-Message-Info: 6pnZV9XoJHKF4sSECo2QaYOmBhyyRUlnsr7adr45gJXLxsLMoE4i0+44pTEg3diJR6yD4ZkJv6e2ND1FPc4DUM4tyT/Twcn/TPXwoQDxM3VaG36ymOQKcfAHW5lhlIzPjAH5jdnthgndB4MpwP85hN/dss9D3d2RhA8y1IqNTpl/IhgsGnu65O+78r5MTmq9iR3lkXaX3hhv8aHhx8S8HtrjOxPDDIi15VE0BX1Dx4D1R+IKgFMY6mQ4QoCCshW9F1fXjpEs4OpnwIH2i6+xKOyUNncWWHc5tX3PIas65FgpAWzqorBSvbxV0gN4bHy+s6TCtsliYPGM7NwBSVoCKoGIIHo++fs9hV736JcLijuytD6aut1gPc4JUlDsybnM5Oki5cwybO6MTIfKggRf4vG0dhcZmNnOQPdgePns97xf3en4+9LNP54wLPLNAbeLizmFj/etLhkwBwN05bBs9ZjY2FN1J+Sc2OhZbN9OhJn+hFtbnDcqX0nIUtNDL5R9N1UV+KRQlQY5gtdlL89o1hA21HVwX3osbyMosYjI/VDDIOvTPvLzsl/cfpD5P6xYVl0VPfHS1SXA0lnuFVQUB7IU4RZ+MreGozJMXDBUBMMiIY+H6bmdrY32iOqFGDxPO0JjjktkLnofDgomgdzwaCfN8wRDgPhMqYVeFYdlm9TW/WWY3AQbjBb2M2ekhIBn0aQ6McZj9Ln0bAjkgBa//ZODEEnPu6chi89kGbi+QPs=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(86362001)(31696002)(66556008)(66946007)(38100700002)(316002)(36756003)(6666004)(31686004)(4744005)(8676002)(2616005)(6916009)(508600001)(66476007)(8936002)(6486002)(5660300002)(186003)(4326008)(2906002)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB5564.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(39860400002)(346002)(376002)(366004)(136003)(3716004)(5660300002)(6636002)(83380400001)(2906002)(52116002)(38100700002)(8936002)(54906003)(1076003)(316002)(86362001)(9686003)(8676002)(478600001)(966005)(66574015)(55016002)(4326008)(66946007)(6862004)(66476007)(186003)(66556008)(7696005)(6506007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y2FKZHJXTXR0Wi8yNEJZb3lURHdVdUdaOXpEZnR3aEdLK1BIWnpQRjJIVlNM?=
- =?utf-8?B?V0xnOVJYeEhKRWN3Q1Y0SEszK2R0Y0NHMGdnaDBlMDhaTHFlWFhINDhDTTFn?=
- =?utf-8?B?S3A5QjlXcVd4Z2taTno1ejhmd0d6RjB5RE5ncStDbVQxeWZ3Q0IyNSsvUFlt?=
- =?utf-8?B?Vk1lazYyTHZsYXFONTQvMmxHZEhmUFcrZE5FWFcrblVkRWpPVy82ZEdEeU1E?=
- =?utf-8?B?QXN5NXdGMlBVcm1BV0wvanhORE1WRzIzeGtWSUMvZlpEM1JxMDVZb1FFczJ3?=
- =?utf-8?B?dDRLcjJoVkp6MGU0MG1TNy9Ca3VnSjBkK3dqSTY1MG4yQzVNMXNHN09jSHlN?=
- =?utf-8?B?dnJVM2xvV0lMcTgwQVR1dElJK3dNT1MyMkJZYVFmdk5SM3BCc2ptNWZ5MVdJ?=
- =?utf-8?B?QWF3MzRHd09zVXN0Y003OHd3b2tyS1lBNlByaTFFanVTNS9ZVWI4MWhnUEhW?=
- =?utf-8?B?cWZnbWFoM1QrTEFjU2VVYlZjNTRBMytHMWFCaXVKSVpqZ2h5Z0cyRjlUbTBG?=
- =?utf-8?B?VjduSTFhNGVaS25yekNJcnZuUjc1a2NxQXMvenV6bUNlOUNHRzBhVnFNY1ZV?=
- =?utf-8?B?ZWxzL1NzVFJhZlFMeWNSVGtXUDZEVER5cDB6ejVva1lOM1FsNGxIczdrQVNm?=
- =?utf-8?B?ek1meHBpcmFINUV2TGhoQWZiZDVtbHJGL2l6cUxEVXNpUnBlaTVHUXpUWDll?=
- =?utf-8?B?cVNSVk1YTFp0YXF2c09FN1oyaXVaeFhCbnhxQk5oTmgwekJQUzRKTFdoMjVK?=
- =?utf-8?B?WnpYRTIxM0JYdlk5S0hCN0F2Uld0SEhBTnd3aFZ0em9lZWJZcFBEbUNaekl6?=
- =?utf-8?B?dUVSZVdvbFlDQ1ZVQVpISW45Y3R6eVA5bXhXOUw2eTFyQzBtWW1ENzlQUUcz?=
- =?utf-8?B?dWkxa3hwdkd5dzVaRlNKSENiYVJFTXVGOVhFOXdGeGZjVTRuWFppeElOQnVv?=
- =?utf-8?B?ZGEzR0ErZEI5azZONmhraFcvTGpIaEN4OUZ2T1pLVmV1UFhBUjJld0ZtZmVC?=
- =?utf-8?B?WFlPWUxJYnNKelRKTi81MmxoRFE2cktKOFNoZlBqanRoRWlQeEVxUzNIWlVa?=
- =?utf-8?B?VjMxVWwxMXNtNGZLdVZxeUVwcHpZVUVVK0RRQ1c4aDBaS2t0RGF6ZVVDT3ZY?=
- =?utf-8?B?RlBKcEtQYlVxSnNaRkRIVStNTW51OUtlNThkMUswdHljUW5PeWNkcHFNU3ly?=
- =?utf-8?B?dyt3YVE1bWJhWnZFSnRVM1lRQko1UFowNk1saDVaUTE2QU0zdURWWEprSUM1?=
- =?utf-8?B?emcyTE96UUQ1Um1MK1dtWWxMaS82Uk1BenJmTUQ3TmsvZ2EwNXNXSzhRNE1F?=
- =?utf-8?B?Z1NqMFcwK2lnVm5ONGhDbXpHeXRkZjFkZjJyYUZpRER6Q2tlcmFLR2pRU25a?=
- =?utf-8?B?UmRkZ3cvNHZnbEJtS3dIYXZiT3pqRjhta3VFSzZFQVJxTzBRNU9EZ1V4bGdL?=
- =?utf-8?B?Q3JIZnV1T3VGaHdCR2ZkbVMwOWxjSHluNU5WRXkrTGYwMWt0aElKVmxmTHJH?=
- =?utf-8?B?dVNCRzNUVzNoUmxCQVdSbk1zVW1PSWZjSXdZM1QycWx6N3lBVVI4V3Fld2dn?=
- =?utf-8?B?c3FJdDVrWWk5Y2hQZ1NIREdRbHJ6elRqeWdwajJueGlESnhsTlY2VlRmN1Bp?=
- =?utf-8?B?TGVKcm9nWnlPb1lFYWxkNzR1WWxDdjRKdnQremtPVEl1ZGFJbkdYSWdza0FZ?=
- =?utf-8?B?bnI1TU9kdmt3YStTN2g1bE14NkpaTUpCL0NrTlFvOW1qekpKTjZQVUZUd1ZC?=
- =?utf-8?B?akJrdjRObXhXT1VKaTNIbnRZMzBIbjdya21iRjNDRVpVNGNxVGEwZWFTYUUz?=
- =?utf-8?B?ZjZPTzM5MVdzWGVLZ0c5bFlRRjZXd2IxRC9za3NZMWM5QmtpMEt3VWJMZFhs?=
- =?utf-8?Q?FHIUHct5xVUFS?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?1S8t5BwXtIBwAu5H6BNCizhm/iLBABji0l98gj3xl4HmCm2mTKgzJLPFAa?=
+ =?iso-8859-1?Q?9CRXf3STaCcxQVAX61BX4uIkhCkDqULOtwO+wJGMmHJBwkcCG1j7QeeJWw?=
+ =?iso-8859-1?Q?4aG4swoXxqnYQqgMEKnbSxq9NPOYEtpsc2lSFYptZ3W0VLyyE3qafeVpbf?=
+ =?iso-8859-1?Q?OemKb9GpnCWM/Wbs7RUPjmxAYDjn/k0oaaGd+Uz8Omz1fFBaVBNy44sVVM?=
+ =?iso-8859-1?Q?WoFqsJeht3dKDdfRpgCfH2k8yB806BYCYtFHeAqOA+HFjszxKW/658e5R/?=
+ =?iso-8859-1?Q?j1nURrS/bc4Xqzu7F7YGyfECcQHArHbESMxy5tkaRQcb+0ganZyDsUqeJx?=
+ =?iso-8859-1?Q?4W+uZLQYcXbsQH1BecX3bl0wdG3S01nP2b5ZD0Hkg1k3vVvhWqrNYQiByk?=
+ =?iso-8859-1?Q?onlJiCG0Wgtsy/XRrvFNHOWiXLKcKRM3QdFaWp6A+yloAsF+XcPXbQiisj?=
+ =?iso-8859-1?Q?E+x8hLVDh3GCSFqlQaDp3u285PmA+97C1Opg7D1L3RYZUTxnUNPqDpUnIt?=
+ =?iso-8859-1?Q?HW4oJZMxnTLZ1gs1Dth5sKwjC4KR7f7n/HNFkgTgt+xwLAJeJfZNDdpR6j?=
+ =?iso-8859-1?Q?q78HuverbKpK6woGXNnxSfCap7HkjaBgz2MwlVuFIk3sDZKIJ46+84Ekkg?=
+ =?iso-8859-1?Q?Nek1RlEsRWtQCkYclwhhBI+A8i0J64bbA7aUseKXiTOr5I6TCWyIz08sSI?=
+ =?iso-8859-1?Q?fGNfN11FaSjEDZ3HYY1WmHKX8yAUS6S60+UM4PHbGDfT1QkaFq5bFABelO?=
+ =?iso-8859-1?Q?8rC6SBHAS0228q4LdkxsJJkh4vUhoscCwMAY9VAiL3ejMCwpC4lfrM2SFw?=
+ =?iso-8859-1?Q?A5g7nMMqjyrwejkuQSWpuEEnTPp2KLEsBb1HkjtC1fxmeSafr1qN4cExDg?=
+ =?iso-8859-1?Q?aMXtihQjgM03vrOQV60Kz+x8Q+vkoXAqnFVIvFod9gRF/CFK/kcHFqek/R?=
+ =?iso-8859-1?Q?NxcKcb74G809mlq7VasK4gZviNlUnK1slkYGkkP/RpzAmhaS1sY5tgMAXV?=
+ =?iso-8859-1?Q?YcW2/2iSssM9iutmt1M3g8/P9KHwtkFBjxnfNwqox1SzrY1OE3r0jcjesR?=
+ =?iso-8859-1?Q?hqzlbFWcR7Tg+PvRsFwR8cYDUc1kyhWVc9FEP0yTWlTA6kUmuzszbKvOqB?=
+ =?iso-8859-1?Q?iUGsInstROAMorMiHAjgusSjQcTpdklwkRWL8LU3oqWgOtx/BJyYPWpHF4?=
+ =?iso-8859-1?Q?2/crAWssbV6iUlZLtk+l2vHaz8usW+xx0z0sQ1sMUf6AWdc7IHaanUzXaC?=
+ =?iso-8859-1?Q?P2AcMXAr3GDedKgfJgCG0TVAlxxfasQCNIZvgfKhnqmtQYb+/S07m220dX?=
+ =?iso-8859-1?Q?UgP9soQve5pmV3lnr4J/Wkpv338T5ATf1YSZvTxEQON5OKORjH3Tp4Ia4x?=
+ =?iso-8859-1?Q?KSLuHXG6Bdlu0Yjl4u+zK5DLFcCIQfixwI3lgBg0ojDDohj+ibrXRNygyS?=
+ =?iso-8859-1?Q?lbh2K2iHcWwf/x0u?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 160c28df-4443-4e1b-fa77-08d94c296bf1
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e5b79c63-d69a-47ca-509d-08d94c3cf883
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB5564.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2021 09:25:03.9915 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2021 11:45:00.2950 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jIfUKgUySIpNV2CRMff7hWXg31NJud1KnkdDomdjvhCKrVbUvhZ/yutnKbxmi2s8
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4047
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4D3Z0qiHPdUUQD8/6R99lkmTBtBvr6LDXK/9WuuW+/QvW53cjSNqrbGcu3+IXWLjyGCVoNkpPTX6+BgOcgk4zQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB5516
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,34 +129,302 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Harry.Wentland@amd.com, Anson Jacob <Anson.Jacob@amd.com>,
- mpe@ellerman.id.au, qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
- linux-kernel@vger.kernel.org, christophe.leroy@csgroup.eu, roman.li@amd.com,
- Bhawanpreet.Lakha@amd.com, Sunpeng.Li@amd.com, Aurabindo.Pillai@amd.com,
- paulus@samba.org, amd-gfx@lists.freedesktop.org, benh@kernel.crashing.org,
- linuxppc-dev@lists.ozlabs.org, bindu.r@amd.com
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: Aric Cyr <aric.cyr@amd.com>, Anson Jacob <Anson.Jacob@amd.com>,
+ Peter Zijlstra <peterz@infradead.org>, roman.li@amd.com,
+ dri-devel@lists.freedesktop.org, sunpeng.li@amd.com,
+ Hersen Wu <hersenxs.wu@amd.com>, amd-gfx@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 21.07.21 um 08:51 schrieb Christoph Hellwig:
-> On Wed, Jul 21, 2021 at 08:29:43AM +0200, Christian K??nig wrote:
->> Looks good in general, but question is what about other architectures like
->> ARM?
-> DRM_AMD_DC_DCN currently requires X86 || PPC64.
+On 07/20, Christian K=F6nig wrote:
+> =
 
-And exactly that's the problem I'm noting here. At least officially AMD 
-claims that we support ARM and some very brave still use the hardware 
-together with MIPS as well.
+> =
 
-> Maybe a good think would be to add a new KERNEL_FPU_API Kconfig symbol,
-> selected by x86 and powerpc (I think ppc32 should be fine too now) so
-> that we get these arch dependencies out of the driver.
+> Am 20.07.21 um 02:49 schrieb Rodrigo Siqueira:
+> > We don't have any mechanism for tracing FPU operations inside the
+> > display core, making the debug work a little bit tricky. This commit
+> > introduces a trace mechanism inside our DC_FP_START/END macros for
+> > trying to alleviate this problem.
+> > =
 
-Good idea.
+> > Changes since V2:
+> > - Make sure that we compile FPU operation only in the context that DCN
+> >    is enabled.
+> > =
 
-Christian.
+> > Cc: Harry Wentland <harry.wentland@amd.com>
+> > Cc: Anson Jacob <Anson.Jacob@amd.com>
+> > Cc: Christian K=F6nig <christian.koenig@amd.com>
+> > Cc: Hersen Wu <hersenxs.wu@amd.com>
+> > Cc: Aric Cyr <aric.cyr@amd.com>
+> > Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+> > ---
+> >   .../gpu/drm/amd/display/amdgpu_dm/Makefile    |  4 ++
+> >   .../amd/display/amdgpu_dm/amdgpu_dm_trace.h   | 21 ++++++
+> >   .../gpu/drm/amd/display/amdgpu_dm/dc_fpu.c    | 64 +++++++++++++++++++
+> >   .../gpu/drm/amd/display/amdgpu_dm/dc_fpu.h    | 33 ++++++++++
+> >   drivers/gpu/drm/amd/display/dc/dc_trace.h     |  3 +
+> >   drivers/gpu/drm/amd/display/dc/os_types.h     |  6 +-
+> >   6 files changed, 128 insertions(+), 3 deletions(-)
+> >   create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
+> >   create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.h
+> > =
+
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile b/drivers/g=
+pu/drm/amd/display/amdgpu_dm/Makefile
+> > index 91fb72c96545..718e123a3230 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile
+> > @@ -27,6 +27,10 @@
+> >   AMDGPUDM =3D amdgpu_dm.o amdgpu_dm_irq.o amdgpu_dm_mst_types.o amdgpu=
+_dm_color.o
+> > +ifdef CONFIG_DRM_AMD_DC_DCN
+> > +AMDGPUDM +=3D dc_fpu.o
+> > +endif
+> > +
+> >   ifneq ($(CONFIG_DRM_AMD_DC),)
+> >   AMDGPUDM +=3D amdgpu_dm_services.o amdgpu_dm_helpers.o amdgpu_dm_pp_s=
+mu.o amdgpu_dm_psr.o
+> >   endif
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h b/=
+drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
+> > index 46a33f64cf8e..230bb12c405e 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
+> > @@ -637,6 +637,27 @@ TRACE_EVENT(amdgpu_refresh_rate_track,
+> >   		  __entry->refresh_rate_ns)
+> >   );
+> > +TRACE_EVENT(dcn_fpu,
+> > +	    TP_PROTO(bool begin, const char *function, const int line),
+> > +	    TP_ARGS(begin, function, line),
+> > +
+> > +	    TP_STRUCT__entry(
+> > +			     __field(bool, begin)
+> > +			     __field(const char *, function)
+> > +			     __field(int, line)
+> > +	    ),
+> > +	    TP_fast_assign(
+> > +			   __entry->begin =3D begin;
+> > +			   __entry->function =3D function;
+> > +			   __entry->line =3D line;
+> > +	    ),
+> > +	    TP_printk("%s()+%d: %s",
+> > +		      __entry->function,
+> > +		      __entry->line,
+> > +		      __entry->begin ? "begin" : "end"
+> > +	    )
+> > +);
+> > +
+> >   #endif /* _AMDGPU_DM_TRACE_H_ */
+> >   #undef TRACE_INCLUDE_PATH
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c b/drivers/g=
+pu/drm/amd/display/amdgpu_dm/dc_fpu.c
+> > new file mode 100644
+> > index 000000000000..d5d156a4517e
+> > --- /dev/null
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
+> > @@ -0,0 +1,64 @@
+> > +// SPDX-License-Identifier: MIT
+> > +/*
+> > + * Copyright 2021 Advanced Micro Devices, Inc.
+> > + *
+> > + * Permission is hereby granted, free of charge, to any person obtaini=
+ng a
+> > + * copy of this software and associated documentation files (the "Soft=
+ware"),
+> > + * to deal in the Software without restriction, including without limi=
+tation
+> > + * the rights to use, copy, modify, merge, publish, distribute, sublic=
+ense,
+> > + * and/or sell copies of the Software, and to permit persons to whom t=
+he
+> > + * Software is furnished to do so, subject to the following conditions:
+> > + *
+> > + * The above copyright notice and this permission notice shall be incl=
+uded in
+> > + * all copies or substantial portions of the Software.
+> > + *
+> > + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXP=
+RESS OR
+> > + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABI=
+LITY,
+> > + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT =
+SHALL
+> > + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAG=
+ES OR
+> > + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWIS=
+E,
+> > + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE =
+OR
+> > + * OTHER DEALINGS IN THE SOFTWARE.
+> > + *
+> > + * Authors: AMD
+> > + *
+> > + */
+> > +
+> > +#include "dc_trace.h"
+> > +
+> > +#include <asm/fpu/api.h>
+> > +
+> > +/**
+> > + * dc_fpu_begin - Enables FPU protection
+> > + * @function_name: A string containing the function name for debug pur=
+poses
+> > + *   (usually __func__)
+> > + *
+> > + * @line: A line number where DC_FP_START was invoked for debug purpose
+> > + *   (usually __LINE__)
+> > + *
+> > + * This function is responsible for managing the use of kernel_fpu_beg=
+in() with
+> > + * the advantage of providing an event trace for debugging.
+> > + *
+> > + * Note: Do not call this function directly; always use DC_FP_START().
+> > + */
+> > +void dc_fpu_begin(const char *function_name, const int line)
+> > +{
+> > +	TRACE_DCN_FPU(true, function_name, line);
+> > +	kernel_fpu_begin();
+> > +}
+> > +
+> > +/**
+> > + * dc_fpu_end - Disable FPU protection
+> > + * @function_name: A string containing the function name for debug pur=
+poses
+> > + * @line: A-line number where DC_FP_END was invoked for debug purpose
+> > + *
+> > + * This function is responsible for managing the use of kernel_fpu_end=
+() with
+> > + * the advantage of providing an event trace for debugging.
+> > + *
+> > + * Note: Do not call this function directly; always use DC_FP_END().
+> > + */
+> > +void dc_fpu_end(const char *function_name, const int line)
+> > +{
+> > +	TRACE_DCN_FPU(false, function_name, line);
+> > +	kernel_fpu_end();
+> > +}
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.h b/drivers/g=
+pu/drm/amd/display/amdgpu_dm/dc_fpu.h
+> > new file mode 100644
+> > index 000000000000..fb54983c5c60
+> > --- /dev/null
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.h
+> > @@ -0,0 +1,33 @@
+> > +/* SPDX-License-Identifier: MIT */
+> > +/*
+> > + * Copyright 2021 Advanced Micro Devices, Inc.
+> > + *
+> > + * Permission is hereby granted, free of charge, to any person obtaini=
+ng a
+> > + * copy of this software and associated documentation files (the "Soft=
+ware"),
+> > + * to deal in the Software without restriction, including without limi=
+tation
+> > + * the rights to use, copy, modify, merge, publish, distribute, sublic=
+ense,
+> > + * and/or sell copies of the Software, and to permit persons to whom t=
+he
+> > + * Software is furnished to do so, subject to the following conditions:
+> > + *
+> > + * The above copyright notice and this permission notice shall be incl=
+uded in
+> > + * all copies or substantial portions of the Software.
+> > + *
+> > + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXP=
+RESS OR
+> > + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABI=
+LITY,
+> > + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT =
+SHALL
+> > + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAG=
+ES OR
+> > + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWIS=
+E,
+> > + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE =
+OR
+> > + * OTHER DEALINGS IN THE SOFTWARE.
+> > + *
+> > + * Authors: AMD
+> > + *
+> > + */
+> > +
+> > +#ifndef __DC_FPU_H__
+> > +#define __DC_FPU_H__
+> > +
+> > +void dc_fpu_begin(const char *function_name, const int line);
+> > +void dc_fpu_end(const char *function_name, const int line);
+> > +
+> > +#endif /* __DC_FPU_H__ */
+> > diff --git a/drivers/gpu/drm/amd/display/dc/dc_trace.h b/drivers/gpu/dr=
+m/amd/display/dc/dc_trace.h
+> > index d2615357269b..d598ba697e45 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/dc_trace.h
+> > +++ b/drivers/gpu/drm/amd/display/dc/dc_trace.h
+> > @@ -37,3 +37,6 @@
+> >   #define TRACE_DCN_CLOCK_STATE(dcn_clocks) \
+> >   	trace_amdgpu_dm_dc_clocks_state(dcn_clocks)
+> > +
+> > +#define TRACE_DCN_FPU(begin, function, line) \
+> > +	trace_dcn_fpu(begin, function, line)
+> > diff --git a/drivers/gpu/drm/amd/display/dc/os_types.h b/drivers/gpu/dr=
+m/amd/display/dc/os_types.h
+> > index 126c2f3a4dd3..2ba49aef370d 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/os_types.h
+> > +++ b/drivers/gpu/drm/amd/display/dc/os_types.h
+> > @@ -52,9 +52,9 @@
+> >   #if defined(CONFIG_DRM_AMD_DC_DCN)
+> >   #if defined(CONFIG_X86)
+> > -#include <asm/fpu/api.h>
+> > -#define DC_FP_START() kernel_fpu_begin()
+> > -#define DC_FP_END() kernel_fpu_end()
+> > +#include "amdgpu_dm/dc_fpu.h"
+> > +#define DC_FP_START() dc_fpu_begin(__func__, __LINE__)
+> > +#define DC_FP_END() dc_fpu_end(__func__, __LINE__)
+> =
+
+> This still has the issue that you don't correctly handle other architectu=
+res
+> than x86.
+> =
+
+> I'm pretty sure the kernel bots will complain about that.
+
+Hi Christian,
+
+Kernel bots will not break because we are using CONFIG_DRM_AMD_DC_DCN to
+isolate DCN architecture. Currently, we support DCN on x86 and PPC (idk
+the details for ppc); in this series, I'm trying to enable us to start
+to isolate FPU code to a single place. When we start to move the FPU
+functions to a single place, we can take the opportunity to refactor the
+FPU code. After we isolate the FPU source, we can safely start to enable
+other architectures such as ARM.
+
+This is why I did not try to enable it for other architecture yet. I
+think this is the second step.
+
+Thanks
+Siqueira
+ =
+
+> Regards,
+> Christian.
+> =
+
+> >   #elif defined(CONFIG_PPC64)
+> >   #include <asm/switch_to.h>
+> >   #include <asm/cputable.h>
+> =
+
+
+-- =
+
+Rodrigo Siqueira
+https://siqueira.tech
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
