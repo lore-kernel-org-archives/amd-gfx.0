@@ -2,138 +2,117 @@ Return-Path: <SRS0=Den1=MP=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B0013C4338F
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 09:11:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 03F09C4338F
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 09:25:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6FF6960ED4
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 09:11:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6FF6960ED4
+	by mail.kernel.org (Postfix) with ESMTPS id BC6CC60F23
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 09:25:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BC6CC60F23
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BCC16F614;
-	Fri, 23 Jul 2021 09:11:11 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2076.outbound.protection.outlook.com [40.107.92.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC9886F613
- for <amd-gfx@lists.freedesktop.org>; Fri, 23 Jul 2021 09:11:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8193B6F91C;
+	Fri, 23 Jul 2021 09:25:44 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2044.outbound.protection.outlook.com [40.107.236.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B28716F91C
+ for <amd-gfx@lists.freedesktop.org>; Fri, 23 Jul 2021 09:25:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FQrfU32JG4JiV/BGpJ8Fj2Ac9dzbGaiL0ZwwH41E2gYbUXLEyVtR0FHei7SXj1O2w/iFy9H/Q34HGdeidx1ohFbvxxNT0kG4HPBFllSp0FDjvZJJT/BMWrN7/0qi6l8v6B/qU23xwe2H6iYhC6r6qo+l3s2WC1NHfR3om6IRN2rnG10MZzMHB1fea1Fc9T5SVuOrH6+M26qDgWFgvt8B+BHx+yYoGbI8Pk+pDV60mnua++ZYfG5eZplzT1rZhMUyT2bd/iyyQ6P1FxA4cguprrPy7LXbJ5nP5NNaLvgukwk+hjPhig7meIdJk6xXLItoWE0jWiF7a+QaciKzZBjc6w==
+ b=kA7/VXHI//qnIjRSAsDkPebkNBgFV4dHnc4B1ac5CwqUxY9lxkCxGH0XE+iZyKP06YpIHbNiZwjoT0+yO2yjWih7a3r3sRj3avRnqrKCvV383vSlpisJ/2gfuyz1Mk6d4S6P/UcJVZhW44MLfzz5OhPhx4+dvpuARZTw0Bl8RU1tsyO1Bda2Tp6uEPsnd1VXi/DsSOp6RpUpYECn85I7dXLpixRfyl1G3RWoro3lOvf8C9W58lQblhr9kETUN3EzhLrsacPWGEFlpIJMYFttN/ssqZI45aqEtqvBFgJ419wDej95mXZynq143cC70iaU4Xjsddr447ALjwJqkadNbg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nmO6tslx+zF+5btXrVxw/svbWnt4IKigURoXNPWS43w=;
- b=Hlkpqzin9xt1swIW6AhlRpxp8W0Sx3RMON9xu9/o6GbfB7zP6g/a5Tj83tGz5MMtHviE/AQYMF76eo1LTk2tQ9AJnruhscF4esb7atUAn2CGE0lytxOakfpPRUw5j5zxeYTNDMvPqCk0Dw/FpNTWbMa0ZWUpwKkrUifFR96m8aKZ/T/i9fjKjFdGzFSGDvd9ELjirA7yCLNBFF8Gpo8bKa7xtp3IlQbOk14LMI5USKxz9GeeDZBu5AbQmVnAUxjobcl6DBherwvdVlkWd3a54s5Hy4jktCAW3hPQqnsJ27KvY87aF0DnRAe047ISfCFRPvSBTBvLOdScdtqszX4GLw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=FP6qTtU7uvSzMX8Uzu+L8nkWuw6a5wH+Zby6sXOFO4A=;
+ b=WjsftY7eGiwV/KDXwOKa2cxoHeWohHoOj0IoWmNiPjfvxqb6JIjuQAgX01IL68/AXLkmheN6qzLK+VJ8MUKyRhJMfXpwWMOVqcotNepyATyPbISU1nyzX5d6uaqEb97jWvFbRCteE9LV2UssGUVzS0+3p8wIi2gl1LhEt7Pp7yAgfet+eRbYqMQVa0kf+wqX8SlpNhPEyZChMWf+rIH7i1Mat4o2Cv1SogCF5tGXDPbwweBH7N2sKbo2hTpR35TCL5PWyWBfgAEmRQY3ePcIiZ/4Sueo+GlorLSnqCD2akNudmLBysi6Dc2sWbwjv+kO93v71xnXFa0fOYqpxCggxg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nmO6tslx+zF+5btXrVxw/svbWnt4IKigURoXNPWS43w=;
- b=I5b/dwhutZBnqQqxCaVjrCKaVQTsn0C99yfDBvsVZFejxtgFDMpm5zfy6+TTLtrdBpX/dCuqyXDBvyk9FiWrGR811xwQwZJKyOOCrvjyFYeB5Sjx2jzD7uk1Rf1gMOeDSOnuNw1wJu29YPKcyzlrD2jwFQtEmPG2ydWoAwoVuNQ=
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
- DM6PR12MB2826.namprd12.prod.outlook.com (2603:10b6:5:76::33) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4352.24; Fri, 23 Jul 2021 09:11:07 +0000
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::e9f8:55de:32f0:a7e6]) by DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::e9f8:55de:32f0:a7e6%7]) with mapi id 15.20.4331.034; Fri, 23 Jul 2021
- 09:11:07 +0000
-From: "Quan, Evan" <Evan.Quan@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 1/2] drm/amd/pm: restore user customized OD settings
- properly for NV1x
-Thread-Topic: [PATCH 1/2] drm/amd/pm: restore user customized OD settings
- properly for NV1x
-Thread-Index: AQHXfqifeeLDV50fl0aVa8y8c1VYEatOpKWAgAADICCAAAvBAIABaXAQgAAKZaCAAAbuAIAAGYpQ
-Date: Fri, 23 Jul 2021 09:11:07 +0000
-Message-ID: <DM6PR12MB2619BC1956C787751FFCBF34E4E59@DM6PR12MB2619.namprd12.prod.outlook.com>
-References: <20210722032046.767094-1-evan.quan@amd.com>
- <b7ded1e9-08ae-212e-7fa4-2f797bbd228e@amd.com>
- <DM6PR12MB261987F64682AB6A0A337A30E4E49@DM6PR12MB2619.namprd12.prod.outlook.com>
- <47ba61d1-d76e-b10f-acb6-fa25bb4c4d44@amd.com>
- <DM6PR12MB2619A8E359A153660B23092EE4E59@DM6PR12MB2619.namprd12.prod.outlook.com>
- <DM6PR12MB2619A913DFA1F73B8FE32532E4E59@DM6PR12MB2619.namprd12.prod.outlook.com>
- <BL1PR12MB534990905ACF749947BF81FA97E59@BL1PR12MB5349.namprd12.prod.outlook.com>
-In-Reply-To: <BL1PR12MB534990905ACF749947BF81FA97E59@BL1PR12MB5349.namprd12.prod.outlook.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-07-23T09:11:05Z; 
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP 2.0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=e4c948a6-6ddc-400d-9f91-bd67e09e3873;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: b8d541aa-2811-4388-4cee-08d94db9ce56
-x-ms-traffictypediagnostic: DM6PR12MB2826:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB2826EE0A96D5DA8CAA05EEF5E4E59@DM6PR12MB2826.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:1388;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: I9sL+q9RRqgrynjRy2MlmCNK2htU+2+vOEKNPo0RJGO0506oVtXXuNJ7CMLnUaIvXhVzyvUK/LdCH+vqtwxaDw8l4Z9NdGlOtuMG9IfYIxkarIYoilUdtoEZL+bt/T5ul1NUUILP1qYjjq92GBoJ65mYeAIQr79hJLLvy2Hyl3KLn2IlSmmB+9t9SEHXYNOGjvQDdkPZSNFRpVtkzeOH+TCUsmgljTl/w7BpbBNZSB0kGAYFqKo0abypehZBbnqlN4CQuXrqzDjFC1QgS4neb4EP/GJb4sncIqoRHzpku+9UKU+gaRPAGNiKIVavzvtZiE6Zzg9/q06cU4LFgvXnlfY6Y0goLJ581k5+L5eTGFPee/5X44Qbc1oXkBBdxM3XM9wDx1iXxsRy3QssRREsEcJ0kJw9a0NAdKERxIGEQfGQYVA0w37FF97mZ8zQZoRyzgaPDPjw1BugTAq06+Wt36UIGOV7n0YxxKgFcHy/hAr6WuTBhHM94zp/cpyxGBMq6laZZdquKY1mq3tI1gc/OTo0qUpyMrVLcDqLwvQRY5CJT2iGyk2G5EOu+PCiewhSx1Oy7eBHk3WZpNSHdM69m47WnXZOIFG34fOGqdELoWZD0cPinpuKUQcpE9cxBX6/e3otwnZIQpzZbJxIfD8eaghKK5vWwpIaoTRcpkQ7JXBZWxXpd9HtNSIHLRrlx6MRMvWlfO7wA2ygSRI/3TA0ZRN2XieN3Jl/ovZ9eQdvCd0=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(136003)(39860400002)(346002)(366004)(396003)(26005)(76116006)(55016002)(8676002)(66574015)(6506007)(7696005)(4326008)(38100700002)(122000001)(71200400001)(86362001)(33656002)(66946007)(53546011)(9686003)(30864003)(66556008)(316002)(5660300002)(8936002)(478600001)(52536014)(83380400001)(186003)(2906002)(110136005)(66476007)(66446008)(64756008)(32563001)(38070700004);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?ZVZrMGVQM1RZSWJ1ZXZsV05vWkNmUnVaeGZGS1VsK0J3ZHp4R3paSDE4ak1q?=
- =?utf-8?B?ODhGY0k1TzNydTNldklhTWI1MjRkeU5SOExMN3V0TVAweFdtemlmMW94NFNy?=
- =?utf-8?B?a093alBCcnlsYUs2WWh0S201OXA1b1NtL2Rpc25jZ09tY0Y5WnRobWV1M1Zn?=
- =?utf-8?B?ZkExVlBET0Nvc1NNTC8wbWd5QlFvUXpZT2JjZ21XTlpaRGRqMGtDVDRHbFhj?=
- =?utf-8?B?dkRFS0FsamZUQ2NKK2I5N21BazZXOVk1Uy9uOWs0eGVPK1ZaSUZXL2x1b2ww?=
- =?utf-8?B?YTdyZmlPRUhKWjRDU2JMaXBFTlpvcGhydkJJTzRhUHM0TkxsOVI1Mkt3ZTNm?=
- =?utf-8?B?V0Q3UlhvNElmVDFyOEtuRk9nb3hVem8yOG1sT1B6UWlnWWF0WTNuVnR4dURj?=
- =?utf-8?B?aEpQbUU2SFdIUS9MWDRxUjMrTnF3WEM5eWtqNm1Tc0VraUVXcTFKVzJTd0lT?=
- =?utf-8?B?cFFyUkt2cXBjV1JPbzAvbEpFQ3RQWUttWExVek51dG1GWExxTkpCQ1UwbGdh?=
- =?utf-8?B?WEhXRm9PdytWaHY5ZVpLK1VqMXhUTjJZRHg0UlJpQm5LQVQzcjdqVGptSjZY?=
- =?utf-8?B?ZFY4REwzMWZWNHE2aFI4RTlWZG5UMXZuVGdWcXRaeU1RU25sbEJNOFNQN2Nx?=
- =?utf-8?B?SGp4MCtmSkd1MzJNeUlUcm0ySEtZNTFELy9ncWtWMkJnSmJHbXBXMitsZlJn?=
- =?utf-8?B?ckw2VVVTOFhRRTE2aTBBRDN1eVpDRmxpYUd2em1xY1pISHNsU3NSR0tBaytR?=
- =?utf-8?B?MjdLazUzVVZDd3dRMElkQXNNVlFHSGFVWXpDQWZ3ZVpMOU0vZ0JDRnVOenNk?=
- =?utf-8?B?M0VNSitSSlptVjdUWUpCL1JZdFVIMlNaN1ZQc2U1VDliSUZQWlYzcGI4aFNV?=
- =?utf-8?B?MGRWUytwd2VSemtPdFlncUlOVzRXTzB1SGlXQnhMbnlOTWhrZzRLOE5oVHA0?=
- =?utf-8?B?Ym1CdmpzcExnc3JSSnZoOUdEbUsrR1FONFIzUTkwb3R4SnhJZ0N4eC9Bc3R5?=
- =?utf-8?B?UExVVStuU1VzOE9RMmZYMkY3eDZ6ZzA0QncrM1JYUTZOdit4MmxEa2tUSEhR?=
- =?utf-8?B?SlUzVDErZm5HVEIxa1dZM29IQXlmZVFYUndEbGcvc2hjWGhEN1U5V29yeGUy?=
- =?utf-8?B?akdpM3I4aUdjOFdBNGdkVVlqWk1GR2tlb0VMbnRVNlptVkZGQkNJTHcwbDRY?=
- =?utf-8?B?QXovUVcvWEFzbURXTXUzZDhieFFpKytEYlJKVXkzVjFSWitzVWhoRUtUaGU4?=
- =?utf-8?B?SlZnYW1lMXc2TitmcURRRmMzV25LQlNsSzdoQUdvZHhxVkN4THFEY2Z2Nmtx?=
- =?utf-8?B?eVR4ZHVRbWVuaVdUMHRzQzFqMXBzbUwvT3FUNXRNbFZxVll5WnplY2d6dzZ5?=
- =?utf-8?B?UVhWait2d1IyWFhSNFJmWG44V3hYWXM2blVKOVpiSUNBWlYwU1pJSVd3WXpC?=
- =?utf-8?B?ZTJMR0paWjBkdTgyUzVSVy9DZVNJWkx5K3ZsL09zd0dPTmsyc1JvdVVPSk1O?=
- =?utf-8?B?YlhSVUFhdXBSMXRPVzdkSDRnY0k0QW5ReHlhSEVueUhTZE1jc01IWWlNNWta?=
- =?utf-8?B?TlN0K0V2VFJJd1JENWNWRjVjanR4eVovbWpTM05oeWdUdGNRM01jVC8rSHZF?=
- =?utf-8?B?amlCOVBaeEtnbktQakJma2M5T0ZxRU1SRU1Remh1QzY5QStBL0NEQTNNNFNt?=
- =?utf-8?B?cWJSdGNrcnMycnVvdEplVGJ2azY3MWZhZ0lMRzBjeU9pSHJRS29MeG1wckRG?=
- =?utf-8?Q?u6Vu+ERbo/miw4wv+ixYa8klcaOTcQriK7sdSPH?=
+ bh=FP6qTtU7uvSzMX8Uzu+L8nkWuw6a5wH+Zby6sXOFO4A=;
+ b=M3yNvUCfx5S79NoZcGSZAupU7e1qQKZBvUrI0vz5LkXnCvyfH+9LwEFWxHBlzPDQ8smm/SLyNbMQGdOR3rkg2NyrF/hOh/68uVwwjbyPbv2dw/XW0xWx1KmiaCgzeDsWH/gW18qdXqwxnoD8z2iWztbRhBhvOYYhXCCAil3hz48=
+Received: from DM6PR17CA0011.namprd17.prod.outlook.com (2603:10b6:5:1b3::24)
+ by CY4PR12MB1797.namprd12.prod.outlook.com (2603:10b6:903:124::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4331.29; Fri, 23 Jul
+ 2021 09:25:40 +0000
+Received: from DM6NAM11FT067.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:1b3:cafe::e) by DM6PR17CA0011.outlook.office365.com
+ (2603:10b6:5:1b3::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4352.26 via Frontend
+ Transport; Fri, 23 Jul 2021 09:25:40 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT067.mail.protection.outlook.com (10.13.172.76) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4352.24 via Frontend Transport; Fri, 23 Jul 2021 09:25:40 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Fri, 23 Jul
+ 2021 04:25:39 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Fri, 23 Jul
+ 2021 04:25:38 -0500
+Received: from wayne-build (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2242.4 via Frontend
+ Transport; Fri, 23 Jul 2021 04:25:37 -0500
+Date: Fri, 23 Jul 2021 17:25:36 +0800
+From: Jingwen Chen <Jingwen.Chen2@amd.com>
+To: Christian =?utf-8?B?S8O2bmln?= <ckoenig.leichtzumerken@gmail.com>, "Andrey
+ Grodzovsky" <andrey.grodzovsky@amd.com>, <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH 2/2] drm: add tdr support for embeded hw_fence
+Message-ID: <20210723092536.ru63kkl2mqsxnxdr@wayne-build>
+References: <20210721031352.413888-1-Jingwen.Chen2@amd.com>
+ <20210721031352.413888-2-Jingwen.Chen2@amd.com>
+ <36f53a64-2d9c-947b-a5fb-21d9fc06c5e4@amd.com>
+ <20210722104525.okcnb43goxg6uqej@wayne-build>
+ <0699ff85-4aec-0e33-711b-665307fbbc24@amd.com>
+ <9dacfe83-da10-9806-81e0-70077dedce9f@gmail.com>
+ <20210722164704.age63nzbviqg4y7v@wayne-build>
+ <37b6c44f-2fa7-c507-7b77-13608285b362@gmail.com>
+ <20210723070714.6h5pmxjebopv4zge@wayne-build>
+ <39e0cad8-c991-d685-1553-cdf87ab2d395@gmail.com>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <39e0cad8-c991-d685-1553-cdf87ab2d395@gmail.com>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 2825398f-d70f-4e65-f4dc-08d94dbbd681
+X-MS-TrafficTypeDiagnostic: CY4PR12MB1797:
+X-Microsoft-Antispam-PRVS: <CY4PR12MB17975524F0D7607B8639D48DB7E59@CY4PR12MB1797.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2201;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: TPTDZgFnG1WNmYofQB2Fsomjv8m+JQGMHpJgmkuhRTUcJD8D3V8LVqtlmdS0pkzlLOsw0S/prtHoDPzRpfU+shKfVJEIkEBDvM49z0qyh31AGPqvps3OUSNYFfsagpnzn5VKU0Qws1OxnnlproeQxG4/s7qtqkapz3AgOZMIzW5ycdNRhlHBDkLHR7fOYaddf16G9nvgDV8PH82os7kt/kZ+Mms7oTbH6nHO/wTm2ktV2U4W0Zd4ayqGKLtBwYMC2jQXhIa6zziW078QenvezDEMwAN39LQEp1hFWn9o2dIhN3YxbPfaqZgTFbtDGWjb3Qw2Aujl4RiAt7magvXqOlAF9quxN+OZMDspq6G5xEg5KqMsuiWDyKNRlKpMF5zFBMO95aGKvMuvBpYhqB0o+SJzKEf1f+1R6YSys8AaD2nCm8gPxEhi/Uz2OKu2L5+kFWD28U9NMlFbqvpbkXCuN+QRydB4grye/sdZlkN4Q3VMSxWNV46Ewy9ASwAgbWS6h2yqnMcDftvz89QJ+Xsz9bQRwwJlBVhZpIvKDJwdwh4TauCXRetvBnAJt9aEfdbIyf8XBPpLzwcQwiFWz/rnzSDIvVqdP7lcdRRptcLL3yUQa4bq2A0WdYTWq6yEXnAaQ+y3A594Fuf0+pEVb03MUhgJrJjvLlOzVkV7FGsKa8nYw1lH5llkUMdbLhz9P19oy0umAqmiMHFn06+qKthauK4xl8uIBb0AuGDhvbbQfoLurEdgGbq+Ro6v9s6Sqsuo
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(346002)(396003)(136003)(376002)(39860400002)(36840700001)(4326008)(82740400003)(316002)(1076003)(478600001)(26005)(426003)(83380400001)(110136005)(336012)(5660300002)(2906002)(8936002)(86362001)(82310400003)(70586007)(55016002)(8676002)(81166007)(356005)(32650700002)(33716001)(54906003)(186003)(36860700001)(9686003)(70206006)(66574015)(2101003)(36900700001);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b8d541aa-2811-4388-4cee-08d94db9ce56
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Jul 2021 09:11:07.5106 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: bls0v+KKvd+lk4ohawa3WSlxJY22IRFJAWUcrXQ1NEEJTUnsyJD/4gpBml8guWox
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2826
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2021 09:25:40.1540 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2825398f-d70f-4e65-f4dc-08d94dbbd681
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT067.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1797
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,513 +124,207 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: horace.chen@amd.com, Jack.Zhang7@hotmail.com, monk.liu@amd.com
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
+On Fri Jul 23, 2021 at 10:45:49AM +0200, Christian K=F6nig wrote:
+> Am 23.07.21 um 09:07 schrieb Jingwen Chen:
+> > [SNIP]
+> > Hi Christian,
+> > =
 
-I probably get your point. Please check the update V2.
+> > The thing is vm flush fence has no job passed to amdgpu_fence_emit, so
+> > go through the jobs cannot help find the vm flush fence. And keep the
+> > rest fences in the RCU array will lead to signaling them in the ib_test
+> > right after ASIC reset. While they will be signaled again during
+> > resubmission. What I'm doning here is just trying to cleanup the fences
+> > without a parent job and make sure the rest fences won't be signaled
+> > twice.
+> =
 
-BR
-Evan
-> -----Original Message-----
-> From: Lazar, Lijo <Lijo.Lazar@amd.com>
-> Sent: Friday, July 23, 2021 3:39 PM
-> To: Quan, Evan <Evan.Quan@amd.com>; amd-gfx@lists.freedesktop.org
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-> Subject: RE: [PATCH 1/2] drm/amd/pm: restore user customized OD settings
-> properly for NV1x
-> 
-> [Public]
-> 
-> Hi Evan,
-> 
-> In that case, using "od_edit" table for the intermediate table
-> 
-> During commit command, what if it's done like
-> 	1) Copy and update table if od_edit table is different than user_od
-> table
-> 	2) Set the flag to false if od_edit table and boot_od table are
-> different
-> 
-> Then current od settings may always be picked from user_od table and the
-> flag may be used to distinguish if it's boot od settings or custom settings (for
-> restore or other purposes).
-> 
-> Thanks,
-> Lijo
-> 
-> -----Original Message-----
-> From: Quan, Evan <Evan.Quan@amd.com>
-> Sent: Friday, July 23, 2021 12:51 PM
-> To: Lazar, Lijo <Lijo.Lazar@amd.com>; amd-gfx@lists.freedesktop.org
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-> Subject: RE: [PATCH 1/2] drm/amd/pm: restore user customized OD settings
-> properly for NV1x
-> 
-> [AMD Official Use Only]
-> 
-> Hi Lijo,
-> 
-> Sorry, I doubled checked. The implementation of Navi1x is right.
-> The original design for "restores to default settings" is a two-step process.
-> That means for "case PP_OD_COMMIT_DPM_TABLE:" we must distinguish
-> whether it's an usual customized od setting update or just restoring to
-> defaults.
-> And my current implementation for that is as below. Any comments?
-> 
-> +               if (memcmp(table_context->overdrive_table, table_context-
-> >boot_overdrive_table,
-> +                       sizeof(OverDriveTable_t))) {
-> +                       smu->user_dpm_profile.committed_od = true;
-> +                       memcpy(table_context->committed_overdrive_table,
-> table_context->overdrive_table,
-> +                                       sizeof(OverDriveTable_t));
-> +               } else {
-> +                       smu->user_dpm_profile.committed_od = false;
-> +               }
-> 
-> BR
-> Evan
-> > -----Original Message-----
-> > From: Quan, Evan
-> > Sent: Friday, July 23, 2021 2:48 PM
-> > To: Lazar, Lijo <Lijo.Lazar@amd.com>; amd-gfx@lists.freedesktop.org
-> > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-> > Subject: RE: [PATCH 1/2] drm/amd/pm: restore user customized OD
-> > settings properly for NV1x
-> >
-> > [AMD Official Use Only]
-> >
-> >
-> >
-> > > -----Original Message-----
-> > > From: Lazar, Lijo <Lijo.Lazar@amd.com>
-> > > Sent: Thursday, July 22, 2021 5:03 PM
-> > > To: Quan, Evan <Evan.Quan@amd.com>; amd-gfx@lists.freedesktop.org
-> > > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-> > > Subject: Re: [PATCH 1/2] drm/amd/pm: restore user customized OD
-> > > settings properly for NV1x
-> > >
-> > >
-> > >
-> > > On 7/22/2021 2:03 PM, Quan, Evan wrote:
-> > > > [AMD Official Use Only]
-> > > >
-> > > >
-> > > >
-> > > >> -----Original Message-----
-> > > >> From: Lazar, Lijo <Lijo.Lazar@amd.com>
-> > > >> Sent: Thursday, July 22, 2021 4:10 PM
-> > > >> To: Quan, Evan <Evan.Quan@amd.com>; amd-
-> > gfx@lists.freedesktop.org
-> > > >> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-> > > >> Subject: Re: [PATCH 1/2] drm/amd/pm: restore user customized OD
-> > > >> settings properly for NV1x
-> > > >>
-> > > >>
-> > > >>
-> > > >> On 7/22/2021 8:50 AM, Evan Quan wrote:
-> > > >>> The customized OD settings can be divided into two parts: those
-> > > >>> committed ones and non-committed ones.
-> > > >>>     - For those changes which had been fed to SMU before
-> > S3/S4/Runpm
-> > > >>>       suspend kicked, they are committed changes. They should be
-> > > properly
-> > > >>>       restored and fed to SMU on S3/S4/Runpm resume.
-> > > >>>     - For those non-committed changes, they are restored only
-> > > >>> without
-> > > >> feeding
-> > > >>>       to SMU.
-> > > >>>
-> > > >>> Change-Id: Iea7cf7908dfcd919a4d0205e10bff91b1149a440
-> > > >>> Signed-off-by: Evan Quan <evan.quan@amd.com>
-> > > >>> ---
-> > > >>>    drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h       |  8 +++
-> > > >>>    drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |  9 ++++
-> > > >>>    .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 52
-> > > >> ++++++++++++++-----
-> > > >>>    .../gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c    | 12 +++++
-> > > >>>    4 files changed, 69 insertions(+), 12 deletions(-)
-> > > >>>
-> > > >>> diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-> > > >>> b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-> > > >>> index 3e89852e4820..8ba53f16d2d9 100644
-> > > >>> --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-> > > >>> +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-> > > >>> @@ -231,6 +231,7 @@ struct smu_user_dpm_profile {
-> > > >>>    	uint32_t power_limit;
-> > > >>>    	uint32_t fan_speed_percent;
-> > > >>>    	uint32_t flags;
-> > > >>> +	uint32_t committed_od;
-> > > >>>
-> > > >>>    	/* user clock state information */
-> > > >>>    	uint32_t clk_mask[SMU_CLK_COUNT]; @@ -352,6 +353,7
-> > @@ struct
-> > > >>> smu_table_context
-> > > >>>
-> > > >>>    	void				*overdrive_table;
-> > > >>>    	void                            *boot_overdrive_table;
-> > > >>> +	void				*committed_overdrive_table;
-> > > >>
-> > > >> May be rename it to user_overdrive_table - OD table with user
-> settings?
-> > > > [Quan, Evan] Actually "overdrive_table " is  the
-> > > > user_overdrive_table. It
-> > > contains all the modification including those not committed( the
-> > > commit is performed by echo "c" >
-> > /sys/class/drm/card1/device/pp_od_clk_voltage).
-> > > > The new member added refers to those user customized but
-> committed
-> > > only settings. That's why it was named as " committed_overdrive_table".
-> > > Any good suggestion for the naming?
-> > >
-> > > As far as I understand, the problem is overdrive_table can have
-> > > intemediary settings as the edit/commit is a two-step process. At
-> > > any point we can have user_od_table keep the latest user mode settings.
-> > > That is true when user restores to default settings also; that time
-> > > we can just copy the boot settings back to user_od table and keep
-> > > the flag as false indicating that there is no custom settings.
-> > [Quan, Evan] For now, on Navi1x the "restores to default settings" is
-> > also a two-step process. That will make "copy the boot settings back
-> > to user_od table and keep the flag as false" tricky. However, it seems
-> > that does not fit original design. As per original design, the "restores to
-> default settings"
-> > should be a one-step process. Let me correct them with new patch
-> > series and proceed further discussion then.
-> >
-> > BR
-> > Evan
-> > >
-> > > >>
-> > > >>>    	uint32_t			gpu_metrics_table_size;
-> > > >>>    	void				*gpu_metrics_table;
-> > > >>> @@ -623,6 +625,12 @@ struct pptable_funcs {
-> > > >>>    				 enum
-> > PP_OD_DPM_TABLE_COMMAND
-> > > >> type,
-> > > >>>    				 long *input, uint32_t size);
-> > > >>>
-> > > >>> +	/**
-> > > >>> +	 * @restore_committed_od_settings: Restore the
-> customized and
-> > > >> committed
-> > > >>> +	 *                                 OD settings on S3/S4/Runpm resume.
-> > > >>> +	 */
-> > > >>> +	int (*restore_committed_od_settings)(struct smu_context
-> *smu);
-> > > >>> +
-> > > >>>    	/**
-> > > >>>    	 * @get_clock_by_type_with_latency: Get the speed and
-> > latency
-> > > >>> of
-> > > >> a clock
-> > > >>>    	 *                                  domain.
-> > > >>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> > > >>> b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> > > >>> index ebe672142808..5f7d98e99f76 100644
-> > > >>> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> > > >>> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> > > >>> @@ -416,6 +416,15 @@ static void
-> > > smu_restore_dpm_user_profile(struct
-> > > >> smu_context *smu)
-> > > >>>    		}
-> > > >>>    	}
-> > > >>>
-> > > >>> +	/* Restore customized and committed OD settings */
-> > > >>> +	if (smu->user_dpm_profile.committed_od) {
-> > > >>> +		if (smu->ppt_funcs-
-> >restore_committed_od_settings) {
-> > > >>> +			ret = smu->ppt_funcs-
-> > > >>> restore_committed_od_settings(smu);
-> > > >>> +			if (ret)
-> > > >>> +				dev_err(smu->adev->dev, "Failed to
-> upload
-> > > >> customized OD settings\n");
-> > > >>> +		}
-> > > >>> +	}
-> > > >>> +
-> > > >>
-> > > >> Just thinking if there is a need to handle it ASIC specific. The
-> > > >> flags and table pointer are maintained in common structure. So
-> > > >> can't we do the restore of user OD settings directly in this
-> > > >> common flow instead of having each ASIC to implement the callback?
-> > > > [Quan, Evan] The OD settings restoring is ASIC specific as it
-> > > > performed on
-> > > OD table and that(OD table) is ASIC specific.
-> > >
-> > > I was thinking in terms of final logic that is being done. The below
-> > > structures are available in common table context and we have a
-> > > common logic to update the table. If there is no custom OD settings
-> > > available, we could handle it with the flag.
-> > >
-> > > +	struct smu_table_context *table_context = &smu->smu_table;
-> > > +	void *od_table = table_context->committed_overdrive_table;
-> > > +	int ret = 0;
-> > > +
-> > > +	ret = smu_cmn_update_table(smu, SMU_TABLE_OVERDRIVE, 0,
-> > > (void *)od_table, true);
-> > >
-> > > >>
-> > > >>>    	/* Disable restore flag */
-> > > >>>    	smu->user_dpm_profile.flags &=
-> > > >> ~SMU_DPM_USER_PROFILE_RESTORE;
-> > > >>>    }
-> > > >>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> > > >>> b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> > > >>> index 59ea59acfb00..4752299d7f91 100644
-> > > >>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> > > >>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> > > >>> @@ -2296,39 +2296,45 @@ static int
-> > > >> navi10_set_default_od_settings(struct smu_context *smu)
-> > > >>>    		(OverDriveTable_t *)smu-
-> > >smu_table.boot_overdrive_table;
-> > > >>>    	int ret = 0;
-> > > >>>
-> > > >>> -	ret = smu_cmn_update_table(smu,
-> SMU_TABLE_OVERDRIVE, 0,
-> > > >> (void *)od_table, false);
-> > > >>> +	ret = smu_cmn_update_table(smu,
-> SMU_TABLE_OVERDRIVE, 0,
-> > > >> (void
-> > > >>> +*)boot_od_table, false);
-> > > >>>    	if (ret) {
-> > > >>>    		dev_err(smu->adev->dev, "Failed to get overdrive
-> > table!\n");
-> > > >>>    		return ret;
-> > > >>>    	}
-> > > >>>
-> > > >>> -	if (!od_table->GfxclkVolt1) {
-> > > >>> +	if (!boot_od_table->GfxclkVolt1) {
-> > > >>>    		ret =
-> > navi10_overdrive_get_gfx_clk_base_voltage(smu,
-> > > >>> -
-> 	&od_table-
-> > > >>> GfxclkVolt1,
-> > > >>> -
-> 	od_table-
-> > > >>> GfxclkFreq1);
-> > > >>> +
-> > > >> 	&boot_od_table->GfxclkVolt1,
-> > > >>> +
-> > > >> 	boot_od_table->GfxclkFreq1);
-> > > >>>    		if (ret)
-> > > >>>    			return ret;
-> > > >>>    	}
-> > > >>>
-> > > >>> -	if (!od_table->GfxclkVolt2) {
-> > > >>> +	if (!boot_od_table->GfxclkVolt2) {
-> > > >>>    		ret =
-> > navi10_overdrive_get_gfx_clk_base_voltage(smu,
-> > > >>> -
-> 	&od_table-
-> > > >>> GfxclkVolt2,
-> > > >>> -
-> 	od_table-
-> > > >>> GfxclkFreq2);
-> > > >>> +
-> > > >> 	&boot_od_table->GfxclkVolt2,
-> > > >>> +
-> > > >> 	boot_od_table->GfxclkFreq2);
-> > > >>>    		if (ret)
-> > > >>>    			return ret;
-> > > >>>    	}
-> > > >>>
-> > > >>> -	if (!od_table->GfxclkVolt3) {
-> > > >>> +	if (!boot_od_table->GfxclkVolt3) {
-> > > >>>    		ret =
-> > navi10_overdrive_get_gfx_clk_base_voltage(smu,
-> > > >>> -
-> 	&od_table-
-> > > >>> GfxclkVolt3,
-> > > >>> -
-> 	od_table-
-> > > >>> GfxclkFreq3);
-> > > >>> +
-> > > >> 	&boot_od_table->GfxclkVolt3,
-> > > >>> +
-> > > >> 	boot_od_table->GfxclkFreq3);
-> > > >>>    		if (ret)
-> > > >>>    			return ret;
-> > > >>>    	}
-> > > >>>
-> > > >>> -	memcpy(boot_od_table, od_table,
-> sizeof(OverDriveTable_t));
-> > > >>> +	navi10_dump_od_table(smu, boot_od_table);
-> > > >>>
-> > > >>> -	navi10_dump_od_table(smu, od_table);
-> > > >>> +	/*
-> > > >>> +	 * For S3/S4/Runpm, no need to install boot od table to
-> > > >> overdrive_table as
-> > > >>> +	 *   - either they already share the same OD settings on
-> bootup
-> > > >>> +	 *   - or they have user customized OD settings
-> > > >>> +	 */
-> > > >>> +	if (!smu->adev->in_suspend)
-> > > >>> +		memcpy(od_table, boot_od_table,
-> > > >> sizeof(OverDriveTable_t));
-> > > >>>
-> > > >>>    	return 0;
-> > > >>>    }
-> > > >>> @@ -2435,6 +2441,14 @@ static int
-> > > >>> navi10_od_edit_dpm_table(struct
-> > > >> smu_context *smu, enum PP_OD_DPM_TABL
-> > > >>>    			dev_err(smu->adev->dev, "Failed to import
-> > > >> overdrive table!\n");
-> > > >>>    			return ret;
-> > > >>>    		}
-> > > >>> +		if (memcmp(table_context->overdrive_table,
-> table_context-
-> > > >>> boot_overdrive_table,
-> > > >>> +			sizeof(OverDriveTable_t))) {
-> > > >>
-> > > >> Shouldn't this be - compare against the edited settings and last
-> > > >> committed settings, overdrive_table vs committed_overdrive_table?
-> > > >>
-> > > >> Basically, user_od_table can be initialized with boot_od settings
-> > > >> and the flag gives the indication that user_od table is being used or
-> not.
-> > > >> Before updating, check if the edited table (overdrive_table) and
-> > > >> the current user_od table are different, then commit the new table.
-> > > > [Quan, Evan] Yes, I also considered that. But that cannot handle
-> > > > the case
-> > > below:
-> > > > 1 user made some customizations  -> 2 the customizations were
-> > > > committed -> 3 user restored to default(boot) OD settings(by "echo
-> > > > 'r'")
-> > > and committed Although there were some changes between 2 and 3,
-> > there
-> > > is actually no real customized changes compared to default(boot) OD
-> > settings.
-> > >
-> > > On restore to default, just copy the boot_table settings to user_od
-> > > and keep the flag as false. We are using user_od as the latest user
-> > > preferred settings and overdrive_table is only used for intermediate
-> > updates.
-> > >
-> > > The flag decides whether to restore or not, but at any point we can
-> > > refer the user_od table to look upon the latest preferred user
-> > > settings (default or custom).
-> > >
-> > > Thanks,
-> > > Lijo
-> > >
-> > > >>
-> > > >>> +			smu->user_dpm_profile.committed_od =
-> true;
-> > > >>> +			memcpy(table_context-
-> > > >>> committed_overdrive_table, table_context->overdrive_table,
-> > > >>> +					sizeof(OverDriveTable_t));
-> > > >>> +		} else {
-> > > >>> +			smu->user_dpm_profile.committed_od =
-> false;
-> > > >>> +		}
-> > > >>>    		break;
-> > > >>>    	case PP_OD_EDIT_VDDC_CURVE:
-> > > >>>    		if (!navi10_od_feature_is_supported(od_settings,
-> > > >>> SMU_11_0_ODCAP_GFXCLK_CURVE)) { @@ -2499,6 +2513,19 @@
-> > static
-> > > int
-> > > >> navi10_od_edit_dpm_table(struct smu_context *smu, enum
-> > > PP_OD_DPM_TABL
-> > > >>>    	return ret;
-> > > >>>    }
-> > > >>>
-> > > >>> +static int navi10_restore_committed_od_settings(struct
-> > > >>> +smu_context
-> > > >>> +*smu) {
-> > > >>> +	struct smu_table_context *table_context = &smu-
-> >smu_table;
-> > > >>> +	void *od_table = table_context-
-> >committed_overdrive_table;
-> > > >>> +	int ret = 0;
-> > > >>> +
-> > > >>> +	ret = smu_cmn_update_table(smu,
-> SMU_TABLE_OVERDRIVE, 0,
-> > > >> (void *)od_table, true);
-> > > >>> +	if (ret)
-> > > >>> +		dev_err(smu->adev->dev, "Failed to import
-> overdrive
-> > > >> table!\n");
-> > > >>> +
-> > > >>> +	return ret;
-> > > >>> +}
-> > > >>
-> > > >> As mentioned before, not sure if this is needed as callback. Even
-> > > >> if, this can be something common for smuv11, there is nothing
-> > > >> ASIC specific in this logic, right?
-> > > > [Quan, Evan] Yes, in patch2 of the series, it was made as a SMUV11
-> > > common API.
-> > > >
-> > > > BR
-> > > > Evan
-> > > >>
-> > > >> Thanks,
-> > > >> Lijo
-> > > >>
-> > > >>>    static int navi10_run_btc(struct smu_context *smu)
-> > > >>>    {
-> > > >>>    	int ret = 0;
-> > > >>> @@ -3262,6 +3289,7 @@ static const struct pptable_funcs
-> > > >> navi10_ppt_funcs = {
-> > > >>>    	.set_soft_freq_limited_range =
-> > > >> smu_v11_0_set_soft_freq_limited_range,
-> > > >>>    	.set_default_od_settings = navi10_set_default_od_settings,
-> > > >>>    	.od_edit_dpm_table = navi10_od_edit_dpm_table,
-> > > >>> +	.restore_committed_od_settings =
-> > > >>> +navi10_restore_committed_od_settings,
-> > > >>>    	.run_btc = navi10_run_btc,
-> > > >>>    	.set_power_source = smu_v11_0_set_power_source,
-> > > >>>    	.get_pp_feature_mask = smu_cmn_get_pp_feature_mask,
-> > diff --git
-> > > >>> a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-> > > >>> b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-> > > >>> index 0a5d46ac9ccd..28fc3f17c1b1 100644
-> > > >>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-> > > >>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-> > > >>> @@ -422,10 +422,20 @@ int smu_v11_0_init_smc_tables(struct
-> > > >> smu_context *smu)
-> > > >>>    			ret = -ENOMEM;
-> > > >>>    			goto err3_out;
-> > > >>>    		}
-> > > >>> +
-> > > >>> +		smu_table->committed_overdrive_table =
-> > > >>> +			kzalloc(tables[SMU_TABLE_OVERDRIVE].size,
-> > > >> GFP_KERNEL);
-> > > >>> +		if (!smu_table->committed_overdrive_table) {
-> > > >>> +			ret = -ENOMEM;
-> > > >>> +			goto err4_out;
-> > > >>> +		}
-> > > >>> +
-> > > >>>    	}
-> > > >>>
-> > > >>>    	return 0;
-> > > >>>
-> > > >>> +err4_out:
-> > > >>> +	kfree(smu_table->boot_overdrive_table);
-> > > >>>    err3_out:
-> > > >>>    	kfree(smu_table->overdrive_table);
-> > > >>>    err2_out:
-> > > >>> @@ -442,12 +452,14 @@ int smu_v11_0_fini_smc_tables(struct
-> > > >> smu_context *smu)
-> > > >>>    	struct smu_dpm_context *smu_dpm = &smu->smu_dpm;
-> > > >>>
-> > > >>>    	kfree(smu_table->gpu_metrics_table);
-> > > >>> +	kfree(smu_table->committed_overdrive_table);
-> > > >>>    	kfree(smu_table->boot_overdrive_table);
-> > > >>>    	kfree(smu_table->overdrive_table);
-> > > >>>    	kfree(smu_table->max_sustainable_clocks);
-> > > >>>    	kfree(smu_table->driver_pptable);
-> > > >>>    	kfree(smu_table->clocks_table);
-> > > >>>    	smu_table->gpu_metrics_table = NULL;
-> > > >>> +	smu_table->committed_overdrive_table = NULL;
-> > > >>>    	smu_table->boot_overdrive_table = NULL;
-> > > >>>    	smu_table->overdrive_table = NULL;
-> > > >>>    	smu_table->max_sustainable_clocks = NULL;
-> > > >>>
+> It took me a moment to realize what you are talking about here.
+> =
+
+> This is for the KIQ! You need different handling for the KIQ than for the
+> scheduler controlled rings.
+> =
+
+> It is not only the flush jobs, but the KIQ needs a complete reset because=
+ of
+> the register writes pushed there as well.
+> =
+
+> > > And please drop any usage of DMA_FENCE_FLAG_USER_BITS. That is not so=
+mething
+> > > which should be abused for reset handling.
+> > > =
+
+> > The DMA_FENCE_FLAG_USER_BITS here is to mark this fence has a parent
+> > job. If this is not a proper usage here, do you have any suggestions
+> > about how to identify whether the fence has a parent job?
+> =
+
+> You don't need to mark the fences at all. Everything on the KIQ ring needs
+> to be force completed since none of the fences on that ring have a parent
+> job.
+> =
+
+> Christian.
+>
+Hi Christian
+
+Yes KIQ ring fences all need force_completion. But we do need to mark the
+fences. Say we have a gfx ring job with vm_flush=3D1 sending to
+amdgpu_ib_schedule, then in amdgpu_vm_flush, after the
+amdgpu_ring_emit_vm_flush is done, we will create a vm flush fence on
+gfx ring with amdgpu_fence_emit(ring, &fence, NULL, 0).
+
+Then this vm flush fence we create here has no parent job but it's on
+gfx ring. =
+
+If we only do force_completion for KIQ ring and just clear the
+RCU array for the scheduler controlled rings, nobody will signal and put th=
+is
+gfx ring vm_flush fence again. When this job is resubmitted, it will
+just create a new vm_flush fence. This is a memleak and I have seen this
+memleak during my test.
+
+Best Regards,
+JingWen Chen
+> > =
+
+> > Best Regards,
+> > JingWen Chen
+> > > Regards,
+> > > Christian.
+> > > =
+
+> > > > =
+
+> > > > Best Regards,
+> > > > JingWen Chen
+> > > > > > Andrey
+> > > > > > =
+
+> > > > > > =
+
+> > > > > > > > > +=A0=A0=A0=A0=A0=A0=A0 }
+> > > > > > > > >   =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 /* after all hw jobs are=
+ reset, hw fence is
+> > > > > > > > > meaningless, so force_completion */
+> > > > > > > > >   =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 amdgpu_fence_driver_forc=
+e_completion(ring);
+> > > > > > > > >   =A0=A0=A0=A0=A0=A0 }
+> > > > > > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> > > > > > > > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> > > > > > > > > index eecf21d8ec33..815776c9a013 100644
+> > > > > > > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> > > > > > > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> > > > > > > > > @@ -156,11 +156,17 @@ int amdgpu_fence_emit(struct
+> > > > > > > > > amdgpu_ring *ring, struct dma_fence **f, struct amd
+> > > > > > > > >   =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 job->ring =3D ring;
+> > > > > > > > >   =A0=A0=A0=A0=A0=A0 }
+> > > > > > > > > -=A0=A0=A0 seq =3D ++ring->fence_drv.sync_seq;
+> > > > > > > > > -=A0=A0=A0 dma_fence_init(fence, &amdgpu_fence_ops,
+> > > > > > > > > -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 &ring->fence_=
+drv.lock,
+> > > > > > > > > -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 adev->fence_c=
+ontext + ring->idx,
+> > > > > > > > > -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 seq);
+> > > > > > > > > +=A0=A0=A0 if (job !=3D NULL && job->base.resubmit_flag =
+=3D=3D 1) {
+> > > > > > > > > +=A0=A0=A0=A0=A0=A0=A0 /* reinit seq for resubmitted jobs=
+ */
+> > > > > > > > > +=A0=A0=A0=A0=A0=A0=A0 seq =3D ++ring->fence_drv.sync_seq;
+> > > > > > > > > +=A0=A0=A0=A0=A0=A0=A0 fence->seqno =3D seq;
+> > > > > > > > > +=A0=A0=A0 } else {
+> > > > > > > > > +=A0=A0=A0=A0=A0=A0=A0 seq =3D ++ring->fence_drv.sync_seq;
+> > > > > > > > Seems like you could do the above line only once above if-e=
+lse
+> > > > > > > > as it was
+> > > > > > > > before
+> > > > > > > Sure, I will modify this.
+> > > > > > > =
+
+> > > > > > > =
+
+> > > > > > > Best Regards,
+> > > > > > > JingWen Chen
+> > > > > > > > > +=A0=A0=A0=A0=A0=A0=A0 dma_fence_init(fence, &amdgpu_fenc=
+e_ops,
+> > > > > > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 &ring->fen=
+ce_drv.lock,
+> > > > > > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 adev->fenc=
+e_context + ring->idx,
+> > > > > > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 seq);
+> > > > > > > > > +=A0=A0=A0 }
+> > > > > > > > >   =A0=A0=A0=A0=A0=A0 if (job !=3D NULL) {
+> > > > > > > > >   =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 /* mark this fence has a=
+ parent job */
+> > > > > > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> > > > > > > > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> > > > > > > > > index 7c426e225b24..d6f848adc3f4 100644
+> > > > > > > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> > > > > > > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> > > > > > > > > @@ -241,6 +241,7 @@ static struct dma_fence
+> > > > > > > > > *amdgpu_job_run(struct drm_sched_job *sched_job)
+> > > > > > > > >   =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 dma_fence_set_error(fini=
+shed, -ECANCELED);/* skip
+> > > > > > > > > IB as well if VRAM lost */
+> > > > > > > > >   =A0=A0=A0=A0=A0=A0 if (finished->error < 0) {
+> > > > > > > > > +=A0=A0=A0=A0=A0=A0=A0 dma_fence_put(&job->hw_fence);
+> > > > > > > > >   =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 DRM_INFO("Skip schedulin=
+g IBs!\n");
+> > > > > > > > >   =A0=A0=A0=A0=A0=A0 } else {
+> > > > > > > > >   =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 r =3D amdgpu_ib_schedule=
+(ring, job->num_ibs, job->ibs, job,
+> > > > > > > > > @@ -249,7 +250,8 @@ static struct dma_fence
+> > > > > > > > > *amdgpu_job_run(struct drm_sched_job *sched_job)
+> > > > > > > > >   =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 DRM_ERROR("E=
+rror scheduling IBs (%d)\n", r);
+> > > > > > > > >   =A0=A0=A0=A0=A0=A0 }
+> > > > > > > > > -=A0=A0=A0 dma_fence_get(fence);
+> > > > > > > > > +=A0=A0=A0 if (!job->base.resubmit_flag)
+> > > > > > > > > +=A0=A0=A0=A0=A0=A0=A0 dma_fence_get(fence);
+> > > > > > > > >   =A0=A0=A0=A0=A0=A0 amdgpu_job_free_resources(job);
+> > > > > > > > >   =A0=A0=A0=A0=A0=A0 fence =3D r ? ERR_PTR(r) : fence;
+> > > > > > > > > diff --git a/drivers/gpu/drm/scheduler/sched_main.c
+> > > > > > > > > b/drivers/gpu/drm/scheduler/sched_main.c
+> > > > > > > > > index f4f474944169..5a36ab5aea2d 100644
+> > > > > > > > > --- a/drivers/gpu/drm/scheduler/sched_main.c
+> > > > > > > > > +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> > > > > > > > > @@ -544,6 +544,7 @@ void drm_sched_resubmit_jobs_ext(stru=
+ct
+> > > > > > > > > drm_gpu_scheduler *sched, int max)
+> > > > > > > > > dma_fence_set_error(&s_fence->finished, -ECANCELED);
+> > > > > > > > >   =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 dma_fence_put(s_job->s_f=
+ence->parent);
+> > > > > > > > > +=A0=A0=A0=A0=A0=A0=A0 s_job->resubmit_flag =3D 1;
+> > > > > > > > >   =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 fence =3D sched->ops->ru=
+n_job(s_job);
+> > > > > > > > >   =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 i++;
+> > > > > > > > > diff --git a/include/drm/gpu_scheduler.h b/include/drm/gp=
+u_scheduler.h
+> > > > > > > > > index 4ea8606d91fe..06c101af1f71 100644
+> > > > > > > > > --- a/include/drm/gpu_scheduler.h
+> > > > > > > > > +++ b/include/drm/gpu_scheduler.h
+> > > > > > > > > @@ -198,6 +198,7 @@ struct drm_sched_job {
+> > > > > > > > >   =A0=A0=A0=A0=A0=A0 enum drm_sched_priority=A0=A0=A0=A0=
+=A0=A0=A0 s_priority;
+> > > > > > > > >   =A0=A0=A0=A0=A0=A0 struct drm_sched_entity=A0=A0=A0=A0=
+=A0=A0=A0=A0 *entity;
+> > > > > > > > >   =A0=A0=A0=A0=A0=A0 struct dma_fence_cb=A0=A0=A0=A0=A0=
+=A0=A0 cb;
+> > > > > > > > > +=A0=A0=A0 int resubmit_flag;
+> > > > > > > > >   =A0=A0 };
+> > > > > > > > >   =A0=A0 static inline bool drm_sched_invalidate_job(stru=
+ct
+> > > > > > > > > drm_sched_job *s_job,
+> =
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
