@@ -7,48 +7,48 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DC33EC4320A
-	for <amd-gfx@archiver.kernel.org>; Sat, 24 Jul 2021 04:11:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C86DBC4338F
+	for <amd-gfx@archiver.kernel.org>; Sat, 24 Jul 2021 04:11:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9BDCE60EAF
-	for <amd-gfx@archiver.kernel.org>; Sat, 24 Jul 2021 04:11:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9BDCE60EAF
+	by mail.kernel.org (Postfix) with ESMTPS id 8FDB160E52
+	for <amd-gfx@archiver.kernel.org>; Sat, 24 Jul 2021 04:11:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8FDB160E52
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53B176FE60;
-	Sat, 24 Jul 2021 04:11:42 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam08on2081.outbound.protection.outlook.com [40.107.102.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3AF886FE5F
- for <amd-gfx@lists.freedesktop.org>; Sat, 24 Jul 2021 04:11:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 546566FE61;
+	Sat, 24 Jul 2021 04:11:45 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2081.outbound.protection.outlook.com [40.107.244.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA5636FE61
+ for <amd-gfx@lists.freedesktop.org>; Sat, 24 Jul 2021 04:11:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lkeWyLLdq4bggZc3wuOhGP66E2gYTksZENCB2F3a7S5wtaZvihQkfa85SOuxOsCYV5T1YvgqXkzgdM/GomIxeRRGMdD1/qjXu+p7QBDPpulyYgydQ+ziSIZBpGGUn7NDUDxSQ8P9+rkFEI8Ip12VWuPXtNMdMy/5Js5WPnUxj4HabnboHRkeLWjR6MWJZgJy14+8S1cPyAWbEtlpltoggpR+hwMUBGxt0HBFIcWkbRiRIQIyuRabfF0e0GkDM47YdyJ7GgHjynfUcaudcxRRdbQ3eHVapzpep0rlgLLSICd5IK4ysz42dm8r7V4RPlrou/NXgyhsqi/yOdlIt9QGoA==
+ b=mrARyqkBI2yrJcGCdNGa12yL2Kj75O32EzI++zfCL/qTSIJGrQAHHez6N4EzLvDL25MuCWps6qVcvT9u8IuoaqPfjwCRqPIjYQllGpWtTxt18H2SpGbQ6ZRzcaIccaK3xR53VR02pMcA0tcplkXCkOEYw1VaTjokeXN75riACujySoHUZfVFw0fZML835P6HgtMKg1nRy5VkvJnMM6x36F+OzMAdEoId+HjnhBH12WHh8tbGBGTydSddR6iND5R7RZtT7M9iTANoW7DgYp8Fu+wj/fA2DJdSJDBUQ1icSNglgsqyszFnaWAcxWMtBuYCI0DRBVkYmoEvgex0VABhow==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QDnqjaFUpB3bm7nVn74qMdDiYdfwRU0DO+/wui65ooo=;
- b=WHBNOBFvj+Rx2ZcHb6heL3Vzomst904LfJ1MSBdhUboVu09N/BjJ0PrgQqfO2iDubklpO5paawxltBlcTgHMCtIcbiJijZYypYHDf31cEzQt+F0+eYcwEv3iT4bov1r8THjY65s0QnBl36voedzB3wf/NSj7afHtErWbftwHF3BHQlNrO+p/BxV+V0YGHdQ61qKa0wwAEsE4rZqlvrMT2PAHz2H1Z8UMLsksn/TFQRKa5NpdDq+dhAkI7Z76PYEzhkabRm34Au0VxaiQXLs+IoOQy/uTOVp6l9ML4OC94T705RqaFsxfuWbrJE9RkDhsa2zbRJMUBOVpd4kWGXRpsQ==
+ bh=5CQQzw40C28UIInFowVNY+RM7IfOuHgxUbnjrlbxwLk=;
+ b=kPOG39IohIBMUfukQHCPMfdVHLDP7iAfyngcHxQOiBlO5zSrJupPY+3eSnvVhhl/0iLRrA/w4zO9u5SLR02zc8TxMq3yymb3L9aySG5RSWDg3x8CXbnRgaPX0e7iUO1x8jYrI6jmuz1IUeOvcCnkSzxdWwofCo0ydeumSajK/gf3Qcq3Zf3HlOaBVGaz+MNuyhxykW6XDJwWjz8IleHzfypDOTtgxR2Uw0BwESoMMlD4ps4em3448T+ObwNwHzsqCrlb5sUmcH3IChQArJGnnhPLr05Ty3lTKM1NYF6FwEFOQGLHZ5ZcprW+c/xE9EyR2YEvjuLIMeMXiq/VW+rP1g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QDnqjaFUpB3bm7nVn74qMdDiYdfwRU0DO+/wui65ooo=;
- b=tyzFpqJlgAXzg6HoPg9VZT/BkL8vjqsrSs/+uC5FzlyvAU2PUUobskgrZos48yXp1yHPkjWCeNs0KGA5aHsdkjlnbaFOIDcfZSoF+TlR9NT4F4/FTUXgsTwrG+VJOdB9e+iAxEQVUHJ3xOCgu2GNyEsn2NzDXSvnOrXuC0yb/gQ=
-Received: from BN9PR03CA0637.namprd03.prod.outlook.com (2603:10b6:408:13b::12)
- by MWHPR1201MB2509.namprd12.prod.outlook.com (2603:10b6:300:e5::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4352.26; Sat, 24 Jul
- 2021 04:11:34 +0000
-Received: from BN8NAM11FT032.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:13b:cafe::4) by BN9PR03CA0637.outlook.office365.com
- (2603:10b6:408:13b::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4352.26 via Frontend
- Transport; Sat, 24 Jul 2021 04:11:33 +0000
+ bh=5CQQzw40C28UIInFowVNY+RM7IfOuHgxUbnjrlbxwLk=;
+ b=dObIBO1di49wcrvuxdFqZ5SRZyVz3UvFz9ptF9lzvZ9yPXinMNOVAfAEDI5Fe/8w5qRWN5yjNKbCsROeLMrrxx57gCRph73Rfr8oK8tCStBXGEJ+TysnTb9ym5TFu37rrM3sgSyeF9kl2sETVjmqU6wAlDhVh73MvF2v4rJCEbA=
+Received: from BN6PR2001CA0034.namprd20.prod.outlook.com
+ (2603:10b6:405:16::20) by BYAPR12MB2853.namprd12.prod.outlook.com
+ (2603:10b6:a03:13a::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4352.29; Sat, 24 Jul
+ 2021 04:11:41 +0000
+Received: from BN8NAM11FT028.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:405:16:cafe::f8) by BN6PR2001CA0034.outlook.office365.com
+ (2603:10b6:405:16::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4352.24 via Frontend
+ Transport; Sat, 24 Jul 2021 04:11:41 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -57,18 +57,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT032.mail.protection.outlook.com (10.13.177.88) with Microsoft SMTP
+ BN8NAM11FT028.mail.protection.outlook.com (10.13.176.225) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4352.24 via Frontend Transport; Sat, 24 Jul 2021 04:11:33 +0000
+ 15.20.4352.24 via Frontend Transport; Sat, 24 Jul 2021 04:11:41 +0000
 Received: from solomon-t14.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Fri, 23 Jul
- 2021 23:11:30 -0500
+ 2021 23:11:38 -0500
 From: Solomon Chiu <solomon.chiu@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 09/14] drm/amd/display: remove unused functions
-Date: Sat, 24 Jul 2021 12:09:56 +0800
-Message-ID: <20210724041001.3875757-10-solomon.chiu@amd.com>
+Subject: [PATCH 11/14] drm/amd/display: refactor riommu invalidation wa
+Date: Sat, 24 Jul 2021 12:09:58 +0800
+Message-ID: <20210724041001.3875757-12-solomon.chiu@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210724041001.3875757-4-solomon.chiu@amd.com>
 References: <20210724041001.3875757-4-solomon.chiu@amd.com>
@@ -78,28 +78,28 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 5fc83655-d1c7-47e0-bc36-08d94e591f98
-X-MS-TrafficTypeDiagnostic: MWHPR1201MB2509:
-X-Microsoft-Antispam-PRVS: <MWHPR1201MB25096B2D7F2CA56F784517C497E69@MWHPR1201MB2509.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1443;
+X-MS-Office365-Filtering-Correlation-Id: 7d64649e-bdc1-45c9-3f58-08d94e592440
+X-MS-TrafficTypeDiagnostic: BYAPR12MB2853:
+X-Microsoft-Antispam-PRVS: <BYAPR12MB2853C5C67BEAD842F6E21B5A97E69@BYAPR12MB2853.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:92;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 12QMlu6K9RA8QW4/hNk+Tz8bW0dg+H77mgr6PlMDIKX6hrEaWeAISNnaobT7kKv+kcKQd7lhJFoYL9YHQXnAtutPVvYJ6txMLTSwXZbfKLlcn7DCG7NGiJlIXrip7k1EhcW7PAq1j+i7Nc6Ebev6/5uOxdZDBKhyiQdCoE3DzAu8B/esDGQXq1oAthIizXiS7bxM72OhsVvIa27R3D6K/ig9jKQ49W5ACm+E4WEUrloIaSrTMMONkm+YT4bmrq+Moxg6p3D7Hc7UCoACA/S0rQ+ip6dvyDtixj6OfdYQskd/GjxUxE6g8ldf59kfJ5KV7pevs2G3oc+eTEZ6tSAGozQECC8sbN/FpjFJcuydt81gvP87o1mwenEw5iEOQr6bc/vxGq57/KTgq7xE0B/eNY0wy/pnwdLuSAGZvEh2/vSK3wudCUzrLUe/KDXntVDNUkJV3Dqe5MGscE9N05a7cktar3wYA7SSAGfZyISVNd1ieJLLzJoVsFHAFf05xDGhlr75RP94lL1d7Kz/OUQDYh0rZIC1kC7b4Lf5RSE59Ezd7tMIL/Sk9j+FGWYtyGBD8pqcilC4gOQPduK83cfHtH4ynt8DjbUOaE8udX1Q4lcfmn9PYDtAoHmT34iq8SHqngnrfNlP2p93v78CvKSRHIkn7JTkydn/QGXUGecziH/4ovH/SwtmgsGnOW6frpxB3drqUbvrVdKr+EgNc57U9nQDQ7OdS9w3kxWvJwoLQdk=
+X-Microsoft-Antispam-Message-Info: KD4f8iMrazFcSpbuZOUE42zFoCbFvHBtNuCpwUKmOtN2lIUEmc4kOwXewfyz2kjZPWciRD39QNJNiWF7oED744667/sBviwAmt7R9+PM3OOHetcvAbbcKvJrudfK2px9NROPlGQa/YX7esT0ytUjk5RQzX2NX65+zIE6lpxrJRwZZ8PFavXA0MZbbUfi81dW5/X+A2x8c29E3ngb9CQdiwX7fLrBPb6ZrHAEhur8/dazKSTbzlPy3C6QjDJG5IgR1q40br9Ui7zH6tzYyHNiDG01mFV3siCeekSy/aZ2/4RJgiHNyUAGhvPggevD5RkyV9+qIE3ua7jW+Ky4fBh+XLhl8zqYzmjEXB0zbxWVDc/NFHoacByH6E1f+P9ygFW3dGgTCg9QPneGiFFs3ZdzHDThJxn3jP3ZSWf1W4uU4TsR7Er/loqXOBDIKymfDL+p2AvovTkRrCKuLqbCGRh1oPBnExL29PDjcIIJkKUPKW6AS7mIZZpgAY7l2NE6vmHZbDjV3CbfqbWNiKc9OhXry7zVvuX/3vApDSDo9DR2RxLoDpNZjsUqJgfh9lWDcvJel3KnIa6Jhag1tcksEhQiPOREVh9qBMqGyU5cxF0uKJCWaG38rrz/p7Gar20olWMh/uv5Kq0rBXoivceIdlvn5ktXJTxtdV2d8JwYmn8IrjjGxCr9VTLLXfU/sebHaIcNI66L4JyjDmey23UbuqjzMVTX8abf7PBjMHetyx6ad28=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(39860400002)(376002)(346002)(136003)(396003)(46966006)(36840700001)(54906003)(7696005)(8676002)(81166007)(2616005)(6916009)(5660300002)(4326008)(44832011)(316002)(86362001)(426003)(26005)(70586007)(6666004)(70206006)(36756003)(478600001)(47076005)(1076003)(2906002)(82310400003)(83380400001)(356005)(186003)(336012)(16526019)(82740400003)(36860700001)(8936002)(36900700001);
+ SFS:(4636009)(346002)(376002)(39860400002)(396003)(136003)(46966006)(36840700001)(4326008)(426003)(5660300002)(86362001)(82310400003)(83380400001)(2616005)(54906003)(1076003)(7696005)(82740400003)(81166007)(44832011)(2906002)(36860700001)(336012)(356005)(70206006)(70586007)(316002)(8676002)(6916009)(186003)(47076005)(8936002)(478600001)(36756003)(26005)(6666004)(16526019)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2021 04:11:33.8255 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5fc83655-d1c7-47e0-bc36-08d94e591f98
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2021 04:11:41.6352 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7d64649e-bdc1-45c9-3f58-08d94e592440
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT032.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT028.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1201MB2509
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2853
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,255 +111,212 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Solomon Chiu <solomon.chiu@amd.com>, Sunpeng.Li@amd.com,
- Harry.Wentland@amd.com, Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com,
- Wenjing Liu <wenjing.liu@amd.com>, Anson.Jacob@amd.com,
- Aurabindo.Pillai@amd.com, Bhawanpreet.Lakha@amd.com, bindu.r@amd.com
+Cc: Eric Yang <Eric.Yang2@amd.com>, Solomon Chiu <solomon.chiu@amd.com>,
+ Sunpeng.Li@amd.com, Harry.Wentland@amd.com, Qingqing.Zhuo@amd.com,
+ Rodrigo.Siqueira@amd.com, Anson.Jacob@amd.com, Aurabindo.Pillai@amd.com,
+ Bhawanpreet.Lakha@amd.com, Kazlauskas Nicholas <Nicholas.Kazlauskas@amd.com>,
+ bindu.r@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Wenjing Liu <wenjing.liu@amd.com>
+From: Eric Yang <Eric.Yang2@amd.com>
 
-[why]
-It has been decided that opm state query support will be dropped.
-Therefore link encryption enabled and save current encryption states
-won't be used anymore and there are no foreseeable usages in the future.
-We will remove these two interfaces for clean up.
+[Why]
+A cleaner solution, only done once on boot.
 
+[How]
+Remove previous workaround and configure an extra
+vmid one time on boot
+
+Reviewed-by: Kazlauskas Nicholas <Nicholas.Kazlauskas@amd.com>
 Acked-by: Solomon Chiu <solomon.chiu@amd.com>
-Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
+Signed-off-by: Eric Yang <Eric.Yang2@amd.com>
 ---
- .../amd/display/amdgpu_dm/amdgpu_dm_hdcp.c    |  4 +-
- .../gpu/drm/amd/display/modules/hdcp/hdcp.c   |  6 ---
- .../gpu/drm/amd/display/modules/hdcp/hdcp.h   |  2 -
- .../display/modules/hdcp/hdcp1_execution.c    |  6 ---
- .../display/modules/hdcp/hdcp2_execution.c    |  3 --
- .../drm/amd/display/modules/hdcp/hdcp_psp.c   | 53 ++++++++-----------
- .../drm/amd/display/modules/inc/mod_hdcp.h    |  1 -
- 7 files changed, 22 insertions(+), 53 deletions(-)
+ .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    |  6 ---
+ .../drm/amd/display/dc/dcn31/dcn31_hubbub.c   | 48 +++++++++++--------
+ .../drm/amd/display/dc/dcn31/dcn31_hwseq.c    | 17 -------
+ .../gpu/drm/amd/display/dc/dcn31/dcn31_init.c |  2 +-
+ .../drm/amd/display/dc/dcn31/dcn31_resource.c |  1 -
+ .../gpu/drm/amd/display/dc/inc/hw/dchubbub.h  |  3 --
+ .../amd/display/dc/inc/hw_sequencer_private.h |  1 -
+ 7 files changed, 28 insertions(+), 50 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
-index e63c6885c757..8e39e9245d06 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
-@@ -655,10 +655,8 @@ struct hdcp_workqueue *hdcp_create_workqueue(struct amdgpu_device *adev, struct
- 		INIT_DELAYED_WORK(&hdcp_work[i].property_validate_dwork, event_property_validate);
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+index ef185b93b31d..5c2853654cca 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+@@ -570,12 +570,6 @@ void dcn20_plane_atomic_disable(struct dc *dc, struct pipe_ctx *pipe_ctx)
+ 	struct hubp *hubp = pipe_ctx->plane_res.hubp;
+ 	struct dpp *dpp = pipe_ctx->plane_res.dpp;
  
- 		hdcp_work[i].hdcp.config.psp.handle = &adev->psp;
--		if (dc->ctx->dce_version == DCN_VERSION_3_1) {
-+		if (dc->ctx->dce_version == DCN_VERSION_3_1)
- 			hdcp_work[i].hdcp.config.psp.caps.dtm_v3_supported = 1;
--			hdcp_work[i].hdcp.config.psp.caps.opm_state_query_supported = false;
--		}
- 		hdcp_work[i].hdcp.config.ddc.handle = dc_get_link_at_index(dc, i);
- 		hdcp_work[i].hdcp.config.ddc.funcs.write_i2c = lp_write_i2c;
- 		hdcp_work[i].hdcp.config.ddc.funcs.read_i2c = lp_read_i2c;
-diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp.c b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp.c
-index 2bcab9c9b96e..06d60f031a06 100644
---- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp.c
-+++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp.c
-@@ -315,9 +315,6 @@ enum mod_hdcp_status mod_hdcp_add_display(struct mod_hdcp *hdcp,
- 		goto out;
- 	}
+-	if (hws->wa.early_riommu_invalidation) {
+-		struct hubbub *hubbub = dc->res_pool->hubbub;
+-
+-		hubbub->funcs->apply_invalidation_req_wa(hubbub, &hubbub->vmid_cache);
+-	}
+-
+ 	dc->hwss.wait_for_mpcc_disconnect(dc, dc->res_pool, pipe_ctx);
  
--	/* save current encryption states to restore after next authentication */
--	mod_hdcp_save_current_encryption_states(hdcp);
--
- 	/* reset existing authentication status */
- 	status = reset_authentication(hdcp, output);
- 	if (status != MOD_HDCP_STATUS_SUCCESS)
-@@ -364,9 +361,6 @@ enum mod_hdcp_status mod_hdcp_remove_display(struct mod_hdcp *hdcp,
- 		goto out;
- 	}
- 
--	/* save current encryption states to restore after next authentication */
--	mod_hdcp_save_current_encryption_states(hdcp);
--
- 	/* stop current authentication */
- 	status = reset_authentication(hdcp, output);
- 	if (status != MOD_HDCP_STATUS_SUCCESS)
-diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp.h b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp.h
-index 3ce91db560d1..7123f0915706 100644
---- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp.h
-+++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp.h
-@@ -331,8 +331,6 @@ enum mod_hdcp_status mod_hdcp_add_display_to_topology(
- 		struct mod_hdcp *hdcp, struct mod_hdcp_display *display);
- enum mod_hdcp_status mod_hdcp_remove_display_from_topology(
- 		struct mod_hdcp *hdcp, uint8_t index);
--bool mod_hdcp_is_link_encryption_enabled(struct mod_hdcp *hdcp);
--void mod_hdcp_save_current_encryption_states(struct mod_hdcp *hdcp);
- enum mod_hdcp_status mod_hdcp_hdcp1_create_session(struct mod_hdcp *hdcp);
- enum mod_hdcp_status mod_hdcp_hdcp1_destroy_session(struct mod_hdcp *hdcp);
- enum mod_hdcp_status mod_hdcp_hdcp1_validate_rx(struct mod_hdcp *hdcp);
-diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c
-index de872e7958b0..6ec918af3bff 100644
---- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c
-+++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c
-@@ -266,9 +266,6 @@ static enum mod_hdcp_status authenticated(struct mod_hdcp *hdcp,
- 	mod_hdcp_execute_and_set(mod_hdcp_hdcp1_link_maintenance,
- 			&input->link_maintenance, &status,
- 			hdcp, "link_maintenance");
--
--	if (status != MOD_HDCP_STATUS_SUCCESS)
--		mod_hdcp_save_current_encryption_states(hdcp);
- out:
- 	return status;
- }
-@@ -447,9 +444,6 @@ static enum mod_hdcp_status authenticated_dp(struct mod_hdcp *hdcp,
- 		mod_hdcp_execute_and_set(check_no_reauthentication_request_dp,
- 				&input->reauth_request_check, &status,
- 				hdcp, "reauth_request_check");
--
--	if (status != MOD_HDCP_STATUS_SUCCESS)
--		mod_hdcp_save_current_encryption_states(hdcp);
- out:
- 	return status;
- }
-diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp2_execution.c b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp2_execution.c
-index 117c6b45f718..91c22b96ebde 100644
---- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp2_execution.c
-+++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp2_execution.c
-@@ -571,9 +571,6 @@ static enum mod_hdcp_status authenticated(struct mod_hdcp *hdcp,
- 	}
- 
- 	process_rxstatus(hdcp, event_ctx, input, &status);
--
--	if (status != MOD_HDCP_STATUS_SUCCESS)
--		mod_hdcp_save_current_encryption_states(hdcp);
- out:
- 	return status;
- }
-diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c
-index 1b02056bc8bd..ade86a042398 100644
---- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c
-+++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c
-@@ -45,7 +45,7 @@ static void hdcp2_message_init(struct mod_hdcp *hdcp,
- 	in->process.msg3_desc.msg_size = 0;
- }
- 
--static enum mod_hdcp_status mod_hdcp_remove_display_from_topology_v2(
-+static enum mod_hdcp_status remove_display_from_topology_v2(
- 		struct mod_hdcp *hdcp, uint8_t index)
+ 	/* In flip immediate with pipe splitting case GSL is used for
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.c
+index ef233cb49b31..90c73a1cb986 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.c
+@@ -876,11 +876,35 @@ static bool hubbub31_get_dcc_compression_cap(struct hubbub *hubbub,
+ static int hubbub31_init_dchub_sys_ctx(struct hubbub *hubbub,
+ 		struct dcn_hubbub_phys_addr_config *pa_config)
  {
- 	struct psp_context *psp = hdcp->config.psp.handle;
-@@ -81,7 +81,7 @@ static enum mod_hdcp_status mod_hdcp_remove_display_from_topology_v2(
- 	return status;
+-	hubbub3_init_dchub_sys_ctx(hubbub, pa_config);
++	struct dcn20_hubbub *hubbub2 = TO_DCN20_HUBBUB(hubbub);
++	struct dcn_vmid_page_table_config phys_config;
+ 
+-	dcn21_dchvm_init(hubbub);
++	REG_SET(DCN_VM_FB_LOCATION_BASE, 0,
++			FB_BASE, pa_config->system_aperture.fb_base >> 24);
++	REG_SET(DCN_VM_FB_LOCATION_TOP, 0,
++			FB_TOP, pa_config->system_aperture.fb_top >> 24);
++	REG_SET(DCN_VM_FB_OFFSET, 0,
++			FB_OFFSET, pa_config->system_aperture.fb_offset >> 24);
++	REG_SET(DCN_VM_AGP_BOT, 0,
++			AGP_BOT, pa_config->system_aperture.agp_bot >> 24);
++	REG_SET(DCN_VM_AGP_TOP, 0,
++			AGP_TOP, pa_config->system_aperture.agp_top >> 24);
++	REG_SET(DCN_VM_AGP_BASE, 0,
++			AGP_BASE, pa_config->system_aperture.agp_base >> 24);
+ 
+-	hubbub->vmid_cache = *pa_config;
++	if (pa_config->gart_config.page_table_start_addr != pa_config->gart_config.page_table_end_addr) {
++		phys_config.page_table_start_addr = pa_config->gart_config.page_table_start_addr >> 12;
++		phys_config.page_table_end_addr = pa_config->gart_config.page_table_end_addr >> 12;
++		phys_config.page_table_base_addr = pa_config->gart_config.page_table_base_addr;
++		phys_config.depth = 0;
++		phys_config.block_size = 0;
++		// Init VMID 0 based on PA config
++		dcn20_vmid_setup(&hubbub2->vmid[0], &phys_config);
++
++		dcn20_vmid_setup(&hubbub2->vmid[15], &phys_config);
++	}
++
++	dcn21_dchvm_init(hubbub);
+ 
+ 	return NUM_VMID;
+ }
+@@ -922,23 +946,6 @@ static void hubbub31_get_dchub_ref_freq(struct hubbub *hubbub,
+ 	}
  }
  
--static enum mod_hdcp_status mod_hdcp_remove_display_from_topology_v3(
-+static enum mod_hdcp_status remove_display_from_topology_v3(
- 		struct mod_hdcp *hdcp, uint8_t index)
- {
- 	struct psp_context *psp = hdcp->config.psp.handle;
-@@ -107,7 +107,7 @@ static enum mod_hdcp_status mod_hdcp_remove_display_from_topology_v3(
- 	psp_dtm_invoke(psp, dtm_cmd->cmd_id);
- 
- 	if (dtm_cmd->dtm_status != TA_DTM_STATUS__SUCCESS) {
--		status = mod_hdcp_remove_display_from_topology_v2(hdcp, index);
-+		status = remove_display_from_topology_v2(hdcp, index);
- 		if (status != MOD_HDCP_STATUS_SUCCESS)
- 			display->state = MOD_HDCP_DISPLAY_INACTIVE;
- 	} else {
-@@ -120,20 +120,7 @@ static enum mod_hdcp_status mod_hdcp_remove_display_from_topology_v3(
- 	return status;
- }
- 
--enum mod_hdcp_status mod_hdcp_remove_display_from_topology(
--		struct mod_hdcp *hdcp, uint8_t index)
+-static void hubbub31_apply_invalidation_req_wa(struct hubbub *hubbub,
+-		struct dcn_hubbub_phys_addr_config *pa_config)
 -{
--	enum mod_hdcp_status status = MOD_HDCP_STATUS_UPDATE_TOPOLOGY_FAILURE;
+-	struct dcn20_hubbub *hubbub1 = TO_DCN20_HUBBUB(hubbub);
+-	struct dcn_vmid_page_table_config phys_config;
 -
--	if (hdcp->config.psp.caps.dtm_v3_supported)
--		status = mod_hdcp_remove_display_from_topology_v3(hdcp, index);
--	else
--		status = mod_hdcp_remove_display_from_topology_v2(hdcp, index);
--
--	return status;
+-	if (pa_config->gart_config.page_table_start_addr != pa_config->gart_config.page_table_end_addr) {
+-		phys_config.page_table_start_addr = pa_config->gart_config.page_table_start_addr >> 12;
+-		phys_config.page_table_end_addr = pa_config->gart_config.page_table_end_addr >> 12;
+-		phys_config.page_table_base_addr = pa_config->gart_config.page_table_base_addr;
+-		phys_config.depth = 0;
+-		phys_config.block_size = 0;
+-		// Program an arbitrary unused VMID
+-		dcn20_vmid_setup(&hubbub1->vmid[15], &phys_config);
+-	}
 -}
 -
--static enum mod_hdcp_status mod_hdcp_add_display_to_topology_v2(
-+static enum mod_hdcp_status add_display_to_topology_v2(
- 		struct mod_hdcp *hdcp, struct mod_hdcp_display *display)
- {
- 	struct psp_context *psp = hdcp->config.psp.handle;
-@@ -180,7 +167,7 @@ static enum mod_hdcp_status mod_hdcp_add_display_to_topology_v2(
- 	return status;
- }
- 
--static enum mod_hdcp_status mod_hdcp_add_display_to_topology_v3(
-+static enum mod_hdcp_status add_display_to_topology_v3(
- 		struct mod_hdcp *hdcp, struct mod_hdcp_display *display)
- {
- 	struct psp_context *psp = hdcp->config.psp.handle;
-@@ -220,7 +207,7 @@ static enum mod_hdcp_status mod_hdcp_add_display_to_topology_v3(
- 	psp_dtm_invoke(psp, dtm_cmd->cmd_id);
- 
- 	if (dtm_cmd->dtm_status != TA_DTM_STATUS__SUCCESS) {
--		status = mod_hdcp_add_display_to_topology_v2(hdcp, display);
-+		status = add_display_to_topology_v2(hdcp, display);
- 		if (status != MOD_HDCP_STATUS_SUCCESS)
- 			display->state = MOD_HDCP_DISPLAY_INACTIVE;
- 	} else {
-@@ -232,15 +219,28 @@ static enum mod_hdcp_status mod_hdcp_add_display_to_topology_v3(
- 	return status;
- }
- 
-+enum mod_hdcp_status mod_hdcp_remove_display_from_topology(
-+		struct mod_hdcp *hdcp, uint8_t index)
-+{
-+	enum mod_hdcp_status status = MOD_HDCP_STATUS_UPDATE_TOPOLOGY_FAILURE;
-+
-+	if (hdcp->config.psp.caps.dtm_v3_supported)
-+		status = remove_display_from_topology_v3(hdcp, index);
-+	else
-+		status = remove_display_from_topology_v2(hdcp, index);
-+
-+	return status;
-+}
-+
- enum mod_hdcp_status mod_hdcp_add_display_to_topology(struct mod_hdcp *hdcp,
- 					       struct mod_hdcp_display *display)
- {
- 	enum mod_hdcp_status status = MOD_HDCP_STATUS_SUCCESS;
- 
- 	if (hdcp->config.psp.caps.dtm_v3_supported)
--		status = mod_hdcp_add_display_to_topology_v3(hdcp, display);
-+		status = add_display_to_topology_v3(hdcp, display);
- 	else
--		status = mod_hdcp_add_display_to_topology_v2(hdcp, display);
-+		status = add_display_to_topology_v2(hdcp, display);
- 
- 	return status;
- }
-@@ -1021,14 +1021,3 @@ enum mod_hdcp_status mod_hdcp_hdcp2_validate_stream_ready(struct mod_hdcp *hdcp)
- 	mutex_unlock(&psp->hdcp_context.mutex);
- 	return status;
- }
--
--bool mod_hdcp_is_link_encryption_enabled(struct mod_hdcp *hdcp)
--{
--	/* unsupported */
--	return true;
--}
--
--void mod_hdcp_save_current_encryption_states(struct mod_hdcp *hdcp)
--{
--	/* unsupported */
--}
-diff --git a/drivers/gpu/drm/amd/display/modules/inc/mod_hdcp.h b/drivers/gpu/drm/amd/display/modules/inc/mod_hdcp.h
-index c1b485f5fb71..a6eb86de8d5c 100644
---- a/drivers/gpu/drm/amd/display/modules/inc/mod_hdcp.h
-+++ b/drivers/gpu/drm/amd/display/modules/inc/mod_hdcp.h
-@@ -123,7 +123,6 @@ enum mod_hdcp_display_state {
- 
- struct mod_hdcp_psp_caps {
- 	uint8_t dtm_v3_supported;
--	uint8_t opm_state_query_supported;
+ static const struct hubbub_funcs hubbub31_funcs = {
+ 	.update_dchub = hubbub2_update_dchub,
+ 	.init_dchub_sys_ctx = hubbub31_init_dchub_sys_ctx,
+@@ -955,7 +962,6 @@ static const struct hubbub_funcs hubbub31_funcs = {
+ 	.program_compbuf_size = dcn31_program_compbuf_size,
+ 	.init_crb = dcn31_init_crb,
+ 	.hubbub_read_state = hubbub2_read_state,
+-	.apply_invalidation_req_wa = hubbub31_apply_invalidation_req_wa
  };
  
- enum mod_hdcp_display_disable_option {
+ void hubbub31_construct(struct dcn20_hubbub *hubbub31,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c
+index 83f7904630e6..6399e8acd093 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c
+@@ -598,20 +598,3 @@ bool dcn31_is_abm_supported(struct dc *dc,
+ 	}
+ 	return false;
+ }
+-
+-static void apply_riommu_invalidation_wa(struct dc *dc)
+-{
+-	struct dce_hwseq *hws = dc->hwseq;
+-
+-	if (!hws->wa.early_riommu_invalidation)
+-		return;
+-
+-	REG_UPDATE(DCHUBBUB_ARB_HOSTVM_CNTL, DISABLE_HOSTVM_FORCE_ALLOW_PSTATE, 0);
+-}
+-
+-void dcn31_init_pipes(struct dc *dc, struct dc_state *context)
+-{
+-	dcn10_init_pipes(dc, context);
+-	apply_riommu_invalidation_wa(dc);
+-
+-}
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_init.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_init.c
+index aaf2dbd095fe..05954045c332 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_init.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_init.c
+@@ -103,7 +103,7 @@ static const struct hw_sequencer_funcs dcn31_funcs = {
+ };
+ 
+ static const struct hwseq_private_funcs dcn31_private_funcs = {
+-	.init_pipes = dcn31_init_pipes,
++	.init_pipes = dcn10_init_pipes,
+ 	.update_plane_addr = dcn20_update_plane_addr,
+ 	.plane_atomic_disconnect = dcn10_plane_atomic_disconnect,
+ 	.update_mpcc = dcn20_update_mpcc,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
+index 38c010afade1..f9446ce4fdc5 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
+@@ -1302,7 +1302,6 @@ static struct dce_hwseq *dcn31_hwseq_create(
+ 		hws->regs = &hwseq_reg;
+ 		hws->shifts = &hwseq_shift;
+ 		hws->masks = &hwseq_mask;
+-		hws->wa.early_riommu_invalidation = true;
+ 	}
+ 	return hws;
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h b/drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h
+index 259283d8bde8..713f5558f5e1 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h
+@@ -166,15 +166,12 @@ struct hubbub_funcs {
+ 	void (*program_det_size)(struct hubbub *hubbub, int hubp_inst, unsigned det_buffer_size_in_kbyte);
+ 	void (*program_compbuf_size)(struct hubbub *hubbub, unsigned compbuf_size_kb, bool safe_to_increase);
+ 	void (*init_crb)(struct hubbub *hubbub);
+-	void (*apply_invalidation_req_wa)(struct hubbub *hubbub,
+-			struct dcn_hubbub_phys_addr_config *pa_config);
+ };
+ 
+ struct hubbub {
+ 	const struct hubbub_funcs *funcs;
+ 	struct dc_context *ctx;
+ 	bool riommu_active;
+-	struct dcn_hubbub_phys_addr_config vmid_cache;
+ };
+ 
+ #endif
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer_private.h b/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer_private.h
+index 082549f75978..f7f7e4fff0c2 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer_private.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer_private.h
+@@ -41,7 +41,6 @@ struct dce_hwseq_wa {
+ 	bool DEGVIDCN10_254;
+ 	bool DEGVIDCN21;
+ 	bool disallow_self_refresh_during_multi_plane_transition;
+-	bool early_riommu_invalidation;
+ };
+ 
+ struct hwseq_wa_state {
 -- 
 2.25.1
 
