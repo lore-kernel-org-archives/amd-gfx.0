@@ -7,41 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9F202C4338F
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 13:19:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 907CDC4320A
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 13:19:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 671B061ABB
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 13:19:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 671B061ABB
+	by mail.kernel.org (Postfix) with ESMTPS id 605EA61AA9
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 13:19:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 605EA61AA9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 041CB6E41A;
-	Tue, 27 Jul 2021 13:19:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 948D66E3F4;
+	Tue, 27 Jul 2021 13:19:35 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 885696E2EF;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E81446E40C;
+ Tue, 27 Jul 2021 13:19:33 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id D164E61AA5;
  Tue, 27 Jul 2021 13:19:32 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 4CD1061AA2;
- Tue, 27 Jul 2021 13:19:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1627391972;
- bh=z2FjiORDyxIYRNRSzL6v0RUHqVEtdMKdX2dCqsCiIac=;
+ s=k20201202; t=1627391973;
+ bh=L7w7cyYiD/pSgblXZRqxi2P781WEAhmXqt+HMtYm/iI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=JSc3d82AhyYyfhtpPR648CLNGQh/zrpDfoN1qWxgsBtUrZamqmDhgG1gRnix5tlK2
- HzwUaSu3IjxK2PQyc8Rgnr+y2iETJOQqfD9/dRmPRTDlLs5fFIG3As8nbhxmz3XCGm
- 4sEAiFtA9EJrw2RVW8aLIY6pmvVMmsP017b+GyxKJFVsDF1Aws/i73JZq4uvVcNtUE
- 6kqlDSQjqWT8XuGoaRnZMvBXhO5FdMKbPXANjs8kID3PUY5rZCc5aBEd7iCZ2d2LHQ
- vNkj5ATYFSLy5tuZ3pFLkxVaDzFqgk/0kC356Q8SbMo//MPVUkEnlKRTYCyhYA1xCF
- FGk1RGwIPGS+Q==
+ b=mzDNbnZodN7QzjJe7WlXzWUiwSmlmdOrrhH8izZwe4wvwUv+b8HRgp8ZRlMrjSr+5
+ VDx36K8b+GYJuq3A8xxIibpT+6EMLCgeGfJo1USIqo6uhnmeMe6nGYCFLUPbDGLly7
+ u4f7hDHCWGSFmrI5Q95VP/Ij8FGZ1FzdEsLrkCgT6ddJ3vpiBVQ1iLdFJbIL/kZJ2a
+ RQeWynPuw5LIP6JsLmWpsURE2woKnDJ0JxZVSY8qXXd3HNwdEBETo+yxRhN6NY7/Ea
+ avtzYuTQYBVb3aUqkVKRixAwidpOqy3dddPywJq8JGCxPhx9+52soiOy3+LORA7fue
+ 0zIzVQsR+okAA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.13 17/21] drm/amd/display: Fix comparison error in
- dcn21 DML
-Date: Tue, 27 Jul 2021 09:19:04 -0400
-Message-Id: <20210727131908.834086-17-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.13 18/21] drm/amd/display: Fix max vstartup
+ calculation for modes with borders
+Date: Tue, 27 Jul 2021 09:19:05 -0400
+Message-Id: <20210727131908.834086-18-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210727131908.834086-1-sashal@kernel.org>
 References: <20210727131908.834086-1-sashal@kernel.org>
@@ -61,49 +61,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Sasha Levin <sashal@kernel.org>,
  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
- Victor Lu <victorchengchi.lu@amd.com>,
  Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>,
- dri-devel@lists.freedesktop.org, Yongqiang Sun <Yongqiang.Sun@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
+ dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Victor Lu <victorchengchi.lu@amd.com>
+From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 
-[ Upstream commit ec3102dc6b36c692104c4a0546d4119de59a3bc1 ]
+[ Upstream commit d7940911fc0754d99b208f0e3098762d39f403a0 ]
 
-[why]
-A comparison error made it possible to not iterate through all the
-specified prefetch modes.
+[Why]
+Vertical and horizontal borders in timings are treated as increasing the
+active area - vblank and hblank actually shrink.
 
-[how]
-Correct "<" to "<="
+Our input into DML does not include these borders so it incorrectly
+assumes it has more time than available for vstartup and tmdl
+calculations for some modes with borders.
+
+An example of such a timing would be 640x480@72Hz:
+
+h_total: 832
+h_border_left: 8
+h_addressable: 640
+h_border_right: 8
+h_front_porch: 16
+h_sync_width: 40
+v_total: 520
+v_border_top: 8
+v_addressable: 480
+v_border_bottom: 8
+v_front_porch: 1
+v_sync_width: 3
+pix_clk_100hz: 315000
+
+[How]
+Include borders as part of destination vactive/hactive.
+
+This change DCN20+ so it has wide impact, but the destination vactive
+and hactive are only really used for vstartup calculation anyway.
+
+Most modes do not have vertical or horizontal borders.
 
 Reviewed-by: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
-Reviewed-by: Yongqiang Sun <Yongqiang.Sun@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Signed-off-by: Victor Lu <victorchengchi.lu@amd.com>
+Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c
-index 398210d1af34..f49743929357 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c
-@@ -4889,7 +4889,7 @@ void dml21_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 				}
- 			} while ((locals->PrefetchSupported[i][j] != true || locals->VRatioInPrefetchSupported[i][j] != true)
- 					&& (mode_lib->vba.NextMaxVStartup != mode_lib->vba.MaxMaxVStartup[0][0]
--						|| mode_lib->vba.NextPrefetchMode < mode_lib->vba.MaxPrefetchMode));
-+						|| mode_lib->vba.NextPrefetchMode <= mode_lib->vba.MaxPrefetchMode));
- 
- 			if (locals->PrefetchSupported[i][j] == true && locals->VRatioInPrefetchSupported[i][j] == true) {
- 				mode_lib->vba.BandwidthAvailableForImmediateFlip = locals->ReturnBWPerState[i][0];
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+index d7d70b9bb387..81f583733fa8 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+@@ -2093,8 +2093,10 @@ int dcn20_populate_dml_pipes_from_context(
+ 				- timing->v_border_bottom;
+ 		pipes[pipe_cnt].pipe.dest.htotal = timing->h_total;
+ 		pipes[pipe_cnt].pipe.dest.vtotal = v_total;
+-		pipes[pipe_cnt].pipe.dest.hactive = timing->h_addressable;
+-		pipes[pipe_cnt].pipe.dest.vactive = timing->v_addressable;
++		pipes[pipe_cnt].pipe.dest.hactive =
++			timing->h_addressable + timing->h_border_left + timing->h_border_right;
++		pipes[pipe_cnt].pipe.dest.vactive =
++			timing->v_addressable + timing->v_border_top + timing->v_border_bottom;
+ 		pipes[pipe_cnt].pipe.dest.interlaced = timing->flags.INTERLACE;
+ 		pipes[pipe_cnt].pipe.dest.pixel_rate_mhz = timing->pix_clk_100hz/10000.0;
+ 		if (timing->timing_3d_format == TIMING_3D_FORMAT_HW_FRAME_PACKING)
 -- 
 2.30.2
 
