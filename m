@@ -7,55 +7,55 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8A43CC432BE
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 18:27:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D68F5C432BE
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 18:27:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5369F60F37
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 18:27:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5369F60F37
+	by mail.kernel.org (Postfix) with ESMTPS id 9C2CC60F91
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 18:27:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9C2CC60F91
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E8246EC69;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CB136EC43;
 	Tue, 27 Jul 2021 18:27:32 +0000 (UTC)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 116526EB4C;
- Tue, 27 Jul 2021 18:27:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5AED96EA98;
+ Tue, 27 Jul 2021 18:27:28 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 7E84C20175;
- Tue, 27 Jul 2021 18:27:28 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id D6B9020173;
+ Tue, 27 Jul 2021 18:27:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1627410448; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1627410446; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=lm7pH3Rz5UUT37kC0x5dmzm3CUEaZK0HibEZIPmYJV0=;
- b=twa9trWJecobv3lOqqOtbg5lpKP9yvyFk2I9+WdToYo5rM3P4tZSkfs5kYX8fWuKSnGq56
- Kl/FWx/IrrXNYazJUEWFMzHiTwtS8K4kjQ7VVDpFRVXFFqn1fUHH4d3KumalKYfQJ1EMzi
- g+qpzEKaKe4hXaazVn853oOR5lfXjdM=
+ bh=uPu3oBJ4tIyHmLkIL77SV15tUaWbOHok/CzO8aWhemY=;
+ b=ppi1JLoJUarFuLT7Fd+ZqtUrGoUqNPAQhNr9ZoS899rk9mxbp+6eB5kj7WY0f+a5Mzpoa4
+ RfD+uqmhHNcDwQrY2qZZmztsaI3BBGP3MHWlUf3tgUC2+UYuPXzB7kueVusLMYsX2BZg0P
+ vMFd1+hfBemxgvPP37xHgyURsoVZi90=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1627410448;
+ s=susede2_ed25519; t=1627410446;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=lm7pH3Rz5UUT37kC0x5dmzm3CUEaZK0HibEZIPmYJV0=;
- b=Ige+wbpf2OcVZ9ZJLKuMncevcWSMjZUxXdFitWxeOaXcXezQmBA0UyoT+OfDS0CiFv9rGM
- UjByc5wisLjaXTBw==
+ bh=uPu3oBJ4tIyHmLkIL77SV15tUaWbOHok/CzO8aWhemY=;
+ b=nQqI2l27jxQZzDhdyilaw9r+t2OPhxtSj8LwaXECJ+R9HzC7AKEZkUwIiIM2q1+HWtKdwC
+ uOgrniRFsEcqcFAQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id EED7013E9D;
- Tue, 27 Jul 2021 18:27:27 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 48E0D13B86;
+ Tue, 27 Jul 2021 18:27:26 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 4IplOQ9QAGGwGQAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Tue, 27 Jul 2021 18:27:27 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id WJvYEA5QAGGwGQAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Tue, 27 Jul 2021 18:27:26 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
  christian.koenig@amd.com, liviu.dudau@arm.com, brian.starkey@arm.com,
@@ -65,9 +65,9 @@ To: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
  anitha.chrisanthus@intel.com, robdclark@gmail.com, edmund.j.dea@intel.com,
  sean@poorly.run, shawnguo@kernel.org, s.hauer@pengutronix.de,
  kernel@pengutronix.de, jyri.sarha@iki.fi, tomba@kernel.org
-Subject: [PATCH 09/14] drm/radeon: Convert to Linux IRQ interfaces
-Date: Tue, 27 Jul 2021 20:27:16 +0200
-Message-Id: <20210727182721.17981-10-tzimmermann@suse.de>
+Subject: [PATCH 06/14] drm/kmb: Convert to Linux IRQ interfaces
+Date: Tue, 27 Jul 2021 20:27:13 +0200
+Message-Id: <20210727182721.17981-7-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210727182721.17981-1-tzimmermann@suse.de>
 References: <20210727182721.17981-1-tzimmermann@suse.de>
@@ -99,144 +99,72 @@ DRM IRQ callbacks are now being called directly or inlined.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/radeon/radeon_drv.c     |  4 ---
- drivers/gpu/drm/radeon/radeon_irq_kms.c | 44 +++++++++++++++++++++----
- drivers/gpu/drm/radeon/radeon_kms.h     |  4 ---
- 3 files changed, 37 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/kmb/kmb_drv.c | 26 ++++++++++++++++++++------
+ 1 file changed, 20 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
-index c8dd68152d65..b74cebca1f89 100644
---- a/drivers/gpu/drm/radeon/radeon_drv.c
-+++ b/drivers/gpu/drm/radeon/radeon_drv.c
-@@ -607,10 +607,6 @@ static const struct drm_driver kms_driver = {
- 	.postclose = radeon_driver_postclose_kms,
- 	.lastclose = radeon_driver_lastclose_kms,
- 	.unload = radeon_driver_unload_kms,
--	.irq_preinstall = radeon_driver_irq_preinstall_kms,
--	.irq_postinstall = radeon_driver_irq_postinstall_kms,
--	.irq_uninstall = radeon_driver_irq_uninstall_kms,
--	.irq_handler = radeon_driver_irq_handler_kms,
- 	.ioctls = radeon_ioctls_kms,
- 	.num_ioctls = ARRAY_SIZE(radeon_ioctls_kms),
- 	.dumb_create = radeon_mode_dumb_create,
-diff --git a/drivers/gpu/drm/radeon/radeon_irq_kms.c b/drivers/gpu/drm/radeon/radeon_irq_kms.c
-index a36ce826d0c0..3907785d0798 100644
---- a/drivers/gpu/drm/radeon/radeon_irq_kms.c
-+++ b/drivers/gpu/drm/radeon/radeon_irq_kms.c
-@@ -31,7 +31,7 @@
- 
- #include <drm/drm_crtc_helper.h>
- #include <drm/drm_device.h>
+diff --git a/drivers/gpu/drm/kmb/kmb_drv.c b/drivers/gpu/drm/kmb/kmb_drv.c
+index 96ea1a2c11dd..be192f6da9f1 100644
+--- a/drivers/gpu/drm/kmb/kmb_drv.c
++++ b/drivers/gpu/drm/kmb/kmb_drv.c
+@@ -17,7 +17,6 @@
+ #include <drm/drm_drv.h>
+ #include <drm/drm_gem_cma_helper.h>
+ #include <drm/drm_gem_framebuffer_helper.h>
 -#include <drm/drm_irq.h>
-+#include <drm/drm_drv.h>
  #include <drm/drm_probe_helper.h>
  #include <drm/drm_vblank.h>
- #include <drm/radeon_drm.h>
-@@ -51,7 +51,7 @@
-  * radeon_irq_process is a macro that points to the per-asic
-  * irq handler callback.
-  */
--irqreturn_t radeon_driver_irq_handler_kms(int irq, void *arg)
-+static irqreturn_t radeon_driver_irq_handler_kms(int irq, void *arg)
- {
- 	struct drm_device *dev = (struct drm_device *) arg;
- 	struct radeon_device *rdev = dev->dev_private;
-@@ -118,7 +118,7 @@ static void radeon_dp_work_func(struct work_struct *work)
-  * Gets the hw ready to enable irqs (all asics).
-  * This function disables all interrupt sources on the GPU.
-  */
--void radeon_driver_irq_preinstall_kms(struct drm_device *dev)
-+static void radeon_driver_irq_preinstall_kms(struct drm_device *dev)
- {
- 	struct radeon_device *rdev = dev->dev_private;
- 	unsigned long irqflags;
-@@ -150,7 +150,7 @@ void radeon_driver_irq_preinstall_kms(struct drm_device *dev)
-  * Handles stuff to be done after enabling irqs (all asics).
-  * Returns 0 on success.
-  */
--int radeon_driver_irq_postinstall_kms(struct drm_device *dev)
-+static int radeon_driver_irq_postinstall_kms(struct drm_device *dev)
- {
- 	struct radeon_device *rdev = dev->dev_private;
  
-@@ -169,7 +169,7 @@ int radeon_driver_irq_postinstall_kms(struct drm_device *dev)
-  *
-  * This function disables all interrupt sources on the GPU (all asics).
-  */
--void radeon_driver_irq_uninstall_kms(struct drm_device *dev)
-+static void radeon_driver_irq_uninstall_kms(struct drm_device *dev)
- {
- 	struct radeon_device *rdev = dev->dev_private;
- 	unsigned long irqflags;
-@@ -194,6 +194,36 @@ void radeon_driver_irq_uninstall_kms(struct drm_device *dev)
- 	spin_unlock_irqrestore(&rdev->irq.lock, irqflags);
+@@ -399,14 +398,29 @@ static void kmb_irq_reset(struct drm_device *drm)
+ 	kmb_write_lcd(to_kmb(drm), LCD_INT_ENABLE, 0);
  }
  
-+static int radeon_irq_install(struct radeon_device *rdev, int irq)
++static int kmb_irq_install(struct drm_device *drm, unsigned int irq)
 +{
-+	struct drm_device *dev = rdev->ddev;
-+	int ret;
-+
 +	if (irq == IRQ_NOTCONNECTED)
 +		return -ENOTCONN;
 +
-+	radeon_driver_irq_preinstall_kms(dev);
++	kmb_irq_reset(drm);
 +
-+	/* PCI devices require shared interrupts. */
-+	ret = request_irq(irq, radeon_driver_irq_handler_kms,
-+			  IRQF_SHARED, dev->driver->name, dev);
-+	if (ret)
-+		return ret;
-+
-+	radeon_driver_irq_postinstall_kms(dev);
-+
-+	return 0;
++	return request_irq(irq, kmb_isr, 0, drm->driver->name, drm);
 +}
 +
-+static void radeon_irq_uninstall(struct radeon_device *rdev)
++static void kmb_irq_uninstall(struct drm_device *drm)
 +{
-+	struct drm_device *dev = rdev->ddev;
-+	struct pci_dev *pdev = to_pci_dev(dev->dev);
++	struct kmb_drm_private *kmb = to_kmb(drm);
 +
-+	radeon_driver_irq_uninstall_kms(dev);
-+	free_irq(pdev->irq, dev);
++	kmb_irq_reset(drm);
++	free_irq(kmb->irq_lcd, drm);
 +}
 +
- /**
-  * radeon_msi_ok - asic specific msi checks
-  *
-@@ -314,7 +344,7 @@ int radeon_irq_kms_init(struct radeon_device *rdev)
- 	INIT_WORK(&rdev->audio_work, r600_audio_update_hdmi);
+ DEFINE_DRM_GEM_CMA_FOPS(fops);
  
- 	rdev->irq.installed = true;
--	r = drm_irq_install(rdev->ddev, rdev->pdev->irq);
-+	r = radeon_irq_install(rdev, rdev->pdev->irq);
- 	if (r) {
- 		rdev->irq.installed = false;
- 		flush_delayed_work(&rdev->hotplug_work);
-@@ -335,7 +365,7 @@ int radeon_irq_kms_init(struct radeon_device *rdev)
- void radeon_irq_kms_fini(struct radeon_device *rdev)
- {
- 	if (rdev->irq.installed) {
--		drm_irq_uninstall(rdev->ddev);
-+		radeon_irq_uninstall(rdev);
- 		rdev->irq.installed = false;
- 		if (rdev->msi_enabled)
- 			pci_disable_msi(rdev->pdev);
-diff --git a/drivers/gpu/drm/radeon/radeon_kms.h b/drivers/gpu/drm/radeon/radeon_kms.h
-index 9b97bf38acd4..36e73cea9215 100644
---- a/drivers/gpu/drm/radeon/radeon_kms.h
-+++ b/drivers/gpu/drm/radeon/radeon_kms.h
-@@ -31,9 +31,5 @@
- u32 radeon_get_vblank_counter_kms(struct drm_crtc *crtc);
- int radeon_enable_vblank_kms(struct drm_crtc *crtc);
- void radeon_disable_vblank_kms(struct drm_crtc *crtc);
--irqreturn_t radeon_driver_irq_handler_kms(int irq, void *arg);
--void radeon_driver_irq_preinstall_kms(struct drm_device *dev);
--int radeon_driver_irq_postinstall_kms(struct drm_device *dev);
--void radeon_driver_irq_uninstall_kms(struct drm_device *dev);
+ static const struct drm_driver kmb_driver = {
+ 	.driver_features = DRIVER_GEM |
+ 	    DRIVER_MODESET | DRIVER_ATOMIC,
+-	.irq_handler = kmb_isr,
+-	.irq_preinstall = kmb_irq_reset,
+-	.irq_uninstall = kmb_irq_reset,
+ 	/* GEM Operations */
+ 	.fops = &fops,
+ 	DRM_GEM_CMA_DRIVER_OPS_VMAP,
+@@ -428,7 +442,7 @@ static int kmb_remove(struct platform_device *pdev)
+ 	of_node_put(kmb->crtc.port);
+ 	kmb->crtc.port = NULL;
+ 	pm_runtime_get_sync(drm->dev);
+-	drm_irq_uninstall(drm);
++	kmb_irq_uninstall(drm);
+ 	pm_runtime_put_sync(drm->dev);
+ 	pm_runtime_disable(drm->dev);
  
- #endif				/* __RADEON_KMS_H__ */
+@@ -518,7 +532,7 @@ static int kmb_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		goto err_free;
+ 
+-	ret = drm_irq_install(&kmb->drm, kmb->irq_lcd);
++	ret = kmb_irq_install(&kmb->drm, kmb->irq_lcd);
+ 	if (ret < 0) {
+ 		drm_err(&kmb->drm, "failed to install IRQ handler\n");
+ 		goto err_irq;
 -- 
 2.32.0
 
