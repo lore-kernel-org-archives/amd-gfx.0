@@ -7,55 +7,55 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E42F7C4320E
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 18:27:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8A43CC432BE
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 18:27:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B622B60F37
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 18:27:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B622B60F37
+	by mail.kernel.org (Postfix) with ESMTPS id 5369F60F37
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 18:27:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5369F60F37
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B82E6EC0D;
-	Tue, 27 Jul 2021 18:27:31 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B75D76EB35;
- Tue, 27 Jul 2021 18:27:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E8246EC69;
+	Tue, 27 Jul 2021 18:27:32 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 116526EB4C;
+ Tue, 27 Jul 2021 18:27:30 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 430ED22238;
- Tue, 27 Jul 2021 18:27:26 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 7E84C20175;
+ Tue, 27 Jul 2021 18:27:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1627410446; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1627410448; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=8mQOCbOV52pRbUkfuvMipsrJoBTjpbf/hTeFLBcfUcs=;
- b=rgzy3kKkO/HZMWuFh+nzaWVo7ItC4u82JQl56z0qAxYN3Lb2imiJJFBYIwTGX/wedl9D1z
- CRFH3a+IgbLzYdrrCC+qNMmiFXYhLl3L8GGRFKWz5mGcOcn4YdC6yCNW4bWmLd20CUkjN/
- qJ19Nyiz8ibS0NPyrl1OpcoiJNSF5xE=
+ bh=lm7pH3Rz5UUT37kC0x5dmzm3CUEaZK0HibEZIPmYJV0=;
+ b=twa9trWJecobv3lOqqOtbg5lpKP9yvyFk2I9+WdToYo5rM3P4tZSkfs5kYX8fWuKSnGq56
+ Kl/FWx/IrrXNYazJUEWFMzHiTwtS8K4kjQ7VVDpFRVXFFqn1fUHH4d3KumalKYfQJ1EMzi
+ g+qpzEKaKe4hXaazVn853oOR5lfXjdM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1627410446;
+ s=susede2_ed25519; t=1627410448;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=8mQOCbOV52pRbUkfuvMipsrJoBTjpbf/hTeFLBcfUcs=;
- b=+D0JJ8X3djIZMbjSGIcsbmDjUpxT/mnGOnkfhG4mZv7Y4JoQgF4LUlvRTgDSBFm3B2SQ7h
- Mi6BpkMjOh+rH7DA==
+ bh=lm7pH3Rz5UUT37kC0x5dmzm3CUEaZK0HibEZIPmYJV0=;
+ b=Ige+wbpf2OcVZ9ZJLKuMncevcWSMjZUxXdFitWxeOaXcXezQmBA0UyoT+OfDS0CiFv9rGM
+ UjByc5wisLjaXTBw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B53A413E9D;
- Tue, 27 Jul 2021 18:27:25 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id EED7013E9D;
+ Tue, 27 Jul 2021 18:27:27 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id yJo6Kw1QAGGwGQAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Tue, 27 Jul 2021 18:27:25 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id 4IplOQ9QAGGwGQAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Tue, 27 Jul 2021 18:27:27 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
  christian.koenig@amd.com, liviu.dudau@arm.com, brian.starkey@arm.com,
@@ -65,9 +65,9 @@ To: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
  anitha.chrisanthus@intel.com, robdclark@gmail.com, edmund.j.dea@intel.com,
  sean@poorly.run, shawnguo@kernel.org, s.hauer@pengutronix.de,
  kernel@pengutronix.de, jyri.sarha@iki.fi, tomba@kernel.org
-Subject: [PATCH 05/14] drm/gma500: Convert to Linux IRQ interfaces
-Date: Tue, 27 Jul 2021 20:27:12 +0200
-Message-Id: <20210727182721.17981-6-tzimmermann@suse.de>
+Subject: [PATCH 09/14] drm/radeon: Convert to Linux IRQ interfaces
+Date: Tue, 27 Jul 2021 20:27:16 +0200
+Message-Id: <20210727182721.17981-10-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210727182721.17981-1-tzimmermann@suse.de>
 References: <20210727182721.17981-1-tzimmermann@suse.de>
@@ -93,173 +93,150 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Drop the DRM IRQ midlayer in favor of Linux IRQ interfaces. DRM's
 IRQ helpers are mostly useful for UMS drivers. Modern KMS drivers
-don't benefit from using it. DRM IRQ callbacks are now being called
-directly or inlined.
+don't benefit from using it.
+
+DRM IRQ callbacks are now being called directly or inlined.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/gma500/power.c   |  1 +
- drivers/gpu/drm/gma500/psb_drv.c |  8 ++------
- drivers/gpu/drm/gma500/psb_drv.h |  5 -----
- drivers/gpu/drm/gma500/psb_irq.c | 26 ++++++++++++++++++++++++--
- drivers/gpu/drm/gma500/psb_irq.h |  4 ++--
- 5 files changed, 29 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/radeon/radeon_drv.c     |  4 ---
+ drivers/gpu/drm/radeon/radeon_irq_kms.c | 44 +++++++++++++++++++++----
+ drivers/gpu/drm/radeon/radeon_kms.h     |  4 ---
+ 3 files changed, 37 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/gma500/power.c b/drivers/gpu/drm/gma500/power.c
-index f07641dfa5a4..20ace6010f9f 100644
---- a/drivers/gpu/drm/gma500/power.c
-+++ b/drivers/gpu/drm/gma500/power.c
-@@ -32,6 +32,7 @@
- #include "psb_drv.h"
- #include "psb_reg.h"
- #include "psb_intel_reg.h"
-+#include "psb_irq.h"
- #include <linux/mutex.h>
- #include <linux/pm_runtime.h>
+diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
+index c8dd68152d65..b74cebca1f89 100644
+--- a/drivers/gpu/drm/radeon/radeon_drv.c
++++ b/drivers/gpu/drm/radeon/radeon_drv.c
+@@ -607,10 +607,6 @@ static const struct drm_driver kms_driver = {
+ 	.postclose = radeon_driver_postclose_kms,
+ 	.lastclose = radeon_driver_lastclose_kms,
+ 	.unload = radeon_driver_unload_kms,
+-	.irq_preinstall = radeon_driver_irq_preinstall_kms,
+-	.irq_postinstall = radeon_driver_irq_postinstall_kms,
+-	.irq_uninstall = radeon_driver_irq_uninstall_kms,
+-	.irq_handler = radeon_driver_irq_handler_kms,
+ 	.ioctls = radeon_ioctls_kms,
+ 	.num_ioctls = ARRAY_SIZE(radeon_ioctls_kms),
+ 	.dumb_create = radeon_mode_dumb_create,
+diff --git a/drivers/gpu/drm/radeon/radeon_irq_kms.c b/drivers/gpu/drm/radeon/radeon_irq_kms.c
+index a36ce826d0c0..3907785d0798 100644
+--- a/drivers/gpu/drm/radeon/radeon_irq_kms.c
++++ b/drivers/gpu/drm/radeon/radeon_irq_kms.c
+@@ -31,7 +31,7 @@
  
-diff --git a/drivers/gpu/drm/gma500/psb_drv.c b/drivers/gpu/drm/gma500/psb_drv.c
-index 3850842d58f3..58bce1a60a4d 100644
---- a/drivers/gpu/drm/gma500/psb_drv.c
-+++ b/drivers/gpu/drm/gma500/psb_drv.c
-@@ -23,7 +23,6 @@
- #include <drm/drm_fb_helper.h>
- #include <drm/drm_file.h>
- #include <drm/drm_ioctl.h>
+ #include <drm/drm_crtc_helper.h>
+ #include <drm/drm_device.h>
 -#include <drm/drm_irq.h>
- #include <drm/drm_pciids.h>
- #include <drm/drm_vblank.h>
- 
-@@ -33,6 +32,7 @@
- #include "power.h"
- #include "psb_drv.h"
- #include "psb_intel_reg.h"
-+#include "psb_irq.h"
- #include "psb_reg.h"
- 
- static const struct drm_driver driver;
-@@ -380,7 +380,7 @@ static int psb_driver_load(struct drm_device *dev, unsigned long flags)
- 	PSB_WVDC32(0xFFFFFFFF, PSB_INT_MASK_R);
- 	spin_unlock_irqrestore(&dev_priv->irqmask_lock, irqflags);
- 
--	drm_irq_install(dev, pdev->irq);
-+	psb_irq_install(dev, pdev->irq);
- 
- 	dev->max_vblank_count = 0xffffff; /* only 24 bits of frame count */
- 
-@@ -515,10 +515,6 @@ static const struct drm_driver driver = {
- 	.lastclose = drm_fb_helper_lastclose,
- 
- 	.num_ioctls = ARRAY_SIZE(psb_ioctls),
--	.irq_preinstall = psb_irq_preinstall,
--	.irq_postinstall = psb_irq_postinstall,
--	.irq_uninstall = psb_irq_uninstall,
--	.irq_handler = psb_irq_handler,
- 
- 	.dumb_create = psb_gem_dumb_create,
- 	.ioctls = psb_ioctls,
-diff --git a/drivers/gpu/drm/gma500/psb_drv.h b/drivers/gpu/drm/gma500/psb_drv.h
-index d6e7c2c2c947..f2bae270ca7b 100644
---- a/drivers/gpu/drm/gma500/psb_drv.h
-+++ b/drivers/gpu/drm/gma500/psb_drv.h
-@@ -624,11 +624,6 @@ static inline struct drm_psb_private *psb_priv(struct drm_device *dev)
- }
- 
- /* psb_irq.c */
--extern irqreturn_t psb_irq_handler(int irq, void *arg);
--extern void psb_irq_preinstall(struct drm_device *dev);
--extern int psb_irq_postinstall(struct drm_device *dev);
--extern void psb_irq_uninstall(struct drm_device *dev);
--
- extern void psb_irq_uninstall_islands(struct drm_device *dev, int hw_islands);
- extern int psb_vblank_wait2(struct drm_device *dev, unsigned int *sequence);
- extern int psb_vblank_wait(struct drm_device *dev, unsigned int *sequence);
-diff --git a/drivers/gpu/drm/gma500/psb_irq.c b/drivers/gpu/drm/gma500/psb_irq.c
-index 104009e78487..deb1fbc1f748 100644
---- a/drivers/gpu/drm/gma500/psb_irq.c
-+++ b/drivers/gpu/drm/gma500/psb_irq.c
-@@ -8,6 +8,7 @@
-  *
-  **************************************************************************/
- 
 +#include <drm/drm_drv.h>
+ #include <drm/drm_probe_helper.h>
  #include <drm/drm_vblank.h>
- 
- #include "power.h"
-@@ -222,7 +223,7 @@ static void psb_sgx_interrupt(struct drm_device *dev, u32 stat_1, u32 stat_2)
- 	PSB_RSGX32(PSB_CR_EVENT_HOST_CLEAR2);
- }
- 
--irqreturn_t psb_irq_handler(int irq, void *arg)
-+static irqreturn_t psb_irq_handler(int irq, void *arg)
+ #include <drm/radeon_drm.h>
+@@ -51,7 +51,7 @@
+  * radeon_irq_process is a macro that points to the per-asic
+  * irq handler callback.
+  */
+-irqreturn_t radeon_driver_irq_handler_kms(int irq, void *arg)
++static irqreturn_t radeon_driver_irq_handler_kms(int irq, void *arg)
  {
- 	struct drm_device *dev = arg;
- 	struct drm_psb_private *dev_priv = dev->dev_private;
-@@ -304,7 +305,7 @@ void psb_irq_preinstall(struct drm_device *dev)
- 	spin_unlock_irqrestore(&dev_priv->irqmask_lock, irqflags);
- }
- 
--int psb_irq_postinstall(struct drm_device *dev)
-+void psb_irq_postinstall(struct drm_device *dev)
+ 	struct drm_device *dev = (struct drm_device *) arg;
+ 	struct radeon_device *rdev = dev->dev_private;
+@@ -118,7 +118,7 @@ static void radeon_dp_work_func(struct work_struct *work)
+  * Gets the hw ready to enable irqs (all asics).
+  * This function disables all interrupt sources on the GPU.
+  */
+-void radeon_driver_irq_preinstall_kms(struct drm_device *dev)
++static void radeon_driver_irq_preinstall_kms(struct drm_device *dev)
  {
- 	struct drm_psb_private *dev_priv = dev->dev_private;
+ 	struct radeon_device *rdev = dev->dev_private;
  	unsigned long irqflags;
-@@ -332,12 +333,31 @@ int psb_irq_postinstall(struct drm_device *dev)
- 		dev_priv->ops->hotplug_enable(dev, true);
+@@ -150,7 +150,7 @@ void radeon_driver_irq_preinstall_kms(struct drm_device *dev)
+  * Handles stuff to be done after enabling irqs (all asics).
+  * Returns 0 on success.
+  */
+-int radeon_driver_irq_postinstall_kms(struct drm_device *dev)
++static int radeon_driver_irq_postinstall_kms(struct drm_device *dev)
+ {
+ 	struct radeon_device *rdev = dev->dev_private;
  
- 	spin_unlock_irqrestore(&dev_priv->irqmask_lock, irqflags);
-+}
-+
-+int psb_irq_install(struct drm_device *dev, unsigned int irq)
+@@ -169,7 +169,7 @@ int radeon_driver_irq_postinstall_kms(struct drm_device *dev)
+  *
+  * This function disables all interrupt sources on the GPU (all asics).
+  */
+-void radeon_driver_irq_uninstall_kms(struct drm_device *dev)
++static void radeon_driver_irq_uninstall_kms(struct drm_device *dev)
+ {
+ 	struct radeon_device *rdev = dev->dev_private;
+ 	unsigned long irqflags;
+@@ -194,6 +194,36 @@ void radeon_driver_irq_uninstall_kms(struct drm_device *dev)
+ 	spin_unlock_irqrestore(&rdev->irq.lock, irqflags);
+ }
+ 
++static int radeon_irq_install(struct radeon_device *rdev, int irq)
 +{
++	struct drm_device *dev = rdev->ddev;
 +	int ret;
 +
 +	if (irq == IRQ_NOTCONNECTED)
 +		return -ENOTCONN;
 +
-+	psb_irq_preinstall(dev);
++	radeon_driver_irq_preinstall_kms(dev);
 +
 +	/* PCI devices require shared interrupts. */
-+	ret = request_irq(irq, psb_irq_handler, IRQF_SHARED, dev->driver->name, dev);
++	ret = request_irq(irq, radeon_driver_irq_handler_kms,
++			  IRQF_SHARED, dev->driver->name, dev);
 +	if (ret)
 +		return ret;
 +
-+	psb_irq_postinstall(dev);
++	radeon_driver_irq_postinstall_kms(dev);
 +
- 	return 0;
- }
- 
- void psb_irq_uninstall(struct drm_device *dev)
- {
- 	struct drm_psb_private *dev_priv = dev->dev_private;
++	return 0;
++}
++
++static void radeon_irq_uninstall(struct radeon_device *rdev)
++{
++	struct drm_device *dev = rdev->ddev;
 +	struct pci_dev *pdev = to_pci_dev(dev->dev);
- 	unsigned long irqflags;
- 	unsigned int i;
- 
-@@ -366,6 +386,8 @@ void psb_irq_uninstall(struct drm_device *dev)
- 	/* This register is safe even if display island is off */
- 	PSB_WVDC32(PSB_RVDC32(PSB_INT_IDENTITY_R), PSB_INT_IDENTITY_R);
- 	spin_unlock_irqrestore(&dev_priv->irqmask_lock, irqflags);
 +
++	radeon_driver_irq_uninstall_kms(dev);
 +	free_irq(pdev->irq, dev);
- }
++}
++
+ /**
+  * radeon_msi_ok - asic specific msi checks
+  *
+@@ -314,7 +344,7 @@ int radeon_irq_kms_init(struct radeon_device *rdev)
+ 	INIT_WORK(&rdev->audio_work, r600_audio_update_hdmi);
  
- /*
-diff --git a/drivers/gpu/drm/gma500/psb_irq.h b/drivers/gpu/drm/gma500/psb_irq.h
-index 17c9b0b62471..a97cb49393d8 100644
---- a/drivers/gpu/drm/gma500/psb_irq.h
-+++ b/drivers/gpu/drm/gma500/psb_irq.h
-@@ -19,9 +19,9 @@ bool sysirq_init(struct drm_device *dev);
- void sysirq_uninit(struct drm_device *dev);
+ 	rdev->irq.installed = true;
+-	r = drm_irq_install(rdev->ddev, rdev->pdev->irq);
++	r = radeon_irq_install(rdev, rdev->pdev->irq);
+ 	if (r) {
+ 		rdev->irq.installed = false;
+ 		flush_delayed_work(&rdev->hotplug_work);
+@@ -335,7 +365,7 @@ int radeon_irq_kms_init(struct radeon_device *rdev)
+ void radeon_irq_kms_fini(struct radeon_device *rdev)
+ {
+ 	if (rdev->irq.installed) {
+-		drm_irq_uninstall(rdev->ddev);
++		radeon_irq_uninstall(rdev);
+ 		rdev->irq.installed = false;
+ 		if (rdev->msi_enabled)
+ 			pci_disable_msi(rdev->pdev);
+diff --git a/drivers/gpu/drm/radeon/radeon_kms.h b/drivers/gpu/drm/radeon/radeon_kms.h
+index 9b97bf38acd4..36e73cea9215 100644
+--- a/drivers/gpu/drm/radeon/radeon_kms.h
++++ b/drivers/gpu/drm/radeon/radeon_kms.h
+@@ -31,9 +31,5 @@
+ u32 radeon_get_vblank_counter_kms(struct drm_crtc *crtc);
+ int radeon_enable_vblank_kms(struct drm_crtc *crtc);
+ void radeon_disable_vblank_kms(struct drm_crtc *crtc);
+-irqreturn_t radeon_driver_irq_handler_kms(int irq, void *arg);
+-void radeon_driver_irq_preinstall_kms(struct drm_device *dev);
+-int radeon_driver_irq_postinstall_kms(struct drm_device *dev);
+-void radeon_driver_irq_uninstall_kms(struct drm_device *dev);
  
- void psb_irq_preinstall(struct drm_device *dev);
--int  psb_irq_postinstall(struct drm_device *dev);
-+void psb_irq_postinstall(struct drm_device *dev);
-+int  psb_irq_install(struct drm_device *dev, unsigned int irq);
- void psb_irq_uninstall(struct drm_device *dev);
--irqreturn_t psb_irq_handler(int irq, void *arg);
- 
- int  psb_enable_vblank(struct drm_crtc *crtc);
- void psb_disable_vblank(struct drm_crtc *crtc);
+ #endif				/* __RADEON_KMS_H__ */
 -- 
 2.32.0
 
