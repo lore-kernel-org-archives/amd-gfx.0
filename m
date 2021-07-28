@@ -2,67 +2,50 @@ Return-Path: <SRS0=0Udm=MU=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C4CA3C4338F
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Jul 2021 13:46:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C1748C4338F
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Jul 2021 14:00:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 64D8A60EC0
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Jul 2021 13:46:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 64D8A60EC0
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 8C38860F45
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Jul 2021 14:00:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8C38860F45
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ravnborg.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E9A66EAC1;
-	Wed, 28 Jul 2021 13:46:03 +0000 (UTC)
-Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
- [IPv6:2607:f8b0:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DBFC6EAC4
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Jul 2021 13:46:01 +0000 (UTC)
-Received: by mail-ot1-x335.google.com with SMTP id
- i39-20020a9d17270000b02904cf73f54f4bso2139991ota.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Jul 2021 06:46:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=5ewrJnwMxkWxle/xBofTK8uOtXpy54WWE+9PZU7JDt4=;
- b=XKtticZhT+AAxlWGpm/+S8nd77JY8JiElwPTawP5pw1tRqVWT76q9ouZUIFsl9iK95
- nA+9UPE0gH9c1CFT7RZKpxmWvfO6u0I0ZmvNvXKtik38mUP/8vnxe9vwMC8rDEtCVUTI
- dhXf8DQ8DcOHhEIAilvpy3q2AR5d5Rp+HURcEi31wh3A9KoWDsfIrnPCWR6w1XW9lhsb
- Z6nRVi7OpG+yM1kNd2N1tSyP1uQHcxV/fGPtcs+0xuT8txO9lSf4FVID6ZG9C9HtvDNn
- zYU1V/3ncddUdyeSfQHJmC6msnsT4Zf/GXgw8+ymUhVVJhYx7s9iJomXlfnmu2IlGgM1
- oFow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=5ewrJnwMxkWxle/xBofTK8uOtXpy54WWE+9PZU7JDt4=;
- b=ldZzhEWJ5lfiUZLb75uo++C8GjT6+/Y2mnr7I/DvelV6WhoGiLjrc+d+lztE6qfGfS
- GEn98UsF+x3YAASJZ/JDMRYWVYHDltJYjj5na9G5xhxtTqXPrQg0uX9EbuOOqiz7MLEP
- 9BNQzjmcOTdl5IsYWerCsWX7dq/amhcMkvkJ8G+hc2o9cNPl/t965S2L9EwjImM8lXP7
- yVE+ygs4gMW/dil+HvbbBUX3/J50dAkqEs2BPwo92Bpqi1eJEdpQgnLcmDppZfvyfnlW
- 5+YF56RmonvPdp+XJB3lo/Y+3a+N7PhivtW0HLZHiUXhh7+jU8BaP2w51zzvPbqSjAdm
- Alhw==
-X-Gm-Message-State: AOAM530orQsGzcCvBHUVGmRVZ+4poRodMSvA6mzL62SW2SOt/QQvsNoa
- mm3UAv4IjMcdVMgFyxTOWUhRiVTFcuMHqtMAPWQ=
-X-Google-Smtp-Source: ABdhPJwgaDWnBbDOBnzepI2XFMgsTc6+gTl/3SKo5M6encovBS1eUu9INMkOHo8R0mPCAZlwZcX72ayW3wG78ggtobI=
-X-Received: by 2002:a05:6830:1f3b:: with SMTP id
- e27mr26574oth.311.1627479960508; 
- Wed, 28 Jul 2021 06:46:00 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 428C86E202;
+	Wed, 28 Jul 2021 14:00:28 +0000 (UTC)
+Received: from mx2.smtp.larsendata.com (mx2.smtp.larsendata.com
+ [91.221.196.228])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BA3B6EAC8
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Jul 2021 14:00:27 +0000 (UTC)
+Received: from mail01.mxhotel.dk (mail01.mxhotel.dk [91.221.196.236])
+ by mx2.smtp.larsendata.com (Halon) with ESMTPS
+ id 328b63b4-efac-11eb-8d1a-0050568cd888;
+ Wed, 28 Jul 2021 14:00:42 +0000 (UTC)
+Received: from ravnborg.org (80-162-45-141-cable.dk.customer.tdc.net
+ [80.162.45.141])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ (Authenticated sender: sam@ravnborg.org)
+ by mail01.mxhotel.dk (Postfix) with ESMTPSA id 038DD194BB3;
+ Wed, 28 Jul 2021 16:00:45 +0200 (CEST)
+Date: Wed, 28 Jul 2021 16:00:23 +0200
+X-Report-Abuse-To: abuse@mxhotel.dk
+From: Sam Ravnborg <sam@ravnborg.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>, Dan.Sneddon@microchip.com
+Subject: Re: [PATCH 03/14] drm/atmel-hlcdc: Convert to Linux IRQ interfaces
+Message-ID: <YQFi96yaYbTG4OO7@ravnborg.org>
+References: <20210727182721.17981-1-tzimmermann@suse.de>
+ <20210727182721.17981-4-tzimmermann@suse.de>
 MIME-Version: 1.0
-References: <20210728061018.2512047-1-yifan1.zhang@amd.com>
-In-Reply-To: <20210728061018.2512047-1-yifan1.zhang@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 28 Jul 2021 09:45:49 -0400
-Message-ID: <CADnq5_Oc-TY9e9=wEnhY7mgV8gBpxM=qPSwomW4ceQ-ondngGw@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amdgpu: fix the doorbell missing when in CGPG
- issue for renoir.
-To: Yifan Zhang <yifan1.zhang@amd.com>
+Content-Disposition: inline
+In-Reply-To: <20210727182721.17981-4-tzimmermann@suse.de>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,57 +57,181 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: airlied@linux.ie, liviu.dudau@arm.com, stefan@agner.ch,
+ amd-gfx@lists.freedesktop.org, anitha.chrisanthus@intel.com,
+ patrik.r.jakobsson@gmail.com, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, daniel@ffwll.ch, edmund.j.dea@intel.com,
+ s.hauer@pengutronix.de, alison.wang@nxp.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, dri-devel@lists.freedesktop.org, sean@poorly.run,
+ linux-arm-kernel@lists.infradead.org, tomba@kernel.org, bbrezillon@kernel.org,
+ jyri.sarha@iki.fi, nicolas.ferre@microchip.com, christian.koenig@amd.com,
+ robdclark@gmail.com, kernel@pengutronix.de, alexander.deucher@amd.com,
+ shawnguo@kernel.org, brian.starkey@arm.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jul 28, 2021 at 2:10 AM Yifan Zhang <yifan1.zhang@amd.com> wrote:
->
-> If GC has entered CGPG, ringing doorbell > first page doesn't wakeup GC.
-> Enlarge CP_MEC_DOORBELL_RANGE_UPPER to workaround this issue.
->
-> Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
+Hi Dan,
 
-I assume this won't break gfxoff?  The last time we changed this, it
-broke a bunch of scenarios.  Won't this cause just about all doorbells
-to wake gfx?
+I hope you can fine to test this patch from Thomas.
+If this works then we can forget about my attempt to do the same.
 
-Alex
+Hi Thomas,
 
+IRQ_NOTCONNECTED check seems redundant, as mentioned in another patch
+already.
+
+With that considered:
+Reviewed-by: Sam Ravnborg <sam@ravnborg.org>
+
+We shall wait for testing from Dan before you apply it as I had made a
+similar patch that failed to work. I assume my patch was buggy but I
+prefer to be sure.
+
+	Sam
+
+On Tue, Jul 27, 2021 at 08:27:10PM +0200, Thomas Zimmermann wrote:
+> Drop the DRM IRQ midlayer in favor of Linux IRQ interfaces. DRM's
+> IRQ helpers are mostly useful for UMS drivers. Modern KMS drivers
+> don't benefit from using it. DRM IRQ callbacks are now being called
+> directly or inlined.
+> 
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 > ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 10 +++++++++-
->  1 file changed, 9 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> index 03acc777adf7..70b64b510743 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> @@ -3675,7 +3675,15 @@ static int gfx_v9_0_kiq_init_register(struct amdgpu_ring *ring)
->         if (ring->use_doorbell) {
->                 WREG32_SOC15(GC, 0, mmCP_MEC_DOORBELL_RANGE_LOWER,
->                                         (adev->doorbell_index.kiq * 2) << 2);
-> -               WREG32_SOC15(GC, 0, mmCP_MEC_DOORBELL_RANGE_UPPER,
-> +               /* In renoir, if GC has entered CGPG, ringing doorbell > first page
-> +                * doesn't wakeup GC. Enlarge CP_MEC_DOORBELL_RANGE_UPPER to
-> +                * workaround this issue.
-> +                */
-> +               if (adev->asic_type == CHIP_RENOIR)
-> +                       WREG32_SOC15(GC, 0, mmCP_MEC_DOORBELL_RANGE_UPPER,
-> +                                       (adev->doorbell.size - 4));
-> +               else
-> +                       WREG32_SOC15(GC, 0, mmCP_MEC_DOORBELL_RANGE_UPPER,
->                                         (adev->doorbell_index.userqueue_end * 2) << 2);
->         }
->
-> --
-> 2.25.1
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>  drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c | 85 ++++++++++++--------
+>  1 file changed, 52 insertions(+), 33 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c b/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c
+> index f09b6dd8754c..cfa8c2c9c8aa 100644
+> --- a/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c
+> +++ b/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c
+> @@ -22,7 +22,6 @@
+>  #include <drm/drm_fb_helper.h>
+>  #include <drm/drm_gem_cma_helper.h>
+>  #include <drm/drm_gem_framebuffer_helper.h>
+> -#include <drm/drm_irq.h>
+>  #include <drm/drm_probe_helper.h>
+>  #include <drm/drm_vblank.h>
+>  
+> @@ -557,6 +556,56 @@ static irqreturn_t atmel_hlcdc_dc_irq_handler(int irq, void *data)
+>  	return IRQ_HANDLED;
+>  }
+>  
+> +static void atmel_hlcdc_dc_irq_postinstall(struct drm_device *dev)
+> +{
+> +	struct atmel_hlcdc_dc *dc = dev->dev_private;
+> +	unsigned int cfg = 0;
+> +	int i;
+> +
+> +	/* Enable interrupts on activated layers */
+> +	for (i = 0; i < ATMEL_HLCDC_MAX_LAYERS; i++) {
+> +		if (dc->layers[i])
+> +			cfg |= ATMEL_HLCDC_LAYER_STATUS(i);
+> +	}
+> +
+> +	regmap_write(dc->hlcdc->regmap, ATMEL_HLCDC_IER, cfg);
+> +}
+> +
+> +static void atmel_hlcdc_dc_irq_disable(struct drm_device *dev)
+> +{
+> +	struct atmel_hlcdc_dc *dc = dev->dev_private;
+> +	unsigned int isr;
+> +
+> +	regmap_write(dc->hlcdc->regmap, ATMEL_HLCDC_IDR, 0xffffffff);
+> +	regmap_read(dc->hlcdc->regmap, ATMEL_HLCDC_ISR, &isr);
+> +}
+> +
+> +static int atmel_hlcdc_dc_irq_install(struct drm_device *dev, unsigned int irq)
+> +{
+> +	int ret;
+> +
+> +	if (irq == IRQ_NOTCONNECTED)
+> +		return -ENOTCONN;
+> +
+> +	atmel_hlcdc_dc_irq_disable(dev);
+> +
+> +	ret = request_irq(irq, atmel_hlcdc_dc_irq_handler, 0, dev->driver->name, dev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	atmel_hlcdc_dc_irq_postinstall(dev);
+> +
+> +	return 0;
+> +}
+> +
+> +static void atmel_hlcdc_dc_irq_uninstall(struct drm_device *dev)
+> +{
+> +	struct atmel_hlcdc_dc *dc = dev->dev_private;
+> +
+> +	atmel_hlcdc_dc_irq_disable(dev);
+> +	free_irq(dc->hlcdc->irq, dev);
+> +}
+> +
+>  static const struct drm_mode_config_funcs mode_config_funcs = {
+>  	.fb_create = drm_gem_fb_create,
+>  	.atomic_check = drm_atomic_helper_check,
+> @@ -647,7 +696,7 @@ static int atmel_hlcdc_dc_load(struct drm_device *dev)
+>  	drm_mode_config_reset(dev);
+>  
+>  	pm_runtime_get_sync(dev->dev);
+> -	ret = drm_irq_install(dev, dc->hlcdc->irq);
+> +	ret = atmel_hlcdc_dc_irq_install(dev, dc->hlcdc->irq);
+>  	pm_runtime_put_sync(dev->dev);
+>  	if (ret < 0) {
+>  		dev_err(dev->dev, "failed to install IRQ handler\n");
+> @@ -676,7 +725,7 @@ static void atmel_hlcdc_dc_unload(struct drm_device *dev)
+>  	drm_mode_config_cleanup(dev);
+>  
+>  	pm_runtime_get_sync(dev->dev);
+> -	drm_irq_uninstall(dev);
+> +	atmel_hlcdc_dc_irq_uninstall(dev);
+>  	pm_runtime_put_sync(dev->dev);
+>  
+>  	dev->dev_private = NULL;
+> @@ -685,40 +734,10 @@ static void atmel_hlcdc_dc_unload(struct drm_device *dev)
+>  	clk_disable_unprepare(dc->hlcdc->periph_clk);
+>  }
+>  
+> -static int atmel_hlcdc_dc_irq_postinstall(struct drm_device *dev)
+> -{
+> -	struct atmel_hlcdc_dc *dc = dev->dev_private;
+> -	unsigned int cfg = 0;
+> -	int i;
+> -
+> -	/* Enable interrupts on activated layers */
+> -	for (i = 0; i < ATMEL_HLCDC_MAX_LAYERS; i++) {
+> -		if (dc->layers[i])
+> -			cfg |= ATMEL_HLCDC_LAYER_STATUS(i);
+> -	}
+> -
+> -	regmap_write(dc->hlcdc->regmap, ATMEL_HLCDC_IER, cfg);
+> -
+> -	return 0;
+> -}
+> -
+> -static void atmel_hlcdc_dc_irq_uninstall(struct drm_device *dev)
+> -{
+> -	struct atmel_hlcdc_dc *dc = dev->dev_private;
+> -	unsigned int isr;
+> -
+> -	regmap_write(dc->hlcdc->regmap, ATMEL_HLCDC_IDR, 0xffffffff);
+> -	regmap_read(dc->hlcdc->regmap, ATMEL_HLCDC_ISR, &isr);
+> -}
+> -
+>  DEFINE_DRM_GEM_CMA_FOPS(fops);
+>  
+>  static const struct drm_driver atmel_hlcdc_dc_driver = {
+>  	.driver_features = DRIVER_GEM | DRIVER_MODESET | DRIVER_ATOMIC,
+> -	.irq_handler = atmel_hlcdc_dc_irq_handler,
+> -	.irq_preinstall = atmel_hlcdc_dc_irq_uninstall,
+> -	.irq_postinstall = atmel_hlcdc_dc_irq_postinstall,
+> -	.irq_uninstall = atmel_hlcdc_dc_irq_uninstall,
+>  	DRM_GEM_CMA_DRIVER_OPS,
+>  	.fops = &fops,
+>  	.name = "atmel-hlcdc",
+> -- 
+> 2.32.0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
