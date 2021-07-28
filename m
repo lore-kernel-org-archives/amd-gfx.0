@@ -2,66 +2,53 @@ Return-Path: <SRS0=0Udm=MU=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 28868C4338F
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Jul 2021 13:21:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AAF52C4338F
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Jul 2021 13:24:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E8BE260FE7
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Jul 2021 13:21:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E8BE260FE7
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 7B89E61019
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Jul 2021 13:24:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7B89E61019
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F52D6E051;
-	Wed, 28 Jul 2021 13:21:58 +0000 (UTC)
-Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com
- [IPv6:2607:f8b0:4864:20::235])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0DE56E051
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Jul 2021 13:21:57 +0000 (UTC)
-Received: by mail-oi1-x235.google.com with SMTP id o20so3647499oiw.12
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Jul 2021 06:21:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Qj3Fqf0U5fEA/MhT4e8HiR/Ogs65SJFFl/Qc+nbEe3U=;
- b=OdgWrnxh440UN3g6KWt0T6OQat2M4coRHUH7KMBu2HPvWGykm4IvjXVKzJgWylP1Jw
- l9DW3BlzC/MZ9lT/zyJQinQ7lXyUMuntnFXDbiXtfitj0lZWtwFgsmV4U7kmyQRUAYdk
- NTOM2s6qXXBCDCsxDLKpXLAkXc6zSgchPS1m9irUurLcB1rQ33JcN+7mJcC3j9FjKjjT
- 627QAM9vDELN1zGWXvPa99qCcklOxRbv1Iurq2BMJ+vwvEUGaai69jD/s1ArUBpDx2hW
- DOx3LjqVRsaAnD7KSUAtlAaQ6ngQ9+wJRzi87KBFaamqLqgbfVKol9HhCgvo1EbZYw2M
- V7TQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Qj3Fqf0U5fEA/MhT4e8HiR/Ogs65SJFFl/Qc+nbEe3U=;
- b=SptLYBeUMR5ac/WNXjLFhDZKLWDtDZBrcDSnB6+eedZLRbUnansBg9Pyt2z/L0U6P1
- HDc92wqvN3L8Q4hCISGoeY97sOWLMRsqX31WdgnCQrX9CTID5De7tHKBQv2KxuBqLLlK
- tFWxeykfWfGsVnkA6ccJLP1CGly1uL4SO7O05Tirkn2wKaQKdhJE7ZSN5md+RKMYzgfa
- yhY2ybW+akuIMneRz6ZFuUJULes/VgPyUNGLIgHhhCfWRDs0Ys7p7epF29mquovOgGN1
- Y541evN2zrmMb4eYhXlH/9OTnKq8fYWZiFZKtofqnx2TSNJlPx3BoZrvFNUi9NOp5eFr
- EX4Q==
-X-Gm-Message-State: AOAM533ibk0AR3fx/iLiGymcJnFSA8UowlxjYPu4AISTbmHwuIjKXSyI
- X4/yay8iGOG3jg81d/9+H+2CJTEaHw04iecUI6k=
-X-Google-Smtp-Source: ABdhPJyc0gzgRvQ6absHeY7nl49MbdCdKtNoLEdSg+LPH3zzz0GTo+i7zt/zDpaVYQClnWm/dzSHtXv9j59m0ZfUV2g=
-X-Received: by 2002:a05:6808:1390:: with SMTP id
- c16mr18211214oiw.123.1627478517109; 
- Wed, 28 Jul 2021 06:21:57 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F6646E8BE;
+	Wed, 28 Jul 2021 13:24:26 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org
+ [IPv6:2001:8b0:10b:1236::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 519D16E8BE;
+ Wed, 28 Jul 2021 13:20:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=bU/Ms46JtnXaVrVhQUyi3qsSgcv2ZUBgkJZ69baP/Pk=; b=l/t/Xn+txpO1+X8wtS8Uk4aaqG
+ m2+T0SHpVqEnt0/9mZr65K2ueB1kLi0Gx/E9Ov/NZNfcfbm0aSIoCXUBZDMdD7FMkHtRpiECduJr7
+ Rt4ArgG6CcLFJpfB7mhR9ochKMyUK4sUQhYvpLwmW49Gs9J06Mvyg5y94GM6d6rLaXR9BaAbWOIpZ
+ 10T8RMs/K27IkXLp/vjCX+SQ8wtLiH+hDMOJw4D/h2g1l8zP6PGPE8V75qPmB6DklI1zsDwON4VTT
+ tuN/D97KN3CBoRNqQG3rooTGaJ8SPBZlGmhA5MCb/K3ZPko/3eWBLi9x75g/uvwD+FrvCC64M+RgR
+ Pk0dHV9A==;
+Received: from hch by casper.infradead.org with local (Exim 4.94.2 #2 (Red Hat
+ Linux)) id 1m8jR9-00G4xh-78; Wed, 28 Jul 2021 13:17:52 +0000
+Date: Wed, 28 Jul 2021 14:17:27 +0100
+From: Christoph Hellwig <hch@infradead.org>
+To: Tom Lendacky <thomas.lendacky@amd.com>
+Subject: Re: [PATCH 01/11] mm: Introduce a function to check for
+ virtualization protection features
+Message-ID: <YQFY5/cq2thyHzUe@infradead.org>
+References: <cover.1627424773.git.thomas.lendacky@amd.com>
+ <cbc875b1d2113225c2b44a2384d5b303d0453cf7.1627424774.git.thomas.lendacky@amd.com>
 MIME-Version: 1.0
-References: <20210728063613.3334-1-Changfeng.Zhu@amd.com>
-In-Reply-To: <20210728063613.3334-1-Changfeng.Zhu@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 28 Jul 2021 09:21:46 -0400
-Message-ID: <CADnq5_N_bhbpi83Y3RSh_f3AcQmDzdfNTHCMDR5j44uVEjiKbg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: set default noretry=1 to fix kfd SVM issues
- for raven
-To: Changfeng <Changfeng.Zhu@amd.com>
+Content-Disposition: inline
+In-Reply-To: <cbc875b1d2113225c2b44a2384d5b303d0453cf7.1627424774.git.thomas.lendacky@amd.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ casper.infradead.org. See http://www.infradead.org/rpr.html
+X-Mailman-Approved-At: Wed, 28 Jul 2021 13:24:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,78 +60,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Yifan Zhang <Yifan1.Zhang@amd.com>, "Kuehling,
- Felix" <Felix.Kuehling@amd.com>, Huang Rui <Ray.Huang@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: linux-s390@vger.kernel.org, linux-efi@vger.kernel.org,
+ Tianyu Lan <Tianyu.Lan@microsoft.com>, kvm@vger.kernel.org, x86@kernel.org,
+ kexec@lists.infradead.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
+ iommu@lists.linux-foundation.org, Andi Kleen <ak@linux.intel.com>,
+ linux-graphics-maintainer@vmware.com, dri-devel@lists.freedesktop.org,
+ Brijesh Singh <brijesh.singh@amd.com>, linux-fsdevel@vger.kernel.org,
+ Borislav Petkov <bp@alien8.de>, linuxppc-dev@lists.ozlabs.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jul 28, 2021 at 2:36 AM Changfeng <Changfeng.Zhu@amd.com> wrote:
->
-> From: changzhu <Changfeng.Zhu@amd.com>
->
-> From: Changfeng <Changfeng.Zhu@amd.com>
->
-> It can't find any issues with noretry=1 except two SVM migrate issues.
-> Oppositely, it will cause most SVM cases fail with noretry=0.
-> The two SVM migrate issues also happen with noretry=0. So it can set
-> default noretry=1 for raven firstly to fix most SVM fails.
->
-> Change-Id: Idb5cb3c1a04104013e4ab8aed2ad4751aaec4bbc
-> Signed-off-by: Changfeng <Changfeng.Zhu@amd.com>
+On Tue, Jul 27, 2021 at 05:26:04PM -0500, Tom Lendacky via iommu wrote:
+> In prep for other protected virtualization technologies, introduce a
+> generic helper function, prot_guest_has(), that can be used to check
+> for specific protection attributes, like memory encryption. This is
+> intended to eliminate having to add multiple technology-specific checks
+> to the code (e.g. if (sev_active() || tdx_active())).
 
-I would suggest testing this on a wide variety of raven systems,
-including some OEM ones if possible.  Last time we did this it caused
-tons of stability issues with raven systems.
+So common checks obviously make sense, but I really hate the stupid
+multiplexer.  Having one well-documented helper per feature is much
+easier to follow.
 
-Alex
+> +#define PATTR_MEM_ENCRYPT		0	/* Encrypted memory */
+> +#define PATTR_HOST_MEM_ENCRYPT		1	/* Host encrypted memory */
+> +#define PATTR_GUEST_MEM_ENCRYPT		2	/* Guest encrypted memory */
+> +#define PATTR_GUEST_PROT_STATE		3	/* Guest encrypted state */
 
-
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 15 ++++++++-------
->  1 file changed, 8 insertions(+), 7 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> index 09edfb64cce0..d7f69dbd48e6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> @@ -606,19 +606,20 @@ void amdgpu_gmc_noretry_set(struct amdgpu_device *adev)
->                  * noretry = 0 will cause kfd page fault tests fail
->                  * for some ASICs, so set default to 1 for these ASICs.
->                  */
-> +       case CHIP_RAVEN:
-> +               /*
-> +                * TODO: Raven currently can fix most SVM issues with
-> +                * noretry =1. However it has two issues with noretry = 1
-> +                * on kfd migrate tests. It still needs to root causes
-> +                * with these two migrate fails on raven with noretry = 1.
-> +                */
->                 if (amdgpu_noretry == -1)
->                         gmc->noretry = 1;
->                 else
->                         gmc->noretry = amdgpu_noretry;
->                 break;
-> -       case CHIP_RAVEN:
->         default:
-> -               /* Raven currently has issues with noretry
-> -                * regardless of what we decide for other
-> -                * asics, we should leave raven with
-> -                * noretry = 0 until we root cause the
-> -                * issues.
-> -                *
-> +               /*
->                  * default this to 0 for now, but we may want
->                  * to change this in the future for certain
->                  * GPUs as it can increase performance in
-> --
-> 2.17.1
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+The kerneldoc comments on these individual helpers will give you plenty
+of space to properly document what they indicate and what a (potential)
+caller should do based on them.  Something the above comments completely
+fail to.
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
