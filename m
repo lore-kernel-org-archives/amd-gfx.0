@@ -2,69 +2,126 @@ Return-Path: <SRS0=5qjI=MV=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-21.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
+	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 649BDC4338F
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jul 2021 02:24:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A2D2FC4338F
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jul 2021 02:58:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 21F7260F01
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jul 2021 02:24:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 21F7260F01
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 6264F60F12
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jul 2021 02:58:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6264F60F12
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF4046E7F5;
-	Thu, 29 Jul 2021 02:24:33 +0000 (UTC)
-Received: from mail-ot1-x32a.google.com (mail-ot1-x32a.google.com
- [IPv6:2607:f8b0:4864:20::32a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73A136E7F5
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Jul 2021 02:24:32 +0000 (UTC)
-Received: by mail-ot1-x32a.google.com with SMTP id
- 68-20020a9d0f4a0000b02904b1f1d7c5f4so4244950ott.9
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Jul 2021 19:24:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=SFZbz4wE9dQn/Wds/3uwtXHaJNVzxtWiubx3+ynIZMw=;
- b=VUEFvuxHa1Ly2g78aGKLG2iy3D1uy7dB+BhKLBRmVtG2FD6lLDUQs4N4iiCFOWW7ZA
- 5K5jdsgTybG4w7YWoY563cvlM6C/yfGof6rwqhAgbHpDot1sd4hggJhMQP1Bv1mzFJF7
- 68PJW/oOBUNecABQkPOjYi8jcDlefBI7xQs1Nh7KfWmlL9VUBSfSOAf7aqIej2EE7zyt
- IO7LJL1rKs1SHbRLbbru/caJ8izibg0KFJbTE4MGSuqdIYiXgv4CYJBwAR1HEeOSOrsz
- xVP3Zv/bBwMFnBbM20+Vq05UIX7QVyKV8YHY4yqCPKSOFH7L57hs//BZ9vRhktq3ycaD
- QiuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=SFZbz4wE9dQn/Wds/3uwtXHaJNVzxtWiubx3+ynIZMw=;
- b=F6L442Zjr7gp70WkES3myadNS4u9AjT2lK54EAvj7Elh+xFSwZRXazUfVFXjn7JOiM
- manRSmNFT60tv2fFStK9UpOGKoH/yPHzok5w8CTMasgmXnvTgU/S8ZzWdDKqDb9ZR3e2
- /gX8s7P7XqZRYy1YfGd1iYRCH3oPMiI+PhrRpMcCLorN+6ujmWuB5xS3B4npBT7EF3lA
- 1GXQyITF2EoZqaFhyj4YjM+BgaleuoRdeZ5Yc8ZtjSoI1OwCgsZ1jEcQ3O9dobd+6OMX
- LXgWafy5ayL5XLL67Z+EkQIag8bdFdDei+eg7rXM7qL3tUyBfrZ5zrkJS8qbiu+kvLIF
- Oo9w==
-X-Gm-Message-State: AOAM533H+xzPIndDidB6wJT1BL0ULq5zLny7wv+iOpGeGjs15PKAQEhx
- 3oNYMX14FHWQCvbOwNANb3Mr3I6QXXQ56kXWfOE=
-X-Google-Smtp-Source: ABdhPJzFI16v5rUe6j8God5gJrDHzNTCvA5k6NQsfGN1FmTfkP+buEvW87iWYnZun478RtGMeLyfj5StT+y3W/QumQA=
-X-Received: by 2002:a9d:2072:: with SMTP id n105mr2045457ota.132.1627525471799; 
- Wed, 28 Jul 2021 19:24:31 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DE116E1CD;
+	Thu, 29 Jul 2021 02:58:38 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2072.outbound.protection.outlook.com [40.107.92.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C37366E0BE;
+ Thu, 29 Jul 2021 02:58:36 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Ypfau9lEI6+N9xKZErnaK9TDfrgmRlJoP34ZdrE6jC8op9zp/fVMWNgHqVvXgl3eyhMB7gnRBJza3ZOHwZW4iZH+5wJgNmUhS3/WYz+Cdl696vSVtJIYvRB6wk8zMnWx9ObxxNBZSm9z2Y1Xdbbrwa5ud34GmCDCepYre+/DhWMyUq92ztMwyEsFBV+a3fA3z9KgsZ5QgScsAv4BRVRom4Wc78rZ89B1yQuFcW6sAWAmH7++EtEBO/PbRkk4/UccMWO0DDOXrNJUkhbZyYSPcj2GLHY3OokqX6r4vFycopib35kBCQ5gED6K6ZjHva4pcNjJAjjGHS2sVrp16/PzPQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3lMX175UX/htiJYxnrJ9ReWljT45L+B9SXhth79qb0c=;
+ b=Dk85Qa16viQFokom59t3PkGw2V1TFARvMp27cw930GEm6tJA824Yc+cYLNPPg8M0vBgN8ffQ9HcBGcH2zzKizUJKNUEHmAeR8QlJh2O25RMCNS61hghsJCWDiIFE4jOlbs4ip3dvQL7RQU6heJvA0EjSh+lcrQ/5qaVcuH5TWqHBtwUrvcIGT/Lqutl8vsBXZVZ1lKt3l0XvnNh89aRBBnqI8oUv+lfWxe/ob9KgNwokfs4c3dVVDagM42BxsUXRaA8gmgYD+oeFh2MItmYzh4vqfKOwtXIR7mFc5HoOHs9LB7N8r7iZy97g5VIge66XL/OKY22gGPswzK2XbvpD6g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3lMX175UX/htiJYxnrJ9ReWljT45L+B9SXhth79qb0c=;
+ b=ApxB5cfI4dG5LnvvWCf28z1g9x14kLC6yUKSK8NvIuADlzZ4NeGmbfms76GHBazy5Z2FbInUEi97ZoneE8H9Ly6Mg0TINXfw6TAlFptaTvjwEiBQpNvuabikSUUpUpRL9pFuO4345kRyg91z0RazYw826mGJZyd27F5MryZUGAg=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
+ by BL1PR12MB5062.namprd12.prod.outlook.com (2603:10b6:208:313::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4373.18; Thu, 29 Jul
+ 2021 02:58:34 +0000
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::8cb6:59d6:24d0:4dc3]) by BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::8cb6:59d6:24d0:4dc3%9]) with mapi id 15.20.4373.020; Thu, 29 Jul 2021
+ 02:58:34 +0000
+From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ airlied@gmail.com, daniel.vetter@ffwll.ch
+Subject: [pull] amdgpu drm-fixes-5.14
+Date: Wed, 28 Jul 2021 22:58:17 -0400
+Message-Id: <20210729025817.4145-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.31.1
+X-ClientProxiedBy: BL1P223CA0024.NAMP223.PROD.OUTLOOK.COM
+ (2603:10b6:208:2c4::29) To BL1PR12MB5144.namprd12.prod.outlook.com
+ (2603:10b6:208:316::6)
 MIME-Version: 1.0
-References: <20210728061018.2512047-1-yifan1.zhang@amd.com>
- <CADnq5_Oc-TY9e9=wEnhY7mgV8gBpxM=qPSwomW4ceQ-ondngGw@mail.gmail.com>
- <BYAPR12MB3416560A44B08B69871F64FFC1EB9@BYAPR12MB3416.namprd12.prod.outlook.com>
-In-Reply-To: <BYAPR12MB3416560A44B08B69871F64FFC1EB9@BYAPR12MB3416.namprd12.prod.outlook.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 28 Jul 2021 22:24:20 -0400
-Message-ID: <CADnq5_PJONeFX2rNaL-y__geeN=0C5dRiDJdMC5Bq5_V34n0Hg@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amdgpu: fix the doorbell missing when in CGPG
- issue for renoir.
-To: "Zhang, Yifan" <Yifan1.Zhang@amd.com>
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from localhost.localdomain (192.161.79.246) by
+ BL1P223CA0024.NAMP223.PROD.OUTLOOK.COM (2603:10b6:208:2c4::29) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4373.17 via Frontend Transport; Thu, 29 Jul 2021 02:58:34 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: cbeead78-3df6-40bc-096b-08d9523cc12f
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5062:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BL1PR12MB5062EF6BF98496F6A7CA1719F7EB9@BL1PR12MB5062.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:462;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 993i9hbp6GfmCPQ/2UAZRBgOZ4TT/B+38eeR8iErCqFRstA0enCZQWCQ5j4y7bLuDO60XeFIBCCYYWKuM2KnRskNIF7i+SGlYTvMWohf3ehoFfXimMtTRQV7cKd7pvPiKG3urHiGwgYJrRjEXbad5tp9glhv/gCPGk/nwF0Bw8WnILY4zVAr8uMdtsM+2UW8A3zjVoFPCmkZy71rTc8PnxhmFIsyGsYcvbs7YVZ7InJ6/iF3IDKf6M/xuMsJkWnMiP4dVdUIhqckdHd5WFl/xjJhPrfmSn2yfdcw2vmq4xoiiSzgIvOLkA73rhPGB7ojWn0KRlVdGWaaKaZTCf7vGs42YnMYFMEsCZA4KUkvi+vSe9251iDd2UG+cjDPhtntt5z5f4Tjpjzm+W4YWAitnwXreKz+eNcP9IMhLmujwgQPeRPrlDyR/1khBWD/mJ5r0gxlBje6MxAIEnHuSfzK769aWa7EvItR7zblPTsBvxUjS8bFcs85B+0lSk8M3tlv7/GV2O3nc0tAcqaHocdLC9TXDdcjEBzetHHjwg27F1ftrVeP33mbRWIf1ilXgVmw5cD40NI4JXE3/unyBMLO4aScZ1BgIq5dXb+Em7oISsy6asiNE5MHvh4FW1hLqQGLW/FqI6ZQENyN/Mj6wTx0hKLpxVor/7bMcfLM2fdw9NeNm4KIiNwGEQmDJz0okOaCoFvFKgLu/wbOfbEiWztsig==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(136003)(376002)(396003)(366004)(346002)(956004)(316002)(8676002)(66556008)(2616005)(66476007)(6486002)(66946007)(478600001)(36756003)(26005)(966005)(186003)(38350700002)(2906002)(5660300002)(6666004)(6512007)(52116002)(83380400001)(38100700002)(4326008)(86362001)(6506007)(8936002)(1076003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VDI2M1B6eFpWZHJNNXQ1ck5xajZRdTZtbFBXT2FWbjE4T29Bc0VTUjlYa2Mx?=
+ =?utf-8?B?VVg2MjdUTFRVbG1mMTJyaHBueUVzUVpWdmFJdVBvTEhFUHNqMHRWaFI2ZEVz?=
+ =?utf-8?B?TkJiZVhVS0pJamcwYnhQSkZrempRTVkyaUhtYzROcXZReldBVisvazhMVkZ6?=
+ =?utf-8?B?REtqWktSQ2ZMN2haSTF1UlVaZXduTUZYaGdiSmRxNWVyMGkyTm1ndTQvejI1?=
+ =?utf-8?B?U1ZJekljTVdsRHBMZGE0UDdYdko3ZWlIQVQrZU51MlhyUlVzb2dtOTBWRTRG?=
+ =?utf-8?B?Tjl1dU1STUhuMEVVQmo1WkFxV3QveVBvWFBKb3BZaW0rbnNBRGFuOS84R3Nr?=
+ =?utf-8?B?YzVlVSsyTGFycGUwMFM0SFV1NXRZb1VqZWZaemQ3WFJDT1c0RjNpMkJsbUpk?=
+ =?utf-8?B?aFBqaG90UGp5K0N0RUVFa1FCYkgzdmdLNzJrRzZjRGZuOVU1MVdSTCsvVkh1?=
+ =?utf-8?B?aDgvRzU1NytHbHd2NWRBaVV5ZXl4UlpQcEZaYmU1VEtOMFhWamp6WElhaHVF?=
+ =?utf-8?B?d2xPY09jd0FUNzFJYmtmTkxLTHhPK1BnUEx5ZloyaXpzaG5saG90Ymt2OUhu?=
+ =?utf-8?B?bFZnNlUxTlVtTG5VWDBpUWZPbXJXMFdpWWFySEU5cTR4WFdvWjRPVUxyYkhF?=
+ =?utf-8?B?WEpDV1Rxa09BOUFyZWRPZXlJcnFkNVE0OGtJR1NGUXJBdTVYdnlJbHk5V2dP?=
+ =?utf-8?B?bFVZZVZrNnZrZnNQRC81OFFvNDQxelRuNmlWN0RTTkdicEJWd25XRDk0U0d2?=
+ =?utf-8?B?cUpjYlZvclJMM2QzWVM4ZXFMZ1cxRWxqUWpHeTBiK0h6MXQ1RndpRFpCaHQ5?=
+ =?utf-8?B?enVGUlA2V1JRWXBXV3VWSTNNcnJhazBlYlNXSzNZOTNYZVY2WFhIdk52NVdn?=
+ =?utf-8?B?TG44NWk3anlDOWRlQVNqbnZRdUgrUG5xYW5tYmhHUjgzNUNNUzMwSU96M01F?=
+ =?utf-8?B?RmQrQVhSbUNyanMvTEpTaUcxZytXWGpWZHBBZmFlWCtYa0VZbkY0T2hkd0da?=
+ =?utf-8?B?Z2RlckV0QmQza2RQSS9SaEIwTTRmWGV0L0pUeU95clF0NERIVzRlT3BmTGJO?=
+ =?utf-8?B?L0FnckpWQVhrZXNpZW1uVmdIdGJjR0J5dmJzalpRRlFuby83MUh2WGZ3TGF4?=
+ =?utf-8?B?cFA0MHhuMjY3SXBKTnk5dldIMUtwMFVqS05nR05ld0lQL09yVDViejloWFkx?=
+ =?utf-8?B?MHRPbjQwckpwem5FS2NsSWh3QnZ6MjFuT1FYdXpEdWFMemJmcStNaGlLYTdV?=
+ =?utf-8?B?YkpEUDlLNmx0OENtcDFlUmw1b2k0a2daUnNBOFViZDEzeGpYSzU2RVBlMjVC?=
+ =?utf-8?B?ZGdNQ0YwWGg4eUtQbnNKVDFURWFlc1A1NW1TbXhmbzY2Y1grUVB6N01lRUUr?=
+ =?utf-8?B?VW1ZRVR3TUtoc1paSmVpZWE1RHlmcEV5dk00UnlWVzluNkJjeTRRRGVhNzh6?=
+ =?utf-8?B?VTRzL0t0SFozekkvSWhOTlF5djlNRmNWSk1LUDFlaGJGU2I4OUlMR1RnWEhw?=
+ =?utf-8?B?N29UdE5FMGphbm9jMk1GZXRXQ1NWcHpoc3RqM2FhT1lpWlo3aUYwU2FpRThh?=
+ =?utf-8?B?OEhjMkZCdm9KTUxwei93aUZwTTFLeHdTaXpqaU5hMlZMdXlwQlhPSldzQ0RS?=
+ =?utf-8?B?M0dQdUIrMXVjTWZsTzB4UGFEK1lUMnIrb0lFcEd2YjdoQjhWUzNRcWhiUi9s?=
+ =?utf-8?B?NmJzSGpyZUhxbVpmNk5ld0FPSEFQZlc3NlRVZVZOMDlTN1QydndmYkk5WEVZ?=
+ =?utf-8?Q?yJawiQQR6AGbv+xBynQA7Cwz71V44Gl5tlwjYyR?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cbeead78-3df6-40bc-096b-08d9523cc12f
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2021 02:58:34.4884 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: idgpuqVL1suCG0EVLV0gYqWQNQfysO5KrSNTvdxTXfJi0vc8jIAjsmJSb1u48fiePC3AOMgA/y+Ctr9jswuQOw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5062
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,86 +133,70 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jul 28, 2021 at 9:33 PM Zhang, Yifan <Yifan1.Zhang@amd.com> wrote:
->
-> Hi Alex,
->
-> No, it won't break gfxoff. The "gfxoff broken" issue we saw last time has been fixed on CP firmware update for Renoir, and this patch changes doorbell range setting specifically for Renoir, not covering the other ASICs. I think it is better to change doorbell range setting per ASIC to mitigate possible side effects.
->
+Hi Dave, Daniel,
 
-Thanks.  Do we need a firmware version check to determine when to set
-the range differently?
+Fixes for 5.14.
 
-Alex
+The following changes since commit ff1176468d368232b684f75e82563369208bc371:
 
+  Linux 5.14-rc3 (2021-07-25 15:35:14 -0700)
 
-> BRs,
-> Yifan
->
-> -----Original Message-----
-> From: Alex Deucher <alexdeucher@gmail.com>
-> Sent: Wednesday, July 28, 2021 9:46 PM
-> To: Zhang, Yifan <Yifan1.Zhang@amd.com>
-> Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
-> Subject: Re: [PATCH v2] drm/amdgpu: fix the doorbell missing when in CGPG issue for renoir.
->
-> On Wed, Jul 28, 2021 at 2:10 AM Yifan Zhang <yifan1.zhang@amd.com> wrote:
-> >
-> > If GC has entered CGPG, ringing doorbell > first page doesn't wakeup GC.
-> > Enlarge CP_MEC_DOORBELL_RANGE_UPPER to workaround this issue.
-> >
-> > Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
->
-> I assume this won't break gfxoff?  The last time we changed this, it broke a bunch of scenarios.  Won't this cause just about all doorbells to wake gfx?
->
-> Alex
->
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 10 +++++++++-
-> >  1 file changed, 9 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> > b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> > index 03acc777adf7..70b64b510743 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> > @@ -3675,7 +3675,15 @@ static int gfx_v9_0_kiq_init_register(struct amdgpu_ring *ring)
-> >         if (ring->use_doorbell) {
-> >                 WREG32_SOC15(GC, 0, mmCP_MEC_DOORBELL_RANGE_LOWER,
-> >                                         (adev->doorbell_index.kiq * 2) << 2);
-> > -               WREG32_SOC15(GC, 0, mmCP_MEC_DOORBELL_RANGE_UPPER,
-> > +               /* In renoir, if GC has entered CGPG, ringing doorbell > first page
-> > +                * doesn't wakeup GC. Enlarge CP_MEC_DOORBELL_RANGE_UPPER to
-> > +                * workaround this issue.
-> > +                */
-> > +               if (adev->asic_type == CHIP_RENOIR)
-> > +                       WREG32_SOC15(GC, 0, mmCP_MEC_DOORBELL_RANGE_UPPER,
-> > +                                       (adev->doorbell.size - 4));
-> > +               else
-> > +                       WREG32_SOC15(GC, 0,
-> > + mmCP_MEC_DOORBELL_RANGE_UPPER,
-> >                                         (adev->doorbell_index.userqueue_end * 2) << 2);
-> >         }
-> >
-> > --
-> > 2.25.1
-> >
-> > _______________________________________________
-> > amd-gfx mailing list
-> > amd-gfx@lists.freedesktop.org
-> > https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flist
-> > s.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7Cyi
-> > fan1.zhang%40amd.com%7C4a2605541c22483b4a3a08d951ce097c%7C3dd8961fe488
-> > 4e608e11a82d994e183d%7C0%7C0%7C637630767650055129%7CUnknown%7CTWFpbGZs
-> > b3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D
-> > %7C1000&amp;sdata=1TIsNslKHeSNNMDR3MHPaIiP%2BSLVrr5cEfAbCmvZlCw%3D&amp
-> > ;reserved=0
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-5.14-2021-07-28
+
+for you to fetch changes up to ec30ce41f03820b6289513344b4281ca3a1151f4:
+
+  maintainers: add bugs and chat URLs for amdgpu (2021-07-27 12:48:59 -0400)
+
+----------------------------------------------------------------
+amd-drm-fixes-5.14-2021-07-28:
+
+amdgpu:
+- Fix resource leak in an error path
+- Avoid stack contents exposure in error path
+- pmops check fix for S0ix vs S3
+- DCN 2.1 display fixes
+- DCN 2.0 display fix
+- Backlight control fix for laptops with HDR panels
+- Maintainers updates
+
+----------------------------------------------------------------
+Alex Deucher (1):
+      drm/amdgpu/display: only enable aux backlight control for OLED panels
+
+Dale Zhao (1):
+      drm/amd/display: ensure dentist display clock update finished in DCN20
+
+Jiri Kosina (2):
+      drm/amdgpu: Fix resource leak on probe error path
+      drm/amdgpu: Avoid printing of stack contents on firmware load error
+
+Pratik Vishwakarma (1):
+      drm/amdgpu: Check pmops for desired suspend state
+
+Simon Ser (1):
+      maintainers: add bugs and chat URLs for amdgpu
+
+Victor Lu (2):
+      drm/amd/display: Guard DST_Y_PREFETCH register overflow in DCN21
+      drm/amd/display: Add missing DCN21 IP parameter
+
+ MAINTAINERS                                                    | 2 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c                       | 3 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c                     | 8 ++------
+ drivers/gpu/drm/amd/amdgpu/psp_v12_0.c                         | 7 +++----
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c              | 4 ++--
+ drivers/gpu/drm/amd/display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c   | 2 +-
+ drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c          | 1 +
+ drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c | 3 +++
+ 8 files changed, 16 insertions(+), 14 deletions(-)
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
