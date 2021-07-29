@@ -2,79 +2,130 @@ Return-Path: <SRS0=5qjI=MV=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7931CC432BE
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jul 2021 19:21:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2E04DC4338F
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jul 2021 19:23:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 31044600D1
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jul 2021 19:21:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 31044600D1
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
+	by mail.kernel.org (Postfix) with ESMTPS id EB66C60462
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jul 2021 19:23:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EB66C60462
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D674A6EE3C;
-	Thu, 29 Jul 2021 19:21:19 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 586966EE3A;
- Thu, 29 Jul 2021 19:21:18 +0000 (UTC)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id B9B812237F;
- Thu, 29 Jul 2021 19:21:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1627586476; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=FRjk3sSKAJ0GgQWrqGFQs/HiARPC+bYALbL6EW5s828=;
- b=abvpwR45Pw3eB3L9AnfN13GV+kP6qZqF4HcwqVRKTaYMOjq0qhbL+v4SrOl4R0CXOVk3GP
- V7ktKxC9z3/lAUK3zYWjgFYUEHQGEc5Hgexs0mIPi5wZZ+/JdSTasMtlahwZtO55Oq2T5X
- Gk4r4Vm/YArb0WT6nYo1s0CoC6tcChA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1627586476;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=FRjk3sSKAJ0GgQWrqGFQs/HiARPC+bYALbL6EW5s828=;
- b=JqrrnwHS8m+K3Una3aJD38FjuLZZm6/jRuHqtiq5R0tjFkq9z/oWnwFhOQYR/m/tnS0OT9
- wucaFv5W32ELPvDw==
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 8488E13756;
- Thu, 29 Jul 2021 19:21:15 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id Nf6rF6v/AmEHaQAAGKfGzw
- (envelope-from <tzimmermann@suse.de>); Thu, 29 Jul 2021 19:21:15 +0000
-Subject: Re: [PATCH 03/14] drm/atmel-hlcdc: Convert to Linux IRQ interfaces
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Sam Ravnborg <sam@ravnborg.org>, Dan.Sneddon@microchip.com
-References: <20210727182721.17981-4-tzimmermann@suse.de>
- <YQFi96yaYbTG4OO7@ravnborg.org>
- <e28b1a2f-015c-c81b-eb64-5323df9ed35d@microchip.com>
- <YQF7bKyeup8n3awU@ravnborg.org>
- <3d2f6b84-dd07-d925-a8b8-2bfd5fc736d9@microchip.com>
- <YQGdxtV0BGZ8VOpm@ravnborg.org>
- <2f04b986-6b41-62f9-1587-23818b841655@suse.de>
- <793514f6-0270-771b-fe36-f82edf4e5fd2@microchip.com>
- <YQGrMH36Udg3eKQY@ravnborg.org>
- <dcc5cd1e-d0de-bdda-32f3-623b85085756@microchip.com>
- <YQG5+/9lPexU3Dn3@ravnborg.org>
- <1df22406-2e91-c15a-49dc-1cf33522a142@suse.de>
-Message-ID: <7067cca1-c8a4-347c-829a-accdce8c6aef@suse.de>
-Date: Thu, 29 Jul 2021 21:21:14 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 918BD6EE33;
+	Thu, 29 Jul 2021 19:23:34 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2081.outbound.protection.outlook.com [40.107.93.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9A7E6EE33
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Jul 2021 19:23:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=D+v8QBmUHvi+QEaVcWRPJnu7LThtkXM81tQt+0XM7h9aCald6EV4GPOqIz16FSGQiFXyvhy3vyPhnxcrug6h8HMf60k91zxU8KDt0BgBnwaxKNwhXkOhV/3akidk5FGHeDwUxlt9aaEORnmlGHH1eR7aNVgd8+tcwMN0D3EBA0EQ9IFaKn3e2TUCxHy9VrmLv8fn6aSknSlQ6pOCWZ7Tv/i+I6BCeQP8W9kG9d8/lgz8sy8hvNBn+bRjAMhcJGisSz9wiyEFRhN87yfI+AlAvtd5S8odRimrsAa4EcH6WCKuXAQhK2Mumx794rQ7XtWCHji2rlF8CamZoA12/aQv4g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lH5sAl/3tLarNIK3/0Q481rmU/aCvpRMu9fOsNIdB78=;
+ b=L6XF0KQi75kYGk8KFqTEHW2tRbd8tZkMoiobemd/PqIijkPkOa0JLRNgPa6FoqjRP7ckMczx6e36EZPSiwx8ArwykxA/42fWZY49QuGqtqAwZToqscneNHptny2Aw90GabTtbtwy7j6ZXuMTBiYROo2TByKtjoA9l9LKM3WxFg7Lg59rXqkLYXv3M9ygWt4sltEaIirwPlbd4KdgkEqkS5m+VoCrL/7QYBoAKeUL7uEo5XTdvF8QMVOQSqG4Dyy39hVuw8m2fRcWBF5+SoQYRMJC9IwD9daNJbP/QyGzhsNw9CTvkKaYFR1G56A1Pp7Q8iiAeGZ9Tx6VzRfyHPgQIw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lH5sAl/3tLarNIK3/0Q481rmU/aCvpRMu9fOsNIdB78=;
+ b=EMnsuSBwM7UaYcDBZY0+DfhWoFkTTkv3+JpIFDSXpEex3IkwTTxpgPzu2kXIjhlDsxSqryN3QfIWWNHvW4rLRWI81cPXU4+VeMd2zfVAHRVJxHvtpTgB/VLl3a+QWLRhbqrbHrZJbGDNVIxqAxgfgwXJOn/0n5gES6hsQEjKi68=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from SJ0PR12MB5438.namprd12.prod.outlook.com (2603:10b6:a03:3ba::23)
+ by SJ0PR12MB5488.namprd12.prod.outlook.com (2603:10b6:a03:3ad::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4373.17; Thu, 29 Jul
+ 2021 19:23:32 +0000
+Received: from SJ0PR12MB5438.namprd12.prod.outlook.com
+ ([fe80::384a:ae5d:717:8ba0]) by SJ0PR12MB5438.namprd12.prod.outlook.com
+ ([fe80::384a:ae5d:717:8ba0%7]) with mapi id 15.20.4373.022; Thu, 29 Jul 2021
+ 19:23:32 +0000
+Subject: Re: [PATCH] drm/amdgpu/display: protect
+ dc_dsc_stream_bandwidth_in_kbps with CONFIG_DRM_AMD_DC_DCN
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20210728203518.1460001-1-alexander.deucher@amd.com>
+From: Harry Wentland <harry.wentland@amd.com>
+Message-ID: <b635ac5a-dbd3-f714-cb5e-2fdae2042876@amd.com>
+Date: Thu, 29 Jul 2021 15:23:28 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.12.0
+In-Reply-To: <20210728203518.1460001-1-alexander.deucher@amd.com>
+Content-Language: en-US
+X-ClientProxiedBy: YQBPR0101CA0174.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:f::17) To SJ0PR12MB5438.namprd12.prod.outlook.com
+ (2603:10b6:a03:3ba::23)
 MIME-Version: 1.0
-In-Reply-To: <1df22406-2e91-c15a-49dc-1cf33522a142@suse.de>
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [192.168.50.3] (198.200.67.154) by
+ YQBPR0101CA0174.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c01:f::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4373.18 via Frontend
+ Transport; Thu, 29 Jul 2021 19:23:31 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: ec025b09-eda1-4e9a-13c4-08d952c65a3d
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB5488:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <SJ0PR12MB5488D766DFCD80BDF5ADCDF48CEB9@SJ0PR12MB5488.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2733;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: GZNTavU2ce5ppo+cjXxrThtkcgTz9BImusEYySBjDRAA9LUmpRr+USsG9U4U3Z8s28L5o4GO52glT/IutZEtOO4Wp2mxX9+JZtcCxkDWbfqFD888Q8xg2DoYcB3H6dKDxJ61YVe3vA/robtBekH74Vv1hCQRFGi7o3pOdfcxx6neT21e9oOBsaW7vQ95lbA1cCK0/2eirMTh0QrSMY94Aw1ESt8suBovFOs9oBwNrRTMovEsObYDYzsu8COe5lHSl+RKngkKjY1sDCV4pDeJxpvFQuC1p90xr3ki9958QZ5fWOn4HP5XTYAM1zsyQZQzf5oOa1fHNsnL4qiUKFTEysNJF5F5BslfVva7uWLFpxBhQ6I168IV6M2ZFSnaWxvk3PrmJ/uUyOjQdsc5//TX1pQT1K0BgpbVHZ5CAcabXFoostvrZcxIbPLbGnpVSObliBm0NLHanraKHMgiB+stY6aqVC5ca+/dYyEAHa5uxEImkLehTlpxUtCIsHv7CwHRdA88B01Vson5GRjvZq9TeilcdnoLGrSnlMCg4OzXkc+nB/OmRGStZnEVODAz/w+Ng/RQ+HiCpyUQOUkyXljZ0Q/lxasj84kx6agMRo5wZ8Zo2DvXN5qh8MK5DrYbgogfTMXdFZ2mdxGKAFSN8XW3KepxVitsetMyN2j85ZG7GGqUCgDZhO3J7B1sJ1/j33fdUJgTnRevKtznt71Mk98iBwWL6pOsw2CU4nJCu0PFNhnWr+GcZl97d8W+r7kUrYhk
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ0PR12MB5438.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(346002)(39860400002)(366004)(136003)(376002)(5660300002)(66476007)(6666004)(66946007)(66556008)(316002)(8936002)(26005)(38100700002)(6486002)(36756003)(44832011)(956004)(186003)(8676002)(53546011)(2616005)(31696002)(31686004)(86362001)(478600001)(2906002)(16576012)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RnlEemQxQ0JlWUtlVi8vUjFmME52TStKbnE1bnZSOTJCQTF2RXhyUWhwWWJ2?=
+ =?utf-8?B?N241VW5NRCttL0tDZEx0WGN3VU53TDVCVE45MEd6WTlORzdFaExvdWFYZkxE?=
+ =?utf-8?B?L3F4cmFZS2t4ZjJWSjlGQThnNnliUHFaTWFwNDZqamQvb0JpaVdrdmNBM002?=
+ =?utf-8?B?c2lzMHM3dnhxMUwvclk2VkdLaHVCOWUzdHlKZUtpT2pDNVN0UjBqWEtucG14?=
+ =?utf-8?B?QzNQSXZNem5vVVBxd2Jodm4wTUY2dkJTRVlWSGtDRzhJcTVuWlpKTFBvc0Rh?=
+ =?utf-8?B?OThyeGdPTUtneVBicEMzc21ia1p6ZnBONWZNWFFHRTBQN012LzB3VXM4dVBl?=
+ =?utf-8?B?ZXA4ZHhtME52cXJDS0tPY1VMbk52d1lzUHU1ZHpPQVNwS3BlV094Wm5rNFpx?=
+ =?utf-8?B?alBjSnp3MDdmbFovSU1ESEdtREJqWHZyQjNrd3JXdGlodGVNRTI0eXhKSUJ5?=
+ =?utf-8?B?S2VWMUhWT3pOQnA0TURXZ1liL2hKYytSWWpBbk1sbmIxM3p0d3dvZnZmRTRB?=
+ =?utf-8?B?RWlzdHZWUTJMaEhvNjNlSzg5amhoejUyNWFCY0tkT29TU3B2TDlWNkRrbERW?=
+ =?utf-8?B?NUlPMERVNDU4dUdkQ2o0OUdHT1AzYnJseVV0TnRiZjE1Q3Z3UjNsVWIyd1pT?=
+ =?utf-8?B?QzVIUUNSR29aUFlCZEQ3QVdsNWJnbmxwR3o2MkQ1cUVxaU85dDVJendDUEVK?=
+ =?utf-8?B?cWZFOXRINm5ZeHpYK2QvMUMxM21vb3hoc1VwcGJDNW9PeWJUR2xnclNuM0ls?=
+ =?utf-8?B?R1FHUnFMcERhdHkyY3VacEhDZFdSK1R1VlZTUk1GZzRtdHRUUE9mNGtPM3Fl?=
+ =?utf-8?B?ZDhYZnp4QVUrbkxPOWNaWm1JRGsyTjdGZy9oL3BRdXRqN2M3WEpJeEEwT2Rs?=
+ =?utf-8?B?cjFtT1ZYa2hLZnl1NWNKaWhqV0xMcWg0bVpLNHR4QkcwRVpZMjhxUU91djFu?=
+ =?utf-8?B?SnU4VEZ1T3V5VGhySDJPZFJCendUTTh6emxDeXgwZ3lBUGxkSU1BTnJ1dFFh?=
+ =?utf-8?B?bGM0RlMxRlNRSE4rSTBYL3YrSUhFUnZWT0s5UldieW9tT1M3R2p1SU5LdmUx?=
+ =?utf-8?B?SzVHdjFET3hNdHJFYU5QWmlkZUhiRDhwV210NHBmYkdYb3NFeHNMcTc2T0hz?=
+ =?utf-8?B?Q2YrRFlyTHpieS83N3RhSEpYZHJnd1pUZiszUENRVFQ5bDhabEgrT2J6SndI?=
+ =?utf-8?B?TXpBc2M1RXAxN2M2OEYzY2FwN1hJbkxQWEErSGh2dUUyM0tmMDgxRGltK1dE?=
+ =?utf-8?B?VVR2d1ZZS3FVVjk4M2p4Mm9OQ1lVOVRYUm1QejlpdjVLNXVHNWpueXlzTlZn?=
+ =?utf-8?B?Q0VrVUxFb2RGdzg2ZFBNbG1SY0k5NlF2VU5CZ0VUYk5sUDlUZkZqNDJDQTkw?=
+ =?utf-8?B?YmN1WmNlODAvLzhsU3I3M0FvN2pzMGdJQlZaU1doTU10WDVDY3NPYlZyVkhX?=
+ =?utf-8?B?Y3RBM09RMWxrZHh1dW10cE00YlpkdmJPWkpaQlAyY1UzOHpNb1dRVnNCVDNV?=
+ =?utf-8?B?UjIyaVpjOGJzUk93ZmZSUXFCZ3lycjVUUk9ybUs2UDhVUWs0RjYxYlZpQWpJ?=
+ =?utf-8?B?TjRBaGJZVW5UQ1l6dXFqQ3M0K0NBTEtZbjhqekdITkxDcGNreHZYbStGNXQz?=
+ =?utf-8?B?aFlOQjNJRW42T3EySS84M2RLU1VHSUNJaU4yeG5OZThZMlJYRmVIdGlUNTky?=
+ =?utf-8?B?MUxrME1kc1lxRERMalpQeXcrc1prY0dhWnk0RmdlS1dyUjVDcUFzN2dsc0FZ?=
+ =?utf-8?Q?MRGNhQCckQCcizasvK2h/g9glA6L41waPAQsGPn?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ec025b09-eda1-4e9a-13c4-08d952c65a3d
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5438.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2021 19:23:32.1675 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /gch1CUpkcKtU9GSDENL+dymQL6kbXn2/bKFXO3SiJbsAH+1075ze8P7Q5azpC0/b4TGF/icXpfLvyxFn8Vb6A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5488
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,199 +137,46 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, liviu.dudau@arm.com, stefan@agner.ch,
- amd-gfx@lists.freedesktop.org, anitha.chrisanthus@intel.com,
- patrik.r.jakobsson@gmail.com, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, daniel@ffwll.ch, edmund.j.dea@intel.com,
- s.hauer@pengutronix.de, alison.wang@nxp.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, dri-devel@lists.freedesktop.org, sean@poorly.run,
- linux-arm-kernel@lists.infradead.org, tomba@kernel.org, bbrezillon@kernel.org,
- jyri.sarha@iki.fi, Nicolas.Ferre@microchip.com, christian.koenig@amd.com,
- robdclark@gmail.com, kernel@pengutronix.de, alexander.deucher@amd.com,
- shawnguo@kernel.org, brian.starkey@arm.com
-Content-Type: multipart/mixed; boundary="===============1636329056=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============1636329056==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="0E3gTnkoECLDq8FuUqBM1dW3HzVnSTQZs"
+On 2021-07-28 4:35 p.m., Alex Deucher wrote:
+> It's only used and enabled with DCN, so protect it.
+> 
+> Fixes: b6b76b0315ed7b ("drm/amd/display: Fixed EdidUtility build errors")
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---0E3gTnkoECLDq8FuUqBM1dW3HzVnSTQZs
-Content-Type: multipart/mixed; boundary="oZfHGEJSgs3vHDPPh2hmpB1WlR5eRU4HT";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Sam Ravnborg <sam@ravnborg.org>, Dan.Sneddon@microchip.com
-Cc: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
- christian.koenig@amd.com, liviu.dudau@arm.com, brian.starkey@arm.com,
- bbrezillon@kernel.org, Nicolas.Ferre@microchip.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, stefan@agner.ch,
- alison.wang@nxp.com, patrik.r.jakobsson@gmail.com,
- anitha.chrisanthus@intel.com, robdclark@gmail.com, edmund.j.dea@intel.com,
- sean@poorly.run, shawnguo@kernel.org, s.hauer@pengutronix.de,
- kernel@pengutronix.de, jyri.sarha@iki.fi, tomba@kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org
-Message-ID: <7067cca1-c8a4-347c-829a-accdce8c6aef@suse.de>
-Subject: Re: [PATCH 03/14] drm/atmel-hlcdc: Convert to Linux IRQ interfaces
-References: <20210727182721.17981-4-tzimmermann@suse.de>
- <YQFi96yaYbTG4OO7@ravnborg.org>
- <e28b1a2f-015c-c81b-eb64-5323df9ed35d@microchip.com>
- <YQF7bKyeup8n3awU@ravnborg.org>
- <3d2f6b84-dd07-d925-a8b8-2bfd5fc736d9@microchip.com>
- <YQGdxtV0BGZ8VOpm@ravnborg.org>
- <2f04b986-6b41-62f9-1587-23818b841655@suse.de>
- <793514f6-0270-771b-fe36-f82edf4e5fd2@microchip.com>
- <YQGrMH36Udg3eKQY@ravnborg.org>
- <dcc5cd1e-d0de-bdda-32f3-623b85085756@microchip.com>
- <YQG5+/9lPexU3Dn3@ravnborg.org>
- <1df22406-2e91-c15a-49dc-1cf33522a142@suse.de>
-In-Reply-To: <1df22406-2e91-c15a-49dc-1cf33522a142@suse.de>
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 
---oZfHGEJSgs3vHDPPh2hmpB1WlR5eRU4HT
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
+Harry
 
-Hi
-
-Am 29.07.21 um 21:18 schrieb Thomas Zimmermann:
-> Hi
->=20
-> Am 28.07.21 um 22:11 schrieb Sam Ravnborg:
->> Hi Dan,
->>
->>>>
->>>> I think I got it - we need to set irq_enabled to true.
->>>> The documentation says so:
->>>> "
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * @irq_=
-enabled:
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * Indic=
-ates that interrupt handling is enabled,=20
->>>> specifically vblank
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * handl=
-ing. Drivers which don't use drm_irq_install()=20
->>>> need to set this
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * to tr=
-ue manually.
->>>> "
->>>>
->>>> Can you try to add the following line:
->>>>
->>>>
->>>> +static int atmel_hlcdc_dc_irq_install(struct drm_device *dev,=20
->>>> unsigned int irq)
->>>> +{
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int ret;
->>>> +
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (irq =3D=3D IRQ_NOTCONNECTE=
-D)
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 return -ENOTCONN;
->>>> +
->>>>
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dev->irq_enab=
-led =3D true;=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 <=3D THIS LINE
->>>>
->>>>
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 atmel_hlcdc_dc_irq_disable(dev=
-);
->>>> +
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ret =3D request_irq(irq, atmel=
-_hlcdc_dc_irq_handler, 0,=20
->>>> dev->driver->name, dev);
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (ret)
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 return ret;
->>>>
->>>> I hope this fixes it.
->>>
->>> It does!=C2=A0 With the irq_enabled line added everything is looking =
-good.
->=20
-> Are you sure, you're testing with the latest drm-misc-next or drm-tip? =
-
-> Because using irq_enabled is deprecated and the flag was recently=20
-> replaced by commit 1e4cd78ed493 ("drm: Don't test for IRQ support in=20
-> VBLANK ioctls").
-
-For reference, the cover letter lists
-
-base-commit: 2bda1ca4d4acb4892556fec3a7ea1f02afcd40bb
-
-which is a recent drm-tip created on July 25.
-
-Best regards
-Thomas
-
->=20
-> Best regards
-> Thomas
->=20
->>
->> Great, thanks for testing.
->>
->> Thomas - I assume you will do a re-spin and there is likely some fixes=
-
->> for the applied IRQ conversions too.
->>
->> Note - irq_enabled must be cleared if request_irq fails. I did not
->> include this in the testing here.
->>
->> =C2=A0=C2=A0=C2=A0=C2=A0Sam
->>
->=20
-
---=20
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
-(HRB 36809, AG N=C3=BCrnberg)
-Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
-
-
---oZfHGEJSgs3vHDPPh2hmpB1WlR5eRU4HT--
-
---0E3gTnkoECLDq8FuUqBM1dW3HzVnSTQZs
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmEC/6oFAwAAAAAACgkQlh/E3EQov+DP
-WBAAhN1PPONpW2TVKis0ZvNuMhTlUsp7foKn/2COaGdiypjUneDQNoByIvPFGGvBOMxwn02KjtVY
-pT+YMgH0d6vr0H6g7VZNXZW1683cUhrqNoX+wDISa4/In+2MsDeUf1jgPUPOKD8rKrOaAMsHNVhL
-CVjPhTLk/2JTHLG1m81AhW2I1UNxaaSmFF/VTs75mEJ3vBc7VIk129VSde0lkt0GrQjNsQFumbRp
-uX6Gp5h1mFRS6zTAW/lP4KA8KFsJrOzFFmErGbRPsZyWIgAkV4uc/9DIdkax6nMV6C7V1bCpLM2G
-wMIs4jUR4+2iUmw/AFcuKMEXsIOTlOm7BnjunOpHwjXMREP4lvCDPAPhq2DOmLxhVlUMqjJWBKXF
-GJD0VVAyAnBoNClL3MQFD7RpG8/vTgcZiyPvmJUhu1blIq/j7bWQQScWeQjuB0ztdliSMjGGK6Zm
-Lh1mMnWxB0MusFV1uzQcNMcauKJZ72tghNZ6pjbUV3aEA6FUDy6Ug5XifNCNdNPxae+XwQR1t2dK
-L1gUFsHNuaBP2T3mN+jtS6Jkh5gJEjUhdRMeU+nu6j7jH+G7DJlBUmkIvzRi+PCK6a82xoWJDI0w
-YsJGVemBE3duYxKpIJ5700mHX9YVXmq88tTUb7wboYQPjVQIhEi68Cwve1coyitFoRWoeECzJARL
-pIc=
-=36fU
------END PGP SIGNATURE-----
-
---0E3gTnkoECLDq8FuUqBM1dW3HzVnSTQZs--
-
---===============1636329056==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+> ---
+>  drivers/gpu/drm/amd/display/dc/core/dc_link.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+> index 5be9d6c70ea6..8bd7f42a8053 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+> @@ -3729,11 +3729,13 @@ uint32_t dc_bandwidth_in_kbps_from_timing(
+>  	uint32_t bits_per_channel = 0;
+>  	uint32_t kbps;
+>  
+> +#if defined(CONFIG_DRM_AMD_DC_DCN)
+>  	if (timing->flags.DSC)
+>  		return dc_dsc_stream_bandwidth_in_kbps(timing,
+>  				timing->dsc_cfg.bits_per_pixel,
+>  				timing->dsc_cfg.num_slices_h,
+>  				timing->dsc_cfg.is_dp);
+> +#endif
+>  
+>  	switch (timing->display_color_depth) {
+>  	case COLOR_DEPTH_666:
+> 
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1636329056==--
