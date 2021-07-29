@@ -2,120 +2,130 @@ Return-Path: <SRS0=5qjI=MV=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0C367C4338F
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jul 2021 07:58:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DB4BDC4320A
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jul 2021 08:39:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BAE9160527
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jul 2021 07:58:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BAE9160527
+	by mail.kernel.org (Postfix) with ESMTPS id 9E04361074
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jul 2021 08:39:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9E04361074
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F5486E4F3;
-	Thu, 29 Jul 2021 07:58:02 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2085.outbound.protection.outlook.com [40.107.236.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4DCE6E4F3
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Jul 2021 07:58:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A4346ECED;
+	Thu, 29 Jul 2021 08:39:33 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam08on2059.outbound.protection.outlook.com [40.107.101.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 711396ECEE
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Jul 2021 08:39:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=f652vGBcO3qwt0VNplKu+DboIkhLGAeL2l8sStFlHG9xE2OwEnOyJLTtRtrzNVONVU2/nl025unm4Ei5LySEcKxHeyWIgZAealGXKobMNewqvFWgFz5vNb1VPoaqDO65bV29ToaFejuGJ7H6njJsUYuocq821sIMNafza03SS1nzOsvz7WR6cBWynyfumPdxC8gXF6QCubn8CMHNnMw8mCvG4y6dIMRasB/7AKo3kqy7C0u1x08FcBVhep6fEMsuy60CzJihuMw+g/zElM+X/bnODA8SnwdKv7guw9HfdnRFEsj88yT0aPUIfbtgrDSZvz2gqcDZlni4Sz3eX6sZHA==
+ b=VYBCn7IyCPcSdutYmT21orQJUDLg8pd9LlrfIS/Iie58Ai6vjv+HhhQaM9647MbimWFLm/0o9AXw1Cegdl1MOf5fyLBT45BgCOAQgTr7yn8zXsvcYBo6KlF8GIWZpoqvrZofW/6Eg1x1n2KfxIAc3ivb68gsvZOLWS8d2mPJAdK3sTE1sFW2npk51eahrOCmHUGq3i8/tSX91deYtOiD0/x6L67B4PURYKdU+kbLZ2/rVwcL8QQCGrNrlTboAVielItJaIcQ8HK8y3MB+bq46lvFBh4YciVnywCKs59aJ2PVXrinFCelCCEeM7ONtVj5+mCD4/lZuJO56P4HmxDTww==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=InLoRiejheoPBqzvHGnNCEAv0B93YcT5xatsBwlrAjU=;
- b=Zod79Brk2JNQG1Gc1pT5c9J+wMI3JOFHPjG3FwPz6jaanvv/i2LDKj8nEPIG5Ga5eoaRc0OgfTEDdGZ9Ltg2fa/Z/6W5OX9HpoOB+eoghjrj21UIb2o5fo0Posetluiw7GJCX6XfdrsKMSMXSGPGcOdNpVHqXOIY4JGP8LHTK8J7pQfjvXzucl/y7CbYC55D6Hnei/Eu+j2CMqIyJknQnzO+xEi2TNvZWYOEFE8mNgvbamrtaSyuvFBZKa5f6tFsK4D4QzK5Vtbh9DjEBy0VSPFkB9MoQVkKeDbcDSijIpF1IrYR3pFpViW0mNbkGl9KqVSMBmT3TEhZzhaDokFidA==
+ bh=/Mh4IZSv36P2KqG3UYCLCqVuzmC8Ktk5sf3LgqvDxEg=;
+ b=dj1KfVV1RbZcNGxJ0XQaNrpS0gcHjzbeAhPAmaYtpBq2/yKo2rXzgRi1z+k4U2h+O5K46LDo55R9WcHg9qB8uH3Bp/ZjQOhfBK/GsRjqzJ5kTfYHbsl2vcXw6yeCNXFLjz04JurTUxZJRSXNBIs78DDjI5FtwbN0lGL7rhFk49xLOCidoPEIBO1R5UEV+D9EqQKaw8I7j4w0Z6xK4pnFP/m8x82M+lCuZXTpoVARDrrgTMCBdO7UBeVxqUBSfk4cqTnk0Y1BbGesLUIXvh5rcHQgBA644FTXzXtnwUosJWVeGZNJXPkv7o0ZmbTA1AyebDZmLn9xS0n9p/wmNhV32g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=InLoRiejheoPBqzvHGnNCEAv0B93YcT5xatsBwlrAjU=;
- b=Io+vpLsEHfbjT6fxnruEp/C1JZqn7adxfJVCLUSkJVms9EW+aHwilS84DDQgdKo9dlzYbOkJT9UP2Y4BXT2TNhjp3OTUNBc+OqLuTnHRm+b0HBkGHjgn9yFqo/txjyasicaofq+Uk2ACZVkuyyJWSSyha/9yAuDRTYZgTMoUUjE=
-Received: from BYAPR12MB3416.namprd12.prod.outlook.com (2603:10b6:a03:ac::10)
- by BY5PR12MB4324.namprd12.prod.outlook.com (2603:10b6:a03:209::10)
+ bh=/Mh4IZSv36P2KqG3UYCLCqVuzmC8Ktk5sf3LgqvDxEg=;
+ b=I7gRQV858Dv9lZqBu2NZ/OwTDTGz4YSEAUFRnxM681fKMOrxAWSynlcvUgnl79pf2mZ8qxmG4xgSAzpf6okPsHNIeTxG5WsCVy2HIZ6ZO9yIWOf0mdhb3tT5525DHXEgjTgFmaAOD00NwdOcezo2hlcWwtrnzvt0Zqsu4F1z7Wk=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5349.namprd12.prod.outlook.com (2603:10b6:208:31f::7)
+ by BL1PR12MB5319.namprd12.prod.outlook.com (2603:10b6:208:317::24)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4373.21; Thu, 29 Jul
- 2021 07:57:58 +0000
-Received: from BYAPR12MB3416.namprd12.prod.outlook.com
- ([fe80::f5f9:93c:a602:61ff]) by BYAPR12MB3416.namprd12.prod.outlook.com
- ([fe80::f5f9:93c:a602:61ff%7]) with mapi id 15.20.4373.021; Thu, 29 Jul 2021
- 07:57:58 +0000
-From: "Zhang, Yifan" <Yifan1.Zhang@amd.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-Subject: RE: [PATCH v2] drm/amdgpu: fix the doorbell missing when in CGPG
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4373.20; Thu, 29 Jul
+ 2021 08:39:31 +0000
+Received: from BL1PR12MB5349.namprd12.prod.outlook.com
+ ([fe80::9991:fa53:1b0a:372c]) by BL1PR12MB5349.namprd12.prod.outlook.com
+ ([fe80::9991:fa53:1b0a:372c%4]) with mapi id 15.20.4373.020; Thu, 29 Jul 2021
+ 08:39:31 +0000
+Subject: Re: [PATCH v3] drm/amdgpu: fix the doorbell missing when in CGPG
  issue for renoir.
-Thread-Topic: [PATCH v2] drm/amdgpu: fix the doorbell missing when in CGPG
- issue for renoir.
-Thread-Index: AQHXg3dCKMUfZnH4u0W53sQJbTf2D6tYZtCAgADCkNCAABFeAIAAXOPA
-Date: Thu, 29 Jul 2021 07:57:58 +0000
-Message-ID: <BYAPR12MB341602DF402CE7D568AC575EC1EB9@BYAPR12MB3416.namprd12.prod.outlook.com>
-References: <20210728061018.2512047-1-yifan1.zhang@amd.com>
- <CADnq5_Oc-TY9e9=wEnhY7mgV8gBpxM=qPSwomW4ceQ-ondngGw@mail.gmail.com>
- <BYAPR12MB3416560A44B08B69871F64FFC1EB9@BYAPR12MB3416.namprd12.prod.outlook.com>
- <CADnq5_PJONeFX2rNaL-y__geeN=0C5dRiDJdMC5Bq5_V34n0Hg@mail.gmail.com>
-In-Reply-To: <CADnq5_PJONeFX2rNaL-y__geeN=0C5dRiDJdMC5Bq5_V34n0Hg@mail.gmail.com>
-Accept-Language: en-US
+To: Yifan Zhang <yifan1.zhang@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20210729075523.2557382-1-yifan1.zhang@amd.com>
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+Message-ID: <9cb5858b-dc4a-6895-b96f-e85242417000@amd.com>
+Date: Thu, 29 Jul 2021 14:09:19 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
+In-Reply-To: <20210729075523.2557382-1-yifan1.zhang@amd.com>
 Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: gmail.com; dkim=none (message not signed)
- header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 29cd53b2-d84d-4066-f4f3-08d9526694ae
-x-ms-traffictypediagnostic: BY5PR12MB4324:
-x-microsoft-antispam-prvs: <BY5PR12MB432482FB18CDE9682C9273FDC1EB9@BY5PR12MB4324.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:3276;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: p+mZJGLMwjavgZzhbchoehdXmd+m6ZOj2c5iWBA5xhm6TYQTN+IbAkhkbUdQEg/ItyHb1mS/3N9R2mOOnW4y4iejxxTC5qSawN6thuKyu2FtcS5Ytv1V0p+B4plgBcfGFeYhfww/9bBxBs4ISn4rw3I3Wrqm+sGT6KypdDNvKX5fiv45YVsBXiRNs1o3JFODdBMpWDRi/z9+woF0tVi9g2YDwJ10MdmiSnT+MKTTJeeXbki0y4Vtbqab6bmVaSpf+qL8acEboQvTVmpV38OFeGgdk2/0tZc3F3+DsQn6rQIYb9zheotFrXsuDu4NCsbr9e6IaN/1hc9aPGdOPfp/Z/5Mu6CmI6qKV4aINXWod19bKiu67dU+8+hSYt/FQmd9XB+exZnHBdjL/eSUJ4YqlGDU/CeKVpvEnh0x5SI9GzbOxPTlEYcyd7CNKBbRn2TDn+P5D1/uj4XtkwnH23TZIwGeG8/9t4GY16Wcj3/ygkVwXjjbffOYsvy3nKNokdF411pZTAEzqP8e7RtOD+1uEfO2UGSQQUaqWGBN7BHh8PyJU2IcI2XxecxSFiBXeRm8TiXAKp0WMteZpWYar+WwjuclVUlPwKfkKMuDmFtNfpsdCGUMTBdnLsQD5zjdm3WqK40pvcjJyGty/w+sF5zspjcImep1JQt4ZIAMDr1S09KscDs2Mra3H3wifIpUBZwu3A9pOJ5cmPCF6OFGrMhM8VG8gxIR0izs3x2X/IS+lx87cQs+LcgXr6eBqDuLy74BIE/aAoIxzxDs4v0WbBrE3w6lfbsf4Isp7vUFIJb5s0w=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB3416.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(136003)(396003)(376002)(366004)(39860400002)(66476007)(52536014)(7696005)(71200400001)(64756008)(66556008)(38070700005)(55016002)(6916009)(66446008)(66946007)(2906002)(9686003)(966005)(6506007)(186003)(8676002)(5660300002)(76116006)(316002)(33656002)(122000001)(53546011)(45080400002)(83380400001)(8936002)(478600001)(4326008)(26005)(38100700002)(86362001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?8V+2Vkutt+zAeVLrn29IgOYyfG1yXF1CjaQbOGQIutnrHmDBPM75P1N+txVU?=
- =?us-ascii?Q?wnE8qOXb3972i7Fp18A37a6uh8JMGtezpiOuGrYdvYWkoLZ2UidKE7C4DrfK?=
- =?us-ascii?Q?JmuPPrJBFNBE0DXvS9aeTpa7W1LYS0U2t60mH+ioNEYMzFdD9Nj8HS0JVeYZ?=
- =?us-ascii?Q?dXGzeySkyaueX6ZTlk8FYGFW8vrVGG0pi8gatoaeyr+4biTn+SPBEQtgpWNM?=
- =?us-ascii?Q?TsA5ACf0G1XsBngsyIEs3XIzHgz30X3rm5Z0cawqxO8FBjCHdzSUbP2ibqnn?=
- =?us-ascii?Q?/5RhUdrUXeUpHngQkNPiH5ToDijE0N/L1He864ySl36+imWwXQQG4iwMD61t?=
- =?us-ascii?Q?mdg6SsAEQdK23M9uWeTfbelK5c0c3CFtzzqYU165ozm4heyTWDJgbZxEmaab?=
- =?us-ascii?Q?eCsBDvEdmh4CYGfx2rw8u1LQEbWzKVK4sxgVuYailYf3V/5a8Vp/5etQzrto?=
- =?us-ascii?Q?3lgdExRVDMx2JXiZQr3xY9KmpgSvFeK1g8pz2WF+bdkF92OIU7/DgBtSunPb?=
- =?us-ascii?Q?L555FhKvt105CemwT3stlr6ilZX1TvajrZP4i8oFeOzkpGlr0Iwp3iVnXir/?=
- =?us-ascii?Q?6f1PuMU3yISPq24gCDUsL6hIxrNGIQ52TfOYyjM6rIZfekRnZwYhEgrhBYxj?=
- =?us-ascii?Q?Z1cX+kfn5xYKSTaE0M1/oWyeaRtx4E1SQlNZXjwKJNc0pPvoO3/ZF2BbWQ5E?=
- =?us-ascii?Q?IUIawdZ0wBjDR787pGi9BmSvEW2BBuJPHG6G0oH7eklTdgfQRRHqUx8cGoTI?=
- =?us-ascii?Q?u8NnqxUwEQEH7o4bXPMcgOmv6M9EJKdhH+WsyYrTlzS+6Phjmi86ZFs7M5R1?=
- =?us-ascii?Q?Ny5Ivmi1s7N+hp9EI06Y8ZA+6T13ncKohWdt69fnH2PvBD3Qb52y8hQ/uQF2?=
- =?us-ascii?Q?2FI1nZc3RGLFjNjkWGX9lcMfuiGC96LJA7BLQZZz8BgIsNs737rHtEZio+Q9?=
- =?us-ascii?Q?Zi+DIMhp8mGii9QSVDjeV8Y8qccHbfwAzja2AHtJgi7vOjjdABqg4RCbzAvf?=
- =?us-ascii?Q?AFuOQaiEA2caUmHZyeGp5FhWfyyvnA9O8bEJOks+drUefIVRprzXk1yjrn3V?=
- =?us-ascii?Q?vrwF29mSrcu2F7dX/5b5S4U/e1tooyE1U0ft0Wusi8RGvpFgFqC4kNS+lOjE?=
- =?us-ascii?Q?9E5Qm/ohRCO6R8xaxoj2AnTUpk7DqWfPCSS9UC804lsGtq+BWq2Sxdl51Ulc?=
- =?us-ascii?Q?1/jVgbXWNiX+Av3KEtZwNES3LjeoAW2D0/TRD+hD+mp9dV/u1sxA/tibPW2q?=
- =?us-ascii?Q?gxL+/9FmULGqlj6eGVOV9hBqH/bwzjurYeNft/YMkyO8les6y+5pYGFfLtDt?=
- =?us-ascii?Q?M9zeuVNtSnDvsj+NLQg9ID7L?=
-x-ms-exchange-transport-forked: True
+X-ClientProxiedBy: BM1PR0101CA0057.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:b00:19::19) To BL1PR12MB5349.namprd12.prod.outlook.com
+ (2603:10b6:208:31f::7)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [172.31.157.114] (165.204.158.249) by
+ BM1PR0101CA0057.INDPRD01.PROD.OUTLOOK.COM (2603:1096:b00:19::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4373.17 via Frontend
+ Transport; Thu, 29 Jul 2021 08:39:29 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: d50c69d0-3e84-494e-72cb-08d9526c623c
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5319:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BL1PR12MB5319F2CB4C5B752CEAE89C4097EB9@BL1PR12MB5319.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2150;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 9aL/gnoRgluC26pWgZ6jJ4euJfd57f/zxtmzp8IiYcqfRQSfVrCgML/QY8bDiuqFAtF0RJgrw2FvG2OVO9ALj57I6OXph0GFidkYcX+SRzGVzNUym7lNVE4NVXO2lQ8dnXaWCqze+z7GH2SA1lVten0jXB3a11GzYV84XkQqeeXcV4JgJtjkArtScHJ1s4CTjPHkvlb0b0Tc9tygiGLAIcN4DkI/hkklVaxIURirSDK3fbv4PINIyEhcwlnBsviPaOqzMEZgz5kGs+/fj7JGb9KkVHjIufwPb4UeredM9e1zSaZAElgzDXRwlCO5DE+TrFzkb6JbVa0b8ASAQzxOuMLIICNvzLjInoWqtQT0wlNfx4OrOHhsHVYQ3BZIXPSPhfs+UE98mBpPl6NQ8RVCHPk3KM2vrweX0V4IKC9/21p0J0ujPfqmzaKcRVcxhon783KmEJ8ElTGRDSJRAaG0ehgbEwomCH84HLUdfVMndDbSTeGviaEn6pP7v0XZdMtZHmXmI4pKl5uYm0tj/qdyczXEEu6xEBBD6ISQWsQOV2QfildCdG3A1stwhd60H+oU8z1+XC3vih5wjRs3atCKJlLhAA58zlpZ4UWSsqV2IN3d+uPU5KhuzVMqfl61k1mLC7dqek250CD/nJ3OYtShVEvDacawcEtgiDOSOrxOPVjs3kD5KIch0Nna2/WXG3U8Amj8loXEp747whgbPCpZe1FrszEMEktMhtn4rKwMnHM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5349.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(376002)(39860400002)(396003)(366004)(136003)(26005)(66476007)(66556008)(5660300002)(31686004)(66946007)(2906002)(6666004)(2616005)(186003)(86362001)(31696002)(53546011)(478600001)(83380400001)(38100700002)(316002)(36756003)(8936002)(16576012)(8676002)(956004)(6486002)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RktkUU5wclVOR0F3ZDJNN3FIekt2WEI4bWFWWWdNZFFFTWdjSTJYbmZZTjR6?=
+ =?utf-8?B?d3A2Q3dITEJCRHVmZkY4WGcvUVgyZkRjY2k0VXo2ME9kV2Nreml2MEZ3cVBT?=
+ =?utf-8?B?WWtZdDZ2aFltS1BlVkVOajBKUXZDZEJyMm53L3RKR1FkbndDUWNEM1RPdEE2?=
+ =?utf-8?B?bkNCYkpWVVB5cG81RldOeTBReGcyU3hzbnBZNlNzdjRjb1FnMnZIc2p0cVZS?=
+ =?utf-8?B?WkY4WklwUXhlWWl2bHlsUWRxRnJlZiszZ3hUZndzZ2pXdEQzem9kSncxVTFo?=
+ =?utf-8?B?bXluRFdPU3RmZjJMSWxnbkx1ZDBOUzVFSFB6cHh0TnpBbk9kT3JTV2drekFD?=
+ =?utf-8?B?ZGFlaEEwdWJLS1FWVVJVUTJKM1NQME1FbGt2VExSd0Z5dU9RTjMyY3BlYWtR?=
+ =?utf-8?B?dGcrbkExUkxvbzFReW5TM1UyMXVVd1Z4QTZxdjl5VTVHM3NNL3ZVTForSzl3?=
+ =?utf-8?B?UjhxNWNnVWNkaXNGMU1UVjVsaWU5dXFXdkxrVVVzakdOS0FQWjlsREN1WEw2?=
+ =?utf-8?B?cTc5bGtWdm9IUEZBeFhwRTBnNVIrTWZuc05wR00rcUpRSVp5OFJhT0JmTndO?=
+ =?utf-8?B?ZzR6bTVuNC8wdlRhdTV4RDJoWGl3bXMySHJRNElDMklxaXJnY2ExNHBQNHZ1?=
+ =?utf-8?B?czNrdjJSRlBDK3h6SlpSRFlTRkxmMHRsZXVpN01ScjY1TVVyLzhFL3Vja0ZR?=
+ =?utf-8?B?dEJFcjRrK3pGWXRJakFyTkF5RzdTT1FVUjl4aWVPcGZhQjBFOXNRNmo1N2xn?=
+ =?utf-8?B?L2M5bkhNQkxiQmNYUmVtUEw1VG4zVUdHRGZDUGN1bXFIOHRWMG50TCtOZ1pp?=
+ =?utf-8?B?Wi9MRkVsRytQSHphN0Rhd3RKSlUvdnFYYnZiOW56M1d4bHkwL09iVGxHV29J?=
+ =?utf-8?B?VkJkSlc4cThHWjBmYy9Xb2lvb3Q2K0VsVUFoL254REFqMjlPelZnVEVkU01u?=
+ =?utf-8?B?THpVNHBsbWxQdUVHMVJadllUU3c4L1ltQXdHcERWdzdaQmwxY2YyREhROGVa?=
+ =?utf-8?B?OXpCUkxwY0dBN1h6c2VDM0ZEY1AwV1R6d2w5S0F0aDg5ZVVtaTN4R21WSkR2?=
+ =?utf-8?B?TFpCMWRQbnQvc2JpbWdUT3dHKzZ4NW5kbmJoa1JBZStoVktWbG9CWXhjdTYy?=
+ =?utf-8?B?SUZ3V0FoL2cvaXQ1QW05azFiR0JoOGIvS3MxSnRYQ0JldGhkU042Rjk0YkNJ?=
+ =?utf-8?B?SFlveXdiZlFPZ01obkhUT0EzalRpcW5mZndyQTJxS21TNUFRMWNocGI2V05z?=
+ =?utf-8?B?ZHd6bVhWZEtNalBkYjViZEpDV3RFQk9mOTVnSmIyZzZTNEJPTEc0TVFCWC84?=
+ =?utf-8?B?NkFwemxUYWNtUEZHTW8xQ01tS2dKZXMzTU5WN0Z0SlZWSGpsL0ZTbTFiNkQr?=
+ =?utf-8?B?SWpYL0VSMjFIOUVtMnk1QnFwVkR5cmNpT1pnOVRYdjFUdDNNY0xlN2xFanpJ?=
+ =?utf-8?B?Zm1MTXZOa1ZPc25xV0wvbTdBYXFqMCtwc01ublRSdkZVcHFjdTR6QTNXVGRQ?=
+ =?utf-8?B?c3FJdlJsbWdpdFh4YURWV1MrMW9WMWtnSXBxSWJROWhMSEwxVm8wL1MvYmlz?=
+ =?utf-8?B?SUloaEFmaG9WTXRNVjlNeVptLzZSeGJ2TDY2Y0VSTDZ6UXY0UGJ6NTU0K00z?=
+ =?utf-8?B?UmYzWXJtYUJ4bjJwblNrMnYvcHN3N21jVXpiT21SS0F5MjNFaUFyQnhDTkNo?=
+ =?utf-8?B?T0J3dEk3OHR4MTlxYlpoazBHRlpyQXcrdjBrOEM1dDM1MGtESlVBbE5xeHZ5?=
+ =?utf-8?Q?/M3rs15c0AA3G01TDen7zA7mb/xzEenF9Hwp2Qq?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d50c69d0-3e84-494e-72cb-08d9526c623c
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5349.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3416.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 29cd53b2-d84d-4066-f4f3-08d9526694ae
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Jul 2021 07:57:58.2932 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: DZ7K9pXArs053b/ayKGVAw6/koA72HtvaPZKF0TsQPSv/j66Ik+KRdvrlTjIvOXv
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4324
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2021 08:39:31.0886 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: SmVPdp5dpaZICf4688ZpGqIgsljTNdzPofAJPSeYJTb1L7IjWz0N0wrmybBvagzF
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5319
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,100 +137,60 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Agree. Patch updated. Thanks.
-
------Original Message-----
-From: Alex Deucher <alexdeucher@gmail.com> 
-Sent: Thursday, July 29, 2021 10:24 AM
-To: Zhang, Yifan <Yifan1.Zhang@amd.com>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH v2] drm/amdgpu: fix the doorbell missing when in CGPG issue for renoir.
-
-On Wed, Jul 28, 2021 at 9:33 PM Zhang, Yifan <Yifan1.Zhang@amd.com> wrote:
->
-> Hi Alex,
->
-> No, it won't break gfxoff. The "gfxoff broken" issue we saw last time has been fixed on CP firmware update for Renoir, and this patch changes doorbell range setting specifically for Renoir, not covering the other ASICs. I think it is better to change doorbell range setting per ASIC to mitigate possible side effects.
->
-
-Thanks.  Do we need a firmware version check to determine when to set the range differently?
-
-Alex
 
 
-> BRs,
-> Yifan
->
-> -----Original Message-----
-> From: Alex Deucher <alexdeucher@gmail.com>
-> Sent: Wednesday, July 28, 2021 9:46 PM
-> To: Zhang, Yifan <Yifan1.Zhang@amd.com>
-> Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
-> Subject: Re: [PATCH v2] drm/amdgpu: fix the doorbell missing when in CGPG issue for renoir.
->
-> On Wed, Jul 28, 2021 at 2:10 AM Yifan Zhang <yifan1.zhang@amd.com> wrote:
-> >
-> > If GC has entered CGPG, ringing doorbell > first page doesn't wakeup GC.
-> > Enlarge CP_MEC_DOORBELL_RANGE_UPPER to workaround this issue.
-> >
-> > Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
->
-> I assume this won't break gfxoff?  The last time we changed this, it broke a bunch of scenarios.  Won't this cause just about all doorbells to wake gfx?
->
-> Alex
->
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 10 +++++++++-
-> >  1 file changed, 9 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> > b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> > index 03acc777adf7..70b64b510743 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> > @@ -3675,7 +3675,15 @@ static int gfx_v9_0_kiq_init_register(struct amdgpu_ring *ring)
-> >         if (ring->use_doorbell) {
-> >                 WREG32_SOC15(GC, 0, mmCP_MEC_DOORBELL_RANGE_LOWER,
-> >                                         (adev->doorbell_index.kiq * 2) << 2);
-> > -               WREG32_SOC15(GC, 0, mmCP_MEC_DOORBELL_RANGE_UPPER,
-> > +               /* In renoir, if GC has entered CGPG, ringing doorbell > first page
-> > +                * doesn't wakeup GC. Enlarge CP_MEC_DOORBELL_RANGE_UPPER to
-> > +                * workaround this issue.
-> > +                */
-> > +               if (adev->asic_type == CHIP_RENOIR)
-> > +                       WREG32_SOC15(GC, 0, mmCP_MEC_DOORBELL_RANGE_UPPER,
-> > +                                       (adev->doorbell.size - 4));
-> > +               else
-> > +                       WREG32_SOC15(GC, 0, 
-> > + mmCP_MEC_DOORBELL_RANGE_UPPER,
-> >                                         (adev->doorbell_index.userqueue_end * 2) << 2);
-> >         }
-> >
-> > --
-> > 2.25.1
-> >
-> > _______________________________________________
-> > amd-gfx mailing list
-> > amd-gfx@lists.freedesktop.org
-> > https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fli
-> > st 
-> > s.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7C
-> > yi
-> > fan1.zhang%40amd.com%7C4a2605541c22483b4a3a08d951ce097c%7C3dd8961fe4
-> > 88 
-> > 4e608e11a82d994e183d%7C0%7C0%7C637630767650055129%7CUnknown%7CTWFpbG
-> > Zs 
-> > b3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%
-> > 3D 
-> > %7C1000&amp;sdata=1TIsNslKHeSNNMDR3MHPaIiP%2BSLVrr5cEfAbCmvZlCw%3D&a
-> > mp
-> > ;reserved=0
+On 7/29/2021 1:25 PM, Yifan Zhang wrote:
+> If GC has entered CGPG, ringing doorbell > first page doesn't wakeup GC.
+> Enlarge CP_MEC_DOORBELL_RANGE_UPPER to workaround this issue.
+> 
+> Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 13 ++++++++++++-
+>   1 file changed, 12 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> index 03acc777adf7..a35f1d041a85 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> @@ -3675,7 +3675,18 @@ static int gfx_v9_0_kiq_init_register(struct amdgpu_ring *ring)
+>   	if (ring->use_doorbell) {
+>   		WREG32_SOC15(GC, 0, mmCP_MEC_DOORBELL_RANGE_LOWER,
+>   					(adev->doorbell_index.kiq * 2) << 2);
+> -		WREG32_SOC15(GC, 0, mmCP_MEC_DOORBELL_RANGE_UPPER,
+> +		/* In renoir, if GC has entered CGPG, ringing doorbell > first page
+> +		 * doesn't wakeup GC. Enlarge CP_MEC_DOORBELL_RANGE_UPPER to
+> +		 * workaround this issue. And this change has to align with firmware
+> +		 * update.
+> +		 */
+> +		if ((adev->asic_type == CHIP_RENOIR) &&
+> +		    (adev->gfx.me_fw_version >= 0x000000a5) &&
+> +		    (adev->gfx.me_feature_version >= 52))
+> +			WREG32_SOC15(GC, 0, mmCP_MEC_DOORBELL_RANGE_UPPER,
+> +					(adev->doorbell.size - 4));
+
+For better readability, perhaps
+	
+	if (extended_doorbell_range(adev))
+		...
+	else
+		...
+
+and move the ASIC and FW version check inside extended_doorbell_range.
+
+Thanks,
+Lijo
+
+> +		else
+> +			WREG32_SOC15(GC, 0, mmCP_MEC_DOORBELL_RANGE_UPPER,
+>   					(adev->doorbell_index.userqueue_end * 2) << 2);
+>   	}
+>   
+> 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
