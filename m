@@ -7,48 +7,48 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7111EC4338F
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jul 2021 09:46:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A4C8BC4338F
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jul 2021 10:50:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3785261052
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jul 2021 09:46:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3785261052
+	by mail.kernel.org (Postfix) with ESMTPS id 6216160C51
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jul 2021 10:50:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6216160C51
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC3FD6ED07;
-	Thu, 29 Jul 2021 09:46:34 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam08on2082.outbound.protection.outlook.com [40.107.101.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB9986ED07
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Jul 2021 09:46:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 133546ED1A;
+	Thu, 29 Jul 2021 10:50:12 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2050.outbound.protection.outlook.com [40.107.237.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AEEDD6ED1A
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Jul 2021 10:50:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MdReM97xi1Mzkw5+ajIPBM3N8Av6ndA6nAzfoPVa7Vk+aU8CLON/mQa/oDqKFH6oMG4LYIJeecgNyxptRfDoyALLB/glzm6tF1SSGfxm4jvkXVFzb2lDkaOGn0zyBLuf80WZ5b1BaO9HpeTU4n82GsGLGUESTJaPpLB1CBNwQKx2Gh1T0J144eOEh/2XHBngWoBMCSpnl8hvPY6kLLaYS+0pAKgFqfMASnktOkaCDSZsxtfSF6xDkThbY1gLUPK9fB7gFQ0YCSLusZWPnuFNMr71Mqe5Ywjs3ogifNIipSgrQZOm47QeSWnElZKiKvZX8Q3fnVFu2aiZADbzy4CaWQ==
+ b=jz2ToPU8EcaL815JjwjFxWw3Vq0XmrLYCpMeWP+Jqt+wK4pMvgxhFlRHz9buKLHHV4sZENRhib+YVaDNzZfzz27AkV76P9FpibeXhpqvMaTJyCnr6HA1sTRKI4pN8KHFV0HHSlKsK3hTeqenD0Azh2uXiJ1dp0JP8jGvQ5yJUGaBDgtp8ouWb6RsJ7jXxHWx2abPLXEBUwk/cAgY2trMohN81FyRgTDUxnYwKvWMtEHQERFHt2zYFktioJQpx9OcLBpeK0Wn0eCVnqu0huXYesKJ3ow/tAXRmdRd48pcvq5QqiiokuDRnfpLUtczJfvFTdctib5NYZi2S5Y2GYBujg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YQKtGxEHenKx268l5kvsT6fUezBTuyio0rXas+cWDuc=;
- b=Pfe7eeXvaKA5tpMI3W0aK3SW00SrTrv5nUHK5DN+VszfJV2PmwwNTWtdQ1cExvERBfTfQfhg02zahPQN9Fl3z+uVS6qbzrfnI2ejrgrGwUskTZdzCDaFydlT4ma8E5ea/ctN+6dYW366UwS/nnW7qvlKeiEPQaXz6Motm0HQL9lN44Tb0mGc4OGSyImH3XFDFwZ7j8kpHdgvvlUkKdHYy1KhcN4LoxvNRSHEZUHbsoGZLb7/o+KeG3ho49+U1vy8y31C0zJ5gzU/hntcVFn3xOmt/y4zvj5yOqbowqDNkg9/FVUJjXLPJz80kdHVbQqWGNao3DmVg+v1+rdV8HGIBA==
+ bh=fkN/ATcbO4+OgFTOS0E6OqK+1W3Rt8y+EiB/3eUwg8o=;
+ b=cgSAr2r8r5Cy2LvdJ/jgTnsIF5C8DK1Moxzi18U1oVFrbnDLGunFeCgOz7oaz/cZB63QY5QUwXaghw02GH/p8p0HfGoXR2AT6ibc1oM0kkGxrn36YRbrvfLx0+bKeRlJ1wmIy+RyuPH8p04eO2ub0Zd9SdRkHhagLx2SkLjX9sDf8fDSnyuHA04fzul6Y0Dx7SEo2d7PnrQsnzq2J/eXnxR2pClcxJrsqQ+psxKEH8mhkVoBZLSPTBtmPEjUNGc/J+2CBtBnO/pmqWayJQ8lc/hh/yYPVcf3FL5Z1xTLb/M+ctZDLz46JlR/kMikVaWO9R6wBbqqVG25dXQcs284qw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YQKtGxEHenKx268l5kvsT6fUezBTuyio0rXas+cWDuc=;
- b=mqMxw+hA7G1L0kaUcKqY25GiXj2zaffDOHfRZdOnFJzp+V3JuuOv3zJXYFn8ROwbkvYGSkNuUrCr6xYyJHRyDRdoB5tQbfr7VqFqLBUhawXFc4YIZN56x/LwvySqn6V/BMzHkgGvBU5f8TYVGuCD7O/j5Z3jtwoQUvVPHgA3P6k=
-Received: from DS7PR03CA0088.namprd03.prod.outlook.com (2603:10b6:5:3bb::33)
- by BL0PR12MB4946.namprd12.prod.outlook.com (2603:10b6:208:1c5::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4352.25; Thu, 29 Jul
- 2021 09:46:30 +0000
-Received: from DM6NAM11FT044.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:3bb:cafe::3c) by DS7PR03CA0088.outlook.office365.com
- (2603:10b6:5:3bb::33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4373.18 via Frontend
- Transport; Thu, 29 Jul 2021 09:46:30 +0000
+ bh=fkN/ATcbO4+OgFTOS0E6OqK+1W3Rt8y+EiB/3eUwg8o=;
+ b=PPghfjhcoha2kAjt8KGybhCOcCz2tmge27/5CeSeb7tMehrng6dpqSlaK6pGPV/kZAWtRPrsBlTK/oPGv+Xi0Xl19t7vYqGhRJ1PQ+LJWI8lDYChyrW+81bmmtrAw+TGw017z/8VNQsiUfmPjaGvvHymy1liIm151PDX39gIDW8=
+Received: from DM5PR15CA0026.namprd15.prod.outlook.com (2603:10b6:4:4b::12) by
+ DM6PR12MB4958.namprd12.prod.outlook.com (2603:10b6:5:20a::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4352.26; Thu, 29 Jul 2021 10:50:07 +0000
+Received: from DM6NAM11FT025.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:4:4b:cafe::19) by DM5PR15CA0026.outlook.office365.com
+ (2603:10b6:4:4b::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4373.17 via Frontend
+ Transport; Thu, 29 Jul 2021 10:50:07 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -57,48 +57,49 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT044.mail.protection.outlook.com (10.13.173.185) with Microsoft SMTP
+ DM6NAM11FT025.mail.protection.outlook.com (10.13.172.197) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4373.18 via Frontend Transport; Thu, 29 Jul 2021 09:46:30 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Thu, 29 Jul
- 2021 04:46:30 -0500
-Received: from yifan.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2242.12 via Frontend
- Transport; Thu, 29 Jul 2021 04:46:29 -0500
-From: Yifan Zhang <yifan1.zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v4] drm/amdgpu: fix the doorbell missing when in CGPG issue
- for renoir.
-Date: Thu, 29 Jul 2021 17:46:27 +0800
-Message-ID: <20210729094627.2595196-1-yifan1.zhang@amd.com>
-X-Mailer: git-send-email 2.25.1
+ 15.20.4373.18 via Frontend Transport; Thu, 29 Jul 2021 10:50:07 +0000
+Received: from guchchen-System-Product-Name.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.12; Thu, 29 Jul 2021 05:50:05 -0500
+From: Guchun Chen <guchun.chen@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <Likun.Gao@amd.com>,
+ <christian.koenig@amd.com>, <Hawking.Zhang@amd.com>,
+ <alexander.deucher@amd.com>
+Subject: [PATCH] drm/amdgpu: avoid over-handle of fence driver fini in s3 test
+Date: Thu, 29 Jul 2021 18:49:45 +0800
+Message-ID: <20210729104945.25312-1-guchun.chen@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2abb54c2-691f-41b0-1af7-08d95275be52
-X-MS-TrafficTypeDiagnostic: BL0PR12MB4946:
-X-Microsoft-Antispam-PRVS: <BL0PR12MB494684C8B3CE69F55A05C09CC1EB9@BL0PR12MB4946.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:478;
+X-MS-Office365-Filtering-Correlation-Id: 61d9f597-467b-4c7c-1cd9-08d9527ea15c
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4958:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB4958D77CB50F5EC57FD6E2EFF1EB9@DM6PR12MB4958.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3383;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: fWl0LCNOsy7SoartruXk/9RhMc5DCu4o4tCgdwb8tgLe5iZUpfjS5xFPfI2mXKwkqr5lRnUB9WZI73y3IdHdga25o7iZzj0Xq2SeXTstYEgTpDC5BidBGmtuxhHISN/m4NxEcWxNtMKHayBmvJ/IvnXbUgiAnIAozkkXnSCoEuZEpxiLlz4wHWlqjTvSjSDVNr9sFhlBIkwAIdi1cavkHNaxfVP2k2siTTL/pfuInUwW1FN1CtnftjLzgkOnAT84dzAhnLcHbUfKBBcRxNWgB1NYExElz75wxFDOiHwxVdeC+fqra+ArC2SaAP7sj9nRL0txWyRPhccS2lYaKjwhDjVaUEHyfHNxN7D52J3FH1tkTH06IIxQ7Wd6k1DeLhyTyuovxcmXD2iSiDXu/D04EhM+y4YxiiO52VRfhAadwPf8R1mwBFqIlrO6MtAOrBDKU7iRLvAkXyQp/iW5qs36WDII9lE3rPdGfEj17x+vhiOtweNxe7hy4qwFjUfou4g3gPGySI0axTEKmPkMbJ20NaWl6ml6SACNnCiTks7eIjVhzxTf+uDmPc+Oc3KPRq0cIvNN5eAgkVGYzXKJUFfVuITnDqjB6M2Qag9CKVLhmfE8RAiPfmuIU2rf+uMO8PRyTYOzL3l/wn54GsmOKYamxVkoZvBvQ6JID4lF7fpHpI0cyjI4nuipzSwgfXUu0e1jXMx9Istz7QgAvr7gomGSkwVvu35BosS7Bze6ttK4TwI=
+X-Microsoft-Antispam-Message-Info: FsnAwst1lKTloKnbTapAHRN4jNJ00hI6MRy7AingR3PDb9Xe4bwtjt366eBb+yE+SdmKyaRWcgOA8CdspGa6TDvstPXOIWrje5EHVMFMFKYrcTt0XxTm+ddwlbeepq4+jAEKzpCY/BBPLTB+AzARVvXpiS/kFBd7ka6u6ucdhEU+yStfzYI0cMlKqh1y9iZeN34jwyHRmyScXB9eauwGCCSLrx2l1rMHLU5g1NdRcLtyBgnRq3FnV3RF+8bN6pYssTK1ze25Op1SJJGoqiWUXRHVwtMs0U0cVCnUXngG0lvAj6ZTEXAyOK+34am6U/fVl6qm8S5OG3qifQeIDZs5WCzBvaYnPBhE+V6lusrLzRmfDOL+V3myVu9+e8BGg4BdK3/4YiNtUGHhUu8kVkUvj76nIy3scU+CdrmipHXUddy6zajwZT0GeQpl+PPKMSoMUxrioCnDv048m1iCPlUgMgz9U5sI6NW/8XdZz5pHmA0CRFoKh4qCda7i21S93SZDFzyVXlRpgsSB+JtIW3I9ZAewvAwJ83qQFvdenPPjfEMqeMmLCIEvfQYROKzQ4Ye0MUrWdMix7AuJ/IY7bSJwD+aUKMPvslwYAviUCckvaGy9cPuotIuJfnxx8HrPey1Fh+N+RmRWN3Mmq3Gzc5y6h40+Thyi7c3VjEnyxrrCFJS4fn3Ji615Yt8cMrKES3K1OjF4KIDzmDs/aeWi0Xz/0fhv0hzq/R6/8klS7vsBPOo=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(396003)(376002)(346002)(136003)(39860400002)(36840700001)(46966006)(82740400003)(36860700001)(47076005)(356005)(8936002)(6916009)(70206006)(4326008)(36756003)(86362001)(336012)(2616005)(5660300002)(426003)(316002)(83380400001)(70586007)(7696005)(478600001)(82310400003)(1076003)(81166007)(26005)(2906002)(8676002)(186003)(36900700001);
+ SFS:(4636009)(376002)(39860400002)(346002)(396003)(136003)(46966006)(36840700001)(44832011)(81166007)(6666004)(86362001)(16526019)(5660300002)(26005)(47076005)(83380400001)(356005)(7696005)(336012)(186003)(82310400003)(316002)(110136005)(2616005)(2906002)(8676002)(36756003)(1076003)(4326008)(36860700001)(70206006)(6636002)(8936002)(82740400003)(426003)(70586007)(478600001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2021 09:46:30.6579 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2abb54c2-691f-41b0-1af7-08d95275be52
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2021 10:50:07.5231 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 61d9f597-467b-4c7c-1cd9-08d9527ea15c
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT044.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT025.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4946
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4958
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,61 +111,94 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Yifan Zhang <yifan1.zhang@amd.com>
+Cc: Guchun Chen <guchun.chen@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If GC has entered CGPG, ringing doorbell > first page doesn't wakeup GC.
-Enlarge CP_MEC_DOORBELL_RANGE_UPPER to workaround this issue.
+In amdgpu_fence_driver_hw_fini, no need to call drm_sched_fini to stop
+scheduler in s3 test, otherwise, fence errors will occur after resume.
+So introduce a new parameter to distingiush the case in this API.
 
-Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
+Fixes: cd87a6dcf6af drm/amdgpu: adjust fence driver enable sequence
+Signed-off-by: Guchun Chen <guchun.chen@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 21 ++++++++++++++++++++-
- 1 file changed, 20 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c  | 8 +++++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h   | 2 +-
+ 3 files changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index 03acc777adf7..ab79ca770dcd 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -1295,6 +1295,16 @@ static bool is_raven_kicker(struct amdgpu_device *adev)
- 		return false;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index b1d2dc39e8be..aaff8ebbb7dc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -3844,7 +3844,7 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
+ 		else
+ 			drm_atomic_helper_shutdown(adev_to_drm(adev));
+ 	}
+-	amdgpu_fence_driver_hw_fini(adev);
++	amdgpu_fence_driver_hw_fini(adev, false);
+ 
+ 	if (adev->pm_sysfs_en)
+ 		amdgpu_pm_sysfs_fini(adev);
+@@ -3941,7 +3941,7 @@ int amdgpu_device_suspend(struct drm_device *dev, bool fbcon)
+ 	/* evict vram memory */
+ 	amdgpu_bo_evict_vram(adev);
+ 
+-	amdgpu_fence_driver_hw_fini(adev);
++	amdgpu_fence_driver_hw_fini(adev, adev->in_suspend);
+ 
+ 	amdgpu_device_ip_suspend_phase2(adev);
+ 	/* evict remaining vram memory
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+index 49c5c7331c53..7e6a73c2919d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+@@ -515,14 +515,15 @@ int amdgpu_fence_driver_init(struct amdgpu_device *adev)
  }
  
-+static bool check_if_enlarge_doorbell_range(struct amdgpu_device *adev)
-+{
-+	if ((adev->asic_type == CHIP_RENOIR) &&
-+	    (adev->gfx.me_fw_version >= 0x000000a5) &&
-+	    (adev->gfx.me_feature_version >= 52))
-+		return true;
-+	else
-+		return false;
-+}
-+
- static void gfx_v9_0_check_if_need_gfxoff(struct amdgpu_device *adev)
+ /**
+- * amdgpu_fence_driver_fini - tear down the fence driver
++ * amdgpu_fence_driver_hw_fini - tear down the fence driver
+  * for all possible rings.
+  *
+  * @adev: amdgpu device pointer
++ * @in_reset: indicator to distingiush device removal case or s3 case
+  *
+  * Tear down the fence driver for all possible rings (all asics).
+  */
+-void amdgpu_fence_driver_hw_fini(struct amdgpu_device *adev)
++void amdgpu_fence_driver_hw_fini(struct amdgpu_device *adev, bool in_reset)
  {
- 	if (gfx_v9_0_should_disable_gfxoff(adev->pdev))
-@@ -3675,7 +3685,16 @@ static int gfx_v9_0_kiq_init_register(struct amdgpu_ring *ring)
- 	if (ring->use_doorbell) {
- 		WREG32_SOC15(GC, 0, mmCP_MEC_DOORBELL_RANGE_LOWER,
- 					(adev->doorbell_index.kiq * 2) << 2);
--		WREG32_SOC15(GC, 0, mmCP_MEC_DOORBELL_RANGE_UPPER,
-+		/* If GC has entered CGPG, ringing doorbell > first page
-+		 * doesn't wakeup GC. Enlarge CP_MEC_DOORBELL_RANGE_UPPER to
-+		 * workaround this issue. And this change has to align with firmware
-+		 * update.
-+		 */
-+		if (check_if_enlarge_doorbell_range(adev))
-+			WREG32_SOC15(GC, 0, mmCP_MEC_DOORBELL_RANGE_UPPER,
-+					(adev->doorbell.size - 4));
-+		else
-+			WREG32_SOC15(GC, 0, mmCP_MEC_DOORBELL_RANGE_UPPER,
- 					(adev->doorbell_index.userqueue_end * 2) << 2);
- 	}
+ 	int i, r;
  
+@@ -531,8 +532,9 @@ void amdgpu_fence_driver_hw_fini(struct amdgpu_device *adev)
+ 
+ 		if (!ring || !ring->fence_drv.initialized)
+ 			continue;
+-		if (!ring->no_scheduler)
++		if (!ring->no_scheduler && !in_reset)
+ 			drm_sched_fini(&ring->sched);
++
+ 		/* You can't wait for HW to signal if it's gone */
+ 		if (!drm_dev_is_unplugged(&adev->ddev))
+ 			r = amdgpu_fence_wait_empty(ring);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+index 27adffa7658d..42cbecfc26a3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+@@ -115,7 +115,7 @@ int amdgpu_fence_driver_init_ring(struct amdgpu_ring *ring,
+ int amdgpu_fence_driver_start_ring(struct amdgpu_ring *ring,
+ 				   struct amdgpu_irq_src *irq_src,
+ 				   unsigned irq_type);
+-void amdgpu_fence_driver_hw_fini(struct amdgpu_device *adev);
++void amdgpu_fence_driver_hw_fini(struct amdgpu_device *adev, bool in_reset);
+ void amdgpu_fence_driver_sw_fini(struct amdgpu_device *adev);
+ void amdgpu_fence_driver_hw_init(struct amdgpu_device *adev);
+ int amdgpu_fence_emit(struct amdgpu_ring *ring, struct dma_fence **fence,
 -- 
-2.25.1
+2.17.1
 
 _______________________________________________
 amd-gfx mailing list
