@@ -2,53 +2,53 @@ Return-Path: <SRS0=5qjI=MV=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C5300C4338F
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jul 2021 20:34:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D4495C4338F
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jul 2021 20:34:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 90A426054E
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jul 2021 20:34:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 90A426054E
+	by mail.kernel.org (Postfix) with ESMTPS id 97B0C60F4A
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jul 2021 20:34:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 97B0C60F4A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 50A586EE46;
-	Thu, 29 Jul 2021 20:34:03 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2088.outbound.protection.outlook.com [40.107.243.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E19186EE46
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Jul 2021 20:34:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C53A6EE59;
+	Thu, 29 Jul 2021 20:34:05 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam08on2046.outbound.protection.outlook.com [40.107.101.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B28B6EE46
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Jul 2021 20:34:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Tbk6SGvyX4HiYsMK+DJB5cpJYzGgpUVpNL0vKgKeVJrzhol3UyBhGFxuUDacwcqJRWam//NN7uBZsj3sxyHJgiVBBkCTuftb1veXvf8PvCZVVld5GdlptbwUIPcVNcwAGh4SN/lRUjlMVGY72LBh8nnVs0KLz+Jpyf7Ur/C5t70UcRY9qS8JQ4ptuKvQEtZ/eCzk+bBA1NyplusM9yyZ/eXdAUHW4oIvVnjxprf5Zlepair0Jjezx8X2fPqC6FYIw8OTVNZu0WwlkGM2T5CcuubZBAr6xXv7gBDo+0/A4Yx+cMb2Ujyl91sFHOB4uoDcn/z0NySkIOypfKQeK/oFDg==
+ b=hA3VRJ0e1lmej7FcxkvlHhCDMgw1j61dQLzYS/C8OrZQkp0bShI3KmroUeO6a7NakRNn9FhmLy8n38K6KXOP5Z6gP9FvKGs61SWlzQZpvBRjKVKILur2/6UJ2HHnDWsHwA7JvUxCuFKWrjISjGc0QDWLpN+Obzx+W4NXqyjQck6vpPG2qKwg57z5H9cOqTaOonpfXgfYIU4rG6VXO5jfzPcWMpoVWElLck6W9Y1fwQKiGqZg04Ox+T0KxK9cqnqH+JngX1gBy0HoEmIvvmn4C4Nu0BSCncFjcya0xyoG42Eu59ClNjr0Uzr229mmTAyZN9i+1IrRTf8beDJeQruUzw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NV5/wWO9xRtxS5CNkV1IoxJNuCchcchBzSqJSjR+83E=;
- b=PZF3OUW8XnaWKwQvdX9xU/MkrfoaDBmXkgPySusGD/BtbTgedD4K/DGzNjYrDxaH0VuFyyEAcCX40jLJbccq333pc/NVn8JZ/7U26BDwvTwmUUiwdmb7uVVG2RAUZMxg4fQxvChFHLtGQfXN5VI6XNX7QRBVx2sL4wp1PZbgtsjAhMuBoqCcu6yCYFYMopRNVL+e+xf0DtiBdFfoXkPE1WatYLBuleVCf6D+Yb4EyDjCf5Rgg0eMTs76fEf/KqgTh3jdeegVdkL6V+UYLqoZZOv3xm3BYyFSxZkyb80nTcOV6G9QmNmAEXx8QW1Ih3uzph5eAXt2ob1YKiQ8g0jBhg==
+ bh=gtdxcX8zfjg/aEXXsBTe4YfOq7DUp3EhzTQ8/fOfbYU=;
+ b=h0uTIKN1aq0odr4LpnWWaZB26R1n5hJ7emA8EEuQlfBwamNUp6O9TmdGr7VUk6MlRw3O0B/7FD//PO2Esob588nPtjtCgMxcncH46PzgBpv2rA8Ymlpj1zxbCuwj/ThajY1v8rqBhFmKcv4vZWDVpbvPjmcximacMCJC21V0bXbCj22uwUz0tIx+3z+cZURBpm6FYsk2z6QEDsIDghfTQoZfRcP5YsbIt/OSTMU2cHZLxGZC4C5F/1GvXmDssuW0vn5jcQPP71mhbzAAGJMsnfroqmR3Rhsly9prGxO3KK5GV8r7KQMo80LtBTVTVZJVM6Emb5U1FoEmjaLBd9utEA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NV5/wWO9xRtxS5CNkV1IoxJNuCchcchBzSqJSjR+83E=;
- b=Otls3/7z8y7J+SjoH6B8FWj12cQ64fouiUlkAovRmJDeX/OcPbSNSWwgogHGRj4qKUiSPv7o5yO8+xehGWdwfjqlPRmpHDTU/1zJLtXIdeUoLpXuf5wDD+/hoOxGhA9h1ZilDnzXCZ8bXr/k0t+pna+QnQMwUwYPb/iTU08MYNE=
-Received: from DS7PR03CA0147.namprd03.prod.outlook.com (2603:10b6:5:3b4::32)
- by CH2PR12MB5545.namprd12.prod.outlook.com (2603:10b6:610:67::11) with
+ bh=gtdxcX8zfjg/aEXXsBTe4YfOq7DUp3EhzTQ8/fOfbYU=;
+ b=StifzLkQ0e0wZ9PERJAPJfyZovO65D2OTuFGpgkS8TFQtueRavr/lMo1K/6BB8DEtfVWqDIWDIoq/qqKQuTgPpFmW1tR+laYhdTgPi2XYH2qyrp9Cj59OhMUL8gIbFRyspeFB5hCa1bb58vqInFjM+lYnruQDv/hSmXZbAYcOG4=
+Received: from DM6PR11CA0052.namprd11.prod.outlook.com (2603:10b6:5:14c::29)
+ by MN2PR12MB3437.namprd12.prod.outlook.com (2603:10b6:208:c3::20) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4373.19; Thu, 29 Jul
- 2021 20:33:59 +0000
-Received: from DM6NAM11FT030.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:3b4:cafe::43) by DS7PR03CA0147.outlook.office365.com
- (2603:10b6:5:3b4::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4373.18; Thu, 29 Jul
+ 2021 20:34:00 +0000
+Received: from DM6NAM11FT029.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:14c:cafe::3f) by DM6PR11CA0052.outlook.office365.com
+ (2603:10b6:5:14c::29) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4373.20 via Frontend
- Transport; Thu, 29 Jul 2021 20:33:58 +0000
+ Transport; Thu, 29 Jul 2021 20:34:00 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -57,47 +57,53 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT030.mail.protection.outlook.com (10.13.172.146) with Microsoft SMTP
+ DM6NAM11FT029.mail.protection.outlook.com (10.13.173.23) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4373.18 via Frontend Transport; Thu, 29 Jul 2021 20:33:58 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ 15.20.4373.18 via Frontend Transport; Thu, 29 Jul 2021 20:33:59 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Thu, 29 Jul
+ 2021 15:33:59 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Thu, 29 Jul
  2021 15:33:58 -0500
 Received: from elite-desk-aura.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2242.12 via
- Frontend Transport; Thu, 29 Jul 2021 15:33:57 -0500
+ Frontend Transport; Thu, 29 Jul 2021 15:33:58 -0500
 From: Aurabindo Pillai <aurabindo.pillai@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 0/9] DC Patches for Aug 2, 2021
-Date: Thu, 29 Jul 2021 16:33:48 -0400
-Message-ID: <20210729203357.1562846-1-aurabindo.pillai@amd.com>
+Subject: [PATCH 1/9] drm/amd/display: Assume LTTPR interop for DCN31+
+Date: Thu, 29 Jul 2021 16:33:49 -0400
+Message-ID: <20210729203357.1562846-2-aurabindo.pillai@amd.com>
 X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20210729203357.1562846-1-aurabindo.pillai@amd.com>
+References: <20210729203357.1562846-1-aurabindo.pillai@amd.com>
 MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: cce5ae47-551c-4f06-b672-08d952d0319d
-X-MS-TrafficTypeDiagnostic: CH2PR12MB5545:
-X-Microsoft-Antispam-PRVS: <CH2PR12MB55456B96CDF468FD882BE6668BEB9@CH2PR12MB5545.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3513;
+X-MS-Office365-Filtering-Correlation-Id: 4647e2bd-8fef-4f06-9f60-08d952d03240
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3437:
+X-Microsoft-Antispam-PRVS: <MN2PR12MB343793A9A6C9ED9240E3D81B8BEB9@MN2PR12MB3437.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: b1Y8I+ok4g7ii1ppWAo8NaKjnZ0tj1bXL8vwSyltSkCbl8o1NXSNIu1km0gIOjcRYliX2PZu9LLm4BBXL4ljwKutb8rkO02gA51O7JNgPTgqN+Xrm2Iqtx+/+eTWKFD0ubm3fS/QPC7pV01+cqYUhpuD/vbTWAhKJwYZ2uThIKBLWPhDxe660c+mVJUo/QYXiEYZ7yCjkhMIatjoKtElhgCVD7s2hhpFFhqXDd9IiJ3L7n+CDYnlRF9q9PpBU5whDOfDY/IL/UWvehyPlmMq0/Ff4iLF/Jg9oEFyHY5v0BxQM6FC3hABZJWmMyCL1ROF0D5xNkCjJiBE2E32aMLQ/oe9rsj29TR39MYtwXMkIl5Vvm0ZQT7L08elPPtZE2oUz+P0oKhj2Cs5+ZtqVAT0xYec+dQG/EoJSmLKc2oPWZl296keWKj9jaK1bzeAT8XOnbatDBgxJXp9cTjhxPqHZxHRj4/XIXtQgONPW97v69XrGa0dOJMaAxo4EAJxZ6HiIpaoA25LHZkhFSjpdd269OE78YBOOG8WIiGnpRtMrs/YPkznyay2oZjMCmy7ON+wKmF1YIMrONkO3T8jcjvj+62GeRVpJ9Y+BZjvhV8QLYQswtLisPqDbH7skOOUiNRB+7uueKIItHPNoOzf+p3YFlVEqRD4YNcl4+AwqSEYadphyjsun0VCH4CSqcEpTqQa84l4VC6u1FS6E3mHvC6MxqL3wrEJlJObHmTOpje2mNY=
+X-Microsoft-Antispam-Message-Info: WN6UuEwaN7ufs+/m+0gDD5LrG73yEsjnf9zN7peMO0EwGlkhfPzA4A5bJoTsv8ZmMEvvW4KLxxNSFr3A0Jk6x5ZzHIHtIqHJyZ1yFYNk7lt0eq4v3F7R8fBVRXXwQZ8v0VVS+Q/01RsRLIETKDGGroAodlDfPeOLY/tjgKNYGMGgu471FINc1ifZQXNXsqwycloAJ7NCsdPVh/IqBCgTJUIK0C4VqcXf4zwM51c0ftsyWcJ+1xq1nUTZr2z3adGptnb/cC6wM5dtYB9VZeDVGoJUhbjLgHfA9EhcDe04zEBzDd3zJL/MsrLKMSqL34JLB4kdd8Hn0UJ+NLbkozIvJySu+fxtN+5aaxF4W9AAiU3DJZQYKSLnRVh0aRTJEErMbZcFmiqCw17ZX8EFoJzIHLvVP7PWXNnFNcv7TXcVyf4/EAGHW2Q/uqBEujIJF3wyNfGAsda1k5rbELNi8N4uqRXAuiSQDyml1kcBUcP50bw0bLIzalNoVBuUyCNVO2Y9Qmae7768hc7YwIS9H4OAT4EpBgKBo0AZh2IqDe55C6lrz+EwtaJnbEAJskBpdMXt0YNfBoyWyON6PaS0p8YchVEjjClqNpXaQexXJmQgBbMX/nkUMssrwmu9OFHQ3vjUMEWHohcGIyFS1+tyZaPvAxZC88qKa4SinHuWhp5FPssfPj37lrcEVmj+GzPeqwBgbz6l2JTaoZEK2utr0H0tCMCUeDDVLai60lNGwvDqRjoY5UmlCtH3NFW4kEkOFHGM
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(396003)(376002)(39840400004)(136003)(346002)(46966006)(36840700001)(36756003)(356005)(47076005)(2906002)(54906003)(82310400003)(6666004)(26005)(186003)(478600001)(8676002)(7696005)(8936002)(1076003)(336012)(316002)(81166007)(83380400001)(2616005)(4326008)(426003)(70586007)(6916009)(44832011)(5660300002)(70206006)(36860700001)(86362001)(36900700001);
+ SFS:(4636009)(346002)(136003)(376002)(396003)(39840400004)(46966006)(36840700001)(2906002)(86362001)(54906003)(81166007)(26005)(44832011)(426003)(2616005)(1076003)(4326008)(316002)(8936002)(5660300002)(478600001)(6666004)(7696005)(8676002)(82310400003)(6916009)(36860700001)(70586007)(83380400001)(336012)(70206006)(47076005)(36756003)(356005)(186003)(36900700001)(309714004);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2021 20:33:58.7761 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cce5ae47-551c-4f06-b672-08d952d0319d
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2021 20:33:59.8437 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4647e2bd-8fef-4f06-9f60-08d952d03240
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT030.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT029.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB5545
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3437
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,61 +115,143 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Eryk.Brol@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com, Anson.Jacob@amd.com,
- Aurabindo.Pillai@amd.com, Bhawanpreet.Lakha@amd.com, bindu.r@amd.com
+Cc: Wesley Chalmers <Wesley.Chalmers@amd.com>, Eryk.Brol@amd.com,
+ Sunpeng.Li@amd.com, Harry.Wentland@amd.com, Qingqing.Zhuo@amd.com,
+ Rodrigo.Siqueira@amd.com, Anson.Jacob@amd.com, Aurabindo.Pillai@amd.com,
+ Jun Lei <Jun.Lei@amd.com>, Bhawanpreet.Lakha@amd.com, bindu.r@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Its a small set of changes this week for DC. In summary, we have:
+From: Wesley Chalmers <Wesley.Chalmers@amd.com>
 
-* DC version 3.2.147
-* LTTPR, MPO Improvements
-* General stability and bug fixes
+[WHY]
+For DCN31 onward, LTTPR is to be enabled and set to Transparent by
+VBIOS.  Driver is to assume that VBIOS has done this without needing to
+check the VBIOS interop bit.
 
---
+[HOW]
+Add LTTPR enable and interop VBIOS bits into dc->caps, and force-set the
+interop bit to true for DCN31+.
 
-Anthony Koo (1):
-  drm/amd/display: [FW Promotion] Release 0.0.77
-
-Aric Cyr (1):
-  drm/amd/display: 3.2.147
-
-Guo, Bing (2):
-  drm/amd/display: Fix Dynamic bpp issue with 8K30 with Navi 1X
-  drm/amd/display: Increase stutter watermark for dcn303
-
-Jaehyun Chung (1):
-  drm/amd/display: Add check for validating unsupported ODM plus MPO
-    case
-
-Jude Shih (1):
-  drm/amd/display: Fix resetting DCN3.1 HW when resuming from S4
-
-Qingqing Zhuo (1):
-  drm/amd/display: workaround for hard hang on HPD on native DP
-
-Roman Li (1):
-  drm/amd/display: Remove redundant vblank workqueues in DM
-
-Wesley Chalmers (1):
-  drm/amd/display: Assume LTTPR interop for DCN31+
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  8 ++-----
- .../amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c |  4 +++-
+Reviewed-by: Jun Lei <Jun.Lei@amd.com>
+Acked-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Signed-off-by: Wesley Chalmers <Wesley.Chalmers@amd.com>
+---
  .../gpu/drm/amd/display/dc/core/dc_link_dp.c  | 21 ++-----------------
- .../gpu/drm/amd/display/dc/core/dc_resource.c |  5 +++++
- drivers/gpu/drm/amd/display/dc/dc.h           |  4 +++-
- .../gpu/drm/amd/display/dc/dcn20/dcn20_optc.c |  2 +-
+ drivers/gpu/drm/amd/display/dc/dc.h           |  2 ++
  .../drm/amd/display/dc/dcn30/dcn30_resource.c | 20 ++++++++++++++++++
- .../amd/display/dc/dcn303/dcn303_resource.c   |  4 ++--
  .../drm/amd/display/dc/dcn31/dcn31_resource.c | 16 ++++++++++++++
- .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |  4 ++--
- .../gpu/drm/amd/display/dmub/src/dmub_dcn31.c |  8 ++++---
- 11 files changed, 61 insertions(+), 35 deletions(-)
+ 4 files changed, 40 insertions(+), 19 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+index f56e061d35bc..cd025c12f17b 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+@@ -3595,29 +3595,12 @@ static bool dpcd_read_sink_ext_caps(struct dc_link *link)
+ bool dp_retrieve_lttpr_cap(struct dc_link *link)
+ {
+ 	uint8_t lttpr_dpcd_data[6];
+-	bool vbios_lttpr_enable = false;
+-	bool vbios_lttpr_interop = false;
+-	struct dc_bios *bios = link->dc->ctx->dc_bios;
++	bool vbios_lttpr_enable = link->dc->caps.vbios_lttpr_enable;
++	bool vbios_lttpr_interop = link->dc->caps.vbios_lttpr_aware;
+ 	enum dc_status status = DC_ERROR_UNEXPECTED;
+ 	bool is_lttpr_present = false;
+ 
+ 	memset(lttpr_dpcd_data, '\0', sizeof(lttpr_dpcd_data));
+-	/* Query BIOS to determine if LTTPR functionality is forced on by system */
+-	if (bios->funcs->get_lttpr_caps) {
+-		enum bp_result bp_query_result;
+-		uint8_t is_vbios_lttpr_enable = 0;
+-
+-		bp_query_result = bios->funcs->get_lttpr_caps(bios, &is_vbios_lttpr_enable);
+-		vbios_lttpr_enable = (bp_query_result == BP_RESULT_OK) && !!is_vbios_lttpr_enable;
+-	}
+-
+-	if (bios->funcs->get_lttpr_interop) {
+-		enum bp_result bp_query_result;
+-		uint8_t is_vbios_interop_enabled = 0;
+-
+-		bp_query_result = bios->funcs->get_lttpr_interop(bios, &is_vbios_interop_enabled);
+-		vbios_lttpr_interop = (bp_query_result == BP_RESULT_OK) && !!is_vbios_interop_enabled;
+-	}
+ 
+ 	/*
+ 	 * Logic to determine LTTPR mode
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index a948f4f48935..22e917714fe2 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -183,6 +183,8 @@ struct dc_caps {
+ 	unsigned int cursor_cache_size;
+ 	struct dc_plane_cap planes[MAX_PLANES];
+ 	struct dc_color_caps color;
++	bool vbios_lttpr_aware;
++	bool vbios_lttpr_enable;
+ };
+ 
+ struct dc_bug_wa {
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
+index 596c97dce67e..253654d605c2 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
+@@ -2617,6 +2617,26 @@ static bool dcn30_resource_construct(
+ 	dc->caps.color.mpc.ogam_rom_caps.hlg = 0;
+ 	dc->caps.color.mpc.ocsc = 1;
+ 
++	/* read VBIOS LTTPR caps */
++	{
++		if (ctx->dc_bios->funcs->get_lttpr_caps) {
++			enum bp_result bp_query_result;
++			uint8_t is_vbios_lttpr_enable = 0;
++
++			bp_query_result = ctx->dc_bios->funcs->get_lttpr_caps(ctx->dc_bios, &is_vbios_lttpr_enable);
++			dc->caps.vbios_lttpr_enable = (bp_query_result == BP_RESULT_OK) && !!is_vbios_lttpr_enable;
++		}
++
++		if (ctx->dc_bios->funcs->get_lttpr_interop) {
++			enum bp_result bp_query_result;
++			uint8_t is_vbios_interop_enabled = 0;
++
++			bp_query_result = ctx->dc_bios->funcs->get_lttpr_interop(ctx->dc_bios,
++					&is_vbios_interop_enabled);
++			dc->caps.vbios_lttpr_aware = (bp_query_result == BP_RESULT_OK) && !!is_vbios_interop_enabled;
++		}
++	}
++
+ 	if (dc->ctx->dce_environment == DCE_ENV_PRODUCTION_DRV)
+ 		dc->debug = debug_defaults_drv;
+ 	else if (dc->ctx->dce_environment == DCE_ENV_FPGA_MAXIMUS) {
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
+index f9446ce4fdc5..a7702d3c75cd 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
+@@ -1967,6 +1967,22 @@ static bool dcn31_resource_construct(
+ 	dc->caps.color.mpc.ogam_rom_caps.hlg = 0;
+ 	dc->caps.color.mpc.ocsc = 1;
+ 
++	/* read VBIOS LTTPR caps */
++	{
++		if (ctx->dc_bios->funcs->get_lttpr_caps) {
++			enum bp_result bp_query_result;
++			uint8_t is_vbios_lttpr_enable = 0;
++
++			bp_query_result = ctx->dc_bios->funcs->get_lttpr_caps(ctx->dc_bios, &is_vbios_lttpr_enable);
++			dc->caps.vbios_lttpr_enable = (bp_query_result == BP_RESULT_OK) && !!is_vbios_lttpr_enable;
++		}
++
++		/* interop bit is implicit */
++		{
++			dc->caps.vbios_lttpr_aware = true;
++		}
++	}
++
+ 	if (dc->ctx->dce_environment == DCE_ENV_PRODUCTION_DRV)
+ 		dc->debug = debug_defaults_drv;
+ 	else if (dc->ctx->dce_environment == DCE_ENV_FPGA_MAXIMUS) {
 -- 
 2.32.0
 
