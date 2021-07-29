@@ -7,104 +7,104 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 77DEFC4320A
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jul 2021 20:37:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C5F33C4338F
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jul 2021 20:37:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 35D9660F46
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jul 2021 20:37:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 35D9660F46
+	by mail.kernel.org (Postfix) with ESMTPS id 8F7E360F46
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jul 2021 20:37:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8F7E360F46
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DED776EE5F;
-	Thu, 29 Jul 2021 20:37:25 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2065.outbound.protection.outlook.com [40.107.94.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 568826EE5E
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Jul 2021 20:37:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 451396EE51;
+	Thu, 29 Jul 2021 20:37:28 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2069.outbound.protection.outlook.com [40.107.223.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 250366EE60
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Jul 2021 20:37:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TqI7FBrVHElh9zSHNGF01XqHwym02CemTnw4iCcXTJmtkZvvZpU/puoSXjHBdliHZuxzayAvjIfhuKQC4vF6D9dzk7j0DkVUevifeNjRtc5tle3gkfFw/DbLpoV85kSsy1ULWjnWuJHf4ZXz6d+B5/Cg8+/7JHzKd/JiaRBggpIEZcR0SHjOG0jbpxk4Tj52eVaJaGdAOvdrczoHA4yNIoKiWoZMSCJR9WC95hlMG4MsxvKyuxQCi+li3hihdzG6Xu6TL+X0EkWkmYdo/RbU5/N3miis2CG4zJH7P3M4EVxT7PnGgrLYkLd35WtkPGUVvwqp1ERD4o6GGwPrhG+upw==
+ b=ikXVXRV6GArU9L+kIYpNJZzcaY+fYqcw9n/R/tAI+F2hge3T6gXapZ1T6cc8MjHdmgjCYhsD+S75W6Za2fYTuGjSMhJ5bQfpkcBkWj1hYFK8KDyxLYsmf5wzI11KCGoJahIY5Gj22dMWaQqc2w/Z9OJfC2Y8PYYHrhKf0sXcmC7Dy6p9tCEeCxnvCX3kI3eguC5LBt2F/xIHK9Zwi5suthhFozg/scfQaDisLuIv80UwcFmf/qqZVihgYzhHs5ctV7d5eMhj/umIFghVwvf5+AcE7dSh7aGk5PHbvxmigHtlZedkIjXlSoa+8E/sQbhIhQUfCsT9yCypxoSdUQ1sLQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DanYyiZAl/VgYfFXSBh3ygV2vizv2+KmYYvKLwxXNkw=;
- b=D43v+v7WuZ9qtPLYkmYZ5WBHhSfdQs+Fcd5HSdf6vFwroXt7KR5YZJXaWBxYMGdXpHPzaasLHCXmq4bivAOgealWma9HSYKCMvBA5uW54n1ILenSn3lCUtJDHVmGMmopYunM3bJSeYXj/ftIF+hEWMj8ESPcce6Rp8Pwrdrvd6c/jVF7B+OcYIFcnvvqyTXLqXvGdwbvh95b0TXzWD7NqIt64AOtD8LDa0RITGYHf/cGk7wEqc+vSix4yVZ+8madAErdKJ84abB5qNcWKx5VN2SSnyWl1RYYBZBgVrdxOzTqlOV2SxyfrRmuwrOqxxRB5K/aXidRjuVAF5Soib4S+g==
+ bh=QgfxiY6ouYZr9oectUVNkIgYIjCuE3OpxTJX4/7XIxI=;
+ b=Iw0cH/s+MsIr05K2yxShgRzksJVKM8liy7ro/JVVNqv7fL8Jgn3G1wxMlmJbs3ok4q5l1RpPpL5HU5qjnLUhNn0O9NZ3xcdb0zk+TM33HDghA8ZH9MqkaiGUL5wBD/6ZdC7bQifilb6vL7aAplvnq1c9ntU5mRJKfjQh/iEpLJaGgx4zVAzi6iU0rttonliKoIbhDiPXipgJZkGBRB719a0ROsWkVMiUgYYnC0Dc+vAoWuOwj14tafi/1yhYH6Z1+TLXYAib16t4QwgZo2dSwEgDQ4LwC0fY63T2igb8zP+G/ZkMtUhLEuVPyzwD2gxrAFCDkBXhxp+Y4JaB6nnUDw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DanYyiZAl/VgYfFXSBh3ygV2vizv2+KmYYvKLwxXNkw=;
- b=JfjGb8tHd2qK4mlbQ63JP6S6iigzjHFJGMNnO4EuPkNnIg1Q+6rHdovBdUcqWok5hAcLSz1kvyD00uh3oDP33L7xgS5UBSvU6RjKTc1xGqmhvGkBgu/DxnYgk1iQkO+3PbRtTVojyjAb4IyX0yOysi8xUvIoQ0ShpN9kySL4OBo=
-Received: from BN9PR03CA0202.namprd03.prod.outlook.com (2603:10b6:408:f9::27)
- by DM6PR12MB4075.namprd12.prod.outlook.com (2603:10b6:5:21d::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4373.18; Thu, 29 Jul
- 2021 20:37:23 +0000
-Received: from BN8NAM11FT035.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:f9:cafe::d3) by BN9PR03CA0202.outlook.office365.com
- (2603:10b6:408:f9::27) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4373.20 via Frontend
- Transport; Thu, 29 Jul 2021 20:37:23 +0000
+ bh=QgfxiY6ouYZr9oectUVNkIgYIjCuE3OpxTJX4/7XIxI=;
+ b=UmbnHwbpPSA8SCpAFOVURlbBSyOhc0JayiCzo24PLluOlYn1j7aPdee882OEAJZajCXcLB4iXsz7gEv66fmihODzq9myknwVUZdpL3ykrtudnRrv869cMUvKRZEMpjV18nUD37mXU4uZEdoYMgmo4LxdYhI0rv7guE8Wpu/tqA4=
+Received: from DM5PR07CA0117.namprd07.prod.outlook.com (2603:10b6:4:ae::46) by
+ MW2PR12MB2396.namprd12.prod.outlook.com (2603:10b6:907:9::19) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4373.20; Thu, 29 Jul 2021 20:37:24 +0000
+Received: from DM6NAM11FT022.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:4:ae:cafe::c) by DM5PR07CA0117.outlook.office365.com
+ (2603:10b6:4:ae::46) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4373.22 via Frontend
+ Transport; Thu, 29 Jul 2021 20:37:24 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
  header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT035.mail.protection.outlook.com (10.13.177.116) with Microsoft SMTP
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DM6NAM11FT022.mail.protection.outlook.com (10.13.172.210) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4373.18 via Frontend Transport; Thu, 29 Jul 2021 20:37:23 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.4373.18 via Frontend Transport; Thu, 29 Jul 2021 20:37:24 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Thu, 29 Jul
- 2021 15:37:22 -0500
+ 2021 15:37:23 -0500
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
  (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Thu, 29 Jul
- 2021 15:37:22 -0500
+ 2021 15:37:23 -0500
 Received: from elite-desk-aura.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2242.12 via
- Frontend Transport; Thu, 29 Jul 2021 15:37:21 -0500
+ Frontend Transport; Thu, 29 Jul 2021 15:37:22 -0500
 From: Aurabindo Pillai <aurabindo.pillai@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 5/9] drm/amd/display: Fix resetting DCN3.1 HW when resuming
- from S4
-Date: Thu, 29 Jul 2021 16:37:08 -0400
-Message-ID: <20210729203712.1566129-6-aurabindo.pillai@amd.com>
+Subject: [PATCH 6/9] drm/amd/display: Add check for validating unsupported ODM
+ plus MPO case
+Date: Thu, 29 Jul 2021 16:37:09 -0400
+Message-ID: <20210729203712.1566129-7-aurabindo.pillai@amd.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210729203712.1566129-1-aurabindo.pillai@amd.com>
 References: <20210729203712.1566129-1-aurabindo.pillai@amd.com>
 MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 7be0b9f8-5a86-415e-f166-08d952d0ab7c
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4075:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB4075465B5753216F6C3D49398BEB9@DM6PR12MB4075.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3826;
+X-MS-Office365-Filtering-Correlation-Id: 12cd591f-1734-4ac6-f4f2-08d952d0ac1e
+X-MS-TrafficTypeDiagnostic: MW2PR12MB2396:
+X-Microsoft-Antispam-PRVS: <MW2PR12MB239616018207DF0FE83FDE088BEB9@MW2PR12MB2396.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: koM0iJ5UBnu1XU9YcP+GdLyrxQ2ulGKFzq7f+zaXfTHiaug0uX68Au+Fah5LNLj2w7FyzOqlyWv74KUWnwJeMyJLQKPMxxlBHFXHm7nwvgEeIhi5j+EoraBXAzX0JFL9R3gFsMNuq5+larXyb72/JK53fctzO827YtETLila8f51Z0FzdngE/YB4FkcqLGXFF2M8ZXAk2g/ezy4MZ8gWeXcDIlirOYyz+lSYbx3xSnjqjgQCZaXux4PdDCvqjzI3RdzKTkDca0/A3Z6iDrpOWsVjCAdi/kAJTiWsV1Ia5+cbRv6TeMSijhbLcZMrjrvf6FEiaPV5Xd3Pq5NgBVdT+C1w+R5c1O5mZiz6AYcjQmL4GMnQpgXyJa6J7ltMx+rZmylG3aA8ya0RIFQICIm859tpWKdOyNyY/vXfWn4N1P4wgVmNd+zpejuP8Gr3wvsHbKPBuJOvXMirfGPILirwF/VdAASr0bav0F3SSw8SOYzdc66gIgaMtybpiaoq6rTR31w8HYhfGkGcaG9gP4aWlOhlHVkWQyPTWMwsWoV1A1NYzZpA1D263qpzHyUgn6GRZ52iEtkxuf1rO8bLapMr63AZxFCChqW3p9UzwGmDH1VO/7l+pB3dLp47zX5IqkgKMtrzT89RYMnlcXnTOJxCuS8lcdLG+KwetDqMPgqNR1TwBPax0ULgSkATz8QUm1XjV2y2qaUxDUQR52nAWvuFGRTmnEhn5LvHbZDgXlZgG54=
+X-Microsoft-Antispam-Message-Info: 2E2isjaySiz1eYS/U0dutS/tUKbSo5Tm7IrXOf4CqDmM4p1vw3vxp1dr7lgJviblRf4G5zYX9HWQCGyX2jio7nMG4sdY0OoobWnonLSXnx1OvI8xc/OCyjIfR7Hjk2Yk/pVy2g2sMgVMZPKJ/mYYfip7ry7jLDlpG77xbF96OC1Svl59r1fNX4X/bDJ0kFGg/4QwmWhFy1CJ0J/c0RDEs4ryWK/AGFjmMm2u7aJTewdJFzvsusRYlPX92kvrIhyuA2pcRww9mDL8nltm8MHwng89dJxsPbwolrcwn0Z+6nbqaj582Gu4X+E7X+rAtBvXeEuwaRLQAP4rCj/NXHST7tBH7MGQ2RxtrwdlRT1x4z7FbA6uce2o+Ug6EMUsISlNZm0nhlyzpTfPx4SE9DEP4LnFecjg5h9jpm1kHMm0MDMEZj1cg1N+Op8f4BAz8K/rDeFZ0a/aDkizZ25RfmrCp8vMnpYnU+79Qg/84pvZG9LqfjuYMh+4I4EssqSvqbzUVWjiBNh/3NMiJoJDx7WqYsGPB4ohU7pXTiTVtb6AGL0MT15man92khaOGDO0oJIo1TC/FWTphV1+Tm3FsUodMP5XXoHvjVPtNbiGYTT4nlq2aXjak+QGozuQMqx25UoF3oCaJlMKKTFOIcPMuiXkA8TKzxqPvJNnf4UURp28EdoJ0KmZICxaq2E0coa6Nipd95+eadoukpz4vRKQ2ABBKXVknvbByhUFB8ZjjjaJbhU=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(39860400002)(396003)(376002)(346002)(136003)(46966006)(36840700001)(4326008)(81166007)(70586007)(36860700001)(6666004)(426003)(26005)(8936002)(2616005)(86362001)(356005)(2906002)(316002)(8676002)(82740400003)(70206006)(1076003)(186003)(83380400001)(44832011)(82310400003)(336012)(6916009)(36756003)(47076005)(54906003)(5660300002)(7696005)(478600001)(36900700001);
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(39860400002)(396003)(346002)(376002)(136003)(46966006)(36840700001)(6916009)(316002)(82310400003)(2906002)(36756003)(82740400003)(8676002)(44832011)(426003)(8936002)(54906003)(336012)(81166007)(4326008)(2616005)(47076005)(1076003)(26005)(36860700001)(86362001)(478600001)(7696005)(6666004)(5660300002)(70586007)(356005)(70206006)(186003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2021 20:37:23.2953 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7be0b9f8-5a86-415e-f166-08d952d0ab7c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2021 20:37:24.3001 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 12cd591f-1734-4ac6-f4f2-08d952d0ac1e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT035.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT022.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4075
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2396
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,53 +116,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Eryk.Brol@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com, Anson.Jacob@amd.com,
- Aurabindo.Pillai@amd.com, Jude Shih <jude.shih@amd.com>,
- Bhawanpreet.Lakha@amd.com, Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>,
+Cc: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, Eryk.Brol@amd.com,
+ Jaehyun Chung <jaehyun.chung@amd.com>, Sunpeng.Li@amd.com,
+ Harry.Wentland@amd.com, Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com,
+ Anson.Jacob@amd.com, Aurabindo.Pillai@amd.com,
+ Jaehyun Chung <jaehyum.chung@amd.com>, Bhawanpreet.Lakha@amd.com,
  bindu.r@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Jude Shih <jude.shih@amd.com>
+From: Jaehyun Chung <jaehyum.chung@amd.com>
 
-[Why] On S4 resume we also need to fix detection of when to reload DMCUB
-firmware because we're currently using the VBIOS version which isn't
-compatible with the driver version.
+[Why]
+We do not currently support ODM plus MPO on only one side of the
+screen. This unsupported case causes validation calculations to
+divide by zero due to invalid viewport values.
 
-[How] Update the hardware init check for DCN31 since it's the ASIC that
-has this issue.
+[How]
+Add stopgap for the validation of ODM plus MPO on one side of
+screen case.
 
-Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
+Reviewed-by: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
 Acked-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Signed-off-by: Jude Shih <jude.shih@amd.com>
+Signed-off-by: Jaehyun Chung <jaehyun.chung@amd.com>
 ---
- drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc_resource.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c
-index 61446170056e..6820012e3b6e 100644
---- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c
-+++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c
-@@ -270,11 +270,13 @@ void dmub_dcn31_set_outbox1_rptr(struct dmub_srv *dmub, uint32_t rptr_offset)
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+index 1596f6b7fed7..f1b8c1292035 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+@@ -1051,6 +1051,11 @@ bool resource_build_scaling_params(struct pipe_ctx *pipe_ctx)
+ 	/* depends on scaling ratios and recout, does not calculate offset yet */
+ 	calculate_viewport_size(pipe_ctx);
  
- bool dmub_dcn31_is_hw_init(struct dmub_srv *dmub)
- {
--	uint32_t is_hw_init;
-+	union dmub_fw_boot_status status;
-+	uint32_t is_enable;
- 
--	REG_GET(DMCUB_CNTL, DMCUB_ENABLE, &is_hw_init);
-+	status.all = REG_READ(DMCUB_SCRATCH0);
-+	REG_GET(DMCUB_CNTL, DMCUB_ENABLE, &is_enable);
- 
--	return is_hw_init != 0;
-+	return is_enable != 0 && status.bits.dal_fw;
- }
- 
- bool dmub_dcn31_is_supported(struct dmub_srv *dmub)
++	/* Stopgap for validation of ODM + MPO on one side of screen case */
++	if (pipe_ctx->plane_res.scl_data.viewport.height < 1 ||
++			pipe_ctx->plane_res.scl_data.viewport.width < 1)
++		return false;
++
+ 	/*
+ 	 * LB calculations depend on vp size, h/v_active and scaling ratios
+ 	 * Setting line buffer pixel depth to 24bpp yields banding
 -- 
 2.32.0
 
