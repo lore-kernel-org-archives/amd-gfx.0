@@ -2,72 +2,75 @@ Return-Path: <SRS0=IbmW=MW=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.0 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	UNWANTED_LANGUAGE_BODY,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6FDDDC4320E
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jul 2021 20:41:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 391F2C432BE
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jul 2021 20:41:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3EDCE60F00
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jul 2021 20:41:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3EDCE60F00
+	by mail.kernel.org (Postfix) with ESMTPS id 06F0360F00
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jul 2021 20:41:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 06F0360F00
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B408B6F4A4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CAD796F4A8;
 	Fri, 30 Jul 2021 20:41:52 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2046.outbound.protection.outlook.com [40.107.237.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C09DE6F4A4;
- Fri, 30 Jul 2021 20:41:50 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2059.outbound.protection.outlook.com [40.107.220.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 08DCA6F4A8;
+ Fri, 30 Jul 2021 20:41:51 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SNkzOpG/VT8I8Tjk9L1zQbS69GFFFbisb0PkpBu//l1lC6NxZAlQh61ioxy7szyQlp7ip82K4C9srfMeKpXcF0ttqh/KZcl6nkKAvczbIy3av1R+7zcCMGNu8KwrIAL7EsQ/ucaN+FwFCRGFjvyuR9afu8PDXoTi77LvK6kKuD1pg5yLstArVAUum47SF4gqz3KIOzUPDdPq/sMEPD/xsY5deTbVhQelk+LslZ87LaKU0zd+9wUGLqH7pcfXe+GhVYDFdfZIxbclcD0lKaSfUOHjnVn5WChA8ndLCEh6sB5HRA6kt1KR+5uHkOBcOLuT/72eO/dWIz2C8atR3dALlg==
+ b=fJuq44eYRQq8WdUYCktsIuEjiaUR+lXDfMHjD9xHN2yJturvBR6Z3d1zcKGDWBrnv5NTIHgVAQ7AF1CfknfrLYiXljG2zDvHGf95kpmQpMYyaFZPbLZ1xiymcJiS7tcIn7Syq0oLtIERSwsDTOBIYeirLIMiLBFx/gnDq3ejHra+/CO8T21I/8I6RMLrVGOFAOtV1Ix8IfSiOwHCj9/JeqbsnflsBqgOszGu5zv6NJ8nat0Ga+mcFG9JuTb5MIFpXs3QTytEqP0mIAy28LBYrbCqf+51tLY+858m3SfABB+rhV72YH7Dif4IyTcu3nfW1VOGGN9JNRqYASLLC9Idng==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HyNhiQoqljMS2fK8S+yp+gBEGYhDC+fBYBVIsPNLfe4=;
- b=OevNciEPKE6AdbLmmPk075jN1HkESgOd7Mj4SMAr5ZPo6PX1nnRT3s5+s8JPioDGdiX6kA+Bs6lpJkzUiqfsSgNDV+oaFkMjkybq3VipmBA9aR2TST5xqj0/Lg6wg4ObSQGtc4Wi+/ZE5ld1vyhQjIuE569Y/z8Omg2gOjLgOVY9norGqQOz1VISqDRFqg9NNj0JakAAosBwUm8qYiAPFCv5IwBiI1p5xKo880nDJyCRcydaw69fcipUwnTglCLJYlwCxyT9EwUTu+EDDv40QG3Ads5jhC9wFcvTohHIM/S7+FHRejM79PSPYOD6EJLi3s2F5lK5XsJbYd25HZtkew==
+ bh=hkUh7d2GERCWBxLBSxvRspCsv9o4fWzCCu3DSfi4Iwg=;
+ b=GRiu1py02GJZdCszpaPf1VWveaQRDhJaOr2BPhKu5/CvLZ29L8imFJ8iEzVrML3ggb8evjBGFdCkyRibzfj2W2Flc9LOXmy0af/NaGV0IUjlwZBDQu0zI2bKM9p98XnVbEGSTq+BbsyKrGirRIl2fCS/1oORbsp2FJVJKiEwrK7muWbSSRqEkTRWUdUL1Ts6JurTItZAGQOTtucAP35udjdpxEUFUsvLavLv1H/u1lQhK1XkbK96VMqI9dii1NAcLgG8AzaA2EtY9OApFeNd/YSLGGut2TDMNyrvsujdhsEbOwAXwpq950rcHAU3PuRDimVr4H4cvwRz1+LFBJWyuw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HyNhiQoqljMS2fK8S+yp+gBEGYhDC+fBYBVIsPNLfe4=;
- b=tr09kYfdkb4UCLOfxgycstRJ3n49Cu4OBEEBtGJCopDgfE3uD1L1jOuLRBiXMJ+gitXeGrwUn+DSxV0lndkjQ2HGQh3iXQclSpb3Uzn03Tl4d6iZdjsotEEloLAj7f+k3zW4OmUsreBmoDQGT0RAwRz69dJc7Plgv2mpKljEjVs=
-Received: from DM5PR21CA0023.namprd21.prod.outlook.com (2603:10b6:3:ac::33) by
- MN2PR12MB4567.namprd12.prod.outlook.com (2603:10b6:208:263::12) with
+ bh=hkUh7d2GERCWBxLBSxvRspCsv9o4fWzCCu3DSfi4Iwg=;
+ b=Y/8sseXhH5YcReg474I3+RJc70vf3CbeM8EV+PgoOsWicAjYYPHgVxv8hKL18Gst2pkM8YO3JAQu7BC/0L+ZNGGlccB/0nTr/nbBLy+ppjeeBwcd8qzCnv3+RwZHaRLhcOs4HVbXiv5he4YvsgQlq29DKBY8awL+enSacMYy8YA=
+Received: from CO2PR18CA0057.namprd18.prod.outlook.com (2603:10b6:104:2::25)
+ by MN2PR12MB3856.namprd12.prod.outlook.com (2603:10b6:208:168::29) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4373.25; Fri, 30 Jul
- 2021 20:41:48 +0000
-Received: from DM6NAM11FT053.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:ac:cafe::a6) by DM5PR21CA0023.outlook.office365.com
- (2603:10b6:3:ac::33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4394.1 via Frontend
- Transport; Fri, 30 Jul 2021 20:41:48 +0000
+ 2021 20:41:49 +0000
+Received: from CO1NAM11FT019.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:104:2:cafe::4a) by CO2PR18CA0057.outlook.office365.com
+ (2603:10b6:104:2::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4373.18 via Frontend
+ Transport; Fri, 30 Jul 2021 20:41:49 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
  header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DM6NAM11FT053.mail.protection.outlook.com (10.13.173.74) with Microsoft SMTP
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT019.mail.protection.outlook.com (10.13.175.57) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4373.18 via Frontend Transport; Fri, 30 Jul 2021 20:41:48 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.4373.18 via Frontend Transport; Fri, 30 Jul 2021 20:41:49 +0000
+Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Fri, 30 Jul
- 2021 15:41:41 -0500
+ 2021 15:41:44 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB07.amd.com
+ (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Fri, 30 Jul
+ 2021 13:41:44 -0700
 Received: from hwentlanryzen.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2242.12 via Frontend
- Transport; Fri, 30 Jul 2021 15:41:40 -0500
+ Transport; Fri, 30 Jul 2021 15:41:43 -0500
 From: Harry Wentland <harry.wentland@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
  <ppaalanen@gmail.com>, <sebastian@sebastianwick.net>, <mcasas@google.com>,
@@ -77,9 +80,9 @@ CC: <Deepak.Sharma@amd.com>, <Shirish.S@amd.com>, <Vitaly.Prosyak@amd.com>,
  <hersenxs.wu@amd.com>, <Nicholas.Kazlauskas@amd.com>,
  <laurentiu.palcu@oss.nxp.com>, <ville.syrjala@linux.intel.com>, "Harry
  Wentland" <harry.wentland@amd.com>
-Subject: [RFC PATCH v3 3/6] drm/color: Add output transfer function to crtc
-Date: Fri, 30 Jul 2021 16:41:31 -0400
-Message-ID: <20210730204134.21769-4-harry.wentland@amd.com>
+Subject: [RFC PATCH v3 5/6] drm/color: Add color space plane property
+Date: Fri, 30 Jul 2021 16:41:33 -0400
+Message-ID: <20210730204134.21769-6-harry.wentland@amd.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210730204134.21769-1-harry.wentland@amd.com>
 References: <20210730204134.21769-1-harry.wentland@amd.com>
@@ -88,28 +91,28 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e9502cc0-2de0-4f2f-9b98-08d9539a73cb
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4567:
-X-Microsoft-Antispam-PRVS: <MN2PR12MB456705F58BD5D845278D0C3F8CEC9@MN2PR12MB4567.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:353;
+X-MS-Office365-Filtering-Correlation-Id: bb9de49d-7975-48dd-1890-08d9539a746c
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3856:
+X-Microsoft-Antispam-PRVS: <MN2PR12MB385667F995AAE144EDB5A9728CEC9@MN2PR12MB3856.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: jJlPypesbJmD41xUsFJdVc+dEYXOTlsygIMVSlqcXhzWrKclSnjlTEaHGr11S1SXKj8h8H6wzbd2/eLOPT88DXXweHJJ3k5Qr4CCBYLxeUfuh0lPgELAwIIyreoj9J7Q94ZEy6se9QXHh8W9b+IPc0rVyWW37+fAqARt64iCpkdSprSglV6ZLejacNJYNLyWd/gSTr0G4gi7haTjeI490DkVfEI1hy/xNh8oBkp+lKLRnlIl/V1gtJUeIm593uzp9DiCQAu5E3yuJwNacnY+tYQDIceVFPITqqAu3XOVGgcDx2ko0mbKyk/30jR7V/uRbvnGsgqWeyG3eZ/z54eIDFOOWlrxlcr4Nv19lLG6HJSIWaGT1VBo+Vu3KzIU1klkz0F7kzqxYrqzt8GTcvlPqvWZ57aMPHzY1ZaKWF1VV3UrPA51fL/FsefO7HLzaFEGMacq9KOS48YHjJo0WlxKeNHXM6AHJ9iQS/3xWTcLul1Ac7JYgZ9NZGvTZSmpZ/SfLn1ick/SXgEGLv2+j7NadYcmfs/1oWcEhjXPeI76bxr2piiH4Vcz6lfcFv+SwLZ3OeMOPPoLqMgeFq+OWO0AcgUXEGy3lqChWOF4JJZ1eYMwRc5MzN5mytwM1zcds6jdYxJgm3bTaHEeZCdYfAbMf5epGRNioDzkuLKkMHAfEW3xfhZXqXpK9XYnZbWaTadEpLnMuypp7CHMO/JfoH6yoGNGU6Da91oG77vzziD14fg=
+X-Microsoft-Antispam-Message-Info: xPz4y6EcWbYuUYKQ773kp2hQGAoq/xr7opcc0TjAYUWcOXF7rfHy81+u8kHYSEv0OncANRD5epJXHJCwhXFeu349Iyj5ZlRE1D7WRkZkUNzNizcb6A0PENQOSYlL7N+ZuNxqie6mXM6OEcbMld5Npz0xvJQcsu4azu41pBjqcEC7tAHZTKkO7B3TSXNFZjUsv+Bxui0FhSdmTEBkoSJLp7RHnNFFIHW/Zk1u83fcb7o2B9Sri5xL8sOzVjhJnjHiYXaGN0hiQOO3T087JmtE+8IMAEYN4/Hqf4Mdi3Zjh/3z9AeNQoUwEvK0p9f2QKUEo11yFkl1iD1IDFvSYSj8S0b655OXj+CNwC6N5EWMFMEvlujOkXJapztATv0VqTZFwd1k7JMXT9tIwZswVtr+PahqzNl3xwLZ2S1YMMDoimRx6/VPRoFiB+yyi9rLfypsiO1VH/rK6wwxTe8YtUcX/3nid2+EMO87q1+7lOjt4S4UeL/B0FFyu5HN0yByFM2DGFurY6fQQF0mwzwHJ9hWwg6YywP5EKrnuNc9DfLi/Jxc0nS0NAptJAHy2qrMDQrq+qRJXDxEqGmSvN6jF0PA5ETmzgnyEMt1+Q1EwGO0LQqjqOmdShR0fTw3Od4nHwiKbhtkWk5Qsp1CvuzOFkg37a21Q5+9u9CCno0W7PCgcAW7ZSPfOV0JLKbdGeKNqKQRovPGsZYn4vLEND4i2UsESLd/JqyPXykluFhQL6f92Vo=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(136003)(376002)(346002)(39850400004)(396003)(46966006)(36840700001)(426003)(6666004)(26005)(30864003)(8676002)(36756003)(186003)(356005)(4326008)(82310400003)(47076005)(44832011)(70586007)(336012)(70206006)(7696005)(316002)(86362001)(5660300002)(478600001)(82740400003)(83380400001)(1076003)(81166007)(8936002)(2906002)(6636002)(36860700001)(2616005)(54906003)(110136005)(36900700001);
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(346002)(376002)(396003)(39860400002)(136003)(36840700001)(46966006)(478600001)(82310400003)(36756003)(316002)(26005)(2906002)(6636002)(1076003)(81166007)(82740400003)(5660300002)(30864003)(6666004)(186003)(44832011)(2616005)(336012)(70206006)(36860700001)(356005)(4326008)(110136005)(47076005)(8676002)(70586007)(8936002)(426003)(54906003)(83380400001)(86362001)(7696005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2021 20:41:48.1428 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e9502cc0-2de0-4f2f-9b98-08d9539a73cb
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2021 20:41:49.1366 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bb9de49d-7975-48dd-1890-08d9539a746c
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT053.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT019.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4567
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3856
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,592 +127,406 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We currently have 1D LUTs to define output transfer function but using a
-1D LUT is not always the best way to define a transfer function for HW
-that has ROMs for certain transfer functions, or for HW that has complex
-PWL definition for accurate LUT definitions.
+From: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
 
-For this reason we're introducing named transfer functions. The original
-LUT behavior is preserved with the default "1D LUT" transfer function.
+Add color space definitions for BT601, BT709, BT2020, and DCI-P3.
 
+Default to BT709, the sRGB color space.
+
+Signed-off-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
 Signed-off-by: Harry Wentland <harry.wentland@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 11 +++-
- .../gpu/drm/arm/display/komeda/komeda_crtc.c  |  7 ++-
- drivers/gpu/drm/arm/malidp_crtc.c             |  7 ++-
- drivers/gpu/drm/armada/armada_crtc.c          |  5 +-
- .../gpu/drm/atmel-hlcdc/atmel_hlcdc_crtc.c    |  7 ++-
- drivers/gpu/drm/drm_color_mgmt.c              | 54 ++++++++++++++++---
- drivers/gpu/drm/i915/display/intel_color.c    | 11 ++--
- drivers/gpu/drm/i915/display/intel_color.h    |  2 +-
- drivers/gpu/drm/i915/display/intel_crtc.c     |  4 +-
- drivers/gpu/drm/ingenic/ingenic-drm-drv.c     |  9 +++-
- drivers/gpu/drm/mediatek/mtk_drm_crtc.c       |  8 ++-
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c      |  9 +++-
- drivers/gpu/drm/nouveau/dispnv50/head.c       | 13 +++--
- drivers/gpu/drm/omapdrm/omap_crtc.c           | 10 +++-
- drivers/gpu/drm/rcar-du/rcar_du_crtc.c        |  7 ++-
- drivers/gpu/drm/rockchip/rockchip_drm_vop.c   |  5 +-
- drivers/gpu/drm/stm/ltdc.c                    |  8 ++-
- drivers/gpu/drm/tidss/tidss_crtc.c            |  9 +++-
- drivers/gpu/drm/vc4/vc4_crtc.c                | 16 +++++-
- include/drm/drm_color_mgmt.h                  | 37 +++++++------
- include/drm/drm_crtc.h                        | 20 +++++++
- 21 files changed, 208 insertions(+), 51 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  2 +
+ .../gpu/drm/arm/display/komeda/komeda_plane.c |  2 +
+ drivers/gpu/drm/arm/malidp_planes.c           |  4 +-
+ drivers/gpu/drm/armada/armada_overlay.c       |  2 +
+ drivers/gpu/drm/drm_color_mgmt.c              | 58 ++++++++++++++++++-
+ drivers/gpu/drm/i915/display/intel_sprite.c   |  2 +
+ .../drm/i915/display/skl_universal_plane.c    |  2 +
+ drivers/gpu/drm/nouveau/dispnv04/overlay.c    |  2 +
+ drivers/gpu/drm/omapdrm/omap_plane.c          |  2 +
+ drivers/gpu/drm/sun4i/sun8i_vi_layer.c        |  6 +-
+ drivers/gpu/drm/tidss/tidss_plane.c           |  4 ++
+ include/drm/drm_color_mgmt.h                  | 16 +++++
+ include/drm/drm_plane.h                       | 16 +++++
+ 13 files changed, 113 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 63ddae9c5abe..b6d072211bf9 100644
+index b6d072211bf9..a6dbf1f26787 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -7343,8 +7343,15 @@ static int amdgpu_dm_crtc_init(struct amdgpu_display_manager *dm,
- 	acrtc->otg_inst = -1;
+@@ -7276,8 +7276,10 @@ static int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
+ 			BIT(DRM_COLOR_YCBCR_BT2020),
+ 			BIT(DRM_COLOR_YCBCR_LIMITED_RANGE) |
+ 			BIT(DRM_COLOR_YCBCR_FULL_RANGE),
++			BIT(DRM_COLOR_SPACE_BT709),
+ 			BIT(DRM_TF_SRGB),
+ 			DRM_COLOR_YCBCR_BT709, DRM_COLOR_YCBCR_LIMITED_RANGE,
++			DRM_COLOR_SPACE_BT709,
+ 			DRM_TF_SRGB);
+ 	}
  
- 	dm->adev->mode_info.crtcs[crtc_index] = acrtc;
--	drm_crtc_enable_color_mgmt(&acrtc->base, MAX_COLOR_LUT_ENTRIES,
--				   true, MAX_COLOR_LUT_ENTRIES);
-+
-+	res = drm_crtc_enable_color_mgmt(&acrtc->base, MAX_COLOR_LUT_ENTRIES,
-+					 true, MAX_COLOR_LUT_ENTRIES,
-+					 BIT(DRM_TF_1D_LUT), DRM_TF_1D_LUT);
-+	if (res) {
-+		drm_crtc_cleanup(&acrtc->base);
-+		goto fail;
-+	}
-+
- 	drm_mode_crtc_set_gamma_size(&acrtc->base, MAX_COLOR_LEGACY_LUT_ENTRIES);
+diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_plane.c b/drivers/gpu/drm/arm/display/komeda/komeda_plane.c
+index 811f79ab6d32..4fb3ad4c691e 100644
+--- a/drivers/gpu/drm/arm/display/komeda/komeda_plane.c
++++ b/drivers/gpu/drm/arm/display/komeda/komeda_plane.c
+@@ -302,9 +302,11 @@ static int komeda_plane_add(struct komeda_kms_dev *kms,
+ 			BIT(DRM_COLOR_YCBCR_BT2020),
+ 			BIT(DRM_COLOR_YCBCR_LIMITED_RANGE) |
+ 			BIT(DRM_COLOR_YCBCR_FULL_RANGE),
++			BIT(DRM_COLOR_SPACE_BT709),
+ 			BIT(DRM_TF_UNDEFINED),
+ 			DRM_COLOR_YCBCR_BT601,
+ 			DRM_COLOR_YCBCR_LIMITED_RANGE,
++			DRM_COLOR_SPACE_BT709,
+ 			DRM_TF_UNDEFINED);
+ 	if (err)
+ 		goto cleanup;
+diff --git a/drivers/gpu/drm/arm/malidp_planes.c b/drivers/gpu/drm/arm/malidp_planes.c
+index 98d308262880..0bc809435555 100644
+--- a/drivers/gpu/drm/arm/malidp_planes.c
++++ b/drivers/gpu/drm/arm/malidp_planes.c
+@@ -1023,6 +1023,7 @@ int malidp_de_planes_init(struct drm_device *drm)
+ 			/* default encoding for YUV->RGB is BT601 NARROW */
+ 			enum drm_color_encoding enc = DRM_COLOR_YCBCR_BT601;
+ 			enum drm_color_range range = DRM_COLOR_YCBCR_LIMITED_RANGE;
++			enum drm_color_space space = DRM_COLOR_SPACE_BT709;
  
- 	return 0;
-diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_crtc.c b/drivers/gpu/drm/arm/display/komeda/komeda_crtc.c
-index 59172acb9738..f364d37232b5 100644
---- a/drivers/gpu/drm/arm/display/komeda/komeda_crtc.c
-+++ b/drivers/gpu/drm/arm/display/komeda/komeda_crtc.c
-@@ -626,7 +626,12 @@ static int komeda_crtc_add(struct komeda_kms_dev *kms,
+ 			ret = drm_plane_create_color_properties(&plane->base,
+ 					BIT(DRM_COLOR_YCBCR_BT601) | \
+@@ -1030,8 +1031,9 @@ int malidp_de_planes_init(struct drm_device *drm)
+ 					BIT(DRM_COLOR_YCBCR_BT2020),
+ 					BIT(DRM_COLOR_YCBCR_LIMITED_RANGE) | \
+ 					BIT(DRM_COLOR_YCBCR_FULL_RANGE),
++					BIT(DRM_COLOR_SPACE_BT709),
+ 					BIT(DRM_TF_UNDEFINED),
+-					enc, range,
++					enc, range, space,
+ 					DRM_TF_UNDEFINED);
+ 			if (!ret)
+ 				/* program the HW registers */
+diff --git a/drivers/gpu/drm/armada/armada_overlay.c b/drivers/gpu/drm/armada/armada_overlay.c
+index f7792444cb73..e66f2fa72830 100644
+--- a/drivers/gpu/drm/armada/armada_overlay.c
++++ b/drivers/gpu/drm/armada/armada_overlay.c
+@@ -596,9 +596,11 @@ int armada_overlay_plane_create(struct drm_device *dev, unsigned long crtcs)
+ 						BIT(DRM_COLOR_YCBCR_BT601) |
+ 						BIT(DRM_COLOR_YCBCR_BT709),
+ 						BIT(DRM_COLOR_YCBCR_LIMITED_RANGE),
++						BIT(DRM_COLOR_SPACE_BT709),
+ 						BIT(DRM_TF_UNDEFINED),
+ 						DEFAULT_ENCODING,
+ 						DRM_COLOR_YCBCR_LIMITED_RANGE,
++						DRM_COLOR_SPACE_BT709,
+ 						DRM_TF_UNDEFINED);
  
- 	crtc->port = kcrtc->master->of_output_port;
- 
--	drm_crtc_enable_color_mgmt(crtc, 0, true, KOMEDA_COLOR_LUT_SIZE);
-+	err = drm_crtc_enable_color_mgmt(crtc, 0, true, KOMEDA_COLOR_LUT_SIZE,
-+					 BIT(DRM_TF_1D_LUT), DRM_TF_1D_LUT);
-+	if (err) {
-+		drm_crtc_cleanup(crtc);
-+		return err;
-+	}
- 
- 	return err;
- }
-diff --git a/drivers/gpu/drm/arm/malidp_crtc.c b/drivers/gpu/drm/arm/malidp_crtc.c
-index 494075ddbef6..7af87002c375 100644
---- a/drivers/gpu/drm/arm/malidp_crtc.c
-+++ b/drivers/gpu/drm/arm/malidp_crtc.c
-@@ -552,7 +552,12 @@ int malidp_crtc_init(struct drm_device *drm)
- 	drm_crtc_helper_add(&malidp->crtc, &malidp_crtc_helper_funcs);
- 	drm_mode_crtc_set_gamma_size(&malidp->crtc, MALIDP_GAMMA_LUT_SIZE);
- 	/* No inverse-gamma: it is per-plane. */
--	drm_crtc_enable_color_mgmt(&malidp->crtc, 0, true, MALIDP_GAMMA_LUT_SIZE);
-+	ret = drm_crtc_enable_color_mgmt(&malidp->crtc, 0, true, MALIDP_GAMMA_LUT_SIZE,
-+					 BIT(DRM_TF_1D_LUT), DRM_TF_1D_LUT);
-+	if (ret) {
-+		drm_crtc_cleanup(&malidp->crtc);
-+		return ret;
-+	}
- 
- 	malidp_se_set_enh_coeffs(malidp->dev);
- 
-diff --git a/drivers/gpu/drm/armada/armada_crtc.c b/drivers/gpu/drm/armada/armada_crtc.c
-index b7bb90ae787f..d44a1d4fa475 100644
---- a/drivers/gpu/drm/armada/armada_crtc.c
-+++ b/drivers/gpu/drm/armada/armada_crtc.c
-@@ -992,7 +992,10 @@ static int armada_drm_crtc_create(struct drm_device *drm, struct device *dev,
- 	if (ret)
- 		return ret;
- 
--	drm_crtc_enable_color_mgmt(&dcrtc->crtc, 0, false, 256);
-+	ret = drm_crtc_enable_color_mgmt(&dcrtc->crtc, 0, false, ,
-+					 BIT(DRM_TF_1D_LUT), DRM_TF_1D_LUT);
-+	if (ret)
-+		return ret;
- 
- 	return armada_overlay_plane_create(drm, 1 << dcrtc->num);
- 
-diff --git a/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_crtc.c b/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_crtc.c
-index 05ad75d155e8..e5911826d002 100644
---- a/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_crtc.c
-+++ b/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_crtc.c
-@@ -528,8 +528,11 @@ int atmel_hlcdc_crtc_create(struct drm_device *dev)
- 	drm_crtc_helper_add(&crtc->base, &lcdc_crtc_helper_funcs);
- 
- 	drm_mode_crtc_set_gamma_size(&crtc->base, ATMEL_HLCDC_CLUT_SIZE);
--	drm_crtc_enable_color_mgmt(&crtc->base, 0, false,
--				   ATMEL_HLCDC_CLUT_SIZE);
-+	ret = drm_crtc_enable_color_mgmt(&crtc->base, 0, false,
-+					 ATMEL_HLCDC_CLUT_SIZE,
-+					 BIT(DRM_TF_1D_LUT), DRM_TF_1D_LUT);
-+	if (ret)
-+		goto fail;
- 
- 	dc->crtc = &crtc->base;
- 
+ 	return ret;
 diff --git a/drivers/gpu/drm/drm_color_mgmt.c b/drivers/gpu/drm/drm_color_mgmt.c
-index daf62fb090a6..196544951ab7 100644
+index 44842ba0454d..75e6dbbd0081 100644
 --- a/drivers/gpu/drm/drm_color_mgmt.c
 +++ b/drivers/gpu/drm/drm_color_mgmt.c
-@@ -147,12 +147,21 @@ u64 drm_color_ctm_s31_32_to_qm_n(u64 user_input, u32 m, u32 n)
- }
- EXPORT_SYMBOL(drm_color_ctm_s31_32_to_qm_n);
- 
-+static const char * const tf_name[] = {
-+	[DRM_TF_UNDEFINED] = "undefined",
-+	[DRM_TF_SRGB] = "sRGB",
-+	[DRM_TF_PQ2084] = "PQ2084",
-+	[DRM_TF_1D_LUT] = "1D LUT",
-+};
-+
- /**
-  * drm_crtc_enable_color_mgmt - enable color management properties
-  * @crtc: DRM CRTC
-  * @degamma_lut_size: the size of the degamma lut (before CSC)
-  * @has_ctm: whether to attach ctm_property for CSC matrix
-  * @gamma_lut_size: the size of the gamma lut (after CSC)
-+ * @supported_tfs: bitfield indicating supported transfer functions
-+ * @default_tf: default output transfer function
-  *
-  * This function lets the driver enable the color correction
-  * properties on a CRTC. This includes 3 degamma, csc and gamma
-@@ -162,13 +171,27 @@ EXPORT_SYMBOL(drm_color_ctm_s31_32_to_qm_n);
-  * their size is not 0 and ctm_property is only attached if has_ctm is
-  * true.
-  */
--void drm_crtc_enable_color_mgmt(struct drm_crtc *crtc,
-+bool drm_crtc_enable_color_mgmt(struct drm_crtc *crtc,
- 				uint degamma_lut_size,
- 				bool has_ctm,
--				uint gamma_lut_size)
-+				uint gamma_lut_size,
-+				u32 supported_tfs,
-+				enum drm_transfer_function default_tf)
- {
- 	struct drm_device *dev = crtc->dev;
- 	struct drm_mode_config *config = &dev->mode_config;
-+	struct drm_property *prop;
-+	struct drm_prop_enum_list enum_list[DRM_TF_MAX];
-+	int i, len;
-+
-+	if (WARN_ON(supported_tfs == 0 ||
-+		    (supported_tfs & -BIT(DRM_TF_MAX)) != 0 ||
-+		    (supported_tfs & BIT(default_tf)) == 0))
-+		return -EINVAL;
-+
-+	if (!!(supported_tfs & BIT(DRM_TF_1D_LUT)) !=
-+	    !!(degamma_lut_size || gamma_lut_size))
-+		return -EINVAL;
- 
- 	if (degamma_lut_size) {
- 		drm_object_attach_property(&crtc->base,
-@@ -189,6 +212,28 @@ void drm_crtc_enable_color_mgmt(struct drm_crtc *crtc,
- 					   config->gamma_lut_size_property,
- 					   gamma_lut_size);
- 	}
-+
-+	len = 0;
-+	for (i = 0; i < DRM_TF_MAX; i++) {
-+		if ((supported_tfs & BIT(i)) == 0)
-+			continue;
-+
-+		enum_list[len].type = i;
-+		enum_list[len].name = tf_name[i];
-+		len++;
-+	}
-+
-+	prop = drm_property_create_enum(dev, 0, "OUT TRANSFER_FUNCTION",
-+					enum_list, len);
-+	if (!prop)
-+		return -ENOMEM;
-+	crtc->out_transfer_function_property = prop;
-+	drm_object_attach_property(&crtc->base, prop, default_tf);
-+	if (crtc->state)
-+		crtc->state->out_transfer_function = default_tf;
-+	
-+	return 0;
-+
- }
- EXPORT_SYMBOL(drm_crtc_enable_color_mgmt);
- 
-@@ -481,11 +526,6 @@ static const char * const color_range_name[] = {
+@@ -526,6 +526,13 @@ static const char * const color_range_name[] = {
  	[DRM_COLOR_YCBCR_LIMITED_RANGE] = "YCbCr limited range",
  };
  
--static const char * const tf_name[] = {
--	[DRM_TF_UNDEFINED] = "undefined",
--	[DRM_TF_SRGB] = "sRGB",
--	[DRM_TF_PQ2084] = "PQ2084",
--};
++static const char * const color_space_name[] = {
++	[DRM_COLOR_SPACE_BT601] = "ITU-R BT.601 RGB",
++	[DRM_COLOR_SPACE_BT709] = "ITU-R BT.709 RGB",
++	[DRM_COLOR_SPACE_BT2020] = "ITU-R BT.2020 RGB",
++	[DRM_COLOR_SPACE_P3] = "DCI-P3",
++};
++
  /**
   * drm_get_color_encoding_name - return a string for color encoding
   * @encoding: color encoding to compute name of
-diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
-index dab892d2251b..a9332080efe5 100644
---- a/drivers/gpu/drm/i915/display/intel_color.c
-+++ b/drivers/gpu/drm/i915/display/intel_color.c
-@@ -2093,7 +2093,7 @@ static void icl_read_luts(struct intel_crtc_state *crtc_state)
- 	}
+@@ -556,6 +563,21 @@ const char *drm_get_color_range_name(enum drm_color_range range)
+ 	return color_range_name[range];
  }
  
--void intel_color_init(struct intel_crtc *crtc)
-+bool intel_color_init(struct intel_crtc *crtc)
- {
- 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
- 	bool has_ctm = INTEL_INFO(dev_priv)->color.degamma_lut_size != 0;
-@@ -2150,8 +2150,9 @@ void intel_color_init(struct intel_crtc *crtc)
- 		}
- 	}
- 
--	drm_crtc_enable_color_mgmt(&crtc->base,
--				   INTEL_INFO(dev_priv)->color.degamma_lut_size,
--				   has_ctm,
--				   INTEL_INFO(dev_priv)->color.gamma_lut_size);
-+	return drm_crtc_enable_color_mgmt(&crtc->base,
-+					  INTEL_INFO(dev_priv)->color.degamma_lut_size,
-+					  has_ctm,
-+					  INTEL_INFO(dev_priv)->color.gamma_lut_size,
-+					  BIT(DRM_TF_1D_LUT), DRM_TF_1D_LUT);
- }
-diff --git a/drivers/gpu/drm/i915/display/intel_color.h b/drivers/gpu/drm/i915/display/intel_color.h
-index 173727aaa24d..a8e015acc60c 100644
---- a/drivers/gpu/drm/i915/display/intel_color.h
-+++ b/drivers/gpu/drm/i915/display/intel_color.h
-@@ -12,7 +12,7 @@ struct intel_crtc_state;
- struct intel_crtc;
- struct drm_property_blob;
- 
--void intel_color_init(struct intel_crtc *crtc);
-+bool intel_color_init(struct intel_crtc *crtc);
- int intel_color_check(struct intel_crtc_state *crtc_state);
- void intel_color_commit(const struct intel_crtc_state *crtc_state);
- void intel_color_load_luts(const struct intel_crtc_state *crtc_state);
-diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/drm/i915/display/intel_crtc.c
-index 95ff1707b4bd..0846fb4ef14e 100644
---- a/drivers/gpu/drm/i915/display/intel_crtc.c
-+++ b/drivers/gpu/drm/i915/display/intel_crtc.c
-@@ -340,7 +340,9 @@ int intel_crtc_init(struct drm_i915_private *dev_priv, enum pipe pipe)
- 						BIT(DRM_SCALING_FILTER_DEFAULT) |
- 						BIT(DRM_SCALING_FILTER_NEAREST_NEIGHBOR));
- 
--	intel_color_init(crtc);
-+	ret = intel_color_init(crtc);
-+	if (ret)
-+		goto fail;
- 
- 	intel_crtc_crc_init(crtc);
- 
-diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-index 5244f4763477..f21fdd7e5f2a 100644
---- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-+++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-@@ -1017,8 +1017,13 @@ static int ingenic_drm_bind(struct device *dev, bool has_components)
- 		return ret;
- 	}
- 
--	drm_crtc_enable_color_mgmt(&priv->crtc, 0, false,
--				   ARRAY_SIZE(priv->dma_hwdescs->palette));
-+	ret = drm_crtc_enable_color_mgmt(&priv->crtc, 0, false,
-+					 ARRAY_SIZE(priv->dma_hwdescs->palette),
-+					 BIT(DRM_TF_1D_LUT), DRM_TF_1D_LUT);
-+	if (ret) {
-+		dev_err(dev, "Failed to init color management: %i\n", ret);
-+		return ret;
-+	}
- 
- 	if (soc_info->has_osd) {
- 		drm_plane_helper_add(&priv->f0,
-diff --git a/drivers/gpu/drm/mediatek/mtk_drm_crtc.c b/drivers/gpu/drm/mediatek/mtk_drm_crtc.c
-index 474efb844249..d2496ad16931 100644
---- a/drivers/gpu/drm/mediatek/mtk_drm_crtc.c
-+++ b/drivers/gpu/drm/mediatek/mtk_drm_crtc.c
-@@ -827,7 +827,13 @@ int mtk_drm_crtc_create(struct drm_device *drm_dev,
- 
- 	if (gamma_lut_size)
- 		drm_mode_crtc_set_gamma_size(&mtk_crtc->base, gamma_lut_size);
--	drm_crtc_enable_color_mgmt(&mtk_crtc->base, 0, has_ctm, gamma_lut_size);
-+	ret = drm_crtc_enable_color_mgmt(&mtk_crtc->base, 0, has_ctm, gamma_lut_size,
-+					BIT(DRM_TF_1D_LUT), DRM_TF_1D_LUT);
-+	if (ret) {
-+		drm_crtc_cleanup(mtk_crtc->base);
-+		kfree(mtk_crtc);
-+		return ret;
-+
- 	priv->num_pipes++;
- 	mutex_init(&mtk_crtc->hw_lock);
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index 9a5c70c87cc8..9b7e947e8c8b 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -1337,6 +1337,7 @@ struct drm_crtc *dpu_crtc_init(struct drm_device *dev, struct drm_plane *plane,
- 	struct drm_crtc *crtc = NULL;
- 	struct dpu_crtc *dpu_crtc = NULL;
- 	int i;
-+	int ret = 0;
- 
- 	dpu_crtc = kzalloc(sizeof(*dpu_crtc), GFP_KERNEL);
- 	if (!dpu_crtc)
-@@ -1365,7 +1366,13 @@ struct drm_crtc *dpu_crtc_init(struct drm_device *dev, struct drm_plane *plane,
- 
- 	drm_crtc_helper_add(crtc, &dpu_crtc_helper_funcs);
- 
--	drm_crtc_enable_color_mgmt(crtc, 0, true, 0);
-+	ret = drm_crtc_enable_color_mgmt(crtc, 0, true, 0,
-+					 BIT(DRM_TF_UNDEFINED), DRM_TF_UNDEFINED);
-+	if (ret) {
-+		drm_crtc_cleanup(crtc);
-+		kfree(dpu_crtc);
-+		return ERR_PTR(ret);
-+	}
- 
- 	/* save user friendly CRTC name for later */
- 	snprintf(dpu_crtc->name, DPU_CRTC_NAME_SIZE, "crtc%u", crtc->base.id);
-diff --git a/drivers/gpu/drm/nouveau/dispnv50/head.c b/drivers/gpu/drm/nouveau/dispnv50/head.c
-index ec361d17e900..f97b3f70152b 100644
---- a/drivers/gpu/drm/nouveau/dispnv50/head.c
-+++ b/drivers/gpu/drm/nouveau/dispnv50/head.c
-@@ -589,9 +589,16 @@ nv50_head_create(struct drm_device *dev, int index)
- 	drm_crtc_helper_add(crtc, &nv50_head_help);
- 	/* Keep the legacy gamma size at 256 to avoid compatibility issues */
- 	drm_mode_crtc_set_gamma_size(crtc, 256);
--	drm_crtc_enable_color_mgmt(crtc, base->func->ilut_size,
--				   disp->disp->object.oclass >= GF110_DISP,
--				   head->func->olut_size);
-+	ret = drm_crtc_enable_color_mgmt(crtc, base->func->ilut_size,
-+					 disp->disp->object.oclass >= GF110_DISP,
-+					 head->func->olut_size,
-+					 BIT(DRM_TF_1D_LUT), DRM_TF_1D_LUT);
-+	if (ret) {
-+		drm_crtc_cleanup(crtc);
-+		kfree(head);
-+		return ERR_PTR(ret);
-+	}
-+
- 
- 	if (head->func->olut_set) {
- 		ret = nv50_lut_init(disp, &drm->client.mmu, &head->olut);
-diff --git a/drivers/gpu/drm/omapdrm/omap_crtc.c b/drivers/gpu/drm/omapdrm/omap_crtc.c
-index 06a719c104f4..a618b3338c38 100644
---- a/drivers/gpu/drm/omapdrm/omap_crtc.c
-+++ b/drivers/gpu/drm/omapdrm/omap_crtc.c
-@@ -839,7 +839,15 @@ struct drm_crtc *omap_crtc_init(struct drm_device *dev,
- 	if (dispc_mgr_gamma_size(priv->dispc, channel)) {
- 		unsigned int gamma_lut_size = 256;
- 
--		drm_crtc_enable_color_mgmt(crtc, gamma_lut_size, true, 0);
-+		ret = drm_crtc_enable_color_mgmt(crtc, gamma_lut_size, true, 0,
-+						 BIT(DRM_TF_1D_LUT), DRM_TF_1D_LUT);
-+		if (ret) {
-+			dev_err(dev->dev, "$s(): could not init color management for: %s\n",
-+				__func__, pipe->output->name);
-+			drm_crtc_cleanup(crtc);
-+			kfree(omap_crtc);
-+			return ERR_PTR(ret);
-+		}
- 		drm_mode_crtc_set_gamma_size(crtc, gamma_lut_size);
- 	}
- 
-diff --git a/drivers/gpu/drm/rcar-du/rcar_du_crtc.c b/drivers/gpu/drm/rcar-du/rcar_du_crtc.c
-index ea7e39d03545..02d8737e6603 100644
---- a/drivers/gpu/drm/rcar-du/rcar_du_crtc.c
-+++ b/drivers/gpu/drm/rcar-du/rcar_du_crtc.c
-@@ -1263,7 +1263,12 @@ int rcar_du_crtc_create(struct rcar_du_group *rgrp, unsigned int swindex,
- 		rgrp->cmms_mask |= BIT(hwindex % 2);
- 
- 		drm_mode_crtc_set_gamma_size(crtc, CM2_LUT_SIZE);
--		drm_crtc_enable_color_mgmt(crtc, 0, false, CM2_LUT_SIZE);
-+		ret = drm_crtc_enable_color_mgmt(crtc, 0, false, CM2_LUT_SIZE,
-+						 BIT(DRM_TF_1D_LUT), DRM_TF_1D_LUT);
-+		if (ret) {
-+			drm_crtc_cleanup(crtc);
-+			return ret;
-+		}
- 	}
- 
- 	drm_crtc_helper_add(crtc, &crtc_helper_funcs);
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop.c
-index f5b9028a16a3..68d3a7b1f041 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_vop.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop.c
-@@ -1817,7 +1817,10 @@ static int vop_create_crtc(struct vop *vop)
- 	drm_crtc_helper_add(crtc, &vop_crtc_helper_funcs);
- 	if (vop->lut_regs) {
- 		drm_mode_crtc_set_gamma_size(crtc, vop_data->lut_size);
--		drm_crtc_enable_color_mgmt(crtc, 0, false, vop_data->lut_size);
-+		ret = drm_crtc_enable_color_mgmt(crtc, 0, false, vop_data->lut_size,
-+						 BIT(DRM_TF_1D_LUT), DRM_TF_1D_LUT);
-+		if (ret)
-+			goto err_cleanup_crtc;
- 	}
- 
- 	/*
-diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
-index 08b71248044d..ffdf7114f50a 100644
---- a/drivers/gpu/drm/stm/ltdc.c
-+++ b/drivers/gpu/drm/stm/ltdc.c
-@@ -1035,7 +1035,13 @@ static int ltdc_crtc_init(struct drm_device *ddev, struct drm_crtc *crtc)
- 	drm_crtc_helper_add(crtc, &ltdc_crtc_helper_funcs);
- 
- 	drm_mode_crtc_set_gamma_size(crtc, CLUT_SIZE);
--	drm_crtc_enable_color_mgmt(crtc, 0, false, CLUT_SIZE);
-+	ret = drm_crtc_enable_color_mgmt(crtc, 0, false, CLUT_SIZE,
-+					 BIT(DRM_TF_1D_LUT), DRM_TF_1D_LUT);
-+	if (ret) {
-+		DRM_ERROR("Can not initialize color management\n");
-+		drm_crtc_cleanup(crtc);
-+		goto cleanup;
-+	}
- 
- 	DRM_DEBUG_DRIVER("CRTC:%d created\n", crtc->base.id);
- 
-diff --git a/drivers/gpu/drm/tidss/tidss_crtc.c b/drivers/gpu/drm/tidss/tidss_crtc.c
-index 2218da3b3ca3..34ed098887bc 100644
---- a/drivers/gpu/drm/tidss/tidss_crtc.c
-+++ b/drivers/gpu/drm/tidss/tidss_crtc.c
-@@ -439,7 +439,14 @@ struct tidss_crtc *tidss_crtc_create(struct tidss_device *tidss,
- 	if (tidss->feat->vp_feat.color.gamma_size)
- 		gamma_lut_size = 256;
- 
--	drm_crtc_enable_color_mgmt(crtc, 0, has_ctm, gamma_lut_size);
-+	ret = drm_crtc_enable_color_mgmt(crtc, 0, has_ctm, gamma_lut_size,
-+					 BIT(DRM_TF_1D_LUT), DRM_TF_1D_LUT);
-+	if (ret) {
-+		drm_crtc_cleanup(crtc);
-+		kfree(tcrtc);
-+		return ERR_PTR(ret);
-+	}
-+
- 	if (gamma_lut_size)
- 		drm_mode_crtc_set_gamma_size(crtc, gamma_lut_size);
- 
-diff --git a/drivers/gpu/drm/vc4/vc4_crtc.c b/drivers/gpu/drm/vc4/vc4_crtc.c
-index 18f5009ce90e..3bb2c0dba09a 100644
---- a/drivers/gpu/drm/vc4/vc4_crtc.c
-+++ b/drivers/gpu/drm/vc4/vc4_crtc.c
-@@ -1118,12 +1118,24 @@ int vc4_crtc_init(struct drm_device *drm, struct vc4_crtc *vc4_crtc,
- 	if (!vc4->hvs->hvs5) {
- 		drm_mode_crtc_set_gamma_size(crtc, ARRAY_SIZE(vc4_crtc->lut_r));
- 
--		drm_crtc_enable_color_mgmt(crtc, 0, false, crtc->gamma_size);
-+		ret = drm_crtc_enable_color_mgmt(crtc, 0, false, crtc->gamma_size,
-+						 BIT(DRM_TF_1D_LUT), DRM_TF_1D_LUT);
-+		if (ret) {
-+			dev_err(drm->dev, "failed to enable color management\n");
-+			drm_crtc_cleanup(crtc);
-+			return ret;
-+		}
- 
- 		/* We support CTM, but only for one CRTC at a time. It's therefore
- 		 * implemented as private driver state in vc4_kms, not here.
- 		 */
--		drm_crtc_enable_color_mgmt(crtc, 0, true, crtc->gamma_size);
-+		ret = drm_crtc_enable_color_mgmt(crtc, 0, true, crtc->gamma_size,
-+						 BIT(DRM_TF_1D_LUT), DRM_TF_1D_LUT);
-+		if (ret) {
-+			dev_err(drm->dev, "failed to enable color management\n");
-+			drm_crtc_cleanup(crtc);
-+			return ret;
-+		}
- 	}
- 
- 	for (i = 0; i < crtc->gamma_size; i++) {
-diff --git a/include/drm/drm_color_mgmt.h b/include/drm/drm_color_mgmt.h
-index 370bbc55b744..408561acdb3d 100644
---- a/include/drm/drm_color_mgmt.h
-+++ b/include/drm/drm_color_mgmt.h
-@@ -54,10 +54,29 @@ static inline u32 drm_color_lut_extract(u32 user_input, int bit_precision)
- 
- u64 drm_color_ctm_s31_32_to_qm_n(u64 user_input, u32 m, u32 n);
- 
--void drm_crtc_enable_color_mgmt(struct drm_crtc *crtc,
 +/**
-+ * enum drm_transfer_function - common transfer function used for sdr/hdr formats
++ * drm_get_color_space_name - return a string for color space
++ * @space: color space to compute name of
 + *
-+ * DRM_TF_UNDEFINED - The legacy case where a TF in and out of the blending
-+ *                    space is undefined
-+ * DRM_TF_SRGB - Based on gamma curve and is used for printer/monitors/web
-+ * DRM_TF_PQ2084 - Used for HDR and allows for up to 10,000 nit support.
-+ * DRM_TF_1D_LUT - Use 1D gamma/degamma LUTs (currently only defined on crtc)
-+*/
-+enum drm_transfer_function {
-+	DRM_TF_UNDEFINED,
-+	DRM_TF_SRGB,
-+	DRM_TF_PQ2084,
-+	DRM_TF_1D_LUT,
-+	DRM_TF_MAX,
-+};
++ * In contrast to the other drm_get_*_name functions this one here returns a
++ * const pointer and hence is threadsafe.
++ */
++const char *drm_get_color_space_name(enum drm_color_space space)
++{
++	if (WARN_ON(space >= ARRAY_SIZE(color_space_name)))
++		return "unknown";
 +
-+bool drm_crtc_enable_color_mgmt(struct drm_crtc *crtc,
- 				uint degamma_lut_size,
- 				bool has_ctm,
--				uint gamma_lut_size);
-+				uint gamma_lut_size,
-+				u32 supported_tfs,
-+				enum drm_transfer_function default_tf);
++	return color_space_name[space];
++}
++
+ int drm_plane_create_sdr_white_level_property(struct drm_plane *plane){
  
- int drm_mode_crtc_set_gamma_size(struct drm_crtc *crtc,
- 				 int gamma_size);
-@@ -87,20 +106,6 @@ enum drm_color_range {
- 	DRM_COLOR_RANGE_MAX,
- };
- 
--/**
-- * enum drm_transfer_function - common transfer function used for sdr/hdr formats
-- *
-- * DRM_TF_UNDEFINED - The legacy case where a TF in and out of the blending
-- *                    space is undefined
-- * DRM_TF_SRGB - Based on gamma curve and is used for printer/monitors/web
-- * DRM_TF_PQ2084 - Used for HDR and allows for up to 10,000 nit support.
--*/
--enum drm_transfer_function {
--	DRM_TF_UNDEFINED,
--	DRM_TF_SRGB,
--	DRM_TF_PQ2084,
--	DRM_TF_MAX,
--};
+ 	struct drm_property *prop;
+@@ -592,23 +614,28 @@ const char *drm_get_transfer_function_name(enum drm_transfer_function tf)
+  * @plane: plane object
+  * @supported_encodings: bitfield indicating supported color encodings
+  * @supported_ranges: bitfileld indicating supported color ranges
++ * @supported_spaces: bitfield indicating supported color spaces
+  * @supported_tfs: bitfield indicating supported transfer functions
+  * @default_encoding: default color encoding
+  * @default_range: default color range
++ * @default_space: default color space
+  * @default_tf: default color transfer function
+  *
+- * Create and attach plane specific COLOR_ENCODING, COLOR_RANGE and TRANSFER_FUNCTION
+- * properties to @plane. The supported encodings, ranges  and tfs should
+- * be provided in supported_encodings, supported_ranges and supported_tfs bitmasks.
++ * Create and attach plane specific COLOR_ENCODING, COLOR_RANGE, COLOR_SPACE,
++ * and TRANSFER_FUNCTION properties to @plane. The supported encodings, ranges,
++ * spaces, and tfs should be provided in supported_encodings, supported_ranges,
++ * supported_spaces, and supported_tfs bitmasks.
+  * Each bit set in the bitmask indicates that its number as enum
+  * value is supported.
+  */
  int drm_plane_create_color_properties(struct drm_plane *plane,
  				      u32 supported_encodings,
  				      u32 supported_ranges,
-diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
-index 13eeba2a750a..35580dd36294 100644
---- a/include/drm/drm_crtc.h
-+++ b/include/drm/drm_crtc.h
-@@ -288,6 +288,15 @@ struct drm_crtc_state {
++				      u32 supported_spaces,
+ 				      u32 supported_tfs,
+ 				      enum drm_color_encoding default_encoding,
+ 				      enum drm_color_range default_range,
++				      enum drm_color_space default_space,
+ 				      enum drm_transfer_function default_tf)
+ {
+ 	struct drm_device *dev = plane->dev;
+@@ -628,6 +655,11 @@ int drm_plane_create_color_properties(struct drm_plane *plane,
+ 		    (supported_ranges & BIT(default_range)) == 0))
+ 		return -EINVAL;
+ 
++	if (WARN_ON(supported_spaces == 0 ||
++		    (supported_spaces & -BIT(DRM_COLOR_SPACE_MAX)) != 0 ||
++		    (supported_spaces & BIT(default_space)) == 0))
++		return -EINVAL;
++
+ 	if (WARN_ON(supported_tfs == 0 ||
+ 		    (supported_tfs & -BIT(DRM_TF_MAX)) != 0 ||
+ 		    (supported_tfs & BIT(default_tf)) == 0))
+@@ -672,6 +704,26 @@ int drm_plane_create_color_properties(struct drm_plane *plane,
+ 		plane->state->color_range = default_range;
+ 
+ 
++	len = 0;
++	for (i = 0; i < DRM_COLOR_SPACE_MAX; i++) {
++		if ((supported_spaces & BIT(i)) == 0)
++			continue;
++
++		enum_list[len].type = i;
++		enum_list[len].name = color_space_name[i];
++		len++;
++	}
++
++	prop = drm_property_create_enum(dev, 0,	"COLOR_SPACE",
++					enum_list, len);
++	if (!prop)
++		return -ENOMEM;
++	plane->color_space_property = prop;
++	drm_object_attach_property(&plane->base, prop, default_space);
++	if (plane->state)
++		plane->state->color_space = default_space;
++
++
+ 	len = 0;
+ 	for (i = 0; i < DRM_TF_MAX; i++) {
+ 		if ((supported_tfs & BIT(i)) == 0)
+diff --git a/drivers/gpu/drm/i915/display/intel_sprite.c b/drivers/gpu/drm/i915/display/intel_sprite.c
+index b3f7aca3795b..76637b1aa5dc 100644
+--- a/drivers/gpu/drm/i915/display/intel_sprite.c
++++ b/drivers/gpu/drm/i915/display/intel_sprite.c
+@@ -1850,9 +1850,11 @@ intel_sprite_plane_create(struct drm_i915_private *dev_priv,
+ 					  BIT(DRM_COLOR_YCBCR_BT709),
+ 					  BIT(DRM_COLOR_YCBCR_LIMITED_RANGE) |
+ 					  BIT(DRM_COLOR_YCBCR_FULL_RANGE),
++					  BIT(DRM_COLOR_SPACE_BT709),
+ 					  BIT(DRM_TF_UNDEFINED),
+ 					  DRM_COLOR_YCBCR_BT709,
+ 					  DRM_COLOR_YCBCR_LIMITED_RANGE,
++					  DRM_COLOR_SPACE_BT709,
+ 					  DRM_TF_UNDEFINED);
+ 
+ 	zpos = sprite + 1;
+diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+index df596431151d..3ed65e527dde 100644
+--- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
++++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+@@ -2160,9 +2160,11 @@ skl_universal_plane_create(struct drm_i915_private *dev_priv,
+ 					  supported_csc,
+ 					  BIT(DRM_COLOR_YCBCR_LIMITED_RANGE) |
+ 					  BIT(DRM_COLOR_YCBCR_FULL_RANGE),
++					  BIT(DRM_COLOR_SPACE_BT709),
+ 					  BIT(DRM_TF_UNDEFINED),
+ 					  DRM_COLOR_YCBCR_BT709,
+ 					  DRM_COLOR_YCBCR_LIMITED_RANGE,
++					  DRM_COLOR_SPACE_BT709,
+ 					  DRM_TF_UNDEFINED);
+ 
+ 	drm_plane_create_alpha_property(&plane->base);
+diff --git a/drivers/gpu/drm/nouveau/dispnv04/overlay.c b/drivers/gpu/drm/nouveau/dispnv04/overlay.c
+index 64e1793212b4..dc350245c98b 100644
+--- a/drivers/gpu/drm/nouveau/dispnv04/overlay.c
++++ b/drivers/gpu/drm/nouveau/dispnv04/overlay.c
+@@ -345,9 +345,11 @@ nv10_overlay_init(struct drm_device *device)
+ 					  BIT(DRM_COLOR_YCBCR_BT601) |
+ 					  BIT(DRM_COLOR_YCBCR_BT709),
+ 					  BIT(DRM_COLOR_YCBCR_LIMITED_RANGE),
++					  BIT(DRM_COLOR_SPACE_BT709),
+ 					  BIT(DRM_TF_UNDEFINED),
+ 					  DRM_COLOR_YCBCR_BT601,
+ 					  DRM_COLOR_YCBCR_LIMITED_RANGE,
++					  DRM_COLOR_SPACE_BT709,
+ 					  DRM_TF_UNDEFINED);
+ 
+ 	plane->set_params = nv10_set_params;
+diff --git a/drivers/gpu/drm/omapdrm/omap_plane.c b/drivers/gpu/drm/omapdrm/omap_plane.c
+index ca7559824dcd..3eb52e78e08d 100644
+--- a/drivers/gpu/drm/omapdrm/omap_plane.c
++++ b/drivers/gpu/drm/omapdrm/omap_plane.c
+@@ -325,9 +325,11 @@ struct drm_plane *omap_plane_init(struct drm_device *dev,
+ 						  BIT(DRM_COLOR_YCBCR_BT709),
+ 						  BIT(DRM_COLOR_YCBCR_FULL_RANGE) |
+ 						  BIT(DRM_COLOR_YCBCR_LIMITED_RANGE),
++						  BIT(DRM_COLOR_SPACE_BT709),
+ 						  BIT(DRM_TF_UNDEFINED),
+ 						  DRM_COLOR_YCBCR_BT601,
+ 						  DRM_COLOR_YCBCR_FULL_RANGE,
++						  DRM_COLOR_SPACE_BT709,
+ 						  DRM_TF_UNDEFINED);
+ 
+ 	return plane;
+diff --git a/drivers/gpu/drm/sun4i/sun8i_vi_layer.c b/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
+index eda8f51bafd7..c0115783c6a6 100644
+--- a/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
++++ b/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
+@@ -543,7 +543,7 @@ struct sun8i_vi_layer *sun8i_vi_layer_init_one(struct drm_device *drm,
+ 					       struct sun8i_mixer *mixer,
+ 					       int index)
+ {
+-	u32 supported_encodings, supported_ranges;
++	u32 supported_encodings, supported_ranges, supported_spaces;
+ 	unsigned int plane_cnt, format_count;
+ 	struct sun8i_vi_layer *layer;
+ 	const u32 *formats;
+@@ -597,12 +597,16 @@ struct sun8i_vi_layer *sun8i_vi_layer_init_one(struct drm_device *drm,
+ 	supported_ranges = BIT(DRM_COLOR_YCBCR_LIMITED_RANGE) |
+ 			   BIT(DRM_COLOR_YCBCR_FULL_RANGE);
+ 
++	supported_spaces = BIT(DRM_COLOR_SPACE_BT709);
++
+ 	ret = drm_plane_create_color_properties(&layer->plane,
+ 						supported_encodings,
+ 						supported_ranges,
++						supported_spaces,
+ 						BIT(DRM_TF_UNDEFINED),
+ 						DRM_COLOR_YCBCR_BT709,
+ 						DRM_COLOR_YCBCR_LIMITED_RANGE,
++						DRM_COLOR_SPACE_BT709,
+ 						DRM_TF_UNDEFINED);
+ 	if (ret) {
+ 		dev_err(drm->dev, "Couldn't add encoding and range properties!\n");
+diff --git a/drivers/gpu/drm/tidss/tidss_plane.c b/drivers/gpu/drm/tidss/tidss_plane.c
+index a1336ecd5fd5..367a14616756 100644
+--- a/drivers/gpu/drm/tidss/tidss_plane.c
++++ b/drivers/gpu/drm/tidss/tidss_plane.c
+@@ -186,9 +186,11 @@ struct tidss_plane *tidss_plane_create(struct tidss_device *tidss,
+ 			       BIT(DRM_COLOR_YCBCR_BT709));
+ 	u32 color_ranges = (BIT(DRM_COLOR_YCBCR_FULL_RANGE) |
+ 			    BIT(DRM_COLOR_YCBCR_LIMITED_RANGE));
++	u32 color_spaces = BIT(DRM_COLOR_SPACE_BY709);
+ 	u32 transfer_functions = BIT(DRM_TF_UNDEFINED;
+ 	u32 default_encoding = DRM_COLOR_YCBCR_BT601;
+ 	u32 default_range = DRM_COLOR_YCBCR_FULL_RANGE;
++	u32 default_space = DRM_COLOR_SPACE_BT709;
+ 	u32 default_tf = DRM_TF_UNDEFINED;;
+ 	u32 blend_modes = (BIT(DRM_MODE_BLEND_PREMULTI) |
+ 			   BIT(DRM_MODE_BLEND_COVERAGE));
+@@ -219,9 +221,11 @@ struct tidss_plane *tidss_plane_create(struct tidss_device *tidss,
+ 	ret = drm_plane_create_color_properties(&tplane->plane,
+ 						color_encodings,
+ 						color_ranges,
++						color_spaces,
+ 						transfer_functions,
+ 						default_encoding,
+ 						default_range,
++						default_space,
+ 						default_tf);
+ 	if (ret)
+ 		goto err;
+diff --git a/include/drm/drm_color_mgmt.h b/include/drm/drm_color_mgmt.h
+index 2a356a9601df..575427650542 100644
+--- a/include/drm/drm_color_mgmt.h
++++ b/include/drm/drm_color_mgmt.h
+@@ -99,6 +99,9 @@ static inline int drm_color_lut_size(const struct drm_property_blob *blob)
+ 	return blob->length / sizeof(struct drm_color_lut);
+ }
+ 
++/**
++ * drm_color_encoding - describes the coefficient for YCbCr-RGB conversion
++ */
+ enum drm_color_encoding {
+ 	DRM_COLOR_YCBCR_BT601,
+ 	DRM_COLOR_YCBCR_BT709,
+@@ -112,12 +115,25 @@ enum drm_color_range {
+ 	DRM_COLOR_RANGE_MAX,
+ };
+ 
++/**
++ * drm_color_space - describes the color space (primaries & white point)
++ */
++enum drm_color_space {
++	DRM_COLOR_SPACE_BT601,
++	DRM_COLOR_SPACE_BT709,
++	DRM_COLOR_SPACE_BT2020,
++	DRM_COLOR_SPACE_P3,
++	DRM_COLOR_SPACE_MAX,
++};
++
+ int drm_plane_create_color_properties(struct drm_plane *plane,
+ 				      u32 supported_encodings,
+ 				      u32 supported_ranges,
++				      u32 supported_spaces,
+ 				      u32 supported_tf,
+ 				      enum drm_color_encoding default_encoding,
+ 				      enum drm_color_range default_range,
++				      enum drm_color_space default_space,
+ 				      enum drm_transfer_function default_tf);
+ 
+ /**
+diff --git a/include/drm/drm_plane.h b/include/drm/drm_plane.h
+index 93ee308a46af..8c9fe6350ead 100644
+--- a/include/drm/drm_plane.h
++++ b/include/drm/drm_plane.h
+@@ -179,6 +179,13 @@ struct drm_plane_state {
  	 */
- 	struct drm_property_blob *gamma_lut;
+ 	enum drm_color_range color_range;
  
 +	/**
-+	 * @out_transfer_function:
++	 * @color_space
 +	 *
-+	 * Transfer function for conversion from blending space to
-+	 * display space. DRM_TF_1D_LUT can be specified to use the
-+	 * gamma/degamma LUTs from mode_config instead.
++	 * Color space (primaries & white point) of the plane
 +	 */
-+	enum drm_transfer_function out_transfer_function;
++	enum drm_color_space color_space;
 +
  	/**
- 	 * @target_vblank:
+ 	 * @transfer_function:
  	 *
-@@ -1096,6 +1105,17 @@ struct drm_crtc {
+@@ -754,6 +761,15 @@ struct drm_plane {
+ 	 * See drm_plane_create_color_properties().
  	 */
- 	struct drm_property *scaling_filter_property;
- 
+ 	struct drm_property *color_range_property;
 +	/**
-+	 * @out_transfer_function_property:
++	 * @color_space_property:
 +	 *
-+	 * Optional "OUT TRANSFER FUNCTION" enum property for specifying
-+	 * an output transfer function, i.e. a TF to convert from
-+	 * blending space to luminance space. Use DRM_TF_1D_LUT to
-+	 * indicate using the 1D gamma/degamma LUTs instead of a
-+	 * named transfer function.
++	 * Optional "COLOR_SPACE" enum property for specifying
++	 * the color space (i.e. primaries and white point) of
++	 * the plane.
++	 * See drm_plane_create_color_properties().
 +	 */
-+	struct drm_property *out_transfer_function_property;
-+
++	struct drm_property *color_space_property;
  	/**
- 	 * @state:
+ 	 * @transfer_function_property:
  	 *
 -- 
 2.32.0
