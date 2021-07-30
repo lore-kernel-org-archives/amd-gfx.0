@@ -2,118 +2,131 @@ Return-Path: <SRS0=IbmW=MW=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-17.4 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6F2EBC4338F
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jul 2021 20:42:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C431CC4338F
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jul 2021 21:26:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3666960EE6
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jul 2021 20:42:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3666960EE6
+	by mail.kernel.org (Postfix) with ESMTPS id 7E7AD60EFF
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jul 2021 21:26:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7E7AD60EFF
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3999C6F4AA;
-	Fri, 30 Jul 2021 20:41:55 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam07on2066.outbound.protection.outlook.com [40.107.95.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D82A6F4AC;
- Fri, 30 Jul 2021 20:41:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F4CC6E4AA;
+	Fri, 30 Jul 2021 21:26:07 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2054.outbound.protection.outlook.com [40.107.93.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 697AE6E4AA
+ for <amd-gfx@lists.freedesktop.org>; Fri, 30 Jul 2021 21:26:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SDiYX/uxf+kQZQOPRUk4iF3u3sDeSJgori0/W8M25vr3ldxa0idNR/GmCkytM4ql+66CdbTW9OcI3MSX6TKpoqaIcjSpmdlG3858FA7WBrwNQC/p0fdUBnJQyzZmhQEIhzesMAjoNdEPztp75odo0nwmnUX5eSoaR3U2Ss6V35yCW/A6ESCB5+K7It8mPFNYT/dmz/8BHLQhkMxP/qCVEtf2UCeyMWMmmz+FvMCgfrWXOZFOH3/2r4hfNfA5iiOnVZVIKumitDiZKaJA+tInwqHJgNwtDUndy3xup2Fti8PpUUTc9KVGO4w/esSjUQ9UaZppb1bgJCB4yfA8cv7HbA==
+ b=SeN6oeKhYXH5unRQ+LKxP84uwCJkQI91Np7jxgl3vofM+2cjJgd4BuAjWNZsSozocQQpmtTvTXqHVXNFjQMnUKIrG50xWGwYHK21+jEJDC6gQgZPFEU8JoXjy7SYfjTT79hrzyiEUj3g6P8lfK/fbJJ7TCxMKzBIxC/P8tv6he+asaldnrMLk4qeLWimZ8pIs+Db6icQ/AdOFeGhC1hAyjystupN9BAYI/vXydZg9svMTgCgDMwAK/PZuwW0gVcwoYu5VPNAnhLDJ3aG7gqOqqvivmTT+CfadLP60mssYScy6IUl5F/Ewoz8LB5eB5GjpGXi3W4JRsz4LJaRgVwUMg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0WS6j2w3ibOn08CX5uhqesiXQtF5RyGESr+EQhsiuNI=;
- b=f9Ku0rpEMVv2np7Kv3mdGoH8RubY5FdhhUyVxDBd3kfayxINpk9JzBGWPcaAvZ8MjCNuLoR3w3GxnpXAMd0CHngi27xm/7iVUae4HTSLfAqTZeRmy4ZVK+9l0teZCP7b+IfKUi1/RWa9NZ0oLcgQJSFcablWmq4MfUIzzXgiE+1GjTs32ujvMMEI/QDqJo9sg7LO3SLySnH6+OropnZUMeIdNGqd+uR1GHhhyMQZbAxFaBlhjvKOD8EewNzOvHWnGbN9nlse6MTtaTC8au5gyH0N/64UF3rHb0MYaLnT8fbS9uLLaF9tJ1QrlIN3tJpmCYzBQab8I/UhPdN6YNRfDQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=g62a0/IUAZkE8Ix9Fbek6rY2jcrCG/bRQK4rzKMwyd0=;
+ b=WNhinOvV9iWtsGfWVOtshi7rtdHvGCu8+Yxa2XNeEBSaDdJSML7AzZwsRUtSHJimEBw7N9SHtWN1nOPFkANGuEF0/jB/CLltvuf6DHSnLetr+/jba37j5ZSKaCKdhXzBatLZMqWCJfV9xF4YLiXpV2yZpErMWJtclP6ZIeI2XSRvWSoLE/pKIaasmlc0xIEtOh94jmATu8Idjstw0Ipk8i/imJOTy6UMcM9eTjrCeWkO5gO9VjgUG13eD5B+dfgp+nK0Vcns9oJJLSXDLNKCcJdG3TwjdeqEjZxK8uWtswA4sjS6ot3h8N/aH6vCEGFG2VxbG+vDBidaeFQchfHOFQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0WS6j2w3ibOn08CX5uhqesiXQtF5RyGESr+EQhsiuNI=;
- b=HN4ISt9OGXP0IMnEtfjxlAN1R1XKutfsqHIKcG+BjIV1HoFE8uCaqJaEX6LpQNiyFI1XYl0Q2YHEpU/R/a+93/5P1vQrEi+J4n0tDr2oHBH5VbV063DpCZ6d4JoeLzHp2/eYjUyiRwaf1Q+Ij4NhrJADHVdCnBDzXRBEjsHV7W0=
-Received: from DM5PR21CA0022.namprd21.prod.outlook.com (2603:10b6:3:ac::32) by
- PH0PR12MB5450.namprd12.prod.outlook.com (2603:10b6:510:e8::22) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4373.18; Fri, 30 Jul 2021 20:41:47 +0000
-Received: from DM6NAM11FT053.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:ac:cafe::4e) by DM5PR21CA0022.outlook.office365.com
- (2603:10b6:3:ac::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4394.1 via Frontend
- Transport; Fri, 30 Jul 2021 20:41:47 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DM6NAM11FT053.mail.protection.outlook.com (10.13.173.74) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4373.18 via Frontend Transport; Fri, 30 Jul 2021 20:41:47 +0000
-Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Fri, 30 Jul
- 2021 15:41:40 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB07.amd.com
- (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Fri, 30 Jul
- 2021 13:41:40 -0700
-Received: from hwentlanryzen.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2242.12 via Frontend
- Transport; Fri, 30 Jul 2021 15:41:39 -0500
-From: Harry Wentland <harry.wentland@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <ppaalanen@gmail.com>, <sebastian@sebastianwick.net>, <mcasas@google.com>,
- <jshargo@google.com>, <Shashank.Sharma@amd.com>
-CC: <Deepak.Sharma@amd.com>, <Shirish.S@amd.com>, <Vitaly.Prosyak@amd.com>,
- <aric.cyr@amd.com>, <Bhawanpreet.Lakha@amd.com>, <Krunoslav.Kovac@amd.com>,
- <hersenxs.wu@amd.com>, <Nicholas.Kazlauskas@amd.com>,
- <laurentiu.palcu@oss.nxp.com>, <ville.syrjala@linux.intel.com>, "Harry
- Wentland" <harry.wentland@amd.com>
-Subject: [RFC PATCH v3 2/6] drm/color: Add transfer functions for HDR/SDR on
- drm_plane
-Date: Fri, 30 Jul 2021 16:41:30 -0400
-Message-ID: <20210730204134.21769-3-harry.wentland@amd.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20210730204134.21769-1-harry.wentland@amd.com>
-References: <20210730204134.21769-1-harry.wentland@amd.com>
-MIME-Version: 1.0
+ bh=g62a0/IUAZkE8Ix9Fbek6rY2jcrCG/bRQK4rzKMwyd0=;
+ b=XBjoEcAhCGplA9M4QNaI4a/h2LTEgS/gVtNZF3QUuZRHn4HyIJ75AZkcOKFbKc50hfDlYJXtb2HDlNlkQOnu2cX1GIEpz6DJkvINQBmh0fXwaBjyLWrbESsCoTp1D3kYFko4xzy6n+U/z10NxVVxGwbkT+9UWASGXwB16VClGRQ=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5129.namprd12.prod.outlook.com (2603:10b6:408:136::12)
+ by BN9PR12MB5260.namprd12.prod.outlook.com (2603:10b6:408:101::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4373.20; Fri, 30 Jul
+ 2021 21:26:02 +0000
+Received: from BN9PR12MB5129.namprd12.prod.outlook.com
+ ([fe80::b891:a906:28f0:fdb]) by BN9PR12MB5129.namprd12.prod.outlook.com
+ ([fe80::b891:a906:28f0:fdb%3]) with mapi id 15.20.4352.033; Fri, 30 Jul 2021
+ 21:26:02 +0000
+Subject: Re: [PATCH] drm/amdkfd: Restore all process on post reset
+To: Eric Huang <jinhuieric.huang@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20210728173154.834263-1-jinhuieric.huang@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Message-ID: <feffbe5c-7400-a3f5-148d-03e7d128aece@amd.com>
+Date: Fri, 30 Jul 2021 17:26:00 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
+In-Reply-To: <20210728173154.834263-1-jinhuieric.huang@amd.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
+Content-Language: en-US
+X-ClientProxiedBy: YT2PR01CA0018.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:38::23) To BN9PR12MB5129.namprd12.prod.outlook.com
+ (2603:10b6:408:136::12)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [192.168.2.100] (142.182.144.73) by
+ YT2PR01CA0018.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:38::23) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4373.20 via Frontend Transport; Fri, 30 Jul 2021 21:26:02 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 8ba9306e-05f6-4fea-c85d-08d9539a737a
-X-MS-TrafficTypeDiagnostic: PH0PR12MB5450:
-X-Microsoft-Antispam-PRVS: <PH0PR12MB54507CFC01783EC53B4A8E548CEC9@PH0PR12MB5450.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Office365-Filtering-Correlation-Id: d74d5416-258d-4615-d069-08d953a0a1b1
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5260:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BN9PR12MB52606A0D1F2A15FD011A008492EC9@BN9PR12MB5260.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: BEvkyRbxhDS/VCgajc8OA9fKNzzXcL2gH1j/qo4EtIAaAqvZm2aBPtS0EX1CgvU29+5rOS/7lcAUAQFpnIz80yrQbWik3p4qN8QUmL14AMDSDCrOHWojF4noP8DmqUUDPsDBl9aDcXUb5eCl+tn6i+QbcSRWpBii1ELfLNk8vJri2E4bcp7XiltDV8QOA5fwlEfMcqO6HeaGB7LckqZkq8IIaEqfguigtdC2mwbsHWFYZHv0k3A7uqF8w3xBbm3TL9MoytKPDYTMn1XJdbbwwH1Sv0PlnEhn+1Y1ld6/RMOMxLeab23Ri3PEzKm/z/JyZP8Yc3/5amLvZE2ZgNYF7J2acnvE3b0g84P4Kr00QQYdkjEKNsiKwCs14uDzjKCe5zfCVYFXSVQghv25cfQHhdy6qRdrsU1hMJ0rs3B1vZkqMbhayP8ClfaYcvaBevOv6dx7KpKM2Dhx3zyWg3UKEa+EpNo20wUqtGiYp7a1zNxu8m4apKlIzNQObvrAij8rfrKE2fgaNBs/yw8mAW0+/ES5AyLe4W7/PDucd/Z9LajwywBlQDk/+3gCCZs1Y/KM11uIyEJr73RkHOqq5Itq0D52tIySHxMQlC9bmpxKBf1iPfiIUsFskKdK3V9sGf5RlxIRzd5DZfs2Hwq7cX5e6c5dGGkaYWQCkOpENS2VVxPfSYGawDxCyplPnmYam2xpmcjbE7WDA6SvrqESmqIVNogjKjSQHBspxRTD5GUXxyA=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(376002)(136003)(396003)(39860400002)(346002)(36840700001)(46966006)(316002)(70206006)(2906002)(6666004)(47076005)(70586007)(478600001)(83380400001)(8676002)(86362001)(54906003)(356005)(4326008)(6636002)(44832011)(81166007)(30864003)(336012)(110136005)(1076003)(8936002)(26005)(82310400003)(2616005)(82740400003)(36860700001)(5660300002)(7696005)(186003)(36756003)(426003)(36900700001);
+X-Microsoft-Antispam-Message-Info: E1UNEZ8dqD0qkhNxdbdNHlVXwYm0e4fV7E/GxCIhZW60lF9s5/zKxIE2Z98mHT00gzFH7cYtYSKmzTmLpEQ9k73zPwHvzbuDuQUd4jTTy4vg9ESDLkcimzRjGBNRqZ+2USkikzsvRpPEgv05jO02nbyYc2ZqVshbKfj5EpTpEUXwhXQDwuXGl3wioEH8IBXpchcNh06mKLahbsuMqGwe0wX9gfKytjMcGRqrDf95ILdvbF8uNGKs8BFpdynDfLTUjYP1dHiqru29pIoOYcSIMlmM1zRn6GCRWTZJvuY2+j74AvN4OkaWDEhzUA+uRmI0ZC+tQ6jByIRCKer/wqFkB4rY9mVHRstg2mb5mUC1/XxQ0Z9BO7KKUYxqeG448/Gg+J/nGZ8TEyY/cXXnMc0WbeD4Q97FxVHaoEvekPbgH+1mS45FE04zem35/6Ue/60bEXLXiAOfg1b24us+TE14kK5avxGzoS6hM1C2WYLfgOwCgmHiZamuPCDewgWJfNtO5oDNt7qji+WLb6ZL3CVcwyaaa9nP3tT5M/+9MjtLZRDsJwJEO5OewVIRpRBJWAryQQ9tk6zOEtOJpZhVaa58essSs1+hecOWHBx5/7S8ODqRRsJ2Dilr0vC1SSHcADaWN1px1cIOu5mJesPyFfL86yfEhZnT2Pt7MsxO2FVwnXIgYIONKfKtkC7jGt/JksVDezwOXUS42LcvrS1HzQaJM2Lj7yFkfryOQzayM2IH5b8/hPO2OleL4IPJz/DRQga/
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5129.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(376002)(136003)(39860400002)(396003)(346002)(38100700002)(2906002)(8936002)(956004)(83380400001)(31686004)(66476007)(316002)(8676002)(36756003)(2616005)(44832011)(5660300002)(66946007)(66556008)(16576012)(86362001)(6486002)(26005)(478600001)(31696002)(186003)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TlJQaFFGTkZnRmxQN1RsdFY5bFJJRzI1YWlEU1B0MTBlQzNJWlkxZDJBa2NF?=
+ =?utf-8?B?MDZ1T0tvZkFJNG81OGpCaVlTcmdFUENYRUhXSlhyNnhOQXJRWDJ0YlpOZjh1?=
+ =?utf-8?B?dXJkaXo1SXZVSEVDYVZrc2F0cnliVDhEanc1ZG5YcTR1NFdzZldiNmhoT3kz?=
+ =?utf-8?B?L0VGL3NxUHlJV29TYXpkZ3JTNDhlcmEybWFSVHd5a2c3QXhsNWVFM1NSekVh?=
+ =?utf-8?B?dUpUMDN4bk1Ca09FdmxyVldaSUEvRGRpUWxqTE1SSzZRMTR3cStLT0lKMjV5?=
+ =?utf-8?B?RzJwM2xVUDRTdHVvRFIrajVKc0FOMkpYNG8xbkZvdnhkckJBeEJpUi9NaXpX?=
+ =?utf-8?B?ZXNpcW9rTlo4ZndjaGszYTlpWjdNVTdVQzFUOG05TkNJbU9PVU1NSWUyTXRy?=
+ =?utf-8?B?V2xzNzRVRm1xOWg0Y1F2VU1ZSk5uODFwODUrMkN4QUhTSG5uWnUzNDlBNE1s?=
+ =?utf-8?B?aGdZanlNUWJEc1pVd0piOHZUajBORzJscmUvTURWK2hZWW5vUWp5Wi9YSnln?=
+ =?utf-8?B?VURRVFdhWjhIbUdwODhhMWZ6Z20rdHBrVFEweFJJTERKOFdSM0NkejZuWUVX?=
+ =?utf-8?B?Qm8xVUJ4ZUJiS0Y1SDNJUTJHTzRGOUdJRjhBUk14Q0Ftckc2WjQ2MHZEYjJU?=
+ =?utf-8?B?QVdRZjFRdFRnMXc0RjZjNnd4Q3JobEZ3dU01aGJmQVBSRzVsOStRcjg0RitN?=
+ =?utf-8?B?QzdVWGYxeDVldW16SUZGY3RwWUF0OUdVdFMydkRCbzJabG1PN2ZwRUpNOTRT?=
+ =?utf-8?B?WnFaS1l4THhoSjJ2a1Z3YVJYS29rVXQwNE5FL1cwNlNQTUZrRDFIOGpxYzlV?=
+ =?utf-8?B?eUFxT2ZwWGY5ejRhczVHOVJkYmpVcE9mYzdLL2c2U05JbSs3QUZlbFFUZHhT?=
+ =?utf-8?B?MThpeDdTekU5RXJMZElnTmo5NUlTeEdLT0o4V01wT1UrVXdxWE1oSUQ2TExJ?=
+ =?utf-8?B?Wm9acmFHRTRUUlJJWk00L09kaWd5L0xLeEhCMEt4aXkxbmYzTDA5QndyYmll?=
+ =?utf-8?B?c2p6ZGF6a3QvSlpGZndiKyt3aHUwZ1hMblIxbEZ5ZlRocjlsdmF4SndTWXA2?=
+ =?utf-8?B?WWRuM1dQdXBkZk1NT0hPc3pXcndYOE5Pd1Z2K1QvaEdYRXV4VHFrbi9WaHNB?=
+ =?utf-8?B?Ylo3T2Q4K2ZuVTN4VHZVTzhBRW1ZV1ZrcFo0TytXMW1xZ0RZZENKOFZrRG5t?=
+ =?utf-8?B?QkQxVm5zN0pWa2xVV3FsMVFvdUFQUEtrSEk3WWk4SWJYTk81Y0I4YkpwOUZT?=
+ =?utf-8?B?cWdXS0U3RzdKT2NVb3ZuUVRxbmZaV05hNS9hMWFvRDdaZDliYTNRRU5qTUM0?=
+ =?utf-8?B?T2VYYkVyMzRLSmZTcVdRd3NkWHMzcTdqNWc2ZWhpMWNHM1ZDdi91OFMyZ095?=
+ =?utf-8?B?RldZZ1kyWEhtKzN4ZE41ZXg4TUpKMnloa2ZvSnROT1lnN203c2xzbTRtYU1y?=
+ =?utf-8?B?M3RuOVhvTlFqcGp5REVnZE1nZzIra0t1bTNZNlVSR0tOdW1NdFhnR0lDMTF0?=
+ =?utf-8?B?aFlMYWVMSzZIemFPbUNOQUpJbnY4UXVlaURWeENpdGpVUlFZMm9LM1BGQ050?=
+ =?utf-8?B?dXI4clIrUGxNVzY5L1Bkdm5CbU9MckJmN0FhWElWSEl1RVhzOTZKa21ERWIv?=
+ =?utf-8?B?UDN2TmxqT3FMSlNONUNaZmJ5RnBYQXdtdnpBK080Rm5HVnk1Mk5IeWFxSmFW?=
+ =?utf-8?B?R09rT1pqQTZhM2pWV0lpWTkxL3pwK08xYllpcUpTYkNDNkdpWG1LNnV2WW5B?=
+ =?utf-8?Q?f+lnqfX+4tqyzpbi+ZiHGzr7LgQqSf2rXp+Brse?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2021 20:41:47.6141 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8ba9306e-05f6-4fea-c85d-08d9539a737a
+X-MS-Exchange-CrossTenant-Network-Message-Id: d74d5416-258d-4615-d069-08d953a0a1b1
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5129.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2021 21:26:02.3797 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT053.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5450
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /+PBBt0vAK9h3qGjEj7p1uFCwaFOEC9gvEGwu/K65TVVz0K0z3JEaeORFM+eriSF0kbYxqnQqlahZReMYxqZ8Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5260
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,447 +141,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+Am 2021-07-28 um 1:31 p.m. schrieb Eric Huang:
+> It is to fix a bug of gpu_recovery on multiple GPUs,
+> When one gpu is reset, the application running on other
+> gpu hangs, because kfd post reset doesn't restore the
+> running process.
 
-Due to the way displays and human vision work it is most effective to
-encode luminance information in a non-linear space.
+This will resume all processes, even those that were affected by the GPU
+reset.
 
-For SDR this non-linear mapping is assumed to roughly use a gamma 2.2 curve.
-This was due to the way CRTs worked and was fine for SDR content with a
-low luminance range.
+The assumption we made here is, that KFD processes can use all GPUs. So
+when one GPU is reset, all processes are affected. If we want to refine
+that, we'll need some more complex logic to identify the processes
+affected by a GPU reset and keep only those processes suspended. This
+could be based on the GPUs that a process has created queues on, or
+allocated memory on.
 
-The large luminance range (0-10,000 nits) for HDR exposes some
-short-comings of a simple gamma curve that have been addressed
-through various Electro-Optical Transfer Functions (EOTFs).
+What we don't want, is processes continuing with bad data or
+inconsistent state after a GPU reset.
 
-Rather than assuming how framebuffer content is encoded we want to
-make sure userspace presenting HDR content is explicit about the
-EOTF of the content, so a driver can decide whether the content
-can be supported or not.
 
-This Patch adds common transfer functions for SDR/HDR. These can
-be used to communicate with the driver regarding the transformation to
-use for a given plane.
+>  And it also fixes a bug in the function
+> kfd_process_evict_queues, when one gpu hangs, process
+> running on other gpus can't be evicted.
 
-enums added:
-	DRM_TF_UNDEFINED
-		the legacy case where the TF in/out of blending space is
-		undefined
-	DRM_TF_SRGB
-		roughly 2.4 gamma with initial linear section
-	DRM_TF_BT709
-		Similar to Gamma 2.2-2.8
-	DRM_TF_PQ2084
-		most common tf used for HDR video (HDR10/Dolby). Can support up
-		to 10,000 nits
+This should be a separate patch. The code you're removing was there as
+an attempt to make kfd_process_evict_queues transactional. That means,
+it either succeeds completely or it fails completely. I wanted to avoid
+putting the system into an unknown state where some queues are suspended
+and others are not and the caller has no idea how to proceed. So I roll
+back a partial queue eviction if something failed.
 
-The usage is similar to color_encoding and color_range where the driver
-can specify the default and supported tfs and pass it into
-drm_plane_create_color_properties().
+Your changing this to "try to evict as much as possible". Then a failure
+does not mean "eviction failed" but "eviction completed but something
+hung". Then the GPU reset can take care of the hanging part. I think
+that's a reasonable strategy. But we need to be sure that there are no
+other error conditions (other than hangs) that could cause a queue
+eviction to fail.
 
-v2:
- - drop "color" from transfer function name (Harry)
- - add DRM_TF_UNDEFINED enum as legacy default (Harry)
+There were some recent changes in pqm_destroy_queue that check the
+return value of dqm->ops.destroy_queue, which indirectly comes from
+execute_queues (sam as in the eviction case). -ETIME means a hang. Other
+errors are possible. Those other errors may still need the roll-back.
+Otherwise we'd leave stuff running on a non-hanging GPU after we
+promised that we evicted everything.
 
-Signed-off-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
-Signed-off-by: Harry Wentland <harry.wentland@amd.com>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  4 +-
- .../gpu/drm/arm/display/komeda/komeda_plane.c |  4 +-
- drivers/gpu/drm/arm/malidp_planes.c           |  4 +-
- drivers/gpu/drm/armada/armada_overlay.c       |  4 +-
- drivers/gpu/drm/drm_atomic_uapi.c             |  4 ++
- drivers/gpu/drm/drm_color_mgmt.c              | 64 +++++++++++++++++--
- drivers/gpu/drm/i915/display/intel_sprite.c   |  4 +-
- .../drm/i915/display/skl_universal_plane.c    |  4 +-
- drivers/gpu/drm/nouveau/dispnv04/overlay.c    |  4 +-
- drivers/gpu/drm/omapdrm/omap_plane.c          |  4 +-
- drivers/gpu/drm/sun4i/sun8i_vi_layer.c        |  4 +-
- drivers/gpu/drm/tidss/tidss_plane.c           |  6 +-
- include/drm/drm_color_mgmt.h                  | 18 +++++-
- include/drm/drm_plane.h                       | 16 +++++
- 14 files changed, 128 insertions(+), 16 deletions(-)
+See one more comment inline.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index b5b5ccf0ed71..63ddae9c5abe 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -7276,7 +7276,9 @@ static int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
- 			BIT(DRM_COLOR_YCBCR_BT2020),
- 			BIT(DRM_COLOR_YCBCR_LIMITED_RANGE) |
- 			BIT(DRM_COLOR_YCBCR_FULL_RANGE),
--			DRM_COLOR_YCBCR_BT709, DRM_COLOR_YCBCR_LIMITED_RANGE);
-+			BIT(DRM_TF_SRGB),
-+			DRM_COLOR_YCBCR_BT709, DRM_COLOR_YCBCR_LIMITED_RANGE,
-+			DRM_TF_SRGB);
- 	}
- 
- 	supported_rotations =
-diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_plane.c b/drivers/gpu/drm/arm/display/komeda/komeda_plane.c
-index d63d83800a8a..811f79ab6d32 100644
---- a/drivers/gpu/drm/arm/display/komeda/komeda_plane.c
-+++ b/drivers/gpu/drm/arm/display/komeda/komeda_plane.c
-@@ -302,8 +302,10 @@ static int komeda_plane_add(struct komeda_kms_dev *kms,
- 			BIT(DRM_COLOR_YCBCR_BT2020),
- 			BIT(DRM_COLOR_YCBCR_LIMITED_RANGE) |
- 			BIT(DRM_COLOR_YCBCR_FULL_RANGE),
-+			BIT(DRM_TF_UNDEFINED),
- 			DRM_COLOR_YCBCR_BT601,
--			DRM_COLOR_YCBCR_LIMITED_RANGE);
-+			DRM_COLOR_YCBCR_LIMITED_RANGE,
-+			DRM_TF_UNDEFINED);
- 	if (err)
- 		goto cleanup;
- 
-diff --git a/drivers/gpu/drm/arm/malidp_planes.c b/drivers/gpu/drm/arm/malidp_planes.c
-index 8c2ab3d653b7..98d308262880 100644
---- a/drivers/gpu/drm/arm/malidp_planes.c
-+++ b/drivers/gpu/drm/arm/malidp_planes.c
-@@ -1030,7 +1030,9 @@ int malidp_de_planes_init(struct drm_device *drm)
- 					BIT(DRM_COLOR_YCBCR_BT2020),
- 					BIT(DRM_COLOR_YCBCR_LIMITED_RANGE) | \
- 					BIT(DRM_COLOR_YCBCR_FULL_RANGE),
--					enc, range);
-+					BIT(DRM_TF_UNDEFINED),
-+					enc, range,
-+					DRM_TF_UNDEFINED);
- 			if (!ret)
- 				/* program the HW registers */
- 				malidp_de_set_color_encoding(plane, enc, range);
-diff --git a/drivers/gpu/drm/armada/armada_overlay.c b/drivers/gpu/drm/armada/armada_overlay.c
-index d3e3e5fdc390..f7792444cb73 100644
---- a/drivers/gpu/drm/armada/armada_overlay.c
-+++ b/drivers/gpu/drm/armada/armada_overlay.c
-@@ -596,8 +596,10 @@ int armada_overlay_plane_create(struct drm_device *dev, unsigned long crtcs)
- 						BIT(DRM_COLOR_YCBCR_BT601) |
- 						BIT(DRM_COLOR_YCBCR_BT709),
- 						BIT(DRM_COLOR_YCBCR_LIMITED_RANGE),
-+						BIT(DRM_TF_UNDEFINED),
- 						DEFAULT_ENCODING,
--						DRM_COLOR_YCBCR_LIMITED_RANGE);
-+						DRM_COLOR_YCBCR_LIMITED_RANGE,
-+						DRM_TF_UNDEFINED);
- 
- 	return ret;
- }
-diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-index 7e48d40600ff..9582515dd12e 100644
---- a/drivers/gpu/drm/drm_atomic_uapi.c
-+++ b/drivers/gpu/drm/drm_atomic_uapi.c
-@@ -596,6 +596,8 @@ static int drm_atomic_plane_set_property(struct drm_plane *plane,
- 		state->color_encoding = val;
- 	} else if (property == plane->color_range_property) {
- 		state->color_range = val;
-+	} else if (property == plane->transfer_function_property) {
-+		state->transfer_function = val;
- 	} else if (property == config->prop_fb_damage_clips) {
- 		ret = drm_atomic_replace_property_blob_from_id(dev,
- 					&state->fb_damage_clips,
-@@ -662,6 +664,8 @@ drm_atomic_plane_get_property(struct drm_plane *plane,
- 		*val = state->color_encoding;
- 	} else if (property == plane->color_range_property) {
- 		*val = state->color_range;
-+	} else if (property == plane->transfer_function_property) {
-+		*val = state->transfer_function;
- 	} else if (property == config->prop_fb_damage_clips) {
- 		*val = (state->fb_damage_clips) ?
- 			state->fb_damage_clips->base.id : 0;
-diff --git a/drivers/gpu/drm/drm_color_mgmt.c b/drivers/gpu/drm/drm_color_mgmt.c
-index bb14f488c8f6..daf62fb090a6 100644
---- a/drivers/gpu/drm/drm_color_mgmt.c
-+++ b/drivers/gpu/drm/drm_color_mgmt.c
-@@ -106,6 +106,11 @@
-  * 	Optional plane enum property to support different non RGB
-  * 	color parameter ranges. The driver can provide a subset of
-  * 	standard enum values supported by the DRM plane.
-+ *
-+ * "COLOR_TRANFER_FUNCTION":
-+ * 	Optional plane enum property to support different
-+ * 	color luminance mappings. The driver can provide a subset of
-+ * 	standard enum values supported by the DRM plane.
-  */
- 
- /**
-@@ -476,6 +481,11 @@ static const char * const color_range_name[] = {
- 	[DRM_COLOR_YCBCR_LIMITED_RANGE] = "YCbCr limited range",
- };
- 
-+static const char * const tf_name[] = {
-+	[DRM_TF_UNDEFINED] = "undefined",
-+	[DRM_TF_SRGB] = "sRGB",
-+	[DRM_TF_PQ2084] = "PQ2084",
-+};
- /**
-  * drm_get_color_encoding_name - return a string for color encoding
-  * @encoding: color encoding to compute name of
-@@ -506,30 +516,49 @@ const char *drm_get_color_range_name(enum drm_color_range range)
- 	return color_range_name[range];
- }
- 
-+/**
-+ * drm_get_transfer_function - return a string for transfer function
-+ * @tf: transfer function to compute name of
-+ *
-+ * In contrast to the other drm_get_*_name functions this one here returns a
-+ * const pointer and hence is threadsafe.
-+ */
-+const char *drm_get_transfer_function_name(enum drm_transfer_function tf)
-+{
-+	if (WARN_ON(tf >= ARRAY_SIZE(tf_name)))
-+		return "unknown";
-+
-+	return tf_name[tf];
-+}
- /**
-  * drm_plane_create_color_properties - color encoding related plane properties
-  * @plane: plane object
-  * @supported_encodings: bitfield indicating supported color encodings
-  * @supported_ranges: bitfileld indicating supported color ranges
-+ * @supported_tfs: bitfield indicating supported transfer functions
-  * @default_encoding: default color encoding
-  * @default_range: default color range
-+ * @default_tf: default color transfer function
-  *
-- * Create and attach plane specific COLOR_ENCODING and COLOR_RANGE
-- * properties to @plane. The supported encodings and ranges should
-- * be provided in supported_encodings and supported_ranges bitmasks.
-+ * Create and attach plane specific COLOR_ENCODING, COLOR_RANGE and TRANSFER_FUNCTION
-+ * properties to @plane. The supported encodings, ranges  and tfs should
-+ * be provided in supported_encodings, supported_ranges and supported_tfs bitmasks.
-  * Each bit set in the bitmask indicates that its number as enum
-  * value is supported.
-  */
- int drm_plane_create_color_properties(struct drm_plane *plane,
- 				      u32 supported_encodings,
- 				      u32 supported_ranges,
-+				      u32 supported_tfs,
- 				      enum drm_color_encoding default_encoding,
--				      enum drm_color_range default_range)
-+				      enum drm_color_range default_range,
-+				      enum drm_transfer_function default_tf)
- {
- 	struct drm_device *dev = plane->dev;
- 	struct drm_property *prop;
- 	struct drm_prop_enum_list enum_list[max_t(int, DRM_COLOR_ENCODING_MAX,
--						       DRM_COLOR_RANGE_MAX)];
-+						       max_t(int, DRM_COLOR_RANGE_MAX,
-+							     DRM_TF_MAX))];
- 	int i, len;
- 
- 	if (WARN_ON(supported_encodings == 0 ||
-@@ -542,6 +571,11 @@ int drm_plane_create_color_properties(struct drm_plane *plane,
- 		    (supported_ranges & BIT(default_range)) == 0))
- 		return -EINVAL;
- 
-+	if (WARN_ON(supported_tfs == 0 ||
-+		    (supported_tfs & -BIT(DRM_TF_MAX)) != 0 ||
-+		    (supported_tfs & BIT(default_tf)) == 0))
-+		return -EINVAL;
-+
- 	len = 0;
- 	for (i = 0; i < DRM_COLOR_ENCODING_MAX; i++) {
- 		if ((supported_encodings & BIT(i)) == 0)
-@@ -580,6 +614,26 @@ int drm_plane_create_color_properties(struct drm_plane *plane,
- 	if (plane->state)
- 		plane->state->color_range = default_range;
- 
-+
-+	len = 0;
-+	for (i = 0; i < DRM_TF_MAX; i++) {
-+		if ((supported_tfs & BIT(i)) == 0)
-+			continue;
-+
-+		enum_list[len].type = i;
-+		enum_list[len].name = tf_name[i];
-+		len++;
-+	}
-+
-+	prop = drm_property_create_enum(dev, 0, "TRANSFER_FUNCTION",
-+					enum_list, len);
-+	if (!prop)
-+		return -ENOMEM;
-+	plane->transfer_function_property = prop;
-+	drm_object_attach_property(&plane->base, prop, default_tf);
-+	if (plane->state)
-+		plane->state->transfer_function = default_tf;
-+
- 	return 0;
- }
- EXPORT_SYMBOL(drm_plane_create_color_properties);
-diff --git a/drivers/gpu/drm/i915/display/intel_sprite.c b/drivers/gpu/drm/i915/display/intel_sprite.c
-index 4ae9a7455b23..b3f7aca3795b 100644
---- a/drivers/gpu/drm/i915/display/intel_sprite.c
-+++ b/drivers/gpu/drm/i915/display/intel_sprite.c
-@@ -1850,8 +1850,10 @@ intel_sprite_plane_create(struct drm_i915_private *dev_priv,
- 					  BIT(DRM_COLOR_YCBCR_BT709),
- 					  BIT(DRM_COLOR_YCBCR_LIMITED_RANGE) |
- 					  BIT(DRM_COLOR_YCBCR_FULL_RANGE),
-+					  BIT(DRM_TF_UNDEFINED),
- 					  DRM_COLOR_YCBCR_BT709,
--					  DRM_COLOR_YCBCR_LIMITED_RANGE);
-+					  DRM_COLOR_YCBCR_LIMITED_RANGE,
-+					  DRM_TF_UNDEFINED);
- 
- 	zpos = sprite + 1;
- 	drm_plane_create_zpos_immutable_property(&plane->base, zpos);
-diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-index 92a4fd508e92..df596431151d 100644
---- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
-+++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-@@ -2160,8 +2160,10 @@ skl_universal_plane_create(struct drm_i915_private *dev_priv,
- 					  supported_csc,
- 					  BIT(DRM_COLOR_YCBCR_LIMITED_RANGE) |
- 					  BIT(DRM_COLOR_YCBCR_FULL_RANGE),
-+					  BIT(DRM_TF_UNDEFINED),
- 					  DRM_COLOR_YCBCR_BT709,
--					  DRM_COLOR_YCBCR_LIMITED_RANGE);
-+					  DRM_COLOR_YCBCR_LIMITED_RANGE,
-+					  DRM_TF_UNDEFINED);
- 
- 	drm_plane_create_alpha_property(&plane->base);
- 	drm_plane_create_blend_mode_property(&plane->base,
-diff --git a/drivers/gpu/drm/nouveau/dispnv04/overlay.c b/drivers/gpu/drm/nouveau/dispnv04/overlay.c
-index 37e63e98cd08..64e1793212b4 100644
---- a/drivers/gpu/drm/nouveau/dispnv04/overlay.c
-+++ b/drivers/gpu/drm/nouveau/dispnv04/overlay.c
-@@ -345,8 +345,10 @@ nv10_overlay_init(struct drm_device *device)
- 					  BIT(DRM_COLOR_YCBCR_BT601) |
- 					  BIT(DRM_COLOR_YCBCR_BT709),
- 					  BIT(DRM_COLOR_YCBCR_LIMITED_RANGE),
-+					  BIT(DRM_TF_UNDEFINED),
- 					  DRM_COLOR_YCBCR_BT601,
--					  DRM_COLOR_YCBCR_LIMITED_RANGE);
-+					  DRM_COLOR_YCBCR_LIMITED_RANGE,
-+					  DRM_TF_UNDEFINED);
- 
- 	plane->set_params = nv10_set_params;
- 	nv10_set_params(plane);
-diff --git a/drivers/gpu/drm/omapdrm/omap_plane.c b/drivers/gpu/drm/omapdrm/omap_plane.c
-index 801da917507d..ca7559824dcd 100644
---- a/drivers/gpu/drm/omapdrm/omap_plane.c
-+++ b/drivers/gpu/drm/omapdrm/omap_plane.c
-@@ -325,8 +325,10 @@ struct drm_plane *omap_plane_init(struct drm_device *dev,
- 						  BIT(DRM_COLOR_YCBCR_BT709),
- 						  BIT(DRM_COLOR_YCBCR_FULL_RANGE) |
- 						  BIT(DRM_COLOR_YCBCR_LIMITED_RANGE),
-+						  BIT(DRM_TF_UNDEFINED),
- 						  DRM_COLOR_YCBCR_BT601,
--						  DRM_COLOR_YCBCR_FULL_RANGE);
-+						  DRM_COLOR_YCBCR_FULL_RANGE,
-+						  DRM_TF_UNDEFINED);
- 
- 	return plane;
- 
-diff --git a/drivers/gpu/drm/sun4i/sun8i_vi_layer.c b/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
-index 1c86c2dd0bbf..eda8f51bafd7 100644
---- a/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
-+++ b/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
-@@ -600,8 +600,10 @@ struct sun8i_vi_layer *sun8i_vi_layer_init_one(struct drm_device *drm,
- 	ret = drm_plane_create_color_properties(&layer->plane,
- 						supported_encodings,
- 						supported_ranges,
-+						BIT(DRM_TF_UNDEFINED),
- 						DRM_COLOR_YCBCR_BT709,
--						DRM_COLOR_YCBCR_LIMITED_RANGE);
-+						DRM_COLOR_YCBCR_LIMITED_RANGE,
-+						DRM_TF_UNDEFINED);
- 	if (ret) {
- 		dev_err(drm->dev, "Couldn't add encoding and range properties!\n");
- 		return ERR_PTR(ret);
-diff --git a/drivers/gpu/drm/tidss/tidss_plane.c b/drivers/gpu/drm/tidss/tidss_plane.c
-index 1acd15aa4193..a1336ecd5fd5 100644
---- a/drivers/gpu/drm/tidss/tidss_plane.c
-+++ b/drivers/gpu/drm/tidss/tidss_plane.c
-@@ -186,8 +186,10 @@ struct tidss_plane *tidss_plane_create(struct tidss_device *tidss,
- 			       BIT(DRM_COLOR_YCBCR_BT709));
- 	u32 color_ranges = (BIT(DRM_COLOR_YCBCR_FULL_RANGE) |
- 			    BIT(DRM_COLOR_YCBCR_LIMITED_RANGE));
-+	u32 transfer_functions = BIT(DRM_TF_UNDEFINED;
- 	u32 default_encoding = DRM_COLOR_YCBCR_BT601;
- 	u32 default_range = DRM_COLOR_YCBCR_FULL_RANGE;
-+	u32 default_tf = DRM_TF_UNDEFINED;;
- 	u32 blend_modes = (BIT(DRM_MODE_BLEND_PREMULTI) |
- 			   BIT(DRM_MODE_BLEND_COVERAGE));
- 	int ret;
-@@ -217,8 +219,10 @@ struct tidss_plane *tidss_plane_create(struct tidss_device *tidss,
- 	ret = drm_plane_create_color_properties(&tplane->plane,
- 						color_encodings,
- 						color_ranges,
-+						transfer_functions,
- 						default_encoding,
--						default_range);
-+						default_range,
-+						default_tf);
- 	if (ret)
- 		goto err;
- 
-diff --git a/include/drm/drm_color_mgmt.h b/include/drm/drm_color_mgmt.h
-index 81c298488b0c..370bbc55b744 100644
---- a/include/drm/drm_color_mgmt.h
-+++ b/include/drm/drm_color_mgmt.h
-@@ -87,11 +87,27 @@ enum drm_color_range {
- 	DRM_COLOR_RANGE_MAX,
- };
- 
-+/**
-+ * enum drm_transfer_function - common transfer function used for sdr/hdr formats
-+ *
-+ * DRM_TF_UNDEFINED - The legacy case where a TF in and out of the blending
-+ *                    space is undefined
-+ * DRM_TF_SRGB - Based on gamma curve and is used for printer/monitors/web
-+ * DRM_TF_PQ2084 - Used for HDR and allows for up to 10,000 nit support.
-+*/
-+enum drm_transfer_function {
-+	DRM_TF_UNDEFINED,
-+	DRM_TF_SRGB,
-+	DRM_TF_PQ2084,
-+	DRM_TF_MAX,
-+};
- int drm_plane_create_color_properties(struct drm_plane *plane,
- 				      u32 supported_encodings,
- 				      u32 supported_ranges,
-+				      u32 supported_tf,
- 				      enum drm_color_encoding default_encoding,
--				      enum drm_color_range default_range);
-+				      enum drm_color_range default_range,
-+				      enum drm_transfer_function default_tf);
- 
- /**
-  * enum drm_color_lut_tests - hw-specific LUT tests to perform
-diff --git a/include/drm/drm_plane.h b/include/drm/drm_plane.h
-index 1294610e84f4..cff56994513f 100644
---- a/include/drm/drm_plane.h
-+++ b/include/drm/drm_plane.h
-@@ -179,6 +179,14 @@ struct drm_plane_state {
- 	 */
- 	enum drm_color_range color_range;
- 
-+	/**
-+	 * @transfer_function:
-+	 *
-+	 * Transfer function for HDR color/luminance mapping. This will allow the
-+	 * driver to know what transfer function should be used to for the current
-+	 * format for a proper HDR color/luminance output.
-+	 */
-+	enum drm_transfer_function transfer_function;
- 	/**
- 	 * @fb_damage_clips:
- 	 *
-@@ -741,6 +749,14 @@ struct drm_plane {
- 	 * See drm_plane_create_color_properties().
- 	 */
- 	struct drm_property *color_range_property;
-+	/**
-+	 * @transfer_function_property:
-+	 *
-+	 * Optional "TRANSFER_FUNCTION" enum property for specifying
-+	 * color transfer function for non RGB formats, mostly used for HDR.
-+	 * See drm_plane_create_color_properties().
-+	 */
-+	struct drm_property *transfer_function_property;
- 
- 	/**
- 	 * @scaling_filter_property: property to apply a particular filter while
--- 
-2.32.0
 
+>
+> Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdkfd/kfd_device.c  |  2 +-
+>  drivers/gpu/drm/amd/amdkfd/kfd_process.c | 24 +-----------------------
+>  2 files changed, 2 insertions(+), 24 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> index 24b5e0aa1eac..daf1c19bd799 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> @@ -984,7 +984,7 @@ int kgd2kfd_post_reset(struct kfd_dev *kfd)
+>  	if (!kfd->init_complete)
+>  		return 0;
+>  
+> -	ret = kfd_resume(kfd);
+> +	ret = kgd2kfd_resume(kfd, false, true);
+
+Which branch is this for? On amd-staging-drm-next kgd2kfd_resume only
+has two parameters.
+
+Regards,
+  Felix
+
+
+>  	if (ret)
+>  		return ret;
+>  	atomic_dec(&kfd_locked);
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> index 38a9dee40785..9272a12c1db8 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> @@ -1879,36 +1879,14 @@ int kfd_process_evict_queues(struct kfd_process *p)
+>  {
+>  	int r = 0;
+>  	int i;
+> -	unsigned int n_evicted = 0;
+>  
+>  	for (i = 0; i < p->n_pdds; i++) {
+>  		struct kfd_process_device *pdd = p->pdds[i];
+>  
+>  		r = pdd->dev->dqm->ops.evict_process_queues(pdd->dev->dqm,
+>  							    &pdd->qpd);
+> -		if (r) {
+> +		if (r)
+>  			pr_err("Failed to evict process queues\n");
+> -			goto fail;
+> -		}
+> -		n_evicted++;
+> -	}
+> -
+> -	return r;
+> -
+> -fail:
+> -	/* To keep state consistent, roll back partial eviction by
+> -	 * restoring queues
+> -	 */
+> -	for (i = 0; i < p->n_pdds; i++) {
+> -		struct kfd_process_device *pdd = p->pdds[i];
+> -
+> -		if (n_evicted == 0)
+> -			break;
+> -		if (pdd->dev->dqm->ops.restore_process_queues(pdd->dev->dqm,
+> -							      &pdd->qpd))
+> -			pr_err("Failed to restore queues\n");
+> -
+> -		n_evicted--;
+>  	}
+>  
+>  	return r;
