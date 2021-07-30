@@ -2,140 +2,115 @@ Return-Path: <SRS0=IbmW=MW=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.4 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6A262C4320E
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jul 2021 19:11:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 879EDC4338F
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jul 2021 20:41:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3457A60F00
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jul 2021 19:11:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3457A60F00
+	by mail.kernel.org (Postfix) with ESMTPS id 428FF60F00
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jul 2021 20:41:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 428FF60F00
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D29426E448;
-	Fri, 30 Jul 2021 19:11:46 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2055.outbound.protection.outlook.com [40.107.236.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8EB356E448;
- Fri, 30 Jul 2021 19:11:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 031866E24E;
+	Fri, 30 Jul 2021 20:41:43 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2067.outbound.protection.outlook.com [40.107.223.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FB476E24E;
+ Fri, 30 Jul 2021 20:41:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cZwS6rK08qhvOGzYnQP8/d+Ik2olJx2QqNfJZr1tJx2wBdS+N/MHVqi8TEacxj8F0WvErGe6R0Dneua5WIHWoe4nqAwC4wnzDWM59u3nfDA/LfxqkbnATOCu7XU1lj1x89/8ZyG+vcT/1zYU6+tHJAQNaDgJLhd6WasQdD0e3V34q2WhBRGp8Yx02g79KDLMxFHdjESZ6kA6KtRbD2RJy4K1SeKuCyP3WIeneY619Tn38FbDRhkoubHJY2vYX3PbEpDO9218f6N1JjMQZUKrA5Gkd4i1fV8H9iiJr/4B/TEbKpRoNCcwacxRocVrIGO9GVmsQvxNvfu1mP2Fq2NzlA==
+ b=OYnCy3RLy1wUVgdOnUJ5oqA+ujB0SHgB7cU4ZD2GyG4NqKyV8PPlFWunlgKkG1XhtkOdE0qukfbGXaqXMyxIYGaflIxpmn3bNEiY1RZNBp3CKb/IWt9KKm6TeOiBQHYGbSBFsx6bGPYAocsTIyEft7d1Q4JmuioFx92oNwXpOSzjxCOx6MZaF+0BEiJMDxJudfwaxolzNb5vYUrbLRDb7yb+RK9EWf+GzzAy7wnCurutdfdBkJ/UozmojVMMZqP+zinW0nfKZRI0fOKSaWH2Y1OTVxyA5zi3zPf4lKLLr1z5LU4VEJQsWiz9r3ztrOdp11v1NqtwJ+2n3jvwmyed7g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=M5UL2aBs1rKDk6BOv699L4WW7vvVFWwlAyvJig4kRxk=;
- b=AzviPWE/uhk2bkE52u30TBjZ51nMyLakfr8Jrkn+na59SH7N+lTjqHUnv5LIujgL15QrjLObWKDFV2xE7Y4fIioON3N2gEGfIzHE/mcGNibf2E+I2S1CVAaix4nj3RqKZQI/FaY1NZo17k3OYSg9BhCkVmOqwGPHMyf3biMkORwzTVUKBmk3YPeRe2npyJNPvUiwHrjF6mGVpHLFWQ/X2gIyO+qLKSaOBEmZ3mkDWwX+JFuQnQ377fZLTxuhzDUNVcjcIsi8420z2BPsX1XhBaDC+PnqTrsaxRFHAwJJAQFjWQzU48ClaLcOunoge6x53PcIaaTaCcW9IpKW7mA57A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=UbV8/6Y7u81cUCFtgr+I+DP0PfN8t1bD78AjCuJdtLQ=;
+ b=Cs+hgvud/HlZPRrX/FMG3Ixg/OLgtCAUJWqFy0vnKHxF5OXJ2z6Y3tsYkRoWnK3sgkn+gKj0DN2oAambVrWHJRP2CEiNvRCK6zXTAJvlI/b95hxuiEX/D8U6cHtrIndbM9qlJt88PTdyVCLf6Ds/8Zu7N3bX6/O4rphPM2Vm/JIfD2/TdR4GGY0CmfCeCAXGkIDBtPNQVue51f0dSQTUcuwDHPKLCyGlR52MffpgpBJ54ERYEQZXz7kh7xWXCRFfRYZYzDR4yk8U/gR+1TXnB1DJtNYBDl5NQdHe8+B473w4C9TKPBSkJU6Q8Ya3sYvZZyYH8PEh3Wed8Vkrrzz1YA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=M5UL2aBs1rKDk6BOv699L4WW7vvVFWwlAyvJig4kRxk=;
- b=oQH9M3b3DD7EY8Ko9kQuUIqQCqXsamRkt5b8Wu2e0duOetucAHpgYYyl1GafTG5g/pDQk65K3t+JZOzl4FjyKcVLHfLpAO0rh2IGHtzNzau0l3lJeM2Gn3AeO+RBeK22y6LroZ++r6Lrp9s8U6d/dsaBD4xc7wo//qJ3IWc+2f0=
-Authentication-Results: redhat.com; dkim=none (message not signed)
- header.d=none;redhat.com; dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5129.namprd12.prod.outlook.com (2603:10b6:408:136::12)
- by BN9PR12MB5162.namprd12.prod.outlook.com (2603:10b6:408:11b::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4373.18; Fri, 30 Jul
- 2021 19:11:43 +0000
-Received: from BN9PR12MB5129.namprd12.prod.outlook.com
- ([fe80::b891:a906:28f0:fdb]) by BN9PR12MB5129.namprd12.prod.outlook.com
- ([fe80::b891:a906:28f0:fdb%3]) with mapi id 15.20.4352.033; Fri, 30 Jul 2021
- 19:11:43 +0000
-Subject: Re: [PATCH v4 10/13] lib: test_hmm add module param for zone device
- type
-To: "Sierra Guiza, Alejandro (Alex)" <alex.sierra@amd.com>,
- Jason Gunthorpe <jgg@nvidia.com>
-Cc: akpm@linux-foundation.org, linux-mm@kvack.org, rcampbell@nvidia.com,
- linux-ext4@vger.kernel.org, linux-xfs@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, hch@lst.de,
- jglisse@redhat.com
-References: <20210717192135.9030-1-alex.sierra@amd.com>
- <20210717192135.9030-11-alex.sierra@amd.com>
- <20210722122348.GG1117491@nvidia.com>
- <4ee9e946-d380-ba84-d6ac-5ad337afc835@amd.com>
- <20210722172648.GN1117491@nvidia.com>
- <596f4387-a896-acdf-acfa-7ddba947b58f@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Message-ID: <4c931ef6-1a52-2cc8-47ff-6077377517af@amd.com>
-Date: Fri, 30 Jul 2021 15:11:41 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
-In-Reply-To: <596f4387-a896-acdf-acfa-7ddba947b58f@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-ClientProxiedBy: YT1PR01CA0016.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::29)
- To BN9PR12MB5129.namprd12.prod.outlook.com
- (2603:10b6:408:136::12)
+ bh=UbV8/6Y7u81cUCFtgr+I+DP0PfN8t1bD78AjCuJdtLQ=;
+ b=GjmIPfwA2JFtUy8TISGfWOdMc98aquqAvwB/CEXVr/ZBP+gRZ27CZFog/KE8TVIUTG7UCHA1DBolhOGJxU+/LUgnicZ968JXQoQutQK9vqEMSFwd3sGm2zQuuHAtsQj1F5kcS27/i2zA1BdJDC/lna+FtUyfnC+j0g+k7hTLppY=
+Received: from DM6PR08CA0040.namprd08.prod.outlook.com (2603:10b6:5:1e0::14)
+ by CY4PR12MB1126.namprd12.prod.outlook.com (2603:10b6:903:3d::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4352.29; Fri, 30 Jul
+ 2021 20:41:39 +0000
+Received: from DM6NAM11FT037.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:1e0:cafe::cf) by DM6PR08CA0040.outlook.office365.com
+ (2603:10b6:5:1e0::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4373.18 via Frontend
+ Transport; Fri, 30 Jul 2021 20:41:39 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DM6NAM11FT037.mail.protection.outlook.com (10.13.172.122) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4373.18 via Frontend Transport; Fri, 30 Jul 2021 20:41:39 +0000
+Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Fri, 30 Jul
+ 2021 15:41:38 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB07.amd.com
+ (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Fri, 30 Jul
+ 2021 13:41:38 -0700
+Received: from hwentlanryzen.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2242.12 via Frontend
+ Transport; Fri, 30 Jul 2021 15:41:37 -0500
+From: Harry Wentland <harry.wentland@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <ppaalanen@gmail.com>, <sebastian@sebastianwick.net>, <mcasas@google.com>,
+ <jshargo@google.com>, <Shashank.Sharma@amd.com>
+CC: <Deepak.Sharma@amd.com>, <Shirish.S@amd.com>, <Vitaly.Prosyak@amd.com>,
+ <aric.cyr@amd.com>, <Bhawanpreet.Lakha@amd.com>, <Krunoslav.Kovac@amd.com>,
+ <hersenxs.wu@amd.com>, <Nicholas.Kazlauskas@amd.com>,
+ <laurentiu.palcu@oss.nxp.com>, <ville.syrjala@linux.intel.com>, "Harry
+ Wentland" <harry.wentland@amd.com>
+Subject: [RFC PATCH v3 0/6] A drm_plane API to support HDR planes
+Date: Fri, 30 Jul 2021 16:41:28 -0400
+Message-ID: <20210730204134.21769-1-harry.wentland@amd.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [192.168.2.100] (142.182.144.73) by
- YT1PR01CA0016.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::29) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4373.18 via Frontend Transport; Fri, 30 Jul 2021 19:11:42 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9bf80507-f566-4a6c-dc73-08d9538dde46
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5162:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BN9PR12MB5162501381E9A12EB722E8A392EC9@BN9PR12MB5162.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Office365-Filtering-Correlation-Id: 92c2d422-ba80-47a7-b0cf-08d9539a6e81
+X-MS-TrafficTypeDiagnostic: CY4PR12MB1126:
+X-Microsoft-Antispam-PRVS: <CY4PR12MB112626FA76459398D55EE0918CEC9@CY4PR12MB1126.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: aYmy+uT/0LyTPIBFiPIRdZvaJrbIwIDHr+cxzqkQjjLgTDnLSsBWjMsEBdXT2f3P/uiNPtl8iPSHXtmJdx1OmC+wvs0ERtdIgI2rKqr+i3Y3PdNd3+eYuxv4yIx6jTmripIMIIwqTuW1aSzw79E8z6asEHHfF+vExlWJTf+YcdXaoS4V700MaW0n7j6Rnur9VtLQpOsjKIyM9Te49B1f/Y6kFYn9FVtIVBcLXV7C9MfVmDwZvpOay239OuHkn8wY+2qeRbuQuO6xcipcrarZFnqy7a2qOydpW3QseegEZ2Bxi62MG8hmXdwCctslBD1bnrJXpH0Tpe7Z/w1s48DbwWTPjEJ3UkBGr/tFRPDZjFPuPc+fR8EeXuRNfgKvjIroPX2DqOAAMOGbcKUDC/D14eLRErtejWAS4/R8PlEExV8liHZFMTzC/15NLe9NrsvwJW8i7eaiX7zSYXy8UFlhsS91PhkmXqoJeDP5I5oJoVK7CDw+nCvPQae1sQwZ4Mh2F8LQyBqLx503BN5x22rLSnzVMTb8Wla8khCWzYB9MRx8fT9nDgbepSJLO1b72YNv8KkLJ7DVOZcBp/ByngJtyy0ONwc3pM2XbLYDXrQHc9w0+jowcK2qcJ6HZ5Ho1QXpyRFM3jFAmAv5GuvcMMy1+UHO/tnOhiqrgUSasV9vYiBDsbX3UDHMVW9iR7eu9N2ku3NjFHCsha7OtvUP3woUMwpDt3tkVUK89H9CrsAaYR4=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5129.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(346002)(136003)(376002)(366004)(39860400002)(8676002)(4326008)(31696002)(53546011)(6486002)(86362001)(478600001)(110136005)(83380400001)(44832011)(7416002)(16576012)(186003)(2906002)(38100700002)(316002)(8936002)(956004)(5660300002)(31686004)(66476007)(66946007)(36756003)(66556008)(2616005)(26005)(45980500001)(43740500002);
+X-Microsoft-Antispam-Message-Info: mP3NnAOErf0bDCpPunqopfxc/+3VOClIhKiuGNcy52aVaRM0158fZtLf2AGd3q8S7haVvBuOEIlssfUawGZIkFc2dVD1I/ntfuln6b/r04fGTzteQVB9dx7cy8FxbT4BQxOsIiqhCCSbcRg3BY56e7hyMQvHBBajRvfKVpZNJPVfb/3O5CDjKBvX3ZsCpuG8Rf3mPpezc0J6L5WuQmrHWzKcpdC3PKKoofP5WNwBoVi2ieAH/fkfVYzjfXzI4HmKoaZy3vkZq6d3RbIptE8izdR7gib7PseHC/pxbj4sFN9nYNdc48JUJeXk9dCBor4s27YJNR9pB9ujfE3diy537NMdqng/GhfXYDxqT3zYM7KV0VrwK2Mcl+Dqwq3lS/HgZ0JeuqLEVts3/1OW5fDfRpiohPFuUAU5Xqt1zjgZPRz8VDAZqjamjM4nwo5pH3id2sgxlWprA5veaXQ0puHPoNKL7he6ezHQMYqrM81yRm3tplLGilET4cdG7o9D0pBPbbsHySlJHV4Da9Tik25E5yhMK7DOhV2aRPKso651oiZpUEZtmNd9djvvOugvT4ZWgA1XNovtmwdz1VFTShba9u+PcOWMrQxBAWNdKa7tNQCjeu/RRsLNHeehJAvKToQoyZ60yxR4g8oks2m/LOMM0KGdlet6gm/2aLT9qtfFOtNO8TGtGUkKLgQ7UyteVOvjUtA0YQICxvDm+bI3lOmLQFiQFir9G1pmqv1+aEAq41E=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(136003)(376002)(396003)(39860400002)(346002)(36840700001)(46966006)(2906002)(186003)(36860700001)(47076005)(478600001)(6666004)(86362001)(7696005)(81166007)(82740400003)(82310400003)(70586007)(70206006)(8676002)(4326008)(54906003)(26005)(8936002)(83380400001)(44832011)(110136005)(336012)(316002)(356005)(1076003)(426003)(5660300002)(6636002)(36756003)(2616005)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aVppbFhVMVpkOHlDcW91Um5HLzN6TVlhSjhyNWVBcXlScWtFdVh0VXNnV3A1?=
- =?utf-8?B?UUF1a1U0RHhYa3ZOLzV5aFhrekNjUURIYVR2bjV0UFNsZThuT3ZsRkRoSHFN?=
- =?utf-8?B?MmNHL1NDb0RzZ1FSS0dhRk01akwxb0pZMXBGVTd3anBDU29XTzhLUlVGaVdF?=
- =?utf-8?B?VXVTUFpnMzJMV05tOWd0Q0pIbzZML1lrckZGV0FtOGF0d3J1THd4ZlVmdUh3?=
- =?utf-8?B?dnpobWl3ZGc0aXR6N3ZENjd5d05mM2pXTDczQ3ppclpsaVNISTR5TmE3MkNC?=
- =?utf-8?B?VDhiVlY4NVpTNDk5dHpKbGVCM0Z1REdzZjdHSUpaMk1GMUxKTG4vUWpRREJa?=
- =?utf-8?B?ZFpQcU1vb2ZWYitxc29QN2QyZHRGd0p5RUZxWHAvRmwwYkFGdGZGbjlFTU5L?=
- =?utf-8?B?aVc1aVR4K0Q0ZmpVQ2tSMWtKaG4rWnFINVYzaFZZbnhmeGZaaEd2K0taVEZo?=
- =?utf-8?B?OXNTWUNUZXVUNmVwL3hXcnVOMnFTVFREWjBxMTdpeDhyYlBmOFFrNkFWaU1T?=
- =?utf-8?B?a3RaZXQzREs2b3o0Y2h2OCt1SFgzWUlDcVg3dHZkVDJOeDlaYmIvQlVmaHh5?=
- =?utf-8?B?ajdqMnMxOUE1YTNGL3ZhY1BSNkc3bmVXNDdaLzNnTUlCRS9YRnR5THpOdzBW?=
- =?utf-8?B?WDAxVlpRanZOR3FDWXEwN09NMlcxZWZZRit0VkJ6aENDNjNwRnFzZ2NGSVBX?=
- =?utf-8?B?U040MFJnaGV4U2tNUmFWaHY4MHdBL1cvSVJ3aVpQVEp6eHdjTTVjUDV5eTJk?=
- =?utf-8?B?Z0gzQzhHSU9yTFVOZkdpM0hVTHp0LzdLaERhT1AxMDJ6RFhOdFBIdVJOd0d2?=
- =?utf-8?B?a0o0a0VnSUt6K1d2MnZoRCsxSGpDZTUrZDQ4a0pOZnA3OUdZNXVjc283ejlT?=
- =?utf-8?B?NFhuZGwzT1A3T1Z3aEptaGNwZnVpUVcvUFFkeFYvU2dGNFlia3MxK2RIdHdv?=
- =?utf-8?B?bDZ4MEtJeU5RdHZ4aG8zVjd4bmRjK1U1MHdOZ2JEaGE3aU4xOFVlVEZtVHVL?=
- =?utf-8?B?RE93WXA5bXduNFBMajJtc1JKek1Hc1c1bFlJakhYdWJGZXkrZmFGVU5pTUNX?=
- =?utf-8?B?dUFTRWtXcFd1QWhtZDh6bk1wdllwUnhxZmNqMElJTFdKdU9lN2dJcWF3ODVx?=
- =?utf-8?B?TFR2R053M2RBQWx3bEtKTldsWmJDNUJ5R1QreVNrTElyQmZYeSs4MGFicUFL?=
- =?utf-8?B?T1JEL0p5TXY2OUZWd0puQTk4OXl3aVg5M3dNbkY4MmlhVlVDdTIxWVJEcDBJ?=
- =?utf-8?B?V2FmYllTeml5M2FPOVBqY0xoRlVsajhnTXhaWGJ4bytlVm1GN2Z0ZVJPS3RS?=
- =?utf-8?B?alhuWlRvOXlXa3lQdDFwb1lPT3hDVHNlQ2FYTzBvQjFhSnRsUzBEeFJhZC81?=
- =?utf-8?B?MFYrMU9xUWx3MzMxVDNPRzc4eW1BYTJLUUNiU1RoOCs2UFhtY1QrNzlGSkcw?=
- =?utf-8?B?aGJ1TStrVFEwQXk4ZXFLNklVYzdlQzdaYUhzdDVZSDVmWUZKNHNiQWxKQTZX?=
- =?utf-8?B?QWVxUzBkN2RpYSsrSTgxOEl2NGgySXRlL3Jka1FGMjBlSzJOazluM2RyQVpX?=
- =?utf-8?B?QmI5VGI0SkVhSWxjaDZveU15Ny9HTlhEQ0daVUI5c01FbzRObkxXNWNnZE9m?=
- =?utf-8?B?Q1RxZUlpNUpJMWpFYTR2WDNzMy9ISUt4WVRBczlIZHB6RWtpRk8wZkovZTFr?=
- =?utf-8?B?ZXF2ZWV0d0N4cE45ZS9BQ3pQSjU3S1V0OERCMHFaei9vMk9aN3NBbXJNdVZq?=
- =?utf-8?Q?4UiBAVSkfMCB4AHNaOS1wm/wWK/hlkwGMCHZflB?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9bf80507-f566-4a6c-dc73-08d9538dde46
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5129.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2021 19:11:43.5142 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2021 20:41:39.2828 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 92c2d422-ba80-47a7-b0cf-08d9539a6e81
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OCBaQB0tq45+Ga26jV3Q/IUnCQ+mjS62dSMqcRFN40tTrsJRfeybVdwefG325AEzDh+5ICpfo6FiCnkvFMNNgA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5162
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT037.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1126
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,77 +125,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 2021-07-28 um 7:45 p.m. schrieb Sierra Guiza, Alejandro (Alex):
->
-> On 7/22/2021 12:26 PM, Jason Gunthorpe wrote:
->> On Thu, Jul 22, 2021 at 11:59:17AM -0500, Sierra Guiza, Alejandro
->> (Alex) wrote:
->>> On 7/22/2021 7:23 AM, Jason Gunthorpe wrote:
->>>> On Sat, Jul 17, 2021 at 02:21:32PM -0500, Alex Sierra wrote:
->>>>> In order to configure device generic in test_hmm, two
->>>>> module parameters should be passed, which correspon to the
->>>>> SP start address of each device (2) spm_addr_dev0 &
->>>>> spm_addr_dev1. If no parameters are passed, private device
->>>>> type is configured.
->>>> I don't think tests should need configuration like this, is it really
->>>> necessary? How can people with normal HW run this test?
->>> Hi Jason,
->>> The idea was to add an easy way to validate the codepaths touched by
->>> this
->>> patch series, which make modifications to the migration helpers for
->>> device
->>> generic type pages. We're using CONFIG_EFI_FAKE_MEMMAP to create
->>> fake SPM
->>> devices inside system memory. No special HW needed. And passing the
->>> kernel
->>> parameter efi_fake_mem. Ex. efi_fake_mem=1G@0x100000000:0x40000. I
->>> should
->>> probably need to include a small example of how to set this in the
->>> test_hmm.sh
->>> usage().
->> I don't think anything about hmm is sensitive to how the pages are
->> acquired - you can't create device generic pages without relying on
->> FAKE_MEMMAP?
-> The reason we used fake SPM approach was to have a "special memory"
-> not managed by Linux (NOT registered as normal system memory). But
-> also accessible by the CPU.
->
-> For device_generic we cannot allocate new physical addresses.
-> We need the physical address to match the actual system memory
-> physical address, so that CPU mappings work as expected.
->
-> Would you recommend to use a different approach?
+We are looking to enable HDR support for a couple of single-plane and
+multi-plane scenarios. To do this effectively we recommend new interfaces
+to drm_plane. The first patch gives a bit of background on HDR and why we
+propose these interfaces.
 
-Hi Jason,
+This update is only changing the documentation, not the code. We feel
+that we are not close to anything resembling a consensus for the DRM/KMS
+API to support (multi-plane) HDR and would like to further the discussion
+on this.
 
-Sorry it took us so long to respond to your comment. I was on vacation
-for a week. Then I tried to brain-storm some ways with Alex to simplify
-hmm_test for device_generic memory, but couldn't really come up with
-anything simpler.
+The most important bits in the RFC document are probably the sections on
+defining HW details and defining SW intentions. We are worried defining
+intricate HW details on the DRM/KMS level leads to a lot of complexity
+for compositors which can be avoided by rather defining SW intentions.
 
-The problem as I see it is, that DEVICE_GENERIC pages for hmm_test
-should be pages in physical system memory, but they should not be
-managed by the Linux page allocator. Unlike DEVICE_PRIVATE, we cannot
-allocate arbitrary physical addresses for these pages
-(request_free_mem_region). Otherwise we'd break all the assumptions that
-make those pages directly accessible in user mode virtual address spaces.
+I will be off for the entire month of August with little time to follow
+this thread but would like to get my updated thoughts out for discussion
+anyways. Shashank Sharma will help support this discussion.
 
-We could maybe allocate contiguous memory from the page allocator and
-then register those as device generic pages. But that means, you'd now
-have two struct pages for the same physical page. I didn't think that
-would be a good idea.
+v3:
+ * Only doc updates (patch 1)
+   * Add sections on single-plane and multi-plane HDR
+   * Describe approach to define HW details vs approach to define SW intentions
+   * Link Jeremy Cline's excellent HDR summaries
+   * Outline intention behind overly verbose doc
+   * Describe FP16 use-case
+   * Clean up links
 
-IMHO, reserving some memory for this test with efi_fake_mem is the best
-way to keep things sane. It does not require any special hardware or
-firmware.
+v2:
+ * Moved RFC from cover letter to kernel doc (Daniel Vetter)
+ * Created new color space property instead of abusing
+   color_encoding property (Ville)
+ * Elaborated on need for named transfer functions
+ * Expanded on reason for SDR luminance definition
+ * Dropped 'color' from transfer function naming
+ * Added output_transfer_function on crtc
 
-Regards,
-  Felix
+Bhawanpreet Lakha (3):
+  drm/color: Add transfer functions for HDR/SDR on drm_plane
+  drm/color: Add sdr boost property
+  drm/color: Add color space plane property
 
+Harry Wentland (3):
+  drm/doc: Color Management and HDR10 RFC
+  drm/color: Add output transfer function to crtc
+  drm/amd/display: reformat YCbCr-RGB conversion matrix
 
->
-> Regards,
-> Alex Sierra
->
->>
->> Jason
+ Documentation/gpu/rfc/color_intentions.drawio |   1 +
+ Documentation/gpu/rfc/color_intentions.svg    |   3 +
+ Documentation/gpu/rfc/colorpipe               |   1 +
+ Documentation/gpu/rfc/colorpipe.svg           |   3 +
+ Documentation/gpu/rfc/hdr-wide-gamut.rst      | 580 ++++++++++++++++++
+ Documentation/gpu/rfc/index.rst               |   1 +
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  17 +-
+ drivers/gpu/drm/amd/display/dc/inc/hw/dpp.h   |  28 +-
+ .../gpu/drm/arm/display/komeda/komeda_crtc.c  |   7 +-
+ .../gpu/drm/arm/display/komeda/komeda_plane.c |   6 +-
+ drivers/gpu/drm/arm/malidp_crtc.c             |   7 +-
+ drivers/gpu/drm/arm/malidp_planes.c           |   6 +-
+ drivers/gpu/drm/armada/armada_crtc.c          |   5 +-
+ drivers/gpu/drm/armada/armada_overlay.c       |   6 +-
+ .../gpu/drm/atmel-hlcdc/atmel_hlcdc_crtc.c    |   7 +-
+ drivers/gpu/drm/drm_atomic_uapi.c             |   8 +
+ drivers/gpu/drm/drm_color_mgmt.c              | 177 +++++-
+ drivers/gpu/drm/i915/display/intel_color.c    |  11 +-
+ drivers/gpu/drm/i915/display/intel_color.h    |   2 +-
+ drivers/gpu/drm/i915/display/intel_crtc.c     |   4 +-
+ drivers/gpu/drm/i915/display/intel_sprite.c   |   6 +-
+ .../drm/i915/display/skl_universal_plane.c    |   6 +-
+ drivers/gpu/drm/ingenic/ingenic-drm-drv.c     |   9 +-
+ drivers/gpu/drm/mediatek/mtk_drm_crtc.c       |   8 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c      |   9 +-
+ drivers/gpu/drm/nouveau/dispnv04/overlay.c    |   6 +-
+ drivers/gpu/drm/nouveau/dispnv50/head.c       |  13 +-
+ drivers/gpu/drm/omapdrm/omap_crtc.c           |  10 +-
+ drivers/gpu/drm/omapdrm/omap_plane.c          |   6 +-
+ drivers/gpu/drm/rcar-du/rcar_du_crtc.c        |   7 +-
+ drivers/gpu/drm/rockchip/rockchip_drm_vop.c   |   5 +-
+ drivers/gpu/drm/stm/ltdc.c                    |   8 +-
+ drivers/gpu/drm/sun4i/sun8i_vi_layer.c        |  10 +-
+ drivers/gpu/drm/tidss/tidss_crtc.c            |   9 +-
+ drivers/gpu/drm/tidss/tidss_plane.c           |  10 +-
+ drivers/gpu/drm/vc4/vc4_crtc.c                |  16 +-
+ include/drm/drm_color_mgmt.h                  |  49 +-
+ include/drm/drm_crtc.h                        |  20 +
+ include/drm/drm_plane.h                       |  47 +-
+ 39 files changed, 1074 insertions(+), 60 deletions(-)
+ create mode 100644 Documentation/gpu/rfc/color_intentions.drawio
+ create mode 100644 Documentation/gpu/rfc/color_intentions.svg
+ create mode 100644 Documentation/gpu/rfc/colorpipe
+ create mode 100644 Documentation/gpu/rfc/colorpipe.svg
+ create mode 100644 Documentation/gpu/rfc/hdr-wide-gamut.rst
+
+--
+2.32.0
+
