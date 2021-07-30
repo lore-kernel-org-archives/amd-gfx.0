@@ -2,102 +2,65 @@ Return-Path: <SRS0=IbmW=MW=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C5528C4338F
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jul 2021 02:13:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1AD10C4338F
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jul 2021 02:16:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 888A66023F
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jul 2021 02:13:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 888A66023F
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id BE3DE60F12
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jul 2021 02:16:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BE3DE60F12
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 324D46F38F;
-	Fri, 30 Jul 2021 02:13:39 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2078.outbound.protection.outlook.com [40.107.236.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B171B6F38F
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Jul 2021 02:13:37 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KktGXG58YA5ozDfUHVgMMzWTFtWxrqFHyRs15vvQDzHfjWOD15duovUUfwJeGwcvYBdmIEtLxB/Z6XNmMOu7Q0Tp/kPSVrJhIwgnWIZuk8DiY1EP24+u0fGS38p/M0k3dGdasms6Tp/9Lh0oTTNAS/8FsdJ3wPvf0PvY6RUfe0KvXnQCanUwj+v2E+FcfCjoVvyQOV05AusaEXg2hd4uHYuoGnVlc1bc/BKvcMaJ1TeDBnKAnvUKOLEIEvJznz7ess0MEY3bgULgX0GgyydL/Gm0nQQuWEYHhtOgoC8V56NmE+TJydVGh3D7r4861/icaf7Pl27u/Ro9T/VFcRyJCA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9GKxu2Ne3c2oCJ5eABqnbJErohD4CCb+1R66kn5sw8U=;
- b=hsbhErh34mEfRpPheZjF4Cd2l8iJsoOKlVRU1SIq8aye1dfkKzCejOz+3M1X5NH36QyAm4xJXFPBXwdNPhahi4Nu5zavdtjfrJkHNEmT0rBry/bgUYWPAggP/qFHpb2Ch9qEEqJaNYX8Zh+syjMh3Jm64x5ydVMTBih2TmA7r+f9fWqUawSqhaxnw4wIjZE2Txc1Uj+MQuWdR1KBmphY7bf+BcAWjedv9whLFvI7qPNOr2wcE/cMh6ONazWhI4OiFGCCller7Suc9okAH0FCFZ8n1REVCEgmLH6TK9uLRbqUIwlZ2TKuWrS0XD5ZTf5EF24vIhb7QrSodL5i7U/+wA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9GKxu2Ne3c2oCJ5eABqnbJErohD4CCb+1R66kn5sw8U=;
- b=fgW+7KFIsvgQ8uqUkS+8wkzJRLmdTfJQCtJAxdDGUWj8f3wHntXbGwHyL+DbAx7fjIwO/WweSFPmfbPHFKNhhLxedC9cLdkqvYw0+JzKEzeTgsidBgcX3W+4jakljky4eZk7MEZzN2XJnZ+yasHOaHPfRfq5FqV31DemJ+y6eF4=
-Received: from MW4PR04CA0351.namprd04.prod.outlook.com (2603:10b6:303:8a::26)
- by BL1PR12MB5127.namprd12.prod.outlook.com (2603:10b6:208:31b::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4373.20; Fri, 30 Jul
- 2021 02:13:36 +0000
-Received: from CO1NAM11FT021.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:8a:cafe::98) by MW4PR04CA0351.outlook.office365.com
- (2603:10b6:303:8a::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4373.18 via Frontend
- Transport; Fri, 30 Jul 2021 02:13:35 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT021.mail.protection.outlook.com (10.13.175.51) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4373.18 via Frontend Transport; Fri, 30 Jul 2021 02:13:35 +0000
-Received: from Philip-Dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Thu, 29 Jul
- 2021 21:13:33 -0500
-From: Philip Yang <Philip.Yang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v2] drm/amdgpu: fix fdinfo race with process exit
-Date: Thu, 29 Jul 2021 22:13:21 -0400
-Message-ID: <20210730021321.7953-1-Philip.Yang@amd.com>
-X-Mailer: git-send-email 2.17.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 014866F39A;
+	Fri, 30 Jul 2021 02:16:35 +0000 (UTC)
+Received: from mail-oo1-xc2d.google.com (mail-oo1-xc2d.google.com
+ [IPv6:2607:f8b0:4864:20::c2d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C7116F393;
+ Fri, 30 Jul 2021 02:16:34 +0000 (UTC)
+Received: by mail-oo1-xc2d.google.com with SMTP id
+ o17-20020a4a64110000b0290263e1ba7ff9so2079349ooc.2; 
+ Thu, 29 Jul 2021 19:16:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=r3u8PQUkpqyAfITTKMU/qJ2G/2EJpG3EEGinj//3Afs=;
+ b=tg5rQwQiK8zzkJUED/kD6JpYtTsT9SrvcD6xRdoa2757QjF63ev5y2N+XJ5qlgG8+p
+ sss83n+F15YNmV2diB4LthkheWIIBOZvIC1NdxYNcjMRle0GPT3vL1TkzVdNwR8lG6i6
+ wYafo0prBA65/w4zZ9kSL8AsExt6QgoD98oMveQEmyy9tDKB3eqoqyanp+E5Wc6QHYO9
+ t8+VPFeg+r/hnUKvsZJg/X2MQWwGZvbYrMG68PNegaxsj0gAcnHF1lRoU3L6jcTXdzfz
+ BZh8hM6PNr1yENv+3cYBG/Myap5cAakangVQGzCx3ZCW1GYiyItqT/7SAy+9TQecE35Z
+ H1bw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=r3u8PQUkpqyAfITTKMU/qJ2G/2EJpG3EEGinj//3Afs=;
+ b=CdbZ978SmxK+VZy2P1ckXpW91ug21u4cMUw//fUSwl/XoCQpZ//qvpZdYQmWue4yIm
+ LyguiuEJPoFH5zqSe6sxy9E3tvIm5XThrK2i9aKj6mj/piOk1ZWFH1TztF22osWh4djb
+ Pxvh/7kno7Pm/xQf0l18SJmSROkmv35rA3O4g7bs8UqX7mwXFFsrYW0XbBKELjMeTB4A
+ FPtug6XG34xyCD25Q51WUfl8DEH0UvuvNfJIN+8vmSnCBWqZLq91KGZnLdPRn/hAMJdv
+ qstX3MEXGfgiBMKbH38aKJtJ+xbzpSxmcBueumFzM/p1NY5EyB62BtEJxmq22XDl7RzJ
+ EqwQ==
+X-Gm-Message-State: AOAM530Cs47dlQ7vsCBgHjSHfQ+zU6tGkj4WhAaibvRQ4ZjIhokVW0Bj
+ pM8lgVMHzeEm1Iekp1e2NgJJZeNMbLwu5FaEssU=
+X-Google-Smtp-Source: ABdhPJzjHgsc3QEyOEGHs5oyuvmj8Levmp/MtXMPdKgDbjYeEbKZJ0MB0pdXtf1m2Eupyo6303rtDbWAE1q8yZWJznM=
+X-Received: by 2002:a4a:e3cb:: with SMTP id m11mr149850oov.72.1627611393386;
+ Thu, 29 Jul 2021 19:16:33 -0700 (PDT)
 MIME-Version: 1.0
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 18de7c42-f7e9-4203-f006-08d952ffa2fa
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5127:
-X-Microsoft-Antispam-PRVS: <BL1PR12MB512753C40611565D08CBAD3FE6EC9@BL1PR12MB5127.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 8OIhWBDd1iTsyRcmlw+tNmJFuHwAV8V5+FH3i2o5gv377LkwmpFJ4JZsga3fBPwu98PM9Cz9nSse4FSp5GG+X6CF1Jj0Buo+puRnCEm2xoo10qNBET01gCoMnaXboeWSO7ix5E1nJNyEWwTkfBP7P0U8YajOIIw7sNcUxIHF72fzm8zOmcRFANu6WIrGU7nUi8/OjuXF4DO1jOi6zBORqmvJAKj3TGYgSCk/z/CBXjSC/Jlfc6LkwJqu+8RIb0JXmN15UrliB+EYEBCbJAxjnAIKDyr5oh41Ff9fOMWol7Lw6zaUc6L6RoQMEOJRj/Z719ctw9nIVLwh4gKauCGugU9AWIvzo2aDoMYi+LX8LiULw07Xllga3fG+PzRl2XmvIGOLo4UyGRDVLy61fQukuU+VXmHyD42nH+WR8jdKwFufB1AW6WGCv/rn/1wUSYyBj1Rge8eFHemu+HeXFaDXrt943UWMnnLSIDPCWEqzOgcaH8PEDkfjSF0TQaj1YSa4F00oH2TEIOOaEmuup/OzztsSa/VfiWex955Y6YVcLjWxfUfCxg8SHBuIuPyoSKSQdTZV/r7FmJKLH0ZLvOBcJEcQEsOhyX041wUzHPbm/ISSr7NVfBZtF/mrIGpStGk+976FzJgZkO+Ckc0WppxjJ2G6bKFfymg3ukY5MiJ7lzT7nWhgjPZ0mlBW/AWyb4LXJXx3pMUVkA6zklc2eWYvBYY3xuBLQI0Kv8aXlZsPUR0=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(136003)(39860400002)(396003)(376002)(346002)(36840700001)(46966006)(86362001)(336012)(36860700001)(6916009)(26005)(70206006)(70586007)(1076003)(7696005)(83380400001)(82310400003)(36756003)(16526019)(4326008)(478600001)(82740400003)(2906002)(8676002)(186003)(316002)(2616005)(8936002)(356005)(5660300002)(81166007)(47076005)(6666004)(426003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2021 02:13:35.2579 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 18de7c42-f7e9-4203-f006-08d952ffa2fa
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT021.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5127
+References: <20210729081814.1738-1-caihuoqing@baidu.com>
+In-Reply-To: <20210729081814.1738-1-caihuoqing@baidu.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 29 Jul 2021 22:16:22 -0400
+Message-ID: <CADnq5_Np+uyy2EHvXaGiv_AFiTZ=2WtwbAuFYz6hoVzz5JAkXA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Fix typo in comments
+To: Cai Huoqing <caihuoqing@baidu.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,69 +72,135 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Philip Yang <Philip.Yang@amd.com>
+Cc: "Leo \(Sunpeng\) Li" <sunpeng.li@amd.com>, "Wentland,
+ Harry" <harry.wentland@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Get process vm root BO ref in case process is exiting and root BO is
-freed, to avoid NULL pointer dereference backtrace:
+On Thu, Jul 29, 2021 at 4:18 AM Cai Huoqing <caihuoqing@baidu.com> wrote:
+>
+> Remove the repeated word 'the' from comments
+>
+> Signed-off-by: Cai Huoqing <caihuoqing@baidu.com>
 
-BUG: unable to handle kernel NULL pointer dereference at
-0000000000000000
-Call Trace:
-amdgpu_show_fdinfo+0xfe/0x2a0 [amdgpu]
-seq_show+0x12c/0x180
-seq_read+0x153/0x410
-vfs_read+0x91/0x140[ 3427.206183]  ksys_read+0x4f/0xb0
-do_syscall_64+0x5b/0x1a0
-entry_SYSCALL_64_after_hwframe+0x65/0xca
+Applied.  Thanks!
 
-v2: rebase to staging
-
-Signed-off-by: Philip Yang <Philip.Yang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
-index d94c5419ec25..5a6857c44bb6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
-@@ -59,6 +59,7 @@ void amdgpu_show_fdinfo(struct seq_file *m, struct file *f)
- 	uint64_t vram_mem = 0, gtt_mem = 0, cpu_mem = 0;
- 	struct drm_file *file = f->private_data;
- 	struct amdgpu_device *adev = drm_to_adev(file->minor->dev);
-+	struct amdgpu_bo *root;
- 	int ret;
- 
- 	ret = amdgpu_file_to_fpriv(f, &fpriv);
-@@ -69,13 +70,19 @@ void amdgpu_show_fdinfo(struct seq_file *m, struct file *f)
- 	dev = PCI_SLOT(adev->pdev->devfn);
- 	fn = PCI_FUNC(adev->pdev->devfn);
- 
--	ret = amdgpu_bo_reserve(fpriv->vm.root.bo, false);
-+	root = amdgpu_bo_ref(fpriv->vm.root.bo);
-+	if (!root)
-+		return;
-+
-+	ret = amdgpu_bo_reserve(root, false);
- 	if (ret) {
- 		DRM_ERROR("Fail to reserve bo\n");
- 		return;
- 	}
- 	amdgpu_vm_get_memory(&fpriv->vm, &vram_mem, &gtt_mem, &cpu_mem);
--	amdgpu_bo_unreserve(fpriv->vm.root.bo);
-+	amdgpu_bo_unreserve(root);
-+	amdgpu_bo_unref(&root);
-+
- 	seq_printf(m, "pdev:\t%04x:%02x:%02x.%d\npasid:\t%u\n", domain, bus,
- 			dev, fn, fpriv->vm.pasid);
- 	seq_printf(m, "vram mem:\t%llu kB\n", vram_mem/1024UL);
--- 
-2.17.1
-
+> ---
+>  drivers/gpu/drm/amd/display/dc/core/dc_resource.c             | 2 +-
+>  .../gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c | 2 +-
+>  .../drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c   | 2 +-
+>  .../gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.c | 2 +-
+>  .../gpu/drm/amd/display/dc/dml/dcn30/display_rq_dlg_calc_30.c | 2 +-
+>  .../gpu/drm/amd/display/dc/dml/dcn31/display_rq_dlg_calc_31.c | 2 +-
+>  drivers/gpu/drm/amd/display/dc/dml/dml1_display_rq_dlg_calc.c | 4 ++--
+>  7 files changed, 8 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+> index 1596f6b7fed7..7f12ca902f7d 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+> @@ -1030,7 +1030,7 @@ bool resource_build_scaling_params(struct pipe_ctx *pipe_ctx)
+>
+>         /* Timing borders are part of vactive that we are also supposed to skip in addition
+>          * to any stream dst offset. Since dm logic assumes dst is in addressable
+> -        * space we need to add the the left and top borders to dst offsets temporarily.
+> +        * space we need to add the left and top borders to dst offsets temporarily.
+>          * TODO: fix in DM, stream dst is supposed to be in vactive
+>          */
+>         pipe_ctx->stream->dst.x += timing->h_border_left;
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c
+> index 799bae229e67..2091dd8c252d 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c
+> @@ -488,7 +488,7 @@ static void get_meta_and_pte_attr(struct display_mode_lib *mode_lib,
+>         log2_meta_req_bytes = 6; // meta request is 64b and is 8x8byte meta element
+>
+>         // each 64b meta request for dcn is 8x8 meta elements and
+> -       // a meta element covers one 256b block of the the data surface.
+> +       // a meta element covers one 256b block of the data surface.
+>         log2_meta_req_height = log2_blk256_height + 3; // meta req is 8x8 byte, each byte represent 1 blk256
+>         log2_meta_req_width = log2_meta_req_bytes + 8 - log2_bytes_per_element
+>                         - log2_meta_req_height;
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c
+> index 6a6d5970d1d5..1a0c14e465fa 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c
+> @@ -488,7 +488,7 @@ static void get_meta_and_pte_attr(struct display_mode_lib *mode_lib,
+>         log2_meta_req_bytes = 6; // meta request is 64b and is 8x8byte meta element
+>
+>         // each 64b meta request for dcn is 8x8 meta elements and
+> -       // a meta element covers one 256b block of the the data surface.
+> +       // a meta element covers one 256b block of the data surface.
+>         log2_meta_req_height = log2_blk256_height + 3; // meta req is 8x8 byte, each byte represent 1 blk256
+>         log2_meta_req_width = log2_meta_req_bytes + 8 - log2_bytes_per_element
+>                         - log2_meta_req_height;
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.c b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.c
+> index dc1c81a6e377..287e31052b30 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.c
+> @@ -482,7 +482,7 @@ static void get_meta_and_pte_attr(
+>         log2_meta_req_bytes = 6; // meta request is 64b and is 8x8byte meta element
+>
+>         // each 64b meta request for dcn is 8x8 meta elements and
+> -       // a meta element covers one 256b block of the the data surface.
+> +       // a meta element covers one 256b block of the data surface.
+>         log2_meta_req_height = log2_blk256_height + 3; // meta req is 8x8 byte, each byte represent 1 blk256
+>         log2_meta_req_width = log2_meta_req_bytes + 8 - log2_bytes_per_element
+>                         - log2_meta_req_height;
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_rq_dlg_calc_30.c b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_rq_dlg_calc_30.c
+> index 04601a767a8f..0d934fae1c3a 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_rq_dlg_calc_30.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_rq_dlg_calc_30.c
+> @@ -549,7 +549,7 @@ static void get_meta_and_pte_attr(struct display_mode_lib *mode_lib,
+>         log2_meta_req_bytes = 6; // meta request is 64b and is 8x8byte meta element
+>
+>                                  // each 64b meta request for dcn is 8x8 meta elements and
+> -                                // a meta element covers one 256b block of the the data surface.
+> +                                // a meta element covers one 256b block of the data surface.
+>         log2_meta_req_height = log2_blk256_height + 3; // meta req is 8x8 byte, each byte represent 1 blk256
+>         log2_meta_req_width = log2_meta_req_bytes + 8 - log2_bytes_per_element
+>                 - log2_meta_req_height;
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_rq_dlg_calc_31.c b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_rq_dlg_calc_31.c
+> index 3def093ef88e..c23905bc733a 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_rq_dlg_calc_31.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_rq_dlg_calc_31.c
+> @@ -563,7 +563,7 @@ static void get_meta_and_pte_attr(
+>         log2_meta_req_bytes = 6;        // meta request is 64b and is 8x8byte meta element
+>
+>         // each 64b meta request for dcn is 8x8 meta elements and
+> -       // a meta element covers one 256b block of the the data surface.
+> +       // a meta element covers one 256b block of the data surface.
+>         log2_meta_req_height = log2_blk256_height + 3;  // meta req is 8x8 byte, each byte represent 1 blk256
+>         log2_meta_req_width = log2_meta_req_bytes + 8 - log2_bytes_per_element - log2_meta_req_height;
+>         meta_req_width = 1 << log2_meta_req_width;
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dml1_display_rq_dlg_calc.c b/drivers/gpu/drm/amd/display/dc/dml/dml1_display_rq_dlg_calc.c
+> index 414da64f5734..8f2b1684c231 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/dml1_display_rq_dlg_calc.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/dml1_display_rq_dlg_calc.c
+> @@ -456,7 +456,7 @@ static void dml1_rq_dlg_get_row_heights(
+>         log2_meta_req_bytes = 6; /* meta request is 64b and is 8x8byte meta element */
+>
+>         /* each 64b meta request for dcn is 8x8 meta elements and
+> -        * a meta element covers one 256b block of the the data surface.
+> +        * a meta element covers one 256b block of the data surface.
+>          */
+>         log2_meta_req_height = log2_blk256_height + 3; /* meta req is 8x8 */
+>         log2_meta_req_width = log2_meta_req_bytes + 8 - log2_bytes_per_element
+> @@ -718,7 +718,7 @@ static void get_surf_rq_param(
+>         log2_meta_req_bytes = 6; /* meta request is 64b and is 8x8byte meta element */
+>
+>         /* each 64b meta request for dcn is 8x8 meta elements and
+> -        * a meta element covers one 256b block of the the data surface.
+> +        * a meta element covers one 256b block of the data surface.
+>          */
+>         log2_meta_req_height = log2_blk256_height + 3; /* meta req is 8x8 byte, each byte represent 1 blk256 */
+>         log2_meta_req_width = log2_meta_req_bytes + 8 - log2_bytes_per_element
+> --
+> 2.25.1
+>
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
