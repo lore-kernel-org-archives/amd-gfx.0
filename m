@@ -1,80 +1,62 @@
 Return-Path: <SRS0=IbmW=MW=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Level: **
+X-Spam-Status: No, score=2.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6749FC4338F
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jul 2021 08:32:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C08E6C4338F
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jul 2021 08:48:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2932C60F6B
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jul 2021 08:32:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2932C60F6B
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
+	by mail.kernel.org (Postfix) with ESMTPS id 6ACCC60F6B
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jul 2021 08:48:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6ACCC60F6B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9EEA56F3FB;
-	Fri, 30 Jul 2021 08:31:59 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08A566F3F5;
- Fri, 30 Jul 2021 08:31:58 +0000 (UTC)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 33F531FDBB;
- Fri, 30 Jul 2021 08:31:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1627633916; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=4KNmGdX4j42EWGXTu1wwqwxtTy1FAmbC1xtjFG8i+0c=;
- b=yOdPofC7QezghZeA/7yBJ/KRwYqg7+cuQjIfkiLLuCHTEYVpssdzkmIU8qxTVE3LtA2t/D
- SLY/CIxEErwOWp1OjXbB5icay0WdRpVuLY++JQgOY91Xs9WEMjVY5Ah1yKgI6BD1axnmE0
- 1NSChxIZGrg/k5h1yszTmUqVGMCePhY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1627633916;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=4KNmGdX4j42EWGXTu1wwqwxtTy1FAmbC1xtjFG8i+0c=;
- b=Dtbg4UOoXmeTHZKFxCCoSstCycJ0WH0xg3Hcc/AN9v2lFzINm/kNnG7sy5iri8E2X0mIaJ
- Hj9rBnDdXyarFyBQ==
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 846D31374D;
- Fri, 30 Jul 2021 08:31:55 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id gAv4Hvu4A2FNFAAAGKfGzw
- (envelope-from <tzimmermann@suse.de>); Fri, 30 Jul 2021 08:31:55 +0000
-Subject: Re: [PATCH 03/14] drm/atmel-hlcdc: Convert to Linux IRQ interfaces
-To: Dan.Sneddon@microchip.com, sam@ravnborg.org
-References: <e28b1a2f-015c-c81b-eb64-5323df9ed35d@microchip.com>
- <YQF7bKyeup8n3awU@ravnborg.org>
- <3d2f6b84-dd07-d925-a8b8-2bfd5fc736d9@microchip.com>
- <YQGdxtV0BGZ8VOpm@ravnborg.org>
- <2f04b986-6b41-62f9-1587-23818b841655@suse.de>
- <793514f6-0270-771b-fe36-f82edf4e5fd2@microchip.com>
- <YQGrMH36Udg3eKQY@ravnborg.org>
- <dcc5cd1e-d0de-bdda-32f3-623b85085756@microchip.com>
- <YQG5+/9lPexU3Dn3@ravnborg.org>
- <1df22406-2e91-c15a-49dc-1cf33522a142@suse.de>
- <YQMF8X7gwKE/c2/R@ravnborg.org>
- <38656c7b-d9ad-c704-515e-f56582742532@microchip.com>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Message-ID: <5eaae583-3efb-837d-22b0-22369096400f@suse.de>
-Date: Fri, 30 Jul 2021 10:31:54 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B2506F3FD;
+	Fri, 30 Jul 2021 08:48:22 +0000 (UTC)
+Received: from mail-pj1-x102d.google.com (mail-pj1-x102d.google.com
+ [IPv6:2607:f8b0:4864:20::102d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 631436F402
+ for <amd-gfx@lists.freedesktop.org>; Fri, 30 Jul 2021 08:48:21 +0000 (UTC)
+Received: by mail-pj1-x102d.google.com with SMTP id ca5so14127603pjb.5
+ for <amd-gfx@lists.freedesktop.org>; Fri, 30 Jul 2021 01:48:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=reNoPVdKkWnSEiJYODIYoDMGD4Ss+oFtvdM6zfaMyeI=;
+ b=nzOfAZZFOdZVG/y697GkzGb6LU6Z+kPZYRCe+KnmcYGdOUCEygrHyGJcuwMRgE5fIP
+ Ct4acTU/puBE2zdTuVDRlxDN9xNkN/3QDRhPmwu2oMQ/ic//ofsAjXdQEr4uB/fFtol+
+ t/ZjgPKZQZheEutkEX6iG1sc2doGKq1FY+w1r77JRqTCnQAYO2ywPe6LcX4676EghVmV
+ McNew83X5jvbI//IBy3hI9jzRJfL4cfnPe8GWHZNWFmSoHSu1XGMOK5IBAx5Xgrk842x
+ SC5zbiHgkDDu8yXha6rhitzC8emSl8LkhxtC/8xwEP9/ha6pJeT7WZO7ONMJcCO01lzb
+ He7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=reNoPVdKkWnSEiJYODIYoDMGD4Ss+oFtvdM6zfaMyeI=;
+ b=bkyew0kJzBXnHPcIJ/XPxnFxuPbhPO3eh/y3QUBGyLjzT2ivzhBhBBSby3ShtH7n8G
+ YWcGSrqi8pe0TwjDss9u/I4vurP5eRwgAUQWYG4WBkPlDgtdGClxYm+FUscoisu3iCYA
+ 0k9AGZ5dZy5TlCNRgT0fS2jeUcBp3jI/SubPlQWvnLnxaYss9zRIj+Kd/iLZjn9X2pah
+ ZisLWyy06VibhR2oqwI2Z73ynefmLQp7E1i/riIi1UsV3Xxzd6qU0ECQHPLzvlatEroS
+ OY4XU9bAiv+i0PNQWWOMfx3N09bSDXWpHmp5G3pcrZ60Y8tEX08mbiKqslriNeClnFek
+ QcDw==
+X-Gm-Message-State: AOAM533n/y72kDKhRFMjaIhG3OGQm6XUbK6Is8M9CePbymrUfbzIxqsg
+ u9pFijCQ6IMhoQhu34Wqmaon9nRo8MukK9cN/VAChfL0
+X-Google-Smtp-Source: ABdhPJyuTErRcFxpzMkUsL68RoYVEZ/vpCGT/+6SehbIGwUTjxQD1zZHXLLMW6498ToHFflVnOn3cJ/gTqAAjaVT87U=
+X-Received: by 2002:a17:90a:bf85:: with SMTP id
+ d5mr2012685pjs.210.1627634900888; 
+ Fri, 30 Jul 2021 01:48:20 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <38656c7b-d9ad-c704-515e-f56582742532@microchip.com>
+From: =?UTF-8?Q?Ernst_Sj=C3=B6strand?= <ernstp@gmail.com>
+Date: Fri, 30 Jul 2021 10:48:10 +0200
+Message-ID: <CAD=4a=WfpGqCD-kapdDCFOLVkdUo_Brb-UfnG==5T0ScSoiihw@mail.gmail.com>
+Subject: Gmail throws all mailing list mails from amd.com in spam
+To: amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,141 +68,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, liviu.dudau@arm.com, stefan@agner.ch,
- amd-gfx@lists.freedesktop.org, anitha.chrisanthus@intel.com,
- patrik.r.jakobsson@gmail.com, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, daniel@ffwll.ch, edmund.j.dea@intel.com,
- s.hauer@pengutronix.de, alison.wang@nxp.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, dri-devel@lists.freedesktop.org, sean@poorly.run,
- linux-arm-kernel@lists.infradead.org, tomba@kernel.org, bbrezillon@kernel.org,
- jyri.sarha@iki.fi, Nicolas.Ferre@microchip.com, christian.koenig@amd.com,
- robdclark@gmail.com, kernel@pengutronix.de, alexander.deucher@amd.com,
- shawnguo@kernel.org, brian.starkey@arm.com
-Content-Type: multipart/mixed; boundary="===============0387267472=="
+Content-Type: multipart/mixed; boundary="===============0551377616=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============0387267472==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="yjnFarRLUdaazA6150bDZXU8b5959ycDD"
+--===============0551377616==
+Content-Type: multipart/alternative; boundary="000000000000176f3f05c85348d8"
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---yjnFarRLUdaazA6150bDZXU8b5959ycDD
-Content-Type: multipart/mixed; boundary="p1nROP8ARC1uwryC8MEU3IPJXb5UTMgYH";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Dan.Sneddon@microchip.com, sam@ravnborg.org
-Cc: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
- christian.koenig@amd.com, liviu.dudau@arm.com, brian.starkey@arm.com,
- bbrezillon@kernel.org, Nicolas.Ferre@microchip.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, stefan@agner.ch,
- alison.wang@nxp.com, patrik.r.jakobsson@gmail.com,
- anitha.chrisanthus@intel.com, robdclark@gmail.com, edmund.j.dea@intel.com,
- sean@poorly.run, shawnguo@kernel.org, s.hauer@pengutronix.de,
- kernel@pengutronix.de, jyri.sarha@iki.fi, tomba@kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org
-Message-ID: <5eaae583-3efb-837d-22b0-22369096400f@suse.de>
-Subject: Re: [PATCH 03/14] drm/atmel-hlcdc: Convert to Linux IRQ interfaces
-References: <e28b1a2f-015c-c81b-eb64-5323df9ed35d@microchip.com>
- <YQF7bKyeup8n3awU@ravnborg.org>
- <3d2f6b84-dd07-d925-a8b8-2bfd5fc736d9@microchip.com>
- <YQGdxtV0BGZ8VOpm@ravnborg.org>
- <2f04b986-6b41-62f9-1587-23818b841655@suse.de>
- <793514f6-0270-771b-fe36-f82edf4e5fd2@microchip.com>
- <YQGrMH36Udg3eKQY@ravnborg.org>
- <dcc5cd1e-d0de-bdda-32f3-623b85085756@microchip.com>
- <YQG5+/9lPexU3Dn3@ravnborg.org>
- <1df22406-2e91-c15a-49dc-1cf33522a142@suse.de>
- <YQMF8X7gwKE/c2/R@ravnborg.org>
- <38656c7b-d9ad-c704-515e-f56582742532@microchip.com>
-In-Reply-To: <38656c7b-d9ad-c704-515e-f56582742532@microchip.com>
+--000000000000176f3f05c85348d8
+Content-Type: text/plain; charset="UTF-8"
 
---p1nROP8ARC1uwryC8MEU3IPJXb5UTMgYH
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+Hi,
+
+I noticed that this has been going on for some time. I guess this is
+because of DKIM?
+Not sure what can be done about it. Gmail is quite persistent about it.
+
+Regards
+//Ernst
+
+--000000000000176f3f05c85348d8
+Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Dan and Sam
+<div dir=3D"ltr"><div class=3D"gmail_default" style=3D"font-family:arial,he=
+lvetica,sans-serif">Hi,</div><div class=3D"gmail_default" style=3D"font-fam=
+ily:arial,helvetica,sans-serif"><br></div><div class=3D"gmail_default" styl=
+e=3D"font-family:arial,helvetica,sans-serif">I noticed that this has been g=
+oing on for some time. I guess this is because of DKIM?</div><div class=3D"=
+gmail_default" style=3D"font-family:arial,helvetica,sans-serif">Not sure wh=
+at can be done about it. Gmail is quite persistent about it.</div><div clas=
+s=3D"gmail_default" style=3D"font-family:arial,helvetica,sans-serif"><br></=
+div><div class=3D"gmail_default" style=3D"font-family:arial,helvetica,sans-=
+serif">Regards</div><div class=3D"gmail_default" style=3D"font-family:arial=
+,helvetica,sans-serif">//Ernst<br></div></div>
 
-Am 29.07.21 um 21:55 schrieb Dan.Sneddon@microchip.com:
-> Hi Thomas and Sam,
-> On 7/29/21 12:48 PM, Sam Ravnborg wrote:
->> EXTERNAL EMAIL: Do not click links or open attachments unless you know=
- the content is safe
->>
->> Hi Thomas,
->>
->>>
->>> Are you sure, you're testing with the latest drm-misc-next or drm-tip=
-?
->>> Because using irq_enabled is deprecated and the flag was recently rep=
-laced
->>> by commit 1e4cd78ed493 ("drm: Don't test for IRQ support in VBLANK io=
-ctls").
->=20
-> Ok, My fault for testing on the wrong branch.  When I test this patch o=
-n
-> drm-misc-next it works great.  Sorry for the confusion!
->=20
->>
->> I was looking at drm-misc-fixes which did not have this commit :-(
->> Just my silly excuse why I was convinced this was the issue.
+--000000000000176f3f05c85348d8--
 
-Don't worry.
-
-I'll add Sam's R-b and a Tested-by from Dan to the patch. Is that ok?
-
-Best regards
-Thomas
-
-
->>
->>           Sam
->>
->=20
-> Best regards,
-> Dan
->=20
-
---=20
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
-(HRB 36809, AG N=C3=BCrnberg)
-Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
-
-
---p1nROP8ARC1uwryC8MEU3IPJXb5UTMgYH--
-
---yjnFarRLUdaazA6150bDZXU8b5959ycDD
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmEDuPoFAwAAAAAACgkQlh/E3EQov+DU
-Hw//S+XTP8MCawWFcKViVdKyYx/8b76p5/pUrG0Ev2hYnWMZno4RedIRGQX1oj/g3EAYH9yIqXVX
-5R5NCwnGNJ+JVzgNA5L1/ELIiCuOXJ9hyhyCAbZaDpcLftS80P5BpwmP8h9m2GyRbEUk1XVtAeKI
-CzIgDTMczYNLdUAROSQ6WlwOn5OWXWhMCWmleg0Yt3e8xZGv+AXI+4ox04cOSLSEisVm1ZQyOYmr
-npbL85z8SkbxHw4TzTVFqAqovHSeTv+4KUJL7LB7Q3hPIMTDMRmzUP0az+gNBTCKxxgo+b+oH+1b
-M+kUuTF2Annxo26z5hvEZumIAW9zzfTHfIQTqjgFbm5AchgTxy3bSAYh2SH+9g0I3gLsEGz47brp
-lz1jyVV5XNunhO2cuVMEGtrM9AS/CiVmc1ixs9/2Be2dSs+S/6Yn0yHi/29XvJpNqcHVoVfPuPlP
-qgDpClVbr0dYNmjLMEfHx7zfAZ8+GJ3340VGBZ0gSuEguUMjg309+JapIqhEWauOEcMNdSZH6SXh
-om4+lQ1HIwbQjZCUxr8s23vuJ/7qV/fiBcnujXBRJ0H662iaWvfK6jmk4i1LUCLGtj5hSOzWS0+I
-iw6iZPBwbjfHvAflxgwtwJvxWeR0G7thQX5srKeza23607lk3PiFrHrfsuscJLysi+QELTFD9k5t
-GCM=
-=zl/v
------END PGP SIGNATURE-----
-
---yjnFarRLUdaazA6150bDZXU8b5959ycDD--
-
---===============0387267472==
+--===============0551377616==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -231,4 +116,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============0387267472==--
+--===============0551377616==--
