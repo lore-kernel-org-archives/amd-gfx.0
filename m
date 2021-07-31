@@ -2,78 +2,60 @@ Return-Path: <SRS0=i1Lp=MX=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C0FD5C4320A
-	for <amd-gfx@archiver.kernel.org>; Sat, 31 Jul 2021 08:38:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D07D5C4338F
+	for <amd-gfx@archiver.kernel.org>; Sat, 31 Jul 2021 18:50:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6E36A60C40
-	for <amd-gfx@archiver.kernel.org>; Sat, 31 Jul 2021 08:38:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6E36A60C40
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 9086C60FE7
+	for <amd-gfx@archiver.kernel.org>; Sat, 31 Jul 2021 18:50:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9086C60FE7
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ravnborg.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D33FC6E808;
-	Sat, 31 Jul 2021 08:38:50 +0000 (UTC)
-Received: from mail-pl1-x62b.google.com (mail-pl1-x62b.google.com
- [IPv6:2607:f8b0:4864:20::62b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 822256E5C5;
- Sat, 31 Jul 2021 08:05:40 +0000 (UTC)
-Received: by mail-pl1-x62b.google.com with SMTP id z3so12506797plg.8;
- Sat, 31 Jul 2021 01:05:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=M8s8mhhqZ8Up+UA2vSw3vvwlmTtYXes+e5VhDxbCIyA=;
- b=bLCvfbuEP6qV/fkOAbd7z0uDgSx0ITQwQ67JwV6y4UggR35pF/iBN9Y8uYAn4i/h1Q
- +OmDW2Bp+HnZF8bq9DQrAQLAEtP7Hmw43DF3bGKC9mVG1uM++cb6eue6AYxwUf5FGa/5
- yygFB1IvISIM9pbIojyzAmH8J9NROnYxvvngVaPra8EzHBvCwLcguFYJNOaNzh22y/DI
- xG2VSnH4tKPMDU1rbk/FTaKi279oWIWrgkhDyJsmN7b6bOcccMIb7I2RPvOU1KzK9+Jm
- 1fy57BXltuQjLDKNAwRGrPzvaxfc77lC6ehTunPUh7Se1cx+02jNjUKqTV0KXl+Td99o
- rqiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=M8s8mhhqZ8Up+UA2vSw3vvwlmTtYXes+e5VhDxbCIyA=;
- b=Yhibs43n0KYq+9R1jnoSiszC7+y00st316c/FkqHCHS34LzSodxGPL+JkuW2mUpIUc
- 2dslKHD05F/845vQk8iQTVNU0T5plfWvn2K1cLISRECFRyRhABWNmfYlqWY844SRmIFK
- rxwGt6wv0qTfFcUEG7bqhsVD5o4cF74vtouHITPtNhvSoaqVSi2mWOXAun8y/NScRHnP
- kGGAYZo7T6B1CVgw9t12UqQiaCnMsjWDPtY5ZYOZb5s2zXBAJpUGHeRu6JOEfc5BO8PF
- RYD3ng82UlRH6q2TQFExp4vH77buVQHu73bvqu0TkxFtTDE6gV6A+mZZZUM8ViSdnZsr
- 2wgA==
-X-Gm-Message-State: AOAM533a1HcBEThXOsQtQIg8RCzzer2J/mazNjDj38qOMVcayRDItNK3
- mGugJjmZaJuDFj7rE8ujRfU=
-X-Google-Smtp-Source: ABdhPJwlGBDhCkzdHi57AylTjultSYaBz302y2ff7rorMx5fNPjeqUSkEm9NlFx7UyITj/vo3B1mUg==
-X-Received: by 2002:a63:b60:: with SMTP id a32mr1585053pgl.29.1627718740214;
- Sat, 31 Jul 2021 01:05:40 -0700 (PDT)
-Received: from localhost.localdomain ([45.135.186.29])
- by smtp.gmail.com with ESMTPSA id c7sm5288427pgq.22.2021.07.31.01.05.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 31 Jul 2021 01:05:39 -0700 (PDT)
-From: Tuo Li <islituo@gmail.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@linux.ie, daniel@ffwll.ch, sumit.semwal@linaro.org,
- airlied@redhat.com, Felix.Kuehling@amd.com, Oak.Zeng@amd.com,
- nirmoy.das@amd.com, tzimmermann@suse.de, Philip.Yang@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, baijiaju1990@gmail.com,
- Tuo Li <islituo@gmail.com>, TOTE Robot <oslab@tsinghua.edu.cn>
-Subject: [PATCH] drm/amdgpu: fix possible null-pointer dereference in
- amdgpu_ttm_tt_populate()
-Date: Sat, 31 Jul 2021 01:04:37 -0700
-Message-Id: <20210731080437.74539-1-islituo@gmail.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 975776E8DF;
+	Sat, 31 Jul 2021 18:50:10 +0000 (UTC)
+Received: from mx2.smtp.larsendata.com (mx2.smtp.larsendata.com
+ [91.221.196.228])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30C796E8DD
+ for <amd-gfx@lists.freedesktop.org>; Sat, 31 Jul 2021 18:50:08 +0000 (UTC)
+Received: from mail01.mxhotel.dk (mail01.mxhotel.dk [91.221.196.236])
+ by mx2.smtp.larsendata.com (Halon) with ESMTPS
+ id 2a153144-f230-11eb-8d1a-0050568cd888;
+ Sat, 31 Jul 2021 18:50:24 +0000 (UTC)
+Received: from ravnborg.org (80-162-45-141-cable.dk.customer.tdc.net
+ [80.162.45.141])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ (Authenticated sender: sam@ravnborg.org)
+ by mail01.mxhotel.dk (Postfix) with ESMTPSA id ED887194B0F;
+ Sat, 31 Jul 2021 20:50:27 +0200 (CEST)
+Date: Sat, 31 Jul 2021 20:50:02 +0200
+X-Report-Abuse-To: abuse@mxhotel.dk
+From: Sam Ravnborg <sam@ravnborg.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
+ christian.koenig@amd.com, liviu.dudau@arm.com,
+ brian.starkey@arm.com, bbrezillon@kernel.org,
+ nicolas.ferre@microchip.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, stefan@agner.ch, alison.wang@nxp.com,
+ patrik.r.jakobsson@gmail.com, anitha.chrisanthus@intel.com,
+ robdclark@gmail.com, edmund.j.dea@intel.com, sean@poorly.run,
+ shawnguo@kernel.org, s.hauer@pengutronix.de, kernel@pengutronix.de,
+ jyri.sarha@iki.fi, tomba@kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 00/14] drm: Make DRM's IRQ helpers legacy
+Message-ID: <YQWbWjV5TYzp+5C4@ravnborg.org>
+References: <20210727182721.17981-1-tzimmermann@suse.de>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Sat, 31 Jul 2021 08:38:48 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210727182721.17981-1-tzimmermann@suse.de>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,44 +70,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The variable ttm is assigned to the variable gtt, and the variable gtt
-is checked in:
-  if (gtt && gtt->userptr)
+Hi Thomas,
 
-This indicates that both ttm and gtt can be NULL.
-If so, a null-pointer dereference will occur:
-  if (ttm->page_flags & TTM_PAGE_FLAG_SG)
+On Tue, Jul 27, 2021 at 08:27:07PM +0200, Thomas Zimmermann wrote:
+> DRM's IRQ helpers are only helpful for old, non-KMS drivers. Move
+> the code behind CONFIG_DRM_LEGACY. Convert KMS drivers to Linux
+> IRQ interfaces.
+> 
+> DRM provides IRQ helpers for setting up, receiving and removing IRQ
+> handlers. It's an abstraction over plain Linux functions. The code
+> is mid-layerish with several callbacks to hook into the rsp drivers.
+> Old UMS driver have their interrupts enabled via ioctl, so these
+> abstractions makes some sense. Modern KMS manage all their interrupts
+> internally. Using the DRM helpers adds indirection without benefits.
+> 
+> Most KMs drivers already use Linux IRQ functions instead of DRM's
+> abstraction layer. Patches 1 to 12 convert the remaining ones.
+> The patches also resolve a bug for devices without assigned interrupt
+> number. DRM helpers don't test for IRQ_NOTCONNECTED, so drivers do
+> not detect if the device has no interrupt assigned.
+> 
+> Patch 13 removes an unused function.
+> 
+> Patch 14 moves the DRM IRQ helpers behind CONFIG_DRM_LEGACY. Only
+> the old non-KMS drivers still use the functionality.
+> 
+> Thomas Zimmermann (14):
+>   drm/amdgpu: Convert to Linux IRQ interfaces
+>   drm/arm/hdlcd: Convert to Linux IRQ interfaces
+>   drm/atmel-hlcdc: Convert to Linux IRQ interfaces
+>   drm/fsl-dcu: Convert to Linux IRQ interfaces
+>   drm/gma500: Convert to Linux IRQ interfaces
+>   drm/kmb: Convert to Linux IRQ interfaces
+>   drm/msm: Convert to Linux IRQ interfaces
+>   drm/mxsfb: Convert to Linux IRQ interfaces
+>   drm/radeon: Convert to Linux IRQ interfaces
+>   drm/tidss: Convert to Linux IRQ interfaces
+>   drm/tilcdc: Convert to Linux IRQ interfaces
+>   drm/vc4: Convert to Linux IRQ interfaces
+>   drm: Remove unused devm_drm_irq_install()
+>   drm: IRQ midlayer is now legacy
 
-Also, some null-pointer dereferences will occur in the function
-ttm_pool_alloc() which is called in:
-  return ttm_pool_alloc(&adev->mman.bdev.pool, ttm, ctx);
+With the irq_enabled confusion out of the way I want to re-address two
+issues here that I know you have answered but I am just not convinced.
 
-To fix these possible null-pointer dereferences, the function returns
--EINVAL when ttm is NULL.
+1) IRQ_NOTCONNECTED
 
-Reported-by: TOTE Robot <oslab@tsinghua.edu.cn>
-Signed-off-by: Tuo Li <islituo@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+We do not have this check in drm_irq today and we should avoid spreading
+it all over. We are either carrying it forever or we wil lsee patches
+floating in to drop the check again.
+The current use in the kernel is minimal:
+https://elixir.bootlin.com/linux/latest/A/ident/IRQ_NOTCONNECTED
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 3a55f08e00e1..80440f799c09 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -1120,8 +1120,11 @@ static int amdgpu_ttm_tt_populate(struct ttm_device *bdev,
- 	struct amdgpu_device *adev = amdgpu_ttm_adev(bdev);
- 	struct amdgpu_ttm_tt *gtt = (void *)ttm;
- 
-+	if (ttm == NULL)
-+		return -EINVAL;
-+
- 	/* user pages are bound by amdgpu_ttm_tt_pin_userptr() */
--	if (gtt && gtt->userptr) {
-+	if (gtt->userptr) {
- 		ttm->sg = kzalloc(sizeof(struct sg_table), GFP_KERNEL);
- 		if (!ttm->sg)
- 			return -ENOMEM;
--- 
-2.25.1
+So as a minimum drop it from atmel_hlcdc and preferably from the rest as
+it is really not used. (Speaking as atmel_hlcdc maintainer)
 
+
+2) devm_request_irq()
+
+We are moving towards managed allocation so we do not fail to free
+resources. And an irq has a lifetime equal the device itself - so an
+obvious cnadidate for devm_request_irq.
+If we do not introduce it now we will see a revisit of this later.
+I can be convinced to wait with this as we will have to do much more in
+each driver, but I cannot see any good arguments to avoid the more
+modern way to use devm_request_irq.
+
+	Sam
