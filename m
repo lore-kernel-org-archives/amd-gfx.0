@@ -2,142 +2,83 @@ Return-Path: <SRS0=F4UR=MY=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A03AEC4338F
-	for <amd-gfx@archiver.kernel.org>; Sun,  1 Aug 2021 17:21:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4B06FC432BE
+	for <amd-gfx@archiver.kernel.org>; Sun,  1 Aug 2021 19:56:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2DA5E60F5A
-	for <amd-gfx@archiver.kernel.org>; Sun,  1 Aug 2021 17:21:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2DA5E60F5A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id D2C4D60F48
+	for <amd-gfx@archiver.kernel.org>; Sun,  1 Aug 2021 19:56:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D2C4D60F48
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BBF586E1FB;
-	Sun,  1 Aug 2021 17:21:50 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam08on2072.outbound.protection.outlook.com [40.107.101.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F059A6E1FB;
- Sun,  1 Aug 2021 17:21:49 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=B8w2TL58PQRPNkOoyhN5BY0T0u47vofebttmMWl3HKc9q3jEg/b74bUB4hU+3wnEVT28PSCubhWVY/TOk4GKD340WPvh8K8TXcNzSooNQikSUQVIk/7/ApGnjhLSHp9L1ZDGTRWFl/Q20a02xtkw0icUu/xVLb0UuFBQUtdC+5GxqRYlFjQqTickGl3txoEPH4lpBgOechZa13WvcGN7/J3j/XgSrp0oXkdMPWKWD90PrvbYIq3sm9E5RYc1NaJhDQncW6ICCQU2wWd0CGrPICJXwcpjwREYplHZIOJUFIPIFgkmRINXFPQRfY+yKs0WiFvidr+e+FfTTLUoB6m57g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0D5FRems7QHvOdv2C1PeFKMtIGqwhiKr36/XjSP4YvU=;
- b=HiHoj4xj2YCNv8KBQMfeZkUGbS1P4qDItJ5xosQLpudNsp69nmRNYebmS4lkjIRY1NZzEBsX/JbdZzX7e+rVMzOpVpyDCQdeGNCYv3F78uTnspL7aIgATyQ/uA1QnwYgySPWt3vKH61w0DcPdHo8fShwoMqXUFakmAi6M5RpaLgkeSs6zGV9q6nCowVCfzhROEzyXrSFmwZd8HfpqWldxb514j1DMyP5hV2ee1GvsE7x/eGGl+7lkQ/67NhV24oKCrRsDE7ybRFBi0JfUIot5ajOKCBBiPKWSuhiG2McFdgHerJReb5+VJFlSdGKA/XHYHyWUGEhHmRYABNxDwMx/w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0D5FRems7QHvOdv2C1PeFKMtIGqwhiKr36/XjSP4YvU=;
- b=i/h71vsxGYGsyaIAqHRXP2dBeVtGFouJAfd39Y1Fmd53wGhA933Dt7ocsg5rikf+Q2XEy1VTRVRskJBNzfsUgaqlBzLVG84R4+lv/lImAUANWgUHbafkuSf+UF58jwrNMu5g/fCmBrExGS8jRHRwRkJ00YEn1PPKx/rg+/oEzvo=
-Authentication-Results: tsinghua.edu.cn; dkim=none (message not signed)
- header.d=none;tsinghua.edu.cn; dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
- by MN2PR12MB4847.namprd12.prod.outlook.com (2603:10b6:208:1ba::27)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4373.21; Sun, 1 Aug
- 2021 17:21:45 +0000
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::6c9e:1e08:7617:f756]) by MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::6c9e:1e08:7617:f756%5]) with mapi id 15.20.4373.026; Sun, 1 Aug 2021
- 17:21:45 +0000
-Subject: Re: [PATCH] drm/amdgpu: fix possible null-pointer dereference in
- amdgpu_ttm_tt_unpopulate()
-To: Tuo Li <islituo@gmail.com>, alexander.deucher@amd.com,
- Xinhui.Pan@amd.com, airlied@linux.ie, daniel@ffwll.ch,
- sumit.semwal@linaro.org, airlied@redhat.com, Felix.Kuehling@amd.com,
- Oak.Zeng@amd.com, nirmoy.das@amd.com, tzimmermann@suse.de,
- Philip.Yang@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, baijiaju1990@gmail.com,
- TOTE Robot <oslab@tsinghua.edu.cn>
-References: <20210731081306.86523-1-islituo@gmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <047eccf1-70ac-669d-0d34-b0cb0483c24d@amd.com>
-Date: Sun, 1 Aug 2021 19:21:41 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3E266E118;
+	Sun,  1 Aug 2021 19:56:21 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADB146E0F6;
+ Sun,  1 Aug 2021 19:56:20 +0000 (UTC)
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 002381FEA9;
+ Sun,  1 Aug 2021 19:56:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1627847779; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=U+NnGC7CJLacokVANmN7ic2V4ps6/e94vckxcS1KJcA=;
+ b=DK6buZSCQkrXdg1Vkj91UtFxATcaDM617qveaS24/kmVPLWtgaRYUDJgCC5tfoK3uLzoSE
+ Dt/Z+m4YNZTVSkOGVWuGX0a5YTGMCSbxTBpgVzVbPsJYk3MCZjzSyBBXixAwIjlJGl8+YD
+ IrU/vCzrNBTQvhlJyDiK41uZUBwi6DE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1627847779;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=U+NnGC7CJLacokVANmN7ic2V4ps6/e94vckxcS1KJcA=;
+ b=sYTLilX4dvmt8x4XRFujnRm6HLHKa7AtwW1QByKYYb3VdDR6Ydvc4gv1hYglPV9SThePvc
+ m8c/xhKBsMzTziBw==
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 43DAD1369B;
+ Sun,  1 Aug 2021 19:56:18 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap1.suse-dmz.suse.de with ESMTPSA id 3p2UDmL8BmHgBQAAGKfGzw
+ (envelope-from <tzimmermann@suse.de>); Sun, 01 Aug 2021 19:56:18 +0000
+To: Sam Ravnborg <sam@ravnborg.org>
+Cc: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
+ christian.koenig@amd.com, liviu.dudau@arm.com, brian.starkey@arm.com,
+ bbrezillon@kernel.org, nicolas.ferre@microchip.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, stefan@agner.ch,
+ alison.wang@nxp.com, patrik.r.jakobsson@gmail.com,
+ anitha.chrisanthus@intel.com, robdclark@gmail.com, edmund.j.dea@intel.com,
+ sean@poorly.run, shawnguo@kernel.org, s.hauer@pengutronix.de,
+ kernel@pengutronix.de, jyri.sarha@iki.fi, tomba@kernel.org,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20210727182721.17981-1-tzimmermann@suse.de>
+ <YQWbWjV5TYzp+5C4@ravnborg.org>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Subject: Re: [PATCH 00/14] drm: Make DRM's IRQ helpers legacy
+Message-ID: <d50b3199-20fe-0ecb-ab7d-7425ad1d0f21@suse.de>
+Date: Sun, 1 Aug 2021 21:56:17 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
-In-Reply-To: <20210731081306.86523-1-islituo@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-ClientProxiedBy: FR0P281CA0001.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:15::6) To MN2PR12MB3775.namprd12.prod.outlook.com
- (2603:10b6:208:159::19)
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2a02:908:1252:fb60:5926:2d3e:756a:8d42]
- (2a02:908:1252:fb60:5926:2d3e:756a:8d42) by
- FR0P281CA0001.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:15::6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4394.8 via Frontend Transport; Sun, 1 Aug 2021 17:21:42 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a9f9563e-4a09-43e1-3b92-08d95510d62c
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4847:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB4847C52B26EF3DF6D1A225E883EE9@MN2PR12MB4847.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 14x9+MBF/XKJzuRBtww3i3T2gxlhRC7vdhp6mFh+pVFBnFEwT4zvFFqCWw2UwP2Wa1ozJxGrw+tCSi63TIiiYuImEmrECj+bZztaGLHhRGA60JWVETYD0R9m0YGz9zJ6aQOfsbf2ILA77WLW3eQ3YJUukTiuiAhPnNKhiloUeSKjCfQInILr2iliEwJLJPsZLhecJMlnyybLg+gXa9jSxwdAnwvFL8qvQa1OnS/74x2wom/PTt2KAloBBA2bdsKvYBu5Gsc5lD+7MVhI3Tc97GxCQMH6odjk5LzEVUf9eZmkSvODts+8xGx8dp/2SZWZGKEEVJITuj8xPz7EswINpuwCeokPCjeX8e2TzhLPTRv1rOQMXKne7okedoAkseN0v2c6gJEe1jVhwJU+tKu5DkT1ZbgB8y27yV2CRWt5MsqqRAck9uNC0xBTPxqCiuKRmPpPcS6ICLqWb21mv1y8yWvT/JHfnk5+H1SPOyu67UzE+gQ31CcTSh8S1tyQKprbUqT2F9rldy+q6y+Hq1w4ul1cHYvahU1Kms9tzMCH9t8QlGa7/BccyMIWPsyxXZjFTpNGoA3fLhuTBv2UgzYFlcUOiTQa1Cly0VWnnsH00J5lYP9WEIF6nU/D5zyL0CHHQxM2GnRVu3vMF3U0JXeQGPz8hao8GufY69+/gyiSIKUx4OTDgJ0wZtgrnHqyF7D7u8I5VfkQTcVhhqskh5nCopcAEbcvCPwDxrSwjGWt6IQCasaNrecQX5cllOVL0ZNd
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(376002)(39860400002)(366004)(396003)(346002)(2616005)(5660300002)(316002)(2906002)(31696002)(6636002)(66946007)(31686004)(478600001)(186003)(83380400001)(8676002)(36756003)(6486002)(7416002)(8936002)(921005)(38100700002)(66476007)(66556008)(4326008)(86362001)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VmI1SU1PWEVVcGRMSGl1Rk8xdjBSMlZJRm1mZTlVem54RUk1Qm9YUU1ZNHUz?=
- =?utf-8?B?QXdJN29UZmJxOGlTMVZsakcxSkc3dVd4NlMyeTJYdnd3SGdOWEZ2WDZQSk4x?=
- =?utf-8?B?M0t3ay9WNVdIOHBuNGJhRmgrT0NnelpUZi9TVW9XV0J0VytoOTB2Q2pJL3JS?=
- =?utf-8?B?NXVsRUE5WnVTakM4QUtNbHZsd29tZmtoYmJ3SzNKKzYxQkdjb0J5clQ1YkdT?=
- =?utf-8?B?dUM1cTU3dGdOMk1aL3EyckZteUtiNTI5a1p0ZktvVmtpM1NZVnlnN3MzMWJB?=
- =?utf-8?B?Ynh4T3BhZy9Pb2tXbTZBbmRDRWw5dXVoenB2YjNlc05kRElyZllacHh5SWpR?=
- =?utf-8?B?WXc2ODdXVUtoSW5rNXRyUjBQeEswL2VBcXJ0aldHMFB2VmdZYzBZeGRhbzVw?=
- =?utf-8?B?MUI0R05IZHZHeHMrRkpqZDBoNUVzOXNISlRkT0xTdktSQ0ZuM1VRSFFIMGIv?=
- =?utf-8?B?aGNBTHYram1Oa3U4VFBjSWFtcUM5b1NHV29uNzhJQVZZMHpsTTZKV0w3Ympk?=
- =?utf-8?B?d0FZRjFNSmxqR3lyeU9MZFQ5WjVKR1ZpamdGeHIxM1BrbXdsL3hlSVhkbHBK?=
- =?utf-8?B?TnY1enUrb3lPRlp4S25qT1NQOU1HL2dzR0piVTZpc0lPV3RKbFFFZ3ZhdUhH?=
- =?utf-8?B?YjJScHB4czNaUGhyazVhWXo2UzVEVjU5cWFHcnJNY3ZIUGhCRjFicnkrNEl0?=
- =?utf-8?B?eHpsZUJaYms0eEpCcXZZL1hnMjFNNTRnc2dSWEcyS09wa3U2aUYwQkFzbjB2?=
- =?utf-8?B?TWlaUndiN3p3UmdiemU2d2dBL3Y5aG93SXRvM09hblprT2oyRG00dWtmUGlJ?=
- =?utf-8?B?bkZxRm43ZDdpU1NBWXcwd2dDbE1oREhMWlJKTjdDWVRCaU5DZUoxVDF5aDNM?=
- =?utf-8?B?T0FjQU4vNXdBRkc5Z3BkTHN6bFVyR1E3eW9ZSXl2R1RsSVJGZVV0YlRFcklV?=
- =?utf-8?B?RFhvRHQzWU9uNUduVGkxNU9oUGZDYTcvVWxDYXNrL0UwenpGY3ZPQm9EUEdu?=
- =?utf-8?B?Z0ZhTGFMM1dTU1Rza1l1Z29pcG1uR0h6eDhwRk94d1gvbjVYaUFseS9kVEs1?=
- =?utf-8?B?elA1dzYvbnJMUEViNmwrMUlRL0NybGpnRjJVcXFybFVMYnkwU0JYZ2pwN2E3?=
- =?utf-8?B?cjRGWEZCaGxIazEyVGJUMFBPYWpEL2ZXSXRHWmJXdFBpWmFJNnRIUTlCT0gx?=
- =?utf-8?B?YkJwL1ZnMTRucWVTYlFqOXlOVi9lMDhWbVNGRGdVOTJMSlBIbCtyRHlBNFN1?=
- =?utf-8?B?akxub0ZiNjE2QkNrKzZnWVJPaHQwbVpOZ3ZjMm94MDAzc0gyeGluVU4yTEtB?=
- =?utf-8?B?ZjVXQ1FGWWVKQVlqUTU1WElVS1lVa2FsT05pZ080Q2MvblRQeXV5a3lubGdQ?=
- =?utf-8?B?aTB4TEExRmh0NXM5MEZoZmE0R0NTbEJUN2JmcyszQlpRTlFLbjRUcndnQjB2?=
- =?utf-8?B?SGtDdkF4SmQ1RnhUd0xDNGVnZ25PWWpuaFFXN1VXb25TTDQ3RDZhQ1NrdXlu?=
- =?utf-8?B?cU9vZFZjMURSU1dMUDZGdnY4NkJoRjdxRUVzTHE2cEJoQ0FaNmFFOGdUb0g3?=
- =?utf-8?B?MnVFQnBiNkJxUU4zNlN1aTl5YkgvVkwxZDRzTGk3VHRIbUlzWHZBWDJ1YjlV?=
- =?utf-8?B?R2FGclZMRWhKeGUyMjZxMW9EdGJ6Zmd0WW1WdkRVV2p5c2hXZFR5RG16L1hP?=
- =?utf-8?B?dys3U1ZkWWNnNTgzKzNKc0NQQ05LdEM0aXJTOUlUZ00wczFmRnpDOU14RlBU?=
- =?utf-8?B?djJmenFoN2tQSWp1YlIwRndYenRQOTl5amxqdE55NS9rcTBObVhCVFVnZkM0?=
- =?utf-8?B?WU1xK2o3UXVXMVNTNG1sYnNQR2hRZmQ5bUFxQnZWd2xJRGVrd3Zpc1VHYmhv?=
- =?utf-8?Q?buA8UbCNldEXQ?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a9f9563e-4a09-43e1-3b92-08d95510d62c
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Aug 2021 17:21:45.1905 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Ej1nIivRTWulOPWpqDVALU5HMCXaCKi/loqiM/RDEi/nktkj2T935B1jzr96ACZH
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4847
+In-Reply-To: <YQWbWjV5TYzp+5C4@ravnborg.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="MBU0Z03ywHqTmMHjoTTP5JnuitAObvxI4"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,57 +93,164 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 31.07.21 um 10:13 schrieb Tuo Li:
-> The variable ttm is assigned to the variable gtt, and the variable gtt
-> is checked in:
->    if (gtt && gtt->userptr)
->
-> This indicates that both ttm and gtt can be NULL.
-> If so, a null-pointer dereference will occur:
->    if (ttm->page_flags & TTM_PAGE_FLAG_SG)
->
-> Also, some null-pointer dereferences will occur in the function
-> ttm_pool_free() which is called in:
->    return ttm_pool_free(&adev->mman.bdev.pool, ttm);
->
-> To fix these possible null-pointer dereferences, the function returns
-> when ttm is NULL.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--MBU0Z03ywHqTmMHjoTTP5JnuitAObvxI4
+Content-Type: multipart/mixed; boundary="ZWB90fKUSLppcAn3zi6q0dP71wt9gJEfo";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Sam Ravnborg <sam@ravnborg.org>
+Cc: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
+ christian.koenig@amd.com, liviu.dudau@arm.com, brian.starkey@arm.com,
+ bbrezillon@kernel.org, nicolas.ferre@microchip.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, stefan@agner.ch,
+ alison.wang@nxp.com, patrik.r.jakobsson@gmail.com,
+ anitha.chrisanthus@intel.com, robdclark@gmail.com, edmund.j.dea@intel.com,
+ sean@poorly.run, shawnguo@kernel.org, s.hauer@pengutronix.de,
+ kernel@pengutronix.de, jyri.sarha@iki.fi, tomba@kernel.org,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org
+Message-ID: <d50b3199-20fe-0ecb-ab7d-7425ad1d0f21@suse.de>
+Subject: Re: [PATCH 00/14] drm: Make DRM's IRQ helpers legacy
+References: <20210727182721.17981-1-tzimmermann@suse.de>
+ <YQWbWjV5TYzp+5C4@ravnborg.org>
+In-Reply-To: <YQWbWjV5TYzp+5C4@ravnborg.org>
 
-NAK, same as with the other patch.
+--ZWB90fKUSLppcAn3zi6q0dP71wt9gJEfo
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
 
-The ttm object is mandatory, asking the driver to destroy a ttm object 
-which doesn't exists makes no sense at all and is a bug in the upper layer.
+Hi Sam
 
-The NULL check is just a leftover from when the gtt and ttm objects 
-where distinct. Please remove that one instead.
+Am 31.07.21 um 20:50 schrieb Sam Ravnborg:
+> Hi Thomas,
+>=20
+> On Tue, Jul 27, 2021 at 08:27:07PM +0200, Thomas Zimmermann wrote:
+>> DRM's IRQ helpers are only helpful for old, non-KMS drivers. Move
+>> the code behind CONFIG_DRM_LEGACY. Convert KMS drivers to Linux
+>> IRQ interfaces.
+>>
+>> DRM provides IRQ helpers for setting up, receiving and removing IRQ
+>> handlers. It's an abstraction over plain Linux functions. The code
+>> is mid-layerish with several callbacks to hook into the rsp drivers.
+>> Old UMS driver have their interrupts enabled via ioctl, so these
+>> abstractions makes some sense. Modern KMS manage all their interrupts
+>> internally. Using the DRM helpers adds indirection without benefits.
+>>
+>> Most KMs drivers already use Linux IRQ functions instead of DRM's
+>> abstraction layer. Patches 1 to 12 convert the remaining ones.
+>> The patches also resolve a bug for devices without assigned interrupt
+>> number. DRM helpers don't test for IRQ_NOTCONNECTED, so drivers do
+>> not detect if the device has no interrupt assigned.
+>>
+>> Patch 13 removes an unused function.
+>>
+>> Patch 14 moves the DRM IRQ helpers behind CONFIG_DRM_LEGACY. Only
+>> the old non-KMS drivers still use the functionality.
+>>
+>> Thomas Zimmermann (14):
+>>    drm/amdgpu: Convert to Linux IRQ interfaces
+>>    drm/arm/hdlcd: Convert to Linux IRQ interfaces
+>>    drm/atmel-hlcdc: Convert to Linux IRQ interfaces
+>>    drm/fsl-dcu: Convert to Linux IRQ interfaces
+>>    drm/gma500: Convert to Linux IRQ interfaces
+>>    drm/kmb: Convert to Linux IRQ interfaces
+>>    drm/msm: Convert to Linux IRQ interfaces
+>>    drm/mxsfb: Convert to Linux IRQ interfaces
+>>    drm/radeon: Convert to Linux IRQ interfaces
+>>    drm/tidss: Convert to Linux IRQ interfaces
+>>    drm/tilcdc: Convert to Linux IRQ interfaces
+>>    drm/vc4: Convert to Linux IRQ interfaces
+>>    drm: Remove unused devm_drm_irq_install()
+>>    drm: IRQ midlayer is now legacy
+>=20
+> With the irq_enabled confusion out of the way I want to re-address two
+> issues here that I know you have answered but I am just not convinced.
+>=20
+> 1) IRQ_NOTCONNECTED
+>=20
+> We do not have this check in drm_irq today and we should avoid spreadin=
+g
+> it all over. We are either carrying it forever or we wil lsee patches
+> floating in to drop the check again.
+> The current use in the kernel is minimal:
+> https://elixir.bootlin.com/linux/latest/A/ident/IRQ_NOTCONNECTED
+>=20
+> So as a minimum drop it from atmel_hlcdc and preferably from the rest a=
+s
+> it is really not used. (Speaking as atmel_hlcdc maintainer)
 
-BTW: Bonus points for changing the (void *) cast into a much cleaner 
-container_of().
+I'll drop it from atmel_hlcdc then.
 
-Thanks,
-Christian.
+But saying that it's not used is not correct. At least radeon an gma500=20
+handle PCI-based devices and BIOSes often had the option of disabling=20
+the rsp graphics interrupts.
 
->
-> Reported-by: TOTE Robot <oslab@tsinghua.edu.cn>
-> Signed-off-by: Tuo Li <islituo@gmail.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 5 ++++-
->   1 file changed, 4 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> index 3a55f08e00e1..0216ca085f11 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -1146,7 +1146,10 @@ static void amdgpu_ttm_tt_unpopulate(struct ttm_device *bdev,
->   	struct amdgpu_ttm_tt *gtt = (void *)ttm;
->   	struct amdgpu_device *adev;
->   
-> -	if (gtt && gtt->userptr) {
-> +	if (ttm == NULL)
-> +		return;
-> +
-> +	if (gtt->userptr) {
->   		amdgpu_ttm_tt_set_user_pages(ttm, NULL);
->   		kfree(ttm->sg);
->   		ttm->sg = NULL;
+>=20
+>=20
+> 2) devm_request_irq()
+>=20
+> We are moving towards managed allocation so we do not fail to free
+> resources. And an irq has a lifetime equal the device itself - so an
+> obvious cnadidate for devm_request_irq.
+> If we do not introduce it now we will see a revisit of this later.
+> I can be convinced to wait with this as we will have to do much more in=
 
+> each driver, but I cannot see any good arguments to avoid the more
+> modern way to use devm_request_irq.
+
+I'll change this in atmel_hdlcd and maybe I can find trivial cases where =
+
+devm_request_irq() can be used. But drivers that had an uninstall=20
+callback before should not have the cleanup logic altered by a patch as=20
+this one. I suspect that most of the IRQ cleanup
+is actually a vblank cleanup and should be done in response to=20
+drm_vblank_init(). But that's again not something for this patchset=20
+here. We cannot change multiple things at once and still expect any of=20
+it to work.
+
+I welcome the use of devm_ et al. But these changes are better done in a =
+
+per-driver patchset that changes all of the driver to managed release.
+
+Best regards
+Thomas
+
+>=20
+> 	Sam
+>=20
+
+--=20
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
+(HRB 36809, AG N=C3=BCrnberg)
+Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
+
+
+--ZWB90fKUSLppcAn3zi6q0dP71wt9gJEfo--
+
+--MBU0Z03ywHqTmMHjoTTP5JnuitAObvxI4
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmEG/GEFAwAAAAAACgkQlh/E3EQov+A9
+cw/+IEz+W6K/8wOb9uXueI0jm0rdu2FMaG5qIevMl+qQOSrRBnMsDPG4Hir4RQKzWH9JwyCL2es9
+qAQ2tbU/89oubj3yOHCWY6/v1nxj92/DU86PJiPpwCUw6Q3p4WNRlChbZTB1DF2KlnSoGPNCuDwk
+2r8N+PiVth2fZWsaYtGlkvVxxOKHVnUFxez5nIHujTJUDtMByL05iPXmM14MK7AEcFvbvdHDTxax
+aWhfBU0CaZsS1yxyCiwF+pb9u4IxIZy/wMXVM4VtqxX9ambseEfRyxpIWqG+xMRUbGhcn0BScHZv
+SWMr+tfebvA3xLFWlTq0F6mP4IRm2Bl0AQafOcQtDvzFplcBM9Ex0txc4tROzn10A1EXvs+TJj+O
+6ovgrs/nRlsbusHlzH/tN3EPVj+LmyHa1lSbuP3yZ+wcInTlqzjVX/ssTqxV9iCbEu4zFtI8ZR5d
+NkVungaeOZXy8Nd51G5NEEazGoAfTm0CCAqyy1h82mfRL6CsvL1MJZ0iU3Ez/EIy6zHF4mcaue+R
+s1NlmsvUCefwsytdDwsVwA8FfDMu63FKgFLk3AecQMm9CkBcQT1YqPZpedNcIfeWpJd/it2v74vZ
+guj/RtVASwTafoE/aI2TGYN7Gx+2fpztDc01ZfMjOsWrIA1Pu6Dv07lRlmnIeuftwCqsf3ZiHQbw
+B24=
+=mg4s
+-----END PGP SIGNATURE-----
+
+--MBU0Z03ywHqTmMHjoTTP5JnuitAObvxI4--
