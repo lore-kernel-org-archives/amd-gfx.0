@@ -2,68 +2,142 @@ Return-Path: <SRS0=F4UR=MY=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B0DD9C4338F
-	for <amd-gfx@archiver.kernel.org>; Sun,  1 Aug 2021 11:57:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 69F2FC4338F
+	for <amd-gfx@archiver.kernel.org>; Sun,  1 Aug 2021 17:19:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F319A610CE
-	for <amd-gfx@archiver.kernel.org>; Sun,  1 Aug 2021 11:57:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F319A610CE
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id 2F90560EEA
+	for <amd-gfx@archiver.kernel.org>; Sun,  1 Aug 2021 17:19:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2F90560EEA
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E3186E11E;
-	Sun,  1 Aug 2021 11:57:12 +0000 (UTC)
-Received: from mail-qk1-x72f.google.com (mail-qk1-x72f.google.com
- [IPv6:2607:f8b0:4864:20::72f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C4226E11E
- for <amd-gfx@lists.freedesktop.org>; Sun,  1 Aug 2021 11:57:11 +0000 (UTC)
-Received: by mail-qk1-x72f.google.com with SMTP id o13so14044833qkk.9
- for <amd-gfx@lists.freedesktop.org>; Sun, 01 Aug 2021 04:57:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fireburn-co-uk.20150623.gappssmtp.com; s=20150623;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=bXFWPjGcya9hWSZnyFjxRqLYpp8UM9mJknfhYB1NjEo=;
- b=pcOAMcURXmElN1e892C8Tr2ITWjYXBBINoEq1P7fv4wdcl5XKzmfs0hoZgifO5RIzh
- lxwXm1CGaEFo6IEDnF9/bCvRQz/kbdifkfOMeR7O8sE8YdNtBdM6T2dJXDLtiS2PCjYb
- PFLg5x46DBkqmAcup8gcxb94c+5aVhguV1JqQhEALONMxaX7hIAO0AoB1vJ0UTnYJIuO
- dIH6MXX6DhmjUa0a9TCAo7Zw6xJzcS3nFMaviBaPF5/ZStFdAOi+p/wkiO3UD/ELM5k3
- 92n7s2YJ6AmQALJg694D6SsMtnR0+Qdp0R4KthYNMHpwfagNmJ2osz85hfh68HRVIISw
- 81Rw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=bXFWPjGcya9hWSZnyFjxRqLYpp8UM9mJknfhYB1NjEo=;
- b=kW4M8nSJcKAFSxt3ZcHEEd7vN46JmkmlDLVNu/468N2/o0KcDdjxHo6np6tRaFGMjK
- eM8j/s2pHwZIBlsS7GA60D2OMkpJ4XVX76Yu/sVPnLOXS5MeEklkvfFbgXatYNqjcah6
- 7zpRbSemMi6BkOHYtvFt1K95jSr6HDNELnGYz9/ATeWDFQIRjSe7X39gy4I0k7j3YLSG
- H8299xbH74MCNTiy5TAKynfEwRwPZeg9mU48TVm14lAeRt+D8+Kdts/IkrY+sO0+hTe+
- qzPnwWI0THs6Q2qTvePz0wxuR7WqHbS/r3wGGTAnLaWXBBv/tNAWeKkEBJL+0qDvJqrK
- rrAA==
-X-Gm-Message-State: AOAM53216m9JxS/uhaIaBkgh1G6IpYfnU2gtqiwSPAqS1p+AOL3eb+7F
- XtXxzowh2/5UF4WfCGeKTX4HBPNnz+zQb7m/2jn9xg==
-X-Google-Smtp-Source: ABdhPJzHXXYqiPgT0QAy72N0SJdxdh7al8XZTRNsCo+n87+N60A7+53XfQmS5BaotDU4mPNB314otG78IHH44yVAAV4=
-X-Received: by 2002:a37:68c9:: with SMTP id
- d192mr10939940qkc.212.1627819030443; 
- Sun, 01 Aug 2021 04:57:10 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F8AA6E1F7;
+	Sun,  1 Aug 2021 17:19:16 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1anam02on2051.outbound.protection.outlook.com [40.107.96.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 620446E18E;
+ Sun,  1 Aug 2021 17:19:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ZZMOOb5j41esWGAMoc7uWwlxMHlIojAH2JXJ/hk2waa6WjnoQgvxjAlipR5LuN1Hd/2OxGNOtNKAW0+94AwnqNBAze/Seb3XDRAZKZ2FZODbwKQHW2haXdSzWf7oRMvDb9aL1wEuj34DDM3ptaHTw0qUR0aShndeibjLH3JwxN3qEtYGBZ78UVZHR7ev6wDSUhnvRNw+aEXDOPV/jIipB3VEaSI3p7/WlzpsgKVeVqhgJDeVLIzKi1M4MBOqo5SxaUYYmq212XS2N0JXNoC88UZ+WziIGgnWBB3rYNC3aOCYLnRf9ZFlxjYfJTs3zIXFx0fgUZAqEPOEB0P30BbXBg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=p+goaxgEZ8Go68mPw8QgvPAfymMsoCOssqgo+tCkIoU=;
+ b=eONv179FTyCrzgTAXpCq8RNIqilk2+nRu1ILNbbAVf2osED2MxCQGpIL5z30tU2LnroeoKzpLiUwu7hlntMtvq7F/1kwIB/9HSK9B+EDXVE5yLpUhjMgssk02dSXCY+5Ew7wYdSCH3zeKeIBO6SyKJOTeqt3VeZQwvfSXQKVfdpyz7rV0jg8h1Eg4KOuItaV1vrs8SFS/kD1G2ZW8PHPkSU3QJVAIsmuWZK5UGVM+fq2GaUh8no+OfflGhPpswHiVg34CE/CtjdcQ+BcKlInOiGpNQWcmiT9JfZMVqJsNSDXOV1Q08a+maARWkjUf1Q4VRgaYK7mo8+rZ7SOec4bWQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=p+goaxgEZ8Go68mPw8QgvPAfymMsoCOssqgo+tCkIoU=;
+ b=q0xf4RNdxPCybuUa8pIOalClL4lnlIs3D55eRohf+huAWKkvSNS0ZGFG+UDQcJ1eXWnA9wCdbbqOm4jmBDtMelqyYigFD9rCp1XIjjDOj2UNNdbTNTUkIsDZ8G/FfXSf6UeSEOFmFrWi4Tr7SD1igvGO6oZ632wAwzKVtVslAzI=
+Authentication-Results: tsinghua.edu.cn; dkim=none (message not signed)
+ header.d=none;tsinghua.edu.cn; dmarc=none action=none header.from=amd.com;
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
+ by MN2PR12MB3903.namprd12.prod.outlook.com (2603:10b6:208:15a::26)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4373.21; Sun, 1 Aug
+ 2021 17:19:08 +0000
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::6c9e:1e08:7617:f756]) by MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::6c9e:1e08:7617:f756%5]) with mapi id 15.20.4373.026; Sun, 1 Aug 2021
+ 17:19:08 +0000
+Subject: Re: [PATCH] drm/amdgpu: fix possible null-pointer dereference in
+ amdgpu_ttm_tt_populate()
+To: Tuo Li <islituo@gmail.com>, alexander.deucher@amd.com,
+ Xinhui.Pan@amd.com, airlied@linux.ie, daniel@ffwll.ch,
+ sumit.semwal@linaro.org, airlied@redhat.com, Felix.Kuehling@amd.com,
+ Oak.Zeng@amd.com, nirmoy.das@amd.com, tzimmermann@suse.de,
+ Philip.Yang@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, baijiaju1990@gmail.com,
+ TOTE Robot <oslab@tsinghua.edu.cn>
+References: <20210731080437.74539-1-islituo@gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Message-ID: <53ef6ff7-f793-5de4-4ab4-0efbfbfc0a54@amd.com>
+Date: Sun, 1 Aug 2021 19:19:03 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
+In-Reply-To: <20210731080437.74539-1-islituo@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-ClientProxiedBy: PR3P189CA0043.EURP189.PROD.OUTLOOK.COM
+ (2603:10a6:102:53::18) To MN2PR12MB3775.namprd12.prod.outlook.com
+ (2603:10b6:208:159::19)
 MIME-Version: 1.0
-References: <20210728040741.2734771-1-likun.gao@amd.com>
-In-Reply-To: <20210728040741.2734771-1-likun.gao@amd.com>
-From: Mike Lothian <mike@fireburn.co.uk>
-Date: Sun, 1 Aug 2021 12:56:59 +0100
-Message-ID: <CAHbf0-GmyiEdV_2r8EcvUjm78UTKxYi7-yURa6ZkqjpfmSj4TQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: adjust fence driver enable sequence
-To: Likun Gao <likun.gao@amd.com>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Hawking Zhang <hawking.zhang@amd.com>
-Content-Type: multipart/alternative; boundary="000000000000118e5505c87e27c1"
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [IPv6:2a02:908:1252:fb60:5926:2d3e:756a:8d42]
+ (2a02:908:1252:fb60:5926:2d3e:756a:8d42) by
+ PR3P189CA0043.EURP189.PROD.OUTLOOK.COM (2603:10a6:102:53::18) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4373.20 via Frontend Transport; Sun, 1 Aug 2021 17:19:05 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: d2910e0e-6e03-4ff8-a515-08d955107858
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3903:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MN2PR12MB3903706BA39E51121C48DF2283EE9@MN2PR12MB3903.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: TgQZERCJp6PkOZ35ESf4dUYb1HmZL0u0ek8E/7ieEfmIUD9wg6dOCI6sk9k/TsD6U59C3N3F5rTqqKhp8AzU+/jueLNktpdbxrg27OzUX3hJ2zuX9BZgOa0Qz9ldba3PqDbsICa+0Ou2gISxV6UrBkwC0KON3t1hqYUuaaz5hqzC253EGjZi13iwyYOZrQmykBL4zuD56ik5V4GMV2ChqlEqBuomG2RhU5N9yUUUh9iUW33hK/jjM1wi/KNB1nNeN6CKbSJKpDY4f/KXSoTH4+GLtK1Phte0wh2bJth8FqZPypxjjdN3V2iqRlMcIedQAElvn40Z5e02xiPQkyXsVuekLZ8RcP+Hv1TRSyUkraqNlrT6o6UyTlDuNqb6rKVJJBSeMNtduyz3x8rpjTXJzL8MF9pYFBL5bVEF2uNwxl8u4Zx6B+EmO8b94n6avbHJ3yOYvznDcZ9zEsjsfBAXB5vf7fFWmJ7ysClFzMtYC4phhPaRKxLtbOzcLqQGhSlDkFFGclKrTob8A1rRxeOw8TVaPqb/5sz7IjRYQe1EoKbVchIFkPj2MNtYWZAtm5p3BxRg6thZtm5kGoxJL/Gi4Ft9pPHLgera9D4UyurZtbFqTyUl/UXV7YslN6DM5pzQtzn4sHdV+WajPgM/64gN6El93vHwNLpv2E7DSyxwQQnXUNg9Ek9SVI1ZVscEullil7V694Oojhv+OIRWL8a7sRUszeRDtmdxP2yZC9JIylkg8MX0itoBGHIPiBX5MF5n
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(376002)(39860400002)(366004)(136003)(396003)(346002)(2616005)(5660300002)(316002)(2906002)(31696002)(6636002)(66946007)(31686004)(478600001)(186003)(83380400001)(8676002)(36756003)(6486002)(7416002)(8936002)(921005)(38100700002)(66476007)(66556008)(4326008)(86362001)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MXhXVmgrNks1azNOME9ST3dJTUNnSXpSMFpxNXFGd2E0a294SUd0QmtFeTRE?=
+ =?utf-8?B?ZVdpMkZCVjJBMEZrcGdUK2FBUUwza1dubzNiSU9hUTdqbkxFaWVxcWlUckw5?=
+ =?utf-8?B?R1FGOHYveS80bW5peUtmNnhKd2dNM3d6emgrek1NNllmVmhmdmFrRHJuWEV4?=
+ =?utf-8?B?Rk40aElHUm96RnlrVncrVWROTGlCZ1orc2JzVXNMVDh1UkdlVkdORE8yTko4?=
+ =?utf-8?B?K1gwRHAvYWtNWHVBSG1mcVdJQVlydWRlUnd2OVMzRENaRVUwT0tCd0lTNzhR?=
+ =?utf-8?B?bURpcHpQQWJCbnNVc0w4MVo4ektEMVRlZVNxbUZFQ0ovWlB1ajkvdEFCZTVR?=
+ =?utf-8?B?T21tUVFOeGpDWFdhaEZBVmQxdGNjTmMxUTgrSXhEQzJ0OVhITW0yYXU0em82?=
+ =?utf-8?B?MytGWjVoSHBKSHhMRi9qbDlGL2lxWWJjeUlKd0JpWEE0bCtiQkxmaW5vOW54?=
+ =?utf-8?B?Zk14SkFvZmFBYnQybEh6cVdsRDZDQ0RIQm01Q1N1ZERpbmhaN3ZEYVZoZVNY?=
+ =?utf-8?B?OGo5Z05qTUhlZ0ZKM2VVWGcvaGJmK3VVNWZvL0JNRDdabS9vQ2oyVzU1Rnov?=
+ =?utf-8?B?c005RmpSNmo1cGphVzRLOWlQd2l2ejBmVFpPL2I2ajJUYzJObWxFaEl2NUN1?=
+ =?utf-8?B?ZkorRXZjK21GVDd5YzM3QkZUZnBMUnQ1RHV6YzJjZnVrUEdsY1c4L1FQSmZR?=
+ =?utf-8?B?NEtjY0RYbnZwa2JDUVlBbzZ4cGo1bTFtclBMYU9qeWpaZVZPREprb0lVbkdM?=
+ =?utf-8?B?a1p3aytxUTliOG0yNEQxZ0crY1dGSW1YaWhPR0JJNFBWb3JNVHM3U0NDazZZ?=
+ =?utf-8?B?N1IwdnVVR2xCNE95SENBVC9hSFFrMk9xbmw3bU9YQ09OMFF2OHhKNDlOcW5Q?=
+ =?utf-8?B?NlIxRDNmbmxLN0U1MGFlc2xZdTJMVm1xcVFmWjMxbmo1VDE5WC9rRW5YUGdt?=
+ =?utf-8?B?dlFyblVwSnMxWFk5TDYreGNzUk05SG1XQUduYmZlaTk2dmFvRTNzYmQ4c1Z1?=
+ =?utf-8?B?aUo2dWp4Mjkzd21PNm9neE5jVVlwa2VsaXRWM0UvdWZxNXR5RjBYQ21JZURE?=
+ =?utf-8?B?TzdNSExQVHlBL1lEcVcyQXZxbFozQnhXL01XcjQ0MDVwTDdEcURnYkZKNU0y?=
+ =?utf-8?B?ZzBTSXg3TjlZSHlsZFVGekUydk9nWEpOQjIwNHlvZDYrK0dLbEgvQVc0L3JT?=
+ =?utf-8?B?bHROWjJCOFhrdGtiS0FMbUtscFNObUM3cUJIeHZqMmxRak1WM2dGM3BGeTZq?=
+ =?utf-8?B?Sk5JUHdKY1BjMHJFWXBMTVloM1RHSnhVbnZnelJ0TFNqUnhFK01TS21QckxK?=
+ =?utf-8?B?WHBFb3g4aFlQcC9KQVdJdFc5ZWpaMGlBanozcGxTVnliK0FpaEJFeUR3aGg5?=
+ =?utf-8?B?MkhHR3V2T0ExWldOSEZyL1NndjVHWUFhR2lrNTE2bjNLT3B1am03amh6ZS9j?=
+ =?utf-8?B?WGpDZHgrM2czTGhYdHFtT3NSTENZbkM5M2NTMFZpbkpkelhKUTVXZThvYW0x?=
+ =?utf-8?B?Vmo0c0RKU2xyN2RPZFNRNngxNjdIeFk3L1RmcXZCNlJvbTV0Uy9rem4rS2xq?=
+ =?utf-8?B?OTFRUVExYmZOdXc2RDA5NFRDcWJ3NWhMR1MxQVlWT2U2NUxSeUJhNXFLeWs1?=
+ =?utf-8?B?amJsc1ZjVUZRNmpsZkdKcXA2NnNiaDNKbm5vVWNhc3F6ZkNQM0w3WGUyY2xx?=
+ =?utf-8?B?ODcwMnplZGlxYWswWVZURXlBMzRDd25OSnJoYTVlYThBYmg0NFJlZDVLQ3BP?=
+ =?utf-8?B?SXlyeHBocm1tVnkzandWaTF4NmVDMzBxWGh4VFE2cTR6S2p6WjUzeUVqRGh6?=
+ =?utf-8?B?b0JuSE15K1ppTXhtWVIyTjZ2YWM4Rm55cW9iQTA4dVFrTlpVUTA4cUdOZjh6?=
+ =?utf-8?Q?i3yefkGydU7BO?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d2910e0e-6e03-4ff8-a515-08d955107858
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Aug 2021 17:19:07.8737 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: gZpsHNRmksJQEgwDc51E7nHOJPAvcGBda8I/bvdWONeqFldTYFqxQLbjdH58xDdt
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3903
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,318 +152,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000118e5505c87e27c1
-Content-Type: text/plain; charset="UTF-8"
-
-Hi
-
-This patch is causing me issues on my Skylake/Tonga PRIME laptop, reverting
-sorts it
-
-More details here: https://gitlab.freedesktop.org/drm/amd/-/issues/1668
-
-Cheers
-
-Mike
-
-On Wed, 28 Jul 2021 at 05:07, Likun Gao <likun.gao@amd.com> wrote:
-
-> From: Likun Gao <Likun.Gao@amd.com>
+Am 31.07.21 um 10:04 schrieb Tuo Li:
+> The variable ttm is assigned to the variable gtt, and the variable gtt
+> is checked in:
+>    if (gtt && gtt->userptr)
 >
-> Fence driver was enabled per ring when sw init on per IP block before.
-> Change to enable all the fence driver at the same time after
-> amdgpu_device_ip_init finished.
-> Rename some function related to fence to make it reasonable for read.
+> This indicates that both ttm and gtt can be NULL.
+> If so, a null-pointer dereference will occur:
+>    if (ttm->page_flags & TTM_PAGE_FLAG_SG)
 >
-> Signed-off-by: Likun Gao <Likun.Gao@amd.com>
+> Also, some null-pointer dereferences will occur in the function
+> ttm_pool_alloc() which is called in:
+>    return ttm_pool_alloc(&adev->mman.bdev.pool, ttm, ctx);
+>
+> To fix these possible null-pointer dereferences, the function returns
+> -EINVAL when ttm is NULL.
+
+NAK, the NULL test is just a leftover from when the objects where distinct.
+
+Please remove the NULL test instead.
+
+Regards,
+Christian.
+
+>
+> Reported-by: TOTE Robot <oslab@tsinghua.edu.cn>
+> Signed-off-by: Tuo Li <islituo@gmail.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  6 ++++--
->  drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c  | 15 ++++++---------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h   |  4 ++--
->  3 files changed, 12 insertions(+), 13 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 5 ++++-
+>   1 file changed, 4 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index d3a4299b1f30..77195a4e5c59 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -3675,6 +3675,8 @@ int amdgpu_device_init(struct amdgpu_device *adev,
->                 goto release_ras_con;
->         }
->
-> +       amdgpu_fence_driver_hw_init(adev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> index 3a55f08e00e1..80440f799c09 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> @@ -1120,8 +1120,11 @@ static int amdgpu_ttm_tt_populate(struct ttm_device *bdev,
+>   	struct amdgpu_device *adev = amdgpu_ttm_adev(bdev);
+>   	struct amdgpu_ttm_tt *gtt = (void *)ttm;
+>   
+> +	if (ttm == NULL)
+> +		return -EINVAL;
 > +
->         dev_info(adev->dev,
->                 "SE %d, SH per SE %d, CU per SH %d, active_cu_number %d\n",
->                         adev->gfx.config.max_shader_engines,
-> @@ -3939,7 +3941,7 @@ int amdgpu_device_suspend(struct drm_device *dev,
-> bool fbcon)
->         /* evict vram memory */
->         amdgpu_bo_evict_vram(adev);
->
-> -       amdgpu_fence_driver_suspend(adev);
-> +       amdgpu_fence_driver_hw_fini(adev);
->
->         amdgpu_device_ip_suspend_phase2(adev);
->         /* evict remaining vram memory
-> @@ -3984,7 +3986,7 @@ int amdgpu_device_resume(struct drm_device *dev,
-> bool fbcon)
->                 dev_err(adev->dev, "amdgpu_device_ip_resume failed
-> (%d).\n", r);
->                 return r;
->         }
-> -       amdgpu_fence_driver_resume(adev);
-> +       amdgpu_fence_driver_hw_init(adev);
->
->
->         r = amdgpu_device_ip_late_init(adev);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> index 72d9b92b1754..e2f606bca779 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> @@ -417,9 +417,6 @@ int amdgpu_fence_driver_start_ring(struct amdgpu_ring
-> *ring,
->         }
->         amdgpu_fence_write(ring, atomic_read(&ring->fence_drv.last_seq));
->
-> -       if (irq_src)
-> -               amdgpu_irq_get(adev, irq_src, irq_type);
-> -
->         ring->fence_drv.irq_src = irq_src;
->         ring->fence_drv.irq_type = irq_type;
->         ring->fence_drv.initialized = true;
-> @@ -572,14 +569,14 @@ void amdgpu_fence_driver_fini_sw(struct
-> amdgpu_device *adev)
->  }
->
->  /**
-> - * amdgpu_fence_driver_suspend - suspend the fence driver
-> + * amdgpu_fence_driver_hw_fini - disable the fence driver
->   * for all possible rings.
->   *
->   * @adev: amdgpu device pointer
->   *
-> - * Suspend the fence driver for all possible rings (all asics).
-> + * Disable the fence driver for all possible rings (all asics).
->   */
-> -void amdgpu_fence_driver_suspend(struct amdgpu_device *adev)
-> +void amdgpu_fence_driver_hw_fini(struct amdgpu_device *adev)
->  {
->         int i, r;
->
-> @@ -603,18 +600,18 @@ void amdgpu_fence_driver_suspend(struct
-> amdgpu_device *adev)
->  }
->
->  /**
-> - * amdgpu_fence_driver_resume - resume the fence driver
-> + * amdgpu_fence_driver_hw_init - enable the fence driver
->   * for all possible rings.
->   *
->   * @adev: amdgpu device pointer
->   *
-> - * Resume the fence driver for all possible rings (all asics).
-> + * Enable the fence driver for all possible rings (all asics).
->   * Not all asics have all rings, so each asic will only
->   * start the fence driver on the rings it has using
->   * amdgpu_fence_driver_start_ring().
->   * Returns 0 for success.
->   */
-> -void amdgpu_fence_driver_resume(struct amdgpu_device *adev)
-> +void amdgpu_fence_driver_hw_init(struct amdgpu_device *adev)
->  {
->         int i;
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> index e7d3d0dbdd96..64471018f5e6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> @@ -117,8 +117,8 @@ int amdgpu_fence_driver_init_ring(struct amdgpu_ring
-> *ring,
->  int amdgpu_fence_driver_start_ring(struct amdgpu_ring *ring,
->                                    struct amdgpu_irq_src *irq_src,
->                                    unsigned irq_type);
-> -void amdgpu_fence_driver_suspend(struct amdgpu_device *adev);
-> -void amdgpu_fence_driver_resume(struct amdgpu_device *adev);
-> +void amdgpu_fence_driver_hw_fini(struct amdgpu_device *adev);
-> +void amdgpu_fence_driver_hw_init(struct amdgpu_device *adev);
->  int amdgpu_fence_emit(struct amdgpu_ring *ring, struct dma_fence **fence,
->                       unsigned flags);
->  int amdgpu_fence_emit_polling(struct amdgpu_ring *ring, uint32_t *s,
-> --
-> 2.25.1
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->
+>   	/* user pages are bound by amdgpu_ttm_tt_pin_userptr() */
+> -	if (gtt && gtt->userptr) {
+> +	if (gtt->userptr) {
+>   		ttm->sg = kzalloc(sizeof(struct sg_table), GFP_KERNEL);
+>   		if (!ttm->sg)
+>   			return -ENOMEM;
 
---000000000000118e5505c87e27c1
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi<div><br></div><div>This patch is causing me issues on m=
-y Skylake/Tonga PRIME laptop, reverting sorts it</div><div><br></div><div>M=
-ore details here: <a href=3D"https://gitlab.freedesktop.org/drm/amd/-/issue=
-s/1668">https://gitlab.freedesktop.org/drm/amd/-/issues/1668</a><br></div><=
-div><br></div><div>Cheers</div><div><br></div><div>Mike</div></div><br><div=
- class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Wed, 28 Jul=
- 2021 at 05:07, Likun Gao &lt;<a href=3D"mailto:likun.gao@amd.com">likun.ga=
-o@amd.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=
-=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
--left:1ex">From: Likun Gao &lt;<a href=3D"mailto:Likun.Gao@amd.com" target=
-=3D"_blank">Likun.Gao@amd.com</a>&gt;<br>
-<br>
-Fence driver was enabled per ring when sw init on per IP block before.<br>
-Change to enable all the fence driver at the same time after<br>
-amdgpu_device_ip_init finished.<br>
-Rename some function related to fence to make it reasonable for read.<br>
-<br>
-Signed-off-by: Likun Gao &lt;<a href=3D"mailto:Likun.Gao@amd.com" target=3D=
-"_blank">Likun.Gao@amd.com</a>&gt;<br>
----<br>
-=C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |=C2=A0 6 ++++--<br>
-=C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c=C2=A0 | 15 ++++++---------<=
-br>
-=C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h=C2=A0 =C2=A0|=C2=A0 4 ++--<b=
-r>
-=C2=A03 files changed, 12 insertions(+), 13 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c<br>
-index d3a4299b1f30..77195a4e5c59 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-@@ -3675,6 +3675,8 @@ int amdgpu_device_init(struct amdgpu_device *adev,<br=
->
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 goto release_ras_co=
-n;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_fence_driver_hw_init(adev);<br>
-+<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 dev_info(adev-&gt;dev,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &quot;SE %d, SH per=
- SE %d, CU per SH %d, active_cu_number %d\n&quot;,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 adev-&gt;gfx.config.max_shader_engines,<br>
-@@ -3939,7 +3941,7 @@ int amdgpu_device_suspend(struct drm_device *dev, boo=
-l fbcon)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* evict vram memory */<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 amdgpu_bo_evict_vram(adev);<br>
-<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_fence_driver_suspend(adev);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_fence_driver_hw_fini(adev);<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 amdgpu_device_ip_suspend_phase2(adev);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* evict remaining vram memory<br>
-@@ -3984,7 +3986,7 @@ int amdgpu_device_resume(struct drm_device *dev, bool=
- fbcon)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 dev_err(adev-&gt;de=
-v, &quot;amdgpu_device_ip_resume failed (%d).\n&quot;, r);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return r;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_fence_driver_resume(adev);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_fence_driver_hw_init(adev);<br>
-<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 r =3D amdgpu_device_ip_late_init(adev);<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_fence.c<br>
-index 72d9b92b1754..e2f606bca779 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c<br>
-@@ -417,9 +417,6 @@ int amdgpu_fence_driver_start_ring(struct amdgpu_ring *=
-ring,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 amdgpu_fence_write(ring, atomic_read(&amp;ring-=
-&gt;fence_drv.last_seq));<br>
-<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0if (irq_src)<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_irq_get(adev=
-, irq_src, irq_type);<br>
--<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 ring-&gt;fence_drv.irq_src =3D irq_src;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 ring-&gt;fence_drv.irq_type =3D irq_type;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 ring-&gt;fence_drv.initialized =3D true;<br>
-@@ -572,14 +569,14 @@ void amdgpu_fence_driver_fini_sw(struct amdgpu_device=
- *adev)<br>
-=C2=A0}<br>
-<br>
-=C2=A0/**<br>
-- * amdgpu_fence_driver_suspend - suspend the fence driver<br>
-+ * amdgpu_fence_driver_hw_fini - disable the fence driver<br>
-=C2=A0 * for all possible rings.<br>
-=C2=A0 *<br>
-=C2=A0 * @adev: amdgpu device pointer<br>
-=C2=A0 *<br>
-- * Suspend the fence driver for all possible rings (all asics).<br>
-+ * Disable the fence driver for all possible rings (all asics).<br>
-=C2=A0 */<br>
--void amdgpu_fence_driver_suspend(struct amdgpu_device *adev)<br>
-+void amdgpu_fence_driver_hw_fini(struct amdgpu_device *adev)<br>
-=C2=A0{<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 int i, r;<br>
-<br>
-@@ -603,18 +600,18 @@ void amdgpu_fence_driver_suspend(struct amdgpu_device=
- *adev)<br>
-=C2=A0}<br>
-<br>
-=C2=A0/**<br>
-- * amdgpu_fence_driver_resume - resume the fence driver<br>
-+ * amdgpu_fence_driver_hw_init - enable the fence driver<br>
-=C2=A0 * for all possible rings.<br>
-=C2=A0 *<br>
-=C2=A0 * @adev: amdgpu device pointer<br>
-=C2=A0 *<br>
-- * Resume the fence driver for all possible rings (all asics).<br>
-+ * Enable the fence driver for all possible rings (all asics).<br>
-=C2=A0 * Not all asics have all rings, so each asic will only<br>
-=C2=A0 * start the fence driver on the rings it has using<br>
-=C2=A0 * amdgpu_fence_driver_start_ring().<br>
-=C2=A0 * Returns 0 for success.<br>
-=C2=A0 */<br>
--void amdgpu_fence_driver_resume(struct amdgpu_device *adev)<br>
-+void amdgpu_fence_driver_hw_init(struct amdgpu_device *adev)<br>
-=C2=A0{<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 int i;<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_ring.h<br>
-index e7d3d0dbdd96..64471018f5e6 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h<br>
-@@ -117,8 +117,8 @@ int amdgpu_fence_driver_init_ring(struct amdgpu_ring *r=
-ing,<br>
-=C2=A0int amdgpu_fence_driver_start_ring(struct amdgpu_ring *ring,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct amdgpu_irq_src *=
-irq_src,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned irq_type);<br>
--void amdgpu_fence_driver_suspend(struct amdgpu_device *adev);<br>
--void amdgpu_fence_driver_resume(struct amdgpu_device *adev);<br>
-+void amdgpu_fence_driver_hw_fini(struct amdgpu_device *adev);<br>
-+void amdgpu_fence_driver_hw_init(struct amdgpu_device *adev);<br>
-=C2=A0int amdgpu_fence_emit(struct amdgpu_ring *ring, struct dma_fence **fe=
-nce,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 unsigned flags);<br>
-=C2=A0int amdgpu_fence_emit_polling(struct amdgpu_ring *ring, uint32_t *s,<=
-br>
--- <br>
-2.25.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-<a href=3D"mailto:amd-gfx@lists.freedesktop.org" target=3D"_blank">amd-gfx@=
-lists.freedesktop.org</a><br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
-oreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/listinfo=
-/amd-gfx</a><br>
-</blockquote></div>
-
---000000000000118e5505c87e27c1--
