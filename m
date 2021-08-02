@@ -7,26 +7,26 @@ X-Spam-Status: No, score=-8.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3D497C432BE
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D77EDC4320A
 	for <amd-gfx@archiver.kernel.org>; Mon,  2 Aug 2021 13:40:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D461A60232
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Aug 2021 13:40:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D461A60232
+	by mail.kernel.org (Postfix) with ESMTPS id 9FFC660232
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Aug 2021 13:40:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9FFC660232
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=8bytes.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E1326E200;
-	Mon,  2 Aug 2021 13:40:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A73F6E20F;
+	Mon,  2 Aug 2021 13:40:15 +0000 (UTC)
 Received: from theia.8bytes.org (8bytes.org
  [IPv6:2a01:238:4383:600:38bc:a715:4b6d:a889])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 413406E588
- for <amd-gfx@lists.freedesktop.org>; Mon,  2 Aug 2021 10:46:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 384876E4BB
+ for <amd-gfx@lists.freedesktop.org>; Mon,  2 Aug 2021 10:41:16 +0000 (UTC)
 Received: by theia.8bytes.org (Postfix, from userid 1000)
- id 8B4F89A6; Mon,  2 Aug 2021 12:37:48 +0200 (CEST)
-Date: Mon, 2 Aug 2021 12:37:45 +0200
+ id C8EAC926; Mon,  2 Aug 2021 12:35:46 +0200 (CEST)
+Date: Mon, 2 Aug 2021 12:35:45 +0200
 From: Joerg Roedel <joro@8bytes.org>
 To: Tom Lendacky <thomas.lendacky@amd.com>
 Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
@@ -41,17 +41,15 @@ Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
  Tianyu Lan <Tianyu.Lan@microsoft.com>,
  Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
  Dave Hansen <dave.hansen@linux.intel.com>,
- Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Will Deacon <will@kernel.org>
-Subject: Re: [PATCH 04/11] x86/sme: Replace occurrences of sme_active() with
- prot_guest_has()
-Message-ID: <YQfK+cXK+hLW2T0c@8bytes.org>
+ Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>
+Subject: Re: [PATCH 02/11] x86/sev: Add an x86 version of prot_guest_has()
+Message-ID: <YQfKgZEikvhgicws@8bytes.org>
 References: <cover.1627424773.git.thomas.lendacky@amd.com>
- <1a5604f8fb84702f4ae0787428356d7e3e1d3a99.1627424774.git.thomas.lendacky@amd.com>
+ <b3e929a77303dd47fd2adc2a1011009d3bfcee20.1627424774.git.thomas.lendacky@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1a5604f8fb84702f4ae0787428356d7e3e1d3a99.1627424774.git.thomas.lendacky@amd.com>
+In-Reply-To: <b3e929a77303dd47fd2adc2a1011009d3bfcee20.1627424774.git.thomas.lendacky@amd.com>
 X-Mailman-Approved-At: Mon, 02 Aug 2021 13:40:13 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,12 +65,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jul 27, 2021 at 05:26:07PM -0500, Tom Lendacky wrote:
-> Replace occurrences of sme_active() with the more generic prot_guest_has()
-> using PATTR_HOST_MEM_ENCRYPT, except for in arch/x86/mm/mem_encrypt*.c
-> where PATTR_SME will be used. If future support is added for other memory
-> encryption technologies, the use of PATTR_HOST_MEM_ENCRYPT can be
-> updated, as required, to use PATTR_SME.
+On Tue, Jul 27, 2021 at 05:26:05PM -0500, Tom Lendacky wrote:
+> Introduce an x86 version of the prot_guest_has() function. This will be
+> used in the more generic x86 code to replace vendor specific calls like
+> sev_active(), etc.
+> 
+> While the name suggests this is intended mainly for guests, it will
+> also be used for host memory encryption checks in place of sme_active().
+> 
+> The amd_prot_guest_has() function does not use EXPORT_SYMBOL_GPL for the
+> same reasons previously stated when changing sme_active(), sev_active and
+> sme_me_mask to EXPORT_SYBMOL:
+>   commit 87df26175e67 ("x86/mm: Unbreak modules that rely on external PAGE_KERNEL availability")
+>   commit 9d5f38ba6c82 ("x86/mm: Unbreak modules that use the DMA API")
 > 
 > Cc: Thomas Gleixner <tglx@linutronix.de>
 > Cc: Ingo Molnar <mingo@redhat.com>
@@ -80,8 +85,10 @@ On Tue, Jul 27, 2021 at 05:26:07PM -0500, Tom Lendacky wrote:
 > Cc: Dave Hansen <dave.hansen@linux.intel.com>
 > Cc: Andy Lutomirski <luto@kernel.org>
 > Cc: Peter Zijlstra <peterz@infradead.org>
-> Cc: Joerg Roedel <joro@8bytes.org>
-> Cc: Will Deacon <will@kernel.org>
+> Co-developed-by: Andi Kleen <ak@linux.intel.com>
+> Signed-off-by: Andi Kleen <ak@linux.intel.com>
+> Co-developed-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+> Signed-off-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
 > Signed-off-by: Tom Lendacky <thomas.lendacky@amd.com>
 
 Reviewed-by: Joerg Roedel <jroedel@suse.de>
