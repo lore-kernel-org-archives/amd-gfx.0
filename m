@@ -2,106 +2,78 @@ Return-Path: <SRS0=SMOw=MZ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9E9B9C4338F
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Aug 2021 09:30:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3B169C4338F
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Aug 2021 13:35:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6781860E76
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Aug 2021 09:30:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6781860E76
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 0429360FA0
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Aug 2021 13:35:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0429360FA0
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 248EE6E524;
-	Mon,  2 Aug 2021 09:30:59 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2072.outbound.protection.outlook.com [40.107.243.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 252BF6E524
- for <amd-gfx@lists.freedesktop.org>; Mon,  2 Aug 2021 09:30:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nNkbwGNVWG5TqJsLIuX3tPEikVXqwvaFHHLFYwZgvFkOS/GNoG0/EUQKgIsW5oKBhMx/DQjAtFGkR0DHZIJcHK0n8wLjDxXOWTi8R4bFnAjgIVbJwY8lV6x/WLjSF2H9nm9h+zymRZnZ9o/cI76ZX0tg8yReweMw2I16vQy+snYQrOwfpsLRT15ivg/mIo5VT0pnIQfgMKFI3DiUwfL6X+xUo541rdcSCH4LaWHML/NxLRlMt+HTasQyqMP9EKtm38g8/zGRAp2Zh/5TFvUQUVbjnDalSTy4jR9++uqywBYCxPQtj4Z0n0kIjPJob2SmJWU97ltDUP/NK5UPrP7cdg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aUOzDBn9zS6x6uBebfPQhGQvoAbi3ozWter+1V0u4VQ=;
- b=Pluo3UPqzD+i+I6xvDhYs8mH+3LYWdiiZ9xHIMBOWbnYsDH8r9TJ+k+g+R5TrnHM8iJ6AgcwaU95ri1qFbGY50QpAyj3yWFhO4rUNZTadw4g667bTPmOG3bfkafqWohgywzugbWP2LiBqa2NexmS+HjRIQrIQnROiq8Pt+5YCecVQP2KSg+mZXuqBa6ujuh3EFDQZpSOzU5GVJqfd3MjidWWVFk0vxaC4bLL7OY055l9NhwI9vofDMMz3GCYlkXjCGjJflr6SWRJGG7hbbXZimS6gmy0AMo39vSVBGVd27g/BW5yJ3SYV3zQkyIjXpshmq8/r8iesSKuOXkmWIx6Uw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aUOzDBn9zS6x6uBebfPQhGQvoAbi3ozWter+1V0u4VQ=;
- b=Ds7Ch4lhd9qg54XqWkyP6Yxx9FwyyXUMk9cyUXyvALL2sJcdMccvihm6k1zreEMlymTKqXqbaPjq/RNUUI5B5JMk+Wrgw2RuL9iYduEFlCzMbDm8VqMc2igyKiH0monoZRVB59ZxgChl3rVAgLStfxDebSccaTWiKxh+7XEOq3w=
-Received: from BN1PR12CA0030.namprd12.prod.outlook.com (2603:10b6:408:e1::35)
- by DM6PR12MB3817.namprd12.prod.outlook.com (2603:10b6:5:1c9::27) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4373.21; Mon, 2 Aug
- 2021 09:30:53 +0000
-Received: from BN8NAM11FT066.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:e1:cafe::50) by BN1PR12CA0030.outlook.office365.com
- (2603:10b6:408:e1::35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4373.18 via Frontend
- Transport; Mon, 2 Aug 2021 09:30:53 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT066.mail.protection.outlook.com (10.13.177.138) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4373.18 via Frontend Transport; Mon, 2 Aug 2021 09:30:53 +0000
-Received: from lang-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Mon, 2 Aug
- 2021 04:30:51 -0500
-From: Lang Yu <lang.yu@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Huang Rui <ray.huang@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- Lang Yu <lang.yu@amd.com>
-Subject: [PATCH] drm/amdgpu: check CG flag before querying CG status
-Date: Mon, 2 Aug 2021 17:30:26 +0800
-Message-ID: <20210802093026.277263-1-lang.yu@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9FA026E503;
+	Mon,  2 Aug 2021 13:35:34 +0000 (UTC)
+Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com
+ [IPv6:2607:f8b0:4864:20::336])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 566786E183
+ for <amd-gfx@lists.freedesktop.org>; Mon,  2 Aug 2021 13:35:32 +0000 (UTC)
+Received: by mail-ot1-x336.google.com with SMTP id
+ c7-20020a9d27870000b02904d360fbc71bso17419701otb.10
+ for <amd-gfx@lists.freedesktop.org>; Mon, 02 Aug 2021 06:35:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=VDbVDsxQMfHITye1FB7mIgqO0izs3K855owQgND4yBE=;
+ b=BuWZ54e5rETXMtGAFCaxoX83IMX3X8twUs/7ZBNdofGMoYOLILbb9hca9NHwMZcpMW
+ RIlvGO75o3CLFfUOiWPoZMwCwvBgKAdka+UXwE6gZ0NNY3BFt4fZpS5lja+4Rc0MrC9m
+ JvbA6sfDT4F0mRFw3x/nSSM5QkjQAbHdXaO3AkeCMrmDiFyxzjUaXjG4bCQ5Hpczmm6e
+ u+ErtoSN5PIiNBwnqxTVh//hjscTDNIsTFMudvMqPiRdFGgBIakszg252x0tUBXbIXUd
+ fqTZG6dMtwo/V9Plxom5rfQ9OI1ygbsNIuO16PxbxW5/u3kZ0Al/GEWNo0AXBmYTmr5N
+ ZAtw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=VDbVDsxQMfHITye1FB7mIgqO0izs3K855owQgND4yBE=;
+ b=MvBJw0bn7+CYy6HPQ33Pm7SSSvFtiQ4LxY2KSfE+y/S9+iNPiEO9/Xu+b9WL9BFwgk
+ 8HoOFm6yV1NW45IZHOa1QcJ9OIK4T/wbJBtLhEJaoVEFyBp6UqNJJOSnf8L5jIUjFWNZ
+ L/2Um/VwFxq8uxGF4UEtQolhqO9GlCGhvuVG8eSdG/wH5C3ExvgXa3uwN4uVpCuVScFi
+ axmtOUbXrOKttRlGuixx3R+znEeC4xZ4zJPAR4BG+4osUE79hMjzcqa1N1xlxNgrWWU7
+ Q53NZ2YZycvoqgbCr4BfUoJ/OuROWjunHHx1acR6w1XL6UHHO65uS8wU7PCJZHSJKWq/
+ Tj5g==
+X-Gm-Message-State: AOAM531XNHmZf/DhelUBlUnasQd/1xPL3MqdbLzz0wN3XIYmIw13th9y
+ QLnCFJeH+h5+ja5LMYKp04t5qFvnbUazvaWqTVQ=
+X-Google-Smtp-Source: ABdhPJy+gyLPFI1x737d+uTdXz9E6I2zw2MayBQv45IFvNa5RY/aB+9AkvSX30FtZF5n3yTe2WE2xAX2JwvhO8Ie3VE=
+X-Received: by 2002:a9d:2072:: with SMTP id
+ n105mr12184952ota.132.1627911331865; 
+ Mon, 02 Aug 2021 06:35:31 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: c1eed67d-ea35-4b95-e97b-08d955983923
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3817:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB38173DCDEBB24C94A75706EFFBEF9@DM6PR12MB3817.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1122;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: DLfOgMou5Jl38TVf8DlctCfowfMb7U5cOA1ia+GdZ9RSKl6hE3lFZTklvfPC7ka6hRvPGuMX+fQXi4FUQJZtlmQrzbjVcZeDIPDCkgag5GoKITQAXhJrOmGK27o0+cf4fDKh6oXNcu6q3HkrpGP4BrKx98QkQl6Tx5WFBM5kxFvcQ1L4ZbGp9+de9SVGHIVRrI+Kyuc25punfiECcDbt8OidkAOEUnM/K3e5Q3uUgneX1WLYOS8gvA0NkEL4SMUb9VFhzPodL+7jHDP2MuyTZSx7eZQhrG434Hcg8Lxf1J12NgE4iV21+UYr68jHxg1SekguhfXg3zP3SsCSA2uwkFxb+cGBOrEY+1kW8qiqDjKhFeA+binXi0gjn/hkYJWskemHKKr+AeuWJQ2LEygbhSqjAkk7qpXO2J3HPgXm8HSXAYAqz2Kk7+cwzKFGl3xbJZaCiFrnSK0p54Vkydk5rF3XfOwL1OaGNozmAr31AzCswtoTsOTOiOdccO3FmD25RE2pRK8hXUG2gVYuFhcuVjtn16YPcohO9s8BhMffMjIXybHi7F9KUiEgSYpnlhz2YrtExwTmZpoklR8a7Ipal66Rg86t1GBKifVywccWoO1cwdFs6rq1fxztXw/P9z7cJ0bS30PBxtxM5lgZrlHCSkAPHSZViD8fVupJo7iq3BVVBKyYM86x6E1u27gBBu4H59TpnqDxfXhu3xnQH5dnI9kDeoorF0yZKFWhdTh/ZTM=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(376002)(396003)(39860400002)(136003)(346002)(36840700001)(46966006)(2616005)(83380400001)(54906003)(16526019)(316002)(2906002)(82310400003)(47076005)(8676002)(36860700001)(186003)(336012)(8936002)(26005)(7696005)(1076003)(356005)(81166007)(4744005)(6916009)(478600001)(82740400003)(36756003)(70206006)(86362001)(6666004)(426003)(70586007)(4326008)(5660300002)(44832011)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Aug 2021 09:30:53.1240 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c1eed67d-ea35-4b95-e97b-08d955983923
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT066.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3817
+References: <20210802051602.23822-1-guchun.chen@amd.com>
+ <b7218d98-9eb1-2d41-157a-bc417ef496ab@gmail.com>
+ <DM5PR12MB2469A94D544647D893DA0FAAF1EF9@DM5PR12MB2469.namprd12.prod.outlook.com>
+In-Reply-To: <DM5PR12MB2469A94D544647D893DA0FAAF1EF9@DM5PR12MB2469.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 2 Aug 2021 09:35:21 -0400
+Message-ID: <CADnq5_N_56yTXq4W8N3GG2kNsyEaCD1-xF8Mip8=26q0oRw39A@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: avoid over-handle of fence driver fini in s3
+ test (v2)
+To: "Chen, Guchun" <Guchun.Chen@amd.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Gao,
+ Likun" <Likun.Gao@amd.com>, 
+ "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhang,
+ Hawking" <Hawking.Zhang@amd.com>, 
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,31 +88,174 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-For ASICs which don't supoort clock gating, querying CG status
-may cause a hardware hang issue. So add a CG flag check to exit
-directly in such a case.
+On Mon, Aug 2, 2021 at 4:23 AM Chen, Guchun <Guchun.Chen@amd.com> wrote:
+>
+> [Public]
+>
+> Thank you, Christian.
+>
+> Regarding fence_drv.initialized, it looks to a bit redundant, anyway let =
+me look into this more.
 
-Signed-off-by: Lang Yu <lang.yu@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 5 +++++
- 1 file changed, 5 insertions(+)
+Does this patch fix this bug?
+https://gitlab.freedesktop.org/drm/amd/-/issues/1668
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index b1d2dc39e8be..a7afcdc50ca8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -1671,6 +1671,11 @@ void amdgpu_device_ip_get_clockgating_state(struct amdgpu_device *adev,
- {
- 	int i;
- 
-+	if (!adev->cg_flags) {
-+		*flags = 0;
-+		return;
-+	}
-+
- 	for (i = 0; i < adev->num_ip_blocks; i++) {
- 		if (!adev->ip_blocks[i].status.valid)
- 			continue;
--- 
-2.25.1
+If so, please add:
+Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1668
+to the commit message.
 
+Alex
+
+>
+> Regards,
+> Guchun
+>
+> -----Original Message-----
+> From: Christian K=C3=B6nig <ckoenig.leichtzumerken@gmail.com>
+> Sent: Monday, August 2, 2021 2:56 PM
+> To: Chen, Guchun <Guchun.Chen@amd.com>; amd-gfx@lists.freedesktop.org; Ga=
+o, Likun <Likun.Gao@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>;=
+ Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.Deuc=
+her@amd.com>
+> Subject: Re: [PATCH] drm/amdgpu: avoid over-handle of fence driver fini i=
+n s3 test (v2)
+>
+> Am 02.08.21 um 07:16 schrieb Guchun Chen:
+> > In amdgpu_fence_driver_hw_fini, no need to call drm_sched_fini to stop
+> > scheduler in s3 test, otherwise, fence related failure will arrive
+> > after resume. To fix this and for a better clean up, move
+> > drm_sched_fini from fence_hw_fini to fence_sw_fini, as it's part of
+> > driver shutdown, and should never be called in hw_fini.
+> >
+> > v2: rename amdgpu_fence_driver_init to amdgpu_fence_driver_sw_init, to
+> > keep sw_init and sw_fini paired.
+> >
+> > Fixes: cd87a6dcf6af drm/amdgpu: adjust fence driver enable sequence
+> > Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > Signed-off-by: Guchun Chen <guchun.chen@amd.com>
+>
+> It's a bit ambiguous now what fence_drv.initialized means, but I think we=
+ can live with that for now.
+>
+> Patch is Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>.
+>
+> Regards,
+> Christian.
+>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  5 ++---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c  | 12 +++++++-----
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h   |  4 ++--
+> >   3 files changed, 11 insertions(+), 10 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > index b1d2dc39e8be..9e53ff851496 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > @@ -3646,9 +3646,9 @@ int amdgpu_device_init(struct amdgpu_device
+> > *adev,
+> >
+> >   fence_driver_init:
+> >       /* Fence driver */
+> > -     r =3D amdgpu_fence_driver_init(adev);
+> > +     r =3D amdgpu_fence_driver_sw_init(adev);
+> >       if (r) {
+> > -             dev_err(adev->dev, "amdgpu_fence_driver_init failed\n");
+> > +             dev_err(adev->dev, "amdgpu_fence_driver_sw_init failed\n"=
+);
+> >               amdgpu_vf_error_put(adev, AMDGIM_ERROR_VF_FENCE_INIT_FAIL=
+, 0, 0);
+> >               goto failed;
+> >       }
+> > @@ -3988,7 +3988,6 @@ int amdgpu_device_resume(struct drm_device *dev, =
+bool fbcon)
+> >       }
+> >       amdgpu_fence_driver_hw_init(adev);
+> >
+> > -
+> >       r =3D amdgpu_device_ip_late_init(adev);
+> >       if (r)
+> >               return r;
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> > index 49c5c7331c53..7495911516c2 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> > @@ -498,7 +498,7 @@ int amdgpu_fence_driver_init_ring(struct amdgpu_rin=
+g *ring,
+> >   }
+> >
+> >   /**
+> > - * amdgpu_fence_driver_init - init the fence driver
+> > + * amdgpu_fence_driver_sw_init - init the fence driver
+> >    * for all possible rings.
+> >    *
+> >    * @adev: amdgpu device pointer
+> > @@ -509,13 +509,13 @@ int amdgpu_fence_driver_init_ring(struct amdgpu_r=
+ing *ring,
+> >    * amdgpu_fence_driver_start_ring().
+> >    * Returns 0 for success.
+> >    */
+> > -int amdgpu_fence_driver_init(struct amdgpu_device *adev)
+> > +int amdgpu_fence_driver_sw_init(struct amdgpu_device *adev)
+> >   {
+> >       return 0;
+> >   }
+> >
+> >   /**
+> > - * amdgpu_fence_driver_fini - tear down the fence driver
+> > + * amdgpu_fence_driver_hw_fini - tear down the fence driver
+> >    * for all possible rings.
+> >    *
+> >    * @adev: amdgpu device pointer
+> > @@ -531,8 +531,7 @@ void amdgpu_fence_driver_hw_fini(struct
+> > amdgpu_device *adev)
+> >
+> >               if (!ring || !ring->fence_drv.initialized)
+> >                       continue;
+> > -             if (!ring->no_scheduler)
+> > -                     drm_sched_fini(&ring->sched);
+> > +
+> >               /* You can't wait for HW to signal if it's gone */
+> >               if (!drm_dev_is_unplugged(&adev->ddev))
+> >                       r =3D amdgpu_fence_wait_empty(ring); @@ -560,6 +5=
+59,9 @@ void
+> > amdgpu_fence_driver_sw_fini(struct amdgpu_device *adev)
+> >               if (!ring || !ring->fence_drv.initialized)
+> >                       continue;
+> >
+> > +             if (!ring->no_scheduler)
+> > +                     drm_sched_fini(&ring->sched);
+> > +
+> >               for (j =3D 0; j <=3D ring->fence_drv.num_fences_mask; ++j=
+)
+> >                       dma_fence_put(ring->fence_drv.fences[j]);
+> >               kfree(ring->fence_drv.fences);
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> > index 27adffa7658d..9c11ced4312c 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> > @@ -106,7 +106,6 @@ struct amdgpu_fence_driver {
+> >       struct dma_fence                **fences;
+> >   };
+> >
+> > -int amdgpu_fence_driver_init(struct amdgpu_device *adev);
+> >   void amdgpu_fence_driver_force_completion(struct amdgpu_ring *ring);
+> >
+> >   int amdgpu_fence_driver_init_ring(struct amdgpu_ring *ring, @@
+> > -115,9 +114,10 @@ int amdgpu_fence_driver_init_ring(struct amdgpu_ring =
+*ring,
+> >   int amdgpu_fence_driver_start_ring(struct amdgpu_ring *ring,
+> >                                  struct amdgpu_irq_src *irq_src,
+> >                                  unsigned irq_type);
+> > +void amdgpu_fence_driver_hw_init(struct amdgpu_device *adev);
+> >   void amdgpu_fence_driver_hw_fini(struct amdgpu_device *adev);
+> > +int amdgpu_fence_driver_sw_init(struct amdgpu_device *adev);
+> >   void amdgpu_fence_driver_sw_fini(struct amdgpu_device *adev); -void
+> > amdgpu_fence_driver_hw_init(struct amdgpu_device *adev);
+> >   int amdgpu_fence_emit(struct amdgpu_ring *ring, struct dma_fence **fe=
+nce,
+> >                     unsigned flags);
+> >   int amdgpu_fence_emit_polling(struct amdgpu_ring *ring, uint32_t *s,
