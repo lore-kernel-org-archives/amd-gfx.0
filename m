@@ -2,52 +2,52 @@ Return-Path: <SRS0=SMOw=MZ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,T_TVD_MIME_NO_HEADERS,
+	UNPARSEABLE_RELAY,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A2F70C4320E
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9B72FC4338F
 	for <amd-gfx@archiver.kernel.org>; Mon,  2 Aug 2021 13:40:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7607260F6D
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Aug 2021 13:40:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7607260F6D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=8bytes.org
+	by mail.kernel.org (Postfix) with ESMTPS id E651760232
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Aug 2021 13:40:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E651760232
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C7C36E588;
-	Mon,  2 Aug 2021 13:40:17 +0000 (UTC)
-Received: from theia.8bytes.org (8bytes.org
- [IPv6:2a01:238:4383:600:38bc:a715:4b6d:a889])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E4426E57E;
- Mon,  2 Aug 2021 10:45:26 +0000 (UTC)
-Received: by theia.8bytes.org (Postfix, from userid 1000)
- id A1662379; Mon,  2 Aug 2021 12:45:24 +0200 (CEST)
-Date: Mon, 2 Aug 2021 12:45:23 +0200
-From: Joerg Roedel <joro@8bytes.org>
-To: Tom Lendacky <thomas.lendacky@amd.com>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-s390@vger.kernel.org,
- iommu@lists.linux-foundation.org, kvm@vger.kernel.org,
- linux-efi@vger.kernel.org, platform-driver-x86@vger.kernel.org,
- linux-graphics-maintainer@vmware.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, kexec@lists.infradead.org,
- linux-fsdevel@vger.kernel.org, Borislav Petkov <bp@alien8.de>,
- Brijesh Singh <brijesh.singh@amd.com>, Andi Kleen <ak@linux.intel.com>,
- Sathyanarayanan Kuppuswamy <sathyanarayanan.kuppuswamy@linux.intel.com>,
- Tianyu Lan <Tianyu.Lan@microsoft.com>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>
-Subject: Re: [PATCH 06/11] x86/sev: Replace occurrences of sev_es_active()
- with prot_guest_has()
-Message-ID: <YQfMw2FRO5M1osGF@8bytes.org>
-References: <cover.1627424773.git.thomas.lendacky@amd.com>
- <ba565128b88661a656fc3972f01bb2e295158a15.1627424774.git.thomas.lendacky@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE7E46E52E;
+	Mon,  2 Aug 2021 13:40:16 +0000 (UTC)
+X-Greylist: delayed 906 seconds by postgrey-1.36 at gabe;
+ Mon, 02 Aug 2021 07:58:35 UTC
+Received: from nksmu.kylinos.cn (mailgw.kylinos.cn [123.150.8.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA7106E328;
+ Mon,  2 Aug 2021 07:58:35 +0000 (UTC)
+X-UUID: bf244a08b01545c0a3c76fca0c5f9e7b-20210802
+X-UUID: bf244a08b01545c0a3c76fca0c5f9e7b-20210802
+X-User: lizhenneng@kylinos.cn
+Received: from localhost.localdomain [(116.128.244.169)] by nksmu.kylinos.cn
+ (envelope-from <lizhenneng@kylinos.cn>) (Generic MTA)
+ with ESMTP id 439848347; Mon, 02 Aug 2021 15:41:48 +0800
+From: Zhenneng Li <lizhenneng@kylinos.cn>
+To: 
+Cc: Zhenneng Li <lizhenneng@kylinos.cn>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/radeon: Update pitch for page flip
+Date: Mon,  2 Aug 2021 15:43:10 +0800
+Message-Id: <20210802074310.1526526-1-lizhenneng@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ba565128b88661a656fc3972f01bb2e295158a15.1627424774.git.thomas.lendacky@amd.com>
+Content-Type: multipart/mixed;
+	boundary="Add_By_Label_Mail_Nextpart_001"
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 02 Aug 2021 13:40:13 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,21 +63,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jul 27, 2021 at 05:26:09PM -0500, Tom Lendacky wrote:
-> @@ -48,7 +47,7 @@ static void sme_sev_setup_real_mode(struct trampoline_header *th)
->  	if (prot_guest_has(PATTR_HOST_MEM_ENCRYPT))
->  		th->flags |= TH_FLAGS_SME_ACTIVE;
->  
-> -	if (sev_es_active()) {
-> +	if (prot_guest_has(PATTR_GUEST_PROT_STATE)) {
->  		/*
->  		 * Skip the call to verify_cpu() in secondary_startup_64 as it
->  		 * will cause #VC exceptions when the AP can't handle them yet.
+--Add_By_Label_Mail_Nextpart_001
+Content-Type: text/plain;
+Content-Transfer-Encoding: 8bit
 
-Not sure how TDX will handle AP booting, are you sure it needs this
-special setup as well? Otherwise a check for SEV-ES would be better
-instead of the generic PATTR_GUEST_PROT_STATE.
 
-Regards,
+When primary bo is updated, crtc's pitch may
+have not been updated, this will lead to show
+disorder content when user changes display mode,
+we update crtc's pitch in page flip to avoid
+this bug.
+This refers to amdgpu's pageflip.
 
-Joerg
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: "Christian König" <christian.koenig@amd.com>
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+Cc: David Airlie <airlied@linux.ie>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Signed-off-by: Zhenneng Li <lizhenneng@kylinos.cn>
+---
+ drivers/gpu/drm/radeon/evergreen.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/radeon/evergreen.c b/drivers/gpu/drm/radeon/evergreen.c
+index 36a888e1b179..eeb590d2dec2 100644
+--- a/drivers/gpu/drm/radeon/evergreen.c
++++ b/drivers/gpu/drm/radeon/evergreen.c
+@@ -28,6 +28,7 @@
+ 
+ #include <drm/drm_vblank.h>
+ #include <drm/radeon_drm.h>
++#include <drm/drm_fourcc.h>
+ 
+ #include "atom.h"
+ #include "avivod.h"
+@@ -1414,10 +1415,15 @@ void evergreen_page_flip(struct radeon_device *rdev, int crtc_id, u64 crtc_base,
+ 			 bool async)
+ {
+ 	struct radeon_crtc *radeon_crtc = rdev->mode_info.crtcs[crtc_id];
++	struct drm_framebuffer *fb = radeon_crtc->base.primary->fb;
+ 
+-	/* update the scanout addresses */
++	/* flip at hsync for async, default is vsync */
+ 	WREG32(EVERGREEN_GRPH_FLIP_CONTROL + radeon_crtc->crtc_offset,
+ 	       async ? EVERGREEN_GRPH_SURFACE_UPDATE_H_RETRACE_EN : 0);
++	/* update pitch */
++	WREG32(EVERGREEN_GRPH_PITCH + radeon_crtc->crtc_offset,
++	       fb->pitches[0] / fb->format->cpp[0]);
++	/* update the scanout addresses */
+ 	WREG32(EVERGREEN_GRPH_PRIMARY_SURFACE_ADDRESS_HIGH + radeon_crtc->crtc_offset,
+ 	       upper_32_bits(crtc_base));
+ 	WREG32(EVERGREEN_GRPH_PRIMARY_SURFACE_ADDRESS + radeon_crtc->crtc_offset,
+-- 
+2.25.1
+
+
+--Add_By_Label_Mail_Nextpart_001
+
+Content-type: Text/plain
+
+No virus found
+		Checked by Hillstone Network AntiVirus
+
+--Add_By_Label_Mail_Nextpart_001--
