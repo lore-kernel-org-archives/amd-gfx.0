@@ -2,84 +2,85 @@ Return-Path: <SRS0=SMOw=MZ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-7.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 237D4C4338F
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Aug 2021 08:31:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 380CBC4320A
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Aug 2021 08:42:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D887761057
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Aug 2021 08:31:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D887761057
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id F2F6D61057
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Aug 2021 08:42:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F2F6D61057
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 935FB6E3D0;
-	Mon,  2 Aug 2021 08:31:29 +0000 (UTC)
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [IPv6:2a00:1450:4864:20::62e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C333A897FD
- for <amd-gfx@lists.freedesktop.org>; Mon,  2 Aug 2021 08:31:28 +0000 (UTC)
-Received: by mail-ej1-x62e.google.com with SMTP id oz16so29570235ejc.7
- for <amd-gfx@lists.freedesktop.org>; Mon, 02 Aug 2021 01:31:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:mail-followup-to:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to; bh=2KQi/PpUB7Y3JmHg1rJxCNCGs8vvEPZaQqU4vBqqxj0=;
- b=HgHrrIbB878oj98KI0co1g6r02tGSh9g7VKDedPS39+9jjWZi3bKmqEcp8zzSZzf8l
- CUIHisZ21o1fOMQj4SMZXwh2N3t32A4U9UWUcRJwVyN5wkDb9r3t86E6Z9tO9F1/gRZv
- /Grst0h8i/kmjiopPhS0osukh5NAaw1iQR0RM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id
- :mail-followup-to:references:mime-version:content-disposition
- :content-transfer-encoding:in-reply-to;
- bh=2KQi/PpUB7Y3JmHg1rJxCNCGs8vvEPZaQqU4vBqqxj0=;
- b=IiN5X639CPr7PSXLnDS+I5RFNXMHWL0g2c6dF+9zfNO2EMzpkCxz5gt0B9EFbUd4P9
- nEn/B6/QoTOe1CNKDkQrLnmMoQ5A1pApOYeFCf2LD3ex4zOXLU8ckRx7Fqgm82AQfURl
- SK8ksC2ohWbLRiRxzWStUMzujqKh32KrJWHxDc3IBE1e00THmqHxdJ17o0J+ZsphPOAW
- zHFUupRbChyFmhFlhNVddS4noiEAAODoAgHI6gFmn+//5VwK1NerNvo+HrHCykpZOslJ
- SDwip1TJfHQy+WV95GoLGShg5Alp32FNq6T6x+ZNVBcezNsi771XnOgFMva+VjC1pAh7
- 62LQ==
-X-Gm-Message-State: AOAM5319OjawBx0aG7sPQ3tFvrSx9Ovb7fw2gn2I8Aqh5ojYOgNGTPg0
- fGkSYOoOlKOTN8sKO5D93csCqg==
-X-Google-Smtp-Source: ABdhPJxQFaOHuhoAlTk/8r4Zhkzk4Wm3gRp+HcSLY10IzWI3V+1UMipvcAfeq6ZIhAqRFodwmjs63A==
-X-Received: by 2002:a17:906:32d6:: with SMTP id
- k22mr14107178ejk.228.1627893087250; 
- Mon, 02 Aug 2021 01:31:27 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id v8sm3078590ejy.79.2021.08.02.01.31.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Aug 2021 01:31:26 -0700 (PDT)
-Date: Mon, 2 Aug 2021 10:31:24 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: Zhenneng Li <lizhenneng@kylinos.cn>,
- Alex Deucher <alexander.deucher@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/radeon: Update pitch for page flip
-Message-ID: <YQetXMaASz/F2EyS@phenom.ffwll.local>
-Mail-Followup-To: Christian =?iso-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>, 
- Zhenneng Li <lizhenneng@kylinos.cn>,
- Alex Deucher <alexander.deucher@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20210802074310.1526526-1-lizhenneng@kylinos.cn>
- <e6e77cfb-4e6b-c30e-ae7c-ac84b82c9a75@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id AAAD06E4BA;
+	Mon,  2 Aug 2021 08:42:31 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C53246E169;
+ Mon,  2 Aug 2021 08:42:30 +0000 (UTC)
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id E82EB1FF41;
+ Mon,  2 Aug 2021 08:42:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1627893748; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=VLJkLyS0iFpmlZrDlO4dUG2u4HydySx7OOBknMnDVvo=;
+ b=bYoTcKX215KPV1eQlnfFLPot2GfsKV5dcuwQuJ9ecsCa+N4EO8x9yPOtI8jm3F+EB/vzxu
+ +KlehEpk/B719w6xOtK9gD3QlnLxoKsXPUgErHZCVb6BwacpCo0v7N+QA4Q8k8e/HhH5ql
+ vHuCgTtwV0Ue11hG14oxi07U00RBqDg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1627893748;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=VLJkLyS0iFpmlZrDlO4dUG2u4HydySx7OOBknMnDVvo=;
+ b=ktt6eLeT0M0jz05x7EDpKfGyRdfu/9/9FuPqblw64n5QqH/2JPFhU0q5DzVyi9UvVnKaFQ
+ DsWmr8207tA90jDw==
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 3D8EE13882;
+ Mon,  2 Aug 2021 08:42:28 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap1.suse-dmz.suse.de with ESMTPSA id M4YnDfSvB2EwDgAAGKfGzw
+ (envelope-from <tzimmermann@suse.de>); Mon, 02 Aug 2021 08:42:28 +0000
+Subject: Re: [PATCH 00/14] drm: Make DRM's IRQ helpers legacy
+To: Sam Ravnborg <sam@ravnborg.org>
+Cc: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
+ christian.koenig@amd.com, liviu.dudau@arm.com, brian.starkey@arm.com,
+ bbrezillon@kernel.org, nicolas.ferre@microchip.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, stefan@agner.ch,
+ alison.wang@nxp.com, patrik.r.jakobsson@gmail.com,
+ anitha.chrisanthus@intel.com, robdclark@gmail.com, edmund.j.dea@intel.com,
+ sean@poorly.run, shawnguo@kernel.org, s.hauer@pengutronix.de,
+ kernel@pengutronix.de, jyri.sarha@iki.fi, tomba@kernel.org,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20210727182721.17981-1-tzimmermann@suse.de>
+ <YQWbWjV5TYzp+5C4@ravnborg.org>
+ <d50b3199-20fe-0ecb-ab7d-7425ad1d0f21@suse.de>
+ <YQcDCVuSM2kLbQcI@ravnborg.org>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Message-ID: <7cbd968e-caec-0fdb-8f23-f3fb11664ce3@suse.de>
+Date: Mon, 2 Aug 2021 10:42:27 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <e6e77cfb-4e6b-c30e-ae7c-ac84b82c9a75@amd.com>
-X-Operating-System: Linux phenom 5.10.0-7-amd64 
+In-Reply-To: <YQcDCVuSM2kLbQcI@ravnborg.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="j44ztPryqGh1Sl1wWncDBLPSUvmHnlHRM"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,82 +95,147 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Aug 02, 2021 at 10:12:47AM +0200, Christian König wrote:
-> Am 02.08.21 um 09:43 schrieb Zhenneng Li:
-> > When primary bo is updated, crtc's pitch may
-> > have not been updated, this will lead to show
-> > disorder content when user changes display mode,
-> > we update crtc's pitch in page flip to avoid
-> > this bug.
-> > This refers to amdgpu's pageflip.
-> 
-> Alex is the expert to ask about that code, but I'm not sure if that is
-> really correct for the old hardware.
-> 
-> As far as I know the crtc's pitch should not change during a page flip, but
-> only during a full mode set.
-> 
-> So could you elaborate a bit more how you trigger this?
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--j44ztPryqGh1Sl1wWncDBLPSUvmHnlHRM
+Content-Type: multipart/mixed; boundary="wtdo6GS3bhbopv6iuyySLWGZg3Vkoz6Ku";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Sam Ravnborg <sam@ravnborg.org>
+Cc: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
+ christian.koenig@amd.com, liviu.dudau@arm.com, brian.starkey@arm.com,
+ bbrezillon@kernel.org, nicolas.ferre@microchip.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, stefan@agner.ch,
+ alison.wang@nxp.com, patrik.r.jakobsson@gmail.com,
+ anitha.chrisanthus@intel.com, robdclark@gmail.com, edmund.j.dea@intel.com,
+ sean@poorly.run, shawnguo@kernel.org, s.hauer@pengutronix.de,
+ kernel@pengutronix.de, jyri.sarha@iki.fi, tomba@kernel.org,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org
+Message-ID: <7cbd968e-caec-0fdb-8f23-f3fb11664ce3@suse.de>
+Subject: Re: [PATCH 00/14] drm: Make DRM's IRQ helpers legacy
+References: <20210727182721.17981-1-tzimmermann@suse.de>
+ <YQWbWjV5TYzp+5C4@ravnborg.org>
+ <d50b3199-20fe-0ecb-ab7d-7425ad1d0f21@suse.de>
+ <YQcDCVuSM2kLbQcI@ravnborg.org>
+In-Reply-To: <YQcDCVuSM2kLbQcI@ravnborg.org>
 
-legacy page_flip ioctl only verifies that the fb->format stays the same.
-It doesn't check anything else (afair never has), this is all up to
-drivers to verify.
+--wtdo6GS3bhbopv6iuyySLWGZg3Vkoz6Ku
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
 
-Personally I'd say add a check to reject this, since testing this and
-making sure it really works everywhere is probably a bit much on this old
-hw.
--Daniel
+Hi Sam
 
-> 
-> Thanks,
-> Christian.
-> 
-> > 
-> > Cc: Alex Deucher <alexander.deucher@amd.com>
-> > Cc: "Christian König" <christian.koenig@amd.com>
-> > Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
-> > Cc: David Airlie <airlied@linux.ie>
-> > Cc: Daniel Vetter <daniel@ffwll.ch>
-> > Cc: amd-gfx@lists.freedesktop.org
-> > Cc: dri-devel@lists.freedesktop.org
-> > Cc: linux-kernel@vger.kernel.org
-> > Signed-off-by: Zhenneng Li <lizhenneng@kylinos.cn>
-> > ---
-> >   drivers/gpu/drm/radeon/evergreen.c | 8 +++++++-
-> >   1 file changed, 7 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/gpu/drm/radeon/evergreen.c b/drivers/gpu/drm/radeon/evergreen.c
-> > index 36a888e1b179..eeb590d2dec2 100644
-> > --- a/drivers/gpu/drm/radeon/evergreen.c
-> > +++ b/drivers/gpu/drm/radeon/evergreen.c
-> > @@ -28,6 +28,7 @@
-> >   #include <drm/drm_vblank.h>
-> >   #include <drm/radeon_drm.h>
-> > +#include <drm/drm_fourcc.h>
-> >   #include "atom.h"
-> >   #include "avivod.h"
-> > @@ -1414,10 +1415,15 @@ void evergreen_page_flip(struct radeon_device *rdev, int crtc_id, u64 crtc_base,
-> >   			 bool async)
-> >   {
-> >   	struct radeon_crtc *radeon_crtc = rdev->mode_info.crtcs[crtc_id];
-> > +	struct drm_framebuffer *fb = radeon_crtc->base.primary->fb;
-> > -	/* update the scanout addresses */
-> > +	/* flip at hsync for async, default is vsync */
-> >   	WREG32(EVERGREEN_GRPH_FLIP_CONTROL + radeon_crtc->crtc_offset,
-> >   	       async ? EVERGREEN_GRPH_SURFACE_UPDATE_H_RETRACE_EN : 0);
-> > +	/* update pitch */
-> > +	WREG32(EVERGREEN_GRPH_PITCH + radeon_crtc->crtc_offset,
-> > +	       fb->pitches[0] / fb->format->cpp[0]);
-> > +	/* update the scanout addresses */
-> >   	WREG32(EVERGREEN_GRPH_PRIMARY_SURFACE_ADDRESS_HIGH + radeon_crtc->crtc_offset,
-> >   	       upper_32_bits(crtc_base));
-> >   	WREG32(EVERGREEN_GRPH_PRIMARY_SURFACE_ADDRESS + radeon_crtc->crtc_offset,
-> > 
-> > No virus found
-> > 		Checked by Hillstone Network AntiVirus
-> 
+Am 01.08.21 um 22:24 schrieb Sam Ravnborg:
+> Hi Thomas,
+>=20
+>>>
+>>> 1) IRQ_NOTCONNECTED
+>>>
+>>> We do not have this check in drm_irq today and we should avoid spread=
+ing
+>>> it all over. We are either carrying it forever or we wil lsee patches=
 
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+>>> floating in to drop the check again.
+>>> The current use in the kernel is minimal:
+>>> https://elixir.bootlin.com/linux/latest/A/ident/IRQ_NOTCONNECTED
+>>>
+>>> So as a minimum drop it from atmel_hlcdc and preferably from the rest=
+ as
+>>> it is really not used. (Speaking as atmel_hlcdc maintainer)
+>>
+>> I'll drop it from atmel_hlcdc then.
+>>
+>> But saying that it's not used is not correct.
+> My point is the drm_irq do not check this - so adding this check add
+> something there was not needed/done before.
+
+What is being done at [1] is actually a check for unassigned interrupts. =
+
+It's just that both, test and errno code, are plain wrong. The patchset=20
+fixes this.
+
+>=20
+>>> 2) devm_request_irq()
+>>>
+>>> We are moving towards managed allocation so we do not fail to free
+>>> resources. And an irq has a lifetime equal the device itself - so an
+>>> obvious cnadidate for devm_request_irq.
+>>> If we do not introduce it now we will see a revisit of this later.
+>>> I can be convinced to wait with this as we will have to do much more =
+in
+>>> each driver, but I cannot see any good arguments to avoid the more
+>>> modern way to use devm_request_irq.
+>>
+>> I'll change this in atmel_hdlcd and maybe I can find trivial cases whe=
+re
+>> devm_request_irq() can be used. But drivers that had an uninstall call=
+back
+>> before should not have the cleanup logic altered by a patch as this on=
+e. I
+>> suspect that most of the IRQ cleanup
+>> is actually a vblank cleanup and should be done in response to
+>> drm_vblank_init(). But that's again not something for this patchset he=
+re. We
+>> cannot change multiple things at once and still expect any of it to wo=
+rk.
+>>
+>> I welcome the use of devm_ et al. But these changes are better done in=
+ a
+>> per-driver patchset that changes all of the driver to managed release.=
+
+> Fair enough, and fine with me.
+> I have yet to read through all patches - will do so in the coming week.=
+
+
+OK, thanks a lot. I'll send out a new revision soon, so maybe don't=20
+waste time with this one.
+
+Best regards
+Thomas
+
+
+[1]=20
+https://elixir.bootlin.com/linux/latest/source/drivers/gpu/drm/drm_irq.c#=
+L111
+
+
+
+>=20
+> 	Sam
+>=20
+
+--=20
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
+(HRB 36809, AG N=C3=BCrnberg)
+Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
+
+
+--wtdo6GS3bhbopv6iuyySLWGZg3Vkoz6Ku--
+
+--j44ztPryqGh1Sl1wWncDBLPSUvmHnlHRM
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmEHr/MFAwAAAAAACgkQlh/E3EQov+AL
+ZBAAuTGejX2pXR6jVvpz2dMnan3xW9847gXwEr3z8n9w/QhNt6TtvOSUO0qjroj8bSDqVfYv9zDg
+Z2jwtFe3un8Nrt19BBILP4BPKksBt+lkaZ7u02wbUyV/HzY1j6VNiF+LnkHjEZ+G7G245R94JOOY
+pdr224mzNiN9K75oGK5ik5CmLAKoSm7v/okgPYWu7u2A+2+zZBWcK1Mf+bbIYiG24w/7B7B2UPU0
+JHE+udObafmq/4gzxsL6MmoCTaAoKTLO3iHpKNtVPVBnSEBMUaAMaaOMFwHWUiPOl5iOJIoKyPgG
+v15kvosV00PhZPrRWt8qWG1JelntAaUo2VpR+IjOea5a2h9aMCmBZE4qnpgLtI1t0pNkjis43z9R
+UxxqparLGxI+ejKUQrldhcgbSAK5+3ejbqh/L80Xcv5/Vof3FtgCYxOi2fxUBorceu0afl3fP5GJ
+91buuUh+8M3jSJgZmSgerG3Ppk3jCryKeW2NhLfgIn5MQzELWEi9lwE21b+7H9oyo1zn+zN39raq
+UbgCu05ASw9v9OF/R0wAa0ZxJm6RSx5R5snNgK/BzJWGvCxx3xBpTMj+eBl3+k341NIP72/GgGfY
+ioM+ts42y0a9t3co1HXZ719udvN77P9nQA7F6KAEvEpFPlgoC33CRXo/dYfrqixa0jzDHG88u7nP
+dJ4=
+=MZfj
+-----END PGP SIGNATURE-----
+
+--j44ztPryqGh1Sl1wWncDBLPSUvmHnlHRM--
