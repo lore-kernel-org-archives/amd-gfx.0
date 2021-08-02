@@ -2,93 +2,106 @@ Return-Path: <SRS0=SMOw=MZ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-18.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9905BC432BE
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Aug 2021 08:43:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9E9B9C4338F
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Aug 2021 09:30:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5ED5260F36
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Aug 2021 08:43:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5ED5260F36
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
+	by mail.kernel.org (Postfix) with ESMTPS id 6781860E76
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Aug 2021 09:30:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6781860E76
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 269DF6E4B0;
-	Mon,  2 Aug 2021 08:43:30 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D14C56E4A2;
- Mon,  2 Aug 2021 08:43:27 +0000 (UTC)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 74B8E21FE4;
- Mon,  2 Aug 2021 08:43:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1627893805; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=I5ZYz9fLgLtmet/AAJ94QSQ15N6Q3rn5L5Ro1hd+Mfc=;
- b=2L1QOHbBgTXUBsWD++imkLfrbAa4lVuYclavhnRcZsrhKHarT/S0QbXgvG4ne0mUoZvAwE
- 36VF+VBsldyD6WyTz8PZvYTiti9kpP8pivdIu4AkaKe9oZw6f3v/+OE4tlSmI7r+vXq/8J
- vw3TbOhf2ZRT758XKSfwA3u8TD97lRg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1627893805;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=I5ZYz9fLgLtmet/AAJ94QSQ15N6Q3rn5L5Ro1hd+Mfc=;
- b=9Y/NZ5x28yXfcxius2pjcpZklB5bJnQ1Y1UddRKA5XRYNd0uozZCcRjoLlATYfnlmd8Z4d
- qbNxIuTK1YLCcSDA==
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id CED3713882;
- Mon,  2 Aug 2021 08:43:24 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id RAxGMSywB2F4DgAAGKfGzw
- (envelope-from <tzimmermann@suse.de>); Mon, 02 Aug 2021 08:43:24 +0000
-Subject: Re: [PATCH 01/14] drm/amdgpu: Convert to Linux IRQ interfaces
-To: Alex Deucher <alexdeucher@gmail.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>, Dave Airlie <airlied@linux.ie>,
- "Deucher, Alexander" <alexander.deucher@amd.com>,
- Liviu Dudau <liviu.dudau@arm.com>, Brian Starkey <brian.starkey@arm.com>,
- Sam Ravnborg <sam@ravnborg.org>, bbrezillon@kernel.org,
- nicolas.ferre@microchip.com,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Stefan Agner <stefan@agner.ch>,
- alison.wang@nxp.com, Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- anitha.chrisanthus@intel.com, Rob Clark <robdclark@gmail.com>,
- edmund.j.dea@intel.com, Sean Paul <sean@poorly.run>,
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Sascha Hauer <kernel@pengutronix.de>, jyri.sarha@iki.fi, tomba@kernel.org,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
-References: <20210727182721.17981-1-tzimmermann@suse.de>
- <20210727182721.17981-2-tzimmermann@suse.de>
- <24a8b2ab-ef38-219b-99d4-806a44fa6aba@amd.com>
- <CADnq5_MmPu=k3cc7JCg1iemkCDnoxR1T8PTD_VJn=58f5DwUNQ@mail.gmail.com>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Message-ID: <0c321c93-ea2f-d12a-7057-5724d2d855bd@suse.de>
-Date: Mon, 2 Aug 2021 10:43:24 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 248EE6E524;
+	Mon,  2 Aug 2021 09:30:59 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2072.outbound.protection.outlook.com [40.107.243.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 252BF6E524
+ for <amd-gfx@lists.freedesktop.org>; Mon,  2 Aug 2021 09:30:58 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=nNkbwGNVWG5TqJsLIuX3tPEikVXqwvaFHHLFYwZgvFkOS/GNoG0/EUQKgIsW5oKBhMx/DQjAtFGkR0DHZIJcHK0n8wLjDxXOWTi8R4bFnAjgIVbJwY8lV6x/WLjSF2H9nm9h+zymRZnZ9o/cI76ZX0tg8yReweMw2I16vQy+snYQrOwfpsLRT15ivg/mIo5VT0pnIQfgMKFI3DiUwfL6X+xUo541rdcSCH4LaWHML/NxLRlMt+HTasQyqMP9EKtm38g8/zGRAp2Zh/5TFvUQUVbjnDalSTy4jR9++uqywBYCxPQtj4Z0n0kIjPJob2SmJWU97ltDUP/NK5UPrP7cdg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aUOzDBn9zS6x6uBebfPQhGQvoAbi3ozWter+1V0u4VQ=;
+ b=Pluo3UPqzD+i+I6xvDhYs8mH+3LYWdiiZ9xHIMBOWbnYsDH8r9TJ+k+g+R5TrnHM8iJ6AgcwaU95ri1qFbGY50QpAyj3yWFhO4rUNZTadw4g667bTPmOG3bfkafqWohgywzugbWP2LiBqa2NexmS+HjRIQrIQnROiq8Pt+5YCecVQP2KSg+mZXuqBa6ujuh3EFDQZpSOzU5GVJqfd3MjidWWVFk0vxaC4bLL7OY055l9NhwI9vofDMMz3GCYlkXjCGjJflr6SWRJGG7hbbXZimS6gmy0AMo39vSVBGVd27g/BW5yJ3SYV3zQkyIjXpshmq8/r8iesSKuOXkmWIx6Uw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aUOzDBn9zS6x6uBebfPQhGQvoAbi3ozWter+1V0u4VQ=;
+ b=Ds7Ch4lhd9qg54XqWkyP6Yxx9FwyyXUMk9cyUXyvALL2sJcdMccvihm6k1zreEMlymTKqXqbaPjq/RNUUI5B5JMk+Wrgw2RuL9iYduEFlCzMbDm8VqMc2igyKiH0monoZRVB59ZxgChl3rVAgLStfxDebSccaTWiKxh+7XEOq3w=
+Received: from BN1PR12CA0030.namprd12.prod.outlook.com (2603:10b6:408:e1::35)
+ by DM6PR12MB3817.namprd12.prod.outlook.com (2603:10b6:5:1c9::27) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4373.21; Mon, 2 Aug
+ 2021 09:30:53 +0000
+Received: from BN8NAM11FT066.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:e1:cafe::50) by BN1PR12CA0030.outlook.office365.com
+ (2603:10b6:408:e1::35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4373.18 via Frontend
+ Transport; Mon, 2 Aug 2021 09:30:53 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT066.mail.protection.outlook.com (10.13.177.138) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4373.18 via Frontend Transport; Mon, 2 Aug 2021 09:30:53 +0000
+Received: from lang-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Mon, 2 Aug
+ 2021 04:30:51 -0500
+From: Lang Yu <lang.yu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Huang Rui <ray.huang@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Lang Yu <lang.yu@amd.com>
+Subject: [PATCH] drm/amdgpu: check CG flag before querying CG status
+Date: Mon, 2 Aug 2021 17:30:26 +0800
+Message-ID: <20210802093026.277263-1-lang.yu@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <CADnq5_MmPu=k3cc7JCg1iemkCDnoxR1T8PTD_VJn=58f5DwUNQ@mail.gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="PsjSchzCspKwsrvk5k9QQpuItNe3YAbAi"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: c1eed67d-ea35-4b95-e97b-08d955983923
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3817:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB38173DCDEBB24C94A75706EFFBEF9@DM6PR12MB3817.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1122;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: DLfOgMou5Jl38TVf8DlctCfowfMb7U5cOA1ia+GdZ9RSKl6hE3lFZTklvfPC7ka6hRvPGuMX+fQXi4FUQJZtlmQrzbjVcZeDIPDCkgag5GoKITQAXhJrOmGK27o0+cf4fDKh6oXNcu6q3HkrpGP4BrKx98QkQl6Tx5WFBM5kxFvcQ1L4ZbGp9+de9SVGHIVRrI+Kyuc25punfiECcDbt8OidkAOEUnM/K3e5Q3uUgneX1WLYOS8gvA0NkEL4SMUb9VFhzPodL+7jHDP2MuyTZSx7eZQhrG434Hcg8Lxf1J12NgE4iV21+UYr68jHxg1SekguhfXg3zP3SsCSA2uwkFxb+cGBOrEY+1kW8qiqDjKhFeA+binXi0gjn/hkYJWskemHKKr+AeuWJQ2LEygbhSqjAkk7qpXO2J3HPgXm8HSXAYAqz2Kk7+cwzKFGl3xbJZaCiFrnSK0p54Vkydk5rF3XfOwL1OaGNozmAr31AzCswtoTsOTOiOdccO3FmD25RE2pRK8hXUG2gVYuFhcuVjtn16YPcohO9s8BhMffMjIXybHi7F9KUiEgSYpnlhz2YrtExwTmZpoklR8a7Ipal66Rg86t1GBKifVywccWoO1cwdFs6rq1fxztXw/P9z7cJ0bS30PBxtxM5lgZrlHCSkAPHSZViD8fVupJo7iq3BVVBKyYM86x6E1u27gBBu4H59TpnqDxfXhu3xnQH5dnI9kDeoorF0yZKFWhdTh/ZTM=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(376002)(396003)(39860400002)(136003)(346002)(36840700001)(46966006)(2616005)(83380400001)(54906003)(16526019)(316002)(2906002)(82310400003)(47076005)(8676002)(36860700001)(186003)(336012)(8936002)(26005)(7696005)(1076003)(356005)(81166007)(4744005)(6916009)(478600001)(82740400003)(36756003)(70206006)(86362001)(6666004)(426003)(70586007)(4326008)(5660300002)(44832011)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Aug 2021 09:30:53.1240 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c1eed67d-ea35-4b95-e97b-08d955983923
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT066.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3817
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,226 +116,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---PsjSchzCspKwsrvk5k9QQpuItNe3YAbAi
-Content-Type: multipart/mixed; boundary="VDtTFrcVvE2fwROOnsp9guKSMN1gIOB0M";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Alex Deucher <alexdeucher@gmail.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>, Dave Airlie <airlied@linux.ie>,
- "Deucher, Alexander" <alexander.deucher@amd.com>,
- Liviu Dudau <liviu.dudau@arm.com>, Brian Starkey <brian.starkey@arm.com>,
- Sam Ravnborg <sam@ravnborg.org>, bbrezillon@kernel.org,
- nicolas.ferre@microchip.com,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Stefan Agner <stefan@agner.ch>,
- alison.wang@nxp.com, Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- anitha.chrisanthus@intel.com, Rob Clark <robdclark@gmail.com>,
- edmund.j.dea@intel.com, Sean Paul <sean@poorly.run>,
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Sascha Hauer <kernel@pengutronix.de>, jyri.sarha@iki.fi, tomba@kernel.org,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
-Message-ID: <0c321c93-ea2f-d12a-7057-5724d2d855bd@suse.de>
-Subject: Re: [PATCH 01/14] drm/amdgpu: Convert to Linux IRQ interfaces
-References: <20210727182721.17981-1-tzimmermann@suse.de>
- <20210727182721.17981-2-tzimmermann@suse.de>
- <24a8b2ab-ef38-219b-99d4-806a44fa6aba@amd.com>
- <CADnq5_MmPu=k3cc7JCg1iemkCDnoxR1T8PTD_VJn=58f5DwUNQ@mail.gmail.com>
-In-Reply-To: <CADnq5_MmPu=k3cc7JCg1iemkCDnoxR1T8PTD_VJn=58f5DwUNQ@mail.gmail.com>
+For ASICs which don't supoort clock gating, querying CG status
+may cause a hardware hang issue. So add a CG flag check to exit
+directly in such a case.
 
---VDtTFrcVvE2fwROOnsp9guKSMN1gIOB0M
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Lang Yu <lang.yu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-Hi
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index b1d2dc39e8be..a7afcdc50ca8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -1671,6 +1671,11 @@ void amdgpu_device_ip_get_clockgating_state(struct amdgpu_device *adev,
+ {
+ 	int i;
+ 
++	if (!adev->cg_flags) {
++		*flags = 0;
++		return;
++	}
++
+ 	for (i = 0; i < adev->num_ip_blocks; i++) {
+ 		if (!adev->ip_blocks[i].status.valid)
+ 			continue;
+-- 
+2.25.1
 
-Am 28.07.21 um 16:03 schrieb Alex Deucher:
-> On Wed, Jul 28, 2021 at 6:27 AM Christian K=C3=B6nig
-> <christian.koenig@amd.com> wrote:
->>
->> Am 27.07.21 um 20:27 schrieb Thomas Zimmermann:
->>> Drop the DRM IRQ midlayer in favor of Linux IRQ interfaces. DRM's
->>> IRQ helpers are mostly useful for UMS drivers. Modern KMS drivers
->>> don't benefit from using it.
->>>
->>> DRM IRQ callbacks are now being called directly or inlined.
->>>
->>> The interrupt number returned by pci_msi_vector() is now stored
->>> in struct amdgpu_irq. Calls to pci_msi_vector() can fail and return
->>> a negative errno code. Abort initlaizaton in thi case. The DRM IRQ
->>> midlayer does not handle this correctly.
->>>
->>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->>
->> Alex needs to take a look at this as well, but of hand the patch is
->> Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>.
->=20
-> Looks good to me as well:
-> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
-Thanks a lot. Do you have comments on the changes to radeon?
-
-Best regards
-Thomas
-
->=20
->>
->> Thanks,
->> Christian.
->>
->>> ---
->>>    drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  1 -
->>>    drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c | 21 ++++++++++++++-------=
-
->>>    drivers/gpu/drm/amd/amdgpu/amdgpu_irq.h |  2 +-
->>>    3 files changed, 15 insertions(+), 9 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_drv.c
->>> index 2bd13fc2541a..1e05b5aa94e7 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>> @@ -1775,7 +1775,6 @@ static const struct drm_driver amdgpu_kms_drive=
-r =3D {
->>>        .open =3D amdgpu_driver_open_kms,
->>>        .postclose =3D amdgpu_driver_postclose_kms,
->>>        .lastclose =3D amdgpu_driver_lastclose_kms,
->>> -     .irq_handler =3D amdgpu_irq_handler,
->>>        .ioctls =3D amdgpu_ioctls_kms,
->>>        .num_ioctls =3D ARRAY_SIZE(amdgpu_ioctls_kms),
->>>        .dumb_create =3D amdgpu_mode_dumb_create,
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_irq.c
->>> index 0d01cfaca77e..a36cdc7323f4 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
->>> @@ -46,7 +46,6 @@
->>>    #include <linux/pci.h>
->>>
->>>    #include <drm/drm_crtc_helper.h>
->>> -#include <drm/drm_irq.h>
->>>    #include <drm/drm_vblank.h>
->>>    #include <drm/amdgpu_drm.h>
->>>    #include <drm/drm_drv.h>
->>> @@ -184,7 +183,7 @@ void amdgpu_irq_disable_all(struct amdgpu_device =
-*adev)
->>>     * Returns:
->>>     * result of handling the IRQ, as defined by &irqreturn_t
->>>     */
->>> -irqreturn_t amdgpu_irq_handler(int irq, void *arg)
->>> +static irqreturn_t amdgpu_irq_handler(int irq, void *arg)
->>>    {
->>>        struct drm_device *dev =3D (struct drm_device *) arg;
->>>        struct amdgpu_device *adev =3D drm_to_adev(dev);
->>> @@ -307,6 +306,7 @@ static void amdgpu_restore_msix(struct amdgpu_dev=
-ice *adev)
->>>    int amdgpu_irq_init(struct amdgpu_device *adev)
->>>    {
->>>        int r =3D 0;
->>> +     unsigned int irq;
->>>
->>>        spin_lock_init(&adev->irq.lock);
->>>
->>> @@ -349,15 +349,22 @@ int amdgpu_irq_init(struct amdgpu_device *adev)=
-
->>>        INIT_WORK(&adev->irq.ih2_work, amdgpu_irq_handle_ih2);
->>>        INIT_WORK(&adev->irq.ih_soft_work, amdgpu_irq_handle_ih_soft);=
-
->>>
->>> -     adev->irq.installed =3D true;
->>> -     /* Use vector 0 for MSI-X */
->>> -     r =3D drm_irq_install(adev_to_drm(adev), pci_irq_vector(adev->p=
-dev, 0));
->>> +     /* Use vector 0 for MSI-X. */
->>> +     r =3D pci_irq_vector(adev->pdev, 0);
->>> +     if (r < 0)
->>> +             return r;
->>> +     irq =3D r;
->>> +
->>> +     /* PCI devices require shared interrupts. */
->>> +     r =3D request_irq(irq, amdgpu_irq_handler, IRQF_SHARED, adev_to=
-_drm(adev)->driver->name,
->>> +                     adev_to_drm(adev));
->>>        if (r) {
->>> -             adev->irq.installed =3D false;
->>>                if (!amdgpu_device_has_dc_support(adev))
->>>                        flush_work(&adev->hotplug_work);
->>>                return r;
->>>        }
->>> +     adev->irq.installed =3D true;
->>> +     adev->irq.irq =3D irq;
->>>        adev_to_drm(adev)->max_vblank_count =3D 0x00ffffff;
->>>
->>>        DRM_DEBUG("amdgpu: irq initialized.\n");
->>> @@ -368,7 +375,7 @@ int amdgpu_irq_init(struct amdgpu_device *adev)
->>>    void amdgpu_irq_fini_hw(struct amdgpu_device *adev)
->>>    {
->>>        if (adev->irq.installed) {
->>> -             drm_irq_uninstall(&adev->ddev);
->>> +             free_irq(adev->irq.irq, adev_to_drm(adev));
->>>                adev->irq.installed =3D false;
->>>                if (adev->irq.msi_enabled)
->>>                        pci_free_irq_vectors(adev->pdev);
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.h b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_irq.h
->>> index 78ad4784cc74..e9f2c11ea416 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.h
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.h
->>> @@ -80,6 +80,7 @@ struct amdgpu_irq_src_funcs {
->>>
->>>    struct amdgpu_irq {
->>>        bool                            installed;
->>> +     unsigned int                    irq;
->>>        spinlock_t                      lock;
->>>        /* interrupt sources */
->>>        struct amdgpu_irq_client        client[AMDGPU_IRQ_CLIENTID_MAX=
-];
->>> @@ -100,7 +101,6 @@ struct amdgpu_irq {
->>>    };
->>>
->>>    void amdgpu_irq_disable_all(struct amdgpu_device *adev);
->>> -irqreturn_t amdgpu_irq_handler(int irq, void *arg);
->>>
->>>    int amdgpu_irq_init(struct amdgpu_device *adev);
->>>    void amdgpu_irq_fini_sw(struct amdgpu_device *adev);
->>
-
---=20
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
-(HRB 36809, AG N=C3=BCrnberg)
-Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
-
-
---VDtTFrcVvE2fwROOnsp9guKSMN1gIOB0M--
-
---PsjSchzCspKwsrvk5k9QQpuItNe3YAbAi
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmEHsCwFAwAAAAAACgkQlh/E3EQov+Dm
-nQ//R/Caj7yaimr9wM2UmBAHzaME1DOlVYAImXkh2gnTDN6adDkWktxtcNEgrcLitvnCX073Ic4n
-lTIQ/0KNHGOil7VQxhPYEaNcl2sy6igR9sn/PwUDvK2cF4KMCknw9ZHuCe8F8DWsne3GZSXcB7cV
-GIrFyXRTeJnQyYuH1ZvqsIIknxhzo8NdDTw/iF4F8qBHThObTIohceplLel7+7UF8EpDos3ukWMo
-vBzDpkLbGMhdh/0gm5cxQPEo21Lteu6fGa87peGRXyGBFlet5cX4eG+elkmzpFIW1PfvjX8dyQn0
-YiTr/C1Dob0tCsEejuUiIisvuEjkWnGOqg95+wwx9vsnZbp186eTj4KDXI9EFzWPPqHrB5C8hOhX
-77HXJnjhIqfzID/rUz7rKNgAhLw14MxpunKyXPyNm+9PS5Myp8QADAcvO4raJREMJCUwTP/eWQRv
-477/wM0bBTq8wrOycst0HPkVM8VSh9qdUTyWt1Q5JzAiSbjre3zknR2IVNcu2RnbaabyWKd5sXfl
-8h0bUBDoxzsKZ+tXqVUb4sZuFtvRWtKFxc9aKM6m4INtcs6Topqtyt3vovjC0cGRZ0OxRVJHdF+w
-SyRAsqz3m+NdAOPUMCC/ouDsBnpF69b+qFUKOEf1qqYghFioaTrTMiVaWQsPN3oYva/ParhFyLTo
-geU=
-=zdfM
------END PGP SIGNATURE-----
-
---PsjSchzCspKwsrvk5k9QQpuItNe3YAbAi--
