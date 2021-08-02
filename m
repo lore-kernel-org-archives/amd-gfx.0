@@ -2,104 +2,85 @@ Return-Path: <SRS0=SMOw=MZ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EA7B9C4338F
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Aug 2021 14:56:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 25FD1C4338F
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Aug 2021 15:27:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B855C60F58
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Aug 2021 14:56:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B855C60F58
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id DCE37610FE
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Aug 2021 15:27:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DCE37610FE
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 715806E156;
-	Mon,  2 Aug 2021 14:56:22 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1anam02on2076.outbound.protection.outlook.com [40.107.96.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27C486E156
- for <amd-gfx@lists.freedesktop.org>; Mon,  2 Aug 2021 14:56:21 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ahd8NkdT4o+BY+tYUTU9VQnrEB9IpwDUMV9kCCeOKyQaJrGGS81N+VOUla0rEQ7UM1M/3SIv+3PNuI/2pZ1RMf+ka0y5ZG57iYHgZbyaQEvXE6fiSQA7W20P065Hm3atp+5ZCzNkxOS5HLYGhrBhh3Jx1xKwyZoiRG36D6/xDnVeyK6ZNjIOaSwjTQVfBK8vD5/tcLBmKFMH4/OF7aQ3MCZimYEQZCCbrkcxn3ye6VmIvmR5VsaVYGLYjrkx3RxiA+R7D60U2jcBDKg2HnuiPBHld6yCgeWshknGaImWwDn7D971ZIwX23I2fvxfy0daMGiH7kJpZSDd2OlsarpwHA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=P3qf6pfVpS/1d55eu8eGuZ/Gkvhk8LYs+TTLrL01ZoQ=;
- b=jHtJ31Pw1X4qtsC5K4gskWfcq2uHaU01Opgou6NE/WlfsGEvXyL6AcBYm21q+tBHCycz2ku9UU6gqe5w/339QnHhFZnJKsqm2qk8a/ejU95Y1ABLqeC9GFsshEwwSo6KkfSKiCV19cFBkEBkX5RFTRCOsh4HTN2f2js0b5BPWiPuwrn8Bl0sYBu0PXD6Uhfy4if0fYYv8MuNBatq66nm5gYR4jiifhoruS83ymRSpYh2F1FzE82PxcELRzT7zJ5w4eviDYW5mx9Pmkr4qV0IoIXFx42pni1joUGIwscjKEi6NVL6AteVckm2NFT/ygTaZG64qZhaut68JZduUHJRKg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=P3qf6pfVpS/1d55eu8eGuZ/Gkvhk8LYs+TTLrL01ZoQ=;
- b=GxKQLpK95Fq6cA+iMCVqX14L0FXGhBI/rS/aoDmMpbOxW02qP5yJgsvDIM9/NXCqcPHNTDKqHMgEGJyKkjGuyxrCWUFUV7tT5MU5lLDiPzWWUtBJQR3obz+1XUWAhRlFE8smyeIuRigemR1fVJ1M3ICv3MSMXvD0MptT4d0/07w=
-Received: from BN6PR1401CA0005.namprd14.prod.outlook.com
- (2603:10b6:405:4b::15) by DM4PR12MB5070.namprd12.prod.outlook.com
- (2603:10b6:5:389::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4373.18; Mon, 2 Aug
- 2021 14:56:19 +0000
-Received: from BN8NAM11FT043.eop-nam11.prod.protection.outlook.com
- (2603:10b6:405:4b:cafe::fb) by BN6PR1401CA0005.outlook.office365.com
- (2603:10b6:405:4b::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4373.20 via Frontend
- Transport; Mon, 2 Aug 2021 14:56:19 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT043.mail.protection.outlook.com (10.13.177.218) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4373.18 via Frontend Transport; Mon, 2 Aug 2021 14:56:19 +0000
-Received: from Philip-Dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Mon, 2 Aug
- 2021 09:56:18 -0500
-From: Philip Yang <Philip.Yang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Philip Yang <Philip.Yang@amd.com>
-Subject: [PATCH] drm/amdkfd: support file backed SVM range
-Date: Mon, 2 Aug 2021 10:56:06 -0400
-Message-ID: <20210802145606.11888-1-Philip.Yang@amd.com>
-X-Mailer: git-send-email 2.17.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 811926E090;
+	Mon,  2 Aug 2021 15:27:32 +0000 (UTC)
+Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
+ [IPv6:2607:f8b0:4864:20::22b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D1D66E090;
+ Mon,  2 Aug 2021 15:27:31 +0000 (UTC)
+Received: by mail-oi1-x22b.google.com with SMTP id t128so24565012oig.1;
+ Mon, 02 Aug 2021 08:27:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=612/JVdKAz1qdrtNpS+wKTTb6C92VSuWsomQcNmS5Mw=;
+ b=k3gDCijKpvOLyL5osu46BBobyi+eSCbNv6R0x4S/mAxFFGoTA25WmxUEzODNRjvTKt
+ Xk+vmOzepQRJMVRqvx0hSVVErn6TK0GTe14yxFEc02uwNkgAMVgUl2kl0lT3elgNYmTt
+ L7HFIfl3pAqQ4JZ60bX2stn3eMNAdvibdRjceyHRUOgdfNWq8EH2rswHqgH/mKmlYflA
+ wbu0IDekH+x7W4PibMOZRxgx6UwJeAf+apaD0H6iJhYwLSMZD4qo07rhnsNNjK801nwH
+ qGbGuaVRn7G7az9xcoRi9BBDrPzZcqVIW5hpMh0m5CZ55dv7xcBaxaHjLGIbYlSpo2th
+ uM7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=612/JVdKAz1qdrtNpS+wKTTb6C92VSuWsomQcNmS5Mw=;
+ b=Oi5iQC8NAt0Qi4W7c686gKI8OCjOjrqFyVo2PI2b0EiFcY54DQZdkY0Xbgkyf0ymD9
+ U+wxa2qmkQsh7ADK4Am6XmiSQD0JtsqfXskDm09S+cSbiNy7nzglVf4Mnl4004gx3gS4
+ QGYyIWsbtD2/EsIwMHDheVtmbGvwqZJrzc4XL5pG9BVX4kQsPb69E0QU/oxoUX7mhmIF
+ 18toEqfhNK8eGNJiMqNsWjuWn2oe5k6lAJGb7hqrIdG0bUx8d5fct4U6XzzTYWzbUbXy
+ Faar0wgpKNTTQgOdMii5c6dPGTS0LnYfytCJE1uTI2+BnWJXmdJX2MOTUyTWpTJ1itMT
+ dQuw==
+X-Gm-Message-State: AOAM531jKN4pCyEMusgFi9dFRrc4d8+3V98+K+yFjkOoz1I0YrUQZeG/
+ Hkkjmrlkh5hLR7ScSMwSoa9KATlsRYU0rwIpLTc=
+X-Google-Smtp-Source: ABdhPJwKUpNeOIXqOAgml/bHU3F1D89teHU+7ObGdkrtZ0l8aGwF4bh0Xdvq4fQzSAcsYvJIyhG0YWEombYoR93sNYA=
+X-Received: by 2002:aca:53ca:: with SMTP id h193mr8387560oib.5.1627918049331; 
+ Mon, 02 Aug 2021 08:27:29 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: b688f6da-6ff3-48b7-df27-08d955c5af9e
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5070:
-X-Microsoft-Antispam-PRVS: <DM4PR12MB5070F9373FE30DA82DCC045AE6EF9@DM4PR12MB5070.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ojc+2u9FdPVkGnIyfhuNrbGNV0owNsz2b+cf/rZgr+suQTSxvag6TLEVpj/MviEwF+3Ptmb/S0Arv2OYazh3aOzSl1IQhE46yrtljclxJqkuckI+7IZUuWSUVISbHDbFkYDhi63o9pPSWeOQaUqD17pNZji5ddtyave9eYyy6y3+yBcVHUCEXLrQGllR81s8LGpx998/ZrBiYvu5gfQRxmoK6d0M+G7TC8ExZ0rQy/bc3mw8gGMaTBQGDAJx/Op2SCtAsa2VMJ2QraMXzNdAfXgeeTpGOAoQWXJWJQe/33xu4NccA1xGHOXiN6QxUH9QCEd3HiQoWn1GWr2Zqv8WsVM9ZfG8IclEDrpJBW4ERbHqBQr/0SbFAZRtnHD7fSnoeln9kzXyPuPzH7R7GDacskRdTFI0m/GUgHIIWieqRhOm8CjkoOAjqb3jEmIGncg9twy9kHoTh+6V9YBKbBnwydBQSTz77T6xWcq4HZ0ezeRdhMxwxbERhkzZXMZXVRIYkwOBQf7yRxzyVOm9gs2SppcjzzGIom4KVHu+usZolxTh2d2z25S7nMuXE9pVXwie9693pVCizlTQa6uwsByA/pjgESicPB1Ui1sUQanT4fBiJN1ZwtZVkzGlQxASEvzb29oneMgnruWDPIQMWWYeNCGE94oeKMnhV86iLIEHbxvvS4Y8KbtWH7oTiNwMEWxOiq13s8dx5jGYE5csr4EmPPJodznVbaHg8fQ/jaVfRis=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(39860400002)(136003)(346002)(376002)(396003)(36840700001)(46966006)(81166007)(86362001)(7696005)(26005)(2616005)(83380400001)(16526019)(186003)(36860700001)(8936002)(316002)(5660300002)(2906002)(8676002)(82740400003)(478600001)(336012)(356005)(82310400003)(4326008)(426003)(36756003)(70206006)(6916009)(70586007)(6666004)(47076005)(1076003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Aug 2021 14:56:19.2538 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b688f6da-6ff3-48b7-df27-08d955c5af9e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT043.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5070
+References: <20210727182721.17981-1-tzimmermann@suse.de>
+ <20210727182721.17981-10-tzimmermann@suse.de>
+In-Reply-To: <20210727182721.17981-10-tzimmermann@suse.de>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 2 Aug 2021 11:27:18 -0400
+Message-ID: <CADnq5_O+ahz4_rgc5gGv=ZJ+vj21s2=6Y2wSkSoC7j55CP_LHQ@mail.gmail.com>
+Subject: Re: [PATCH 09/14] drm/radeon: Convert to Linux IRQ interfaces
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Daniel Vetter <daniel@ffwll.ch>, Dave Airlie <airlied@linux.ie>, 
+ "Deucher, Alexander" <alexander.deucher@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>, 
+ Liviu Dudau <liviu.dudau@arm.com>, Brian Starkey <brian.starkey@arm.com>, 
+ Sam Ravnborg <sam@ravnborg.org>, bbrezillon@kernel.org,
+ nicolas.ferre@microchip.com, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Stefan Agner <stefan@agner.ch>, alison.wang@nxp.com, 
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, anitha.chrisanthus@intel.com, 
+ Rob Clark <robdclark@gmail.com>, edmund.j.dea@intel.com,
+ Sean Paul <sean@poorly.run>, 
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Sascha Hauer <kernel@pengutronix.de>, jyri.sarha@iki.fi, tomba@kernel.org, 
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>, 
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>, 
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ freedreno <freedreno@lists.freedesktop.org>, 
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,95 +95,161 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-HMM migrate helper migrate_vma_pages do not migrate file backed pages to
-replace it with device pages because the pages are used by file cache.
-We can not migrate the file backed range to VRAM, otherwise CPU access
-range will not trigger page fault to migrate updated data from VRAM back
-to system memory.
+On Tue, Jul 27, 2021 at 2:27 PM Thomas Zimmermann <tzimmermann@suse.de> wrote:
+>
+> Drop the DRM IRQ midlayer in favor of Linux IRQ interfaces. DRM's
+> IRQ helpers are mostly useful for UMS drivers. Modern KMS drivers
+> don't benefit from using it.
+>
+> DRM IRQ callbacks are now being called directly or inlined.
+>
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 
-For file backed range, don't prefetch migrate range to VRAM, always map
-system pages to GPU and also use system pages to recover GPU retry
-fault.
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-Add helper to check if range is file backed or anonymous mapping.
-
-Signed-off-by: Philip Yang <Philip.Yang@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 40 ++++++++++++++++++++++++++++
- 1 file changed, 40 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index f811a3a24cd2..69237d2ab2ad 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -2400,6 +2400,36 @@ svm_range_count_fault(struct amdgpu_device *adev, struct kfd_process *p,
- 		WRITE_ONCE(pdd->faults, pdd->faults + 1);
- }
- 
-+/**
-+ * svm_range_is_file_backed - decide if prange is file backed mmap
-+ * @mm: the mm structure
-+ * @prange: svm range structure
-+ *
-+ * Context: caller must hold mmap_read_lock
-+ *
-+ * Return:
-+ * false if entire range is anonymous mapping
-+ * true if entire or partial range is file backed, or invalid mapping address
-+ */
-+static bool
-+svm_range_is_file_backed(struct mm_struct *mm, struct svm_range *prange)
-+{
-+	struct vm_area_struct *vma;
-+	unsigned long start, end;
-+
-+	start = prange->start << PAGE_SHIFT;
-+	end = (prange->last + 1) << PAGE_SHIFT;
-+
-+	do {
-+		vma = find_vma(mm, start);
-+		if (!vma || !vma_is_anonymous(vma))
-+			return true;
-+		start = min(end, vma->vm_end);
-+	} while (start < end);
-+
-+	return false;
-+}
-+
- int
- svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
- 			uint64_t addr)
-@@ -2496,6 +2526,10 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
- 		 svms, prange->start, prange->last, best_loc,
- 		 prange->actual_loc);
- 
-+	/* for file backed range, use system memory pages for GPU mapping */
-+	if (svm_range_is_file_backed(mm, prange))
-+		goto out_validate_and_map;
-+
- 	if (prange->actual_loc != best_loc) {
- 		if (best_loc) {
- 			r = svm_migrate_to_vram(prange, best_loc, mm);
-@@ -2520,6 +2554,7 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
- 		}
- 	}
- 
-+out_validate_and_map:
- 	r = svm_range_validate_and_map(mm, prange, gpuidx, false, false);
- 	if (r)
- 		pr_debug("failed %d to map svms 0x%p [0x%lx 0x%lx] to gpus\n",
-@@ -2850,6 +2885,11 @@ svm_range_trigger_migration(struct mm_struct *mm, struct svm_range *prange,
- 	int r = 0;
- 
- 	*migrated = false;
-+
-+	/* Don't migrate file backed range to VRAM */
-+	if (svm_range_is_file_backed(mm, prange))
-+		return 0;
-+
- 	best_loc = svm_range_best_prefetch_location(prange);
- 
- 	if (best_loc == KFD_IOCTL_SVM_LOCATION_UNDEFINED ||
--- 
-2.17.1
-
+> ---
+>  drivers/gpu/drm/radeon/radeon_drv.c     |  4 ---
+>  drivers/gpu/drm/radeon/radeon_irq_kms.c | 44 +++++++++++++++++++++----
+>  drivers/gpu/drm/radeon/radeon_kms.h     |  4 ---
+>  3 files changed, 37 insertions(+), 15 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
+> index c8dd68152d65..b74cebca1f89 100644
+> --- a/drivers/gpu/drm/radeon/radeon_drv.c
+> +++ b/drivers/gpu/drm/radeon/radeon_drv.c
+> @@ -607,10 +607,6 @@ static const struct drm_driver kms_driver = {
+>         .postclose = radeon_driver_postclose_kms,
+>         .lastclose = radeon_driver_lastclose_kms,
+>         .unload = radeon_driver_unload_kms,
+> -       .irq_preinstall = radeon_driver_irq_preinstall_kms,
+> -       .irq_postinstall = radeon_driver_irq_postinstall_kms,
+> -       .irq_uninstall = radeon_driver_irq_uninstall_kms,
+> -       .irq_handler = radeon_driver_irq_handler_kms,
+>         .ioctls = radeon_ioctls_kms,
+>         .num_ioctls = ARRAY_SIZE(radeon_ioctls_kms),
+>         .dumb_create = radeon_mode_dumb_create,
+> diff --git a/drivers/gpu/drm/radeon/radeon_irq_kms.c b/drivers/gpu/drm/radeon/radeon_irq_kms.c
+> index a36ce826d0c0..3907785d0798 100644
+> --- a/drivers/gpu/drm/radeon/radeon_irq_kms.c
+> +++ b/drivers/gpu/drm/radeon/radeon_irq_kms.c
+> @@ -31,7 +31,7 @@
+>
+>  #include <drm/drm_crtc_helper.h>
+>  #include <drm/drm_device.h>
+> -#include <drm/drm_irq.h>
+> +#include <drm/drm_drv.h>
+>  #include <drm/drm_probe_helper.h>
+>  #include <drm/drm_vblank.h>
+>  #include <drm/radeon_drm.h>
+> @@ -51,7 +51,7 @@
+>   * radeon_irq_process is a macro that points to the per-asic
+>   * irq handler callback.
+>   */
+> -irqreturn_t radeon_driver_irq_handler_kms(int irq, void *arg)
+> +static irqreturn_t radeon_driver_irq_handler_kms(int irq, void *arg)
+>  {
+>         struct drm_device *dev = (struct drm_device *) arg;
+>         struct radeon_device *rdev = dev->dev_private;
+> @@ -118,7 +118,7 @@ static void radeon_dp_work_func(struct work_struct *work)
+>   * Gets the hw ready to enable irqs (all asics).
+>   * This function disables all interrupt sources on the GPU.
+>   */
+> -void radeon_driver_irq_preinstall_kms(struct drm_device *dev)
+> +static void radeon_driver_irq_preinstall_kms(struct drm_device *dev)
+>  {
+>         struct radeon_device *rdev = dev->dev_private;
+>         unsigned long irqflags;
+> @@ -150,7 +150,7 @@ void radeon_driver_irq_preinstall_kms(struct drm_device *dev)
+>   * Handles stuff to be done after enabling irqs (all asics).
+>   * Returns 0 on success.
+>   */
+> -int radeon_driver_irq_postinstall_kms(struct drm_device *dev)
+> +static int radeon_driver_irq_postinstall_kms(struct drm_device *dev)
+>  {
+>         struct radeon_device *rdev = dev->dev_private;
+>
+> @@ -169,7 +169,7 @@ int radeon_driver_irq_postinstall_kms(struct drm_device *dev)
+>   *
+>   * This function disables all interrupt sources on the GPU (all asics).
+>   */
+> -void radeon_driver_irq_uninstall_kms(struct drm_device *dev)
+> +static void radeon_driver_irq_uninstall_kms(struct drm_device *dev)
+>  {
+>         struct radeon_device *rdev = dev->dev_private;
+>         unsigned long irqflags;
+> @@ -194,6 +194,36 @@ void radeon_driver_irq_uninstall_kms(struct drm_device *dev)
+>         spin_unlock_irqrestore(&rdev->irq.lock, irqflags);
+>  }
+>
+> +static int radeon_irq_install(struct radeon_device *rdev, int irq)
+> +{
+> +       struct drm_device *dev = rdev->ddev;
+> +       int ret;
+> +
+> +       if (irq == IRQ_NOTCONNECTED)
+> +               return -ENOTCONN;
+> +
+> +       radeon_driver_irq_preinstall_kms(dev);
+> +
+> +       /* PCI devices require shared interrupts. */
+> +       ret = request_irq(irq, radeon_driver_irq_handler_kms,
+> +                         IRQF_SHARED, dev->driver->name, dev);
+> +       if (ret)
+> +               return ret;
+> +
+> +       radeon_driver_irq_postinstall_kms(dev);
+> +
+> +       return 0;
+> +}
+> +
+> +static void radeon_irq_uninstall(struct radeon_device *rdev)
+> +{
+> +       struct drm_device *dev = rdev->ddev;
+> +       struct pci_dev *pdev = to_pci_dev(dev->dev);
+> +
+> +       radeon_driver_irq_uninstall_kms(dev);
+> +       free_irq(pdev->irq, dev);
+> +}
+> +
+>  /**
+>   * radeon_msi_ok - asic specific msi checks
+>   *
+> @@ -314,7 +344,7 @@ int radeon_irq_kms_init(struct radeon_device *rdev)
+>         INIT_WORK(&rdev->audio_work, r600_audio_update_hdmi);
+>
+>         rdev->irq.installed = true;
+> -       r = drm_irq_install(rdev->ddev, rdev->pdev->irq);
+> +       r = radeon_irq_install(rdev, rdev->pdev->irq);
+>         if (r) {
+>                 rdev->irq.installed = false;
+>                 flush_delayed_work(&rdev->hotplug_work);
+> @@ -335,7 +365,7 @@ int radeon_irq_kms_init(struct radeon_device *rdev)
+>  void radeon_irq_kms_fini(struct radeon_device *rdev)
+>  {
+>         if (rdev->irq.installed) {
+> -               drm_irq_uninstall(rdev->ddev);
+> +               radeon_irq_uninstall(rdev);
+>                 rdev->irq.installed = false;
+>                 if (rdev->msi_enabled)
+>                         pci_disable_msi(rdev->pdev);
+> diff --git a/drivers/gpu/drm/radeon/radeon_kms.h b/drivers/gpu/drm/radeon/radeon_kms.h
+> index 9b97bf38acd4..36e73cea9215 100644
+> --- a/drivers/gpu/drm/radeon/radeon_kms.h
+> +++ b/drivers/gpu/drm/radeon/radeon_kms.h
+> @@ -31,9 +31,5 @@
+>  u32 radeon_get_vblank_counter_kms(struct drm_crtc *crtc);
+>  int radeon_enable_vblank_kms(struct drm_crtc *crtc);
+>  void radeon_disable_vblank_kms(struct drm_crtc *crtc);
+> -irqreturn_t radeon_driver_irq_handler_kms(int irq, void *arg);
+> -void radeon_driver_irq_preinstall_kms(struct drm_device *dev);
+> -int radeon_driver_irq_postinstall_kms(struct drm_device *dev);
+> -void radeon_driver_irq_uninstall_kms(struct drm_device *dev);
+>
+>  #endif                         /* __RADEON_KMS_H__ */
+> --
+> 2.32.0
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
