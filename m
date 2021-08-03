@@ -7,55 +7,55 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 75F1CC4338F
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 09:07:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 77098C432BE
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 09:07:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 460D060C3F
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 09:07:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 460D060C3F
+	by mail.kernel.org (Postfix) with ESMTPS id 4608A60C3F
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 09:07:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4608A60C3F
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B04EA6E51B;
-	Tue,  3 Aug 2021 09:07:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D95AE6E558;
+	Tue,  3 Aug 2021 09:07:13 +0000 (UTC)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3C916E4EA;
- Tue,  3 Aug 2021 09:07:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 586A26E4B1;
+ Tue,  3 Aug 2021 09:07:10 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 6E2C3220C0;
- Tue,  3 Aug 2021 09:07:10 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id E108B220BD;
+ Tue,  3 Aug 2021 09:07:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1627981630; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1627981628; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=RbBfL4mCTjt0RtM9rcPnqtOKzHPQr0ry5imZlRlAO48=;
- b=iLT0EnjsoOgObNEGi9o1Ul1DLdgQgBqiDCEw6SeP56ZmLFWyGCUnFA2CaQkUFlR7tyDWds
- AQiikSD9oQ2yEtIJX9RNLxIRt4/iAgPvnMWyIYBuNm4gEhty7Nq+C0gGP56uzj4RiO7Et+
- 8U3BcJxxnvSorj8UUs4+HkmgYS3aXRU=
+ bh=SgwLkp8O8987fATaDsy3i6QCKVCJxBkgKBxxICd32HQ=;
+ b=cSFhXZAbqV4pP4izqb9kMI9BFtv+6+mkyPcOVblh0VTrLn0y4xQGguC4SJaxTXyfIJQSQL
+ t9zPGadqX30cNFTpn4n/lFPv6Yg+qUoG0Ds/MVcviIN67FsG5P6sirsL7W2M9/7gG+bhmc
+ /LvvECSYX1V/8ASUbFKUtVzOHjWSzz0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1627981630;
+ s=susede2_ed25519; t=1627981628;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=RbBfL4mCTjt0RtM9rcPnqtOKzHPQr0ry5imZlRlAO48=;
- b=QDh7QO0n2wbaXL7ah3ZrrlK9q56NXase9Vd6yEdTn0evBmPODPx55k2EqE6xmMG0Lhe2y4
- zCgIZiy3DEMjOpCA==
+ bh=SgwLkp8O8987fATaDsy3i6QCKVCJxBkgKBxxICd32HQ=;
+ b=pUa7s786JIDA4+F5aa1yZK7e5RBykKZZshsmqE5tyspWYmfHsgyoPqO4fM+Dr7W8lz31lU
+ h08pq2L4T1LAEDBQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A239213CC4;
- Tue,  3 Aug 2021 09:07:09 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3648E13CC4;
+ Tue,  3 Aug 2021 09:07:08 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id EMN5Jj0HCWFVJQAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Tue, 03 Aug 2021 09:07:09 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id UKcQDDwHCWFVJQAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Tue, 03 Aug 2021 09:07:08 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
  christian.koenig@amd.com, liviu.dudau@arm.com, brian.starkey@arm.com,
@@ -69,9 +69,9 @@ To: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
  freedreno@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH v2 04/14] drm/fsl-dcu: Convert to Linux IRQ interfaces
-Date: Tue,  3 Aug 2021 11:06:54 +0200
-Message-Id: <20210803090704.32152-5-tzimmermann@suse.de>
+Subject: [PATCH v2 02/14] drm/arm/hdlcd: Convert to Linux IRQ interfaces
+Date: Tue,  3 Aug 2021 11:06:52 +0200
+Message-Id: <20210803090704.32152-3-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210803090704.32152-1-tzimmermann@suse.de>
 References: <20210803090704.32152-1-tzimmermann@suse.de>
@@ -93,155 +93,263 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Drop the DRM IRQ midlayer in favor of Linux IRQ interfaces. DRM's
 IRQ helpers are mostly useful for UMS drivers. Modern KMS drivers
-don't benefit from using it. DRM IRQ callbacks are now being called
-directly or inlined.
+don't benefit from using it.
+
+DRM IRQ callbacks are now being called directly or inlined.
+
+Calls to platform_get_irq() can fail with a negative errno code.
+Abort initialization in this case. The DRM IRQ midlayer does not
+handle this case correctly.
+
+v2:
+	* name struct drm_device variables 'drm' (Sam)
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Acked-by: Sam Ravnborg <sam@ravnborg.org>
 ---
- drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_drv.c | 78 +++++++++++++----------
- 1 file changed, 46 insertions(+), 32 deletions(-)
+ drivers/gpu/drm/arm/hdlcd_drv.c | 174 ++++++++++++++++++--------------
+ drivers/gpu/drm/arm/hdlcd_drv.h |   1 +
+ 2 files changed, 97 insertions(+), 78 deletions(-)
 
-diff --git a/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_drv.c b/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_drv.c
-index 7528e8a2d359..660fe573db96 100644
---- a/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_drv.c
-+++ b/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_drv.c
-@@ -23,7 +23,6 @@
- #include <drm/drm_fb_cma_helper.h>
+diff --git a/drivers/gpu/drm/arm/hdlcd_drv.c b/drivers/gpu/drm/arm/hdlcd_drv.c
+index 81ae92390736..479c2422a2e0 100644
+--- a/drivers/gpu/drm/arm/hdlcd_drv.c
++++ b/drivers/gpu/drm/arm/hdlcd_drv.c
+@@ -29,7 +29,6 @@
  #include <drm/drm_fb_helper.h>
  #include <drm/drm_gem_cma_helper.h>
+ #include <drm/drm_gem_framebuffer_helper.h>
 -#include <drm/drm_irq.h>
  #include <drm/drm_modeset_helper.h>
+ #include <drm/drm_of.h>
  #include <drm/drm_probe_helper.h>
- #include <drm/drm_vblank.h>
-@@ -51,7 +50,7 @@ static const struct regmap_config fsl_dcu_regmap_config = {
- 	.volatile_reg = fsl_dcu_drm_is_volatile_reg,
- };
+@@ -38,6 +37,94 @@
+ #include "hdlcd_drv.h"
+ #include "hdlcd_regs.h"
  
--static void fsl_dcu_irq_uninstall(struct drm_device *dev)
-+static void fsl_dcu_irq_reset(struct drm_device *dev)
- {
- 	struct fsl_dcu_drm_device *fsl_dev = dev->dev_private;
- 
-@@ -59,6 +58,45 @@ static void fsl_dcu_irq_uninstall(struct drm_device *dev)
- 	regmap_write(fsl_dev->regmap, DCU_INT_MASK, ~0);
- }
- 
-+static irqreturn_t fsl_dcu_drm_irq(int irq, void *arg)
++static irqreturn_t hdlcd_irq(int irq, void *arg)
 +{
-+	struct drm_device *dev = arg;
-+	struct fsl_dcu_drm_device *fsl_dev = dev->dev_private;
-+	unsigned int int_status;
-+	int ret;
++	struct drm_device *drm = arg;
++	struct hdlcd_drm_private *hdlcd = drm->dev_private;
++	unsigned long irq_status;
 +
-+	ret = regmap_read(fsl_dev->regmap, DCU_INT_STATUS, &int_status);
-+	if (ret) {
-+		dev_err(dev->dev, "read DCU_INT_STATUS failed\n");
-+		return IRQ_NONE;
-+	}
++	irq_status = hdlcd_read(hdlcd, HDLCD_REG_INT_STATUS);
 +
-+	if (int_status & DCU_INT_STATUS_VBLANK)
-+		drm_handle_vblank(dev, 0);
++#ifdef CONFIG_DEBUG_FS
++	if (irq_status & HDLCD_INTERRUPT_UNDERRUN)
++		atomic_inc(&hdlcd->buffer_underrun_count);
 +
-+	regmap_write(fsl_dev->regmap, DCU_INT_STATUS, int_status);
++	if (irq_status & HDLCD_INTERRUPT_DMA_END)
++		atomic_inc(&hdlcd->dma_end_count);
++
++	if (irq_status & HDLCD_INTERRUPT_BUS_ERROR)
++		atomic_inc(&hdlcd->bus_error_count);
++
++	if (irq_status & HDLCD_INTERRUPT_VSYNC)
++		atomic_inc(&hdlcd->vsync_count);
++
++#endif
++	if (irq_status & HDLCD_INTERRUPT_VSYNC)
++		drm_crtc_handle_vblank(&hdlcd->crtc);
++
++	/* acknowledge interrupt(s) */
++	hdlcd_write(hdlcd, HDLCD_REG_INT_CLEAR, irq_status);
 +
 +	return IRQ_HANDLED;
 +}
 +
-+static int fsl_dcu_irq_install(struct drm_device *dev, unsigned int irq)
++static void hdlcd_irq_preinstall(struct drm_device *drm)
 +{
++	struct hdlcd_drm_private *hdlcd = drm->dev_private;
++	/* Ensure interrupts are disabled */
++	hdlcd_write(hdlcd, HDLCD_REG_INT_MASK, 0);
++	hdlcd_write(hdlcd, HDLCD_REG_INT_CLEAR, ~0);
++}
++
++static void hdlcd_irq_postinstall(struct drm_device *drm)
++{
++#ifdef CONFIG_DEBUG_FS
++	struct hdlcd_drm_private *hdlcd = drm->dev_private;
++	unsigned long irq_mask = hdlcd_read(hdlcd, HDLCD_REG_INT_MASK);
++
++	/* enable debug interrupts */
++	irq_mask |= HDLCD_DEBUG_INT_MASK;
++
++	hdlcd_write(hdlcd, HDLCD_REG_INT_MASK, irq_mask);
++#endif
++}
++
++static int hdlcd_irq_install(struct drm_device *drm, int irq)
++{
++	int ret;
++
 +	if (irq == IRQ_NOTCONNECTED)
 +		return -ENOTCONN;
 +
-+	fsl_dcu_irq_reset(dev);
++	hdlcd_irq_preinstall(drm);
 +
-+	return request_irq(irq, fsl_dcu_drm_irq, 0, dev->driver->name, dev);
++	ret = request_irq(irq, hdlcd_irq, 0, drm->driver->name, drm);
++	if (ret)
++		return ret;
++
++	hdlcd_irq_postinstall(drm);
++
++	return 0;
 +}
 +
-+static void fsl_dcu_irq_uninstall(struct drm_device *dev)
++static void hdlcd_irq_uninstall(struct drm_device *drm)
 +{
-+	struct fsl_dcu_drm_device *fsl_dev = dev->dev_private;
++	struct hdlcd_drm_private *hdlcd = drm->dev_private;
++	/* disable all the interrupts that we might have enabled */
++	unsigned long irq_mask = hdlcd_read(hdlcd, HDLCD_REG_INT_MASK);
 +
-+	fsl_dcu_irq_reset(dev);
-+	free_irq(fsl_dev->irq, dev);
++#ifdef CONFIG_DEBUG_FS
++	/* disable debug interrupts */
++	irq_mask &= ~HDLCD_DEBUG_INT_MASK;
++#endif
++
++	/* disable vsync interrupts */
++	irq_mask &= ~HDLCD_INTERRUPT_VSYNC;
++	hdlcd_write(hdlcd, HDLCD_REG_INT_MASK, irq_mask);
++
++	free_irq(hdlcd->irq, drm);
 +}
 +
- static int fsl_dcu_load(struct drm_device *dev, unsigned long flags)
+ static int hdlcd_load(struct drm_device *drm, unsigned long flags)
  {
- 	struct fsl_dcu_drm_device *fsl_dev = dev->dev_private;
-@@ -73,13 +111,13 @@ static int fsl_dcu_load(struct drm_device *dev, unsigned long flags)
- 	ret = drm_vblank_init(dev, dev->mode_config.num_crtc);
+ 	struct hdlcd_drm_private *hdlcd = drm->dev_private;
+@@ -90,7 +177,12 @@ static int hdlcd_load(struct drm_device *drm, unsigned long flags)
+ 		goto setup_fail;
+ 	}
+ 
+-	ret = drm_irq_install(drm, platform_get_irq(pdev, 0));
++	ret = platform_get_irq(pdev, 0);
++	if (ret < 0)
++		goto irq_fail;
++	hdlcd->irq = ret;
++
++	ret = hdlcd_irq_install(drm, hdlcd->irq);
  	if (ret < 0) {
- 		dev_err(dev->dev, "failed to initialize vblank\n");
--		goto done;
-+		goto done_vblank;
- 	}
- 
--	ret = drm_irq_install(dev, fsl_dev->irq);
-+	ret = fsl_dcu_irq_install(dev, fsl_dev->irq);
- 	if (ret < 0) {
- 		dev_err(dev->dev, "failed to install IRQ handler\n");
--		goto done;
-+		goto done_irq;
- 	}
- 
- 	if (legacyfb_depth != 16 && legacyfb_depth != 24 &&
-@@ -90,11 +128,11 @@ static int fsl_dcu_load(struct drm_device *dev, unsigned long flags)
- 	}
- 
- 	return 0;
--done:
-+done_irq:
- 	drm_kms_helper_poll_fini(dev);
- 
- 	drm_mode_config_cleanup(dev);
--	drm_irq_uninstall(dev);
-+done_vblank:
- 	dev->dev_private = NULL;
- 
- 	return ret;
-@@ -106,41 +144,17 @@ static void fsl_dcu_unload(struct drm_device *dev)
- 	drm_kms_helper_poll_fini(dev);
- 
- 	drm_mode_config_cleanup(dev);
--	drm_irq_uninstall(dev);
-+	fsl_dcu_irq_uninstall(dev);
- 
- 	dev->dev_private = NULL;
+ 		DRM_ERROR("failed to install IRQ handler\n");
+ 		goto irq_fail;
+@@ -122,76 +214,6 @@ static void hdlcd_setup_mode_config(struct drm_device *drm)
+ 	drm->mode_config.funcs = &hdlcd_mode_config_funcs;
  }
  
--static irqreturn_t fsl_dcu_drm_irq(int irq, void *arg)
+-static irqreturn_t hdlcd_irq(int irq, void *arg)
 -{
--	struct drm_device *dev = arg;
--	struct fsl_dcu_drm_device *fsl_dev = dev->dev_private;
--	unsigned int int_status;
--	int ret;
+-	struct drm_device *drm = arg;
+-	struct hdlcd_drm_private *hdlcd = drm->dev_private;
+-	unsigned long irq_status;
 -
--	ret = regmap_read(fsl_dev->regmap, DCU_INT_STATUS, &int_status);
--	if (ret) {
--		dev_err(dev->dev, "read DCU_INT_STATUS failed\n");
--		return IRQ_NONE;
--	}
+-	irq_status = hdlcd_read(hdlcd, HDLCD_REG_INT_STATUS);
 -
--	if (int_status & DCU_INT_STATUS_VBLANK)
--		drm_handle_vblank(dev, 0);
+-#ifdef CONFIG_DEBUG_FS
+-	if (irq_status & HDLCD_INTERRUPT_UNDERRUN)
+-		atomic_inc(&hdlcd->buffer_underrun_count);
 -
--	regmap_write(fsl_dev->regmap, DCU_INT_STATUS, int_status);
+-	if (irq_status & HDLCD_INTERRUPT_DMA_END)
+-		atomic_inc(&hdlcd->dma_end_count);
+-
+-	if (irq_status & HDLCD_INTERRUPT_BUS_ERROR)
+-		atomic_inc(&hdlcd->bus_error_count);
+-
+-	if (irq_status & HDLCD_INTERRUPT_VSYNC)
+-		atomic_inc(&hdlcd->vsync_count);
+-
+-#endif
+-	if (irq_status & HDLCD_INTERRUPT_VSYNC)
+-		drm_crtc_handle_vblank(&hdlcd->crtc);
+-
+-	/* acknowledge interrupt(s) */
+-	hdlcd_write(hdlcd, HDLCD_REG_INT_CLEAR, irq_status);
 -
 -	return IRQ_HANDLED;
 -}
 -
- DEFINE_DRM_GEM_CMA_FOPS(fsl_dcu_drm_fops);
+-static void hdlcd_irq_preinstall(struct drm_device *drm)
+-{
+-	struct hdlcd_drm_private *hdlcd = drm->dev_private;
+-	/* Ensure interrupts are disabled */
+-	hdlcd_write(hdlcd, HDLCD_REG_INT_MASK, 0);
+-	hdlcd_write(hdlcd, HDLCD_REG_INT_CLEAR, ~0);
+-}
+-
+-static int hdlcd_irq_postinstall(struct drm_device *drm)
+-{
+-#ifdef CONFIG_DEBUG_FS
+-	struct hdlcd_drm_private *hdlcd = drm->dev_private;
+-	unsigned long irq_mask = hdlcd_read(hdlcd, HDLCD_REG_INT_MASK);
+-
+-	/* enable debug interrupts */
+-	irq_mask |= HDLCD_DEBUG_INT_MASK;
+-
+-	hdlcd_write(hdlcd, HDLCD_REG_INT_MASK, irq_mask);
+-#endif
+-	return 0;
+-}
+-
+-static void hdlcd_irq_uninstall(struct drm_device *drm)
+-{
+-	struct hdlcd_drm_private *hdlcd = drm->dev_private;
+-	/* disable all the interrupts that we might have enabled */
+-	unsigned long irq_mask = hdlcd_read(hdlcd, HDLCD_REG_INT_MASK);
+-
+-#ifdef CONFIG_DEBUG_FS
+-	/* disable debug interrupts */
+-	irq_mask &= ~HDLCD_DEBUG_INT_MASK;
+-#endif
+-
+-	/* disable vsync interrupts */
+-	irq_mask &= ~HDLCD_INTERRUPT_VSYNC;
+-
+-	hdlcd_write(hdlcd, HDLCD_REG_INT_MASK, irq_mask);
+-}
+-
+ #ifdef CONFIG_DEBUG_FS
+ static int hdlcd_show_underrun_count(struct seq_file *m, void *arg)
+ {
+@@ -236,10 +258,6 @@ DEFINE_DRM_GEM_CMA_FOPS(fops);
  
- static const struct drm_driver fsl_dcu_drm_driver = {
- 	.driver_features	= DRIVER_GEM | DRIVER_MODESET | DRIVER_ATOMIC,
- 	.load			= fsl_dcu_load,
- 	.unload			= fsl_dcu_unload,
--	.irq_handler		= fsl_dcu_drm_irq,
--	.irq_preinstall		= fsl_dcu_irq_uninstall,
--	.irq_uninstall		= fsl_dcu_irq_uninstall,
+ static const struct drm_driver hdlcd_driver = {
+ 	.driver_features = DRIVER_GEM | DRIVER_MODESET | DRIVER_ATOMIC,
+-	.irq_handler = hdlcd_irq,
+-	.irq_preinstall = hdlcd_irq_preinstall,
+-	.irq_postinstall = hdlcd_irq_postinstall,
+-	.irq_uninstall = hdlcd_irq_uninstall,
  	DRM_GEM_CMA_DRIVER_OPS,
- 	.fops			= &fsl_dcu_drm_fops,
- 	.name			= "fsl-dcu-drm",
+ #ifdef CONFIG_DEBUG_FS
+ 	.debugfs_init = hdlcd_debugfs_init,
+@@ -316,7 +334,7 @@ static int hdlcd_drm_bind(struct device *dev)
+ err_unload:
+ 	of_node_put(hdlcd->crtc.port);
+ 	hdlcd->crtc.port = NULL;
+-	drm_irq_uninstall(drm);
++	hdlcd_irq_uninstall(drm);
+ 	of_reserved_mem_device_release(drm->dev);
+ err_free:
+ 	drm_mode_config_cleanup(drm);
+@@ -338,7 +356,7 @@ static void hdlcd_drm_unbind(struct device *dev)
+ 	hdlcd->crtc.port = NULL;
+ 	pm_runtime_get_sync(dev);
+ 	drm_atomic_helper_shutdown(drm);
+-	drm_irq_uninstall(drm);
++	hdlcd_irq_uninstall(drm);
+ 	pm_runtime_put(dev);
+ 	if (pm_runtime_enabled(dev))
+ 		pm_runtime_disable(dev);
+diff --git a/drivers/gpu/drm/arm/hdlcd_drv.h b/drivers/gpu/drm/arm/hdlcd_drv.h
+index fd438d177b64..909c39c28487 100644
+--- a/drivers/gpu/drm/arm/hdlcd_drv.h
++++ b/drivers/gpu/drm/arm/hdlcd_drv.h
+@@ -11,6 +11,7 @@ struct hdlcd_drm_private {
+ 	struct clk			*clk;
+ 	struct drm_crtc			crtc;
+ 	struct drm_plane		*plane;
++	unsigned int			irq;
+ #ifdef CONFIG_DEBUG_FS
+ 	atomic_t buffer_underrun_count;
+ 	atomic_t bus_error_count;
 -- 
 2.32.0
 
