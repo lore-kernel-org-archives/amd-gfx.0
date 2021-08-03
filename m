@@ -2,62 +2,51 @@ Return-Path: <SRS0=T22W=M2=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7500FC4338F
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 15:05:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A5FE1C4338F
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 15:37:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3B88B6103C
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 15:05:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3B88B6103C
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ravnborg.org
+	by mail.kernel.org (Postfix) with ESMTPS id BF08260EE7
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 15:37:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BF08260EE7
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=q-drop.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E63C589F63;
-	Tue,  3 Aug 2021 15:04:59 +0000 (UTC)
-Received: from mx1.smtp.larsendata.com (mx1.smtp.larsendata.com
- [91.221.196.215])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 375486E88B
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Aug 2021 15:04:58 +0000 (UTC)
-Received: from mail01.mxhotel.dk (mail01.mxhotel.dk [91.221.196.236])
- by mx1.smtp.larsendata.com (Halon) with ESMTPS
- id 2eea81a6-f46c-11eb-9082-0050568c148b;
- Tue, 03 Aug 2021 15:05:04 +0000 (UTC)
-Received: from ravnborg.org (80-162-45-141-cable.dk.customer.tdc.net
- [80.162.45.141])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- (Authenticated sender: sam@ravnborg.org)
- by mail01.mxhotel.dk (Postfix) with ESMTPSA id 95AF7194B8B;
- Tue,  3 Aug 2021 17:05:21 +0200 (CEST)
-Date: Tue, 3 Aug 2021 17:04:54 +0200
-X-Report-Abuse-To: abuse@mxhotel.dk
-From: Sam Ravnborg <sam@ravnborg.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
- christian.koenig@amd.com, liviu.dudau@arm.com,
- brian.starkey@arm.com, bbrezillon@kernel.org,
- nicolas.ferre@microchip.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, stefan@agner.ch, alison.wang@nxp.com,
- patrik.r.jakobsson@gmail.com, anitha.chrisanthus@intel.com,
- robdclark@gmail.com, edmund.j.dea@intel.com, sean@poorly.run,
- shawnguo@kernel.org, s.hauer@pengutronix.de, kernel@pengutronix.de,
- jyri.sarha@iki.fi, tomba@kernel.org, Dan.Sneddon@microchip.com,
- tomi.valkeinen@ideasonboard.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org
-Subject: Re: [PATCH v2 00/14] drm: Make DRM's IRQ helpers legacy
-Message-ID: <YQlbFjbrnyeWv7QP@ravnborg.org>
-References: <20210803090704.32152-1-tzimmermann@suse.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C15E89FCC;
+	Tue,  3 Aug 2021 15:37:13 +0000 (UTC)
+X-Greylist: delayed 426 seconds by postgrey-1.36 at gabe;
+ Tue, 03 Aug 2021 15:11:16 UTC
+Received: from valerius4.ch-meta.net (valerius4.ch-meta.net [80.74.135.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B095F6E88A
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Aug 2021 15:11:16 +0000 (UTC)
+Received: from mail-oi1-f173.google.com (localhost [127.0.0.1]) by
+ valerius4.ch-meta.net (Postfix) with ESMTPSA id 937214C513A5
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Aug 2021 17:04:06 +0200 (CEST)
+Authentication-Results: valerius.metanet.ch;
+ spf=pass (sender IP is 209.85.167.173) smtp.mailfrom=thomas.gfeller@q-drop.com
+ smtp.helo=mail-oi1-f173.google.com
+Received-SPF: pass (valerius.metanet.ch: connection is authenticated)
+Received: by mail-oi1-f173.google.com with SMTP id q6so28445401oiw.7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 03 Aug 2021 08:04:06 -0700 (PDT)
+X-Gm-Message-State: AOAM531d37IdWtsCJDwyyM30/IbgU4KIT6s/Mj/WsdmYLXiXFPdCdsXM
+ JKNBH3kCK9p9Ncq8Y60nUIkFZgAy1ZdvKcJcpp0=
+X-Google-Smtp-Source: ABdhPJyvQW9nJaasA131IJhby5Atm14Nbp3WjiJSLjUFwvhL2PRYTfFWjpLvhdD1ERKb/+mMqu3VgoAR5ZaQjwfW6bI=
+X-Received: by 2002:aca:1c03:: with SMTP id c3mr14651245oic.151.1628003045522; 
+ Tue, 03 Aug 2021 08:04:05 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210803090704.32152-1-tzimmermann@suse.de>
+From: Thomas Gfeller <thomas.gfeller@q-drop.com>
+Date: Tue, 3 Aug 2021 17:03:55 +0200
+X-Gmail-Original-Message-ID: <CAPr5sE+bt0AxLGYvMrrj3V0+7JwQMe-xp_2ymHcpOsdQCiLFQQ@mail.gmail.com>
+Message-ID: <CAPr5sE+bt0AxLGYvMrrj3V0+7JwQMe-xp_2ymHcpOsdQCiLFQQ@mail.gmail.com>
+Subject: Issue with USB-C lanes or DSC / bandwidth on amdgpu
+To: amd-gfx@lists.freedesktop.org
+Content-Type: multipart/alternative; boundary="00000000000038c38b05c8a8ffbc"
+X-Mailman-Approved-At: Tue, 03 Aug 2021 15:37:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,51 +61,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Thomas,
+--00000000000038c38b05c8a8ffbc
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Aug 03, 2021 at 11:06:50AM +0200, Thomas Zimmermann wrote:
-> DRM's IRQ helpers are only helpful for old, non-KMS drivers. Move
-> the code behind CONFIG_DRM_LEGACY. Convert KMS drivers to Linux
-> IRQ interfaces.
-> 
-> DRM provides IRQ helpers for setting up, receiving and removing IRQ
-> handlers. It's an abstraction over plain Linux functions. The code
-> is mid-layerish with several callbacks to hook into the rsp drivers.
-> Old UMS driver have their interrupts enabled via ioctl, so these
-> abstractions makes some sense. Modern KMS manage all their interrupts
-> internally. Using the DRM helpers adds indirection without benefits.
-> 
-> Most KMS drivers already use Linux IRQ functions instead of DRM's
-> abstraction layer. Patches 1 to 12 convert the remaining ones.
-> The patches also resolve a bug for devices without assigned interrupt
-> number. DRM helpers don't test for IRQ_NOTCONNECTED, so drivers do
-> not detect if the device has no interrupt assigned.
-> 
-> Patch 13 removes an unused function.
-> 
-> Patch 14 moves the DRM IRQ helpers behind CONFIG_DRM_LEGACY. Only
-> the old non-KMS drivers still use the functionality.
-> 
-> v2:
-> 	* drop IRQ_NOTCONNECTED test from atmel-hlcdc (Sam)
-> 	* use devm_request_irq() in atmel-hlcdc (Sam)
-> 	* unify variable names in arm/hlcdc (Sam)
-> 
-> Thomas Zimmermann (14):
+Hi everyone.
 
-The following patches are all:
-Acked-by: Sam Ravnborg <sam@ravnborg.org>
+I currently try to go all-in on Linux. Therefore I have one last issue that
+I still didn't manage to resolve:
 
->   drm/fsl-dcu: Convert to Linux IRQ interfaces
->   drm/gma500: Convert to Linux IRQ interfaces
->   drm/kmb: Convert to Linux IRQ interfaces
->   drm/msm: Convert to Linux IRQ interfaces
->   drm/mxsfb: Convert to Linux IRQ interfaces
->   drm/tidss: Convert to Linux IRQ interfaces
->   drm/vc4: Convert to Linux IRQ interfaces
->   drm: Remove unused devm_drm_irq_install()
+https://gitlab.freedesktop.org/drm/amd/-/issues/1616
 
-The remaining patches I either skipped or already had a feedback from
-me or I asked a question.
+I found that you guys implemented parts of the mentioned features here:
+https://lists.freedesktop.org/archives/amd-gfx/2020-January/044739.html
 
-	Sam
+I suspect, that there is an issue with bandwidth allocation for DP alt mode
+(on USB-C) or DSC / HBR3 or both.
+
+Any help to get this fixed is highly appreciated. Unfortunately I have no
+experience in developing drivers for Linux - this is pretty advanced stuff.
+Thank you very much for your contributions!
+
+Best
+
+Thomas
+
+--00000000000038c38b05c8a8ffbc
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div class=3D"gmail_default" style=3D"font-family:trebuche=
+t ms,sans-serif">Hi everyone.</div><div class=3D"gmail_default" style=3D"fo=
+nt-family:trebuchet ms,sans-serif"><br></div><div class=3D"gmail_default" s=
+tyle=3D"font-family:trebuchet ms,sans-serif">I currently try to go all-in o=
+n Linux. Therefore I have one last issue that I still didn&#39;t manage to =
+resolve:</div><div class=3D"gmail_default" style=3D"font-family:trebuchet m=
+s,sans-serif"><br></div><div class=3D"gmail_default" style=3D"font-family:t=
+rebuchet ms,sans-serif"><a href=3D"https://gitlab.freedesktop.org/drm/amd/-=
+/issues/1616">https://gitlab.freedesktop.org/drm/amd/-/issues/1616</a></div=
+><div class=3D"gmail_default" style=3D"font-family:trebuchet ms,sans-serif"=
+><br></div><div class=3D"gmail_default" style=3D"font-family:trebuchet ms,s=
+ans-serif">I found that you guys implemented parts of the mentioned feature=
+s here: <a href=3D"https://lists.freedesktop.org/archives/amd-gfx/2020-Janu=
+ary/044739.html">https://lists.freedesktop.org/archives/amd-gfx/2020-Januar=
+y/044739.html</a></div><div class=3D"gmail_default" style=3D"font-family:tr=
+ebuchet ms,sans-serif"><br></div><div class=3D"gmail_default" style=3D"font=
+-family:trebuchet ms,sans-serif">I suspect, that there is an issue with ban=
+dwidth allocation for DP alt mode (on USB-C) or DSC / HBR3 or both.<br></di=
+v><div><br></div><div><div style=3D"font-family:trebuchet ms,sans-serif" cl=
+ass=3D"gmail_default">Any help to get this fixed is highly appreciated. Unf=
+ortunately I have no experience in developing drivers for Linux - this is p=
+retty advanced stuff. Thank you very much for your contributions!<br></div>=
+<div style=3D"font-family:trebuchet ms,sans-serif" class=3D"gmail_default">=
+<br></div><div style=3D"font-family:trebuchet ms,sans-serif" class=3D"gmail=
+_default">Best</div><div style=3D"font-family:trebuchet ms,sans-serif" clas=
+s=3D"gmail_default"><br></div><div style=3D"font-family:trebuchet ms,sans-s=
+erif" class=3D"gmail_default">Thomas</div><br></div></div>
+
+--00000000000038c38b05c8a8ffbc--
