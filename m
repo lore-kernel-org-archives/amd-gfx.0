@@ -2,127 +2,89 @@ Return-Path: <SRS0=T22W=M2=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 733B3C4338F
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 12:58:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B0523C4338F
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 13:09:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1127960F01
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 12:58:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1127960F01
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 7D637604AC
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 13:09:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7D637604AC
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linaro.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C0F3B89FE3;
-	Tue,  3 Aug 2021 12:58:17 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2089.outbound.protection.outlook.com [40.107.220.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCC0189FE3
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Aug 2021 12:58:16 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BYpZMt8v4AHZuJkrVJ1fG/n9oH3MdpBoBXKS9coza3ple4F/xRe3OLuFXO2vOfocRbJ6HseWhyMVWd4k4LDj+4vot+4mhtZIDTNqEibbwBgRj9TO/rTs+5SHPDwARCs7sRIca75xniU0C1calxOK55hOeiFScr2+0UbhI2CpFM0d8/rfX/yjksKJVkCznW9C6wAtTb9JGlcW3+K0Go7v8uZqiSgpbxTJ94swBp5awzJopCwQ08R8+UlpY3G1pv9SGY2t71nDQU7jVWico2jabHIFNqGXaa97ZkH6JcRUyFnOlwrJWNQixSMOj1K4ueMGboxbXMuXxfdYqlDgkF3Njw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4kT0JJLK3LST5ugV1qEMTOedVM3+R2VEcqDrYVGq2l4=;
- b=HglvyocpF6AYp1Tsf/m6qap6qTTc87g/Rs5nD+zSBLw05TkO4FbcSxjMarjb+hM9q9bfQxWuky8vTbhmUioAUnowVU+G+Vvk5OCt1gMmDtsgCAyaTxnAj/IR3xxMEA7+GfesUTVHSvxyYWw0b1PcqsdaLxkoRXHb+v6fmaN2EiqlOwIAm3PeW0qjv5eB9+yIkSShi1H0F5JTDEcd3TlsA+KXBZ6C1m1emg4/NIivFsUoahTjthUxflTMwCtiPosOYnKZniNG771UVw45W7+AlHiNL9R/q9w3v3Zhwf2VWNFyNE0GLIMf68SoiYowFV9hcahm2i4IVZz6NKj/4qfPtA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4kT0JJLK3LST5ugV1qEMTOedVM3+R2VEcqDrYVGq2l4=;
- b=XVOepJoUZtqIK/95MUpHUTlbTB9kzoqIijGtvjefMJGkADyySYmU4a1yxnsjuhHCFmKlfHIPjC3ol3aHbVVjiMhJMzDmmllIWyF8qvtSEgOuNM5+rWb8EkCFFdLyWR7y1boaWUJDdIUUsE3zvvpRzxRDf4+KNislPie3zG4V2kE=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by BL1PR12MB5207.namprd12.prod.outlook.com (2603:10b6:208:318::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4373.20; Tue, 3 Aug
- 2021 12:58:15 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::5dfc:ea54:4a18:89f5]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::5dfc:ea54:4a18:89f5%4]) with mapi id 15.20.4394.015; Tue, 3 Aug 2021
- 12:58:15 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "S, Shirish" <Shirish.S@amd.com>, "Wentland, Harry"
- <Harry.Wentland@amd.com>, "Kazlauskas, Nicholas"
- <Nicholas.Kazlauskas@amd.com>
-CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdgpu/display: fix DMUB firmware version info
-Thread-Topic: [PATCH] drm/amdgpu/display: fix DMUB firmware version info
-Thread-Index: AQHXiEOL1eW4RuDsFEC2Wzp5NhzXHKthvHkP
-Date: Tue, 3 Aug 2021 12:58:14 +0000
-Message-ID: <BL1PR12MB51447637328F3ECBD3C99292F7F09@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20210803084228.57992-1-shirish.s@amd.com>
-In-Reply-To: <20210803084228.57992-1-shirish.s@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-08-03T12:58:14.379Z;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
- Official Use
- Only; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard; 
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: bdf4dd44-20f9-4e43-e2af-08d9567e5b92
-x-ms-traffictypediagnostic: BL1PR12MB5207:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BL1PR12MB52072F577AE9A017AF89C477F7F09@BL1PR12MB5207.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:345;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: T7tJAHakrzaPrUuTEBlkoWJ5vNLRn9vEU3bZiZX0hLQENoS+TwhXCBQI9hCKyEviZZY4dI6wdEJTtKW25dlzWj7KxZQTImu0Q3S73XSqE/+mTy60XVKglrqeSQfGHwUBPP7rq74uF8Noyz/iLXhOxgUpys5Q0JrO9qZeUNKRWV7vobmPVEcPyqO5wmmiOkhYcCBQoqgOxACTyL9iH4YJzOvm/yA9QSeb7bskyqIlcNFxxNvRp+OOUd2KModuX3WgrM8fQk6dk2MCFUzIEiZCJnxgVVrULuFoJUsO+I4b5Ls50SIJMM6MB9vgVLLscJ7Z9D5+VDJFDcmh9p1f5/8vTXMHhzpqbrm7AgKgTa3e4XYJUf+CHcZ3eNzIe/XpjekNXg7SpEQTq5Os62bNT2TXKM4RCalh/Mtbx8NwdVPSdONLvPxbrun7EC+E3LnJdPTNkBave1daE0lzpH9AgAUx3y5SCCZTemfBri6yeQrQeU7mP17qjqBAjvztT4MQC1ejeeV4T/xWG0JP2JPZUPIQbYh0ATn7tpX0AXzSoL5nhGSok/bTzpeBhqu/T2bhViV6Rc2+2m+MwOlGnRkXKMzwf/RiWC5VxxuYv7jFPCY9onb9OsDDk5G5T6Y2KVe95sygqRSLMk0zoC4mF6vLdnalpb7k9EPQz1OhfWPwIMOuNVtjri/D56PsjrN32pz1OqS51nxcfJkJaWeEmYdlv0jPRg==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(346002)(136003)(376002)(39860400002)(396003)(478600001)(316002)(186003)(64756008)(66556008)(66476007)(66446008)(66946007)(38100700002)(76116006)(8936002)(55016002)(122000001)(5660300002)(4326008)(9686003)(8676002)(71200400001)(52536014)(7696005)(86362001)(26005)(6636002)(53546011)(110136005)(2906002)(19627405001)(33656002)(6506007)(38070700005)(83380400001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?wzLSai6fGcwAT2NLxdtLGwGGjkR59LkmeWPjJd6VJpqEmulRolWeWr3+RsFf?=
- =?us-ascii?Q?hVGJq0LBaIbQhG/wozxdaFRlG0kbWrLc1ln7iVHOdiCIDk/4bOPm/OHVoL+o?=
- =?us-ascii?Q?7Dzu4cPLsqivZTiwwHftjHOt5mIctZItVeZS0euTH2iHBxgTNciSnRqadwV5?=
- =?us-ascii?Q?gnjTd7/5uOTe2SIZqd8g7NNqa2mKch5UwvN+PLhiahzSj/9KQZjmkUF8gN7h?=
- =?us-ascii?Q?Gq5wyms+11/uKkTb7qFa0ehk52kMFmrPL1BjXcyESl45RmaZKg+mEQU2ulcJ?=
- =?us-ascii?Q?nxpEsWiDXcHIjy3imiWETFSPeUgmy1xRqNTGNVKQ9ItBUu0Zvd92yF3qFei9?=
- =?us-ascii?Q?D3eaf90n2axGP5JCRbTWmeIrWSPr+BNR3/U/VFNfdn0LP25GwuCYQm0CCuUx?=
- =?us-ascii?Q?2H/ULbAArl2cESz+2NHXvj/oOK1bZLQRJuYsNoL/MvCc1U6rcc71KbsqRQcU?=
- =?us-ascii?Q?jkOMOPGYQa+JvXj4E4pBg8cvUWegO4k9FYZwG+QPQwY7EJvPN2fSiiVuGET0?=
- =?us-ascii?Q?PeyJjBqKejG1L6SvuaHfwR746979cUYvwaLggq6VC/OAARGH2djciQdTcWz8?=
- =?us-ascii?Q?pVPLtfuOd5Wv53xgH2nGP30QdrsLD0aKBHd+iRyq/rWm3juY9SyjrT5mZGW8?=
- =?us-ascii?Q?WLkP2vRF8CDdF2VxRO0kRo58DjauULVMS/uj9nyjO4wVwb5Yn9gXzzR1SfMu?=
- =?us-ascii?Q?mhCd2+XzsfjTtAncdoyOT8PpIJo35V3FvQUpRQZipCLI/FfGnGyZHdif+FLo?=
- =?us-ascii?Q?HdzcTkchbmMK5rJ/bNHgJlSdVPSA+XWYRLLMISGjVJWf5qL/YSu5mz/J04Tu?=
- =?us-ascii?Q?RbhsfLzOCcr7kLGYYO0pny9zIRapkg9vtcfWWq+pmSEc/TU1b/rj5Pe7DZko?=
- =?us-ascii?Q?5MBZU+B06cc7bea+2rKHOR1f9sg52XCZfoavystqw84s4CNckhLgtwHhmRyV?=
- =?us-ascii?Q?AWFAEfa7HI8jZCji8L4eD1adsAcQX4c/8+Gi+DfXn5PN+ZSEZ3Q0hl9q/5rY?=
- =?us-ascii?Q?6vL6rtURgDoezqxqE5+79nkVFmsA0UQpMtmTjobK+3Yo8ZbhTkB5+fKvM/tE?=
- =?us-ascii?Q?fDYFewVkTZuXlx5ZlR6fTS9GrIfFV+m2luhQula+nZHABrBaT58rTUolPX1s?=
- =?us-ascii?Q?kySAE2ZWz7Qks6tczJ5x3t5Ln16lFR+Jgr+eBrCPPmz6rfDzKvBigbHJ7iQp?=
- =?us-ascii?Q?hlWI1kZNeS5rG8Eh39Wv19VlRYqiy89uTM73zRxTlKShXD2RCvAZYVhuQct2?=
- =?us-ascii?Q?3EQhpGxRpD/m1EhRu5+F/RY1cIFoRPHo0AoElHEoOo7amDYWgyQokCxtFbUV?=
- =?us-ascii?Q?ZUgiSrfDk+0IBvBGTIcS3o6S?=
-Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB51447637328F3ECBD3C99292F7F09BL1PR12MB5144namp_"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3939289854;
+	Tue,  3 Aug 2021 13:09:35 +0000 (UTC)
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [IPv6:2a00:1450:4864:20::231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B6656E0A6
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Aug 2021 09:37:32 +0000 (UTC)
+Received: by mail-lj1-x231.google.com with SMTP id a7so27384368ljq.11
+ for <amd-gfx@lists.freedesktop.org>; Tue, 03 Aug 2021 02:37:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=SK6Ob07YJlX0nTWImG5cDSOjubg9maW6J2sNRF3yaOY=;
+ b=FBF9KtmjCa4uE0h2AteVPxiHyctdT6XJKIMbXtjO/tEd2nTSV/YeGyPiRGpkuIvk4D
+ MIsUvmdLlN3oN6mclWG7afHoXK1c0LZjelfP0qDlPGcdSNdDBmBndm2Wjg2EFLjBi1sQ
+ NW8SX1btq/CrnfYYRiGJRs/IQHazS4i8tNYH1NJBnBtQGSHrv5cZJkHSdmCXPVZmenua
+ ikIpDlNesEvw+jbsMZ/kYJWaEh1Oxgu4eltNTq+dQAVMq3x+D5m1idjwyeQjL4/mqJ8Q
+ XpT0GMgKd7iBnpTACGTS/qZReSNt1jD/grlVuRsommifNHDzZgq1Co7tOou7ch99y/6v
+ HiYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=SK6Ob07YJlX0nTWImG5cDSOjubg9maW6J2sNRF3yaOY=;
+ b=iqmQs8Y3hQJleqtyr2V2Qftbm6buO+QM4iQVVITsARNivpGXTt07TZ1Q8zhEdinREB
+ 7sqdKqee+Z113d4DoxB3sViHdg53DjI0WT1TZvr0Lpw6pcPV8/p+Uv263VW05odA/uET
+ kvXvHbsC6ZHe+YvH3DcGC6sNzYKcn4dfeacj3o0oOhQybHTcOuDMeBM52GBDZ3QTW8i0
+ +pz2q8yu9S/JpFAXG33zekmhywRV/iO6BWkR3NyDZZERf1R36MMQIDZHjPReP7VNMRtu
+ G7Hzg317SyjonyKu8tk/nqNa5r5bLsKHbUKjirfLvBmUOyA9B+yjEsWzTuwaYG2LZHEu
+ nxoQ==
+X-Gm-Message-State: AOAM533riDAKzMN78FiUSF9+uQK9hVpjc9BpliJHWxquJQt+CHyT8/w/
+ NJpuGGZcLWQDKKit8kn0aFYjJA==
+X-Google-Smtp-Source: ABdhPJwfzeu1HZdLhzyas+uFWAQ6XGdYcgkubYxUqCC4cyCTAVYruEGRSEc4hbVySR5Fttx49rvpQw==
+X-Received: by 2002:a05:651c:2051:: with SMTP id
+ t17mr13734385ljo.118.1627983450529; 
+ Tue, 03 Aug 2021 02:37:30 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id g17sm748572lfv.210.2021.08.03.02.37.29
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 03 Aug 2021 02:37:30 -0700 (PDT)
+Subject: Re: [PATCH v2 07/14] drm/msm: Convert to Linux IRQ interfaces
+To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
+ airlied@linux.ie, alexander.deucher@amd.com, christian.koenig@amd.com,
+ liviu.dudau@arm.com, brian.starkey@arm.com, sam@ravnborg.org,
+ bbrezillon@kernel.org, nicolas.ferre@microchip.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, stefan@agner.ch,
+ alison.wang@nxp.com, patrik.r.jakobsson@gmail.com,
+ anitha.chrisanthus@intel.com, robdclark@gmail.com, edmund.j.dea@intel.com,
+ sean@poorly.run, shawnguo@kernel.org, s.hauer@pengutronix.de,
+ kernel@pengutronix.de, jyri.sarha@iki.fi, tomba@kernel.org,
+ Dan.Sneddon@microchip.com, tomi.valkeinen@ideasonboard.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org
+References: <20210803090704.32152-1-tzimmermann@suse.de>
+ <20210803090704.32152-8-tzimmermann@suse.de>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <1f5f285a-b923-16ff-2ca1-6f92e22ffcab@linaro.org>
+Date: Tue, 3 Aug 2021 12:37:29 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bdf4dd44-20f9-4e43-e2af-08d9567e5b92
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Aug 2021 12:58:14.9218 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 4eQpRS5vQLnTrNcuOJjZmDL6XMJYQow3/6F8Ck/N/ql8j2mlo4OWzhhI03wx8qngpb5zwKb7GWqOjfmH840Thg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5207
+In-Reply-To: <20210803090704.32152-8-tzimmermann@suse.de>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Tue, 03 Aug 2021 13:09:34 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,149 +99,206 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB51447637328F3ECBD3C99292F7F09BL1PR12MB5144namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+On 03/08/2021 12:06, Thomas Zimmermann wrote:
+> Drop the DRM IRQ midlayer in favor of Linux IRQ interfaces. DRM's
+> IRQ helpers are mostly useful for UMS drivers. Modern KMS drivers
+> don't benefit from using it.
+> 
+> DRM IRQ callbacks are now being called directly or inlined.
+> 
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 
-[AMD Official Use Only]
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-________________________________
-From: S, Shirish <Shirish.S@amd.com>
-Sent: Tuesday, August 3, 2021 4:42 AM
-To: Wentland, Harry <Harry.Wentland@amd.com>; Kazlauskas, Nicholas <Nichola=
-s.Kazlauskas@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; S, Shiri=
-sh <Shirish.S@amd.com>
-Subject: [PATCH] drm/amdgpu/display: fix DMUB firmware version info
+Rob should probably also give his blessing on this patch though.
 
-DMUB firmware info is printed before it gets initialized.
-Correct this order to ensure true value is conveyed.
+> ---
+>   drivers/gpu/drm/msm/msm_drv.c | 113 ++++++++++++++++++++--------------
+>   drivers/gpu/drm/msm/msm_kms.h |   2 +-
+>   2 files changed, 69 insertions(+), 46 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+> index 1594ae39d54f..a332b09a5a11 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.c
+> +++ b/drivers/gpu/drm/msm/msm_drv.c
+> @@ -14,7 +14,6 @@
+>   #include <drm/drm_drv.h>
+>   #include <drm/drm_file.h>
+>   #include <drm/drm_ioctl.h>
+> -#include <drm/drm_irq.h>
+>   #include <drm/drm_prime.h>
+>   #include <drm/drm_of.h>
+>   #include <drm/drm_vblank.h>
+> @@ -201,6 +200,71 @@ void msm_rmw(void __iomem *addr, u32 mask, u32 or)
+>   	msm_writel(val | or, addr);
+>   }
+>   
+> +static irqreturn_t msm_irq(int irq, void *arg)
+> +{
+> +	struct drm_device *dev = arg;
+> +	struct msm_drm_private *priv = dev->dev_private;
+> +	struct msm_kms *kms = priv->kms;
+> +
+> +	BUG_ON(!kms);
+> +
+> +	return kms->funcs->irq(kms);
+> +}
+> +
+> +static void msm_irq_preinstall(struct drm_device *dev)
+> +{
+> +	struct msm_drm_private *priv = dev->dev_private;
+> +	struct msm_kms *kms = priv->kms;
+> +
+> +	BUG_ON(!kms);
+> +
+> +	kms->funcs->irq_preinstall(kms);
+> +}
+> +
+> +static int msm_irq_postinstall(struct drm_device *dev)
+> +{
+> +	struct msm_drm_private *priv = dev->dev_private;
+> +	struct msm_kms *kms = priv->kms;
+> +
+> +	BUG_ON(!kms);
+> +
+> +	if (kms->funcs->irq_postinstall)
+> +		return kms->funcs->irq_postinstall(kms);
+> +
+> +	return 0;
+> +}
+> +
+> +static int msm_irq_install(struct drm_device *dev, unsigned int irq)
+> +{
+> +	int ret;
+> +
+> +	if (irq == IRQ_NOTCONNECTED)
+> +		return -ENOTCONN;
+> +
+> +	msm_irq_preinstall(dev);
+> +
+> +	ret = request_irq(irq, msm_irq, 0, dev->driver->name, dev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = msm_irq_postinstall(dev);
+> +	if (ret) {
+> +		free_irq(irq, dev);
+> +		return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static void msm_irq_uninstall(struct drm_device *dev)
+> +{
+> +	struct msm_drm_private *priv = dev->dev_private;
+> +	struct msm_kms *kms = priv->kms;
+> +
+> +	kms->funcs->irq_uninstall(kms);
+> +	free_irq(kms->irq, dev);
+> +}
+> +
+>   struct msm_vblank_work {
+>   	struct work_struct work;
+>   	int crtc_id;
+> @@ -265,7 +329,7 @@ static int msm_drm_uninit(struct device *dev)
+>   	}
+>   
+>   	/* We must cancel and cleanup any pending vblank enable/disable
+> -	 * work before drm_irq_uninstall() to avoid work re-enabling an
+> +	 * work before msm_irq_uninstall() to avoid work re-enabling an
+>   	 * irq after uninstall has disabled it.
+>   	 */
+>   
+> @@ -294,7 +358,7 @@ static int msm_drm_uninit(struct device *dev)
+>   	drm_mode_config_cleanup(ddev);
+>   
+>   	pm_runtime_get_sync(dev);
+> -	drm_irq_uninstall(ddev);
+> +	msm_irq_uninstall(ddev);
+>   	pm_runtime_put_sync(dev);
+>   
+>   	if (kms && kms->funcs)
+> @@ -553,7 +617,7 @@ static int msm_drm_init(struct device *dev, const struct drm_driver *drv)
+>   
+>   	if (kms) {
+>   		pm_runtime_get_sync(dev);
+> -		ret = drm_irq_install(ddev, kms->irq);
+> +		ret = msm_irq_install(ddev, kms->irq);
+>   		pm_runtime_put_sync(dev);
+>   		if (ret < 0) {
+>   			DRM_DEV_ERROR(dev, "failed to install IRQ handler\n");
+> @@ -662,43 +726,6 @@ static void msm_postclose(struct drm_device *dev, struct drm_file *file)
+>   	context_close(ctx);
+>   }
+>   
+> -static irqreturn_t msm_irq(int irq, void *arg)
+> -{
+> -	struct drm_device *dev = arg;
+> -	struct msm_drm_private *priv = dev->dev_private;
+> -	struct msm_kms *kms = priv->kms;
+> -	BUG_ON(!kms);
+> -	return kms->funcs->irq(kms);
+> -}
+> -
+> -static void msm_irq_preinstall(struct drm_device *dev)
+> -{
+> -	struct msm_drm_private *priv = dev->dev_private;
+> -	struct msm_kms *kms = priv->kms;
+> -	BUG_ON(!kms);
+> -	kms->funcs->irq_preinstall(kms);
+> -}
+> -
+> -static int msm_irq_postinstall(struct drm_device *dev)
+> -{
+> -	struct msm_drm_private *priv = dev->dev_private;
+> -	struct msm_kms *kms = priv->kms;
+> -	BUG_ON(!kms);
+> -
+> -	if (kms->funcs->irq_postinstall)
+> -		return kms->funcs->irq_postinstall(kms);
+> -
+> -	return 0;
+> -}
+> -
+> -static void msm_irq_uninstall(struct drm_device *dev)
+> -{
+> -	struct msm_drm_private *priv = dev->dev_private;
+> -	struct msm_kms *kms = priv->kms;
+> -	BUG_ON(!kms);
+> -	kms->funcs->irq_uninstall(kms);
+> -}
+> -
+>   int msm_crtc_enable_vblank(struct drm_crtc *crtc)
+>   {
+>   	struct drm_device *dev = crtc->dev;
+> @@ -1051,10 +1078,6 @@ static const struct drm_driver msm_driver = {
+>   	.open               = msm_open,
+>   	.postclose           = msm_postclose,
+>   	.lastclose          = drm_fb_helper_lastclose,
+> -	.irq_handler        = msm_irq,
+> -	.irq_preinstall     = msm_irq_preinstall,
+> -	.irq_postinstall    = msm_irq_postinstall,
+> -	.irq_uninstall      = msm_irq_uninstall,
+>   	.dumb_create        = msm_gem_dumb_create,
+>   	.dumb_map_offset    = msm_gem_dumb_map_offset,
+>   	.prime_handle_to_fd = drm_gem_prime_handle_to_fd,
+> diff --git a/drivers/gpu/drm/msm/msm_kms.h b/drivers/gpu/drm/msm/msm_kms.h
+> index 086a2d59b8c8..9de7c42e1071 100644
+> --- a/drivers/gpu/drm/msm/msm_kms.h
+> +++ b/drivers/gpu/drm/msm/msm_kms.h
+> @@ -150,7 +150,7 @@ struct msm_kms {
+>   	const struct msm_kms_funcs *funcs;
+>   	struct drm_device *dev;
+>   
+> -	/* irq number to be passed on to drm_irq_install */
+> +	/* irq number to be passed on to msm_irq_install */
+>   	int irq;
+>   
+>   	/* mapper-id used to request GEM buffer mapped for scanout: */
+> 
 
-Signed-off-by: Shirish S <shirish.s@amd.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
-u/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 7e09b6d26a51..396a2dca2fe0 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -1548,6 +1548,7 @@ static int dm_dmub_sw_init(struct amdgpu_device *adev=
-)
-         }
-
-         hdr =3D (const struct dmcub_firmware_header_v1_0 *)adev->dm.dmub_f=
-w->data;
-+       adev->dm.dmcub_fw_version =3D le32_to_cpu(hdr->header.ucode_version=
-);
-
-         if (adev->firmware.load_type =3D=3D AMDGPU_FW_LOAD_PSP) {
-                 adev->firmware.ucode[AMDGPU_UCODE_ID_DMCUB].ucode_id =3D
-@@ -1561,7 +1562,6 @@ static int dm_dmub_sw_init(struct amdgpu_device *adev=
-)
-                          adev->dm.dmcub_fw_version);
-         }
-
--       adev->dm.dmcub_fw_version =3D le32_to_cpu(hdr->header.ucode_version=
-);
-
-         adev->dm.dmub_srv =3D kzalloc(sizeof(*adev->dm.dmub_srv), GFP_KERN=
-EL);
-         dmub_srv =3D adev->dm.dmub_srv;
---
-2.17.1
-
-
---_000_BL1PR12MB51447637328F3ECBD3C99292F7F09BL1PR12MB5144namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> S, Shirish &lt;Shiris=
-h.S@amd.com&gt;<br>
-<b>Sent:</b> Tuesday, August 3, 2021 4:42 AM<br>
-<b>To:</b> Wentland, Harry &lt;Harry.Wentland@amd.com&gt;; Kazlauskas, Nich=
-olas &lt;Nicholas.Kazlauskas@amd.com&gt;; Deucher, Alexander &lt;Alexander.=
-Deucher@amd.com&gt;<br>
-<b>Cc:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;; S, Shirish &lt;Shirish.S@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu/display: fix DMUB firmware version info<=
-/font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">DMUB firmware info is printed before it gets initi=
-alized.<br>
-Correct this order to ensure true value is conveyed.<br>
-<br>
-Signed-off-by: Shirish S &lt;shirish.s@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-<br>
-&nbsp;1 file changed, 1 insertion(+), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
-u/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-index 7e09b6d26a51..396a2dca2fe0 100644<br>
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-@@ -1548,6 +1548,7 @@ static int dm_dmub_sw_init(struct amdgpu_device *adev=
-)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hdr =3D (const struct dmcu=
-b_firmware_header_v1_0 *)adev-&gt;dm.dmub_fw-&gt;data;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;dm.dmcub_fw_version =3D le32=
-_to_cpu(hdr-&gt;header.ucode_version);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;firmware.load=
-_type =3D=3D AMDGPU_FW_LOAD_PSP) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; adev-&gt;firmware.ucode[AMDGPU_UCODE_ID_DMCUB].ucode_=
-id =3D<br>
-@@ -1561,7 +1562,6 @@ static int dm_dmub_sw_init(struct amdgpu_device *adev=
-)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
- adev-&gt;dm.dmcub_fw_version);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;dm.dmcub_fw_version =3D le32=
-_to_cpu(hdr-&gt;header.ucode_version);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;dm.dmub_srv =3D k=
-zalloc(sizeof(*adev-&gt;dm.dmub_srv), GFP_KERNEL);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dmub_srv =3D adev-&gt;dm.d=
-mub_srv;<br>
--- <br>
-2.17.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_BL1PR12MB51447637328F3ECBD3C99292F7F09BL1PR12MB5144namp_--
+-- 
+With best wishes
+Dmitry
