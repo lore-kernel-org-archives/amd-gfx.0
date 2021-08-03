@@ -2,64 +2,105 @@ Return-Path: <SRS0=T22W=M2=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EF53BC4320A
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 08:34:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D0D04C4338F
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 08:42:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 092A460524
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 08:34:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 092A460524
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=daenzer.net
+	by mail.kernel.org (Postfix) with ESMTPS id 718A160F70
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 08:42:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 718A160F70
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B96F26E41B;
-	Tue,  3 Aug 2021 08:34:09 +0000 (UTC)
-Received: from netline-mail3.netline.ch (mail.netline.ch [148.251.143.180])
- by gabe.freedesktop.org (Postfix) with ESMTP id 084E36E41B;
- Tue,  3 Aug 2021 08:34:09 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by netline-mail3.netline.ch (Postfix) with ESMTP id 15EA520201B;
- Tue,  3 Aug 2021 10:34:08 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at netline-mail3.netline.ch
-Received: from netline-mail3.netline.ch ([127.0.0.1])
- by localhost (netline-mail3.netline.ch [127.0.0.1]) (amavisd-new, port 10024)
- with LMTP id fhzOsvkjXHwR; Tue,  3 Aug 2021 10:34:07 +0200 (CEST)
-Received: from thor (24.99.2.85.dynamic.wline.res.cust.swisscom.ch
- [85.2.99.24])
- by netline-mail3.netline.ch (Postfix) with ESMTPA id 3757320201A;
- Tue,  3 Aug 2021 10:34:07 +0200 (CEST)
-Received: from localhost ([::1]) by thor with esmtp (Exim 4.94.2)
- (envelope-from <michel@daenzer.net>)
- id 1mApsE-000bJw-Dr; Tue, 03 Aug 2021 10:34:06 +0200
-To: Alex Deucher <alexdeucher@gmail.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Zhenneng Li <lizhenneng@kylinos.cn>, Alex Deucher
- <alexander.deucher@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- David Airlie <airlied@linux.ie>, amd-gfx list
- <amd-gfx@lists.freedesktop.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>
-Cc: Daniel Vetter <daniel@ffwll.ch>
-References: <20210802074310.1526526-1-lizhenneng@kylinos.cn>
- <e6e77cfb-4e6b-c30e-ae7c-ac84b82c9a75@amd.com>
- <YQetXMaASz/F2EyS@phenom.ffwll.local>
- <CADnq5_PDtEn1y5HJBRHXw8o11LVwSRDKNtQgZtN5u0CW5ZspnQ@mail.gmail.com>
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
-Subject: Re: [PATCH] drm/radeon: Update pitch for page flip
-Message-ID: <6a34fcc3-0aa3-85ff-21c4-86b9b5a48fd5@daenzer.net>
-Date: Tue, 3 Aug 2021 10:34:06 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33C0E6E487;
+	Tue,  3 Aug 2021 08:42:54 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam07on2072.outbound.protection.outlook.com [40.107.212.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9647B6E487
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Aug 2021 08:42:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Zu62PmIPDJXJJKjEENULmLtNWdV0j8oOwoPr0FoxBxnzMGJLMEAJMn0uk6eY5gV1XUsQGOHKZUXKTJtozdN+Qz+aGPkIcTn7C+JjWxkyCmkB+5eJ9ltZJPRLcCeF+Jfwwy+4SrMl08PE8h2RjTdBKSHribkw4Vt1ntYK9aCpVRblUAy+tRWtccXOj4gBjJQMqj8jy7OVE/823/Phxlm8cWYZJ82K/yHHFwB5veIaT39fZH8JBBsRTPbQHR0B/UQQK5xbxgHnBd5hJ0LVquqR/bh1vHdd8Vc/LNzKo1uYnNKyY8XBQQrMtY+1hPuzodYnowKW/2ZgRwII7htz0qyjDQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+uhlwLYDi4fiqG6euEHrWUaMefVHC43y8s+PaxeVsAU=;
+ b=C8QJMaGaD98nshlCSHaLGsauWdVrIz6EFBu7V5DaHUl3yYbWdvfFkTyoNnU1PLbwd06ko2GjLKLCWQw+OPCBMUNlMRvcBlgNEeQYfFVVBq+mZOoi+QiIUcGE42kzT5Y5z/rPAobQPQbnB+qiG/FSwCwz7fAT6YlW7eAuHQ5A8U6DZ97o40bAmQZoOXphjJWz7tave2ZcneEoXKj7lqynAnIlyAK2n9AernG3E/l0Ec0HKfS4db8s7xxxLUA21DQ9Kams3tzbNz2DmsEpStJI5BX1yR/xDgwcwI8TldC5LFDOJwr3xWzZijMWIX9+gJ91icYJhY3gw3kGMCo8UpTolQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+uhlwLYDi4fiqG6euEHrWUaMefVHC43y8s+PaxeVsAU=;
+ b=Hwoj38ktpGVdxCVzz/sEIg2pVyETpyLHuG6i84U6VwS4RmR+ToIM5TnMoOS9asASie1lOU+Jss68AlPQ0wHy/ysVshZC8MmA0zd4r3RRhPJGnSXzTpToY06yRgyUAjYJ9hqEdd5UwC/VKZJPEZA0DmOCNRJ2xv8N3LoWVO3KDlQ=
+Received: from DM6PR07CA0097.namprd07.prod.outlook.com (2603:10b6:5:337::30)
+ by CH2PR12MB3655.namprd12.prod.outlook.com (2603:10b6:610:25::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4373.26; Tue, 3 Aug
+ 2021 08:42:50 +0000
+Received: from DM6NAM11FT004.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:337:cafe::e9) by DM6PR07CA0097.outlook.office365.com
+ (2603:10b6:5:337::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4373.18 via Frontend
+ Transport; Tue, 3 Aug 2021 08:42:50 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT004.mail.protection.outlook.com (10.13.172.217) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4373.18 via Frontend Transport; Tue, 3 Aug 2021 08:42:50 +0000
+Received: from amd-WhiteHaven.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Tue, 3 Aug
+ 2021 03:42:46 -0500
+From: Shirish S <shirish.s@amd.com>
+To: Harry Wentland <harry.wentland@amd.com>, Nicholas Kazlauskas
+ <nicholas.kazlauskas@amd.com>, Alex Deucher <alexander.deucher@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Shirish S <shirish.s@amd.com>
+Subject: [PATCH] drm/amdgpu/display: fix DMUB firmware version info
+Date: Tue, 3 Aug 2021 14:12:28 +0530
+Message-ID: <20210803084228.57992-1-shirish.s@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-In-Reply-To: <CADnq5_PDtEn1y5HJBRHXw8o11LVwSRDKNtQgZtN5u0CW5ZspnQ@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-CA
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 5447a24a-7a97-492e-7935-08d9565aad45
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3655:
+X-Microsoft-Antispam-PRVS: <CH2PR12MB3655916C74941BE40DF744F3F2F09@CH2PR12MB3655.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:949;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Lk3YeDv01xypEqsHLTcxbI5pj8V1f0wuN06ZmPvHVgtlwXj1njwd8k2f/158hyFkumV9j93T9zhyR32oY3+NnwzWPa9u/VjC9c7ty8TQ9qTTCHqiTJ6p+1KrRvN7323PEXapmulEBpySYPacTZtTca3pGQJYuBM4vHoHK6Oy5L8bNEdh+6nRIgMKTF/CjBRAVABKMxhXa08rRnrThzgBttYzPKJmowS3/lt2jnZZn3tGRvS9YwD/MXXtpyDjM3OrPpH57TkkjBCh+9t7HmkwJ3+17kE//qj+iUPDzbCjYqk7AfNZVtZ7m3bmR1SIWsktf8K3DFJFylbwk9y++ziCaaGvr8dVjDeZtDONiN6SoD4yNTXpVUY4qYrqOCxf8cRanEAyvEx6aIbHQkzIilOWIEF9JQaRIGe+FgRAav4TH4uf/AN3BdwW9BJdet288PKVt47WbWYCg4xRL2qJRsC98DelSI4l7QMiDBLJZZdaPd/3XX/rkL5pkiYirXbSjdlNeCBrGHTTGSmQO6PwZ6jR0Z8phhlqT2lsG4zLr94dNYRraWIxNQ1rvk+Sg+h4gItlkTGyambiTqQTZBhXsoLV+EpSJ7YyDIrZV+WKd3ypk0KT7zRsQtKLspy+xq+iT5Uw3kJGtZHA59SKFylD79T/jERrEj3dc/aIFm0owTtNAJqyywX1J6mSgho4+qJ1bLm4FhpremqWXfMJiu/kPmqFLoCBiiLeEtyU+dHgRrcSphY=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(136003)(396003)(346002)(39860400002)(376002)(36840700001)(46966006)(26005)(70206006)(1076003)(8676002)(8936002)(36756003)(70586007)(186003)(36860700001)(2616005)(5660300002)(426003)(82310400003)(2906002)(81166007)(336012)(16526019)(82740400003)(6666004)(110136005)(316002)(7696005)(54906003)(478600001)(356005)(4326008)(6636002)(83380400001)(86362001)(47076005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Aug 2021 08:42:50.2933 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5447a24a-7a97-492e-7935-08d9565aad45
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT004.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3655
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,43 +115,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2021-08-02 4:51 p.m., Alex Deucher wrote:
-> On Mon, Aug 2, 2021 at 4:31 AM Daniel Vetter <daniel@ffwll.ch> wrote:
->>
->> On Mon, Aug 02, 2021 at 10:12:47AM +0200, Christian König wrote:
->>> Am 02.08.21 um 09:43 schrieb Zhenneng Li:
->>>> When primary bo is updated, crtc's pitch may
->>>> have not been updated, this will lead to show
->>>> disorder content when user changes display mode,
->>>> we update crtc's pitch in page flip to avoid
->>>> this bug.
->>>> This refers to amdgpu's pageflip.
->>>
->>> Alex is the expert to ask about that code, but I'm not sure if that is
->>> really correct for the old hardware.
->>>
->>> As far as I know the crtc's pitch should not change during a page flip, but
->>> only during a full mode set.
->>>
->>> So could you elaborate a bit more how you trigger this?
->>
->> legacy page_flip ioctl only verifies that the fb->format stays the same.
->> It doesn't check anything else (afair never has), this is all up to
->> drivers to verify.
->>
->> Personally I'd say add a check to reject this, since testing this and
->> making sure it really works everywhere is probably a bit much on this old
->> hw.
-> 
-> If just the pitch changed, that probably wouldn't be much of a
-> problem, but if the pitch is changing, that probably implies other
-> stuff has changed as well and we'll just be chasing changes.  I agree
-> it would be best to just reject anything other than updating the
-> scanout address.
+DMUB firmware info is printed before it gets initialized.
+Correct this order to ensure true value is conveyed.
 
-FWIW, that means page flipping cannot be used in some cases which work fine by changing the pitch, which can result in tearing: https://gitlab.freedesktop.org/xorg/xserver/-/issues/839 (which says the i915 driver handles this as well).
+Signed-off-by: Shirish S <shirish.s@amd.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 7e09b6d26a51..396a2dca2fe0 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -1548,6 +1548,7 @@ static int dm_dmub_sw_init(struct amdgpu_device *adev)
+ 	}
+ 
+ 	hdr = (const struct dmcub_firmware_header_v1_0 *)adev->dm.dmub_fw->data;
++	adev->dm.dmcub_fw_version = le32_to_cpu(hdr->header.ucode_version);
+ 
+ 	if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) {
+ 		adev->firmware.ucode[AMDGPU_UCODE_ID_DMCUB].ucode_id =
+@@ -1561,7 +1562,6 @@ static int dm_dmub_sw_init(struct amdgpu_device *adev)
+ 			 adev->dm.dmcub_fw_version);
+ 	}
+ 
+-	adev->dm.dmcub_fw_version = le32_to_cpu(hdr->header.ucode_version);
+ 
+ 	adev->dm.dmub_srv = kzalloc(sizeof(*adev->dm.dmub_srv), GFP_KERNEL);
+ 	dmub_srv = adev->dm.dmub_srv;
 -- 
-Earthling Michel Dänzer               |               https://redhat.com
-Libre software enthusiast             |             Mesa and X developer
+2.17.1
+
