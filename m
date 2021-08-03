@@ -7,55 +7,55 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CCFC4C43216
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 09:07:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3A4AEC4338F
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 09:07:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9ADF760C3F
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 09:07:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9ADF760C3F
+	by mail.kernel.org (Postfix) with ESMTPS id 113A660EFD
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 09:07:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 113A660EFD
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E05C26E4B1;
-	Tue,  3 Aug 2021 09:07:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0FBBE6E512;
+	Tue,  3 Aug 2021 09:07:12 +0000 (UTC)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B49B76E499;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E3A66E509;
+ Tue,  3 Aug 2021 09:07:11 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id AC665200A8;
  Tue,  3 Aug 2021 09:07:09 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 309FD200B7;
- Tue,  3 Aug 2021 09:07:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1627981628; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ t=1627981629; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=BOCosVdfAMT8o2qJiRwG3FOrw3/tjUGJlzM26XpEIRk=;
- b=iRZ6xy/VvfwSvlehBpOsSu3S2UuMJxmGyZVt3u7OIWhjMecfxRi0X0SMMx3jzmGALaOKAO
- XMszODlWdIOQEyH+KEBR+PRDhEJ5R7JLEsAM7L1hSvjZlZwJpJ+BtB/YlZXGkYGOnTRo7v
- ogbQgIjpz3gu+w+GnElZ8A8aRNNOHSM=
+ bh=KkHL2CZ3W1c8VXaH2AGjl4WNZ/pJK1qpK2qVN7PE6mw=;
+ b=Ut7OQJM/V3w0uXcIOlLjEwDYYDM+zxxnl+Nxpy3A7w6BIMRXtZyxU71dJJ8jZ/TYmlCE42
+ clTz25XXmKvzQprYPZw/uQw2F/ZJN9OfDKn4VlQCqpVoxWJ59F23npDdi7Zg/wll5ILh4R
+ m+1EsVHluiNAAaF5JnucyqevKZeLzUY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1627981628;
+ s=susede2_ed25519; t=1627981629;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=BOCosVdfAMT8o2qJiRwG3FOrw3/tjUGJlzM26XpEIRk=;
- b=V0dU0KdR54hGGkTTPFefC5vADK5QwDSKY9imvvDnzP4nBTx5mPbrY23RH9mI0NjCAtu632
- FlYzAICPQ7JAgzCQ==
+ bh=KkHL2CZ3W1c8VXaH2AGjl4WNZ/pJK1qpK2qVN7PE6mw=;
+ b=plINC8wTepHhzPMjJvIWk9iFGtZUs7aK8kynwsY5/p0i1JDogkA2y8gT2ZZ4Kn/1nLicCg
+ F3VB3B4SGJAJr4Dg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7128213CCA;
- Tue,  3 Aug 2021 09:07:07 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E5EF113CCA;
+ Tue,  3 Aug 2021 09:07:08 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id ANxjGjsHCWFVJQAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Tue, 03 Aug 2021 09:07:07 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id 0L3lNjwHCWFVJQAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Tue, 03 Aug 2021 09:07:08 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
  christian.koenig@amd.com, liviu.dudau@arm.com, brian.starkey@arm.com,
@@ -69,14 +69,13 @@ To: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
  freedreno@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH v2 01/14] drm/amdgpu: Convert to Linux IRQ interfaces
-Date: Tue,  3 Aug 2021 11:06:51 +0200
-Message-Id: <20210803090704.32152-2-tzimmermann@suse.de>
+Subject: [PATCH v2 03/14] drm/atmel-hlcdc: Convert to Linux IRQ interfaces
+Date: Tue,  3 Aug 2021 11:06:53 +0200
+Message-Id: <20210803090704.32152-4-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210803090704.32152-1-tzimmermann@suse.de>
 References: <20210803090704.32152-1-tzimmermann@suse.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,121 +93,143 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Drop the DRM IRQ midlayer in favor of Linux IRQ interfaces. DRM's
 IRQ helpers are mostly useful for UMS drivers. Modern KMS drivers
-don't benefit from using it.
+don't benefit from using it. DRM IRQ callbacks are now being called
+directly or inlined.
 
-DRM IRQ callbacks are now being called directly or inlined.
-
-The interrupt number returned by pci_msi_vector() is now stored
-in struct amdgpu_irq. Calls to pci_msi_vector() can fail and return
-a negative errno code. Abort initlaizaton in thi case. The DRM IRQ
-midlayer does not handle this correctly.
+v2:
+	* use managed release via devm_request_irq() (Sam)
+	* drop extra test for irq != IRQ_NOTCONNECTED (Sam)
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Acked-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Sam Ravnborg <sam@ravnborg.org>
+Tested-by: Dan Sneddon <Dan.Sneddon@microchip.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  1 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c | 21 ++++++++++++++-------
- drivers/gpu/drm/amd/amdgpu/amdgpu_irq.h |  2 +-
- 3 files changed, 15 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c | 80 ++++++++++++--------
+ 1 file changed, 47 insertions(+), 33 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index d637b0536f84..2b0b0e8a6acb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -1777,7 +1777,6 @@ static const struct drm_driver amdgpu_kms_driver = {
- 	.open = amdgpu_driver_open_kms,
- 	.postclose = amdgpu_driver_postclose_kms,
- 	.lastclose = amdgpu_driver_lastclose_kms,
--	.irq_handler = amdgpu_irq_handler,
- 	.ioctls = amdgpu_ioctls_kms,
- 	.num_ioctls = ARRAY_SIZE(amdgpu_ioctls_kms),
- 	.dumb_create = amdgpu_mode_dumb_create,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-index 7dfdabe1cdf9..3ac39b44a211 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-@@ -46,7 +46,6 @@
- #include <linux/pci.h>
- 
- #include <drm/drm_crtc_helper.h>
+diff --git a/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c b/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c
+index f09b6dd8754c..1656d27b78b6 100644
+--- a/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c
++++ b/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c
+@@ -22,7 +22,6 @@
+ #include <drm/drm_fb_helper.h>
+ #include <drm/drm_gem_cma_helper.h>
+ #include <drm/drm_gem_framebuffer_helper.h>
 -#include <drm/drm_irq.h>
+ #include <drm/drm_probe_helper.h>
  #include <drm/drm_vblank.h>
- #include <drm/amdgpu_drm.h>
- #include <drm/drm_drv.h>
-@@ -184,7 +183,7 @@ void amdgpu_irq_disable_all(struct amdgpu_device *adev)
-  * Returns:
-  * result of handling the IRQ, as defined by &irqreturn_t
-  */
--irqreturn_t amdgpu_irq_handler(int irq, void *arg)
-+static irqreturn_t amdgpu_irq_handler(int irq, void *arg)
- {
- 	struct drm_device *dev = (struct drm_device *) arg;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
-@@ -307,6 +306,7 @@ static void amdgpu_restore_msix(struct amdgpu_device *adev)
- int amdgpu_irq_init(struct amdgpu_device *adev)
- {
- 	int r = 0;
-+	unsigned int irq;
  
- 	spin_lock_init(&adev->irq.lock);
+@@ -557,6 +556,51 @@ static irqreturn_t atmel_hlcdc_dc_irq_handler(int irq, void *data)
+ 	return IRQ_HANDLED;
+ }
  
-@@ -349,15 +349,22 @@ int amdgpu_irq_init(struct amdgpu_device *adev)
- 	INIT_WORK(&adev->irq.ih2_work, amdgpu_irq_handle_ih2);
- 	INIT_WORK(&adev->irq.ih_soft_work, amdgpu_irq_handle_ih_soft);
- 
--	adev->irq.installed = true;
--	/* Use vector 0 for MSI-X */
--	r = drm_irq_install(adev_to_drm(adev), pci_irq_vector(adev->pdev, 0));
-+	/* Use vector 0 for MSI-X. */
-+	r = pci_irq_vector(adev->pdev, 0);
-+	if (r < 0)
-+		return r;
-+	irq = r;
++static void atmel_hlcdc_dc_irq_postinstall(struct drm_device *dev)
++{
++	struct atmel_hlcdc_dc *dc = dev->dev_private;
++	unsigned int cfg = 0;
++	int i;
 +
-+	/* PCI devices require shared interrupts. */
-+	r = request_irq(irq, amdgpu_irq_handler, IRQF_SHARED, adev_to_drm(adev)->driver->name,
-+			adev_to_drm(adev));
- 	if (r) {
--		adev->irq.installed = false;
- 		if (!amdgpu_device_has_dc_support(adev))
- 			flush_work(&adev->hotplug_work);
- 		return r;
- 	}
-+	adev->irq.installed = true;
-+	adev->irq.irq = irq;
- 	adev_to_drm(adev)->max_vblank_count = 0x00ffffff;
++	/* Enable interrupts on activated layers */
++	for (i = 0; i < ATMEL_HLCDC_MAX_LAYERS; i++) {
++		if (dc->layers[i])
++			cfg |= ATMEL_HLCDC_LAYER_STATUS(i);
++	}
++
++	regmap_write(dc->hlcdc->regmap, ATMEL_HLCDC_IER, cfg);
++}
++
++static void atmel_hlcdc_dc_irq_disable(struct drm_device *dev)
++{
++	struct atmel_hlcdc_dc *dc = dev->dev_private;
++	unsigned int isr;
++
++	regmap_write(dc->hlcdc->regmap, ATMEL_HLCDC_IDR, 0xffffffff);
++	regmap_read(dc->hlcdc->regmap, ATMEL_HLCDC_ISR, &isr);
++}
++
++static int atmel_hlcdc_dc_irq_install(struct drm_device *dev, unsigned int irq)
++{
++	int ret;
++
++	atmel_hlcdc_dc_irq_disable(dev);
++
++	ret = devm_request_irq(dev->dev, irq, atmel_hlcdc_dc_irq_handler, 0,
++			       dev->driver->name, dev);
++	if (ret)
++		return ret;
++
++	atmel_hlcdc_dc_irq_postinstall(dev);
++
++	return 0;
++}
++
++static void atmel_hlcdc_dc_irq_uninstall(struct drm_device *dev)
++{
++	atmel_hlcdc_dc_irq_disable(dev);
++}
++
+ static const struct drm_mode_config_funcs mode_config_funcs = {
+ 	.fb_create = drm_gem_fb_create,
+ 	.atomic_check = drm_atomic_helper_check,
+@@ -647,7 +691,7 @@ static int atmel_hlcdc_dc_load(struct drm_device *dev)
+ 	drm_mode_config_reset(dev);
  
- 	DRM_DEBUG("amdgpu: irq initialized.\n");
-@@ -368,7 +375,7 @@ int amdgpu_irq_init(struct amdgpu_device *adev)
- void amdgpu_irq_fini_hw(struct amdgpu_device *adev)
- {
- 	if (adev->irq.installed) {
--		drm_irq_uninstall(&adev->ddev);
-+		free_irq(adev->irq.irq, adev_to_drm(adev));
- 		adev->irq.installed = false;
- 		if (adev->irq.msi_enabled)
- 			pci_free_irq_vectors(adev->pdev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.h
-index 78ad4784cc74..e9f2c11ea416 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.h
-@@ -80,6 +80,7 @@ struct amdgpu_irq_src_funcs {
+ 	pm_runtime_get_sync(dev->dev);
+-	ret = drm_irq_install(dev, dc->hlcdc->irq);
++	ret = atmel_hlcdc_dc_irq_install(dev, dc->hlcdc->irq);
+ 	pm_runtime_put_sync(dev->dev);
+ 	if (ret < 0) {
+ 		dev_err(dev->dev, "failed to install IRQ handler\n");
+@@ -676,7 +720,7 @@ static void atmel_hlcdc_dc_unload(struct drm_device *dev)
+ 	drm_mode_config_cleanup(dev);
  
- struct amdgpu_irq {
- 	bool				installed;
-+	unsigned int			irq;
- 	spinlock_t			lock;
- 	/* interrupt sources */
- 	struct amdgpu_irq_client	client[AMDGPU_IRQ_CLIENTID_MAX];
-@@ -100,7 +101,6 @@ struct amdgpu_irq {
- };
+ 	pm_runtime_get_sync(dev->dev);
+-	drm_irq_uninstall(dev);
++	atmel_hlcdc_dc_irq_uninstall(dev);
+ 	pm_runtime_put_sync(dev->dev);
  
- void amdgpu_irq_disable_all(struct amdgpu_device *adev);
--irqreturn_t amdgpu_irq_handler(int irq, void *arg);
+ 	dev->dev_private = NULL;
+@@ -685,40 +729,10 @@ static void atmel_hlcdc_dc_unload(struct drm_device *dev)
+ 	clk_disable_unprepare(dc->hlcdc->periph_clk);
+ }
  
- int amdgpu_irq_init(struct amdgpu_device *adev);
- void amdgpu_irq_fini_sw(struct amdgpu_device *adev);
+-static int atmel_hlcdc_dc_irq_postinstall(struct drm_device *dev)
+-{
+-	struct atmel_hlcdc_dc *dc = dev->dev_private;
+-	unsigned int cfg = 0;
+-	int i;
+-
+-	/* Enable interrupts on activated layers */
+-	for (i = 0; i < ATMEL_HLCDC_MAX_LAYERS; i++) {
+-		if (dc->layers[i])
+-			cfg |= ATMEL_HLCDC_LAYER_STATUS(i);
+-	}
+-
+-	regmap_write(dc->hlcdc->regmap, ATMEL_HLCDC_IER, cfg);
+-
+-	return 0;
+-}
+-
+-static void atmel_hlcdc_dc_irq_uninstall(struct drm_device *dev)
+-{
+-	struct atmel_hlcdc_dc *dc = dev->dev_private;
+-	unsigned int isr;
+-
+-	regmap_write(dc->hlcdc->regmap, ATMEL_HLCDC_IDR, 0xffffffff);
+-	regmap_read(dc->hlcdc->regmap, ATMEL_HLCDC_ISR, &isr);
+-}
+-
+ DEFINE_DRM_GEM_CMA_FOPS(fops);
+ 
+ static const struct drm_driver atmel_hlcdc_dc_driver = {
+ 	.driver_features = DRIVER_GEM | DRIVER_MODESET | DRIVER_ATOMIC,
+-	.irq_handler = atmel_hlcdc_dc_irq_handler,
+-	.irq_preinstall = atmel_hlcdc_dc_irq_uninstall,
+-	.irq_postinstall = atmel_hlcdc_dc_irq_postinstall,
+-	.irq_uninstall = atmel_hlcdc_dc_irq_uninstall,
+ 	DRM_GEM_CMA_DRIVER_OPS,
+ 	.fops = &fops,
+ 	.name = "atmel-hlcdc",
 -- 
 2.32.0
 
