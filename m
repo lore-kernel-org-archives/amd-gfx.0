@@ -8,67 +8,69 @@ X-Spam-Status: No, score=-14.4 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EC88AC4320A
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Aug 2021 09:01:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 88084C4338F
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Aug 2021 09:04:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B006A60E52
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Aug 2021 09:01:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B006A60E52
+	by mail.kernel.org (Postfix) with ESMTPS id 4E86B60E52
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Aug 2021 09:04:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4E86B60E52
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 24AC76EA2C;
-	Wed,  4 Aug 2021 09:01:27 +0000 (UTC)
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [IPv6:2a00:1450:4864:20::42e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F0086EA25
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Aug 2021 09:01:25 +0000 (UTC)
-Received: by mail-wr1-x42e.google.com with SMTP id m12so1341307wru.12
- for <amd-gfx@lists.freedesktop.org>; Wed, 04 Aug 2021 02:01:25 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63B236EA27;
+	Wed,  4 Aug 2021 09:04:37 +0000 (UTC)
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [IPv6:2a00:1450:4864:20::42a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 863996EA27
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Aug 2021 09:04:33 +0000 (UTC)
+Received: by mail-wr1-x42a.google.com with SMTP id n12so1397242wrr.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 04 Aug 2021 02:04:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=subject:to:references:from:message-id:date:user-agent:mime-version
  :in-reply-to:content-transfer-encoding:content-language;
- bh=1y2BddBgSeE4j7AmD7g4wisNFNGP044GJisTBScWDEc=;
- b=UzB6QkDKqGaD7Ij9GZcEFkFvAvC8GeTTbvyDZhqEf2hj4jO8dul0/ZdVVRztAuw1qi
- NNbiptAe2N1OA/OT4xfqSvbEBXzA9jq2E8sbk4lbXL3wKD7Vls0rjJ7v6YN2/9yWDcgm
- UWVZPzHZ4eSyxSo+Fi0Ll6HaTq1oJAJ5vgSZW3Klke7q2EoKZNAcmGEdQLwfTw5TKsG4
- cW5rtwwl7/R/vGfvcqYkC7ruOdItANU//UYUg2QoXUFLdJZjZtckfoLS7449friB44Si
- JtrAB+2zq8eTuLUFtf78Zlsw3pclrRMCYzl6QNG/M5dHSHTiMZtfTFCxwox39virFiq+
- s3dA==
+ bh=gdx9QOaebaMTuT5ytSkuNnsPPYbkJ8hTDKrcQM0WsZc=;
+ b=IOLU/pzV5ix9Cshx9fbNDMQ3h+7d0zpIo6jmDGQlsiti3jRiXqo/lS/2OjtQyiLRlu
+ N93JvFKKeQ3Q3vBUFdteNrjEXJgQqADi9g9xihgA03hsRRobYZ8bmx1FBhbdUYJbtAuA
+ xSWhRchW/Kj5pesusS4q0lcPWn8a3pXaA8JP2pZOsd7xSOvBfa8emNEbH5iNJn+XQifq
+ Pul73pizUuitgRIHSbspRRQgOmAHfHDQJkV2ygcJhJ2ZvAuEuLAWPyY4pUjmu2FcDkw4
+ ShqgCw3dEP40/15diEqB1WDV8yitjbGzQoCzp3nkBWW2FBt0xQ4rI3frwug2kS1vI36x
+ v7Gw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:subject:to:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-transfer-encoding
  :content-language;
- bh=1y2BddBgSeE4j7AmD7g4wisNFNGP044GJisTBScWDEc=;
- b=sP7PVoqqnzsW86QTMB8Ls1arHpKNVL/kZcCvfMvf+RYhUy5NtMwyx9yx+wDYpoKIFh
- oiN2M2BOyXGLVjfiGCwJla9hg6kLHPJrAVu1sdsT8a0TeM9Ph5PxEU7w8SYyow1VCth7
- U4ETjYVsLubvy46bfZwtTIeBoCcM8Eh3UFfHOU5TW6GxjzTavgW3K5OX1HsRtfyyfNHC
- RZmflezsUK34712nuzfI+CO09joNPOxGAVnnT9gSEED70F7KwvGyKAeqG5fRHgCrBzU/
- X/37ufMwIqbYejg4TVLK7naLAJcB7B75uRNWUZThJ8qAhR89sNfIXVza1x8LWKz5lwlR
- EJxw==
-X-Gm-Message-State: AOAM5318kq5fqDlJagvuRz0PwH6G70xqFj65zitOuyWxJis+21EXpHCT
- tr0ntf0Cd3sHoK44/Uw4ORqBj+g7UlM=
-X-Google-Smtp-Source: ABdhPJxYUIudDej/VjNlKeHcpKN6idoty41rKYvQBNorB3h98g6pFklWGgOleYCyZcdzlTpw/r8+gA==
-X-Received: by 2002:a5d:6442:: with SMTP id d2mr27942414wrw.425.1628067683673; 
- Wed, 04 Aug 2021 02:01:23 -0700 (PDT)
+ bh=gdx9QOaebaMTuT5ytSkuNnsPPYbkJ8hTDKrcQM0WsZc=;
+ b=s2HbKUk5VE5rS1SfuH4AMPzNlZX5itXyeCHiz3WXRgem8rwI54X+c0rQqqQdWz/N2b
+ U6qU8AQXMM0ktlj5iUK6RyLY2/jnJUBz/hPSf0xi9aPxNYtapKzGAeFACgUYHdi82UpE
+ v6xVZTe7aCYfOAvcpLPjeHohPoxStwye+WifMyVxEh/TfsxnGHLT70qeQgYAIRs8+V9p
+ lcbRQGOnQF5NTvFYqllpcnCVz28tbrfAxhSRvlrfAIRa6Rkng7r3JRM1AKlYtV0dcFYC
+ pUa9V0oJfPWqIwiA7fwfWhR5APtXsfz1HJrFKbAWjM9w5AgETm44sxUSBbBFPmKMzPbL
+ GJ+g==
+X-Gm-Message-State: AOAM531xS5SI3RP4yhYZ1mvhwGUoy1CL991PZvkxp0rT0j054dVnTVlA
+ 3y/lxsghtZQvjlZoGvBwfb2f1LT5/Ow=
+X-Google-Smtp-Source: ABdhPJw6IRXdTyOuWxR35VOHahj5hj9SPExyxvAR2hTLBJ8KMp5nPhtkFXfzR+Nc0/Fb4zrEULMnCw==
+X-Received: by 2002:adf:d1c7:: with SMTP id b7mr27884811wrd.108.1628067872229; 
+ Wed, 04 Aug 2021 02:04:32 -0700 (PDT)
 Received: from ?IPv6:2a02:908:1252:fb60:fc63:9f41:3d77:1613?
  ([2a02:908:1252:fb60:fc63:9f41:3d77:1613])
- by smtp.gmail.com with ESMTPSA id f194sm5323549wmf.23.2021.08.04.02.01.22
+ by smtp.gmail.com with ESMTPSA id w13sm2092216wru.72.2021.08.04.02.04.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Aug 2021 02:01:23 -0700 (PDT)
-Subject: Re: [PATCH] drm/amdgpu: Fix vm free pts race when process exiting
-To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20210802223308.13076-1-Philip.Yang@amd.com>
+ Wed, 04 Aug 2021 02:04:31 -0700 (PDT)
+Subject: Re: [PATCH v2] drm/amdgpu: fix fdinfo race with process exit
+To: philip yang <yangp@amd.com>, Philip Yang <Philip.Yang@amd.com>,
+ amd-gfx@lists.freedesktop.org
+References: <20210730021321.7953-1-Philip.Yang@amd.com>
+ <00330732-4232-3d3e-e271-47df226514ad@amd.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <920b7b04-8f8d-a57a-724e-811a4c7e581c@gmail.com>
-Date: Wed, 4 Aug 2021 11:01:21 +0200
+Message-ID: <c24b471f-6b4b-8301-b7d6-bba69f6467ab@gmail.com>
+Date: Wed, 4 Aug 2021 11:04:30 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <20210802223308.13076-1-Philip.Yang@amd.com>
+In-Reply-To: <00330732-4232-3d3e-e271-47df226514ad@amd.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 7bit
 Content-Language: en-US
@@ -86,61 +88,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 03.08.21 um 00:33 schrieb Philip Yang:
-> Take vm->invalidated_lock spinlock to remove vm pd and pt bos, to avoid
-> link list corruption with crash backtrace:
->
-> [ 2290.505111] list_del corruption. next->prev should be
->   ffff9b2514ec0018, but was 4e03280211010f04
-> [ 2290.505154] kernel BUG at lib/list_debug.c:56!
-> [ 2290.505176] invalid opcode: 0000 [#1] SMP NOPTI
-> [ 2290.505254] Workqueue: events delayed_fput
-> [ 2290.505271] RIP: 0010:__list_del_entry_valid.cold.1+0x20/0x4c
-> [ 2290.505513] Call Trace:
-> [ 2290.505623]  amdgpu_vm_free_table+0x26/0x80 [amdgpu]
-> [ 2290.505705]  amdgpu_vm_free_pts+0x7a/0xf0 [amdgpu]
-> [ 2290.505786]  amdgpu_vm_fini+0x1f0/0x440 [amdgpu]
-> [ 2290.505864]  amdgpu_driver_postclose_kms+0x172/0x290 [amdgpu]
-> [ 2290.505893]  drm_file_free.part.10+0x1d4/0x270 [drm]
-> [ 2290.505916]  drm_release+0xa9/0xe0 [drm]
-> [ 2290.505930]  __fput+0xb7/0x230
-> [ 2290.505942]  delayed_fput+0x1c/0x30
-> [ 2290.505957]  process_one_work+0x1a7/0x360
-> [ 2290.505971]  worker_thread+0x30/0x390
-> [ 2290.505985]  ? create_worker+0x1a0/0x1a0
-> [ 2290.505999]  kthread+0x112/0x130
-> [ 2290.506011]  ? kthread_flush_work_fn+0x10/0x10
-> [ 2290.506027]  ret_from_fork+0x22/0x40
+Sorry I'm on vacation and can't reply immediately.
 
-Wow, well this is a big NAK.
+This is the wrong approach. The fdinfo should have grabbed a reference 
+to the fd it prints the info for.
 
-The page tables should never ever be on the invalidation list or 
-otherwise we would try to point PTEs to them which is a huge security issue.
+So we should never race here. Can you double check how this happens?
 
-Taking the lock just workaround that. Can you investigate how it happens 
-that a page table ends up on that list?
-
-Thanks in advance,
+Thanks,
 Christian.
 
+Am 03.08.21 um 16:06 schrieb philip yang:
 >
-> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 2 ++
->   1 file changed, 2 insertions(+)
+> ping?
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index 2a88ed5d983b..5c4c355e7d6b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -1045,7 +1045,9 @@ static void amdgpu_vm_free_table(struct amdgpu_vm_bo_base *entry)
->   		return;
->   	shadow = amdgpu_bo_shadowed(entry->bo);
->   	entry->bo->vm_bo = NULL;
-> +	spin_lock(&entry->vm->invalidated_lock);
->   	list_del(&entry->vm_status);
-> +	spin_unlock(&entry->vm->invalidated_lock);
->   	amdgpu_bo_unref(&shadow);
->   	amdgpu_bo_unref(&entry->bo);
->   }
+> On 2021-07-29 10:13 p.m., Philip Yang wrote:
+>> Get process vm root BO ref in case process is exiting and root BO is
+>> freed, to avoid NULL pointer dereference backtrace:
+>>
+>> BUG: unable to handle kernel NULL pointer dereference at
+>> 0000000000000000
+>> Call Trace:
+>> amdgpu_show_fdinfo+0xfe/0x2a0 [amdgpu]
+>> seq_show+0x12c/0x180
+>> seq_read+0x153/0x410
+>> vfs_read+0x91/0x140[ 3427.206183]  ksys_read+0x4f/0xb0
+>> do_syscall_64+0x5b/0x1a0
+>> entry_SYSCALL_64_after_hwframe+0x65/0xca
+>>
+>> v2: rebase to staging
+>>
+>> Signed-off-by: Philip Yang<Philip.Yang@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c | 11 +++++++++--
+>>   1 file changed, 9 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+>> index d94c5419ec25..5a6857c44bb6 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+>> @@ -59,6 +59,7 @@ void amdgpu_show_fdinfo(struct seq_file *m, struct file *f)
+>>   	uint64_t vram_mem = 0, gtt_mem = 0, cpu_mem = 0;
+>>   	struct drm_file *file = f->private_data;
+>>   	struct amdgpu_device *adev = drm_to_adev(file->minor->dev);
+>> +	struct amdgpu_bo *root;
+>>   	int ret;
+>>   
+>>   	ret = amdgpu_file_to_fpriv(f, &fpriv);
+>> @@ -69,13 +70,19 @@ void amdgpu_show_fdinfo(struct seq_file *m, struct file *f)
+>>   	dev = PCI_SLOT(adev->pdev->devfn);
+>>   	fn = PCI_FUNC(adev->pdev->devfn);
+>>   
+>> -	ret = amdgpu_bo_reserve(fpriv->vm.root.bo, false);
+>> +	root = amdgpu_bo_ref(fpriv->vm.root.bo);
+>> +	if (!root)
+>> +		return;
+>> +
+>> +	ret = amdgpu_bo_reserve(root, false);
+>>   	if (ret) {
+>>   		DRM_ERROR("Fail to reserve bo\n");
+>>   		return;
+>>   	}
+>>   	amdgpu_vm_get_memory(&fpriv->vm, &vram_mem, &gtt_mem, &cpu_mem);
+>> -	amdgpu_bo_unreserve(fpriv->vm.root.bo);
+>> +	amdgpu_bo_unreserve(root);
+>> +	amdgpu_bo_unref(&root);
+>> +
+>>   	seq_printf(m, "pdev:\t%04x:%02x:%02x.%d\npasid:\t%u\n", domain, bus,
+>>   			dev, fn, fpriv->vm.pasid);
+>>   	seq_printf(m, "vram mem:\t%llu kB\n", vram_mem/1024UL);
 
