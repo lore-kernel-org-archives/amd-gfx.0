@@ -2,74 +2,111 @@ Return-Path: <SRS0=ROs4=M4=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DAD3DC4338F
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 07:32:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 245B8C4338F
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 08:32:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 25D5E61004
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 07:32:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 25D5E61004
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=razorwired.com
+	by mail.kernel.org (Postfix) with ESMTPS id E402260F43
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 08:32:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E402260F43
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE7EC6E213;
-	Thu,  5 Aug 2021 07:32:26 +0000 (UTC)
-Received: from mail-qk1-x732.google.com (mail-qk1-x732.google.com
- [IPv6:2607:f8b0:4864:20::732])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7063C6EA6C
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Aug 2021 12:53:10 +0000 (UTC)
-Received: by mail-qk1-x732.google.com with SMTP id az7so2574415qkb.5
- for <amd-gfx@lists.freedesktop.org>; Wed, 04 Aug 2021 05:53:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=razorwired-com.20150623.gappssmtp.com; s=20150623;
- h=message-id:subject:from:to:date:in-reply-to:references:user-agent
- :mime-version; bh=nBp3etDn2gRtOv0uo0G7kXdDmhwk9JThBWGMVkR9jic=;
- b=08NALQ/tbNY8jHhxyAnTu2nNkFTgn8NQ15O/MtbweEjLokXO8VguRZ0QoyRm0KYbA2
- SWCImcg/3qyTB+VfMxmATXXq1t55nQHVS6k1TfmYg6IB16RYn4z6PlD8i3W2Du1tqn8Q
- xxRL7NautuFbDB87lSUq6em+O03VcTeyYHTNRfh+fqhcT8vwbilqkS2br/W2HveER4x3
- eUFTsf7howe8MdQNKez4MYla0cffAaQ730rZs2ZX0MoW6/RN8p2Ye9qHXAtOlxDrC5hV
- l26FtALQlnP9wQYkFo9i7QsYdHZ92qc+F0rYSsxputFNdDzPX7A/JXNhIPLR8BZpnuPm
- JE9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:message-id:subject:from:to:date:in-reply-to
- :references:user-agent:mime-version;
- bh=nBp3etDn2gRtOv0uo0G7kXdDmhwk9JThBWGMVkR9jic=;
- b=U1yICgqeucw6xgRBCbC3nDt8v3oNIvvln9imfCd7UElvQnM+gVMarwIikTrHROPf03
- 6SCbXKyyyy6NUOdZffLh5Aq8lTY9kltf4Y/1VW4+KoOJ17FgtE2HV9rIsqtOAyGFoGgv
- 21qJ8Vvyd5GQq4E5ZoMIU+MwYGQe2jAi2HfaMaDpBCvmrGt4s8Evi2d+09qld2FjsQjK
- 9dGWrH5Vvw9Ij/kMmrlQmDA7pDf6eF1BaSlr7pblLpTmucEf9TeKRcDUcrMj3zd+ixC/
- LD4yykGNNzzwgwdTzBMX6t0xKu7gwfcinalvTGQkBY5UNDFBe8vgTA2mi/6FVhbQIyXi
- DkRQ==
-X-Gm-Message-State: AOAM530GaC7goAyNrxARfxKMnjw8XLoaaeWBxsZkSvlsasGqcW/LC/ss
- HSKS/wMaK61V7x6SV9iAAjAxEQ==
-X-Google-Smtp-Source: ABdhPJxYf1fFqCgv7u8NanN4Wz71hVnNYqDWTmst6Yd8PaXJjIy2YfrKkjmDoIhgNfCP3wMh7r90Hw==
-X-Received: by 2002:a37:a951:: with SMTP id s78mr25828800qke.486.1628081589086; 
- Wed, 04 Aug 2021 05:53:09 -0700 (PDT)
-Received: from Alpha-17 ([185.179.250.194])
- by smtp.gmail.com with ESMTPSA id l4sm1252225qkd.77.2021.08.04.05.53.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 Aug 2021 05:53:08 -0700 (PDT)
-Message-ID: <4dda4f5c494f75df6ce4d91100f70b4bc74fd8bf.camel@razorwired.com>
-Subject: Re: Linux Mint 20.04 5.11 issue
-From: Tim Cahill <tim@razorwired.com>
-To: Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org
-Date: Wed, 04 Aug 2021 08:53:07 -0400
-In-Reply-To: <527b5f787d2418e51b3232619e9c4754b9cf4644.camel@razorwired.com>
-References: <3e50d54ee11131494a8dcd75cdff5f366dd90930.camel@razorwired.com>
- <5bfdb04e-fc92-3938-c701-1ceb91782475@amd.com>
- <d238603ff3d85c40250b8386aa7264b240e1623d.camel@razorwired.com>
- <527b5f787d2418e51b3232619e9c4754b9cf4644.camel@razorwired.com>
-Content-Type: multipart/alternative; boundary="=-CQM71TumAjLG20zC9FPc"
-User-Agent: Evolution 3.36.5-0ubuntu1 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D9216E30D;
+	Thu,  5 Aug 2021 08:32:11 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2082.outbound.protection.outlook.com [40.107.94.82])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A9FE6E30D
+ for <amd-gfx@lists.freedesktop.org>; Thu,  5 Aug 2021 08:32:10 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=GVf2DtntvZQUSzbtXlqi+mHDaPgxuFYBtA3qJ0RFa7Yb9aNmmwckzFu81X3zZUMkXXSgVeZDLNoVu+p7vtrIO0k45yHPVDxgKIl0h8J8qqXPvLi1ayKxgcxDN7yZ1i1FdM/6JkznJR7jetq0TOou+omlXQpqVgUuHFso7uYlNDYqf8w4RUkXQYY5hhuy4Na42H3UdPdbEMfnd3ak4ZpdDnwbOND99LLfgjTNs93QB/wneZMMuadh9bV/48+dzdnE7mSvQH3goFZ6cNh+8+Rd74cArOa40A8lQPaozCJvxUX5lhk65LqqX4TEAHHkAb/Eu9oTFyC4ZBjXUnvM3kkpfA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=b0a2AiWnkilixJsQphHnHlAGp7f/TBMn/n9uKGwTjUw=;
+ b=HK8lMmoRD3C/seqR2XuIIAomXnA6ZmmwjgnQyc+aZp+9vP+JdyJIuAtM6Q1jbRIDtAHq+QQmxWSLoPcdmwVi7+3AWF7aaODF6vx8p3/14zk+4jBgD/J2/gxNMa/hlQJlUnZgrBv/qsPYgJv36mc+EmY4JTU9w/uwmEoGHBBVYjM8V2sU9WXxo5YG+rXyN1Gdn0+3Z6qGtwpUtMO2g4I6wRgdfUjG8JtquuDRiDH1DZWzS3+W0kvAKJVcYeEjUoZ7uBfi6/atYdYl3u+E8QA6zSiAum952fFS56/6teuO4fR+E6FsKIKKaCB8+hsOBzrHOCeMzrhAuIAkSpHtjV+UhA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=b0a2AiWnkilixJsQphHnHlAGp7f/TBMn/n9uKGwTjUw=;
+ b=HsbSwvTIc3+l6ETj075QRqi1Wu0hrU1Pph6VecSCuIo5dSPkNq2u22yJcgFeTbCgVj0qr2B7AiUWPzKbGrTln97fL28rFBs8rcoVz64MraHYi6bN0uHC4WGLqropr+1U1GcXOaNvEAXkUkbF1OSJ/nsrshSQ+h6T5U9uSSaS20s=
+Received: from DM6PR08CA0004.namprd08.prod.outlook.com (2603:10b6:5:80::17) by
+ CY4PR12MB1781.namprd12.prod.outlook.com (2603:10b6:903:122::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4373.25; Thu, 5 Aug
+ 2021 08:32:08 +0000
+Received: from DM6NAM11FT063.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:80:cafe::4d) by DM6PR08CA0004.outlook.office365.com
+ (2603:10b6:5:80::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4373.22 via Frontend
+ Transport; Thu, 5 Aug 2021 08:32:08 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT063.mail.protection.outlook.com (10.13.172.219) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4394.16 via Frontend Transport; Thu, 5 Aug 2021 08:32:07 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Thu, 5 Aug
+ 2021 03:32:07 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Thu, 5 Aug
+ 2021 03:32:06 -0500
+Received: from wayne-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2242.12 via Frontend
+ Transport; Thu, 5 Aug 2021 03:32:04 -0500
+From: Jingwen Chen <Jingwen.Chen2@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <monk.liu@amd.com>, <christian.koenig@amd.com>,
+ <Andrey.Grodzovsky@amd.com>, Jack Zhang <Jack.Zhang1@amd.com>, Jingwen Chen
+ <Jingwen.Chen2@amd.com>, Jack Zhang <Jack.Zhang7@hotmail.com>
+Subject: [PATCHv2 1/2] drm/amd/amdgpu embed hw_fence into amdgpu_job
+Date: Thu, 5 Aug 2021 16:31:46 +0800
+Message-ID: <20210805083146.324741-1-Jingwen.Chen2@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-Mailman-Approved-At: Thu, 05 Aug 2021 07:32:24 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: e4cfc7b3-cae7-4d50-f6c9-08d957eb831a
+X-MS-TrafficTypeDiagnostic: CY4PR12MB1781:
+X-Microsoft-Antispam-PRVS: <CY4PR12MB17812E93F700299EF1DBEF42B7F29@CY4PR12MB1781.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:252;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: GhHA3nQ7r4yluC9pwTD6HaOv0nDhDa70uTdGHdyY8LMi0ndfx5Xl1A5lGQQkfpNseptamkKF/K7yIzY2iJe4/C3Bvwe4ro/533cHUWhIid5Ue5Sd9NBeo/BW7brDZ213dqF27wJLZURyE6Ogpl7J465dyiFwQbQHj6Y14OTbMJOcQkzdl2sF0HYfSzzyMi1uXieIiMzKrBPh1VguE33tN8OgElsMiaHLnxX1lDgTi6a7Q23eBxxDzNIf+fVQzcHZbsWELQPDkeNW4rsaLbYZmk0ybuYbJvBQU1wiDcb0EGvukMO9fsVRxJzdU7ha34ViDkLn8s1CVkHDqw7zL2BVyr5V+fKCXfKs4jK9leFV3U4/b3VIVakljKk2ETCYR1vtDHO7040ib48EPvbPedJwfcANonJP+NOYRd16yAlW6b0GhvpQkBQTk/2vqPujiKMsaVxxwjpmnS+YC1HOZHTlR8/Jkc/MZTqPx6tJotrW8Tb1s7WJfgO2w5Jnr3VAfA/K82TZHHdPmcsKLxe02a94ndKF2/PVObEkJW2mjMx+OCLGyfVDI+HQx4Y9tembp+1rQ5k8ZEm/bns5HWXskDNPos7Isf14vWXf3jJsfMDZMGC/g0eurlT9TcMkExW8fB/wKp8Fg+WJp/c6iHFLwuJlsILzfOwc6JJJmqrEwlM3/bBwN4wmMPxKfcxgVoc9hrGI0MCS6C/hRVtgfdGfYbZhNpClh5DBUtmNOaWxlDxz95A=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(39860400002)(136003)(396003)(376002)(346002)(36840700001)(36860700001)(6916009)(7696005)(81166007)(8936002)(8676002)(478600001)(30864003)(82740400003)(83380400001)(1076003)(426003)(186003)(32650700002)(336012)(5660300002)(356005)(45080400002)(2906002)(4326008)(6666004)(36756003)(82310400003)(26005)(2616005)(316002)(54906003)(70586007)(86362001)(70206006)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2021 08:32:07.7259 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e4cfc7b3-cae7-4d50-f6c9-08d957eb831a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT063.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1781
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,579 +121,328 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+From: Jack Zhang <Jack.Zhang1@amd.com>
 
---=-CQM71TumAjLG20zC9FPc
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+Why: Previously hw fence is alloced separately with job.
+It caused historical lifetime issues and corner cases.
+The ideal situation is to take fence to manage both job
+and fence's lifetime, and simplify the design of gpu-scheduler.
 
-When launching Chromium from a terminal window, I get the following
-output:
-2606:2626:0804/084411.009101:ERROR:nss_util.cc(286)] After loading Root
-Certs, loaded==false: NSS error code: -8018mesa: for the --simplifycfg-
-sink-common option: may only occur zero or one times!mesa: for the --
-global-isel-abort option: may only occur zero or one times!mesa: for
-the --amdgpu-atomic-optimizations option: may only occur zero or one
-times!mesa: for the --structurizecfg-skip-uniform-regions option: may
-only occur zero or one
-times![2636:2636:0804/084411.912737:ERROR:sandbox_linux.cc(374)]
-InitializeSandbox() called with multiple threads in process gpu-
-process.
-I got the above after rebooting this morning after another Marco crash
-(https://termbin.com/xy80). Any insight into whether or not this is
-software, driver, or hardware issue is appreciated.
-Thanks,Tim 
-On Fri, 2021-07-30 at 08:08 -0400, Tim Cahill wrote:
-> Posted the following comment to the Mate-desktop issue:
-> 
->   Had
->  another hang with the same configuration as a youtube video played
-> via a
->  USB headphone (Jabra40). I was able to recover by killing Firefox,
-> in 
-> which the video was playing. The video became choppy and garbled and 
-> then stopped. The stderr is below:
-> 
-> ALSA lib conf.c:5187:(snd_config_expand) Unknown parameters 1ALSA lib
-> control.c:1379:(snd_ctl_open_noupdate) Invalid CTL sysdefault:1ALSA
-> lib conf.c:5187:(snd_config_expand) Unknown parameters 2ALSA lib
-> control.c:1379:(snd_ctl_open_noupdate) Invalid CTL sysdefault:2ALSA
-> lib pcm_dmix.c:1089:(snd_pcm_dmix_open) unable to open slaveALSA lib
-> pcm_dmix.c:1089:(snd_pcm_dmix_open) unable to open slaveALSA lib
-> pcm_dmix.c:1089:(snd_pcm_dmix_open) unable to open slaveALSA lib
-> pcm_dmix.c:1089:(snd_pcm_dmix_open) unable to open slaveALSA lib
-> pcm_dmix.c:1089:(snd_pcm_dmix_open) unable to open slave
-> 
-> On re-launch of Firefox from terminal window, the following appeared:
-> 
-> [GFX1-]: More than 1 GPU from same vendor detected via PCI, cannot
-> deduce deviceOn Thu, 2021-07-29 at 12:04 -0400, Tim Cahill wrote:
-> > I apologize if the name callout is disconcerting. I was trying to
-> > follow instructions for sending bugs and saw your name listed as
-> > the owner of this code area. 
-> > FYI, I'd done some more troubleshooting and tinkering regarding the
-> > crashing and Mate seems to be at the center of all the issues. As a
-> > result, I also opened an Issue with the Mate Desktop team (
-> > https://github.com/mate-desktop/mate-panel/issues/1242). Mate also
-> > has a power management component, which is probably responsible for
-> > the excess logging and the confusion over Navil10. However, I have
-> > no way to vouch for now accurately the Mate PM applet gathered data
-> > for its instantiation. I have no external devices connected that
-> > I'm aware would use it since I thought that was via HDMI. I *do*
-> > have a Jabra Evolve2 headset that uses the TypeC USB connector, but
-> > I assume that's not using the GPU.
-> > The issue documentation I left with Mate notes that if I launch
-> > apps from a terminal that is NOT launched from the Mate panel
-> > (right-click on desktop instead to open terminal), the parent for
-> > all the apps (Firefox, Evolution, etc.) is separate from Mate (at
-> > least separate from mate-panel). Everything has worked fine (except
-> > for the constant logging of the wake-up action) since I've done
-> > that (and turned off the screensaver and screensaver lock). So, I'm
-> > not sure what else to do at this point. Please advise if I should
-> > do anything on the driver side.
-> > Thanks,Tim 
-> > On Thu, 2021-07-29 at 11:14 -0400, Felix Kuehling wrote:
-> > > Am 2021-07-28 um 12:10 p.m. schrieb Tim Cahill:
-> > > > Hi Felix,
-> > > 
-> > > I'm not sure why you're calling me out by name. I'm not working
-> > > onanything obviously related to your crashes.
-> > > Anyway, I took a quick look at the backtraces. They all point at
-> > > libgdk.Two of them are segfaults, one is an abort. It's not clear
-> > > how thesewould be related to the GPU driver. That said, when you
-> > > boot withnomodeset, the GPU driver and all HW acceleration is
-> > > completelydisabled. If that makes the problem disappear, the GPU
-> > > driver is clearlyinvolved in the problem in some way.
-> > > The abort points at a problem while freeing memory. This could be
-> > > causedby a double-free problem in some unrelated code, possibly
-> > > related to theGPU driver. This would be a problem in a user mode
-> > > component (maybeMesa), not the kernel mode driver.
-> > > I believe the messages you're seeing when you move the mouse are
-> > > theresult of runtime power management that puts the GPU to sleep
-> > > when it'sidle and reinitializes it when it's needed. You have 2
-> > > GPUs in yourlaptop, an integrated Renoir GPU in the Ryzen CPU,
-> > > and an externalNavi10 GPU for higher gaming performance. The GPU
-> > > that goes to sleep andwakes up is the external Navi10 GPU.
-> > > The OpenGL renderer string specifies "RENOIR". Therefore I'm
-> > > surprisedthat the Navi10 GPU wakes up when you move the mouse.
-> > > Ideally itshouldn't be used at all when you're just using the
-> > > desktop.
-> > > If you suspect that runtime power management is responsible for
-> > > yourproblems, you could disable it with amdgpu.runpm=0 on the
-> > > kernel commandline. That means the Navi10 GPU won't go into the
-> > > low power mode anddrain your battery more quickly. So this is not
-> > > a permanent solution.Just an experiment to narrow down the
-> > > problem.
-> > > Regards,  Felix
-> > > 
-> > > > I'm not sure how to do this as I haven't had to report a bug
-> > > > before.I've looked to a variety of bug reporting sites to see
-> > > > if anyone elseis running into the same issues that I'm having
-> > > > (such as the Mateproject) and haven't seen anything at all
-> > > > similar to the issue I'mhaving. Since I had issues with AMD
-> > > > drivers with my distro (infobelow) and some consistent and high
-> > > > volume dmesg content shows up,I've decided that I should start
-> > > > here with the AMD kernel team.
-> > > > I have a fairly new MSI laptop with the following
-> > > > configuration:
-> > > > [code]System:    Kernel: 5.11.0-25-generic x86_64 bits: 64
-> > > > compiler: N/ADesktop: MATE 1.24.0 wm: marco            dm:
-> > > > LightDM Distro: Linux Mint 20.2 Uma base: Ubuntu
-> > > > 20.04focal Machine:   Type: Laptop System: Micro-Star product:
-> > > > Alpha 17 A4DEK v:REV:1.0 serial: <filter>            Chassis:
-> > > > type: 10 serial: <filter>            Mobo: Micro-Star model:
-> > > > MS-17EK v: REV:1.0 serial: <filter>UEFI: American
-> > > > Megatrends            v: E17EKAMS.101 date:
-> > > > 10/26/2020 Battery:   ID-1: BAT1 charge: 66.2 Wh condition:
-> > > > 67.0/65.7 Wh (102%)volts: 12.4/10.8            model: MSI Corp.
-> > > > MS-17EK serial: N/A status: Unknown CPU:       Topology: 8-Core 
-> > > > model: AMD Ryzen 7 4800H with RadeonGraphics bits: 64 type: MT
-> > > > MCP            arch: Zen rev: 1 L2 cache: 4096
-> > > > KiB            flags: avx avx2 lm nx pae sse sse2 sse3 sse4_1
-> > > > sse4_2 sse4assse3 svm bogomips: 92630            Speed: 4278
-> > > > MHz min/max: 1400/2900 MHz Core speeds (MHz):1: 4280 2: 1865 3:
-> > > > 1397            4: 2188 5: 1489 6: 2265 7: 1907 8: 1906 9: 1729
-> > > > 10: 139711: 1397 12: 1397 13: 1397            14: 1397 15: 1907
-> > > > 16: 1740 Graphics:  Device-1: AMD Navi 10 [Radeon RX 5600
-> > > > OEM/5600 XT /5700/5700 XT]            vendor: Micro-Star MSI
-> > > > driver: amdgpu v: kernel bus ID:03:00.0 chip ID:
-> > > > 1002:731f            Device-2: AMD Renoir vendor: Micro-Star
-> > > > MSI driver: amdgpuv: kernel bus ID: 08:00.0            chip ID:
-> > > > 1002:1636            Display: x11 server: X.Org 1.20.9 driver:
-> > > > amdgpu,ati            unloaded: fbdev,modesetting,radeon,vesa
-> > > > compositor: marcoresolution: 1920x1080~144Hz            OpenGL:
-> > > > renderer: AMD RENOIR (DRM 3.40.0 5.11.0-25-genericLLVM
-> > > > 11.0.0)            v: 4.6 Mesa 20.2.6 direct render:
-> > > > Yes Audio:     Device-1: AMD Navi 10 HDMI Audio vendor: Micro-
-> > > > Star MSIdriver: snd_hda_intel v: kernel            bus ID:
-> > > > 03:00.1 chip ID: 1002:ab38            Device-2: AMD
-> > > > Raven/Raven2/FireFlight/Renoir AudioProcessor vendor: Micro-
-> > > > Star MSI            driver: N/A bus ID: 08:00.5 chip ID:
-> > > > 1022:15e2            Device-3: AMD Family 17h HD Audio vendor:
-> > > > Micro-Star MSIdriver: snd_hda_intel            v: kernel bus
-> > > > ID: 08:00.6 chip ID: 1022:15e3            Sound Server: ALSA v:
-> > > > k5.11.0-25-generic Network:   Device-1: Intel Wi-Fi 6 AX200
-> > > > driver: iwlwifi v: kernel busID: 04:00.0            chip ID:
-> > > > 8086:2723            IF: wlp4s0 state: up mac:
-> > > > <filter>            Device-2: Realtek RTL8111/8168/8411 PCI
-> > > > Express GigabitEthernet vendor: Micro-Star
-> > > > MSI            driver: r8169 v: kernel port: f000 bus ID:
-> > > > 05:00.0 chip ID:10ec:8168            IF: eno1 state: down mac:
-> > > > <filter> Drives:    Local Storage: total: 476.94 GiB used:
-> > > > 89.79 GiB (18.8%)            ID-1: /dev/nvme0n1 vendor:
-> > > > Kingston model: OM8PCP3512F-AI1size: 476.94
-> > > > GiB            speed: 31.6 Gb/s lanes: 4 serial:
-> > > > <filter> Partition: ID-1: / size: 466.30 GiB used: 89.28 GiB
-> > > > (19.1%) fs: ext4dev: /dev/dm-1            ID-2: /boot size:
-> > > > 704.5 MiB used: 519.7 MiB (73.8%) fs:ext4 dev:
-> > > > /dev/nvme0n1p2            ID-3: swap-1 size: 980.0 MiB used: 0
-> > > > KiB (0.0%) fs: swapdev: /dev/dm-2 USB:       Hub: 1-0:1 info:
-> > > > Full speed (or root) Hub ports: 4 rev: 2.0chip ID:
-> > > > 1d6b:0002            Device-1: 1-3:2 info: SteelSeries ApS
-> > > > SteelSeries KLC type:HID            driver: hid-generic,usbhid
-> > > > rev: 2.0 chip ID: 1038:1122            Device-2: 1-4:3 info:
-> > > > Acer HD Webcam type: Video driver:uvcvideo rev:
-> > > > 2.0            chip ID: 5986:211c            Hub: 2-0:1 info:
-> > > > Full speed (or root) Hub ports: 2 rev: 3.1chip ID:
-> > > > 1d6b:0003            Hub: 3-0:1 info: Full speed (or root) Hub
-> > > > ports: 4 rev: 2.0chip ID: 1d6b:0002            Device-3: 3-3:2
-> > > > info: Intel type: Bluetooth driver: btusbrev: 2.0 chip ID:
-> > > > 8087:0029            Hub: 4-0:1 info: Full speed (or root) Hub
-> > > > ports: 2 rev: 3.1chip ID: 1d6b:0003 Sensors:   System
-> > > > Temperatures: cpu: 46.5 C mobo: N/A            Fan Speeds
-> > > > (RPM): N/A            GPU: device: amdgpu temp: 0 C fan: 65535
-> > > > device: amdgputemp: 31 C Repos:     No active apt repos in:
-> > > > /etc/apt/sources.list            Active apt repos
-> > > > in:/etc/apt/sources.list.d/official-package-
-> > > > repositories.list            1: deb http:
-> > > > //mirrors.seas.harvard.edu/linuxmint-packagesuma main upstream
-> > > > import backport           2: deb http: //mirror.us-
-> > > > ny2.kamatera.com/ubuntu focal mainrestricted universe
-> > > > multiverse           3: deb http: //mirror.us-
-> > > > ny2.kamatera.com/ubuntufocal-updates main restricted universe
-> > > > multiverse           4: deb http: //mirror.us-
-> > > > ny2.kamatera.com/ubuntufocal-backports main restricted universe
-> > > > multiverse           5: deb http: //security.ubuntu.com/ubuntu/
-> > > > focal-securitymain restricted universe multiverse           6:
-> > > > deb http: //archive.canonical.com/ubuntu/ focal
-> > > > partnerInfo:      Processes: 372 Uptime: 2h 44m Memory: 15.10
-> > > > GiB used: 1.15GiB (7.6%) Init: systemd            v: 245
-> > > > runlevel: 5 Compilers: gcc: 9.3.0 alt: 9 Client:Unknown
-> > > > python3.8 client            inxi: 3.0.38 [/code]
-> > > > 
-> > > > If I am using it interactively, I get random crashes that seems
-> > > > to hitelements of mate (mate-panel, etc.) consistently - just
-> > > > not predictably. LibreOffice applications, xed,Firefox, and
-> > > > Evolution seem to be more proneto crashing the X session. I can
-> > > > easily move to tty1, login, and killservices running in tty7 as
-> > > > the crashesdon't appear to completely kill tty7. Sometimes, I
-> > > > can kill mate andlaunch a new instance to salvagethe tty7
-> > > > session. However, i usually end up having to kill the rootpid
-> > > > of the xwindows session in orderto re-login. But I think this
-> > > > is related to the AMD GPU driver becauseevery  time I simply
-> > > > move the mouse in tty7 session, I get the following in dmesg:
-> > > > [13164.399550] [drm] PCIE GART of 512M enabled (table
-> > > > at0x0000008000000000).[13164.399579] [drm] PSP is
-> > > > resuming...[13164.486593] [drm] reserve 0xa00000 from
-> > > > 0x800f400000 for PSP TMR[13164.678788] amdgpu 0000:03:00.0:
-> > > > amdgpu: RAS: optional ras ta ucodeis not
-> > > > available[13164.702624] amdgpu 0000:03:00.0: amdgpu: RAP:
-> > > > optional rap ta ucodeis not available[13164.702639] amdgpu
-> > > > 0000:03:00.0: amdgpu: SMU is resuming...[13164.702648] amdgpu
-> > > > 0000:03:00.0: amdgpu: smu driver if version =0x00000036, smu fw
-> > > > if version = 0x00000037, smu fw version =0x002a3f00
-> > > > (42.63.0)[13164.702664] amdgpu 0000:03:00.0: amdgpu: SMU driver
-> > > > if version notmatched[13164.746143] amdgpu 0000:03:00.0:
-> > > > amdgpu: SMU is resumed successfully![13164.768978] [drm] kiq
-> > > > ring mec 2 pipe 1 q 0[13164.779651] [drm] VCN decode and encode
-> > > > initializedsuccessfully(under DPG Mode).[13164.779758] [drm]
-> > > > JPEG decode initialized successfully.[13164.779779] amdgpu
-> > > > 0000:03:00.0: amdgpu: ring gfx_0.0.0 uses VM inveng 0 on hub
-> > > > 0[13164.779783] amdgpu 0000:03:00.0: amdgpu: ring comp_1.0.0
-> > > > uses VMinv eng 1 on hub 0[13164.779784] amdgpu 0000:03:00.0:
-> > > > amdgpu: ring comp_1.1.0 uses VMinv eng 4 on hub 0[13164.779785]
-> > > > amdgpu 0000:03:00.0: amdgpu: ring comp_1.2.0 uses VMinv eng 5
-> > > > on hub 0[13164.779786] amdgpu 0000:03:00.0: amdgpu: ring
-> > > > comp_1.3.0 uses VMinv eng 6 on hub 0[13164.779787] amdgpu
-> > > > 0000:03:00.0: amdgpu: ring comp_1.0.1 uses VMinv eng 7 on hub
-> > > > 0[13164.779788] amdgpu 0000:03:00.0: amdgpu: ring comp_1.1.1
-> > > > uses VMinv eng 8 on hub 0[13164.779789] amdgpu 0000:03:00.0:
-> > > > amdgpu: ring comp_1.2.1 uses VMinv eng 9 on hub 0[13164.779790]
-> > > > amdgpu 0000:03:00.0: amdgpu: ring comp_1.3.1 uses VMinv eng 10
-> > > > on hub 0[13164.779792] amdgpu 0000:03:00.0: amdgpu: ring
-> > > > kiq_2.1.0 uses VM inveng 11 on hub 0[13164.779793] amdgpu
-> > > > 0000:03:00.0: amdgpu: ring sdma0 uses VM inv eng12 on hub
-> > > > 0[13164.779803] amdgpu 0000:03:00.0: amdgpu: ring sdma1 uses VM
-> > > > inv eng13 on hub 0[13164.779804] amdgpu 0000:03:00.0: amdgpu:
-> > > > ring vcn_dec uses VM inveng 0 on hub 1[13164.779805] amdgpu
-> > > > 0000:03:00.0: amdgpu: ring vcn_enc0 uses VM inveng 1 on hub
-> > > > 1[13164.779806] amdgpu 0000:03:00.0: amdgpu: ring vcn_enc1 uses
-> > > > VM inveng 4 on hub 1[13164.779807] amdgpu 0000:03:00.0: amdgpu:
-> > > > ring jpeg_dec uses VM inveng 5 on hub 1[13164.783807] amdgpu
-> > > > 0000:03:00.0: [drm] Cannot find any crtc or sizes[13170.722306]
-> > > > [drm] free PSP TMR buffer
-> > > > If I boot with nomodeset, I can operate fine - just without
-> > > > screenbrightness control, etc. It justseems strange that an
-> > > > event is generated like this all the time.
-> > > > I only get sporadic crashes, though. Humorously, I've been
-> > > > runningonly Firefox, crash reporter andMate Terminal this
-> > > > morning and it's run fine for over 4 hours. Therewere times
-> > > > when I wouldn't runanything at all and it's lock up on me. So I
-> > > > just can't find anycommon denominator for this (using vi in
-> > > > terminal to type this - going to copy-paste into email
-> > > > client[Evolution] once I'm done this).
-> > > > I've attached 3 crash reports that were captured on the system
-> > > > overthe last couple days. I apologizein advance - profusely! -
-> > > > if the problem turns out to be somewhere else. 
-> > > > Thanks,Tim 
-> > > > _______________________________________________amd-gfx mailing 
-> > > > listamd-gfx@lists.freedesktop.org
-> > > > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+How:
+We propose to embed hw_fence into amdgpu_job.
+1. We cover the normal job submission by this method.
+2. For ib_test, and submit without a parent job keep the
+legacy way to create a hw fence separately.
+v2:
+use AMDGPU_FENCE_FLAG_EMBED_IN_JOB_BIT to show that the fence is
+embeded in a job.
 
---=-CQM71TumAjLG20zC9FPc
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Jingwen Chen <Jingwen.Chen2@amd.com>
+Signed-off-by: Jack Zhang <Jack.Zhang7@hotmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c  |  1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c   | 63 ++++++++++++++++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c      |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c     | 35 ++++++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.h     |  4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h    |  5 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c      |  2 +-
+ 8 files changed, 84 insertions(+), 30 deletions(-)
 
-<html dir=3D"ltr"><head></head><body style=3D"text-align:left; direction:lt=
-r;"><div>When launching Chromium from a terminal window, I get the followin=
-g output:</div><div><br></div><pre>2606:2626:0804/084411.009101:ERROR:nss_u=
-til.cc(286)] After loading Root Certs, loaded=3D=3Dfalse: NSS error code: -=
-8018</pre><pre>mesa: for the --simplifycfg-sink-common option: may only occ=
-ur zero or one times!</pre><pre>mesa: for the --global-isel-abort option: m=
-ay only occur zero or one times!</pre><pre>mesa: for the --amdgpu-atomic-op=
-timizations option: may only occur zero or one times!</pre><pre>mesa: for t=
-he --structurizecfg-skip-uniform-regions option: may only occur zero or one=
- times!</pre><pre>[2636:2636:0804/084411.912737:ERROR:sandbox_linux.cc(374)=
-] InitializeSandbox() called with multiple threads in process gpu-process.<=
-/pre><div><br></div><div>I got the above after rebooting this morning after=
- another Marco crash (<a href=3D"https://termbin.com/xy80">https://termbin.=
-com/xy80</a>). Any insight into whether or not this is software, driver, or=
- hardware issue is appreciated.</div><div><br></div><div>Thanks,</div><div>=
-Tim&nbsp;</div><div><br></div><div>On Fri, 2021-07-30 at 08:08 -0400, Tim C=
-ahill wrote:</div><blockquote type=3D"cite" style=3D"margin:0 0 0 .8ex; bor=
-der-left:2px #729fcf solid;padding-left:1ex"><div>Posted the following comm=
-ent to the Mate-desktop issue:</div><div><br></div><div><div class=3D"comme=
-nt js-suggested-changes-container" data-thread-side=3D"">
-  <div class=3D"comment-body markdown-body js-preview-body" style=3D"min-he=
-ight: 276px;"><p>Had
- another hang with the same configuration as a youtube video played via a
- USB headphone (Jabra40). I was able to recover by killing Firefox, in=20
-which the video was playing. The video became choppy and garbled and=20
-then stopped. The stderr is below:</p>
-<div class=3D"snippet-clipboard-content position-relative"><code><pre>ALSA =
-lib conf.c:5187:(snd_config_expand) Unknown parameters 1</pre><pre>ALSA lib=
- control.c:1379:(snd_ctl_open_noupdate) Invalid CTL sysdefault:1</pre><pre>=
-ALSA lib conf.c:5187:(snd_config_expand) Unknown parameters 2</pre><pre>ALS=
-A lib control.c:1379:(snd_ctl_open_noupdate) Invalid CTL sysdefault:2</pre>=
-<pre>ALSA lib pcm_dmix.c:1089:(snd_pcm_dmix_open) unable to open slave</pre=
-><pre>ALSA lib pcm_dmix.c:1089:(snd_pcm_dmix_open) unable to open slave</pr=
-e><pre>ALSA lib pcm_dmix.c:1089:(snd_pcm_dmix_open) unable to open slave</p=
-re><pre>ALSA lib pcm_dmix.c:1089:(snd_pcm_dmix_open) unable to open slave</=
-pre><pre>ALSA lib pcm_dmix.c:1089:(snd_pcm_dmix_open) unable to open slave<=
-/pre></code></div>
-<p>On re-launch of Firefox from terminal window, the following appeared:<br=
->
-<code>[GFX1-]: More than 1 GPU from same vendor detected via PCI, cannot de=
-duce device</code></p></div></div></div><div>On Thu, 2021-07-29 at 12:04 -0=
-400, Tim Cahill wrote:</div><blockquote type=3D"cite" style=3D"margin:0 0 0=
- .8ex; border-left:2px #729fcf solid;padding-left:1ex"><div>I apologize if =
-the name callout is disconcerting. I was trying to follow instructions for =
-sending bugs and saw your name listed as the owner of this code area.&nbsp;=
-</div><div><br></div><div>FYI, I'd done some more troubleshooting and tinke=
-ring regarding the crashing and Mate seems to be at the center of all the i=
-ssues. As a result, I also opened an Issue with the Mate Desktop team (<a h=
-ref=3D"https://github.com/mate-desktop/mate-panel/issues/1242">https://gith=
-ub.com/mate-desktop/mate-panel/issues/1242</a>). Mate also has a power mana=
-gement component, which is probably responsible for the excess logging and =
-the confusion over Navil10. However, I have no way to vouch for now accurat=
-ely the Mate PM applet gathered data for its instantiation. I have no exter=
-nal devices connected that I'm aware would use it since I thought that was =
-via HDMI. I *do* have a Jabra Evolve2 headset that uses the TypeC USB conne=
-ctor, but I assume that's not using the GPU.</div><div><br></div><div>The i=
-ssue documentation I left with Mate notes that if I launch apps from a term=
-inal that is NOT launched from the Mate panel (right-click on desktop inste=
-ad to open terminal), the parent for all the apps (Firefox, Evolution, etc.=
-) is separate from Mate (at least separate from mate-panel). Everything has=
- worked fine (except for the constant logging of the wake-up action) since =
-I've done that (and turned off the screensaver and screensaver lock). So, I=
-'m not sure what else to do at this point. Please advise if I should do any=
-thing on the driver side.</div><div><br></div><div>Thanks,</div><div>Tim&nb=
-sp;</div><div><br></div><div>On Thu, 2021-07-29 at 11:14 -0400, Felix Kuehl=
-ing wrote:</div><blockquote type=3D"cite" style=3D"margin:0 0 0 .8ex; borde=
-r-left:2px #729fcf solid;padding-left:1ex"><pre>Am 2021-07-28 um 12:10 p.m.=
- schrieb Tim Cahill:</pre><blockquote type=3D"cite" style=3D"margin:0 0 0 .=
-8ex; border-left:2px #729fcf solid;padding-left:1ex"><pre>Hi Felix,</pre></=
-blockquote><br><pre>I'm not sure why you're calling me out by name. I'm not=
- working on</pre><pre>anything obviously related to your crashes.</pre><br>=
-<pre>Anyway, I took a quick look at the backtraces. They all point at libgd=
-k.</pre><pre>Two of them are segfaults, one is an abort. It's not clear how=
- these</pre><pre>would be related to the GPU driver. That said, when you bo=
-ot with</pre><pre>nomodeset, the GPU driver and all HW acceleration is comp=
-letely</pre><pre>disabled. If that makes the problem disappear, the GPU dri=
-ver is clearly</pre><pre>involved in the problem in some way.</pre><br><pre=
->The abort points at a problem while freeing memory. This could be caused</=
-pre><pre>by a double-free problem in some unrelated code, possibly related =
-to the</pre><pre>GPU driver. This would be a problem in a user mode compone=
-nt (maybe</pre><pre>Mesa), not the kernel mode driver.</pre><br><pre>I beli=
-eve the messages you're seeing when you move the mouse are the</pre><pre>re=
-sult of runtime power management that puts the GPU to sleep when it's</pre>=
-<pre>idle and reinitializes it when it's needed. You have 2 GPUs in your</p=
-re><pre>laptop, an integrated Renoir GPU in the Ryzen CPU, and an external<=
-/pre><pre>Navi10 GPU for higher gaming performance. The GPU that goes to sl=
-eep and</pre><pre>wakes up is the external Navi10 GPU.</pre><br><pre>The Op=
-enGL renderer string specifies "RENOIR". Therefore I'm surprised</pre><pre>=
-that the Navi10 GPU wakes up when you move the mouse. Ideally it</pre><pre>=
-shouldn't be used at all when you're just using the desktop.</pre><br><pre>=
-If you suspect that runtime power management is responsible for your</pre><=
-pre>problems, you could disable it with amdgpu.runpm=3D0 on the kernel comm=
-and</pre><pre>line. That means the Navi10 GPU won't go into the low power m=
-ode and</pre><pre>drain your battery more quickly. So this is not a permane=
-nt solution.</pre><pre>Just an experiment to narrow down the problem.</pre>=
-<br><pre>Regards,</pre><pre>&nbsp; Felix</pre><br><br><blockquote type=3D"c=
-ite" style=3D"margin:0 0 0 .8ex; border-left:2px #729fcf solid;padding-left=
-:1ex"><br><pre>I'm not sure how to do this as I haven't had to report a bug=
- before.</pre><pre>I've looked to a variety of bug reporting sites to see i=
-f anyone else</pre><pre>is running into the same issues that I'm having (su=
-ch as the Mate</pre><pre>project) and haven't seen anything at all similar =
-to the issue I'm</pre><pre>having. Since I had issues with AMD drivers with=
- my distro (info</pre><pre>below) and some consistent and high volume dmesg=
- content shows up,</pre><pre>I've decided that I should start here with the=
- AMD kernel team.</pre><br><pre>I have a fairly new MSI laptop with the fol=
-lowing configuration:</pre><br><pre>[code]</pre><pre>System:&nbsp;&nbsp;&nb=
-sp;&nbsp;Kernel: 5.11.0-25-generic x86_64 bits: 64 compiler: N/A</pre><pre>=
-Desktop: MATE 1.24.0 wm: marco&nbsp;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dm: LightDM Distro: Linux Mint 20.2 U=
-ma base: Ubuntu 20.04</pre><pre>focal&nbsp;</pre><pre>Machine:&nbsp;&nbsp;&=
-nbsp;Type: Laptop System: Micro-Star product: Alpha 17 A4DEK v:</pre><pre>R=
-EV:1.0 serial: &lt;filter&gt;&nbsp;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chassis: type: 10 serial: &lt;filter&g=
-t;&nbsp;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;Mobo: Micro-Star model: MS-17EK v: REV:1.0 serial: &lt;filter&gt;=
-</pre><pre>UEFI: American Megatrends&nbsp;</pre><pre>&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;v: E17EKAMS.101 date: 10/26/202=
-0&nbsp;</pre><pre>Battery:&nbsp;&nbsp;&nbsp;ID-1: BAT1 charge: 66.2 Wh cond=
-ition: 67.0/65.7 Wh (102%)</pre><pre>volts: 12.4/10.8&nbsp;</pre><pre>&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;model: MSI Cor=
-p. MS-17EK serial: N/A status: Unknown&nbsp;</pre><pre>CPU:&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;Topology: 8-Core model: AMD Ryzen 7 4800H with Ra=
-deon</pre><pre>Graphics bits: 64 type: MT MCP&nbsp;</pre><pre>&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;arch: Zen rev: 1 L2 ca=
-che: 4096 KiB&nbsp;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;flags: avx avx2 lm nx pae sse sse2 sse3 sse4_1 sse4_2 =
-sse4a</pre><pre>ssse3 svm bogomips: 92630&nbsp;</pre><pre>&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Speed: 4278 MHz min/max: 1=
-400/2900 MHz Core speeds (MHz):</pre><pre>1: 4280 2: 1865 3: 1397&nbsp;</pr=
-e><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4:=
- 2188 5: 1489 6: 2265 7: 1907 8: 1906 9: 1729 10: 1397</pre><pre>11: 1397 1=
-2: 1397 13: 1397&nbsp;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;14: 1397 15: 1907 16: 1740&nbsp;</pre><pre>Graphics=
-:&nbsp;&nbsp;Device-1: AMD Navi 10 [Radeon RX 5600 OEM/5600 XT /</pre><pre>=
-5700/5700 XT]&nbsp;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;vendor: Micro-Star MSI driver: amdgpu v: kernel bus ID=
-:</pre><pre>03:00.0 chip ID: 1002:731f&nbsp;</pre><pre>&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Device-2: AMD Renoir vendor: =
-Micro-Star MSI driver: amdgpu</pre><pre>v: kernel bus ID: 08:00.0&nbsp;</pr=
-e><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ch=
-ip ID: 1002:1636&nbsp;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;Display: x11 server: X.Org 1.20.9 driver: amdgpu,at=
-i&nbsp;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;unloaded: fbdev,modesetting,radeon,vesa compositor: marco</pre><pr=
-e>resolution: 1920x1080~144Hz&nbsp;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OpenGL: renderer: AMD RENOIR (DRM 3.40=
-.0 5.11.0-25-generic</pre><pre>LLVM 11.0.0)&nbsp;</pre><pre>&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;v: 4.6 Mesa 20.2.6 direc=
-t render: Yes&nbsp;</pre><pre>Audio:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Device-1:=
- AMD Navi 10 HDMI Audio vendor: Micro-Star MSI</pre><pre>driver: snd_hda_in=
-tel v: kernel&nbsp;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;bus ID: 03:00.1 chip ID: 1002:ab38&nbsp;</pre><pre>&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Device-2: AM=
-D Raven/Raven2/FireFlight/Renoir Audio</pre><pre>Processor vendor: Micro-St=
-ar MSI&nbsp;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;driver: N/A bus ID: 08:00.5 chip ID: 1022:15e2&nbsp;</pre><pr=
-e>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Device-=
-3: AMD Family 17h HD Audio vendor: Micro-Star MSI</pre><pre>driver: snd_hda=
-_intel&nbsp;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;v: kernel bus ID: 08:00.6 chip ID: 1022:15e3&nbsp;</pre><pre>=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sound Ser=
-ver: ALSA v: k5.11.0-25-generic&nbsp;</pre><pre>Network:&nbsp;&nbsp;&nbsp;D=
-evice-1: Intel Wi-Fi 6 AX200 driver: iwlwifi v: kernel bus</pre><pre>ID: 04=
-:00.0&nbsp;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;chip ID: 8086:2723&nbsp;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF: wlp4s0 state: up mac: &lt;filter=
-&gt;&nbsp;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;Device-2: Realtek RTL8111/8168/8411 PCI Express Gigabit</pre><p=
-re>Ethernet vendor: Micro-Star MSI&nbsp;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;driver: r8169 v: kernel port: f00=
-0 bus ID: 05:00.0 chip ID:</pre><pre>10ec:8168&nbsp;</pre><pre>&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF: eno1 state: down =
-mac: &lt;filter&gt;&nbsp;</pre><pre>Drives:&nbsp;&nbsp;&nbsp;&nbsp;Local St=
-orage: total: 476.94 GiB used: 89.79 GiB (18.8%)&nbsp;</pre><pre>&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ID-1: /dev/nvme0n1 =
-vendor: Kingston model: OM8PCP3512F-AI1</pre><pre>size: 476.94 GiB&nbsp;</p=
-re><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s=
-peed: 31.6 Gb/s lanes: 4 serial: &lt;filter&gt;&nbsp;</pre><pre>Partition: =
-ID-1: / size: 466.30 GiB used: 89.28 GiB (19.1%) fs: ext4</pre><pre>dev: /d=
-ev/dm-1&nbsp;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;ID-2: /boot size: 704.5 MiB used: 519.7 MiB (73.8%) fs:</pre=
-><pre>ext4 dev: /dev/nvme0n1p2&nbsp;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ID-3: swap-1 size: 980.0 MiB used: 0 =
-KiB (0.0%) fs: swap</pre><pre>dev: /dev/dm-2&nbsp;</pre><pre>USB:&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hub: 1-0:1 info: Full speed (or root) Hub p=
-orts: 4 rev: 2.0</pre><pre>chip ID: 1d6b:0002&nbsp;</pre><pre>&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Device-1: 1-3:2 info: =
-SteelSeries ApS SteelSeries KLC type:</pre><pre>HID&nbsp;</pre><pre>&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;driver: hid-gene=
-ric,usbhid rev: 2.0 chip ID: 1038:1122&nbsp;</pre><pre>&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Device-2: 1-4:3 info: Acer HD=
- Webcam type: Video driver:</pre><pre>uvcvideo rev: 2.0&nbsp;</pre><pre>&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;chip ID: 598=
-6:211c&nbsp;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;Hub: 2-0:1 info: Full speed (or root) Hub ports: 2 rev: 3.1</=
-pre><pre>chip ID: 1d6b:0003&nbsp;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hub: 3-0:1 info: Full speed (or root) Hu=
-b ports: 4 rev: 2.0</pre><pre>chip ID: 1d6b:0002&nbsp;</pre><pre>&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Device-3: 3-3:2 inf=
-o: Intel type: Bluetooth driver: btusb</pre><pre>rev: 2.0 chip ID: 8087:002=
-9&nbsp;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;Hub: 4-0:1 info: Full speed (or root) Hub ports: 2 rev: 3.1</pre><=
-pre>chip ID: 1d6b:0003&nbsp;</pre><pre>Sensors:&nbsp;&nbsp;&nbsp;System Tem=
-peratures: cpu: 46.5 C mobo: N/A&nbsp;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fan Speeds (RPM): N/A&nbsp;</pre><p=
-re>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GPU: d=
-evice: amdgpu temp: 0 C fan: 65535 device: amdgpu</pre><pre>temp: 31 C&nbsp=
-;</pre><pre>Repos:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No active apt repos in: /et=
-c/apt/sources.list&nbsp;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;Active apt repos in:</pre><pre>/etc/apt/sources.l=
-ist.d/official-package-repositories.list&nbsp;</pre><pre>&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1: deb http: //mirrors.seas=
-.harvard.edu/linuxmint-packages</pre><pre>uma main upstream import backport=
-</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;2: deb http: //mirror.us-ny2.kamatera.com/ubuntu focal main</pre><pre>res=
-tricted universe multiverse</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3: deb http: //mirror.us-ny2.kamatera.com/ubun=
-tu</pre><pre>focal-updates main restricted universe multiverse</pre><pre>&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4: deb http=
-: //mirror.us-ny2.kamatera.com/ubuntu</pre><pre>focal-backports main restri=
-cted universe multiverse</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;5: deb http: //security.ubuntu.com/ubuntu/ focal-=
-security</pre><pre>main restricted universe multiverse</pre><pre>&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6: deb http: //arch=
-ive.canonical.com/ubuntu/ focal partner</pre><pre>Info:&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;Processes: 372 Uptime: 2h 44m Memory: 15.10 GiB used: 1.15<=
-/pre><pre>GiB (7.6%) Init: systemd&nbsp;</pre><pre>&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;v: 245 runlevel: 5 Compilers: gcc=
-: 9.3.0 alt: 9 Client:</pre><pre>Unknown python3.8 client&nbsp;</pre><pre>&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;inxi: 3.0.=
-38&nbsp;</pre><pre>[/code]</pre><br><br><pre>If I am using it interactively=
-, I get random crashes that seems to hit</pre><pre>elements of mate (mate-p=
-anel, etc.)&nbsp;</pre><pre>consistently - just not predictably. LibreOffic=
-e applications, xed,</pre><pre>Firefox, and Evolution seem to be more prone=
-</pre><pre>to crashing the X session. I can easily move to tty1, login, and=
- kill</pre><pre>services running in tty7 as the crashes</pre><pre>don't app=
-ear to completely kill tty7. Sometimes, I can kill mate and</pre><pre>launc=
-h a new instance to salvage</pre><pre>the tty7 session. However, i usually =
-end up having to kill the root</pre><pre>pid of the xwindows session in ord=
-er</pre><pre>to re-login. But I think this is related to the AMD GPU driver=
- because</pre><pre>every &nbsp;time I simply move the mouse in&nbsp;</pre><=
-pre>tty7 session, I get the following in dmesg:</pre><br><pre>[13164.399550=
-] [drm] PCIE GART of 512M enabled (table at</pre><pre>0x0000008000000000).<=
-/pre><pre>[13164.399579] [drm] PSP is resuming...</pre><pre>[13164.486593] =
-[drm] reserve 0xa00000 from 0x800f400000 for PSP TMR</pre><pre>[13164.67878=
-8] amdgpu 0000:03:00.0: amdgpu: RAS: optional ras ta ucode</pre><pre>is not=
- available</pre><pre>[13164.702624] amdgpu 0000:03:00.0: amdgpu: RAP: optio=
-nal rap ta ucode</pre><pre>is not available</pre><pre>[13164.702639] amdgpu=
- 0000:03:00.0: amdgpu: SMU is resuming...</pre><pre>[13164.702648] amdgpu 0=
-000:03:00.0: amdgpu: smu driver if version =3D</pre><pre>0x00000036, smu fw=
- if version =3D 0x00000037, smu fw version =3D</pre><pre>0x002a3f00 (42.63.=
-0)</pre><pre>[13164.702664] amdgpu 0000:03:00.0: amdgpu: SMU driver if vers=
-ion not</pre><pre>matched</pre><pre>[13164.746143] amdgpu 0000:03:00.0: amd=
-gpu: SMU is resumed successfully!</pre><pre>[13164.768978] [drm] kiq ring m=
-ec 2 pipe 1 q 0</pre><pre>[13164.779651] [drm] VCN decode and encode initia=
-lized</pre><pre>successfully(under DPG Mode).</pre><pre>[13164.779758] [drm=
-] JPEG decode initialized successfully.</pre><pre>[13164.779779] amdgpu 000=
-0:03:00.0: amdgpu: ring gfx_0.0.0 uses VM inv</pre><pre>eng 0 on hub 0</pre=
-><pre>[13164.779783] amdgpu 0000:03:00.0: amdgpu: ring comp_1.0.0 uses VM</=
-pre><pre>inv eng 1 on hub 0</pre><pre>[13164.779784] amdgpu 0000:03:00.0: a=
-mdgpu: ring comp_1.1.0 uses VM</pre><pre>inv eng 4 on hub 0</pre><pre>[1316=
-4.779785] amdgpu 0000:03:00.0: amdgpu: ring comp_1.2.0 uses VM</pre><pre>in=
-v eng 5 on hub 0</pre><pre>[13164.779786] amdgpu 0000:03:00.0: amdgpu: ring=
- comp_1.3.0 uses VM</pre><pre>inv eng 6 on hub 0</pre><pre>[13164.779787] a=
-mdgpu 0000:03:00.0: amdgpu: ring comp_1.0.1 uses VM</pre><pre>inv eng 7 on =
-hub 0</pre><pre>[13164.779788] amdgpu 0000:03:00.0: amdgpu: ring comp_1.1.1=
- uses VM</pre><pre>inv eng 8 on hub 0</pre><pre>[13164.779789] amdgpu 0000:=
-03:00.0: amdgpu: ring comp_1.2.1 uses VM</pre><pre>inv eng 9 on hub 0</pre>=
-<pre>[13164.779790] amdgpu 0000:03:00.0: amdgpu: ring comp_1.3.1 uses VM</p=
-re><pre>inv eng 10 on hub 0</pre><pre>[13164.779792] amdgpu 0000:03:00.0: a=
-mdgpu: ring kiq_2.1.0 uses VM inv</pre><pre>eng 11 on hub 0</pre><pre>[1316=
-4.779793] amdgpu 0000:03:00.0: amdgpu: ring sdma0 uses VM inv eng</pre><pre=
->12 on hub 0</pre><pre>[13164.779803] amdgpu 0000:03:00.0: amdgpu: ring sdm=
-a1 uses VM inv eng</pre><pre>13 on hub 0</pre><pre>[13164.779804] amdgpu 00=
-00:03:00.0: amdgpu: ring vcn_dec uses VM inv</pre><pre>eng 0 on hub 1</pre>=
-<pre>[13164.779805] amdgpu 0000:03:00.0: amdgpu: ring vcn_enc0 uses VM inv<=
-/pre><pre>eng 1 on hub 1</pre><pre>[13164.779806] amdgpu 0000:03:00.0: amdg=
-pu: ring vcn_enc1 uses VM inv</pre><pre>eng 4 on hub 1</pre><pre>[13164.779=
-807] amdgpu 0000:03:00.0: amdgpu: ring jpeg_dec uses VM inv</pre><pre>eng 5=
- on hub 1</pre><pre>[13164.783807] amdgpu 0000:03:00.0: [drm] Cannot find a=
-ny crtc or sizes</pre><pre>[13170.722306] [drm] free PSP TMR buffer</pre><b=
-r><pre>If I boot with nomodeset, I can operate fine - just without screen</=
-pre><pre>brightness control, etc. It just</pre><pre>seems strange that an e=
-vent is generated like this all the time.</pre><br><pre>I only get sporadic=
- crashes, though. Humorously, I've been running</pre><pre>only Firefox, cra=
-sh reporter and</pre><pre>Mate Terminal this morning and it's run fine for =
-over 4 hours. There</pre><pre>were times when I wouldn't run</pre><pre>anyt=
-hing at all and it's lock up on me. So I just can't find any</pre><pre>comm=
-on denominator for this (using vi&nbsp;</pre><pre>in terminal to type this =
-- going to copy-paste into email client</pre><pre>[Evolution] once I'm done=
- this).</pre><br><pre>I've attached 3 crash reports that were captured on t=
-he system over</pre><pre>the last couple days. I apologize</pre><pre>in adv=
-ance - profusely! - if the problem turns out to be somewhere else.&nbsp;</p=
-re><br><pre>Thanks,</pre><pre>Tim&nbsp;</pre><br><pre>_____________________=
-__________________________</pre><pre>amd-gfx mailing list</pre><a href=3D"m=
-ailto:amd-gfx@lists.freedesktop.org"><pre>amd-gfx@lists.freedesktop.org</pr=
-e></a><br><a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx=
-"><pre>https://lists.freedesktop.org/mailman/listinfo/amd-gfx</pre></a><br>=
-</blockquote><br></blockquote>
-</blockquote>
-</blockquote></body></html>
-
---=-CQM71TumAjLG20zC9FPc--
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+index 7b46ba551cb2..3003ee1c9487 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+@@ -714,7 +714,6 @@ int amdgpu_amdkfd_submit_ib(struct kgd_dev *kgd, enum kgd_engine_type engine,
+ 	ret = dma_fence_wait(f, false);
+ 
+ err_ib_sched:
+-	dma_fence_put(f);
+ 	amdgpu_job_free(job);
+ err:
+ 	return ret;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+index 536005bff24a..277128846dd1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -1414,7 +1414,7 @@ static void amdgpu_ib_preempt_mark_partial_job(struct amdgpu_ring *ring)
+ 			continue;
+ 		}
+ 		job = to_amdgpu_job(s_job);
+-		if (preempted && job->fence == fence)
++		if (preempted && (&job->hw_fence) == fence)
+ 			/* mark the job as preempted */
+ 			job->preemption_status |= AMDGPU_IB_PREEMPTED;
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+index 7495911516c2..5e29d797a265 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+@@ -129,30 +129,46 @@ static u32 amdgpu_fence_read(struct amdgpu_ring *ring)
+  *
+  * @ring: ring the fence is associated with
+  * @f: resulting fence object
++ * @job: job the fence is embeded in
+  * @flags: flags to pass into the subordinate .emit_fence() call
+  *
+  * Emits a fence command on the requested ring (all asics).
+  * Returns 0 on success, -ENOMEM on failure.
+  */
+-int amdgpu_fence_emit(struct amdgpu_ring *ring, struct dma_fence **f,
++int amdgpu_fence_emit(struct amdgpu_ring *ring, struct dma_fence **f, struct amdgpu_job *job,
+ 		      unsigned flags)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
+-	struct amdgpu_fence *fence;
++	struct dma_fence *fence;
++	struct amdgpu_fence *am_fence;
+ 	struct dma_fence __rcu **ptr;
+ 	uint32_t seq;
+ 	int r;
+ 
+-	fence = kmem_cache_alloc(amdgpu_fence_slab, GFP_KERNEL);
+-	if (fence == NULL)
+-		return -ENOMEM;
++	if (job == NULL) {
++		/* create a sperate hw fence */
++		am_fence = kmem_cache_alloc(amdgpu_fence_slab, GFP_ATOMIC);
++		if (am_fence == NULL)
++			return -ENOMEM;
++		fence = &am_fence->base;
++		am_fence->ring = ring;
++	} else {
++		/* take use of job-embedded fence */
++		fence = &job->hw_fence;
++		job->ring = ring;
++	}
+ 
+ 	seq = ++ring->fence_drv.sync_seq;
+-	fence->ring = ring;
+-	dma_fence_init(&fence->base, &amdgpu_fence_ops,
++	dma_fence_init(fence, &amdgpu_fence_ops,
+ 		       &ring->fence_drv.lock,
+ 		       adev->fence_context + ring->idx,
+ 		       seq);
++
++	if (job != NULL) {
++		/* mark this fence has a parent job */
++		set_bit(AMDGPU_FENCE_FLAG_EMBED_IN_JOB_BIT, &fence->flags);
++	}
++
+ 	amdgpu_ring_emit_fence(ring, ring->fence_drv.gpu_addr,
+ 			       seq, flags | AMDGPU_FENCE_FLAG_INT);
+ 	pm_runtime_get_noresume(adev_to_drm(adev)->dev);
+@@ -175,9 +191,9 @@ int amdgpu_fence_emit(struct amdgpu_ring *ring, struct dma_fence **f,
+ 	/* This function can't be called concurrently anyway, otherwise
+ 	 * emitting the fence would mess up the hardware ring buffer.
+ 	 */
+-	rcu_assign_pointer(*ptr, dma_fence_get(&fence->base));
++	rcu_assign_pointer(*ptr, dma_fence_get(fence));
+ 
+-	*f = &fence->base;
++	*f = fence;
+ 
+ 	return 0;
+ }
+@@ -621,8 +637,16 @@ static const char *amdgpu_fence_get_driver_name(struct dma_fence *fence)
+ 
+ static const char *amdgpu_fence_get_timeline_name(struct dma_fence *f)
+ {
+-	struct amdgpu_fence *fence = to_amdgpu_fence(f);
+-	return (const char *)fence->ring->name;
++	struct amdgpu_ring *ring;
++
++	if (test_bit(AMDGPU_FENCE_FLAG_EMBED_IN_JOB_BIT, &f->flags)) {
++		struct amdgpu_job *job = container_of(f, struct amdgpu_job, hw_fence);
++
++		ring = job->ring;
++	} else {
++		ring = to_amdgpu_fence(f)->ring;
++	}
++	return (const char *)ring->name;
+ }
+ 
+ /**
+@@ -656,8 +680,20 @@ static bool amdgpu_fence_enable_signaling(struct dma_fence *f)
+ static void amdgpu_fence_free(struct rcu_head *rcu)
+ {
+ 	struct dma_fence *f = container_of(rcu, struct dma_fence, rcu);
+-	struct amdgpu_fence *fence = to_amdgpu_fence(f);
+-	kmem_cache_free(amdgpu_fence_slab, fence);
++
++	if (test_bit(AMDGPU_FENCE_FLAG_EMBED_IN_JOB_BIT, &f->flags)) {
++	/* free job if fence has a parent job */
++		struct amdgpu_job *job;
++
++		job = container_of(f, struct amdgpu_job, hw_fence);
++		kfree(job);
++	} else {
++	/* free fence_slab if it's separated fence*/
++		struct amdgpu_fence *fence;
++
++		fence = to_amdgpu_fence(f);
++		kmem_cache_free(amdgpu_fence_slab, fence);
++	}
+ }
+ 
+ /**
+@@ -680,6 +716,7 @@ static const struct dma_fence_ops amdgpu_fence_ops = {
+ 	.release = amdgpu_fence_release,
+ };
+ 
++
+ /*
+  * Fence debugfs
+  */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+index ec65ab0ddf89..c076a6b9a5a2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+@@ -262,7 +262,7 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned num_ibs,
+ 				       fence_flags | AMDGPU_FENCE_FLAG_64BIT);
+ 	}
+ 
+-	r = amdgpu_fence_emit(ring, f, fence_flags);
++	r = amdgpu_fence_emit(ring, f, job, fence_flags);
+ 	if (r) {
+ 		dev_err(adev->dev, "failed to emit fence (%d)\n", r);
+ 		if (job && job->vmid)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+index d33e6d97cc89..65a395060de2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+@@ -127,11 +127,16 @@ void amdgpu_job_free_resources(struct amdgpu_job *job)
+ {
+ 	struct amdgpu_ring *ring = to_amdgpu_ring(job->base.sched);
+ 	struct dma_fence *f;
++	struct dma_fence *hw_fence;
+ 	unsigned i;
+ 
+-	/* use sched fence if available */
+-	f = job->base.s_fence ? &job->base.s_fence->finished : job->fence;
++	if (job->hw_fence.ops == NULL)
++		hw_fence = job->external_hw_fence;
++	else
++		hw_fence = &job->hw_fence;
+ 
++	/* use sched fence if available */
++	f = job->base.s_fence ? &job->base.s_fence->finished : hw_fence;
+ 	for (i = 0; i < job->num_ibs; ++i)
+ 		amdgpu_ib_free(ring->adev, &job->ibs[i], f);
+ }
+@@ -142,20 +147,27 @@ static void amdgpu_job_free_cb(struct drm_sched_job *s_job)
+ 
+ 	drm_sched_job_cleanup(s_job);
+ 
+-	dma_fence_put(job->fence);
+ 	amdgpu_sync_free(&job->sync);
+ 	amdgpu_sync_free(&job->sched_sync);
+-	kfree(job);
++
++    /* only put the hw fence if has embedded fence */
++	if (job->hw_fence.ops != NULL)
++		dma_fence_put(&job->hw_fence);
++	else
++		kfree(job);
+ }
+ 
+ void amdgpu_job_free(struct amdgpu_job *job)
+ {
+ 	amdgpu_job_free_resources(job);
+-
+-	dma_fence_put(job->fence);
+ 	amdgpu_sync_free(&job->sync);
+ 	amdgpu_sync_free(&job->sched_sync);
+-	kfree(job);
++
++	/* only put the hw fence if has embedded fence */
++	if (job->hw_fence.ops != NULL)
++		dma_fence_put(&job->hw_fence);
++	else
++		kfree(job);
+ }
+ 
+ int amdgpu_job_submit(struct amdgpu_job *job, struct drm_sched_entity *entity,
+@@ -184,11 +196,14 @@ int amdgpu_job_submit_direct(struct amdgpu_job *job, struct amdgpu_ring *ring,
+ 
+ 	job->base.sched = &ring->sched;
+ 	r = amdgpu_ib_schedule(ring, job->num_ibs, job->ibs, NULL, fence);
+-	job->fence = dma_fence_get(*fence);
++	/* record external_hw_fence for direct submit */
++	job->external_hw_fence = dma_fence_get(*fence);
+ 	if (r)
+ 		return r;
+ 
+ 	amdgpu_job_free(job);
++	dma_fence_put(*fence);
++
+ 	return 0;
+ }
+ 
+@@ -246,10 +261,8 @@ static struct dma_fence *amdgpu_job_run(struct drm_sched_job *sched_job)
+ 		if (r)
+ 			DRM_ERROR("Error scheduling IBs (%d)\n", r);
+ 	}
+-	/* if gpu reset, hw fence will be replaced here */
+-	dma_fence_put(job->fence);
+-	job->fence = dma_fence_get(fence);
+ 
++	dma_fence_get(fence);
+ 	amdgpu_job_free_resources(job);
+ 
+ 	fence = r ? ERR_PTR(r) : fence;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+index 81caac9b958a..92324c978534 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+@@ -46,7 +46,9 @@ struct amdgpu_job {
+ 	struct amdgpu_sync	sync;
+ 	struct amdgpu_sync	sched_sync;
+ 	struct amdgpu_ib	*ibs;
+-	struct dma_fence	*fence; /* the hw fence */
++	struct dma_fence	hw_fence;
++	struct amdgpu_ring *ring;
++	struct dma_fence	*external_hw_fence;
+ 	uint32_t		preamble_status;
+ 	uint32_t                preemption_status;
+ 	uint32_t		num_ibs;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+index 9c11ced4312c..03d4b29a76d6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+@@ -48,6 +48,9 @@
+ #define AMDGPU_FENCE_FLAG_INT           (1 << 1)
+ #define AMDGPU_FENCE_FLAG_TC_WB_ONLY    (1 << 2)
+ 
++/* fence flag bit to indicate the face is embeded in job*/
++#define AMDGPU_FENCE_FLAG_EMBED_IN_JOB_BIT		(DMA_FENCE_FLAG_USER_BITS + 1)
++
+ #define to_amdgpu_ring(s) container_of((s), struct amdgpu_ring, sched)
+ 
+ #define AMDGPU_IB_POOL_SIZE	(1024 * 1024)
+@@ -118,7 +121,7 @@ void amdgpu_fence_driver_hw_init(struct amdgpu_device *adev);
+ void amdgpu_fence_driver_hw_fini(struct amdgpu_device *adev);
+ int amdgpu_fence_driver_sw_init(struct amdgpu_device *adev);
+ void amdgpu_fence_driver_sw_fini(struct amdgpu_device *adev);
+-int amdgpu_fence_emit(struct amdgpu_ring *ring, struct dma_fence **fence,
++int amdgpu_fence_emit(struct amdgpu_ring *ring, struct dma_fence **fence, struct amdgpu_job *job,
+ 		      unsigned flags);
+ int amdgpu_fence_emit_polling(struct amdgpu_ring *ring, uint32_t *s,
+ 			      uint32_t timeout);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 2a88ed5d983b..2af8860d74cc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -1218,7 +1218,7 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
+ 		amdgpu_gmc_emit_pasid_mapping(ring, job->vmid, job->pasid);
+ 
+ 	if (vm_flush_needed || pasid_mapping_needed) {
+-		r = amdgpu_fence_emit(ring, &fence, 0);
++		r = amdgpu_fence_emit(ring, &fence, NULL, 0);
+ 		if (r)
+ 			return r;
+ 	}
+-- 
+2.25.1
 
