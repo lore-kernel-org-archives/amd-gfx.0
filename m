@@ -2,86 +2,135 @@ Return-Path: <SRS0=ROs4=M4=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-14.4 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-17.4 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 15C37C4338F
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 12:35:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E056DC4338F
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 15:10:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C06B061131
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 12:35:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C06B061131
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id AF78660EEA
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 15:10:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org AF78660EEA
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A1DC6E83B;
-	Thu,  5 Aug 2021 12:35:51 +0000 (UTC)
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [IPv6:2a00:1450:4864:20::32b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07A256E83B
- for <amd-gfx@lists.freedesktop.org>; Thu,  5 Aug 2021 12:35:50 +0000 (UTC)
-Received: by mail-wm1-x32b.google.com with SMTP id m19so3278971wms.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 05 Aug 2021 05:35:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=KNEcswinoUCMTy4fAZ4rxSmbC5+S0OURZXTORqwEtqg=;
- b=YbtMT18n8wYlHzD08oARGmiTgkKqXfWAhqVAM0XK7Zw3wfGIXPeEDPNl6QXTZgcaVk
- tQZ8WGLidte+FvOPB5M2adS/HXHxpWzXq444PmXUo8dxlSMHyEaMMCPVB0OLj8UuF5AY
- qncIdj+XwQCnOnSpYO0Uh0Lf9hUolhcxKNAQndu99aU9fhE5D43xDd0w5Ko2Ej3clxPQ
- DZCeC5p3y91h9hYKEKAoZqMm2aFYVH393g9vhe0RNx9IsHYXmfzHdLWE0eZChfZRr7XZ
- TVjLe/tGFy5qjLkEFrCRMNFL661y/2oVRq5vuTwYFg+nFOjq1+U975M22kUEHiH0O70O
- FAAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=KNEcswinoUCMTy4fAZ4rxSmbC5+S0OURZXTORqwEtqg=;
- b=ODXYTurW0qa3uNRRvHf8U6j7CMc8mpRQ3h4SQ9A4fhO9IO2bz0lHdXnIWSLAWBR7HW
- NyksKniKmMcDCIlWNzpeKjPDsp6+twadSNigDtY1wCUKCLuDgxYcCwsol45l6Qnvbzcw
- /m5IEhXpnWupjDmxD9UOyCEvMczGDW89MVFk+wxgRbpB1esxuyuzugCjWdnxsfUSzNGw
- 6TSEbs0MfhmUWYtVNHKdMJ5yv7yOnS793cMlvKVkYf/4o+xafatZJTnGBLMMxGT7J5Fx
- YuI+cH8wwhgyx5NydYCaCfyy3rw6DOe15rIWWWnlN5b6X8Eg6e0CCHgjqDCvjMe8fLLe
- 2QZg==
-X-Gm-Message-State: AOAM531Y1z9+bgkxTEkkR9VU1S273RYtqoqBJ54iByNn6wQVOCDrHE4U
- UsO6kaJPeifHzw1bPPMEzc8=
-X-Google-Smtp-Source: ABdhPJyiPSwzSh6Niiy/JKLRFddCI+dDskuck6xaNCenN5SbfDPnJjJwhqWYXCQ3UEpe/i2BWlZxyA==
-X-Received: by 2002:a05:600c:3b15:: with SMTP id
- m21mr4861242wms.99.1628166948613; 
- Thu, 05 Aug 2021 05:35:48 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:ae89:49de:1628:3147?
- ([2a02:908:1252:fb60:ae89:49de:1628:3147])
- by smtp.gmail.com with ESMTPSA id l25sm6087789wrb.44.2021.08.05.05.35.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Aug 2021 05:35:48 -0700 (PDT)
-Subject: Re: [PATCH] drm/amd/amdgpu: skip locking delayed work if not
- initialized.
-To: YuBiao Wang <YuBiao.Wang@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>,
- Evan Quan <Evan.Quan@amd.com>, horace.chen@amd.com,
- Tuikov Luben <Luben.Tuikov@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Deucher Alexander <Alexander.Deucher@amd.com>, Jack Xiao
- <Jack.Xiao@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
- Monk Liu <Monk.Liu@amd.com>, Feifei Xu <Feifei.Xu@amd.com>,
- Kevin Wang <Kevin1.Wang@amd.com>
-References: <20210805023736.699291-1-YuBiao.Wang@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <834428df-0c3d-859b-7958-2c95a14c6750@gmail.com>
-Date: Thu, 5 Aug 2021 14:35:45 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33B556EAC6;
+	Thu,  5 Aug 2021 15:10:31 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2085.outbound.protection.outlook.com [40.107.236.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90BD36EAC6
+ for <amd-gfx@lists.freedesktop.org>; Thu,  5 Aug 2021 15:10:28 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=dQ2tKvAniVb4juk5QblI6/54Y5rp5ksqeb7P6f+rygJpn8aKQjLsP4NVFf1TgL+fk9V0RkzxZp0QdXy4xAc68FBNFf2QqADNOubRjJ6ywdMMtASe0+4OyqynUhGshXTmvFFYakbS1lz3Pbj3igI0WSttv3aWn3eejRPtkBohzURI4lKxnq9ime8Cm3JdBupyrmvuBrGtTgL73yxDAXZ4j++GDFWBH7DuNpoOac4ZSvEKvKoMYBfwJdwB83U/U00VHgK+jtdNrCWlPHIYK1utK79sxpoXv0HLA4LpthmmZ6fsUj3GxqLcclZhNRtIPnICZbdgAwmZoR4eeKmP0aAzow==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=INH6XC6sG5Hp035aT9DqOrt4KPw92+FDyoue0aDjlUg=;
+ b=GxgasTmOqIkd38dEVw9xMNW+wRsGKWtGGSQGNENAEkGvJh1DspqFQDoWuhdqeBCfoU91lPpIPMVzFzyXFLdIlOf+DucFr6NYSqIHYOwQ2SOAv2IAHWLDjV90GKBS6UFUqFaCg221oC95HdixUf8raC4Gfsxr91HG0Ym7vxUwsVbj4zxZuQe0zECYCtltWOKP69yfSjVJo6SaDFMENKbSWo4uI6aRQhukdwx/QBGl39pnLES0MJavFYEh67eIRl4ekVnZ+dQJYdbQw4FShFYTNl1YnHBZD+U7IX3TDYaD+3x/C86oPHImRpdLwghhJv2jHfxYoDCAjhc8rXjvFdgY1g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=INH6XC6sG5Hp035aT9DqOrt4KPw92+FDyoue0aDjlUg=;
+ b=j20EGA2qcMhU3s831pcKVx7CaDMYo2hN6ejTTTzrURsk4phrnnE1gM3F1RTPlK9rLnUQ9AcGP81yddLLZp4luMl1Q0k56LbHXXZ/c674fYWNOk5OVSNElgditQ9FIeeXN+LRXbaMUauL5QsU39ffHQGkRdzBqIJXCkbpJlK9lFA=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5129.namprd12.prod.outlook.com (2603:10b6:408:136::12)
+ by BN9PR12MB5180.namprd12.prod.outlook.com (2603:10b6:408:11d::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4394.17; Thu, 5 Aug
+ 2021 15:10:27 +0000
+Received: from BN9PR12MB5129.namprd12.prod.outlook.com
+ ([fe80::b891:a906:28f0:fdb]) by BN9PR12MB5129.namprd12.prod.outlook.com
+ ([fe80::b891:a906:28f0:fdb%3]) with mapi id 15.20.4352.033; Thu, 5 Aug 2021
+ 15:10:27 +0000
+Subject: Re: [PATCH] drm/amdgpu: set default noretry=1 to fix kfd SVM issues
+ for raven
+To: "Zhu, Changfeng" <Changfeng.Zhu@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "Huang, Ray" <Ray.Huang@amd.com>, "Zhang, Yifan" <Yifan1.Zhang@amd.com>
+References: <20210728063613.3334-1-Changfeng.Zhu@amd.com>
+ <7d68484f-b293-31c9-15a8-6ed700777dc9@amd.com>
+ <MW2PR12MB4684ED779CA54E8C67D027CEFDF29@MW2PR12MB4684.namprd12.prod.outlook.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Message-ID: <2eedb134-d0c5-a5c1-c93b-28f6b3b4a3fa@amd.com>
+Date: Thu, 5 Aug 2021 11:10:25 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
-MIME-Version: 1.0
-In-Reply-To: <20210805023736.699291-1-YuBiao.Wang@amd.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <MW2PR12MB4684ED779CA54E8C67D027CEFDF29@MW2PR12MB4684.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
 Content-Language: en-US
+X-ClientProxiedBy: YTXPR0101CA0014.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00::27) To BN9PR12MB5129.namprd12.prod.outlook.com
+ (2603:10b6:408:136::12)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [192.168.2.100] (142.182.144.73) by
+ YTXPR0101CA0014.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00::27) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4394.15 via Frontend Transport; Thu, 5 Aug 2021 15:10:26 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 1c386bf2-2cd3-49e0-f34e-08d9582327f9
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5180:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BN9PR12MB5180DD480B3E49CAA88DD9F292F29@BN9PR12MB5180.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: q4nR9sD/0fQJM14X8fOe9qAErnV7VgGDbPotG15DHMj9JeQjqo2YWF7BZVdEj7PsMpR2QUfavNefO5fFHBIk2EsKz4SFAH+1JNP8mgCE3YtKRdv73ygrq+Af2djc5fzVyekpGjobxWQOISSR7F3Ghw39hexv9RrCWiRHEXF4BXwDHE6YcCZ3BVefGEBA+A+66Aa4uNINeAgykLQQDi5MtM5zSHYj4ULxgmkkEZnexYMFQkGj2UJHIWvACYctj6+fBo1nOlqRcw4Q1N1+6LGqPzVNB3Uf9zF70IA5w34RLADiqRHwzl2qJiAenJ9pKBsKzzOjfVazqcHbzrcToh9D/lWJt0kPwMTPds04E8Z50ZD4Sp/XUtv2zLVWhsRC2eBYFG7VmHgronEKp7wElrgPrhIuUWL27jMg+d2oZHCGB0IHd52FAUtnmNs41vY76k/c/Cvvt9ij+HjQXkjujabq3mOaMjEKyRi80mpsdVRou7qENxMTiBp7UVFv9V5e9CrK2+2WykSQVsu+O1IKvXGpH7Z5ZJ3TbARCCDgYdUNu5ZUTE3taSjIiRH0zA32Ay5KPbCmho7bs6qnw7q6eyoTyQviyriCMEIEbCbWaamGT78M7in+E6MeIG+OtLBRQAzcL5uthjITRTdiOTJnaiq6unQsV9dbkiE6Qq7USUXScTaeuPqZOiIKdTOviy+MoG+/0DJfxIwKOmMX4nJ8dl4HP22hSAuOQLih36mCtP4GaTQcZkKCz0g1jo4QbjwLaIMa1
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5129.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(346002)(366004)(39860400002)(376002)(396003)(8676002)(2616005)(6636002)(5660300002)(86362001)(316002)(31686004)(2906002)(31696002)(956004)(16576012)(36756003)(44832011)(6486002)(8936002)(110136005)(26005)(53546011)(66476007)(66946007)(186003)(66556008)(38100700002)(478600001)(83380400001)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L0NjZ1ZLU3ZhSnRIa0QvTTVuWVhIamQ5YjVIVE9renF0TCtPUDhoZTBYcDBn?=
+ =?utf-8?B?aTZSTkdWT0F3dFdPY2FERFNzY3dxVWVYQVJDVWpZaVBrNjVvL3JmaGpvV1JP?=
+ =?utf-8?B?c1Y3TVBoWE1mamtScGdMOVJJbmMrV2lTdHdxZVdhcDlSTmw4MmpFa0JrTXg0?=
+ =?utf-8?B?Y0ZEaS82cGhnR01GemU2b1F4Wk4xTno4a01DUFdZN2xpUTBrMlhZYzVhZUk2?=
+ =?utf-8?B?c3VTV1JiM0pnTmdjVWJncVByKzRjTGxYN045ak5NL0N5Z3BhSDZpcjE2R0I4?=
+ =?utf-8?B?U01UVzFuQTYycGtWV2s3Y2tTenlLQjZOOWl5Qk8yamkxSnlGYUxpNlczRmxO?=
+ =?utf-8?B?UmdBMTdnRk9Yd3hKakxtNUs3RmZlRUZSL3FmY1NKWFBIVWtXOVYxaVBQK013?=
+ =?utf-8?B?VCtYRkZDdzhoR0dnRUNGSEFMT3FyZlNENGczVm5GM0JvME5XaXVEVm13NmJY?=
+ =?utf-8?B?ZTRZRmpLa09UK0Uydit0YTFmYmtRYktURW5sWFZ3Mk0zRVVudkR4Rmh3RTRD?=
+ =?utf-8?B?Zi8zYUVoRjA4YXdWeFhUOWhpaWZPbFN1ZFlKS1lsamg3TDUySm5sd3pDeGla?=
+ =?utf-8?B?cTZoRGFlU2dwTG5PWHFwV3J6Ky9KTmp5dHRzSWpmazBpZlNwMHRsUUFzT295?=
+ =?utf-8?B?ajRqNWV2WHdzVkxYajA3N01sdEFBTytlQzVPUTgweVZPQWlxM2EyNFdMUkcx?=
+ =?utf-8?B?dU4yMElLblVKc0JjMENQRXR2cUpNZXVzSzNvZVkxdEdkWUdHS2J6YWVzUVFS?=
+ =?utf-8?B?ZXBMK283VC9DS25aUHFiMXBzelR0Q25kOTlteEkrb3JNNEcxS0VEby94T1pC?=
+ =?utf-8?B?eXA2ZG9lY0lGL2QxcUZSOUZMNVBWRWZPcWIrRXM4Y0ZTT0FpWWNTcWh4VUcw?=
+ =?utf-8?B?YXh6R1ZIWDRaRVpJcWxYdmU1dVlIb1ozNndBdVJmOHJuSzAzclpwT0dMVEk0?=
+ =?utf-8?B?RWk5anIrZ1JTaVhCbldhTlFpYlJ3YnRjL01iOGJXYUVZYkVRcmtNZXRObVdJ?=
+ =?utf-8?B?TlVIcW5lSmE3SkZjcHJxdWgwRTFTQm5zdUlDTk0zY3h3N0UrZmgzdS9GOTlG?=
+ =?utf-8?B?OFZjQk1VTkpFYnpmZnRhOEprd1g2VHhOR3V2NlFxTGdsTEEzNjcwU05TaTc5?=
+ =?utf-8?B?WEFRL1pxc0x1cGdxN29ZNGN5bHNwVkVESnRHamJjMm5uZldOZDBBN3NHUUo5?=
+ =?utf-8?B?RDd6SHJwL1diaW9BaW55cUlGZHRQaDRRK1VCVDE3bzAxaFlLZW1aZDU1eDFJ?=
+ =?utf-8?B?QW8rNWU1b1dKb2Z0UXlzN0tHajFDVGRmamtUMlo2cEtFMGVKU1ByVzhRNkVk?=
+ =?utf-8?B?d0t1WDlieklSSlJLUHNNWmFWa1ZXL0UyQ2IySG43TkdQb1hzTGhqOVVCVFJV?=
+ =?utf-8?B?ZTFnOGtxSklYRWxkSk10eXI5LzRZTVBFbTRmMyttcWJOZzc1S2lEdENNT0o0?=
+ =?utf-8?B?NFgxQTU1Z0h6WTNYU1ltVjRYK21qUUdGaEZWZzEvUlVsRjdDZDNhbkZtQ3Er?=
+ =?utf-8?B?TFA4M3hWaHdYaFV2K3BhS01XWXNxbHNoTENuTGpIb0F0WlVDUHlOYVlCMVhO?=
+ =?utf-8?B?R2M5NnZPQm1VdjQ5SndSbzZFMnFZNkVJRXc4eFVXUE5ZSFpzUEF5MG1mVnZH?=
+ =?utf-8?B?OFR6YkVpZWJScDhiRGpSR1QyVnBLU1BQYnlaYTdUS0t4emgvNERxZGxCeEJ2?=
+ =?utf-8?B?SWJ6UDd2aTIreXVMQyt4NTRpSEZmZEtML3FHRDlyUWZ0U0lMUU03aWpkcHoz?=
+ =?utf-8?Q?ZcaBimyAYDVvoHsMnfAbgUFUKdQAUpSV/+4DwVf?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1c386bf2-2cd3-49e0-f34e-08d9582327f9
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5129.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2021 15:10:26.9428 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: O3IOBgNo6RiG0x/IDayvdAmmAA6dXA1CtA64sJC7IWhG0YtCeOmkvnEk6FTqHGbu0LEA0iUB8cbKmIn8x63/Yw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5180
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,37 +145,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 05.08.21 um 04:37 schrieb YuBiao Wang:
-> When init failed in early init stage, amdgpu_object has
-> not been initialized, so hasn't the ttm delayed queue functions.
+
+Am 2021-08-05 um 4:51 a.m. schrieb Zhu, Changfeng:
+> [AMD Official Use Only]
 >
-> Signed-off-by: YuBiao Wang <YuBiao.Wang@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
+> Hi Felix,
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 9e53ff851496..4c33985542ed 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -3825,7 +3825,8 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
->   {
->   	dev_info(adev->dev, "amdgpu: finishing device.\n");
->   	flush_delayed_work(&adev->delayed_init_work);
-> -	ttm_bo_lock_delayed_workqueue(&adev->mman.bdev);
-> +	if (adev->mman.initialized)
-> +		ttm_bo_lock_delayed_workqueue(&adev->mman.bdev);
+> Can we set noretry=1 for dgpu path(ignore_crat=1) which doesn’t to through iommuv2 path on raven as below:
 
-I'm really wondering why we have that here in the first place.
+There are other possible reasons than ignore_crat for Raven to work in
+dGPU mode (broken CRAT, disabled IOMMU). However, those are not known
+until later in the initialization.
 
-This just disabled the delayed delete queue which is part of the sw 
-stack and not related to hardware in any way possible.
+Regards,
+  Felix
 
-I think it would be much cleaner to move this into amdgpu_ttm_fini().
 
-Christian.
-
->   	adev->shutdown = true;
->   
->   	/* make sure IB test finished before entering exclusive mode
-
+>> +	case CHIP_RAVEN:
+>> +		/*
+>> +		 * TODO: Raven currently can fix most SVM issues with
+>> +		 * noretry =1. However it has two issues with noretry = 1
+>> +		 * on kfd migrate tests. It still needs to root causes
+>> +		 * with these two migrate fails on raven with noretry = 1.
+>> +		 */
+>>  		if (amdgpu_noretry == -1) {
+>> 			If(ignore_crat)
+>>  				gmc->noretry = 1;
+>> 			else
+>> 				gmc->noretry = 0;
+>> 		}
+>>  		else
+>>  			gmc->noretry = amdgpu_noretry;
+>>  		break;
+> BR,
+> Changfeng.
+>
+> -----Original Message-----
+> From: Kuehling, Felix <Felix.Kuehling@amd.com> 
+> Sent: Wednesday, July 28, 2021 10:22 PM
+> To: Zhu, Changfeng <Changfeng.Zhu@amd.com>; amd-gfx@lists.freedesktop.org; Huang, Ray <Ray.Huang@amd.com>; Zhang, Yifan <Yifan1.Zhang@amd.com>
+> Subject: Re: [PATCH] drm/amdgpu: set default noretry=1 to fix kfd SVM issues for raven
+>
+> Doesn't this break IOMMUv2? Applications that run using IOMMUv2 for system memory access depend on correct retry handling in the SQ.
+> Therefore noretry must be 0 on Raven.
+>
+> I believe the reason that SVM has trouble with retry enabled is, that
+> IOMMUv2 is catching the page faults, so the driver never gets to handle the page fault interrupts. That breaks page-fault based migration in the SVM code. I think the better solution is to disable SVM on APUs where
+> IOMMUv2 is enabled.
+>
+> Alternatively, we could give up on IOMMUv2 entirely and always rely on SVM to provide that functionality. But that requires more changes in the amdgpu_vm code.
+>
+> Regards,
+>   Felix
+>
+>
+> Am 2021-07-28 um 2:36 a.m. schrieb Changfeng:
+>> From: changzhu <Changfeng.Zhu@amd.com>
+>>
+>> From: Changfeng <Changfeng.Zhu@amd.com>
+>>
+>> It can't find any issues with noretry=1 except two SVM migrate issues.
+>> Oppositely, it will cause most SVM cases fail with noretry=0.
+>> The two SVM migrate issues also happen with noretry=0. So it can set 
+>> default noretry=1 for raven firstly to fix most SVM fails.
+>>
+>> Change-Id: Idb5cb3c1a04104013e4ab8aed2ad4751aaec4bbc
+>> Signed-off-by: Changfeng <Changfeng.Zhu@amd.com>
+>> ---
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 15 ++++++++-------
+>>  1 file changed, 8 insertions(+), 7 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+>> index 09edfb64cce0..d7f69dbd48e6 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+>> @@ -606,19 +606,20 @@ void amdgpu_gmc_noretry_set(struct amdgpu_device *adev)
+>>  		 * noretry = 0 will cause kfd page fault tests fail
+>>  		 * for some ASICs, so set default to 1 for these ASICs.
+>>  		 */
+>> +	case CHIP_RAVEN:
+>> +		/*
+>> +		 * TODO: Raven currently can fix most SVM issues with
+>> +		 * noretry =1. However it has two issues with noretry = 1
+>> +		 * on kfd migrate tests. It still needs to root causes
+>> +		 * with these two migrate fails on raven with noretry = 1.
+>> +		 */
+>>  		if (amdgpu_noretry == -1)
+>>  			gmc->noretry = 1;
+>>  		else
+>>  			gmc->noretry = amdgpu_noretry;
+>>  		break;
+>> -	case CHIP_RAVEN:
+>>  	default:
+>> -		/* Raven currently has issues with noretry
+>> -		 * regardless of what we decide for other
+>> -		 * asics, we should leave raven with
+>> -		 * noretry = 0 until we root cause the
+>> -		 * issues.
+>> -		 *
+>> +		/*
+>>  		 * default this to 0 for now, but we may want
+>>  		 * to change this in the future for certain
+>>  		 * GPUs as it can increase performance in
