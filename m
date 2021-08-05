@@ -2,66 +2,76 @@ Return-Path: <SRS0=ROs4=M4=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,T_TVD_MIME_NO_HEADERS,
-	UNPARSEABLE_RELAY,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-2.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_RED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3A445C4320A
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 15:53:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 84C89C4338F
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 18:21:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 23BBC60F14
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 15:53:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 23BBC60F14
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+	by mail.kernel.org (Postfix) with ESMTPS id 4898E6112F
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 18:21:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4898E6112F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A15A56EB08;
-	Thu,  5 Aug 2021 15:53:03 +0000 (UTC)
-Received: from nksmu.kylinos.cn (mailgw.kylinos.cn [123.150.8.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 128766E5C5;
- Thu,  5 Aug 2021 10:46:10 +0000 (UTC)
-X-UUID: 3aead53055cf4b128297025a3ac8fefb-20210805
-X-CPASD-INFO: da93797b55bf4459b5115d9c3a60f804@rbFzU2RrZZJhVaSyg3eAc4JmYWFlkFm
- ydZtWYJRoXFSVhH5xTWJsXVKBfG5QZWNdYVN_eGpQYl9gZFB5i3-XblBgXoZgUZB3s6NzU2dnZw==
-X-CPASD-FEATURE: 0.0
-X-CLOUD-ID: da93797b55bf4459b5115d9c3a60f804
-X-CPASD-SUMMARY: SIP:-1, APTIP:-2.0, KEY:0.0, FROMBLOCK:1, EXT:0.0, OB:0.0,
- URL:-5, T
- VAL:177.0, ESV:0.0, ECOM:-5.0, ML:0.0, FD:0.0, CUTS:395.0, IP:-2.0, MAL:0.0,
- ATTNUM:0
- .0, PHF:-5.0, PHC:-5.0, SPF:4.0, EDMS:-3, IPLABEL:4480.0, FROMTO:0, AD:0,
- FFOB:0.0, CF
- OB:0.0, SPC:0.0, SIG:-5, AUF:1, DUF:7720, ACD:2, DCD:104, SL:0, AG:0, CFC:0.814,
- CFSR:0 .032,UAT:0,RAF:0,VERSION:2.3.4
-X-CPASD-ID: 3aead53055cf4b128297025a3ac8fefb-20210805
-X-CPASD-BLOCK: 1000
-X-CPASD-STAGE: 1, 1
-X-UUID: 3aead53055cf4b128297025a3ac8fefb-20210805
-X-User: lizhenneng@kylinos.cn
-Received: from localhost.localdomain [(116.128.244.169)] by nksmu.kylinos.cn
- (envelope-from <lizhenneng@kylinos.cn>) (Generic MTA)
- with ESMTP id 1615833078; Thu, 05 Aug 2021 18:44:27 +0800
-From: Zhenneng Li <lizhenneng@kylinos.cn>
-To: 
-Cc: Zhenneng Li <lizhenneng@kylinos.cn>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v3] drm/radeon: Update pitch for page flip
-Date: Thu,  5 Aug 2021 18:45:57 +0800
-Message-Id: <20210805104557.306886-1-lizhenneng@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id E99876E8A8;
+	Thu,  5 Aug 2021 18:21:44 +0000 (UTC)
+Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com
+ [IPv6:2607:f8b0:4864:20::336])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C5736E8A8;
+ Thu,  5 Aug 2021 18:21:44 +0000 (UTC)
+Received: by mail-ot1-x336.google.com with SMTP id
+ c2-20020a0568303482b029048bcf4c6bd9so6078291otu.8; 
+ Thu, 05 Aug 2021 11:21:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=27qj2SWHf1ITmiEsMbQM8FzGSFNAOy3v+jLUQb3Ja84=;
+ b=KfJY1YUJIGR7TvsAVd7lBr89GqNQUjB9YAaf/2DLFZBymgDfomTuzE8vyS0sdSIe2J
+ nr/Ctl8RHwIxj3Eul7qbc6jdtiiwEhWoRsLLLigKmKTHYt2o+/J3OcNXjsGVQAIZsoHn
+ cpDHhiaY1EBOn8zhBBn/luIB0cbu2eX/LrfddnrjCod/mEUpopCyLhiVtXvj+lRub2Ri
+ BfTgteRJAYiYYz26hVBGG0EcE2Z+ddzzXliwuqOJ1TntGB6FcCIK0thOEp1uxj7IAvDc
+ j4S9xOpsG+wMpLZUWbUBWi1T6URWvGYcwNSygVQB4XVI1k6ovB6VA9vtlC2GxD2tKZo9
+ FZgw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=27qj2SWHf1ITmiEsMbQM8FzGSFNAOy3v+jLUQb3Ja84=;
+ b=dZA2KA85X7yJMipAL6NDnqkgKBOR2TtFbVldKUpIe0xU4LBhShsZvyGVR09Y51UXna
+ DsUMHSAgrwYqYCP37uZJxq9z9ipW75LWA7kXVxL8qQZY/9jnpnlmu9fVIq8ibTz/KJqo
+ elz4Y9FtVt0qbup3j8dEmqZELqkWZP3KsptDxlSLPEHsPnpyHOB58uRdTRFwBCjmzqc+
+ 2OEeaVHyXX0q0lox/Kug0DaCK+mTeRp7t15v7oXU1eofQ5mHVtejXtJ3pGvZey36BKey
+ Gs4L4CxxFInX59bvJLTWgdELmcqzOV/czCHzhiaLgCIHkoH54RnbwVc0ZkvVnldDPvIB
+ EPdg==
+X-Gm-Message-State: AOAM532IwlcqVd9W9dt3i1UPMFFnjepZ19LaHcO94R/7ltm0ZYC2NQRW
+ SyTf8m0n0sS9ozWzfpKd5qJ2i6mtjT7esQMu0pg=
+X-Google-Smtp-Source: ABdhPJxEFl9g2uIR7AX/5xRKU2EoUakZ8tDgBO6V/DlWWQ9gFUU2CtMZ7xgrDvbpoNlW+6PhoRR5f5SqhnQmG5wrXhk=
+X-Received: by 2002:a05:6830:1c2f:: with SMTP id
+ f15mr4696064ote.23.1628187703609; 
+ Thu, 05 Aug 2021 11:21:43 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/mixed;
-	boundary="Add_By_Label_Mail_Nextpart_001"
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 05 Aug 2021 15:53:02 +0000
+References: <CAPM=9twko1gCNTB3CPf7CAQqWFayMj=1fa3ZoEwwviDFhF48kQ@mail.gmail.com>
+ <CAHk-=wgYq=EpNmDPNVxnBX+HpjNcQg50DSjuxZuK0UbZjh-pnQ@mail.gmail.com>
+In-Reply-To: <CAHk-=wgYq=EpNmDPNVxnBX+HpjNcQg50DSjuxZuK0UbZjh-pnQ@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 5 Aug 2021 14:21:31 -0400
+Message-ID: <CADnq5_M7gbOn34_57ipGjfpo7FvB3sFQnSOtkPUvstshX4V-zQ@mail.gmail.com>
+Subject: Re: [git pull] drm fixes for 5.14-rc4
+To: Linus Torvalds <torvalds@linux-foundation.org>, 
+ "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>,
+ Harry Wentland <hwentlan@amd.com>, 
+ "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>
+Cc: Dave Airlie <airlied@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, 
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ LKML <linux-kernel@vger.kernel.org>, 
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,177 +86,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Add_By_Label_Mail_Nextpart_001
-Content-Type: text/plain;
-Content-Transfer-Encoding: 8bit
+On Thu, Aug 5, 2021 at 2:14 PM Linus Torvalds
+<torvalds@linux-foundation.org> wrote:
+>
+> This might possibly have been fixed already by the previous drm pull,
+> but I wanted to report it anyway, just in case.
+>
+> It happened after an uptime of over a week, so it might not be trivial
+> to reproduce.
+>
+> It's a NULL pointer dereference in dc_stream_retain() with the code being
+>
+>         lock xadd %eax,0x390(%rdi) <-- trapping instruction
+>
+> and that's just the
+>
+>         kref_get(&stream->refcount);
+>
+> with a NULL 'stream' argument.
+>
+>   Call Trace:
+>    dc_resource_state_copy_construct+0x13f/0x190 [amdgpu]
+>    amdgpu_dm_atomic_commit_tail+0xd5/0x1540 [amdgpu]
+>    commit_tail+0x97/0x180 [drm_kms_helper]
+>    process_one_work+0x1df/0x3a0
+>
+> the oops is followed by a stream of
+>
+>   [drm:amdgpu_dm_atomic_check [amdgpu]] *ERROR* [CRTC:55:crtc-1]
+> hw_done or flip_done timed out
+>
+> and the machine was not usable afterwards.
+>
+> lspci says this is a
+>
+>  49:00.0 VGA compatible controller [0300]:
+>    Advanced Micro Devices, Inc. [AMD/ATI] Ellesmere
+>    [Radeon RX 470/480/570/570X/580/580X/590]
+>    [1002:67df] (rev e7) (prog-if 00 [VGA controller])
+>
+> Full oops in the attachment, but I think the above is all the really
+> salient details.
 
+Thanks for the report.  Adding some display folks to take a look.
 
-When primary bo is updated, crtc's pitch may
-have not been updated, this will lead to show
-disorder content when user changes display mode,
-we update crtc's pitch in page flip to avoid
-this bug.
-This refers to amdgpu's pageflip.
-
-v1->v2:
-Update all of the pitch in all of the page_flip functions
-in radeon rather than just the evergreen one.
-
-v2->v3:
-Update pitch set method for r100 according to
-radeon_legacy_crtc.c
-
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: "Christian König" <christian.koenig@amd.com>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
-Cc: David Airlie <airlied@linux.ie>
-Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-Signed-off-by: Zhenneng Li <lizhenneng@kylinos.cn>
----
- drivers/gpu/drm/radeon/evergreen.c | 8 +++++++-
- drivers/gpu/drm/radeon/r100.c      | 9 +++++++++
- drivers/gpu/drm/radeon/rs600.c     | 8 +++++++-
- drivers/gpu/drm/radeon/rv770.c     | 8 +++++++-
- 4 files changed, 30 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/radeon/evergreen.c b/drivers/gpu/drm/radeon/evergreen.c
-index 36a888e1b179..eeb590d2dec2 100644
---- a/drivers/gpu/drm/radeon/evergreen.c
-+++ b/drivers/gpu/drm/radeon/evergreen.c
-@@ -28,6 +28,7 @@
- 
- #include <drm/drm_vblank.h>
- #include <drm/radeon_drm.h>
-+#include <drm/drm_fourcc.h>
- 
- #include "atom.h"
- #include "avivod.h"
-@@ -1414,10 +1415,15 @@ void evergreen_page_flip(struct radeon_device *rdev, int crtc_id, u64 crtc_base,
- 			 bool async)
- {
- 	struct radeon_crtc *radeon_crtc = rdev->mode_info.crtcs[crtc_id];
-+	struct drm_framebuffer *fb = radeon_crtc->base.primary->fb;
- 
--	/* update the scanout addresses */
-+	/* flip at hsync for async, default is vsync */
- 	WREG32(EVERGREEN_GRPH_FLIP_CONTROL + radeon_crtc->crtc_offset,
- 	       async ? EVERGREEN_GRPH_SURFACE_UPDATE_H_RETRACE_EN : 0);
-+	/* update pitch */
-+	WREG32(EVERGREEN_GRPH_PITCH + radeon_crtc->crtc_offset,
-+	       fb->pitches[0] / fb->format->cpp[0]);
-+	/* update the scanout addresses */
- 	WREG32(EVERGREEN_GRPH_PRIMARY_SURFACE_ADDRESS_HIGH + radeon_crtc->crtc_offset,
- 	       upper_32_bits(crtc_base));
- 	WREG32(EVERGREEN_GRPH_PRIMARY_SURFACE_ADDRESS + radeon_crtc->crtc_offset,
-diff --git a/drivers/gpu/drm/radeon/r100.c b/drivers/gpu/drm/radeon/r100.c
-index ba724198b72e..2dd85ba1faa2 100644
---- a/drivers/gpu/drm/radeon/r100.c
-+++ b/drivers/gpu/drm/radeon/r100.c
-@@ -162,6 +162,8 @@ void r100_wait_for_vblank(struct radeon_device *rdev, int crtc)
- void r100_page_flip(struct radeon_device *rdev, int crtc_id, u64 crtc_base, bool async)
- {
- 	struct radeon_crtc *radeon_crtc = rdev->mode_info.crtcs[crtc_id];
-+	uint32_t crtc_pitch, pitch_pixels;
-+	struct drm_framebuffer *fb = radeon_crtc->base.primary->fb;
- 	u32 tmp = ((u32)crtc_base) | RADEON_CRTC_OFFSET__OFFSET_LOCK;
- 	int i;
- 
-@@ -169,6 +171,13 @@ void r100_page_flip(struct radeon_device *rdev, int crtc_id, u64 crtc_base, bool
- 	/* update the scanout addresses */
- 	WREG32(RADEON_CRTC_OFFSET + radeon_crtc->crtc_offset, tmp);
- 
-+	/* update pitch */
-+	pitch_pixels = fb->pitches[0] / fb->format->cpp[0];
-+	crtc_pitch = DIV_ROUND_UP(pitch_pixels * fb->format->cpp[0] * 8,
-+				  fb->format->cpp[0] * 8 * 8);
-+	crtc_pitch |= crtc_pitch << 16;
-+	WREG32(RADEON_CRTC_PITCH + radeon_crtc->crtc_offset, crtc_pitch);
-+
- 	/* Wait for update_pending to go high. */
- 	for (i = 0; i < rdev->usec_timeout; i++) {
- 		if (RREG32(RADEON_CRTC_OFFSET + radeon_crtc->crtc_offset) & RADEON_CRTC_OFFSET__GUI_TRIG_OFFSET)
-diff --git a/drivers/gpu/drm/radeon/rs600.c b/drivers/gpu/drm/radeon/rs600.c
-index b2d22e25eee1..b87dd551e939 100644
---- a/drivers/gpu/drm/radeon/rs600.c
-+++ b/drivers/gpu/drm/radeon/rs600.c
-@@ -41,6 +41,7 @@
- 
- #include <drm/drm_device.h>
- #include <drm/drm_vblank.h>
-+#include <drm/drm_fourcc.h>
- 
- #include "atom.h"
- #include "radeon.h"
-@@ -118,6 +119,7 @@ void avivo_wait_for_vblank(struct radeon_device *rdev, int crtc)
- void rs600_page_flip(struct radeon_device *rdev, int crtc_id, u64 crtc_base, bool async)
- {
- 	struct radeon_crtc *radeon_crtc = rdev->mode_info.crtcs[crtc_id];
-+	struct drm_framebuffer *fb = radeon_crtc->base.primary->fb;
- 	u32 tmp = RREG32(AVIVO_D1GRPH_UPDATE + radeon_crtc->crtc_offset);
- 	int i;
- 
-@@ -125,9 +127,13 @@ void rs600_page_flip(struct radeon_device *rdev, int crtc_id, u64 crtc_base, boo
- 	tmp |= AVIVO_D1GRPH_UPDATE_LOCK;
- 	WREG32(AVIVO_D1GRPH_UPDATE + radeon_crtc->crtc_offset, tmp);
- 
--	/* update the scanout addresses */
-+	/* flip at hsync for async, default is vsync */
- 	WREG32(AVIVO_D1GRPH_FLIP_CONTROL + radeon_crtc->crtc_offset,
- 	       async ? AVIVO_D1GRPH_SURFACE_UPDATE_H_RETRACE_EN : 0);
-+	/* update pitch */
-+	WREG32(AVIVO_D1GRPH_PITCH + radeon_crtc->crtc_offset,
-+	       fb->pitches[0] / fb->format->cpp[0]);
-+	/* update the scanout addresses */
- 	WREG32(AVIVO_D1GRPH_SECONDARY_SURFACE_ADDRESS + radeon_crtc->crtc_offset,
- 	       (u32)crtc_base);
- 	WREG32(AVIVO_D1GRPH_PRIMARY_SURFACE_ADDRESS + radeon_crtc->crtc_offset,
-diff --git a/drivers/gpu/drm/radeon/rv770.c b/drivers/gpu/drm/radeon/rv770.c
-index 74499307285b..e592e57be1bb 100644
---- a/drivers/gpu/drm/radeon/rv770.c
-+++ b/drivers/gpu/drm/radeon/rv770.c
-@@ -32,6 +32,7 @@
- 
- #include <drm/drm_device.h>
- #include <drm/radeon_drm.h>
-+#include <drm/drm_fourcc.h>
- 
- #include "atom.h"
- #include "avivod.h"
-@@ -809,6 +810,7 @@ u32 rv770_get_xclk(struct radeon_device *rdev)
- void rv770_page_flip(struct radeon_device *rdev, int crtc_id, u64 crtc_base, bool async)
- {
- 	struct radeon_crtc *radeon_crtc = rdev->mode_info.crtcs[crtc_id];
-+	struct drm_framebuffer *fb = radeon_crtc->base.primary->fb;
- 	u32 tmp = RREG32(AVIVO_D1GRPH_UPDATE + radeon_crtc->crtc_offset);
- 	int i;
- 
-@@ -816,9 +818,13 @@ void rv770_page_flip(struct radeon_device *rdev, int crtc_id, u64 crtc_base, boo
- 	tmp |= AVIVO_D1GRPH_UPDATE_LOCK;
- 	WREG32(AVIVO_D1GRPH_UPDATE + radeon_crtc->crtc_offset, tmp);
- 
--	/* update the scanout addresses */
-+	/* flip at hsync for async, default is vsync */
- 	WREG32(AVIVO_D1GRPH_FLIP_CONTROL + radeon_crtc->crtc_offset,
- 	       async ? AVIVO_D1GRPH_SURFACE_UPDATE_H_RETRACE_EN : 0);
-+	/* update pitch */
-+	WREG32(AVIVO_D1GRPH_PITCH + radeon_crtc->crtc_offset,
-+	       fb->pitches[0] / fb->format->cpp[0]);
-+	/* update the scanout addresses */
- 	if (radeon_crtc->crtc_id) {
- 		WREG32(D2GRPH_SECONDARY_SURFACE_ADDRESS_HIGH, upper_32_bits(crtc_base));
- 		WREG32(D2GRPH_PRIMARY_SURFACE_ADDRESS_HIGH, upper_32_bits(crtc_base));
--- 
-2.25.1
-
-
---Add_By_Label_Mail_Nextpart_001
-
-Content-type: Text/plain
-
-No virus found
-		Checked by Hillstone Network AntiVirus
-
---Add_By_Label_Mail_Nextpart_001--
+Alex
