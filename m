@@ -7,77 +7,77 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 92C8BC4338F
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Aug 2021 16:36:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2A5CDC4338F
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Aug 2021 16:37:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5311C61163
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Aug 2021 16:36:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5311C61163
+	by mail.kernel.org (Postfix) with ESMTPS id EA6E861181
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Aug 2021 16:37:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EA6E861181
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA6C16E053;
-	Fri,  6 Aug 2021 16:36:57 +0000 (UTC)
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam08on2057.outbound.protection.outlook.com [40.107.100.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69A776EC2B
- for <amd-gfx@lists.freedesktop.org>; Fri,  6 Aug 2021 16:36:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32ECA6EB9B;
+	Fri,  6 Aug 2021 16:37:00 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2073.outbound.protection.outlook.com [40.107.220.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 694AE6EC2A
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Aug 2021 16:36:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gD/OWpqtZ2K1jSlPzMeORRMwsWE4C5q2ok9zrmS8QQmYzqjZNiZncekvOV3yPRXblbvJLykQCSVQlK3UeqYFRvPqjUTp5nMia3vUkqpFah346SYratvD3W1bJvKlwCs/BI5TOTpWdN8tGxCeHGtQPMgaF9Q7x3X3cC04AqCKqKOCOK/p7dHeSP79LtWHQexHGmFDD9M1n0h59n+PqNRwkwFp7PKaSOsYBx+z3prqugFzcacPSI4/zci5tKmmnIqr7fspigl074VBKWCq9rYdOGt3b5ZjOio6MUfLuyaaOpF7C3wRAtbNe8QFDvMX9+vYETMaSk7qjo6TIPOu5da5+g==
+ b=oQAHgKspyLHeJGHI6VhHXf3iHBg0lPDiLHtNE+502ZGEO9nj+5lwfe/Wy9dgmeO2LPn1zenRpiPvsZ5gLIWmyBB2MbxW1vAFWQGfkHE7drLGw8ROeXH1jX00AkHIbOSbecQFkYGi18IhrEd0vuTTqsrI5TClPlyT4m2ZQxVWcUgVBmYXUJJ/ZQuPTSovJJOmKHkmhIVK/hbT9qwq9Ja3KK4Y8AlbYh7OoR2EIetxVhFqWQ3+1yrQt29wFF3NDRNHEHqQPVRzATvTszkQLU87ctZkd9RlaHf6DG1sSpvQ3hSAxEbFmP4wEWsVtM6s2bkobyf2PFVOryssw2ej8rLTgA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PJrMMG0ljY9GS/cbd9h4dVBjWwjAs3rWH/ms/WwRGDw=;
- b=b04KpfzXEUarybmgGBlHKWxQujjwgpaSTSLy6wDAOj2rIdFVLXsVzNgutD+vfGgIl37ur+978/MFrIEZ2MB+UFjFYhE/7ZBlhpAqgDPayCmAvczN98GL0np3zrMeXm2WSNnB0qBoN3yPNbV49LgBQyBMIuRfyTtx7QnBbuUdMSH7KyFLfBD5P790HGt2MshpGf0ylMhrFdM7ApRYwvDma4bRmqjnQXQ6s7Lqz4PCWehi1X/OMV4Va+HjdMPmn8OoczDYmourY2WJKYpRQ0E8JMnKJAqhHEBsD6w4GS3+ozLY0V9l3LEnbhx4qCHVRoG7FfvDAXPZhoUrkvmoe2znsA==
+ bh=lqRea6wiMXc41BWuBhjsWcKdo1+9YOAZeITvAOMsZpU=;
+ b=dlCdU0Svle3h401a+20mq7H3fChVZyVYtHZEzHzo9EiFLMcmUuRmUd+1dKKGjsmqDKb8s7eYnszk982pB0JN4NCjbB4qV0UpqvmRWJOgg40nbWMoRe7NeqAg5JeKUi233fm+4JxTDyDCClpQ4vBA5SzAijfnuk8Ohu9kZhLBcAh7k+o27Z+RLaNxn9jB1h7FFOXcv5J5KB9GBV1TqcWyJTFfVHn8avTH0J1by/GqAZC+Pk9RroW0aynypozz/RIgTiN38SZWYD8VfSfFL9obU/KK9GlWkXxe+nFzMyfep92NIM8hosNv8xjFfuU0XdpRlAkPgmQ8d9eULpUdMG2VAg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PJrMMG0ljY9GS/cbd9h4dVBjWwjAs3rWH/ms/WwRGDw=;
- b=OZV5bLsTPWJUZaueDrQdDMigGJkOUdiUOadIAUvfhQcV+gKGh941jWNZLnEDcTblZBv60zoD7+mEzUkflKqVBKYNF5TJUDI6In05Pg3do7alJLybUXUnpan4VI7FB/SRlBkx13Ompk/UqLtR1cT+cLIpf9FSje4hQsNiwqvECnw=
-Received: from BN9PR03CA0302.namprd03.prod.outlook.com (2603:10b6:408:112::7)
- by DM6PR12MB2860.namprd12.prod.outlook.com (2603:10b6:5:186::11) with
+ bh=lqRea6wiMXc41BWuBhjsWcKdo1+9YOAZeITvAOMsZpU=;
+ b=YHOsK409zQPn3ONd9BjaWk+ibRtsk/A57YLN+xEaB6BATa77FCdq3Q0July8P95h7Df21Re/I1tD4jcezZZMrui2w40Gd45vN/eUWGItDF5WAWOv44xiYxrSOBzk2r2NLTlCQav8bwMY6lcEiRlMb4GOo/8yxzLfj+au9tFy0QI=
+Received: from MW4PR04CA0303.namprd04.prod.outlook.com (2603:10b6:303:82::8)
+ by DM5PR1201MB2553.namprd12.prod.outlook.com (2603:10b6:3:eb::8) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4373.25; Fri, 6 Aug
- 2021 16:36:01 +0000
-Received: from BN8NAM11FT008.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:112:cafe::7c) by BN9PR03CA0302.outlook.office365.com
- (2603:10b6:408:112::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4394.17 via Frontend
- Transport; Fri, 6 Aug 2021 16:36:01 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4394.15; Fri, 6 Aug
+ 2021 16:35:58 +0000
+Received: from CO1NAM11FT060.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:82:cafe::4c) by MW4PR04CA0303.outlook.office365.com
+ (2603:10b6:303:82::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4394.15 via Frontend
+ Transport; Fri, 6 Aug 2021 16:35:58 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
  header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN8NAM11FT008.mail.protection.outlook.com (10.13.177.95) with Microsoft SMTP
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT060.mail.protection.outlook.com (10.13.175.132) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4394.16 via Frontend Transport; Fri, 6 Aug 2021 16:36:00 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.4394.16 via Frontend Transport; Fri, 6 Aug 2021 16:35:57 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Fri, 6 Aug
- 2021 11:36:00 -0500
+ 2021 11:35:57 -0500
 Received: from Bumblebee.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2242.12 via Frontend
- Transport; Fri, 6 Aug 2021 11:35:57 -0500
+ Transport; Fri, 6 Aug 2021 11:35:54 -0500
 From: Anson Jacob <Anson.Jacob@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <Bhawanpreet.Lakha@amd.com>, <Rodrigo.Siqueira@amd.com>,
  <Aurabindo.Pillai@amd.com>, <Qingqing.Zhuo@amd.com>, <Eryk.Brol@amd.com>,
  <bindu.r@amd.com>, <Anson.Jacob@amd.com>, Nicholas Kazlauskas
- <nicholas.kazlauskas@amd.com>
-Subject: [PATCH 12/13] drm/amd/display: Increase timeout threshold for DMCUB
- reset
-Date: Fri, 6 Aug 2021 12:34:48 -0400
-Message-ID: <20210806163449.349757-13-Anson.Jacob@amd.com>
+ <nicholas.kazlauskas@amd.com>, Roy Chan <roy.chan@amd.com>, Eric Yang
+ <Eric.Yang2@amd.com>
+Subject: [PATCH 11/13] drm/amd/display: Clear GPINT after DMCUB has reset
+Date: Fri, 6 Aug 2021 12:34:47 -0400
+Message-ID: <20210806163449.349757-12-Anson.Jacob@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210806163449.349757-1-Anson.Jacob@amd.com>
 References: <20210806163449.349757-1-Anson.Jacob@amd.com>
@@ -86,28 +86,28 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 94676b06-1a85-4ccf-d021-08d958f84686
-X-MS-TrafficTypeDiagnostic: DM6PR12MB2860:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB2860A5F9A03F5D0C6F827D50EBF39@DM6PR12MB2860.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2201;
+X-MS-Office365-Filtering-Correlation-Id: b9eab134-5d38-451b-025c-08d958f844e8
+X-MS-TrafficTypeDiagnostic: DM5PR1201MB2553:
+X-Microsoft-Antispam-PRVS: <DM5PR1201MB255368AAE20E2749DC10CFD9EBF39@DM5PR1201MB2553.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: DkJR09w8B36Ah5ktvC3g5HruGzxxO8W3ejkJVK0l7puNjWG3ie4wdCr4XIT3CMG0Il2m/t4Vuldpm/VfniCk/P18UcDtQ7xhNshHUWFooX60+0wZSU/xKJ66c6xjcoeVrCVRIjnRc+/tjzWWIJpwP09lZiko3e8BFJvCj3nsIvjUPuIwHUWP5e6t0Lp/r0nwwW1ysGV4QvHJvtA8odAjPePERaC04EXQH618ob6QhOAhWnp2ml/dNGg3UP6U/Bx9SFilOBYs9TXRVH62yLRLCvxxsc1YoK/bZYile4qaQSdu7W9NCjiz+WNZzSdJZdikZHeMzV9lE2PthaQDW3hbIrk12VZIFNDiqQZGeIzdEe5GRL//nW0qgN8cAAaNOFZTqoMc76rKDYesXcbWjZNkqvCU39v8zAHNLUegOPHuI67zqp7Otd++prWQ3b6EqdKMymDtOTqNflJkG0oqh0Vm5VF5gp5nbfbz1ZktJcwmqsLwGevMUYxnzEVw68KRj+MzgtJNTp3N2xeFw1syI35klp/CV4VliWOJ8UicLzFaSHN8tTaXxdhgSyx5opACNCKft8GqZ3IOOpyq+UsuwlDB8yzim+Ktq0i0me5Hr96JhDT+dX+iop+ZgLjt/8Yv8xfu/iaNyzGe/iWLRGKA7nLU5NAPlimTL52rQ96xlj+yv4EcpSfSNM3AqJlrjPyoWG4bRUJr7+5i/AMGR5fTVHBVpehZw27XNRLpVZlaJMyoy0Q=
+X-Microsoft-Antispam-Message-Info: AjVq9IbtbgAKgfsjzWV4stHRRV45Bp4m4ct3lKJB2O4RqOAkcWjQGPj+ts1PdtQuSo2fE6pzDDDW5Y3b08yiP+pyAfySYkhNVVANHVwFxJe5LgQt1cgQE50rGGXgDRc8qLN+amD6VoQvhC+VoqaRaVS8w//KFuaoBFAdO5QQgdy6TdwkcUMYuNbhojwM45jAjMcdd1BQmItyNHtG7WtzJwPErodBXLFAC7fYU8hDIKqLzDzlFvgwEswmpS81YLwPeMOwbMUvmkmVGdYch+32PswbdheMW1M6zkHAsiilQnwtYJGdG4C99NXL/h7cR7o0pNlVzGtPmhOCGURcxmQ7N7ZczM0qpWsFCdXdxPxpL6G59N8ZmiC9o0dDpCeKdly1biZr1avONVZGM4Dh/nfp6uuaKhk92WTy2YD7bGtfFV+rHsMWRYN8lBnyyaiOfjpOnBQm3NW0P3Kgn2XNpcPYpPVH6AthiNUpYv6NynOinkL323G8LrzIKgeCOx8PuTn0hKXSOHk1U18cIdeHBwJlXYwv9/8mQbIhRuYVfOzZF8/athjtk7uNZErhaNfPTVfsqj/+rUZ+O97/owA7DU15sknmmKNRqybcKw9mnERuJ0E8bkWqVfye6Z9wA5DGI62LV/OVqaY7S/qzv3u7DQXD+VrRB5mFWLf0/aKg0oNuscLik3F6m5aZwLexsZGcGrtBePAqhXvPyMw+Bj6101t8Wjqtv4WV2yPUng5j4Zyob2w=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(39860400002)(396003)(346002)(376002)(136003)(46966006)(36840700001)(2906002)(81166007)(316002)(54906003)(2616005)(426003)(83380400001)(186003)(1076003)(8936002)(36756003)(26005)(478600001)(86362001)(336012)(70206006)(5660300002)(36860700001)(356005)(70586007)(6916009)(47076005)(7696005)(82310400003)(6666004)(8676002)(82740400003)(4326008)(36900700001);
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(346002)(136003)(396003)(39860400002)(376002)(36840700001)(46966006)(82740400003)(426003)(4326008)(2906002)(36860700001)(8936002)(7696005)(6666004)(83380400001)(6916009)(478600001)(316002)(82310400003)(54906003)(70586007)(81166007)(86362001)(186003)(70206006)(26005)(356005)(36756003)(2616005)(8676002)(336012)(5660300002)(1076003)(47076005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Aug 2021 16:36:00.7570 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 94676b06-1a85-4ccf-d021-08d958f84686
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Aug 2021 16:35:57.9246 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b9eab134-5d38-451b-025c-08d958f844e8
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT008.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT060.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2860
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB2553
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,58 +125,51 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 
 [Why]
-If we're backdoor loading the DMCUB performs more work than just
-the PHY reset so we can end up resetting before the cleanup has fully
-finished.
+Otherwise we can end up processing whatever was left in the register
+if the DMCUB was previously reset.
+
+If DMCUB gets force reset too early from another client then we might
+not have even acked the disable yet - causing DMCUB instantly shutdown
+if the command was 10020000.
 
 [How]
-Increase timeout, add udelay between spins to guarantee a minimum.
+Move the GPINT clear outside of the reset loop and do it unconditionally
+after the DMCUB has been properly reset.
 
+Reviewed-by: Roy Chan <roy.chan@amd.com>
+Reviewed-by: Eric Yang <Eric.Yang2@amd.com>
 Acked-by: Anson Jacob <Anson.Jacob@amd.com>
 Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 ---
- drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c
-index 19141bf84a8c..fc667cb17eb0 100644
+index 6820012e3b6e..19141bf84a8c 100644
 --- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c
 +++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c
-@@ -83,7 +83,7 @@ static inline void dmub_dcn31_translate_addr(const union dmub_addr *addr_in,
- void dmub_dcn31_reset(struct dmub_srv *dmub)
- {
- 	union dmub_gpint_data_register cmd;
--	const uint32_t timeout = 30;
-+	const uint32_t timeout = 100;
- 	uint32_t in_reset, scratch, i;
- 
- 	REG_GET(DMCUB_CNTL2, DMCUB_SOFT_RESET, &in_reset);
-@@ -98,21 +98,21 @@ void dmub_dcn31_reset(struct dmub_srv *dmub)
- 		/**
- 		 * Timeout covers both the ACK and the wait
- 		 * for remaining work to finish.
--		 *
--		 * This is mostly bound by the PHY disable sequence.
--		 * Each register check will be greater than 1us, so
--		 * don't bother using udelay.
- 		 */
- 
- 		for (i = 0; i < timeout; ++i) {
- 			if (dmub->hw_funcs.is_gpint_acked(dmub, cmd))
+@@ -115,10 +115,6 @@ void dmub_dcn31_reset(struct dmub_srv *dmub)
  				break;
-+
-+			udelay(1);
  		}
  
- 		for (i = 0; i < timeout; ++i) {
- 			scratch = dmub->hw_funcs.get_gpint_response(dmub);
- 			if (scratch == DMUB_GPINT__STOP_FW_RESPONSE)
- 				break;
-+
-+			udelay(1);
- 		}
- 
+-		/* Clear the GPINT command manually so we don't reset again. */
+-		cmd.all = 0;
+-		dmub->hw_funcs.set_gpint(dmub, cmd);
+-
  		/* Force reset in case we timed out, DMCUB is likely hung. */
+ 	}
+ 
+@@ -130,6 +126,10 @@ void dmub_dcn31_reset(struct dmub_srv *dmub)
+ 	REG_WRITE(DMCUB_OUTBOX1_RPTR, 0);
+ 	REG_WRITE(DMCUB_OUTBOX1_WPTR, 0);
+ 	REG_WRITE(DMCUB_SCRATCH0, 0);
++
++	/* Clear the GPINT command manually so we don't send anything during boot. */
++	cmd.all = 0;
++	dmub->hw_funcs.set_gpint(dmub, cmd);
+ }
+ 
+ void dmub_dcn31_reset_release(struct dmub_srv *dmub)
 -- 
 2.25.1
 
