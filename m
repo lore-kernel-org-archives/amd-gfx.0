@@ -2,76 +2,54 @@ Return-Path: <SRS0=nf5+=NA=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 44A2CC432BE
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Aug 2021 07:03:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1A3DFC4338F
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Aug 2021 07:03:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F2F686103B
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Aug 2021 07:03:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F2F686103B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 9A5016103B
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Aug 2021 07:03:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9A5016103B
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B578589BAB;
-	Mon,  9 Aug 2021 07:03:48 +0000 (UTC)
-Received: from mail-pj1-x102e.google.com (mail-pj1-x102e.google.com
- [IPv6:2607:f8b0:4864:20::102e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA1716E041;
- Sat,  7 Aug 2021 13:35:30 +0000 (UTC)
-Received: by mail-pj1-x102e.google.com with SMTP id j1so20885572pjv.3;
- Sat, 07 Aug 2021 06:35:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=lfpqGuV3FkgsE6sIJlZN1/FnF/i4KwLJkZg8SrqlLBg=;
- b=n2yE//5GuABT5nJx6KwgalyRToS6ZZWdRPUkGs4bCn5D8fqIc02FzVrQC0dGN4IhfH
- oHotltPkWGNezyC/HUjIJJi5E5RvQnfzrcZ1wDOZM7F97ZVyZPjJ3JV6AGlrfizyM2wm
- Lxvi5Ofp7/XjInhXGInEfBl3UwIBQTMx2L3k3bNJkdlGOS4sx2VHTDO+XywlHK0yWzT2
- ZcHVn0VeyTqyFQoGftZQO7MopnOCAbY2s6Fe/l4glECvldZ2Q9ZqaEq2zqlGW6eTmXWk
- maqxSLbcGAEnBIoTESH+O7hEK5nsuVWKby7CHjRmrhxUo/P/OTfdqHf1MB5Mn4X/gj4H
- 7S1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=lfpqGuV3FkgsE6sIJlZN1/FnF/i4KwLJkZg8SrqlLBg=;
- b=lfHWLzxjXB5msCDtzvBGaOa10kRqAxw1f2gnGntJZfwtizdbTcgWPHxTOWK3zvAe4O
- /TMZoFbSBZsMbdLcGRnxaMGNTXYo02Jy6s25zVGN4nsv8U7qPcqAsHqeymFKYdeclAiC
- Q80pg7+pIGz5FSHLxQayxaAUgKv1DOYGZCtiSaz7Ekjgu5IeJciJi6SbtOfCV6a6E7H1
- DfHlZ7jcGdYtm7NixThelEqBrypT9keLsXrTmfnLbq49Iqj7Bva0Nyp2Tq8t3bA1D7dC
- pOZHKz0Jmluf+APsXlgHsw/JkfXNCOhAMLt4mQfv68xKGd0cbu2sGj4YzP8A532C8EqX
- 7yAw==
-X-Gm-Message-State: AOAM530G3QWWHZT7wpZYcSmWJzYSvGtds5U7K/4hOgc0fQ4ncltXdPea
- FF3fkuzzgfmfGNPQHoy+biM=
-X-Google-Smtp-Source: ABdhPJzbVausotJitV6ge4yNPA7o0Hk53NaWfOlofLSePiuEcrn4dtEvTiUa50T0wpMbQr4qucxIKw==
-X-Received: by 2002:a17:902:c3cb:b029:12c:a426:164a with SMTP id
- j11-20020a170902c3cbb029012ca426164amr12991599plj.81.1628343330316; 
- Sat, 07 Aug 2021 06:35:30 -0700 (PDT)
-Received: from localhost.localdomain ([45.135.186.87])
- by smtp.gmail.com with ESMTPSA id cu12sm15967183pjb.5.2021.08.07.06.35.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 07 Aug 2021 06:35:29 -0700 (PDT)
-From: Tuo Li <islituo@gmail.com>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@linux.ie,
- daniel@ffwll.ch, lee.jones@linaro.org, trix@redhat.com, Chris.Park@amd.com,
- Ashley.Thomas2@amd.com, Charlene.Liu@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, baijiaju1990@gmail.com,
- Tuo Li <islituo@gmail.com>, TOTE Robot <oslab@tsinghua.edu.cn>
-Subject: [PATCH] drm/amd/display/dc/dce112/dce112_resource: Drop redundant
- null-pointer check in bw_calcs_data_update_from_pplib()
-Date: Sat,  7 Aug 2021 06:35:06 -0700
-Message-Id: <20210807133506.243629-1-islituo@gmail.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CBAA89BAE;
+	Mon,  9 Aug 2021 07:03:50 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:e::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6067B89CD5;
+ Sat,  7 Aug 2021 23:38:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ Content-Type:MIME-Version:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
+ Content-ID:Content-Description:In-Reply-To:References;
+ bh=mi1wUIUriQLxRPB3k06DSpLuLSdOL9Du9D9ZElPFQIk=; b=xm3MRgt2UfWjsugdvTPkxsCOe3
+ Y8OlIL7DBy83Wjcq+K6+xRZ3gmZ8mwf35XAOYCtmGcnRpOgxGRaD4bfGMVkUzlNv4ug7xjWAWVDef
+ I785yp9IhyC0Uar+c2lyBBtMKPSqWzp8MmL4NGFqpAy3G7hawnGJwqqoLzdObCs3Fw8hl2l1ZqKtl
+ xBjd9a/rz0thnZG0gfrjOiigkf6iUr+dZxTeNtRZQ16nLVWN+R/xpka8wP1eu+kPws+26wLdMDpPB
+ sMP8en3KvtXIHSkLLaasPD+q5a5G50WgofjxTWXkF0Fut4A//ApCHdYFriXX57h5ojJo0CAqiPebD
+ svejTQ9Q==;
+Received: from [2601:1c0:6280:3f0::aa0b] (helo=bombadil.infradead.org)
+ by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1mCVtr-00FJdd-3N; Sat, 07 Aug 2021 23:38:43 +0000
+From: Randy Dunlap <rdunlap@infradead.org>
+To: linux-kernel@vger.kernel.org
+Cc: Randy Dunlap <rdunlap@infradead.org>, kernel test robot <lkp@intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, Dennis Li <Dennis.Li@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: fix kernel-doc warnings on non-kernel-doc comments
+Date: Sat,  7 Aug 2021 16:38:42 -0700
+Message-Id: <20210807233842.13545-1-rdunlap@infradead.org>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 09 Aug 2021 07:03:47 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -88,28 +66,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The variable dc->bw_vbios is guaranteed to be not NULL by its callers.
-Thus the null-pointer check can be dropped.
+Don't use "begin kernel-doc notation" (/**) for comments that are
+not kernel-doc. This eliminates warnings reported by the 0day bot.
 
-Reported-by: TOTE Robot <oslab@tsinghua.edu.cn>
-Signed-off-by: Tuo Li <islituo@gmail.com>
+drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c:89: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+    * This shader is used to clear VGPRS and LDS, and also write the input
+drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c:209: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+    * The below shaders are used to clear SGPRS, and also write the input
+drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c:301: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+    * This shader is used to clear the uninitiated sgprs after the above
+
+Fixes: 0e0036c7d13b ("drm/amdgpu: fix no full coverage issue for gprs initialization")
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+Reported-by: kernel test robot <lkp@intel.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+Cc: Dennis Li <Dennis.Li@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
 ---
- drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c |    6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c b/drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c
-index ee55cda854bf..3fc8e6b664f9 100644
---- a/drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c
-@@ -1064,7 +1064,7 @@ static void bw_calcs_data_update_from_pplib(struct dc *dc)
- 	struct dm_pp_clock_levels clks = {0};
- 	int memory_type_multiplier = MEMORY_TYPE_MULTIPLIER_CZ;
+--- linux-next-20210806.orig/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
++++ linux-next-20210806/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
+@@ -85,7 +85,7 @@ static const struct soc15_reg_golden gol
+ 	SOC15_REG_GOLDEN_VALUE(GC, 0, regTCI_CNTL_3, 0xff, 0x20),
+ };
  
--	if (dc->bw_vbios && dc->bw_vbios->memory_type == bw_def_hbm)
-+	if (dc->bw_vbios->memory_type == bw_def_hbm)
- 		memory_type_multiplier = MEMORY_TYPE_HBM;
+-/**
++/*
+  * This shader is used to clear VGPRS and LDS, and also write the input
+  * pattern into the write back buffer, which will be used by driver to
+  * check whether all SIMDs have been covered.
+@@ -206,7 +206,7 @@ const struct soc15_reg_entry vgpr_init_r
+ 	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE7), 0xffffffff },
+ };
  
- 	/*do system clock  TODO PPLIB: after PPLIB implement,
--- 
-2.25.1
-
+-/**
++/*
+  * The below shaders are used to clear SGPRS, and also write the input
+  * pattern into the write back buffer. The first two dispatch should be
+  * scheduled simultaneously which make sure that all SGPRS could be
+@@ -302,7 +302,7 @@ const struct soc15_reg_entry sgpr96_init
+ 	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE7), 0xffffffff },
+ };
+ 
+-/**
++/*
+  * This shader is used to clear the uninitiated sgprs after the above
+  * two dispatches, because of hardware feature, dispath 0 couldn't clear
+  * top hole sgprs. Therefore need 4 waves per SIMD to cover these sgprs
