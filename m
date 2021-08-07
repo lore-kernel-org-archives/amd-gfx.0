@@ -2,72 +2,77 @@ Return-Path: <SRS0=nf5+=NA=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0DB22C4338F
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Aug 2021 07:03:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 44A2CC432BE
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Aug 2021 07:03:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B2F3560F4B
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Aug 2021 07:03:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B2F3560F4B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id F2F686103B
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Aug 2021 07:03:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F2F686103B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F8B089895;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B578589BAB;
 	Mon,  9 Aug 2021 07:03:48 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D73A08999C;
- Mon,  9 Aug 2021 01:42:00 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10070"; a="212749994"
-X-IronPort-AV: E=Sophos;i="5.84,305,1620716400"; d="scan'208";a="212749994"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Aug 2021 18:41:59 -0700
-X-IronPort-AV: E=Sophos;i="5.84,305,1620716400"; d="scan'208";a="670624711"
-Received: from ctrondse-mobl.amr.corp.intel.com (HELO
- skuppusw-mobl5.amr.corp.intel.com) ([10.212.77.4])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Aug 2021 18:41:57 -0700
-Subject: Re: [PATCH 00/11] Implement generic prot_guest_has() helper function
-To: Tom Lendacky <thomas.lendacky@amd.com>, linux-kernel@vger.kernel.org,
- x86@kernel.org, linuxppc-dev@lists.ozlabs.org, linux-s390@vger.kernel.org,
- iommu@lists.linux-foundation.org, kvm@vger.kernel.org,
- linux-efi@vger.kernel.org, platform-driver-x86@vger.kernel.org,
- linux-graphics-maintainer@vmware.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, kexec@lists.infradead.org,
- linux-fsdevel@vger.kernel.org
-Cc: Borislav Petkov <bp@alien8.de>, Brijesh Singh <brijesh.singh@amd.com>,
- Joerg Roedel <joro@8bytes.org>, Andi Kleen <ak@linux.intel.com>,
- Tianyu Lan <Tianyu.Lan@microsoft.com>, Andy Lutomirski <luto@kernel.org>,
- Ard Biesheuvel <ardb@kernel.org>, Baoquan He <bhe@redhat.com>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Christian Borntraeger <borntraeger@de.ibm.com>,
- Daniel Vetter <daniel@ffwll.ch>, Dave Hansen <dave.hansen@linux.intel.com>,
- Dave Young <dyoung@redhat.com>, David Airlie <airlied@linux.ie>,
- Heiko Carstens <hca@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Michael Ellerman <mpe@ellerman.id.au>,
- Paul Mackerras <paulus@samba.org>, Peter Zijlstra <peterz@infradead.org>,
- Thomas Gleixner <tglx@linutronix.de>, Thomas Zimmermann
- <tzimmermann@suse.de>, Vasily Gorbik <gor@linux.ibm.com>,
- Will Deacon <will@kernel.org>
-References: <cover.1627424773.git.thomas.lendacky@amd.com>
-From: "Kuppuswamy, Sathyanarayanan"
- <sathyanarayanan.kuppuswamy@linux.intel.com>
-Message-ID: <0d75f283-50b7-460d-3165-185cb955bd70@linux.intel.com>
-Date: Sun, 8 Aug 2021 18:41:54 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Firefox/78.0 Thunderbird/78.11.0
+Received: from mail-pj1-x102e.google.com (mail-pj1-x102e.google.com
+ [IPv6:2607:f8b0:4864:20::102e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA1716E041;
+ Sat,  7 Aug 2021 13:35:30 +0000 (UTC)
+Received: by mail-pj1-x102e.google.com with SMTP id j1so20885572pjv.3;
+ Sat, 07 Aug 2021 06:35:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=lfpqGuV3FkgsE6sIJlZN1/FnF/i4KwLJkZg8SrqlLBg=;
+ b=n2yE//5GuABT5nJx6KwgalyRToS6ZZWdRPUkGs4bCn5D8fqIc02FzVrQC0dGN4IhfH
+ oHotltPkWGNezyC/HUjIJJi5E5RvQnfzrcZ1wDOZM7F97ZVyZPjJ3JV6AGlrfizyM2wm
+ Lxvi5Ofp7/XjInhXGInEfBl3UwIBQTMx2L3k3bNJkdlGOS4sx2VHTDO+XywlHK0yWzT2
+ ZcHVn0VeyTqyFQoGftZQO7MopnOCAbY2s6Fe/l4glECvldZ2Q9ZqaEq2zqlGW6eTmXWk
+ maqxSLbcGAEnBIoTESH+O7hEK5nsuVWKby7CHjRmrhxUo/P/OTfdqHf1MB5Mn4X/gj4H
+ 7S1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=lfpqGuV3FkgsE6sIJlZN1/FnF/i4KwLJkZg8SrqlLBg=;
+ b=lfHWLzxjXB5msCDtzvBGaOa10kRqAxw1f2gnGntJZfwtizdbTcgWPHxTOWK3zvAe4O
+ /TMZoFbSBZsMbdLcGRnxaMGNTXYo02Jy6s25zVGN4nsv8U7qPcqAsHqeymFKYdeclAiC
+ Q80pg7+pIGz5FSHLxQayxaAUgKv1DOYGZCtiSaz7Ekjgu5IeJciJi6SbtOfCV6a6E7H1
+ DfHlZ7jcGdYtm7NixThelEqBrypT9keLsXrTmfnLbq49Iqj7Bva0Nyp2Tq8t3bA1D7dC
+ pOZHKz0Jmluf+APsXlgHsw/JkfXNCOhAMLt4mQfv68xKGd0cbu2sGj4YzP8A532C8EqX
+ 7yAw==
+X-Gm-Message-State: AOAM530G3QWWHZT7wpZYcSmWJzYSvGtds5U7K/4hOgc0fQ4ncltXdPea
+ FF3fkuzzgfmfGNPQHoy+biM=
+X-Google-Smtp-Source: ABdhPJzbVausotJitV6ge4yNPA7o0Hk53NaWfOlofLSePiuEcrn4dtEvTiUa50T0wpMbQr4qucxIKw==
+X-Received: by 2002:a17:902:c3cb:b029:12c:a426:164a with SMTP id
+ j11-20020a170902c3cbb029012ca426164amr12991599plj.81.1628343330316; 
+ Sat, 07 Aug 2021 06:35:30 -0700 (PDT)
+Received: from localhost.localdomain ([45.135.186.87])
+ by smtp.gmail.com with ESMTPSA id cu12sm15967183pjb.5.2021.08.07.06.35.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 07 Aug 2021 06:35:29 -0700 (PDT)
+From: Tuo Li <islituo@gmail.com>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@linux.ie,
+ daniel@ffwll.ch, lee.jones@linaro.org, trix@redhat.com, Chris.Park@amd.com,
+ Ashley.Thomas2@amd.com, Charlene.Liu@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, baijiaju1990@gmail.com,
+ Tuo Li <islituo@gmail.com>, TOTE Robot <oslab@tsinghua.edu.cn>
+Subject: [PATCH] drm/amd/display/dc/dce112/dce112_resource: Drop redundant
+ null-pointer check in bw_calcs_data_update_from_pplib()
+Date: Sat,  7 Aug 2021 06:35:06 -0700
+Message-Id: <20210807133506.243629-1-islituo@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <cover.1627424773.git.thomas.lendacky@amd.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 09 Aug 2021 07:03:47 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,121 +88,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Tom,
+The variable dc->bw_vbios is guaranteed to be not NULL by its callers.
+Thus the null-pointer check can be dropped.
 
-On 7/27/21 3:26 PM, Tom Lendacky wrote:
-> This patch series provides a generic helper function, prot_guest_has(),
-> to replace the sme_active(), sev_active(), sev_es_active() and
-> mem_encrypt_active() functions.
-> 
-> It is expected that as new protected virtualization technologies are
-> added to the kernel, they can all be covered by a single function call
-> instead of a collection of specific function calls all called from the
-> same locations.
-> 
-> The powerpc and s390 patches have been compile tested only. Can the
-> folks copied on this series verify that nothing breaks for them.
+Reported-by: TOTE Robot <oslab@tsinghua.edu.cn>
+Signed-off-by: Tuo Li <islituo@gmail.com>
+---
+ drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-With this patch set, select ARCH_HAS_PROTECTED_GUEST and set
-CONFIG_AMD_MEM_ENCRYPT=n, creates following error.
-
-ld: arch/x86/mm/ioremap.o: in function `early_memremap_is_setup_data':
-arch/x86/mm/ioremap.c:672: undefined reference to `early_memremap_decrypted'
-
-It looks like early_memremap_is_setup_data() is not protected with
-appropriate config.
-
-
-> 
-> Cc: Andi Kleen <ak@linux.intel.com>
-> Cc: Andy Lutomirski <luto@kernel.org>
-> Cc: Ard Biesheuvel <ardb@kernel.org>
-> Cc: Baoquan He <bhe@redhat.com>
-> Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-> Cc: Borislav Petkov <bp@alien8.de>
-> Cc: Christian Borntraeger <borntraeger@de.ibm.com>
-> Cc: Daniel Vetter <daniel@ffwll.ch>
-> Cc: Dave Hansen <dave.hansen@linux.intel.com>
-> Cc: Dave Young <dyoung@redhat.com>
-> Cc: David Airlie <airlied@linux.ie>
-> Cc: Heiko Carstens <hca@linux.ibm.com>
-> Cc: Ingo Molnar <mingo@redhat.com>
-> Cc: Joerg Roedel <joro@8bytes.org>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Michael Ellerman <mpe@ellerman.id.au>
-> Cc: Paul Mackerras <paulus@samba.org>
-> Cc: Peter Zijlstra <peterz@infradead.org>
-> Cc: Thomas Gleixner <tglx@linutronix.de>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: Vasily Gorbik <gor@linux.ibm.com>
-> Cc: VMware Graphics <linux-graphics-maintainer@vmware.com>
-> Cc: Will Deacon <will@kernel.org>
-> 
-> ---
-> 
-> Patches based on:
->    https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git master
->    commit 79e920060fa7 ("Merge branch 'WIP/fixes'")
-> 
-> Tom Lendacky (11):
->    mm: Introduce a function to check for virtualization protection
->      features
->    x86/sev: Add an x86 version of prot_guest_has()
->    powerpc/pseries/svm: Add a powerpc version of prot_guest_has()
->    x86/sme: Replace occurrences of sme_active() with prot_guest_has()
->    x86/sev: Replace occurrences of sev_active() with prot_guest_has()
->    x86/sev: Replace occurrences of sev_es_active() with prot_guest_has()
->    treewide: Replace the use of mem_encrypt_active() with
->      prot_guest_has()
->    mm: Remove the now unused mem_encrypt_active() function
->    x86/sev: Remove the now unused mem_encrypt_active() function
->    powerpc/pseries/svm: Remove the now unused mem_encrypt_active()
->      function
->    s390/mm: Remove the now unused mem_encrypt_active() function
-> 
->   arch/Kconfig                               |  3 ++
->   arch/powerpc/include/asm/mem_encrypt.h     |  5 --
->   arch/powerpc/include/asm/protected_guest.h | 30 +++++++++++
->   arch/powerpc/platforms/pseries/Kconfig     |  1 +
->   arch/s390/include/asm/mem_encrypt.h        |  2 -
->   arch/x86/Kconfig                           |  1 +
->   arch/x86/include/asm/kexec.h               |  2 +-
->   arch/x86/include/asm/mem_encrypt.h         | 13 +----
->   arch/x86/include/asm/protected_guest.h     | 27 ++++++++++
->   arch/x86/kernel/crash_dump_64.c            |  4 +-
->   arch/x86/kernel/head64.c                   |  4 +-
->   arch/x86/kernel/kvm.c                      |  3 +-
->   arch/x86/kernel/kvmclock.c                 |  4 +-
->   arch/x86/kernel/machine_kexec_64.c         | 19 +++----
->   arch/x86/kernel/pci-swiotlb.c              |  9 ++--
->   arch/x86/kernel/relocate_kernel_64.S       |  2 +-
->   arch/x86/kernel/sev.c                      |  6 +--
->   arch/x86/kvm/svm/svm.c                     |  3 +-
->   arch/x86/mm/ioremap.c                      | 16 +++---
->   arch/x86/mm/mem_encrypt.c                  | 60 +++++++++++++++-------
->   arch/x86/mm/mem_encrypt_identity.c         |  3 +-
->   arch/x86/mm/pat/set_memory.c               |  3 +-
->   arch/x86/platform/efi/efi_64.c             |  9 ++--
->   arch/x86/realmode/init.c                   |  8 +--
->   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  4 +-
->   drivers/gpu/drm/drm_cache.c                |  4 +-
->   drivers/gpu/drm/vmwgfx/vmwgfx_drv.c        |  4 +-
->   drivers/gpu/drm/vmwgfx/vmwgfx_msg.c        |  6 +--
->   drivers/iommu/amd/init.c                   |  7 +--
->   drivers/iommu/amd/iommu.c                  |  3 +-
->   drivers/iommu/amd/iommu_v2.c               |  3 +-
->   drivers/iommu/iommu.c                      |  3 +-
->   fs/proc/vmcore.c                           |  6 +--
->   include/linux/mem_encrypt.h                |  4 --
->   include/linux/protected_guest.h            | 37 +++++++++++++
->   kernel/dma/swiotlb.c                       |  4 +-
->   36 files changed, 218 insertions(+), 104 deletions(-)
->   create mode 100644 arch/powerpc/include/asm/protected_guest.h
->   create mode 100644 arch/x86/include/asm/protected_guest.h
->   create mode 100644 include/linux/protected_guest.h
-> 
-
+diff --git a/drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c b/drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c
+index ee55cda854bf..3fc8e6b664f9 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c
+@@ -1064,7 +1064,7 @@ static void bw_calcs_data_update_from_pplib(struct dc *dc)
+ 	struct dm_pp_clock_levels clks = {0};
+ 	int memory_type_multiplier = MEMORY_TYPE_MULTIPLIER_CZ;
+ 
+-	if (dc->bw_vbios && dc->bw_vbios->memory_type == bw_def_hbm)
++	if (dc->bw_vbios->memory_type == bw_def_hbm)
+ 		memory_type_multiplier = MEMORY_TYPE_HBM;
+ 
+ 	/*do system clock  TODO PPLIB: after PPLIB implement,
 -- 
-Sathyanarayanan Kuppuswamy
-Linux Kernel Developer
+2.25.1
+
