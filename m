@@ -8,69 +8,61 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0CFC7C4338F
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Aug 2021 18:28:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3355CC4338F
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Aug 2021 18:34:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C387B6101D
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Aug 2021 18:28:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C387B6101D
+	by mail.kernel.org (Postfix) with ESMTPS id ECC526101D
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Aug 2021 18:34:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org ECC526101D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A3CD89C84;
-	Mon,  9 Aug 2021 18:28:40 +0000 (UTC)
-Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com
- [IPv6:2607:f8b0:4864:20::32e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BF7D89C84;
- Mon,  9 Aug 2021 18:28:38 +0000 (UTC)
-Received: by mail-ot1-x32e.google.com with SMTP id
- d10-20020a9d4f0a0000b02904f51c5004e3so14655900otl.9; 
- Mon, 09 Aug 2021 11:28:38 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5929D89944;
+	Mon,  9 Aug 2021 18:34:02 +0000 (UTC)
+Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
+ [IPv6:2607:f8b0:4864:20::22a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2425B89944
+ for <amd-gfx@lists.freedesktop.org>; Mon,  9 Aug 2021 18:34:02 +0000 (UTC)
+Received: by mail-oi1-x22a.google.com with SMTP id u25so24886269oiv.5
+ for <amd-gfx@lists.freedesktop.org>; Mon, 09 Aug 2021 11:34:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=Q+P56kv9bQ232dCkEySITmYOrGM+KOpFmBwsjS+8fhg=;
- b=WkUUG5bGWhQhQe25Xl2P/LeoFg4SyCoanFWnc4QYT6bgwTvHi/lBciWY3nGzny5EXU
- /31VZJ92VmwAG20/xpLWe2+qAEDLYEvHRNvAd50DMMdyc5LhAcXEXqQPwLQCzRtW4HXk
- P3UJSuYeNCRSw/O+V7DFdHFiOTwUlHEfSHyf5B1JBjgETFpleeSPNA+8LvFD9vAtHGKr
- RlDMOii0yNXocGLSrJeHi34l6CfBQRwUj9BnmNQQY02giQQXFNXhMpawjstNaiIFjthw
- tkh+fRm+brKZjJCrTC8HRtHBCIgMxB0KNyavNUylFzby84MH5vrwYaF8LAKS3EkxTlRz
- lLfA==
+ :cc; bh=Di+pO2eCQ+mqlL1a4yxhYjYf+Ay7AQ7snpIroHIQakE=;
+ b=GixI/WK5jZv2I4m1p1cPo/2H2W8yCBM9OxZEKtY5p5SW8HC+UJKneegb240DcOhTNM
+ 4UNhCyCVUbpkk3lVmvSbtmwTCEaeqHtpTfNyJF6FnC+edrLrp6tdX1DhkuQofUYn4OvB
+ Qn2TmyTIpGrHCesSenCh9kJtAJ/pSaOAFOgdQ+OrFxedDOpPwlr6fKRnvxwahdc2r0zc
+ pu+cHgHJiuUz1DMzvNA4eUNcPxOQ/YJe9+dp4c4puy+vmxHo+EHBvg3ya3PDDFKXGbtO
+ dkDXr8OntHBsZBYcAfLTCqIBhIA5wSNCj6Lhv+64rdwc550TCbTY6bFeeZnjNEoawpzv
+ eScw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=Q+P56kv9bQ232dCkEySITmYOrGM+KOpFmBwsjS+8fhg=;
- b=WaMNUWRDfBtUj2IMs+f5p9/FVdVpMePl93t5FRrSOGcwDgl0L9G9uwfja1HTe6xGAg
- mh08YOsLawVgLmX3ncvLrYIDvqPO6/e7f9/ajV9+cEphb/+iSJ55IdZGx/S+xVY/fQlt
- p79r4klxBzH7gzYSzihg5fSYNeoy4ErpPkfMYJhIGv7Yp33Nn/6+YqN7k9/Ev+PA5nGb
- l6MzPcjUHjC7WI3FiD5hK863nY5gT9AFovLAVLvUrs2VmRb12s58SmIUhzDk5ausTN5j
- HHho12yXWAhuzDFS26mfpMXdAxwq5zShK3WeofrvKg53jZg3BMwlMMKFCkYzTcA/8sJ0
- 4ygg==
-X-Gm-Message-State: AOAM531/DDU7eoqTASbA1mKhbLiaq1aEQ3DXRIGguVO5e4zqrwWruHSs
- oJLJRzNaOtYKQAkkTzbiEkHJCqee2GOa4HLI38c=
-X-Google-Smtp-Source: ABdhPJyxsj5BZ1EB1iq1I8ieuBouSFvT1j8rHAFbxVO0Ltlury2vfDp5FYTHZsMeFpDw5r15HE2o2srv5b0dj7T5nFI=
-X-Received: by 2002:a9d:70c3:: with SMTP id w3mr17546162otj.311.1628533718180; 
- Mon, 09 Aug 2021 11:28:38 -0700 (PDT)
+ :message-id:subject:to:cc;
+ bh=Di+pO2eCQ+mqlL1a4yxhYjYf+Ay7AQ7snpIroHIQakE=;
+ b=VI/10IkwH2hLOETRGaKB49c43Z5fY/mn+w3AsLVHXZFrQPBoGXBbfN1aAOnS0ynzfm
+ jc3P89pkVgd4p/XDS0Lo7R3tIhQdLqJhUr3jiJzQ2iizgV0qSVKeBk5Uxmuz1idXhX/s
+ rtJGBBnHKSMIqFpY5ZnwnB8L6nhb9u0FxWlkz2NxBvZ4n1BHlkGLij8W8RlJNq1j5AzG
+ 5CG/o8p19hlUNTPyIrO4GQCYogswkDfA5OcaPJLjDh6S+6OQXoyd+qOsnFhQad42Ahsn
+ 3/xmdt2RCLgxRdBlTuLyNoejj5xXnbGVv1PAnV/vOs0fQXxSs6ARVa6r/AV+ajWBiOkV
+ ik7Q==
+X-Gm-Message-State: AOAM533gYq6Y/JH0Rfyo96b/lAiZB/gPnN3njYyWZmlJBrcC/j3yV8fO
+ CRykFdjnewyzgn5+GTfORlFq6DEdAZvivbXkk7Q=
+X-Google-Smtp-Source: ABdhPJwmM07a/z1JI1PQFPPYJJUJHNb4yeKkhuwgZuEzYUuQ8Y25WXD+vO3ZIYm4iVhdtEQ5eYUJJdt3bkS521uZZP8=
+X-Received: by 2002:aca:1313:: with SMTP id e19mr392380oii.5.1628534041509;
+ Mon, 09 Aug 2021 11:34:01 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210807233842.13545-1-rdunlap@infradead.org>
-In-Reply-To: <20210807233842.13545-1-rdunlap@infradead.org>
+References: <20210808053019.3310-1-darren.powell@amd.com>
+In-Reply-To: <20210808053019.3310-1-darren.powell@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 9 Aug 2021 14:28:27 -0400
-Message-ID: <CADnq5_PDnbDU04pHQYm8AeyXGPshAQuH1OmCgEyRLXaCMPwRYQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: fix kernel-doc warnings on non-kernel-doc
- comments
-To: Randy Dunlap <rdunlap@infradead.org>
-Cc: LKML <linux-kernel@vger.kernel.org>, kernel test robot <lkp@intel.com>, 
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, Dennis Li <Dennis.Li@amd.com>, 
- amd-gfx list <amd-gfx@lists.freedesktop.org>, 
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>
+Date: Mon, 9 Aug 2021 14:33:50 -0400
+Message-ID: <CADnq5_MrRWjmC6YFf8G3hGOm5-SMqTDxwiwu5K2sVtgj3MXibw@mail.gmail.com>
+Subject: Re: [PATCH v2 0/3] Replace usage of sprintf with sysfs_emit in swsmu
+ powerplay
+To: Darren Powell <darren.powell@amd.com>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,72 +77,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sat, Aug 7, 2021 at 7:38 PM Randy Dunlap <rdunlap@infradead.org> wrote:
+On Sun, Aug 8, 2021 at 1:30 AM Darren Powell <darren.powell@amd.com> wrote:
 >
-> Don't use "begin kernel-doc notation" (/**) for comments that are
-> not kernel-doc. This eliminates warnings reported by the 0day bot.
 >
-> drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c:89: warning: This comment starts =
-with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/k=
-ernel-doc.rst
->     * This shader is used to clear VGPRS and LDS, and also write the inpu=
-t
-> drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c:209: warning: This comment starts=
- with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/=
-kernel-doc.rst
->     * The below shaders are used to clear SGPRS, and also write the input
-> drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c:301: warning: This comment starts=
- with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/=
-kernel-doc.rst
->     * This shader is used to clear the uninitiated sgprs after the above
+> === Description ===
+> Replace usage of sprintf with sysfs_emit in swsmu powerplay
 >
-> Fixes: 0e0036c7d13b ("drm/amdgpu: fix no full coverage issue for gprs ini=
-tialization")
-> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-> Reported-by: kernel test robot <lkp@intel.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
-> Cc: Dennis Li <Dennis.Li@amd.com>
-> Cc: amd-gfx@lists.freedesktop.org
-> Cc: dri-devel@lists.freedesktop.org
+>   v2: rebased on 2f56b0d631eb
+>
+> === Test System ===
+> * DESKTOP(AMD FX-8350 + NAVI10(731F/ca), BIOS: F2)
+>  + ISO(Ubuntu 20.04.2 LTS)
+>  + Kernel(5.13.0-gb1d634be9673-fdoagd5f)
+>
+>
+> === Patch Summary ===
+>    linux: (git@gitlab.freedesktop.org:agd5f) origin/amd-staging-drm-next @ 2f56b0d631eb
+>     + c4a20b3363cd amdgpu/pm: Replace navi10 usage of sprintf with sysfs_emit
+>     + cd2e3983959b amdgpu/pm: Replace smu11 usage of sprintf with sysfs_emit
+>     + bd82d29a9635 amdgpu/pm: Replace smu12/13 usage of sprintf with sysfs_emit
+>
+>
+> === General Test for each platform ===
+> AMDGPU_PCI_ADDR=`lspci -nn | grep "VGA\|Display" | cut -d " " -f 1`
+> AMDGPU_HWMON=`ls -la /sys/class/hwmon | grep $AMDGPU_PCI_ADDR | awk '{print $9}'`
+> HWMON_DIR=/sys/class/hwmon/${AMDGPU_HWMON}
+> LOGFILE=pp_printf.test.log
+>
+> lspci -nn | grep "VGA\|Display"  > $LOGFILE
+> FILES="pp_dpm_sclk
+> pp_sclk_od
+> pp_mclk_od
+> pp_dpm_pcie
+> pp_od_clk_voltage
+> pp_power_profile_mode "
+>
+> for f in $FILES
+> do
+>   echo === $f === >> $LOGFILE
+>   cat $HWMON_DIR/device/$f >> $LOGFILE
+> done
+> cat $LOGFILE
+>
+> Darren Powell (3):
+>   amdgpu/pm: Replace navi10 usage of sprintf with sysfs_emit
+>   amdgpu/pm: Replace smu11 usage of sprintf with sysfs_emit
+>   amdgpu/pm: Replace smu12/13 usage of sprintf with sysfs_emit
 
-Applied.  Thanks!
+Series is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-Alex
-
-> ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c |    6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
 >
-> --- linux-next-20210806.orig/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
-> +++ linux-next-20210806/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
-> @@ -85,7 +85,7 @@ static const struct soc15_reg_golden gol
->         SOC15_REG_GOLDEN_VALUE(GC, 0, regTCI_CNTL_3, 0xff, 0x20),
->  };
+>  .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c | 26 ++++----
+>  .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 61 ++++++++++---------
+>  .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 34 +++++------
+>  .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  | 46 +++++++-------
+>  .../gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c   | 20 +++---
+>  .../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    | 21 +++----
+>  .../drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c  | 14 ++---
+>  drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c        |  6 +-
+>  8 files changed, 115 insertions(+), 113 deletions(-)
 >
-> -/**
-> +/*
->   * This shader is used to clear VGPRS and LDS, and also write the input
->   * pattern into the write back buffer, which will be used by driver to
->   * check whether all SIMDs have been covered.
-> @@ -206,7 +206,7 @@ const struct soc15_reg_entry vgpr_init_r
->         { SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE7), 0xff=
-ffffff },
->  };
 >
-> -/**
-> +/*
->   * The below shaders are used to clear SGPRS, and also write the input
->   * pattern into the write back buffer. The first two dispatch should be
->   * scheduled simultaneously which make sure that all SGPRS could be
-> @@ -302,7 +302,7 @@ const struct soc15_reg_entry sgpr96_init
->         { SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE7), 0xff=
-ffffff },
->  };
+> base-commit: 2f56b0d631eba0e76cfc789d85cc5632256ad42d
+> --
+> 2.32.0
 >
-> -/**
-> +/*
->   * This shader is used to clear the uninitiated sgprs after the above
->   * two dispatches, because of hardware feature, dispath 0 couldn't clear
->   * top hole sgprs. Therefore need 4 waves per SIMD to cover these sgprs
