@@ -2,55 +2,75 @@ Return-Path: <SRS0=nf5+=NA=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-2.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1A3DFC4338F
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Aug 2021 07:03:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 631ABC4320A
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Aug 2021 07:03:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9A5016103B
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Aug 2021 07:03:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9A5016103B
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
+	by mail.kernel.org (Postfix) with ESMTPS id DD92C60F4B
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Aug 2021 07:03:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DD92C60F4B
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=nearce.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CBAA89BAE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D489089BB2;
 	Mon,  9 Aug 2021 07:03:50 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:e::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6067B89CD5;
- Sat,  7 Aug 2021 23:38:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- Content-Type:MIME-Version:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
- Content-ID:Content-Description:In-Reply-To:References;
- bh=mi1wUIUriQLxRPB3k06DSpLuLSdOL9Du9D9ZElPFQIk=; b=xm3MRgt2UfWjsugdvTPkxsCOe3
- Y8OlIL7DBy83Wjcq+K6+xRZ3gmZ8mwf35XAOYCtmGcnRpOgxGRaD4bfGMVkUzlNv4ug7xjWAWVDef
- I785yp9IhyC0Uar+c2lyBBtMKPSqWzp8MmL4NGFqpAy3G7hawnGJwqqoLzdObCs3Fw8hl2l1ZqKtl
- xBjd9a/rz0thnZG0gfrjOiigkf6iUr+dZxTeNtRZQ16nLVWN+R/xpka8wP1eu+kPws+26wLdMDpPB
- sMP8en3KvtXIHSkLLaasPD+q5a5G50WgofjxTWXkF0Fut4A//ApCHdYFriXX57h5ojJo0CAqiPebD
- svejTQ9Q==;
-Received: from [2601:1c0:6280:3f0::aa0b] (helo=bombadil.infradead.org)
- by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1mCVtr-00FJdd-3N; Sat, 07 Aug 2021 23:38:43 +0000
-From: Randy Dunlap <rdunlap@infradead.org>
-To: linux-kernel@vger.kernel.org
-Cc: Randy Dunlap <rdunlap@infradead.org>, kernel test robot <lkp@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, Dennis Li <Dennis.Li@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu: fix kernel-doc warnings on non-kernel-doc comments
-Date: Sat,  7 Aug 2021 16:38:42 -0700
-Message-Id: <20210807233842.13545-1-rdunlap@infradead.org>
-X-Mailer: git-send-email 2.31.1
+Received: from mail-io1-xd33.google.com (mail-io1-xd33.google.com
+ [IPv6:2607:f8b0:4864:20::d33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C103A898EA
+ for <amd-gfx@lists.freedesktop.org>; Mon,  9 Aug 2021 02:26:04 +0000 (UTC)
+Received: by mail-io1-xd33.google.com with SMTP id y1so25559371iod.10
+ for <amd-gfx@lists.freedesktop.org>; Sun, 08 Aug 2021 19:26:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=nearce-com.20150623.gappssmtp.com; s=20150623;
+ h=to:cc:from:subject:message-id:date:user-agent:mime-version
+ :content-language;
+ bh=Lwqp5j34ANuBdahXRUAeLnQIcf7GJh4Tl0z8JSbrAVw=;
+ b=DTOfH74pSgMnjCEIfaKPPJkqDvc6j63yM5i5nYUpGhqXOYXweXOXE3i9mGh4YVtpGU
+ p8S+RQ0xgzy9ClZ5fcaJfmyat2X6V4R629hfg2eIlmZxIkmBcLv7XFYbNXXIRXc76Rkg
+ Yr756mz+b3R4TgbB+0ZFLc47uoebKdBFzbprPKv9ZKAlRKhly1nbz4OMvoH2qzdRe/bv
+ +J3AC9dCOAU0W9SYYchR937fuR3iM7gaGuZoA0DONgFSahAOu+jxFO0vVIbqPXFqRASA
+ HhVp4DBJH8ticSdszLQRe+x7+mbCaV8TgLCuUeKptn7zbZiCY5GMFjCubgDeUH+O7uWH
+ +nKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:to:cc:from:subject:message-id:date:user-agent
+ :mime-version:content-language;
+ bh=Lwqp5j34ANuBdahXRUAeLnQIcf7GJh4Tl0z8JSbrAVw=;
+ b=FCkibdZJikVD2tLbexY0jjBuxY5+pgSVy4PHKyGDOsVGczF1faWXp5CPdALje1QHWQ
+ zYrOh4Zdd38NqCHRTjmj+WwUNmYEAum2LPi9dIzl4Phr38tL6OlQxeO0s+DO/RiFJjgC
+ zgDijqpmaoc0cBLruu+P8bu7iOjQ+4B3E/f+uoqGYJRFawMb2YAeKr6ggBAqUSenHRm7
+ udzAeIgzk+exElQqo2iaVh6jSXuf7TCSkSXziJlkT1vYkN3K5b4UkGERVoC6CN8lWAim
+ mPjSSo8Hes+Zt+DZw9yZMt0jXNZw9sCVEPs1PDI/rfhYmkWWu6w4cUXdsTDySjsoQWbT
+ JM8A==
+X-Gm-Message-State: AOAM533XRo/BBLbE6d0sEIIusHNXFx7OVdg9LeXocxc2pE3RlsFXOA/g
+ b/izz6SapPRjP3wHdBw3n6/lt3gqrXC8ukk7
+X-Google-Smtp-Source: ABdhPJxDjlcA2hHEgaKu8l5ozwmhYNMC54xtKzcKyAIwUE7e3+TxrAk6BMuNYDmCbrslX5LjmnQ3HA==
+X-Received: by 2002:a6b:6609:: with SMTP id a9mr140310ioc.8.1628475963868;
+ Sun, 08 Aug 2021 19:26:03 -0700 (PDT)
+Received: from [192.168.7.39] (cpe-65-25-80-244.neo.res.rr.com. [65.25.80.244])
+ by smtp.gmail.com with ESMTPSA id d9sm9364419ilu.9.2021.08.08.19.26.03
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 08 Aug 2021 19:26:03 -0700 (PDT)
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?B?Q2hyaXN0aWFuIEvDg8K2bmln?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+From: Wyatt Childers <wchilders@nearce.com>
+Subject: VA-API Regression in Kernel 5.13 for RX 6700 XT
+Message-ID: <f2a927f0-65bc-8463-e078-501cc8d177a8@nearce.com>
+Date: Sun, 8 Aug 2021 22:26:02 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/alternative;
+ boundary="------------E7ABDAEEA48E32280A051AFD"
+Content-Language: en-US
 X-Mailman-Approved-At: Mon, 09 Aug 2021 07:03:47 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,55 +86,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Don't use "begin kernel-doc notation" (/**) for comments that are
-not kernel-doc. This eliminates warnings reported by the 0day bot.
+This is a multi-part message in MIME format.
+--------------E7ABDAEEA48E32280A051AFD
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c:89: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
-    * This shader is used to clear VGPRS and LDS, and also write the input
-drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c:209: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
-    * The below shaders are used to clear SGPRS, and also write the input
-drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c:301: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
-    * This shader is used to clear the uninitiated sgprs after the above
+Hi,
 
-Fixes: 0e0036c7d13b ("drm/amdgpu: fix no full coverage issue for gprs initialization")
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-Reported-by: kernel test robot <lkp@intel.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
-Cc: Dennis Li <Dennis.Li@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
----
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c |    6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+I've encountered a bug 
+<https://bugzilla.redhat.com/show_bug.cgi?id=1988772> as a user of 
+Fedora, that's also mirrored by this 
+<https://bugs.archlinux.org/task/71627> Arch Linux bug report. The vast 
+majority of VA-API hardware video decoders have disappeared for the RX 
+6700 XT GPU.
 
---- linux-next-20210806.orig/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
-+++ linux-next-20210806/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
-@@ -85,7 +85,7 @@ static const struct soc15_reg_golden gol
- 	SOC15_REG_GOLDEN_VALUE(GC, 0, regTCI_CNTL_3, 0xff, 0x20),
- };
- 
--/**
-+/*
-  * This shader is used to clear VGPRS and LDS, and also write the input
-  * pattern into the write back buffer, which will be used by driver to
-  * check whether all SIMDs have been covered.
-@@ -206,7 +206,7 @@ const struct soc15_reg_entry vgpr_init_r
- 	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE7), 0xffffffff },
- };
- 
--/**
-+/*
-  * The below shaders are used to clear SGPRS, and also write the input
-  * pattern into the write back buffer. The first two dispatch should be
-  * scheduled simultaneously which make sure that all SGPRS could be
-@@ -302,7 +302,7 @@ const struct soc15_reg_entry sgpr96_init
- 	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE7), 0xffffffff },
- };
- 
--/**
-+/*
-  * This shader is used to clear the uninitiated sgprs after the above
-  * two dispatches, because of hardware feature, dispath 0 couldn't clear
-  * top hole sgprs. Therefore need 4 waves per SIMD to cover these sgprs
+It seems this happened in the 5.13.x branch, and that it's still a 
+problem in 5.14.x (at least Fedora's packaging of 5.14 RC4).
+
+Please let me know if there's any more information I can provide, or if 
+this was the wrong place to reach out.
+
+Thanks,
+
+Wyatt
+
+
+--------------E7ABDAEEA48E32280A051AFD
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 7bit
+
+<html>
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p>Hi,</p>
+    <p>I've encountered <a moz-do-not-send="true"
+        href="https://bugzilla.redhat.com/show_bug.cgi?id=1988772">a bug</a>
+      as a user of Fedora, that's also mirrored by <a
+        moz-do-not-send="true"
+        href="https://bugs.archlinux.org/task/71627">this</a> Arch Linux
+      bug report. The vast majority of VA-API hardware video decoders
+      have disappeared for the RX 6700 XT GPU. <br>
+    </p>
+    <p>It seems this happened in the 5.13.x branch, and that it's still
+      a problem in 5.14.x (at least Fedora's packaging of 5.14 RC4).</p>
+    <p>Please let me know if there's any more information I can provide,
+      or if this was the wrong place to reach out.</p>
+    <p>Thanks,</p>
+    <p>Wyatt<br>
+    </p>
+  </body>
+</html>
+
+--------------E7ABDAEEA48E32280A051AFD--
