@@ -2,105 +2,150 @@ Return-Path: <SRS0=nf5+=NA=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 75E3BC4338F
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Aug 2021 20:41:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4ADECC43216
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Aug 2021 21:56:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2D5AC61002
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Aug 2021 20:41:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2D5AC61002
+	by mail.kernel.org (Postfix) with ESMTPS id DB21F60F55
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Aug 2021 21:56:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DB21F60F55
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9948489D5F;
-	Mon,  9 Aug 2021 20:41:08 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2051.outbound.protection.outlook.com [40.107.244.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47C7B89D5F
- for <amd-gfx@lists.freedesktop.org>; Mon,  9 Aug 2021 20:41:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 328B389DB8;
+	Mon,  9 Aug 2021 21:56:01 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2062.outbound.protection.outlook.com [40.107.220.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 99B9A89DB8;
+ Mon,  9 Aug 2021 21:55:58 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Jr1Vab+1lEwNKfy7tSh6Klcb9aBSrCAASP3anWZ08bqZE5EQPNqRgT1vbQihm/ajWM2tOP4LlwJdcwJ4UYKYnfCGdzOHZvPIqpp655g9GuPksb4Xri32rPVRUTRvRjkcdJ/SoT2cgypM6KqLbnXOwIiNh6EiYYvZXbuRU8zSwHR8IePHkMgFnZz+/j+ObCIgf2A3YpSzSZKU2zYR6s868xneqb01G77Emrpev+GWa3bQrdBU/AdVP+dpM96VmyOcV3toJkf3mxXjS5GF6naTREOE13aoJ5lUuGhmtpJ+kIVaDb++VejiIavRpaUGY8F0fTX2GXLl6wns11QpjedeSA==
+ b=Nzg0JsJe3+u5NO7aRkKN43ICh00ZXDe+OW0A/RD+LlkuqiLbY1DiZIZ4GRoqcQ0HfrFjnlrql/9bLYpYcdcki+UkmR8suztzR8D7Ofvrs/qtBc0JEC2MLS8Uj9b+nysfWTlozzkLTBDZE+EuiXOt43VOWTTMe5u55Eqz/1pgAHj5iWrDsezF6QeAFuQOGQQHqyT2zq8opGmwl21gpHb7TeTSz+MAKWrcbiec8ze8ROsQ2/4qiOz/J8XJCQ96HGWfTGfw7LdXcq+5erG9O0JNlXONqoJ1gzXfXPJdu4RjEbSbavorWVnGzHtIJZEomBNICCA2fKXPQynPfVFe7WO5KA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=60m26O/PBYhU53vRA9uSvWcSku0pSlZ9t4zDJvQmPcA=;
- b=Urdr9B8jtWXI8IIYLhsamKXMNyowrqVrGMifWeG1oGEgP1BNjkV2uivlNNicrbwq9S2yCFjIi251AYEUIigLHR1KHiHHRZqOadWjuoX7nd5AlQWDquXT7x0wqaH+0myRsAAEDjyyjogfJFMOZpPO37Y4hDprWE7KmJ7tWBRxcfuq8uz4rENc0xLgRQXImR4KFw59dByJpMq/X6CrBc7HHGt6q78/JKkxRUyb5/4FnxGUePUuifjg8GDCIuaZEMB0VznXYVUwPxT03SshYyZQxJsXB3oRWzlzSIuhV2Kyp0qkhpKgZjFHF1b2bNjoxdbuHyb8ngCGZNHQmb4htKsu5A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=Qjfqcuynl6MNwWd/ZCoVZg3ncqANglufLbMbDorr4IU=;
+ b=Eb5d+tU/FMpC17fcA7BgpwhTd6835rEtKJcRmEEujF3wEqDplREPU+VwQi4GUQG/WInOQGQvrU6vcpNJ10PEYJs3Z8z9dXlsd01NMq3KVysnNHTW1f3hbDXYOnCcuM5naCStFg4Cq45qJnuHh1qNfZT2zZjNVCzQWiZRIvrGcItUqQgq3rB9QrndI2S3GhcaKOUoI7Mm47JXy3O+vdcSMbaOAmrffV8pjZxsZ9hdiu24b/LfeojqdICMK6OtkW6K7b9bmqTVczsOTqtAEcME66aGbdwR4AyqJ6BAmB88zxSQWptANlVu5PxJqpsqMR7QNc9u8hYxr5WkuziVd+fBUw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=60m26O/PBYhU53vRA9uSvWcSku0pSlZ9t4zDJvQmPcA=;
- b=W2YNPPgEs17qQVNYQxp1u3qn7yS1bB58hXXvltyLsc7o1Fkw6ELZiW1wg5v3eD7R63WCJSoxFoTMt2FkNOUidyZi2wpGmhDdUNij5zcUUtfafFBFuVVpS2SOKMnhYSNKRZgDaCRURzm4d8W3D53G9R0OgBSEQdg8NY7S3163Y60=
-Received: from MW4PR03CA0015.namprd03.prod.outlook.com (2603:10b6:303:8f::20)
- by BYAPR12MB2775.namprd12.prod.outlook.com (2603:10b6:a03:6b::20)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=Qjfqcuynl6MNwWd/ZCoVZg3ncqANglufLbMbDorr4IU=;
+ b=FSu0tPPV2gwlr3Lx/QgZ8K7q+i6UTH800vC3B/j13KkRO4q11lhf8CsgVCTAE1Afmq9X19QEvU7K86G5wtvIKaSvoxY4CZ83uzbbzyCtuC56huvJQ5jaWMywx+Hpitpemfmt19cEiO+rG0DC6Ea9WR61BFiGYd1louHCe8DLLxE=
+Authentication-Results: redhat.com; dkim=none (message not signed)
+ header.d=none;redhat.com; dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB5229.namprd12.prod.outlook.com (2603:10b6:5:398::12)
+ by DM4PR12MB5295.namprd12.prod.outlook.com (2603:10b6:5:39f::23) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4394.17; Mon, 9 Aug
- 2021 20:41:05 +0000
-Received: from CO1NAM11FT028.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:8f:cafe::6f) by MW4PR03CA0015.outlook.office365.com
- (2603:10b6:303:8f::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4394.15 via Frontend
- Transport; Mon, 9 Aug 2021 20:41:05 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT028.mail.protection.outlook.com (10.13.175.214) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4394.16 via Frontend Transport; Mon, 9 Aug 2021 20:41:04 +0000
-Received: from mukjoshi-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Mon, 9 Aug
- 2021 15:41:02 -0500
-From: Mukul Joshi <mukul.joshi@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Felix.Kuehling@amd.com>, <jay.cornwall@amd.com>, Mukul Joshi
- <mukul.joshi@amd.com>
-Subject: [PATCH] drm/amdkfd: CWSR with software scheduler
-Date: Mon, 9 Aug 2021 16:40:48 -0400
-Message-ID: <20210809204048.2735-1-mukul.joshi@amd.com>
-X-Mailer: git-send-email 2.17.1
+ 2021 21:55:56 +0000
+Received: from DM4PR12MB5229.namprd12.prod.outlook.com
+ ([fe80::73:2581:970b:3208]) by DM4PR12MB5229.namprd12.prod.outlook.com
+ ([fe80::73:2581:970b:3208%3]) with mapi id 15.20.4394.023; Mon, 9 Aug 2021
+ 21:55:56 +0000
+Subject: Re: [PATCH 07/11] treewide: Replace the use of mem_encrypt_active()
+ with prot_guest_has()
+To: Sean Christopherson <seanjc@google.com>
+Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-s390@vger.kernel.org,
+ iommu@lists.linux-foundation.org, kvm@vger.kernel.org,
+ linux-efi@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+ linux-graphics-maintainer@vmware.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, kexec@lists.infradead.org,
+ linux-fsdevel@vger.kernel.org, Borislav Petkov <bp@alien8.de>,
+ Brijesh Singh <brijesh.singh@amd.com>, Joerg Roedel <joro@8bytes.org>,
+ Andi Kleen <ak@linux.intel.com>,
+ Sathyanarayanan Kuppuswamy <sathyanarayanan.kuppuswamy@linux.intel.com>,
+ Tianyu Lan <Tianyu.Lan@microsoft.com>, Thomas Gleixner <tglx@linutronix.de>,
+ Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>,
+ Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Will Deacon <will@kernel.org>, Dave Young <dyoung@redhat.com>,
+ Baoquan He <bhe@redhat.com>
+References: <cover.1627424773.git.thomas.lendacky@amd.com>
+ <029791b24c6412f9427cfe6ec598156c64395964.1627424774.git.thomas.lendacky@amd.com>
+ <YQR+ffO92gMfGDbs@google.com>
+From: Tom Lendacky <thomas.lendacky@amd.com>
+Message-ID: <a8a6a63e-3bb7-47a1-1427-55633f1bf211@amd.com>
+Date: Mon, 9 Aug 2021 16:55:53 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
+In-Reply-To: <YQR+ffO92gMfGDbs@google.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SN7P220CA0014.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:806:123::19) To DM4PR12MB5229.namprd12.prod.outlook.com
+ (2603:10b6:5:398::12)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [10.236.30.241] (165.204.77.1) by
+ SN7P220CA0014.NAMP220.PROD.OUTLOOK.COM (2603:10b6:806:123::19) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4394.15 via Frontend Transport; Mon, 9 Aug 2021 21:55:54 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 94687e80-926c-4feb-4649-08d95b760220
-X-MS-TrafficTypeDiagnostic: BYAPR12MB2775:
-X-Microsoft-Antispam-PRVS: <BYAPR12MB2775585760EDD3D87D66E5DAEEF69@BYAPR12MB2775.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:901;
+X-MS-Office365-Filtering-Correlation-Id: 0c9c3def-6ac3-4a7f-ad85-08d95b807723
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5295:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM4PR12MB5295F82C01BEDC78DB002AEAECF69@DM4PR12MB5295.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Y4BolBDaZY9CDgoQjDcrsTBG9GPZ9oe7gMwG1JaPOApIXkw7FE6zsE6sP0WWutgQxP6Yo6MO7qNh6FrN04P+M3dRi519dGlj8CJc6sQzHqyLJepDUAb2qRciC3UH5jT+06gArGnDVkUEIXJKw0fCBMkFrA67kIdNSatTXJ8HvPiJuVOo4lPwUllhxRQ5+hmra5ryiUz8Hjh9FQtGJQx8pdaOlcrHCmBuwOxpkbVSFQgm7r+5BL7dIKRHk6S42lGSDKM0QyiKcMrcEmR0ArGngXZGH0629PcNBtj+BBjkG+G3bvxfrx3/ND3/sWJ0OaFSLwy52oEA/XkICLKLEbAJNCGQ/f0/aET/om/NxZ6k3mZLWRWlTOKpUrUpyyMquRxcfN/fnmrEMjTo3GdMVJlOBGogJ0pk1p9oK1vSvx2QnHGLgOScH5ykkRKlo78EId612PB3PEkvkLBgstN0bSSbQTskmdLO8HvXecZSJlemY8Di3ADn+GqUsqufu3m0bCVqwJWrzjVIF0rKTVCwOdxpKr4U8ffhKJxDnKdJxQye2MiFsO/U3hRrBAao6eqnrBeYn1VrYaLZ08A1Wl9Z5xod0TeeeXJoAlPq4ob86AIrW5F72W1RLb6Y8i7dbNGQ0wG0ZPPdJrnHx3ddCKTq1AvzzEonnq65+GvFWt5ib+eWk6PDEmYkw/qbgzKJ6uMzgT30pRcJKEriWAkeuLoBoGySIYQT6aP6PODTi8/cTIOivZAtMWoX4oBPtRc+uaFxnkjxEp9jjlyB7r5+hJNynaa1yQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(376002)(396003)(346002)(136003)(39860400002)(46966006)(36840700001)(4326008)(7696005)(186003)(426003)(82310400003)(478600001)(16526019)(1076003)(2906002)(6666004)(36860700001)(2616005)(44832011)(83380400001)(47076005)(70586007)(8936002)(6916009)(26005)(356005)(36756003)(34020700004)(336012)(8676002)(81166007)(5660300002)(54906003)(86362001)(316002)(70206006)(82740400003)(36900700001);
+X-Microsoft-Antispam-Message-Info: va1GgnlgkQoGJwHV4u/vWPT7qTpos8azTAmvWS6mQTBalS5XDFQ7rPECEiFxbzhVX4g9ynz6AYUXHBRPGK/BG4lHF214foWL5qc8Ipuv0n5mmNDzMO6Hv31jefLDxr2WadSnaBSsjhcOlIOeTWLFx35539aLQslnZfOQcrR9HIQ/6Jd3qwyUn+WpQhxX+RMaadPnpPiWvT9tSAdv9jKY2wvGt+n0iyJAStAkjw27F0ml616aW8od/L4TyCN/Rsf541EY8pzky7JXzvLU7/IGPLbkS9Hvxze0OonQm7R88g9MhsEH3AoxCa1Dm0lfC8HR3hmxX1uEP24QfIQXKcPZfwRKBPLq0NW1sw827/Ze3N7ol42kAYvvUSlkfJ1fdqtgA1kGUUXPxnFYsMw2nJtU9v6jqjnhxQynBDVvxyErLtGxsYZAlEmTNvdX+nmrFLK4DICPDMozvwfe4Oj00+8tawhx77i/3HhvN/VZYNdWL+sJYOkHz2yNX+Lwy5LNmgFVKmK14mEy7WoQSf1Xy8xi5vf+Mxe7pordAYQihwWwnshQp3BI/u3xhBqUxlGblRIQPkCHfOBx98RbAX43hywnlXnNdkX/s+2X2x6Pi/xKfx8gAVBEPaD5OgvLqBbD091GXXkIopa3grc0gvtmehCybzehCkXBaWrV8m3OjyvmpEFoODxwI3Yf98qWX4ZcfLXnsmSKLIhNbAq0Hm0Db0p2zYqIPigk2iJAVqz1CHGYfUQ=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5229.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(376002)(366004)(136003)(396003)(346002)(39860400002)(956004)(16576012)(186003)(6486002)(8936002)(31696002)(86362001)(8676002)(53546011)(7406005)(54906003)(7416002)(478600001)(316002)(2906002)(4326008)(6916009)(26005)(2616005)(36756003)(66556008)(38100700002)(31686004)(4744005)(5660300002)(66476007)(66946007)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YmZMNW96ZEk2QzY2UndOajg2OTJLTVYzanlKMlhka2FENy9NeEFGRXJETkdQ?=
+ =?utf-8?B?aWtaNU9oOCtFYkhVWnJpME9QQTdwT3Q2cXdlT1lxRzhuTHkwdmFaT2p1Y1NU?=
+ =?utf-8?B?VFVveHVIdERHcXNDOGs3Rks1dXlGeUhsc2FqT1BDTlZkNFRuQndsQTl0OFo4?=
+ =?utf-8?B?UllFdXU3RWVUOUFoSnkrOUE5SDVmVCs1YVV1SytqVHNEQW1zQnA1VnIwQW5Q?=
+ =?utf-8?B?TGpld0lkSWZOWEw2OThaZlY3NGs5RG5vSTlKRkFlbUxveThTL2dEM0g3dVpv?=
+ =?utf-8?B?TzZXWkl4WkRhZFViMTc5dk43UHVqRlNWTVdHRDM3N1BRelVrbHVhaDM4N09u?=
+ =?utf-8?B?Rm0wcVRTYS9wSzRhZEdUUkVBRTAyb01zUkdsU1pNRlhPanpvdXlBd2RLV2NJ?=
+ =?utf-8?B?RWN0YjRZTXVSVG1tK0k5cFRuRkd5Z1hiRFJ3dGNYQnU5dUtqVDl4aGtWemhz?=
+ =?utf-8?B?czdBOG4zSzZhQ3ZhK2Z3R2Z3c2xDVnRqc0VyWFZIeThXR054LzF4QTlOMXg3?=
+ =?utf-8?B?N1h2bDRieDB0VEczcXpTSjNyTUJkY3ZtNVB1amhjTmVGQXdUWlVVcVk0L0FF?=
+ =?utf-8?B?N1Q0L1pxUHljbjBXZHY2TWNMZGpUSTlra3ZHV2NNdWE0bmNoVFNvWEtHanR5?=
+ =?utf-8?B?Y3BsTUdwODJXSjhDMS9oNSt0WExzMDUyYkdzWFE3Mm9ZUmdsRy9BYnZjM2R0?=
+ =?utf-8?B?RFVuWlBheFpWejN6S09HSVQwNnA0WVJGZUhkUnhIamhGN1dQajgwSWtLNlVO?=
+ =?utf-8?B?a0JpbTNQWTZUZHRlRkZKWlg5TnpTcE9yN1BmZmN3WE01YXgwMjlJMSs1cXdx?=
+ =?utf-8?B?QzVOMUtoeWN4bytkVjByd0drZlJBNmFtblluOEwvMEpMcGl2T3I4c2tYbERZ?=
+ =?utf-8?B?U014OFVoRUVxSGl1RGo4YnhTSTFrcUQ4ZmYwMSszc2x3OFovZEhLUnFWSlRk?=
+ =?utf-8?B?aDNJWnJwaFhTUTEvZitBMkZPRkZPNE1xc1Z6aC9JaFdrOFFQbUlkb2hJOGlH?=
+ =?utf-8?B?MG9iL01CbERyeWtHRDJTd3pUVDlMS3hod2tNVW1qbTRJN2pzbzRIS0cxSXg3?=
+ =?utf-8?B?cVhLZzdZbjAzMmIwL0VvcStiQkJVSEVuMmw3cFkwQmw0Yzh5Z0tSWlVQNXp6?=
+ =?utf-8?B?cTM4bGx3cjVtV0ZBU1dOZlN3eEJNVk9NdDBaMG4wWEpPeU1mdmJrbmhVM2VJ?=
+ =?utf-8?B?RkMvZ0M2TDkxQXdnbWxKbWN6UkdIaS8wdDFZS1hGRXdsZ2JRcU9PREhOMmp0?=
+ =?utf-8?B?Wk9LcFk4eWQyV3BJTTNyMEl1Y2YrL0JPTDRWckd6OUFLbjBGZmFFbGdja2N5?=
+ =?utf-8?B?KzQ3WE8rODBHSDRxLytmSXBFbDZVL3R1TStDM1ZicjVKOG9aU0tWZGVLb1Fa?=
+ =?utf-8?B?Y1hjUGFscjNhUjRaV25ldllCdGthamREMVFiZ3Q2UThMTTNCbThLNlVnb0g1?=
+ =?utf-8?B?ZXQ1R0tZWWZkL1RjTlYzY2J3NncvNXplQSttT3R1MjFrZDJXSDd2WFhNMUJx?=
+ =?utf-8?B?VXlyQmNFSDR2VzhRVTFUK1V4M3h5L3l6WnNPZ0lteFprQkhNK1JTS3h2cmxq?=
+ =?utf-8?B?YTdMVjd4Nm9zYkdiMit1bGF3VlJIdHdlQUdRMFVvQzlKWktFeWJ3bVFvVlhr?=
+ =?utf-8?B?Y3E2dVFvK2NROUdqZXJmWEtWYStMTW42bWR5K2g2aERiOVRHZytIWGtqQ0tZ?=
+ =?utf-8?B?clhaZVV3blo0L2dRbDJYMUM0QmVFTGQyRjVjenYrN0xoeVhYblUzcFJHb3lu?=
+ =?utf-8?Q?hU5Nt3rVA6gzUChUx3/nd3C3z1WuFX1/ao0tSAJ?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Aug 2021 20:41:04.7994 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 94687e80-926c-4feb-4649-08d95b760220
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0c9c3def-6ac3-4a7f-ad85-08d95b807723
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5229.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Aug 2021 21:55:56.4514 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT028.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2775
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: gVMUdJrJtSzpeS/OVG6KXOyXh5yqKz+0hfHnt6FLUw5aHfd3whCwKAMeR092Kk8k7apxnVxc1jIYxygM9OqnpQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5295
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,265 +160,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch adds support to program trap handler settings
-when loading driver with software scheduler (sched_policy=2).
+On 7/30/21 5:34 PM, Sean Christopherson wrote:
+> On Tue, Jul 27, 2021, Tom Lendacky wrote:
+>> @@ -451,7 +450,7 @@ void __init mem_encrypt_free_decrypted_mem(void)
+>>  	 * The unused memory range was mapped decrypted, change the encryption
+>>  	 * attribute from decrypted to encrypted before freeing it.
+>>  	 */
+>> -	if (mem_encrypt_active()) {
+>> +	if (sme_me_mask) {
+> 
+> Any reason this uses sme_me_mask?  The helper it calls, __set_memory_enc_dec(),
+> uses prot_guest_has(PATTR_MEM_ENCRYPT) so I assume it's available?
 
-Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
-Suggested-by: Jay Cornwall <Jay.Cornwall@amd.com>
----
- .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c    | 31 +++++++++++++++++
- .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c  | 31 +++++++++++++++++
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c | 33 ++++++++++++++++++-
- .../drm/amd/amdkfd/kfd_device_queue_manager.c | 20 +++++++++--
- .../gpu/drm/amd/include/kgd_kfd_interface.h   |  3 ++
- 5 files changed, 115 insertions(+), 3 deletions(-)
+Probably just a slip on my part. I was debating at one point calling the
+helper vs. referencing the variables/functions directly in the
+mem_encrypt.c file.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-index 491acdf92f73..960acf68150a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-@@ -560,6 +560,9 @@ static int kgd_hqd_destroy(struct kgd_dev *kgd, void *mqd,
- 	case KFD_PREEMPT_TYPE_WAVEFRONT_RESET:
- 		type = RESET_WAVES;
- 		break;
-+	case KFD_PREEMPT_TYPE_WAVEFRONT_SAVE:
-+		type = SAVE_WAVES;
-+		break;
- 	default:
- 		type = DRAIN_PIPE;
- 		break;
-@@ -754,6 +757,33 @@ static void set_vm_context_page_table_base(struct kgd_dev *kgd, uint32_t vmid,
- 	adev->gfxhub.funcs->setup_vm_pt_regs(adev, vmid, page_table_base);
- }
- 
-+static void program_trap_handler_settings(struct kgd_dev *kgd,
-+		uint32_t vmid, uint64_t tba_addr, uint64_t tma_addr)
-+{
-+	struct amdgpu_device *adev = get_amdgpu_device(kgd);
-+
-+	lock_srbm(kgd, 0, 0, 0, vmid);
-+
-+	/*
-+	 * Program TBA registers
-+	 */
-+	WREG32(SOC15_REG_OFFSET(GC, 0, mmSQ_SHADER_TBA_LO),
-+			lower_32_bits(tba_addr >> 8));
-+	WREG32(SOC15_REG_OFFSET(GC, 0, mmSQ_SHADER_TBA_HI),
-+			upper_32_bits(tba_addr >> 8) |
-+			(1 << SQ_SHADER_TBA_HI__TRAP_EN__SHIFT));
-+
-+	/*
-+	 * Program TMA registers
-+	 */
-+	WREG32(SOC15_REG_OFFSET(GC, 0, mmSQ_SHADER_TMA_LO),
-+			lower_32_bits(tma_addr >> 8));
-+	WREG32(SOC15_REG_OFFSET(GC, 0, mmSQ_SHADER_TMA_HI),
-+			upper_32_bits(tma_addr >> 8));
-+
-+	unlock_srbm(kgd);
-+}
-+
- const struct kfd2kgd_calls gfx_v10_kfd2kgd = {
- 	.program_sh_mem_settings = kgd_program_sh_mem_settings,
- 	.set_pasid_vmid_mapping = kgd_set_pasid_vmid_mapping,
-@@ -774,4 +804,5 @@ const struct kfd2kgd_calls gfx_v10_kfd2kgd = {
- 	.get_atc_vmid_pasid_mapping_info =
- 			get_atc_vmid_pasid_mapping_info,
- 	.set_vm_context_page_table_base = set_vm_context_page_table_base,
-+	.program_trap_handler_settings = program_trap_handler_settings,
- };
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c
-index 1f5620cc3570..dac0d751d5af 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c
-@@ -537,6 +537,9 @@ static int hqd_destroy_v10_3(struct kgd_dev *kgd, void *mqd,
- 	case KFD_PREEMPT_TYPE_WAVEFRONT_RESET:
- 		type = RESET_WAVES;
- 		break;
-+	case KFD_PREEMPT_TYPE_WAVEFRONT_SAVE:
-+		type = SAVE_WAVES;
-+		break;
- 	default:
- 		type = DRAIN_PIPE;
- 		break;
-@@ -658,6 +661,33 @@ static void set_vm_context_page_table_base_v10_3(struct kgd_dev *kgd, uint32_t v
- 	adev->gfxhub.funcs->setup_vm_pt_regs(adev, vmid, page_table_base);
- }
- 
-+static void program_trap_handler_settings_v10_3(struct kgd_dev *kgd,
-+			uint32_t vmid, uint64_t tba_addr, uint64_t tma_addr)
-+{
-+	struct amdgpu_device *adev = get_amdgpu_device(kgd);
-+
-+	lock_srbm(kgd, 0, 0, 0, vmid);
-+
-+	/*
-+	 * Program TBA registers
-+	 */
-+	WREG32(SOC15_REG_OFFSET(GC, 0, mmSQ_SHADER_TBA_LO),
-+			lower_32_bits(tba_addr >> 8));
-+	WREG32(SOC15_REG_OFFSET(GC, 0, mmSQ_SHADER_TBA_HI),
-+			upper_32_bits(tba_addr >> 8) |
-+			(1 << SQ_SHADER_TBA_HI__TRAP_EN__SHIFT));
-+
-+	/*
-+	 * Program TMA registers
-+	 */
-+	WREG32(SOC15_REG_OFFSET(GC, 0, mmSQ_SHADER_TMA_LO),
-+			lower_32_bits(tma_addr >> 8));
-+	WREG32(SOC15_REG_OFFSET(GC, 0, mmSQ_SHADER_TMA_HI),
-+			 upper_32_bits(tma_addr >> 8));
-+
-+	unlock_srbm(kgd);
-+}
-+
- #if 0
- uint32_t enable_debug_trap_v10_3(struct kgd_dev *kgd,
- 				uint32_t trap_debug_wave_launch_mode,
-@@ -820,6 +850,7 @@ const struct kfd2kgd_calls gfx_v10_3_kfd2kgd = {
- 	.address_watch_get_offset = address_watch_get_offset_v10_3,
- 	.get_atc_vmid_pasid_mapping_info = NULL,
- 	.set_vm_context_page_table_base = set_vm_context_page_table_base_v10_3,
-+	.program_trap_handler_settings = program_trap_handler_settings_v10_3,
- #if 0
- 	.enable_debug_trap = enable_debug_trap_v10_3,
- 	.disable_debug_trap = disable_debug_trap_v10_3,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-index ed3014fbb563..154244916727 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-@@ -42,7 +42,8 @@
- enum hqd_dequeue_request_type {
- 	NO_ACTION = 0,
- 	DRAIN_PIPE,
--	RESET_WAVES
-+	RESET_WAVES,
-+	SAVE_WAVES
- };
- 
- static inline struct amdgpu_device *get_amdgpu_device(struct kgd_dev *kgd)
-@@ -566,6 +567,9 @@ int kgd_gfx_v9_hqd_destroy(struct kgd_dev *kgd, void *mqd,
- 	case KFD_PREEMPT_TYPE_WAVEFRONT_RESET:
- 		type = RESET_WAVES;
- 		break;
-+	case KFD_PREEMPT_TYPE_WAVEFRONT_SAVE:
-+		type = SAVE_WAVES;
-+		break;
- 	default:
- 		type = DRAIN_PIPE;
- 		break;
-@@ -878,6 +882,32 @@ void kgd_gfx_v9_get_cu_occupancy(struct kgd_dev *kgd, int pasid,
- 				adev->gfx.cu_info.max_waves_per_simd;
- }
- 
-+static void kgd_gfx_v9_program_trap_handler_settings(struct kgd_dev *kgd,
-+                        uint32_t vmid, uint64_t tba_addr, uint64_t tma_addr)
-+{
-+	struct amdgpu_device *adev = get_amdgpu_device(kgd);
-+
-+	lock_srbm(kgd, 0, 0, 0, vmid);
-+
-+	/*
-+	 * Program TBA registers
-+	 */
-+	WREG32(SOC15_REG_OFFSET(GC, 0, mmSQ_SHADER_TBA_LO),
-+                        lower_32_bits(tba_addr >> 8));
-+	WREG32(SOC15_REG_OFFSET(GC, 0, mmSQ_SHADER_TBA_HI),
-+                        upper_32_bits(tba_addr >> 8));
-+
-+	/*
-+	 * Program TMA registers
-+	 */
-+	WREG32(SOC15_REG_OFFSET(GC, 0, mmSQ_SHADER_TMA_LO),
-+			lower_32_bits(tma_addr >> 8));
-+	WREG32(SOC15_REG_OFFSET(GC, 0, mmSQ_SHADER_TMA_HI),
-+			upper_32_bits(tma_addr >> 8));
-+
-+	unlock_srbm(kgd);
-+}
-+
- const struct kfd2kgd_calls gfx_v9_kfd2kgd = {
- 	.program_sh_mem_settings = kgd_gfx_v9_program_sh_mem_settings,
- 	.set_pasid_vmid_mapping = kgd_gfx_v9_set_pasid_vmid_mapping,
-@@ -899,4 +929,5 @@ const struct kfd2kgd_calls gfx_v9_kfd2kgd = {
- 			kgd_gfx_v9_get_atc_vmid_pasid_mapping_info,
- 	.set_vm_context_page_table_base = kgd_gfx_v9_set_vm_context_page_table_base,
- 	.get_cu_occupancy = kgd_gfx_v9_get_cu_occupancy,
-+	.program_trap_handler_settings = kgd_gfx_v9_program_trap_handler_settings,
- };
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index a972ef5eae68..6fd6b2248992 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -211,6 +211,14 @@ static void deallocate_doorbell(struct qcm_process_device *qpd,
- 	WARN_ON(!old);
- }
- 
-+static void program_trap_handler_settings(struct device_queue_manager *dqm,
-+				struct qcm_process_device *qpd)
-+{
-+	return dqm->dev->kfd2kgd->program_trap_handler_settings(
-+						dqm->dev->kgd, qpd->vmid,
-+						qpd->tba_addr, qpd->tma_addr);
-+}
-+
- static int allocate_vmid(struct device_queue_manager *dqm,
- 			struct qcm_process_device *qpd,
- 			struct queue *q)
-@@ -241,6 +249,10 @@ static int allocate_vmid(struct device_queue_manager *dqm,
- 
- 	program_sh_mem_settings(dqm, qpd);
- 
-+	if (dqm->dev->device_info->asic_family >= CHIP_VEGA10 &&
-+	    dqm->dev->cwsr_enabled)
-+		program_trap_handler_settings(dqm, qpd);
-+
- 	/* qpd->page_table_base is set earlier when register_process()
- 	 * is called, i.e. when the first queue is created.
- 	 */
-@@ -582,7 +594,9 @@ static int update_queue(struct device_queue_manager *dqm, struct queue *q)
- 		}
- 
- 		retval = mqd_mgr->destroy_mqd(mqd_mgr, q->mqd,
--				KFD_PREEMPT_TYPE_WAVEFRONT_DRAIN,
-+				(dqm->dev->cwsr_enabled?
-+				 KFD_PREEMPT_TYPE_WAVEFRONT_SAVE:
-+				KFD_PREEMPT_TYPE_WAVEFRONT_DRAIN),
- 				KFD_UNMAP_LATENCY_MS, q->pipe, q->queue);
- 		if (retval) {
- 			pr_err("destroy mqd failed\n");
-@@ -675,7 +689,9 @@ static int evict_process_queues_nocpsch(struct device_queue_manager *dqm,
- 			continue;
- 
- 		retval = mqd_mgr->destroy_mqd(mqd_mgr, q->mqd,
--				KFD_PREEMPT_TYPE_WAVEFRONT_DRAIN,
-+				(dqm->dev->cwsr_enabled?
-+				 KFD_PREEMPT_TYPE_WAVEFRONT_SAVE:
-+				KFD_PREEMPT_TYPE_WAVEFRONT_DRAIN),
- 				KFD_UNMAP_LATENCY_MS, q->pipe, q->queue);
- 		if (retval && !ret)
- 			/* Return the first error, but keep going to
-diff --git a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
-index 95c656d205ed..c84bd7b2cf59 100644
---- a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
-+++ b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
-@@ -44,6 +44,7 @@ struct kgd_mem;
- enum kfd_preempt_type {
- 	KFD_PREEMPT_TYPE_WAVEFRONT_DRAIN = 0,
- 	KFD_PREEMPT_TYPE_WAVEFRONT_RESET,
-+	KFD_PREEMPT_TYPE_WAVEFRONT_SAVE
- };
- 
- struct kfd_vm_fault_info {
-@@ -298,6 +299,8 @@ struct kfd2kgd_calls {
- 
- 	void (*get_cu_occupancy)(struct kgd_dev *kgd, int pasid, int *wave_cnt,
- 			int *max_waves_per_cu);
-+	void (*program_trap_handler_settings)(struct kgd_dev *kgd,
-+			uint32_t vmid, uint64_t tba_addr, uint64_t tma_addr);
- };
- 
- #endif	/* KGD_KFD_INTERFACE_H_INCLUDED */
--- 
-2.17.1
+Thanks,
+Tom
 
+> 
+>>  		r = set_memory_encrypted(vaddr, npages);
+>>  		if (r) {
+>>  			pr_warn("failed to free unused decrypted pages\n");
+> 
