@@ -2,77 +2,51 @@ Return-Path: <SRS0=nf5+=NA=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 54A81C4338F
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Aug 2021 13:59:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 419D1C4338F
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Aug 2021 13:59:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 124CE60EC0
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Aug 2021 13:59:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 124CE60EC0
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id D81C160F35
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Aug 2021 13:59:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D81C160F35
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linuxfoundation.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69CB389BBE;
-	Mon,  9 Aug 2021 13:59:23 +0000 (UTC)
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [IPv6:2a00:1450:4864:20::430])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A497895C3;
- Mon,  9 Aug 2021 12:01:25 +0000 (UTC)
-Received: by mail-wr1-x430.google.com with SMTP id c9so21033084wri.8;
- Mon, 09 Aug 2021 05:01:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=i4If4cpP4LPIaPQs636VHmaLTFfgMpoUmseK3DeS8Y0=;
- b=gE/LA37GWYJJf00sk9Rv7LV4oh2eDaoHMclKUUCqHwhHXETfKaQGoSgdeMsvWxs1Fn
- iAN+gqjRVb32zuHbu8gv5PQ8hw0wWvS8w6l0QeAZmQaG0MX2w7s7cvOZ1jAJN246/HUS
- AsAjqFcg/kIC1Sp6HsWX3JAkwAwsStHjDp0nj5DWEC57jXfFd46IwTs6EcrhaHed4k8u
- j8ZhlgWjoEeNJ6vgB4fhO3USZSYu0/nBtkAIQT3fNyqv/LNhnm9iqlutL7apvDyoZ3x6
- yMtrhUtaTbDCYyMObF9P08AX+rMd98IPI7MmATkzOPwh79Du58owcEt48dxTiF3lWtnp
- eXhg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=i4If4cpP4LPIaPQs636VHmaLTFfgMpoUmseK3DeS8Y0=;
- b=HCQfmT5Z4fJCkAsRWK5KUvZyYEWgnWEED2WTMvXNZqUWP9QRondRJsNbMsJ/43oRO8
- Lszswo77Vqx2WeWkMQU9eAGbbjGZ0KmRqXc5el79N4bFDKGddlrZxhtA5NqP96vNzyt+
- g1gaU1zy4eLUrHLe9e1MPpALNkPAslqNDrCZ51+dHFLIoapbHarsI7dobSxOcmIPhLAL
- hP0CQ2hrPbgdmqWOO16u9mfvAkDruBEEwbX+72HwejRsDSS6MWdmUXqC9VtW6F3SOuN/
- 6P+IqmLyT4HMIsBG/eekUwKxMGUOBJRZstv1u+qjHJHxe56QEWfB3CnrjLP7YecGMhJF
- mN8Q==
-X-Gm-Message-State: AOAM532yNuJ2AsrJAwTs9Tibq+qMyh1exbNSgmaH9Zo5fwrCz+UXAN0K
- qP6jcj7S96u1O5f6nV2BS9Y=
-X-Google-Smtp-Source: ABdhPJz2+xJ2R2cWN2HTp440376o4s3BF7cxkmZov7B1XkOSTkldojCEYJretPMpEuTrnFiMfbMgyA==
-X-Received: by 2002:adf:f80f:: with SMTP id s15mr24570467wrp.330.1628510484098; 
- Mon, 09 Aug 2021 05:01:24 -0700 (PDT)
-Received: from icebear.localdomain ([170.253.11.129])
- by smtp.gmail.com with ESMTPSA id g198sm26028771wme.0.2021.08.09.05.01.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Aug 2021 05:01:23 -0700 (PDT)
-From: "=?UTF-8?q?Sergio=20Migu=C3=A9ns=20Iglesias?=" <lonyelon@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Sergio=20Migu=C3=A9ns=20Iglesias?=
- <sergio@lony.xyz>
-To: alexander.deucher@amd.com
-Cc: christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@linux.ie,
- daniel@ffwll.ch, Hawking.Zhang@amd.com, Felix.Kuehling@amd.com,
- ray.huang@amd.com, lee.jones@linaro.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- =?UTF-8?q?Sergio=20Migu=C3=A9ns=20Iglesias?= <sergio@lony.xyz>
-Subject: [PATCH] drm/amdgpu: Removed unnecessary if statement
-Date: Mon,  9 Aug 2021 14:00:50 +0200
-Message-Id: <20210809120050.679048-1-sergio@lony.xyz>
-X-Mailer: git-send-email 2.32.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0604489BEC;
+	Mon,  9 Aug 2021 13:59:24 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F2DD897EB;
+ Mon,  9 Aug 2021 08:43:14 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 5850C61019;
+ Mon,  9 Aug 2021 08:43:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1628498593;
+ bh=vhFRMUfry1hcL4yr1bTOCWEQeeGGHpAHF1gbIyRTBBQ=;
+ h=Subject:To:Cc:From:Date:From;
+ b=EIWEVF+9qj9wybKPqyYsSzOQX7kJxdhrbvpLAqiMI6e4afsEzu2F5DOjf3qcvK7Ct
+ 8Z6JqCu+w9mdkm6w3R52zR2A6XQJPBLX22tEcZ1y/owY+KJVihizWc/YxmfTV0QkJ0
+ efsUkzUeyDLFksNilwtJzdX8G7KsGmp7oY7TqDZk=
+Subject: Patch "drm/amdgpu: fix checking pmops when PM_SLEEP is not enabled"
+ has been added to the 5.13-stable tree
+To: Xinhui.Pan@amd.com, alexander.deucher@amd.com,
+ amd-gfx@lists.freedesktop.org, christian.koenig@amd.com,
+ dri-devel@lists.freedesktop.org, gregkh@linuxfoundation.org,
+ rdunlap@infradead.org
+Cc: <stable-commits@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 09 Aug 2021 10:43:02 +0200
+Message-ID: <1628498582207164@kroah.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-stable: commit
+X-Patchwork-Hint: ignore 
 X-Mailman-Approved-At: Mon, 09 Aug 2021 13:59:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,27 +62,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-There was an "if" statement that did nothing so it was removed.
 
-Signed-off-by: Sergio Miguéns Iglesias <sergio@lony.xyz>
+This is a note to let you know that I've just added the patch titled
+
+    drm/amdgpu: fix checking pmops when PM_SLEEP is not enabled
+
+to the 5.13-stable tree which can be found at:
+    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+
+The filename of the patch is:
+     drm-amdgpu-fix-checking-pmops-when-pm_sleep-is-not-enabled.patch
+and it can be found in the queue-5.13 subdirectory.
+
+If you, or anyone else, feels it should not be added to the stable tree,
+please let <stable@vger.kernel.org> know about it.
+
+
+From 5706cb3c910cc8283f344bc37a889a8d523a2c6d Mon Sep 17 00:00:00 2001
+From: Randy Dunlap <rdunlap@infradead.org>
+Date: Thu, 29 Jul 2021 20:03:47 -0700
+Subject: drm/amdgpu: fix checking pmops when PM_SLEEP is not enabled
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+From: Randy Dunlap <rdunlap@infradead.org>
+
+commit 5706cb3c910cc8283f344bc37a889a8d523a2c6d upstream.
+
+'pm_suspend_target_state' is only available when CONFIG_PM_SLEEP
+is set/enabled. OTOH, when both SUSPEND and HIBERNATION are not set,
+PM_SLEEP is not set, so this variable cannot be used.
+
+../drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c: In function ‘amdgpu_acpi_is_s0ix_active’:
+../drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c:1046:11: error: ‘pm_suspend_target_state’ undeclared (first use in this function); did you mean ‘__KSYM_pm_suspend_target_state’?
+    return pm_suspend_target_state == PM_SUSPEND_TO_IDLE;
+           ^~~~~~~~~~~~~~~~~~~~~~~
+           __KSYM_pm_suspend_target_state
+
+Also use shorter IS_ENABLED(CONFIG_foo) notation for checking the
+2 config symbols.
+
+Fixes: 91e273712ab8dd ("drm/amdgpu: Check pmops for desired suspend state")
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-next@vger.kernel.org
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c | 3 ---
- 1 file changed, 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
-index 09b048647523..5eb3869d029e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
-@@ -273,9 +273,6 @@ static int amdgpufb_create(struct drm_fb_helper *helper,
- 	return 0;
- 
- out:
--	if (abo) {
--
--	}
- 	if (fb && ret) {
- 		drm_gem_object_put(gobj);
- 		drm_framebuffer_unregister_private(fb);
--- 
-2.32.0
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+@@ -904,7 +904,7 @@ void amdgpu_acpi_fini(struct amdgpu_devi
+  */
+ bool amdgpu_acpi_is_s0ix_supported(struct amdgpu_device *adev)
+ {
+-#if defined(CONFIG_AMD_PMC) || defined(CONFIG_AMD_PMC_MODULE)
++#if IS_ENABLED(CONFIG_AMD_PMC) && IS_ENABLED(CONFIG_PM_SLEEP)
+ 	if (acpi_gbl_FADT.flags & ACPI_FADT_LOW_POWER_S0) {
+ 		if (adev->flags & AMD_IS_APU)
+ 			return pm_suspend_target_state == PM_SUSPEND_TO_IDLE;
 
+
+Patches currently in stable-queue which might be from rdunlap@infradead.org are
+
+queue-5.13/drm-i915-fix-i915_globals_exit-section-mismatch-erro.patch
+queue-5.13/drm-amdgpu-fix-checking-pmops-when-pm_sleep-is-not-enabled.patch
