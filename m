@@ -3,151 +3,152 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AE472C4338F
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Aug 2021 22:04:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AF699C4338F
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Aug 2021 22:16:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6CF9760FE3
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Aug 2021 22:04:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6CF9760FE3
+	by mail.kernel.org (Postfix) with ESMTPS id 6B2B460F8F
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Aug 2021 22:16:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6B2B460F8F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB5C289DA6;
-	Mon,  9 Aug 2021 22:04:18 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2061.outbound.protection.outlook.com [40.107.237.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DDF7289DA6;
- Mon,  9 Aug 2021 22:04:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBC9889DBC;
+	Mon,  9 Aug 2021 22:16:50 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2040.outbound.protection.outlook.com [40.107.220.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D396589CB8;
+ Mon,  9 Aug 2021 22:16:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=i46opE2vdbKf2ZrSprtprFOfqeG9cuPadsC969ro0jGirLoEqmGv1Pq8Ok7Agr3K0gNJJxkRQ7uEyrdz0yrHhOwzdM61T8KtnXLa9G5uisp5+mR7A//tdBVeUvqNEmOX2+UqNF2+f7BMlZy74/vSdtRFvjyaBb3HTciyEplA4h+vOS3Z6B8sfFvhpSQ8rxnHNUatg0Eo6D/CcU94BG0+iVF50SSmMYnqPB288PGR4XOQZ+O9PuZfkJYnLiJJv6+ctPGqP/I+CE24kxQMUPhCBTOjhFzEG3UzhaGjEypPYQ48tv+nOiOJhT5HM4GVat1JWikkCz0Sg+XAcv0/+taeQg==
+ b=n1b6fF+y6JsYt35N8A5iJVIWBft9UbgbAkiGbMH3O00bNBX1Y3vaYKpJ4rOXUXLS+/j7moEIjsrznEA/HajQXLBSCBUQorWtyA0iZ+A+r0OQkPOfcLSdrX8+zUA897hdH7j6a3jJNW5AuM+P+yqKgJNgJXtLvmjBBiXe2YuzE2m5ONh2Ts7D+ue5gtDJEw3KypQRWlHqhBG/vyVdYSQqThGvmg5CX9cg3QG+QIThKEtrqTRygDps4i67PrCRii/FG9IosQZIn7Nb0OVELbhhFzAE1LzN5NqLsG61Ifp+7/0lf0dbmakrbhfpWeZvZsO1Sq0FTl7JkYqIMKA8OnT/Tg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qDDc72GiZm6dfKErrWYvKM6m/ePTnVVLaIb8Yz6Ehk4=;
- b=hT+0DFcf5clrassD1oRbJSgQ6y78lWxP90zJ+WbC2yEDLpBFh1mm4Xup2dx/Nf1oaA+8KPhAaMgYP2M06znaLrTQxSVV+HoWD3EgxqJoiOhxP7Pq+7QECVurjapITVJ04GCcgR4Z6Cb6C1LQ8YjVl+uQQ1LdrMLEbnpuwcLqRWRsxJrATdZ9SMNrao/uelaMK7S2FSrG+LpfPt++U9XC08JXZ9lErcGAQeO8yrdzCrKJi1TR6etE3FiBZqRDDxNmVQdvdh2pQxuhj0P/jcS+hRZwy/NjI8gpDiTljx9e8LqRE2lXXpx3rfUeFXF2bi6xZDZg1/sfFcehc1jqIsAERQ==
+ bh=3+fwmX6Q39MkilgVtnsUqVDkLnT1mk/AV6fBAqAUqvU=;
+ b=jTH1ZJv1jtriew0t4PW4Fd7LPv2hqwvotB+J47Xy5dO3fb/wXm1Tz/39HTH2z+M/d+rHcWcOqbQRekQTBWf2B76sIwZF8+lY8umIsUw9Jyf0xmyXloRtD6bOXADXe7ONou+8AKO/bnkNGRH0yfrLlZjmZbfhAkL+YEWqsgj37e+FOJS0OBKhtzurkcq0Ps9OGFBhkWLFK3ForbL7I47ZFwybwLhxcSREHIGCGCr2VG6vO03Z3Euxsxyf//9HRnxRrxWR/fvT721FDcKXmkB/h9Z/wkmdgCb108SvnEkCxbF4Tsd13oZCSt367yMEFudQMIMYXA12hpzeBHHO2PTu3Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qDDc72GiZm6dfKErrWYvKM6m/ePTnVVLaIb8Yz6Ehk4=;
- b=E26kXdjn4tzuqwDepjlftxSfkzQiAIaO7cFrfeWCeKv1ky4fYpeEimh+mtZrp1OI1A0gpmZlrvEllzgCfWxMpCUlsqJr7dNZvy2aDOYq6InaM4LnOKp6B7d1UhMB6c4qyYtSMRA3LsMiw6JCzCDjZjhtVDvNPPzS0CpxONefbjk=
+ bh=3+fwmX6Q39MkilgVtnsUqVDkLnT1mk/AV6fBAqAUqvU=;
+ b=cSe52ps/4KuS1UjyZ0KB3W8Fnttajsj1EbYfiX12ISWEYg1dCgQuY699Guu1p7WgcRqIo7o5wqYK4FhSC5VMGNZ2PcIKAbc9W4ZvqjM6u06PBsITtW1mnPt0gTxhkledkfOgbCBCYxwQzAbYQ2frUKeXxV4N1ba8fFiYYWZEAoI=
 Authentication-Results: kernel.org; dkim=none (message not signed)
  header.d=none;kernel.org; dmarc=none action=none header.from=amd.com;
 Received: from DM4PR12MB5229.namprd12.prod.outlook.com (2603:10b6:5:398::12)
- by DM4PR12MB5117.namprd12.prod.outlook.com (2603:10b6:5:390::15) with
+ by DM4PR12MB5054.namprd12.prod.outlook.com (2603:10b6:5:389::24) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4394.17; Mon, 9 Aug
- 2021 22:04:14 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4394.19; Mon, 9 Aug
+ 2021 22:16:47 +0000
 Received: from DM4PR12MB5229.namprd12.prod.outlook.com
  ([fe80::73:2581:970b:3208]) by DM4PR12MB5229.namprd12.prod.outlook.com
  ([fe80::73:2581:970b:3208%3]) with mapi id 15.20.4394.023; Mon, 9 Aug 2021
- 22:04:14 +0000
-Subject: Re: [PATCH 07/11] treewide: Replace the use of mem_encrypt_active()
- with prot_guest_has()
-To: Christophe Leroy <christophe.leroy@csgroup.eu>,
- linux-kernel@vger.kernel.org, x86@kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-s390@vger.kernel.org, iommu@lists.linux-foundation.org,
- kvm@vger.kernel.org, linux-efi@vger.kernel.org,
- platform-driver-x86@vger.kernel.org, linux-graphics-maintainer@vmware.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org
-Cc: Sathyanarayanan Kuppuswamy <sathyanarayanan.kuppuswamy@linux.intel.com>,
- Andi Kleen <ak@linux.intel.com>, Tianyu Lan <Tianyu.Lan@microsoft.com>,
- Daniel Vetter <daniel@ffwll.ch>, Baoquan He <bhe@redhat.com>,
- Peter Zijlstra <peterz@infradead.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Joerg Roedel <joro@8bytes.org>,
- Dave Hansen <dave.hansen@linux.intel.com>,
+ 22:16:47 +0000
+Subject: Re: [PATCH 00/11] Implement generic prot_guest_has() helper function
+To: "Kuppuswamy, Sathyanarayanan"
+ <sathyanarayanan.kuppuswamy@linux.intel.com>, linux-kernel@vger.kernel.org,
+ x86@kernel.org, linuxppc-dev@lists.ozlabs.org, linux-s390@vger.kernel.org,
+ iommu@lists.linux-foundation.org, kvm@vger.kernel.org,
+ linux-efi@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+ linux-graphics-maintainer@vmware.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, kexec@lists.infradead.org,
+ linux-fsdevel@vger.kernel.org
+Cc: Borislav Petkov <bp@alien8.de>, Brijesh Singh <brijesh.singh@amd.com>,
+ Joerg Roedel <joro@8bytes.org>, Andi Kleen <ak@linux.intel.com>,
+ Tianyu Lan <Tianyu.Lan@microsoft.com>, Andy Lutomirski <luto@kernel.org>,
+ Ard Biesheuvel <ardb@kernel.org>, Baoquan He <bhe@redhat.com>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Christian Borntraeger <borntraeger@de.ibm.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Dave Hansen <dave.hansen@linux.intel.com>,
+ Dave Young <dyoung@redhat.com>, David Airlie <airlied@linux.ie>,
+ Heiko Carstens <hca@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@linux.ie>,
- Dave Young <dyoung@redhat.com>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Andy Lutomirski <luto@kernel.org>,
- Brijesh Singh <brijesh.singh@amd.com>, Thomas Gleixner <tglx@linutronix.de>,
+ Maxime Ripard <mripard@kernel.org>, Michael Ellerman <mpe@ellerman.id.au>,
+ Paul Mackerras <paulus@samba.org>, Peter Zijlstra <peterz@infradead.org>,
+ Thomas Gleixner <tglx@linutronix.de>, Thomas Zimmermann
+ <tzimmermann@suse.de>, Vasily Gorbik <gor@linux.ibm.com>,
  Will Deacon <will@kernel.org>
 References: <cover.1627424773.git.thomas.lendacky@amd.com>
- <029791b24c6412f9427cfe6ec598156c64395964.1627424774.git.thomas.lendacky@amd.com>
- <ab2b910b-cd2a-d63b-f080-987d0bb4b5a5@csgroup.eu>
+ <0d75f283-50b7-460d-3165-185cb955bd70@linux.intel.com>
 From: Tom Lendacky <thomas.lendacky@amd.com>
-Message-ID: <ef0e669e-9d08-993b-26d8-939692032cfb@amd.com>
-Date: Mon, 9 Aug 2021 17:04:11 -0500
+Message-ID: <e4584e88-b0bf-175d-9494-4e133c03fc07@amd.com>
+Date: Mon, 9 Aug 2021 17:16:43 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
-In-Reply-To: <ab2b910b-cd2a-d63b-f080-987d0bb4b5a5@csgroup.eu>
+In-Reply-To: <0d75f283-50b7-460d-3165-185cb955bd70@linux.intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SN4PR0501CA0139.namprd05.prod.outlook.com
- (2603:10b6:803:2c::17) To DM4PR12MB5229.namprd12.prod.outlook.com
+X-ClientProxiedBy: SA0PR11CA0032.namprd11.prod.outlook.com
+ (2603:10b6:806:d0::7) To DM4PR12MB5229.namprd12.prod.outlook.com
  (2603:10b6:5:398::12)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from [10.236.30.241] (165.204.77.1) by
- SN4PR0501CA0139.namprd05.prod.outlook.com (2603:10b6:803:2c::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.5 via Frontend
- Transport; Mon, 9 Aug 2021 22:04:12 +0000
+ SA0PR11CA0032.namprd11.prod.outlook.com (2603:10b6:806:d0::7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4394.17 via Frontend Transport; Mon, 9 Aug 2021 22:16:45 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a1d08b08-348e-40d7-2dbe-08d95b819fd3
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5117:
+X-MS-Office365-Filtering-Correlation-Id: 7f92fe84-d210-466e-0e93-08d95b8360cf
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5054:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM4PR12MB5117896FEA1FC51B6FB10D88ECF69@DM4PR12MB5117.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-Microsoft-Antispam-PRVS: <DM4PR12MB5054F2315990F7A142DF5DC3ECF69@DM4PR12MB5054.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2201;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: m+3JPzPUggX8wii77JpckqdMUuJ42OcNOdsy0s1VqRinMmrGdveqyqqtPHJDVI1dbGHSGb0ceR+5MPYeGPE7ndIXkKzqmVmVv2t3qLJs/ZW4xGV+Q+i5k3ZW2HK1cJQmmSUL2GamnOBrEWprMITi2O2Fjy4Mp5xzoFMEDt4U2PKHjLH7auaM6o6Wjj1vh8qj6Z+MTax0sux9kVrv0wbKq9xHwuZpcEQYzHfa4vyH2mrRRp5JVY1PurS2zUkyR8J2fj0+XJTPIXD8Skpn2bXAuJzcZ3FQcPDF1k3dTEGVEXkYeh1iOkb5Gkv2qJA9Q3ASBxoahMD+G7kPPxZkcArlyC5K7QqJALypMC+bGSF1eJ+ZJj2Y9+yMthNQ5ErI2vIVO8/IwMuwq23LuzWHfDRo4ou6CSz31poq6n0bFC2sHK+R149o5213JkYrh/YamMbV2+QCe8q0V9G8bsvVn54vSEVQnH2v1nEP3Y99T2iIVj+po+zhImZ4vX7WVfHRQdMbayc1vVNqdI2j37KNl4n9Scu8iZ3d888hETBqhlzneGtBJFFJ1r3zO9dxLXJXLiG1oTAT3rr1WoYo378B2uFh9uzjUe4cjF88hLDHornZ5Iwh04uwj89AzWMqFFgm61pjhcm1vUG1pOxiSvPvVVN1UMqWM+0qIUgi0m37iatD+Pv1ZJNqdbXM1aCslM8lV1CZ/CTdnMX3Q+9qP9tXhTswd+5UAi5LG0sIv121xWyMJbjE/qRTaDVRb9uF0ft7LiA9mPAsKWAT5vPte8ZWavnJDKGOLrb5L/+GNfvBxmRRtYI2ORALPGK0Oon9xrMM/SJ9HwW7esfJSWq5G0eHjOpGyw==
+X-Microsoft-Antispam-Message-Info: ybCsYxUJ4J/W/kEe8EnRAOwTv7wTPXurQOm1eqvwpSoKf0FlQPV9oXkFda4GMnlJUYagHy+zU1i1aBeAumUd0/FS0fvHpruZxlnsH80WmEFKJjmbHj4/UMGbYxrvmvZ7qQJfAfAkwRDQc/gUr7SB5vqId0c5MuByGAlgf0aBw1tNLJepubwJDWEdOUfI4GgCBh78CqAmBbh1POA2nWbm08JI4s4Kh6Dmw1gy2tyxkwtIyAcRmykvZCCjQPu9uZKXxDUFU4+LAYa0jE6Ny5AiVqFfzRdw382yxi7hkaMnRFEmetLcBo0z9csPSf2c++oohCcIp7OXIy8Il9uglpyJb54al79quGzsEliE2bx6Sto/qdehhcyHnytL1tSq31MuSRKWt2QY9nXgNVX4jAKMb7TQOA+VQiKZoHko2CD7pjpri9WOe+R1rF3Xl0c0G16lFbVF2qpJrirUClm6Uf6xkAkfrzSUsHhFcQ4Fk6cdj+AnRvBIxQn9dRZEjB058zhAe6QH0vYWWXAjsTQOquiu+ltvRVJ04XCwO2N7EE1ymQKAtgigHd/6lcNyXavVBDXFMVJjMpWeXr9eXw0eG+xKa1hVvhrz8WMAI4U1qScGn07IXEDSvrJP9I8fwxgIYlbDg18lTx65RtdY9FpffXY72pfv2cjatK9ymVwQ90VV2ketO+5nBDJwj/oDtAY1lH0t151a3QY55LyDl8eAcwNxRdnvbqVTDF7pwOcNigoTWx9oaBi721w+DplDH8bh5VDQ3YGvgiY4qQFopsN3Dd2P/VG6Yy/YQ1PbtzOAunfpljqbMGNHpkuxCXYZhQeHL1NUG8CfvYC9DgGpIQ8BQnSWb6LDchEAzM0qFTeMUr1Je6M=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM4PR12MB5229.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(136003)(396003)(376002)(366004)(346002)(921005)(31696002)(2616005)(956004)(6486002)(38100700002)(316002)(2906002)(36756003)(31686004)(86362001)(16576012)(966005)(53546011)(45080400002)(30864003)(478600001)(8936002)(8676002)(5660300002)(66946007)(66476007)(66556008)(26005)(7416002)(7406005)(186003)(54906003)(66574015)(4326008)(83380400001)(45980500001)(43740500002);
+ SFS:(4636009)(346002)(39860400002)(376002)(396003)(366004)(136003)(53546011)(31686004)(66946007)(54906003)(8676002)(966005)(478600001)(66476007)(66556008)(16576012)(6486002)(83380400001)(8936002)(186003)(5660300002)(2906002)(26005)(86362001)(45080400002)(38100700002)(2616005)(7416002)(316002)(956004)(7406005)(36756003)(921005)(31696002)(4326008)(41533002)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?czJtWVR0d28xUTIyNThoMzlvU3V0T0Vhc1lzTHcydkd4N0hxT1JjL0NHZWJI?=
- =?utf-8?B?blhIdGdON0FXZ3FDQnkvU2R4UUEyRGtKV3hLS1k3SiszbEw3cVdZbGg5L2VH?=
- =?utf-8?B?V1hFSU5hL1hmSHhvY01LdHVmcnZtZlF3eU5Pc3E4MURUM3krQzJ0WTgzZVVI?=
- =?utf-8?B?cHN5L0FPNnpaU1RiZ0tUY05iT20xNVJCRmFXN0QvcFM4bkFwOE9xVWdZUmdx?=
- =?utf-8?B?emZUaVM5MlpKZ2FQOHBBYURrS3JLcFZIYW5Iem1oaUc1ZkxPZE9XZWRDNW1u?=
- =?utf-8?B?NVdlZWx4NnFrNDdFbytkU2lGUG1ZdkVFeVdRMDB6a2ZQV0l5QXpnZWQrV2hH?=
- =?utf-8?B?R1hFQTRkU0hSNENWNnpnTStOcEE4STZ5MkRXSmptVkRVL1gvM1lnTG9JUEFY?=
- =?utf-8?B?MzRmczNDUVVPSWQyNlFEandhbzVBRVFwTDJ2NUZaN0Z6TVpPRFV3eml1ZzNM?=
- =?utf-8?B?dUtseVdpK1FkT2NWeExabHNvRXJYZDhqOThlWGxmK2hXd0JTam5lRkxwMlZF?=
- =?utf-8?B?WktLYytncGNyTHNxSElWWVhMTGNYZWxzQlNpbWcrTFF0L1RpQ0ZzY0tkelVn?=
- =?utf-8?B?S3RhY0FCcUk2R3JIN1RkbjFOL2JNK0pLVStSVHAvcDZHZEZMcUh6QWszN2Nz?=
- =?utf-8?B?dURXTWhSU0VjajJHaE4vd0RSb005dnlEM2ZhTHhJM0V5RHJyNm5NQkdhOVhk?=
- =?utf-8?B?dGZreExKZnY5VUovVEpSYi9GRlpMaEZzU2JQK2pNc1lKczBLUU1HRDF2UnMy?=
- =?utf-8?B?Q0xNN0pzVUZCN3ZoZVZNd204NTV5c1ZIWndGWVEydEErakFsSXlXVUdkMkRh?=
- =?utf-8?B?cHVWejBDTXJEenZ6dXVqbFVHZVY3aTlJZWc2Smh4RmRpV2owL29NN3QxazVh?=
- =?utf-8?B?WVMvN0doNWhuZSt2WDhLbzNOdDZiY2dZdWl4U1E5d0lTTzZJNVFLOGdkMmFv?=
- =?utf-8?B?UnhJdDFlNGxESXBvc1hoT3MyUW1EbW90dkFJeDJkNS9heFN0YzVDQ1NXTFdt?=
- =?utf-8?B?b0wyUEREQUNMZlV1Tit6eVFYRHBQTGo1QmpDUU84REdBNzJNQ1haZjlVR1Jj?=
- =?utf-8?B?NzZiWjYrQlJwa2VOVXpPcW5sY2ZpQS9qQkRtdUZ0NWVZM3Yvekdlb1Zyb1A0?=
- =?utf-8?B?TXZrT3hyS1VpdHd1UGo5TkxuZkRTVWg4dW8xamdTVEhJSUZhZVBvVnJrc1pP?=
- =?utf-8?B?NjQvOXZxR3BsUDFYVEx5ZVVVTlZ0U09uZHl4dm9DVjJTa0JtYi9rNGlDT3hh?=
- =?utf-8?B?WjNCU2xxUFBnTUhDZEdwbUNGbTRuYXJINDNBaWlMSFNSL1RlL3piL29pTVBX?=
- =?utf-8?B?L0FodC9BNTlBT2xJcmE2ZmR3SUd1RXBOVHZDNnJsbU5sZXhDRk14alVFeTBp?=
- =?utf-8?B?TXVMMjY5L2ZUa01BUzh5eW42Z2pKQ2ROTTk3eTF5aHhUcXFlMGNJVWxsNXkw?=
- =?utf-8?B?SGZMQTZodmprTzlnaWF0bFlWTmpXeUhxMXlQTFB0djE4R2hNemdTK0RoQjdz?=
- =?utf-8?B?WlFDWFpoUzdTWTFRbmpHOHpvUDVTOW1ZYWpSSWVQeWRKMzM5MVRWY01oaENr?=
- =?utf-8?B?KzdiMlJvMXBObTFEcEhkTWNwTEJtNXlLZkxxSWxOUE5jSnhrR25qZ1drOUZN?=
- =?utf-8?B?UDZpcVJvSEhET0JtaFpjTDQ4SWNLcjdBZDBBa0E4ZXRSVGtZUGFKK1ByV0tJ?=
- =?utf-8?B?RHh0T1dGMDQ3bG9nZ0JxMG9NODJvc0JRTTFOYjNrYTcyQVRoSE9TRXRCcHJN?=
- =?utf-8?Q?SDDEmkfuOVtLxQJR4qZvah4PjWqv3hzWzxgYwck?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZEM1WGl5SjdycFFsc0VHWmVoT3J4QUtKc2gyaUtRMmpVcEJuczU3aU43SnBM?=
+ =?utf-8?B?a3YxL1JNaWc4REhyeTRMV2dCUEtyaHRaVnNrQXRPbGMxcUduM1JWTVN5OUpn?=
+ =?utf-8?B?d2hQODU3R3Vqc1cwQUxLOG95dGVxTHQ4ZWtsbll5cW9LS0l2Z0VQajM2TEhG?=
+ =?utf-8?B?cHJiMDRHWnE3dUdCT1plemgzTXB6Y29Hc1U0cktIMWNKdmFVb0ozQUMwTXpY?=
+ =?utf-8?B?MndwL0FJUmlsSXR4aXI2bVBmV3ViR3hrUXkvSmplRm0rUTNuZjdUdENrVWVi?=
+ =?utf-8?B?b1lPMzFsZjdwVjZEaDkwQlBjM2txVkZGK1pScmhSVXRydDBMV2tQalpNYTRh?=
+ =?utf-8?B?TmJqVDVhRjB0dXJmSVpsT20xQmNrdzlXczZES0M1RVBhQmgwb3ZQUXlrQzl6?=
+ =?utf-8?B?Q2hrUEhKc0dNaWpNaklhQmJ3elpieXBHQnJBWkJla2hlN2xTbk9UOWdVdHB6?=
+ =?utf-8?B?NVd1RTVhSHhNdXlwSHlTejlEc0lacTV1ZklpTUd3eEtsYnFXWjJaN3Z5V3ZC?=
+ =?utf-8?B?blBIekw0ampaWHNzR0F1WGRTeVhrMlM5MnFEamxueDZaVmRXUXd4Q0dPT3la?=
+ =?utf-8?B?dnhpV01hSmxWeTVLTTNLL1lNTnB0L2NpOHBramVqZ1dHS3QvZ1hTbUhGY09O?=
+ =?utf-8?B?cDJIdnVSelRZandjQ3lmcDAyNUg1eklMbTl1S0Q5L3E3Y1lyVUdiV2dROEJw?=
+ =?utf-8?B?Qi9ENTJpUVlhYlJjYmRkaVZhd2dLOS84QWx2dlo4N1hKd053ODVZOU9IUHp3?=
+ =?utf-8?B?Smg0VTZva0lKRUpweW1XYUtaZkdPbFRKd3QxOEdHVWY1cHROdEFVWUhvZFAw?=
+ =?utf-8?B?QUZSRm1BcW1vano3aFdUOU5vcVZPTVdIYUgwMThaWE0yQXlHbWwraWVIM2JW?=
+ =?utf-8?B?ZEp2YklRMkhXVXQzaDliM0wrNWJleXRIM1BCdGcvaHpUMmlxSXhFc1ZNQURO?=
+ =?utf-8?B?ZlRHQTJSdEJBOTRKUG5sOXh1SnR0cXZDSTlqWFh1M2MwK1FrZGJhenVSZG5V?=
+ =?utf-8?B?L3E5Qk1OdmJLazhJMVRma21rbnNWVjdZTCs3S2JKOURCT1E2dDEwWDRyelFq?=
+ =?utf-8?B?bk45b2M3Qy9zTWVHTDRLMk40cmN3azFTZFkwOUU4OUJjMHJWeVNhb04yVHBK?=
+ =?utf-8?B?Ump6KzF6bzVQYUw1WkN2clNxMzRVbThzcUVQU2ZzREl1Y2tRa2lmWmY0R3ds?=
+ =?utf-8?B?MjJpLzlMcGhxY0VjSzlsSnltUjF3cVljOHdNKzlKL1p0ZVhLSWpqRTZzc3U1?=
+ =?utf-8?B?RFJLVXZiQW9lb1Vwc2NyQWo2cVNPejc2ZzMxZTdxeUdjT0RXZHp2TWdhOU1U?=
+ =?utf-8?B?NldCVjM5bzBWZ0t2R3RjalVlOWFYamhHa3VFYmI0NmJPNVJGNjZPaEV4bi9W?=
+ =?utf-8?B?L2tuOTNxOHJxSWdnY0pHVmo2NU1NTDErWDU5THBpQzB5cllPanhob0ZRNHFY?=
+ =?utf-8?B?eVQ0TFlhNitXdnhGbjF3RnoyNDlGSjFpdU5hYnpXeDhqeXBLc1dUWkhZekJS?=
+ =?utf-8?B?TnVwcms3WCtISGhDYXhtdE5Tc0M5MmlKTk5STEpTY1kvYVorQmFNaTNsSWlv?=
+ =?utf-8?B?azBOekxUcXBqblBFcjZDR2ltcWNwRG9hdFN5c0hEc2FwOEhpWFQvZTFOTFRZ?=
+ =?utf-8?B?T2lDclp2cnlIMU5IKzJHd3RxNXd6RTMwdUtPcEpneTJrZEFKTFBma2RDLzBy?=
+ =?utf-8?B?VlFJUFZzanpTekFWckNwNjJEeTFTdUZjdkdmWFhiVGlwYVFITW9YUnJrZDFO?=
+ =?utf-8?Q?hsPIX0FzA5wl8+n6mtSbpcroiybnFiaSc2Zjg4b?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a1d08b08-348e-40d7-2dbe-08d95b819fd3
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7f92fe84-d210-466e-0e93-08d95b8360cf
 X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5229.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Aug 2021 22:04:14.2640 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Aug 2021 22:16:47.4832 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4nhfX73wvO9hcTAWN9QscMsaTxM8C0FcXniu7OsjFycerJJuEK62HlZfWznvt4AHUBScn5VYQjNAIDDgwPXj7w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5117
+X-MS-Exchange-CrossTenant-UserPrincipalName: yWonoL3hzNeEn7iFofjcGCY0PgdwEHXOt2iYa+B5GGK7Xyg5Ta4xjEGJFIvdErQdiMFgJggx8W+URScsRqMA1g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5054
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,358 +163,127 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 8/2/21 7:42 AM, Christophe Leroy wrote:
+On 8/8/21 8:41 PM, Kuppuswamy, Sathyanarayanan wrote:
+> Hi Tom,
 > 
+> On 7/27/21 3:26 PM, Tom Lendacky wrote:
+>> This patch series provides a generic helper function, prot_guest_has(),
+>> to replace the sme_active(), sev_active(), sev_es_active() and
+>> mem_encrypt_active() functions.
+>>
+>> It is expected that as new protected virtualization technologies are
+>> added to the kernel, they can all be covered by a single function call
+>> instead of a collection of specific function calls all called from the
+>> same locations.
+>>
+>> The powerpc and s390 patches have been compile tested only. Can the
+>> folks copied on this series verify that nothing breaks for them.
 > 
-> Le 28/07/2021 à 00:26, Tom Lendacky a écrit :
->> Replace occurrences of mem_encrypt_active() with calls to prot_guest_has()
->> with the PATTR_MEM_ENCRYPT attribute.
+> With this patch set, select ARCH_HAS_PROTECTED_GUEST and set
+> CONFIG_AMD_MEM_ENCRYPT=n, creates following error.
 > 
+> ld: arch/x86/mm/ioremap.o: in function `early_memremap_is_setup_data':
+> arch/x86/mm/ioremap.c:672: undefined reference to `early_memremap_decrypted'
 > 
-> What about
-> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fpatchwork.ozlabs.org%2Fproject%2Flinuxppc-dev%2Fpatch%2F20210730114231.23445-1-will%40kernel.org%2F&amp;data=04%7C01%7Cthomas.lendacky%40amd.com%7C1198d62463e04a27be5908d955b30433%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637635049667233612%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=Erpu4Du05sVYkYuAfTkXdLvq48%2FlfLS2q%2FZW8DG3tFw%3D&amp;reserved=0> ?
+> It looks like early_memremap_is_setup_data() is not protected with
+> appropriate config.
 
-Ah, looks like that just went into the PPC tree and isn't part of the tip
-tree. I'll have to look into how to handle that one.
+Ok, thanks for finding that. I'll fix that.
 
 Thanks,
 Tom
 
 > 
-> Christophe
-> 
 > 
 >>
->> Cc: Thomas Gleixner <tglx@linutronix.de>
->> Cc: Ingo Molnar <mingo@redhat.com>
->> Cc: Borislav Petkov <bp@alien8.de>
->> Cc: Dave Hansen <dave.hansen@linux.intel.com>
+>> Cc: Andi Kleen <ak@linux.intel.com>
 >> Cc: Andy Lutomirski <luto@kernel.org>
->> Cc: Peter Zijlstra <peterz@infradead.org>
->> Cc: David Airlie <airlied@linux.ie>
+>> Cc: Ard Biesheuvel <ardb@kernel.org>
+>> Cc: Baoquan He <bhe@redhat.com>
+>> Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+>> Cc: Borislav Petkov <bp@alien8.de>
+>> Cc: Christian Borntraeger <borntraeger@de.ibm.com>
 >> Cc: Daniel Vetter <daniel@ffwll.ch>
+>> Cc: Dave Hansen <dave.hansen@linux.intel.com>
+>> Cc: Dave Young <dyoung@redhat.com>
+>> Cc: David Airlie <airlied@linux.ie>
+>> Cc: Heiko Carstens <hca@linux.ibm.com>
+>> Cc: Ingo Molnar <mingo@redhat.com>
+>> Cc: Joerg Roedel <joro@8bytes.org>
 >> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 >> Cc: Maxime Ripard <mripard@kernel.org>
+>> Cc: Michael Ellerman <mpe@ellerman.id.au>
+>> Cc: Paul Mackerras <paulus@samba.org>
+>> Cc: Peter Zijlstra <peterz@infradead.org>
+>> Cc: Thomas Gleixner <tglx@linutronix.de>
 >> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+>> Cc: Vasily Gorbik <gor@linux.ibm.com>
 >> Cc: VMware Graphics <linux-graphics-maintainer@vmware.com>
->> Cc: Joerg Roedel <joro@8bytes.org>
 >> Cc: Will Deacon <will@kernel.org>
->> Cc: Dave Young <dyoung@redhat.com>
->> Cc: Baoquan He <bhe@redhat.com>
->> Signed-off-by: Tom Lendacky <thomas.lendacky@amd.com>
+>>
 >> ---
->>   arch/x86/kernel/head64.c                | 4 ++--
->>   arch/x86/mm/ioremap.c                   | 4 ++--
->>   arch/x86/mm/mem_encrypt.c               | 5 ++---
->>   arch/x86/mm/pat/set_memory.c            | 3 ++-
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 4 +++-
->>   drivers/gpu/drm/drm_cache.c             | 4 ++--
->>   drivers/gpu/drm/vmwgfx/vmwgfx_drv.c     | 4 ++--
->>   drivers/gpu/drm/vmwgfx/vmwgfx_msg.c     | 6 +++---
->>   drivers/iommu/amd/iommu.c               | 3 ++-
->>   drivers/iommu/amd/iommu_v2.c            | 3 ++-
->>   drivers/iommu/iommu.c                   | 3 ++-
->>   fs/proc/vmcore.c                        | 6 +++---
->>   kernel/dma/swiotlb.c                    | 4 ++--
->>   13 files changed, 29 insertions(+), 24 deletions(-)
 >>
->> diff --git a/arch/x86/kernel/head64.c b/arch/x86/kernel/head64.c
->> index de01903c3735..cafed6456d45 100644
->> --- a/arch/x86/kernel/head64.c
->> +++ b/arch/x86/kernel/head64.c
->> @@ -19,7 +19,7 @@
->>   #include <linux/start_kernel.h>
->>   #include <linux/io.h>
->>   #include <linux/memblock.h>
->> -#include <linux/mem_encrypt.h>
->> +#include <linux/protected_guest.h>
->>   #include <linux/pgtable.h>
->>     #include <asm/processor.h>
->> @@ -285,7 +285,7 @@ unsigned long __head __startup_64(unsigned long
->> physaddr,
->>        * there is no need to zero it after changing the memory encryption
->>        * attribute.
->>        */
->> -    if (mem_encrypt_active()) {
->> +    if (prot_guest_has(PATTR_MEM_ENCRYPT)) {
->>           vaddr = (unsigned long)__start_bss_decrypted;
->>           vaddr_end = (unsigned long)__end_bss_decrypted;
->>           for (; vaddr < vaddr_end; vaddr += PMD_SIZE) {
->> diff --git a/arch/x86/mm/ioremap.c b/arch/x86/mm/ioremap.c
->> index 0f2d5ace5986..5e1c1f5cbbe8 100644
->> --- a/arch/x86/mm/ioremap.c
->> +++ b/arch/x86/mm/ioremap.c
->> @@ -693,7 +693,7 @@ static bool __init
->> early_memremap_is_setup_data(resource_size_t phys_addr,
->>   bool arch_memremap_can_ram_remap(resource_size_t phys_addr, unsigned
->> long size,
->>                    unsigned long flags)
->>   {
->> -    if (!mem_encrypt_active())
->> +    if (!prot_guest_has(PATTR_MEM_ENCRYPT))
->>           return true;
->>         if (flags & MEMREMAP_ENC)
->> @@ -723,7 +723,7 @@ pgprot_t __init
->> early_memremap_pgprot_adjust(resource_size_t phys_addr,
->>   {
->>       bool encrypted_prot;
->>   -    if (!mem_encrypt_active())
->> +    if (!prot_guest_has(PATTR_MEM_ENCRYPT))
->>           return prot;
->>         encrypted_prot = true;
->> diff --git a/arch/x86/mm/mem_encrypt.c b/arch/x86/mm/mem_encrypt.c
->> index 451de8e84fce..0f1533dbe81c 100644
->> --- a/arch/x86/mm/mem_encrypt.c
->> +++ b/arch/x86/mm/mem_encrypt.c
->> @@ -364,8 +364,7 @@ int __init early_set_memory_encrypted(unsigned long
->> vaddr, unsigned long size)
->>   /*
->>    * SME and SEV are very similar but they are not the same, so there are
->>    * times that the kernel will need to distinguish between SME and SEV.
->> The
->> - * sme_active() and sev_active() functions are used for this.  When a
->> - * distinction isn't needed, the mem_encrypt_active() function can be
->> used.
->> + * sme_active() and sev_active() functions are used for this.
->>    *
->>    * The trampoline code is a good example for this requirement.  Before
->>    * paging is activated, SME will access all memory as decrypted, but SEV
->> @@ -451,7 +450,7 @@ void __init mem_encrypt_free_decrypted_mem(void)
->>        * The unused memory range was mapped decrypted, change the
->> encryption
->>        * attribute from decrypted to encrypted before freeing it.
->>        */
->> -    if (mem_encrypt_active()) {
->> +    if (sme_me_mask) {
->>           r = set_memory_encrypted(vaddr, npages);
->>           if (r) {
->>               pr_warn("failed to free unused decrypted pages\n");
->> diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
->> index ad8a5c586a35..6925f2bb4be1 100644
->> --- a/arch/x86/mm/pat/set_memory.c
->> +++ b/arch/x86/mm/pat/set_memory.c
->> @@ -18,6 +18,7 @@
->>   #include <linux/libnvdimm.h>
->>   #include <linux/vmstat.h>
->>   #include <linux/kernel.h>
->> +#include <linux/protected_guest.h>
->>     #include <asm/e820/api.h>
->>   #include <asm/processor.h>
->> @@ -1986,7 +1987,7 @@ static int __set_memory_enc_dec(unsigned long
->> addr, int numpages, bool enc)
->>       int ret;
->>         /* Nothing to do if memory encryption is not active */
->> -    if (!mem_encrypt_active())
->> +    if (!prot_guest_has(PATTR_MEM_ENCRYPT))
->>           return 0;
->>         /* Should not be working on unaligned addresses */
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->> index abb928894eac..8407224717df 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->> @@ -38,6 +38,7 @@
->>   #include <drm/drm_probe_helper.h>
->>   #include <linux/mmu_notifier.h>
->>   #include <linux/suspend.h>
->> +#include <linux/protected_guest.h>
->>     #include "amdgpu.h"
->>   #include "amdgpu_irq.h"
->> @@ -1239,7 +1240,8 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
->>        * however, SME requires an indirect IOMMU mapping because the
->> encryption
->>        * bit is beyond the DMA mask of the chip.
->>        */
->> -    if (mem_encrypt_active() && ((flags & AMD_ASIC_MASK) == CHIP_RAVEN)) {
->> +    if (prot_guest_has(PATTR_MEM_ENCRYPT) &&
->> +        ((flags & AMD_ASIC_MASK) == CHIP_RAVEN)) {
->>           dev_info(&pdev->dev,
->>                "SME is not compatible with RAVEN\n");
->>           return -ENOTSUPP;
->> diff --git a/drivers/gpu/drm/drm_cache.c b/drivers/gpu/drm/drm_cache.c
->> index 546599f19a93..4d01d44012fd 100644
->> --- a/drivers/gpu/drm/drm_cache.c
->> +++ b/drivers/gpu/drm/drm_cache.c
->> @@ -31,7 +31,7 @@
->>   #include <linux/dma-buf-map.h>
->>   #include <linux/export.h>
->>   #include <linux/highmem.h>
->> -#include <linux/mem_encrypt.h>
->> +#include <linux/protected_guest.h>
->>   #include <xen/xen.h>
->>     #include <drm/drm_cache.h>
->> @@ -204,7 +204,7 @@ bool drm_need_swiotlb(int dma_bits)
->>        * Enforce dma_alloc_coherent when memory encryption is active as
->> well
->>        * for the same reasons as for Xen paravirtual hosts.
->>        */
->> -    if (mem_encrypt_active())
->> +    if (prot_guest_has(PATTR_MEM_ENCRYPT))
->>           return true;
->>         for (tmp = iomem_resource.child; tmp; tmp = tmp->sibling)
->> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
->> b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
->> index dde8b35bb950..06ec95a650ba 100644
->> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
->> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
->> @@ -29,7 +29,7 @@
->>   #include <linux/dma-mapping.h>
->>   #include <linux/module.h>
->>   #include <linux/pci.h>
->> -#include <linux/mem_encrypt.h>
->> +#include <linux/protected_guest.h>
->>     #include <drm/ttm/ttm_range_manager.h>
->>   #include <drm/drm_aperture.h>
->> @@ -634,7 +634,7 @@ static int vmw_dma_select_mode(struct vmw_private
->> *dev_priv)
->>           [vmw_dma_map_bind] = "Giving up DMA mappings early."};
->>         /* TTM currently doesn't fully support SEV encryption. */
->> -    if (mem_encrypt_active())
->> +    if (prot_guest_has(PATTR_MEM_ENCRYPT))
->>           return -EINVAL;
->>         if (vmw_force_coherent)
->> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_msg.c
->> b/drivers/gpu/drm/vmwgfx/vmwgfx_msg.c
->> index 3d08f5700bdb..0c70573d3dce 100644
->> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_msg.c
->> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_msg.c
->> @@ -28,7 +28,7 @@
->>   #include <linux/kernel.h>
->>   #include <linux/module.h>
->>   #include <linux/slab.h>
->> -#include <linux/mem_encrypt.h>
->> +#include <linux/protected_guest.h>
->>     #include <asm/hypervisor.h>
->>   @@ -153,7 +153,7 @@ static unsigned long vmw_port_hb_out(struct
->> rpc_channel *channel,
->>       unsigned long msg_len = strlen(msg);
->>         /* HB port can't access encrypted memory. */
->> -    if (hb && !mem_encrypt_active()) {
->> +    if (hb && !prot_guest_has(PATTR_MEM_ENCRYPT)) {
->>           unsigned long bp = channel->cookie_high;
->>             si = (uintptr_t) msg;
->> @@ -208,7 +208,7 @@ static unsigned long vmw_port_hb_in(struct
->> rpc_channel *channel, char *reply,
->>       unsigned long si, di, eax, ebx, ecx, edx;
->>         /* HB port can't access encrypted memory */
->> -    if (hb && !mem_encrypt_active()) {
->> +    if (hb && !prot_guest_has(PATTR_MEM_ENCRYPT)) {
->>           unsigned long bp = channel->cookie_low;
->>             si = channel->cookie_high;
->> diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
->> index 811a49a95d04..def63a8deab4 100644
->> --- a/drivers/iommu/amd/iommu.c
->> +++ b/drivers/iommu/amd/iommu.c
->> @@ -31,6 +31,7 @@
->>   #include <linux/irqdomain.h>
->>   #include <linux/percpu.h>
->>   #include <linux/io-pgtable.h>
->> +#include <linux/protected_guest.h>
->>   #include <asm/irq_remapping.h>
->>   #include <asm/io_apic.h>
->>   #include <asm/apic.h>
->> @@ -2178,7 +2179,7 @@ static int amd_iommu_def_domain_type(struct device
->> *dev)
->>        * active, because some of those devices (AMD GPUs) don't have the
->>        * encryption bit in their DMA-mask and require remapping.
->>        */
->> -    if (!mem_encrypt_active() && dev_data->iommu_v2)
->> +    if (!prot_guest_has(PATTR_MEM_ENCRYPT) && dev_data->iommu_v2)
->>           return IOMMU_DOMAIN_IDENTITY;
->>         return 0;
->> diff --git a/drivers/iommu/amd/iommu_v2.c b/drivers/iommu/amd/iommu_v2.c
->> index f8d4ad421e07..ac359bc98523 100644
->> --- a/drivers/iommu/amd/iommu_v2.c
->> +++ b/drivers/iommu/amd/iommu_v2.c
->> @@ -16,6 +16,7 @@
->>   #include <linux/wait.h>
->>   #include <linux/pci.h>
->>   #include <linux/gfp.h>
->> +#include <linux/protected_guest.h>
->>     #include "amd_iommu.h"
->>   @@ -741,7 +742,7 @@ int amd_iommu_init_device(struct pci_dev *pdev,
->> int pasids)
->>        * When memory encryption is active the device is likely not in a
->>        * direct-mapped domain. Forbid using IOMMUv2 functionality for now.
->>        */
->> -    if (mem_encrypt_active())
->> +    if (prot_guest_has(PATTR_MEM_ENCRYPT))
->>           return -ENODEV;
->>         if (!amd_iommu_v2_supported())
->> diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
->> index 5419c4b9f27a..ddbedb1b5b6b 100644
->> --- a/drivers/iommu/iommu.c
->> +++ b/drivers/iommu/iommu.c
->> @@ -23,6 +23,7 @@
->>   #include <linux/property.h>
->>   #include <linux/fsl/mc.h>
->>   #include <linux/module.h>
->> +#include <linux/protected_guest.h>
->>   #include <trace/events/iommu.h>
->>     static struct kset *iommu_group_kset;
->> @@ -127,7 +128,7 @@ static int __init iommu_subsys_init(void)
->>           else
->>               iommu_set_default_translated(false);
->>   -        if (iommu_default_passthrough() && mem_encrypt_active()) {
->> +        if (iommu_default_passthrough() &&
->> prot_guest_has(PATTR_MEM_ENCRYPT)) {
->>               pr_info("Memory encryption detected - Disabling default
->> IOMMU Passthrough\n");
->>               iommu_set_default_translated(false);
->>           }
->> diff --git a/fs/proc/vmcore.c b/fs/proc/vmcore.c
->> index 9a15334da208..b466f543dc00 100644
->> --- a/fs/proc/vmcore.c
->> +++ b/fs/proc/vmcore.c
->> @@ -26,7 +26,7 @@
->>   #include <linux/vmalloc.h>
->>   #include <linux/pagemap.h>
->>   #include <linux/uaccess.h>
->> -#include <linux/mem_encrypt.h>
->> +#include <linux/protected_guest.h>
->>   #include <asm/io.h>
->>   #include "internal.h"
->>   @@ -177,7 +177,7 @@ ssize_t __weak elfcorehdr_read(char *buf, size_t
->> count, u64 *ppos)
->>    */
->>   ssize_t __weak elfcorehdr_read_notes(char *buf, size_t count, u64 *ppos)
->>   {
->> -    return read_from_oldmem(buf, count, ppos, 0, mem_encrypt_active());
->> +    return read_from_oldmem(buf, count, ppos, 0,
->> prot_guest_has(PATTR_MEM_ENCRYPT));
->>   }
->>     /*
->> @@ -378,7 +378,7 @@ static ssize_t __read_vmcore(char *buffer, size_t
->> buflen, loff_t *fpos,
->>                           buflen);
->>               start = m->paddr + *fpos - m->offset;
->>               tmp = read_from_oldmem(buffer, tsz, &start,
->> -                           userbuf, mem_encrypt_active());
->> +                           userbuf, prot_guest_has(PATTR_MEM_ENCRYPT));
->>               if (tmp < 0)
->>                   return tmp;
->>               buflen -= tsz;
->> diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
->> index e50df8d8f87e..2e8dee23a624 100644
->> --- a/kernel/dma/swiotlb.c
->> +++ b/kernel/dma/swiotlb.c
->> @@ -34,7 +34,7 @@
->>   #include <linux/highmem.h>
->>   #include <linux/gfp.h>
->>   #include <linux/scatterlist.h>
->> -#include <linux/mem_encrypt.h>
->> +#include <linux/protected_guest.h>
->>   #include <linux/set_memory.h>
->>   #ifdef CONFIG_DEBUG_FS
->>   #include <linux/debugfs.h>
->> @@ -515,7 +515,7 @@ phys_addr_t swiotlb_tbl_map_single(struct device
->> *dev, phys_addr_t orig_addr,
->>       if (!mem)
->>           panic("Can not allocate SWIOTLB buffer earlier and can't now
->> provide you with the DMA bounce buffer");
->>   -    if (mem_encrypt_active())
->> +    if (prot_guest_has(PATTR_MEM_ENCRYPT))
->>           pr_warn_once("Memory encryption is active and system is using
->> DMA bounce buffers\n");
->>         if (mapping_size > alloc_size) {
+>> Patches based on:
+>>   
+>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgit.kernel.org%2Fpub%2Fscm%2Flinux%2Fkernel%2Fgit%2Ftip%2Ftip.git&amp;data=04%7C01%7Cthomas.lendacky%40amd.com%7C563b5e30a3254f6739aa08d95ad6e242%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637640701228434514%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=vx9v4EmYqVTsJ7KSr97gQaBWJ%2Fq%2BE9NOzXMhe3Fp7T8%3D&amp;reserved=0
+>> master
+>>    commit 79e920060fa7 ("Merge branch 'WIP/fixes'")
 >>
+>> Tom Lendacky (11):
+>>    mm: Introduce a function to check for virtualization protection
+>>      features
+>>    x86/sev: Add an x86 version of prot_guest_has()
+>>    powerpc/pseries/svm: Add a powerpc version of prot_guest_has()
+>>    x86/sme: Replace occurrences of sme_active() with prot_guest_has()
+>>    x86/sev: Replace occurrences of sev_active() with prot_guest_has()
+>>    x86/sev: Replace occurrences of sev_es_active() with prot_guest_has()
+>>    treewide: Replace the use of mem_encrypt_active() with
+>>      prot_guest_has()
+>>    mm: Remove the now unused mem_encrypt_active() function
+>>    x86/sev: Remove the now unused mem_encrypt_active() function
+>>    powerpc/pseries/svm: Remove the now unused mem_encrypt_active()
+>>      function
+>>    s390/mm: Remove the now unused mem_encrypt_active() function
+>>
+>>   arch/Kconfig                               |  3 ++
+>>   arch/powerpc/include/asm/mem_encrypt.h     |  5 --
+>>   arch/powerpc/include/asm/protected_guest.h | 30 +++++++++++
+>>   arch/powerpc/platforms/pseries/Kconfig     |  1 +
+>>   arch/s390/include/asm/mem_encrypt.h        |  2 -
+>>   arch/x86/Kconfig                           |  1 +
+>>   arch/x86/include/asm/kexec.h               |  2 +-
+>>   arch/x86/include/asm/mem_encrypt.h         | 13 +----
+>>   arch/x86/include/asm/protected_guest.h     | 27 ++++++++++
+>>   arch/x86/kernel/crash_dump_64.c            |  4 +-
+>>   arch/x86/kernel/head64.c                   |  4 +-
+>>   arch/x86/kernel/kvm.c                      |  3 +-
+>>   arch/x86/kernel/kvmclock.c                 |  4 +-
+>>   arch/x86/kernel/machine_kexec_64.c         | 19 +++----
+>>   arch/x86/kernel/pci-swiotlb.c              |  9 ++--
+>>   arch/x86/kernel/relocate_kernel_64.S       |  2 +-
+>>   arch/x86/kernel/sev.c                      |  6 +--
+>>   arch/x86/kvm/svm/svm.c                     |  3 +-
+>>   arch/x86/mm/ioremap.c                      | 16 +++---
+>>   arch/x86/mm/mem_encrypt.c                  | 60 +++++++++++++++-------
+>>   arch/x86/mm/mem_encrypt_identity.c         |  3 +-
+>>   arch/x86/mm/pat/set_memory.c               |  3 +-
+>>   arch/x86/platform/efi/efi_64.c             |  9 ++--
+>>   arch/x86/realmode/init.c                   |  8 +--
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  4 +-
+>>   drivers/gpu/drm/drm_cache.c                |  4 +-
+>>   drivers/gpu/drm/vmwgfx/vmwgfx_drv.c        |  4 +-
+>>   drivers/gpu/drm/vmwgfx/vmwgfx_msg.c        |  6 +--
+>>   drivers/iommu/amd/init.c                   |  7 +--
+>>   drivers/iommu/amd/iommu.c                  |  3 +-
+>>   drivers/iommu/amd/iommu_v2.c               |  3 +-
+>>   drivers/iommu/iommu.c                      |  3 +-
+>>   fs/proc/vmcore.c                           |  6 +--
+>>   include/linux/mem_encrypt.h                |  4 --
+>>   include/linux/protected_guest.h            | 37 +++++++++++++
+>>   kernel/dma/swiotlb.c                       |  4 +-
+>>   36 files changed, 218 insertions(+), 104 deletions(-)
+>>   create mode 100644 arch/powerpc/include/asm/protected_guest.h
+>>   create mode 100644 arch/x86/include/asm/protected_guest.h
+>>   create mode 100644 include/linux/protected_guest.h
+>>
+> 
