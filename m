@@ -7,48 +7,48 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BEF1BC432BE
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Aug 2021 05:25:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6E005C4338F
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Aug 2021 05:31:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7AD7461004
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Aug 2021 05:25:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7AD7461004
+	by mail.kernel.org (Postfix) with ESMTPS id 16AC560EE4
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Aug 2021 05:31:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 16AC560EE4
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E982189B38;
-	Mon,  9 Aug 2021 05:25:38 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2080.outbound.protection.outlook.com [40.107.223.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2067289B38
- for <amd-gfx@lists.freedesktop.org>; Mon,  9 Aug 2021 05:25:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9FCAC89998;
+	Mon,  9 Aug 2021 05:31:27 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2064.outbound.protection.outlook.com [40.107.244.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5344189998
+ for <amd-gfx@lists.freedesktop.org>; Mon,  9 Aug 2021 05:31:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YkNDxcxis+4HgEWDPdZ4PveW6b7fp5wKsr/uEaA0qRxtZ7jM7oEnnYG77WG06cQp/FLwM7JnaE769vV23tmJY3qZMlkaowFSCb4+HMBuGr9flRXKBv0Wba4XXWxaC/qN4yv8kHyYrvbB35q/gi/B9A2LzmuQsC/k4jjCOuB7c/yYGyS+N5uijg2V/VKMT9qdUbavaaFG36LnCClJ8K3gccinm6CfyQvnfqDXbfVmFvEVq9Vi+XaPzk3yYI0WJSvIcCSjMrrflC2ZfkhqPxjrgcvyALWOpRydqirAdohjnUx4xFCP/8dpcDRO+wwdoEtbKLd5GFP8RftD+ypU4WgDVQ==
+ b=Vq+qGlFE6PnsQW53ZTc6+S6qjdfxl1mwVqystZpYEi8DaA0becg1BEf6QpZrC/VMtsqMzorva4p2YYVWqIKQpTfQfA+Le6eg1NkbjBT2CXCCuCRFnf3MM1XRGJz2vF4sgGrf2HglCozyt3oYvBpW8y1i7UC506sflwW6/VeA1wpvBFweodoJsarOcr1HhqB4/r8He2NxJ6LKAbN7dmrMCWoI++1SbqrtHm8VkjaFfQFvVuzQzP/21KuP5eDX1/7SXbzATm6VLnTX8F5b4WWvn0XNGyeEgMu4juetwyiH2rKZ2a+BIktws3j4WUibCX9IzPLzB4giga7uWQ4cswH+Ug==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dM0RLJhIds+U1h/JB40xMnogTw3HHZVhqX3s9DqJOxs=;
- b=YAJeoqdB7C7D/q4GecA0FHri0vh8urVBtnr+MLCTygJvk0XQ3ZK6wTsog5GmR3Dzh+Y0PDXHivK9NQekC08LiEzJkh/5OvXkcEgWD1wZC1gd65Bta61E0oKLck8Uijv2fnB8jfrX+d7D2gF0HkP8W1sQyizen2/65MEmmAQRAXX6HcOueNO6Z7+frny3eKZvrrrslwGIVShUH4lft/5HNyfW8gnJye2SER/VJDSE9kWTYqS6qppd20muPgzLD3nyiRMvfpzN7baPqgzTV2D79rDI1Wm32ZveNdR11u3PAaVBOJIQF3KWXPk3ehUqswwlxCOCiARGYPIPHWOHgF9mMQ==
+ bh=XqpnPIhuNSFSyNV3LjPV/eIdH0yN5zEQ/5jyZISW/1o=;
+ b=QVWMVGwIafVfsoGBtW4Atw9OFqwOl8WO9m2f8zcFPnGd+29MOdUJ+yiKM5PmcXNFKCulF74KhWtUHXctexjAa+cZikjAyPjQVDJET57y9ESm1upTGH5wAdRq7ak/CKTV8P493aQuG6+/zkx4HznI4abs5Nki5UxYLIyXhXCNNpk1J/jjciuXDBne47uQa47O0RE62zMQlfFsJ6sdxakL6EABTtu/CCe5VuVvZAwTuSZer1qbcVj/2gfLV48ahizRMAnuHfUOjclJoeqXZAGcS0tHG54+qDv8Z0nOGI83Ra3wWPInjMoqJPqU9bfvw6SV4VxRKykzSgCxdH9fj1lr/g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dM0RLJhIds+U1h/JB40xMnogTw3HHZVhqX3s9DqJOxs=;
- b=IHm4JCaUs0+58lCpYbsYQaxVlWebll6XMFgeoEG8Gsu3219+3W/cSrUd3EQirwimFzV5s9I7gh1fq62u9FWssZzb9jx7QUDx6GQ4YEG9TBlbST45qyrZlZf7+UZLoMMoe60bUSk1xzFSYYih6WjjCyoMbaEeL/a8pp5t8dvQMNg=
-Received: from BN6PR12CA0025.namprd12.prod.outlook.com (2603:10b6:405:70::11)
- by BN8PR12MB3044.namprd12.prod.outlook.com (2603:10b6:408:45::28)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4394.16; Mon, 9 Aug
- 2021 05:25:36 +0000
-Received: from BN8NAM11FT042.eop-nam11.prod.protection.outlook.com
- (2603:10b6:405:70:cafe::21) by BN6PR12CA0025.outlook.office365.com
- (2603:10b6:405:70::11) with Microsoft SMTP Server (version=TLS1_2,
+ bh=XqpnPIhuNSFSyNV3LjPV/eIdH0yN5zEQ/5jyZISW/1o=;
+ b=GZM41Sd1n9sT0IwKB0d1GkGsLoVzZkL6EizmFQA5zoAv4Y7leeA3hNBTG3bouG+g1N8Bnqv1mOqXZd5afBBcrFsueA5bdzpoum7RixxklkkksAcASBwlbzuzcNFKbOZmHUsOxyMwzRMrQcghSwB3W7Z4Kal7SB77+e/8/z1/Y3A=
+Received: from DM6PR06CA0049.namprd06.prod.outlook.com (2603:10b6:5:54::26) by
+ BN6PR12MB1538.namprd12.prod.outlook.com (2603:10b6:405:4::11) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4394.17; Mon, 9 Aug 2021 05:31:23 +0000
+Received: from DM6NAM11FT036.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:54:cafe::43) by DM6PR06CA0049.outlook.office365.com
+ (2603:10b6:5:54::26) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4394.15 via Frontend
- Transport; Mon, 9 Aug 2021 05:25:36 +0000
+ Transport; Mon, 9 Aug 2021 05:31:23 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -57,54 +57,54 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN8NAM11FT042.mail.protection.outlook.com (10.13.177.85) with Microsoft SMTP
+ DM6NAM11FT036.mail.protection.outlook.com (10.13.172.64) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4394.16 via Frontend Transport; Mon, 9 Aug 2021 05:25:36 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
+ 15.20.4394.16 via Frontend Transport; Mon, 9 Aug 2021 05:31:23 +0000
+Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Mon, 9 Aug
- 2021 00:25:35 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ 2021 00:31:22 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB07.amd.com
+ (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Sun, 8 Aug
- 2021 22:25:35 -0700
+ 2021 22:31:22 -0700
 Received: from z-bu18.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12 via Frontend
- Transport; Mon, 9 Aug 2021 00:25:34 -0500
+ Transport; Mon, 9 Aug 2021 00:31:21 -0500
 From: Peng Ju Zhou <PengJu.Zhou@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Victor Zhao <Victor.Zhao@amd.com>, Peng Ju Zhou <PengJu.Zhou@amd.com>
-Subject: [PATCH] drm/amdgpu: Extend full access wait time in guest
-Date: Mon, 9 Aug 2021 13:25:25 +0800
-Message-ID: <20210809052525.3537-1-PengJu.Zhou@amd.com>
+Subject: [PATCH v2] drm/amdgpu: Extend full access wait time in guest
+Date: Mon, 9 Aug 2021 13:31:12 +0800
+Message-ID: <20210809053112.3652-1-PengJu.Zhou@amd.com>
 X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 94120807-41db-41f0-f9ef-08d95af61e0f
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3044:
-X-Microsoft-Antispam-PRVS: <BN8PR12MB30441A3CB102307F8FDA2E42F8F69@BN8PR12MB3044.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: a39eb1a6-b91d-4e52-ba36-08d95af6ed09
+X-MS-TrafficTypeDiagnostic: BN6PR12MB1538:
+X-Microsoft-Antispam-PRVS: <BN6PR12MB1538A581F08B5B5C31F71ADFF8F69@BN6PR12MB1538.namprd12.prod.outlook.com>
 X-MS-Oob-TLC-OOBClassifiers: OLM:590;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: GXzvhOKGJkOnidaYTFDl9QFxfzWszMNv2bv96QAvxCaEAx2Ss0cwQ9Lkp/ky5xCQ+nCliYQuEI9jWSXBNawaAHVeX6LFjGxAxx63J1TZmdJWoGxdvuhJU0JR2V9y8oxOnVwZVilKCI/lKzWGSv6fQeMBNkBda4Q7rwPxQAOU2OWn/vUawsAF6LCqQltYn06Y4MMnlpidc/TkjnolpS7vcJdZIyIlGW64igIWcg5UM+UXZufB/KssPH5HaFFif4QmCDCFHS0rYhkCmIGJMPlIv0/fWxjGI+AH0zXIC3TI1Qi9Wi2dQ14pRMAs0NKgRQeIzMy3VUfErpcGmiKOuZO8B1vLPavcRk4Vhncekpwpen/V5crVvmfMSrMbh/39D0vQal2qjtkujEa0ATNswJY/yG8PDV1E1FBADHNEeSyCOd3URYJXqEY0ZT8hvAYb98w4cF9yWCKBPqMFu3zAymENP+eJ4vkeis/sdtaWDQbRmdU2UlNQm47DGen1eo0ax8NXxXcqZKJQ4VYhVtCpBmAexT+2kKSTGIwjbDRYfbeHAO6jJEkxVlaUPbvmxDFXXMhpj1UGyarETSd2qsuWo8blwVsdOCqyMSz812dN/ENP96RVn653/I0oKs5DtB0h1i+UC64M/w8IH7SVsXgZFumt7YEkgXH5S98+tURkaHnsVI3s6PPx1iidlobWB9gvaFlOCc6bfH5nyHCV6TdTLMp3IPPvR+h9QBeNnjDLrP914wh1hhVIBOabgpoHXM/9FLTrgjSyIhIfaoTZp/zaLcqyOw==
+X-Microsoft-Antispam-Message-Info: Fq5uLrDY8GaxKbOk3oLFs23fRsZB+UT2oKHSW6j+buNLvbDg7ibFO/TJEPf8w9TUQVfHIo63pXz9Ipr/qiGjfLWf37tHK6TwLdpAP57TiQaCktWaEDclNmbddjw2o1Vz/tAofRl+W9T5yFvRgVYePbhhLK4f6psTYOAkAP75+pslRbT7ZNJIQ8DLj2LHxYtXNt/+y9nWyv7aIc9TlTCv2jdOTFv33klHLup+S/AxC7VQ0i0p8YSh4mUQMo+60aPX12rMdY/UQ6B/arMzRiugYeohiqdvNFPeElPhgEGgnmvpBzg6nwArWM5ZaU+9gYY5GWWobpJB4fpgibQelhil5IRHUBBryY67t3DNNKfrbupfe1LmRasCH9wsisLFcTuH1prKNh204X1JG7cacDxUjEtxTSMuJNlrJ0laYemZUGeqd1CDJFA6FvQjZNIO0TToCFxwd7VpDXdR94iR24Ugo+EpziBEbPDCceYh3og5zITgaU5ipOK1Qa3KVTUnt3EybNu5ifR0s1YDTTBkF/p0DwYJg8ga43/zvI3Vs3JJEy8ckI1yfVv0QMt6QiK9iGviH8giGsKHwtJgYmmk+jYFIox2qd8alvyUSoNpmUHZ3IaUK3JTqLBwLlAaXBmKQoiz5ZjUIY9IWc3bds4TdRJAZzxhcc21DcvoZkpnOsyfhkkYMEKdF7Pi/Zanqjz/0/IilhDsLp5MrXJMl3x8HHxzdqtv2VTYHwlNgghpjnyjNJ0aVhoPWa4tkDSRItNdp5f/U+0CERzwgKF8tN1NZNBq4g==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(376002)(346002)(396003)(39860400002)(136003)(46966006)(36840700001)(426003)(1076003)(5660300002)(316002)(336012)(47076005)(356005)(82310400003)(2616005)(36756003)(81166007)(36860700001)(6916009)(26005)(83380400001)(478600001)(186003)(82740400003)(2906002)(8936002)(4326008)(7696005)(34020700004)(70586007)(54906003)(86362001)(6666004)(70206006)(8676002)(36900700001);
+ SFS:(4636009)(376002)(136003)(396003)(346002)(39860400002)(36840700001)(46966006)(81166007)(336012)(7696005)(316002)(82740400003)(83380400001)(36756003)(26005)(2906002)(34020700004)(86362001)(82310400003)(36860700001)(70586007)(8676002)(6666004)(5660300002)(47076005)(6916009)(54906003)(186003)(4326008)(2616005)(356005)(8936002)(1076003)(70206006)(426003)(478600001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Aug 2021 05:25:36.1984 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 94120807-41db-41f0-f9ef-08d95af61e0f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Aug 2021 05:31:23.3978 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a39eb1a6-b91d-4e52-ba36-08d95af6ed09
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT042.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT036.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3044
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1538
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,7 +121,7 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Victor Zhao <Victor.Zhao@amd.com>
 
-- Extend wait time and add retry, currently 3s * 4times
+- Extend wait time and add retry, currently 6s * 2times
 - Change timing algorithm
 
 Signed-off-by: Victor Zhao <Victor.Zhao@amd.com>
