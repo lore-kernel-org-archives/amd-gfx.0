@@ -2,116 +2,133 @@ Return-Path: <SRS0=kf8h=NB=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DA54EC4338F
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Aug 2021 03:25:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A9067C4338F
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Aug 2021 03:52:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6A43360ED8
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Aug 2021 03:25:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6A43360ED8
+	by mail.kernel.org (Postfix) with ESMTPS id 5ECEE60F8F
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Aug 2021 03:52:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5ECEE60F8F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFED689E33;
-	Tue, 10 Aug 2021 03:25:50 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2049.outbound.protection.outlook.com [40.107.220.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F20D689E33
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Aug 2021 03:25:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C3F7289DE6;
+	Tue, 10 Aug 2021 03:52:51 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2066.outbound.protection.outlook.com [40.107.92.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 973C589DE6
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 Aug 2021 03:52:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Rydt0BBCLNAl2uA2sPqpAeFPXjacbmX+wzZvCC7jARO+glzoT9YTSZi+XCV1LO3TOOrH6PkV3DMKDvEGvhn5bXKzf4x7y98dN+t24HcSfAGeBeUre0ERr+mqmlrl26jiVgAK+Wvj1VHjwlGiCQSmyleuhIffmqBHlwY/kwRdeBIbaRR24eWx6UX6kCSFiDhM9kU3PVSkxkZLNuhtbRUEVtoPWSudL/KxNXVyEqTCEEHnvXcTXPsiahZQB855ZSszMFEkRqbNA32nb/cPMyc/XcWBbGfqXVr0po92Z5Uk3JxaKbgAtMbZUSaY/kgBAnITkcWb56kppDc4BvG/vUDtJg==
+ b=kwSHtB+OxPwo6oNRU51O6ylznwzV1D+zCwMcE/SOthJy/STVucbaTD4mMUo9RQDqki/sCCMuzXdbaquIdm+iXVEA3xh8pB+RaDcGnS+/BCua9wzxsAO8eTHbpbeT+EhY/xvNVEX3KTXy8SHMW+M/x+bEwj8hY20AixF+S4GFntL/zOCIpmfl9pvrfcCN5T3HF2KXUAVGCgTBd+EUp0r2St8dxCON8IYJSbGzzolDOIWuYGuIXTZHr9/+x1cus5lsmQYwXPXyL9+feTXhOUw/KhIoP9Z8EGP//pakYfK8SfMok5Inm8mvKOnNGD95m/B4wjI8OJcdMqImi9cnAHC9ng==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wy9TN4Ao38lQcQ1xuiwZoSE3pncBgbXe209BeRulmW4=;
- b=gQ0oXQYJ6l2aZnorS/AeQiRbAycizaD1vxAzp6Omj9EISbINR/oLcOE7S5/UQxAfeaWaAH42mIOnmZE0J9oXI4F+EOe68doQi+vofzfXZsAslzK/8LjtJXie6PL1RTqZuyOlacNKl0SoBlO6HX3O6tps0dncWbZTmpDQ0AR3Wfm5OOAi6H0nhUO2x2FtmRBkqUbrF7OpQfGLlxl86psnxLAP5UsjhOzVDgQBk81RwZthBwIU5MZWerrA4melcGE8NxF71sNWiALKDSFBSLgq4DiDmkmKewL0k02QKx9e6s0XX0QhSGUuzp3o1RwVeyAhtEjxxDaBSsm2C0w2f+izog==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=1/5qZl9M4qiRzaklpSqAJ1XxcNW/AWYUMpiVkebnoEk=;
+ b=RVHf8KcGE4aaCtTtmo9XR2ZNAD8eOI82PkNJ4R5enWXwAsCWBYVknkWNcAy3P7FMpkMuVTxdk5RdBJweXwgv1s4JS7PzEkWawBXIyjBjxEoincDRiUOXwR64+27ZEqgqIjWgoGN42g8ZhgBfVq3Jr7WJrIPcohqKVynVuEI4YEn/2ElyJjOPluMA/3jJXful62RM9FNMwCTCUcWcRvMzRlFBD3x7n3PBObPu+1YP8c1bMg6/iE1TFcW8JINVudMRclhaUl9wrSM9/DaBEfjj9kij7Nqyku9KULOeAnqjqbQ1Dbxl23ZPjRr0X/D2ZOHxX3Vb/NTnbhZU5B7r0KwWBg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wy9TN4Ao38lQcQ1xuiwZoSE3pncBgbXe209BeRulmW4=;
- b=rYhxX1w7AXaBQYYQVC0trMOKeRO8pQM7ef+2SvpUOPZZBd6Efxaa+eYHDTO32XVX6NjplAXTJwUJLf0Lp3fCmXkgc7ndb+4/6ixzytfwca0p++Nha/HnKfV3Rzti6kksr1HAY2HikpXGlJabWre4PnqbBiDi6j6Wd3+8vBXTCBc=
-Received: from MWHPR20CA0031.namprd20.prod.outlook.com (2603:10b6:300:ed::17)
- by BY5PR12MB5510.namprd12.prod.outlook.com (2603:10b6:a03:1d2::15)
+ bh=1/5qZl9M4qiRzaklpSqAJ1XxcNW/AWYUMpiVkebnoEk=;
+ b=1ibKk1jspo5TnGCiWw73cSezCAg4x8q2rX+AI6jKaM9jpRMNhuyHXtQwJadH1KOUMlgaaYs4fSJ7EJYjpru5FYdwmgcYUnrW8LmS6oVTFc2SHfD4rFCCUM0cRyID8wkTsuxKvlLPUSHKJF/zRH7xZ1YC9ZQGKU46k/9nMicklPY=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5129.namprd12.prod.outlook.com (2603:10b6:408:136::12)
+ by BN9PR12MB5067.namprd12.prod.outlook.com (2603:10b6:408:134::16)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4394.15; Tue, 10 Aug
- 2021 03:25:46 +0000
-Received: from CO1NAM11FT038.eop-nam11.prod.protection.outlook.com
- (2603:10b6:300:ed:cafe::3f) by MWHPR20CA0031.outlook.office365.com
- (2603:10b6:300:ed::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4394.16 via Frontend
- Transport; Tue, 10 Aug 2021 03:25:46 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT038.mail.protection.outlook.com (10.13.174.231) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4394.16 via Frontend Transport; Tue, 10 Aug 2021 03:25:46 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Mon, 9 Aug
- 2021 22:25:45 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Mon, 9 Aug
- 2021 22:25:45 -0500
-Received: from wayne-dev (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2242.12 via Frontend
- Transport; Mon, 9 Aug 2021 22:25:43 -0500
-Date: Tue, 10 Aug 2021 11:25:42 +0800
-From: Jingwen Chen <Jingwen.Chen2@amd.com>
-To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- <amd-gfx@lists.freedesktop.org>
-CC: <monk.liu@amd.com>, <christian.koenig@amd.com>, Jack Zhang
- <Jack.Zhang7@hotmail.com>
-Subject: Re: [PATCHv2 2/2] drm/amd/amdgpu: add tdr support for embeded hw_fence
-Message-ID: <20210810032542.is4uztvdyjt5ni62@wayne-dev>
-References: <20210805083146.324741-1-Jingwen.Chen2@amd.com>
- <20210805083146.324741-2-Jingwen.Chen2@amd.com>
- <f6c8da78-c925-e9a4-3591-0c27132962f3@amd.com>
- <20210810025117.cicf5icoesgzntky@wayne-dev>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4394.19; Tue, 10 Aug
+ 2021 03:52:48 +0000
+Received: from BN9PR12MB5129.namprd12.prod.outlook.com
+ ([fe80::b891:a906:28f0:fdb]) by BN9PR12MB5129.namprd12.prod.outlook.com
+ ([fe80::b891:a906:28f0:fdb%4]) with mapi id 15.20.4394.023; Tue, 10 Aug 2021
+ 03:52:48 +0000
+Subject: Re: [PATCH v2] drm/amdkfd: AIP mGPUs best prefetch location for xnack
+ on
+To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20210802162806.12631-1-Philip.Yang@amd.com>
+ <20210809222123.19464-1-Philip.Yang@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Message-ID: <f3fcc2cf-0e44-6642-e603-cc276374c21b@amd.com>
+Date: Mon, 9 Aug 2021 23:52:46 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
+In-Reply-To: <20210809222123.19464-1-Philip.Yang@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-ClientProxiedBy: YT1PR01CA0094.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2d::33) To BN9PR12MB5129.namprd12.prod.outlook.com
+ (2603:10b6:408:136::12)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20210810025117.cicf5icoesgzntky@wayne-dev>
-X-EOPAttributedMessage: 0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [192.168.2.100] (142.182.144.73) by
+ YT1PR01CA0094.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2d::33) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4394.15 via Frontend Transport; Tue, 10 Aug 2021 03:52:48 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f5fcdd53-d577-4bf8-0b79-08d95bae8aff
-X-MS-TrafficTypeDiagnostic: BY5PR12MB5510:
-X-Microsoft-Antispam-PRVS: <BY5PR12MB5510DB9F8D7E81AC1577A2A2B7F79@BY5PR12MB5510.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: f73fc385-7b09-4850-4476-08d95bb251d5
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5067:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BN9PR12MB5067373E41DF8C89A905A3EE92F79@BN9PR12MB5067.namprd12.prod.outlook.com>
 X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ZOEnQWKNdQWLrR2+3Q4LxIz9gBf+hh/RuBqbMzPQ1xZSSt16HX5EUmoUz3TE8cJK5NhRKAWKEmRiPl0jrO4yTYzhE9pl2gUMnHW6CmOaiO00T480daZp0sV9eC5SK5BV0WgaB2WOzsXdpQgJHCUqQs9pZ0odgaR7sFu94qo02UeLBSEx0MaIcOkWt0Z4JuQ2z6mq4JnuM6rsZYPgsBu32uvIayMqQBlli1gf5F7eY1nqSlCUxZjy434Eg1OeDwMg+PC9WBlwAyVNiX0n+UHtI+aAvL5frV9BH+t/kzINhhI/gKcdCzkgVxj5XvrJUEOpGjzqdhWkjGYU/sDT8Yi9lqxClB1f3mh5EMs/ZTsujWgVp1LoJa49CFQyYvd7/djfEiVL0BXlo626D2qmVFlg7ZdEcTHbMNUt4zdCzD1Zo3T2Dfez3dD+zgPBjVbZqa4zrwWcDQXVWLcythDQjrKEYyFve4sY8Qg/ieomzyC/aaS847I1uODR7p8f2RgCovW221HWZN1MVGcor537P8YCS2ASaxDqCVRHHdQplJNE0Jnu4rTrKqNWnzV3ZRu6vPMKqyap4rzEIVzclpVFhcrgtKP9BCBEf2iamByoWwBIaQZJDXbBNwAqKbAvXg4sw5ml3ijIYawzRu4+6qFAdDkJI4tx6iPx0D1Q5ECCQm9Lwzhk4/9Evs6/cg91TPDib+EwJRBAJMj5y6ffvLAibb1D9kvNIXafgY1HWZ7GoeBzmZKTovVv0XX+d0d0S9VKE1ivb1zmpkWA1nS9qLDEEk7b1A==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(396003)(136003)(376002)(346002)(39860400002)(84040400005)(36840700001)(53546011)(478600001)(1076003)(356005)(32650700002)(82310400003)(9686003)(70586007)(70206006)(45080400002)(83380400001)(8676002)(55016002)(426003)(34020700004)(81166007)(82740400003)(5660300002)(26005)(33716001)(316002)(36860700001)(2906002)(110136005)(336012)(54906003)(4326008)(86362001)(186003)(8936002)(36900700001)(2101003);
+X-Microsoft-Antispam-Message-Info: N4Mmpt9DvJRJ+Im3Lsp30aMOfN5pxCwQVu1t6q2eyFrfytkAbiTF7kVuAEeIndkPbrAefBrRxAkuhAsWGQ64F8+ug9yoZPkDqCA6hC+slGOA7Y7VW4fM8SfD+qUUZSLVkD2JvSj4dW8G9Ql1dnK6vxRC7+5+A7Zp533EjCTDNkaTHeruRsQpYyxPBiZubHgt22XCUIBnCnEahOypzGnoIlQ0KGskjF9rQTHR93waPdJS9OL+OYiH5sTBLF1wGIOhKjCZBi19oFIYQAfK923Nn2Q2zt0Vk+2Tal16QqwFANVDpagXoqBlYv4kLiqXX9a2JtS56IKKpFGnoGHGuUfQkbndShiXYdFBJqExp0cIUYZXwpJwqrMnI7t8Qu7ryvqxvx5z6kxX7Wxq5rzVFC0ZQ8R+IPBa8kqhy8WdXY/wcFCTnU3oGpLVNtx18wByUg4U8CrohiP1VZaJHjMnU7jqaHV+MPwK/3MIhxWYBdHhm21d+ayOyUbAPQyaVcpPb25WmiVD8pv5nSLIOiHlRopf505cMGYw3jvE2iq2HK3RQ77QNZjjLzfNhuVfbQwlZcjFpvEeHvQ6T3aacK8uW3cNDu5zoZAMOnW2vJ1XZ/JnBS22xGE9SkZNngnxfNKvott84clW+ALdUJA/n/N+QSnwlrTD19kFsL+F/NslkJM9G5b7R5gCxkB63ISQcsXmU/j1mQG51THXp0ieqUIFEBz2mUYodqXMycmqHam/xDyeuMx8kq9ZR5BNPwdJ8FaCj99b
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5129.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(31696002)(86362001)(2616005)(5660300002)(508600001)(6486002)(956004)(26005)(44832011)(186003)(38100700002)(83380400001)(8936002)(2906002)(8676002)(66946007)(31686004)(66476007)(66556008)(36756003)(316002)(16576012)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bWRHd2p6Q2ZMSWx3OHRFbDFmaFA1OFlPMmZONmRFNGRkN2psSEZkR2Ivb1l1?=
+ =?utf-8?B?c0Zrdk1yTUlkeFFjNUQwVWtvc2RQVVNKTS9DSVdTYmY0U0lQY0lRZHZLME4z?=
+ =?utf-8?B?SnUwY21tcDUzWWFtaENBaW5IWitpR29qQjh4VWorVi9oTUd4Y0FLUjIyOTg3?=
+ =?utf-8?B?R1NiKzJ6Z2orWkdmL0pQajNtVUozbUFMcE82b09uY1Z1L2x0M1NWOXpDNGhO?=
+ =?utf-8?B?T2VvOGIrZW0vNk5uUVZaWEh4cnIzeTYyU01YY3VRZWQ5dlFjSHZPZDNHSkN6?=
+ =?utf-8?B?V0RyQVhRMTJPVWxsUGFlcE5heVlHb1lYc0xscDlpdXJEanRmZk1yZ256TTdO?=
+ =?utf-8?B?TWR4R3poRTB5T1ByRUFBR2tHdDhobFFIMW9oZ1Q2MDVxOUVFQzJYc3JiVDYw?=
+ =?utf-8?B?SWlyQmtrN3RmeGlpbG1WY2w0ZWNjcmV5eXpNZGtHNElqRGdnaGF6c3dBbUM0?=
+ =?utf-8?B?YVV5MWwrTm93WmREdlRoOEU3YnBMem1qakVubnlxM0JMVThsaW9nYVNYcVMx?=
+ =?utf-8?B?bXVtaElzcjhkaGlKa0NDdXk4cTJuWVZUamtkeUlhNllBVDdmek5aaDBvM2tJ?=
+ =?utf-8?B?ZVc5L3kzRWQvMEkxcFRPQjZOUW9sTlRBT0FUdVZZS05vQ3pld0E1SVBrVG5i?=
+ =?utf-8?B?YTBrTmQzNTd1SFY3cUhnR2kyWkt3azhpZFphYmJyK0FSRTlPRXlWRC82Rkw3?=
+ =?utf-8?B?citzRVBQenlPSUxWTGM3TU5oNHRXT1pFdmVJTDNuVTI1OWd3UTdJRmZvVGFS?=
+ =?utf-8?B?U3AvbVJadHMzc0hoT0tHQjdoa0hxK3ZkODRTWWlxOVd3YkF6UUpKYWtVTG5B?=
+ =?utf-8?B?bW5seE1xbHJDVlB4QmJLYTVMSjFBRXNWanpQYk9paFhzMk9ZSmhnZG5KeWRu?=
+ =?utf-8?B?MDdzalFrSHQwaktmcUJJRmFrTThqWWhpK1lQaU1rRWFsM0NEV2c0NmtlajFR?=
+ =?utf-8?B?RXFySDY3c2RqQmJRby9DQWR2ZDRxSGNsRU5BaWY1dHdsMllzdms2cVhqcERJ?=
+ =?utf-8?B?NkxxTzVWVTl5WjdKbW9xUjMyN1R6QnpDV3p3dTBlL0tuZUZ1cEYyc09Ua0xN?=
+ =?utf-8?B?UjRrckYvMi9xVHAzb2JxTkpxL1FyWTkwenNXd0lHNkliNWdTVDdUOUJJNU5L?=
+ =?utf-8?B?dFdGSWZaU21HWlBpWkp4VHljdE1pVTZMd1JiTWk4bmF1bWZ3WU1JdDBrL1JX?=
+ =?utf-8?B?Y0RJeDI2RFZzNWQ1aThiUndvUVBNS0RTNHRzZC9PZlRWQmZqbFkyekRLZEor?=
+ =?utf-8?B?OWxodFBFWm0vMkNwcC9EdEpNd0VDaGY1aXlBMWM5cjdSNHRmMXVMM1VDTFJv?=
+ =?utf-8?B?VHRBczg4cXI4RmpaejUwQW8veEk2NXVXa3NieklPaFZ6RTRHSi9YOEFrL1dZ?=
+ =?utf-8?B?YkJxV1c0YkM3anFGUkNSRVpHcWMzQlJrUjFpcFZpT2NtSFk1VkxEOW41ajJD?=
+ =?utf-8?B?bXlJSmQ2TTJKb3JVeCtua1VUc1FJTTU1RzJRK1hQL0R4MXZ6d1RVUmh4Mlhm?=
+ =?utf-8?B?c1ZxRE4rUEVmc3lud05FREIvemR4TzlBUnNnVWJGZzFXVi8wWG0wZmNPcVVn?=
+ =?utf-8?B?K0phZDZJWmlOcjJJalpJTXZrUVlFZWhRZGV0UU5nQjg2TmljUy8yK0lIbzY2?=
+ =?utf-8?B?R2xQQjVZQTBDU2dvdjFKcWRvTDQ0ODNwdmRpK1FtcjZFVnBKeTFwTVREMmxH?=
+ =?utf-8?B?alBERFNHSHhJcWlrSWZBODQ1cVlHWXlNZTUyWGRzWnQ1emdtb3hvaVFKWGFu?=
+ =?utf-8?Q?lXRlIjoJNn01zuhIX7H4O1c2dmt7ypd/8bp7o7o?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2021 03:25:46.2384 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f5fcdd53-d577-4bf8-0b79-08d95bae8aff
+X-MS-Exchange-CrossTenant-Network-Message-Id: f73fc385-7b09-4850-4476-08d95bb251d5
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5129.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2021 03:52:48.6575 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT038.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB5510
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3XwYcS3TWoCDrZP/k9YshOLM+bc+QJbSZ26mOQtFzDcCmweLlxvPx8gXajnbSTw8Px2G2glXzTH9k0nVArT8Hw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5067
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,149 +143,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Andrey,
+Am 2021-08-09 um 6:21 p.m. schrieb Philip Yang:
+> For xnack on, if range ACCESS or ACCESS_IN_PLACE (AIP) by single GPU, or
+> range is ACCESS_IN_PLACE by mGPUs and all mGPUs connection on xgmi same
+> hive, the best prefetch location is prefetch_loc GPU. Otherwise, the best
+> prefetch location is always CPU because GPU can not map vram of other
+> GPUs through small bar PCIe.
 
-The latest patch [PATCH v4] drm/amd/amdgpu embed hw_fence into
-amdgpu_job has been sent to amd-gfx. can you help review this patch?
+I don't think small-bar is really a factor here. Even with large-BAR,
+our P2P mappings are not coherent like XGMI mappings are. So we wouldn't
+be able to use P2P even on large-BAR systems. So I would modify this
+sentence:
 
-Best Regards,
-Jingwen
-On Tue Aug 10, 2021 at 10:51:17AM +0800, Jingwen Chen wrote:
-> On Mon Aug 09, 2021 at 12:24:37PM -0400, Andrey Grodzovsky wrote:
-> > 
-> > On 2021-08-05 4:31 a.m., Jingwen Chen wrote:
-> > > [Why]
-> > > After embeded hw_fence to amdgpu_job, we need to add tdr support
-> > > for this feature.
-> > > 
-> > > [How]
-> > > 1. Add a resubmit_flag for resubmit jobs.
-> > > 2. Clear job fence from RCU and force complete vm flush fences in
-> > >     pre_asic_reset
-> > > 3. skip dma_fence_get for resubmit jobs and add a dma_fence_put
-> > >     for guilty jobs.
-> > > v2:
-> > > use a job_run_counter in amdgpu_job to replace the resubmit_flag in
-> > > drm_sched_job. When the job_run_counter >= 1, it means this job is a
-> > > resubmit job.
-> > > 
-> > > Signed-off-by: Jack Zhang <Jack.Zhang7@hotmail.com>
-> > > Signed-off-by: Jingwen Chen <Jingwen.Chen2@amd.com>
-> > > ---
-> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 12 +++++++++++-
-> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c  | 13 +++++++++----
-> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    |  5 ++++-
-> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_job.h    |  3 +++
-> > >   4 files changed, 27 insertions(+), 6 deletions(-)
-> > > 
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > > index 9e53ff851496..ade2fa07a50a 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > > @@ -4447,7 +4447,7 @@ int amdgpu_device_mode1_reset(struct amdgpu_device *adev)
-> > >   int amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,
-> > >   				 struct amdgpu_reset_context *reset_context)
-> > >   {
-> > > -	int i, r = 0;
-> > > +	int i, j, r = 0;
-> > >   	struct amdgpu_job *job = NULL;
-> > >   	bool need_full_reset =
-> > >   		test_bit(AMDGPU_NEED_FULL_RESET, &reset_context->flags);
-> > > @@ -4471,6 +4471,16 @@ int amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,
-> > >   		if (!ring || !ring->sched.thread)
-> > >   			continue;
-> > > +		/*clear job fence from fence drv to avoid force_completion
-> > > +		 *leave NULL and vm flush fence in fence drv */
-> > > +		for (j = 0; j <= ring->fence_drv.num_fences_mask; j ++) {
-> > > +			struct dma_fence *old,**ptr;
-> > > +			ptr = &ring->fence_drv.fences[j];
-> > > +			old = rcu_dereference_protected(*ptr, 1);
-> > > +			if (old && test_bit(AMDGPU_FENCE_FLAG_EMBED_IN_JOB_BIT, &old->flags)) {
-> > > +				RCU_INIT_POINTER(*ptr, NULL);
-> > > +			}
-> > > +		}
-> > >   		/* after all hw jobs are reset, hw fence is meaningless, so force_completion */
-> > >   		amdgpu_fence_driver_force_completion(ring);
-> > >   	}
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> > > index 5e29d797a265..c9752cf794fb 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> > > @@ -159,10 +159,15 @@ int amdgpu_fence_emit(struct amdgpu_ring *ring, struct dma_fence **f, struct amd
-> > >   	}
-> > >   	seq = ++ring->fence_drv.sync_seq;
-> > > -	dma_fence_init(fence, &amdgpu_fence_ops,
-> > > -		       &ring->fence_drv.lock,
-> > > -		       adev->fence_context + ring->idx,
-> > > -		       seq);
-> > > +	if (job != NULL && job->job_run_counter) {
-> > > +		/* reinit seq for resubmitted jobs */
-> > > +		fence->seqno = seq;
-> > > +	} else {
-> > > +		dma_fence_init(fence, &amdgpu_fence_ops,
-> > > +				&ring->fence_drv.lock,
-> > > +				adev->fence_context + ring->idx,
-> > > +				seq);
-> > > +	}
-> > 
-> > 
-> > I think this should be in the first patch actually (and the counter too),
-> > without it the first patch is buggy.
-> > 
-> I was originally split these two patches by adding job submission
-> seqence and adding tdr sequence, But yes, I should merge these two
-> patches otherwise the tdr sequence will fail without second patch.
-> Will send a merged version today.
-> 
-> Best Regards,
-> Jingwen
-> > 
-> > >   	if (job != NULL) {
-> > >   		/* mark this fence has a parent job */
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> > > index 65a395060de2..19b13a65c73b 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> > > @@ -254,6 +254,7 @@ static struct dma_fence *amdgpu_job_run(struct drm_sched_job *sched_job)
-> > >   		dma_fence_set_error(finished, -ECANCELED);/* skip IB as well if VRAM lost */
-> > >   	if (finished->error < 0) {
-> > > +		dma_fence_put(&job->hw_fence);
-> > 
-> > 
-> > Would put this check bellow with the job_run_counter check
-> > 
-> > 
-> > >   		DRM_INFO("Skip scheduling IBs!\n");
-> > >   	} else {
-> > >   		r = amdgpu_ib_schedule(ring, job->num_ibs, job->ibs, job,
-> > > @@ -262,7 +263,9 @@ static struct dma_fence *amdgpu_job_run(struct drm_sched_job *sched_job)
-> > >   			DRM_ERROR("Error scheduling IBs (%d)\n", r);
-> > >   	}
-> > > -	dma_fence_get(fence);
-> > > +	if (!job->job_run_counter)
-> > > +		dma_fence_get(fence);
-> > > +	job->job_run_counter ++;
-> > >   	amdgpu_job_free_resources(job);
-> > 
-> > 
-> > Here you  modify code you already changed in patch 1, looks to me
-> > like those 2 patches should be squashed into one patch as the changes are
-> > directly dependent and it's hard to follow
-> > 
-> > Andrey
-> > 
-> > 
-> > >   	fence = r ? ERR_PTR(r) : fence;
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
-> > > index 92324c978534..1fa667f245e1 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
-> > > @@ -64,6 +64,9 @@ struct amdgpu_job {
-> > >   	/* user fence handling */
-> > >   	uint64_t		uf_addr;
-> > >   	uint64_t		uf_sequence;
-> > > +
-> > > +	/* job_run_counter >= 1 means a resubmit job */
-> > > +	uint32_t		job_run_counter;
-> > >   };
-> > >   int amdgpu_job_alloc(struct amdgpu_device *adev, unsigned num_ibs,
+> Otherwise, the best
+> prefetch location is always CPU because GPU can not coherently map vram
+> of other GPUs through PCIe.
+
+
+>
+> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 35 +++++++++++++++-------------
+>  1 file changed, 19 insertions(+), 16 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> index f811a3a24cd2..5bd51a15fb00 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> @@ -2719,22 +2719,26 @@ svm_range_add(struct kfd_process *p, uint64_t start, uint64_t size,
+>  	return 0;
+>  }
+>  
+> -/* svm_range_best_prefetch_location - decide the best prefetch location
+> +/**
+> + * svm_range_best_prefetch_location - decide the best prefetch location
+>   * @prange: svm range structure
+>   *
+>   * For xnack off:
+> - * If range map to single GPU, the best acutal location is prefetch loc, which
+> + * If range map to single GPU, the best prefetch location is prefetch_loc, which
+>   * can be CPU or GPU.
+>   *
+> - * If range map to multiple GPUs, only if mGPU connection on xgmi same hive,
+> - * the best actual location could be prefetch_loc GPU. If mGPU connection on
+> - * PCIe, the best actual location is always CPU, because GPU cannot access vram
+> - * of other GPUs, assuming PCIe small bar (large bar support is not upstream).
+> + * If range is ACCESS or ACCESS_IN_PLACE by mGPUs, only if mGPU connection on
+> + * XGMI same hive, the best prefetch location is prefetch_loc GPU, othervise
+> + * the best prefetch location is always CPU, because GPU can not map vram of
+> + * other GPUs, assuming PCIe small bar (large bar support is not upstream).
+
+Same as above. With that fixed, the patch is
+
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+
+
+>   *
+>   * For xnack on:
+> - * The best actual location is prefetch location. If mGPU connection on xgmi
+> - * same hive, range map to multiple GPUs. Otherwise, the range only map to
+> - * actual location GPU. Other GPU access vm fault will trigger migration.
+> + * If range is not ACCESS_IN_PLACE by mGPUs, the best prefetch location is
+> + * prefetch_loc, other GPU access will generate vm fault and trigger migration.
+> + *
+> + * If range is ACCESS_IN_PLACE by mGPUs, only if mGPU connection on XGMI same
+> + * hive, the best prefetch location is prefetch_loc GPU, otherwise the best
+> + * prefetch location is always CPU, because GPU cannot map vram of other GPUs.
+>   *
+>   * Context: Process context
+>   *
+> @@ -2754,11 +2758,6 @@ svm_range_best_prefetch_location(struct svm_range *prange)
+>  
+>  	p = container_of(prange->svms, struct kfd_process, svms);
+>  
+> -	/* xnack on */
+> -	if (p->xnack_enabled)
+> -		goto out;
+> -
+> -	/* xnack off */
+>  	if (!best_loc || best_loc == KFD_IOCTL_SVM_LOCATION_UNDEFINED)
+>  		goto out;
+>  
+> @@ -2768,8 +2767,12 @@ svm_range_best_prefetch_location(struct svm_range *prange)
+>  		best_loc = 0;
+>  		goto out;
+>  	}
+> -	bitmap_or(bitmap, prange->bitmap_access, prange->bitmap_aip,
+> -		  MAX_GPU_INSTANCE);
+> +
+> +	if (p->xnack_enabled)
+> +		bitmap_copy(bitmap, prange->bitmap_aip, MAX_GPU_INSTANCE);
+> +	else
+> +		bitmap_or(bitmap, prange->bitmap_access, prange->bitmap_aip,
+> +			  MAX_GPU_INSTANCE);
+>  
+>  	for_each_set_bit(gpuidx, bitmap, MAX_GPU_INSTANCE) {
+>  		pdd = kfd_process_device_from_gpuidx(p, gpuidx);
