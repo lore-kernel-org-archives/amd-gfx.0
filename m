@@ -2,110 +2,71 @@ Return-Path: <SRS0=kf8h=NB=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-4.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AE8C7C4338F
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Aug 2021 04:43:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 49421C4338F
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Aug 2021 06:56:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5CF5560E78
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Aug 2021 04:43:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5CF5560E78
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 115CA60720
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Aug 2021 06:56:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 115CA60720
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ABC83899AB;
-	Tue, 10 Aug 2021 04:43:18 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2062.outbound.protection.outlook.com [40.107.243.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88261898F5
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Aug 2021 04:43:17 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LMo0662C6zR8wo2+78JPafbhECwhzAlp1jRE/p7ro58dSWayVMfVt5BeBxbK9rhkL+x1eHXmZOM2uRuPukyjd8w+5oukg/XIt3mtewcqQx44k2O0ROFd90Tt8wepVaSZiikttuQpF/5e76b5oc+x5+wLiP7qZ0wvcE1Y5G/3S7YafNZeQRryIcNEidmAsEkPWM5bfURDgATQkYGOf4zuQ6SKIWcXeQdy9KRxgsEipHYhFIWnFG/ZWY4s3nl1vxmmLN3lqQ8FjtosUzWJjHFUVhQSj3D82G65yl/kNoHziymYKk8YGXx9mVa6ANYHMrmWgovK3K6oUcgBgL5fRvl19A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=URwJdp5DubuVN2RxcOdUo2uNcI010CjL85dmUHOKBCA=;
- b=P/XE8CmsegLRZqnGuOmkz8K8lovtHPJFZQMg0PnNaGrXIhMalhWnu0QGI+VMBNLvC4bSs0W06ZRHuoSjZP92ZP86Gh+ybJOGTcZEiBWnx2A/P+wI5OSlQB4oSdRD7SDMVQZXwYfLwagXu6KnNRb3hpxvUDgxeYFr+4NV3AHMx8j9T8UzbQ3Tt72jsEfrKHnqI8h4Vs0SATAfEnWE5tutJpU5T2Lo2xzJTe6igkyD7eF7k/pcKwPWsMYyY04JLKqFhlThEIiezkT/+BvTQ37PlX9oSGLEzgXiKJIHrFYT5WyS4EKyuN9Xq7t7WNZMXhTvoq1IcGFOV7HLn4iqlZ4caA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=URwJdp5DubuVN2RxcOdUo2uNcI010CjL85dmUHOKBCA=;
- b=s7XujSd1fV4CHn79eqCPiRXgx402jM3oNw9KzLbvrLcZnyluiSomF1OyucHtA93KguDG3m/cUNLW/P7AI01JGj74AGCR8/DttvxEImqc0WlxcFllpySr9ymv0wZ+7S0MyZoon2lmMviXn+hfEa+XtOsjpURusAx1sQ/jmDK46hM=
-Received: from DM5PR17CA0066.namprd17.prod.outlook.com (2603:10b6:3:13f::28)
- by MN2PR12MB3760.namprd12.prod.outlook.com (2603:10b6:208:158::33) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4394.22; Tue, 10 Aug
- 2021 04:43:15 +0000
-Received: from DM6NAM11FT006.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:13f:cafe::a1) by DM5PR17CA0066.outlook.office365.com
- (2603:10b6:3:13f::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4394.16 via Frontend
- Transport; Tue, 10 Aug 2021 04:43:15 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT006.mail.protection.outlook.com (10.13.173.104) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4394.16 via Frontend Transport; Tue, 10 Aug 2021 04:43:14 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Mon, 9 Aug
- 2021 23:43:14 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Mon, 9 Aug
- 2021 23:43:14 -0500
-Received: from yifan.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2242.12 via Frontend
- Transport; Mon, 9 Aug 2021 23:43:13 -0500
-From: Yifan Zhang <yifan1.zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Felix.Kuehling@amd.com>, Yifan Zhang <yifan1.zhang@amd.com>
-Subject: [PATCH] drm/amdkfd: fix random KFDSVMRangeTest.SetGetAttributesTest
- test failure
-Date: Tue, 10 Aug 2021 12:43:10 +0800
-Message-ID: <20210810044310.3805858-1-yifan1.zhang@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81C6F89F03;
+	Tue, 10 Aug 2021 06:56:00 +0000 (UTC)
+Received: from mail-qt1-x833.google.com (mail-qt1-x833.google.com
+ [IPv6:2607:f8b0:4864:20::833])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22C58898F5
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 Aug 2021 04:45:31 +0000 (UTC)
+Received: by mail-qt1-x833.google.com with SMTP id w10so14502318qtj.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 09 Aug 2021 21:45:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=JP5HzsVfGjKPzrxvK0ptYPFHVZwktnLilwL98CGYBnY=;
+ b=CiGCgex0ru1ueqRuTNvsM0kvDbCIsVNxM94gCT1YF0gH0HILRJK+z7nFaGzHbZaas7
+ l1QN12DcpmmkbgGhUEFEy9GFiQTlJQbN2Kub8UfY3b65YM5Di2DW98Zjw7aUbqOyAvWX
+ YzLXbFD1XBLjPn6/gWVabb31WtUb/fVOO7Qs2afzBWUGeWOLBFs+S7JzxaFANRfm/EXv
+ 8E8ZbXomrewBZeAAtY9eulh9TlTxHSfszaFv8J7fFADGZZ1HmpBzEL2DO+Tqj6rNqyx5
+ 0tytb/dxsw97HxfbZS3jTJxb0HDHeXX5GK8nUCJYUQbMBp46gf1S6/d644SSF3A2Cz8A
+ 8BLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=JP5HzsVfGjKPzrxvK0ptYPFHVZwktnLilwL98CGYBnY=;
+ b=DEAElY+hGy5HySs/flvlTvzjZlIjrFEX7e2U8i7d4wq5WgMsjyrXbXL0xRMKo6W6Lj
+ yswlGu9qF1OcKT21d9RdQhrOGihlJ95pgjiPoZGDxR1gA0OwCE15h0f/UGGZ9hzuUY57
+ 99sm9Su5cXDQP9UkNn3Jy014HFLP2xnATHzuspAjhmm/16bPWNnA6oZkWLhbIy3WwgV8
+ Qw6/CmCt5oflo99M2oaGdaXpHavldkaoW6bNBO4BP8pbYyt03hGt6NzS5Gp2Ttl+UqPh
+ rU6d0jXNwvq6w9WvrfFyPmuyjvLNJWpMcurR2MNtJUXs9S3dy/6aR+6KbZFyxv8iVwKw
+ RxcQ==
+X-Gm-Message-State: AOAM532hbdwmQ1R4qXv5HiMp0W7pzfQGV/rgDnIgmYQaSNOTQIWuNe5L
+ uAA6gTBI7scwyEJbK2jJ3OqlBAvu2aTpqnUJkYM=
+X-Google-Smtp-Source: ABdhPJwqIuWu/n1Cnu7F9ejAuhoZAXAG3w/rPZeZHyt+LuIujzQ9suNZqG/os9wZwcFtVVSn2rptEgrw6mnZGUMxuyo=
+X-Received: by 2002:ac8:7d0c:: with SMTP id g12mr23661710qtb.152.1628570730057; 
+ Mon, 09 Aug 2021 21:45:30 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 8bcc04f8-8c80-4e6b-762e-08d95bb95dc2
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3760:
-X-Microsoft-Antispam-PRVS: <MN2PR12MB37605AC658E1DBC166E5D76FC1F79@MN2PR12MB3760.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:773;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: h/6I0MquYXifyftpMr5sOQfdZ0oqsfADK4F9nXNDP76U/kxUWCeNsL0zAfaZ5ndF3WYl/ZruGKB8FUd0RiKINgIjr5tEGixroobj6k8DTh+nCm7eLe/BD9xvLqWGg3z0EaeTz9iU4R6F+t0E1tMnCiI2btrzzLCIK2j9pXe1y29mkr3+nitWYMv1wloPDqR+cqDoRLMmzWinClSG8FlkLeEa3CYllD5RBu1MBoHCumw6YEJ7fgBkshvvVqMBpkQQ1WEIXrjkb7Wb990RMP+Te7sBEc46chOHGDlxYYC9tEoYwVrxW+ZHc+b7UfHq7aBie+PlhEcZSMt+uSaVnPn8vm068xSy5MPH8ztFCc3eH1hKR+CPeUxoySMfhhtlrgWpeJ4UasdRqF7maBa2FnbBDhkUhZJLCO0NyJdf72gAIDwMwEB9DoU02RMuU0fQEWsxuo7DLD3EXiaOEvrIvORCFqFJXp00cVJ2VNdFxgd6NSbsQJA864XLBIW/cuIdrZgADFYswVN8lsEhu4zVLu+iUrlKyfXXMwkXpHqY0ba4odJLMVf9SNqJhoIzT9XGfGNbxyBrEgCnkPfX4kgQXgrNb7QW45lNezpcNKyzwlT6ndPPBsxDdp4yjMT1Feu9hoPC5FFeDPC7CqpJ7VcwP6rLNJ4bgSMrNKDAVbpONMdQt3NdjRYPidfprMNBhlEulZx3j7atICFgzWFR16+YLUzCwfnbZmkJxR5dt5eXk/Xn9jSHxAqHjPe1A8+BndvpL8K8+QlMTh8P1eK+oFO2OB3w7g==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(82310400003)(1076003)(7696005)(36756003)(2906002)(47076005)(8676002)(336012)(8936002)(508600001)(356005)(26005)(36860700001)(186003)(83380400001)(6916009)(316002)(426003)(54906003)(4326008)(2616005)(81166007)(5660300002)(34020700004)(86362001)(70586007)(70206006)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2021 04:43:14.8759 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8bcc04f8-8c80-4e6b-762e-08d95bb95dc2
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT006.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3760
+References: <CAJB-X+V5SLikZgkesXCoQ=EufSbj6ABLxKEtO71OSRwyJ1175Q@mail.gmail.com>
+ <CAJB-X+Xh1F_7WBvSDOJrtHYZX4YN4WRnLNnrqEG-zPC3h0HEwg@mail.gmail.com>
+ <CADnq5_OXvhKajHW6yKde6mQHy=B3RZN4BYV-FYdnzNOoObqH+g@mail.gmail.com>
+In-Reply-To: <CADnq5_OXvhKajHW6yKde6mQHy=B3RZN4BYV-FYdnzNOoObqH+g@mail.gmail.com>
+From: Mario Limonciello <superm1@gmail.com>
+Date: Mon, 9 Aug 2021 23:45:18 -0500
+Message-ID: <CA+EcB1MYQOBypQN6Ktdu52sfqg1N-sfzurSeTQDW1kPz9H+iUw@mail.gmail.com>
+Subject: Re: Req: about Polaris with RKL platform
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Koba Ko <koba.ko@canonical.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, 
+ Anthony Wong <anthony.wong@canonical.com>
+Content-Type: multipart/alternative; boundary="000000000000db551605c92d2b81"
+X-Mailman-Approved-At: Tue, 10 Aug 2021 06:55:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,57 +81,124 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-KFDSVMRangeTest.SetGetAttributesTest randomly fails in stress test.
+--000000000000db551605c92d2b81
+Content-Type: text/plain; charset="UTF-8"
 
-Note: Google Test filter = KFDSVMRangeTest.*
-[==========] Running 18 tests from 1 test case.
-[----------] Global test environment set-up.
-[----------] 18 tests from KFDSVMRangeTest
-[ RUN      ] KFDSVMRangeTest.BasicSystemMemTest
-[       OK ] KFDSVMRangeTest.BasicSystemMemTest (30 ms)
-[ RUN      ] KFDSVMRangeTest.SetGetAttributesTest
-[          ] Get default atrributes
-/home/yifan/brahma/libhsakmt/tests/kfdtest/src/KFDSVMRangeTest.cpp:154: Failure
-Value of: expectedDefaultResults[i]
-  Actual: 4294967295
-Expected: outputAttributes[i].value
-Which is: 0
-/home/yifan/brahma/libhsakmt/tests/kfdtest/src/KFDSVMRangeTest.cpp:154: Failure
-Value of: expectedDefaultResults[i]
-  Actual: 4294967295
-Expected: outputAttributes[i].value
-Which is: 0
-/home/yifan/brahma/libhsakmt/tests/kfdtest/src/KFDSVMRangeTest.cpp:152: Failure
-Value of: expectedDefaultResults[i]
-  Actual: 4
-Expected: outputAttributes[i].type
-Which is: 2
-[          ] Setting/Getting atrributes
-[  FAILED  ]
+On Mon, Aug 9, 2021 at 9:37 AM Alex Deucher <alexdeucher@gmail.com> wrote:
 
-the root cause is that svm work queue has not finished when svm_range_get_attr is called, thus
-some garbage svm interval tree data make svm_range_get_attr get wrong result. Flush work queue before
-iterate svm interval tree.
+> On Mon, Aug 9, 2021 at 9:59 AM Koba Ko <koba.ko@canonical.com> wrote:
+> >
+> > Previously, AMD had an issue about noise  with AMD-DG on the RKL platform
+> > AMD provided a parameter.
+> > #modprobe amdgpu ppfeaturemask=0xfff7bffb
+> >
+> >  I thought it's better to check and assign values in amd gpu.
+> > Have a trouble determining the type of pch(RKL or else),
+> > search in amd drm driver and can't find any about this.
+> > Would someone please guide me? if there's an existing function.
+> >
+> > here's a proposal, check RKL PCH in amd driver,
+> > the pch definitions must be splitted off from intel_pch.h in i915
+> > folder to include/drm/intel_pch_definition.h
+>
+> Yes, something like that would work.
+>
 
-Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 3 +++
- 1 file changed, 3 insertions(+)
+Can the issue that prompted this also happen with other ASIC with the
+newer SMU families?  If so, should it probably be added to all of them
+or further up in the code where the mask normally gets set from module
+parameters to add the extra check there.
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index f811a3a24cd2..192e9401bed5 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -3072,6 +3072,9 @@ svm_range_get_attr(struct kfd_process *p, uint64_t start, uint64_t size,
- 	pr_debug("svms 0x%p [0x%llx 0x%llx] nattr 0x%x\n", &p->svms, start,
- 		 start + size - 1, nattr);
- 
-+	/* flush pending deferred work */
-+	flush_work(&p->svms.deferred_list_work);
-+
- 	mmap_read_lock(mm);
- 	r = svm_range_is_valid(p, start, size);
- 	mmap_read_unlock(mm);
+
+> Alex
+>
+>
+> >
+> > > --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+> > > +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+> > > @@ -1629,7 +1629,7 @@ static void smu7_init_dpm_defaults(struct
+> pp_hwmgr *hwmgr)
+> > >
+> > >         data->mclk_dpm_key_disabled = hwmgr->feature_mask &
+> PP_MCLK_DPM_MASK ? false : true;
+> > >         data->sclk_dpm_key_disabled = hwmgr->feature_mask &
+> PP_SCLK_DPM_MASK ? false : true;
+> > > -       data->pcie_dpm_key_disabled = hwmgr->feature_mask &
+> PP_PCIE_DPM_MASK ? false : true;
+> > > +       data->pcie_dpm_key_disabled = is_rkl_pch() ||
+> !(hwmgr->feature_mask & PP_PCIE_DPM_MASK);
+> > >         /* need to set voltage control types before EVV patching */
+> > >         data->voltage_control = SMU7_VOLTAGE_CONTROL_NONE;
+> > >         data->vddci_control = SMU7_VOLTAGE_CONTROL_NONE;
+>
+
+
 -- 
-2.25.1
+Mario Limonciello
+superm1@gmail.com
 
+--000000000000db551605c92d2b81
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
+<div dir=3D"ltr" class=3D"gmail_attr">On Mon, Aug 9, 2021 at 9:37 AM Alex D=
+eucher &lt;<a href=3D"mailto:alexdeucher@gmail.com">alexdeucher@gmail.com</=
+a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0p=
+x 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On=
+ Mon, Aug 9, 2021 at 9:59 AM Koba Ko &lt;<a href=3D"mailto:koba.ko@canonica=
+l.com" target=3D"_blank">koba.ko@canonical.com</a>&gt; wrote:<br>
+&gt;<br>
+&gt; Previously, AMD had an issue about noise=C2=A0 with AMD-DG on the RKL =
+platform<br>
+&gt; AMD provided a parameter.<br>
+&gt; #modprobe amdgpu ppfeaturemask=3D0xfff7bffb<br>
+&gt;<br>
+&gt;=C2=A0 I thought it&#39;s better to check and assign values in amd gpu.=
+<br>
+&gt; Have a trouble determining the type of pch(RKL or else),<br>
+&gt; search in amd drm driver and can&#39;t find any about this.<br>
+&gt; Would someone please guide me? if there&#39;s an existing function.<br=
+>
+&gt;<br>
+&gt; here&#39;s a proposal, check RKL PCH in amd driver,<br>
+&gt; the pch definitions must be splitted off from intel_pch.h in i915<br>
+&gt; folder to include/drm/intel_pch_definition.h<br>
+<br>
+Yes, something like that would work.<br></blockquote><div><br></div><div>Ca=
+n the issue that prompted this also happen with other ASIC with the</div><d=
+iv>newer SMU families?=C2=A0 If so, should it probably be added to all of t=
+hem</div><div>or further=C2=A0up in the code where the mask normally gets s=
+et from module</div><div>parameters to add the extra check there.</div><div=
+><br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.=
+8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+<br>
+Alex<br>
+<br>
+<br>
+&gt;<br>
+&gt; &gt; --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c<br>
+&gt; &gt; +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c<br>
+&gt; &gt; @@ -1629,7 +1629,7 @@ static void smu7_init_dpm_defaults(struct p=
+p_hwmgr *hwmgr)<br>
+&gt; &gt;<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0data-&gt;mclk_dpm_key_disabled =
+=3D hwmgr-&gt;feature_mask &amp; PP_MCLK_DPM_MASK ? false : true;<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0data-&gt;sclk_dpm_key_disabled =
+=3D hwmgr-&gt;feature_mask &amp; PP_SCLK_DPM_MASK ? false : true;<br>
+&gt; &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0data-&gt;pcie_dpm_key_disabled =3D hw=
+mgr-&gt;feature_mask &amp; PP_PCIE_DPM_MASK ? false : true;<br>
+&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0data-&gt;pcie_dpm_key_disabled =3D is=
+_rkl_pch() || !(hwmgr-&gt;feature_mask &amp; PP_PCIE_DPM_MASK);<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* need to set voltage control t=
+ypes before EVV patching */<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0data-&gt;voltage_control =3D SMU=
+7_VOLTAGE_CONTROL_NONE;<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0data-&gt;vddci_control =3D SMU7_=
+VOLTAGE_CONTROL_NONE;<br>
+</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
+ class=3D"gmail_signature"><span style=3D"font-size:x-small"><font color=3D=
+"#666666">Mario Limonciello<br><a href=3D"mailto:superm1@gmail.com" target=
+=3D"_blank">superm1@gmail.com</a></font></span></div></div>
+
+--000000000000db551605c92d2b81--
