@@ -7,48 +7,48 @@ X-Spam-Status: No, score=-19.7 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E7B4AC19F39
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Aug 2021 14:16:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ACD86C4338F
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Aug 2021 14:16:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9564D61075
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Aug 2021 14:16:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9564D61075
+	by mail.kernel.org (Postfix) with ESMTPS id 73ED4610A3
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Aug 2021 14:16:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 73ED4610A3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B03656E043;
-	Tue, 10 Aug 2021 14:16:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13D4089FFD;
+	Tue, 10 Aug 2021 14:16:25 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 736D96E043;
- Tue, 10 Aug 2021 14:16:05 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 5638F61052;
- Tue, 10 Aug 2021 14:16:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D38089E05;
+ Tue, 10 Aug 2021 14:16:23 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 73394610A0;
+ Tue, 10 Aug 2021 14:16:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1628604965;
- bh=mhIoMzYbjb/1U29H3wpL1LFN0+mfiljrq3FStpfedtg=;
+ s=k20201202; t=1628604983;
+ bh=8bwAjELKBHfEtCgO7fakYsnNJbvNAarkcSTfOot+Cqo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=iHMcfMIDpGJvuYBxyhJqw5CYCUKSl9Ga43l2yy5Y0j/7H+rHy2vhdFdAtP+Qc3tce
- qPo0ed+4JIEqOy3bRXLZ+9cyGUvJq/Z75InspOfn5IcAwO8eNNmkaWHqFuOryaLhcW
- wCQIFflx5h6XGG/vDaS9oWvAtA2nVTMjSGgVb11Pmm1ACVtJCt7rhBDNLbGK6okJCE
- 9AfDE2BByI+tq/yTZBAUR/k6a9VCd/qqUr6qD7ea6NVQBFciFprd0gQ2tAhDsLk7eh
- o01T087FBeREhguXKtcll2aM4ppMyYNUTmT/oQ2KU2kHR4bCwzO+W/zylDzyl+rIau
- uPryfeZ7wbBJA==
+ b=Bu8mEwjZ+YB5IONaVHmzayYhruIUohZivSxkpTcRtu+jAfB1qRFbw6HEifBeIdhex
+ 9PhIoUls8mQwBOBv8oNR54yFXfDvNz8Xy/dPkbJ9RojSzuMVtHva+XwYm31blOsDkD
+ J1b/rNpk+3X+GJia5yCSRfEWos9CTQTPtmzJUIqRH4lODD8KjdMlx08QDIl/nE5wLn
+ RRN4SrjcyZcGJYSsoF5zOPMydb+/J8kavXSqNuTCVZxwo9LtpPCBhw+tJm2pVEGnIX
+ s+sMo7EwWizeDZfF51Ehpb0Kfb7KwCslrw8JGIoqi4LUCaaq2RWbavMRFI71wvPg84
+ Mnk7cAHq34+cA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Qingqing Zhuo <qingqing.zhuo@amd.com>, Hersen Wu <hersenxs.wu@amd.com>,
+Cc: Bing Guo <bing.guo@amd.com>, Martin Leung <martin.leung@amd.com>,
  Aurabindo Pillai <aurabindo.pillai@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 5.10 20/20] drm/amd/display: workaround for hard hang
- on HPD on native DP
-Date: Tue, 10 Aug 2021 10:15:38 -0400
-Message-Id: <20210810141538.3117707-20-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 13/13] drm/amd/display: Fix Dynamic bpp issue with
+ 8K30 with Navi 1X
+Date: Tue, 10 Aug 2021 10:16:05 -0400
+Message-Id: <20210810141606.3117932-13-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210810141538.3117707-1-sashal@kernel.org>
-References: <20210810141538.3117707-1-sashal@kernel.org>
+In-Reply-To: <20210810141606.3117932-1-sashal@kernel.org>
+References: <20210810141606.3117932-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -67,47 +67,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Qingqing Zhuo <qingqing.zhuo@amd.com>
+From: Bing Guo <bing.guo@amd.com>
 
-[ Upstream commit c4152b297d56d3696ad0a9003169bc5b98ad7b72 ]
+[ Upstream commit 06050a0f01dbac2ca33145ef19a72041206ea983 ]
 
-[Why]
-HPD disable and enable sequences are not mutually exclusive
-on Linux. For HPDs that spans over 1s (i.e. HPD low = 1s),
-part of the disable sequence (specifically, a request to SMU
-to lower refclk) could come right before the call to PHY
-enable, causing DMUB to access an unresponsive PHY
-and thus a hard hang on the system.
+Why:
+In DCN2x, HW doesn't automatically divide MASTER_UPDATE_LOCK_DB_X
+by the number of pipes ODM Combined.
 
-[How]
-Disable 48mhz refclk off on native DP.
+How:
+Set MASTER_UPDATE_LOCK_DB_X to the value that is adjusted by the
+number of pipes ODM Combined.
 
-Reviewed-by: Hersen Wu <hersenxs.wu@amd.com>
+Reviewed-by: Martin Leung <martin.leung@amd.com>
 Acked-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Signed-off-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
+Signed-off-by: Bing Guo <bing.guo@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
-index 1c6e401dd4cc..0eba391e597f 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
-@@ -66,9 +66,11 @@ int rn_get_active_display_cnt_wa(
- 	for (i = 0; i < context->stream_count; i++) {
- 		const struct dc_stream_state *stream = context->streams[i];
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c
+index 8d5cfd5357c7..03e207333953 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c
+@@ -362,7 +362,7 @@ void optc2_lock_doublebuffer_enable(struct timing_generator *optc)
  
-+		/* Extend the WA to DP for Linux*/
- 		if (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A ||
- 				stream->signal == SIGNAL_TYPE_DVI_SINGLE_LINK ||
--				stream->signal == SIGNAL_TYPE_DVI_DUAL_LINK)
-+				stream->signal == SIGNAL_TYPE_DVI_DUAL_LINK ||
-+				stream->signal == SIGNAL_TYPE_DISPLAY_PORT)
- 			tmds_present = true;
- 	}
- 
+ 	REG_UPDATE_2(OTG_GLOBAL_CONTROL1,
+ 			MASTER_UPDATE_LOCK_DB_X,
+-			h_blank_start - 200 - 1,
++			(h_blank_start - 200 - 1) / optc1->opp_count,
+ 			MASTER_UPDATE_LOCK_DB_Y,
+ 			v_blank_start - 1);
+ }
 -- 
 2.30.2
 
