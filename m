@@ -2,74 +2,132 @@ Return-Path: <SRS0=kf8h=NB=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 644DDC4338F
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Aug 2021 15:09:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 71C8BC4338F
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Aug 2021 15:56:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2403260F25
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Aug 2021 15:09:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2403260F25
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 31ACA60ED8
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Aug 2021 15:56:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 31ACA60ED8
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ADBCF89E7B;
-	Tue, 10 Aug 2021 15:09:49 +0000 (UTC)
-Received: from mail-oi1-x234.google.com (mail-oi1-x234.google.com
- [IPv6:2607:f8b0:4864:20::234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 831DF89E7B
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Aug 2021 15:09:48 +0000 (UTC)
-Received: by mail-oi1-x234.google.com with SMTP id u25so29249885oiv.5
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Aug 2021 08:09:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=liJrzWlBijedqRsDtvXgIMyCLIJ7QSzaeJwdfq7yNoU=;
- b=pwcvOeC3oHKNTK4C6Bws54fgLeOQLWMsYm+OXxq5/aDOR5aix38D+pNBcbIiAs55zH
- tnWyREYYFg6z+Xt8ujubAv1j7gOpWuCkqfoHEowxb4i+7giNrmlohfBXR35rCqtSp3lE
- MMU1NVceve+Zs94TS/J6tJRd7IUMx6naVfQymn2AEMoDfzGNJ7ciij+Ne/KUi2mtsG9U
- fiDgaEne0in9/gD67dwm3qnfxi+j0c/GojKkmlpUao2802ZXZxeq2kwKwPtdQ6PiIeOZ
- RiNHT3u+MKrA7ifhe2wnhHVepxBVq/PKZAF/NChia/K7hhIUhkClP1jbgeJ6vRRJTiL9
- N+Gw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=liJrzWlBijedqRsDtvXgIMyCLIJ7QSzaeJwdfq7yNoU=;
- b=M8eAcft6KZA/1ghPyWfrbJBX6Fm2RD9n4NWRy3BdjUMZl77Np2PjTYqnEZLPVM62qD
- 5pc0mHq8ewb3PdZHSoztRXh9TclrBjbPvefNVZknXj2EH1rBj3I7FyEyNmrh1YBXFkHw
- rfz1DUSWtD4hATV3PemfJ+xnA6OKeOB90Yy7n9AI2CrfSn1zsnA17Tz3Y1kVwWkuVYB9
- L1zC3prLK44E7jVFY9x1O3MjBkCso5n/+eAADtzDdEUKrIRhxeTNoteNTe3Da0dWyvvS
- EM7dfCw8hnXlHAR7uoZLUO8UwXBTo3HbspXeVmsBfAziTHpLYYk4+VyETjjv9ALCJAbY
- BZYQ==
-X-Gm-Message-State: AOAM533oJmBVhzThAXnusmM9b9LacvxJiW9qk0/lkDiwuf9PlDkABbUq
- XWC76aizLJK9w/7UuuJ07/kuweZXrHUG8vh6jRU=
-X-Google-Smtp-Source: ABdhPJyyAP6WZzqEZN8skze0THRzB9cXJ3FvrPdB/K2XDvToo44PBP4Uz25JroGwAf1QDSC4Evm10lVO1bGeHUfgek8=
-X-Received: by 2002:a05:6808:1390:: with SMTP id
- c16mr20482029oiw.123.1628608187598; 
- Tue, 10 Aug 2021 08:09:47 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA7E0897DC;
+	Tue, 10 Aug 2021 15:56:51 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2072.outbound.protection.outlook.com [40.107.92.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 65D14897DC
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 Aug 2021 15:56:50 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=lH1XZ58g3nUnENgxCdYz95KPrD9Kmhu3OIg0w358UQpKUO/YN4KEJIXgcIt79olH/+7HmYfpQijIhApmltDk3T5MLQUhA98PBxFBThv/7Ty0akgF9aVcBMz5blaawP1TOIW3BvY5xVOo4bpIBfdrydworfBYDy/8SlZZgoXl6t8ZZC3x+zUIjiIPK5iKxrJr7ThF02+PP5nPLV6QtsXw6otQJVwhuYyHOc5zZnMa0WH82TbhtwsulzjmfIIHc6TkT/Td/B1KZUwI2fYD6fdTQDKtWSuVglrIagDxWeNQs/NZCQG8oTzQzNYxIfWH1f3bSSfByAQAV8ZvPg5Qo12Oww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7TGy1ORdsPnySlxvk9mnyKiYL5ryyDVytSjuOoILI3s=;
+ b=duqoPnY+qz+Ed+eN43Qwqs/OCmQ8k0EsNPzL/MknT6K9ZaCn6n3EqDH7KMcHlUzjoJpk3T5douwcexUaSi0q2Nn70FQ/fUuG0M06C/g5JMTrLdHO0U61xfuUuAr7xIwSxDb8BaPdp8OqVTAE2QBxXeoC801P01WIEbDUURdCuqX79Q8wbNindEfTAi6hVxQOLghrKBwdGtDYnT2wp2O/jgJpGeu7vEGB6t+ySD0o5aGYzBCMoky1GEZl9loHrCE576dn0VZcLsRjV7exp5+d0ntrEMy9CyzUW8jyA6VyJO4xCo/TxjD7KFZMOPEQ6hEE7R0qymz8H2QJv7TiDCGjJg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7TGy1ORdsPnySlxvk9mnyKiYL5ryyDVytSjuOoILI3s=;
+ b=VdZFbiIZRtofc0L6s30tiz5DoD+acVjZFf2L06lIg+RDziSRVGSmCbR83r9HtB1RvDrFDotAQT0MYYU34gCOMg8Qe3jhjSltmkv9NWVxp+xEbvxsJ+DbFAm2SOGF0oFAHRFRoB+aH4RPSz9uaq2EJJJbuBO6O6lboiI+QbvpUqA=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5129.namprd12.prod.outlook.com (2603:10b6:408:136::12)
+ by BN9PR12MB5356.namprd12.prod.outlook.com (2603:10b6:408:105::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4394.20; Tue, 10 Aug
+ 2021 15:56:48 +0000
+Received: from BN9PR12MB5129.namprd12.prod.outlook.com
+ ([fe80::b891:a906:28f0:fdb]) by BN9PR12MB5129.namprd12.prod.outlook.com
+ ([fe80::b891:a906:28f0:fdb%4]) with mapi id 15.20.4394.023; Tue, 10 Aug 2021
+ 15:56:48 +0000
+Subject: Re: [PATCH] drm/amdkfd: fix random
+ KFDSVMRangeTest.SetGetAttributesTest test failure
+To: Yifan Zhang <yifan1.zhang@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20210810044310.3805858-1-yifan1.zhang@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Message-ID: <a07e70af-4ab8-a359-480b-d348755cbfd2@amd.com>
+Date: Tue, 10 Aug 2021 11:56:46 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
+In-Reply-To: <20210810044310.3805858-1-yifan1.zhang@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-ClientProxiedBy: YT1PR01CA0045.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2e::14) To BN9PR12MB5129.namprd12.prod.outlook.com
+ (2603:10b6:408:136::12)
 MIME-Version: 1.0
-References: <CAJB-X+V5SLikZgkesXCoQ=EufSbj6ABLxKEtO71OSRwyJ1175Q@mail.gmail.com>
- <CAJB-X+Xh1F_7WBvSDOJrtHYZX4YN4WRnLNnrqEG-zPC3h0HEwg@mail.gmail.com>
- <CADnq5_OXvhKajHW6yKde6mQHy=B3RZN4BYV-FYdnzNOoObqH+g@mail.gmail.com>
- <CA+EcB1MYQOBypQN6Ktdu52sfqg1N-sfzurSeTQDW1kPz9H+iUw@mail.gmail.com>
- <CAJB-X+UD7-aSKP1Ozc2UUbOZ5MYY6wD5jMUY3+MeS_KKQzaxdA@mail.gmail.com>
-In-Reply-To: <CAJB-X+UD7-aSKP1Ozc2UUbOZ5MYY6wD5jMUY3+MeS_KKQzaxdA@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 10 Aug 2021 11:09:36 -0400
-Message-ID: <CADnq5_MhrwFe1aW=A6_XbaskpSmfYzU1PcCeXTc99=iYC+EW+A@mail.gmail.com>
-Subject: Re: Req: about Polaris with RKL platform
-To: Koba Ko <koba.ko@canonical.com>
-Cc: Mario Limonciello <superm1@gmail.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, 
- Anthony Wong <anthony.wong@canonical.com>, "Feng,
- Kenneth" <Kenneth.Feng@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [192.168.2.100] (142.182.144.73) by
+ YT1PR01CA0045.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2e::14) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4415.14 via Frontend Transport; Tue, 10 Aug 2021 15:56:47 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: d43aee59-1e74-47f6-4590-08d95c1775c9
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5356:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BN9PR12MB5356A261CE426667A435021A92F79@BN9PR12MB5356.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2887;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: YdSI1l+75xOyqHzjt6se0K07a9kd/rrmD0myExahYfOcwgOWUV4PvhU0upRhn2mmy8wUXK0Rqhdtlt01g7vFvWVKC5gvBQ5jE52IXRxKrfGsB3Kqo6UkYRC/lFrlMFlEW4Q4QYZxKyMuPgwUM+q6l3SazpE0didn4tEaxUcpTLMvEFwC+PMszdy3pgMIJLIujZeYBmdzY0dFhMuS/mA+D57VDhl1bUdTHhcBfOeC8baXtKE3xab9EeYUd/NoRXqBOkD9AgXD/TErUELv0Kzs2O99qHaT0pBsrtRXYmTqJLCd2Uo8QdJY/S/ewn6JxUz0jVYGJ4AKn+Cvz/On4uXK5sntKJGYomA4Toa5JjhrMi3WMZwc3AoM9Vh5DtwAfTPRY2/9UGijLKtki1zQQHuElqf+v2E3WQL9RfWLkDDx9y4sp/TUD4aqCg7hv6D7KMta8dqgMN/Vup8LfOtjWqxmL9/mIBPL94mLa7vyV59bSIDfj2jvdyIEwfOXJHS2miXlNLs1InvRgaN99/sKDWiBX4lNfAcgAkMn1U6Q4bq6oX6iirtV//MYnfQvCWEmDhergOimUza+wiGm6eBk44BRjMw+BDVjsWjjBGUypiTMhSiENvZ2y7DiD3rQs/7OX5eOy47TgWms/CIBfqGt98aUJVdKM9apqA0IXqPS56blK4OuLsfqU6I6OQZJVmviUZltZzkgqMi5wln1BPLRrIxODMrR9OELBnjymaKyycrv2+YMPHi94uarDdvidH99Bfyy
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5129.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(396003)(39860400002)(346002)(376002)(366004)(26005)(5660300002)(66556008)(478600001)(38100700002)(8676002)(2906002)(66476007)(186003)(66946007)(8936002)(316002)(44832011)(31686004)(36756003)(86362001)(83380400001)(2616005)(956004)(6486002)(16576012)(31696002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dk5jZVg1M3l3ckNNM2pNNHJiZStPZzJPcWFYMTN6d2d3VkpmM0pxRmw2RFJU?=
+ =?utf-8?B?ZzBYdUF0Q2NVbUFXS1hua0dPRVNtTUpzV3hYU09KOUtjVlhnbk9EczFjRkVG?=
+ =?utf-8?B?VnRHWU5Bc0U3eXE3TUtybEtPVFRUN2FKYnMwZkVWNUpUR2ROMHFGbTlqbFBP?=
+ =?utf-8?B?d09MSjBkbEhjTkRPL1J2eEx5a2dOcUZiWHpWTzIrMS93UlplWFNZV1ZHcEpl?=
+ =?utf-8?B?V1NhYkh4VzhJVkcyRTBEcU5LSzdqdUFWYkMxQzM5ckhvdHVWY1pGUzdDd0RJ?=
+ =?utf-8?B?dEJKUTAzalNDVDRPb1dIVGdkcDdZTTZHVnoxdHo0a01tb3VubktTOGtCZkhT?=
+ =?utf-8?B?amhhN1ZYYVFXT2hTcExaaTZYWlU0TVMxd0wvcXZML2l5MFB0bVo3Uzl6bUU4?=
+ =?utf-8?B?ODBJSHNnckw0cWRyQ1owM2VjcEhxckVhSExFNTBhOFY4VEZVMEwxL0x4MFJN?=
+ =?utf-8?B?Q1dpaTc5RG8xTkpRMFEwYjkyU1dUZTJ3YUE5a3lPZzlpbDg2Y3dNeG1WODhq?=
+ =?utf-8?B?a0V1Uks1Q0lFNTNDUHZYRVc2cDRFcThJSFJMY01PeGFMM1NXdU9reHgrTllJ?=
+ =?utf-8?B?UnJJUi9vV0FqVkdRNzB3V08zQkp4cEY4R0hIMFBFaG9vSzVkK2U5b1JSZHY1?=
+ =?utf-8?B?cE5FN3VVb2I0Y3dGQTJsYW1rNXpoN0V5NzVCOUhUYVJKem5ybSt3WWJhQzNn?=
+ =?utf-8?B?eVR5K1dGTFNMb0UxdTNlQWFBc0VqaStNUWxJc2cvVkZHb0swNUlTbnNVbk9m?=
+ =?utf-8?B?dmxhQVV5OTBVOUhEaVJ1UHhWY3pENWt4aGtha0FuVDh2bVRvWkhPazNndHFT?=
+ =?utf-8?B?S0Q0b0o5L1lGZkhTWUI2M3FhWE45S2hIc2RrRS91QWhheFFHTHFzTk5DNS9K?=
+ =?utf-8?B?QmhndmdjQTJIeThxYitETWJ2ZC81MDdxS2pSM1Blbmd1UGtsVXNOK3cwY3dQ?=
+ =?utf-8?B?QStGY1JoK2g1MGlXM0xscHlvNjh2Qis1V3lKOXRJdFdzVm96NDZWOTgwc0Rl?=
+ =?utf-8?B?N2hzMUVDVG9XcjNmQ0ZqTC9wbFgwY2R6VElCN3QxSXdnTkhVbkhrQ1g2SWxO?=
+ =?utf-8?B?MjNEWHBCWlhlemxQQm93bVc0RVNJZjhpWnRrY0dJTi9Ic2g1bERkeEhETUxN?=
+ =?utf-8?B?eHVOTy9EaXFsU1hyOGhkRnRheTB3NUtLRVFXRFV3dXZ1VjRhamsrOU15bGNM?=
+ =?utf-8?B?V3R5dHBIWm5NcEFMM2xxaFROY3lpSVhWTVIvUlpCVzdSeEE3VUZCazNIVzVr?=
+ =?utf-8?B?WGFnYzBSc0VJUzhVRmtwRnY4NzY1VysxRlRxVXpMN3pRWThIQzZjQTUzWCs1?=
+ =?utf-8?B?ekI2NEVuNmlSL3FXaVpVMXFScDRqbElYNkt6QkdmcklLY0VGZGcyUDZOMk82?=
+ =?utf-8?B?TzhwbjlyZURpL0RIcE5QMzljMFhMam5WM3NaTWxCcklzd1gzRm5odDZoamxB?=
+ =?utf-8?B?QzgxRmZGeDJEa216R0NRaHYxOWhZczJGSnk2YllCdkY0a2FGS0tId2VoY2FR?=
+ =?utf-8?B?RllZajFGaHVYcFhkOGkrZTB6RFN3bC9tZ0dFaE5BVjdWYTdJUFVFVG12aXE4?=
+ =?utf-8?B?bXFCdXg5Q1FqN0c5SFcvWXkvdVdaNmhQVVZEcElpdXM4VFFGNG9pMkxZZ2tK?=
+ =?utf-8?B?a2pKbnlUaEVONkdOZ0JFV0MxNCtRVDJhb2Y5TThFbmlLcEd2K2ZqV3ZtU2FS?=
+ =?utf-8?B?NmU2UG11NVhFNVRaVFJFOVdRczZlR2NKZHQ0eWVzMHFmOWxMWGdsZE9IUHl0?=
+ =?utf-8?Q?Aa7Tl/1gZCHm81VBmCKiHTiNG/qsIX6NHcDaTHT?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d43aee59-1e74-47f6-4590-08d95c1775c9
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5129.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2021 15:56:48.1476 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: YG/tIByFyMKXqzeyK4a/dVkkFf6vQGIhrI2ZphTeN3/o18w6tP5Jzu9FFXsLrYZQs3UNTM9Y+6FmEgfWxySAjQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5356
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,78 +142,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Aug 10, 2021 at 12:57 AM Koba Ko <koba.ko@canonical.com> wrote:
+Am 2021-08-10 um 12:43 a.m. schrieb Yifan Zhang:
+> KFDSVMRangeTest.SetGetAttributesTest randomly fails in stress test.
 >
-> On Tue, Aug 10, 2021 at 12:45 PM Mario Limonciello <superm1@gmail.com> wrote:
-> >
-> >
-> >
-> > On Mon, Aug 9, 2021 at 9:37 AM Alex Deucher <alexdeucher@gmail.com> wrote:
-> >>
-> >> On Mon, Aug 9, 2021 at 9:59 AM Koba Ko <koba.ko@canonical.com> wrote:
-> >> >
-> >> > Previously, AMD had an issue about noise  with AMD-DG on the RKL platform
-> >> > AMD provided a parameter.
-> >> > #modprobe amdgpu ppfeaturemask=0xfff7bffb
-> >> >
-> >> >  I thought it's better to check and assign values in amd gpu.
-> >> > Have a trouble determining the type of pch(RKL or else),
-> >> > search in amd drm driver and can't find any about this.
-> >> > Would someone please guide me? if there's an existing function.
-> >> >
-> >> > here's a proposal, check RKL PCH in amd driver,
-> >> > the pch definitions must be splitted off from intel_pch.h in i915
-> >> > folder to include/drm/intel_pch_definition.h
-> >>
-> >> Yes, something like that would work.
-> >
-> >
-> > Can the issue that prompted this also happen with other ASIC with the
-> > newer SMU families?  If so, should it probably be added to all of them
-> > or further up in the code where the mask normally gets set from module
-> > parameters to add the extra check there.
+> Note: Google Test filter = KFDSVMRangeTest.*
+> [==========] Running 18 tests from 1 test case.
+> [----------] Global test environment set-up.
+> [----------] 18 tests from KFDSVMRangeTest
+> [ RUN      ] KFDSVMRangeTest.BasicSystemMemTest
+> [       OK ] KFDSVMRangeTest.BasicSystemMemTest (30 ms)
+> [ RUN      ] KFDSVMRangeTest.SetGetAttributesTest
+> [          ] Get default atrributes
+> /home/yifan/brahma/libhsakmt/tests/kfdtest/src/KFDSVMRangeTest.cpp:154: Failure
+> Value of: expectedDefaultResults[i]
+>   Actual: 4294967295
+> Expected: outputAttributes[i].value
+> Which is: 0
+> /home/yifan/brahma/libhsakmt/tests/kfdtest/src/KFDSVMRangeTest.cpp:154: Failure
+> Value of: expectedDefaultResults[i]
+>   Actual: 4294967295
+> Expected: outputAttributes[i].value
+> Which is: 0
+> /home/yifan/brahma/libhsakmt/tests/kfdtest/src/KFDSVMRangeTest.cpp:152: Failure
+> Value of: expectedDefaultResults[i]
+>   Actual: 4
+> Expected: outputAttributes[i].type
+> Which is: 2
+> [          ] Setting/Getting atrributes
+> [  FAILED  ]
 >
-> Would amd guys please clarify this?
+> the root cause is that svm work queue has not finished when svm_range_get_attr is called, thus
+> some garbage svm interval tree data make svm_range_get_attr get wrong result. Flush work queue before
+> iterate svm interval tree.
 >
-> Currently as i known,
-> for smu series, amd upstream this commit only for smu7 and also
-> provide modue parameters.
-> 1.https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=9d03730ecbc5afabfda26d4dbb014310bc4ea4d9
-> 2. #modprobe amdgpu ppfeaturemask=0xfff7bffb
-
-SMU7-based and vega10/12/20 asics require this.  Newer parts were
-fixed in SMU firmware:
-navi10:
-https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/commit/amdgpu/navi10_smc.bin?id=4fe6e53b96095101eebe4639cd2e2b6ecd84650d
-navi14:
-https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/commit/amdgpu/navi14_smc.bin?id=8ab7abaf63e95c29e04e5811cb24730a81486096
-for newer asics, 21.10 and newer firmwares.  E.g.,
-https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/commit/amdgpu/sienna_cichlid_smc.bin?id=ef5ea5d1d3f0a72a92e0a09f6cff253560374a39
-
-Alex
-
-
+> Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 3 +++
+>  1 file changed, 3 insertions(+)
 >
-> >
-> >>
-> >> Alex
-> >>
-> >>
-> >> >
-> >> > > --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-> >> > > +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-> >> > > @@ -1629,7 +1629,7 @@ static void smu7_init_dpm_defaults(struct pp_hwmgr *hwmgr)
-> >> > >
-> >> > >         data->mclk_dpm_key_disabled = hwmgr->feature_mask & PP_MCLK_DPM_MASK ? false : true;
-> >> > >         data->sclk_dpm_key_disabled = hwmgr->feature_mask & PP_SCLK_DPM_MASK ? false : true;
-> >> > > -       data->pcie_dpm_key_disabled = hwmgr->feature_mask & PP_PCIE_DPM_MASK ? false : true;
-> >> > > +       data->pcie_dpm_key_disabled = is_rkl_pch() || !(hwmgr->feature_mask & PP_PCIE_DPM_MASK);
-> >> > >         /* need to set voltage control types before EVV patching */
-> >> > >         data->voltage_control = SMU7_VOLTAGE_CONTROL_NONE;
-> >> > >         data->vddci_control = SMU7_VOLTAGE_CONTROL_NONE;
-> >
-> >
-> >
-> > --
-> > Mario Limonciello
-> > superm1@gmail.com
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> index f811a3a24cd2..192e9401bed5 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> @@ -3072,6 +3072,9 @@ svm_range_get_attr(struct kfd_process *p, uint64_t start, uint64_t size,
+>  	pr_debug("svms 0x%p [0x%llx 0x%llx] nattr 0x%x\n", &p->svms, start,
+>  		 start + size - 1, nattr);
+>  
+> +	/* flush pending deferred work */
+> +	flush_work(&p->svms.deferred_list_work);
+> +
+
+There is still a race condition here. More work can be added to the
+deferred_list_work after the flush call.
+
+Work gets added to the deferred_list asynchronously, for example in MMU
+notifiers. Trying to synchronize with asynchronous events is inherently
+problematic. It appears that the test is making some assumptions about
+things happening asynchronously (page faults or MMU notifiers) and
+that's probably a problem with the test, not with the driver.
+
+Alternatively, there may be a problem with a set-attribute call that
+leaves some operations on the deferred list and results in unexpected
+get-attribute results. If that's the problem, we may need to add a
+flush-call to the end of the set-attributes function.
+
+Can you provide more details about the exact sequence of set-attribute
+and get-attribute calls that is causing the problem?
+
+Regards,
+  Felix
+
+
+>  	mmap_read_lock(mm);
+>  	r = svm_range_is_valid(p, start, size);
+>  	mmap_read_unlock(mm);
