@@ -2,111 +2,116 @@ Return-Path: <SRS0=kf8h=NB=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 769DFC4338F
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Aug 2021 03:23:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DA54EC4338F
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Aug 2021 03:25:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2C54160ED8
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Aug 2021 03:23:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2C54160ED8
+	by mail.kernel.org (Postfix) with ESMTPS id 6A43360ED8
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Aug 2021 03:25:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6A43360ED8
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A490F89E2B;
-	Tue, 10 Aug 2021 03:23:58 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2061.outbound.protection.outlook.com [40.107.223.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DE8D89E2B
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Aug 2021 03:23:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFED689E33;
+	Tue, 10 Aug 2021 03:25:50 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2049.outbound.protection.outlook.com [40.107.220.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F20D689E33
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 Aug 2021 03:25:48 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TArv57H6Sg5TYo0sipyKjRS3Q3JTAj6C1OWQmJ3IBl61PPY/Cdl5ohgLyxn1NNU5nkyBFtqvyRZlskyJ2Q/IN12tYJrngpUmbc4ftRWqRqd8q64QoeEfqntXJ+kJkTKF6Iv2SrB+jzW9W29Z4sOU0xI4wZpIR4D6odntqDrRib+9wvSQZCAX4BuAq1/5HrYCJAiJ38orwKJLCuXFhTuka3YzAvtfLXFjMlUZfJdExfBkh4pqGH2HKbeIB8ZZ+r1tNaXF+MLRWeXtxwGSIlo0W7LJ+FhavifqYU61BSkagEvWA0uq/nSZwX4Q+VCqhu22kvJWT5REBK3CmegPkUYX6w==
+ b=Rydt0BBCLNAl2uA2sPqpAeFPXjacbmX+wzZvCC7jARO+glzoT9YTSZi+XCV1LO3TOOrH6PkV3DMKDvEGvhn5bXKzf4x7y98dN+t24HcSfAGeBeUre0ERr+mqmlrl26jiVgAK+Wvj1VHjwlGiCQSmyleuhIffmqBHlwY/kwRdeBIbaRR24eWx6UX6kCSFiDhM9kU3PVSkxkZLNuhtbRUEVtoPWSudL/KxNXVyEqTCEEHnvXcTXPsiahZQB855ZSszMFEkRqbNA32nb/cPMyc/XcWBbGfqXVr0po92Z5Uk3JxaKbgAtMbZUSaY/kgBAnITkcWb56kppDc4BvG/vUDtJg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FAbZUEMkthQeVVKCjUQyy6K4O6se1ZhD7J0cP9g66MI=;
- b=WnnnWZPhpzDadtO1GNP5P6+/XkzSXKBUhkoTnXnD0XifLmrAYf0vkYCezYvhyzHR4pqJAtYHs1q+uerOdyNVyO3CrtqWjA93w2FJBw8SVRlsBPWuwyXo4etDEbg1gU/GPMQnuYAYsTE7Z/pFQCMOkrVnQCex50VjTbNdBuc5G0C0TwHExPYSF9LqO8L3/QKkpMj7OA0+xn8gErcwRNeH9g3UpvQMjz1AaB7Hv7jqj3ChkH4rP/mtGl7tnHqzcRyFkf7JbKg39crv7JJ+Pa+o+oi+8SbaaqwoO99Ci6LcQ2r2YLi3zx+skDemzlhx1WPHhiCCR/gjCaleDWk1Cf557g==
+ bh=wy9TN4Ao38lQcQ1xuiwZoSE3pncBgbXe209BeRulmW4=;
+ b=gQ0oXQYJ6l2aZnorS/AeQiRbAycizaD1vxAzp6Omj9EISbINR/oLcOE7S5/UQxAfeaWaAH42mIOnmZE0J9oXI4F+EOe68doQi+vofzfXZsAslzK/8LjtJXie6PL1RTqZuyOlacNKl0SoBlO6HX3O6tps0dncWbZTmpDQ0AR3Wfm5OOAi6H0nhUO2x2FtmRBkqUbrF7OpQfGLlxl86psnxLAP5UsjhOzVDgQBk81RwZthBwIU5MZWerrA4melcGE8NxF71sNWiALKDSFBSLgq4DiDmkmKewL0k02QKx9e6s0XX0QhSGUuzp3o1RwVeyAhtEjxxDaBSsm2C0w2f+izog==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FAbZUEMkthQeVVKCjUQyy6K4O6se1ZhD7J0cP9g66MI=;
- b=cI7CBOL6u+jSe83kFgg5ncO9NkcF/sMi+F+ZO17QJvjC2CF6V98LqOd9G21rc57IIPdzwouU+pVF4i3x8eb83l+ZPBeyFveh2pB4Th45Pu/f9eQ8a5/U9A5pCJ1yLQtb5zQ6aCrO/VXJAU991SiKZuh3sQNPoTH4X3NIz+/5/cM=
-Received: from MW4PR04CA0044.namprd04.prod.outlook.com (2603:10b6:303:6a::19)
- by BN6PR12MB1666.namprd12.prod.outlook.com (2603:10b6:405:3::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4394.17; Tue, 10 Aug
- 2021 03:23:54 +0000
-Received: from CO1NAM11FT013.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:6a:cafe::ac) by MW4PR04CA0044.outlook.office365.com
- (2603:10b6:303:6a::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4394.17 via Frontend
- Transport; Tue, 10 Aug 2021 03:23:54 +0000
+ bh=wy9TN4Ao38lQcQ1xuiwZoSE3pncBgbXe209BeRulmW4=;
+ b=rYhxX1w7AXaBQYYQVC0trMOKeRO8pQM7ef+2SvpUOPZZBd6Efxaa+eYHDTO32XVX6NjplAXTJwUJLf0Lp3fCmXkgc7ndb+4/6ixzytfwca0p++Nha/HnKfV3Rzti6kksr1HAY2HikpXGlJabWre4PnqbBiDi6j6Wd3+8vBXTCBc=
+Received: from MWHPR20CA0031.namprd20.prod.outlook.com (2603:10b6:300:ed::17)
+ by BY5PR12MB5510.namprd12.prod.outlook.com (2603:10b6:a03:1d2::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4394.15; Tue, 10 Aug
+ 2021 03:25:46 +0000
+Received: from CO1NAM11FT038.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:300:ed:cafe::3f) by MWHPR20CA0031.outlook.office365.com
+ (2603:10b6:300:ed::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4394.16 via Frontend
+ Transport; Tue, 10 Aug 2021 03:25:46 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
  header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1NAM11FT013.mail.protection.outlook.com (10.13.174.227) with Microsoft SMTP
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT038.mail.protection.outlook.com (10.13.174.231) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4394.16 via Frontend Transport; Tue, 10 Aug 2021 03:23:53 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.4394.16 via Frontend Transport; Tue, 10 Aug 2021 03:25:46 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Mon, 9 Aug
- 2021 22:23:52 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ 2021 22:25:45 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Mon, 9 Aug
- 2021 22:23:52 -0500
-Received: from wayne-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ 2021 22:25:45 -0500
+Received: from wayne-dev (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2242.12 via Frontend
- Transport; Mon, 9 Aug 2021 22:23:50 -0500
+ Transport; Mon, 9 Aug 2021 22:25:43 -0500
+Date: Tue, 10 Aug 2021 11:25:42 +0800
 From: Jingwen Chen <Jingwen.Chen2@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <monk.liu@amd.com>, <christian.koenig@amd.com>,
- <Andrey.Grodzovsky@amd.com>, Jack Zhang <Jack.Zhang1@amd.com>, Jingwen Chen
- <Jingwen.Chen2@amd.com>, Jack Zhang <Jack.Zhang7@hotmail.com>
-Subject: [PATCH v4] drm/amd/amdgpu embed hw_fence into amdgpu_job
-Date: Tue, 10 Aug 2021 11:22:54 +0800
-Message-ID: <20210810032253.102933-1-Jingwen.Chen2@amd.com>
-X-Mailer: git-send-email 2.25.1
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ <amd-gfx@lists.freedesktop.org>
+CC: <monk.liu@amd.com>, <christian.koenig@amd.com>, Jack Zhang
+ <Jack.Zhang7@hotmail.com>
+Subject: Re: [PATCHv2 2/2] drm/amd/amdgpu: add tdr support for embeded hw_fence
+Message-ID: <20210810032542.is4uztvdyjt5ni62@wayne-dev>
+References: <20210805083146.324741-1-Jingwen.Chen2@amd.com>
+ <20210805083146.324741-2-Jingwen.Chen2@amd.com>
+ <f6c8da78-c925-e9a4-3591-0c27132962f3@amd.com>
+ <20210810025117.cicf5icoesgzntky@wayne-dev>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+In-Reply-To: <20210810025117.cicf5icoesgzntky@wayne-dev>
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 348442b8-e3a0-4e3a-a8d2-08d95bae47c2
-X-MS-TrafficTypeDiagnostic: BN6PR12MB1666:
-X-Microsoft-Antispam-PRVS: <BN6PR12MB166652EFC0D56D31B631B070B7F79@BN6PR12MB1666.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:660;
+X-MS-Office365-Filtering-Correlation-Id: f5fcdd53-d577-4bf8-0b79-08d95bae8aff
+X-MS-TrafficTypeDiagnostic: BY5PR12MB5510:
+X-Microsoft-Antispam-PRVS: <BY5PR12MB5510DB9F8D7E81AC1577A2A2B7F79@BY5PR12MB5510.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: GGUo9t3JOd5QPxzkYwYqed8equi7hvXuT7Zoy4hshSGgFSXrJ4pwPH3T0QwoWJOtbODyRWyeQ5Arn/B5JilRcXnRIgm2zq5r+08k3HE4edAJF+imp1dR8YdkQCmC9sDNw0DrW7UKHCxHu3xmybwOaKK3THDWvx6x4WIgeRDH6c3utnfT7OXD1rlrSJXNxNg2unc12u2nilKyFpE1X8J/YVHtE4ztZ6FZZSrFPDCH/n8EVS1/hqK50ZhPuIFqZYpjJNe4aG7/jhUhOWKMC42YVEFO39bdZvM5j1QY84dSeJPY76umrUtZArvftrHvlebPJhvHTCTl06BZPRvsc8qs3ibBfwzGmIWMwaxAzcI4kJNiiKZwuKPhIviMxlngeA/PWrDHfnUCpXManGOqcqTsejTjXuSPKxNo3Cpw0MQxJyymjqCkMraeBHmAQqMgdeb+64VAOJVmW7sz/wkKvo9MPpoXClaps+8Du5SwAtCzG5a1wniEHdvOULWcHyXVlqg6KfMtTLhc1/Yz6uRzvKjgU09G7jUYOZX6c3Pt+e40Cr02O+/lgAM+d4tgjUY2LFsJ4cKOwjcGBUmwwrrac40K0NqLE0ZgpvYA0VbU2eDcYaq/tYs7HDjFKNRwj0Yh8OK/ylCg+c/5r2+yvEgUP2B3abF5ylvGZ1U41InXQhwFhNpqdo6l+7fKJrzhBR4S7qthrRDjJk6A/O9LhpHbj8sGOdv+OHoaGT8D4qDpI/4GnFcOzfuZnoJLzIdLQFAhJ2Be
+X-Microsoft-Antispam-Message-Info: ZOEnQWKNdQWLrR2+3Q4LxIz9gBf+hh/RuBqbMzPQ1xZSSt16HX5EUmoUz3TE8cJK5NhRKAWKEmRiPl0jrO4yTYzhE9pl2gUMnHW6CmOaiO00T480daZp0sV9eC5SK5BV0WgaB2WOzsXdpQgJHCUqQs9pZ0odgaR7sFu94qo02UeLBSEx0MaIcOkWt0Z4JuQ2z6mq4JnuM6rsZYPgsBu32uvIayMqQBlli1gf5F7eY1nqSlCUxZjy434Eg1OeDwMg+PC9WBlwAyVNiX0n+UHtI+aAvL5frV9BH+t/kzINhhI/gKcdCzkgVxj5XvrJUEOpGjzqdhWkjGYU/sDT8Yi9lqxClB1f3mh5EMs/ZTsujWgVp1LoJa49CFQyYvd7/djfEiVL0BXlo626D2qmVFlg7ZdEcTHbMNUt4zdCzD1Zo3T2Dfez3dD+zgPBjVbZqa4zrwWcDQXVWLcythDQjrKEYyFve4sY8Qg/ieomzyC/aaS847I1uODR7p8f2RgCovW221HWZN1MVGcor537P8YCS2ASaxDqCVRHHdQplJNE0Jnu4rTrKqNWnzV3ZRu6vPMKqyap4rzEIVzclpVFhcrgtKP9BCBEf2iamByoWwBIaQZJDXbBNwAqKbAvXg4sw5ml3ijIYawzRu4+6qFAdDkJI4tx6iPx0D1Q5ECCQm9Lwzhk4/9Evs6/cg91TPDib+EwJRBAJMj5y6ffvLAibb1D9kvNIXafgY1HWZ7GoeBzmZKTovVv0XX+d0d0S9VKE1ivb1zmpkWA1nS9qLDEEk7b1A==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(346002)(39860400002)(136003)(376002)(396003)(36840700001)(2906002)(336012)(26005)(30864003)(70586007)(478600001)(81166007)(426003)(316002)(54906003)(45080400002)(83380400001)(186003)(356005)(8936002)(1076003)(8676002)(5660300002)(32650700002)(82310400003)(6916009)(4326008)(34020700004)(36756003)(82740400003)(70206006)(7696005)(36860700001)(86362001)(2616005)(36900700001);
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(396003)(136003)(376002)(346002)(39860400002)(84040400005)(36840700001)(53546011)(478600001)(1076003)(356005)(32650700002)(82310400003)(9686003)(70586007)(70206006)(45080400002)(83380400001)(8676002)(55016002)(426003)(34020700004)(81166007)(82740400003)(5660300002)(26005)(33716001)(316002)(36860700001)(2906002)(110136005)(336012)(54906003)(4326008)(86362001)(186003)(8936002)(36900700001)(2101003);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2021 03:23:53.4373 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 348442b8-e3a0-4e3a-a8d2-08d95bae47c2
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2021 03:25:46.2384 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f5fcdd53-d577-4bf8-0b79-08d95bae8aff
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT013.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT038.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1666
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB5510
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,384 +126,149 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Jack Zhang <Jack.Zhang1@amd.com>
+Hi Andrey,
 
-Why: Previously hw fence is alloced separately with job.
-It caused historical lifetime issues and corner cases.
-The ideal situation is to take fence to manage both job
-and fence's lifetime, and simplify the design of gpu-scheduler.
+The latest patch [PATCH v4] drm/amd/amdgpu embed hw_fence into
+amdgpu_job has been sent to amd-gfx. can you help review this patch?
 
-How:
-We propose to embed hw_fence into amdgpu_job.
-1. We cover the normal job submission by this method.
-2. For ib_test, and submit without a parent job keep the
-legacy way to create a hw fence separately.
-v2:
-use AMDGPU_FENCE_FLAG_EMBED_IN_JOB_BIT to show that the fence is
-embeded in a job.
-v3:
-remove redundant variable ring in amdgpu_job
-v4:
-add tdr sequence support for this feature. Add a job_run_counter to
-indicate whether this job is a resubmit job.
-
-Signed-off-by: Jingwen Chen <Jingwen.Chen2@amd.com>
-Signed-off-by: Jack Zhang <Jack.Zhang7@hotmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c  |  1 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  | 12 +++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c   | 73 ++++++++++++++++-----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c      |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c     | 39 +++++++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.h     |  6 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h    |  5 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c      |  2 +-
- 9 files changed, 108 insertions(+), 34 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-index 7b46ba551cb2..3003ee1c9487 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-@@ -714,7 +714,6 @@ int amdgpu_amdkfd_submit_ib(struct kgd_dev *kgd, enum kgd_engine_type engine,
- 	ret = dma_fence_wait(f, false);
- 
- err_ib_sched:
--	dma_fence_put(f);
- 	amdgpu_job_free(job);
- err:
- 	return ret;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-index 536005bff24a..277128846dd1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-@@ -1414,7 +1414,7 @@ static void amdgpu_ib_preempt_mark_partial_job(struct amdgpu_ring *ring)
- 			continue;
- 		}
- 		job = to_amdgpu_job(s_job);
--		if (preempted && job->fence == fence)
-+		if (preempted && (&job->hw_fence) == fence)
- 			/* mark the job as preempted */
- 			job->preemption_status |= AMDGPU_IB_PREEMPTED;
- 	}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 9e53ff851496..ade2fa07a50a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -4447,7 +4447,7 @@ int amdgpu_device_mode1_reset(struct amdgpu_device *adev)
- int amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,
- 				 struct amdgpu_reset_context *reset_context)
- {
--	int i, r = 0;
-+	int i, j, r = 0;
- 	struct amdgpu_job *job = NULL;
- 	bool need_full_reset =
- 		test_bit(AMDGPU_NEED_FULL_RESET, &reset_context->flags);
-@@ -4471,6 +4471,16 @@ int amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,
- 		if (!ring || !ring->sched.thread)
- 			continue;
- 
-+		/*clear job fence from fence drv to avoid force_completion
-+		 *leave NULL and vm flush fence in fence drv */
-+		for (j = 0; j <= ring->fence_drv.num_fences_mask; j ++) {
-+			struct dma_fence *old,**ptr;
-+			ptr = &ring->fence_drv.fences[j];
-+			old = rcu_dereference_protected(*ptr, 1);
-+			if (old && test_bit(AMDGPU_FENCE_FLAG_EMBED_IN_JOB_BIT, &old->flags)) {
-+				RCU_INIT_POINTER(*ptr, NULL);
-+			}
-+		}
- 		/* after all hw jobs are reset, hw fence is meaningless, so force_completion */
- 		amdgpu_fence_driver_force_completion(ring);
- 	}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-index 7495911516c2..a8302e324110 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-@@ -129,30 +129,50 @@ static u32 amdgpu_fence_read(struct amdgpu_ring *ring)
-  *
-  * @ring: ring the fence is associated with
-  * @f: resulting fence object
-+ * @job: job the fence is embeded in
-  * @flags: flags to pass into the subordinate .emit_fence() call
-  *
-  * Emits a fence command on the requested ring (all asics).
-  * Returns 0 on success, -ENOMEM on failure.
-  */
--int amdgpu_fence_emit(struct amdgpu_ring *ring, struct dma_fence **f,
-+int amdgpu_fence_emit(struct amdgpu_ring *ring, struct dma_fence **f, struct amdgpu_job *job,
- 		      unsigned flags)
- {
- 	struct amdgpu_device *adev = ring->adev;
--	struct amdgpu_fence *fence;
-+	struct dma_fence *fence;
-+	struct amdgpu_fence *am_fence;
- 	struct dma_fence __rcu **ptr;
- 	uint32_t seq;
- 	int r;
- 
--	fence = kmem_cache_alloc(amdgpu_fence_slab, GFP_KERNEL);
--	if (fence == NULL)
--		return -ENOMEM;
-+	if (job == NULL) {
-+		/* create a sperate hw fence */
-+		am_fence = kmem_cache_alloc(amdgpu_fence_slab, GFP_ATOMIC);
-+		if (am_fence == NULL)
-+			return -ENOMEM;
-+		fence = &am_fence->base;
-+		am_fence->ring = ring;
-+	} else {
-+		/* take use of job-embedded fence */
-+		fence = &job->hw_fence;
-+	}
- 
- 	seq = ++ring->fence_drv.sync_seq;
--	fence->ring = ring;
--	dma_fence_init(&fence->base, &amdgpu_fence_ops,
--		       &ring->fence_drv.lock,
--		       adev->fence_context + ring->idx,
--		       seq);
-+	if (job != NULL && job->job_run_counter) {
-+		/* reinit seq for resubmitted jobs */
-+		fence->seqno = seq;
-+	} else {
-+		dma_fence_init(fence, &amdgpu_fence_ops,
-+				&ring->fence_drv.lock,
-+				adev->fence_context + ring->idx,
-+				seq);
-+	}
-+
-+	if (job != NULL) {
-+		/* mark this fence has a parent job */
-+		set_bit(AMDGPU_FENCE_FLAG_EMBED_IN_JOB_BIT, &fence->flags);
-+	}
-+
- 	amdgpu_ring_emit_fence(ring, ring->fence_drv.gpu_addr,
- 			       seq, flags | AMDGPU_FENCE_FLAG_INT);
- 	pm_runtime_get_noresume(adev_to_drm(adev)->dev);
-@@ -175,9 +195,9 @@ int amdgpu_fence_emit(struct amdgpu_ring *ring, struct dma_fence **f,
- 	/* This function can't be called concurrently anyway, otherwise
- 	 * emitting the fence would mess up the hardware ring buffer.
- 	 */
--	rcu_assign_pointer(*ptr, dma_fence_get(&fence->base));
-+	rcu_assign_pointer(*ptr, dma_fence_get(fence));
- 
--	*f = &fence->base;
-+	*f = fence;
- 
- 	return 0;
- }
-@@ -621,8 +641,16 @@ static const char *amdgpu_fence_get_driver_name(struct dma_fence *fence)
- 
- static const char *amdgpu_fence_get_timeline_name(struct dma_fence *f)
- {
--	struct amdgpu_fence *fence = to_amdgpu_fence(f);
--	return (const char *)fence->ring->name;
-+	struct amdgpu_ring *ring;
-+
-+	if (test_bit(AMDGPU_FENCE_FLAG_EMBED_IN_JOB_BIT, &f->flags)) {
-+		struct amdgpu_job *job = container_of(f, struct amdgpu_job, hw_fence);
-+
-+		ring = to_amdgpu_ring(job->base.sched);
-+	} else {
-+		ring = to_amdgpu_fence(f)->ring;
-+	}
-+	return (const char *)ring->name;
- }
- 
- /**
-@@ -656,8 +684,20 @@ static bool amdgpu_fence_enable_signaling(struct dma_fence *f)
- static void amdgpu_fence_free(struct rcu_head *rcu)
- {
- 	struct dma_fence *f = container_of(rcu, struct dma_fence, rcu);
--	struct amdgpu_fence *fence = to_amdgpu_fence(f);
--	kmem_cache_free(amdgpu_fence_slab, fence);
-+
-+	if (test_bit(AMDGPU_FENCE_FLAG_EMBED_IN_JOB_BIT, &f->flags)) {
-+	/* free job if fence has a parent job */
-+		struct amdgpu_job *job;
-+
-+		job = container_of(f, struct amdgpu_job, hw_fence);
-+		kfree(job);
-+	} else {
-+	/* free fence_slab if it's separated fence*/
-+		struct amdgpu_fence *fence;
-+
-+		fence = to_amdgpu_fence(f);
-+		kmem_cache_free(amdgpu_fence_slab, fence);
-+	}
- }
- 
- /**
-@@ -680,6 +720,7 @@ static const struct dma_fence_ops amdgpu_fence_ops = {
- 	.release = amdgpu_fence_release,
- };
- 
-+
- /*
-  * Fence debugfs
-  */
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-index ec65ab0ddf89..c076a6b9a5a2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-@@ -262,7 +262,7 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned num_ibs,
- 				       fence_flags | AMDGPU_FENCE_FLAG_64BIT);
- 	}
- 
--	r = amdgpu_fence_emit(ring, f, fence_flags);
-+	r = amdgpu_fence_emit(ring, f, job, fence_flags);
- 	if (r) {
- 		dev_err(adev->dev, "failed to emit fence (%d)\n", r);
- 		if (job && job->vmid)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-index d33e6d97cc89..7da9c1855bd0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-@@ -127,11 +127,16 @@ void amdgpu_job_free_resources(struct amdgpu_job *job)
- {
- 	struct amdgpu_ring *ring = to_amdgpu_ring(job->base.sched);
- 	struct dma_fence *f;
-+	struct dma_fence *hw_fence;
- 	unsigned i;
- 
--	/* use sched fence if available */
--	f = job->base.s_fence ? &job->base.s_fence->finished : job->fence;
-+	if (job->hw_fence.ops == NULL)
-+		hw_fence = job->external_hw_fence;
-+	else
-+		hw_fence = &job->hw_fence;
- 
-+	/* use sched fence if available */
-+	f = job->base.s_fence ? &job->base.s_fence->finished : hw_fence;
- 	for (i = 0; i < job->num_ibs; ++i)
- 		amdgpu_ib_free(ring->adev, &job->ibs[i], f);
- }
-@@ -142,20 +147,27 @@ static void amdgpu_job_free_cb(struct drm_sched_job *s_job)
- 
- 	drm_sched_job_cleanup(s_job);
- 
--	dma_fence_put(job->fence);
- 	amdgpu_sync_free(&job->sync);
- 	amdgpu_sync_free(&job->sched_sync);
--	kfree(job);
-+
-+    /* only put the hw fence if has embedded fence */
-+	if (job->hw_fence.ops != NULL)
-+		dma_fence_put(&job->hw_fence);
-+	else
-+		kfree(job);
- }
- 
- void amdgpu_job_free(struct amdgpu_job *job)
- {
- 	amdgpu_job_free_resources(job);
--
--	dma_fence_put(job->fence);
- 	amdgpu_sync_free(&job->sync);
- 	amdgpu_sync_free(&job->sched_sync);
--	kfree(job);
-+
-+	/* only put the hw fence if has embedded fence */
-+	if (job->hw_fence.ops != NULL)
-+		dma_fence_put(&job->hw_fence);
-+	else
-+		kfree(job);
- }
- 
- int amdgpu_job_submit(struct amdgpu_job *job, struct drm_sched_entity *entity,
-@@ -184,11 +196,14 @@ int amdgpu_job_submit_direct(struct amdgpu_job *job, struct amdgpu_ring *ring,
- 
- 	job->base.sched = &ring->sched;
- 	r = amdgpu_ib_schedule(ring, job->num_ibs, job->ibs, NULL, fence);
--	job->fence = dma_fence_get(*fence);
-+	/* record external_hw_fence for direct submit */
-+	job->external_hw_fence = dma_fence_get(*fence);
- 	if (r)
- 		return r;
- 
- 	amdgpu_job_free(job);
-+	dma_fence_put(*fence);
-+
- 	return 0;
- }
- 
-@@ -246,10 +261,12 @@ static struct dma_fence *amdgpu_job_run(struct drm_sched_job *sched_job)
- 		if (r)
- 			DRM_ERROR("Error scheduling IBs (%d)\n", r);
- 	}
--	/* if gpu reset, hw fence will be replaced here */
--	dma_fence_put(job->fence);
--	job->fence = dma_fence_get(fence);
- 
-+	if (!job->job_run_counter)
-+		dma_fence_get(fence);
-+	else if (finished->error < 0)
-+		dma_fence_put(&job->hw_fence);
-+	job->job_run_counter ++;
- 	amdgpu_job_free_resources(job);
- 
- 	fence = r ? ERR_PTR(r) : fence;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
-index 81caac9b958a..9e65730193b8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
-@@ -46,7 +46,8 @@ struct amdgpu_job {
- 	struct amdgpu_sync	sync;
- 	struct amdgpu_sync	sched_sync;
- 	struct amdgpu_ib	*ibs;
--	struct dma_fence	*fence; /* the hw fence */
-+	struct dma_fence	hw_fence;
-+	struct dma_fence	*external_hw_fence;
- 	uint32_t		preamble_status;
- 	uint32_t                preemption_status;
- 	uint32_t		num_ibs;
-@@ -62,6 +63,9 @@ struct amdgpu_job {
- 	/* user fence handling */
- 	uint64_t		uf_addr;
- 	uint64_t		uf_sequence;
-+
-+	/* job_run_counter >= 1 means a resubmit job */
-+	uint32_t		job_run_counter;
- };
- 
- int amdgpu_job_alloc(struct amdgpu_device *adev, unsigned num_ibs,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-index 9c11ced4312c..03d4b29a76d6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-@@ -48,6 +48,9 @@
- #define AMDGPU_FENCE_FLAG_INT           (1 << 1)
- #define AMDGPU_FENCE_FLAG_TC_WB_ONLY    (1 << 2)
- 
-+/* fence flag bit to indicate the face is embeded in job*/
-+#define AMDGPU_FENCE_FLAG_EMBED_IN_JOB_BIT		(DMA_FENCE_FLAG_USER_BITS + 1)
-+
- #define to_amdgpu_ring(s) container_of((s), struct amdgpu_ring, sched)
- 
- #define AMDGPU_IB_POOL_SIZE	(1024 * 1024)
-@@ -118,7 +121,7 @@ void amdgpu_fence_driver_hw_init(struct amdgpu_device *adev);
- void amdgpu_fence_driver_hw_fini(struct amdgpu_device *adev);
- int amdgpu_fence_driver_sw_init(struct amdgpu_device *adev);
- void amdgpu_fence_driver_sw_fini(struct amdgpu_device *adev);
--int amdgpu_fence_emit(struct amdgpu_ring *ring, struct dma_fence **fence,
-+int amdgpu_fence_emit(struct amdgpu_ring *ring, struct dma_fence **fence, struct amdgpu_job *job,
- 		      unsigned flags);
- int amdgpu_fence_emit_polling(struct amdgpu_ring *ring, uint32_t *s,
- 			      uint32_t timeout);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 2a88ed5d983b..2af8860d74cc 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -1218,7 +1218,7 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
- 		amdgpu_gmc_emit_pasid_mapping(ring, job->vmid, job->pasid);
- 
- 	if (vm_flush_needed || pasid_mapping_needed) {
--		r = amdgpu_fence_emit(ring, &fence, 0);
-+		r = amdgpu_fence_emit(ring, &fence, NULL, 0);
- 		if (r)
- 			return r;
- 	}
--- 
-2.25.1
-
+Best Regards,
+Jingwen
+On Tue Aug 10, 2021 at 10:51:17AM +0800, Jingwen Chen wrote:
+> On Mon Aug 09, 2021 at 12:24:37PM -0400, Andrey Grodzovsky wrote:
+> > 
+> > On 2021-08-05 4:31 a.m., Jingwen Chen wrote:
+> > > [Why]
+> > > After embeded hw_fence to amdgpu_job, we need to add tdr support
+> > > for this feature.
+> > > 
+> > > [How]
+> > > 1. Add a resubmit_flag for resubmit jobs.
+> > > 2. Clear job fence from RCU and force complete vm flush fences in
+> > >     pre_asic_reset
+> > > 3. skip dma_fence_get for resubmit jobs and add a dma_fence_put
+> > >     for guilty jobs.
+> > > v2:
+> > > use a job_run_counter in amdgpu_job to replace the resubmit_flag in
+> > > drm_sched_job. When the job_run_counter >= 1, it means this job is a
+> > > resubmit job.
+> > > 
+> > > Signed-off-by: Jack Zhang <Jack.Zhang7@hotmail.com>
+> > > Signed-off-by: Jingwen Chen <Jingwen.Chen2@amd.com>
+> > > ---
+> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 12 +++++++++++-
+> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c  | 13 +++++++++----
+> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    |  5 ++++-
+> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_job.h    |  3 +++
+> > >   4 files changed, 27 insertions(+), 6 deletions(-)
+> > > 
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > > index 9e53ff851496..ade2fa07a50a 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > > @@ -4447,7 +4447,7 @@ int amdgpu_device_mode1_reset(struct amdgpu_device *adev)
+> > >   int amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,
+> > >   				 struct amdgpu_reset_context *reset_context)
+> > >   {
+> > > -	int i, r = 0;
+> > > +	int i, j, r = 0;
+> > >   	struct amdgpu_job *job = NULL;
+> > >   	bool need_full_reset =
+> > >   		test_bit(AMDGPU_NEED_FULL_RESET, &reset_context->flags);
+> > > @@ -4471,6 +4471,16 @@ int amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,
+> > >   		if (!ring || !ring->sched.thread)
+> > >   			continue;
+> > > +		/*clear job fence from fence drv to avoid force_completion
+> > > +		 *leave NULL and vm flush fence in fence drv */
+> > > +		for (j = 0; j <= ring->fence_drv.num_fences_mask; j ++) {
+> > > +			struct dma_fence *old,**ptr;
+> > > +			ptr = &ring->fence_drv.fences[j];
+> > > +			old = rcu_dereference_protected(*ptr, 1);
+> > > +			if (old && test_bit(AMDGPU_FENCE_FLAG_EMBED_IN_JOB_BIT, &old->flags)) {
+> > > +				RCU_INIT_POINTER(*ptr, NULL);
+> > > +			}
+> > > +		}
+> > >   		/* after all hw jobs are reset, hw fence is meaningless, so force_completion */
+> > >   		amdgpu_fence_driver_force_completion(ring);
+> > >   	}
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> > > index 5e29d797a265..c9752cf794fb 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> > > @@ -159,10 +159,15 @@ int amdgpu_fence_emit(struct amdgpu_ring *ring, struct dma_fence **f, struct amd
+> > >   	}
+> > >   	seq = ++ring->fence_drv.sync_seq;
+> > > -	dma_fence_init(fence, &amdgpu_fence_ops,
+> > > -		       &ring->fence_drv.lock,
+> > > -		       adev->fence_context + ring->idx,
+> > > -		       seq);
+> > > +	if (job != NULL && job->job_run_counter) {
+> > > +		/* reinit seq for resubmitted jobs */
+> > > +		fence->seqno = seq;
+> > > +	} else {
+> > > +		dma_fence_init(fence, &amdgpu_fence_ops,
+> > > +				&ring->fence_drv.lock,
+> > > +				adev->fence_context + ring->idx,
+> > > +				seq);
+> > > +	}
+> > 
+> > 
+> > I think this should be in the first patch actually (and the counter too),
+> > without it the first patch is buggy.
+> > 
+> I was originally split these two patches by adding job submission
+> seqence and adding tdr sequence, But yes, I should merge these two
+> patches otherwise the tdr sequence will fail without second patch.
+> Will send a merged version today.
+> 
+> Best Regards,
+> Jingwen
+> > 
+> > >   	if (job != NULL) {
+> > >   		/* mark this fence has a parent job */
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> > > index 65a395060de2..19b13a65c73b 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> > > @@ -254,6 +254,7 @@ static struct dma_fence *amdgpu_job_run(struct drm_sched_job *sched_job)
+> > >   		dma_fence_set_error(finished, -ECANCELED);/* skip IB as well if VRAM lost */
+> > >   	if (finished->error < 0) {
+> > > +		dma_fence_put(&job->hw_fence);
+> > 
+> > 
+> > Would put this check bellow with the job_run_counter check
+> > 
+> > 
+> > >   		DRM_INFO("Skip scheduling IBs!\n");
+> > >   	} else {
+> > >   		r = amdgpu_ib_schedule(ring, job->num_ibs, job->ibs, job,
+> > > @@ -262,7 +263,9 @@ static struct dma_fence *amdgpu_job_run(struct drm_sched_job *sched_job)
+> > >   			DRM_ERROR("Error scheduling IBs (%d)\n", r);
+> > >   	}
+> > > -	dma_fence_get(fence);
+> > > +	if (!job->job_run_counter)
+> > > +		dma_fence_get(fence);
+> > > +	job->job_run_counter ++;
+> > >   	amdgpu_job_free_resources(job);
+> > 
+> > 
+> > Here you  modify code you already changed in patch 1, looks to me
+> > like those 2 patches should be squashed into one patch as the changes are
+> > directly dependent and it's hard to follow
+> > 
+> > Andrey
+> > 
+> > 
+> > >   	fence = r ? ERR_PTR(r) : fence;
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+> > > index 92324c978534..1fa667f245e1 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+> > > @@ -64,6 +64,9 @@ struct amdgpu_job {
+> > >   	/* user fence handling */
+> > >   	uint64_t		uf_addr;
+> > >   	uint64_t		uf_sequence;
+> > > +
+> > > +	/* job_run_counter >= 1 means a resubmit job */
+> > > +	uint32_t		job_run_counter;
+> > >   };
+> > >   int amdgpu_job_alloc(struct amdgpu_device *adev, unsigned num_ibs,
