@@ -2,127 +2,106 @@ Return-Path: <SRS0=MFBU=NC=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-18.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UPPERCASE_50_75,
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 325BDC432BE
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Aug 2021 07:58:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9001DC4320E
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Aug 2021 08:33:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EB01E60551
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Aug 2021 07:58:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EB01E60551
+	by mail.kernel.org (Postfix) with ESMTPS id 53FBD6108C
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Aug 2021 08:33:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 53FBD6108C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 105E36E0CC;
-	Wed, 11 Aug 2021 07:58:04 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam07on2079.outbound.protection.outlook.com [40.107.212.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35A8089E05
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Aug 2021 07:58:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 425786E0CD;
+	Wed, 11 Aug 2021 08:33:35 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2042.outbound.protection.outlook.com [40.107.220.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32E8C6E0CD
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Aug 2021 08:33:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eggFetY57KiUsmxbnwzx0bDs8x71l9XzHbSdZQR0RFUScTC7hadRlN8iXfRcu2DKQlDbnwwQZswPq//x6zFhvttSQuhidWCdKBCQYZjZ8A9MwkcsDztDrRGMN5sfflyq9jeuO17MchHcqsIAAfNdiwfStPwtALcHzvXAbq0G+Yzp79lVmxZ0rT0w7LSfwkqiK3Yy+6a21lsAKlSyzqluo9LDlE3cRkNqw1EXQ5uo4sV7pKcEDYFF4K6Mc/XcF0F+OvLxJTEo/fm2kbv4MKBNR4Wx1IwnfRddzFVhaar/Q5omhg/yL6oqbAHcswhYK0C0zJqGXl8Ec38yfnFxJ4ixNQ==
+ b=Gu2GUHlkLycjLEMCR5hJA6V3d09ahFrMHTiG18Wwr78C9YqzABp9yVsW8fosh4KGwOFhVIcyzenTujuhC12qUcW/aVRftUJGj5vzJB7/slCrFatzX2VftkAY+XnLB/FvC2MgMMrneimSFnSF3OM/Y1nKUEgL4z6TZcWbMwE+npX2thpH6IsDmCghKPdWumde7PZm4Scnq4bqKwSnGsOwX1TKq7PAFiEZ+Ww2tM8iQ1z+9In4IMJzhQ8sTOyvsR9xTtxcv1wAkY+v0pRgXRg1c4lzGivSZWulW2CmAtm+sKWtqIknf/S2ES3tM3HKA2oqyR4YgtHgTpFXN3a1ard4YQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QfPThzlNsU5lhJxF/lHOJ2/Ep8TQqnRjkX3tdEdWMR8=;
- b=S3xw5K3GNDL+iU5GqQ1qshUiU8TlZAXqqU8aQq9zsA/luYS8irX3bgncwPQV0dB+mTVzjLb3bNEBvQhCZjN5m31WNiOdurqt+/0OozpZ2vAIM/qjHCkR46+u2P0FhU2zUQdt9p06rWwhrzF6KD6x2vmpCHG5l+0CXFP59ow2xHStDFk8YPApuoO3NMwELpbSv0cTyyC8VoEq0t7OhiagwmMSuSo/BgNGpsDC+g9b88vHZSBMk0iD+yvkO3bWiv7uV19qiHMmo8PUy7Mc/PvxQaX3WY/bJlgeegb/2qX0DXpKSqUmjtWDflCUrAlsLPOIQE4PZ25Ee1G7xWwaK995+g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=6aLUJvWfx9N+pNh4GfHWIjil+6aksGLG7GOA/WiTV8U=;
+ b=AFdxSDkAURPix9g1CLHVAuWdHwrjGVQYG9lpdV5cZy8nfan2asz7PIO5jCiNd3ZHbZPKUH2IIwOZyCr55sufpA/sNzcJtxjOQJznYKFwooHkRm4ay8278d5vQnF7PNmQpswzBmFkSEoh1+lXWRjwrt3DvozW2XHLHhTK7Yn7visalUkEZPvn0Rw1ZkMYZ60sjPcQ/J0XIJzLqXFN0JaCX1YNZpSShwnXByovz2oXSFrykinVisQhg7TjhVLeuCpI1rM6OF+64sfs20Ke3ybQv/u3C5Dvouhb+wsQ9pGpTyip2qFV+ud6JHwWsqp314Mp9ASoBs7Z3i0skgegeLAmxw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QfPThzlNsU5lhJxF/lHOJ2/Ep8TQqnRjkX3tdEdWMR8=;
- b=ZEDDx/2YcPeG9ZgNt6SsnjvipOzqz8f/gKx9UkLM92jNBXKkojnqVUkgIPeTMN3swnpPiMBO2W6fbukQa7BEdDncmfyW433faAJxwT3T3eO8vaxwOBJz2ZKCzKBaQxrlLXX9BIaP9TzD5sx4K/ot2lsqxbdBz8xl94NMsz0Mzqs=
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
- DM5PR1201MB2472.namprd12.prod.outlook.com (2603:10b6:3:e1::23) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4394.19; Wed, 11 Aug 2021 07:58:00 +0000
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::e9f8:55de:32f0:a7e6]) by DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::e9f8:55de:32f0:a7e6%7]) with mapi id 15.20.4415.016; Wed, 11 Aug 2021
- 07:58:00 +0000
-From: "Quan, Evan" <Evan.Quan@amd.com>
-To: "Chen, Guchun" <Guchun.Chen@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Subject: RE: [PATCH 1/7] drm/amd/pm: correct the fan speed RPM setting
-Thread-Topic: [PATCH 1/7] drm/amd/pm: correct the fan speed RPM setting
-Thread-Index: AQHXctOyAerpsfQipEqxvRZs2fExuqs28MkAgDc2XXA=
-Date: Wed, 11 Aug 2021 07:58:00 +0000
-Message-ID: <DM6PR12MB26195CEE48633C1671B13BA8E4F89@DM6PR12MB2619.namprd12.prod.outlook.com>
-References: <20210707015647.139127-1-evan.quan@amd.com>
- <BN6PR12MB1283FFC825660548C25FF23CF11A9@BN6PR12MB1283.namprd12.prod.outlook.com>
-In-Reply-To: <BN6PR12MB1283FFC825660548C25FF23CF11A9@BN6PR12MB1283.namprd12.prod.outlook.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-08-11T07:57:53Z; 
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP 2.0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=076c083f-5276-4aed-bcc5-284a72787de8;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: a9c8ae44-2711-485f-0e05-08d95c9dbd51
-x-ms-traffictypediagnostic: DM5PR1201MB2472:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM5PR1201MB24725EB3CA2522A6DBF5B48DE4F89@DM5PR1201MB2472.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:4941;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: P3LC8S5aYzcPz4eY0j07RxaDfp7ynWZYYyyiMIVD86j8H3w9CGYxNxV+IfutB4x0srDXc2QKLfiZs/cs7bYScCNAWtFz+eFpYG9c86j60LyMg/mDv29PWi/52jSC/OdU/3sG3fLo9xI967j2l2/dIsKlotP2WmmFUm1H6pRauUvCOCmou7un5MsWp7Wm63GxLrmT/j/b6j2/aElVkNY2o9p0DVQ7lQo/xq1UcstDwfWR/f8+JTqYoCxsEeFNJOi29TgVNp+6bFeezYkgk+rnD8UHkerEQzxSC7VPhgyNa+9Re6tuxl+8Cz3eFshCHW+qfnRf2nmiOXmFcQym/OfxHz0Go/+00t4iF9/8WLhrhV5mRzRW03Ij2eXZvxSsSR2Rs/JHAIE+iNa2929M0PC+zzEWk20Kt9/D9sUeiOXxFudoqDk+RvI4ju75jDXH2rybW8nZIdmeiLeNGQPyfcwW5OoskuE4qN7tw5UyKXQrFqQr1gR1Q+0Qm+KtPJH4umt1LTQF+2Lxd9cMoj+aOBguIQqvgzMdB/h6O2rnMXc3792AmMMcuqAf5ZsTC1mPZbWCuwWUIB47+Rkg95AUsC67dWUkSSN5KUr42U6oe4hgStdNqBY0hoKGDn6zHLPEM1B2pYNQIlVNHyzm+g8YFbfsbq775ipZZiMVU+sV0UWouNynbKtooeJG9HsINrKkjbjcOKspbAx6z4LvpyPTZ13pUk6j19LkHMC3JopUbiluXhg5vt86XHEw2Mewhp6tOrO+1hDTOdG/sWzhyxfQ3/cxQi/NvgpHoZNca1bV78BJiwU=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(396003)(366004)(136003)(346002)(376002)(52536014)(38100700002)(110136005)(316002)(26005)(66446008)(66556008)(38070700005)(64756008)(2906002)(76116006)(66476007)(66946007)(45080400002)(4326008)(122000001)(186003)(478600001)(83380400001)(8936002)(71200400001)(9686003)(86362001)(55016002)(5660300002)(7696005)(966005)(33656002)(8676002)(6506007)(53546011);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?HPu8B9yu6svg+9tGczVdSDdrJ/NNv5NfQ7kc0xpZJr3keKlJXKh0x4Puvuug?=
- =?us-ascii?Q?GRgYzeA9z2zbEfA8zZvMRjJEtwvkLfU4naCo9RtfX4tPINIzQgYFqDMcDfQz?=
- =?us-ascii?Q?SY4brGCTsD1CgGD49lam2HDIAE3iy/Qoe/cZrfgoTF+Se4bYQdpZAQvsA5/z?=
- =?us-ascii?Q?S5CqMYvZNn3v0+UG8fp8PE854AdC+V1gGIWg6/b6nRPW10voQUvNjgc2GYEZ?=
- =?us-ascii?Q?M+oCSUEfvhiK/uJ8/A4l2k2tGoB3m7UW+Mcrq4/g0glhrRiJi+VZYvTMpPz/?=
- =?us-ascii?Q?K9v7zTaJw7dH0dCAc4XpJIYe8A/5Yxiwe3VmzgmegctIwqr0SLNr/oAjSTfY?=
- =?us-ascii?Q?l5cQnz0K9CVZH+hDIdIjxdUNG+uwwSqW8sNt5xHkbdmnRwIWwrzIb7ZpXq21?=
- =?us-ascii?Q?+CF2dlPtjeiNgpB7kG3GfRc52q6WF9uj+VnZtVY3iv9ErcaaHgdfBeRqpxJr?=
- =?us-ascii?Q?j5QOa62vLdbudBAF44lttYD8gXfEKgIPwlhVbXIjlV54otsuVLv/L26MfsYN?=
- =?us-ascii?Q?ahJfND9kSHe7+fayWTMsbXLMoFIaBySowLzbeR7TTW/KkEGCwDxA7abzC+s4?=
- =?us-ascii?Q?514ZEJKoC7fvNXAEdtHL2Au48N/9TqQCPqY1dGGr4ZS5P/KJihizAc2mSLo1?=
- =?us-ascii?Q?Jyq22hJ6eOjt82oaKUuNR4qu5soKS6CkDTMLdE0XMPkg2lXUykWF8jBovZQo?=
- =?us-ascii?Q?3/6nBX/pxCU5h+f3l0Hn48Zrn7hY2L+vncGW+jVWAgk/MKF7lV0gPSulOKKs?=
- =?us-ascii?Q?ptFwaTDSR4wcnyOFqIXdjVSAfYuVRuMe+fAbn/I99EcrKxOHoiiljGXeOdqA?=
- =?us-ascii?Q?ngMSmXKKEY1hVXKZIsarZ9SbAUM4zRFq6BJlccol905mzxK1dToCN9wVY6qH?=
- =?us-ascii?Q?NImTmkGywVzoexVEsIGDUvq0Hs0cU5j+lOcNXGdNP0Sepa1pKn6vyUzY2UPW?=
- =?us-ascii?Q?0bXGp/0PYGgRhyEtx+7FBYpnhpRgHcVUDOoHIQUG5MRyBXLigfvXuL14wW6h?=
- =?us-ascii?Q?10p6mtoQ6lfkfYvGJLa5ZeQqMaSH7cVZboQvEmhrkVArAXMDuvNxrPA5VDiq?=
- =?us-ascii?Q?yw1qmMbXGg3PkPE+aDCZEUzpPmFsOFsvPizPpCiCNiL257YCy4HY+10uXaMZ?=
- =?us-ascii?Q?gipfXfnxQgv8wlMY5Oa3EaIHeN1/XqHntLanQJ/s7sUfmimZO7aCohY341Iq?=
- =?us-ascii?Q?ZNoIOozL/tSTEkMnjfUis6QjqMzscks3T6PyDsfgr7dMRIxQWNHczikm7x1t?=
- =?us-ascii?Q?i4Yg10wWWLz4yK6N792JG9Ot2OaFD/UiRpFpMS+w747M13zi/jg3mXx4J2l8?=
- =?us-ascii?Q?XBaUZwvMzgyN8lTqQTAkbjc/?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ bh=6aLUJvWfx9N+pNh4GfHWIjil+6aksGLG7GOA/WiTV8U=;
+ b=pEN474bL3RhastOGcCh5lNhrRsc7zyXwybdbi55mZxyDJW5sc/rX9HtCGgpXeJq7QVisyrln+rVu2PvmoqGMkn3du84m0osKftHDg6I7iy7Uuc+dWClvSIRIPjJJdbsQPFaHzz3Qgp5di3a0iR614/hcTgojLaBdOOfIxio+NmM=
+Received: from BN0PR04CA0073.namprd04.prod.outlook.com (2603:10b6:408:ea::18)
+ by SA0PR12MB4573.namprd12.prod.outlook.com (2603:10b6:806:9c::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.14; Wed, 11 Aug
+ 2021 08:33:32 +0000
+Received: from BN8NAM11FT050.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:ea:cafe::c0) by BN0PR04CA0073.outlook.office365.com
+ (2603:10b6:408:ea::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.14 via Frontend
+ Transport; Wed, 11 Aug 2021 08:33:31 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT050.mail.protection.outlook.com (10.13.177.5) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4415.14 via Frontend Transport; Wed, 11 Aug 2021 08:33:31 +0000
+Received: from kevin-ws.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Wed, 11 Aug
+ 2021 03:33:29 -0500
+From: Kevin Wang <kevin1.wang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <lijo.lazar@amd.com>, <kenneth.feng@amd.com>, <frank.min@amd.com>,
+ <hawking.zhang@amd.com>, Kevin Wang <kevin1.wang@amd.com>
+Subject: [PATCH 1/5] drm/amd/pm: correct DPM_XGMI/VCN_DPM feature name
+Date: Wed, 11 Aug 2021 16:33:19 +0800
+Message-ID: <20210811083323.1084225-1-kevin1.wang@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: b818ed01-e61a-4c38-5015-08d95ca2b3b2
+X-MS-TrafficTypeDiagnostic: SA0PR12MB4573:
+X-Microsoft-Antispam-PRVS: <SA0PR12MB45733D418784CB15A1DF4D82A2F89@SA0PR12MB4573.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:901;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 0/obyUbZ+SBqK8EQwKcqPRnakRgJEthClZz0xi/6zRsxofPff5HM5YyHj1JUdNXwuSr7L9WFNMuDOlMn6ddNCGfDZNYvINBz6OEL12X4+7WHRqkGIqgxr/bs4Q8OdgUonWKg9pAcCh2GSk1kbFU4dYSwFy6H4nsoHh5t/E3E8hDToKvuIW/vZzR7/G7sanJUIdabVwdXtiZujRUO+pNJtRoaD/SIA6/SIMc5UkVqsmIZrSSUqM3Wg8wZ8LxjTk9IB32jimbUVkf4LpWJ9PSClfwpME3Vu0+eO113iv8eeyKqka/8/rOAF1gDvjD8excNcVLlAoDdp1eCKEK0d0l42lZ66aEbPL4li15qhtnjUKwzV+Zi3W6XbAg6/E1gf/N2c7+z7gvXckGt81/zDiaXV5Yj2HFCaNRFbkeIohOk5EUv/XIbLedP7MjfSs+eiKFIP5lrIAmIptCVkMyG/ScGG+iiQVhXCklHrzAQcbt6nSqEjlKhNDlV8OidOYgIRQml1EtPr906cRGpfm7X25lNPNJC6+aeNGhqlTUP+8ssdF+ymxewjZ+8E4GuB3l1oj42IIntkLof6xf0ayuV1CFAZZaBs1EklGgbIMP314F+WmqKSZ+DUtW0g986p2ePdGWKlpkWyxkbKnxbdShTsQ/c7VBORowzalgJan25YQWbu2etTQlqhvDCGWovnyCrZUUzldG0fEiedoX2DKWdL+U2/tPbk1BfrP8mssHjBsKpUbihT6+QB1XNqjOnONULyTiitb/p0xIuDxlcM+h+vyx8JQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(396003)(376002)(39860400002)(346002)(136003)(36840700001)(46966006)(36756003)(336012)(426003)(34020700004)(70586007)(26005)(8676002)(2906002)(1076003)(478600001)(82310400003)(2616005)(86362001)(186003)(16526019)(70206006)(316002)(81166007)(5660300002)(6666004)(54906003)(82740400003)(7696005)(47076005)(356005)(8936002)(6916009)(83380400001)(36860700001)(4326008)(36900700001);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a9c8ae44-2711-485f-0e05-08d95c9dbd51
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Aug 2021 07:58:00.4043 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: nfpWV2m/uAgUdfAWg0tMOz5D/8cD+5vprynSj7/8uchnHUrvOoWN88CJ/dPPDfZJ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB2472
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2021 08:33:31.8471 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b818ed01-e61a-4c38-5015-08d95ca2b3b2
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT050.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4573
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,225 +116,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
+the following feature is wrong, it will cause sysnode of pp_features show error:
+1. DPM_XGMI
+2. VCN_DPM
 
+Signed-off-by: Kevin Wang <kevin1.wang@amd.com>
+---
+ drivers/gpu/drm/amd/pm/inc/smu_types.h           |  1 -
+ .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c    | 16 ++++++++--------
+ .../gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c   |  4 ++--
+ 3 files changed, 10 insertions(+), 11 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/pm/inc/smu_types.h b/drivers/gpu/drm/amd/pm/inc/smu_types.h
+index 1d3765b873df..3fdee6cf01ed 100644
+--- a/drivers/gpu/drm/amd/pm/inc/smu_types.h
++++ b/drivers/gpu/drm/amd/pm/inc/smu_types.h
+@@ -297,7 +297,6 @@ enum smu_clk_type {
+        __SMU_DUMMY_MAP(DS_FCLK),                       	\
+        __SMU_DUMMY_MAP(DS_MP1CLK),                     	\
+        __SMU_DUMMY_MAP(DS_MP0CLK),                     	\
+-       __SMU_DUMMY_MAP(XGMI),                          	\
+        __SMU_DUMMY_MAP(XGMI_PER_LINK_PWR_DWN),          \
+        __SMU_DUMMY_MAP(DPM_GFX_PACE),                  	\
+        __SMU_DUMMY_MAP(MEM_VDDCI_SCALING),             	\
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+index 6ec8492f71f5..b4d98465bb36 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+@@ -163,14 +163,14 @@ static const struct cmn2asic_mapping arcturus_feature_mask_map[SMU_FEATURE_COUNT
+ 	FEA_MAP(DPM_SOCCLK),
+ 	FEA_MAP(DPM_FCLK),
+ 	FEA_MAP(DPM_MP0CLK),
+-	ARCTURUS_FEA_MAP(SMU_FEATURE_XGMI_BIT, FEATURE_DPM_XGMI_BIT),
++	FEA_MAP(DPM_XGMI),
+ 	FEA_MAP(DS_GFXCLK),
+ 	FEA_MAP(DS_SOCCLK),
+ 	FEA_MAP(DS_LCLK),
+ 	FEA_MAP(DS_FCLK),
+ 	FEA_MAP(DS_UCLK),
+ 	FEA_MAP(GFX_ULV),
+-	ARCTURUS_FEA_MAP(SMU_FEATURE_VCN_PG_BIT, FEATURE_DPM_VCN_BIT),
++	ARCTURUS_FEA_MAP(SMU_FEATURE_VCN_DPM_BIT, FEATURE_DPM_VCN_BIT),
+ 	FEA_MAP(RSMU_SMN_CG),
+ 	FEA_MAP(WAFL_CG),
+ 	FEA_MAP(PPT),
+@@ -721,13 +721,13 @@ static int arcturus_get_current_clk_freq_by_table(struct smu_context *smu,
+ 			member_type = METRICS_AVERAGE_SOCCLK;
+ 		break;
+ 	case PPCLK_VCLK:
+-		if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_VCN_PG_BIT))
++		if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_VCN_DPM_BIT))
+ 			member_type = METRICS_CURR_VCLK;
+ 		else
+ 			member_type = METRICS_AVERAGE_VCLK;
+ 		break;
+ 	case PPCLK_DCLK:
+-		if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_VCN_PG_BIT))
++		if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_VCN_DPM_BIT))
+ 			member_type = METRICS_CURR_DCLK;
+ 		else
+ 			member_type = METRICS_AVERAGE_DCLK;
+@@ -1916,16 +1916,16 @@ static int arcturus_dpm_set_vcn_enable(struct smu_context *smu, bool enable)
+ 	int ret = 0;
+ 
+ 	if (enable) {
+-		if (!smu_cmn_feature_is_enabled(smu, SMU_FEATURE_VCN_PG_BIT)) {
+-			ret = smu_cmn_feature_set_enabled(smu, SMU_FEATURE_VCN_PG_BIT, 1);
++		if (!smu_cmn_feature_is_enabled(smu, SMU_FEATURE_VCN_DPM_BIT)) {
++			ret = smu_cmn_feature_set_enabled(smu, SMU_FEATURE_VCN_DPM_BIT, 1);
+ 			if (ret) {
+ 				dev_err(smu->adev->dev, "[EnableVCNDPM] failed!\n");
+ 				return ret;
+ 			}
+ 		}
+ 	} else {
+-		if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_VCN_PG_BIT)) {
+-			ret = smu_cmn_feature_set_enabled(smu, SMU_FEATURE_VCN_PG_BIT, 0);
++		if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_VCN_DPM_BIT)) {
++			ret = smu_cmn_feature_set_enabled(smu, SMU_FEATURE_VCN_DPM_BIT, 0);
+ 			if (ret) {
+ 				dev_err(smu->adev->dev, "[DisableVCNDPM] failed!\n");
+ 				return ret;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+index 856eeaf293b8..97cc6fb9b22b 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+@@ -156,14 +156,14 @@ static const struct cmn2asic_mapping aldebaran_feature_mask_map[SMU_FEATURE_COUN
+ 	ALDEBARAN_FEA_MAP(SMU_FEATURE_DPM_SOCCLK_BIT, 			FEATURE_DPM_SOCCLK_BIT),
+ 	ALDEBARAN_FEA_MAP(SMU_FEATURE_DPM_FCLK_BIT, 			FEATURE_DPM_FCLK_BIT),
+ 	ALDEBARAN_FEA_MAP(SMU_FEATURE_DPM_LCLK_BIT, 			FEATURE_DPM_LCLK_BIT),
+-	ALDEBARAN_FEA_MAP(SMU_FEATURE_XGMI_BIT, 				FEATURE_DPM_XGMI_BIT),
++	ALDEBARAN_FEA_MAP(SMU_FEATURE_DPM_XGMI_BIT, 				FEATURE_DPM_XGMI_BIT),
+ 	ALDEBARAN_FEA_MAP(SMU_FEATURE_DS_GFXCLK_BIT, 			FEATURE_DS_GFXCLK_BIT),
+ 	ALDEBARAN_FEA_MAP(SMU_FEATURE_DS_SOCCLK_BIT, 			FEATURE_DS_SOCCLK_BIT),
+ 	ALDEBARAN_FEA_MAP(SMU_FEATURE_DS_LCLK_BIT, 				FEATURE_DS_LCLK_BIT),
+ 	ALDEBARAN_FEA_MAP(SMU_FEATURE_DS_FCLK_BIT, 				FEATURE_DS_FCLK_BIT),
+ 	ALDEBARAN_FEA_MAP(SMU_FEATURE_DS_UCLK_BIT,				FEATURE_DS_UCLK_BIT),
+ 	ALDEBARAN_FEA_MAP(SMU_FEATURE_GFX_SS_BIT, 				FEATURE_GFX_SS_BIT),
+-	ALDEBARAN_FEA_MAP(SMU_FEATURE_VCN_PG_BIT, 				FEATURE_DPM_VCN_BIT),
++	ALDEBARAN_FEA_MAP(SMU_FEATURE_VCN_DPM_BIT, 				FEATURE_DPM_VCN_BIT),
+ 	ALDEBARAN_FEA_MAP(SMU_FEATURE_RSMU_SMN_CG_BIT, 			FEATURE_RSMU_SMN_CG_BIT),
+ 	ALDEBARAN_FEA_MAP(SMU_FEATURE_WAFL_CG_BIT, 				FEATURE_WAFL_CG_BIT),
+ 	ALDEBARAN_FEA_MAP(SMU_FEATURE_PPT_BIT, 					FEATURE_PPT_BIT),
+-- 
+2.25.1
 
-> -----Original Message-----
-> From: Chen, Guchun <Guchun.Chen@amd.com>
-> Sent: Wednesday, July 7, 2021 12:48 PM
-> To: Quan, Evan <Evan.Quan@amd.com>; amd-gfx@lists.freedesktop.org
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Quan, Evan
-> <Evan.Quan@amd.com>
-> Subject: RE: [PATCH 1/7] drm/amd/pm: correct the fan speed RPM setting
->=20
-> [Public]
->=20
-> tach_period =3D 60 * crystal_clock_freq * 10000 / (8 * speed);
->=20
-> Any multiplication's overflow possibility?
-[Quan, Evan] crystal_clock_freq is actually always 2500. So, it's pretty sa=
-fe here.
-BR
-Evan
-> Regards,
-> Guchun
->=20
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Evan
-> Quan
-> Sent: Wednesday, July 7, 2021 9:57 AM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Quan, Evan
-> <Evan.Quan@amd.com>
-> Subject: [PATCH 1/7] drm/amd/pm: correct the fan speed RPM setting
->=20
-> The relationship "PWM =3D RPM / smu->fan_max_rpm" between fan speed
-> PWM and RPM is not true for SMU11 ASICs. So, we need a new way to
-> perform the fan speed RPM setting.
->=20
-> Change-Id: I1afe8102f02ead9a8a07c7105f689ac60a85b0d8
-> Signed-off-by: Evan Quan <evan.quan@amd.com>
-> ---
->  drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h       |  5 +++
->  drivers/gpu/drm/amd/pm/inc/smu_v11_0.h        |  3 ++
->  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |  9 ++---
->  .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c |  1 +
->  .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   |  1 +
->  .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   |  1 +
->  .../gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c    | 36
-> +++++++++++++++++++
->  7 files changed, 52 insertions(+), 4 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-> b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-> index 3e89852e4820..6301e4cb3c2a 100644
-> --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-> +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-> @@ -1039,6 +1039,11 @@ struct pptable_funcs {
->  	 */
->  	int (*set_fan_speed_percent)(struct smu_context *smu, uint32_t
-> speed);
->=20
-> +	/**
-> +	 * @set_fan_speed_rpm: Set a static fan speed in rpm.
-> +	 */
-> +	int (*set_fan_speed_rpm)(struct smu_context *smu, uint32_t
-> speed);
-> +
->  	/**
->  	 * @set_xgmi_pstate: Set inter-chip global memory interconnect
-> pstate.
->  	 * &pstate: Pstate to set. D0 if Nonzero, D3 otherwise.
-> diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
-> b/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
-> index b89e7dca8906..134a33e3de91 100644
-> --- a/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
-> +++ b/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
-> @@ -223,6 +223,9 @@ smu_v11_0_set_fan_control_mode(struct
-> smu_context *smu,  int smu_v11_0_set_fan_speed_percent(struct
-> smu_context *smu,
->  				    uint32_t speed);
->=20
-> +int smu_v11_0_set_fan_speed_rpm(struct smu_context *smu,
-> +				uint32_t speed);
-> +
->  int smu_v11_0_set_xgmi_pstate(struct smu_context *smu,
->  				     uint32_t pstate);
->=20
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> index ebe672142808..576e9ea68fd1 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> @@ -2174,11 +2174,12 @@ static int smu_set_fan_speed_rpm(void *handle,
-> uint32_t speed)
->=20
->  	mutex_lock(&smu->mutex);
->=20
-> -	if (smu->ppt_funcs->set_fan_speed_percent) {
-> -		percent =3D speed * 100 / smu->fan_max_rpm;
-> -		ret =3D smu->ppt_funcs->set_fan_speed_percent(smu,
-> percent);
-> -		if (!ret && !(smu->user_dpm_profile.flags &
-> SMU_DPM_USER_PROFILE_RESTORE))
-> +	if (smu->ppt_funcs->set_fan_speed_rpm) {
-> +		ret =3D smu->ppt_funcs->set_fan_speed_rpm(smu, speed);
-> +		if (!ret && smu->user_dpm_profile.flags &
-> SMU_DPM_USER_PROFILE_RESTORE) {
-> +			percent =3D speed * 100 / smu->fan_max_rpm;
->  			smu->user_dpm_profile.fan_speed_percent =3D
-> percent;
-> +		}
->  	}
->=20
->  	mutex_unlock(&smu->mutex);
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-> b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-> index 6b3e0ea10163..047adf6dd444 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-> @@ -2314,6 +2314,7 @@ static const struct pptable_funcs
-> arcturus_ppt_funcs =3D {
->  	.get_fan_control_mode =3D smu_v11_0_get_fan_control_mode,
->  	.set_fan_control_mode =3D smu_v11_0_set_fan_control_mode,
->  	.set_fan_speed_percent =3D smu_v11_0_set_fan_speed_percent,
-> +	.set_fan_speed_rpm =3D smu_v11_0_set_fan_speed_rpm,
->  	.set_xgmi_pstate =3D smu_v11_0_set_xgmi_pstate,
->  	.gfx_off_control =3D smu_v11_0_gfx_off_control,
->  	.register_irq_handler =3D smu_v11_0_register_irq_handler, diff --git
-> a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> index 59ea59acfb00..d8a011483dcf 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> @@ -3248,6 +3248,7 @@ static const struct pptable_funcs navi10_ppt_funcs
-> =3D {
->  	.get_fan_control_mode =3D smu_v11_0_get_fan_control_mode,
->  	.set_fan_control_mode =3D smu_v11_0_set_fan_control_mode,
->  	.set_fan_speed_percent =3D smu_v11_0_set_fan_speed_percent,
-> +	.set_fan_speed_rpm =3D smu_v11_0_set_fan_speed_rpm,
->  	.set_xgmi_pstate =3D smu_v11_0_set_xgmi_pstate,
->  	.gfx_off_control =3D smu_v11_0_gfx_off_control,
->  	.register_irq_handler =3D smu_v11_0_register_irq_handler, diff --git
-> a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> index 83d8e53ca1f8..dad120294c19 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> @@ -3886,6 +3886,7 @@ static const struct pptable_funcs
-> sienna_cichlid_ppt_funcs =3D {
->  	.get_fan_control_mode =3D smu_v11_0_get_fan_control_mode,
->  	.set_fan_control_mode =3D smu_v11_0_set_fan_control_mode,
->  	.set_fan_speed_percent =3D smu_v11_0_set_fan_speed_percent,
-> +	.set_fan_speed_rpm =3D smu_v11_0_set_fan_speed_rpm,
->  	.set_xgmi_pstate =3D smu_v11_0_set_xgmi_pstate,
->  	.gfx_off_control =3D smu_v11_0_gfx_off_control,
->  	.register_irq_handler =3D smu_v11_0_register_irq_handler, diff --git
-> a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-> b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-> index 388c5cb5c647..fefc8e93fdc6 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-> @@ -1213,6 +1213,42 @@ smu_v11_0_set_fan_speed_percent(struct
-> smu_context *smu, uint32_t speed)
->  	return smu_v11_0_set_fan_static_mode(smu,
-> FDO_PWM_MODE_STATIC);  }
->=20
-> +int smu_v11_0_set_fan_speed_rpm(struct smu_context *smu,
-> +				uint32_t speed)
-> +{
-> +	struct amdgpu_device *adev =3D smu->adev;
-> +	uint32_t tach_period, crystal_clock_freq;
-> +	int ret;
-> +
-> +	ret =3D smu_v11_0_auto_fan_control(smu, 0);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/*
-> +	 * crystal_clock_freq div by 4 is required since the fan control
-> +	 * module refers to 25MHz
-> +	 */
-> +	crystal_clock_freq =3D amdgpu_asic_get_xclk(adev) / 4;
-> +
-> +	/*
-> +	 * To prevent from possible overheat, some ASICs may have
-> requirement
-> +	 * for minimum fan speed:
-> +	 * - For some NV10 SKU, the fan speed cannot be set lower than
-> +	 *   700 RPM.
-> +	 * - For some Sienna Cichlid SKU, the fan speed cannot be set
-> +	 *   lower than 500 RPM.
-> +	 */
-> +	tach_period =3D 60 * crystal_clock_freq * 10000 / (8 * speed);
-> +	WREG32_SOC15(THM, 0, mmCG_TACH_CTRL,
-> +		     REG_SET_FIELD(RREG32_SOC15(THM, 0,
-> mmCG_TACH_CTRL),
-> +				   CG_TACH_CTRL, TARGET_PERIOD,
-> +				   tach_period));
-> +
-> +	ret =3D smu_v11_0_set_fan_static_mode(smu,
-> FDO_PWM_MODE_STATIC_RPM);
-> +
-> +	return ret;
-> +}
-> +
->  int
->  smu_v11_0_set_fan_control_mode(struct smu_context *smu,
->  			       uint32_t mode)
-> --
-> 2.29.0
->=20
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists=
-.
-> freedesktop.org%2Fmailman%2Flistinfo%2Famd-
-> gfx&amp;data=3D04%7C01%7Cguchun.chen%40amd.com%7C645297d9dabb45c
-> de58708d940ead718%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7
-> C637612199673041719%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAw
-> MDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sda
-> ta=3Du55f4UA2CryPci5gT95LVEm%2F1%2FGeys0N39USkBTgTFM%3D&amp;res
-> erved=3D0
