@@ -8,75 +8,70 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9A5C7C4338F
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Aug 2021 20:22:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F2518C4338F
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Aug 2021 20:35:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5192E6101E
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Aug 2021 20:22:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5192E6101E
+	by mail.kernel.org (Postfix) with ESMTPS id 94B1A60EB9
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Aug 2021 20:35:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 94B1A60EB9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5F936E1B3;
-	Wed, 11 Aug 2021 20:22:57 +0000 (UTC)
-Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com
- [IPv6:2607:f8b0:4864:20::230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38FD06E1B3
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Aug 2021 20:22:55 +0000 (UTC)
-Received: by mail-oi1-x230.google.com with SMTP id bj40so6472884oib.6
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Aug 2021 13:22:55 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B091889115;
+	Wed, 11 Aug 2021 20:35:45 +0000 (UTC)
+Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com
+ [IPv6:2607:f8b0:4864:20::336])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5AE5989115;
+ Wed, 11 Aug 2021 20:34:19 +0000 (UTC)
+Received: by mail-ot1-x336.google.com with SMTP id
+ z9-20020a9d62c90000b0290462f0ab0800so4871390otk.11; 
+ Wed, 11 Aug 2021 13:34:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=a3m2MbIg4sEtXv9avuG1e6MFNGV4pylFXHp2blr5HGs=;
- b=mvBcFhwE4msJxyvh+Lpg/MzkzHEniqhpMktGxuvh2PqdfUNoNChTOAUB+Do6FMFa9o
- nvonslaOXNTDNLnjxaNVflUfJyiCp5ANkqJxbQhUjtZcwKfg0PkxFRJG1PcpsaCoRcqU
- qrXhymtefLERQPKEY1QHSYWwW6TR+29zQBIpQM9Jsb5L3JIcD9OkASZQ0bb4xHBdekh/
- ZbLfS0+qOreUzUcVtUQf7DLZ2MyQQtctb7O25GNJeX2La46w4yyfwgVT6DGqBvHb0qJL
- /QDZFZrTKbrG8aMXURKMbxsHxyYMaW3o/9Gp1uKiWWQmfs6yT8Pe/7Er94RXeD+/ilN0
- BajQ==
+ :cc:content-transfer-encoding;
+ bh=Rzd2Vkj46k5v3BAQCLAT3X/kdS/UT4sWDbrVlizoCHI=;
+ b=W61s8/OLb0eTl3ggZRiamq+PrLDOHy7nPOUZzTR7yVkWwNf7iQRIkIVkq1DTfyCVqd
+ Ssmp2c1cmMe4aVlsRNFap/BZG4MxO3gslbHjCYjzCE4r86z2sNrraGUFSD+VMd5EpNww
+ YSCAmk1gs+Py9t4HyH8HHcHM4Ti8W84YLaXSE0cvtCzRYfj4FG1/CKLKTXBZe6kioyZQ
+ 1dXfA+hc1x71Y1efvfIBkux6o30Vx8Q9nERGhIkAvDs++PVxoQALdapEcE7mtKQ9pXj9
+ 8r/EePzFzxpcu6rNgwGEZ7sI8r2YnqRK8vWeQhHJ/taAE7BCDXu/Wfe/0qVAGaHmdg4L
+ RcLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=a3m2MbIg4sEtXv9avuG1e6MFNGV4pylFXHp2blr5HGs=;
- b=edYd3eRdAXpxtf8C/GETXoIxen7IfaGDcxVfCFeLrJVPO2rs/SjXFL+HKZfnfiEKac
- G8CdL2BcR5/gQPSOrzrD9dH0/lUdlP11wWQtUDI44TCXCVtew8vH3bSrVYVQkmkI7TIX
- dDanIzrMjgF3oDzXFVhOjkTcC7IXV54p910T/COakEesakpuTZ4D+SnV0mZT6Qm8evta
- KlJpBrz0laXw0aPsI4fjE+/8fUVWvAFtk9RsdUh4LXo/WaKcdHRuG2gr9mdYvHto1xii
- 3bMeNRP9pmwkRww58CML4Tk2BNQYGiR6o0gPg1CXigy3Bf69FaQWDdCjvN9hn8z2eiKJ
- 5aWA==
-X-Gm-Message-State: AOAM5306Qq+6cqZcGcKTSIz3Q6X4dMH0BxucekoBdNxgkS9ix/Rd4T6X
- y0euGsdh7ITyTvfIHtq4e02x/IPdMQPRaLwTzfI=
-X-Google-Smtp-Source: ABdhPJxFYzZ8ErMHCygZtk1YftmNqV0Q/q1318TX8HlLsGnqmJ9cb1kzJZoSWL2MuAFN6878piIrIbOHERHrZek5QnM=
-X-Received: by 2002:a05:6808:1390:: with SMTP id
- c16mr514189oiw.123.1628713374507; 
- Wed, 11 Aug 2021 13:22:54 -0700 (PDT)
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=Rzd2Vkj46k5v3BAQCLAT3X/kdS/UT4sWDbrVlizoCHI=;
+ b=Ftn582bM02abpmTw36cKuMEYbWvcqVhyhkht5fHgNjqlXrG/XRNHN3dGw0b7Om8W3D
+ jUIp3H3FN3Fk+5AwdML+vejGOz0W+suAhtBUyKnhJJA1EEsp3sKSFK28wcdYQZJBHGTM
+ KMrAXY1rk+7SVL5vfFVGdzzYXA/VXzcdNGJQ9zuNsaVRXLaCyLIIZAR4INrv6OmoTFOB
+ ajtERMm9FkUm/6ami9nq43oyNTnCG1R0F3z4VqO9Fl1P5Lk46IFnb0dS3f5CnV2/ZVKj
+ RMXqSlmWVaFRA1cFHZ9Em7RxetGo4TiMW+ATJ763kgXfRBz2FYDa5tzH2c6uY7tQBkaG
+ YdhQ==
+X-Gm-Message-State: AOAM530Xifuf0KWeJzAdMA2zxlnvLd/LZz6JLrf7XhMgh2qxYw7O4/jZ
+ 6lPVX9B3EgR3TU9sL39xj8XO2NfcCq2nmCxmfNzh+oZ/
+X-Google-Smtp-Source: ABdhPJxCc6pnAfq3N8Ma0NNQO02OkNZ7jmBnpMryVISzycaIaaOYJ57SE6tfbcf3ekw49uwiKpvqMfp+iyXZS1lX+Ro=
+X-Received: by 2002:a05:6830:1e78:: with SMTP id
+ m24mr614888otr.23.1628714058493; 
+ Wed, 11 Aug 2021 13:34:18 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210811040703.4770-1-islituo@gmail.com>
-In-Reply-To: <20210811040703.4770-1-islituo@gmail.com>
+References: <20210811165211.6811-1-michel@daenzer.net>
+ <20210811165211.6811-2-michel@daenzer.net>
+In-Reply-To: <20210811165211.6811-2-michel@daenzer.net>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 11 Aug 2021 16:22:43 -0400
-Message-ID: <CADnq5_PrtAn88+Yq2UcpTu7B6N_rxQJDeLSLD+KxT3mr_AZL0w@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/display: fix possible null-pointer dereference in
- dcn10_set_clock()
-To: Tuo Li <islituo@gmail.com>
-Cc: "Wentland, Harry" <harry.wentland@amd.com>,
- "Leo (Sunpeng) Li" <sunpeng.li@amd.com>, 
- "Deucher, Alexander" <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>, 
- xinhui pan <Xinhui.Pan@amd.com>, Dave Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, 
- Jun Lei <Jun.Lei@amd.com>, "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>, 
- Eryk Brol <eryk.brol@amd.com>, "Cyr, Aric" <aric.cyr@amd.com>, 
- Vladimir Stempen <vladimir.stempen@amd.com>, Alvin Lee <alvin.lee2@amd.com>, 
- Qingqing Zhuo <qingqing.zhuo@amd.com>, Isabel Zhang <isabel.zhang@amd.com>, 
- Sung Lee <sung.lee@amd.com>, Samson Tam <Samson.Tam@amd.com>,
- Paul Hsieh <paul.hsieh@amd.com>, 
- Wyatt Wood <wyatt.wood@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, 
- Jia-Ju Bai <baijiaju1990@gmail.com>, TOTE Robot <oslab@tsinghua.edu.cn>
+Date: Wed, 11 Aug 2021 16:34:07 -0400
+Message-ID: <CADnq5_OhcTdPNnHU_9iY73H-dxhnjq6igy7NvHw1AeknEXkeYg@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu: Use mod_delayed_work in JPEG/UVD/VCE/VCN
+ ring_end_use hooks
+To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Leo Liu <leo.liu@amd.com>, James Zhu <James.Zhu@amd.com>, 
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, 
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,65 +86,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On Wed, Aug 11, 2021 at 12:52 PM Michel D=C3=A4nzer <michel@daenzer.net> wr=
+ote:
+>
+> From: Michel D=C3=A4nzer <mdaenzer@redhat.com>
+>
+> In contrast to schedule_delayed_work, this pushes back the work if it
+> was already scheduled before. Specific behaviour change:
+>
+> Before:
+>
+> The scheduled work ran ~1 second after the first time ring_end_use was
+> called, even if the ring was used again during that second.
+>
+> After:
+>
+> The scheduled work runs ~1 second after the last time ring_end_use is
+> called.
+>
+> Inspired by the corresponding change in amdgpu_gfx_off_ctrl. While I
+> haven't run into specific issues in this case, the new behaviour makes
+> more sense to me.
+>
+> Signed-off-by: Michel D=C3=A4nzer <mdaenzer@redhat.com>
+
+Makes sense to me.  Applied the series.
+
+Thanks!
 
 Alex
 
-On Wed, Aug 11, 2021 at 9:46 AM Tuo Li <islituo@gmail.com> wrote:
->
-> The variable dc->clk_mgr is checked in:
->   if (dc->clk_mgr && dc->clk_mgr->funcs->get_clock)
->
-> This indicates dc->clk_mgr can be NULL.
-> However, it is dereferenced in:
->     if (!dc->clk_mgr->funcs->get_clock)
->
-> To fix this null-pointer dereference, check dc->clk_mgr and the function
-> pointer dc->clk_mgr->funcs->get_clock earlier, and return if one of them
-> is NULL.
->
-> Reported-by: TOTE Robot <oslab@tsinghua.edu.cn>
-> Signed-off-by: Tuo Li <islituo@gmail.com>
+
 > ---
-> v2:
-> * Move the check of function pointer dc->clk_mgr->funcs->get_clock earlier
-> and return if it is NULL.
->   Thank Chen, Guchun for helpful advice.
-> ---
->  .../gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c | 11 +++++------
->  1 file changed, 5 insertions(+), 6 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c | 2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c  | 2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c  | 2 +-
+>  drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c    | 2 +-
+>  4 files changed, 4 insertions(+), 4 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-> index c545eddabdcc..03e1c643502e 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-> @@ -3631,13 +3631,12 @@ enum dc_status dcn10_set_clock(struct dc *dc,
->         struct dc_clock_config clock_cfg = {0};
->         struct dc_clocks *current_clocks = &context->bw_ctx.bw.dcn.clk;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_jpeg.c
+> index 8996cb4ed57a..2c0040153f6c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
+> @@ -110,7 +110,7 @@ void amdgpu_jpeg_ring_begin_use(struct amdgpu_ring *r=
+ing)
+>  void amdgpu_jpeg_ring_end_use(struct amdgpu_ring *ring)
+>  {
+>         atomic_dec(&ring->adev->jpeg.total_submission_cnt);
+> -       schedule_delayed_work(&ring->adev->jpeg.idle_work, JPEG_IDLE_TIME=
+OUT);
+> +       mod_delayed_work(system_wq, &ring->adev->jpeg.idle_work, JPEG_IDL=
+E_TIMEOUT);
+>  }
 >
-> -       if (dc->clk_mgr && dc->clk_mgr->funcs->get_clock)
-> -                               dc->clk_mgr->funcs->get_clock(dc->clk_mgr,
-> -                                               context, clock_type, &clock_cfg);
-> -
-> -       if (!dc->clk_mgr->funcs->get_clock)
-> +       if (!dc->clk_mgr || !dc->clk_mgr->funcs->get_clock)
->                 return DC_FAIL_UNSUPPORTED_1;
+>  int amdgpu_jpeg_dec_ring_test_ring(struct amdgpu_ring *ring)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_uvd.c
+> index 0f576f294d8a..b6b1d7eeb8e5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+> @@ -1283,7 +1283,7 @@ void amdgpu_uvd_ring_begin_use(struct amdgpu_ring *=
+ring)
+>  void amdgpu_uvd_ring_end_use(struct amdgpu_ring *ring)
+>  {
+>         if (!amdgpu_sriov_vf(ring->adev))
+> -               schedule_delayed_work(&ring->adev->uvd.idle_work, UVD_IDL=
+E_TIMEOUT);
+> +               mod_delayed_work(system_wq, &ring->adev->uvd.idle_work, U=
+VD_IDLE_TIMEOUT);
+>  }
 >
-> +       dc->clk_mgr->funcs->get_clock(dc->clk_mgr,
-> +               context, clock_type, &clock_cfg);
-> +
->         if (clk_khz > clock_cfg.max_clock_khz)
->                 return DC_FAIL_CLK_EXCEED_MAX;
+>  /**
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_vce.c
+> index 1ae7f824adc7..2253c18a6688 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+> @@ -401,7 +401,7 @@ void amdgpu_vce_ring_begin_use(struct amdgpu_ring *ri=
+ng)
+>  void amdgpu_vce_ring_end_use(struct amdgpu_ring *ring)
+>  {
+>         if (!amdgpu_sriov_vf(ring->adev))
+> -               schedule_delayed_work(&ring->adev->vce.idle_work, VCE_IDL=
+E_TIMEOUT);
+> +               mod_delayed_work(system_wq, &ring->adev->vce.idle_work, V=
+CE_IDLE_TIMEOUT);
+>  }
 >
-> @@ -3655,7 +3654,7 @@ enum dc_status dcn10_set_clock(struct dc *dc,
->         else
->                 return DC_ERROR_UNEXPECTED;
+>  /**
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/=
+amdgpu/vcn_v1_0.c
+> index 284bb42d6c86..d5937ab5ac80 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+> @@ -1874,7 +1874,7 @@ void vcn_v1_0_set_pg_for_begin_use(struct amdgpu_ri=
+ng *ring, bool set_clocks)
 >
-> -       if (dc->clk_mgr && dc->clk_mgr->funcs->update_clocks)
-> +       if (dc->clk_mgr->funcs->update_clocks)
->                                 dc->clk_mgr->funcs->update_clocks(dc->clk_mgr,
->                                 context, true);
->         return DC_OK;
+>  void vcn_v1_0_ring_end_use(struct amdgpu_ring *ring)
+>  {
+> -       schedule_delayed_work(&ring->adev->vcn.idle_work, VCN_IDLE_TIMEOU=
+T);
+> +       mod_delayed_work(system_wq, &ring->adev->vcn.idle_work, VCN_IDLE_=
+TIMEOUT);
+>         mutex_unlock(&ring->adev->vcn.vcn1_jpeg1_workaround);
+>  }
+>
 > --
-> 2.25.1
+> 2.32.0
 >
