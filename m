@@ -7,119 +7,129 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 06958C4320A
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Aug 2021 21:34:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 668EEC4338F
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Aug 2021 22:12:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AACDF60551
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Aug 2021 21:34:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org AACDF60551
+	by mail.kernel.org (Postfix) with ESMTPS id 2CAC260E52
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Aug 2021 22:12:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2CAC260E52
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8C3A6E1D3;
-	Wed, 11 Aug 2021 21:34:14 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2047.outbound.protection.outlook.com [40.107.243.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C6776E1CF;
- Wed, 11 Aug 2021 21:34:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D6C36E199;
+	Wed, 11 Aug 2021 22:12:49 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2059.outbound.protection.outlook.com [40.107.220.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D37C6E198;
+ Wed, 11 Aug 2021 22:12:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DxBQpQM5opzDm0HCGM0EhM8rWKjYzUXeLf3tqctDyJZ0LVQzDcsLWBNXOw4cAO5XV7npxES20zfZ+asiZgORLYTJxWDmXt7Zr76QM/nPRYZIVXIQzzI07nkWIkbEikL9sZ4/WJYc3HBfDkdS+0BhRQOUGmlbb9zHpAvcq4m6kqOKQjVBhTHxc2pqLAAGeEdh5DszPzA+aWd/vxyx1lAqQb8v7VJtKJDaGY6fTndfSg0Oouj4lNGt6XCui8xbvKSAFHBAjbdnTpgmssil5U3n5hqJkUyWWkdNJ0LEIhtmkgMVacyBmsuZnIEhjNn7dex0nI3mLty38fcFlSLz8f5WbQ==
+ b=oPAUHwoHrUwOY3l/Gx8U8a848f6RNh7OgloC0q6gl7RSXe++P1UMhq/VOeWgsEqgyx1jcqWCXbJyYS3sN+F7d41iAnlGShypR7hKQmoWC09CFLcYu7ZRO3/v80Klq5cqcds15fTDU1o2DxSY0GJfVZx2BtFlCJJVEqHXDaxcWhZ2yA4WEiV/UXAJDFV4T6LwE8fufKoAV6n1YSpYxq6AoYPFyVNj2s4B2hTbnYrW8pR/YUZ3BZHxmgif00eP2+NyL4CR0+LD2Fn80RNVQ1cm8FnbshrTtQ1H4w1/NfiotV2GAPMKxDkwMOpXivZFTrQh1tNJVS0u6VqOFzNeT2tjSw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=61I+zyTg8uWqeVul0hqJQKba5zsWcdFNUoB65+SCRrA=;
- b=eqAsnp5f0fr8ceE37X1a/Xn31e/KwEjv9demjHbjfpsjm4hbIaW+ZDaH06WSNQEbxuYE4lvvJKrXaH0MBEo4Ku5VvtoTUzxlsCsLHxMq5CGgB5kQtGBaGX7CBw7fAknLMZplQS3+a2a2cGAELiw1e3mBQhtDJElCXoWBdEwHNdVNZo1qnJSkgGF4IB54cpUvGItUsOqnmvYWW6iu7nuy4+S8P6oDypK7gpZrzLxT2xEe2xbvMiLOKB9UyCLQnZ6eqIhYJjmq4OltqOqlNsx3BZiKO5Oz5lHFhdnfxkAO+8wwfL5e8R27eNe9OsMI3taFbR7xHsYq4+DNv6YRXctjZg==
+ bh=oBmk64FYtrjpm9i8g8YXl9SB/XDx+qG6+3jzOjjrq7w=;
+ b=WYlJ6b8VTLIomj2qJAwng16ZSkHkCv7Aa4kTa4yWvEyWyeLm4EICdgWPGDnTsCl1oEYZFZtaM3Gp78ZbGDFOjeIjfUQKQGDnKPW/Hj0LYY5/QOtxOatokQQMiSALD5TwauAt8TKK1CqU2WheCSXxtOw+3IHf1XPpTvu1HK3D3VsbhOXBfg8SM0tkTKWjD3n6g2qiAQeF3ofK+nEd5m0vbd/DY8YXYO4vdbENR+DWygpx64fenidawulEUMNnl0NtkVxJA+wSag44V7W2SfeSUjNRNXz/l/5ACll4CD3zUqIh/vCLc2oA7GxTVkUEBPBIDFAsuHJRggQJSw0bfgPI4g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=61I+zyTg8uWqeVul0hqJQKba5zsWcdFNUoB65+SCRrA=;
- b=QKyeFgOq/Egd/dJcPpEHOz/kv8CoNMrxLAGARY76Upksy7YXyU4boqMo55BrugXcCpyDjihQX7goGqyM0Mm2lcnT4Sc6xkVpngA4eESTGX/hQ34UfDCEz3VS4zUZnM3ZYx60V80vFYWyfX0xM89IeIAd2XUB73t6b/v57Vk5T6Q=
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
- by MN2PR12MB4518.namprd12.prod.outlook.com (2603:10b6:208:266::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.15; Wed, 11 Aug
- 2021 21:34:10 +0000
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::6c9e:1e08:7617:f756]) by MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::6c9e:1e08:7617:f756%5]) with mapi id 15.20.4394.023; Wed, 11 Aug 2021
- 21:34:10 +0000
-From: "Koenig, Christian" <Christian.Koenig@amd.com>
-To: =?iso-8859-1?Q?Michel_D=E4nzer?= <michel@daenzer.net>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>
-CC: "Liu, Leo" <Leo.Liu@amd.com>, "Zhu, James" <James.Zhu@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-Subject: AW: [PATCH 2/2] drm/amdgpu: Use mod_delayed_work in JPEG/UVD/VCE/VCN
+ bh=oBmk64FYtrjpm9i8g8YXl9SB/XDx+qG6+3jzOjjrq7w=;
+ b=lwuDC1wqKbWK9oMbFfGk7v2+rIETho5NgW0psZxl1dOlXk7s/NRTqU+H0vB1ahWFYotekoN5SdHCNDOAsmhFDva02UJ0ZZstwuJGsfQd8d+vYsifgfYBJ7A0O0e6JftXdSdukcylohKP0+SXveyegVlD5cw2uoZRehpRYfQNVYE=
+Received: from DM5PR12MB2517.namprd12.prod.outlook.com (2603:10b6:4:bb::13) by
+ DM6PR12MB4404.namprd12.prod.outlook.com (2603:10b6:5:2a7::13) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4415.16; Wed, 11 Aug 2021 22:12:44 +0000
+Received: from DM5PR12MB2517.namprd12.prod.outlook.com
+ ([fe80::2560:34ab:f08a:3248]) by DM5PR12MB2517.namprd12.prod.outlook.com
+ ([fe80::2560:34ab:f08a:3248%3]) with mapi id 15.20.4394.023; Wed, 11 Aug 2021
+ 22:12:44 +0000
+From: "Zhu, James" <James.Zhu@amd.com>
+To: "Koenig, Christian" <Christian.Koenig@amd.com>,
+ =?iso-8859-1?Q?Michel_D=E4nzer?= <michel@daenzer.net>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>
+CC: "Liu, Leo" <Leo.Liu@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH 2/2] drm/amdgpu: Use mod_delayed_work in JPEG/UVD/VCE/VCN
  ring_end_use hooks
 Thread-Topic: [PATCH 2/2] drm/amdgpu: Use mod_delayed_work in JPEG/UVD/VCE/VCN
  ring_end_use hooks
-Thread-Index: AQHXjtE+BWy+t4LDY06JadgZjDnxmatu0Vw/
-Date: Wed, 11 Aug 2021 21:34:10 +0000
-Message-ID: <MN2PR12MB377506AD71308A47222A3E9583F89@MN2PR12MB3775.namprd12.prod.outlook.com>
+Thread-Index: AQHXjtE+3YKNVwRF7EO/RHavM7Obqatu05sAgAAGs1g=
+Date: Wed, 11 Aug 2021 22:12:44 +0000
+Message-ID: <DM5PR12MB2517A081A60C1245D2A34019E4F89@DM5PR12MB2517.namprd12.prod.outlook.com>
 References: <20210811165211.6811-1-michel@daenzer.net>,
- <20210811165211.6811-2-michel@daenzer.net>
-In-Reply-To: <20210811165211.6811-2-michel@daenzer.net>
-Accept-Language: de-DE, en-US
-Content-Language: de-DE
+ <20210811165211.6811-2-michel@daenzer.net>,
+ <MN2PR12MB377506AD71308A47222A3E9583F89@MN2PR12MB3775.namprd12.prod.outlook.com>
+In-Reply-To: <MN2PR12MB377506AD71308A47222A3E9583F89@MN2PR12MB3775.namprd12.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-authentication-results: daenzer.net; dkim=none (message not signed)
- header.d=none;daenzer.net; dmarc=none action=none header.from=amd.com;
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-08-11T22:12:42.900Z;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
+ Official Use
+ Only; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard; 
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 05f0994b-caa0-4c13-2567-08d95d0fc1bd
-x-ms-traffictypediagnostic: MN2PR12MB4518:
+x-ms-office365-filtering-correlation-id: 8751ec2f-1089-4ba2-5908-08d95d1524f2
+x-ms-traffictypediagnostic: DM6PR12MB4404:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MN2PR12MB4518B602F1F20AD44EE5261183F89@MN2PR12MB4518.namprd12.prod.outlook.com>
+x-microsoft-antispam-prvs: <DM6PR12MB440490134263994CEC8B5737E4F89@DM6PR12MB4404.namprd12.prod.outlook.com>
 x-ms-oob-tlc-oobclassifiers: OLM:10000;
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: QkAyYQJ0eTNVB+ooxgrSoB4FW6DxZLYTeeIZ0nx/eGxlGU/VULuVS9w8yIo35MWiJ/vfx31psuPiGyAQYzxflD2qBRzXQiC7Bilrx7+XeuQsmOZTQHLlrlv/nFXiZW5mCurr6SjWoNE16NHvxFbXmuPTptK+z1Kj5PVW8QIoQlKnYBH5p0s8zIotohP6IAqf8JBwscWlcwLVj9fUmZwtdOfdmalLFpbX1UOYtswkqYCsaGVryOH4XiduztCKgCmRvDdi2e5LDkS7j7Vrzku46RTRVUvW3+sz2fKIgXC+YtDk++w1AFryfxLmAHQXlTOXIswaR/Q4P2Z4SZ8SlovLtph3zm+Q05EkLYnRYX1aSqWPh5nyxoxiw8wXsUA1lLPgu1OLnWfG9koWc3p+YL15NEv6uUawLMyR0hpZT6QAB8LlFYdFLpXSd06cWVmC6JZHIfuwNrS7WXA1apam71e3H5Li92Jz/XW5/AHgu1bW9mJC89IaobgZYgeuouIfElVdPT4j4UBLJ4+fISxrlsaYiXDnMusZ8Hyo3NpS1ABj2gr2kKNibFTQW/34WuLH+L10W6EHa0eaGcJewoI1hQmhCku9ryjh4PdV7iZMaXK8V+NzpWePeBSgbFhrTf9XfS+87XVZBGNI5K3KRIv3HrzK3pKBJyuvjmdq0AZskuwqeiuhr8OT9G+zZqYwppU589/JDQBWEx3nYV+yDSIebicqKw==
+x-microsoft-antispam-message-info: HG4aHOSZmeomd25ISS2045zjyRXHyJdiLvUltns9Kv+5SAVA97AO/sb9dwBbvOQayRl1lBCkguJAC0voAnULvCPAb9nPiG4pokwAZyGItO6qWkdy4Qa/1ljb36d38SK96e7xkeZmWDcD4QIOk1UuIOyinlPQjmN9eFw+zJHw18uug+c1H+dTlAZ65ydKLPhJWEatH+4MvTsU4rPHhY0LBesI2Jk16IO8oXzHFzv2QZZgvCagAi1UourIn8ZoLy5W4+kWdHT8pEGGixyhb9Zoz/iQ/tDGUPEiGi8eArBpnuCBa7zaYasjDhb46ZbWiGLNlbbtkegM9008r7R76aHbNQJ66ovyBTedgDaCY608euwD/KJ7nLG/E7mZa0YapFARWS3WAc7tHCWCbByJhzxq+Z7RSFZtjVU1q0siuFwwxf606UtJpIwF0r0vLP5rM3T176z4pc/c31k7MHwQlsmHx6JNlrEmQAovN9XKb0UpNll8mww3KukuuCRzNBjyPjB3PjRRwrJBxRVA9vz4AbfXLhrAUH1ZJCPZKDS6gxHokU8S/ZcUQNE+hkABP+LpzXorXMEciWmn6eYMvOu0U3CLOOW5UhOe5edRzSucuZ8EMtf2cXo9Lt6FXOcubYv027rSQ9PA6BemQvnU/dy6WPR4MGI0pluWArBOkKkceo5i2ujOL8YitbmecHmFZGHzH3alS0RwcEuCKaihy5GMBtDdmw==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(366004)(396003)(346002)(136003)(376002)(54906003)(9686003)(55016002)(316002)(66946007)(91956017)(110136005)(76116006)(6506007)(122000001)(478600001)(186003)(38100700002)(7696005)(26005)(38070700005)(71200400001)(83380400001)(5660300002)(52536014)(6636002)(33656002)(8676002)(8936002)(66446008)(2906002)(4326008)(86362001)(66476007)(66556008)(64756008);
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB2517.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(376002)(346002)(396003)(39860400002)(136003)(366004)(8936002)(52536014)(316002)(54906003)(33656002)(26005)(7696005)(2906002)(38100700002)(478600001)(53546011)(6506007)(5660300002)(6636002)(8676002)(122000001)(110136005)(9686003)(186003)(91956017)(71200400001)(55016002)(83380400001)(76116006)(66476007)(66556008)(66446008)(19627405001)(66946007)(86362001)(38070700005)(4326008)(64756008);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?MtZkKHdtPz5BRk+Et25Bwi7omo+S9dsCJJCd2Eg6r7sjXlNjjj7qQucZQ8?=
- =?iso-8859-1?Q?aLcx3fndhxSazrlAiQTWEKYnnMUSWZ+3qFe73VUyogQRAz/BpHYtRLq0Ba?=
- =?iso-8859-1?Q?u/tvQEcL2axlXSSh5E5DfHvKBb4VXsMzUsJkfXE84a/Ge/MoLfn9MhqvWE?=
- =?iso-8859-1?Q?54jhU/TFjYMv/wcmFReyAC0ibax/v5grUI9o//4o6AmTdptUVHegYQ/AYU?=
- =?iso-8859-1?Q?RvFqmjAATGgUoatL0I+tGifMIPgzVAVub1y/idLKJU06RsY60psgg3qE9o?=
- =?iso-8859-1?Q?AWcs7gX0TgrLs9GGHO30fDprvBjUH1S01tijrPKKpXwe5nkN8KjHfCbTDw?=
- =?iso-8859-1?Q?fdhfa8jGyyD6YlW2+9Zm69qPLigtBc3rRItI6sQjFg2zSPk6ABza0F5qib?=
- =?iso-8859-1?Q?QP1gjLNbEzN0nMfDOcrGuYz7tG0hSOZs+7AHcs/L2y0QaSEfku1o1dMT+d?=
- =?iso-8859-1?Q?LK6L7VabDP6g4Mw4J06kvVWhehYCV/fMaQPOLpxZSNI8lWyv0QEWCuU/gg?=
- =?iso-8859-1?Q?NVgnXZI/How6xSPgDjAbw320KIrynJOhPQMdkLBUNN5ip0aKgKQTRNG63j?=
- =?iso-8859-1?Q?8JqoZG9oRoNf96mV4HXH+6yO48INA8XX4gZi9ZWjLFemtEPnzrKCwlTU6K?=
- =?iso-8859-1?Q?M0EIaU/x7vg5uq7KHLWtWiSAqrnqbpRWgjO0+HhEhgrJ35xHi20kzCBytE?=
- =?iso-8859-1?Q?Uq38QHsFXl1w8sJsnI/lwWEA651rC9igA493MIJFLog8yRlbgW1IQzNAuq?=
- =?iso-8859-1?Q?/iwAWaHJgrcwCxZItaAopGP8ALz9+4p1nSktZ6YuczNOR8JCckiMJS0/uS?=
- =?iso-8859-1?Q?P7bB5EIzbcYc06c+XrhqtBwhvl3G5QWkQBt4rQ4KkhxVqkVNClj+xkmZNg?=
- =?iso-8859-1?Q?ikxARsmsX8rMvfyX6kLqkF3qUia3X9MMQ3NXs1Fha+ber6yKJYu+y01u+4?=
- =?iso-8859-1?Q?9rZ4YqkPcTzVCxmQFzlpLgdi5xKCTPOnXb82yphOegQ/tlp73WWojLXPJq?=
- =?iso-8859-1?Q?sNLDjD4ePpLFujBC53Qq8AxIOEnvr81pI3BVeNnVENWi/O7scBxUrlUgeo?=
- =?iso-8859-1?Q?X9dq4D1errUYiPJeVY9DBwZQdiXVp3Sa1X7WEmGFgzonmLASTRBVWb6BRV?=
- =?iso-8859-1?Q?/F1jo+DHz7oUCbpVigOkaKVsTvXHAKD25avOehXvgh4/FkLNDnr6be0bWz?=
- =?iso-8859-1?Q?qDQ2K/l4oo6bWJ43SdLmKF8lVfih4I3GOLL0CUv/U6NGOF1hvDBDS/Z1Zb?=
- =?iso-8859-1?Q?HKE21EnW6syoxCQWfnwqjg1AqnnmGBvdA/aFEO5rgv86n8VxHfmszMJfka?=
- =?iso-8859-1?Q?Zm63txHj6diG7VPWtCT2u5p+eDcCdoAl7NuHIzPgOM5/EzE=3D?=
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?53XlxQoB+dUlWggIkKrwR37vYdoMPeVB0W1wy63BYcPNbwTqyuz2Efjuo0?=
+ =?iso-8859-1?Q?oo/7wx2YnttikKb9IXFwrXIbKLBS8qGIAGjIqTE3ppqkSWZMzpkK5Pt4Ok?=
+ =?iso-8859-1?Q?7zvpDRY93QkWC/3pxdLpQmMTdVxo/Lz6TTydw6ZbP/+JCNZGPcTGvnoqUs?=
+ =?iso-8859-1?Q?LnGrxCUYjR5k4VdMtek3Q2rhfONfCcuXC5AEUOvffqrFxyCpUXG1A1f4cv?=
+ =?iso-8859-1?Q?zyxb/ihRDGTPFD4n9MNg2aZeGfJsJ1NuRKf+61IFXPX9Amqparfk7uvlpu?=
+ =?iso-8859-1?Q?kb1Xj4JwpWvh1Fpz+i9HvdG9Kxnk2hvjiebJOT6muSYylNa6FHaFBqHM+Q?=
+ =?iso-8859-1?Q?5734KZanLjHoGb9+g+nbo0q7LDA6pbdJSRRxnNWsJliT+FMC8JOpD2jrTa?=
+ =?iso-8859-1?Q?yNwZ38B5w68jpyk3D2bp1mHiG2xfORwJ+ctOK1/D+OLzOjEwCPRg5PTJDy?=
+ =?iso-8859-1?Q?OgdDy5qpV4Qt3bpmrItjkHHnRGSCbb1c6TsffBH2+2oSExRLaNV/TlIxWh?=
+ =?iso-8859-1?Q?PVpG/n7JVDHgIeDtXXlO4UJkrXkYEQ1DTdRqQlB8kkcuLYRZmp16QcjRdP?=
+ =?iso-8859-1?Q?Qu+NdqJdtC8ZA6qN53rM7/YSR9Lr3Q9xEOBLakq/rH5Ls2OCc6nDSsqKoG?=
+ =?iso-8859-1?Q?uQ5jHD0iq9zIH1DLY9wulOu3T/AA0Y/UQ2Kx3WH6hjgYU4GtClp9cTan6z?=
+ =?iso-8859-1?Q?cOH7DUI6AF1MfSnHybTXOCF6jmOTTda0Z5yKblGmqPcfH/dd3f3CfbYw4P?=
+ =?iso-8859-1?Q?jWQ8Jki/YplEAi7zxo6Sz7u35rjSEyxxyNd/DPmCpMqr5WFOUAopI2V9dt?=
+ =?iso-8859-1?Q?a5fV/ona3RsfH4MXHeWvMpkqlHM0KQDg8xwgzzcHbze9VqcbS/EfPdXRtz?=
+ =?iso-8859-1?Q?XpMy/RIaXLtm/wOvkoY+eqsygevCQ7wpVHmuK5o7BQ1KPjkPsKkyOyzArR?=
+ =?iso-8859-1?Q?fDPgHVS/YJZqlyZ4ZuzwKXwex4Ye7ydPvP8hHjA9tQbCKPKdg6hPvlQZ4r?=
+ =?iso-8859-1?Q?tDZ0WIGX+EUkgS4Z8PxZwOY/zKIWYaRKTBkbSio/Jf5Xz40PWh1iPO9DFg?=
+ =?iso-8859-1?Q?mF0g7rKKpLlKWYL2Pav8wNgCpNqAPwnUCTm9ggtatRpdztN9+UOsfLXQ2v?=
+ =?iso-8859-1?Q?3VeTjz1WTuvN23Ink9sCJdpNTSfMsc6UAUvpAbiZ6I9iYzkt4WCMbtNBRk?=
+ =?iso-8859-1?Q?9tWKxgiTdPux5+qW36oVkaSDi7oy77UCKqhMrM7qBsdMrtihBWvMGU4tkP?=
+ =?iso-8859-1?Q?vKMxN6TOeQfB4FU6rlaoa9+63N/LzJ6Yn9v8ajNkRlRSCEg0M5GGwe6kfm?=
+ =?iso-8859-1?Q?oYuM6nd0GRz0cwYLRLbAReNbbdkd+Sal4z0wAfLdQMEe0ohCGJgcHbcA9O?=
+ =?iso-8859-1?Q?IMoiC22s6w?=
 Content-Type: multipart/alternative;
- boundary="_000_MN2PR12MB377506AD71308A47222A3E9583F89MN2PR12MB3775namp_"
+ boundary="_000_DM5PR12MB2517A081A60C1245D2A34019E4F89DM5PR12MB2517namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 05f0994b-caa0-4c13-2567-08d95d0fc1bd
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Aug 2021 21:34:10.4497 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2517.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8751ec2f-1089-4ba2-5908-08d95d1524f2
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Aug 2021 22:12:44.3635 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: jWWXKagG3ZquqGlJD0NQ9FbnWaqitJ7+4ZaERuQfbdDLvQ2Q7/YLPuBEFGYiaO9N
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4518
+X-MS-Exchange-CrossTenant-userprincipalname: nK/YuKs12UnC7J1AiUFs0Zf85ZY3XWyIQtE1LHrI/EE6Hy1fZNuSyYXPUD1tXMg1
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4404
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,9 +144,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_MN2PR12MB377506AD71308A47222A3E9583F89MN2PR12MB3775namp_
+--_000_DM5PR12MB2517A081A60C1245D2A34019E4F89DM5PR12MB2517namp_
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
+
+[AMD Official Use Only]
+
+Hi Christian,
+
+Since we have strict check on queue status, I don't think original design c=
+an cause issue here.
+But this change should help improve below case:
+
+  1.  both enc thread and dec thread try to start begin_use.
+  2.  dec thread gets the chance to finish begin_use process first.
+  3.  before dec thread enters end_use, enc thread gets time slot to run th=
+rough begin_use(No delay work scheduled at that time)
+  4.  dec thread enters end_use, scheduled a delay work
+  5.   enc thread enters end_use, modify this delay work.
+
+It will help reduce one delay work call at least.
+
+
+Thanks & Best Regards!
+
+
+James Zhu
+
+________________________________
+From: Koenig, Christian <Christian.Koenig@amd.com>
+Sent: Wednesday, August 11, 2021 5:34 PM
+To: Michel D=E4nzer <michel@daenzer.net>; Deucher, Alexander <Alexander.Deu=
+cher@amd.com>
+Cc: Liu, Leo <Leo.Liu@amd.com>; Zhu, James <James.Zhu@amd.com>; amd-gfx@lis=
+ts.freedesktop.org <amd-gfx@lists.freedesktop.org>; dri-devel@lists.freedes=
+ktop.org <dri-devel@lists.freedesktop.org>
+Subject: AW: [PATCH 2/2] drm/amdgpu: Use mod_delayed_work in JPEG/UVD/VCE/V=
+CN ring_end_use hooks
 
 NAK to at least this patch.
 
@@ -265,7 +309,7 @@ MEOUT);
 2.32.0
 
 
---_000_MN2PR12MB377506AD71308A47222A3E9583F89MN2PR12MB3775namp_
+--_000_DM5PR12MB2517A081A60C1245D2A34019E4F89DM5PR12MB2517namp_
 Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
@@ -273,8 +317,84 @@ Content-Transfer-Encoding: quoted-printable
 <head>
 <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
 1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
 </head>
-<body>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
+gn=3D"Left">
+[AMD Official Use Only]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Hi Christian,</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Since we have strict check on queue status, I don't think original design c=
+an cause issue here.<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+But this change should help improve below case:</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<ol>
+<li><span>both enc thread and dec thread try to start begin_use.</span></li=
+><li><span>dec thread gets the chance to finish begin_use process first.<br=
+>
+</span></li><li><span>before dec thread enters end_use, enc thread gets tim=
+e slot to run through begin_use(No delay work scheduled at that time)</span=
+></li><li><span><span>dec thread enters end_use</span>, scheduled a delay w=
+ork<br>
+</span></li><li><span><span>&nbsp;enc thread enters end_use</span>, modify =
+this delay work.</span></li></ol>
+<div>It will help reduce one delay work call at least. <span style=3D"font-=
+family:Calibri, Arial, Helvetica, sans-serif;font-size:12pt;color:rgb(0, 0,=
+ 0)">
+<br>
+</span></div>
+<div><span style=3D"font-family:Calibri, Arial, Helvetica, sans-serif;font-=
+size:12pt;color:rgb(0, 0, 0)"><br>
+</span></div>
+</div>
+<div>
+<div id=3D"Signature">
+<div>
+<div id=3D"divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; color=
+:#000000; font-family:Calibri,Arial,Helvetica,sans-serif">
+<p style=3D"margin-top: 0px; margin-bottom: 0px;">Thanks &amp; Best Regards=
+!</p>
+<p style=3D"margin-top: 0px; margin-bottom: 0px;"><br>
+</p>
+<p style=3D"margin-top: 0px; margin-bottom: 0px;">James Zhu<br>
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Koenig, Christian &lt=
+;Christian.Koenig@amd.com&gt;<br>
+<b>Sent:</b> Wednesday, August 11, 2021 5:34 PM<br>
+<b>To:</b> Michel D=E4nzer &lt;michel@daenzer.net&gt;; Deucher, Alexander &=
+lt;Alexander.Deucher@amd.com&gt;<br>
+<b>Cc:</b> Liu, Leo &lt;Leo.Liu@amd.com&gt;; Zhu, James &lt;James.Zhu@amd.c=
+om&gt;; amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;=
+; dri-devel@lists.freedesktop.org &lt;dri-devel@lists.freedesktop.org&gt;<b=
+r>
+<b>Subject:</b> AW: [PATCH 2/2] drm/amdgpu: Use mod_delayed_work in JPEG/UV=
+D/VCE/VCN ring_end_use hooks</font>
+<div>&nbsp;</div>
+</div>
+<div>
 <div>NAK to at least this patch.</div>
 <div><br>
 </div>
@@ -298,10 +418,10 @@ ion, but it could be that this applies there as well.</div>
 <div>Christian.</div>
 <div><br>
 </div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>Von:</b> Michel D=E4nzer &lt;mi=
-chel@daenzer.net&gt;<br>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>Von:</b> Michel D=E4nzer &lt;=
+michel@daenzer.net&gt;<br>
 <b>Gesendet:</b> Mittwoch, 11. August 2021 18:52<br>
 <b>An:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Koenig, Ch=
 ristian &lt;Christian.Koenig@amd.com&gt;<br>
@@ -313,10 +433,10 @@ r>
 E/VCN ring_end_use hooks</font>
 <div>&nbsp;</div>
 </div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">From: Michel D=E4nzer &lt;mdaenzer@redhat.com&gt;<=
-br>
+<div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
+t">
+<div class=3D"x_PlainText">From: Michel D=E4nzer &lt;mdaenzer@redhat.com&gt=
+;<br>
 <br>
 In contrast to schedule_delayed_work, this pushes back the work if it<br>
 was already scheduled before. Specific behaviour change:<br>
@@ -424,7 +544,9 @@ dev-&gt;vcn.idle_work, VCN_IDLE_TIMEOUT);<br>
 <br>
 </div>
 </span></font></div>
+</div>
+</div>
 </body>
 </html>
 
---_000_MN2PR12MB377506AD71308A47222A3E9583F89MN2PR12MB3775namp_--
+--_000_DM5PR12MB2517A081A60C1245D2A34019E4F89DM5PR12MB2517namp_--
