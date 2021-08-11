@@ -6,72 +6,69 @@ X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 40BB3C432BE
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Aug 2021 13:46:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2B2E3C432BE
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Aug 2021 13:46:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F2B9B60FD9
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Aug 2021 13:46:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F2B9B60FD9
+	by mail.kernel.org (Postfix) with ESMTPS id D920760FD9
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Aug 2021 13:46:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D920760FD9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7299897E8;
-	Wed, 11 Aug 2021 13:46:17 +0000 (UTC)
-Received: from mail-pl1-x635.google.com (mail-pl1-x635.google.com
- [IPv6:2607:f8b0:4864:20::635])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C83AB6E0A2
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Aug 2021 04:10:10 +0000 (UTC)
-Received: by mail-pl1-x635.google.com with SMTP id q2so960283plr.11
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Aug 2021 21:10:10 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D404893D0;
+	Wed, 11 Aug 2021 13:46:22 +0000 (UTC)
+Received: from mail-pl1-x62d.google.com (mail-pl1-x62d.google.com
+ [IPv6:2607:f8b0:4864:20::62d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA02289836;
+ Wed, 11 Aug 2021 11:35:43 +0000 (UTC)
+Received: by mail-pl1-x62d.google.com with SMTP id e15so2266120plh.8;
+ Wed, 11 Aug 2021 04:35:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=/wJfRZLEp+ItaTTKtybUVmvtpffSN0Nq150cjRjLrEQ=;
- b=Yt29gfp+B7nTWKlA5BBiyzBSgLpJ/zduU+YJZkiQa3yBpCB3/Ffth3ub10wahvqlUN
- ce5bwXsSO5BHGm68qvaERm8CwcGwI/TkPf557y7zeU8wbE8V01MQ4ASHnuLlHxHchqpP
- AYDbTwgNmsYNsdcf55k+EISVJ8wvPXmOj6W+4xTquEBfdXNwPfNqfpiAl9gpAeyUbc3u
- 3zt0GVCLD5aFtWTSngNece1HV0Ic66PDZvA6b/WgkNOjE+7CZvA5rtL8hmQTDXqnT1z6
- prE1B1iCLW2g0NHSqU7OlOnH/EGaKKZDwhOAERScj2S3yYxqhnbNi0ODaLftEL5fbe3z
- p3ZQ==
+ bh=ocNu8t+0vPe8xDuDrmXUgxK/R5Hfv7t0v2kfkL1QOgA=;
+ b=B+dx6gtSem9LSUSvN8E6giOkQHucQX2rfdWvdRiGZVmSPgioJxHNzz96Wv/7YAzK/m
+ JyrlpDgL5bOF6eMtXkydeAbLGqIVrhMrKIOcRV1PJmBbaTyLJ7prchjvpW3b/9EJ4Gcf
+ ateFz6QnoBeY6tSGD7pStGh857XyHpTJPAPNYmXPvvaf8f6DMcrxqyD04zVorltoKP3z
+ E9/BFvyIJiHW/R/cj3ZR88UE93OebnOpVaMGRh8SMPHgat07me51s6HqtWI7CNWbMEe0
+ xEtnFJU2f52n+5cz37RdDZfaSwfAZp2z2D4FqRC4OCW3n6bDmRvJZFMhXfWD/Tci4rTh
+ 0rZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=/wJfRZLEp+ItaTTKtybUVmvtpffSN0Nq150cjRjLrEQ=;
- b=GVa1icmdw5ftiHXHClEcJO7cKGQeS0z/aDG7Al4PJGpsp2I2cA0R0SscWmAn2loa8L
- y7X29yCRX+2OQt5rgkrm7sA/u6l8d6ovboE/RKxFLMBqcYWcS7KhfBA26O/33TybsD1X
- EOHF+58Yljhcu1Np6iNndTrG+1WMFMEsdEcZmt882py7Rcpp26YrkRsOHy6ReF4AWPwG
- aLbjkI3MkDHXf616OH70VX4YNnhhZRl5YxYMf3e0LkiK/YZ9k3NKJ3oQM1Ol4K6CxvLC
- sS6rIcl1H9ezZtf6mwE2+ShZN2BuUHhiYNThFNiH/0mboc8TQULjlLmeFz4lJswjFD6g
- 9cSg==
-X-Gm-Message-State: AOAM533inDZ/K/Gl0rlq/xOy+UkgbpiUh6XZWb+/BjpsqT9mgTdfC3uM
- oQqfzN22pTTcUWns0wAt1D4=
-X-Google-Smtp-Source: ABdhPJxHF2JTfMzbFZ6ciYU2zB1hy3ZcG4eci0A8afkG/3n+hAR1K2/VkWJ4VKFqg4/Bmd8/EG8i2g==
-X-Received: by 2002:a17:90a:d251:: with SMTP id
- o17mr35125391pjw.200.1628655010203; 
- Tue, 10 Aug 2021 21:10:10 -0700 (PDT)
+ bh=ocNu8t+0vPe8xDuDrmXUgxK/R5Hfv7t0v2kfkL1QOgA=;
+ b=uSzWJV/eezSxder5xeW2IWtL58T22pc0rawYu8az8YGJuTSwoW6HQn34lrDTFU8i1k
+ t6SR+BeuuuuM9TUbR8R6YHU5gh+1OibyrUh/pcYs4Ts/ModE9w9j5aj2EHFwwGndYWw8
+ WzilqUHWRbgk8KT40nBAJpZFRKzS7TJkSehoC2pmE7uCMECrsa5gaPgGD8a3ThOyzjTV
+ PeQEGWSyK1bLwanMdUfyLAkqRaAxTOjtbhx3nPIcVgwcNjKrv+h5CC3z6vdpOProyuoW
+ s8OXGMYDrl/htM8TpjBsQ2jZtRR/dpOYtbZbO3abxufR4VDJ0OFUMwnlq7AodhbXAPV4
+ v8ug==
+X-Gm-Message-State: AOAM531csZKWm9wz7LhBB8V1pGz2aZJd8PVICXY1ZgkpanoW5CHUSj7W
+ iAB3CwEToen9qMbuuP8ri30=
+X-Google-Smtp-Source: ABdhPJz2SBVANXMZ07VbSSh4pznTgoL/y9wtPx7R4CwSyd5hF9Ctj75Fuud9mXAdwAvfcZj7S9//6A==
+X-Received: by 2002:a17:902:8543:b029:12d:461f:a6a8 with SMTP id
+ d3-20020a1709028543b029012d461fa6a8mr3905116plo.1.1628681743298; 
+ Wed, 11 Aug 2021 04:35:43 -0700 (PDT)
 Received: from localhost.localdomain ([45.135.186.103])
- by smtp.gmail.com with ESMTPSA id w11sm30636011pgk.34.2021.08.10.21.10.03
+ by smtp.gmail.com with ESMTPSA id c12sm26423669pfl.56.2021.08.11.04.35.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 10 Aug 2021 21:10:09 -0700 (PDT)
+ Wed, 11 Aug 2021 04:35:42 -0700 (PDT)
 From: Tuo Li <islituo@gmail.com>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@linux.ie,
- daniel@ffwll.ch, Jun.Lei@amd.com, Rodrigo.Siqueira@amd.com,
- eryk.brol@amd.com, aric.cyr@amd.com, vladimir.stempen@amd.com,
- alvin.lee2@amd.com, qingqing.zhuo@amd.com, isabel.zhang@amd.com,
- sung.lee@amd.com, Samson.Tam@amd.com, paul.hsieh@amd.com,
- wyatt.wood@amd.com
-Cc: amd-gfx@lists.freedesktop.org, baijiaju1990@gmail.com,
+To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@linux.ie, daniel@ffwll.ch, luben.tuikov@amd.com,
+ tzimmermann@suse.de, sam@ravnborg.org
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, baijiaju1990@gmail.com,
  Tuo Li <islituo@gmail.com>, TOTE Robot <oslab@tsinghua.edu.cn>
-Subject: [PATCH v2] drm/display: fix possible null-pointer dereference in
- dcn10_set_clock()
-Date: Tue, 10 Aug 2021 21:07:03 -0700
-Message-Id: <20210811040703.4770-1-islituo@gmail.com>
+Subject: [PATCH] gpu: drm: amd: amdgpu: amdgpu_i2c: fix possible
+ uninitialized-variable access in amdgpu_i2c_router_select_ddc_port()
+Date: Wed, 11 Aug 2021 04:34:58 -0700
+Message-Id: <20210811113458.6940-1-islituo@gmail.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -90,59 +87,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The variable dc->clk_mgr is checked in:
-  if (dc->clk_mgr && dc->clk_mgr->funcs->get_clock)
+The variable val is declared without initialization, and its address is 
+passed to amdgpu_i2c_get_byte(). In this function, the value of val is 
+accessed in:
+  DRM_DEBUG("i2c 0x%02x 0x%02x read failed\n",
+       addr, *val);
 
-This indicates dc->clk_mgr can be NULL.
-However, it is dereferenced in:
-    if (!dc->clk_mgr->funcs->get_clock)
+Also, when amdgpu_i2c_get_byte() returns, val may remain uninitialized, 
+but it is accessed in:
+  val &= ~amdgpu_connector->router.ddc_mux_control_pin;
 
-To fix this null-pointer dereference, check dc->clk_mgr and the function
-pointer dc->clk_mgr->funcs->get_clock earlier, and return if one of them
-is NULL.
+To fix this possible uninitialized-variable access, initialize val to 0 in
+amdgpu_i2c_router_select_ddc_port().
 
 Reported-by: TOTE Robot <oslab@tsinghua.edu.cn>
 Signed-off-by: Tuo Li <islituo@gmail.com>
 ---
-v2:
-* Move the check of function pointer dc->clk_mgr->funcs->get_clock earlier
-and return if it is NULL.
-  Thank Chen, Guchun for helpful advice.
----
- .../gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-index c545eddabdcc..03e1c643502e 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-@@ -3631,13 +3631,12 @@ enum dc_status dcn10_set_clock(struct dc *dc,
- 	struct dc_clock_config clock_cfg = {0};
- 	struct dc_clocks *current_clocks = &context->bw_ctx.bw.dcn.clk;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c
+index bca4dddd5a15..82608df43396 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c
+@@ -339,7 +339,7 @@ static void amdgpu_i2c_put_byte(struct amdgpu_i2c_chan *i2c_bus,
+ void
+ amdgpu_i2c_router_select_ddc_port(const struct amdgpu_connector *amdgpu_connector)
+ {
+-	u8 val;
++	u8 val = 0;
  
--	if (dc->clk_mgr && dc->clk_mgr->funcs->get_clock)
--				dc->clk_mgr->funcs->get_clock(dc->clk_mgr,
--						context, clock_type, &clock_cfg);
--
--	if (!dc->clk_mgr->funcs->get_clock)
-+	if (!dc->clk_mgr || !dc->clk_mgr->funcs->get_clock)
- 		return DC_FAIL_UNSUPPORTED_1;
- 
-+	dc->clk_mgr->funcs->get_clock(dc->clk_mgr,
-+		context, clock_type, &clock_cfg);
-+
- 	if (clk_khz > clock_cfg.max_clock_khz)
- 		return DC_FAIL_CLK_EXCEED_MAX;
- 
-@@ -3655,7 +3654,7 @@ enum dc_status dcn10_set_clock(struct dc *dc,
- 	else
- 		return DC_ERROR_UNEXPECTED;
- 
--	if (dc->clk_mgr && dc->clk_mgr->funcs->update_clocks)
-+	if (dc->clk_mgr->funcs->update_clocks)
- 				dc->clk_mgr->funcs->update_clocks(dc->clk_mgr,
- 				context, true);
- 	return DC_OK;
+ 	if (!amdgpu_connector->router.ddc_valid)
+ 		return;
 -- 
 2.25.1
 
