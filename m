@@ -2,56 +2,107 @@ Return-Path: <SRS0=MFBU=NC=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A5DB6C4338F
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Aug 2021 16:52:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3E916C4338F
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Aug 2021 19:11:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4DCA360EE5
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Aug 2021 16:52:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4DCA360EE5
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=daenzer.net
+	by mail.kernel.org (Postfix) with ESMTPS id F143E60F21
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Aug 2021 19:11:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F143E60F21
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 037686E182;
-	Wed, 11 Aug 2021 16:52:34 +0000 (UTC)
-Received: from netline-mail3.netline.ch (mail.netline.ch [148.251.143.180])
- by gabe.freedesktop.org (Postfix) with ESMTP id C1E7F6E17E;
- Wed, 11 Aug 2021 16:52:14 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by netline-mail3.netline.ch (Postfix) with ESMTP id 1A5A320201A;
- Wed, 11 Aug 2021 18:52:14 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at netline-mail3.netline.ch
-Received: from netline-mail3.netline.ch ([127.0.0.1])
- by localhost (netline-mail3.netline.ch [127.0.0.1]) (amavisd-new, port 10024)
- with LMTP id JdErpEBxcgcx; Wed, 11 Aug 2021 18:52:12 +0200 (CEST)
-Received: from kaveri (24.99.2.85.dynamic.wline.res.cust.swisscom.ch
- [85.2.99.24])
- by netline-mail3.netline.ch (Postfix) with ESMTPA id A652D20201B;
- Wed, 11 Aug 2021 18:52:12 +0200 (CEST)
-Received: from daenzer by kaveri with local (Exim 4.94.2)
- (envelope-from <michel@daenzer.net>)
- id 1mDrSd-0001mj-Hc; Wed, 11 Aug 2021 18:52:11 +0200
-From: =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel@daenzer.net>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Leo Liu <leo.liu@amd.com>, James Zhu <James.Zhu@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH 2/2] drm/amdgpu: Use mod_delayed_work in JPEG/UVD/VCE/VCN
- ring_end_use hooks
-Date: Wed, 11 Aug 2021 18:52:11 +0200
-Message-Id: <20210811165211.6811-2-michel@daenzer.net>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20210811165211.6811-1-michel@daenzer.net>
-References: <20210811165211.6811-1-michel@daenzer.net>
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB4DB890AD;
+	Wed, 11 Aug 2021 19:11:29 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2048.outbound.protection.outlook.com [40.107.92.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 26C926E1A5;
+ Wed, 11 Aug 2021 19:11:16 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=YPrmBlV9ZBcK/HBtAqDDhpPjDx32UsCDayAxVwOQycdWBzWwUjghnL2eICAX9ExTMad16lTXJ1RozSd/cCLo2yyTm1l/cnEg2e9lHXafy87kyIYs10SwaOV3SIbg+cFr3aXr9BPRjXrXqeEKCVYsgYUas/qjpvzBumfeJnCFEAdDoYvWbNIs/wZSEn+zTf0We+eDK2qdwmbowhkd2yfd+kFuSk88jm73MejgaviTDw26CJQXZX8jBYPDolO5QS6WFIL8zq98MsddG652mUs5jr4365R6YRNpD3RfcGUg0WVxG0W3oeN8XvvZl7H1Am7QIt99YjXwUJyqAx299AoPPg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Rl7KFKZV1zkmSYKbw/elQVg5fNcQ/vB8Vy9kpruRA6I=;
+ b=WnJZwX4hEj8r+TcuVpFfPdhN0GwzmI4Dm0IbMjb/A2w5i597ozWZ3w6JVncuKESvqibdEz8cwu7eaaa3AeP41Ibv5/CShrVcdMOsWeTF2gO9biEcdStTVZIAOD26vqYgO2STRyfVJlRv3WXjAQZh94Bt0BbEVLUyCyuwwotG5p/GfWhqglVvHgIaQ7AOz7PyHUpU2oYgnIlTktx0wlMzksv//3kPM3LOJcjs5E5N3J+3qtfuoG4TRgSeFH0oqx4pczWQSyCPC7oHUhSdS56jfUi8sRQGZUPclUUwaV09cgs3cWUMTjsm/RG1fUTfm0FlhamBlJO5YpsncLGl2MhWYQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Rl7KFKZV1zkmSYKbw/elQVg5fNcQ/vB8Vy9kpruRA6I=;
+ b=0RYmr9vUcUHSbu9+0tedDg3s929DY0Xcm3jF5tpJnqIAAfEFVpzTQhrVa9kc38dsFU/U4EGM6bSZR3XsO7sxrOfJK+4xgN7w4dp6Qm03TF8Rkuedd20HepuNjF2aGcEXCa5bC0O1oG8T2rbwcmN2C47YTxPCQlJDfx/GIcmDqbM=
+Received: from BN6PR18CA0010.namprd18.prod.outlook.com (2603:10b6:404:121::20)
+ by BL1PR12MB5110.namprd12.prod.outlook.com (2603:10b6:208:312::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.14; Wed, 11 Aug
+ 2021 19:11:14 +0000
+Received: from BN8NAM11FT026.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:404:121:cafe::74) by BN6PR18CA0010.outlook.office365.com
+ (2603:10b6:404:121::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.14 via Frontend
+ Transport; Wed, 11 Aug 2021 19:11:14 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT026.mail.protection.outlook.com (10.13.177.51) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4415.16 via Frontend Transport; Wed, 11 Aug 2021 19:11:14 +0000
+Received: from RErrabolDevMach.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Wed, 11 Aug
+ 2021 14:11:12 -0500
+From: Ramesh Errabolu <Ramesh.Errabolu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <bhelgaas@google.com>, <linux-pci@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+CC: Ramesh Errabolu <Ramesh.Errabolu@amd.com>
+Subject: [PATCH] Whitelist AMD host bridge device(s) to enable P2P DMA
+Date: Wed, 11 Aug 2021 14:11:04 -0500
+Message-ID: <20210811191104.21919-1-Ramesh.Errabolu@amd.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 55842ebe-cec1-4948-db34-08d95cfbc9bc
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5110:
+X-Microsoft-Antispam-PRVS: <BL1PR12MB5110BCAE331E09650F5EF470E3F89@BL1PR12MB5110.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: s/nnSI6gMEnjkYpGnzL061/YMhdap1XM/eE8UXPPsvkLBx4q0mnjGY6sGQzvllXIi/rRwg2erFfsJC1OM9ES7v/yzvlo4sHLTi+d7qUwV7tKaMVPdyBRivS60dglhSwifccCHoKzqVlTMCShH9c4uyKej++YWsaQDfB9EfJTwcfsH32t4eRTVPE3PxTJDDqQlC8efPDhQ5ulJIMBYxMxZ2K0i7xthkHhpvb31yAgzQtCEcUQM0jzKMX8AQFrOpVGzjEolnfe/UcrQMapVUu6zrtT0Sm+CD0BPTzZAdRRxH6IXpQwzR+8xK8BqhdEiCjRD0ggL3XtOuPWdbsxKHIkKQVU4cyiCgf52aNIyib/uQWGmXKZ1Raif/l4qmODuYw6OLoayRDHqts5QoY4iSgrnbgz+ddu0kWvt+5w73BC0qFShPDHBT6Sn+lT/rmJwOXYzizst61NXDbIh5/Mmu/WV6NQ9Rek0Cgg8IvlQImZjI6kFNYFFGttNNL86IUXLv4iMl7jaCkElVDMGAZbWujHBMyQw//QwoOyWLH3HaF/x+XKy56dVQlT4lq2CH/J/QA9NSqAxWE4P0Z283bbKyrl9bJREHkq5mcZodmKubDNJoRr5bl0JqJcgF2s9U6KzFqOWqXBqn/JrIZ4ciaQu1AmeeRZ36Rs5cVzFADNJI93S/+TU8U5SWSUxC1FF0zjDslTc9GAUunLfaMm3/jJmOGwC+Nv7BsRsgM/lMHvEWqhbceqG4Bha1UjY+MnMOCLjY57WdKRuVpHCxIQVGEqz2Bcmw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(346002)(376002)(136003)(39860400002)(396003)(46966006)(36840700001)(86362001)(16526019)(2906002)(82740400003)(6666004)(7696005)(478600001)(316002)(8936002)(186003)(34020700004)(2616005)(26005)(8676002)(47076005)(336012)(70206006)(70586007)(36756003)(4326008)(36860700001)(5660300002)(1076003)(356005)(110136005)(81166007)(426003)(82310400003)(4744005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2021 19:11:14.0340 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 55842ebe-cec1-4948-db34-08d95cfbc9bc
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT026.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5110
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,85 +117,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Michel Dänzer <mdaenzer@redhat.com>
+Current implementation will disallow P2P DMA if the participating
+devices belong to different root complexes. Implementation allows
+this default behavior to be overridden for whitelisted devices. The
+patch adds an AMD host bridge to be whitelisted
 
-In contrast to schedule_delayed_work, this pushes back the work if it
-was already scheduled before. Specific behaviour change:
-
-Before:
-
-The scheduled work ran ~1 second after the first time ring_end_use was
-called, even if the ring was used again during that second.
-
-After:
-
-The scheduled work runs ~1 second after the last time ring_end_use is
-called.
-
-Inspired by the corresponding change in amdgpu_gfx_off_ctrl. While I
-haven't run into specific issues in this case, the new behaviour makes
-more sense to me.
-
-Signed-off-by: Michel Dänzer <mdaenzer@redhat.com>
+Signed-off-by: Ramesh Errabolu <Ramesh.Errabolu@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c  | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c  | 2 +-
- drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c    | 2 +-
- 4 files changed, 4 insertions(+), 4 deletions(-)
+ drivers/pci/p2pdma.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
-index 8996cb4ed57a..2c0040153f6c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
-@@ -110,7 +110,7 @@ void amdgpu_jpeg_ring_begin_use(struct amdgpu_ring *ring)
- void amdgpu_jpeg_ring_end_use(struct amdgpu_ring *ring)
- {
- 	atomic_dec(&ring->adev->jpeg.total_submission_cnt);
--	schedule_delayed_work(&ring->adev->jpeg.idle_work, JPEG_IDLE_TIMEOUT);
-+	mod_delayed_work(system_wq, &ring->adev->jpeg.idle_work, JPEG_IDLE_TIMEOUT);
- }
- 
- int amdgpu_jpeg_dec_ring_test_ring(struct amdgpu_ring *ring)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-index 0f576f294d8a..b6b1d7eeb8e5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-@@ -1283,7 +1283,7 @@ void amdgpu_uvd_ring_begin_use(struct amdgpu_ring *ring)
- void amdgpu_uvd_ring_end_use(struct amdgpu_ring *ring)
- {
- 	if (!amdgpu_sriov_vf(ring->adev))
--		schedule_delayed_work(&ring->adev->uvd.idle_work, UVD_IDLE_TIMEOUT);
-+		mod_delayed_work(system_wq, &ring->adev->uvd.idle_work, UVD_IDLE_TIMEOUT);
- }
- 
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-index 1ae7f824adc7..2253c18a6688 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-@@ -401,7 +401,7 @@ void amdgpu_vce_ring_begin_use(struct amdgpu_ring *ring)
- void amdgpu_vce_ring_end_use(struct amdgpu_ring *ring)
- {
- 	if (!amdgpu_sriov_vf(ring->adev))
--		schedule_delayed_work(&ring->adev->vce.idle_work, VCE_IDLE_TIMEOUT);
-+		mod_delayed_work(system_wq, &ring->adev->vce.idle_work, VCE_IDLE_TIMEOUT);
- }
- 
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-index 284bb42d6c86..d5937ab5ac80 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-@@ -1874,7 +1874,7 @@ void vcn_v1_0_set_pg_for_begin_use(struct amdgpu_ring *ring, bool set_clocks)
- 
- void vcn_v1_0_ring_end_use(struct amdgpu_ring *ring)
- {
--	schedule_delayed_work(&ring->adev->vcn.idle_work, VCN_IDLE_TIMEOUT);
-+	mod_delayed_work(system_wq, &ring->adev->vcn.idle_work, VCN_IDLE_TIMEOUT);
- 	mutex_unlock(&ring->adev->vcn.vcn1_jpeg1_workaround);
- }
+diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
+index 196382630363..7003bb9faf23 100644
+--- a/drivers/pci/p2pdma.c
++++ b/drivers/pci/p2pdma.c
+@@ -305,6 +305,8 @@ static const struct pci_p2pdma_whitelist_entry {
+ 	{PCI_VENDOR_ID_INTEL,	0x2032, 0},
+ 	{PCI_VENDOR_ID_INTEL,	0x2033, 0},
+ 	{PCI_VENDOR_ID_INTEL,	0x2020, 0},
++	/* AMD Host Bridge Devices */
++	{PCI_VENDOR_ID_AMD,	0x1480, 0},
+ 	{}
+ };
  
 -- 
-2.32.0
+2.31.1
 
