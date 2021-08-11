@@ -8,64 +8,70 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D2F85C432BE
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Aug 2021 19:29:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 72B23C432BE
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Aug 2021 20:15:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8D1A660F21
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Aug 2021 19:29:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8D1A660F21
+	by mail.kernel.org (Postfix) with ESMTPS id 3EE2860EB5
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Aug 2021 20:15:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3EE2860EB5
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02F1589AC9;
-	Wed, 11 Aug 2021 19:29:17 +0000 (UTC)
-Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
- [IPv6:2607:f8b0:4864:20::334])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F8C589AC9;
- Wed, 11 Aug 2021 19:29:15 +0000 (UTC)
-Received: by mail-ot1-x334.google.com with SMTP id
- c2-20020a0568303482b029048bcf4c6bd9so4667143otu.8; 
- Wed, 11 Aug 2021 12:29:15 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 657636E1B1;
+	Wed, 11 Aug 2021 20:15:41 +0000 (UTC)
+Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com
+ [IPv6:2607:f8b0:4864:20::32b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 902DE6E1A5;
+ Wed, 11 Aug 2021 20:15:39 +0000 (UTC)
+Received: by mail-ot1-x32b.google.com with SMTP id
+ 61-20020a9d0d430000b02903eabfc221a9so4916551oti.0; 
+ Wed, 11 Aug 2021 13:15:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=cItHMKJVxWFQWZ7rI24FO7YfKCVa/vam+UV+c07Up1o=;
- b=iWEAazlRiGBVCeST1c1e7cLPlTN8E0/DRTC+Bhae5/qa0DJidHsFfDDZICR1xh2jqW
- a9giG76Vp4DmKoBcyDzT/XI2QJOwCBM+LldPNoSwSv9V6dyl2g4Ju5J/p3uaT27bHeJS
- 7Ug5gjCJwR0WRWBRcwvV8l7p4L8zlYv3h3lyzb0KFwexwxjy+aes7cDy6Cj7HNTle0Ko
- Oidg8E6/qB9NhurNGGum5OQdqdcqoio5jJpAHKp3E/r6LZSw1x4/j7aalzBhhtvDlxMs
- Dz4HQYeIk6TqwJl28LXMiooX/d8gG3vCQxCwbndVa901PhdMtsMSjh14+EUhqGYSzK39
- OHmA==
+ :cc; bh=jWE7VU12/NhLSBAI8reKko5Lx0IBplhjTzD3kMB00EQ=;
+ b=P4atp6Byus8ywoOtAxCzKdkVerEWlZHWkngS5sUUeS1oErbXcKQDkvLycigkOwbATu
+ +0GdVkWAm+ZElen6tpvEEhcTw+rjsYTf4Rz6D0jydxqjgjNQvB+VsEi4TVSTvm7aUr8y
+ xq00/B3axowAqsBSJqwDUa8QTmy0cb0ID700mTdV4+fkURzTmPs/DSpCyr/4pLX+F7zD
+ uenIqFqCuDZjbpGY2ZiyLRcUIP9hEGmgQ9c++rkP0kghcWDewUg3gGDHHrauUCMCNh0u
+ ddfOqxV6HyBBRXR1SmAkQ5Dj/MBLYKMex7fUFpYcxTIRiQ/ulQI2LteBKmiu/ywpaA5Z
+ iaMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=cItHMKJVxWFQWZ7rI24FO7YfKCVa/vam+UV+c07Up1o=;
- b=Mm2CKPervzn06QKLDtJTeIhvrqjgagLULAr64cMJPVT/wubTFHr7fbU5pvSSvnwJ9d
- KP5PryrlKZpbw2YqKLmlhvhkYhBgcrxaFUjdZ5ryjdZsk3BlafKf40k5D211TkX98QAU
- Rfkv9Tl/kASUAs9oYE+elN5Ms+jbdso/E6tlWd7dxtvtdPYGr6xx7578dDehhJrh168a
- jU+4//Tn0U+U20OMr5FxOQbuDT8vjzbDOGSHD/W8LGzoAPeNcT0MDA2uAUnXMw0rhVx6
- rtEZAASJuSPIggsmvKbaWIp6BU+FimMUtei0wMPOUUv2nGex+gyRruIeBtDep8uZeDLo
- HJDQ==
-X-Gm-Message-State: AOAM533DYfLDXar1FCt3SDVxKciiBc7Vn/jhkYJ+0wJgW9xhOUsBFVHH
- SB0dh+BP57QHaW/D49GEgyp2FifPaBrUHVnvDlc=
-X-Google-Smtp-Source: ABdhPJw8P2BEPyaHP96Yjy6S2wYbnIXwHhEmGm+qPmLkxNgYmZbqrkYjLD6Sd8KRIlva1aL6GA+e0zObqJ+5qV00IUE=
+ bh=jWE7VU12/NhLSBAI8reKko5Lx0IBplhjTzD3kMB00EQ=;
+ b=NWAIYszAwEwv9PkKSR3PVzVGRMs39sYYkuyf0N7tNf5SHarMJOxrs5ZmQwzGxadLPo
+ tIu84HrQry/oHr2H3OAz2mBmAnKCrms1XoITIdUDLAlz9VXH29ZoblBWTjAraJ8N7a2Q
+ DA8fzuwXDRNeiuxMR9gGYYu8zzoFbKNwVUpKIDYr20JcIzPtKIzr842PVmlrc+BQoYay
+ IMMQ5awYBaHDyx2TdXG2SZ/ht2F7G95KBh82UUVFF6ORnnxKtpEXq8bcffqaRrQFSaRg
+ R1dj+ug7/od7DNnHYq7E+BTAnAy6Mt8+E5mEXfbd5LyD3TvAZ1xkkQEngcIIoK+CTi8J
+ Kq5w==
+X-Gm-Message-State: AOAM5320RFxE82Z/8IZ/QzXX/zcpiGTPdlaoYpA5+sq/aoQ+EN/4m1lO
+ gr//d3RKCj/Dj/FNva7CKCPoKc2fIb+SRmCua3I=
+X-Google-Smtp-Source: ABdhPJwbYKEtMSc9HcmOT5BNGXm46YWUdTewMbKaIafAI/rx1XUQvEO94dA0H3phXzRueFDZViGWKSUq1IvCzn0HJFQ=
 X-Received: by 2002:a05:6830:1e78:: with SMTP id
- m24mr418330otr.23.1628710154710; 
- Wed, 11 Aug 2021 12:29:14 -0700 (PDT)
+ m24mr555941otr.23.1628712938940; 
+ Wed, 11 Aug 2021 13:15:38 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210811191104.21919-1-Ramesh.Errabolu@amd.com>
-In-Reply-To: <20210811191104.21919-1-Ramesh.Errabolu@amd.com>
+References: <20210811113458.6940-1-islituo@gmail.com>
+In-Reply-To: <20210811113458.6940-1-islituo@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 11 Aug 2021 15:29:03 -0400
-Message-ID: <CADnq5_OVA1fB5x6=CGrd_5O-i=P7snmoJaTyauF2RKuWjc8Gog@mail.gmail.com>
-Subject: Re: [PATCH] Whitelist AMD host bridge device(s) to enable P2P DMA
-To: Ramesh Errabolu <Ramesh.Errabolu@amd.com>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>, 
+Date: Wed, 11 Aug 2021 16:15:27 -0400
+Message-ID: <CADnq5_M5jS2LNhH1im_KSgraTF3Z858PXTxvke45-7ZAnANOMA@mail.gmail.com>
+Subject: Re: [PATCH] gpu: drm: amd: amdgpu: amdgpu_i2c: fix possible
+ uninitialized-variable access in amdgpu_i2c_router_select_ddc_port()
+To: Tuo Li <islituo@gmail.com>
+Cc: "Deucher, Alexander" <alexander.deucher@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>, 
+ xinhui pan <Xinhui.Pan@amd.com>, Dave Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, 
+ "Tuikov, Luben" <luben.tuikov@amd.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Sam Ravnborg <sam@ravnborg.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, 
  Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Bjorn Helgaas <bhelgaas@google.com>, 
- Linux PCI <linux-pci@vger.kernel.org>, LKML <linux-kernel@vger.kernel.org>
+ LKML <linux-kernel@vger.kernel.org>, 
+ Jia-Ju Bai <baijiaju1990@gmail.com>, TOTE Robot <oslab@tsinghua.edu.cn>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -81,37 +87,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Aug 11, 2021 at 3:11 PM Ramesh Errabolu <Ramesh.Errabolu@amd.com> wrote:
->
-> Current implementation will disallow P2P DMA if the participating
-> devices belong to different root complexes. Implementation allows
-> this default behavior to be overridden for whitelisted devices. The
-> patch adds an AMD host bridge to be whitelisted
-
-Why do we need this?  cpu_supports_p2pdma() should return true for all
-AMD Zen CPUs.
+Applied.  Thanks!
 
 Alex
 
+On Wed, Aug 11, 2021 at 7:35 AM Tuo Li <islituo@gmail.com> wrote:
 >
-> Signed-off-by: Ramesh Errabolu <Ramesh.Errabolu@amd.com>
+> The variable val is declared without initialization, and its address is
+> passed to amdgpu_i2c_get_byte(). In this function, the value of val is
+> accessed in:
+>   DRM_DEBUG("i2c 0x%02x 0x%02x read failed\n",
+>        addr, *val);
+>
+> Also, when amdgpu_i2c_get_byte() returns, val may remain uninitialized,
+> but it is accessed in:
+>   val &= ~amdgpu_connector->router.ddc_mux_control_pin;
+>
+> To fix this possible uninitialized-variable access, initialize val to 0 in
+> amdgpu_i2c_router_select_ddc_port().
+>
+> Reported-by: TOTE Robot <oslab@tsinghua.edu.cn>
+> Signed-off-by: Tuo Li <islituo@gmail.com>
 > ---
->  drivers/pci/p2pdma.c | 2 ++
->  1 file changed, 2 insertions(+)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
-> index 196382630363..7003bb9faf23 100644
-> --- a/drivers/pci/p2pdma.c
-> +++ b/drivers/pci/p2pdma.c
-> @@ -305,6 +305,8 @@ static const struct pci_p2pdma_whitelist_entry {
->         {PCI_VENDOR_ID_INTEL,   0x2032, 0},
->         {PCI_VENDOR_ID_INTEL,   0x2033, 0},
->         {PCI_VENDOR_ID_INTEL,   0x2020, 0},
-> +       /* AMD Host Bridge Devices */
-> +       {PCI_VENDOR_ID_AMD,     0x1480, 0},
->         {}
->  };
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c
+> index bca4dddd5a15..82608df43396 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c
+> @@ -339,7 +339,7 @@ static void amdgpu_i2c_put_byte(struct amdgpu_i2c_chan *i2c_bus,
+>  void
+>  amdgpu_i2c_router_select_ddc_port(const struct amdgpu_connector *amdgpu_connector)
+>  {
+> -       u8 val;
+> +       u8 val = 0;
 >
+>         if (!amdgpu_connector->router.ddc_valid)
+>                 return;
 > --
-> 2.31.1
+> 2.25.1
 >
