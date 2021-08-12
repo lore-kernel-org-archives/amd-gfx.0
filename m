@@ -2,143 +2,101 @@ Return-Path: <SRS0=1H3f=ND=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3945AC432BE
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 11:34:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 991F6C432BE
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 13:16:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E1D386103E
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 11:34:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E1D386103E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 5466F610A4
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 13:16:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5466F610A4
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1F786E0DE;
-	Thu, 12 Aug 2021 11:34:06 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1anam02on2051.outbound.protection.outlook.com [40.107.96.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF8426E0D2;
- Thu, 12 Aug 2021 11:34:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XiH6peKYb0wjwTf2A24ep4BVn+oeZxxo9tsYSDmJhE3zCURG/PvLEDYxfXp/nSDn+xtnKHEyR4Z+6EMQjHlWC96g5dakaaUTIvonPEO9v3IyfPIyLiTgj+XP6MwnXZTxjjSBwilzzwpyDgSj6HSd6u7Mcijrmh/+dE3JS+/c9pj3rnJNxktaI8GoGhitufiAZk4QugL8QHAglOHwm9y3DEP0XeOPFKV2CzaNiWLfljTtHXx6AQ2ExhphtEbqq3DbAS5aT11bthP0jL5AJr2ZzzYEAskBfIJh3GxcOfPD4VS8b/S8zRU+o/zWdMr1YhWa1tZVaUB85HHqv2o41rf72g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QTZwOCU65BHZCZyIQp4Ozo1JplIpNRnzQEu5moIc0so=;
- b=FDA6WB4kJUH5hyeyKYjzHmUXoCmL/5PhgMNL9oF1Hz9B8cyFKi+MKtWSmRFbWRrsHGHS9cuZbsBwlcetMSuaeCounTfUw1gxhsHSN0dmHGH3bZfyGsGtV0TUekAkmliGrr55XTiUyE/wVJHoa1aZwcvM/6kv24q52Re+65yMGZ+YWzpI11jRm2QfbuP5j/drAEUtk3tACHuDN9tBojeoUvpdE6ZSXdGps5Vv6I273+n7zJq1tgilLjzQJpCCwgQsyRq7iwTRsTyiB75XCFhjzKmjoO2Oz+k15RW9qGl+5rPKEfEgdlLC1mMXBvHL9LtxKFtFqvrDolVconb6yAivPA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QTZwOCU65BHZCZyIQp4Ozo1JplIpNRnzQEu5moIc0so=;
- b=AyM/3nEqHIE3XhIQnwylK6x+1SukH3zhP3xlmSof4j+u+M7TxIr3eLt42ToroAWZ5xRP0Vsh6sPXFSVwknJ3PWpwp2X3cA4AbBAU4e03O6RIzKxlVg87FjmBzrt6kSFZ2SyKkxZ2Reg2GRAq1q4GpS1dGM8agfl/X79+Mt6oBWc=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5356.namprd12.prod.outlook.com (2603:10b6:408:105::23)
- by BN9PR12MB5260.namprd12.prod.outlook.com (2603:10b6:408:101::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.16; Thu, 12 Aug
- 2021 11:34:02 +0000
-Received: from BN9PR12MB5356.namprd12.prod.outlook.com
- ([fe80::4804:801b:71a:a8ed]) by BN9PR12MB5356.namprd12.prod.outlook.com
- ([fe80::4804:801b:71a:a8ed%9]) with mapi id 15.20.4415.017; Thu, 12 Aug 2021
- 11:34:02 +0000
-Subject: Re: [PATCH 2/2] drm/amdgpu: Use mod_delayed_work in JPEG/UVD/VCE/VCN
- ring_end_use hooks
-To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>,
- "Koenig, Christian" <Christian.Koenig@amd.com>,
- "Quan, Evan" <Evan.Quan@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Cc: "Liu, Leo" <Leo.Liu@amd.com>, "Zhu, James" <James.Zhu@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-References: <20210811165211.6811-1-michel@daenzer.net>
- <20210811165211.6811-2-michel@daenzer.net>
- <MN2PR12MB377506AD71308A47222A3E9583F89@MN2PR12MB3775.namprd12.prod.outlook.com>
- <DM6PR12MB26196DF7D33462060FC4F607E4F99@DM6PR12MB2619.namprd12.prod.outlook.com>
- <MN2PR12MB3775E6C1ECA915283108E6D783F99@MN2PR12MB3775.namprd12.prod.outlook.com>
- <aebae00c-4b7b-552f-accb-e51d151ecb43@daenzer.net>
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-Message-ID: <194e8a33-1705-d19c-add1-38941b6d9b5c@amd.com>
-Date: Thu, 12 Aug 2021 17:03:50 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-In-Reply-To: <aebae00c-4b7b-552f-accb-e51d151ecb43@daenzer.net>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN1PR0101CA0021.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c00:e::31) To BN9PR12MB5356.namprd12.prod.outlook.com
- (2603:10b6:408:105::23)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D31076E408;
+	Thu, 12 Aug 2021 13:16:30 +0000 (UTC)
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [IPv6:2a00:1450:4864:20::231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CCA696E30D
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Aug 2021 10:07:13 +0000 (UTC)
+Received: by mail-lj1-x231.google.com with SMTP id y7so9804192ljp.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Aug 2021 03:07:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=shutemov-name.20150623.gappssmtp.com; s=20150623;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=MYArfwyoBo3dGsKUJMsxwhHgYqZKbCcsgh7gGUNtDK4=;
+ b=i5pl2dc+IIZq62s73J165t7SbTE/a6uwhQcs74jwe9KmwHHHprhV6B7adGgzY2ul5F
+ h3ad9IJiBKNdQ1Yy+0atN7ISXCxsrMGXnfmJsO6X4rAencCuDMvqer1gR8DISUT+MUdX
+ mFWLcuQYXLFjOzlL0+b+7kJuGkuB4wCN/YMkw/r+eyS6zgywYe+L6amtdlG3N+EOpGsE
+ J1HMLNEKBn3QeV3/WPSCpmI5s5ySDG9/4fJ+UJO1H5Xch03iP3WdOduEdYUt1pTqbuK7
+ XsqkYhAszn/r202BsWcaBlPgkZHQ5nFUcQEBqetJcuzusrxc9TEefXgeJD4qBlDR12PM
+ /RWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=MYArfwyoBo3dGsKUJMsxwhHgYqZKbCcsgh7gGUNtDK4=;
+ b=ZQvnRXxVrqpFFaaC1k5Q2ir2MmoCGp2Z97FJPXbKUc/fbw0voeVN+B57RAQ+hPf9Pa
+ SSBFkiVmpWKWaucMFMDSLBJjwtTKZCTFjkZu2swLOzH0B5wB1jmxf5APDC7QQ7baUW1K
+ me+Fes2nSf8XMXOffcMqsFrrL1bK1V5g2SiIep00+XpQT44xFoaMt12GsA+PavJxt2gS
+ Agrl/VPZLkg+LE5/W0v+J88eA/APOmYqNiwMUbaxudnHQaw3lVCdYbTIhQQ2icB/KaMv
+ httIRV1jKBd6NsesxX3V1VenEsncuV1D122PAq/82HstizeOvX4YtMC2cMgD+EPBmDVa
+ mngg==
+X-Gm-Message-State: AOAM530E0HJ7eT/V9Kne5+XGdjQCFAS1JKT4hcilckInEn/n+oe+uN8Q
+ 2aEg3tAVT4gYSjtT2BswFfJRMQ==
+X-Google-Smtp-Source: ABdhPJzegmFCE5odxbsD4HArsZ9uuMjN7H8TkJnoN55vikWCUHEpo/5436B3LFAXNhCNvYbyx3Wtvw==
+X-Received: by 2002:a2e:814a:: with SMTP id t10mr2410500ljg.318.1628762831975; 
+ Thu, 12 Aug 2021 03:07:11 -0700 (PDT)
+Received: from box.localdomain ([86.57.175.117])
+ by smtp.gmail.com with ESMTPSA id o8sm212528lfo.292.2021.08.12.03.07.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 12 Aug 2021 03:07:11 -0700 (PDT)
+Received: by box.localdomain (Postfix, from userid 1000)
+ id B75B41028BC; Thu, 12 Aug 2021 13:07:24 +0300 (+03)
+Date: Thu, 12 Aug 2021 13:07:24 +0300
+From: "Kirill A. Shutemov" <kirill@shutemov.name>
+To: Tom Lendacky <thomas.lendacky@amd.com>
+Cc: "Kuppuswamy, Sathyanarayanan" <sathyanarayanan.kuppuswamy@linux.intel.com>,
+ linux-kernel@vger.kernel.org, x86@kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-s390@vger.kernel.org,
+ iommu@lists.linux-foundation.org, kvm@vger.kernel.org,
+ linux-efi@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+ linux-graphics-maintainer@vmware.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, kexec@lists.infradead.org,
+ linux-fsdevel@vger.kernel.org, Borislav Petkov <bp@alien8.de>,
+ Brijesh Singh <brijesh.singh@amd.com>,
+ Joerg Roedel <joro@8bytes.org>, Andi Kleen <ak@linux.intel.com>,
+ Tianyu Lan <Tianyu.Lan@microsoft.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Will Deacon <will@kernel.org>, Dave Young <dyoung@redhat.com>,
+ Baoquan He <bhe@redhat.com>
+Subject: Re: [PATCH 07/11] treewide: Replace the use of mem_encrypt_active()
+ with prot_guest_has()
+Message-ID: <20210812100724.t4cdh7xbkuqgnsc3@box.shutemov.name>
+References: <cover.1627424773.git.thomas.lendacky@amd.com>
+ <029791b24c6412f9427cfe6ec598156c64395964.1627424774.git.thomas.lendacky@amd.com>
+ <166f30d8-9abb-02de-70d8-6e97f44f85df@linux.intel.com>
+ <4b885c52-f70a-147e-86bd-c71a8f4ef564@amd.com>
+ <20210811121917.ghxi7g4mctuybhbk@box.shutemov.name>
+ <0a819549-e481-c004-7da8-82ba427b13ce@amd.com>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [172.31.157.114] (165.204.158.249) by
- PN1PR0101CA0021.INDPRD01.PROD.OUTLOOK.COM (2603:1096:c00:e::31) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.17 via Frontend
- Transport; Thu, 12 Aug 2021 11:33:59 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9c130917-3158-4d4f-02e3-08d95d851590
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5260:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BN9PR12MB5260F8E347463151855F135097F99@BN9PR12MB5260.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5516;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: GOrOa/17/ajTUnZO+8igmESmPemCVcBZv9JIpNWSbfx6hRnmAwPEKIy6/fEb+qJTmdx6gR+B/zZzyw6borL7GP9XzRYuS+sOr7v3+Qp9EoHgxwiRLXgR/ky2w0kh6EPez8L5/KqCtH6wfg3/EhAS8WnL5HM8+IVPOFo2iga69+aVeSsgT3wMK4jnJCb+TibRSPGCNoWLMjd9XDw6AdHt39JrKo1920kDGATiX2VM77d7ksJhL6haasH5fq4VzFzMytfppcxBzQdVJrjzrbz00J4H11YqZwFdjI9igErW9RqxOzdRH/Djf3ssFy/V+PEz3VJpBKTs4NR4mkwgzISYv5yRo2y8xX0BonwYrb/rYwmnjTmogpxqkItmJMLJEmLVpWX3uF8WcR8snJ4Z5dJeimhRWR5Ab2PN2IdBW7+3KALBjDKRmXZDqkpyn/QOHlAQIlDvAYoKW/tD4K98lQ3FoYU0NMz4BvAYTaiBnztF4rwsXdHZtiMMUuhiDGjBI5jZW2QqVfc+n+va2bwZ5GHYlKVN155paxC1a/intxUwlSJXhg5osdIC4ssNs5m4iGuj5G6lR78igfnQARrumSpBEKJrUi4NmDacsVeupbWPr7L/EPPvYOZ7RT2ZH7MDhixmGJZC5UHy1HqKHWx2a6ejlm949U8ii73Nm01IS+mHnhNVLd9TTGeHmKjkCvlbqzZQP9PMUzHhApWBrdA8oflZL6XMZZ0ROPye605xD61Ctk3e0+dH317gwnvcl5vt/RRJ
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5356.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(366004)(376002)(396003)(136003)(346002)(66946007)(4326008)(86362001)(110136005)(54906003)(6666004)(53546011)(26005)(316002)(31696002)(8676002)(5660300002)(16576012)(31686004)(38100700002)(66574015)(66476007)(186003)(478600001)(6636002)(66556008)(83380400001)(8936002)(36756003)(2906002)(956004)(6486002)(2616005)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dUdWbEp0aWNITjBINHNnWmJ3ZkZuU3R5UG9NeGhkdVR2TFMzcGpOam5kY0Vv?=
- =?utf-8?B?WXlJQmFQSFE3ZzUvY0tzMGYwOVg5Z0NUNFlDZmxDMms5NkhsZEtmNHdEeGNw?=
- =?utf-8?B?a2dKa1lwRWx0ek50NG9PM0xLc2FWeW9vdXFFSHhDblFrTHNBdURDdFh3SFZJ?=
- =?utf-8?B?Yzl1T1FDUFp0aDdwbU1lZzZTd3A2Z1U5N0lteFRZS1VDRjVScVdDMnMwVm1N?=
- =?utf-8?B?c1gwNzlsUWpnZXRvMEZUc3Bpa2x4VFhWNmUydWwxdjI3cm10L2tqTmRGbTcy?=
- =?utf-8?B?b1lKci9hQXU2Ky9wbmZjMkloQjZYWUFKQUVadlZndHkydmNXWDAvaGFRUVZT?=
- =?utf-8?B?Rm5Tbm9rMWh2Q3AyYWowZWwzNlovQjRlb1JhT3VPWEkzTTNwZjNtdHV1aTl2?=
- =?utf-8?B?bkc5MnMwK3FuYnArY0FzMHREd3NOeVVZY2FBU0lBd1NHMXI0aU11clF0OW0r?=
- =?utf-8?B?TkF6ellsVERKTkkrNUYzR2F6UUdQVXFwUlk4RDYwYmxMZHlRZ25FREdFSENI?=
- =?utf-8?B?WXJmKzdxSXRBMENBQ3pBYVh2RkNrK3pJS2psTG5hcGFvbGhFOCtYOElZOVli?=
- =?utf-8?B?SWZRa0RIbUsxS2VBQkpja1RzdFRobU5Qbmp0S0thb2NVOFNTb1ZHcU11UU5Z?=
- =?utf-8?B?Snp2YnpneGcxdTFtNEVzSmVBYU9CMXh5QlY5UEdOVGR5WldEMkltT3pJb3VO?=
- =?utf-8?B?eS9mbmJHZkdFMkEraEtsbEtYdDluZGJZbGVFY01BR2daUDNOVGlVck1mM3Fy?=
- =?utf-8?B?R2NMVEVpbmZIZE9pS1hGVGwvQjVSQ0JCeUI2M0FlVWVJdEk0ZXJVLzlCQVhM?=
- =?utf-8?B?d0J0djRnU0Jibk1aUzU4M04yZTRqM2VIVzdxYXNSL09GYUkxYlJ2NWx4emRI?=
- =?utf-8?B?N01qMHFHY0NKcWZXY3p4ak1HME1lU3R0WTQvcWF3NWVSWHNHb1hiTHVUR01H?=
- =?utf-8?B?bzB2UCtjQi9HSUpJVXFpSHZxQmRRNjRubEgrVEFsSEFreEljMThTZmM4b3hQ?=
- =?utf-8?B?eHFJbTY2a3NXSDBYQytyOTd0Q2dYNEdiY051RktMMlF3Y1RNTXVkb1RFaDBR?=
- =?utf-8?B?UURuOEU1akxncDBXTlhmR3hLS2ZoWHBqZjcwZnJFYjlvTDdNMlJ0MFBub3lJ?=
- =?utf-8?B?MnRKZys5eHVGb1BpVXFWWWM0bE92UWYyM2s3RkZVM2U1aFdsdHZnN0NuRDBz?=
- =?utf-8?B?M0lMZ3V5S2k2bm9XQkZoZUNLamZtdi9ZamFubFlkVmMyZWN4dHR0blRJU2Fv?=
- =?utf-8?B?enR3QzR4OGR1dUZVT3RxYlc2WEsxeGdxUEFTMTIrWUNJSzBndmRnaGRJQXVa?=
- =?utf-8?B?aCsxOExZOUJhZ3dIYkM1VnBEUDhUQXIybzlKOEJGNVRCWCtEeHFNcTV3U1FB?=
- =?utf-8?B?WG85bE9TbjhhK0J1eGZtV2JYK2tPUGh2RUtwY3VRWnFlMFBtQXN0MkdOZHVz?=
- =?utf-8?B?YTEwM0RpRGxPVFptaWFNblhJTVdGYnB6SWJwQWJ3MWtQU2U1ck1kZDhncTdw?=
- =?utf-8?B?NElUMDgxMHlwSnhHYVEvTGwreEhFVjVyTS83aU5WcmhHYTJBRUlBb0c4Rm9a?=
- =?utf-8?B?N3RKNERidlAwMksrcWNWOGxrd2Z5TlBCSDlMMXVmWHZQbkhwUU0xWjBCTUFT?=
- =?utf-8?B?NUtyVjdLaWZieDV6QXdBNm15T3hEYnFIc3pJNTVTOFh5OHFEOG41dFludXN4?=
- =?utf-8?B?R1JXMGU5NHpyRnU1RmtjV2RlOHdpMm01K1lJR2R5Ui9JNVhpS2ptbThyLzU2?=
- =?utf-8?Q?UUl4M8aEEaobtTHTF0aawCs/9YKvhF5mjfSWyVZ?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9c130917-3158-4d4f-02e3-08d95d851590
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5356.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2021 11:34:02.5912 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dYdblibiNGS7/YzLXA/15nL81MXqVYjatfPKomrEoGbMfEd8HNIHHLeUh5id0AUa
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5260
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <0a819549-e481-c004-7da8-82ba427b13ce@amd.com>
+X-Mailman-Approved-At: Thu, 12 Aug 2021 13:16:29 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,49 +111,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Wed, Aug 11, 2021 at 10:52:55AM -0500, Tom Lendacky wrote:
+> On 8/11/21 7:19 AM, Kirill A. Shutemov wrote:
+> > On Tue, Aug 10, 2021 at 02:48:54PM -0500, Tom Lendacky wrote:
+> >> On 8/10/21 1:45 PM, Kuppuswamy, Sathyanarayanan wrote:
+> >>>
+> >>>
+> >>> On 7/27/21 3:26 PM, Tom Lendacky wrote:
+> >>>> diff --git a/arch/x86/kernel/head64.c b/arch/x86/kernel/head64.c
+> >>>> index de01903c3735..cafed6456d45 100644
+> >>>> --- a/arch/x86/kernel/head64.c
+> >>>> +++ b/arch/x86/kernel/head64.c
+> >>>> @@ -19,7 +19,7 @@
+> >>>>   #include <linux/start_kernel.h>
+> >>>>   #include <linux/io.h>
+> >>>>   #include <linux/memblock.h>
+> >>>> -#include <linux/mem_encrypt.h>
+> >>>> +#include <linux/protected_guest.h>
+> >>>>   #include <linux/pgtable.h>
+> >>>>     #include <asm/processor.h>
+> >>>> @@ -285,7 +285,7 @@ unsigned long __head __startup_64(unsigned long
+> >>>> physaddr,
+> >>>>        * there is no need to zero it after changing the memory encryption
+> >>>>        * attribute.
+> >>>>        */
+> >>>> -    if (mem_encrypt_active()) {
+> >>>> +    if (prot_guest_has(PATTR_MEM_ENCRYPT)) {
+> >>>>           vaddr = (unsigned long)__start_bss_decrypted;
+> >>>>           vaddr_end = (unsigned long)__end_bss_decrypted;
+> >>>
+> >>>
+> >>> Since this change is specific to AMD, can you replace PATTR_MEM_ENCRYPT with
+> >>> prot_guest_has(PATTR_SME) || prot_guest_has(PATTR_SEV). It is not used in
+> >>> TDX.
+> >>
+> >> This is a direct replacement for now.
+> > 
+> > With current implementation of prot_guest_has() for TDX it breaks boot for
+> > me.
+> > 
+> > Looking at code agains, now I *think* the reason is accessing a global
+> > variable from __startup_64() inside TDX version of prot_guest_has().
+> > 
+> > __startup_64() is special. If you access any global variable you need to
+> > use fixup_pointer(). See comment before __startup_64().
+> > 
+> > I'm not sure how you get away with accessing sme_me_mask directly from
+> > there. Any clues? Maybe just a luck and complier generates code just right
+> > for your case, I donno.
+> 
+> Hmm... yeah, could be that the compiler is using rip-relative addressing
+> for it because it lives in the .data section?
 
+I guess. It has to be fixed. It may break with complier upgrade or any
+random change around the code.
 
-On 8/12/2021 1:41 PM, Michel DÃ¤nzer wrote:
-> On 2021-08-12 7:55 a.m., Koenig, Christian wrote:
->> Hi James,
->>
->> Evan seems to have understood how this all works together.
->>
->> See while any begin/end use critical section is active the work should not be active.
->>
->> When you handle only one ring you can just call cancel in begin use and schedule in end use. But when you have more than one ring you need a lock or counter to prevent concurrent work items to be started.
->>
->> Michelle's idea to use mod_delayed_work is a bad one because it assumes that the delayed work is still running.
-> 
-> It merely assumes that the work may already have been scheduled before.
-> 
-> Admittedly, I missed the cancel_delayed_work_sync calls for patch 2. While I think it can still have some effect when there's a single work item for multiple rings, as described by James, it's probably negligible, since presumably the time intervals between ring_begin_use and ring_end_use are normally much shorter than a second.
-> 
-> So, while patch 2 is at worst a no-op (since mod_delayed_work is the same as schedule_delayed_work if the work hasn't been scheduled yet), I'm fine with dropping it.
-> 
-> 
->> Something similar applies to the first patch I think,
-> 
-> There are no cancel work calls in that case, so the commit log is accurate TTBOMK.
+BTW, does it work with clang for you?
 
-Curious -
+> For the static variables in mem_encrypt_identity.c I did an assembler rip
+> relative LEA, but probably could have passed physaddr to sme_enable() and
+> used a fixup_pointer() style function, instead.
 
-For patch 1, does it make a difference if any delayed work scheduled is 
-cancelled in the else part before proceeding?
+Sounds like a plan.
 
-} else if (!enable && adev->gfx.gfx_off_state) {
-cancel_delayed_work();
+> > A separate point is that TDX version of prot_guest_has() relies on
+> > cpu_feature_enabled() which is not ready at this point.
+> 
+> Does TDX have to do anything special to make memory able to be shared with
+> the hypervisor?
 
+Yes. But there's nothing that required any changes in early boot. It
+handled in ioremap/set_memory.
 
-Thanks,
-Lijo
+> You might have to use something that is available earlier
+> than cpu_feature_enabled() in that case (should you eventually support
+> kvmclock).
 
+Maybe.
+
+> > I think __bss_decrypted fixup has to be done if sme_me_mask is non-zero.
+> > Or just do it uncoditionally because it's NOP for sme_me_mask == 0.
 > 
-> I noticed this because current mutter Git main wasn't able to sustain 60 fps on Navi 14 with a simple glxgears -fullscreen. mutter was dropping frames because its CPU work for a frame update occasionally took up to 3 ms, instead of the normal 2-300 microseconds. sysprof showed a lot of cycles spent in the functions which enable/disable GFXOFF in the HW.
-> 
-> 
->> so when this makes a difference it is actually a bug.
-> 
-> There was certainly a bug though, which patch 1 fixes. :)
-> 
-> 
+> For SNP, we'll have to additionally call the HV to update the RMP to make
+> the memory shared. But that could also be done unconditionally since the
+> early_snp_set_memory_shared() routine will check for SNP before doing
+> anything.
+
+-- 
+ Kirill A. Shutemov
