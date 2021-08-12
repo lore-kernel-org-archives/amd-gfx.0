@@ -1,136 +1,126 @@
-Return-Path: <SRS0=MFBU=NC=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=1H3f=ND=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C65C6C4338F
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Aug 2021 22:22:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EDE72C4338F
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 01:09:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 82EB660F46
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Aug 2021 22:22:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 82EB660F46
+	by mail.kernel.org (Postfix) with ESMTPS id 7F1FD60EB2
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 01:09:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7F1FD60EB2
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D928E6E1E6;
-	Wed, 11 Aug 2021 22:22:18 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2049.outbound.protection.outlook.com [40.107.92.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 649CA6E1E6;
- Wed, 11 Aug 2021 22:22:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 260AC6E21A;
+	Thu, 12 Aug 2021 01:09:24 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2082.outbound.protection.outlook.com [40.107.94.82])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CAF96E219;
+ Thu, 12 Aug 2021 01:09:22 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Vh8pqn5pP02FH7o3k/6UF8xrDZ4Vc3huDjC34bJGRy8dFpkSk0QY3wN+EDrsB1ab2q5IkXSVjzmBDBvAHEX4C8RNl41Sa86eMkRT6f8UN1VuwmN+v/6xr0SWV6CDe2u5RXOV/vYaRg5iy5OARuwATQLK6tOm1+xlw7CMZHWsowP3QHY3MG3+Uv8pWZmlc78Ok83hwnZS9nm2u4F35CeYO3cPmkoMYJF34x1QVeU/qaoZtldlNh7jqVsx5lkdwXeBpVekMqBOhFGYdjqClwPIu4veOPbVkwf/MzXzNAi3Xh6TPep/bs0oelCgUsDevNgBTgDqmGUZhnIFP75VNbqIHA==
+ b=lCnsPE4uVCqNvCrKLg93jbbrrOekJeazOMtqjkmoKy5hF9hPoUV58flA1WphZgU0KDo8bQ7ziuRIObDVVyVbyOhrPFc2sfA2ygMY8nmoNR/KTR5J0BuZqNDp573AJICh/01N/1mLnIdLfnJ0DfOfjRcsZ9FFs1sV/IPDDdd4EE906A7Sg+Q0wuNlrXG9YdiQU8I6kAwP3leE4CUL4q4H03/82hAbNeuZSVOgBlaTSwagp4W9I4+G53rR4Lori4m1jk2Zk0nTsFH4kvHGPLDDamLgXR1oldiuP+qikVRVvCGZELJGbY1Quv3PfG8EKYFROTAcrPRFOuzDkjA1Hkxhbg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9OXXSAc+QSWH7KSwUCV8pNzmWOSRW8bF80yrz4UqCcQ=;
- b=focMSyEkheqq7wyBppsjsBwbjqE8mn4NbypOUap+9i/9ILVTjxWqhoKNNMqfPnYlgNfMNKzBJ4niiIju1zn3I3xrTWmwEEYgKXFwTGrk2cEn5zYReeadQM2qPZ8fALgdHqG/1Kcu/Ep9RCzRnN851v40XsmFOlPJQrmoT7dutLVgclDXuBk2q+BI1bN3ErzA4/pXDMLXrcjqW5bTex81mUxk/0kThQJsorI07xzZW4cBzjuhpN3O5o0tzKflZAyNnrGfLiPm4gi9FD4XltTldLaym/6Hz+jxAW4DKaoEPFf7IpQv8lWBZWfvT1HBqLSPuWe+UQ85q8wnYk8g1jafbg==
+ bh=qoNvg83lq67O3EEUYehqzV3RHMc6hUti7G6GTDLHEFc=;
+ b=j6ejHaQJPr11G0D4t+CgpJ8sKBchpSiYuHx4J3IYezkj6+NnN03mEH98Q26l5gWbh4KsyR6yPjFyt9o2Cim0dwNy7tsH9onODdFBvT8yhm2osBtBR/c8y1meA8EhVXVVcaL9b7mTwKukPfHpoSBwC2OjcCayF6bSQz8KTrPZKvk7klbO3cMLySO1RH7MU8DqKVJDMwldN6Gg3BrxKZQsOW2NrS82913YiRF1bxG3fpOMNiza1b2nzw8lGAEBiBxpZ3qjI4/cGzOUTWiFpOwNANLA+KhsKJapv6sAyl6Kjp818Arx9cNgg76veH3H6ToF75phg0fkOyvVK3TEtdhr7Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9OXXSAc+QSWH7KSwUCV8pNzmWOSRW8bF80yrz4UqCcQ=;
- b=MPq3x/hkYmcC5dhCvrAcXkRcpfBWjDrZ/P1CF7o3IiQhDtOJ39Gj9SvUfnJnmMIEQxXmVd+Mjl7irr0jqAyHqDSPCCOCPwccjtSNocFJNohIuQvHfnscJcRmKiC10ChIeTGgZc93ndF4LJsbn43h816oN3dEX5jXsW+4U124X+M=
-Received: from DM5PR12MB2517.namprd12.prod.outlook.com (2603:10b6:4:bb::13) by
- DM6PR12MB4418.namprd12.prod.outlook.com (2603:10b6:5:28e::9) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4394.17; Wed, 11 Aug 2021 22:22:07 +0000
-Received: from DM5PR12MB2517.namprd12.prod.outlook.com
- ([fe80::2560:34ab:f08a:3248]) by DM5PR12MB2517.namprd12.prod.outlook.com
- ([fe80::2560:34ab:f08a:3248%3]) with mapi id 15.20.4394.023; Wed, 11 Aug 2021
- 22:22:08 +0000
-From: "Zhu, James" <James.Zhu@amd.com>
-To: "Koenig, Christian" <Christian.Koenig@amd.com>,
- =?iso-8859-1?Q?Michel_D=E4nzer?= <michel@daenzer.net>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>
-CC: "Liu, Leo" <Leo.Liu@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH 2/2] drm/amdgpu: Use mod_delayed_work in JPEG/UVD/VCE/VCN
- ring_end_use hooks
-Thread-Topic: [PATCH 2/2] drm/amdgpu: Use mod_delayed_work in JPEG/UVD/VCE/VCN
- ring_end_use hooks
-Thread-Index: AQHXjtE+3YKNVwRF7EO/RHavM7Obqatu05sAgAAGs1iAAAYLqA==
-Date: Wed, 11 Aug 2021 22:22:07 +0000
-Message-ID: <DM5PR12MB25170437A4A0C2DA2DF452B6E4F89@DM5PR12MB2517.namprd12.prod.outlook.com>
-References: <20210811165211.6811-1-michel@daenzer.net>,
- <20210811165211.6811-2-michel@daenzer.net>,
- <MN2PR12MB377506AD71308A47222A3E9583F89@MN2PR12MB3775.namprd12.prod.outlook.com>,
- <DM5PR12MB2517A081A60C1245D2A34019E4F89@DM5PR12MB2517.namprd12.prod.outlook.com>
-In-Reply-To: <DM5PR12MB2517A081A60C1245D2A34019E4F89@DM5PR12MB2517.namprd12.prod.outlook.com>
+ bh=qoNvg83lq67O3EEUYehqzV3RHMc6hUti7G6GTDLHEFc=;
+ b=2sk05Ztazml01cSLs12DieBPmp8agIXgb41eulc7POhY9y0PTN0bFSjlXLKoeJQQlMCgT2yozVLVYhZ3r+vdwcZPwrBdghorA4/QKlkUBIjPcLTFM6m/AaOh/4dDK1/B8L+dSokPkehTCJ/mMYc9i6v9LBP1/jj8vNuQD4bsDU4=
+Received: from SA0PR12MB4399.namprd12.prod.outlook.com (2603:10b6:806:98::17)
+ by SN6PR12MB2848.namprd12.prod.outlook.com (2603:10b6:805:77::30)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.15; Thu, 12 Aug
+ 2021 01:09:20 +0000
+Received: from SA0PR12MB4399.namprd12.prod.outlook.com
+ ([fe80::5905:9b11:c59a:984a]) by SA0PR12MB4399.namprd12.prod.outlook.com
+ ([fe80::5905:9b11:c59a:984a%4]) with mapi id 15.20.4415.014; Thu, 12 Aug 2021
+ 01:09:20 +0000
+From: "Errabolu, Ramesh" <Ramesh.Errabolu@amd.com>
+To: Alex Deucher <alexdeucher@gmail.com>, "Kuehling, Felix"
+ <Felix.Kuehling@amd.com>
+CC: amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers
+ <dri-devel@lists.freedesktop.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Linux PCI <linux-pci@vger.kernel.org>, LKML <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH] Whitelist AMD host bridge device(s) to enable P2P DMA
+Thread-Topic: [PATCH] Whitelist AMD host bridge device(s) to enable P2P DMA
+Thread-Index: AQHXjuSnWuaMWfMhHEmP//+Rviy3hKtusH+AgAAWvwCAAASPgIAAQzdw
+Date: Thu, 12 Aug 2021 01:09:20 +0000
+Message-ID: <SA0PR12MB4399DE432D65D70E866E9FB6E3F99@SA0PR12MB4399.namprd12.prod.outlook.com>
+References: <20210811191104.21919-1-Ramesh.Errabolu@amd.com>
+ <CADnq5_OVA1fB5x6=CGrd_5O-i=P7snmoJaTyauF2RKuWjc8Gog@mail.gmail.com>
+ <ba4ee532-d64a-72c5-7aab-2b86a75b8174@amd.com>
+ <CADnq5_OmH6ZsL_Q_wO2B7dbaD_JFcaNbYFzd_Nv4kui1npkVPw@mail.gmail.com>
+In-Reply-To: <CADnq5_OmH6ZsL_Q_wO2B7dbaD_JFcaNbYFzd_Nv4kui1npkVPw@mail.gmail.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-08-11T22:22:06.911Z;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
- Official Use
- Only; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard; 
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+authentication-results: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 09f519c7-0f52-43ad-870c-08d95d1674d1
-x-ms-traffictypediagnostic: DM6PR12MB4418:
+x-ms-office365-filtering-correlation-id: 22675c86-d427-4123-29b9-08d95d2dd0d3
+x-ms-traffictypediagnostic: SN6PR12MB2848:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB441834160CCD86E3D79A0E50E4F89@DM6PR12MB4418.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-microsoft-antispam-prvs: <SN6PR12MB28487FBE5C8DC8223748E4C8E3F99@SN6PR12MB2848.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:2657;
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: SnniL0t5dDSVuVYLMQol23vpk5SS/Hq8/yOo8jzZttNIwDiAsojxBTC54EbT7dEJ8uApwzkGE+laYSZwU50ew3+C8o0hJnsT5sjDfI5xTU8n0O6TVtS+ESlurvWM6VLXkNbE5+U7xGuG3+79jxuxcxn+KE6aQFZuqR2FtPInPW7EUBDv0j93UnXmuW+SVLiDZuJEb3/WmcRjJoQxzFGM6JcSvoIXUgvhESa3PIv/nI/rVTyyocYilGXdiRK73CeWk2/PfprDzq0RMGJtH0CfFZg9IaONxXwDOhF5Qqww1wtdLB34cJ6Gmay2ST9d8Ehy1Ph6pZ36CODoq/XTpw30PtzWDxKKdqokM02GuwXbmbzrut4tgbuumNdPa8z3IDpAbFqIYEQkbQ9jUGXb8uu/QvMFvBcfeTjQcmq/nJDhlxBkb05t2vNMS3gVKY+wTWDy/0+ReeMhLNW4sqX66k1W3QyOd11GtTXF6MMgds/U3sOroO/ocOH9YXca1twWXDxJKz874BzI5nImZ/oy4XR9tq1TcBUumbX7t42ZBF6wL1vzuP3V8lCQ0M2/NGcixXgmm83dnHxUWaORA1Z+FmttGMqfn/jh7XY9UBm7Gt8atyAk9LMVyMhFwKEmYnSWE//wkZmBFA4UKzLgw+4UwWcnAlLf/yPeGE740u6a22qYxz2V4AXNH9DFjQQExbRQZLKqqJlzKfusLlHszGBQSoaXHQ==
+x-microsoft-antispam-message-info: tJ4UbRKdzs4iBL144Scizseb3YIq+NXl9hNLUrprZmb0JAfbrCV4PEHCSwo46dGEo+S0rtxpKxtx3+Q2oJKACoUFHVbxwf9uNvWIsEaF8O834TVBdYADXJwestE/Yr5DLZzQrfi2lRI/B+2R6gr6wOJrM5KAazHhrUZxdnoQyJojx7/q+evDnd43aWW2K7tCGjXJ0SJkCw87nSzisYmVC57fchvXjkETArBkIta1s6Xzgt0W6Vtt2ZHUd6RoETbkqSNZAfhVPl83hGckZMjTMsNmd/7uqv63p8V5BwcYdQROI5jK6NZ7CUeezzxZ8CWZZ3TitSa7BmtSfbYWnSU6mViX55QCbVQqpbUX4g7QOiJIHnaJoEmNtqZRvR5Dd0UZqOXsZ+AmROdUUgtVEzfb+gyA/Ja7T+EE/UHy6WEy4h+msNXsTtbPeX24AYqkfN277psslfttcAjVpU/YyLzo/fhUiQ9BQDdBAQ2ikFy5vG6uXnP6BBKI+77FrZlc+HunFXsZJ0lmMvlcZl7Dtrf++OFdu/xkJyTwhm61AdMQLVQC03nGcndOgBFdtdHPeuizcEK68ivc4b9YCH8uBRZ1+uIgOh/3oQttmxavPuIXvz1TcRh2Ux/VXUGpf8OHT7EiqGe+PSZBnHVu0naYxEMSWAlcm6kSYEc4XJCihCozeLIiHuYvieH/SdUGG38vX9/iQSy6fOzBNcTkUALxY1OueiIEchCEIUezcbVJBHVHR0sWFQOBU0s7TnOlOYEt9hP46/gK+UGhpCGT8S0Z/z0BqX0GLVGEXqzDgeF9ZRg6ZFA=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB2517.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(66946007)(53546011)(122000001)(76116006)(66446008)(186003)(66556008)(6506007)(110136005)(38100700002)(26005)(55016002)(66476007)(71200400001)(8676002)(83380400001)(64756008)(33656002)(54906003)(316002)(7696005)(9686003)(19627405001)(4326008)(91956017)(52536014)(5660300002)(86362001)(2940100002)(6636002)(8936002)(508600001)(2906002)(38070700005);
+ IPV:NLI; SFV:NSPM; H:SA0PR12MB4399.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(376002)(136003)(39860400002)(396003)(366004)(38070700005)(9686003)(6506007)(8676002)(4326008)(6636002)(55016002)(45080400002)(71200400001)(122000001)(54906003)(966005)(316002)(38100700002)(110136005)(26005)(53546011)(8936002)(33656002)(478600001)(7696005)(66476007)(64756008)(66446008)(186003)(5660300002)(83380400001)(66574015)(86362001)(52536014)(2906002)(66556008)(66946007)(76116006);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?WZWZPRG1tUZheA1cds7MJE14bi+bbSsgOhOpspjHvPytzpIC806ODhVbzT?=
- =?iso-8859-1?Q?cBNiOaGLUnciETgBDEBOHgHT5GhojxPPl3lJxrynjYr3+vxOINaxyll1l1?=
- =?iso-8859-1?Q?btq3fbYGc1u1PKJweW8yuPmq5p/aWGbalizz4W+xV1tCvVH/22TtMTtgxP?=
- =?iso-8859-1?Q?FVc+9c4GTFPQvrqSbPbFDNLgQleqZuba4f66YSH92qfp++cl/sv5IeZp+t?=
- =?iso-8859-1?Q?BJSNMeodQIGXrCUc4fzLRipGpbdOk1BQszwigzjNxwG5F2p8xONoj/IQnv?=
- =?iso-8859-1?Q?xozMqvDVWIhwbDZe8Ox1F6ZzT4FRB/nAY6+3P84NESt0QJpEWatOdUjuh9?=
- =?iso-8859-1?Q?E9l6oJgjt1q/SWdySFKeddQI8m0Mm5mqVhIMKeHtXfvYWQ5K8VlRZI/4mq?=
- =?iso-8859-1?Q?iKQ4CwR4WheTZvv6txdXidVRSwZQunbOaxAXsCz0DQJyL6gJSrs5I7Y0aU?=
- =?iso-8859-1?Q?KJaPdkSIv9lCyub4yoQgfPn1cHzixrQij30IH/cQVN2DgnBse387rC7rZu?=
- =?iso-8859-1?Q?dVrLRqR6hSx80cPjXxWU/H2lSG2wR8ihlZG2U6fvYues94agiyAzZkcSPc?=
- =?iso-8859-1?Q?+TcSNUoZ38HCS+aQvkoFEzw0Bj2iuxd7Z5UfpaUpFhkoIQWF+tVTThLiOI?=
- =?iso-8859-1?Q?mT8zpASk6ZahhwKjO7VeyAceJ2Dt7k3cvupe2DNg880Vpw9lyUztBqJWxP?=
- =?iso-8859-1?Q?wmjjTIFJA6Mb5qJ3wxxGkox0uBvRtNh4l7mcyFVr2+UvRYXUy9mF9jgruT?=
- =?iso-8859-1?Q?EVLzpzh4q8BCkbv7b7wTTIpOT9c45Q+8n0Us/sWBkLc+jEK8LR1/ryo6SI?=
- =?iso-8859-1?Q?KzPq1NrSrQwxAs89O+9/i0KP8Qh3x3Oy5JPxnBVTuOO0vE1JNeL2ptRuvX?=
- =?iso-8859-1?Q?SSPIRoeJEy7CWHZWiJp+d5t1daRGlVFuoUuBFdepCroXW/ZXsd20qy768x?=
- =?iso-8859-1?Q?kGdsmz3TFKEWQ2GLZAxcMCQAoiwuF5TvFcknU3bsyNr/tr9QZNJdwMOniJ?=
- =?iso-8859-1?Q?ONsN6R1XRAq9L27e24bakWBXFXE5REFBmV8PmrGsJpHwoF6g6zaxZAuB3Q?=
- =?iso-8859-1?Q?5PW/clkp5okJ41m3BDa3ANxiM8CAWnQBWG8R8QGrDwbV8hCm2xa27fsAxL?=
- =?iso-8859-1?Q?4k+pB4waF/OBpWRJALnOJOLQCCZHUaYQi5mtEVauqtBWhYbi7R/EQ1IodI?=
- =?iso-8859-1?Q?KY/xGR9RRMLNfMO+w1L6i+JjRqrO64togI0ryUTwM9Fbl8+rFZ9wEzFwyc?=
- =?iso-8859-1?Q?I/v0kaCzEpfIYqo28FEHz1jdPsA/1MjpNnXew8HYmJH5g7BS9IWalhu9x+?=
- =?iso-8859-1?Q?mJS8hG/pzAZ+mkFqdxJss+q9AFpBzhGFvSxnRDCeA4FZGZpjxsrpa4joon?=
- =?iso-8859-1?Q?n2wTKoEXcS?=
-Content-Type: multipart/alternative;
- boundary="_000_DM5PR12MB25170437A4A0C2DA2DF452B6E4F89DM5PR12MB2517namp_"
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?XXapuVccSSC2/OHYJUaGSz7RI0nzExWkmxvyVKSNdYu70qW21rCuUG111K?=
+ =?iso-8859-1?Q?cnrNgf7no+t8jatD7c5IQ1tetzaC8rPHQM/5bJGRq1Zw5rEhw1ZZX+UgnT?=
+ =?iso-8859-1?Q?O0CNnQYymElSpIEdQTrvvQHqYRodekYS75tKuhV62TOu/muMgD5zJM+63e?=
+ =?iso-8859-1?Q?d7Rp57QO6pshj3zG6uJauu9qs3CdK8ooazn0hSCuC/UkB+BN9LxQJcz6D6?=
+ =?iso-8859-1?Q?FZPYm8yS0Sr291FSBCdNc75PvWiTapSalQZrvxUP2MqCO5ANG9oLbhjENM?=
+ =?iso-8859-1?Q?fx0IbXJOpS8VfZGnmGoPTQj9Gz6MfIYSizXQ9YhXv70+kzELRLD3gjm0/V?=
+ =?iso-8859-1?Q?A9yuUrsbmNC6EMDt1kQksuGr4LkG15IVhXjLniHdeV9TO02Xh9EvzB72Rh?=
+ =?iso-8859-1?Q?ObtnzkViHXelmxaiSvfaVxetHQpsz0g46GQSchE7uQp+EviPP7GOg/YHS7?=
+ =?iso-8859-1?Q?3FV3AVgamH3tPpHzfA9XeqIqLo+QzgT89PUqW9bCTzLTLasbqHqJsLL4n0?=
+ =?iso-8859-1?Q?s31qgE3ls3dDp38HC6gkjl8ReWdsbtOnttN9nCoX92kRGtPc0pNVwd7/jL?=
+ =?iso-8859-1?Q?HfDhMc+wPvPbNpf/MWRHtGd1MtY6rPVcvG67CCezDDlLCTIsqq724kJzVR?=
+ =?iso-8859-1?Q?Vuj9cK6zD++6Yz94wkQygSnbF9NdYeHQTYy7+PVD5qhcGcBGtsi6/Kb+VC?=
+ =?iso-8859-1?Q?B0mh/4qBw+3qKL7ump5wS2HLg00tSfC0E4SzKuGZmCQJHNW1xIihcmggG3?=
+ =?iso-8859-1?Q?HQ8YqmfYhNzpy+6A9EILCH3B96nFFkK95as5ayX4dhQWPqq9D6xmpf1cXj?=
+ =?iso-8859-1?Q?xCiS4ae4XvU4ktdgQXItKvHfxkhVTBYR5YpidIsr0318sOOHhrAzP+24+P?=
+ =?iso-8859-1?Q?Qcodlxup+SArMvYtSbsInKgYOK1f1xcnjIs6WbuerMhAWTUx8SAC9Y4/gR?=
+ =?iso-8859-1?Q?3xK1d4Vnp4u4MTkD2kZ6Awn023JVOr76KgbgS1xR4AD5f1W631naDm32Z4?=
+ =?iso-8859-1?Q?lxGeZvkyLIHvOURo99nWh0fi08dsrvzooO1vcSax1uA0QnINUfAp6KxsFw?=
+ =?iso-8859-1?Q?alxFhfan+brnjfqGVrdQ6qkSUiy/kfKyIWk6+EfBOEBlj8j/Um78MwYKvI?=
+ =?iso-8859-1?Q?m/C9LowwGQLv46zzxhjei7nwaPlkx6nJfETNqZK3gaaT1wRr/M+GItKiET?=
+ =?iso-8859-1?Q?1vEQpmiSvw77MUksqrgMN7KJzi1gJbn+EN1WZqQdwk/TqO0NSmVgGhTozf?=
+ =?iso-8859-1?Q?NB5PM0B76hlmeF9UY9celkGllEOnydQSFlz2ERQwvfyJ2op1PoVmPTX0BV?=
+ =?iso-8859-1?Q?ibWUEmKg84JaZCXQ/AVpMhx7iYCACu6I9TeAYy7jIwqA8X0BKSjHqlt3To?=
+ =?iso-8859-1?Q?IYCoG7CJvy?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2517.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 09f519c7-0f52-43ad-870c-08d95d1674d1
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Aug 2021 22:22:07.8199 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB4399.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 22675c86-d427-4123-29b9-08d95d2dd0d3
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Aug 2021 01:09:20.7519 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 600qbDWsNdW3rIcj2aloxnkmEMocXA198Bkvb32cbUW2CEysVcTz1vuIu4l/7q4n
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4418
+X-MS-Exchange-CrossTenant-userprincipalname: F17PEOjhrz3PjKnNCljbrbsEJ7oVEnBGsYRQWuihX3e5AWKaKbv9er7rcHrpGhTMhSOjcsdjGTLzkAveH17lCA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB2848
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,500 +135,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_DM5PR12MB25170437A4A0C2DA2DF452B6E4F89DM5PR12MB2517namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-[AMD Official Use Only]
-
-I shouldn't say reduce one delay work call ,  For this case, Michael's prop=
-osal is closer to idle work design's purpose.
-
-
-Thanks & Best Regards!
-
-
-James Zhu
-
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Zhu, Jam=
-es <James.Zhu@amd.com>
-Sent: Wednesday, August 11, 2021 6:12 PM
-To: Koenig, Christian <Christian.Koenig@amd.com>; Michel D=E4nzer <michel@d=
-aenzer.net>; Deucher, Alexander <Alexander.Deucher@amd.com>
-Cc: Liu, Leo <Leo.Liu@amd.com>; amd-gfx@lists.freedesktop.org <amd-gfx@list=
-s.freedesktop.org>; dri-devel@lists.freedesktop.org <dri-devel@lists.freede=
-sktop.org>
-Subject: Re: [PATCH 2/2] drm/amdgpu: Use mod_delayed_work in JPEG/UVD/VCE/V=
-CN ring_end_use hooks
-
-
-[AMD Official Use Only]
-
-
-[AMD Official Use Only]
-
-Hi Christian,
-
-Since we have strict check on queue status, I don't think original design c=
-an cause issue here.
-But this change should help improve below case:
-
-  1.  both enc thread and dec thread try to start begin_use.
-  2.  dec thread gets the chance to finish begin_use process first.
-  3.  before dec thread enters end_use, enc thread gets time slot to run th=
-rough begin_use(No delay work scheduled at that time)
-  4.  dec thread enters end_use, scheduled a delay work
-  5.   enc thread enters end_use, modify this delay work.
-
-It will help reduce one delay work call at least.
-
-
-Thanks & Best Regards!
-
-
-James Zhu
-
-________________________________
-From: Koenig, Christian <Christian.Koenig@amd.com>
-Sent: Wednesday, August 11, 2021 5:34 PM
-To: Michel D=E4nzer <michel@daenzer.net>; Deucher, Alexander <Alexander.Deu=
-cher@amd.com>
-Cc: Liu, Leo <Leo.Liu@amd.com>; Zhu, James <James.Zhu@amd.com>; amd-gfx@lis=
-ts.freedesktop.org <amd-gfx@lists.freedesktop.org>; dri-devel@lists.freedes=
-ktop.org <dri-devel@lists.freedesktop.org>
-Subject: AW: [PATCH 2/2] drm/amdgpu: Use mod_delayed_work in JPEG/UVD/VCE/V=
-CN ring_end_use hooks
-
-NAK to at least this patch.
-
-Since activating power management while submitting work is problematic canc=
-el_delayed_work() must have been called during begin use or otherwise we ha=
-ve a serious coding problem in the first place.
-
-So this change shouldn't make a difference and I suggest to really stick wi=
-th schedule_delayed_work().
-
-Maybe add a comment how this works?
-
-Need to take a closer look at the first patch when I'm back from vacation, =
-but it could be that this applies there as well.
+I will investigate it further. I am using DKMS-5.11 branch. The codebase I =
+am using to build has the right definition i.e. allow P2PDMA for Zen CPU's.
 
 Regards,
-Christian.
+Ramesh
 
-________________________________
-Von: Michel D=E4nzer <michel@daenzer.net>
-Gesendet: Mittwoch, 11. August 2021 18:52
-An: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Chri=
-stian.Koenig@amd.com>
-Cc: Liu, Leo <Leo.Liu@amd.com>; Zhu, James <James.Zhu@amd.com>; amd-gfx@lis=
-ts.freedesktop.org <amd-gfx@lists.freedesktop.org>; dri-devel@lists.freedes=
-ktop.org <dri-devel@lists.freedesktop.org>
-Betreff: [PATCH 2/2] drm/amdgpu: Use mod_delayed_work in JPEG/UVD/VCE/VCN r=
-ing_end_use hooks
+-----Original Message-----
+From: Alex Deucher <alexdeucher@gmail.com>=20
+Sent: Wednesday, August 11, 2021 4:07 PM
+To: Kuehling, Felix <Felix.Kuehling@amd.com>
+Cc: Errabolu, Ramesh <Ramesh.Errabolu@amd.com>; amd-gfx list <amd-gfx@lists=
+.freedesktop.org>; Maling list - DRI developers <dri-devel@lists.freedeskto=
+p.org>; Bjorn Helgaas <bhelgaas@google.com>; Linux PCI <linux-pci@vger.kern=
+el.org>; LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] Whitelist AMD host bridge device(s) to enable P2P DMA
 
-From: Michel D=E4nzer <mdaenzer@redhat.com>
+[CAUTION: External Email]
 
-In contrast to schedule_delayed_work, this pushes back the work if it
-was already scheduled before. Specific behaviour change:
-
-Before:
-
-The scheduled work ran ~1 second after the first time ring_end_use was
-called, even if the ring was used again during that second.
-
-After:
-
-The scheduled work runs ~1 second after the last time ring_end_use is
-called.
-
-Inspired by the corresponding change in amdgpu_gfx_off_ctrl. While I
-haven't run into specific issues in this case, the new behaviour makes
-more sense to me.
-
-Signed-off-by: Michel D=E4nzer <mdaenzer@redhat.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c  | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c  | 2 +-
- drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c    | 2 +-
- 4 files changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_jpeg.c
-index 8996cb4ed57a..2c0040153f6c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
-@@ -110,7 +110,7 @@ void amdgpu_jpeg_ring_begin_use(struct amdgpu_ring *rin=
-g)
- void amdgpu_jpeg_ring_end_use(struct amdgpu_ring *ring)
- {
-         atomic_dec(&ring->adev->jpeg.total_submission_cnt);
--       schedule_delayed_work(&ring->adev->jpeg.idle_work, JPEG_IDLE_TIMEOU=
-T);
-+       mod_delayed_work(system_wq, &ring->adev->jpeg.idle_work, JPEG_IDLE_=
-TIMEOUT);
- }
-
- int amdgpu_jpeg_dec_ring_test_ring(struct amdgpu_ring *ring)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_uvd.c
-index 0f576f294d8a..b6b1d7eeb8e5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-@@ -1283,7 +1283,7 @@ void amdgpu_uvd_ring_begin_use(struct amdgpu_ring *ri=
-ng)
- void amdgpu_uvd_ring_end_use(struct amdgpu_ring *ring)
- {
-         if (!amdgpu_sriov_vf(ring->adev))
--               schedule_delayed_work(&ring->adev->uvd.idle_work, UVD_IDLE_=
-TIMEOUT);
-+               mod_delayed_work(system_wq, &ring->adev->uvd.idle_work, UVD=
-_IDLE_TIMEOUT);
- }
-
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_vce.c
-index 1ae7f824adc7..2253c18a6688 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-@@ -401,7 +401,7 @@ void amdgpu_vce_ring_begin_use(struct amdgpu_ring *ring=
-)
- void amdgpu_vce_ring_end_use(struct amdgpu_ring *ring)
- {
-         if (!amdgpu_sriov_vf(ring->adev))
--               schedule_delayed_work(&ring->adev->vce.idle_work, VCE_IDLE_=
-TIMEOUT);
-+               mod_delayed_work(system_wq, &ring->adev->vce.idle_work, VCE=
-_IDLE_TIMEOUT);
- }
-
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/am=
-dgpu/vcn_v1_0.c
-index 284bb42d6c86..d5937ab5ac80 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-@@ -1874,7 +1874,7 @@ void vcn_v1_0_set_pg_for_begin_use(struct amdgpu_ring=
- *ring, bool set_clocks)
-
- void vcn_v1_0_ring_end_use(struct amdgpu_ring *ring)
- {
--       schedule_delayed_work(&ring->adev->vcn.idle_work, VCN_IDLE_TIMEOUT)=
-;
-+       mod_delayed_work(system_wq, &ring->adev->vcn.idle_work, VCN_IDLE_TI=
-MEOUT);
-         mutex_unlock(&ring->adev->vcn.vcn1_jpeg1_workaround);
- }
-
---
-2.32.0
-
-
---_000_DM5PR12MB25170437A4A0C2DA2DF452B6E4F89DM5PR12MB2517namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-I shouldn't say reduce one delay work call ,&nbsp; For this case, Michael's=
- proposal is closer to idle work design's purpose.<br>
-</div>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div id=3D"Signature">
-<div>
-<div id=3D"divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; color=
-:#000000; font-family:Calibri,Arial,Helvetica,sans-serif">
-<p style=3D"margin-top: 0px; margin-bottom: 0px;">Thanks &amp; Best Regards=
-!</p>
-<p style=3D"margin-top: 0px; margin-bottom: 0px;"><br>
-</p>
-<p style=3D"margin-top: 0px; margin-bottom: 0px;">James Zhu<br>
-</p>
-</div>
-</div>
-</div>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Zhu, James &lt;James.Zhu@amd.=
-com&gt;<br>
-<b>Sent:</b> Wednesday, August 11, 2021 6:12 PM<br>
-<b>To:</b> Koenig, Christian &lt;Christian.Koenig@amd.com&gt;; Michel D=E4n=
-zer &lt;michel@daenzer.net&gt;; Deucher, Alexander &lt;Alexander.Deucher@am=
-d.com&gt;<br>
-<b>Cc:</b> Liu, Leo &lt;Leo.Liu@amd.com&gt;; amd-gfx@lists.freedesktop.org =
-&lt;amd-gfx@lists.freedesktop.org&gt;; dri-devel@lists.freedesktop.org &lt;=
-dri-devel@lists.freedesktop.org&gt;<br>
-<b>Subject:</b> Re: [PATCH 2/2] drm/amdgpu: Use mod_delayed_work in JPEG/UV=
-D/VCE/VCN ring_end_use hooks</font>
-<div>&nbsp;</div>
-</div>
-<style type=3D"text/css" style=3D"display:none">
-<!--
-p
-	{margin-top:0;
-	margin-bottom:0}
--->
-</style>
-<div dir=3D"ltr">
-<p align=3D"Left" style=3D"font-family:Arial; font-size:10pt; color:#0000FF=
-; margin:5pt">
-[AMD Official Use Only]<br>
-</p>
-<br>
-<div>
-<p align=3D"Left" style=3D"font-family:Arial; font-size:10pt; color:#0000FF=
-; margin:5pt">
-[AMD Official Use Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-Hi Christian,</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-Since we have strict check on queue status, I don't think original design c=
-an cause issue here.<br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-But this change should help improve below case:</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<ol>
-<li><span>both enc thread and dec thread try to start begin_use.</span></li=
-><li><span>dec thread gets the chance to finish begin_use process first.<br=
+On Wed, Aug 11, 2021 at 4:50 PM Felix Kuehling <felix.kuehling@amd.com> wro=
+te:
 >
-</span></li><li><span>before dec thread enters end_use, enc thread gets tim=
-e slot to run through begin_use(No delay work scheduled at that time)</span=
-></li><li><span><span>dec thread enters end_use</span>, scheduled a delay w=
-ork<br>
-</span></li><li><span><span>&nbsp;enc thread enters end_use</span>, modify =
-this delay work.</span></li></ol>
-<div>It will help reduce one delay work call at least. <span style=3D"font-=
-family:Calibri,Arial,Helvetica,sans-serif; font-size:12pt; color:rgb(0,0,0)=
-">
-<br>
-</span></div>
-<div><span style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-si=
-ze:12pt; color:rgb(0,0,0)"><br>
-</span></div>
-</div>
-<div>
-<div id=3D"x_Signature">
-<div>
-<div id=3D"x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; col=
-or:#000000; font-family:Calibri,Arial,Helvetica,sans-serif">
-<p style=3D"margin-top:0px; margin-bottom:0px">Thanks &amp; Best Regards!</=
-p>
-<p style=3D"margin-top:0px; margin-bottom:0px"><br>
-</p>
-<p style=3D"margin-top:0px; margin-bottom:0px">James Zhu<br>
-</p>
-</div>
-</div>
-</div>
-</div>
-<div id=3D"x_appendonsend"></div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Koenig, Christian &=
-lt;Christian.Koenig@amd.com&gt;<br>
-<b>Sent:</b> Wednesday, August 11, 2021 5:34 PM<br>
-<b>To:</b> Michel D=E4nzer &lt;michel@daenzer.net&gt;; Deucher, Alexander &=
-lt;Alexander.Deucher@amd.com&gt;<br>
-<b>Cc:</b> Liu, Leo &lt;Leo.Liu@amd.com&gt;; Zhu, James &lt;James.Zhu@amd.c=
-om&gt;; amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;=
-; dri-devel@lists.freedesktop.org &lt;dri-devel@lists.freedesktop.org&gt;<b=
-r>
-<b>Subject:</b> AW: [PATCH 2/2] drm/amdgpu: Use mod_delayed_work in JPEG/UV=
-D/VCE/VCN ring_end_use hooks</font>
-<div>&nbsp;</div>
-</div>
-<div>
-<div>NAK to at least this patch.</div>
-<div><br>
-</div>
-<div>Since activating power management while submitting work is problematic=
- cancel_delayed_work() must have been called during begin use or otherwise =
-we have a serious coding problem in the first place.</div>
-<div><br>
-</div>
-<div>So this change shouldn't make a difference and I suggest to really sti=
-ck with schedule_delayed_work().</div>
-<div><br>
-</div>
-<div>Maybe add a comment how this works?</div>
-<div><br>
-</div>
-<div>Need to take a closer look at the first patch when I'm back from vacat=
-ion, but it could be that this applies there as well.</div>
-<div><br>
-</div>
-<div>Regards,</div>
-<div>Christian.</div>
-<div><br>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif=
-" color=3D"#000000" style=3D"font-size:11pt"><b>Von:</b> Michel D=E4nzer &l=
-t;michel@daenzer.net&gt;<br>
-<b>Gesendet:</b> Mittwoch, 11. August 2021 18:52<br>
-<b>An:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Koenig, Ch=
-ristian &lt;Christian.Koenig@amd.com&gt;<br>
-<b>Cc:</b> Liu, Leo &lt;Leo.Liu@amd.com&gt;; Zhu, James &lt;James.Zhu@amd.c=
-om&gt;; amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;=
-; dri-devel@lists.freedesktop.org &lt;dri-devel@lists.freedesktop.org&gt;<b=
-r>
-<b>Betreff:</b> [PATCH 2/2] drm/amdgpu: Use mod_delayed_work in JPEG/UVD/VC=
-E/VCN ring_end_use hooks</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"x_x_BodyFragment"><font size=3D"2"><span style=3D"font-size:1=
-1pt">
-<div class=3D"x_x_PlainText">From: Michel D=E4nzer &lt;mdaenzer@redhat.com&=
-gt;<br>
-<br>
-In contrast to schedule_delayed_work, this pushes back the work if it<br>
-was already scheduled before. Specific behaviour change:<br>
-<br>
-Before:<br>
-<br>
-The scheduled work ran ~1 second after the first time ring_end_use was<br>
-called, even if the ring was used again during that second.<br>
-<br>
-After:<br>
-<br>
-The scheduled work runs ~1 second after the last time ring_end_use is<br>
-called.<br>
-<br>
-Inspired by the corresponding change in amdgpu_gfx_off_ctrl. While I<br>
-haven't run into specific issues in this case, the new behaviour makes<br>
-more sense to me.<br>
-<br>
-Signed-off-by: Michel D=E4nzer &lt;mdaenzer@redhat.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c | 2 +-<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c&nbsp; | 2 +-<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c&nbsp; | 2 +-<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c&nbsp;&nbsp;&nbsp; | 2 +-<br>
-&nbsp;4 files changed, 4 insertions(+), 4 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_jpeg.c<br>
-index 8996cb4ed57a..2c0040153f6c 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c<br>
-@@ -110,7 +110,7 @@ void amdgpu_jpeg_ring_begin_use(struct amdgpu_ring *rin=
-g)<br>
-&nbsp;void amdgpu_jpeg_ring_end_use(struct amdgpu_ring *ring)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; atomic_dec(&amp;ring-&gt;a=
-dev-&gt;jpeg.total_submission_cnt);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; schedule_delayed_work(&amp;ring-&gt;a=
-dev-&gt;jpeg.idle_work, JPEG_IDLE_TIMEOUT);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mod_delayed_work(system_wq, &amp;ring=
--&gt;adev-&gt;jpeg.idle_work, JPEG_IDLE_TIMEOUT);<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;int amdgpu_jpeg_dec_ring_test_ring(struct amdgpu_ring *ring)<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_uvd.c<br>
-index 0f576f294d8a..b6b1d7eeb8e5 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c<br>
-@@ -1283,7 +1283,7 @@ void amdgpu_uvd_ring_begin_use(struct amdgpu_ring *ri=
-ng)<br>
-&nbsp;void amdgpu_uvd_ring_end_use(struct amdgpu_ring *ring)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_sriov_vf(ring-=
-&gt;adev))<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; schedule_delayed_work(&amp;ring-&gt;adev-&gt;uvd.idle_work, UVD_=
-IDLE_TIMEOUT);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; mod_delayed_work(system_wq, &amp;ring-&gt;adev-&gt;uvd.idle_work=
-, UVD_IDLE_TIMEOUT);<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;/**<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_vce.c<br>
-index 1ae7f824adc7..2253c18a6688 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c<br>
-@@ -401,7 +401,7 @@ void amdgpu_vce_ring_begin_use(struct amdgpu_ring *ring=
-)<br>
-&nbsp;void amdgpu_vce_ring_end_use(struct amdgpu_ring *ring)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_sriov_vf(ring-=
-&gt;adev))<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; schedule_delayed_work(&amp;ring-&gt;adev-&gt;vce.idle_work, VCE_=
-IDLE_TIMEOUT);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; mod_delayed_work(system_wq, &amp;ring-&gt;adev-&gt;vce.idle_work=
-, VCE_IDLE_TIMEOUT);<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;/**<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/am=
-dgpu/vcn_v1_0.c<br>
-index 284bb42d6c86..d5937ab5ac80 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c<br>
-@@ -1874,7 +1874,7 @@ void vcn_v1_0_set_pg_for_begin_use(struct amdgpu_ring=
- *ring, bool set_clocks)<br>
-&nbsp;<br>
-&nbsp;void vcn_v1_0_ring_end_use(struct amdgpu_ring *ring)<br>
-&nbsp;{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; schedule_delayed_work(&amp;ring-&gt;a=
-dev-&gt;vcn.idle_work, VCN_IDLE_TIMEOUT);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mod_delayed_work(system_wq, &amp;ring=
--&gt;adev-&gt;vcn.idle_work, VCN_IDLE_TIMEOUT);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;ring-&gt=
-;adev-&gt;vcn.vcn1_jpeg1_workaround);<br>
-&nbsp;}<br>
-&nbsp;<br>
--- <br>
-2.32.0<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</body>
-</html>
+>
+> Am 2021-08-11 um 3:29 p.m. schrieb Alex Deucher:
+> > On Wed, Aug 11, 2021 at 3:11 PM Ramesh Errabolu <Ramesh.Errabolu@amd.co=
+m> wrote:
+> >> Current implementation will disallow P2P DMA if the participating=20
+> >> devices belong to different root complexes. Implementation allows=20
+> >> this default behavior to be overridden for whitelisted devices. The=20
+> >> patch adds an AMD host bridge to be whitelisted
+> > Why do we need this?  cpu_supports_p2pdma() should return true for=20
+> > all AMD Zen CPUs.
+>
+> This is part of our on-going work to get P2P support upstream. We want=20
+> to use pci_p2pdma_distance_many to determine whether P2P is possible=20
+> between a pair of devices. This whitelist is used in this function.=20
+> This will affect the P2P links reported in the topology and it will be=20
+> double-checked in the BO mapping function to ensure a peer mapping is leg=
+al.
+>
+> I think this change is a bit free of context at the moment, as we're=20
+> still working on a few other loose ends for P2P support in our=20
+> internal branch. I'm hoping we'll have a bigger patch series for=20
+> upstreamable KFD P2P support ready in a few weeks. I also think we'll=20
+> probably want to add a few more PCI IDs for other supported AMD root comp=
+lexes.
 
---_000_DM5PR12MB25170437A4A0C2DA2DF452B6E4F89DM5PR12MB2517namp_--
+We don't need to keep adding AMD root complexes.  You must be using an olde=
+r kernel or something.  All root complexes on all Zen platforms support P2P=
+ DMA.  See:
+
+commit dea286bb71baded7d2fb4f090e3b9fd2c1ccac58
+Author: Logan Gunthorpe <logang@deltatee.com>
+Date:   Wed Jul 29 17:18:44 2020 -0600
+
+    PCI/P2PDMA: Allow P2PDMA on AMD Zen and newer CPUs
+
+    Allow P2PDMA if the CPU vendor is AMD and family is 0x17 (Zen) or great=
+er.
+
+    [bhelgaas: commit log, simplify #if/#else/#endif]
+    Link: https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F=
+%2Flore.kernel.org%2Fr%2F20200729231844.4653-1-logang%40deltatee.com&amp;da=
+ta=3D04%7C01%7CRamesh.Errabolu%40amd.com%7C7ffc96d473d4471889f808d95d0bf57b=
+%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637643128220735445%7CUnknown%=
+7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6M=
+n0%3D%7C1000&amp;sdata=3DvmwJP2VwKPrXwl3ngUfwN%2BJu3JWeMP0ZZMDh29evW%2Bg%3D=
+&amp;reserved=3D0
+    Signed-off-by: Logan Gunthorpe <logang@deltatee.com>
+    Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+    Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+    Cc: Christian K=F6nig <christian.koenig@amd.com>
+    Cc: Huang Rui <ray.huang@amd.com>
+
+Alex
+
+
+>
+> Regards,
+>   Felix
+>
+>
+> >
+> > Alex
+> >
+> >> Signed-off-by: Ramesh Errabolu <Ramesh.Errabolu@amd.com>
+> >> ---
+> >>  drivers/pci/p2pdma.c | 2 ++
+> >>  1 file changed, 2 insertions(+)
+> >>
+> >> diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c index=20
+> >> 196382630363..7003bb9faf23 100644
+> >> --- a/drivers/pci/p2pdma.c
+> >> +++ b/drivers/pci/p2pdma.c
+> >> @@ -305,6 +305,8 @@ static const struct pci_p2pdma_whitelist_entry {
+> >>         {PCI_VENDOR_ID_INTEL,   0x2032, 0},
+> >>         {PCI_VENDOR_ID_INTEL,   0x2033, 0},
+> >>         {PCI_VENDOR_ID_INTEL,   0x2020, 0},
+> >> +       /* AMD Host Bridge Devices */
+> >> +       {PCI_VENDOR_ID_AMD,     0x1480, 0},
+> >>         {}
+> >>  };
+> >>
+> >> --
+> >> 2.31.1
+> >>
