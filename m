@@ -8,132 +8,134 @@ X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AEDE1C4338F
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 09:09:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 191DAC4338F
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 09:11:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4C56260C3F
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 09:09:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4C56260C3F
+	by mail.kernel.org (Postfix) with ESMTPS id B95BA60F00
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 09:11:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B95BA60F00
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACC7E6E33F;
-	Thu, 12 Aug 2021 09:09:49 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2089.outbound.protection.outlook.com [40.107.93.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 334686E33F
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Aug 2021 09:09:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C1C76E364;
+	Thu, 12 Aug 2021 09:11:39 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2068.outbound.protection.outlook.com [40.107.236.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CB2F6E364
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Aug 2021 09:11:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YGUUv/c/g+yS6iy8i4KJvhDs57jt5L7yMGlvDKOMR6oOMYXvCL4FVC1WBo5e1d96KJOef5xb7Opd8gvLH3seysiuli4KYg8HlyhCxsPQ1YjW+1slqbbA5XsKNgYo+wwhkDhAHCQHqxnHtljz8D7zzb98HxBHK0Yfh07UBLdCNSdP1V8nhSRJqH0zuVzlESUekbjN7tJHhzW8d4MKu6X4irS6L+vxxbdytul4q1SaAg1ASXPC/A+Z9ZbbDXhG3JznQMdopnNqihiEYbAz1D0noA6YFP48LP2Vd/qtO/wIPsUUXX6Dl5s2SaTqXyJKSe2IZ8rjGAWSk4ig/Sbw1UJXow==
+ b=Hw+NaufBoqH93lHK07Qj2SkbbH2HTF31vj2MfJ6zr4qpot33CBiYbj33PL/lq3Ka/HPSpTmHz0cDOlgVF7nxp+mhlE5CBnpcnaKerG5R651+iuNkSEPR9prCuvxJPL/HUbpm1XCFc3R1HFtVUt0shpsmhgV6BON26nd1WEeahWJYp426gkiOS5aKIVX08E/7FCuaGkRSJm2xIV8xrjcdzhX4mrY8f9SIflMcEJaRm3n8iS6nMMP8bIWbwSZFh+oMcd6PDaVSkfGunjg1sLQ/RwXoP3IhMafKvHHlmiKqQA1+euBSwSosSFM5lJwjQCkDU486Tdf8IR0fV7QQS2xZGQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=odIrMDs5WaEC+GWBPpoyyEm6sJM6d9p4Grvp8UdMvEU=;
- b=EmU0zfxgalWOR4gtl4/6PU4Xye0dyRcpcfgC6Tdt/PLPCFh3giXvszwKytDnKBDMuyxjXsIVIzg2dpiC9cLk1odbhWiw6In3gm+brjzzshbhSMYUX4XUzd+nNDmR7w/49A8DHXR90dRdlB33Cgmt9HUrtJ3Ag6uWdDp5K8fhDSIu0VRJqtpJf0zaixpkSKZ4rUYasCob3CR6XGu+5NQ8xQVLP4+Et3XfyOAmAVX0wyY8m3UKFPQwF8fddpXH/9XBYoq1uBLzRFxFGslewwUXCuUxwZD29zkih4Gpd8dvxE7acbFVytkvPgOi01bTKqOWZqqh/wGG5sCMX8ZpsGz2Bg==
+ bh=iWI7knZQXaLNnNo9nrtICT7XkUMvkxGUMArr3AuH6d8=;
+ b=dRoG2t/eBePOwC3YEDfrGVOnmo7fP58MZXOk1nu3pNFqgWMe/lZYPkxXiwmQolrOJK2Xqe+Uv9XPjeE6Ox/N/bKjoM7qduFVU2h5KdpeXgQK1uCfmX8ew31dyUsHUHghr0cGcVf6NefS0n9S/71dy6UJwx9nK66supck52rH7K1jx5gKWYswG/0oS4aOPDrMxuwhvPy3jnruJ4VrzAzyhBjzeW0B91CrIUB1p54SmMcIccBbP+BaMrThQHZl5mVAQQTmuf0LRnc9lssXOTvM0cagBBhfU7cCMxqqR/I2E4P8RQQ4YdnpNo9rzR6vjtXLyOxzfPpAD4MF2BtUd7L8hA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=odIrMDs5WaEC+GWBPpoyyEm6sJM6d9p4Grvp8UdMvEU=;
- b=ToQA3AuA8qGTA3hV8PxavQEozmpp+KQXaHaiXMCmUnipXBhaPXvVllMdhn7nidRkSlSKbItEOQdEVd2+qfXf4h15PDKgTo3cyc2f70o1X5D0NxXdPgoeeQ57P09qf6WLfl9yBF/kgVu3NWTK6moHXY8UQQFGldC5ffXakQAMCgA=
+ bh=iWI7knZQXaLNnNo9nrtICT7XkUMvkxGUMArr3AuH6d8=;
+ b=b+cKyndgvhsEhyZULVnuytUGkoKeykZa3u5/JFPpGLGJtNppfA83KgLASQSgxrLyb5jJWhyy481u+oD3tYtTkmhAamCUzTrjXJT6hNrLN1dnRhD3iIYdEXz5Pgiy8288hPZ8FFajmVn1AM/U3iZ697/pXvHAStp084sgSYNKdHs=
 Authentication-Results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
 Received: from BN9PR12MB5356.namprd12.prod.outlook.com (2603:10b6:408:105::23)
- by BN9PR12MB5177.namprd12.prod.outlook.com (2603:10b6:408:11a::19)
+ by BN9PR12MB5290.namprd12.prod.outlook.com (2603:10b6:408:103::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.17; Thu, 12 Aug
- 2021 09:09:46 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.16; Thu, 12 Aug
+ 2021 09:11:35 +0000
 Received: from BN9PR12MB5356.namprd12.prod.outlook.com
  ([fe80::4804:801b:71a:a8ed]) by BN9PR12MB5356.namprd12.prod.outlook.com
  ([fe80::4804:801b:71a:a8ed%9]) with mapi id 15.20.4415.017; Thu, 12 Aug 2021
- 09:09:46 +0000
-Subject: Re: [PATCH V2 6/7] drm/amd/pm: drop unnecessary manual mode check
+ 09:11:35 +0000
+Subject: Re: [PATCH V2 2/7] drm/amd/pm: record the RPM and PWM based fan speed
+ settings
 To: "Quan, Evan" <Evan.Quan@amd.com>,
  "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Cc: "nils.wallmenius@gmail.com" <nils.wallmenius@gmail.com>,
  "Chen, Guchun" <Guchun.Chen@amd.com>
 References: <20210812040110.1293682-1-evan.quan@amd.com>
- <20210812040110.1293682-6-evan.quan@amd.com>
- <0d76361c-e28e-cc8a-a050-668f38d4e251@amd.com>
- <DM6PR12MB2619197EFEF711E675799ED7E4F99@DM6PR12MB2619.namprd12.prod.outlook.com>
- <1e7ac50e-0ba7-2a1f-8085-122de2fa99bd@amd.com>
- <DM6PR12MB261966A80354E978DA926CF1E4F99@DM6PR12MB2619.namprd12.prod.outlook.com>
+ <20210812040110.1293682-2-evan.quan@amd.com>
+ <f63b688e-81bd-a6a7-4a27-f1d3140559bc@amd.com>
+ <DM6PR12MB26190C2DBBCBDE6AF4835F7FE4F99@DM6PR12MB2619.namprd12.prod.outlook.com>
+ <3285485e-2beb-4147-fa68-e0fc6636e158@amd.com>
+ <DM6PR12MB2619A7E4EDC9872AEB8D50D7E4F99@DM6PR12MB2619.namprd12.prod.outlook.com>
 From: "Lazar, Lijo" <lijo.lazar@amd.com>
-Message-ID: <0d72759a-975c-f0ea-49d8-eac32f8035ef@amd.com>
-Date: Thu, 12 Aug 2021 14:39:34 +0530
+Message-ID: <aeae3a70-7855-cbd3-8e05-5a07607bc5d8@amd.com>
+Date: Thu, 12 Aug 2021 14:41:23 +0530
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.13.0
-In-Reply-To: <DM6PR12MB261966A80354E978DA926CF1E4F99@DM6PR12MB2619.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB2619A7E4EDC9872AEB8D50D7E4F99@DM6PR12MB2619.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN2PR01CA0171.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:26::26) To BN9PR12MB5356.namprd12.prod.outlook.com
+X-ClientProxiedBy: PN1PR0101CA0051.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c00:d::13) To BN9PR12MB5356.namprd12.prod.outlook.com
  (2603:10b6:408:105::23)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from [172.31.157.114] (165.204.158.249) by
- PN2PR01CA0171.INDPRD01.PROD.OUTLOOK.COM (2603:1096:c01:26::26) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4415.14 via Frontend Transport; Thu, 12 Aug 2021 09:09:43 +0000
+ PN1PR0101CA0051.INDPRD01.PROD.OUTLOOK.COM (2603:1096:c00:d::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.14 via Frontend
+ Transport; Thu, 12 Aug 2021 09:11:32 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9564f5a5-bd84-4267-0709-08d95d70ede0
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5177:
+X-MS-Office365-Filtering-Correlation-Id: 247cbbaa-c608-4257-5aeb-08d95d712ee9
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5290:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BN9PR12MB517760AC9B417E1D48E14A9497F99@BN9PR12MB5177.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4714;
+X-Microsoft-Antispam-PRVS: <BN9PR12MB529006B666FE8564ECD19F3797F99@BN9PR12MB5290.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: K6ukyJapAYIS6LgdIDizaVYyEsz1yds7S8hUv1nYrA/2vBZh2vqnlvJppc95siWxbJ+/Tqgs34z4SNWPPNmuAUvQMRrR87TSC1jByeyLLnADto5SiYI4CCu9AgX7wwIklFBPWJiQKEd4OdWyAkg7gGxSCCUh5VBzfKQtiIGm/cvMAnm0lN+WgS/OBg2dkGJwwqeLg5SxG1ycAD0fgZVpms05EpnHBpucBlkqrTOpdgxdWOBPY/BpQsDGD46RL4nMfNeBsg/ylcyQLk/PKht6PaW6UjjKzs228s28GsmHJ8eLiQCQngQaUCI/VaN8sWUFq2yFLl9vd/2uiELB/4CMC2byTVZg6zhQ4B4xxpaLcqyziqEIatz3NZ/3eNZ62EbnmfodcTE9IOY8r0nN9OxWytLT4EBwgSIgY67EQwSg9eRajw8JI+hfFykBMqh0OCcwYY5B2AmF++ACwdHiSXdLC4sNtr1k1hMSeAVoDcdVXtYATOb2zULuoOlyfqEH2EOL/bHhj7Vx2u19c3DIT7+LgVZNzPD2ok7jYGJBd6KkP3sIKjGw4JAwFYj4VjC7gD+njHafqERyHApeFl8aSuowkLIlDsGpzNy86kLpxVxebT6QbIz0dDla4xuH/xRw6rImCD9GAobtKNpFa9nc+QwX6UIRiPRGPNSZofZKbXP/hEF0eg2Tx8O/3t3MZLSzdovaqU/x9QTCmI2OaNWpp9G3G/uzYAPueAZQ/FSQDzdSmwRvFvdtsSQUis7LrBQGH5WT
+X-Microsoft-Antispam-Message-Info: FI7pUtA0w1SYC3ao/EPdEUO2kX/K5z9TS6/569IQXMB1WvRpiV3s5yFKapn9ezv7YtmXkRsiUu3wHK5jIKYMDmKXjrfJwBSoE2KXEcDaueDKeBkuF3EYMWDYt628mO/DDeXAYb8NoQfoQ4UpKfHLmfwnkL7ezZv4JD2B8gYJ344zbZ9KOInmP01X0oRSpPAYR3fJNpLYzI5fbIPAup1mumIPPUiJ/pqrdLbsxdHyqA3rNfh0Pj1Pf53QR6YaWzWPcv8XqxPE78ucPJzakdxLk8D3KlD/Rqs5Bhqpon1Tzwx9SpY0Gh59wcSPHLj6NwE+MdpGgGuKpTPWriGtCEpUgFPYaX1/JglIC0YFpn6mY+qybFxIZ8Yr6fXzeRUs2EDDSCD9mUWtm4hIDgnD+XcNHjbnvRpSVsPqPNMTyVaMxlFRNikltnyTL+ugVVtQHNU0O+U2rIx0RfBrjyXxp2wSpwU/xhGeCBoaVI/V7ETieWJRSIlXau8lzU2bch4m5d6fK9Td1y/ogwz7/gURr7rsKHEvuiNoByV75LjAkS/dhx8OFPLY1WGhW/vql/iMQzjE6E/43E4m/gXQ+jcWPMJUYXxDI1Qx8vQHC9gmXfWbp62OKB1sFUz5aF7Kh9J0gPnAObHwfiRXpwtIJJCXV1bKm39lF+I/lEBUqjX7aMBSsNFm1jOegbJ2yih5GBaXXhfD4i9LIWXgkNceoSc7CpcIDGA15ellgNaFyDSX1TsWlDI=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN9PR12MB5356.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(366004)(39860400002)(376002)(346002)(396003)(53546011)(478600001)(26005)(8936002)(8676002)(6486002)(5660300002)(31696002)(110136005)(66946007)(16576012)(86362001)(66556008)(66476007)(54906003)(316002)(2616005)(956004)(186003)(38100700002)(31686004)(6666004)(4326008)(83380400001)(2906002)(36756003)(43740500002)(45980500001);
+ SFS:(4636009)(346002)(376002)(396003)(39860400002)(366004)(136003)(16576012)(8936002)(478600001)(316002)(38100700002)(2616005)(54906003)(2906002)(956004)(53546011)(5660300002)(110136005)(26005)(6666004)(8676002)(186003)(31686004)(83380400001)(36756003)(66556008)(66476007)(31696002)(66946007)(86362001)(6486002)(4326008)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TGFxa3gwVERvYldGYjBKSXlYWEJ3VUJmclFJYTZrTi9WVGh4Y2ZnMDN2bzd5?=
- =?utf-8?B?NjhwU2FtVWhneDUxOWV6Wk8rSU90VDFQQ0Zwd2JWb2RiblFTdkNGRFFxd3B1?=
- =?utf-8?B?L1dWQ0U4MERsTTZOZVN4dWhpQkoxSUlOejZReWZ5V2FwazgwRUZwVm9OZWFa?=
- =?utf-8?B?VHdKSW9YQ3RCd21mOU1wclpDeUJyTkJqQWtFSFZkZ3JXamNsQTc2bi9kbVhv?=
- =?utf-8?B?clhNc2o5RDJGd2VMOEF1NHFrK3ZhcmRINXdhZHJicXoxZ3c0dE9sdHg3Vm1k?=
- =?utf-8?B?ZDFOY2FWbVZMb3dXMjZSeUI0NCtPc1pYSVk5cXdTWkhWR0RoRmc1ZENSQTk4?=
- =?utf-8?B?cEl5Zisxc2xPOFNJWWpsWFRaM1ZGR0pVaXN2dWVZb0JYTk8vemJzRmFrSlgr?=
- =?utf-8?B?ems5TDlTSUp3SFY2UlhOdVNRaUd1anBYNW9KSjNsYjlCZUZaMWZ5Q2Q0bDlT?=
- =?utf-8?B?THI2azRBeVZlVzdONDBkODlOMk51MHNLR3NRN2lJSG1lclRMOWpFNnBIZXRR?=
- =?utf-8?B?aFkzMVlLYzhqTnJYbXRZVko5aitKWEtCcUVxZ2s5WHZOYnJmUC8zOE41SVVS?=
- =?utf-8?B?ZjZUQmo4dGlVcG5MTjlyYytmSVpWcUR4b0FWaGhQRHFTRStVZzE4TCtxMVpw?=
- =?utf-8?B?UGJsN0l2WndrL2JlUnNSTVl2UHRXTlJpcXNQNXl2b1Q4WnVkWHZRbk5RQWh4?=
- =?utf-8?B?ZDhRV0hHbEt5em80NXRaWll5U1pwTG1IR0o2L3I3SGJoTVRYQ084dVE0Nm5M?=
- =?utf-8?B?V2FJSHNjWnhvQ1FaSzlZWjBzRjZxdUZoQ0Vielk3b0pKeGxDbzZyOVlaSVA2?=
- =?utf-8?B?UVBvTC8xUTBrSGNVYVBLNng1YlNqdVdJcGlDZi9DbVlqc21KSWtzMDV6TFN1?=
- =?utf-8?B?MzhMczU2a0lyY2Z2UTlqcThnazZuR3VTVUtUb1RlMlJVcHNBK1RnUVVLYzZK?=
- =?utf-8?B?ak1vZE82R3luM1VHak92NDNaT0lDb0NUNm9GMTJCbCtxaCszODgyM29ubFFn?=
- =?utf-8?B?VHRyUDFpM3c0bEszc1ZCeERoWkJYN3lwdndyREJqL2dMSzBGZyt4R3piU2Zm?=
- =?utf-8?B?VmhGUDVGTVc2MnBYVUJpVjFkay9ndHVPV1VvVTgxcHpTdnFlOXIwMXlpMHBL?=
- =?utf-8?B?TjFtbFVITHpqYXhWU0M0TVMxSklxd3ZhQngxSCtheTd1bnczWkUycnR5bk9Z?=
- =?utf-8?B?L2FsbFBZSmpQeU5rSUJlUy9IR0pvOUYzb1BNQzhROFA0aW43TGtkcFk5cGtN?=
- =?utf-8?B?MWNrRmZwR28wSjJOdjA5ZGk3YXNWVUNJQ3lwK09LbXZKZERMMmovY295NUlo?=
- =?utf-8?B?ZkQ0RU1XN0JMcUNJWm9yRGxyUmw4czVQd0pvUEppS0NyVWtzUDhIdjF6T2tx?=
- =?utf-8?B?cU96cHFNNjNoeDhxT0dNNExWQktobVF3TjByeWdOZG5YNGxRMkdJclhCUUxo?=
- =?utf-8?B?aHhWbngyb29DWEU4QXIyZDBxRkRleENPb241WWpWODVKeVlhcUFFRE9Ya1J2?=
- =?utf-8?B?WE1Uc1BoMWVmeDZ3N3U0b2NyNTVnMXRoWnRGRnlCczdiL3VsSG5aQkphVkFp?=
- =?utf-8?B?dkJZOHcyaVQ4WjR0Vkg1RFhjS0doM0Z5c3ZMLytYZGt0aCtjRVpUcTM0NlNL?=
- =?utf-8?B?MGZ0ZWdXSnkvOUxITEFXODltTE8zNEdNdHhSK1RnRHAyZEMvaHlLMElJbzVC?=
- =?utf-8?B?VjRBVU1UZU13QlVTWW9nM2hLa0Zjd3N2MjgzRExacjlmK0lVbDV3QTgvT25x?=
- =?utf-8?Q?4PyBRfv/yTkjqy6Yn84X4WLHDPwspcRalkdwyn7?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MFRHb0liZGNiMEFzY0thNFZMWGUrTFkvMHVqWTNJUmR4L2JSYmlzcTd1aE1L?=
+ =?utf-8?B?M3BzQUJDWml6dzBjQXlkMjhTL0dkb294UFEwWWE5RlUxci9ibnlZalhkSWFa?=
+ =?utf-8?B?L3dHQlJhWFBuYlJEUkd2T284MHk0Uk5NODNWVXM1eURiaWFNR1FZaVFEa1Z5?=
+ =?utf-8?B?eWlLcUhZVWxiYlc5VGVoYjZDR3NEaEZIZnNYdEZDK2ZZbHJpOG9hMERSRTZv?=
+ =?utf-8?B?S2JZNGtWY1ptNXoydWUrM2RBR0tIdU10aEFvcUxrczVDdUNhSlJsbEJXWUVB?=
+ =?utf-8?B?SUxDTFJLUmU2MnJHdXgrZnZkbGplUGxiQVJnOUZ0c2FKL25YWVdnZzlBcXJQ?=
+ =?utf-8?B?akVBZVdOdi9EdXBmSmc3Zk43STltVm5UWjc0a21vUnF3UndYbUZ6Z1N2M2gv?=
+ =?utf-8?B?VU96MlVlN24yY0QyOGE5NHNvWDllMm5CaEozK1VJdlRSS1VKelBZYzJNY1U3?=
+ =?utf-8?B?MjlPOEJHN2pGZ0ZyakFReUp1V21kWGU1YjRqenRuZ0ZCaFRTbFVhVXlEci9q?=
+ =?utf-8?B?dE1hcEVOUGI1Y1R4bkZrUkNPQU1sUmMxS2dFQkpUWjRxWjIzbHVrMGtNL1Zs?=
+ =?utf-8?B?TUwvTXQ3aTd0cmdIM24rS1VqRHlwdkdybEVqUE1hc1ViK1NzRGlod293S1JW?=
+ =?utf-8?B?aDdhSXN5S1VUdlBYWGlZcFNueTI4ZEI0c3BvNEJiWno5cFQ3YUhWN1FNc0hq?=
+ =?utf-8?B?UmhxSWdoVEd1NTVCeWJZMWtLYk92NDdZbWhEai9RSlhBUklOVGJ3Vi8rZGdh?=
+ =?utf-8?B?c0lUaHoxeTA3QjFMRkJ4aDFlbk8zblovRFF6TERwS00vcmFua1k3L2lyVFFG?=
+ =?utf-8?B?eWd2Y3M4dkJHYTVuK3JPbExKaWF6TXBCb1NXRHdOZmlTZWVIaGNGTDdRVVI1?=
+ =?utf-8?B?bWFNd1g0YXlDNXpFbkVEejlGQnFwdzRDMWorTzlobTFvaysyM3pSZmdxSEJk?=
+ =?utf-8?B?MTA1b2JnYm1wT2pTdm9OTVQvVnJDQk5FNmZXZW8xcTRIbFdZd1BSRDU5TDB0?=
+ =?utf-8?B?Nzd1ekNWM3BYbFFLSGxaSWNzWWNOelRRQnIvTFJLQjJUb1VtSVdTWkxtb1R3?=
+ =?utf-8?B?Rmg3UEdaS0Z2VldJQzgzbjlQcm44UDA5cHg1OUE5dXhyNlhzZURLaGNwWTBF?=
+ =?utf-8?B?TVdaOUp3K0JqKzdseWNkM2VGZ0k3amR3cnpxSDBvR3RubElueHZ5MG10UENR?=
+ =?utf-8?B?c1dpWkNaaUc0ME5JeEwrcmpKUkYzdk9OVzBaRGVTVjREL0JDSndQaCthMGZ4?=
+ =?utf-8?B?T0x4VDFuY2pSVUVUTldqUUNoZlNtanlvUHFMaHRveFh6VmhoakFQalhOWFBX?=
+ =?utf-8?B?b0RjQmh0L3hkL3VJbTFFTGl5U0dNMkdocUw3NFBvK0FGVTMzZUpUYm5HNnJO?=
+ =?utf-8?B?eEpoR1gxY1h4dGs5NXV1UGxkMkNsM2VTVHkxTHcyQ1crTDlEcERHYTdEUlhL?=
+ =?utf-8?B?dVVobjNmazhpa3FxUkRCK0NWUDU3bW1PSjJwcW0vTUttcnlScmVaSERvRjZo?=
+ =?utf-8?B?TFFxNVdQT2lIcDJXSFVTTXBkbExIbTR4RUpGNENEamg1aThDUG9haU9kcXky?=
+ =?utf-8?B?OTQ5ZGIwOHQ2K1pZUVdPMnpBWUZwUXhveDUySm9zTFNFTVBLbWVNeFF0Nndp?=
+ =?utf-8?B?dUV5cnhRQVJGYUdEdkpLUDc3SXBDRGxrTm4wSUIzNGxIb0g0L0FZTWhRUmRo?=
+ =?utf-8?B?RGZMZ0xnaWEvdjZtRkZEN1RER0wwcEVUS2U1VnBXRlM3TVNKYzdkOWw1MlJV?=
+ =?utf-8?Q?v0VDnVl33MN/Jp8B8qhrF+Ey08JwAjxmXvGDpWL?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9564f5a5-bd84-4267-0709-08d95d70ede0
+X-MS-Exchange-CrossTenant-Network-Message-Id: 247cbbaa-c608-4257-5aeb-08d95d712ee9
 X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5356.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2021 09:09:45.9094 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2021 09:11:35.1947 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: i+bWYhVW8MGs2pTHfK2g6MBGS+ABrFt+LhsY0re0RciV5EWGUMmUjpHRdDmHeiPy
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5177
+X-MS-Exchange-CrossTenant-UserPrincipalName: jkGQVzIa2ZEaVLE4BNWrBF9vTMz/Pfr0s/ZSRURZ3kqvlLu5LT23XxyDsxyqeqbv
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5290
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,122 +152,208 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 8/12/2021 1:49 PM, Quan, Evan wrote:
+On 8/12/2021 2:19 PM, Quan, Evan wrote:
 > [AMD Official Use Only]
 > 
 > 
 > 
 >> -----Original Message-----
 >> From: Lazar, Lijo <Lijo.Lazar@amd.com>
->> Sent: Thursday, August 12, 2021 3:38 PM
+>> Sent: Thursday, August 12, 2021 3:53 PM
 >> To: Quan, Evan <Evan.Quan@amd.com>; amd-gfx@lists.freedesktop.org
 >> Cc: nils.wallmenius@gmail.com; Chen, Guchun <Guchun.Chen@amd.com>
->> Subject: Re: [PATCH V2 6/7] drm/amd/pm: drop unnecessary manual mode
->> check
+>> Subject: Re: [PATCH V2 2/7] drm/amd/pm: record the RPM and PWM based
+>> fan speed settings
 >>
 >>
 >>
->> On 8/12/2021 12:16 PM, Quan, Evan wrote:
+>> On 8/12/2021 12:21 PM, Quan, Evan wrote:
 >>> [AMD Official Use Only]
 >>>
 >>>
 >>>
 >>>> -----Original Message-----
 >>>> From: Lazar, Lijo <Lijo.Lazar@amd.com>
->>>> Sent: Thursday, August 12, 2021 2:16 PM
+>>>> Sent: Thursday, August 12, 2021 2:05 PM
 >>>> To: Quan, Evan <Evan.Quan@amd.com>; amd-gfx@lists.freedesktop.org
 >>>> Cc: nils.wallmenius@gmail.com; Chen, Guchun <Guchun.Chen@amd.com>
->>>> Subject: Re: [PATCH V2 6/7] drm/amd/pm: drop unnecessary manual
->> mode
->>>> check
+>>>> Subject: Re: [PATCH V2 2/7] drm/amd/pm: record the RPM and PWM
+>> based
+>>>> fan speed settings
 >>>>
 >>>>
 >>>>
 >>>> On 8/12/2021 9:31 AM, Evan Quan wrote:
->>>>> As the fan control was guarded under manual mode before fan speed
->>>>> RPM/PWM setting. Thus the extra check is totally redundant.
+>>>>> As the relationship "PWM = RPM / smu->fan_max_rpm" between fan
+>>>> speed
+>>>>> PWM and RPM is not true for SMU11 ASICs. So, both the RPM and PWM
+>>>>> settings need to be saved.
 >>>>>
->>>>> Change-Id: Ia9d776141ec4aa39255accbf00d7e7ed81c8424d
+>>>>> Change-Id: I318c134d442273d518b805339cdf383e151b935d
 >>>>> Signed-off-by: Evan Quan <evan.quan@amd.com>
+>>>>> --
+>>>>> v1->v2:
+>>>>>      - coding style and logging prints optimization (Guchun)
+>>>>>      - reuse existing flags (Lijo)
 >>>>> ---
->>>>>     drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c | 12 +----------
->> -
->>>>>     1 file changed, 1 insertion(+), 11 deletions(-)
+>>>>>     drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h   |  3 +++
+>>>>>     drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 22
+>>>> ++++++++++++++++------
+>>>>>     2 files changed, 19 insertions(+), 6 deletions(-)
 >>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
->>>>> b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
->>>>> index 9001952442ba..20ece0963f51 100644
->>>>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
->>>>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
->>>>> @@ -1208,9 +1208,6 @@ smu_v11_0_set_fan_speed_pwm(struct
->>>> smu_context
->>>>> *smu, uint32_t speed)
+>>>>> diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+>>>>> b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+>>>>> index 183654f8b564..29934a5af44e 100644
+>>>>> --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+>>>>> +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+>>>>> @@ -34,6 +34,8 @@
+>>>>>     #define SMU_FW_NAME_LEN			0x24
 >>>>>
->>>>>     	speed = MIN(speed, 255);
+>>>>>     #define SMU_DPM_USER_PROFILE_RESTORE (1 << 0)
+>>>>> +#define SMU_CUSTOM_FAN_SPEED_RPM     (1 << 1)
+>>>>> +#define SMU_CUSTOM_FAN_SPEED_PWM     (1 << 2)
 >>>>>
->>>>> -	if (smu_v11_0_auto_fan_control(smu, 0))
->>>>> -		return -EINVAL;
->>>>> -
+>>>>>     // Power Throttlers
+>>>>>     #define SMU_THROTTLER_PPT0_BIT			0
+>>>>> @@ -230,6 +232,7 @@ struct smu_user_dpm_profile {
+>>>>>     	uint32_t fan_mode;
+>>>>>     	uint32_t power_limit;
+>>>>>     	uint32_t fan_speed_percent;
+>>>>> +	uint32_t fan_speed_rpm;
+>>>>>     	uint32_t flags;
+>>>>>     	uint32_t user_od;
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+>>>>> b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+>>>>> index e33e67310030..131ad0dfefbe 100644
+>>>>> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+>>>>> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+>>>>> @@ -413,7 +413,13 @@ static void
+>> smu_restore_dpm_user_profile(struct
+>>>> smu_context *smu)
+>>>>>     		if (!ret && smu->user_dpm_profile.fan_speed_percent) {
+>>>>>     			ret = smu_set_fan_speed_percent(smu, smu-
+>>>>> user_dpm_profile.fan_speed_percent);
+>>>>>     			if (ret)
+>>>>> -				dev_err(smu->adev->dev, "Failed to set
+>>>> manual fan speed\n");
+>>>>> +				dev_err(smu->adev->dev, "Failed to set
+>>>> manual fan speed in percent\n");
+>>>>> +		}
+>>>>> +
+>>>>> +		if (!ret && smu->user_dpm_profile.fan_speed_rpm) {
+>>>>> +			ret = smu_set_fan_speed_rpm(smu, smu-
+>>>>> user_dpm_profile.fan_speed_rpm);
+>>>>> +			if (ret)
+>>>>> +				dev_err(smu->adev->dev, "Failed to set
+>>>> manual fan speed in
+>>>>> +rpm\n");
+>>>>>     		}
+>>>>>     	}
+>>>>>
+>>>>> @@ -2179,7 +2185,6 @@ static int smu_set_gfx_cgpg(struct
+>> smu_context
+>>>> *smu, bool enabled)
+>>>>>     static int smu_set_fan_speed_rpm(void *handle, uint32_t speed)
+>>>>>     {
+>>>>>     	struct smu_context *smu = handle;
+>>>>> -	u32 percent;
+>>>>>     	int ret = 0;
+>>>>>
+>>>>>     	if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled) @@ -
+>>>> 2190,8
+>>>>> +2195,8 @@ static int smu_set_fan_speed_rpm(void *handle, uint32_t
+>>>> speed)
+>>>>>     	if (smu->ppt_funcs->set_fan_speed_rpm) {
+>>>>>     		ret = smu->ppt_funcs->set_fan_speed_rpm(smu, speed);
+>>>>>     		if (!ret && smu->user_dpm_profile.flags &
+>>>> SMU_DPM_USER_PROFILE_RESTORE) {
+>>>>> -			percent = speed * 100 / smu->fan_max_rpm;
+>>>>> -			smu->user_dpm_profile.fan_speed_percent =
+>>>> percent;
+>>>>> +			smu->user_dpm_profile.flags |=
+>>>> SMU_CUSTOM_FAN_SPEED_RPM;
+>>>>> +			smu->user_dpm_profile.fan_speed_rpm = speed;
 >>>>
->>>> There is a FAN_CONTROL_NONE mode where it is set to full speed. Is
->>>> that affected by this change?
->>> [Quan, Evan] This check was designed to block "auto" mode(like If it was
->> under auto mode, these manual settings will be not permitted).
->>> The FAN_CONTROL_NONE mode is not affected with and without this
->> check.
->>>
+>>>> Sorry, missed this when you posted v1. Either RPM or PWM mode is
+>>>> allowed at a time, is that right? If so, shall we make the pwm to 0
+>>>> and reset PWM flag when RPM is set and vice versa? This helps during
+>>>> restore where one is not overwritten with the other.
+>>> [Quan, Evan] Sounds reasonable to me. But I suppose we also need to
+>> prompt some warnings when user trying to set these two modes at the same
+>> time.
+>>> Instead of performing these silently. Right?
 >>
->> To set FAN_CONTROL_NONE, basically also need to turn off auto mode and
->> manually set to 100% speed. If we take out turning off auto mode here,
->> probably that part needs to be handled elsewhere.
-> [Quan, Evan] OK, I see.  Will add that for AMD_FAN_CTRL_NONE in smu_v11_0_set_fan_control_mode(). That's the right place for mode switching.
+>> Not sure on the warnings part. For ex: user may set the manual mode,
+>> choose a pwm based fan speed and may later switch to a precise rpm based
+>> speed. Since it's driven by user, we may not need to warn.
+> [Quan, Evan] Hmm. How about the followings? A notice in the description part for related APIs?
 > 
-Yes, that is the right place.
+> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> index 04c7d82f8b89..112ee5f5d855 100644
+> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> @@ -3174,6 +3174,9 @@ static ssize_t amdgpu_hwmon_show_mclk_label(struct device *dev,
+>    *
+>    * - fan[1-\*]_enable: Enable or disable the sensors.1: Enable 0: Disable
+>    *
+> + * NOTE: DO NOT set the fan speed via "pwm1" and "fan[1-\*]_target" interfaces at the same time.
+> + *       That will get the former one overridden.
+> + *
+>    * hwmon interfaces for GPU clocks:
+>    *
+>    * - freq1_input: the gfx/compute clock in hertz
+
+Looks fine.
 
 Thanks,
 Lijo
 
-> BR
-> Evan
 >>
 >> Thanks,
 >> Lijo
 >>
->>> BR
->>> Evan
 >>>>
 >>>> Thanks,
 >>>> Lijo
 >>>>
->>>>>     	duty100 = REG_GET_FIELD(RREG32_SOC15(THM, 0,
->>>> mmCG_FDO_CTRL1),
->>>>>     				CG_FDO_CTRL1, FMAX_DUTY100);
->>>>>     	if (!duty100)
->>>>> @@ -1237,11 +1234,6 @@ int smu_v11_0_set_fan_speed_rpm(struct
->>>> smu_context *smu,
->>>>>     	 */
->>>>>     	uint32_t crystal_clock_freq = 2500;
->>>>>     	uint32_t tach_period;
->>>>> -	int ret;
->>>>> -
->>>>> -	ret = smu_v11_0_auto_fan_control(smu, 0);
->>>>> -	if (ret)
->>>>> -		return ret;
+>>>>>     		}
+>>>>>     	}
 >>>>>
->>>>>     	/*
->>>>>     	 * To prevent from possible overheat, some ASICs may have
->>>>> requirement @@ -1257,9 +1249,7 @@ int
->>>> smu_v11_0_set_fan_speed_rpm(struct smu_context *smu,
->>>>>     				   CG_TACH_CTRL, TARGET_PERIOD,
->>>>>     				   tach_period));
+>>>>> @@ -2552,8 +2557,11 @@ static int smu_set_fan_control_mode(struct
+>>>>> smu_context *smu, int value)
 >>>>>
->>>>> -	ret = smu_v11_0_set_fan_static_mode(smu,
->>>> FDO_PWM_MODE_STATIC_RPM);
->>>>> -
->>>>> -	return ret;
->>>>> +	return smu_v11_0_set_fan_static_mode(smu,
->>>> FDO_PWM_MODE_STATIC_RPM);
+>>>>>     	/* reset user dpm fan speed */
+>>>>>     	if (!ret && value != AMD_FAN_CTRL_MANUAL &&
+>>>>> -			!(smu->user_dpm_profile.flags &
+>>>> SMU_DPM_USER_PROFILE_RESTORE))
+>>>>> +			!(smu->user_dpm_profile.flags &
+>>>> SMU_DPM_USER_PROFILE_RESTORE)) {
+>>>>>     		smu->user_dpm_profile.fan_speed_percent = 0;
+>>>>> +		smu->user_dpm_profile.fan_speed_rpm = 0;
+>>>>> +		smu->user_dpm_profile.flags &=
+>>>> ~(SMU_CUSTOM_FAN_SPEED_RPM |
+>> SMU_CUSTOM_FAN_SPEED_PWM);
+>>>>> +	}
+>>>>>
+>>>>>     	return ret;
 >>>>>     }
+>>>>> @@ -2604,8 +2612,10 @@ static int smu_set_fan_speed_percent(void
+>>>> *handle, u32 speed)
+>>>>>     		if (speed > 100)
+>>>>>     			speed = 100;
+>>>>>     		ret = smu->ppt_funcs->set_fan_speed_percent(smu,
+>>>> speed);
+>>>>> -		if (!ret && !(smu->user_dpm_profile.flags &
+>>>> SMU_DPM_USER_PROFILE_RESTORE))
+>>>>> +		if (!ret && !(smu->user_dpm_profile.flags &
+>>>> SMU_DPM_USER_PROFILE_RESTORE)) {
+>>>>> +			smu->user_dpm_profile.flags |=
+>>>> SMU_CUSTOM_FAN_SPEED_PWM;
+>>>>>     			smu->user_dpm_profile.fan_speed_percent =
+>>>> speed;
+>>>>> +		}
+>>>>>     	}
 >>>>>
->>>>>     int smu_v11_0_get_fan_speed_pwm(struct smu_context *smu,
+>>>>>     	mutex_unlock(&smu->mutex);
 >>>>>
