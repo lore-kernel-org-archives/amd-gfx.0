@@ -2,101 +2,104 @@ Return-Path: <SRS0=1H3f=ND=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-18.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 991F6C432BE
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 13:16:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9E049C4338F
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 15:07:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5466F610A4
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 13:16:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5466F610A4
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
+	by mail.kernel.org (Postfix) with ESMTPS id 66EBA6103A
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 15:07:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 66EBA6103A
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D31076E408;
-	Thu, 12 Aug 2021 13:16:30 +0000 (UTC)
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [IPv6:2a00:1450:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCA696E30D
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Aug 2021 10:07:13 +0000 (UTC)
-Received: by mail-lj1-x231.google.com with SMTP id y7so9804192ljp.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Aug 2021 03:07:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=shutemov-name.20150623.gappssmtp.com; s=20150623;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=MYArfwyoBo3dGsKUJMsxwhHgYqZKbCcsgh7gGUNtDK4=;
- b=i5pl2dc+IIZq62s73J165t7SbTE/a6uwhQcs74jwe9KmwHHHprhV6B7adGgzY2ul5F
- h3ad9IJiBKNdQ1Yy+0atN7ISXCxsrMGXnfmJsO6X4rAencCuDMvqer1gR8DISUT+MUdX
- mFWLcuQYXLFjOzlL0+b+7kJuGkuB4wCN/YMkw/r+eyS6zgywYe+L6amtdlG3N+EOpGsE
- J1HMLNEKBn3QeV3/WPSCpmI5s5ySDG9/4fJ+UJO1H5Xch03iP3WdOduEdYUt1pTqbuK7
- XsqkYhAszn/r202BsWcaBlPgkZHQ5nFUcQEBqetJcuzusrxc9TEefXgeJD4qBlDR12PM
- /RWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=MYArfwyoBo3dGsKUJMsxwhHgYqZKbCcsgh7gGUNtDK4=;
- b=ZQvnRXxVrqpFFaaC1k5Q2ir2MmoCGp2Z97FJPXbKUc/fbw0voeVN+B57RAQ+hPf9Pa
- SSBFkiVmpWKWaucMFMDSLBJjwtTKZCTFjkZu2swLOzH0B5wB1jmxf5APDC7QQ7baUW1K
- me+Fes2nSf8XMXOffcMqsFrrL1bK1V5g2SiIep00+XpQT44xFoaMt12GsA+PavJxt2gS
- Agrl/VPZLkg+LE5/W0v+J88eA/APOmYqNiwMUbaxudnHQaw3lVCdYbTIhQQ2icB/KaMv
- httIRV1jKBd6NsesxX3V1VenEsncuV1D122PAq/82HstizeOvX4YtMC2cMgD+EPBmDVa
- mngg==
-X-Gm-Message-State: AOAM530E0HJ7eT/V9Kne5+XGdjQCFAS1JKT4hcilckInEn/n+oe+uN8Q
- 2aEg3tAVT4gYSjtT2BswFfJRMQ==
-X-Google-Smtp-Source: ABdhPJzegmFCE5odxbsD4HArsZ9uuMjN7H8TkJnoN55vikWCUHEpo/5436B3LFAXNhCNvYbyx3Wtvw==
-X-Received: by 2002:a2e:814a:: with SMTP id t10mr2410500ljg.318.1628762831975; 
- Thu, 12 Aug 2021 03:07:11 -0700 (PDT)
-Received: from box.localdomain ([86.57.175.117])
- by smtp.gmail.com with ESMTPSA id o8sm212528lfo.292.2021.08.12.03.07.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Aug 2021 03:07:11 -0700 (PDT)
-Received: by box.localdomain (Postfix, from userid 1000)
- id B75B41028BC; Thu, 12 Aug 2021 13:07:24 +0300 (+03)
-Date: Thu, 12 Aug 2021 13:07:24 +0300
-From: "Kirill A. Shutemov" <kirill@shutemov.name>
-To: Tom Lendacky <thomas.lendacky@amd.com>
-Cc: "Kuppuswamy, Sathyanarayanan" <sathyanarayanan.kuppuswamy@linux.intel.com>,
- linux-kernel@vger.kernel.org, x86@kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-s390@vger.kernel.org,
- iommu@lists.linux-foundation.org, kvm@vger.kernel.org,
- linux-efi@vger.kernel.org, platform-driver-x86@vger.kernel.org,
- linux-graphics-maintainer@vmware.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, kexec@lists.infradead.org,
- linux-fsdevel@vger.kernel.org, Borislav Petkov <bp@alien8.de>,
- Brijesh Singh <brijesh.singh@amd.com>,
- Joerg Roedel <joro@8bytes.org>, Andi Kleen <ak@linux.intel.com>,
- Tianyu Lan <Tianyu.Lan@microsoft.com>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Will Deacon <will@kernel.org>, Dave Young <dyoung@redhat.com>,
- Baoquan He <bhe@redhat.com>
-Subject: Re: [PATCH 07/11] treewide: Replace the use of mem_encrypt_active()
- with prot_guest_has()
-Message-ID: <20210812100724.t4cdh7xbkuqgnsc3@box.shutemov.name>
-References: <cover.1627424773.git.thomas.lendacky@amd.com>
- <029791b24c6412f9427cfe6ec598156c64395964.1627424774.git.thomas.lendacky@amd.com>
- <166f30d8-9abb-02de-70d8-6e97f44f85df@linux.intel.com>
- <4b885c52-f70a-147e-86bd-c71a8f4ef564@amd.com>
- <20210811121917.ghxi7g4mctuybhbk@box.shutemov.name>
- <0a819549-e481-c004-7da8-82ba427b13ce@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9C9A6E41A;
+	Thu, 12 Aug 2021 15:07:50 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2051.outbound.protection.outlook.com [40.107.220.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91A736E41A
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Aug 2021 15:07:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=JHSRjCHJyyv2egiLyOrZIjcel5Tf5xDSt/Iakqe7sBkvAnxnNN1Oln72fr8N41E4CJW7opHZNjxL6SeGyAI2Ffj8yRy4akbGy0cpqaoqePwU6MOztjXrjR1lYlzMIlkl+lYMNsZCbcGmzkkebijWCYvLo1zDW4SHF0YIPTxFf9daQoEuQLvUWT6doSvppqYMDTvwqXfQCxDPWGE0j3Tdg1J9x5MQ1RP9ZtYpBCrqTQdeoaSYi7Tos7JcAxmBtfQ4gZS4gL7OHFGsjCBSxgNapcF7ZDU4fCxNJlAiUAlcp+ezzKCnwqyo81l8xpi++heVMtLYr5Ggiuw/onv0Ox+ZFg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fktkEfGRH7gbg7qPchp6I7Q6n7hjzh6veKxAHbMPFL0=;
+ b=gdpGOyyZivY8CS5af+9cqBHqntAILEXm4aGRm6dYp/GWBZIFPBn1rP/SbySNevCUl4QtzJ4hqC1fnspjGCaOvZjOT/69Hk9AE7pRvJUyVyDmzVnMkr3C3D2baeC1P3VE0q9Je7o3fRy94k/bc+5fM/yhpi2zlI/Z/vpTF2ldF3JbnYI15HnILNpNUXFSGQC16cHXJTqP+R/PBUFTaHY7fhKfAdX+QGEOgbxKT4qvnVmnnBHJDvZf1hLYcwdneogeFqm75ixN+b+/uiDiaq+2DCnLTZdaSjkHmtwPMup1IkuJo+CFyAsg9rCD9PmV3zweLD/DqeqDD/1M7xOoyaRHzA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fktkEfGRH7gbg7qPchp6I7Q6n7hjzh6veKxAHbMPFL0=;
+ b=E1qp3PtccX7mgeD2Ik/Bwa0CgzqRB34ASGfqW5v9oBTaHoej+qvvQgHnmM8kqPKhTlq2F/hKc/bH9Dt1VyptparwPW4RcGyMMQNPZuQrAkj1HjUj1KL+dArlXshMrbtyulKiomDnaAbVhfCUkcRfxmFiMT/uG4inUQlPogG2vxI=
+Received: from DM6PR12CA0029.namprd12.prod.outlook.com (2603:10b6:5:1c0::42)
+ by BN6PR12MB1361.namprd12.prod.outlook.com (2603:10b6:404:18::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4394.19; Thu, 12 Aug
+ 2021 15:07:48 +0000
+Received: from DM6NAM11FT042.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:1c0:cafe::8d) by DM6PR12CA0029.outlook.office365.com
+ (2603:10b6:5:1c0::42) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.14 via Frontend
+ Transport; Thu, 12 Aug 2021 15:07:48 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT042.mail.protection.outlook.com (10.13.173.165) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4415.14 via Frontend Transport; Thu, 12 Aug 2021 15:07:47 +0000
+Received: from Zhigang-WS.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Thu, 12 Aug
+ 2021 10:07:46 -0500
+From: Zhigang Luo <zhigang.luo@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Zhigang Luo <zhigang.luo@amd.com>
+Subject: [PATCH] drm/amdgpu: correct MMSCH version
+Date: Thu, 12 Aug 2021 11:07:18 -0400
+Message-ID: <20210812150718.8827-1-zhigang.luo@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <0a819549-e481-c004-7da8-82ba427b13ce@amd.com>
-X-Mailman-Approved-At: Thu, 12 Aug 2021 13:16:29 +0000
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 0c0e9080-7737-40e9-3956-08d95da2f237
+X-MS-TrafficTypeDiagnostic: BN6PR12MB1361:
+X-Microsoft-Antispam-PRVS: <BN6PR12MB13611CD24555C0FF0E872AEBF1F99@BN6PR12MB1361.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:296;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: /wkKn82Galbcvf8so00KAXW41ZsIbUU/lkgzSaM1BwNQQlr6GxJPdfoiDcVZ87HrISQcRRwJVncBDU1FsrAxsP79hr0IrK+WUf/5xkEW8dqDTJ5doZQqABlNWPZ/T4Rqk24lJwVnHCPl7E+rlG/PKo0mp28WV5sWjQ/ICvzXh8jcb8YogmEAQOTNnzpTWO/bsiPni6zQFDhMkxbL1N9Bc4k1P1SuVzEOYjC4joqKVGpHRiYtIteNCj61PAVZvA0YadVqa1iIGqLdYkg77rAT1QZJuWLheiB4sqZHts8VLFqMmE0QQQoJangdHPgw4OnDwkiHyW62N3S9Xo3piV43PbU8fkMbpakqG+MJcIXw+uNpEVt7Zc9TSb8HhnkJffkeIU1dnIkPfDOSDuwYlTYHWDMu2gqeVEY1TbyUqODIOFp/UrbraRoPczVSIDxhZ5SkaAGPtgFQBQ9sbdA5YlkJIjVIAgM7A/IPsM57XsN8fWfKVOCylK28ZKJhr+g1Q0AnVqYgc2aEVfLTyRCjN0wK2R6G1Tr22ShgAHGWNvWp+UQKRWPLnOz23UNEFmBGI5VXSOPOoQPg1mSUi8+YtgWZMtt9qTWr9RmZhK7zt9mfteXruvi2ceSBPKQof5ZkD6gXgEo1hRg8teJFUWf6bPnhUhhdjyBmCNCkfXHenl7bqKsBZ3qNFkn/GCvvT3afMrr40Rs6AVKC6uX+vuVWIWWDMS1BfDaxcdNf3r1oB/PR9M1ONlqrH9mwkp9TK09SW5K1xzn4ToyGtw2bHBvEFFHETA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(346002)(396003)(376002)(136003)(39860400002)(36840700001)(46966006)(2616005)(6916009)(81166007)(82740400003)(478600001)(1076003)(44832011)(86362001)(36756003)(316002)(47076005)(336012)(16526019)(83380400001)(4744005)(356005)(70586007)(36860700001)(4326008)(426003)(34020700004)(6666004)(5660300002)(70206006)(2906002)(82310400003)(186003)(26005)(8676002)(7696005)(8936002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2021 15:07:47.8546 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0c0e9080-7737-40e9-3956-08d95da2f237
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT042.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1361
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,91 +114,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Aug 11, 2021 at 10:52:55AM -0500, Tom Lendacky wrote:
-> On 8/11/21 7:19 AM, Kirill A. Shutemov wrote:
-> > On Tue, Aug 10, 2021 at 02:48:54PM -0500, Tom Lendacky wrote:
-> >> On 8/10/21 1:45 PM, Kuppuswamy, Sathyanarayanan wrote:
-> >>>
-> >>>
-> >>> On 7/27/21 3:26 PM, Tom Lendacky wrote:
-> >>>> diff --git a/arch/x86/kernel/head64.c b/arch/x86/kernel/head64.c
-> >>>> index de01903c3735..cafed6456d45 100644
-> >>>> --- a/arch/x86/kernel/head64.c
-> >>>> +++ b/arch/x86/kernel/head64.c
-> >>>> @@ -19,7 +19,7 @@
-> >>>>   #include <linux/start_kernel.h>
-> >>>>   #include <linux/io.h>
-> >>>>   #include <linux/memblock.h>
-> >>>> -#include <linux/mem_encrypt.h>
-> >>>> +#include <linux/protected_guest.h>
-> >>>>   #include <linux/pgtable.h>
-> >>>>     #include <asm/processor.h>
-> >>>> @@ -285,7 +285,7 @@ unsigned long __head __startup_64(unsigned long
-> >>>> physaddr,
-> >>>>        * there is no need to zero it after changing the memory encryption
-> >>>>        * attribute.
-> >>>>        */
-> >>>> -    if (mem_encrypt_active()) {
-> >>>> +    if (prot_guest_has(PATTR_MEM_ENCRYPT)) {
-> >>>>           vaddr = (unsigned long)__start_bss_decrypted;
-> >>>>           vaddr_end = (unsigned long)__end_bss_decrypted;
-> >>>
-> >>>
-> >>> Since this change is specific to AMD, can you replace PATTR_MEM_ENCRYPT with
-> >>> prot_guest_has(PATTR_SME) || prot_guest_has(PATTR_SEV). It is not used in
-> >>> TDX.
-> >>
-> >> This is a direct replacement for now.
-> > 
-> > With current implementation of prot_guest_has() for TDX it breaks boot for
-> > me.
-> > 
-> > Looking at code agains, now I *think* the reason is accessing a global
-> > variable from __startup_64() inside TDX version of prot_guest_has().
-> > 
-> > __startup_64() is special. If you access any global variable you need to
-> > use fixup_pointer(). See comment before __startup_64().
-> > 
-> > I'm not sure how you get away with accessing sme_me_mask directly from
-> > there. Any clues? Maybe just a luck and complier generates code just right
-> > for your case, I donno.
-> 
-> Hmm... yeah, could be that the compiler is using rip-relative addressing
-> for it because it lives in the .data section?
+MMSCH doesn't have major/minor version, only verison.
 
-I guess. It has to be fixed. It may break with complier upgrade or any
-random change around the code.
+Signed-off-by: Zhigang Luo <zhigang.luo@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/mmsch_v1_0.h | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-BTW, does it work with clang for you?
-
-> For the static variables in mem_encrypt_identity.c I did an assembler rip
-> relative LEA, but probably could have passed physaddr to sme_enable() and
-> used a fixup_pointer() style function, instead.
-
-Sounds like a plan.
-
-> > A separate point is that TDX version of prot_guest_has() relies on
-> > cpu_feature_enabled() which is not ready at this point.
-> 
-> Does TDX have to do anything special to make memory able to be shared with
-> the hypervisor?
-
-Yes. But there's nothing that required any changes in early boot. It
-handled in ioremap/set_memory.
-
-> You might have to use something that is available earlier
-> than cpu_feature_enabled() in that case (should you eventually support
-> kvmclock).
-
-Maybe.
-
-> > I think __bss_decrypted fixup has to be done if sme_me_mask is non-zero.
-> > Or just do it uncoditionally because it's NOP for sme_me_mask == 0.
-> 
-> For SNP, we'll have to additionally call the HV to update the RMP to make
-> the memory shared. But that could also be done unconditionally since the
-> early_snp_set_memory_shared() routine will check for SNP before doing
-> anything.
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmsch_v1_0.h b/drivers/gpu/drm/amd/amdgpu/mmsch_v1_0.h
+index 20958639b601..2cdab8062c86 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mmsch_v1_0.h
++++ b/drivers/gpu/drm/amd/amdgpu/mmsch_v1_0.h
+@@ -24,9 +24,7 @@
+ #ifndef __MMSCH_V1_0_H__
+ #define __MMSCH_V1_0_H__
+ 
+-#define MMSCH_VERSION_MAJOR	1
+-#define MMSCH_VERSION_MINOR	0
+-#define MMSCH_VERSION	(MMSCH_VERSION_MAJOR << 16 | MMSCH_VERSION_MINOR)
++#define MMSCH_VERSION	0x1
+ 
+ enum mmsch_v1_0_command_type {
+ 	MMSCH_COMMAND__DIRECT_REG_WRITE = 0,
 -- 
- Kirill A. Shutemov
+2.17.1
+
