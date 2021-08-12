@@ -2,127 +2,134 @@ Return-Path: <SRS0=1H3f=ND=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 526B2C4338F
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 05:55:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EB058C4338F
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 06:05:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E3EDE60F21
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 05:55:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E3EDE60F21
+	by mail.kernel.org (Postfix) with ESMTPS id A035660C3F
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 06:05:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A035660C3F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 122216E093;
-	Thu, 12 Aug 2021 05:55:11 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2063.outbound.protection.outlook.com [40.107.93.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F34476E093;
- Thu, 12 Aug 2021 05:55:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 303B86E171;
+	Thu, 12 Aug 2021 06:05:34 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2084.outbound.protection.outlook.com [40.107.236.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF65E6E171
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Aug 2021 06:05:30 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Gu9dupk6i45zXmqSCVPew7p6/wDi4NJWyXS/sXwWCgfyfos6ma37P3giV/Kh3EUJe67QWs01Q/CjxGSr77Qj7lrJFwaxrLxhzm56Ox31O+4vxWZbQliklOdV0gJiiNL9ppNGru8yGQPfOO/mjF9hgbT2HL5/+QwsgdSmAnmDLdi9VNiEyeFvZb0/TrNtprOOvnMQKqudgHJ2ZY+53JaTKuat9r8LaX6oM79rHRUahTlgKm48UO2xCSf2Js7p9y2ghufEeZyYTAYLoYFJdvEhff9fL6eTIi9O46A+rzXiQ/iXz4Oq6eoJxaTT9SvMZ/aazW50WBbUIgEMD/JLuB13Fg==
+ b=mbS4bRdyJLHM795ia8mPlzg2IRL7TmIf318eLOuS6ssMxAPs1JEvKw/bMNUWAE/HNv+ak7xsxIKtXH9wIdIJJumIm6zHZDYcga7jhQqIoLAaXeL0t7IFsrB22O/660aJVH4RsSFa+evvpN88WpamABJGkTAnEstxbAM699kQiylnD2dz7BlNHJF8QQ/ACp/T1O2aZ0wffuz7i+efBMstIzonSW+8XGwqBi/T3O27FRoChFlzhGO51zj3m7EDW6ZEYYI55FBGO3PqYLPJVUHbq5jJQwN9mIbeJwzmp8U8HL05xc0lqU8umJ6HhfgYZ0bfYgIRYSMrnSKYoQBEhUHiNQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qypTp251koSCqjfKbE38Bja/7W0eKKAVlyUuBRNVOBc=;
- b=gDrt3wRFhHjmr79wEETK7Xk1/TBRxvjyNQvPAJjRH8BUm+R4+Gd7+MOqpTgy43tV3SFeBS0/0tEYJZMCk18Wy9DWtymcxVkWNamb6q43iGPhdVo1FKJRllYCAP6MheUgIyMX/oznYZ93+50U2IQHIYnM3THkj2ZcJeaifegwLTYFGiX0dUBdCtLvdqJawGEcs9TJOk2fY01D8YD541CHa2TUbUIUp9fP0j1I66KjTr/5tSspENFABBqCpesT5qcWbED/WVrXDUO9ZOnLefop6nzAKwBN9m1HLaA0ekYPMpSY+coXgc0MbOFQ7YZeRKy8i2hjBPqnon56Vz4eGvzs5g==
+ bh=35t45RgCTAvF3gplD9oRoD3qgPfKUNSyYj4TaHtSabM=;
+ b=lmjRERGcC7mEcvkFcXzSxDoUdYPD82DxPU9vlV5L7524KxWx0Ab24hjynG4zX/Ex8H5HPNlMORgIFzqzCK4txn19LsTsQC5v7ZMcN4QxQDqtFeDu01Q/ftwE5ZHXq50TpvEdFpwTPy+UL4QFdQ3Ozl68yHwVHmtpAHrc8IplV9qKdyQz/VMk/Unx13Xgss8r3TK6vmhVhjs5/VumC/NRozCzzI3r5JjqZ5LXLewdz6dJ07pS+qEqaDvH/v4nEj8w51/OWxLhroguM0AyMMei3vtcTtHPkR+yBs5G3DuRMeMF6FjhThG/iDR/OQvnFwDMHuEPqRB8ZTgFZ7l4jlTHiQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qypTp251koSCqjfKbE38Bja/7W0eKKAVlyUuBRNVOBc=;
- b=n7Nu97UWo7RsUulcSXoGwyezxDN2dmDSPU0mLvZPTkY1Yksyaw4azfgyrB/83IVhqUNod7MVJdmRIOVlXNSFYtI4kdDC1A9TSvCf+0+oZ7rwVaVH5cBjYOBM4tqmEniIIbthblxu/cgTc1zII2UebyRDxPJSR9H0NVe2jQxJcxc=
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
- by MN2PR12MB3773.namprd12.prod.outlook.com (2603:10b6:208:164::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4394.21; Thu, 12 Aug
- 2021 05:55:02 +0000
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::6c9e:1e08:7617:f756]) by MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::6c9e:1e08:7617:f756%5]) with mapi id 15.20.4394.026; Thu, 12 Aug 2021
- 05:55:02 +0000
-From: "Koenig, Christian" <Christian.Koenig@amd.com>
-To: "Quan, Evan" <Evan.Quan@amd.com>, =?Windows-1252?Q?Michel_D=E4nzer?=
- <michel@daenzer.net>, "Deucher, Alexander" <Alexander.Deucher@amd.com>
-CC: "Liu, Leo" <Leo.Liu@amd.com>, "Zhu, James" <James.Zhu@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-Subject: AW: [PATCH 2/2] drm/amdgpu: Use mod_delayed_work in JPEG/UVD/VCE/VCN
- ring_end_use hooks
-Thread-Topic: [PATCH 2/2] drm/amdgpu: Use mod_delayed_work in JPEG/UVD/VCE/VCN
- ring_end_use hooks
-Thread-Index: AQHXjtE+BWy+t4LDY06JadgZjDnxmatu0Vw/gABYcACAADQnDA==
-Date: Thu, 12 Aug 2021 05:55:02 +0000
-Message-ID: <MN2PR12MB3775E6C1ECA915283108E6D783F99@MN2PR12MB3775.namprd12.prod.outlook.com>
-References: <20210811165211.6811-1-michel@daenzer.net>,
- <20210811165211.6811-2-michel@daenzer.net>
- <MN2PR12MB377506AD71308A47222A3E9583F89@MN2PR12MB3775.namprd12.prod.outlook.com>,
- <DM6PR12MB26196DF7D33462060FC4F607E4F99@DM6PR12MB2619.namprd12.prod.outlook.com>
-In-Reply-To: <DM6PR12MB26196DF7D33462060FC4F607E4F99@DM6PR12MB2619.namprd12.prod.outlook.com>
-Accept-Language: de-DE, en-US
-Content-Language: de-DE
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: amd.com; dkim=none (message not signed)
+ bh=35t45RgCTAvF3gplD9oRoD3qgPfKUNSyYj4TaHtSabM=;
+ b=IGVGXjVFK8LriHSOJYThQpqvniAAiJr/P7YUoxj13Kc33+SwBKIGJ5Rb4Q+2qEWkIhaTLH+JCQ0h7dBR3BShNYuSJTYvCNmEY84pIZi5F40sny5mwmwLOYfu0pH+sSGpYYyKZFDuRerM681qUMz38S2JbfTkyM2DlWlhAYjjTL4=
+Authentication-Results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 2b88b6aa-e592-4b5e-a63f-08d95d55ba10
-x-ms-traffictypediagnostic: MN2PR12MB3773:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MN2PR12MB3773195C7E6CC05B2759978B83F99@MN2PR12MB3773.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:9508;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: ev71XjnPGmoAkIETYnR0xXL0arz1wvHyabKQb72TiQvfQV/WfPIZsTCcvJDlNwWZiRyQO6DYJ6Kqw4HstTum5ExK/LkTRZXytbBfOe83cAT5NENU8BmsveB7ru2UC+ostwKdkjdykVUnXaKL66CMkO4dmfOgbtbX3yLI1EYfZwcr9jDag+37P+pKTqb4TZPDRYKVN/udzdyynBqS/IZDUHFaNoDhtdcnOdJF4pHz82xdNuYsCANuIWzoexj6mdWHKjtk//ubcTgfyyu0OiesTxD7RL5KS6Kk1Yx6b9+jSTcgw/hxiHWGhEaoUIddQ52iA1tdwTIxmdXMeN08hVx1J/CoS8xZOXr3ZzuagZTCWLUcpESKWXz2tvk10TOm3rxqu0kq0vM17ddVFq06oxoYmXXtthkeREVGP5GfTUq/MWqsSH/6DoYBsoU7h2fMHC8PbgMPcvqzvm0Orf03RjHWl0jEUhKFNkcPFzDmiUGBvmSFBjlOZN3oUjamrs/mah3Go0pkHm8Jt/kc52ZkpC7hGpHQGi0dXOXaf/1qDi01HfnxWByXpGMaXuOLas80prbj207l1nK0qKUUy+sJzYavuXBc8B1tVTLVXL83NMOyUVYRU8dXpSc57wL2t5bIfdpg+KsCu+barkeb8chBHRAYRLV9w3UJg36zasy4oM6UB4KEMMCOnUXgThe0UxCrXZqEeKFoyzZBPH1osTTxR8SYhg==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(366004)(376002)(396003)(136003)(346002)(53546011)(186003)(54906003)(66574015)(86362001)(110136005)(6506007)(83380400001)(316002)(26005)(5660300002)(478600001)(52536014)(19627235002)(66946007)(4326008)(2906002)(64756008)(66446008)(8676002)(38070700005)(66476007)(66556008)(76116006)(55016002)(33656002)(71200400001)(122000001)(6636002)(38100700002)(8936002)(91956017)(7696005)(9686003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?Windows-1252?Q?hMUMBF9226kkViVmP/unVhtJFXgFCRjMOckvQE0LoM3lpPh8nFtPFmf4?=
- =?Windows-1252?Q?8nrXhafjf7sqqdJK8tglZcsp0V4A1KqLFbENXaBdUJVRxkh/plzM9wyp?=
- =?Windows-1252?Q?CXwuORnWYPXI3TRqX2WKCIsT9LlplZJ7xDCLmxCR1qX52ZKuT27SGPHz?=
- =?Windows-1252?Q?YnpLYz6hO4XSnt139CjdalMpDYuGoQ7dHoMnDsAVfMJ9U00ENFFJz2m5?=
- =?Windows-1252?Q?qDPx0h0DnLOIcvuiQaMd3er754JUxpVXpdqKsMjIlnq/8m8u90lYVz6S?=
- =?Windows-1252?Q?D9v4wiAeh2C4+LkXvFGIaEGtLMAM1bMrBX/KylrCfai2G6AGJJgJ9P71?=
- =?Windows-1252?Q?/gSGtvPUSOPYEyu0gSCn65RnlKDOylwFHlNugIAUd2Ku58jGdN3/lcG0?=
- =?Windows-1252?Q?8Eyua2rxy6NKaTEEdK9oafugcaQWZ0unnq3xBuq/ZBK346edZTLBwJbP?=
- =?Windows-1252?Q?Bh11ZQvy/bhz/9po7J8LqPB4oZRqhddvUnQFkwmviDIOIEaYrY/ygD4t?=
- =?Windows-1252?Q?yPVcVU6yKhqusGtDWH5VRqmTGDe2806h4CpsvoDNadmokkPWrBb5aQmr?=
- =?Windows-1252?Q?BXlzoRRXFcIPjefw5TFI5AW4SMd3AelK+znoGjk5YCyBgRW8TXDCzKy4?=
- =?Windows-1252?Q?AFl1HzraebyW/YJ0/4Z16H257a5U9fkWgq7tldVR88Fxk0wSasKP4qPO?=
- =?Windows-1252?Q?tW8ULmpz0hZZxBPbyjZ/cTNxIx1ZwAKxn4W4daZrI63K6TqfCGjVeAV8?=
- =?Windows-1252?Q?7hlz5ZKHz8w3+QTqoaO/H+px2sjVoWuWqliwO6qAjzEv6a3/+6rN5FzJ?=
- =?Windows-1252?Q?/wGpHD/XrBt3VofGadd+cpzpfPRChK9fhPCZ/M1bzUY+aNpzBCuiCGzf?=
- =?Windows-1252?Q?d7UF8u1OmAlxsXuf7XHH7jJw/MgA7nSfl9ILec/P8z7aiW9OwTpdptPq?=
- =?Windows-1252?Q?DZ36AAORYnSIkpuv1ki4hBXR0WYFAOPDmlc3nfybotEbQvYmyWOqMxKA?=
- =?Windows-1252?Q?NmuAYAwm0mP4FApYmUqvuKDwje33Z+emnmC64S8aiQghds1Pp2PemSek?=
- =?Windows-1252?Q?+Yx/EIxMm2C1pOEIcPByOr1+tvj/5kmetiKebzq3fTyUsk3PBakFBqlo?=
- =?Windows-1252?Q?GjRVeOE+q/Uxs2xE1ebB1s81FQjKNZUHj6Nr9pdVIoCbrDem6N7HAAzD?=
- =?Windows-1252?Q?0t0bJgsjTeotVxY2v9BH7gIdZY0UU70Jdei58V7YBlio8/lbUzsR2hT3?=
- =?Windows-1252?Q?cF/5QpmXqx30wCftGf21EelQTugFQ0k8UQAEA5JRPErXPioFQCdWK9C0?=
- =?Windows-1252?Q?BXAotRS48wLSQm6jdaFNHGfxOeLQcAGPEsNuJbgJBhMDZlBOqG1QYsE2?=
- =?Windows-1252?Q?mQ6h8odWRaUGt8Eojnl0p+4pb/Uw37toxfQ=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_MN2PR12MB3775E6C1ECA915283108E6D783F99MN2PR12MB3775namp_"
+Received: from BN9PR12MB5356.namprd12.prod.outlook.com (2603:10b6:408:105::23)
+ by BN9PR12MB5367.namprd12.prod.outlook.com (2603:10b6:408:104::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.17; Thu, 12 Aug
+ 2021 06:05:26 +0000
+Received: from BN9PR12MB5356.namprd12.prod.outlook.com
+ ([fe80::4804:801b:71a:a8ed]) by BN9PR12MB5356.namprd12.prod.outlook.com
+ ([fe80::4804:801b:71a:a8ed%9]) with mapi id 15.20.4415.017; Thu, 12 Aug 2021
+ 06:05:26 +0000
+Subject: Re: [PATCH V2 2/7] drm/amd/pm: record the RPM and PWM based fan speed
+ settings
+To: Evan Quan <evan.quan@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: nils.wallmenius@gmail.com, Guchun.Chen@amd.com
+References: <20210812040110.1293682-1-evan.quan@amd.com>
+ <20210812040110.1293682-2-evan.quan@amd.com>
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+Message-ID: <f63b688e-81bd-a6a7-4a27-f1d3140559bc@amd.com>
+Date: Thu, 12 Aug 2021 11:35:14 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
+In-Reply-To: <20210812040110.1293682-2-evan.quan@amd.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN1PR0101CA0016.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c00:e::26) To BN9PR12MB5356.namprd12.prod.outlook.com
+ (2603:10b6:408:105::23)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [172.31.157.114] (165.204.158.249) by
+ PN1PR0101CA0016.INDPRD01.PROD.OUTLOOK.COM (2603:1096:c00:e::26) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.16 via Frontend
+ Transport; Thu, 12 Aug 2021 06:05:24 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: c3a91674-662c-4060-cbc3-08d95d572db9
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5367:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BN9PR12MB53676A022874920FA0293F2097F99@BN9PR12MB5367.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: gCj6Oj1HovQ0tmtkqoOJISjBY+bmqe9fKfCQ7ZPH8cc5HGz7J5ECzr0YMbZePSzyH9KTcZUCbf1mCeOrtFb+bU8Lqib19In6YUX92/ihmWMMW5RxZCZoh2aCVstsKQMNBU4cTFExsaFvVFn13KvUvPWx5RviPg+gbSMmxMAgZ7ijcW+ez0ibrD4MQW2+GZbtV/MCFFViokn09oUYtU9Kjzljn2j0g2Iia3dBXZFcVk7FNT1c3lJlDb211gGqPPPoua8kOKku8dkhpdrOe0ZxyR/d+0w2AUOB2e9gI2GdsfLICbh/5LU7S3eiRBSMjunSf3UX/VKfhZzSPNsdqmjnUELjIyJGLWs5BgecCApIKRF8deVVubhQkgFcpmRmJ2D/avhHod4BulVij+7waLEJxGqRjkmjrG4z9y15VjriVtWWdGtZCYTAMkKfgX9W+IRrUbTzXHSzdlC8SZCaXHlF+KScVHyyL8RksIZdprD8CzEFLjUPM+NWMQvhpy8fZV1dPGG64SGGMqrVuz+1fwUeZndM/xfTCb/XlwtkgbOUhNiKdKxJiiBhOUOutbtoSIW66j29DzjYREGAj5BoQrRenewyYwd+ODLa/+F4y/Ms0/82VN8U4SC2migp1726QnNzrB1OerGubscKkNn4qg0m4GezEseAlHKNd/G/xu9UuCEdk/47C0x96TGiYIJx2rOty+ZJOkVVe6maF3coCfrRQrwd8Qe3vpGZq1lVaFUmEbc=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5356.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(346002)(136003)(396003)(39860400002)(376002)(6486002)(31696002)(83380400001)(31686004)(5660300002)(66946007)(86362001)(66556008)(66476007)(16576012)(316002)(38100700002)(956004)(2616005)(53546011)(186003)(2906002)(26005)(36756003)(478600001)(4326008)(6666004)(8936002)(8676002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aklWMThWNHhEYk9RVE11cWVCK25rdUxYRXVlYnlZTUlFRDlEVGVOR3JCN21t?=
+ =?utf-8?B?ZkhmNUF3Ums5Uyt6YXdhVUtldy91QTg0QWNQRG56VDJhK05tNTdERVZ6aFJv?=
+ =?utf-8?B?MHZMWnI4RUJHN01CbDlNdGdsa2VDOE55L2pPSkNQMEpkRDdEMk1MYzdObENq?=
+ =?utf-8?B?R0RYMzEweFhWYWF2b1dDSno2Snc5L2h1dDA2VlRRb0lwM2lpYWJibkVuRjR1?=
+ =?utf-8?B?aUZPeC9SKzNxOEtTbFRBZnNsOUJ1bC90YlNoZ1paWDBCcUtjSzhETG1wejg1?=
+ =?utf-8?B?M29zNmJDT0tQK01zRHJ1NFJobjY1Y0d2ajAvRHR4T24za2VORGhTT3VVOU5w?=
+ =?utf-8?B?V0k4TS9WWm05NnRpWDR3Q1g5aDRVdmZweDIxQytTUUYxRU1MdTVoTnExV0tJ?=
+ =?utf-8?B?bTNRZXZLd3Q2R256MDZLZ1pYS0JnRUg0RVVqT2pjN0dBWW5Ockk0dGI3QUN0?=
+ =?utf-8?B?SGxmaFQ5blp3RlliS1Z0NzNja0hUWjhJeVhQRm8vU3ZYTWhFY0tubWJrK0JX?=
+ =?utf-8?B?OEtyRFBnTHpZek1iRVNFWmFKZXlSbURLN3BMOE5WQmRib1ZvREhBKzlYbUI2?=
+ =?utf-8?B?V2x0S210T0RTNGZBSnRwbGc2dURHSGJrWlUyRm4yVjJDQ0cySm1oOHRGRC81?=
+ =?utf-8?B?NFJVa1lRRXhkS2toclEyMW5QenRwQ0U0R0J1cVRLcU5GcmlldGI2NkhvM1hQ?=
+ =?utf-8?B?WFhKTVhBdE96bE5hUS84aHozZmN3MnBiczJyQisyeVk1a1FkaW0wQzF3aEQ1?=
+ =?utf-8?B?cWNKQ2lYclAwNHNycTBJazUrZFpOL0FtR2FPTDVVUmxiV0pIK3hjMDJGRitj?=
+ =?utf-8?B?QWdLWDhUUWNkVVBva2Foc1V6ck5laU9pQzNmV1gzVXY3bksxdmFOdHJSazRm?=
+ =?utf-8?B?b1FqaDBVTXZlbDVERGNMWm44c0hFTHE1ak9GL2RFb3JqZEI5ZVR4SmtXNWRa?=
+ =?utf-8?B?b09ISjlKSDE0SkFCdGhBQnFRUm12SXMzOERHcXNFWjlIcmxrZmNaTVJKZDRN?=
+ =?utf-8?B?Z0Q5NmpoVm9rQytMQlpGVWsvdnFMZVdhejNydG5yalRveENxdlBLeGhkaFlO?=
+ =?utf-8?B?T3M5VGUvcUZWSHJzd0lRb2ROMzFlclIxdnIwK1BRcmdaT1NLejlDQXFKa3Vs?=
+ =?utf-8?B?U3M5OXM5VGlxZkcwQ01JL01YS0s0ejg1UDhFRlM0dG9wRGtKdEdpQ29PQkht?=
+ =?utf-8?B?M2VKazdza21vRkJNQ25tU0pkd21ZOFpYSThRV2FOUVZQL2MyMXlnL2hHQ1BJ?=
+ =?utf-8?B?OU9pcmpxVnZmMlBPdDBtWStmdzBTM1Vnd1Y1WUZQY3BXQ1FXLzVlV2o0QjY0?=
+ =?utf-8?B?VnNwM3BTNDA5ZkRBdnZ6d3J0R2JNNkhlazdNbE80K0xHZFUvczRVZ2lVamdC?=
+ =?utf-8?B?MG5xUmMxS0RYeWpqZU9XVGJOd0RibHJGbUpRSGg2RkxsdWhMWFJTaEJqa2lG?=
+ =?utf-8?B?QnRqSXgwNi9CSDBNaEo4RUlxM0xJNVZPWWFGb1JYZzNmdUFsZ1l1QmdLVU5X?=
+ =?utf-8?B?S1drSXkrQnBVSmhQMjNWajYvd1NyYkRaWUhGV1llWlllYUgydUxZS1RpOWlq?=
+ =?utf-8?B?MjVNU3FBaVI4RktpVEJtQWlKNTg1cDFvY1VzdGVIZVVXMUl0K2FPdzY5Z1Z6?=
+ =?utf-8?B?SS9oTFQrNmpibVgxVEhHZ1JoWFpEeVBQTThwTjZMck1qeitLMGVOK1RRVzhx?=
+ =?utf-8?B?b2s4Z0Jqc3NkaFphK2ZaM3lvSTJWZE1oaEpUMzhLbUN4c0FnOXloMFZiTmZE?=
+ =?utf-8?Q?T5QPqWuNiNE3anKht+EASjaz5+3Wux05ESDJyCB?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c3a91674-662c-4060-cbc3-08d95d572db9
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5356.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2b88b6aa-e592-4b5e-a63f-08d95d55ba10
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Aug 2021 05:55:02.3293 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: U2XEHBVwZA/Iw5BGySddFyWBCfJarAKn8QOO/Woia+pFGDjW7wlrZ7TxM0p24FP2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3773
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2021 06:05:26.3963 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /F1rWWoYas0swMOUkxcVUAwgZZ3E1HwFSKCCkyU4QMdg8W9lArx+QacDLdyD339N
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5367
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,557 +144,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_MN2PR12MB3775E6C1ECA915283108E6D783F99MN2PR12MB3775namp_
-Content-Type: text/plain; charset="Windows-1252"
-Content-Transfer-Encoding: quoted-printable
-
-Hi James,
-
-Evan seems to have understood how this all works together.
-
-See while any begin/end use critical section is active the work should not =
-be active.
-
-When you handle only one ring you can just call cancel in begin use and sch=
-edule in end use. But when you have more than one ring you need a lock or c=
-ounter to prevent concurrent work items to be started.
-
-Michelle's idea to use mod_delayed_work is a bad one because it assumes tha=
-t the delayed work is still running.
-
-Something similar applies to the first patch I think, so when this makes a =
-difference it is actually a bug.
-
-Regards,
-Christian.
-________________________________
-Von: Quan, Evan <Evan.Quan@amd.com>
-Gesendet: Donnerstag, 12. August 2021 04:42
-An: Koenig, Christian <Christian.Koenig@amd.com>; Michel D=E4nzer <michel@d=
-aenzer.net>; Deucher, Alexander <Alexander.Deucher@amd.com>
-Cc: Liu, Leo <Leo.Liu@amd.com>; Zhu, James <James.Zhu@amd.com>; amd-gfx@lis=
-ts.freedesktop.org <amd-gfx@lists.freedesktop.org>; dri-devel@lists.freedes=
-ktop.org <dri-devel@lists.freedesktop.org>
-Betreff: RE: [PATCH 2/2] drm/amdgpu: Use mod_delayed_work in JPEG/UVD/VCE/V=
-CN ring_end_use hooks
 
 
-[AMD Official Use Only]
+On 8/12/2021 9:31 AM, Evan Quan wrote:
+> As the relationship "PWM = RPM / smu->fan_max_rpm" between fan speed
+> PWM and RPM is not true for SMU11 ASICs. So, both the RPM and PWM
+> settings need to be saved.
+> 
+> Change-Id: I318c134d442273d518b805339cdf383e151b935d
+> Signed-off-by: Evan Quan <evan.quan@amd.com>
+> --
+> v1->v2:
+>    - coding style and logging prints optimization (Guchun)
+>    - reuse existing flags (Lijo)
+> ---
+>   drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h   |  3 +++
+>   drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 22 ++++++++++++++++------
+>   2 files changed, 19 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+> index 183654f8b564..29934a5af44e 100644
+> --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+> +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+> @@ -34,6 +34,8 @@
+>   #define SMU_FW_NAME_LEN			0x24
+>   
+>   #define SMU_DPM_USER_PROFILE_RESTORE (1 << 0)
+> +#define SMU_CUSTOM_FAN_SPEED_RPM     (1 << 1)
+> +#define SMU_CUSTOM_FAN_SPEED_PWM     (1 << 2)
+>   
+>   // Power Throttlers
+>   #define SMU_THROTTLER_PPT0_BIT			0
+> @@ -230,6 +232,7 @@ struct smu_user_dpm_profile {
+>   	uint32_t fan_mode;
+>   	uint32_t power_limit;
+>   	uint32_t fan_speed_percent;
+> +	uint32_t fan_speed_rpm;
+>   	uint32_t flags;
+>   	uint32_t user_od;
+>   
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> index e33e67310030..131ad0dfefbe 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> @@ -413,7 +413,13 @@ static void smu_restore_dpm_user_profile(struct smu_context *smu)
+>   		if (!ret && smu->user_dpm_profile.fan_speed_percent) {
+>   			ret = smu_set_fan_speed_percent(smu, smu->user_dpm_profile.fan_speed_percent);
+>   			if (ret)
+> -				dev_err(smu->adev->dev, "Failed to set manual fan speed\n");
+> +				dev_err(smu->adev->dev, "Failed to set manual fan speed in percent\n");
+> +		}
+> +
+> +		if (!ret && smu->user_dpm_profile.fan_speed_rpm) {
+> +			ret = smu_set_fan_speed_rpm(smu, smu->user_dpm_profile.fan_speed_rpm);
+> +			if (ret)
+> +				dev_err(smu->adev->dev, "Failed to set manual fan speed in rpm\n");
+>   		}
+>   	}
+>   
+> @@ -2179,7 +2185,6 @@ static int smu_set_gfx_cgpg(struct smu_context *smu, bool enabled)
+>   static int smu_set_fan_speed_rpm(void *handle, uint32_t speed)
+>   {
+>   	struct smu_context *smu = handle;
+> -	u32 percent;
+>   	int ret = 0;
+>   
+>   	if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
+> @@ -2190,8 +2195,8 @@ static int smu_set_fan_speed_rpm(void *handle, uint32_t speed)
+>   	if (smu->ppt_funcs->set_fan_speed_rpm) {
+>   		ret = smu->ppt_funcs->set_fan_speed_rpm(smu, speed);
+>   		if (!ret && smu->user_dpm_profile.flags & SMU_DPM_USER_PROFILE_RESTORE) {
+> -			percent = speed * 100 / smu->fan_max_rpm;
+> -			smu->user_dpm_profile.fan_speed_percent = percent;
+> +			smu->user_dpm_profile.flags |= SMU_CUSTOM_FAN_SPEED_RPM;
+> +			smu->user_dpm_profile.fan_speed_rpm = speed;
 
+Sorry, missed this when you posted v1. Either RPM or PWM mode is allowed 
+at a time, is that right? If so, shall we make the pwm to 0 and reset 
+PWM flag when RPM is set and vice versa? This helps during restore where 
+one is not overwritten with the other.
 
+Thanks,
+Lijo
 
-Different from the 1st patch(for amdgpu_gfx_off_ctrl) of the series, =93can=
-cel_delayed_work_sync(&adev->uvd.idle_work)=94 will be called on like amdgp=
-u_uvd_ring_begin_use().  Under this case, does it make any difference from =
-previous implementation =94schedule_delayed_work=94?
-
-Suppose the sequence is as below:
-
-  *   Ring begin use
-  *   Ring end use -->  mod_delayed_work() : queue a new delayed work, righ=
-t?
-  *   Ring begin use (within 1s) --> cancel_delayed_work_sync() will cancel=
- the work submitted above, right?
-  *   Ring end use  --> mod_delayed_work(): queue another new scheduled wor=
-k, same as previous =93schedule_delayed_work=94?
-
-
-
-BR
-
-Evan
-
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Koenig, =
-Christian
-Sent: Thursday, August 12, 2021 5:34 AM
-To: Michel D=E4nzer <michel@daenzer.net>; Deucher, Alexander <Alexander.Deu=
-cher@amd.com>
-Cc: Liu, Leo <Leo.Liu@amd.com>; Zhu, James <James.Zhu@amd.com>; amd-gfx@lis=
-ts.freedesktop.org; dri-devel@lists.freedesktop.org
-Subject: AW: [PATCH 2/2] drm/amdgpu: Use mod_delayed_work in JPEG/UVD/VCE/V=
-CN ring_end_use hooks
-
-
-
-NAK to at least this patch.
-
-
-
-Since activating power management while submitting work is problematic canc=
-el_delayed_work() must have been called during begin use or otherwise we ha=
-ve a serious coding problem in the first place.
-
-
-
-So this change shouldn't make a difference and I suggest to really stick wi=
-th schedule_delayed_work().
-
-
-
-Maybe add a comment how this works?
-
-
-
-Need to take a closer look at the first patch when I'm back from vacation, =
-but it could be that this applies there as well.
-
-
-
-Regards,
-
-Christian.
-
-
-
-________________________________
-
-Von: Michel D=E4nzer <michel@daenzer.net<mailto:michel@daenzer.net>>
-Gesendet: Mittwoch, 11. August 2021 18:52
-An: Deucher, Alexander <Alexander.Deucher@amd.com<mailto:Alexander.Deucher@=
-amd.com>>; Koenig, Christian <Christian.Koenig@amd.com<mailto:Christian.Koe=
-nig@amd.com>>
-Cc: Liu, Leo <Leo.Liu@amd.com<mailto:Leo.Liu@amd.com>>; Zhu, James <James.Z=
-hu@amd.com<mailto:James.Zhu@amd.com>>; amd-gfx@lists.freedesktop.org<mailto=
-:amd-gfx@lists.freedesktop.org> <amd-gfx@lists.freedesktop.org<mailto:amd-g=
-fx@lists.freedesktop.org>>; dri-devel@lists.freedesktop.org<mailto:dri-deve=
-l@lists.freedesktop.org> <dri-devel@lists.freedesktop.org<mailto:dri-devel@=
-lists.freedesktop.org>>
-Betreff: [PATCH 2/2] drm/amdgpu: Use mod_delayed_work in JPEG/UVD/VCE/VCN r=
-ing_end_use hooks
-
-
-
-From: Michel D=E4nzer <mdaenzer@redhat.com<mailto:mdaenzer@redhat.com>>
-
-In contrast to schedule_delayed_work, this pushes back the work if it
-was already scheduled before. Specific behaviour change:
-
-Before:
-
-The scheduled work ran ~1 second after the first time ring_end_use was
-called, even if the ring was used again during that second.
-
-After:
-
-The scheduled work runs ~1 second after the last time ring_end_use is
-called.
-
-Inspired by the corresponding change in amdgpu_gfx_off_ctrl. While I
-haven't run into specific issues in this case, the new behaviour makes
-more sense to me.
-
-Signed-off-by: Michel D=E4nzer <mdaenzer@redhat.com<mailto:mdaenzer@redhat.=
-com>>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c  | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c  | 2 +-
- drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c    | 2 +-
- 4 files changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_jpeg.c
-index 8996cb4ed57a..2c0040153f6c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
-@@ -110,7 +110,7 @@ void amdgpu_jpeg_ring_begin_use(struct amdgpu_ring *rin=
-g)
- void amdgpu_jpeg_ring_end_use(struct amdgpu_ring *ring)
- {
-         atomic_dec(&ring->adev->jpeg.total_submission_cnt);
--       schedule_delayed_work(&ring->adev->jpeg.idle_work, JPEG_IDLE_TIMEOU=
-T);
-+       mod_delayed_work(system_wq, &ring->adev->jpeg.idle_work, JPEG_IDLE_=
-TIMEOUT);
- }
-
- int amdgpu_jpeg_dec_ring_test_ring(struct amdgpu_ring *ring)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_uvd.c
-index 0f576f294d8a..b6b1d7eeb8e5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-@@ -1283,7 +1283,7 @@ void amdgpu_uvd_ring_begin_use(struct amdgpu_ring *ri=
-ng)
- void amdgpu_uvd_ring_end_use(struct amdgpu_ring *ring)
- {
-         if (!amdgpu_sriov_vf(ring->adev))
--               schedule_delayed_work(&ring->adev->uvd.idle_work, UVD_IDLE_=
-TIMEOUT);
-+               mod_delayed_work(system_wq, &ring->adev->uvd.idle_work, UVD=
-_IDLE_TIMEOUT);
- }
-
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_vce.c
-index 1ae7f824adc7..2253c18a6688 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-@@ -401,7 +401,7 @@ void amdgpu_vce_ring_begin_use(struct amdgpu_ring *ring=
-)
- void amdgpu_vce_ring_end_use(struct amdgpu_ring *ring)
- {
-         if (!amdgpu_sriov_vf(ring->adev))
--               schedule_delayed_work(&ring->adev->vce.idle_work, VCE_IDLE_=
-TIMEOUT);
-+               mod_delayed_work(system_wq, &ring->adev->vce.idle_work, VCE=
-_IDLE_TIMEOUT);
- }
-
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/am=
-dgpu/vcn_v1_0.c
-index 284bb42d6c86..d5937ab5ac80 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-@@ -1874,7 +1874,7 @@ void vcn_v1_0_set_pg_for_begin_use(struct amdgpu_ring=
- *ring, bool set_clocks)
-
- void vcn_v1_0_ring_end_use(struct amdgpu_ring *ring)
- {
--       schedule_delayed_work(&ring->adev->vcn.idle_work, VCN_IDLE_TIMEOUT)=
-;
-+       mod_delayed_work(system_wq, &ring->adev->vcn.idle_work, VCN_IDLE_TI=
-MEOUT);
-         mutex_unlock(&ring->adev->vcn.vcn1_jpeg1_workaround);
- }
-
---
-2.32.0
-
---_000_MN2PR12MB3775E6C1ECA915283108E6D783F99MN2PR12MB3775namp_
-Content-Type: text/html; charset="Windows-1252"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
-252">
-</head>
-<body>
-<div>Hi James,</div>
-<div><br>
-</div>
-<div>Evan seems to have understood how this all works together.</div>
-<div><br>
-</div>
-<div>See while any begin/end use critical section is active the work should=
- not be active.</div>
-<div><br>
-</div>
-<div>When you handle only one ring you can just call cancel in begin use an=
-d schedule in end use. But when you have more than one ring you need a lock=
- or counter to prevent concurrent work items to be started.</div>
-<div><br>
-</div>
-<div>Michelle's idea to use mod_delayed_work is a bad one because it assume=
-s that the delayed work is still running.</div>
-<div><br>
-</div>
-<div>Something similar applies to the first patch I think, so when this mak=
-es a difference it is actually a bug.</div>
-<div><br>
-</div>
-<div>Regards,</div>
-<div>Christian.</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>Von:</b> Quan, Evan &lt;Evan.Qu=
-an@amd.com&gt;<br>
-<b>Gesendet:</b> Donnerstag, 12. August 2021 04:42<br>
-<b>An:</b> Koenig, Christian &lt;Christian.Koenig@amd.com&gt;; Michel D=E4n=
-zer &lt;michel@daenzer.net&gt;; Deucher, Alexander &lt;Alexander.Deucher@am=
-d.com&gt;<br>
-<b>Cc:</b> Liu, Leo &lt;Leo.Liu@amd.com&gt;; Zhu, James &lt;James.Zhu@amd.c=
-om&gt;; amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;=
-; dri-devel@lists.freedesktop.org &lt;dri-devel@lists.freedesktop.org&gt;<b=
-r>
-<b>Betreff:</b> RE: [PATCH 2/2] drm/amdgpu: Use mod_delayed_work in JPEG/UV=
-D/VCE/VCN ring_end_use hooks</font>
-<div>&nbsp;</div>
-</div>
-<style>
-<!--
-@font-face
-	{font-family:Wingdings}
-@font-face
-	{font-family:"Cambria Math"}
-@font-face
-	{font-family:DengXian}
-@font-face
-	{font-family:Calibri}
-@font-face
-	{}
-p.x_MsoNormal, li.x_MsoNormal, div.x_MsoNormal
-	{margin:0in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif}
-a:link, span.x_MsoHyperlink
-	{color:#0563C1;
-	text-decoration:underline}
-p.x_MsoListParagraph, li.x_MsoListParagraph, div.x_MsoListParagraph
-	{margin-top:0in;
-	margin-right:0in;
-	margin-bottom:0in;
-	margin-left:.5in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif}
-span.x_EmailStyle19
-	{font-family:"Calibri",sans-serif;
-	color:windowtext}
-p.x_msipheadera4477989, li.x_msipheadera4477989, div.x_msipheadera4477989
-	{margin-right:0in;
-	margin-left:0in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif}
-.x_MsoChpDefault
-	{font-size:10.0pt}
-@page WordSection1
-	{margin:1.0in 1.0in 1.0in 1.0in}
-div.x_WordSection1
-	{}
-ol
-	{margin-bottom:0in}
-ul
-	{margin-bottom:0in}
--->
-</style>
-<div lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:b=
-reak-word">
-<div class=3D"x_WordSection1">
-<p class=3D"x_msipheadera4477989" style=3D"margin:0in"><span style=3D"font-=
-size:10.0pt; font-family:&quot;Arial&quot;,sans-serif; color:blue">[AMD Off=
-icial Use Only]</span></p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">Different from the 1<sup>st</sup> patch(for amdgpu=
-_gfx_off_ctrl) of the series, =93cancel_delayed_work_sync(&amp;adev-&gt;uvd=
-.idle_work)=94 will be called on like amdgpu_uvd_ring_begin_use(). &nbsp;Un=
-der this case, does it make any difference from previous
- implementation =94schedule_delayed_work=94?</p>
-<p class=3D"x_MsoNormal">Suppose the sequence is as below:</p>
-<ul type=3D"disc" style=3D"margin-top:0in">
-<li class=3D"x_MsoListParagraph" style=3D"margin-left:0in">Ring begin use</=
-li><li class=3D"x_MsoListParagraph" style=3D"margin-left:0in">Ring end use =
-<span style=3D"font-family:Wingdings">
-=E0</span> &nbsp;mod_delayed_work() : queue a new delayed work, right?</li>=
-<li class=3D"x_MsoListParagraph" style=3D"margin-left:0in">Ring begin use (=
-within 1s)
-<span style=3D"font-family:Wingdings">=E0</span> cancel_delayed_work_sync()=
- will cancel the work submitted above, right?</li><li class=3D"x_MsoListPar=
-agraph" style=3D"margin-left:0in">Ring end use&nbsp; <span style=3D"font-fa=
-mily:Wingdings">
-=E0</span> mod_delayed_work(): queue another new scheduled work, same as pr=
-evious =93schedule_delayed_work=94?</li></ul>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">BR</p>
-<p class=3D"x_MsoNormal">Evan</p>
-<div style=3D"border:none; border-left:solid blue 1.5pt; padding:0in 0in 0i=
-n 4.0pt">
-<div>
-<div style=3D"border:none; border-top:solid #E1E1E1 1.0pt; padding:3.0pt 0i=
-n 0in 0in">
-<p class=3D"x_MsoNormal"><b>From:</b> amd-gfx &lt;amd-gfx-bounces@lists.fre=
-edesktop.org&gt;
-<b>On Behalf Of </b>Koenig, Christian<br>
-<b>Sent:</b> Thursday, August 12, 2021 5:34 AM<br>
-<b>To:</b> Michel D=E4nzer &lt;michel@daenzer.net&gt;; Deucher, Alexander &=
-lt;Alexander.Deucher@amd.com&gt;<br>
-<b>Cc:</b> Liu, Leo &lt;Leo.Liu@amd.com&gt;; Zhu, James &lt;James.Zhu@amd.c=
-om&gt;; amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org<br>
-<b>Subject:</b> AW: [PATCH 2/2] drm/amdgpu: Use mod_delayed_work in JPEG/UV=
-D/VCE/VCN ring_end_use hooks</p>
-</div>
-</div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<div>
-<p class=3D"x_MsoNormal">NAK to at least this patch.</p>
-</div>
-<div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-</div>
-<div>
-<p class=3D"x_MsoNormal">Since activating power management while submitting=
- work is problematic cancel_delayed_work() must have been called during beg=
-in use or otherwise we have a serious coding problem in the first place.</p=
->
-</div>
-<div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-</div>
-<div>
-<p class=3D"x_MsoNormal">So this change shouldn't make a difference and I s=
-uggest to really stick with schedule_delayed_work().</p>
-</div>
-<div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-</div>
-<div>
-<p class=3D"x_MsoNormal">Maybe add a comment how this works?</p>
-</div>
-<div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-</div>
-<div>
-<p class=3D"x_MsoNormal">Need to take a closer look at the first patch when=
- I'm back from vacation, but it could be that this applies there as well.</=
-p>
-</div>
-<div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-</div>
-<div>
-<p class=3D"x_MsoNormal">Regards,</p>
-</div>
-<div>
-<p class=3D"x_MsoNormal">Christian.</p>
-</div>
-<div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-</div>
-<div class=3D"x_MsoNormal" align=3D"center" style=3D"text-align:center">
-<hr size=3D"2" width=3D"98%" align=3D"center">
-</div>
-<div id=3D"x_divRplyFwdMsg">
-<p class=3D"x_MsoNormal"><b><span style=3D"color:black">Von:</span></b><spa=
-n style=3D"color:black"> Michel D=E4nzer &lt;<a href=3D"mailto:michel@daenz=
-er.net">michel@daenzer.net</a>&gt;<br>
-<b>Gesendet:</b> Mittwoch, 11. August 2021 18:52<br>
-<b>An:</b> Deucher, Alexander &lt;<a href=3D"mailto:Alexander.Deucher@amd.c=
-om">Alexander.Deucher@amd.com</a>&gt;; Koenig, Christian &lt;<a href=3D"mai=
-lto:Christian.Koenig@amd.com">Christian.Koenig@amd.com</a>&gt;<br>
-<b>Cc:</b> Liu, Leo &lt;<a href=3D"mailto:Leo.Liu@amd.com">Leo.Liu@amd.com<=
-/a>&gt;; Zhu, James &lt;<a href=3D"mailto:James.Zhu@amd.com">James.Zhu@amd.=
-com</a>&gt;;
-<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
-org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.=
-freedesktop.org</a>&gt;;
-<a href=3D"mailto:dri-devel@lists.freedesktop.org">dri-devel@lists.freedesk=
-top.org</a> &lt;<a href=3D"mailto:dri-devel@lists.freedesktop.org">dri-deve=
-l@lists.freedesktop.org</a>&gt;<br>
-<b>Betreff:</b> [PATCH 2/2] drm/amdgpu: Use mod_delayed_work in JPEG/UVD/VC=
-E/VCN ring_end_use hooks</span>
-</p>
-<div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-</div>
-</div>
-<div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin-bottom:12.0pt">From: Michel D=E4nz=
-er &lt;<a href=3D"mailto:mdaenzer@redhat.com">mdaenzer@redhat.com</a>&gt;<b=
-r>
-<br>
-In contrast to schedule_delayed_work, this pushes back the work if it<br>
-was already scheduled before. Specific behaviour change:<br>
-<br>
-Before:<br>
-<br>
-The scheduled work ran ~1 second after the first time ring_end_use was<br>
-called, even if the ring was used again during that second.<br>
-<br>
-After:<br>
-<br>
-The scheduled work runs ~1 second after the last time ring_end_use is<br>
-called.<br>
-<br>
-Inspired by the corresponding change in amdgpu_gfx_off_ctrl. While I<br>
-haven't run into specific issues in this case, the new behaviour makes<br>
-more sense to me.<br>
-<br>
-Signed-off-by: Michel D=E4nzer &lt;<a href=3D"mailto:mdaenzer@redhat.com">m=
-daenzer@redhat.com</a>&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c | 2 +-<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c&nbsp; | 2 +-<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c&nbsp; | 2 +-<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c&nbsp;&nbsp;&nbsp; | 2 +-<br>
-&nbsp;4 files changed, 4 insertions(+), 4 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_jpeg.c<br>
-index 8996cb4ed57a..2c0040153f6c 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c<br>
-@@ -110,7 +110,7 @@ void amdgpu_jpeg_ring_begin_use(struct amdgpu_ring *rin=
-g)<br>
-&nbsp;void amdgpu_jpeg_ring_end_use(struct amdgpu_ring *ring)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; atomic_dec(&amp;ring-&gt;a=
-dev-&gt;jpeg.total_submission_cnt);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; schedule_delayed_work(&amp;ring-&gt;a=
-dev-&gt;jpeg.idle_work, JPEG_IDLE_TIMEOUT);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mod_delayed_work(system_wq, &amp;ring=
--&gt;adev-&gt;jpeg.idle_work, JPEG_IDLE_TIMEOUT);<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;int amdgpu_jpeg_dec_ring_test_ring(struct amdgpu_ring *ring)<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_uvd.c<br>
-index 0f576f294d8a..b6b1d7eeb8e5 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c<br>
-@@ -1283,7 +1283,7 @@ void amdgpu_uvd_ring_begin_use(struct amdgpu_ring *ri=
-ng)<br>
-&nbsp;void amdgpu_uvd_ring_end_use(struct amdgpu_ring *ring)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_sriov_vf(ring-=
-&gt;adev))<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; schedule_delayed_work(&amp;ring-&gt;adev-&gt;uvd.idle_work, UVD_=
-IDLE_TIMEOUT);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; mod_delayed_work(system_wq, &amp;ring-&gt;adev-&gt;uvd.idle_work=
-, UVD_IDLE_TIMEOUT);<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;/**<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_vce.c<br>
-index 1ae7f824adc7..2253c18a6688 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c<br>
-@@ -401,7 +401,7 @@ void amdgpu_vce_ring_begin_use(struct amdgpu_ring *ring=
-)<br>
-&nbsp;void amdgpu_vce_ring_end_use(struct amdgpu_ring *ring)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_sriov_vf(ring-=
-&gt;adev))<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; schedule_delayed_work(&amp;ring-&gt;adev-&gt;vce.idle_work, VCE_=
-IDLE_TIMEOUT);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; mod_delayed_work(system_wq, &amp;ring-&gt;adev-&gt;vce.idle_work=
-, VCE_IDLE_TIMEOUT);<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;/**<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/am=
-dgpu/vcn_v1_0.c<br>
-index 284bb42d6c86..d5937ab5ac80 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c<br>
-@@ -1874,7 +1874,7 @@ void vcn_v1_0_set_pg_for_begin_use(struct amdgpu_ring=
- *ring, bool set_clocks)<br>
-&nbsp;<br>
-&nbsp;void vcn_v1_0_ring_end_use(struct amdgpu_ring *ring)<br>
-&nbsp;{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; schedule_delayed_work(&amp;ring-&gt;a=
-dev-&gt;vcn.idle_work, VCN_IDLE_TIMEOUT);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mod_delayed_work(system_wq, &amp;ring=
--&gt;adev-&gt;vcn.idle_work, VCN_IDLE_TIMEOUT);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;ring-&gt=
-;adev-&gt;vcn.vcn1_jpeg1_workaround);<br>
-&nbsp;}<br>
-&nbsp;<br>
--- <br>
-2.32.0</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_MN2PR12MB3775E6C1ECA915283108E6D783F99MN2PR12MB3775namp_--
+>   		}
+>   	}
+>   
+> @@ -2552,8 +2557,11 @@ static int smu_set_fan_control_mode(struct smu_context *smu, int value)
+>   
+>   	/* reset user dpm fan speed */
+>   	if (!ret && value != AMD_FAN_CTRL_MANUAL &&
+> -			!(smu->user_dpm_profile.flags & SMU_DPM_USER_PROFILE_RESTORE))
+> +			!(smu->user_dpm_profile.flags & SMU_DPM_USER_PROFILE_RESTORE)) {
+>   		smu->user_dpm_profile.fan_speed_percent = 0;
+> +		smu->user_dpm_profile.fan_speed_rpm = 0;
+> +		smu->user_dpm_profile.flags &= ~(SMU_CUSTOM_FAN_SPEED_RPM | SMU_CUSTOM_FAN_SPEED_PWM);
+> +	}
+>   
+>   	return ret;
+>   }
+> @@ -2604,8 +2612,10 @@ static int smu_set_fan_speed_percent(void *handle, u32 speed)
+>   		if (speed > 100)
+>   			speed = 100;
+>   		ret = smu->ppt_funcs->set_fan_speed_percent(smu, speed);
+> -		if (!ret && !(smu->user_dpm_profile.flags & SMU_DPM_USER_PROFILE_RESTORE))
+> +		if (!ret && !(smu->user_dpm_profile.flags & SMU_DPM_USER_PROFILE_RESTORE)) {
+> +			smu->user_dpm_profile.flags |= SMU_CUSTOM_FAN_SPEED_PWM;
+>   			smu->user_dpm_profile.fan_speed_percent = speed;
+> +		}
+>   	}
+>   
+>   	mutex_unlock(&smu->mutex);
+> 
