@@ -2,131 +2,106 @@ Return-Path: <SRS0=1H3f=ND=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 621AAC4338F
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 04:01:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0D488C4338F
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 04:01:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E81A060E78
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 04:01:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E81A060E78
+	by mail.kernel.org (Postfix) with ESMTPS id C302761058
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 04:01:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C302761058
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57EE96E237;
-	Thu, 12 Aug 2021 04:01:26 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2071.outbound.protection.outlook.com [40.107.92.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 90A496E237
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Aug 2021 04:01:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4699F6E239;
+	Thu, 12 Aug 2021 04:01:36 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2085.outbound.protection.outlook.com [40.107.237.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0B696E239
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Aug 2021 04:01:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DaoEcG1LOSKzK5MNQAitIUF1lilCQzJAm1PhiSjbJIJ7SRNbCmBd45jC1yZTuhxogZG4IXUvSceEfSvE0dSdW8v4A26XcbtzzrVlWSHiLZOOL4suE3Kx61XE20w+H3holzEWVwa7kCx87B+tllA4CBgRUSp9R58LRt5B18C1z848yIlqo4qTdApqgI7tnQpXrGlptlOUxXTkxC4RvP4g9k/GZkqxM1YMObSEfaFBNV+fA2kJxnI51gzrZf+pZXAZWCe9qmwp2QGCqHED25D2UX5R3GPgTvHyB/zoHRv16DGTIaGIlA57qu0YnjL97m2tEMRqcRPpfIaEQ2KZcvMZKA==
+ b=ey1k8U9K1u3WQQ/A3PKoQeIbQE1DBeYj71fOvql8qj/XqfSqRmHcv90p4CeUo4qvHAmE+KjbW5NEJ0525oTzxndKAcdHsjEzMcNJqV6aM4UY2CYxvQhMF121DwiCAWTPqgJq3HEgPCGr9e8YSiqZhSixmsxrRFGV9Lpf3r9I/dZq2RR9ZJtk6qgPTxt7LB9UrejJ+G/siRI2Eh2U6o6VieCc14bD1Nk5r81xIfZPyQ+I3wS8S0WMupzjWOtWwhRb1fAKMi2jA7TBwAnAF7wnK1KwjQM6rH6B4GGeVcUufTVX9y/jLj+r1B2p90h1CVYhNyoqK+eSmG+/v5vdnnOG8A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=b29ady3b/t8/q25Q21G9nO3RSoUFVJL2OUaTSNrMfzA=;
- b=H9/ZlnazD0HhncX1VMio7GPr1pHTlNC71/Dt9fq3BLr2BGcopWpZy85ET6910l4JjT19c3uS2K3LPg/ZaWtMuHVVx0DEguXeodkxv0HwhTNWd2jP/+iZmiqgWVX9eJIvD7Q7NgYsZIdVXgV0WIkyKU0lxtkjIyvmEG4RkVSX0QXSjoB4eRwFug4PwymoO1R2yLwqeNBb7yBIyEmjJkgzqEce7p7nZ/45cJCDdl5uvLwUE8/h/PGWWbqCG7l5SKzG5drFxScCadZ0hDD4hgTf6AszDj3LRrFxxMXJoLRUtavAy/nfew9FC8MmDQRXmRb6HQEBtkpsD9qXFZULYePzOw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=5jWntbpbW0coZpTp3U0+mNVFZTakYW6KA4Ib9i/THLc=;
+ b=VXqDI/LgDmpG+5dDjzb2ZJ/NvH3EeML/8P8xES5fkX7U1alG+znNrzZKympEf1oQS/Rt8rrRXXukuv7fcgrquBsuusMEv3n/Am6bupQr4Gfqg7YbXZ5O4OgCR9JItGkYsnT44wGUyW2SdGAr5paduJ5ZeCflAMDGIE2sXBmN4dwYIk+o2Bl7eEDYY+93KTNadsGLazkGH1MH4izVB7GcwcM83j5l/trJ38mifbXUoAYq+VwXsIX5EGud3YjdeKxJFgPODT2CovgbXWqnGc5RLG5/f2Z52bIpkwo8ol/reemDVolvw4x4FROQb5IVnMpfOvFcnPZOihn2ZE0Qu+JpLA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=b29ady3b/t8/q25Q21G9nO3RSoUFVJL2OUaTSNrMfzA=;
- b=pa+l97f96FkUvjVSqnQouJU0CCFxFjr+HVNmwushGz4jmQJeSVD4MRgXbMO9IeIwG+DFx40TJFJQ62dE4N/Et9A5U76iP20tXkx7uglHOvMdP93SRjKdKS4z9PCXU46lsioYJ2llqZFb1Wv/HmtCizBiqh9ZgPbbbo//dEaomdk=
-Received: from CO6PR12MB5473.namprd12.prod.outlook.com (2603:10b6:303:13e::8)
- by CO6PR12MB5410.namprd12.prod.outlook.com (2603:10b6:5:35b::5) with
+ bh=5jWntbpbW0coZpTp3U0+mNVFZTakYW6KA4Ib9i/THLc=;
+ b=wjAlRWwSf/YNvVKCg1rM59v3LYG7W4twBJT52nBA3NRdXSeeO07qduQlr3NwxlA+m2c/LM5rScsPR8Zh8prKS06xghxRZbQdzXaAc867tceGUmy5PH9cKCILiJH/F/sxyCpxMSTC4FI7j1fxhys5Qt5PL4I4Q9MZaMnyAfMPfjc=
+Received: from BN6PR19CA0105.namprd19.prod.outlook.com (2603:10b6:404:a0::19)
+ by DM5PR12MB2438.namprd12.prod.outlook.com (2603:10b6:4:b5::25) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.13; Thu, 12 Aug
- 2021 04:01:22 +0000
-Received: from CO6PR12MB5473.namprd12.prod.outlook.com
- ([fe80::ac0d:a66f:c4e0:aabb]) by CO6PR12MB5473.namprd12.prod.outlook.com
- ([fe80::ac0d:a66f:c4e0:aabb%3]) with mapi id 15.20.4415.016; Thu, 12 Aug 2021
- 04:01:22 +0000
-From: "Wang, Kevin(Yang)" <Kevin1.Wang@amd.com>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Feng, Kenneth"
- <Kenneth.Feng@amd.com>, "Min, Frank" <Frank.Min@amd.com>, "Zhang, Hawking"
- <Hawking.Zhang@amd.com>
-Subject: Re: [PATCH v2 1/2] drm/amd/pm: skip to load smu microcode on sriov
- for aldebaran
-Thread-Topic: [PATCH v2 1/2] drm/amd/pm: skip to load smu microcode on sriov
- for aldebaran
-Thread-Index: AQHXjys1bEHz1qX6p0qnzF7zJVVoAqtvPtnQ
-Date: Thu, 12 Aug 2021 04:01:22 +0000
-Message-ID: <CO6PR12MB5473E0156D60AB4EDC0F1F32A2F99@CO6PR12MB5473.namprd12.prod.outlook.com>
-References: <20210812033627.1241847-1-kevin1.wang@amd.com>
-In-Reply-To: <20210812033627.1241847-1-kevin1.wang@amd.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-08-12T04:01:22.592Z;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
- Official Use
- Only; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard; 
-authentication-results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 041a3951-2d77-464d-81d9-08d95d45d909
-x-ms-traffictypediagnostic: CO6PR12MB5410:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <CO6PR12MB5410D601D3431335022C1406A2F99@CO6PR12MB5410.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:2089;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: SR/2+NUD/mLDIF9FlOFGcVYW9M+znHKtqjbB6aWZwzEnWzhu3eB3MmW6hI3RqcQc3wnbybMAWFpLLFOJJVR36dNkvTtRkuV5nPH/1qJrr/smzgdTFx5IrF9fjhJ7kU47ZMn+lO+OY642UQE/6nlG9H4g1B7o0/mejmH/74EkGx/YAy8oE7bFGUzRL2Cuq98NJqZ7kUkg/zn3NAjvmIsm1YwbTWKGloog92ytkqUKQQd1j79GbycdgeczqFOTT53Cel5x+61rq3funCBo7tj9VcmT6D6Sqy02Zr6+jXdn/etuA9NGJ17zmT6DcfuP5WtTvlo4h5UhpgnGbutuM6U5kR74sxXJx7cEZDXgJ6kREjdj19JO3imzlyH8QXMuT/qXr11887IV0v77OvFktYGVX0bVaDJ4VyUn49FwZr+4xzSTauzxjxsx503+EfBrIRckf7rXBVgFqqaagB0Qw+wmkA7bQH3BZAhqoWkboDOmh+i6osU0KJJAPgRM6eUvMCc+O7A5xPfIBef8dY2b8RdP5fIOKNSZuPt7jd2vSUrU+V9sq8zZTT035ZRExsPz2nQCn5iuiyZQkGO7N8k8TshQmHV6Uhj7q5UneDyXZIFEbbKjq4mlq/Ko7iNX6RsEfXR6JjZlxYtRFgdVu7iZ5/0q5uYXpm0N10oN9mIdPFkdRfISGEtJqpcrDfliLGKEQy1IhjymOfzgd6TX0DmU6qsYTw==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5473.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(366004)(376002)(136003)(39860400002)(346002)(7696005)(76116006)(66946007)(8676002)(66446008)(55016002)(64756008)(8936002)(9686003)(33656002)(38100700002)(91956017)(66476007)(52536014)(83380400001)(66556008)(19627405001)(71200400001)(4326008)(86362001)(316002)(478600001)(26005)(186003)(6506007)(53546011)(5660300002)(6916009)(38070700005)(54906003)(122000001)(2906002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?K7ohyz2NB5cHLTFuf0CJsgl27nMpli+NJbNMuZXHs3b3l2TQ4r7KFRAbBb?=
- =?iso-8859-1?Q?KcXqMCRuDLoQREnJf3laeCoTJqnBuDX3ty2mJL9YE8GEDyKTT6SvzMbaJC?=
- =?iso-8859-1?Q?l9qbTxx/O2UybcT/iNIx0D+VpRU5O94Ii6CJhOldoJmFSLxcYElQMLf7/K?=
- =?iso-8859-1?Q?7GA+tBT/oVt8FBc+X7BAX1QCWa3rw196VVX89+qnRbfM3yo1FZsAmy3+eG?=
- =?iso-8859-1?Q?xIpb550MjGV6P85SRCfRO0xgzmz32Mm6F+cRdYYBpruNvzlhXtLs/Q1GLA?=
- =?iso-8859-1?Q?uw86BdIYqYCDrED8/jq8sDrH8S+75javbvdV2NIjh6egfjrRjm4iSKdRFJ?=
- =?iso-8859-1?Q?MG9A/i66UEQpq2EXtS6VRxngnqHaYnQU6+o0pc9bKQtwOIDI+nDGj7FLBw?=
- =?iso-8859-1?Q?m5NSYy8XnVRePzlDwNXE0NsmL3Kzst9anlMz0T8jh9nayojJOJkysnEoGS?=
- =?iso-8859-1?Q?lfcWaA2Gp7WYpzD5BngWV3LuItBSa54AE/61hh4kZywzmKjrmmTjSrQPD3?=
- =?iso-8859-1?Q?y/ZdeibmcpC1MhjfPSZuR8dXWgaXyiMgTAhptmDxakySMgwWGIEfFDo9tY?=
- =?iso-8859-1?Q?HmdVR66x/GZRJDitS4Xi8KXoqa7lswriWQ7H1HYylOmZSlgEN7kf+L00+U?=
- =?iso-8859-1?Q?4jbpnd/zi3f4UlxJLYQRCsWd+UTkQ5hmOkxXoImmv+G25nszYCj7phhjke?=
- =?iso-8859-1?Q?9M59Wll/yUn2IVGOktYJ05if7p3GC30unHDnCUw6pV0iNXxMjTkcNlR1x8?=
- =?iso-8859-1?Q?mlkQsA/cv7K1paS6bhcA0o7GtZUCSRqvkBQVvdc7CCxT71tx5f/j82aLAO?=
- =?iso-8859-1?Q?ZXCKI0SH06Vdcad+mlstGgXfwR9dD51ejVlBnJILKrOhsnKCG8By0/V5vu?=
- =?iso-8859-1?Q?GityeUgDK0Ab7TL0lui3UR2z2m+PNRr0t/mnv1ZBAYpciuruYcOsL4/KnI?=
- =?iso-8859-1?Q?VVmkxpQS3bbt6umWwEHHJp/m4E07FHjF3+7K6azulbS+MwuQtXLOyXAutQ?=
- =?iso-8859-1?Q?P+BhjpnuUVZVFutXLlKHpc8XVUsZSpRz974eF2KEoXwRYKKg8n5UYPkyJU?=
- =?iso-8859-1?Q?JjmfNe4srNPM2nrRVxwp0eIoiYqa3xAyy3OU67RUXDGsw6oWm4YFUq+BBK?=
- =?iso-8859-1?Q?uvQTe7yMi2Z9CGWADnAllkiMFUXT72P+uJqX5lJ5y+0NGvuFYCzQ88Vxva?=
- =?iso-8859-1?Q?vpeFOFAaHPQq4iBHi4BsGB80WlXP2vxZ01ElZCDlFxR6YcefqQ+tJOFIM+?=
- =?iso-8859-1?Q?xXxq4rvq+GRy3YtScjRLKm0OHqTAXBx1jBO5oFsqeY0OxAhc8Y5Ro7nw2v?=
- =?iso-8859-1?Q?i3UtWcIItXwg1ZYOH1DihHddCJf0HmoewnvLsLzBYXVgXddnYH5R1zVv2M?=
- =?iso-8859-1?Q?KKRsWtHwdZ?=
-Content-Type: multipart/alternative;
- boundary="_000_CO6PR12MB5473E0156D60AB4EDC0F1F32A2F99CO6PR12MB5473namp_"
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4394.16; Thu, 12 Aug
+ 2021 04:01:32 +0000
+Received: from BN8NAM11FT036.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:404:a0:cafe::3e) by BN6PR19CA0105.outlook.office365.com
+ (2603:10b6:404:a0::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.15 via Frontend
+ Transport; Thu, 12 Aug 2021 04:01:32 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT036.mail.protection.outlook.com (10.13.177.168) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4415.14 via Frontend Transport; Thu, 12 Aug 2021 04:01:32 +0000
+Received: from equan-buildpc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Wed, 11 Aug
+ 2021 23:01:30 -0500
+From: Evan Quan <evan.quan@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <nils.wallmenius@gmail.com>, <Lijo.Lazar@amd.com>, <Guchun.Chen@amd.com>, 
+ Evan Quan <evan.quan@amd.com>
+Subject: [PATCH V2 1/7] drm/amd/pm: correct the fan speed RPM setting
+Date: Thu, 12 Aug 2021 12:01:04 +0800
+Message-ID: <20210812040110.1293682-1-evan.quan@amd.com>
+X-Mailer: git-send-email 2.29.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 4869d38c-9568-4263-6580-08d95d45df03
+X-MS-TrafficTypeDiagnostic: DM5PR12MB2438:
+X-Microsoft-Antispam-PRVS: <DM5PR12MB2438234FC5149A2C280FC06EE4F99@DM5PR12MB2438.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: e27BpHzv+HMocfIcUr4mEfCjPn6XvrdjMCPyw/s7rfstXs6to/KT0z2k8Tm5tdvyswExK0G7MYDPFH/sw8t75+/5VB6Zh93i2EbpvYwEY/qngm6OFeuHIJ7RaQVDc3aFVeAKOCumqPmnTb0VUXcr/iqR0X9MWrp0Iae+PeUU4PXY7dtKfQK9fuNYs6ljxuvd9ANaO8deu0qZte7Qhr42GUHQ9qfCZRVPTE7UL+WN3+jiHjDndfWAYVS6sBIusBc164Ic0EJlSMqUdg3+r2ipqh70F3d+dmKhVLsFDV6o/p6iJF4NeDobA+uCZsV/owrlC8A1UX8FyBNnxd3SDCoGoRota5ueu/MVZCGvkyx1tjtsqripkbURfuNZaJL9NWDM77kwNwzkP5SczWlmeVAxgRbuBQezSaaGba7Z44BOrXEMkiEjzfDtsp7+ayfh9nn4dBBbH8eqLe5zHj9mQLrRBbWC06NhpS97A/CqUTS9NM5lSEzRHFGGB5zayZ/V4DFDfWYGEqy36GVJ5k7/zu8aBtN2ChWAgcuUkIrL2AegrtNgKXLo30X3CRqFiKol9bRyTv+ilXm8yWmO47EszowI2HRrDgWq026+mCBeabRMaO6WDD2fD6sb4fps+Se4lChXx7VFKw2xwuGY4NQ42F1sa0Hg/cKKHRw8kinzweLVIdxwsmcfsBV58Jd0YponZWyJML0qFeS7J8owpoPHyD8irQoWBhAXjnVk7Z0f7kPzI2Ykx4mduO9FLaPMZfRegQB9OMEVF1klNCgGxT6et48k0A==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(39860400002)(376002)(346002)(396003)(136003)(46966006)(36840700001)(6666004)(316002)(81166007)(36756003)(478600001)(54906003)(2616005)(34020700004)(44832011)(426003)(86362001)(336012)(2906002)(4326008)(26005)(186003)(16526019)(83380400001)(36860700001)(1076003)(7696005)(70586007)(6916009)(82740400003)(356005)(82310400003)(47076005)(70206006)(8676002)(8936002)(5660300002)(36900700001);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5473.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 041a3951-2d77-464d-81d9-08d95d45d909
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Aug 2021 04:01:22.3169 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: U4niypxZc622II3dg/eTSfM1nLWVWH3L4+aIBHimRPlMz+aRdVzP3Xw6/Nea0y87
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5410
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2021 04:01:32.4874 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4869d38c-9568-4263-6580-08d95d45df03
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT036.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2438
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,379 +116,158 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_CO6PR12MB5473E0156D60AB4EDC0F1F32A2F99CO6PR12MB5473namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+The relationship "PWM = RPM / smu->fan_max_rpm" between fan speed
+PWM and RPM is not true for SMU11 ASICs. So, we need a new way to
+perform the fan speed RPM setting.
 
-[AMD Official Use Only]
-
-please ignore this patch, there some errors in here.
-
-Best Regards,
-Kevin
-________________________________
-From: Wang, Kevin(Yang) <Kevin1.Wang@amd.com>
-Sent: Thursday, August 12, 2021 11:36 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Lazar, Lijo <Lijo.Lazar@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>;=
- Min, Frank <Frank.Min@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>; Wa=
-ng, Kevin(Yang) <Kevin1.Wang@amd.com>
-Subject: [PATCH v2 1/2] drm/amd/pm: skip to load smu microcode on sriov for=
- aldebaran
-
-v1:
-1. skip to load smu firmware in sriov mode for aldebaran chip
-2. using vbios pptable if in sriov mode.
-
-v2:
-clean up smu driver code in sriov code path
-
-Signed-off-by: Kevin Wang <kevin1.wang@amd.com>
----
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    | 41 +++++++++++--------
- 1 file changed, 25 insertions(+), 16 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/d=
-rm/amd/pm/swsmu/smu13/smu_v13_0.c
-index a421ba85bd6d..ebc081dc01cd 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-@@ -85,6 +85,10 @@ int smu_v13_0_init_microcode(struct smu_context *smu)
-         const struct common_firmware_header *header;
-         struct amdgpu_firmware_info *ucode =3D NULL;
-
-+       /* doesn't need to load smu firmware in IOV mode */
-+       if (amdgpu_sriov_vf(adev))
-+               return 0;
-+
-         switch (adev->asic_type) {
-         case CHIP_ALDEBARAN:
-                 chip_name =3D "aldebaran";
-@@ -273,34 +277,38 @@ int smu_v13_0_setup_pptable(struct smu_context *smu)
-         struct amdgpu_device *adev =3D smu->adev;
-         const struct smc_firmware_header_v1_0 *hdr;
-         int ret, index;
--       uint32_t size =3D 0;
-+       uint32_t size =3D 0, pp_table_id;
-         uint16_t atom_table_size;
-         uint8_t frev, crev;
-         void *table;
-         uint16_t version_major, version_minor;
-
-+       if (!amdgpu_sriov_vf(adev)) {
-+               if (amdgpu_smu_pptable_id >=3D 0) {
-+                       pp_table_id =3D amdgpu_smu_pptable_id;
-+                       dev_info(adev->dev, "override pptable id %d\n", pp_=
-table_id);
-+               } else {
-+                       pp_table_id =3D smu->smu_table.boot_values.pp_table=
-_id;
-+                       dev_info(adev->dev, "use driver provided pptable %d=
-\n", pp_table_id);
-+               }
-
--       if (amdgpu_smu_pptable_id >=3D 0) {
--               smu->smu_table.boot_values.pp_table_id =3D amdgpu_smu_pptab=
-le_id;
--               dev_info(adev->dev, "override pptable id %d\n", amdgpu_smu_=
-pptable_id);
--       }
-+               hdr =3D (const struct smc_firmware_header_v1_0 *) adev->pm.=
-fw->data;
-+               version_major =3D le16_to_cpu(hdr->header.header_version_ma=
-jor);
-+               version_minor =3D le16_to_cpu(hdr->header.header_version_mi=
-nor);
-+               if (version_major !=3D 2) {
-+                       dev_err(adev->dev, "Unsupported smu firwmare versio=
-n %d.%d\n",
-+                                version_major, version_minor);
-+                       return -EINVAL;
-+               }
-
--       hdr =3D (const struct smc_firmware_header_v1_0 *) adev->pm.fw->data=
-;
--       version_major =3D le16_to_cpu(hdr->header.header_version_major);
--       version_minor =3D le16_to_cpu(hdr->header.header_version_minor);
--       if (version_major =3D=3D 2 && smu->smu_table.boot_values.pp_table_i=
-d > 0) {
--               dev_info(adev->dev, "use driver provided pptable %d\n", smu=
-->smu_table.boot_values.pp_table_id);
-                 switch (version_minor) {
-                 case 1:
--                       ret =3D smu_v13_0_set_pptable_v2_1(smu, &table, &si=
-ze,
--                                                        smu->smu_table.boo=
-t_values.pp_table_id);
-+                       ret =3D smu_v13_0_set_pptable_v2_1(smu, &table, &si=
-ze, pp_table_id);
-                         break;
-                 default:
-                         ret =3D -EINVAL;
-                         break;
-                 }
--               if (ret)
--                       return ret;
-
-         } else {
-                 dev_info(adev->dev, "use vbios provided pptable\n");
-@@ -309,11 +317,12 @@ int smu_v13_0_setup_pptable(struct smu_context *smu)
-
-                 ret =3D amdgpu_atombios_get_data_table(adev, index, &atom_=
-table_size, &frev, &crev,
-                                                      (uint8_t **)&table);
--               if (ret)
--                       return ret;
-                 size =3D atom_table_size;
-         }
-
-+       if (ret)
-+               return ret;
-+
-         if (!smu->smu_table.power_play_table)
-                 smu->smu_table.power_play_table =3D table;
-         if (!smu->smu_table.power_play_table_size)
+Change-Id: I1afe8102f02ead9a8a07c7105f689ac60a85b0d8
+Signed-off-by: Evan Quan <evan.quan@amd.com>
 --
-2.25.1
+v1->v2:
+  - hardcode crystal_clock_freq as 25Mhz (Lijo)
+---
+ drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h       |  5 +++
+ drivers/gpu/drm/amd/pm/inc/smu_v11_0.h        |  3 ++
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |  9 ++---
+ .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c |  1 +
+ .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   |  1 +
+ .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   |  1 +
+ .../gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c    | 35 +++++++++++++++++++
+ 7 files changed, 51 insertions(+), 4 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+index c2c201b8e3cf..183654f8b564 100644
+--- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+@@ -1047,6 +1047,11 @@ struct pptable_funcs {
+ 	 */
+ 	int (*set_fan_speed_percent)(struct smu_context *smu, uint32_t speed);
+ 
++	/**
++	 * @set_fan_speed_rpm: Set a static fan speed in rpm.
++	 */
++	int (*set_fan_speed_rpm)(struct smu_context *smu, uint32_t speed);
++
+ 	/**
+ 	 * @set_xgmi_pstate: Set inter-chip global memory interconnect pstate.
+ 	 * &pstate: Pstate to set. D0 if Nonzero, D3 otherwise.
+diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h b/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
+index 403bc1bf8a77..b9c8a924dca6 100644
+--- a/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
++++ b/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
+@@ -224,6 +224,9 @@ smu_v11_0_set_fan_control_mode(struct smu_context *smu,
+ int smu_v11_0_set_fan_speed_percent(struct smu_context *smu,
+ 				    uint32_t speed);
+ 
++int smu_v11_0_set_fan_speed_rpm(struct smu_context *smu,
++				uint32_t speed);
++
+ int smu_v11_0_set_xgmi_pstate(struct smu_context *smu,
+ 				     uint32_t pstate);
+ 
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index 71afc2d20b12..e33e67310030 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -2187,11 +2187,12 @@ static int smu_set_fan_speed_rpm(void *handle, uint32_t speed)
+ 
+ 	mutex_lock(&smu->mutex);
+ 
+-	if (smu->ppt_funcs->set_fan_speed_percent) {
+-		percent = speed * 100 / smu->fan_max_rpm;
+-		ret = smu->ppt_funcs->set_fan_speed_percent(smu, percent);
+-		if (!ret && !(smu->user_dpm_profile.flags & SMU_DPM_USER_PROFILE_RESTORE))
++	if (smu->ppt_funcs->set_fan_speed_rpm) {
++		ret = smu->ppt_funcs->set_fan_speed_rpm(smu, speed);
++		if (!ret && smu->user_dpm_profile.flags & SMU_DPM_USER_PROFILE_RESTORE) {
++			percent = speed * 100 / smu->fan_max_rpm;
+ 			smu->user_dpm_profile.fan_speed_percent = percent;
++		}
+ 	}
+ 
+ 	mutex_unlock(&smu->mutex);
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+index 6ec8492f71f5..f909cda86299 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+@@ -2316,6 +2316,7 @@ static const struct pptable_funcs arcturus_ppt_funcs = {
+ 	.get_fan_control_mode = smu_v11_0_get_fan_control_mode,
+ 	.set_fan_control_mode = smu_v11_0_set_fan_control_mode,
+ 	.set_fan_speed_percent = smu_v11_0_set_fan_speed_percent,
++	.set_fan_speed_rpm = smu_v11_0_set_fan_speed_rpm,
+ 	.set_xgmi_pstate = smu_v11_0_set_xgmi_pstate,
+ 	.gfx_off_control = smu_v11_0_gfx_off_control,
+ 	.register_irq_handler = smu_v11_0_register_irq_handler,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+index d7722c229ddd..08b0edcbc8f9 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+@@ -3268,6 +3268,7 @@ static const struct pptable_funcs navi10_ppt_funcs = {
+ 	.get_fan_control_mode = smu_v11_0_get_fan_control_mode,
+ 	.set_fan_control_mode = smu_v11_0_set_fan_control_mode,
+ 	.set_fan_speed_percent = smu_v11_0_set_fan_speed_percent,
++	.set_fan_speed_rpm = smu_v11_0_set_fan_speed_rpm,
+ 	.set_xgmi_pstate = smu_v11_0_set_xgmi_pstate,
+ 	.gfx_off_control = smu_v11_0_gfx_off_control,
+ 	.register_irq_handler = smu_v11_0_register_irq_handler,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+index 261ef8ca862e..4e28a4ff1817 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+@@ -3903,6 +3903,7 @@ static const struct pptable_funcs sienna_cichlid_ppt_funcs = {
+ 	.get_fan_control_mode = smu_v11_0_get_fan_control_mode,
+ 	.set_fan_control_mode = smu_v11_0_set_fan_control_mode,
+ 	.set_fan_speed_percent = smu_v11_0_set_fan_speed_percent,
++	.set_fan_speed_rpm = smu_v11_0_set_fan_speed_rpm,
+ 	.set_xgmi_pstate = smu_v11_0_set_xgmi_pstate,
+ 	.gfx_off_control = smu_v11_0_gfx_off_control,
+ 	.register_irq_handler = smu_v11_0_register_irq_handler,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+index b5419e8eba89..007f84bdda6f 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+@@ -1228,6 +1228,41 @@ smu_v11_0_set_fan_speed_percent(struct smu_context *smu, uint32_t speed)
+ 	return smu_v11_0_set_fan_static_mode(smu, FDO_PWM_MODE_STATIC);
+ }
+ 
++int smu_v11_0_set_fan_speed_rpm(struct smu_context *smu,
++				uint32_t speed)
++{
++	struct amdgpu_device *adev = smu->adev;
++	/*
++	 * crystal_clock_freq used for fan speed rpm calculation is
++	 * always 25Mhz. So, hardcode it as 2500(in 10K unit).
++	 */
++	uint32_t crystal_clock_freq = 2500;
++	uint32_t tach_period;
++	int ret;
++
++	ret = smu_v11_0_auto_fan_control(smu, 0);
++	if (ret)
++		return ret;
++
++	/*
++	 * To prevent from possible overheat, some ASICs may have requirement
++	 * for minimum fan speed:
++	 * - For some NV10 SKU, the fan speed cannot be set lower than
++	 *   700 RPM.
++	 * - For some Sienna Cichlid SKU, the fan speed cannot be set
++	 *   lower than 500 RPM.
++	 */
++	tach_period = 60 * crystal_clock_freq * 10000 / (8 * speed);
++	WREG32_SOC15(THM, 0, mmCG_TACH_CTRL,
++		     REG_SET_FIELD(RREG32_SOC15(THM, 0, mmCG_TACH_CTRL),
++				   CG_TACH_CTRL, TARGET_PERIOD,
++				   tach_period));
++
++	ret = smu_v11_0_set_fan_static_mode(smu, FDO_PWM_MODE_STATIC_RPM);
++
++	return ret;
++}
++
+ int
+ smu_v11_0_set_fan_control_mode(struct smu_context *smu,
+ 			       uint32_t mode)
+-- 
+2.29.0
 
---_000_CO6PR12MB5473E0156D60AB4EDC0F1F32A2F99CO6PR12MB5473namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-please ignore this patch, there some errors in here.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Best Regards,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Kevin</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
-lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Wang, Kevin(Yang) &lt=
-;Kevin1.Wang@amd.com&gt;<br>
-<b>Sent:</b> Thursday, August 12, 2021 11:36 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;; Feng, Kenneth &lt;Kennet=
-h.Feng@amd.com&gt;; Min, Frank &lt;Frank.Min@amd.com&gt;; Zhang, Hawking &l=
-t;Hawking.Zhang@amd.com&gt;; Wang, Kevin(Yang) &lt;Kevin1.Wang@amd.com&gt;<=
-br>
-<b>Subject:</b> [PATCH v2 1/2] drm/amd/pm: skip to load smu microcode on sr=
-iov for aldebaran</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
->
-<div class=3D"PlainText">v1:<br>
-1. skip to load smu firmware in sriov mode for aldebaran chip<br>
-2. using vbios pptable if in sriov mode.<br>
-<br>
-v2:<br>
-clean up smu driver code in sriov code path<br>
-<br>
-Signed-off-by: Kevin Wang &lt;kevin1.wang@amd.com&gt;<br>
----<br>
-&nbsp;.../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c&nbsp;&nbsp;&nbsp; | 41 +++=
-++++++++--------<br>
-&nbsp;1 file changed, 25 insertions(+), 16 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/d=
-rm/amd/pm/swsmu/smu13/smu_v13_0.c<br>
-index a421ba85bd6d..ebc081dc01cd 100644<br>
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c<br>
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c<br>
-@@ -85,6 +85,10 @@ int smu_v13_0_init_microcode(struct smu_context *smu)<br=
->
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct common_firmwa=
-re_header *header;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_firmware_inf=
-o *ucode =3D NULL;<br>
-&nbsp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* doesn't need to load smu firmware =
-in IOV mode */<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev))<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return 0;<br>
-+<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (adev-&gt;asic_type=
-) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_ALDEBARAN:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; chip_name =3D &quot;aldebaran&quot;;<br>
-@@ -273,34 +277,38 @@ int smu_v13_0_setup_pptable(struct smu_context *smu)<=
-br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
- =3D smu-&gt;adev;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct smc_firmware_=
-header_v1_0 *hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret, index;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t size =3D 0;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t size =3D 0, pp_table_id;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint16_t atom_table_size;<=
-br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint8_t frev, crev;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void *table;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint16_t version_major, ve=
-rsion_minor;<br>
-&nbsp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_sriov_vf(adev)) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (amdgpu_smu_pptable_id &gt;=3D 0) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pp_table_id =3D =
-amdgpu_smu_pptable_id;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_info(adev-&g=
-t;dev, &quot;override pptable id %d\n&quot;, pp_table_id);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; } else {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pp_table_id =3D =
-smu-&gt;smu_table.boot_values.pp_table_id;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_info(adev-&g=
-t;dev, &quot;use driver provided pptable %d\n&quot;, pp_table_id);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; }<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_smu_pptable_id &gt;=3D 0) =
-{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; smu-&gt;smu_table.boot_values.pp_table_id =3D amdgpu_smu_pptable=
-_id;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; dev_info(adev-&gt;dev, &quot;override pptable id %d\n&quot;, amd=
-gpu_smu_pptable_id);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; hdr =3D (const struct smc_firmware_header_v1_0 *) adev-&gt;pm.fw=
--&gt;data;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; version_major =3D le16_to_cpu(hdr-&gt;header.header_version_majo=
-r);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; version_minor =3D le16_to_cpu(hdr-&gt;header.header_version_mino=
-r);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (version_major !=3D 2) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_err(adev-&gt=
-;dev, &quot;Unsupported smu firwmare version %d.%d\n&quot;,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; version_major, version_minor);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<=
-br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; }<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hdr =3D (const struct smc_firmware_he=
-ader_v1_0 *) adev-&gt;pm.fw-&gt;data;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; version_major =3D le16_to_cpu(hdr-&gt=
-;header.header_version_major);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; version_minor =3D le16_to_cpu(hdr-&gt=
-;header.header_version_minor);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (version_major =3D=3D 2 &amp;&amp;=
- smu-&gt;smu_table.boot_values.pp_table_id &gt; 0) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; dev_info(adev-&gt;dev, &quot;use driver provided pptable %d\n&qu=
-ot;, smu-&gt;smu_table.boot_values.pp_table_id);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; switch (version_minor) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; case 1:<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_v13_=
-0_set_pptable_v2_1(smu, &amp;table, &amp;size,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&gt;smu_table.boot_values.pp_table_id);=
-<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_v13_=
-0_set_pptable_v2_1(smu, &amp;table, &amp;size, pp_table_id);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break=
-;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; default:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =
-=3D -EINVAL;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break=
-;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (ret)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; dev_info(adev-&gt;dev, &quot;use vbios provided pptab=
-le\n&quot;);<br>
-@@ -309,11 +317,12 @@ int smu_v13_0_setup_pptable(struct smu_context *smu)<=
-br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ret =3D amdgpu_atombios_get_data_table(adev, index, &=
-amp;atom_table_size, &amp;frev, &amp;crev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; (uint8_t **)&amp;table);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (ret)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; size =3D atom_table_size;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return ret;<br>
-+<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!smu-&gt;smu_table.pow=
-er_play_table)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; smu-&gt;smu_table.power_play_table =3D table;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!smu-&gt;smu_table.pow=
-er_play_table_size)<br>
--- <br>
-2.25.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_CO6PR12MB5473E0156D60AB4EDC0F1F32A2F99CO6PR12MB5473namp_--
