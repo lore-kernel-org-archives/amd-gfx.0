@@ -2,109 +2,127 @@ Return-Path: <SRS0=1H3f=ND=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3488BC4338F
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 04:01:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 526B2C4338F
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 05:55:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EF7076101E
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 04:01:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EF7076101E
+	by mail.kernel.org (Postfix) with ESMTPS id E3EDE60F21
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 05:55:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E3EDE60F21
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8C1C6E247;
-	Thu, 12 Aug 2021 04:01:51 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2084.outbound.protection.outlook.com [40.107.243.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F16676E23D
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Aug 2021 04:01:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 122216E093;
+	Thu, 12 Aug 2021 05:55:11 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2063.outbound.protection.outlook.com [40.107.93.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F34476E093;
+ Thu, 12 Aug 2021 05:55:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=U31RPiuTU7v5Lt8BjNy7/twgZ8Slq1ixz9S0sizncBSF6zRz1vrbe2qmAnG6kjDlBHHHMXNJEghp6skCldlmxgKrpFtoPMpiB1ciVrf7H7uhq8TvKXXYeLo2FzuiGmKN+k8NOMLP/QvuWsOGeckyF/lJjN+v1rxCYxsoBqD4e7YTMHB6jIvYu0Zl6NeoZdVrP3NB3No+OmxiNubZuFd3xWNOXQKJ9BMvirBaeFxRQ8K0DSg3SW69bQpNm2AesP70YfcS4Ich7cPHJN2rlQO7L40e5Cc20qKBZghckWSpLk1VNOzRcBii8nIgizW89OQP6cb7z5MJJECM8oc415MSgA==
+ b=Gu9dupk6i45zXmqSCVPew7p6/wDi4NJWyXS/sXwWCgfyfos6ma37P3giV/Kh3EUJe67QWs01Q/CjxGSr77Qj7lrJFwaxrLxhzm56Ox31O+4vxWZbQliklOdV0gJiiNL9ppNGru8yGQPfOO/mjF9hgbT2HL5/+QwsgdSmAnmDLdi9VNiEyeFvZb0/TrNtprOOvnMQKqudgHJ2ZY+53JaTKuat9r8LaX6oM79rHRUahTlgKm48UO2xCSf2Js7p9y2ghufEeZyYTAYLoYFJdvEhff9fL6eTIi9O46A+rzXiQ/iXz4Oq6eoJxaTT9SvMZ/aazW50WBbUIgEMD/JLuB13Fg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rRjwFODTy6zrlG+l8gNpu1Q1cGBlLPhNWEj9FXw4cGQ=;
- b=nq3WOwZ5mRkXO6H8fG/p9laVgqxPgUsrb/vypsX38bFQr4qWOrNrQDD8bGF+J416jUT18fM1SNVa2DV2FbZaRWIpz1TCr9Y3vvuHEmJlr+q/Rk9N6MewxJu74Zi0FrjQBjRBhH3UAjy8zuqmoaZnTskSMEa2/N+pdR23Qvgiy0zUd2PdoC1d10NVMItfecjsbow0L10SBaVejWa0ZW9RmsAGtEwSrBmir0BUx/+ggv+3votPIojiQOJjcSqhsUpLmbzKkxAHLuSKuX6WIcriTpPe61IljQcWzn+r+YYmtz6UELNgyGEvfLOqowx107ij+CIWdX07OzsLBQknz/uk5g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=qypTp251koSCqjfKbE38Bja/7W0eKKAVlyUuBRNVOBc=;
+ b=gDrt3wRFhHjmr79wEETK7Xk1/TBRxvjyNQvPAJjRH8BUm+R4+Gd7+MOqpTgy43tV3SFeBS0/0tEYJZMCk18Wy9DWtymcxVkWNamb6q43iGPhdVo1FKJRllYCAP6MheUgIyMX/oznYZ93+50U2IQHIYnM3THkj2ZcJeaifegwLTYFGiX0dUBdCtLvdqJawGEcs9TJOk2fY01D8YD541CHa2TUbUIUp9fP0j1I66KjTr/5tSspENFABBqCpesT5qcWbED/WVrXDUO9ZOnLefop6nzAKwBN9m1HLaA0ekYPMpSY+coXgc0MbOFQ7YZeRKy8i2hjBPqnon56Vz4eGvzs5g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rRjwFODTy6zrlG+l8gNpu1Q1cGBlLPhNWEj9FXw4cGQ=;
- b=PnFoBLGkYwlCh5Iy/GaWFlSjwIvCjtQUAoOA4Bc1GtCA4cUQ/HtQYx/tdfDWl992bBkFvMAZnxyAwumfsn/iBk6QOPEfnKL9DG5AC11S5Gx2xeyEoJJwU2d57e12c2wY9W/vZKKS/YJqsUDfYX6HuHnvwn7TvooooscGRTlBsJ4=
-Received: from BN6PR19CA0103.namprd19.prod.outlook.com (2603:10b6:404:a0::17)
- by SN6PR12MB2797.namprd12.prod.outlook.com (2603:10b6:805:6e::22)
+ bh=qypTp251koSCqjfKbE38Bja/7W0eKKAVlyUuBRNVOBc=;
+ b=n7Nu97UWo7RsUulcSXoGwyezxDN2dmDSPU0mLvZPTkY1Yksyaw4azfgyrB/83IVhqUNod7MVJdmRIOVlXNSFYtI4kdDC1A9TSvCf+0+oZ7rwVaVH5cBjYOBM4tqmEniIIbthblxu/cgTc1zII2UebyRDxPJSR9H0NVe2jQxJcxc=
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
+ by MN2PR12MB3773.namprd12.prod.outlook.com (2603:10b6:208:164::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.16; Thu, 12 Aug
- 2021 04:01:44 +0000
-Received: from BN8NAM11FT036.eop-nam11.prod.protection.outlook.com
- (2603:10b6:404:a0:cafe::15) by BN6PR19CA0103.outlook.office365.com
- (2603:10b6:404:a0::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.14 via Frontend
- Transport; Thu, 12 Aug 2021 04:01:44 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT036.mail.protection.outlook.com (10.13.177.168) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4415.14 via Frontend Transport; Thu, 12 Aug 2021 04:01:44 +0000
-Received: from equan-buildpc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Wed, 11 Aug
- 2021 23:01:41 -0500
-From: Evan Quan <evan.quan@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <nils.wallmenius@gmail.com>, <Lijo.Lazar@amd.com>, <Guchun.Chen@amd.com>, 
- Evan Quan <evan.quan@amd.com>
-Subject: [PATCH V2 5/7] drm/amd/pm: drop the unnecessary intermediate
- percent-based transition
-Date: Thu, 12 Aug 2021 12:01:08 +0800
-Message-ID: <20210812040110.1293682-5-evan.quan@amd.com>
-X-Mailer: git-send-email 2.29.0
-In-Reply-To: <20210812040110.1293682-1-evan.quan@amd.com>
-References: <20210812040110.1293682-1-evan.quan@amd.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e2ec2d72-56e9-4987-92f7-08d95d45e5ec
-X-MS-TrafficTypeDiagnostic: SN6PR12MB2797:
-X-Microsoft-Antispam-PRVS: <SN6PR12MB279742ED77682C7D3B9B8016E4F99@SN6PR12MB2797.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:262;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Kx+Du7HLkzpMZjmRS/redABZ3jfSVeSxCmAHUbsfzuCCIjARaAxwFGHoQ2ECOADdi6pa/sa7xi1MgFqo+1tzBRSjEDd/2eLL2LHPiQYLofRpED4DaW/QvlZQPA8tQwpsBecbehoORHDiF+5ahKyKXFeVir7bPgItFjsq34hhn+TD9ed/ksNJOT7NicKaEWRmoumnmo6swEyvy2n+/OyscHZcOnB465wfn236r179HKfv5SptCBOQsyTIgRIoBHAGTo9EhtEbId1Di0roH5UlBUDS6ZnAHWuDXAokF4d+oPoFb1+SZLWpUVoCzVqMB5GqntCW4FHh6Qmr6J2znNpraR6xesf6GJsCI874o684e6gRpyLQDdQ6Z+CsYQejdTXeaJwM4r3rIMyMTYbvPOdQD+dRyat7y0AV6i1092c5v0VL0/ZUJpROs5Rx7X3vEyzvvmDtxZHvkntpHwi0hqUhoClJlB5q0q6Wn4Rpu7t8iPKWZRDCu1ML4PFglUdzNqDYjVeTE0Bu2Kg87bC50x/yrthdsuuP2rQPluXRWd7ZRek0B/mN4u1jUMNydtLeiWIiOaWQKQuK631uEzHomWlKHy9CJMHDvUYwyR2wQHQvy6F0GV0unLJM/g96NNzAzT1xcKIzfHG661imtGaCwF0lY6dR8+TfCz9SMRCDmKX4PBYtxxiq5PoMgPTBmW2lLIWqLBsS2ns8717xUP4CWBvzZAfxkKuHGnOBuxRt7EvnXBDB2TBz6Y64/KFEyJwFCnmbrgsQQf8xHR/QTiSeo/ILxQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(70206006)(5660300002)(426003)(83380400001)(316002)(2906002)(70586007)(36756003)(44832011)(8676002)(86362001)(508600001)(82310400003)(1076003)(54906003)(30864003)(26005)(34020700004)(47076005)(7696005)(6916009)(8936002)(6666004)(336012)(356005)(2616005)(4326008)(16526019)(81166007)(186003)(36860700001)(36900700001);
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4394.21; Thu, 12 Aug
+ 2021 05:55:02 +0000
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::6c9e:1e08:7617:f756]) by MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::6c9e:1e08:7617:f756%5]) with mapi id 15.20.4394.026; Thu, 12 Aug 2021
+ 05:55:02 +0000
+From: "Koenig, Christian" <Christian.Koenig@amd.com>
+To: "Quan, Evan" <Evan.Quan@amd.com>, =?Windows-1252?Q?Michel_D=E4nzer?=
+ <michel@daenzer.net>, "Deucher, Alexander" <Alexander.Deucher@amd.com>
+CC: "Liu, Leo" <Leo.Liu@amd.com>, "Zhu, James" <James.Zhu@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+Subject: AW: [PATCH 2/2] drm/amdgpu: Use mod_delayed_work in JPEG/UVD/VCE/VCN
+ ring_end_use hooks
+Thread-Topic: [PATCH 2/2] drm/amdgpu: Use mod_delayed_work in JPEG/UVD/VCE/VCN
+ ring_end_use hooks
+Thread-Index: AQHXjtE+BWy+t4LDY06JadgZjDnxmatu0Vw/gABYcACAADQnDA==
+Date: Thu, 12 Aug 2021 05:55:02 +0000
+Message-ID: <MN2PR12MB3775E6C1ECA915283108E6D783F99@MN2PR12MB3775.namprd12.prod.outlook.com>
+References: <20210811165211.6811-1-michel@daenzer.net>,
+ <20210811165211.6811-2-michel@daenzer.net>
+ <MN2PR12MB377506AD71308A47222A3E9583F89@MN2PR12MB3775.namprd12.prod.outlook.com>,
+ <DM6PR12MB26196DF7D33462060FC4F607E4F99@DM6PR12MB2619.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB26196DF7D33462060FC4F607E4F99@DM6PR12MB2619.namprd12.prod.outlook.com>
+Accept-Language: de-DE, en-US
+Content-Language: de-DE
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 2b88b6aa-e592-4b5e-a63f-08d95d55ba10
+x-ms-traffictypediagnostic: MN2PR12MB3773:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <MN2PR12MB3773195C7E6CC05B2759978B83F99@MN2PR12MB3773.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:9508;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: ev71XjnPGmoAkIETYnR0xXL0arz1wvHyabKQb72TiQvfQV/WfPIZsTCcvJDlNwWZiRyQO6DYJ6Kqw4HstTum5ExK/LkTRZXytbBfOe83cAT5NENU8BmsveB7ru2UC+ostwKdkjdykVUnXaKL66CMkO4dmfOgbtbX3yLI1EYfZwcr9jDag+37P+pKTqb4TZPDRYKVN/udzdyynBqS/IZDUHFaNoDhtdcnOdJF4pHz82xdNuYsCANuIWzoexj6mdWHKjtk//ubcTgfyyu0OiesTxD7RL5KS6Kk1Yx6b9+jSTcgw/hxiHWGhEaoUIddQ52iA1tdwTIxmdXMeN08hVx1J/CoS8xZOXr3ZzuagZTCWLUcpESKWXz2tvk10TOm3rxqu0kq0vM17ddVFq06oxoYmXXtthkeREVGP5GfTUq/MWqsSH/6DoYBsoU7h2fMHC8PbgMPcvqzvm0Orf03RjHWl0jEUhKFNkcPFzDmiUGBvmSFBjlOZN3oUjamrs/mah3Go0pkHm8Jt/kc52ZkpC7hGpHQGi0dXOXaf/1qDi01HfnxWByXpGMaXuOLas80prbj207l1nK0qKUUy+sJzYavuXBc8B1tVTLVXL83NMOyUVYRU8dXpSc57wL2t5bIfdpg+KsCu+barkeb8chBHRAYRLV9w3UJg36zasy4oM6UB4KEMMCOnUXgThe0UxCrXZqEeKFoyzZBPH1osTTxR8SYhg==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(366004)(376002)(396003)(136003)(346002)(53546011)(186003)(54906003)(66574015)(86362001)(110136005)(6506007)(83380400001)(316002)(26005)(5660300002)(478600001)(52536014)(19627235002)(66946007)(4326008)(2906002)(64756008)(66446008)(8676002)(38070700005)(66476007)(66556008)(76116006)(55016002)(33656002)(71200400001)(122000001)(6636002)(38100700002)(8936002)(91956017)(7696005)(9686003);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?Windows-1252?Q?hMUMBF9226kkViVmP/unVhtJFXgFCRjMOckvQE0LoM3lpPh8nFtPFmf4?=
+ =?Windows-1252?Q?8nrXhafjf7sqqdJK8tglZcsp0V4A1KqLFbENXaBdUJVRxkh/plzM9wyp?=
+ =?Windows-1252?Q?CXwuORnWYPXI3TRqX2WKCIsT9LlplZJ7xDCLmxCR1qX52ZKuT27SGPHz?=
+ =?Windows-1252?Q?YnpLYz6hO4XSnt139CjdalMpDYuGoQ7dHoMnDsAVfMJ9U00ENFFJz2m5?=
+ =?Windows-1252?Q?qDPx0h0DnLOIcvuiQaMd3er754JUxpVXpdqKsMjIlnq/8m8u90lYVz6S?=
+ =?Windows-1252?Q?D9v4wiAeh2C4+LkXvFGIaEGtLMAM1bMrBX/KylrCfai2G6AGJJgJ9P71?=
+ =?Windows-1252?Q?/gSGtvPUSOPYEyu0gSCn65RnlKDOylwFHlNugIAUd2Ku58jGdN3/lcG0?=
+ =?Windows-1252?Q?8Eyua2rxy6NKaTEEdK9oafugcaQWZ0unnq3xBuq/ZBK346edZTLBwJbP?=
+ =?Windows-1252?Q?Bh11ZQvy/bhz/9po7J8LqPB4oZRqhddvUnQFkwmviDIOIEaYrY/ygD4t?=
+ =?Windows-1252?Q?yPVcVU6yKhqusGtDWH5VRqmTGDe2806h4CpsvoDNadmokkPWrBb5aQmr?=
+ =?Windows-1252?Q?BXlzoRRXFcIPjefw5TFI5AW4SMd3AelK+znoGjk5YCyBgRW8TXDCzKy4?=
+ =?Windows-1252?Q?AFl1HzraebyW/YJ0/4Z16H257a5U9fkWgq7tldVR88Fxk0wSasKP4qPO?=
+ =?Windows-1252?Q?tW8ULmpz0hZZxBPbyjZ/cTNxIx1ZwAKxn4W4daZrI63K6TqfCGjVeAV8?=
+ =?Windows-1252?Q?7hlz5ZKHz8w3+QTqoaO/H+px2sjVoWuWqliwO6qAjzEv6a3/+6rN5FzJ?=
+ =?Windows-1252?Q?/wGpHD/XrBt3VofGadd+cpzpfPRChK9fhPCZ/M1bzUY+aNpzBCuiCGzf?=
+ =?Windows-1252?Q?d7UF8u1OmAlxsXuf7XHH7jJw/MgA7nSfl9ILec/P8z7aiW9OwTpdptPq?=
+ =?Windows-1252?Q?DZ36AAORYnSIkpuv1ki4hBXR0WYFAOPDmlc3nfybotEbQvYmyWOqMxKA?=
+ =?Windows-1252?Q?NmuAYAwm0mP4FApYmUqvuKDwje33Z+emnmC64S8aiQghds1Pp2PemSek?=
+ =?Windows-1252?Q?+Yx/EIxMm2C1pOEIcPByOr1+tvj/5kmetiKebzq3fTyUsk3PBakFBqlo?=
+ =?Windows-1252?Q?GjRVeOE+q/Uxs2xE1ebB1s81FQjKNZUHj6Nr9pdVIoCbrDem6N7HAAzD?=
+ =?Windows-1252?Q?0t0bJgsjTeotVxY2v9BH7gIdZY0UU70Jdei58V7YBlio8/lbUzsR2hT3?=
+ =?Windows-1252?Q?cF/5QpmXqx30wCftGf21EelQTugFQ0k8UQAEA5JRPErXPioFQCdWK9C0?=
+ =?Windows-1252?Q?BXAotRS48wLSQm6jdaFNHGfxOeLQcAGPEsNuJbgJBhMDZlBOqG1QYsE2?=
+ =?Windows-1252?Q?mQ6h8odWRaUGt8Eojnl0p+4pb/Uw37toxfQ=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_MN2PR12MB3775E6C1ECA915283108E6D783F99MN2PR12MB3775namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2021 04:01:44.0809 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e2ec2d72-56e9-4987-92f7-08d95d45e5ec
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT036.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB2797
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2b88b6aa-e592-4b5e-a63f-08d95d55ba10
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Aug 2021 05:55:02.3293 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: U2XEHBVwZA/Iw5BGySddFyWBCfJarAKn8QOO/Woia+pFGDjW7wlrZ7TxM0p24FP2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3773
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,909 +137,557 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Currently, the readout of fan speed pwm is transited into percent-based
-and then pwm-based. However, the transition into percent-based is totally
-unnecessary and make the final output less accurate.
+--_000_MN2PR12MB3775E6C1ECA915283108E6D783F99MN2PR12MB3775namp_
+Content-Type: text/plain; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
 
-Change-Id: Ib99e088cda1875b4e2601f7077a178af6fe8a6cb
-Signed-off-by: Evan Quan <evan.quan@amd.com>
+Hi James,
+
+Evan seems to have understood how this all works together.
+
+See while any begin/end use critical section is active the work should not =
+be active.
+
+When you handle only one ring you can just call cancel in begin use and sch=
+edule in end use. But when you have more than one ring you need a lock or c=
+ounter to prevent concurrent work items to be started.
+
+Michelle's idea to use mod_delayed_work is a bad one because it assumes tha=
+t the delayed work is still running.
+
+Something similar applies to the first patch I think, so when this makes a =
+difference it is actually a bug.
+
+Regards,
+Christian.
+________________________________
+Von: Quan, Evan <Evan.Quan@amd.com>
+Gesendet: Donnerstag, 12. August 2021 04:42
+An: Koenig, Christian <Christian.Koenig@amd.com>; Michel D=E4nzer <michel@d=
+aenzer.net>; Deucher, Alexander <Alexander.Deucher@amd.com>
+Cc: Liu, Leo <Leo.Liu@amd.com>; Zhu, James <James.Zhu@amd.com>; amd-gfx@lis=
+ts.freedesktop.org <amd-gfx@lists.freedesktop.org>; dri-devel@lists.freedes=
+ktop.org <dri-devel@lists.freedesktop.org>
+Betreff: RE: [PATCH 2/2] drm/amdgpu: Use mod_delayed_work in JPEG/UVD/VCE/V=
+CN ring_end_use hooks
+
+
+[AMD Official Use Only]
+
+
+
+Different from the 1st patch(for amdgpu_gfx_off_ctrl) of the series, =93can=
+cel_delayed_work_sync(&adev->uvd.idle_work)=94 will be called on like amdgp=
+u_uvd_ring_begin_use().  Under this case, does it make any difference from =
+previous implementation =94schedule_delayed_work=94?
+
+Suppose the sequence is as below:
+
+  *   Ring begin use
+  *   Ring end use -->  mod_delayed_work() : queue a new delayed work, righ=
+t?
+  *   Ring begin use (within 1s) --> cancel_delayed_work_sync() will cancel=
+ the work submitted above, right?
+  *   Ring end use  --> mod_delayed_work(): queue another new scheduled wor=
+k, same as previous =93schedule_delayed_work=94?
+
+
+
+BR
+
+Evan
+
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Koenig, =
+Christian
+Sent: Thursday, August 12, 2021 5:34 AM
+To: Michel D=E4nzer <michel@daenzer.net>; Deucher, Alexander <Alexander.Deu=
+cher@amd.com>
+Cc: Liu, Leo <Leo.Liu@amd.com>; Zhu, James <James.Zhu@amd.com>; amd-gfx@lis=
+ts.freedesktop.org; dri-devel@lists.freedesktop.org
+Subject: AW: [PATCH 2/2] drm/amdgpu: Use mod_delayed_work in JPEG/UVD/VCE/V=
+CN ring_end_use hooks
+
+
+
+NAK to at least this patch.
+
+
+
+Since activating power management while submitting work is problematic canc=
+el_delayed_work() must have been called during begin use or otherwise we ha=
+ve a serious coding problem in the first place.
+
+
+
+So this change shouldn't make a difference and I suggest to really stick wi=
+th schedule_delayed_work().
+
+
+
+Maybe add a comment how this works?
+
+
+
+Need to take a closer look at the first patch when I'm back from vacation, =
+but it could be that this applies there as well.
+
+
+
+Regards,
+
+Christian.
+
+
+
+________________________________
+
+Von: Michel D=E4nzer <michel@daenzer.net<mailto:michel@daenzer.net>>
+Gesendet: Mittwoch, 11. August 2021 18:52
+An: Deucher, Alexander <Alexander.Deucher@amd.com<mailto:Alexander.Deucher@=
+amd.com>>; Koenig, Christian <Christian.Koenig@amd.com<mailto:Christian.Koe=
+nig@amd.com>>
+Cc: Liu, Leo <Leo.Liu@amd.com<mailto:Leo.Liu@amd.com>>; Zhu, James <James.Z=
+hu@amd.com<mailto:James.Zhu@amd.com>>; amd-gfx@lists.freedesktop.org<mailto=
+:amd-gfx@lists.freedesktop.org> <amd-gfx@lists.freedesktop.org<mailto:amd-g=
+fx@lists.freedesktop.org>>; dri-devel@lists.freedesktop.org<mailto:dri-deve=
+l@lists.freedesktop.org> <dri-devel@lists.freedesktop.org<mailto:dri-devel@=
+lists.freedesktop.org>>
+Betreff: [PATCH 2/2] drm/amdgpu: Use mod_delayed_work in JPEG/UVD/VCE/VCN r=
+ing_end_use hooks
+
+
+
+From: Michel D=E4nzer <mdaenzer@redhat.com<mailto:mdaenzer@redhat.com>>
+
+In contrast to schedule_delayed_work, this pushes back the work if it
+was already scheduled before. Specific behaviour change:
+
+Before:
+
+The scheduled work ran ~1 second after the first time ring_end_use was
+called, even if the ring was used again during that second.
+
+After:
+
+The scheduled work runs ~1 second after the last time ring_end_use is
+called.
+
+Inspired by the corresponding change in amdgpu_gfx_off_ctrl. While I
+haven't run into specific issues in this case, the new behaviour makes
+more sense to me.
+
+Signed-off-by: Michel D=E4nzer <mdaenzer@redhat.com<mailto:mdaenzer@redhat.=
+com>>
 ---
-v1->v2:
-  - renaming the related functions as set/get_fan_speed_pwm (Lijo, Nils)
-  - use macro MIN() for speed(in pwm) comparing against 255 (Nils)
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  2 ++
- .../gpu/drm/amd/include/kgd_pp_interface.h    |  4 +--
- drivers/gpu/drm/amd/pm/amdgpu_pm.c            | 20 +++++------
- drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h       |  8 ++---
- drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h       | 12 +++----
- drivers/gpu/drm/amd/pm/inc/hwmgr.h            |  6 ++--
- drivers/gpu/drm/amd/pm/inc/smu_v11_0.h        |  4 +--
- .../gpu/drm/amd/pm/powerplay/amd_powerplay.c  | 16 ++++-----
- .../drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c   |  8 ++---
- .../drm/amd/pm/powerplay/hwmgr/smu7_thermal.c | 21 +++++-------
- .../drm/amd/pm/powerplay/hwmgr/smu7_thermal.h |  4 +--
- .../drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c |  6 ++--
- .../amd/pm/powerplay/hwmgr/vega10_thermal.c   | 18 +++++-----
- .../amd/pm/powerplay/hwmgr/vega10_thermal.h   |  4 +--
- .../drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c |  6 ++--
- .../amd/pm/powerplay/hwmgr/vega20_thermal.c   | 16 ++++-----
- .../amd/pm/powerplay/hwmgr/vega20_thermal.h   |  4 +--
- drivers/gpu/drm/amd/pm/powerplay/si_dpm.c     | 19 +++++------
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 34 +++++++------------
- .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c |  4 +--
- .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   |  4 +--
- .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   |  4 +--
- .../gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c    | 22 +++++-------
- 23 files changed, 109 insertions(+), 137 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c  | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c  | 2 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c    | 2 +-
+ 4 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 96e895d6be35..0f278cc3a5f4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -1271,6 +1271,8 @@ int emu_soc_asic_init(struct amdgpu_device *adev);
- 
- #define amdgpu_inc_vram_lost(adev) atomic_inc(&((adev)->vram_lost_counter));
- 
-+#define MIN(X, Y) ((X) < (Y) ? (X) : (Y))
-+
- /* Common functions */
- bool amdgpu_device_has_job_running(struct amdgpu_device *adev);
- bool amdgpu_device_should_recover_gpu(struct amdgpu_device *adev);
-diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-index e38b191c7b7c..bac15c466733 100644
---- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-+++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-@@ -306,8 +306,8 @@ struct amd_pm_funcs {
- /* export for sysfs */
- 	void (*set_fan_control_mode)(void *handle, u32 mode);
- 	u32 (*get_fan_control_mode)(void *handle);
--	int (*set_fan_speed_percent)(void *handle, u32 speed);
--	int (*get_fan_speed_percent)(void *handle, u32 *speed);
-+	int (*set_fan_speed_pwm)(void *handle, u32 speed);
-+	int (*get_fan_speed_pwm)(void *handle, u32 *speed);
- 	int (*force_clock_level)(void *handle, enum pp_clock_type type, uint32_t mask);
- 	int (*print_clock_levels)(void *handle, enum pp_clock_type type, char *buf);
- 	int (*force_performance_level)(void *handle, enum amd_dpm_forced_level level);
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-index 04c7d82f8b89..2c182ccc80a8 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -2469,10 +2469,8 @@ static ssize_t amdgpu_hwmon_set_pwm1(struct device *dev,
- 		return err;
- 	}
- 
--	value = (value * 100) / 255;
--
--	if (adev->powerplay.pp_funcs->set_fan_speed_percent)
--		err = amdgpu_dpm_set_fan_speed_percent(adev, value);
-+	if (adev->powerplay.pp_funcs->set_fan_speed_pwm)
-+		err = amdgpu_dpm_set_fan_speed_pwm(adev, value);
- 	else
- 		err = -EINVAL;
- 
-@@ -2504,8 +2502,8 @@ static ssize_t amdgpu_hwmon_get_pwm1(struct device *dev,
- 		return err;
- 	}
- 
--	if (adev->powerplay.pp_funcs->get_fan_speed_percent)
--		err = amdgpu_dpm_get_fan_speed_percent(adev, &speed);
-+	if (adev->powerplay.pp_funcs->get_fan_speed_pwm)
-+		err = amdgpu_dpm_get_fan_speed_pwm(adev, &speed);
- 	else
- 		err = -EINVAL;
- 
-@@ -2515,8 +2513,6 @@ static ssize_t amdgpu_hwmon_get_pwm1(struct device *dev,
- 	if (err)
- 		return err;
- 
--	speed = (speed * 255) / 100;
--
- 	return sprintf(buf, "%i\n", speed);
- }
- 
-@@ -3349,13 +3345,13 @@ static umode_t hwmon_attributes_visible(struct kobject *kobj,
- 
- 	if (!is_support_sw_smu(adev)) {
- 		/* mask fan attributes if we have no bindings for this asic to expose */
--		if ((!adev->powerplay.pp_funcs->get_fan_speed_percent &&
-+		if ((!adev->powerplay.pp_funcs->get_fan_speed_pwm &&
- 		     attr == &sensor_dev_attr_pwm1.dev_attr.attr) || /* can't query fan */
- 		    (!adev->powerplay.pp_funcs->get_fan_control_mode &&
- 		     attr == &sensor_dev_attr_pwm1_enable.dev_attr.attr)) /* can't query state */
- 			effective_mode &= ~S_IRUGO;
- 
--		if ((!adev->powerplay.pp_funcs->set_fan_speed_percent &&
-+		if ((!adev->powerplay.pp_funcs->set_fan_speed_pwm &&
- 		     attr == &sensor_dev_attr_pwm1.dev_attr.attr) || /* can't manage fan */
- 		    (!adev->powerplay.pp_funcs->set_fan_control_mode &&
- 		     attr == &sensor_dev_attr_pwm1_enable.dev_attr.attr)) /* can't manage state */
-@@ -3379,8 +3375,8 @@ static umode_t hwmon_attributes_visible(struct kobject *kobj,
- 
- 	if (!is_support_sw_smu(adev)) {
- 		/* hide max/min values if we can't both query and manage the fan */
--		if ((!adev->powerplay.pp_funcs->set_fan_speed_percent &&
--		     !adev->powerplay.pp_funcs->get_fan_speed_percent) &&
-+		if ((!adev->powerplay.pp_funcs->set_fan_speed_pwm &&
-+		     !adev->powerplay.pp_funcs->get_fan_speed_pwm) &&
- 		     (!adev->powerplay.pp_funcs->set_fan_speed_rpm &&
- 		     !adev->powerplay.pp_funcs->get_fan_speed_rpm) &&
- 		    (attr == &sensor_dev_attr_pwm1_max.dev_attr.attr ||
-diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-index d03e6fa2bf1a..98f1b3d8c1d5 100644
---- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-+++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-@@ -280,11 +280,11 @@ enum amdgpu_pcie_gen {
- #define amdgpu_dpm_get_fan_control_mode(adev) \
- 		((adev)->powerplay.pp_funcs->get_fan_control_mode((adev)->powerplay.pp_handle))
- 
--#define amdgpu_dpm_set_fan_speed_percent(adev, s) \
--		((adev)->powerplay.pp_funcs->set_fan_speed_percent((adev)->powerplay.pp_handle, (s)))
-+#define amdgpu_dpm_set_fan_speed_pwm(adev, s) \
-+		((adev)->powerplay.pp_funcs->set_fan_speed_pwm((adev)->powerplay.pp_handle, (s)))
- 
--#define amdgpu_dpm_get_fan_speed_percent(adev, s) \
--		((adev)->powerplay.pp_funcs->get_fan_speed_percent((adev)->powerplay.pp_handle, (s)))
-+#define amdgpu_dpm_get_fan_speed_pwm(adev, s) \
-+		((adev)->powerplay.pp_funcs->get_fan_speed_pwm((adev)->powerplay.pp_handle, (s)))
- 
- #define amdgpu_dpm_get_fan_speed_rpm(adev, s) \
- 		((adev)->powerplay.pp_funcs->get_fan_speed_rpm)((adev)->powerplay.pp_handle, (s))
-diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-index c0ac6754f448..715b4225f5ee 100644
---- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-+++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-@@ -231,7 +231,7 @@ enum smu_memory_pool_size
- struct smu_user_dpm_profile {
- 	uint32_t fan_mode;
- 	uint32_t power_limit;
--	uint32_t fan_speed_percent;
-+	uint32_t fan_speed_pwm;
- 	uint32_t fan_speed_rpm;
- 	uint32_t flags;
- 	uint32_t user_od;
-@@ -543,7 +543,7 @@ struct smu_context
- 	struct work_struct interrupt_work;
- 
- 	unsigned fan_max_rpm;
--	unsigned manual_fan_speed_percent;
-+	unsigned manual_fan_speed_pwm;
- 
- 	uint32_t gfx_default_hard_min_freq;
- 	uint32_t gfx_default_soft_max_freq;
-@@ -725,9 +725,9 @@ struct pptable_funcs {
- 	bool (*is_dpm_running)(struct smu_context *smu);
- 
- 	/**
--	 * @get_fan_speed_percent: Get the current fan speed in percent.
-+	 * @get_fan_speed_pwm: Get the current fan speed in PWM.
- 	 */
--	int (*get_fan_speed_percent)(struct smu_context *smu, uint32_t *speed);
-+	int (*get_fan_speed_pwm)(struct smu_context *smu, uint32_t *speed);
- 
- 	/**
- 	 * @get_fan_speed_rpm: Get the current fan speed in rpm.
-@@ -1051,9 +1051,9 @@ struct pptable_funcs {
- 	int (*set_fan_control_mode)(struct smu_context *smu, uint32_t mode);
- 
- 	/**
--	 * @set_fan_speed_percent: Set a static fan speed in percent.
-+	 * @set_fan_speed_pwm: Set a static fan speed in PWM.
- 	 */
--	int (*set_fan_speed_percent)(struct smu_context *smu, uint32_t speed);
-+	int (*set_fan_speed_pwm)(struct smu_context *smu, uint32_t speed);
- 
- 	/**
- 	 * @set_fan_speed_rpm: Set a static fan speed in rpm.
-diff --git a/drivers/gpu/drm/amd/pm/inc/hwmgr.h b/drivers/gpu/drm/amd/pm/inc/hwmgr.h
-index 490371bd2520..8ed01071fe5a 100644
---- a/drivers/gpu/drm/amd/pm/inc/hwmgr.h
-+++ b/drivers/gpu/drm/amd/pm/inc/hwmgr.h
-@@ -278,9 +278,9 @@ struct pp_hwmgr_func {
- 	int (*get_fan_speed_info)(struct pp_hwmgr *hwmgr, struct phm_fan_speed_info *fan_speed_info);
- 	void (*set_fan_control_mode)(struct pp_hwmgr *hwmgr, uint32_t mode);
- 	uint32_t (*get_fan_control_mode)(struct pp_hwmgr *hwmgr);
--	int (*set_fan_speed_percent)(struct pp_hwmgr *hwmgr, uint32_t percent);
--	int (*get_fan_speed_percent)(struct pp_hwmgr *hwmgr, uint32_t *speed);
--	int (*set_fan_speed_rpm)(struct pp_hwmgr *hwmgr, uint32_t percent);
-+	int (*set_fan_speed_pwm)(struct pp_hwmgr *hwmgr, uint32_t speed);
-+	int (*get_fan_speed_pwm)(struct pp_hwmgr *hwmgr, uint32_t *speed);
-+	int (*set_fan_speed_rpm)(struct pp_hwmgr *hwmgr, uint32_t speed);
- 	int (*get_fan_speed_rpm)(struct pp_hwmgr *hwmgr, uint32_t *speed);
- 	int (*reset_fan_speed_to_default)(struct pp_hwmgr *hwmgr);
- 	int (*uninitialize_thermal_controller)(struct pp_hwmgr *hwmgr);
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h b/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
-index bc8d875b526d..cbdae8a2c698 100644
---- a/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
-+++ b/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
-@@ -221,13 +221,13 @@ int
- smu_v11_0_set_fan_control_mode(struct smu_context *smu,
- 			       uint32_t mode);
- 
--int smu_v11_0_set_fan_speed_percent(struct smu_context *smu,
-+int smu_v11_0_set_fan_speed_pwm(struct smu_context *smu,
- 				    uint32_t speed);
- 
- int smu_v11_0_set_fan_speed_rpm(struct smu_context *smu,
- 				uint32_t speed);
- 
--int smu_v11_0_get_fan_speed_percent(struct smu_context *smu,
-+int smu_v11_0_get_fan_speed_pwm(struct smu_context *smu,
- 				    uint32_t *speed);
- 
- int smu_v11_0_get_fan_speed_rpm(struct smu_context *smu,
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-index d2a38246a78a..321215003643 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-@@ -533,7 +533,7 @@ static uint32_t pp_dpm_get_fan_control_mode(void *handle)
- 	return mode;
- }
- 
--static int pp_dpm_set_fan_speed_percent(void *handle, uint32_t percent)
-+static int pp_dpm_set_fan_speed_pwm(void *handle, uint32_t speed)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_jpeg.c
+index 8996cb4ed57a..2c0040153f6c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
+@@ -110,7 +110,7 @@ void amdgpu_jpeg_ring_begin_use(struct amdgpu_ring *rin=
+g)
+ void amdgpu_jpeg_ring_end_use(struct amdgpu_ring *ring)
  {
- 	struct pp_hwmgr *hwmgr = handle;
- 	int ret = 0;
-@@ -541,17 +541,17 @@ static int pp_dpm_set_fan_speed_percent(void *handle, uint32_t percent)
- 	if (!hwmgr || !hwmgr->pm_en)
- 		return -EINVAL;
- 
--	if (hwmgr->hwmgr_func->set_fan_speed_percent == NULL) {
-+	if (hwmgr->hwmgr_func->set_fan_speed_pwm == NULL) {
- 		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return 0;
- 	}
- 	mutex_lock(&hwmgr->smu_lock);
--	ret = hwmgr->hwmgr_func->set_fan_speed_percent(hwmgr, percent);
-+	ret = hwmgr->hwmgr_func->set_fan_speed_pwm(hwmgr, speed);
- 	mutex_unlock(&hwmgr->smu_lock);
- 	return ret;
+         atomic_dec(&ring->adev->jpeg.total_submission_cnt);
+-       schedule_delayed_work(&ring->adev->jpeg.idle_work, JPEG_IDLE_TIMEOU=
+T);
++       mod_delayed_work(system_wq, &ring->adev->jpeg.idle_work, JPEG_IDLE_=
+TIMEOUT);
  }
- 
--static int pp_dpm_get_fan_speed_percent(void *handle, uint32_t *speed)
-+static int pp_dpm_get_fan_speed_pwm(void *handle, uint32_t *speed)
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 	int ret = 0;
-@@ -559,13 +559,13 @@ static int pp_dpm_get_fan_speed_percent(void *handle, uint32_t *speed)
- 	if (!hwmgr || !hwmgr->pm_en)
- 		return -EINVAL;
- 
--	if (hwmgr->hwmgr_func->get_fan_speed_percent == NULL) {
-+	if (hwmgr->hwmgr_func->get_fan_speed_pwm == NULL) {
- 		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return 0;
- 	}
- 
- 	mutex_lock(&hwmgr->smu_lock);
--	ret = hwmgr->hwmgr_func->get_fan_speed_percent(hwmgr, speed);
-+	ret = hwmgr->hwmgr_func->get_fan_speed_pwm(hwmgr, speed);
- 	mutex_unlock(&hwmgr->smu_lock);
- 	return ret;
- }
-@@ -1691,8 +1691,8 @@ static const struct amd_pm_funcs pp_dpm_funcs = {
- 	.dispatch_tasks = pp_dpm_dispatch_tasks,
- 	.set_fan_control_mode = pp_dpm_set_fan_control_mode,
- 	.get_fan_control_mode = pp_dpm_get_fan_control_mode,
--	.set_fan_speed_percent = pp_dpm_set_fan_speed_percent,
--	.get_fan_speed_percent = pp_dpm_get_fan_speed_percent,
-+	.set_fan_speed_pwm = pp_dpm_set_fan_speed_pwm,
-+	.get_fan_speed_pwm = pp_dpm_get_fan_speed_pwm,
- 	.get_fan_speed_rpm = pp_dpm_get_fan_speed_rpm,
- 	.set_fan_speed_rpm = pp_dpm_set_fan_speed_rpm,
- 	.get_pp_num_states = pp_dpm_get_pp_num_states,
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-index 0541bfc81c1b..5562ed2d3080 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-@@ -3212,7 +3212,7 @@ static int smu7_force_dpm_level(struct pp_hwmgr *hwmgr,
- 
- 	if (!ret) {
- 		if (level == AMD_DPM_FORCED_LEVEL_PROFILE_PEAK && hwmgr->dpm_level != AMD_DPM_FORCED_LEVEL_PROFILE_PEAK)
--			smu7_fan_ctrl_set_fan_speed_percent(hwmgr, 100);
-+			smu7_fan_ctrl_set_fan_speed_pwm(hwmgr, 255);
- 		else if (level != AMD_DPM_FORCED_LEVEL_PROFILE_PEAK && hwmgr->dpm_level == AMD_DPM_FORCED_LEVEL_PROFILE_PEAK)
- 			smu7_fan_ctrl_reset_fan_speed_to_default(hwmgr);
- 	}
-@@ -4988,7 +4988,7 @@ static void smu7_set_fan_control_mode(struct pp_hwmgr *hwmgr, uint32_t mode)
- {
- 	switch (mode) {
- 	case AMD_FAN_CTRL_NONE:
--		smu7_fan_ctrl_set_fan_speed_percent(hwmgr, 100);
-+		smu7_fan_ctrl_set_fan_speed_pwm(hwmgr, 255);
- 		break;
- 	case AMD_FAN_CTRL_MANUAL:
- 		if (phm_cap_enabled(hwmgr->platform_descriptor.platformCaps,
-@@ -5692,8 +5692,8 @@ static const struct pp_hwmgr_func smu7_hwmgr_funcs = {
- 	.set_max_fan_rpm_output = smu7_set_max_fan_rpm_output,
- 	.stop_thermal_controller = smu7_thermal_stop_thermal_controller,
- 	.get_fan_speed_info = smu7_fan_ctrl_get_fan_speed_info,
--	.get_fan_speed_percent = smu7_fan_ctrl_get_fan_speed_percent,
--	.set_fan_speed_percent = smu7_fan_ctrl_set_fan_speed_percent,
-+	.get_fan_speed_pwm = smu7_fan_ctrl_get_fan_speed_pwm,
-+	.set_fan_speed_pwm = smu7_fan_ctrl_set_fan_speed_pwm,
- 	.reset_fan_speed_to_default = smu7_fan_ctrl_reset_fan_speed_to_default,
- 	.get_fan_speed_rpm = smu7_fan_ctrl_get_fan_speed_rpm,
- 	.set_fan_speed_rpm = smu7_fan_ctrl_set_fan_speed_rpm,
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_thermal.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_thermal.c
-index 6cfe148ed45b..a6c3610db23e 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_thermal.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_thermal.c
-@@ -51,7 +51,7 @@ int smu7_fan_ctrl_get_fan_speed_info(struct pp_hwmgr *hwmgr,
- 	return 0;
- }
- 
--int smu7_fan_ctrl_get_fan_speed_percent(struct pp_hwmgr *hwmgr,
-+int smu7_fan_ctrl_get_fan_speed_pwm(struct pp_hwmgr *hwmgr,
- 		uint32_t *speed)
- {
- 	uint32_t duty100;
-@@ -70,12 +70,9 @@ int smu7_fan_ctrl_get_fan_speed_percent(struct pp_hwmgr *hwmgr,
- 		return -EINVAL;
- 
- 
--	tmp64 = (uint64_t)duty * 100;
-+	tmp64 = (uint64_t)duty * 255;
- 	do_div(tmp64, duty100);
--	*speed = (uint32_t)tmp64;
--
--	if (*speed > 100)
--		*speed = 100;
-+	*speed = MIN((uint32_t)tmp64, 255);
- 
- 	return 0;
- }
-@@ -199,12 +196,11 @@ int smu7_fan_ctrl_stop_smc_fan_control(struct pp_hwmgr *hwmgr)
- }
- 
- /**
-- * smu7_fan_ctrl_set_fan_speed_percent - Set Fan Speed in percent.
-+ * smu7_fan_ctrl_set_fan_speed_pwm - Set Fan Speed in PWM.
-  * @hwmgr: the address of the powerplay hardware manager.
-- * @speed: is the percentage value (0% - 100%) to be set.
-- * Exception: Fails is the 100% setting appears to be 0.
-+ * @speed: is the pwm value (0 - 255) to be set.
-  */
--int smu7_fan_ctrl_set_fan_speed_percent(struct pp_hwmgr *hwmgr,
-+int smu7_fan_ctrl_set_fan_speed_pwm(struct pp_hwmgr *hwmgr,
- 		uint32_t speed)
- {
- 	uint32_t duty100;
-@@ -214,8 +210,7 @@ int smu7_fan_ctrl_set_fan_speed_percent(struct pp_hwmgr *hwmgr,
- 	if (hwmgr->thermal_controller.fanInfo.bNoFan)
- 		return 0;
- 
--	if (speed > 100)
--		speed = 100;
-+	speed = MIN(speed, 255);
- 
- 	if (PP_CAP(PHM_PlatformCaps_MicrocodeFanControl))
- 		smu7_fan_ctrl_stop_smc_fan_control(hwmgr);
-@@ -227,7 +222,7 @@ int smu7_fan_ctrl_set_fan_speed_percent(struct pp_hwmgr *hwmgr,
- 		return -EINVAL;
- 
- 	tmp64 = (uint64_t)speed * duty100;
--	do_div(tmp64, 100);
-+	do_div(tmp64, 255);
- 	duty = (uint32_t)tmp64;
- 
- 	PHM_WRITE_VFPF_INDIRECT_FIELD(hwmgr->device, CGS_IND_REG__SMC,
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_thermal.h b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_thermal.h
-index 42c1ba0fad78..a386a437e1f0 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_thermal.h
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_thermal.h
-@@ -41,10 +41,10 @@
- extern int smu7_thermal_get_temperature(struct pp_hwmgr *hwmgr);
- extern int smu7_thermal_stop_thermal_controller(struct pp_hwmgr *hwmgr);
- extern int smu7_fan_ctrl_get_fan_speed_info(struct pp_hwmgr *hwmgr, struct phm_fan_speed_info *fan_speed_info);
--extern int smu7_fan_ctrl_get_fan_speed_percent(struct pp_hwmgr *hwmgr, uint32_t *speed);
-+extern int smu7_fan_ctrl_get_fan_speed_pwm(struct pp_hwmgr *hwmgr, uint32_t *speed);
- extern int smu7_fan_ctrl_set_default_mode(struct pp_hwmgr *hwmgr);
- extern int smu7_fan_ctrl_set_static_mode(struct pp_hwmgr *hwmgr, uint32_t mode);
--extern int smu7_fan_ctrl_set_fan_speed_percent(struct pp_hwmgr *hwmgr, uint32_t speed);
-+extern int smu7_fan_ctrl_set_fan_speed_pwm(struct pp_hwmgr *hwmgr, uint32_t speed);
- extern int smu7_fan_ctrl_reset_fan_speed_to_default(struct pp_hwmgr *hwmgr);
- extern int smu7_thermal_ctrl_uninitialize_thermal_controller(struct pp_hwmgr *hwmgr);
- extern int smu7_fan_ctrl_set_fan_speed_rpm(struct pp_hwmgr *hwmgr, uint32_t speed);
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-index 25979106fd25..39475ba2de8e 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-@@ -4199,7 +4199,7 @@ static void vega10_set_fan_control_mode(struct pp_hwmgr *hwmgr, uint32_t mode)
- 
- 	switch (mode) {
- 	case AMD_FAN_CTRL_NONE:
--		vega10_fan_ctrl_set_fan_speed_percent(hwmgr, 100);
-+		vega10_fan_ctrl_set_fan_speed_pwm(hwmgr, 255);
- 		break;
- 	case AMD_FAN_CTRL_MANUAL:
- 		if (PP_CAP(PHM_PlatformCaps_MicrocodeFanControl))
-@@ -5523,8 +5523,8 @@ static const struct pp_hwmgr_func vega10_hwmgr_funcs = {
- 	.force_dpm_level = vega10_dpm_force_dpm_level,
- 	.stop_thermal_controller = vega10_thermal_stop_thermal_controller,
- 	.get_fan_speed_info = vega10_fan_ctrl_get_fan_speed_info,
--	.get_fan_speed_percent = vega10_fan_ctrl_get_fan_speed_percent,
--	.set_fan_speed_percent = vega10_fan_ctrl_set_fan_speed_percent,
-+	.get_fan_speed_pwm = vega10_fan_ctrl_get_fan_speed_pwm,
-+	.set_fan_speed_pwm = vega10_fan_ctrl_set_fan_speed_pwm,
- 	.reset_fan_speed_to_default =
- 			vega10_fan_ctrl_reset_fan_speed_to_default,
- 	.get_fan_speed_rpm = vega10_fan_ctrl_get_fan_speed_rpm,
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
-index 9b46b27bd30c..dad3e3741a4e 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
-@@ -64,7 +64,7 @@ int vega10_fan_ctrl_get_fan_speed_info(struct pp_hwmgr *hwmgr,
- 	return 0;
- }
- 
--int vega10_fan_ctrl_get_fan_speed_percent(struct pp_hwmgr *hwmgr,
-+int vega10_fan_ctrl_get_fan_speed_pwm(struct pp_hwmgr *hwmgr,
- 		uint32_t *speed)
- {
- 	uint32_t current_rpm;
-@@ -78,11 +78,11 @@ int vega10_fan_ctrl_get_fan_speed_percent(struct pp_hwmgr *hwmgr,
- 
- 	if (hwmgr->thermal_controller.
- 			advanceFanControlParameters.usMaxFanRPM != 0)
--		percent = current_rpm * 100 /
-+		percent = current_rpm * 255 /
- 			hwmgr->thermal_controller.
- 			advanceFanControlParameters.usMaxFanRPM;
- 
--	*speed = percent > 100 ? 100 : percent;
-+	*speed = MIN(percent, 255);
- 
- 	return 0;
- }
-@@ -241,12 +241,11 @@ int vega10_fan_ctrl_stop_smc_fan_control(struct pp_hwmgr *hwmgr)
- }
- 
- /**
-- * vega10_fan_ctrl_set_fan_speed_percent - Set Fan Speed in percent.
-+ * vega10_fan_ctrl_set_fan_speed_pwm - Set Fan Speed in PWM.
-  * @hwmgr:  the address of the powerplay hardware manager.
-- * @speed: is the percentage value (0% - 100%) to be set.
-- * Exception: Fails is the 100% setting appears to be 0.
-+ * @speed: is the percentage value (0 - 255) to be set.
-  */
--int vega10_fan_ctrl_set_fan_speed_percent(struct pp_hwmgr *hwmgr,
-+int vega10_fan_ctrl_set_fan_speed_pwm(struct pp_hwmgr *hwmgr,
- 		uint32_t speed)
- {
- 	struct amdgpu_device *adev = hwmgr->adev;
-@@ -257,8 +256,7 @@ int vega10_fan_ctrl_set_fan_speed_percent(struct pp_hwmgr *hwmgr,
- 	if (hwmgr->thermal_controller.fanInfo.bNoFan)
- 		return 0;
- 
--	if (speed > 100)
--		speed = 100;
-+	speed = MIN(speed, 255);
- 
- 	if (PP_CAP(PHM_PlatformCaps_MicrocodeFanControl))
- 		vega10_fan_ctrl_stop_smc_fan_control(hwmgr);
-@@ -270,7 +268,7 @@ int vega10_fan_ctrl_set_fan_speed_percent(struct pp_hwmgr *hwmgr,
- 		return -EINVAL;
- 
- 	tmp64 = (uint64_t)speed * duty100;
--	do_div(tmp64, 100);
-+	do_div(tmp64, 255);
- 	duty = (uint32_t)tmp64;
- 
- 	WREG32_SOC15(THM, 0, mmCG_FDO_CTRL0,
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.h b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.h
-index 4a0ede7c1f07..6850a21a2991 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.h
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.h
-@@ -54,12 +54,12 @@ extern int vega10_thermal_get_temperature(struct pp_hwmgr *hwmgr);
- extern int vega10_thermal_stop_thermal_controller(struct pp_hwmgr *hwmgr);
- extern int vega10_fan_ctrl_get_fan_speed_info(struct pp_hwmgr *hwmgr,
- 		struct phm_fan_speed_info *fan_speed_info);
--extern int vega10_fan_ctrl_get_fan_speed_percent(struct pp_hwmgr *hwmgr,
-+extern int vega10_fan_ctrl_get_fan_speed_pwm(struct pp_hwmgr *hwmgr,
- 		uint32_t *speed);
- extern int vega10_fan_ctrl_set_default_mode(struct pp_hwmgr *hwmgr);
- extern int vega10_fan_ctrl_set_static_mode(struct pp_hwmgr *hwmgr,
- 		uint32_t mode);
--extern int vega10_fan_ctrl_set_fan_speed_percent(struct pp_hwmgr *hwmgr,
-+extern int vega10_fan_ctrl_set_fan_speed_pwm(struct pp_hwmgr *hwmgr,
- 		uint32_t speed);
- extern int vega10_fan_ctrl_reset_fan_speed_to_default(struct pp_hwmgr *hwmgr);
- extern int vega10_thermal_ctrl_uninitialize_thermal_controller(
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
-index 0791309586c5..eab76a416b5f 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
-@@ -2769,7 +2769,7 @@ static void vega20_set_fan_control_mode(struct pp_hwmgr *hwmgr, uint32_t mode)
- {
- 	switch (mode) {
- 	case AMD_FAN_CTRL_NONE:
--		vega20_fan_ctrl_set_fan_speed_percent(hwmgr, 100);
-+		vega20_fan_ctrl_set_fan_speed_pwm(hwmgr, 255);
- 		break;
- 	case AMD_FAN_CTRL_MANUAL:
- 		if (PP_CAP(PHM_PlatformCaps_MicrocodeFanControl))
-@@ -4409,8 +4409,8 @@ static const struct pp_hwmgr_func vega20_hwmgr_funcs = {
- 	.register_irq_handlers = smu9_register_irq_handlers,
- 	.disable_smc_firmware_ctf = vega20_thermal_disable_alert,
- 	/* fan control related */
--	.get_fan_speed_percent = vega20_fan_ctrl_get_fan_speed_percent,
--	.set_fan_speed_percent = vega20_fan_ctrl_set_fan_speed_percent,
-+	.get_fan_speed_pwm = vega20_fan_ctrl_get_fan_speed_pwm,
-+	.set_fan_speed_pwm = vega20_fan_ctrl_set_fan_speed_pwm,
- 	.get_fan_speed_info = vega20_fan_ctrl_get_fan_speed_info,
- 	.get_fan_speed_rpm = vega20_fan_ctrl_get_fan_speed_rpm,
- 	.set_fan_speed_rpm = vega20_fan_ctrl_set_fan_speed_rpm,
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_thermal.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_thermal.c
-index 43d754952bd9..f4f4efdbda79 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_thermal.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_thermal.c
-@@ -114,7 +114,7 @@ static int vega20_get_current_rpm(struct pp_hwmgr *hwmgr, uint32_t *current_rpm)
- 	return 0;
- }
- 
--int vega20_fan_ctrl_get_fan_speed_percent(struct pp_hwmgr *hwmgr,
-+int vega20_fan_ctrl_get_fan_speed_pwm(struct pp_hwmgr *hwmgr,
- 		uint32_t *speed)
- {
- 	struct amdgpu_device *adev = hwmgr->adev;
-@@ -129,17 +129,14 @@ int vega20_fan_ctrl_get_fan_speed_percent(struct pp_hwmgr *hwmgr,
- 	if (!duty100)
- 		return -EINVAL;
- 
--	tmp64 = (uint64_t)duty * 100;
-+	tmp64 = (uint64_t)duty * 255;
- 	do_div(tmp64, duty100);
--	*speed = (uint32_t)tmp64;
--
--	if (*speed > 100)
--		*speed = 100;
-+	*speed = MIN((uint32_t)tmp64, 255);
- 
- 	return 0;
- }
- 
--int vega20_fan_ctrl_set_fan_speed_percent(struct pp_hwmgr *hwmgr,
-+int vega20_fan_ctrl_set_fan_speed_pwm(struct pp_hwmgr *hwmgr,
- 		uint32_t speed)
- {
- 	struct amdgpu_device *adev = hwmgr->adev;
-@@ -147,8 +144,7 @@ int vega20_fan_ctrl_set_fan_speed_percent(struct pp_hwmgr *hwmgr,
- 	uint32_t duty;
- 	uint64_t tmp64;
- 
--	if (speed > 100)
--		speed = 100;
-+	speed = MIN(speed, 255);
- 
- 	if (PP_CAP(PHM_PlatformCaps_MicrocodeFanControl))
- 		vega20_fan_ctrl_stop_smc_fan_control(hwmgr);
-@@ -160,7 +156,7 @@ int vega20_fan_ctrl_set_fan_speed_percent(struct pp_hwmgr *hwmgr,
- 		return -EINVAL;
- 
- 	tmp64 = (uint64_t)speed * duty100;
--	do_div(tmp64, 100);
-+	do_div(tmp64, 255);
- 	duty = (uint32_t)tmp64;
- 
- 	WREG32_SOC15(THM, 0, mmCG_FDO_CTRL0,
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_thermal.h b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_thermal.h
-index 2d1769bbd24e..b18d09cf761e 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_thermal.h
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_thermal.h
-@@ -56,9 +56,9 @@ extern int vega20_fan_ctrl_get_fan_speed_rpm(struct pp_hwmgr *hwmgr,
- 		uint32_t *speed);
- extern int vega20_fan_ctrl_set_fan_speed_rpm(struct pp_hwmgr *hwmgr,
- 		uint32_t speed);
--extern int vega20_fan_ctrl_get_fan_speed_percent(struct pp_hwmgr *hwmgr,
-+extern int vega20_fan_ctrl_get_fan_speed_pwm(struct pp_hwmgr *hwmgr,
- 		uint32_t *speed);
--extern int vega20_fan_ctrl_set_fan_speed_percent(struct pp_hwmgr *hwmgr,
-+extern int vega20_fan_ctrl_set_fan_speed_pwm(struct pp_hwmgr *hwmgr,
- 		uint32_t speed);
- extern int vega20_fan_ctrl_stop_smc_fan_control(struct pp_hwmgr *hwmgr);
- extern int vega20_fan_ctrl_start_smc_fan_control(struct pp_hwmgr *hwmgr);
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c b/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
-index 15c0b8af376f..bdbbeb959c68 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
-@@ -6539,7 +6539,7 @@ static int si_fan_ctrl_stop_smc_fan_control(struct amdgpu_device *adev)
- 	}
- }
- 
--static int si_dpm_get_fan_speed_percent(void *handle,
-+static int si_dpm_get_fan_speed_pwm(void *handle,
- 				      u32 *speed)
- {
- 	u32 duty, duty100;
-@@ -6555,17 +6555,14 @@ static int si_dpm_get_fan_speed_percent(void *handle,
- 	if (duty100 == 0)
- 		return -EINVAL;
- 
--	tmp64 = (u64)duty * 100;
-+	tmp64 = (u64)duty * 255;
- 	do_div(tmp64, duty100);
--	*speed = (u32)tmp64;
--
--	if (*speed > 100)
--		*speed = 100;
-+	*speed = MIN((u32)tmp64, 255);
- 
- 	return 0;
- }
- 
--static int si_dpm_set_fan_speed_percent(void *handle,
-+static int si_dpm_set_fan_speed_pwm(void *handle,
- 				      u32 speed)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-@@ -6580,7 +6577,7 @@ static int si_dpm_set_fan_speed_percent(void *handle,
- 	if (si_pi->fan_is_controlled_by_smc)
- 		return -EINVAL;
- 
--	if (speed > 100)
-+	if (speed > 255)
- 		return -EINVAL;
- 
- 	duty100 = (RREG32(CG_FDO_CTRL1) & FMAX_DUTY100_MASK) >> FMAX_DUTY100_SHIFT;
-@@ -6589,7 +6586,7 @@ static int si_dpm_set_fan_speed_percent(void *handle,
- 		return -EINVAL;
- 
- 	tmp64 = (u64)speed * duty100;
--	do_div(tmp64, 100);
-+	do_div(tmp64, 255);
- 	duty = (u32)tmp64;
- 
- 	tmp = RREG32(CG_FDO_CTRL0) & ~FDO_STATIC_DUTY_MASK;
-@@ -8059,8 +8056,8 @@ static const struct amd_pm_funcs si_dpm_funcs = {
- 	.vblank_too_short = &si_dpm_vblank_too_short,
- 	.set_fan_control_mode = &si_dpm_set_fan_control_mode,
- 	.get_fan_control_mode = &si_dpm_get_fan_control_mode,
--	.set_fan_speed_percent = &si_dpm_set_fan_speed_percent,
--	.get_fan_speed_percent = &si_dpm_get_fan_speed_percent,
-+	.set_fan_speed_pwm = &si_dpm_set_fan_speed_pwm,
-+	.get_fan_speed_pwm = &si_dpm_get_fan_speed_pwm,
- 	.check_state_equal = &si_check_state_equal,
- 	.get_vce_clock_state = amdgpu_get_vce_clock_state,
- 	.read_sensor = &si_dpm_read_sensor,
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-index 979ba6487577..c825330524e1 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -58,7 +58,7 @@ static int smu_handle_task(struct smu_context *smu,
- 			   enum amd_pp_task task_id,
- 			   bool lock_needed);
- static int smu_reset(struct smu_context *smu);
--static int smu_set_fan_speed_percent(void *handle, u32 speed);
-+static int smu_set_fan_speed_pwm(void *handle, u32 speed);
- static int smu_set_fan_control_mode(struct smu_context *smu, int value);
- static int smu_set_power_limit(void *handle, uint32_t limit);
- static int smu_set_fan_speed_rpm(void *handle, uint32_t speed);
-@@ -410,8 +410,8 @@ static void smu_restore_dpm_user_profile(struct smu_context *smu)
- 			return;
- 		}
- 
--		if (!ret && smu->user_dpm_profile.fan_speed_percent) {
--			ret = smu_set_fan_speed_percent(smu, smu->user_dpm_profile.fan_speed_percent);
-+		if (!ret && smu->user_dpm_profile.fan_speed_pwm) {
-+			ret = smu_set_fan_speed_pwm(smu, smu->user_dpm_profile.fan_speed_pwm);
- 			if (ret)
- 				dev_err(smu->adev->dev, "Failed to set manual fan speed in percent\n");
- 		}
-@@ -2558,7 +2558,7 @@ static int smu_set_fan_control_mode(struct smu_context *smu, int value)
- 	/* reset user dpm fan speed */
- 	if (!ret && value != AMD_FAN_CTRL_MANUAL &&
- 			!(smu->user_dpm_profile.flags & SMU_DPM_USER_PROFILE_RESTORE)) {
--		smu->user_dpm_profile.fan_speed_percent = 0;
-+		smu->user_dpm_profile.fan_speed_pwm = 0;
- 		smu->user_dpm_profile.fan_speed_rpm = 0;
- 		smu->user_dpm_profile.flags &= ~(SMU_CUSTOM_FAN_SPEED_RPM | SMU_CUSTOM_FAN_SPEED_PWM);
- 	}
-@@ -2574,31 +2574,25 @@ static void smu_pp_set_fan_control_mode(void *handle, u32 value)
- }
- 
- 
--static int smu_get_fan_speed_percent(void *handle, u32 *speed)
-+static int smu_get_fan_speed_pwm(void *handle, u32 *speed)
- {
- 	struct smu_context *smu = handle;
- 	int ret = 0;
--	uint32_t percent;
- 
- 	if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
- 		return -EOPNOTSUPP;
- 
- 	mutex_lock(&smu->mutex);
- 
--	if (smu->ppt_funcs->get_fan_speed_percent) {
--		ret = smu->ppt_funcs->get_fan_speed_percent(smu, &percent);
--		if (!ret) {
--			*speed = percent > 100 ? 100 : percent;
--		}
--	}
-+	if (smu->ppt_funcs->get_fan_speed_pwm)
-+		ret = smu->ppt_funcs->get_fan_speed_pwm(smu, speed);
- 
- 	mutex_unlock(&smu->mutex);
- 
--
- 	return ret;
- }
- 
--static int smu_set_fan_speed_percent(void *handle, u32 speed)
-+static int smu_set_fan_speed_pwm(void *handle, u32 speed)
- {
- 	struct smu_context *smu = handle;
- 	int ret = 0;
-@@ -2608,13 +2602,11 @@ static int smu_set_fan_speed_percent(void *handle, u32 speed)
- 
- 	mutex_lock(&smu->mutex);
- 
--	if (smu->ppt_funcs->set_fan_speed_percent) {
--		if (speed > 100)
--			speed = 100;
--		ret = smu->ppt_funcs->set_fan_speed_percent(smu, speed);
-+	if (smu->ppt_funcs->set_fan_speed_pwm) {
-+		ret = smu->ppt_funcs->set_fan_speed_pwm(smu, speed);
- 		if (!ret && !(smu->user_dpm_profile.flags & SMU_DPM_USER_PROFILE_RESTORE)) {
- 			smu->user_dpm_profile.flags |= SMU_CUSTOM_FAN_SPEED_PWM;
--			smu->user_dpm_profile.fan_speed_percent = speed;
-+			smu->user_dpm_profile.fan_speed_pwm = speed;
- 		}
- 	}
- 
-@@ -3051,8 +3043,8 @@ static const struct amd_pm_funcs swsmu_pm_funcs = {
- 	/* export for sysfs */
- 	.set_fan_control_mode    = smu_pp_set_fan_control_mode,
- 	.get_fan_control_mode    = smu_get_fan_control_mode,
--	.set_fan_speed_percent   = smu_set_fan_speed_percent,
--	.get_fan_speed_percent   = smu_get_fan_speed_percent,
-+	.set_fan_speed_pwm   = smu_set_fan_speed_pwm,
-+	.get_fan_speed_pwm   = smu_get_fan_speed_pwm,
- 	.force_clock_level       = smu_force_ppclk_levels,
- 	.print_clock_levels      = smu_print_ppclk_levels,
- 	.force_performance_level = smu_force_performance_level,
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-index 60ce8a813f19..d090a999baf4 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-@@ -2270,7 +2270,7 @@ static const struct pptable_funcs arcturus_ppt_funcs = {
- 	.print_clk_levels = arcturus_print_clk_levels,
- 	.force_clk_levels = arcturus_force_clk_levels,
- 	.read_sensor = arcturus_read_sensor,
--	.get_fan_speed_percent = smu_v11_0_get_fan_speed_percent,
-+	.get_fan_speed_pwm = smu_v11_0_get_fan_speed_pwm,
- 	.get_fan_speed_rpm = arcturus_get_fan_speed_rpm,
- 	.get_power_profile_mode = arcturus_get_power_profile_mode,
- 	.set_power_profile_mode = arcturus_set_power_profile_mode,
-@@ -2316,7 +2316,7 @@ static const struct pptable_funcs arcturus_ppt_funcs = {
- 	.display_clock_voltage_request = smu_v11_0_display_clock_voltage_request,
- 	.get_fan_control_mode = smu_v11_0_get_fan_control_mode,
- 	.set_fan_control_mode = smu_v11_0_set_fan_control_mode,
--	.set_fan_speed_percent = smu_v11_0_set_fan_speed_percent,
-+	.set_fan_speed_pwm = smu_v11_0_set_fan_speed_pwm,
- 	.set_fan_speed_rpm = smu_v11_0_set_fan_speed_rpm,
- 	.set_xgmi_pstate = smu_v11_0_set_xgmi_pstate,
- 	.gfx_off_control = smu_v11_0_gfx_off_control,
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-index 3cb90fe107c5..4ebf3ee16201 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-@@ -3224,7 +3224,7 @@ static const struct pptable_funcs navi10_ppt_funcs = {
- 	.display_config_changed = navi10_display_config_changed,
- 	.notify_smc_display_config = navi10_notify_smc_display_config,
- 	.is_dpm_running = navi10_is_dpm_running,
--	.get_fan_speed_percent = smu_v11_0_get_fan_speed_percent,
-+	.get_fan_speed_pwm = smu_v11_0_get_fan_speed_pwm,
- 	.get_fan_speed_rpm = navi10_get_fan_speed_rpm,
- 	.get_power_profile_mode = navi10_get_power_profile_mode,
- 	.set_power_profile_mode = navi10_set_power_profile_mode,
-@@ -3268,7 +3268,7 @@ static const struct pptable_funcs navi10_ppt_funcs = {
- 	.display_clock_voltage_request = smu_v11_0_display_clock_voltage_request,
- 	.get_fan_control_mode = smu_v11_0_get_fan_control_mode,
- 	.set_fan_control_mode = smu_v11_0_set_fan_control_mode,
--	.set_fan_speed_percent = smu_v11_0_set_fan_speed_percent,
-+	.set_fan_speed_pwm = smu_v11_0_set_fan_speed_pwm,
- 	.set_fan_speed_rpm = smu_v11_0_set_fan_speed_rpm,
- 	.set_xgmi_pstate = smu_v11_0_set_xgmi_pstate,
- 	.gfx_off_control = smu_v11_0_gfx_off_control,
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-index 513373dcaaca..1f4252f41b2a 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-@@ -3852,7 +3852,7 @@ static const struct pptable_funcs sienna_cichlid_ppt_funcs = {
- 	.display_config_changed = sienna_cichlid_display_config_changed,
- 	.notify_smc_display_config = sienna_cichlid_notify_smc_display_config,
- 	.is_dpm_running = sienna_cichlid_is_dpm_running,
--	.get_fan_speed_percent = smu_v11_0_get_fan_speed_percent,
-+	.get_fan_speed_pwm = smu_v11_0_get_fan_speed_pwm,
- 	.get_fan_speed_rpm = sienna_cichlid_get_fan_speed_rpm,
- 	.get_power_profile_mode = sienna_cichlid_get_power_profile_mode,
- 	.set_power_profile_mode = sienna_cichlid_set_power_profile_mode,
-@@ -3896,7 +3896,7 @@ static const struct pptable_funcs sienna_cichlid_ppt_funcs = {
- 	.display_clock_voltage_request = smu_v11_0_display_clock_voltage_request,
- 	.get_fan_control_mode = smu_v11_0_get_fan_control_mode,
- 	.set_fan_control_mode = smu_v11_0_set_fan_control_mode,
--	.set_fan_speed_percent = smu_v11_0_set_fan_speed_percent,
-+	.set_fan_speed_pwm = smu_v11_0_set_fan_speed_pwm,
- 	.set_fan_speed_rpm = smu_v11_0_set_fan_speed_rpm,
- 	.set_xgmi_pstate = smu_v11_0_set_xgmi_pstate,
- 	.gfx_off_control = smu_v11_0_gfx_off_control,
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-index 19334bb6a8b0..9001952442ba 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-@@ -1200,14 +1200,13 @@ smu_v11_0_set_fan_static_mode(struct smu_context *smu, uint32_t mode)
- }
- 
- int
--smu_v11_0_set_fan_speed_percent(struct smu_context *smu, uint32_t speed)
-+smu_v11_0_set_fan_speed_pwm(struct smu_context *smu, uint32_t speed)
- {
- 	struct amdgpu_device *adev = smu->adev;
- 	uint32_t duty100, duty;
- 	uint64_t tmp64;
- 
--	if (speed > 100)
--		speed = 100;
-+	speed = MIN(speed, 255);
- 
- 	if (smu_v11_0_auto_fan_control(smu, 0))
- 		return -EINVAL;
-@@ -1218,7 +1217,7 @@ smu_v11_0_set_fan_speed_percent(struct smu_context *smu, uint32_t speed)
- 		return -EINVAL;
- 
- 	tmp64 = (uint64_t)speed * duty100;
--	do_div(tmp64, 100);
-+	do_div(tmp64, 255);
- 	duty = (uint32_t)tmp64;
- 
- 	WREG32_SOC15(THM, 0, mmCG_FDO_CTRL0,
-@@ -1263,8 +1262,8 @@ int smu_v11_0_set_fan_speed_rpm(struct smu_context *smu,
- 	return ret;
- }
- 
--int smu_v11_0_get_fan_speed_percent(struct smu_context *smu,
--				    uint32_t *speed)
-+int smu_v11_0_get_fan_speed_pwm(struct smu_context *smu,
-+				uint32_t *speed)
- {
- 	struct amdgpu_device *adev = smu->adev;
- 	uint32_t duty100, duty;
-@@ -1276,7 +1275,7 @@ int smu_v11_0_get_fan_speed_percent(struct smu_context *smu,
- 	 * report the fan speed as 0 PWM if user just requested such.
- 	 */
- 	if ((smu->user_dpm_profile.flags & SMU_CUSTOM_FAN_SPEED_PWM)
--	     && !smu->user_dpm_profile.fan_speed_percent) {
-+	     && !smu->user_dpm_profile.fan_speed_pwm) {
- 		*speed = 0;
- 		return 0;
- 	}
-@@ -1288,12 +1287,9 @@ int smu_v11_0_get_fan_speed_percent(struct smu_context *smu,
- 	if (!duty100)
- 		return -EINVAL;
- 
--	tmp64 = (uint64_t)duty * 100;
-+	tmp64 = (uint64_t)duty * 255;
- 	do_div(tmp64, duty100);
--	*speed = (uint32_t)tmp64;
--
--	if (*speed > 100)
--		*speed = 100;
-+	*speed = MIN((uint32_t)tmp64, 255);
- 
- 	return 0;
- }
-@@ -1334,7 +1330,7 @@ smu_v11_0_set_fan_control_mode(struct smu_context *smu,
- 
- 	switch (mode) {
- 	case AMD_FAN_CTRL_NONE:
--		ret = smu_v11_0_set_fan_speed_percent(smu, 100);
-+		ret = smu_v11_0_set_fan_speed_pwm(smu, 255);
- 		break;
- 	case AMD_FAN_CTRL_MANUAL:
- 		ret = smu_v11_0_auto_fan_control(smu, 0);
--- 
-2.29.0
 
+ int amdgpu_jpeg_dec_ring_test_ring(struct amdgpu_ring *ring)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_uvd.c
+index 0f576f294d8a..b6b1d7eeb8e5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+@@ -1283,7 +1283,7 @@ void amdgpu_uvd_ring_begin_use(struct amdgpu_ring *ri=
+ng)
+ void amdgpu_uvd_ring_end_use(struct amdgpu_ring *ring)
+ {
+         if (!amdgpu_sriov_vf(ring->adev))
+-               schedule_delayed_work(&ring->adev->uvd.idle_work, UVD_IDLE_=
+TIMEOUT);
++               mod_delayed_work(system_wq, &ring->adev->uvd.idle_work, UVD=
+_IDLE_TIMEOUT);
+ }
+
+ /**
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_vce.c
+index 1ae7f824adc7..2253c18a6688 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+@@ -401,7 +401,7 @@ void amdgpu_vce_ring_begin_use(struct amdgpu_ring *ring=
+)
+ void amdgpu_vce_ring_end_use(struct amdgpu_ring *ring)
+ {
+         if (!amdgpu_sriov_vf(ring->adev))
+-               schedule_delayed_work(&ring->adev->vce.idle_work, VCE_IDLE_=
+TIMEOUT);
++               mod_delayed_work(system_wq, &ring->adev->vce.idle_work, VCE=
+_IDLE_TIMEOUT);
+ }
+
+ /**
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/am=
+dgpu/vcn_v1_0.c
+index 284bb42d6c86..d5937ab5ac80 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+@@ -1874,7 +1874,7 @@ void vcn_v1_0_set_pg_for_begin_use(struct amdgpu_ring=
+ *ring, bool set_clocks)
+
+ void vcn_v1_0_ring_end_use(struct amdgpu_ring *ring)
+ {
+-       schedule_delayed_work(&ring->adev->vcn.idle_work, VCN_IDLE_TIMEOUT)=
+;
++       mod_delayed_work(system_wq, &ring->adev->vcn.idle_work, VCN_IDLE_TI=
+MEOUT);
+         mutex_unlock(&ring->adev->vcn.vcn1_jpeg1_workaround);
+ }
+
+--
+2.32.0
+
+--_000_MN2PR12MB3775E6C1ECA915283108E6D783F99MN2PR12MB3775namp_
+Content-Type: text/html; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
+252">
+</head>
+<body>
+<div>Hi James,</div>
+<div><br>
+</div>
+<div>Evan seems to have understood how this all works together.</div>
+<div><br>
+</div>
+<div>See while any begin/end use critical section is active the work should=
+ not be active.</div>
+<div><br>
+</div>
+<div>When you handle only one ring you can just call cancel in begin use an=
+d schedule in end use. But when you have more than one ring you need a lock=
+ or counter to prevent concurrent work items to be started.</div>
+<div><br>
+</div>
+<div>Michelle's idea to use mod_delayed_work is a bad one because it assume=
+s that the delayed work is still running.</div>
+<div><br>
+</div>
+<div>Something similar applies to the first patch I think, so when this mak=
+es a difference it is actually a bug.</div>
+<div><br>
+</div>
+<div>Regards,</div>
+<div>Christian.</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>Von:</b> Quan, Evan &lt;Evan.Qu=
+an@amd.com&gt;<br>
+<b>Gesendet:</b> Donnerstag, 12. August 2021 04:42<br>
+<b>An:</b> Koenig, Christian &lt;Christian.Koenig@amd.com&gt;; Michel D=E4n=
+zer &lt;michel@daenzer.net&gt;; Deucher, Alexander &lt;Alexander.Deucher@am=
+d.com&gt;<br>
+<b>Cc:</b> Liu, Leo &lt;Leo.Liu@amd.com&gt;; Zhu, James &lt;James.Zhu@amd.c=
+om&gt;; amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;=
+; dri-devel@lists.freedesktop.org &lt;dri-devel@lists.freedesktop.org&gt;<b=
+r>
+<b>Betreff:</b> RE: [PATCH 2/2] drm/amdgpu: Use mod_delayed_work in JPEG/UV=
+D/VCE/VCN ring_end_use hooks</font>
+<div>&nbsp;</div>
+</div>
+<style>
+<!--
+@font-face
+	{font-family:Wingdings}
+@font-face
+	{font-family:"Cambria Math"}
+@font-face
+	{font-family:DengXian}
+@font-face
+	{font-family:Calibri}
+@font-face
+	{}
+p.x_MsoNormal, li.x_MsoNormal, div.x_MsoNormal
+	{margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif}
+a:link, span.x_MsoHyperlink
+	{color:#0563C1;
+	text-decoration:underline}
+p.x_MsoListParagraph, li.x_MsoListParagraph, div.x_MsoListParagraph
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif}
+span.x_EmailStyle19
+	{font-family:"Calibri",sans-serif;
+	color:windowtext}
+p.x_msipheadera4477989, li.x_msipheadera4477989, div.x_msipheadera4477989
+	{margin-right:0in;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif}
+.x_MsoChpDefault
+	{font-size:10.0pt}
+@page WordSection1
+	{margin:1.0in 1.0in 1.0in 1.0in}
+div.x_WordSection1
+	{}
+ol
+	{margin-bottom:0in}
+ul
+	{margin-bottom:0in}
+-->
+</style>
+<div lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:b=
+reak-word">
+<div class=3D"x_WordSection1">
+<p class=3D"x_msipheadera4477989" style=3D"margin:0in"><span style=3D"font-=
+size:10.0pt; font-family:&quot;Arial&quot;,sans-serif; color:blue">[AMD Off=
+icial Use Only]</span></p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"x_MsoNormal">Different from the 1<sup>st</sup> patch(for amdgpu=
+_gfx_off_ctrl) of the series, =93cancel_delayed_work_sync(&amp;adev-&gt;uvd=
+.idle_work)=94 will be called on like amdgpu_uvd_ring_begin_use(). &nbsp;Un=
+der this case, does it make any difference from previous
+ implementation =94schedule_delayed_work=94?</p>
+<p class=3D"x_MsoNormal">Suppose the sequence is as below:</p>
+<ul type=3D"disc" style=3D"margin-top:0in">
+<li class=3D"x_MsoListParagraph" style=3D"margin-left:0in">Ring begin use</=
+li><li class=3D"x_MsoListParagraph" style=3D"margin-left:0in">Ring end use =
+<span style=3D"font-family:Wingdings">
+=E0</span> &nbsp;mod_delayed_work() : queue a new delayed work, right?</li>=
+<li class=3D"x_MsoListParagraph" style=3D"margin-left:0in">Ring begin use (=
+within 1s)
+<span style=3D"font-family:Wingdings">=E0</span> cancel_delayed_work_sync()=
+ will cancel the work submitted above, right?</li><li class=3D"x_MsoListPar=
+agraph" style=3D"margin-left:0in">Ring end use&nbsp; <span style=3D"font-fa=
+mily:Wingdings">
+=E0</span> mod_delayed_work(): queue another new scheduled work, same as pr=
+evious =93schedule_delayed_work=94?</li></ul>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"x_MsoNormal">BR</p>
+<p class=3D"x_MsoNormal">Evan</p>
+<div style=3D"border:none; border-left:solid blue 1.5pt; padding:0in 0in 0i=
+n 4.0pt">
+<div>
+<div style=3D"border:none; border-top:solid #E1E1E1 1.0pt; padding:3.0pt 0i=
+n 0in 0in">
+<p class=3D"x_MsoNormal"><b>From:</b> amd-gfx &lt;amd-gfx-bounces@lists.fre=
+edesktop.org&gt;
+<b>On Behalf Of </b>Koenig, Christian<br>
+<b>Sent:</b> Thursday, August 12, 2021 5:34 AM<br>
+<b>To:</b> Michel D=E4nzer &lt;michel@daenzer.net&gt;; Deucher, Alexander &=
+lt;Alexander.Deucher@amd.com&gt;<br>
+<b>Cc:</b> Liu, Leo &lt;Leo.Liu@amd.com&gt;; Zhu, James &lt;James.Zhu@amd.c=
+om&gt;; amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org<br>
+<b>Subject:</b> AW: [PATCH 2/2] drm/amdgpu: Use mod_delayed_work in JPEG/UV=
+D/VCE/VCN ring_end_use hooks</p>
+</div>
+</div>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<div>
+<p class=3D"x_MsoNormal">NAK to at least this patch.</p>
+</div>
+<div>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+</div>
+<div>
+<p class=3D"x_MsoNormal">Since activating power management while submitting=
+ work is problematic cancel_delayed_work() must have been called during beg=
+in use or otherwise we have a serious coding problem in the first place.</p=
+>
+</div>
+<div>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+</div>
+<div>
+<p class=3D"x_MsoNormal">So this change shouldn't make a difference and I s=
+uggest to really stick with schedule_delayed_work().</p>
+</div>
+<div>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+</div>
+<div>
+<p class=3D"x_MsoNormal">Maybe add a comment how this works?</p>
+</div>
+<div>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+</div>
+<div>
+<p class=3D"x_MsoNormal">Need to take a closer look at the first patch when=
+ I'm back from vacation, but it could be that this applies there as well.</=
+p>
+</div>
+<div>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+</div>
+<div>
+<p class=3D"x_MsoNormal">Regards,</p>
+</div>
+<div>
+<p class=3D"x_MsoNormal">Christian.</p>
+</div>
+<div>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+</div>
+<div class=3D"x_MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"x_divRplyFwdMsg">
+<p class=3D"x_MsoNormal"><b><span style=3D"color:black">Von:</span></b><spa=
+n style=3D"color:black"> Michel D=E4nzer &lt;<a href=3D"mailto:michel@daenz=
+er.net">michel@daenzer.net</a>&gt;<br>
+<b>Gesendet:</b> Mittwoch, 11. August 2021 18:52<br>
+<b>An:</b> Deucher, Alexander &lt;<a href=3D"mailto:Alexander.Deucher@amd.c=
+om">Alexander.Deucher@amd.com</a>&gt;; Koenig, Christian &lt;<a href=3D"mai=
+lto:Christian.Koenig@amd.com">Christian.Koenig@amd.com</a>&gt;<br>
+<b>Cc:</b> Liu, Leo &lt;<a href=3D"mailto:Leo.Liu@amd.com">Leo.Liu@amd.com<=
+/a>&gt;; Zhu, James &lt;<a href=3D"mailto:James.Zhu@amd.com">James.Zhu@amd.=
+com</a>&gt;;
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
+org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.=
+freedesktop.org</a>&gt;;
+<a href=3D"mailto:dri-devel@lists.freedesktop.org">dri-devel@lists.freedesk=
+top.org</a> &lt;<a href=3D"mailto:dri-devel@lists.freedesktop.org">dri-deve=
+l@lists.freedesktop.org</a>&gt;<br>
+<b>Betreff:</b> [PATCH 2/2] drm/amdgpu: Use mod_delayed_work in JPEG/UVD/VC=
+E/VCN ring_end_use hooks</span>
+</p>
+<div>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"x_MsoNormal" style=3D"margin-bottom:12.0pt">From: Michel D=E4nz=
+er &lt;<a href=3D"mailto:mdaenzer@redhat.com">mdaenzer@redhat.com</a>&gt;<b=
+r>
+<br>
+In contrast to schedule_delayed_work, this pushes back the work if it<br>
+was already scheduled before. Specific behaviour change:<br>
+<br>
+Before:<br>
+<br>
+The scheduled work ran ~1 second after the first time ring_end_use was<br>
+called, even if the ring was used again during that second.<br>
+<br>
+After:<br>
+<br>
+The scheduled work runs ~1 second after the last time ring_end_use is<br>
+called.<br>
+<br>
+Inspired by the corresponding change in amdgpu_gfx_off_ctrl. While I<br>
+haven't run into specific issues in this case, the new behaviour makes<br>
+more sense to me.<br>
+<br>
+Signed-off-by: Michel D=E4nzer &lt;<a href=3D"mailto:mdaenzer@redhat.com">m=
+daenzer@redhat.com</a>&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c | 2 +-<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c&nbsp; | 2 +-<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c&nbsp; | 2 +-<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c&nbsp;&nbsp;&nbsp; | 2 +-<br>
+&nbsp;4 files changed, 4 insertions(+), 4 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_jpeg.c<br>
+index 8996cb4ed57a..2c0040153f6c 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c<br>
+@@ -110,7 +110,7 @@ void amdgpu_jpeg_ring_begin_use(struct amdgpu_ring *rin=
+g)<br>
+&nbsp;void amdgpu_jpeg_ring_end_use(struct amdgpu_ring *ring)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; atomic_dec(&amp;ring-&gt;a=
+dev-&gt;jpeg.total_submission_cnt);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; schedule_delayed_work(&amp;ring-&gt;a=
+dev-&gt;jpeg.idle_work, JPEG_IDLE_TIMEOUT);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mod_delayed_work(system_wq, &amp;ring=
+-&gt;adev-&gt;jpeg.idle_work, JPEG_IDLE_TIMEOUT);<br>
+&nbsp;}<br>
+&nbsp;<br>
+&nbsp;int amdgpu_jpeg_dec_ring_test_ring(struct amdgpu_ring *ring)<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_uvd.c<br>
+index 0f576f294d8a..b6b1d7eeb8e5 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c<br>
+@@ -1283,7 +1283,7 @@ void amdgpu_uvd_ring_begin_use(struct amdgpu_ring *ri=
+ng)<br>
+&nbsp;void amdgpu_uvd_ring_end_use(struct amdgpu_ring *ring)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_sriov_vf(ring-=
+&gt;adev))<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; schedule_delayed_work(&amp;ring-&gt;adev-&gt;uvd.idle_work, UVD_=
+IDLE_TIMEOUT);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; mod_delayed_work(system_wq, &amp;ring-&gt;adev-&gt;uvd.idle_work=
+, UVD_IDLE_TIMEOUT);<br>
+&nbsp;}<br>
+&nbsp;<br>
+&nbsp;/**<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_vce.c<br>
+index 1ae7f824adc7..2253c18a6688 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c<br>
+@@ -401,7 +401,7 @@ void amdgpu_vce_ring_begin_use(struct amdgpu_ring *ring=
+)<br>
+&nbsp;void amdgpu_vce_ring_end_use(struct amdgpu_ring *ring)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_sriov_vf(ring-=
+&gt;adev))<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; schedule_delayed_work(&amp;ring-&gt;adev-&gt;vce.idle_work, VCE_=
+IDLE_TIMEOUT);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; mod_delayed_work(system_wq, &amp;ring-&gt;adev-&gt;vce.idle_work=
+, VCE_IDLE_TIMEOUT);<br>
+&nbsp;}<br>
+&nbsp;<br>
+&nbsp;/**<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/am=
+dgpu/vcn_v1_0.c<br>
+index 284bb42d6c86..d5937ab5ac80 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c<br>
+@@ -1874,7 +1874,7 @@ void vcn_v1_0_set_pg_for_begin_use(struct amdgpu_ring=
+ *ring, bool set_clocks)<br>
+&nbsp;<br>
+&nbsp;void vcn_v1_0_ring_end_use(struct amdgpu_ring *ring)<br>
+&nbsp;{<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; schedule_delayed_work(&amp;ring-&gt;a=
+dev-&gt;vcn.idle_work, VCN_IDLE_TIMEOUT);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mod_delayed_work(system_wq, &amp;ring=
+-&gt;adev-&gt;vcn.idle_work, VCN_IDLE_TIMEOUT);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;ring-&gt=
+;adev-&gt;vcn.vcn1_jpeg1_workaround);<br>
+&nbsp;}<br>
+&nbsp;<br>
+-- <br>
+2.32.0</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_MN2PR12MB3775E6C1ECA915283108E6D783F99MN2PR12MB3775namp_--
