@@ -2,46 +2,137 @@ Return-Path: <SRS0=1H3f=ND=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E7E31C4338F
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 07:23:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7EC7EC4338F
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 07:38:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6CF556103E
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 07:23:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6CF556103E
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
+	by mail.kernel.org (Postfix) with ESMTPS id 4530A61019
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 07:38:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4530A61019
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68FDA6E303;
-	Thu, 12 Aug 2021 07:23:25 +0000 (UTC)
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEB7F6E252;
- Thu, 12 Aug 2021 06:34:21 +0000 (UTC)
-Received: by verein.lst.de (Postfix, from userid 2407)
- id CF00D67373; Thu, 12 Aug 2021 08:34:17 +0200 (CEST)
-Date: Thu, 12 Aug 2021 08:34:17 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: Alex Sierra <alex.sierra@amd.com>
-Cc: akpm@linux-foundation.org, Felix.Kuehling@amd.com, linux-mm@kvack.org,
- rcampbell@nvidia.com, linux-ext4@vger.kernel.org,
- linux-xfs@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, hch@lst.de, jgg@nvidia.com,
- jglisse@redhat.com
-Subject: Re: [PATCH v5 00/13] Support DEVICE_GENERIC memory in migrate_vma_*
-Message-ID: <20210812063417.GA26938@lst.de>
-References: <20210812063100.31997-1-alex.sierra@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D1E66E027;
+	Thu, 12 Aug 2021 07:38:43 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam08on2068.outbound.protection.outlook.com [40.107.101.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA3F66E027
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Aug 2021 07:38:40 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=CUHoPk2R0jf+bSwx2w8kNiKWV4E0t3aJeImRkWvazIqN8PJyZU8dlgVXib98SsoMWwi7E8ceZlsl9qUeLp04fFOkTQ9WZXtdeTINtMowcp1EQ8GBkChgjRO/BWPv18KBApR9Z2GUr44lHjVNfNb5jn/f4mOZyi1Vw7pJ+2jjiOP5bCJs9Yjrn/C5dupek6zZMeXZekD1CVN67Jwfem39bp0XrGXtcgHHVGUVpELSx0ta+P1VT+zos+kp+H///PBGsYEjMKgeQUp3ruPguOP90rlFO9GXa6CVjOJHHqY0xq8iuRBNgPcX2VwMWOkHzPbO0DL9ERnZxFkr/kloQiIaQg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=frk2HyKBmp1NczBbjbk8ofa1SNXxaQBMd6mM3WjZhA0=;
+ b=GPW8sdWHNg4pPB1qESbjg8UnFr5cU/m6ElEFtoNopkwa1v3EukRGn0x1AVpPak4j39gnPZzaTWkAJUsoYmAWlSW49tRTgVeHnxTwAQfxDNYAe+Zgb9M3EY1/6mV7s1YEKsxhAGPc2Ln/0fQlZIRs52FF2tEslqw3pjg9vQUvIHAa3Y3+aiSTytYDNXeJ/k8Dzk4zDp6/ah6h7ER/hWfmEy1M97e6f/z6kv2ebfsuOxrAuXN0TRZy92F9IhM8yHi5iNcDmABF4x2OoWL623bXBv+YfV3p3r6xmg6O0ueebYGU9J8aAypssYdaf9vTiq0szOhFXoeITlmgwAtTXg51JA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=frk2HyKBmp1NczBbjbk8ofa1SNXxaQBMd6mM3WjZhA0=;
+ b=4aBkACUDWun+M39MNpqciUb86s2VVqD/I1teY9tOf8SomjrUNMD8ThrNJQIOF+8NGIHK9Ny4lDDspXoMUP3ZL6p++mTn9eZxV8C7eMPFG+Yo7AEFcE1U7XNi4lKNmGzF2nuQt1BJFfSyzKU0m228DaB3x5R5RkHunIkj5ve/4v0=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5356.namprd12.prod.outlook.com (2603:10b6:408:105::23)
+ by BN9PR12MB5196.namprd12.prod.outlook.com (2603:10b6:408:11d::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.13; Thu, 12 Aug
+ 2021 07:38:38 +0000
+Received: from BN9PR12MB5356.namprd12.prod.outlook.com
+ ([fe80::4804:801b:71a:a8ed]) by BN9PR12MB5356.namprd12.prod.outlook.com
+ ([fe80::4804:801b:71a:a8ed%9]) with mapi id 15.20.4415.017; Thu, 12 Aug 2021
+ 07:38:38 +0000
+Subject: Re: [PATCH V2 6/7] drm/amd/pm: drop unnecessary manual mode check
+To: "Quan, Evan" <Evan.Quan@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: "nils.wallmenius@gmail.com" <nils.wallmenius@gmail.com>,
+ "Chen, Guchun" <Guchun.Chen@amd.com>
+References: <20210812040110.1293682-1-evan.quan@amd.com>
+ <20210812040110.1293682-6-evan.quan@amd.com>
+ <0d76361c-e28e-cc8a-a050-668f38d4e251@amd.com>
+ <DM6PR12MB2619197EFEF711E675799ED7E4F99@DM6PR12MB2619.namprd12.prod.outlook.com>
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+Message-ID: <1e7ac50e-0ba7-2a1f-8085-122de2fa99bd@amd.com>
+Date: Thu, 12 Aug 2021 13:08:27 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
+In-Reply-To: <DM6PR12MB2619197EFEF711E675799ED7E4F99@DM6PR12MB2619.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN1PR0101CA0031.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c00:c::17) To BN9PR12MB5356.namprd12.prod.outlook.com
+ (2603:10b6:408:105::23)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210812063100.31997-1-alex.sierra@amd.com>
-User-Agent: Mutt/1.5.17 (2007-11-01)
-X-Mailman-Approved-At: Thu, 12 Aug 2021 07:23:24 +0000
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [172.31.157.114] (165.204.158.249) by
+ PN1PR0101CA0031.INDPRD01.PROD.OUTLOOK.COM (2603:1096:c00:c::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.14 via Frontend
+ Transport; Thu, 12 Aug 2021 07:38:36 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 97b95989-3515-4ee5-5e79-08d95d643326
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5196:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BN9PR12MB5196E1D2C38ED889D0B1A6CF97F99@BN9PR12MB5196.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1388;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Zn+F54CHuozuH8HJhvUs2NKNg675IbrXAxU4wE/SVyt+dGi9OkHXkHCVkDXuDxii8q02H4vRad4Ix87MN2sJYKt6xel0PJUR2G0WHtcRlZcqvvFl0beAYH+dj7mYrV1v7wAsLCg6mzJmwNRehAswqgH1BKBUTEkeg01lV3jZDno4jR2Yki+PjoDPc5n3DYEpAhsVjOPQbeLNlhTBu0xFjj7IXl6EVMIdh9cVwnn6GOJEMbqUJbQWkU23T25LVjILJhRlBFpgr55d8iNFCDO3/kJ+W64KDoXyXBJ2CYXAjHm1jHY77JjoIdkQQC/mE6r/WPxtRQtwpa30t4i0yZn0BlJ1J2gVvgW5abkZaWZoLtikOOvtxsyrBEd9kvfryiSq44QOnEb5h8qxWcmG9pABS2VqfFtnh15PvjSHsuBliN1X3Mw008hS6CrS74yH/97RxvFC74QvaUlXkJvh4E3uMLM5FTOdYRMORjo9MCdm9jwkCLseJYuK3sGEUDAhcho+4MA0QL5g9pupHyMkoI0cmUiZEfXBpAtSgHbXuBQkIHHGAT6jQcoK1suHYy67aMXOsvbhvzF2umWCEB8gGrqzoGTRRdJ6WVBpJxfva9pZZsMRTagxB514MU+sh8/FV2VD+XE4JlkFijWefdpLfX7dcjzrhHZdmt+IY9/k95UOvEv5Ua7qbYzjZYGdzSLNsKQl9XRfin62g8eFULZz/ICx0kSx56BCNpTILaN6Eh7duEyZFu7eHPiNXh9tqEu/gtGL
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5356.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(136003)(396003)(39860400002)(346002)(376002)(66476007)(316002)(6486002)(36756003)(31686004)(66946007)(66556008)(16576012)(8936002)(8676002)(83380400001)(4326008)(86362001)(54906003)(478600001)(2616005)(26005)(956004)(31696002)(6666004)(186003)(2906002)(38100700002)(5660300002)(53546011)(110136005)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TUlDQ0FkZzZTa01ybVkzT28yeUxOR2gwN2c4cTI0bEZYK251QUFGU2M4enZp?=
+ =?utf-8?B?YUp1VEE0M2plSnRQMTlXN2ZlWWtsOWpDR0p2Q2RteDMxR3Uyd0FUK0xGSCtZ?=
+ =?utf-8?B?L21xMEtTb0VCRWZVRVJYazMvVmV0T0s3UFBmQ0VocUQrcXp0MzlvSXNyZEkx?=
+ =?utf-8?B?YjdXSGNUNmQxSHhyMjlwKytYWTRZMUpQUEFZeGJmajlnU0ViL2pWTW5XdVZN?=
+ =?utf-8?B?K2RPTU9DL2pwb2JaM3A1aXZNMWxXUFhwaVRKUzBpVExNRTFBN1daVGl4RlIx?=
+ =?utf-8?B?WjltMHRYZmhzRXI5V2lXN2d5elUyZGxZc09JOTZFUHpZM2FpRmJ2ZEVJeFNp?=
+ =?utf-8?B?VU1SMFRSRGZxN3ZJSndkYnJ4Uks2SnpQNENPZHhHa2p0bHkrSUVWMkxZMCtG?=
+ =?utf-8?B?WGo5L3NKZUxDSmZVOXJkdUdEdnZQYndRdkxLRUYzK3pldlcrYjA5RXBqenhH?=
+ =?utf-8?B?Y1JHUk9uMmxRWmJxMWZTbjFuNVlHUzdtRmRkUHlmUXVjbW5CWU5PQ0VIRkpI?=
+ =?utf-8?B?b2FIeTVTK1hEa1FrMm9QN0pNV1VHSmhkazdxbmxCVXNmdW5lVVE3VjFQaER3?=
+ =?utf-8?B?ZFNWOGdyVElldG9lZS9yOVJ2ZzBQOFJZdkh6U2ZWTjhTUFI2bkVBVTJRNWxz?=
+ =?utf-8?B?bnpCZ3lETFpEZXhWQUdlRXI5cGlBeUp1M2ZrdWxReE5sN3pBLzEvUmxUbkVU?=
+ =?utf-8?B?OUo0c01iaEgzcmxZQ2s4OUd6eEwzNGlIU0xqeERBdEg1UWY1RFdReC9aL2Nl?=
+ =?utf-8?B?VllnSGpId2Ewbjl2dVl3aEFTZVBVM3lJRFdROHB4NHMwa2p1ajQvQkE1S3I5?=
+ =?utf-8?B?RFhnN1lGVGJLSnJubDZnMjJUTG95S3hTNit0UXYwaVo0ck80V1NpMTB2OG1B?=
+ =?utf-8?B?eGxEVDIraERRbW5laTBrYmIvNnIyVmNYMkdZWjY0WEs5b3BQUHQ3dHJPRHZT?=
+ =?utf-8?B?TFlSZm9lUUFTeUJyWktmaFEyU29PZklyYS9aUUhSNHQvV2tBYllwVzJXRFpi?=
+ =?utf-8?B?UHVrbFFOSS9aSVpwcUpWL3lMQnZWOGZ6bnkvMjRxZUpYQVZZL0ZGNjROZHpw?=
+ =?utf-8?B?aDVaZkhneTR3SXFKdUtpTDVWb2YwN2x0MkZELzN1UmJGU3N1VWNIZE5RSkV1?=
+ =?utf-8?B?MmxiOURLZmk1dkVOTVJOeVdNNVR4c1VqSmhVeWtrMkxtNUg2d2RmREk1bElD?=
+ =?utf-8?B?Yi9MNkZPKzAvNDY5VzJuZWJYc2pITm5jeFlBTGN5MkVBMTdVUkY1R3FhOCts?=
+ =?utf-8?B?T2lpalg2a1ViSHFTVEpOSjBoMHFXaXFEaHlMZHRiZXBsTXJmSXVBdk11aGJv?=
+ =?utf-8?B?UVFncFYzajFJakZQL1hFN0IzUlF5aHMxVFM4Ums4aFNyUWVUVitqb205RDdE?=
+ =?utf-8?B?YUJjQXllNW1yZEdiQXY3V05CbFgzN2pBR29XMlZYTGlLUmxQWGVjWnVNcWVE?=
+ =?utf-8?B?L01JK1Q1Q2Ryby9iaVBhTElod1dhUytnZktXQkZYeDlQVkl5RWJhTjliSTZE?=
+ =?utf-8?B?NVgwRlBOTzMwQ0xQN3kwcVZCQ0ZUZHBhMFBLTWFURmVhSzN2ejk5QmoxMDhJ?=
+ =?utf-8?B?eUpxQS9Ddzg4WXcyTVc0d2U4ZXRSZWR5d01wbGczYkQ3TzFhVWZuVXk0Vi96?=
+ =?utf-8?B?RWZ0OHQyWXNQTVdQUG1wbmlrTzcyRzZGVXpjVE1DSm05VmNXcE5pVDk5QTNY?=
+ =?utf-8?B?Z2VHemhPdDlxV0RaN2lsK1p1SFZIdVA3akp1a1QvTm1LeHVPTEs1S2JoZ2dz?=
+ =?utf-8?Q?BJDSUex5WoTXxAkBb1+FA3FEK+sHctouzpbXxHo?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 97b95989-3515-4ee5-5e79-08d95d643326
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5356.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2021 07:38:38.8853 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: AlDtPmEBzCBMmTcKyocLxa+rmU9P5CFvWUHYdFhQlO5ukySibjphiNYRMDFQtB2W
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5196
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,159 +147,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Do you have a pointer to a git branch with this series and all dependencies
-to ease testing?
 
-On Thu, Aug 12, 2021 at 01:30:47AM -0500, Alex Sierra wrote:
-> v1:
-> AMD is building a system architecture for the Frontier supercomputer with a
-> coherent interconnect between CPUs and GPUs. This hardware architecture allows
-> the CPUs to coherently access GPU device memory. We have hardware in our labs
-> and we are working with our partner HPE on the BIOS, firmware and software
-> for delivery to the DOE.
+
+On 8/12/2021 12:16 PM, Quan, Evan wrote:
+> [AMD Official Use Only]
 > 
-> The system BIOS advertises the GPU device memory (aka VRAM) as SPM
-> (special purpose memory) in the UEFI system address map. The amdgpu driver looks
-> it up with lookup_resource and registers it with devmap as MEMORY_DEVICE_GENERIC
-> using devm_memremap_pages.
 > 
-> Now we're trying to migrate data to and from that memory using the migrate_vma_*
-> helpers so we can support page-based migration in our unified memory allocations,
-> while also supporting CPU access to those pages.
 > 
-> This patch series makes a few changes to make MEMORY_DEVICE_GENERIC pages behave
-> correctly in the migrate_vma_* helpers. We are looking for feedback about this
-> approach. If we're close, what's needed to make our patches acceptable upstream?
-> If we're not close, any suggestions how else to achieve what we are trying to do
-> (i.e. page migration and coherent CPU access to VRAM)?
+>> -----Original Message-----
+>> From: Lazar, Lijo <Lijo.Lazar@amd.com>
+>> Sent: Thursday, August 12, 2021 2:16 PM
+>> To: Quan, Evan <Evan.Quan@amd.com>; amd-gfx@lists.freedesktop.org
+>> Cc: nils.wallmenius@gmail.com; Chen, Guchun <Guchun.Chen@amd.com>
+>> Subject: Re: [PATCH V2 6/7] drm/amd/pm: drop unnecessary manual mode
+>> check
+>>
+>>
+>>
+>> On 8/12/2021 9:31 AM, Evan Quan wrote:
+>>> As the fan control was guarded under manual mode before fan speed
+>>> RPM/PWM setting. Thus the extra check is totally redundant.
+>>>
+>>> Change-Id: Ia9d776141ec4aa39255accbf00d7e7ed81c8424d
+>>> Signed-off-by: Evan Quan <evan.quan@amd.com>
+>>> ---
+>>>    drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c | 12 +-----------
+>>>    1 file changed, 1 insertion(+), 11 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+>>> b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+>>> index 9001952442ba..20ece0963f51 100644
+>>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+>>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+>>> @@ -1208,9 +1208,6 @@ smu_v11_0_set_fan_speed_pwm(struct
+>> smu_context
+>>> *smu, uint32_t speed)
+>>>
+>>>    	speed = MIN(speed, 255);
+>>>
+>>> -	if (smu_v11_0_auto_fan_control(smu, 0))
+>>> -		return -EINVAL;
+>>> -
+>>
+>> There is a FAN_CONTROL_NONE mode where it is set to full speed. Is that
+>> affected by this change?
+> [Quan, Evan] This check was designed to block "auto" mode(like If it was under auto mode, these manual settings will be not permitted).
+> The FAN_CONTROL_NONE mode is not affected with and without this check.
 > 
-> This work is based on HMM and our SVM memory manager that was recently upstreamed
-> to Dave Airlie's drm-next branch
-> https://cgit.freedesktop.org/drm/drm/log/?h=drm-next
-> On top of that we did some rework of our VRAM management for migrations to remove
-> some incorrect assumptions, allow partially successful migrations and GPU memory
-> mappings that mix pages in VRAM and system memory.
-> https://lore.kernel.org/dri-devel/20210527205606.2660-6-Felix.Kuehling@amd.com/T/#r996356015e295780eb50453e7dbd5d0d68b47cbc
-> 
-> v2:
-> This patch series version has merged "[RFC PATCH v3 0/2]
-> mm: remove extra ZONE_DEVICE struct page refcount" patch series made by
-> Ralph Campbell. It also applies at the top of these series, our changes
-> to support device generic type in migration_vma helpers.
-> This has been tested in systems with device memory that has coherent
-> access by CPU.
-> 
-> Also addresses the following feedback made in v1:
-> - Isolate in one patch kernel/resource.c modification, based
-> on Christoph's feedback.
-> - Add helpers check for generic and private type to avoid
-> duplicated long lines.
-> 
-> v3:
-> - Include cover letter from v1.
-> - Rename dax_layout_is_idle_page func to dax_page_unused in patch
-> ext4/xfs: add page refcount helper.
-> 
-> v4:
-> - Add support for zone device generic type in lib/test_hmm and
-> tool/testing/selftest/vm/hmm-tests.
-> - Add missing page refcount helper to fuse/dax.c. This was included in
-> one of Ralph Campbell's patches.
-> 
-> v5:
-> - Cosmetic changes on patches 3, 5 and 13
-> - Bug founded at test_hmm, remove devmem->pagemap.type = MEMORY_DEVICE_PRIVATE
-> at dmirror_allocate_chunk that was forcing to configure pagemap.type to
-> MEMORY_DEVICE_PRIVATE.
-> - A bug was found while running one of the xfstest (generic/413) used to
-> validate fs_dax device type. This was first introduced by patch: "mm: remove
-> extra ZONE_DEVICE struct page refcount" whic is part of these patch series.
-> The bug was showed as WARNING message at try_grab_page function call, due to
-> a page refcounter equal to zero. Part of "mm: remove extra ZONE_DEVICE struct
-> page refcount" changes, was to initialize page refcounter to zero. Therefore,
-> a special condition was added to try_grab_page on this v5, were it checks for
-> device zone pages too. It is included in the same patch.
-> 
-> This is how mm changes from these patch series have been validated:
-> - hmm-tests were run using device private and device generic types. This last,
-> just added in these patch series. efi_fake_mem was used to mimic SPM memory
-> for device generic.
-> - xfstests tool was used to validate fs-dax device type and page refcounter
-> changes. DAX configuration was used along with emulated Persisten Memory set as
-> memmap=4G!4G memmap=4G!9G. xfstests were run from ext4 and generic lists. Some
-> of them, did not run due to limitations in configuration. Ex. test not
-> supporting specific file system or DAX mode.
-> Only three tests failed, generic/356/357 and ext4/049. However, these failures
-> were consistent before and after applying these patch series.
-> xfstest configuration:
-> TEST_DEV=/dev/pmem0
-> TEST_DIR=/mnt/ram0
-> SCRATCH_DEV=/dev/pmem1
-> SCRATCH_MNT=/mnt/ram1
-> TEST_FS_MOUNT_OPTS="-o dax"
-> EXT_MOUNT_OPTIONS="-o dax"
-> MKFS_OPTIONS="-b4096"
-> xfstest passed list:
-> Ext4:
-> 001,003,005,021,022,023,025,026,030,031,032,036,037,038,042,043,044,271,306
-> Generic:
-> 1,2,3,4,5,6,7,8,9,11,12,13,14,15,16,20,21,22,23,24,25,28,29,30,31,32,33,35,37,
-> 50,52,53,58,60,61,62,63,64,67,69,70,71,75,76,78,79,80,82,84,86,87,88,91,92,94,
-> 96,97,98,99,103,105,112,113,114,117,120,124,126,129,130,131,135,141,169,184,
-> 198,207,210,211,212,213,214,215,221,223,225,228,236,237,240,244,245,246,247,
-> 248,249,255,257,258,263,277,286,294,306,307,308,309,313,315,316,318,319,337,
-> 346,360,361,371,375,377,379,380,383,384,385,386,389,391,392,393,394,400,401,
-> 403,404,406,409,410,411,412,413,417,420,422,423,424,425,426,427,428
-> 
-> Patches 1-2 Rebased Ralph Campbell's ZONE_DEVICE page refcounting patches.
-> 
-> Patches 4-5 are for context to show how we are looking up the SPM 
-> memory and registering it with devmap.
-> 
-> Patches 3,6-8 are the changes we are trying to upstream or rework to 
-> make them acceptable upstream.
-> 
-> Patches 9-13 add ZONE_DEVICE Generic type support into the hmm test.
-> 
-> Alex Sierra (11):
->   kernel: resource: lookup_resource as exported symbol
->   drm/amdkfd: add SPM support for SVM
->   drm/amdkfd: generic type as sys mem on migration to ram
->   include/linux/mm.h: helpers to check zone device generic type
->   mm: add generic type support to migrate_vma helpers
->   mm: call pgmap->ops->page_free for DEVICE_GENERIC pages
->   lib: test_hmm add ioctl to get zone device type
->   lib: test_hmm add module param for zone device type
->   lib: add support for device generic type in test_hmm
->   tools: update hmm-test to support device generic type
->   tools: update test_hmm script to support SP config
-> 
-> Ralph Campbell (2):
->   ext4/xfs: add page refcount helper
->   mm: remove extra ZONE_DEVICE struct page refcount
-> 
->  arch/powerpc/kvm/book3s_hv_uvmem.c       |   2 +-
->  drivers/gpu/drm/amd/amdkfd/kfd_migrate.c |  22 ++-
->  drivers/gpu/drm/nouveau/nouveau_dmem.c   |   2 +-
->  fs/dax.c                                 |   8 +-
->  fs/ext4/inode.c                          |   5 +-
->  fs/fuse/dax.c                            |   4 +-
->  fs/xfs/xfs_file.c                        |   4 +-
->  include/linux/dax.h                      |  10 +
->  include/linux/memremap.h                 |   7 +-
->  include/linux/mm.h                       |  54 +-----
->  kernel/resource.c                        |   1 +
->  lib/test_hmm.c                           | 231 +++++++++++++++--------
->  lib/test_hmm_uapi.h                      |  16 ++
->  mm/internal.h                            |   8 +
->  mm/memremap.c                            |  69 ++-----
->  mm/migrate.c                             |  25 +--
->  mm/page_alloc.c                          |   3 +
->  mm/swap.c                                |  45 +----
->  tools/testing/selftests/vm/hmm-tests.c   | 142 ++++++++++++--
->  tools/testing/selftests/vm/test_hmm.sh   |  20 +-
->  20 files changed, 405 insertions(+), 273 deletions(-)
-> 
-> -- 
-> 2.32.0
----end quoted text---
+
+To set FAN_CONTROL_NONE, basically also need to turn off auto mode and 
+manually set to 100% speed. If we take out turning off auto mode here, 
+probably that part needs to be handled elsewhere.
+
+Thanks,
+Lijo
+
+> BR
+> Evan
+>>
+>> Thanks,
+>> Lijo
+>>
+>>>    	duty100 = REG_GET_FIELD(RREG32_SOC15(THM, 0,
+>> mmCG_FDO_CTRL1),
+>>>    				CG_FDO_CTRL1, FMAX_DUTY100);
+>>>    	if (!duty100)
+>>> @@ -1237,11 +1234,6 @@ int smu_v11_0_set_fan_speed_rpm(struct
+>> smu_context *smu,
+>>>    	 */
+>>>    	uint32_t crystal_clock_freq = 2500;
+>>>    	uint32_t tach_period;
+>>> -	int ret;
+>>> -
+>>> -	ret = smu_v11_0_auto_fan_control(smu, 0);
+>>> -	if (ret)
+>>> -		return ret;
+>>>
+>>>    	/*
+>>>    	 * To prevent from possible overheat, some ASICs may have
+>>> requirement @@ -1257,9 +1249,7 @@ int
+>> smu_v11_0_set_fan_speed_rpm(struct smu_context *smu,
+>>>    				   CG_TACH_CTRL, TARGET_PERIOD,
+>>>    				   tach_period));
+>>>
+>>> -	ret = smu_v11_0_set_fan_static_mode(smu,
+>> FDO_PWM_MODE_STATIC_RPM);
+>>> -
+>>> -	return ret;
+>>> +	return smu_v11_0_set_fan_static_mode(smu,
+>> FDO_PWM_MODE_STATIC_RPM);
+>>>    }
+>>>
+>>>    int smu_v11_0_get_fan_speed_pwm(struct smu_context *smu,
+>>>
