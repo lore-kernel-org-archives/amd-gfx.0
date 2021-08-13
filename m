@@ -2,98 +2,129 @@ Return-Path: <SRS0=hpB+=NE=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-23.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
+	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3EDF6C4338F
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Aug 2021 16:22:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D1BAEC432BE
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Aug 2021 16:51:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D499361042
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Aug 2021 16:22:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D499361042
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
+	by mail.kernel.org (Postfix) with ESMTPS id 9776960F57
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Aug 2021 16:51:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9776960F57
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D9436E884;
-	Fri, 13 Aug 2021 16:22:47 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org
- [IPv6:2001:8b0:10b:1236::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 690126E880;
- Fri, 13 Aug 2021 16:13:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=9Jq9OYg9EXI1aRB5/mW+60AZEjUGr9kH6BUneFaePHw=; b=srU2gOhlF1tA35b57YG0YNmQxP
- Bu7cAtaISOcIQ5NX4BIk/TfOlOHPn82r4hLbjJIY3Kk+5STCK2yycxhkCFjMHMTuPyOtY5mPtiWNu
- 8PHYiam1b2H2D5UTeByA4eT4hYZqxpnTD0gI4LS3RPWD4zhiBBYdhekex0P6p0SwZZnA1Mk3vivuw
- xZsJSC70p0qDfbsiYBbd79goLwWxx4ahK+itkfJyAiFkIg/M1Yzxt0y5EVeoTaCw6l5+FpwtajKn/
- kqW98BeM4RU3mYmkl5oFkchdxpk8NQpZxkj/oV2ihrSsq0bv5lQRgq7SbOM5b2CPcMbVs6WEqLE2l
- JJZoY3wQ==;
-Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1mEZjj-00FqgB-G6; Fri, 13 Aug 2021 16:09:06 +0000
-Date: Fri, 13 Aug 2021 17:08:47 +0100
-From: Matthew Wilcox <willy@infradead.org>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Jim Cromie <jim.cromie@gmail.com>, gregkh@linuxfoundation.org,
- seanpaul@chromium.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Zhenyu Wang <zhenyuw@linux.intel.com>,
- Zhi Wang <zhi.a.wang@intel.com>, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Jason Baron <jbaron@akamai.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
- Huang Rui <ray.huang@amd.com>, Kevin Wang <kevin1.wang@amd.com>,
- Chengming Gui <Jack.Gui@amd.com>, Likun Gao <Likun.Gao@amd.com>,
- John Clements <john.clements@amd.com>,
- Ashley Thomas <Ashley.Thomas2@amd.com>,
- Qingqing Zhuo <qingqing.zhuo@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Wyatt Wood <Wyatt.Wood@amd.com>, Johan Hovold <johan@kernel.org>,
- Jessica Yu <jeyu@kernel.org>, Joe Perches <joe@perches.com>,
- Miguel Ojeda <ojeda@kernel.org>,
- Nick Desaulniers <ndesaulniers@gooogle.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Masahiro Yamada <masahiroy@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>,
- "Paul E. McKenney" <paulmck@kernel.org>,
- Tetsuo Handa <penguin-kernel@i-love.sakura.ne.jp>,
- Thomas Gleixner <tglx@linutronix.de>,
- Vitor Massaru Iha <vitor@massaru.org>, Sedat Dilek <sedat.dilek@gmail.com>,
- Changbin Du <changbin.du@intel.com>, Marco Elver <elver@google.com>,
- Jarkko Sakkinen <jarkko@kernel.org>,
- Alexander Potapenko <glider@google.com>,
- Zhen Lei <thunder.leizhen@huawei.com>,
- Albert van der Linde <alinde@google.com>,
- Johannes Berg <johannes.berg@intel.com>,
- Arvind Sankar <nivedita@alum.mit.edu>,
- Patricia Alfonso <trishalfonso@google.com>, Arnd Bergmann <arnd@arndb.de>,
- Palmer Dabbelt <palmerdabbelt@google.com>, Jiri Olsa <jolsa@kernel.org>,
- Andrey Konovalov <andreyknvl@gmail.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-Subject: Re: [PATCH v5 3/9] dyndbg: add DEFINE_DYNAMIC_DEBUG_CATEGORIES and
- callbacks
-Message-ID: <YRaZDzROiEhqJgUb@casper.infradead.org>
-References: <20210813151734.1236324-1-jim.cromie@gmail.com>
- <20210813151734.1236324-4-jim.cromie@gmail.com>
- <YRaU6fbGjcV7BGC/@smile.fi.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99D9E6E520;
+	Fri, 13 Aug 2021 16:51:23 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2047.outbound.protection.outlook.com [40.107.243.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E87126E888;
+ Fri, 13 Aug 2021 16:51:21 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=iG3U4UdjCnbwR7fQvk3BbmSdghExiOXpMiq5rNQR04rseB7KRX3+Ueh4dWxK/qFpYT5LvBTBtN79cQabJJXKUBfHHM+cD7bIWjsrml5Lzkq/xC6Xm9QoFLtGRXiwu+j9I8SsLtmsecHSY7nLQVOrfw7/JwA4QijjcBUAzsVadxhLX+Y0Bakw1X1hp3qPPceHqtbetOLNOBERxY9092q92aauRKRvb2NeX64uuqeMnWJV5L9I0Onk/n+JBWbipiXnqdPPDXOrwjhl6L0Mxo6EfPxkBS9XDzJAg95Gj7g3+sjRnDeMqoXVH6K7YrQqr7HNk51UebRgPdncqLlu67/cPQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mjdQcN5AnKZKPNs2H4C/GI6DbZvQJaYuN3XK3UFfuJ8=;
+ b=YizfFDvk2UD22RqxP8uV/yO8Lqz07jE8wAnQz1WVYvP/7AWewLIPCR3K4Ee9Zq/g/xyZ6KoUjN1hAOi3DMKu9EE32zu0ihCwov1ArrKsLqa7RumsGdpawa67e99lB4l+cGAEt6zvwmuQABPKL9MKh+VpKBYMwuB004XruzEhHPwjsC2C5QM66ijr0/vNWUNTc2UdoYdpUf6jzqUGo+qlj9aHIfbu+hWxMf52g7/S/1/l1mlYzvP1/F38Rri8S9UKKifBGug70voW4j+Dyo4s8KRwxf2fAJs0XjxxVixNqkUZVkoY4Xin7I/pqq5GcYhUxtsvM527WyWVTVSNlPk2kg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mjdQcN5AnKZKPNs2H4C/GI6DbZvQJaYuN3XK3UFfuJ8=;
+ b=LPfBlT9MAXmfuk4F6tb4TbnOBQGVHa5Vv2Ol5QNIcUBKTfmrZSMo/a08Oyx3cfG4hyzt15ZPadmVvTwQsXYkGUTdAvzyiCDOBb13wlO94ep8/mq86LX0hIqVIKKz3GoiDRiag+BSCV5YMt7MeDFYlSU/lldqkWG9z7nOOH1+bqY=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
+ by BL1PR12MB5109.namprd12.prod.outlook.com (2603:10b6:208:309::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.13; Fri, 13 Aug
+ 2021 16:51:20 +0000
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::5dfc:ea54:4a18:89f5]) by BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::5dfc:ea54:4a18:89f5%5]) with mapi id 15.20.4415.020; Fri, 13 Aug 2021
+ 16:51:20 +0000
+From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ airlied@gmail.com, daniel.vetter@ffwll.ch
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Subject: [pull] amdgpu, amdkfd drm-next-5.15
+Date: Fri, 13 Aug 2021 12:51:02 -0400
+Message-Id: <20210813165102.5086-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.31.1
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BN9PR03CA0148.namprd03.prod.outlook.com
+ (2603:10b6:408:fe::33) To BL1PR12MB5144.namprd12.prod.outlook.com
+ (2603:10b6:208:316::6)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <YRaU6fbGjcV7BGC/@smile.fi.intel.com>
-X-Mailman-Approved-At: Fri, 13 Aug 2021 16:22:45 +0000
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from tr4.amd.com (165.204.84.11) by
+ BN9PR03CA0148.namprd03.prod.outlook.com (2603:10b6:408:fe::33) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4415.16 via Frontend Transport; Fri, 13 Aug 2021 16:51:19 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: e106e7b2-78a0-4b20-a911-08d95e7a9331
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5109:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BL1PR12MB51092D34CEB2EDACA977F953F7FA9@BL1PR12MB5109.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1265;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: P40dQQw3UXax87bp7PNO+nPjBhJIpXFQr+faK4bESROlKNuf+Qll1J4ruloN9eRsuDnlWHotl4r9cctYK7pi70bqhsMILi4T21HFGt/6yc5AIzCSPuzh1gZAkK2Q39MyEpKWzbTUkDtiZ3j4Jbnonq6uhXQcW/yfG/37gzq1D5xuHAlVx8uLjKZUH3UuZXNuKJdbTms6bNCJpqR5+d08Vi70CsUxZbvf1mPlxXoA2GeZImQIXINHLV6fJ7BhxmDxzPkVAvzqqzNluEBsIMPW5KCzcKFfoeKB30MVEEPi8oRYO7Tj5EnvFsU92Ih3dDSOZSNpzY4Zc3kG7ee5BgnUcicFAzFXaU+s6/UgRSXpmRPXKT3hdWjnU1+DkC2qt6wKKczR6GxpKUzgP44330TfqW9YkEKxMWuy3cOtoBV+O6MdW+Uh9urRV0rxjeCQgCUdlhAHAjE58NurW0yakGVqQmq1d3tnu+Rjjad5B18eIhsKeP3Zs/KulHh6hD3cdILi+1ZsXAW5pXSs7Q3cq/uz4Ot7AjqBYdUfAgTH+i02TMODW1jG+FY0SM2Y5NTqekESbym4DU8A2xl5g2nyjXacfMhN+FXsh8bzHl3SDu8kJoFaWGBvBAWdxgNOERBR8tTwaac61BR/H+6Xk3JCqrTM81wf2ms0fT2pbHoTwUvqmodGMOnt8podtTvzpLl2NQ6/588wq2j+LKoDAQqfBPzS6A==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(396003)(376002)(39860400002)(366004)(136003)(38350700002)(38100700002)(4326008)(8676002)(316002)(966005)(66556008)(66946007)(26005)(66476007)(1076003)(5660300002)(2906002)(956004)(83380400001)(2616005)(6486002)(6666004)(186003)(8936002)(7696005)(86362001)(36756003)(66574015)(478600001)(52116002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NUI0cXNxRGhheHJXcUtoQldEa2ZWaXJEYWlLN3UwOWJhblF1YlRTZ09RQWEv?=
+ =?utf-8?B?NzZhNUFTbE1zYW1lVG9la2c3NGRLcldPdnkrNGlzMEF4OFBiU0s5YjgyaU5s?=
+ =?utf-8?B?dCtmc3A2bTQrL0ZnMGdNZnpNc3p3N2dsSXNhQkF1UVczc3pTekdLUVBxMVVz?=
+ =?utf-8?B?RTROZUxrU04rcmhGOUJ4ZC9IK3RMaStWU0hOUmxRaTBIMm9UUjFyVGhKbCs0?=
+ =?utf-8?B?VGlBNHNSb0gxUHBhY0g5UGJvRVltMXdIRXpYenhyaVpxQ1Y3aEttRlRaaWFu?=
+ =?utf-8?B?RFFteGxGV0RscW9VU1hmRU51L1g2ZTZRSTdRTm53SUFiZ0YxYWE1VU1zR3BN?=
+ =?utf-8?B?ckRqZXJmaERlRk90VGwrRHNkUjZkREp5ODJodENUalJpMlFkZEpVdUEvQmp2?=
+ =?utf-8?B?S1NHNzI2eDJPbmFnSitrVndXWlo3czFZZnNnUjJuQWxIUndwMVpEMEFkQ3B0?=
+ =?utf-8?B?NGIvajVZR0grTWVGQnBmdnB3WnlDdVl3M2RjNEQ2a0s3TWdXRTdpZjg5Qith?=
+ =?utf-8?B?Tjg5bW5qVVBzM2Z6N1JmWUJwaUNZbVA5WHBxS2x5UEpNMk54YkhhZDI1VmVp?=
+ =?utf-8?B?eDArTHFZL09lbHBYME9DTzZyemI0V0xDaWgyUGl6c3M4QWgzSWFScVlIQVlm?=
+ =?utf-8?B?MHJ1U3h5R2szcUFhOHlzQ1pSck5YNXpWOXEwMHRtazlQVWF4VEU2UHFGSExr?=
+ =?utf-8?B?US9SN0taV1o3OU9xWHJiYW9RU3RGdUMvbUtJOFpFNEZIZHlTUldoazBjcWQ4?=
+ =?utf-8?B?T1d1UG92NHJQVzkzM0VTcWU3U0svUkpxZGpMaGpaL01ROS9kLzd0WHNvSlZ1?=
+ =?utf-8?B?bCtFdkMrNDhwTFN5NlE5eEpGemdUbmVNL1ZOMTVXK2pzVXM0NENTalNMM0Rs?=
+ =?utf-8?B?aytlY1J5eTkydkJsbGRmU1J2VlBGZWJEdWhremV3MkkySDg3WU01WFZxMkhv?=
+ =?utf-8?B?SEtwU1FrdEl3ckFFQTJRdkhybzVGMGV6dGVQVXRMN2Q2WjZJdlpqcmticFhS?=
+ =?utf-8?B?VXI0SDQ3bTVsSm9SeGthdmFLNDhYOU5ubEh3TjUvUm10TGFTQzlZMHdYOWht?=
+ =?utf-8?B?dlE3RktSc1oybURXdm9vMklGRlRydmlDQ29ZVStRVXp6WlBLZXZIUkxFVUNQ?=
+ =?utf-8?B?enpDYkxLWHQxM2RiZDlPQWQ5blljZ2RMN2hZN1NhNjlQWXZ6Mm5HRUJIVFVM?=
+ =?utf-8?B?QXdoQkxMaEl6NjBTWVpjNlJmOEpHaU43d2RxSjhLaXh6Z0M3cmhzRURkamZ3?=
+ =?utf-8?B?UDlLUy9Ccks0VUxtQWZlSnFmc25nMUIwYnpqUVdVMjdJaDhPTTJNbERpbWtX?=
+ =?utf-8?B?K0NDR1FLOHgvYi9yMXQxemhidExEUERSc1pkY2d5Z0tBRkpvYlp2dHA3YlZE?=
+ =?utf-8?B?TGx4OHNFRURjZEl3SHl5LzZzUGpTYmN3NG5BN09nL0dZejRaME4rc2NyT1hq?=
+ =?utf-8?B?b3RGWmEvd1lPbHg0Z2FCTmJxNVMyMEM5dHFwcm9nQmRRdkZmcU1UZEI0UlRR?=
+ =?utf-8?B?QWV5bDhIUS9pN1FQZTRtR0pGVHBQL3lEakthRGd1WTIreEVudzc5M0FZVXFZ?=
+ =?utf-8?B?NWF0eUtrR0VMRzV4Y2NVUnlKeFhBbUNic29KemROVWd1a0NCWmNSMmFGbWx0?=
+ =?utf-8?B?cDdBdnFuNXRCTUE4OXlsc1lKbUd5cmsvNVozYmxrcHBMTzczNTN6NUtoeFZn?=
+ =?utf-8?B?WGk1VlBoVkJ6WkZKRkNmWFR5SVB0QU9kRjFWVGwvdWFTNnNBYXEvQmdUakVK?=
+ =?utf-8?Q?ssnWeSV8GQqSZewurf0fKbFxTcuQjd4gkDu73Yc?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e106e7b2-78a0-4b20-a911-08d95e7a9331
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2021 16:51:20.0472 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mwHgW74i2E5ms8EGaHa6ilVC8ePNPpXFMrMK0AvOYAcDb5B/7nJBrLJ8f9CpewcBPiIYo0cVD4HLHJeyaB84Xg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5109
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,19 +139,148 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Aug 13, 2021 at 06:51:05PM +0300, Andy Shevchenko wrote:
-> On Fri, Aug 13, 2021 at 09:17:11AM -0600, Jim Cromie wrote:
-> > +int param_set_dyndbg(const char *instr, const struct kernel_param *kp)
-> > +{
-> > +	unsigned long inbits;
-> > +	int rc, i, chgct = 0, totct = 0;
-> > +	char query[OUR_QUERY_SIZE];
-> > +	struct dyndbg_bitdesc *bitmap = (struct dyndbg_bitdesc *) kp->data;
-> 
-> So you need space after ')' ?
+Hi Dave, Daniel,
 
-More importantly, if ->data is of type 'void *', it is bad style to
-cast the pointer at all.  I can't tell what type 'data' has; if it
-is added to kernel_param as part of this series, I wasn't cc'd on
-the patch that did that.
+Updates for 5.15.  Mostly bug fixes and cleanups.
 
+The following changes since commit a43e2a0e11491b73e2acaa27ee74d6c3b86deac0:
+
+  drm/amdkfd: Allow querying SVM attributes that are clear (2021-08-06 16:12:32 -0400)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-next-5.15-2021-08-13
+
+for you to fetch changes up to 554594567b1fa3da74f88ec7b2dc83d000c58e98:
+
+  drm/display: fix possible null-pointer dereference in dcn10_set_clock() (2021-08-11 17:19:54 -0400)
+
+----------------------------------------------------------------
+amd-drm-next-5.15-2021-08-13:
+
+amdgpu:
+- Improve aux i2c tracing
+- Misc display updates
+- Misc code cleanups
+- sprintf to sysfs_emit updates
+- Fix some fan control corner cases with suspend
+
+amdkfd:
+- Enable CWSR with software scheduling
+
+----------------------------------------------------------------
+Alex Deucher (1):
+      drm/amdgpu: handle VCN instances when harvesting (v2)
+
+Anson Jacob (1):
+      drm/amd/display: use GFP_ATOMIC in amdgpu_dm_irq_schedule_work
+
+Anthony Koo (2):
+      drm/amd/display: [FW Promotion] Release 0.0.78
+      drm/amd/display: 3.2.148
+
+Ashley Thomas (1):
+      drm/amd/display: Add AUX I2C tracing.
+
+Darren Powell (7):
+      amdgpu/pm: Replace navi10 usage of sprintf with sysfs_emit
+      amdgpu/pm: Replace smu11 usage of sprintf with sysfs_emit
+      amdgpu/pm: Replace smu12/13 usage of sprintf with sysfs_emit
+      amdgpu/pm: Replace vega10 usage of sprintf with sysfs_emit
+      amdgpu/pm: Replace vega12,20 usage of sprintf with sysfs_emit
+      amdgpu/pm: Replace hwmgr smu usage of sprintf with sysfs_emit
+      amdgpu/pm: Replace amdgpu_pm usage of sprintf with sysfs_emit
+
+Eric Bernstein (1):
+      drm/amd/display: Remove invalid assert for ODM + MPC case
+
+Mukul Joshi (1):
+      drm/amdkfd: CWSR with software scheduler
+
+Nicholas Kazlauskas (2):
+      drm/amd/display: Clear GPINT after DMCUB has reset
+      drm/amd/display: Increase timeout threshold for DMCUB reset
+
+Philip Yang (1):
+      drm/amdkfd: AIP mGPUs best prefetch location for xnack on
+
+Randy Dunlap (2):
+      drm/amd/display: use do-while-0 for DC_TRACE_LEVEL_MESSAGE()
+      drm/amdgpu: fix kernel-doc warnings on non-kernel-doc comments
+
+Roy Chan (5):
+      drm/amd/display: fix missing writeback disablement if plane is removed
+      drm/amd/display: refactor the codes to centralize the stream/pipe checking logic
+      drm/amd/display: refactor the cursor programing codes
+      drm/amd/display: fix incorrect CM/TF programming sequence in dwb
+      drm/amd/display: Correct comment style
+
+Ryan Taylor (2):
+      drm/amd/pm: restore fan_mode AMD_FAN_CTRL_NONE on resume (v2)
+      drm/amd/pm: graceful exit on restore fan mode failure (v2)
+
+Sergio Miguéns Iglesias (1):
+      drm/amdgpu: Removed unnecessary if statement
+
+Tuo Li (2):
+      gpu: drm: amd: amdgpu: amdgpu_i2c: fix possible uninitialized-variable access in amdgpu_i2c_router_select_ddc_port()
+      drm/display: fix possible null-pointer dereference in dcn10_set_clock()
+
+Victor Zhao (1):
+      drm/amdgpu: Extend full access wait time in guest
+
+Wenjing Liu (1):
+      drm/amd/display: add authentication_complete in hdcp output
+
+YuBiao Wang (1):
+      drm/amd/amdgpu: skip locking delayed work if not initialized.
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c |  31 ++++
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c   |  31 ++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c  |  33 +++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c      |  12 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c             |   3 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c            |   2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c            |   6 +-
+ drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c              |  16 +-
+ .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  |  21 ++-
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c               |  35 ++--
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c  |   2 +-
+ drivers/gpu/drm/amd/display/dc/core/dc.c           |  62 ++++---
+ drivers/gpu/drm/amd/display/dc/core/dc_stream.c    | 106 +++++++-----
+ drivers/gpu/drm/amd/display/dc/dc.h                |   2 +-
+ drivers/gpu/drm/amd/display/dc/dce/dce_aux.c       | 192 ++++++++++++++++++++-
+ drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c      |   2 +-
+ .../drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c  |  11 +-
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c |  14 +-
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_dwb_cm.c    |  90 +++++++---
+ drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c |  12 +-
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_resource.c  |   1 -
+ drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h    |   6 +-
+ drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c  |  18 +-
+ drivers/gpu/drm/amd/display/modules/hdcp/hdcp.c    |   5 +-
+ drivers/gpu/drm/amd/display/modules/hdcp/hdcp.h    |   8 +
+ .../amd/display/modules/hdcp/hdcp1_transition.c    |   8 +-
+ .../amd/display/modules/hdcp/hdcp2_transition.c    |   4 +-
+ .../gpu/drm/amd/display/modules/hdcp/hdcp_log.c    |  74 ++++++++
+ .../gpu/drm/amd/display/modules/hdcp/hdcp_log.h    |  72 --------
+ drivers/gpu/drm/amd/display/modules/inc/mod_hdcp.h |   1 +
+ drivers/gpu/drm/amd/include/kgd_kfd_interface.h    |   3 +
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c                 |  16 +-
+ .../gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c   |  22 +--
+ .../gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c    |  38 ++--
+ .../gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c    |   7 +-
+ .../gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c  |  38 ++--
+ .../gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c  |  14 +-
+ .../gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c  |  74 ++++----
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c          |   9 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c  |  26 +--
+ drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c    |  61 +++----
+ .../drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c    |  34 ++--
+ drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c   |  46 ++---
+ drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c    |  20 +--
+ drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c |  21 ++-
+ .../gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c   |  14 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c             |   6 +-
+ 48 files changed, 873 insertions(+), 459 deletions(-)
