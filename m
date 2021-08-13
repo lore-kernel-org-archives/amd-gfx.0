@@ -2,70 +2,57 @@ Return-Path: <SRS0=hpB+=NE=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4006FC4338F
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Aug 2021 07:09:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F415BC4338F
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Aug 2021 07:09:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0242C60241
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Aug 2021 07:09:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0242C60241
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=qq.com
+	by mail.kernel.org (Postfix) with ESMTPS id 8E91760FC4
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Aug 2021 07:09:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8E91760FC4
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=igalia.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A3FC6E532;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE50C6E53E;
 	Fri, 13 Aug 2021 07:09:27 +0000 (UTC)
-X-Greylist: delayed 368 seconds by postgrey-1.36 at gabe;
- Fri, 13 Aug 2021 03:36:33 UTC
-Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com
- [162.62.57.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46F8A6E4B1;
- Fri, 13 Aug 2021 03:36:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1628825788; bh=rViq60LtzWJcoJDiQ9b1+/kIjUovnJp4t/ZVZrd2Ks0=;
- h=From:To:Cc:Subject:Date;
- b=pisT4w3N1WHAQx+v4e/w2b/uba+jYQeOd6bQR96zOmnzBOVXP0z1+24yMBexIOEa9
- niKroJgf2Vd/+5Pb03O9T+3z4eXji5/YxchI5vBfo9TluyjvFcY6K+hQxdLyGnHXkQ
- dHDmnvJbU8uF3L0A2NWjYNHiWWmsgTHA5WayjzSg=
-Received: from localhost.localdomain ([106.120.213.23])
- by newxmesmtplogicsvrszb7.qq.com (NewEsmtp) with SMTP
- id 71C2CC25; Fri, 13 Aug 2021 11:28:28 +0800
-X-QQ-mid: xmsmtpt1628825308tloi975vk
-Message-ID: <tencent_D167B6522B17C0228524C70F9CA5EEBBEC09@qq.com>
-X-QQ-XMAILINFO: M2QCdMyLnanc1fNRNyhut05HsD9IXOUsGmzNo/z5kVAFyOLTS4sG92DTq19Oyk
- maKi7NDXnkOPTUdbmS5kn9RAVb4EgYqFfsnsIvMXxs83TKg6LHQZ9uRu99OBz8lSakJtSpCm4alN
- 1N9VPAmqK6jyy1UBT1G1cI2BbDu0itZ+0wlXOQdh9M0jNTy75iG2RHEv6rcByymX++OD7GjQ20OG
- MKWYI8jeSe/+uyFo+OXkxfmzFsvls2gHIRKqG7AlAAWFLnqRCdO8vijWlCaRwb8Yy3bL/iEj4kky
- Uaz6LkbH0pURDC4o6fxu6aIb6rb//kz1xfI8topjqESY04RS5xLvVm0lUqBgQYpalu/fSyyJVGUd
- cpiMYTUfcNfB/nzPgs66Zf9qy5j52BnyxYLFFh/thi4cBmQWOA3RmI+PVf4bxtHuNGqv662MShpt
- TNQR8MVX8LLj1knhi827yBeIcE9at7o08lj8EXu3Zs100fMiB3YprHm2+E6mJ58k6ifW/mniFhKc
- tat5f3/pVbZXFY1mqfKQo4dIlnYvEGt/mhfbN1eFnHMZhPvf7lh7JtJ/MdjVKnXXMql7q9S/R3p6
- DLxXU1Jxk4SW1XNIlWgWpHO9U+Jy5U+dw14IAt84oNzwHL6J9Jse4Zu6S289zOwLy5g3bASQKF4u
- H9QkTtb557JkgKAxFl8foGt5V8c8skPmR1iqWRUaIgQINrzalAcBwJWr30nCw3No9slE6SzK+T9L
- K+SPYJi58RkUGra26gnNZmRP6sUqypdGgl/keubCTMt6qHQ/EelgmkdDrgxmUNcqeE/If1nMV3lW
- eMVeezsQElYwsPZP3QHuf+FI5oOvk+/nvQjSNYGZbnoW6c1o/9gfhTHwzoO0GgWK6t5ZZ52LTWpu
- 3CkEuKnC0QamSlylD0H+g=
-From: lwt105 <3061522931@qq.com>
-To: alexander.deucher@amd.com
-Cc: christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@linux.ie,
- daniel@ffwll.ch, sumit.semwal@linaro.org, nirmoy.das@amd.com,
- chenli@uniontech.com, JinhuiEric.Huang@amd.com, mh12gx2825@gmail.com,
- lee.jones@linaro.org, kevin1.wang@amd.com, luben.tuikov@amd.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, lwt105 <3061522931@qq.com>
-Subject: [PATCH] drivers:gpu:drm:amd:amdgpu:fix a potential use-after-free
-Date: Fri, 13 Aug 2021 11:28:25 +0800
-X-OQ-MSGID: <20210813032825.99385-1-3061522931@qq.com>
-X-Mailer: git-send-email 2.25.1
+Received: from fanzine.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4764E6E51C;
+ Fri, 13 Aug 2021 06:42:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+ s=20170329; 
+ h=MIME-Version:Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID;
+ bh=2BDYHROUGREoCWD93TahQhvltPOcCQ9Rqb/VhTH2opE=; 
+ b=Mv8o2IQqonJgFKICzXh2FrFhFwTUonW8QwaIUORNoLJB5AMK7lvVvI8n2SEPIRzhVOSmNvMxz4C0+vaLxtyxV0VEyuAgUJytiAIvGq5lRwYLUn9VtK2VXLqZt12dSXUoPvhfVfmIeLJbBEYBBJycRNZ9GrGe91h2R+O9vqK6GIj/HgKNfWYlk9y2I3lQLgv7Pz6kzQ90uXh6idNLc96IUclje5ZJzjoxE4oHh5TTG5nWeV4qIVeaX0o6y3ypFaPo48eq7mXQlEvr8ZUUvdDi8q6jkMWZsW/T1r2+FvKcvgIfYe1NKt9OCfAMPC6GrpHBig6UT+q+Chhh6N9HAHP9HQ==;
+Received: from 152.red-88-9-105.dynamicip.rima-tde.net ([88.9.105.152]
+ helo=[192.168.2.252]) by fanzine.igalia.com with esmtpsa 
+ (Cipher TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim)
+ id 1mEQtK-0004jz-LK; Fri, 13 Aug 2021 08:42:06 +0200
+Message-ID: <472cd2efff2a53809dc2e8ec0ece7f475256005d.camel@igalia.com>
+Subject: Re: [Mesa-dev] Requests For Proposals for hosting XDC 2022 are now
+ open
+From: Samuel Iglesias =?ISO-8859-1?Q?Gons=E1lvez?= <siglesias@igalia.com>
+To: "events@lists.x.org" <events@lists.x.org>, 
+ "xorg-devel@lists.freedesktop.org"
+ <xorg-devel@lists.freedesktop.org>, wayland-devel@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, mesa-dev@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org, etnaviv@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org, libre-soc-dev@lists.libre-soc.org
+Cc: "board@foundation.x.org" <board@foundation.x.org>
+Date: Fri, 13 Aug 2021 08:41:56 +0200
+In-Reply-To: <c002b2564f430cea5fae1270c85ac471bf53afb7.camel@igalia.com>
+References: <95ec2c414f7dd1ea5685184435b95430e1709047.camel@igalia.com>
+ <f5ee80e067e79dff0b2d65c67dbb83b9be70014f.camel@igalia.com>
+ <c002b2564f430cea5fae1270c85ac471bf53afb7.camel@igalia.com>
+Content-Type: multipart/signed; micalg="pgp-sha256";
+ protocol="application/pgp-signature"; boundary="=-HussvbpJOUQoFuLCPOPI"
+User-Agent: Evolution 3.38.3-1 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 13 Aug 2021 07:09:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -81,51 +68,133 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-in line 1503, "dma_fence_put(fence);" drop the reference to fence and may
-cause fence to be released. However, fence is used subsequently in line
-1510 "fence->error". This may result in an use-after-free bug.
 
-It can be fixed by recording fence->error in an variable before dropping
-the reference to fence and referencing it after dropping.
+--=-HussvbpJOUQoFuLCPOPI
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: lwt105 <3061522931@qq.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+Deadline is at the end of this month. Do not forget to submit your XDC
+2022 hosting proposal!
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index 30fa1f61e0e5..99d03180e113 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -1486,7 +1486,7 @@ static int amdgpu_cs_wait_all_fences(struct amdgpu_device *adev,
- 				     struct drm_amdgpu_fence *fences)
- {
- 	uint32_t fence_count = wait->in.fence_count;
--	unsigned int i;
-+	unsigned int i, error;
- 	long r = 1;
- 
- 	for (i = 0; i < fence_count; i++) {
-@@ -1500,6 +1500,7 @@ static int amdgpu_cs_wait_all_fences(struct amdgpu_device *adev,
- 			continue;
- 
- 		r = dma_fence_wait_timeout(fence, true, timeout);
-+		error = fence->error;
- 		dma_fence_put(fence);
- 		if (r < 0)
- 			return r;
-@@ -1507,8 +1508,8 @@ static int amdgpu_cs_wait_all_fences(struct amdgpu_device *adev,
- 		if (r == 0)
- 			break;
- 
--		if (fence->error)
--			return fence->error;
-+		if (error)
-+			return error;
- 	}
- 
- 	memset(wait, 0, sizeof(*wait));
--- 
-2.25.1
+Sam
 
+On Thu, 2021-07-29 at 21:01 +0200, Samuel Iglesias Gons=C3=A1lvez wrote:
+> Remember before enjoying your holiday that the deadline for XDC 2022
+> proposals is *September 1st, 2021* :-)
+>=20
+> Feel free to submit your proposal before, so we can give you early
+> feedback on it!
+>=20
+> Sam
+>=20
+> On Thu, 2021-07-01 at 18:14 +0200, Samuel Iglesias Gons=C3=A1lvez wrote:
+> > This is a reminder that the call for proposals for hosting XDC 2022
+> > period finishes in two months.
+> >=20
+> > Be sure to prepare your submission before you leave on holiday!
+> >=20
+> > Sam
+> >=20
+> > On Thu, 2021-05-20 at 12:15 +0200, Samuel Iglesias Gons=C3=A1lvez wrote=
+:
+> > > Hello everyone!
+> > >=20
+> > > The X.org board is soliciting proposals to host XDC in 2022.
+> > > Since
+> > > XDC 2021 is being held in Europe this year (although virtually),
+> > > we've
+> > > decided to host in North America. However, the board is open to
+> > > other
+> > > locations, especially if there's an interesting co-location with
+> > > another conference.
+> > >=20
+> > > Of course though, due to the ongoing COVID-19 pandemic it's not
+> > > yet
+> > > clear whether or not it will be possible to host XDC 2022 in
+> > > person,
+> > > although is seems very likely. Because of this, we would like to
+> > > make it clear that sponsors should prepare for both the
+> > > possibility
+> > > of an in person conference, and the possibility of a virtual
+> > > conference. We will work with organizers on coming up with a
+> > > deadline for deciding whether or not we'll be going virtual,
+> > > likely
+> > > sometime around July 2022.
+> > >=20
+> > > If you're considering hosting XDC, we've assembled a wiki page
+> > > with
+> > > what's generally expected and needed:
+> > >=20
+> > > https://www.x.org/wiki/Events/RFP/
+> > >=20
+> > > When submitting your proposal, please make sure to include at
+> > > least
+> > > the
+> > > key information about the potential location in question,
+> > > possible
+> > > dates along with estimated costs. Proposals can be submitted to
+> > > board
+> > > at foundation.x.org until the deadline of *September 1st, 2021*.=C2=
+=A0
+> > >=20
+> > > Additionally, an quirk early heads-up to the board if you're
+> > > considering hosting would be appreciated, in case we need to
+> > > adjust
+> > > the
+> > > schedule a bit. Also, earlier is better since there generally
+> > > will
+> > > be
+> > > a
+> > > bit of Q&A with organizers.
+> > >=20
+> > > And if you just have some questions about what organizing XDC
+> > > entails,
+> > > please feel free to chat with previous organizers, or someone
+> > > from
+> > > the
+> > > board.
+> > >=20
+> > > Thanks,
+> > >=20
+> > > Sam
+> > >=20
+> > > _______________________________________________
+> > > mesa-dev mailing list
+> > > mesa-dev@lists.freedesktop.org
+> > > https://lists.freedesktop.org/mailman/listinfo/mesa-dev
+> >=20
+> > _______________________________________________
+> > mesa-dev mailing list
+> > mesa-dev@lists.freedesktop.org
+> > https://lists.freedesktop.org/mailman/listinfo/mesa-dev
+>=20
+> _______________________________________________
+> mesa-dev mailing list
+> mesa-dev@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/mesa-dev
+
+
+--=-HussvbpJOUQoFuLCPOPI
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEQP+ZAvaXWkfuKXiEf/S6MvF9w0MFAmEWFDQACgkQf/S6MvF9
+w0PpBQ/+LKbsYVBGGMAGgaH52TYRAurvN22z9+7CzfCioK4x2ebgtKaGwXs7C4en
+htjd5yFiaEQQJpjOx7l3J4eVjs75qmZNws3QwU20Dadl2TrbOgpStlLL3xY/U6iX
+WCuWQiyACbDjdb5Cwd1F+0rne1r/FBwf/uLkYlIslvSGdp9Ryl/wkV3GFDc+ptIv
+PAiIyye2wpRdJAWP6peqYiW6fB/iohOJdInic/hgZ1ajPCafiH/3NPwFWmo64cWH
+FEpnEmu82KOk22sSnSWZx0gei2krv/u+rnlKvKGi6Fs5PWEEg1SDRRy7I2kpUCsr
+Kz0y+9I7fWYii+CKphENwcmLjTqRvpEZguqukfzwtr7aap1fwQuVETgvtCDFDUle
+6v0tkP0nbQrV/TqH/8xE2h+2zVKhM+w2eCFNIjDyTxKcPTgLL2yrIzF123Iwk6QF
+4aoNhSMY2X6+5N23ksjTB3iWzaPNofz3yBlwUz09z4ZK/2H8a/2RSCOojYYdx8B5
+asadkS+o2HoCbv7kZfCdi+yKT3AlAGKgQokWoIY0r4KGxakXeTC3HWVmLVdRiNaM
+aZPNhvLXeS6onZDyQsneCQNdNX5/YVGXJm77dso1p7y2oSFmdICTIYIK2R5ma4N+
+bOp6NhIABv5Sfjabt1vAWof9PH18RxvwWjtX1IpSPzSHaGtBdkM=
+=ZcQa
+-----END PGP SIGNATURE-----
+
+--=-HussvbpJOUQoFuLCPOPI--
 
