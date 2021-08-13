@@ -2,140 +2,109 @@ Return-Path: <SRS0=hpB+=NE=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D1766C4338F
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Aug 2021 15:07:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EA15EC4338F
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Aug 2021 15:17:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 94EEB6109D
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Aug 2021 15:07:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 94EEB6109D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id B67DF60E9B
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Aug 2021 15:17:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B67DF60E9B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A9A86E84C;
-	Fri, 13 Aug 2021 15:07:46 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam08on2049.outbound.protection.outlook.com [40.107.102.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0747D6E84C;
- Fri, 13 Aug 2021 15:07:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BDweGzwULUCbbg4UiAJdiFoI8bE5YkU4JFMBN8MdSaAnGdyJddygbngHsKohOWgn98qYhl1rhEddfxzP4OQZ7VwNMa965zA0C/jMG6NgKGb4bp7gT0ag/Jedb/4qOFx4YDTjUXJU59bh2WceLnrT/LryhijmD/RFm0jn7P1dGmBZLgMwwsreb+2LC3HKdtlTLbFbaMhYxZfBQaq+/naQplWsUZ7W4210gJSN/ihjBNjkhIdLMKX8M+gEGcX7JxDjRMuay6w84o1w3Ez51q7H+hqJYiPS3yhlxckSA2UI0bRZ9b28YERnTMl6y0iKLhBDRQ71VO/PgO8F+4V6Kbp8ig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UyiEIPqOfVjW4SukoC+oYrQVnLkZkuUGb+d1ZLTa/b8=;
- b=TTKI/ipjMln94dTk9/GKj7aOVGzUlca3c531zZKp937qCmnVxicxIi7ilxaqAtASc8pWS1Drrrnb+BF+NLUkBohMVT+9Hhm9mK8Jkf+aUB1HomFKvDMKP6ZE7Mn5aug8aSJTrg9pGkELZbUI1xTRZON4uTNxNrezu426AVmGpmf3XwgfI4/gtxafkFrUAnEuYEB8bEBi5Y3DunHLn6dVFb6ITHkWPUQVf4dwyRXf1W8+ixTfcXSC3Db28cM+EmgZf5RziTzAzrVj7AzHGU0bJ94s9Rcm0Na288fCilWcxD7tZeEdNYMuXqddeeq4PxrH/r8d/OdqitcUmxb8M9TRVA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UyiEIPqOfVjW4SukoC+oYrQVnLkZkuUGb+d1ZLTa/b8=;
- b=anrjlIRx9BZf5fPjGj8KptynQRjaCKsd/wCOZ69SFaztn5c5VTJ374hRlltX8MvJCdfnaOTf1FIZPuVecqUOZww3U6wLfTD8LSDrwfL/FB0QMKbeWfedXaH5XBpdo7pNbFfM5pNwprAibdRN7litJeWR4WM0FLmvpny5OYvVN+E=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from BL1PR12MB5349.namprd12.prod.outlook.com (2603:10b6:208:31f::7)
- by BL1PR12MB5239.namprd12.prod.outlook.com (2603:10b6:208:315::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.19; Fri, 13 Aug
- 2021 15:07:41 +0000
-Received: from BL1PR12MB5349.namprd12.prod.outlook.com
- ([fe80::152:9dd3:45a4:eeb6]) by BL1PR12MB5349.namprd12.prod.outlook.com
- ([fe80::152:9dd3:45a4:eeb6%4]) with mapi id 15.20.4415.018; Fri, 13 Aug 2021
- 15:07:41 +0000
-Subject: Re: [PATCH] drm/amdgpu: Cancel delayed work when GFXOFF is disabled
-To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Cc: Leo Liu <leo.liu@amd.com>, James Zhu <James.Zhu@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-References: <20210811165211.6811-1-michel@daenzer.net>
- <20210813102920.3458-1-michel@daenzer.net>
- <f26f7350-79d6-e56f-bf69-fb1bf231208c@amd.com>
- <ff3c9ad3-ba7a-ef7b-d82e-27fa76c33979@daenzer.net>
- <9ec17598-0b51-014c-c633-2e4e74c863e9@amd.com>
- <31c9a190-8329-383e-bbea-3520add4d16a@daenzer.net>
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-Message-ID: <3ab84437-d4f6-c979-ef7f-d29dcf35eedb@amd.com>
-Date: Fri, 13 Aug 2021 20:37:15 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-In-Reply-To: <31c9a190-8329-383e-bbea-3520add4d16a@daenzer.net>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN1PR01CA0100.INDPRD01.PROD.OUTLOOK.COM (2603:1096:c00::16)
- To BL1PR12MB5349.namprd12.prod.outlook.com
- (2603:10b6:208:31f::7)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65A516E852;
+	Fri, 13 Aug 2021 15:17:54 +0000 (UTC)
+Received: from mail-io1-xd34.google.com (mail-io1-xd34.google.com
+ [IPv6:2607:f8b0:4864:20::d34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 337DA6E851;
+ Fri, 13 Aug 2021 15:17:53 +0000 (UTC)
+Received: by mail-io1-xd34.google.com with SMTP id b7so4679911iob.4;
+ Fri, 13 Aug 2021 08:17:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=cIj6tKl77TPV1rFCxoY1MGaICLIufrJrZxmaIANAlf0=;
+ b=BFWoy0c71QpTnxj1mIK/8d+VESAM779EmBu+vOky8Oiz8rpkbr2HWUrSKt9Lj8DsGo
+ LuNhcSnO8tvpvOz0nihCikhiPoicVaMKRyWq+rMHUpPi7q63uG/wFslJgzABp0mMX4fj
+ OqSbiw4pteYeV4silEcq0/kjz8Z9TJ3TtdPmTAj0dAKBRZW+Iu/gkSpeJrrdzH2VeYJO
+ h8YlxM6WQ1mm50hoBeimyPWKnZo7UAoPz+KYhlsErUN2Xht2u580RS9K4FFStTSCLnGq
+ h1l7i+xkXiAKg5zVNzboWmDw4vbmg/EfC5d8IgMrkvsNLmwIK57TtY1jMtjXjtkggVjq
+ vHSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=cIj6tKl77TPV1rFCxoY1MGaICLIufrJrZxmaIANAlf0=;
+ b=JXgpHrxYmAtg6IvoBbY6gycvnRLsfMRaYsRTimmPSnOVsQ8RVbYaNVrlc9aWgcUesd
+ kmYFdG815M/ajQS4u10IpK2yFryvnFy3me9lTefFTm+oSUK+N0W5pluTuZsRI1S81VTF
+ BRiYwKdmYifSbITUJhptU4Cz188QXM9aipSPWTX+QlpNS50cX3/Fjy57pEGObI9xgEX2
+ abbjVNG8rSI4Q6ivjFRuBjgulv70ViDB3Gl1mlwCzmQ9+SSKdGj5E+RGVwD/hWXxGfdR
+ GfNsisP18N2rEcrscthdZcX+UiM/JhB3GJSjG4a3CTyBpBQGfb02SXkZgCJuMK9ge8oD
+ 97AQ==
+X-Gm-Message-State: AOAM531R7P6F5j38DdA50KblJpvXwKwhY4+F8ETPbUVqy3sRtBEZLdWR
+ 0QZhnwZ7rsKkXhwBcNCdjhQ=
+X-Google-Smtp-Source: ABdhPJwl0y++6DyH5SePUYl/KOQMvjogp2wG9orrgmC5nLoN5JJds+qmT5bNnzDuSC8sItwPyBb+Jw==
+X-Received: by 2002:a5d:96da:: with SMTP id r26mr2453061iol.47.1628867872350; 
+ Fri, 13 Aug 2021 08:17:52 -0700 (PDT)
+Received: from frodo.. (c-24-9-77-57.hsd1.co.comcast.net. [24.9.77.57])
+ by smtp.googlemail.com with ESMTPSA id d4sm921145ilo.29.2021.08.13.08.17.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 13 Aug 2021 08:17:51 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: gregkh@linuxfoundation.org, seanpaul@chromium.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Jason Baron <jbaron@akamai.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
+ Huang Rui <ray.huang@amd.com>, Kevin Wang <kevin1.wang@amd.com>,
+ Likun Gao <Likun.Gao@amd.com>, Chengming Gui <Jack.Gui@amd.com>,
+ Aaron Liu <aaron.liu@amd.com>, Jim Cromie <jim.cromie@gmail.com>,
+ John Clements <john.clements@amd.com>,
+ Ashley Thomas <Ashley.Thomas2@amd.com>, Wyatt Wood <Wyatt.Wood@amd.com>,
+ Qingqing Zhuo <qingqing.zhuo@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Johan Hovold <johan@kernel.org>, Jessica Yu <jeyu@kernel.org>,
+ Joe Perches <joe@perches.com>, Nick Desaulniers <ndesaulniers@gooogle.com>,
+ Miguel Ojeda <ojeda@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
+ Masahiro Yamada <masahiroy@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ "Paul E. McKenney" <paulmck@kernel.org>,
+ Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Vitor Massaru Iha <vitor@massaru.org>, Sedat Dilek <sedat.dilek@gmail.com>,
+ Mel Gorman <mgorman@techsingularity.net>, Marco Elver <elver@google.com>,
+ Alexander Potapenko <glider@google.com>,
+ Brendan Higgins <brendanhiggins@google.com>,
+ Arvind Sankar <nivedita@alum.mit.edu>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ Jiri Olsa <jolsa@kernel.org>, Patricia Alfonso <trishalfonso@google.com>,
+ Palmer Dabbelt <palmerdabbelt@google.com>,
+ Johannes Berg <johannes.berg@intel.com>, Arnd Bergmann <arnd@arndb.de>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+Subject: [PATCH v5 0/9] dyndbg: add DEFINE_DYNAMIC_DEBUG_CATEGORIES and use in
+ DRM
+Date: Fri, 13 Aug 2021 09:17:08 -0600
+Message-Id: <20210813151734.1236324-1-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [172.31.157.114] (165.204.158.249) by
- PN1PR01CA0100.INDPRD01.PROD.OUTLOOK.COM (2603:1096:c00::16) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4415.14 via Frontend Transport; Fri, 13 Aug 2021 15:07:37 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9f8138e8-b470-44b0-0e60-08d95e6c1890
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5239:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BL1PR12MB52399018C7B2F419CAD03F2C97FA9@BL1PR12MB5239.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: z9JhauCp7/QUIpWdIZxc7nKnzVSX/xadAzpNx6tmbKdOpPrf0xTAItOZ6v8UPOCVspWlys9TrGlrKtLASOmONPjvhl+mNQsCM7GTIM1shbQTDX+IT7jiV3YUY/ivE179+PLSgnTtKfJAkms6RzQl90idxixDZ2RP4RjbRgQ33XabW92QKx3UuyPIb7doHcln17hDHz04/11KNV+REK37uxEnnC66PMt2Gpov02mEfdrJFTFNqr1Cl2373rACe7786hAEf4DGYR/02dCRsEhOexVY/eRngTFcTYkQM554ft3O3GTnuywJ4fWziRmn5f5gRomMvUF+5VC4G4D6mdcJXvAgkFzEnyQYHNWupyJshOT9lo+4qhgoOz+HiefdHoou5c5oecjWSkD9dPT1KNvoDohIQF6K17NNenNYeM1dJZ5vHjuFKVuo2KYJQiSXB2pPQgnxdcbfCRK/jVPif3OSTPC20YZBWbNJ0ZbQJsb+96vQjwhHyCzeCeYoTcZZKHhU2hjbqdJEITYdR2RxD51vUi6Wihpxwd+vYNCU1ZVhtkuYZAA46bFxhVRFo7kKDEylOnBKvfeGzwFT93vLA2JoxjJ8EuGskHsRmtlDgjiCXhQzJXZ9WmEXXRivpoHd4Ozn+YKTvb4EaISGxQP88ghNAlwm+31vMRkP7ZUDgBSLJeJOH+/XUsI+CRstN6HQrTJBreTrB+1K4Pd2Nyc6gi/PJMxlyvlwWOlYW6wyza+oumE=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5349.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(136003)(366004)(376002)(39860400002)(346002)(66556008)(54906003)(2906002)(8936002)(66476007)(66946007)(478600001)(110136005)(38100700002)(53546011)(5660300002)(186003)(6666004)(26005)(4326008)(36756003)(31696002)(8676002)(6486002)(16576012)(86362001)(66574015)(956004)(6636002)(83380400001)(2616005)(316002)(31686004)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WEZMVWtVZzBKMXRlQUoyWUJONVlVZFhoUmN3UEMyNkFNdThLSmovSWZBODVG?=
- =?utf-8?B?UThPV3ZIdTU1NXpWdlZLZUxnUjRHYnZXeDVQQUFkeG00aThmczd1UStmS29n?=
- =?utf-8?B?cDBLRmNaczFxWmlzMmxrTmFjUzRuZ2p5c01rOE9LWktCVGZSVFl2Y2xyd05k?=
- =?utf-8?B?WG1QYTBNY1FMVEl6clpBWnZ1VHZJMG9VMzJWMjJEUTN4ckpCbmdwa3poTTZC?=
- =?utf-8?B?eVh2R0lTZFRmeWdmZlgwcnpqVldWNUkwaVA4Vy9IUEs5ODd3SXhMc2lyY3JK?=
- =?utf-8?B?THJmTS9rYlRIb1dudm9NZGdVSzk5ZTNIL0swa29pRWM3MVVmSWVRdk1nakpo?=
- =?utf-8?B?TkhTZ2UyVG56QzE5MVFJWmRuRVJLVlhCcHpnSVRFQ2dMM0Q2ajBSdlBVTk5n?=
- =?utf-8?B?aTBDMUJlbldGcHJ2czkzMERwUW41Z3YxOURHOW5SNmdVMVd5NjFSTmhma09R?=
- =?utf-8?B?T0ZqNjVWeURVQ0gyUlp0MTNNVyticVI1VWFmL1VabmE2Uk5VNklhK29kSktT?=
- =?utf-8?B?MzJiL2FNS3JFTTkxYndXczNZaFo3Mm9CSDdUUG5EcVNGNkJFOHp3UUZUeEdv?=
- =?utf-8?B?d3ZwMUhTMVZiU0J4NUlJcHk5VDVsM3pudmd4NTNWU3hyTzJXS2svYVJreGpP?=
- =?utf-8?B?eDBwVDZ1TW5tbFZ1YWJ3YjVpclRYbjNweGpSbWQvekgzL3QxRldLQXhtYm9H?=
- =?utf-8?B?cmxMdEFMOEFJcjVtTkszaWcxcXNjZUVxZXZ5a1lVcy94UDlPMjFEMnNNK3lQ?=
- =?utf-8?B?SHB4Nm9sL0V4SzloQy9CQzd2MEczZ1dxd3ZDTzRVV3BhSnNENktkS3lIQURN?=
- =?utf-8?B?QS80Q2pLWFZtOFlScngxZmk2YW5JcUJ6MFJTWUU0Z2x3RVovT3BvcEppejRn?=
- =?utf-8?B?M29MWDh2THBLY1pWL3RRZmQ4ZEtnVWZ4aGtHOFVKcFptL1ZySFk4ckxSQWJP?=
- =?utf-8?B?SDlyQjg1cEJQcHdLYmZRSUxOR0tzOHVMbXF1U0Nzam9jdzBGZHFha0tzNmpy?=
- =?utf-8?B?bWduektrS3E5Y21hTjBLTVVwYyt1MU9qRER5cXZDc3h2R1Ztdk9zbXRRVzI3?=
- =?utf-8?B?eEFWMktqZUZ2TTFuYXcvTjZMNVNUKzJJcTA0akIxNCtvWUs1RnAxL1ZtQXkx?=
- =?utf-8?B?ZEVTSkRUSUxXNU5relZ5bHcyNnJiZTdGTjM1L1gyUE9ZZ29ZMEdwWWtrUVh1?=
- =?utf-8?B?UVgxbGtNcVBqUU0vWUx4MTJXN1ZjMjJoOVR2WTdVa3Z6NVhPY1Y3UmhJZjlM?=
- =?utf-8?B?Z0t6RllBVWZFcTdEbUY0dnpGaVBNcjRPQlYwSTBhNXlNZSt2bFY1YUxDK3Rt?=
- =?utf-8?B?ZTA1MXFtc01lRlhsLzVjMGdkM3Y0NU9NdSt2TlFWL3ViWXZUc3RwNDVkN00x?=
- =?utf-8?B?THlxTkE1L1o4TEpvdkFTZEthd00zYzZ0eHhUeHRpdUUxYVk5bSsxekxvOHdB?=
- =?utf-8?B?V2RSVnE3SisxWU1mSzJpQ3BIRHp0QTVBWm5MYUFyMUlROHhSUi9YMTY5TzM5?=
- =?utf-8?B?eFlINlZZQmFMZXQ2VlFIcmZtckE4TW1Ha3EyckdtUHNWUGhqTDZMOW5PTm93?=
- =?utf-8?B?VzhlZngyS2RReFRRTVY5UjBtblZ0dWdNamZnMTJOQzlkQWZsSmxBalpRa2ZE?=
- =?utf-8?B?cy9wSll4NnhOT3krTktiVzZDOU9VTUprUGc4REFPSm1UYURUQ1lQendPOFo2?=
- =?utf-8?B?bVl2dG9MTnZiQVN6ZUNMejNaclMrQVYvNjQzTXkzNVNmRHFodExjVmRKMWV2?=
- =?utf-8?Q?BIcB1miefTTK3/XooTP9anOFKEt5uyow70t7CxP?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9f8138e8-b470-44b0-0e60-08d95e6c1890
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5349.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2021 15:07:41.4583 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XyvHDRXQq60oh3OSCKi2ccTHI2wC1xmhfgAPUCJ/apuFZQupC6FvnySfAPxVsDt2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5239
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,151 +119,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+hi Jason, Greg, Daniel, dri-everyone,
 
+drm_debug_enabled() is called a lot (by drm-debug api) to do unlikely
+bit-tests to selectively enable debug printing; this is a good job for
+DYNAMIC_DEBUG, IFF it is built with JUMP_LABEL.
+ 
+This patchset enables the use of dynamic-debug to avoid those
+drm_debug_enabled() overheads, if CONFIG_DRM_USE_DYNAMIC_DEBUG=y.
 
-On 8/13/2021 8:10 PM, Michel Dänzer wrote:
-> On 2021-08-13 4:14 p.m., Lazar, Lijo wrote:
->> On 8/13/2021 7:04 PM, Michel Dänzer wrote:
->>> On 2021-08-13 1:50 p.m., Lazar, Lijo wrote:
->>>> On 8/13/2021 3:59 PM, Michel Dänzer wrote:
->>>>> From: Michel Dänzer <mdaenzer@redhat.com>
->>>>>
->>>>> schedule_delayed_work does not push back the work if it was already
->>>>> scheduled before, so amdgpu_device_delay_enable_gfx_off ran ~100 ms
->>>>> after the first time GFXOFF was disabled and re-enabled, even if GFXOFF
->>>>> was disabled and re-enabled again during those 100 ms.
->>>>>
->>>>> This resulted in frame drops / stutter with the upcoming mutter 41
->>>>> release on Navi 14, due to constantly enabling GFXOFF in the HW and
->>>>> disabling it again (for getting the GPU clock counter).
->>>>>
->>>>> To fix this, call cancel_delayed_work_sync when GFXOFF transitions from
->>>>> enabled to disabled. This makes sure the delayed work will be scheduled
->>>>> as intended in the reverse case.
->>>>>
->>>>> In order to avoid a deadlock, amdgpu_device_delay_enable_gfx_off needs
->>>>> to use mutex_trylock instead of mutex_lock.
->>>>>
->>>>> v2:
->>>>> * Use cancel_delayed_work_sync & mutex_trylock instead of
->>>>>      mod_delayed_work.
->>>>>
->>>>> Signed-off-by: Michel Dänzer <mdaenzer@redhat.com>
->>>>> ---
->>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 11 ++++++++++-
->>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c    | 13 +++++++------
->>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h    |  3 +++
->>>>>     3 files changed, 20 insertions(+), 7 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>>> index f3fd5ec710b6..8b025f70706c 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>>> @@ -2777,7 +2777,16 @@ static void amdgpu_device_delay_enable_gfx_off(struct work_struct *work)
->>>>>         struct amdgpu_device *adev =
->>>>>             container_of(work, struct amdgpu_device, gfx.gfx_off_delay_work.work);
->>>>>     -    mutex_lock(&adev->gfx.gfx_off_mutex);
->>>>> +    /* mutex_lock could deadlock with cancel_delayed_work_sync in amdgpu_gfx_off_ctrl. */
->>>>> +    if (!mutex_trylock(&adev->gfx.gfx_off_mutex)) {
->>>>> +        /* If there's a bug which causes amdgpu_gfx_off_ctrl to be called with enable=true
->>>>> +         * when adev->gfx.gfx_off_req_count is already 0, we might race with that.
->>>>> +         * Re-schedule to make sure gfx off will be re-enabled in the HW eventually.
->>>>> +         */
->>>>> +        schedule_delayed_work(&adev->gfx.gfx_off_delay_work, AMDGPU_GFX_OFF_DELAY_ENABLE);
->>>>> +        return;
->>>>
->>>> This is not needed and is just creating another thread to contend for mutex.
->>>
->>> Still not sure what you mean by that. What other thread?
->>
->> Sorry, I meant it schedules another workitem and delays GFXOFF enablement further. For ex: if it was another function like gfx_off_status holding the lock at the time of check.
->>
->>>
->>>> The checks below take care of enabling gfxoff correctly. If it's already in gfx_off state, it doesn't do anything. So I don't see why this change is needed.
->>>
->>> mutex_trylock is needed to prevent the deadlock discussed before and below.
->>>
->>> schedule_delayed_work is needed due to this scenario hinted at by the comment:
->>>
->>> 1. amdgpu_gfx_off_ctrl locks mutex, calls schedule_delayed_work
->>> 2. amdgpu_device_delay_enable_gfx_off runs, calls mutex_trylock, which fails
->>>
->>> GFXOFF would never get re-enabled in HW in this case (until amdgpu_gfx_off_ctrl calls schedule_delayed_work again).
->>>
->>> (cancel_delayed_work_sync guarantees there's no pending delayed work when it returns, even if amdgpu_device_delay_enable_gfx_off calls schedule_delayed_work)
->>>
->>
->> I think we need to explain based on the original code before. There is an asssumption here that the only other contention of this mutex is with the gfx_off_ctrl function.
-> 
-> Not really.
-> 
-> 
->> As far as I understand if the work has already started running when schedule_delayed_work is called, it will insert another in the work queue after delay. Based on that understanding I didn't find a problem with the original code.
-> 
-> Original code as in without this patch or the mod_delayed_work patch? If so, the problem is not when the work has already started running. It's that when it hasn't started running yet, schedule_delayed_work doesn't change the timeout for the already scheduled work, so it ends up enabling GFXOFF earlier than intended (and thus at all in scenarios when it's not supposed to).
-> 
+v5: much rework
 
-I meant the original implementation of 
-amdgpu_device_delay_enable_gfx_off().
+- based on Daniel Vetter's feedback, not RFC anymore. (except last one)
 
+- move POC bit_map callback code into dynamic_debug
+  add .data to struct kernel_param
+  add DEFINE_DYNAMIC_DEBUG_CATEGORIES :
+  a declarative interface for bits => control-queries
+  this is all new functionality.
 
-If you indeed want to use _sync, there is a small problem with this 
-implementation also which is roughly equivalent to the original problem 
-you faced.
+- use DEFINE_DYNAMIC_DEBUG_CATEGORIES in i915, amdgpu
+  adds selectivity/control to existing categorizations
 
-amdgpu_gfx_off_ctrl(disable) locks mutex
-calls cancel_delayed_work_sync
-amdgpu_device_delay_enable_gfx_off already started running
-	mutex_trylock fails and schedules another one
-amdgpu_gfx_off_ctrl(enable)
-	schedules_delayed_work() - Delay is not extended, it's the same as when 
-it's rearmed from work item.
+- DRM_USE_DYNAMIC_DEBUG
+  replace DRM_UT_<CAT> (an enum)
+  with DRM_CAT_<CAT>   (a prefix string, cpp-prepended to format)
+  _UT_ still present, drm_debug_enabled() still used
+  todo:
+  change __drm_debug param-var to read DDD_CATEGORIES's param-var
+  might suffice to keep parallel schemes coherent.
+  
+- RFC add tracer func as syslog alternate
+  test_dynamic_debug.ko: uses tracer for observability, does selftest
+  has some misuse risk; calling pr_debug recursively.
 
-Probably, overthinking about the solution. Looking back, mod_ version is 
-simpler :). May be just delay it further everytime there is a call with 
-enable instead of doing it only for req_cnt==0?
+v4: (brown-bagger, various fixes after snips)
+v3: fixes missed SOB, && on BOL, commit-log tweaks
+v2: https://lore.kernel.org/lkml/20210711055003.528167-1-jim.cromie@gmail.com/
+v1: https://lore.kernel.org/lkml/20201204035318.332419-1-jim.cromie@gmail.com/
 
-Thanks,
-Lijo
+Doing so creates many new pr_debug callsites,
+otherwise i915 has ~120 prdbgs, and drm has just 1;
 
-> 
->> [...], there could be cases where it could have gone to gfxoff right after gfx_off_status releases the lock, but it doesn't delaying it further. That would be the case if some other function is also introduced which takes this mutex.
-> 
-> I really don't think we need to worry about amdgpu_get_gfx_off_status, since it's only called from debugfs (and should be very short). If something hits that debugfs file and it causes higher energy consumption, that's a "doctor, it hurts if I do this" kind of problem.
-> 
-> We can worry about future users of the mutex when they show up.
-> 
-> 
->>>>> @@ -569,9 +566,13 @@ void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev, bool enable)
->>>>>             adev->gfx.gfx_off_req_count--;
->>>>>           if (enable && !adev->gfx.gfx_off_state && !adev->gfx.gfx_off_req_count) {
->>>>> -        schedule_delayed_work(&adev->gfx.gfx_off_delay_work, GFX_OFF_DELAY_ENABLE);
->>>>> -    } else if (!enable && adev->gfx.gfx_off_state) {
->>>>> -        if (!amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE_GFX, false)) {
->>>>> +        schedule_delayed_work(&adev->gfx.gfx_off_delay_work, AMDGPU_GFX_OFF_DELAY_ENABLE);
->>>>> +    } else if (!enable) {
->>>>> +        if (adev->gfx.gfx_off_req_count == 1 && !adev->gfx.gfx_off_state)
->>>>> +            cancel_delayed_work_sync(&adev->gfx.gfx_off_delay_work);
->>>>
->>>> This has the deadlock problem as discussed in the other thread.
->>>
->>> It does not. If amdgpu_device_delay_enable_gfx_off runs while amdgpu_gfx_off_ctrl holds the mutex,
->>> mutex_trylock fails and the former bails.
->>
->> Ok, but now it creates a case of re-arming the work item from the work.
->>
->> TBH I didn't understand the problem on having to use _sync itself and not cancel_delayed_work().
->>
->> The edge case you mentioned for a cancel_delayed_work looks like a rare case
->>
->> amdgpu_gfx_off_ctrl(disable) gets the lock
->> amdgpu_device_delay_enable_gfx_off - waits for the lock
->> amdgpu_gfx_off_ctrl(enable) gets the lock again  (this has to be matching call for the previous disable)
->>
->> This scenario looks highly improbable as in general we expect some other work that needs to be done done between disable/enable.
-> 
-> At least for the case that started me on this journey (reading the GFX clock counter), that should be very short, just a couple of register reads.
-> 
-> I agree it's highly improbable, I'm trying to make it impossible. :)
-> 
-> 
+  bash-5.1# modprobe i915
+  dyndbg:   8 debug prints in module video
+  dyndbg: 305 debug prints in module drm
+  dyndbg: 207 debug prints in module drm_kms_helper
+  dyndbg:   2 debug prints in module ttm
+  dyndbg: 1720 debug prints in module i915
+
+On amdgpu, enabling it adds ~3200 prdbgs, currently at 56 bytes each.
+So CONFIG_DRM_USE_DYNAMIC_DEBUG=y affects resource requirements.
+Im working on a diet-plan.
+
+Im running this patchset bare-metal on an i7/i915 laptop & an
+r9/amdgpu desktop (both as loadable modules).  I booted the amdgpu box
+with:
+
+BOOT_IMAGE=(hd2,gpt2)/vmlinuz-5.14.0-rc4-d7a-00009-g5db471cba844 \
+     root=UUID=mumble ro \
+     rootflags=subvol=root00 rhgb \
+     dynamic_debug.verbose=3 main.dyndbg=+p \
+     amdgpu.debug=1 amdgpu.test=1 \
+     "amdgpu.dyndbg=format ^[ +p"
+
+That last line enables ~1700 prdbg callsites with a format like '[DML'
+etc at boot, and amdgpu.test=1 triggers 90 seconds of tests, yielding
+~76k prdbgs in 409 seconds, before I turned them off with:
+
+  echo module amdgpu -p > /proc/dynamic_debug/control
+
+Its worth noting, this changes the dyndbg-state underneath settings
+applied with `echo > parameters/debug`; the latter is qualitatively
+writeonly, maybe a param_get should return "NA" "-1"
+
+this merged cleanly, on top of
+commit d65ef4634e5c795a6a4df1d198992c70e9692fb3 (drm-tip/drm-tip)
+
+Jim Cromie (9):
+  drm/print: fixup spelling in a comment
+  moduleparam: add data member to struct kernel_param
+  dyndbg: add DEFINE_DYNAMIC_DEBUG_CATEGORIES and callbacks
+  i915/gvt: remove spaces in pr_debug "gvt: core:" etc prefixes
+  i915/gvt: use DEFINE_DYNAMIC_DEBUG_CATEGORIES to create "gvt:core:"
+    etc categories
+  amdgpu: use DEFINE_DYNAMIC_DEBUG_CATEGORIES to control categorized
+    pr_debugs
+  drm_print: add choice to use dynamic debug in drm-debug
+  amdgpu_ucode: reduce number of pr_debug calls
+  dyndbg: RFC add tracer facility RFC
+
+ drivers/gpu/drm/Kconfig                       |  13 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c     | 293 ++++++++++--------
+ .../gpu/drm/amd/display/dc/core/dc_debug.c    |  44 ++-
+ drivers/gpu/drm/drm_print.c                   |  49 ++-
+ drivers/gpu/drm/i915/gvt/Makefile             |   4 +
+ drivers/gpu/drm/i915/gvt/debug.h              |  18 +-
+ drivers/gpu/drm/i915/i915_params.c            |  35 +++
+ include/drm/drm_print.h                       | 143 +++++++--
+ include/linux/dynamic_debug.h                 |  82 ++++-
+ include/linux/moduleparam.h                   |  11 +-
+ lib/Kconfig.debug                             |  10 +
+ lib/Makefile                                  |   1 +
+ lib/dynamic_debug.c                           | 171 ++++++++--
+ lib/test_dynamic_debug.c                      | 247 +++++++++++++++
+ 14 files changed, 901 insertions(+), 220 deletions(-)
+ create mode 100644 lib/test_dynamic_debug.c
+
+-- 
+2.31.1
+
