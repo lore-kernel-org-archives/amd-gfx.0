@@ -2,147 +2,125 @@ Return-Path: <SRS0=hpB+=NE=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 45BF3C4338F
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Aug 2021 11:18:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AF16FC4338F
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Aug 2021 11:46:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EDBD36104F
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Aug 2021 11:18:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EDBD36104F
+	by mail.kernel.org (Postfix) with ESMTPS id 690AC61042
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Aug 2021 11:46:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 690AC61042
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72A046E5C6;
-	Fri, 13 Aug 2021 11:18:29 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2067.outbound.protection.outlook.com [40.107.236.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B65836E5C6;
- Fri, 13 Aug 2021 11:18:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F01C86E5CF;
+	Fri, 13 Aug 2021 11:46:30 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2062.outbound.protection.outlook.com [40.107.220.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45F536E5CD
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Aug 2021 11:46:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CbTvMwYDA3POlR9+RJKccVRL3yHoQiLPKqVNdO/oRBFbZpcbUXTwHFlezZEhQv1+9dnHc26EZCu6KzarfZFD7aruxSn7i8bRhW7MvMXZHhAZQ5tIQSAlxSQ2FFDSwjydAawlNaUQVa039Dt5PgWzwNIxbv2BX/2qR4xHeeTixxfDWmN8YN0zeiPo1HQ9GBhEnaate7zXInr6BMTfNgT7TVvCb4JVDVcXRI55i3JA80Fv077LwWNMeX8j6REJ6KuFH2Q5SdxBAJDj1wl2uu6Y8fxfcHfS5ZQ8Y3K0A4/6aMwH8v3/1VU++eqV3kRyFGteTl/nnDqW4m7k5Jg6XPb49g==
+ b=g7jUGvX4NQozes0lOpKf/jALrRt/n2RG9CQNrNd2Pfz5aqK8e21DBuwXG/EpRYO0pvSuhAG7XIzZFRqJu/DcWOlz8GLR9iCj5atIJL+RrlUZguQ0552UGr+Vzxadr1jhgaWwZ9sgSUOTRaIKoOKq7hWNOhymg64cuv3XrF28WfUeWBDSVM5sf0uusqR/hpL7PRFhPwUZMRKdCAovOzqD/DYyMDhs6kno+RyrrgAV7e5DNf+KwyfOhPcsPujXO1E+2KZ7Zifd9skpgLQGNeKtuqfkHYkM8wLfs9JYutZT3JzndtNysbqSNV60CcrBCKuGby3y7+WmXtlOb6HRncI6FQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=boPAaIvsHPI3KwXwNc4hFUqZs88BuhyfIE0mFH5rG2c=;
- b=fZwR7xfUqK0v9LRmD2ao8w8zpjcTsYUXRKExPbkbZmlVDUa1oWC6InH9eWrBdmqY7WyylkVGc9g4Y30Cfb9pVO1cNeTjft8KHxQEWh1x4l41J2uritttG3ERqIvher8UgSQ83GCP10evujAw6Q0LywbeyjmKKRjpV2idt9BY048WZ6XWzVwQNrUxSLdOKYfjbmS+uEz8ZX4AiqYEAcWmX7zkgKZcoVH0R7Gai2Y2+Bmt+HtGwBZ3Qg5SEEC/+W3EoAUahpp6GeLpL6e/vgUlyJ4uDlLu+CsulTm1i/QRzB1NjSl5GLe4qg7mcr0msjaxR0GtPPTRbv0sA5tVMO8kgQ==
+ bh=LPht36T4doGLMayg9rPnqgcXXGOSAB15fX00/cxCE98=;
+ b=TRpwXUtxCUaU9LY2kPO2NaSXiv8voz7LCYLhbK84JXeC7v+wWaEKJJqNdNgwJIJ3O+XHtYZT4pLgnGvKoDJ7p4DbnjrsHo3CXepTfGKzcZPwJiyBDWsIsO9wIpK9w4uTLJoKww8BavTmMa+3oTV6ouJzCLZBgjkshAm1tCIlTyLQoqBULIyvRAUIJvlTTKONf3lm9uh1sWsVNFGJAKqHHAjraZ9vZR2V+7dWLV9wmoqoa5HPc03y0RF7yl4oH1C1GXBKazEeB0VmPmrjy2hnguqjbutuooJTX+/VI+Y3A0Bg+q0EpWyFtccOBXUMkCozwnsxHeWqnDzQENspzeSJzg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=boPAaIvsHPI3KwXwNc4hFUqZs88BuhyfIE0mFH5rG2c=;
- b=zKZHP7IbTWHKF2etseV3ZvcOTk/v7fyCd0x9FLvj7L5C+I+a75xqW/YvuNH8Dl7tNCN0G04c1VUsfWJ7i0+gCs3FpKo8I0D5o00czJ/UPtFPlvSxnl/uPTgkyPcHVPGnhNg0981nPSryNhA7hR1kVHJhbpmdkaYPA4bduR0x6lc=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ bh=LPht36T4doGLMayg9rPnqgcXXGOSAB15fX00/cxCE98=;
+ b=JgmaS0j/k2kZfPrlAYtkcCljQpGSyjoc3agCU+0OrzE8nMDOmGJPtv6vAye/dt0HuLXjO3Ni4lg5SRCL8PKHQkkqyb0JgtC8DEbWkQLPYkmJ6zSVcPLkgZvfXWPPGtCCj1WfHpO1+Bmp4IzVR9jtwOjQIB+y0vr8JLDO1wD3UWI=
+Received: from DM6PR12MB4649.namprd12.prod.outlook.com (2603:10b6:5:1d1::32)
+ by DM6PR12MB2730.namprd12.prod.outlook.com (2603:10b6:5:41::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4394.21; Fri, 13 Aug
+ 2021 11:46:27 +0000
+Received: from DM6PR12MB4649.namprd12.prod.outlook.com
+ ([fe80::8851:2bd:769a:14b9]) by DM6PR12MB4649.namprd12.prod.outlook.com
+ ([fe80::8851:2bd:769a:14b9%6]) with mapi id 15.20.4415.020; Fri, 13 Aug 2021
+ 11:46:27 +0000
+From: "Li, Candice" <Candice.Li@amd.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Clements, John" <John.Clements@amd.com>, "Li, Candice"
+ <Candice.Li@amd.com>
+Subject: [PATCH] drm/amd/amdgpu: remove unnecessary RAS context field
+Thread-Topic: [PATCH] drm/amd/amdgpu: remove unnecessary RAS context field
+Thread-Index: AdeQNskhKJjxWjtYR+6ZkMW2ppJQJw==
+Date: Fri, 13 Aug 2021 11:46:27 +0000
+Message-ID: <DM6PR12MB4649355F3251E0EA3FE7743091FA9@DM6PR12MB4649.namprd12.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-08-13T11:46:24Z; 
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP 2.0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=45831505-1f6c-4427-a379-c45988518013;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1
+authentication-results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
-Received: from BL1PR12MB5349.namprd12.prod.outlook.com (2603:10b6:208:31f::7)
- by BL1PR12MB5077.namprd12.prod.outlook.com (2603:10b6:208:310::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.16; Fri, 13 Aug
- 2021 11:18:26 +0000
-Received: from BL1PR12MB5349.namprd12.prod.outlook.com
- ([fe80::152:9dd3:45a4:eeb6]) by BL1PR12MB5349.namprd12.prod.outlook.com
- ([fe80::152:9dd3:45a4:eeb6%4]) with mapi id 15.20.4415.018; Fri, 13 Aug 2021
- 11:18:26 +0000
-Subject: Re: [PATCH 2/2] drm/amdgpu: Use mod_delayed_work in JPEG/UVD/VCE/VCN
- ring_end_use hooks
-To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>,
- "Koenig, Christian" <Christian.Koenig@amd.com>,
- "Quan, Evan" <Evan.Quan@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Cc: "Liu, Leo" <Leo.Liu@amd.com>, "Zhu, James" <James.Zhu@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-References: <20210811165211.6811-1-michel@daenzer.net>
- <20210811165211.6811-2-michel@daenzer.net>
- <MN2PR12MB377506AD71308A47222A3E9583F89@MN2PR12MB3775.namprd12.prod.outlook.com>
- <DM6PR12MB26196DF7D33462060FC4F607E4F99@DM6PR12MB2619.namprd12.prod.outlook.com>
- <MN2PR12MB3775E6C1ECA915283108E6D783F99@MN2PR12MB3775.namprd12.prod.outlook.com>
- <aebae00c-4b7b-552f-accb-e51d151ecb43@daenzer.net>
- <194e8a33-1705-d19c-add1-38941b6d9b5c@amd.com>
- <ae81d7d1-c111-1d24-6be0-6728ce9ba36b@daenzer.net>
- <61cb9cf6-7700-4654-e160-e8a74978123b@amd.com>
- <1cc96257-6401-7d5f-6fec-6b1cbbbe4005@daenzer.net>
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-Message-ID: <00f6d35c-20bd-bc6f-3eb5-2a8b5af06e44@amd.com>
-Date: Fri, 13 Aug 2021 16:48:12 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-In-Reply-To: <1cc96257-6401-7d5f-6fec-6b1cbbbe4005@daenzer.net>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN1PR0101CA0003.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c00:e::13) To BL1PR12MB5349.namprd12.prod.outlook.com
- (2603:10b6:208:31f::7)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [172.31.157.114] (165.204.158.249) by
- PN1PR0101CA0003.INDPRD01.PROD.OUTLOOK.COM (2603:1096:c00:e::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.17 via Frontend
- Transport; Fri, 13 Aug 2021 11:18:23 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 3de9638c-5ff9-42a8-cda6-08d95e4c122b
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5077:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BL1PR12MB5077B8C79935FBF562D2DE1397FA9@BL1PR12MB5077.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ieiWeCSUk4c7Z2qAHWXd1d5yemcg4NoicgWa+vk+U5AWHdiasttoGw3IhEMLxudxUu7roIK+KmEBUk5eNpwyVpZXqSL0ZyaE2njLq46Z2OJ8ZQvzNGqtDFmc6XXDPAOFM4zSu0uIc2pwPZHrs9YqM7A2rI3daI94jwx6SCKdffURu430D/EcLwneoEeLSGfWKZsdYFlMgoNQcELh9A/sN2kyyk7uaxYDTrAcs+q62YSEEXb+IUMgE63+BoBWWP2+dycBBU4xyhKyUV40ZV2ODh/4RL2hnJvw0OebtGQyqCbUIJkkPq79W4obfp7WEAY+RPYahRAW35tBqFw+m6DhdCSDbUSz9/8rFl3iTqrBvmxgtXhC70IZ9kOMHsMcUUNv95ibgzC4fQMnDgs4kflIrwyfMaGIi3INRz29PRSTd3nBFJ3qyirQ1l17pOrvLZdFYN/coEtiM1FupHkPcAmiAV3fPyh/YqMeNH1XhkmjDfAfgl7To67RvW1GrwV7g/UkSyHjYSA6w5LyMEJMeOJTSXKvgaCRNk4AEmN6fJf3jmXxnClJGWPSmD3ZznD6Y+Dk7oSYQH9QYyYoZkwN2x8Ml3L8c5dfkVyEnh8qISi8Ip6q7c1SsAK6J0jyxetHjQsL5wnh/9BcR8LQgm0hAbRkG34vmeZx4KePOOM1PQ+WEo8JW0Dd0DqP023RPxOfMp2W9grHk1V0LyVWqaAWA6hj19kLUkcObxytESw4bv5v8sk=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5349.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(366004)(136003)(396003)(346002)(376002)(66556008)(66946007)(66476007)(186003)(26005)(8676002)(6486002)(8936002)(86362001)(2906002)(956004)(2616005)(110136005)(16576012)(6666004)(54906003)(316002)(31696002)(4326008)(38100700002)(36756003)(478600001)(6636002)(53546011)(31686004)(5660300002)(66574015)(83380400001)(45980500001)(43740500002);
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: c57406f6-1688-41fa-0846-08d95e4ffc14
+x-ms-traffictypediagnostic: DM6PR12MB2730:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM6PR12MB27301C1C49705AD79284E35891FA9@DM6PR12MB2730.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:34;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: lILuBDNDv/E0UhKmuqnRRXiY8VktGqgHEZgOESyOQFkKrZXYvdInLleAGtHdlZHwg+9p8cM2/9+ASpnh8dgwGYRLKrdl7c4iWagWVI30gWny4EYZDBIkPAsZhCRirZk4TT+aJ8Jt7vKf3XtrrO6lA2zhHBSGsQ4sjQFgIAGkuHQgm3rBc7Q6K2lCqYJNG/ZMXph3EQhJ/u6NdappxzcwW+8vv49cYQNjtM8wemwIBZOGyep+0prWJnkHUdYmkCYsxIpmIxKm1Ch6SMRhptckoqQvb6J/0tcdT0cia9b+d61U3pxUKYEbVkZr1Ekxn5p9ShEhBDkJA4bRYPUUgTvgnCH/g+ao/OgfOowsJNpEV/BkLwJZPF3NuC6NPhrSW1RrjCqZz20MsUUMTEc/a/OHEwPctUqYN9WWuAj7HJjsvdr4duEPH3DawSUPv2nqJUsCjdIk9fMA/j570JgBl5NOSyAE4U556LrQwW1TT8juaz86lt5/+Qb9ZjrOYbBgmDq4k9nwsxyIgLpgmF3pE7J8WBG5dSpDarlrSCTLQgMhOa6uH9si1PqoFPJPvnl+xChuFFsXxHsRnfVcyRx8+JbYHKkozsXknOwXegd2+4iA4pSZwYvTEX/44S0Ya1weV3E7X22VpQu6cKvlwmvCwl0mL2PF37u3VzU77u15uPO21GqGmrPfWW2yiPL/pAcDMZpdUYJTNvoIuOAdQ4yGChqqxA==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4649.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(376002)(346002)(39860400002)(366004)(136003)(396003)(38100700002)(122000001)(52536014)(5660300002)(9686003)(38070700005)(2906002)(54906003)(8676002)(8936002)(55016002)(26005)(71200400001)(7696005)(33656002)(316002)(86362001)(66476007)(478600001)(66946007)(6916009)(186003)(76116006)(4326008)(6506007)(66556008)(66446008)(64756008)(83380400001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aCtRdEJOTlVzK0JObU8rY2YyaFR1TldiNnEzNnFSOXBvY0FzWW5wd0ErYUI2?=
- =?utf-8?B?alBrajgySU5nME5oUnVsQzNzM1hhQmpFSGRyRGNaUUcwWlRLOFJ0aGhlbVAx?=
- =?utf-8?B?M1BWSXhGZTFralBHNXZRWThJbHgrVWxsK3VJbk9ZWHlyTk1OWXJXUFBocUpI?=
- =?utf-8?B?WnJxNktVQUdjVk1FWjczbDFjOUZjUlNheENaMEx3Um83S3lRRTZJbTVxdE4r?=
- =?utf-8?B?VG9qK1UrMlE3RmpJL1JrVWh4eFNOTEdzY1JBa0NhcEZhQ1hYWkFqUFF4RDlZ?=
- =?utf-8?B?VUpSeS90N2pHMDByZjZzY1hPYnR3ZzZUeFpjV2FNSjlCbUNiMTFzS3lGNWRr?=
- =?utf-8?B?M29SL01RS3ppS0I0Q25Qc3Z6VUJwbmhxTENOcFBIdStSYzR4VTRMZHBBbzNL?=
- =?utf-8?B?Znl2VTZkbVJZWDlkQ3lwU0NabVdSai9CMVhVcDRzcThKaHY0eUM5M3o5ck52?=
- =?utf-8?B?eFMxazVMYXZtREtLWXhMRm5oRWcrTnZGUzQ4dXhFeTU5NHdBeHRmVVFWM3lG?=
- =?utf-8?B?a3BQWG44Q2RpaVdnZDNQSGlIRjEweTdNczVRTXBUZUQydnQyMHB6enpQQTF3?=
- =?utf-8?B?RjdWZzUvYmVNRlZKaUlHTFZUb0t4c0ZKT1R0S2NMcGRzM2JrTllMY2ZpVDR5?=
- =?utf-8?B?eE5jTnpHWnArTzNDOHZvYWplSFYxTjU1aXhQWUtCL2MwYlZ4Qlh6VmVlclh2?=
- =?utf-8?B?UnBvUTZpUSt2M0syajFaWWxGRFVuYkQyVWdvdFU2L1ZTQ1FnbGV3UWxJU3JN?=
- =?utf-8?B?Z2dkYVEvbmJZTGZJRFVEMTM1dm5udjNJZ2VlM3E0cGZKRWJzcldad3Jucnpt?=
- =?utf-8?B?V3JoNkFkajZ5WlZ2dGtzQzZoRkRBUklvREFSK1VqRDA1eC9IT1ltRnNXQm92?=
- =?utf-8?B?cUxkMmswdXpRK0xBMVk0ZXg1NnUxVVJrc3l0MkowalNYbGN6dzdyMDdIRFFZ?=
- =?utf-8?B?M2twM1lCdVFuOEZkcmVsNGpKUEU0VXIzQnR3NHc5bXBZVW9KeWhNaHF5eE9o?=
- =?utf-8?B?a2dleW1rSkNjVXZWUG5RTk5IbVUyNkE3NnlmcjNmNXNWNzN3VzdoWjFKWEdn?=
- =?utf-8?B?YXZKUlE3ZUIwTjUwR2d6TndCYWVoUTdtMHJLTngzZW81Sm03Z3BXT1dpNDVP?=
- =?utf-8?B?WTB6OGQxMmw2eGd6MnJxMDROWHF1bTdiOFlYMTFaMVk0ZDRNSGh4ZlA2amlr?=
- =?utf-8?B?ZHJFaXlmUFJudktHbWh1QW1PZG0wV0tVR25YaVZ2eWJsb2dlcDR2K016Y3dN?=
- =?utf-8?B?WDdQUnhBeTRYNmRQbGZTdUFUZmU2SElnNjRSeklpM1BzS3d4NjROaVF2dWtM?=
- =?utf-8?B?NTlZb2c0WWdVNnN4RzZldHpwM3VzdTVzU2xYQ09xM21lS2FXZXJWTHNkZGdP?=
- =?utf-8?B?UTZ4VEM5bFpJU0YyUlFZbUpuY1hGKzdjUmdDOVNGTlJkMExEdTJ4MlBxcjdV?=
- =?utf-8?B?cUIrMTV5Q2lnUUpzM1RpcmZSaXJraWVlZWo4UFIrZ2EyZ1g2dzV6VCtzU0dO?=
- =?utf-8?B?TVgrRjBuMWpsdm1aUmFDd294UjdPUmhYdHI4aW5YZWhKTm1lN1RFbWt6SFBj?=
- =?utf-8?B?TTNmYTloSEVBMSs5em5vejRid0IvVjQzOFFHNjF5OGxNdG50NlVmSFZLQzR5?=
- =?utf-8?B?N3AxSkdpZUx0L1ZHRVNpN1lDVGpNblhGcitwUWt2Tjd1bHlWRkZodmM4TE41?=
- =?utf-8?B?cU9YR25xbTljRDFTUXRQemZLUXlxSEsxQWpNZmxQbTF5dWlKbWFlK2lHNnkr?=
- =?utf-8?Q?EXvlF9XaUfT/S1RTWR4PAPzTM0c9wZHmg6UChJJ?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?sFv/7Y5Oo71tdWdpLL4Ur69TRugCPTi9GaD5FeTnf6baQ3aF3NRB2KvrV1XF?=
+ =?us-ascii?Q?zeNTYAfjklty4dVYzxpCfKM6G5l6Be4x61B2wINfYcdPLUVjByDuVo68s/ta?=
+ =?us-ascii?Q?sKRWlT83W/949Zh+VvPCl8l4mi3OgKawfClLh9FUWO818SczPcME/GAvFNVx?=
+ =?us-ascii?Q?tikpHqt15DePX7lJ7Smddvlp9xfhiBBPaVpX0FPCKwItylzFshxXuTuf2jek?=
+ =?us-ascii?Q?qfhGVMWdPs2f5D64MuwaHkklO649wyuDhtnAA7NnetB6cTqlMKlue/KPGzVY?=
+ =?us-ascii?Q?Ugx+B1tLhM/lnGsSrj8c2BaV2mtXa/AQMptg7qNpQhSUeRxWYl1yqRgznn8c?=
+ =?us-ascii?Q?Sf0VZJmauEu2WEd6v5+7HSMf8Bl4VAtdNpLnPQGN/UgevnyD4FQVf4UMRbuF?=
+ =?us-ascii?Q?lyIxJ4o+2u9ub87pDuMK9rFjtaYzE9isOnMPqmH3jzCY4mla+WdsOQrrGg5W?=
+ =?us-ascii?Q?07HR56O4GAD/Bg8ZGPURqXi6WJEcGQRausLSUG327iPzfri2SU4yLgrqeCFP?=
+ =?us-ascii?Q?z1yHGk4+fNX9bzBRNBC9R+M9b5tbLQrP/dOp8geqV9K6j1R7MnWA4aHpEMDu?=
+ =?us-ascii?Q?oL+MZ35EDsVmHY2MIc3+gCPzlCBvk51oDuBAGcUKYFAx56bIUm4TNdc15JA3?=
+ =?us-ascii?Q?sA23Z4L9QT2/P+sVQWPnw3F1WdybBgxelsOufue00zemmA7Bd9D3HIvz47rH?=
+ =?us-ascii?Q?puIKWOo4W8hMmZP3pOrQWedvtCTdP+YkGM/HB5FoRF4Gm/zeE2/OfVsb+Uh8?=
+ =?us-ascii?Q?Ttjgj0FPfy8oD5z3q1vYnapDsbkFiPQ1NvUveCqb/gUwr654kIiqazQGDoss?=
+ =?us-ascii?Q?CQ2342t7TSCfYoJiMZC9ikqwWXMPVKDsyaLyLYnVG8PZzrMf8rC5Jo+sKS0m?=
+ =?us-ascii?Q?li3G8KtBMTBnXFr0XRTG3fMHZtSauIt+Y1+1wh2nRzlveRmDuNYW0qV3o75q?=
+ =?us-ascii?Q?Z/ADYaduBwokd66f8VTHqY8nvu3hWPfWwp0CSCsU7FIl6aj6J3eBkEOpRNu1?=
+ =?us-ascii?Q?ZwNsOXEEF8cNgWcrE/WQ8lOCRXljYYKoHlLT78AUS7RB4fUd/w1b3LEES0aK?=
+ =?us-ascii?Q?jmisNYXK+p/3C/f9rCYd6yWr/mvEighLUNUuBDePqhla5xDSCvZyO/dy365/?=
+ =?us-ascii?Q?wIp8dKTV17jBEahNsRUbcESr7SumvcLLu/79SjjpTQVRssCWvxGQ28AjFR3s?=
+ =?us-ascii?Q?dwCJAhf3LgHbgizd9ndJyiB3D9XsAjTUg/6ILZLpPyTK7P+oL0IINoQ2wpVD?=
+ =?us-ascii?Q?TfJRREG/zuSP2JPXZudKTaze/E7l7iwJJA1U/rREPUv6c0fpTzVQD5z73TaN?=
+ =?us-ascii?Q?QJGf0nNOJGzUlByokKKNuY7J?=
+Content-Type: multipart/alternative;
+ boundary="_000_DM6PR12MB4649355F3251E0EA3FE7743091FA9DM6PR12MB4649namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3de9638c-5ff9-42a8-cda6-08d95e4c122b
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5349.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2021 11:18:26.6973 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GIZ2JFJ5JZidqJqKu3FbkPeaez5XpuAyE6o9QkU74cWW0iSqu75EqFC3++sKGilQ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5077
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4649.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c57406f6-1688-41fa-0846-08d95e4ffc14
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Aug 2021 11:46:27.3255 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: KoumeP+5VDwykRGWkIMXMxT0V44D9Q9vN8grY8T/wOC3NYKlbFXv5GiRpYJIdghk
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2730
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,125 +135,781 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+--_000_DM6PR12MB4649355F3251E0EA3FE7743091FA9DM6PR12MB4649namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+[Public]
+
+Delete ras_if->name in the RAS ctx structure and remove related lines.
+
+Signed-off-by: Candice Li candice.li@amd.com<mailto:candice.li@amd.com>
+---
+drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c   | 1 -
+drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c   | 1 -
+drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.c | 1 -
+drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c  | 1 -
+drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c   | 4 +---
+drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h   | 5 +++--
+drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c  | 1 -
+drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c   | 1 -
+drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c  | 1 -
+drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c    | 4 ++--
+10 files changed, 6 insertions(+), 14 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_gfx.c
+index 9cfef56b2aee..5beaa7c1bd11 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -615,7 +615,6 @@ int amdgpu_gfx_ras_late_init(struct amdgpu_device *adev=
+)
+                            adev->gfx.ras_if->block =3D AMDGPU_RAS_BLOCK__G=
+FX;
+                            adev->gfx.ras_if->type =3D AMDGPU_RAS_ERROR__MU=
+LTI_UNCORRECTABLE;
+                            adev->gfx.ras_if->sub_block_index =3D 0;
+-                           strcpy(adev->gfx.ras_if->name, "gfx");
+             }
+             fs_info.head =3D ih_info.head =3D *adev->gfx.ras_if;
+             r =3D amdgpu_ras_late_init(adev, adev->gfx.ras_if,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_hdp.c
+index 1d50d534d77c..a766e1aad2b9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c
+@@ -41,7 +41,6 @@ int amdgpu_hdp_ras_late_init(struct amdgpu_device *adev)
+                            adev->hdp.ras_if->block =3D AMDGPU_RAS_BLOCK__H=
+DP;
+                            adev->hdp.ras_if->type =3D AMDGPU_RAS_ERROR__MU=
+LTI_UNCORRECTABLE;
+                            adev->hdp.ras_if->sub_block_index =3D 0;
+-                           strcpy(adev->hdp.ras_if->name, "hdp");
+             }
+             ih_info.head =3D fs_info.head =3D *adev->hdp.ras_if;
+             r =3D amdgpu_ras_late_init(adev, adev->hdp.ras_if,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_mmhub.c
+index ead3dc572ec5..24297dc51434 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.c
+@@ -41,7 +41,6 @@ int amdgpu_mmhub_ras_late_init(struct amdgpu_device *adev=
+)
+                            adev->mmhub.ras_if->block =3D AMDGPU_RAS_BLOCK_=
+_MMHUB;
+                            adev->mmhub.ras_if->type =3D AMDGPU_RAS_ERROR__=
+MULTI_UNCORRECTABLE;
+                            adev->mmhub.ras_if->sub_block_index =3D 0;
+-                           strcpy(adev->mmhub.ras_if->name, "mmhub");
+             }
+             ih_info.head =3D fs_info.head =3D *adev->mmhub.ras_if;
+             r =3D amdgpu_ras_late_init(adev, adev->mmhub.ras_if,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_nbio.c
+index 6201a5f4b4fa..6afb02fef8cf 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c
+@@ -39,7 +39,6 @@ int amdgpu_nbio_ras_late_init(struct amdgpu_device *adev)
+                            adev->nbio.ras_if->block =3D AMDGPU_RAS_BLOCK__=
+PCIE_BIF;
+                            adev->nbio.ras_if->type =3D AMDGPU_RAS_ERROR__M=
+ULTI_UNCORRECTABLE;
+                            adev->nbio.ras_if->sub_block_index =3D 0;
+-                           strcpy(adev->nbio.ras_if->name, "pcie_bif");
+             }
+             ih_info.head =3D fs_info.head =3D *adev->nbio.ras_if;
+             r =3D amdgpu_ras_late_init(adev, adev->nbio.ras_if,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_ras.c
+index 3811b6b6a192..96a8fd0ca1df 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -64,7 +64,6 @@ const char *ras_block_string[] =3D {
+};
+ #define ras_err_str(i) (ras_error_string[ffs(i)])
+-#define ras_block_str(i) (ras_block_string[i])
+ #define RAS_DEFAULT_FLAGS (AMDGPU_RAS_FLAG_INIT_BY_VBIOS)
+@@ -530,7 +529,7 @@ static inline void put_obj(struct ras_manager *obj)
+             if (obj && (--obj->use =3D=3D 0))
+                            list_del(&obj->node);
+             if (obj && (obj->use < 0))
+-                           DRM_ERROR("RAS ERROR: Unbalance obj(%s) use\n",=
+ obj->head.name);
++                           DRM_ERROR("RAS ERROR: Unbalance obj(%s) use\n",=
+ ras_block_str(obj->head.block));
+}
+ /* make one obj and return it. */
+@@ -793,7 +792,6 @@ static int amdgpu_ras_enable_all_features(struct amdgpu=
+_device *adev,
+                                          .type =3D default_ras_type,
+                                          .sub_block_index =3D 0,
+                            };
+-                           strcpy(head.name, ras_block_str(i));
+                            if (bypass) {
+                                          /*
+                                           * bypass psp. vbios enable ras f=
+or us.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_ras.h
+index 471ffe885fdf..abc5710898e8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+@@ -53,6 +53,9 @@ enum amdgpu_ras_block {
+             AMDGPU_RAS_BLOCK__LAST
+};
++extern const char *ras_block_string[];
++
++#define ras_block_str(i) (ras_block_string[i])
+#define AMDGPU_RAS_BLOCK_COUNT AMDGPU_RAS_BLOCK__LAST
+#define AMDGPU_RAS_BLOCK_MASK   ((1ULL << AMDGPU_RAS_BLOCK_COUNT) - 1)
+@@ -306,8 +309,6 @@ struct ras_common_if {
+             enum amdgpu_ras_block block;
+             enum amdgpu_ras_error_type type;
+             uint32_t sub_block_index;
+-             /* block name */
+-             char name[32];
+};
+ struct amdgpu_ras {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_sdma.c
+index de91d29c9d96..65debb65a5df 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+@@ -105,7 +105,6 @@ int amdgpu_sdma_ras_late_init(struct amdgpu_device *ade=
+v,
+                            adev->sdma.ras_if->block =3D AMDGPU_RAS_BLOCK__=
+SDMA;
+                            adev->sdma.ras_if->type =3D AMDGPU_RAS_ERROR__M=
+ULTI_UNCORRECTABLE;
+                            adev->sdma.ras_if->sub_block_index =3D 0;
+-                           strcpy(adev->sdma.ras_if->name, "sdma");
+             }
+             fs_info.head =3D ih_info->head =3D *adev->sdma.ras_if;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_umc.c
+index 0c7c56a91b25..a90029ee9733 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
+@@ -41,7 +41,6 @@ int amdgpu_umc_ras_late_init(struct amdgpu_device *adev)
+                            adev->umc.ras_if->block =3D AMDGPU_RAS_BLOCK__U=
+MC;
+                            adev->umc.ras_if->type =3D AMDGPU_RAS_ERROR__MU=
+LTI_UNCORRECTABLE;
+                            adev->umc.ras_if->sub_block_index =3D 0;
+-                           strcpy(adev->umc.ras_if->name, "umc");
+             }
+             ih_info.head =3D fs_info.head =3D *adev->umc.ras_if;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_xgmi.c
+index 258cf86b32f6..2e47bc446700 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+@@ -663,7 +663,6 @@ static int amdgpu_xgmi_ras_late_init(struct amdgpu_devi=
+ce *adev)
+                            adev->gmc.xgmi.ras_if->block =3D AMDGPU_RAS_BLO=
+CK__XGMI_WAFL;
+                            adev->gmc.xgmi.ras_if->type =3D AMDGPU_RAS_ERRO=
+R__MULTI_UNCORRECTABLE;
+                            adev->gmc.xgmi.ras_if->sub_block_index =3D 0;
+-                           strcpy(adev->gmc.xgmi.ras_if->name, "xgmi_wafl"=
+);
+             }
+             ih_info.head =3D fs_info.head =3D *adev->gmc.xgmi.ras_if;
+             r =3D amdgpu_ras_late_init(adev, adev->gmc.xgmi.ras_if,
+diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c b/drivers/gpu/drm/amd/a=
+mdgpu/nbio_v7_4.c
+index cef929746739..1c94a14fc18d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
++++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
+@@ -372,13 +372,13 @@ static void nbio_v7_4_handle_ras_controller_intr_no_b=
+ifring(struct amdgpu_device
+                                                                           =
+          "errors detected in %s block, "
+                                                                           =
+          "no user action is needed.\n",
+                                                                           =
+          obj->err_data.ce_count,
+-                                                                          =
+           adev->nbio.ras_if->name);
++                                                                          =
+          ras_block_str(adev->nbio.ras_if->block));
+                                           if (err_data.ue_count)
+                                                         dev_info(adev->dev=
+, "%ld uncorrectable hardware "
+                                                                           =
+          "errors detected in %s block\n",
+                                                                           =
+          obj->err_data.ue_count,
+-                                                                          =
+           adev->nbio.ras_if->name);
++                                                                          =
+          ras_block_str(adev->nbio.ras_if->block));
+                            }
+                             dev_info(adev->dev, "RAS controller interrupt =
+triggered "
+--
+2.17.1
 
 
-On 8/13/2021 4:01 PM, Michel Dänzer wrote:
-> On 2021-08-13 6:23 a.m., Lazar, Lijo wrote:
->>
->>
->> On 8/12/2021 10:24 PM, Michel Dänzer wrote:
->>> On 2021-08-12 1:33 p.m., Lazar, Lijo wrote:
->>>> On 8/12/2021 1:41 PM, Michel Dänzer wrote:
->>>>> On 2021-08-12 7:55 a.m., Koenig, Christian wrote:
->>>>>> Hi James,
->>>>>>
->>>>>> Evan seems to have understood how this all works together.
->>>>>>
->>>>>> See while any begin/end use critical section is active the work should not be active.
->>>>>>
->>>>>> When you handle only one ring you can just call cancel in begin use and schedule in end use. But when you have more than one ring you need a lock or counter to prevent concurrent work items to be started.
->>>>>>
->>>>>> Michelle's idea to use mod_delayed_work is a bad one because it assumes that the delayed work is still running.
->>>>>
->>>>> It merely assumes that the work may already have been scheduled before.
->>>>>
->>>>> Admittedly, I missed the cancel_delayed_work_sync calls for patch 2. While I think it can still have some effect when there's a single work item for multiple rings, as described by James, it's probably negligible, since presumably the time intervals between ring_begin_use and ring_end_use are normally much shorter than a second.
->>>>>
->>>>> So, while patch 2 is at worst a no-op (since mod_delayed_work is the same as schedule_delayed_work if the work hasn't been scheduled yet), I'm fine with dropping it.
->>>>>
->>>>>
->>>>>> Something similar applies to the first patch I think,
->>>>>
->>>>> There are no cancel work calls in that case, so the commit log is accurate TTBOMK.
->>>>
->>>> Curious -
->>>>
->>>> For patch 1, does it make a difference if any delayed work scheduled is cancelled in the else part before proceeding?
->>>>
->>>> } else if (!enable && adev->gfx.gfx_off_state) {
->>>> cancel_delayed_work();
->>>
->>> I tried the patch below.
->>>
->>> While this does seem to fix the problem as well, I see a potential issue:
->>>
->>> 1. amdgpu_gfx_off_ctrl locks adev->gfx.gfx_off_mutex
->>> 2. amdgpu_device_delay_enable_gfx_off runs, blocks in mutex_lock
->>> 3. amdgpu_gfx_off_ctrl calls cancel_delayed_work_sync
->>>
->>> I'm afraid this would deadlock? (CONFIG_PROVE_LOCKING doesn't complain though)
->>
->> Should use the cancel_delayed_work instead of the _sync version.
-> 
-> The thing is, it's not clear to me from cancel_delayed_work's description that it's guaranteed not to wait for amdgpu_device_delay_enable_gfx_off to finish if it's already running. If that's not guaranteed, it's prone to the same deadlock.
 
- From what I understood from the the description, cancel initiates a 
-cancel. If the work has already started, it returns false saying it 
-couldn't succeed otherwise cancels out the scheduled work and returns 
-true. In the note below, it asks to specifically use the _sync version 
-if we need to wait for an already started work and that definitely has 
-the problem of deadlock you mentioned above.
-
-  * Note:
-  * The work callback function may still be running on return, unless
-  * it returns %true and the work doesn't re-arm itself.  Explicitly 
-flush or
-  * use cancel_delayed_work_sync() to wait on it.
-
-
-> 
->> As you mentioned - at best work is not scheduled yet and cancelled successfully, or at worst it's waiting for the mutex. In the worst case, if amdgpu_device_delay_enable_gfx_off gets the mutex after amdgpu_gfx_off_ctrl unlocks it, there is an extra check as below.
->>
->> if (!adev->gfx.gfx_off_state && !adev->gfx.gfx_off_req_count)
->>
->> The count wouldn't be 0 and hence it won't enable GFXOFF.
-> 
-> I'm not sure, but it might also be possible for amdgpu_device_delay_enable_gfx_off to get the mutex only after amdgpu_gfx_off_ctrl was called again and set adev->gfx.gfx_off_req_count back to 0.
-> 
-
-Yes, this is a case we can't avoid in either case. If the work has 
-already started, then mod_delayed_ also doesn't have any impact. Another 
-case is work thread already got the mutex and a disable request comes 
-just at that time. It needs to wait till mutex is released by work, that 
-could mean enable gfxoff immediately followed by disable.
-
-> 
->>> Maybe it's possible to fix it with cancel_delayed_work_sync somehow, but I'm not sure how offhand. (With cancel_delayed_work instead, I'm worried amdgpu_device_delay_enable_gfx_off might still enable GFXOFF in the HW immediately after amdgpu_gfx_off_ctrl unlocks the mutex. Then again, that might happen with mod_delayed_work as well...)
->>
->> As mentioned earlier, cancel_delayed_work won't cause this issue.
->>
->> In the mod_delayed_ patch, mod_ version is called only when req_count is 0. While that is a good thing, it keeps alive one more contender for the mutex.
-> 
-> Not sure what you mean. It leaves the possibility of amdgpu_device_delay_enable_gfx_off running just after amdgpu_gfx_off_ctrl tried to postpone it. As discussed above, something similar might be possible with cancel_delayed_work as well.
-> 
-
-The mod_delayed is called only req_count gets back to 0. If there is 
-another disable request comes after that, it doesn't cancel out the work
-scheduled nor does it adjust the delay.
-
-Ex:
-Disable gfxoff -> Enable gfxoff (now the work is scheduled) -> Disable 
-gfxoff (within 5ms or whatever the delay be, but this call won't go to 
-the mod_delayed path to delay it further) -> Work starts after 5ms and 
-creates a contention for the mutex -> Enable gfxoff
-
-When cancel_ is used, the second disable call immediately cancels out 
-any work that is scheduled but not started and it doesn't create an 
-unnecessary contention for the mutex. It's a matter of who gets the 
-mutex first. Cancel has a better chance to eliminate the second thread 
-possibility.
-
->> The cancel_ version eliminates that contender if happens to be called at the right time (more likely if there are multiple requests to disable gfxoff). On the other hand, don't know how costly it is to call cancel_ every time on the else part (or maybe call only once when count increments to 1?).
-> 
-> Sure, why not, though I doubt it matters much — I expect adev->gfx.gfx_off_req_count transitioning between 0 <-> 1 to be the most common case by far.
-> 
-> 
-> I sent out a v2 patch which should address all these issues.
-> 
-
-Will check that.
 
 Thanks,
-Lijo
+Candice
 
-> 
+
+--_000_DM6PR12MB4649355F3251E0EA3FE7743091FA9DM6PR12MB4649namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
+break-word">
+<p class=3D"msipheaderc10f11a2" align=3D"Left" style=3D"margin:0"><span sty=
+le=3D"font-size:10.0pt;font-family:Arial;color:#008000">[Public]</span></p>
+<br>
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Delete ras_if-&gt;name in the RAS ctx structure and =
+remove related lines.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Signed-off-by: Candice Li <a href=3D"mailto:candice.=
+li@amd.com">
+candice.li@amd.com</a><o:p></o:p></p>
+<p class=3D"MsoNormal">---<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c&nbsp;&nbsp; =
+| 1 -<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c&nbsp;&nbsp; =
+| 1 -<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.c | 1 -<o:p>=
+</o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c&nbsp; | 1 -=
+<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c&nbsp;&nbsp; =
+| 4 +---<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h&nbsp;&nbsp; =
+| 5 +++--<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c&nbsp; | 1 -=
+<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c &nbsp;&nbsp;=
+| 1 -<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c&nbsp; | 1 -=
+<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c&nbsp;&nbsp;&n=
+bsp; | 4 ++--<o:p></o:p></p>
+<p class=3D"MsoNormal">10 files changed, 6 insertions(+), 14 deletions(-)<o=
+:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c=
+ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c<o:p></o:p></p>
+<p class=3D"MsoNormal">index 9cfef56b2aee..5beaa7c1bd11 100644<o:p></o:p></=
+p>
+<p class=3D"MsoNormal">--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c<o:p></=
+o:p></p>
+<p class=3D"MsoNormal">+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c<o:p></=
+o:p></p>
+<p class=3D"MsoNormal">@@ -615,7 +615,6 @@ int amdgpu_gfx_ras_late_init(str=
+uct amdgpu_device *adev)<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gfx.ras_if-&gt;block =3D AMDGP=
+U_RAS_BLOCK__GFX;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gfx.ras_if-&gt;type =3D AMDGPU=
+_RAS_ERROR__MULTI_UNCORRECTABLE;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gfx.ras_if-&gt;sub_block_index=
+ =3D 0;<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; strcpy(adev-&gt;gfx.ras_if-&gt;name, &quot;g=
+fx&quot;);<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; }<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; fs_info.head =3D ih_info.head =3D *adev-&gt;gfx.ras_if=
+;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; r =3D amdgpu_ras_late_init(adev, adev-&gt;gfx.ras_if,<=
+o:p></o:p></p>
+<p class=3D"MsoNormal">diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c=
+ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c<o:p></o:p></p>
+<p class=3D"MsoNormal">index 1d50d534d77c..a766e1aad2b9 100644<o:p></o:p></=
+p>
+<p class=3D"MsoNormal">--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c<o:p></=
+o:p></p>
+<p class=3D"MsoNormal">+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c<o:p></=
+o:p></p>
+<p class=3D"MsoNormal">@@ -41,7 +41,6 @@ int amdgpu_hdp_ras_late_init(struc=
+t amdgpu_device *adev)<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;hdp.ras_if-&gt;block =3D AMDGP=
+U_RAS_BLOCK__HDP;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;hdp.ras_if-&gt;type =3D AMDGPU=
+_RAS_ERROR__MULTI_UNCORRECTABLE;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;hdp.ras_if-&gt;sub_block_index=
+ =3D 0;<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; strcpy(adev-&gt;hdp.ras_if-&gt;name, &quot;h=
+dp&quot;);<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; }<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; ih_info.head =3D fs_info.head =3D *adev-&gt;hdp.ras_if=
+;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; r =3D amdgpu_ras_late_init(adev, adev-&gt;hdp.ras_if,<=
+o:p></o:p></p>
+<p class=3D"MsoNormal">diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub=
+.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.c<o:p></o:p></p>
+<p class=3D"MsoNormal">index ead3dc572ec5..24297dc51434 100644<o:p></o:p></=
+p>
+<p class=3D"MsoNormal">--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.c<o:p>=
+</o:p></p>
+<p class=3D"MsoNormal">+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.c<o:p>=
+</o:p></p>
+<p class=3D"MsoNormal">@@ -41,7 +41,6 @@ int amdgpu_mmhub_ras_late_init(str=
+uct amdgpu_device *adev)<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;mmhub.ras_if-&gt;block =3D AMD=
+GPU_RAS_BLOCK__MMHUB;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;mmhub.ras_if-&gt;type =3D AMDG=
+PU_RAS_ERROR__MULTI_UNCORRECTABLE;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;mmhub.ras_if-&gt;sub_block_ind=
+ex =3D 0;<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; strcpy(adev-&gt;mmhub.ras_if-&gt;name, &quot=
+;mmhub&quot;);<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; }<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; ih_info.head =3D fs_info.head =3D *adev-&gt;mmhub.ras_=
+if;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; r =3D amdgpu_ras_late_init(adev, adev-&gt;mmhub.ras_if=
+,<o:p></o:p></p>
+<p class=3D"MsoNormal">diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.=
+c b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c<o:p></o:p></p>
+<p class=3D"MsoNormal">index 6201a5f4b4fa..6afb02fef8cf 100644<o:p></o:p></=
+p>
+<p class=3D"MsoNormal">--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c<o:p><=
+/o:p></p>
+<p class=3D"MsoNormal">+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c<o:p><=
+/o:p></p>
+<p class=3D"MsoNormal">@@ -39,7 +39,6 @@ int amdgpu_nbio_ras_late_init(stru=
+ct amdgpu_device *adev)<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;nbio.ras_if-&gt;block =3D AMDG=
+PU_RAS_BLOCK__PCIE_BIF;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;nbio.ras_if-&gt;type =3D AMDGP=
+U_RAS_ERROR__MULTI_UNCORRECTABLE;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;nbio.ras_if-&gt;sub_block_inde=
+x =3D 0;<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; strcpy(adev-&gt;nbio.ras_if-&gt;name, &quot;=
+pcie_bif&quot;);<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; }<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; ih_info.head =3D fs_info.head =3D *adev-&gt;nbio.ras_i=
+f;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; r =3D amdgpu_ras_late_init(adev, adev-&gt;nbio.ras_if,=
+<o:p></o:p></p>
+<p class=3D"MsoNormal">diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c=
+ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c<o:p></o:p></p>
+<p class=3D"MsoNormal">index 3811b6b6a192..96a8fd0ca1df 100644<o:p></o:p></=
+p>
+<p class=3D"MsoNormal">--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c<o:p></=
+o:p></p>
+<p class=3D"MsoNormal">+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c<o:p></=
+o:p></p>
+<p class=3D"MsoNormal">@@ -64,7 +64,6 @@ const char *ras_block_string[] =3D=
+ {<o:p></o:p></p>
+<p class=3D"MsoNormal">};<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;#define ras_err_str(i) (ras_error_string[ffs(i=
+)])<o:p></o:p></p>
+<p class=3D"MsoNormal">-#define ras_block_str(i) (ras_block_string[i])<o:p>=
+</o:p></p>
+<p class=3D"MsoNormal"><o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;#define RAS_DEFAULT_FLAGS (AMDGPU_RAS_FLAG_INI=
+T_BY_VBIOS)<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p></o:p></p>
+<p class=3D"MsoNormal">@@ -530,7 +529,7 @@ static inline void put_obj(struc=
+t ras_manager *obj)<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; if (obj &amp;&amp; (--obj-&gt;use =3D=3D 0))<o:p></o:p=
+></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; list_del(&amp;obj-&gt;node);<o:p></o:p>=
+</p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; if (obj &amp;&amp; (obj-&gt;use &lt; 0))<o:p></o:p></p=
+>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;RAS ERROR: Unbalance obj(%s)=
+ use\n&quot;, obj-&gt;head.name);<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;RAS ERROR: Unbalance obj(%s)=
+ use\n&quot;, ras_block_str(obj-&gt;head.block));<o:p></o:p></p>
+<p class=3D"MsoNormal">}<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;/* make one obj and return it. */<o:p></o:p></=
+p>
+<p class=3D"MsoNormal">@@ -793,7 +792,6 @@ static int amdgpu_ras_enable_all=
+_features(struct amdgpu_device *adev,<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .type =3D default_ras_type,<o:=
+p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .sub_block_index =3D 0,<o:p></=
+o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; };<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; strcpy(head.name, ras_block_str(i));<o:p></o=
+:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (bypass) {<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;* bypass psp. vbios enab=
+le ras for us.<o:p></o:p></p>
+<p class=3D"MsoNormal">diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h=
+ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h<o:p></o:p></p>
+<p class=3D"MsoNormal">index 471ffe885fdf..abc5710898e8 100644<o:p></o:p></=
+p>
+<p class=3D"MsoNormal">--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h<o:p></=
+o:p></p>
+<p class=3D"MsoNormal">+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h<o:p></=
+o:p></p>
+<p class=3D"MsoNormal">@@ -53,6 +53,9 @@ enum amdgpu_ras_block {<o:p></o:p>=
+</p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; AMDGPU_RAS_BLOCK__LAST<o:p></o:p></p>
+<p class=3D"MsoNormal">};<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p></o:p></p>
+<p class=3D"MsoNormal">+extern const char *ras_block_string[];<o:p></o:p></=
+p>
+<p class=3D"MsoNormal">+<o:p></o:p></p>
+<p class=3D"MsoNormal">+#define ras_block_str(i) (ras_block_string[i])<o:p>=
+</o:p></p>
+<p class=3D"MsoNormal">#define AMDGPU_RAS_BLOCK_COUNT AMDGPU_RAS_BLOCK__LAS=
+T<o:p></o:p></p>
+<p class=3D"MsoNormal">#define AMDGPU_RAS_BLOCK_MASK&nbsp;&nbsp; ((1ULL &lt=
+;&lt; AMDGPU_RAS_BLOCK_COUNT) - 1)<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p></o:p></p>
+<p class=3D"MsoNormal">@@ -306,8 +309,6 @@ struct ras_common_if {<o:p></o:p=
+></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; enum amdgpu_ras_block block;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; enum amdgpu_ras_error_type type;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; uint32_t sub_block_index;<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; /* block name */<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; char name[32];<o:p></o:p></p>
+<p class=3D"MsoNormal">};<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;struct amdgpu_ras {<o:p></o:p></p>
+<p class=3D"MsoNormal">diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.=
+c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c<o:p></o:p></p>
+<p class=3D"MsoNormal">index de91d29c9d96..65debb65a5df 100644<o:p></o:p></=
+p>
+<p class=3D"MsoNormal">--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c<o:p><=
+/o:p></p>
+<p class=3D"MsoNormal">+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c<o:p><=
+/o:p></p>
+<p class=3D"MsoNormal">@@ -105,7 +105,6 @@ int amdgpu_sdma_ras_late_init(st=
+ruct amdgpu_device *adev,<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;sdma.ras_if-&gt;block =3D AMDG=
+PU_RAS_BLOCK__SDMA;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;sdma.ras_if-&gt;type =3D AMDGP=
+U_RAS_ERROR__MULTI_UNCORRECTABLE;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;sdma.ras_if-&gt;sub_block_inde=
+x =3D 0;<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; strcpy(adev-&gt;sdma.ras_if-&gt;name, &quot;=
+sdma&quot;);<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; }<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; fs_info.head =3D ih_info-&gt;head =3D *adev-&gt;sdma.r=
+as_if;<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p></o:p></p>
+<p class=3D"MsoNormal">diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c=
+ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c<o:p></o:p></p>
+<p class=3D"MsoNormal">index 0c7c56a91b25..a90029ee9733 100644<o:p></o:p></=
+p>
+<p class=3D"MsoNormal">--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c<o:p></=
+o:p></p>
+<p class=3D"MsoNormal">+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c<o:p></=
+o:p></p>
+<p class=3D"MsoNormal">@@ -41,7 +41,6 @@ int amdgpu_umc_ras_late_init(struc=
+t amdgpu_device *adev)<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;umc.ras_if-&gt;block =3D AMDGP=
+U_RAS_BLOCK__UMC;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;umc.ras_if-&gt;type =3D AMDGPU=
+_RAS_ERROR__MULTI_UNCORRECTABLE;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;umc.ras_if-&gt;sub_block_index=
+ =3D 0;<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; strcpy(adev-&gt;umc.ras_if-&gt;name, &quot;u=
+mc&quot;);<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; }<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; ih_info.head =3D fs_info.head =3D *adev-&gt;umc.ras_if=
+;<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p></o:p></p>
+<p class=3D"MsoNormal">diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.=
+c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c<o:p></o:p></p>
+<p class=3D"MsoNormal">index 258cf86b32f6..2e47bc446700 100644<o:p></o:p></=
+p>
+<p class=3D"MsoNormal">--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c<o:p><=
+/o:p></p>
+<p class=3D"MsoNormal">+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c<o:p><=
+/o:p></p>
+<p class=3D"MsoNormal">@@ -663,7 +663,6 @@ static int amdgpu_xgmi_ras_late_=
+init(struct amdgpu_device *adev)<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gmc.xgmi.ras_if-&gt;block =3D =
+AMDGPU_RAS_BLOCK__XGMI_WAFL;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gmc.xgmi.ras_if-&gt;type =3D A=
+MDGPU_RAS_ERROR__MULTI_UNCORRECTABLE;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gmc.xgmi.ras_if-&gt;sub_block_=
+index =3D 0;<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; strcpy(adev-&gt;gmc.xgmi.ras_if-&gt;name, &q=
+uot;xgmi_wafl&quot;);<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; }<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; ih_info.head =3D fs_info.head =3D *adev-&gt;gmc.xgmi.r=
+as_if;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; r =3D amdgpu_ras_late_init(adev, adev-&gt;gmc.xgmi.ras=
+_if,<o:p></o:p></p>
+<p class=3D"MsoNormal">diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c =
+b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c<o:p></o:p></p>
+<p class=3D"MsoNormal">index cef929746739..1c94a14fc18d 100644<o:p></o:p></=
+p>
+<p class=3D"MsoNormal">--- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c<o:p></o=
+:p></p>
+<p class=3D"MsoNormal">+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c<o:p></o=
+:p></p>
+<p class=3D"MsoNormal">@@ -372,13 +372,13 @@ static void nbio_v7_4_handle_r=
+as_controller_intr_no_bifring(struct amdgpu_device<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; &quot;errors detected in %s block, &quot;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; &quot;no user action is needed.\n&quot;,<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; obj-&gt;err_data.ce_count,<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; adev-&gt;nbio.ras_if-&gt;name);<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ras_blo=
+ck_str(adev-&gt;nbio.ras_if-&gt;block));<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (err_data.ue_count)<o=
+:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_info(adev-&=
+gt;dev, &quot;%ld uncorrectable hardware &quot;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; &quot;errors detected in %s block\n&quot;,<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; obj-&gt;err_data.ue_count,<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; adev-&gt;nbio.ras_if-&gt;name);<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ras_blo=
+ck_str(adev-&gt;nbio.ras_if-&gt;block));<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_info(adev-&gt;dev, &quot;RAS =
+controller interrupt triggered &quot;<o:p></o:p></p>
+<p class=3D"MsoNormal">-- <o:p></o:p></p>
+<p class=3D"MsoNormal">2.17.1<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><span style=3D"color:#44546A">Thanks,<o:p></o:p></sp=
+an></p>
+<p class=3D"MsoNormal"><span style=3D"color:#44546A">Candice<o:p></o:p></sp=
+an></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+</body>
+</html>
+
+--_000_DM6PR12MB4649355F3251E0EA3FE7743091FA9DM6PR12MB4649namp_--
