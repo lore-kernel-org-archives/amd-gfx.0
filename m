@@ -2,44 +2,43 @@ Return-Path: <SRS0=yGBf=NH=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E96BEC4338F
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 07:14:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 70EB4C43216
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 07:14:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 97F496023E
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 07:14:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 97F496023E
+	by mail.kernel.org (Postfix) with ESMTPS id E3BEB6023E
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 07:14:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E3BEB6023E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=alien8.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F67489C85;
-	Mon, 16 Aug 2021 07:14:13 +0000 (UTC)
-X-Greylist: delayed 70227 seconds by postgrey-1.36 at gabe;
- Sun, 15 Aug 2021 14:38:49 UTC
-Received: from mail.skyhub.de (mail.skyhub.de [5.9.137.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04E8C897D7;
- Sun, 15 Aug 2021 14:38:37 +0000 (UTC)
-Received: from zn.tnic (p200300ec2f26310039d0ba97aac93c10.dip0.t-ipconnect.de
- [IPv6:2003:ec:2f26:3100:39d0:ba97:aac9:3c10])
+	by gabe.freedesktop.org (Postfix) with ESMTP id B537289C3F;
+	Mon, 16 Aug 2021 07:14:12 +0000 (UTC)
+Received: from mail.skyhub.de (mail.skyhub.de [IPv6:2a01:4f8:190:11c2::b:1457])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0470E6E8FE;
+ Sat, 14 Aug 2021 18:32:15 +0000 (UTC)
+Received: from zn.tnic (p200300ec2f1db90092f0c5d5424adff0.dip0.t-ipconnect.de
+ [IPv6:2003:ec:2f1d:b900:92f0:c5d5:424a:dff0])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 5FF7A1EC0505;
- Sun, 15 Aug 2021 16:38:31 +0200 (CEST)
+ by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 18F4D1EC03D5;
+ Sat, 14 Aug 2021 20:32:10 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
- t=1629038311;
+ t=1628965930;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:in-reply-to:in-reply-to:  references:references;
- bh=jL5qXq5tPSUlQog/FJ5eZ1GT2YpJvvVnQmTTUk0cbrA=;
- b=Ynjh7QDJnobQuRzRBtXZMflPEf0vTQxZ/1e/DI2MnZmP0BU3+0pTK5ZZQ5Gk5RnrPuYHa6
- IdpdAyOEUiLJZd8HI6wSzceOtBbAWAY0K9LHdKOg+Qfc/RBmkhxNql4Enc7Gc4LTKOJnaI
- 0ETWtaeGc2m89ri2xInjGo/yEh1iYis=
-Date: Sun, 15 Aug 2021 16:39:09 +0200
+ bh=wF+abY2BQsJbjTrcR+vEXegmF8fSVZNnTVHwv8EJcnQ=;
+ b=E4Qk5UWHuniXg4G1qquKyzpgwZxdDOaCXRqHrAIJykq2qzFHsvToSzhtSszwEfmGfSV6v2
+ I5QqIZa+pz8OAA9XFKUyZCM9wxA5OIK4n52a7NMv/GJIh9ii9QfkxahlKZf58K1pY/P4Uq
+ 2W5ojEdMC06o3XDrAinHQLW8qtTO9aY=
+Date: Sat, 14 Aug 2021 20:32:48 +0200
 From: Borislav Petkov <bp@alien8.de>
 To: Tom Lendacky <thomas.lendacky@amd.com>
 Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
@@ -51,22 +50,17 @@ Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
  linux-fsdevel@vger.kernel.org, Brijesh Singh <brijesh.singh@amd.com>,
  Joerg Roedel <joro@8bytes.org>, Andi Kleen <ak@linux.intel.com>,
  Sathyanarayanan Kuppuswamy <sathyanarayanan.kuppuswamy@linux.intel.com>,
- Tianyu Lan <Tianyu.Lan@microsoft.com>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Joerg Roedel <jroedel@suse.de>
-Subject: Re: [PATCH v2 03/12] x86/sev: Add an x86 version of prot_guest_has()
-Message-ID: <YRknDQGUJJ/j9pth@zn.tnic>
+ Tianyu Lan <Tianyu.Lan@microsoft.com>, Joerg Roedel <jroedel@suse.de>
+Subject: Re: [PATCH v2 02/12] mm: Introduce a function to check for
+ virtualization protection features
+Message-ID: <YRgMUHqdH60jDB06@zn.tnic>
 References: <cover.1628873970.git.thomas.lendacky@amd.com>
- <7d55bac0cf2e73f53816bce3a3097877ed9663f3.1628873970.git.thomas.lendacky@amd.com>
- <YRgUxyhoqVJ0Kxvt@zn.tnic>
- <4710eb91-d054-7b31-5106-09e3e54bba9e@amd.com>
+ <482fe51f1671c1cd081039801b03db7ec0036332.1628873970.git.thomas.lendacky@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <4710eb91-d054-7b31-5106-09e3e54bba9e@amd.com>
-X-Mailman-Approved-At: Mon, 16 Aug 2021 07:13:00 +0000
+In-Reply-To: <482fe51f1671c1cd081039801b03db7ec0036332.1628873970.git.thomas.lendacky@amd.com>
+X-Mailman-Approved-At: Mon, 16 Aug 2021 07:13:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,20 +75,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Aug 15, 2021 at 08:53:31AM -0500, Tom Lendacky wrote:
-> It's not a cross-vendor thing as opposed to a KVM or other hypervisor
-> thing where the family doesn't have to be reported as AMD or HYGON.
+On Fri, Aug 13, 2021 at 11:59:21AM -0500, Tom Lendacky wrote:
+> In prep for other protected virtualization technologies, introduce a
+> generic helper function, prot_guest_has(), that can be used to check
+> for specific protection attributes, like memory encryption. This is
+> intended to eliminate having to add multiple technology-specific checks
+> to the code (e.g. if (sev_active() || tdx_active())).
+> 
+> Reviewed-by: Joerg Roedel <jroedel@suse.de>
+> Co-developed-by: Andi Kleen <ak@linux.intel.com>
+> Signed-off-by: Andi Kleen <ak@linux.intel.com>
+> Co-developed-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+> Signed-off-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+> Signed-off-by: Tom Lendacky <thomas.lendacky@amd.com>
+> ---
+>  arch/Kconfig                    |  3 +++
+>  include/linux/protected_guest.h | 35 +++++++++++++++++++++++++++++++++
+>  2 files changed, 38 insertions(+)
+>  create mode 100644 include/linux/protected_guest.h
+> 
+> diff --git a/arch/Kconfig b/arch/Kconfig
+> index 98db63496bab..bd4f60c581f1 100644
+> --- a/arch/Kconfig
+> +++ b/arch/Kconfig
+> @@ -1231,6 +1231,9 @@ config RELR
+>  config ARCH_HAS_MEM_ENCRYPT
+>  	bool
+>  
+> +config ARCH_HAS_PROTECTED_GUEST
+> +	bool
+> +
+>  config HAVE_SPARSE_SYSCALL_NR
+>         bool
+>         help
+> diff --git a/include/linux/protected_guest.h b/include/linux/protected_guest.h
+> new file mode 100644
+> index 000000000000..43d4dde94793
+> --- /dev/null
+> +++ b/include/linux/protected_guest.h
+> @@ -0,0 +1,35 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Protected Guest (and Host) Capability checks
+> + *
+> + * Copyright (C) 2021 Advanced Micro Devices, Inc.
+> + *
+> + * Author: Tom Lendacky <thomas.lendacky@amd.com>
+> + */
+> +
+> +#ifndef _PROTECTED_GUEST_H
+> +#define _PROTECTED_GUEST_H
+> +
+> +#ifndef __ASSEMBLY__
+	   ^^^^^^^^^^^^^
 
-What would be the use case? A HV starts a guest which is supposed to be
-encrypted using the AMD's confidential guest technology but the HV tells
-the guest that it is not running on an AMD SVM HV but something else?
-
-Is that even an actual use case?
-
-Or am I way off?
-
-I know we have talked about this in the past but this still sounds
-insane.
+Do you really need that guard? It builds fine without it too. Or
+something coming later does need it...?
 
 -- 
 Regards/Gruss,
