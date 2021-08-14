@@ -2,47 +2,68 @@ Return-Path: <SRS0=yGBf=NH=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 45744C4338F
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 07:14:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E9B15C432BE
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 07:14:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E227061A89
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 07:14:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E227061A89
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
+	by mail.kernel.org (Postfix) with ESMTPS id 8FFB66023E
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 07:14:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8FFB66023E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=alien8.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25B9189C68;
-	Mon, 16 Aug 2021 07:14:13 +0000 (UTC)
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6E7089C0D;
- Sun, 15 Aug 2021 09:10:04 +0000 (UTC)
-Received: by verein.lst.de (Postfix, from userid 2407)
- id 9DEF66736F; Sun, 15 Aug 2021 11:10:00 +0200 (CEST)
-Date: Sun, 15 Aug 2021 11:10:00 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: Alex Sierra <alex.sierra@amd.com>
-Cc: akpm@linux-foundation.org, Felix.Kuehling@amd.com, linux-mm@kvack.org,
- rcampbell@nvidia.com, linux-ext4@vger.kernel.org,
- linux-xfs@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, hch@lst.de, jgg@nvidia.com,
- jglisse@redhat.com
-Subject: Re: [PATCH v6 04/13] drm/amdkfd: add SPM support for SVM
-Message-ID: <20210815091000.GB25067@lst.de>
-References: <20210813063150.2938-1-alex.sierra@amd.com>
- <20210813063150.2938-5-alex.sierra@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6061D89C46;
+	Mon, 16 Aug 2021 07:14:09 +0000 (UTC)
+Received: from mail.skyhub.de (mail.skyhub.de [IPv6:2a01:4f8:190:11c2::b:1457])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E2EA6E8D0;
+ Sat, 14 Aug 2021 15:24:31 +0000 (UTC)
+Received: from zn.tnic (p200300ec2f1db9002f4996680da31890.dip0.t-ipconnect.de
+ [IPv6:2003:ec:2f1d:b900:2f49:9668:da3:1890])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 8C4181EC0570;
+ Sat, 14 Aug 2021 17:24:25 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
+ t=1628954665;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:in-reply-to:in-reply-to:  references:references;
+ bh=sbUZXYrGBCnkdsaMVDuLw+c4h20LmEtsdOYx/LANX0Q=;
+ b=C00yjn7cBmQqRpOaWrEEj5l68AxFibYiJHAi3z1eBk5RnJifb6ywdjAO9bEEyQcQGDqW2O
+ EISCtsZnVhg2cwZvHYBEu32siB+BgLQO9Fc7VRjIta+kozXWnAdLDck7yaUcVc1AXUpVdO
+ qhH8pNHGUmDKEa/M9P+kxf+ZpIhdVbo=
+Date: Sat, 14 Aug 2021 17:25:03 +0200
+From: Borislav Petkov <bp@alien8.de>
+To: Tom Lendacky <thomas.lendacky@amd.com>
+Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-s390@vger.kernel.org,
+ iommu@lists.linux-foundation.org, kvm@vger.kernel.org,
+ linux-efi@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+ linux-graphics-maintainer@vmware.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, kexec@lists.infradead.org,
+ linux-fsdevel@vger.kernel.org, Brijesh Singh <brijesh.singh@amd.com>,
+ Joerg Roedel <joro@8bytes.org>, Andi Kleen <ak@linux.intel.com>,
+ Sathyanarayanan Kuppuswamy <sathyanarayanan.kuppuswamy@linux.intel.com>,
+ Tianyu Lan <Tianyu.Lan@microsoft.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>
+Subject: Re: [PATCH v2 01/12] x86/ioremap: Selectively build arch override
+ encryption functions
+Message-ID: <YRfgTzhKCn7otSzy@zn.tnic>
+References: <cover.1628873970.git.thomas.lendacky@amd.com>
+ <a4338245609a6be63b162e3516d3f6614db782a4.1628873970.git.thomas.lendacky@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20210813063150.2938-5-alex.sierra@amd.com>
-User-Agent: Mutt/1.5.17 (2007-11-01)
-X-Mailman-Approved-At: Mon, 16 Aug 2021 07:13:00 +0000
+In-Reply-To: <a4338245609a6be63b162e3516d3f6614db782a4.1628873970.git.thomas.lendacky@amd.com>
+X-Mailman-Approved-At: Mon, 16 Aug 2021 07:13:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,24 +78,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-> @@ -880,17 +881,22 @@ int svm_migrate_init(struct amdgpu_device *adev)
->  	 * should remove reserved size
->  	 */
->  	size = ALIGN(adev->gmc.real_vram_size, 2ULL << 20);
-> -	res = devm_request_free_mem_region(adev->dev, &iomem_resource, size);
-> +	if (xgmi_connected_to_cpu)
-> +		res = lookup_resource(&iomem_resource, adev->gmc.aper_base);
-> +	else
-> +		res = devm_request_free_mem_region(adev->dev, &iomem_resource, size);
-> +
+On Fri, Aug 13, 2021 at 11:59:20AM -0500, Tom Lendacky wrote:
+> In prep for other uses of the prot_guest_has() function besides AMD's
+> memory encryption support, selectively build the AMD memory encryption
+> architecture override functions only when CONFIG_AMD_MEM_ENCRYPT=y. These
+> functions are:
+> - early_memremap_pgprot_adjust()
+> - arch_memremap_can_ram_remap()
+> 
+> Additionally, routines that are only invoked by these architecture
+> override functions can also be conditionally built. These functions are:
+> - memremap_should_map_decrypted()
+> - memremap_is_efi_data()
+> - memremap_is_setup_data()
+> - early_memremap_is_setup_data()
+> 
+> And finally, phys_mem_access_encrypted() is conditionally built as well,
+> but requires a static inline version of it when CONFIG_AMD_MEM_ENCRYPT is
+> not set.
+> 
+> Cc: Thomas Gleixner <tglx@linutronix.de>
+> Cc: Ingo Molnar <mingo@redhat.com>
+> Cc: Borislav Petkov <bp@alien8.de>
+> Cc: Dave Hansen <dave.hansen@linux.intel.com>
+> Cc: Andy Lutomirski <luto@kernel.org>
+> Cc: Peter Zijlstra <peterz@infradead.org>
+> Signed-off-by: Tom Lendacky <thomas.lendacky@amd.com>
+> ---
+>  arch/x86/include/asm/io.h | 8 ++++++++
+>  arch/x86/mm/ioremap.c     | 2 +-
+>  2 files changed, 9 insertions(+), 1 deletion(-)
 
-Can you explain what the point of the lookup_resource is here? res->start
-is obviously identical to the start value you pass in.  So this is used
-as a way to query the length, but I'm pretty sure the driver must
-already know that as it inserted the resource itself, right?
+LGTM.
 
-On a slightly higher level comment svm_migrate_init is a bit of a mess
-with all the if/else already, and with the above addressed will become
-a bit more.  I think splitting it into a device private and device
-generic case would probably help people finding it to understand the code
-much better later on.  Even more so with a useful comment.
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
