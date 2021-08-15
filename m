@@ -2,83 +2,47 @@ Return-Path: <SRS0=yGBf=NH=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.0 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7B2FBC4320A
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 06:08:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F0553C4338F
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 07:13:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3C66061A35
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 06:08:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3C66061A35
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id C19066023E
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 07:13:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C19066023E
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BE0E89BDB;
-	Mon, 16 Aug 2021 06:08:22 +0000 (UTC)
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [IPv6:2a00:1450:4864:20::333])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1285389BD5;
- Mon, 16 Aug 2021 06:08:21 +0000 (UTC)
-Received: by mail-wm1-x333.google.com with SMTP id w24so3051475wmi.5;
- Sun, 15 Aug 2021 23:08:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=r/nHbEzboSNUFm0n5Kb5WDXFEoEgqApNclI3Nq97ty0=;
- b=ie5fQk6Qnd9hKkCia2eNH/XTgxZyoKcBv9kjT2vdiPawNoVz5IKxsjRfWwx/7u6DA3
- B3LMBIAvP0TMgYBJx3lGZMHVXYctir4WQUKBASHWyGABZPZps96mKIQe+Reyd0unhPYr
- c+AZwtegayBCmm26xwM05NB0SEtleph6zmB/uuULWAhXPOhmAXdBskGRGwMRWe7p+mcj
- pZElukYdvy8dQba8GYnNIWLQDpXyzAZ4UnVbekjJaY5NyGL8Zm4Al6YVcx58wqCVUcNh
- UA9nx5FglQx0DHoZeGALT5L41wP0uAhysJ46xHa05/8Uc3jrfaarGhilslX7mCpAEnwh
- ssbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=r/nHbEzboSNUFm0n5Kb5WDXFEoEgqApNclI3Nq97ty0=;
- b=nz/JUQBR9tZcOp9XHl84TumGPpDci0hkOfLwmRdP0AXrx6Mtuw4NaJ+PFj7YY0IVxC
- mzlnRBnMs8RPJ6SmAnZoK1q5ADW3MQknC/SFAK7h2YrKwLeUM11Y4+kurhIXd0VhdAzP
- O+De2mFTcgh9pGe93y8jVRlxbYfHkb0N+WNaHmohZkxepdIJFXYn9HLlAfGv/cetkR/5
- OFCvVuSujNLs49R4NIcV/YJoEDXQ3UGu6gGMWYV5En7e3uqqWB9tUtIvzLDprt72byao
- vWLOKu8FepkX/28shB/YMZACBXUqVjUpWCwLfkdvP230re66S/E/tG8hzouBOKLW+I4X
- IiCQ==
-X-Gm-Message-State: AOAM530MPY1pGJyCbVZVxxYY/e+ccDUNxZBGLzinMdVmQCEKKoX3J1DV
- 5xsLVgC5MouFvF1hpJP6+14=
-X-Google-Smtp-Source: ABdhPJyxgM9YzKO1jjyjOL7VHA3knQ2ZTEXygRcCRRbxotj675P0dVv4dSpKCKsWvWTeiOXXEUNTiQ==
-X-Received: by 2002:a1c:a181:: with SMTP id k123mr13413029wme.90.1629094099521; 
- Sun, 15 Aug 2021 23:08:19 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:7d83:fd8:eb16:8605?
- ([2a02:908:1252:fb60:7d83:fd8:eb16:8605])
- by smtp.gmail.com with ESMTPSA id l2sm9347965wme.28.2021.08.15.23.08.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 15 Aug 2021 23:08:18 -0700 (PDT)
-Subject: Re: [PATCH] drivers:gpu:drm:amd:amdgpu:fix a potential use-after-free
-To: lwt105 <3061522931@qq.com>, alexander.deucher@amd.com
-Cc: christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@linux.ie,
- daniel@ffwll.ch, sumit.semwal@linaro.org, nirmoy.das@amd.com,
- chenli@uniontech.com, JinhuiEric.Huang@amd.com, mh12gx2825@gmail.com,
- lee.jones@linaro.org, kevin1.wang@amd.com, luben.tuikov@amd.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org
-References: <tencent_D167B6522B17C0228524C70F9CA5EEBBEC09@qq.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <fac65461-6ee2-e5dc-3af8-df9bfaecd6d4@gmail.com>
-Date: Mon, 16 Aug 2021 08:08:17 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id C038E89C17;
+	Mon, 16 Aug 2021 07:13:02 +0000 (UTC)
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBC2089A5E;
+ Sun, 15 Aug 2021 09:01:04 +0000 (UTC)
+Received: by verein.lst.de (Postfix, from userid 2407)
+ id 686D56736F; Sun, 15 Aug 2021 11:01:01 +0200 (CEST)
+Date: Sun, 15 Aug 2021 11:01:00 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: Alex Sierra <alex.sierra@amd.com>
+Cc: akpm@linux-foundation.org, Felix.Kuehling@amd.com, linux-mm@kvack.org,
+ rcampbell@nvidia.com, linux-ext4@vger.kernel.org,
+ linux-xfs@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, hch@lst.de, jgg@nvidia.com,
+ jglisse@redhat.com
+Subject: Re: [PATCH v6 01/13] ext4/xfs: add page refcount helper
+Message-ID: <20210815090100.GA25067@lst.de>
+References: <20210813063150.2938-1-alex.sierra@amd.com>
+ <20210813063150.2938-2-alex.sierra@amd.com>
 MIME-Version: 1.0
-In-Reply-To: <tencent_D167B6522B17C0228524C70F9CA5EEBBEC09@qq.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210813063150.2938-2-alex.sierra@amd.com>
+User-Agent: Mutt/1.5.17 (2007-11-01)
+X-Mailman-Approved-At: Mon, 16 Aug 2021 07:13:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,59 +57,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 13.08.21 um 05:28 schrieb lwt105:
-> in line 1503, "dma_fence_put(fence);" drop the reference to fence and may
-> cause fence to be released. However, fence is used subsequently in line
-> 1510 "fence->error". This may result in an use-after-free bug.
->
-> It can be fixed by recording fence->error in an variable before dropping
-> the reference to fence and referencing it after dropping.
->
-> Signed-off-by: lwt105 <3061522931@qq.com>
+On Fri, Aug 13, 2021 at 01:31:38AM -0500, Alex Sierra wrote:
+> From: Ralph Campbell <rcampbell@nvidia.com>
+> 
+> There are several places where ZONE_DEVICE struct pages assume a reference
+> count == 1 means the page is idle and free. Instead of open coding this,
+> add a helper function to hide this detail.
+> 
+> v3:
+> [AS]: rename dax_layout_is_idle_page func to dax_page_unused
+> 
+> v4:
+> [AS]: This ref count functionality was missing on fuse/dax.c.
 
-Good catch.
+These per-patch changelog goes under the "---", otherwise they totally
+mess up the logs when commited to git.  Same for the other patches in
+this series.
 
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 7 ++++---
->   1 file changed, 4 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> index 30fa1f61e0e5..99d03180e113 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> @@ -1486,7 +1486,7 @@ static int amdgpu_cs_wait_all_fences(struct amdgpu_device *adev,
->   				     struct drm_amdgpu_fence *fences)
->   {
->   	uint32_t fence_count = wait->in.fence_count;
-> -	unsigned int i;
-> +	unsigned int i, error;
->   	long r = 1;
+But the changes itself looks good:
 
-Would be nice to have if you could reuse the "r" variable here instead 
-of a new one.
-
-Regards,
-Christian.
-
->   
->   	for (i = 0; i < fence_count; i++) {
-> @@ -1500,6 +1500,7 @@ static int amdgpu_cs_wait_all_fences(struct amdgpu_device *adev,
->   			continue;
->   
->   		r = dma_fence_wait_timeout(fence, true, timeout);
-> +		error = fence->error;
->   		dma_fence_put(fence);
->   		if (r < 0)
->   			return r;
-> @@ -1507,8 +1508,8 @@ static int amdgpu_cs_wait_all_fences(struct amdgpu_device *adev,
->   		if (r == 0)
->   			break;
->   
-> -		if (fence->error)
-> -			return fence->error;
-> +		if (error)
-> +			return error;
->   	}
->   
->   	memset(wait, 0, sizeof(*wait));
-
+Reviewed-by: Christoph Hellwig <hch@lst.de>
