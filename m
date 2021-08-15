@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-10.3 required=3.0 tests=BAYES_00,
 	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 08A2BC43214
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 07:14:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 45744C4338F
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 07:14:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C78F761A86
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 07:14:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C78F761A86
+	by mail.kernel.org (Postfix) with ESMTPS id E227061A89
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 07:14:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E227061A89
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BDC0D89C48;
-	Mon, 16 Aug 2021 07:14:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25B9189C68;
+	Mon, 16 Aug 2021 07:14:13 +0000 (UTC)
 Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11E0C89CA2;
- Sun, 15 Aug 2021 15:37:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6E7089C0D;
+ Sun, 15 Aug 2021 09:10:04 +0000 (UTC)
 Received: by verein.lst.de (Postfix, from userid 2407)
- id 3DD6167357; Sun, 15 Aug 2021 17:37:14 +0200 (CEST)
-Date: Sun, 15 Aug 2021 17:37:13 +0200
+ id 9DEF66736F; Sun, 15 Aug 2021 11:10:00 +0200 (CEST)
+Date: Sun, 15 Aug 2021 11:10:00 +0200
 From: Christoph Hellwig <hch@lst.de>
 To: Alex Sierra <alex.sierra@amd.com>
 Cc: akpm@linux-foundation.org, Felix.Kuehling@amd.com, linux-mm@kvack.org,
  rcampbell@nvidia.com, linux-ext4@vger.kernel.org,
  linux-xfs@vger.kernel.org, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, hch@lst.de, jgg@nvidia.com,
- jglisse@redhat.com, John Hubbard <jhubbard@nvidia.com>
-Subject: Re: [PATCH v6 02/13] mm: remove extra ZONE_DEVICE struct page refcount
-Message-ID: <20210815153713.GA32384@lst.de>
+ jglisse@redhat.com
+Subject: Re: [PATCH v6 04/13] drm/amdkfd: add SPM support for SVM
+Message-ID: <20210815091000.GB25067@lst.de>
 References: <20210813063150.2938-1-alex.sierra@amd.com>
- <20210813063150.2938-3-alex.sierra@amd.com>
+ <20210813063150.2938-5-alex.sierra@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20210813063150.2938-3-alex.sierra@amd.com>
+In-Reply-To: <20210813063150.2938-5-alex.sierra@amd.com>
 User-Agent: Mutt/1.5.17 (2007-11-01)
 X-Mailman-Approved-At: Mon, 16 Aug 2021 07:13:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -57,17 +57,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-> diff --git a/include/linux/mm.h b/include/linux/mm.h
-> index 8ae31622deef..d48a1f0889d1 100644
-> --- a/include/linux/mm.h
-> +++ b/include/linux/mm.h
-> @@ -1218,7 +1218,7 @@ __maybe_unused struct page *try_grab_compound_head(struct page *page, int refs,
->  static inline __must_check bool try_get_page(struct page *page)
->  {
->  	page = compound_head(page);
-> -	if (WARN_ON_ONCE(page_ref_count(page) <= 0))
-> +	if (WARN_ON_ONCE(page_ref_count(page) < (int)!is_zone_device_page(page)))
+> @@ -880,17 +881,22 @@ int svm_migrate_init(struct amdgpu_device *adev)
+>  	 * should remove reserved size
+>  	 */
+>  	size = ALIGN(adev->gmc.real_vram_size, 2ULL << 20);
+> -	res = devm_request_free_mem_region(adev->dev, &iomem_resource, size);
+> +	if (xgmi_connected_to_cpu)
+> +		res = lookup_resource(&iomem_resource, adev->gmc.aper_base);
+> +	else
+> +		res = devm_request_free_mem_region(adev->dev, &iomem_resource, size);
+> +
 
-Please avoid the overly long line.  In fact I'd be tempted to just not
-bother here and keep the old, more lose check.  Especially given that
-John has a patch ready that removes try_get_page entirely.
+Can you explain what the point of the lookup_resource is here? res->start
+is obviously identical to the start value you pass in.  So this is used
+as a way to query the length, but I'm pretty sure the driver must
+already know that as it inserted the resource itself, right?
+
+On a slightly higher level comment svm_migrate_init is a bit of a mess
+with all the if/else already, and with the above addressed will become
+a bit more.  I think splitting it into a device private and device
+generic case would probably help people finding it to understand the code
+much better later on.  Even more so with a useful comment.
