@@ -2,80 +2,80 @@ Return-Path: <SRS0=yGBf=NH=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.0 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-5.0 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9500CC4338F
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 07:38:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 17089C4338F
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 08:28:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 605F561AAB
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 07:38:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 605F561AAB
+	by mail.kernel.org (Postfix) with ESMTPS id CA73861B05
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 08:28:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org CA73861B05
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C18FE89CA8;
-	Mon, 16 Aug 2021 07:38:36 +0000 (UTC)
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [IPv6:2a00:1450:4864:20::433])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B34FD89C8D;
- Mon, 16 Aug 2021 07:38:34 +0000 (UTC)
-Received: by mail-wr1-x433.google.com with SMTP id q10so22190827wro.2;
- Mon, 16 Aug 2021 00:38:34 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CDA489B60;
+	Mon, 16 Aug 2021 08:28:08 +0000 (UTC)
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [IPv6:2a00:1450:4864:20::336])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BBB289BAF
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Aug 2021 08:27:56 +0000 (UTC)
+Received: by mail-wm1-x336.google.com with SMTP id
+ o1-20020a05600c5101b02902e676fe1f04so10852852wms.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Aug 2021 01:27:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=A1Cvwxi4LGlt/0yKCIl36gv62GuMM6RNpQclDirQKfo=;
- b=GbL3lEfxKdlxart7nc5QhivH3kZOfElOBvhbbzlOwnsZn+4U2EpUveTaf1Q1oKn7Hr
- s/nvvMbtIkU4w51EqiFK0j3it6uA+ozGHa39Ki4aoa70GDJ7lvuapgIsolZULng1LZEy
- 0bPZh22kjHI+FesSLcD1lN2NtrBt3wgm+wpajEEa64FIENUInINeBd/JdaMSzzyO1udT
- ZrC/rWUNDjtENlXPXfezBG4dyX45zsTY21fiQ0bjamZPQSOeW8z9l3W05gs7j0SmPufl
- 5DZ2zcQap9HXApeR3dbMmybOqkR3jY7nR8p+LMlWrPhRCM7jkbsQ9QnezvYByQcqS9QF
- GJ9Q==
+ :mime-version:in-reply-to:content-language;
+ bh=jWgea3f1OgBTn/fYbKr9riDuwCnWm76VWQzYS/5nWRY=;
+ b=rbyyJ6kf86mVDurveCVnbcnQ5br798/w7X4+wzamXCaZuzVcQEla5nBeUeJYM4kJkX
+ iwVZiiTpTakWrbxVV5liLAmP21taVDuY1uWYmq95eOCdH5AGUq6VExhxKwFVxaq32i9w
+ wW0lq4G1lE2dtII4lHziCbVafQhkynpx2xwJ6eq1pJMom4ZB3cu89cbOF2QUsjFUqnVg
+ Mu3+np8zY337rS4oXLJwy0sg7FCpqAeXMEZdA/8QfLujVOEInP6dADcoaDU1zHyFX5Tx
+ 1yKmdKErk0vTQWeSMxlePMhCEQZU7V/2vDfIsrrREoWpjtmVdISdgN/zvI/Wl1akEb1r
+ b5BA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=A1Cvwxi4LGlt/0yKCIl36gv62GuMM6RNpQclDirQKfo=;
- b=LvHj3iMQYYtOk8UfoJHlBGoDl8kBqo8B6wlgvkm7HqZfM32yFgWJkhVZnF80tdQQKx
- FvKtukzT+hEWURgqKAC6Qm2LmYPW9AgTn+nsuw0kC6JHcDp/AjCMlvDkJjFQ/gwkk8XX
- y9mqPC87mJ7/Ktfvou3q8sfs/BwLnNUovuh8SmQHNyLTzogLYsOYer376PoDImr9VkIQ
- +fybOZ8ywVHyclxVehCdQvC8FUj/eXImNRyrNsiEVysadoFpbxUEKmx7JrmvqOFKyqqM
- dHdeFSVN/Moc+XJvR94mECH/F+PLLqaE3t/4VhdapDXc0cJTWdJdH7OJ/VP4+gqmZoC3
- 12TQ==
-X-Gm-Message-State: AOAM532GyLJQgiyEnStr86dhuMMleV8NKdLq1SxLF9NdXzUYnhAl29EQ
- gdQMUiC57BNXL23xSapccCDTlSP36hU=
-X-Google-Smtp-Source: ABdhPJwvwWIeAl06vr7mgftmWuJEuEzjkt6jgdBsptzKZ4AfPUPQfbR8T/lBUm3zsZSm5UL5r9aDVw==
-X-Received: by 2002:a5d:4311:: with SMTP id h17mr16802527wrq.263.1629099513219; 
- Mon, 16 Aug 2021 00:38:33 -0700 (PDT)
+ :user-agent:mime-version:in-reply-to:content-language;
+ bh=jWgea3f1OgBTn/fYbKr9riDuwCnWm76VWQzYS/5nWRY=;
+ b=jkO1/x2QBLbmdwpYyV+NT8VV0eSGXGPWTASyXDUCwJ+vxr8ydJ7S06GRZAeoGshgDL
+ OaCBvNy9rmUOaSl35ueFf/5/hOcjlnUNaljyWtTHnZV1JIRRXQEgLM8AGfDhNlqX9jgO
+ mj71L7z0CzCIHLcwuYIkrdi3mH/SokOB6hdE7/EBal1OnDACaQ+RHhmo9lUf1wCdyojm
+ tLAty6iv3YJZUb/sdasGRcCqoQnXPnN8uiKp0LVbyc+1UAiOdCXxumN/LUFaZbofXYbt
+ 7CNyFT2xC8PAfXSbJ2meh5ZWR64YjiMI3VuYa71l3gvGt/XzMHwtD0tfGh4gysopWSxc
+ wIYg==
+X-Gm-Message-State: AOAM531nUgNXmOFiNC6Nsh/mRCORPy/h+JGOC3j5GqVC+tUr5kKftbMp
+ H5tZrHXrTmc1jSAAMTXP0/LOeoxrGWQ=
+X-Google-Smtp-Source: ABdhPJzHksOKqWRmXSQHyfIpyGaQ2q+IrNcJNXvso/V99CuyvteEJ3hSBcnRc0AjWvHNaj2M608MsA==
+X-Received: by 2002:a05:600c:2181:: with SMTP id
+ e1mr14477398wme.64.1629102475083; 
+ Mon, 16 Aug 2021 01:27:55 -0700 (PDT)
 Received: from ?IPv6:2a02:908:1252:fb60:7d83:fd8:eb16:8605?
  ([2a02:908:1252:fb60:7d83:fd8:eb16:8605])
- by smtp.gmail.com with ESMTPSA id z126sm9841580wmc.11.2021.08.16.00.38.32
+ by smtp.gmail.com with ESMTPSA id o17sm9127340wmp.13.2021.08.16.01.27.53
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 16 Aug 2021 00:38:32 -0700 (PDT)
-Subject: Re: [PATCH] drm/amdgpu: Cancel delayed work when GFXOFF is disabled
-To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>,
+ Mon, 16 Aug 2021 01:27:54 -0700 (PDT)
+Subject: Re: VA-API Regression in Kernel 5.13 for RX 6700 XT
+To: Wyatt Childers <wchilders@nearce.com>,
  Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Cc: Leo Liu <leo.liu@amd.com>, James Zhu <James.Zhu@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-References: <20210811165211.6811-1-michel@daenzer.net>
- <20210813102920.3458-1-michel@daenzer.net>
+ =?UTF-8?B?Q2hyaXN0aWFuIEvDg8K2bmln?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, "Liu, Leo" <Leo.Liu@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+References: <f2a927f0-65bc-8463-e078-501cc8d177a8@nearce.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <f63510d7-4449-34e9-98bd-bc2d07b08a03@gmail.com>
-Date: Mon, 16 Aug 2021 09:38:32 +0200
+Message-ID: <d6b523be-a781-10eb-f6d4-bbdd27913c06@gmail.com>
+Date: Mon, 16 Aug 2021 10:27:53 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <20210813102920.3458-1-michel@daenzer.net>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <f2a927f0-65bc-8463-e078-501cc8d177a8@nearce.com>
+Content-Type: multipart/alternative;
+ boundary="------------1C5F17F03E202EFA1439BAEB"
 Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,120 +91,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 13.08.21 um 12:29 schrieb Michel Dänzer:
-> From: Michel Dänzer <mdaenzer@redhat.com>
->
-> schedule_delayed_work does not push back the work if it was already
-> scheduled before, so amdgpu_device_delay_enable_gfx_off ran ~100 ms
-> after the first time GFXOFF was disabled and re-enabled, even if GFXOFF
-> was disabled and re-enabled again during those 100 ms.
->
-> This resulted in frame drops / stutter with the upcoming mutter 41
-> release on Navi 14, due to constantly enabling GFXOFF in the HW and
-> disabling it again (for getting the GPU clock counter).
->
-> To fix this, call cancel_delayed_work_sync when GFXOFF transitions from
-> enabled to disabled. This makes sure the delayed work will be scheduled
-> as intended in the reverse case.
->
-> In order to avoid a deadlock, amdgpu_device_delay_enable_gfx_off needs
-> to use mutex_trylock instead of mutex_lock.
->
-> v2:
-> * Use cancel_delayed_work_sync & mutex_trylock instead of
->    mod_delayed_work.
+This is a multi-part message in MIME format.
+--------------1C5F17F03E202EFA1439BAEB
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-While this may work it still smells a little bit fishy.
+Hi Wyatt,
 
-In general you have two common locking orders around work items, either 
-lock->work or work->lock. If you mix this as lock->work->lock like here 
-trouble is usually imminent.
+adding Leo as well.
 
-I think what we should do instead is to double check if taking the lock 
-inside the work item is necessary and instead making sure that the work 
-is sync canceled when we don't want it to run. In other words fully 
-switching to the lock->work approach.
+Question is what do you mean with "majority of VA-API hardware video 
+decoders have disappeared" ?
 
-But please note that this are just high level design thoughts, I don't 
-really know the details of the gfx_off code at all. Could even be that 
-we need two locks, one outside and one inside of the work item.
+Do you have a dmesg? Or the output of vainfo?
 
-Regards,
+Thanks,
 Christian.
 
+Am 09.08.21 um 04:26 schrieb Wyatt Childers:
 >
-> Signed-off-by: Michel Dänzer <mdaenzer@redhat.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 11 ++++++++++-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c    | 13 +++++++------
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h    |  3 +++
->   3 files changed, 20 insertions(+), 7 deletions(-)
+> Hi,
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index f3fd5ec710b6..8b025f70706c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -2777,7 +2777,16 @@ static void amdgpu_device_delay_enable_gfx_off(struct work_struct *work)
->   	struct amdgpu_device *adev =
->   		container_of(work, struct amdgpu_device, gfx.gfx_off_delay_work.work);
->   
-> -	mutex_lock(&adev->gfx.gfx_off_mutex);
-> +	/* mutex_lock could deadlock with cancel_delayed_work_sync in amdgpu_gfx_off_ctrl. */
-> +	if (!mutex_trylock(&adev->gfx.gfx_off_mutex)) {
-> +		/* If there's a bug which causes amdgpu_gfx_off_ctrl to be called with enable=true
-> +		 * when adev->gfx.gfx_off_req_count is already 0, we might race with that.
-> +		 * Re-schedule to make sure gfx off will be re-enabled in the HW eventually.
-> +		 */
-> +		schedule_delayed_work(&adev->gfx.gfx_off_delay_work, AMDGPU_GFX_OFF_DELAY_ENABLE);
-> +		return;
-> +	}
-> +
->   	if (!adev->gfx.gfx_off_state && !adev->gfx.gfx_off_req_count) {
->   		if (!amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE_GFX, true))
->   			adev->gfx.gfx_off_state = true;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> index a0be0772c8b3..da4c46db3093 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> @@ -28,9 +28,6 @@
->   #include "amdgpu_rlc.h"
->   #include "amdgpu_ras.h"
->   
-> -/* delay 0.1 second to enable gfx off feature */
-> -#define GFX_OFF_DELAY_ENABLE         msecs_to_jiffies(100)
-> -
->   /*
->    * GPU GFX IP block helpers function.
->    */
-> @@ -569,9 +566,13 @@ void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev, bool enable)
->   		adev->gfx.gfx_off_req_count--;
->   
->   	if (enable && !adev->gfx.gfx_off_state && !adev->gfx.gfx_off_req_count) {
-> -		schedule_delayed_work(&adev->gfx.gfx_off_delay_work, GFX_OFF_DELAY_ENABLE);
-> -	} else if (!enable && adev->gfx.gfx_off_state) {
-> -		if (!amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE_GFX, false)) {
-> +		schedule_delayed_work(&adev->gfx.gfx_off_delay_work, AMDGPU_GFX_OFF_DELAY_ENABLE);
-> +	} else if (!enable) {
-> +		if (adev->gfx.gfx_off_req_count == 1 && !adev->gfx.gfx_off_state)
-> +			cancel_delayed_work_sync(&adev->gfx.gfx_off_delay_work);
-> +
-> +		if (adev->gfx.gfx_off_state &&
-> +		    !amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE_GFX, false)) {
->   			adev->gfx.gfx_off_state = false;
->   
->   			if (adev->gfx.funcs->init_spm_golden) {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> index d43fe2ed8116..dcdb505bb7f4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> @@ -32,6 +32,9 @@
->   #include "amdgpu_rlc.h"
->   #include "soc15.h"
->   
-> +/* delay 0.1 second to enable gfx off feature */
-> +#define AMDGPU_GFX_OFF_DELAY_ENABLE msecs_to_jiffies(100)
-> +
->   /* GFX current status */
->   #define AMDGPU_GFX_NORMAL_MODE			0x00000000L
->   #define AMDGPU_GFX_SAFE_MODE			0x00000001L
+> I've encountered a bug 
+> <https://bugzilla.redhat.com/show_bug.cgi?id=1988772> as a user of 
+> Fedora, that's also mirrored by this 
+> <https://bugs.archlinux.org/task/71627> Arch Linux bug report. The 
+> vast majority of VA-API hardware video decoders have disappeared for 
+> the RX 6700 XT GPU.
+>
+> It seems this happened in the 5.13.x branch, and that it's still a 
+> problem in 5.14.x (at least Fedora's packaging of 5.14 RC4).
+>
+> Please let me know if there's any more information I can provide, or 
+> if this was the wrong place to reach out.
+>
+> Thanks,
+>
+> Wyatt
+>
 
+
+--------------1C5F17F03E202EFA1439BAEB
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 7bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    Hi Wyatt,<br>
+    <br>
+    adding Leo as well.<br>
+    <br>
+    Question is what do you mean with "majority of VA-API hardware video
+    decoders have disappeared" ?<br>
+    <br>
+    Do you have a dmesg? Or the output of vainfo?<br>
+    <br>
+    Thanks,<br>
+    Christian.<br>
+    <br>
+    <div class="moz-cite-prefix">Am 09.08.21 um 04:26 schrieb Wyatt
+      Childers:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:f2a927f0-65bc-8463-e078-501cc8d177a8@nearce.com">
+      <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+      <p>Hi,</p>
+      <p>I've encountered <a moz-do-not-send="true"
+          href="https://bugzilla.redhat.com/show_bug.cgi?id=1988772">a
+          bug</a> as a user of Fedora, that's also mirrored by <a
+          moz-do-not-send="true"
+          href="https://bugs.archlinux.org/task/71627">this</a> Arch
+        Linux bug report. The vast majority of VA-API hardware video
+        decoders have disappeared for the RX 6700 XT GPU. <br>
+      </p>
+      <p>It seems this happened in the 5.13.x branch, and that it's
+        still a problem in 5.14.x (at least Fedora's packaging of 5.14
+        RC4).</p>
+      <p>Please let me know if there's any more information I can
+        provide, or if this was the wrong place to reach out.</p>
+      <p>Thanks,</p>
+      <p>Wyatt<br>
+      </p>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------1C5F17F03E202EFA1439BAEB--
