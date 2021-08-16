@@ -2,104 +2,62 @@ Return-Path: <SRS0=yGBf=NH=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-19.0 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8DD85C4338F
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 15:04:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4F7FDC4338F
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 15:07:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4A79961038
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 15:04:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4A79961038
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 6A34660E97
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 15:07:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6A34660E97
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=daenzer.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF6A589FD7;
-	Mon, 16 Aug 2021 15:04:18 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2056.outbound.protection.outlook.com [40.107.223.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B30F6E02E
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Aug 2021 15:04:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FtwZmbgGDIYaLmry8Y5SlzEyP9NHcTm3ckMzLA48pCGfhHjNSJGqb5CveGRT9D2U/vH1WJxDCHa0gSx9Rb7dbmFJ8DEwWj7diIfFfQOLPb7WEY4qOZ+EtcOZXBtSG7thqwbkWer92bZaSP7VN7Zw1Lv1RB3fMhMfjf1XJfBo23nBOVBhPabjJe+haIOwAcEsaneka1xVPKaiTf/vIrclW8P6OJpnb9Szy2BLyAOTezniI5VI+UwsqWwYTDkTN5ip1iVw5jCjcRPv+NzQ2VvzR1yTBjbEBsqJVRlx5Y7RdK9eZ5RvKjzAsZhJfXdYdkzzHoY8vKYZ9B3tqOGoiSnkEQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8lRxDOj8wkOkviQSuO+lqobGvikxvW+E54HGhradcV8=;
- b=U28Zq+/hTj/4zclc2l/h4389g9ChRqTay3iJ5QZ6YJtrNsGL4C1zNaKWkk99EA+Ks9kfEk3rvL+fobq86plTT8HPjysJU6lrbeykAzQutbsrb1upIxQe/Arj++BYX61TTAEWEDfdqsDbyVTVyJeEiVXWOKkRygtqKDOrE+QaqRq3/hpU9ai7IUod7E2Wwctgcw7PAJYfgrBG0lZ7zwjnOUdgF+h2nSBPgSz04dFWW8zBZoG7savnZVrN+FGeMH7cSFTwtdzz8e1RhZ+VKKFxhQpmeXhXy+MJss7FL4yK7cUdt3wCV7Fdsz4za/GWUHyZDDPyvqsXdJKZWypyYvJYfw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8lRxDOj8wkOkviQSuO+lqobGvikxvW+E54HGhradcV8=;
- b=F4lci4r5XQ1i2g12UEnNm13w6LaVR8EML3uK9SsD7J1UWm0Y1UffxV+3qyOCNVaiD/8n/5ZurIOCCSIHlh2MW1CQ+74KLNKzMhvzvcErOMXUEFdBzd2aBQde8d3dm+Y92mCM1Xja4epyQMUZQPXajEu6BmvgRleF9dYDCL/jx5g=
-Received: from MW4PR04CA0199.namprd04.prod.outlook.com (2603:10b6:303:86::24)
- by DM5PR1201MB0009.namprd12.prod.outlook.com (2603:10b6:3:de::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.19; Mon, 16 Aug
- 2021 15:04:14 +0000
-Received: from CO1NAM11FT033.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:86:cafe::a1) by MW4PR04CA0199.outlook.office365.com
- (2603:10b6:303:86::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.14 via Frontend
- Transport; Mon, 16 Aug 2021 15:04:14 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT033.mail.protection.outlook.com (10.13.174.247) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4415.14 via Frontend Transport; Mon, 16 Aug 2021 15:04:13 +0000
-Received: from Zhigang-WS.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Mon, 16 Aug
- 2021 10:04:12 -0500
-From: Zhigang Luo <zhigang.luo@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Zhigang Luo <zhigang.luo@amd.com>
-Subject: [PATCH] drm/amdgpu: correct MMSCH 1.0 version
-Date: Mon, 16 Aug 2021 11:03:58 -0400
-Message-ID: <20210816150358.26105-1-zhigang.luo@amd.com>
-X-Mailer: git-send-email 2.17.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id E065689EB4;
+	Mon, 16 Aug 2021 15:07:03 +0000 (UTC)
+Received: from netline-mail3.netline.ch (mail.netline.ch [148.251.143.180])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 2310789EB4;
+ Mon, 16 Aug 2021 15:07:03 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by netline-mail3.netline.ch (Postfix) with ESMTP id 306A920201B;
+ Mon, 16 Aug 2021 17:07:02 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at netline-mail3.netline.ch
+Received: from netline-mail3.netline.ch ([127.0.0.1])
+ by localhost (netline-mail3.netline.ch [127.0.0.1]) (amavisd-new, port 10024)
+ with LMTP id ij8GSkRRAnIs; Mon, 16 Aug 2021 17:06:58 +0200 (CEST)
+Received: from thor (24.99.2.85.dynamic.wline.res.cust.swisscom.ch
+ [85.2.99.24])
+ by netline-mail3.netline.ch (Postfix) with ESMTPA id 29DBF20201A;
+ Mon, 16 Aug 2021 17:06:58 +0200 (CEST)
+Received: from localhost ([::1]) by thor with esmtp (Exim 4.94.2)
+ (envelope-from <michel@daenzer.net>)
+ id 1mFeCW-000cmn-W7; Mon, 16 Aug 2021 17:06:56 +0200
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ "Lazar, Lijo" <lijo.lazar@amd.com>, Alex Deucher
+ <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?=
+ <christian.koenig@amd.com>
+Cc: Leo Liu <leo.liu@amd.com>, James Zhu <James.Zhu@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <20210813102920.3458-1-michel@daenzer.net>
+ <20210816103506.2671-1-michel@daenzer.net>
+ <cc08735b-df2f-e8a6-a1b0-22e1dba02757@amd.com>
+ <ec4d551f-f1ca-3ccf-9b36-6522d529d128@gmail.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+Subject: Re: [PATCH v3] drm/amdgpu: Cancel delayed work when GFXOFF is disabled
+Message-ID: <d69ae1de-c47d-3831-7bf0-1e2606445f68@daenzer.net>
+Date: Mon, 16 Aug 2021 17:06:56 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 3fce6cc1-58e4-4fe5-7834-08d960c71c5a
-X-MS-TrafficTypeDiagnostic: DM5PR1201MB0009:
-X-Microsoft-Antispam-PRVS: <DM5PR1201MB00092042FF5842397E1ABA71F1FD9@DM5PR1201MB0009.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:296;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: yZ0DppiM6F+Qq/4iuKVC2GHqb+cmTItaT6iPDjHK1EPcA2HdtgXfu6tsrCy2761WhA6jF6NKwbVKJ2L6AyYpfkxq/8vq0krMn8jE1Y9NVKm17GQgYDNDPZd7sxvnnMcpAfjeTe4w/plZJUXHxI3agQH60G0l/IU7ZIsNZUCrwb0KJDt4mSi1HBhGqC8P0x7MGeiT8XmVUxO5jnmkHJk8b8E0lU/iOiBH4zKuPQgb9uzJCh0shhkqH1+EdrYAo+yFGQFW+kn8opcxfXc7cwedZhtX1xKoI5Vp6dS2mZuILgu2n6DuN9zr2KGu80+UQP4ROmAcqKaQwtR1WyGqgA6LquajcUPpvzwSYzFt2XiezFVgKNmEbmIdVVaAHB1QRjEOzp9xz9wmtNx0qpnZ/9FxLo15WL0wIo2uzF9xXwJUt0+hTGOg5xJ0+LCLZRhz9LiAbefs2oZr2wo/FIytrBYgE3L9Z29ru+D4J1NSO+RrXncnW84pJXvgZzhumca/HGdWf2OUMxSABvEg/NSzg4TlVVG2WYVZcLuUUMVNRE1cEA+x8hXyUf886XHdCN+B2IyRJ9T4tcYLT320pZxmeDadnZ0i9LsD/XqyiFxcYubtKj/rirJnU7LQeZlt/bZKxdnwgkxCq4UmCV0vgWijOQn377cdGtGlxBt06LzpvG3esbeq9KvB6fsi7M3nbQ5pQ+GGmaNtMqyDu8pR+qrzS0c3r7dWtDW5adX0YqvqR2yoQ7LRtn7bch1zqGsTdlbzKPycitkXCoA405D1bgheiTithg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(39860400002)(396003)(376002)(346002)(136003)(36840700001)(46966006)(4744005)(1076003)(34020700004)(70206006)(7696005)(70586007)(316002)(356005)(478600001)(5660300002)(82310400003)(6666004)(36756003)(2616005)(44832011)(8936002)(6916009)(4326008)(36860700001)(86362001)(16526019)(26005)(426003)(186003)(81166007)(47076005)(83380400001)(8676002)(2906002)(82740400003)(336012)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Aug 2021 15:04:13.8506 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3fce6cc1-58e4-4fe5-7834-08d960c71c5a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT033.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB0009
+In-Reply-To: <ec4d551f-f1ca-3ccf-9b36-6522d529d128@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-CA
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,28 +72,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-MMSCH 1.0 doesn't have major/minor version, only verison.
+On 2021-08-16 2:06 p.m., Christian König wrote:
+> Am 16.08.21 um 13:33 schrieb Lazar, Lijo:
+>> On 8/16/2021 4:05 PM, Michel Dänzer wrote:
+>>> From: Michel Dänzer <mdaenzer@redhat.com>
+>>>
+>>> schedule_delayed_work does not push back the work if it was already
+>>> scheduled before, so amdgpu_device_delay_enable_gfx_off ran ~100 ms
+>>> after the first time GFXOFF was disabled and re-enabled, even if GFXOFF
+>>> was disabled and re-enabled again during those 100 ms.
+>>>
+>>> This resulted in frame drops / stutter with the upcoming mutter 41
+>>> release on Navi 14, due to constantly enabling GFXOFF in the HW and
+>>> disabling it again (for getting the GPU clock counter).
+>>>
+>>> To fix this, call cancel_delayed_work_sync when the disable count
+>>> transitions from 0 to 1, and only schedule the delayed work on the
+>>> reverse transition, not if the disable count was already 0. This makes
+>>> sure the delayed work doesn't run at unexpected times, and allows it to
+>>> be lock-free.
+>>>
+>>> v2:
+>>> * Use cancel_delayed_work_sync & mutex_trylock instead of
+>>>    mod_delayed_work.
+>>> v3:
+>>> * Make amdgpu_device_delay_enable_gfx_off lock-free (Christian König)
+>>>
+>>> Cc: stable@vger.kernel.org
+>>> Signed-off-by: Michel Dänzer <mdaenzer@redhat.com>
+>>> ---
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 11 +++++------
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c    | 22 +++++++++++++++++-----
+>>>   2 files changed, 22 insertions(+), 11 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>> index f3fd5ec710b6..f944ed858f3e 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>> @@ -2777,12 +2777,11 @@ static void amdgpu_device_delay_enable_gfx_off(struct work_struct *work)
+>>>       struct amdgpu_device *adev =
+>>>           container_of(work, struct amdgpu_device, gfx.gfx_off_delay_work.work);
+>>>   -    mutex_lock(&adev->gfx.gfx_off_mutex);
+>>> -    if (!adev->gfx.gfx_off_state && !adev->gfx.gfx_off_req_count) {
+>>> -        if (!amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE_GFX, true))
+>>> -            adev->gfx.gfx_off_state = true;
+>>> -    }
+>>> -    mutex_unlock(&adev->gfx.gfx_off_mutex);
+>>> +    WARN_ON_ONCE(adev->gfx.gfx_off_state);
+>>
+>> Don't see any case for this. It's not expected to be scheduled in this case, right?
+>>
+>>> + WARN_ON_ONCE(adev->gfx.gfx_off_req_count);
+>>> +
+>>
+>> Thinking about ON_ONCE here - this may happen more than once if it's completed as part of cancel_ call. Is the warning needed?
+> 
+> WARN_ON_ONCE() is usually used to prevent spamming the system log with warnings. E.g. the warning is only printed once indicating a driver bug and that's it.
 
-Signed-off-by: Zhigang Luo <zhigang.luo@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/mmsch_v1_0.h | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+Right, these WARN_ONs are like assert()s in user-space code, documenting the pre-conditions and checking them at runtime. And I use _ONCE so that if a pre-condition is ever violated for some reason, dmesg isn't spammed with multiple warnings.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmsch_v1_0.h b/drivers/gpu/drm/amd/amdgpu/mmsch_v1_0.h
-index 20958639b601..2cdab8062c86 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmsch_v1_0.h
-+++ b/drivers/gpu/drm/amd/amdgpu/mmsch_v1_0.h
-@@ -24,9 +24,7 @@
- #ifndef __MMSCH_V1_0_H__
- #define __MMSCH_V1_0_H__
- 
--#define MMSCH_VERSION_MAJOR	1
--#define MMSCH_VERSION_MINOR	0
--#define MMSCH_VERSION	(MMSCH_VERSION_MAJOR << 16 | MMSCH_VERSION_MINOR)
-+#define MMSCH_VERSION	0x1
- 
- enum mmsch_v1_0_command_type {
- 	MMSCH_COMMAND__DIRECT_REG_WRITE = 0,
+
+>> Anyway,
+>>     Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+> 
+> Acked-by: Christian König <christian.koenig@amd.com>
+
+Thanks guys!
+
+
 -- 
-2.17.1
-
+Earthling Michel Dänzer               |               https://redhat.com
+Libre software enthusiast             |             Mesa and X developer
