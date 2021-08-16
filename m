@@ -2,73 +2,106 @@ Return-Path: <SRS0=yGBf=NH=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-17.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 142DEC432BE
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 20:28:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 54386C4338F
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 21:02:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A900C60F36
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 20:28:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A900C60F36
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 14D7A60EE5
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 21:02:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 14D7A60EE5
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 458DD6E054;
-	Mon, 16 Aug 2021 20:28:10 +0000 (UTC)
-Received: from mail-ot1-x333.google.com (mail-ot1-x333.google.com
- [IPv6:2607:f8b0:4864:20::333])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71F096E054
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Aug 2021 20:28:08 +0000 (UTC)
-Received: by mail-ot1-x333.google.com with SMTP id
- v33-20020a0568300921b0290517cd06302dso9639732ott.13
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Aug 2021 13:28:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=8mwQubwEsSy38PfBmd1OOj3dYElxiyvawR0nH6MAA+Q=;
- b=sCYJ/btFXzGRAA1oRGK5gG1y9etkZQNkFPlWpN2t41Xv5jekTk2feCEUxtMm99vXie
- lX3mZNUp72wgVFkaduW3/StiRh/WmPl3meMaJNZtxiEaFfocxhPyqb6/aSOGYubBvJtw
- TA50COVt3h+ho4a97m9ZhqO+bvonpiIEuNAZ67o9iqoqrIYnoKrSYAGGeYpPTM29B7Ob
- AasK5xsfRC9zomKhEo8xY1tRWJXr0E12pXmXHZDyZKT2MF6/io9IiC0zZo0Ee+P3+NYx
- jg8Fu7r0PCClCRMtVI2ZRtX+gdHfd36yoY+zP7L9naL0SaXgcVqKE1vCRbtMlsm+DnGR
- OSAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=8mwQubwEsSy38PfBmd1OOj3dYElxiyvawR0nH6MAA+Q=;
- b=Gj29vwyIm4S9VKgh6XQb4z0PONQw3vy5i1CnH5TZEJpBoxzwoHNuA0qoYwUEJBxDVi
- 4JhjFMN6K4NqCJG4ljse1BxCWlBwYLFdlhTFbXLY1iEYUiKzi88M18s97jyevxUAkhOg
- k6k3v/LgzHuW10UqkQa8X/faoATSMpveKMzq7//Zv8OjoyETYJo/u2XZiCRw4/q8njxV
- sLPZCVNA6nFihzVvdbh17iLs8nAZsQerLVs8P6rhUflycaXBj8ELgPvuEXSFRrh6Zpvw
- +TYFutTRLFLGwIVyvezME9FX86lko6CODLk4r9Cwg2XUR+C7ektu6BhvcpF2evEi9r7e
- RaJg==
-X-Gm-Message-State: AOAM533dSnM0AotM/iFF1ufgjlAx8ywhfMNDTRBDTPrPOlZ/mksVGjE/
- JZTqw0QGrUyzJc5r5TyrtfziJ1YnjCNBv564MKk=
-X-Google-Smtp-Source: ABdhPJwlMI5IZe9IKltrDxpgi4V7VUf4XoxWMlW2T1Ah4QR4FAGSf1YnlMLxaF1ogmqtpvAPrPvvp1QHdt3KEyc2oxs=
-X-Received: by 2002:a9d:5a15:: with SMTP id v21mr14991oth.132.1629145687554;
- Mon, 16 Aug 2021 13:28:07 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A94D789E15;
+	Mon, 16 Aug 2021 21:02:52 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2058.outbound.protection.outlook.com [40.107.236.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1F0889E15
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Aug 2021 21:02:50 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=k8PJVDlsYXrIKu3Mw8tuOCF6Xr8CEm1K7Wc454x7H8swDIuQAcZV91MAnFBRESM+U+baBEH9gJ+BPH+SJQRqpJLHHayrswh62S9tQaWjHGcaP3lSw2oOl1A6OpU51nXkDLwqLun7/2l31T1cEsXLupKgRpgofha3XqZi7YJnniX1jVAnsmi26TUo/Q8Q/GbL/ZMUXUQlnFYubR+vW4T0LHSQ2VFsizycCtiXef7VjEcDU2BfQMAEQzYKkcKXVNvTtkQ8zuh4nEzvCg1VJ08Z/Egw8CmQU1qQzt/gskbTONi1Lg7Bcloph8PCwAg6k0f9gZKjKLTVK4pFFdYgRDJctA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=b2MDQ5h4ON1GdFkYvS990WFuGDyhFq4bEhF9ug2roKQ=;
+ b=i2wo7Scg854MhWX4gSqY8w8EhksHnYQokkEoABF2FoZQThvcPasQaZ32y/5SNjhiPJ/ClUCzejUzSf+h+UvpzWos2hyNvid0ZVsdl1+5IHeNZaNpz7WyNBDxOFGbFJ7fi8zIx0pVQPrce+MR8yGADpZL6oHMPgmocud9VhdBrXpRaph97H9D+JyjzEWms0w3iZFo34ACDEDVgYRt9Hty65ftUACE4wxrNoYF9TBK3Q5qK14lWXxqLoXPjCFHeNITz2ohko6QVfHgIbzfopCxvHe2KEbsdr4qvsncpNXXKyq/I2zBcfHQ2DbJTa3bgdMCilHL/S7JNPaQBdQ2t6Pldg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=b2MDQ5h4ON1GdFkYvS990WFuGDyhFq4bEhF9ug2roKQ=;
+ b=iYVfT8kRf6w6V6eP7dQ7Ju7+KxIInYKRboKPSf1X+JBh4DJUCKH9yFceujze0m3M3F4/UzlFZXKxQec3Pv5KBURCxOc/K4rc3tOgvfni5ZJpY0EiW8i943hSVZ4nKTo8Kc1+me/Y8DQ/8l4NlSPNroR5rjhCRFEA/T4nVlWfuXI=
+Received: from BN9PR03CA0314.namprd03.prod.outlook.com (2603:10b6:408:112::19)
+ by BL0PR12MB5505.namprd12.prod.outlook.com (2603:10b6:208:1ce::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.17; Mon, 16 Aug
+ 2021 21:02:49 +0000
+Received: from BN8NAM11FT058.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:112:cafe::44) by BN9PR03CA0314.outlook.office365.com
+ (2603:10b6:408:112::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.16 via Frontend
+ Transport; Mon, 16 Aug 2021 21:02:49 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BN8NAM11FT058.mail.protection.outlook.com (10.13.177.58) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4415.16 via Frontend Transport; Mon, 16 Aug 2021 21:02:48 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Mon, 16 Aug
+ 2021 16:02:48 -0500
+Received: from jzuo-linux.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2242.12 via Frontend
+ Transport; Mon, 16 Aug 2021 16:02:46 -0500
+From: Fangzhi Zuo <Jerry.Zuo@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <nicholas.kazlauskas@amd.com>,
+ <harry.wentland@amd.com>
+CC: <wayne.lin@amd.com>, Fangzhi Zuo <Jerry.Zuo@amd.com>
+Subject: [PATCH 0/6] Add DP 2.0 SST Support
+Date: Mon, 16 Aug 2021 16:59:13 -0400
+Message-ID: <20210816205919.614691-1-Jerry.Zuo@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <DM4PR12MB52146EC560946C5875B085FE9EFA9@DM4PR12MB5214.namprd12.prod.outlook.com>
- <9c1f29ee-a1d4-c745-f87e-52bb4b896b90@amd.com>
- <4d9fbe82-22ea-5ff2-3c01-a168783bfc35@amd.com>
-In-Reply-To: <4d9fbe82-22ea-5ff2-3c01-a168783bfc35@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 16 Aug 2021 16:27:56 -0400
-Message-ID: <CADnq5_PjZpEWT0QcM6SmBF=M69HHJwDGDF31bntnu1JUA+ZgMg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Use DCN30 watermark calc for DCN301
-To: Leo Li <sunpeng.li@amd.com>
-Cc: "Liu, Zhan" <Zhan.Liu@amd.com>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Cornij,
- Nikola" <Nikola.Cornij@amd.com>, "Logush, Oliver" <Oliver.Logush@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 81085728-6682-4a58-aa47-08d960f9343a
+X-MS-TrafficTypeDiagnostic: BL0PR12MB5505:
+X-Microsoft-Antispam-PRVS: <BL0PR12MB5505BB5E7EFFF34AFDF7F63EE5FD9@BL0PR12MB5505.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2276;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: VJE1OAHDIjGUoe+DLkolQNiAGRZHMqUITiFf0OJs++/ABQo56JJhaKBmhQFsRd0qLpPIQrx5tFNWPrfrTtD4sGxs5LD2nEzfBNmvzL4QKYRFDbsLBLx3VDwiwyeKhtMmtxCbQfyOMuOEjb3vxkLlh2V+JL9iW4itSJ/fjPwEaxxt0gTRjTR8jQ0WijyC6VoALGvGhMrLTRD8M/JKnhA/v5aW63BOha4tXW/n00W5v/eeLL4/uVtqLH5srYFLmoSljRC7CByaFGFcenQpneb7Lo+xCbAwNsvmnAQ5tkKUxOlkIg6wqHcslgs7W9AxOahbwrlBbxHeQgXp9GJOEUd0x+QZ1MYaW5Gzi5qgVZUp1bRyYfNLjjomB+eiZQL4bbMEvci27p8p9p7cFvZrlAwneNbVGx7yd9DXFdy0naI24sB+f0f+3vZBC3IFVA5NS8si/8/prBCocJvtFtIo/X3M/QLvGMh+HElonSFHLUV6RsDsQrEXi4dIK7ZVAnWDcnDB33ebKswkSj6wjSkEW4GmIh/XI4StwKVrfruZjY0HCYU4tZ+ZZftXWdhfT2Ld04YNiKcEbiYiXVPson6+H8WYPzPj5IqUJleIWXj+aa60Mq0HVWJO+ODCIcm/LPef760VqGEtZ1wYyhjTRpPnqDr57PjkRss8t3o/+l1y89aY5Uzjrqd4TnpkYSpg+CgtISqVAXU2HKtMdDSGndt7+xcl9tJXs+DKl0mY0SeK6S3KFz7CuMyMmjA4KIHl5dPYg2l87hjP1nwbenrbq+TpOhQCcw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(136003)(346002)(396003)(39860400002)(376002)(46966006)(36840700001)(70586007)(70206006)(6666004)(7696005)(110136005)(86362001)(316002)(426003)(54906003)(336012)(4326008)(83380400001)(186003)(2616005)(478600001)(8936002)(36756003)(26005)(6636002)(1076003)(5660300002)(82310400003)(82740400003)(34020700004)(356005)(81166007)(36860700001)(8676002)(2906002)(47076005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Aug 2021 21:02:48.8589 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 81085728-6682-4a58-aa47-08d960f9343a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT058.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB5505
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,245 +116,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Aug 16, 2021 at 4:25 PM Leo Li <sunpeng.li@amd.com> wrote:
->
->
->
-> On 2021-08-16 9:59 a.m., Leo Li wrote:
-> >
-> >
-> >
-> > On 2021-08-13 3:21 p.m., Liu, Zhan wrote:
-> >> [AMD Official Use Only]
-> >>
-> >> [AMD Official Use Only]
-> >>
-> >> [why]
-> >> dcn301_calculate_wm_and_dl() causes flickering when external monitor i=
-s
-> >> connected.
-> >>
-> >> This issue has been fixed before by commit 0e4c0ae59d7e
-> >> ("drm/amdgpu/display: drop dcn301_calculate_wm_and_dl for now"), howev=
-er
-> >> part of the fix was gone after commit 2cbcb78c9ee5 ("Merge tag
-> >> 'amd-drm-next-5.13-2021-03-23' of
-> >> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fgi=
-tlab.freedesktop.org%2Fagd5f%2Flinux&amp;data=3D04%7C01%7Csunpeng.li%40amd.=
-com%7C723f9131e57b4bd99db508d960be2441%7C3dd8961fe4884e608e11a82d994e183d%7=
-C0%7C0%7C637647192045690562%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJ=
-QIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=3Df2gL9TVAvdXl=
-CbsZCDa2prF1J4l2ZDbpY8L2f6vK7as%3D&amp;reserved=3D0
-> >> into drm-next").
-> >>
-> >> [how]
-> >> Use dcn30_calculate_wm_and_dlg() instead as in the original fix.
-> >>
-> >> Fixes: 2cbcb78c9ee5 ("Merge tag 'amd-drm-next-5.13-2021-03-23' of
-> >> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fgi=
-tlab.freedesktop.org%2Fagd5f%2Flinux&amp;data=3D04%7C01%7Csunpeng.li%40amd.=
-com%7C723f9131e57b4bd99db508d960be2441%7C3dd8961fe4884e608e11a82d994e183d%7=
-C0%7C0%7C637647192045690562%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJ=
-QIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=3Df2gL9TVAvdXl=
-CbsZCDa2prF1J4l2ZDbpY8L2f6vK7as%3D&amp;reserved=3D0
-> >> into drm-next")
-> >> Signed-off-by: Nikola Cornij mailto:nikola.cornij@amd.com
-> >> ---
-> >>   .../amd/display/dc/dcn301/dcn301_resource.c   | 96 +----------------=
---
-> >>   1 file changed, 1 insertion(+), 95 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
-> >> b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
-> >> index 9776d1737818..912285fdce18 100644
-> >> --- a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
-> >> +++ b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
-> >> @@ -1622,106 +1622,12 @@ static void
-> >> dcn301_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *b
-> >>          dml_init_instance(&dc->dml, &dcn3_01_soc, &dcn3_01_ip,
-> >> DML_PROJECT_DCN30);
-> >>   }
-> >>
-> >> -static void calculate_wm_set_for_vlevel(
-> >> -               int vlevel,
-> >> -               struct wm_range_table_entry *table_entry,
-> >> -               struct dcn_watermarks *wm_set,
-> >> -               struct display_mode_lib *dml,
-> >> -               display_e2e_pipe_params_st *pipes,
-> >> -               int pipe_cnt)
-> >> -{
-> >> -       double dram_clock_change_latency_cached =3D
-> >> dml->soc.dram_clock_change_latency_us;
-> >> -
-> >> -       ASSERT(vlevel < dml->soc.num_states);
-> >> -       /* only pipe 0 is read for voltage and dcf/soc clocks */
-> >> -       pipes[0].clks_cfg.voltage =3D vlevel;
-> >> -       pipes[0].clks_cfg.dcfclk_mhz =3D
-> >> dml->soc.clock_limits[vlevel].dcfclk_mhz;
-> >> -       pipes[0].clks_cfg.socclk_mhz =3D
-> >> dml->soc.clock_limits[vlevel].socclk_mhz;
-> >> -
-> >> -       dml->soc.dram_clock_change_latency_us =3D
-> >> table_entry->pstate_latency_us;
-> >> -       dml->soc.sr_exit_time_us =3D table_entry->sr_exit_time_us;
-> >> -       dml->soc.sr_enter_plus_exit_time_us =3D
-> >> table_entry->sr_enter_plus_exit_time_us;
-> >> -
-> >> -       wm_set->urgent_ns =3D get_wm_urgent(dml, pipes, pipe_cnt) * 10=
-00;
-> >> -       wm_set->cstate_pstate.cstate_enter_plus_exit_ns =3D
-> >> get_wm_stutter_enter_exit(dml, pipes, pipe_cnt) * 1000;
-> >> -       wm_set->cstate_pstate.cstate_exit_ns =3D
-> >> get_wm_stutter_exit(dml, pipes, pipe_cnt) * 1000;
-> >> -       wm_set->cstate_pstate.pstate_change_ns =3D
-> >> get_wm_dram_clock_change(dml, pipes, pipe_cnt) * 1000;
-> >> -       wm_set->pte_meta_urgent_ns =3D get_wm_memory_trip(dml, pipes,
-> >> pipe_cnt) * 1000;
-> >> -       wm_set->frac_urg_bw_nom =3D
-> >> get_fraction_of_urgent_bandwidth(dml, pipes, pipe_cnt) * 1000;
-> >> -       wm_set->frac_urg_bw_flip =3D
-> >> get_fraction_of_urgent_bandwidth_imm_flip(dml, pipes, pipe_cnt) * 1000=
-;
-> >> -       wm_set->urgent_latency_ns =3D get_urgent_latency(dml, pipes,
-> >> pipe_cnt) * 1000;
-> >> -       dml->soc.dram_clock_change_latency_us =3D
-> >> dram_clock_change_latency_cached;
-> >> -
-> >> -}
-> >> -
-> >> -static void dcn301_calculate_wm_and_dlg(
-> >> -               struct dc *dc, struct dc_state *context,
-> >> -               display_e2e_pipe_params_st *pipes,
-> >> -               int pipe_cnt,
-> >> -               int vlevel_req)
-> >> -{
-> >> -       int i, pipe_idx;
-> >> -       int vlevel, vlevel_max;
-> >> -       struct wm_range_table_entry *table_entry;
-> >> -       struct clk_bw_params *bw_params =3D dc->clk_mgr->bw_params;
-> >> -
-> >> -       ASSERT(bw_params);
-> >> -
-> >> -       vlevel_max =3D bw_params->clk_table.num_entries - 1;
-> >> -
-> >> -       /* WM Set D */
-> >> -       table_entry =3D &bw_params->wm_table.entries[WM_D];
-> >> -       if (table_entry->wm_type =3D=3D WM_TYPE_RETRAINING)
-> >> -               vlevel =3D 0;
-> >> -       else
-> >> -               vlevel =3D vlevel_max;
-> >> -       calculate_wm_set_for_vlevel(vlevel, table_entry,
-> >> &context->bw_ctx.bw.dcn.watermarks.d,
-> >> -                                               &context->bw_ctx.dml,
-> >> pipes, pipe_cnt);
-> >> -       /* WM Set C */
-> >> -       table_entry =3D &bw_params->wm_table.entries[WM_C];
-> >> -       vlevel =3D min(max(vlevel_req, 2), vlevel_max);
-> >> -       calculate_wm_set_for_vlevel(vlevel, table_entry,
-> >> &context->bw_ctx.bw.dcn.watermarks.c,
-> >> -                                               &context->bw_ctx.dml,
-> >> pipes, pipe_cnt);
-> >> -       /* WM Set B */
-> >> -       table_entry =3D &bw_params->wm_table.entries[WM_B];
-> >> -       vlevel =3D min(max(vlevel_req, 1), vlevel_max);
-> >> -       calculate_wm_set_for_vlevel(vlevel, table_entry,
-> >> &context->bw_ctx.bw.dcn.watermarks.b,
-> >> -                                               &context->bw_ctx.dml,
-> >> pipes, pipe_cnt);
-> >> -
-> >> -       /* WM Set A */
-> >> -       table_entry =3D &bw_params->wm_table.entries[WM_A];
-> >> -       vlevel =3D min(vlevel_req, vlevel_max);
-> >> -       calculate_wm_set_for_vlevel(vlevel, table_entry,
-> >> &context->bw_ctx.bw.dcn.watermarks.a,
-> >> -                                               &context->bw_ctx.dml,
-> >> pipes, pipe_cnt);
-> >> -
-> >> -       for (i =3D 0, pipe_idx =3D 0; i < dc->res_pool->pipe_count; i+=
-+) {
-> >> -               if (!context->res_ctx.pipe_ctx[i].stream)
-> >> -                       continue;
-> >> -
-> >> -               pipes[pipe_idx].clks_cfg.dispclk_mhz =3D
-> >> get_dispclk_calculated(&context->bw_ctx.dml, pipes, pipe_cnt);
-> >> -               pipes[pipe_idx].clks_cfg.dppclk_mhz =3D
-> >> get_dppclk_calculated(&context->bw_ctx.dml, pipes, pipe_cnt, pipe_idx)=
-;
-> >> -
-> >> -               if (dc->config.forced_clocks) {
-> >> -                       pipes[pipe_idx].clks_cfg.dispclk_mhz =3D
-> >> context->bw_ctx.dml.soc.clock_limits[0].dispclk_mhz;
-> >> -                       pipes[pipe_idx].clks_cfg.dppclk_mhz =3D
-> >> context->bw_ctx.dml.soc.clock_limits[0].dppclk_mhz;
-> >> -               }
-> >> -               if (dc->debug.min_disp_clk_khz >
-> >> pipes[pipe_idx].clks_cfg.dispclk_mhz * 1000)
-> >> -                       pipes[pipe_idx].clks_cfg.dispclk_mhz =3D
-> >> dc->debug.min_disp_clk_khz / 1000.0;
-> >> -               if (dc->debug.min_dpp_clk_khz >
-> >> pipes[pipe_idx].clks_cfg.dppclk_mhz * 1000)
-> >> -                       pipes[pipe_idx].clks_cfg.dppclk_mhz =3D
-> >> dc->debug.min_dpp_clk_khz / 1000.0;
-> >> -
-> >> -               pipe_idx++;
-> >> -       }
-> >> -
-> >> -       dcn20_calculate_dlg_params(dc, context, pipes, pipe_cnt, vleve=
-l);
-> >> -}
-> >> -
-> >>   static struct resource_funcs dcn301_res_pool_funcs =3D {
-> >>          .destroy =3D dcn301_destroy_resource_pool,
-> >>          .link_enc_create =3D dcn301_link_encoder_create,
-> >>          .panel_cntl_create =3D dcn301_panel_cntl_create,
-> >>          .validate_bandwidth =3D dcn30_validate_bandwidth,
-> >> -       .calculate_wm_and_dlg =3D dcn301_calculate_wm_and_dlg,
-> >> +       .calculate_wm_and_dlg =3D dcn30_calculate_wm_and_dlg,
-> >
-> > Hi Zhan,
-> >
-> > Using dcn30_calculate_wm_and_dlg smells fishy, IIRC watermark
-> > calculations for DPUG and APU are very different. It's likely that
-> > you're now picking up corrupted values form the wm_table.
-> >
-> > Take a look at how struct wm_table is populated in vg_clk_mgr.c v.s.
-> > dcn30_clk_mgr.c. For APU, wm_table.entries are populated, whereas for
-> > DGPU, wm_table.nv_entries are populated. .entries and .nv_entries are
-> > under a union, with very different struct definitions.
-> >
-> > Have you taken a look at whether the pstate latency and sr enter/exit
-> > latency values being used after your change are sensible? It could be
-> > that you simply needed to raise these watermarks.
-> >
-> > Thanks,
-> > Leo
->
-> After some DMs, it looks like this change is simply restoring an
-> accidental revert that occurred due to a recent rebase. Given that this
-> is needed to fix a regression,
->
-> Acked-by: Leo Li <sunpeng.li@amd.com>
->
-> Nevertheless, this still looks iffy. I'm not sure if the pstate and sr
-> enter/exit latencies being used here are what you expect.
+The patch series adds SST UHBR10 support
 
-I agree.  The original patch that fixed this looks like a bit of a hack:
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?=
-id=3D0e4c0ae59d7e
-We should figure out what parameters are causing problems.
+Fangzhi Zuo (6):
+  drm/amd/display: Add DP 2.0 Audio Package Generator
+  drm/amd/display: Add DP 2.0 HPO Stream Encoder
+  drm/amd/display: Add DP 2.0 HPO Link Encoder
+  drm/amd/display: Add DP 2.0 DCCG
+  drm/amd/display: Add DP 2.0 BIOS and DMUB Support
+  drm/amd/display: Add DP 2.0 SST DC Support
 
-Alex
+ .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |    6 +
+ .../drm/amd/display/dc/bios/bios_parser2.c    |    8 +
+ .../drm/amd/display/dc/bios/command_table2.c  |    6 +
+ drivers/gpu/drm/amd/display/dc/core/dc.c      |   17 +
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c |  503 +++++++-
+ .../gpu/drm/amd/display/dc/core/dc_link_dp.c  | 1071 +++++++++++++++--
+ .../drm/amd/display/dc/core/dc_link_hwss.c    |  291 ++++-
+ .../gpu/drm/amd/display/dc/core/dc_resource.c |  104 ++
+ drivers/gpu/drm/amd/display/dc/dc.h           |   17 +-
+ drivers/gpu/drm/amd/display/dc/dc_dp_types.h  |  199 ++-
+ drivers/gpu/drm/amd/display/dc/dc_link.h      |    3 +
+ drivers/gpu/drm/amd/display/dc/dc_types.h     |   15 +
+ .../display/dc/dce110/dce110_hw_sequencer.c   |   86 +-
+ .../amd/display/dc/dcn10/dcn10_hw_sequencer.c |   65 +
+ .../amd/display/dc/dcn10/dcn10_link_encoder.c |    9 +
+ .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    |   26 +-
+ .../drm/amd/display/dc/dcn20/dcn20_resource.c |    4 +
+ .../display/dc/dcn30/dcn30_dio_link_encoder.c |    4 +
+ drivers/gpu/drm/amd/display/dc/dcn31/Makefile |    3 +-
+ .../gpu/drm/amd/display/dc/dcn31/dcn31_apg.c  |  173 +++
+ .../gpu/drm/amd/display/dc/dcn31/dcn31_apg.h  |  115 ++
+ .../gpu/drm/amd/display/dc/dcn31/dcn31_dccg.c |  162 +++
+ .../gpu/drm/amd/display/dc/dcn31/dcn31_dccg.h |   18 +
+ .../display/dc/dcn31/dcn31_dio_link_encoder.c |    4 +
+ .../dc/dcn31/dcn31_hpo_dp_link_encoder.c      |  620 ++++++++++
+ .../dc/dcn31/dcn31_hpo_dp_link_encoder.h      |  222 ++++
+ .../dc/dcn31/dcn31_hpo_dp_stream_encoder.c    |  761 ++++++++++++
+ .../dc/dcn31/dcn31_hpo_dp_stream_encoder.h    |  241 ++++
+ .../drm/amd/display/dc/dcn31/dcn31_resource.c |  181 +++
+ drivers/gpu/drm/amd/display/dc/dm_cp_psp.h    |    1 +
+ drivers/gpu/drm/amd/display/dc/dm_helpers.h   |    2 +
+ .../gpu/drm/amd/display/dc/inc/core_types.h   |    6 +
+ .../gpu/drm/amd/display/dc/inc/dc_link_dp.h   |   22 +
+ drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h  |   21 +
+ .../gpu/drm/amd/display/dc/inc/hw/hw_shared.h |    2 +
+ .../drm/amd/display/dc/inc/hw/link_encoder.h  |   89 ++
+ .../amd/display/dc/inc/hw/stream_encoder.h    |   79 ++
+ .../amd/display/dc/inc/hw/timing_generator.h  |    1 +
+ .../amd/display/dc/inc/hw_sequencer_private.h |    1 +
+ drivers/gpu/drm/amd/display/dc/inc/resource.h |   12 +
+ .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |    2 +-
+ .../amd/display/include/bios_parser_types.h   |    6 +
+ .../gpu/drm/amd/display/include/dpcd_defs.h   |   14 +-
+ .../amd/display/include/grph_object_defs.h    |   10 +
+ .../drm/amd/display/include/grph_object_id.h  |    6 +
+ .../amd/display/include/link_service_types.h  |   31 +-
+ .../drm/amd/display/include/logger_types.h    |    2 +
+ drivers/gpu/drm/amd/include/atomfirmware.h    |    4 +
+ 48 files changed, 5018 insertions(+), 227 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_apg.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_apg.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_link_encoder.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_link_encoder.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_stream_encoder.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_stream_encoder.h
 
->
-> Thanks,
-> Leo
->
-> >
-> >>          .update_soc_for_wm_a =3D dcn30_update_soc_for_wm_a,
-> >>          .populate_dml_pipes =3D dcn30_populate_dml_pipes_from_context=
-,
-> >>          .acquire_idle_pipe_for_layer =3D
-> >> dcn20_acquire_idle_pipe_for_layer,
-> >> --
-> >> 2.31.1
-> >>
+-- 
+2.25.1
+
