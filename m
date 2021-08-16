@@ -2,73 +2,57 @@ Return-Path: <SRS0=yGBf=NH=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+	USER_AGENT_SANE_2 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 458DDC4338F
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 12:55:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B5D63C4320E
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 13:05:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DC63E6328B
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 12:55:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DC63E6328B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 859AE632A6
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 13:05:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 859AE632A6
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=cox.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E80F89EAE;
-	Mon, 16 Aug 2021 12:55:26 +0000 (UTC)
-Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com
- [IPv6:2607:f8b0:4864:20::32b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 770E889EA6
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Aug 2021 12:55:13 +0000 (UTC)
-Received: by mail-ot1-x32b.google.com with SMTP id
- c19-20020a9d6153000000b0051829acbfc7so5860806otk.9
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Aug 2021 05:55:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=LDKwvscHTDAKtrWditFBBHxISAdSsW3GL+oL2kV+N74=;
- b=lV6ocoB7UlUXPTnOjwRQKv8tsR94qqGzu85Yu+5FYv0UxPSjoqBZI9zUItp4Q1xdWJ
- LSHjUprfst2t542/JOeb36dlqIXSUvJlJy6+LIbN5SEesckSRjU2sYnF6xC8NE1jyOJS
- d1nsFKYqMlK2zCrVUSYNoL8gR6Y1jaDGXQ5lmK04TCjolPBU4V4jIIbcDCV2yXr0CsLE
- 5hiuGQBTwTkOWK/dA0kZj1z7Z2CFroMNoAQBOh1r7QUF9nOBPjgX4IHwVctz62Gt/8/W
- +Sa2fls3tv8HD9bte4Xy2Lexgh7omZEJ7kzxU80SbxY64iuVVyuq5zeu7ugchOYYl9Gg
- LTLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=LDKwvscHTDAKtrWditFBBHxISAdSsW3GL+oL2kV+N74=;
- b=g3+1HYUXAFV8jostQNVQNQtTz1QH3QtVDt16VG4aaNUe8gBXR/NDeQURy4CTbDYTNG
- 5TBKrKcitjyghGSr20gHIb8gNYGfMiuvMUU9MXH1mP7VrYeJtOeMFVEudiEVnewIsK8r
- SbcZdsMHq5FCPpn/BUCpheyVdpNPFDgODsVEqwFrgwKfFmUv8gmiBdTPXXOvHpOI46q1
- AOky4CXzz2bmVhOJcs2iC+h5uiuqJ1ex8gmiepHk3AexCW1D4Xt0mNMWczgymuDE7UhD
- Ca4MaYf2YWiQ2uqw+2sJjWuwqlpwFN62+OtqzW4jGKn6G0XTwdo/lYsuET9BP2DyHqmN
- t+Wg==
-X-Gm-Message-State: AOAM531WSZj1xVRTZ+lUe7L4I/DWXK49CVtLTcL1Y6H/2Lc2Xn7E5U8g
- uXVx7HNKXCv2iVp7ZVDtb58ZOBV1Fab/FqAHWUY=
-X-Google-Smtp-Source: ABdhPJyQ4qAMAgGQM8Gmv8aej1UfnOps0WkFLQ8ooVqwwakWRqRkwa0z5B+MFEJHLxknlFyKPCiD5jL+ZIk4KZ1etRs=
-X-Received: by 2002:a05:6830:4:: with SMTP id c4mr5659948otp.23.1629118512729; 
- Mon, 16 Aug 2021 05:55:12 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33B3F89EB8;
+	Mon, 16 Aug 2021 13:05:16 +0000 (UTC)
+X-Greylist: delayed 427 seconds by postgrey-1.36 at gabe;
+ Mon, 16 Aug 2021 08:29:30 UTC
+Received: from omta012.uswest2.a.cloudfilter.net
+ (omta012.uswest2.a.cloudfilter.net [35.164.127.235])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9D9D89BB2;
+ Mon, 16 Aug 2021 08:29:26 +0000 (UTC)
+Received: from cxr.smtp.a.cloudfilter.net ([10.0.17.211]) by cmsmtp with ESMTP
+ id FWt1myDJgfFugFXswmJoZZ; Mon, 16 Aug 2021 08:22:19 +0000
+Received: from ws ([24.255.45.226]) by cmsmtp with ESMTPSA
+ id FXsum0KTngQ8tFXsvmxHvt; Mon, 16 Aug 2021 08:22:18 +0000
+Authentication-Results: cox.net; auth=pass (LOGIN)
+ smtp.auth=1i5t5.duncan@cox.net
+X-Authority-Analysis: v=2.4 cv=FL3ee8ks c=1 sm=1 tr=0 ts=611a203a
+ a=rsvNbDP3XdDalhZof1p64w==:117 a=rsvNbDP3XdDalhZof1p64w==:17
+ a=kj9zAlcOel0A:10 a=kviXuzpPAAAA:8 a=pGLkceISAAAA:8 a=eDshZfXNHJhCtg_awq0A:9
+ a=CjuIK1q_8ugA:10 a=qrIFiuKZe2vaD64auk6j:22
+Date: Mon, 16 Aug 2021 01:22:16 -0700
+From: Duncan <1i5t5.duncan@cox.net>
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Jason
+ Ekstrand <jason@jlekstrand.net>, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, Christian =?UTF-8?B?S8O2bmln?=
+ <christian.koenig@amd.com>, Pan Xinhui <Xinhui.Pan@amd.com>, Linux Kernel
+ list <linux-kernel@vger.kernel.org>
+Subject: Re: [REGRESSION][BISECTED] 5.14.0-rc4 thru rc6 69de4421bb broke
+Message-ID: <20210816012216.47babaf6@ws>
+X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.29; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-References: <f2a927f0-65bc-8463-e078-501cc8d177a8@nearce.com>
- <d6b523be-a781-10eb-f6d4-bbdd27913c06@gmail.com>
-In-Reply-To: <d6b523be-a781-10eb-f6d4-bbdd27913c06@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 16 Aug 2021 08:55:00 -0400
-Message-ID: <CADnq5_PYufw=irmZJwf8ONhZg7n+m+20AsTTW7AMCEM8LujPQQ@mail.gmail.com>
-Subject: Re: VA-API Regression in Kernel 5.13 for RX 6700 XT
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: Wyatt Childers <wchilders@nearce.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?B?Q2hyaXN0aWFuIEvDg8K2bmln?= <christian.koenig@amd.com>, 
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, "Liu, Leo" <Leo.Liu@amd.com>, 
- amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-CMAE-Envelope: MS4xfCA3p6Qy/wdzqHs2PjXrZSSeKX9Nsa+a9Ghxem2WRUDKFpKUbJGHjwtymlrLt9LZdlkwJqp3wocaxP7mIMnO+zY5CmXUAvVzPoKhkAgMlT9oMVJTAGIt
+ wmLakeIEKEyGd4fEwGvJAyQQiOOiiLyn8AbEfGuif2QO9lKos5n4f1esG0vYu1E2B5sI7KoKadKSq47h3WA6WFDxkHK9xl/l0mA7tPDJKU8gkrWhRkWf15iM
+ ndjxsV2fdquCTLibHuqIkk70wLJyrhLhhvGniBa8/P1QeoPDGexH2Mc31dcm+pQO6lfCcl5MlxyF7Vm1+j6fBx5T65rpCuJ+nUySHTmSmK0OzEXWNSzl3Fqi
+ 4wansc1n/owTuZyJT8O2/3KINbjr6bGyNdCbjtu6EprodJ5/Vz5uK14q30iC+uMHjZdufoEb6h9tt64aH+CrPQBAmm5JSg==
+X-Mailman-Approved-At: Mon, 16 Aug 2021 13:05:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,43 +67,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Aug 16, 2021 at 4:28 AM Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
->
-> Hi Wyatt,
->
-> adding Leo as well.
->
-> Question is what do you mean with "majority of VA-API hardware video deco=
-ders have disappeared" ?
->
-> Do you have a dmesg? Or the output of vainfo?
+Duncan posted on Mon, 16 Aug 2021 07:58:37 +0000 as excerpted:
 
-Already fixed:
-https://patchwork.freedesktop.org/patch/449342/
+> Mikael Pettersson posted on Tue, 03 Aug 2021 08:54:18 +0200 as
+> excerpted:
+>> On Mon, Aug 2, 2021 at 8:29 PM Duncan <j.duncan@cox.net> wrote:
+>>> Mikael Pettersson <mikpelinux@gmail.com> wrote...
+>>> > Booting 5.14.0-rc4 on my box with Radeon graphics breaks with
+>>> >
+>>> > [drm:radeon_ttm_init [radeon]] *ERROR* failed initializing buffer
+>>> > object driver(-19).
+>>> > radeon 0000:01:00.0: Fatal error during GPU init
+>>>
+>>> Seeing this here too.  amdgpu on polaris-11, on an old amd-fx6100
+>>> system.
+>>>
+>>> > after which the screen goes black for the rest of kernel boot and
+>>> > early user-space init.
+>>>
+>>> *NOT* seeing that.  However, I have boot messages turned on by
+>>> default and I see them as usual, only it stays in vga-console mode
+>>> instead of switching to framebuffer after early-boot. I'm guessing
+>>> MP has a high-res boot-splash which doesn't work in vga mode, thus
+>>> the black-screen until the login shows up.
+>> 
+>> Yes, I have the Fedora boot splash enabled.
+>> 
+>>> > Once the console login shows up the screen is in some legacy
+>>> > low-res mode and Xorg can't be started.
+>>> >
+>>> > A git bisect between v5.14-rc3 (good) and v5.14-rc4 (bad)
+>>> > identified
+>>> >
+>>> > # first bad commit: [69de4421bb4c103ef42a32bafc596e23918c106f]
+>>> > drm/ttm: Initialize debugfs from ttm_global_init()
+>>> >
+>>> > Reverting that from 5.14.0-rc4 gives me a working kernel again.
+>>> >
+>>> > Note that I have # CONFIG_DEBUG_FS is not set
+>>>
+>>> That all matches here, including the unset CONFIG_DEBUG_FS and
+>>> confirming the revert on 5.14.0-rc4 works.
+>> 
+>> Thanks for the confirmation.
+> 
+> 69de44d1bb introduced a regression in rc4, reported to the list on
+> August 2, that's still there in rc6.  It's also reported on kernel
+> bugzilla as bug #214000.  No maintainer response either on-list or to
+> the bug.  The commit was general ttm and the original post went to
+> dri-devel and kernel,
+> Jason E. and Daniel V., but all three user reports I've seen so far
+> (two on-list and the bug reporter) are on amdgpu or radeon, so in an
+> effort to at least get a response and hopefully a fix before release,
+> I'm adding the amdgpu/radeon list and maintainers.
+> 
+> The bugzilla report confirmed that CONFIG_DEBUG_FS=y AND
+> CONFIG_DEBUG_FS_ALLOW_ALL=y were *both* required to get a working
+> kernel after that commit.  I and I believe the on-list reporter just
+> reverted the commit in question, and kept our CONFIG_DEBUG_FS=n.
 
-Alex
+Trying again. I apologize if anyone gets this twice but I don't think
+the first one made it at all (buggy client).
 
->
-> Thanks,
-> Christian.
->
-> Am 09.08.21 um 04:26 schrieb Wyatt Childers:
->
-> Hi,
->
-> I've encountered a bug as a user of Fedora, that's also mirrored by this =
-Arch Linux bug report. The vast majority of VA-API hardware video decoders =
-have disappeared for the RX 6700 XT GPU.
->
-> It seems this happened in the 5.13.x branch, and that it's still a proble=
-m in 5.14.x (at least Fedora's packaging of 5.14 RC4).
->
-> Please let me know if there's any more information I can provide, or if t=
-his was the wrong place to reach out.
->
-> Thanks,
->
-> Wyatt
->
->
+-- 
+Duncan - List replies preferred.   No HTML msgs.
+"Every nonfree program has a lord, a master --
+and if you use the program, he is your master."  Richard Stallman
