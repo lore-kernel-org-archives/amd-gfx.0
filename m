@@ -8,131 +8,134 @@ X-Spam-Status: No, score=-19.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B70C3C4338F
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Aug 2021 10:09:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 212D6C4338F
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Aug 2021 10:37:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 845A460F38
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Aug 2021 10:09:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 845A460F38
+	by mail.kernel.org (Postfix) with ESMTPS id CD1F260F41
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Aug 2021 10:37:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org CD1F260F41
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D1E689121;
-	Tue, 17 Aug 2021 10:09:03 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2075.outbound.protection.outlook.com [40.107.93.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9391F89121
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Aug 2021 10:09:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7AA886E057;
+	Tue, 17 Aug 2021 10:37:46 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2086.outbound.protection.outlook.com [40.107.223.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E06536E057;
+ Tue, 17 Aug 2021 10:37:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Op+2DzNwQPcM9uNZomgk4SnN33lt05VCRdG8VZ6fQ+lBRN1ccvgEUXiPDKiVdQ1pKOkRn+V+INsaJzaTuEFP9g0l4PDKE6PwZzzkc8J9icgTaf+c9Q3pF71YmsU7slIt8eDIwpZmvLjTObsX3ennFvjDBacrjAuS1XDxwjRxX0clOf3dQ8GD0Lb6XgTVPqAg+UwkiqReeSPReLZg3JS7kz0+5bl8YVScq8GCow6ztVfz6p/EooB3UZKdS0hctRfFk3fiYnTVZBLzleU465ALnzaA8/i9roIViNOs8YAw1MQZ+j9H02TF4LA80ZEvIP5uFtDM8YXSOsYr+BLlUJqolQ==
+ b=Qbi3ySCsdmwGjIi28aNZ7T9F3ek6e4enhhLMBybyqhUxdX7Lb8l9lHFyL52EDxb0NtW08FTx4XIRoT3Kg4SXHm6s9RZMm4IC3F71Dlwk/tDqAQeLYFmrEmotKdgdvDYZWvXfiPTqqktcQS5HkMvdAjpDLl8VN2Y/8+Q5SM54JHpiYLs1gx7oeQ4AnUhf48/NVMZmErDoTGdNaXH4gjjz98Hjaj73tkCg4PekrrdBS5WULR7KWwL9bAdk8ZpBruUTW053sQg45pAsjsLcSmFXY/+7wPrVmhFUJOADr2fLWnO/fpyC1NPHsrhxIrkbsaUmJbKy39HKFmPyqpyjKHL5Lg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=srYlJ56WPC8rmSkLab/1+AvAne9ZQ6dM8Ow+sCvQ5Sw=;
- b=amzYXajNed+aPWpWCK63GxCN6+MnRfPCxkixocQjszAZt/X3Cp+NybPUsk71mIwk+IJ0HqVIwJeKK6iLITJ1JCCV3d4/loIRlwLqiAkGALSQjpc6QYzUTaoBaAZAefEdYEsNy+T5qoA9gpdbbuj3vV0esVmWC5cI4chFrbkoq9Pz/FfAtAYK3JutNNMe60dVZluFqZkHN6XjLxiJ07ZEsx6+rxuLK67cNIWoJXqYs8HjWivI6gbcHOetlgiUGfXImwPeuzV22B9hxOpdiUTkH1g/Pzq2JoOgpsDj69HaNFxmRbkFDJJp5LylNxyY0zeNDP6UriIzXTWu2TpHEsdvyA==
+ bh=7o10gB5R4deFZHwPutpbJCX6zDG3VrrxIDwCaVJDNUk=;
+ b=F9ST130jcaAGpFgxgqYxsWQEjLQuhNHnM65u/j2hNPT/IGDOk0qxmhiUrj/8ir1a8hDXkKocmW6V3WZxAzvErgXUUE3vFxNg6IN8rteiYAnCok0efjF+gBAKHUSq0yShia7rfREuTVBwG8HcxGyVqID7dH2IfOFI79PNGHQ5DdeqZwvBsQSqqfj0fy5ilyBEtcD9gUA5fFBCHS5XN6YKTkD6rHYGtPaDb6mxFYHk0VOZq5Fg2AM0OYcgkyQ3668PGOHf6Flu57pZlkstoEWz1zhVfGdoG/DTBzz2nYdSEIdLPMUmlCENrmpS8Ouv/bKk+bSq1e3VTgODUHZWUdbJRQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=srYlJ56WPC8rmSkLab/1+AvAne9ZQ6dM8Ow+sCvQ5Sw=;
- b=2e/KtgM0BZktiOyyVOAWmheICNI3PnnEQUodB1JxrhyCTOjbm3F3+5sL5WZP6PYSQwcNqIdtTMgOg4F2O9D2l1Jwa9q/yKbM8ry6G28OAQST6C0HcKOkCciJ17tj43SGB9f91CwJTZrl3LXxLPVdlGVJbqPl00dBwnsRY1YXJcc=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+ bh=7o10gB5R4deFZHwPutpbJCX6zDG3VrrxIDwCaVJDNUk=;
+ b=DocZaZfZdwYOF06GvRKPhfFs7ZLU692ASKczHhMNBeVSKVcF7buzTCoJs6RtdRTwiuaEoMJJxws99D6hf0GwxnG8onmmVWCYOug/3aEvZWZGkAwWrRdQLjEpLFLekqNIEj0unNG1Pvpi4W/Psco8kAhZLSUnpueabSKwL740ORc=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
 Received: from BL1PR12MB5349.namprd12.prod.outlook.com (2603:10b6:208:31f::7)
- by BL1PR12MB5061.namprd12.prod.outlook.com (2603:10b6:208:310::13)
+ by BL1PR12MB5224.namprd12.prod.outlook.com (2603:10b6:208:319::23)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.16; Tue, 17 Aug
- 2021 10:08:58 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.18; Tue, 17 Aug
+ 2021 10:37:43 +0000
 Received: from BL1PR12MB5349.namprd12.prod.outlook.com
  ([fe80::152:9dd3:45a4:eeb6]) by BL1PR12MB5349.namprd12.prod.outlook.com
  ([fe80::152:9dd3:45a4:eeb6%4]) with mapi id 15.20.4415.024; Tue, 17 Aug 2021
- 10:08:58 +0000
-Subject: Re: [PATCH] drm/amdgpu: properly powergate Polaris12 UVD/VCE on
- suspend
-To: "Quan, Evan" <Evan.Quan@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "Liu, Leo" <Leo.Liu@amd.com>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Chen, Guchun" <Guchun.Chen@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>
-References: <20210817064005.1437328-1-evan.quan@amd.com>
- <374e0b56-e81f-b4c6-ae97-0ade2c0f5b36@amd.com>
- <DM6PR12MB26198C4D8A712DE7E7EC0580E4FE9@DM6PR12MB2619.namprd12.prod.outlook.com>
+ 10:37:43 +0000
+Subject: Re: [PATCH] drm/amdgpu: Cancel delayed work when GFXOFF is disabled
+To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: Leo Liu <leo.liu@amd.com>, James Zhu <James.Zhu@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <20210816103506.2671-1-michel@daenzer.net>
+ <20210817082325.2579-1-michel@daenzer.net>
+ <ceaa02c9-26ef-e1e5-3f35-3cc202961670@amd.com>
+ <8461fba5-662e-85f7-b712-472232ed12ba@daenzer.net>
+ <c294f4c7-7919-7b7f-4de7-ab4def8c90a3@amd.com>
+ <e9aa759e-1692-b8c5-3f23-2c55af0151bc@daenzer.net>
 From: "Lazar, Lijo" <lijo.lazar@amd.com>
-Message-ID: <2bb2f248-41ab-9c39-0881-c4ea97a7813e@amd.com>
-Date: Tue, 17 Aug 2021 15:38:44 +0530
+Message-ID: <c8b52f3a-f431-3dc5-b08c-b6af5f8d1d7a@amd.com>
+Date: Tue, 17 Aug 2021 16:07:30 +0530
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.13.0
-In-Reply-To: <DM6PR12MB26198C4D8A712DE7E7EC0580E4FE9@DM6PR12MB2619.namprd12.prod.outlook.com>
+In-Reply-To: <e9aa759e-1692-b8c5-3f23-2c55af0151bc@daenzer.net>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN2PR01CA0144.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:6::29) To BL1PR12MB5349.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN2PR01CA0126.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:6::11) To BL1PR12MB5349.namprd12.prod.outlook.com
  (2603:10b6:208:31f::7)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from [172.31.157.114] (165.204.158.249) by
- PN2PR01CA0144.INDPRD01.PROD.OUTLOOK.COM (2603:1096:c01:6::29) with Microsoft
+ PN2PR01CA0126.INDPRD01.PROD.OUTLOOK.COM (2603:1096:c01:6::11) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4415.17 via Frontend Transport; Tue, 17 Aug 2021 10:08:55 +0000
+ 15.20.4415.17 via Frontend Transport; Tue, 17 Aug 2021 10:37:39 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 56995e69-093d-4dc0-cd74-08d961670766
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5061:
+X-MS-Office365-Filtering-Correlation-Id: 23135bde-d360-4702-7d9e-08d9616b0b3e
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5224:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BL1PR12MB506106D18910F3A09B84516B97FE9@BL1PR12MB5061.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-Microsoft-Antispam-PRVS: <BL1PR12MB5224FDA432C00A74BB16846697FE9@BL1PR12MB5224.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: TWDG7At91jQdrWzuwmpI8saaalGxApdGYEAR6sBoAps1xNvuMM2qRQ5zAmpLUvOdV8+A+BrhG/2lkeQd859NmHEaLfm/wrc4jB9Vw8t62V08A3eVq4kq9Q3g/50gr4hm/8OAawL308NCtziWGKkAnSOKLn44XBcWHcaWzq2z2CAMck1TfLPdfG3WaVH7Qx1To2Aj0l9OsxO6ozSSC7Is/kV/AlroH8R29TLv+9i3MWM2U1G74wVuDjfX0tcvx90qEo8HH34RlnUHXzZh52NXgwoB4Nd+qH/20yNj6jHcMdOTaA9wi9YVFEsnBO0f8tybSGjry4bT5PEOEVtJrya36UhzWcBNCOLOXPS607xlrom4NE7ZP42iIsVdacMGmwB2eoRPgBkIT9ysfGAzCktqYifsXVt2d8GTphRFdigjz3fAg/FeAKiVaMLuE8773ZR+HsNVTkd/Izo970g4LpTFNIIDgE8aHco9ZA6GYrraNjb9z8L2S7gMSlEAwXD8LPMSLbxOykwNSIOMhhB1IN7mwMNYN5LVuDK7yOoxnmSreIpz4w+C2DbJmC+FdL0At1fGLHZy/VZ/jDv19YF1vVpKjM9+Sylj0l5WGIvEp0+i/gMvhG7KBgVrmLin1gEYsxO7bcX3SMhc4cgNO+LvIm+vQID495MO2Ko2y6qxkfHrRniYt5CPGgWZ45sDup9gYyzx5a3BnFGKDGQibsmEny/wDfBOuB5msqECOmlnc/fZXq0=
+X-Microsoft-Antispam-Message-Info: i2U62zHHPY4Hp4qbrIbggvk7K9TehNmzsgfo3meJFazTqgGoRapRXxk34FinISR2IdbrXQIMnf4f7xEa1saVwliziT628rWokyV1hJGzvLxegMMw4If5DaqA8cM3vWyJxw4CJA/FIzWK+5G89lcgcDMtGTAI2nAu3cRB+owCgbKwgf6u+B4/ayV93fmucOhFo21qIhQ4VWSvJG5H/Xi4ORnzN2hhBV7qA4FXZHv8K3XmRwcN40rS6u5GCv0lWMmrfehQfxIxo0qwVljbUTfQSgdD8V4g3FtxvL/3aHCtM6aohdyy7NJ6MU2jHW9WNUclxwmVWRuBDJ0ZyjVYym1doIUXawXCGs0y7qrXmRRygK4iCMTg8cVPOhUrJUe7RBVS2q90hJ3TJLGnryzDfy59JkzNYUurToQtNS3CSoJEcNvT/CJSGRnU5cx7a4PE3koxUNaVnvboJgoK+vOubveK3khy+suuMovIGTuWQ0GMu+ZtospUmXS+a62yHcOtCpkNtjbKI4HydAaqXTjCrc5G2l6XvYerR+2n4DPm5yGtEEx1WPqkF/yKxB/JidIrJz+lp53dIYrBufkbvP8Hphg7LFVoTAJlpWIxBsFSyxOUUNsr3fWzYXh/F6LSSDntHvg6LJiO/ALF4QGRw15+xlRqQZv3d1LG4cb3m/uB/Pu/uSFj7WcJoVYcluQzyTxNAgTZ/e1jKxOPxk1Qo3/1iqv/UMdqhIHLj67f7roKWvV2wlU=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BL1PR12MB5349.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(376002)(366004)(39860400002)(396003)(136003)(6666004)(6486002)(38100700002)(186003)(31686004)(26005)(2906002)(4326008)(110136005)(66946007)(54906003)(66556008)(66476007)(31696002)(16576012)(86362001)(956004)(2616005)(316002)(15650500001)(8676002)(5660300002)(53546011)(83380400001)(478600001)(8936002)(6636002)(36756003)(43740500002)(45980500001);
+ SFS:(4636009)(376002)(136003)(39860400002)(366004)(346002)(396003)(6636002)(5660300002)(478600001)(4326008)(110136005)(16576012)(66556008)(54906003)(956004)(2616005)(186003)(316002)(26005)(53546011)(6486002)(31696002)(66476007)(66946007)(31686004)(36756003)(8936002)(2906002)(8676002)(38100700002)(86362001)(66574015)(83380400001)(6666004)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Ly9WMmRZbGxZYk9XQkY3QVgyQzZQNlRhRGtMYmJhZUJBVWVDeFlvcFhrQ3oz?=
- =?utf-8?B?T3ZRSG9INzhydld6RUppYUxQZmo2UnI3Z1hIQVp4L1lDV0lQRUR1ems1Qzll?=
- =?utf-8?B?SWNnSHFldjlFYTkxcVpWRy9uSnVod2RWc2xvN25JRFNKcVN4RzN3WDM5aGY4?=
- =?utf-8?B?WUpxRnIzTml2UmxPQUo1TUNNRVhmcE00WWdNRE5qdW5qT3lyU1lHVWlPRUJx?=
- =?utf-8?B?NEo1RmE5bDNCV2gyT1VzQlBMa2JnamN1OUlNUi9DajVjWE93Q2RWZDV0dmZs?=
- =?utf-8?B?ZUkveGFsWStzbjQyL2RENkRvdGJUc3hKcGZwSEhDK3dpMGRadlNGOHIxbnp0?=
- =?utf-8?B?WHM4UVREMmc1WTZDRFJWWjJTdjk0bTZSek9BelE1U1BBeWVpVG5hWnFFSmNL?=
- =?utf-8?B?Qk9Fa3hpeWl5N3o0VDVaMDRnaml2bEF6cDM2c0R0SjlkSnJNZjFPSkZteGFE?=
- =?utf-8?B?K293Y2FPQndsT2lJQmxpM1VqRG94dXJLZUlLWjRFVDBldElxYklBNEhPektn?=
- =?utf-8?B?YWhzTWpjQkdFWjFDQUdHY29hRWNibjgxaWlzdHc4eitVVkh0UWREUnVKL0Rp?=
- =?utf-8?B?MnhQZFpIVW5hSzREa3UzVmNyN2dRdXpXSFpuMVNwaW96dENrWjhobTJtZXM3?=
- =?utf-8?B?aDI4OHpxOGRmTHhqQWo5TVNyMXdxVGFGcHJ3M0FseFo0TUY5aDdidFJqUHkr?=
- =?utf-8?B?aEpIa1RmOUE0bFhDYk12OU42QjlBZ0M3dmowWmV3VnhxV1pKTnVpVktscjZW?=
- =?utf-8?B?cmNyNi95WHAzZ00zY0QrajFROGlHRmVSR2pBY0d5RVZXODZSd2wzUjV6U0Z4?=
- =?utf-8?B?KzFQZ1V2S0NkTHNsMzVUdlRzbFJtTjhINzVyb000OTk1RW5mNHdGTTBDTWlD?=
- =?utf-8?B?K2xKN3JrY1YzdGY3cGRWNkdZT1Nyak1tZ0NtZTRySjQ2OUNoVUg1MlhUTlds?=
- =?utf-8?B?THVlT09nZWM2T3FWbXJ2ODdoNUdmY01QZVJ4M21XWGlkUUpZb0c0azZ4Z2Zu?=
- =?utf-8?B?c0dYdlltUnM3Z2VZNW14N0xQeUdLL3lsZ0RDWDZSZDRVdm1xYWxPSkNYcm04?=
- =?utf-8?B?UXVpT01uNGFSSVppcXpaZjlxK1cxNC9zaXFTbXVpbGlwbDJrb0ZWNE42QWJE?=
- =?utf-8?B?eS8wNkVXL0hrNXNsRU1SelJxOWJaYmhtMkxzenVxR0EydkhXWmY5NGtVaGJo?=
- =?utf-8?B?dWxmdVBrb3A4elFqSWlOYnMzaGZTNmQ5S0lMbENJQ2I5RFNzZnJYSFdvR09R?=
- =?utf-8?B?UHI0eTBObHJvV0V1WWZDZm1vK2ZNVVRLVlA2ZGFVR01mQ3B5MFJ0TG9Jd1l0?=
- =?utf-8?B?V2Z1dG5uWEEvOUtqL3BNc1k3T1BpMEtvWjhDczNNMnZQQjUxZXc5aFRrUTNW?=
- =?utf-8?B?d2lWbDFDZ2p6Q0NJeEhPWGdnOUhGeDlnRTJRUEJUU2xaNncydUZKTkRGeDRN?=
- =?utf-8?B?dm0wV0gzbTllOVNZZTVyblgweklZallhdGRZY051M0xyRnVEd1c1RkZaMVRK?=
- =?utf-8?B?NHk3bFdOMVFMTzQyUWx4dzVzVXh6OUJ4VUI4aXNWL2ljTHZ3MXU1QjJkOGlu?=
- =?utf-8?B?ekk2djhRM21iS2pXWXFQWm9YNnFoc3Q0VWRqZG4ra3pTU3hsT2YwWEM5U0Y5?=
- =?utf-8?B?L2h0RWhxQVhnbkNxV0x3WmxjN3dDSzQ2dW9Ja1FmWjdEdlUzUVZ4NTBBbmhI?=
- =?utf-8?B?WWFTRFdzb203K2dhNFJxVnFDbzRVR3pnaFYzY1RPb2Y3eEJsOEZJVkI2SE1H?=
- =?utf-8?Q?ol/QzlW1sLSQosy+l+jACXA04Y2SlmOPcAeZ+sT?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?U1RsUms5SkhKUkd0LzEreDlNZUNUbUl3UlgrcWZ6RC9HNkx3ZkQxVkkveVBO?=
+ =?utf-8?B?aHhZUHVzSE4rK2t4bE1CQUg2U2VIRTZFMlJneklDZEk5Vm80bFF4ZlVNM0Qz?=
+ =?utf-8?B?VWlsRVRjZkRNMzRKZUVScG5jSC9hRmpEekdsekY3bkZNK3pOQzVwSlY1a1BG?=
+ =?utf-8?B?SzdEbnhscUdIcG5maENLNlpLWXhVZVlkNXVrSythWitOVElJa0lPbkdrU25O?=
+ =?utf-8?B?WFVBVGtLQUJrVjNGTjhYWkVqVFBCSGh6dm83ellNRnJweFg0TWVpT3NVU3Fi?=
+ =?utf-8?B?UXZ3aGRMNTZ4RzBUZUNyNS9sTnpTNEQ3MFBjM0pvT0JVTkRQZC9vcUVValdm?=
+ =?utf-8?B?QW5zZW1QcERyRGlsa21BdVRBZmZML1FkY2RZbVYrbFdtak1KeWNWang1QnlT?=
+ =?utf-8?B?ZXI2QWh2eitMQjRBdWhBWnVMd3ZPNlM0WGpZZjdBZytEM0pHem55OVc3OWJw?=
+ =?utf-8?B?NjZsNjB4N0lKdGh6ckJBZFdZOGx6Rm5oN2EzM1hFWVBWQjJTTXh6R3FQb3RC?=
+ =?utf-8?B?ODVZamZrM2ttcXAxdzF2YlFiQ3YxeXpjZTVtbWNFZmw0RHNVNWkrSzZyNXZw?=
+ =?utf-8?B?TDZKSTlwajF1UGhRV1NDR1lNcnVCTU9pUFNINC91TU1zUGNVbjZwQmZuaGNS?=
+ =?utf-8?B?Z0NtY0xwamVKMlYrellXMzB2dlI0Y3JySFZjY2prYk0vd3pjL3pZamQ0S2NC?=
+ =?utf-8?B?UVVVMVhmL3ZpNlhXTU03b1VKNktPK0RTWnhvdW56bTRvSEQ1ZDYyVm5hd3Fr?=
+ =?utf-8?B?TXBGYnNOQkUxSzh1VTVGbzlzenBURWlmMW9LdVQxVnhEUjRtOWJCZWw0SHN0?=
+ =?utf-8?B?amVENEhzT0pNcVYyTkczZFcyV1hPZEpFUDJzRUI5bEJwelZ4VU0rV3F6c3do?=
+ =?utf-8?B?NlBvNXNtUkh0SFdCR2V5aFFCNC9mb3k2U25VbVJkSXRwanprUjBWcFBiNkRH?=
+ =?utf-8?B?ZE55Z3BXdWkzQUJEb0RkcTdvUDI2OHZRcFJyREFzN0hCV3N0cDNlY2JZemQ0?=
+ =?utf-8?B?cEdZOHo2WlFQZTZuUjVwcE9vY25GajFqaTV2aW9FcWFLSDBtU3N6KzJncjJG?=
+ =?utf-8?B?OWNGcFR3dDF0YjFDQ0o4M1B0RmV2RWcyaTNYUThxSXhKMHQwTzVEZ1dhY0NJ?=
+ =?utf-8?B?WUwrQmh1ZnZySWhVQ01GdUZmT01idDFYVGFGSDhSdnF0d3crMEUxUHRjeDZv?=
+ =?utf-8?B?NkFENzNidlZLRHQwZXhOck8vclJnY0Ztblo2WXZJaElxaE1OeERubFo2Ukxk?=
+ =?utf-8?B?Z2VBU2JRcDluNzZJMlVtY0FZZnhJUlZLU2c4MzlDNW1zNU9LQy9vdHRmczVx?=
+ =?utf-8?B?VithUFJ2TmkyMU8zUUM2NlAzSHdkTEdUZkx3QWc2WHNaZTQwWTBhUzR0ZUFS?=
+ =?utf-8?B?UVJ3NmdvdDY4Wi8wd3pIcm5sZy9vSWxzRHZsWldneVdTSkZiTU1WelZySlJI?=
+ =?utf-8?B?T0tZY3l2akpwT0RWRWNXUTcrQnZJMDNFQU1SSldoUW1RVjBKOFJpQXIzVVpv?=
+ =?utf-8?B?YXp0b1NqaENld3g0anN1S29FcUpxQUYwdktJVmNab0NjUmhHTzBvRERuYlht?=
+ =?utf-8?B?ZExFVnpRNFc3R1pwcXdWR2pWbmtIVE5na1BnNW01ZnE2VGZpRGFqYjNMNjVr?=
+ =?utf-8?B?S1orUGhKa0pIbkh4OS9ZT25CRWRvd2dHbHNWUk9zem9GUkhhSDhEUGE4MktN?=
+ =?utf-8?B?ZnBQSk1RUHJtV0FSZ3c1UmYxelJnaWtkRlM0N0xqZGExeXEraDEyUUZUSFlP?=
+ =?utf-8?Q?9dZ90ZtXXAzI/cNOAFBdUX8IbAcAUIs1HsniTiS?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 56995e69-093d-4dc0-cd74-08d961670766
+X-MS-Exchange-CrossTenant-Network-Message-Id: 23135bde-d360-4702-7d9e-08d9616b0b3e
 X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5349.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2021 10:08:58.4733 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2021 10:37:43.1329 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IJZqpiBTuOls2dMWt1IrQPD6zySDYZV53wW1LoyzOVcno705aux4AfDqEc4PCGW7
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5061
+X-MS-Exchange-CrossTenant-UserPrincipalName: fhxTPyJMaVVa7McM0XY2g2HJoM8uFG4s0PnhhrPetCO8VLHquzSW8aVhhYSusW8S
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5224
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,100 +152,142 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 8/17/2021 3:13 PM, Quan, Evan wrote:
-> [AMD Official Use Only]
-> 
-> +Leo to share his insights
-> 
->> -----Original Message-----
->> From: Lazar, Lijo <Lijo.Lazar@amd.com>
->> Sent: Tuesday, August 17, 2021 3:28 PM
->> To: Quan, Evan <Evan.Quan@amd.com>; amd-gfx@lists.freedesktop.org
->> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Chen, Guchun
->> <Guchun.Chen@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>
->> Subject: Re: [PATCH] drm/amdgpu: properly powergate Polaris12 UVD/VCE
->> on suspend
+On 8/17/2021 3:29 PM, Michel Dänzer wrote:
+> On 2021-08-17 11:37 a.m., Lazar, Lijo wrote:
 >>
 >>
->>
->> On 8/17/2021 12:10 PM, Evan Quan wrote:
->>> If the powergating of UVD/VCE is in process, wait for its completion
->>> before proceeding(suspending). This can fix some hangs observed on
->>> suspending when UVD/VCE still using(e.g. issue "pm-suspend" when video
->>> is still playing).
+>> On 8/17/2021 2:56 PM, Michel Dänzer wrote:
+>>> On 2021-08-17 11:12 a.m., Lazar, Lijo wrote:
+>>>>
+>>>>
+>>>> On 8/17/2021 1:53 PM, Michel Dänzer wrote:
+>>>>> From: Michel Dänzer <mdaenzer@redhat.com>
+>>>>>
+>>>>> schedule_delayed_work does not push back the work if it was already
+>>>>> scheduled before, so amdgpu_device_delay_enable_gfx_off ran ~100 ms
+>>>>> after the first time GFXOFF was disabled and re-enabled, even if GFXOFF
+>>>>> was disabled and re-enabled again during those 100 ms.
+>>>>>
+>>>>> This resulted in frame drops / stutter with the upcoming mutter 41
+>>>>> release on Navi 14, due to constantly enabling GFXOFF in the HW and
+>>>>> disabling it again (for getting the GPU clock counter).
+>>>>>
+>>>>> To fix this, call cancel_delayed_work_sync when the disable count
+>>>>> transitions from 0 to 1, and only schedule the delayed work on the
+>>>>> reverse transition, not if the disable count was already 0. This makes
+>>>>> sure the delayed work doesn't run at unexpected times, and allows it to
+>>>>> be lock-free.
+>>>>>
+>>>>> v2:
+>>>>> * Use cancel_delayed_work_sync & mutex_trylock instead of
+>>>>>      mod_delayed_work.
+>>>>> v3:
+>>>>> * Make amdgpu_device_delay_enable_gfx_off lock-free (Christian König)
+>>>>> v4:
+>>>>> * Fix race condition between amdgpu_gfx_off_ctrl incrementing
+>>>>>      adev->gfx.gfx_off_req_count and amdgpu_device_delay_enable_gfx_off
+>>>>>      checking for it to be 0 (Evan Quan)
+>>>>>
+>>>>> Cc: stable@vger.kernel.org
+>>>>> Reviewed-by: Lijo Lazar <lijo.lazar@amd.com> # v3
+>>>>> Acked-by: Christian König <christian.koenig@amd.com> # v3
+>>>>> Signed-off-by: Michel Dänzer <mdaenzer@redhat.com>
+>>>>> ---
+>>>>>
+>>>>> Alex, probably best to wait a bit longer before picking this up. :)
+>>>>>
+>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 11 +++----
+>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c    | 36 +++++++++++++++-------
+>>>>>     2 files changed, 30 insertions(+), 17 deletions(-)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>>> index f3fd5ec710b6..f944ed858f3e 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>>> @@ -2777,12 +2777,11 @@ static void amdgpu_device_delay_enable_gfx_off(struct work_struct *work)
+>>>>>         struct amdgpu_device *adev =
+>>>>>             container_of(work, struct amdgpu_device, gfx.gfx_off_delay_work.work);
+>>>>>     -    mutex_lock(&adev->gfx.gfx_off_mutex);
+>>>>> -    if (!adev->gfx.gfx_off_state && !adev->gfx.gfx_off_req_count) {
+>>>>> -        if (!amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE_GFX, true))
+>>>>> -            adev->gfx.gfx_off_state = true;
+>>>>> -    }
+>>>>> -    mutex_unlock(&adev->gfx.gfx_off_mutex);
+>>>>> +    WARN_ON_ONCE(adev->gfx.gfx_off_state);
+>>>>> +    WARN_ON_ONCE(adev->gfx.gfx_off_req_count);
+>>>>> +
+>>>>> +    if (!amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE_GFX, true))
+>>>>> +        adev->gfx.gfx_off_state = true;
+>>>>>     }
+>>>>>       /**
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+>>>>> index a0be0772c8b3..b4ced45301be 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+>>>>> @@ -563,24 +563,38 @@ void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev, bool enable)
+>>>>>           mutex_lock(&adev->gfx.gfx_off_mutex);
+>>>>>     -    if (!enable)
+>>>>> -        adev->gfx.gfx_off_req_count++;
+>>>>> -    else if (adev->gfx.gfx_off_req_count > 0)
+>>>>> +    if (enable) {
+>>>>> +        /* If the count is already 0, it means there's an imbalance bug somewhere.
+>>>>> +         * Note that the bug may be in a different caller than the one which triggers the
+>>>>> +         * WARN_ON_ONCE.
+>>>>> +         */
+>>>>> +        if (WARN_ON_ONCE(adev->gfx.gfx_off_req_count == 0))
+>>>>> +            goto unlock;
+>>>>> +
+>>>>>             adev->gfx.gfx_off_req_count--;
+>>>>>     -    if (enable && !adev->gfx.gfx_off_state && !adev->gfx.gfx_off_req_count) {
+>>>>> -        schedule_delayed_work(&adev->gfx.gfx_off_delay_work, GFX_OFF_DELAY_ENABLE);
+>>>>> -    } else if (!enable && adev->gfx.gfx_off_state) {
+>>>>> -        if (!amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE_GFX, false)) {
+>>>>> -            adev->gfx.gfx_off_state = false;
+>>>>> +        if (adev->gfx.gfx_off_req_count == 0 && !adev->gfx.gfx_off_state)
+>>>>> +            schedule_delayed_work(&adev->gfx.gfx_off_delay_work, GFX_OFF_DELAY_ENABLE);
+>>>>> +    } else {
+>>>>> +        if (adev->gfx.gfx_off_req_count == 0) {
+>>>>> +            cancel_delayed_work_sync(&adev->gfx.gfx_off_delay_work);
+>>>>> +
+>>>>> +            if (adev->gfx.gfx_off_state &&
+>>>>
+>>>> More of a question which I didn't check last time - Is this expected to be true when the disable call comes in first?
 >>>
->>> Change-Id: I36f39d9731e0a9638b52d5d92558b0ee9c23a9ed
->>> Signed-off-by: Evan Quan <evan.quan@amd.com>
->>> Signed-off-by: xinhui pan <xinhui.pan@amd.com>
->>> ---
->>>    drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c | 5 +++++
->>>    drivers/gpu/drm/amd/amdgpu/vce_v3_0.c | 5 +++++
->>>    2 files changed, 10 insertions(+)
+>>> My assumption is that cancel_delayed_work_sync guarantees amdgpu_device_delay_enable_gfx_off's assignment is visible here.
 >>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
->>> b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
->>> index 4eebf973a065..2fdce572baeb 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
->>> @@ -554,6 +554,11 @@ static int uvd_v6_0_suspend(void *handle)
->>>    	int r;
->>>    	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->>>
->>> +	/*
->>> +	 * If the powergating is in process, wait for its completion.
->>> +	 */
->>> +	flush_delayed_work(&adev->uvd.idle_work);
->>> +
->> If running idle is a prerequisite before going to suspend, then something else
->> is missing here.
 >>
->> Otherwise, the hang looks more like a pending work launched after
->> hardware is suspended and trying to access hardware. As the hardware is
->> going to be suspended anyway, doesn't it work with
->> cancel_delayed_work_sync - making sure that nothing is going to be
->> launched later to access hardware?
-> [Quan, Evan] The reason we chose flush_delayed_work instead of cancel_delayed_work_sync is we think those operations performed in idle_work(dpm disablement, powergating) seems needed considering the action is 'suspend'. So, instead of "cancel", maybe waiting for them completion is more proper.
-
-But it will do so only if the work is scheduled - so it doesn't seem to 
-be a prerequisite for suspend. If it was a prerequisite, then the 
-existing code is missing that (so that it gets done for all cases).
-
->>
->> Then this may be a potential issue for other suspend calls also where work is
->> pending to be launched when hardware is suspended.
-> [Quan, Evan] Do you mean we need to check whether there is similar issue for other IPs?
+>> To clarify - when nothing is scheduled. If enable() is called when the count is 0, it goes to unlock. Now the expectation is someone to call Disable first.
 > 
+> Yes, the very first amdgpu_gfx_off_ctrl call must pass enable=false, or it's a bug, which
+> 
+>          if (WARN_ON_ONCE(adev->gfx.gfx_off_req_count == 0))
+> 
+> will catch.
+> 
+> 
+>> Let's say  Disable() is called first, then the variable will be false, right?
+> 
+> Ohh, I see what you mean. The first time amdgpu_gfx_off_ctrl is called with enable=false, adev->gfx.gfx_off_state == false (what it was initialized to), so it doesn't actually disable GFXOFF in HW.
 
-Yes, if there are cases where other IPs may schedule a delayed work and 
-call hw_fini without cancelling the work.
+Exactly.
+> 
+> Note that this is a separate pre-existing bug, not a regression of my patch.
+> 
+> I wonder what's the best solution for that, move the adev->gfx.gfx_off_state assignments into amdgpu_dpm_set_powergating_by_smu?
+
+Should be an existing one, never bothered about that condition before.
+
+One hack would be
+
+is_pending = cancel_delayed_work_sync(&adev->gfx.gfx_off_delay_work);
+
+	if ((adev->gfx.gfx_off_state || !is_pending) &&
+
+If work was never scheduled or pending, is_pending should be false OR if 
+it got executed, gfx_off_state should be set.
 
 Thanks,
 Lijo
 
-> BR
-> Evan
->>
->> Thanks,
->> Lijo
->>
->>>    	r = uvd_v6_0_hw_fini(adev);
->>>    	if (r)
->>>    		return r;
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
->>> b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
->>> index 6d9108fa22e0..f0adecd5ec0b 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
->>> @@ -503,6 +503,11 @@ static int vce_v3_0_suspend(void *handle)
->>>    	int r;
->>>    	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->>>
->>> +	/*
->>> +	 * If the powergating is in process, wait for its completion.
->>> +	 */
->>> +	flush_delayed_work(&adev->vce.idle_work);
->>> +
->>>    	r = vce_v3_0_hw_fini(adev);
->>>    	if (r)
->>>    		return r;
->>>
+> 
+> 
