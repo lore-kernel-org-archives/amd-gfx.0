@@ -2,65 +2,68 @@ Return-Path: <SRS0=1/w8=NI=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CA4DDC4338F
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Aug 2021 12:49:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 649D5C43214
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Aug 2021 12:49:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 69CA660EE4
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Aug 2021 12:49:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 69CA660EE4
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ellerman.id.au
+	by mail.kernel.org (Postfix) with ESMTPS id 0E1E460EE4
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Aug 2021 12:49:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0E1E460EE4
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=alien8.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 506136E152;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8123A6E169;
 	Tue, 17 Aug 2021 12:49:33 +0000 (UTC)
-Received: from ozlabs.org (ozlabs.org [IPv6:2401:3900:2:1::2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 773406E0F0;
- Tue, 17 Aug 2021 12:38:34 +0000 (UTC)
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4GprDF2h3Tz9sSn;
- Tue, 17 Aug 2021 22:38:21 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ellerman.id.au;
- s=201909; t=1629203905;
- bh=NQyXzwQlAo0xsgc18yZpAOusgLGX71Fk6ueV1qdw5rA=;
- h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
- b=KYXSccDfXzjB2hBx15MoEIDf+kWmkDX50zC9GoNA+zRe2h6A0PbLhChR5Cdkwlare
- Skall5IaM+JNYijtEffokiKW2vk3GcnrIXL9w6cyu8ks9EO2+V9EOw5R+GGu1PiYQv
- D9NxQxRHQN8/BYGs83P6DhfXjoNRsufAILW0QoxjiCBqx4FvSdnLWb7NReYqLmQl3x
- p3W/80//lGcl/AzT+8dWLeaLNqPIEQLIUJX653gw3u6fYoSlh4acLTdYAto8S4VL1T
- o4r+VgRPi55oy+/sUiu+QbwiFA1DMF8zLkBn1HY/7VQPrYtD408/c7FtLIJoHUe5Qi
- Ap9BkljmAJJGw==
-From: Michael Ellerman <mpe@ellerman.id.au>
-To: Tom Lendacky <thomas.lendacky@amd.com>, linux-kernel@vger.kernel.org,
- x86@kernel.org, linuxppc-dev@lists.ozlabs.org, linux-s390@vger.kernel.org,
+Received: from mail.skyhub.de (mail.skyhub.de [IPv6:2a01:4f8:190:11c2::b:1457])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57C3789E06;
+ Tue, 17 Aug 2021 09:00:23 +0000 (UTC)
+Received: from zn.tnic (p200300ec2f1175003091845243004ed4.dip0.t-ipconnect.de
+ [IPv6:2003:ec:2f11:7500:3091:8452:4300:4ed4])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id C31EA1EC01B5;
+ Tue, 17 Aug 2021 11:00:17 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
+ t=1629190817;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:in-reply-to:in-reply-to:  references:references;
+ bh=CTZxwlhCTYBphd87lvceDZBtTDENyNB6RWw2n2fhNqo=;
+ b=cLyGe6Vfp/ZbXlGAJcu8s+oDyI+Cek5fSPumAUCPjd+TtrDcq8WnlTuq148AmmSefmwouf
+ U4RljFOl7bpVd/jo/MMo7NW5c66AcB8pntylvfCw1TSAnl6S3l0D/M7WEba3xU2EPv7jkK
+ R7PUFWJBwQxeCIeQqdKssk1UJ8FLB8Y=
+Date: Tue, 17 Aug 2021 11:00:56 +0200
+From: Borislav Petkov <bp@alien8.de>
+To: Tom Lendacky <thomas.lendacky@amd.com>
+Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-s390@vger.kernel.org,
  iommu@lists.linux-foundation.org, kvm@vger.kernel.org,
  linux-efi@vger.kernel.org, platform-driver-x86@vger.kernel.org,
  linux-graphics-maintainer@vmware.com, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, kexec@lists.infradead.org,
- linux-fsdevel@vger.kernel.org
-Cc: Borislav Petkov <bp@alien8.de>, Brijesh Singh <brijesh.singh@amd.com>,
+ linux-fsdevel@vger.kernel.org, Brijesh Singh <brijesh.singh@amd.com>,
  Joerg Roedel <joro@8bytes.org>, Andi Kleen <ak@linux.intel.com>,
  Sathyanarayanan Kuppuswamy <sathyanarayanan.kuppuswamy@linux.intel.com>,
- Tianyu Lan <Tianyu.Lan@microsoft.com>, Benjamin Herrenschmidt
- <benh@kernel.crashing.org>, Paul Mackerras <paulus@samba.org>
-Subject: Re: [PATCH v2 04/12] powerpc/pseries/svm: Add a powerpc version of
- prot_guest_has()
-In-Reply-To: <000f627ce20c6504dd8d118d85bd69e7717b752f.1628873970.git.thomas.lendacky@amd.com>
+ Tianyu Lan <Tianyu.Lan@microsoft.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Will Deacon <will@kernel.org>, Joerg Roedel <jroedel@suse.de>
+Subject: Re: [PATCH v2 05/12] x86/sme: Replace occurrences of sme_active()
+ with prot_guest_has()
+Message-ID: <YRt6yCNCBLwyyx5X@zn.tnic>
 References: <cover.1628873970.git.thomas.lendacky@amd.com>
- <000f627ce20c6504dd8d118d85bd69e7717b752f.1628873970.git.thomas.lendacky@amd.com>
-Date: Tue, 17 Aug 2021 22:38:19 +1000
-Message-ID: <874kbogsas.fsf@mpe.ellerman.id.au>
+ <c6c38d6253dc78381f9ff0f1823b6ee5ddeefacc.1628873970.git.thomas.lendacky@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <c6c38d6253dc78381f9ff0f1823b6ee5ddeefacc.1628873970.git.thomas.lendacky@amd.com>
 X-Mailman-Approved-At: Tue, 17 Aug 2021 12:49:31 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,44 +79,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Tom Lendacky <thomas.lendacky@amd.com> writes:
-> Introduce a powerpc version of the prot_guest_has() function. This will
-> be used to replace the powerpc mem_encrypt_active() implementation, so
-> the implementation will initially only support the PATTR_MEM_ENCRYPT
-> attribute.
->
-> Cc: Michael Ellerman <mpe@ellerman.id.au>
-> Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-> Cc: Paul Mackerras <paulus@samba.org>
-> Signed-off-by: Tom Lendacky <thomas.lendacky@amd.com>
-> ---
->  arch/powerpc/include/asm/protected_guest.h | 30 ++++++++++++++++++++++
->  arch/powerpc/platforms/pseries/Kconfig     |  1 +
->  2 files changed, 31 insertions(+)
->  create mode 100644 arch/powerpc/include/asm/protected_guest.h
->
-> diff --git a/arch/powerpc/include/asm/protected_guest.h b/arch/powerpc/include/asm/protected_guest.h
-> new file mode 100644
-> index 000000000000..ce55c2c7e534
-> --- /dev/null
-> +++ b/arch/powerpc/include/asm/protected_guest.h
-> @@ -0,0 +1,30 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * Protected Guest (and Host) Capability checks
-> + *
-> + * Copyright (C) 2021 Advanced Micro Devices, Inc.
-> + *
-> + * Author: Tom Lendacky <thomas.lendacky@amd.com>
-> + */
-> +
-> +#ifndef _POWERPC_PROTECTED_GUEST_H
-> +#define _POWERPC_PROTECTED_GUEST_H
+On Fri, Aug 13, 2021 at 11:59:24AM -0500, Tom Lendacky wrote:
+> diff --git a/arch/x86/mm/mem_encrypt.c b/arch/x86/mm/mem_encrypt.c
+> index edc67ddf065d..5635ca9a1fbe 100644
+> --- a/arch/x86/mm/mem_encrypt.c
+> +++ b/arch/x86/mm/mem_encrypt.c
+> @@ -144,7 +144,7 @@ void __init sme_unmap_bootdata(char *real_mode_data)
+>  	struct boot_params *boot_data;
+>  	unsigned long cmdline_paddr;
+>  
+> -	if (!sme_active())
+> +	if (!amd_prot_guest_has(PATTR_SME))
+>  		return;
+>  
+>  	/* Get the command line address before unmapping the real_mode_data */
+> @@ -164,7 +164,7 @@ void __init sme_map_bootdata(char *real_mode_data)
+>  	struct boot_params *boot_data;
+>  	unsigned long cmdline_paddr;
+>  
+> -	if (!sme_active())
+> +	if (!amd_prot_guest_has(PATTR_SME))
+>  		return;
+>  
+>  	__sme_early_map_unmap_mem(real_mode_data, sizeof(boot_params), true);
+> @@ -378,7 +378,7 @@ bool sev_active(void)
+>  	return sev_status & MSR_AMD64_SEV_ENABLED;
+>  }
+>  
+> -bool sme_active(void)
+> +static bool sme_active(void)
 
-Minor nit, we would usually use _ASM_POWERPC_PROTECTED_GUEST_H
+Just get rid of it altogether. Also, there's an
 
-Otherwise looks OK to me.
+EXPORT_SYMBOL_GPL(sev_active);
 
-Acked-by: Michael Ellerman <mpe@ellerman.id.au>
+which needs to go under the actual function. Here's a diff ontop:
 
-cheers
+---
+diff --git a/arch/x86/mm/mem_encrypt.c b/arch/x86/mm/mem_encrypt.c
+index 5635ca9a1fbe..a3a2396362a5 100644
+--- a/arch/x86/mm/mem_encrypt.c
++++ b/arch/x86/mm/mem_encrypt.c
+@@ -364,8 +364,9 @@ int __init early_set_memory_encrypted(unsigned long vaddr, unsigned long size)
+ /*
+  * SME and SEV are very similar but they are not the same, so there are
+  * times that the kernel will need to distinguish between SME and SEV. The
+- * sme_active() and sev_active() functions are used for this.  When a
+- * distinction isn't needed, the mem_encrypt_active() function can be used.
++ * PATTR_HOST_MEM_ENCRYPT and PATTR_GUEST_MEM_ENCRYPT flags to
++ * amd_prot_guest_has() are used for this. When a distinction isn't needed,
++ * the mem_encrypt_active() function can be used.
+  *
+  * The trampoline code is a good example for this requirement.  Before
+  * paging is activated, SME will access all memory as decrypted, but SEV
+@@ -377,11 +378,6 @@ bool sev_active(void)
+ {
+ 	return sev_status & MSR_AMD64_SEV_ENABLED;
+ }
+-
+-static bool sme_active(void)
+-{
+-	return sme_me_mask && !sev_active();
+-}
+ EXPORT_SYMBOL_GPL(sev_active);
+ 
+ /* Needs to be called from non-instrumentable code */
+@@ -398,7 +394,7 @@ bool amd_prot_guest_has(unsigned int attr)
+ 
+ 	case PATTR_SME:
+ 	case PATTR_HOST_MEM_ENCRYPT:
+-		return sme_active();
++		return sme_me_mask && !sev_active();
+ 
+ 	case PATTR_SEV:
+ 	case PATTR_GUEST_MEM_ENCRYPT:
+
+>  {
+>  	return sme_me_mask && !sev_active();
+>  }
+> @@ -428,7 +428,7 @@ bool force_dma_unencrypted(struct device *dev)
+>  	 * device does not support DMA to addresses that include the
+>  	 * encryption mask.
+>  	 */
+> -	if (sme_active()) {
+> +	if (amd_prot_guest_has(PATTR_SME)) {
+
+So I'm not sure: you add PATTR_SME which you call with
+amd_prot_guest_has() and PATTR_HOST_MEM_ENCRYPT which you call with
+prot_guest_has() and they both end up being the same thing on AMD.
+
+So why even bother with PATTR_SME?
+
+This is only going to cause confusion later and I'd say let's simply use
+prot_guest_has(PATTR_HOST_MEM_ENCRYPT) everywhere...
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
