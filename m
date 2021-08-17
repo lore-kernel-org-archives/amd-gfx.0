@@ -7,38 +7,38 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E0BCEC432BE
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Aug 2021 12:49:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DAEE2C4338F
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Aug 2021 12:49:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A580260EE4
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Aug 2021 12:49:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A580260EE4
+	by mail.kernel.org (Postfix) with ESMTPS id A62BC60EE4
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Aug 2021 12:49:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A62BC60EE4
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=alien8.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16AFC6E18F;
-	Tue, 17 Aug 2021 12:49:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3BB46E18E;
+	Tue, 17 Aug 2021 12:49:33 +0000 (UTC)
 Received: from mail.skyhub.de (mail.skyhub.de [IPv6:2a01:4f8:190:11c2::b:1457])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 752FF6E112;
- Tue, 17 Aug 2021 08:34:55 +0000 (UTC)
-Received: from zn.tnic (p200300ec2f1175003091845243004ed4.dip0.t-ipconnect.de
- [IPv6:2003:ec:2f11:7500:3091:8452:4300:4ed4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF67B6E158;
+ Tue, 17 Aug 2021 10:22:00 +0000 (UTC)
+Received: from zn.tnic (p200300ec2f1175001ae0093e4550657c.dip0.t-ipconnect.de
+ [IPv6:2003:ec:2f11:7500:1ae0:93e:4550:657c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 7C8781EC0556;
- Tue, 17 Aug 2021 10:34:48 +0200 (CEST)
+ by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 2B8E41EC054F;
+ Tue, 17 Aug 2021 12:21:55 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
- t=1629189288;
+ t=1629195715;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:in-reply-to:in-reply-to:  references:references;
- bh=v4uPhgZdiiJlpwtVqNaqXelj9T6f8upihbkiEG3o50g=;
- b=Lgjj2tnExsaUDkBXT2fdKHNrBO+BULjZeRoKzdZIjPh+qRzdb6UJ0pRCCeVAsCG4QoEACf
- APFEJ/MU8gA2brA4kk158c9d631CrTcx57aisdeaPv8pnWvIEXNBmby5rOZ0TNBUDXUqiK
- 8l7FlEHW1jR+emE55LfUblEZ9Q1Ifp8=
-Date: Tue, 17 Aug 2021 10:35:32 +0200
+ bh=1X4BsSgXR6fbLSuR6qMW32reDmK7N3Yo2urSU0QF5lM=;
+ b=lpCfJRL3J/Wnm269L3OKoCHONoluPmlzJfJpOhctCqjqZucjxjgrEhfFU+dBCsYrUX9hdD
+ 65itruzBqAaQO/sR4O6+e9rxfZKSO3QhoNUJVkUBsFIiKAtYdX2I4937fDaEHZuSoyKC/2
+ aUmz92C0im7LBiW9dGwuZuH6T9Or6uo=
+Date: Tue, 17 Aug 2021 12:22:33 +0200
 From: Borislav Petkov <bp@alien8.de>
 To: Tom Lendacky <thomas.lendacky@amd.com>
 Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
@@ -50,19 +50,16 @@ Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
  linux-fsdevel@vger.kernel.org, Brijesh Singh <brijesh.singh@amd.com>,
  Joerg Roedel <joro@8bytes.org>, Andi Kleen <ak@linux.intel.com>,
  Sathyanarayanan Kuppuswamy <sathyanarayanan.kuppuswamy@linux.intel.com>,
- Tianyu Lan <Tianyu.Lan@microsoft.com>,
- Michael Ellerman <mpe@ellerman.id.au>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Paul Mackerras <paulus@samba.org>
-Subject: Re: [PATCH v2 04/12] powerpc/pseries/svm: Add a powerpc version of
- prot_guest_has()
-Message-ID: <YRt01F6Mw6sB+hF8@zn.tnic>
+ Tianyu Lan <Tianyu.Lan@microsoft.com>, Joerg Roedel <jroedel@suse.de>
+Subject: Re: [PATCH v2 09/12] mm: Remove the now unused mem_encrypt_active()
+ function
+Message-ID: <YRuN6QhdIQtlluUh@zn.tnic>
 References: <cover.1628873970.git.thomas.lendacky@amd.com>
- <000f627ce20c6504dd8d118d85bd69e7717b752f.1628873970.git.thomas.lendacky@amd.com>
+ <83e4a62108eec470ac0b3f2510b982794d2b7989.1628873970.git.thomas.lendacky@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <000f627ce20c6504dd8d118d85bd69e7717b752f.1628873970.git.thomas.lendacky@amd.com>
+In-Reply-To: <83e4a62108eec470ac0b3f2510b982794d2b7989.1628873970.git.thomas.lendacky@amd.com>
 X-Mailman-Approved-At: Tue, 17 Aug 2021 12:49:31 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,48 +75,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Aug 13, 2021 at 11:59:23AM -0500, Tom Lendacky wrote:
-> Introduce a powerpc version of the prot_guest_has() function. This will
-> be used to replace the powerpc mem_encrypt_active() implementation, so
-> the implementation will initially only support the PATTR_MEM_ENCRYPT
-> attribute.
+On Fri, Aug 13, 2021 at 11:59:28AM -0500, Tom Lendacky wrote:
+> The mem_encrypt_active() function has been replaced by prot_guest_has(),
+> so remove the implementation.
 > 
-> Cc: Michael Ellerman <mpe@ellerman.id.au>
-> Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-> Cc: Paul Mackerras <paulus@samba.org>
+> Reviewed-by: Joerg Roedel <jroedel@suse.de>
 > Signed-off-by: Tom Lendacky <thomas.lendacky@amd.com>
 > ---
->  arch/powerpc/include/asm/protected_guest.h | 30 ++++++++++++++++++++++
->  arch/powerpc/platforms/pseries/Kconfig     |  1 +
->  2 files changed, 31 insertions(+)
->  create mode 100644 arch/powerpc/include/asm/protected_guest.h
+>  include/linux/mem_encrypt.h | 4 ----
+>  1 file changed, 4 deletions(-)
 > 
-> diff --git a/arch/powerpc/include/asm/protected_guest.h b/arch/powerpc/include/asm/protected_guest.h
-> new file mode 100644
-> index 000000000000..ce55c2c7e534
-> --- /dev/null
-> +++ b/arch/powerpc/include/asm/protected_guest.h
-> @@ -0,0 +1,30 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * Protected Guest (and Host) Capability checks
-> + *
-> + * Copyright (C) 2021 Advanced Micro Devices, Inc.
-> + *
-> + * Author: Tom Lendacky <thomas.lendacky@amd.com>
-> + */
-> +
-> +#ifndef _POWERPC_PROTECTED_GUEST_H
-> +#define _POWERPC_PROTECTED_GUEST_H
-> +
-> +#include <asm/svm.h>
-> +
-> +#ifndef __ASSEMBLY__
+> diff --git a/include/linux/mem_encrypt.h b/include/linux/mem_encrypt.h
+> index 5c4a18a91f89..ae4526389261 100644
+> --- a/include/linux/mem_encrypt.h
+> +++ b/include/linux/mem_encrypt.h
+> @@ -16,10 +16,6 @@
+>  
+>  #include <asm/mem_encrypt.h>
+>  
+> -#else	/* !CONFIG_ARCH_HAS_MEM_ENCRYPT */
+> -
+> -static inline bool mem_encrypt_active(void) { return false; }
+> -
+>  #endif	/* CONFIG_ARCH_HAS_MEM_ENCRYPT */
+>  
+>  #ifdef CONFIG_AMD_MEM_ENCRYPT
+> -- 
 
-Same thing here. Pls audit the whole set whether those __ASSEMBLY__
-guards are really needed and remove them if not.
-
-Thx.
+This one wants to be part of the previous patch.
 
 -- 
 Regards/Gruss,
