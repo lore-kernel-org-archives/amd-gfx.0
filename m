@@ -2,132 +2,110 @@ Return-Path: <SRS0=1/w8=NI=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-21.0 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C35D8C4338F
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Aug 2021 01:15:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 705FFC4338F
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Aug 2021 04:28:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7302C60ED5
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Aug 2021 01:15:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7302C60ED5
+	by mail.kernel.org (Postfix) with ESMTPS id F1D6460F38
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Aug 2021 04:28:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F1D6460F38
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E0316E09C;
-	Tue, 17 Aug 2021 01:15:53 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2080.outbound.protection.outlook.com [40.107.220.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D9CE6E09C
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Aug 2021 01:15:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A5076E0F1;
+	Tue, 17 Aug 2021 04:28:57 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2068.outbound.protection.outlook.com [40.107.236.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EDC16E0F1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Aug 2021 04:28:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jiykw+7nC0HWcqw6sL5Ds9tlJYMbQFPoxF6gLetAibOmPYDIxGJzEKs/61ZJoQkIBxim3wzqWD5AtsH+3YH55m75Z0q3NufizTp5xtoHpP0lxtRsmy5gJL9bLiDW6P9cOHC7phoPVcRqxFVBvkjTzO1IK2SWJocPVy5b4x7GQpYBu8mRvaqhd9PbHLBEASDJAkKxJ5CcL8KQ/XS69KayYmqtTsGP4hSewMJxfkum8UdYcuaCZQPScYeZe2amW+nxfUAD2sY2JPZFSN4VcSDmWkqRHT0uPv21smy4nIfBqOnsVX8r+4M4AW7nlYoG1kZykFv03wg/87mcQAd7nay2Dg==
+ b=Gz/6OZos3mlqZT42MXZvR1m99r5IsPIxC3OXAtBCspNg7aJ5A2MvVebikk86MUVMKK2e5xTfrNBlDFMET3c9kLlIuP1+yWK9ZxUwT7NEjH4U7KRWKPt64+mQzIk3eRSwykMzYW91EWobqMamau7IN1cQQV1X6V50HgI9SVOsjA9gn1/6hctXwGix9trCLh/ObucWps9FsKIeNTdCCLlKePiDFs39dnyrAQNbxqCmrDgg3d6mZHNiXpA21uz6z7LyW1i2A7yXhGRd1TCdJs465VjyVV+j/kVWQiZE5+dA6QK+53fDBp9cySAnk/51lj9V6SJE0EhwdKxliOwXsny1cw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=z+jyCu189qsYRLrPYrlVGY/vazP43ZkvQfkywnL0I3Y=;
- b=gAwVuD52pETuOrswD0c5VL8HiuSwTNHq5zPSFIS+HXmnWyIyJeZIqC+xqlGnDkvd6uXMZLkjuKZfY37teqxqmc3CZxVzraW1x7dfCe7qI0ts7h7ObFbtJacOrMe6VoOf/he1HVJiBkCMBubuY8mbpv1GsYQIYU0V5mYkVnAQnnFAIgbM5i6kK2tpno6bnVuTOnBO/p2sITBVd5QzKYYKg0gQYwJ/JWJ/rhQgtCn6AU/kEbm20Ot9EH4JM/GU2u/1Q+aguYl2S1qE6woy4Nv8vB5MsATwpxwkIeGnStA/ZPyv3W7F/al6VGjCLlP73u7KFJmj/+2H/bJk36cIZNzsKg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=uyvdeybr8X3utxNnF00j/rZJ54nN8Xkcc7yQ17Hb+JM=;
+ b=LDxsXHzzmNe4qmlh/xRJxOV8SA579MEcaPGqo1+H0tnGrGZa544gopQJPghmZ5iHpK0HtBv7aDdn3GjmBIdFFnvhATisZzf7W8Rw1GkHeoLU20um/XEdvihCVzjiChjl6id8EZQ9ayE5dn5VjJmbB6Bv5DMjwWP89mDu0p21kUMX5msm63i5UrQEEa06f0MGxXK3ScYKWnldHVd2pjlvcVmuJW/uUCatNbBMqehW6HnLKfTzYT3gvVDoV56jPepg3XGSV8Zvaf1a1rEr/pUO0OLv2u264O1hAcP6mT/a44cO3pqR1kGPwgqoSsUvnFMWlw+JRhi+ZoTDMP96r3gvLw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=z+jyCu189qsYRLrPYrlVGY/vazP43ZkvQfkywnL0I3Y=;
- b=1j8/DloQbpwIys/bOWUL+j+IUhS5cELN0j8DZR7oADAHloumaJ/DW5WZ5vhoIZ3Lp/x+tcFAhJzELRRHkIJDZtgOqbLO3xFsDHEDaIZXeOU7by9VzwqWf6OnqpsSIzg7vV6LuQQqARwzXt1BHvHnoqCGz2ZhzMc+U2pgY3e0wMw=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5129.namprd12.prod.outlook.com (2603:10b6:408:136::12)
- by BN9PR12MB5258.namprd12.prod.outlook.com (2603:10b6:408:11f::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.15; Tue, 17 Aug
- 2021 01:15:48 +0000
-Received: from BN9PR12MB5129.namprd12.prod.outlook.com
- ([fe80::b891:a906:28f0:fdb]) by BN9PR12MB5129.namprd12.prod.outlook.com
- ([fe80::b891:a906:28f0:fdb%4]) with mapi id 15.20.4415.023; Tue, 17 Aug 2021
- 01:15:48 +0000
-Subject: Re: [PATCH] drm/amdkfd: fix KFDSVMRangeTest.PartialUnmapSysMemTest
- fails
-To: Yifan Zhang <yifan1.zhang@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20210814101213.3936141-1-yifan1.zhang@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Message-ID: <8595f09a-48b2-7f8c-037c-91c9d74cc271@amd.com>
-Date: Mon, 16 Aug 2021 21:15:46 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
-In-Reply-To: <20210814101213.3936141-1-yifan1.zhang@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-ClientProxiedBy: YT3PR01CA0063.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:84::28) To BN9PR12MB5129.namprd12.prod.outlook.com
- (2603:10b6:408:136::12)
+ bh=uyvdeybr8X3utxNnF00j/rZJ54nN8Xkcc7yQ17Hb+JM=;
+ b=OQHxu2RlKdLGTmbhqjb/dU/E3hq8z0Mx3kF8Ifwk0ZVD0JSwlerAhGaBX3Mn8xI5saPminNEAnNoNkF46U/+sBIxkfpgdX/OrfhuzKswBbqvr/pP32bmrcKKwaF8suGLkC5SbE4DwnmgL7Mfh4VtuLxUNnbW22An53avX1eWFW8=
+Received: from DM5PR13CA0057.namprd13.prod.outlook.com (2603:10b6:3:117::19)
+ by CO6PR12MB5426.namprd12.prod.outlook.com (2603:10b6:5:35d::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.14; Tue, 17 Aug
+ 2021 04:28:53 +0000
+Received: from DM6NAM11FT038.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:3:117:cafe::a7) by DM5PR13CA0057.outlook.office365.com
+ (2603:10b6:3:117::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.9 via Frontend
+ Transport; Tue, 17 Aug 2021 04:28:53 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DM6NAM11FT038.mail.protection.outlook.com (10.13.173.137) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4415.14 via Frontend Transport; Tue, 17 Aug 2021 04:28:52 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Mon, 16 Aug
+ 2021 23:28:51 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Mon, 16 Aug
+ 2021 21:28:51 -0700
+Received: from wayne-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2242.12 via Frontend
+ Transport; Mon, 16 Aug 2021 23:28:50 -0500
+From: Jingwen Chen <Jingwen.Chen2@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <monk.liu@amd.com>, <christian.koenig@amd.com>,
+ <Andrey.Grodzovsky@amd.com>, Jingwen Chen <Jingwen.Chen2@amd.com>
+Subject: [PATCH] Revert "drm/scheduler: Avoid accessing freed bad job."
+Date: Tue, 17 Aug 2021 12:28:16 +0800
+Message-ID: <20210817042815.1269454-1-Jingwen.Chen2@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [192.168.2.100] (142.186.47.3) by
- YT3PR01CA0063.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:84::28) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4415.14 via Frontend Transport; Tue, 17 Aug 2021 01:15:48 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 660e09fa-dcab-4333-2164-08d9611c8bcc
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5258:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BN9PR12MB5258C1116865D622FCC4B25492FE9@BN9PR12MB5258.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-MS-Office365-Filtering-Correlation-Id: 6cb4ffe7-eb04-4699-44aa-08d961378497
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5426:
+X-Microsoft-Antispam-PRVS: <CO6PR12MB54263641CFB835FB7B53C872B7FE9@CO6PR12MB5426.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1284;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: LCLyO1vuo6UGG/BKlDPR4MmH1zNxhwpFu9ZQ2aOQMcr3Gxo1UGDPCa4cuLEtGdOb9vzp4gKh/cOeQSDy2jab7Kh8hdGJ5ehvBqHAl1rCALDETyd5g6+HA81CIlEQ6U/JEDkc+FXUKmNj/cAY/vUmjfwHhhG6r+mny8NyOrtzztGG1NpsVwezAA465QyoXWemjgT35ghNEijbrdJ87jYkNftqtktQcrmVZgEeP7qx2a/7S51Rhcs4TOVJmXplfVK3xjhx0YO2qkksk/2ucCrC78tReXNmz49x8+EImoqKnhU+xAJOobhxaRTCknUtVr3kpWGFBi3ue06bViUS3Cei80KqyyfcQeamV8xw3inS/5Z3yCptc2zbLY+RBW0Bz6pq8VAsdfPw/e+WrS+MWm0PlD8IdbTGYOm11jX4lLWtiQmoWRQ88O4sVfNmXzUuyZQ3CrQkVNkJo1ycrQat0euH5TQo4SXVN7lbIi9MfNVBS/B2FlsqDbf5M3v7ljjbeWhNkVmGhDt8zcfUCWP6cLoNZVn0GVzKETkXWTTRYcdDP4ue7zMpMGAxbDaJJGtlX1MQZxG8Omd0iPF9QonThIBIfLIBOg+Ouoyp360iwRGkkL6aOMUtBERyxmnfOxS1qJby+xeQiSr5IHYrDVvuvZCZkaT220XIFNX5S6dArhpZzwPEYuw1wg6567naWFojs9rSy0h8fdki+xsZt3dN4lKPCXE6EJWnzGttYU5m0YcIn5hJDFEX5/YF3j6ILI+gd0Xybh3F6Hiy7wj1vSfq+AvBhQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5129.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(83380400001)(31686004)(956004)(2616005)(6486002)(38100700002)(44832011)(36756003)(66556008)(2906002)(86362001)(8936002)(26005)(16576012)(66946007)(5660300002)(508600001)(8676002)(186003)(31696002)(316002)(66476007)(213903007)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: gNuPpKlX6/bKdxJQNl4TowIY20aWl5EC3Zj4bPd3peLl0KC6AuEHuLMbWqVaxy1UmCgR8IDb8ffV6PRK865zXuej+tBxDR8mk9rrxY66VIrdXrr4Y5eXJ3KJrLI8jvH//gKgZQTdj0hyicPOqc3frBcPv3vRwEBujJFSJGJLPrhn4pfzlvXLIWub4oqGcf53buO8s+AJS5A24xB4E4OLxZIbG9mH0NpREpOFFuLuoTSsqzKV+gRJSX5cZM3U5wPFmN+sSfmN7/trSTBnkMI6BlFV2G11DYFWqTWMOOBoMm+d5KXWAkCBBRRc2mmz1jH/N4EI+0r3hdLyDcNtfiZMjXVpHAvzyeBqWIl4MjIXRmAECBfLt6sWjy0p19ljpMrPaT2swBpj7leaN5BDYfBRhKBqzbPfREyzdCo26nTormYRZubL2Jk7MV6KfhzjtfQVAVwnpHq1D2+b/wt3ci/4qPc1xDJIxjPCRGhUJvWMbHEzVaSuDPZ5fQYaiKU2r6QAteIZOVfCjn+Pf46q345+qFSHgzvSJv6sx7yryKp37k4ElVtIGOrqYkHfKQX7z7LNayjjkG43yoTR5SsIL8myPWk13PyKrw92+1Z9ewhtkbSvvfb2oCOzy6/Ls0G2ORlbQq2Y08RX51HbQVPH57E6lKnZt7AcBlzuU5V4LwnH7RDoqzX7B08Gurw/ni12xPIO/NlnDuanqz6BTMR0YPTVZntpsPkhTsbVIWEBvERAG81uf2CyEyZpRiBY1q7zpQSXVXJQXkEthD9Kkv+BZtF3hA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(346002)(39860400002)(136003)(376002)(396003)(46966006)(36840700001)(5660300002)(83380400001)(36756003)(34020700004)(6666004)(7696005)(2616005)(426003)(82310400003)(47076005)(316002)(1076003)(70206006)(70586007)(8936002)(2906002)(4326008)(186003)(6916009)(26005)(82740400003)(81166007)(478600001)(86362001)(336012)(8676002)(356005)(36860700001)(54906003)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SThJQ3RoZ04yK2pnZjZXaDlFdTFTRm1wMGU3dC9uYStac2lNYUpJSW44RGN5?=
- =?utf-8?B?U2d3UkdacFZXdGp4NER6T0MvTFcyUm1FajVyRkJDdEZ4WmN5R015anVua1Bu?=
- =?utf-8?B?M0pXcEFxaFBlS3pmKzZIbkoyb2U3KzF6RmlWS0o4dFc4Z20ydFZKV1pkL2xG?=
- =?utf-8?B?TFdVQ2JMNXc3azVLR21ESHFNUHlXbHlXdlF6SDM1QXBxeWNtaGNuMkxGMzB6?=
- =?utf-8?B?eDVOWHpTMjNvNW9wZ0c2RWpqTG1vQnNQdm9qUkQreUZTM2lEVlFoNldETmJP?=
- =?utf-8?B?VHE1UHRHRmRScG9nYmlGRklsVEdTcE9zTGJqMXpiRmlVeHAyZ2wzRnZTeGdS?=
- =?utf-8?B?ODF4eHVsR0J3K1VIMml2aHBJV01BV1o3bm53dHU4VlFFSDBpVlRNVURyWVpu?=
- =?utf-8?B?eDNZOHdtRS9pV0RGU1VySGtoM3VZQ3AzTGpkODNSek13NDM2VzNjR0JXSnd0?=
- =?utf-8?B?bVJOYnM0dlJMQUNnZGVlR1l4RHIxUmFSd29QSEl2eDU2SVhuMTdIc3JQV1BQ?=
- =?utf-8?B?SGM5TmFxQlRxZWFJM25ORFljYmZLY05XTWxOVlBoVTgzcEx4MmhiaWhENDcr?=
- =?utf-8?B?bHk4UnRZbnlQSGwxY21XVHBuM2UvVll1a0VLOG1nZTFHVFVYNGpFcUtjU09T?=
- =?utf-8?B?c283bWNoVkxnSmRYZWg2L0JDNlFpTEhPUG9JSXUrSHAwNkZGSDY4WGVQV3ZO?=
- =?utf-8?B?dHlyMXhCVUY2cTkrQWNDMGluTWdtNmJaOS9hVUtrQTN0dm93WEdZdDRtK1JM?=
- =?utf-8?B?M1VZVDUxZXptZEkxcG1KZzVmN2l2M1g5MVhGTzNSSk5PMi9VNTZ1aWVBb2h5?=
- =?utf-8?B?U29kcjVpOFl1ajl5TS9BYkI4MnZ2K0tJNDdvbnlqcWtrVVcrUFJ3SzBmcnZF?=
- =?utf-8?B?WVhJdStQZ1d2bVN1WW0yTGYzQ2NsYWNGUVAvbmkvbDZzSFM5Nk4zcW85czdB?=
- =?utf-8?B?N3QwcjVsWFVucTdtWUwwQUVaZ0Q3TFpadE0xRnBHNndpN3ROQ0VOQmhCSXpB?=
- =?utf-8?B?b3FSYW5MVktYZ3FpT0pMV2g2a3R2RU0raGYvQURVUE92ZlFXNldlaGpSVXJV?=
- =?utf-8?B?UzdBbEtVeWJLUjdsMlltQ0FTdUNlV21qdm9OY2RTTkV2dU9SZDZZdFNSUk9m?=
- =?utf-8?B?K3BDNVU3S0tyMVRBWFRRU3pETFBlQ3h6bURHOW1rYzlpZ1VDb2xnb01QQmYz?=
- =?utf-8?B?MU1FNWtyaVVld0NkNm1HaVpVeTREYWpWT1ZhMDdHUEtrZWl0dmEwZXk1R0pO?=
- =?utf-8?B?blRvb2pFRUp6OWVCekpTSnV1ZENJSUkrZmxNTi83TUJnMms3cVpZV2N3K0Qv?=
- =?utf-8?B?OWRCSjBMK1VCRnNzelp4ZzRzZGVtNUc4SGZ3MHdUYStmMkpqOVR5STB2YzV4?=
- =?utf-8?B?U0QrT1VDa3czTjQxa0V1N1I3SE13WmhUNEYrM3JCRFEvejFTMDRCWlF3VXVB?=
- =?utf-8?B?WmJ2YTlxangxT3BNNHljOEM5VzZXZlVZMi8rb0pSS1RSWnlEVytmZjhqSVlP?=
- =?utf-8?B?cDVvSEJNajd0YWtINDIvd3ZBZGljOStnV3VuOGQxU0FoakxGeDVsOTF4K2Jz?=
- =?utf-8?B?bEl3cHpFRTV3dFl3YTRlVUxyV1pqcEUwc3NMeHNJM053dFYwUWkySVRXOXJD?=
- =?utf-8?B?aFVHU0tHNG9renVGOCtBNnMxV2lYWDZkYlE5cXgrWUZ2TU53blJDU2xlR3Rs?=
- =?utf-8?B?bll0MEZzV0ZEL0lsMmZESU9FSE16c1NzSXdmekF4ZjlNZVhNZktnNEN2TmFK?=
- =?utf-8?Q?9TxkgxndH0775FkrhcB0q3i9sMhCBBGsBxqtS+9?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 660e09fa-dcab-4333-2164-08d9611c8bcc
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5129.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2021 01:15:48.3130 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2021 04:28:52.4287 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6cb4ffe7-eb04-4699-44aa-08d961378497
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: w1HntqBd5pqRnwieFtINEU2G657n1YBT4rnA6Oo4aDXJ+qg8hI6CPQ62dcVhf3/twPIxVipe26zlcMtEKZqGaA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5258
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT038.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5426
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,83 +120,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+[Why]
+for bailing job, this commit will delete it from pending list thus the
+bailing job will never have a chance to be resubmitted even in advance
+tdr mode.
 
-Am 2021-08-14 um 6:12 a.m. schrieb Yifan Zhang:
-> [ RUN      ] KFDSVMRangeTest.PartialUnmapSysMemTest
-> /home/yifan/brahma/libhsakmt/tests/kfdtest/src/KFDTestUtil.cpp:245: Failure
-> Value of: (hsaKmtAllocMemory(m_Node, m_Size, m_Flags, &m_pBuf))
->   Actual: 1
-> Expected: HSAKMT_STATUS_SUCCESS
-> Which is: 0
-> /home/yifan/brahma/libhsakmt/tests/kfdtest/src/KFDTestUtil.cpp:248: Failure
-> Value of: (hsaKmtMapMemoryToGPUNodes(m_pBuf, m_Size, __null, mapFlags, 1, &m_Node))
->   Actual: 1
-> Expected: HSAKMT_STATUS_SUCCESS
-> Which is: 0
-> /home/yifan/brahma/libhsakmt/tests/kfdtest/src/KFDTestUtil.cpp:306: Failure
-> Expected: ((void *)__null) != (ptr), actual: NULL vs NULL
-> Segmentation fault (core dumped)
-> [          ] Profile: Full Test
-> [          ] HW capabilities: 0x9
->
-> kernel log:
->
-> [  102.029150]  ret_from_fork+0x22/0x30
-> [  102.029158] ---[ end trace 15c34e782714f9a3 ]---
-> [ 3613.603598] amdgpu: Address: 0x7f7149ccc000 already allocated by SVM
-> [ 3613.610620] show_signal_msg: 27 callbacks suppressed
->
-> These is race with deferred actions from previous memory map
-> changes (e.g. munmap).Flush pending deffered work to avoid such case.
->
-> Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 7 +++++++
->  1 file changed, 7 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> index 3177c4a0e753..982bf538dc3d 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> @@ -1261,6 +1261,13 @@ static int kfd_ioctl_alloc_memory_of_gpu(struct file *filep,
->  		return -EINVAL;
->  
->  #if IS_ENABLED(CONFIG_HSA_AMD_SVM)
-> +	/* Flush pending deferred work to avoid racing with deferred actions from
-> +	 * previous memory map changes (e.g. munmap). Concurrent memory map changes
-> +	 * can still race with get_attr because we don't hold the mmap lock. But that
+[How]
+after embeded hw_fence into amdgpu_job is done, the race condition that
+this commit tries to work around is completely solved.So revert this
+commit.
+This reverts commit 135517d3565b48f4def3b1b82008bc17eb5d1c90.
 
-This comment would need to be updated. This is not get_attr. Whether or
-not undefined behaviour is acceptable in this case is a different
-question from get_attr. In the get_attr case, a race is caused by a
-broken application and causes potentially incorrect results being
-reported to user mode. Garbage-in ==> garbage-out. No problem.
+Signed-off-by: Jingwen Chen <Jingwen.Chen2@amd.com>
+---
+ drivers/gpu/drm/scheduler/sched_main.c | 27 --------------------------
+ 1 file changed, 27 deletions(-)
 
-In the case of this race here, the cause is still a broken application.
-But this check is here to catch broken applications and prevent them
-from mapping the same virtual address range with two different
-allocators. So I'd argue that the race condition is not acceptable here
-because it has consequences for VM mappings managed by the kernel mode
-driver.
+diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+index a2a953693b45..31d1176d939f 100644
+--- a/drivers/gpu/drm/scheduler/sched_main.c
++++ b/drivers/gpu/drm/scheduler/sched_main.c
+@@ -317,21 +317,10 @@ static void drm_sched_job_timedout(struct work_struct *work)
+ 	enum drm_gpu_sched_stat status = DRM_GPU_SCHED_STAT_NOMINAL;
+ 
+ 	sched = container_of(work, struct drm_gpu_scheduler, work_tdr.work);
+-
+-	/* Protects against concurrent deletion in drm_sched_get_cleanup_job */
+-	spin_lock(&sched->job_list_lock);
+ 	job = list_first_entry_or_null(&sched->pending_list,
+ 				       struct drm_sched_job, list);
+ 
+ 	if (job) {
+-		/*
+-		 * Remove the bad job so it cannot be freed by concurrent
+-		 * drm_sched_cleanup_jobs. It will be reinserted back after sched->thread
+-		 * is parked at which point it's safe.
+-		 */
+-		list_del_init(&job->list);
+-		spin_unlock(&sched->job_list_lock);
+-
+ 		status = job->sched->ops->timedout_job(job);
+ 
+ 		/*
+@@ -342,8 +331,6 @@ static void drm_sched_job_timedout(struct work_struct *work)
+ 			job->sched->ops->free_job(job);
+ 			sched->free_guilty = false;
+ 		}
+-	} else {
+-		spin_unlock(&sched->job_list_lock);
+ 	}
+ 
+ 	if (status != DRM_GPU_SCHED_STAT_ENODEV) {
+@@ -392,20 +379,6 @@ void drm_sched_stop(struct drm_gpu_scheduler *sched, struct drm_sched_job *bad)
+ 
+ 	kthread_park(sched->thread);
+ 
+-	/*
+-	 * Reinsert back the bad job here - now it's safe as
+-	 * drm_sched_get_cleanup_job cannot race against us and release the
+-	 * bad job at this point - we parked (waited for) any in progress
+-	 * (earlier) cleanups and drm_sched_get_cleanup_job will not be called
+-	 * now until the scheduler thread is unparked.
+-	 */
+-	if (bad && bad->sched == sched)
+-		/*
+-		 * Add at the head of the queue to reflect it was the earliest
+-		 * job extracted.
+-		 */
+-		list_add(&bad->list, &sched->pending_list);
+-
+ 	/*
+ 	 * Iterate the job list from later to  earlier one and either deactive
+ 	 * their HW callbacks or remove them from pending list if they already
+-- 
+2.25.1
 
-
-> +	 * would be a race condition in the application anyway, and undefined
-> +	 * behaviour is acceptable in that case.
-> +	 */
-> +	flush_work(&svms->deferred_list_work);
->  	mutex_lock(&svms->lock);
-
-This still leaves a brief race. There is an easy way to fix that: Use
-svm_range_list_lock_and_flush_work like this:
-
-	svm_range_list_lock_and_flush_work(svms, current->mm);
-	mutex_lock(&svms->lock);
-	mmap_write_unlock(current->mm);
-	...
-
-Regards,
-  Felix
-
-
->  	if (interval_tree_iter_first(&svms->objects,
->  				     args->va_addr >> PAGE_SHIFT,
