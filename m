@@ -7,48 +7,48 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 705FFC4338F
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Aug 2021 04:28:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 42C65C4338F
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Aug 2021 04:30:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F1D6460F38
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Aug 2021 04:28:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F1D6460F38
+	by mail.kernel.org (Postfix) with ESMTPS id 0EB3B60F5E
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Aug 2021 04:30:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0EB3B60F5E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A5076E0F1;
-	Tue, 17 Aug 2021 04:28:57 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2068.outbound.protection.outlook.com [40.107.236.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EDC16E0F1
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Aug 2021 04:28:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 780226E0F3;
+	Tue, 17 Aug 2021 04:30:25 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2072.outbound.protection.outlook.com [40.107.223.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 365786E0F3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Aug 2021 04:30:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Gz/6OZos3mlqZT42MXZvR1m99r5IsPIxC3OXAtBCspNg7aJ5A2MvVebikk86MUVMKK2e5xTfrNBlDFMET3c9kLlIuP1+yWK9ZxUwT7NEjH4U7KRWKPt64+mQzIk3eRSwykMzYW91EWobqMamau7IN1cQQV1X6V50HgI9SVOsjA9gn1/6hctXwGix9trCLh/ObucWps9FsKIeNTdCCLlKePiDFs39dnyrAQNbxqCmrDgg3d6mZHNiXpA21uz6z7LyW1i2A7yXhGRd1TCdJs465VjyVV+j/kVWQiZE5+dA6QK+53fDBp9cySAnk/51lj9V6SJE0EhwdKxliOwXsny1cw==
+ b=Ykid5fkUNFYdrTOl8+oO2RHpYvMKbBBiy6fAGuAmgWtySue6tCftQ1wl/wzoZ91uh6eSrYjeXbwTAOVYJK6/T1KGbFATicdO8wUZHQWHDeNkNF5TShPe6X2kxSulB35aHGhmcoh0fo1CIoMCofVhCwEBWHBpmJufRGj/+ZIjXW5ddk5r7mfF3p5uMGCCz1Rn7xjlHaJLDv+d+yo0QpzNpgfCPYWCPyGXAzLf5h6MTodwWyEy9dQL5nLtL2+zihVlfQ5XJeRDML/3jcnMxSBD2+Xjq8MNMJajpqLwlLyq8gQjvq7wpaeYfFGJZU8d1ujMrcBxbsM3A2G40fpt47E7gg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uyvdeybr8X3utxNnF00j/rZJ54nN8Xkcc7yQ17Hb+JM=;
- b=LDxsXHzzmNe4qmlh/xRJxOV8SA579MEcaPGqo1+H0tnGrGZa544gopQJPghmZ5iHpK0HtBv7aDdn3GjmBIdFFnvhATisZzf7W8Rw1GkHeoLU20um/XEdvihCVzjiChjl6id8EZQ9ayE5dn5VjJmbB6Bv5DMjwWP89mDu0p21kUMX5msm63i5UrQEEa06f0MGxXK3ScYKWnldHVd2pjlvcVmuJW/uUCatNbBMqehW6HnLKfTzYT3gvVDoV56jPepg3XGSV8Zvaf1a1rEr/pUO0OLv2u264O1hAcP6mT/a44cO3pqR1kGPwgqoSsUvnFMWlw+JRhi+ZoTDMP96r3gvLw==
+ bh=lbsbMMYJnjcgSJxXkAl3vbt4lL8XBP8pguLULb9N71A=;
+ b=TeV5Jf+IWRvKwTp+u8rAAwmry8q3QTc7+4Xxkxt9nI+3uX0oj2sIMUxOYeCQVqwIRjhEgkCRKONACAuGkJ1ivjPtyUp+D1E16FYqX6xNxPFTakmcxJPLbZdzBJQPTtQDdBXcYTqqgqXvnBA5uGC9r8rY9dd1ycAFkU3s2PnwLDgjMT23Bkwhbuk1xmiMAdGWhSj+lar62C+7XgapIdMf1+dvCMr9TYbm8GMhpnGYHq2CqGLTaEZxGTTg+aLpq+KwxIl9YN/tNDV8ZWvY9vl4RONL6HqSyQAKt3Z2fpscjVl+1cYv9EjJ6xOqJ+faANJB6yPbcCntOh3ESNBXiuba9w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uyvdeybr8X3utxNnF00j/rZJ54nN8Xkcc7yQ17Hb+JM=;
- b=OQHxu2RlKdLGTmbhqjb/dU/E3hq8z0Mx3kF8Ifwk0ZVD0JSwlerAhGaBX3Mn8xI5saPminNEAnNoNkF46U/+sBIxkfpgdX/OrfhuzKswBbqvr/pP32bmrcKKwaF8suGLkC5SbE4DwnmgL7Mfh4VtuLxUNnbW22An53avX1eWFW8=
-Received: from DM5PR13CA0057.namprd13.prod.outlook.com (2603:10b6:3:117::19)
- by CO6PR12MB5426.namprd12.prod.outlook.com (2603:10b6:5:35d::9) with
+ bh=lbsbMMYJnjcgSJxXkAl3vbt4lL8XBP8pguLULb9N71A=;
+ b=zNgH+yS/8hIbcxbgQGYiocnPtl/FOV9u5YC3d6JD6uiqeEoh94sWotMjQILTNDwMG4YXcuKmninCngbUUHAqJGBYhgZZUVnw/cw0xqMrkCQlK8zayW0EnUFidZQz4n9ZJPpsMxKZIBb4AhI4FYOgB/tudvN37xnpUc16Jpi/fwY=
+Received: from DM5PR19CA0038.namprd19.prod.outlook.com (2603:10b6:3:9a::24) by
+ MWHPR1201MB2541.namprd12.prod.outlook.com (2603:10b6:300:e5::23) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.14; Tue, 17 Aug
- 2021 04:28:53 +0000
-Received: from DM6NAM11FT038.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:117:cafe::a7) by DM5PR13CA0057.outlook.office365.com
- (2603:10b6:3:117::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.9 via Frontend
- Transport; Tue, 17 Aug 2021 04:28:53 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.16; Tue, 17 Aug
+ 2021 04:30:22 +0000
+Received: from DM6NAM11FT036.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:3:9a:cafe::df) by DM5PR19CA0038.outlook.office365.com
+ (2603:10b6:3:9a::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.14 via Frontend
+ Transport; Tue, 17 Aug 2021 04:30:22 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -57,55 +57,53 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DM6NAM11FT038.mail.protection.outlook.com (10.13.173.137) with Microsoft SMTP
+ DM6NAM11FT036.mail.protection.outlook.com (10.13.172.64) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4415.14 via Frontend Transport; Tue, 17 Aug 2021 04:28:52 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
+ 15.20.4415.16 via Frontend Transport; Tue, 17 Aug 2021 04:30:22 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Mon, 16 Aug
- 2021 23:28:51 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ 2021 23:30:21 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Mon, 16 Aug
- 2021 21:28:51 -0700
-Received: from wayne-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2242.12 via Frontend
- Transport; Mon, 16 Aug 2021 23:28:50 -0500
-From: Jingwen Chen <Jingwen.Chen2@amd.com>
+ 2021 23:30:21 -0500
+Received: from hawzhang-System-Product.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2242.12
+ via Frontend Transport; Mon, 16 Aug 2021 23:30:20 -0500
+From: Hawking Zhang <Hawking.Zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: <monk.liu@amd.com>, <christian.koenig@amd.com>,
- <Andrey.Grodzovsky@amd.com>, Jingwen Chen <Jingwen.Chen2@amd.com>
-Subject: [PATCH] Revert "drm/scheduler: Avoid accessing freed bad job."
-Date: Tue, 17 Aug 2021 12:28:16 +0800
-Message-ID: <20210817042815.1269454-1-Jingwen.Chen2@amd.com>
-X-Mailer: git-send-email 2.25.1
+CC: Hawking Zhang <Hawking.Zhang@amd.com>
+Subject: [PATCH] drm/amdgpu: increase max xgmi physical node for aldebaran
+Date: Tue, 17 Aug 2021 12:30:14 +0800
+Message-ID: <1629174614-2218-1-git-send-email-Hawking.Zhang@amd.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 6cb4ffe7-eb04-4699-44aa-08d961378497
-X-MS-TrafficTypeDiagnostic: CO6PR12MB5426:
-X-Microsoft-Antispam-PRVS: <CO6PR12MB54263641CFB835FB7B53C872B7FE9@CO6PR12MB5426.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1284;
+X-MS-Office365-Filtering-Correlation-Id: 574ab17a-9748-4a5b-7182-08d96137ba02
+X-MS-TrafficTypeDiagnostic: MWHPR1201MB2541:
+X-Microsoft-Antispam-PRVS: <MWHPR1201MB254125BEB8E996F7C5E1D874FCFE9@MWHPR1201MB2541.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1388;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: gNuPpKlX6/bKdxJQNl4TowIY20aWl5EC3Zj4bPd3peLl0KC6AuEHuLMbWqVaxy1UmCgR8IDb8ffV6PRK865zXuej+tBxDR8mk9rrxY66VIrdXrr4Y5eXJ3KJrLI8jvH//gKgZQTdj0hyicPOqc3frBcPv3vRwEBujJFSJGJLPrhn4pfzlvXLIWub4oqGcf53buO8s+AJS5A24xB4E4OLxZIbG9mH0NpREpOFFuLuoTSsqzKV+gRJSX5cZM3U5wPFmN+sSfmN7/trSTBnkMI6BlFV2G11DYFWqTWMOOBoMm+d5KXWAkCBBRRc2mmz1jH/N4EI+0r3hdLyDcNtfiZMjXVpHAvzyeBqWIl4MjIXRmAECBfLt6sWjy0p19ljpMrPaT2swBpj7leaN5BDYfBRhKBqzbPfREyzdCo26nTormYRZubL2Jk7MV6KfhzjtfQVAVwnpHq1D2+b/wt3ci/4qPc1xDJIxjPCRGhUJvWMbHEzVaSuDPZ5fQYaiKU2r6QAteIZOVfCjn+Pf46q345+qFSHgzvSJv6sx7yryKp37k4ElVtIGOrqYkHfKQX7z7LNayjjkG43yoTR5SsIL8myPWk13PyKrw92+1Z9ewhtkbSvvfb2oCOzy6/Ls0G2ORlbQq2Y08RX51HbQVPH57E6lKnZt7AcBlzuU5V4LwnH7RDoqzX7B08Gurw/ni12xPIO/NlnDuanqz6BTMR0YPTVZntpsPkhTsbVIWEBvERAG81uf2CyEyZpRiBY1q7zpQSXVXJQXkEthD9Kkv+BZtF3hA==
+X-Microsoft-Antispam-Message-Info: 8BBp6yliHpH1iEaUWIfClV4ur6725MT75yTv3rukrNKIe1Wl3RVhvr9rH85QNw5efc4qzkEtkPtUkcLAMXkT8Dtllf/d2hOBWZmIIdbcISv9cPvjsmZ6IREE8zsIPgzNl0lf3tEdMuGVkfVlDy18dXaICeLSyGlGjnmwTs3bIdXY5+oCk9ZzKoGd1t62DUo3fu8IiVdL14HmkXhyR7zOP246rWSlhltMWHO69EivanRMeRg3uraQOSiZ6fOEPQDTkwq2PlRnjcjX1aJ+oJ7jtawxlYTeQ/TXhy7aZBzQAHSBywl0gJ8PdmVPGsXmMvCnGPSERo9+osHd/aTUMjVLDruFMLBwO8aKIa1aMj+T4eu2mg1SQ96wpi8u4baszEIwGfducTL4AOcS8t9YrEoqFsMFV6ja10dNyU+b4uYzvZFqLVA1VppXJRwJops4b0vchcjg9GPj9xkFNEATclUNdMR5CWYV2PGjPb+rRudCULT6FOgFKfXOlDvP2OdLWAJ0cjFU8hICspDfh59fVWVYsa9oTvOWgTTpGFU6FumgPRinv2GbDe95i0U3O3LQBRBcKb7B7pzssV/j0NYXe1GvvgoI16Fd/ZpwVopfrh5z5K6e1qzBpkJ4EAnndpnk2FgkKB/Z9t7gJBUoajKtJi4D/3Ig+pjT1yJmgLFZVRS44OflfUPP4YL70dHGGmrBzwTGeR2DmzfwIOD/3e+ND4ae8Vz5Lyaa3QJHkKu73hnjwSSYuikY4oRie1H4aUB5xykGLbjtvtehw/oub20nwf54CA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(346002)(39860400002)(136003)(376002)(396003)(46966006)(36840700001)(5660300002)(83380400001)(36756003)(34020700004)(6666004)(7696005)(2616005)(426003)(82310400003)(47076005)(316002)(1076003)(70206006)(70586007)(8936002)(2906002)(4326008)(186003)(6916009)(26005)(82740400003)(81166007)(478600001)(86362001)(336012)(8676002)(356005)(36860700001)(54906003)(36900700001);
+ SFS:(4636009)(346002)(136003)(396003)(39860400002)(376002)(46966006)(36840700001)(186003)(70206006)(26005)(6666004)(34020700004)(82310400003)(478600001)(336012)(86362001)(5660300002)(6916009)(2616005)(36756003)(8676002)(8936002)(81166007)(2906002)(36860700001)(70586007)(82740400003)(47076005)(4326008)(426003)(356005)(83380400001)(316002)(4744005)(7696005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2021 04:28:52.4287 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6cb4ffe7-eb04-4699-44aa-08d961378497
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2021 04:30:22.0514 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 574ab17a-9748-4a5b-7182-08d96137ba02
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT038.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT036.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5426
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1201MB2541
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,78 +118,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why]
-for bailing job, this commit will delete it from pending list thus the
-bailing job will never have a chance to be resubmitted even in advance
-tdr mode.
+aldebaran supports up to 16 xgmi physical nodes.
 
-[How]
-after embeded hw_fence into amdgpu_job is done, the race condition that
-this commit tries to work around is completely solved.So revert this
-commit.
-This reverts commit 135517d3565b48f4def3b1b82008bc17eb5d1c90.
-
-Signed-off-by: Jingwen Chen <Jingwen.Chen2@amd.com>
+Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Reviewed-by: John Clements <john.clements@amd.com>
 ---
- drivers/gpu/drm/scheduler/sched_main.c | 27 --------------------------
- 1 file changed, 27 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v1_1.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-index a2a953693b45..31d1176d939f 100644
---- a/drivers/gpu/drm/scheduler/sched_main.c
-+++ b/drivers/gpu/drm/scheduler/sched_main.c
-@@ -317,21 +317,10 @@ static void drm_sched_job_timedout(struct work_struct *work)
- 	enum drm_gpu_sched_stat status = DRM_GPU_SCHED_STAT_NOMINAL;
- 
- 	sched = container_of(work, struct drm_gpu_scheduler, work_tdr.work);
--
--	/* Protects against concurrent deletion in drm_sched_get_cleanup_job */
--	spin_lock(&sched->job_list_lock);
- 	job = list_first_entry_or_null(&sched->pending_list,
- 				       struct drm_sched_job, list);
- 
- 	if (job) {
--		/*
--		 * Remove the bad job so it cannot be freed by concurrent
--		 * drm_sched_cleanup_jobs. It will be reinserted back after sched->thread
--		 * is parked at which point it's safe.
--		 */
--		list_del_init(&job->list);
--		spin_unlock(&sched->job_list_lock);
--
- 		status = job->sched->ops->timedout_job(job);
- 
- 		/*
-@@ -342,8 +331,6 @@ static void drm_sched_job_timedout(struct work_struct *work)
- 			job->sched->ops->free_job(job);
- 			sched->free_guilty = false;
- 		}
--	} else {
--		spin_unlock(&sched->job_list_lock);
- 	}
- 
- 	if (status != DRM_GPU_SCHED_STAT_ENODEV) {
-@@ -392,20 +379,6 @@ void drm_sched_stop(struct drm_gpu_scheduler *sched, struct drm_sched_job *bad)
- 
- 	kthread_park(sched->thread);
- 
--	/*
--	 * Reinsert back the bad job here - now it's safe as
--	 * drm_sched_get_cleanup_job cannot race against us and release the
--	 * bad job at this point - we parked (waited for) any in progress
--	 * (earlier) cleanups and drm_sched_get_cleanup_job will not be called
--	 * now until the scheduler thread is unparked.
--	 */
--	if (bad && bad->sched == sched)
--		/*
--		 * Add at the head of the queue to reflect it was the earliest
--		 * job extracted.
--		 */
--		list_add(&bad->list, &sched->pending_list);
--
- 	/*
- 	 * Iterate the job list from later to  earlier one and either deactive
- 	 * their HW callbacks or remove them from pending list if they already
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_1.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_1.c
+index 8fca72e..497b86c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_1.c
+@@ -75,9 +75,8 @@ int gfxhub_v1_1_get_xgmi_info(struct amdgpu_device *adev)
+ 		max_physical_node_id     = 7;
+ 		break;
+ 	case CHIP_ALDEBARAN:
+-		/* just using duplicates for Aldebaran support, revisit later */
+-		max_num_physical_nodes   = 8;
+-		max_physical_node_id     = 7;
++		max_num_physical_nodes   = 16;
++		max_physical_node_id     = 15;
+ 		break;
+ 	default:
+ 		return -EINVAL;
 -- 
-2.25.1
+2.7.4
 
