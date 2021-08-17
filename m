@@ -4,107 +4,110 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 043BEC4338F
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Aug 2021 09:17:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 90A00C4338F
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Aug 2021 09:17:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C182460720
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Aug 2021 09:17:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C182460720
+	by mail.kernel.org (Postfix) with ESMTPS id 56E3660720
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Aug 2021 09:17:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 56E3660720
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6192B6E11A;
-	Tue, 17 Aug 2021 09:17:48 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2071.outbound.protection.outlook.com [40.107.243.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20B856E11A
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Aug 2021 09:17:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C49D6E123;
+	Tue, 17 Aug 2021 09:17:51 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2048.outbound.protection.outlook.com [40.107.244.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1798E6E123
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Aug 2021 09:17:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ac7TYmlAiwWia94NHjU+hC86Xzg1baFgR15qIZMulSHmuS2IPjY2A9GkmaFGktQoXaNVcGUJErT4bOUMtMbYIqJQgjjNi9VLSAKzEmIzFvVFJ1/IMGhDLJqZJStrPGTee9rcAXZZrfcwCg7x9voD3mhowarT2AupNJMMdKIXRKK/gkk//pPfm2ADklYaFVI6alvNTPrw3oJRzATjD/8VvFr0AMq4QiZCw4+JjfY9Xsk+cwQjct+9UPl605sREpEeZ4nVj0i9ujFbi/FS+lICaeLJSVrfeOffOrjxWR7LvPJ99lQeHi8HQRcE9JH2fuVnzoNx34OO0tyj71PLxpvWfQ==
+ b=TIAa96xlsf5GH1W053SRocndllYQTGQODNztJb4K0JiBfTeGMkVEWA4Pgr26B/g4l20Z7NNRWrtBRAQharr1ovA1FIJEglSe1VW1WwGMpYVv6jtbor1+tfDw5iJi/6B16e1KMGmijGAm49yHhbms8+mNDFNEU39BnVE8m1fEzH4jNzqTnKZG2TqpIzxS3IcbG31gDGE1jNLDy98C7ZCJwmzlolZwZyV7KXwf8UP12wIyR3NhWlw/4x5ykg8z9tvjQ0iQDMra+95IQypvMD+hx4YG+4VZFkvLsKsh+V15u6wJc0/gsHUmu1crbK79C6lEiyJgA3qXTiTkONoDoEsRTQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rgdq59TloBkHK3mF65v/5dqLw1ljpqFmHVkRmGSrENY=;
- b=fdIW7D1+T+iA9v0EFS1LRsw0XX6ZnWsvnX8Kdz8aUYURpFPtnV7fAO8nZH0uYgVq9KFj8lqBRqqPak8zlYRNASavrvzs8lOM5eLj2VtFMfVe73hacYAb4F7/7NutIQcKMqNqmhvt0ybMP4MeRqpGHAOc7E0bEdbITJ/DxkIWGCKjWleyMPWgd9pCqMFOFc7NDd9ktdUdr8v5XnRwbirGMiCLhmHRFMXS502R5MXPstnL/nI2I67SMv2CkyLR+nXBCVWTNtiKggL629FoQx2zey9s+37zcyxWtQSKS2RBlvVFf1TJ5fcfQtytLukerWg+KvnEvJpARlXym5EUfTqzSQ==
+ bh=Hwnt2W0t7nVh9s+e8wMUurC8LQWEBqEuPbXV9jByBNQ=;
+ b=JES+ji5YDG1ei4t8iYSTNDjiKT7+ef7SiVA0Bqkvt30KxqTs0dVpuh8iRHb4oOmpGX6EixeVvJLfX3PZaIUSsjqPH3gV3ToYIh7yBCKbA3IkUJPGH2rYFayMPCAAg9HX6dYtaWWf4Pzw1/Q3BWJeADzasZ3uLtKd/9mhJG2l6j9Rz7Ncpkp2FyYasBVhKGoQ5D84J96e7eVs98+x5fB/hIN4RIa0sst912ufZxAgJ7HjYkJ1/6LfQaz1IzPJBYPgBb0spOaIf9NnBOh/KJqF6KBoqz9v0l26FsrWDdoCTCNJlJcg3/JFktaYaUgXrK9DzXz3wGF5jKJvDRm/uKNlKA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rgdq59TloBkHK3mF65v/5dqLw1ljpqFmHVkRmGSrENY=;
- b=kIDJQxUdoN7sVlOzYZK/wzTcc7ON5/7pGOsi3EaUM8gFwJPh8HmQCX2a7YB0gxcuT6yXcKSqb1MGu0IRwOQnjWgQHylxSNMNrFD064CHAT5OmmXpqcDCNTMg+DbVS39CTEDyW9f2XPRKO+Rk3Y3K4ayqrTIbo0BFtCkPUXBwVUs=
-Received: from BN8PR04CA0029.namprd04.prod.outlook.com (2603:10b6:408:70::42)
- by DM6PR12MB4716.namprd12.prod.outlook.com (2603:10b6:5:34::14) with
+ bh=Hwnt2W0t7nVh9s+e8wMUurC8LQWEBqEuPbXV9jByBNQ=;
+ b=T9mCi8HHQLzLF9PPmPEnElgEcT+6OtCjBPDXw7Mi60K9RV6pno02Q1EKuI3v1bn7leUWXXr3+W/YLbb6BwZn4RFTUdgtX+x+6QFPzkOuAywLNtKd9G5udm2jk9AB5FxB+QhSnkkF3UOLN16uJnHVLrN94/fjX2zyexjUoTevzKE=
+Received: from DM5PR1101CA0013.namprd11.prod.outlook.com (2603:10b6:4:4c::23)
+ by MWHPR12MB1549.namprd12.prod.outlook.com (2603:10b6:301:10::9) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.21; Tue, 17 Aug
- 2021 09:17:45 +0000
-Received: from BN8NAM11FT038.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:70:cafe::61) by BN8PR04CA0029.outlook.office365.com
- (2603:10b6:408:70::42) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.17; Tue, 17 Aug
+ 2021 09:17:48 +0000
+Received: from DM6NAM11FT063.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:4:4c:cafe::c1) by DM5PR1101CA0013.outlook.office365.com
+ (2603:10b6:4:4c::23) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.16 via Frontend
- Transport; Tue, 17 Aug 2021 09:17:45 +0000
+ Transport; Tue, 17 Aug 2021 09:17:48 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
  header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN8NAM11FT038.mail.protection.outlook.com (10.13.176.246) with Microsoft SMTP
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT063.mail.protection.outlook.com (10.13.172.219) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4415.16 via Frontend Transport; Tue, 17 Aug 2021 09:17:44 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.4415.14 via Frontend Transport; Tue, 17 Aug 2021 09:17:48 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Tue, 17 Aug
- 2021 04:17:44 -0500
+ 2021 04:17:47 -0500
 Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
  (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Tue, 17 Aug
- 2021 02:17:44 -0700
+ 2021 02:17:47 -0700
 Received: from yifan.amd.com (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2242.12 via Frontend
- Transport; Tue, 17 Aug 2021 04:17:43 -0500
+ Transport; Tue, 17 Aug 2021 04:17:46 -0500
 From: Yifan Zhang <yifan1.zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Felix.Kuehling@amd.com>, Yifan Zhang <yifan1.zhang@amd.com>
-Subject: [PATCH 1/2] drm/amdkfd: export svm_range_list_lock_and_flush_work
-Date: Tue, 17 Aug 2021 17:17:39 +0800
-Message-ID: <20210817091740.4031348-1-yifan1.zhang@amd.com>
+Subject: [PATCH 2/2] drm/amdkfd: fix KFDSVMRangeTest.PartialUnmapSysMemTest
+ fails
+Date: Tue, 17 Aug 2021 17:17:40 +0800
+Message-ID: <20210817091740.4031348-2-yifan1.zhang@amd.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20210817091740.4031348-1-yifan1.zhang@amd.com>
+References: <20210817091740.4031348-1-yifan1.zhang@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 7151e3d8-51d3-4748-08e3-08d9615fdf7b
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4716:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB47163C6A15507B88380BB93DC1FE9@DM6PR12MB4716.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1051;
+X-MS-Office365-Filtering-Correlation-Id: d9f83f81-355d-4f67-62f9-08d9615fe1c1
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1549:
+X-Microsoft-Antispam-PRVS: <MWHPR12MB1549AE977E0ED93501B1E5CDC1FE9@MWHPR12MB1549.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:398;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: uixhTdE7TtdS4xEhjqYwpbX3jnFABroHolhviYOs5dpyjx7edbZkdprnA8boCDPcuSulY63LZuEyXHpzBQNssnhEHqF1DAvdkHVKoTK4IzsN01x2KRbcAhwjmG/dGRoblb/zJs/wO8YAGpU9i0Uzs2yvrb+8So72fLjn2HT+LXBaGuMhmnyqadXUbf9bIadS4NezK559OVB1tUqJFPSi9P/UT+AGzNqJhpYxnchlCAf4FFaCKLj6OgdADQu2Xq4PjaWrjon/9o46XKQwK64yxxKDaXed9gERxo7qXJjUALjKdpUuVD/qJHiMPkn6kMIbSpRSWjP3wKR9r1fhWo3AH2xxQqHvFFA5Sx1z33riFVXzst0MLI2fFiZTJ2tx4wOvb34dmvcCAq9OFO1UE2U4v1B9M8TjEUMQ2woNqfcg0OQYlJgqQwKYUmxTNxEf6judH2uSPT4zVYRXz2Na6gjXWbmcjkSNmd3G/Sbj6Y8QI+Gayq5Mr8iLnn/LUgS5k8B4OhwRtEkDemJCGUNxx00V2+WcgFVn+dzZ4TSy8cHiXpq0vq+SrhtPYaTrGOHmKZ4uwMEAzpSg93yfnFAn3j4jWdaPm993T2ewjl8qZVXSJc2GIP5Eczk8PeqJuNs9fs50vcJWfUV1+sW6iZMW1/em3AtxjcKm9TxhCBxaSyE74PL+TD0PRsFVvpQrOMAgarZN8InAfCH2rd6PdEUbYcdJP+puvLFL0PqcfasjwtXUJt4Y+QZuHIzIB8H6RIrhietVl/TyKRZYXoWqFqKeTscjmA==
+X-Microsoft-Antispam-Message-Info: uamybNlUhG2LS03B8s9nJbX1DmUzOx0lij8ubNsL+j3S4fl7eq8zxWtTLr/amiUknub1icXxPcEkeQ0kEeeUuXOnPvO7A277Xptmrt7oQkeABNyHXSs9rOcd5vxHq+3SpAgwSnwiQdZri1QrHoFgATzOEDFFXkEA4vdynW3QzvmSOUVzcpowz3uh/n9WOr7nwaUgE2+itl7kKUTbAnxSqXyxgEW9/8hyHkfwo5S3sf7DFn+HufbT13hia5WG+hN5n9i4cdKIrTd3H2mynYAUxzjt93/0NNXNrLYZEatr0KNy0Tv3rh3/gIXMb/PVomEpUuwpviXwRFWHo7HEQlx8T/rXYJHNq3rDDXwd8UMAbenZN5I3Tyz1J7hXMYaIkmzApO4uJ9JqC2mPs1ICtdtQn+VYzNQP/XJvMqb8e+KKNdKwemn+HQnW//qf8jOCWpL7F917AvdbeDuoia8urQp9/tA3E9uI4xbfWBEp0vjjy+F8XJUQq6Zfwil0y8BTt69wGR6b6LOFYYQNSqCtGsp0tMiDKheOv9YWwK8FFdz+zuhCQLmtvGD0mLwUtKbHvlO1Ccis5lJyRDVFlNw2N3wfmtJhu7TSXwmVy593wUBGZ/BdcVgqFLr53qBXezYLEkZTooVmkqBqwoPBbcEbaVwy24qS0BG5NsiZKZzdB3dZbnRvIUy+cO+QNeLyKxPlVo7rsk6WX2FzUx3oFxYCe4g6XfIa1GRmTh4BQq/tHJke347ip54u5sT3X89/5dgVDoyNcSmBPnB7PmuszLFxrrSCWeKSz8czxh9fEr9Y0TCZjOM=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(136003)(396003)(346002)(39860400002)(376002)(46966006)(36840700001)(316002)(6666004)(70206006)(70586007)(336012)(356005)(47076005)(26005)(81166007)(34020700004)(478600001)(82310400003)(54906003)(86362001)(8936002)(7696005)(4326008)(82740400003)(8676002)(186003)(1076003)(426003)(2616005)(83380400001)(36860700001)(5660300002)(6916009)(36756003)(2906002)(36900700001);
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(396003)(39860400002)(136003)(346002)(376002)(36840700001)(46966006)(7696005)(36756003)(2616005)(6916009)(82740400003)(8676002)(186003)(26005)(47076005)(4326008)(426003)(336012)(2906002)(8936002)(70586007)(70206006)(34020700004)(81166007)(54906003)(36860700001)(82310400003)(478600001)(356005)(86362001)(316002)(6666004)(83380400001)(1076003)(5660300002)(213903007)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2021 09:17:44.8375 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7151e3d8-51d3-4748-08e3-08d9615fdf7b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2021 09:17:48.5901 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d9f83f81-355d-4f67-62f9-08d9615fe1c1
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT038.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT063.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4716
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1549
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,40 +122,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-export svm_range_list_lock_and_flush_work to make other kfd parts be
-able to sync svm_range_list.
+[ RUN      ] KFDSVMRangeTest.PartialUnmapSysMemTest
+/home/yifan/brahma/libhsakmt/tests/kfdtest/src/KFDTestUtil.cpp:245: Failure
+Value of: (hsaKmtAllocMemory(m_Node, m_Size, m_Flags, &m_pBuf))
+  Actual: 1
+Expected: HSAKMT_STATUS_SUCCESS
+Which is: 0
+/home/yifan/brahma/libhsakmt/tests/kfdtest/src/KFDTestUtil.cpp:248: Failure
+Value of: (hsaKmtMapMemoryToGPUNodes(m_pBuf, m_Size, __null, mapFlags, 1, &m_Node))
+  Actual: 1
+Expected: HSAKMT_STATUS_SUCCESS
+Which is: 0
+/home/yifan/brahma/libhsakmt/tests/kfdtest/src/KFDTestUtil.cpp:306: Failure
+Expected: ((void *)__null) != (ptr), actual: NULL vs NULL
+Segmentation fault (core dumped)
+[          ] Profile: Full Test
+[          ] HW capabilities: 0x9
+
+kernel log:
+
+[  102.029150]  ret_from_fork+0x22/0x30
+[  102.029158] ---[ end trace 15c34e782714f9a3 ]---
+[ 3613.603598] amdgpu: Address: 0x7f7149ccc000 already allocated by SVM
+[ 3613.610620] show_signal_msg: 27 callbacks suppressed
+
+These is race with deferred actions from previous memory map
+changes (e.g. munmap).Flush pending deffered work to avoid such case.
 
 Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_svm.h | 1 +
- 2 files changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index c1833acc54c7..d4a43c94bcf9 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -1500,7 +1500,7 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
-  * Context: Returns with mmap write lock held, pending deferred work flushed
-  *
-  */
--static void
-+void
- svm_range_list_lock_and_flush_work(struct svm_range_list *svms,
- 				   struct mm_struct *mm)
- {
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-index 3fc1fd8b4fbc..e7fc5e8998aa 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-@@ -188,6 +188,7 @@ void svm_range_prefault(struct svm_range *prange, struct mm_struct *mm,
- 			void *owner);
- struct kfd_process_device *
- svm_range_get_pdd_by_adev(struct svm_range *prange, struct amdgpu_device *adev);
-+void svm_range_list_lock_and_flush_work(struct svm_range_list *svms, struct mm_struct *mm);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index 3177c4a0e753..e1c4abb98b35 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -1261,6 +1261,10 @@ static int kfd_ioctl_alloc_memory_of_gpu(struct file *filep,
+ 		return -EINVAL;
  
- /* SVM API and HMM page migration work together, device memory type
-  * is initialized to not 0 when page migration register device memory.
+ #if IS_ENABLED(CONFIG_HSA_AMD_SVM)
++	/* Flush pending deferred work to avoid racing with deferred actions
++	 * from previous memory map changes (e.g. munmap).
++	 */
++	svm_range_list_lock_and_flush_work(svms, current->mm);
+ 	mutex_lock(&svms->lock);
+ 	if (interval_tree_iter_first(&svms->objects,
+ 				     args->va_addr >> PAGE_SHIFT,
+@@ -1271,6 +1275,7 @@ static int kfd_ioctl_alloc_memory_of_gpu(struct file *filep,
+ 		return -EADDRINUSE;
+ 	}
+ 	mutex_unlock(&svms->lock);
++	mmap_write_unlock(current->mm);
+ #endif
+ 	dev = kfd_device_by_id(args->gpu_id);
+ 	if (!dev)
 -- 
 2.25.1
 
