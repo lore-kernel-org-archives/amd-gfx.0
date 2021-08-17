@@ -2,133 +2,124 @@ Return-Path: <SRS0=1/w8=NI=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-19.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 79C67C4338F
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Aug 2021 17:44:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3CB73C4338F
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Aug 2021 18:26:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 14EDD60FD7
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Aug 2021 17:44:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 14EDD60FD7
+	by mail.kernel.org (Postfix) with ESMTPS id 00BD960249
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Aug 2021 18:26:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 00BD960249
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B3BE6E215;
-	Tue, 17 Aug 2021 17:44:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F5E76E21A;
+	Tue, 17 Aug 2021 18:26:03 +0000 (UTC)
 Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2071.outbound.protection.outlook.com [40.107.243.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA17E6E215
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Aug 2021 17:44:25 +0000 (UTC)
+ (mail-dm6nam12on2040.outbound.protection.outlook.com [40.107.243.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2FCEC6E21A
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Aug 2021 18:26:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YdIr22Y+27u7K1ES9CXVm4AY4Bg3EPu1zjK1kT/hZrCxd3PHsr3sK2680ibCyLtSkELezadYoCWLSGjQ9lBGfujLEbXYX1ewIccZZ1QUXQ/d1UsKGCNjUakJROieZo4aP5h/DIJW5Z0cvZujAgu7hxdfSVV6n0kI+dM88f7LeRzrJkk8vR6/PlsbBresaAkTpwk6ck99O+gqH0vydUFTFCDJJxXsPeI/hLOM2GhJ7P/UUxshutICNNcFV/bfpkUzrH4QesAm9JNlxcrN2tN9Ek1HAfcix21znXfECdWFiQpE2EOpZOh/lh3xhiccGlzUbYf3bdMM5AjbjgeKn0In4w==
+ b=CK4gFnvgtFxWo52O2iMmjJ9/RAYFRgSsCsAVk1dgmn6HcZlhScxcz6gY9npWHv9tvWGGQotsSnVKo1pmr97nIygaFeczUT8YwhyZX+5jkUTcelKy1YIJIuuS8DYgnNJ+CWlPmVGV43BCxQdHsbUBMfX2H4ouiC6G5woxEwRX0+VUvNzzDZwCrWXJGvg7u2yN2kNl274BBGS2PZkd6YlM9a8s00qZFR0OPhRU7BygOJ+A6G7RnRs2tswfs8ih6HFTGO6APwGEQVDU7wUXOu+gLy+NeJ47kGJZKb2sLYmzqgk+qP14v6EcoyNfffsu2gBHcq6DxZZOA1VIbe0Zrc8pwA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wCtoucE7pxG3gSWI8/0KL71Y83UTGHZvAWs2W925AmY=;
- b=bCF4+mE7oo3OzHLp1iYAgnaYyRPYdCgcnfdsfR5OLWJKQCfNE82oMFk1LuJ62Hkm5soSOZ6Us1OO8uTBbKFgWM1sLp4C22xTlWXI0neumrEF3xCh1o/6O6Lcx6idc1uwvBq9f66+EPsuf4JTWh5VIdjvywFCdbn9V7DZZCQ7STm7YVsVnoPm0Q89ZTRMf3pdGhWrRzDExpDC2k1MWje3kFsKgBo3qeGMVteSxpWQK+JWYbKr0mmZbN/+c1l7kVHPOGDFsZVQ74BnaxzHn0zB/A/gcw1AI7WjzHcjy8DHxE5r1r6ud707o/AiITlR/LzmOMiJmOnXIV5gISUgSksnWw==
+ bh=BaAl80ye88kv2glDbNEzprc6809ekLrsjVy3wNa17VY=;
+ b=ZXdM0A3ogNfqNB65GcgQzr2uVxpUJoslfplScLqpDSac/11jb18HNtpDeskUV6rLe35t/UPlvIwkIaiauoNV7M6m8/gFE3Om5leIEbuhSt2Vu0qlhasLbfNvb7DKd0UVabSjh4eK3ZruJ2Xwnyv0cSOmS64Zumoam0f0zAFS6XiXp9Ejemn0FTvYOX4i1cqm9SevaEUZiOCx7SNbxCOx6dEO7hzCV7YO+w2sTTFz+KaoPFoQgXbOd7JKuqRPTd3WEwgxbyPv4z0197cQa+iTCzB45wTMSMCLmCvA0CQRgkCSn++naZ3V8GHML45yAlPmnNAp8afZKnxbjqQ7VQZTBQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wCtoucE7pxG3gSWI8/0KL71Y83UTGHZvAWs2W925AmY=;
- b=OqflqSjV+nGYOvBfnyPStlJwWi58yu3WIYOt0uMajGu2PxyiZPvdfBYky3ox34r90qoRb2Rugmd8YzuzuXBFsU5+2LaTKYUaNDO/BTRr8mr6zeEAXtmRNVu/xKSC7dukQHCxHG22Xq3mFeLBJZf3FexiHMa3lJnpqTsfmW6qjRg=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ bh=BaAl80ye88kv2glDbNEzprc6809ekLrsjVy3wNa17VY=;
+ b=g/AAIZ2ubk/OX/9NXGQ09TLuamGAAZn6+Zaq01fNhHCOcgo2hN+Hgyudai45etGUDUdgvEReg3YKRjUNSJekQYgx0JP4lP++L+ErlKYfnBKq8xcc9JSTIFVFdYmDuh/Y5wfhRDhz4gMd2leK7MQ2LPtcdjwpAJaMZ+WUYRNzdes=
+Received: from DM4PR12MB5245.namprd12.prod.outlook.com (2603:10b6:5:398::8) by
+ DM4PR12MB5312.namprd12.prod.outlook.com (2603:10b6:5:39d::20) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4415.14; Tue, 17 Aug 2021 18:26:01 +0000
+Received: from DM4PR12MB5245.namprd12.prod.outlook.com
+ ([fe80::74cd:6cc2:dd29:1780]) by DM4PR12MB5245.namprd12.prod.outlook.com
+ ([fe80::74cd:6cc2:dd29:1780%9]) with mapi id 15.20.4415.024; Tue, 17 Aug 2021
+ 18:26:00 +0000
+From: "Mohan Marimuthu, Yogesh" <Yogesh.Mohanmarimuthu@amd.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: fix radv vulkan fps drop after s3 resume
+Thread-Topic: [PATCH] drm/amdgpu: fix radv vulkan fps drop after s3 resume
+Thread-Index: AdeTlPNYoVeOHL/DSvKqaEtc3toehA==
+Date: Tue, 17 Aug 2021 18:26:00 +0000
+Message-ID: <DM4PR12MB52454BBA711B61BA2BD03033FFFE9@DM4PR12MB5245.namprd12.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-08-17T18:25:58Z; 
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP 2.0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=978b27d4-7d21-46ae-8c51-07f9f59696ab;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1
+authentication-results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5129.namprd12.prod.outlook.com (2603:10b6:408:136::12)
- by BN9PR12MB5178.namprd12.prod.outlook.com (2603:10b6:408:11b::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.17; Tue, 17 Aug
- 2021 17:44:24 +0000
-Received: from BN9PR12MB5129.namprd12.prod.outlook.com
- ([fe80::b891:a906:28f0:fdb]) by BN9PR12MB5129.namprd12.prod.outlook.com
- ([fe80::b891:a906:28f0:fdb%4]) with mapi id 15.20.4415.023; Tue, 17 Aug 2021
- 17:44:24 +0000
-Subject: Re: [PATCH 2/2] drm/amdkfd: fix
- KFDSVMRangeTest.PartialUnmapSysMemTest fails
-To: Yifan Zhang <yifan1.zhang@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20210817091740.4031348-1-yifan1.zhang@amd.com>
- <20210817091740.4031348-2-yifan1.zhang@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Message-ID: <b936175b-1a6d-f1f0-9f94-a1a02d4832a3@amd.com>
-Date: Tue, 17 Aug 2021 13:44:22 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
-In-Reply-To: <20210817091740.4031348-2-yifan1.zhang@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-ClientProxiedBy: YT1PR01CA0078.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2d::17) To BN9PR12MB5129.namprd12.prod.outlook.com
- (2603:10b6:408:136::12)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [192.168.2.100] (142.186.47.3) by
- YT1PR01CA0078.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2d::17) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4436.19 via Frontend Transport; Tue, 17 Aug 2021 17:44:23 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 46853016-97b9-40b3-5d7f-08d961a6a6c4
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5178:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BN9PR12MB5178BFCB13C0CF1C14DFF37992FE9@BN9PR12MB5178.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2089;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: y/IcxHah25TfNGYTqSOham885/5CQ+CYai7H7LWWOdfVpXFlNN9yeEnjq5qk8y5z9LuvFntrLyJDps272apRbk0Nau8WRLyCrT1M91TW6gQNLYJePJBJr6EcX0TIF2wFHkbSpIImCujIz6K6byMXrAEQXK+8QnZpqRMjlwggJscyr4rCeZxTQrM8PEb2iSa4tJgKZBA3AXVsXrLvPGRKrkB48sHfyFKKWRXSjaOJFhaKNbRdPiGy1fKbaCv74bLfMCOChAb/pMtxI4xD2nukDlkGJEgMb0AfDNx5NbGhBq8QdbMNExY+DLPlTyk8MLInsjEC7NaPDhPysF96+NS/YYd2GdDlqVU77JJBJ6gugsXvxYOpgR9IDUcSe/pAujTAlNbq6J068WvvBfz30/iCJSp7fGptfMDQfmekC5Cz5LnCeGopzgTBghufGvdi/3jCd7JeuY77aZE8VSqOCsglZU7dWonzj/2LqUkE35W6/wwaiDgcMTvURzC0aOSa3ekMwuOLJg0WwSvQTk4SEFF2h7YXduUFaadYsW1WqYivD8Om2Vr09f6Mmdj5Bq66u0HamDnS3S5pm9Dr8VsmOhy17gH0230A+ReZEf40eoQyPqwLeSPg4e+O0JetZ/zWQIvbpL5XSm5w9gp8aaHP3PBQ1dG5uRE3ksfx9ZvPUmNM4MzKS+4iCPZ2l0L8TAVcSOkhS8jNyg8sCmbDYlpYGdezZIkFzyJdUDsVn3g5Wib1x5WxBi0JFWCQUZmF5y7JhMqB
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5129.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(396003)(346002)(376002)(366004)(39860400002)(31686004)(6486002)(44832011)(83380400001)(38100700002)(2616005)(66556008)(66476007)(66946007)(186003)(26005)(31696002)(86362001)(36756003)(956004)(5660300002)(8936002)(2906002)(8676002)(316002)(16576012)(478600001)(213903007)(43740500002)(45980500001);
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: e0f26d16-65eb-405b-dabb-08d961ac7702
+x-ms-traffictypediagnostic: DM4PR12MB5312:
+x-microsoft-antispam-prvs: <DM4PR12MB531238B01BC4B4766632C7DBFFFE9@DM4PR12MB5312.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8273;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: wGv+K5HWxje4FH87E+rkElTFLL6JMp81Wr3k+nmEt/jvpoaShrQZYimyszFDH3Rl1sZyh3lLhIj9BUCPpaUxe2FTHL5P94l4C9IK592nHT9Mjt5SpJUycZDwheGNgtWy2cbGALTGctY0epZOhiuhIQD3imHkmSLy++BoSilUHjhsPtKapuLPR56IeEMI31waYBBUJQFw/oGwZKzs+J5O/hsTEZ32VGw2iMH3ie7jraDk4PFjqhsk4l5pe04nYmgYz8HJnTrnFkclVMGpn902br/z2R5nhzn3dEgV2tREBgJdYvG8BsajXma07LmLT8XTnat0NdOxcrr29A7vizd8WTWX44n7mVd945JOdTRM7LCoCZ9oyQywvEh6LpVDi9C7zbDfPeuEonHMrMiFHeZFq1IhpxmDmWFok1A96ikxFs/MCujaTksV2GDF7G/kjjqDXQqXFnk5I7cwT3kk1ddqwaw1Gdf6xktrwvU/WjGVhaIsAxzo7iy+Lcn8ohK0WR+OLEEKLN+v5yW0XzCai2EXzkafMN2PT9iDSv33qhohIg+uQDGRkgMSQ8vSLzwRklI2BzumFH8av4vZTLztDqqdLG8yycAwpJwnKkftiEystXOveOzRpR+DVLN+Os+0Vjrqg6BFC1mbTsN/eiaOlAd5kRAHN1Fd4/IeJup13Nw47M9EItosFl5L/Me3gJA7deoTbp/wvebFa0vtjDD/vf8wUQ==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5245.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(346002)(136003)(376002)(396003)(366004)(7696005)(83380400001)(6506007)(76116006)(66446008)(316002)(55016002)(71200400001)(5660300002)(38100700002)(186003)(33656002)(38070700005)(8676002)(9686003)(66946007)(122000001)(6916009)(8936002)(64756008)(52536014)(26005)(66574015)(66556008)(86362001)(66476007)(2906002)(478600001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bWo3UnhycDFLcDRMVWpWaW9FSWZnQVhHSlJxTVFMVHNGU0V6cXdFOE1TZHlV?=
- =?utf-8?B?Z2ZMTUc4M3IybzlBSE96dWplK2dlRm0yMWgzcmhKWUxvdzdKSCtHZGozQUs5?=
- =?utf-8?B?enNOVjdZTStLS1N4YTJraEovVlBxWHVDem1qQVRQK2Yza3BSSHA0NllrMFo4?=
- =?utf-8?B?SHl1aFFZWmRWMFpFM1RGTkZ0cm5hamQ3aVFDdVNKR0d2TDU4Nmt4aXgrU1JQ?=
- =?utf-8?B?WWsvU0JsRXpvVVFrRXRFL0NEVWRzL1NpY1FqVDJSa0xiWm1kc3pqdnd6WjVJ?=
- =?utf-8?B?c1d2QkhHMkNteTRvTHVmRmJYY2xPV3VSUUtCV1dabFJEUjBpR1BRQk4yNERX?=
- =?utf-8?B?MkFsZlBZem9pY1M4eGpRcW9KOFhQb1dRWlNtY2RyTEZKRkt3dVJMN1ZWVkVu?=
- =?utf-8?B?LzJDM0hYMDA5QkN3RVhXcXZReW9KemRJcmcyMVhLNU54L3dtSURsckZXbkZy?=
- =?utf-8?B?d1VDUFZrU1pEVzBEa2dKdThnVjFDaE9lREJYVVFpWUo2QlZteEpqZSsvTnJY?=
- =?utf-8?B?aEQ1M3VPaHk2T292blVTUjB3U2FCOWJBeG9jbWd6a3kzM20xZjljM0QwOEpY?=
- =?utf-8?B?a050TGVJWWFOdTUzNjZXWnJFNGtnVlBHUnZacldkTmRvT2tFM1AxdUFocFA4?=
- =?utf-8?B?S1NlMVpIN0cvbk9RditRZUNsYjliL05TemJZbElabGxaRCtOQU55QlpEM2pV?=
- =?utf-8?B?bjlKakJIMkt2K1lFeGovMEU2TTJxUnBtUk5PNkYwb25zZEZucjRPSGIyUEJ0?=
- =?utf-8?B?TTJZbytzUnluWXJHbmVxbDU4YUd4bjVVYUxhUGZnWUdra3FpUDk1TVJ0TDdn?=
- =?utf-8?B?RndIa3hZQmNVOW5rd01USStoNTErb2FsSE9JU09aMUt3MW5Qc2hFMEh1Qjh4?=
- =?utf-8?B?QkZwSUtUQ2pOcnNKdi80Sm90cHFuNWY3QVd2MVpxTFE3cXY2WmUrTmhDd0lK?=
- =?utf-8?B?Yi96a3hyM2NseG5TTGJTN1prOWsrdzRwbjJHRitKbFAxUHVhZmQrdDlDdXFl?=
- =?utf-8?B?a1RIdmZtdE93cnZRZXZiNDNEQ1hxUC9GbEo4VVpIMGNaWjNOaW42bGZrMWJU?=
- =?utf-8?B?K0xQU3BrV2FOOGY0dEo1OTEwMFkrQml6UXhuZCtZQm9WalVoOU9JVHR0OGxh?=
- =?utf-8?B?MGJIRFJnSHJuSWFlVC9CWnNYMmp0MXBiWHB1TVdhWnlpK2J4bm9uRHRWMDZn?=
- =?utf-8?B?UjFJSVB5UVkzV1I3Tzh2T2VEQkpaZlU4aWRkU1lOQXM3Uk5yN01KdnNpbkNz?=
- =?utf-8?B?WXBRbndUU2VTNmhaMUR2K2I3dTdscXBSdFVRLzFoMWpjaXhjeVc1UnZXV1Rm?=
- =?utf-8?B?clBZMjZNcG9sNmtIa2g3MkVobDEveFJnR3RqOVgzZUx6TGY5OTRnaC9hUHBC?=
- =?utf-8?B?Y3dSeUdqRE56c2NYbWdLUUh0RWpLQ21NU1d2SVZ6TW40bHgrTGVEK0svRVZH?=
- =?utf-8?B?aEVFM3kyU21obUNyd21YQ05qMnhmOEZZYXl4RVFGZEZtSmM1NFNxOWsycjJw?=
- =?utf-8?B?QUpKWXR5NlJaVXREelNOYkdkUkl1QSs0d3hnRU8wSUVrM1F5Vm5lOEhSR3ZR?=
- =?utf-8?B?T3lDK0g0bEg0VW4wdUlpb1JqeVIzYVlBNUxkZkUxMktkOHYyQjRlRDhVbExQ?=
- =?utf-8?B?ajJpUHdFY1R2VlhIUXJhZm9EYXMrK3hGL0VRUU1qVzlTNXBvNTE5VGhCc1BI?=
- =?utf-8?B?RXFJV0l5QS9ER3p4QXB4dWprOVAzMUxFOHNwc3d4VmpXNjVzU1dIcWRKa2xj?=
- =?utf-8?Q?HsxerR6MLRjsM6EvO27GzUbmAuLGYguEbpj4sfh?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?NWUO0YkOJBbTnDcFbHa6N1vNrr0/CvuOFhpkC/m0kTLOO4+x7wvZV8koFN?=
+ =?iso-8859-1?Q?rK/TPY8L3CASPWseuTY/UqdSbARJRDlFonPQeF76PtpYFyzGBO57taeahr?=
+ =?iso-8859-1?Q?ae3Ik7jQim6E8+fum+BSisKBtbwDUU1+q+ftkaIRJunD+/yPclL6p91Ool?=
+ =?iso-8859-1?Q?CJuko9G1+Q/3CVMmeq1TQ94XZWvHQvn+cYsWxO3qjV4K2KbrrVkBrPyHzY?=
+ =?iso-8859-1?Q?I127Yu2NIDUhEvM4VyCTKao7YUo7uyNYD0gU7JyU4Xie+W63SVUmzfFkYY?=
+ =?iso-8859-1?Q?yQyJ+wcMxHwL7b2Tk5daWGMfgkLrSziuUwDoNAnE3aWIPcDuYhhpcl9UWI?=
+ =?iso-8859-1?Q?fIybNpnpzF3F2Z3S4hVrHz1vo1DaOSkNNuO3ccIqfwU+AkKkLFBjE4cxO4?=
+ =?iso-8859-1?Q?uVik2kKXRJ+P3X1IQBXyDe66s0kKNLjvT4afU1KrJdNJfnxGjdzk+u+gJl?=
+ =?iso-8859-1?Q?ZxHC842ivFbnvfV1UV8fKxn4/pdqmNB9lpoAYVkTEqHd+bLgVlr5e+54XB?=
+ =?iso-8859-1?Q?zH/lod4EACU1Htw9axv/gT8crCGnvOc8OmCpEYOmlAUsNEp7ZhVtPD3TgP?=
+ =?iso-8859-1?Q?bbyG6ECugLNuZ/e+hhstBLwlHXmjiAdT/mKahZDZFjN5dJhgdjE6Sr0s8P?=
+ =?iso-8859-1?Q?+S6xOu9zzuAhURIo+kB1zYCxRxpiaVE9fI1ApgTZgCE2DyuPw9IBaGpxcE?=
+ =?iso-8859-1?Q?SseRAiI3ZvWim/Bp5MyrLP+DvzEkBJq3m8K6Z71sW8h6zLYL0KnG8HfLn5?=
+ =?iso-8859-1?Q?Y2l+5tQZ8wZ9vrKTnfVzRNGt1IqPQe5o9dwM2gQJNcCUvNREfFG3GIN8yP?=
+ =?iso-8859-1?Q?KzClrLOlIl8cz+JsGcH0YOgDAZHOZ94DN4ZOa8dDTmLkcDX7TEUq+kFwxs?=
+ =?iso-8859-1?Q?q7yJUEPtNn6RTjsamAQi340nbEWK4enB0/Gjbu2tj1kyQ7SqHkVyuBbkd6?=
+ =?iso-8859-1?Q?f/+tKvEk9lrx0UNWBbUYXV5C1yHcGZCsDnU3WFiENSOJQGubxGCauNuZuF?=
+ =?iso-8859-1?Q?jHadndk0PXnr0IoHcuc93+rKzOMo63ZxnCl5Jh8WSkml7bVtWxy0ruMXhF?=
+ =?iso-8859-1?Q?771NCVS04s22aRM+loxWt+S9RKihUnzKc5Ejzp9icjTaZBBTmCQJF/5R+X?=
+ =?iso-8859-1?Q?S0qZnoySz/nMkSjpuKJrJmt7YFz2f+8M4W8WYg9LXj/D1AeUo4vBtpdfB7?=
+ =?iso-8859-1?Q?8IvwdqoemuEUlQT3/xymfdVXkaanYSzlvXTYhWAHE7a7vohS/iKIYhMo0+?=
+ =?iso-8859-1?Q?cgU9RyjgrQ+iuJWE7fiELB+d3CodJbJ0VrJmx75dY7gTS5533hJNbUfasN?=
+ =?iso-8859-1?Q?1yeTwpnp5Gp0mMw9s+kaKlLDTRHgc4iVkFsvmGOvZrrDF/Lrx9hxRZ/Rh8?=
+ =?iso-8859-1?Q?0DN1k0Cu2p?=
+x-ms-exchange-transport-forked: True
+Content-Type: multipart/alternative;
+ boundary="_000_DM4PR12MB52454BBA711B61BA2BD03033FFFE9DM4PR12MB5245namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 46853016-97b9-40b3-5d7f-08d961a6a6c4
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5129.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2021 17:44:24.1591 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AC6jyJoUxFrnPdN082OOyqgqcZpManKOSlL7u9LQRMupJZzCY52hg/+wZDX9YWYJCYiQ5Yjpkhs2dcIkzGx50w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5178
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5245.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e0f26d16-65eb-405b-dabb-08d961ac7702
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Aug 2021 18:26:00.7206 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: gJhNdqt8gUCpf7nRouYSV/YHnGsOMoM6wjdxE8A7+MuBZ3IOsoaQ5XHT7jMBqIx9MVf7cjpCjRYi3i2+wdeQ6A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5312
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,69 +134,217 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 2021-08-17 um 5:17 a.m. schrieb Yifan Zhang:
-> [ RUN      ] KFDSVMRangeTest.PartialUnmapSysMemTest
-> /home/yifan/brahma/libhsakmt/tests/kfdtest/src/KFDTestUtil.cpp:245: Failure
-> Value of: (hsaKmtAllocMemory(m_Node, m_Size, m_Flags, &m_pBuf))
->   Actual: 1
-> Expected: HSAKMT_STATUS_SUCCESS
-> Which is: 0
-> /home/yifan/brahma/libhsakmt/tests/kfdtest/src/KFDTestUtil.cpp:248: Failure
-> Value of: (hsaKmtMapMemoryToGPUNodes(m_pBuf, m_Size, __null, mapFlags, 1, &m_Node))
->   Actual: 1
-> Expected: HSAKMT_STATUS_SUCCESS
-> Which is: 0
-> /home/yifan/brahma/libhsakmt/tests/kfdtest/src/KFDTestUtil.cpp:306: Failure
-> Expected: ((void *)__null) != (ptr), actual: NULL vs NULL
-> Segmentation fault (core dumped)
-> [          ] Profile: Full Test
-> [          ] HW capabilities: 0x9
->
-> kernel log:
->
-> [  102.029150]  ret_from_fork+0x22/0x30
-> [  102.029158] ---[ end trace 15c34e782714f9a3 ]---
-> [ 3613.603598] amdgpu: Address: 0x7f7149ccc000 already allocated by SVM
-> [ 3613.610620] show_signal_msg: 27 callbacks suppressed
->
-> These is race with deferred actions from previous memory map
-> changes (e.g. munmap).Flush pending deffered work to avoid such case.
->
-> Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 5 +++++
->  1 file changed, 5 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> index 3177c4a0e753..e1c4abb98b35 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> @@ -1261,6 +1261,10 @@ static int kfd_ioctl_alloc_memory_of_gpu(struct file *filep,
->  		return -EINVAL;
->  
->  #if IS_ENABLED(CONFIG_HSA_AMD_SVM)
-> +	/* Flush pending deferred work to avoid racing with deferred actions
-> +	 * from previous memory map changes (e.g. munmap).
-> +	 */
-> +	svm_range_list_lock_and_flush_work(svms, current->mm);
->  	mutex_lock(&svms->lock);
->  	if (interval_tree_iter_first(&svms->objects,
->  				     args->va_addr >> PAGE_SHIFT,
-> @@ -1271,6 +1275,7 @@ static int kfd_ioctl_alloc_memory_of_gpu(struct file *filep,
->  		return -EADDRINUSE;
->  	}
->  	mutex_unlock(&svms->lock);
-> +	mmap_write_unlock(current->mm);
+--_000_DM4PR12MB52454BBA711B61BA2BD03033FFFE9DM4PR12MB5245namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-I think you can probably drop the mmap_write_unlock just after the
-mutex_lock above. There is no need to hold that lock any longer. And I
-believe the locking doesn't need to be strictly nested either.
+[Public]
 
-With that fixed, the series is
+[Why]
+After s3, In radv there is huge fps drop in games. This is because
+when memory is allocated using radv_amdgpu_winsys_bo_create()
+with both AMDGPU_GEM_DOMAIN_VRAM and AMDGPU_GEM_DOMAIN_GTT domains
+set, the kernel memory management after resume fails to move the data
+back to VRAM. In kernel memory management, ttm_bo_mem_compat()
+function returns true and hence data is not moved back to VRAM.
 
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+[How]
+Implement the idea suggested by Christian Koenig. During suspend
+move the data to system RAM instead of GTT. Due to this ttm_bo_mem_compat()
+will return false and data will be moved back to VRAM.
+
+Signed-off-by: Christian K=F6nig christian.koenig@amd.com<mailto:christian.=
+koenig@amd.com>
+Signed-off-by: Yogesh mohan marimuthu yogesh.mohanmarimuthu@amd.com<mailto:=
+yogesh.mohanmarimuthu@amd.com>
+---
+drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 8 +++++++-
+1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_ttm.c
+index 446943e32..44ec59998 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -136,7 +136,13 @@ static void amdgpu_evict_flags(struct ttm_buffer_objec=
+t *bo,
+                            return;
+               case TTM_PL_VRAM:
+-                            if (!adev->mman.buffer_funcs_enabled) {
++                           /* Move data to system memory for S3 so that wh=
+ile resume
++                           * ttm_bo_mem_compat() will return false and dat=
+a will be
++                           * moved back to VRAM also in case of bo with bo=
+th
++                           * AMDGPU_GEM_DOMAIN_GTT and AMDGPU_GEM_DOMAIN_V=
+RAM domain
++                           * set in bo->preferred_domains.
++                           */
++                           if (!adev->mman.buffer_funcs_enabled || adev->i=
+n_s3) {
+                                           /* Move to system memory */
+                                           amdgpu_bo_placement_from_domain(=
+abo, AMDGPU_GEM_DOMAIN_CPU);
+                            } else if (!amdgpu_gmc_vram_full_visible(&adev-=
+>gmc) &&
+--
+2.25.1
 
 
->  #endif
->  	dev = kfd_device_by_id(args->gpu_id);
->  	if (!dev)
+--_000_DM4PR12MB52454BBA711B61BA2BD03033FFFE9DM4PR12MB5245namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
+break-word">
+<p class=3D"msipheaderc10f11a2" align=3D"Left" style=3D"margin:0"><span sty=
+le=3D"font-size:10.0pt;font-family:Arial;color:#008000">[Public]</span></p>
+<br>
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">[Why]<o:p></o:p></p>
+<p class=3D"MsoNormal">After s3, In radv there is huge fps drop in games. T=
+his is because<o:p></o:p></p>
+<p class=3D"MsoNormal">when memory is allocated using radv_amdgpu_winsys_bo=
+_create()<o:p></o:p></p>
+<p class=3D"MsoNormal">with both AMDGPU_GEM_DOMAIN_VRAM and AMDGPU_GEM_DOMA=
+IN_GTT domains<o:p></o:p></p>
+<p class=3D"MsoNormal">set, the kernel memory management after resume fails=
+ to move the data<o:p></o:p></p>
+<p class=3D"MsoNormal">back to VRAM. In kernel memory management, ttm_bo_me=
+m_compat()<o:p></o:p></p>
+<p class=3D"MsoNormal">function returns true and hence data is not moved ba=
+ck to VRAM.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">[How]<o:p></o:p></p>
+<p class=3D"MsoNormal">Implement the idea suggested by Christian Koenig. Du=
+ring suspend<o:p></o:p></p>
+<p class=3D"MsoNormal">move the data to system RAM instead of GTT. Due to t=
+his ttm_bo_mem_compat()<o:p></o:p></p>
+<p class=3D"MsoNormal">will return false and data will be moved back to VRA=
+M.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Signed-off-by: Christian K=F6nig <a href=3D"mailto:c=
+hristian.koenig@amd.com">
+christian.koenig@amd.com</a><o:p></o:p></p>
+<p class=3D"MsoNormal">Signed-off-by: Yogesh mohan marimuthu <a href=3D"mai=
+lto:yogesh.mohanmarimuthu@amd.com">
+yogesh.mohanmarimuthu@amd.com</a><o:p></o:p></p>
+<p class=3D"MsoNormal">---<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 8 +++++++-=
+<o:p></o:p></p>
+<p class=3D"MsoNormal">1 file changed, 7 insertions(+), 1 deletion(-)<o:p><=
+/o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c=
+ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c<o:p></o:p></p>
+<p class=3D"MsoNormal">index 446943e32..44ec59998 100644<o:p></o:p></p>
+<p class=3D"MsoNormal">--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c<o:p></=
+o:p></p>
+<p class=3D"MsoNormal">+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c<o:p></=
+o:p></p>
+<p class=3D"MsoNormal">@@ -136,7 +136,13 @@ static void amdgpu_evict_flags(=
+struct ttm_buffer_object *bo,<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return;<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case TTM_PL_VRAM:<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!adev-&gt;mman.buffer_funcs_enable=
+d) {<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Move data to system memory for S3 so that=
+ while resume<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * ttm_bo_mem_compat() will return false and =
+data will be<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * moved back to VRAM also in case of bo with=
+ both<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * AMDGPU_GEM_DOMAIN_GTT and AMDGPU_GEM_DOMAI=
+N_VRAM domain<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * set in bo-&gt;preferred_domains.<o:p></o:p=
+></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!adev-&gt;mman.buffer_funcs_enabled || a=
+dev-&gt;in_s3) {<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Move to system memory=
+ */<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_placement_from=
+_domain(abo, AMDGPU_GEM_DOMAIN_CPU);<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if (!amdgpu_gmc_vram_full_visibl=
+e(&amp;adev-&gt;gmc) &amp;&amp;<o:p></o:p></p>
+<p class=3D"MsoNormal">-- <o:p></o:p></p>
+<p class=3D"MsoNormal">2.25.1<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+</body>
+</html>
+
+--_000_DM4PR12MB52454BBA711B61BA2BD03033FFFE9DM4PR12MB5245namp_--
