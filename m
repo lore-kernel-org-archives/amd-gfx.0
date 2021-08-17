@@ -2,70 +2,74 @@ Return-Path: <SRS0=1/w8=NI=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C4ECAC4338F
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Aug 2021 18:46:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1ECA9C4338F
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Aug 2021 19:04:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8C92B60F41
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Aug 2021 18:46:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8C92B60F41
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=alien8.de
+	by mail.kernel.org (Postfix) with ESMTPS id DE21560BD3
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Aug 2021 19:04:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DE21560BD3
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B89E6E22F;
-	Tue, 17 Aug 2021 18:46:55 +0000 (UTC)
-Received: from mail.skyhub.de (mail.skyhub.de [IPv6:2a01:4f8:190:11c2::b:1457])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 58CE06E21D;
- Tue, 17 Aug 2021 18:40:38 +0000 (UTC)
-Received: from zn.tnic (p200300ec2f1175006a73053df3c19379.dip0.t-ipconnect.de
- [IPv6:2003:ec:2f11:7500:6a73:53d:f3c1:9379])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 5B4271EC0559;
- Tue, 17 Aug 2021 20:40:32 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
- t=1629225632;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:in-reply-to:in-reply-to:  references:references;
- bh=Mu7m9OE8hn1eHLfYx7oR23r8CwsnkSOMYvXVJDRjbMo=;
- b=I0qn6AUtEVXgq+V687xy+eoUAd1bpv5rKJDshiFHYS5MZFxF4r/5JMhtSlefZeCCRNhZCw
- YCIZph50OY4OxP9BWaP4TzteGBvXxj1EaRigmP2l55c3iIKVOwY+/ax6ZOb0eEr0z4M9DO
- lHw8eOJZ8O/qYS8rn+WSUtQk3/ye1V4=
-Date: Tue, 17 Aug 2021 20:41:16 +0200
-From: Borislav Petkov <bp@alien8.de>
-To: Tom Lendacky <thomas.lendacky@amd.com>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-s390@vger.kernel.org,
- iommu@lists.linux-foundation.org, kvm@vger.kernel.org,
- linux-efi@vger.kernel.org, platform-driver-x86@vger.kernel.org,
- linux-graphics-maintainer@vmware.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, kexec@lists.infradead.org,
- linux-fsdevel@vger.kernel.org, Brijesh Singh <brijesh.singh@amd.com>,
- Joerg Roedel <joro@8bytes.org>, Andi Kleen <ak@linux.intel.com>,
- Sathyanarayanan Kuppuswamy <sathyanarayanan.kuppuswamy@linux.intel.com>,
- Tianyu Lan <Tianyu.Lan@microsoft.com>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Will Deacon <will@kernel.org>, Joerg Roedel <jroedel@suse.de>
-Subject: Re: [PATCH v2 05/12] x86/sme: Replace occurrences of sme_active()
- with prot_guest_has()
-Message-ID: <YRwCzH75WlfuQ6Yy@zn.tnic>
-References: <cover.1628873970.git.thomas.lendacky@amd.com>
- <c6c38d6253dc78381f9ff0f1823b6ee5ddeefacc.1628873970.git.thomas.lendacky@amd.com>
- <YRt6yCNCBLwyyx5X@zn.tnic>
- <2996b1c8-1ea1-0e56-3aad-08b46fc207f0@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 537DB6E239;
+	Tue, 17 Aug 2021 19:04:45 +0000 (UTC)
+Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
+ [IPv6:2607:f8b0:4864:20::32c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 392EB6E237;
+ Tue, 17 Aug 2021 19:04:44 +0000 (UTC)
+Received: by mail-ot1-x32c.google.com with SMTP id
+ x10-20020a056830408a00b004f26cead745so150538ott.10; 
+ Tue, 17 Aug 2021 12:04:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=u4qQshwhjGofU9gYqtNNSGNhs8pTO6YRe0feCXXBafg=;
+ b=RQvXDpXqE5V/Ur6Ae2DKHVTbcnuUm0Dt97KFZlTwrU1PdhC7vhQQe9vvJIE15qB2in
+ uRGEQ6IwB++3lJoH05/NllbgsC6MOey2t70WMzlKeYTIfaX92UpuSudKBR12nbL7vF39
+ hSgywBWHCxRT/y9ttyJ1rjXDkxNb8pW3PJk+EZVgTNYWMx2kakP7R+LqB4GfLdnkoeXs
+ WnsijLY3CPtY1QZxkBO0ui6NNFfYLUV6zPHUkLYZc7+RijCyoWc3ZlAS0KgT5g50OZUq
+ euqzIT0ExRE3pgxvE2Hu0XJD0HPW39bVdHM/EYtwYs8OCEDf/sC3W4q4BruJpeV+MuhJ
+ Zofg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=u4qQshwhjGofU9gYqtNNSGNhs8pTO6YRe0feCXXBafg=;
+ b=LrH6XQ4gWwMmTtDNzu+sOZHf/r7qh36s3X20TYH3D5UTZ7YZaLhn1wG5uJvy8oBqgz
+ x0ZlRPcC1Vp3FgZyy8Uk9TJi+mVaJorT7fVMFc8rSW5p9w55Yg34LIzaydBKFDKFjR2P
+ 7g1POif7ELeRcXtdxNt/a0D4n7ZTqRKq915yrBr5263jP5arwlLu5U4R9v4LeP8/HlHz
+ QwTy3mu3a7m7Tk+5c5Op+IOTgoOE76fHvpl6bPCX+nV2qtE0Y2c/ovcTuwX7xKcjZOw+
+ O2dCUnedNi30zWhEgCHmr7BJtHrGEeeJEx0Wjl/tsAq0zkagVgTdIX5+U9clf1UFKl92
+ b06Q==
+X-Gm-Message-State: AOAM530Q+lpPzzSPeKe+dGiVCovJiNrlTM58spYVh2F/7xzHxXygCeu0
+ jP0a4T7UrfzW0hsfQUFe4rtpKsXV5wmWA8Wikps=
+X-Google-Smtp-Source: ABdhPJyF/9SNxCUOO7tAZXfi09hq9gJD0GdsSiKZ6CGVJRU/11gcFjpDwisz8vGeaOkCgfSVSGkxYiTYC/wNsc68QxA=
+X-Received: by 2002:a05:6830:4:: with SMTP id c4mr3836459otp.23.1629227083396; 
+ Tue, 17 Aug 2021 12:04:43 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <2996b1c8-1ea1-0e56-3aad-08b46fc207f0@amd.com>
-X-Mailman-Approved-At: Tue, 17 Aug 2021 18:46:53 +0000
+References: <20210817143514.33609-1-colin.king@canonical.com>
+In-Reply-To: <20210817143514.33609-1-colin.king@canonical.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 17 Aug 2021 15:04:32 -0400
+Message-ID: <CADnq5_Nb+2UKPGN5tBqzFuLyBR6KLWtXroxUh24wXVZHB5tHag@mail.gmail.com>
+Subject: Re: [PATCH][next] drm/amd/pm: Fix spelling mistake "firwmare" ->
+ "firmware"
+To: Colin King <colin.king@canonical.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ xinhui pan <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, 
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, 
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ kernel-janitors@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,16 +84,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Aug 17, 2021 at 09:46:58AM -0500, Tom Lendacky wrote:
-> I'm ok with letting the TDX folks make changes to these calls to be SME or
-> SEV specific, if necessary, later.
+Applied.  Thanks!
 
-Yap, exactly. Let's add the specific stuff only when really needed.
+Alex
 
-Thx.
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+On Tue, Aug 17, 2021 at 10:35 AM Colin King <colin.king@canonical.com> wrote:
+>
+> From: Colin Ian King <colin.king@canonical.com>
+>
+> There is a spelling mistake in a dev_err error message. Fix it.
+>
+> Signed-off-by: Colin Ian King <colin.king@canonical.com>
+> ---
+>  drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+> index 5d2605df32e8..a0e50f23b1dd 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+> @@ -311,7 +311,7 @@ static int smu_v13_0_get_pptable_from_firmware(struct smu_context *smu, void **t
+>         version_major = le16_to_cpu(hdr->header.header_version_major);
+>         version_minor = le16_to_cpu(hdr->header.header_version_minor);
+>         if (version_major != 2) {
+> -               dev_err(adev->dev, "Unsupported smu firwmare version %d.%d\n",
+> +               dev_err(adev->dev, "Unsupported smu firmware version %d.%d\n",
+>                         version_major, version_minor);
+>                 return -EINVAL;
+>         }
+> --
+> 2.32.0
+>
