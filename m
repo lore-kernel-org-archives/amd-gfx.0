@@ -2,101 +2,84 @@ Return-Path: <SRS0=PfTh=NJ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-19.4 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-16.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 158FEC4338F
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 07:27:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 493A9C4338F
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 08:06:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C449A6108B
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 07:27:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C449A6108B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=chromium.org
+	by mail.kernel.org (Postfix) with ESMTPS id 1433B60E76
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 08:06:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1433B60E76
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56D4B892E3;
-	Wed, 18 Aug 2021 07:27:11 +0000 (UTC)
-Received: from mail-pf1-x436.google.com (mail-pf1-x436.google.com
- [IPv6:2607:f8b0:4864:20::436])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DCAF6E41A
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Aug 2021 06:14:18 +0000 (UTC)
-Received: by mail-pf1-x436.google.com with SMTP id a21so1086119pfh.5
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Aug 2021 23:14:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=axRxl6XNvdHdnVEeMiGlhBK2fx1eWMP1p1J87ZwKUtU=;
- b=JpKHmXU+6i0jG8irvmKVhzXirA7pH+W7nH7J14Qn327X+LOQf3pL7DowyuBtKsP5wC
- gHD1WyQqGKoFOHDbsbrtUlWANqYlMajHDOs5uRuKehjTdTUc/TyL5/NTurDtd+3UeEjx
- runJ9+RCI5UpKUek8ddHgjdTJKkDX36NxGr60=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8CEDC6E49A;
+	Wed, 18 Aug 2021 08:06:48 +0000 (UTC)
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [IPv6:2a00:1450:4864:20::430])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71FF56E49A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Aug 2021 08:06:46 +0000 (UTC)
+Received: by mail-wr1-x430.google.com with SMTP id l11so2111415wrx.4
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Aug 2021 01:06:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=H9rXYnAGMtO8d0FEaf5xM940BMijAbIrTHN6nPT9NTE=;
+ b=FkoDysTg/FbTAzJ71f/ADnxV8SCcvbVEEEiBZ/lVShSN3VpnwoyXvsPbBadG33CUeu
+ vpHkGOBlOSO4NMcWdQwCz3zBVkBiwtlo7a/BYE5MOM/S7dyw+BMWeElpsuSllbVjRFuW
+ ziQZt8z5hu0UYcQ/ji+yDNMcgr3IMPkdhGu7qctg5nrZggTkm7E08IOFoyYWDb0uayJH
+ JuYChvM9kp0nDusGxFv42AlQRxDBy1JqYn4eFSv8ddtMqGRuI1z1MLcQUyuOi2BJg8kK
+ /8WJLaUWA6jdfxVwXRPvx2rCqTAc+foXx1cesCiqnHnhwWXXFVPv7MKee7+AzMUUZOIX
+ Cerg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=axRxl6XNvdHdnVEeMiGlhBK2fx1eWMP1p1J87ZwKUtU=;
- b=LtGdEbGNUDvP2EzxD49Vbg6WGWfpCx+RiZVwZZejORhFDHECcIM2VbULlR09u14aBH
- 2PPs0qbG/nyCh5Bg4diEniMNaOhY/3v6r8aVihTzj5DGBkZykS4fCAQRJD1gzXGe1qnb
- vfFqTQUfbHEW3LM7xFuEwrMfLmhdxgAZjPw4RgWRNnQkR22CEcSEyzQVCglgDRmUO7+T
- IqLUv+eFSnutkOR091hBG8oZzPypb9kN7Ohlkthndzi1YSHYs6e0T6M2NehLCDUS4BpY
- dC4ToZLeGoeYB3HASeqTew+XTnjpIaLok8+Obfs5JrRVQWRZKuGHjnwQGpFrA41xz5tf
- fFJg==
-X-Gm-Message-State: AOAM532s8mRBf1eU/eFJZ4XPiXl5GjCu95041NW6ObgFhRPLOdCBO5lc
- r2rh8rrEKFXl3EunZ0kY27CaiA==
-X-Google-Smtp-Source: ABdhPJxq4OGdaH6r9U7yhjNUxqwYDhkvChY0GjS3sW8r1FpsJJV1IJrOiRrj6WilyBToIyIfhh4sdw==
-X-Received: by 2002:a65:4581:: with SMTP id o1mr7206734pgq.349.1629267257822; 
- Tue, 17 Aug 2021 23:14:17 -0700 (PDT)
-Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
- by smtp.gmail.com with ESMTPSA id k9sm4320391pfu.109.2021.08.17.23.14.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Aug 2021 23:14:15 -0700 (PDT)
-From: Kees Cook <keescook@chromium.org>
-To: linux-kernel@vger.kernel.org
-Cc: Kees Cook <keescook@chromium.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Hawking Zhang <Hawking.Zhang@amd.com>,
- Feifei Xu <Feifei.Xu@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
- Likun Gao <Likun.Gao@amd.com>, Jiawei Gu <Jiawei.Gu@amd.com>,
- Evan Quan <evan.quan@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Andrew Morton <akpm@linux-foundation.org>, linux-wireless@vger.kernel.org,
- netdev@vger.kernel.org, linux-staging@lists.linux.dev,
- linux-block@vger.kernel.org, linux-kbuild@vger.kernel.org,
- clang-built-linux@googlegroups.com,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- linux-hardening@vger.kernel.org
-Subject: [PATCH v2 18/63] drm/amd/pm: Use struct_group() for memcpy() region
-Date: Tue, 17 Aug 2021 23:04:48 -0700
-Message-Id: <20210818060533.3569517-19-keescook@chromium.org>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210818060533.3569517-1-keescook@chromium.org>
-References: <20210818060533.3569517-1-keescook@chromium.org>
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=H9rXYnAGMtO8d0FEaf5xM940BMijAbIrTHN6nPT9NTE=;
+ b=AzcbQB2oH7BMI5oQvS2jhiAFShv9t4KFkcf5HOYdr5XoQ71ToY7zdOKkfkPZHpXDJO
+ zD9MfgZEpZw0uVFhcAMl1RLr3e3KqFD3TnJaoDeeWPunZ+HNQ0nx/kqht6Qums4c3+hd
+ TlRxAeBDQY7Cf23ScEl//zzYZH8F8moMuLix9n7rzYtTCzNhC1LTmmy0tVd463hoq608
+ SpXpFzynoslx6DI/QOGkohmeJdBfyubi/CBEDPH+DsfDJcDgFsISeBieoF4y8Q8c4Pje
+ ixZA2Z7IHFIaoxYWMwoykWERZn0/QVco+F+FrQ3OkPT4XXKpuvY57Lp/MZfmQh1o4rfJ
+ wo8A==
+X-Gm-Message-State: AOAM5315LSnGPkRq/CLokXS6gyKT2kG4OAiHN8uAZXOLHhEkvLoPX5FW
+ 1hiakyI+MM/7R5ON4cQZlX1rUN9e3rw=
+X-Google-Smtp-Source: ABdhPJxdr4q1hipSke9TL/CuoA891lsaoJnu8lDcHKyHoNAuUYAkfUWljD+GLl+iTar087CposTDZg==
+X-Received: by 2002:a5d:5008:: with SMTP id e8mr8818416wrt.103.1629274005015; 
+ Wed, 18 Aug 2021 01:06:45 -0700 (PDT)
+Received: from [192.168.178.21] (p5b0ea1b5.dip0.t-ipconnect.de.
+ [91.14.161.181])
+ by smtp.gmail.com with ESMTPSA id i8sm4755089wrv.70.2021.08.18.01.06.43
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 18 Aug 2021 01:06:44 -0700 (PDT)
+Subject: Re: [PATCH] drm/amd/amdgpu:flush ttm delayed work before cancel_sync
+To: YuBiao Wang <YuBiao.Wang@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>,
+ Evan Quan <Evan.Quan@amd.com>, horace.chen@amd.com,
+ Tuikov Luben <Luben.Tuikov@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Deucher Alexander <Alexander.Deucher@amd.com>, Jack Xiao
+ <Jack.Xiao@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
+ Monk Liu <Monk.Liu@amd.com>, Feifei Xu <Feifei.Xu@amd.com>,
+ Kevin Wang <Kevin1.Wang@amd.com>
+References: <20210817095005.8536-1-YuBiao.Wang@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <2696feb8-c937-c687-b449-2aebffae6116@gmail.com>
+Date: Wed, 18 Aug 2021 10:06:42 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9874; h=from:subject;
- bh=xkq/GgVQos4phY69YvlHwazwtJ7+oBoAW/iYv7WVAic=;
- b=owEBbQKS/ZANAwAKAYly9N/cbcAmAcsmYgBhHKMhiWVzzmhBur+1cBk2O2ZXVSjeLlgxz10CkbR5
- AKO/11yJAjMEAAEKAB0WIQSlw/aPIp3WD3I+bhOJcvTf3G3AJgUCYRyjIQAKCRCJcvTf3G3AJht6EA
- CaYxNgC78NjMU3NXMgzorx6fRtH4BJwYIGJ74DB/m7swwaAHceyK1O/6lCQ7H812Aiiq4XK3QDmoUk
- qASs/4198qLTAEHhq7Q18FiMX2P3A7Q0631t7ABRcNNf+8sZXncmdOZPGYXpPAODBOCabM/f3/oDCx
- juRFOQ2unI6EojppuO7CJSyN6BitOl0EfAAVwzH5qdN0dbqjvmJWEk6DyGUh+uyHqAcClSWCqlrEC2
- 2OsaBqNYzf5j6vWeBx02EpyOWFqkO/XyPXBqw7kL7GIS2sxESQTqmhPrfGjlNI8aLc5oqP4Nz/mHlj
- izA+lyAMf9/CaxogHr7ad/WNivgAySk9xHsccW792p6SsKVbNUtuWM4hk2GkKJimH31lP9pcLQL2Ch
- j7xVH/dOlAV9Ftvi7+KvJI+v+DmQ/gRxe5YIRztukLnhmjPWcMqKsuKK44UwR65YeFh33G6UZWzhZj
- SwUBV/6zpAPgCZDoeJ5hTeN2HohgNJ0fijbEnaK+ifaUEslAh2R7Yxz9WjnXacxem2c2/Z6wGyyAdq
- 8GbFcwR+u8iKZLAOMc13DJT6zOgy8+ZXHxMay8F6GzxmI1F43Z0WF2KzMZDLs5tgRr/UrucI9TgIhX
- cizSF2eNXvheQca86HlnqqfZiLL7gsttRC6U5oD07PukPv3YeEniSDJPST0g==
-X-Developer-Key: i=keescook@chromium.org; a=openpgp;
- fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 18 Aug 2021 07:27:10 +0000
+In-Reply-To: <20210817095005.8536-1-YuBiao.Wang@amd.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,253 +94,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In preparation for FORTIFY_SOURCE performing compile-time and run-time
-field bounds checking for memcpy(), memmove(), and memset(), avoid
-intentionally writing across neighboring fields.
 
-Use struct_group() in structs:
-	struct atom_smc_dpm_info_v4_5
-	struct atom_smc_dpm_info_v4_6
-	struct atom_smc_dpm_info_v4_7
-	struct atom_smc_dpm_info_v4_10
-	PPTable_t
-so the grouped members can be referenced together. This will allow
-memcpy() and sizeof() to more easily reason about sizes, improve
-readability, and avoid future warnings about writing beyond the end of
-the first member.
 
-"pahole" shows no size nor member offset changes to any structs.
-"objdump -d" shows no object code changes.
+Am 17.08.21 um 11:50 schrieb YuBiao Wang:
+> [Why]
+> In some cases when we unload driver, warning call trace
+> will show up in vram_mgr_fini which claims that LRU is not empty, caused
+> by the ttm bo inside delay deleted queue.
+>
+> [How]
+> We should flush delayed work to make sure the delay deleting is done.
+>
+> Signed-off-by: YuBiao Wang <YuBiao.Wang@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 4d266c40382c..0b5764aa98a4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -3824,8 +3824,10 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
+>   {
+>   	dev_info(adev->dev, "amdgpu: finishing device.\n");
+>   	flush_delayed_work(&adev->delayed_init_work);
+> -	if (adev->mman.initialized)
+> +	if (adev->mman.initialized) {
+> +		flush_delayed_work(&adev->mman.bdev.wq);
+>   		ttm_bo_lock_delayed_workqueue(&adev->mman.bdev);
+> +	}
 
-Cc: "Christian König" <christian.koenig@amd.com>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
-Cc: David Airlie <airlied@linux.ie>
-Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: Hawking Zhang <Hawking.Zhang@amd.com>
-Cc: Feifei Xu <Feifei.Xu@amd.com>
-Cc: Lijo Lazar <lijo.lazar@amd.com>
-Cc: Likun Gao <Likun.Gao@amd.com>
-Cc: Jiawei Gu <Jiawei.Gu@amd.com>
-Cc: Evan Quan <evan.quan@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Signed-off-by: Kees Cook <keescook@chromium.org>
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-Link: https://lore.kernel.org/lkml/CADnq5_Npb8uYvd+R4UHgf-w8-cQj3JoODjviJR_Y9w9wqJ71mQ@mail.gmail.com
----
- drivers/gpu/drm/amd/include/atomfirmware.h           |  9 ++++++++-
- .../gpu/drm/amd/pm/inc/smu11_driver_if_arcturus.h    |  3 ++-
- drivers/gpu/drm/amd/pm/inc/smu11_driver_if_navi10.h  |  3 ++-
- .../gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h   |  3 ++-
- drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c    |  6 +++---
- drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c      | 12 ++++++++----
- drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c   |  6 +++---
- 7 files changed, 28 insertions(+), 14 deletions(-)
+If you flush the delayed work you can drop the call to 
+ttm_bo_lock_delayed_workqueue().
 
-diff --git a/drivers/gpu/drm/amd/include/atomfirmware.h b/drivers/gpu/drm/amd/include/atomfirmware.h
-index 44955458fe38..7bf3edf15410 100644
---- a/drivers/gpu/drm/amd/include/atomfirmware.h
-+++ b/drivers/gpu/drm/amd/include/atomfirmware.h
-@@ -2081,6 +2081,7 @@ struct atom_smc_dpm_info_v4_5
- {
-   struct   atom_common_table_header  table_header;
-     // SECTION: BOARD PARAMETERS
-+  struct_group(dpm_info,
-     // I2C Control
-   struct smudpm_i2c_controller_config_v2  I2cControllers[8];
- 
-@@ -2159,7 +2160,7 @@ struct atom_smc_dpm_info_v4_5
-   uint32_t MvddRatio; // This is used for MVDD Vid workaround. It has 16 fractional bits (Q16.16)
-   
-   uint32_t     BoardReserved[9];
--
-+  );
- };
- 
- struct atom_smc_dpm_info_v4_6
-@@ -2168,6 +2169,7 @@ struct atom_smc_dpm_info_v4_6
-   // section: board parameters
-   uint32_t     i2c_padding[3];   // old i2c control are moved to new area
- 
-+  struct_group(dpm_info,
-   uint16_t     maxvoltagestepgfx; // in mv(q2) max voltage step that smu will request. multiple steps are taken if voltage change exceeds this value.
-   uint16_t     maxvoltagestepsoc; // in mv(q2) max voltage step that smu will request. multiple steps are taken if voltage change exceeds this value.
- 
-@@ -2246,12 +2248,14 @@ struct atom_smc_dpm_info_v4_6
- 
-   // reserved
-   uint32_t   boardreserved[10];
-+  );
- };
- 
- struct atom_smc_dpm_info_v4_7
- {
-   struct   atom_common_table_header  table_header;
-     // SECTION: BOARD PARAMETERS
-+  struct_group(dpm_info,
-     // I2C Control
-   struct smudpm_i2c_controller_config_v2  I2cControllers[8];
- 
-@@ -2348,6 +2352,7 @@ struct atom_smc_dpm_info_v4_7
-   uint8_t      Padding8_Psi2;
- 
-   uint32_t     BoardReserved[5];
-+  );
- };
- 
- struct smudpm_i2c_controller_config_v3
-@@ -2478,6 +2483,7 @@ struct atom_smc_dpm_info_v4_10
-   struct   atom_common_table_header  table_header;
- 
-   // SECTION: BOARD PARAMETERS
-+  struct_group(dpm_info,
-   // Telemetry Settings
-   uint16_t GfxMaxCurrent; // in Amps
-   uint8_t   GfxOffset;     // in Amps
-@@ -2524,6 +2530,7 @@ struct atom_smc_dpm_info_v4_10
-   uint16_t spare5;
- 
-   uint32_t reserved[16];
-+  );
- };
- 
- /* 
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_arcturus.h b/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_arcturus.h
-index 43d43d6addc0..8093a98800c3 100644
---- a/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_arcturus.h
-+++ b/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_arcturus.h
-@@ -643,6 +643,7 @@ typedef struct {
-   // SECTION: BOARD PARAMETERS
- 
-   // SVI2 Board Parameters
-+  struct_group(v4_6,
-   uint16_t     MaxVoltageStepGfx; // In mV(Q2) Max voltage step that SMU will request. Multiple steps are taken if voltage change exceeds this value.
-   uint16_t     MaxVoltageStepSoc; // In mV(Q2) Max voltage step that SMU will request. Multiple steps are taken if voltage change exceeds this value.
- 
-@@ -728,10 +729,10 @@ typedef struct {
-   uint32_t     BoardVoltageCoeffB;    // decode by /1000
- 
-   uint32_t     BoardReserved[7];
-+  );
- 
-   // Padding for MMHUB - do not modify this
-   uint32_t     MmHubPadding[8]; // SMU internal use
--
- } PPTable_t;
- 
- typedef struct {
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_navi10.h b/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_navi10.h
-index 04752ade1016..0b4e6e907e95 100644
---- a/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_navi10.h
-+++ b/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_navi10.h
-@@ -725,6 +725,7 @@ typedef struct {
-   uint32_t     Reserved[8];
- 
-   // SECTION: BOARD PARAMETERS
-+  struct_group(v4,
-   // I2C Control
-   I2cControllerConfig_t  I2cControllers[NUM_I2C_CONTROLLERS];     
- 
-@@ -809,10 +810,10 @@ typedef struct {
-   uint8_t      Padding8_Loadline;
- 
-   uint32_t     BoardReserved[8];
-+  );
- 
-   // Padding for MMHUB - do not modify this
-   uint32_t     MmHubPadding[8]; // SMU internal use
--
- } PPTable_t;
- 
- typedef struct {
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h b/drivers/gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h
-index a017983ff1fa..5056d3728da8 100644
---- a/drivers/gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h
-+++ b/drivers/gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h
-@@ -390,6 +390,7 @@ typedef struct {
-   uint32_t spare3[14];
- 
-   // SECTION: BOARD PARAMETERS
-+  struct_group(v4_10,
-   // Telemetry Settings
-   uint16_t GfxMaxCurrent; // in Amps
-   int8_t   GfxOffset;     // in Amps
-@@ -444,7 +445,7 @@ typedef struct {
- 
-   //reserved
-   uint32_t reserved[14];
--
-+  );
- } PPTable_t;
- 
- typedef struct {
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-index 8ab58781ae13..341adf209240 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-@@ -463,11 +463,11 @@ static int arcturus_append_powerplay_table(struct smu_context *smu)
- 			smc_dpm_table->table_header.format_revision,
- 			smc_dpm_table->table_header.content_revision);
- 
-+	BUILD_BUG_ON(sizeof(smc_pptable->v4_6) != sizeof(smc_dpm_table->dpm_info));
- 	if ((smc_dpm_table->table_header.format_revision == 4) &&
- 	    (smc_dpm_table->table_header.content_revision == 6))
--		memcpy(&smc_pptable->MaxVoltageStepGfx,
--		       &smc_dpm_table->maxvoltagestepgfx,
--		       sizeof(*smc_dpm_table) - offsetof(struct atom_smc_dpm_info_v4_6, maxvoltagestepgfx));
-+		memcpy(&smc_pptable->v4_6, &smc_dpm_table->dpm_info,
-+		       sizeof(smc_dpm_table->dpm_info));
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-index 2e5d3669652b..e8b6e25a7815 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-@@ -431,16 +431,20 @@ static int navi10_append_powerplay_table(struct smu_context *smu)
- 
- 	switch (smc_dpm_table->table_header.content_revision) {
- 	case 5: /* nv10 and nv14 */
--		memcpy(smc_pptable->I2cControllers, smc_dpm_table->I2cControllers,
--			sizeof(*smc_dpm_table) - sizeof(smc_dpm_table->table_header));
-+		BUILD_BUG_ON(sizeof(smc_pptable->v4) !=
-+			     sizeof(smc_dpm_table->dpm_info));
-+		memcpy(&smc_pptable->v4, &smc_dpm_table->dpm_info,
-+		       sizeof(smc_dpm_table->dpm_info));
- 		break;
- 	case 7: /* nv12 */
- 		ret = amdgpu_atombios_get_data_table(adev, index, NULL, NULL, NULL,
- 					      (uint8_t **)&smc_dpm_table_v4_7);
- 		if (ret)
- 			return ret;
--		memcpy(smc_pptable->I2cControllers, smc_dpm_table_v4_7->I2cControllers,
--			sizeof(*smc_dpm_table_v4_7) - sizeof(smc_dpm_table_v4_7->table_header));
-+		BUILD_BUG_ON(sizeof(smc_pptable->v4) !=
-+			     sizeof(smc_dpm_table_v4_7->dpm_info));
-+		memcpy(&smc_pptable->v4, &smc_dpm_table_v4_7->dpm_info,
-+		       sizeof(smc_dpm_table_v4_7->dpm_info));
- 		break;
- 	default:
- 		dev_err(smu->adev->dev, "smc_dpm_info with unsupported content revision %d!\n",
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-index c8eefacfdd37..492ba37bc514 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-@@ -407,11 +407,11 @@ static int aldebaran_append_powerplay_table(struct smu_context *smu)
- 			smc_dpm_table->table_header.format_revision,
- 			smc_dpm_table->table_header.content_revision);
- 
-+	BUILD_BUG_ON(sizeof(smc_pptable->v4_10) != sizeof(smc_dpm_table->dpm_info));
- 	if ((smc_dpm_table->table_header.format_revision == 4) &&
- 	    (smc_dpm_table->table_header.content_revision == 10))
--		memcpy(&smc_pptable->GfxMaxCurrent,
--		       &smc_dpm_table->GfxMaxCurrent,
--		       sizeof(*smc_dpm_table) - offsetof(struct atom_smc_dpm_info_v4_10, GfxMaxCurrent));
-+		memcpy(&smc_pptable->v4_10, &smc_dpm_table->dpm_info,
-+		       sizeof(smc_dpm_table->dpm_info));
- 	return 0;
- }
- 
--- 
-2.30.2
+It would also be nice to have to wrap this into a 
+ttm_bo_flush_delayed_workqueue() function.
+
+Apart from that looks good to me,
+Christian.
+
+>   	adev->shutdown = true;
+>   
+>   	/* make sure IB test finished before entering exclusive mode
 
