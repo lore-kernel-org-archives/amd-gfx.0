@@ -2,118 +2,74 @@ Return-Path: <SRS0=PfTh=NJ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-19.9 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 06249C4320A
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 19:28:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B22E2C4338F
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 21:58:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BC4BC60F35
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 19:28:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BC4BC60F35
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=nvidia.com
+	by mail.kernel.org (Postfix) with ESMTPS id 79A3261103
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 21:58:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 79A3261103
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B50F6E92A;
-	Wed, 18 Aug 2021 19:28:47 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2057.outbound.protection.outlook.com [40.107.223.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5EC4E6E929;
- Wed, 18 Aug 2021 19:28:33 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OmqAQXEpdPdb56bWQLnHNSLDQOMGxN8VS/P7Yt77DbI+5YYFwp0KU1atRqRD1TnaRH5CVZ1lNfSBAOZXIJz8h2rSmYT0cOl6/BSHvJccyOJTzOEuCSI8YCXCqn9pRrFUZ3RcktSO+fkGKrxVCQx/MSIoYPBvAk8jfCMibKgaJppWWaD1nRkw1+RrCLUXwJFFjXGCt+SkgMigkKVjKIH9IP/03u8+hlvJC9DCkwR9cdOcgdPyNcDLRCbnAX61Z559KG7m6MH6OQWdp71b4I8OzTzoGWFgsbtXBqaNHvCR5jQvh/z8cbSkVbEix+R2b6E7YAmC380XHkoRxkYCP+nQLQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=P0dxBB+gTPgn6xtJRTWooXg5Ofo2P3zOE2xwaHUAyrQ=;
- b=J2qUs7VWgvBw2jNN1Th68X+biEN4JshjW8F7UcXQp222K9sJDBIZILqXFwXHk1CTXubyf3AD8ouUUXpt6zolx3OpPZTzyqU13urlZ0giXb3CdS3c2YovxST6jhwEat8G5nCjPb7vdTzC1jAdbbZwcwgpKdlGbTB+WNUZ99DmpV+PUnIbMJCYHH4VDpD2sb+7twAHTw6wy7ckyR7QvG5ci2HK+mkt3EP06hGzm/utcbdMTjvs8mwz5hBRg4UbEtCXlNEmRwCORSZPUbQqfRkWJQNvxBk8wZEBSdQ4IrNsFJ2t0/YmbvsM25RovSIYxaC91UDQfhOCd9B+Et9Jpq10Cg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.112.32) smtp.rcpttodomain=redhat.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=nvidia.com; 
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=P0dxBB+gTPgn6xtJRTWooXg5Ofo2P3zOE2xwaHUAyrQ=;
- b=pt4FulzCGAi6z3RnU1HIgF/giSn4aJ4+QiNKT99IQN+2FcFVNWdQskycy5R1vzxhx3k24TIbYTHIxCNDsm8HdjFOgos7bKyilPZOVC7kmMxH0dTIlUKAKFItG1bl8nwYoCveSj4u7OZM9Y/MA0cn8QbWjvxg3ZU0p82WMo5BfQpqZ2i0lySiVqZceiIOCIVovSvMq5rEKwnXORjNJQUvQS+DJAhUw92jRpvkUVPAGIGNWi8p7iSAY9CpWIMU+r35L2rb83u/bRCB8aAMBYDJ3/jWVNSjb7f+o0rdT6X+bdRMV2auGIYnLvoX5SerzauujmEGWWTMOxJCc1aKneEGag==
-Received: from MWHPR02CA0018.namprd02.prod.outlook.com (2603:10b6:300:4b::28)
- by DM5PR12MB1609.namprd12.prod.outlook.com (2603:10b6:4:10::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.24; Wed, 18 Aug
- 2021 19:28:31 +0000
-Received: from CO1NAM11FT031.eop-nam11.prod.protection.outlook.com
- (2603:10b6:300:4b::4) by MWHPR02CA0018.outlook.office365.com
- (2603:10b6:300:4b::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.19 via Frontend
- Transport; Wed, 18 Aug 2021 19:28:31 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.112.32)
- smtp.mailfrom=nvidia.com; redhat.com; dkim=none (message not signed)
- header.d=none;redhat.com; dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.112.32 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.112.32; helo=mail.nvidia.com;
-Received: from mail.nvidia.com (216.228.112.32) by
- CO1NAM11FT031.mail.protection.outlook.com (10.13.174.118) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.20.4415.16 via Frontend Transport; Wed, 18 Aug 2021 19:28:31 +0000
-Received: from HQMAIL105.nvidia.com (172.20.187.12) by HQMAIL109.nvidia.com
- (172.20.187.15) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Wed, 18 Aug
- 2021 12:28:31 -0700
-Received: from HQMAIL111.nvidia.com (172.20.187.18) by HQMAIL105.nvidia.com
- (172.20.187.12) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Wed, 18 Aug
- 2021 19:28:31 +0000
-Received: from rcampbell-test.nvidia.com (172.20.187.5) by mail.nvidia.com
- (172.20.187.18) with Microsoft SMTP Server (TLS) id 15.0.1497.2 via Frontend
- Transport; Wed, 18 Aug 2021 19:28:31 +0000
-Subject: Re: [PATCH v6 02/13] mm: remove extra ZONE_DEVICE struct page refcount
-To: Felix Kuehling <felix.kuehling@amd.com>, Alex Sierra
- <alex.sierra@amd.com>, <akpm@linux-foundation.org>, <linux-mm@kvack.org>,
- <linux-ext4@vger.kernel.org>, <linux-xfs@vger.kernel.org>
-CC: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <hch@lst.de>, <jgg@nvidia.com>, <jglisse@redhat.com>
-References: <20210813063150.2938-1-alex.sierra@amd.com>
- <20210813063150.2938-3-alex.sierra@amd.com>
- <7b821150-af18-f786-e419-ec245b8cfb1e@nvidia.com>
- <393e9815-838d-5fe6-d6ab-bfe7b543fef6@amd.com>
-From: Ralph Campbell <rcampbell@nvidia.com>
-Message-ID: <e155ed59-8c3c-4046-e731-f082ee4b10bb@nvidia.com>
-Date: Wed, 18 Aug 2021 12:28:30 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31ED46E8D6;
+	Wed, 18 Aug 2021 21:58:00 +0000 (UTC)
+Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com
+ [IPv6:2607:f8b0:4864:20::22c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F05B6E8EC;
+ Wed, 18 Aug 2021 21:56:14 +0000 (UTC)
+Received: by mail-oi1-x22c.google.com with SMTP id r26so5572149oij.2;
+ Wed, 18 Aug 2021 14:56:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=RdmNdCMm6JhUPQCkA/tGLa7SxJbn7LmCF5fH55S5Db8=;
+ b=fkCLcGjMhdjaPhrjRCyLDbZmyOEN/LRn4eJ0lFcmweZay62iQ1CBA6vqSCq4MFV9Vm
+ OdVs7VFo8n/psxGrG12joViS4t0E/UHxKVFQAljidAl+u5nBEqimZV4hSqjaWg2+bq9J
+ Zdep3lm4nEiDS7Dhf5pdYrtCUSpHP5E9XtTLFgYWgAQzDOsFnOhG8ZGdMAKgMuK8CZop
+ mBnvSj3mO7L1JD5Wi2HdtLHv7eqJuhGa5lrNWD8hoRpHInbswswm7toVe8Hy9XQy0UV0
+ w+2KsM7MtOpT/dWzoH98KiFw1Z806S4yhKWjKqOiF9z7uc+E68azV4l6Hin2Hv8SQ5qT
+ T4KQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=RdmNdCMm6JhUPQCkA/tGLa7SxJbn7LmCF5fH55S5Db8=;
+ b=hFjA2CmVy522o7RBqx5nnt8Xpj0g5/qd1sh6d47C1rWB/DZm5T8YzQLN2i9GcRBHeQ
+ +D/KkTO8QoFnj7pXMUE//F6jWMPh3lY1IDclYW1NszgQOjov88ljDGTscUMiL+z5zILf
+ R4hVzQS4Cm9bRHIc6O93WpGCfUucVixUkDDq5Bh4ju6NslgXPRhxB8xSqgd3V4hv824Q
+ kvl25NaNpeHQBfNWtNRiP4jOejneoAksMZFTGulNbrW6PEh9JMaRJeC6LtEbKlGSB9L8
+ WfqaQKG+kLeCQx1hmgzItX9IGzE3ZAoSRcUBzlz5Ftnr3Iof8e6UbH1qJwNhVL4BER/M
+ SJBA==
+X-Gm-Message-State: AOAM5336bMVIOwtYBfuMTy1/oxzjH326BaA2y5wkTMHmbSXhbCqGvJwF
+ W5ZsIMdXEzLeXMvd/NZDzCl1V/IG0MyNQ0kxKEHCU9R1
+X-Google-Smtp-Source: ABdhPJxppIeW0nbPAMY8Ov3LwZPcKqcBcq9vjggH8/2ZNkXRRypcKKDu+XTFxwf+5svXzB9ib1cfup0GHmAzad0YOoY=
+X-Received: by 2002:a05:6808:14c:: with SMTP id
+ h12mr273986oie.24.1629323773367; 
+ Wed, 18 Aug 2021 14:56:13 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <393e9815-838d-5fe6-d6ab-bfe7b543fef6@amd.com>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 0ca49a3a-3231-4322-e250-08d9627e5d0b
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1609:
-X-Microsoft-Antispam-PRVS: <DM5PR12MB16092220E81E2EBBCE5A66FEC2FF9@DM5PR12MB1609.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: VpQvXu9STTWL62aQ9sm3SiAiAuc7renl76Gf3apCxC6dfqMz5ba7e337onDgTTnp97GB6WdCZXzpLTUzFVkO7wIdTa6wceM9aeNi1k3xZAiYsRQ/WiTRaKJb6mXWuWM4qns+A5pBsgYB0Nve2Vrsp8V2AiiRkNQUckVKxahydna4r20JsxRkk/2KEbZnKLN13Q/sWfbUDQc9Vm/eoZhtklqfhlK7pMn2u9QDwBUuSNHEKsYy8lggMK9vbLpXxMLG5+si9n/jJgZ5fa1lV34GZ5bOPewkMDlt32p8KJ+JWZF7SPmKi++LZ6RxBXpVrs3ySuodvPgr9V+M7xatUiilVZnE1upsrmFe6cnWCKHnufKWF7zAju4K75Dg4FT6NHeNZNs7Be8NqWr4M+aDclW0EmC3Mc9gzoRD/mtc7Sa9sPRJvYrPkwzjsk2oJhK4boNuH36VJtmRAoaGxBq3eC2yNxqjoaV0k3Uz3fFdPumDWn+2BCuUVoKGDNhnFN1LKt4YRcHRWFVbVmmErydJE+rKWyvTnPQLu1dYWVPsb3w5ayMfuz44G++oEE5Mu++xJdCWkulT6bClScEWRzuWUsZ2QkxngNQ7+ypLmDVWRU89nK1rwO+i/uHn4D2zbMdJyLsSh6SSdzDPjEYHsSlbNwQ4OTmRJgCkrdZdzN6J13xeW4AoEuOpX4j4/E/hZH0RLZpJ0uqRqI7Pu1GmT0k5mQx6E2/sEEB/sK5u/naXP2yGvx1e17fzoXR0Kcn4Z72I3d5gghms4FTzNAWRt+REDg9B6iJAX6/dBj225YerKItxDrFwCnxL8nkJRMda7DBzcOf2kxgku6+l2rslz/YaFEvoJ2MISmngxtSuTNe49jQmtEU+py2uBL7FPhL94iT9CM0D
-X-Forefront-Antispam-Report: CIP:216.228.112.32; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:schybrid01.nvidia.com; CAT:NONE;
- SFS:(4636009)(396003)(39860400002)(136003)(346002)(376002)(46966006)(36840700001)(2906002)(54906003)(83380400001)(110136005)(86362001)(8676002)(316002)(82310400003)(8936002)(47076005)(31686004)(82740400003)(36860700001)(36756003)(356005)(7636003)(53546011)(70586007)(70206006)(186003)(478600001)(336012)(7416002)(26005)(5660300002)(2616005)(31696002)(7696005)(4326008)(966005)(426003)(2101003)(43740500002);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2021 19:28:31.4867 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0ca49a3a-3231-4322-e250-08d9627e5d0b
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.112.32];
- Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT031.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1609
+References: <20210816103506.2671-1-michel@daenzer.net>
+ <20210817082325.2579-1-michel@daenzer.net>
+In-Reply-To: <20210817082325.2579-1-michel@daenzer.net>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 18 Aug 2021 17:56:02 -0400
+Message-ID: <CADnq5_PrGsBZBn3kmHqH3YRBpwxrNmVi--uuwfGyOfDnRbY96A@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Cancel delayed work when GFXOFF is disabled
+To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Leo Liu <leo.liu@amd.com>, James Zhu <James.Zhu@amd.com>, 
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, 
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,89 +84,147 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 8/17/21 5:35 PM, Felix Kuehling wrote:
-> Am 2021-08-17 um 8:01 p.m. schrieb Ralph Campbell:
->> On 8/12/21 11:31 PM, Alex Sierra wrote:
->>> From: Ralph Campbell <rcampbell@nvidia.com>
->>>
->>> ZONE_DEVICE struct pages have an extra reference count that
->>> complicates the
->>> code for put_page() and several places in the kernel that need to
->>> check the
->>> reference count to see that a page is not being used (gup, compaction,
->>> migration, etc.). Clean up the code so the reference count doesn't
->>> need to
->>> be treated specially for ZONE_DEVICE.
->>>
->>> v2:
->>> AS: merged this patch in linux 5.11 version
->>>
->>> v5:
->>> AS: add condition at try_grab_page to check for the zone device type,
->>> while
->>> page ref counter is checked less/equal to zero. In case of device
->>> zone, pages
->>> ref counter are initialized to zero.
->>>
->>> Signed-off-by: Ralph Campbell <rcampbell@nvidia.com>
->>> Signed-off-by: Alex Sierra <alex.sierra@amd.com>
->>> ---
->>>    arch/powerpc/kvm/book3s_hv_uvmem.c     |  2 +-
->>>    drivers/gpu/drm/nouveau/nouveau_dmem.c |  2 +-
->>>    fs/dax.c                               |  4 +-
->>>    include/linux/dax.h                    |  2 +-
->>>    include/linux/memremap.h               |  7 +--
->>>    include/linux/mm.h                     | 13 +----
->>>    lib/test_hmm.c                         |  2 +-
->>>    mm/internal.h                          |  8 +++
->>>    mm/memremap.c                          | 68 +++++++-------------------
->>>    mm/migrate.c                           |  5 --
->>>    mm/page_alloc.c                        |  3 ++
->>>    mm/swap.c                              | 45 ++---------------
->>>    12 files changed, 46 insertions(+), 115 deletions(-)
->>>
->> I haven't seen a response to the issues I raised back at v3 of this
->> series.
->> https://lore.kernel.org/linux-mm/4f6dd918-d79b-1aa7-3a4c-caa67ddc29bc@nvidia.com/
->>
->>
->> Did I miss something?
-> I think part of the response was that we did more testing. Alex added
-> support for DEVICE_GENERIC pages to test_hmm and he ran DAX tests
-> recommended by Theodore Tso. In that testing he ran into a WARN_ON_ONCE
-> about a zero page refcount in try_get_page. The fix is in the latest
-> version of patch 2. But it's already obsolete because John Hubbard is
-> about to remove that function altogether.
+Applied.  Let's see how long this one lasts :)
+
+Alex
+
+On Tue, Aug 17, 2021 at 4:23 AM Michel D=C3=A4nzer <michel@daenzer.net> wro=
+te:
 >
-> I think the issues you raised were more uncertainty than known bugs. It
-> seems the fact that you can have DAX pages with 0 refcount is a feature
-> more than a bug.
+> From: Michel D=C3=A4nzer <mdaenzer@redhat.com>
 >
-> Regards,
->    Felix
-
-Did you test on a system without CONFIG_ARCH_HAS_PTE_SPECIAL defined?
-In that case, mmap() of a DAX device will call insert_page() which calls
-get_page() which would trigger VM_BUG_ON_PAGE().
-
-I can believe it is OK for PTE_SPECIAL page table entries to have no
-struct page or that MEMORY_DEVICE_GENERIC struct pages be mapped with
-a zero reference count using insert_pfn().
-
-I find it hard to believe that other MM developers don't see an issue
-with a struct page with refcount == 0 and mapcount == 1.
-
-I don't see where init_page_count() is being called for the
-MEMORY_DEVICE_GENERIC or MEMORY_DEVICE_PRIVATE struct pages the AMD
-driver allocates and passes to migrate_vma_setup().
-Looks like svm_migrate_get_vram_page() needs to call init_page_count()
-instead of get_page(). (I'm looking at branch origin/alexsierrag/device_generic
-https://github.com/RadeonOpenCompute/ROCK-Kernel-Driver.git)
-
-Also, what about the other places where is_device_private_page() is called?
-Don't they need to be updated to call is_device_page() instead?
-One of my goals for this patch was to remove special casing reference counts
-for ZONE_DEVICE pages in rmap.c, etc.
-
-I still think this patch needs an ACK from a FS/DAX maintainer.
-
+> schedule_delayed_work does not push back the work if it was already
+> scheduled before, so amdgpu_device_delay_enable_gfx_off ran ~100 ms
+> after the first time GFXOFF was disabled and re-enabled, even if GFXOFF
+> was disabled and re-enabled again during those 100 ms.
+>
+> This resulted in frame drops / stutter with the upcoming mutter 41
+> release on Navi 14, due to constantly enabling GFXOFF in the HW and
+> disabling it again (for getting the GPU clock counter).
+>
+> To fix this, call cancel_delayed_work_sync when the disable count
+> transitions from 0 to 1, and only schedule the delayed work on the
+> reverse transition, not if the disable count was already 0. This makes
+> sure the delayed work doesn't run at unexpected times, and allows it to
+> be lock-free.
+>
+> v2:
+> * Use cancel_delayed_work_sync & mutex_trylock instead of
+>   mod_delayed_work.
+> v3:
+> * Make amdgpu_device_delay_enable_gfx_off lock-free (Christian K=C3=B6nig=
+)
+> v4:
+> * Fix race condition between amdgpu_gfx_off_ctrl incrementing
+>   adev->gfx.gfx_off_req_count and amdgpu_device_delay_enable_gfx_off
+>   checking for it to be 0 (Evan Quan)
+>
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Lijo Lazar <lijo.lazar@amd.com> # v3
+> Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com> # v3
+> Signed-off-by: Michel D=C3=A4nzer <mdaenzer@redhat.com>
+> ---
+>
+> Alex, probably best to wait a bit longer before picking this up. :)
+>
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 11 +++----
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c    | 36 +++++++++++++++-------
+>  2 files changed, 30 insertions(+), 17 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_device.c
+> index f3fd5ec710b6..f944ed858f3e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -2777,12 +2777,11 @@ static void amdgpu_device_delay_enable_gfx_off(st=
+ruct work_struct *work)
+>         struct amdgpu_device *adev =3D
+>                 container_of(work, struct amdgpu_device, gfx.gfx_off_dela=
+y_work.work);
+>
+> -       mutex_lock(&adev->gfx.gfx_off_mutex);
+> -       if (!adev->gfx.gfx_off_state && !adev->gfx.gfx_off_req_count) {
+> -               if (!amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK=
+_TYPE_GFX, true))
+> -                       adev->gfx.gfx_off_state =3D true;
+> -       }
+> -       mutex_unlock(&adev->gfx.gfx_off_mutex);
+> +       WARN_ON_ONCE(adev->gfx.gfx_off_state);
+> +       WARN_ON_ONCE(adev->gfx.gfx_off_req_count);
+> +
+> +       if (!amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE_GF=
+X, true))
+> +               adev->gfx.gfx_off_state =3D true;
+>  }
+>
+>  /**
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_gfx.c
+> index a0be0772c8b3..b4ced45301be 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> @@ -563,24 +563,38 @@ void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev=
+, bool enable)
+>
+>         mutex_lock(&adev->gfx.gfx_off_mutex);
+>
+> -       if (!enable)
+> -               adev->gfx.gfx_off_req_count++;
+> -       else if (adev->gfx.gfx_off_req_count > 0)
+> +       if (enable) {
+> +               /* If the count is already 0, it means there's an imbalan=
+ce bug somewhere.
+> +                * Note that the bug may be in a different caller than th=
+e one which triggers the
+> +                * WARN_ON_ONCE.
+> +                */
+> +               if (WARN_ON_ONCE(adev->gfx.gfx_off_req_count =3D=3D 0))
+> +                       goto unlock;
+> +
+>                 adev->gfx.gfx_off_req_count--;
+>
+> -       if (enable && !adev->gfx.gfx_off_state && !adev->gfx.gfx_off_req_=
+count) {
+> -               schedule_delayed_work(&adev->gfx.gfx_off_delay_work, GFX_=
+OFF_DELAY_ENABLE);
+> -       } else if (!enable && adev->gfx.gfx_off_state) {
+> -               if (!amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK=
+_TYPE_GFX, false)) {
+> -                       adev->gfx.gfx_off_state =3D false;
+> +               if (adev->gfx.gfx_off_req_count =3D=3D 0 && !adev->gfx.gf=
+x_off_state)
+> +                       schedule_delayed_work(&adev->gfx.gfx_off_delay_wo=
+rk, GFX_OFF_DELAY_ENABLE);
+> +       } else {
+> +               if (adev->gfx.gfx_off_req_count =3D=3D 0) {
+> +                       cancel_delayed_work_sync(&adev->gfx.gfx_off_delay=
+_work);
+> +
+> +                       if (adev->gfx.gfx_off_state &&
+> +                           !amdgpu_dpm_set_powergating_by_smu(adev, AMD_=
+IP_BLOCK_TYPE_GFX, false)) {
+> +                               adev->gfx.gfx_off_state =3D false;
+>
+> -                       if (adev->gfx.funcs->init_spm_golden) {
+> -                               dev_dbg(adev->dev, "GFXOFF is disabled, r=
+e-init SPM golden settings\n");
+> -                               amdgpu_gfx_init_spm_golden(adev);
+> +                               if (adev->gfx.funcs->init_spm_golden) {
+> +                                       dev_dbg(adev->dev,
+> +                                               "GFXOFF is disabled, re-i=
+nit SPM golden settings\n");
+> +                                       amdgpu_gfx_init_spm_golden(adev);
+> +                               }
+>                         }
+>                 }
+> +
+> +               adev->gfx.gfx_off_req_count++;
+>         }
+>
+> +unlock:
+>         mutex_unlock(&adev->gfx.gfx_off_mutex);
+>  }
+>
+> --
+> 2.32.0
+>
