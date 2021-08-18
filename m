@@ -2,142 +2,118 @@ Return-Path: <SRS0=PfTh=NJ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-19.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
+X-Spam-Status: No, score=-19.9 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,NICE_REPLY_A,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 92742C4338F
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 14:51:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 06249C4320A
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 19:28:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4F50E6108E
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 14:51:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4F50E6108E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id BC4BC60F35
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 19:28:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BC4BC60F35
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=nvidia.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 818356E90D;
-	Wed, 18 Aug 2021 14:51:06 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam08on2066.outbound.protection.outlook.com [40.107.102.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 444906E81C;
- Wed, 18 Aug 2021 14:51:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B50F6E92A;
+	Wed, 18 Aug 2021 19:28:47 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2057.outbound.protection.outlook.com [40.107.223.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5EC4E6E929;
+ Wed, 18 Aug 2021 19:28:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ct8Q+mbbk4PCrvr2oMWAAUJ9azNriA3LUu+2Qi7PSjvJvcSEp3Ic5Qtmn+5B3wIFqUULhZZnqV7Kl3oGwLM5/PeMwUNcJAn1ZuP+PGaK36ihvIzaw+bDBIOS/fYJndz48ecjVFY0HRDhAIKkgmILF6gJemiL2GELrDxBU12PJBzA5ckP0gNWLiyMV/DcOiTh37uyYAkEijM3akUga/6+AbBQWnOd3LYgypeEoRxCCmu5dcT4Pyw49wR0C/UoChE2X+NDwcYTBr5pt/vWvj2ySrfqj3WDqvSFfzTyCzcT4AwQtf6mMJ9dJxG8qSBhvz7s5zEvtyYcIebKe+8XvH7E2w==
+ b=OmqAQXEpdPdb56bWQLnHNSLDQOMGxN8VS/P7Yt77DbI+5YYFwp0KU1atRqRD1TnaRH5CVZ1lNfSBAOZXIJz8h2rSmYT0cOl6/BSHvJccyOJTzOEuCSI8YCXCqn9pRrFUZ3RcktSO+fkGKrxVCQx/MSIoYPBvAk8jfCMibKgaJppWWaD1nRkw1+RrCLUXwJFFjXGCt+SkgMigkKVjKIH9IP/03u8+hlvJC9DCkwR9cdOcgdPyNcDLRCbnAX61Z559KG7m6MH6OQWdp71b4I8OzTzoGWFgsbtXBqaNHvCR5jQvh/z8cbSkVbEix+R2b6E7YAmC380XHkoRxkYCP+nQLQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fMouY5cPeDnwj3WgIrmcLJgiOJYMB/z3yrQC7CkE4Xw=;
- b=P9MlDPEB9TRvr27k7OKutp6lwIIPl/NG6u6NPL9/Q9O/+o9ypjkSeVOdejrEQ2fG1IHqj33L0o3zGgXZ3kBpXtutdOXQuIeGJvjS3ZTQ4rDnDrIa/0VyUwBhzUSqlop9qjqxidiIoC6+VOtsYvlJS8LIzaM6tuHcztW3aQJWyIl2Du7tGIEckOO2lMuHZLuNPybpXp9UxdsDMn/eiXsgWdEArIKGezqRpzPIfywD6KKAEuXGtEgSqyaIV/7sR+607pB77/N0yFNkAundUCLxXS8XIim/1NusHVkZYUJh/LStFSRq17BMOvhBm9xKu8UNBbgTmIX/V6ekSGEWLaHDLQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ bh=P0dxBB+gTPgn6xtJRTWooXg5Ofo2P3zOE2xwaHUAyrQ=;
+ b=J2qUs7VWgvBw2jNN1Th68X+biEN4JshjW8F7UcXQp222K9sJDBIZILqXFwXHk1CTXubyf3AD8ouUUXpt6zolx3OpPZTzyqU13urlZ0giXb3CdS3c2YovxST6jhwEat8G5nCjPb7vdTzC1jAdbbZwcwgpKdlGbTB+WNUZ99DmpV+PUnIbMJCYHH4VDpD2sb+7twAHTw6wy7ckyR7QvG5ci2HK+mkt3EP06hGzm/utcbdMTjvs8mwz5hBRg4UbEtCXlNEmRwCORSZPUbQqfRkWJQNvxBk8wZEBSdQ4IrNsFJ2t0/YmbvsM25RovSIYxaC91UDQfhOCd9B+Et9Jpq10Cg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.112.32) smtp.rcpttodomain=redhat.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=nvidia.com; 
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fMouY5cPeDnwj3WgIrmcLJgiOJYMB/z3yrQC7CkE4Xw=;
- b=IUOvNVIV1DsSToRjeA1DxIB5+8co8dcC0yV5uWIrz/rA6Z3P/DCxYSKzk/g+gW7TAiNb6pSyOEQAtm75b6JO0s9moT/PU27ezP7gmbOiVKrsI10S2VFyW1BCTn74QI5NsIerrDuZwbgRlaciHgU+V21M80sPm4NYNUQqKlaPJt0=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from SN6PR12MB4623.namprd12.prod.outlook.com (2603:10b6:805:e9::17)
- by SN6PR12MB2654.namprd12.prod.outlook.com (2603:10b6:805:73::28)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.17; Wed, 18 Aug
- 2021 14:51:03 +0000
-Received: from SN6PR12MB4623.namprd12.prod.outlook.com
- ([fe80::17c:7262:446:f400]) by SN6PR12MB4623.namprd12.prod.outlook.com
- ([fe80::17c:7262:446:f400%5]) with mapi id 15.20.4415.024; Wed, 18 Aug 2021
- 14:51:03 +0000
-Subject: Re: [PATCH v2] Revert "drm/scheduler: Avoid accessing freed bad job."
-To: Daniel Vetter <daniel@ffwll.ch>
-Cc: Alex Deucher <alexdeucher@gmail.com>, Jingwen Chen <Jingwen.Chen2@amd.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, "monk.liu" <monk.liu@amd.com>,
- Christian Koenig <christian.koenig@amd.com>
-References: <20210818112114.1417685-1-Jingwen.Chen2@amd.com>
- <CADnq5_OApvH1Jo2VzJBHewHB_LXgg1WzUHvTBvrNYnbYdFAWhQ@mail.gmail.com>
- <69cbf5bd-42c2-be55-a604-43f4ebba159d@amd.com>
- <YR0Z7qtEti2hwZ7i@phenom.ffwll.local>
- <b92c62f2-7b1c-d4d8-cb84-1b5ccc3e4bb1@amd.com>
- <YR0cb43Wv8jGiIbb@phenom.ffwll.local>
-From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-Message-ID: <82782ff5-d2a7-a4a8-8526-d1ff231630ed@amd.com>
-Date: Wed, 18 Aug 2021 10:51:00 -0400
+ bh=P0dxBB+gTPgn6xtJRTWooXg5Ofo2P3zOE2xwaHUAyrQ=;
+ b=pt4FulzCGAi6z3RnU1HIgF/giSn4aJ4+QiNKT99IQN+2FcFVNWdQskycy5R1vzxhx3k24TIbYTHIxCNDsm8HdjFOgos7bKyilPZOVC7kmMxH0dTIlUKAKFItG1bl8nwYoCveSj4u7OZM9Y/MA0cn8QbWjvxg3ZU0p82WMo5BfQpqZ2i0lySiVqZceiIOCIVovSvMq5rEKwnXORjNJQUvQS+DJAhUw92jRpvkUVPAGIGNWi8p7iSAY9CpWIMU+r35L2rb83u/bRCB8aAMBYDJ3/jWVNSjb7f+o0rdT6X+bdRMV2auGIYnLvoX5SerzauujmEGWWTMOxJCc1aKneEGag==
+Received: from MWHPR02CA0018.namprd02.prod.outlook.com (2603:10b6:300:4b::28)
+ by DM5PR12MB1609.namprd12.prod.outlook.com (2603:10b6:4:10::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.24; Wed, 18 Aug
+ 2021 19:28:31 +0000
+Received: from CO1NAM11FT031.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:300:4b::4) by MWHPR02CA0018.outlook.office365.com
+ (2603:10b6:300:4b::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.19 via Frontend
+ Transport; Wed, 18 Aug 2021 19:28:31 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.112.32)
+ smtp.mailfrom=nvidia.com; redhat.com; dkim=none (message not signed)
+ header.d=none;redhat.com; dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.112.32 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.112.32; helo=mail.nvidia.com;
+Received: from mail.nvidia.com (216.228.112.32) by
+ CO1NAM11FT031.mail.protection.outlook.com (10.13.174.118) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.20.4415.16 via Frontend Transport; Wed, 18 Aug 2021 19:28:31 +0000
+Received: from HQMAIL105.nvidia.com (172.20.187.12) by HQMAIL109.nvidia.com
+ (172.20.187.15) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Wed, 18 Aug
+ 2021 12:28:31 -0700
+Received: from HQMAIL111.nvidia.com (172.20.187.18) by HQMAIL105.nvidia.com
+ (172.20.187.12) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Wed, 18 Aug
+ 2021 19:28:31 +0000
+Received: from rcampbell-test.nvidia.com (172.20.187.5) by mail.nvidia.com
+ (172.20.187.18) with Microsoft SMTP Server (TLS) id 15.0.1497.2 via Frontend
+ Transport; Wed, 18 Aug 2021 19:28:31 +0000
+Subject: Re: [PATCH v6 02/13] mm: remove extra ZONE_DEVICE struct page refcount
+To: Felix Kuehling <felix.kuehling@amd.com>, Alex Sierra
+ <alex.sierra@amd.com>, <akpm@linux-foundation.org>, <linux-mm@kvack.org>,
+ <linux-ext4@vger.kernel.org>, <linux-xfs@vger.kernel.org>
+CC: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <hch@lst.de>, <jgg@nvidia.com>, <jglisse@redhat.com>
+References: <20210813063150.2938-1-alex.sierra@amd.com>
+ <20210813063150.2938-3-alex.sierra@amd.com>
+ <7b821150-af18-f786-e419-ec245b8cfb1e@nvidia.com>
+ <393e9815-838d-5fe6-d6ab-bfe7b543fef6@amd.com>
+From: Ralph Campbell <rcampbell@nvidia.com>
+Message-ID: <e155ed59-8c3c-4046-e731-f082ee4b10bb@nvidia.com>
+Date: Wed, 18 Aug 2021 12:28:30 -0700
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
-In-Reply-To: <YR0cb43Wv8jGiIbb@phenom.ffwll.local>
-Content-Type: text/plain; charset=utf-8; format=flowed
+MIME-Version: 1.0
+In-Reply-To: <393e9815-838d-5fe6-d6ab-bfe7b543fef6@amd.com>
+Content-Type: text/plain; charset="utf-8"; format=flowed
 Content-Transfer-Encoding: 8bit
 Content-Language: en-US
-X-ClientProxiedBy: YTBPR01CA0028.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:14::41) To SN6PR12MB4623.namprd12.prod.outlook.com
- (2603:10b6:805:e9::17)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2607:fea8:3edf:49b0:8030:531a:c97a:dc26]
- (2607:fea8:3edf:49b0:8030:531a:c97a:dc26) by
- YTBPR01CA0028.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:14::41) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4436.19 via Frontend Transport; Wed, 18 Aug 2021 14:51:02 +0000
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: cd71daeb-0519-43ce-d923-08d9625799a5
-X-MS-TrafficTypeDiagnostic: SN6PR12MB2654:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <SN6PR12MB265447AC96930BB6288852B5EAFF9@SN6PR12MB2654.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:142;
+X-MS-Office365-Filtering-Correlation-Id: 0ca49a3a-3231-4322-e250-08d9627e5d0b
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1609:
+X-Microsoft-Antispam-PRVS: <DM5PR12MB16092220E81E2EBBCE5A66FEC2FF9@DM5PR12MB1609.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: BnRnTN58u7BPWoSnGTKGjYXWI6g5sIPwhtRLXPLTFjM89zELW/OY9IanSV53CofaidyxoYWEC88y633WDTV5lxmlvHoIVmD2k8r7kVhWiUOsh5LQl+cBj3QjMC53xCAAcUB8gPUh81BTffvfCQsRkNbo27t+zOVB+qT/XuWAtZhMOqp/bQmBgeYsZ2M5nZaQ0MrJ0JY5XIo2Syjrnn+BhcUe+BNyOsNoSmJEfZXJSwdf4z7kH6BI1EMAbDEUljmHjj+xdvvALe0HM/nwXiYdDkKvHwzOxidoKY34hOLVakCxUQPKYWH13JNV1vZHWiuMSrtSXzeHEhJsRvuD7fbYlknTHzVp3NNPWIdaHj6Rh8/hjaAAYLHN84xwfvDQgU2iAe0/6nsx4zgFCpxlry1UHChRFOwO9a/UB8VyeME3JiqvNjcmyA2oCsHW0mooGg0o9TKCsLi/uNhZL4UJ2wfZ2KPgSww6SeggM7S+jqbtGtub/oOt7GPpgImt+Ki05FuGeU/Lkqh1dra2wNVtTL+GoWZVWjkGb4G492zs/EZ8UpRM7sOr/97oGg5DSLiQDbuopbl+zmWMCSyy/1cm/2BzGz1K55meI8XuG1z48L39acmHIdjuHaK/1VIB/vLJfgvICQIXX3sAoMF6PfP1HgOzgx5JyjB7KvimOBKR7tXgNuIm+JnFCxNKniKYOYMZQfMlDOYiHNEhoxrglkVJkeF9yf1UGl550z3yG1TLfj64rd0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SN6PR12MB4623.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(39860400002)(376002)(366004)(136003)(396003)(4326008)(2906002)(2616005)(83380400001)(5660300002)(53546011)(478600001)(66556008)(66476007)(6916009)(66946007)(36756003)(44832011)(8936002)(31696002)(6486002)(31686004)(316002)(86362001)(38100700002)(186003)(54906003)(8676002)(45980500001)(43740500002);
+X-Microsoft-Antispam-Message-Info: VpQvXu9STTWL62aQ9sm3SiAiAuc7renl76Gf3apCxC6dfqMz5ba7e337onDgTTnp97GB6WdCZXzpLTUzFVkO7wIdTa6wceM9aeNi1k3xZAiYsRQ/WiTRaKJb6mXWuWM4qns+A5pBsgYB0Nve2Vrsp8V2AiiRkNQUckVKxahydna4r20JsxRkk/2KEbZnKLN13Q/sWfbUDQc9Vm/eoZhtklqfhlK7pMn2u9QDwBUuSNHEKsYy8lggMK9vbLpXxMLG5+si9n/jJgZ5fa1lV34GZ5bOPewkMDlt32p8KJ+JWZF7SPmKi++LZ6RxBXpVrs3ySuodvPgr9V+M7xatUiilVZnE1upsrmFe6cnWCKHnufKWF7zAju4K75Dg4FT6NHeNZNs7Be8NqWr4M+aDclW0EmC3Mc9gzoRD/mtc7Sa9sPRJvYrPkwzjsk2oJhK4boNuH36VJtmRAoaGxBq3eC2yNxqjoaV0k3Uz3fFdPumDWn+2BCuUVoKGDNhnFN1LKt4YRcHRWFVbVmmErydJE+rKWyvTnPQLu1dYWVPsb3w5ayMfuz44G++oEE5Mu++xJdCWkulT6bClScEWRzuWUsZ2QkxngNQ7+ypLmDVWRU89nK1rwO+i/uHn4D2zbMdJyLsSh6SSdzDPjEYHsSlbNwQ4OTmRJgCkrdZdzN6J13xeW4AoEuOpX4j4/E/hZH0RLZpJ0uqRqI7Pu1GmT0k5mQx6E2/sEEB/sK5u/naXP2yGvx1e17fzoXR0Kcn4Z72I3d5gghms4FTzNAWRt+REDg9B6iJAX6/dBj225YerKItxDrFwCnxL8nkJRMda7DBzcOf2kxgku6+l2rslz/YaFEvoJ2MISmngxtSuTNe49jQmtEU+py2uBL7FPhL94iT9CM0D
+X-Forefront-Antispam-Report: CIP:216.228.112.32; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:schybrid01.nvidia.com; CAT:NONE;
+ SFS:(4636009)(396003)(39860400002)(136003)(346002)(376002)(46966006)(36840700001)(2906002)(54906003)(83380400001)(110136005)(86362001)(8676002)(316002)(82310400003)(8936002)(47076005)(31686004)(82740400003)(36860700001)(36756003)(356005)(7636003)(53546011)(70586007)(70206006)(186003)(478600001)(336012)(7416002)(26005)(5660300002)(2616005)(31696002)(7696005)(4326008)(966005)(426003)(2101003)(43740500002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TEl0S1laaE1UdUJzb25XaDlMUzBhTXkyckpocjluKzFYTWE0WEl5VEFNbmdY?=
- =?utf-8?B?ODZxMzlEOGxlbTZYdHh2eVVRNlZ3Qlk5aVlZMjRNanMwYUE3dmV5U05wWHIy?=
- =?utf-8?B?cTRrWU9KSVI3NW9uT2tnZ09KUWhjU2c0cHFVQjNDWkdPc09UcWt3ZFNLYStR?=
- =?utf-8?B?OHJwSWQvYVdrRnNGcU1OVXRWNncvcU05OFhTNkFxcEl5bFBid2s3ZXBFeFRD?=
- =?utf-8?B?LzhHT0pCOWc5RjhRYUJJRS9ST1luQlJydi9tUjV6dWJacEtWc0ZaZ2dEbmR2?=
- =?utf-8?B?eC9uWmwxb0NsdWFvNm5IRGlOOTNCZjJIbVBVaWdyL0t4RS85cVlqcnBJK0l4?=
- =?utf-8?B?ZGwvZmsrei9raWNVczV6UlZtU2IxMkI2MW5qWEx6L3dXWWNOOUlpWmZYUDlY?=
- =?utf-8?B?WVpNQzQxVStTQ3lUdVlENlVQMFk2bitwUHlNRndtRmFkQ3NZaEc1SWtraTZ2?=
- =?utf-8?B?U29QclI3NUtmTVBnWnhNQVRSZk9PcGtvNytPOG5XanJXSUhGMmxMc21FYjNI?=
- =?utf-8?B?ZWpvYzc1TVgxeXZvMnpkbnBmejZhcHAyNEdtTEZVQTk2d2d6a3pVd3VVRkVQ?=
- =?utf-8?B?c25xZTJzTEQ2YUFEU0tkVjRsaGVBMXVWUUZKOWxqN3ljYmFUNVVQYlE1ais0?=
- =?utf-8?B?UnBIUGVITjlkc1JxR2NVTktXTlB1TFMwQ1A3YmYrUnBQNW1uclFhMVdpT1hS?=
- =?utf-8?B?cWhuSWhiTmJwc3J1ZVdER3U5T1d3L0xWRXFjRktkSjQyWlh4SC83Rzc0TG5F?=
- =?utf-8?B?YWNheUhvSXcyWjVzUi9MRzhzci92Z0tzaXhjbTBUK0dFQ0ZHckhFdVk5SzhC?=
- =?utf-8?B?TTByUU5QUTlLMW1xemRhSEtRMmg1ZGtNM0prWW1PQWRHNGJURUVmY0E1Q2pm?=
- =?utf-8?B?UmlNZTRsby9pNnl5dVprNEdnVVFsQ2Y1KzBVYmY0Q2x3Zlp1UHJsdVhLcHow?=
- =?utf-8?B?OS9rQW5SSmkwMXl3MzBFdzd3WTZjTWVwWTZNQ3N4NGdBYjZIK3E0anZaQXlp?=
- =?utf-8?B?ZWRZb0VTWmtlMk55cVJCYWFHMGR0OHBZQzltelU5bnU4NUFNTnl0VHRqVDhm?=
- =?utf-8?B?VUdNVmNtTStkUTRFVmhtR0kwK0Q3K1o5WWM1NmJpTzkxTkQ4WGNueHJFb2d5?=
- =?utf-8?B?VE82aDVLRElodkFhWThuYkZDU1lyV243R2NmSmd5ZjQvWHJIVmh6Lys1MnA0?=
- =?utf-8?B?Y2tFdGlDeThPOVd6UHJlTkNvMXV5dE5SQ21YQjJCR05KWkt1NTVwWnVQMjhs?=
- =?utf-8?B?QmlHL1NVQWxqNUhUcTVHS0ZSWlZBVzlhMU4rVWVBSFNHQkxkUjlTTno2NnBt?=
- =?utf-8?B?eEwrSTVyQW1UenFJSEl4bVY5ZmlnUUprUUpWMHZndThETTJwY05vcGswT2xp?=
- =?utf-8?B?cThNYUpwTDkwZmJGU0dIRXdZUnd5VmdnQ0djRWVtV2d1SVBiRVI3UEJVRWpl?=
- =?utf-8?B?U09DZzVWb1NZTmV6RU44QmpSTlJGcU54VUJwVTFQckljYWhxYVpySXRhV1VE?=
- =?utf-8?B?eFY4OWlDQ2NZYlBoUzltK2QxanpPQ1REcVlBbnlvQW9MK0JRUjJnanQ3dEdM?=
- =?utf-8?B?T0o1M0NYTVFIemt1bUs4b3RUVk5kOGx2NENoYWpWQXc3TUQxWno3ZFRUVEhj?=
- =?utf-8?B?SURJd1FJeGorTmhyUXU2cWliOFROK1hsbkV3OGhuTnZvL3BEbjhqRlpEeDg3?=
- =?utf-8?B?Zk1LNTFDdG1heTJscHlDTVF0a1VWMnBnL3NoNnYzMlVydnpURVBYWmt1SUVT?=
- =?utf-8?B?UDhueEM5RlVrRmgxaG1RWE92aTg0TnJIYzFCSGtxcGpRQ0VhZlltbkI0d250?=
- =?utf-8?B?VThiVStBck5hQXRSQ29GYjdUVDdSOTEwbGxsWXJQMUNrWnUwUm9YMHNBM3VF?=
- =?utf-8?Q?vtW2LdAY6k37I?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cd71daeb-0519-43ce-d923-08d9625799a5
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB4623.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2021 14:51:02.9975 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jv4ZsaMOq9TEyLW3IqdTu0TDxjO+YAU6KIHtigMkWghuh6QmAxkvy6+TxMavj10M7ZwFXjqXbyU7lqIQvW0c/g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB2654
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2021 19:28:31.4867 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0ca49a3a-3231-4322-e250-08d9627e5d0b
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.112.32];
+ Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT031.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1609
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,150 +128,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-On 2021-08-18 10:42 a.m., Daniel Vetter wrote:
-> On Wed, Aug 18, 2021 at 10:36:32AM -0400, Andrey Grodzovsky wrote:
->> On 2021-08-18 10:32 a.m., Daniel Vetter wrote:
->>> On Wed, Aug 18, 2021 at 10:26:25AM -0400, Andrey Grodzovsky wrote:
->>>> On 2021-08-18 10:02 a.m., Alex Deucher wrote:
->>>>
->>>>> + dri-devel
->>>>>
->>>>> Since scheduler is a shared component, please add dri-devel on all
->>>>> scheduler patches.
->>>>>
->>>>> On Wed, Aug 18, 2021 at 7:21 AM Jingwen Chen <Jingwen.Chen2@amd.com> wrote:
->>>>>> [Why]
->>>>>> for bailing job, this commit will delete it from pending list thus the
->>>>>> bailing job will never have a chance to be resubmitted even in advance
->>>>>> tdr mode.
->>>>>>
->>>>>> [How]
->>>>>> after embeded hw_fence into amdgpu_job is done, the race condition that
->>>>>> this commit tries to work around is completely solved.So revert this
->>>>>> commit.
->>>>>> This reverts commit 135517d3565b48f4def3b1b82008bc17eb5d1c90.
->>>>>> v2:
->>>>>> add dma_fence_get/put() around timedout_job to avoid concurrent delete
->>>>>> during processing timedout_job
->>>>>>
->>>>>> Signed-off-by: Jingwen Chen <Jingwen.Chen2@amd.com>
->>>>>> ---
->>>>>>     drivers/gpu/drm/scheduler/sched_main.c | 23 +++++------------------
->>>>>>     1 file changed, 5 insertions(+), 18 deletions(-)
->>>>>>
->>>>>> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
->>>>>> index a2a953693b45..f9b9b3aefc4a 100644
->>>>>> --- a/drivers/gpu/drm/scheduler/sched_main.c
->>>>>> +++ b/drivers/gpu/drm/scheduler/sched_main.c
->>>>>> @@ -314,6 +314,7 @@ static void drm_sched_job_timedout(struct work_struct *work)
->>>>>>     {
->>>>>>            struct drm_gpu_scheduler *sched;
->>>>>>            struct drm_sched_job *job;
->>>>>> +       struct dma_fence *fence;
->>>>>>            enum drm_gpu_sched_stat status = DRM_GPU_SCHED_STAT_NOMINAL;
->>>>>>
->>>>>>            sched = container_of(work, struct drm_gpu_scheduler, work_tdr.work);
->>>>>> @@ -325,11 +326,10 @@ static void drm_sched_job_timedout(struct work_struct *work)
->>>>>>
->>>>>>            if (job) {
->>>>>>                    /*
->>>>>> -                * Remove the bad job so it cannot be freed by concurrent
->>>>>> -                * drm_sched_cleanup_jobs. It will be reinserted back after sched->thread
->>>>>> -                * is parked at which point it's safe.
->>>>>> +                * Get job->s_fence->parent here to avoid concurrent delete during
->>>>>> +                * processing timedout_job
->>>>>>                     */
->>>>>> -               list_del_init(&job->list);
->>>>>> +               fence = dma_fence_get(job->s_fence->parent);
->>>> While this is true for amdgpu, it has no meaning for other drivers for whom
->>>> we haven't
->>>> done the refactoring of embedding HW fence (parent) into the job structure.
->>>> In fact thinking
->>>> about it, unless you do the HW fence embedding for all the drivers using the
->>>> scheduler you cannot
->>>> revert this patch or you will just break them.
->>> btw, why did you do that embedding? I do still have my patches with
->>> dma_fence annotations floating around, but my idea at least was to fix
->>> that issue with a mempool, not with embeddeding. What was the motivation
->>> for embedding the wh fence?
->>> -Daniel
->>
->> The motivation was 2 fold, avoid memory allocation during jobs submissions
->> (HW fence allocation) because as Christian explained this leads to deadlock
->> with
->> mm code during evictions due to memory pressure (Christian can clarify if I
->> messed
-> Yeah that's the exact same thing I've chased with my dma_fence
-> annotations, but thus far zero to none interested in getting it sorted. I
-> think it'd be good to have some cross-driver agreement on how this should
-> be solved before someone just charges ahead ...
->
->> this explanation). Second is to exactly revert this patch because while it
->> solved the issue
->> described in the patch it created another with drivers who baildc out early
->> during TDR handling
->> for various reason and the job would just leak because it was already
->> removed form pending list.
-> Can't we reinsert it before we restart the scheduler thread? It might need
-> a separate list for that due to the lockless queue tricks. Or am I
-> thinking about the wrong kind of "we lost the job"?
-> -Danile
-
-
-If you look at the original patch it would reinsert it even earlier - 
-right after stopping the  SW scheduler thread, and even then it was to 
-late for
-some drivers as they would decide to return back from their TDR handler 
-even before that. It is solvable but in an ugly way as far as I see, you 
-need to
-require each driver in his code to put the job back in the list if they 
-do it before reaching the place where scheduler framework does it. Kind of
-spaghetti code seems to me.
-
-Andrey
-
-
->
->> Andrey
->>
->>
+On 8/17/21 5:35 PM, Felix Kuehling wrote:
+> Am 2021-08-17 um 8:01 p.m. schrieb Ralph Campbell:
+>> On 8/12/21 11:31 PM, Alex Sierra wrote:
+>>> From: Ralph Campbell <rcampbell@nvidia.com>
 >>>
->>>> Andrey
->>>>
->>>>
->>>>>>                    spin_unlock(&sched->job_list_lock);
->>>>>>
->>>>>>                    status = job->sched->ops->timedout_job(job);
->>>>>> @@ -342,6 +342,7 @@ static void drm_sched_job_timedout(struct work_struct *work)
->>>>>>                            job->sched->ops->free_job(job);
->>>>>>                            sched->free_guilty = false;
->>>>>>                    }
->>>>>> +               dma_fence_put(fence);
->>>>>>            } else {
->>>>>>                    spin_unlock(&sched->job_list_lock);
->>>>>>            }
->>>>>> @@ -392,20 +393,6 @@ void drm_sched_stop(struct drm_gpu_scheduler *sched, struct drm_sched_job *bad)
->>>>>>
->>>>>>            kthread_park(sched->thread);
->>>>>>
->>>>>> -       /*
->>>>>> -        * Reinsert back the bad job here - now it's safe as
->>>>>> -        * drm_sched_get_cleanup_job cannot race against us and release the
->>>>>> -        * bad job at this point - we parked (waited for) any in progress
->>>>>> -        * (earlier) cleanups and drm_sched_get_cleanup_job will not be called
->>>>>> -        * now until the scheduler thread is unparked.
->>>>>> -        */
->>>>>> -       if (bad && bad->sched == sched)
->>>>>> -               /*
->>>>>> -                * Add at the head of the queue to reflect it was the earliest
->>>>>> -                * job extracted.
->>>>>> -                */
->>>>>> -               list_add(&bad->list, &sched->pending_list);
->>>>>> -
->>>>>>            /*
->>>>>>             * Iterate the job list from later to  earlier one and either deactive
->>>>>>             * their HW callbacks or remove them from pending list if they already
->>>>>> --
->>>>>> 2.25.1
->>>>>>
+>>> ZONE_DEVICE struct pages have an extra reference count that
+>>> complicates the
+>>> code for put_page() and several places in the kernel that need to
+>>> check the
+>>> reference count to see that a page is not being used (gup, compaction,
+>>> migration, etc.). Clean up the code so the reference count doesn't
+>>> need to
+>>> be treated specially for ZONE_DEVICE.
+>>>
+>>> v2:
+>>> AS: merged this patch in linux 5.11 version
+>>>
+>>> v5:
+>>> AS: add condition at try_grab_page to check for the zone device type,
+>>> while
+>>> page ref counter is checked less/equal to zero. In case of device
+>>> zone, pages
+>>> ref counter are initialized to zero.
+>>>
+>>> Signed-off-by: Ralph Campbell <rcampbell@nvidia.com>
+>>> Signed-off-by: Alex Sierra <alex.sierra@amd.com>
+>>> ---
+>>>    arch/powerpc/kvm/book3s_hv_uvmem.c     |  2 +-
+>>>    drivers/gpu/drm/nouveau/nouveau_dmem.c |  2 +-
+>>>    fs/dax.c                               |  4 +-
+>>>    include/linux/dax.h                    |  2 +-
+>>>    include/linux/memremap.h               |  7 +--
+>>>    include/linux/mm.h                     | 13 +----
+>>>    lib/test_hmm.c                         |  2 +-
+>>>    mm/internal.h                          |  8 +++
+>>>    mm/memremap.c                          | 68 +++++++-------------------
+>>>    mm/migrate.c                           |  5 --
+>>>    mm/page_alloc.c                        |  3 ++
+>>>    mm/swap.c                              | 45 ++---------------
+>>>    12 files changed, 46 insertions(+), 115 deletions(-)
+>>>
+>> I haven't seen a response to the issues I raised back at v3 of this
+>> series.
+>> https://lore.kernel.org/linux-mm/4f6dd918-d79b-1aa7-3a4c-caa67ddc29bc@nvidia.com/
+>>
+>>
+>> Did I miss something?
+> I think part of the response was that we did more testing. Alex added
+> support for DEVICE_GENERIC pages to test_hmm and he ran DAX tests
+> recommended by Theodore Tso. In that testing he ran into a WARN_ON_ONCE
+> about a zero page refcount in try_get_page. The fix is in the latest
+> version of patch 2. But it's already obsolete because John Hubbard is
+> about to remove that function altogether.
+>
+> I think the issues you raised were more uncertainty than known bugs. It
+> seems the fact that you can have DAX pages with 0 refcount is a feature
+> more than a bug.
+>
+> Regards,
+>    Felix
+
+Did you test on a system without CONFIG_ARCH_HAS_PTE_SPECIAL defined?
+In that case, mmap() of a DAX device will call insert_page() which calls
+get_page() which would trigger VM_BUG_ON_PAGE().
+
+I can believe it is OK for PTE_SPECIAL page table entries to have no
+struct page or that MEMORY_DEVICE_GENERIC struct pages be mapped with
+a zero reference count using insert_pfn().
+
+I find it hard to believe that other MM developers don't see an issue
+with a struct page with refcount == 0 and mapcount == 1.
+
+I don't see where init_page_count() is being called for the
+MEMORY_DEVICE_GENERIC or MEMORY_DEVICE_PRIVATE struct pages the AMD
+driver allocates and passes to migrate_vma_setup().
+Looks like svm_migrate_get_vram_page() needs to call init_page_count()
+instead of get_page(). (I'm looking at branch origin/alexsierrag/device_generic
+https://github.com/RadeonOpenCompute/ROCK-Kernel-Driver.git)
+
+Also, what about the other places where is_device_private_page() is called?
+Don't they need to be updated to call is_device_page() instead?
+One of my goals for this patch was to remove special casing reference counts
+for ZONE_DEVICE pages in rmap.c, etc.
+
+I still think this patch needs an ACK from a FS/DAX maintainer.
+
