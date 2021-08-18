@@ -2,146 +2,127 @@ Return-Path: <SRS0=PfTh=NJ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-19.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B0265C43214
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 11:42:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EC0BCC4338F
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 13:18:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6749F6104F
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 11:42:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6749F6104F
+	by mail.kernel.org (Postfix) with ESMTPS id ABCB56108F
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 13:18:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org ABCB56108F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B37DA898E8;
-	Wed, 18 Aug 2021 11:42:49 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2048.outbound.protection.outlook.com [40.107.236.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E8188898E8;
- Wed, 18 Aug 2021 11:42:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 152E66E5A0;
+	Wed, 18 Aug 2021 13:18:34 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam07on2082.outbound.protection.outlook.com [40.107.212.82])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6DAC6E5A0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Aug 2021 13:18:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Pcrl3GMOq3hTMr/OKfjOxqvxr55mZ5PovtE4LpMA5WKtZ1K0iNpI+Q4ec82BRzzsGymolPl6hFAY42QR0N93FKnenLu1EAAwfBfeXbYwvgnx0KMUfowKbrCe+hUtb8/tjLAoJCE08VQIv5L+DKsQ1rhsn03gCUcbm3kprI8xv5gqp2kEZTpO0mcXn/Q5LZU+Iw04Rdzk6dNd1C/Gt6xWRed3aNOobPv69Nkp0jeYWLyOJS5tMfrWfg/hn+Z78Orqlp4qXs8WrAOX025hVsniihodEQPqtfTnORrJZu2Zcc1jYugMTVjnZXTzxXb/D2uxW4oI8qaY70X6/uTRltazCA==
+ b=i/gHZbXrL2yLn3g7jv4+8zP2D6UgvIIlh5MndbVBFdpm3kD+6fw7zsx7OI9nGRHqRvBEqQXJNO6sU/9EtPyzBM/KWSPNoaooxlR3kw0OpKSNcc3o3dWEwjLPDEPzTyFTRZll+jH/P/fT1r4wXqrs/2rc1zQJQQs+t+a17rmg5+nusNqBe7WNOR+U8ladP7zAm8sGJ6HS7lcgkdHa/8evE4qI/cTK9A1JeaHyyuA174ygcRkcWOmgqIVLfWZR81fTmSHn/cmbJ1a5h2BshPLx3r8Ihgc9Y0UZOnJ7UY96vgqgiZVMF9o//9zMKQDAqwpdytAvo0zqBef2b3sqgCsCxQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Yxqwy0mxZf9gJtsmhVdOc2Kal1+HmRpbtgnF0fwncoI=;
- b=CZsawTHlFV4WIYlijIrzk5kE+DoQQOZtl0dkD+W5mYlWv25dYez0+ch5757zwzTiS3kSlVnSRhX6wdqmJi3or5YGXtfqPc3q9/4jhMsGNkl2EmmuKFhKrk5eouLzgYtgfsSt5FYpirsgDChDixlVjAMlXUlZk7GArD4cr8iX/IOxB10qJOpJHglX0OM5x7dFhdwPNSCGcWJXPoRGok9QKda32Na6KbZ4lxbTgTkW4z1bcGEpR/Hw7Zq9gVmp1ae9f1vAXQCP4XtxZdgVyopJ76Xelu97n2W3P14f6T6APOUFKQRsIUhNFxg7thMVqj0FzDtfo2FGzuq3XmtQfePAXQ==
+ bh=tcHy0F+H91W+5umJJlx6iZ9G5AIhaW+yYp/6VuGqn3c=;
+ b=aCjIjYqBZXfCulx8IRJnsv+nUwfO3TNCgYO87xdWLTxyE7VGaTEF6OgTA6fthDCefizOxu/pqc6pTyqpPcAP/lUcCJ0s2fTiDGR+MXAJODQeRaZp++XUZkWglv/tv69YkarGAI0Knhs7T8CqQfUiCFDc2Lyb38uQsYgG1TTqb3TqA0aLe/jQ3pVGeUs+jN/+lWFs0pEHCv8bIXvqEvqaKYj0uNQakpZyB1l0vZy6Rlylce6Qd567DO9TSeCuOYOOtZ7O5lX/ei1et3ssfFmQCQeozoKLZjnHKaL5IoDA4T8Hh8RanuF+7uUUZl9YmbelEIVoccvxpBptlkbIFsnhNA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Yxqwy0mxZf9gJtsmhVdOc2Kal1+HmRpbtgnF0fwncoI=;
- b=GwehTpH0ra3wnxicCL8YOLMmS1Ncn7kHENTvCkLCMFl2Zu3wSDCTBIchHY/I3ptdrOQpHih7rYz9ChdAg61IKwBnt6sEMQa1xXXzTPdhTO+sfU++PgOaGeikIQy7uh43TnbWfc8gQT2SK4lc0XDd2tRad8DgPmeq9lvrN0RVY+0=
-Authentication-Results: vger.kernel.org; dkim=none (message not signed)
- header.d=none;vger.kernel.org; dmarc=none action=none header.from=amd.com;
-Received: from BL1PR12MB5349.namprd12.prod.outlook.com (2603:10b6:208:31f::7)
- by BL1PR12MB5303.namprd12.prod.outlook.com (2603:10b6:208:317::14)
+ bh=tcHy0F+H91W+5umJJlx6iZ9G5AIhaW+yYp/6VuGqn3c=;
+ b=Rih48UxGWUgnAkjO3X5Yc9Uj0OJSDbpWUlbukZyOnHggYFRHJ071N1dEHj+LFPX6QdnXw7dHXUxvsuMeLYIo9EkoFkBs1vSJ5NzLWgWgEvt//xeXinhsJLKRSSnv7n2dDqMlHiV5qtMonbu+WmemwnSjFL2I+gVMrZTH9x5X2/8=
+Authentication-Results: emersion.fr; dkim=none (message not signed)
+ header.d=none;emersion.fr; dmarc=none action=none header.from=amd.com;
+Received: from CH2PR12MB5564.namprd12.prod.outlook.com (2603:10b6:610:65::24)
+ by CH0PR12MB5266.namprd12.prod.outlook.com (2603:10b6:610:d1::10)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.15; Wed, 18 Aug
- 2021 11:42:45 +0000
-Received: from BL1PR12MB5349.namprd12.prod.outlook.com
- ([fe80::152:9dd3:45a4:eeb6]) by BL1PR12MB5349.namprd12.prod.outlook.com
- ([fe80::152:9dd3:45a4:eeb6%4]) with mapi id 15.20.4415.024; Wed, 18 Aug 2021
- 11:42:45 +0000
-Subject: Re: [PATCH v2 18/63] drm/amd/pm: Use struct_group() for memcpy()
- region
-To: Kees Cook <keescook@chromium.org>, linux-kernel@vger.kernel.org
-Cc: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Hawking Zhang <Hawking.Zhang@amd.com>,
- Feifei Xu <Feifei.Xu@amd.com>, Likun Gao <Likun.Gao@amd.com>,
- Jiawei Gu <Jiawei.Gu@amd.com>, Evan Quan <evan.quan@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Andrew Morton <akpm@linux-foundation.org>, linux-wireless@vger.kernel.org,
- netdev@vger.kernel.org, linux-staging@lists.linux.dev,
- linux-block@vger.kernel.org, linux-kbuild@vger.kernel.org,
- clang-built-linux@googlegroups.com,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>, linux-hardening@vger.kernel.org
-References: <20210818060533.3569517-1-keescook@chromium.org>
- <20210818060533.3569517-19-keescook@chromium.org>
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-Message-ID: <753ef2d1-0f7e-c930-c095-ed86e1518395@amd.com>
-Date: Wed, 18 Aug 2021 17:12:28 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-In-Reply-To: <20210818060533.3569517-19-keescook@chromium.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN2PR01CA0055.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:22::30) To BL1PR12MB5349.namprd12.prod.outlook.com
- (2603:10b6:208:31f::7)
+ 2021 13:18:28 +0000
+Received: from CH2PR12MB5564.namprd12.prod.outlook.com
+ ([fe80::1136:aecc:18da:f7cb]) by CH2PR12MB5564.namprd12.prod.outlook.com
+ ([fe80::1136:aecc:18da:f7cb%9]) with mapi id 15.20.4436.019; Wed, 18 Aug 2021
+ 13:18:28 +0000
+Date: Wed, 18 Aug 2021 09:18:24 -0400
+From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+To: Simon Ser <contact@emersion.fr>
+Cc: amd-gfx@lists.freedesktop.org, Sean Paul <seanpaul@chromium.org>,
+ Hersen Wu <hersenxs.wu@amd.com>, Harry Wentland <Harry.Wentland@amd.com>,
+ Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>,
+ Louis Li <Ching-shih.Li@amd.com>
+Subject: Re: [PATCH v2] drm/amd/display: Fix two cursor duplication when
+ using overlay
+Message-ID: <20210818131824.avczlw6ie3tfs76j@outlook.office365.com>
+References: <20210414000604.3273048-1-Rodrigo.Siqueira@amd.com>
+ <SrcUnUUGJquVgjp9P79uV8sv6s-kMHG4wp0S3b4Nh9ksi29EIOye5edofuXkDLRvGfvkkRpQZ9JM7MNqew2B3kFUhaxsonDRXprkAYXaQUo=@emersion.fr>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <SrcUnUUGJquVgjp9P79uV8sv6s-kMHG4wp0S3b4Nh9ksi29EIOye5edofuXkDLRvGfvkkRpQZ9JM7MNqew2B3kFUhaxsonDRXprkAYXaQUo=@emersion.fr>
+X-ClientProxiedBy: BN6PR13CA0065.namprd13.prod.outlook.com
+ (2603:10b6:404:11::27) To CH2PR12MB5564.namprd12.prod.outlook.com
+ (2603:10b6:610:65::24)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [172.31.157.114] (165.204.158.249) by
- PN2PR01CA0055.INDPRD01.PROD.OUTLOOK.COM (2603:1096:c01:22::30) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4436.19 via Frontend Transport; Wed, 18 Aug 2021 11:42:36 +0000
+Received: from outlook.office365.com (2607:fea8:56e0:6d60:92a3:22f4:41bc:e46f)
+ by BN6PR13CA0065.namprd13.prod.outlook.com (2603:10b6:404:11::27) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.5 via Frontend
+ Transport; Wed, 18 Aug 2021 13:18:26 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 20c8a3ce-7a62-4306-749f-08d9623d4ba8
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5303:
+X-MS-Office365-Filtering-Correlation-Id: c7a10b69-8242-4282-8f8a-08d9624aaa68
+X-MS-TrafficTypeDiagnostic: CH0PR12MB5266:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BL1PR12MB5303B5A57FF03755B979BCB997FF9@BL1PR12MB5303.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-Microsoft-Antispam-PRVS: <CH0PR12MB52666162B0A9533727C9715198FF9@CH0PR12MB5266.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: PxZ8IYTdL3vmlXJOvlFK1xxIc34TqyHhqCq5FpdLi0jMGU3vvCOFhTIJgwBjCowsKuYVyKdG1dDvPGBODhP5vzd5lTMvCO6sLmx1KNSMorSZMgY9YnEGDSE0h+0Sd2QJgaMJQtAK8ge5T6jPYJ1bEPYjakbnGxf81IDZHp9y+x3ApSjcnY7f+dNS7cdLz+u1OO89+P86HW0FGbQEWJfvN6gvnum/MwB1otlI7hCJuGYOSqPlKPD/2F/1MoQrf6bcOAVy2S9LHgn01QIYFxN61FMoohQI8B0/eFqEV1To6H56JhKsNq/He6FvSwdW6dzhBI7a+F3KoZcWQ5if0R9Cr7tHNXuzSY/H+DWxmzPuBrnZRryf/6giZ90/qTqx0UyUd0DwtnBtdFw3WxCDndWM/MFeG2Nsr2pbQ/KkauSh2r9lPWV2+6fE9/7MZuYj+5ybz+B9smROTwJNLGqYP/6UrB+wd3C7VSagpcJD5s5OwH2nq7de+dXV9z9HQXQqImhF2PHWEbC6vikEVkpQRZFs50ywD7ydJkr73z34rfvv/KPVJwA5Br3QCaeA/Uu938teE7YUYAKgz6cp5gAzyehOlR2GZITea2VXMfTjgIjrqQ1IloWCW4YlWqVzTpzoNII75s/daVHFxBQeSKS+Je1+78sFnSL/xZYb13RS6HA11o/bakPw6Mhr2TVPjcnOvtwgAFR82p7/Y7IOPWdDb3Ndr5OePKgSxLq1HZMTyNN+Sl9NQb2/o3x1JNCOPUd6uCYTesvl3O0f04GvN9K0KoRUKyynv/b+oKpFzb7jjF8yg+DMGpk9BtJiAmoNhVloodNa
+X-Microsoft-Antispam-Message-Info: 3GRAQt67LRuptvBFoMzp/wnfR5NUO06nVh453btYUfr9La5uLMWSKsgBk7M5eXQomV3lDi3kr5JK1r2HEEYO+SUeklrb7fkg8pz6z3hJyFF6Dxt4bGaFFf2+qhqZ6DHa/oXqkHK0g4K7xKqtJNY2vIMAxwrnYn0k24f5Ud2+eBr45i3tyDdUpGfTIUy1N8WcR7Oc1tV8dKDYa53OPMBHt34EaURfYUk/mizc89x3lp3/5QUoPuFPCaYSMUOsY1RSGRzzv6vBYfWK5L0OUobiEMFmejXDdzEaUoPLdbQTG0MQ0aHhfUz0aON+edLwWinZcyFvdiLEdzrFU+Zszadj30mE3z3iPezEg9v1zl3zaGquNnbaGpASPbe2QmVl1w0uSM/wVBXD3Pu7DX1Db3I5405WEvlg9qdJ4iv7Q5ydXjmQsWk925tQ0JWHIEnolc6X5EZpH0EbUI9GkVOCyt4X3xAsI27ni5yTT7+g0iPhAnpyesbkSW3pKMzzndjLWaM48G7ZAKCJZmnvNFch39rF5p3nh8LilVMWoIB34CTzHdRqj9rG9Lm6tRVW3lLn+j9LhEdsZN54enmkUDNBKvGBqFm078m1U4NVleg/RTRSOCCk+AdpevasphuG5JWmcIaBgLH3+3HwLjyadKRUxIajq8AtlNcbf3J+3Uy5i01q7eMjJHW+NRMh2YN1DtkwNLmD7WrT2L0N7t55Blq+vaZaulDzk7dvv7F5awknTxWAVGA=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5349.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(366004)(396003)(346002)(376002)(136003)(31696002)(26005)(86362001)(186003)(30864003)(956004)(31686004)(8936002)(54906003)(8676002)(966005)(83380400001)(36756003)(4326008)(66574015)(66556008)(2906002)(66476007)(2616005)(316002)(53546011)(6666004)(19627235002)(478600001)(66946007)(38100700002)(45080400002)(7416002)(16576012)(5660300002)(6486002)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB5564.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(376002)(39860400002)(366004)(136003)(396003)(346002)(66946007)(8676002)(478600001)(1076003)(38100700002)(6506007)(86362001)(2906002)(83380400001)(8936002)(186003)(7696005)(55016002)(4326008)(52116002)(54906003)(316002)(66476007)(5660300002)(66556008)(966005)(9686003)(6916009);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?empvU1pjeGRpa0llZVBWOHhlcXY5TUl1KzBCOFFsNUFFM2VhRzVmSEphQkNL?=
- =?utf-8?B?bGR0dHM5TmRTMzZtYjNhbnZqRDZLVUlXQ2VqUTVuM05rWU9UaE9xdjBhTTBG?=
- =?utf-8?B?Wm90UWNiRG9xZTA5SnZTdHBmNFZsZkRlbkRTbnpoSnhmR1ZLbVNPK2o4TlRM?=
- =?utf-8?B?RXh2UmlSMnZoSjZZZjBIZTNIZ3BUTnpQWno4bjd6U0NyRjZhQTVneSs0bHlx?=
- =?utf-8?B?SFFGSk5jUHcrV3B5Mis0aXhmcVJnUXFva2ZWK3M3MTNla3h4ZE5xVzhPUzNW?=
- =?utf-8?B?YjJYbVVQUjc0YUJKY1lMNHRBUVBZMUtpRUg2a2p2SndmSVdwOUtTUFU3QU04?=
- =?utf-8?B?WmJxYlVibW14M1VNWDJYRDlTOG41M2RFTXorUmF6eGtBQWtvSHdJNVVHZTVo?=
- =?utf-8?B?cFgycDNVTUtmaitrUHR5VHAxR1RoZ1pZakp2QXhjMzFWU0YrUHg1U21JMEVT?=
- =?utf-8?B?S0hCRldWdmhPOTdQNU9SWDdPQU1kOVJPbTRZdGR1TDVKUzBXUUNCUkF2MlJ1?=
- =?utf-8?B?UmQ5K055c3R2cGc0UThuTm9sQ1B0ZWQwM3M4N0RBclR3ZDIrV1J0cW0wcDEw?=
- =?utf-8?B?MklQSXZvL2R4Zm13QzJmc0lmRE5wYlBhTHppSmZtdThDNUM5VEExWVU2aytu?=
- =?utf-8?B?NVF3MDV3VEIycDV2WjltRGMxc1FLc3hiZHpoOTc4c1hnbkZ6aWRNS3RxZ1Jx?=
- =?utf-8?B?ZitWQWdSeWF5Y05uWXFpTmd0d0ZTT1NDdUZ1ZWN2UHJJbjU5aW9CcXF6WjBU?=
- =?utf-8?B?ODFJd3dSemF3dDA4RHIyTXdDc1BjcktlVjFtSmZrb01hVjJzbW9Da2xLaGJP?=
- =?utf-8?B?b3JJQ0cra1NUdVhIN0JJNjk1Uk9FL3ppaDRncXpid2ZUMGsyZ2pNTXc1Z3hv?=
- =?utf-8?B?WU5UYSs0djZtald1Rmp0VFNBd0ZGREpSVlA0a1I0ZmJQZnY4MTgzZFNjd0N1?=
- =?utf-8?B?bkdtcWFjdCtPV3BGVkdLYXNqcWxmT3VRUkYvdERGVUw1c1dCVkhJWEt3d1Q0?=
- =?utf-8?B?V1RKYlIrajY4ZlZlaXh0T251U2xtaFVsd1VVY2JxcWxISDJpY0JkSGhIVFcr?=
- =?utf-8?B?V0NUVENrUzk0aThMOUlEWnhsckVtdm9WSVR2Z3JCeTV1dlo0ZWVPRm1GOStr?=
- =?utf-8?B?Um51MWJVYVRnQXh2dktuOFp1dWc4bVdwS3J2cjdUcmpvdHArSkdPWTR6VXRa?=
- =?utf-8?B?dFBHUnVEV1BRQ0JCc3BGK1NXWnhyWm9sSzhmdXNkUGRrVHdVbXNxQjllZ29v?=
- =?utf-8?B?K1JKeFB4SHZLMnQ2dG9ocm5WOUlpOEUyQVk1UDNIaXZFajdzZkl5cXpkaDRL?=
- =?utf-8?B?Zi9QMXFSVnZzc080WnMxY0YySmpHaTBsS0FhSkFjcHV4K1plZWFwWTY0dHJz?=
- =?utf-8?B?Vm5jejlibk45eEp5cU51Z1JkUlpGQVk4L2xTWXVOWjFxZ3BSaXY1d2FkdlI5?=
- =?utf-8?B?emdGeXkwNUhGZUMvS2dpbm9xUmlDM1BrUHR2V3FNdCttT3Q3S0cyeXRMMngx?=
- =?utf-8?B?Yk5mc2l5eFJxVVhCSFpRRCtuQzZtM2k4R3Q4aUpjdGQvWTVtSmwxTVVKdGlM?=
- =?utf-8?B?RE01aDhNNm5QRnNaR0ZRc0IvZFZ3MTl1c2ovTU56U2ljd0FGVXVGSjlubHJ0?=
- =?utf-8?B?SUEzRXNzdC9sU1FtTG5CbEo1VnRBcjAwR09XNHRpVXArTWlDalJxNHFBRnJO?=
- =?utf-8?B?bzNScG9YaFFwZTRMYytwTktEUVNhbzBlcmREbW9sN0NHdDZlMXYvRXNXU3Ft?=
- =?utf-8?Q?p+tQwuXqkFW6+vHb8Davr7ZW5g5CQgK8wI9PCG+?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?E5+yYGsOLidIji10xRpMAlOix4cLjKPtp3fwSewlaILX3OkFAjf0LuS/Zhg7?=
+ =?us-ascii?Q?88b+g3m0jyB/0xiscukQJ5PI8cWR1uEPg2quGK7ser4gVkHIoDcRuubtNzAp?=
+ =?us-ascii?Q?beymnX3p8LTZPoQFYg3a9b82zGRicyiCwIjXdl21jPFtYGGBGlhYK8vGG5LW?=
+ =?us-ascii?Q?V+q3GbAMqF/JHWdv6qXIUHH9CwzVxsjrcRdht9y/01kXXyvSYoLeLzIIlFsB?=
+ =?us-ascii?Q?V4lJiywMWoTKu9cUoWkHH7zVWjLGm6h3DFk22u1njq4qMqUCj4oPSY5FTSI8?=
+ =?us-ascii?Q?4xrhcYv87/lz0poBJMuk+seADvmmu5JvrpUhvwXmC4/Tjr+1snof2CiDeK/M?=
+ =?us-ascii?Q?7a6PoVqiIoBqUk2OzudV71ZIVU35lRvK0cmt5uL7yzTlqBWvbyqt/K/8hdtu?=
+ =?us-ascii?Q?NltzVKBHT/1h7coEAEdP8FYNNPfDqbtflLKYRApqWZTZyCeQI8idipiUdYTR?=
+ =?us-ascii?Q?PtmOmpquVtT+raR3NXVA8bIzZ7d96d2XNypmDgaak0GK68w1dQ6paMbxZvqy?=
+ =?us-ascii?Q?GZ4U822zCzO+5dD/0+s7o/yYEGJiJMhT2ofAjb+dPEOKEq33A5mKRD5cIAhc?=
+ =?us-ascii?Q?TjdYQEtHXB3KM3o1S54iZePljWeF19Hbb+ADnWdMHIZGhqUv/iWi6zEJRqYZ?=
+ =?us-ascii?Q?2yu5Stp5mcJSv3hC0tYwRIP6iswdNq/A6uBjlo8o/wdCYLWEtzjRjMESifMt?=
+ =?us-ascii?Q?DGegtKvbXaUlni2Y8yLPKLFbKRqZ9O76jrX+VsyyBBFa0A8ADRzl9KArsvmM?=
+ =?us-ascii?Q?VikL6No7D3XIw3IBHhWFI5ozp27KsQLY+MZGolzEcw5SM4mCgt+fflMh4st6?=
+ =?us-ascii?Q?JjQTVT8qrWIUUZVgWr1AZ4DoTEL1XWqZlXJduuPER+fQ/JGPzVsK+kagM2AE?=
+ =?us-ascii?Q?T+QEZefOA31TToIrQu7TpP5RVcTgY3MTF2rMbtRNmCFIhUgn9qmXuTdgABEn?=
+ =?us-ascii?Q?f4vBxobT5DUS3XVRms6j+N9hOHoNocWivrz4PwUUzyduZe0N5xyawbbvF9A5?=
+ =?us-ascii?Q?W8C4lSYtbZzR5pFDfzxp+d5ey+gxH9ETVVfY1L+z9DHutXfg6vTVx/kAKoHv?=
+ =?us-ascii?Q?B2VmZBFF5Xa7BX9SpGumBPnCoTaQpXmD6UmO0XxE1PgkI/WtBvKr1z9A48z+?=
+ =?us-ascii?Q?Or7vFSdB/PraqWJoleKv7rwNDEMRr2kOJLkSrLG36szO9urAIz0GNgC6mQ0u?=
+ =?us-ascii?Q?CcS9fPFQU/lD87ytjKMpvppr+bbIaai0nrRZgMOUPxFtbggcvXYy8BI8EvNN?=
+ =?us-ascii?Q?zq39f3dzSoyNMM2wsOHtIjiAZWWdXw37tks9qq/khROA3/MQb2HwXRLJHP3E?=
+ =?us-ascii?Q?a3jXx7miHImAUgjPqcEFcmwH4YcNrfySLqpIglxJfPMP7Biav091WzEaIPXf?=
+ =?us-ascii?Q?HtuzE0OV6XepFVR+Dgk3WOZmazH3?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 20c8a3ce-7a62-4306-749f-08d9623d4ba8
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5349.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c7a10b69-8242-4282-8f8a-08d9624aaa68
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB5564.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2021 11:42:45.4351 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2021 13:18:27.7937 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ZdvTAa1eKZCiW8G3E/O728gMhGWSbd6jtNeRQXe9ncQram6LcsAUj/A1dHd+tUQa
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5303
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7B9KjbOXCVx5ucpBMk1DXbul8CP5KhzBwEKRNxg0IH2eiJqMozd5ICEQHnlJU3UhzjCgV6eGcXQOarChfJ2GgA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5266
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,273 +137,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi Simon,
 
-On 8/18/2021 11:34 AM, Kees Cook wrote:
-> In preparation for FORTIFY_SOURCE performing compile-time and run-time
-> field bounds checking for memcpy(), memmove(), and memset(), avoid
-> intentionally writing across neighboring fields.
+On 08/18, Simon Ser wrote:
+> Hm. This patch causes a regression for me. I was using primary + overlay
+> not covering the whole primary plane + cursor before. This patch breaks it.
+
+Which branch are you using? Recently, I reverted part of that patch,
+see:
+
+  Revert "drm/amd/display: Fix overlay validation by considering cursors"
+ 
+> This patch makes the overlay plane very useless for me, because the primary
+> plane is always under the overlay plane.
+
+I'm curious about your use case with overlay planes. Could you help me
+to understand it better? If possible, describe:
+
+1. Context and scenario
+2. Compositor
+3. Kernel version
+4. If you know which IGT test describe your test?
+
+I'm investigating overlay issues in our driver, and a userspace
+perspective might help me.
+
+> > Basically, we cannot draw the cursor at the same size and position on
+> > two separated pipes since it uses extra bandwidth and DML only run
+> > with one cursor.
 > 
-> Use struct_group() in structs:
-> 	struct atom_smc_dpm_info_v4_5
-> 	struct atom_smc_dpm_info_v4_6
-> 	struct atom_smc_dpm_info_v4_7
-> 	struct atom_smc_dpm_info_v4_10
-> 	PPTable_t
-> so the grouped members can be referenced together. This will allow
-> memcpy() and sizeof() to more easily reason about sizes, improve
-> readability, and avoid future warnings about writing beyond the end of
-> the first member.
-> 
-> "pahole" shows no size nor member offset changes to any structs.
-> "objdump -d" shows no object code changes.
-> 
-> Cc: "Christian König" <christian.koenig@amd.com>
-> Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
-> Cc: David Airlie <airlied@linux.ie>
-> Cc: Daniel Vetter <daniel@ffwll.ch>
-> Cc: Hawking Zhang <Hawking.Zhang@amd.com>
-> Cc: Feifei Xu <Feifei.Xu@amd.com>
-> Cc: Lijo Lazar <lijo.lazar@amd.com>
-> Cc: Likun Gao <Likun.Gao@amd.com>
-> Cc: Jiawei Gu <Jiawei.Gu@amd.com>
-> Cc: Evan Quan <evan.quan@amd.com>
-> Cc: amd-gfx@lists.freedesktop.org
-> Cc: dri-devel@lists.freedesktop.org
-> Signed-off-by: Kees Cook <keescook@chromium.org>
-> Acked-by: Alex Deucher <alexander.deucher@amd.com>
-> Link: https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flore.kernel.org%2Flkml%2FCADnq5_Npb8uYvd%2BR4UHgf-w8-cQj3JoODjviJR_Y9w9wqJ71mQ%40mail.gmail.com&amp;data=04%7C01%7Clijo.lazar%40amd.com%7C92b8d2f072f0444b9f8508d9620f6971%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637648640625729624%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=rKh5LUXCRUsorYM3kSpG2tkB%2Fczwl9I9EBnWBCtbg6Q%3D&amp;reserved=0
-> ---
->   drivers/gpu/drm/amd/include/atomfirmware.h           |  9 ++++++++-
->   .../gpu/drm/amd/pm/inc/smu11_driver_if_arcturus.h    |  3 ++-
->   drivers/gpu/drm/amd/pm/inc/smu11_driver_if_navi10.h  |  3 ++-
->   .../gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h   |  3 ++-
+> I don't understand this limitation. Why would it be necessary to draw the
+> cursor on two separate pipes? Isn't it only necessary to draw it once on
+> the overlay pipe, and not draw it on the primary pipe?
 
-Hi Kees,
+I will try to provide some background. Harry and Nick, feel free to
+correct me or add extra information.
 
-The headers which define these structs are firmware/VBIOS interfaces and 
-are picked directly from those components. There are difficulties in 
-grouping them to structs at the original source as that involves other 
-component changes.
+In the amdgpu driver and from the DRM perspective, we expose cursors as
+a plane, but we don't have a real plane dedicated to cursors from the
+hardware perspective. We have part of our HUPB handling cursors (see
+commit "drm/amd/display: Add DCN3.1 DCHHUB" for a hardware block
+overview), which requires a different way to deal with the cursor plane
+since they are not planes in the hardware. As a result, we have some
+limitations, such as not support multiple cursors with overlay; to
+support this, we need to deal with these aspects:
 
-The driver_if_* files updates are frequent and it is error prone to 
-manually group them each time we pick them for any update. Our usage of 
-memcpy in this way is restricted only to a very few places.
+1. We need to make multiple cursor match in the same position and size.
+Again, keep in mind that cursors are handled in the HUBP, which is the
+first part of our pipe, and it is not a plane.
 
-As another option - is it possible to have a helper function/macro like 
-memcpy_fortify() which takes the extra arguments and does the extra 
-compile time checks? We will use the helper whenever we have such kind 
-of usage.
+2. Fwiu, our Display Mode Library (DML), has gaps with multiple cursor
+support, which can lead to bandwidth problems such as underflow. Part of
+these limitations came from DCN1.0; the new ASIC probably can support
+multiple cursors without issues.
 
-Thanks,
-Lijo
+Additionally, we fully support a strategy named underlay, which inverts
+the logic around the overlay. The idea is to put the DE in the overlay
+plane covering the entire screen and the other fb in the primary plane
+behind the overlay (DE); this can be useful for playback video
+scenarios.
 
->   drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c    |  6 +++---
->   drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c      | 12 ++++++++----
->   drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c   |  6 +++---
->   7 files changed, 28 insertions(+), 14 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/include/atomfirmware.h b/drivers/gpu/drm/amd/include/atomfirmware.h
-> index 44955458fe38..7bf3edf15410 100644
-> --- a/drivers/gpu/drm/amd/include/atomfirmware.h
-> +++ b/drivers/gpu/drm/amd/include/atomfirmware.h
-> @@ -2081,6 +2081,7 @@ struct atom_smc_dpm_info_v4_5
->   {
->     struct   atom_common_table_header  table_header;
->       // SECTION: BOARD PARAMETERS
-> +  struct_group(dpm_info,
->       // I2C Control
->     struct smudpm_i2c_controller_config_v2  I2cControllers[8];
->   
-> @@ -2159,7 +2160,7 @@ struct atom_smc_dpm_info_v4_5
->     uint32_t MvddRatio; // This is used for MVDD Vid workaround. It has 16 fractional bits (Q16.16)
->     
->     uint32_t     BoardReserved[9];
-> -
-> +  );
->   };
->   
->   struct atom_smc_dpm_info_v4_6
-> @@ -2168,6 +2169,7 @@ struct atom_smc_dpm_info_v4_6
->     // section: board parameters
->     uint32_t     i2c_padding[3];   // old i2c control are moved to new area
->   
-> +  struct_group(dpm_info,
->     uint16_t     maxvoltagestepgfx; // in mv(q2) max voltage step that smu will request. multiple steps are taken if voltage change exceeds this value.
->     uint16_t     maxvoltagestepsoc; // in mv(q2) max voltage step that smu will request. multiple steps are taken if voltage change exceeds this value.
->   
-> @@ -2246,12 +2248,14 @@ struct atom_smc_dpm_info_v4_6
->   
->     // reserved
->     uint32_t   boardreserved[10];
-> +  );
->   };
->   
->   struct atom_smc_dpm_info_v4_7
->   {
->     struct   atom_common_table_header  table_header;
->       // SECTION: BOARD PARAMETERS
-> +  struct_group(dpm_info,
->       // I2C Control
->     struct smudpm_i2c_controller_config_v2  I2cControllers[8];
->   
-> @@ -2348,6 +2352,7 @@ struct atom_smc_dpm_info_v4_7
->     uint8_t      Padding8_Psi2;
->   
->     uint32_t     BoardReserved[5];
-> +  );
->   };
->   
->   struct smudpm_i2c_controller_config_v3
-> @@ -2478,6 +2483,7 @@ struct atom_smc_dpm_info_v4_10
->     struct   atom_common_table_header  table_header;
->   
->     // SECTION: BOARD PARAMETERS
-> +  struct_group(dpm_info,
->     // Telemetry Settings
->     uint16_t GfxMaxCurrent; // in Amps
->     uint8_t   GfxOffset;     // in Amps
-> @@ -2524,6 +2530,7 @@ struct atom_smc_dpm_info_v4_10
->     uint16_t spare5;
->   
->     uint32_t reserved[16];
-> +  );
->   };
->   
->   /*
-> diff --git a/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_arcturus.h b/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_arcturus.h
-> index 43d43d6addc0..8093a98800c3 100644
-> --- a/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_arcturus.h
-> +++ b/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_arcturus.h
-> @@ -643,6 +643,7 @@ typedef struct {
->     // SECTION: BOARD PARAMETERS
->   
->     // SVI2 Board Parameters
-> +  struct_group(v4_6,
->     uint16_t     MaxVoltageStepGfx; // In mV(Q2) Max voltage step that SMU will request. Multiple steps are taken if voltage change exceeds this value.
->     uint16_t     MaxVoltageStepSoc; // In mV(Q2) Max voltage step that SMU will request. Multiple steps are taken if voltage change exceeds this value.
->   
-> @@ -728,10 +729,10 @@ typedef struct {
->     uint32_t     BoardVoltageCoeffB;    // decode by /1000
->   
->     uint32_t     BoardReserved[7];
-> +  );
->   
->     // Padding for MMHUB - do not modify this
->     uint32_t     MmHubPadding[8]; // SMU internal use
-> -
->   } PPTable_t;
->   
->   typedef struct {
-> diff --git a/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_navi10.h b/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_navi10.h
-> index 04752ade1016..0b4e6e907e95 100644
-> --- a/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_navi10.h
-> +++ b/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_navi10.h
-> @@ -725,6 +725,7 @@ typedef struct {
->     uint32_t     Reserved[8];
->   
->     // SECTION: BOARD PARAMETERS
-> +  struct_group(v4,
->     // I2C Control
->     I2cControllerConfig_t  I2cControllers[NUM_I2C_CONTROLLERS];
->   
-> @@ -809,10 +810,10 @@ typedef struct {
->     uint8_t      Padding8_Loadline;
->   
->     uint32_t     BoardReserved[8];
-> +  );
->   
->     // Padding for MMHUB - do not modify this
->     uint32_t     MmHubPadding[8]; // SMU internal use
-> -
->   } PPTable_t;
->   
->   typedef struct {
-> diff --git a/drivers/gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h b/drivers/gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h
-> index a017983ff1fa..5056d3728da8 100644
-> --- a/drivers/gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h
-> +++ b/drivers/gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h
-> @@ -390,6 +390,7 @@ typedef struct {
->     uint32_t spare3[14];
->   
->     // SECTION: BOARD PARAMETERS
-> +  struct_group(v4_10,
->     // Telemetry Settings
->     uint16_t GfxMaxCurrent; // in Amps
->     int8_t   GfxOffset;     // in Amps
-> @@ -444,7 +445,7 @@ typedef struct {
->   
->     //reserved
->     uint32_t reserved[14];
-> -
-> +  );
->   } PPTable_t;
->   
->   typedef struct {
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-> index 8ab58781ae13..341adf209240 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-> @@ -463,11 +463,11 @@ static int arcturus_append_powerplay_table(struct smu_context *smu)
->   			smc_dpm_table->table_header.format_revision,
->   			smc_dpm_table->table_header.content_revision);
->   
-> +	BUILD_BUG_ON(sizeof(smc_pptable->v4_6) != sizeof(smc_dpm_table->dpm_info));
->   	if ((smc_dpm_table->table_header.format_revision == 4) &&
->   	    (smc_dpm_table->table_header.content_revision == 6))
-> -		memcpy(&smc_pptable->MaxVoltageStepGfx,
-> -		       &smc_dpm_table->maxvoltagestepgfx,
-> -		       sizeof(*smc_dpm_table) - offsetof(struct atom_smc_dpm_info_v4_6, maxvoltagestepgfx));
-> +		memcpy(&smc_pptable->v4_6, &smc_dpm_table->dpm_info,
-> +		       sizeof(smc_dpm_table->dpm_info));
->   
->   	return 0;
->   }
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> index 2e5d3669652b..e8b6e25a7815 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> @@ -431,16 +431,20 @@ static int navi10_append_powerplay_table(struct smu_context *smu)
->   
->   	switch (smc_dpm_table->table_header.content_revision) {
->   	case 5: /* nv10 and nv14 */
-> -		memcpy(smc_pptable->I2cControllers, smc_dpm_table->I2cControllers,
-> -			sizeof(*smc_dpm_table) - sizeof(smc_dpm_table->table_header));
-> +		BUILD_BUG_ON(sizeof(smc_pptable->v4) !=
-> +			     sizeof(smc_dpm_table->dpm_info));
-> +		memcpy(&smc_pptable->v4, &smc_dpm_table->dpm_info,
-> +		       sizeof(smc_dpm_table->dpm_info));
->   		break;
->   	case 7: /* nv12 */
->   		ret = amdgpu_atombios_get_data_table(adev, index, NULL, NULL, NULL,
->   					      (uint8_t **)&smc_dpm_table_v4_7);
->   		if (ret)
->   			return ret;
-> -		memcpy(smc_pptable->I2cControllers, smc_dpm_table_v4_7->I2cControllers,
-> -			sizeof(*smc_dpm_table_v4_7) - sizeof(smc_dpm_table_v4_7->table_header));
-> +		BUILD_BUG_ON(sizeof(smc_pptable->v4) !=
-> +			     sizeof(smc_dpm_table_v4_7->dpm_info));
-> +		memcpy(&smc_pptable->v4, &smc_dpm_table_v4_7->dpm_info,
-> +		       sizeof(smc_dpm_table_v4_7->dpm_info));
->   		break;
->   	default:
->   		dev_err(smu->adev->dev, "smc_dpm_info with unsupported content revision %d!\n",
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-> index c8eefacfdd37..492ba37bc514 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-> @@ -407,11 +407,11 @@ static int aldebaran_append_powerplay_table(struct smu_context *smu)
->   			smc_dpm_table->table_header.format_revision,
->   			smc_dpm_table->table_header.content_revision);
->   
-> +	BUILD_BUG_ON(sizeof(smc_pptable->v4_10) != sizeof(smc_dpm_table->dpm_info));
->   	if ((smc_dpm_table->table_header.format_revision == 4) &&
->   	    (smc_dpm_table->table_header.content_revision == 10))
-> -		memcpy(&smc_pptable->GfxMaxCurrent,
-> -		       &smc_dpm_table->GfxMaxCurrent,
-> -		       sizeof(*smc_dpm_table) - offsetof(struct atom_smc_dpm_info_v4_10, GfxMaxCurrent));
-> +		memcpy(&smc_pptable->v4_10, &smc_dpm_table->dpm_info,
-> +		       sizeof(smc_dpm_table->dpm_info));
->   	return 0;
->   }
->   
-> 
+Best Regards
+
+-- 
+Rodrigo Siqueira
+https://siqueira.tech
