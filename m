@@ -2,92 +2,132 @@ Return-Path: <SRS0=nAtJ=NK=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-19.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 616F1C4338F
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 20:57:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 52ED1C432BE
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 21:13:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0E97C61029
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 20:57:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0E97C61029
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=chromium.org
+	by mail.kernel.org (Postfix) with ESMTPS id 12C1A6108F
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 21:13:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 12C1A6108F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D6896E9D9;
-	Thu, 19 Aug 2021 20:57:46 +0000 (UTC)
-Received: from mail-pg1-x533.google.com (mail-pg1-x533.google.com
- [IPv6:2607:f8b0:4864:20::533])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DC3E6E9D1
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Aug 2021 19:58:25 +0000 (UTC)
-Received: by mail-pg1-x533.google.com with SMTP id n18so6912800pgm.12
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Aug 2021 12:58:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=LynX178MCRLTZU5nO2CQfUksz3iyT32ZXzH2mGMWDBA=;
- b=IXP6D8XUx7q38sbKdbR+/AGu2s0ZJLBWooVJkgCUSHWtToTxSgv5DmH5+2jvYOp6Zi
- HzsBie7+wTjJLrZAtj2grSzQ23RPyHvcRjIk1YBMcTFffxfJWBxG7UDPfDsT7lYLqEXs
- P59yXQ7sA3PbiyfDMZYBhF0RVfO2fU3LZbyYQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=LynX178MCRLTZU5nO2CQfUksz3iyT32ZXzH2mGMWDBA=;
- b=U+EaTPclrlTRXdlEkL2CbGyLWldpgAHPtENvknQH/JicAzUGeghSgS8eVj8a66bqjw
- tk5ah96bvq9+FzHwAdWHzy7FGKPv8DQvMkL9OJ66etiyfOWnZnjhnlS+UMRsXE9iILsM
- hPdXKv32ppsMR4fbNDPYSKqzyjIGSaZyFsPeZyo4iNqU7aUM01ThNr2pE5CAesaKTyFC
- pWAokK2uIbHanGsDeFjctyUQde7flcdAqnqbnrEqsbA6GgXtT7rSb2mnzPbS45VFkIW4
- 7n4DTMdNEODGwbTJWozkOuIVm2BXHxta8HhUDr/BvWbO5qrLt9j3iqhW695GqH2XsBur
- k18g==
-X-Gm-Message-State: AOAM532z2/F61nmWpqof/7sPBat1H8CL8Uxsz1S/y9Ai4babLHWj4yAx
- EQWWyhZUWQKkQED236fKNoHqiA==
-X-Google-Smtp-Source: ABdhPJwENFrpIU7Xhf4Zl5AymWSqlMMnYKOiArZ+vRAHZd9/qVLc9guwbLoTcMORFGutADg/dAOGOw==
-X-Received: by 2002:aa7:83c6:0:b029:3e0:1f64:6f75 with SMTP id
- j6-20020aa783c60000b02903e01f646f75mr15962378pfn.69.1629403104650; 
- Thu, 19 Aug 2021 12:58:24 -0700 (PDT)
-Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
- by smtp.gmail.com with ESMTPSA id r16sm3784554pje.10.2021.08.19.12.58.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 19 Aug 2021 12:58:24 -0700 (PDT)
-Date: Thu, 19 Aug 2021 12:58:22 -0700
-From: Kees Cook <keescook@chromium.org>
-To: "Lazar, Lijo" <lijo.lazar@amd.com>
-Cc: linux-kernel@vger.kernel.org,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Hawking Zhang <Hawking.Zhang@amd.com>,
- Feifei Xu <Feifei.Xu@amd.com>, Likun Gao <Likun.Gao@amd.com>,
- Jiawei Gu <Jiawei.Gu@amd.com>, Evan Quan <evan.quan@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- linux-wireless@vger.kernel.org, netdev@vger.kernel.org,
- linux-staging@lists.linux.dev, linux-block@vger.kernel.org,
- linux-kbuild@vger.kernel.org, clang-built-linux@googlegroups.com,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v2 18/63] drm/amd/pm: Use struct_group() for memcpy()
- region
-Message-ID: <202108191214.6269AFD@keescook>
-References: <20210818060533.3569517-1-keescook@chromium.org>
- <20210818060533.3569517-19-keescook@chromium.org>
- <753ef2d1-0f7e-c930-c095-ed86e1518395@amd.com>
- <202108181619.B603481527@keescook>
- <e56aad3c-a06f-da07-f491-a894a570d78f@amd.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+	by gabe.freedesktop.org (Postfix) with ESMTP id 933086E8FE;
+	Thu, 19 Aug 2021 21:13:04 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2051.outbound.protection.outlook.com [40.107.220.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9AAD16E8FE
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Aug 2021 21:13:02 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=M3+dmvEcnR/9WcbwbUZDAbYkJuUzw/HPgvkguOJspCxnMo+2MPVjYPtIHFX/2B5ossBwpeloYWvMG2EiWCiOAnTX+iikM4hFKPUy1l2ChDtXKu8mjiCj5qCfcxwrgD7E2N57L1OzDpE/kAAsQedCis1p5+W7HYeBzi7gP8/3aI6HhCZkwZMifsxmZ1pNNGUILp5+Otn6kEHBoGRPJcfK9EH9JkFyl+ppM1SNHNVtenkd4T+okIEFusXPRB0bHkWG+2F0qxtmGmGh64Y2CrtElWJ/Csb+JQg6K7uAY30S8md1G2+ajb30aTiuUudAt9TWDqH69v5j22OBDH68dvbA5g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gXnhi5gzduP260eAL50lZjWAwpsj6kLgwRTPDrvkKpo=;
+ b=WjaP6k9M9wURbi+RnB+L52pwM5TiIaLfnmf5rgwzqLQNpyqQHlP7sb4IpEDWvTHwErjIsJbaOaeevNYU14nXuVBHHBPixnMG2Yp0CFh1v4fKxuCgr6C2AQH1LK2b79UDmzL64OIQbavtC+0+luWalprj8tPQ/hhM1F2j4nOzdHhLQryO6aH9rmjBT/dYYc2lxjHNSdEgmrHLlqbcjspjvvFyvwxA5+zzVTrTW3DVGQVUIH7uszf56E+r0i7GUgC7Sk4nBqgV4htpsH4UNWJBjENgGa/ECj9oYMEs/u2ekCUAxqiu9gqSeL03JBj0ZfMb2VPKi2OXVirSMbn0Xoe/OQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gXnhi5gzduP260eAL50lZjWAwpsj6kLgwRTPDrvkKpo=;
+ b=S1Km9zZ5VqZrhhzoifwWBGccVFWENEhE2wDK5FL0xYWdL297608q0kAHEeM4maSVChelfd5Eh639qg7pDyuHcVlsbR+Qf83eq0J1KB5Vv60q15meUpk4AeRmKhRKPYLxjAL1OyFA2XtdRv21WgvM7/XF1Mv71mTVUH40ih5EKwQ=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5129.namprd12.prod.outlook.com (2603:10b6:408:136::12)
+ by BN9PR12MB5227.namprd12.prod.outlook.com (2603:10b6:408:100::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.19; Thu, 19 Aug
+ 2021 21:13:01 +0000
+Received: from BN9PR12MB5129.namprd12.prod.outlook.com
+ ([fe80::b891:a906:28f0:fdb]) by BN9PR12MB5129.namprd12.prod.outlook.com
+ ([fe80::b891:a906:28f0:fdb%4]) with mapi id 15.20.4415.023; Thu, 19 Aug 2021
+ 21:13:01 +0000
+Subject: Re: [PATCH 1/2] drm/amdkfd: check access permisson to restore retry
+ fault
+To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20210819145658.2254-1-Philip.Yang@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Message-ID: <e01bbdc0-87ae-510d-b4e6-40e1feff3822@amd.com>
+Date: Thu, 19 Aug 2021 17:12:59 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
+In-Reply-To: <20210819145658.2254-1-Philip.Yang@amd.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <e56aad3c-a06f-da07-f491-a894a570d78f@amd.com>
-X-Mailman-Approved-At: Thu, 19 Aug 2021 20:57:43 +0000
+Content-Language: en-US
+X-ClientProxiedBy: YT1PR01CA0077.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2d::16) To BN9PR12MB5129.namprd12.prod.outlook.com
+ (2603:10b6:408:136::12)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [192.168.2.100] (142.186.47.3) by
+ YT1PR01CA0077.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2d::16) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4436.19 via Frontend Transport; Thu, 19 Aug 2021 21:13:00 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: d6461c09-48bb-4018-3d5b-08d96356201b
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5227:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BN9PR12MB522744FA11F82251395AC4C092C09@BN9PR12MB5227.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: QhIJks56FVbjGh7DJBuK9kF5h/1v4W1fW43BHh54O/B8o2nBtH6GYdH4FJZDQ2iOZXjH37sFFE7yRCo5rc9/K5+UqcTOIiUUY/asmiCR8ipoCLue6Bhwgz72SguBTxirJnKuNjwzdVvBKXPFmwoZpo4L8wJbgbA1bbuimnK/sJcf5Z5r7TVB7SqHfRmQJt6xRsD2QL7th89YWd3rGi5K9N0Dx/o3keOIIv/tI8WNr63w5le63UPz4ym9Me9BKEvhXBzXDMCEPO07Qt5GoDZBM9+vfOzmw13QhU/AXuTIJ72uj5sjQ7Y77m6KiVysKUMJA769rW6DTSf8Pwu9yR6VTwhc/nNXor6ZuuFzlex3ZSkczqfvY/P/9Gpmw8Vb/HG5G86hnmv/TORd+g6Jwf6Zb0YnVf3mrptvbPdsnmtriZ8HxiTu3kXBOiHTBkZAWTM+fE2ih4JhKLl6znXUGzQt+jaVjPKFrHK+TEf+d9nZYTdKI7oqYspEg92aVK7BeZxJ9ZDD4qKakNY/5K4Ert6Jme2AOVv+6fbWXNY5tb+HVyRR606DojcboYVrLR3SZvIXaHOywf8L0MEF5b/x7sucuBQgzqNo07eNiku1m2Fhao3XLNrhurNU77EtK14XwPkC5pjPhbId6D9l+ruzIZX6F6uafXhu7+Dzf8Jiep4lAxs7u70QAaZvIxVyTgSWlTa1vjejkGl3ApC0nxT+LANClrUX/ufKugrXvgQbD1eRW83xKISFnCI3G52Lw734dLqz
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5129.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(376002)(346002)(396003)(136003)(39860400002)(2616005)(26005)(6486002)(66556008)(38100700002)(5660300002)(8676002)(316002)(956004)(44832011)(478600001)(186003)(8936002)(66476007)(31696002)(2906002)(83380400001)(31686004)(36756003)(86362001)(16576012)(66946007)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N3IrSEREY01scStIRnRETExXYkFVaFJ1c0J4RjdYTS9Rb0JmQkJwR3ExN0Vm?=
+ =?utf-8?B?cWRjYk9XU1NmZllneXBDaTZ1TEY4cHBib1M2czFlZ1VtTHZsU1ptRGQxYUph?=
+ =?utf-8?B?dk9zdXlVOXZ4dTVGVndORHNTeERERXM2RllZSm4rWnVPSTVWV3dRT29BZUlZ?=
+ =?utf-8?B?N29QMlJZcGtGS1c5Z1FNZGljL2VMWE1ub2Urem5hNElKWStjOEpESWpadU5X?=
+ =?utf-8?B?UVZUSFJHR2tacExqbmJBNSswWXF4dno3ZHZHZHZhNzl3ZmsxUzVubmhZOTdo?=
+ =?utf-8?B?UHAxTDY0cjl0WHM0Rm5sNkJ6SzdGTjA5UVdCenIydWIyTjU2WDZVRzB2ekd3?=
+ =?utf-8?B?alpzZm5XcWNNTGtLeXh0OXBGSDB3bDZiVVpXREJrSmpSTnpTeks1RzdQTVpK?=
+ =?utf-8?B?cDUyVTdLWWh6c3lqK0FuTDRKY1VRN2UzS3hjb3ZBOHZUa2pDQnpiRnBjakJT?=
+ =?utf-8?B?cjl5OWlIVjFic1ZVampQYzVVR01QczNqV1BGRlA5VXpSVjVhM0FGOFFOeWVq?=
+ =?utf-8?B?bmNoRnVuaStvZ0E2OUJCbmcrQlc0Y3I0M3NBVndvbWNXcGxLUUtyNEF6dDc4?=
+ =?utf-8?B?aHJtUGNuTDhYa2dYVGlpaE1lcGR6ZVk3VEVYOGlueGtQRFhScGhpS2o3dDBw?=
+ =?utf-8?B?RkkzL0RkaVdab0NRSURBVzBuN2hGdS9PWEhoNjIrczFtWnY1b1oyK3Yzb0No?=
+ =?utf-8?B?M3ZmMWpXYzlwVW5pdWdiOVhkY2wrdkFlV3EybkFPWFkxSElPakd1ZUZMZm9Y?=
+ =?utf-8?B?RHlYM0N6NzlMVEFoVUpQdjZ1NWNDMGkrcm80RXlkRDM4M2hBWnIraE5MU3Mv?=
+ =?utf-8?B?ZUxGZVdYeWNwSWlLbGU0RnRJTk9iMkhXOWtzcGxMNjFldTFIeisrcW9LZDB5?=
+ =?utf-8?B?Q3RDY3UrRXhHVE5hREU0TnhQcW1ZbFd3S0pGVkVOVUQzN0pQbTZpUkQvMG14?=
+ =?utf-8?B?RjJHOC9ZVlJXb01Ld3dpNVhGZUtnS1c0UjM0WDQxTFdGcnNrb0pkdDNIbjZz?=
+ =?utf-8?B?L3Vuczl0TlZhQjkrcTQrR1VpN0JUK0xPczVKSldOdXlFMFJSbFl2WWl4MGJN?=
+ =?utf-8?B?TEFLZzg4Qk1zbEJkekFQdmM0cnhnbVdaVVlyNVUrYTZoZDdWR1hlSkhSdHNT?=
+ =?utf-8?B?NHdVL0NrVHp2VkNrdnFSZlhRSzljd2dsVGN5NU0vVXdxQ2t6QkJOL0lMTm0x?=
+ =?utf-8?B?ZTNxR3NjMkdxMUh2WFc3RkRObTgyMjlSYTNoaHZhUFdnSUttWlF0Wjl1VDZ1?=
+ =?utf-8?B?dSt0QUNNYW9tNTk2V0cralN2ZW8wZHNpM2l4ZnIrT1hrY09pekVuWGRvR3JK?=
+ =?utf-8?B?S3B1eDZxaldqblYrYlVpdGhzRlE3bVFLQ2I2bnJDcXZ0Y1lBZUp0R01WcUMr?=
+ =?utf-8?B?b29OOGZSdDlzZFRmRjRFMURtL3dpejREamx6eUY3UzIzZmt1cms1QVlSdTZq?=
+ =?utf-8?B?eTV2RXYwR1BNYXJzeXhTSXV4UzVCNlJYSHVOc0twUHVIcE93aW9SeVdHQnBt?=
+ =?utf-8?B?UTYzK282RE9oWnBwdWhEWkkrQmhzUjNta1prWEVrTjlnTTFvR2FuZXdFVTNB?=
+ =?utf-8?B?dlp6M3g0azVabTJYUmF2S1gwZHBnYUgvZURxRjdraWFBUGlIWndMUWlNcTVq?=
+ =?utf-8?B?aGlLbnBBUWZqZkZxaVNEbVRpOVBaMEFHL3UrcW1VOVFuNUFHcWZoSGF1TUdL?=
+ =?utf-8?B?UGVpQkFIUmtINnduVmNFNlV4M0xZZEp5d0s2aHczbW9uT1o4TjhSejF0dWN1?=
+ =?utf-8?Q?PHZM8dVJ5tRnaTs/hG7981t+SkRT2wXbvTjbnr2?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d6461c09-48bb-4018-3d5b-08d96356201b
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5129.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2021 21:13:00.8580 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: iqI3iA7gjVRsNYDltarGThXX0UZYOkY2Rt+N9wXauHTClwcoy4JEYmStkg06MPh8by25hjo1Nbrbg29z+o7Usw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5227
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,385 +142,221 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Aug 19, 2021 at 10:33:43AM +0530, Lazar, Lijo wrote:
-> On 8/19/2021 5:29 AM, Kees Cook wrote:
-> > On Wed, Aug 18, 2021 at 05:12:28PM +0530, Lazar, Lijo wrote:
-> > > 
-> > > On 8/18/2021 11:34 AM, Kees Cook wrote:
-> > > > In preparation for FORTIFY_SOURCE performing compile-time and run-time
-> > > > field bounds checking for memcpy(), memmove(), and memset(), avoid
-> > > > intentionally writing across neighboring fields.
-> > > > 
-> > > > Use struct_group() in structs:
-> > > > 	struct atom_smc_dpm_info_v4_5
-> > > > 	struct atom_smc_dpm_info_v4_6
-> > > > 	struct atom_smc_dpm_info_v4_7
-> > > > 	struct atom_smc_dpm_info_v4_10
-> > > > 	PPTable_t
-> > > > so the grouped members can be referenced together. This will allow
-> > > > memcpy() and sizeof() to more easily reason about sizes, improve
-> > > > readability, and avoid future warnings about writing beyond the end of
-> > > > the first member.
-> > > > 
-> > > > "pahole" shows no size nor member offset changes to any structs.
-> > > > "objdump -d" shows no object code changes.
-> > > > 
-> > > > Cc: "Christian König" <christian.koenig@amd.com>
-> > > > Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
-> > > > Cc: David Airlie <airlied@linux.ie>
-> > > > Cc: Daniel Vetter <daniel@ffwll.ch>
-> > > > Cc: Hawking Zhang <Hawking.Zhang@amd.com>
-> > > > Cc: Feifei Xu <Feifei.Xu@amd.com>
-> > > > Cc: Lijo Lazar <lijo.lazar@amd.com>
-> > > > Cc: Likun Gao <Likun.Gao@amd.com>
-> > > > Cc: Jiawei Gu <Jiawei.Gu@amd.com>
-> > > > Cc: Evan Quan <evan.quan@amd.com>
-> > > > Cc: amd-gfx@lists.freedesktop.org
-> > > > Cc: dri-devel@lists.freedesktop.org
-> > > > Signed-off-by: Kees Cook <keescook@chromium.org>
-> > > > Acked-by: Alex Deucher <alexander.deucher@amd.com>
-> > > > Link: https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flore.kernel.org%2Flkml%2FCADnq5_Npb8uYvd%2BR4UHgf-w8-cQj3JoODjviJR_Y9w9wqJ71mQ%40mail.gmail.com&amp;data=04%7C01%7Clijo.lazar%40amd.com%7C3861f20094074bf7328808d962a433f2%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637649279701053991%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=386LcfJJGfQfHsXBuK17LMqxJ2nFtGoj%2FUjoN2ZtJd0%3D&amp;reserved=0
-> > > > ---
-> > > >    drivers/gpu/drm/amd/include/atomfirmware.h           |  9 ++++++++-
-> > > >    .../gpu/drm/amd/pm/inc/smu11_driver_if_arcturus.h    |  3 ++-
-> > > >    drivers/gpu/drm/amd/pm/inc/smu11_driver_if_navi10.h  |  3 ++-
-> > > >    .../gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h   |  3 ++-
-> > > 
-> > > Hi Kees,
-> > 
-> > Hi! Thanks for looking into this.
-> > 
-> > > The headers which define these structs are firmware/VBIOS interfaces and are
-> > > picked directly from those components. There are difficulties in grouping
-> > > them to structs at the original source as that involves other component
-> > > changes.
-> > 
-> > So, can you help me understand this a bit more? It sounds like these are
-> > generated headers, yes? I'd like to understand your constraints and
-> > weight them against various benefits that could be achieved here.
-> > 
-> > The groupings I made do appear to be roughly documented already,
-> > for example:
-> > 
-> >     struct   atom_common_table_header  table_header;
-> >       // SECTION: BOARD PARAMETERS
-> > +  struct_group(dpm_info,
-> > 
-> > Something emitted the "BOARD PARAMETERS" section heading as a comment,
-> > so it likely also would know where it ends, yes? The good news here is
-> > that for the dpm_info groups, they all end at the end of the existing
-> > structs, see:
-> > 	struct atom_smc_dpm_info_v4_5
-> > 	struct atom_smc_dpm_info_v4_6
-> > 	struct atom_smc_dpm_info_v4_7
-> > 	struct atom_smc_dpm_info_v4_10
-> > 
-> > The matching regions in the PPTable_t structs are similarly marked with a
-> > "BOARD PARAMETERS" section heading comment:
-> > 
-> > --- a/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_arcturus.h
-> > +++ b/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_arcturus.h
-> > @@ -643,6 +643,7 @@ typedef struct {
-> >     // SECTION: BOARD PARAMETERS
-> >     // SVI2 Board Parameters
-> > +  struct_group(v4_6,
-> >     uint16_t     MaxVoltageStepGfx; // In mV(Q2) Max voltage step that SMU will request. Multiple steps are taken if voltage change exceeds this value.
-> >     uint16_t     MaxVoltageStepSoc; // In mV(Q2) Max voltage step that SMU will request. Multiple steps are taken if voltage change exceeds this value.
-> > @@ -728,10 +729,10 @@ typedef struct {
-> >     uint32_t     BoardVoltageCoeffB;    // decode by /1000
-> >     uint32_t     BoardReserved[7];
-> > +  );
-> >     // Padding for MMHUB - do not modify this
-> >     uint32_t     MmHubPadding[8]; // SMU internal use
-> > -
-> >   } PPTable_t;
-> > 
-> > Where they end seems known as well (the padding switches from a "Board"
-> > to "MmHub" prefix at exactly the matching size).
-> > 
-> > So, given that these regions are already known by the export tool, how
-> > about just updating the export tool to emit a struct there? I imagine
-> > the problem with this would be the identifier churn needed, but that's
-> > entirely mechanical.
-> > 
-> > However, I'm curious about another aspect of these regions: they are,
-> > by definition, the same. Why isn't there a single struct describing
-> > them already, given the existing redundancy? For example, look at the
-> > member names: maxvoltagestepgfx vs MaxVoltageStepGfx. Why aren't these
-> > the same? And then why aren't they described separately?
-> > 
-> > Fixing that would cut down on the redundancy here, and in the renaming,
-> > you can fix the identifiers as well. It should be straight forward to
-> > write a Coccinelle script to do this renaming for you after extracting
-> > the structure.
-> > 
-> > > The driver_if_* files updates are frequent and it is error prone to manually
-> > > group them each time we pick them for any update.
-> > 
-> > Why are these structs updated? It looks like they're specifically
-> > versioned, and aren't expected to change (i.e. v4.5, v4.6, v4.10, etc).
-> > 
-> > > Our usage of memcpy in this way is restricted only to a very few places.
-> > 
-> > True, there's 1 per PPTable_t duplication. With a proper struct, you
-> > wouldn't even need a memcpy().
-> > 
-> > Instead of the existing:
-> >                 memcpy(smc_pptable->I2cControllers, smc_dpm_table_v4_7->I2cControllers,
-> >                         sizeof(*smc_dpm_table_v4_7) - sizeof(smc_dpm_table_v4_7->table_header));
-> > 
-> > or my proposed:
-> >                 memcpy(&smc_pptable->v4, &smc_dpm_table_v4_7->dpm_info,
-> >                        sizeof(smc_dpm_table_v4_7->dpm_info));
-> > 
-> > you could just have:
-> > 		smc_pptable->v4 = smc_dpm_table_v4_7->dpm_info;
-> > 
-> > since they'd be explicitly the same type.
-> > 
-> > That looks like a much cleaner solution to this. It greatly improves
-> > readability, reduces the redundancy in the headers, and should be a
-> > simple mechanical refactoring.
-> > 
-> > Oh my, I just noticed append_vbios_pptable() in
-> > drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_processpptables.c
-> > which does an open-coded assignment of the entire PPTable_t, including
-> > padding, and, apparently, the i2c address twice:
-> > 
-> >          ppsmc_pptable->Vr2_I2C_address = smc_dpm_table.Vr2_I2C_address;
-> > 
-> >          ppsmc_pptable->Vr2_I2C_address = smc_dpm_table.Vr2_I2C_address;
-> > 
-> > > As another option - is it possible to have a helper function/macro like
-> > > memcpy_fortify() which takes the extra arguments and does the extra compile
-> > > time checks? We will use the helper whenever we have such kind of usage.
-> > 
-> > I'd rather avoid special cases just for this, especially when the code
-> > here is already doing a couple things we try to avoid in the rest of
-> > the kernel (i.e. open coded redundant struct contents, etc).
-> > 
-> > If something mechanically produced append_vbios_pptable() above, I bet
-> > we can get rid of the memcpy()s entirely and save a lot of code doing a
-> > member-to-member assignment.
-> > 
-> > What do you think?
-> > 
-> 
-> Hi Kees,
-> 
-> Will give a background on why there are multiple headers and why it's
-> structured this way. That may help to better understand this arrangement.
-> 
-> This code is part of driver for AMD GPUs. These GPUs get to the consumers
-> through multiple channels - AMD designs a few boards with those, there are
-> add-in-board partners like ASRock, Sapphire etc. who take these ASICs and
-> design their own boards, and others like OEM vendors who have their own
-> design for boards in their laptops.
-> 
-> As you have noticed, this particular section in the structure carries
-> information categorized as 'BOARD PARAMETERS'. Since there are multiple
-> vendors designing their own boards, this gives the option to customize the
-> parameters based on their board design.
-> 
-> There are a few components in AMD GPUs which are interested in these board
-> parameters main ones being - Video BIOS (VBIOS) and power management
-> firmware (PMFW). There needs to be a single source where a vendor can input
-> the information and that is decided as VBIOS. VBIOS carries different data
-> tables which carry other information also (some of which are used by
-> driver), so this information is added as a separate data table in VBIOS. A
-> board vendor can customize the VBIOS build with this information.
-> 
-> The data tables (and some other interfaces with driver) carried by VBIOS are
-> published in this header - drivers/gpu/drm/amd/include/atomfirmware.h
+Am 2021-08-19 um 10:56 a.m. schrieb Philip Yang:
+> Check range access permission to restore GPU retry fault, if GPU retry
+> fault on address which belongs to VMA, and VMA has no read or write
+> permission requested by GPU, failed to restore the address. The vm fault
+> event will pass back to user space.
+>
+> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 
-I understand this to mean that this header is shared by other projects?
-
-If that's true, what compilers are processing this header? (i.e. so I
-can scope my suggestions to things that all the compilers will be able
-to deal with.)
-
-How are edits of this file managed "upstream" from the Linux kernel?
-
-Why does it have strange indentations like this:
-
-  uint8_t  ledpin0;
-  uint8_t  ledpin1;
-  uint8_t  ledpin2;
-  uint8_t  padding8_4;
-
-	uint8_t  pllgfxclkspreadenabled;
-	uint8_t  pllgfxclkspreadpercent;
-	uint16_t pllgfxclkspreadfreq;
-
-  uint8_t uclkspreadenabled;
-  uint8_t uclkspreadpercent;
-  uint16_t uclkspreadfreq;
+Just some nit-picks. Other than that the patch looks good to me. See
+inline ...
 
 
-> There are multiple families of AMD GPUs like Navi10, Arcturus, Aldebaran
-> etc. and the board specific details change with different families of GPUs.
-> However, VBIOS team publishes a common header file for these GPUs and any
-> difference in data tables (between GPU families) is maintained through a
-> versioning scheme. Thus there are different tables like
-> atom_smc_dpm_info_v4_5, atom_smc_dpm_info_v4_6 etc. which are relevant for a
-> particular family of GPUs.
-> 
-> With newer VBIOS versions and new GPU families, there could be changes in
-> the structs defined in atomfirmware.h and we pick the header accordingly.
-> 
-> As mentioned earlier, one other user of the board specific information is
-> power management firmware (PMFW). PMFW design is isolated from the actual
-> source of board information. In addition to board specific information, PMFW
-> needs some other info as well and driver is the one responsible for passing
-> this info to the firmware. PMFW gives an interface header to driver
-> providing the different struct formats which are used in driver<->PMFW
-> interactions. Unlike VBIOS, these interface headers are defined per family
-> of ASICs and those are smu11_driver_if_arcturus.h, smu11_driver_if_* etc.
-> (in short driver_if_* files). Like VBIOS,  with newer firmware versions,
-> there could be changes in the different structs defined in these headers and
-> we pick them accordingly.
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c |  5 +++--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c |  3 ++-
+>  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c  |  3 ++-
+>  drivers/gpu/drm/amd/amdkfd/kfd_svm.c   | 30 +++++++++++++++++++++++++-
+>  drivers/gpu/drm/amd/amdkfd/kfd_svm.h   |  5 +++--
+>  6 files changed, 40 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index 831f00644460..ff6de40b860c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -3347,12 +3347,13 @@ void amdgpu_vm_set_task_info(struct amdgpu_vm *vm)
+>   * @adev: amdgpu device pointer
+>   * @pasid: PASID of the VM
+>   * @addr: Address of the fault
+> + * @rw_fault: 0 is read fault, 1 is write fault
+>   *
+>   * Try to gracefully handle a VM fault. Return true if the fault was handled and
+>   * shouldn't be reported any more.
+>   */
+>  bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+> -			    uint64_t addr)
+> +			    uint64_t addr, uint32_t rw_fault)
 
-Are these headers also shared between other projects?
-
-What's needed to coordinate making these less redundant? (i.e. replacing
-the "BOARD PARAMETERS" portion of PPTable_t with the associated
-struct *_dpm_info_v* from atomfirmware.h?)
-
-> Driver acts the intermediary between actual source of board information
-> (VBIOS) and PMFW. So what is being done here is driver picks the board
-> information from VBIOS table, strips the VBIOS table header and passes it as
-> part of PPTable_t which defines all the information that is needed by PMFW
-> from driver for enabling dynamic power management.
-> 
-> In summary, these headers are not generated and not owned by driver. They
-> define the interfaces of two different components with driver, and are
-> consumed by those components themselves. A simple change to group the
-> information as a separate structure involves changes in multiple components
-> like VBIOS, PMFW, software used to build VBIOS, Windows driver etc.
-> 
-> In all practical cases, this code is harmless as these structs (in both
-> headers) are well defined for a specific family of GPUs. There is always a
-> reserve field defined with some extra bytes so that the size is not affected
-> if at all new fields need to be added.
-
-It sounds like it's unlikely that the headers will be able to change? If
-that's true, it seems like a good idea to mark those headers very
-clearly at the top with details like you describe here. Maybe something
-like:
-
-/*
- * This header file is shared between VBIOS, Windows drivers, and Linux
- * drivers. Any changes need to be well justified and coordinated with
- * email@address...
- */
-
-And in looking through these, I notice there's a typo in the Description:
-
-    header file of general definitions for OS nd pre-OS video drivers
-
-nd -> and
-
-> The patch now makes us to modify the headers for Linux through
-> script/manually whenever we pick them, and TBH that strips off the coherency
-> with the original source. The other option is field by field copy. Now we
-> use memcpy as a safe bet so that a new field added later taking some reserve
-> space is not missed even if we miss a header update.
-
-How does this look as a work-around for now:
+Should rw_fault be a bool? And maybe call it write_fault to clarify what
+"true" means.
 
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 96e895d6be35..4605934a4fb7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -1446,4 +1446,29 @@ static inline int amdgpu_in_reset(struct amdgpu_device *adev)
- {
- 	return atomic_read(&adev->in_gpu_reset);
- }
-+
-+/**
-+ * memcpy_trailing - Copy the end of one structure into the middle of another
-+ *
-+ * @dst: Pointer to destination struct
-+ * @first_dst_member: The member name in @dst where the overwrite begins
-+ * @last_dst_member: The member name in @dst where the overwrite ends after
-+ * @src: Pointer to the source struct
-+ * @first_src_member: The member name in @src where the copy begins
-+ *
-+ */
-+#define memcpy_trailing(dst, first_dst_member, last_dst_member,		   \
-+		        src, first_src_member)				   \
-+({									   \
-+	size_t __src_offset = offsetof(typeof(*(src)), first_src_member);  \
-+	size_t __src_size = sizeof(*(src)) - __src_offset;		   \
-+	size_t __dst_offset = offsetof(typeof(*(dst)), first_dst_member);  \
-+	size_t __dst_size = offsetofend(typeof(*(dst)), last_dst_member) - \
-+			    __dst_offset;				   \
-+	BUILD_BUG_ON(__src_size != __dst_size);				   \
-+	__builtin_memcpy((u8 *)(dst) + __dst_offset,			   \
-+			 (u8 *)(src) + __src_offset,			   \
-+			 __dst_size);					   \
-+})
-+
- #endif
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-index 8ab58781ae13..1918e6232319 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-@@ -465,10 +465,8 @@ static int arcturus_append_powerplay_table(struct smu_context *smu)
- 
- 	if ((smc_dpm_table->table_header.format_revision == 4) &&
- 	    (smc_dpm_table->table_header.content_revision == 6))
--		memcpy(&smc_pptable->MaxVoltageStepGfx,
--		       &smc_dpm_table->maxvoltagestepgfx,
--		       sizeof(*smc_dpm_table) - offsetof(struct atom_smc_dpm_info_v4_6, maxvoltagestepgfx));
--
-+		memcpy_trailing(smc_pptable, MaxVoltageStepGfx, BoardReserved,
-+				smc_dpm_table, maxvoltagestepgfx);
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-index 2e5d3669652b..b738042e064d 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-@@ -431,16 +431,16 @@ static int navi10_append_powerplay_table(struct smu_context *smu)
- 
- 	switch (smc_dpm_table->table_header.content_revision) {
- 	case 5: /* nv10 and nv14 */
--		memcpy(smc_pptable->I2cControllers, smc_dpm_table->I2cControllers,
--			sizeof(*smc_dpm_table) - sizeof(smc_dpm_table->table_header));
-+		memcpy_trailing(smc_pptable, I2cControllers, BoardReserved,
-+				smc_dpm_table, I2cControllers);
- 		break;
- 	case 7: /* nv12 */
- 		ret = amdgpu_atombios_get_data_table(adev, index, NULL, NULL, NULL,
- 					      (uint8_t **)&smc_dpm_table_v4_7);
- 		if (ret)
- 			return ret;
--		memcpy(smc_pptable->I2cControllers, smc_dpm_table_v4_7->I2cControllers,
--			sizeof(*smc_dpm_table_v4_7) - sizeof(smc_dpm_table_v4_7->table_header));
-+		memcpy_trailing(smc_pptable, I2cControllers, BoardReserved,
-+				smc_dpm_table_v4_7, I2cControllers);
- 		break;
- 	default:
- 		dev_err(smu->adev->dev, "smc_dpm_info with unsupported content revision %d!\n",
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-index c8eefacfdd37..a6fd7ee314a9 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-@@ -409,9 +409,8 @@ static int aldebaran_append_powerplay_table(struct smu_context *smu)
- 
- 	if ((smc_dpm_table->table_header.format_revision == 4) &&
- 	    (smc_dpm_table->table_header.content_revision == 10))
--		memcpy(&smc_pptable->GfxMaxCurrent,
--		       &smc_dpm_table->GfxMaxCurrent,
--		       sizeof(*smc_dpm_table) - offsetof(struct atom_smc_dpm_info_v4_10, GfxMaxCurrent));
-+		memcpy_trailing(smc_pptable, GfxMaxCurrent, reserved,
-+				smc_dpm_table, GfxMaxCurrent);
- 	return 0;
- }
- 
+>  {
+>  	bool is_compute_context = false;
+>  	struct amdgpu_bo *root;
+> @@ -3377,7 +3378,7 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+>  	addr /= AMDGPU_GPU_PAGE_SIZE;
+>  
+>  	if (is_compute_context &&
+> -	    !svm_range_restore_pages(adev, pasid, addr)) {
+> +	    !svm_range_restore_pages(adev, pasid, addr, rw_fault)) {
+>  		amdgpu_bo_unref(&root)
+>  		return true;
+>  	}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> index 80cc9ab2c1d0..1cc574ece180 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> @@ -448,7 +448,7 @@ void amdgpu_vm_check_compute_bug(struct amdgpu_device *adev);
+>  void amdgpu_vm_get_task_info(struct amdgpu_device *adev, u32 pasid,
+>  			     struct amdgpu_task_info *task_info);
+>  bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+> -			    uint64_t addr);
+> +			    uint64_t addr, uint32_t rw_fault);
 
--- 
-Kees Cook
+bool write_fault
+
+
+>  
+>  void amdgpu_vm_set_task_info(struct amdgpu_vm *vm);
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> index 24b781e90bef..994983901006 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> @@ -93,6 +93,7 @@ static int gmc_v10_0_process_interrupt(struct amdgpu_device *adev,
+>  				       struct amdgpu_iv_entry *entry)
+>  {
+>  	bool retry_fault = !!(entry->src_data[1] & 0x80);
+> +	bool rw_fault = !!(entry->src_data[1] & 0x20);
+
+write_fault
+
+
+>  	struct amdgpu_vmhub *hub = &adev->vmhub[entry->vmid_src];
+>  	struct amdgpu_task_info task_info;
+>  	uint32_t status = 0;
+> @@ -121,7 +122,7 @@ static int gmc_v10_0_process_interrupt(struct amdgpu_device *adev,
+>  		/* Try to handle the recoverable page faults by filling page
+>  		 * tables
+>  		 */
+> -		if (amdgpu_vm_handle_fault(adev, entry->pasid, addr))
+> +		if (amdgpu_vm_handle_fault(adev, entry->pasid, addr, rw_fault))
+>  			return 1;
+>  	}
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> index 097230b5e946..9a37fd0527a9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> @@ -506,6 +506,7 @@ static int gmc_v9_0_process_interrupt(struct amdgpu_device *adev,
+>  				      struct amdgpu_iv_entry *entry)
+>  {
+>  	bool retry_fault = !!(entry->src_data[1] & 0x80);
+> +	bool rw_fault = !!(entry->src_data[1] & 0x20);
+
+write_fault
+
+
+>  	uint32_t status = 0, cid = 0, rw = 0;
+>  	struct amdgpu_task_info task_info;
+>  	struct amdgpu_vmhub *hub;
+> @@ -536,7 +537,7 @@ static int gmc_v9_0_process_interrupt(struct amdgpu_device *adev,
+>  		/* Try to handle the recoverable page faults by filling page
+>  		 * tables
+>  		 */
+> -		if (amdgpu_vm_handle_fault(adev, entry->pasid, addr))
+> +		if (amdgpu_vm_handle_fault(adev, entry->pasid, addr, rw_fault))
+>  			return 1;
+>  	}
+>  
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> index d4a43c94bcf9..cf1009bb532a 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> @@ -2400,9 +2400,29 @@ svm_range_count_fault(struct amdgpu_device *adev, struct kfd_process *p,
+>  		WRITE_ONCE(pdd->faults, pdd->faults + 1);
+>  }
+>  
+> +static bool
+> +svm_range_allow_access(struct mm_struct *mm, uint64_t addr, uint32_t rw_fault)
+
+I think the function name "svm_range_..." is a bit misleading because it
+doesn't do anything for an address range. It only checks one VMA at one
+virtual address. I'd suggest "svm_fault_allowed".
+
+
+> +{
+> +	unsigned long requested = VM_READ;
+> +	struct vm_area_struct *vma;
+> +
+> +	if (rw_fault)
+> +		requested |= VM_WRITE;
+> +
+> +	vma = find_vma(mm, addr << PAGE_SHIFT);
+> +	if (!vma || (addr << PAGE_SHIFT) < vma->vm_start) {
+> +		pr_debug("address 0x%llx VMA is removed\n", addr);
+> +		return true;
+> +	}
+> +
+> +	pr_debug("requested 0x%lx, vma permission flags 0x%lx\n", requested,
+> +		vma->vm_flags);
+> +	return (requested & ~vma->vm_flags) == 0;
+
+I think this is the same as "(vma->vm_flags & requested) == requested".
+
+
+> +}
+> +
+>  int
+>  svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
+> -			uint64_t addr)
+> +			uint64_t addr, uint32_t rw_fault)
+
+bool write_fault
+
+Regards,
+Â  Felix
+
+
+>  {
+>  	struct mm_struct *mm = NULL;
+>  	struct svm_range_list *svms;
+> @@ -2440,6 +2460,7 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
+>  	}
+>  
+>  	mmap_read_lock(mm);
+> +
+>  retry_write_locked:
+>  	mutex_lock(&svms->lock);
+>  	prange = svm_range_from_addr(svms, addr, NULL);
+> @@ -2484,6 +2505,13 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
+>  		goto out_unlock_range;
+>  	}
+>  
+> +	if (!svm_range_allow_access(mm, addr, rw_fault)) {
+> +		pr_debug("fault addr 0x%llx no %s permission\n", addr,
+> +			rw_fault ? "write" : "read");
+> +		r = -EPERM;
+> +		goto out_unlock_range;
+> +	}
+> +
+>  	best_loc = svm_range_best_restore_location(prange, adev, &gpuidx);
+>  	if (best_loc == -1) {
+>  		pr_debug("svms %p failed get best restore loc [0x%lx 0x%lx]\n",
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+> index e7fc5e8998aa..e77d90de08a6 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+> @@ -175,7 +175,7 @@ int svm_range_split_by_granularity(struct kfd_process *p, struct mm_struct *mm,
+>  			       unsigned long addr, struct svm_range *parent,
+>  			       struct svm_range *prange);
+>  int svm_range_restore_pages(struct amdgpu_device *adev,
+> -			    unsigned int pasid, uint64_t addr);
+> +			    unsigned int pasid, uint64_t addr, uint32_t rw);
+>  int svm_range_schedule_evict_svm_bo(struct amdgpu_amdkfd_fence *fence);
+>  void svm_range_add_list_work(struct svm_range_list *svms,
+>  			     struct svm_range *prange, struct mm_struct *mm,
+> @@ -210,7 +210,8 @@ static inline void svm_range_list_fini(struct kfd_process *p)
+>  }
+>  
+>  static inline int svm_range_restore_pages(struct amdgpu_device *adev,
+> -					  unsigned int pasid, uint64_t addr)
+> +					  unsigned int pasid, uint64_t addr,
+> +					  uint32_t rw_fault)
+>  {
+>  	return -EFAULT;
+>  }
