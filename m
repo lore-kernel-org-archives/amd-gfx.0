@@ -7,77 +7,77 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1C050C4338F
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 18:59:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C494FC432BE
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 18:59:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C9A3B610A0
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 18:59:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C9A3B610A0
+	by mail.kernel.org (Postfix) with ESMTPS id 92347610A0
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 18:59:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 92347610A0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5ECE46E9C7;
-	Thu, 19 Aug 2021 18:59:10 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2086.outbound.protection.outlook.com [40.107.236.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 375866E9C7
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Aug 2021 18:59:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 244126E9C8;
+	Thu, 19 Aug 2021 18:59:12 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2072.outbound.protection.outlook.com [40.107.243.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E9456E9C8
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Aug 2021 18:59:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TvjquSvz4MTHMpKwOHTzXFB2NjMWGfacRKtU02goUKtTJ0yanv6GqB21hfbDuvhSk6yGLTCHDQNcP/skMs/rDmPc/B4OMJ/klCFjemLLkm4Mm7zxh87HQj0YVGR8o8LAeqy+4vjddOXsmVus2HlhLfB5/uhcal9CCj4ZKLIGECTj3SkiOKf6kjaFTt44nou73jj6geVdePxCNNrLGxxum/aOhoC4tc0qc/fkBGmjlj2LbILNEetakoRhNg6QjADcMYKVeQkk6HCsUkLhr3Pb4bW/yYlcYI5gcSoi7o47I5pONLW/zSVXoNi/x5SBhFsbeZQpUzJndDT/9ZQNOx20sQ==
+ b=gsMv8r/jlAOrc6thGAKm+ejS30zj4PBwnUgAohNLR9uoLYrisqnWIKbUwpvhGn+CjOVo9KKuBFoEj4pBj58GLzggxg2NlZz5Bw60s90/2SUVSCMDusjR6hV1h9WxuKoN7/dXJ3p0Vk5j928X3EnMbAIMbHSz6pFMgEs/3SiTusYWZuNpCUhJhwZ4c66AfsjuL+ZNefuPqhnekF+mWqgUq1SpyT10fFC0MFtVPmHuP3KbBT15j4GyFps5InrEF0wfqEC09P0NYmCHBdiaXCApxH1Stp+FOwHlkakMc4Yfz5VehIi8+zjdLmeN96SJqlbf2ixbEqnrrPPbwr9+PNFJlw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bd3a5ovBuCTIHUNCvQw3Cvb5l14ZQoiIC+EukCnnd7M=;
- b=kAXYJM/2MKG4LpEaYDO/VxM7MXpeyVJ4xGFSubwmKrpS3JaiCNxTJN+Kr68cDvIefrueAY+KmildFZSCQ9qhO2maqYvmke0nqZe3bg6oW4H6mVIokL6/lG5nEGkDMJFO+RO0uLPohoBfUZCeGhOTZ9Hndyn1uEAy+c86kIVatgT8AV9ciEaU4m3WNjdjXkEvQRVX0VKZ9NDdhUthxcMb6jht8l4X+0f84otKMvhrostKXNTbGntBR89NNhb4kp4kJE92R9VY5mWcYmoeMn3uZwxplBtCrF3GcjTmaUYU0fwmPVsndro3swSK6zxIPk+bXJlVBep5CSLXaXvWE9qG7w==
+ bh=SZ9KgHX8+tIh5uN3HYxu+1dLmCQ+oGkV2ASWo8eGCkU=;
+ b=f7Cz8f1jCqdHiOzqF98vyNudM+ituL/nZdRqXP+kEktCGUBfnhu6vfaxXuFNRpHKeNJefn1rmJ42LbxA3ekExcSZEFEOLt72Ndwe2JPtZ1qtYAXQIOT4WartOUIi35li6QK/NZvp1XYh3MWmVpgzTG1ZYYfLvmbVaVDBtcLWTNcwPW0jxQETeLBYvM+HyZ3BdZlGOdWcon0hGy5NzC/4i9HHWMVOWAw5j00XNEuFMKt0tW22ron4x7n+tjVmlmuGaAQyDiDhx5s2w+MZ6OILp0TgeZry+tKlI81XXF9Qjp1d75o5VKGwsbCwwCDRwwowd0/HG47AdLBykuONhFpm6Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bd3a5ovBuCTIHUNCvQw3Cvb5l14ZQoiIC+EukCnnd7M=;
- b=oE/DMulkKY549WKx1K0eMJIa3W3sKro5jjUsnMdwMd/mV0tLnEPj/sXf+TccVnEoQML1vfv64PzSZDiS7bJ2LC/yK4pAXfybMPY846ooJ4FYjfbeVnQ84mS3DUaa3iEe9mgHlWVlUAITm++RNenhFXMVdoC6XKAHUWzBZy8RFsQ=
-Received: from DM6PR18CA0006.namprd18.prod.outlook.com (2603:10b6:5:15b::19)
- by CH0PR12MB5217.namprd12.prod.outlook.com (2603:10b6:610:d0::10) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=SZ9KgHX8+tIh5uN3HYxu+1dLmCQ+oGkV2ASWo8eGCkU=;
+ b=Mb9zstlCljFWEpJ3FyDv+FICbDrJadH/fApFL2V97VYUEmfDoAMwzp1uh0vdGc8zqJTV9dHMnaFCJqmgPsgR4PJ8dipL7AO4E9zvGv09ImRgcRNyd1UorOE4PyqToGbbfKZeEC0exs0RVt9UUOlMEx7XLtd+psUPve05WJ9M7do=
+Received: from MWHPR17CA0090.namprd17.prod.outlook.com (2603:10b6:300:c2::28)
+ by MN2PR12MB4095.namprd12.prod.outlook.com (2603:10b6:208:1d1::11)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.19; Thu, 19 Aug
- 2021 18:59:06 +0000
-Received: from DM6NAM11FT005.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:15b:cafe::dc) by DM6PR18CA0006.outlook.office365.com
- (2603:10b6:5:15b::19) with Microsoft SMTP Server (version=TLS1_2,
+ 2021 18:59:05 +0000
+Received: from CO1NAM11FT015.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:300:c2:cafe::68) by MWHPR17CA0090.outlook.office365.com
+ (2603:10b6:300:c2::28) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.19 via Frontend
- Transport; Thu, 19 Aug 2021 18:59:06 +0000
+ Transport; Thu, 19 Aug 2021 18:59:05 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
  header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DM6NAM11FT005.mail.protection.outlook.com (10.13.172.238) with Microsoft SMTP
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT015.mail.protection.outlook.com (10.13.175.130) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4436.19 via Frontend Transport; Thu, 19 Aug 2021 18:59:06 +0000
-Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.4436.19 via Frontend Transport; Thu, 19 Aug 2021 18:59:04 +0000
+Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Thu, 19 Aug
- 2021 13:59:05 -0500
+ 2021 13:59:03 -0500
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB07.amd.com
  (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Thu, 19 Aug
- 2021 11:59:05 -0700
+ 2021 11:59:03 -0700
 Received: from jzuo-linux.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2242.12 via Frontend
- Transport; Thu, 19 Aug 2021 13:59:04 -0500
+ Transport; Thu, 19 Aug 2021 13:59:02 -0500
 From: Fangzhi Zuo <Jerry.Zuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <nicholas.kazlauskas@amd.com>,
  <harry.wentland@amd.com>
 CC: <wayne.lin@amd.com>, Fangzhi Zuo <Jerry.Zuo@amd.com>
-Subject: [PATCH v3 3/6] drm/amd/display: Add DP 2.0 HPO Link Encoder
-Date: Thu, 19 Aug 2021 14:58:37 -0400
-Message-ID: <20210819185840.3682559-4-Jerry.Zuo@amd.com>
+Subject: [PATCH v3 2/6] drm/amd/display: Add DP 2.0 HPO Stream Encoder
+Date: Thu, 19 Aug 2021 14:58:36 -0400
+Message-ID: <20210819185840.3682559-3-Jerry.Zuo@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210819185840.3682559-1-Jerry.Zuo@amd.com>
 References: <20210819185840.3682559-1-Jerry.Zuo@amd.com>
@@ -86,28 +86,28 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 8ab27b42-a3cf-42dd-f5af-08d963436b44
-X-MS-TrafficTypeDiagnostic: CH0PR12MB5217:
-X-Microsoft-Antispam-PRVS: <CH0PR12MB521747EC6D6349B13C0B9134E5C09@CH0PR12MB5217.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:88;
+X-MS-Office365-Filtering-Correlation-Id: 14d0f5b3-794c-4813-1960-08d963436a25
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4095:
+X-Microsoft-Antispam-PRVS: <MN2PR12MB40952439218B7E2971506246E5C09@MN2PR12MB4095.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: FAw5t5k3PPYe8z9ftOTwKpzSeko2MYMT7g8uQf/9P3AfpLDRBEH419UJPno+OqhDThGb8mL/kXE7ZFdaVacg76BjpRYNKcmRF+6fChLDZASuC4OBUzIXQuGKpN3S/ikkNtjZKMfU6BJFnIH4ZiQME3uGaMpPOUDuaLED/wkOd5GXzX8wJEOJQqc3GS9ZSE0W3BP5UXBWwkXTt7rGYZrSKTiZrja5sEi7A2zzqttKV9UVNed3to9HsBjI2X55UoqhvgqFo+cB8fx/WmWc6KgMCxdJERQW51VIBrkfNc5IqQlx+QpYfN9PEghupBoYF2cXI5KAFX213W93ft+NWf08zWoOWJX0Mh/YyCwMcrlQsgnyiKg+9Oa2QbZ05lU0i+uiBGErGciDjMqaoaF9WTVlToEY1SWMM7tqK5Ir74LzBCciwQbIOx0FbZRvPG1PrU4U83Rmos/EmbJXqIjysYewaDM2a+IL67px+iQO5Obblqq65Kyg+j4526ZzUbaPuoaJtLXHCvaLDdAjVnj9lem5hne8b2wirQL/IQHzwbccN4NKD4uTJws5iBZD1FMJv3lLp/TLiHKRxyRxTD58ic/g0eVP7LtChGI5AN11CEUjqJphOaQXJPv4mCVM68LXopyFwUx/UTSB6oyEfbREL2otQ8Qn0K3o6TzNP0y9L+lx6OzIqYwBnlnYbmzUyu1c5iLja6+v/DJkSuG+hBHEOmnaRYyGEKscyT3hI1sFne2bqG8l+aAV1YBRd0YYKg6wRgXtok6bjAhB/fpZwVXZknveTw==
+X-Microsoft-Antispam-Message-Info: QXfVR7hoGGd4n6H5KAsaGVetSd4c/dtoutcQtafFXaHeSdl1TZ1F1mki7+RVY/q0VqaXJSqD5T85De1xoCJ3TKXlmWvx3L0UMLQwJtQtpXSB8r9NrKvwFwV9L+nRGDaKql+RJIECsJAFeHPIIyDClHn1egTfg0sxrLqdTUpCVJCSx+u+jcfxJpFQbCHIHMcp2wUVWZmZU5Ij6pNGbhxSiLkRCqDcrILWxHkXZ08JxA5RQZ3FodcHG7/LYnUpuO+YXxxKLs5I+94aR3ujVBAKS/XHVuty+JSBQRM/izCB1sADhp31Su1EwdwbRUUf4LSZlm+8wWCy5WmdqhwbIZXLAZnDsE3FouENABnbuOdJiQZAYgar2VlQQV70K1cwnHtvjGh1htbPufbl2MA7tlEBPUWpEeu70aSBNls1azmJJw4di4c3Ku0ZSH61Bs6TH/EJGsqEqciwGt3zVvbT6pgPr+Gh4+SZEGnzHqhq9RdrSQELx6PoiefE5VtzMc0wywEhCIXXSDAuUiUKTcHwtsD58dC0sP9IWHPmyMqD4n34NnN4ITbLO/xifBfpwpWDoGZbSkyRTweLbJni4jTSpikQm5IA4aIVS6mH9QiNoFNtol9ZYvBkZ8Ck2TKkEl+JGKGwp42AO8QMxCsc3uOYl9Sm8FC+iGCi9GdS/4TJwc36xmqYBZX5/apDyTjPnPryEXWjM78RldhY+YOaR7RVsMP+A08nFMpMiH/zShUumSpn/kRqyKPdvAD57FRndpgWrABzm4GMrH0shWz/WrksjRmnIA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(376002)(39860400002)(346002)(396003)(136003)(36840700001)(46966006)(70586007)(70206006)(54906003)(4326008)(86362001)(2616005)(110136005)(316002)(47076005)(186003)(36756003)(26005)(336012)(478600001)(426003)(34020700004)(82310400003)(83380400001)(7696005)(6636002)(8936002)(82740400003)(30864003)(36860700001)(356005)(2906002)(81166007)(6666004)(8676002)(5660300002)(1076003)(36900700001)(579004);
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(346002)(376002)(39860400002)(396003)(136003)(46966006)(36840700001)(5660300002)(1076003)(2616005)(4326008)(336012)(70586007)(186003)(478600001)(26005)(316002)(83380400001)(6666004)(47076005)(426003)(34020700004)(70206006)(2906002)(36860700001)(86362001)(82310400003)(36756003)(7696005)(356005)(54906003)(8936002)(110136005)(30864003)(8676002)(81166007)(82740400003)(6636002)(36900700001)(579004)(559001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2021 18:59:06.2286 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8ab27b42-a3cf-42dd-f5af-08d963436b44
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2021 18:59:04.2831 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 14d0f5b3-794c-4813-1960-08d963436a25
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT005.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT015.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5217
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4095
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,126 +135,91 @@ HW Blocks:
      |      |       | APG |     |
      |      |       +-----+     |
      |      |          |        |
-     |      v          v        v
-     |     +---------------------+
-     |     |  HPO Stream Encoder |
-     |     +---------------------+
-     |                 |
-     |                 v
-     |      +--------------------+
-     |      |  HPO Link Encoder  |
-     v      +--------------------+
+     v      v          v        v
+           +----------------------+
+           |  HPO Stream Encoder  |
+           +----------------------+
 
 Signed-off-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dc_link.h      |   4 +
- .../amd/display/dc/dcn10/dcn10_hw_sequencer.c |  32 +
+ .../amd/display/dc/dcn10/dcn10_hw_sequencer.c |  33 +
  drivers/gpu/drm/amd/display/dc/dcn31/Makefile |   2 +-
- .../display/dc/dcn31/dcn31_dio_link_encoder.c |   4 +
- .../dc/dcn31/dcn31_hpo_dp_link_encoder.c      | 620 ++++++++++++++++++
- .../dc/dcn31/dcn31_hpo_dp_link_encoder.h      | 222 +++++++
- .../drm/amd/display/dc/dcn31/dcn31_resource.c |  50 ++
- .../gpu/drm/amd/display/dc/inc/core_types.h   |   2 +
- .../gpu/drm/amd/display/dc/inc/hw/hw_shared.h |   1 +
- .../drm/amd/display/dc/inc/hw/link_encoder.h  |  87 +++
- drivers/gpu/drm/amd/display/dc/inc/resource.h |   5 +
- .../amd/display/include/link_service_types.h  |  17 +
- 12 files changed, 1045 insertions(+), 1 deletion(-)
- create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_link_encoder.c
- create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_link_encoder.h
+ .../dc/dcn31/dcn31_hpo_dp_stream_encoder.c    | 749 ++++++++++++++++++
+ .../dc/dcn31/dcn31_hpo_dp_stream_encoder.h    | 241 ++++++
+ .../drm/amd/display/dc/dcn31/dcn31_resource.c |  85 ++
+ .../gpu/drm/amd/display/dc/inc/core_types.h   |  10 +
+ .../gpu/drm/amd/display/dc/inc/hw/hw_shared.h |   3 +
+ .../amd/display/dc/inc/hw/stream_encoder.h    |  81 ++
+ drivers/gpu/drm/amd/display/dc/inc/resource.h |   8 +
+ .../amd/display/include/grph_object_defs.h    |  12 +
+ .../drm/amd/display/include/grph_object_id.h  |   8 +
+ 11 files changed, 1231 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_stream_encoder.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_stream_encoder.h
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_link.h b/drivers/gpu/drm/amd/display/dc/dc_link.h
-index 83845d006c54..4450078213a2 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_link.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_link.h
-@@ -45,6 +45,10 @@ struct dc_link_status {
- struct link_mst_stream_allocation {
- 	/* DIG front */
- 	const struct stream_encoder *stream_enc;
-+#if defined(CONFIG_DRM_AMD_DC_DCN)
-+	/* HPO DP Stream Encoder */
-+	const struct hpo_dp_stream_encoder *hpo_dp_stream_enc;
-+#endif
- 	/* associate DRM payload table with DC stream encoder */
- 	uint8_t vcp_id;
- 	/* number of slots required for the DP stream in transport packet */
 diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-index be98f5513fe5..70d47773c23c 100644
+index df8a7718a85f..be98f5513fe5 100644
 --- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
 +++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-@@ -497,6 +497,38 @@ void dcn10_log_hw_state(struct dc *dc,
+@@ -466,6 +466,39 @@ void dcn10_log_hw_state(struct dc *dc,
  
- 			DTN_INFO("\n");
- 		}
+ 	log_mpc_crc(dc, log_ctx);
+ 
++	{
++		int hpo_dp_link_enc_count = 0;
 +
-+		/* log DP HPO L_ENC section if any hpo_dp_link_enc exists */
-+		for (i = 0; i < dc->link_count; i++)
-+			if (dc->links[i]->hpo_dp_link_enc)
-+				hpo_dp_link_enc_count++;
++		if (pool->hpo_dp_stream_enc_count > 0) {
++			DTN_INFO("DP HPO S_ENC:  Enabled  OTG   Format   Depth   Vid   SDP   Compressed  Link\n");
++			for (i = 0; i < pool->hpo_dp_stream_enc_count; i++) {
++				struct hpo_dp_stream_encoder_state hpo_dp_se_state = {0};
++				struct hpo_dp_stream_encoder *hpo_dp_stream_enc = pool->hpo_dp_stream_enc[i];
 +
-+		if (hpo_dp_link_enc_count) {
-+			DTN_INFO("DP HPO L_ENC:  Enabled  Mode   Lanes   Stream  Slots   VC Rate X    VC Rate Y\n");
++				if (hpo_dp_stream_enc && hpo_dp_stream_enc->funcs->read_state) {
++					hpo_dp_stream_enc->funcs->read_state(hpo_dp_stream_enc, &hpo_dp_se_state);
 +
-+			for (i = 0; i < dc->link_count; i++) {
-+				struct hpo_dp_link_encoder *hpo_dp_link_enc = dc->links[i]->hpo_dp_link_enc;
-+				struct hpo_dp_link_enc_state hpo_dp_le_state = {0};
-+
-+				if (hpo_dp_link_enc && hpo_dp_link_enc->funcs->read_state) {
-+					hpo_dp_link_enc->funcs->read_state(hpo_dp_link_enc, &hpo_dp_le_state);
-+					DTN_INFO("[%d]:                 %d  %6s     %d        %d      %d     %d     %d\n",
-+							hpo_dp_link_enc->inst,
-+							hpo_dp_le_state.link_enc_enabled,
-+							(hpo_dp_le_state.link_mode == 0) ? "TPS1" :
-+									(hpo_dp_le_state.link_mode == 1) ? "TPS2" :
-+									(hpo_dp_le_state.link_mode == 2) ? "ACTIVE" : "TEST",
-+							hpo_dp_le_state.lane_count,
-+							hpo_dp_le_state.stream_src[0],
-+							hpo_dp_le_state.slot_count[0],
-+							hpo_dp_le_state.vc_rate_x[0],
-+							hpo_dp_le_state.vc_rate_y[0]);
-+					DTN_INFO("\n");
++					DTN_INFO("[%d]:                 %d    %d   %6s       %d     %d     %d            %d     %d\n",
++							hpo_dp_stream_enc->id - ENGINE_ID_HPO_DP_0,
++							hpo_dp_se_state.stream_enc_enabled,
++							hpo_dp_se_state.otg_inst,
++							(hpo_dp_se_state.pixel_encoding == 0) ? "4:4:4" :
++									((hpo_dp_se_state.pixel_encoding == 1) ? "4:2:2" :
++									(hpo_dp_se_state.pixel_encoding == 2) ? "4:2:0" : "Y-Only"),
++							(hpo_dp_se_state.component_depth == 0) ? 6 :
++									((hpo_dp_se_state.component_depth == 1) ? 8 :
++									(hpo_dp_se_state.component_depth == 2) ? 10 : 12),
++							hpo_dp_se_state.vid_stream_enabled,
++							hpo_dp_se_state.sdp_enabled,
++							hpo_dp_se_state.compressed_format,
++							hpo_dp_se_state.mapped_to_link_enc);
 +				}
 +			}
 +
 +			DTN_INFO("\n");
 +		}
- 	}
- 
++	}
++
  	DTN_INFO_END();
+ }
+ 
 diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/Makefile b/drivers/gpu/drm/amd/display/dc/dcn31/Makefile
-index 8b811f589524..5197825e7965 100644
+index bc2087f6dcb2..8b811f589524 100644
 --- a/drivers/gpu/drm/amd/display/dc/dcn31/Makefile
 +++ b/drivers/gpu/drm/amd/display/dc/dcn31/Makefile
 @@ -12,7 +12,7 @@
  
  DCN31 = dcn31_resource.o dcn31_hubbub.o dcn31_hwseq.o dcn31_init.o dcn31_hubp.o \
  	dcn31_dccg.o dcn31_optc.o dcn31_dio_link_encoder.o dcn31_panel_cntl.o \
--	dcn31_apg.o dcn31_hpo_dp_stream_encoder.o
-+	dcn31_apg.o dcn31_hpo_dp_stream_encoder.o dcn31_hpo_dp_link_encoder.o
+-	dcn31_apg.o
++	dcn31_apg.o dcn31_hpo_dp_stream_encoder.o
  
  ifdef CONFIG_X86
  CFLAGS_$(AMDDALPATH)/dc/dcn31/dcn31_resource.o := -msse
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dio_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dio_link_encoder.c
-index 90127c1f9e35..77b81f6c24b9 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dio_link_encoder.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dio_link_encoder.c
-@@ -320,6 +320,10 @@ void dcn31_link_encoder_construct(
- 		enc10->base.features.flags.bits.IS_HBR3_CAPABLE =
- 				bp_cap_info.DP_HBR3_EN;
- 		enc10->base.features.flags.bits.HDMI_6GB_EN = bp_cap_info.HDMI_6GB_EN;
-+		enc10->base.features.flags.bits.IS_DP2_CAPABLE = bp_cap_info.IS_DP2_CAPABLE;
-+		enc10->base.features.flags.bits.IS_UHBR10_CAPABLE = bp_cap_info.DP_UHBR10_EN;
-+		enc10->base.features.flags.bits.IS_UHBR13_5_CAPABLE = bp_cap_info.DP_UHBR13_5_EN;
-+		enc10->base.features.flags.bits.IS_UHBR20_CAPABLE = bp_cap_info.DP_UHBR20_EN;
- 		enc10->base.features.flags.bits.DP_IS_USB_C =
- 				bp_cap_info.DP_IS_USB_C;
- 	} else {
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_link_encoder.c
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_stream_encoder.c
 new file mode 100644
-index 000000000000..ee07a0bba12b
+index 000000000000..bc265ee06824
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_link_encoder.c
-@@ -0,0 +1,620 @@
++++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_stream_encoder.c
+@@ -0,0 +1,749 @@
 +/*
 + * Copyright 2019 Advanced Micro Devices, Inc.
 + *
@@ -281,10 +246,9 @@ index 000000000000..ee07a0bba12b
 + */
 +
 +#include "dc_bios_types.h"
-+#include "dcn31_hpo_dp_link_encoder.h"
++#include "dcn31_hpo_dp_stream_encoder.h"
 +#include "reg_helper.h"
 +#include "dc_link.h"
-+#include "stream_encoder.h"
 +
 +#define DC_LOGGER \
 +		enc3->base.ctx->logger
@@ -294,593 +258,723 @@ index 000000000000..ee07a0bba12b
 +
 +#undef FN
 +#define FN(reg_name, field_name) \
-+	enc3->hpo_le_shift->field_name, enc3->hpo_le_mask->field_name
-+
++	enc3->hpo_se_shift->field_name, enc3->hpo_se_mask->field_name
 +
 +#define CTX \
 +	enc3->base.ctx
 +
-+enum {
-+	DP_SAT_UPDATE_MAX_RETRY = 200
++
++enum dp2_pixel_encoding {
++	DP_SYM32_ENC_PIXEL_ENCODING_RGB_YCBCR444,
++	DP_SYM32_ENC_PIXEL_ENCODING_YCBCR422,
++	DP_SYM32_ENC_PIXEL_ENCODING_YCBCR420,
++	DP_SYM32_ENC_PIXEL_ENCODING_Y_ONLY
 +};
 +
-+void dcn31_hpo_dp_link_enc_enable(
-+		struct hpo_dp_link_encoder *enc,
-+		enum dc_lane_count num_lanes)
++enum dp2_uncompressed_component_depth {
++	DP_SYM32_ENC_COMPONENT_DEPTH_6BPC,
++	DP_SYM32_ENC_COMPONENT_DEPTH_8BPC,
++	DP_SYM32_ENC_COMPONENT_DEPTH_10BPC,
++	DP_SYM32_ENC_COMPONENT_DEPTH_12BPC
++};
++
++
++static void dcn31_hpo_dp_stream_enc_enable_stream(
++		struct hpo_dp_stream_encoder *enc)
 +{
-+	struct dcn31_hpo_dp_link_encoder *enc3 = DCN3_1_HPO_DP_LINK_ENC_FROM_HPO_LINK_ENC(enc);
-+	uint32_t dp_link_enabled;
++	struct dcn31_hpo_dp_stream_encoder *enc3 = DCN3_1_HPO_DP_STREAM_ENC_FROM_HPO_STREAM_ENC(enc);
 +
-+	/* get current status of link enabled */
-+	REG_GET(DP_DPHY_SYM32_STATUS,
-+			STATUS, &dp_link_enabled);
++	/* Enable all clocks in the DP_STREAM_ENC */
++	REG_UPDATE(DP_STREAM_ENC_CLOCK_CONTROL,
++			DP_STREAM_ENC_CLOCK_EN, 1);
 +
-+	/* Enable clocks first */
-+	REG_UPDATE(DP_LINK_ENC_CLOCK_CONTROL, DP_LINK_ENC_CLOCK_EN, 1);
++	/* Assert reset to the DP_SYM32_ENC logic */
++	REG_UPDATE(DP_SYM32_ENC_CONTROL,
++			DP_SYM32_ENC_RESET, 1);
++	/* Wait for reset to complete (to assert) */
++	REG_WAIT(DP_SYM32_ENC_CONTROL,
++			DP_SYM32_ENC_RESET_DONE, 1,
++			1, 10);
 +
-+	/* Reset DPHY.  Only reset if going from disable to enable */
-+	if (!dp_link_enabled) {
-+		REG_UPDATE(DP_DPHY_SYM32_CONTROL, DPHY_RESET, 1);
-+		REG_UPDATE(DP_DPHY_SYM32_CONTROL, DPHY_RESET, 0);
++	/* De-assert reset to the DP_SYM32_ENC logic */
++	REG_UPDATE(DP_SYM32_ENC_CONTROL,
++			DP_SYM32_ENC_RESET, 0);
++	/* Wait for reset to de-assert */
++	REG_WAIT(DP_SYM32_ENC_CONTROL,
++			DP_SYM32_ENC_RESET_DONE, 0,
++			1, 10);
++
++	/* Enable idle pattern generation */
++	REG_UPDATE(DP_SYM32_ENC_CONTROL,
++			DP_SYM32_ENC_ENABLE, 1);
++}
++
++static void dcn31_hpo_dp_stream_enc_dp_unblank(
++		struct hpo_dp_stream_encoder *enc,
++		uint32_t stream_source)
++{
++	struct dcn31_hpo_dp_stream_encoder *enc3 = DCN3_1_HPO_DP_STREAM_ENC_FROM_HPO_STREAM_ENC(enc);
++
++	/* Set the input mux for video stream source */
++	REG_UPDATE(DP_STREAM_ENC_INPUT_MUX_CONTROL,
++			DP_STREAM_ENC_INPUT_MUX_PIXEL_STREAM_SOURCE_SEL, stream_source);
++
++	/* Enable video transmission in main framer */
++	REG_UPDATE(DP_SYM32_ENC_VID_STREAM_CONTROL,
++			VID_STREAM_ENABLE, 1);
++
++	/* Reset and Enable Pixel to Symbol FIFO */
++	REG_UPDATE(DP_SYM32_ENC_VID_FIFO_CONTROL,
++			PIXEL_TO_SYMBOL_FIFO_RESET, 1);
++	REG_WAIT(DP_SYM32_ENC_VID_FIFO_CONTROL,
++			PIXEL_TO_SYMBOL_FIFO_RESET_DONE, 1,
++			1, 10);
++	REG_UPDATE(DP_SYM32_ENC_VID_FIFO_CONTROL,
++			PIXEL_TO_SYMBOL_FIFO_RESET, 0);
++	REG_WAIT(DP_SYM32_ENC_VID_FIFO_CONTROL,	/* Disable Clock Ramp Adjuster FIFO */
++			PIXEL_TO_SYMBOL_FIFO_RESET_DONE, 0,
++			1, 10);
++	REG_UPDATE(DP_SYM32_ENC_VID_FIFO_CONTROL,
++			PIXEL_TO_SYMBOL_FIFO_ENABLE, 1);
++
++	/* Reset and Enable Clock Ramp Adjuster FIFO */
++	REG_UPDATE(DP_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0,
++			FIFO_RESET, 1);
++	REG_WAIT(DP_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0,
++			FIFO_RESET_DONE, 1,
++			1, 10);
++	REG_UPDATE(DP_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0,
++			FIFO_RESET, 0);
++	REG_WAIT(DP_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0,
++			FIFO_RESET_DONE, 0,
++			1, 10);
++
++	/* For Debug -- Enable CRC */
++	REG_UPDATE_2(DP_SYM32_ENC_VID_CRC_CONTROL,
++			CRC_ENABLE, 1,
++			CRC_CONT_MODE_ENABLE, 1);
++
++	REG_UPDATE(DP_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0,
++			FIFO_ENABLE, 1);
++}
++
++static void dcn31_hpo_dp_stream_enc_dp_blank(
++		struct hpo_dp_stream_encoder *enc)
++{
++	struct dcn31_hpo_dp_stream_encoder *enc3 = DCN3_1_HPO_DP_STREAM_ENC_FROM_HPO_STREAM_ENC(enc);
++
++	/* Disable video transmission */
++	REG_UPDATE(DP_SYM32_ENC_VID_STREAM_CONTROL,
++			VID_STREAM_ENABLE, 0);
++
++	/* Wait for video stream transmission disabled
++	 * Larger delay to wait until VBLANK - use max retry of
++	 * 10us*5000=50ms. This covers 41.7ms of minimum 24 Hz mode +
++	 * a little more because we may not trust delay accuracy.
++	 */
++	//REG_WAIT(DP_SYM32_ENC_VID_STREAM_CONTROL,
++	//		VID_STREAM_STATUS, 0,
++	//		10, 5000);
++
++	/* Disable SDP tranmission */
++	REG_UPDATE(DP_SYM32_ENC_SDP_CONTROL,
++			SDP_STREAM_ENABLE, 0);
++
++	/* Disable Pixel to Symbol FIFO */
++	REG_UPDATE(DP_SYM32_ENC_VID_FIFO_CONTROL,
++			PIXEL_TO_SYMBOL_FIFO_ENABLE, 0);
++
++	/* Disable Clock Ramp Adjuster FIFO */
++	REG_UPDATE(DP_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0,
++			FIFO_ENABLE, 0);
++}
++
++static void dcn31_hpo_dp_stream_enc_disable(
++		struct hpo_dp_stream_encoder *enc)
++{
++	struct dcn31_hpo_dp_stream_encoder *enc3 = DCN3_1_HPO_DP_STREAM_ENC_FROM_HPO_STREAM_ENC(enc);
++
++	/* Disable DP_SYM32_ENC */
++	REG_UPDATE(DP_SYM32_ENC_CONTROL,
++			DP_SYM32_ENC_ENABLE, 0);
++
++	/* Disable clocks in the DP_STREAM_ENC */
++	REG_UPDATE(DP_STREAM_ENC_CLOCK_CONTROL,
++			DP_STREAM_ENC_CLOCK_EN, 0);
++}
++
++static void dcn31_hpo_dp_stream_enc_set_stream_attribute(
++		struct hpo_dp_stream_encoder *enc,
++		struct dc_crtc_timing *crtc_timing,
++		enum dc_color_space output_color_space,
++		bool use_vsc_sdp_for_colorimetry,
++		bool compressed_format,
++		bool double_buffer_en)
++{
++	enum dp2_pixel_encoding pixel_encoding;
++	enum dp2_uncompressed_component_depth component_depth;
++	uint32_t h_active_start;
++	uint32_t v_active_start;
++	uint32_t h_blank;
++	uint32_t h_back_porch;
++	uint32_t h_width;
++	uint32_t v_height;
++	unsigned long long v_freq;
++	uint8_t misc0 = 0;
++	uint8_t misc1 = 0;
++	uint8_t hsp;
++	uint8_t vsp;
++
++	struct dcn31_hpo_dp_stream_encoder *enc3 = DCN3_1_HPO_DP_STREAM_ENC_FROM_HPO_STREAM_ENC(enc);
++	struct dc_crtc_timing hw_crtc_timing = *crtc_timing;
++
++	/* MISC0[0]   = 0    video and link clocks are asynchronous
++	 * MISC1[0]   = 0    interlace not supported
++	 * MISC1[2:1] = 0    stereo field is handled by hardware
++	 * MISC1[5:3] = 0    Reserved
++	 */
++
++	/* Interlaced not supported */
++	if (hw_crtc_timing.flags.INTERLACE) {
++		BREAK_TO_DEBUGGER();
 +	}
 +
-+	/* Configure DPHY settings */
-+	REG_UPDATE_3(DP_DPHY_SYM32_CONTROL,
-+			DPHY_ENABLE, 1,
-+			PRECODER_ENABLE, 1,
-+			NUM_LANES, num_lanes == LANE_COUNT_ONE ? 0 : num_lanes == LANE_COUNT_TWO ? 1 : 3);
-+}
++	/* Double buffer enable for MSA and pixel format registers
++	 * Only double buffer for changing stream attributes for active streams
++	 * Do not double buffer when initially enabling a stream
++	 */
++	REG_UPDATE(DP_SYM32_ENC_VID_MSA_DOUBLE_BUFFER_CONTROL,
++			MSA_DOUBLE_BUFFER_ENABLE, double_buffer_en);
++	REG_UPDATE(DP_SYM32_ENC_VID_PIXEL_FORMAT_DOUBLE_BUFFER_CONTROL,
++			PIXEL_FORMAT_DOUBLE_BUFFER_ENABLE, double_buffer_en);
 +
-+void dcn31_hpo_dp_link_enc_disable(
-+		struct hpo_dp_link_encoder *enc)
-+{
-+	struct dcn31_hpo_dp_link_encoder *enc3 = DCN3_1_HPO_DP_LINK_ENC_FROM_HPO_LINK_ENC(enc);
++	/* Pixel Encoding */
++	switch (hw_crtc_timing.pixel_encoding) {
++	case PIXEL_ENCODING_YCBCR422:
++		pixel_encoding = DP_SYM32_ENC_PIXEL_ENCODING_YCBCR422;
++		misc0 = misc0 | 0x2;  // MISC0[2:1] = 01
++		break;
++	case PIXEL_ENCODING_YCBCR444:
++		pixel_encoding = DP_SYM32_ENC_PIXEL_ENCODING_RGB_YCBCR444;
++		misc0 = misc0 | 0x4;  // MISC0[2:1] = 10
 +
-+	/* Configure DPHY settings */
-+	REG_UPDATE(DP_DPHY_SYM32_CONTROL,
-+			DPHY_ENABLE, 0);
++		if (hw_crtc_timing.flags.Y_ONLY) {
++			pixel_encoding =  DP_SYM32_ENC_PIXEL_ENCODING_Y_ONLY;
++			if (hw_crtc_timing.display_color_depth != COLOR_DEPTH_666) {
++				/* HW testing only, no use case yet.
++				 * Color depth of Y-only could be
++				 * 8, 10, 12, 16 bits
++				 */
++				misc1 = misc1 | 0x80;  // MISC1[7] = 1
++			}
++		}
++		break;
++	case PIXEL_ENCODING_YCBCR420:
++		pixel_encoding = DP_SYM32_ENC_PIXEL_ENCODING_YCBCR420;
++		misc1 = misc1 | 0x40;   // MISC1[6] = 1
++		break;
++	case PIXEL_ENCODING_RGB:
++	default:
++		pixel_encoding = DP_SYM32_ENC_PIXEL_ENCODING_RGB_YCBCR444;
++		break;
++	}
 +
-+	/* Shut down clock last */
-+	REG_UPDATE(DP_LINK_ENC_CLOCK_CONTROL, DP_LINK_ENC_CLOCK_EN, 0);
-+}
++	/* For YCbCr420 and BT2020 Colorimetry Formats, VSC SDP shall be used.
++	 * When MISC1, bit 6, is Set to 1, a Source device uses a VSC SDP to indicate the
++	 * Pixel Encoding/Colorimetry Format and that a Sink device shall ignore MISC1, bit 7,
++	 * and MISC0, bits 7:1 (MISC1, bit 7, and MISC0, bits 7:1, become "don't care").
++	 */
++	if (use_vsc_sdp_for_colorimetry)
++		misc1 = misc1 | 0x40;
++	else
++		misc1 = misc1 & ~0x40;
 +
-+void dcn31_hpo_dp_link_enc_set_link_test_pattern(
-+		struct hpo_dp_link_encoder *enc,
-+		struct encoder_set_dp_phy_pattern_param *tp_params)
-+{
-+	struct dcn31_hpo_dp_link_encoder *enc3 = DCN3_1_HPO_DP_LINK_ENC_FROM_HPO_LINK_ENC(enc);
-+	uint32_t tp_custom;
-+
-+	switch (tp_params->dp_phy_pattern) {
-+	case DP_TEST_PATTERN_VIDEO_MODE:
-+		REG_UPDATE(DP_DPHY_SYM32_CONTROL,
-+				MODE, DP2_LINK_ACTIVE);
++	/* Color depth */
++	switch (hw_crtc_timing.display_color_depth) {
++	case COLOR_DEPTH_666:
++		component_depth = DP_SYM32_ENC_COMPONENT_DEPTH_6BPC;
++		// MISC0[7:5] = 000
 +		break;
-+	case DP_TEST_PATTERN_128b_132b_TPS1_TRAINING_MODE:
-+		REG_UPDATE(DP_DPHY_SYM32_CONTROL,
-+				MODE, DP2_LINK_TRAINING_TPS1);
++	case COLOR_DEPTH_888:
++		component_depth = DP_SYM32_ENC_COMPONENT_DEPTH_8BPC;
++		misc0 = misc0 | 0x20;  // MISC0[7:5] = 001
 +		break;
-+	case DP_TEST_PATTERN_128b_132b_TPS2_TRAINING_MODE:
-+		REG_UPDATE(DP_DPHY_SYM32_CONTROL,
-+				MODE, DP2_LINK_TRAINING_TPS2);
++	case COLOR_DEPTH_101010:
++		component_depth = DP_SYM32_ENC_COMPONENT_DEPTH_10BPC;
++		misc0 = misc0 | 0x40;  // MISC0[7:5] = 010
 +		break;
-+	case DP_TEST_PATTERN_128b_132b_TPS1:
-+		REG_UPDATE_4(DP_DPHY_SYM32_TP_CONFIG,
-+				TP_SELECT0, DP_DPHY_TP_SELECT_TPS1,
-+				TP_SELECT1, DP_DPHY_TP_SELECT_TPS1,
-+				TP_SELECT2, DP_DPHY_TP_SELECT_TPS1,
-+				TP_SELECT3, DP_DPHY_TP_SELECT_TPS1);
-+		REG_UPDATE(DP_DPHY_SYM32_CONTROL,
-+				MODE, DP2_TEST_PATTERN);
-+		break;
-+	case DP_TEST_PATTERN_128b_132b_TPS2:
-+		REG_UPDATE_4(DP_DPHY_SYM32_TP_CONFIG,
-+				TP_SELECT0, DP_DPHY_TP_SELECT_TPS2,
-+				TP_SELECT1, DP_DPHY_TP_SELECT_TPS2,
-+				TP_SELECT2, DP_DPHY_TP_SELECT_TPS2,
-+				TP_SELECT3, DP_DPHY_TP_SELECT_TPS2);
-+		REG_UPDATE(DP_DPHY_SYM32_CONTROL,
-+				MODE, DP2_TEST_PATTERN);
-+		break;
-+	case DP_TEST_PATTERN_PRBS7:
-+		REG_UPDATE_4(DP_DPHY_SYM32_TP_CONFIG,
-+				TP_PRBS_SEL0, DP_DPHY_TP_PRBS7,
-+				TP_PRBS_SEL1, DP_DPHY_TP_PRBS7,
-+				TP_PRBS_SEL2, DP_DPHY_TP_PRBS7,
-+				TP_PRBS_SEL3, DP_DPHY_TP_PRBS7);
-+		REG_UPDATE_4(DP_DPHY_SYM32_TP_CONFIG,
-+				TP_SELECT0, DP_DPHY_TP_SELECT_PRBS,
-+				TP_SELECT1, DP_DPHY_TP_SELECT_PRBS,
-+				TP_SELECT2, DP_DPHY_TP_SELECT_PRBS,
-+				TP_SELECT3, DP_DPHY_TP_SELECT_PRBS);
-+		REG_UPDATE(DP_DPHY_SYM32_CONTROL,
-+				MODE, DP2_TEST_PATTERN);
-+		break;
-+	case DP_TEST_PATTERN_PRBS9:
-+		REG_UPDATE_4(DP_DPHY_SYM32_TP_CONFIG,
-+				TP_PRBS_SEL0, DP_DPHY_TP_PRBS9,
-+				TP_PRBS_SEL1, DP_DPHY_TP_PRBS9,
-+				TP_PRBS_SEL2, DP_DPHY_TP_PRBS9,
-+				TP_PRBS_SEL3, DP_DPHY_TP_PRBS9);
-+		REG_UPDATE_4(DP_DPHY_SYM32_TP_CONFIG,
-+				TP_SELECT0, DP_DPHY_TP_SELECT_PRBS,
-+				TP_SELECT1, DP_DPHY_TP_SELECT_PRBS,
-+				TP_SELECT2, DP_DPHY_TP_SELECT_PRBS,
-+				TP_SELECT3, DP_DPHY_TP_SELECT_PRBS);
-+		REG_UPDATE(DP_DPHY_SYM32_CONTROL,
-+				MODE, DP2_TEST_PATTERN);
-+		break;
-+	case DP_TEST_PATTERN_PRBS11:
-+		REG_UPDATE_4(DP_DPHY_SYM32_TP_CONFIG,
-+				TP_PRBS_SEL0, DP_DPHY_TP_PRBS11,
-+				TP_PRBS_SEL1, DP_DPHY_TP_PRBS11,
-+				TP_PRBS_SEL2, DP_DPHY_TP_PRBS11,
-+				TP_PRBS_SEL3, DP_DPHY_TP_PRBS11);
-+		REG_UPDATE_4(DP_DPHY_SYM32_TP_CONFIG,
-+				TP_SELECT0, DP_DPHY_TP_SELECT_PRBS,
-+				TP_SELECT1, DP_DPHY_TP_SELECT_PRBS,
-+				TP_SELECT2, DP_DPHY_TP_SELECT_PRBS,
-+				TP_SELECT3, DP_DPHY_TP_SELECT_PRBS);
-+		REG_UPDATE(DP_DPHY_SYM32_CONTROL,
-+				MODE, DP2_TEST_PATTERN);
-+		break;
-+	case DP_TEST_PATTERN_PRBS15:
-+		REG_UPDATE_4(DP_DPHY_SYM32_TP_CONFIG,
-+				TP_PRBS_SEL0, DP_DPHY_TP_PRBS15,
-+				TP_PRBS_SEL1, DP_DPHY_TP_PRBS15,
-+				TP_PRBS_SEL2, DP_DPHY_TP_PRBS15,
-+				TP_PRBS_SEL3, DP_DPHY_TP_PRBS15);
-+		REG_UPDATE_4(DP_DPHY_SYM32_TP_CONFIG,
-+				TP_SELECT0, DP_DPHY_TP_SELECT_PRBS,
-+				TP_SELECT1, DP_DPHY_TP_SELECT_PRBS,
-+				TP_SELECT2, DP_DPHY_TP_SELECT_PRBS,
-+				TP_SELECT3, DP_DPHY_TP_SELECT_PRBS);
-+		REG_UPDATE(DP_DPHY_SYM32_CONTROL,
-+				MODE, DP2_TEST_PATTERN);
-+		break;
-+	case DP_TEST_PATTERN_PRBS23:
-+		REG_UPDATE_4(DP_DPHY_SYM32_TP_CONFIG,
-+				TP_PRBS_SEL0, DP_DPHY_TP_PRBS23,
-+				TP_PRBS_SEL1, DP_DPHY_TP_PRBS23,
-+				TP_PRBS_SEL2, DP_DPHY_TP_PRBS23,
-+				TP_PRBS_SEL3, DP_DPHY_TP_PRBS23);
-+		REG_UPDATE_4(DP_DPHY_SYM32_TP_CONFIG,
-+				TP_SELECT0, DP_DPHY_TP_SELECT_PRBS,
-+				TP_SELECT1, DP_DPHY_TP_SELECT_PRBS,
-+				TP_SELECT2, DP_DPHY_TP_SELECT_PRBS,
-+				TP_SELECT3, DP_DPHY_TP_SELECT_PRBS);
-+		REG_UPDATE(DP_DPHY_SYM32_CONTROL,
-+				MODE, DP2_TEST_PATTERN);
-+		break;
-+	case DP_TEST_PATTERN_PRBS31:
-+		REG_UPDATE_4(DP_DPHY_SYM32_TP_CONFIG,
-+				TP_PRBS_SEL0, DP_DPHY_TP_PRBS31,
-+				TP_PRBS_SEL1, DP_DPHY_TP_PRBS31,
-+				TP_PRBS_SEL2, DP_DPHY_TP_PRBS31,
-+				TP_PRBS_SEL3, DP_DPHY_TP_PRBS31);
-+		REG_UPDATE_4(DP_DPHY_SYM32_TP_CONFIG,
-+				TP_SELECT0, DP_DPHY_TP_SELECT_PRBS,
-+				TP_SELECT1, DP_DPHY_TP_SELECT_PRBS,
-+				TP_SELECT2, DP_DPHY_TP_SELECT_PRBS,
-+				TP_SELECT3, DP_DPHY_TP_SELECT_PRBS);
-+		REG_UPDATE(DP_DPHY_SYM32_CONTROL,
-+				MODE, DP2_TEST_PATTERN);
-+		break;
-+	case DP_TEST_PATTERN_264BIT_CUSTOM:
-+		tp_custom = (tp_params->custom_pattern[2] << 16) | (tp_params->custom_pattern[1] << 8) | tp_params->custom_pattern[0];
-+		REG_SET(DP_DPHY_SYM32_TP_CUSTOM0, 0, TP_CUSTOM, tp_custom);
-+		tp_custom = (tp_params->custom_pattern[5] << 16) | (tp_params->custom_pattern[4] << 8) | tp_params->custom_pattern[3];
-+		REG_SET(DP_DPHY_SYM32_TP_CUSTOM1, 0, TP_CUSTOM, tp_custom);
-+		tp_custom = (tp_params->custom_pattern[8] << 16) | (tp_params->custom_pattern[7] << 8) | tp_params->custom_pattern[6];
-+		REG_SET(DP_DPHY_SYM32_TP_CUSTOM2, 0, TP_CUSTOM, tp_custom);
-+		tp_custom = (tp_params->custom_pattern[11] << 16) | (tp_params->custom_pattern[10] << 8) | tp_params->custom_pattern[9];
-+		REG_SET(DP_DPHY_SYM32_TP_CUSTOM3, 0, TP_CUSTOM, tp_custom);
-+		tp_custom = (tp_params->custom_pattern[14] << 16) | (tp_params->custom_pattern[13] << 8) | tp_params->custom_pattern[12];
-+		REG_SET(DP_DPHY_SYM32_TP_CUSTOM4, 0, TP_CUSTOM, tp_custom);
-+		tp_custom = (tp_params->custom_pattern[17] << 16) | (tp_params->custom_pattern[16] << 8) | tp_params->custom_pattern[15];
-+		REG_SET(DP_DPHY_SYM32_TP_CUSTOM5, 0, TP_CUSTOM, tp_custom);
-+		tp_custom = (tp_params->custom_pattern[20] << 16) | (tp_params->custom_pattern[19] << 8) | tp_params->custom_pattern[18];
-+		REG_SET(DP_DPHY_SYM32_TP_CUSTOM6, 0, TP_CUSTOM, tp_custom);
-+		tp_custom = (tp_params->custom_pattern[23] << 16) | (tp_params->custom_pattern[22] << 8) | tp_params->custom_pattern[21];
-+		REG_SET(DP_DPHY_SYM32_TP_CUSTOM7, 0, TP_CUSTOM, tp_custom);
-+		tp_custom = (tp_params->custom_pattern[26] << 16) | (tp_params->custom_pattern[25] << 8) | tp_params->custom_pattern[24];
-+		REG_SET(DP_DPHY_SYM32_TP_CUSTOM8, 0, TP_CUSTOM, tp_custom);
-+		tp_custom = (tp_params->custom_pattern[29] << 16) | (tp_params->custom_pattern[28] << 8) | tp_params->custom_pattern[27];
-+		REG_SET(DP_DPHY_SYM32_TP_CUSTOM9, 0, TP_CUSTOM, tp_custom);
-+		tp_custom = (tp_params->custom_pattern[32] << 16) | (tp_params->custom_pattern[31] << 8) | tp_params->custom_pattern[30];
-+		REG_SET(DP_DPHY_SYM32_TP_CUSTOM10, 0, TP_CUSTOM, tp_custom);
-+
-+		REG_UPDATE_4(DP_DPHY_SYM32_TP_CONFIG,
-+				TP_SELECT0, DP_DPHY_TP_SELECT_CUSTOM,
-+				TP_SELECT1, DP_DPHY_TP_SELECT_CUSTOM,
-+				TP_SELECT2, DP_DPHY_TP_SELECT_CUSTOM,
-+				TP_SELECT3, DP_DPHY_TP_SELECT_CUSTOM);
-+
-+		REG_UPDATE(DP_DPHY_SYM32_CONTROL,
-+				MODE, DP2_TEST_PATTERN);
-+		break;
-+	case DP_TEST_PATTERN_SQUARE_PULSE:
-+		REG_SET(DP_DPHY_SYM32_TP_SQ_PULSE, 0,
-+				TP_SQ_PULSE_WIDTH, tp_params->custom_pattern[0]);
-+
-+		REG_UPDATE_4(DP_DPHY_SYM32_TP_CONFIG,
-+				TP_SELECT0, DP_DPHY_TP_SELECT_SQUARE,
-+				TP_SELECT1, DP_DPHY_TP_SELECT_SQUARE,
-+				TP_SELECT2, DP_DPHY_TP_SELECT_SQUARE,
-+				TP_SELECT3, DP_DPHY_TP_SELECT_SQUARE);
-+
-+		REG_UPDATE(DP_DPHY_SYM32_CONTROL,
-+				MODE, DP2_TEST_PATTERN);
++	case COLOR_DEPTH_121212:
++		component_depth = DP_SYM32_ENC_COMPONENT_DEPTH_12BPC;
++		misc0 = misc0 | 0x60;  // MISC0[7:5] = 011
 +		break;
 +	default:
++		component_depth = DP_SYM32_ENC_COMPONENT_DEPTH_6BPC;
 +		break;
 +	}
++
++	REG_UPDATE_3(DP_SYM32_ENC_VID_PIXEL_FORMAT,
++			PIXEL_ENCODING_TYPE, compressed_format,
++			UNCOMPRESSED_PIXEL_ENCODING, pixel_encoding,
++			UNCOMPRESSED_COMPONENT_DEPTH, component_depth);
++
++	switch (output_color_space) {
++	case COLOR_SPACE_SRGB:
++		misc1 = misc1 & ~0x80; /* bit7 = 0*/
++		break;
++	case COLOR_SPACE_SRGB_LIMITED:
++		misc0 = misc0 | 0x8; /* bit3=1 */
++		misc1 = misc1 & ~0x80; /* bit7 = 0*/
++		break;
++	case COLOR_SPACE_YCBCR601:
++	case COLOR_SPACE_YCBCR601_LIMITED:
++		misc0 = misc0 | 0x8; /* bit3=1, bit4=0 */
++		misc1 = misc1 & ~0x80; /* bit7 = 0*/
++		if (hw_crtc_timing.pixel_encoding == PIXEL_ENCODING_YCBCR422)
++			misc0 = misc0 | 0x2; /* bit2=0, bit1=1 */
++		else if (hw_crtc_timing.pixel_encoding == PIXEL_ENCODING_YCBCR444)
++			misc0 = misc0 | 0x4; /* bit2=1, bit1=0 */
++		break;
++	case COLOR_SPACE_YCBCR709:
++	case COLOR_SPACE_YCBCR709_LIMITED:
++		misc0 = misc0 | 0x18; /* bit3=1, bit4=1 */
++		misc1 = misc1 & ~0x80; /* bit7 = 0*/
++		if (hw_crtc_timing.pixel_encoding == PIXEL_ENCODING_YCBCR422)
++			misc0 = misc0 | 0x2; /* bit2=0, bit1=1 */
++		else if (hw_crtc_timing.pixel_encoding == PIXEL_ENCODING_YCBCR444)
++			misc0 = misc0 | 0x4; /* bit2=1, bit1=0 */
++		break;
++	case COLOR_SPACE_2020_RGB_LIMITEDRANGE:
++	case COLOR_SPACE_2020_RGB_FULLRANGE:
++	case COLOR_SPACE_2020_YCBCR:
++	case COLOR_SPACE_XR_RGB:
++	case COLOR_SPACE_MSREF_SCRGB:
++	case COLOR_SPACE_ADOBERGB:
++	case COLOR_SPACE_DCIP3:
++	case COLOR_SPACE_XV_YCC_709:
++	case COLOR_SPACE_XV_YCC_601:
++	case COLOR_SPACE_DISPLAYNATIVE:
++	case COLOR_SPACE_DOLBYVISION:
++	case COLOR_SPACE_APPCTRL:
++	case COLOR_SPACE_CUSTOMPOINTS:
++	case COLOR_SPACE_UNKNOWN:
++	case COLOR_SPACE_YCBCR709_BLACK:
++		/* do nothing */
++		break;
++	}
++
++	/* calculate from vesa timing parameters
++	 * h_active_start related to leading edge of sync
++	 */
++	h_blank = hw_crtc_timing.h_total - hw_crtc_timing.h_border_left -
++			hw_crtc_timing.h_addressable - hw_crtc_timing.h_border_right;
++
++	h_back_porch = h_blank - hw_crtc_timing.h_front_porch -
++			hw_crtc_timing.h_sync_width;
++
++	/* start at beginning of left border */
++	h_active_start = hw_crtc_timing.h_sync_width + h_back_porch;
++
++	v_active_start = hw_crtc_timing.v_total - hw_crtc_timing.v_border_top -
++			hw_crtc_timing.v_addressable - hw_crtc_timing.v_border_bottom -
++			hw_crtc_timing.v_front_porch;
++
++	h_width = hw_crtc_timing.h_border_left + hw_crtc_timing.h_addressable + hw_crtc_timing.h_border_right;
++	v_height = hw_crtc_timing.v_border_top + hw_crtc_timing.v_addressable + hw_crtc_timing.v_border_bottom;
++	hsp = hw_crtc_timing.flags.HSYNC_POSITIVE_POLARITY ? 0x80 : 0;
++	vsp = hw_crtc_timing.flags.VSYNC_POSITIVE_POLARITY ? 0x80 : 0;
++	v_freq = hw_crtc_timing.pix_clk_100hz * 100;
++
++	/*   MSA Packet Mapping to 32-bit Link Symbols - DP2 spec, section 2.7.4.1
++	 *
++	 *                      Lane 0           Lane 1          Lane 2         Lane 3
++	 *    MSA[0] = {             0,               0,              0,  VFREQ[47:40]}
++	 *    MSA[1] = {             0,               0,              0,  VFREQ[39:32]}
++	 *    MSA[2] = {             0,               0,              0,  VFREQ[31:24]}
++	 *    MSA[3] = {  HTotal[15:8],    HStart[15:8],   HWidth[15:8],  VFREQ[23:16]}
++	 *    MSA[4] = {  HTotal[ 7:0],    HStart[ 7:0],   HWidth[ 7:0],  VFREQ[15: 8]}
++	 *    MSA[5] = {  VTotal[15:8],    VStart[15:8],  VHeight[15:8],  VFREQ[ 7: 0]}
++	 *    MSA[6] = {  VTotal[ 7:0],    VStart[ 7:0],  VHeight[ 7:0],  MISC0[ 7: 0]}
++	 *    MSA[7] = { HSP|HSW[14:8],   VSP|VSW[14:8],              0,  MISC1[ 7: 0]}
++	 *    MSA[8] = {     HSW[ 7:0],       VSW[ 7:0],              0,             0}
++	 */
++	REG_SET_4(DP_SYM32_ENC_VID_MSA0, 0,
++			MSA_DATA_LANE_0, 0,
++			MSA_DATA_LANE_1, 0,
++			MSA_DATA_LANE_2, 0,
++			MSA_DATA_LANE_3, v_freq >> 40);
++
++	REG_SET_4(DP_SYM32_ENC_VID_MSA1, 0,
++			MSA_DATA_LANE_0, 0,
++			MSA_DATA_LANE_1, 0,
++			MSA_DATA_LANE_2, 0,
++			MSA_DATA_LANE_3, (v_freq >> 32) & 0xff);
++
++	REG_SET_4(DP_SYM32_ENC_VID_MSA2, 0,
++			MSA_DATA_LANE_0, 0,
++			MSA_DATA_LANE_1, 0,
++			MSA_DATA_LANE_2, 0,
++			MSA_DATA_LANE_3, (v_freq >> 24) & 0xff);
++
++	REG_SET_4(DP_SYM32_ENC_VID_MSA3, 0,
++			MSA_DATA_LANE_0, hw_crtc_timing.h_total >> 8,
++			MSA_DATA_LANE_1, h_active_start >> 8,
++			MSA_DATA_LANE_2, h_width >> 8,
++			MSA_DATA_LANE_3, (v_freq >> 16) & 0xff);
++
++	REG_SET_4(DP_SYM32_ENC_VID_MSA4, 0,
++			MSA_DATA_LANE_0, hw_crtc_timing.h_total & 0xff,
++			MSA_DATA_LANE_1, h_active_start & 0xff,
++			MSA_DATA_LANE_2, h_width & 0xff,
++			MSA_DATA_LANE_3, (v_freq >> 8) & 0xff);
++
++	REG_SET_4(DP_SYM32_ENC_VID_MSA5, 0,
++			MSA_DATA_LANE_0, hw_crtc_timing.v_total >> 8,
++			MSA_DATA_LANE_1, v_active_start >> 8,
++			MSA_DATA_LANE_2, v_height >> 8,
++			MSA_DATA_LANE_3, v_freq & 0xff);
++
++	REG_SET_4(DP_SYM32_ENC_VID_MSA6, 0,
++			MSA_DATA_LANE_0, hw_crtc_timing.v_total & 0xff,
++			MSA_DATA_LANE_1, v_active_start & 0xff,
++			MSA_DATA_LANE_2, v_height & 0xff,
++			MSA_DATA_LANE_3, misc0);
++
++	REG_SET_4(DP_SYM32_ENC_VID_MSA7, 0,
++			MSA_DATA_LANE_0, hsp | (hw_crtc_timing.h_sync_width >> 8),
++			MSA_DATA_LANE_1, vsp | (hw_crtc_timing.v_sync_width >> 8),
++			MSA_DATA_LANE_2, 0,
++			MSA_DATA_LANE_3, misc1);
++
++	REG_SET_4(DP_SYM32_ENC_VID_MSA8, 0,
++			MSA_DATA_LANE_0, hw_crtc_timing.h_sync_width & 0xff,
++			MSA_DATA_LANE_1, hw_crtc_timing.v_sync_width & 0xff,
++			MSA_DATA_LANE_2, 0,
++			MSA_DATA_LANE_3, 0);
 +}
 +
-+static void fill_stream_allocation_row_info(
-+		const struct link_mst_stream_allocation *stream_allocation,
-+		uint32_t *src,
-+		uint32_t *slots)
++static void dcn31_hpo_dp_stream_enc_update_dp_info_packets(
++		struct hpo_dp_stream_encoder *enc,
++		const struct encoder_info_frame *info_frame)
 +{
-+	const struct hpo_dp_stream_encoder *stream_enc = stream_allocation->hpo_dp_stream_enc;
++	struct dcn31_hpo_dp_stream_encoder *enc3 = DCN3_1_HPO_DP_STREAM_ENC_FROM_HPO_STREAM_ENC(enc);
++	uint32_t dmdata_packet_enabled = 0;
++	bool sdp_stream_enable = false;
 +
-+	if (stream_enc && (stream_enc->id >= ENGINE_ID_HPO_DP_0)) {
-+		*src = stream_enc->id - ENGINE_ID_HPO_DP_0;
-+		*slots = stream_allocation->slot_count;
++	if (info_frame->vsc.valid) {
++		enc->vpg->funcs->update_generic_info_packet(
++				enc->vpg,
++				0,  /* packetIndex */
++				&info_frame->vsc);
++		sdp_stream_enable = true;
++	}
++	if (info_frame->spd.valid) {
++		enc->vpg->funcs->update_generic_info_packet(
++				enc->vpg,
++				2,  /* packetIndex */
++				&info_frame->spd);
++		sdp_stream_enable = true;
++	}
++	if (info_frame->hdrsmd.valid) {
++		enc->vpg->funcs->update_generic_info_packet(
++				enc->vpg,
++				3,  /* packetIndex */
++				&info_frame->hdrsmd);
++		sdp_stream_enable = true;
++	}
++	/* enable/disable transmission of packet(s).
++	 * If enabled, packet transmission begins on the next frame
++	 */
++	REG_UPDATE(DP_SYM32_ENC_SDP_GSP_CONTROL0, GSP_VIDEO_CONTINUOUS_TRANSMISSION_ENABLE, info_frame->vsc.valid);
++	REG_UPDATE(DP_SYM32_ENC_SDP_GSP_CONTROL2, GSP_VIDEO_CONTINUOUS_TRANSMISSION_ENABLE, info_frame->spd.valid);
++	REG_UPDATE(DP_SYM32_ENC_SDP_GSP_CONTROL3, GSP_VIDEO_CONTINUOUS_TRANSMISSION_ENABLE, info_frame->hdrsmd.valid);
++
++	/* check if dynamic metadata packet transmission is enabled */
++	REG_GET(DP_SYM32_ENC_SDP_METADATA_PACKET_CONTROL,
++			METADATA_PACKET_ENABLE, &dmdata_packet_enabled);
++
++	/* Enable secondary data path */
++	REG_UPDATE(DP_SYM32_ENC_SDP_CONTROL,
++			SDP_STREAM_ENABLE, 1);
++}
++
++static void dcn31_hpo_dp_stream_enc_stop_dp_info_packets(
++	struct hpo_dp_stream_encoder *enc)
++{
++	/* stop generic packets on DP */
++	struct dcn31_hpo_dp_stream_encoder *enc3 = DCN3_1_HPO_DP_STREAM_ENC_FROM_HPO_STREAM_ENC(enc);
++	uint32_t asp_enable = 0;
++	uint32_t atp_enable = 0;
++	uint32_t aip_enable = 0;
++	uint32_t acm_enable = 0;
++
++	REG_UPDATE(DP_SYM32_ENC_SDP_GSP_CONTROL0, GSP_VIDEO_CONTINUOUS_TRANSMISSION_ENABLE, 0);
++	REG_UPDATE(DP_SYM32_ENC_SDP_GSP_CONTROL2, GSP_VIDEO_CONTINUOUS_TRANSMISSION_ENABLE, 0);
++	REG_UPDATE(DP_SYM32_ENC_SDP_GSP_CONTROL3, GSP_VIDEO_CONTINUOUS_TRANSMISSION_ENABLE, 0);
++
++	/* Disable secondary data path if audio is also disabled */
++	REG_GET_4(DP_SYM32_ENC_SDP_AUDIO_CONTROL0,
++			ASP_ENABLE, &asp_enable,
++			ATP_ENABLE, &atp_enable,
++			AIP_ENABLE, &aip_enable,
++			ACM_ENABLE, &acm_enable);
++	if (!(asp_enable || atp_enable || aip_enable || acm_enable))
++		REG_UPDATE(DP_SYM32_ENC_SDP_CONTROL,
++				SDP_STREAM_ENABLE, 0);
++}
++
++static uint32_t hpo_dp_is_gsp_enabled(
++		struct hpo_dp_stream_encoder *enc)
++{
++	struct dcn31_hpo_dp_stream_encoder *enc3 = DCN3_1_HPO_DP_STREAM_ENC_FROM_HPO_STREAM_ENC(enc);
++	uint32_t gsp0_enabled = 0;
++	uint32_t gsp2_enabled = 0;
++	uint32_t gsp3_enabled = 0;
++	uint32_t gsp11_enabled = 0;
++
++	REG_GET(DP_SYM32_ENC_SDP_GSP_CONTROL0, GSP_VIDEO_CONTINUOUS_TRANSMISSION_ENABLE, &gsp0_enabled);
++	REG_GET(DP_SYM32_ENC_SDP_GSP_CONTROL2, GSP_VIDEO_CONTINUOUS_TRANSMISSION_ENABLE, &gsp2_enabled);
++	REG_GET(DP_SYM32_ENC_SDP_GSP_CONTROL3, GSP_VIDEO_CONTINUOUS_TRANSMISSION_ENABLE, &gsp3_enabled);
++	REG_GET(DP_SYM32_ENC_SDP_GSP_CONTROL11, GSP_VIDEO_CONTINUOUS_TRANSMISSION_ENABLE, &gsp11_enabled);
++
++	return (gsp0_enabled || gsp2_enabled || gsp3_enabled || gsp11_enabled);
++}
++
++static void dcn31_hpo_dp_stream_enc_set_dsc_pps_info_packet(
++		struct hpo_dp_stream_encoder *enc,
++		bool enable,
++		uint8_t *dsc_packed_pps)
++{
++	struct dcn31_hpo_dp_stream_encoder *enc3 = DCN3_1_HPO_DP_STREAM_ENC_FROM_HPO_STREAM_ENC(enc);
++
++	if (enable) {
++		struct dc_info_packet pps_sdp;
++		int i;
++
++		/* Configure for PPS packet size (128 bytes) */
++		REG_UPDATE(DP_SYM32_ENC_SDP_GSP_CONTROL11,
++				GSP_PAYLOAD_SIZE, 3);
++
++		/* Load PPS into infoframe (SDP) registers */
++		pps_sdp.valid = true;
++		pps_sdp.hb0 = 0;
++		pps_sdp.hb1 = DC_DP_INFOFRAME_TYPE_PPS;
++		pps_sdp.hb2 = 127;
++		pps_sdp.hb3 = 0;
++
++		for (i = 0; i < 4; i++) {
++			memcpy(pps_sdp.sb, &dsc_packed_pps[i * 32], 32);
++			enc3->base.vpg->funcs->update_generic_info_packet(
++							enc3->base.vpg,
++							11 + i,
++							&pps_sdp);
++		}
++
++		/* SW should make sure VBID[6] update line number is bigger
++		 * than PPS transmit line number
++		 */
++		REG_UPDATE(DP_SYM32_ENC_SDP_GSP_CONTROL11,
++				GSP_TRANSMISSION_LINE_NUMBER, 2);
++
++		REG_UPDATE_2(DP_SYM32_ENC_VID_VBID_CONTROL,
++				VBID_6_COMPRESSEDSTREAM_FLAG_SOF_REFERENCE, 0,
++				VBID_6_COMPRESSEDSTREAM_FLAG_LINE_NUMBER, 3);
++
++		/* Send PPS data at the line number specified above. */
++		REG_UPDATE(DP_SYM32_ENC_SDP_GSP_CONTROL11,
++				GSP_VIDEO_CONTINUOUS_TRANSMISSION_ENABLE, 1);
++		REG_UPDATE(DP_SYM32_ENC_SDP_CONTROL,
++				SDP_STREAM_ENABLE, 1);
 +	} else {
-+		*src = 0;
-+		*slots = 0;
++		/* Disable Generic Stream Packet 11 (GSP) transmission */
++		REG_UPDATE_2(DP_SYM32_ENC_SDP_GSP_CONTROL11,
++				GSP_VIDEO_CONTINUOUS_TRANSMISSION_ENABLE, 0,
++				GSP_PAYLOAD_SIZE, 0);
 +	}
 +}
 +
-+/* programs DP VC payload allocation */
-+void dcn31_hpo_dp_link_enc_update_stream_allocation_table(
-+		struct hpo_dp_link_encoder *enc,
-+		const struct link_mst_stream_allocation_table *table)
++static void dcn31_hpo_dp_stream_enc_map_stream_to_link(
++		struct hpo_dp_stream_encoder *enc,
++		uint32_t stream_enc_inst,
++		uint32_t link_enc_inst)
 +{
-+	struct dcn31_hpo_dp_link_encoder *enc3 = DCN3_1_HPO_DP_LINK_ENC_FROM_HPO_LINK_ENC(enc);
-+	uint32_t value0 = 0;
-+	uint32_t value1 = 0;
-+	uint32_t value2 = 0;
-+	uint32_t slots = 0;
-+	uint32_t src = 0;
-+	uint32_t retries = 0;
++	struct dcn31_hpo_dp_stream_encoder *enc3 = DCN3_1_HPO_DP_STREAM_ENC_FROM_HPO_STREAM_ENC(enc);
 +
-+	/* --- Set MSE Stream Attribute -
-+	 * Setup VC Payload Table on Tx Side,
-+	 * Issue allocation change trigger
-+	 * to commit payload on both tx and rx side
-+	 */
++	ASSERT(stream_enc_inst < 4 && link_enc_inst < 2);
 +
-+	/* we should clean-up table each time */
-+
-+	if (table->stream_count >= 1) {
-+		fill_stream_allocation_row_info(
-+			&table->stream_allocations[0],
-+			&src,
-+			&slots);
-+	} else {
-+		src = 0;
-+		slots = 0;
-+	}
-+
-+	REG_UPDATE_2(DP_DPHY_SYM32_SAT_VC0,
-+			SAT_STREAM_SOURCE, src,
-+			SAT_SLOT_COUNT, slots);
-+
-+	if (table->stream_count >= 2) {
-+		fill_stream_allocation_row_info(
-+			&table->stream_allocations[1],
-+			&src,
-+			&slots);
-+	} else {
-+		src = 0;
-+		slots = 0;
-+	}
-+
-+	REG_UPDATE_2(DP_DPHY_SYM32_SAT_VC1,
-+			SAT_STREAM_SOURCE, src,
-+			SAT_SLOT_COUNT, slots);
-+
-+	if (table->stream_count >= 3) {
-+		fill_stream_allocation_row_info(
-+			&table->stream_allocations[2],
-+			&src,
-+			&slots);
-+	} else {
-+		src = 0;
-+		slots = 0;
-+	}
-+
-+	REG_UPDATE_2(DP_DPHY_SYM32_SAT_VC2,
-+			SAT_STREAM_SOURCE, src,
-+			SAT_SLOT_COUNT, slots);
-+
-+	if (table->stream_count >= 4) {
-+		fill_stream_allocation_row_info(
-+			&table->stream_allocations[3],
-+			&src,
-+			&slots);
-+	} else {
-+		src = 0;
-+		slots = 0;
-+	}
-+
-+	REG_UPDATE_2(DP_DPHY_SYM32_SAT_VC3,
-+			SAT_STREAM_SOURCE, src,
-+			SAT_SLOT_COUNT, slots);
-+
-+	/* --- wait for transaction finish */
-+
-+	/* send allocation change trigger (ACT)
-+	 * this step first sends the ACT,
-+	 * then double buffers the SAT into the hardware
-+	 * making the new allocation active on the DP MST mode link
-+	 */
-+
-+	/* SAT_UPDATE:
-+	 * 0 - No Action
-+	 * 1 - Update SAT with trigger
-+	 * 2 - Update SAT without trigger
-+	 */
-+	REG_UPDATE(DP_DPHY_SYM32_SAT_UPDATE,
-+			SAT_UPDATE, 1);
-+
-+	/* wait for update to complete
-+	 * (i.e. SAT_UPDATE_PENDING field is set to 0)
-+	 * No need for HW to enforce keepout.
-+	 */
-+	/* Best case and worst case wait time for SAT_UPDATE_PENDING
-+	 *   best: 109 us
-+	 *   worst: 868 us
-+	 */
-+	REG_WAIT(DP_DPHY_SYM32_STATUS,
-+			SAT_UPDATE_PENDING, 0,
-+			10, DP_SAT_UPDATE_MAX_RETRY);
-+}
-+
-+void dcn31_hpo_dp_link_enc_set_throttled_vcp_size(
-+		struct hpo_dp_link_encoder *enc,
-+		uint32_t stream_encoder_inst,
-+		struct fixed31_32 avg_time_slots_per_mtp)
-+{
-+	struct dcn31_hpo_dp_link_encoder *enc3 = DCN3_1_HPO_DP_LINK_ENC_FROM_HPO_LINK_ENC(enc);
-+	uint32_t x = dc_fixpt_floor(
-+		avg_time_slots_per_mtp);
-+	uint32_t y = dc_fixpt_ceil(
-+		dc_fixpt_shl(
-+			dc_fixpt_sub_int(
-+				avg_time_slots_per_mtp,
-+				x),
-+			25));
-+
-+	switch (stream_encoder_inst) {
++	switch (stream_enc_inst) {
 +	case 0:
-+		REG_SET_2(DP_DPHY_SYM32_VC_RATE_CNTL0, 0,
-+				STREAM_VC_RATE_X, x,
-+				STREAM_VC_RATE_Y, y);
++		REG_UPDATE(DP_STREAM_MAPPER_CONTROL0,
++				DP_STREAM_LINK_TARGET, link_enc_inst);
 +		break;
 +	case 1:
-+		REG_SET_2(DP_DPHY_SYM32_VC_RATE_CNTL1, 0,
-+				STREAM_VC_RATE_X, x,
-+				STREAM_VC_RATE_Y, y);
++		REG_UPDATE(DP_STREAM_MAPPER_CONTROL1,
++				DP_STREAM_LINK_TARGET, link_enc_inst);
 +		break;
 +	case 2:
-+		REG_SET_2(DP_DPHY_SYM32_VC_RATE_CNTL2, 0,
-+				STREAM_VC_RATE_X, x,
-+				STREAM_VC_RATE_Y, y);
++		REG_UPDATE(DP_STREAM_MAPPER_CONTROL2,
++				DP_STREAM_LINK_TARGET, link_enc_inst);
 +		break;
 +	case 3:
-+		REG_SET_2(DP_DPHY_SYM32_VC_RATE_CNTL3, 0,
-+				STREAM_VC_RATE_X, x,
-+				STREAM_VC_RATE_Y, y);
++		REG_UPDATE(DP_STREAM_MAPPER_CONTROL3,
++				DP_STREAM_LINK_TARGET, link_enc_inst);
 +		break;
-+	default:
-+		ASSERT(0);
-+	}
-+
-+	/* Best case and worst case wait time for RATE_UPDATE_PENDING
-+	 *   best: 116 ns
-+	 *   worst: 903 ns
-+	 */
-+	/* wait for update to be completed on the link */
-+	REG_WAIT(DP_DPHY_SYM32_STATUS,
-+			RATE_UPDATE_PENDING, 0,
-+			1, 10);
-+}
-+
-+static bool dcn31_hpo_dp_link_enc_is_in_alt_mode(
-+		struct hpo_dp_link_encoder *enc)
-+{
-+	struct dcn31_hpo_dp_link_encoder *enc3 = DCN3_1_HPO_DP_LINK_ENC_FROM_HPO_LINK_ENC(enc);
-+	uint32_t dp_alt_mode_disable = 0;
-+
-+	ASSERT((enc->transmitter >= TRANSMITTER_UNIPHY_A) && (enc->transmitter <= TRANSMITTER_UNIPHY_E));
-+
-+	/* if value == 1 alt mode is disabled, otherwise it is enabled */
-+	REG_GET(RDPCSTX_PHY_CNTL6[enc->transmitter], RDPCS_PHY_DPALT_DISABLE, &dp_alt_mode_disable);
-+	return (dp_alt_mode_disable == 0);
-+}
-+
-+void dcn31_hpo_dp_link_enc_read_state(
-+		struct hpo_dp_link_encoder *enc,
-+		struct hpo_dp_link_enc_state *state)
-+{
-+	struct dcn31_hpo_dp_link_encoder *enc3 = DCN3_1_HPO_DP_LINK_ENC_FROM_HPO_LINK_ENC(enc);
-+
-+	ASSERT(state);
-+
-+	REG_GET(DP_DPHY_SYM32_STATUS,
-+			STATUS, &state->link_enc_enabled);
-+	REG_GET(DP_DPHY_SYM32_CONTROL,
-+			NUM_LANES, &state->lane_count);
-+	REG_GET(DP_DPHY_SYM32_CONTROL,
-+			MODE, (uint32_t *)&state->link_mode);
-+
-+	REG_GET_2(DP_DPHY_SYM32_SAT_VC0,
-+			SAT_STREAM_SOURCE, &state->stream_src[0],
-+			SAT_SLOT_COUNT, &state->slot_count[0]);
-+	REG_GET_2(DP_DPHY_SYM32_SAT_VC1,
-+			SAT_STREAM_SOURCE, &state->stream_src[1],
-+			SAT_SLOT_COUNT, &state->slot_count[1]);
-+	REG_GET_2(DP_DPHY_SYM32_SAT_VC2,
-+			SAT_STREAM_SOURCE, &state->stream_src[2],
-+			SAT_SLOT_COUNT, &state->slot_count[2]);
-+	REG_GET_2(DP_DPHY_SYM32_SAT_VC3,
-+			SAT_STREAM_SOURCE, &state->stream_src[3],
-+			SAT_SLOT_COUNT, &state->slot_count[3]);
-+
-+	REG_GET_2(DP_DPHY_SYM32_VC_RATE_CNTL0,
-+			STREAM_VC_RATE_X, &state->vc_rate_x[0],
-+			STREAM_VC_RATE_Y, &state->vc_rate_y[0]);
-+	REG_GET_2(DP_DPHY_SYM32_VC_RATE_CNTL1,
-+			STREAM_VC_RATE_X, &state->vc_rate_x[1],
-+			STREAM_VC_RATE_Y, &state->vc_rate_y[1]);
-+	REG_GET_2(DP_DPHY_SYM32_VC_RATE_CNTL2,
-+			STREAM_VC_RATE_X, &state->vc_rate_x[2],
-+			STREAM_VC_RATE_Y, &state->vc_rate_y[2]);
-+	REG_GET_2(DP_DPHY_SYM32_VC_RATE_CNTL3,
-+			STREAM_VC_RATE_X, &state->vc_rate_x[3],
-+			STREAM_VC_RATE_Y, &state->vc_rate_y[3]);
-+}
-+
-+static enum bp_result link_transmitter_control(
-+	struct dcn31_hpo_dp_link_encoder *enc3,
-+	struct bp_transmitter_control *cntl)
-+{
-+	enum bp_result result;
-+	struct dc_bios *bp = enc3->base.ctx->dc_bios;
-+
-+	result = bp->funcs->transmitter_control(bp, cntl);
-+
-+	return result;
-+}
-+
-+/* enables DP PHY output for 128b132b encoding */
-+void dcn31_hpo_dp_link_enc_enable_dp_output(
-+	struct hpo_dp_link_encoder *enc,
-+	const struct dc_link_settings *link_settings,
-+	enum transmitter transmitter)
-+{
-+	struct dcn31_hpo_dp_link_encoder *enc3 = DCN3_1_HPO_DP_LINK_ENC_FROM_HPO_LINK_ENC(enc);
-+	struct bp_transmitter_control cntl = { 0 };
-+	enum bp_result result;
-+
-+	/* Set the transmitter */
-+	enc3->base.transmitter = transmitter;
-+
-+	/* Enable the PHY */
-+	cntl.action = TRANSMITTER_CONTROL_ENABLE;
-+	cntl.engine_id = ENGINE_ID_UNKNOWN;
-+	cntl.transmitter = enc3->base.transmitter;
-+	//cntl.pll_id = clock_source;
-+	cntl.signal = SIGNAL_TYPE_DISPLAY_PORT_MST;
-+	cntl.lanes_number = link_settings->lane_count;
-+	cntl.hpd_sel = enc3->base.hpd_source;
-+	cntl.pixel_clock = link_settings->link_rate * 1000;
-+	cntl.color_depth = COLOR_DEPTH_UNDEFINED;
-+	cntl.hpo_engine_id = enc->inst + ENGINE_ID_HPO_DP_0;
-+
-+	result = link_transmitter_control(enc3, &cntl);
-+
-+	if (result != BP_RESULT_OK) {
-+		DC_LOG_ERROR("%s: Failed to execute VBIOS command table!\n",
-+			__func__);
-+		BREAK_TO_DEBUGGER();
 +	}
 +}
 +
-+void dcn31_hpo_dp_link_enc_disable_output(
-+	struct hpo_dp_link_encoder *enc,
-+	enum signal_type signal)
++static void dcn31_hpo_dp_stream_enc_mute_control(
++	struct hpo_dp_stream_encoder *enc,
++	bool mute)
 +{
-+	struct dcn31_hpo_dp_link_encoder *enc3 = DCN3_1_HPO_DP_LINK_ENC_FROM_HPO_LINK_ENC(enc);
-+	struct bp_transmitter_control cntl = { 0 };
-+	enum bp_result result;
++	struct dcn31_hpo_dp_stream_encoder *enc3 = DCN3_1_HPO_DP_STREAM_ENC_FROM_HPO_STREAM_ENC(enc);
 +
-+	/* disable transmitter */
-+	cntl.action = TRANSMITTER_CONTROL_DISABLE;
-+	cntl.transmitter = enc3->base.transmitter;
-+	cntl.hpd_sel = enc3->base.hpd_source;
-+	cntl.signal = signal;
-+
-+	result = link_transmitter_control(enc3, &cntl);
-+
-+	if (result != BP_RESULT_OK) {
-+		DC_LOG_ERROR("%s: Failed to execute VBIOS command table!\n",
-+			__func__);
-+		BREAK_TO_DEBUGGER();
-+		return;
-+	}
-+
-+	/* disable encoder */
-+	dcn31_hpo_dp_link_enc_disable(enc);
++	ASSERT(enc->apg);
++	enc->apg->funcs->audio_mute_control(enc->apg, mute);
 +}
 +
-+void dcn31_hpo_dp_link_enc_set_ffe(
-+	struct hpo_dp_link_encoder *enc,
-+	const struct dc_link_settings *link_settings,
-+	uint8_t ffe_preset)
++static void dcn31_hpo_dp_stream_enc_audio_setup(
++	struct hpo_dp_stream_encoder *enc,
++	unsigned int az_inst,
++	struct audio_info *info)
 +{
-+	struct dcn31_hpo_dp_link_encoder *enc3 = DCN3_1_HPO_DP_LINK_ENC_FROM_HPO_LINK_ENC(enc);
-+	struct bp_transmitter_control cntl = { 0 };
-+	enum bp_result result;
++	struct dcn31_hpo_dp_stream_encoder *enc3 = DCN3_1_HPO_DP_STREAM_ENC_FROM_HPO_STREAM_ENC(enc);
 +
-+	/* disable transmitter */
-+	cntl.transmitter = enc3->base.transmitter;
-+	cntl.action = TRANSMITTER_CONTROL_SET_VOLTAGE_AND_PREEMPASIS;
-+	cntl.signal = SIGNAL_TYPE_DISPLAY_PORT_MST;
-+	cntl.lanes_number = link_settings->lane_count;
-+	cntl.pixel_clock = link_settings->link_rate * 1000;
-+	cntl.lane_settings = ffe_preset;
++	/* Set the input mux for video stream source */
++	REG_UPDATE(DP_STREAM_ENC_AUDIO_CONTROL,
++			DP_STREAM_ENC_INPUT_MUX_AUDIO_STREAM_SOURCE_SEL, az_inst);
 +
-+	result = link_transmitter_control(enc3, &cntl);
++	ASSERT(enc->apg);
++	enc->apg->funcs->se_audio_setup(enc->apg, az_inst, info);
++}
 +
-+	if (result != BP_RESULT_OK) {
-+		DC_LOG_ERROR("%s: Failed to execute VBIOS command table!\n",
-+			__func__);
-+		BREAK_TO_DEBUGGER();
-+		return;
++static void dcn31_hpo_dp_stream_enc_audio_enable(
++	struct hpo_dp_stream_encoder *enc)
++{
++	struct dcn31_hpo_dp_stream_encoder *enc3 = DCN3_1_HPO_DP_STREAM_ENC_FROM_HPO_STREAM_ENC(enc);
++
++	/* Enable Audio packets */
++	REG_UPDATE(DP_SYM32_ENC_SDP_AUDIO_CONTROL0, ASP_ENABLE, 1);
++
++	/* Program the ATP and AIP next */
++	REG_UPDATE_2(DP_SYM32_ENC_SDP_AUDIO_CONTROL0,
++			ATP_ENABLE, 1,
++			AIP_ENABLE, 1);
++
++	/* Enable secondary data path */
++	REG_UPDATE(DP_SYM32_ENC_SDP_CONTROL,
++			SDP_STREAM_ENABLE, 1);
++
++	/* Enable APG block */
++	enc->apg->funcs->enable_apg(enc->apg);
++}
++
++static void dcn31_hpo_dp_stream_enc_audio_disable(
++	struct hpo_dp_stream_encoder *enc)
++{
++	struct dcn31_hpo_dp_stream_encoder *enc3 = DCN3_1_HPO_DP_STREAM_ENC_FROM_HPO_STREAM_ENC(enc);
++
++	/* Disable Audio packets */
++	REG_UPDATE_4(DP_SYM32_ENC_SDP_AUDIO_CONTROL0,
++			ASP_ENABLE, 0,
++			ATP_ENABLE, 0,
++			AIP_ENABLE, 0,
++			ACM_ENABLE, 0);
++
++	/* Disable STP Stream Enable if other SDP GSP are also disabled */
++	if (!(hpo_dp_is_gsp_enabled(enc)))
++		REG_UPDATE(DP_SYM32_ENC_SDP_CONTROL,
++				SDP_STREAM_ENABLE, 0);
++
++	/* Disable APG block */
++	enc->apg->funcs->disable_apg(enc->apg);
++}
++
++static void dcn31_hpo_dp_stream_enc_read_state(
++		struct hpo_dp_stream_encoder *enc,
++		struct hpo_dp_stream_encoder_state *s)
++{
++	struct dcn31_hpo_dp_stream_encoder *enc3 = DCN3_1_HPO_DP_STREAM_ENC_FROM_HPO_STREAM_ENC(enc);
++
++	REG_GET(DP_SYM32_ENC_CONTROL,
++			DP_SYM32_ENC_ENABLE, &s->stream_enc_enabled);
++	REG_GET(DP_SYM32_ENC_VID_STREAM_CONTROL,
++			VID_STREAM_ENABLE, &s->vid_stream_enabled);
++	REG_GET(DP_STREAM_ENC_INPUT_MUX_CONTROL,
++			DP_STREAM_ENC_INPUT_MUX_PIXEL_STREAM_SOURCE_SEL, &s->otg_inst);
++
++	REG_GET_3(DP_SYM32_ENC_VID_PIXEL_FORMAT,
++			PIXEL_ENCODING_TYPE, &s->compressed_format,
++			UNCOMPRESSED_PIXEL_ENCODING, &s->pixel_encoding,
++			UNCOMPRESSED_COMPONENT_DEPTH, &s->component_depth);
++
++	REG_GET(DP_SYM32_ENC_SDP_CONTROL,
++			SDP_STREAM_ENABLE, &s->sdp_enabled);
++
++	switch (enc->inst) {
++	case 0:
++		REG_GET(DP_STREAM_MAPPER_CONTROL0,
++				DP_STREAM_LINK_TARGET, &s->mapped_to_link_enc);
++		break;
++	case 1:
++		REG_GET(DP_STREAM_MAPPER_CONTROL1,
++				DP_STREAM_LINK_TARGET, &s->mapped_to_link_enc);
++		break;
++	case 2:
++		REG_GET(DP_STREAM_MAPPER_CONTROL2,
++				DP_STREAM_LINK_TARGET, &s->mapped_to_link_enc);
++		break;
++	case 3:
++		REG_GET(DP_STREAM_MAPPER_CONTROL3,
++				DP_STREAM_LINK_TARGET, &s->mapped_to_link_enc);
++		break;
 +	}
 +}
 +
-+static struct hpo_dp_link_encoder_funcs dcn31_hpo_dp_link_encoder_funcs = {
-+	.enable_link_phy = dcn31_hpo_dp_link_enc_enable_dp_output,
-+	.disable_link_phy = dcn31_hpo_dp_link_enc_disable_output,
-+	.link_enable = dcn31_hpo_dp_link_enc_enable,
-+	.link_disable = dcn31_hpo_dp_link_enc_disable,
-+	.set_link_test_pattern = dcn31_hpo_dp_link_enc_set_link_test_pattern,
-+	.update_stream_allocation_table = dcn31_hpo_dp_link_enc_update_stream_allocation_table,
-+	.set_throttled_vcp_size = dcn31_hpo_dp_link_enc_set_throttled_vcp_size,
-+	.is_in_alt_mode = dcn31_hpo_dp_link_enc_is_in_alt_mode,
-+	.read_state = dcn31_hpo_dp_link_enc_read_state,
-+	.set_ffe = dcn31_hpo_dp_link_enc_set_ffe,
++static const struct hpo_dp_stream_encoder_funcs dcn30_str_enc_funcs = {
++	.enable_stream = dcn31_hpo_dp_stream_enc_enable_stream,
++	.dp_unblank = dcn31_hpo_dp_stream_enc_dp_unblank,
++	.dp_blank = dcn31_hpo_dp_stream_enc_dp_blank,
++	.disable = dcn31_hpo_dp_stream_enc_disable,
++	.set_stream_attribute = dcn31_hpo_dp_stream_enc_set_stream_attribute,
++	.update_dp_info_packets = dcn31_hpo_dp_stream_enc_update_dp_info_packets,
++	.stop_dp_info_packets = dcn31_hpo_dp_stream_enc_stop_dp_info_packets,
++	.dp_set_dsc_pps_info_packet = dcn31_hpo_dp_stream_enc_set_dsc_pps_info_packet,
++	.map_stream_to_link = dcn31_hpo_dp_stream_enc_map_stream_to_link,
++	.audio_mute_control = dcn31_hpo_dp_stream_enc_mute_control,
++	.dp_audio_setup = dcn31_hpo_dp_stream_enc_audio_setup,
++	.dp_audio_enable = dcn31_hpo_dp_stream_enc_audio_enable,
++	.dp_audio_disable = dcn31_hpo_dp_stream_enc_audio_disable,
++	.read_state = dcn31_hpo_dp_stream_enc_read_state,
 +};
 +
-+void hpo_dp_link_encoder31_construct(struct dcn31_hpo_dp_link_encoder *enc31,
-+		struct dc_context *ctx,
-+		uint32_t inst,
-+		const struct dcn31_hpo_dp_link_encoder_registers *hpo_le_regs,
-+		const struct dcn31_hpo_dp_link_encoder_shift *hpo_le_shift,
-+		const struct dcn31_hpo_dp_link_encoder_mask *hpo_le_mask)
++void dcn31_hpo_dp_stream_encoder_construct(
++	struct dcn31_hpo_dp_stream_encoder *enc3,
++	struct dc_context *ctx,
++	struct dc_bios *bp,
++	uint32_t inst,
++	enum engine_id eng_id,
++	struct vpg *vpg,
++	struct apg *apg,
++	const struct dcn31_hpo_dp_stream_encoder_registers *regs,
++	const struct dcn31_hpo_dp_stream_encoder_shift *hpo_se_shift,
++	const struct dcn31_hpo_dp_stream_encoder_mask *hpo_se_mask)
 +{
-+	enc31->base.ctx = ctx;
-+
-+	enc31->base.inst = inst;
-+	enc31->base.funcs = &dcn31_hpo_dp_link_encoder_funcs;
-+	enc31->base.hpd_source = HPD_SOURCEID_UNKNOWN;
-+	enc31->base.transmitter = TRANSMITTER_UNKNOWN;
-+
-+	enc31->regs = hpo_le_regs;
-+	enc31->hpo_le_shift = hpo_le_shift;
-+	enc31->hpo_le_mask = hpo_le_mask;
++	enc3->base.funcs = &dcn30_str_enc_funcs;
++	enc3->base.ctx = ctx;
++	enc3->base.inst = inst;
++	enc3->base.id = eng_id;
++	enc3->base.bp = bp;
++	enc3->base.vpg = vpg;
++	enc3->base.apg = apg;
++	enc3->regs = regs;
++	enc3->hpo_se_shift = hpo_se_shift;
++	enc3->hpo_se_mask = hpo_se_mask;
 +}
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_link_encoder.h b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_link_encoder.h
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_stream_encoder.h b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_stream_encoder.h
 new file mode 100644
-index 000000000000..0706ccaf6fec
+index 000000000000..70b94fc25304
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_link_encoder.h
-@@ -0,0 +1,222 @@
++++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_stream_encoder.h
+@@ -0,0 +1,241 @@
 +/*
 + * Copyright 2019 Advanced Micro Devices, Inc.
 + *
@@ -906,269 +1000,315 @@ index 000000000000..0706ccaf6fec
 + *
 + */
 +
-+#ifndef __DAL_DCN31_HPO_DP_LINK_ENCODER_H__
-+#define __DAL_DCN31_HPO_DP_LINK_ENCODER_H__
++#ifndef __DAL_DCN31_HPO_DP_STREAM_ENCODER_H__
++#define __DAL_DCN31_HPO_DP_STREAM_ENCODER_H__
 +
-+#include "link_encoder.h"
-+
-+
-+#define DCN3_1_HPO_DP_LINK_ENC_FROM_HPO_LINK_ENC(hpo_dp_link_encoder)\
-+	container_of(hpo_dp_link_encoder, struct dcn31_hpo_dp_link_encoder, base)
++#include "dcn30/dcn30_vpg.h"
++#include "dcn31/dcn31_apg.h"
++#include "stream_encoder.h"
 +
 +
-+#define DCN3_1_HPO_DP_LINK_ENC_REG_LIST(id) \
-+	SRI(DP_LINK_ENC_CLOCK_CONTROL, DP_LINK_ENC, id), \
-+	SRI(DP_DPHY_SYM32_CONTROL, DP_DPHY_SYM32, id), \
-+	SRI(DP_DPHY_SYM32_STATUS, DP_DPHY_SYM32, id), \
-+	SRI(DP_DPHY_SYM32_TP_CONFIG, DP_DPHY_SYM32, id), \
-+	SRI(DP_DPHY_SYM32_TP_PRBS_SEED0, DP_DPHY_SYM32, id), \
-+	SRI(DP_DPHY_SYM32_TP_PRBS_SEED1, DP_DPHY_SYM32, id), \
-+	SRI(DP_DPHY_SYM32_TP_PRBS_SEED2, DP_DPHY_SYM32, id), \
-+	SRI(DP_DPHY_SYM32_TP_PRBS_SEED3, DP_DPHY_SYM32, id), \
-+	SRI(DP_DPHY_SYM32_TP_SQ_PULSE, DP_DPHY_SYM32, id), \
-+	SRI(DP_DPHY_SYM32_TP_CUSTOM0, DP_DPHY_SYM32, id), \
-+	SRI(DP_DPHY_SYM32_TP_CUSTOM1, DP_DPHY_SYM32, id), \
-+	SRI(DP_DPHY_SYM32_TP_CUSTOM2, DP_DPHY_SYM32, id), \
-+	SRI(DP_DPHY_SYM32_TP_CUSTOM3, DP_DPHY_SYM32, id), \
-+	SRI(DP_DPHY_SYM32_TP_CUSTOM4, DP_DPHY_SYM32, id), \
-+	SRI(DP_DPHY_SYM32_TP_CUSTOM5, DP_DPHY_SYM32, id), \
-+	SRI(DP_DPHY_SYM32_TP_CUSTOM6, DP_DPHY_SYM32, id), \
-+	SRI(DP_DPHY_SYM32_TP_CUSTOM7, DP_DPHY_SYM32, id), \
-+	SRI(DP_DPHY_SYM32_TP_CUSTOM8, DP_DPHY_SYM32, id), \
-+	SRI(DP_DPHY_SYM32_TP_CUSTOM9, DP_DPHY_SYM32, id), \
-+	SRI(DP_DPHY_SYM32_TP_CUSTOM10, DP_DPHY_SYM32, id), \
-+	SRI(DP_DPHY_SYM32_SAT_VC0, DP_DPHY_SYM32, id), \
-+	SRI(DP_DPHY_SYM32_SAT_VC1, DP_DPHY_SYM32, id), \
-+	SRI(DP_DPHY_SYM32_SAT_VC2, DP_DPHY_SYM32, id), \
-+	SRI(DP_DPHY_SYM32_SAT_VC3, DP_DPHY_SYM32, id), \
-+	SRI(DP_DPHY_SYM32_VC_RATE_CNTL0, DP_DPHY_SYM32, id), \
-+	SRI(DP_DPHY_SYM32_VC_RATE_CNTL1, DP_DPHY_SYM32, id), \
-+	SRI(DP_DPHY_SYM32_VC_RATE_CNTL2, DP_DPHY_SYM32, id), \
-+	SRI(DP_DPHY_SYM32_VC_RATE_CNTL3, DP_DPHY_SYM32, id), \
-+	SRI(DP_DPHY_SYM32_SAT_UPDATE, DP_DPHY_SYM32, id)
-+
-+#define DCN3_1_RDPCSTX_REG_LIST(id) \
-+	SRII(RDPCSTX_PHY_CNTL6, RDPCSTX, id)
++#define DCN3_1_HPO_DP_STREAM_ENC_FROM_HPO_STREAM_ENC(hpo_dp_stream_encoder)\
++	container_of(hpo_dp_stream_encoder, struct dcn31_hpo_dp_stream_encoder, base)
 +
 +
-+#define DCN3_1_HPO_DP_LINK_ENC_REGS \
-+	uint32_t DP_LINK_ENC_CLOCK_CONTROL;\
-+	uint32_t DP_DPHY_SYM32_CONTROL;\
-+	uint32_t DP_DPHY_SYM32_STATUS;\
-+	uint32_t DP_DPHY_SYM32_TP_CONFIG;\
-+	uint32_t DP_DPHY_SYM32_TP_PRBS_SEED0;\
-+	uint32_t DP_DPHY_SYM32_TP_PRBS_SEED1;\
-+	uint32_t DP_DPHY_SYM32_TP_PRBS_SEED2;\
-+	uint32_t DP_DPHY_SYM32_TP_PRBS_SEED3;\
-+	uint32_t DP_DPHY_SYM32_TP_SQ_PULSE;\
-+	uint32_t DP_DPHY_SYM32_TP_CUSTOM0;\
-+	uint32_t DP_DPHY_SYM32_TP_CUSTOM1;\
-+	uint32_t DP_DPHY_SYM32_TP_CUSTOM2;\
-+	uint32_t DP_DPHY_SYM32_TP_CUSTOM3;\
-+	uint32_t DP_DPHY_SYM32_TP_CUSTOM4;\
-+	uint32_t DP_DPHY_SYM32_TP_CUSTOM5;\
-+	uint32_t DP_DPHY_SYM32_TP_CUSTOM6;\
-+	uint32_t DP_DPHY_SYM32_TP_CUSTOM7;\
-+	uint32_t DP_DPHY_SYM32_TP_CUSTOM8;\
-+	uint32_t DP_DPHY_SYM32_TP_CUSTOM9;\
-+	uint32_t DP_DPHY_SYM32_TP_CUSTOM10;\
-+	uint32_t DP_DPHY_SYM32_SAT_VC0;\
-+	uint32_t DP_DPHY_SYM32_SAT_VC1;\
-+	uint32_t DP_DPHY_SYM32_SAT_VC2;\
-+	uint32_t DP_DPHY_SYM32_SAT_VC3;\
-+	uint32_t DP_DPHY_SYM32_VC_RATE_CNTL0;\
-+	uint32_t DP_DPHY_SYM32_VC_RATE_CNTL1;\
-+	uint32_t DP_DPHY_SYM32_VC_RATE_CNTL2;\
-+	uint32_t DP_DPHY_SYM32_VC_RATE_CNTL3;\
-+	uint32_t DP_DPHY_SYM32_SAT_UPDATE
++/* Define MSA_DATA_LANE_[0-3] fields to make programming easier */
++#define DP_SYM32_ENC_VID_MSA__MSA_DATA_LANE_0__SHIFT   0x0
++#define DP_SYM32_ENC_VID_MSA__MSA_DATA_LANE_1__SHIFT   0x8
++#define DP_SYM32_ENC_VID_MSA__MSA_DATA_LANE_2__SHIFT   0x10
++#define DP_SYM32_ENC_VID_MSA__MSA_DATA_LANE_3__SHIFT   0x18
++#define DP_SYM32_ENC_VID_MSA__MSA_DATA_LANE_0_MASK     0x000000FFL
++#define DP_SYM32_ENC_VID_MSA__MSA_DATA_LANE_1_MASK     0x0000FF00L
++#define DP_SYM32_ENC_VID_MSA__MSA_DATA_LANE_2_MASK     0x00FF0000L
++#define DP_SYM32_ENC_VID_MSA__MSA_DATA_LANE_3_MASK     0xFF000000L
 +
-+struct dcn31_hpo_dp_link_encoder_registers {
-+	DCN3_1_HPO_DP_LINK_ENC_REGS;
-+	uint32_t RDPCSTX_PHY_CNTL6[5];
++
++#define DCN3_1_HPO_DP_STREAM_ENC_REG_LIST(id) \
++	SR(DP_STREAM_MAPPER_CONTROL0),\
++	SR(DP_STREAM_MAPPER_CONTROL1),\
++	SR(DP_STREAM_MAPPER_CONTROL2),\
++	SR(DP_STREAM_MAPPER_CONTROL3),\
++	SRI(DP_STREAM_ENC_CLOCK_CONTROL, DP_STREAM_ENC, id),\
++	SRI(DP_STREAM_ENC_INPUT_MUX_CONTROL, DP_STREAM_ENC, id),\
++	SRI(DP_STREAM_ENC_AUDIO_CONTROL, DP_STREAM_ENC, id),\
++	SRI(DP_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0, DP_STREAM_ENC, id),\
++	SRI(DP_SYM32_ENC_CONTROL, DP_SYM32_ENC, id),\
++	SRI(DP_SYM32_ENC_VID_PIXEL_FORMAT, DP_SYM32_ENC, id),\
++	SRI(DP_SYM32_ENC_VID_PIXEL_FORMAT_DOUBLE_BUFFER_CONTROL, DP_SYM32_ENC, id),\
++	SRI(DP_SYM32_ENC_VID_MSA0, DP_SYM32_ENC, id),\
++	SRI(DP_SYM32_ENC_VID_MSA1, DP_SYM32_ENC, id),\
++	SRI(DP_SYM32_ENC_VID_MSA2, DP_SYM32_ENC, id),\
++	SRI(DP_SYM32_ENC_VID_MSA3, DP_SYM32_ENC, id),\
++	SRI(DP_SYM32_ENC_VID_MSA4, DP_SYM32_ENC, id),\
++	SRI(DP_SYM32_ENC_VID_MSA5, DP_SYM32_ENC, id),\
++	SRI(DP_SYM32_ENC_VID_MSA6, DP_SYM32_ENC, id),\
++	SRI(DP_SYM32_ENC_VID_MSA7, DP_SYM32_ENC, id),\
++	SRI(DP_SYM32_ENC_VID_MSA8, DP_SYM32_ENC, id),\
++	SRI(DP_SYM32_ENC_VID_MSA_CONTROL, DP_SYM32_ENC, id),\
++	SRI(DP_SYM32_ENC_VID_MSA_DOUBLE_BUFFER_CONTROL, DP_SYM32_ENC, id),\
++	SRI(DP_SYM32_ENC_VID_FIFO_CONTROL, DP_SYM32_ENC, id),\
++	SRI(DP_SYM32_ENC_VID_STREAM_CONTROL, DP_SYM32_ENC, id),\
++	SRI(DP_SYM32_ENC_VID_VBID_CONTROL, DP_SYM32_ENC, id),\
++	SRI(DP_SYM32_ENC_SDP_CONTROL, DP_SYM32_ENC, id),\
++	SRI(DP_SYM32_ENC_SDP_GSP_CONTROL0, DP_SYM32_ENC, id),\
++	SRI(DP_SYM32_ENC_SDP_GSP_CONTROL2, DP_SYM32_ENC, id),\
++	SRI(DP_SYM32_ENC_SDP_GSP_CONTROL3, DP_SYM32_ENC, id),\
++	SRI(DP_SYM32_ENC_SDP_GSP_CONTROL5, DP_SYM32_ENC, id),\
++	SRI(DP_SYM32_ENC_SDP_GSP_CONTROL11, DP_SYM32_ENC, id),\
++	SRI(DP_SYM32_ENC_SDP_METADATA_PACKET_CONTROL, DP_SYM32_ENC, id),\
++	SRI(DP_SYM32_ENC_SDP_AUDIO_CONTROL0, DP_SYM32_ENC, id),\
++	SRI(DP_SYM32_ENC_VID_CRC_CONTROL, DP_SYM32_ENC, id)
++
++#define DCN3_1_HPO_DP_STREAM_ENC_REGS \
++	uint32_t DP_STREAM_MAPPER_CONTROL0;\
++	uint32_t DP_STREAM_MAPPER_CONTROL1;\
++	uint32_t DP_STREAM_MAPPER_CONTROL2;\
++	uint32_t DP_STREAM_MAPPER_CONTROL3;\
++	uint32_t DP_STREAM_ENC_CLOCK_CONTROL;\
++	uint32_t DP_STREAM_ENC_INPUT_MUX_CONTROL;\
++	uint32_t DP_STREAM_ENC_AUDIO_CONTROL;\
++	uint32_t DP_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0;\
++	uint32_t DP_SYM32_ENC_CONTROL;\
++	uint32_t DP_SYM32_ENC_VID_PIXEL_FORMAT;\
++	uint32_t DP_SYM32_ENC_VID_PIXEL_FORMAT_DOUBLE_BUFFER_CONTROL;\
++	uint32_t DP_SYM32_ENC_VID_MSA0;\
++	uint32_t DP_SYM32_ENC_VID_MSA1;\
++	uint32_t DP_SYM32_ENC_VID_MSA2;\
++	uint32_t DP_SYM32_ENC_VID_MSA3;\
++	uint32_t DP_SYM32_ENC_VID_MSA4;\
++	uint32_t DP_SYM32_ENC_VID_MSA5;\
++	uint32_t DP_SYM32_ENC_VID_MSA6;\
++	uint32_t DP_SYM32_ENC_VID_MSA7;\
++	uint32_t DP_SYM32_ENC_VID_MSA8;\
++	uint32_t DP_SYM32_ENC_VID_MSA_CONTROL;\
++	uint32_t DP_SYM32_ENC_VID_MSA_DOUBLE_BUFFER_CONTROL;\
++	uint32_t DP_SYM32_ENC_VID_FIFO_CONTROL;\
++	uint32_t DP_SYM32_ENC_VID_STREAM_CONTROL;\
++	uint32_t DP_SYM32_ENC_VID_VBID_CONTROL;\
++	uint32_t DP_SYM32_ENC_SDP_CONTROL;\
++	uint32_t DP_SYM32_ENC_SDP_GSP_CONTROL0;\
++	uint32_t DP_SYM32_ENC_SDP_GSP_CONTROL2;\
++	uint32_t DP_SYM32_ENC_SDP_GSP_CONTROL3;\
++	uint32_t DP_SYM32_ENC_SDP_GSP_CONTROL5;\
++	uint32_t DP_SYM32_ENC_SDP_GSP_CONTROL11;\
++	uint32_t DP_SYM32_ENC_SDP_METADATA_PACKET_CONTROL;\
++	uint32_t DP_SYM32_ENC_SDP_AUDIO_CONTROL0;\
++	uint32_t DP_SYM32_ENC_VID_CRC_CONTROL
++
++
++#define DCN3_1_HPO_DP_STREAM_ENC_MASK_SH_LIST(mask_sh)\
++	SE_SF(DP_STREAM_MAPPER_CONTROL0, DP_STREAM_LINK_TARGET, mask_sh),\
++	SE_SF(DP_STREAM_ENC0_DP_STREAM_ENC_CLOCK_CONTROL, DP_STREAM_ENC_CLOCK_EN, mask_sh),\
++	SE_SF(DP_STREAM_ENC0_DP_STREAM_ENC_INPUT_MUX_CONTROL, DP_STREAM_ENC_INPUT_MUX_PIXEL_STREAM_SOURCE_SEL, mask_sh),\
++	SE_SF(DP_STREAM_ENC0_DP_STREAM_ENC_AUDIO_CONTROL, DP_STREAM_ENC_INPUT_MUX_AUDIO_STREAM_SOURCE_SEL, mask_sh),\
++	SE_SF(DP_STREAM_ENC0_DP_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0, FIFO_RESET, mask_sh),\
++	SE_SF(DP_STREAM_ENC0_DP_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0, FIFO_RESET_DONE, mask_sh),\
++	SE_SF(DP_STREAM_ENC0_DP_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0, FIFO_ENABLE, mask_sh),\
++	SE_SF(DP_SYM32_ENC0_DP_SYM32_ENC_CONTROL, DP_SYM32_ENC_RESET, mask_sh),\
++	SE_SF(DP_SYM32_ENC0_DP_SYM32_ENC_CONTROL, DP_SYM32_ENC_RESET_DONE, mask_sh),\
++	SE_SF(DP_SYM32_ENC0_DP_SYM32_ENC_CONTROL, DP_SYM32_ENC_ENABLE, mask_sh),\
++	SE_SF(DP_SYM32_ENC0_DP_SYM32_ENC_VID_PIXEL_FORMAT, PIXEL_ENCODING_TYPE, mask_sh),\
++	SE_SF(DP_SYM32_ENC0_DP_SYM32_ENC_VID_PIXEL_FORMAT, UNCOMPRESSED_PIXEL_ENCODING, mask_sh),\
++	SE_SF(DP_SYM32_ENC0_DP_SYM32_ENC_VID_PIXEL_FORMAT, UNCOMPRESSED_COMPONENT_DEPTH, mask_sh),\
++	SE_SF(DP_SYM32_ENC0_DP_SYM32_ENC_VID_PIXEL_FORMAT_DOUBLE_BUFFER_CONTROL, PIXEL_FORMAT_DOUBLE_BUFFER_ENABLE, mask_sh),\
++	SE_SF(DP_SYM32_ENC0_DP_SYM32_ENC_VID_MSA_DOUBLE_BUFFER_CONTROL, MSA_DOUBLE_BUFFER_ENABLE, mask_sh),\
++	SE_SF(DP_SYM32_ENC_VID_MSA, MSA_DATA_LANE_0, mask_sh),\
++	SE_SF(DP_SYM32_ENC_VID_MSA, MSA_DATA_LANE_1, mask_sh),\
++	SE_SF(DP_SYM32_ENC_VID_MSA, MSA_DATA_LANE_2, mask_sh),\
++	SE_SF(DP_SYM32_ENC_VID_MSA, MSA_DATA_LANE_3, mask_sh),\
++	SE_SF(DP_SYM32_ENC0_DP_SYM32_ENC_VID_FIFO_CONTROL, PIXEL_TO_SYMBOL_FIFO_RESET, mask_sh),\
++	SE_SF(DP_SYM32_ENC0_DP_SYM32_ENC_VID_FIFO_CONTROL, PIXEL_TO_SYMBOL_FIFO_RESET_DONE, mask_sh),\
++	SE_SF(DP_SYM32_ENC0_DP_SYM32_ENC_VID_FIFO_CONTROL, PIXEL_TO_SYMBOL_FIFO_ENABLE, mask_sh),\
++	SE_SF(DP_SYM32_ENC0_DP_SYM32_ENC_VID_STREAM_CONTROL, VID_STREAM_ENABLE, mask_sh),\
++	SE_SF(DP_SYM32_ENC0_DP_SYM32_ENC_VID_STREAM_CONTROL, VID_STREAM_STATUS, mask_sh),\
++	SE_SF(DP_SYM32_ENC0_DP_SYM32_ENC_VID_VBID_CONTROL, VBID_6_COMPRESSEDSTREAM_FLAG_SOF_REFERENCE, mask_sh),\
++	SE_SF(DP_SYM32_ENC0_DP_SYM32_ENC_VID_VBID_CONTROL, VBID_6_COMPRESSEDSTREAM_FLAG_LINE_NUMBER, mask_sh),\
++	SE_SF(DP_SYM32_ENC0_DP_SYM32_ENC_SDP_CONTROL, SDP_STREAM_ENABLE, mask_sh),\
++	SE_SF(DP_SYM32_ENC0_DP_SYM32_ENC_SDP_GSP_CONTROL0, GSP_VIDEO_CONTINUOUS_TRANSMISSION_ENABLE, mask_sh),\
++	SE_SF(DP_SYM32_ENC0_DP_SYM32_ENC_SDP_GSP_CONTROL0, GSP_PAYLOAD_SIZE, mask_sh),\
++	SE_SF(DP_SYM32_ENC0_DP_SYM32_ENC_SDP_GSP_CONTROL0, GSP_TRANSMISSION_LINE_NUMBER, mask_sh),\
++	SE_SF(DP_SYM32_ENC0_DP_SYM32_ENC_SDP_GSP_CONTROL5, GSP_VIDEO_CONTINUOUS_TRANSMISSION_ENABLE, mask_sh),\
++	SE_SF(DP_SYM32_ENC0_DP_SYM32_ENC_SDP_GSP_CONTROL5, GSP_TRANSMISSION_LINE_NUMBER, mask_sh),\
++	SE_SF(DP_SYM32_ENC0_DP_SYM32_ENC_SDP_GSP_CONTROL5, GSP_SOF_REFERENCE, mask_sh),\
++	SE_SF(DP_SYM32_ENC0_DP_SYM32_ENC_SDP_METADATA_PACKET_CONTROL, METADATA_PACKET_ENABLE, mask_sh),\
++	SE_SF(DP_SYM32_ENC0_DP_SYM32_ENC_SDP_AUDIO_CONTROL0, AUDIO_MUTE, mask_sh),\
++	SE_SF(DP_SYM32_ENC0_DP_SYM32_ENC_SDP_AUDIO_CONTROL0, ASP_ENABLE, mask_sh),\
++	SE_SF(DP_SYM32_ENC0_DP_SYM32_ENC_SDP_AUDIO_CONTROL0, ATP_ENABLE, mask_sh),\
++	SE_SF(DP_SYM32_ENC0_DP_SYM32_ENC_SDP_AUDIO_CONTROL0, AIP_ENABLE, mask_sh),\
++	SE_SF(DP_SYM32_ENC0_DP_SYM32_ENC_SDP_AUDIO_CONTROL0, ACM_ENABLE, mask_sh),\
++	SE_SF(DP_SYM32_ENC0_DP_SYM32_ENC_VID_CRC_CONTROL, CRC_ENABLE, mask_sh),\
++	SE_SF(DP_SYM32_ENC0_DP_SYM32_ENC_VID_CRC_CONTROL, CRC_CONT_MODE_ENABLE, mask_sh)
++
++
++#define DCN3_1_HPO_DP_STREAM_ENC_REG_FIELD_LIST(type) \
++	type DP_STREAM_LINK_TARGET;\
++	type DP_STREAM_ENC_CLOCK_EN;\
++	type DP_STREAM_ENC_INPUT_MUX_PIXEL_STREAM_SOURCE_SEL;\
++	type DP_STREAM_ENC_INPUT_MUX_AUDIO_STREAM_SOURCE_SEL;\
++	type FIFO_RESET;\
++	type FIFO_RESET_DONE;\
++	type FIFO_ENABLE;\
++	type DP_SYM32_ENC_RESET;\
++	type DP_SYM32_ENC_RESET_DONE;\
++	type DP_SYM32_ENC_ENABLE;\
++	type PIXEL_ENCODING_TYPE;\
++	type UNCOMPRESSED_PIXEL_ENCODING;\
++	type UNCOMPRESSED_COMPONENT_DEPTH;\
++	type PIXEL_FORMAT_DOUBLE_BUFFER_ENABLE;\
++	type MSA_DOUBLE_BUFFER_ENABLE;\
++	type MSA_DATA_LANE_0;\
++	type MSA_DATA_LANE_1;\
++	type MSA_DATA_LANE_2;\
++	type MSA_DATA_LANE_3;\
++	type PIXEL_TO_SYMBOL_FIFO_RESET;\
++	type PIXEL_TO_SYMBOL_FIFO_RESET_DONE;\
++	type PIXEL_TO_SYMBOL_FIFO_ENABLE;\
++	type VID_STREAM_ENABLE;\
++	type VID_STREAM_STATUS;\
++	type VBID_6_COMPRESSEDSTREAM_FLAG_SOF_REFERENCE;\
++	type VBID_6_COMPRESSEDSTREAM_FLAG_LINE_NUMBER;\
++	type SDP_STREAM_ENABLE;\
++	type AUDIO_MUTE;\
++	type ASP_ENABLE;\
++	type ATP_ENABLE;\
++	type AIP_ENABLE;\
++	type ACM_ENABLE;\
++	type GSP_VIDEO_CONTINUOUS_TRANSMISSION_ENABLE;\
++	type GSP_PAYLOAD_SIZE;\
++	type GSP_TRANSMISSION_LINE_NUMBER;\
++	type GSP_SOF_REFERENCE;\
++	type METADATA_PACKET_ENABLE;\
++	type CRC_ENABLE;\
++	type CRC_CONT_MODE_ENABLE
++
++
++struct dcn31_hpo_dp_stream_encoder_registers {
++	DCN3_1_HPO_DP_STREAM_ENC_REGS;
 +};
 +
-+#define DCN3_1_HPO_DP_LINK_ENC_MASK_SH_LIST(mask_sh)\
-+	SE_SF(DP_LINK_ENC0_DP_LINK_ENC_CLOCK_CONTROL, DP_LINK_ENC_CLOCK_EN, mask_sh),\
-+	SE_SF(DP_DPHY_SYM320_DP_DPHY_SYM32_CONTROL, DPHY_RESET, mask_sh),\
-+	SE_SF(DP_DPHY_SYM320_DP_DPHY_SYM32_CONTROL, DPHY_ENABLE, mask_sh),\
-+	SE_SF(DP_DPHY_SYM320_DP_DPHY_SYM32_CONTROL, PRECODER_ENABLE, mask_sh),\
-+	SE_SF(DP_DPHY_SYM320_DP_DPHY_SYM32_CONTROL, MODE, mask_sh),\
-+	SE_SF(DP_DPHY_SYM320_DP_DPHY_SYM32_CONTROL, NUM_LANES, mask_sh),\
-+	SE_SF(DP_DPHY_SYM320_DP_DPHY_SYM32_STATUS, STATUS, mask_sh),\
-+	SE_SF(DP_DPHY_SYM320_DP_DPHY_SYM32_STATUS, SAT_UPDATE_PENDING, mask_sh),\
-+	SE_SF(DP_DPHY_SYM320_DP_DPHY_SYM32_STATUS, RATE_UPDATE_PENDING, mask_sh),\
-+	SE_SF(DP_DPHY_SYM320_DP_DPHY_SYM32_TP_CUSTOM0, TP_CUSTOM, mask_sh),\
-+	SE_SF(DP_DPHY_SYM320_DP_DPHY_SYM32_TP_CONFIG, TP_SELECT0, mask_sh),\
-+	SE_SF(DP_DPHY_SYM320_DP_DPHY_SYM32_TP_CONFIG, TP_SELECT1, mask_sh),\
-+	SE_SF(DP_DPHY_SYM320_DP_DPHY_SYM32_TP_CONFIG, TP_SELECT2, mask_sh),\
-+	SE_SF(DP_DPHY_SYM320_DP_DPHY_SYM32_TP_CONFIG, TP_SELECT3, mask_sh),\
-+	SE_SF(DP_DPHY_SYM320_DP_DPHY_SYM32_TP_CONFIG, TP_PRBS_SEL0, mask_sh),\
-+	SE_SF(DP_DPHY_SYM320_DP_DPHY_SYM32_TP_CONFIG, TP_PRBS_SEL1, mask_sh),\
-+	SE_SF(DP_DPHY_SYM320_DP_DPHY_SYM32_TP_CONFIG, TP_PRBS_SEL2, mask_sh),\
-+	SE_SF(DP_DPHY_SYM320_DP_DPHY_SYM32_TP_CONFIG, TP_PRBS_SEL3, mask_sh),\
-+	SE_SF(DP_DPHY_SYM320_DP_DPHY_SYM32_TP_SQ_PULSE, TP_SQ_PULSE_WIDTH, mask_sh),\
-+	SE_SF(DP_DPHY_SYM320_DP_DPHY_SYM32_SAT_VC0, SAT_STREAM_SOURCE, mask_sh),\
-+	SE_SF(DP_DPHY_SYM320_DP_DPHY_SYM32_SAT_VC0, SAT_SLOT_COUNT, mask_sh),\
-+	SE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL6, RDPCS_PHY_DPALT_DISABLE, mask_sh),\
-+	SE_SF(DP_DPHY_SYM320_DP_DPHY_SYM32_VC_RATE_CNTL0, STREAM_VC_RATE_X, mask_sh),\
-+	SE_SF(DP_DPHY_SYM320_DP_DPHY_SYM32_VC_RATE_CNTL0, STREAM_VC_RATE_Y, mask_sh),\
-+	SE_SF(DP_DPHY_SYM320_DP_DPHY_SYM32_SAT_UPDATE, SAT_UPDATE, mask_sh)
-+
-+#define DCN3_1_HPO_DP_LINK_ENC_REG_FIELD_LIST(type) \
-+	type DP_LINK_ENC_CLOCK_EN;\
-+	type DPHY_RESET;\
-+	type DPHY_ENABLE;\
-+	type PRECODER_ENABLE;\
-+	type NUM_LANES;\
-+	type MODE;\
-+	type STATUS;\
-+	type SAT_UPDATE_PENDING;\
-+	type RATE_UPDATE_PENDING;\
-+	type TP_CUSTOM;\
-+	type TP_SELECT0;\
-+	type TP_SELECT1;\
-+	type TP_SELECT2;\
-+	type TP_SELECT3;\
-+	type TP_PRBS_SEL0;\
-+	type TP_PRBS_SEL1;\
-+	type TP_PRBS_SEL2;\
-+	type TP_PRBS_SEL3;\
-+	type TP_SQ_PULSE_WIDTH;\
-+	type SAT_STREAM_SOURCE;\
-+	type SAT_SLOT_COUNT;\
-+	type STREAM_VC_RATE_X;\
-+	type STREAM_VC_RATE_Y;\
-+	type SAT_UPDATE;\
-+	type RDPCS_PHY_DPALT_DISABLE
-+
-+
-+struct dcn31_hpo_dp_link_encoder_shift {
-+	DCN3_1_HPO_DP_LINK_ENC_REG_FIELD_LIST(uint8_t);
++struct dcn31_hpo_dp_stream_encoder_shift {
++	DCN3_1_HPO_DP_STREAM_ENC_REG_FIELD_LIST(uint8_t);
 +};
 +
-+struct dcn31_hpo_dp_link_encoder_mask {
-+	DCN3_1_HPO_DP_LINK_ENC_REG_FIELD_LIST(uint32_t);
++struct dcn31_hpo_dp_stream_encoder_mask {
++	DCN3_1_HPO_DP_STREAM_ENC_REG_FIELD_LIST(uint32_t);
 +};
 +
-+struct dcn31_hpo_dp_link_encoder {
-+	struct hpo_dp_link_encoder base;
-+	const struct dcn31_hpo_dp_link_encoder_registers *regs;
-+	const struct dcn31_hpo_dp_link_encoder_shift *hpo_le_shift;
-+	const struct dcn31_hpo_dp_link_encoder_mask *hpo_le_mask;
++struct dcn31_hpo_dp_stream_encoder {
++	struct hpo_dp_stream_encoder base;
++	const struct dcn31_hpo_dp_stream_encoder_registers *regs;
++	const struct dcn31_hpo_dp_stream_encoder_shift *hpo_se_shift;
++	const struct dcn31_hpo_dp_stream_encoder_mask *hpo_se_mask;
 +};
 +
-+void hpo_dp_link_encoder31_construct(struct dcn31_hpo_dp_link_encoder *enc31,
++
++void dcn31_hpo_dp_stream_encoder_construct(
++	struct dcn31_hpo_dp_stream_encoder *enc3,
 +	struct dc_context *ctx,
++	struct dc_bios *bp,
 +	uint32_t inst,
-+	const struct dcn31_hpo_dp_link_encoder_registers *hpo_le_regs,
-+	const struct dcn31_hpo_dp_link_encoder_shift *hpo_le_shift,
-+	const struct dcn31_hpo_dp_link_encoder_mask *hpo_le_mask);
++	enum engine_id eng_id,
++	struct vpg *vpg,
++	struct apg *apg,
++	const struct dcn31_hpo_dp_stream_encoder_registers *regs,
++	const struct dcn31_hpo_dp_stream_encoder_shift *hpo_se_shift,
++	const struct dcn31_hpo_dp_stream_encoder_mask *hpo_se_mask);
 +
-+void dcn31_hpo_dp_link_enc_enable_dp_output(
-+	struct hpo_dp_link_encoder *enc,
-+	const struct dc_link_settings *link_settings,
-+	enum transmitter transmitter);
 +
-+void dcn31_hpo_dp_link_enc_disable_output(
-+	struct hpo_dp_link_encoder *enc,
-+	enum signal_type signal);
-+
-+void dcn31_hpo_dp_link_enc_enable(
-+	struct hpo_dp_link_encoder *enc,
-+	enum dc_lane_count num_lanes);
-+
-+void dcn31_hpo_dp_link_enc_disable(
-+	struct hpo_dp_link_encoder *enc);
-+
-+void dcn31_hpo_dp_link_enc_set_link_test_pattern(
-+	struct hpo_dp_link_encoder *enc,
-+	struct encoder_set_dp_phy_pattern_param *tp_params);
-+
-+void dcn31_hpo_dp_link_enc_update_stream_allocation_table(
-+	struct hpo_dp_link_encoder *enc,
-+	const struct link_mst_stream_allocation_table *table);
-+
-+void dcn31_hpo_dp_link_enc_set_throttled_vcp_size(
-+	struct hpo_dp_link_encoder *enc,
-+	uint32_t stream_encoder_inst,
-+	struct fixed31_32 avg_time_slots_per_mtp);
-+
-+void dcn31_hpo_dp_link_enc_read_state(
-+	struct hpo_dp_link_encoder *enc,
-+	struct hpo_dp_link_enc_state *state);
-+
-+void dcn31_hpo_dp_link_enc_set_ffe(
-+	struct hpo_dp_link_encoder *enc,
-+	const struct dc_link_settings *link_settings,
-+	uint8_t ffe_preset);
-+
-+#endif   // __DAL_DCN31_HPO_LINK_ENCODER_H__
++#endif   // __DAL_DCN31_HPO_STREAM_ENCODER_H__
 diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
-index 1994a8d3883d..f264a32ebade 100644
+index 7355864117e6..1994a8d3883d 100644
 --- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
 +++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
-@@ -53,6 +53,7 @@
+@@ -52,6 +52,7 @@
+ #include "dcn30/dcn30_vpg.h"
  #include "dcn30/dcn30_afmt.h"
  #include "dcn30/dcn30_dio_stream_encoder.h"
- #include "dcn31/dcn31_hpo_dp_stream_encoder.h"
-+#include "dcn31/dcn31_hpo_dp_link_encoder.h"
++#include "dcn31/dcn31_hpo_dp_stream_encoder.h"
  #include "dcn31/dcn31_apg.h"
  #include "dcn31/dcn31_dio_link_encoder.h"
  #include "dce/dce_clock_source.h"
-@@ -585,6 +586,29 @@ static const struct dcn31_hpo_dp_stream_encoder_mask hpo_dp_se_mask = {
- 	DCN3_1_HPO_DP_STREAM_ENC_MASK_SH_LIST(_MASK)
- };
+@@ -564,6 +565,26 @@ static const struct dcn10_link_enc_mask le_mask = {
+ 	DPP_REG_LIST_DCN30(id),\
+ }
  
-+#define hpo_dp_link_encoder_reg_list(id)\
++#define hpo_dp_stream_encoder_reg_list(id)\
 +[id] = {\
-+	DCN3_1_HPO_DP_LINK_ENC_REG_LIST(id),\
-+	DCN3_1_RDPCSTX_REG_LIST(0),\
-+	DCN3_1_RDPCSTX_REG_LIST(1),\
-+	DCN3_1_RDPCSTX_REG_LIST(2),\
-+	DCN3_1_RDPCSTX_REG_LIST(3),\
-+	DCN3_1_RDPCSTX_REG_LIST(4)\
++	DCN3_1_HPO_DP_STREAM_ENC_REG_LIST(id)\
 +}
 +
-+static const struct dcn31_hpo_dp_link_encoder_registers hpo_dp_link_enc_regs[] = {
-+	hpo_dp_link_encoder_reg_list(0),
-+	hpo_dp_link_encoder_reg_list(1),
++static const struct dcn31_hpo_dp_stream_encoder_registers hpo_dp_stream_enc_regs[] = {
++	hpo_dp_stream_encoder_reg_list(0),
++	hpo_dp_stream_encoder_reg_list(1),
++	hpo_dp_stream_encoder_reg_list(2),
++	hpo_dp_stream_encoder_reg_list(3),
 +};
 +
-+static const struct dcn31_hpo_dp_link_encoder_shift hpo_dp_le_shift = {
-+	DCN3_1_HPO_DP_LINK_ENC_MASK_SH_LIST(__SHIFT)
++static const struct dcn31_hpo_dp_stream_encoder_shift hpo_dp_se_shift = {
++	DCN3_1_HPO_DP_STREAM_ENC_MASK_SH_LIST(__SHIFT)
 +};
 +
-+static const struct dcn31_hpo_dp_link_encoder_mask hpo_dp_le_mask = {
-+	DCN3_1_HPO_DP_LINK_ENC_MASK_SH_LIST(_MASK)
++static const struct dcn31_hpo_dp_stream_encoder_mask hpo_dp_se_mask = {
++	DCN3_1_HPO_DP_STREAM_ENC_MASK_SH_LIST(_MASK)
 +};
 +
  static const struct dcn3_dpp_registers dpp_regs[] = {
  	dpp_regs(0),
  	dpp_regs(1),
-@@ -922,6 +946,7 @@ static const struct resource_caps res_cap_dcn31 = {
+@@ -900,6 +921,7 @@ static const struct resource_caps res_cap_dcn31 = {
+ 	.num_audio = 5,
  	.num_stream_encoder = 5,
  	.num_dig_link_enc = 5,
- 	.num_hpo_dp_stream_encoder = 4,
-+	.num_hpo_dp_link_encoder = 2,
++	.num_hpo_dp_stream_encoder = 4,
  	.num_pll = 5,
  	.num_dwb = 1,
  	.num_ddc = 5,
-@@ -1398,6 +1423,22 @@ static struct hpo_dp_stream_encoder *dcn31_hpo_dp_stream_encoder_create(
- 	return &hpo_dp_enc31->base;
+@@ -1330,6 +1352,52 @@ static struct stream_encoder *dcn31_stream_encoder_create(
+ 	return &enc1->base;
  }
  
-+static struct hpo_dp_link_encoder *dcn31_hpo_dp_link_encoder_create(
-+	uint8_t inst,
++static struct hpo_dp_stream_encoder *dcn31_hpo_dp_stream_encoder_create(
++	enum engine_id eng_id,
 +	struct dc_context *ctx)
 +{
-+	struct dcn31_hpo_dp_link_encoder *hpo_dp_enc31;
++	struct dcn31_hpo_dp_stream_encoder *hpo_dp_enc31;
++	struct vpg *vpg;
++	struct apg *apg;
++	uint32_t hpo_dp_inst;
++	uint32_t vpg_inst;
++	uint32_t apg_inst;
 +
-+	/* allocate HPO link encoder */
-+	hpo_dp_enc31 = kzalloc(sizeof(struct dcn31_hpo_dp_link_encoder), GFP_KERNEL);
++	ASSERT((eng_id >= ENGINE_ID_HPO_DP_0) && (eng_id <= ENGINE_ID_HPO_DP_3));
++	hpo_dp_inst = eng_id - ENGINE_ID_HPO_DP_0;
 +
-+	hpo_dp_link_encoder31_construct(hpo_dp_enc31, ctx, inst,
-+					&hpo_dp_link_enc_regs[inst],
-+					&hpo_dp_le_shift, &hpo_dp_le_mask);
++	/* Mapping of VPG register blocks to HPO DP block instance:
++	 * VPG[6] -> HPO_DP[0]
++	 * VPG[7] -> HPO_DP[1]
++	 * VPG[8] -> HPO_DP[2]
++	 * VPG[9] -> HPO_DP[3]
++	 */
++	vpg_inst = hpo_dp_inst + 6;
++
++	/* Mapping of APG register blocks to HPO DP block instance:
++	 * APG[0] -> HPO_DP[0]
++	 * APG[1] -> HPO_DP[1]
++	 * APG[2] -> HPO_DP[2]
++	 * APG[3] -> HPO_DP[3]
++	 */
++	apg_inst = hpo_dp_inst;
++
++	/* allocate HPO stream encoder and create VPG sub-block */
++	hpo_dp_enc31 = kzalloc(sizeof(struct dcn31_hpo_dp_stream_encoder), GFP_KERNEL);
++	vpg = dcn31_vpg_create(ctx, vpg_inst);
++	apg = dcn31_apg_create(ctx, apg_inst);
++
++	if (!hpo_dp_enc31 || !vpg || !apg)
++		return NULL;
++
++	dcn31_hpo_dp_stream_encoder_construct(hpo_dp_enc31, ctx, ctx->dc_bios,
++					hpo_dp_inst, eng_id, vpg, apg,
++					&hpo_dp_stream_enc_regs[hpo_dp_inst],
++					&hpo_dp_se_shift, &hpo_dp_se_mask);
 +
 +	return &hpo_dp_enc31->base;
 +}
@@ -1176,30 +1316,38 @@ index 1994a8d3883d..f264a32ebade 100644
  static struct dce_hwseq *dcn31_hwseq_create(
  	struct dc_context *ctx)
  {
-@@ -1416,6 +1457,7 @@ static const struct resource_create_funcs res_create_funcs = {
+@@ -1347,6 +1415,7 @@ static const struct resource_create_funcs res_create_funcs = {
+ 	.read_dce_straps = read_dce_straps,
  	.create_audio = dcn31_create_audio,
  	.create_stream_encoder = dcn31_stream_encoder_create,
- 	.create_hpo_dp_stream_encoder = dcn31_hpo_dp_stream_encoder_create,
-+	.create_hpo_dp_link_encoder = dcn31_hpo_dp_link_encoder_create,
++	.create_hpo_dp_stream_encoder = dcn31_hpo_dp_stream_encoder_create,
  	.create_hwseq = dcn31_hwseq_create,
  };
  
-@@ -1424,6 +1466,7 @@ static const struct resource_create_funcs res_create_maximus_funcs = {
+@@ -1354,6 +1423,7 @@ static const struct resource_create_funcs res_create_maximus_funcs = {
+ 	.read_dce_straps = NULL,
  	.create_audio = NULL,
  	.create_stream_encoder = NULL,
- 	.create_hpo_dp_stream_encoder = dcn31_hpo_dp_stream_encoder_create,
-+	.create_hpo_dp_link_encoder = dcn31_hpo_dp_link_encoder_create,
++	.create_hpo_dp_stream_encoder = dcn31_hpo_dp_stream_encoder_create,
  	.create_hwseq = dcn31_hwseq_create,
  };
  
-@@ -1461,6 +1504,13 @@ static void dcn31_resource_destruct(struct dcn31_resource_pool *pool)
+@@ -1376,6 +1446,21 @@ static void dcn31_resource_destruct(struct dcn31_resource_pool *pool)
  		}
  	}
  
-+	for (i = 0; i < pool->base.hpo_dp_link_enc_count; i++) {
-+		if (pool->base.hpo_dp_link_enc[i] != NULL) {
-+			kfree(DCN3_1_HPO_DP_LINK_ENC_FROM_HPO_LINK_ENC(pool->base.hpo_dp_link_enc[i]));
-+			pool->base.hpo_dp_link_enc[i] = NULL;
++	for (i = 0; i < pool->base.hpo_dp_stream_enc_count; i++) {
++		if (pool->base.hpo_dp_stream_enc[i] != NULL) {
++			if (pool->base.hpo_dp_stream_enc[i]->vpg != NULL) {
++				kfree(DCN30_VPG_FROM_VPG(pool->base.hpo_dp_stream_enc[i]->vpg));
++				pool->base.hpo_dp_stream_enc[i]->vpg = NULL;
++			}
++			if (pool->base.hpo_dp_stream_enc[i]->apg != NULL) {
++				kfree(DCN31_APG_FROM_APG(pool->base.hpo_dp_stream_enc[i]->apg));
++				pool->base.hpo_dp_stream_enc[i]->apg = NULL;
++			}
++			kfree(DCN3_1_HPO_DP_STREAM_ENC_FROM_HPO_STREAM_ENC(pool->base.hpo_dp_stream_enc[i]));
++			pool->base.hpo_dp_stream_enc[i] = NULL;
 +		}
 +	}
 +
@@ -1207,184 +1355,212 @@ index 1994a8d3883d..f264a32ebade 100644
  		if (pool->base.dscs[i] != NULL)
  			dcn20_dsc_destroy(&pool->base.dscs[i]);
 diff --git a/drivers/gpu/drm/amd/display/dc/inc/core_types.h b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
-index 19dbfc8a44bb..ed254c2771f0 100644
+index 45a6216dfa2a..19dbfc8a44bb 100644
 --- a/drivers/gpu/drm/amd/display/dc/inc/core_types.h
 +++ b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
-@@ -249,6 +249,8 @@ struct resource_pool {
- #if defined(CONFIG_DRM_AMD_DC_DCN)
- 	unsigned int hpo_dp_stream_enc_count;
- 	struct hpo_dp_stream_encoder *hpo_dp_stream_enc[MAX_HPO_DP2_ENCODERS];
-+	unsigned int hpo_dp_link_enc_count;
-+	struct hpo_dp_link_encoder *hpo_dp_link_enc[MAX_HPO_DP2_LINK_ENCODERS];
- #endif
+@@ -246,6 +246,10 @@ struct resource_pool {
+ 	 */
+ 	unsigned int dig_link_enc_count;
+ 
++#if defined(CONFIG_DRM_AMD_DC_DCN)
++	unsigned int hpo_dp_stream_enc_count;
++	struct hpo_dp_stream_encoder *hpo_dp_stream_enc[MAX_HPO_DP2_ENCODERS];
++#endif
  #if defined(CONFIG_DRM_AMD_DC_DCN)
  	struct dc_3dlut *mpc_lut[MAX_PIPES];
+ 	struct dc_transfer_func *mpc_shaper[MAX_PIPES];
+@@ -298,6 +302,9 @@ struct stream_resource {
+ 	struct display_stream_compressor *dsc;
+ 	struct timing_generator *tg;
+ 	struct stream_encoder *stream_enc;
++#if defined(CONFIG_DRM_AMD_DC_DCN)
++	struct hpo_dp_stream_encoder *hpo_dp_stream_enc;
++#endif
+ 	struct audio *audio;
+ 
+ 	struct pixel_clk_params pix_clk_params;
+@@ -388,6 +395,9 @@ struct resource_context {
+ 	struct link_enc_assignment link_enc_assignments[MAX_PIPES];
+ 	/* List of available link encoders. Uses engine ID as encoder identifier. */
+ 	enum engine_id link_enc_avail[MAX_DIG_LINK_ENCODERS];
++#if defined(CONFIG_DRM_AMD_DC_DCN)
++	bool is_hpo_dp_stream_enc_acquired[MAX_HPO_DP2_ENCODERS];
++#endif
+ #if defined(CONFIG_DRM_AMD_DC_DCN)
+ 	bool is_mpc_3dlut_acquired[MAX_PIPES];
+ #endif
 diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/hw_shared.h b/drivers/gpu/drm/amd/display/dc/inc/hw/hw_shared.h
-index ad9e9e2d52b0..10ecbc667ffa 100644
+index 31a1713bb49f..ad9e9e2d52b0 100644
 --- a/drivers/gpu/drm/amd/display/dc/inc/hw/hw_shared.h
 +++ b/drivers/gpu/drm/amd/display/dc/inc/hw/hw_shared.h
-@@ -40,6 +40,7 @@
+@@ -38,6 +38,9 @@
+ #define MAX_PIPES 6
+ #define MAX_DIG_LINK_ENCODERS 7
  #define MAX_DWB_PIPES	1
- #if defined(CONFIG_DRM_AMD_DC_DCN)
- #define MAX_HPO_DP2_ENCODERS	4
-+#define MAX_HPO_DP2_LINK_ENCODERS	2
- #endif
++#if defined(CONFIG_DRM_AMD_DC_DCN)
++#define MAX_HPO_DP2_ENCODERS	4
++#endif
  
  struct gamma_curve {
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/link_encoder.h b/drivers/gpu/drm/amd/display/dc/inc/hw/link_encoder.h
-index 9eaf345aa2a1..fa3a725e11dc 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/link_encoder.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/link_encoder.h
-@@ -210,4 +210,91 @@ struct link_enc_assignment {
- 	enum engine_id eng_id;
+ 	uint32_t offset;
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/stream_encoder.h b/drivers/gpu/drm/amd/display/dc/inc/hw/stream_encoder.h
+index 564ea6a727b0..40a138a9593f 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/stream_encoder.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/stream_encoder.h
+@@ -242,4 +242,85 @@ struct stream_encoder_funcs {
+ 		struct stream_encoder *enc);
  };
  
 +#if defined(CONFIG_DRM_AMD_DC_DCN)
-+enum dp2_link_mode {
-+	DP2_LINK_TRAINING_TPS1,
-+	DP2_LINK_TRAINING_TPS2,
-+	DP2_LINK_ACTIVE,
-+	DP2_TEST_PATTERN
++struct hpo_dp_stream_encoder_state {
++	uint32_t stream_enc_enabled;
++	uint32_t vid_stream_enabled;
++	uint32_t otg_inst;
++	uint32_t pixel_encoding;
++	uint32_t component_depth;
++	uint32_t compressed_format;
++	uint32_t sdp_enabled;
++	uint32_t mapped_to_link_enc;
 +};
 +
-+enum dp2_phy_tp_select {
-+	DP_DPHY_TP_SELECT_TPS1,
-+	DP_DPHY_TP_SELECT_TPS2,
-+	DP_DPHY_TP_SELECT_PRBS,
-+	DP_DPHY_TP_SELECT_CUSTOM,
-+	DP_DPHY_TP_SELECT_SQUARE
-+};
-+
-+enum dp2_phy_tp_prbs {
-+	DP_DPHY_TP_PRBS7,
-+	DP_DPHY_TP_PRBS9,
-+	DP_DPHY_TP_PRBS11,
-+	DP_DPHY_TP_PRBS15,
-+	DP_DPHY_TP_PRBS23,
-+	DP_DPHY_TP_PRBS31
-+};
-+
-+struct hpo_dp_link_enc_state {
-+	uint32_t   link_enc_enabled;
-+	uint32_t   link_mode;
-+	uint32_t   lane_count;
-+	uint32_t   slot_count[4];
-+	uint32_t   stream_src[4];
-+	uint32_t   vc_rate_x[4];
-+	uint32_t   vc_rate_y[4];
-+};
-+
-+struct hpo_dp_link_encoder {
-+	const struct hpo_dp_link_encoder_funcs *funcs;
++struct hpo_dp_stream_encoder {
++	const struct hpo_dp_stream_encoder_funcs *funcs;
 +	struct dc_context *ctx;
-+	int inst;
-+	enum engine_id preferred_engine;
-+	enum transmitter transmitter;
-+	enum hpd_source_id hpd_source;
++	struct dc_bios *bp;
++	uint32_t inst;
++	enum engine_id id;
++	struct vpg *vpg;
++	struct apg *apg;
 +};
 +
-+struct hpo_dp_link_encoder_funcs {
++struct hpo_dp_stream_encoder_funcs {
++	void (*enable_stream)(
++			struct hpo_dp_stream_encoder *enc);
 +
-+	void (*enable_link_phy)(struct hpo_dp_link_encoder *enc,
-+		const struct dc_link_settings *link_settings,
-+		enum transmitter transmitter);
++	void (*dp_unblank)(
++			struct hpo_dp_stream_encoder *enc,
++			uint32_t stream_source);
 +
-+	void (*disable_link_phy)(struct hpo_dp_link_encoder *link_enc,
-+		enum signal_type signal);
++	void (*dp_blank)(
++			struct hpo_dp_stream_encoder *enc);
 +
-+	void (*link_enable)(
-+			struct hpo_dp_link_encoder *enc,
-+			enum dc_lane_count num_lanes);
++	void (*disable)(
++			struct hpo_dp_stream_encoder *enc);
 +
-+	void (*link_disable)(
-+			struct hpo_dp_link_encoder *enc);
++	void (*set_stream_attribute)(
++		struct hpo_dp_stream_encoder *enc,
++		struct dc_crtc_timing *crtc_timing,
++		enum dc_color_space output_color_space,
++		bool use_vsc_sdp_for_colorimetry,
++		bool compressed_format,
++		bool double_buffer_en);
 +
-+	void (*set_link_test_pattern)(
-+			struct hpo_dp_link_encoder *enc,
-+			struct encoder_set_dp_phy_pattern_param *tp_params);
++	void (*update_dp_info_packets)(
++		struct hpo_dp_stream_encoder *enc,
++		const struct encoder_info_frame *info_frame);
 +
-+	void (*update_stream_allocation_table)(
-+			struct hpo_dp_link_encoder *enc,
-+			const struct link_mst_stream_allocation_table *table);
++	void (*stop_dp_info_packets)(
++		struct hpo_dp_stream_encoder *enc);
 +
-+	void (*set_throttled_vcp_size)(
-+			struct hpo_dp_link_encoder *enc,
-+			uint32_t stream_encoder_inst,
-+			struct fixed31_32 avg_time_slots_per_mtp);
++	void (*dp_set_dsc_pps_info_packet)(
++			struct hpo_dp_stream_encoder *enc,
++			bool enable,
++			uint8_t *dsc_packed_pps);
 +
-+	bool (*is_in_alt_mode) (
-+			struct hpo_dp_link_encoder *enc);
++	void (*map_stream_to_link)(
++			struct hpo_dp_stream_encoder *enc,
++			uint32_t stream_enc_inst,
++			uint32_t link_enc_inst);
++
++	void (*audio_mute_control)(
++			struct hpo_dp_stream_encoder *enc, bool mute);
++
++	void (*dp_audio_setup)(
++			struct hpo_dp_stream_encoder *enc,
++			unsigned int az_inst,
++			struct audio_info *info);
++
++	void (*dp_audio_enable)(
++			struct hpo_dp_stream_encoder *enc);
++
++	void (*dp_audio_disable)(
++			struct hpo_dp_stream_encoder *enc);
 +
 +	void (*read_state)(
-+			struct hpo_dp_link_encoder *enc,
-+			struct hpo_dp_link_enc_state *state);
-+
-+	void (*set_ffe)(
-+		struct hpo_dp_link_encoder *enc,
-+		const struct dc_link_settings *link_settings,
-+		uint8_t ffe_preset);
++			struct hpo_dp_stream_encoder *enc,
++			struct hpo_dp_stream_encoder_state *state);
 +};
 +#endif
 +
- #endif /* LINK_ENCODER_H_ */
+ #endif /* STREAM_ENCODER_H_ */
 diff --git a/drivers/gpu/drm/amd/display/dc/inc/resource.h b/drivers/gpu/drm/amd/display/dc/inc/resource.h
-index 5a2cfc899044..713f6d5cf3e0 100644
+index fe1e5833c96a..5a2cfc899044 100644
 --- a/drivers/gpu/drm/amd/display/dc/inc/resource.h
 +++ b/drivers/gpu/drm/amd/display/dc/inc/resource.h
-@@ -51,6 +51,7 @@ struct resource_caps {
+@@ -49,6 +49,9 @@ struct resource_caps {
+ 	int num_vmid;
+ 	int num_dsc;
  	unsigned int num_dig_link_enc; // Total number of DIGs (digital encoders) in DIO (Display Input/Output).
- #if defined(CONFIG_DRM_AMD_DC_DCN)
- 	int num_hpo_dp_stream_encoder;
-+	int num_hpo_dp_link_encoder;
- #endif
++#if defined(CONFIG_DRM_AMD_DC_DCN)
++	int num_hpo_dp_stream_encoder;
++#endif
  	int num_mpc_3dlut;
  };
-@@ -74,6 +75,10 @@ struct resource_create_funcs {
- #if defined(CONFIG_DRM_AMD_DC_DCN)
- 	struct hpo_dp_stream_encoder *(*create_hpo_dp_stream_encoder)(
+ 
+@@ -68,6 +71,11 @@ struct resource_create_funcs {
+ 	struct stream_encoder *(*create_stream_encoder)(
  			enum engine_id eng_id, struct dc_context *ctx);
+ 
++#if defined(CONFIG_DRM_AMD_DC_DCN)
++	struct hpo_dp_stream_encoder *(*create_hpo_dp_stream_encoder)(
++			enum engine_id eng_id, struct dc_context *ctx);
++#endif
 +
-+	struct hpo_dp_link_encoder *(*create_hpo_dp_link_encoder)(
-+			uint8_t inst,
-+			struct dc_context *ctx);
- #endif
- 
  	struct dce_hwseq *(*create_hwseq)(
-diff --git a/drivers/gpu/drm/amd/display/include/link_service_types.h b/drivers/gpu/drm/amd/display/include/link_service_types.h
-index 32f5274ed34e..efd9812c13ec 100644
---- a/drivers/gpu/drm/amd/display/include/link_service_types.h
-+++ b/drivers/gpu/drm/amd/display/include/link_service_types.h
-@@ -114,13 +114,30 @@ enum dp_test_pattern {
- 	DP_TEST_PATTERN_CP2520_2,
- 	DP_TEST_PATTERN_HBR2_COMPLIANCE_EYE = DP_TEST_PATTERN_CP2520_2,
- 	DP_TEST_PATTERN_CP2520_3,
-+#if defined(CONFIG_DRM_AMD_DC_DCN)
-+	DP_TEST_PATTERN_128b_132b_TPS1,
-+	DP_TEST_PATTERN_128b_132b_TPS2,
-+	DP_TEST_PATTERN_PRBS9,
-+	DP_TEST_PATTERN_PRBS11,
-+	DP_TEST_PATTERN_PRBS15,
-+	DP_TEST_PATTERN_PRBS23,
-+	DP_TEST_PATTERN_PRBS31,
-+	DP_TEST_PATTERN_264BIT_CUSTOM,
-+	DP_TEST_PATTERN_SQUARE_PULSE,
-+#endif
+ 			struct dc_context *ctx);
+ };
+diff --git a/drivers/gpu/drm/amd/display/include/grph_object_defs.h b/drivers/gpu/drm/amd/display/include/grph_object_defs.h
+index 58bb42ed85ca..84b299ff500a 100644
+--- a/drivers/gpu/drm/amd/display/include/grph_object_defs.h
++++ b/drivers/gpu/drm/amd/display/include/grph_object_defs.h
+@@ -140,6 +140,18 @@ enum sync_source {
+ 	SYNC_SOURCE_DUAL_GPU_PIN
+ };
  
- 	/* Link Training Patterns */
- 	DP_TEST_PATTERN_TRAINING_PATTERN1,
- 	DP_TEST_PATTERN_TRAINING_PATTERN2,
- 	DP_TEST_PATTERN_TRAINING_PATTERN3,
- 	DP_TEST_PATTERN_TRAINING_PATTERN4,
 +#if defined(CONFIG_DRM_AMD_DC_DCN)
-+	DP_TEST_PATTERN_128b_132b_TPS1_TRAINING_MODE,
-+	DP_TEST_PATTERN_128b_132b_TPS2_TRAINING_MODE,
-+	DP_TEST_PATTERN_PHY_PATTERN_END = DP_TEST_PATTERN_128b_132b_TPS2_TRAINING_MODE,
-+#else
- 	DP_TEST_PATTERN_PHY_PATTERN_END = DP_TEST_PATTERN_TRAINING_PATTERN4,
++enum tx_ffe_id {
++	TX_FFE0 = 0,
++	TX_FFE1,
++	TX_FFE2,
++	TX_FFE3,
++	TX_FFE_DeEmphasis_Only,
++	TX_FFE_PreShoot_Only,
++	TX_FFE_No_FFE,
++};
 +#endif
++
+ /* connector sizes in millimeters - from BiosParserTypes.hpp */
+ #define CONNECTOR_SIZE_DVI			40
+ #define CONNECTOR_SIZE_VGA			32
+diff --git a/drivers/gpu/drm/amd/display/include/grph_object_id.h b/drivers/gpu/drm/amd/display/include/grph_object_id.h
+index 33b3d755fe65..01775417cf4b 100644
+--- a/drivers/gpu/drm/amd/display/include/grph_object_id.h
++++ b/drivers/gpu/drm/amd/display/include/grph_object_id.h
+@@ -184,6 +184,14 @@ enum engine_id {
+ 	ENGINE_ID_DACA,
+ 	ENGINE_ID_DACB,
+ 	ENGINE_ID_VCE,	/* wireless display pseudo-encoder */
++#if defined(CONFIG_DRM_AMD_DC_DCN)
++	ENGINE_ID_HPO_0,
++	ENGINE_ID_HPO_1,
++	ENGINE_ID_HPO_DP_0,
++	ENGINE_ID_HPO_DP_1,
++	ENGINE_ID_HPO_DP_2,
++	ENGINE_ID_HPO_DP_3,
++#endif
+ 	ENGINE_ID_VIRTUAL,
  
- 	/* link test patterns*/
- 	DP_TEST_PATTERN_COLOR_SQUARES,
+ 	ENGINE_ID_COUNT,
 -- 
 2.25.1
 
