@@ -2,139 +2,72 @@ Return-Path: <SRS0=nAtJ=NK=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 11143C4338F
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 10:25:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D277EC4338F
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 12:05:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B907C60BD3
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 10:25:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B907C60BD3
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 4572661152
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 12:05:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4572661152
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 501596E8A4;
-	Thu, 19 Aug 2021 10:25:45 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam08on2052.outbound.protection.outlook.com [40.107.102.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 549C86E8A4;
- Thu, 19 Aug 2021 10:25:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=e3lqd1ljTe/yVsuB2k+x8GuPMVIExmywxRDbsiHoKz3VHaHhvOECSQuZtMsUzPBNnZXmewOssO1WnoaP1G1hZTaGeNgK3OU1f99IT4s20Hlka6DTHJx+C08BOKz7qVt0KGlic3uiVsf321mOrzsFCFyd5wT8OxdFvLSvot/c/uJ63+N9MzsiHCbUeLcF/42LoYbQbUWf6+epw/LkIW0HcXlASLeVPurQ4a4psqAan5TtTyRO5GBUrbCvLveF2/FZglBNpvqTOkppQhW6ef22h3TSU//+u8UatwtA8VLg1c5A8dLyqR3PjmE3OTGvDgJryJNllXtYQrQ8PWR/nnMUlQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IDGOIQpi8ZWwXkyJ9aXoh9HkBY6dzdVOrcEh/5IdW/k=;
- b=l6c3mWOEYtwZHvX+FPNmVIcA6QSfrNvU5G1dcLGtQjExlCqtIn3E+KYDxSQkWSDb4VROrh/kh0mMc0NnMaIHQQjQ1lPRSPe0nqg/rVzVx/GyPSsZo2QABmCaGOn+2l5RwxW77hdzGoVD/Z9jnZrmpkVxC3a9F7dPPXuZgW41r4lBJv9u4kbvO3k959p60e1JJzFtQ27mj9+A4TRl01BkxtTjBnJR6+9HLeViZkNkawvXD+AosGsmvf/cq3I8n311EaoAiTHCR9kLHms7NMP7AmU1CIPy14K0QkiUMzCi9p+t7yl4JAtfdM7YiZ0eFF0SUMc9M02oIofFH5GB0YZmUw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IDGOIQpi8ZWwXkyJ9aXoh9HkBY6dzdVOrcEh/5IdW/k=;
- b=ZyuTbKxB0LI2mDS07ir2oZXlatBBWbtrbiojosz6OVI+Zh5nOne9dUbAVYTXm/k7yiCCv9z3Zp8yRRTiWnjIj+jXCDx/OBXBo3kEtMX/Ke/qJEdwG2LW+v1Me0QBach82/Ikoz3OX6yParhnv7Te9gSLX2Bb0T6sZKeijPYVQ5k=
-Received: from BL1PR12MB5269.namprd12.prod.outlook.com (2603:10b6:208:30b::20)
- by BL1PR12MB5272.namprd12.prod.outlook.com (2603:10b6:208:319::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.16; Thu, 19 Aug
- 2021 10:25:42 +0000
-Received: from BL1PR12MB5269.namprd12.prod.outlook.com
- ([fe80::acc6:c407:1353:6a]) by BL1PR12MB5269.namprd12.prod.outlook.com
- ([fe80::acc6:c407:1353:6a%5]) with mapi id 15.20.4415.024; Thu, 19 Aug 2021
- 10:25:42 +0000
-From: "Liu, Monk" <Monk.Liu@amd.com>
-To: Daniel Vetter <daniel@ffwll.ch>, "Grodzovsky, Andrey"
- <Andrey.Grodzovsky@amd.com>
-CC: Alex Deucher <alexdeucher@gmail.com>, "Chen, JingWen"
- <JingWen.Chen2@amd.com>, Maling list - DRI developers
- <dri-devel@lists.freedesktop.org>, amd-gfx list
- <amd-gfx@lists.freedesktop.org>, "Koenig, Christian"
- <Christian.Koenig@amd.com>
-Subject: RE: [PATCH v2] Revert "drm/scheduler: Avoid accessing freed bad job."
-Thread-Topic: [PATCH v2] Revert "drm/scheduler: Avoid accessing freed bad job."
-Thread-Index: AQHXlCM5tpADXUaHLkOoBAv6YPx0dat5SvoAgAAGzICAAAGgAIAAATMAgAAByYCAAAJCAIABOOmAgAANvtA=
-Date: Thu, 19 Aug 2021 10:25:42 +0000
-Message-ID: <BL1PR12MB52690CB11358D0298AABC8C084C09@BL1PR12MB5269.namprd12.prod.outlook.com>
-References: <20210818112114.1417685-1-Jingwen.Chen2@amd.com>
- <CADnq5_OApvH1Jo2VzJBHewHB_LXgg1WzUHvTBvrNYnbYdFAWhQ@mail.gmail.com>
- <69cbf5bd-42c2-be55-a604-43f4ebba159d@amd.com>
- <YR0Z7qtEti2hwZ7i@phenom.ffwll.local>
- <b92c62f2-7b1c-d4d8-cb84-1b5ccc3e4bb1@amd.com>
- <YR0cb43Wv8jGiIbb@phenom.ffwll.local>
- <82782ff5-d2a7-a4a8-8526-d1ff231630ed@amd.com>
- <YR4k0fPfUL5viMRY@phenom.ffwll.local>
-In-Reply-To: <YR4k0fPfUL5viMRY@phenom.ffwll.local>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-08-19T10:25:40Z; 
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
- Only-AIP 2.0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=e6ef5199-574c-48a9-8147-c533a670ce27;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
-authentication-results: ffwll.ch; dkim=none (message not signed)
- header.d=none;ffwll.ch; dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 144bb66a-0d72-48f9-eb9f-08d962fbb2b9
-x-ms-traffictypediagnostic: BL1PR12MB5272:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BL1PR12MB527283BCD80C25664CB1034D84C09@BL1PR12MB5272.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:187;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: bplGF1WkaYlkMVAV4tKHaD/NQXaYyXRYChO8+4kTVsKEBYiwDLcpcQwVy4CH3DBn0xMbpW4I7H40Mj5Qdg+ZQcCZQ7FJVZcrBjJ6IYFxWwWeSU6Ejh+IDsUTO1lnkKjVc1M3Pw0USgHn2+Jr9IlVPhAT+5O7y/EcXmWSOZ/MDGDjb2ZwbUdowrh8a5n5GjpmXUrLMiVc486tcl9ia4h9+D6lpOs5lxzKg4XKVrdc3ig87JPLNgA4l4NOJNN2oYpHi017XMJmpBVMpnr3dRKyQ4tKz4GThlrcUTXE92W2wTcTgZ+ZaYASFesub9Ro12jmw8jgmUMWdxgzF9hKhFkkz4YPOFXswr6NjsmHbWo/MG3znArB/Q2gJWLLz/v3kJrZCGAec8J1NhZ7ijL4vXUm5JrhXGnXsDvT1rm0PSPYZyQhapMGh4EQv6ziMK807rhpBBQRdpDwI5oMkg7nNCboJdOurHoK84AlLKusKRfQvFW9tNACye3I4WSyoax87D33yydfO4u2xd23sXqI5CGzDJml+RItKcRKWWpVm4kUL+8YCtiEyP1Z40TV/3Gf/7RFxncrhlEB487BtLbWnpZI/iHBFKp85i+TbTkoAQvlzLoQraGI0Qo9woKyD9jMMDFDBpFw3zMToyZ6lBuEMNEAh0QoXVm41sT+uI7ujTgRKYDdK8wrvpFcLjCMy1bZ4olbE37DE+kmP7JL19/NdEslnRBGdbBn75OhEt9Jj73s/LMZDT9QUM0KXWkhjfbkCGcOqHuG+sieDhsRrz4pCagLzHLeL66qjzvZq8EuHQAHsCQ=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5269.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(54906003)(508600001)(5660300002)(45080400002)(8936002)(7696005)(71200400001)(55016002)(66476007)(66446008)(26005)(966005)(53546011)(64756008)(33656002)(52536014)(6636002)(38100700002)(316002)(2906002)(110136005)(9686003)(6506007)(86362001)(83380400001)(8676002)(30864003)(38070700005)(4326008)(76116006)(66556008)(186003)(66946007)(122000001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?gzHLv1YeVr/awtuX6sAgUmvibVIeZZhw7Q/1SowKqtHBmpED3X5kr/C28o?=
- =?iso-8859-1?Q?5rHrOvUieKt4PXpIhswt70lHfrODPe0p/rMneIPs3zVB/rUwtJKd9vxRIY?=
- =?iso-8859-1?Q?uERha06O8nCpWcrVSldIMY9TS0Ws0MafRMcHflzJUmlA6oTp8ugL+X5DHO?=
- =?iso-8859-1?Q?AmgMs3be84dftBjkjT/PVRqOcaekgj4va2eVfGL16LQMF7wnEBpUeaLrtg?=
- =?iso-8859-1?Q?IRYKLGwMxvF+4wIj7+QeVPLefnA5QXnn7nM56Vb2OdDIkkm8NCgCXAkR01?=
- =?iso-8859-1?Q?U5BgFzDlWEY1J3vnhYArxrvS9eqHQvpHGWgyzM8WdDgODB2wAo4zbyIW7K?=
- =?iso-8859-1?Q?7qhKwLQPN/ZUUJYjlLQRpePrD6sGG08fdNI9f2KtfOH2pb4i53WxUzjMX+?=
- =?iso-8859-1?Q?hV5Cr66VX5bFq7ksqB5sJ5AhCaU670wsdy2g8Sp9Yl0Lg8AKd2RWoqwoSz?=
- =?iso-8859-1?Q?JJpgNJy7qP59dGgzhL3daoDlvJzbTlu+CECzA0daaRLww3bwDwkz9F/RkW?=
- =?iso-8859-1?Q?LC/nFTkzhYv1Pg+rNmGgBPsE6XgA1GHW1+oqf5H2wkKk0fMOYAsgjv39fX?=
- =?iso-8859-1?Q?fsTakamNuQuAoFXdyIlNpDy2kwccqipqyf2VzEoH0sx8aS6uQV5qHLRdHT?=
- =?iso-8859-1?Q?7OxmD7BOck+6kXPc+LB+IrEl9I7tm0xAUsZOFU1HOUYljJHCY4RAEXyxpG?=
- =?iso-8859-1?Q?lnSuIpPo/ypF794qlYgKVCMWIoMNDwEHpBKGXMZNEkxVA6gTz3hsHdzcVp?=
- =?iso-8859-1?Q?haGUGApChBRIP47HKOKiCh2jIj3o+mc3reufOAJHrf9pC+njsIl1xJC3yg?=
- =?iso-8859-1?Q?GAOuSSJjpKkOK5dEWkgVF+vZhY8BrxhdBgZmjMFPriGBc/1pCrd2+Luq6f?=
- =?iso-8859-1?Q?6zAYk5Oa+YT4zKBSnof+u8nKkOZNUNpTEnzyqZcp1FYNoO2qMoD+qGxxdp?=
- =?iso-8859-1?Q?g1+uUTzqI0OBKAKgfJJM6D4yhwYeHGzaplEOMZkjzeHeFwklh0X7Kt/Vim?=
- =?iso-8859-1?Q?Wgfs16K7h/X3zrAzTeiR+3xlRcLPqWXKSQ0dvfHkbLfogERP4ZmBvzqub0?=
- =?iso-8859-1?Q?/Kf36kuKDvaWEHWnL4TR602gBB5AtkknGHmMlTFSXyGaGGnfRVjd9WcS99?=
- =?iso-8859-1?Q?Mr14bAyr94YIhdzC6NEPs8kyYpnJ8eRlw5OLCUfm21KrqGtqwInTW5nQfT?=
- =?iso-8859-1?Q?vOeNdJcfkE06WRy+Wl0lUDwoOUkIPQFOOPtr62d6k8tQT3Wx6NUupeCYFn?=
- =?iso-8859-1?Q?ohRJbV7/OLSbB68aI65Mi0JMPV3cA9HTwewPgKcVA+W1fPRHeJZfOt1v/E?=
- =?iso-8859-1?Q?xLawd/Mt/R0zaIa4CxXMQvM27ahgiMt6WuPAbD10b7WSGQ81rba6uBwScT?=
- =?iso-8859-1?Q?EIqW1oRyBz?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D8056E942;
+	Thu, 19 Aug 2021 12:04:59 +0000 (UTC)
+Received: from mail-qk1-x734.google.com (mail-qk1-x734.google.com
+ [IPv6:2607:f8b0:4864:20::734])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 25D336E83A
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Aug 2021 12:04:58 +0000 (UTC)
+Received: by mail-qk1-x734.google.com with SMTP id o123so6781558qkf.12
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Aug 2021 05:04:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=fireburn-co-uk.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=LYe3/Xdx+Ls0VceC3n9myA5w2pI2OY3JsXkkEP2Mgqk=;
+ b=UeKe8wSN9ZFbI7lAhVWXpdU7vIwNES3qnC3Cs7eRz3A/qQVulzURHLb4FiAFDW99jI
+ 5RBErHuTXb1HwxwwR9QOWdecWOJiNcaCu7Jt9U5VNsoQdIOkqgqKkHxLQ9CULcn1UdQv
+ 2El7AsOjMpKXX0GFr940sOKMqET/NQ7WdR+g0SeJIpRkGrpBBihn2serzvxhHbsiFl5k
+ ZN/qFCGI/98R5g3nrYuV9YfhtS5Gtdb+HFTI3cw1YVdlMumPRFXNlTeUIlusjacrfNs8
+ FNme3jO8278XXxpxfRXw8wDX2oss5i2otYZQrXaE39eIvST3oTX9H5cxuUXKYZZTPYtr
+ UXRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=LYe3/Xdx+Ls0VceC3n9myA5w2pI2OY3JsXkkEP2Mgqk=;
+ b=uVhUfLOdqrbgWgJD7KBGgwfKgMT8XhRvw5WttVM0EZVQSEwLAy1XU54UwQC9Jx1zIn
+ mrSXziqIPfx1/UZnZBlCmnk5EzSP3Bl3E//WxzFQNKpKN3b5A7l1APgPXl1/4BRHFk1O
+ 2jRocJglZVl/oqAhLmU8PFjvPn578ovsOeK4RtUjLM8KAHbRXvb8LO8bc6fJoF1lOW8E
+ lv7kPlwK8wWywja5AFgW6zPXo3Dnt1gulhXTnuJZjL8nioXrgZNnb6F2X94MxAIKnz6R
+ srcQ+fIGQLMFoAL1Aumn/0ys5zJXaauu7VH0Kfzp8oB9/f/MJiudoMtcwigLbyCNwH7w
+ yooQ==
+X-Gm-Message-State: AOAM531/+tqRza+vwUsv5KkmQeWzjmmiWEDSz7+G3f2nlu0JQI1LLT7Y
+ aIl1nlqeqdQDE9u6DGj02lL1fqFrpd7bMeeOrxx3Mw==
+X-Google-Smtp-Source: ABdhPJzQBtNMxpcqSrm7DeehaXv3y6NPGSAvbNVbDo9clAfysHpxtd9gUQkBK3Ld4ODEabLHN2sFy6KBsFmnjxJYsbQ=
+X-Received: by 2002:a37:a88a:: with SMTP id r132mr3385416qke.212.1629374697035; 
+ Thu, 19 Aug 2021 05:04:57 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5269.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 144bb66a-0d72-48f9-eb9f-08d962fbb2b9
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Aug 2021 10:25:42.2934 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: zL24GSdyG8G8ER+pYiDK/9521eePWLA2EURleAPTBfZ0gfJqvT+toUEPnMsQ7nQz
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5272
+References: <20210802051602.23822-1-guchun.chen@amd.com>
+ <9b28973f-d71c-8ca1-32f3-e7dc23563a70@amd.com>
+In-Reply-To: <9b28973f-d71c-8ca1-32f3-e7dc23563a70@amd.com>
+From: Mike Lothian <mike@fireburn.co.uk>
+Date: Thu, 19 Aug 2021 13:04:45 +0100
+Message-ID: <CAHbf0-HNwJvmv=D6KDQrNcmaCbtqj0cCZLgE9bWnSoMNBuqS+w@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: avoid over-handle of fence driver fini in s3
+ test (v2)
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Cc: Guchun Chen <guchun.chen@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, 
+ Likun Gao <Likun.Gao@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Hawking Zhang <Hawking.Zhang@amd.com>, Alex Deucher <alexander.deucher@amd.com>
+Content-Type: multipart/alternative; boundary="00000000000005f18205c9e85c47"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,299 +82,377 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only]
+--00000000000005f18205c9e85c47
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Daniel
+Hi
 
->> Why can't we stop the scheduler thread first, so that there's guaranteed=
- no race? I've recently had a lot of discussions with panfrost folks about =
-their reset that spawns across engines, and without stopping the scheduler =
-thread first before you touch anything it's just plain impossible.
+Do I need to open a new bug report for this?
 
-Yeah we had this though as well in our mind.
+Cheers
 
-Our second approach is to call ktrhead_stop() in job_timedout() routine so =
-that  the "bad" job is guaranteed to be used without scheduler's touching o=
-r freeing,
-Check this sample patch one as well please:
+Mike
 
-diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/sched=
-uler/sched_main.c
-index a2a9536..50a49cb 100644
---- a/drivers/gpu/drm/scheduler/sched_main.c
-+++ b/drivers/gpu/drm/scheduler/sched_main.c
-@@ -319,17 +319,12 @@ static void drm_sched_job_timedout(struct work_struct=
- *work)
-        sched =3D container_of(work, struct drm_gpu_scheduler, work_tdr.wor=
-k);
-=20
-        /* Protects against concurrent deletion in drm_sched_get_cleanup_jo=
-b */
-+       kthread_park(sched->thread);
-        spin_lock(&sched->job_list_lock);
-        job =3D list_first_entry_or_null(&sched->pending_list,
-                                       struct drm_sched_job, list);
-=20
-        if (job) {
--               /*
--                * Remove the bad job so it cannot be freed by concurrent
--                * drm_sched_cleanup_jobs. It will be reinserted back after=
- sched->thread
--                * is parked at which point it's safe.
--                */
--               list_del_init(&job->list);
-                spin_unlock(&sched->job_list_lock);
-=20
-                status =3D job->sched->ops->timedout_job(job);
-@@ -345,6 +340,7 @@ static void drm_sched_job_timedout(struct work_struct *=
-work)
-        } else {
-                spin_unlock(&sched->job_list_lock);
-        }
-+       kthread_unpark(sched->thread);
-=20
-        if (status !=3D DRM_GPU_SCHED_STAT_ENODEV) {
-                spin_lock(&sched->job_list_lock);
-@@ -393,20 +389,6 @@ void drm_sched_stop(struct drm_gpu_scheduler *sched, s=
-truct drm_sched_job *bad)
-        kthread_park(sched->thread);
-=20
-        /*
--        * Reinsert back the bad job here - now it's safe as
--        * drm_sched_get_cleanup_job cannot race against us and release the
--        * bad job at this point - we parked (waited for) any in progress
--        * (earlier) cleanups and drm_sched_get_cleanup_job will not be cal=
-led
--        * now until the scheduler thread is unparked.
--        */
--       if (bad && bad->sched =3D=3D sched)
--               /*
--                * Add at the head of the queue to reflect it was the earli=
-est
--                * job extracted.
--                */
--               list_add(&bad->list, &sched->pending_list);
--
--       /*
-         * Iterate the job list from later to  earlier one and either deact=
-ive
-         * their HW callbacks or remove them from pending list if they alre=
-ady
-         * signaled.
+On Wed, 18 Aug 2021 at 06:26, Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+wrote:
 
-
-Thanks=20
-
-------------------------------------------
-Monk Liu | Cloud-GPU Core team
-------------------------------------------
-
------Original Message-----
-From: Daniel Vetter <daniel@ffwll.ch>=20
-Sent: Thursday, August 19, 2021 5:31 PM
-To: Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>; Alex Deucher <alexdeucher@gmail.com>; =
-Chen, JingWen <JingWen.Chen2@amd.com>; Maling list - DRI developers <dri-de=
-vel@lists.freedesktop.org>; amd-gfx list <amd-gfx@lists.freedesktop.org>; L=
-iu, Monk <Monk.Liu@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>
-Subject: Re: [PATCH v2] Revert "drm/scheduler: Avoid accessing freed bad jo=
-b."
-
-On Wed, Aug 18, 2021 at 10:51:00AM -0400, Andrey Grodzovsky wrote:
->=20
-> On 2021-08-18 10:42 a.m., Daniel Vetter wrote:
-> > On Wed, Aug 18, 2021 at 10:36:32AM -0400, Andrey Grodzovsky wrote:
-> > > On 2021-08-18 10:32 a.m., Daniel Vetter wrote:
-> > > > On Wed, Aug 18, 2021 at 10:26:25AM -0400, Andrey Grodzovsky wrote:
-> > > > > On 2021-08-18 10:02 a.m., Alex Deucher wrote:
-> > > > >=20
-> > > > > > + dri-devel
-> > > > > >=20
-> > > > > > Since scheduler is a shared component, please add dri-devel=20
-> > > > > > on all scheduler patches.
-> > > > > >=20
-> > > > > > On Wed, Aug 18, 2021 at 7:21 AM Jingwen Chen <Jingwen.Chen2@amd=
-.com> wrote:
-> > > > > > > [Why]
-> > > > > > > for bailing job, this commit will delete it from pending=20
-> > > > > > > list thus the bailing job will never have a chance to be=20
-> > > > > > > resubmitted even in advance tdr mode.
-> > > > > > >=20
-> > > > > > > [How]
-> > > > > > > after embeded hw_fence into amdgpu_job is done, the race=20
-> > > > > > > condition that this commit tries to work around is=20
-> > > > > > > completely solved.So revert this commit.
-> > > > > > > This reverts commit 135517d3565b48f4def3b1b82008bc17eb5d1c90.
-> > > > > > > v2:
-> > > > > > > add dma_fence_get/put() around timedout_job to avoid=20
-> > > > > > > concurrent delete during processing timedout_job
-> > > > > > >=20
-> > > > > > > Signed-off-by: Jingwen Chen <Jingwen.Chen2@amd.com>
-> > > > > > > ---
-> > > > > > >     drivers/gpu/drm/scheduler/sched_main.c | 23 +++++--------=
-----------
-> > > > > > >     1 file changed, 5 insertions(+), 18 deletions(-)
-> > > > > > >=20
-> > > > > > > diff --git a/drivers/gpu/drm/scheduler/sched_main.c=20
-> > > > > > > b/drivers/gpu/drm/scheduler/sched_main.c
-> > > > > > > index a2a953693b45..f9b9b3aefc4a 100644
-> > > > > > > --- a/drivers/gpu/drm/scheduler/sched_main.c
-> > > > > > > +++ b/drivers/gpu/drm/scheduler/sched_main.c
-> > > > > > > @@ -314,6 +314,7 @@ static void drm_sched_job_timedout(struct=
- work_struct *work)
-> > > > > > >     {
-> > > > > > >            struct drm_gpu_scheduler *sched;
-> > > > > > >            struct drm_sched_job *job;
-> > > > > > > +       struct dma_fence *fence;
-> > > > > > >            enum drm_gpu_sched_stat status =3D=20
-> > > > > > > DRM_GPU_SCHED_STAT_NOMINAL;
-> > > > > > >=20
-> > > > > > >            sched =3D container_of(work, struct=20
-> > > > > > > drm_gpu_scheduler, work_tdr.work); @@ -325,11 +326,10 @@=20
-> > > > > > > static void drm_sched_job_timedout(struct work_struct=20
-> > > > > > > *work)
-> > > > > > >=20
-> > > > > > >            if (job) {
-> > > > > > >                    /*
-> > > > > > > -                * Remove the bad job so it cannot be freed b=
-y concurrent
-> > > > > > > -                * drm_sched_cleanup_jobs. It will be reinser=
-ted back after sched->thread
-> > > > > > > -                * is parked at which point it's safe.
-> > > > > > > +                * Get job->s_fence->parent here to avoid con=
-current delete during
-> > > > > > > +                * processing timedout_job
-> > > > > > >                     */
-> > > > > > > -               list_del_init(&job->list);
-> > > > > > > +               fence =3D=20
-> > > > > > > + dma_fence_get(job->s_fence->parent);
-> > > > > While this is true for amdgpu, it has no meaning for other=20
-> > > > > drivers for whom we haven't done the refactoring of embedding=20
-> > > > > HW fence (parent) into the job structure.
-> > > > > In fact thinking
-> > > > > about it, unless you do the HW fence embedding for all the=20
-> > > > > drivers using the scheduler you cannot revert this patch or=20
-> > > > > you will just break them.
-> > > > btw, why did you do that embedding? I do still have my patches=20
-> > > > with dma_fence annotations floating around, but my idea at least=20
-> > > > was to fix that issue with a mempool, not with embeddeding. What=20
-> > > > was the motivation for embedding the wh fence?
-> > > > -Daniel
-> > >=20
-> > > The motivation was 2 fold, avoid memory allocation during jobs=20
-> > > submissions (HW fence allocation) because as Christian explained=20
-> > > this leads to deadlock with mm code during evictions due to memory=20
-> > > pressure (Christian can clarify if I messed
-> > Yeah that's the exact same thing I've chased with my dma_fence=20
-> > annotations, but thus far zero to none interested in getting it=20
-> > sorted. I think it'd be good to have some cross-driver agreement on=20
-> > how this should be solved before someone just charges ahead ...
-> >=20
-> > > this explanation). Second is to exactly revert this patch because=20
-> > > while it solved the issue described in the patch it created=20
-> > > another with drivers who baildc out early during TDR handling for=20
-> > > various reason and the job would just leak because it was already=20
-> > > removed form pending list.
-> > Can't we reinsert it before we restart the scheduler thread? It=20
-> > might need a separate list for that due to the lockless queue=20
-> > tricks. Or am I thinking about the wrong kind of "we lost the job"?
-> > -Danile
->=20
->=20
-> If you look at the original patch it would reinsert it even earlier -=20
-> right after stopping the=A0 SW scheduler thread, and even then it was to=
-=20
-> late for some drivers as they would decide to return back from their=20
-> TDR handler even before that. It is solvable but in an ugly way as far=20
-> as I see, you need to require each driver in his code to put the job=20
-> back in the list if they do it before reaching the place where=20
-> scheduler framework does it. Kind of spaghetti code seems to me.
-
-Hm yeah I didn't realize this all happens before we stop the scheduler thre=
-ad.
-
-Why can't we stop the scheduler thread first, so that there's guaranteed no=
- race? I've recently had a lot of discussions with panfrost folks about the=
-ir reset that spawns across engines, and without stopping the scheduler thr=
-ead first before you touch anything it's just plain impossible.
-
-I'm also still not understanding what exactly you guys have done, can someo=
-ne please dig out the the amdgpu patches that motivate all this maybe that'=
-s clearer? A full explanation would still be good since I've only started i=
-n scheduler stuff.
-
-Another thing I recently pondered for tdr races looking at i915 code is whe=
-ther the tdr should first block the completion fence for that job. My motiv=
-ation is to have a race-free error capture (if the completion races then we=
- might start evicting memory and everything goes boom), but maybe that help=
-s here too. Some kind of atomic "block this fence from completing thing.
-
-Or I'm I completely guessing in the wrong direction?
--Daniel
-
->=20
+>
+> On 2021-08-02 1:16 a.m., Guchun Chen wrote:
+> > In amdgpu_fence_driver_hw_fini, no need to call drm_sched_fini to stop
+> > scheduler in s3 test, otherwise, fence related failure will arrive
+> > after resume. To fix this and for a better clean up, move drm_sched_fin=
+i
+> > from fence_hw_fini to fence_sw_fini, as it's part of driver shutdown, a=
+nd
+> > should never be called in hw_fini.
+> >
+> > v2: rename amdgpu_fence_driver_init to amdgpu_fence_driver_sw_init,
+> > to keep sw_init and sw_fini paired.
+> >
+> > Fixes: cd87a6dcf6af drm/amdgpu: adjust fence driver enable sequence
+> > Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > Signed-off-by: Guchun Chen <guchun.chen@amd.com>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  5 ++---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c  | 12 +++++++-----
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h   |  4 ++--
+> >   3 files changed, 11 insertions(+), 10 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > index b1d2dc39e8be..9e53ff851496 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > @@ -3646,9 +3646,9 @@ int amdgpu_device_init(struct amdgpu_device *adev=
+,
+> >
+> >   fence_driver_init:
+> >       /* Fence driver */
+> > -     r =3D amdgpu_fence_driver_init(adev);
+> > +     r =3D amdgpu_fence_driver_sw_init(adev);
+> >       if (r) {
+> > -             dev_err(adev->dev, "amdgpu_fence_driver_init failed\n");
+> > +             dev_err(adev->dev, "amdgpu_fence_driver_sw_init failed\n"=
+);
+> >               amdgpu_vf_error_put(adev, AMDGIM_ERROR_VF_FENCE_INIT_FAIL=
+,
+> 0, 0);
+> >               goto failed;
+> >       }
+> > @@ -3988,7 +3988,6 @@ int amdgpu_device_resume(struct drm_device *dev,
+> bool fbcon)
+> >       }
+> >       amdgpu_fence_driver_hw_init(adev);
+> >
+> > -
+> >       r =3D amdgpu_device_ip_late_init(adev);
+> >       if (r)
+> >               return r;
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> > index 49c5c7331c53..7495911516c2 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> > @@ -498,7 +498,7 @@ int amdgpu_fence_driver_init_ring(struct amdgpu_rin=
+g
+> *ring,
+> >   }
+> >
+> >   /**
+> > - * amdgpu_fence_driver_init - init the fence driver
+> > + * amdgpu_fence_driver_sw_init - init the fence driver
+> >    * for all possible rings.
+> >    *
+> >    * @adev: amdgpu device pointer
+> > @@ -509,13 +509,13 @@ int amdgpu_fence_driver_init_ring(struct
+> amdgpu_ring *ring,
+> >    * amdgpu_fence_driver_start_ring().
+> >    * Returns 0 for success.
+> >    */
+> > -int amdgpu_fence_driver_init(struct amdgpu_device *adev)
+> > +int amdgpu_fence_driver_sw_init(struct amdgpu_device *adev)
+> >   {
+> >       return 0;
+> >   }
+> >
+> >   /**
+> > - * amdgpu_fence_driver_fini - tear down the fence driver
+> > + * amdgpu_fence_driver_hw_fini - tear down the fence driver
+> >    * for all possible rings.
+> >    *
+> >    * @adev: amdgpu device pointer
+> > @@ -531,8 +531,7 @@ void amdgpu_fence_driver_hw_fini(struct
+> amdgpu_device *adev)
+> >
+> >               if (!ring || !ring->fence_drv.initialized)
+> >                       continue;
+> > -             if (!ring->no_scheduler)
+> > -                     drm_sched_fini(&ring->sched);
+> > +
+> >               /* You can't wait for HW to signal if it's gone */
+> >               if (!drm_dev_is_unplugged(&adev->ddev))
+> >                       r =3D amdgpu_fence_wait_empty(ring);
+>
+>
+> Sorry for late notice, missed this patch. By moving drm_sched_fini
+> past amdgpu_fence_wait_empty a race is created as even after you waited
+> for all fences on the ring to signal the sw scheduler will keep submittin=
+g
+> new jobs on the ring and so the ring won't stay empty.
+>
+> For hot device removal also we want to prevent any access to HW past PCI
+> removal
+> in order to not do any MMIO accesses inside the physical MMIO range that
+> no longer
+> belongs to this device after it's removal by the PCI core. Stopping all
+> the schedulers prevents any MMIO
+> accesses done during job submissions and that why drm_sched_fini was
+> done as part of amdgpu_fence_driver_hw_fini
+> and not amdgpu_fence_driver_sw_fini
+>
 > Andrey
->=20
->=20
-> >=20
-> > > Andrey
-> > >=20
-> > >=20
-> > > >=20
-> > > > > Andrey
-> > > > >=20
-> > > > >=20
-> > > > > > >                    spin_unlock(&sched->job_list_lock);
-> > > > > > >=20
-> > > > > > >                    status =3D=20
-> > > > > > > job->sched->ops->timedout_job(job);
-> > > > > > > @@ -342,6 +342,7 @@ static void drm_sched_job_timedout(struct=
- work_struct *work)
-> > > > > > >                            job->sched->ops->free_job(job);
-> > > > > > >                            sched->free_guilty =3D false;
-> > > > > > >                    }
-> > > > > > > +               dma_fence_put(fence);
-> > > > > > >            } else {
-> > > > > > >                    spin_unlock(&sched->job_list_lock);
-> > > > > > >            }
-> > > > > > > @@ -392,20 +393,6 @@ void drm_sched_stop(struct=20
-> > > > > > > drm_gpu_scheduler *sched, struct drm_sched_job *bad)
-> > > > > > >=20
-> > > > > > >            kthread_park(sched->thread);
-> > > > > > >=20
-> > > > > > > -       /*
-> > > > > > > -        * Reinsert back the bad job here - now it's safe as
-> > > > > > > -        * drm_sched_get_cleanup_job cannot race against us a=
-nd release the
-> > > > > > > -        * bad job at this point - we parked (waited for) any=
- in progress
-> > > > > > > -        * (earlier) cleanups and drm_sched_get_cleanup_job w=
-ill not be called
-> > > > > > > -        * now until the scheduler thread is unparked.
-> > > > > > > -        */
-> > > > > > > -       if (bad && bad->sched =3D=3D sched)
-> > > > > > > -               /*
-> > > > > > > -                * Add at the head of the queue to reflect it=
- was the earliest
-> > > > > > > -                * job extracted.
-> > > > > > > -                */
-> > > > > > > -               list_add(&bad->list, &sched->pending_list);
-> > > > > > > -
-> > > > > > >            /*
-> > > > > > >             * Iterate the job list from later to  earlier one=
- and either deactive
-> > > > > > >             * their HW callbacks or remove them from=20
-> > > > > > > pending list if they already
-> > > > > > > --
-> > > > > > > 2.25.1
-> > > > > > >=20
+>
+> > @@ -560,6 +559,9 @@ void amdgpu_fence_driver_sw_fini(struct
+> amdgpu_device *adev)
+> >               if (!ring || !ring->fence_drv.initialized)
+> >                       continue;
+> >
+> > +             if (!ring->no_scheduler)
+> > +                     drm_sched_fini(&ring->sched);
+> > +
+> >               for (j =3D 0; j <=3D ring->fence_drv.num_fences_mask; ++j=
+)
+> >                       dma_fence_put(ring->fence_drv.fences[j]);
+> >               kfree(ring->fence_drv.fences);
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> > index 27adffa7658d..9c11ced4312c 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> > @@ -106,7 +106,6 @@ struct amdgpu_fence_driver {
+> >       struct dma_fence                **fences;
+> >   };
+> >
+> > -int amdgpu_fence_driver_init(struct amdgpu_device *adev);
+> >   void amdgpu_fence_driver_force_completion(struct amdgpu_ring *ring);
+> >
+> >   int amdgpu_fence_driver_init_ring(struct amdgpu_ring *ring,
+> > @@ -115,9 +114,10 @@ int amdgpu_fence_driver_init_ring(struct
+> amdgpu_ring *ring,
+> >   int amdgpu_fence_driver_start_ring(struct amdgpu_ring *ring,
+> >                                  struct amdgpu_irq_src *irq_src,
+> >                                  unsigned irq_type);
+> > +void amdgpu_fence_driver_hw_init(struct amdgpu_device *adev);
+> >   void amdgpu_fence_driver_hw_fini(struct amdgpu_device *adev);
+> > +int amdgpu_fence_driver_sw_init(struct amdgpu_device *adev);
+> >   void amdgpu_fence_driver_sw_fini(struct amdgpu_device *adev);
+> > -void amdgpu_fence_driver_hw_init(struct amdgpu_device *adev);
+> >   int amdgpu_fence_emit(struct amdgpu_ring *ring, struct dma_fence
+> **fence,
+> >                     unsigned flags);
+> >   int amdgpu_fence_emit_polling(struct amdgpu_ring *ring, uint32_t *s,
+>
 
---
-Daniel Vetter
-Software Engineer, Intel Corporation
-https://nam11.safelinks.protection.outlook.com/?url=3Dhttp%3A%2F%2Fblog.ffw=
-ll.ch%2F&amp;data=3D04%7C01%7Cmonk.liu%40amd.com%7C27fcce7ca8dd4f39608508d9=
-62f40f33%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637649622657672189%7C=
-Unknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiL=
-CJXVCI6Mn0%3D%7C1000&amp;sdata=3DJVZtg3AhbiA%2FDmVbNGo3MxVliO83nh8%2Fi50PCM=
-svwyY%3D&amp;reserved=3D0
+--00000000000005f18205c9e85c47
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi<div><br></div><div>Do I need to open a new bug report f=
+or this?</div><div><br></div><div>Cheers</div><div><br></div><div>Mike</div=
+></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr"=
+>On Wed, 18 Aug 2021 at 06:26, Andrey Grodzovsky &lt;<a href=3D"mailto:andr=
+ey.grodzovsky@amd.com">andrey.grodzovsky@amd.com</a>&gt; wrote:<br></div><b=
+lockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-le=
+ft:1px solid rgb(204,204,204);padding-left:1ex"><br>
+On 2021-08-02 1:16 a.m., Guchun Chen wrote:<br>
+&gt; In amdgpu_fence_driver_hw_fini, no need to call drm_sched_fini to stop=
+<br>
+&gt; scheduler in s3 test, otherwise, fence related failure will arrive<br>
+&gt; after resume. To fix this and for a better clean up, move drm_sched_fi=
+ni<br>
+&gt; from fence_hw_fini to fence_sw_fini, as it&#39;s part of driver shutdo=
+wn, and<br>
+&gt; should never be called in hw_fini.<br>
+&gt;<br>
+&gt; v2: rename amdgpu_fence_driver_init to amdgpu_fence_driver_sw_init,<br=
+>
+&gt; to keep sw_init and sw_fini paired.<br>
+&gt;<br>
+&gt; Fixes: cd87a6dcf6af drm/amdgpu: adjust fence driver enable sequence<br=
+>
+&gt; Suggested-by: Christian K=C3=B6nig &lt;<a href=3D"mailto:christian.koe=
+nig@amd.com" target=3D"_blank">christian.koenig@amd.com</a>&gt;<br>
+&gt; Signed-off-by: Guchun Chen &lt;<a href=3D"mailto:guchun.chen@amd.com" =
+target=3D"_blank">guchun.chen@amd.com</a>&gt;<br>
+&gt; ---<br>
+&gt;=C2=A0 =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |=C2=A0 5 ++---=
+<br>
+&gt;=C2=A0 =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c=C2=A0 | 12 +++++=
+++-----<br>
+&gt;=C2=A0 =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h=C2=A0 =C2=A0|=C2=
+=A0 4 ++--<br>
+&gt;=C2=A0 =C2=A03 files changed, 11 insertions(+), 10 deletions(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_device.c<br>
+&gt; index b1d2dc39e8be..9e53ff851496 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+&gt; @@ -3646,9 +3646,9 @@ int amdgpu_device_init(struct amdgpu_device *ade=
+v,<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt;=C2=A0 =C2=A0fence_driver_init:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Fence driver */<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0r =3D amdgpu_fence_driver_init(adev);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0r =3D amdgpu_fence_driver_sw_init(adev);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0if (r) {<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dev_err(adev-&gt;dev,=
+ &quot;amdgpu_fence_driver_init failed\n&quot;);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dev_err(adev-&gt;dev,=
+ &quot;amdgpu_fence_driver_sw_init failed\n&quot;);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_vf_error_=
+put(adev, AMDGIM_ERROR_VF_FENCE_INIT_FAIL, 0, 0);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0goto failed;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt; @@ -3988,7 +3988,6 @@ int amdgpu_device_resume(struct drm_device *dev,=
+ bool fbcon)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_fence_driver_hw_init(adev);<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt; -<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0r =3D amdgpu_device_ip_late_init(adev);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0if (r)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return r;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_fence.c<br>
+&gt; index 49c5c7331c53..7495911516c2 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c<br>
+&gt; @@ -498,7 +498,7 @@ int amdgpu_fence_driver_init_ring(struct amdgpu_ri=
+ng *ring,<br>
+&gt;=C2=A0 =C2=A0}<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt;=C2=A0 =C2=A0/**<br>
+&gt; - * amdgpu_fence_driver_init - init the fence driver<br>
+&gt; + * amdgpu_fence_driver_sw_init - init the fence driver<br>
+&gt;=C2=A0 =C2=A0 * for all possible rings.<br>
+&gt;=C2=A0 =C2=A0 *<br>
+&gt;=C2=A0 =C2=A0 * @adev: amdgpu device pointer<br>
+&gt; @@ -509,13 +509,13 @@ int amdgpu_fence_driver_init_ring(struct amdgpu_=
+ring *ring,<br>
+&gt;=C2=A0 =C2=A0 * amdgpu_fence_driver_start_ring().<br>
+&gt;=C2=A0 =C2=A0 * Returns 0 for success.<br>
+&gt;=C2=A0 =C2=A0 */<br>
+&gt; -int amdgpu_fence_driver_init(struct amdgpu_device *adev)<br>
+&gt; +int amdgpu_fence_driver_sw_init(struct amdgpu_device *adev)<br>
+&gt;=C2=A0 =C2=A0{<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;<br>
+&gt;=C2=A0 =C2=A0}<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt;=C2=A0 =C2=A0/**<br>
+&gt; - * amdgpu_fence_driver_fini - tear down the fence driver<br>
+&gt; + * amdgpu_fence_driver_hw_fini - tear down the fence driver<br>
+&gt;=C2=A0 =C2=A0 * for all possible rings.<br>
+&gt;=C2=A0 =C2=A0 *<br>
+&gt;=C2=A0 =C2=A0 * @adev: amdgpu device pointer<br>
+&gt; @@ -531,8 +531,7 @@ void amdgpu_fence_driver_hw_fini(struct amdgpu_dev=
+ice *adev)<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!ring || !ri=
+ng-&gt;fence_drv.initialized)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0continue;<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!ring-&gt;no_sche=
+duler)<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0drm_sched_fini(&amp;ring-&gt;sched);<br>
+&gt; +<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* You can&#39;t=
+ wait for HW to signal if it&#39;s gone */<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!drm_dev_is_=
+unplugged(&amp;adev-&gt;ddev))<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0r =3D amdgpu_fence_wait_empty(ring);<br>
+<br>
+<br>
+Sorry for late notice, missed this patch. By moving drm_sched_fini<br>
+past amdgpu_fence_wait_empty a race is created as even after you waited<br>
+for all fences on the ring to signal the sw scheduler will keep submitting<=
+br>
+new jobs on the ring and so the ring won&#39;t stay empty.<br>
+<br>
+For hot device removal also we want to prevent any access to HW past PCI <b=
+r>
+removal<br>
+in order to not do any MMIO accesses inside the physical MMIO range that <b=
+r>
+no longer<br>
+belongs to this device after it&#39;s removal by the PCI core. Stopping all=
+ <br>
+the schedulers prevents any MMIO<br>
+accesses done during job submissions and that why drm_sched_fini was <br>
+done as part of amdgpu_fence_driver_hw_fini<br>
+and not amdgpu_fence_driver_sw_fini<br>
+<br>
+Andrey<br>
+<br>
+&gt; @@ -560,6 +559,9 @@ void amdgpu_fence_driver_sw_fini(struct amdgpu_dev=
+ice *adev)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!ring || !ri=
+ng-&gt;fence_drv.initialized)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0continue;<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!ring-&gt;no_sche=
+duler)<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0drm_sched_fini(&amp;ring-&gt;sched);<br>
+&gt; +<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0for (j =3D 0; j =
+&lt;=3D ring-&gt;fence_drv.num_fences_mask; ++j)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0dma_fence_put(ring-&gt;fence_drv.fences[j]);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0kfree(ring-&gt;f=
+ence_drv.fences);<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_ring.h<br>
+&gt; index 27adffa7658d..9c11ced4312c 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h<br>
+&gt; @@ -106,7 +106,6 @@ struct amdgpu_fence_driver {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0struct dma_fence=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 **fences;<br>
+&gt;=C2=A0 =C2=A0};<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt; -int amdgpu_fence_driver_init(struct amdgpu_device *adev);<br>
+&gt;=C2=A0 =C2=A0void amdgpu_fence_driver_force_completion(struct amdgpu_ri=
+ng *ring);<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt;=C2=A0 =C2=A0int amdgpu_fence_driver_init_ring(struct amdgpu_ring *ring=
+,<br>
+&gt; @@ -115,9 +114,10 @@ int amdgpu_fence_driver_init_ring(struct amdgpu_r=
+ing *ring,<br>
+&gt;=C2=A0 =C2=A0int amdgpu_fence_driver_start_ring(struct amdgpu_ring *rin=
+g,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 struct amdgpu_irq_src *irq=
+_src,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 unsigned irq_type);<br>
+&gt; +void amdgpu_fence_driver_hw_init(struct amdgpu_device *adev);<br>
+&gt;=C2=A0 =C2=A0void amdgpu_fence_driver_hw_fini(struct amdgpu_device *ade=
+v);<br>
+&gt; +int amdgpu_fence_driver_sw_init(struct amdgpu_device *adev);<br>
+&gt;=C2=A0 =C2=A0void amdgpu_fence_driver_sw_fini(struct amdgpu_device *ade=
+v);<br>
+&gt; -void amdgpu_fence_driver_hw_init(struct amdgpu_device *adev);<br>
+&gt;=C2=A0 =C2=A0int amdgpu_fence_emit(struct amdgpu_ring *ring, struct dma=
+_fence **fence,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0unsigned flags);<br>
+&gt;=C2=A0 =C2=A0int amdgpu_fence_emit_polling(struct amdgpu_ring *ring, ui=
+nt32_t *s,<br>
+</blockquote></div>
+
+--00000000000005f18205c9e85c47--
