@@ -6,36 +6,36 @@ X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
 	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8E6D2C4338F
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 13:16:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5D3B7C432BE
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 13:16:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4CB7361106
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 13:16:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4CB7361106
+	by mail.kernel.org (Postfix) with ESMTPS id E44BF610CE
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 13:16:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E44BF610CE
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD8246E908;
-	Thu, 19 Aug 2021 13:15:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 330566E92B;
+	Thu, 19 Aug 2021 13:15:59 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org
  [IPv6:2001:8b0:10b:1236::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B37466E89A;
- Thu, 19 Aug 2021 09:57:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED83E6E4AF;
+ Thu, 19 Aug 2021 09:48:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
  References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=oIotVKt85Rb4zTbqb/WlmrAVapzeRtWFY/9pBR2nkhM=; b=KCUZCYiGDxEFK9dDcZ5QKZ8bho
- RMy0S/ROV6qOCIEOfE0tI+Td1tg2fq1UVCw4mJQFP3MO5TIgAl4+pgpQiWurXU5AMe38FMxZLBA6N
- akE0NycfmWpAniFPAt2d6OpT4G6TJFyWksA/qRNvncVBm9gEK0po7a5BpinSpT87nkiFz1w46U3KM
- jOTZAQ0XsTPq22JKVNPOo28l3qEoejUAS1U/1rb2Pwk/DMfmsr+qWjiXz8IkeO/Yj4gJ7I6FAzeqg
- lNwOEN78GvZAlBb9KGcP4L625TaSQVaKs8v1zGXZplsdSmmZfUgYAQ/wceqjbToyHb19QRVu6lhDW
- XQHPuWuw==;
+ bh=NIZCsGrRQbuo1Iii34pN1v0m0SpMM+x4PkA8jTWERkg=; b=q25frNr0RfbqC0fjoCxNp5/U9p
+ XnS1Itp1kpFsNA/GpDu0yM5K5YaejGcpknYJqfk8EgGP6+4iHFTTLMsGRjmoCzrQgPNE5f0aWiJMP
+ QQ9tLG/1QdIBzMpXUBSA5pPGezmjPq0CJwrYYk/ziy5TebK/nnSrHMZcfb2uIjCNLa4oakg80HoTF
+ YSz/UGMzIuFO8B1+V7x8S7PTgRuTau4iALVZWpphyWlovh+/DBjKAy4vaUD6UbIXav3hhIt7y7OBs
+ dRqDYFfcQQ/aBbwuYMYcW8088vlsXsee7dROmQFMco7Esnk7wRaXkBLBwlTa2FrZ/OuYJHiz30tR2
+ lqk0CO2A==;
 Received: from hch by casper.infradead.org with local (Exim 4.94.2 #2 (Red Hat
- Linux)) id 1mGelR-004tzP-3k; Thu, 19 Aug 2021 09:55:23 +0000
-Date: Thu, 19 Aug 2021 10:55:09 +0100
+ Linux)) id 1mGedJ-004t0t-0g; Thu, 19 Aug 2021 09:46:56 +0000
+Date: Thu, 19 Aug 2021 10:46:45 +0100
 From: Christoph Hellwig <hch@infradead.org>
 To: Tom Lendacky <thomas.lendacky@amd.com>
 Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
@@ -48,19 +48,16 @@ Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
  Brijesh Singh <brijesh.singh@amd.com>,
  Joerg Roedel <joro@8bytes.org>, Andi Kleen <ak@linux.intel.com>,
  Sathyanarayanan Kuppuswamy <sathyanarayanan.kuppuswamy@linux.intel.com>,
- Tianyu Lan <Tianyu.Lan@microsoft.com>,
- Michael Ellerman <mpe@ellerman.id.au>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Paul Mackerras <paulus@samba.org>
-Subject: Re: [PATCH v2 04/12] powerpc/pseries/svm: Add a powerpc version of
- prot_guest_has()
-Message-ID: <YR4qfZdkv+91zNZk@infradead.org>
+ Tianyu Lan <Tianyu.Lan@microsoft.com>, Joerg Roedel <jroedel@suse.de>
+Subject: Re: [PATCH v2 02/12] mm: Introduce a function to check for
+ virtualization protection features
+Message-ID: <YR4ohWC4/cLsuCvv@infradead.org>
 References: <cover.1628873970.git.thomas.lendacky@amd.com>
- <000f627ce20c6504dd8d118d85bd69e7717b752f.1628873970.git.thomas.lendacky@amd.com>
+ <482fe51f1671c1cd081039801b03db7ec0036332.1628873970.git.thomas.lendacky@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <000f627ce20c6504dd8d118d85bd69e7717b752f.1628873970.git.thomas.lendacky@amd.com>
+In-Reply-To: <482fe51f1671c1cd081039801b03db7ec0036332.1628873970.git.thomas.lendacky@amd.com>
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
  casper.infradead.org. See http://www.infradead.org/rpr.html
 X-Mailman-Approved-At: Thu, 19 Aug 2021 13:15:57 +0000
@@ -78,9 +75,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Aug 13, 2021 at 11:59:23AM -0500, Tom Lendacky wrote:
-> +static inline bool prot_guest_has(unsigned int attr)
+On Fri, Aug 13, 2021 at 11:59:21AM -0500, Tom Lendacky wrote:
+> +#define PATTR_MEM_ENCRYPT		0	/* Encrypted memory */
+> +#define PATTR_HOST_MEM_ENCRYPT		1	/* Host encrypted memory */
+> +#define PATTR_GUEST_MEM_ENCRYPT		2	/* Guest encrypted memory */
+> +#define PATTR_GUEST_PROT_STATE		3	/* Guest encrypted state */
 
-No reall need to have this inline.  In fact I'd suggest we havea the
-prototype in a common header so that everyone must implement it out
-of line.
+Please write an actual detailed explanaton of what these mean, that
+is what implications it has on the kernel.
+
