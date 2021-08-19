@@ -2,76 +2,145 @@ Return-Path: <SRS0=nAtJ=NK=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EE43BC4338F
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 18:13:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 034F1C4338F
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 18:33:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A8B4060F5E
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 18:13:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A8B4060F5E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id B5FF3601FE
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 18:33:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B5FF3601FE
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 410EC6E8F5;
-	Thu, 19 Aug 2021 18:13:27 +0000 (UTC)
-Received: from mail-ot1-x333.google.com (mail-ot1-x333.google.com
- [IPv6:2607:f8b0:4864:20::333])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36F016E8F5
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Aug 2021 18:13:25 +0000 (UTC)
-Received: by mail-ot1-x333.google.com with SMTP id
- r38-20020a05683044a600b0051a2c6dd421so9814680otv.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Aug 2021 11:13:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=cEZ7G074dvRUncnt1gywviDa1sD5CvaczA2IIsq8XxE=;
- b=eI1GgiejGGFw/Pq3VGATQSK/paPGwDjQ6zeNsll6RJvE1EmO285AFfiEMPOz9s/7FZ
- 7sZoKT7kJxYqjFryjwhu7MMwxxRe7uu/lXwXxKwQehKvNNT5+Rs+J7hPz0SiFl5GCXd8
- ptyViD5H89sf7Z0DlWYQgTTBxrbge3+uHmgl1npioCRuOjm9iChbYCU8Joi2ftspgCgi
- 4nSEKfBo7ee5b/9i2uWa+u+LIM5mlcvp8V5i0dtjHwD16klGxoU5+/5VdFZW6hSME2RB
- 2N0JJUvPcT8eYM4EXfRM/tzlkxrPbr1EiqPJgZVhdjcn9VmIvRCLgi0w7B9BlCOZDCRW
- YJTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=cEZ7G074dvRUncnt1gywviDa1sD5CvaczA2IIsq8XxE=;
- b=jEHrzZJhvr3oOn3TXrrnjyddS9tAPFbeGmf5K8fNxi7UjpGu+iK0Vz2m0Dtbqq/EpU
- YmkwmuF6G+hRirY0wJCZqJqilykxM9mm0u4mPZd5tXEBquFMOrgwD9B+hNYT+mlL7oFn
- crDQJHRu0XUhmhAYYorFkNP/K0kkkFC6bL6YJROfeU0fK2OmEHI9iJcwGPbvvaZzRKva
- xgN1Z2+fEBthXhLfN+Kieqb4h3LtLrKjKO349QPcPJYpjYUJQilu/kQRKfcJuA46ZzDK
- NcAiSktZUQmJuOiMaxnQR1+Glu2rECxcWdmd4/Iz97y+7ifl+Y+qRwv+MUj7XJ21l1Nj
- C+5w==
-X-Gm-Message-State: AOAM530nQWp7383CYskxiVZKRVuv0Q2Vj6gOXGlsS5SXrFzWMaa/wDV0
- nwlmrt0ICuMETAhbVQXtFoV9itubnAElQMcKVBc=
-X-Google-Smtp-Source: ABdhPJy5X5TZlXwO+b95Z8XCeRsR7Ja12Kmc2Xlc7p5rCeqg3QmwjfXGGxr4zxUNqVYhrQwaynApKMUfUgb03eKZnDY=
-X-Received: by 2002:a9d:5a15:: with SMTP id v21mr13553708oth.132.1629396804240; 
- Thu, 19 Aug 2021 11:13:24 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17C0F6E9AF;
+	Thu, 19 Aug 2021 18:33:15 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2084.outbound.protection.outlook.com [40.107.244.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5407F6E9AF;
+ Thu, 19 Aug 2021 18:33:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=STwLbGpSQkL22y4K7f02OkgNaBI90N3zDWvXyvqbnnDY4OLBIyg60BOPkaYbn7od66UC2w7ykPxZDHz46pe5pX7lLnHrSzplbT5KaUbG/8W7CTuRWbzkRby+f0iEin0XmouHz92B4UMyTWLqbyhgWgNddZnpoSc0FfubBynGn36Xpz1X8H8v1AU8bxxldbiHG7t7QOuBkYBDMyMvwA47FGtzv5cBBin3RoqJPEHPamqrG74NJOj4+4GQALZSMHEh1U8/BQNYcthvYkQJXjMnY+/IuxqSThO/WCCtgIDghg6Th7E7z7fybjTXMvPYR/+ZrwEPDwZr5AqFnRTPE+itAw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8ZSbDLkzNWsalGd5dY10VnPSx1Ls+Qt0l27qHYAEsJ8=;
+ b=HlY67olGn5phhxTsJNQmO5wRyAV17FAfv/0CamFjYIL3dNqmRQBfwHO+jtO/pKlq0rRIEyKkPKOgkOYNnWgBiWUdG9rn/P1oEZETuARK1Rfi7LieloUN/cCQnCDtM2RR16HDkv5L4AJOcaRMdedctqd9Lukd+UKUdX9EVT57EPB4uoHAClHqCqpeZzixZJ2DAl3Ru7trVrgfMzf2ah0k6ncNW8qib7OII2zhxOGISCMB6lfKAglx+IPNwAOOF/LWVOe+TMYD+Z9V0sNACYTjEN5pIkeeMJ11oapZnN48clWiCJBln48pSy0KztTXp413TtGaaiFDQL4TO3xCHluOfQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8ZSbDLkzNWsalGd5dY10VnPSx1Ls+Qt0l27qHYAEsJ8=;
+ b=iDyMNxRAspW542jmif90ApmEltSSV8vD0oQ6RKhKKsScxwiyynuGQeuz0FpL2tFDFh56hNlGLMCDdbr6JSAGqpZjQgOHRd9ZVMJJ9liBsZoFVvao1Xa7nqGuwLsp4nLKutXGvO1nfAdRFRGA8rWA4PZtGN6hPkcPNAxwYwN5XjM=
+Authentication-Results: suse.de; dkim=none (message not signed)
+ header.d=none;suse.de; dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB5229.namprd12.prod.outlook.com (2603:10b6:5:398::12)
+ by DM4PR12MB5120.namprd12.prod.outlook.com (2603:10b6:5:393::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.19; Thu, 19 Aug
+ 2021 18:33:13 +0000
+Received: from DM4PR12MB5229.namprd12.prod.outlook.com
+ ([fe80::d560:d21:cd59:9418]) by DM4PR12MB5229.namprd12.prod.outlook.com
+ ([fe80::d560:d21:cd59:9418%6]) with mapi id 15.20.4436.019; Thu, 19 Aug 2021
+ 18:33:12 +0000
+Subject: Re: [PATCH v2 03/12] x86/sev: Add an x86 version of prot_guest_has()
+To: Christoph Hellwig <hch@infradead.org>
+Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-s390@vger.kernel.org,
+ iommu@lists.linux-foundation.org, kvm@vger.kernel.org,
+ linux-efi@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+ linux-graphics-maintainer@vmware.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, kexec@lists.infradead.org,
+ linux-fsdevel@vger.kernel.org, Borislav Petkov <bp@alien8.de>,
+ Brijesh Singh <brijesh.singh@amd.com>, Joerg Roedel <joro@8bytes.org>,
+ Andi Kleen <ak@linux.intel.com>,
+ Sathyanarayanan Kuppuswamy <sathyanarayanan.kuppuswamy@linux.intel.com>,
+ Tianyu Lan <Tianyu.Lan@microsoft.com>, Thomas Gleixner <tglx@linutronix.de>,
+ Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>,
+ Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Joerg Roedel <jroedel@suse.de>
+References: <cover.1628873970.git.thomas.lendacky@amd.com>
+ <7d55bac0cf2e73f53816bce3a3097877ed9663f3.1628873970.git.thomas.lendacky@amd.com>
+ <YR4p9TqKTLdN1A96@infradead.org>
+From: Tom Lendacky <thomas.lendacky@amd.com>
+Message-ID: <4272eaf5-b654-2669-62ac-ba768acd6b91@amd.com>
+Date: Thu, 19 Aug 2021 13:33:09 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
+In-Reply-To: <YR4p9TqKTLdN1A96@infradead.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SN6PR04CA0080.namprd04.prod.outlook.com
+ (2603:10b6:805:f2::21) To DM4PR12MB5229.namprd12.prod.outlook.com
+ (2603:10b6:5:398::12)
 MIME-Version: 1.0
-References: <20210802051602.23822-1-guchun.chen@amd.com>
- <9b28973f-d71c-8ca1-32f3-e7dc23563a70@amd.com>
- <CAHbf0-HNwJvmv=D6KDQrNcmaCbtqj0cCZLgE9bWnSoMNBuqS+w@mail.gmail.com>
-In-Reply-To: <CAHbf0-HNwJvmv=D6KDQrNcmaCbtqj0cCZLgE9bWnSoMNBuqS+w@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 19 Aug 2021 14:13:13 -0400
-Message-ID: <CADnq5_MtY6jHG+VUuuz_Wz2Ka9Tm7p+B-C37SQvwPhhAeLvcVw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: avoid over-handle of fence driver fini in s3
- test (v2)
-To: Mike Lothian <mike@fireburn.co.uk>
-Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- Guchun Chen <guchun.chen@amd.com>, 
- amd-gfx list <amd-gfx@lists.freedesktop.org>, Likun Gao <Likun.Gao@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Hawking Zhang <Hawking.Zhang@amd.com>, Alex Deucher <alexander.deucher@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [10.236.30.241] (165.204.77.1) by
+ SN6PR04CA0080.namprd04.prod.outlook.com (2603:10b6:805:f2::21) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4436.19 via Frontend Transport; Thu, 19 Aug 2021 18:33:11 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: ab94110e-0fb4-4def-19a4-08d9633fcd20
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5120:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM4PR12MB51206EFA62CD282E36FB8227ECC09@DM4PR12MB5120.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: c6IQE9KbkWq8ctP0zpVQosyKO7QwqqI/mMHpM1VC8ce48mHwojUQVJVl7j/OA+28xeutJgF7KbPIp5xzWox7q+zkSmMxd7ZTOdtmugd7JIZwR/vE3Se9eT4EIUQqUBiOMx6TRWHF8cK0ipRffOtR609qCmHHf4PyuI0wfFIgL8KoX3/olg8sVyYs+iqZBMrkzDX2AU/UWuYkvfoi16QIeSEmVI6IDwkg/0VWCd6yQG1e0gdrV4kE/3sB1+y0dotkhKJtTRqdLQDPaHoNQ2YTnitjPIkPtHQI7Xegvuux3HRGcBGGSaqUC9Kum22h5zc9do7ZLg2kzdlo4Rjq2WAm+FQESSAbME+0JZvpRnf8xYQ6vcRfRz0YqbEawKCX6eziHxupDOs79/04hhCh6OFUoWkOTf1rVp2DzR/M1e2mha/jG9X3EDpYFJ2IcvZfFf//UYAzieGLYNpv+WFVqEgTWBGTBenmVUebZKebQXw+wWYRtb3Rw2jRU60XRzNc0RMWW9usNQyfwZzb2QAmCIgAm8NQllaQmty5PWVxdII6qJ8ZpBY7kL2BIRkIVHcd0Gs87SlDgtEHYignP/1J5/bymEUdoAGPQvwoyNXUrN7B5EmIJcuLlWcQZFLAR6k39SC5ZnJa3ZLkPzw9K3bi0fdk0Hqrf4K5XCamEthFc6UmZozSMd8uDEyogpdFXiJJCe9Kfu6ldvR2MsXptuwStpsgM6dvAuJyj0Bc/DPNdkvKgQefUxMA//aZ7Y0jG3lEw30i
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5229.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(346002)(366004)(376002)(136003)(39860400002)(83380400001)(2906002)(66476007)(26005)(53546011)(7416002)(16576012)(66946007)(66556008)(5660300002)(6486002)(6916009)(186003)(2616005)(36756003)(478600001)(31696002)(86362001)(956004)(8936002)(4326008)(31686004)(8676002)(54906003)(38100700002)(316002)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S3pOUU1ZSEtpVWwxbGowZHRrNjUwUDhzZXhZbXVRcjNqREhHZlY5WFJSb0hJ?=
+ =?utf-8?B?aFJSWWtFbnVzVzd4VDg4S09kS2trQ2cvcjBGS3l0WjBxSytpdnBpNjRvdlBa?=
+ =?utf-8?B?NDJocnBPUnNubW81S082RkpFdVNSTDkrR0NsdGg5QnhsaHBmMWJYSWhSYWN4?=
+ =?utf-8?B?UFg5NzIvWWxPQ1FOeFBTWDQyN0ZvazBRQXpoZlRXNUtPVjRncTV5OVFWS0x0?=
+ =?utf-8?B?NDZqN3pRODZBQWVrMXdrSWJqcXU4NFg3NlVYV05XRnlPaDdyVFU5dXFxa0FS?=
+ =?utf-8?B?TC9YUTJwYWQwWnJVcGczNXdZTXFsSnh5RkJ3M3VhZ2NkV3FyRTNYUkQ2OHE0?=
+ =?utf-8?B?ZTBBZld5aURnNGJWQUNDVU8vbDc0WTNHUkNheWdTS1NiVXg2cTNUMnlPaGNF?=
+ =?utf-8?B?aWRvWk9GOXlsWDZVMWxWLytDNUVQdkg1TUZDVnR4N2IveXpBTjF2eW96NGhq?=
+ =?utf-8?B?cGh0RmJnazh0UkRkUnA3bS9xcDIydjU0ZjN2TGxCL3JtTkJCdFhtdWVqMUY5?=
+ =?utf-8?B?QnBjVEZVdGErZE1URE9SM0RsRGJFbVl5UVVlUzAxYlBlVlN2ck9zWnJRb01H?=
+ =?utf-8?B?RHFVYlZLeFQycnQwQjUyVllPV2NKR2hFaDMrWnZpeUc2L0Z3NFBFa0llRDJx?=
+ =?utf-8?B?MjlLVnZ0Z1h4enBKaDRGbkhrRkRuR0FQTWcxVlZBTitzZElWS3phQjEyZU1j?=
+ =?utf-8?B?amlGeDE1SFJhSnEyVzd3QjBwc2pMOEtLZ3JQNWg2c21hc2E2aTBwOXU0T09h?=
+ =?utf-8?B?Tms2Njh6TVBWQlAzdG93cXFHTGRJcUpHSFJJc2RVTUVXc3lOOFRBN21VLzl4?=
+ =?utf-8?B?dmo2QmRFZGM0SkRXWWFNMXNjcnZncDd1dVYrcVVDcEhxQ3o2anRmV045b0Ns?=
+ =?utf-8?B?dytJcU1VYUZQRmpCK3A0RytxN0hDRnhoOVVwLzJaTzlRK1RySW0xdWptaTFa?=
+ =?utf-8?B?TkpheG9iYjJNUlNXZjVaMTU3K1JiUmpReHhwKzNBYnFwbHB0cTU4ejlrNmNl?=
+ =?utf-8?B?OUY5dFRuclY1SUIrYjFuN0JXUE8vVG5VSThGd2srK2tLWm85WStybWRBdlRB?=
+ =?utf-8?B?SmpvNEpNZE9ZZjZDcnN6NUYxaml1a203NXdCbDlUbk5lRDMwNGFJZklzOFhB?=
+ =?utf-8?B?N1Y0Y3h4N3l2ajcwWk1yNEhCN2VtblBKL0tsODFVbHdoOCtGWWFVSjloWXBL?=
+ =?utf-8?B?OW5sMmdTV09NRzFKQlVOL3h6eUZFdmV6TnhFQWs2bDlFbVBFY1k2ZUNyamEy?=
+ =?utf-8?B?M0FsSnVFc1ZBK2FkNS9PK2lUNVQydkNVK1c2ZDBlWnltbjVpQnBnV3pmbHdS?=
+ =?utf-8?B?eVpIaDVPZ2VLcTdRNkVZRzROUVdLMFRrdmlIdDVUUWxndndGRVVndlE0NFlP?=
+ =?utf-8?B?Z2kycTdTYlJvVXdvWFNSWjVoaHlRbks1MFFZNHloZW9jM0p0bElReGJuSlhJ?=
+ =?utf-8?B?UStFZDR0K2NRcVlnOVJYeHdtbjB3NitaZllVN09HZWxxamJQY0VOYXdlYVhC?=
+ =?utf-8?B?SEtMQzJpbm1DT1VkdkpCTi8ybmUvUmd2S0oyT05CZDRHQnh4V0NPcjQxT0J5?=
+ =?utf-8?B?dVhuek9ISC9QODVDMWpmL0d6RWw2SnFBODgvLzA2d2NUZW5zK2IwZ0c0SmNG?=
+ =?utf-8?B?RHpjK2pwL1lyRWVsQnU4N0swSGowWUF5a0UyaGpNa1RmZ1pVNU5RRUdIU0c3?=
+ =?utf-8?B?TmhTTTc5UjA0RmRJZm43dlZ6VTFodEVadnI3OHEwVnQwK2tDMC9uclpkRnE1?=
+ =?utf-8?Q?PDgTPExTXOMVVygygYPkPtF3LrokcEDh7NJUAzt?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ab94110e-0fb4-4def-19a4-08d9633fcd20
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5229.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2021 18:33:12.7687 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: CBy2xDQApYsRKH0htVZtHiZk6/sVUWLG3Mz6LSaYwmW7WEbfsQOUYn0A2vOKwNNM6RZUhalPekNsOHHnVQCw7w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5120
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,173 +155,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Please go ahead.  Thanks!
+On 8/19/21 4:52 AM, Christoph Hellwig wrote:
+> On Fri, Aug 13, 2021 at 11:59:22AM -0500, Tom Lendacky wrote:
+>> While the name suggests this is intended mainly for guests, it will
+>> also be used for host memory encryption checks in place of sme_active().
+> 
+> Which suggest that the name is not good to start with.  Maybe protected
+> hardware, system or platform might be a better choice?
+> 
+>> +static inline bool prot_guest_has(unsigned int attr)
+>> +{
+>> +#ifdef CONFIG_AMD_MEM_ENCRYPT
+>> +	if (sme_me_mask)
+>> +		return amd_prot_guest_has(attr);
+>> +#endif
+>> +
+>> +	return false;
+>> +}
+> 
+> Shouldn't this be entirely out of line?
 
-Alex
+I did it as inline originally because the presence of the function will be
+decided based on the ARCH_HAS_PROTECTED_GUEST config. For now, that is
+only selected by the AMD memory encryption support, so if I went out of
+line I could put in mem_encrypt.c. But with TDX wanting to also use it, it
+would have to be in an always built file with some #ifdefs or in its own
+file that is conditionally built based on the ARCH_HAS_PROTECTED_GUEST
+setting (they've already tried building with ARCH_HAS_PROTECTED_GUEST=y
+and AMD_MEM_ENCRYPT not set).
 
-On Thu, Aug 19, 2021 at 8:05 AM Mike Lothian <mike@fireburn.co.uk> wrote:
->
-> Hi
->
-> Do I need to open a new bug report for this?
->
-> Cheers
->
-> Mike
->
-> On Wed, 18 Aug 2021 at 06:26, Andrey Grodzovsky <andrey.grodzovsky@amd.co=
-m> wrote:
->>
->>
->> On 2021-08-02 1:16 a.m., Guchun Chen wrote:
->> > In amdgpu_fence_driver_hw_fini, no need to call drm_sched_fini to stop
->> > scheduler in s3 test, otherwise, fence related failure will arrive
->> > after resume. To fix this and for a better clean up, move drm_sched_fi=
-ni
->> > from fence_hw_fini to fence_sw_fini, as it's part of driver shutdown, =
-and
->> > should never be called in hw_fini.
->> >
->> > v2: rename amdgpu_fence_driver_init to amdgpu_fence_driver_sw_init,
->> > to keep sw_init and sw_fini paired.
->> >
->> > Fixes: cd87a6dcf6af drm/amdgpu: adjust fence driver enable sequence
->> > Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
->> > Signed-off-by: Guchun Chen <guchun.chen@amd.com>
->> > ---
->> >   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  5 ++---
->> >   drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c  | 12 +++++++-----
->> >   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h   |  4 ++--
->> >   3 files changed, 11 insertions(+), 10 deletions(-)
->> >
->> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_device.c
->> > index b1d2dc39e8be..9e53ff851496 100644
->> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> > @@ -3646,9 +3646,9 @@ int amdgpu_device_init(struct amdgpu_device *ade=
-v,
->> >
->> >   fence_driver_init:
->> >       /* Fence driver */
->> > -     r =3D amdgpu_fence_driver_init(adev);
->> > +     r =3D amdgpu_fence_driver_sw_init(adev);
->> >       if (r) {
->> > -             dev_err(adev->dev, "amdgpu_fence_driver_init failed\n");
->> > +             dev_err(adev->dev, "amdgpu_fence_driver_sw_init failed\n=
-");
->> >               amdgpu_vf_error_put(adev, AMDGIM_ERROR_VF_FENCE_INIT_FAI=
-L, 0, 0);
->> >               goto failed;
->> >       }
->> > @@ -3988,7 +3988,6 @@ int amdgpu_device_resume(struct drm_device *dev,=
- bool fbcon)
->> >       }
->> >       amdgpu_fence_driver_hw_init(adev);
->> >
->> > -
->> >       r =3D amdgpu_device_ip_late_init(adev);
->> >       if (r)
->> >               return r;
->> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/d=
-rm/amd/amdgpu/amdgpu_fence.c
->> > index 49c5c7331c53..7495911516c2 100644
->> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
->> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
->> > @@ -498,7 +498,7 @@ int amdgpu_fence_driver_init_ring(struct amdgpu_ri=
-ng *ring,
->> >   }
->> >
->> >   /**
->> > - * amdgpu_fence_driver_init - init the fence driver
->> > + * amdgpu_fence_driver_sw_init - init the fence driver
->> >    * for all possible rings.
->> >    *
->> >    * @adev: amdgpu device pointer
->> > @@ -509,13 +509,13 @@ int amdgpu_fence_driver_init_ring(struct amdgpu_=
-ring *ring,
->> >    * amdgpu_fence_driver_start_ring().
->> >    * Returns 0 for success.
->> >    */
->> > -int amdgpu_fence_driver_init(struct amdgpu_device *adev)
->> > +int amdgpu_fence_driver_sw_init(struct amdgpu_device *adev)
->> >   {
->> >       return 0;
->> >   }
->> >
->> >   /**
->> > - * amdgpu_fence_driver_fini - tear down the fence driver
->> > + * amdgpu_fence_driver_hw_fini - tear down the fence driver
->> >    * for all possible rings.
->> >    *
->> >    * @adev: amdgpu device pointer
->> > @@ -531,8 +531,7 @@ void amdgpu_fence_driver_hw_fini(struct amdgpu_dev=
-ice *adev)
->> >
->> >               if (!ring || !ring->fence_drv.initialized)
->> >                       continue;
->> > -             if (!ring->no_scheduler)
->> > -                     drm_sched_fini(&ring->sched);
->> > +
->> >               /* You can't wait for HW to signal if it's gone */
->> >               if (!drm_dev_is_unplugged(&adev->ddev))
->> >                       r =3D amdgpu_fence_wait_empty(ring);
->>
->>
->> Sorry for late notice, missed this patch. By moving drm_sched_fini
->> past amdgpu_fence_wait_empty a race is created as even after you waited
->> for all fences on the ring to signal the sw scheduler will keep submitti=
-ng
->> new jobs on the ring and so the ring won't stay empty.
->>
->> For hot device removal also we want to prevent any access to HW past PCI
->> removal
->> in order to not do any MMIO accesses inside the physical MMIO range that
->> no longer
->> belongs to this device after it's removal by the PCI core. Stopping all
->> the schedulers prevents any MMIO
->> accesses done during job submissions and that why drm_sched_fini was
->> done as part of amdgpu_fence_driver_hw_fini
->> and not amdgpu_fence_driver_sw_fini
->>
->> Andrey
->>
->> > @@ -560,6 +559,9 @@ void amdgpu_fence_driver_sw_fini(struct amdgpu_dev=
-ice *adev)
->> >               if (!ring || !ring->fence_drv.initialized)
->> >                       continue;
->> >
->> > +             if (!ring->no_scheduler)
->> > +                     drm_sched_fini(&ring->sched);
->> > +
->> >               for (j =3D 0; j <=3D ring->fence_drv.num_fences_mask; ++=
-j)
->> >                       dma_fence_put(ring->fence_drv.fences[j]);
->> >               kfree(ring->fence_drv.fences);
->> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_ring.h
->> > index 27adffa7658d..9c11ced4312c 100644
->> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
->> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
->> > @@ -106,7 +106,6 @@ struct amdgpu_fence_driver {
->> >       struct dma_fence                **fences;
->> >   };
->> >
->> > -int amdgpu_fence_driver_init(struct amdgpu_device *adev);
->> >   void amdgpu_fence_driver_force_completion(struct amdgpu_ring *ring);
->> >
->> >   int amdgpu_fence_driver_init_ring(struct amdgpu_ring *ring,
->> > @@ -115,9 +114,10 @@ int amdgpu_fence_driver_init_ring(struct amdgpu_r=
-ing *ring,
->> >   int amdgpu_fence_driver_start_ring(struct amdgpu_ring *ring,
->> >                                  struct amdgpu_irq_src *irq_src,
->> >                                  unsigned irq_type);
->> > +void amdgpu_fence_driver_hw_init(struct amdgpu_device *adev);
->> >   void amdgpu_fence_driver_hw_fini(struct amdgpu_device *adev);
->> > +int amdgpu_fence_driver_sw_init(struct amdgpu_device *adev);
->> >   void amdgpu_fence_driver_sw_fini(struct amdgpu_device *adev);
->> > -void amdgpu_fence_driver_hw_init(struct amdgpu_device *adev);
->> >   int amdgpu_fence_emit(struct amdgpu_ring *ring, struct dma_fence **f=
-ence,
->> >                     unsigned flags);
->> >   int amdgpu_fence_emit_polling(struct amdgpu_ring *ring, uint32_t *s,
+To take it out of line, I'm leaning towards the latter, creating a new
+file that is built based on the ARCH_HAS_PROTECTED_GUEST setting.
+
+> 
+>> +/* 0x800 - 0x8ff reserved for AMD */
+>> +#define PATTR_SME			0x800
+>> +#define PATTR_SEV			0x801
+>> +#define PATTR_SEV_ES			0x802
+> 
+> Why do we need reservations for a purely in-kernel namespace?
+> 
+> And why are you overoading a brand new generic API with weird details
+> of a specific implementation like this?
+
+There was some talk about this on the mailing list where TDX and SEV may
+need to be differentiated, so we wanted to reserve a range of values per
+technology. I guess I can remove them until they are actually needed.
+
+Thanks,
+Tom
+
+> 
