@@ -2,107 +2,130 @@ Return-Path: <SRS0=nAtJ=NK=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 22C62C432BE
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 13:38:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 12768C4338F
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 14:19:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DEF94610A1
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 13:38:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DEF94610A1
+	by mail.kernel.org (Postfix) with ESMTPS id CDA57610FA
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 14:19:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org CDA57610FA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61FBD6E986;
-	Thu, 19 Aug 2021 13:38:11 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2061.outbound.protection.outlook.com [40.107.243.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5BF06E978
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Aug 2021 13:38:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D3496E998;
+	Thu, 19 Aug 2021 14:19:25 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2050.outbound.protection.outlook.com [40.107.93.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 500FA6E990
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Aug 2021 14:19:23 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=anSl8sRNs64buaQ9tuLeBGhPhjjlNy/LMxpPw830+YoiRHRiu32D9prfE5q+YVzOJOLmZF5JKzxKDKEJiaitawPDVSbwBgyOD/svbDdt5WYCMrPKxSMMm4LVuuqTlTs3C+bKrRSKgxlz+Ml103BDXh0164xuP0ByNta///r765ePzT6nJNoYFibFd5YNNEjE9INR77w+rqVL+DNdH6W1r/zlWwktUbjrWbfWT1lwTcZ9rHUMb85yLqZYnqwnZ4GyFQx/rwAEecvNX9dyoQC9V9FjG9TeRDh6xYaVolwsuLJAiBuRSs5dzKIyYC/jMg8oPKOz2XndavyxwXMfqvggQg==
+ b=ivtci9+xyV0aFhFybkvo0sIOENBCXvczjuvv2MMNd8IFythfC7nWtlz9RSlN4tCjT65AoYKv44laGiTsqUG1wQx7wzDaprj3FN0ySyOLpAJdA+GAlUvveAa3xSvOS6wU9cMCx+6YNIvTpL51wlYwk+bPuHYG0QJty/WsOn5IzbDw1bJiTvLWkyGgDmf2X8NXlebB8aoCoTuxDn3guwWqo+qmxGVCY3d3K40uwuTP6H6UgpJw5CLF3bMMF2VomGdgL9I9atGdIBcPCJfl3bHpPRr7+WoaYoS75I1jSiE/zzEcp6Go6kvebcmRzC75j+sz01wZOon/xv3N04OhDiMi9A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6JGakVmddpVrZ3mgjVx11P2mHx89lQuQ2U4LLL/WJK8=;
- b=Kxrw6jcaswtt+n3Foa/WTF/XGfKJnIVywg7rxIYRABoRx1f/6cMzhjM2pHayT5Mx6xPsdM1BOaCGWdcE8HtWINJyBA0Ly30rZLDH/Ju/4lfsIN+fOux2Wo5629fyVkkLR+JFwq7DtiRdu9N8KIafB5/b3tQihptDsIEYKOrfHkV3izqgp9JXYcw1AQhjsXtXPGCbiex4B+aXfLqJ5/MjuGCfzaa9uAZzlG/vKrJwqdPYOON75KJKZmprVjFZ1hya2ASYBxF+kdDYYLx94XrczzGyLxZZbhnlRK6FXASa94++riE7RbdzSeQyrm7RLwM5L2L9cWrRp/mhzXWfiUmQKw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=bgVDcIPNLj/FcgHqN3MvxU2w77q+pKBYyGsz0qZ1PlU=;
+ b=iwLoDvyDJshQ7s61hkglC+cfu4rc4UkWsZ4ZRYh1NzzBzH/carfyRDlOKnaWjI9vlU3n5MxTq/9S+zt53d6zxdrBS5VsEzr/qQJqUFFpYQdV5Skaavn6AROE9VxS+frvQUifsUkPiVOQ5vD9b76Woy2bTDxB+ee0fvWyVQz92s+4jp1mBHS+wENVpwFK4f45CwkqFXFNTMT0MzmNKl/haBBr+pZBfrhHEN81YW49q/c0DvZluLePMmPjQi8c3L1rRmMyQdx4hataRZTjDmW8o2FSaw6Ycd/609ub6qPz/mqtFxUOsy+VoeTXxmoxc0eAahRlNDEaEl+0dqtwqA/OSg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6JGakVmddpVrZ3mgjVx11P2mHx89lQuQ2U4LLL/WJK8=;
- b=3jsvv/pyamKoIvQlLkAJWiOXHZfBezDt9NtOFIFJ735BuXRyEL/TdZ0X946By4iAF7dysCuH5mC4P3baWHiDivakWjqaQwhPGUkGgANDIVp0N6c+/3/pyP4sfogzaI2Kf2qyC/QU8e8do62pKF5Ceb2iajuI9M5w5MEyUXTQorU=
-Received: from CO2PR04CA0173.namprd04.prod.outlook.com (2603:10b6:104:4::27)
- by DM5PR12MB2470.namprd12.prod.outlook.com (2603:10b6:4:b4::39) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.18; Thu, 19 Aug
- 2021 13:38:00 +0000
-Received: from CO1NAM11FT008.eop-nam11.prod.protection.outlook.com
- (2603:10b6:104:4:cafe::92) by CO2PR04CA0173.outlook.office365.com
- (2603:10b6:104:4::27) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.19 via Frontend
- Transport; Thu, 19 Aug 2021 13:38:00 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT008.mail.protection.outlook.com (10.13.175.191) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4436.19 via Frontend Transport; Thu, 19 Aug 2021 13:38:00 +0000
-Received: from dayatsin-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Thu, 19 Aug
- 2021 08:37:56 -0500
-From: David Yat Sin <david.yatsin@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <felix.kuehling@amd.com>, <rajneesh.bhardwaj@amd.com>, David Yat Sin
- <david.yatsin@amd.com>
-Subject: [PATCH 18/18] drm/amdkfd: CRIU export kfd bos as prime dmabuf objects
-Date: Thu, 19 Aug 2021 09:37:13 -0400
-Message-ID: <20210819133713.4168-19-david.yatsin@amd.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210819133713.4168-1-david.yatsin@amd.com>
-References: <20210819133713.4168-1-david.yatsin@amd.com>
-MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ec281f49-5c89-400d-8497-08d963168ffe
-X-MS-TrafficTypeDiagnostic: DM5PR12MB2470:
-X-Microsoft-Antispam-PRVS: <DM5PR12MB24706EAE1C085AFE5398E4B995C09@DM5PR12MB2470.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5236;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: FPRf9rVVb2ICE/ZzMsSoAjdSx1gP7UyU5k1940xKqTSH50lhlvhq0iusx/odV0PNWvZHrHL8c4i0vmqy/J/JdV6SepZogcJXXT0dLK+LhOEH69aIxatnkEfYrQfSzutcMsNYOE3ld08vuP5rgOhM9JUAuMWUBxd08G4jLnlKN1fSbmAH2kK+x/UQTxj6gZiEhrEAW3QKJ9vfQ8RVbcuRLg6FRrZ6r2xi6fF5cBkzFHFZkf7NlUX/Jxa+ZJNQ7qfkR+krjFgP6PkiJCBggoseTSwJ3Y9iZjM+3tboNIH54Q60R7vNYAzsX9MXysAm7Ks8b3MGSjCJfJFCsgTEJZyijD0A62mFdlArsxp8IM6a1zpZFFcvaY5xq3Spt6xDMVCYlDijmVUQdcApHzazFiJYlbVAdlspzewkjyq1rtNRyg/1J8C0c0iP1acjUai9gcQ/1Tk2bMfQ789hRcAkgfRwhjc35dSZPJwbU7EOtIHcZwsntrc4ycHOPwsa4mqtYr013TfrR0CxbIAieftHM4Ol4HTOCQLb9/QAn21RRNhSIk7HPKOhylQWzwmMaSY/rqduFNxqmP+c8dFd17330s9N9/Fv6JUKsavdsfzbb7C+V5H6939qUspIfK88SOTrOUM4kh9Vel4JmyGURX8GTxP3j1v07pobfyNoK/0DKeoRmxOkedQVqE0Q80hAWn/qS6lt76SRL89+s14axTZ9lLR3sugIH7mvVhSU0owKgcBQP75Jm1O2n/69oW+VsTzGLZlUpSvphpo/5vZVetbhqGD/fQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(346002)(136003)(376002)(39860400002)(396003)(36840700001)(46966006)(16526019)(82740400003)(356005)(426003)(26005)(6666004)(1076003)(83380400001)(5660300002)(186003)(8676002)(2906002)(6916009)(81166007)(2616005)(7696005)(8936002)(336012)(316002)(34020700004)(70586007)(36860700001)(478600001)(86362001)(54906003)(4326008)(47076005)(82310400003)(70206006)(36756003)(36900700001);
+ bh=bgVDcIPNLj/FcgHqN3MvxU2w77q+pKBYyGsz0qZ1PlU=;
+ b=wzfYGtPtq6QnDyE9ES/SGZvWiRfyBP+ZBwY9tB3te+3a1n71p0kPCXemnQWcX1g3BHUmZENcVQow9+xcrGIZGI1YA5dCD/RApNGjt3nglAmPNYpTZsGHjrhxrItfyi/b2uWL95mF1SnktVF6urNa/BKh2jbQiKi14Wj4tcUjrPc=
+Received: from DM5PR12MB2517.namprd12.prod.outlook.com (2603:10b6:4:bb::13) by
+ DM6PR12MB4201.namprd12.prod.outlook.com (2603:10b6:5:216::9) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4436.19; Thu, 19 Aug 2021 14:19:21 +0000
+Received: from DM5PR12MB2517.namprd12.prod.outlook.com
+ ([fe80::2560:34ab:f08a:3248]) by DM5PR12MB2517.namprd12.prod.outlook.com
+ ([fe80::2560:34ab:f08a:3248%3]) with mapi id 15.20.4415.024; Thu, 19 Aug 2021
+ 14:19:21 +0000
+From: "Zhu, James" <James.Zhu@amd.com>
+To: "Quan, Evan" <Evan.Quan@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Chen, Guchun"
+ <Guchun.Chen@amd.com>, "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Pan, Xinhui"
+ <Xinhui.Pan@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: add missing cleanups for Polaris12 UVD/VCE on
+ suspend
+Thread-Topic: [PATCH] drm/amdgpu: add missing cleanups for Polaris12 UVD/VCE
+ on suspend
+Thread-Index: AQHXlKefUC8QlBJDw0CZ6Sbi/RXNxKt6360e
+Date: Thu, 19 Aug 2021 14:19:21 +0000
+Message-ID: <DM5PR12MB2517FA1095D8D016C2E784D5E4C09@DM5PR12MB2517.namprd12.prod.outlook.com>
+References: <20210819030859.1470753-1-evan.quan@amd.com>
+In-Reply-To: <20210819030859.1470753-1-evan.quan@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-08-19T14:19:20.226Z;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
+ Official Use
+ Only; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard; 
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 86a771e3-825a-49cf-53a5-08d9631c56d0
+x-ms-traffictypediagnostic: DM6PR12MB4201:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM6PR12MB420195C6CA80CA1A3E70244DE4C09@DM6PR12MB4201.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:6790;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: Ofxy1zjpwBRKwuaXdZ7DOw6bTDYZO0OIP2/9hqvjf/6sfMQLLhwSa+YngWZawi/smv1RveEjlnoC12DtKh+ZmLzEN+arJfsq+H+44r4/35eiaPObP5NppZowFaP/Ewtlz1ic3D7n8Q+2sxYZa549FBCx2MXU7Shdk6zWCC0C4P8HC1PWG9O4mMm2Wkr8HhbkEv75UzOdWTGVL6nS5xL7MEYgvkDtJs5RWxi7UbkIn6b3qfeCz3+CPbYhcuGfVFPaHPISy4/D9xbQJo9k6/LNtaflIQhAvlkMbURTbFkp1YN9XWPhhX6QReUFV4s0iOzF9Iaz9Ir/DW6fpfrIuPlR86lo7/z+SdlwGRPZY+G5BiZAdwht2fWG/wcYo3c8wat2aoXsI6cw+WkBmp1wdZ0JJp8gG734Bp1IZemLk6EWdVWkM/wMLpT2C/uwh8gqmMR31AA6kmE3UmjSNtb/2bsUbvDDkx1Jm4NA0JEXinIdO8MsLrcIZQtiXYCtaZPPowT3+NCGnJjgamO4TcNhh4sp8L/RoDpQztgLDcTOQTWfrSHcGGcpgSj2nqCnY8Y2VN9XF8/12cP89sUqXu0Ox0xLJjCrJZQHeym1E2X4MbX0+4Oic8LnJb2b5+pFlJVJfzIwHmBpkpNsBPIgrIox9eEE4Xw+CrM0Pcxy61O4JC2GeqHPdaEP13NsjlgDl0OoNZj6Mqf8BJ89T50AEze32gtqrQ==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB2517.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(39860400002)(396003)(366004)(376002)(346002)(7696005)(66476007)(71200400001)(66946007)(5660300002)(2906002)(91956017)(83380400001)(8936002)(33656002)(316002)(76116006)(186003)(9686003)(64756008)(86362001)(54906003)(26005)(38100700002)(478600001)(122000001)(4326008)(55016002)(8676002)(38070700005)(53546011)(15650500001)(6506007)(110136005)(52536014)(19627405001)(66446008)(66556008);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?SsNliRAUQd/Nfh0Q6+4oHOW7QtE4Xi675WsW4Mf6+Lmr+rZzEkLtPfQ6H/qT?=
+ =?us-ascii?Q?qIvorxDcs7QAMWJMj+8H7cR6SU2zKetisWC5GazN0eeqCqpjEmxJbrXJ7NDf?=
+ =?us-ascii?Q?u3ZPmon/DSEkSaf0ba67s4Tpd0yyYyVTgdI4YHjkFv5GL+/CiZoR17AVIL6r?=
+ =?us-ascii?Q?XhsKvToSckORD7ICjdTuFi0Rf1uX1qobhDaKqGqdiBkNNO1B2jk3BX1latB9?=
+ =?us-ascii?Q?y36Q6NW+WWP/jz7DzrG1aBIQIijnLi/k92S8SEzcBrt2fuGnNOSLMGlljYCJ?=
+ =?us-ascii?Q?THhyhARFoxgiG2H604GYC7jtYeXi2M/33unr2wA6hWmOjhYQJrkqwDY8jfxW?=
+ =?us-ascii?Q?ksmk+HUaS8zlk0awKtFmMtfjIm/u3pZ+GP1VwxLU4BBb3hcs1ND+4iWSK1AI?=
+ =?us-ascii?Q?XmrqW8UP47VRGOcmaMdcEpxcgd7DUuqvzk9kw/2YveLyWt8S2qiL2oCdlLqw?=
+ =?us-ascii?Q?QvgOm3MfJEzXu3ywGSdnfykSIFLKYuKnhfMF34ee7PyToIeapaiuAF7z0cWu?=
+ =?us-ascii?Q?/K3KDJrsTkWDTbVjC4Ja4cMyjWSIHJ4UFWKuTVirTxg/tI7tgVrVxbM8F86K?=
+ =?us-ascii?Q?3PcUQS3Tn2dI6Ne0WkkyOr0wYXelygqe/QFqffsbu6aeQinO98DgQOaXUWk0?=
+ =?us-ascii?Q?jxETJRKzde2a777nWiGGnMgcN24iSEyaN/x9nNx5qac7HadA4aPLdloamIlq?=
+ =?us-ascii?Q?AJ6wEoOdhj+vvKd0rUWeU/9++I9XxJpKc6y4v1T1TFogNFuQi4pJBKNyHQW0?=
+ =?us-ascii?Q?h5mXU4LfEPVNzPrQBBD09JnLzhzjmDp02TGjnguVSLdq00IE8L2JQWGo6D2n?=
+ =?us-ascii?Q?cbNoOtbmJaIP/wX3cAkG+8tYIDqPJ/vho6uu15B+3iSaOnZwIxUTlAzDJZLD?=
+ =?us-ascii?Q?TJy80sUSmhd8mBOX+zAUgfwVBH2k89yi8NJYcbWBBSiCJD+G4/7TZrr6L7qH?=
+ =?us-ascii?Q?DLD7zN3zsVfNsoePR+ovMwtEvBa6UWqi3Nev/aR1Hm/5FOdjsh2kOh8L1WOg?=
+ =?us-ascii?Q?GmKij9Xmx7ujRvC2toko9Wi9yCXDCMJxtbEWZk9IScL05GD+dJgQhUwo6/qi?=
+ =?us-ascii?Q?4gVDnyyIeHAUoEuXWBgHujeo+YyZFNkVzVMmvW5HUV2ux2/PtY8RNgjANNQN?=
+ =?us-ascii?Q?gvjpaxk9x1YMcQINBJIz0JIh+0NIIcO9wRuJLKVTDl4ZQuTTJY04Gd/9mtca?=
+ =?us-ascii?Q?L7F8iTl3jIgSCt91UjmYOJ3QPorwuIKTf5D+FnxM4BKGEV+QSLedrsdIFYkk?=
+ =?us-ascii?Q?lng2DhE+1TpWEJzbdD3opITprQNpUMBhTKbkhvJtF5St0xIsKl66JJpI88pJ?=
+ =?us-ascii?Q?nd8wClFfaB9f52uZ31JphEiG?=
+Content-Type: multipart/alternative;
+ boundary="_000_DM5PR12MB2517FA1095D8D016C2E784D5E4C09DM5PR12MB2517namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2021 13:38:00.4309 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ec281f49-5c89-400d-8497-08d963168ffe
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT008.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2470
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2517.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 86a771e3-825a-49cf-53a5-08d9631c56d0
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Aug 2021 14:19:21.4674 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Kicc9Dc02bMEJP8UdZ05V+/x9g6PVoSatYbWNe50XAwi4qFvgfYBKkAH+gpVJmZC
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4201
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,141 +140,333 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
+--_000_DM5PR12MB2517FA1095D8D016C2E784D5E4C09DM5PR12MB2517namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-KFD buffer objects do not associate a GEM handle with them so cannot
-directly be used with libdrm to initiate a system dma (sDMA) operation
-to speedup the checkpoint and restore operation so export them as dmabuf
-objects and use with libdrm helper (amdgpu_bo_import) to further process
-the sdma command submissions.
+[AMD Official Use Only]
 
-With sDMA, we see huge improvement in checkpoint and restore operations
-compared to the generic pci based access via host data path.
 
-Suggested-by: Felix Kuehling <felix.kuehling@amd.com>
-Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
-Signed-off-by: David Yat Sin <david.yatsin@amd.com>
+Why not move changes into hw_fini?
+
+
+Best Regards!
+
+
+James Zhu
+
+________________________________
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Evan Qua=
+n <evan.quan@amd.com>
+Sent: Wednesday, August 18, 2021 11:08 PM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Chen, Guchun <Guchun.Ch=
+en@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>; Quan, Evan <Evan.Quan@amd.co=
+m>; Pan, Xinhui <Xinhui.Pan@amd.com>
+Subject: [PATCH] drm/amdgpu: add missing cleanups for Polaris12 UVD/VCE on =
+suspend
+
+Perform proper cleanups on UVD/VCE suspend: powergate enablement,
+clockgating enablement and dpm disablement. This can fix some hangs
+observed on suspending when UVD/VCE still using(e.g. issue
+"pm-suspend" when video is still playing).
+
+Change-Id: I36f39d9731e0a9638b52d5d92558b0ee9c23a9ed
+Signed-off-by: Evan Quan <evan.quan@amd.com>
+Signed-off-by: xinhui pan <xinhui.pan@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 57 ++++++++++++++++++++++++
- 1 file changed, 57 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c | 24 ++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/vce_v3_0.c | 23 +++++++++++++++++++++++
+ 2 files changed, 47 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 90e4d4ce4398..ead4cb37377b 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -35,6 +35,7 @@
- #include <linux/mman.h>
- #include <linux/ptrace.h>
- #include <linux/dma-buf.h>
-+#include <linux/fdtable.h>
- #include <asm/processor.h>
- #include "kfd_priv.h"
- #include "kfd_device_queue_manager.h"
-@@ -43,6 +44,7 @@
- #include "amdgpu_amdkfd.h"
- #include "kfd_smi_events.h"
- #include "amdgpu_object.h"
-+#include "amdgpu_dma_buf.h"
- 
- static long kfd_ioctl(struct file *, unsigned int, unsigned long);
- static int kfd_open(struct inode *, struct file *);
-@@ -1900,6 +1902,33 @@ uint64_t get_process_num_bos(struct kfd_process *p)
- 	return num_of_bos;
- }
- 
-+static int criu_get_prime_handle(struct drm_gem_object *gobj, int flags,
-+				      u32 *shared_fd)
-+{
-+	struct dma_buf *dmabuf;
-+	int ret;
-+
-+	dmabuf = amdgpu_gem_prime_export(gobj, flags);
-+	if (IS_ERR(dmabuf)) {
-+		ret = PTR_ERR(dmabuf);
-+		pr_err("dmabuf export failed for the BO\n");
-+		return ret;
-+	}
-+
-+	ret = dma_buf_fd(dmabuf, flags);
-+	if (ret < 0) {
-+		pr_err("dmabuf create fd failed, ret:%d\n", ret);
-+		goto out_free_dmabuf;
-+	}
-+
-+	*shared_fd = ret;
-+	return 0;
-+
-+out_free_dmabuf:
-+	dma_buf_put(dmabuf);
-+	return ret;
-+}
-+
- static int criu_dump_bos(struct kfd_process *p, struct kfd_ioctl_criu_dumper_args *args)
- {
- 	struct kfd_criu_bo_bucket *bo_buckets;
-@@ -1969,6 +1998,14 @@ static int criu_dump_bos(struct kfd_process *p, struct kfd_ioctl_criu_dumper_arg
- 					goto exit;
- 				}
- 			}
-+			if (bo_bucket->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM) {
-+				ret = criu_get_prime_handle(&dumper_bo->tbo.base,
-+						bo_bucket->alloc_flags &
-+						KFD_IOC_ALLOC_MEM_FLAGS_WRITABLE ? DRM_RDWR : 0,
-+						&bo_bucket->dmabuf_fd);
-+				if (ret)
-+					goto exit;
-+			}
- 			if (bo_bucket->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_DOORBELL)
- 				bo_bucket->offset = KFD_MMAP_TYPE_DOORBELL |
- 					KFD_MMAP_GPU_ID(pdd->dev->id);
-@@ -1998,6 +2035,11 @@ static int criu_dump_bos(struct kfd_process *p, struct kfd_ioctl_criu_dumper_arg
- 	}
- 
- exit:
-+	while (ret && bo_index--) {
-+		if (bo_buckets[bo_index].alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM)
-+			close_fd(bo_buckets[bo_index].dmabuf_fd);
-+	}
-+
- 	kvfree(bo_buckets);
- 	return ret;
- }
-@@ -2516,6 +2558,7 @@ static int criu_restore_bos(struct kfd_process *p, struct kfd_ioctl_criu_restore
- 		struct kfd_criu_bo_priv_data *bo_priv;
- 		struct kfd_dev *dev;
- 		struct kfd_process_device *pdd;
-+		struct kgd_mem *kgd_mem;
- 		void *mem;
- 		u64 offset;
- 		int idr_handle;
-@@ -2663,6 +2706,16 @@ static int criu_restore_bos(struct kfd_process *p, struct kfd_ioctl_criu_restore
- 		}
- 
- 		pr_debug("map memory was successful for the BO\n");
-+		/* create the dmabuf object and export the bo */
-+		kgd_mem = (struct kgd_mem *)mem;
-+		if (bo_bucket->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM) {
-+			ret = criu_get_prime_handle(&kgd_mem->bo->tbo.base,
-+						    DRM_RDWR,
-+						    &bo_bucket->dmabuf_fd);
-+			if (ret)
-+				goto exit;
-+		}
-+
- 	} /* done */
- 
- 	/* Flush TLBs after waiting for the page table updates to complete */
-@@ -2687,6 +2740,10 @@ static int criu_restore_bos(struct kfd_process *p, struct kfd_ioctl_criu_restore
- 		ret = -EFAULT;
- 
- exit:
-+	while (ret && i--) {
-+		if (bo_buckets[i].alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM)
-+			close_fd(bo_buckets[i].dmabuf_fd);
-+	}
- 	kvfree(objects);
- 	return ret;
- }
--- 
-2.17.1
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c b/drivers/gpu/drm/amd/am=
+dgpu/uvd_v6_0.c
+index 4eebf973a065..d0fc6ec18c29 100644
+--- a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
+@@ -554,6 +554,30 @@ static int uvd_v6_0_suspend(void *handle)
+         int r;
+         struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
 
++       /*
++        * Proper cleanups before halting the HW engine:
++        *   - cancel the delayed idle work
++        *   - enable powergating
++        *   - enable clockgating
++        *   - disable dpm
++        *
++        * TODO: to align with the VCN implementation, move the
++        * jobs for clockgating/powergating/dpm setting to
++        * ->set_powergating_state().
++        */
++       cancel_delayed_work_sync(&adev->uvd.idle_work);
++
++       if (adev->pm.dpm_enabled) {
++               amdgpu_dpm_enable_uvd(adev, false);
++       } else {
++               amdgpu_asic_set_uvd_clocks(adev, 0, 0);
++               /* shutdown the UVD block */
++               amdgpu_device_ip_set_powergating_state(adev, AMD_IP_BLOCK_T=
+YPE_UVD,
++                                                      AMD_PG_STATE_GATE);
++               amdgpu_device_ip_set_clockgating_state(adev, AMD_IP_BLOCK_T=
+YPE_UVD,
++                                                      AMD_CG_STATE_GATE);
++       }
++
+         r =3D uvd_v6_0_hw_fini(adev);
+         if (r)
+                 return r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c b/drivers/gpu/drm/amd/am=
+dgpu/vce_v3_0.c
+index 6d9108fa22e0..a594ade5d30a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
+@@ -503,6 +503,29 @@ static int vce_v3_0_suspend(void *handle)
+         int r;
+         struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
+
++       /*
++        * Proper cleanups before halting the HW engine:
++        *   - cancel the delayed idle work
++        *   - enable powergating
++        *   - enable clockgating
++        *   - disable dpm
++        *
++        * TODO: to align with the VCN implementation, move the
++        * jobs for clockgating/powergating/dpm setting to
++        * ->set_powergating_state().
++        */
++       cancel_delayed_work_sync(&adev->vce.idle_work);
++
++       if (adev->pm.dpm_enabled) {
++               amdgpu_dpm_enable_vce(adev, false);
++       } else {
++               amdgpu_asic_set_vce_clocks(adev, 0, 0);
++               amdgpu_device_ip_set_powergating_state(adev, AMD_IP_BLOCK_T=
+YPE_VCE,
++                                                      AMD_PG_STATE_GATE);
++               amdgpu_device_ip_set_clockgating_state(adev, AMD_IP_BLOCK_T=
+YPE_VCE,
++                                                      AMD_CG_STATE_GATE);
++       }
++
+         r =3D vce_v3_0_hw_fini(adev);
+         if (r)
+                 return r;
+--
+2.29.0
+
+
+--_000_DM5PR12MB2517FA1095D8D016C2E784D5E4C09DM5PR12MB2517namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
+gn=3D"Left">
+[AMD Official Use Only]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Why not move changes into<font size=3D"2"><span style=3D"font-size:11pt"> h=
+w_fini?</span></font><br>
+</div>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div id=3D"Signature">
+<div>
+<div id=3D"divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; color=
+:#000000; font-family:Calibri,Arial,Helvetica,sans-serif">
+<p style=3D"margin-top: 0px; margin-bottom: 0px;">Best Regards!</p>
+<p style=3D"margin-top: 0px; margin-bottom: 0px;"><br>
+</p>
+<p style=3D"margin-top: 0px; margin-bottom: 0px;">James Zhu<br>
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces@lists.freedesktop.org&gt; on behalf of Evan Quan &lt;evan.quan@amd.c=
+om&gt;<br>
+<b>Sent:</b> Wednesday, August 18, 2021 11:08 PM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Chen, Guch=
+un &lt;Guchun.Chen@amd.com&gt;; Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;; Qua=
+n, Evan &lt;Evan.Quan@amd.com&gt;; Pan, Xinhui &lt;Xinhui.Pan@amd.com&gt;<b=
+r>
+<b>Subject:</b> [PATCH] drm/amdgpu: add missing cleanups for Polaris12 UVD/=
+VCE on suspend</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Perform proper cleanups on UVD/VCE suspend: powerg=
+ate enablement,<br>
+clockgating enablement and dpm disablement. This can fix some hangs<br>
+observed on suspending when UVD/VCE still using(e.g. issue<br>
+&quot;pm-suspend&quot; when video is still playing).<br>
+<br>
+Change-Id: I36f39d9731e0a9638b52d5d92558b0ee9c23a9ed<br>
+Signed-off-by: Evan Quan &lt;evan.quan@amd.com&gt;<br>
+Signed-off-by: xinhui pan &lt;xinhui.pan@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c | 24 ++++++++++++++++++++++++<b=
+r>
+&nbsp;drivers/gpu/drm/amd/amdgpu/vce_v3_0.c | 23 +++++++++++++++++++++++<br=
+>
+&nbsp;2 files changed, 47 insertions(+)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c b/drivers/gpu/drm/amd/am=
+dgpu/uvd_v6_0.c<br>
+index 4eebf973a065..d0fc6ec18c29 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c<br>
+@@ -554,6 +554,30 @@ static int uvd_v6_0_suspend(void *handle)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
+ =3D (struct amdgpu_device *)handle;<br>
+&nbsp;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Proper cleanups before haltin=
+g the HW engine:<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *&nbsp;&nbsp; - cancel the dela=
+yed idle work<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *&nbsp;&nbsp; - enable powergat=
+ing<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *&nbsp;&nbsp; - enable clockgat=
+ing<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *&nbsp;&nbsp; - disable dpm<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * TODO: to align with the VCN i=
+mplementation, move the<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * jobs for clockgating/powergat=
+ing/dpm setting to<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * -&gt;set_powergating_state().=
+<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cancel_delayed_work_sync(&amp;adev-&g=
+t;uvd.idle_work);<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;pm.dpm_enabled) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; amdgpu_dpm_enable_uvd(adev, false);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; amdgpu_asic_set_uvd_clocks(adev, 0, 0);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; /* shutdown the UVD block */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; amdgpu_device_ip_set_powergating_state(adev, AMD_IP_BLOCK_TYPE_U=
+VD,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; AMD_PG_STATE_GATE);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; amdgpu_device_ip_set_clockgating_state(adev, AMD_IP_BLOCK_TYPE_U=
+VD,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; AMD_CG_STATE_GATE);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
++<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D uvd_v6_0_hw_fini(ade=
+v);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return r;<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c b/drivers/gpu/drm/amd/am=
+dgpu/vce_v3_0.c<br>
+index 6d9108fa22e0..a594ade5d30a 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c<br>
+@@ -503,6 +503,29 @@ static int vce_v3_0_suspend(void *handle)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
+ =3D (struct amdgpu_device *)handle;<br>
+&nbsp;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Proper cleanups before haltin=
+g the HW engine:<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *&nbsp;&nbsp; - cancel the dela=
+yed idle work<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *&nbsp;&nbsp; - enable powergat=
+ing<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *&nbsp;&nbsp; - enable clockgat=
+ing<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *&nbsp;&nbsp; - disable dpm<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * TODO: to align with the VCN i=
+mplementation, move the<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * jobs for clockgating/powergat=
+ing/dpm setting to<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * -&gt;set_powergating_state().=
+<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cancel_delayed_work_sync(&amp;adev-&g=
+t;vce.idle_work);<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;pm.dpm_enabled) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; amdgpu_dpm_enable_vce(adev, false);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; amdgpu_asic_set_vce_clocks(adev, 0, 0);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; amdgpu_device_ip_set_powergating_state(adev, AMD_IP_BLOCK_TYPE_V=
+CE,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; AMD_PG_STATE_GATE);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; amdgpu_device_ip_set_clockgating_state(adev, AMD_IP_BLOCK_TYPE_V=
+CE,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; AMD_CG_STATE_GATE);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
++<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D vce_v3_0_hw_fini(ade=
+v);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return r;<br>
+-- <br>
+2.29.0<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_DM5PR12MB2517FA1095D8D016C2E784D5E4C09DM5PR12MB2517namp_--
