@@ -2,53 +2,55 @@ Return-Path: <SRS0=vXfK=NL=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0986CC4338F
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 22:53:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5D7DDC4338F
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 23:28:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CB7A5610FF
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 22:53:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org CB7A5610FF
+	by mail.kernel.org (Postfix) with ESMTPS id 099D861183
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 23:28:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 099D861183
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C89888DAA;
-	Fri, 20 Aug 2021 22:53:51 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2065.outbound.protection.outlook.com [40.107.92.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7403B88DAA
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Aug 2021 22:53:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E80F6EB2A;
+	Fri, 20 Aug 2021 23:28:35 +0000 (UTC)
+X-Greylist: delayed 772 seconds by postgrey-1.36 at gabe;
+ Fri, 20 Aug 2021 23:28:34 UTC
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com (unknown
+ [40.107.223.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89BB46EB2A
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Aug 2021 23:28:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=X8dl/sySzSPsRfhFOTDQZGs89oXJcYFOxLPpFaqSSrOmclza9WV90NORYv3FuxMIDlPXncSvRDzDxZqqNl7zlZy6q8/IX5R7yTAOTC+wfWN9V2KGCoy9lTgxGrhiYMs4eFyHpOS2qZ8b9dZ+BdEoO1xddUJ1cOE8OnEHE3OhtkKNawjfCoNMnMc3kBmRMWkC9LPoKV4jKfxQHfqlPY8y87owtccVuW4UHIXaB2Z4BDcIDzg7yxQI7aC8sb20BnVvtIBMeebJ5L3elHs4un8hk0i2TNmyv7nFAnNyd5Ru0NEbV7gUgl44sCWGOiZMDsH84yTrTuFDT1tceJtBH++9yw==
+ b=Cb+jAQxq3DvVFTCmktdvA89rH+2uu8W7bVir4uV+HaMBBM+aZvBxUYOLsSfyaYXG97g6g9swClJbYW/zv0VOnoUxK4quI6wTRm3vcGQqnQUha16X1YwRoGxJn04/A+8uZOhNc5lIgaox9yaK8FgVWY/aaNCm1ubu6KEfzWoLL2PzMp1mmgLRaNQSEAGfQ2IkS/98i1Ujoio6NRvviqy7BHePrdm5PfOhSSi3PIhbQin8I923N1jIB0qdMkOIJucqWpig9Kzi72Htm+FUXIZY/USGdc5n3/J5LF7pRXKI+EXsodCl9kguf7ta0x7ut7Ew3xmJ0UXUnylvpO5EwtrAuA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=o65kCewXAF8RL1upAeVixN0lszmeiIuU2F15U8CZmDM=;
- b=KMmUEq1t1fkPxBU/OkW6kxgQw16Io5aMSSKttU3JmZjT4/8mJhoVRJOfMkbYZCBEnF1DD8sge58S6RvhFb1+ckgdGKTtCPWUUUvit2RIhRpGlMrGEJVA4WwelkEbLvrRmNHCFcGDDW1ubM9mvrO1QW9tK0LZ4HIElDBgxrOkjkJLrB9NViMY0d4Rl6M5gh7cgMDQc52HIKcNQ3Lbekn6tC25WVVT2bHti9vIJpEPf6IYNHyutQVBSq+wBX4iIFnP1FQUOwieLlc0sV5qEL4/6K9ZZ6XTMY1xp7dGo+m4tr10/g8haRcp3CGoUzsUt5tVcTtxeb6FJYy/+2gJgOOfKA==
+ bh=z5Z5SNdkKQgEmfDz5YAm1Bl3ioPVrQ922bihPX/duyA=;
+ b=dhvtvHBvlgvTv/9Xz4kR/MjFpAVkajmz0JvRB3PJyHsCaNhJ/J03N3I4YwKqulqHYXQeLigYMPepxOA/vAdA8awQ8xUSlrDdl3Tvsf67dBALVv01vDRM2kOuCv1tEugiqCQvjqKcPZV7OGiCLWYarCYmkWByZ0YZ4lfZdTapf81n8TzB32O/gqttiW3Jpaw/xskFaxiG/jkmS7F9nTY3+auijux0Bh4ObanzbvyhFBFYPh64N/r9cUCZPeiFH3fiTd20U0E5KVgo8ftRjTfYqIkpS4kBngy7pnsNR+PFN0MkGPDC8BF3qXNHzUN9RdAdO5y0fj6WPtHQxt+GwV/5xA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=o65kCewXAF8RL1upAeVixN0lszmeiIuU2F15U8CZmDM=;
- b=1kk+6UkiGaJdvHWYPxeIv0ugjHIabPSieYpWEpfRfMP6cIQ94mwFWIzWXaLVoE5wB9y3affxn4jwuFjVsG2h697QwAvhhbTttMU07N4V9L928/1p6kwY4DVcnk0UkqdlIPQ8EEdZtfgyXAd3EYOxwClnyq03+CJfGv+6onf5lfg=
-Received: from BN6PR13CA0057.namprd13.prod.outlook.com (2603:10b6:404:11::19)
- by BL0PR12MB2403.namprd12.prod.outlook.com (2603:10b6:207:40::12)
+ bh=z5Z5SNdkKQgEmfDz5YAm1Bl3ioPVrQ922bihPX/duyA=;
+ b=xDng7A0oVmqOt6x9eyMFZxmADkXOBAxUuNoBrgGezl8iXw21KBImo2nu1cLX7VK7fdiaJPKyMVGMmi40d1SJwnndFM4igBu1XkMr7Cba+j9TNlpJ4cNm7hWgU1vhlmzaq/grAZR9Z70V8hMAe/F9Bw8WLOu3L8dkdIpNmLsbEYY=
+Received: from BN6PR22CA0029.namprd22.prod.outlook.com (2603:10b6:404:37::15)
+ by BL0PR12MB4865.namprd12.prod.outlook.com (2603:10b6:208:17c::8)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.19; Fri, 20 Aug
- 2021 22:53:48 +0000
-Received: from BN8NAM11FT059.eop-nam11.prod.protection.outlook.com
- (2603:10b6:404:11:cafe::35) by BN6PR13CA0057.outlook.office365.com
- (2603:10b6:404:11::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.9 via Frontend
- Transport; Fri, 20 Aug 2021 22:53:48 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.17; Fri, 20 Aug
+ 2021 23:15:44 +0000
+Received: from BN8NAM11FT061.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:404:37:cafe::d4) by BN6PR22CA0029.outlook.office365.com
+ (2603:10b6:404:37::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.19 via Frontend
+ Transport; Fri, 20 Aug 2021 23:15:44 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -57,23 +59,27 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT059.mail.protection.outlook.com (10.13.177.120) with Microsoft SMTP
+ BN8NAM11FT061.mail.protection.outlook.com (10.13.177.144) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4436.19 via Frontend Transport; Fri, 20 Aug 2021 22:53:48 +0000
+ 15.20.4436.19 via Frontend Transport; Fri, 20 Aug 2021 23:15:44 +0000
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Fri, 20 Aug
- 2021 17:53:46 -0500
+ 2021 18:15:42 -0500
 From: Qingqing Zhuo <qingqing.zhuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <Bhawanpreet.Lakha@amd.com>, <Rodrigo.Siqueira@amd.com>,
  <Aurabindo.Pillai@amd.com>, <qingqing.zhuo@amd.com>, <mikita.lipski@amd.com>, 
- <roman.li@amd.com>, <Anson.Jacob@amd.com>
-Subject: [PATCH 00/10] DC Patches Aug 23, 2021
-Date: Fri, 20 Aug 2021 18:53:26 -0400
-Message-ID: <20210820225336.1242120-1-qingqing.zhuo@amd.com>
+ <roman.li@amd.com>, <Anson.Jacob@amd.com>, Alvin Lee <Alvin.Lee2@amd.com>,
+ XiangBing Foo <XiangBing.Foo@amd.com>, Martin Leung <Martin.Leung@amd.com>,
+ <stable@vger.kernel.org>
+Subject: [PATCH 08/10] drm/amd/display: Update swizzle mode enums
+Date: Fri, 20 Aug 2021 19:15:18 -0400
+Message-ID: <20210820231520.1243509-8-qingqing.zhuo@amd.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20210820231520.1243509-1-qingqing.zhuo@amd.com>
+References: <20210820231520.1243509-1-qingqing.zhuo@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -82,28 +88,29 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 0c861d31-bdb6-4213-097a-08d9642d5f13
-X-MS-TrafficTypeDiagnostic: BL0PR12MB2403:
-X-Microsoft-Antispam-PRVS: <BL0PR12MB240312206B27F20CDD3E43ADFBC19@BL0PR12MB2403.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4125;
+X-MS-Office365-Filtering-Correlation-Id: 304e9a74-8ff3-4463-f453-08d964306fcc
+X-MS-TrafficTypeDiagnostic: BL0PR12MB4865:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BL0PR12MB4865D205BD72D46FC282227EFBC19@BL0PR12MB4865.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:561;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: DY3nZQC2y8B92AN666Qns07meuSrrJzOQ8vlReTKKeS5NIgalBqBvof7sQwrc/Bh0OdPw6PQGUJXM1ISRug7j2fIboKZzSJT3wPzFuVAOGXJkgNwHv+X/PSpYgU6sjLMgZyEAksw8Zw0cW3CNHTtIzUCV/e1o6rZm9agIw8h5kbkg7K8V9IZzphzf32n2s3e8H/9icDCoVNr0q8X/gg78eHvWDGFeSz3o3D4Vhm/GZeZxqYZSM2Ul7zv1D+PAtGs62Tjrw4G8z8cwj792TICdlRbKaJMTnO6m0gRYa43PyirRB7mArQyBPFNuzTS3A92xD2NdPMk1WMcBqA65qVb72jLus0LildGbBVLQ4mX/IEWqkP4ktPegjDN9K9r2RIMQtYvbFPL/z3EbdG3BL3HzDGzu83EHJ883xnsqT1Ci4kSqGq1htBptY+0sCBR9QDcca+Sm8R+7OKF7+OtymBvOGxcGnBAmC7W70SrMIcxDA3Ajqke/OxX+hajkLc3NIHJ/wfqb3bfN8pRCVNWwOY+jTgxX0jYLppyNamfWP1kCrrrquaPjCRNcVCqIaNS2p9fmQGDnzobTxuEquwJUEDvgo8w7BnzMhA73sAwAj7L6JuOEgZLb/7NgEzUBCrQonNkfsDIGqNF/kpqjnQ+BwDikDvAW1Er3vFOWVlF7mZNAEKbyJSMjyK1RkUBqM1XmGs3ZX9iN6KBfdAyGqhhMdUrOAAHk28CvNkAXXbT28OZNKG1z81dBO8/TU/ZOIPFB7vO5xurNBSHBWDr7oQMu6zmaA==
+X-Microsoft-Antispam-Message-Info: aMWPkCUMJNemnLfPf4VBH4MvJGVwOB3sXOIVo6wug5/9Exr/as+XA0RhxfXoW9V+8rMVRmthboPlj41oH9GA7CtpUHBTS8VYdVVk+PjETike/+MVs6cbEfSskgOIxabewJyupamuzRh2ttJLPTpgoqeVp2ejyx5KulLPiaLMTiGvqHeiQslQPZyIVLbLDIwCTQ+k5gvrpOe3XtXZJftnxCOmG8lvI1rEDVzym/gKH/ryUZW+Xm0E+6tf2b6ilNhxJMNOkatlfBvqmE5z2KsC22c9ZLgM7Jj7uaCSvVkfOqNpm3hTVX+6Zcx5pbCOmIBM6nDs1IuldvqlHWkNsjcTCb8WIt6OqKTV+EZ9CT1AKKNObuLkUqxDoAwK0B8na1kFWEkVMJizLBfL8AB6kp7kGoKjWnK1BmxGVBQnlXgENC1aDwaFFYA/p7dJCKXfTQK1DspQShdZjQn4FtlknS5XHvlfExkHG5dXaPXEKYORK3SDqO320EssBlwgvb8vRTAJSlOfrJaFIR9zVL+mNtqn86AiUwlHrZmUx332cDDnNHrC1te+01nL4TMtZSZvDJ/OC/GFP9Ui84dJrsJZ1sCETBLGVOCwLRB7AubO9DKecnTfmqTxCc34E/SaYyAnkM2wYeyMoDdrEv+bku4gRlQh9y93xnh8n/xu1MWGpVdDR31v6aGp47ALUQJQMUNxONnvvIZ595e5d8ZKa3n+RBGecRoYYUcBaJKyqrW9E6Zd6Y/BotdOQCPNMQbviSBalpwDKBFD/I2e2FD/Bkie7H05sw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(39860400002)(346002)(376002)(396003)(136003)(46966006)(36840700001)(2616005)(54906003)(478600001)(44832011)(6916009)(82310400003)(316002)(36860700001)(1076003)(70206006)(8936002)(82740400003)(356005)(5660300002)(6666004)(36756003)(81166007)(2906002)(83380400001)(70586007)(4326008)(86362001)(16526019)(186003)(8676002)(26005)(336012)(47076005)(426003)(34020700004)(36900700001);
+ SFS:(4636009)(396003)(376002)(39860400002)(136003)(346002)(46966006)(36840700001)(16526019)(2616005)(70586007)(336012)(36756003)(70206006)(1076003)(186003)(8676002)(83380400001)(34020700004)(82310400003)(81166007)(4326008)(86362001)(54906003)(47076005)(82740400003)(478600001)(5660300002)(15650500001)(6666004)(6916009)(8936002)(36860700001)(2906002)(26005)(44832011)(316002)(356005)(426003)(36900700001);
  DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Aug 2021 22:53:48.0585 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0c861d31-bdb6-4213-097a-08d9642d5f13
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Aug 2021 23:15:44.6136 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 304e9a74-8ff3-4463-f453-08d964306fcc
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT059.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT061.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2403
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4865
+X-OriginatorOrg: amd.com
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,62 +125,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This DC patchset brings improvements in multiple areas. In summary, we highlight:
+From: Alvin Lee <Alvin.Lee2@amd.com>
 
-  - DC version 3.2.150
-  - FW promotion 0.0.80
-  - Add missing ABM register offsets
-  - Fix in swizzle mode mapping
-  - Emulated sink support for freesync
-  - Improvoments in max target bpp
+[Why]
+Swizzle mode enum for DC_SW_VAR_R_X was existing,
+but not mapped correctly.
 
+[How]
+Update mapping and conversion for DC_SW_VAR_R_X.
+
+Reviewed-by: XiangBing Foo <XiangBing.Foo@amd.com>
+Reviewed-by: Martin Leung <Martin.Leung@amd.com>
+Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
+Signed-off-by: Alvin Lee <Alvin.Lee2@amd.com>
+Cc: stable@vger.kernel.org
 ---
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c   | 4 +++-
+ drivers/gpu/drm/amd/display/dc/dml/display_mode_enums.h | 4 ++--
+ 2 files changed, 5 insertions(+), 3 deletions(-)
 
-Alvin Lee (1):
-  drm/amd/display: Update swizzle mode enums
-
-Anthony Koo (1):
-  drm/amd/display: [FW Promotion] Release 0.0.80
-
-Aric Cyr (1):
-  drm/amd/display: 3.2.150
-
-Aurabindo Pillai (1):
-  drm/amd/display: Add emulated sink support for updating FS
-
-Josip Pavic (1):
-  drm/amd/display: add missing ABM register offsets
-
-Jude Shih (1):
-  drm/amd/display: Support for DMUB HPD interrupt handling
-
-Michael Strauss (1):
-  drm/amd/display: Set min dcfclk if pipe count is 0
-
-Roman Li (2):
-  drm/amd/display: Use max target bpp override option
-  drm/amd/display: Limit max DSC target bpp for specific monitors
-
-Wyatt Wood (1):
-  drm/amd/display: Initialize GSP1 SDP header
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 199 ++++++++++++++++--
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  40 ++++
- .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |  35 +++
- .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |   4 +-
- drivers/gpu/drm/amd/display/dc/dc.h           |   2 +-
- drivers/gpu/drm/amd/display/dc/dce/dce_abm.h  |  16 ++
- .../display/dc/dcn10/dcn10_stream_encoder.c   |  10 +
- .../drm/amd/display/dc/dcn20/dcn20_resource.c |   4 +-
- .../drm/amd/display/dc/dcn30/dcn30_resource.c |   2 +-
- .../drm/amd/display/dc/dcn30/dcn30_resource.h |   7 +
- .../amd/display/dc/dcn302/dcn302_resource.c   |   2 +-
- .../amd/display/dc/dcn303/dcn303_resource.c   |   2 +-
- .../drm/amd/display/dc/dcn31/dcn31_resource.c |  65 +++++-
- .../amd/display/dc/dml/display_mode_enums.h   |   4 +-
- .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |  29 ++-
- 15 files changed, 382 insertions(+), 39 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+index e3e01b17c164..8ad296a0ee68 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+@@ -1854,7 +1854,9 @@ static void swizzle_to_dml_params(
+ 	case DC_SW_VAR_D_X:
+ 		*sw_mode = dm_sw_var_d_x;
+ 		break;
+-
++	case DC_SW_VAR_R_X:
++		*sw_mode = dm_sw_var_r_x;
++		break;
+ 	default:
+ 		ASSERT(0); /* Not supported */
+ 		break;
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/display_mode_enums.h b/drivers/gpu/drm/amd/display/dc/dml/display_mode_enums.h
+index 1051ca1a23b8..edb9f7567d6d 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/display_mode_enums.h
++++ b/drivers/gpu/drm/amd/display/dc/dml/display_mode_enums.h
+@@ -80,11 +80,11 @@ enum dm_swizzle_mode {
+ 	dm_sw_SPARE_13 = 24,
+ 	dm_sw_64kb_s_x = 25,
+ 	dm_sw_64kb_d_x = 26,
+-	dm_sw_SPARE_14 = 27,
++	dm_sw_64kb_r_x = 27,
+ 	dm_sw_SPARE_15 = 28,
+ 	dm_sw_var_s_x = 29,
+ 	dm_sw_var_d_x = 30,
+-	dm_sw_64kb_r_x,
++	dm_sw_var_r_x = 31,
+ 	dm_sw_gfx7_2d_thin_l_vp,
+ 	dm_sw_gfx7_2d_thin_gl,
+ };
 -- 
 2.25.1
 
