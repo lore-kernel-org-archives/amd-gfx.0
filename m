@@ -2,134 +2,61 @@ Return-Path: <SRS0=vXfK=NL=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,MIME_HTML_ONLY,
-	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A56F0C4320A
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 15:44:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EFAD8C4338F
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 16:05:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6B3AD610A3
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 15:44:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6B3AD610A3
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id BE84A61250
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 16:05:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BE84A61250
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=arm.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 125546EAAB;
-	Fri, 20 Aug 2021 15:44:59 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam07on2085.outbound.protection.outlook.com [40.107.212.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A05736EAAB
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Aug 2021 15:44:57 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KAc+Lrj4gxzxjlB1VB65mEZeJEJloto34LVPRgxd8+6CR1PZBJcgs65TdBftcw7DnyIIM2UtQEzie+xpDCv4W/ki78kL4N8rS+y5oIpS+TNpugrtC5nU+2ogkAPlVn+NoBc3oWU8XDBX7aMWlO9GEtb2H2UmATUxBwoLMwMj3orQqntIU+TlfTpy08OqJVtJ10Efd5T1zxh2kAWpzXzKhaHDwReyZqkDPC5yU8HEOBl/v4hWi9DW9IA6R5mEZGgJBtyYxWkJDEgKEQRqOB1A1SKNZQkltBNN0xwrwMBeqlnEshm+Bvrp6GBFEp1r0L+v88yhcGne3896Mpp7f47nMA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3ZfUtaRBwnG3UGIMOcyO/q54cIiv1HN+VSzU5VFq7r8=;
- b=hsCMobE0SOY6QE8VcBlfdJRawbAL1hL3u1J48CBZUdBeC+2O3zuo9aKHZvULLMfjn0opI8UQorYk09WkJG2zDLMHoJGV8HfMz8NpH25bbIE1OMxrshdC+nwTxZJuUihLhyjq3dVDutF5SAsE+JEl3ieA/PsG3z8Iv7NNA6dAxFnWhhhsmkHQ57mAAycQ1IFzSmhhXtP0kSQdK4sEzU3a4+jkQPDaKKnN9iZ1Jz0wmcQqXw8PebKm+nIUB5UJg1ef0x2E2Ms+b7+1ofOtHT8VlbngXELrYn9nzb/pJIfgZMBpl1NsBXqBWxdHQXE7NjyQ8zWIoNkmOyNBvDl1ksZbgw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3ZfUtaRBwnG3UGIMOcyO/q54cIiv1HN+VSzU5VFq7r8=;
- b=rSWz4eHpVULHLr7F+q7Bg9kTKW/80kaSb90GLpDbST4QaosVlkkhF9woto+HteYYweQpgvZZn5BRokpr4QE/vne4K3/+0M+uBIz8A2VqQQJ4CaWC8Xcrreq75GMEJTepxq70JNcNIvD+aLUXZExPageEskaKZpVdulgY9wTQego=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
- by DM4PR12MB5039.namprd12.prod.outlook.com (2603:10b6:5:38a::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.19; Fri, 20 Aug
- 2021 15:44:55 +0000
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::5987:7323:7c90:a427]) by DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::5987:7323:7c90:a427%9]) with mapi id 15.20.4436.021; Fri, 20 Aug 2021
- 15:44:55 +0000
-Subject: Re: [PATCH 2/2] drm/amdkfd: map SVM range with correct access
- permission
-To: Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org,
- "Yang, Philip" <Philip.Yang@amd.com>
-References: <20210819145658.2254-1-Philip.Yang@amd.com>
- <20210819145658.2254-2-Philip.Yang@amd.com>
- <3fa1a300-8ea8-3b7d-9ca8-82c70ec8fac4@amd.com>
-From: philip yang <yangp@amd.com>
-Message-ID: <d412332a-43dd-367e-03bb-c92d98b3c1c6@amd.com>
-Date: Fri, 20 Aug 2021 11:44:53 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
-In-Reply-To: <3fa1a300-8ea8-3b7d-9ca8-82c70ec8fac4@amd.com>
-Content-Type: text/html; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT1PR01CA0089.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2d::28) To DM4PR12MB5149.namprd12.prod.outlook.com
- (2603:10b6:5:390::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC96C6EAC5;
+	Fri, 20 Aug 2021 16:05:12 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id EF3796EAC3;
+ Fri, 20 Aug 2021 16:05:11 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E785B11FB;
+ Fri, 20 Aug 2021 09:05:10 -0700 (PDT)
+Received: from e110455-lin.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com
+ [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A61903F70D;
+ Fri, 20 Aug 2021 09:05:10 -0700 (PDT)
+Received: by e110455-lin.cambridge.arm.com (Postfix, from userid 1000)
+ id 66016683943; Fri, 20 Aug 2021 17:05:09 +0100 (BST)
+Date: Fri, 20 Aug 2021 17:05:09 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
+ christian.koenig@amd.com, brian.starkey@arm.com, sam@ravnborg.org,
+ bbrezillon@kernel.org, nicolas.ferre@microchip.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ stefan@agner.ch, alison.wang@nxp.com, patrik.r.jakobsson@gmail.com,
+ anitha.chrisanthus@intel.com, robdclark@gmail.com,
+ edmund.j.dea@intel.com, sean@poorly.run, shawnguo@kernel.org,
+ s.hauer@pengutronix.de, kernel@pengutronix.de, jyri.sarha@iki.fi,
+ tomba@kernel.org, Dan.Sneddon@microchip.com,
+ tomi.valkeinen@ideasonboard.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org
+Subject: Re: [PATCH v2 02/14] drm/arm/hdlcd: Convert to Linux IRQ interfaces
+Message-ID: <20210820160509.eo267b4r64v4qa3n@e110455-lin.cambridge.arm.com>
+References: <20210803090704.32152-1-tzimmermann@suse.de>
+ <20210803090704.32152-3-tzimmermann@suse.de>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [172.27.226.38] (165.204.55.251) by
- YT1PR01CA0089.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2d::28) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4436.19 via Frontend Transport; Fri, 20 Aug 2021 15:44:55 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1a7b0176-aa54-44b2-f6a8-08d963f17529
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5039:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM4PR12MB5039DC261A0790590F79F2BFE6C19@DM4PR12MB5039.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: euL+6TS0RWlqrVReyEsEr8lGawHRFJTug2JHBPtOucodkZdyDaguGiCId7EUb+0gXe0LfpV3nU9G96v/YRDHQQQlILl6zSG2vLFEAtHLt7GMGHdsKeT4V7Jm6Twy8T/rydPVBEh7Cd36QHtuVGed2k+d+z9Tf8G+BOjFGCcdr3RrG7I+Flnnx8JWYB/qEoUkYI9Vq8l0Iq4QTrCyyh24aygv1QpkWuZ+8jzMrrF855rMq9c9SrOkWUt2HU/VMojvD9FfbZF1+sICzf9w3OIHNYY+EhumwK9J+aBvWNHfnFYigMIJ9mpc0369terFIG1Ct0/VaHkcK2laCBDKRgHy/a6kcFjvXa2m5vTj2gEasmjvOdPSSMRBi3Wl42l+gj7uDILDlrT5UdPtspa4K1glShZ89ML0eSykZVmk/2Nmb0bphp2t4UWetgGq6jFZzmvxsGFbPi3QgWjlREip0PhsVfLEaN+tVJrbBa7vCFzycS4YW4LMNs/M/11y2YcIGATPDJV3yTQ2nLD1yzBPhhvwoLK93hf4hrwRq/9SJFN4Gr3m8AXTjn9bCOzXND6BCilxRPDM4ntKejgSiTXl0btAxuKfGD7aDJmrAJw7dKdYtde25nbg0U2IQNlFTIS8C+rf4xEXzwHZVxXZ29hVhtuPXr6vGaJs9nXj5wBhpNLrYjcyuiuME00QOA4NMAXOQrssce245Twvsd3O3sE16BEaEhXsTH/uCjSEL/isIMyVTKE=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(366004)(136003)(376002)(346002)(396003)(8936002)(16576012)(2906002)(2616005)(956004)(6486002)(186003)(83380400001)(36756003)(478600001)(31686004)(6636002)(38100700002)(316002)(26005)(5660300002)(66946007)(66476007)(53546011)(31696002)(66556008)(8676002)(110136005)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VjRHV0dHS21HWWhUT2E1b0lJdi91UkdoUUdUcVFjQ1FlT3V0VlJhQWx5aTc4?=
- =?utf-8?B?bzhPQWkxTHpPSkJZSURPdjdQZS9ITExyaHJ5T0pUWllYYno0V00rMTJzSkgr?=
- =?utf-8?B?OEkyem4ySnhUaCtsUXY0UEw2Mks2N2dVaW1qckk5ZGswMk9Ld1hWdlo4S1l6?=
- =?utf-8?B?QVdZMkNkenkyVjNaNUFCL2ZyZkc3RFhyN3pQS2lVSDI4aW9MZkRwWis3eGFZ?=
- =?utf-8?B?OElJQ3M2MEhTTmNJTDJmM1Y2ZjNQaFN6QXFJUFdmejh1YVlFcWdGMENzV3lH?=
- =?utf-8?B?M2tTL0ZUaVVnWlRyMkgreFg1c1RsVkhsL2tia1FOQUJRbWR2YU9DaHROVE5l?=
- =?utf-8?B?SHJjVjRFcjlxb01FdU1oRU9haGVndzhxUGpsd2pZN0RFZkZaUEZyci84TUxw?=
- =?utf-8?B?T1NBWG1LSzdRYkYvTHZSTWVYbVQ1ZVhPTWc3eVhSZHZXWkYxN1ZlSER1KzVE?=
- =?utf-8?B?ZG8wdGJhYUJaV1ZRa29qa3g3UUhraUkvZTEvWitoTlJINnkvWHJTVDQ0UVha?=
- =?utf-8?B?dU9UWGxCN2g3cGIvWVR4NzZ5dmcrcjVmVTRWOHE5dmlzYnNUKzZuMFRrL3dh?=
- =?utf-8?B?QXhoaG40cWxpZEU1ZEQ1U1BOd0pDQlZhVFRpYXArSW1FTmFOUFIxWnJlSDQr?=
- =?utf-8?B?L2dkOGVwZkRWa0dWL2xqVktIRG9TMTNTVUI5eTZrbUcvc3VhdmtRYkpuQ3di?=
- =?utf-8?B?Rk1ibmlqTElRNko3RkRSUkcwcktjNm1VVVNIMUt1Yk5nVmVhWDF4ekZqTlFr?=
- =?utf-8?B?TU83MjZxb3U5eml1bHBrZW9rK2tBemJJdU5QUm81VnRLWmRZQVowaVNCYmJL?=
- =?utf-8?B?WndmdG1NL2c3MHNSSERSYTZ0VVA1ZTNINE9LTm1hZXF3U0gvNUtmMEQvakR2?=
- =?utf-8?B?RGlQRk0zZ09NeWcyUHhkcWJRN1ExZi9GV0F5Skhrc28rKzB3WUZ6K1Zscjc0?=
- =?utf-8?B?bEdkeldOVmRKRldKaE9xSTBpU1ZzeGlwTS9wdXJoaFhCdUZwWGsxRVYzblRU?=
- =?utf-8?B?NlNsa1NtMXE5L2RpbVNGRmp2bDNDYmNaSzFKYTdhaCtjS2xidjhPbVlHMm1m?=
- =?utf-8?B?emNFaFFpOVN1R1V4VjJHRGtlZ1JXYnEwTVZPeEx6YTg0cTdkNWNyUzgrR05C?=
- =?utf-8?B?aklhb1VhbGVETGhpSkM3ank5bVJ5WGlKWlNQSUtiTzB3cW14aW42LzdIN1Z4?=
- =?utf-8?B?NmpBN3grd0lKTDBDRzJSVTRzdmRCZ1VGc3krWkhqZGJaWUVXdFVrNXVkeWhh?=
- =?utf-8?B?V0NtT3pvODBQRnpMekpLNkR3dWt3eTFvK2J4V3dGTHdQZjMvQmFneEh6eDUy?=
- =?utf-8?B?a2Q0QTJkQzFIZ3h0SXQxVVMxejl0bUl5K1dKQnJzVFFPSnlpR1JYQjF3LzJ6?=
- =?utf-8?B?dWtqQmhsa3JTMzNLNTlVU0lIQ1FJVzNYRHdvN3V4NUhWaEVFNWZ6UGJoUXBp?=
- =?utf-8?B?NU1pK3o5dkRBeEVZV2JQd09NSUpLeDFpN1VHS2xCWXhxam4wdExTN093Mk1x?=
- =?utf-8?B?aFJ2QVBDQTNjeko2Z1hwVzUrUjhxVVhmM2U2aElrNmxER3ZseDlCaTJxM0tR?=
- =?utf-8?B?dDR4MlZiREc2ejBKZ0RvSkZSTll3Z2loVnJpcEJXRFBwbkFFek0xWHdlZTJM?=
- =?utf-8?B?SjdETzhIYy8ybzMwNzRZUzZlS1dSN3NRajZBMVc3QkV1WUtoRi83MlE5NFR6?=
- =?utf-8?B?ZHNHVm13RTFRTUkreTJDVnV1RXphd0hVWlRMMnFPOTl2T3ZpYWtOMWJJbkRt?=
- =?utf-8?Q?boTRySU9wZ1r3NYJ9VyOvabgnua0W+ZQVWjwlZ/?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1a7b0176-aa54-44b2-f6a8-08d963f17529
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Aug 2021 15:44:55.5579 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UPbHU78xAenDSKqyJhX9qvABZ9sO/j5SPmN5qOv4SwofPDfXqig5PyEJepD0ofaR
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5039
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210803090704.32152-3-tzimmermann@suse.de>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,330 +71,284 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 2021-08-19 5:32 p.m., Felix Kuehling
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:3fa1a300-8ea8-3b7d-9ca8-82c70ec8fac4@amd.com">
-      <pre class="moz-quote-pre" wrap="">Am 2021-08-19 um 10:56 a.m. schrieb Philip Yang:
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">Restore retry fault or prefetch range, or restore svm range after
-eviction to map range to GPU with correct read or write access
-permission.
+On Tue, Aug 03, 2021 at 11:06:52AM +0200, Thomas Zimmermann wrote:
+> Drop the DRM IRQ midlayer in favor of Linux IRQ interfaces. DRM's
+> IRQ helpers are mostly useful for UMS drivers. Modern KMS drivers
+> don't benefit from using it.
+> 
+> DRM IRQ callbacks are now being called directly or inlined.
+> 
+> Calls to platform_get_irq() can fail with a negative errno code.
+> Abort initialization in this case. The DRM IRQ midlayer does not
+> handle this case correctly.
+> 
+> v2:
+> 	* name struct drm_device variables 'drm' (Sam)
+> 
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Acked-by: Sam Ravnborg <sam@ravnborg.org>
 
-Range may includes multiple VMAs, update GPU page table with offset of
-prange, number of pages for each VMA according VMA access permission.
+Sorry for the delayed response due to holidays.
 
-Signed-off-by: Philip Yang <a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;Philip.Yang@amd.com&gt;</a>
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-Minor nitpicks, and one question. See inline. It looks good otherwise.
+Acked-by: Liviu Dudau <liviu.dudau@arm.com>
 
+Best regards,
+Liviu
 
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">---
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 131 +++++++++++++++++----------
- 1 file changed, 84 insertions(+), 47 deletions(-)
+> ---
+>  drivers/gpu/drm/arm/hdlcd_drv.c | 174 ++++++++++++++++++--------------
+>  drivers/gpu/drm/arm/hdlcd_drv.h |   1 +
+>  2 files changed, 97 insertions(+), 78 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/arm/hdlcd_drv.c b/drivers/gpu/drm/arm/hdlcd_drv.c
+> index 81ae92390736..479c2422a2e0 100644
+> --- a/drivers/gpu/drm/arm/hdlcd_drv.c
+> +++ b/drivers/gpu/drm/arm/hdlcd_drv.c
+> @@ -29,7 +29,6 @@
+>  #include <drm/drm_fb_helper.h>
+>  #include <drm/drm_gem_cma_helper.h>
+>  #include <drm/drm_gem_framebuffer_helper.h>
+> -#include <drm/drm_irq.h>
+>  #include <drm/drm_modeset_helper.h>
+>  #include <drm/drm_of.h>
+>  #include <drm/drm_probe_helper.h>
+> @@ -38,6 +37,94 @@
+>  #include "hdlcd_drv.h"
+>  #include "hdlcd_regs.h"
+>  
+> +static irqreturn_t hdlcd_irq(int irq, void *arg)
+> +{
+> +	struct drm_device *drm = arg;
+> +	struct hdlcd_drm_private *hdlcd = drm->dev_private;
+> +	unsigned long irq_status;
+> +
+> +	irq_status = hdlcd_read(hdlcd, HDLCD_REG_INT_STATUS);
+> +
+> +#ifdef CONFIG_DEBUG_FS
+> +	if (irq_status & HDLCD_INTERRUPT_UNDERRUN)
+> +		atomic_inc(&hdlcd->buffer_underrun_count);
+> +
+> +	if (irq_status & HDLCD_INTERRUPT_DMA_END)
+> +		atomic_inc(&hdlcd->dma_end_count);
+> +
+> +	if (irq_status & HDLCD_INTERRUPT_BUS_ERROR)
+> +		atomic_inc(&hdlcd->bus_error_count);
+> +
+> +	if (irq_status & HDLCD_INTERRUPT_VSYNC)
+> +		atomic_inc(&hdlcd->vsync_count);
+> +
+> +#endif
+> +	if (irq_status & HDLCD_INTERRUPT_VSYNC)
+> +		drm_crtc_handle_vblank(&hdlcd->crtc);
+> +
+> +	/* acknowledge interrupt(s) */
+> +	hdlcd_write(hdlcd, HDLCD_REG_INT_CLEAR, irq_status);
+> +
+> +	return IRQ_HANDLED;
+> +}
+> +
+> +static void hdlcd_irq_preinstall(struct drm_device *drm)
+> +{
+> +	struct hdlcd_drm_private *hdlcd = drm->dev_private;
+> +	/* Ensure interrupts are disabled */
+> +	hdlcd_write(hdlcd, HDLCD_REG_INT_MASK, 0);
+> +	hdlcd_write(hdlcd, HDLCD_REG_INT_CLEAR, ~0);
+> +}
+> +
+> +static void hdlcd_irq_postinstall(struct drm_device *drm)
+> +{
+> +#ifdef CONFIG_DEBUG_FS
+> +	struct hdlcd_drm_private *hdlcd = drm->dev_private;
+> +	unsigned long irq_mask = hdlcd_read(hdlcd, HDLCD_REG_INT_MASK);
+> +
+> +	/* enable debug interrupts */
+> +	irq_mask |= HDLCD_DEBUG_INT_MASK;
+> +
+> +	hdlcd_write(hdlcd, HDLCD_REG_INT_MASK, irq_mask);
+> +#endif
+> +}
+> +
+> +static int hdlcd_irq_install(struct drm_device *drm, int irq)
+> +{
+> +	int ret;
+> +
+> +	if (irq == IRQ_NOTCONNECTED)
+> +		return -ENOTCONN;
+> +
+> +	hdlcd_irq_preinstall(drm);
+> +
+> +	ret = request_irq(irq, hdlcd_irq, 0, drm->driver->name, drm);
+> +	if (ret)
+> +		return ret;
+> +
+> +	hdlcd_irq_postinstall(drm);
+> +
+> +	return 0;
+> +}
+> +
+> +static void hdlcd_irq_uninstall(struct drm_device *drm)
+> +{
+> +	struct hdlcd_drm_private *hdlcd = drm->dev_private;
+> +	/* disable all the interrupts that we might have enabled */
+> +	unsigned long irq_mask = hdlcd_read(hdlcd, HDLCD_REG_INT_MASK);
+> +
+> +#ifdef CONFIG_DEBUG_FS
+> +	/* disable debug interrupts */
+> +	irq_mask &= ~HDLCD_DEBUG_INT_MASK;
+> +#endif
+> +
+> +	/* disable vsync interrupts */
+> +	irq_mask &= ~HDLCD_INTERRUPT_VSYNC;
+> +	hdlcd_write(hdlcd, HDLCD_REG_INT_MASK, irq_mask);
+> +
+> +	free_irq(hdlcd->irq, drm);
+> +}
+> +
+>  static int hdlcd_load(struct drm_device *drm, unsigned long flags)
+>  {
+>  	struct hdlcd_drm_private *hdlcd = drm->dev_private;
+> @@ -90,7 +177,12 @@ static int hdlcd_load(struct drm_device *drm, unsigned long flags)
+>  		goto setup_fail;
+>  	}
+>  
+> -	ret = drm_irq_install(drm, platform_get_irq(pdev, 0));
+> +	ret = platform_get_irq(pdev, 0);
+> +	if (ret < 0)
+> +		goto irq_fail;
+> +	hdlcd->irq = ret;
+> +
+> +	ret = hdlcd_irq_install(drm, hdlcd->irq);
+>  	if (ret < 0) {
+>  		DRM_ERROR("failed to install IRQ handler\n");
+>  		goto irq_fail;
+> @@ -122,76 +214,6 @@ static void hdlcd_setup_mode_config(struct drm_device *drm)
+>  	drm->mode_config.funcs = &hdlcd_mode_config_funcs;
+>  }
+>  
+> -static irqreturn_t hdlcd_irq(int irq, void *arg)
+> -{
+> -	struct drm_device *drm = arg;
+> -	struct hdlcd_drm_private *hdlcd = drm->dev_private;
+> -	unsigned long irq_status;
+> -
+> -	irq_status = hdlcd_read(hdlcd, HDLCD_REG_INT_STATUS);
+> -
+> -#ifdef CONFIG_DEBUG_FS
+> -	if (irq_status & HDLCD_INTERRUPT_UNDERRUN)
+> -		atomic_inc(&hdlcd->buffer_underrun_count);
+> -
+> -	if (irq_status & HDLCD_INTERRUPT_DMA_END)
+> -		atomic_inc(&hdlcd->dma_end_count);
+> -
+> -	if (irq_status & HDLCD_INTERRUPT_BUS_ERROR)
+> -		atomic_inc(&hdlcd->bus_error_count);
+> -
+> -	if (irq_status & HDLCD_INTERRUPT_VSYNC)
+> -		atomic_inc(&hdlcd->vsync_count);
+> -
+> -#endif
+> -	if (irq_status & HDLCD_INTERRUPT_VSYNC)
+> -		drm_crtc_handle_vblank(&hdlcd->crtc);
+> -
+> -	/* acknowledge interrupt(s) */
+> -	hdlcd_write(hdlcd, HDLCD_REG_INT_CLEAR, irq_status);
+> -
+> -	return IRQ_HANDLED;
+> -}
+> -
+> -static void hdlcd_irq_preinstall(struct drm_device *drm)
+> -{
+> -	struct hdlcd_drm_private *hdlcd = drm->dev_private;
+> -	/* Ensure interrupts are disabled */
+> -	hdlcd_write(hdlcd, HDLCD_REG_INT_MASK, 0);
+> -	hdlcd_write(hdlcd, HDLCD_REG_INT_CLEAR, ~0);
+> -}
+> -
+> -static int hdlcd_irq_postinstall(struct drm_device *drm)
+> -{
+> -#ifdef CONFIG_DEBUG_FS
+> -	struct hdlcd_drm_private *hdlcd = drm->dev_private;
+> -	unsigned long irq_mask = hdlcd_read(hdlcd, HDLCD_REG_INT_MASK);
+> -
+> -	/* enable debug interrupts */
+> -	irq_mask |= HDLCD_DEBUG_INT_MASK;
+> -
+> -	hdlcd_write(hdlcd, HDLCD_REG_INT_MASK, irq_mask);
+> -#endif
+> -	return 0;
+> -}
+> -
+> -static void hdlcd_irq_uninstall(struct drm_device *drm)
+> -{
+> -	struct hdlcd_drm_private *hdlcd = drm->dev_private;
+> -	/* disable all the interrupts that we might have enabled */
+> -	unsigned long irq_mask = hdlcd_read(hdlcd, HDLCD_REG_INT_MASK);
+> -
+> -#ifdef CONFIG_DEBUG_FS
+> -	/* disable debug interrupts */
+> -	irq_mask &= ~HDLCD_DEBUG_INT_MASK;
+> -#endif
+> -
+> -	/* disable vsync interrupts */
+> -	irq_mask &= ~HDLCD_INTERRUPT_VSYNC;
+> -
+> -	hdlcd_write(hdlcd, HDLCD_REG_INT_MASK, irq_mask);
+> -}
+> -
+>  #ifdef CONFIG_DEBUG_FS
+>  static int hdlcd_show_underrun_count(struct seq_file *m, void *arg)
+>  {
+> @@ -236,10 +258,6 @@ DEFINE_DRM_GEM_CMA_FOPS(fops);
+>  
+>  static const struct drm_driver hdlcd_driver = {
+>  	.driver_features = DRIVER_GEM | DRIVER_MODESET | DRIVER_ATOMIC,
+> -	.irq_handler = hdlcd_irq,
+> -	.irq_preinstall = hdlcd_irq_preinstall,
+> -	.irq_postinstall = hdlcd_irq_postinstall,
+> -	.irq_uninstall = hdlcd_irq_uninstall,
+>  	DRM_GEM_CMA_DRIVER_OPS,
+>  #ifdef CONFIG_DEBUG_FS
+>  	.debugfs_init = hdlcd_debugfs_init,
+> @@ -316,7 +334,7 @@ static int hdlcd_drm_bind(struct device *dev)
+>  err_unload:
+>  	of_node_put(hdlcd->crtc.port);
+>  	hdlcd->crtc.port = NULL;
+> -	drm_irq_uninstall(drm);
+> +	hdlcd_irq_uninstall(drm);
+>  	of_reserved_mem_device_release(drm->dev);
+>  err_free:
+>  	drm_mode_config_cleanup(drm);
+> @@ -338,7 +356,7 @@ static void hdlcd_drm_unbind(struct device *dev)
+>  	hdlcd->crtc.port = NULL;
+>  	pm_runtime_get_sync(dev);
+>  	drm_atomic_helper_shutdown(drm);
+> -	drm_irq_uninstall(drm);
+> +	hdlcd_irq_uninstall(drm);
+>  	pm_runtime_put(dev);
+>  	if (pm_runtime_enabled(dev))
+>  		pm_runtime_disable(dev);
+> diff --git a/drivers/gpu/drm/arm/hdlcd_drv.h b/drivers/gpu/drm/arm/hdlcd_drv.h
+> index fd438d177b64..909c39c28487 100644
+> --- a/drivers/gpu/drm/arm/hdlcd_drv.h
+> +++ b/drivers/gpu/drm/arm/hdlcd_drv.h
+> @@ -11,6 +11,7 @@ struct hdlcd_drm_private {
+>  	struct clk			*clk;
+>  	struct drm_crtc			crtc;
+>  	struct drm_plane		*plane;
+> +	unsigned int			irq;
+>  #ifdef CONFIG_DEBUG_FS
+>  	atomic_t buffer_underrun_count;
+>  	atomic_t bus_error_count;
+> -- 
+> 2.32.0
+> 
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index cf1009bb532a..94612581963f 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -120,6 +120,7 @@ static void svm_range_remove_notifier(struct svm_range *prange)
- 
- static int
- svm_range_dma_map_dev(struct amdgpu_device *adev, struct svm_range *prange,
-+		      unsigned long offset, unsigned long npages,
- 		      unsigned long *hmm_pfns, uint32_t gpuidx)
- {
- 	enum dma_data_direction dir = DMA_BIDIRECTIONAL;
-@@ -136,7 +137,8 @@ svm_range_dma_map_dev(struct amdgpu_device *adev, struct svm_range *prange,
- 		prange-&gt;dma_addr[gpuidx] = addr;
- 	}
- 
--	for (i = 0; i &lt; prange-&gt;npages; i++) {
-+	addr += offset;
-+	for (i = 0; i &lt; npages; i++) {
- 		if (WARN_ONCE(addr[i] &amp;&amp; !dma_mapping_error(dev, addr[i]),
- 			      &quot;leaking dma mapping\n&quot;))
- 			dma_unmap_page(dev, addr[i], PAGE_SIZE, dir);
-@@ -167,6 +169,7 @@ svm_range_dma_map_dev(struct amdgpu_device *adev, struct svm_range *prange,
- 
- static int
- svm_range_dma_map(struct svm_range *prange, unsigned long *bitmap,
-+		  unsigned long offset, unsigned long npages,
- 		  unsigned long *hmm_pfns)
- {
- 	struct kfd_process *p;
-@@ -187,7 +190,8 @@ svm_range_dma_map(struct svm_range *prange, unsigned long *bitmap,
- 		}
- 		adev = (struct amdgpu_device *)pdd-&gt;dev-&gt;kgd;
- 
--		r = svm_range_dma_map_dev(adev, prange, hmm_pfns, gpuidx);
-+		r = svm_range_dma_map_dev(adev, prange, offset, npages,
-+					  hmm_pfns, gpuidx);
- 		if (r)
- 			break;
- 	}
-@@ -1088,11 +1092,6 @@ svm_range_get_pte_flags(struct amdgpu_device *adev, struct svm_range *prange,
- 	pte_flags |= snoop ? AMDGPU_PTE_SNOOPED : 0;
- 
- 	pte_flags |= amdgpu_gem_va_map_flags(adev, mapping_flags);
--
--	pr_debug(&quot;svms 0x%p [0x%lx 0x%lx] vram %d PTE 0x%llx mapping 0x%x\n&quot;,
--		 prange-&gt;svms, prange-&gt;start, prange-&gt;last,
--		 (domain == SVM_RANGE_VRAM_DOMAIN) ? 1:0, pte_flags, mapping_flags);
--
- 	return pte_flags;
- }
- 
-@@ -1156,7 +1155,8 @@ svm_range_unmap_from_gpus(struct svm_range *prange, unsigned long start,
- 
- static int
- svm_range_map_to_gpu(struct amdgpu_device *adev, struct amdgpu_vm *vm,
--		     struct svm_range *prange, dma_addr_t *dma_addr,
-+		     struct svm_range *prange, unsigned long offset,
-+		     unsigned long npages, bool readonly, dma_addr_t *dma_addr,
- 		     struct amdgpu_device *bo_adev, struct dma_fence **fence)
- {
- 	struct amdgpu_bo_va bo_va;
-@@ -1167,14 +1167,15 @@ svm_range_map_to_gpu(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 	int r = 0;
- 	int64_t i;
- 
--	pr_debug(&quot;svms 0x%p [0x%lx 0x%lx]\n&quot;, prange-&gt;svms, prange-&gt;start,
--		 prange-&gt;last);
-+	last_start = prange-&gt;start + offset;
-+
-+	pr_debug(&quot;svms 0x%p [0x%lx 0x%lx] readonly %d\n&quot;, prange-&gt;svms,
-+		 last_start, last_start + npages - 1, readonly);
- 
- 	if (prange-&gt;svm_bo &amp;&amp; prange-&gt;ttm_res)
- 		bo_va.is_xgmi = amdgpu_xgmi_same_hive(adev, bo_adev);
- 
--	last_start = prange-&gt;start;
--	for (i = 0; i &lt; prange-&gt;npages; i++) {
-+	for (i = offset; i &lt; offset + npages; i++) {
- 		last_domain = dma_addr[i] &amp; SVM_RANGE_VRAM_DOMAIN;
- 		dma_addr[i] &amp;= ~SVM_RANGE_VRAM_DOMAIN;
- 		if ((prange-&gt;start + i) &lt; prange-&gt;last &amp;&amp;
-@@ -1183,13 +1184,21 @@ svm_range_map_to_gpu(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 
- 		pr_debug(&quot;Mapping range [0x%lx 0x%llx] on domain: %s\n&quot;,
- 			 last_start, prange-&gt;start + i, last_domain ? &quot;GPU&quot; : &quot;CPU&quot;);
-+
- 		pte_flags = svm_range_get_pte_flags(adev, prange, last_domain);
--		r = amdgpu_vm_bo_update_mapping(adev, bo_adev, vm, false, false, NULL,
--						last_start,
-+		if (readonly)
-+			pte_flags &amp;= ~AMDGPU_PTE_WRITEABLE;
-+
-+		pr_debug(&quot;svms 0x%p map [0x%lx 0x%llx] vram %d PTE 0x%llx\n&quot;,
-+			 prange-&gt;svms, last_start, prange-&gt;start + i,
-+			 (last_domain == SVM_RANGE_VRAM_DOMAIN) ? 1 : 0,
-+			 pte_flags);
-+
-+		r = amdgpu_vm_bo_update_mapping(adev, bo_adev, vm, false, false,
-+						NULL, last_start,
- 						prange-&gt;start + i, pte_flags,
- 						last_start - prange-&gt;start,
--						NULL,
--						dma_addr,
-+						NULL, dma_addr,
- 						&amp;vm-&gt;last_update,
- 						&amp;table_freed);
- 		if (r) {
-@@ -1220,8 +1229,10 @@ svm_range_map_to_gpu(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 	return r;
- }
- 
--static int svm_range_map_to_gpus(struct svm_range *prange,
--				 unsigned long *bitmap, bool wait)
-+static int
-+svm_range_map_to_gpus(struct svm_range *prange, unsigned long offset,
-+		      unsigned long npages, bool readonly,
-+		      unsigned long *bitmap, bool wait)
- {
- 	struct kfd_process_device *pdd;
- 	struct amdgpu_device *bo_adev;
-@@ -1257,7 +1268,8 @@ static int svm_range_map_to_gpus(struct svm_range *prange,
- 		}
- 
- 		r = svm_range_map_to_gpu(adev, drm_priv_to_vm(pdd-&gt;drm_priv),
--					 prange, prange-&gt;dma_addr[gpuidx],
-+					 prange, offset, npages, readonly,
-+					 prange-&gt;dma_addr[gpuidx],
- 					 bo_adev, wait ? &amp;fence : NULL);
- 		if (r)
- 			break;
-@@ -1390,6 +1402,7 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
- 				      int32_t gpuidx, bool intr, bool wait)
- {
- 	struct svm_validate_context ctx;
-+	unsigned long start, end, addr;
- 	struct hmm_range *hmm_range;
- 	struct kfd_process *p;
- 	void *owner;
-@@ -1448,40 +1461,64 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
- 			break;
- 		}
- 	}
--	r = amdgpu_hmm_range_get_pages(&amp;prange-&gt;notifier, mm, NULL,
--				       prange-&gt;start &lt;&lt; PAGE_SHIFT,
--				       prange-&gt;npages, &amp;hmm_range,
--				       false, true, owner);
--	if (r) {
--		pr_debug(&quot;failed %d to get svm range pages\n&quot;, r);
--		goto unreserve_out;
--	}
- 
--	r = svm_range_dma_map(prange, ctx.bitmap,
--			      hmm_range-&gt;hmm_pfns);
--	if (r) {
--		pr_debug(&quot;failed %d to dma map range\n&quot;, r);
--		goto unreserve_out;
--	}
-+	start = prange-&gt;start &lt;&lt; PAGE_SHIFT;
-+	end = (prange-&gt;last + 1) &lt;&lt; PAGE_SHIFT;
-+	for (addr = start; addr &lt; end &amp;&amp; !r; ) {
-+		struct vm_area_struct *vma;
-+		unsigned long next;
-+		unsigned long offset;
-+		unsigned long npages;
-+		bool readonly;
- 
--	prange-&gt;validated_once = true;
-+		vma = find_vma(mm, addr);
-+		if (!vma || addr &lt; vma-&gt;vm_start) {
-+			r = -EINVAL;
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-I think -EFAULT would be the appropriate error code here.</pre>
-    </blockquote>
-    Yes, this error code will pass to user space, -EFAULT means bad
-    address, is appropriate error code here.<br>
-    <blockquote type="cite" cite="mid:3fa1a300-8ea8-3b7d-9ca8-82c70ec8fac4@amd.com">
-      <pre class="moz-quote-pre" wrap="">
-
-
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">+			goto unreserve_out;
-+		}
-+		readonly = !(vma-&gt;vm_flags &amp; VM_WRITE);
- 
--	svm_range_lock(prange);
--	if (amdgpu_hmm_range_get_pages_done(hmm_range)) {
--		pr_debug(&quot;hmm update the range, need validate again\n&quot;);
--		r = -EAGAIN;
--		goto unlock_out;
--	}
--	if (!list_empty(&amp;prange-&gt;child_list)) {
--		pr_debug(&quot;range split by unmap in parallel, validate again\n&quot;);
--		r = -EAGAIN;
--		goto unlock_out;
--	}
-+		next = min(vma-&gt;vm_end, end);
-+		npages = (next - addr) / PAGE_SIZE;
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-Use &gt;&gt; PAGE_SHIFT for consistency.
-
-
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">+		r = amdgpu_hmm_range_get_pages(&amp;prange-&gt;notifier, mm, NULL,
-+					       addr, npages, &amp;hmm_range,
-+					       readonly, true, owner);
-+		if (r) {
-+			pr_debug(&quot;failed %d to get svm range pages\n&quot;, r);
-+			goto unreserve_out;
-+		}
- 
--	r = svm_range_map_to_gpus(prange, ctx.bitmap, wait);
-+		offset = (addr - start) / PAGE_SIZE;
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-</pre>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">PAGE_SHIFT
-</pre>
-        </blockquote>
-      </blockquote>
-    </blockquote>
-    done.<br>
-    <blockquote type="cite" cite="mid:3fa1a300-8ea8-3b7d-9ca8-82c70ec8fac4@amd.com">
-      <pre class="moz-quote-pre" wrap="">
-
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">+		r = svm_range_dma_map(prange, ctx.bitmap, offset, npages,
-+				      hmm_range-&gt;hmm_pfns);
-+		if (r) {
-+			pr_debug(&quot;failed %d to dma map range\n&quot;, r);
-+			goto unreserve_out;
-+		}
-+
-+		svm_range_lock(prange);
-+		if (amdgpu_hmm_range_get_pages_done(hmm_range)) {
-+			pr_debug(&quot;hmm update the range, need validate again\n&quot;);
-+			r = -EAGAIN;
-+			goto unlock_out;
-+		}
-+		if (!list_empty(&amp;prange-&gt;child_list)) {
-+			pr_debug(&quot;range split by unmap in parallel, validate again\n&quot;);
-+			r = -EAGAIN;
-+			goto unlock_out;
-+		}
-+
-+		r = svm_range_map_to_gpus(prange, offset, npages, readonly,
-+					  ctx.bitmap, wait);
- 
- unlock_out:
--	svm_range_unlock(prange);
-+		svm_range_unlock(prange);
-+
-+		addr = next;
-+	}
-+
-+	prange-&gt;validated_once = true;
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-Should this be conditional on &quot;!r&quot;?</pre>
-    </blockquote>
-    <p>Add if (addr == end) condition, to ensure all pages of range are
-      validated once.</p>
-    <p>Regards,</p>
-    <p>Philip<br>
-    </p>
-    <blockquote type="cite" cite="mid:3fa1a300-8ea8-3b7d-9ca8-82c70ec8fac4@amd.com">
-      <pre class="moz-quote-pre" wrap="">
-
-Regards,
-&nbsp; Felix
-
-
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">+
- unreserve_out:
- 	svm_range_unreserve_bos(&amp;ctx);
- 
-</pre>
-      </blockquote>
-    </blockquote>
-  </body>
-</html>
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
