@@ -7,68 +7,70 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6D1D5C4338F
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 02:02:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4A2C4C4338F
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 02:15:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1EE6A61056
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 02:02:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1EE6A61056
+	by mail.kernel.org (Postfix) with ESMTPS id EB800610FE
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 02:15:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EB800610FE
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B6CF6E9EA;
-	Fri, 20 Aug 2021 02:02:48 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2081.outbound.protection.outlook.com [40.107.92.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EAAA16E9EA
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Aug 2021 02:02:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F30C6E9EE;
+	Fri, 20 Aug 2021 02:15:29 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam08on2040.outbound.protection.outlook.com [40.107.101.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C50DA6E9EE
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Aug 2021 02:15:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JN8mugjnBsbkFqHEaJB9yo1rWX0xF+ty30chekHFR9yGSD0NOmxdw7ZrcLLoAZt9T2sPzp7ZkMJuXEoAoDavd8glkQ2JPQtYIGBQeJRRCf4IGPahSVadKUwjNIVISIdg8DslGj7u8QZu7pTdqWbvhVIFzuZBBVUdruEg395d0238CF8ApK/6e021lTZesjqzDasVkgMH7N4sWT2NeNmWggnZehTLHR0lJg8zXdQMcJBVTLHXKsiM4YB3KFXDB3dn2Y/BebH1gqsc6n2OR/t0AukCmMBxy5HR3xGUE/n1M6I3kwaAmgX1TPD6+feiLpLTrJDhhfbzgYJRcznYdwrd5w==
+ b=kv6fX2naWKtM5+r2kqzCtqqnzWFA6CQW8uM5gtPzWCVzyM1Ncf40F0VgA+FOC/UkwMLJCnuoSQ/ZgLAqi2MEuoP1TTyxG/f7hm3JESAjo0vCnHL/M4PTEBVO0QL2QxqzIp2CgPJl1986zAJqJaBlkiqfFpOyZqDAagQI56RZya4BNStWfMGQRyYn1p8LbCqq7fhXegFyfMfysCxYoW9lS/Df+QNvHwdebKcNHkxX/17K1zoOISx5DMKKZ6m2yAlPy9cmWLSCF7aiIw6VFrnb4MebMxVNLbYE7VeekFaJH5L95JpTobYwSviln6S77NegRIFt3HOfHR1Ms6DN0yuRkQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vhneghIc1J6Ha9kkLct/ff7W8VFUPcZPXIiaLxK8Ugw=;
- b=GmLLtC85paeR+BSdrhUC3WnqewRxMeVRLI2r7zlkQEPsFZTpHOSmViWTcBV7zfhjwPbdu+iWb4JCX86lUF8jpDFJmSlVnQ+F9CVncvAp5r1SB+Ktbbeax/0EnJa6CbJ+P1BdShzahJRmdDBL7TINOhN+nHChX/OucyXuOlUU/6IgVEL1LG8iCLADLUjweFGCVroZmTX5j4rysy/Luw1ru2Q8NVACR6tqMvi+6gh66hnIWcHSvaNX/c6TVHdKwMvQlSpoznqP/w9bHymReQ3K6H3Pw9f8/J65QLef3w0QqsZtAeTTp4PzoZINGJol8TJthadvO+2Xnfbp/BoUqhbekg==
+ bh=0CFFOCfR9JXrx1+XJTegx3i7JhkiaFy9g1PunOrv8f4=;
+ b=VLe6VfV3M9sjnOd3KF6nL2Scg6YOdWZLfd6d8JNfTHwDloDyEvQZUWiz9R/L9IY0FToUIB+9NXBb8HTCmqkj5chEZ7ofUzBK2U3f0n+257BBe9ly7X8rPYBRAXDxm2gmN+J6sTqpuRvgdnA1ytQHv4cxbVg8Fu27fnuI2UsvgtKYePQxeB8zPKjljsqesY61KHVHOUlUJ1AQOnm1o6scZvDsBiakiWhDT/5n/XSpZF6bnudZOtojvkvh4dLVFefA2+c3MlM+914aG2WJ17NOSpefq8Z0FBLnPpLUcBf7IY6+wmcaQ2NFVCu3wqGi0qNrwjdVmFdiUPXItyeNtn1ckQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vhneghIc1J6Ha9kkLct/ff7W8VFUPcZPXIiaLxK8Ugw=;
- b=wt47fRUr+Qu5neOgXRscmaGetcXIey7mZZe12vkwFF+DgbXKetbofBkyWg5w0kErT7agNRT26Io9Cn44fjP/zscjpJ5EqnrcQXJfvdjGVk2iElpC8u4JJ6In3L/HGcxF+2zOHoIquY1/E4ALs3Ycd4OHQtUwIoVDkGwvdbYiyHQ=
+ bh=0CFFOCfR9JXrx1+XJTegx3i7JhkiaFy9g1PunOrv8f4=;
+ b=jkP0hBqpunjCjM8XEj0EXVuAws7hOwtZbvjOh1MAuEXsJ3ans6dWb8KwPDWSL1gRf4myx00uDuaKFFgf3YqBLG0jvIS/69ZhlOcSoYcWjZss2g2vUsI4VHr4NKTF6WDHhXRIgSx7ZCeULmg3TV9Mnku+6+P1NQlee77q51GEuHg=
 Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
- DM5PR12MB1835.namprd12.prod.outlook.com (2603:10b6:3:10c::9) with
+ DM6PR12MB2826.namprd12.prod.outlook.com (2603:10b6:5:76::33) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4415.21; Fri, 20 Aug 2021 02:02:43 +0000
+ 15.20.4436.19; Fri, 20 Aug 2021 02:15:22 +0000
 Received: from DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::e9f8:55de:32f0:a7e6]) by DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::e9f8:55de:32f0:a7e6%7]) with mapi id 15.20.4415.024; Fri, 20 Aug 2021
- 02:02:43 +0000
+ 02:15:22 +0000
 From: "Quan, Evan" <Evan.Quan@amd.com>
-To: "Zhu, James" <James.Zhu@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Zhu, James" <James.Zhu@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Liu, Leo"
+ <Leo.Liu@amd.com>
 CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Chen, Guchun"
- <Guchun.Chen@amd.com>, "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Pan, Xinhui"
- <Xinhui.Pan@amd.com>
+ <Guchun.Chen@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>
 Subject: RE: [PATCH] drm/amdgpu: add missing cleanups for Polaris12 UVD/VCE on
  suspend
 Thread-Topic: [PATCH] drm/amdgpu: add missing cleanups for Polaris12 UVD/VCE
  on suspend
-Thread-Index: AQHXlKeZ3i91IyfmtkWpwlG7kjfTZKt64RiAgADEVBA=
-Date: Fri, 20 Aug 2021 02:02:42 +0000
-Message-ID: <DM6PR12MB261965FAF0DEA4AA9561A234E4C19@DM6PR12MB2619.namprd12.prod.outlook.com>
+Thread-Index: AQHXlKeZ3i91IyfmtkWpwlG7kjfTZKt64RiAgAAExACAAL/JsA==
+Date: Fri, 20 Aug 2021 02:15:22 +0000
+Message-ID: <DM6PR12MB261971EBCF452097AA846F00E4C19@DM6PR12MB2619.namprd12.prod.outlook.com>
 References: <20210819030859.1470753-1-evan.quan@amd.com>
  <DM5PR12MB2517FA1095D8D016C2E784D5E4C09@DM5PR12MB2517.namprd12.prod.outlook.com>
-In-Reply-To: <DM5PR12MB2517FA1095D8D016C2E784D5E4C09@DM5PR12MB2517.namprd12.prod.outlook.com>
+ <BL1PR12MB5349E230CC22C6031E03DE9097C09@BL1PR12MB5349.namprd12.prod.outlook.com>
+In-Reply-To: <BL1PR12MB5349E230CC22C6031E03DE9097C09@BL1PR12MB5349.namprd12.prod.outlook.com>
 Accept-Language: en-US, zh-CN
 Content-Language: en-US
+X-Mentions: James.Zhu@amd.com,Leo.Liu@amd.com
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-08-20T02:02:40Z; 
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-08-20T02:15:19Z; 
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
  Only-AIP 2.0;
@@ -78,56 +80,56 @@ msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
 authentication-results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: e50d8301-1629-4d96-70d7-08d9637e98cc
-x-ms-traffictypediagnostic: DM5PR12MB1835:
+x-ms-office365-filtering-correlation-id: 85526a67-7bd3-4338-b5fa-08d963805d62
+x-ms-traffictypediagnostic: DM6PR12MB2826:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM5PR12MB183589FCE2976270ED0B742DE4C19@DM5PR12MB1835.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:7219;
+x-microsoft-antispam-prvs: <DM6PR12MB2826CA1E432EC5B9FEB99790E4C19@DM6PR12MB2826.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8882;
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Fk9YCpEaVcetkbhJhzSVg7MMfMLQs7PslfEeubFY57VaaXec16MZK9supX/lMkQWMjchAtUuNV+0ppK2HZWkiC3do/3dSSYzwq9Mzm/XgBp34FsmZo9+nAdAPUoW9MWzwDSvWBtsRr6i6xGfmAVBeJ67BIxhw7uBLRxxN39d+dEyysL82Hh0Gocbk0BkUa4U1uPw5qxvNTFY3f/GnVOd0qN6MczdvS0s/52ap1o2d1gScqFzMk1Ctvt2791zPo0ZkiX8sqrwB5Wnxj4bPh2ljH3kUheOXmxRGR4qavpy+vCq3za795JyF8jlO2c2BEJD/y2Lj4nKxU88jMcpq41ViRsngX6PhGIOQW1iXjzRVr2NCTJE5557PUsW2TJaLykwmMXf7lcf3VJgjIQDNCEO8fW7aoiiOA4g1NNzaRzqduj13nr9Ms34wbPUaE720YITD10nOqH1lJYqrMqoVEryvBZDm/T3VBYwPPI4dshy07CtlSn7vBXliIXKwNV+YpdgXJBj7Ci278Ziy6s3uYw9T/sGTTGNwxJXlUmkANDnzyCUIapk6vrbQ/WrPNYPDiOs6KHWAwoIUNi7XYLUa0Jj7k9ERV1BvtLFTx5QZxT0OqzFG9E3D4hc1GtkaVokztmC8Lnle9bVs4Zkjnvz8GTUOlAlMixVKLXd7QU55wpuIaz9zS8RO/BQHPdCxehyrsg8ArprK9bh6i0RMS+BoUmBqA==
+x-microsoft-antispam-message-info: a9l2tIo5psru+jX7vT4zgj1lsRHS0eJNUt7GhCfwj0BhUwn4xEyEE5ReN/Dv1wtiCA8H3Lx5YnVUlPWpXFen9K1U/pbhFsZ3VPR5MSrRwG7gc8Y0b9+iJ2U4tkFxM4dQ91x1RCZ0rTbws8tX4bVMGwIbj2PzWnGsQp4EPHl0Q9QeafyGK5mdty9m3eAS1CvfHPsTbF1pi0lDXqtYhPcRx7oFf+TrnUya57/9NaCCPDaBa3Tvm5SyrzUeWoEwV8Ri/GfBvb+RMzNQ1MtTFysYVum/ENCSdzAcsEW/WuDVKWKw27TBHtGq6P7ChvG/Dp50hHG9XOb4DIf7GFxMMH/K2URh8kcoYVVmtM3zFBT4S6m8FxPew38xm2D4cIrE875sQwgBnEKoq9+5DZ/fajlZpMgMsmhTzRBPIrl2tLYl0I/1qBAntqmjmlArhjoJteVfXTyvlkUN2NGiblNDoPDr1oTOFLx5+YrP9X/kVZH40jYLAJ09nQtnMDC+M5q3Ypi5009yWiyj4h+5q0RXVrMsEnwdKYE/oNEaGEmPl1a4HJ7/aAgnHr4pq+Q3tpjJ/tiKnA76s7NFgarExuF6jnMqqHIXThw9uHRNgAphFoMJZl+kI6snMWyeZDNK2CstQhdruMYkeTdjtQkqAsUk04ZWGh1NXMS2ac0vJMaHk8duJweWftTX+Sv0Af/001x2sh0ArwZqPaRJvqbCuLMQ5arE6A==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(366004)(346002)(396003)(376002)(136003)(7696005)(33656002)(83380400001)(86362001)(52536014)(26005)(38070700005)(4326008)(316002)(53546011)(122000001)(6506007)(76116006)(8936002)(66476007)(66446008)(64756008)(478600001)(9686003)(2906002)(66556008)(66946007)(5660300002)(8676002)(186003)(15650500001)(110136005)(54906003)(38100700002)(71200400001)(55016002);
+ SFS:(4636009)(396003)(39860400002)(376002)(366004)(346002)(136003)(4326008)(8936002)(15650500001)(478600001)(7696005)(66476007)(52536014)(9686003)(8676002)(26005)(53546011)(6506007)(186003)(66556008)(66446008)(64756008)(2906002)(6636002)(55016002)(83380400001)(76116006)(316002)(5660300002)(71200400001)(110136005)(86362001)(38100700002)(122000001)(33656002)(38070700005)(54906003)(66946007);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?atLPKOf8LNgaUz2LWfqS8W9DIsPs6Tr6W4aqb2hWnAyLXn1XSv9tZRQoGvsi?=
- =?us-ascii?Q?xEZ0gpH0MbkurIPecrneyhtYqBxWczM9FSq49ZoLRCC2O6H6jpluWfTzTNRY?=
- =?us-ascii?Q?j/L6Id3xcthgu9w7hzYnX/TyyNYfqPigb+G9sXGyHnK8Smv9iBTUeabrbC7k?=
- =?us-ascii?Q?1smZ0RtM1zEJe64uZ2fx7OseMciYDiAa9dvV9kSoR3XGbNhIryaIUzlB1HDs?=
- =?us-ascii?Q?DJ4oHtFdkv+4SGJj4hoelAxKIb+B0Ry3MQTid+nNk625n0l9onW/b57MHC6z?=
- =?us-ascii?Q?2W1WCoW/qXjyr0HpJObWUxRaZMeHK5OsTTPNjbc2+3ooqxrRO7TSFXND5loi?=
- =?us-ascii?Q?NNYCrThcWybRiz0CGcqX68vNHNp1WX5PWBvvZayZIt5kHTdykczSOTeEx5rr?=
- =?us-ascii?Q?t8O6SKU4fVKVKv3dmpniJT/yFt+/2cAFvUuUQp4pbqGceA5PoLJ31Y+SRYr2?=
- =?us-ascii?Q?Gc8uRQ035gg8zshLEPWmqiOZnxJa0lknz+at4l+QOEPTITrgJ4elbWyUaY1R?=
- =?us-ascii?Q?7XdXSuQHrlxWHC+ieRZE9yOWtBsT8JBOSfF++f3clZVq0e6PDFZimDiwvb1A?=
- =?us-ascii?Q?2Ka1LbkB5+QChttPeSDVDKa7y+6MNi/2A3MObe4m3hrApeUwS7M/gOrLCA0I?=
- =?us-ascii?Q?DwJInbFgYuXI7Kwv+QAysunBIs2fGxo7wdruQ6fC1ra6vo88R+IubYob1eXj?=
- =?us-ascii?Q?LILNx3d87lowQGuaJhogX1yK5Dqezo+L2aiyxRMwWBDqGnvhQmXVetI2jrnv?=
- =?us-ascii?Q?kVRxmweM5dnvkVVprpy0nN3fzY89IifeAuJ9HmgykzQ/vPc3lrorcDbewbfL?=
- =?us-ascii?Q?O79FafYBcwwvUytJ1GAjJ6Egs0AylVhK2Zp+BjGYY2JXZ9tni7t067OCh9sl?=
- =?us-ascii?Q?B4p9kXcEXBsdH9dvkpZT4Xfgq8Th5tjQD4EqP/cie+aMg608WQJl0vlCB1pi?=
- =?us-ascii?Q?MpXxXT55wh6jYl+SkCk4mbP+rkeFNYmTfqvB/LvzFhsoyCp4Jfm0qi5cKnlq?=
- =?us-ascii?Q?UMSllXkqG08UX/I3305p3LyKA6uahIJcRTz3HkcexUZVm3sU7C6HZ7FvePg2?=
- =?us-ascii?Q?OOgzk6CKY13W7dQgy5YlDOUq2Rup0PGGgD854XGcLfbstlRLK/DwAX5dUbmZ?=
- =?us-ascii?Q?MKB8XIM/Ob/UMGharqXd/DhMrSVstrbm4PrAoAsxg8sD66Kz3zosLfqC+rid?=
- =?us-ascii?Q?JjHfXImYQURY0FKYXUNgVQH3Ri7XW+tWwlHG1mWTPJWWwdSqrwFY7YuanDwr?=
- =?us-ascii?Q?KhTII5LLzUUrz+Q/6EM+9XCmxSeNm76pbi1mP4EaUIjWtIBNGMY9lqr4KSEw?=
- =?us-ascii?Q?OOpE6hZcNPifX2jCiR79DS5x?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?cV0zekljStAnP5baAnipQeN56zbhhqRdznHVTZbXqeF9xbuYRrQlrIUnly8o?=
+ =?us-ascii?Q?S9UewlyF0/zqJA+xKnadBrz8YFqziy6MyofNJ5ax7gQYZoKL5HYxuPA3hW4P?=
+ =?us-ascii?Q?LSf6yDWVBBVG09GD6L+Xzy+b99e5eqR+sabqYnFicShBSEv30eYeNsW3m6jp?=
+ =?us-ascii?Q?yiiHZnawIKEpypkFJBhlN46rHzfWnGsIujEj8fDhmEpHLrv8bOc/kav0ugJa?=
+ =?us-ascii?Q?PcYEXr/+EIOL6n+7z0BROYwMLng1i9/zPeD7/4TsLUIeXBQRyxfsRG13q55N?=
+ =?us-ascii?Q?qCEaV/JuUFgDnCE0oR5FlCdarg13htuh8GTxYMILuU21MITRnI+WXy2ag7Lq?=
+ =?us-ascii?Q?RUjPbOs2fvPpW10pw2dkajPqnn2apJczn/M2s465vOwFJApxPGsfgs8Hbx8A?=
+ =?us-ascii?Q?31zoUNuMIihodHMV6pfiu99oSGG2bF/OjLPPRIIbKBL4MIyfLYZvLWZEbQu/?=
+ =?us-ascii?Q?hkrJJim0a6qRyfrqLqWGBvDmdSe8kN95vYH0D1YN5mXdsCFQ85Crp2raxJ6J?=
+ =?us-ascii?Q?5Tpa4yusjipB22pigRGfFqKQKj9Mk0s8BI8Nj6mZF34LiY/qREqjr4MvU/8u?=
+ =?us-ascii?Q?IJMWtJyDfsmz8LqgdnzQ2eQqabdXy3O1Z0U2GgAYcPFo9ucs7FsqiQBf2H65?=
+ =?us-ascii?Q?dJ6RvN+EfNN8HnxiHb/u5v3AUEvAYBYujJC3nVDoV4Y5ppJc/0TdjCAHRKg8?=
+ =?us-ascii?Q?rrHZl4igA6vX5LZU3IRfdf/Pr3A+xUmVBEaOszvHySmTdfZCadnHDqXKTf6t?=
+ =?us-ascii?Q?Be9FHLsLVR8Ut9Iq5SLT8iqWCqieRrRgVAUq1u9ZKfl/CuH4pdRXJH03ynVX?=
+ =?us-ascii?Q?iVlzfDRWKYv70lzgT8UBs65tkewWn2dPLxOwDcScTHQxoi4GT08+l22Jmuks?=
+ =?us-ascii?Q?6mGYSn+bf3fgjShYMZwdSgctKb2mEZnkGnTun1tGqsxdrw8BEJeiGDZq/Gwz?=
+ =?us-ascii?Q?ERkiMzWXFeyMI/TRHgFfred0cjiDF1ZaRHHGf6eF/BSYLNkd7Nh4SZgqQAJx?=
+ =?us-ascii?Q?unT5K1ORcxTt9FYMYPaaL5jQXaKDKrggcuTtwBDKwpQWfyoSAxhpquETis8j?=
+ =?us-ascii?Q?N4WMJmWZcgd8677mDJ1wAiS+TwjavcRuYlL3sI155MvsJC/X1edbFsp9IBkI?=
+ =?us-ascii?Q?5ZgqkyyrHAYewyYKWrK2EvNJuvuKfGKG5hHKi7K/zLPVtV1OIzZEnWJ1GxZI?=
+ =?us-ascii?Q?0PV28uqye/YjwK81TAGnEt7/tVsWIWVCImdtgdZ0YVBDlPDGZ0WFk4TLAVYW?=
+ =?us-ascii?Q?rz7LklykOb78/FA7G+r8avz57Hnvd5h8Hmkmzf7Ss+uluw9VeYQ6de0g6nw2?=
+ =?us-ascii?Q?t5x5j+Bc0OXRFBWa9edNIfJi?=
 Content-Type: multipart/alternative;
- boundary="_000_DM6PR12MB261965FAF0DEA4AA9561A234E4C19DM6PR12MB2619namp_"
+ boundary="_000_DM6PR12MB261971EBCF452097AA846F00E4C19DM6PR12MB2619namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e50d8301-1629-4d96-70d7-08d9637e98cc
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Aug 2021 02:02:42.8690 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 85526a67-7bd3-4338-b5fa-08d963805d62
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Aug 2021 02:15:22.2080 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 7f95yFz8KWWJ6eN4t3VVv7Tm0VXzhwoEu7JLw4PjiVfpNaVSEC4lvY8C7y5q9Xzn
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1835
+X-MS-Exchange-CrossTenant-userprincipalname: gzT9LkGPpYrFWsm8apnRFBhomXks2JvmcUzp0kFrRD2baLIkee8mQyLBm2nm5ulo
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2826
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,7 +144,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_DM6PR12MB261965FAF0DEA4AA9561A234E4C19DM6PR12MB2619namp_
+--_000_DM6PR12MB261971EBCF452097AA846F00E4C19DM6PR12MB2619namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -150,12 +152,48 @@ Content-Transfer-Encoding: quoted-printable
 
 
 
-From: Zhu, James <James.Zhu@amd.com>
-Sent: Thursday, August 19, 2021 10:19 PM
-To: Quan, Evan <Evan.Quan@amd.com>; amd-gfx@lists.freedesktop.org
+From: Lazar, Lijo <Lijo.Lazar@amd.com>
+Sent: Thursday, August 19, 2021 10:36 PM
+To: Zhu, James <James.Zhu@amd.com>; Quan, Evan <Evan.Quan@amd.com>; amd-gfx=
+@lists.freedesktop.org
 Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Chen, Guchun <Guchun.Ch=
-en@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.=
-com>
+en@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: add missing cleanups for Polaris12 UVD/VCE=
+ on suspend
+
+
+[AMD Official Use Only]
+
+If that is done  -
+
++               amdgpu_device_ip_set_powergating_state(adev, AMD_IP_BLOCK_T=
+YPE_UVD,
++                                                      AMD_PG_STATE_GATE);
++               amdgpu_device_ip_set_clockgating_state(adev, AMD_IP_BLOCK_T=
+YPE_UVD,
++                                                      AMD_CG_STATE_GATE);
+
+Usual order is CG followed by PG. It comes in the else part, so less likely=
+ to happen. Nice to fix for code correctness purpose.
+[Quan, Evan] Thanks Lijo. Make sense to me. However, actually these code we=
+re copied from amdgpu_uvd_idle_work_handler() of amdgpu_uvd.c. Same logic w=
+as used there. So, maybe @Zhu, James<mailto:James.Zhu@amd.com> or @Liu, Leo=
+<mailto:Leo.Liu@amd.com> can share some insights about this.
+
+BR
+Evan
+
+Thanks,
+Lijo
+
+From: Zhu, James <James.Zhu@amd.com<mailto:James.Zhu@amd.com>>
+Sent: Thursday, August 19, 2021 7:49 PM
+To: Quan, Evan <Evan.Quan@amd.com<mailto:Evan.Quan@amd.com>>; amd-gfx@lists=
+.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com<mailto:Alexander.Deucher@=
+amd.com>>; Chen, Guchun <Guchun.Chen@amd.com<mailto:Guchun.Chen@amd.com>>; =
+Lazar, Lijo <Lijo.Lazar@amd.com<mailto:Lijo.Lazar@amd.com>>; Pan, Xinhui <X=
+inhui.Pan@amd.com<mailto:Xinhui.Pan@amd.com>>
 Subject: Re: [PATCH] drm/amdgpu: add missing cleanups for Polaris12 UVD/VCE=
  on suspend
 
@@ -164,11 +202,6 @@ Subject: Re: [PATCH] drm/amdgpu: add missing cleanups for Polaris12 UVD/VCE=
 
 
 Why not move changes into hw_fini?
-[Quan, Evan] Sure, I can do that. Will send out a new patch with that updat=
-ed.
-
-BR
-Evan
 
 
 Best Regards!
@@ -283,7 +316,7 @@ YPE_VCE,
 --
 2.29.0
 
---_000_DM6PR12MB261965FAF0DEA4AA9561A234E4C19DM6PR12MB2619namp_
+--_000_DM6PR12MB261971EBCF452097AA846F00E4C19DM6PR12MB2619namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -322,10 +355,6 @@ a:link, span.MsoHyperlink
 	{mso-style-priority:99;
 	color:#0563C1;
 	text-decoration:underline;}
-span.EmailStyle18
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
 p.msipheadera4477989, li.msipheadera4477989, div.msipheadera4477989
 	{mso-style-name:msipheadera4477989;
 	mso-margin-top-alt:auto;
@@ -334,6 +363,10 @@ p.msipheadera4477989, li.msipheadera4477989, div.msipheadera4477989
 	margin-left:0in;
 	font-size:11.0pt;
 	font-family:"Calibri",sans-serif;}
+span.EmailStyle19
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
 .MsoChpDefault
 	{mso-style-type:export-only;
 	font-size:10.0pt;}
@@ -363,14 +396,78 @@ l Use Only]</span><o:p></o:p></p>
 <div>
 <div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
 0in 0in">
-<p class=3D"MsoNormal"><b>From:</b> Zhu, James &lt;James.Zhu@amd.com&gt; <b=
-r>
-<b>Sent:</b> Thursday, August 19, 2021 10:19 PM<br>
-<b>To:</b> Quan, Evan &lt;Evan.Quan@amd.com&gt;; amd-gfx@lists.freedesktop.=
-org<br>
+<p class=3D"MsoNormal"><b>From:</b> Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt; =
+<br>
+<b>Sent:</b> Thursday, August 19, 2021 10:36 PM<br>
+<b>To:</b> Zhu, James &lt;James.Zhu@amd.com&gt;; Quan, Evan &lt;Evan.Quan@a=
+md.com&gt;; amd-gfx@lists.freedesktop.org<br>
 <b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Chen, Guch=
-un &lt;Guchun.Chen@amd.com&gt;; Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;; Pan=
-, Xinhui &lt;Xinhui.Pan@amd.com&gt;<br>
+un &lt;Guchun.Chen@amd.com&gt;; Pan, Xinhui &lt;Xinhui.Pan@amd.com&gt;<br>
+<b>Subject:</b> RE: [PATCH] drm/amdgpu: add missing cleanups for Polaris12 =
+UVD/VCE on suspend<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"msipheadera4477989" style=3D"margin:0in"><span style=3D"font-si=
+ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:blue">[AMD Officia=
+l Use Only]</span><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">If that is done &nbsp;&#8211; <o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_device_ip_set_powergating_state(ad=
+ev, AMD_IP_BLOCK_TYPE_UVD,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; AMD_PG_STATE_GATE);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; amdgpu_device_ip_set_clockgating_state(adev, AMD_IP_BLOCK_TYPE_U=
+VD,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; AMD_CG_STATE_GATE);<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Usual order is CG followed by PG. It comes in the el=
+se part, so less likely to happen. Nice to fix for code correctness purpose=
+.<o:p></o:p></p>
+<p class=3D"MsoNormal"><b><i>[Quan, Evan] Thanks Lijo. Make sense to me. Ho=
+wever, actually these code were copied from amdgpu_uvd_idle_work_handler() =
+of amdgpu_uvd.c. Same logic was used there. So, maybe
+<a id=3D"OWAAM189CC8F3B09847EEA52C17F4845930BF" href=3D"mailto:James.Zhu@am=
+d.com"><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;text-decor=
+ation:none">@Zhu, James</span></a> or
+<a id=3D"OWAAM005ACA333EA6426EAFED0E7C5A403D96" href=3D"mailto:Leo.Liu@amd.=
+com"><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;text-decorat=
+ion:none">@Liu, Leo</span></a> can share some insights about this.<o:p></o:=
+p></i></b></p>
+<p class=3D"MsoNormal"><b><i><o:p>&nbsp;</o:p></i></b></p>
+<p class=3D"MsoNormal"><b><i>BR<o:p></o:p></i></b></p>
+<p class=3D"MsoNormal"><b><i>Evan</i></b><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thanks,<o:p></o:p></p>
+<p class=3D"MsoNormal">Lijo<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Zhu, James &lt;<a href=3D"mailto:James.=
+Zhu@amd.com">James.Zhu@amd.com</a>&gt;
+<br>
+<b>Sent:</b> Thursday, August 19, 2021 7:49 PM<br>
+<b>To:</b> Quan, Evan &lt;<a href=3D"mailto:Evan.Quan@amd.com">Evan.Quan@am=
+d.com</a>&gt;;
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
+org</a><br>
+<b>Cc:</b> Deucher, Alexander &lt;<a href=3D"mailto:Alexander.Deucher@amd.c=
+om">Alexander.Deucher@amd.com</a>&gt;; Chen, Guchun &lt;<a href=3D"mailto:G=
+uchun.Chen@amd.com">Guchun.Chen@amd.com</a>&gt;; Lazar, Lijo &lt;<a href=3D=
+"mailto:Lijo.Lazar@amd.com">Lijo.Lazar@amd.com</a>&gt;;
+ Pan, Xinhui &lt;<a href=3D"mailto:Xinhui.Pan@amd.com">Xinhui.Pan@amd.com</=
+a>&gt;<br>
 <b>Subject:</b> Re: [PATCH] drm/amdgpu: add missing cleanups for Polaris12 =
 UVD/VCE on suspend<o:p></o:p></p>
 </div>
@@ -387,13 +484,8 @@ bsp;</o:p></span></p>
 </div>
 <div>
 <p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Why not=
- move changes into</span><span style=3D"color:black"> hw_fini?<o:p></o:p></=
-span></p>
-<p class=3D"MsoNormal"><b><i>[Quan, Evan] Sure, I can do that. Will send ou=
-t a new patch with that updated.<o:p></o:p></i></b></p>
-<p class=3D"MsoNormal"><b><i><o:p>&nbsp;</o:p></i></b></p>
-<p class=3D"MsoNormal"><b><i>BR<o:p></o:p></i></b></p>
-<p class=3D"MsoNormal"><b><i>Evan</i></b><o:p></o:p></p>
+ move changes into</span><span style=3D"color:black"> hw_fini?</span><span =
+style=3D"font-size:12.0pt;color:black"><o:p></o:p></span></p>
 </div>
 <div>
 <div>
@@ -592,4 +684,4 @@ sp;&nbsp;&nbsp;&nbsp; return r;<br>
 </body>
 </html>
 
---_000_DM6PR12MB261965FAF0DEA4AA9561A234E4C19DM6PR12MB2619namp_--
+--_000_DM6PR12MB261971EBCF452097AA846F00E4C19DM6PR12MB2619namp_--
