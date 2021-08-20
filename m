@@ -2,79 +2,86 @@ Return-Path: <SRS0=vXfK=NL=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-20.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0CA80C4338F
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 14:24:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 67FA9C4320A
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 15:28:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C8249610FF
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 14:24:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C8249610FF
+	by mail.kernel.org (Postfix) with ESMTPS id 3562261242
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 15:28:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3562261242
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F22D6EAA2;
-	Fri, 20 Aug 2021 14:24:23 +0000 (UTC)
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [IPv6:2a00:1450:4864:20::436])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA6996EAA2
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Aug 2021 14:24:22 +0000 (UTC)
-Received: by mail-wr1-x436.google.com with SMTP id r7so14658646wrs.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Aug 2021 07:24:22 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B62136EAA5;
+	Fri, 20 Aug 2021 15:28:09 +0000 (UTC)
+Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com
+ [IPv6:2607:f8b0:4864:20::32b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF5826EAA5;
+ Fri, 20 Aug 2021 15:28:08 +0000 (UTC)
+Received: by mail-ot1-x32b.google.com with SMTP id
+ x10-20020a056830408a00b004f26cead745so14486756ott.10; 
+ Fri, 20 Aug 2021 08:28:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=cBESVMT5GnF8T0rI4my15flddZDPjX9XRYPEvn64kso=;
- b=sXNNEeQ1I8JVgIfffwPHcy87Tr1jLfreRFcx7ynCOMrI/6Qwwh3YFjWUcPyKUniAtI
- 250m2geGJdaZg8zuPcaXwwOd5rK8lU64tPAZ1w/shOr9W3UVK/iw1n7DLRcKOQSQut3B
- EK62oe0qUDUt9alYmDxjJzNjYzTdMbZy5WBsBtC40Z8Xs4Olb4xn3zXte+cvDf+aZGFQ
- OtEZcesGdTIQM5UhNGDGdBdhKsvU4I0xnOTCD8XZn/PLGtGsePV/YjXz5J6irlwZPTK5
- Wxgmpt2DO5kKwGBxC60zDkS1fWT8XR38QA8zT05QsdvMo+8YMIW2p2XMPbdyerg2SiXp
- kFoA==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=2eS3QJuOoUmoESeURE1tHhGFVya6B6JGJbYvqJ7L3mA=;
+ b=FZ30HpWsbdlvXLmE01aRY6a5J0fsLSGL6MIQb3E4ZaPfC2mLNqAtbEhCO5fgoSiLs3
+ oa53tBxjoVERf3EJVHYSJKtQNlGGR3nf9CeQQntTgmqxipOigi9bAvc+Ztab/7qEMHC4
+ vuWtBbUXz7e33mw4bWrwS9kDvLC/SDhFAvKfK0Ar+XyubJ1C4m9+t2tpzkxsgYr0haWp
+ 3+V073rf9UyztDAC4/gpGYkwNxeth0CkkYDvxeGkzmWFMwUOCK0rg0YlsvITRIseNsGT
+ Z1yXHtFwLVaMCClbJMNxkAHywYEQszfcH25Uy5kQTRECBWb8ORudoaaFqgGiUy2q2dQM
+ Ft6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=cBESVMT5GnF8T0rI4my15flddZDPjX9XRYPEvn64kso=;
- b=CNtRAa+Ym0LR1bZtkhCBvn9+p8JmgZ6om17UZ/5Ckb8u6uJR10UmQb5FwWHSoc9OvQ
- xN6m1KpmRsNvq7Dy+Q40f9OaA1ycxA+ZsOIppRAPSFGRfMg1SiRS1U5OaomwW1FWy7rR
- qjpSev1WNFWfIZ4rGm5zWjmcer3jkdSoeceb1godA73PmoSWV13tm5SmFcQEqwAqXStI
- SWtmPE17UO5CkrYrVbOLGnZ/OAPJumxomS9HEmPA62rDbcHemTq7Mj3yOBuPjqrLKyQf
- igXzOGRP7ovkPW9Dy5Tpj1wVgC80qom4FUn0pTGC6aiUeTheI0fRGp8lQ1rv4nt41XPd
- KYMA==
-X-Gm-Message-State: AOAM531YPSFNWSMdbIEZMoRmn+SwQT6qEoyN0TG4ng7SOAEmrxuhPMkH
- bJZumRHhhZIzoH1ejWhVYw4JczgJ89k=
-X-Google-Smtp-Source: ABdhPJxthrflNCcDEbIUQpJ0cF84cZf6xVNpCdZPwFAE+xxHKjiKhyyCaDH87DvSl7wsZSkeVpT8dQ==
-X-Received: by 2002:a5d:6908:: with SMTP id t8mr10526218wru.182.1629469461407; 
- Fri, 20 Aug 2021 07:24:21 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:afc8:926b:c96f:5234?
- ([2a02:908:1252:fb60:afc8:926b:c96f:5234])
- by smtp.gmail.com with ESMTPSA id y13sm5071931wmj.27.2021.08.20.07.24.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 20 Aug 2021 07:24:20 -0700 (PDT)
-Subject: Re: [PATCH v3] drm/amdgpu/OLAND: clip the ref divider max value
-To: Shashank Sharma <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Eddy Qin <Eddy.Qin@amd.com>
-References: <20210820135414.982355-1-shashank.sharma@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <66a44f45-338d-233e-debd-d47caf407fda@gmail.com>
-Date: Fri, 20 Aug 2021 16:24:20 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=2eS3QJuOoUmoESeURE1tHhGFVya6B6JGJbYvqJ7L3mA=;
+ b=nrgZDQRgYJRN09521aThJEGXT997953xMO4rjVmsbBAhlSzjb42ClbCU7PnlfonhNw
+ t9iUxuANh+8ExAS3c7TIVkJwHufZzkowPU2HnvZ4JFToA9Jp5Y4wuYTI09Kly8xAiiy2
+ 6i7o3fJ6E50hXM60tvlMCIcz2VSv7RJwlMWIvwoagQBUKuE/rFz2sNPX27bzTdEWuxmg
+ Elme6iKfzWWKgRw8sRf1hK8m2+J1fk1TAGZ6vkSKCSyPUwFS43/zNF5xeMTfVs/QtYk1
+ Uhu7DXWENjiLGzTBitxR5P4Zy0ZCM+vZerC+RhNhQ5jGwypAPK9+OhlA30nx+y39A5ts
+ luKA==
+X-Gm-Message-State: AOAM531JUIjbPYWTatkvMnFYWC00YvT+Vz9rWWQkNKVzh3Va9tsLZw8j
+ YKH4+Png9WR75SeLV+FsRHfrElFlrNHxqjs6F7Y=
+X-Google-Smtp-Source: ABdhPJz+x71nb8V3O2jBnnr5ntdbi4qL0VsQawio7iYcolm+2DfPCDbQyZTpmUm3IGebywOFOzSmealTe3sJF4YoDkk=
+X-Received: by 2002:a05:6808:483:: with SMTP id z3mr3318825oid.5.1629473288249; 
+ Fri, 20 Aug 2021 08:28:08 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20210820135414.982355-1-shashank.sharma@amd.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+References: <20210819201441.3545027-1-keescook@chromium.org>
+In-Reply-To: <20210819201441.3545027-1-keescook@chromium.org>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 20 Aug 2021 11:27:57 -0400
+Message-ID: <CADnq5_PzoQjeESSANzQEkYy_3as8hu1zq-vXmujZExE4=CnpBQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/pm: And destination bounds checking to struct copy
+To: Kees Cook <keescook@chromium.org>
+Cc: Lijo Lazar <lijo.lazar@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, 
+ Hawking Zhang <Hawking.Zhang@amd.com>, Feifei Xu <Feifei.Xu@amd.com>,
+ Likun Gao <Likun.Gao@amd.com>, 
+ Jiawei Gu <Jiawei.Gu@amd.com>, Evan Quan <evan.quan@amd.com>, 
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, 
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ Luben Tuikov <luben.tuikov@amd.com>,
+ Andrey Grodzovsky <andrey.grodzovsky@amd.com>, 
+ Dennis Li <Dennis.Li@amd.com>,
+ Sathishkumar S <sathishkumar.sundararaju@amd.com>, 
+ Jonathan Kim <jonathan.kim@amd.com>, Kevin Wang <kevin1.wang@amd.com>, 
+ David M Nieto <David.Nieto@amd.com>, Kenneth Feng <kenneth.feng@amd.com>, 
+ Lee Jones <lee.jones@linaro.org>, John Clements <John.Clements@amd.com>, 
+ LKML <linux-kernel@vger.kernel.org>, linux-hardening@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,155 +96,188 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 20.08.21 um 15:54 schrieb Shashank Sharma:
-> This patch limits the ref_div_max value to 100, during the
-> calculation of PLL feedback reference divider. With current
-> value (128), the produced fb_ref_div value generates unstable
-> output at particular frequencies. Radeon driver limits this
-> value at 100.
+On Thu, Aug 19, 2021 at 4:14 PM Kees Cook <keescook@chromium.org> wrote:
 >
-> On Oland, when we try to setup mode 2048x1280@60 (a bit weird,
-> I know), it demands a clock of 221270 Khz. It's been observed
-> that the PLL calculations using values 128 and 100 are vastly
-> different, and look like this:
+> In preparation for FORTIFY_SOURCE performing compile-time and run-time
+> field bounds checking for memcpy(), memmove(), and memset(), avoid
+> intentionally writing across neighboring fields.
 >
-> +------------------------------------------+
-> |Parameter    |AMDGPU        |Radeon       |
-> |             |              |             |
-> +-------------+----------------------------+
-> |Clock feedback              |             |
-> |divider max  |  128         |   100       |
-> |cap value    |              |             |
-> |             |              |             |
-> |             |              |             |
-> +------------------------------------------+
-> |ref_div_max  |              |             |
-> |             |  42          |  20         |
-> |             |              |             |
-> |             |              |             |
-> +------------------------------------------+
-> |ref_div      |  42          |  20         |
-> |             |              |             |
-> +------------------------------------------+
-> |fb_div       |  10326       |  8195       |
-> +------------------------------------------+
-> |fb_div       |  1024        |  163        |
-> +------------------------------------------+
-> |fb_dev_p     |  4           |  9          |
-> |frac fb_de^_p|              |             |
-> +----------------------------+-------------+
+> The "Board Parameters" members of the structs:
+>         struct atom_smc_dpm_info_v4_5
+>         struct atom_smc_dpm_info_v4_6
+>         struct atom_smc_dpm_info_v4_7
+>         struct atom_smc_dpm_info_v4_10
+> are written to the corresponding members of the corresponding PPTable_t
+> variables, but they lack destination size bounds checking, which means
+> the compiler cannot verify at compile time that this is an intended and
+> safe memcpy().
 >
-> With ref_div_max value clipped at 100, AMDGPU driver can also
-> drive videmode 2048x1280@60 (221Mhz) and produce proper output
-> without any blanking and distortion on the screen.
+> Since the header files are effectively immutable[1] and a struct_group()
+> cannot be used, nor a common struct referenced by both sides of the
+> memcpy() arguments, add a new helper, memcpy_trailing(), to perform the
+> bounds checking at compile time. Replace the open-coded memcpy()s with
+> memcpy_trailing() which includes enough context for the bounds checking.
 >
-> PS: This value was changed from 128 to 100 in Radeon driver also, here:
-> https://github.com/freedesktop/drm-tip/commit/4b21ce1b4b5d262e7d4656b8ececc891fc3cb806
+> "objdump -d" shows no object code changes.
 >
-> V1:
-> Got acks from:
-> Acked-by: Alex Deucher <alexander.deucher@amd.com>
-> Acked-by: Christian König <christian.koenig@amd.com>
+> [1] https://lore.kernel.org/lkml/e56aad3c-a06f-da07-f491-a894a570d78f@amd=
+.com
 >
-> V2:
-> - Restricting the changes only for OLAND, just to avoid any regression
->    for other cards.
-> - Changed unsigned -> unsigned int to make checkpatch quiet.
->
-> V3: Apply the change on SI family (not only oland) (Christian)
->
-> Cc: Alex Deucher <Alexander.Deucher@amd.com>
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: Eddy Qin <Eddy.Qin@amd.com>
-> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
+> Cc: Lijo Lazar <lijo.lazar@amd.com>
+> Cc: "Christian K=C3=B6nig" <christian.koenig@amd.com>
+> Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+> Cc: David Airlie <airlied@linux.ie>
+> Cc: Daniel Vetter <daniel@ffwll.ch>
+> Cc: Hawking Zhang <Hawking.Zhang@amd.com>
+> Cc: Feifei Xu <Feifei.Xu@amd.com>
+> Cc: Likun Gao <Likun.Gao@amd.com>
+> Cc: Jiawei Gu <Jiawei.Gu@amd.com>
+> Cc: Evan Quan <evan.quan@amd.com>
+> Cc: amd-gfx@lists.freedesktop.org
+> Cc: dri-devel@lists.freedesktop.org
+> Signed-off-by: Kees Cook <keescook@chromium.org>
+> Link: https://lore.kernel.org/lkml/CADnq5_Npb8uYvd+R4UHgf-w8-cQj3JoODjviJ=
+R_Y9w9wqJ71mQ@mail.gmail.com
+> ---
+> Alex, I dropped your prior Acked-by, since the implementation is very
+> different. If you're still happy with it, I can add it back. :)
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
+This looks reasonable to me:
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_pll.c    | 20 +++++++++++++-------
->   drivers/gpu/drm/amd/amdgpu/amdgpu_pll.h    |  3 ++-
->   drivers/gpu/drm/amd/amdgpu/atombios_crtc.c |  2 +-
->   3 files changed, 16 insertions(+), 9 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h           | 25 +++++++++++++++++++
+>  .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c |  6 ++---
+>  .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   |  8 +++---
+>  .../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    |  5 ++--
+>  4 files changed, 33 insertions(+), 11 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pll.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_pll.c
-> index f2e20666c9c1..4eaec446b49d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pll.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pll.c
-> @@ -80,12 +80,17 @@ static void amdgpu_pll_reduce_ratio(unsigned *nom, unsigned *den,
->    * Calculate feedback and reference divider for a given post divider. Makes
->    * sure we stay within the limits.
->    */
-> -static void amdgpu_pll_get_fb_ref_div(unsigned nom, unsigned den, unsigned post_div,
-> -				      unsigned fb_div_max, unsigned ref_div_max,
-> -				      unsigned *fb_div, unsigned *ref_div)
-> +static void amdgpu_pll_get_fb_ref_div(struct amdgpu_device *adev, unsigned int nom,
-> +				      unsigned int den, unsigned int post_div,
-> +				      unsigned int fb_div_max, unsigned int ref_div_max,
-> +				      unsigned int *fb_div, unsigned int *ref_div)
->   {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/am=
+dgpu/amdgpu.h
+> index 96e895d6be35..4605934a4fb7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -1446,4 +1446,29 @@ static inline int amdgpu_in_reset(struct amdgpu_de=
+vice *adev)
+>  {
+>         return atomic_read(&adev->in_gpu_reset);
+>  }
 > +
->   	/* limit reference * post divider to a maximum */
-> -	ref_div_max = min(128 / post_div, ref_div_max);
-> +	if (adev->family == AMDGPU_FAMILY_SI)
-> +		ref_div_max = min(100 / post_div, ref_div_max);
-> +	else
-> +		ref_div_max = min(128 / post_div, ref_div_max);
->   
->   	/* get matching reference and feedback divider */
->   	*ref_div = min(max(DIV_ROUND_CLOSEST(den, post_div), 1u), ref_div_max);
-> @@ -112,7 +117,8 @@ static void amdgpu_pll_get_fb_ref_div(unsigned nom, unsigned den, unsigned post_
->    * Try to calculate the PLL parameters to generate the given frequency:
->    * dot_clock = (ref_freq * feedback_div) / (ref_div * post_div)
->    */
-> -void amdgpu_pll_compute(struct amdgpu_pll *pll,
-> +void amdgpu_pll_compute(struct amdgpu_device *adev,
-> +			struct amdgpu_pll *pll,
->   			u32 freq,
->   			u32 *dot_clock_p,
->   			u32 *fb_div_p,
-> @@ -199,7 +205,7 @@ void amdgpu_pll_compute(struct amdgpu_pll *pll,
->   
->   	for (post_div = post_div_min; post_div <= post_div_max; ++post_div) {
->   		unsigned diff;
-> -		amdgpu_pll_get_fb_ref_div(nom, den, post_div, fb_div_max,
-> +		amdgpu_pll_get_fb_ref_div(adev, nom, den, post_div, fb_div_max,
->   					  ref_div_max, &fb_div, &ref_div);
->   		diff = abs(target_clock - (pll->reference_freq * fb_div) /
->   			(ref_div * post_div));
-> @@ -214,7 +220,7 @@ void amdgpu_pll_compute(struct amdgpu_pll *pll,
->   	post_div = post_div_best;
->   
->   	/* get the feedback and reference divider for the optimal value */
-> -	amdgpu_pll_get_fb_ref_div(nom, den, post_div, fb_div_max, ref_div_max,
-> +	amdgpu_pll_get_fb_ref_div(adev, nom, den, post_div, fb_div_max, ref_div_max,
->   				  &fb_div, &ref_div);
->   
->   	/* reduce the numbers to a simpler ratio once more */
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pll.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_pll.h
-> index db6136f68b82..44a583d6c9b4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pll.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pll.h
-> @@ -24,7 +24,8 @@
->   #ifndef __AMDGPU_PLL_H__
->   #define __AMDGPU_PLL_H__
->   
-> -void amdgpu_pll_compute(struct amdgpu_pll *pll,
-> +void amdgpu_pll_compute(struct amdgpu_device *adev,
-> +			 struct amdgpu_pll *pll,
->   			 u32 freq,
->   			 u32 *dot_clock_p,
->   			 u32 *fb_div_p,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/atombios_crtc.c b/drivers/gpu/drm/amd/amdgpu/atombios_crtc.c
-> index 159a2a4385a1..afad094f84c2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/atombios_crtc.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/atombios_crtc.c
-> @@ -851,7 +851,7 @@ void amdgpu_atombios_crtc_set_pll(struct drm_crtc *crtc, struct drm_display_mode
->   	pll->reference_div = amdgpu_crtc->pll_reference_div;
->   	pll->post_div = amdgpu_crtc->pll_post_div;
->   
-> -	amdgpu_pll_compute(pll, amdgpu_crtc->adjusted_clock, &pll_clock,
-> +	amdgpu_pll_compute(adev, pll, amdgpu_crtc->adjusted_clock, &pll_clock,
->   			    &fb_div, &frac_fb_div, &ref_div, &post_div);
->   
->   	amdgpu_atombios_crtc_program_ss(adev, ATOM_DISABLE, amdgpu_crtc->pll_id,
-
+> +/**
+> + * memcpy_trailing - Copy the end of one structure into the middle of an=
+other
+> + *
+> + * @dst: Pointer to destination struct
+> + * @first_dst_member: The member name in @dst where the overwrite begins
+> + * @last_dst_member: The member name in @dst where the overwrite ends af=
+ter
+> + * @src: Pointer to the source struct
+> + * @first_src_member: The member name in @src where the copy begins
+> + *
+> + */
+> +#define memcpy_trailing(dst, first_dst_member, last_dst_member,         =
+          \
+> +                       src, first_src_member)                           =
+  \
+> +({                                                                      =
+  \
+> +       size_t __src_offset =3D offsetof(typeof(*(src)), first_src_member=
+);  \
+> +       size_t __src_size =3D sizeof(*(src)) - __src_offset;             =
+    \
+> +       size_t __dst_offset =3D offsetof(typeof(*(dst)), first_dst_member=
+);  \
+> +       size_t __dst_size =3D offsetofend(typeof(*(dst)), last_dst_member=
+) - \
+> +                           __dst_offset;                                =
+  \
+> +       BUILD_BUG_ON(__src_size !=3D __dst_size);                        =
+    \
+> +       __builtin_memcpy((u8 *)(dst) + __dst_offset,                     =
+  \
+> +                        (u8 *)(src) + __src_offset,                     =
+  \
+> +                        __dst_size);                                    =
+  \
+> +})
+> +
+>  #endif
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/=
+gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+> index 8ab58781ae13..1918e6232319 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+> @@ -465,10 +465,8 @@ static int arcturus_append_powerplay_table(struct sm=
+u_context *smu)
+>
+>         if ((smc_dpm_table->table_header.format_revision =3D=3D 4) &&
+>             (smc_dpm_table->table_header.content_revision =3D=3D 6))
+> -               memcpy(&smc_pptable->MaxVoltageStepGfx,
+> -                      &smc_dpm_table->maxvoltagestepgfx,
+> -                      sizeof(*smc_dpm_table) - offsetof(struct atom_smc_=
+dpm_info_v4_6, maxvoltagestepgfx));
+> -
+> +               memcpy_trailing(smc_pptable, MaxVoltageStepGfx, BoardRese=
+rved,
+> +                               smc_dpm_table, maxvoltagestepgfx);
+>         return 0;
+>  }
+>
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gp=
+u/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> index 2e5d3669652b..b738042e064d 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> @@ -431,16 +431,16 @@ static int navi10_append_powerplay_table(struct smu=
+_context *smu)
+>
+>         switch (smc_dpm_table->table_header.content_revision) {
+>         case 5: /* nv10 and nv14 */
+> -               memcpy(smc_pptable->I2cControllers, smc_dpm_table->I2cCon=
+trollers,
+> -                       sizeof(*smc_dpm_table) - sizeof(smc_dpm_table->ta=
+ble_header));
+> +               memcpy_trailing(smc_pptable, I2cControllers, BoardReserve=
+d,
+> +                               smc_dpm_table, I2cControllers);
+>                 break;
+>         case 7: /* nv12 */
+>                 ret =3D amdgpu_atombios_get_data_table(adev, index, NULL,=
+ NULL, NULL,
+>                                               (uint8_t **)&smc_dpm_table_=
+v4_7);
+>                 if (ret)
+>                         return ret;
+> -               memcpy(smc_pptable->I2cControllers, smc_dpm_table_v4_7->I=
+2cControllers,
+> -                       sizeof(*smc_dpm_table_v4_7) - sizeof(smc_dpm_tabl=
+e_v4_7->table_header));
+> +               memcpy_trailing(smc_pptable, I2cControllers, BoardReserve=
+d,
+> +                               smc_dpm_table_v4_7, I2cControllers);
+>                 break;
+>         default:
+>                 dev_err(smu->adev->dev, "smc_dpm_info with unsupported co=
+ntent revision %d!\n",
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers=
+/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+> index c8eefacfdd37..a6fd7ee314a9 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+> @@ -409,9 +409,8 @@ static int aldebaran_append_powerplay_table(struct sm=
+u_context *smu)
+>
+>         if ((smc_dpm_table->table_header.format_revision =3D=3D 4) &&
+>             (smc_dpm_table->table_header.content_revision =3D=3D 10))
+> -               memcpy(&smc_pptable->GfxMaxCurrent,
+> -                      &smc_dpm_table->GfxMaxCurrent,
+> -                      sizeof(*smc_dpm_table) - offsetof(struct atom_smc_=
+dpm_info_v4_10, GfxMaxCurrent));
+> +               memcpy_trailing(smc_pptable, GfxMaxCurrent, reserved,
+> +                               smc_dpm_table, GfxMaxCurrent);
+>         return 0;
+>  }
+>
+> --
+> 2.30.2
+>
