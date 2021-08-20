@@ -2,61 +2,130 @@ Return-Path: <SRS0=vXfK=NL=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-23.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
+	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EFAD8C4338F
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 16:05:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DD715C4338F
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 17:23:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BE84A61250
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 16:05:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BE84A61250
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=arm.com
+	by mail.kernel.org (Postfix) with ESMTPS id 9A82761154
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 17:23:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9A82761154
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC96C6EAC5;
-	Fri, 20 Aug 2021 16:05:12 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id EF3796EAC3;
- Fri, 20 Aug 2021 16:05:11 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E785B11FB;
- Fri, 20 Aug 2021 09:05:10 -0700 (PDT)
-Received: from e110455-lin.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com
- [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A61903F70D;
- Fri, 20 Aug 2021 09:05:10 -0700 (PDT)
-Received: by e110455-lin.cambridge.arm.com (Postfix, from userid 1000)
- id 66016683943; Fri, 20 Aug 2021 17:05:09 +0100 (BST)
-Date: Fri, 20 Aug 2021 17:05:09 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
- christian.koenig@amd.com, brian.starkey@arm.com, sam@ravnborg.org,
- bbrezillon@kernel.org, nicolas.ferre@microchip.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- stefan@agner.ch, alison.wang@nxp.com, patrik.r.jakobsson@gmail.com,
- anitha.chrisanthus@intel.com, robdclark@gmail.com,
- edmund.j.dea@intel.com, sean@poorly.run, shawnguo@kernel.org,
- s.hauer@pengutronix.de, kernel@pengutronix.de, jyri.sarha@iki.fi,
- tomba@kernel.org, Dan.Sneddon@microchip.com,
- tomi.valkeinen@ideasonboard.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org
-Subject: Re: [PATCH v2 02/14] drm/arm/hdlcd: Convert to Linux IRQ interfaces
-Message-ID: <20210820160509.eo267b4r64v4qa3n@e110455-lin.cambridge.arm.com>
-References: <20210803090704.32152-1-tzimmermann@suse.de>
- <20210803090704.32152-3-tzimmermann@suse.de>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E0966EAD5;
+	Fri, 20 Aug 2021 17:23:56 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2069.outbound.protection.outlook.com [40.107.244.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A59B56EAD5;
+ Fri, 20 Aug 2021 17:23:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=NG/h8EmfJIqR5zwr5I2CMoutrdroAdgS95ZyAShX31eTjwKbXpn64/CdDszVh9+iI91aNlpMyA4DO0qV/614lTayz7VKZharHrmRZlN9lRk7UkK6q3OV9zG92LIzOdE0YqaHOE8l87FKuL9qdNFQZvFI26cqL7opCTKVMLyawL+XV2W+T/7FORowNWFeeNgn4l6bhuNgpWPCyS+O9th6wdW3Eqr2QRq7q/QHOmtzUBGdvBtgMHR7OFVe46isuatQQUoGwbDGgYzJKHHCZer8PmWBUxcS1CDEOOb8VHwm99MjC2KGcWohkPkSLuYlDUyvUnzJhUq+NsZvitSkXsvshg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZhF9YR+ZSkyNkmYzYqxWGplto1awJNuKpgANeUMp1tA=;
+ b=Wa5OLqsNfZ7WS+FCfr+ppXhNNJZohSouB28ryCfBhXVXAEezW+016cQaAvqx9KOoIGGNgm5grV9OBamAKg9CxNA19N9XFuMjDS7WvdXgH8KOPSht/f0r3M2+Gmuk8Yt/fRsnMi6futHHbF9M9sQWtU0IP1Yan09iBiNoJlDRMu4tRekHZ/TpQGOoZYxhYdlDknsJxicjH/VNUFgjRfHwmNsn8C8YheNNqJ9Lf2D0B5eGkQd6ZlfOpdJwD/UxDQfHPpE0sCqH+B9RKcJYJxrE9epknZmhRTxlUaflxrEs4gcYVZ12Mn3kWaNU73KCWhSVHk3F888Ard+KhGsnlNSnoQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZhF9YR+ZSkyNkmYzYqxWGplto1awJNuKpgANeUMp1tA=;
+ b=MvqBLJgyUw86So6IsyZh+BeE3zM1E1lkeLc9fygQFMg6MVzO/0dOvDO9rGHOLQIT4mV0AQPMD+hZX+Wq+/eLvqTdZ8TLtgsRT2MJOMHygS4avmIuYTuk383edgVZ5SaK0Yl9n0+A/PRqRgQMFW4l4NxjOPmsrr6Tkt9qsgPz+rM=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
+ by BL1PR12MB5269.namprd12.prod.outlook.com (2603:10b6:208:30b::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.21; Fri, 20 Aug
+ 2021 17:23:52 +0000
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::5dfc:ea54:4a18:89f5]) by BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::5dfc:ea54:4a18:89f5%4]) with mapi id 15.20.4436.019; Fri, 20 Aug 2021
+ 17:23:52 +0000
+From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ airlied@gmail.com, daniel.vetter@ffwll.ch
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Subject: [pull] amdgpu, amdkfd, radeon drm-next-5.15
+Date: Fri, 20 Aug 2021 13:23:35 -0400
+Message-Id: <20210820172335.4190-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.31.1
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20210803090704.32152-3-tzimmermann@suse.de>
+X-ClientProxiedBy: BLAPR03CA0087.namprd03.prod.outlook.com
+ (2603:10b6:208:329::32) To BL1PR12MB5144.namprd12.prod.outlook.com
+ (2603:10b6:208:316::6)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from localhost.localdomain (192.161.79.191) by
+ BLAPR03CA0087.namprd03.prod.outlook.com (2603:10b6:208:329::32) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.19 via Frontend
+ Transport; Fri, 20 Aug 2021 17:23:52 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 671b5c9c-27ba-4b58-cad1-08d963ff4809
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5269:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BL1PR12MB52694CA2AD76B0B2F5B6D829F7C19@BL1PR12MB5269.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1002;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: hRkbpPJVbhoyw297n3jFILD/sdA0Gw+IsTmVx9j+lv2C4pYXVaZp9XuGuaLWWz2QVVt/49ZuquJjjEU/xK2c9d0aJ6PZ4wH934yEJLy+WGTEYEr2fFU2X0KFtec+y9zMyBBJgS0dzPtsXNwXAlrvHgOBLy4nuVVo4kM+DLR09x4MR62M4fO/D5TISMcZ8sIPAv38aCPime5T83jgjG6ezwUbK5W5DTBLsko45KyNuR0u96OX5CQ4SipFOaE6ftBQd9xsRj0lkd9DFAR9ukCEhboR/KOe20zxd1iy4iK5ntpFc4/l7FsZNWrLMEFXIp5gT5GwmNG3DOe2ll9Q+OP9jZYeomxOK8CYYZrQFn9XYSmeK78RiijPV/0GRCMbtMabMJ6lVa9gKOtQb/HrK1ZzI9Y2Zw4+powrpxg5Lj0em0l8RkhyrRVlOn3Pg/lfYccnkYhI2IboVnu/xGa44C/0cyQ9E+hMejn3kIkHTlEwhiS4S2Gz37hFr5AUhcYqw3FHGaSjCAK4yzg31UV45vb2b3n4DA6BxZJogJDHjsjeGOtVdQjNFu3ei/TU3P1s2HwpgQaGuBMjftAEgtVMO96Q1ah/A+FF7elpHu95b8AVr48DSFWEHE6OsjDlEhtLo+YU6oJIz0H3CQJnXJGHkN31cC/vnNajQGXSDUYLwWhDi7cr1+o7lKnXnb9h6sGwlri/dwvO1tiwXm8Czy6p9oS6UQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(376002)(136003)(396003)(366004)(346002)(39860400002)(6512007)(66556008)(66476007)(186003)(6506007)(2616005)(2906002)(956004)(4326008)(38100700002)(6486002)(38350700002)(52116002)(5660300002)(66946007)(26005)(6666004)(36756003)(966005)(83380400001)(8676002)(66574015)(8936002)(86362001)(316002)(478600001)(1076003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QXFaMWxET0xLdFhZVmMvRUcwN2JYcExWNWM5NzZaekg1Tk00S3J5TXkvNk9J?=
+ =?utf-8?B?NXRVRjZzeDMzZnZMdmNKamQyaGRMd2djVi95Z0Z1ODZ4N0tramFpY292YWF1?=
+ =?utf-8?B?WlZzby9nYU9qQXgyWHRTVkM0RytlZk9jYitVSS85eVVySUFEU2NLcGp5a0Rn?=
+ =?utf-8?B?cloxNkRXK2FpU0xxZEMyT2ZwVlBSQm5vU3hiQnE0R3hVeVBUZ2JXb29jMzdh?=
+ =?utf-8?B?alZXTGVGdGE0T3dzS1YwQjlQZm5OSGIrenlsaWNxQUhpSTJJakVZWlljOFUv?=
+ =?utf-8?B?UU9WL3JpeCtGRTFod0FBemxJQ3EySURNamRNUENBSysrRWs1Q0RLVzJjVFor?=
+ =?utf-8?B?MW9HQ3JOdmVFa1JDTWE1NVloQ0NMTENVQnVuRU5mTWJpbU9ZVUxsUk9HYis0?=
+ =?utf-8?B?WmhmOWZucStMYnFUYmFhT01OWWp5bjBOQmZ0VVlqb285azAxckNzck5WRkYr?=
+ =?utf-8?B?Q1hBN1VOcnBvY0VKcVFlNklxeitWbmE5RWIyZHlPU0RVeXBDNm1sVTJDVTNS?=
+ =?utf-8?B?azdMMGErNTRXVStoVDB4MFM4R0hRRUV3VkdONDhEL09vMi9VYk9JOGRVaHU0?=
+ =?utf-8?B?SWdKR1Q0cFVxSUk5eVdJakJyMEt5c3hDMnNzamdadTFOVm03OUh2SHQvZDB2?=
+ =?utf-8?B?b2Jja3NQc2JmNzAvWWs3UDJtajI0T3FDYm5uc3U1alBaK1YwczVlenBnN0g4?=
+ =?utf-8?B?SFBEU3o0bVFSUStGaE5YYTVBYlM5TzFmQml4Tjl5RG5rTnJwcEdWcGFxeEVZ?=
+ =?utf-8?B?Z0VaaFp5dFp5clhNWlc0YlM1ZnFDSTQ1VHNsbkVvejlwNGgyalJsWndTc0o2?=
+ =?utf-8?B?YjZZRXVuOWgvQzhPQ1pEemZpaXBEL2d1TjBKU1Q0ZS9mcEZTUmRQSjZLZXpR?=
+ =?utf-8?B?SnRGTzg2Y2tEUzJSdGZYOXBwdFN4dTRXTi9EdGQ4WG1oMEhKNGwrOHlzdlFw?=
+ =?utf-8?B?UXUveHBhZ1B1U3EwLyt2Z2xaekoyc1lodFBXYjIzMTh5Z09ITFVYbTF6aTgy?=
+ =?utf-8?B?b29VWkVYN2hKYk9maVdhNmQySjBnYjJJcDRmZWZVenJzZFlZT1BjMk5BMzlj?=
+ =?utf-8?B?dWxxSUdOY2w3SmlmTWlnYUZLaEtLQXQrUHd5SnRYbnhFY0JZdWtjKzROekZF?=
+ =?utf-8?B?MHhBRUk5SG1vRmxxZHpOYTR1WGRtb0ozSEZPREowQUVFcVZQWlMrQldIWE1l?=
+ =?utf-8?B?NEtPdm4wUmV0N0NSL2krMWR0V2d3TjJQRUVGYmlaR3R1UHF6Q1U4QjdNZnV4?=
+ =?utf-8?B?bFp4UjB4MVpMYWdncjlBRk9oZkJ1cGpFNW5GWmRvb05hVmw2d240V2o1Z2J2?=
+ =?utf-8?B?cFBxbTZyY3YrYXZZVFMvVzF6SW9mYk1lU1pVYlZrL1Y1dmR4ZHVxZHBySlBT?=
+ =?utf-8?B?cmE5VkVOY0dSQVV1OHFlc0RPNWNMNHQ0bG4rbUNYQTVBZUtIWDNzNjVKK1hr?=
+ =?utf-8?B?RTJ0dGZtNXpFaEtNaEwrOHFxYTBqdHFOb1gwQU9sVGVRNXZvNzR3a2ZIN1o3?=
+ =?utf-8?B?WE5SUWtCR0RYcTFqZEtMK3k4U0V0K1dNMVZ3NlcyR3RMNVFQdUlySjhNTElk?=
+ =?utf-8?B?d3NuWCttbVVxTTFYVWEvWnV2WmgxS0NCWmxzSXF2QkRmK2hYM0Q1aFBWbVVM?=
+ =?utf-8?B?MWRwcitCdlhLNFUwbzJUSnJLSGt1dHZKRE9paU1RSiswUGJHMkVHUGYzUWE0?=
+ =?utf-8?B?cU9pL2FhRTlRTXArNTk1M2dpdllIVDExbG5LYXAyK3VSNStueHl5cjBNcWZy?=
+ =?utf-8?Q?C0i1Gpw1yZzgTTPJas8spmvcvy7qb6ticQTgVgF?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 671b5c9c-27ba-4b58-cad1-08d963ff4809
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Aug 2021 17:23:52.7859 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: rbToo8vNlgmYZquxiaPXL6imWf/BWjBnZJamJgLRmgt9k7zgmxvx5Wt01b/dh10hpQrGNMTlgf5d9L2lqe81iw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5269
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,284 +140,207 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Aug 03, 2021 at 11:06:52AM +0200, Thomas Zimmermann wrote:
-> Drop the DRM IRQ midlayer in favor of Linux IRQ interfaces. DRM's
-> IRQ helpers are mostly useful for UMS drivers. Modern KMS drivers
-> don't benefit from using it.
-> 
-> DRM IRQ callbacks are now being called directly or inlined.
-> 
-> Calls to platform_get_irq() can fail with a negative errno code.
-> Abort initialization in this case. The DRM IRQ midlayer does not
-> handle this case correctly.
-> 
-> v2:
-> 	* name struct drm_device variables 'drm' (Sam)
-> 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Acked-by: Sam Ravnborg <sam@ravnborg.org>
+Hi Dave, Daniel,
 
-Sorry for the delayed response due to holidays.
+Updates for 5.15.  Mainly bug fixes and cleanups.
 
-Acked-by: Liviu Dudau <liviu.dudau@arm.com>
+The following changes since commit 554594567b1fa3da74f88ec7b2dc83d000c58e98:
 
-Best regards,
-Liviu
+  drm/display: fix possible null-pointer dereference in dcn10_set_clock() (2021-08-11 17:19:54 -0400)
 
-> ---
->  drivers/gpu/drm/arm/hdlcd_drv.c | 174 ++++++++++++++++++--------------
->  drivers/gpu/drm/arm/hdlcd_drv.h |   1 +
->  2 files changed, 97 insertions(+), 78 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/arm/hdlcd_drv.c b/drivers/gpu/drm/arm/hdlcd_drv.c
-> index 81ae92390736..479c2422a2e0 100644
-> --- a/drivers/gpu/drm/arm/hdlcd_drv.c
-> +++ b/drivers/gpu/drm/arm/hdlcd_drv.c
-> @@ -29,7 +29,6 @@
->  #include <drm/drm_fb_helper.h>
->  #include <drm/drm_gem_cma_helper.h>
->  #include <drm/drm_gem_framebuffer_helper.h>
-> -#include <drm/drm_irq.h>
->  #include <drm/drm_modeset_helper.h>
->  #include <drm/drm_of.h>
->  #include <drm/drm_probe_helper.h>
-> @@ -38,6 +37,94 @@
->  #include "hdlcd_drv.h"
->  #include "hdlcd_regs.h"
->  
-> +static irqreturn_t hdlcd_irq(int irq, void *arg)
-> +{
-> +	struct drm_device *drm = arg;
-> +	struct hdlcd_drm_private *hdlcd = drm->dev_private;
-> +	unsigned long irq_status;
-> +
-> +	irq_status = hdlcd_read(hdlcd, HDLCD_REG_INT_STATUS);
-> +
-> +#ifdef CONFIG_DEBUG_FS
-> +	if (irq_status & HDLCD_INTERRUPT_UNDERRUN)
-> +		atomic_inc(&hdlcd->buffer_underrun_count);
-> +
-> +	if (irq_status & HDLCD_INTERRUPT_DMA_END)
-> +		atomic_inc(&hdlcd->dma_end_count);
-> +
-> +	if (irq_status & HDLCD_INTERRUPT_BUS_ERROR)
-> +		atomic_inc(&hdlcd->bus_error_count);
-> +
-> +	if (irq_status & HDLCD_INTERRUPT_VSYNC)
-> +		atomic_inc(&hdlcd->vsync_count);
-> +
-> +#endif
-> +	if (irq_status & HDLCD_INTERRUPT_VSYNC)
-> +		drm_crtc_handle_vblank(&hdlcd->crtc);
-> +
-> +	/* acknowledge interrupt(s) */
-> +	hdlcd_write(hdlcd, HDLCD_REG_INT_CLEAR, irq_status);
-> +
-> +	return IRQ_HANDLED;
-> +}
-> +
-> +static void hdlcd_irq_preinstall(struct drm_device *drm)
-> +{
-> +	struct hdlcd_drm_private *hdlcd = drm->dev_private;
-> +	/* Ensure interrupts are disabled */
-> +	hdlcd_write(hdlcd, HDLCD_REG_INT_MASK, 0);
-> +	hdlcd_write(hdlcd, HDLCD_REG_INT_CLEAR, ~0);
-> +}
-> +
-> +static void hdlcd_irq_postinstall(struct drm_device *drm)
-> +{
-> +#ifdef CONFIG_DEBUG_FS
-> +	struct hdlcd_drm_private *hdlcd = drm->dev_private;
-> +	unsigned long irq_mask = hdlcd_read(hdlcd, HDLCD_REG_INT_MASK);
-> +
-> +	/* enable debug interrupts */
-> +	irq_mask |= HDLCD_DEBUG_INT_MASK;
-> +
-> +	hdlcd_write(hdlcd, HDLCD_REG_INT_MASK, irq_mask);
-> +#endif
-> +}
-> +
-> +static int hdlcd_irq_install(struct drm_device *drm, int irq)
-> +{
-> +	int ret;
-> +
-> +	if (irq == IRQ_NOTCONNECTED)
-> +		return -ENOTCONN;
-> +
-> +	hdlcd_irq_preinstall(drm);
-> +
-> +	ret = request_irq(irq, hdlcd_irq, 0, drm->driver->name, drm);
-> +	if (ret)
-> +		return ret;
-> +
-> +	hdlcd_irq_postinstall(drm);
-> +
-> +	return 0;
-> +}
-> +
-> +static void hdlcd_irq_uninstall(struct drm_device *drm)
-> +{
-> +	struct hdlcd_drm_private *hdlcd = drm->dev_private;
-> +	/* disable all the interrupts that we might have enabled */
-> +	unsigned long irq_mask = hdlcd_read(hdlcd, HDLCD_REG_INT_MASK);
-> +
-> +#ifdef CONFIG_DEBUG_FS
-> +	/* disable debug interrupts */
-> +	irq_mask &= ~HDLCD_DEBUG_INT_MASK;
-> +#endif
-> +
-> +	/* disable vsync interrupts */
-> +	irq_mask &= ~HDLCD_INTERRUPT_VSYNC;
-> +	hdlcd_write(hdlcd, HDLCD_REG_INT_MASK, irq_mask);
-> +
-> +	free_irq(hdlcd->irq, drm);
-> +}
-> +
->  static int hdlcd_load(struct drm_device *drm, unsigned long flags)
->  {
->  	struct hdlcd_drm_private *hdlcd = drm->dev_private;
-> @@ -90,7 +177,12 @@ static int hdlcd_load(struct drm_device *drm, unsigned long flags)
->  		goto setup_fail;
->  	}
->  
-> -	ret = drm_irq_install(drm, platform_get_irq(pdev, 0));
-> +	ret = platform_get_irq(pdev, 0);
-> +	if (ret < 0)
-> +		goto irq_fail;
-> +	hdlcd->irq = ret;
-> +
-> +	ret = hdlcd_irq_install(drm, hdlcd->irq);
->  	if (ret < 0) {
->  		DRM_ERROR("failed to install IRQ handler\n");
->  		goto irq_fail;
-> @@ -122,76 +214,6 @@ static void hdlcd_setup_mode_config(struct drm_device *drm)
->  	drm->mode_config.funcs = &hdlcd_mode_config_funcs;
->  }
->  
-> -static irqreturn_t hdlcd_irq(int irq, void *arg)
-> -{
-> -	struct drm_device *drm = arg;
-> -	struct hdlcd_drm_private *hdlcd = drm->dev_private;
-> -	unsigned long irq_status;
-> -
-> -	irq_status = hdlcd_read(hdlcd, HDLCD_REG_INT_STATUS);
-> -
-> -#ifdef CONFIG_DEBUG_FS
-> -	if (irq_status & HDLCD_INTERRUPT_UNDERRUN)
-> -		atomic_inc(&hdlcd->buffer_underrun_count);
-> -
-> -	if (irq_status & HDLCD_INTERRUPT_DMA_END)
-> -		atomic_inc(&hdlcd->dma_end_count);
-> -
-> -	if (irq_status & HDLCD_INTERRUPT_BUS_ERROR)
-> -		atomic_inc(&hdlcd->bus_error_count);
-> -
-> -	if (irq_status & HDLCD_INTERRUPT_VSYNC)
-> -		atomic_inc(&hdlcd->vsync_count);
-> -
-> -#endif
-> -	if (irq_status & HDLCD_INTERRUPT_VSYNC)
-> -		drm_crtc_handle_vblank(&hdlcd->crtc);
-> -
-> -	/* acknowledge interrupt(s) */
-> -	hdlcd_write(hdlcd, HDLCD_REG_INT_CLEAR, irq_status);
-> -
-> -	return IRQ_HANDLED;
-> -}
-> -
-> -static void hdlcd_irq_preinstall(struct drm_device *drm)
-> -{
-> -	struct hdlcd_drm_private *hdlcd = drm->dev_private;
-> -	/* Ensure interrupts are disabled */
-> -	hdlcd_write(hdlcd, HDLCD_REG_INT_MASK, 0);
-> -	hdlcd_write(hdlcd, HDLCD_REG_INT_CLEAR, ~0);
-> -}
-> -
-> -static int hdlcd_irq_postinstall(struct drm_device *drm)
-> -{
-> -#ifdef CONFIG_DEBUG_FS
-> -	struct hdlcd_drm_private *hdlcd = drm->dev_private;
-> -	unsigned long irq_mask = hdlcd_read(hdlcd, HDLCD_REG_INT_MASK);
-> -
-> -	/* enable debug interrupts */
-> -	irq_mask |= HDLCD_DEBUG_INT_MASK;
-> -
-> -	hdlcd_write(hdlcd, HDLCD_REG_INT_MASK, irq_mask);
-> -#endif
-> -	return 0;
-> -}
-> -
-> -static void hdlcd_irq_uninstall(struct drm_device *drm)
-> -{
-> -	struct hdlcd_drm_private *hdlcd = drm->dev_private;
-> -	/* disable all the interrupts that we might have enabled */
-> -	unsigned long irq_mask = hdlcd_read(hdlcd, HDLCD_REG_INT_MASK);
-> -
-> -#ifdef CONFIG_DEBUG_FS
-> -	/* disable debug interrupts */
-> -	irq_mask &= ~HDLCD_DEBUG_INT_MASK;
-> -#endif
-> -
-> -	/* disable vsync interrupts */
-> -	irq_mask &= ~HDLCD_INTERRUPT_VSYNC;
-> -
-> -	hdlcd_write(hdlcd, HDLCD_REG_INT_MASK, irq_mask);
-> -}
-> -
->  #ifdef CONFIG_DEBUG_FS
->  static int hdlcd_show_underrun_count(struct seq_file *m, void *arg)
->  {
-> @@ -236,10 +258,6 @@ DEFINE_DRM_GEM_CMA_FOPS(fops);
->  
->  static const struct drm_driver hdlcd_driver = {
->  	.driver_features = DRIVER_GEM | DRIVER_MODESET | DRIVER_ATOMIC,
-> -	.irq_handler = hdlcd_irq,
-> -	.irq_preinstall = hdlcd_irq_preinstall,
-> -	.irq_postinstall = hdlcd_irq_postinstall,
-> -	.irq_uninstall = hdlcd_irq_uninstall,
->  	DRM_GEM_CMA_DRIVER_OPS,
->  #ifdef CONFIG_DEBUG_FS
->  	.debugfs_init = hdlcd_debugfs_init,
-> @@ -316,7 +334,7 @@ static int hdlcd_drm_bind(struct device *dev)
->  err_unload:
->  	of_node_put(hdlcd->crtc.port);
->  	hdlcd->crtc.port = NULL;
-> -	drm_irq_uninstall(drm);
-> +	hdlcd_irq_uninstall(drm);
->  	of_reserved_mem_device_release(drm->dev);
->  err_free:
->  	drm_mode_config_cleanup(drm);
-> @@ -338,7 +356,7 @@ static void hdlcd_drm_unbind(struct device *dev)
->  	hdlcd->crtc.port = NULL;
->  	pm_runtime_get_sync(dev);
->  	drm_atomic_helper_shutdown(drm);
-> -	drm_irq_uninstall(drm);
-> +	hdlcd_irq_uninstall(drm);
->  	pm_runtime_put(dev);
->  	if (pm_runtime_enabled(dev))
->  		pm_runtime_disable(dev);
-> diff --git a/drivers/gpu/drm/arm/hdlcd_drv.h b/drivers/gpu/drm/arm/hdlcd_drv.h
-> index fd438d177b64..909c39c28487 100644
-> --- a/drivers/gpu/drm/arm/hdlcd_drv.h
-> +++ b/drivers/gpu/drm/arm/hdlcd_drv.h
-> @@ -11,6 +11,7 @@ struct hdlcd_drm_private {
->  	struct clk			*clk;
->  	struct drm_crtc			crtc;
->  	struct drm_plane		*plane;
-> +	unsigned int			irq;
->  #ifdef CONFIG_DEBUG_FS
->  	atomic_t buffer_underrun_count;
->  	atomic_t bus_error_count;
-> -- 
-> 2.32.0
-> 
+are available in the Git repository at:
 
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-next-5.15-2021-08-20
+
+for you to fetch changes up to 90a9266269eb9f71af1f323c33e1dca53527bd22:
+
+  drm/amdgpu: Cancel delayed work when GFXOFF is disabled (2021-08-20 12:09:44 -0400)
+
+----------------------------------------------------------------
+amd-drm-next-5.15-2021-08-20:
+
+amdgpu:
+- embed hw fence into job
+- Misc SMU fixes
+- PSP TA code cleanup
+- RAS fixes
+- PWM fan speed fixes
+- DC workqueue cleanups
+- SR-IOV fixes
+- gfxoff delayed work fix
+- Pin domain check fix
+
+amdkfd:
+- SVM fixes
+
+radeon:
+- Code cleanup
+
+----------------------------------------------------------------
+Anthony Koo (1):
+      drm/amd/display: [FW Promotion] Release 0.0.79
+
+Aric Cyr (1):
+      drm/amd/display: 3.2.149
+
+Candice Li (3):
+      drm/amd/amdgpu: consolidate PSP TA context
+      drm/amd/amdgpu: remove unnecessary RAS context field
+      drm/amd: consolidate TA shared memory structures
+
+Christian König (1):
+      drm/amdgpu: use the preferred pin domain after the check
+
+Colin Ian King (1):
+      drm/amd/pm: Fix spelling mistake "firwmare" -> "firmware"
+
+Evan Quan (9):
+      drm/amd/pm: correct the fan speed RPM setting
+      drm/amd/pm: record the RPM and PWM based fan speed settings
+      drm/amd/pm: correct the fan speed PWM retrieving
+      drm/amd/pm: correct the fan speed RPM retrieving
+      drm/amd/pm: drop the unnecessary intermediate percent-based transition
+      drm/amd/pm: drop unnecessary manual mode check
+      drm/amd/pm: correct the address of Arcturus fan related registers
+      drm/amdgpu: disable BACO support for 699F:C7 polaris12 SKU temporarily
+      drm/amd/pm: a quick fix for "divided by zero" error
+
+Hawking Zhang (1):
+      drm/amdgpu: increase max xgmi physical node for aldebaran
+
+Jack Zhang (1):
+      drm/amd/amdgpu embed hw_fence into amdgpu_job
+
+Jake Wang (1):
+      drm/amd/display: Ensure DCN save after VM setup
+
+Jiange Zhao (1):
+      drm/amdgpu: Add MB_REQ_MSG_READY_TO_RESET response when VF get FLR notification.
+
+Jonathan Kim (1):
+      drm/amdgpu: get extended xgmi topology data
+
+Kenneth Feng (2):
+      Revert "drm/amd/pm: fix workload mismatch on vega10"
+      drm/amd/pm: change the workload type for some cards
+
+Kevin Wang (5):
+      drm/amd/pm: correct DPM_XGMI/VCN_DPM feature name
+      drm/amd/pm: skip to load smu microcode on sriov for aldebaran
+      drm/amd/pm: change return value in aldebaran_get_power_limit()
+      drm/amd/pm: change smu msg's attribute to allow working under sriov
+      drm/amd/pm: change pp_dpm_sclk/mclk/fclk attribute is RO for aldebaran
+
+Lukas Bulwahn (1):
+      drm: amdgpu: remove obsolete reference to config CHASH
+
+Michel Dänzer (1):
+      drm/amdgpu: Cancel delayed work when GFXOFF is disabled
+
+Nathan Chancellor (1):
+      drm/radeon: Add break to switch statement in radeonfb_create_pinned_object()
+
+Nicholas Kazlauskas (3):
+      drm/amd/display: Fix multi-display support for idle opt workqueue
+      drm/amd/display: Use vblank control events for PSR enable/disable
+      drm/amd/display: Guard vblank wq flush with DCN guards
+
+Wayne Lin (1):
+      drm/amd/display: Create dc_sink when EDID fail
+
+Yifan Zhang (1):
+      drm/amdkfd: fix random KFDSVMRangeTest.SetGetAttributesTest test failure
+
+YuBiao Wang (1):
+      drm/amd/amdgpu:flush ttm delayed work before cancel_sync
+
+Zhan Liu (1):
+      drm/amd/display: Use DCN30 watermark calc for DCN301
+
+Zhigang Luo (1):
+      drm/amdgpu: correct MMSCH 1.0 version
+
+ drivers/gpu/drm/Kconfig                            |   1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h                |   2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c         |   1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c        |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |  28 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c          |  86 +++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c            |  37 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c            |   1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c             |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c            |  39 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.h            |   6 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c            |  16 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.c          |   1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c           |   1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c         |  10 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c            | 432 ++++++++++++---------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h            | 111 ++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_rap.c            |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c            |   6 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h            |   9 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h           |   5 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c           |   1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_securedisplay.c  |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c          |   6 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h          |  20 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c            |   1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c           |   6 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c           |  59 ++-
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v1_1.c           |   5 +-
+ drivers/gpu/drm/amd/amdgpu/mmsch_v1_0.h            |   4 +-
+ drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c              |   2 +
+ drivers/gpu/drm/amd/amdgpu/mxgpu_nv.h              |   3 +-
+ drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c             |   4 +-
+ drivers/gpu/drm/amd/amdgpu/psp_v10_0.c             |  40 +-
+ drivers/gpu/drm/amd/amdgpu/psp_v11_0.c             |  28 +-
+ drivers/gpu/drm/amd/amdgpu/psp_v12_0.c             |  24 +-
+ drivers/gpu/drm/amd/amdgpu/ta_xgmi_if.h            |   3 +-
+ drivers/gpu/drm/amd/amdgpu/vi.c                    |   9 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c               |   8 +
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 112 +++---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h  |  23 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c |  12 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_irq_params.h   |   1 +
+ .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    |  23 ++
+ drivers/gpu/drm/amd/display/dc/core/dc.c           |   6 +
+ drivers/gpu/drm/amd/display/dc/core/dc_vm_helper.c |   3 +
+ drivers/gpu/drm/amd/display/dc/dc.h                |   3 +-
+ .../drm/amd/display/dc/dcn301/dcn301_resource.c    |  96 +----
+ drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c |  12 +
+ drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.h |   1 +
+ drivers/gpu/drm/amd/display/dc/dcn31/dcn31_init.c  |   1 +
+ drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h  |   1 +
+ drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h    |  19 +-
+ .../gpu/drm/amd/display/modules/hdcp/hdcp_psp.c    |  56 +--
+ .../amd/include/asic_reg/thm/thm_11_0_2_offset.h   |   6 +
+ .../amd/include/asic_reg/thm/thm_11_0_2_sh_mask.h  |   3 +
+ drivers/gpu/drm/amd/include/kgd_pp_interface.h     |   4 +-
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c                 |  32 +-
+ drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h            |   8 +-
+ drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h            |  25 +-
+ drivers/gpu/drm/amd/pm/inc/hwmgr.h                 |   6 +-
+ drivers/gpu/drm/amd/pm/inc/smu_types.h             |   1 -
+ drivers/gpu/drm/amd/pm/inc/smu_v11_0.h             |  11 +-
+ drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c   |  16 +-
+ .../gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c    |   8 +-
+ .../gpu/drm/amd/pm/powerplay/hwmgr/smu7_thermal.c  |  21 +-
+ .../gpu/drm/amd/pm/powerplay/hwmgr/smu7_thermal.h  |   4 +-
+ .../gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c  |  21 +-
+ .../drm/amd/pm/powerplay/hwmgr/vega10_thermal.c    |  18 +-
+ .../drm/amd/pm/powerplay/hwmgr/vega10_thermal.h    |   4 +-
+ .../gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c  |   6 +-
+ .../drm/amd/pm/powerplay/hwmgr/vega20_thermal.c    |  30 +-
+ .../drm/amd/pm/powerplay/hwmgr/vega20_thermal.h    |   4 +-
+ drivers/gpu/drm/amd/pm/powerplay/si_dpm.c          |  19 +-
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c          |  81 ++--
+ drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c  | 174 ++++++++-
+ drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c    |  28 +-
+ .../drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c    |  33 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c     | 107 ++++-
+ drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c |  23 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c     | 102 +++--
+ drivers/gpu/drm/radeon/radeon_fb.c                 |   1 +
+ 83 files changed, 1346 insertions(+), 848 deletions(-)
