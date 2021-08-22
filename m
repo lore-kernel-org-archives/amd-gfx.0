@@ -8,66 +8,67 @@ X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F080EC4338F
-	for <amd-gfx@archiver.kernel.org>; Sun, 22 Aug 2021 22:21:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 70632C4338F
+	for <amd-gfx@archiver.kernel.org>; Sun, 22 Aug 2021 22:21:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BFCF961267
-	for <amd-gfx@archiver.kernel.org>; Sun, 22 Aug 2021 22:21:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BFCF961267
+	by mail.kernel.org (Postfix) with ESMTPS id 389D361267
+	for <amd-gfx@archiver.kernel.org>; Sun, 22 Aug 2021 22:21:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 389D361267
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D4EB89F2E;
-	Sun, 22 Aug 2021 22:20:58 +0000 (UTC)
-Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
- [IPv6:2607:f8b0:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3ED0789EB1;
- Sun, 22 Aug 2021 22:20:53 +0000 (UTC)
-Received: by mail-ot1-x335.google.com with SMTP id
- x9-20020a056830278900b0051b8be1192fso10541325otu.7; 
- Sun, 22 Aug 2021 15:20:53 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 23F2489EA3;
+	Sun, 22 Aug 2021 22:21:02 +0000 (UTC)
+Received: from mail-ot1-x332.google.com (mail-ot1-x332.google.com
+ [IPv6:2607:f8b0:4864:20::332])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0BE789F0A;
+ Sun, 22 Aug 2021 22:20:59 +0000 (UTC)
+Received: by mail-ot1-x332.google.com with SMTP id
+ i8-20020a056830402800b0051afc3e373aso19981066ots.5; 
+ Sun, 22 Aug 2021 15:20:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=Di0vKi6q1FQK7H2Iauu5LRuMFu/619Qh3TdTrNtKXuA=;
- b=tkqpGHbOO1QfJaHHrjSYZV7sKqxU8LscpiATOjdtyBrYvalZ9xwCc/QRtKMPRBeM3O
- 3Us3/BDJ4e3nAf9cDIu/wobznv7ozP+Ugyrsovxtni/JsiGp3ida5BX2QiI/BKJ7IqM+
- 5o2DgNteMcs2dC9Vmhwqr6H/3bD/84053Ep9+9JWmx7kmr991Qn/nGMylV4vpljJ3mtl
- uSM3sWRDNqrC8waHsm8aGd5lvmKEFTxng2l9oCVRXHSlHlqmPJ4WgOdRkGK2bNqIlrT8
- 1AA/n7ESClY5iOu7PmhraN4cZVc6ru94/0E6PkaU5fF5xy4LhGx/HjNWGzCCBPto8CCC
- gkNw==
+ bh=NT6h/vX8/m+JyGE497yUqs4gMn2gwLq39tH0mvJ26zw=;
+ b=Bg49Iv+NZHZQ93bYuVhwSLRbiaXHxeMoTZmB/19ZVGm+BQIsrLKxOM8ZLUU/O2YYCI
+ baUJS/ID2PwDbJs53NSgQLD25POivw/EVdofYsE6/D6SSvIdCCNCSHxPiiwOQIR7c/gO
+ v28EcicS7T3FGMSVJanT+/AvlSoOygsgOBkTwq7NOicEL9HLmE4QzY9apX5Jaly8ZFFD
+ phP+CsW18iUW13wSaEuW477fWBC1n7McWqBH1BiqeLG49pGC4W8gJmv2qBtqNc6/eVsd
+ hVs7HjO6kAD2fg+H/7JX0qj+Ec40yFJv5mZqgMncTScO1QbUKrYpuUPrlQOZXafVdq6t
+ M13g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=Di0vKi6q1FQK7H2Iauu5LRuMFu/619Qh3TdTrNtKXuA=;
- b=sW8qP8FAF5uhCFRtfZ9OKULlL9okEmNEXMEqmGtklWjHYSXcHw5mb8WvCRwkj60Oym
- pE2DxoDfS4clXHaatGsFOPxa20X19zvbMPGfZjtwcwvVmz5Q/senYMlIT38tGSlUHAa0
- f9Frnu7KTM28JNKXg8wcfwDmiXmmi2Tvo5q3n+YT3ghPWTk0aXj/jgkl0slMDHJfaQtp
- OxYejRc+bn6xha7qjy3noBEC7BXgx9TRNeb/G+VIdhN0EDpsgM7xAxI4Weo9f534wLVr
- XJAcKr7CMhp3R/2kM8aVRofmh1T/PnXfPZKXaif1W/T8BauAqsaqqHyAevqVlfI/ukmZ
- 3DJw==
-X-Gm-Message-State: AOAM531Nm6EfsuQpMRk/GK+hHEP36yRqhsy3MMh9dyZmufPgtt4jBxr2
- k7vzBR+jke2qrnpMiEmRXv4=
-X-Google-Smtp-Source: ABdhPJyPpT9XiFfOy8V8QORSZfW/NxURz4DN+wweH36YGXMRDoirpmpnVsnD73+/3/1paYsfg+mTUA==
-X-Received: by 2002:a9d:6b8b:: with SMTP id b11mr25581181otq.351.1629670852237; 
- Sun, 22 Aug 2021 15:20:52 -0700 (PDT)
+ bh=NT6h/vX8/m+JyGE497yUqs4gMn2gwLq39tH0mvJ26zw=;
+ b=rbROul8iG0sWHtViQQGrb7Vit76DYHXsc29KSJVipieQKv0ETBS/iVth9w0BriqJSS
+ Iy7IW5acVI6LanulSjTfEwimtl7TFNHfQvzD2uxqMmfYfyMYof19AuxrQESEhRCeWaAq
+ vDhiQb+WGkDE5+XsTVWBLDuhP+MZseJKzs/IaKmOWk9sgNEGQoOAaEJrbKV4t/nNn0eI
+ i7W5MSVOsaDjKj7z6vJjy41ECPCIgV5ragqH9wOFDq0kKYKtHeFv6dgC7Pt5K+KTxlMJ
+ YvZfHR4nYvXGgBsDHd4pfszoXU6L54otYcqhM+bdIF5oP74k0UCEWJfNhWsjlBZeruZd
+ 3ZmA==
+X-Gm-Message-State: AOAM533t9qOf2HnOa/cexobvtazrA8oQ7ZnaSrxscKNVzeo/Ig0jOPU3
+ Fng0rsmAQi+B4RL8vyULU+s=
+X-Google-Smtp-Source: ABdhPJzmgfDFyb89NVScQRBo6vHUydrRuZzr9LAhQELwlcEu+wSy+ll6ZO0Jze5LKytd1DwXtsf3gQ==
+X-Received: by 2002:a05:6830:85:: with SMTP id
+ a5mr25869142oto.268.1629670859014; 
+ Sun, 22 Aug 2021 15:20:59 -0700 (PDT)
 Received: from frodo.. (c-24-9-77-57.hsd1.co.comcast.net. [24.9.77.57])
- by smtp.googlemail.com with ESMTPSA id x198sm2964122ooa.43.2021.08.22.15.20.51
+ by smtp.googlemail.com with ESMTPSA id x198sm2964122ooa.43.2021.08.22.15.20.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 22 Aug 2021 15:20:51 -0700 (PDT)
+ Sun, 22 Aug 2021 15:20:58 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org, seanpaul@chromium.org,
  jeyu@kernel.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
 Cc: Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v6 05/11] amdgpu: use DEFINE_DYNAMIC_DEBUG_CATEGORIES to
- control categorized pr_debugs
-Date: Sun, 22 Aug 2021 16:20:03 -0600
-Message-Id: <20210822222009.2035788-6-jim.cromie@gmail.com>
+Subject: [PATCH v6 11/11] dyndbg: RFC add print-once and print-ratelimited
+ features. RFC.
+Date: Sun, 22 Aug 2021 16:20:09 -0600
+Message-Id: <20210822222009.2035788-12-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210822222009.2035788-1-jim.cromie@gmail.com>
 References: <20210822222009.2035788-1-jim.cromie@gmail.com>
@@ -87,76 +88,311 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-logger_types.h defines many DC_LOG_*() categorized debug wrappers.
-Most of these use DRM debug API, so are controllable using drm.debug,
-but others use bare pr_debug("$prefix: .."), each with a different
-class-prefix matching "^\[\w+\]:"
+Its tautological that having pr_debug()s with optional print-once and
+rate-limiting features could be useful.  Build it, they will come.
 
-Use DEFINE_DYNAMIC_DEBUG_CATEGORIES to create a /sys debug_dc
-parameter, modinfos, and to specify a map from bits -> categorized
-pr_debugs to be controlled.
+The advantages:
+
+- dynamically configured with flags
+- can use them on existing callsites
+- printonce is easy, (almost) just new flags
+  no additional resources
+- ratelimiting is pooled, expecting rare use
+  provisioned only for enabled & ratelimited callsites
+- RFC ratelimit grouping
+  mostly to reduce resources
+  reduces to choice of hash key: module, function, file, line
+
+Whats done here:
+
+Expand ddebug.flags to 11 bits, and define new flags to support
+print-once and ratelimited semantics:
+
+  echo file init/main.c +o > control	# init/main runs just once anyway
+  echo module foo +r > control		# turn on ratelimiting
+  echo module foo +g > control		# turn on group flag
+
+is_onced_or_ratelimited() tests these conditions, it is called from
+__dynamic_pr_debug() and others (which are all behind the '+p'
+enablement test).
+
+NB: test_dynamic_debug.ko ratelimiting test triggers reports on
+is_onced_or_ratelimited() as the limited source.
+
+PRINT-ONCE: can be done with just +2 bits in flags;
+
+.o _DPRINTK_FLAGS_ONCE     enables state test and set
+.P _DPRINTK_FLAGS_PRINTED  state bit
+
+Just adding the flags lets the existing code operate on them.
+We will need new code to enforce constraints on flag combos;
+'+ro' is nonsense, but this can wait, or can take a new meaning.
+
+RATE-LIMITING:
+
+.r _DPRINTK_FLAGS_RATELIMITED - track & limit prdbgs callrate
+
+We wait until a prdebug is called, and if RATELIMITED is set, THEN
+lookup a RateLimitState (RL) for it.  If found, bump its state and
+return true/false, otherwise create & initialize one and return false.
+
+RFC: GROUP-FLAG:
+
+.g _DPRINTK_FLAGS_GROUPED
+
+Currently, the hash-key is just the prdebug descriptor, so is unique
+per prdebug.  With the 'g' flag, we could use a different key, for
+example desc->site.function, to get a shared ratelimit for whole
+functions.
+
+This gets subtly different behavior at the ratelimit transition, but
+it is predictable for a given function (except perhaps recursive, but
+thats not done anyway).
+
+Note also that any function can have a single group of prdebugs, plus
+any number of prdbgs without 'g', either with or without 'r'.  So
+grouping should be flexible enough to use advantageously.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- .../gpu/drm/amd/display/dc/core/dc_debug.c    | 44 ++++++++++++++++++-
- 1 file changed, 43 insertions(+), 1 deletion(-)
+v6: new to patchset
+---
+ include/linux/dynamic_debug.h |  19 ++++--
+ lib/dynamic_debug.c           | 125 +++++++++++++++++++++++++++++++++-
+ 2 files changed, 137 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_debug.c b/drivers/gpu/drm/amd/display/dc/core/dc_debug.c
-index 21be2a684393..69e68d721512 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_debug.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_debug.c
-@@ -36,8 +36,50 @@
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index 8807367c7903..e9871557cff1 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -28,26 +28,33 @@ struct _ddebug {
+ 	 * writes commands to <debugfs>/dynamic_debug/control
+ 	 */
+ #define _DPRINTK_FLAGS_NONE	0
+-#define _DPRINTK_FLAGS_PRINT		(1<<0) /* printk() a message */
++#define _DPRINTK_FLAGS_PRINT		(1<<4) /* printk() a message */
+ #define _DPRINTK_FLAGS_PRINT_TRACE	(1<<5) /* call (*tracer) */
  
- #include "resource.h"
+ #define _DPRINTK_ENABLED (_DPRINTK_FLAGS_PRINT | _DPRINTK_FLAGS_PRINT_TRACE)
  
--#define DC_LOGGER_INIT(logger)
-+#ifdef DRM_USE_DYNAMIC_DEBUG
-+/* define a drm.debug style dyndbg pr-debug control point */
-+#include <linux/dynamic_debug.h>
-+
-+unsigned long __debug_dc;
-+EXPORT_SYMBOL(__debug_dc);
-+
-+#define _help_(key)	"\t   " key "\t- help for " key "\n"
-+
-+/* Id like to do these inside DEFINE_DYNAMIC_DEBUG_CATEGORIES, if possible */
-+#define DC_DYNDBG_BITMAP_DESC(name)					\
-+	"Control pr_debugs via /sys/module/amdgpu/parameters/" #name	\
-+	", where each bit controls a debug category.\n"			\
-+	_help_("[SURFACE]:")						\
-+	_help_("[CURSOR]:")						\
-+	_help_("[PFLIP]:")						\
-+	_help_("[VBLANK]:")						\
-+	_help_("[HW_LINK_TRAINING]:")					\
-+	_help_("[HW_AUDIO]:")						\
-+	_help_("[SCALER]:")						\
-+	_help_("[BIOS]:")						\
-+	_help_("[BANDWIDTH_CALCS]:")					\
-+	_help_("[DML]:")						\
-+	_help_("[IF_TRACE]:")						\
-+	_help_("[GAMMA]:")						\
-+	_help_("[SMU_MSG]:")
-+
-+DEFINE_DYNAMIC_DEBUG_CATEGORIES(debug_dc, __debug_dc,
-+	DC_DYNDBG_BITMAP_DESC(debug_dc),
-+	_DD_cat_("[CURSOR]:"),
-+	_DD_cat_("[PFLIP]:"),
-+	_DD_cat_("[VBLANK]:"),
-+	_DD_cat_("[HW_LINK_TRAINING]:"),
-+	_DD_cat_("[HW_AUDIO]:"),
-+	_DD_cat_("[SCALER]:"),
-+	_DD_cat_("[BIOS]:"),
-+	_DD_cat_("[BANDWIDTH_CALCS]:"),
-+	_DD_cat_("[DML]:"),
-+	_DD_cat_("[IF_TRACE]:"),
-+	_DD_cat_("[GAMMA]:"),
-+	_DD_cat_("[SMU_MSG]:"));
-+#endif
+-#define _DPRINTK_FLAGS_INCL_MODNAME	(1<<1)
+-#define _DPRINTK_FLAGS_INCL_FUNCNAME	(1<<2)
+-#define _DPRINTK_FLAGS_INCL_LINENO	(1<<3)
+-#define _DPRINTK_FLAGS_INCL_TID		(1<<4)
++#define _DPRINTK_FLAGS_INCL_MODNAME	(1<<0)
++#define _DPRINTK_FLAGS_INCL_FUNCNAME	(1<<1)
++#define _DPRINTK_FLAGS_INCL_LINENO	(1<<2)
++#define _DPRINTK_FLAGS_INCL_TID		(1<<3)
  
-+#define DC_LOGGER_INIT(logger)
+ #define _DPRINTK_FLAGS_INCL_ANY		\
+ 	(_DPRINTK_FLAGS_INCL_MODNAME | _DPRINTK_FLAGS_INCL_FUNCNAME |\
+ 	 _DPRINTK_FLAGS_INCL_LINENO  | _DPRINTK_FLAGS_INCL_TID)
  
- #define SURFACE_TRACE(...) do {\
- 		if (dc->debug.surface_trace) \
++#define _DPRINTK_FLAGS_ONCE		(1<<6) /* print once flag */
++#define _DPRINTK_FLAGS_PRINTED		(1<<7) /* print once state */
++#define _DPRINTK_FLAGS_RATELIMITED	(1<<8)
++#define _DPRINTK_FLAGS_GROUPED		(1<<9) /* manipulate as a group */
++#define _DPRINTK_FLAGS_DELETE_SITE	(1<<10) /* drop site info to save ram */
++
+ #if defined DEBUG
+ #define _DPRINTK_FLAGS_DEFAULT _DPRINTK_FLAGS_PRINT
+ #else
+ #define _DPRINTK_FLAGS_DEFAULT 0
+ #endif
+-	unsigned int flags:8;
++	unsigned int flags:11;
++
+ #ifdef CONFIG_JUMP_LABEL
+ 	union {
+ 		struct static_key_true dd_key_true;
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 60bf2c01db1a..16e4db04082b 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -83,13 +83,19 @@ static inline const char *trim_prefix(const char *path)
+ 	return path + skip;
+ }
+ 
+-static struct { unsigned flag:8; char opt_char; } opt_array[] = {
++static struct { unsigned flag:12; char opt_char; } opt_array[] = {
+ 	{ _DPRINTK_FLAGS_PRINT, 'p' },
+ 	{ _DPRINTK_FLAGS_PRINT_TRACE, 'T' },
+ 	{ _DPRINTK_FLAGS_INCL_MODNAME, 'm' },
+ 	{ _DPRINTK_FLAGS_INCL_FUNCNAME, 'f' },
+ 	{ _DPRINTK_FLAGS_INCL_LINENO, 'l' },
+ 	{ _DPRINTK_FLAGS_INCL_TID, 't' },
++
++	{ _DPRINTK_FLAGS_ONCE, 'o' },
++	{ _DPRINTK_FLAGS_PRINTED, 'P' },
++	{ _DPRINTK_FLAGS_RATELIMITED, 'r' },
++	{ _DPRINTK_FLAGS_GROUPED, 'g' },
++	{ _DPRINTK_FLAGS_DELETE_SITE, 'D' },
+ 	{ _DPRINTK_FLAGS_NONE, '_' },
+ };
+ 
+@@ -119,6 +125,8 @@ do {								\
+ 
+ #define vpr_info(fmt, ...)	vnpr_info(1, fmt, ##__VA_ARGS__)
+ #define v2pr_info(fmt, ...)	vnpr_info(2, fmt, ##__VA_ARGS__)
++#define v3pr_info(fmt, ...)	vnpr_info(3, fmt, ##__VA_ARGS__)
++#define v4pr_info(fmt, ...)	vnpr_info(4, fmt, ##__VA_ARGS__)
+ 
+ static void vpr_info_dq(const struct ddebug_query *query, const char *msg)
+ {
+@@ -725,6 +733,49 @@ static inline char *dynamic_emit_prefix(struct _ddebug *desc, char *buf)
+ 	return buf;
+ }
+ 
++struct ddebug_ratelimit {
++	struct hlist_node hnode;
++	struct ratelimit_state rs;
++	u64 key;
++};
++
++/* test print-once or ratelimited conditions */
++#define is_rated(desc) unlikely(desc->flags & _DPRINTK_FLAGS_RATELIMITED)
++#define is_once(desc) unlikely(desc->flags & _DPRINTK_FLAGS_ONCE)
++#define is_onced(desc)						\
++	unlikely((desc->flags & _DPRINTK_FLAGS_ONCE)		\
++		 && (desc->flags & _DPRINTK_FLAGS_PRINTED))
++
++static struct ddebug_ratelimit *ddebug_rl_fetch(struct _ddebug *desc);
++
++static inline bool is_onced_or_limited(struct _ddebug *desc)
++{
++	if (unlikely(desc->flags & _DPRINTK_FLAGS_ONCE &&
++		     desc->flags & _DPRINTK_FLAGS_RATELIMITED))
++		pr_info(" ONCE & RATELIMITED together is nonsense\n");
++
++	if (is_once(desc)) {
++		if (is_onced(desc)) {
++			v4pr_info("already printed once\n");
++			return true;
++		}
++		desc->flags |= _DPRINTK_FLAGS_PRINTED;
++		return false;
++
++	} else if (is_rated(desc)) {
++		/* test rate-limits */
++		bool state = __ratelimit(&ddebug_rl_fetch(desc)->rs);
++
++		v4pr_info("RLstate{%s}=%d on %s.%s.%d\n",
++			  (desc->flags & _DPRINTK_FLAGS_GROUPED
++			   ? "grouped" : "solo"), state,
++			  desc->modname, desc->function, desc->lineno);
++
++		return state;
++	}
++	return false;
++}
++
+ void __dynamic_pr_debug(struct _ddebug *descriptor, const char *fmt, ...)
+ {
+ 	va_list args;
+@@ -734,6 +785,9 @@ void __dynamic_pr_debug(struct _ddebug *descriptor, const char *fmt, ...)
+ 	BUG_ON(!descriptor);
+ 	BUG_ON(!fmt);
+ 
++	if (is_onced_or_limited(descriptor))
++		return;
++
+ 	va_start(args, fmt);
+ 
+ 	vaf.fmt = fmt;
+@@ -766,6 +820,9 @@ void __dynamic_dev_dbg(struct _ddebug *descriptor,
+ 	BUG_ON(!descriptor);
+ 	BUG_ON(!fmt);
+ 
++	if (is_onced_or_limited(descriptor))
++		return;
++
+ 	va_start(args, fmt);
+ 
+ 	vaf.fmt = fmt;
+@@ -797,6 +854,9 @@ void __dynamic_netdev_dbg(struct _ddebug *descriptor,
+ 	BUG_ON(!descriptor);
+ 	BUG_ON(!fmt);
+ 
++	if (is_onced_or_limited(descriptor))
++		return;
++
+ 	va_start(args, fmt);
+ 
+ 	vaf.fmt = fmt;
+@@ -833,6 +893,9 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
+ 	struct va_format vaf;
+ 	va_list args;
+ 
++	if (is_onced_or_limited(descriptor))
++		return;
++
+ 	va_start(args, fmt);
+ 
+ 	vaf.fmt = fmt;
+@@ -1307,3 +1370,63 @@ int dynamic_debug_unregister_tracer(const char *query, const char *modname,
+ 	return ddebug_exec_queries(query, modname, tracer);
+ }
+ EXPORT_SYMBOL(dynamic_debug_unregister_tracer);
++
++/*
++ * Rate-Limited debug is expected to rarely be needed, so it is
++ * provisioned on-demand when an enabled and rate-limit-flagged
++ * pr_debug is called, by ddebug_rl_fetch().  For now, key is just
++ * descriptor, so is unique per site.
++
++ * Plan: for 'gr' flagged callsites, choose a key that is same across
++ * all prdebugs in a function, to apply a single rate-limit to the
++ * whole function.  This should give nearly identical behavior at much
++ * lower memory cost.
++ */
++static DEFINE_HASHTABLE(ddebug_rl_map, 6);
++
++static struct ddebug_ratelimit *ddebug_rl_find(u64 key)
++{
++	struct ddebug_ratelimit *limiter;
++
++	hash_for_each_possible(ddebug_rl_map, limiter, hnode, key) {
++		if (limiter->key == key)
++			return limiter;
++	}
++	return NULL;
++}
++
++/* Must be called with ddebug_rl_lock locked. */
++static struct ddebug_ratelimit *ddebug_rl_add(u64 key)
++{
++	struct ddebug_ratelimit *limiter;
++
++	limiter = ddebug_rl_find(key);
++	if (limiter)
++		return limiter;
++	limiter = kmalloc(sizeof(*limiter), GFP_ATOMIC);
++	if (!limiter)
++		return ERR_PTR(-ENOMEM);
++
++	limiter->key = key;
++	ratelimit_default_init(&limiter->rs);
++	hash_add(ddebug_rl_map, &limiter->hnode, key);
++
++	v3pr_info("added %llx\n", key);
++	return limiter;
++}
++
++/*
++ * called when enabled callsite has _DPRINTK_FLAGS_RATELIMITED flag
++ * set (echo +pr >control), it hashes on &table-header+index
++ */
++static struct ddebug_ratelimit *ddebug_rl_fetch(struct _ddebug *desc)
++{
++	u64 key = (u64)desc;
++	struct ddebug_ratelimit *ddebug_rl = ddebug_rl_find(key);
++
++	if (ddebug_rl) {
++		v4pr_info("found %llx\n", key);
++		return ddebug_rl;
++	}
++	return ddebug_rl_add(key);
++}
 -- 
 2.31.1
 
