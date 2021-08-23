@@ -8,126 +8,126 @@ X-Spam-Status: No, score=-19.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2E1A0C4338F
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Aug 2021 18:54:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AB7F5C432BE
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Aug 2021 18:57:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DD55D60E93
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Aug 2021 18:54:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DD55D60E93
+	by mail.kernel.org (Postfix) with ESMTPS id 611F6613BD
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Aug 2021 18:57:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 611F6613BD
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A63189932;
-	Mon, 23 Aug 2021 18:54:45 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2070.outbound.protection.outlook.com [40.107.92.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E2CC18970E
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Aug 2021 18:54:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4F2A89B45;
+	Mon, 23 Aug 2021 18:57:44 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2059.outbound.protection.outlook.com [40.107.93.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 000E689B45
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Aug 2021 18:57:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XCSta3sxqXm8oP4l4igcusd6BmnySti2Y7grG1P3i9o+Ctxr3l39+7CsIlNN0lQTnPvKmHXl9dFyNeHbn/7QP2BdXudZbKP1t2Qm0BOICT6c4qSsLi/4DcJYO8lxvviyFbd9C1NMYZGFQ8Uis3HbJ/3zaXs5unLZK+fertDY2oIVfyN4c4nOcKrR/FoYP+jQ9q40syn+h3aIbAuWWwAqesiAYsBi3HIZbJxi4MkBdW1wfAObc6Ny439VaxZG/w/bbOoKiUj7DKHXaeVH2G7qRceTKRJ3F9TYR1s093Dfq+M43QCNWPmNagT6rNiFpBtXaqjqts100CbelkgU5Gl9qw==
+ b=LcmPNoS3RctdmfFz7o+1+xYdg/eBIUmlEkL/tRhkeAb7KK/oi79rNqbaTW5X2273rn3V6VKyam4vg3sUVbUnJ0bzA/OaDTSVYM3edHsoH+Q6au2U7cSqM1iiPHBpNPNm/RmUZZRRSMr4FsXrgUnsUsupu699RFZuXxLYLTjAkq36zjOtM1apI1wv/NQI80PXc8Zc1NHbKB3O5wqZGuOchlbjCVj1FCLdn1eikuEaGomz7lB5GYskOzwb98SvF1D7nSP7FIFf+IZBPrJJEFFlOaogodIECaH5fJv3muXfqozB6+xF9ceenOBgs1AcNI+5Y5LXf+ZYbTz5rKbnsgh+uA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MugBMO9YA9CnvBSE53RAZ3vFQXjCnSkc0jIzkhC+f8M=;
- b=Jb+N3OLD0Nx0Qks3d2OKDKRI5gcazwRmzRRQ8Cz32mtJfdr+A08edOY32j8kMLy6Z6tlJ3crm/A9jLMsL3gtOlxcp9/jdO1FHUe3FrhRDi1u/ubE9PTah2RipnziDEiBc9jQsjUDndA1Ikt5uZyE9x5LUZcgoAGTRBMciN3PUrXumV8KT14iwfB/dopcgJooUSdI/0WyNSDqbb3h0AX0w7MRS9mle9/lhp72y2qp44ga2mHiSf0H8SY/lGffp9RipqvUTm8F/o692ulDFmCka1MadWj/zmk/CccC4/59yAph2I/ex99MkS8MbWzgWXwVfqlswm6S0uqVoXDKodXKTw==
+ bh=vElZRXhklVXDKWZ7C/SzEnsf6Fyt7jkN0mkGTDeg0TI=;
+ b=SRBiL6tJjWIbaes+52XRDAG/+4lK+srb/NLTDYGO7dPFbJk/rilmy6O/l/ggx3KJh3fHEkfAxl0NbK2DP4+Gu3fykipDlT8cSG2CiypPf9TIzTmajokhIKLK/gjCAla6zlFXQpXGoUrYf5v/qXHweujN2hNcg+E5/VfkFRjZthyiY4FGW7A83O0lU2TC1bZn6JMGPJTxan//PHHiiN9d/6ypliLuzJmQvRGICqBDO1kkTE5ds+xqtincS2wy4Io5FAAGfgJsfOj203tg6M4OTxa8GuuYf6p7mf+wS5jJ1u4oDYfpKFAn1HcrlarlFz6Amvg4bCklENm3NcgZlCXZGw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MugBMO9YA9CnvBSE53RAZ3vFQXjCnSkc0jIzkhC+f8M=;
- b=qBOoMeyy14EbsuLNQJLV/JDJcithvlWdOUDzdx+1TbYosRpU7MXJ6zsdZz2xQZRloolADk5ftPrxJJ0W77dfoLu8u97ypy2WnVkq4ar0ZOJoAgZJQ6knzzjnAtHEwyhbCNoNTQnCk8hfu7augs8/mM+lpgg+TusYRkBmWqudnhA=
+ bh=vElZRXhklVXDKWZ7C/SzEnsf6Fyt7jkN0mkGTDeg0TI=;
+ b=fA3WuzJS6KGpxmFN+f1yR4hETcBoFIpCiQz14VyXIinp7ZlRMsv7wH4tugznwaufUImDxWR2hiuv1sq7e3qhZLAJ3hPpDYHKSSTVFMTg7UNsugs9jhdzi3gfEER3pyK/zhY930eDviDheNkAgPrwvxRGv3LZaHIXrNCJr5N1Oe0=
 Authentication-Results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
 Received: from BN9PR12MB5129.namprd12.prod.outlook.com (2603:10b6:408:136::12)
- by BN9PR12MB5132.namprd12.prod.outlook.com (2603:10b6:408:119::7)
+ by BN9PR12MB5036.namprd12.prod.outlook.com (2603:10b6:408:135::8)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.23; Mon, 23 Aug
- 2021 18:39:42 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.21; Mon, 23 Aug
+ 2021 18:57:41 +0000
 Received: from BN9PR12MB5129.namprd12.prod.outlook.com
  ([fe80::b891:a906:28f0:fdb]) by BN9PR12MB5129.namprd12.prod.outlook.com
  ([fe80::b891:a906:28f0:fdb%3]) with mapi id 15.20.4436.024; Mon, 23 Aug 2021
- 18:39:42 +0000
-Subject: Re: [PATCH 15/18] drm/amdkfd: CRIU dump and restore events
+ 18:57:41 +0000
+Subject: Re: [PATCH 03/18] drm/amdkfd: CRIU Introduce Checkpoint-Restore APIs
 To: David Yat Sin <david.yatsin@amd.com>, amd-gfx@lists.freedesktop.org
 Cc: rajneesh.bhardwaj@amd.com
 References: <20210819133713.4168-1-david.yatsin@amd.com>
- <20210819133713.4168-16-david.yatsin@amd.com>
+ <20210819133713.4168-4-david.yatsin@amd.com>
 From: Felix Kuehling <felix.kuehling@amd.com>
-Message-ID: <ea582082-b4f8-5e9c-e946-7987b1685ed3@amd.com>
-Date: Mon, 23 Aug 2021 14:39:40 -0400
+Message-ID: <aeaaa4bb-8300-e45d-3da3-2888a90df52e@amd.com>
+Date: Mon, 23 Aug 2021 14:57:36 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
-In-Reply-To: <20210819133713.4168-16-david.yatsin@amd.com>
+In-Reply-To: <20210819133713.4168-4-david.yatsin@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
 Content-Language: en-US
-X-ClientProxiedBy: YT1PR01CA0117.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2c::26) To BN9PR12MB5129.namprd12.prod.outlook.com
+X-ClientProxiedBy: YT1PR01CA0060.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2e::29) To BN9PR12MB5129.namprd12.prod.outlook.com
  (2603:10b6:408:136::12)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from [192.168.2.100] (142.186.47.3) by
- YT1PR01CA0117.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2c::26) with Microsoft
+ YT1PR01CA0060.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2e::29) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4436.19 via Frontend Transport; Mon, 23 Aug 2021 18:39:41 +0000
+ 15.20.4436.19 via Frontend Transport; Mon, 23 Aug 2021 18:57:41 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: c70e1756-6fba-49cb-8e86-08d966655ea6
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5132:
+X-MS-Office365-Filtering-Correlation-Id: 8ec59914-7d4c-4f5b-a4bc-08d96667e25d
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5036:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BN9PR12MB5132D3B62328D4A350585AF592C49@BN9PR12MB5132.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:161;
+X-Microsoft-Antispam-PRVS: <BN9PR12MB50363BADED8C8181CBA6898C92C49@BN9PR12MB5036.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2331;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: y11yknU4o/TEw7HanBPUVvQ31btdBmh5cmyJTUNDYtNLg7lSH2StMDG+Ay2ZEDq6DK4RUEP3fg716wNwx1fnW60rHud/u8OazkDiLui6WG9csdQ3zwl07xdvguaIyv30RM2R3ojuxiOHZYesfDGHDGRUo/ZDZqOxS+H43j955a53WDRBpvbLB5iiwkIYEwlvpCG8zuWghvPFyvTHU8Z64eD3i3ll4m7xT1XRUqUE/DVzzWEEwDCx2a1d8RxsuAYAbwEiW1ttwK/YkYmYfrEan61+b4nx9gs/3CFSqgg6WjMW3Gc0oqAFu0OiZ5sWbJx0/DhVs3Dg3KxAEvSHaZWoV6TdzHKOb4QAp8xmlOQ/4Axp3uEa37g4zTPfzvmK/ugtqEQxgIMXRYSpdWlleabvRDIbq2dHDCbCIuZ14WPdXn6wMwxkjnWfguGqFkQT2YQQxFTbesayxPf//hSE1rnXeuWqOSkoYY7p9FWwDi2Giqg7Rk6Bit1TDx1dSnEE7rqYq2wDhuBPZfUjhn7bvCJjF1djVn6xBH6DOWs4cemOHdn+mKevS0EtF2GzvggEwaEKolfavpeb8h8kQW1VUavheiYrM98yq2CAAiMTxcW4k9aQVKytMH3eughderFv5fT1D7CTA9VPVcjzfPdaO4jh1KGMENLk8v5nYlF+54Lp8MTwFWhQvWsvAXyIc458AM6cxEx71zf3VJ7vsh3C8v3rztduD5gLbofaiCz0GDBx2K8=
+X-Microsoft-Antispam-Message-Info: WcFrfikIAgh+wvrVH6HNdUaB2ylJ6CLdf5ToPMuUdzIsNJxB9M21H6KraJNMuXfHkIKse9TMzdwk7jKi8F+r3O7Wl70TC7JxlqX7Wn2ekcDIaQc1cBnDtQPbhSTIbj99Eujqhagq8eQQiLNIt98TGX5CLoGb9VYO+Y/ITyQHLw4qxsDFtKrykg4c96IRY8Fkp89aw5Uy2nqmhbGtjoPWtpRJ6AfQt1opuPs9CNhLaX/zrBxyZ+VrZIJcowIxFN1a17XfW/QjUVNWjtimj43TB0tzxbP8wQYurx+U8LIUcsNV1E7YIwibTKLu7XBPVsjs+X+YixV4jrYOPy6RACb/ll2qWycIKuVeG3rVkKI5n7UXevQGmxI5M1G/d8FAwVaXQN+akhjiHnulhYmEUV6dNMtm5owwzTxZtO+0sjeBFFwzjG1IFrGnSEJMk1oWuQhymPFHfVOlhQ+2y4Exsy2hXJqA93Mfn/nONLjlexMFQi5HY6ZFjOE9s6HxYN4zkwnWW16rwnfGW8d68queKzOmMSlGw9eccnuwBSm0RNSDgLBTmc1x4bgalYRQ8XBLDah3TNhOS7OmdAfptlyY4nS+T7kLZgnE2Ir+E6n8+1jd6HJyMymQ5qh46QiCiEz3RBPLAy5KPCFd4dKt1kXO3gw8nYkabgK46Q7IEceCQu1LZtpyuDiq/AkOVaugPK4FFsdRwbOt2EOIJzPIAoQ63b/EdOnaNlyLW63jrgDAO2uB+SI=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN9PR12MB5129.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(366004)(376002)(39860400002)(396003)(346002)(31696002)(8936002)(26005)(478600001)(186003)(5660300002)(36756003)(30864003)(2906002)(44832011)(16576012)(66946007)(66556008)(66476007)(86362001)(38100700002)(31686004)(6486002)(2616005)(8676002)(956004)(4326008)(83380400001)(316002)(43740500002)(45980500001);
+ SFS:(4636009)(136003)(396003)(366004)(376002)(346002)(39860400002)(31686004)(8676002)(66476007)(6666004)(66946007)(66556008)(38100700002)(26005)(186003)(6486002)(8936002)(5660300002)(2616005)(956004)(4326008)(30864003)(478600001)(86362001)(31696002)(83380400001)(44832011)(316002)(16576012)(2906002)(36756003)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z1RnazFMQUsvTXBMOWVEV29nV2hvMFVxVXRRZENPL3I1Nkt1SHh6aUxuQ0hT?=
- =?utf-8?B?cVVDSkMwK291Wnk4Yk0zUU5JVUhxVjNUU3krajY4cVRTb2s5WUE2em1kbVJv?=
- =?utf-8?B?Y2tSRjlvSTgxaENYVGdmWkJKUTl3VEluOTZjUG9IekY4V0VrM2p4SHUvQU85?=
- =?utf-8?B?cnNwd2JsUkRTd2tJc1dUTnRyS0pQZFZOZ1ZNQUc0R2lCSWZqamtBSENFb2tv?=
- =?utf-8?B?dGY5M0FhV0NERDJqbC9xT3BkbzU0S1Zkcnl5UGtncElsczNaNjlkSHRsUW9L?=
- =?utf-8?B?VGx5V0hwTWx0MU83NWduNTVYTTUyQSt4aFA4bHZSQkczSlVKZkkvalBBZ3V2?=
- =?utf-8?B?QjJHQXlBazUvVmh6SWdoVEQzWXo3Zkh1UStuY1A2bUg5SkJzRVlhOGplWWVE?=
- =?utf-8?B?ZjlKTTdNdkxTMDR1cmNqWTIvZHpJNXJhNktrRjdIMU5GMG50K0MreXdxTUEy?=
- =?utf-8?B?MFlHZk5GMFd4d1RTZFV2T1JMUEZCM1JJSTJ4WjRSK245T1hqbkp2T3dmaytk?=
- =?utf-8?B?ZXQ3dC81NXJDRjJoZUcxR1VUTTR5WHN0bU9yUVhXa25QSzBic3NraXdlNmRW?=
- =?utf-8?B?UTR6ZmlZcTF0RXdMQmV2Z3dyTXpNYzlzVDlxVUk1VGxGRldUYUNVdE5Ld0t4?=
- =?utf-8?B?Tk1sa0lIZExESmgyMVl2Q3RtdkVZNEJkdEdvY0p2VjIvWkFocFlZT0pGR0FQ?=
- =?utf-8?B?cXJYcVJRUDFqQ2JKT01STGljQ3BoU1hoTGdzNmpVdXZpeXA5RWphQytmUnZL?=
- =?utf-8?B?ZnJsZFhGU1pNaFpRSWZDQVVLWGtZSzBtM1dEYzRkaXNpQ1orajVWY3g1Y3hT?=
- =?utf-8?B?dGN3RDJsYi9hdlp4MUhuYkZ3Y0hCdnJCOENYOFZQUGR6c29UN2hYL2x3MDls?=
- =?utf-8?B?L3IrZGF1L0FEU0pIanBKcHdvZHVJWTNiSG0yNU83K3JCYXYvQkU1alM0WjhF?=
- =?utf-8?B?cDh0c2xjUTlKRlZKZDl1MWRRKzVDcU1rNWtjYXd5R3dtM0ttN3p6Nm5JNXFl?=
- =?utf-8?B?UTZzcVBFa2tlU2VpZmZtNS9mcExTV1psTWFvOVBQTWpGMThiRzZMY3U5Q1Br?=
- =?utf-8?B?S01tQ2xnRll4aVR3SzZQR0tnbG5ac1FadDlCUFZoMnIrWi8xdHozM1pBTkpE?=
- =?utf-8?B?ZzVwdy9uTmQxWW9IcmNYU1E5NEVjemVKUURaNEszbllyT2dhL3JwY1ExbmRU?=
- =?utf-8?B?cDdnUi8rT0VpbHVrcmo2MlQ4bGo1UnJSUkNjQnNRa3ZIVThnaHBVSEJmT2FZ?=
- =?utf-8?B?RTdyUXBsMFRzMTUxNHlSZ0JzbGhvWFA1MGtadHFvdlo0aTNJakZOSEZ5eXVx?=
- =?utf-8?B?dE9ZclBORVZJUlBOMGUzZXA3bThvU051cXRIdDBNaVJvKzhoWGhMVmFkWVZ5?=
- =?utf-8?B?Yml6Y3JBNWs1ZGU5VVkyVjlwblF4eFhKcVg0bnh2UkttSFp1NXUyR3EyYlNi?=
- =?utf-8?B?QmhncFlvRkhIZEppV0x6S3FMM0tqSm9KVG04eFNpTEFHZGQxVVI2SEllalZC?=
- =?utf-8?B?VDRjK3JOaHk3c01DTk1GeG0rcG1RVVNzOWd5TFRTSFlINTFiejJuODBySGI3?=
- =?utf-8?B?bzkzS3QwRU52a3A1VkVReEhZUTBKT0ZJeTg2dis4MHF5MDM3eWNsN25QdDJY?=
- =?utf-8?B?TXpneWc4OGVaQ3gydFRUZUNZenNhaW5Db0lkQ25nSGNyU0l6c1RKZjdkZlIr?=
- =?utf-8?B?dlo2UmpIanRDVGhYZldTMXpTL0lVZ0paUHhqRUpwcXVwdlQvbGE2dWFCRjJL?=
- =?utf-8?Q?/N69DgX40TFdqWWNDLdA72woKJmCpr7rH+MxeuC?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OW8yNCsxQ0tYSmNKRzRTYmJaR2FOdHJsd3g2dlVhTjNwdmhrQ1lOSXlHR0lZ?=
+ =?utf-8?B?Q2R5M2FTcGU3Y1dxNzF6ZHFsMm1EY3ArWWNoa0ZOQ2R0bzFZZnhGNTN6TCtx?=
+ =?utf-8?B?czMxRTdkcTdUNnpXcHg0SG1IY1dMdCtxaG0vcDk1ZE5LUmtISmgyOGpwQng0?=
+ =?utf-8?B?WWdWVldyaGU0WmFWRFBKa3dyeXdVell2cUdqOWRRVkJjM08vQ0MzczhlWE5u?=
+ =?utf-8?B?ck5ncmZGbW5lK01XM1czTFhMVjRIRkhEWGZWY1VqK3Z6WVZlcG1QOGNCMGRJ?=
+ =?utf-8?B?QUJXNFZqWU8rZ0VqM21HZndoa1RjbEFmYURrZjRoeUhhQ04yRWNhYnFmVDBT?=
+ =?utf-8?B?ZEZTaWJxSVdkUDJzMlBobVBNU1lpckZtNnJZNWplN1kxN2FnbGhtT00rSWYw?=
+ =?utf-8?B?bm1UdE5xV3FLTWZzT3BkenMyWUtialdYNlNsUSt4cFBnT09tR0pHVmxBS0ox?=
+ =?utf-8?B?aFp1bE9Jb25YMjZrOVdoWHUzWEp1WTFyNEpjTFp6UUdlSUlzbk42REY2eXlp?=
+ =?utf-8?B?N2tUQzl1cVFJWC93Wnh4aVBudFhicVFWL0cxR2NNQmtaSXkwS29ET1F0RFdW?=
+ =?utf-8?B?UUZvTlBsQXZLZ1lEeCtMU1ZSQnVzSUZnMEVuUkdDbEJ4VlQ4S0ZFUi91M1V4?=
+ =?utf-8?B?Qmx3OGlGbXNSdHRndElCSWxFNG1BdEFrWXNpNEFEWlByd0lsOUdCcCtIcGFi?=
+ =?utf-8?B?YjJkUldxOWVkd1NCZnp3ZWxiQUVyQ3VFQjJsSnJZVnRVYzR2VEFKMGVvTGtx?=
+ =?utf-8?B?R2ZsdXlWT1REaXpPZmdvMlNndXJnUnlWY3o0TlJPc2JBWHRVQ2x4R3NuQ1BG?=
+ =?utf-8?B?UEIxbXpDK2U5Y2w1UFlOcnRUR2dpNlVTL0JLalljdnNnQm4vT2g4VVFuR2Ix?=
+ =?utf-8?B?MXlIeFJFYVllVTFHM1E1VDYyQktUKzBMSnNQRHc5YWNwUS90QXBwUDN0OWpH?=
+ =?utf-8?B?Ykh3Qm82RzFXLzRXV09JR1BQU002dmx0c2R0S3VwQW9TYVZ1VDNBU0FHd04x?=
+ =?utf-8?B?R1g0Q1FVK2JJd3hiMkZNSVA4Z3Q0bDlmVEdvQUxSTys5YXpyVGhqQmFnZEo2?=
+ =?utf-8?B?U2hMKzNYUGxyNUFkZDlUYXFoMzdLWFovYUxZNElqaGFIK0tXVVRHM1A0Vito?=
+ =?utf-8?B?QThSSGVrbFhnbzdXRzIzN0dYRVZNc1ZLb0paOTlNdlZ0c2V6VmJhaWVNU1RP?=
+ =?utf-8?B?Z3dCbWZOemYwLzdseEExZExjYlltWFVwNU9qS3ZMcmNwZEhiWUwzMllqTGg5?=
+ =?utf-8?B?RVJlYnY0SUY0VWRQbFk4UXN3MDAyREIzd0JDZXFOR0dXSUFTa2RvNXBNak5K?=
+ =?utf-8?B?YVBYWVFHMzNoQWpOVkZsb3UvZDZRQk1UV2FFTlJxb3hyRjhnRzRaSFRqbEZX?=
+ =?utf-8?B?VHBDMkVhTjBkRU9VZWU1OHZ3bVF2ZXViU0d0Tk1yOWFueC9aM1hjcVJ1anl1?=
+ =?utf-8?B?R0lHNTFaSXl1VDhtTk5IMWhnNis4V1FDN05kM1JGajM0bUhQOUpLR0V1RzVE?=
+ =?utf-8?B?WnpOdU9TdTE3aVF4amhINUMySlZBdTRwZjB6enNNRHNsMWtjMHVqbUVqeDFD?=
+ =?utf-8?B?L08zenFKLzcwU25ReG8xcWp3b0xOSkV1WGN1WURDams5WTB2TGI3MDE0bXBJ?=
+ =?utf-8?B?OExLOHYya3UwUWJUd2hKekRTekwxYjZYNjg4NURISkYvc2xxZGo2OUlsdzdv?=
+ =?utf-8?B?MzVMRjBRNW1Sb0VBNFFQY2dsMFFTUE8ybnE1dmx3eHpMOVFOekV2ekJNMWRi?=
+ =?utf-8?Q?/LIkneJ2+QW0XjOPdoB1FwPZmVPOdbbwXRGyj3i?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c70e1756-6fba-49cb-8e86-08d966655ea6
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8ec59914-7d4c-4f5b-a4bc-08d96667e25d
 X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5129.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Aug 2021 18:39:42.0686 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Aug 2021 18:57:41.7029 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SBLBNq5XAPT83LFlVtyxYvxRBcN9JahuGegp3kQLkKezIl0v+NbH8cte7vFw0LBzYJYRgUvT5dtVPVVOsHMa5g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5132
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9YYCh9QuhgEoF6OFfIq8X1jMbAYgSjBR4bGSsO8bOlSrQbeRNK++4EDRWvk1tFsX57ZS4KRbujnydySgZW80CQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5036
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,597 +143,377 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-Am 2021-08-19 um 9:37 a.m. schrieb David Yat Sin:
-> Add support to existing CRIU ioctl's to save and restore events during
-> criu checkpoint and restore.
+Am 2021-08-19 um 9:36 a.m. schrieb David Yat Sin:
+> From: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
+>
+> Checkpoint-Restore in userspace (CRIU) is a powerful tool that can
+> snapshot a running process and later restore it on same or a remote
+> machine but expects the processes that have a device file (e.g. GPU)
+> associated with them, provide necessary driver support to assist CRIU
+> and its extensible plugin interface. Thus, In order to support the
+> Checkpoint-Restore of any ROCm process, the AMD Radeon Open Compute
+> Kernel driver, needs to provide a set of new APIs that provide
+> necessary VRAM metadata and its contents to a userspace component
+> (CRIU plugin) that can store it in form of image files.
+>
+> This introduces some new ioctls which will be used to checkpoint-Restore
+> any KFD bound user process. KFD doesn't allow any arbitrary ioctl call
+> unless it is called by the group leader process. Since these ioctls are
+> expected to be called from a KFD criu plugin which has elevated ptrace
+> attached privileges and CAP_SYS_ADMIN capabilities attached with the file
+> descriptors so modify KFD to allow such calls.
+>
+> (API redesign suggested by Felix Kuehling and implemented by David Yat
+> Sin)
 >
 > Signed-off-by: David Yat Sin <david.yatsin@amd.com>
+> Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
+> (cherry picked from commit 72f4907135aed9c037b9f442a6055b51733b518a)
+> (cherry picked from commit 33ff4953c5352f51d57a77ba8ae6614b7993e70d)
 > ---
->  drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 130 +++++++-----
->  drivers/gpu/drm/amd/amdkfd/kfd_events.c  | 253 ++++++++++++++++++++---
->  drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |  25 ++-
->  3 files changed, 329 insertions(+), 79 deletions(-)
+>  drivers/gpu/drm/amd/amdkfd/kfd_chardev.c |  70 ++++++++++++++-
+>  drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |  69 ++++++++++++++
+>  include/uapi/linux/kfd_ioctl.h           | 110 ++++++++++++++++++++++-
+>  3 files changed, 247 insertions(+), 2 deletions(-)
 >
 > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> index 19f16e3dd769..c8f523d8ab81 100644
+> index 059c3f1ca27d..a1b60d29aae1 100644
 > --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
 > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> @@ -1008,51 +1008,11 @@ static int kfd_ioctl_create_event(struct file *filp, struct kfd_process *p,
->  	 * through the event_page_offset field.
->  	 */
->  	if (args->event_page_offset) {
-> -		struct kfd_dev *kfd;
-> -		struct kfd_process_device *pdd;
-> -		void *mem, *kern_addr;
-> -		uint64_t size;
-> -
-> -		if (p->signal_page) {
-> -			pr_err("Event page is already set\n");
-> -			return -EINVAL;
-> -		}
-> -
-> -		kfd = kfd_device_by_id(GET_GPU_ID(args->event_page_offset));
-> -		if (!kfd) {
-> -			pr_err("Getting device by id failed in %s\n", __func__);
-> -			return -EINVAL;
-> -		}
-> -
->  		mutex_lock(&p->mutex);
-> -		pdd = kfd_bind_process_to_device(kfd, p);
-> -		if (IS_ERR(pdd)) {
-> -			err = PTR_ERR(pdd);
-> -			goto out_unlock;
-> -		}
-> -
-> -		mem = kfd_process_device_translate_handle(pdd,
-> -				GET_IDR_HANDLE(args->event_page_offset));
-> -		if (!mem) {
-> -			pr_err("Can't find BO, offset is 0x%llx\n",
-> -			       args->event_page_offset);
-> -			err = -EINVAL;
-> -			goto out_unlock;
-> -		}
-> +		err = kfd_kmap_event_page(p, args->event_page_offset);
->  		mutex_unlock(&p->mutex);
-> -
-> -		err = amdgpu_amdkfd_gpuvm_map_gtt_bo_to_kernel(kfd->kgd,
-> -						mem, &kern_addr, &size);
-> -		if (err) {
-> -			pr_err("Failed to map event page to kernel\n");
-> -			return err;
-> -		}
-> -
-> -		err = kfd_event_page_set(p, kern_addr, size);
-> -		if (err) {
-> -			pr_err("Failed to set event page\n");
-> +		if (err)
->  			return err;
-> -		}
->  	}
->  
->  	err = kfd_event_create(filp, p, args->event_type,
-> @@ -1061,10 +1021,7 @@ static int kfd_ioctl_create_event(struct file *filp, struct kfd_process *p,
->  				&args->event_page_offset,
->  				&args->event_slot_index);
->  
-> -	return err;
-> -
-> -out_unlock:
-> -	mutex_unlock(&p->mutex);
-> +	pr_debug("Created event (id:0x%08x) (%s)\n", args->event_id, __func__);
->  	return err;
+> @@ -33,6 +33,7 @@
+>  #include <linux/time.h>
+>  #include <linux/mm.h>
+>  #include <linux/mman.h>
+> +#include <linux/ptrace.h>
+>  #include <linux/dma-buf.h>
+>  #include <asm/processor.h>
+>  #include "kfd_priv.h"
+> @@ -1802,6 +1803,44 @@ static int kfd_ioctl_svm(struct file *filep, struct kfd_process *p, void *data)
+>  	return -EPERM;
 >  }
->  
-> @@ -2208,6 +2165,41 @@ static int criu_dump_queues(struct kfd_process *p, struct kfd_ioctl_criu_dumper_
->  	return ret;
->  }
->  
-> +static int criu_dump_events(struct kfd_process *p, struct kfd_ioctl_criu_dumper_args *args)
+>  #endif
+> +static int kfd_ioctl_criu_dumper(struct file *filep,
+> +				struct kfd_process *p, void *data)
 > +{
-> +	struct kfd_criu_event_bucket *ev_buckets;
-> +	uint32_t num_events;
-> +	int ret =  0;
+> +	pr_debug("Inside %s\n", __func__);
 > +
-> +	num_events = kfd_get_num_events(p);
-> +	if (args->num_objects != num_events) {
-> +		pr_err("Mismatch with number of events (current:%d user:%lld)\n",
-> +							num_events, args->num_objects);
-> +
-> +	}
-> +
-> +	if (args->objects_size != args->num_objects *
-> +				  (sizeof(*ev_buckets) + sizeof(struct kfd_criu_event_priv_data))) {
-> +		pr_err("Invalid objects size for events\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	ev_buckets = kvzalloc(args->objects_size, GFP_KERNEL);
-> +	if (!ev_buckets)
-> +		return -ENOMEM;
-> +
-> +	ret = kfd_event_dump(p, ev_buckets, args->num_objects);
-> +	if (!ret) {
-> +		ret = copy_to_user((void __user *)args->objects, ev_buckets, args->objects_size);
-> +		if (ret) {
-> +			pr_err("Failed to copy events information to user\n");
-> +			ret = -EFAULT;
-> +		}
-> +	}
-> +	kvfree(ev_buckets);
-> +	return ret;
+> +	return 0;
 > +}
 > +
->  static int kfd_ioctl_criu_dumper(struct file *filep,
->  				struct kfd_process *p, void *data)
->  {
-> @@ -2246,6 +2238,8 @@ static int kfd_ioctl_criu_dumper(struct file *filep,
->  		ret = criu_dump_queues(p, args);
->  		break;
->  	case KFD_CRIU_OBJECT_TYPE_EVENT:
-> +		ret = criu_dump_events(p, args);
-> +		break;
->  	case KFD_CRIU_OBJECT_TYPE_DEVICE:
->  	case KFD_CRIU_OBJECT_TYPE_SVM_RANGE:
->  	default:
-> @@ -2676,6 +2670,40 @@ static int criu_restore_queues(struct kfd_process *p,
->  	return ret;
->  }
->  
-> +static int criu_restore_events(struct file *filp, struct kfd_process *p,
-> +			struct kfd_ioctl_criu_restorer_args *args)
+> +static int kfd_ioctl_criu_restorer(struct file *filep,
+> +				struct kfd_process *p, void *data)
 > +{
-> +	int ret = 0, i;
-> +	uint8_t *objects, *private_data;
-> +	struct kfd_criu_event_bucket *ev_buckets;
+> +	pr_debug("Inside %s\n", __func__);
 > +
-> +	objects = kvzalloc(args->objects_size, GFP_KERNEL);
-> +	if (!objects)
-> +		return -ENOMEM;
-> +
-> +	ret = copy_from_user(objects, (void __user *)args->objects, args->objects_size);
-> +	if (ret) {
-> +		pr_err("Failed to copy event information from user\n");
-> +		ret = -EFAULT;
-> +		goto exit;
-> +	}
-> +
-> +	ev_buckets = (struct kfd_criu_event_bucket *) objects;
-> +	private_data = (void *)(ev_buckets + args->num_objects);
-> +
-> +	for (i = 0; i < args->num_objects; i++) {
-> +		ret = kfd_event_restore(filp, p, &ev_buckets[i], private_data);
-> +		if (ret) {
-> +			pr_err("Failed to restore event (%d)\n", ret);
-> +			goto exit;
-> +		}
-> +	}
-> +
-> +exit:
-> +	kvfree(ev_buckets);
-> +	return ret;
+> +	return 0;
 > +}
 > +
->  static int kfd_ioctl_criu_restorer(struct file *filep,
->  				struct kfd_process *p, void *data)
->  {
-> @@ -2698,6 +2726,8 @@ static int kfd_ioctl_criu_restorer(struct file *filep,
->  		ret = criu_restore_queues(p, args);
->  		break;
->  	case KFD_CRIU_OBJECT_TYPE_EVENT:
-> +		ret = criu_restore_events(filep, p, args);
-> +		break;
->  	case KFD_CRIU_OBJECT_TYPE_DEVICE:
->  	case KFD_CRIU_OBJECT_TYPE_SVM_RANGE:
->  	default:
-> @@ -2799,9 +2829,13 @@ static int kfd_ioctl_criu_process_info(struct file *filep,
->  	args->queues_priv_data_size = queues_extra_data_size +
->  				(args->total_queues * sizeof(struct kfd_criu_queue_priv_data));
->  
-> -	dev_dbg(kfd_device, "Num of bos:%llu queues:%u\n",
-> +	args->total_events = kfd_get_num_events(p);
-> +	args->events_priv_data_size = args->total_events * sizeof(struct kfd_criu_event_priv_data);
+> +static int kfd_ioctl_criu_pause(struct file *filep, struct kfd_process *p, void *data)
+> +{
+> +	pr_debug("Inside %s\n", __func__);
 > +
-> +	dev_dbg(kfd_device, "Num of bos:%llu queues:%u events:%u\n",
->  				args->total_bos,
-> -				args->total_queues);
-> +				args->total_queues,
-> +				args->total_events);
->  err_unlock:
->  	mutex_unlock(&p->mutex);
->  	return ret;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-> index ba2c2ce0c55a..18362478e351 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-> @@ -53,9 +53,9 @@ struct kfd_signal_page {
->  	uint64_t *kernel_address;
->  	uint64_t __user *user_address;
->  	bool need_to_free_pages;
-> +	uint64_t user_handle; /* Needed for CRIU dumped and restore */
+> +	return 0;
+> +}
+> +
+> +static int kfd_ioctl_criu_resume(struct file *filep,
+> +				struct kfd_process *p, void *data)
+> +{
+> +	pr_debug("Inside %s\n", __func__);
+> +
+> +	return 0;
+> +}
+> +
+> +static int kfd_ioctl_criu_process_info(struct file *filep,
+> +				struct kfd_process *p, void *data)
+> +{
+> +	pr_debug("Inside %s\n", __func__);
+> +
+> +	return 0;
+> +}
+>  
+>  #define AMDKFD_IOCTL_DEF(ioctl, _func, _flags) \
+>  	[_IOC_NR(ioctl)] = {.cmd = ioctl, .func = _func, .flags = _flags, \
+> @@ -1906,6 +1945,21 @@ static const struct amdkfd_ioctl_desc amdkfd_ioctls[] = {
+>  
+>  	AMDKFD_IOCTL_DEF(AMDKFD_IOC_SET_XNACK_MODE,
+>  			kfd_ioctl_set_xnack_mode, 0),
+> +
+> +	AMDKFD_IOCTL_DEF(AMDKFD_IOC_CRIU_DUMPER,
+> +			 kfd_ioctl_criu_dumper, KFD_IOC_FLAG_PTRACE_ATTACHED),
+> +
+> +	AMDKFD_IOCTL_DEF(AMDKFD_IOC_CRIU_RESTORER,
+> +			 kfd_ioctl_criu_restorer, KFD_IOC_FLAG_ROOT_ONLY),
+> +
+> +	AMDKFD_IOCTL_DEF(AMDKFD_IOC_CRIU_PROCESS_INFO,
+> +			 kfd_ioctl_criu_process_info, KFD_IOC_FLAG_PTRACE_ATTACHED),
+> +
+> +	AMDKFD_IOCTL_DEF(AMDKFD_IOC_CRIU_RESUME,
+> +			 kfd_ioctl_criu_resume, KFD_IOC_FLAG_ROOT_ONLY),
+> +
+> +	AMDKFD_IOCTL_DEF(AMDKFD_IOC_CRIU_PAUSE,
+> +			 kfd_ioctl_criu_pause, KFD_IOC_FLAG_PTRACE_ATTACHED),
 >  };
 >  
-> -
->  static uint64_t *page_slots(struct kfd_signal_page *page)
->  {
->  	return page->kernel_address;
-> @@ -92,7 +92,8 @@ static struct kfd_signal_page *allocate_signal_page(struct kfd_process *p)
->  }
+>  #define AMDKFD_CORE_IOCTL_COUNT	ARRAY_SIZE(amdkfd_ioctls)
+> @@ -1920,6 +1974,7 @@ static long kfd_ioctl(struct file *filep, unsigned int cmd, unsigned long arg)
+>  	char *kdata = NULL;
+>  	unsigned int usize, asize;
+>  	int retcode = -EINVAL;
+> +	bool ptrace_attached = false;
 >  
->  static int allocate_event_notification_slot(struct kfd_process *p,
-> -					    struct kfd_event *ev)
-> +					    struct kfd_event *ev,
-> +					    const int *restore_id)
->  {
->  	int id;
->  
-> @@ -104,14 +105,19 @@ static int allocate_event_notification_slot(struct kfd_process *p,
->  		p->signal_mapped_size = 256*8;
->  	}
->  
-> -	/*
-> -	 * Compatibility with old user mode: Only use signal slots
-> -	 * user mode has mapped, may be less than
-> -	 * KFD_SIGNAL_EVENT_LIMIT. This also allows future increase
-> -	 * of the event limit without breaking user mode.
-> -	 */
-> -	id = idr_alloc(&p->event_idr, ev, 0, p->signal_mapped_size / 8,
-> -		       GFP_KERNEL);
-> +	if (restore_id) {
-> +		id = idr_alloc(&p->event_idr, ev, *restore_id, *restore_id + 1,
-> +				GFP_KERNEL);
-> +	} else {
-> +		/*
-> +		 * Compatibility with old user mode: Only use signal slots
-> +		 * user mode has mapped, may be less than
-> +		 * KFD_SIGNAL_EVENT_LIMIT. This also allows future increase
-> +		 * of the event limit without breaking user mode.
-> +		 */
-> +		id = idr_alloc(&p->event_idr, ev, 0, p->signal_mapped_size / 8,
-> +				GFP_KERNEL);
-> +	}
->  	if (id < 0)
->  		return id;
->  
-> @@ -178,9 +184,8 @@ static struct kfd_event *lookup_signaled_event_by_partial_id(
->  	return ev;
->  }
->  
-> -static int create_signal_event(struct file *devkfd,
-> -				struct kfd_process *p,
-> -				struct kfd_event *ev)
-> +static int create_signal_event(struct file *devkfd, struct kfd_process *p,
-> +				struct kfd_event *ev, const int *restore_id)
->  {
->  	int ret;
->  
-> @@ -193,7 +198,7 @@ static int create_signal_event(struct file *devkfd,
->  		return -ENOSPC;
->  	}
->  
-> -	ret = allocate_event_notification_slot(p, ev);
-> +	ret = allocate_event_notification_slot(p, ev, restore_id);
->  	if (ret) {
->  		pr_warn("Signal event wasn't created because out of kernel memory\n");
->  		return ret;
-> @@ -209,16 +214,22 @@ static int create_signal_event(struct file *devkfd,
->  	return 0;
->  }
->  
-> -static int create_other_event(struct kfd_process *p, struct kfd_event *ev)
-> +static int create_other_event(struct kfd_process *p, struct kfd_event *ev, const int *restore_id)
->  {
-> -	/* Cast KFD_LAST_NONSIGNAL_EVENT to uint32_t. This allows an
-> -	 * intentional integer overflow to -1 without a compiler
-> -	 * warning. idr_alloc treats a negative value as "maximum
-> -	 * signed integer".
-> -	 */
-> -	int id = idr_alloc(&p->event_idr, ev, KFD_FIRST_NONSIGNAL_EVENT_ID,
-> -			   (uint32_t)KFD_LAST_NONSIGNAL_EVENT_ID + 1,
-> -			   GFP_KERNEL);
-> +	int id;
+>  	if (nr >= AMDKFD_CORE_IOCTL_COUNT)
+>  		goto err_i1;
+> @@ -1945,7 +2000,15 @@ static long kfd_ioctl(struct file *filep, unsigned int cmd, unsigned long arg)
+>  	 * processes need to create their own KFD device context.
+>  	 */
+>  	process = filep->private_data;
+> -	if (process->lead_thread != current->group_leader) {
 > +
-> +	if (restore_id)
-> +		id = idr_alloc(&p->event_idr, ev, *restore_id, *restore_id + 1,
-> +			GFP_KERNEL);
-> +	else
-> +		/* Cast KFD_LAST_NONSIGNAL_EVENT to uint32_t. This allows an
-> +		 * intentional integer overflow to -1 without a compiler
-> +		 * warning. idr_alloc treats a negative value as "maximum
-> +		 * signed integer".
-> +		 */
-> +		id = idr_alloc(&p->event_idr, ev, KFD_FIRST_NONSIGNAL_EVENT_ID,
-> +				(uint32_t)KFD_LAST_NONSIGNAL_EVENT_ID + 1,
-> +				GFP_KERNEL);
+> +	rcu_read_lock();
+> +	if ((ioctl->flags & KFD_IOC_FLAG_PTRACE_ATTACHED) &&
+> +	    ptrace_parent(process->lead_thread) == current)
+> +		ptrace_attached = true;
+> +	rcu_read_unlock();
+> +
+> +	if (process->lead_thread != current->group_leader
+> +	    && !ptrace_attached) {
+>  		dev_dbg(kfd_device, "Using KFD FD in wrong process\n");
+>  		retcode = -EBADF;
+>  		goto err_i1;
+> @@ -1960,6 +2023,11 @@ static long kfd_ioctl(struct file *filep, unsigned int cmd, unsigned long arg)
+>  		goto err_i1;
+>  	}
 >  
->  	if (id < 0)
->  		return id;
-> @@ -295,8 +306,8 @@ static bool event_can_be_cpu_signaled(const struct kfd_event *ev)
->  	return ev->type == KFD_EVENT_TYPE_SIGNAL;
->  }
+> +	/* KFD_IOC_FLAG_ROOT_ONLY is only for CAP_SYS_ADMIN */
+> +	if (unlikely((ioctl->flags & KFD_IOC_FLAG_ROOT_ONLY) &&
+> +		     !capable(CAP_SYS_ADMIN)))
+> +		return -EACCES;
+> +
+>  	if (cmd & (IOC_IN | IOC_OUT)) {
+>  		if (asize <= sizeof(stack_kdata)) {
+>  			kdata = stack_kdata;
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> index 64552f6b8ba4..768cc3fe95d2 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> @@ -121,7 +121,35 @@
+>   */
+>  #define KFD_QUEUE_DOORBELL_MIRROR_OFFSET 512
 >  
-> -int kfd_event_page_set(struct kfd_process *p, void *kernel_address,
-> -		       uint64_t size)
-> +static int kfd_event_page_set(struct kfd_process *p, void *kernel_address,
-> +		       uint64_t size, uint64_t user_handle)
->  {
->  	struct kfd_signal_page *page;
+> +/**
+> + * enum kfd_ioctl_flags - KFD ioctl flags
+> + * Various flags that can be set in &amdkfd_ioctl_desc.flags to control how
+> + * userspace can use a given ioctl.
+> + */
+> +enum kfd_ioctl_flags {
+> +	/**
+> +	 * @KFD_IOC_FLAG_ROOT_ONLY:
+> +	 * Certain KFD ioctls such as AMDKFD_IOC_CRIU_RESTORER can potentially
+> +	 * perform privileged operations and load arbitrary data into MQDs and
+> +	 * eventually HQD registers when the queue is mapped by HWS. In order to
+> +	 * prevent this we should perform additional security checks. In other
+> +	 * cases, certain ioctls such as AMDKFD_IOC_CRIU_RESUME might be called
+> +	 * by an external process e.g. CRIU restore process, for each resuming
+> +	 * tasks and thus require elevated privileges.
+> +	 *
+> +	 * This is equivalent to callers with the SYSADMIN capability.
+> +	 */
+> +	KFD_IOC_FLAG_ROOT_ONLY = BIT(0),
+> +	/**
+> +	 * @KFD_IOC_FLAG_PTRACE_ATTACHED:
+> +	 * Certain KFD ioctls such as AMDKFD_IOC_CRIU_HELPER and
+> +	 * AMDKFD_IOC_CRIU_DUMPER are expected to be called during a Checkpoint
+> +	 * operation triggered by CRIU. Since, these are expected to be called
+> +	 * from a PTRACE attached context, we must authenticate these.
+> +	 */
+> +	KFD_IOC_FLAG_PTRACE_ATTACHED = BIT(1),
 >  
-> @@ -315,10 +326,55 @@ int kfd_event_page_set(struct kfd_process *p, void *kernel_address,
+> +};
+>  /*
+>   * Kernel module parameter to specify maximum number of supported queues per
+>   * device
+> @@ -977,6 +1005,47 @@ void kfd_process_set_trap_handler(struct qcm_process_device *qpd,
+>  				  uint64_t tba_addr,
+>  				  uint64_t tma_addr);
 >  
->  	p->signal_page = page;
->  	p->signal_mapped_size = size;
-> -
-> +	p->signal_page->user_handle = user_handle;
->  	return 0;
->  }
+> +/* CRIU */
+> +/*
+> + * Need to increment KFD_CRIU_PRIV_VERSION each time a change is made to any of the CRIU private
+> + * structures:
+> + * kfd_criu_process_priv_data
+> + * kfd_criu_device_priv_data
+> + * kfd_criu_bo_priv_data
+> + * kfd_criu_queue_priv_data
+> + * kfd_criu_event_priv_data
+> + * kfd_criu_svm_range_priv_data
+> + */
+> +
+> +#define KFD_CRIU_PRIV_VERSION 1
+> +
+> +struct kfd_criu_process_priv_data {
+> +	uint32_t version;
+> +};
+> +
+> +struct kfd_criu_device_priv_data {
+> +	/* For future use */
+> +	uint64_t reserved;
+> +};
+> +
+> +struct kfd_criu_bo_priv_data {
+> +	uint64_t reserved;
+> +};
+> +
+> +struct kfd_criu_svm_range_priv_data {
+> +	uint64_t reserved;
+> +};
+> +
+> +struct kfd_criu_queue_priv_data {
+> +	uint64_t reserved;
+> +};
+> +
+> +struct kfd_criu_event_priv_data {
+> +	uint64_t reserved;
+> +};
+> +
+> +/* CRIU - End */
+> +
+>  /* Queue Context Management */
+>  int init_queue(struct queue **q, const struct queue_properties *properties);
+>  void uninit_queue(struct queue *q);
+> diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
+> index 3cb5b5dd9f77..19489e2ca58e 100644
+> --- a/include/uapi/linux/kfd_ioctl.h
+> +++ b/include/uapi/linux/kfd_ioctl.h
+> @@ -467,6 +467,99 @@ struct kfd_ioctl_smi_events_args {
+>  	__u32 anon_fd;	/* from KFD */
+>  };
 >  
-> +int kfd_kmap_event_page(struct kfd_process *p, uint64_t event_page_offset)
+> +struct kfd_criu_process_bucket {
+> +	__u64 priv_data_offset;
+> +	__u64 priv_data_size;
+> +};
+> +
+> +struct kfd_criu_device_bucket {
+> +	__u64 priv_data_offset;
+> +	__u64 priv_data_size;
+> +	__u32 user_gpu_id;
+> +	__u32 actual_gpu_id;
+> +	__u32 drm_fd;
+> +	__u32 pad;
+> +};
+> +
+> +struct kfd_criu_bo_bucket {
+> +	__u64 priv_data_offset;
+> +	__u64 priv_data_size;
+> +	__u64 addr;
+> +	__u64 size;
+> +	__u64 offset;
+> +	__u64 restored_offset;
+> +	__u32 gpu_id;
+> +	__u32 alloc_flags;
+> +	__u32 dmabuf_fd;
+> +	__u32 pad;
+> +};
+> +
+> +struct kfd_criu_queue_bucket {
+> +	__u64 priv_data_offset;
+> +	__u64 priv_data_size;
+> +	__u32 gpu_id;
+> +	__u32 pad;
+> +};
+> +
+> +struct kfd_criu_event_bucket {
+> +	__u64 priv_data_offset;
+> +	__u64 priv_data_size;
+> +	__u32 gpu_id;
+> +	__u32 pad;
+> +};
+> +
+> +struct kfd_ioctl_criu_process_info_args {
+> +	__u64 process_priv_data_size;
+> +	__u64 bos_priv_data_size;
+> +	__u64 devices_priv_data_size;
+> +	__u64 queues_priv_data_size;
+> +	__u64 events_priv_data_size;
+> +	__u64 svm_ranges_priv_data_size;
+> +	__u64 total_bos;
+> +	__u64 total_svm_ranges;
+> +	__u32 total_devices;
+> +	__u32 total_queues;
+> +	__u32 total_events;
+> +	__u32 task_pid;
+> +};
+> +
+> +struct kfd_ioctl_criu_pause_args {
+> +	__u32 pause;
+> +	__u32 pad;
+> +};
+> +
+> +enum kfd_criu_object_type {
+> +	KFD_CRIU_OBJECT_TYPE_PROCESS	= 0,
+> +	KFD_CRIU_OBJECT_TYPE_DEVICE	= 1,
+> +	KFD_CRIU_OBJECT_TYPE_BO		= 2,
+> +	KFD_CRIU_OBJECT_TYPE_QUEUE	= 3,
+> +	KFD_CRIU_OBJECT_TYPE_EVENT	= 4,
+> +	KFD_CRIU_OBJECT_TYPE_SVM_RANGE	= 5,
+> +};
+> +
 
-This function should be static. I also think that this function and
-criu_dump/restore_events could be moved into kfd_events.c.
+Please add comments explaining the members of the ioctl args structures.
+E.g. it's not obvious that objects is a user mode pointer, or the
+semantics of the objects_index_start field.
 
 Regards,
   Felix
 
 
-> +{
-> +	struct kfd_dev *kfd;
-> +	struct kfd_process_device *pdd;
-> +	void *mem, *kern_addr;
-> +	uint64_t size;
-> +	int err = 0;
+> +struct kfd_ioctl_criu_dumper_args {
+> +	__u64 num_objects;
+> +	__u64 objects;
+> +	__u64 objects_size;
+> +	__u64 objects_index_start;
+> +	__u32 type; /* enum kfd_criu_object_type */
+> +	__u32 pad;
+> +};
 > +
-> +	if (p->signal_page) {
-> +		pr_err("Event page is already set\n");
-> +		return -EINVAL;
-> +	}
+> +struct kfd_ioctl_criu_restorer_args {
+> +	__u64 num_objects;
+> +	__u64 objects;
+> +	__u64 objects_size;
+> +	__u64 objects_index_start;
+> +	__u32 type; /* enum kfd_criu_object_type */
+> +	__u32 pad;
+> +};
 > +
-> +	kfd = kfd_device_by_id(GET_GPU_ID(event_page_offset));
-> +	if (!kfd) {
-> +		pr_err("Getting device by id failed in %s\n", __func__);
-> +		return -EINVAL;
-> +	}
+> +struct kfd_ioctl_criu_resume_args {
+> +	__u32 pid;	/* to KFD */
+> +	__u32 pad;
+> +};
 > +
-> +	pdd = kfd_bind_process_to_device(kfd, p);
-> +	if (IS_ERR(pdd))
-> +		return PTR_ERR(pdd);
-> +
-> +	mem = kfd_process_device_translate_handle(pdd,
-> +			GET_IDR_HANDLE(event_page_offset));
-> +	if (!mem) {
-> +		pr_err("Can't find BO, offset is 0x%llx\n", event_page_offset);
-> +		return -EINVAL;
-> +	}
-> +
-> +	err = amdgpu_amdkfd_gpuvm_map_gtt_bo_to_kernel(kfd->kgd,
-> +					mem, &kern_addr, &size);
-> +	if (err) {
-> +		pr_err("Failed to map event page to kernel\n");
-> +		return err;
-> +	}
-> +
-> +	err = kfd_event_page_set(p, kern_addr, size, event_page_offset);
-> +	if (err) {
-> +		pr_err("Failed to set event page\n");
-> +		return err;
-> +	}
-> +	return err;
-> +}
-> +
->  int kfd_event_create(struct file *devkfd, struct kfd_process *p,
->  		     uint32_t event_type, bool auto_reset, uint32_t node_id,
->  		     uint32_t *event_id, uint32_t *event_trigger_data,
-> @@ -343,14 +399,14 @@ int kfd_event_create(struct file *devkfd, struct kfd_process *p,
->  	switch (event_type) {
->  	case KFD_EVENT_TYPE_SIGNAL:
->  	case KFD_EVENT_TYPE_DEBUG:
-> -		ret = create_signal_event(devkfd, p, ev);
-> +		ret = create_signal_event(devkfd, p, ev, NULL);
->  		if (!ret) {
->  			*event_page_offset = KFD_MMAP_TYPE_EVENTS;
->  			*event_slot_index = ev->event_id;
->  		}
->  		break;
->  	default:
-> -		ret = create_other_event(p, ev);
-> +		ret = create_other_event(p, ev, NULL);
->  		break;
->  	}
+>  /* Register offset inside the remapped mmio page
+>   */
+>  enum kfd_mmio_remap {
+> @@ -740,7 +833,22 @@ struct kfd_ioctl_set_xnack_mode_args {
+>  #define AMDKFD_IOC_SET_XNACK_MODE		\
+>  		AMDKFD_IOWR(0x21, struct kfd_ioctl_set_xnack_mode_args)
 >  
-> @@ -366,6 +422,147 @@ int kfd_event_create(struct file *devkfd, struct kfd_process *p,
->  	return ret;
->  }
+> +#define AMDKFD_IOC_CRIU_DUMPER			\
+> +		AMDKFD_IOWR(0x22, struct kfd_ioctl_criu_dumper_args)
+> +
+> +#define AMDKFD_IOC_CRIU_RESTORER		\
+> +		AMDKFD_IOWR(0x23, struct kfd_ioctl_criu_restorer_args)
+> +
+> +#define AMDKFD_IOC_CRIU_PROCESS_INFO		\
+> +		AMDKFD_IOWR(0x24, struct kfd_ioctl_criu_process_info_args)
+> +
+> +#define AMDKFD_IOC_CRIU_RESUME			\
+> +		AMDKFD_IOWR(0x25, struct kfd_ioctl_criu_resume_args)
+> +
+> +#define AMDKFD_IOC_CRIU_PAUSE			\
+> +		AMDKFD_IOWR(0x26, struct kfd_ioctl_criu_pause_args)
+> +
+>  #define AMDKFD_COMMAND_START		0x01
+> -#define AMDKFD_COMMAND_END		0x22
+> +#define AMDKFD_COMMAND_END		0x27
 >  
-> +int kfd_event_restore(struct file *devkfd, struct kfd_process *p,
-> +		      struct kfd_criu_event_bucket *ev_bucket,
-> +		      uint8_t *priv_datas)
-> +{
-> +	int ret = 0;
-> +	struct kfd_criu_event_priv_data *ev_priv;
-> +	struct kfd_event *ev;
-> +
-> +	ev_priv = (struct kfd_criu_event_priv_data *)(priv_datas + ev_bucket->priv_data_offset);
-> +
-> +	if (ev_priv->user_handle) {
-> +		ret = kfd_kmap_event_page(p, ev_priv->user_handle);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	ev = kzalloc(sizeof(*ev), GFP_KERNEL);
-> +	if (!ev)
-> +		return -ENOMEM;
-> +
-> +	ev->type = ev_priv->type;
-> +	ev->auto_reset = ev_priv->auto_reset;
-> +	ev->signaled = ev_priv->signaled;
-> +
-> +	init_waitqueue_head(&ev->wq);
-> +
-> +	mutex_lock(&p->event_mutex);
-> +	switch (ev->type) {
-> +	case KFD_EVENT_TYPE_SIGNAL:
-> +	case KFD_EVENT_TYPE_DEBUG:
-> +		ret = create_signal_event(devkfd, p, ev, &ev_priv->event_id);
-> +		break;
-> +	case KFD_EVENT_TYPE_MEMORY:
-> +		memcpy(&ev->memory_exception_data,
-> +			&ev_priv->memory_exception_data,
-> +			sizeof(struct kfd_hsa_memory_exception_data));
-> +
-> +		ev->memory_exception_data.gpu_id = ev_bucket->gpu_id;
-> +		ret = create_other_event(p, ev, &ev_priv->event_id);
-> +		break;
-> +	case KFD_EVENT_TYPE_HW_EXCEPTION:
-> +		memcpy(&ev->hw_exception_data,
-> +			&ev_priv->hw_exception_data,
-> +			sizeof(struct kfd_hsa_hw_exception_data));
-> +
-> +		ev->hw_exception_data.gpu_id = ev_bucket->gpu_id;
-> +		ret = create_other_event(p, ev, &ev_priv->event_id);
-> +		break;
-> +	}
-> +
-> +	if (ret)
-> +		kfree(ev);
-> +
-> +	mutex_unlock(&p->event_mutex);
-> +
-> +	return ret;
-> +}
-> +
-> +int kfd_event_dump(struct kfd_process *p,
-> +		   struct kfd_criu_event_bucket *ev_buckets,
-> +		   uint32_t num_events)
-> +{
-> +	struct kfd_event *ev;
-> +	struct kfd_criu_event_priv_data *ev_privs;
-> +	uint32_t ev_id;
-> +	int i = 0;
-> +
-> +	/* Private data for first event starts after all ev_buckets */
-> +	ev_privs = (struct kfd_criu_event_priv_data *)((uint8_t *)ev_buckets +
-> +						   (num_events * (sizeof(*ev_buckets))));
-> +
-> +
-> +	idr_for_each_entry(&p->event_idr, ev, ev_id) {
-> +		struct kfd_criu_event_bucket *ev_bucket;
-> +		struct kfd_criu_event_priv_data *ev_priv;
-> +
-> +		if (i >= num_events) {
-> +			pr_err("Number of events exceeds number allocated\n");
-> +			return -ENOMEM;
-> +		}
-> +
-> +		ev_bucket = &ev_buckets[i];
-> +
-> +		/* Currently, all events have same size of private_data, but the current ioctl's
-> +		 * and CRIU plugin supports private_data of variable sizes
-> +		 */
-> +		ev_priv = &ev_privs[i];
-> +
-> +		ev_bucket->priv_data_offset = i * sizeof(*ev_priv);
-> +		ev_bucket->priv_data_size = sizeof(*ev_priv);
-> +
-> +		/* We store the user_handle with the first event */
-> +		if (i == 0 && p->signal_page)
-> +			ev_priv->user_handle = p->signal_page->user_handle;
-> +
-> +		ev_priv->event_id = ev->event_id;
-> +		ev_priv->auto_reset = ev->auto_reset;
-> +		ev_priv->type = ev->type;
-> +		ev_priv->signaled = ev->signaled;
-> +
-> +		/* We store the gpu_id in the bucket section so that the userspace CRIU plugin can
-> +		 * modify it if needed.
-> +		 */
-> +		if (ev_priv->type == KFD_EVENT_TYPE_MEMORY) {
-> +			memcpy(&ev_priv->memory_exception_data,
-> +				&ev->memory_exception_data,
-> +				sizeof(struct kfd_hsa_memory_exception_data));
-> +
-> +			ev_bucket->gpu_id = ev_priv->memory_exception_data.gpu_id;
-> +		} else if (ev_priv->type == KFD_EVENT_TYPE_HW_EXCEPTION) {
-> +			memcpy(&ev_priv->hw_exception_data,
-> +				&ev->hw_exception_data,
-> +				sizeof(struct kfd_hsa_hw_exception_data));
-> +
-> +			ev_bucket->gpu_id = ev_priv->hw_exception_data.gpu_id;
-> +		} else
-> +			ev_bucket->gpu_id = 0;
-> +
-> +		pr_debug("Dumped event[%d] id = 0x%08x auto_reset = %x type = %x signaled = %x\n",
-> +			  i,
-> +			  ev_priv->event_id,
-> +			  ev_priv->auto_reset,
-> +			  ev_priv->type,
-> +			  ev_priv->signaled);
-> +		i++;
-> +	}
-> +	return 0;
-> +}
-> +
-> +int kfd_get_num_events(struct kfd_process *p)
-> +{
-> +	struct kfd_event *ev;
-> +	uint32_t id;
-> +	u32 num_events = 0;
-> +
-> +	idr_for_each_entry(&p->event_idr, ev, id)
-> +		num_events++;
-> +
-> +	return num_events++;
-> +}
-> +
->  /* Assumes that p is current. */
->  int kfd_event_destroy(struct kfd_process *p, uint32_t event_id)
->  {
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> index 7ed6f831109d..bf10a5305ef7 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> @@ -1069,9 +1069,26 @@ struct kfd_criu_queue_priv_data {
->  };
->  
->  struct kfd_criu_event_priv_data {
-> -	uint64_t reserved;
-> +	uint64_t user_handle;
-> +	uint32_t event_id;
-> +	uint32_t auto_reset;
-> +	uint32_t type;
-> +	uint32_t signaled;
-> +
-> +	union {
-> +		struct kfd_hsa_memory_exception_data memory_exception_data;
-> +		struct kfd_hsa_hw_exception_data hw_exception_data;
-> +	};
->  };
->  
-> +int kfd_event_restore(struct file *devkfd, struct kfd_process *p,
-> +		      struct kfd_criu_event_bucket *ev_bucket,
-> +		      uint8_t *priv_datas);
-> +
-> +int kfd_event_dump(struct kfd_process *p,
-> +		   struct kfd_criu_event_bucket *ev_buckets,
-> +		   uint32_t num_events);
-> +
->  /* CRIU - End */
->  
->  /* Queue Context Management */
-> @@ -1238,12 +1255,14 @@ void kfd_signal_iommu_event(struct kfd_dev *dev,
->  void kfd_signal_hw_exception_event(u32 pasid);
->  int kfd_set_event(struct kfd_process *p, uint32_t event_id);
->  int kfd_reset_event(struct kfd_process *p, uint32_t event_id);
-> -int kfd_event_page_set(struct kfd_process *p, void *kernel_address,
-> -		       uint64_t size);
-> +int kfd_kmap_event_page(struct kfd_process *p, uint64_t event_page_offset);
-> +
->  int kfd_event_create(struct file *devkfd, struct kfd_process *p,
->  		     uint32_t event_type, bool auto_reset, uint32_t node_id,
->  		     uint32_t *event_id, uint32_t *event_trigger_data,
->  		     uint64_t *event_page_offset, uint32_t *event_slot_index);
-> +
-> +int kfd_get_num_events(struct kfd_process *p);
->  int kfd_event_destroy(struct kfd_process *p, uint32_t event_id);
->  
->  void kfd_signal_vm_fault_event(struct kfd_dev *dev, u32 pasid,
+>  #endif
