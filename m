@@ -2,47 +2,73 @@ Return-Path: <SRS0=mBQi=NO=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-7.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 03CD9C432BE
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Aug 2021 13:07:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7455BC4338F
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Aug 2021 13:07:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7F71B6124B
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Aug 2021 13:07:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7F71B6124B
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=wanadoo.fr
+	by mail.kernel.org (Postfix) with ESMTPS id 3C6276124B
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Aug 2021 13:07:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3C6276124B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4891689DBF;
-	Mon, 23 Aug 2021 13:07:56 +0000 (UTC)
-X-Greylist: delayed 1350 seconds by postgrey-1.36 at gabe;
- Sun, 22 Aug 2021 21:53:28 UTC
-Received: from out.smtpout.orange.fr (out02.smtpout.orange.fr [193.252.22.211])
- by gabe.freedesktop.org (Postfix) with ESMTP id 0BBE589E43
- for <amd-gfx@lists.freedesktop.org>; Sun, 22 Aug 2021 21:53:28 +0000 (UTC)
-Received: from pop-os.home ([90.126.253.178]) by mwinf5d51 with ME
- id klPS250073riaq203lPSkT; Sun, 22 Aug 2021 23:23:27 +0200
-X-ME-Helo: pop-os.home
-X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
-X-ME-Date: Sun, 22 Aug 2021 23:23:27 +0200
-X-ME-IP: 90.126.253.178
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@linux.ie, daniel@ffwll.ch
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Subject: [PATCH] drm/radeon: switch from 'pci_' to 'dma_' API
-Date: Sun, 22 Aug 2021 23:23:25 +0200
-Message-Id: <1187ca1dbaa74ca4a87db9496061243e9a810faa.1629667363.git.christophe.jaillet@wanadoo.fr>
-X-Mailer: git-send-email 2.30.2
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF5A889DD3;
+	Mon, 23 Aug 2021 13:07:58 +0000 (UTC)
+Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com
+ [IPv6:2607:f8b0:4864:20::431])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29BA289CA1;
+ Mon, 23 Aug 2021 06:41:17 +0000 (UTC)
+Received: by mail-pf1-x431.google.com with SMTP id 18so14479685pfh.9;
+ Sun, 22 Aug 2021 23:41:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=SA1pmWF2qmbrThVAO5HO6VbHJIaFjRgTvnxO1kanh8w=;
+ b=O8VtoYOq0WKGCLqs7WgmHXHRnCc2DO6HUyFYnp14xuj8XWla6y4bUMjZtZpVhLHMNI
+ Z9Z4qEiNQ4+rr/mKALBZQPl+O65wEQhYUIt4dnWiVIKc3YcaP5zMxDYIduVP9wsTKqjW
+ 7A7ulrecC/PQt+m1uUfX8+pTL0rOSqVm8ie8Szetz9u5t63BP+UeuZheS7T2m18CjMMA
+ 7BL68jlDQN53ZDOYdYBnUydQ8tPcOSqByCvmcwSk2MTbqYJDsbzUBOx8vNmhjnUZ3emW
+ px7Ecc11aOUTJwMI91dkUX7/Lq704jgj69VIM5HxfHFdEiIuJ42DdOfQ8gjE88Y6vhyY
+ mQhA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=SA1pmWF2qmbrThVAO5HO6VbHJIaFjRgTvnxO1kanh8w=;
+ b=GuQDa+rkipRumYQBaMAXwwle4PyLWdiMs/vvJakW1oPBzaNvD2UEfsZ21LeF+eOg7Z
+ UJo9oYS08o82yv6NUO5TXOJ4p+jULm4nt+XsY2p7MJ4V69w59GR9Zosc+ISG2DbNOtdc
+ VHHDqO54pMketMMUZAfVnV5ubUJmcsDpwNdiTmeFv4cRur6yosT/v+Y6tZPY1itp1KR+
+ XtvjE37Q4ApIV4vcU2ozzGiLrjiHKV2cJvGFzEA7o8NXb0kVyab/RTTMbo8XM3yHVbbM
+ yKMIR1g99sR4T20WfAeA8vz2vSlEAEBcaa6YnSN/AxfYbKmAZ7PHhwOBk3GyCso0NlZA
+ HeLA==
+X-Gm-Message-State: AOAM530vOLzIOFo/E+MZUL/EOvDnK+YSKww/UoWQW5Fr7hzCcHzKN6s8
+ OJ//wnMfoZG6IAihOSBn304HZRYXktLyMeYceXU=
+X-Google-Smtp-Source: ABdhPJzcQnYcKVppXmJ+YgRoDfVUlxdR1TYKibURNhi30cs5ST8FH6ZK8TbHq8KkbNRLRvR3DqQkL23iR1d8X3DqwP4=
+X-Received: by 2002:a65:45c3:: with SMTP id m3mr30703325pgr.203.1629700876672; 
+ Sun, 22 Aug 2021 23:41:16 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20210822222009.2035788-1-jim.cromie@gmail.com>
+ <20210822222009.2035788-3-jim.cromie@gmail.com>
+In-Reply-To: <20210822222009.2035788-3-jim.cromie@gmail.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Mon, 23 Aug 2021 09:40:40 +0300
+Message-ID: <CAHp75VeGGRX-LWfDg_6+p2b27LMLSy+8gdH8ApqGchR=QDyEqA@mail.gmail.com>
+Subject: Re: [PATCH v6 02/11] dyndbg: add DEFINE_DYNAMIC_DEBUG_CATEGORIES and
+ callbacks
+To: Jim Cromie <jim.cromie@gmail.com>
+Cc: Jason Baron <jbaron@akamai.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Sean Paul <seanpaul@chromium.org>, Jessica Yu <jeyu@kernel.org>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, 
+ amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org, 
+ intel-gfx <intel-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Mon, 23 Aug 2021 13:07:52 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -58,160 +84,221 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The wrappers in include/linux/pci-dma-compat.h should go away.
+On Mon, Aug 23, 2021 at 1:21 AM Jim Cromie <jim.cromie@gmail.com> wrote:
+>
+> DEFINE_DYNAMIC_DEBUG_CATEGORIES(name, var, bitmap_desc, @bit_descs)
+> allows users to define a drm.debug style (bitmap) sysfs interface, and
+> to specify the desired mapping from bits[0-N] to the format-prefix'd
+> pr_debug()s to be controlled.
+>
+> DEFINE_DYNAMIC_DEBUG_CATEGORIES(debug_gvt, __gvt_debug,
+>         "i915/gvt bitmap desc",
+>         /**
+>          * search-prefixes, passed to dd-exec_queries
+>          * defines bits 0-N in order.
+>          * leading ^ is tacitly inserted (by callback currently)
+>          * trailing space used here excludes subcats.
+>          * helper macro needs more work
+>          * macro to autogen ++$i, 0x%x$i ?
+>          */
+>         _DD_cat_("gvt:cmd: "),
+>         _DD_cat_("gvt:core: "),
+>         _DD_cat_("gvt:dpy: "),
+>         _DD_cat_("gvt:el: "),
+>         _DD_cat_("gvt:irq: "),
+>         _DD_cat_("gvt:mm: "),
+>         _DD_cat_("gvt:mmio: "),
+>         _DD_cat_("gvt:render: "),
+>         _DD_cat_("gvt:sched: "));
+>
+> dynamic_debug.c: add 3 new elements:
+>
+>  - int param_set_dyndbg()
+>  - int param_get_dyndbg()
+>  - struct kernel_param_ops param_ops_dyndbg
+>
+> Following the model of kernel/params.c STANDARD_PARAM_DEFS, All 3 are
+> non-static and exported.
+>
+> dynamic_debug.h:
+>
+> Add DEFINE_DYNAMIC_DEBUG_CATEGORIES() described above, and a do-nothing stub.
+>
+> Note that it also calls MODULE_PARM_DESC for the user, but expects the
+> user to catenate all the bit-descriptions together (as is done in
+> drm.debug), and in the following uses in amdgpu, i915.
+>
+> This in the hope that someone can offer an auto-incrementing
+> label-generating macro, producing "\tbit-4 0x10\t" etc, and can show
+> how to apply it to __VA_ARGS__.
+>
+> Also extern the struct kernel_param param_ops_dyndbg symbol, as is
+> done in moduleparams.h for all the STANDARD params.
+>
+> USAGE NOTES:
+>
+> Using dyndbg to query on "format ^$prefix" requires that the prefix be
+> present in the compiled-in format string; where run-time prefixing is
+> used, that format would be "%s...", which is not usefully selectable.
+>
+> Adding structural query terms (func,file,lineno) could help (module is
+> already done), but DEFINE_DYNAMIC_DEBUG_CATEGORIES can't do that now,
+> adding it needs a better reason imo.
+>
+> Dyndbg is completely agnostic wrt the categorization scheme used, to
+> play well with any prefix convention already in use.  Ad-hoc
+> categories and sub-categories are implicitly allowed, author
+> discipline and review is expected.
+>
+> Here are some examples:
+>
+> "1","2","3"             2 doesn't imply 1.
+>                         otherwize, sorta like printk levels
+> "1:","2:","3:"          are better, avoiding [1-9]\d+ ambiguity
+> "hi:","mid:","low:"     are reasonable, and imply independence
+> "todo:","rfc:","fixme:" might be handy
+> "A:".."Z:"              uhm, yeah
+>
+> Hierarchical classes/categories are natural:
+>
+> "drm:<CAT>:"            is used in later commit
+> "drm:<CAT>:<SUB>:"      is a natural extension.
+> "drm:atomic:fail:"      has been proposed, sounds directly useful
+>
+> Some properties of a hierarchical category deserve explication:
+>
+> Trailing spaces matter !
+>
+> With 1..3-space ("drm: ", "drm:atomic: ", "drm:atomic:fail: "), the
+> ":" doesn't terminate the search-space, the trailing space does.  So a
+> "drm:" search spec will match all DRM categories & subcategories, and
+> will not be useful in an interface where all categories are already
+> controlled together.  That said, "drm:atomic:" & "drm:atomic: " are
+> different, and both are useful in cases.
+>
+> Ad-Hoc sub-categories:
+>
+> These have a caveat wrt wrapper macros adding prefixes like
+> "drm:atomic: "; the trailing space in the prefix means that
+> drm_dbg_atomic("fail: ...") pastes as "drm:atomic: fail: ", which
+> obviously isn't ideal wrt clear and simple bitmaps.
+>
+> A possible solution is to have a FOO_() version of every FOO() macro
+> which (anti-mnemonically) elides the trailing space, which is normally
+> inserted by a modified FOO().  Doing this would enforce a policy
+> decision that "debug categories will be space terminated", with an
+> pressure-relief valve.
+>
+> Summarizing:
+>
+>  - "drm:kms: " & "drm:kms:" are different
+>  - "drm:kms"            also different - includes drm:kms2:
+>  - "drm:kms:\t"         also different
+>  - "drm:kms:*"          doesn't work, no wildcard on format atm.
+>
+> Order matters in DEFINE_DYNAMIC_DEBUG_CATEGORIES(... @bit_descs)
+>
+> @bit_descs (array) position determines the bit mapping to the prefix,
+> so to keep a stable map, new categories or 3rd level categories must
+> be added to the end.
+>
+> Since bits are/will-stay applied 0-N, the later bits can countermand
+> the earlier ones, but its tricky - consider;
 
-The patch has been generated with the coccinelle script below.
+it's
 
-It has been compile tested.
+>     DD_CATs(... "drm:atomic:", "drm:atomic:fail:" ) // misleading
+>
+> The 1st search-term is misleading, because it includes (modifies)
+> subcategories, but then 2nd overrides it.  So don't do that.
+>
+> For "drm:atomic:fail:" in particular, its best not to add it into an
+> existing bitmap, because the current setting would be lost at every
+> (unrelated) write, and a separate bitmap is much more stable.
+>
+> There is still plenty of bikeshedding to do.
 
-@@
-@@
--    PCI_DMA_BIDIRECTIONAL
-+    DMA_BIDIRECTIONAL
+...
 
-@@
-@@
--    PCI_DMA_TODEVICE
-+    DMA_TO_DEVICE
+> @@ -51,8 +51,6 @@ struct _ddebug {
+>  #endif
+>  } __attribute__((aligned(8)));
+>
+> -
+> -
 
-@@
-@@
--    PCI_DMA_FROMDEVICE
-+    DMA_FROM_DEVICE
+stray change.
 
-@@
-@@
--    PCI_DMA_NONE
-+    DMA_NONE
+...
 
-@@
-expression e1, e2, e3;
-@@
--    pci_alloc_consistent(e1, e2, e3)
-+    dma_alloc_coherent(&e1->dev, e2, e3, GFP_)
+> +static inline int param_set_dyndbg(const char *instr, const struct kernel_param *kp)
+> +       { return 0; }
+> +static inline int param_get_dyndbg(char *buffer, const struct kernel_param *kp)
+> +       { return 0; }
 
-@@
-expression e1, e2, e3;
-@@
--    pci_zalloc_consistent(e1, e2, e3)
-+    dma_alloc_coherent(&e1->dev, e2, e3, GFP_)
+Not sure if it's aligned with the style in this file, but usually we
+put { at the very beginning of the line.
 
-@@
-expression e1, e2, e3, e4;
-@@
--    pci_free_consistent(e1, e2, e3, e4)
-+    dma_free_coherent(&e1->dev, e2, e3, e4)
+...
 
-@@
-expression e1, e2, e3, e4;
-@@
--    pci_map_single(e1, e2, e3, e4)
-+    dma_map_single(&e1->dev, e2, e3, e4)
+> -/* handle multiple queries in query string, continue on error, return
+> -   last error or number of matching callsites.  Module name is either
+> -   in param (for boot arg) or perhaps in query string.
+> -*/
+> +/*
+> + * handle multiple queries in query string, continue on error, return
+> + * last error or number of matching callsites.  Module name is either
+> + * in param (for boot arg) or perhaps in query string.
+> + */
 
-@@
-expression e1, e2, e3, e4;
-@@
--    pci_unmap_single(e1, e2, e3, e4)
-+    dma_unmap_single(&e1->dev, e2, e3, e4)
+Doesn't belong to the patch, split it separately.
 
-@@
-expression e1, e2, e3, e4, e5;
-@@
--    pci_map_page(e1, e2, e3, e4, e5)
-+    dma_map_page(&e1->dev, e2, e3, e4, e5)
+...
 
-@@
-expression e1, e2, e3, e4;
-@@
--    pci_unmap_page(e1, e2, e3, e4)
-+    dma_unmap_page(&e1->dev, e2, e3, e4)
+> +               vpr_info("query %d: \"%s\" %s\n", i, query, (modname) ? modname : "");
 
-@@
-expression e1, e2, e3, e4;
-@@
--    pci_map_sg(e1, e2, e3, e4)
-+    dma_map_sg(&e1->dev, e2, e3, e4)
+too many parentheses. Also may use
 
-@@
-expression e1, e2, e3, e4;
-@@
--    pci_unmap_sg(e1, e2, e3, e4)
-+    dma_unmap_sg(&e1->dev, e2, e3, e4)
+  modname ?: ""
 
-@@
-expression e1, e2, e3, e4;
-@@
--    pci_dma_sync_single_for_cpu(e1, e2, e3, e4)
-+    dma_sync_single_for_cpu(&e1->dev, e2, e3, e4)
+form (but not all maintainers are happy with it).
 
-@@
-expression e1, e2, e3, e4;
-@@
--    pci_dma_sync_single_for_device(e1, e2, e3, e4)
-+    dma_sync_single_for_device(&e1->dev, e2, e3, e4)
+...
 
-@@
-expression e1, e2, e3, e4;
-@@
--    pci_dma_sync_sg_for_cpu(e1, e2, e3, e4)
-+    dma_sync_sg_for_cpu(&e1->dev, e2, e3, e4)
+> +       if (!bitmap) {
+> +               pr_err("set_dyndbg: no bits=>queries map\n");
+> +               return -EINVAL;
+> +       }
+> +       rc = kstrtoul(instr, 0, &inbits);
+> +       if (rc) {
+> +               pr_err("set_dyndbg: failed\n");
+> +               return rc;
+> +       }
+> +       vpr_info("set_dyndbg: input 0x%lx\n", inbits);
+> +
+> +       for (i = 0; bitmap->prefix; i++, bitmap++) {
+> +               snprintf(query, FMT_QUERY_SIZE, "format '^%s' %cp", bitmap->prefix,
+> +                        test_bit(i, &inbits) ? '+' : '-');
+> +
+> +               matches = ddebug_exec_queries(query, KP_MOD_NAME);
+> +
+> +               v2pr_info("bit-%d: %d matches on '%s'\n", i, matches, query);
+> +               totct += matches;
+> +       }
 
-@@
-expression e1, e2, e3, e4;
-@@
--    pci_dma_sync_sg_for_device(e1, e2, e3, e4)
-+    dma_sync_sg_for_device(&e1->dev, e2, e3, e4)
+I'm wondering if there is a room to parse a bitmap as a bitmap.
 
-@@
-expression e1, e2;
-@@
--    pci_dma_mapping_error(e1, e2)
-+    dma_mapping_error(&e1->dev, e2)
+...
 
-@@
-expression e1, e2;
-@@
--    pci_set_dma_mask(e1, e2)
-+    dma_set_mask(&e1->dev, e2)
+> +int param_get_dyndbg(char *buffer, const struct kernel_param *kp)
+> +{
+> +       return scnprintf(buffer, PAGE_SIZE, "%u\n",
+> +                        *((unsigned int *)kp->arg));
 
-@@
-expression e1, e2;
-@@
--    pci_set_consistent_dma_mask(e1, e2)
-+    dma_set_coherent_mask(&e1->dev, e2)
+One line?
 
-Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
----
-If needed, see post from Christoph Hellwig on the kernel-janitors ML:
-   https://marc.info/?l=kernel-janitors&m=158745678307186&w=4
----
- drivers/gpu/drm/radeon/radeon_device.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+> +}
 
-diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
-index ac8c3251b616..4f0fbf667431 100644
---- a/drivers/gpu/drm/radeon/radeon_device.c
-+++ b/drivers/gpu/drm/radeon/radeon_device.c
-@@ -785,7 +785,7 @@ int radeon_dummy_page_init(struct radeon_device *rdev)
- 	if (rdev->dummy_page.page == NULL)
- 		return -ENOMEM;
- 	rdev->dummy_page.addr = dma_map_page(&rdev->pdev->dev, rdev->dummy_page.page,
--					0, PAGE_SIZE, PCI_DMA_BIDIRECTIONAL);
-+					0, PAGE_SIZE, DMA_BIDIRECTIONAL);
- 	if (dma_mapping_error(&rdev->pdev->dev, rdev->dummy_page.addr)) {
- 		dev_err(&rdev->pdev->dev, "Failed to DMA MAP the dummy page\n");
- 		__free_page(rdev->dummy_page.page);
-@@ -808,8 +808,8 @@ void radeon_dummy_page_fini(struct radeon_device *rdev)
- {
- 	if (rdev->dummy_page.page == NULL)
- 		return;
--	pci_unmap_page(rdev->pdev, rdev->dummy_page.addr,
--			PAGE_SIZE, PCI_DMA_BIDIRECTIONAL);
-+	dma_unmap_page(&rdev->pdev->dev, rdev->dummy_page.addr, PAGE_SIZE,
-+		       DMA_BIDIRECTIONAL);
- 	__free_page(rdev->dummy_page.page);
- 	rdev->dummy_page.page = NULL;
- }
 -- 
-2.30.2
-
+With Best Regards,
+Andy Shevchenko
