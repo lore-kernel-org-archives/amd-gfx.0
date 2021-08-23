@@ -2,87 +2,71 @@ Return-Path: <SRS0=mBQi=NO=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.5 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 46FFAC4338F
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Aug 2021 14:24:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1C7A7C4338F
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Aug 2021 14:35:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id ECFE561372
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Aug 2021 14:24:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org ECFE561372
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=chromium.org
+	by mail.kernel.org (Postfix) with ESMTPS id E10B461186
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Aug 2021 14:35:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E10B461186
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8457889DFE;
-	Mon, 23 Aug 2021 14:24:44 +0000 (UTC)
-Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com
- [IPv6:2607:f8b0:4864:20::636])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6CF289F97
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Aug 2021 14:23:21 +0000 (UTC)
-Received: by mail-pl1-x636.google.com with SMTP id w6so10233886plg.9
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Aug 2021 07:23:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=date:from:to:cc:subject:user-agent:in-reply-to:references
- :message-id:mime-version:content-transfer-encoding;
- bh=WtsUEsqMTxeu0ASY9ZGldGWSKXK/Bt2mBtS4t1K1jok=;
- b=Twno2VV6Mfpk9mFt1zef4nXG4k9+uk+hiqK3q7qn6xzeS8fqb9Sd0RsRYk+AW49Sup
- kwtvnA0rQxXUqxgPFcN5FFmZ1DHdc6mRIoougB08bPum5ctx5mGdYBLMBllI20ZQwywX
- GsosFTC7bkpcR7C+TuJ+4VIi+eYChTNMCf2uA=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D9E989EBD;
+	Mon, 23 Aug 2021 14:35:06 +0000 (UTC)
+Received: from mail-ot1-x32a.google.com (mail-ot1-x32a.google.com
+ [IPv6:2607:f8b0:4864:20::32a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8802289E5B;
+ Mon, 23 Aug 2021 14:35:04 +0000 (UTC)
+Received: by mail-ot1-x32a.google.com with SMTP id
+ g66-20020a9d12c8000000b0051aeba607f1so28364950otg.11; 
+ Mon, 23 Aug 2021 07:35:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=XgOXv9hBmtE5f7y6QsBO8K1XJAJ8y+cvtkl7Fv+4L6Q=;
+ b=eoAs6ywolFNJ1+ayQ9E5Zf8t9YpcloyJtBG7I3KV556wk1qKb5NqzH1GyQMo+mlV3g
+ 4kSwBvR87oZbF/Lusto9T+PNUgLqTAzr0Po4C70VWruNfembRzBuSH0rBjCXgxzZ0Vfo
+ Tb6FMe9U5hRELjGmC2bUajciCyZF13rLbV6r0IjIs6Dnh0cvBNW0qVT+xunyf/+nU9D6
+ hF2wI6HJmJQf83TGGyLx82XQr0bHqjlGxTQEtKN4r0G+6fYPc8J7H3GV9ICgkIsID7xB
+ 2f0RXGzM4egqJzLPPLsKNDFqnrtTRfRkm1tpK1wNNNSYr+RJnttOErhzJsco9ayXKILp
+ BUvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:user-agent:in-reply-to
- :references:message-id:mime-version:content-transfer-encoding;
- bh=WtsUEsqMTxeu0ASY9ZGldGWSKXK/Bt2mBtS4t1K1jok=;
- b=aFrIt8ED46G5eQGSvGDJxnkd/PG/DgOBzC6NeG5z6mhoFzHourPySaM/q9wDTidBC+
- F0KL1j4xrhvDapkOfwRgMEwwS4RAC06xvfuBoCm0hHQaA6H2rawae6tB6uobmWGlo9lv
- nPacYaI+Zob5bYcdGTJtBdVGjSSQ98+a8MOMocei1hp7stEjkRaygqPecSfTk4Mg6Gtm
- QG3axdOCx+2oaxL/tj41YnDbm4Iznu5bD9y2Mltz/rv4OXTm+7UsXTG/TuBOfphSSCUs
- Bo2eQvLtyBpBhC4aBnk20vUD76+WOF6vxlc/2jW61scskOe/LuNrCpcPC/68z7erFPYQ
- 2N8Q==
-X-Gm-Message-State: AOAM530YE5Wzh2zS3a56Cci+0scB1+wOieWVEcI1wkLWDuuAC5lshIUn
- 8Yx+BRmeFYQflBwe8QPT1GTQdA==
-X-Google-Smtp-Source: ABdhPJyi22ur2sPI/DYF4luwUXxBY5gmZaV71bLC6h6PGLbA+cDZDfqrOe18jGG3kcfwjHp+QTWrPQ==
-X-Received: by 2002:a17:90b:4b84:: with SMTP id
- lr4mr20672140pjb.32.1629728601332; 
- Mon, 23 Aug 2021 07:23:21 -0700 (PDT)
-Received: from [127.0.0.1] ([67.219.225.50])
- by smtp.gmail.com with ESMTPSA id 10sm16158814pjc.41.2021.08.23.07.23.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Aug 2021 07:23:20 -0700 (PDT)
-Date: Mon, 23 Aug 2021 07:23:14 -0700
-From: Kees Cook <keescook@chromium.org>
-To: =?ISO-8859-1?Q?Christian_K=F6nig?= <christian.koenig@amd.com>,
- Lijo Lazar <lijo.lazar@amd.com>
-CC: "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Hawking Zhang <Hawking.Zhang@amd.com>,
- Feifei Xu <Feifei.Xu@amd.com>, Likun Gao <Likun.Gao@amd.com>,
- Jiawei Gu <Jiawei.Gu@amd.com>, Evan Quan <evan.quan@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>,
- Luben Tuikov <luben.tuikov@amd.com>,
- Andrey Grodzovsky <andrey.grodzovsky@amd.com>, Dennis Li <Dennis.Li@amd.com>, 
- Sathishkumar S <sathishkumar.sundararaju@amd.com>,
- Jonathan Kim <jonathan.kim@amd.com>, Kevin Wang <kevin1.wang@amd.com>,
- David M Nieto <David.Nieto@amd.com>, Kenneth Feng <kenneth.feng@amd.com>,
- Lee Jones <lee.jones@linaro.org>, John Clements <John.Clements@amd.com>,
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_drm/amd/pm=3A_And_destina?=
- =?US-ASCII?Q?tion_bounds_checking_to_struct_copy?=
-User-Agent: K-9 Mail for Android
-In-Reply-To: <4922d89d-1293-7b32-d684-c731c246e6c1@amd.com>
-References: <20210819201441.3545027-1-keescook@chromium.org>
- <4922d89d-1293-7b32-d684-c731c246e6c1@amd.com>
-Message-ID: <FB2A077F-78CB-4D84-A8F2-C63C57923496@chromium.org>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=XgOXv9hBmtE5f7y6QsBO8K1XJAJ8y+cvtkl7Fv+4L6Q=;
+ b=Avxlxr5A2JNEaX2pegV4mRv1jio6S9y/zHBNllI7k5CVwz9KZSMTgiYggr9DcH4PAT
+ D0gYwUpPcfXEwaCk5edIpFty9XVdqCmE+fFf+Ff1nsO1QsCj7NbvT6mum9mrHfSIwwYz
+ X5WTaJhe++RymTEK7mRhGI6+SY9A3+XbiNpMQg8wsR3FzHi1Z0O+xa+KSGGW73Jm6fw8
+ eEZx8RROB1RRfJucfVWAJb4Ey0OnwP9zSMq7Ll+YrCRwcYBJikPBUHDGsx+QZmzm5mIw
+ g5yjy3837lX0eYXsP4EjgiiN1jKjJAI4yDplcealFTUCgh9q4Dtfzji5tko/w5972LIl
+ 8RuQ==
+X-Gm-Message-State: AOAM530N819XlHe4GUZCgt67R0AyJ1CUypFzWBKQoe7j1Gb/ZVg0YB3h
+ 6H4dPGLm1J6Rah+0Jf7nBkJoJpf6zPEEfiDvF6o=
+X-Google-Smtp-Source: ABdhPJxsIAjPqPk9Sp6v4AwVB8tD+eTvHkyD8t4hVwHOVcuZooIZjbwrqRsGKT1xWeEpsHiTWT9aIRcFNFPY9CWFt7I=
+X-Received: by 2002:a05:6830:4:: with SMTP id c4mr27849060otp.23.1629729303838; 
+ Mon, 23 Aug 2021 07:35:03 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Mon, 23 Aug 2021 14:24:43 +0000
+References: <20210821082141.8608-1-liviu.cheru@gmail.com>
+In-Reply-To: <20210821082141.8608-1-liviu.cheru@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 23 Aug 2021 10:34:52 -0400
+Message-ID: <CADnq5_PSKvmgfsO3DrNsyWqhgVnU312ijZ_BA92K3MDQU23JMA@mail.gmail.com>
+Subject: Re: [PATCH] gpu: drm: amd: amdgpu: Fixed a few warnings
+To: Liviu Cheru <liviucheru@gmail.com>
+Cc: Dave Airlie <airlied@linux.ie>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>, 
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, 
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ LKML <linux-kernel@vger.kernel.org>, liviu.cheru@gmail.com
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,55 +81,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-On August 22, 2021 11:28:54 PM PDT, "Christian K=C3=B6nig" <christian=2Eko=
-enig@amd=2Ecom> wrote:
+On Sat, Aug 21, 2021 at 4:46 AM Liviu Cheru <liviucheru@gmail.com> wrote:
 >
+> Fixed warnings regarding SPDX license, using "unsigned" instead
+> of "unsigned int", wrong function parameter name for the
+> documentation and a space between the function name and "(".
 >
->Am 19=2E08=2E21 um 22:14 schrieb Kees Cook:
->> [=2E=2E=2E]
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu=2Eh b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu=2Eh
->> index 96e895d6be35=2E=2E4605934a4fb7 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu=2Eh
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu=2Eh
->> @@ -1446,4 +1446,29 @@ static inline int amdgpu_in_reset(struct amdgpu_=
-device *adev)
->>   {
->>   	return atomic_read(&adev->in_gpu_reset);
->>   }
->> +
->> +/**
->> + * memcpy_trailing - Copy the end of one structure into the middle of =
-another
->> + *
->> + * @dst: Pointer to destination struct
->> + * @first_dst_member: The member name in @dst where the overwrite begi=
-ns
->> + * @last_dst_member: The member name in @dst where the overwrite ends =
-after
->> + * @src: Pointer to the source struct
->> + * @first_src_member: The member name in @src where the copy begins
->> + *
->> + */
->> +#define memcpy_trailing(dst, first_dst_member, last_dst_member,		   \
->> +		        src, first_src_member)				   \
+
+In general, please split these up by the type of change.
+
+> Signed-off-by: Liviu Cheru <liviu.cheru@gmail.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 9 +++++----
+>  1 file changed, 5 insertions(+), 4 deletions(-)
 >
->Please don't add a function like this into amdgpu=2Eh, especially when it=
-=20
->is only used by the SMU code=2E
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> index 795fa7445abe..af1abb281c6d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> @@ -1,3 +1,4 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
 
-Sure, I'm happy to move it=2E It wasn't clear to me which headers were con=
-sidered "immutable"=2E Which header should I put this in?
+The license is MIT not GPL.  See the actual license on the file.
 
->And please give it an amdgpu_ prefix so that we are not confusing it=20
->with a core function=2E
+>  /*
+>   * Copyright 2009 Jerome Glisse.
+>   * All Rights Reserved.
+> @@ -129,7 +130,7 @@ void amdgpu_bo_placement_from_domain(struct amdgpu_bo *abo, u32 domain)
+>         u32 c = 0;
+>
+>         if (domain & AMDGPU_GEM_DOMAIN_VRAM) {
+> -               unsigned visible_pfn = adev->gmc.visible_vram_size >> PAGE_SHIFT;
+> +               unsigned int visible_pfn = adev->gmc.visible_vram_size >> PAGE_SHIFT;
+>
+>                 places[c].fpfn = 0;
+>                 places[c].lpfn = 0;
+> @@ -731,7 +732,7 @@ int amdgpu_bo_validate(struct amdgpu_bo *bo)
+>  /**
+>   * amdgpu_bo_add_to_shadow_list - add a BO to the shadow list
+>   *
+> - * @bo: BO that will be inserted into the shadow list
+> + * @vmbo: BO that will be inserted into the shadow list
+>   *
+>   * Insert a BO to the shadow list.
+>   */
 
-Sure, I will include that=2E
+This code has already been fixed.
 
->Apart from that looks good to me=2E
-
-Thanks!
-
--Kees
+> @@ -957,7 +958,7 @@ int amdgpu_bo_pin_restricted(struct amdgpu_bo *bo, u32 domain,
+>                 bo->flags |= AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
+>         amdgpu_bo_placement_from_domain(bo, domain);
+>         for (i = 0; i < bo->placement.num_placement; i++) {
+> -               unsigned fpfn, lpfn;
+> +               unsigned int fpfn, lpfn;
+>
+>                 fpfn = min_offset >> PAGE_SHIFT;
+>                 lpfn = max_offset >> PAGE_SHIFT;
+> @@ -1175,7 +1176,7 @@ void amdgpu_bo_get_tiling_flags(struct amdgpu_bo *bo, u64 *tiling_flags)
+>   * Returns:
+>   * 0 for success or a negative error code on failure.
+>   */
+> -int amdgpu_bo_set_metadata (struct amdgpu_bo *bo, void *metadata,
+> +int amdgpu_bo_set_metadata(struct amdgpu_bo *bo, void *metadata,
+>                             uint32_t metadata_size, uint64_t flags)
+>  {
+>         struct amdgpu_bo_user *ubo;
+> --
+> 2.30.2
+>
