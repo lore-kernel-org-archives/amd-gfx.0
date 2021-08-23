@@ -2,89 +2,129 @@ Return-Path: <SRS0=mBQi=NO=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0CC17C4338F
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Aug 2021 06:50:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 52F12C4338F
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Aug 2021 06:58:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C40FC61284
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Aug 2021 06:50:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C40FC61284
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 0D4E261250
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Aug 2021 06:58:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0D4E261250
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 651F189B9F;
-	Mon, 23 Aug 2021 06:50:37 +0000 (UTC)
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [IPv6:2a00:1450:4864:20::32a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB23689B9F
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Aug 2021 06:50:35 +0000 (UTC)
-Received: by mail-wm1-x32a.google.com with SMTP id
- o39-20020a05600c512700b002e74638b567so2362562wms.2
- for <amd-gfx@lists.freedesktop.org>; Sun, 22 Aug 2021 23:50:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=qghEmjDCMXfXKOSEhOstu7dPVe7sVuWyUfSxOUUtYic=;
- b=aXG+/KYIpPd8qH7NGyRV2eiwvxs5vJM15xdqPPqaIDFfQgIMTCzBcifvdwXZFrJ2Xo
- YjHLTvXKp0n1Swu1VH2dQt4gjI4/eHYFVgX78RpEdg0lex5FugjvUXgl2roCqFczdM6v
- yl1nozZZQUT6WyFrcIXFOTvQ0MuK10BVhNUxxrMYBaREj3IsqhC2Ljf/wTxWEh7ffuqw
- mW+DCdF3ajyP7KxTuA0U7+uPHSZWxHSxBqykJALr7T65MhgQpeK1CSd5LXQHlnxdDsap
- an9liI4u2gz20ns4rmGLByYkzicImOqWTF7ahGY1N0GZiX5Vr00nAiqgM0JjT2KgKGkC
- cDUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=qghEmjDCMXfXKOSEhOstu7dPVe7sVuWyUfSxOUUtYic=;
- b=ByF+73ti1qHBBL+aE70I/KJ+B03R3ZBXfsv1HFBBmeCY6/Us+UIMgRCCxy/V/3J02m
- FfGH69KpujYXaj+CdV/Mj6Z82uGRLVsy60LzRFo2BvYQP5gj5LfpKkf7Pysye+3Pmabv
- BSVbXu5YzSlD/TWiIjqbPBf7KeDLEqA1Nmsvyq4frCWHsJK8yZ4wgAIzgwnArUUP7T9l
- ui06XIK2dIwBsEk9wjeLESma3zSBBt3PkWkM3PMFNKfhNhuQFzRyd4gGi6E0envABCYA
- DbMe3ccOanqkzcSS8K46sMKwPpiimeWqCDvMQi/+8iFPwOr6S2QNf/m8gfzcNf3UgD8b
- uORg==
-X-Gm-Message-State: AOAM531cCe5TfWPPnjiZN/iwiFBZwfaEVzs/TD+hjQaX3q6pDJh9+SI6
- PhP5IMoRfQBwH7NJlNSpalE=
-X-Google-Smtp-Source: ABdhPJxlovmsWV0PjFuM+huhDkxw2iWwV/62J9wJfRJB9cGNm2eWVbazAL2kSz2WizJzHmYgXHAivg==
-X-Received: by 2002:a05:600c:1c28:: with SMTP id
- j40mr14623221wms.104.1629701434292; 
- Sun, 22 Aug 2021 23:50:34 -0700 (PDT)
-Received: from [192.168.178.21] (p5b0ea1b5.dip0.t-ipconnect.de.
- [91.14.161.181])
- by smtp.gmail.com with ESMTPSA id h11sm8333133wrx.9.2021.08.22.23.50.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 22 Aug 2021 23:50:33 -0700 (PDT)
-Subject: Re: [PATCH] drm/amdgpu: avoid over-handle of fence driver fini in s3
- test (v2)
-To: "Chen, Guchun" <Guchun.Chen@amd.com>, Alex Deucher
- <alexdeucher@gmail.com>, Mike Lothian <mike@fireburn.co.uk>,
- "Koenig, Christian" <Christian.Koenig@amd.com>
-Cc: "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, "Gao, Likun"
- <Likun.Gao@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>
-References: <20210802051602.23822-1-guchun.chen@amd.com>
- <9b28973f-d71c-8ca1-32f3-e7dc23563a70@amd.com>
- <CAHbf0-HNwJvmv=D6KDQrNcmaCbtqj0cCZLgE9bWnSoMNBuqS+w@mail.gmail.com>
- <CADnq5_MtY6jHG+VUuuz_Wz2Ka9Tm7p+B-C37SQvwPhhAeLvcVw@mail.gmail.com>
- <DM5PR12MB24697A60CC00D98F946F753DF1C49@DM5PR12MB2469.namprd12.prod.outlook.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <3bc094dc-c453-4b06-23ca-4b53e427c060@gmail.com>
-Date: Mon, 23 Aug 2021 08:50:31 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id A933889C51;
+	Mon, 23 Aug 2021 06:58:20 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2083.outbound.protection.outlook.com [40.107.223.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF59A89C51
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Aug 2021 06:58:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Cj31pnnO45D6eFaj0tGMJ5uxWgAxEwPf+O+mVj9nWaecyun7RK/coP1/B8uitdGVeLM3aG0iGgX5yqzZTXONGZD/mWzcAWaRZBMSc5x2R4mbtBdqVrI+fz8nhDWfWwD/Ye1mpPVBN20P9NDPPIWCgo3Y7gQmT3+c/TBetHaqz5B+GBRNtIaQxoAOeA7c5+LHl5ZuPtFP+sjSN1PUZGhxCCrRnrcg5uaP93Eq7EKxfRrte7fkFZbhWCc5axFShp62Oi6SsaeISZdSV+fxl2N5f9TZHvyHqOExnILa/jKt5P3ipM2wuLqwtHu01u4HYUFumKo77qJZYuDGBzv9NTq4LA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4zsRXX4G9Zv1V4W/oyIJsZEOgCUlGt76eFiYGzGxNAI=;
+ b=PKQ7r2VRN1aWpXyE3vE6IFsRJMZlSeF/7ItCap2oKZscyGzrwFxfjDlboYWrN6ifX4nfJySgUGP0f1j0Wyqji+ZwjNTuupVKJTstO6DTgzluW53V3r32y8/Rgxe7loj2sgOa0qR4aZM5k3YmnNmOw8gb2NObks2ZQUBRfCo10pK5yvCyYILE5l+e2zc52V4ffsiLOgj8P+jbCZqsGrlj3OalRqtDShOgR5ot7m+mpphsmkA4NSFuKdr5ub41UP1rIQc7z9/+6fbz0r0sJLWCKQAdlAQJ7H3bUgbkuLd87/6M2E62aDALKmiaB7OCku8VQ9qAvYaBuHj/osb3y7TyCg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4zsRXX4G9Zv1V4W/oyIJsZEOgCUlGt76eFiYGzGxNAI=;
+ b=kcWkwSTNtuSLVfc1wnLDS+hSNM8v9crWCIXk50/Zo09DAci+OQzShjt3y0BfFgFJNnKYVAWlkdcL1k7OwAGnOH03K1xKdjcAwYVPpiwMiO8/ZGyNhgg8yOrkQMbdnhoXwisEqRozBp4EJqlJMrzaBjfzlLckMKjvSS7rBBR2kBM=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
+ by BL0PR12MB4913.namprd12.prod.outlook.com (2603:10b6:208:1c7::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.19; Mon, 23 Aug
+ 2021 06:25:38 +0000
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::dce2:96e5:aba2:66fe]) by MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::dce2:96e5:aba2:66fe%6]) with mapi id 15.20.4436.024; Mon, 23 Aug 2021
+ 06:25:38 +0000
+Subject: Re: Voltage control on Southern Island GPU using radeon driver
+To: Evans Jahja <evansjahja13@gmail.com>, amd-gfx@lists.freedesktop.org
+References: <CAAq5pW_7Tv=qzTeUkTuMZMwq+FN63Qmz3pXCiwMx5R4Gbg89bA@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Message-ID: <a4db54d0-9978-035a-538e-7c51d8082037@amd.com>
+Date: Mon, 23 Aug 2021 08:25:34 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
-MIME-Version: 1.0
-In-Reply-To: <DM5PR12MB24697A60CC00D98F946F753DF1C49@DM5PR12MB2469.namprd12.prod.outlook.com>
+In-Reply-To: <CAAq5pW_7Tv=qzTeUkTuMZMwq+FN63Qmz3pXCiwMx5R4Gbg89bA@mail.gmail.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
 Content-Language: en-US
+X-ClientProxiedBy: PR3P191CA0029.EURP191.PROD.OUTLOOK.COM
+ (2603:10a6:102:54::34) To MN2PR12MB3775.namprd12.prod.outlook.com
+ (2603:10b6:208:159::19)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [192.168.178.21] (91.14.161.181) by
+ PR3P191CA0029.EURP191.PROD.OUTLOOK.COM (2603:10a6:102:54::34) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4436.19 via Frontend Transport; Mon, 23 Aug 2021 06:25:38 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: e8823828-114d-4855-2a2b-08d965fed306
+X-MS-TrafficTypeDiagnostic: BL0PR12MB4913:
+X-Microsoft-Antispam-PRVS: <BL0PR12MB49135E8D40AE7008260B0D8C83C49@BL0PR12MB4913.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: fcKFASSAnqgZ49Xu4R3hk1qdcb43Okigxvr0zU0xrsoWo1M8Y9fGkOxbPZuMtk8FaEIHk3AuKfNursygxfnj55FmRiPTujbZcsGSY17upkWnDAripw8QtWYhqYJo0vNTY1IYjJAcj4KfXYAL9ik21fUW99Z15tFqqt0ZI1E9nONp+YPHWnkBlxCGnrOSRsYet//tK+X7n5rlALZ82V1548aLu3SBC85CcCX7ouryJn1lHtk8jg8iZgb2HdyAnDp1CyNexNBzCp65uJw2/B8sQyof6+quGh+NqZjTjaqWwFXk2rQwRJIC+XDwOwQetf9dAkWNYCTpLkmfI5K/w/0cpjbXqD9uz8cQqbXUz3bQvX3RHWtnjKZYIFrJgyPGlnf3boXxXqLDDoc0GLXoiOzgzIjrKTSfEhdGAjVuqrw8mHwF6ZYPNJHrb7zj795C48HGSq27J4ZYU6VQ/NGmztsH8Wt+5uoxSGn9hmthZHGihnoAxClmTRRVfPgxJjf52aPV9zLcoywkwzxTYUzCdAnMuhnzPFdGcD4Hh0UaaCfwM0yC8jY0Fh4bHXv3RV/ZU0tzANz3ngNDVjtcy7jcRczqVxpYjg8mgSU1s2bPIZOG70uwNDiK5dRone10KFAFsGYV8P7zvw/tjUo7xrfJIervzMOPYojnYi4AT994b1Y1ZFgL9tzcUTIOX1z0L+ZEo/MwrsiURTO2shqRRz4cxLPMQh/W3BDOYeJFgZTbNeX9dQE=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(6486002)(956004)(2616005)(8676002)(38100700002)(8936002)(36756003)(66946007)(66556008)(66476007)(2906002)(83380400001)(26005)(186003)(16576012)(316002)(508600001)(31696002)(6666004)(5660300002)(31686004)(86362001)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eitWY1lxNlhaRlZ4YmloK0N5UGt6a1pUYzlvQmtmMVJ5NVBNNkozcm5PWDZY?=
+ =?utf-8?B?OFhHaVZOYWw5VVd0RzFzYzFLMlU0U2p1c1hSSEhwdlRxUjRacWozdUw3OFdU?=
+ =?utf-8?B?UVRIVDY3ZGtQeURsb0JsZnZLVkxWS0JHZVJOT1hVZjBDRzRjQ2hYRmJ4dWJr?=
+ =?utf-8?B?bWpMUW1XNFlXcUlyNXJST0Zyb0hZL2hmMnlMeWxyWURScDdONVRDTFp5TEw4?=
+ =?utf-8?B?WjJjbDQvcFFuZVlCc0JNc3psaUZFUzN4OTNDVzNKSmVzRW1haVc5RGNXYXU3?=
+ =?utf-8?B?bkl0Z01CWnRKTTAxV2k1Ymx6NVF1THBja0pDRkRuZnZoOVEyakwxbEdIQTZY?=
+ =?utf-8?B?SXRPNGV2dXUwZlBvVEQ4RVlwazZGRElJcFp6aDJ6aEpvSzFYUlpzSG5FNGwz?=
+ =?utf-8?B?S2d2RVhyRTI5ZGNWdGtCN3RtUEFkWFc0UUVpSk15K3lrTmlmUGFmK0twQ2gy?=
+ =?utf-8?B?Z1FOY2QwcFU5TG43VXVoQ0p2WWVsSGVvQ1dvaWY4cHVsNWZoYUVVc2JmWmQ2?=
+ =?utf-8?B?aWdyZndxVXdEU3dVeHg0V243K1VhOXdDYjJ3YitiYzRBc0d2cUF6ckUvRklY?=
+ =?utf-8?B?TnJiOXgwRG5KVEptWTZQdlRCMWRUZXJCUHdYMnlkWHZBVmdOazRpVHFpK1o4?=
+ =?utf-8?B?V29YR01PK21yVEVzVW1leU5LVDRkUmVpWXEreDVHRXJTMWVORFNoRCtJVENZ?=
+ =?utf-8?B?QmRjcmdVcFFoUHlYdzRCMHkzQ0cvdWtaVjJpU05lRHdSRWExaHUveXh5eFE5?=
+ =?utf-8?B?Q2Uwb1p3SzdBSXk5dUNBOWpPQjFCU2V1c2g3algyb0NNM3dvaDNNWFpxUjlu?=
+ =?utf-8?B?WWo3TG1jRlRDQXZVMmdzL0I3Uzh3RWF4T2xYbGgvNEdqZGtaaHVuQXlQNVFz?=
+ =?utf-8?B?eU0rQWZpMTMwQ1NVMVdoZFhaRDhJSmxzd2lzQVhLMjVxLzRUS1hpMkpYT25h?=
+ =?utf-8?B?RWIydHliN1VEUzdnZDhpUXJkSzRyNURUbkd6cHFMSkdiRHVBOXlYYUJHR0Ry?=
+ =?utf-8?B?dlJFM3BOMStxWkZqL1o2OFRPU3RhOHhXYnVDY3dJYkNlRThzSWxvTjBKTTdH?=
+ =?utf-8?B?aHJiOFNZWDl3WHNRcjByTnhmSWpmNW5EUG5Hd090WHExZWVHL3pNUGIyeGZN?=
+ =?utf-8?B?azV4RnkrLzUxQ2RaKzQ2VXJnVGRnekJTMkZ6d2U3RGlnaFdMRGdmcGcrajBn?=
+ =?utf-8?B?bVc3YUJxSGJ6RW5Qd3g1c01TT1lycnJQUWV0eEdVTW1CcFBkZ0RPNWFOd0gx?=
+ =?utf-8?B?OWpibzh2ZUFGRzhUN0QvUmg1UG02bDVhSFBzeFcvcEpZY0Exa3hCVkF1L00r?=
+ =?utf-8?B?ek9jaWZJaTZSd0VlSFVPeDhRdm1UWkJDUnU3RVB3dnZBYzJZb2JNcWEvSEdQ?=
+ =?utf-8?B?K1JnUTVXZkVMaWVSTHlkeXp0ZGV2QnUyanhEOElDSUlUNjJQNDBma2ZFcmdK?=
+ =?utf-8?B?NVY4dW9oQmc3bzRDUWJ0Tzd3VGdZc0ltMTIzY0ZzVy96c3J3SVlJZWE2Skg2?=
+ =?utf-8?B?ZUFjbmdjdTNTWXlaQXBJWmkxcXVWbDJsaFh6RGNJcVZnWTlJSHU3anAwN1c4?=
+ =?utf-8?B?eVdKRTVUOGI5VVVxZGNMeHlKaDlka0dYeUc1VFN6dGxVVHBucFRBeGpVNlRZ?=
+ =?utf-8?B?OE5rN21Hd0p4cDJRWUJJU0V2MzFoRGJpSUkwTzJMMnNLYjBqUDRiMnRmTVcv?=
+ =?utf-8?B?NnJrazg2ZHJXelBvYTNuZDIxTDZJUkpBa29TeXpsYjZGekh1UG1IZDIrVzhD?=
+ =?utf-8?Q?PNDfwumNqKC8IoGXeUq2mEzdfayuZnzky1GMuD7?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e8823828-114d-4855-2a2b-08d965fed306
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Aug 2021 06:25:38.7929 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Law7Iooy/frpJjaQKhU3iMnRD/hXuDD9DCQG3IdF641lAhlrCfzSp6Tp9S+RvfY1
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4913
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,200 +139,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Good mornings guys,
+Hi Evans,
 
-Andrey has a rather valid concern here, but I think we need to approach 
-this from a more high level view.
+in general the voltage tables are stored in the atombios and the best 
+advice I can give you is to first double check if there isn't an updated 
+BIOS for your hardware.
 
-When hw_fini is called we should make sure that the scheduler can't 
-submit any more work to the hardware, because the hw is finalized and 
-not expected to response any more.
+But Alex is the expert on power management, especially for those older 
+hardware generations. Maybe he has another idea what to try.
 
-As far as I can see the cleanest approach would be to stop the scheduler 
-in hw_fini and fully clean it up in sw_fini. That would also fit quite 
-nicely with how GPU reset is supposed to work I think.
-
-Problem is that this is currently done outside of the fence code for the 
-at least the reset case, so before we restructure that we need to stick 
-with what we have.
-
-Andrey do you think it would be any problem if we stop the scheduler 
-manually in the hot plug case as well?
-
-Thanks,
+Regards,
 Christian.
 
-Am 23.08.21 um 08:36 schrieb Chen, Guchun:
-> [Public]
+Am 23.08.21 um 03:56 schrieb Evans Jahja:
+> Hi, I have a HAINAN GPU below:
 >
-> Hi Andrey,
+> lspci -nn
+> 0a:00.0 Display controller [0380]: Advanced Micro Devices, Inc. 
+> [AMD/ATI] Sun LE [Radeon HD 8550M / R5 M230] [1002:666f]
 >
-> Thanks for your notice. The cause why moving drm_sched_fini to sw_fini is it's a SW behavior and part of SW shutdown, so hw_fini should not touch it. But if the race, that scheduler on the ring possibly keeps submitting jobs which causes un-empty ring is there, possibly we still need to call drm_sched_fini first in hw_fini to stop job submission first.
+> I run linux 5.13.12 on Arch on a Lenovo B40-70 laptop.
 >
-> @Koenig, Christian what's your opinion?
+> I'm trying to understand more on how voltage control works and how I 
+> can modify the voltage for doing overvoltage / undervoltage on my GPU. 
+> The reason is I am observing how running programs under high GPU load 
+> (glmark2) would lead to crashes when I use dpm=1 in either radeon or 
+> amdgpu driver, which seems to happen when I am reaching power level 4 
+> (sclk 900MHz), while a lighter program like glxgears could run and 
+> switch power levels  between 0,1,2 without issue under both drivers. I 
+> believe my laptop might be faulty, but I would like to take this 
+> opportunity to try fixing it from the driver's side so that it can run 
+> anyway, however limited.
 >
-> Regards,
-> Guchun
+> Right now, I have managed to increase the performance of my GPU by 
+> manually overwriting the sclk to 630MHz in all performance_levels in 
+> radeon_pm.c, which surprises me as overriding the clock was not 
+> possible for me to do previously via sysfs.
 >
-> -----Original Message-----
-> From: Alex Deucher <alexdeucher@gmail.com>
-> Sent: Friday, August 20, 2021 2:13 AM
-> To: Mike Lothian <mike@fireburn.co.uk>
-> Cc: Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>; Chen, Guchun <Guchun.Chen@amd.com>; amd-gfx list <amd-gfx@lists.freedesktop.org>; Gao, Likun <Likun.Gao@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>
-> Subject: Re: [PATCH] drm/amdgpu: avoid over-handle of fence driver fini in s3 test (v2)
+> I've managed to tweak both sclk and mclk (or so I believe), but I 
+> still cannot tweak the voltage (vddc). The reason is, if I increase 
+> the sclk to 650MHz, the lockup will happen again. Changing the 
+> pl->vddc  variable does not seem to do anything. After various tracing 
+> with printk, I understand that on my system:
 >
-> Please go ahead.  Thanks!
+> pi->voltage_control = radeon_atom_is_voltage_gpio(rdev, 
+> SET_VOLTAGE_TYPE_ASIC_VDDC,
+>    VOLTAGE_OBJ_GPIO_LUT)
 >
-> Alex
+> this returns false, while:
 >
-> On Thu, Aug 19, 2021 at 8:05 AM Mike Lothian <mike@fireburn.co.uk> wrote:
->> Hi
->>
->> Do I need to open a new bug report for this?
->>
->> Cheers
->>
->> Mike
->>
->> On Wed, 18 Aug 2021 at 06:26, Andrey Grodzovsky <andrey.grodzovsky@amd.com> wrote:
->>>
->>> On 2021-08-02 1:16 a.m., Guchun Chen wrote:
->>>> In amdgpu_fence_driver_hw_fini, no need to call drm_sched_fini to
->>>> stop scheduler in s3 test, otherwise, fence related failure will
->>>> arrive after resume. To fix this and for a better clean up, move
->>>> drm_sched_fini from fence_hw_fini to fence_sw_fini, as it's part of
->>>> driver shutdown, and should never be called in hw_fini.
->>>>
->>>> v2: rename amdgpu_fence_driver_init to amdgpu_fence_driver_sw_init,
->>>> to keep sw_init and sw_fini paired.
->>>>
->>>> Fixes: cd87a6dcf6af drm/amdgpu: adjust fence driver enable sequence
->>>> Suggested-by: Christian König <christian.koenig@amd.com>
->>>> Signed-off-by: Guchun Chen <guchun.chen@amd.com>
->>>> ---
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  5 ++---
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c  | 12 +++++++-----
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h   |  4 ++--
->>>>    3 files changed, 11 insertions(+), 10 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>> index b1d2dc39e8be..9e53ff851496 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>> @@ -3646,9 +3646,9 @@ int amdgpu_device_init(struct amdgpu_device
->>>> *adev,
->>>>
->>>>    fence_driver_init:
->>>>        /* Fence driver */
->>>> -     r = amdgpu_fence_driver_init(adev);
->>>> +     r = amdgpu_fence_driver_sw_init(adev);
->>>>        if (r) {
->>>> -             dev_err(adev->dev, "amdgpu_fence_driver_init failed\n");
->>>> +             dev_err(adev->dev, "amdgpu_fence_driver_sw_init
->>>> + failed\n");
->>>>                amdgpu_vf_error_put(adev, AMDGIM_ERROR_VF_FENCE_INIT_FAIL, 0, 0);
->>>>                goto failed;
->>>>        }
->>>> @@ -3988,7 +3988,6 @@ int amdgpu_device_resume(struct drm_device *dev, bool fbcon)
->>>>        }
->>>>        amdgpu_fence_driver_hw_init(adev);
->>>>
->>>> -
->>>>        r = amdgpu_device_ip_late_init(adev);
->>>>        if (r)
->>>>                return r;
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
->>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
->>>> index 49c5c7331c53..7495911516c2 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
->>>> @@ -498,7 +498,7 @@ int amdgpu_fence_driver_init_ring(struct amdgpu_ring *ring,
->>>>    }
->>>>
->>>>    /**
->>>> - * amdgpu_fence_driver_init - init the fence driver
->>>> + * amdgpu_fence_driver_sw_init - init the fence driver
->>>>     * for all possible rings.
->>>>     *
->>>>     * @adev: amdgpu device pointer
->>>> @@ -509,13 +509,13 @@ int amdgpu_fence_driver_init_ring(struct amdgpu_ring *ring,
->>>>     * amdgpu_fence_driver_start_ring().
->>>>     * Returns 0 for success.
->>>>     */
->>>> -int amdgpu_fence_driver_init(struct amdgpu_device *adev)
->>>> +int amdgpu_fence_driver_sw_init(struct amdgpu_device *adev)
->>>>    {
->>>>        return 0;
->>>>    }
->>>>
->>>>    /**
->>>> - * amdgpu_fence_driver_fini - tear down the fence driver
->>>> + * amdgpu_fence_driver_hw_fini - tear down the fence driver
->>>>     * for all possible rings.
->>>>     *
->>>>     * @adev: amdgpu device pointer
->>>> @@ -531,8 +531,7 @@ void amdgpu_fence_driver_hw_fini(struct
->>>> amdgpu_device *adev)
->>>>
->>>>                if (!ring || !ring->fence_drv.initialized)
->>>>                        continue;
->>>> -             if (!ring->no_scheduler)
->>>> -                     drm_sched_fini(&ring->sched);
->>>> +
->>>>                /* You can't wait for HW to signal if it's gone */
->>>>                if (!drm_dev_is_unplugged(&adev->ddev))
->>>>                        r = amdgpu_fence_wait_empty(ring);
->>>
->>> Sorry for late notice, missed this patch. By moving drm_sched_fini
->>> past amdgpu_fence_wait_empty a race is created as even after you
->>> waited for all fences on the ring to signal the sw scheduler will
->>> keep submitting new jobs on the ring and so the ring won't stay empty.
->>>
->>> For hot device removal also we want to prevent any access to HW past
->>> PCI removal in order to not do any MMIO accesses inside the physical
->>> MMIO range that no longer belongs to this device after it's removal
->>> by the PCI core. Stopping all the schedulers prevents any MMIO
->>> accesses done during job submissions and that why drm_sched_fini was
->>> done as part of amdgpu_fence_driver_hw_fini and not
->>> amdgpu_fence_driver_sw_fini
->>>
->>> Andrey
->>>
->>>> @@ -560,6 +559,9 @@ void amdgpu_fence_driver_sw_fini(struct amdgpu_device *adev)
->>>>                if (!ring || !ring->fence_drv.initialized)
->>>>                        continue;
->>>>
->>>> +             if (!ring->no_scheduler)
->>>> +                     drm_sched_fini(&ring->sched);
->>>> +
->>>>                for (j = 0; j <= ring->fence_drv.num_fences_mask; ++j)
->>>>                        dma_fence_put(ring->fence_drv.fences[j]);
->>>>                kfree(ring->fence_drv.fences); diff --git
->>>> a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
->>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
->>>> index 27adffa7658d..9c11ced4312c 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
->>>> @@ -106,7 +106,6 @@ struct amdgpu_fence_driver {
->>>>        struct dma_fence                **fences;
->>>>    };
->>>>
->>>> -int amdgpu_fence_driver_init(struct amdgpu_device *adev);
->>>>    void amdgpu_fence_driver_force_completion(struct amdgpu_ring
->>>> *ring);
->>>>
->>>>    int amdgpu_fence_driver_init_ring(struct amdgpu_ring *ring, @@
->>>> -115,9 +114,10 @@ int amdgpu_fence_driver_init_ring(struct amdgpu_ring *ring,
->>>>    int amdgpu_fence_driver_start_ring(struct amdgpu_ring *ring,
->>>>                                   struct amdgpu_irq_src *irq_src,
->>>>                                   unsigned irq_type);
->>>> +void amdgpu_fence_driver_hw_init(struct amdgpu_device *adev);
->>>>    void amdgpu_fence_driver_hw_fini(struct amdgpu_device *adev);
->>>> +int amdgpu_fence_driver_sw_init(struct amdgpu_device *adev);
->>>>    void amdgpu_fence_driver_sw_fini(struct amdgpu_device *adev);
->>>> -void amdgpu_fence_driver_hw_init(struct amdgpu_device *adev);
->>>>    int amdgpu_fence_emit(struct amdgpu_ring *ring, struct dma_fence **fence,
->>>>                      unsigned flags);
->>>>    int amdgpu_fence_emit_polling(struct amdgpu_ring *ring, uint32_t *s,
+> si_pi->voltage_control_svi2 =
+> radeon_atom_is_voltage_gpio(rdev, SET_VOLTAGE_TYPE_ASIC_VDDC,
+>    VOLTAGE_OBJ_SVID2);
+>
+> This returns true, so I believe my system is using SVI2 somehow to set 
+> the voltage. Having no experience with SVI2, I read online and found 
+> out that SVI2 is a voltage regulator that uses Data / Clock pins to 
+> clock-in 8 bits of information and convert it to some voltage value 
+> between OFF, 0.5V -> 1.5V, offering fine control based on some look up 
+> table.
+>
+> My questions are as follows:
+> Is it possible for me to modify my system so that I can manually 
+> adjust the voltage to my GPU?
+>
+> Thank you very much in advance. This is the first time I deal with 
+> kernel drivers, so any guidance on the matter helps a lot.
+>
+> - Evans
+>
+>
 
