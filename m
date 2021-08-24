@@ -2,132 +2,136 @@ Return-Path: <SRS0=c7t5=NP=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-18.6 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C7444C4320A
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Aug 2021 09:10:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BDB4DC4338F
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Aug 2021 09:45:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 88B9761360
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Aug 2021 09:10:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 88B9761360
+	by mail.kernel.org (Postfix) with ESMTPS id 7675761360
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Aug 2021 09:45:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7675761360
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99C5D8945A;
-	Tue, 24 Aug 2021 09:10:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13B4A892E6;
+	Tue, 24 Aug 2021 09:45:43 +0000 (UTC)
 Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2059.outbound.protection.outlook.com [40.107.237.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 347A88945A
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Aug 2021 09:10:47 +0000 (UTC)
+ (mail-bn8nam12on2079.outbound.protection.outlook.com [40.107.237.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2133892E6
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Aug 2021 09:45:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=N6OjPXZMp2xbXXDcPrV48LsV5GLL3SriJfEKfvUhh+4bgMBnDx7icyN2OvWdr+j2C8ZRDbeUzEfymvbQ7J6C9vj8sQG3tpHK1G3gRfS2spS1j4zXng+2pE55Di1MypwBdk8V2wgKGYgzzSqRiDj7VJklqsYtG3PwEFZqVqQjlHK0jyBsKPvcvnYr501nksqFVYVtz1/k8QPNRlugJ+YmEuC8KfAApW3kCGXfQdSdyRbA4fVogE87bgG9XtbRMTHDPFwU5ZZfx/NUUT3lP+E7m31ST/2sexOjeqIA/lupkp3S+TjfeK2PoWa/L4SS3scPbW8+OFud3flDNke7rudbKg==
+ b=Pcj2/RJhgXf1xaZ1lzmgspmXGGBck0UGCs8M4fVJYrY3T+LNvtd4ljYPAd8JUJXumfg0S+Wfi532iKODnDiF6MRbeniIxEE2CpDh0YFpCK3yAmDgZHIPdawKKPZsAaDyCo7JY9epE7xyZVEI6PF3U6P4XDhe7G5Nr1dMhVMF8TAYSFY3KpLaykOfM7jx/9K5xSeb30cTgdm9I9Yin5t91rUQahgPYFG6CwJ9aCAtS62mFCZMHq2DazmubQhHwlWOtpGM+bnJvyTlIrh1Ufm/7sthOtJh3B9LlHtGZY5v155Y65a5spCQI5y6DVis4BSKgL+dUqsma9wLVTSFVsJ39g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rnuq9OfJM1s+D1Yv6M+nZW/l2kxrwKjve1ThopffmbQ=;
- b=KGBBwQVH85Pm7l+YDeDu9qXFJkUMmwOiDiNyww501pI3jeItiml6nN9q9kxc5HrF4ULvFHPsHUwg19RJQDOdLeOihAWbMrzUWQ9SLO7H36P1Lj1mIMmv0NKUhwUtlUu/uTsOfsL5RAyHwTV+WkwV8TnnhULkCxRHhCj6fcxRLXY5CFMMqsmyP/1S8ias4TwLORASsia60vB+N0tALI4N2nE1isol65TkSBnQ4Q7fD7K2DiOZ4j1r9aBEvuJDdC+WHVeCsi7IFWXic8I6oUY4vdRFLYW1vVEgfeWAPGM9FB0fwgG1z5X1JaSgqaOsFQv7mI1TqE6GgnOJ13GNhdPfiA==
+ bh=gAWN1SBoNnGuiDjYlqgzls+lvdER8gKwuzNwPzPXKPU=;
+ b=DcRp3djUgK2ISaXFqMahMu32z8U5I8n/Z4jARBo/c4fk4IVnygZVSHV30joj3bHeEWUxMrnxcp8ulZo4rfxZAiWYUtY63Y4T0Lf0BGRBa8b7t8ac4+ew3kMPK96hYg8UBnq83TxQdb15U1I7waWdV8qALQEA38ef+6zgByYnbsn050oxF1eVE5b37uoSGe8q/+Xy9T5wAyP9hIv7iOJKJ+chg104rq1iWlWFXXZysy9ltBgTQyFc65B1Gie9eYqPPBsAa8daZSPSmUQ8w8H4TvMV+kbRg9JMnozTaABObC/ok5KeKO7+8ki10UBCSQP0igL3DSiJ4MAVaFkOEqG6vA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rnuq9OfJM1s+D1Yv6M+nZW/l2kxrwKjve1ThopffmbQ=;
- b=nlTBS+1Q788qMJGAhEF9pA4mhu04WQla8Y2R8vlkl8nnkAWu4CLmTi4yMBonMG0Hfczb6ukuxFh4/H2kS7hgDs8jUELbAMBc5J9qPV6UBe0rlz0LwTZXrMwQfb63r7gcDZCyPvxw4K/UUKXAaOqulhccFA1SI4/+0hCb+bQ0LCg=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by BN9PR12MB5243.namprd12.prod.outlook.com (2603:10b6:408:100::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.19; Tue, 24 Aug
- 2021 09:10:45 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::5101:db26:96eb:2ce4]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::5101:db26:96eb:2ce4%6]) with mapi id 15.20.4436.025; Tue, 24 Aug 2021
- 09:10:45 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Zhou1, Tao"
- <Tao.Zhou1@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Yang, Stanley" <Stanley.Yang@amd.com>,
- "Clements, John" <John.Clements@amd.com>, "Kuehling, Felix"
- <Felix.Kuehling@amd.com>
-Subject: RE: [PATCH] amd/amdkfd: add ras page retirement handling for sq/sdma
- interrupt
-Thread-Topic: [PATCH] amd/amdkfd: add ras page retirement handling for sq/sdma
- interrupt
-Thread-Index: AQHXmMQZRhj2scKXGk+tU1klEQjfc6uCWPpwgAAElfA=
-Date: Tue, 24 Aug 2021 09:10:44 +0000
-Message-ID: <BN9PR12MB5257DFF7E7F9F2E13C494F6AFCC59@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20210824084300.1882-1-tao.zhou1@amd.com>
- <BN9PR12MB525742BD6BAF9328D89044C2FCC59@BN9PR12MB5257.namprd12.prod.outlook.com>
-In-Reply-To: <BN9PR12MB525742BD6BAF9328D89044C2FCC59@BN9PR12MB5257.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-08-24T09:10:42Z; 
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
- Only-AIP 2.0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=f895a91a-d496-44ba-aa19-d7c2f1b30cf8;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
-authentication-results: amd.com; dkim=none (message not signed)
+ bh=gAWN1SBoNnGuiDjYlqgzls+lvdER8gKwuzNwPzPXKPU=;
+ b=CAa4d1K5+uu/EPHWGBMKsm4KhL+h7dRifACdjXDcnsYSlPvrRy1GxGyVcelC3+GxZ1+kEClmSIt2YCLxwBhvNfjY9YyixwRnZkdvY1q8HOwRWUSdQrVcLOialdg2RIIKMBSkk/u6dcn1K7PjFqnVVP+bTzd2w+/7p62ccjV8Dso=
+Authentication-Results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 9a282be3-8ec8-43d7-7ee6-08d966df0e4a
-x-ms-traffictypediagnostic: BN9PR12MB5243:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BN9PR12MB5243E3A0F5BD84B78CE60415FCC59@BN9PR12MB5243.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:7691;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 25VirADoEIi67CfqRvH+MaMt6oUnRaLk0MRMI+lcszLQQVhGHSnII6cXMOS9v5MxtcIbu70G1RCJEGdI6iZJcyR9lULHkuZ/SANiggTGDf2BQjVF6Yd62KvF5LH1eUl90Ox7S8VL2mjjzYp9gWXCMBrXFUOxeHFfHm6Y00z3a3Yu3umAJar6A1sDVTQk+cjq6ofVbkUn6FUrpmUSBLpAgLsJwQ79ngqVH4P1Vwdmcp/NSYCutIXnsVL3jR2yhWdi77oPdaV4vXK/E22TGp8nZjbdGWLzHwTGxBz3uXcmui9jUQdxlD8OYPYtf1rgKzkmYqtB6IvF8Lgc88gH3KbFK6QtGr76qcbu0+8UmK2+vKYr1ccTBgmEoFn9kbqc5q9nhq8VONws5UIHkh4adqsR67dpXvlxsqbLVclzviQ3PJ1dSUzAMLu+iHYFoGBlE3CCfqib0oIrb5Y1e1lmaPqXXtvAHemShUnQcmah1Auzkc5Xy6YB3Z5MZwIqE7MqclAFu23Mf1uOHBrNL7rH78ivxnpRtjO8hltFEKfJQD6JS1/cxi0cFaoF8kcYs+6gUvrS/ACDqiLgzx+DMa5IhRAyC5rEVjiZDlxv8UHjNmeyFFVz2+cg4ArgWvYv/Pv0ZZQ6gb2CNig5FjXYW2o1E4cztkuOgvsx9nU71DAI7g/pxVv2RQ+aGIWjd9UnNq9pOKJm25XtmsUb3bpgssBEY8p6lTLlyL2hUzIlKCmicgPGjQc=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(366004)(136003)(346002)(376002)(39860400002)(2940100002)(38100700002)(186003)(122000001)(26005)(83380400001)(8936002)(53546011)(921005)(6506007)(2906002)(76116006)(38070700005)(6636002)(86362001)(66446008)(110136005)(64756008)(66476007)(9686003)(316002)(66556008)(71200400001)(478600001)(7696005)(55016002)(66946007)(33656002)(8676002)(52536014)(5660300002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Sf1TK96B6U2RxoeRciegT5JYL85y47eZQqhCdWfPDwzlL8ln71JF5aw1D95W?=
- =?us-ascii?Q?3y9oako1rl0i2AmyasBaMKuK8jUiHa/Vcsbz6fFIY5OKKtvCchchemeymvCT?=
- =?us-ascii?Q?WABvjmr9KC20ZPUXMT0ymXsL9FzYmahcL7wCvFqFT4CL/w3YnHNZkpjuB6xP?=
- =?us-ascii?Q?3kjL8TKNrM1b9SI6k/jUGrEgQeVV5NkqTw/LsP5qgs7Nk2fVfk4gG4LslI4B?=
- =?us-ascii?Q?LKiolIH7FsEiQNcaVF2KimfYsMvAEni7XwkpKAIsi2OpClZQTG4W4i7SAaka?=
- =?us-ascii?Q?6vpMJWl8R6xTvpPCz1Q6miMII9/9uEHLzgLYqmXW+KKKhTNxAC5TaT92riPC?=
- =?us-ascii?Q?xXAT1s2zE0pV4RJ+fvhLqcWCWKJIgw9CXHLRb1MhgdDqpodRmZenpIg5i5Az?=
- =?us-ascii?Q?vnT7dyTVpEUbvUaN8LbJ1r3JFcHqh+6zn6ZwY2CmZTX6rp1ePdcD/0BR3F/F?=
- =?us-ascii?Q?eED5gJgccYNylmVunAIFuNLpRffeVGiwZMu7/uNfqPm12vzQb5kdBS0PTBSh?=
- =?us-ascii?Q?nAzbtekbo8moAGYUIIjBMep476sWyOhxyXFVKGoJUNCzW3wotiUqY5AaoSYE?=
- =?us-ascii?Q?LGnHLokHpgVMDq3CMaQXnzEaVgnKTJmzjt8BSQG16nJ++Ol7LncKfyyTvVgF?=
- =?us-ascii?Q?yb/ym6S/UI+lSAyY/URSSzuIyqtn5rP9rpkp3ICq1mj/qCt5NW4XJttuAxk5?=
- =?us-ascii?Q?Zvk2CMza16unVSVo1TyKUIZu1EsboKZbVWYhMiSmImJ8jjAOQtvRQpPJ1ui8?=
- =?us-ascii?Q?NlZIondmD/a3MSqn7TJ/gLzbzsCU6E1koTLivaRHgujyWQeellLRuqN/hIo9?=
- =?us-ascii?Q?cXAfdM9SY+A0GRtb8YkGxhOTYmh88v+zWpc5WUXKPw59rdwaMeKtOF2r1kcS?=
- =?us-ascii?Q?rHzFUghr6moge5MO/EWcDOKNznI56i9V5N3vyw3IXIVOmCqfJwa88v9URlq0?=
- =?us-ascii?Q?2P+CLmVZ4xFqE7JS2B0t3ohH6fTaf/LE42LXAAaVTFAzjG+c5SJCSsz15PhP?=
- =?us-ascii?Q?6RdiqzITgpqRSSn0pTwDHAXhlfReGhgtoQAcsW/I8Xf3/ksKknbYC1cnaYY2?=
- =?us-ascii?Q?YnspLboUP3M+MEreLgFmL4dvVMAX85rlvIt8/EtaJCYmZS7hb2TQksFNyipr?=
- =?us-ascii?Q?Xvn+r4rZGgpoi5b72o4WoEuFKP4wrIXbMxVu2syJ6qahkokMUshJbRkpMwSq?=
- =?us-ascii?Q?G7H2EX0dRhjZcVYpVUW3zHNHoOu3ToIDqidwn5GJ9+HVDNeo94G5P3lWVjTp?=
- =?us-ascii?Q?np2QPHmIJ0rcI9crw5y3ek1lve01YrIT/xSgPYOuIP932+irRH+0y7VX20fs?=
- =?us-ascii?Q?v8vi7lvUjLAmT8S3eJ6eKhmf?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from DM4PR12MB5040.namprd12.prod.outlook.com (2603:10b6:5:38b::19)
+ by DM4PR12MB5263.namprd12.prod.outlook.com (2603:10b6:5:39b::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.19; Tue, 24 Aug
+ 2021 09:45:39 +0000
+Received: from DM4PR12MB5040.namprd12.prod.outlook.com
+ ([fe80::946e:7191:34a2:9850]) by DM4PR12MB5040.namprd12.prod.outlook.com
+ ([fe80::946e:7191:34a2:9850%9]) with mapi id 15.20.4436.025; Tue, 24 Aug 2021
+ 09:45:39 +0000
+Subject: Re: [PATCH 1/5] drm/sched:add new priority level
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Satyajit Sahu <satyajit.sahu@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: leo.liu@amd.com, Alexander.Deucher@amd.com, nirmoy.das@amd.com
+References: <20210824055510.1189185-1-satyajit.sahu@amd.com>
+ <66607af7-5310-629f-1851-df4b74cebf7d@amd.com>
+ <53fb0d0b-e9c3-3a79-9b17-87e4297737bb@amd.com>
+ <2952fe71-5948-de45-728f-5a606a8e9abe@amd.com>
+From: "Sharma, Shashank" <shashank.sharma@amd.com>
+Message-ID: <55f8f164-ece6-1e8f-1c8d-54cc47cf8bc0@amd.com>
+Date: Tue, 24 Aug 2021 15:15:25 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
+In-Reply-To: <2952fe71-5948-de45-728f-5a606a8e9abe@amd.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN1PR0101CA0020.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c00:e::30) To DM4PR12MB5040.namprd12.prod.outlook.com
+ (2603:10b6:5:38b::19)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [10.252.89.110] (165.204.159.242) by
+ PN1PR0101CA0020.INDPRD01.PROD.OUTLOOK.COM (2603:1096:c00:e::30) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.17 via Frontend
+ Transport; Tue, 24 Aug 2021 09:45:35 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: d11ca8ca-44c9-4cf9-27a0-08d966e3ee49
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5263:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM4PR12MB5263B09455199BC860912D89F2C59@DM4PR12MB5263.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 96sSdQAoFKox8uSTAAME+gjahdLY3yIVpgIkPjk3RrBoRHkk8lylv+ibt9Gf51S6pYXjgFpTCqzIrgqeIgEQk7nd/sfdAbWBFls8WBiYX+U1ShCFBA/RpniG+djfquWIfwkGIg6yzV1wFD+beeId6mTqbOe8cRvg3p87TRM2Nn98VhOe0Diskcz8uVo4KGnCDnF4x9yb0sguWK8ZV3QmrfI+DMhmJSUw5gIXGl3gt5v+0WedC6axh6jvTelUjmVJciDR+jGtHmt1R4dQ0h6a0E70EseUbd/cFmuDmISk1BsGa9t8us59FKanfYlaxZaP2Ix0lrZu3QYEx+vctkCRsDpDdpoxIioFNG5et6mAwCL22UMfesGR9qPnH/tdn79NST6s+80NPMhNOP2vpuW2aV0Kj/f7uRkiZ6ukwYc2i7II9BMEgb/x+smrTuG+ygzPXM1x3HigsfskdwI/kQLnx6ATXU1MTMbJK8oWhdlQPPL39y4bU1CNEO31XbQFGvjAI2eF1PWkzR2cAqQnTLoBZfF5MqQIk/7B0UGDtF7PouFpn54F6fPTLL+MRN5TInZseYsAm0NDBnsyASQgz1oaCYkiOEsbeDcQ0XAkCXFW00IVk86l6+H6kb+Ngd0LTgkH8N1sgXsOaCgzZoelYEY/nX7vgbTFfzZca8CXLDTT2ZP9nL5SHLGZW4Sp/rKrkWKtaiw9uxTx6OplKNCPqzD/lv9n+KoBH1nJaQBejaStCFbejA8kuQGdVbAdjr68Gl9A
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5040.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(376002)(366004)(346002)(136003)(396003)(39860400002)(36756003)(8936002)(16576012)(31686004)(316002)(5660300002)(2616005)(53546011)(66556008)(186003)(956004)(66476007)(6486002)(38100700002)(31696002)(8676002)(66946007)(110136005)(478600001)(6666004)(86362001)(4326008)(83380400001)(2906002)(26005)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TzRMUmE0aSsvN2R1RWh4aEE2ZlZqNG9HaHRhQWk1WTZhZE14YmZSTzZBaUtn?=
+ =?utf-8?B?NCt3Z3BKbnNWNHVkK3FERUhuUG5LR3dUeDZyOWNZdGp4V2RxK24xbG5VM0JH?=
+ =?utf-8?B?QkcwaVpmY2hLOWJ3VW95cVlwT05ZU2h4ck9pZ1ZxYUlneExTTHlvaDR3WlpC?=
+ =?utf-8?B?VFdrbjF1MW9oS3VKK2xDYjlhdW1tRVFONGhnNEFCTFN2VTUzMGtiQkxSOXFv?=
+ =?utf-8?B?TW84TDNmSDZJOWpTYlJrVDY2bEVDMlZnTC9ST29sOXJzYks4UUZjNDdxUFVW?=
+ =?utf-8?B?aHNrWkg0ZjUza2V0eDFWS3dxdCtZclZrQWh6M0RoOVJxcHN6ZlAydkQza29O?=
+ =?utf-8?B?MUtvbmdtSkI0UjVjRTZ1Q1huMXo0NkI0bmppZ0NMRXZUb1VTUm1rVFVuU2Jh?=
+ =?utf-8?B?WXRTcm0za2ovRDliS0c1S2d6alM3YzZzdytnYXFhTWQ3cHhIc3ZrQytBMStI?=
+ =?utf-8?B?bXpMWFliaCs5RFMwSkg4VEhIMVpnZjVhSlFQSmtlYzdjTm1kWVBpa01Kb2F2?=
+ =?utf-8?B?UHdWRStoU3Uyb0VrQWdwT2ZYSkhXQkpTQ3FDRnZUeGxHaFFtdUMrNW5VNGgr?=
+ =?utf-8?B?WGtHazhNMHFNcXN6VzZNS2FwM3pyTWNrMHBsVm1sMWdNdTM3cDFsOGRFS2da?=
+ =?utf-8?B?YmFrSGNsUy9CcHBuVllFQWZ6MTZxNENLMkljRnhPOXpKM0tBeU83Qm1zRG9P?=
+ =?utf-8?B?R1JNV1BJM0VYVVo4cWh4QU4zTUhJLzBrdFB0a0UzUkptMmdGck1ZK2MxWlkz?=
+ =?utf-8?B?eUpTQXdENEVqemZicmljRjRxVWV4VURTYU5uQXlRV09EVDlGT1FlUVlPNzlu?=
+ =?utf-8?B?NGJyWTFFbmllQ1ZSOHQ3VVROb29aK3A1Ri9BRWlQRVZFaXlLUDFKQWZRRUwr?=
+ =?utf-8?B?b2hRWk4rYlNGcm1XVmVOSU1FVWdUMnBUaURiWldES21STDlJTllyM3BQTThO?=
+ =?utf-8?B?cmdqcFdtV3FZdU5LeFpQcTBUK1RTUWx6a0xmV1lPM0JiNTNlT3o5OHBjcXJN?=
+ =?utf-8?B?V2J1Y3E5Uk9TdDNhZVNSY3Q3Y2pNUnQzWnNBbjNFaWhDNk1rbG1PUDdKZ3pr?=
+ =?utf-8?B?WFVxNkwxUVFuZmhRa2x0VGxoVFlUaUN2YWVYOGp5cXpkUGZJNFRMU01FVGlr?=
+ =?utf-8?B?OFBKcWNsTW1mQzhBbFQwTVVWb3NZRDU3VFBxVlZFVnNkK3BRTlJHZ1U0TklX?=
+ =?utf-8?B?aDVtTi93bjB4OU5ZUG1LYWNTdms1RzRzVXMrOFlURzkwblFMSDlONCs1Y2FF?=
+ =?utf-8?B?S0NGYmE3MW0wbjFCUE1odm9Zbm0xZ1FXVXFVdnNPY29qV2RtTWhqTHBZM0lZ?=
+ =?utf-8?B?WE1KUU9VclJWQlNDOUg5SHNFMXdEK3JXVDN5TzhRam15TzVJNEVmd3Rqblp2?=
+ =?utf-8?B?cmZWNzRWRjJXZGloZGhzQzFFRm00NVE5SlkvaXdlYkhvUmF6THBMd3ZRdW5x?=
+ =?utf-8?B?cXBuRU9QTjlaS3ZKNnVvMThESGlIMDBYaXhsb1ZyTHpaVzJxb21qSDM1eTcx?=
+ =?utf-8?B?MEl3V2tQQVM3NGdkMWxlL2VYMWFNczBIWm9NOUw1KzZaQlBCdjlZRkpTYVk4?=
+ =?utf-8?B?SHQ5Sjd0OFB2WFdGbGtsU0hBOW9nWEJqMjNiQXcvNmhDQWdzMFgvRjZmMXAy?=
+ =?utf-8?B?emd0cGkwNzNWckhjZTByU292NDlYNDdWQVNWVktibVpvVC8rbXBLSUtaTHhP?=
+ =?utf-8?B?b0MrVlRmenl4WUtYMUNhZ09kdHc2WGVJQmw3SU5QQTVjQ0pDa3VpRW9WMHVY?=
+ =?utf-8?Q?8d7htlp1K2eXWIDZd2TiVZlp36j9IA3qbNhLQp1?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d11ca8ca-44c9-4cf9-27a0-08d966e3ee49
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5040.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9a282be3-8ec8-43d7-7ee6-08d966df0e4a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Aug 2021 09:10:44.7344 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: r5ZDBo2PU4HaRNq8tqbn9eQ8cGI25MV7qRNMYagSQ52+8MxWmy2kqF6WBxYkKQmhZxyfCLlDvbiNoWin8eYKvw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5243
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2021 09:45:39.2151 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1GNuqJZRu2d+DIop4+SwyhfYKH1ET13qna6XYtLA9xAExfPiC24xhDFUnFPnyHMvF1dxuiivB4MiA/8csCjBRQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5263
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,128 +146,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only]
 
-How about we add a new member in ras context (amdgpu_ras) to indicate the p=
-oison consumption handling mode/approach? In such way, we can initialize th=
-at member per ASIC.
 
-Regards,
-Hawking
+On 8/24/2021 2:25 PM, Christian König wrote:
+> Nope that are two completely different things.
+> 
+> The DRM_SCHED_PRIORITY_* exposes a functionality of the software 
+> scheduler. E.g. we try to serve kernel queues first and if those are 
+> empty we use high priority etc....
+> 
+> But that functionality is completely independent from the hardware 
+> priority handling. In other words you can different hardware queues with 
+> priorities as well and each of them is served by a software scheduler.
+> 
+> In other words imagine the following setup: Two hardware queues, one 
+> normal and one low latency. Each hardware queue is then feed by a 
+> software scheduler with the priorities low,normal,high,kernel.
+> 
+> This configuration then gives you 8 different priorities to use.
+> 
 
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Zhang, H=
-awking
-Sent: Tuesday, August 24, 2021 17:04
-To: Zhou1, Tao <Tao.Zhou1@amd.com>; amd-gfx@lists.freedesktop.org; Yang, St=
-anley <Stanley.Yang@amd.com>; Clements, John <John.Clements@amd.com>; Kuehl=
-ing, Felix <Felix.Kuehling@amd.com>
-Subject: RE: [PATCH] amd/amdkfd: add ras page retirement handling for sq/sd=
-ma interrupt
+Thanks for the details, I was under quite a different impression, this 
+explanation helps.
 
-[AMD Official Use Only]
+I guess this also means that the HW queues are completely left to be 
+managed by the core driver (Like AMDGPU or I915 etc) as of now, and the 
+DRM framework only provides SW schedulers ?
 
-Hi Tao,
+Does this suggest a scope of a common framework or abstraction layer for 
+HW queues in DRM ? Most of the architectures/HW will atleast have a 
+NORMAL and a higher priority work queue, and their drivers might be 
+handling them in very similar ways.
 
-This will break mode 2 reset solution, right? But we have to keep mode 2 re=
-set solution as the default one for now. I think we need a new interface to=
- allow KFD switch between unmap_queue and mode 2 reset solution
+- Shashank
 
-Regards,
-Hawking
-
------Original Message-----
-From: Zhou1, Tao <Tao.Zhou1@amd.com>=20
-Sent: Tuesday, August 24, 2021 16:43
-To: amd-gfx@lists.freedesktop.org; Zhang, Hawking <Hawking.Zhang@amd.com>; =
-Yang, Stanley <Stanley.Yang@amd.com>; Clements, John <John.Clements@amd.com=
->; Kuehling, Felix <Felix.Kuehling@amd.com>
-Cc: Zhou1, Tao <Tao.Zhou1@amd.com>
-Subject: [PATCH] amd/amdkfd: add ras page retirement handling for sq/sdma i=
-nterrupt
-
-In ras poison mode, page retirement will be handled by the irq handler of t=
-he module which consumes corrupted data.
-
-Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
----
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c    | 13 ++++++++++++-
- drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c     | 10 ++++++++--
- drivers/gpu/drm/amd/include/kgd_kfd_interface.h     |  1 +
- 3 files changed, 21 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c b/drivers=
-/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
-index 46cd4ee6bafb..eb5e9c1b1073 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
-@@ -23,6 +23,16 @@
- #include "amdgpu_amdkfd.h"
- #include "amdgpu_amdkfd_arcturus.h"
- #include "amdgpu_amdkfd_gfx_v9.h"
-+#include "amdgpu_ras.h"
-+#include "amdgpu_umc.h"
-+
-+int kgd_aldebaran_ras_process_cb(struct kgd_dev *kgd) {
-+	struct amdgpu_device *adev =3D (struct amdgpu_device *)kgd;
-+	struct ras_err_data err_data =3D {0, 0, 0, NULL};
-+
-+	return amdgpu_umc_process_ras_data_cb(adev, &err_data, NULL); }
-=20
- const struct kfd2kgd_calls aldebaran_kfd2kgd =3D {
- 	.program_sh_mem_settings =3D kgd_gfx_v9_program_sh_mem_settings,
-@@ -44,5 +54,6 @@ const struct kfd2kgd_calls aldebaran_kfd2kgd =3D {
- 	.get_atc_vmid_pasid_mapping_info =3D
- 				kgd_gfx_v9_get_atc_vmid_pasid_mapping_info,
- 	.set_vm_context_page_table_base =3D kgd_gfx_v9_set_vm_context_page_table_=
-base,
--	.program_trap_handler_settings =3D kgd_gfx_v9_program_trap_handler_settin=
-gs
-+	.program_trap_handler_settings =3D kgd_gfx_v9_program_trap_handler_settin=
-gs,
-+	.ras_process_cb =3D kgd_aldebaran_ras_process_cb
- };
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c b/drivers/gpu/=
-drm/amd/amdkfd/kfd_int_process_v9.c
-index 12d91e53556c..851b5120927a 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-@@ -231,7 +231,10 @@ static void event_interrupt_wq_v9(struct kfd_dev *dev,
- 				if (sq_intr_err !=3D SQ_INTERRUPT_ERROR_TYPE_ILLEGAL_INST &&
- 					sq_intr_err !=3D SQ_INTERRUPT_ERROR_TYPE_MEMVIOL) {
- 					kfd_signal_poison_consumed_event(dev, pasid);
--					amdgpu_amdkfd_gpu_reset(dev->kgd);
-+					if (dev->kfd2kgd->ras_process_cb)
-+						dev->kfd2kgd->ras_process_cb(dev->kgd);
-+					else
-+						amdgpu_amdkfd_gpu_reset(dev->kgd);
- 					return;
- 				}
- 				break;
-@@ -253,7 +256,10 @@ static void event_interrupt_wq_v9(struct kfd_dev *dev,
- 			kfd_signal_event_interrupt(pasid, context_id0 & 0xfffffff, 28);
- 		} else if (source_id =3D=3D SOC15_INTSRC_SDMA_ECC) {
- 			kfd_signal_poison_consumed_event(dev, pasid);
--			amdgpu_amdkfd_gpu_reset(dev->kgd);
-+			if (dev->kfd2kgd->ras_process_cb)
-+				dev->kfd2kgd->ras_process_cb(dev->kgd);
-+			else
-+				amdgpu_amdkfd_gpu_reset(dev->kgd);
- 			return;
- 		}
- 	} else if (client_id =3D=3D SOC15_IH_CLIENTID_VMC || diff --git a/drivers=
-/gpu/drm/amd/include/kgd_kfd_interface.h b/drivers/gpu/drm/amd/include/kgd_=
-kfd_interface.h
-index c84bd7b2cf59..9e6525871ad4 100644
---- a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
-+++ b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
-@@ -301,6 +301,7 @@ struct kfd2kgd_calls {
- 			int *max_waves_per_cu);
- 	void (*program_trap_handler_settings)(struct kgd_dev *kgd,
- 			uint32_t vmid, uint64_t tba_addr, uint64_t tma_addr);
-+	int (*ras_process_cb)(struct kgd_dev *kgd);
- };
-=20
- #endif	/* KGD_KFD_INTERFACE_H_INCLUDED */
---
-2.17.1
+> Regards,
+> Christian.
+> 
+> Am 24.08.21 um 10:32 schrieb Sharma, Shashank:
+>> Hi Christian,
+>> I am a bit curious here.
+>>
+>> I thought it would be a good idea to add a new SW priority level, so 
+>> that any other driver can also utilize this SW infrastructure.
+>>
+>> So it could be like, if you have a HW which matches with SW priority 
+>> levels, directly map your HW queue to the SW priority level, like:
+>>
+>> DRM_SCHED_PRIORITY_VERY_HIGH: mapped to a queue in HW reserved for 
+>> real time or very high priority tasks, which can't be missed
+>>
+>> DRM_SCHED_PRIORITY_HIGH : mapped to a queue of High priority tasks, 
+>> for better experience, like encode/decode operations.
+>>
+>> DRM_SCHED_PRIORITY_NORMAL: default, mapped to a queue of tasks without 
+>> a priority context specified
+>>
+>> DRM_SCHED_PRIORITY_MIN: queue for specifically mentioned low priority 
+>> tasks
+>>
+>> Depending on the HW we are running on, we can map these SW queues to 
+>> corresponding HW queues, isn't it ?
+>>
+>> Regards
+>> Shashank
+>>
+>> On 8/24/2021 11:40 AM, Christian König wrote:
+>>> I haven't followed the previous discussion, but that looks like this 
+>>> change is based on a misunderstanding.
+>>>
+>>> Those here are the software priorities used in the scheduler, but 
+>>> what you are working on are the hardware priorities.
+>>>
+>>> That are two completely different things which we shouldn't mix up.
+>>>
+>>> Regards,
+>>> Christian.
+>>>
+>>> Am 24.08.21 um 07:55 schrieb Satyajit Sahu:
+>>>> Adding a new priority level DRM_SCHED_PRIORITY_VERY_HIGH
+>>>>
+>>>> Signed-off-by: Satyajit Sahu <satyajit.sahu@amd.com>
+>>>> ---
+>>>>   include/drm/gpu_scheduler.h | 1 +
+>>>>   1 file changed, 1 insertion(+)
+>>>>
+>>>> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+>>>> index d18af49fd009..d0e5e234da5f 100644
+>>>> --- a/include/drm/gpu_scheduler.h
+>>>> +++ b/include/drm/gpu_scheduler.h
+>>>> @@ -40,6 +40,7 @@ enum drm_sched_priority {
+>>>>       DRM_SCHED_PRIORITY_MIN,
+>>>>       DRM_SCHED_PRIORITY_NORMAL,
+>>>>       DRM_SCHED_PRIORITY_HIGH,
+>>>> +    DRM_SCHED_PRIORITY_VERY_HIGH,
+>>>>       DRM_SCHED_PRIORITY_KERNEL,
+>>>>       DRM_SCHED_PRIORITY_COUNT,
+>>>
+> 
