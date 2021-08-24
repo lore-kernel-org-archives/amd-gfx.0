@@ -7,50 +7,48 @@ X-Spam-Status: No, score=-18.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1CDDEC4338F
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Aug 2021 19:22:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 689BCC4338F
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Aug 2021 19:22:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DE60C61163
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Aug 2021 19:22:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DE60C61163
+	by mail.kernel.org (Postfix) with ESMTPS id 2425B6113A
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Aug 2021 19:22:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2425B6113A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81C936E0BC;
-	Tue, 24 Aug 2021 19:22:09 +0000 (UTC)
-X-Greylist: delayed 865 seconds by postgrey-1.36 at gabe;
- Tue, 24 Aug 2021 19:22:06 UTC
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com (unknown
- [40.107.212.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64D3389A9F
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Aug 2021 19:22:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D4376E0DA;
+	Tue, 24 Aug 2021 19:22:37 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com (unknown
+ [40.107.223.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EEFFA6E0BE
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Aug 2021 19:22:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mWZPCZ+foUIWjFkvWdRatQcNtrRsQW3oUYLQ5Z17C1EAiJ/Iy2ocO86Pvijq6nR01unDu0HAiT7tmsK5k0KW79kT19laSLKpNTFtIqv+hxh74kBnCh5bbcDKO9UoMGAI8XvHanaczGt8ODBe3IEycwfCJg+lK6CW0G/NINxwMZhjTL+JSpG2EWVMnjr9QWEhwFcYYYv0ttu7B6fMpqtLMrqEeNga0tSDnhv6C2S7Ei9eilCev9p9ahmnG9ALvTf1z3+3GssOBSavZqeamPRdclDHVzQrSOklEglhlhLu8TKcTGXC32AfdFJlFe4d1NWO6UKxEmYyFVWF2nqiysCOPw==
+ b=Z3h/2JOYXQbXwiQaUvSQa61v975aAvuuD/XGugjayOoxZpSsHSOTBkbjCNK9Nq8wT8H4e1x4w0Oyav9dnUZ1HWYoA+su3ZUO2Zis8EHKgvps22a5YeV0zf3wEDLE+9ecc0PK8cutNUnlH4gn/Vr8/hfgkcOBvmnyvlUDLgNR1GUs5CZCtE8x09Jxiq68hONmVHu7d5UYVxP5fWCWoVAYnANNZogaC6y1IAlB13Q3T63V6/hG4ygy7cw1Vxgpa2x44JPGhebHALV74xPoQVujVHligABIg4AcRtbiTKrqxtioBSqYtOV0O95I/qvBysvZDULDVPShWQPjeGnUvVTJVg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jjwBk71/oDSX3HWqVHOCb7Xgy58BIRmAh0+FBQCF+iA=;
- b=fGK8DrzknYPd7oS8jFKpqRL6Y2uspcV0RMspVIywOneC+pDQnn8RxCXeYOM2uHIdCZIxwBhdkNZ1flC8PxdpdjRhRXB0Yc2Au7mErsnlAZTTG5n3eiy80CHHKhm/3e8w4CIDZc1HlDYO0ucL/k4Lbqnj9XkEhkTuXU3Z3QqDXwARwzSkhqbSV3cFeU7Q3Hsjl4/VZcc6Aq7ACaYQPcHsVl/tE3qEO2rNJy4u0AsgWgUfYagwyfl+I0XRMcnb4gOiblq4xfUyRVaoKT5Q+bGKlYXB6nn2ouoRKLSzZomwPar52NBZsalDTcE/osb7W2yIKf4E8m+F8KyLPLYSvj7cyw==
+ bh=9LfSiAREVMcIa8Pl0QMUoPPLFcm/VCmSRTWMlkx8buk=;
+ b=kKufo02+jUcYAchzNN0VZ574YGeIzBZ5W3AJzC6t/u5TAnm2s/mIyHxUIMOd6yZCbWi1AhfUPv3YrwjOvVy6JiCFmpNx6YVgnmpleHnREJn2C+S2AjVxLqz1c/C6UIDXhut48uj+eIok0ddjhZT7VQnEN+uk3fC7qHf0d1GqN6hpKy3oksKO2GN/qxC/LMy5oDDUYAV4zE4W7DNCrCZ2UG/M7vCCcAz+dnJg33uXil/4nVO0hsebUfdhqCBTBTP9iwn9oR/AgQJbyI4fLMjG23MI6B6v8OYAjGXyt688MMkCEt5yGfpZG/VfX3eQl9TdOuOpBr5Yf/GtLMq+7ScgHw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jjwBk71/oDSX3HWqVHOCb7Xgy58BIRmAh0+FBQCF+iA=;
- b=jL53G7ilfj8+DA6eMyF98MDAzK0fPfDVBNzUY0XK6jWd3p4cb2NzvtvHCA9/rlmu8vYzBZtujNb6xxwLpHzh3WNtlWWpyXgThoQjH1CxipnWypzOgqt4LEr9o1ZP3eT4EBxBmzNjVwi80OuZQMc1+72kosGmcGXkL0IoGlleYNQ=
-Received: from DM6PR13CA0004.namprd13.prod.outlook.com (2603:10b6:5:bc::17) by
- BN6PR12MB1505.namprd12.prod.outlook.com (2603:10b6:405:5::20) with
+ bh=9LfSiAREVMcIa8Pl0QMUoPPLFcm/VCmSRTWMlkx8buk=;
+ b=mnom7wOF8BzrfhkELtrFTtGAMUvqmpTcBtuR3O9N9RAXJdADwZ7HXObazKIrQ5xDzDrh3tYkkdeuvE/WIyDutgUieSAAM0JHKFa5wy3o8FNiDXxochulkPidW3fZOTjE+B9ZfEhfDt1TU0FPsaBKvD1ici+FjErcNu47TSTkirs=
+Received: from DM5PR15CA0034.namprd15.prod.outlook.com (2603:10b6:4:4b::20) by
+ SN6PR12MB2671.namprd12.prod.outlook.com (2603:10b6:805:75::15) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4436.21; Tue, 24 Aug 2021 19:07:35 +0000
-Received: from DM6NAM11FT011.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:bc:cafe::51) by DM6PR13CA0004.outlook.office365.com
- (2603:10b6:5:bc::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.6 via Frontend
- Transport; Tue, 24 Aug 2021 19:07:35 +0000
+ 15.20.4436.19; Tue, 24 Aug 2021 19:07:40 +0000
+Received: from DM6NAM11FT036.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:4:4b:cafe::be) by DM5PR15CA0034.outlook.office365.com
+ (2603:10b6:4:4b::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.19 via Frontend
+ Transport; Tue, 24 Aug 2021 19:07:40 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -59,20 +57,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT011.mail.protection.outlook.com (10.13.172.108) with Microsoft SMTP
+ DM6NAM11FT036.mail.protection.outlook.com (10.13.172.64) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4436.19 via Frontend Transport; Tue, 24 Aug 2021 19:07:34 +0000
+ 15.20.4436.19 via Frontend Transport; Tue, 24 Aug 2021 19:07:39 +0000
 Received: from dayatsin-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Tue, 24 Aug
- 2021 14:07:31 -0500
+ 2021 14:07:35 -0500
 From: David Yat Sin <david.yatsin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <felix.kuehling@amd.com>, <rajneesh.bhardwaj@amd.com>, David Yat Sin
  <david.yatsin@amd.com>
-Subject: [PATCH v2 04/18] drm/amdkfd: CRIU Implement KFD process_info ioctl
-Date: Tue, 24 Aug 2021 15:06:25 -0400
-Message-ID: <20210824190639.6288-5-david.yatsin@amd.com>
+Subject: [PATCH v2 12/18] drm/amdkfd: CRIU restore queue doorbell id
+Date: Tue, 24 Aug 2021 15:06:33 -0400
+Message-ID: <20210824190639.6288-13-david.yatsin@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210824190639.6288-1-david.yatsin@amd.com>
 References: <20210824190639.6288-1-david.yatsin@amd.com>
@@ -83,28 +81,28 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ad020150-c736-4c78-3a1f-08d967326e81
-X-MS-TrafficTypeDiagnostic: BN6PR12MB1505:
-X-Microsoft-Antispam-PRVS: <BN6PR12MB15053E292D342335C478C56895C59@BN6PR12MB1505.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:813;
+X-MS-Office365-Filtering-Correlation-Id: fbc22614-c071-4462-ce4c-08d967327149
+X-MS-TrafficTypeDiagnostic: SN6PR12MB2671:
+X-Microsoft-Antispam-PRVS: <SN6PR12MB26712403E1E90B8F0357EE0C95C59@SN6PR12MB2671.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3044;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: zi70+JDERWvThqzgBR0b2810k4lKmhAy/5P6ohVD91FIwBuNzaftHv+uTzgEV88mtOUgPe9m5PKFQczdgiUb/YMMSm5BMQl3thk3zVernnd+WLTnMwYCUQ3m9y4CkxeuNgu/IeiDKe8jXdmm5qwyM+ASVrqoLA2enpF/+riL6rQTm0yfFulAJJyZKD7viO5j+NFnvhw8ibZGFaIEh8whXE8ee9c/A71xzsAsZ91wULCJmmLeVCax4UkYt135SeEc3ylTDgDCuENHVYMRzXOcP/ppKhgz+WKwa9fQgxdUan7n4NV4sQMX5ZUfNf9CkGQtjmN3EDLT0fJ7n6pDgDpOgJfilVlGWjJEFA1en3Ns825FscxT0yOs9MXhR4+bpxhcVh0qW3FmSYs/J72WZiQP2WvXR2jYA/Zkfn+mlgzFPW8A9fJ+nwXRVg/ObGn117K8/++1PmlV0MjXzfwKovw63J3wZ1S8eJxpr2i8gt+RFLygo+sYuxjrFJzkRS3kloetjw6FC+SLYEowUwqjJrqn+QQb0Jpugx973hfhi4oviQsEHvtu21qFPPClpqxK3F1+iTIXUn3xezSXw9xPdlOHnkd+I5Pz6INZCyDvHeInSlYu4EjrwMWD3AcxykidGIznGAnCxWlsBRsQZJW7mMEaeUJ0DyyVAxjIlnXaI1kEFpFPb8fk3ID7nuPE2Jy35KrJqOaaqtTwjTbmaj/3HzlvhRHt9D70ealQHdZ6H58kWeY=
+X-Microsoft-Antispam-Message-Info: xOtg1coMhybDKnRYYSZO9wbglthRu6QCiuqEiD3kfKnvR43K+byoO2d4HRS7Ld6CPB1VA5ZNPKAK+ztZLRH1tZn56ONzRUxvWOP+SAC+VQRbmLSvtfvqptVOARex6gD41Ye8/Dy+3pcDoi/bROZEL0KqbR55CmrAEN51WZ7q+UrIXrmb9aSAl7Njb8FolsXRWlXDGybBlNhrHyhQu8A+TWHGQq0asj4wpAT0FPZLZvRpEyZqxQa+DYQQa7pVC+frw5+pGyL00i6lsIWjkw3+lJT5O7z3ylCPHx5nfEihvoLgRxQ8/v2Uy0RGGpjejpXNYQL45D+NeyNZtkm4JEC5TKeD+qRxazE65SYzKm9F/DLL0HD4czsToogdmhHPk7r7DqebvdXPihOVoTrWkfgfWGxgkoEFpucHR9ajJRVfTTPjZP/SSEsCJvp5lgLFMBUhdquxk32NWGTPBnL6kNZpThnoGbEkJnZhIQTjV3tH4izgsr/x2CMcCVvFc5dhuKuItRhX4jge6mZ6e4xnDxKesSTsHsehjUg2G/5p6GZg1XTvQJjenUISxeZi8D5yZOz+uPQ9hfjvBXSb5r5KJYu1NHxwiHB8DOj057bQVsKEl2ICYGhU7B+F2QD6TBgn1CPA8zEpS63TNTQ9QCzdJoO8Tay4toSJ2BCcT47VrawI0M8L8WAJqUE0xz5NrFYSuy0AYzoEOCRk9wtr44s+34xA997vbBkFnAEObJcblXA4us8=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(136003)(376002)(396003)(39860400002)(346002)(36840700001)(46966006)(4326008)(7696005)(6916009)(86362001)(186003)(47076005)(82310400003)(36860700001)(83380400001)(16526019)(336012)(6666004)(8676002)(1076003)(26005)(478600001)(426003)(70206006)(82740400003)(70586007)(8936002)(54906003)(316002)(36756003)(2616005)(81166007)(2906002)(5660300002)(356005)(36900700001);
+ SFS:(4636009)(136003)(396003)(346002)(39860400002)(376002)(46966006)(36840700001)(54906003)(1076003)(6916009)(426003)(82740400003)(47076005)(36756003)(4326008)(16526019)(26005)(70586007)(82310400003)(356005)(70206006)(478600001)(2906002)(8676002)(36860700001)(316002)(8936002)(86362001)(336012)(7696005)(186003)(2616005)(83380400001)(81166007)(5660300002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2021 19:07:34.8564 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ad020150-c736-4c78-3a1f-08d967326e81
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2021 19:07:39.5364 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fbc22614-c071-4462-ce4c-08d967327149
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT011.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT036.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1505
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB2671
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,133 +117,124 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
+When re-creating queues during CRIU restore, restore the queue with the
+same doorbell id value used during CRIU dump.
 
-This IOCTL is expected to be called as a precursor to the actual
-Checkpoint operation. This does the basic discovery into the target
-process seized by CRIU and relays the information to the userspace that
-utilizes it to start the Checkpoint operation via another dedicated
-IOCTL.
-
-The process_info IOCTL determines the number of GPUs, buffer objects that
-are associated with the target process, its process id in caller's
-namespace since /proc/pid/mem interface maybe used to drain the contents of
-the discovered buffer objects in userspace and getpid returns the pid of
-CRIU dumper process. Also the pid of a process inside a container might
-be different than its global pid so return the ns pid.
-
-Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
-(cherry picked from commit b2fa92d0a8f1de51013cd6742b4996b38c285ffc)
-(cherry picked from commit 8b44c466ce53162603cd8ae49624462902541a47)
 Signed-off-by: David Yat Sin <david.yatsin@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 44 +++++++++++++++++++++++-
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |  2 ++
- drivers/gpu/drm/amd/amdkfd/kfd_process.c | 14 ++++++++
- 3 files changed, 59 insertions(+), 1 deletion(-)
+ .../drm/amd/amdkfd/kfd_device_queue_manager.c | 61 +++++++++++++------
+ 1 file changed, 41 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index a1b60d29aae1..09e2d30515e2 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -1803,6 +1803,27 @@ static int kfd_ioctl_svm(struct file *filep, struct kfd_process *p, void *data)
- 	return -EPERM;
- }
- #endif
-+
-+uint64_t get_process_num_bos(struct kfd_process *p)
-+{
-+	uint64_t num_of_bos = 0, i;
-+
-+	/* Run over all PDDs of the process */
-+	for (i = 0; i < p->n_pdds; i++) {
-+		struct kfd_process_device *pdd = p->pdds[i];
-+		void *mem;
-+		int id;
-+
-+		idr_for_each_entry(&pdd->alloc_idr, mem, id) {
-+			struct kgd_mem *kgd_mem = (struct kgd_mem *)mem;
-+
-+			if ((uint64_t)kgd_mem->va > pdd->gpuvm_base)
-+				num_of_bos++;
-+		}
-+	}
-+	return num_of_bos;
-+}
-+
- static int kfd_ioctl_criu_dumper(struct file *filep,
- 				struct kfd_process *p, void *data)
- {
-@@ -1837,9 +1858,30 @@ static int kfd_ioctl_criu_resume(struct file *filep,
- static int kfd_ioctl_criu_process_info(struct file *filep,
- 				struct kfd_process *p, void *data)
- {
-+	struct kfd_ioctl_criu_process_info_args *args = data;
-+	int ret = 0;
-+
- 	pr_debug("Inside %s\n", __func__);
-+	mutex_lock(&p->mutex);
- 
--	return 0;
-+	if (!kfd_has_process_device_data(p)) {
-+		pr_err("No pdd for given process\n");
-+		ret = -ENODEV;
-+		goto err_unlock;
-+	}
-+
-+	args->task_pid = task_pid_nr_ns(p->lead_thread,
-+					task_active_pid_ns(p->lead_thread));
-+
-+	args->process_priv_data_size = sizeof(struct kfd_criu_process_priv_data);
-+
-+	args->total_bos = get_process_num_bos(p);
-+	args->bos_priv_data_size = args->total_bos * sizeof(struct kfd_criu_bo_priv_data);
-+
-+	dev_dbg(kfd_device, "Num of bos:%llu\n", args->total_bos);
-+err_unlock:
-+	mutex_unlock(&p->mutex);
-+	return ret;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index 677f94e93218..5c268c7726d2 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -153,7 +153,13 @@ static void decrement_queue_count(struct device_queue_manager *dqm,
+ 		dqm->active_cp_queue_count--;
  }
  
- #define AMDKFD_IOCTL_DEF(ioctl, _func, _flags) \
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 768cc3fe95d2..4e390006b4b6 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -932,6 +932,8 @@ void *kfd_process_device_translate_handle(struct kfd_process_device *p,
- void kfd_process_device_remove_obj_handle(struct kfd_process_device *pdd,
- 					int handle);
- 
-+bool kfd_has_process_device_data(struct kfd_process *p);
-+
- /* PASIDs */
- int kfd_pasid_init(void);
- void kfd_pasid_exit(void);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index 9d4f527bda7c..bc133c3789d8 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -1359,6 +1359,20 @@ static int init_doorbell_bitmap(struct qcm_process_device *qpd,
- 	return 0;
- }
- 
-+bool kfd_has_process_device_data(struct kfd_process *p)
-+{
-+	int i;
-+
-+	for (i = 0; i < p->n_pdds; i++) {
-+		struct kfd_process_device *pdd = p->pdds[i];
-+
-+		if (pdd)
-+			return true;
-+	}
-+
-+	return false;
-+}
-+
- struct kfd_process_device *kfd_get_process_device_data(struct kfd_dev *dev,
- 							struct kfd_process *p)
+-static int allocate_doorbell(struct qcm_process_device *qpd, struct queue *q)
++/*
++ * Allocate a doorbell ID to this queue.
++ * If doorbell_id is passed in, make sure requested ID is valid then allocate it.
++ */
++static int allocate_doorbell(struct qcm_process_device *qpd,
++			     struct queue *q,
++			     uint32_t const *restore_id)
  {
+ 	struct kfd_dev *dev = qpd->dqm->dev;
+ 
+@@ -161,6 +167,9 @@ static int allocate_doorbell(struct qcm_process_device *qpd, struct queue *q)
+ 		/* On pre-SOC15 chips we need to use the queue ID to
+ 		 * preserve the user mode ABI.
+ 		 */
++		if (restore_id && *restore_id != q->properties.queue_id)
++			return -EINVAL;
++
+ 		q->doorbell_id = q->properties.queue_id;
+ 	} else if (q->properties.type == KFD_QUEUE_TYPE_SDMA ||
+ 			q->properties.type == KFD_QUEUE_TYPE_SDMA_XGMI) {
+@@ -169,25 +178,37 @@ static int allocate_doorbell(struct qcm_process_device *qpd, struct queue *q)
+ 		 * The doobell index distance between RLC (2*i) and (2*i+1)
+ 		 * for a SDMA engine is 512.
+ 		 */
+-		uint32_t *idx_offset =
+-				dev->shared_resources.sdma_doorbell_idx;
+ 
+-		q->doorbell_id = idx_offset[q->properties.sdma_engine_id]
+-			+ (q->properties.sdma_queue_id & 1)
+-			* KFD_QUEUE_DOORBELL_MIRROR_OFFSET
+-			+ (q->properties.sdma_queue_id >> 1);
++		uint32_t *idx_offset = dev->shared_resources.sdma_doorbell_idx;
++		uint32_t valid_id = idx_offset[q->properties.sdma_engine_id]
++						+ (q->properties.sdma_queue_id & 1)
++						* KFD_QUEUE_DOORBELL_MIRROR_OFFSET
++						+ (q->properties.sdma_queue_id >> 1);
++
++		if (restore_id && *restore_id != valid_id)
++			return -EINVAL;
++		q->doorbell_id = valid_id;
+ 	} else {
+-		/* For CP queues on SOC15 reserve a free doorbell ID */
+-		unsigned int found;
+-
+-		found = find_first_zero_bit(qpd->doorbell_bitmap,
+-					    KFD_MAX_NUM_OF_QUEUES_PER_PROCESS);
+-		if (found >= KFD_MAX_NUM_OF_QUEUES_PER_PROCESS) {
+-			pr_debug("No doorbells available");
+-			return -EBUSY;
++		/* For CP queues on SOC15 */
++		if (restore_id) {
++			/* make sure that ID is free  */
++			if (__test_and_set_bit(*restore_id, qpd->doorbell_bitmap))
++				return -EINVAL;
++
++			q->doorbell_id = *restore_id;
++		} else {
++			/* or reserve a free doorbell ID */
++			unsigned int found;
++
++			found = find_first_zero_bit(qpd->doorbell_bitmap,
++						KFD_MAX_NUM_OF_QUEUES_PER_PROCESS);
++			if (found >= KFD_MAX_NUM_OF_QUEUES_PER_PROCESS) {
++				pr_debug("No doorbells available");
++				return -EBUSY;
++			}
++			set_bit(found, qpd->doorbell_bitmap);
++			q->doorbell_id = found;
+ 		}
+-		set_bit(found, qpd->doorbell_bitmap);
+-		q->doorbell_id = found;
+ 	}
+ 
+ 	q->properties.doorbell_off =
+@@ -343,7 +364,7 @@ static int create_queue_nocpsch(struct device_queue_manager *dqm,
+ 		dqm->asic_ops.init_sdma_vm(dqm, q, qpd);
+ 	}
+ 
+-	retval = allocate_doorbell(qpd, q);
++	retval = allocate_doorbell(qpd, q, qd ? &qd->doorbell_id : NULL);
+ 	if (retval)
+ 		goto out_deallocate_hqd;
+ 
+@@ -998,7 +1019,7 @@ static int start_nocpsch(struct device_queue_manager *dqm)
+ {
+ 	pr_info("SW scheduler is used");
+ 	init_interrupts(dqm);
+-	
++
+ 	if (dqm->dev->device_info->asic_family == CHIP_HAWAII)
+ 		return pm_init(&dqm->packets, dqm);
+ 	dqm->sched_running = true;
+@@ -1314,7 +1335,7 @@ static int create_queue_cpsch(struct device_queue_manager *dqm, struct queue *q,
+ 			goto out;
+ 	}
+ 
+-	retval = allocate_doorbell(qpd, q);
++	retval = allocate_doorbell(qpd, q, qd ? &qd->doorbell_id : NULL);
+ 	if (retval)
+ 		goto out_deallocate_sdma_queue;
+ 
 -- 
 2.17.1
 
