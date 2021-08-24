@@ -8,127 +8,130 @@ X-Spam-Status: No, score=-18.6 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 987B9C4338F
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Aug 2021 08:48:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7CCF3C4338F
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Aug 2021 08:55:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 60DBF61165
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Aug 2021 08:48:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 60DBF61165
+	by mail.kernel.org (Postfix) with ESMTPS id 30CD561361
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Aug 2021 08:55:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 30CD561361
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5AB289CB9;
-	Tue, 24 Aug 2021 08:48:02 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2085.outbound.protection.outlook.com [40.107.92.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F352E89CB9
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Aug 2021 08:48:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF9CD896E4;
+	Tue, 24 Aug 2021 08:55:29 +0000 (UTC)
+X-Greylist: delayed 95387 seconds by postgrey-1.36 at gabe;
+ Tue, 24 Aug 2021 08:55:28 UTC
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com (unknown
+ [40.107.237.82])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92319896E4
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Aug 2021 08:55:28 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=E5pzBAf3YtvU5J5hXIEpZmAjZfeizwbSSuMUmNzFLPbIr+xPLVyaEhcnSTkA4+2PLPimOH7JxJ0HEnTPQNmranLTngcryiqahLZo+wYjzzMp6tvy9iPZ35t5K7cSTNRm9kA90nF+z6c9dhhau4zLu/+sSoUT3gOXYnvNz3BK3VuD6n86vboee9iTU5/xAtL5CvPGPSvwUeGBcEOAlGFdIWfRc1Uh1kuAamdlPIm7lBY5Nm0+iiWyiMJf+4RYmO6+BMuVAYedyloijcXnBstd86t0mL5oS92QvcBNK0j4kVN43iRaTKjxBVdeEAxyqizHSo0W1I4k4V/kqdhe8D6pfw==
+ b=Gt6xsjYdMkiXWOr0+kJT7gvMoK3vLQp0On0k5eZNHzXLcNxUfQDDFmR3MkmppM5l4pZm2XFZkWpLmE5xPPWIltiucXjCFZrlSv+zRUMob2rtVxoN1bVPm4WfEbZ5YOWKKDoJupZAyM8hcvNxN5ePMy5SmrWITMDRuKkI10N9OeScw8iTdWZfAhqlwwGowuIZAHR3RZAGltf1xYzTA45Bt50e02KaX/Nf81vZVzi4MHZ+jDnom+M9Q60fd8JWAlsGV80HkZNQQhNyvoUZdtUH01cd1wFy5vpi99h7DLtFS6AFWjGzxF72vMdvN9aKA4BZgDvOoKIV13GpNamZjvojug==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s5mvD/vO2FygSztSakLHf2xkwUsx2Jz1otfbrRC8hHY=;
- b=FzozmoqIY6kjzmRGNG4PA1EGM3gHHXqhDt7fHwSBayeU9d9Wn+f4CjwkKZm+TIeso7q7Y0xrGKt5zHn3vV/2oG4a8p5B5GBEtZ2MwAaH9peXWOO3P7M4UUzrCgo1eYuPOVvb8uTgdgNlEiHWGJ0yMVum1cP64Sj3zgU3xmqEaA8JFN6MmEfREf/D/3GokDyTnLOgeO6CasvYietgC3IbHWSYn6ZTRQ7ZV9v0gIzYDXzT3qR4FJai0bJxxWQwlUAiLVNcCFZHVjY5//F5aaGz2JRVHmdO+Q14Ud+jB540hQjjZ3IKTcnzUx6BHlWgmG79tIflDQFztbtPzHPObl9/Kg==
+ bh=ks2++JLTcj1RqfRHMnqR5F7nMjQy0i4nF1uoTWQ8DVs=;
+ b=myDjFf5MTjiSwgC3ADWnjfQtt3EIDsyUn6KDJbP8TV5MtCl9pdM9tFuRcY5+AshOjjiPRCJJ5oHoeFo+aW4f6Iws/KyMdiF1J4jQoYDxbpi1DZYfZTJe81y1mfce6+XKdOLWarsE03wbfbg8TE4aI2Plw5Y81W9UAMOQUrh84lcUMioIPPNWxM+Vykm+NcKNl+ilhPqd1shxy1By65ZeYNuSfrfOzGh4R/b+PI6pp1GAm8avcCLDVWUzewyv5kcIbJ6pkurvF1bKq3n0amlPZthO/vQ3W7g3u32geNOtFBkw3RFsEPRE3QuROHfAf/vK6fmlE5Pt/YVY9+9opRZMmg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s5mvD/vO2FygSztSakLHf2xkwUsx2Jz1otfbrRC8hHY=;
- b=Yu6ebkpsZ8cCJtTnV+YtRoInGSrY4VGhxNrK1PrWmmrXPya+mYhIpz3Vf3MtDC3O6v5+ZKn8Rtv+ltL/RZiWBeL/jPYC/C3OM+fmx7l9VIjG5wBQuZLdyv6yxpqkk9SE9luBF9091u1avDsTgvmva6ko4XmMJFTE2IrWkmqrBrQ=
+ bh=ks2++JLTcj1RqfRHMnqR5F7nMjQy0i4nF1uoTWQ8DVs=;
+ b=kPkJHmD+CzcPfULdUs4MGUkEuS7UFRsOyJo/2jEvvRfftuAeBS45gNxD9PsH8kw7+QgP6PlK0U6o6PgeCPprvBB792pyg17vG7ZOsPtPj1wA2iC4xFp+8ZlOeZ5ODsemDoh78JVYSBUdFP/6qwryvkC6/bW5OrT5uRkM47pT5oQ=
 Authentication-Results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5040.namprd12.prod.outlook.com (2603:10b6:5:38b::19)
- by DM8PR12MB5429.namprd12.prod.outlook.com (2603:10b6:8:29::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.19; Tue, 24 Aug
- 2021 08:33:07 +0000
-Received: from DM4PR12MB5040.namprd12.prod.outlook.com
- ([fe80::946e:7191:34a2:9850]) by DM4PR12MB5040.namprd12.prod.outlook.com
- ([fe80::946e:7191:34a2:9850%9]) with mapi id 15.20.4436.025; Tue, 24 Aug 2021
- 08:33:06 +0000
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
+ by BL0PR12MB2451.namprd12.prod.outlook.com (2603:10b6:207:4e::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.22; Tue, 24 Aug
+ 2021 08:55:25 +0000
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::dce2:96e5:aba2:66fe]) by MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::dce2:96e5:aba2:66fe%6]) with mapi id 15.20.4436.024; Tue, 24 Aug 2021
+ 08:55:24 +0000
 Subject: Re: [PATCH 1/5] drm/sched:add new priority level
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+To: "Sharma, Shashank" <shashank.sharma@amd.com>,
  Satyajit Sahu <satyajit.sahu@amd.com>, amd-gfx@lists.freedesktop.org
 Cc: leo.liu@amd.com, Alexander.Deucher@amd.com, nirmoy.das@amd.com
 References: <20210824055510.1189185-1-satyajit.sahu@amd.com>
  <66607af7-5310-629f-1851-df4b74cebf7d@amd.com>
-From: "Sharma, Shashank" <shashank.sharma@amd.com>
-Message-ID: <53fb0d0b-e9c3-3a79-9b17-87e4297737bb@amd.com>
-Date: Tue, 24 Aug 2021 14:02:47 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-In-Reply-To: <66607af7-5310-629f-1851-df4b74cebf7d@amd.com>
+ <53fb0d0b-e9c3-3a79-9b17-87e4297737bb@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Message-ID: <2952fe71-5948-de45-728f-5a606a8e9abe@amd.com>
+Date: Tue, 24 Aug 2021 10:55:18 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
+In-Reply-To: <53fb0d0b-e9c3-3a79-9b17-87e4297737bb@amd.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN2PR01CA0019.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:25::24) To DM4PR12MB5040.namprd12.prod.outlook.com
- (2603:10b6:5:38b::19)
+Content-Language: en-US
+X-ClientProxiedBy: AM3PR05CA0114.eurprd05.prod.outlook.com
+ (2603:10a6:207:2::16) To MN2PR12MB3775.namprd12.prod.outlook.com
+ (2603:10b6:208:159::19)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [10.252.89.110] (165.204.159.242) by
- PN2PR01CA0019.INDPRD01.PROD.OUTLOOK.COM (2603:1096:c01:25::24) with Microsoft
+Received: from [192.168.178.21] (91.14.161.181) by
+ AM3PR05CA0114.eurprd05.prod.outlook.com (2603:10a6:207:2::16) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4436.19 via Frontend Transport; Tue, 24 Aug 2021 08:33:03 +0000
+ 15.20.4436.19 via Frontend Transport; Tue, 24 Aug 2021 08:55:22 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f2469f14-986e-4347-9151-08d966d9cbee
-X-MS-TrafficTypeDiagnostic: DM8PR12MB5429:
+X-MS-Office365-Filtering-Correlation-Id: 7b72ec32-a093-482e-53b7-08d966dce91f
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2451:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM8PR12MB5429599B4C02ECE43C3C102AF2C59@DM8PR12MB5429.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-Microsoft-Antispam-PRVS: <BL0PR12MB2451EA897609E44C93603DA083C59@BL0PR12MB2451.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: eApz6UGq077J0pRpEgxpgyn3lej8oGyTw9s+D5UBzInlu4Z6LnOuIxhdnzHiKjRG6lJUo2s7mVfO8gG0ZTkB3cKMCfBNrLjPTvaLZNaQkL+p3CiBOtyrlJb9Lnp/N0nSxMhGL/zKYeCHlA8em7QRronbSixveNo8x+Byv1ZsigKE9XCGR4FkWPJTQQ21RxEGXk9riEZ/E4LqaR+6vUcGuXvhZhZBJ+OPOUUse8JIIuqodFNbpfFNE/U1X6jPzZs712YQ1yD5mSkf9GOjzpkpy1X7V/Bv63lXE60PXfOvwKyjcaFllsosAuM9IafVWezxHb3+m8052i7CdPGILhbkdAZA/tXpNE2q7dUqv8mvVqOf4YFcn1HO/s8GxeUjbgqdIJe9+OxvJ6IBjtHXT/uPpxUeXHHYKdqIH1EcBI3rV8KSn3jWviGJFBuPQZT5bCISebayv9woFxFi6fEZG2YQ/yGaxG+Q1IQwhYCUEJwLsxCuODRCwk3ke53enfSXGbRN7KvuRbjY6jBo8DFFZaWRlk2+jJhbbAn1vsZokx+9WmBrly9HRWdccxtHgF/WXOYxeDyIQPGqRalTBbZuFVwpBylKV4nI/qrjCawBvB8Mo3zCxqWTeE9gXBJFyOSD1AfObawGX1OHdfKbbxdYUf+MeVoBMRt3VVpPmIliagp+CKRECbqt0QGtti7FwoGtNEeqa1RWKuBEbkWFWuq2TGFremVSe4Mein2qKroTXg2C19HQGeoVU608A/YK8Bd6mdi/
+X-Microsoft-Antispam-Message-Info: DFTCmWo+3uWgvNBELHC72PScqdrQy77pkN1/iL1endmvtSxlfa4o5/MoEzOFEnusSDr7QfnoHBpxAr9CrZAVccXPn5kkA4VyoU4KNFegi0Q3q5Nyd3vyEuI5TALLPf5EXD8pn+B2U/XM0zCgJv3Z8fgsYfO718asIdlU9hru72kfN6/ozd85ZjCc8m3/2IH5W7C11U5u1HnZhULqDDb/XEoqoLkzhOdTOB5eQ2J8sLsYfficfs1lTGUI4RMT2sIWJkJgTqZoYmnsPGqOC5TlSsf6M1VA/Q7L3JbrRAtcpneTAWyXzxxnBXuAJSo16WtRzYal6+s7VkaQ6ryuof02v6v3XyyPrcPmYJHq1vl8HGfM7xhxEGL9f+r0wcXIjVuP230adkpsbK6/j3XYWYBMWGyuVHV0661RzXzONNEv4NU+ntv5vrWAA66TeroI7OkluUaXNoHy3lFVRDqWpN+yqN2mFapNK+YZfzT5zldVE2NWOCv1A6KRTDRu18m52M31C0pbd8TpCitNTPLaVvhBKQ8iYNnLJ4jQSnZRGDnHiZ7ut2TJoavxMXYBDuddEhJSIhQxzpmCosZUlzN7is+TI0BJF5SoJVq1VmCCdF3QAMhpsChsXPDJUO/vAHur6YiS2FUk+W0NnTY108MEmI30SRodA+XuT92/wgpvltsRVrDFwLpN5BtD/PKCVBIjz8wWubBxJECGL4tRJo78oTESpUWUA9/lM8xRNavqhpj3ipbYwGZ+nUie7j3ezfmkVWCI
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5040.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(136003)(39860400002)(376002)(396003)(346002)(31686004)(16576012)(6486002)(31696002)(2616005)(66946007)(26005)(66476007)(6666004)(66556008)(186003)(5660300002)(8936002)(478600001)(110136005)(36756003)(86362001)(53546011)(8676002)(4326008)(316002)(83380400001)(956004)(38100700002)(2906002)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(346002)(136003)(376002)(396003)(366004)(36756003)(956004)(2906002)(16576012)(8936002)(83380400001)(2616005)(31696002)(4326008)(186003)(110136005)(478600001)(6666004)(38100700002)(8676002)(86362001)(66556008)(66476007)(53546011)(26005)(5660300002)(6486002)(316002)(66946007)(31686004)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eGY1UHg3a2FFWStEL0JkMmxVOW5qQ3hNSGhKODMrbC92YjFiTzBGK016d0Rw?=
- =?utf-8?B?YVdBd2M1KzIvT1FFenc5VDUwNklYYXNkdmVLaU0rTSs2NThkUGpBWDIvOEd4?=
- =?utf-8?B?blM5OTluKytFZmI0SDhKTGZHR0JwcmZKY0tQUTFtb28wR3A1VDJBdzlteVA4?=
- =?utf-8?B?QU5PWC9GRndnMFJWaU96SFF1YmxLSFBSTnYrLzZtUzR2MEhzVUNlV1ZaL2Iz?=
- =?utf-8?B?dGswSWtYV1B1OEpWdHBpOUFiR0JNZWtxcE5ZTDlkcWN6ZWxndHZYOGxaTjR6?=
- =?utf-8?B?Q2FCYld0NnJITXZsQzdpM1hNSEJscWZXeGU1VlBjYmgxWC9ZODh1RnBIZWdP?=
- =?utf-8?B?dHlOTEhPVUZ4dWtCbGZIdUpWN1E5Q1htYkxjSWo3VklOcUxGYlM3a0ZjdXJJ?=
- =?utf-8?B?VVFqR2lKQTJSRGdYc2FzKzhDRVIwYTBvaHo0NGVVaitrejV5MUtpWWVWdTR0?=
- =?utf-8?B?Tms2dFV6NGkzdGV5bCtjU0JmWVpkSWd1dkJPN2xvU1FsQXVjTEVqbnZWRDdz?=
- =?utf-8?B?bU1uRmpVb2FtZ2N5QnhRNEhqcml3d1ZERk50MDhTK0pPRXdybDdMOVBjbFRL?=
- =?utf-8?B?a2pFOWIzMXZ0bkEwM2gyWHZKRkJBTVlXdGhHcCtFM3dxeEhQWStSSUFGaDVX?=
- =?utf-8?B?dXczRklPUkF4SVNWZHNTTnA5VDNkN3A4eEZvbU1Hd1pPRk9nYUJ3eEMzMVJo?=
- =?utf-8?B?MnhSZTRvazBzM2toNVprU24rY2JGdThiajlIVjU3amwxb3J2UnZ5YjBQUmxu?=
- =?utf-8?B?OGRrbmtYbE5ieUNDTDQxaEwvUmxmc3NMd3o0cmQvQk5iVVBGTFE3d3l6WWRa?=
- =?utf-8?B?ZlZJQlNxQzEyT2NMWVFpS01LQjBUdzNXbGZWMGxydHJqWVlSOFdHM3Y0YnV1?=
- =?utf-8?B?empxcXMzblowZmFZcU9MQjE5TElkK2dLbTV0MEpJd1BHU2k4WHQrWm11UGhw?=
- =?utf-8?B?eFhyRjdETmZ0andySVJZU2kxamtsSUVmMmF5RUNHSEQreXNEbDJCYjAyYTJm?=
- =?utf-8?B?TS85ODBoZ0p5clU4RldFcStqaWNXSHBUTDZlRFBxZVVXeDRnOUN2OEk1akJa?=
- =?utf-8?B?OW9qZVMyR3lST1BCSXdzeEVCemxmR05zSElxTnQ2cmNGQzhYQSthNDVidlc0?=
- =?utf-8?B?L2gzWHI3d08yODdxUC9JK2JpNU1QUm16RFMrWWdrQWVyQUhsNGovRkJPNGJV?=
- =?utf-8?B?NHl2MlNaSm5SZ2hoRVBnSnNUeDhmYU1iY2JJSkYwcitxTER3R21La1hRWkNj?=
- =?utf-8?B?M2pnNjNRRU1pN1VPNkdtcmQvOE1ybnFyOWpGVjhFQjBRZDlVMFA1MDltZnJz?=
- =?utf-8?B?RWJVOE1qNzQ1K1l5TDFXc2Y2UkNMK29WOW56U3Aza0gxTFJLcFFJeGU0Zmk2?=
- =?utf-8?B?WGNpMXF0RmFnMFNhUlpSVDI5cXh4T1NpQUtHYSs3ZWU3N0pRcEhjcU9EN0w0?=
- =?utf-8?B?NUNpc3p5RzFUdXRNM3kxTmh4clhQb3hqMnc2L0s4SElqZk51RTQzUy84YWE1?=
- =?utf-8?B?UzJUMUwvS3ErRGVtWmNXQTUrL2RKZUZ0SFdPZEQ1KzRZVCtBaGFMbmdtQnha?=
- =?utf-8?B?QzkxL2tUVFdtVkNjN05kY2dtVlRVYjluNkN5aDRaQWJYNk1uQ1FUaTc0aXFl?=
- =?utf-8?B?TFJRRXc0b0tVR3B3ekIzaldoQU0rRmV4aXZXcGxSMzRmS0d0aVhGQnhIMnJ4?=
- =?utf-8?B?VnIvMlZGaFByT3RVRURtdEpEMFBDcG9zcEJkUDB3UEd4MDFPdUdUZ1hPVGJ4?=
- =?utf-8?Q?bPdQv8RnngL+roflPVkeKfjINH5K0kTys7uTIZs?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eGkxQ0FmdlFtL3ErK1I4UC9BOVpGd0tRZzlrSGg1WnpXeHdLTGVTZTRPRVFr?=
+ =?utf-8?B?Y1BxbCtpMmpOTXNpWEJyWWxiQldCa0lnM0E2dEhlVCtVMFd4Ly81UVdXdmZJ?=
+ =?utf-8?B?WHdBRUtGaUkzWmxQYUxESjF5MmVTRFhQblVoT1RRVU9FaTdxVmgxNGlBLzBE?=
+ =?utf-8?B?cUxSbE84QmRMdDduQ0ZtVkxPOGd4TjBFNDhUZFlXckxidjFtSGJFbnJRVWR5?=
+ =?utf-8?B?aXdNeG54WVMxU2VaSG83QlBSZklCajlid3NsVTB4VkRYajJCVzNzSFRrMFVJ?=
+ =?utf-8?B?N01SMVRTYnBCQXlsNmEvMFUxY1BzNW1nUGg3WE0vVmpOamgweitHNEYrZnNj?=
+ =?utf-8?B?elhUY1Nvamp5Q0RuSmJCRndkU3dKRFpuSWJPMU9kWFR5MUpWZEdLaTdCZEJO?=
+ =?utf-8?B?NHV3bHZqc29yNGtaMkh6dEMyQlBsY1pwNXBQdi9KcDdDMm1LaUR3WmoweTNP?=
+ =?utf-8?B?a3llMWdrMVZTKzVOWDJwdDluWTZaOTFqQ2NCc1plVWg3cG5PaFErRFFFakNj?=
+ =?utf-8?B?d1Y2YVROZ0JMQjlGZWNmaEQ5cHliT2M3OEFpdXFTNHRZT25CRzRPbWcwTVpy?=
+ =?utf-8?B?NzVOVFZLVWw3a0QvVEpwSkF2enc2ZXRpL3JENnJycEtmWFp6d3NqVlR5WjBX?=
+ =?utf-8?B?VkZ0c04yZDJUVmEzQVpPOUIrY1VMakRoWUk4NXZCcWJTTGtvd0kzK1NGNVJx?=
+ =?utf-8?B?ZzJOVEZCKzVmT0R2TW5qdHlmZzJuSEpMWDVwWmdCUFk2Ry85MU1qcFhFZ1Uz?=
+ =?utf-8?B?VGErbC9QcVp1RCs2amZBZ2kwUUZKMFA0Tmg4SktXSDBEbVZUTXhLUEh4Si8x?=
+ =?utf-8?B?dkFFUUFRVlc3Y2RoTlVYTDdnR1JaZVVOOFBFc0FreW15Rm9oQ1BDMmdneDFO?=
+ =?utf-8?B?eDRHaGlpbFp0cGc3R3lqNnN5Qzl4SEFxb2tVVG9DUXhWSm13Zi9MN0dHcTZU?=
+ =?utf-8?B?V0JlTmlQc3luWm5KNnJ1akxpMm1La3Exd2VEN3VLUGY1azZ3WXVBSFlHL041?=
+ =?utf-8?B?NUlyQytRdTQ1djZzWm1SNkVUc25hMFdrODlsc2s4Sk04QTVYNWVBbTNtSlJP?=
+ =?utf-8?B?eWdYUUlwQW55Rk1jUHRhWGgvQXZ6bUxvcUFqYVdqZG1KRkFRUXB5RkoyVXNj?=
+ =?utf-8?B?YXp0N2hxUHNlNkpsVTQrZzN3M1BTeEkvRkxBSEJySEd4UjBLT0lBd3E0MTBP?=
+ =?utf-8?B?TUZ2eVFXOVZEY3lYYmp0UVdSMlZ5QkI5RW5VckcyNWpCM2pab1ZsOXlTaTB6?=
+ =?utf-8?B?TW13WnVkVEpZN09TcXRBblF6YmRBb2I3RTZhZGF3UE9SREVUdFJnVERJSmxw?=
+ =?utf-8?B?SzJ3ZVlIZjlaUDNZSTBJcVVXQU9Ob0VrWVJYc01PWUdldTFKdEVjMlBGSGN5?=
+ =?utf-8?B?VVBYaUlNU0k2QjZNL3RQSEFIemU5YU5KU09mWXIvVTJlcW44SWNkcUVCKzhy?=
+ =?utf-8?B?RG45eWhDY2wwMU5vNHRSd09yd3drMW1xMmVTNmh6bWJwTnQzeE44dmJvWVhu?=
+ =?utf-8?B?VjUvckJ4RXYwQ055a3orSkQweTgvZnZFOUdLdk81ejFxRlRWbHkwVWlYV2du?=
+ =?utf-8?B?VEFlTEt1ckM3Y3lzWDZuL0R4MFg5RWg1WnlmQmFldTFVT0drZk5vejlNK3lh?=
+ =?utf-8?B?TlJsVEhQTGlnRUlTK2ovM1RNZEladnpmZFVjdityMUhvSEV5bGlheHdlMnNl?=
+ =?utf-8?B?SDYxY2hRRXQ1RU4vVlZjdzJON0lMWTJsYXkyNUJaL1JmdllURUJiam5sVGZN?=
+ =?utf-8?Q?OIddFlnNlFrC/WFKlGg3MfrCCAXUJy3bzdCwajL?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f2469f14-986e-4347-9151-08d966d9cbee
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5040.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7b72ec32-a093-482e-53b7-08d966dce91f
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2021 08:33:06.7670 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2021 08:55:24.1337 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BX6UTP7uonsX5pVFAIdcpiQr2tp4FVQ7KIBU8fTDDvQsk+F+jdqvvBwKOJ2vknMkqHv1XCmwwLPUOrAJBnOVaQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM8PR12MB5429
+X-MS-Exchange-CrossTenant-UserPrincipalName: JRvjrJ42LGGWXmV9B2B5fSpDczeYNtyWMB5lTjY4hT4BbSvokPjRL2bnPw/gUXGm
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2451
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,61 +146,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Christian,
-I am a bit curious here.
+Nope that are two completely different things.
 
-I thought it would be a good idea to add a new SW priority level, so 
-that any other driver can also utilize this SW infrastructure.
+The DRM_SCHED_PRIORITY_* exposes a functionality of the software 
+scheduler. E.g. we try to serve kernel queues first and if those are 
+empty we use high priority etc....
 
-So it could be like, if you have a HW which matches with SW priority 
-levels, directly map your HW queue to the SW priority level, like:
+But that functionality is completely independent from the hardware 
+priority handling. In other words you can different hardware queues with 
+priorities as well and each of them is served by a software scheduler.
 
-DRM_SCHED_PRIORITY_VERY_HIGH: mapped to a queue in HW reserved for real 
-time or very high priority tasks, which can't be missed
+In other words imagine the following setup: Two hardware queues, one 
+normal and one low latency. Each hardware queue is then feed by a 
+software scheduler with the priorities low,normal,high,kernel.
 
-DRM_SCHED_PRIORITY_HIGH : mapped to a queue of High priority tasks, for 
-better experience, like encode/decode operations.
+This configuration then gives you 8 different priorities to use.
 
-DRM_SCHED_PRIORITY_NORMAL: default, mapped to a queue of tasks without a 
-priority context specified
+Regards,
+Christian.
 
-DRM_SCHED_PRIORITY_MIN: queue for specifically mentioned low priority tasks
-
-Depending on the HW we are running on, we can map these SW queues to 
-corresponding HW queues, isn't it ?
-
-Regards
-Shashank
-
-On 8/24/2021 11:40 AM, Christian König wrote:
-> I haven't followed the previous discussion, but that looks like this 
-> change is based on a misunderstanding.
-> 
-> Those here are the software priorities used in the scheduler, but what 
-> you are working on are the hardware priorities.
-> 
-> That are two completely different things which we shouldn't mix up.
-> 
-> Regards,
-> Christian.
-> 
-> Am 24.08.21 um 07:55 schrieb Satyajit Sahu:
->> Adding a new priority level DRM_SCHED_PRIORITY_VERY_HIGH
+Am 24.08.21 um 10:32 schrieb Sharma, Shashank:
+> Hi Christian,
+> I am a bit curious here.
+>
+> I thought it would be a good idea to add a new SW priority level, so 
+> that any other driver can also utilize this SW infrastructure.
+>
+> So it could be like, if you have a HW which matches with SW priority 
+> levels, directly map your HW queue to the SW priority level, like:
+>
+> DRM_SCHED_PRIORITY_VERY_HIGH: mapped to a queue in HW reserved for 
+> real time or very high priority tasks, which can't be missed
+>
+> DRM_SCHED_PRIORITY_HIGH : mapped to a queue of High priority tasks, 
+> for better experience, like encode/decode operations.
+>
+> DRM_SCHED_PRIORITY_NORMAL: default, mapped to a queue of tasks without 
+> a priority context specified
+>
+> DRM_SCHED_PRIORITY_MIN: queue for specifically mentioned low priority 
+> tasks
+>
+> Depending on the HW we are running on, we can map these SW queues to 
+> corresponding HW queues, isn't it ?
+>
+> Regards
+> Shashank
+>
+> On 8/24/2021 11:40 AM, Christian König wrote:
+>> I haven't followed the previous discussion, but that looks like this 
+>> change is based on a misunderstanding.
 >>
->> Signed-off-by: Satyajit Sahu <satyajit.sahu@amd.com>
->> ---
->>   include/drm/gpu_scheduler.h | 1 +
->>   1 file changed, 1 insertion(+)
+>> Those here are the software priorities used in the scheduler, but 
+>> what you are working on are the hardware priorities.
 >>
->> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
->> index d18af49fd009..d0e5e234da5f 100644
->> --- a/include/drm/gpu_scheduler.h
->> +++ b/include/drm/gpu_scheduler.h
->> @@ -40,6 +40,7 @@ enum drm_sched_priority {
->>       DRM_SCHED_PRIORITY_MIN,
->>       DRM_SCHED_PRIORITY_NORMAL,
->>       DRM_SCHED_PRIORITY_HIGH,
->> +    DRM_SCHED_PRIORITY_VERY_HIGH,
->>       DRM_SCHED_PRIORITY_KERNEL,
->>       DRM_SCHED_PRIORITY_COUNT,
-> 
+>> That are two completely different things which we shouldn't mix up.
+>>
+>> Regards,
+>> Christian.
+>>
+>> Am 24.08.21 um 07:55 schrieb Satyajit Sahu:
+>>> Adding a new priority level DRM_SCHED_PRIORITY_VERY_HIGH
+>>>
+>>> Signed-off-by: Satyajit Sahu <satyajit.sahu@amd.com>
+>>> ---
+>>>   include/drm/gpu_scheduler.h | 1 +
+>>>   1 file changed, 1 insertion(+)
+>>>
+>>> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+>>> index d18af49fd009..d0e5e234da5f 100644
+>>> --- a/include/drm/gpu_scheduler.h
+>>> +++ b/include/drm/gpu_scheduler.h
+>>> @@ -40,6 +40,7 @@ enum drm_sched_priority {
+>>>       DRM_SCHED_PRIORITY_MIN,
+>>>       DRM_SCHED_PRIORITY_NORMAL,
+>>>       DRM_SCHED_PRIORITY_HIGH,
+>>> +    DRM_SCHED_PRIORITY_VERY_HIGH,
+>>>       DRM_SCHED_PRIORITY_KERNEL,
+>>>       DRM_SCHED_PRIORITY_COUNT,
+>>
+
