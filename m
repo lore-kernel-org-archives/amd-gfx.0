@@ -2,64 +2,142 @@ Return-Path: <SRS0=c7t5=NP=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2B626C4338F
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Aug 2021 14:00:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4602BC4338F
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Aug 2021 14:08:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CBFEF610E8
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Aug 2021 14:00:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org CBFEF610E8
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=emersion.fr
+	by mail.kernel.org (Postfix) with ESMTPS id 0340B61073
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Aug 2021 14:08:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0340B61073
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 669208954A;
-	Tue, 24 Aug 2021 14:00:02 +0000 (UTC)
-Received: from mail-4321.protonmail.ch (mail-4321.protonmail.ch [185.70.43.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C29998954A
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Aug 2021 14:00:00 +0000 (UTC)
-Received: from mail-0301.mail-europe.com (mail-0301.mail-europe.com
- [188.165.51.139])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
- (No client certificate requested)
- by mail-4321.protonmail.ch (Postfix) with ESMTPS id 4Gv9jB5L2gz4wy6r
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Aug 2021 13:59:58 +0000 (UTC)
-Authentication-Results: mail-4321.protonmail.ch;
- dkim=pass (2048-bit key) header.d=emersion.fr header.i=@emersion.fr
- header.b="IbSggPSa"
-Date: Tue, 24 Aug 2021 13:59:52 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
- s=protonmail; t=1629813592;
- bh=oA5IktXvvwLhI0jZAa33YOm3iC/IPHc4IC2LKIUrCxo=;
- h=Date:To:From:Cc:Reply-To:Subject:In-Reply-To:References:From;
- b=IbSggPSay/xx3Wcd75x2OsaWmpShkSo1JqBtPlmpqcKDGsyEcvrszpuZrkYjbueHU
- QKiI9XEl6EDeUKOZGiXpIGxncKkCsPCmFfevLI0PZshRoHtYdjOfTVsnrP4DVa7H4P
- LemMo9KHQCzxHrNg8mCXn0n5zlLMp9H8KWz7rN/MSOgXbsV7dt6B1fkHCkcA0A/JmK
- b4CPI2Gy0p3M8zd7RuUIi/akPjFoEqe2yy67vKZ2MZ5KXtUvaXgibFIRQ2MPSVs554
- 2I/BMQgdtWfnjSRS3tUUy0r5acqcnulS4pNEY5hRCGUR3UmWl8sJ5BYibMHjZlhTCo
- r2J7s+W6iFpew==
-To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-From: Simon Ser <contact@emersion.fr>
-Cc: amd-gfx@lists.freedesktop.org, Sean Paul <seanpaul@chromium.org>,
- Hersen Wu <hersenxs.wu@amd.com>, Harry Wentland <Harry.Wentland@amd.com>,
- Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>,
- Louis Li <Ching-shih.Li@amd.com>
-Subject: Re: [PATCH v2] drm/amd/display: Fix two cursor duplication when using
- overlay
-Message-ID: <Hm33HvRokytajvNBSyeseBTVWScQu0mPJVLvRcABYsahB6j3DjJwvelk-WgnIA2AlG1AU0wnGV3gvAgzDf5nmWYRjIS58gMjtdrG0m_kjhA=@emersion.fr>
-In-Reply-To: <20210818131824.avczlw6ie3tfs76j@outlook.office365.com>
-References: <20210414000604.3273048-1-Rodrigo.Siqueira@amd.com>
- <SrcUnUUGJquVgjp9P79uV8sv6s-kMHG4wp0S3b4Nh9ksi29EIOye5edofuXkDLRvGfvkkRpQZ9JM7MNqew2B3kFUhaxsonDRXprkAYXaQUo=@emersion.fr>
- <20210818131824.avczlw6ie3tfs76j@outlook.office365.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7339189A72;
+	Tue, 24 Aug 2021 14:08:34 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2080.outbound.protection.outlook.com [40.107.223.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 21AD889A72
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Aug 2021 14:08:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VfY2FEJ3de8FL3xLFHXMqFZ1UuGMUjbEVMI/dMyrnwYC7ZqshX7P3g3JK8g4fBVofyvBXppGpx2xITNluxygGR17NgiUClVMt2J5dWwgLWveuiNPzuph6qONCKC48hd/TRE96xvSFVmZMMYKxlBZVxnWaCwyqh6yMiG9GZck0llUoY6QM1sEZuWJaGP3QE7AMmMPwUoKX1x+eArfE3vY4QVtGSfesW1hAdTFdsqvSjRoUBVQFNBCyB0tTXrnkNxP0BdlO1YxgfiXhhcqe2QOsNBkTK9b12x3gr0mN3Ms/AzRQcMjnGby9b7YkAHo35st59Gl35KGYo/8ajok07mRqg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vMLEWSzaqezWgedb32U0fbnFBa6De+UzbiPS6GVK8YI=;
+ b=S4O2sMUD3dMjUBZ9gin+PIb2+tXPgxBDLFjAGgBTKoq6B6cqdRRFJa2LcC1DMgpWph6oGpTZo5TwRgAdy0dRttNblTjJNBR0A1mYLfvnmuGZRRvuKDCk56+YUNM6kwalufgs/qNfjUs60QPmXCN+yQiyUxrJAOciw0zUhmE5GQ4ca8kT/USI0DLxurG1TLNKnPwT0vOaoLO8ALSVBx9xBYoXY+f5wytesis3jKV8yMQX64oMgdSRnCuyGu6w28aUZKaKA85RoMCMDqKawYJGZfOR51AqNS2R98u9q0bXhs097o6MJK3d2916SivxRcCn9qqPS8llQnWj4bgsu1Tj1w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vMLEWSzaqezWgedb32U0fbnFBa6De+UzbiPS6GVK8YI=;
+ b=HjoDi/EEEPGrvKFl52XGeSM5UV1ulsYAxZez/DXEAnn8Gur8Wdya6zbpHPN9/am5nnBsxJvZxNlZfWgNP5Fp6o4aME2dv5PvjBPnzihOEW9b7P6/nAVdbCUTa7QHwovkusIjn5Si2jGw9eXlzWA9hrjK7g2nAZYWBFNAJQsI5S4=
+Authentication-Results: vger.kernel.org; dkim=none (message not signed)
+ header.d=none;vger.kernel.org; dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5349.namprd12.prod.outlook.com (2603:10b6:208:31f::7)
+ by BL1PR12MB5176.namprd12.prod.outlook.com (2603:10b6:208:311::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.19; Tue, 24 Aug
+ 2021 13:52:58 +0000
+Received: from BL1PR12MB5349.namprd12.prod.outlook.com
+ ([fe80::152:9dd3:45a4:eeb6]) by BL1PR12MB5349.namprd12.prod.outlook.com
+ ([fe80::152:9dd3:45a4:eeb6%4]) with mapi id 15.20.4415.024; Tue, 24 Aug 2021
+ 13:52:58 +0000
+Subject: Re: [PATCH] drm/amdgpu: Fix build with missing
+ pm_suspend_target_state module export
+To: Borislav Petkov <bp@alien8.de>
+Cc: Alex Deucher <alexdeucher@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Pratik Vishwakarma <Pratik.Vishwakarma@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ lkml <linux-kernel@vger.kernel.org>
+References: <YSP6Lv53QV0cOAsd@zn.tnic>
+ <CADnq5_O3cg+VtyCBGUDEVxb768jHK6m814W8u-q-kSX9jkHAAw@mail.gmail.com>
+ <YSQE6fN9uO0CIWeh@zn.tnic>
+ <CADnq5_PEOr=bcmLF2x67hx24=EWwH7DAgEsPjYqXgf8i-beEhg@mail.gmail.com>
+ <YSQJL0GBzO2ulEpm@zn.tnic>
+ <CADnq5_N0q8Rfm++O3jK6wcbePxg_Oj3=Xx9Utw60npKrEsSp8A@mail.gmail.com>
+ <YSS/F9kcQcRKlNJ5@zn.tnic> <94ff5309-f71a-6107-01e8-8d7d544dd4e1@amd.com>
+ <YST2u5UznQjMKulE@zn.tnic>
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+Message-ID: <1bb0baef-7924-98ab-b125-aa3c2ac405d4@amd.com>
+Date: Tue, 24 Aug 2021 19:22:46 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
+In-Reply-To: <YST2u5UznQjMKulE@zn.tnic>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN1PR01CA0073.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c00:1::13) To BL1PR12MB5349.namprd12.prod.outlook.com
+ (2603:10b6:208:31f::7)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [172.31.157.114] (165.204.158.249) by
+ PN1PR01CA0073.INDPRD01.PROD.OUTLOOK.COM (2603:1096:c00:1::13) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4436.19 via Frontend Transport; Tue, 24 Aug 2021 13:52:55 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 8095e70c-9a61-4f16-3de4-08d967067ac9
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5176:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BL1PR12MB51762E4BC8EDE4501B25429E97C59@BL1PR12MB5176.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: xaUSI8z+33f9s9baDgOBZyoeA/c9He3XeZN+l+5ktPU9XKTDsMYksK1yVk3ZTsBnMIYPkx6xqcRj/LkneewVPlZlQLOyK9LxuAWuS4TEpLReEN+1lgYDGxektMnaX+HwRO1IdZgz6N++aUZpWej7esWg5SFC9x22NMEwxvpHAg77YnUGMCkBaPpdDb7O8T/nNXY/myy697PUGi7L5sT+7/ndVBgJAgPfxGnSiiyy6+oE/fpb7SX8HkgeUu6TY1omKrk+KjqKqTsxhkBzB3K2LpADk8+fpkvdxhl/7pjtSILSZVQ7FHgGqMbU17NTdobBJXYubLO6Rgn13P6V/KrXAE/NeQ80UYK2DpPNNMPHaCOzIc19t2dGDK+pX+IlNNwxM98q7VE7MgGgPk2LTeGT+HOBc/0cIvCv0uq709JEzTzr78gDAZdUFcRNURz7NZlbu3bj/1VzOT6/x2rOqq4nAsNVWMpzll4QZJ2P1hvtHBRTr6N/f2feBfuoNlsBuVkKVDwvbiTzzxTSxPytM2UINXI57Us7helr1/9YWyFWjt3KQd5pBLFuzsRwJRnE0Onz4bQI4UvWnKNal5sRuGYznLslz24Y7EnM9M/+utkbMQRMK/g5cBT88ln63i50JosYjCVXDoDxKweN7GCasJ+XM2AOBc7zsUhwcAvKwl88eetaffaX2vJ08X6bM6MNY49G6oDV487m7Pe4rjo7mNZLTHxfGomD6VQzAjGxmQle3LoXurb8KMxP797zLt6WF3WpM2k4rvozViHgHlF5cJLw98lvI1aVhdIW0RXCpzSy8vjxDg3U42JTQNj0ISvRmt1R
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5349.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(136003)(376002)(366004)(346002)(39860400002)(66556008)(66476007)(2906002)(36756003)(53546011)(83380400001)(66946007)(478600001)(966005)(6916009)(26005)(45080400002)(31686004)(16576012)(6486002)(956004)(6666004)(316002)(2616005)(38100700002)(5660300002)(8676002)(54906003)(31696002)(4326008)(86362001)(186003)(8936002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TFZWR1Q4OHI5eVhtQzZBcVdNd3RFNUhrY1BNVkZaUzllSUFMVnAwYlVGZnJX?=
+ =?utf-8?B?YmlqbWNDU1VSRENmNUJqVnU1bzRaTHpDbXBrbWFRQkFxbWk3R0JjUGQrNVJC?=
+ =?utf-8?B?SVBhZlhxQXAzMTRiWWZiSnF6eUJiNnFYVXMrNTVNdmRDWDRMbW53clY5T2Vw?=
+ =?utf-8?B?dnNudlRKeEtaRzl6SUtUam5BWHVBNkkxSzUxNTFwaDZ3T2VTVVlGay9FRyti?=
+ =?utf-8?B?TDV0Wkc5amp6ZXFBd2hITFFwOE51cE52a2x5aTZiWlpkZVZ4MHlLQnhPay9G?=
+ =?utf-8?B?eXMxSHJLZi9ZRFFHNCtJYTRrc291Mnh1Nk5aSlo5Wk9TWUtxQzJxemlUWXY4?=
+ =?utf-8?B?ZkEvc0lvcE1WeDFVS1BTVzhDMDgzNFZJMjFwL1FTUUg2bE85Q2ZQL2ZrSm8y?=
+ =?utf-8?B?dGVSNG9Xa09LMFRjcXpEbHRSN0s5Q0NkU3NXQUloamNIYnI1TjFsQzdOdC9S?=
+ =?utf-8?B?NHpId2RkaWtYTmEvOEJNWjJ5TjdEd3F0azA2TVg5QUdXN1RWekp0YjNOMHBs?=
+ =?utf-8?B?MFA3NU5LdmoxTTRNbTI4SjNaa1NRclZ0SjBPbU9EQ21WU0lHTjladUlESFNV?=
+ =?utf-8?B?blZSaUM1cUZaRlBYcmkzNXlvazdIaitCQkpENk1mQVVyWlBkVXJ3THdtbm4v?=
+ =?utf-8?B?ZlV3R1RWT3Q0WGFZV3VmYXF0ZUtRalV3dmFuclp5aTdUMVN4aFhHbTlSN1BG?=
+ =?utf-8?B?SXhQOStXZ0FGZDJtSjgrcHg4Z2N5SXI2N2g3Ky81eEd4ejZTRjZhSnpsQ2tx?=
+ =?utf-8?B?Slc5RVV0UURudm5SR0p5RE1PREl3c3ZhTGVvSTBuVlpQZmZDTHkwanZQTUZo?=
+ =?utf-8?B?RXo5VnZFNEZCL3Y2aWhWVVFpVkI4K2VpL21zRUhDT0Y0RG15aWYwVVRCWENY?=
+ =?utf-8?B?Tm5LNFY2MVQvRk9pTzhZcWdtdlpMcUZ3VEZ2eER3S2VoT1U2MGI3TGNQUnZC?=
+ =?utf-8?B?ZGZjbXlad09ZcWVJaVZSeGpoTU1XNEUzOGFlVmNjT2gwbGJXTmptVXovY1hl?=
+ =?utf-8?B?SkxYb2lGUG9mL3RLMWI2Q2JEc0JUbnlEQjJXcHE5cWZWZ3NUZDU4SHpTYWRk?=
+ =?utf-8?B?L0U3UXkvQXJtelB3R3BRNkJvdHp6Znp0bzlEWEVVTFJPN3V0YWxxL2g3eklJ?=
+ =?utf-8?B?MTZhWndLYVorRGxPcUZwOWh4Z1NGcDZiMVBUVjZBaWh6UlRlY1lNOE15Qkhp?=
+ =?utf-8?B?TVZlcFlFSy9pWm9wbUhwYXRxam5sNEx1emVoZkpIOHFmSWJUcHVBZEdzU25M?=
+ =?utf-8?B?WENkaXhjMEFKdzRsT1lCKyswZWxVRnZHZVFKZXZ6UDZJNSt2NDdMT1NCREFK?=
+ =?utf-8?B?WEJLTnYvY1JpZDZSQU5iTkVESU8xbnUwYmJtVUh6cGRVeUhIWE91dzBUb0N3?=
+ =?utf-8?B?Qk9XQWttcHRnZGNoVWxuRXcrUmxqZnBVUnRvNWZITExBYndJSjdJUDFmcWNJ?=
+ =?utf-8?B?Y3k0ZFAzeXBIaDZZTXNpVWd5aXI2U2xTVkRWT2orRVBlcHNjZjQxTVl6YThW?=
+ =?utf-8?B?Q2prZTVFT2ZvLzV6a0EwZytmaDh0ZWRhYU9mMGJuc0hZeVNCbTdSNzJaTVQ3?=
+ =?utf-8?B?aWlmM2diWWhnTGozanVhWmlzSU8xZkdUcld4MXRZMVMwTkRMWGhWdlduSXRB?=
+ =?utf-8?B?aVRwZ0lUTXFpVFpDOGJmVjJRV0syWm5DVUZES3Vma1Rnc0xXZmhWTXBjNGk0?=
+ =?utf-8?B?YjNGaDRBNklsZDNXMHNOTHlPNUFTUlAvTFdOY240NHNKN2lReWxqdllrWVFH?=
+ =?utf-8?Q?pbtOmSaOXiLSOo3pDCTyHW+qqAcS3i4DZ3XoYSt?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8095e70c-9a61-4f16-3de4-08d967067ac9
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5349.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2021 13:52:58.0564 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Y8CVCx8gdYOys3fL/D6Qm24VnnI6LKHAARTzvybUz8cdoIUIevyB8ejlourQyhi2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5176
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,134 +149,49 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Simon Ser <contact@emersion.fr>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Rodrigo!
 
-Thanks a lot for your reply! Comments below, please bear with me: I'm
-a bit familiar with the cursor issues, but my knowledge of AMD hw is
-still severely lacking.
 
-On Wednesday, August 18th, 2021 at 15:18, Rodrigo Siqueira <Rodrigo.Siqueir=
-a@amd.com> wrote:
+On 8/24/2021 7:10 PM, Borislav Petkov wrote:
+> On Tue, Aug 24, 2021 at 06:38:41PM +0530, Lazar, Lijo wrote:
+>> Without CONFIG_PM_SLEEP and with CONFIG_SUSPEND
+> 
+> Can you even create such a .config?
 
-> On 08/18, Simon Ser wrote:
-> > Hm. This patch causes a regression for me. I was using primary + overla=
-y
-> > not covering the whole primary plane + cursor before. This patch breaks=
- it.
->
-> Which branch are you using? Recently, I reverted part of that patch,
-> see:
->
->   Revert "drm/amd/display: Fix overlay validation by considering cursors"
+The description of  "(drm/amdgpu: fix checking pmops when PM_SLEEP is 
+not enabled)" says -
 
-Right. This revert actually makes things worse. Prior to the revert the
-overlay could be enabled without the cursor. With the revert the overlay
-cannot be enabled at all, even if the cursor is disabled.
 
-> > This patch makes the overlay plane very useless for me, because the pri=
-mary
-> > plane is always under the overlay plane.
->
-> I'm curious about your use case with overlay planes. Could you help me
-> to understand it better? If possible, describe:
->
-> 1. Context and scenario
-> 2. Compositor
-> 3. Kernel version
-> 4. If you know which IGT test describe your test?
->
-> I'm investigating overlay issues in our driver, and a userspace
-> perspective might help me.
+'pm_suspend_target_state' is only available when CONFIG_PM_SLEEP
+is set/enabled. OTOH, when both SUSPEND and HIBERNATION are not set,
+PM_SLEEP is not set, so this variable cannot be used.
 
-I'm working on gamescope [1], Valve's gaming compositor. Our use-cases incl=
-ude
-displaying (from bottom to top) a game in the background, a notification po=
-pup
-over it in the overlay plane, and a cursor in the cursor plane. All of the
-planes might be rotated. The game's buffer might be scaled and might not co=
-ver
-the whole CRTC.
+../drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c: In function 
+‘amdgpu_acpi_is_s0ix_active’:
+../drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c:1046:11: error: 
+‘pm_suspend_target_state’ undeclared (first use in this function); did 
+you mean ‘__KSYM_pm_suspend_target_state’?
+     return pm_suspend_target_state == PM_SUSPEND_TO_IDLE;
+            ^~~~~~~~~~~~~~~~~~~~~~~
+            __KSYM_pm_suspend_target_state
 
-libliftoff [2] is used to provide vendor-agnostic KMS plane offload. In oth=
-er
-words, I'd prefer to avoid relying too much on hardware specific details, e=
-.g.
-I'd prefer to avoid hole-punching via a underlay (it might work on AMD hw, =
-but
-will fail on many other drivers).
+Also use shorter IS_ENABLED(CONFIG_foo) notation for checking the
+2 config symbols.
 
-I'm usually using the latest kernel (at the time of writing, v5.13.10), but=
- I
-often test with drm-tip or agd5f's amd-staging-drm-next, especially when
-working on amdgpu patches.
+So it does look like that error can be extracted as well in some config.
 
-My primary hardware of interest is RDNA 2 based (the upcoming Steam Deck), =
-but
-of course it's better if gamescope can run on a wide range of hardware.
+> 
+>> I remember giving a reviewed-by for this one, looks like it never got in.
+>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.spinics.net%2Flists%2Famd-gfx%2Fmsg66166.html&amp;data=04%7C01%7Clijo.lazar%40amd.com%7C4d61b17225944c45335b08d967049ee6%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637654091831465201%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=GCdVG8N7g2E9DaiM1ek1voKQ9stZNfnEwyghQ0pWoxU%3D&amp;reserved=0
+> 
+> A better version of that one got in:
+> 
+> 5706cb3c910c ("drm/amdgpu: fix checking pmops when PM_SLEEP is not enabled")
+> 
 
-I don't know if there's an IGT covering my use-case.
+Well, now it doesn't seem to be a better one. The original one checked both.
 
-[1]: https://github.com/Plagman/gamescope
-[2]: https://github.com/emersion/libliftoff
-
-> > > Basically, we cannot draw the cursor at the same size and position on
-> > > two separated pipes since it uses extra bandwidth and DML only run
-> > > with one cursor.
-> >
-> > I don't understand this limitation. Why would it be necessary to draw t=
-he
-> > cursor on two separate pipes? Isn't it only necessary to draw it once o=
-n
-> > the overlay pipe, and not draw it on the primary pipe?
->
-> I will try to provide some background. Harry and Nick, feel free to
-> correct me or add extra information.
->
-> In the amdgpu driver and from the DRM perspective, we expose cursors as
-> a plane, but we don't have a real plane dedicated to cursors from the
-> hardware perspective. We have part of our HUPB handling cursors (see
-> commit "drm/amd/display: Add DCN3.1 DCHHUB" for a hardware block
-> overview), which requires a different way to deal with the cursor plane
-> since they are not planes in the hardware.
-
-What are DCHUBBUB and MMHUBBUB responsible for? Is one handling the primary
-plane and the other handling the overlay plane? Or something else entirely?
-
-> As a result, we have some
-> limitations, such as not support multiple cursors with overlay; to
-> support this, we need to deal with these aspects:
-
-Hm, but I don't want to draw multiple cursors. I want to draw a single
-cursor. If all planes are enabled, can't we paint the cursor only on the
-overlay plane and not paint the cursor on the primary plane?
-
-Or maybe it's impossible to draw the cursor on the overlay plane outside
-of the overlay plane bounds?
-
-I'm also confused by the commit message in "drm/amd/display: Fix two cursor
-duplication when using overlay", because an overlay which doesn't cover the
-whole CRTC used to work perfectly fine, even with the cursor plane enabled.
-
-> 1. We need to make multiple cursor match in the same position and size.
-> Again, keep in mind that cursors are handled in the HUBP, which is the
-> first part of our pipe, and it is not a plane.
->
-> 2. Fwiu, our Display Mode Library (DML), has gaps with multiple cursor
-> support, which can lead to bandwidth problems such as underflow. Part of
-> these limitations came from DCN1.0; the new ASIC probably can support
-> multiple cursors without issues.
->
-> Additionally, we fully support a strategy named underlay, which inverts
-> the logic around the overlay. The idea is to put the DE in the overlay
-> plane covering the entire screen and the other fb in the primary plane
-> behind the overlay (DE); this can be useful for playback video
-> scenarios.
-
-Yeah, as I said above this requires knowing a lot about the target hardware=
-,
-which is a bit unfortunate. This requires hole-punching and significantly
-changes the composition logic.
+Thanks,
+Lijo
