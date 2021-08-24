@@ -8,63 +8,64 @@ X-Spam-Status: No, score=-12.6 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	SPF_HELO_NONE,SPF_PASS,T_MIME_MALF,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3159FC432BE
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Aug 2021 01:00:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 93313C4338F
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Aug 2021 01:38:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EE98061212
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Aug 2021 01:00:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EE98061212
+	by mail.kernel.org (Postfix) with ESMTPS id 5414A61027
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Aug 2021 01:38:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5414A61027
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEBEA899C7;
-	Tue, 24 Aug 2021 01:00:02 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam08on2074.outbound.protection.outlook.com [40.107.102.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61E50899C7
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Aug 2021 01:00:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6D9289D7C;
+	Tue, 24 Aug 2021 01:38:56 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2063.outbound.protection.outlook.com [40.107.223.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C3E8589D7C
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Aug 2021 01:38:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Rg9v6W6zjorYvNnFhzcYv0m6DrNojUEnqG63ZxoqTpL3CsWHMCd4u+WtA6+X4sYuaLqYi9AxUKZnTHtkx7l7IdjXPNyoH1O50suGLR7jgDwDwskmWk3Gb/VslGIJv4DR2tI/CZ/4sWm/TjDi+0jywPPtJTauig0Z7FDHaTrGvQIYhWtP60Aqnuw7qmAvnGMdXTLQXd2nMwmPoIoaK4aJmToNN3b74Ulmm4yeRVezqeQyFEQJRT8eAUUVZHS6EbPres326eovp4CITmRoz1GcuuraiWL3XI/xjvsYklHpo9OHz2qEdrzdHNfkzr5WYYcxGMaixYnA9Z9Ab7MYIaNPww==
+ b=BQK8aT7I11Tf/wfdAUOwikK3fhu4p8sF9oRUezQref06kWV+azmTsBsFWAmdWKrrXlkMZ/6WTmZ33NXmyF58UhRxUOnYY4soktMt2+/8lTy1yR897ltsdk33hrHFFWn1qMArKeqzemkUqRmZQ21EiW/iV6+hWPf0Mb2Lb8az3Aqfq7x0IW7LbTDnJTIrq56W6d33PJmpLqCFDSfI/jxyAEptY7KxXY8Z3hT8nEF0cwD7saIjidvEDaNIiG6v0o5rXKUkMLPlU9xNXs1+Dp0kQLoil/3/HWVjJOkB4OTu/LrzppbFdeis6ywef2yD1IpJuBIFCvyzrDwuuTqTf2R9sQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IAJGvqBj7rspWAr4JJv/MZGzADHO8pWZNwJjNP2Q98M=;
- b=hIahqe9XHTR4biE5olTCiVy5jR9bNp466cQITm//yz9xAFbiYYm9WAlfag6HRmBqkLtxEcvWLis9OJ59Ex0/Sdx2eNPnJnWnwW4B2P5qLJXG/TprVKNDRlvyDUGdjX8XTyQE1AMuIPwouBX23hbI+0apKG8fTWKt7mJFHaNmW0oW3JxPIw9nKxgFfkLWXRGQaSuOGHWvIkWAZSD2YgS2lxpp854pssldAZPItMKBv7YhDAa43JizdZerhDbG6eYdro1F9RG316NtElLIXjP7vLmDHNgdeqSycnbPZKujMHdGrtsM7IOMbuTls2J7ZtcD0WX/gQXjTO+zphpEhjdIFA==
+ bh=hctYQgq8WwM4vtBzv7/kPzyCwlXbRF3vbe3I2YpSj4I=;
+ b=Ya5MpSx5lFEx2AZpSpT8kNCk+uSrsGy6NTlUgCwSSR6IV2dPrpDxZ/owhPKRaUlZJGwvqifp/ETh4FtQA70FuOuuGaMNdXaIuyIfCOV8CYQJxQh+az+jsRr+5TFdwJaXoIw26YumwYeEeJFiIMuD4brdAvsb5p0lzhFgOclf2a4QeeTwdc4iZc1eKQbxnvYCZPPFoU8yfbTGx1juWLEfOruVWnxInkZhtsmVivBCg4FZiMgoFNlmKpACrWYYrTGbJz5uN+OiRYJEp9bsdSBAU6bWIMWtopJNuVMVp80HtgwrnaLZnYm5K7bCrRlOixHxufS536L+RFW8SEcLdzGhLg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IAJGvqBj7rspWAr4JJv/MZGzADHO8pWZNwJjNP2Q98M=;
- b=XeuMIyIB3r2m6nHpjQTFn7HUa+wLd7BIoQKwbEbmg0q1AFl4Z3Dnsu5UIezHg1R9N2nJTIptWlAQLizJsdExhso8uLkaVWkPBffsEIqji1VN4b1UkOvOXcUsMMO0XWIYptNVsku54OZZOHYgVKJRhUAY5672PtYgCtT14N+QUyY=
+ bh=hctYQgq8WwM4vtBzv7/kPzyCwlXbRF3vbe3I2YpSj4I=;
+ b=hoSTxB6y/jV2WJuVPteWhKsyoAAqEY6c6o8lesbtuI7Uegl7hBtyPu/kdgHCXYb/FcPnJcK1qLFUiJxl8cTyoqE1I1UKdAl/fqyx8nv2Yfe+6FjBCgH9AMPkhd8uSK8MjpxkcSkSmkdSHRiK6F5EXUlmzFVtEgb/72oS4bbWh4U=
 Received: from BY5PR12MB5560.namprd12.prod.outlook.com (2603:10b6:a03:1d8::15)
- by BY5PR12MB5542.namprd12.prod.outlook.com (2603:10b6:a03:1db::15)
+ by BY5PR12MB5509.namprd12.prod.outlook.com (2603:10b6:a03:1d7::21)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.21; Tue, 24 Aug
- 2021 00:26:24 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.19; Tue, 24 Aug
+ 2021 01:38:51 +0000
 Received: from BY5PR12MB5560.namprd12.prod.outlook.com
  ([fe80::75e1:c194:6ae9:695b]) by BY5PR12MB5560.namprd12.prod.outlook.com
  ([fe80::75e1:c194:6ae9:695b%3]) with mapi id 15.20.4415.024; Tue, 24 Aug 2021
- 00:26:24 +0000
+ 01:38:51 +0000
 From: "Feng, Kenneth" <Kenneth.Feng@amd.com>
 To: Evans Jahja <evansjahja13@gmail.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
 Subject: RE: Voltage control on Southern Island GPU using radeon
 Thread-Topic: Voltage control on Southern Island GPU using radeon
-Thread-Index: AQHXmAtTbJUUngjuzkWPiN95PvruV6uBzFmg
-Date: Tue, 24 Aug 2021 00:26:23 +0000
-Message-ID: <BY5PR12MB5560F652AA337BEFB31A9F8B8EC59@BY5PR12MB5560.namprd12.prod.outlook.com>
+Thread-Index: AQHXmAtTbJUUngjuzkWPiN95PvruV6uBzFmggAAUixA=
+Date: Tue, 24 Aug 2021 01:38:51 +0000
+Message-ID: <BY5PR12MB5560A37C4992C7858134940F8EC59@BY5PR12MB5560.namprd12.prod.outlook.com>
 References: <mailman.1512.1629705579.907.amd-gfx@lists.freedesktop.org>
  <CAAq5pW_6ExZURMJkSPWr0+b_6XTzD0kON99+j9=vQVqQWL=sBQ@mail.gmail.com>
-In-Reply-To: <CAAq5pW_6ExZURMJkSPWr0+b_6XTzD0kON99+j9=vQVqQWL=sBQ@mail.gmail.com>
+ <BY5PR12MB5560F652AA337BEFB31A9F8B8EC59@BY5PR12MB5560.namprd12.prod.outlook.com>
+In-Reply-To: <BY5PR12MB5560F652AA337BEFB31A9F8B8EC59@BY5PR12MB5560.namprd12.prod.outlook.com>
 Accept-Language: zh-CN, en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-08-24T00:26:20Z; 
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-08-24T01:38:48Z; 
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
  Only-AIP 2.0;
@@ -74,56 +75,56 @@ msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
 authentication-results: gmail.com; dkim=none (message not signed)
  header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: db25bf7e-9d29-49b7-0719-08d96695cdea
-x-ms-traffictypediagnostic: BY5PR12MB5542:
-x-microsoft-antispam-prvs: <BY5PR12MB5542B3605A4A4AD2D63D79C48EC59@BY5PR12MB5542.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-ms-office365-filtering-correlation-id: 1de1a1f5-ee50-4f06-bd48-08d9669fed2c
+x-ms-traffictypediagnostic: BY5PR12MB5509:
+x-microsoft-antispam-prvs: <BY5PR12MB550941439E887F86D820AADB8EC59@BY5PR12MB5509.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8882;
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: SWuXi6iYhEgmlci8DLvGsEDW4CGSMlOSFfqomN37DEa6BX8ZOVneruUPxHORVveB3vXtzddtwGxICKb1tlT+GUBslNdMot1cl7KY+X4HnhEYATWQG7DCZeZK54NOCSy7P38twgG9BQ9f1JtxnOv0KfEGPcYRvWMEcH2wjINc5nixNfH8/ZFo7bE6nmIzOLrdkVrJLU0ijW1Iv8AnZ1FysgAViQsRc4BfaG5zCIyoC5cEqoCkJV5FTCVBwp8Qog7v6+8r5mk28rLz/CvO8X9P0HmMiSlSTaQFlTnJy74+gu4F1RZNLRYPtBxZ+ewpydzAvsiEheTy+Yvqimp0zj76Jlgt5uJLrJ5XnZ75fdA3+hKXlT2b+N8KkENNVUyV9iQuLYWU7Cts2yBK4m2+6+Bn80p47K7VSZuk2U8DqmI2jit+8wuSBLs/OqCONPzt9579IbRctJfal+qjykfQ6qZ0DAqgAUmqrwRY+l9pDL0A4kYBDbnaKpJKJ9a2CBHV1ib1mOzRkW3pYJRDm7SuDr+k60EhN1H8dld3W2ku6vLFKVDFUrqJcxv8PwCRmIaKj+u83jYppQoTTNokzg7rfeVxTcM5XbhVyVGVrLExnkjkwtxy31J+P/2DijMTkX7tPUNXQLQvxzkybwC0foXAmeymWGpeBaJjfjsge8NjfYtRy/yYmMeunlUv09ZuNEB0CDy2ONP51brkG7TLFXY7ZQagCw==
+x-microsoft-antispam-message-info: l78VAWODn6rMIyOrv51q43UvPOFe3L5HrBvNnhhHw+EOEhq2zp8/y1fnWtNbtA/FRKlQFvGnTMbDfqDR+coC+qGgNP79FX/ddULPHvnDSk4NMp+iy+puE29q659Ryk16k3vDKc6jjsan2RIBMTzsvW5jVAvX9YakjKW1G6CVJ1d8K1tvffTtOyeGiNOwRDqdnLems4qKW8fGGYdB0sgQ4Z+bAJZnKndIeqJy/M3qX5wb2ivkNFDHnUrw1D1AiMTb7tLZdF2TdqNT90wjiNoHe20dZg6tM/8Cx7VRtUgRO661s0E3rNIOQGL9xmiA3FUHy9+kEmLIr+Sqr5M6mAxwfzfgwNEsXxHdbd4moZgAr7w49zX9S6ySUFiub2LEmj+CYu0Rf9d8btdQT6/olOD5gag4gTD4P5ZZbBMJS3Rtdz1e6hliDd6TY48r+GBgpbx+/0KTTH0UVIJbZeVdFOo2scgDE6Bu9iTSZYryclVCVFsBtR6OY7jQf1Oj3bG1J8EPNfDFS3CWzKtqCKeeKNC7QDENer+9TSX1X/fHM87/Xn32VSb91SCnmmVDD1NwYJw+E6Gzru4+dj2tV+OcRxWqVSmzvM2a94zTkneO1Gmy1qvOL/azGXXoOaMyapMypOJ0YbFP+8HHCqWCXI1i46r3csWdDB3gQrhACLWg0P+Qf2SEfb1RqehHKv8axLP9jrwX6RTN2AQHYkk7FyNpQVLajw==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BY5PR12MB5560.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(39860400002)(366004)(376002)(346002)(136003)(316002)(8676002)(8936002)(110136005)(66476007)(2906002)(83380400001)(9686003)(122000001)(26005)(38100700002)(38070700005)(66946007)(966005)(30864003)(53546011)(6506007)(66446008)(52536014)(186003)(55016002)(71200400001)(64756008)(5660300002)(166002)(45080400002)(86362001)(478600001)(76116006)(7696005)(33656002)(66556008);
+ SFS:(4636009)(376002)(136003)(346002)(396003)(39860400002)(366004)(2940100002)(38100700002)(186003)(122000001)(83380400001)(166002)(53546011)(6506007)(30864003)(38070700005)(8936002)(26005)(8676002)(86362001)(9686003)(66446008)(110136005)(316002)(5660300002)(45080400002)(66556008)(64756008)(66946007)(71200400001)(966005)(478600001)(7696005)(55016002)(33656002)(66476007)(2906002)(76116006)(52536014);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?gdrJZxG6m8EtbEy4QQZA61vpLq7hbTGL3AQF13E80bNK0mz1kThKEaKTVhBp?=
- =?us-ascii?Q?eEfGbAZl3vVtPpQXMDOjXL86PwFNdhsxbuARbiPz9iTwD07b+QSm6VrS0Oo/?=
- =?us-ascii?Q?paLSy7H9ICSU8eCqoZdXeQCfSqkak+GV1rKTdx4N89K7w6Vgg3mfvWFF7+ND?=
- =?us-ascii?Q?qrcsvr2prv9xEjajy+Bv5t/HnPn+tYYu0PcIg5fSRu17ven7ORdghKmWo5ad?=
- =?us-ascii?Q?HSm5hDa5Yk6xg5bM1QeBGQlXgHx09T6SUFX3kS9AdVmui9HHo0n4guiHSGu2?=
- =?us-ascii?Q?hrOTn2NJMfN+gmBK5PNwr0gxSerda3pT0a5jCik8pXpuazZjGZwyU6uvvOxY?=
- =?us-ascii?Q?4Bmtol7GV/HtyTDdkAeCdfPlwh43AoORD8M+xGwyQj2wwOB4EhMDKJ5CGUTW?=
- =?us-ascii?Q?F3Y3ALzSUudTC3KAq4EljIbR5F2vC84i5e0J3QjZ5I/EqWBkew1hKaexZIOL?=
- =?us-ascii?Q?HzQwYzcSzX2U/2XgzaJCKJ0ZehZRwHXBQzPKsVTz6sPuPTsFdR+YrfO+iWNU?=
- =?us-ascii?Q?3L0tYBf9wBpl/t1DZNWxIRFh0bvrtrLNs3FUAJc/ELJLXjFri6nekdITnfNo?=
- =?us-ascii?Q?vq4fZEnnVw9ajS8LGFUY3AZuFaRnp4W/tSJ5Da6/pMsPApNhncMFVX/LOwQJ?=
- =?us-ascii?Q?eGZuOVY0y7LBM8i3OaDX9qOWF/Qnhfs1jqOYY88hibdKd9UteNaeBZiRupFF?=
- =?us-ascii?Q?rBQVwqkkDqHR0K5avSLzdvSnEI2NtVY/bT6RH26heQbO/Cw9k1aiwyk8NGVe?=
- =?us-ascii?Q?VxEbxDmO/1HNfxZo7zPPLB1rWvzSuHNexSPlAvi8spKVrYQXc98fdeR3G/rR?=
- =?us-ascii?Q?SMTZ/uffmj6ounPGunQBpvaOMxORMg/tK2pvC5AMZKVQ+pjBXDghOjNUO+vW?=
- =?us-ascii?Q?EwIrKfNmchnISR2G4BfqvL88sAx7n3ouTCN7jYVoGfdKlZgyiqwtsYi083Y7?=
- =?us-ascii?Q?3R2dumtsT6thdz24t+iIsNeqlYTM17N45ZQ921ZYu9v3syO+pJg0+L+nNyRW?=
- =?us-ascii?Q?me55a6uymTix4LqVlnaEFcdmDW4YACAtoUZf6L63pNS7hWgzABKLFSQOgxvC?=
- =?us-ascii?Q?exLw2CLdtnpq8xwDWVdjs7Jmrj996/mlBirgfyzAlPC2SD7rpVlUBpJ+QTmz?=
- =?us-ascii?Q?8120ik9M2RoJTlnkQZWx7CENvJUBO20tR2Cz5f0tRGlN46DbSfQGgB31quXU?=
- =?us-ascii?Q?iF1EHURRQxbSqWijt++Vb0Dc6FJmcXAOABjnDA6EkPLUkJKCOCee8w8rLIT+?=
- =?us-ascii?Q?WgPu6DzJTjfk+IigM4vnrcC2Iiv9DX9XPoMX3tSzTY+qwea4uH/S3fm6DzHa?=
- =?us-ascii?Q?W/GmaFwKjA5rmQhPe9vOdiLI?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?w/E5Utf+zK6nJ1ruzgJ9klmTtpjtFkH4OSd9SrMsTNZ9F/sLuQZnxCAb6Y5Z?=
+ =?us-ascii?Q?tvOFkE+NgQn8Bc7zx5KQ+F6S+FYxKng99f88xcH9zOJ9dprc3tklKL0y2iFP?=
+ =?us-ascii?Q?FPxXPwefeWxTDUtMCnwEMM9tNij/RfmAw0CPftlSYC7ECnFZLrdKkZnenxBX?=
+ =?us-ascii?Q?ylv55Y3Y/f7FFTbsVGDzEHUVQJ3oarfNP88fOrCKDf+mytmmBxEZNuWEsooq?=
+ =?us-ascii?Q?NADnk5FohuFST/KFhDg6lXBMdn9DkxwJTSB0UtM4fFdQKTwkxSWWP2IrP+bB?=
+ =?us-ascii?Q?UtwCHztc1mZZ3GYymsgCeF1RlcfxF316dtnq6jCCeIRWO4AF3m1Dro6EpFW0?=
+ =?us-ascii?Q?9Hnps6VdxjNVXlietKRDeQ64pfh7XWC5Q7qj/kCx1fshCoG41xHtXlIORkzs?=
+ =?us-ascii?Q?GTr+0doKRXxT3WThkU6JD1eolZ2OdgzuLm/5ew6GfBk68CegyokZxiIJXGH4?=
+ =?us-ascii?Q?gkBksOrwsxToqj0s9CFMg1XRhwy5ZFE3IjNKAfXtLwMrfKwqGsdK/OVXxGvC?=
+ =?us-ascii?Q?Npzob36fuRZ9rKvsIG/MixKnK8Av4eEMj9x3nFFnKRHpwastxKWwK16hkTK0?=
+ =?us-ascii?Q?+94PM6uuv/ZcO8iRXDAVq+8G6qWvNUWZptH6oSzkbxfsmdY6x33/z2IC8UE5?=
+ =?us-ascii?Q?x6bZejJJkr3YlKszbTIGcfo1krJm3t8DyfzmkEHsBmeQirYKbDOe4XNEdJvo?=
+ =?us-ascii?Q?E1bKAsMHfIOaI/Qmy83QTQh0rEmTly4qeUsm4SU1SZ/bg+FvvQruWQOGqbHe?=
+ =?us-ascii?Q?jBf0k8XsmlB7n3Et97yTCsT0kHXS5rF5Me6E4QjKxEbQQ0C6D/wqoa5LdICI?=
+ =?us-ascii?Q?H8NypL4bghkxHZcb9iHojQvo+U5zJjH3BdUmwVZxNkJyBhDk1VG3xQZmVr+t?=
+ =?us-ascii?Q?zdnjOc4BCK+J5tMJ4gg/YZ6TcUpzai2VSIRHz6qLM2lcRk9faLf7GFZZv/DI?=
+ =?us-ascii?Q?LBmhVAN6h1aDnEczjHpH61EtrFq/dJrBrKN/wY3cbvieBy0vA/x/fIISTQJz?=
+ =?us-ascii?Q?VJlXDrQbMgmNvkhLqBWVvbcXjebBO5FBlyX79Bg46jvRU6UJOsxGvsqjbGi2?=
+ =?us-ascii?Q?FvU+VN3n1HtTvdrPy0O8Jwn62av9YaojW1ya5Xg7fwxyrJkyGfGK9ALuiBjs?=
+ =?us-ascii?Q?ONLtjPMdeq6Mb0q2fSUdvjoNM59p6BIsGPZMqeqevcAna/m8TViXS0dpMqnt?=
+ =?us-ascii?Q?JZhGAUErkGWaFtyPxWCYHeih463i8hp3YAViQhiXPwdrFxBqX/4VmpJACztI?=
+ =?us-ascii?Q?z7qhT/EEeTYaspEGixsnBE05OA2L8PVpovCmmJ38wP2GK1k+YRnJdK1Kozn4?=
+ =?us-ascii?Q?X2tSE5YGd4bcjF3/6iYlhWCA?=
 x-ms-exchange-transport-forked: True
 Content-Type: multipart/alternative;
- boundary="_000_BY5PR12MB5560F652AA337BEFB31A9F8B8EC59BY5PR12MB5560namp_"
+ boundary="_000_BY5PR12MB5560A37C4992C7858134940F8EC59BY5PR12MB5560namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: BY5PR12MB5560.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: db25bf7e-9d29-49b7-0719-08d96695cdea
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Aug 2021 00:26:23.9267 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1de1a1f5-ee50-4f06-bd48-08d9669fed2c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Aug 2021 01:38:51.3068 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: X1uqYD7rrJB+V01kto7NINieF4RvdY9zm0MQ0nghRGBb+XwLbq2oezRZA1GGA6GZ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB5542
+X-MS-Exchange-CrossTenant-userprincipalname: iw32AssMiXQeQ1OmFTEfZ5eeJjGvmUEHbkkXAM/tXPMb9ZLaZihm6mCuziGfFAcP
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB5509
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,9 +139,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BY5PR12MB5560F652AA337BEFB31A9F8B8EC59BY5PR12MB5560namp_
+--_000_BY5PR12MB5560A37C4992C7858134940F8EC59BY5PR12MB5560namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+[AMD Official Use Only]
+
+Hi Evans,
+I think you can refer to the code in r600_parse_clk_voltage_dep_table.
+And print the value in radeon_table->entries[i].clk(sclk in each level), th=
+en override it to a lower value.
+Thanks.
+
+
+From: Feng, Kenneth
+Sent: Tuesday, August 24, 2021 8:26 AM
+To: Evans Jahja <evansjahja13@gmail.com>; amd-gfx@lists.freedesktop.org
+Subject: RE: Voltage control on Southern Island GPU using radeon
+
 
 [AMD Official Use Only]
 
@@ -149,10 +165,10 @@ Since HAINAN is very different, need some further confirmation.
 Thanks.
 
 
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Evans Ja=
-hja
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org<mailto:amd-gfx-bounces=
+@lists.freedesktop.org>> On Behalf Of Evans Jahja
 Sent: Monday, August 23, 2021 6:40 PM
-To: amd-gfx@lists.freedesktop.org
+To: amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
 Subject: RE: Voltage control on Southern Island GPU using radeon
 
 [CAUTION: External Email]
@@ -649,7 +665,7 @@ QDmp3BTAeLr0p%2BK4%3D&reserved=3D0>
 End of amd-gfx Digest, Vol 63, Issue 280
 ****************************************
 
---_000_BY5PR12MB5560F652AA337BEFB31A9F8B8EC59BY5PR12MB5560namp_
+--_000_BY5PR12MB5560A37C4992C7858134940F8EC59BY5PR12MB5560namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -684,10 +700,6 @@ a:link, span.MsoHyperlink
 	{mso-style-priority:99;
 	color:blue;
 	text-decoration:underline;}
-span.EmailStyle18
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
 p.msipheadera4477989, li.msipheadera4477989, div.msipheadera4477989
 	{mso-style-name:msipheadera4477989;
 	mso-margin-top-alt:auto;
@@ -696,6 +708,10 @@ p.msipheadera4477989, li.msipheadera4477989, div.msipheadera4477989
 	margin-left:0in;
 	font-size:11.0pt;
 	font-family:"Calibri",sans-serif;}
+span.EmailStyle19
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
 .MsoChpDefault
 	{mso-style-type:export-only;
 	font-size:10.0pt;}
@@ -718,6 +734,32 @@ k-word">
 ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:blue">[AMD Officia=
 l Use Only]</span><o:p></o:p></p>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Hi Evans,<o:p></o:p></p>
+<p class=3D"MsoNormal">I think you can refer to the code in <span style=3D"=
+color:red">
+r600_parse_clk_voltage_dep_table</span>.<o:p></o:p></p>
+<p class=3D"MsoNormal">And print the value in <span style=3D"color:red">rad=
+eon_table-&gt;entries[i].clk</span>(sclk in each level), then override it t=
+o a lower value.<o:p></o:p></p>
+<p class=3D"MsoNormal">Thanks.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Feng, Kenneth <br>
+<b>Sent:</b> Tuesday, August 24, 2021 8:26 AM<br>
+<b>To:</b> Evans Jahja &lt;evansjahja13@gmail.com&gt;; amd-gfx@lists.freede=
+sktop.org<br>
+<b>Subject:</b> RE: Voltage control on Southern Island GPU using radeon<o:p=
+></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"msipheadera4477989" style=3D"margin:0in"><span style=3D"font-si=
+ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:blue">[AMD Officia=
+l Use Only]</span><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
 <p class=3D"MsoNormal">Got it, Evans.<o:p></o:p></p>
 <p class=3D"MsoNormal">Since HAINAN is very different, need some further co=
 nfirmation.<o:p></o:p></p>
@@ -727,11 +769,12 @@ nfirmation.<o:p></o:p></p>
 <div>
 <div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
 0in 0in">
-<p class=3D"MsoNormal"><b>From:</b> amd-gfx &lt;amd-gfx-bounces@lists.freed=
-esktop.org&gt;
+<p class=3D"MsoNormal"><b>From:</b> amd-gfx &lt;<a href=3D"mailto:amd-gfx-b=
+ounces@lists.freedesktop.org">amd-gfx-bounces@lists.freedesktop.org</a>&gt;
 <b>On Behalf Of </b>Evans Jahja<br>
 <b>Sent:</b> Monday, August 23, 2021 6:40 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org<br>
+<b>To:</b> <a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.f=
+reedesktop.org</a><br>
 <b>Subject:</b> RE: Voltage control on Southern Island GPU using radeon<o:p=
 ></o:p></p>
 </div>
@@ -1386,4 +1429,4 @@ End of amd-gfx Digest, Vol 63, Issue 280<br>
 </body>
 </html>
 
---_000_BY5PR12MB5560F652AA337BEFB31A9F8B8EC59BY5PR12MB5560namp_--
+--_000_BY5PR12MB5560A37C4992C7858134940F8EC59BY5PR12MB5560namp_--
