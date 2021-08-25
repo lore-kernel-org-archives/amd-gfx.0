@@ -2,75 +2,106 @@ Return-Path: <SRS0=FOdb=NQ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 57303C4338F
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 11:31:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8DB96C4338F
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 11:36:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1E7D960EFF
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 11:31:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1E7D960EFF
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 4A94D60FE6
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 11:36:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4A94D60FE6
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5A1D6E1DE;
-	Wed, 25 Aug 2021 11:31:12 +0000 (UTC)
-Received: from mail-ua1-x92b.google.com (mail-ua1-x92b.google.com
- [IPv6:2607:f8b0:4864:20::92b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9B3C6E1DE
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Aug 2021 11:31:11 +0000 (UTC)
-Received: by mail-ua1-x92b.google.com with SMTP id m39so14885091uad.9
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Aug 2021 04:31:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=EgP17NlyAyKYXMejHlpYvwN4WIYqZ1QNgKmawfSeFk8=;
- b=MZt2NUR/CQg78aKd7Av1sQMKgN1OaB95tNdU5B/TUcaFb/PbmFYbEnxmDZtNBSeyOD
- Sam+SU32v/gXfBpUEuKdaFKTsQmrwJYr15Fs++yTRlsJKlAXpu4R/2uJjKqBVu5ujb0E
- MBHTlx0eQbFXF5UvYsGcm8PUEBh7nkRw0n3iharr/uotqKz/zlYaO2NdCoQJkG21KwoT
- FRhgIZKg7zif5i8xa+ZNCItwWSda7L9uMSZk8dnd7Ll4jkLOThbydHfwUawEASq0Yy6N
- ULb4ZCcQWCgPSnTjHs20rXPES5ostTA9/+crMSJVogrp37ma+v0+r2CyyEIRpNphGMPI
- UizA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=EgP17NlyAyKYXMejHlpYvwN4WIYqZ1QNgKmawfSeFk8=;
- b=Sz96xU+CqT0bMLmr3tyXUI33ZEIQno3955Zd8/Uamm2DmaGPVFkXSPkqy7Q3cKSavw
- TLskS7y30tf7rPV0BM2RFmB2DMdxbrHar3BUSTpOf/e7ZSJyPCQg3R8EmaqNKQ9RBVQV
- VserPN/XiwLjPS3Wa999Pg/8ZznOfcEm7zIb/pwvDblsHaZ6xEvQlqizmgpIYpopXT+U
- V7+HUsuVVR074iXJDxpJDRFMju2eVRXY4w+xX1GpNxBEMWrkJFTl9WFLIkGBS9h+r9cW
- 3fSNpkStVgBcjre7gTUa3CQUPbFfHgTlMJUBusy/tNcSFTbqNEsTvY/eOqbblVgPDt54
- q/7w==
-X-Gm-Message-State: AOAM531Vxi1j/cTvzyByxZ6DtW5O2GumlAF8eRPgmwELhbJcXA/uXD3Q
- 09BvXDmhGGMq50NvJ8sDYZollRN8qf3bW8glFDw=
-X-Google-Smtp-Source: ABdhPJxMG0cGRd3Qp/MqmfRlHH3jFlBtbGKo4DTBycTEpVDyi+MXDDEWnDSZeA1ZyN5Kb2Ap1bG6xd4YnxM9UEMV968=
-X-Received: by 2002:a9f:3701:: with SMTP id z1mr1338789uad.125.1629891070803; 
- Wed, 25 Aug 2021 04:31:10 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E06028984D;
+	Wed, 25 Aug 2021 11:36:51 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam07on2065.outbound.protection.outlook.com [40.107.212.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C14A8984D
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Aug 2021 11:36:50 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=K+ftk3paYGKzIC8UD8qpjx4cE72eZ1+uzGg6bao6XuZJZw2ChST/Ujvh2f4Wfd3KmGhHbhnYPlHa+OJkKcGbRlKz8Gl+FhBjRhNQDDLOm5PxIxktloZTTSWwpOhbUkrbh1S1Ux9mRjCjuyvOhv1Wk8BqAXOO5ncjUseyQIeRadLS1K6k2hyVDTkdt+3wS74EmoWc2D8eH/fChnAKgw6R9gdadEeNly57o4o2R8y7c7W/K+YeJFoIB5NoqAKrJM3mdvxQNLNvBHGgkwFsDbS3GQIpwTNHhnAiy87fdJIZjM0FGoJr5w5PeTBq2AzYqUHFOo+oHs5vhjFel2YvsGKRoA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GjuTRMU6zFW59lLRkqbs/OmEeYeF8Etcetax4/DuGwA=;
+ b=nDnSQAXyKz9pNnez1IkI6BUxvVZBjZXy1+GvBlrjVOg8K7Vowgd59E+5Xbip7sTONNGo8896/suSOlKJH09MOyyZP4oxd/Zn61Sg+lA3+w1DLUv4Vz50OdGwJwVGfo2t1jU+VsDmjuOTtt6LWQOcPywbR5TDYGJ7ksAbyHDoeEcWLyzkG9FG64hXl5LdOeBDZ7oBfL5yrTuLk1Eufv8V3Fb05phTutjnMusIKIwot3m+MvCD5D20Bnjloe4QgF4OkHqIJlBk/oULNMrbsjMwxAeoyk9H3n8KBX8BgHKO4wNa/sQBZM7O5IfVkTMvuGwG8cUoX5/g/7IGArW6ur7JlA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GjuTRMU6zFW59lLRkqbs/OmEeYeF8Etcetax4/DuGwA=;
+ b=CM4sBWrTEwZuAp5E/YmDBh5Uutsbl/uh8jQbIEBTs+Czv8ycxiD2P8jcjgS7LKyg/DXtz1Svt3rtlVDB2nWBpBtYcUX7MjPDyJ38jFTlm6Sm+5yvb6sH7Ka4G+LVz7ZfffiOrVlcKoSNWm52rpFpCHVKNTfMKN6DmucfdRMmQys=
+Received: from BN9P220CA0017.NAMP220.PROD.OUTLOOK.COM (2603:10b6:408:13e::22)
+ by CH0PR12MB5265.namprd12.prod.outlook.com (2603:10b6:610:d0::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.19; Wed, 25 Aug
+ 2021 11:22:32 +0000
+Received: from BN8NAM11FT012.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:13e:cafe::83) by BN9P220CA0017.outlook.office365.com
+ (2603:10b6:408:13e::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.19 via Frontend
+ Transport; Wed, 25 Aug 2021 11:22:32 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT012.mail.protection.outlook.com (10.13.177.55) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4457.17 via Frontend Transport; Wed, 25 Aug 2021 11:22:32 +0000
+Received: from brihaspati.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Wed, 25 Aug
+ 2021 06:22:30 -0500
+From: Nirmoy Das <nirmoy.das@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Christian.Koenig@amd.com>, <satyajit.sahu@amd.com>, Nirmoy Das
+ <nirmoy.das@amd.com>
+Subject: [PATCH 1/1] drm/amdgpu: rework context priority handling
+Date: Wed, 25 Aug 2021 13:22:03 +0200
+Message-ID: <20210825112203.3806-1-nirmoy.das@amd.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-References: <20210824133642.109072-1-tom.stdenis@amd.com>
- <de13fb00-3ce7-5f6c-8f22-e07e697de643@gmail.com>
- <CAAzXoRLzLjZm0AW1w=oEKMsRrVzwPDawbdimBiaKV86A7QF8nQ@mail.gmail.com>
- <84ddce49-012b-2fae-d14d-eeebf7e6c09a@gmail.com>
- <CAAzXoRJsSxm7UOt++H9Ko8pnnNdO0Zp=+hPgCh8TwUaQhv-e_w@mail.gmail.com>
- <acad0e11-842f-52ff-c31a-eebf4777f746@gmail.com>
- <ee4246f1-ae2f-4b30-fb00-047b8184b8e1@amd.com>
-In-Reply-To: <ee4246f1-ae2f-4b30-fb00-047b8184b8e1@amd.com>
-From: Tom St Denis <tstdenis82@gmail.com>
-Date: Wed, 25 Aug 2021 07:31:00 -0400
-Message-ID: <CAAzXoR+-KywrwpajoOKB+4QynqiKeDTqmVeMgdE6BMTSYX7CMQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/amdgpu: New debugfs interface for MMIO registers
- (v2)
-To: "Das, Nirmoy" <nirmoy.das@amd.com>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>, 
- Tom St Denis <tom.stdenis@amd.com>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
-Content-Type: multipart/alternative; boundary="0000000000004c42c605ca6096ae"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 2007214e-0f67-4f18-bc4e-08d967baa1cd
+X-MS-TrafficTypeDiagnostic: CH0PR12MB5265:
+X-Microsoft-Antispam-PRVS: <CH0PR12MB52658CF0EEFCBBDDC1D124798BC69@CH0PR12MB5265.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: fN93pUpFWMUK3mdE8E1O9WM1l8F0r93VC5+6D8zdO32Fn0R8SNLTsfFLYYZIz/khBM52HiXv/v0uSVQYdMAJ+rGXDmdsyMiBb/JW1PjGNP5UoKE9xDCLSiOoDz+QKJtoBUfnRD3SUPqy7+tRXRSnR1aq5nn1VLNbA86AIyLfEZswhrIn+Aqu5nqEBB9FzuBt7e3+xzvLti8ae1boJ8aR/QakMlljmX8Yq0QMG2rEmdOMghB87mMw4Kfgl8mcVJG2H1o7ONv5CNPlZJiZwge5g/imkQvtUVfRPfoagZDHuNivyTFG5qdb5witGd1roWU8taCTK0rYtmOwcCe05Sf2pNRz97TOdbvLHKC0aVJYxfxoI0CtjXefzsYcAaIOF2PuLvYnABAHLrS8MFU7vqtJupIbQ2oGGejhyz3tdBTyrTfYqOag33wPy1giO+cc8kgclS7eho2oMf+l/XSqFJVlQZZw/rVREbBnIiuxGWsL20KQ2TjI4qo1TzHWs1Q09LONs+gfQjL9cZPOXWx+qNFjlHugTOdxYRjgdp5fWZXjY5rwKfVN//3JGvvx4s1kT0Zc6ohAuLecri1ir5kvBzhvyMeLanUfQPdbmY8ekKCYScLgv3ZNdwckNjgbJm+y5FnchdCGQTonmLCzQEXwrraWDnZOGUIG8uiie+ljYXwTvW5R2IajYPMz6gq4pZ8elQfn0aKvR3Df8mxZxMz30ieG2hM2Z0NNNlOM1p3zAUgTBsc=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(46966006)(36840700001)(508600001)(54906003)(86362001)(5660300002)(6666004)(1076003)(356005)(6916009)(4326008)(7696005)(8936002)(8676002)(336012)(426003)(36756003)(44832011)(47076005)(36860700001)(83380400001)(16526019)(186003)(70206006)(70586007)(2906002)(81166007)(30864003)(82310400003)(26005)(316002)(2616005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2021 11:22:32.3779 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2007214e-0f67-4f18-bc4e-08d967baa1cd
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT012.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5265
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,1144 +116,392 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---0000000000004c42c605ca6096ae
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+To get a hardware queue priority for a context, we are currently
+mapping AMDGPU_CTX_PRIORITY_* to DRM_SCHED_PRIORITY_* and then
+to hardware queue priority, which is not the right way to do that
+as DRM_SCHED_PRIORITY_* is software scheduler's priority and it is
+independent from a hardware queue priority.
 
-1 hole with u8, 0 holes with u32.  Is good?
+Use userspace provided context priority, AMDGPU_CTX_PRIORITY_* to
+map a context to proper hardware queue priority.
 
-On Wed, Aug 25, 2021 at 7:16 AM Das, Nirmoy <nirmoy.das@amd.com> wrote:
+Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c   | 127 ++++++++++++++++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h   |   8 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c |  44 ++------
+ 3 files changed, 105 insertions(+), 74 deletions(-)
 
->
-> On 8/25/2021 1:09 PM, Christian K=C3=B6nig wrote:
->
-> I suggest to give this command here at least a try (remembered the name
-> after a moment):
->
-> pahole drivers/gpu/drm/amd/amdgpu/amdgpu.o -C amdgpu_debugfs_regs2_iocdat=
-a
->
-> It has a rather nifty output with padding holes, byte addresses, cache
-> lines etc for your structure.
->
-> Christian.
->
-> Am 25.08.21 um 13:04 schrieb Tom St Denis:
->
-> I tested it by forcing bit patterns into the ioctl data and printing it
-> out in the kernel log.  I'm not siloed into it one way or the other.  I'l=
-l
-> just change it to u32.
->
-> On Wed, Aug 25, 2021 at 7:03 AM Christian K=C3=B6nig <
-> ckoenig.leichtzumerken@gmail.com> wrote:
->
->> Using u8 is ok as well, just make sure that you don't have any hidden
->> padding.
->>
->> Nirmoy had a tool to double check for paddings which I once more forgot
->> the name of.
->>
->
-> Yes, pahole. pkg name: dwarves
->
->
-> Nirmoy
->
->
->
->> Christian.
->>
->> Am 25.08.21 um 12:40 schrieb Tom St Denis:
->>
->> The struct works as is but I'll change them to u32.  The offset is an
->> artefact of the fact this was an IOCTL originally.  I'm working both end=
-s
->> in parallel trying to make the changes at the same time because I'm only
->> submitting the kernel patch if I've tested it in userspace.
->>
->> I'll send a v4 in a bit this morning....
->>
->> Tom
->>
->> On Wed, Aug 25, 2021 at 2:35 AM Christian K=C3=B6nig <
->> ckoenig.leichtzumerken@gmail.com> wrote:
->>
->>>
->>>
->>> Am 24.08.21 um 15:36 schrieb Tom St Denis:
->>> > This new debugfs interface uses an IOCTL interface in order to pass
->>> > along state information like SRBM and GRBM bank switching.  This
->>> > new interface also allows a full 32-bit MMIO address range which
->>> > the previous didn't.  With this new design we have room to grow
->>> > the flexibility of the file as need be.
->>> >
->>> > (v2): Move read/write to .read/.write, fix style, add comment
->>> >        for IOCTL data structure
->>> >
->>> > Signed-off-by: Tom St Denis <tom.stdenis@amd.com>
->>> > ---
->>> >   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 162
->>> ++++++++++++++++++++
->>> >   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h |  32 ++++
->>> >   2 files changed, 194 insertions(+)
->>> >
->>> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
->>> > index 277128846dd1..8e8f5743c8f5 100644
->>> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
->>> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
->>> > @@ -279,6 +279,156 @@ static ssize_t amdgpu_debugfs_regs_write(struct
->>> file *f, const char __user *buf,
->>> >       return amdgpu_debugfs_process_reg_op(false, f, (char __user
->>> *)buf, size, pos);
->>> >   }
->>> >
->>> > +static int amdgpu_debugfs_regs2_open(struct inode *inode, struct fil=
-e
->>> *file)
->>> > +{
->>> > +     struct amdgpu_debugfs_regs2_data *rd;
->>> > +
->>> > +     rd =3D kzalloc(sizeof *rd, GFP_KERNEL);
->>> > +     if (!rd)
->>> > +             return -ENOMEM;
->>> > +     rd->adev =3D file_inode(file)->i_private;
->>> > +     file->private_data =3D rd;
->>> > +
->>> > +     return 0;
->>> > +}
->>> > +
->>> > +static int amdgpu_debugfs_regs2_release(struct inode *inode, struct
->>> file *file)
->>> > +{
->>> > +     kfree(file->private_data);
->>> > +     return 0;
->>> > +}
->>> > +
->>> > +static ssize_t amdgpu_debugfs_regs2_op(struct file *f, char __user
->>> *buf, size_t size, int write_en)
->>> > +{
->>> > +     struct amdgpu_debugfs_regs2_data *rd =3D f->private_data;
->>> > +     struct amdgpu_device *adev =3D rd->adev;
->>> > +     ssize_t result =3D 0;
->>> > +     int r;
->>> > +     uint32_t value;
->>> > +
->>> > +     if (size & 0x3 || rd->state.offset & 0x3)
->>> > +             return -EINVAL;
->>> > +
->>> > +     if (rd->state.id.use_grbm) {
->>> > +             if (rd->state.id.grbm.se
->>> <https://nam11.safelinks.protection.outlook.com/?url=3Dhttp%3A%2F%2Fsta=
-te.id.grbm.se%2F&data=3D04%7C01%7Cnirmoy.das%40amd.com%7Cf02eba2f047347488d=
-5508d967b8bf96%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637654865456597=
-676%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1=
-haWwiLCJXVCI6Mn0%3D%7C1000&sdata=3DS7Fz7mMEeVYFqLF0paV%2BDr53Ty2e87lVIWFTvf=
-ZTJ%2Bs%3D&reserved=3D0>
->>> =3D=3D 0x3FF)
->>> > +                     rd->state.id.grbm.se
->>> <https://nam11.safelinks.protection.outlook.com/?url=3Dhttp%3A%2F%2Fsta=
-te.id.grbm.se%2F&data=3D04%7C01%7Cnirmoy.das%40amd.com%7Cf02eba2f047347488d=
-5508d967b8bf96%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637654865456597=
-676%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1=
-haWwiLCJXVCI6Mn0%3D%7C1000&sdata=3DS7Fz7mMEeVYFqLF0paV%2BDr53Ty2e87lVIWFTvf=
-ZTJ%2Bs%3D&reserved=3D0>
->>> =3D 0xFFFFFFFF;
->>> > +             if (rd->state.id.grbm.sh
->>> <https://nam11.safelinks.protection.outlook.com/?url=3Dhttp%3A%2F%2Fsta=
-te.id.grbm.sh%2F&data=3D04%7C01%7Cnirmoy.das%40amd.com%7Cf02eba2f047347488d=
-5508d967b8bf96%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637654865456607=
-632%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1=
-haWwiLCJXVCI6Mn0%3D%7C1000&sdata=3DiHxDEyZ7lz%2FGOdgSFHGbbAT2NPcQCQR0g58ISQ=
-MHGhY%3D&reserved=3D0>
->>> =3D=3D 0x3FF)
->>> > +                     rd->state.id.grbm.sh
->>> <https://nam11.safelinks.protection.outlook.com/?url=3Dhttp%3A%2F%2Fsta=
-te.id.grbm.sh%2F&data=3D04%7C01%7Cnirmoy.das%40amd.com%7Cf02eba2f047347488d=
-5508d967b8bf96%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637654865456607=
-632%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1=
-haWwiLCJXVCI6Mn0%3D%7C1000&sdata=3DiHxDEyZ7lz%2FGOdgSFHGbbAT2NPcQCQR0g58ISQ=
-MHGhY%3D&reserved=3D0>
->>> =3D 0xFFFFFFFF;
->>> > +             if (rd->state.id.grbm.instance =3D=3D 0x3FF)
->>> > +                     rd->state.id.grbm.instance =3D 0xFFFFFFFF;
->>> > +     }
->>> > +
->>> > +     r =3D pm_runtime_get_sync(adev_to_drm(adev)->dev);
->>> > +     if (r < 0) {
->>> > +             pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
->>> > +             return r;
->>> > +     }
->>> > +
->>> > +     r =3D amdgpu_virt_enable_access_debugfs(adev);
->>> > +     if (r < 0) {
->>> > +             pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
->>> > +             return r;
->>> > +     }
->>> > +
->>> > +     if (rd->state.id.use_grbm) {
->>> > +             if ((rd->state.id.grbm.sh
->>> <https://nam11.safelinks.protection.outlook.com/?url=3Dhttp%3A%2F%2Fsta=
-te.id.grbm.sh%2F&data=3D04%7C01%7Cnirmoy.das%40amd.com%7Cf02eba2f047347488d=
-5508d967b8bf96%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637654865456607=
-632%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1=
-haWwiLCJXVCI6Mn0%3D%7C1000&sdata=3DiHxDEyZ7lz%2FGOdgSFHGbbAT2NPcQCQR0g58ISQ=
-MHGhY%3D&reserved=3D0>
->>> !=3D 0xFFFFFFFF && rd->state.id.grbm.sh
->>> <https://nam11.safelinks.protection.outlook.com/?url=3Dhttp%3A%2F%2Fsta=
-te.id.grbm.sh%2F&data=3D04%7C01%7Cnirmoy.das%40amd.com%7Cf02eba2f047347488d=
-5508d967b8bf96%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637654865456617=
-591%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1=
-haWwiLCJXVCI6Mn0%3D%7C1000&sdata=3DjhS3kKxQAAn18tfFNC7pYnZKEKps4zVXdsX%2FIF=
-LH7a4%3D&reserved=3D0>
->>> >=3D adev->gfx.config.max_sh_per_se) ||
->>> > +                 (rd->state.id.grbm.se
->>> <https://nam11.safelinks.protection.outlook.com/?url=3Dhttp%3A%2F%2Fsta=
-te.id.grbm.se%2F&data=3D04%7C01%7Cnirmoy.das%40amd.com%7Cf02eba2f047347488d=
-5508d967b8bf96%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637654865456617=
-591%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1=
-haWwiLCJXVCI6Mn0%3D%7C1000&sdata=3DJ1WzngpR3KOnPsstL3mpbhltQIp0idV6B22%2BZq=
-ZpXoQ%3D&reserved=3D0>
->>> !=3D 0xFFFFFFFF && rd->state.id.grbm.se
->>> <https://nam11.safelinks.protection.outlook.com/?url=3Dhttp%3A%2F%2Fsta=
-te.id.grbm.se%2F&data=3D04%7C01%7Cnirmoy.das%40amd.com%7Cf02eba2f047347488d=
-5508d967b8bf96%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637654865456617=
-591%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1=
-haWwiLCJXVCI6Mn0%3D%7C1000&sdata=3DJ1WzngpR3KOnPsstL3mpbhltQIp0idV6B22%2BZq=
-ZpXoQ%3D&reserved=3D0>
->>> >=3D adev->gfx.config.max_shader_engines)) {
->>> > +
->>>  pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
->>> > +
->>>  pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
->>> > +                     amdgpu_virt_disable_access_debugfs(adev);
->>> > +                     return -EINVAL;
->>> > +             }
->>> > +             mutex_lock(&adev->grbm_idx_mutex);
->>> > +             amdgpu_gfx_select_se_sh(adev, rd->state.id.grbm.se
->>> <https://nam11.safelinks.protection.outlook.com/?url=3Dhttp%3A%2F%2Fsta=
-te.id.grbm.se%2F&data=3D04%7C01%7Cnirmoy.das%40amd.com%7Cf02eba2f047347488d=
-5508d967b8bf96%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637654865456627=
-544%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1=
-haWwiLCJXVCI6Mn0%3D%7C1000&sdata=3DmElFqeL4bHf%2FcNlWTVyoxT6VhHnoLKVOCwCpsW=
-iqLkM%3D&reserved=3D0>
->>> ,
->>> > +                                                             rd->
->>> state.id.grbm.sh
->>> <https://nam11.safelinks.protection.outlook.com/?url=3Dhttp%3A%2F%2Fsta=
-te.id.grbm.sh%2F&data=3D04%7C01%7Cnirmoy.das%40amd.com%7Cf02eba2f047347488d=
-5508d967b8bf96%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637654865456627=
-544%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1=
-haWwiLCJXVCI6Mn0%3D%7C1000&sdata=3DR2jlWr%2BtB%2FKypqHKT36JV%2Fnk2CvO2oLYIs=
-pKmfbco58%3D&reserved=3D0>
->>> ,
->>> > +
->>>  rd->state.id.grbm.instance);
->>> > +     }
->>> > +
->>> > +     if (rd->state.id.use_srbm) {
->>> > +             mutex_lock(&adev->srbm_mutex);
->>> > +             amdgpu_gfx_select_me_pipe_q(adev, rd->state.id.srbm.me
->>> <https://nam11.safelinks.protection.outlook.com/?url=3Dhttp%3A%2F%2Fsta=
-te.id.srbm.me%2F&data=3D04%7C01%7Cnirmoy.das%40amd.com%7Cf02eba2f047347488d=
-5508d967b8bf96%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637654865456637=
-501%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1=
-haWwiLCJXVCI6Mn0%3D%7C1000&sdata=3Dv8e4VpGjaYi1LcWVBxTYx7f4v%2BUW9%2F6FTpYv=
-GqygJc0%3D&reserved=3D0>,
->>> rd->state.id.srbm.pipe,
->>> > +
->>>  rd->state.id.srbm.queue, rd->state.id.srbm.vmid);
->>> > +     }
->>> > +
->>> > +     if (rd->state.id.pg_lock)
->>> > +             mutex_lock(&adev->pm.mutex);
->>> > +
->>> > +     while (size) {
->>> > +             if (!write_en) {
->>> > +                     value =3D RREG32(rd->state.offset >> 2);
->>> > +                     r =3D put_user(value, (uint32_t *)buf);
->>> > +             } else {
->>> > +                     r =3D get_user(value, (uint32_t *)buf);
->>> > +                     if (!r)
->>> > +                             amdgpu_mm_wreg_mmio_rlc(adev,
->>> rd->state.offset >> 2, value);
->>> > +             }
->>> > +             if (r) {
->>> > +                     result =3D r;
->>> > +                     goto end;
->>> > +             }
->>> > +             rd->state.offset +=3D 4;
->>> > +             size -=3D 4;
->>> > +             result +=3D 4;
->>> > +             buf +=3D 4;
->>> > +     }
->>> > +end:
->>> > +     if (rd->state.id.use_grbm) {
->>> > +             amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff,
->>> 0xffffffff);
->>> > +             mutex_unlock(&adev->grbm_idx_mutex);
->>> > +     }
->>> > +
->>> > +     if (rd->state.id.use_srbm) {
->>> > +             amdgpu_gfx_select_me_pipe_q(adev, 0, 0, 0, 0);
->>> > +             mutex_unlock(&adev->srbm_mutex);
->>> > +     }
->>> > +
->>> > +     if (rd->state.id.pg_lock)
->>> > +             mutex_unlock(&adev->pm.mutex);
->>> > +
->>> > +     // in umr (the likely user of this) flags are set per file
->>> operation
->>> > +     // which means they're never "unset" explicitly.  To avoid
->>> breaking
->>> > +     // this convention we unset the flags after each operation
->>> > +     // flags are for a single call (need to be set for every
->>> read/write)
->>> > +     rd->state.id.use_grbm =3D 0;
->>> > +     rd->state.id.use_srbm =3D 0;
->>> > +     rd->state.id.pg_lock  =3D 0;
->>> > +
->>> > +     pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
->>> > +     pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
->>> > +
->>> > +     amdgpu_virt_disable_access_debugfs(adev);
->>> > +     return result;
->>> > +}
->>> > +
->>> > +static long amdgpu_debugfs_regs2_ioctl(struct file *f, unsigned int
->>> cmd, unsigned long data)
->>> > +{
->>> > +     struct amdgpu_debugfs_regs2_data *rd =3D f->private_data;
->>> > +
->>> > +     switch (cmd) {
->>> > +     case AMDGPU_DEBUGFS_REGS2_IOC_SET_STATE:
->>> > +             if (copy_from_user(&rd->state.id
->>> <https://nam11.safelinks.protection.outlook.com/?url=3Dhttp%3A%2F%2Fsta=
-te.id%2F&data=3D04%7C01%7Cnirmoy.das%40amd.com%7Cf02eba2f047347488d5508d967=
-b8bf96%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637654865456637501%7CUn=
-known%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJ=
-XVCI6Mn0%3D%7C1000&sdata=3DowOCPq7DugPj8bKIZW%2BPL9O1HXIViFHCq8ZqSkIT4X4%3D=
-&reserved=3D0>,
->>> (struct amdgpu_debugfs_regs2_iocdata *)data, sizeof rd->state.id
->>> <https://nam11.safelinks.protection.outlook.com/?url=3Dhttp%3A%2F%2Fsta=
-te.id%2F&data=3D04%7C01%7Cnirmoy.das%40amd.com%7Cf02eba2f047347488d5508d967=
-b8bf96%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637654865456637501%7CUn=
-known%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJ=
-XVCI6Mn0%3D%7C1000&sdata=3DowOCPq7DugPj8bKIZW%2BPL9O1HXIViFHCq8ZqSkIT4X4%3D=
-&reserved=3D0>
->>> ))
->>> > +                     return -EINVAL;
->>> > +             break;
->>> > +     default:
->>> > +             return -EINVAL;
->>> > +     }
->>> > +     return 0;
->>> > +}
->>> > +
->>> > +static ssize_t amdgpu_debugfs_regs2_read(struct file *f, char __user
->>> *buf, size_t size, loff_t *pos)
->>> > +{
->>> > +     struct amdgpu_debugfs_regs2_data *rd =3D f->private_data;
->>> > +     rd->state.offset =3D *pos;
->>> > +     return amdgpu_debugfs_regs2_op(f, buf, size, 0);
->>> > +}
->>> > +
->>> > +static ssize_t amdgpu_debugfs_regs2_write(struct file *f, const char
->>> __user *buf, size_t size, loff_t *pos)
->>> > +{
->>> > +     struct amdgpu_debugfs_regs2_data *rd =3D f->private_data;
->>> > +     rd->state.offset =3D *pos;
->>> > +     return amdgpu_debugfs_regs2_op(f, (char __user *)buf, size, 1);
->>> > +}
->>> > +
->>> >
->>> >   /**
->>> >    * amdgpu_debugfs_regs_pcie_read - Read from a PCIE register
->>> > @@ -1091,6 +1241,16 @@ static ssize_t
->>> amdgpu_debugfs_gfxoff_read(struct file *f, char __user *buf,
->>> >       return result;
->>> >   }
->>> >
->>> > +static const struct file_operations amdgpu_debugfs_regs2_fops =3D {
->>> > +     .owner =3D THIS_MODULE,
->>> > +     .unlocked_ioctl =3D amdgpu_debugfs_regs2_ioctl,
->>> > +     .read =3D amdgpu_debugfs_regs2_read,
->>> > +     .write =3D amdgpu_debugfs_regs2_write,
->>> > +     .open =3D amdgpu_debugfs_regs2_open,
->>> > +     .release =3D amdgpu_debugfs_regs2_release,
->>> > +     .llseek =3D default_llseek
->>> > +};
->>> > +
->>> >   static const struct file_operations amdgpu_debugfs_regs_fops =3D {
->>> >       .owner =3D THIS_MODULE,
->>> >       .read =3D amdgpu_debugfs_regs_read,
->>> > @@ -1148,6 +1308,7 @@ static const struct file_operations
->>> amdgpu_debugfs_gfxoff_fops =3D {
->>> >
->>> >   static const struct file_operations *debugfs_regs[] =3D {
->>> >       &amdgpu_debugfs_regs_fops,
->>> > +     &amdgpu_debugfs_regs2_fops,
->>> >       &amdgpu_debugfs_regs_didt_fops,
->>> >       &amdgpu_debugfs_regs_pcie_fops,
->>> >       &amdgpu_debugfs_regs_smc_fops,
->>> > @@ -1160,6 +1321,7 @@ static const struct file_operations
->>> *debugfs_regs[] =3D {
->>> >
->>> >   static const char *debugfs_regs_names[] =3D {
->>> >       "amdgpu_regs",
->>> > +     "amdgpu_regs2",
->>> >       "amdgpu_regs_didt",
->>> >       "amdgpu_regs_pcie",
->>> >       "amdgpu_regs_smc",
->>> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h
->>> > index 141a8474e24f..ec044df5d428 100644
->>> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h
->>> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h
->>> > @@ -22,6 +22,8 @@
->>> >    * OTHER DEALINGS IN THE SOFTWARE.
->>> >    *
->>> >    */
->>> > +#include <linux/ioctl.h>
->>> > +#include <uapi/drm/amdgpu_drm.h>
->>> >
->>> >   /*
->>> >    * Debugfs
->>> > @@ -38,3 +40,33 @@ void amdgpu_debugfs_fence_init(struct amdgpu_devic=
-e
->>> *adev);
->>> >   void amdgpu_debugfs_firmware_init(struct amdgpu_device *adev);
->>> >   void amdgpu_debugfs_gem_init(struct amdgpu_device *adev);
->>> >   int amdgpu_debugfs_wait_dump(struct amdgpu_device *adev);
->>> > +
->>> > +/*
->>> > + * MMIO debugfs IOCTL structure
->>> > + */
->>> > +struct amdgpu_debugfs_regs2_iocdata {
->>> > +     __u8 use_srbm, use_grbm, pg_lock;
->>>
->>> You should consider using u32 here as well or add explicitly padding.
->>>
->>> > +     struct {
->>> > +             __u32 se, sh, instance;
->>> > +     } grbm;
->>> > +     struct {
->>> > +             __u32 me, pipe, queue, vmid;
->>> > +     } srbm;
->>> > +};
->>> > +
->>> > +/*
->>> > + * MMIO debugfs state data (per file* handle)
->>> > + */
->>> > +struct amdgpu_debugfs_regs2_data {
->>> > +     struct amdgpu_device *adev;
->>> > +     struct {
->>> > +             struct amdgpu_debugfs_regs2_iocdata id;
->>> > +             __u32 offset;
->>>
->>> What is the offset good for here?
->>>
->>> Regards,
->>> Christian.
->>>
->>> > +     } state;
->>> > +};
->>> > +
->>> > +enum AMDGPU_DEBUGFS_REGS2_CMDS {
->>> > +     AMDGPU_DEBUGFS_REGS2_CMD_SET_STATE=3D0,
->>> > +};
->>> > +
->>> > +#define AMDGPU_DEBUGFS_REGS2_IOC_SET_STATE _IOWR(0x20,
->>> AMDGPU_DEBUGFS_REGS2_CMD_SET_STATE, struct amdgpu_debugfs_regs2_iocdata=
-)
->>>
->>>
->>
->
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+index e7a010b7ca1f..c88c5c6c54a2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+@@ -43,14 +43,61 @@ const unsigned int amdgpu_ctx_num_entities[AMDGPU_HW_IP_NUM] = {
+ 	[AMDGPU_HW_IP_VCN_JPEG]	=	1,
+ };
+ 
++bool amdgpu_ctx_priority_is_valid(int32_t ctx_prio)
++{
++	switch (ctx_prio) {
++	case AMDGPU_CTX_PRIORITY_UNSET:
++	case AMDGPU_CTX_PRIORITY_VERY_LOW:
++	case AMDGPU_CTX_PRIORITY_LOW:
++	case AMDGPU_CTX_PRIORITY_NORMAL:
++	case AMDGPU_CTX_PRIORITY_HIGH:
++	case AMDGPU_CTX_PRIORITY_VERY_HIGH:
++		return true;
++	default:
++		return false;
++	}
++}
++
++static enum drm_sched_priority
++amdgpu_ctx_to_drm_sched_prio(int32_t ctx_prio)
++{
++	switch (ctx_prio) {
++	case AMDGPU_CTX_PRIORITY_UNSET:
++		return DRM_SCHED_PRIORITY_UNSET;
++
++	case AMDGPU_CTX_PRIORITY_VERY_LOW:
++		return DRM_SCHED_PRIORITY_MIN;
++
++	case AMDGPU_CTX_PRIORITY_LOW:
++		return DRM_SCHED_PRIORITY_MIN;
++
++	case AMDGPU_CTX_PRIORITY_NORMAL:
++		return DRM_SCHED_PRIORITY_NORMAL;
++
++	case AMDGPU_CTX_PRIORITY_HIGH:
++		return DRM_SCHED_PRIORITY_HIGH;
++
++	case AMDGPU_CTX_PRIORITY_VERY_HIGH:
++		return DRM_SCHED_PRIORITY_HIGH;
++
++	/* This should not happen as we sanitized userspace provided priority
++	 * already, WARN if this happens.
++	 */
++	default:
++		WARN(1, "Invalid context priority %d\n", ctx_prio);
++		return DRM_SCHED_PRIORITY_NORMAL;
++	}
++
++}
++
+ static int amdgpu_ctx_priority_permit(struct drm_file *filp,
+-				      enum drm_sched_priority priority)
++				      int32_t priority)
+ {
+-	if (priority < 0 || priority >= DRM_SCHED_PRIORITY_COUNT)
++	if (!amdgpu_ctx_priority_is_valid(priority))
+ 		return -EINVAL;
+ 
+ 	/* NORMAL and below are accessible by everyone */
+-	if (priority <= DRM_SCHED_PRIORITY_NORMAL)
++	if (priority <= AMDGPU_CTX_PRIORITY_NORMAL)
+ 		return 0;
+ 
+ 	if (capable(CAP_SYS_NICE))
+@@ -62,26 +109,35 @@ static int amdgpu_ctx_priority_permit(struct drm_file *filp,
+ 	return -EACCES;
+ }
+ 
+-static enum gfx_pipe_priority amdgpu_ctx_sched_prio_to_compute_prio(enum drm_sched_priority prio)
++static enum gfx_pipe_priority amdgpu_ctx_prio_to_compute_prio(int32_t prio)
+ {
+ 	switch (prio) {
+-	case DRM_SCHED_PRIORITY_HIGH:
+-	case DRM_SCHED_PRIORITY_KERNEL:
++	case AMDGPU_CTX_PRIORITY_HIGH:
++	case AMDGPU_CTX_PRIORITY_VERY_HIGH:
+ 		return AMDGPU_GFX_PIPE_PRIO_HIGH;
+ 	default:
+ 		return AMDGPU_GFX_PIPE_PRIO_NORMAL;
+ 	}
+ }
+ 
+-static unsigned int amdgpu_ctx_prio_sched_to_hw(struct amdgpu_device *adev,
+-						 enum drm_sched_priority prio,
+-						 u32 hw_ip)
++static unsigned int amdgpu_ctx_get_hw_prio(struct amdgpu_ctx *ctx, u32 hw_ip)
+ {
++	struct amdgpu_device *adev = ctx->adev;
++	int32_t ctx_prio;
+ 	unsigned int hw_prio;
+ 
+-	hw_prio = (hw_ip == AMDGPU_HW_IP_COMPUTE) ?
+-			amdgpu_ctx_sched_prio_to_compute_prio(prio) :
+-			AMDGPU_RING_PRIO_DEFAULT;
++	ctx_prio = (ctx->override_priority == AMDGPU_CTX_PRIORITY_UNSET) ?
++			ctx->init_priority : ctx->override_priority;
++
++	switch (hw_ip) {
++	case AMDGPU_HW_IP_COMPUTE:
++		hw_prio = amdgpu_ctx_prio_to_compute_prio(ctx_prio);
++		break;
++	default:
++		hw_prio = AMDGPU_RING_PRIO_DEFAULT;
++		break;
++	}
++
+ 	hw_ip = array_index_nospec(hw_ip, AMDGPU_HW_IP_NUM);
+ 	if (adev->gpu_sched[hw_ip][hw_prio].num_scheds == 0)
+ 		hw_prio = AMDGPU_RING_PRIO_DEFAULT;
+@@ -89,15 +145,17 @@ static unsigned int amdgpu_ctx_prio_sched_to_hw(struct amdgpu_device *adev,
+ 	return hw_prio;
+ }
+ 
++
+ static int amdgpu_ctx_init_entity(struct amdgpu_ctx *ctx, u32 hw_ip,
+-				   const u32 ring)
++				  const u32 ring)
+ {
+ 	struct amdgpu_device *adev = ctx->adev;
+ 	struct amdgpu_ctx_entity *entity;
+ 	struct drm_gpu_scheduler **scheds = NULL, *sched = NULL;
+ 	unsigned num_scheds = 0;
++	int32_t ctx_prio;
+ 	unsigned int hw_prio;
+-	enum drm_sched_priority priority;
++	enum drm_sched_priority drm_prio;
+ 	int r;
+ 
+ 	entity = kzalloc(struct_size(entity, fences, amdgpu_sched_jobs),
+@@ -105,10 +163,11 @@ static int amdgpu_ctx_init_entity(struct amdgpu_ctx *ctx, u32 hw_ip,
+ 	if (!entity)
+ 		return  -ENOMEM;
+ 
++	ctx_prio = (ctx->override_priority == AMDGPU_CTX_PRIORITY_UNSET) ?
++			ctx->init_priority : ctx->override_priority;
+ 	entity->sequence = 1;
+-	priority = (ctx->override_priority == DRM_SCHED_PRIORITY_UNSET) ?
+-				ctx->init_priority : ctx->override_priority;
+-	hw_prio = amdgpu_ctx_prio_sched_to_hw(adev, priority, hw_ip);
++	hw_prio = amdgpu_ctx_get_hw_prio(ctx, hw_ip);
++	drm_prio = amdgpu_ctx_to_drm_sched_prio(ctx_prio);
+ 
+ 	hw_ip = array_index_nospec(hw_ip, AMDGPU_HW_IP_NUM);
+ 	scheds = adev->gpu_sched[hw_ip][hw_prio].sched;
+@@ -124,7 +183,7 @@ static int amdgpu_ctx_init_entity(struct amdgpu_ctx *ctx, u32 hw_ip,
+ 		num_scheds = 1;
+ 	}
+ 
+-	r = drm_sched_entity_init(&entity->entity, priority, scheds, num_scheds,
++	r = drm_sched_entity_init(&entity->entity, drm_prio, scheds, num_scheds,
+ 				  &ctx->guilty);
+ 	if (r)
+ 		goto error_free_entity;
+@@ -139,7 +198,7 @@ static int amdgpu_ctx_init_entity(struct amdgpu_ctx *ctx, u32 hw_ip,
+ }
+ 
+ static int amdgpu_ctx_init(struct amdgpu_device *adev,
+-			   enum drm_sched_priority priority,
++			   int32_t priority,
+ 			   struct drm_file *filp,
+ 			   struct amdgpu_ctx *ctx)
+ {
+@@ -161,7 +220,7 @@ static int amdgpu_ctx_init(struct amdgpu_device *adev,
+ 	ctx->reset_counter_query = ctx->reset_counter;
+ 	ctx->vram_lost_counter = atomic_read(&adev->vram_lost_counter);
+ 	ctx->init_priority = priority;
+-	ctx->override_priority = DRM_SCHED_PRIORITY_UNSET;
++	ctx->override_priority = AMDGPU_CTX_PRIORITY_UNSET;
+ 
+ 	return 0;
+ }
+@@ -234,7 +293,7 @@ int amdgpu_ctx_get_entity(struct amdgpu_ctx *ctx, u32 hw_ip, u32 instance,
+ static int amdgpu_ctx_alloc(struct amdgpu_device *adev,
+ 			    struct amdgpu_fpriv *fpriv,
+ 			    struct drm_file *filp,
+-			    enum drm_sched_priority priority,
++			    int32_t priority,
+ 			    uint32_t *id)
+ {
+ 	struct amdgpu_ctx_mgr *mgr = &fpriv->ctx_mgr;
+@@ -397,19 +456,19 @@ int amdgpu_ctx_ioctl(struct drm_device *dev, void *data,
+ {
+ 	int r;
+ 	uint32_t id;
+-	enum drm_sched_priority priority;
++	int32_t priority;
+ 
+ 	union drm_amdgpu_ctx *args = data;
+ 	struct amdgpu_device *adev = drm_to_adev(dev);
+ 	struct amdgpu_fpriv *fpriv = filp->driver_priv;
+ 
+ 	id = args->in.ctx_id;
+-	r = amdgpu_to_sched_priority(args->in.priority, &priority);
++	priority = args->in.priority;
+ 
+ 	/* For backwards compatibility reasons, we need to accept
+ 	 * ioctls with garbage in the priority field */
+-	if (r == -EINVAL)
+-		priority = DRM_SCHED_PRIORITY_NORMAL;
++	if (!amdgpu_ctx_priority_is_valid(priority))
++		priority = AMDGPU_CTX_PRIORITY_NORMAL;
+ 
+ 	switch (args->in.op) {
+ 	case AMDGPU_CTX_OP_ALLOC_CTX:
+@@ -515,9 +574,9 @@ struct dma_fence *amdgpu_ctx_get_fence(struct amdgpu_ctx *ctx,
+ }
+ 
+ static void amdgpu_ctx_set_entity_priority(struct amdgpu_ctx *ctx,
+-					    struct amdgpu_ctx_entity *aentity,
+-					    int hw_ip,
+-					    enum drm_sched_priority priority)
++					   struct amdgpu_ctx_entity *aentity,
++					   int hw_ip,
++					   int32_t priority)
+ {
+ 	struct amdgpu_device *adev = ctx->adev;
+ 	unsigned int hw_prio;
+@@ -525,12 +584,12 @@ static void amdgpu_ctx_set_entity_priority(struct amdgpu_ctx *ctx,
+ 	unsigned num_scheds;
+ 
+ 	/* set sw priority */
+-	drm_sched_entity_set_priority(&aentity->entity, priority);
++	drm_sched_entity_set_priority(&aentity->entity,
++				      amdgpu_ctx_to_drm_sched_prio(priority));
+ 
+ 	/* set hw priority */
+ 	if (hw_ip == AMDGPU_HW_IP_COMPUTE) {
+-		hw_prio = amdgpu_ctx_prio_sched_to_hw(adev, priority,
+-						      AMDGPU_HW_IP_COMPUTE);
++		hw_prio = amdgpu_ctx_get_hw_prio(ctx, hw_ip);
+ 		hw_prio = array_index_nospec(hw_prio, AMDGPU_RING_PRIO_MAX);
+ 		scheds = adev->gpu_sched[hw_ip][hw_prio].sched;
+ 		num_scheds = adev->gpu_sched[hw_ip][hw_prio].num_scheds;
+@@ -540,14 +599,14 @@ static void amdgpu_ctx_set_entity_priority(struct amdgpu_ctx *ctx,
+ }
+ 
+ void amdgpu_ctx_priority_override(struct amdgpu_ctx *ctx,
+-				  enum drm_sched_priority priority)
++				  int32_t priority)
+ {
+-	enum drm_sched_priority ctx_prio;
++	int32_t ctx_prio;
+ 	unsigned i, j;
+ 
+ 	ctx->override_priority = priority;
+ 
+-	ctx_prio = (ctx->override_priority == DRM_SCHED_PRIORITY_UNSET) ?
++	ctx_prio = (ctx->override_priority == AMDGPU_CTX_PRIORITY_UNSET) ?
+ 			ctx->init_priority : ctx->override_priority;
+ 	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i) {
+ 		for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
+index 14db16bc3322..a44b8b8ed39c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
+@@ -47,8 +47,8 @@ struct amdgpu_ctx {
+ 	spinlock_t			ring_lock;
+ 	struct amdgpu_ctx_entity	*entities[AMDGPU_HW_IP_NUM][AMDGPU_MAX_ENTITY_NUM];
+ 	bool				preamble_presented;
+-	enum drm_sched_priority		init_priority;
+-	enum drm_sched_priority		override_priority;
++	int32_t				init_priority;
++	int32_t				override_priority;
+ 	struct mutex			lock;
+ 	atomic_t			guilty;
+ 	unsigned long			ras_counter_ce;
+@@ -75,8 +75,8 @@ void amdgpu_ctx_add_fence(struct amdgpu_ctx *ctx,
+ struct dma_fence *amdgpu_ctx_get_fence(struct amdgpu_ctx *ctx,
+ 				       struct drm_sched_entity *entity,
+ 				       uint64_t seq);
+-void amdgpu_ctx_priority_override(struct amdgpu_ctx *ctx,
+-				  enum drm_sched_priority priority);
++bool amdgpu_ctx_priority_is_valid(int32_t ctx_prio);
++void amdgpu_ctx_priority_override(struct amdgpu_ctx *ctx, int32_t ctx_prio);
+ 
+ int amdgpu_ctx_ioctl(struct drm_device *dev, void *data,
+ 		     struct drm_file *filp);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c
+index b7d861ed5284..e9b45089a28a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c
+@@ -32,37 +32,9 @@
+ #include "amdgpu_sched.h"
+ #include "amdgpu_vm.h"
+ 
+-int amdgpu_to_sched_priority(int amdgpu_priority,
+-			     enum drm_sched_priority *prio)
+-{
+-	switch (amdgpu_priority) {
+-	case AMDGPU_CTX_PRIORITY_VERY_HIGH:
+-		*prio = DRM_SCHED_PRIORITY_HIGH;
+-		break;
+-	case AMDGPU_CTX_PRIORITY_HIGH:
+-		*prio = DRM_SCHED_PRIORITY_HIGH;
+-		break;
+-	case AMDGPU_CTX_PRIORITY_NORMAL:
+-		*prio = DRM_SCHED_PRIORITY_NORMAL;
+-		break;
+-	case AMDGPU_CTX_PRIORITY_LOW:
+-	case AMDGPU_CTX_PRIORITY_VERY_LOW:
+-		*prio = DRM_SCHED_PRIORITY_MIN;
+-		break;
+-	case AMDGPU_CTX_PRIORITY_UNSET:
+-		*prio = DRM_SCHED_PRIORITY_UNSET;
+-		break;
+-	default:
+-		WARN(1, "Invalid context priority %d\n", amdgpu_priority);
+-		return -EINVAL;
+-	}
+-
+-	return 0;
+-}
+-
+ static int amdgpu_sched_process_priority_override(struct amdgpu_device *adev,
+ 						  int fd,
+-						  enum drm_sched_priority priority)
++						  int32_t priority)
+ {
+ 	struct fd f = fdget(fd);
+ 	struct amdgpu_fpriv *fpriv;
+@@ -89,7 +61,7 @@ static int amdgpu_sched_process_priority_override(struct amdgpu_device *adev,
+ static int amdgpu_sched_context_priority_override(struct amdgpu_device *adev,
+ 						  int fd,
+ 						  unsigned ctx_id,
+-						  enum drm_sched_priority priority)
++						  int32_t priority)
+ {
+ 	struct fd f = fdget(fd);
+ 	struct amdgpu_fpriv *fpriv;
+@@ -124,7 +96,6 @@ int amdgpu_sched_ioctl(struct drm_device *dev, void *data,
+ {
+ 	union drm_amdgpu_sched *args = data;
+ 	struct amdgpu_device *adev = drm_to_adev(dev);
+-	enum drm_sched_priority priority;
+ 	int r;
+ 
+ 	/* First check the op, then the op's argument.
+@@ -138,21 +109,22 @@ int amdgpu_sched_ioctl(struct drm_device *dev, void *data,
+ 		return -EINVAL;
+ 	}
+ 
+-	r = amdgpu_to_sched_priority(args->in.priority, &priority);
+-	if (r)
+-		return r;
++	if (!amdgpu_ctx_priority_is_valid(args->in.priority)) {
++		WARN(1, "Invalid context priority %d\n", args->in.priority);
++		return -EINVAL;
++	}
+ 
+ 	switch (args->in.op) {
+ 	case AMDGPU_SCHED_OP_PROCESS_PRIORITY_OVERRIDE:
+ 		r = amdgpu_sched_process_priority_override(adev,
+ 							   args->in.fd,
+-							   priority);
++							   args->in.priority);
+ 		break;
+ 	case AMDGPU_SCHED_OP_CONTEXT_PRIORITY_OVERRIDE:
+ 		r = amdgpu_sched_context_priority_override(adev,
+ 							   args->in.fd,
+ 							   args->in.ctx_id,
+-							   priority);
++							   args->in.priority);
+ 		break;
+ 	default:
+ 		/* Impossible.
+-- 
+2.32.0
 
---0000000000004c42c605ca6096ae
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">1 hole with u8, 0 holes with u32.=C2=A0 Is good?</div><br>=
-<div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Wed, Au=
-g 25, 2021 at 7:16 AM Das, Nirmoy &lt;<a href=3D"mailto:nirmoy.das@amd.com"=
->nirmoy.das@amd.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quot=
-e" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204)=
-;padding-left:1ex">
-
- =20
-  <div>
-    <p><br>
-    </p>
-    <div>On 8/25/2021 1:09 PM, Christian K=C3=B6nig
-      wrote:<br>
-    </div>
-    <blockquote type=3D"cite">
-     =20
-      I suggest to give this command here at least a try (remembered the
-      name after a moment):<br>
-      <br>
-      pahole drivers/gpu/drm/amd/amdgpu/amdgpu.o -C
-      amdgpu_debugfs_regs2_iocdata<br>
-      <br>
-      It has a rather nifty output with padding holes, byte addresses,
-      cache lines etc for your structure.<br>
-      <br>
-      Christian.<br>
-      <br>
-      <div>Am 25.08.21 um 13:04 schrieb Tom St
-        Denis:<br>
-      </div>
-      <blockquote type=3D"cite">
-        <div dir=3D"ltr">I tested it by forcing bit patterns into the
-          ioctl data and printing it out in the kernel log.=C2=A0 I&#39;m n=
-ot
-          siloed into it one way or the other.=C2=A0 I&#39;ll just change i=
-t to
-          u32.</div>
-        <br>
-        <div class=3D"gmail_quote">
-          <div dir=3D"ltr" class=3D"gmail_attr">On Wed, Aug 25, 2021 at 7:0=
-3
-            AM Christian K=C3=B6nig &lt;<a href=3D"mailto:ckoenig.leichtzum=
-erken@gmail.com" target=3D"_blank">ckoenig.leichtzumerken@gmail.com</a>&gt;
-            wrote:<br>
-          </div>
-          <blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8=
-ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-            <div> Using u8 is ok as well, just make sure that you don&#39;t
-              have any hidden padding.<br>
-              <br>
-              Nirmoy had a tool to double check for paddings which I
-              once more forgot the name of.<br>
-            </div>
-          </blockquote>
-        </div>
-      </blockquote>
-    </blockquote>
-    <p><br>
-    </p>
-    <p>Yes, pahole. pkg name: dwarves</p>
-    <p><br>
-    </p>
-    <p>Nirmoy<br>
-    </p>
-    <p><br>
-    </p>
-    <blockquote type=3D"cite">
-      <blockquote type=3D"cite">
-        <div class=3D"gmail_quote">
-          <blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8=
-ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-            <div> <br>
-              Christian.<br>
-              <br>
-              <div>Am 25.08.21 um 12:40 schrieb Tom St Denis:<br>
-              </div>
-              <blockquote type=3D"cite">
-                <div dir=3D"ltr">The struct works as is but I&#39;ll change
-                  them to u32.=C2=A0 The offset is an artefact of the fact
-                  this was an IOCTL originally.=C2=A0 I&#39;m working both =
-ends
-                  in parallel trying to make the changes at the same
-                  time because I&#39;m only submitting the kernel patch if
-                  I&#39;ve tested it in userspace.
-                  <div><br>
-                  </div>
-                  <div>I&#39;ll send a v4 in a bit this morning....</div>
-                  <div><br>
-                  </div>
-                  <div>Tom</div>
-                </div>
-                <br>
-                <div class=3D"gmail_quote">
-                  <div dir=3D"ltr" class=3D"gmail_attr">On Wed, Aug 25, 202=
-1
-                    at 2:35 AM Christian K=C3=B6nig &lt;<a href=3D"mailto:c=
-koenig.leichtzumerken@gmail.com" target=3D"_blank">ckoenig.leichtzumerken@g=
-mail.com</a>&gt;
-                    wrote:<br>
-                  </div>
-                  <blockquote class=3D"gmail_quote" style=3D"margin:0px 0px=
- 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><br>
-                    <br>
-                    Am 24.08.21 um 15:36 schrieb Tom St Denis:<br>
-                    &gt; This new debugfs interface uses an IOCTL
-                    interface in order to pass<br>
-                    &gt; along state information like SRBM and GRBM bank
-                    switching.=C2=A0 This<br>
-                    &gt; new interface also allows a full 32-bit MMIO
-                    address range which<br>
-                    &gt; the previous didn&#39;t.=C2=A0 With this new desig=
-n we
-                    have room to grow<br>
-                    &gt; the flexibility of the file as need be.<br>
-                    &gt;<br>
-                    &gt; (v2): Move read/write to .read/.write, fix
-                    style, add comment<br>
-                    &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 for IOCTL data structur=
-e<br>
-                    &gt;<br>
-                    &gt; Signed-off-by: Tom St Denis &lt;<a href=3D"mailto:=
-tom.stdenis@amd.com" target=3D"_blank">tom.stdenis@amd.com</a>&gt;<br>
-                    &gt; ---<br>
-                    &gt;=C2=A0 =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_debu=
-gfs.c |
-                    162 ++++++++++++++++++++<br>
-                    &gt;=C2=A0 =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_debu=
-gfs.h
-                    |=C2=A0 32 ++++<br>
-                    &gt;=C2=A0 =C2=A02 files changed, 194 insertions(+)<br>
-                    &gt;<br>
-                    &gt; diff --git
-                    a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-                    b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c<br>
-                    &gt; index 277128846dd1..8e8f5743c8f5 100644<br>
-                    &gt; ---
-                    a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c<br>
-                    &gt; +++
-                    b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c<br>
-                    &gt; @@ -279,6 +279,156 @@ static ssize_t
-                    amdgpu_debugfs_regs_write(struct file *f, const char
-                    __user *buf,<br>
-                    &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0return
-                    amdgpu_debugfs_process_reg_op(false, f, (char __user
-                    *)buf, size, pos);<br>
-                    &gt;=C2=A0 =C2=A0}<br>
-                    &gt;=C2=A0 =C2=A0<br>
-                    &gt; +static int amdgpu_debugfs_regs2_open(struct
-                    inode *inode, struct file *file)<br>
-                    &gt; +{<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0struct amdgpu_debugfs_regs2_d=
-ata *rd;<br>
-                    &gt; +<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0rd =3D kzalloc(sizeof *rd, GF=
-P_KERNEL);<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0if (!rd)<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0r=
-eturn -ENOMEM;<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0rd-&gt;adev =3D
-                    file_inode(file)-&gt;i_private;<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0file-&gt;private_data =3D rd;=
-<br>
-                    &gt; +<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0return 0;<br>
-                    &gt; +}<br>
-                    &gt; +<br>
-                    &gt; +static int amdgpu_debugfs_regs2_release(struct
-                    inode *inode, struct file *file)<br>
-                    &gt; +{<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0kfree(file-&gt;private_data);=
-<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0return 0;<br>
-                    &gt; +}<br>
-                    &gt; +<br>
-                    &gt; +static ssize_t amdgpu_debugfs_regs2_op(struct
-                    file *f, char __user *buf, size_t size, int
-                    write_en)<br>
-                    &gt; +{<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0struct amdgpu_debugfs_regs2_d=
-ata *rd =3D
-                    f-&gt;private_data;<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0struct amdgpu_device *adev =
-=3D rd-&gt;adev;<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0ssize_t result =3D 0;<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0int r;<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0uint32_t value;<br>
-                    &gt; +<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0if (size &amp; 0x3 || rd-&gt;=
-state.offset
-                    &amp; 0x3)<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0r=
-eturn -EINVAL;<br>
-                    &gt; +<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0if (rd-&gt;state.id.use_grbm)=
- {<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0i=
-f (rd-&gt;<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3D=
-http%3A%2F%2Fstate.id.grbm.se%2F&amp;data=3D04%7C01%7Cnirmoy.das%40amd.com%=
-7Cf02eba2f047347488d5508d967b8bf96%7C3dd8961fe4884e608e11a82d994e183d%7C0%7=
-C0%7C637654865456597676%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjo=
-iV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=3DS7Fz7mMEeVYFqLF0=
-paV%2BDr53Ty2e87lVIWFTvfZTJ%2Bs%3D&amp;reserved=3D0" rel=3D"noreferrer" tar=
-get=3D"_blank">state.id.grbm.se</a> =3D=3D
-                    0x3FF)<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0rd-&gt;<a href=3D"https://nam11.safelinks.protec=
-tion.outlook.com/?url=3Dhttp%3A%2F%2Fstate.id.grbm.se%2F&amp;data=3D04%7C01=
-%7Cnirmoy.das%40amd.com%7Cf02eba2f047347488d5508d967b8bf96%7C3dd8961fe4884e=
-608e11a82d994e183d%7C0%7C0%7C637654865456597676%7CUnknown%7CTWFpbGZsb3d8eyJ=
-WIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;=
-sdata=3DS7Fz7mMEeVYFqLF0paV%2BDr53Ty2e87lVIWFTvfZTJ%2Bs%3D&amp;reserved=3D0=
-" rel=3D"noreferrer" target=3D"_blank">state.id.grbm.se</a> =3D
-                    0xFFFFFFFF;<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0i=
-f (rd-&gt;<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3D=
-http%3A%2F%2Fstate.id.grbm.sh%2F&amp;data=3D04%7C01%7Cnirmoy.das%40amd.com%=
-7Cf02eba2f047347488d5508d967b8bf96%7C3dd8961fe4884e608e11a82d994e183d%7C0%7=
-C0%7C637654865456607632%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjo=
-iV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=3DiHxDEyZ7lz%2FGOd=
-gSFHGbbAT2NPcQCQR0g58ISQMHGhY%3D&amp;reserved=3D0" rel=3D"noreferrer" targe=
-t=3D"_blank">state.id.grbm.sh</a> =3D=3D
-                    0x3FF)<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0rd-&gt;<a href=3D"https://nam11.safelinks.protec=
-tion.outlook.com/?url=3Dhttp%3A%2F%2Fstate.id.grbm.sh%2F&amp;data=3D04%7C01=
-%7Cnirmoy.das%40amd.com%7Cf02eba2f047347488d5508d967b8bf96%7C3dd8961fe4884e=
-608e11a82d994e183d%7C0%7C0%7C637654865456607632%7CUnknown%7CTWFpbGZsb3d8eyJ=
-WIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;=
-sdata=3DiHxDEyZ7lz%2FGOdgSFHGbbAT2NPcQCQR0g58ISQMHGhY%3D&amp;reserved=3D0" =
-rel=3D"noreferrer" target=3D"_blank">state.id.grbm.sh</a> =3D
-                    0xFFFFFFFF;<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0i=
-f (rd-&gt;state.id.grbm.instance
-                    =3D=3D 0x3FF)<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0
-                    =C2=A0rd-&gt;state.id.grbm.instance =3D 0xFFFFFFFF;<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-                    &gt; +<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0r =3D
-                    pm_runtime_get_sync(adev_to_drm(adev)-&gt;dev);<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0if (r &lt; 0) {<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                    =C2=A0pm_runtime_put_autosuspend(adev_to_drm(adev)-&gt;=
-dev);<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0r=
-eturn r;<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-                    &gt; +<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0r =3D
-                    amdgpu_virt_enable_access_debugfs(adev);<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0if (r &lt; 0) {<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                    =C2=A0pm_runtime_put_autosuspend(adev_to_drm(adev)-&gt;=
-dev);<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0r=
-eturn r;<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-                    &gt; +<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0if (rd-&gt;state.id.use_grbm)=
- {<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0i=
-f ((rd-&gt;<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=
-=3Dhttp%3A%2F%2Fstate.id.grbm.sh%2F&amp;data=3D04%7C01%7Cnirmoy.das%40amd.c=
-om%7Cf02eba2f047347488d5508d967b8bf96%7C3dd8961fe4884e608e11a82d994e183d%7C=
-0%7C0%7C637654865456607632%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQ=
-IjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=3DiHxDEyZ7lz%2F=
-GOdgSFHGbbAT2NPcQCQR0g58ISQMHGhY%3D&amp;reserved=3D0" rel=3D"noreferrer" ta=
-rget=3D"_blank">state.id.grbm.sh</a> !=3D
-                    0xFFFFFFFF &amp;&amp; rd-&gt;<a href=3D"https://nam11.s=
-afelinks.protection.outlook.com/?url=3Dhttp%3A%2F%2Fstate.id.grbm.sh%2F&amp=
-;data=3D04%7C01%7Cnirmoy.das%40amd.com%7Cf02eba2f047347488d5508d967b8bf96%7=
-C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637654865456617591%7CUnknown%7C=
-TWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0=
-%3D%7C1000&amp;sdata=3DjhS3kKxQAAn18tfFNC7pYnZKEKps4zVXdsX%2FIFLH7a4%3D&amp=
-;reserved=3D0" rel=3D"noreferrer" target=3D"_blank">state.id.grbm.sh</a> &g=
-t;=3D
-                    adev-&gt;gfx.config.max_sh_per_se) ||<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0(rd-&gt;<a href=3D"https://nam11.safelinks.protection.outlook.=
-com/?url=3Dhttp%3A%2F%2Fstate.id.grbm.se%2F&amp;data=3D04%7C01%7Cnirmoy.das=
-%40amd.com%7Cf02eba2f047347488d5508d967b8bf96%7C3dd8961fe4884e608e11a82d994=
-e183d%7C0%7C0%7C637654865456617591%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAw=
-MDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=3DJ1Wzn=
-gpR3KOnPsstL3mpbhltQIp0idV6B22%2BZqZpXoQ%3D&amp;reserved=3D0" rel=3D"norefe=
-rrer" target=3D"_blank">state.id.grbm.se</a> !=3D
-                    0xFFFFFFFF &amp;&amp; rd-&gt;<a href=3D"https://nam11.s=
-afelinks.protection.outlook.com/?url=3Dhttp%3A%2F%2Fstate.id.grbm.se%2F&amp=
-;data=3D04%7C01%7Cnirmoy.das%40amd.com%7Cf02eba2f047347488d5508d967b8bf96%7=
-C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637654865456617591%7CUnknown%7C=
-TWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0=
-%3D%7C1000&amp;sdata=3DJ1WzngpR3KOnPsstL3mpbhltQIp0idV6B22%2BZqZpXoQ%3D&amp=
-;reserved=3D0" rel=3D"noreferrer" target=3D"_blank">state.id.grbm.se</a> &g=
-t;=3D
-                    adev-&gt;gfx.config.max_shader_engines)) {<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0
-                    =C2=A0pm_runtime_mark_last_busy(adev_to_drm(adev)-&gt;d=
-ev);<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0
-                    =C2=A0pm_runtime_put_autosuspend(adev_to_drm(adev)-&gt;=
-dev);<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0
-                    =C2=A0amdgpu_virt_disable_access_debugfs(adev);<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0return -EINVAL;<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}=
-<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                    =C2=A0mutex_lock(&amp;adev-&gt;grbm_idx_mutex);<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0a=
-mdgpu_gfx_select_se_sh(adev,
-                    rd-&gt;<a href=3D"https://nam11.safelinks.protection.ou=
-tlook.com/?url=3Dhttp%3A%2F%2Fstate.id.grbm.se%2F&amp;data=3D04%7C01%7Cnirm=
-oy.das%40amd.com%7Cf02eba2f047347488d5508d967b8bf96%7C3dd8961fe4884e608e11a=
-82d994e183d%7C0%7C0%7C637654865456627544%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC=
-4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=
-=3DmElFqeL4bHf%2FcNlWTVyoxT6VhHnoLKVOCwCpsWiqLkM%3D&amp;reserved=3D0" rel=
-=3D"noreferrer" target=3D"_blank">state.id.grbm.se</a>,<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                    =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
-rd-&gt;<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhtt=
-p%3A%2F%2Fstate.id.grbm.sh%2F&amp;data=3D04%7C01%7Cnirmoy.das%40amd.com%7Cf=
-02eba2f047347488d5508d967b8bf96%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%=
-7C637654865456627544%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2=
-luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=3DR2jlWr%2BtB%2FKypqH=
-KT36JV%2Fnk2CvO2oLYIspKmfbco58%3D&amp;reserved=3D0" rel=3D"noreferrer" targ=
-et=3D"_blank">state.id.grbm.sh</a>,<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                    =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
-rd-&gt;state.id.grbm.instance);<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-                    &gt; +<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0if (rd-&gt;state.id.use_srbm)=
- {<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                    =C2=A0mutex_lock(&amp;adev-&gt;srbm_mutex);<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0a=
-mdgpu_gfx_select_me_pipe_q(adev,
-                    rd-&gt;<a href=3D"https://nam11.safelinks.protection.ou=
-tlook.com/?url=3Dhttp%3A%2F%2Fstate.id.srbm.me%2F&amp;data=3D04%7C01%7Cnirm=
-oy.das%40amd.com%7Cf02eba2f047347488d5508d967b8bf96%7C3dd8961fe4884e608e11a=
-82d994e183d%7C0%7C0%7C637654865456637501%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC=
-4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=
-=3Dv8e4VpGjaYi1LcWVBxTYx7f4v%2BUW9%2F6FTpYvGqygJc0%3D&amp;reserved=3D0" rel=
-=3D"noreferrer" target=3D"_blank">state.id.srbm.me</a>,
-                    rd-&gt;state.id.srbm.pipe,<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                    =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0rd-&gt;state.id.srbm.queue,
-                    rd-&gt;state.id.srbm.vmid);<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-                    &gt; +<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0if (rd-&gt;state.id.pg_lock)<=
-br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                    =C2=A0mutex_lock(&amp;adev-&gt;pm.mutex);<br>
-                    &gt; +<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0while (size) {<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0i=
-f (!write_en) {<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0value =3D
-                    RREG32(rd-&gt;state.offset &gt;&gt; 2);<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0r =3D put_user(value,
-                    (uint32_t *)buf);<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}=
- else {<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0r =3D get_user(value,
-                    (uint32_t *)buf);<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0if (!r)<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                    =C2=A0amdgpu_mm_wreg_mmio_rlc(adev, rd-&gt;state.offset
-                    &gt;&gt; 2, value);<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}=
-<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0i=
-f (r) {<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0result =3D r;<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0goto end;<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}=
-<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0r=
-d-&gt;state.offset +=3D 4;<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0s=
-ize -=3D 4;<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0r=
-esult +=3D 4;<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0b=
-uf +=3D 4;<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-                    &gt; +end:<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0if (rd-&gt;state.id.use_grbm)=
- {<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0a=
-mdgpu_gfx_select_se_sh(adev,
-                    0xffffffff, 0xffffffff, 0xffffffff);<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                    =C2=A0mutex_unlock(&amp;adev-&gt;grbm_idx_mutex);<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-                    &gt; +<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0if (rd-&gt;state.id.use_srbm)=
- {<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0a=
-mdgpu_gfx_select_me_pipe_q(adev,
-                    0, 0, 0, 0);<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                    =C2=A0mutex_unlock(&amp;adev-&gt;srbm_mutex);<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-                    &gt; +<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0if (rd-&gt;state.id.pg_lock)<=
-br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                    =C2=A0mutex_unlock(&amp;adev-&gt;pm.mutex);<br>
-                    &gt; +<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0// in umr (the likely user of=
- this) flags
-                    are set per file operation<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0// which means they&#39;re ne=
-ver &quot;unset&quot;
-                    explicitly.=C2=A0 To avoid breaking<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0// this convention we unset t=
-he flags
-                    after each operation<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0// flags are for a single cal=
-l (need to
-                    be set for every read/write)<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0rd-&gt;state.id.use_grbm =3D =
-0;<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0rd-&gt;state.id.use_srbm =3D =
-0;<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0rd-&gt;state.id.pg_lock=C2=A0=
- =3D 0;<br>
-                    &gt; +<br>
-                    &gt; +=C2=A0 =C2=A0
-                    =C2=A0pm_runtime_mark_last_busy(adev_to_drm(adev)-&gt;d=
-ev);<br>
-                    &gt; +=C2=A0 =C2=A0
-                    =C2=A0pm_runtime_put_autosuspend(adev_to_drm(adev)-&gt;=
-dev);<br>
-                    &gt; +<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0amdgpu_virt_disable_access_de=
-bugfs(adev);<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0return result;<br>
-                    &gt; +}<br>
-                    &gt; +<br>
-                    &gt; +static long amdgpu_debugfs_regs2_ioctl(struct
-                    file *f, unsigned int cmd, unsigned long data)<br>
-                    &gt; +{<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0struct amdgpu_debugfs_regs2_d=
-ata *rd =3D
-                    f-&gt;private_data;<br>
-                    &gt; +<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0switch (cmd) {<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0case AMDGPU_DEBUGFS_REGS2_IOC=
-_SET_STATE:<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0i=
-f (copy_from_user(&amp;rd-&gt;<a href=3D"https://nam11.safelinks.protection=
-.outlook.com/?url=3Dhttp%3A%2F%2Fstate.id%2F&amp;data=3D04%7C01%7Cnirmoy.da=
-s%40amd.com%7Cf02eba2f047347488d5508d967b8bf96%7C3dd8961fe4884e608e11a82d99=
-4e183d%7C0%7C0%7C637654865456637501%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjA=
-wMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=3DowOC=
-Pq7DugPj8bKIZW%2BPL9O1HXIViFHCq8ZqSkIT4X4%3D&amp;reserved=3D0" rel=3D"noref=
-errer" target=3D"_blank">state.id</a>, (struct
-                    amdgpu_debugfs_regs2_iocdata *)data, sizeof rd-&gt;<a h=
-ref=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttp%3A%2F%2Fs=
-tate.id%2F&amp;data=3D04%7C01%7Cnirmoy.das%40amd.com%7Cf02eba2f047347488d55=
-08d967b8bf96%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C63765486545663750=
-1%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1ha=
-WwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=3DowOCPq7DugPj8bKIZW%2BPL9O1HXIViFHCq8Zq=
-SkIT4X4%3D&amp;reserved=3D0" rel=3D"noreferrer" target=3D"_blank">state.id<=
-/a>))<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0return -EINVAL;<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0b=
-reak;<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0default:<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0r=
-eturn -EINVAL;<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0return 0;<br>
-                    &gt; +}<br>
-                    &gt; +<br>
-                    &gt; +static ssize_t
-                    amdgpu_debugfs_regs2_read(struct file *f, char
-                    __user *buf, size_t size, loff_t *pos)<br>
-                    &gt; +{<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0struct amdgpu_debugfs_regs2_d=
-ata *rd =3D
-                    f-&gt;private_data;<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0rd-&gt;state.offset =3D *pos;=
-<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0return amdgpu_debugfs_regs2_o=
-p(f, buf,
-                    size, 0);<br>
-                    &gt; +}<br>
-                    &gt; +<br>
-                    &gt; +static ssize_t
-                    amdgpu_debugfs_regs2_write(struct file *f, const
-                    char __user *buf, size_t size, loff_t *pos)<br>
-                    &gt; +{<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0struct amdgpu_debugfs_regs2_d=
-ata *rd =3D
-                    f-&gt;private_data;<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0rd-&gt;state.offset =3D *pos;=
-<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0return amdgpu_debugfs_regs2_o=
-p(f, (char
-                    __user *)buf, size, 1);<br>
-                    &gt; +}<br>
-                    &gt; +<br>
-                    &gt;=C2=A0 =C2=A0<br>
-                    &gt;=C2=A0 =C2=A0/**<br>
-                    &gt;=C2=A0 =C2=A0 * amdgpu_debugfs_regs_pcie_read - Rea=
-d from
-                    a PCIE register<br>
-                    &gt; @@ -1091,6 +1241,16 @@ static ssize_t
-                    amdgpu_debugfs_gfxoff_read(struct file *f, char
-                    __user *buf,<br>
-                    &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0return result;<br>
-                    &gt;=C2=A0 =C2=A0}<br>
-                    &gt;=C2=A0 =C2=A0<br>
-                    &gt; +static const struct file_operations
-                    amdgpu_debugfs_regs2_fops =3D {<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0.owner =3D THIS_MODULE,<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0.unlocked_ioctl =3D
-                    amdgpu_debugfs_regs2_ioctl,<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0.read =3D amdgpu_debugfs_regs=
-2_read,<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0.write =3D amdgpu_debugfs_reg=
-s2_write,<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0.open =3D amdgpu_debugfs_regs=
-2_open,<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0.release =3D amdgpu_debugfs_r=
-egs2_release,<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0.llseek =3D default_llseek<br=
->
-                    &gt; +};<br>
-                    &gt; +<br>
-                    &gt;=C2=A0 =C2=A0static const struct file_operations
-                    amdgpu_debugfs_regs_fops =3D {<br>
-                    &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0.owner =3D THIS_MODULE,<=
-br>
-                    &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0.read =3D amdgpu_debugfs=
-_regs_read,<br>
-                    &gt; @@ -1148,6 +1308,7 @@ static const struct
-                    file_operations amdgpu_debugfs_gfxoff_fops =3D {<br>
-                    &gt;=C2=A0 =C2=A0<br>
-                    &gt;=C2=A0 =C2=A0static const struct file_operations
-                    *debugfs_regs[] =3D {<br>
-                    &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&amp;amdgpu_debugfs_regs=
-_fops,<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0&amp;amdgpu_debugfs_regs2_fop=
-s,<br>
-                    &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&amp;amdgpu_debugfs_regs=
-_didt_fops,<br>
-                    &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&amp;amdgpu_debugfs_regs=
-_pcie_fops,<br>
-                    &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&amp;amdgpu_debugfs_regs=
-_smc_fops,<br>
-                    &gt; @@ -1160,6 +1321,7 @@ static const struct
-                    file_operations *debugfs_regs[] =3D {<br>
-                    &gt;=C2=A0 =C2=A0<br>
-                    &gt;=C2=A0 =C2=A0static const char *debugfs_regs_names[=
-] =3D {<br>
-                    &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;amdgpu_regs&quot;,=
-<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0&quot;amdgpu_regs2&quot;,<br>
-                    &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;amdgpu_regs_didt&q=
-uot;,<br>
-                    &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;amdgpu_regs_pcie&q=
-uot;,<br>
-                    &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;amdgpu_regs_smc&qu=
-ot;,<br>
-                    &gt; diff --git
-                    a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h
-                    b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h<br>
-                    &gt; index 141a8474e24f..ec044df5d428 100644<br>
-                    &gt; ---
-                    a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h<br>
-                    &gt; +++
-                    b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h<br>
-                    &gt; @@ -22,6 +22,8 @@<br>
-                    &gt;=C2=A0 =C2=A0 * OTHER DEALINGS IN THE SOFTWARE.<br>
-                    &gt;=C2=A0 =C2=A0 *<br>
-                    &gt;=C2=A0 =C2=A0 */<br>
-                    &gt; +#include &lt;linux/ioctl.h&gt;<br>
-                    &gt; +#include &lt;uapi/drm/amdgpu_drm.h&gt;<br>
-                    &gt;=C2=A0 =C2=A0<br>
-                    &gt;=C2=A0 =C2=A0/*<br>
-                    &gt;=C2=A0 =C2=A0 * Debugfs<br>
-                    &gt; @@ -38,3 +40,33 @@ void
-                    amdgpu_debugfs_fence_init(struct amdgpu_device
-                    *adev);<br>
-                    &gt;=C2=A0 =C2=A0void amdgpu_debugfs_firmware_init(stru=
-ct
-                    amdgpu_device *adev);<br>
-                    &gt;=C2=A0 =C2=A0void amdgpu_debugfs_gem_init(struct
-                    amdgpu_device *adev);<br>
-                    &gt;=C2=A0 =C2=A0int amdgpu_debugfs_wait_dump(struct
-                    amdgpu_device *adev);<br>
-                    &gt; +<br>
-                    &gt; +/*<br>
-                    &gt; + * MMIO debugfs IOCTL structure<br>
-                    &gt; + */<br>
-                    &gt; +struct amdgpu_debugfs_regs2_iocdata {<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0__u8 use_srbm, use_grbm, pg_l=
-ock;<br>
-                    <br>
-                    You should consider using u32 here as well or add
-                    explicitly padding.<br>
-                    <br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0struct {<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0_=
-_u32 se, sh, instance;<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0} grbm;<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0struct {<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0_=
-_u32 me, pipe, queue, vmid;<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0} srbm;<br>
-                    &gt; +};<br>
-                    &gt; +<br>
-                    &gt; +/*<br>
-                    &gt; + * MMIO debugfs state data (per file* handle)<br>
-                    &gt; + */<br>
-                    &gt; +struct amdgpu_debugfs_regs2_data {<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0struct amdgpu_device *adev;<b=
-r>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0struct {<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0s=
-truct
-                    amdgpu_debugfs_regs2_iocdata id;<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0_=
-_u32 offset;<br>
-                    <br>
-                    What is the offset good for here?<br>
-                    <br>
-                    Regards,<br>
-                    Christian.<br>
-                    <br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0} state;<br>
-                    &gt; +};<br>
-                    &gt; +<br>
-                    &gt; +enum AMDGPU_DEBUGFS_REGS2_CMDS {<br>
-                    &gt; +=C2=A0 =C2=A0 =C2=A0AMDGPU_DEBUGFS_REGS2_CMD_SET_=
-STATE=3D0,<br>
-                    &gt; +};<br>
-                    &gt; +<br>
-                    &gt; +#define AMDGPU_DEBUGFS_REGS2_IOC_SET_STATE
-                    _IOWR(0x20, AMDGPU_DEBUGFS_REGS2_CMD_SET_STATE,
-                    struct amdgpu_debugfs_regs2_iocdata)<br>
-                    <br>
-                  </blockquote>
-                </div>
-              </blockquote>
-              <br>
-            </div>
-          </blockquote>
-        </div>
-      </blockquote>
-      <br>
-    </blockquote>
-  </div>
-
-</blockquote></div>
-
---0000000000004c42c605ca6096ae--
