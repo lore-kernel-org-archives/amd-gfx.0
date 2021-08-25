@@ -2,127 +2,99 @@ Return-Path: <SRS0=FOdb=NQ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-19.5 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D09D4C4338F
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 15:56:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8BEB8C432BE
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 16:33:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 90E15610C8
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 15:56:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 90E15610C8
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 5058A610A3
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 16:33:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5058A610A3
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=chromium.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 397E189F97;
-	Wed, 25 Aug 2021 15:56:39 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam07on2072.outbound.protection.outlook.com [40.107.95.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3765689F97
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Aug 2021 15:56:36 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Bwf8DJ7byNdg1Q0Qdec1deMBg09S51MjkLxXx45nfCrmKdY29sOMN2sSlsrFOmQ84C5wiL5FDxnQY3/shmqER4cAoJAlHwcu6cSCkWssxXrVc9NRc18b2AStoszZMVSkvPP3seUR3aT5cbRNSxG81i1MWVH1eJI2BjVZiDSzxBRSnWsBAbMlF/P7cGwPEdGRNxqLT7ku+tcjtPFqRGfxw2gc7+A0ZB5Eay+o/BtVse5kbmT4GTGOBzY9M8VX3R1IJLI1qKXmPHuBbzuhTsn/9mvdlxgr9yg1B73AiPL7wR/zNwF/Zf056WV6vVs0H4unHv8dLpdE/fz8KIPpqfiAkg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gZehZg+2vy6fgWqkXlyM9GCIYQRPLu/z1dRp3OSc+vI=;
- b=jE8R88Ob+ZSR4kgaMcxwbGLGs2HmkHXtSYaxSOlXn5iaU1E33wsjPUG2YzN6hvLTnaKhuZlxHm0ge9HS6bhwEXPA31OlB8ZyMrZcjsH8RMddTohXbwzoHM1owzELQX9gcYs1DFXu21sC2JXVqt/tsfeZs60gH9FwcYrRwDVNT2qupsxeIWGLFSpTWXFFm1lOVmFCVL/nA+Yennw5WwWH5DrW6OyicJIBpbZ05BPbr1tzkmsGIbU6bZHy1B+klAFzkwXSp31Fds6Yiy7f/CqZXOCwolysk/8X9n2uuMWtR7u3Ea74RTCyecBZwJznA506F6FEBG+DD6hJSYahfl3BMg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gZehZg+2vy6fgWqkXlyM9GCIYQRPLu/z1dRp3OSc+vI=;
- b=Ue6iKQ0ALXo6w7OQr8VsjBP/enAC2BdJBfXCmE0A0gqR/kfpVaawwapqYx+XVdshtcquBzh379v/8HQnyObksFnX2GhkQHPNoo86AGKzWYm3oBzfJf833tnjTQd9uytk+29Fhds+20fDMgw1Smai9KaXH8lI/Y/FQqGL4o2JZLQ=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by BL1PR12MB5094.namprd12.prod.outlook.com (2603:10b6:208:312::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.19; Wed, 25 Aug
- 2021 15:56:35 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::5dfc:ea54:4a18:89f5]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::5dfc:ea54:4a18:89f5%4]) with mapi id 15.20.4436.024; Wed, 25 Aug 2021
- 15:56:35 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Quan, Evan" <Evan.Quan@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Chen, Guchun" <Guchun.Chen@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: reenable BACO support for 699F:C7 polaris12
- SKU
-Thread-Topic: [PATCH] drm/amdgpu: reenable BACO support for 699F:C7 polaris12
- SKU
-Thread-Index: AQHXmWV8L/PNOS0N0UuSctMF3qAF1quEYLA+
-Date: Wed, 25 Aug 2021 15:56:34 +0000
-Message-ID: <BL1PR12MB5144384D331A48A8F6C53B23F7C69@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20210825035814.1284833-1-evan.quan@amd.com>
-In-Reply-To: <20210825035814.1284833-1-evan.quan@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-08-25T15:56:34.394Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 4885c807-bf05-4c27-2528-08d967e0ea58
-x-ms-traffictypediagnostic: BL1PR12MB5094:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BL1PR12MB5094D9B70FA68BD4ED8D2002F7C69@BL1PR12MB5094.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:454;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: PGX7TX8nVNzf8m+WzK5Mg9OFkI7G/nzH4aWJTmAIcPKlmb0DM+nZ94UQdEuNu0ir15hU6RHZOvXu2zlqpwkutVoN/btoPr+JvDVOBnJYQ7edib480tXr2j3+QvLfiov9nO+BydK6Ryn1e0X1cOXKAItC7/51z8KXDbwvbs7NTG/iZ56O69cNkGWrw5gpKbYLPmFLRY2BQKMcBb3ORiMU4rsl41bxYi6cmmEZCQbdKPeXBfH+PEx2Kts57kSjhEZ0uYhTosBFru2S3liZaTG7hecSpdNAldxtAyIHm/X+ghkIye9AZ3lBbcN9l1wbWR3TNB7D4XW9T534JVSCjkvaBAj5PQ1y9zL4TRLlfCCd0lyKwoprut8Uoq7yhqetDdyewlyXIpC1xvRIlbuImTaejiq2dkdILgGgWSwc3E7Mh0HkjSIe1yPd7b9kil6Qt1ENOhdwONCDif7o9PQrBD2iwTkO4B3j+9spTPY4s7DxzZ30ZnlFft+P6yoia+sVDvLFMpCt27+QZR8ZtN5ZpqMUffiXZ1ELlb5gg3HKnkU3s5+iZgf8Pm+1BxszHyZBTMKNsEt5jogpi6jCbJbjZ3Ty2gyGnCaJGWccd+u34MFDZZw6afNmpmbu0noitnH2tzJySD97dD2uHl57Jz2ARA+I13h9xn25cqzkNHHzvuP6N0q9HOyZEK+l0We/U4JrndwZMI4xmbshDabtVT0sM4AEBw==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(38100700002)(186003)(5660300002)(19627405001)(33656002)(71200400001)(122000001)(4326008)(38070700005)(508600001)(9686003)(8676002)(110136005)(55016002)(316002)(52536014)(53546011)(66556008)(64756008)(66476007)(66446008)(6506007)(8936002)(83380400001)(76116006)(66946007)(2906002)(86362001)(7696005)(26005);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?B46PFcsccEK/ugG6Wd6lM259mHy2CLu6vqKGVfSdFbm8Tbeg5HyUtNPBY2Wj?=
- =?us-ascii?Q?2CmlR3/u3mbTq+AprJ/LsJuXdU3RWVLDmCqU2Q6a3q/cL/GpR5ySZnyiho44?=
- =?us-ascii?Q?AsEtw2QfAjcnZCfF/+QLTEujyLjmeAeD2uZGiYwyOrnOxJd4yewT/TJLpb29?=
- =?us-ascii?Q?n5TNNMvBCMpbiQC4UeAjDj6mrYaQTOHpajPrIvYBCLCjrHdMn9RWZHeoJDHx?=
- =?us-ascii?Q?2ZSFatbQv/0ePbql+OUQ8PV+yebd6lZ0hIIHv7mDRf5IeAjSWRMqy3bs/mjA?=
- =?us-ascii?Q?3tv6SLE7W7V1UTy/xeHNlfcf3H907WDxlpGvkDPAm3O+7Q/gxmeHv4XpWgbt?=
- =?us-ascii?Q?K7kLa5zNsK5vxSpu812fvFdmHmEG7bBe/2f/vKijihCMRkvG8u9rMxE0elud?=
- =?us-ascii?Q?hsssDToTYFT+hbYyrCqGOVhnJFY0MaG09ntunUvXGZ8X1vBiTHSQagFJCkdO?=
- =?us-ascii?Q?Rcy8sQoGGGMg01tNN0k5PL07bGPNmoraglSS92ynyQ1iI6BhjIRm+4JN97TX?=
- =?us-ascii?Q?8vOwetyWmpSlaIh4D4kkbyxkQss6G2PWnEhw1KMNVqqqYWodlZlEKZSZ+sRM?=
- =?us-ascii?Q?KUf6P1MbzYUk0PItYOIpBmrjxsnRzF3welUgElqE4VI3MzwlVFm3HRBD6LkH?=
- =?us-ascii?Q?NeeQc4pdpezBaNXpKEpXPa0K/3x/Ibe6PEZsZiv30N35LlqrSOQUMtnOwk2u?=
- =?us-ascii?Q?95dzmAkBA4e8SaT8KZTo1hbvcaHgk1+vxst4+xdJcxmX9Kl1koPxIBBaYbSD?=
- =?us-ascii?Q?Bsg8m9SoVv+lK20rNimPK6kaJY3gYdajZGX4k9lOIYGxPjl0Hu1XWtJJNtim?=
- =?us-ascii?Q?GzLrs86qOmYYBq3h7XtVL/lOcmAsqebSKoB0mNUGvUKJ0tD38W7xs+Dj/cBw?=
- =?us-ascii?Q?uCGQvck1YQuysbXseuth2t49GfFvUAtLx/Nj4euSSEs195OoKZ424G0fpWaD?=
- =?us-ascii?Q?fhEcxc6Eg/hLBECHZ21V9LZKB2vtyj/hHbB5e04KSk9ay57mDNAYIiyi3iwL?=
- =?us-ascii?Q?o4wAMRmq2It2GDOAhLx5MRk8UsKKrrm2kMXmynuKqKztX4bjmz0mM4Yqen/0?=
- =?us-ascii?Q?0Ym7pqSRGwy7Xy8xIEOiM0uGCp1XouEPAp16Ss7oT/ZpU2KJox8wRbWbz8nY?=
- =?us-ascii?Q?mXa8dUcIbOjQ34tuWgHKQf3EhyoD8fBL8mkIASQrCaQJtjQ2wcxsnLw8QV/9?=
- =?us-ascii?Q?QVeCTLTHjLdInUHHmg88wY55uUTAXvJ05WPjzuMMVuMQp7yRkkJ7gJ3S+YEJ?=
- =?us-ascii?Q?+XnqYHroJoF13CoGO/Zs1+GMhKDojxflvnpyurtzHjG6IlFEWNCPRXmAhDjQ?=
- =?us-ascii?Q?pwpDTqoI2E0yyj2AjUwzit6g?=
-Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB5144384D331A48A8F6C53B23F7C69BL1PR12MB5144namp_"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05C1C6E3D2;
+	Wed, 25 Aug 2021 16:33:03 +0000 (UTC)
+Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com
+ [IPv6:2607:f8b0:4864:20::631])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5F8B6E3BB
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Aug 2021 16:20:00 +0000 (UTC)
+Received: by mail-pl1-x631.google.com with SMTP id u15so14599965plg.13
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Aug 2021 09:20:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=N9XhY8p7G+0bDyMlbnytdHLPofSqK0+HvIRX3QNft6U=;
+ b=er5jXCwFvNHmPXCLmHbM9lgRrgRCxgG1opusLq2zieJBNo77QgyOCSKYRVXtfsQ7oi
+ k+L/TFn+Cgt5x4X3lQu+kAkG0XCM8G1fU8xVhlBZMClibfRNT8rfyCbV1bWD/NWn/qGQ
+ cnLRWzWVgnoe9Nrf2hU/7dyApLfH1yGuGU9X0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=N9XhY8p7G+0bDyMlbnytdHLPofSqK0+HvIRX3QNft6U=;
+ b=j49I10hEDXxH77rbLS/20iJRetZMtR7NZp8Z82Bbt/7ICBmviO+XBUe9cJ4GvMR6FK
+ 3QS1PZ1OFH8SQtwjUVLyijas0Jaz8Q8eK6XIevwuR7cHuoDqRiUQAGw79QEMjFChZlWJ
+ AtFEYBtPAaGTGIQ8/otRU9caBGkkgrNbAGXkSVN0qvX1zMnxs0tRdFWYIGrPY/VyVtg/
+ Qme8q991TvLGajBrC1OecNkhvzHpg4rNZaQeyZyU/N8rx40QdZLFUD6jzdZfvHffBFwh
+ mEl35E8Ux7BkWmXpfY5DV/GQMtgQXsrqUtB8EimYlW8Cn4/dep2AO6of7Wev10BvenjB
+ XNJg==
+X-Gm-Message-State: AOAM532uGYpDSWYLNnHUBOd+cQSWxKZf8kRhCNggjcIjDSMZsnFfPN6d
+ XOpxmClkw6bhUNPE/tSYOfCPQw==
+X-Google-Smtp-Source: ABdhPJxLw35PQJptMjCd//eeBe1KjTkohZdpaMBavFZprJQ6S+Pbpoi+JNSD0gcZPFFZBT++CNzxRQ==
+X-Received: by 2002:a17:90a:4093:: with SMTP id
+ l19mr11481974pjg.118.1629908400185; 
+ Wed, 25 Aug 2021 09:20:00 -0700 (PDT)
+Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
+ by smtp.gmail.com with ESMTPSA id x19sm286030pfo.40.2021.08.25.09.19.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 25 Aug 2021 09:19:59 -0700 (PDT)
+From: Kees Cook <keescook@chromium.org>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Kees Cook <keescook@chromium.org>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Hawking Zhang <Hawking.Zhang@amd.com>, Feifei Xu <Feifei.Xu@amd.com>,
+ Likun Gao <Likun.Gao@amd.com>, Jiawei Gu <Jiawei.Gu@amd.com>,
+ Evan Quan <evan.quan@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Lijo Lazar <lijo.lazar@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ Luben Tuikov <luben.tuikov@amd.com>,
+ Sathishkumar S <sathishkumar.sundararaju@amd.com>,
+ Jonathan Kim <jonathan.kim@amd.com>, Darren Powell <darren.powell@amd.com>,
+ Huang Rui <ray.huang@amd.com>, Xiaojian Du <Xiaojian.Du@amd.com>,
+ Ryan Taylor <Ryan.Taylor@amd.com>, Graham Sider <Graham.Sider@amd.com>,
+ Kevin Wang <kevin1.wang@amd.com>, David M Nieto <David.Nieto@amd.com>,
+ Lee Jones <lee.jones@linaro.org>, John Clements <john.clements@amd.com>,
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+Subject: [PATCH v2] drm/amd/pm: And destination bounds checking to struct copy
+Date: Wed, 25 Aug 2021 09:19:57 -0700
+Message-Id: <20210825161957.3904130-1-keescook@chromium.org>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4885c807-bf05-4c27-2528-08d967e0ea58
-X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Aug 2021 15:56:34.9664 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: tI1zcnKd0DPJ9HGshdJxcC9dGTuAR/iPKHPPSnf/jAItKTFr7zcoTnB/Z9poyr+WZ57f4eZ2QLDmXXi97vpkJg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5094
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7050; h=from:subject;
+ bh=vF67s6QnU0fC5nISbg7n5vHeCrbf4UxTJE11PW86ehA=;
+ b=owEBbQKS/ZANAwAKAYly9N/cbcAmAcsmYgBhJm2sqJLOuF3URRcTav9BLmXNiA7slPCKTLtLOLI5
+ ImHjN5GJAjMEAAEKAB0WIQSlw/aPIp3WD3I+bhOJcvTf3G3AJgUCYSZtrAAKCRCJcvTf3G3AJivOD/
+ wNaiUJ5ux73lmKYESY4bT3EXBpHilQ9p5V+3lwyxKfURqdki00w311PXX4vMM1L+hfQHL6TKPoiuc5
+ nzlR+CMZIshnglKxUWjttBLiAFLdZM9FAsusFb6JVISf9gGGRmapAG43us+wPX0T1YzNx6LWpkMU07
+ yh2xJ6QmFtrhgBe7S3ktSizAI4T32hGhOJ+Woh+YZxZw6psrqr+l6zEKRd9q8kOG7w+TEw6P1rx7O0
+ wWG+1jg8pSPk5KUVzLC/3FsSkEgaTpDNtTLkmMQayLKgi0MCQnRjseQ0VncXswyYwOni9Mn1Hu/En3
+ BPZyozNulGMZDtNEtMOygZZHXjx3hl2jwjMMkabwWZ2/J4Lt3XsZzQVN4POqDNEKGhQ+EcljGBNucY
+ UrSIgQMYd17/Q1K8fJHRX4g5NGzDEBGyJu9TmpMj9d19HjpKZZ8Axsj55vcvVX8JoAokiziT8gjIho
+ 6Jlvg9JAobQYZtLfBNzK4Ca3beMXk5vt+k1c7deuag4aAxohkNzXwtCtIW3qYtmgXWU2F0m5HDVA3G
+ 9xBrdCFp83WAMTYNmxIgS7h3Rkkcyx5YvfbgxevaCg1QN5HZZzPW30x33v9YXgsTrXIjX7S+sX2LUt
+ 66ZuedhDRBHLBDh0lwK7gJh40hnlcGPO2QduiNB5L3AYFQ3fqCPG/7GsYGxw==
+X-Developer-Key: i=keescook@chromium.org; a=openpgp;
+ fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Wed, 25 Aug 2021 16:33:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,156 +109,161 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB5144384D331A48A8F6C53B23F7C69BL1PR12MB5144namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+In preparation for FORTIFY_SOURCE performing compile-time and run-time
+field bounds checking for memcpy(), memmove(), and memset(), avoid
+intentionally writing across neighboring fields.
 
-[Public]
+The "Board Parameters" members of the structs:
+	struct atom_smc_dpm_info_v4_5
+	struct atom_smc_dpm_info_v4_6
+	struct atom_smc_dpm_info_v4_7
+	struct atom_smc_dpm_info_v4_10
+are written to the corresponding members of the corresponding PPTable_t
+variables, but they lack destination size bounds checking, which means
+the compiler cannot verify at compile time that this is an intended and
+safe memcpy().
 
+Since the header files are effectively immutable[1] and a struct_group()
+cannot be used, nor a common struct referenced by both sides of the
+memcpy() arguments, add a new helper, amdgpu_memcpy_trailing(), to
+perform the bounds checking at compile time. Replace the open-coded
+memcpy()s with amdgpu_memcpy_trailing() which includes enough context
+for the bounds checking.
+
+"objdump -d" shows no object code changes.
+
+[1] https://lore.kernel.org/lkml/e56aad3c-a06f-da07-f491-a894a570d78f@amd.com
+
+Cc: "Christian König" <christian.koenig@amd.com>
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+Cc: David Airlie <airlied@linux.ie>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: Feifei Xu <Feifei.Xu@amd.com>
+Cc: Likun Gao <Likun.Gao@amd.com>
+Cc: Jiawei Gu <Jiawei.Gu@amd.com>
+Cc: Evan Quan <evan.quan@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
 Acked-by: Alex Deucher <alexander.deucher@amd.com>
-________________________________
-From: Quan, Evan <Evan.Quan@amd.com>
-Sent: Tuesday, August 24, 2021 11:58 PM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Chen, Guchun <Guchun.Ch=
-en@amd.com>; Quan, Evan <Evan.Quan@amd.com>
-Subject: [PATCH] drm/amdgpu: reenable BACO support for 699F:C7 polaris12 SK=
-U
-
-This reverts the commit below:
-"drm/amdgpu: disable BACO support for 699F:C7 polaris12 SKU temporarily".
-As the S3 hang issue has been fixed by another commit:
-"drm/amdgpu: add missing cleanups for Polaris12 UVD/VCE on suspend".
-
-Change-Id: I5ea08a75eedd7fe32c7fa0b448f5bae1f390abe6
-Signed-off-by: Evan Quan <evan.quan@amd.com>
+Signed-off-by: Kees Cook <keescook@chromium.org>
 ---
- drivers/gpu/drm/amd/amdgpu/vi.c | 9 +--------
- 1 file changed, 1 insertion(+), 8 deletions(-)
+v2:
+- rename and move helper to drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+- add reviews/acks
+v1: https://lore.kernel.org/lkml/20210819201441.3545027-1-keescook@chromium.org/
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  1 +
+ drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h       | 24 +++++++++++++++++++
+ .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c |  6 ++---
+ .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   |  8 +++----
+ .../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    |  5 ++--
+ 5 files changed, 33 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/v=
-i.c
-index 42a35d9520f9..fe9a7cc8d9eb 100644
---- a/drivers/gpu/drm/amd/amdgpu/vi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vi.c
-@@ -904,14 +904,7 @@ static bool vi_asic_supports_baco(struct amdgpu_device=
- *adev)
-         case CHIP_POLARIS11:
-         case CHIP_POLARIS12:
-         case CHIP_TOPAZ:
--               /* Disable BACO support for the specific polaris12 SKU temp=
-orarily */
--               if ((adev->pdev->device =3D=3D 0x699F) &&
--                    (adev->pdev->revision =3D=3D 0xC7) &&
--                    (adev->pdev->subsystem_vendor =3D=3D 0x1028) &&
--                    (adev->pdev->subsystem_device =3D=3D 0x0039))
--                       return false;
--               else
--                       return amdgpu_dpm_is_baco_supported(adev);
-+               return amdgpu_dpm_is_baco_supported(adev);
-         default:
-                 return false;
-         }
---
-2.29.0
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index dc3c6b3a00e5..c911387045e2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -1452,4 +1452,5 @@ static inline int amdgpu_in_reset(struct amdgpu_device *adev)
+ {
+ 	return atomic_read(&adev->in_gpu_reset);
+ }
++
+ #endif
+diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+index 715b4225f5ee..29031eb11d39 100644
+--- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+@@ -1335,6 +1335,30 @@ enum smu_cmn2asic_mapping_type {
+ #define WORKLOAD_MAP(profile, workload) \
+ 	[profile] = {1, (workload)}
+ 
++/**
++ * amdgpu_memcpy_trailing - Copy the end of one structure into the middle of another
++ *
++ * @dst: Pointer to destination struct
++ * @first_dst_member: The member name in @dst where the overwrite begins
++ * @last_dst_member: The member name in @dst where the overwrite ends after
++ * @src: Pointer to the source struct
++ * @first_src_member: The member name in @src where the copy begins
++ *
++ */
++#define amdgpu_memcpy_trailing(dst, first_dst_member, last_dst_member,	   \
++			       src, first_src_member)			   \
++({									   \
++	size_t __src_offset = offsetof(typeof(*(src)), first_src_member);  \
++	size_t __src_size = sizeof(*(src)) - __src_offset;		   \
++	size_t __dst_offset = offsetof(typeof(*(dst)), first_dst_member);  \
++	size_t __dst_size = offsetofend(typeof(*(dst)), last_dst_member) - \
++			    __dst_offset;				   \
++	BUILD_BUG_ON(__src_size != __dst_size);				   \
++	__builtin_memcpy((u8 *)(dst) + __dst_offset,			   \
++			 (u8 *)(src) + __src_offset,			   \
++			 __dst_size);					   \
++})
++
+ #if !defined(SWSMU_CODE_LAYER_L2) && !defined(SWSMU_CODE_LAYER_L3) && !defined(SWSMU_CODE_LAYER_L4)
+ int smu_get_power_limit(void *handle,
+ 			uint32_t *limit,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+index 273df66cac14..bda8fc12c91f 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+@@ -483,10 +483,8 @@ static int arcturus_append_powerplay_table(struct smu_context *smu)
+ 
+ 	if ((smc_dpm_table->table_header.format_revision == 4) &&
+ 	    (smc_dpm_table->table_header.content_revision == 6))
+-		memcpy(&smc_pptable->MaxVoltageStepGfx,
+-		       &smc_dpm_table->maxvoltagestepgfx,
+-		       sizeof(*smc_dpm_table) - offsetof(struct atom_smc_dpm_info_v4_6, maxvoltagestepgfx));
+-
++		amdgpu_memcpy_trailing(smc_pptable, MaxVoltageStepGfx, BoardReserved,
++				       smc_dpm_table, maxvoltagestepgfx);
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+index f96681700c41..88a4a2aed48e 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+@@ -431,16 +431,16 @@ static int navi10_append_powerplay_table(struct smu_context *smu)
+ 
+ 	switch (smc_dpm_table->table_header.content_revision) {
+ 	case 5: /* nv10 and nv14 */
+-		memcpy(smc_pptable->I2cControllers, smc_dpm_table->I2cControllers,
+-			sizeof(*smc_dpm_table) - sizeof(smc_dpm_table->table_header));
++		amdgpu_memcpy_trailing(smc_pptable, I2cControllers, BoardReserved,
++				       smc_dpm_table, I2cControllers);
+ 		break;
+ 	case 7: /* nv12 */
+ 		ret = amdgpu_atombios_get_data_table(adev, index, NULL, NULL, NULL,
+ 					      (uint8_t **)&smc_dpm_table_v4_7);
+ 		if (ret)
+ 			return ret;
+-		memcpy(smc_pptable->I2cControllers, smc_dpm_table_v4_7->I2cControllers,
+-			sizeof(*smc_dpm_table_v4_7) - sizeof(smc_dpm_table_v4_7->table_header));
++		amdgpu_memcpy_trailing(smc_pptable, I2cControllers, BoardReserved,
++				       smc_dpm_table_v4_7, I2cControllers);
+ 		break;
+ 	default:
+ 		dev_err(smu->adev->dev, "smc_dpm_info with unsupported content revision %d!\n",
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+index ec8c30daf31c..d46b892846f6 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+@@ -409,9 +409,8 @@ static int aldebaran_append_powerplay_table(struct smu_context *smu)
+ 
+ 	if ((smc_dpm_table->table_header.format_revision == 4) &&
+ 	    (smc_dpm_table->table_header.content_revision == 10))
+-		memcpy(&smc_pptable->GfxMaxCurrent,
+-		       &smc_dpm_table->GfxMaxCurrent,
+-		       sizeof(*smc_dpm_table) - offsetof(struct atom_smc_dpm_info_v4_10, GfxMaxCurrent));
++		amdgpu_memcpy_trailing(smc_pptable, GfxMaxCurrent, reserved,
++				       smc_dpm_table, GfxMaxCurrent);
+ 	return 0;
+ }
+ 
+-- 
+2.30.2
 
-
---_000_BL1PR12MB5144384D331A48A8F6C53B23F7C69BL1PR12MB5144namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
-ign=3D"Left">
-[Public]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Acked-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Quan, Evan &lt;Evan.Q=
-uan@amd.com&gt;<br>
-<b>Sent:</b> Tuesday, August 24, 2021 11:58 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Chen, Guch=
-un &lt;Guchun.Chen@amd.com&gt;; Quan, Evan &lt;Evan.Quan@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: reenable BACO support for 699F:C7 polar=
-is12 SKU</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">This reverts the commit below:<br>
-&quot;drm/amdgpu: disable BACO support for 699F:C7 polaris12 SKU temporaril=
-y&quot;.<br>
-As the S3 hang issue has been fixed by another commit:<br>
-&quot;drm/amdgpu: add missing cleanups for Polaris12 UVD/VCE on suspend&quo=
-t;.<br>
-<br>
-Change-Id: I5ea08a75eedd7fe32c7fa0b448f5bae1f390abe6<br>
-Signed-off-by: Evan Quan &lt;evan.quan@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/vi.c | 9 +--------<br>
-&nbsp;1 file changed, 1 insertion(+), 8 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/v=
-i.c<br>
-index 42a35d9520f9..fe9a7cc8d9eb 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/vi.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/vi.c<br>
-@@ -904,14 +904,7 @@ static bool vi_asic_supports_baco(struct amdgpu_device=
- *adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_POLARIS11:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_POLARIS12:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_TOPAZ:<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; /* Disable BACO support for the specific polaris12 SKU temporari=
-ly */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if ((adev-&gt;pdev-&gt;device =3D=3D 0x699F) &amp;&amp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (adev-&gt;pdev-&gt;revision =3D=3D=
- 0xC7) &amp;&amp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (adev-&gt;pdev-&gt;subsystem_vendo=
-r =3D=3D 0x1028) &amp;&amp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (adev-&gt;pdev-&gt;subsystem_devic=
-e =3D=3D 0x0039))<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return false;<br=
->
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; else<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return amdgpu_dp=
-m_is_baco_supported(adev);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return amdgpu_dpm_is_baco_supported(adev);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return false;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
--- <br>
-2.29.0<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_BL1PR12MB5144384D331A48A8F6C53B23F7C69BL1PR12MB5144namp_--
