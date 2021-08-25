@@ -2,77 +2,137 @@ Return-Path: <SRS0=FOdb=NQ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+X-Spam-Status: No, score=-19.5 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 38F39C432BE
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 14:33:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7EE11C4320E
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 14:34:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 082E0610C7
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 14:33:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 082E0610C7
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 524E1610C7
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 14:34:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 524E1610C7
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 583086E22B;
-	Wed, 25 Aug 2021 14:33:01 +0000 (UTC)
-Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com
- [IPv6:2607:f8b0:4864:20::22c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB5496E215;
- Wed, 25 Aug 2021 14:32:59 +0000 (UTC)
-Received: by mail-oi1-x22c.google.com with SMTP id n27so13786366oij.0;
- Wed, 25 Aug 2021 07:32:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=C+KRFd7Kqkl0ah0lvdFARlhhhNjXHD7Ea7yp+15DaDY=;
- b=mhlGodFfpCV6toic780Q1UR0OvCGBEVUwmLR5r0G0/46x64grwFjfLAWAz0eZSxGFL
- kBhoFK82Fc7TGJPnxpYzGJ9fkLsCVhScVInta255RbCuDx1VBjTMGIoKUXXeF7eiqZQC
- D4UtivTNdlc4pzofbN4fCPhx/h6TH5l4xUkMOh59j5yQbLxV8c2vwp6Wx3lc6egitFcC
- M5aUta1sxM/+tMjwKlHwwyJDdtxvzcYmCJw2W1a7yk6jcqdn7jxLUDJnJZDpIUxXu7x/
- pXmeq0T7CFxeT9K3C1b0ImhSv9XUo63Zb/9g3g/RV69YqN15oekhWnYwxgQlKbW/BPSg
- YkfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=C+KRFd7Kqkl0ah0lvdFARlhhhNjXHD7Ea7yp+15DaDY=;
- b=R/Dc5AkCo3Fp+1JgPXufCVT9ZFOwvia0DEtlPvoeRo6ysL4gEqTDkE41Pm/7Y2p1hg
- Cw17Eu0wSpdEobE35S9fsRRTjiOSOn3DXlgnbPqyBKKC1NNtliSBZahfwbNjk0JMqy4C
- f0cSfQ9gJ+CKNq6QzQomP3KH9v/Im6SwplNtPskmDqD2YgBL0xZBkWKSP/bJ/gKnfeO5
- S8csXYbxvshhWQuDJ5uBrvQko30SqtJdCoXLCxTDc0l1r++xgrTOmNn+D5xbWi9q8VDL
- hTKJvy17JwhNu3FZrBzAJq5nZhfRKogaIEGGBA5OStg7PZlRopnKfFD518yispINpRF/
- jmkQ==
-X-Gm-Message-State: AOAM532QR3yFQlbOnwT9ZQKS8fvSm3lovWNKnrtNKVPfWZcMGBQBdkmD
- AN7IGu5xSk3OMjHZaEqXMI7JgXKCe+EIj6PxTM4=
-X-Google-Smtp-Source: ABdhPJwWKUX/O0nYAsMs0WtOtdblcPCQzOjH9MS/sF36R8S9vjimx3RkQhbpzOMtoa0Khc0WGxQsio3aLtthsVUUEVc=
-X-Received: by 2002:a05:6808:1310:: with SMTP id
- y16mr6948256oiv.123.1629901979099; 
- Wed, 25 Aug 2021 07:32:59 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BEAE96E241;
+	Wed, 25 Aug 2021 14:34:29 +0000 (UTC)
+X-Greylist: delayed 156367 seconds by postgrey-1.36 at gabe;
+ Wed, 25 Aug 2021 14:34:27 UTC
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com (unknown
+ [40.107.94.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E01336E241
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Aug 2021 14:34:27 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=U8p432yLp/P88jtS4a9R+B+5Iv2w8JVZSHxkUuyZSUjPm/9GbGgYxFS5balghB3XDkJIB2NpLWjTMUTrbL30fmFJIbHGxQ6EWJmi5WnY0n1gODrXobzVcHAGw1bjl8O+TktuLig8USrt1ErdyW+HnCnP4luZMmMo8kLHyD5e9dG1IeR2W8tg75NuT5GjbzcYks65Vvbqd4L1+1PW9NZ3/vG6uBWy0gxOk5r7WLmhy9EQBjLjKkOnjyGK4yF5Xd6UCnVxuq3xWy+F3gHmrXg/LS9nmmyPg8L78xnUkUtzJhINwg1Rs5X7JYqIM/LF4jsTlk+dzeHZsLdU7tbamd9f7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4qHqIEoxeIQpR7BHA8HeqWSqfLpgUMCB3aDCb0Bs464=;
+ b=aCgJ768m7vWzF5T0ecMm/i1zS3Rpcn72vTVMf7rQJS6FVI0QfTCK99LWY5WfP3gJARF2Ej6P18FdegxYs7BEAwi7wqLt9+Ab16FWDIcdCXFjuNTiq5BU/i6jQH0DbDSr+ueEpdJiJnLFkupO0UCPl9nFlzpskvDxES2oOqrdtiM7c1cqrM3WCkklYjIei5aDsAltnaraPdK3JKkMaBhqVqWWWJrHK+4KucUTHTGTUiDP4276aMYgOl9Knfa+J4Am8H2KBs310FBKpraLcYZ3R/rPIrD0APkpNfcrWWxv6XW54Fk1YXKOW+Hn2oSRzSwMXoLUt8t5C9MMsyn5QLaNeQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4qHqIEoxeIQpR7BHA8HeqWSqfLpgUMCB3aDCb0Bs464=;
+ b=MwAZdaC8wvgHl9m480lZTsqNoXqdD2acJym5kx/BMlQVJoaVVXCoG8JYXdBLL1bpr/59tOt1t/MB7DAaylt5KhxXWoTXdufLf62zicK8drlNR0vmUVScTIfVwXfFUJTmOx5y3epbYlASnk89PH6UbWfP73qMfeKOHhRweyNDeyo=
+Authentication-Results: redhat.com; dkim=none (message not signed)
+ header.d=none;redhat.com; dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5129.namprd12.prod.outlook.com (2603:10b6:408:136::12)
+ by BN9PR12MB5308.namprd12.prod.outlook.com (2603:10b6:408:105::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.19; Wed, 25 Aug
+ 2021 14:34:23 +0000
+Received: from BN9PR12MB5129.namprd12.prod.outlook.com
+ ([fe80::b891:a906:28f0:fdb]) by BN9PR12MB5129.namprd12.prod.outlook.com
+ ([fe80::b891:a906:28f0:fdb%3]) with mapi id 15.20.4436.024; Wed, 25 Aug 2021
+ 14:34:22 +0000
+Subject: Re: [PATCH v1 05/14] drm/amdkfd: ref count init for device pages
+To: Alex Sierra <alex.sierra@amd.com>, akpm@linux-foundation.org,
+ linux-mm@kvack.org, rcampbell@nvidia.com, linux-ext4@vger.kernel.org,
+ linux-xfs@vger.kernel.org
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ hch@lst.de, jgg@nvidia.com, jglisse@redhat.com
+References: <20210825034828.12927-1-alex.sierra@amd.com>
+ <20210825034828.12927-6-alex.sierra@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Message-ID: <9518973c-fe01-9e77-5a5b-e299c3ee3cee@amd.com>
+Date: Wed, 25 Aug 2021 10:34:20 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
+In-Reply-To: <20210825034828.12927-6-alex.sierra@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-ClientProxiedBy: YT1PR01CA0155.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2f::34) To BN9PR12MB5129.namprd12.prod.outlook.com
+ (2603:10b6:408:136::12)
 MIME-Version: 1.0
-References: <20210825043522.346512-1-koba.ko@canonical.com>
- <20210825043522.346512-2-koba.ko@canonical.com> <87y28pev59.fsf@intel.com>
- <CAJB-X+X2Vbj9bAj98yxfAhi2-LMk0=_Hq=b1-1o5iOykQRj5fQ@mail.gmail.com>
- <87sfyxes9b.fsf@intel.com>
- <CAJB-X+WAS0-O436qbXAHO9Q0GDEoUW8bU7VvgX74fonUiBD1Ew@mail.gmail.com>
- <b784af82-4876-6c76-db7a-d130c3991894@amd.com>
-In-Reply-To: <b784af82-4876-6c76-db7a-d130c3991894@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 25 Aug 2021 10:32:48 -0400
-Message-ID: <CADnq5_MSeTeFcrceejjUHL_ftckAvYxMZ964nLFkj5r3k=gN0A@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amdgpu: Disable PCIE_DPM on Intel RKL Platform
-To: "Lazar, Lijo" <lijo.lazar@amd.com>
-Cc: Koba Ko <koba.ko@canonical.com>, Jani Nikula <jani.nikula@linux.intel.com>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>, 
- amd-gfx list <amd-gfx@lists.freedesktop.org>, "Feng,
- Kenneth" <Kenneth.Feng@amd.com>, Alex Deucher <Alexander.Deucher@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [192.168.2.100] (142.186.47.3) by
+ YT1PR01CA0155.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2f::34) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4436.19 via Frontend Transport; Wed, 25 Aug 2021 14:34:22 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: ad96be1a-08ce-4e8e-c4d4-08d967d56e54
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5308:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BN9PR12MB53082811D4B25B865639B45992C69@BN9PR12MB5308.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2512;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: T7DBUOyXLHR5q1iJoN3Q55xKdD2k5d2DMkjBhybj8ohd2vC1qYDJaNIgAzR+j5xfbh2anYcSWZ1SngtB/cO0GIW+5emv7BsRvGn5T2JaYXi+1dOYjHNNrlcQu7tm2YsKFfsFb6YDmICR7T/uwW+9JDn71x9yuvraiHbpiG8gx0yN9Eql/yijJNfreI3kQ/damxl5Kv8GFv6GlIKn58JvfQm6YjIOkXE+9q4VZu8h/a/uAAjZlJI2/Ysv9lQZq46k6hOVX8xNEXojhuxW1gIJU6Na8t62jsMpEMEEoHgnnoSGJ35RjuthhUJBu0OG2bpNpS+0i4oyO5RKgCMB4d3nn0CaBL1vst++ZbWKADIoN8iFz8rziJVJD8ewZFt+IwouIF7mifLSUFVjXDYtSi7Oe1NjE7+Kqz43Ynrab/rgA72NQQdC0GsLMelfAcrmSzGK1D/RFM4An32w9zy5SyWze19S4flQApnUa91DFQcDnakVW3EXRf61kq2MWpttDfi4IAA5YUWQ1eWl6+uKeNeW1xPuep33AwFxeDe7WrANjnm9Ahl24QJnJSy+Ft5NZcMHO3h514811dPGGFVbKEh5MC+9CdJa8CSo9wkY7FkuGj+sp3wRaTOvQ71lWzcU+0yM3MfOqjWEbF9/ibfQ53NaGBgURCLoFozo5PiEAgLvNMZcveEWAueNKCBB2w/X0TtR6kPRm6AM8IxYKp7yj0cyxGRHATkH/U2FOklb4VZU244=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5129.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(396003)(376002)(39860400002)(136003)(346002)(8676002)(478600001)(83380400001)(6486002)(44832011)(2906002)(4326008)(186003)(8936002)(31686004)(316002)(66946007)(86362001)(7416002)(66556008)(2616005)(26005)(36756003)(66476007)(956004)(16576012)(31696002)(38100700002)(5660300002)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N0s0aTRpSzQ3M0VZR1pyM09FeS9ZbkN6QzZaU0IxbGczS0NuQ2psbVlWZ1pS?=
+ =?utf-8?B?TTNHTHFIcnZ2cm1pUTFWeElnWDgwc3M3d3NJNTkzTjFZb1dudnpod2FSVHpR?=
+ =?utf-8?B?Ri9PaCtuZHp6TzdHNDBMUCtyQW0zaEh1VW4rZHgrRytxYXVLeUJpUW1VSmg3?=
+ =?utf-8?B?L2ZtMnBWTUh6TUpyTjdmRHZKTWhEd1JiNVhiSjZ3a3FDS1ZvTnlpUHpLWjlO?=
+ =?utf-8?B?eGF4a3kxT1BER3cvZVp5NURTOTQ0YUJvcXJYcE1tME5jV1dTK1JYcWZnMEdI?=
+ =?utf-8?B?dDRiRHJrSEZFMGlsbzBGK05wS1NaMWQ5b1lWMTZNUmF5ZFVvWkN0RXJQUkZR?=
+ =?utf-8?B?Qm1wZzhNWDZOZDZsbThpUkMxaFM1R1FmRml1aU5mSjZEUWF3eW9aZXBpaGNT?=
+ =?utf-8?B?cTBiNGEzRlk5a3Y0TExDeWV5a3JIdFJMbFlHQjFldzcvMTlTbEVMQlRCN2ow?=
+ =?utf-8?B?RzRUazdSZzYzeGxJdEhJdFZXcFFBVnp1OGttWXdieFEzOUxvZkpTa2puL3BC?=
+ =?utf-8?B?cnV6MGpET1NocU1UbEhsdUJtVHZVM0d6eXYyTXRJVEJPM2FuaWZIRHVvLzBB?=
+ =?utf-8?B?QzlTWFhkcjdUN3R1V0RMaGsrYTZ5T1k4Q0kzalJCdWpMSlZxUG1HZmE5MGk1?=
+ =?utf-8?B?Y05mNngvWWRsMzNvb2p2TStJNzZkeDNoOVB3Nk9rNkNyeWcvakZhalBQdlVZ?=
+ =?utf-8?B?SEJKRmRZU2hEVnozV0k3bkRuMldsbVlzQ0JkWG1icFJVaHAvYlNWdXFndE1Y?=
+ =?utf-8?B?b3RhaXY4TGdjZ3poaTM1WmVHNm9hR0pRSUcrVU90M2dmbFRuVUxadmZLajhH?=
+ =?utf-8?B?ZzNOYXFiV2QrZGhUeG03OHJiZFVXdjBTY2h1aHdaRG5mbzV6Nll4V255cUhZ?=
+ =?utf-8?B?WmIxLzhiSmNOVkdNOFdWVnZjWmxVbzU0eC9tL3owdFJpNmhSdzFVcDVXb1gz?=
+ =?utf-8?B?ek9LSUwrWisvTnZ2ZFBKSzAvbmQ0ZXBXR2tuWTJSK0N6R0RRb0o5Ujk2Sk1h?=
+ =?utf-8?B?TnZ2VHdOa2lCbzVpWm8ycjJzajM2TGlrd3YvdVh4dXAwSytLbVJJYjdRSVFz?=
+ =?utf-8?B?Q3Q2VUZwQXc3NUhYRDdNSldud1lVRE9VQlltL1hGSkZINTNFYXNEZU9tdUsw?=
+ =?utf-8?B?V2tQNzU5REdBeFdxZnNaWEJDVXF0ZU5tVFl5anB2Y1VOUGE1anFnbXl0cnFF?=
+ =?utf-8?B?eUZmNzBISE5WME1VYnBLRGF0NlQ2VHZjcmlVQjRNcVlTRjl6VFVXQTFUT0lp?=
+ =?utf-8?B?eE5KL3FISTJvbWFuUnZmaTFMTWdRQ3ZWWkJpbUhGQ2cxQ1h1SG5rTDhTSGZJ?=
+ =?utf-8?B?alBLN2NNUllvRHM1QjA3T25SZkk2L2pMSVlteHFsVDl6c0dINUZxQVFtcm9P?=
+ =?utf-8?B?UnY3NXBNY2MxQVVlcU9zbjEwZUs2Z2tDU2YvUzlvRTN0SzBjM3ErUUNsM3h6?=
+ =?utf-8?B?Sjk1VHRpUTM4UFdBWE5OeFdVK0duQUU2c1h5ODBwcjhsWWRHeTgzVjJTSXJm?=
+ =?utf-8?B?S1NJWERSR0NlSm1aK1JBT25Cb2w2aUZoSmpHUWNuRjJWUkRoeUswQThZS09N?=
+ =?utf-8?B?b1RpNjdaT05FTVpsdnlpbXZ0dzJnMWFoOW9IMVVQZFJucEUvWXZscVE0MXh5?=
+ =?utf-8?B?VkdXMkdhRkF1K3RsOXZXZ3RMcFgvaitqUGZrWXVEZ1ZtWGlNdWNSYkUvY0M1?=
+ =?utf-8?B?Yi8rYUUxU1BFd2JjTDJLaGxINk1qK0VCWkNsL0FmZ1N1THN5VXVRVGNkajdP?=
+ =?utf-8?Q?Kbu9kg+LAKXEk9iHpifpjXsGPh0jZ3hgFEgYr2s?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ad96be1a-08ce-4e8e-c4d4-08d967d56e54
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5129.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2021 14:34:22.8421 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Hje9ISSUwxA1iURZKsj9aK2TkKomtHwsPLiR6FMlcaWp6R9Zjw5h/s4vCbF+lZGrzIsY5sw++HIDuLGpQrzlcA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5308
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,180 +147,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Aug 25, 2021 at 10:22 AM Lazar, Lijo <lijo.lazar@amd.com> wrote:
+Am 2021-08-24 um 11:48 p.m. schrieb Alex Sierra:
+> Ref counter from device pages is init to zero during memmap init zone.
+> The first time a new device page is allocated to migrate data into it,
+> its ref counter needs to be initialized to one.
 >
+> Signed-off-by: Alex Sierra <alex.sierra@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
->
-> On 8/25/2021 4:46 PM, Koba Ko wrote:
-> > On Wed, Aug 25, 2021 at 6:24 PM Jani Nikula <jani.nikula@linux.intel.co=
-m> wrote:
-> >>
-> >> On Wed, 25 Aug 2021, Koba Ko <koba.ko@canonical.com> wrote:
-> >>> On Wed, Aug 25, 2021 at 5:22 PM Jani Nikula <jani.nikula@linux.intel.=
-com> wrote:
-> >>>>
-> >>>> On Wed, 25 Aug 2021, Koba Ko <koba.ko@canonical.com> wrote:
-> >>>>> AMD polaris GPUs have an issue about audio noise on RKL platform,
-> >>>>> they provide a commit to fix but for SMU7-based GPU still
-> >>>>> need another module parameter,
-> >>>>>
-> >>>>> For avoiding the module parameter, switch PCI_DPM by determining
-> >>>>> intel platform in amd drm driver.
-> >>>>
-> >>>> I'll just note that you could have a Tiger Lake PCH combined with a
-> >>>> number of platforms other than Rocket Lake, including not just the
-> >>>> obvious Tiger Lake but also Sky Lake, Kaby Lake, Coffee Lake, and Co=
-met
-> >>>> Lake.
-> >>>>
-> >>>> Again, I don't know what the root cause or fix should be, the workar=
-ound
-> >>>> presented here impacts a much larger number of platforms than where
-> >>>> you're claiming the issue is.
-> >>>
-> >>> Hi Jani, thanks for your feedback.
-> >>> Is there any way to identify the RKL PCH?
-> >>> I trace the intel_pch.c and can't find the only pch id for RKL.
-> >>>
-> >>> INTEL_PCH_TGP_DEVICE_ID_TYPE is used by both TGL and RKL.
-> >>>
-> >>> so it seems that using IS_ROCKETLAKE() is the only way.
-> >>
-> >> I don't think there is a Rocket Lake PCH. But is the problem related t=
-o
-> >> the PCH or not?
-> >
-> > I thought its' not because the issue wouldn't be observed on the TGL pl=
-atform.
-> > I only tried RKL platform and it use
-> > INTEL_PCH_TGP_DEVICE_ID_TYPE/INTEL_PCH_TGP2_DEVICE_ID_TYPE,
-> > As per AMD guys, they said the issue is only triggered in RKL platform.
-> >
-> >>
-> >> The GPU PCI IDs are in i915_pciids.h. See INTEL_RKL_IDS() for
-> >> RKL. There's a lot of indirection, but that's what IS_ROCKETLAKE() boi=
-ls
-> >> down to. But again, I'm not sure if that's what you want or not.
-> > Thanks for suggestions,
-> >
-> > Just want a way to check if it's a RKL platform,
-> > After tracing the kernel, can check by CPU VENDOR(lacks type), check
-> > igpu(but there're cpus without igpu)
-> > and check pch type(it seems one pch has multiple combinations with CPU)=
-.
-> > for check igpu, as per my current understanding,  only found RKL CPU wi=
-th igpu.
-> > Is there a RKL CPU without integrated gpu?
-> >
->
-> Just for RKL - you could do fetch the x86 info and check
->
-> #ifdef CONFIG_X86_64
->          struct cpuinfo_x86 *c =3D &cpu_data(0);
->         // Family/Model check, find the model
->         (c->x86 =3D=3D 6 && c->x86_model =3D=3D INTEL_FAM6_ROCKETLAKE)
-> #endif
->
-> I think we don't use anything like this so far. So Alex should give a
-> nod as well.
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+> index dab290a4d19d..47ee9a895cd2 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+> @@ -220,7 +220,7 @@ svm_migrate_get_vram_page(struct svm_range *prange, unsigned long pfn)
+>  	page = pfn_to_page(pfn);
+>  	svm_range_bo_ref(prange->svm_bo);
+>  	page->zone_device_data = prange->svm_bo;
+> -	get_page(page);
 
-I think that makes sense.  For some background the issue that was
-observed with RKL was that the PCIE gen switching has a very high
-latency which can lead to audio problems during playback if PCIE DPM
-is enabled.
+There is an assumption here that the page refcount is 0 because the page
+should be unused. I'd add a VM_BUG_ON_PAGE(page_ref_count(page), page)
+here to check that assumption.
 
-Alex
+Regards,
+  Felix
 
->
-> Thanks,
-> Lijo
->
-> >>
-> >> BR,
-> >> Jani.
-> >>
-> >>
-> >>>
-> >>> Thanks
-> >>>>
-> >>>> BR,
-> >>>> Jani.
-> >>>>
-> >>>>
-> >>>>>
-> >>>>> Fixes: 1a31474cdb48 ("drm/amd/pm: workaround for audio noise issue"=
-)
-> >>>>> Ref: https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A=
-%2F%2Flists.freedesktop.org%2Farchives%2Famd-gfx%2F2021-August%2F067413.htm=
-l&amp;data=3D04%7C01%7Clijo.lazar%40amd.com%7C888ab428f2bb4f32e4d408d967c4a=
-e08%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637654916721463596%7CUnkno=
-wn%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVC=
-I6Mn0%3D%7C1000&amp;sdata=3DBgf14CmIx%2FTOD54LN6dccZL0U5gT9lv9yTw7MfKc2sQ%3=
-D&amp;reserved=3D0
-> >>>>> Signed-off-by: Koba Ko <koba.ko@canonical.com>
-> >>>>> ---
-> >>>>>   .../drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c   | 21 ++++++++++++++=
-++++-
-> >>>>>   1 file changed, 20 insertions(+), 1 deletion(-)
-> >>>>>
-> >>>>> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/=
-drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-> >>>>> index 0541bfc81c1b..346110dd0f51 100644
-> >>>>> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-> >>>>> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-> >>>>> @@ -1733,6 +1733,25 @@ static int smu7_disable_dpm_tasks(struct pp_=
-hwmgr *hwmgr)
-> >>>>>        return result;
-> >>>>>   }
-> >>>>>
-> >>>>> +#include <drm/intel_pch.h>
-> >>>>> +
-> >>>>> +static bool intel_tgp_chk(void)
-> >>>>> +{
-> >>>>> +     struct pci_dev *pch =3D NULL;
-> >>>>> +     unsigned short id;
-> >>>>> +
-> >>>>> +     while ((pch =3D pci_get_class(PCI_CLASS_BRIDGE_ISA << 8, pch)=
-)) {
-> >>>>> +             if (pch->vendor !=3D PCI_VENDOR_ID_INTEL)
-> >>>>> +                     continue;
-> >>>>> +
-> >>>>> +             id =3D pch->device & INTEL_PCH_DEVICE_ID_MASK;
-> >>>>> +             if (id =3D=3D INTEL_PCH_TGP_DEVICE_ID_TYPE || INTEL_P=
-CH_TGP2_DEVICE_ID_TYPE)
-> >>>>
-> >>>> PS. This is always true. ;)
-> >>>
-> >>> got, thanks
-> >>>
-> >>>>
-> >>>>> +                     return true;
-> >>>>> +     }
-> >>>>> +
-> >>>>> +     return false;
-> >>>>> +}
-> >>>>> +
-> >>>>>   static void smu7_init_dpm_defaults(struct pp_hwmgr *hwmgr)
-> >>>>>   {
-> >>>>>        struct smu7_hwmgr *data =3D (struct smu7_hwmgr *)(hwmgr->bac=
-kend);
-> >>>>> @@ -1758,7 +1777,7 @@ static void smu7_init_dpm_defaults(struct pp_=
-hwmgr *hwmgr)
-> >>>>>
-> >>>>>        data->mclk_dpm_key_disabled =3D hwmgr->feature_mask & PP_MCL=
-K_DPM_MASK ? false : true;
-> >>>>>        data->sclk_dpm_key_disabled =3D hwmgr->feature_mask & PP_SCL=
-K_DPM_MASK ? false : true;
-> >>>>> -     data->pcie_dpm_key_disabled =3D hwmgr->feature_mask & PP_PCIE=
-_DPM_MASK ? false : true;
-> >>>>> +     data->pcie_dpm_key_disabled =3D intel_tgp_chk() || !(hwmgr->f=
-eature_mask & PP_PCIE_DPM_MASK);
-> >>>>>        /* need to set voltage control types before EVV patching */
-> >>>>>        data->voltage_control =3D SMU7_VOLTAGE_CONTROL_NONE;
-> >>>>>        data->vddci_control =3D SMU7_VOLTAGE_CONTROL_NONE;
-> >>>>
-> >>>> --
-> >>>> Jani Nikula, Intel Open Source Graphics Center
-> >>
-> >> --
-> >> Jani Nikula, Intel Open Source Graphics Center
+
+> +	init_page_count(page);
+>  	lock_page(page);
+>  }
+>  
