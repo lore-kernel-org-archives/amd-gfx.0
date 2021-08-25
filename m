@@ -2,46 +2,61 @@ Return-Path: <SRS0=FOdb=NQ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4EACCC432BE
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BA228C4320E
 	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 12:34:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A2EB1610E5
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 12:34:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A2EB1610E5
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
+	by mail.kernel.org (Postfix) with ESMTPS id 8B5E261139
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 12:34:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8B5E261139
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=canonical.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD5266E20A;
-	Wed, 25 Aug 2021 12:34:31 +0000 (UTC)
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E6866E160;
- Wed, 25 Aug 2021 07:40:33 +0000 (UTC)
-Received: by verein.lst.de (Postfix, from userid 2407)
- id 2F4E067357; Wed, 25 Aug 2021 09:40:30 +0200 (CEST)
-Date: Wed, 25 Aug 2021 09:40:29 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: Alex Sierra <alex.sierra@amd.com>
-Cc: akpm@linux-foundation.org, Felix.Kuehling@amd.com, linux-mm@kvack.org,
- rcampbell@nvidia.com, linux-ext4@vger.kernel.org,
- linux-xfs@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, hch@lst.de, jgg@nvidia.com,
- jglisse@redhat.com
-Subject: Re: [PATCH v1 03/14] mm: add iomem vma selection for memory migration
-Message-ID: <20210825074029.GC29433@lst.de>
-References: <20210825034828.12927-1-alex.sierra@amd.com>
- <20210825034828.12927-4-alex.sierra@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE5986E20F;
+	Wed, 25 Aug 2021 12:34:32 +0000 (UTC)
+Received: from smtp-relay-canonical-1.canonical.com
+ (smtp-relay-canonical-1.canonical.com [185.125.188.121])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABF7E8997C;
+ Wed, 25 Aug 2021 11:36:16 +0000 (UTC)
+Received: from localhost (1.general.cking.uk.vpn [10.172.193.212])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id 47F213F072; 
+ Wed, 25 Aug 2021 11:36:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1629891375;
+ bh=zo+G5iadB49U+2sdl2YTpWA23bkDMXVrOHPwSen0oq8=;
+ h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type;
+ b=FnQLClw4ahcH9/00HhmoJhcdDd+0cBFgoPxvqa70H6459yZvUVYYLECLM2dvY+5+L
+ UAlZicYe/dYaE5jK7OsWTZh7z2AgWFGi4Y8F4jQXhdZRZXetwYaX1KXlQEcNJepDF4
+ HHn6GoTh6IJ10cLIgmTZubqCwD0ILAziOet+6eFS9mon/cmtHRFyElpjt4nBonQRVc
+ 0S4/Mykc3sj76Rm4Yg5ATdxVAQj6JJkWy7I7+3ffXUZtvQ4fqRCiIvNoDqbkMTmFYd
+ 2G/Qw7/Qxa1XtBomhZ5BQCbSS4LJv31PTpPhhcDN10C0a5gmlqi8IEp793lfn72Q+X
+ sBVJ8nnbbWztw==
+From: Colin King <colin.king@canonical.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xinhui.Pan@amd.com, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: kernel-janitors@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH][next] drm/amd/display: fix spelling mistake "alidation" ->
+ "validation"
+Date: Wed, 25 Aug 2021 12:36:15 +0100
+Message-Id: <20210825113615.14555-1-colin.king@canonical.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210825034828.12927-4-alex.sierra@amd.com>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 25 Aug 2021 12:34:20 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -57,46 +72,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Aug 24, 2021 at 10:48:17PM -0500, Alex Sierra wrote:
-> In this case, this is used to migrate pages from device memory, back to
-> system memory. This particular device memory type should be accessible
-> by the CPU, through IOMEM access. Typically, zone device public type
-> memory falls into this category.
-> 
-> Signed-off-by: Alex Sierra <alex.sierra@amd.com>
-> ---
->  include/linux/migrate.h | 1 +
->  mm/migrate.c            | 3 ++-
->  2 files changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/include/linux/migrate.h b/include/linux/migrate.h
-> index 4bb4e519e3f5..6b16f417384f 100644
-> --- a/include/linux/migrate.h
-> +++ b/include/linux/migrate.h
-> @@ -156,6 +156,7 @@ static inline unsigned long migrate_pfn(unsigned long pfn)
->  enum migrate_vma_direction {
->  	MIGRATE_VMA_SELECT_SYSTEM = 1 << 0,
->  	MIGRATE_VMA_SELECT_DEVICE_PRIVATE = 1 << 1,
-> +	MIGRATE_VMA_SELECT_IOMEM = 1 << 2,
->  };
->  
->  struct migrate_vma {
-> diff --git a/mm/migrate.c b/mm/migrate.c
-> index e3a10e2a1bb3..d4ae2da99607 100644
-> --- a/mm/migrate.c
-> +++ b/mm/migrate.c
-> @@ -2406,7 +2406,8 @@ static int migrate_vma_collect_pmd(pmd_t *pmdp,
->  			if (is_write_device_private_entry(entry))
->  				mpfn |= MIGRATE_PFN_WRITE;
->  		} else {
-> -			if (!(migrate->flags & MIGRATE_VMA_SELECT_SYSTEM))
-> +			if (!(migrate->flags & MIGRATE_VMA_SELECT_SYSTEM) &&
-> +			    !(migrate->flags & MIGRATE_VMA_SELECT_IOMEM))
+From: Colin Ian King <colin.king@canonical.com>
 
-This makes the MIGRATE_VMA_SELECT_SYSTEM and MIGRATE_VMA_SELECT_IOMEM
-behave entirely identifical, that is redundant.  I think we need to
-distinguish between the dfferent cases here.  I think the right check
-would be pfn_valid(), which should be true for system memory, and
-false for iomem.
+There is a spelling mistake in a DC_LOG_WARNING message. Fix it.
 
-Also shouldn't this be called DEVICE_PUBLIC instead of IOMEM?
+Signed-off-by: Colin Ian King <colin.king@canonical.com>
+---
+ drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
+index 3223a1ff2292..91cbc0922ad4 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
+@@ -1999,7 +1999,7 @@ bool dcn31_validate_bandwidth(struct dc *dc,
+ 	goto validate_out;
+ 
+ validate_fail:
+-	DC_LOG_WARNING("Mode Validation Warning: %s failed alidation.\n",
++	DC_LOG_WARNING("Mode Validation Warning: %s failed validation.\n",
+ 		dml_get_status_message(context->bw_ctx.dml.vba.ValidationStatus[context->bw_ctx.dml.vba.soc.num_states]));
+ 
+ 	BW_VAL_TRACE_SKIP(fail);
+-- 
+2.32.0
+
