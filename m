@@ -2,113 +2,96 @@ Return-Path: <SRS0=FOdb=NQ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.2 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EF405C432BE
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 17:49:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1E3F4C4320A
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 17:57:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A994560E90
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 17:49:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A994560E90
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=nvidia.com
+	by mail.kernel.org (Postfix) with ESMTPS id DAE3060F35
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 17:57:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DAE3060F35
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=akamai.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5978C6E3F4;
-	Wed, 25 Aug 2021 17:49:06 +0000 (UTC)
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam08on2049.outbound.protection.outlook.com [40.107.100.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DDC4D6E3F4;
- Wed, 25 Aug 2021 17:49:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=L94HSvLZfRi6AQzrzB8rHeSlzSUiP86AbnjH1OOvgpKk65tUc6rs8QtBNDOdoZ62BnJyUPOzMdX67B0kV7y3kNKW/c6yICdKixeEEgHq1vDbjZjJzv0OiGIf1Q/nab+Od9Od5ZE1EmEBsFKBXO3Lx1RgsU9Mf2oqjzxjSCPDOuJrDaRiHo9FxTOKon4JcjkvS7Glm/BrcCdmHPM9Hzrtcq262vQ0bY4BbEuQSLTV4Q5AIzco1Ogi8f4Xa/XtjUeMjdWmfMjvcIeQrThHkXpu54ut+kytfMpNsuPCDs9e6JvK/zt/jprIa941O4286GFsqUdKGyS5JjRe1lgIB55izQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=836XBpZH3d+fdvKEqzLZQ9K3DZDuUGf5MVN4Xajae/U=;
- b=iQ3DEJe1rgZMRiobhuAx8RpzIQL5zb2yhwZtj0Enw9hmSzw0gag6v49qZX/ILzWTUuRdDN4erF9Qn1lS83507THQJo5y9oQyE02tVdrfabwLl9KthsX+hxCeYnrhJ4cOt7XCoSF2EBzgupQbUWpcKsbNhR2ehYpyPWOFGmsUZOTrz47LwiY1a2SsM7jLEDUvhhrOmVX3+ZbFP2TF4G2kWuug3fXilvylcgKIXDR7rIhqoSTL/dsT/4SE+XzU+rreANhEbSnwhJzVwa2pli6VXQFdEFqF5K/envRa6KZdGalb9APSjp5PcgB08QCKOyiKk6GVFzmvE3qlS/XVpr7efQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.112.36) smtp.rcpttodomain=amd.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=nvidia.com; 
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=836XBpZH3d+fdvKEqzLZQ9K3DZDuUGf5MVN4Xajae/U=;
- b=Uf5FX7oqFx5m4K3QumLMI8Sc6QROdZUFouqpra7HvUCKDSG3HEA+icbSISQTT9JSoS3A0ljBJDniydPv3njc/8IhDpOEI25e6kCB6N0cV1FdaJ5QyZ2Mw8w5kZRje4eXTGwT8Y7O9wwX6wT3g93MyLeKD2PiAHDgnrGv2z+COSSwilDNirsvPmZAzffaVTXyIdN4mPhVaVnVERyssXDGgsW2wZG4fof5SWvKU+Lr+a/A67I5WN0KwVEFjT8jDvdr/+UieNwRNy7HGoK2zN4VkwTrHV0hpH0QPrS0mRxk+pHpEEcU05SYv2BjV3aN+pNp1nbg0tapYNwDqkEZinaQSg==
-Received: from DM5PR07CA0156.namprd07.prod.outlook.com (2603:10b6:3:ee::22) by
- DM8PR12MB5495.namprd12.prod.outlook.com (2603:10b6:8:33::12) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4436.22; Wed, 25 Aug 2021 17:49:03 +0000
-Received: from DM6NAM11FT034.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:ee:cafe::eb) by DM5PR07CA0156.outlook.office365.com
- (2603:10b6:3:ee::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.17 via Frontend
- Transport; Wed, 25 Aug 2021 17:49:03 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.112.36)
- smtp.mailfrom=nvidia.com; amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.112.36 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.112.36; helo=mail.nvidia.com;
-Received: from mail.nvidia.com (216.228.112.36) by
- DM6NAM11FT034.mail.protection.outlook.com (10.13.173.47) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.20.4457.17 via Frontend Transport; Wed, 25 Aug 2021 17:49:02 +0000
-Received: from HQMAIL111.nvidia.com (172.20.187.18) by HQMAIL101.nvidia.com
- (172.20.187.10) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Wed, 25 Aug
- 2021 17:49:02 +0000
-Received: from rcampbell-test.nvidia.com (172.20.187.6) by mail.nvidia.com
- (172.20.187.18) with Microsoft SMTP Server (TLS) id 15.0.1497.2 via Frontend
- Transport; Wed, 25 Aug 2021 17:49:02 +0000
-Subject: Re: [PATCH v1 02/14] mm: remove extra ZONE_DEVICE struct page refcount
-To: Vlastimil Babka <vbabka@suse.cz>, Alex Sierra <alex.sierra@amd.com>,
- <akpm@linux-foundation.org>, <Felix.Kuehling@amd.com>, <linux-mm@kvack.org>,
- <linux-ext4@vger.kernel.org>, <linux-xfs@vger.kernel.org>
-CC: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <hch@lst.de>, <jgg@nvidia.com>, <jglisse@redhat.com>
-References: <20210825034828.12927-1-alex.sierra@amd.com>
- <20210825034828.12927-3-alex.sierra@amd.com>
- <dbd0f54a-ad6c-97a2-17d7-826247424c97@suse.cz>
-From: Ralph Campbell <rcampbell@nvidia.com>
-Message-ID: <505e4fe4-241a-8205-d2ef-f603e9cc46c6@nvidia.com>
-Date: Wed, 25 Aug 2021 10:49:01 -0700
+	by gabe.freedesktop.org (Postfix) with ESMTP id 59C816E3EB;
+	Wed, 25 Aug 2021 17:57:49 +0000 (UTC)
+X-Greylist: delayed 349 seconds by postgrey-1.36 at gabe;
+ Wed, 25 Aug 2021 17:18:52 UTC
+Received: from mx0b-00190b01.pphosted.com (mx0b-00190b01.pphosted.com
+ [IPv6:2620:100:9005:57f::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0FF3B6E3EE;
+ Wed, 25 Aug 2021 17:18:51 +0000 (UTC)
+Received: from pps.filterd (m0122331.ppops.net [127.0.0.1])
+ by mx0b-00190b01.pphosted.com (8.16.1.2/8.16.0.43) with SMTP id 17PG73hK003607;
+ Wed, 25 Aug 2021 18:18:49 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=akamai.com;
+ h=subject : to :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=jan2016.eng;
+ bh=4yn0oy8JsEetkmJH1qt8+NeoPl5RpCvCkxTeymmkeu8=;
+ b=VlSK6+1hH5l2Yb77fXnQ6g4ksZO1d0TBYf1qvwgSU6kOcYivw5WUQpb1N4/JRm2EUt9G
+ e3bJGL8LjDRfjN+sc1kVN7e+SJ9gnGiCCjByBjf0O61aMIJPcXtckb22/h0ysDYPbROW
+ PrifL86bLPPSwczHgflnC5RQoElyVJFQHwbXP0qA7p8n6WyLapMMGk844M55b3tkq1KL
+ 9CGSpZvt0ClRxJQRGgz6xLTVcuwuL51DPkTee47Ox3zyiSICIIyEY+z61FsdaDQfgTfE
+ vjB29jUgnqHXmZzDPcLKTSGf+Ihs3KmVDRkzb0tJPT6NwnukpDy1Upoju77GiS2lK2mZ yg== 
+Received: from prod-mail-ppoint7
+ (a72-247-45-33.deploy.static.akamaitechnologies.com [72.247.45.33] (may be
+ forged)) by mx0b-00190b01.pphosted.com with ESMTP id 3anhh8mpsu-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 25 Aug 2021 18:18:48 +0100
+Received: from pps.filterd (prod-mail-ppoint7.akamai.com [127.0.0.1])
+ by prod-mail-ppoint7.akamai.com (8.16.1.2/8.16.1.2) with SMTP id
+ 17PHCpZk029748; Wed, 25 Aug 2021 13:18:48 -0400
+Received: from prod-mail-relay19.dfw02.corp.akamai.com ([172.27.165.173])
+ by prod-mail-ppoint7.akamai.com with ESMTP id 3an3v2fbq9-1;
+ Wed, 25 Aug 2021 13:18:48 -0400
+Received: from [0.0.0.0] (prod-ssh-gw01.bos01.corp.akamai.com [172.27.119.138])
+ by prod-mail-relay19.dfw02.corp.akamai.com (Postfix) with ESMTP id C8B9A6007A; 
+ Wed, 25 Aug 2021 17:18:44 +0000 (GMT)
+Subject: Re: [PATCH v6 00/11] use DYNAMIC_DEBUG to implement DRM.debug
+To: Jim Cromie <jim.cromie@gmail.com>, gregkh@linuxfoundation.org,
+ seanpaul@chromium.org, jeyu@kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+References: <20210822222009.2035788-1-jim.cromie@gmail.com>
+From: Jason Baron <jbaron@akamai.com>
+Message-ID: <7017599d-8e11-7bda-90df-3cbf39ef8f3b@akamai.com>
+Date: Wed, 25 Aug 2021 13:18:44 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <dbd0f54a-ad6c-97a2-17d7-826247424c97@suse.cz>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <20210822222009.2035788-1-jim.cromie@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f60f875c-00f9-4d75-cfc8-08d967f0a062
-X-MS-TrafficTypeDiagnostic: DM8PR12MB5495:
-X-Microsoft-Antispam-PRVS: <DM8PR12MB5495C64B7D3FBA3447A5AAF3C2C69@DM8PR12MB5495.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: EUD9gLnj84NJTkTFCk9HSdNz/cRUsi1KSKwCAoDcNO3QWfBp6CawHcI3WLkRtFDJAzmZjFcCBSdCSgtPspHuPgtg4Q0Oo1g319KIjspMISuKp9sUN+7dzDIvVgDSuKQFlsCKAYniRMrzVYMj+UbC6e2q7vPakMS+wv+ok9XcAWzYdAa1q7pN1qN/sklbMADA/MzHzlpfZEoQ6M7JQwfJ3EsrUlhGJ9gLZN9ejit5ZqXb7EJKefpFCAwrJ3AMe2MoiNnXHdd/Dao6bJcR0P27rOf22wNRqGgCLCQn40dmk7+u4oi5V2bf2jmMW94PaueOvIu3d/EbmjKhDx/dIy6SU8YEm5r7Jv0YXgOkToTa2AhS8gBHocb0NPWYfl79egMkbeDVV5T5i6c1tUGWcsgadBwqOBJC78YIlwcibpas49utWk8k2c1Gtxh86wgMPid9qkepvhACzI79kUhjzhPHLvDKNEijoXn6D25j5tByC8z407BINNW5op+HKznbzSBQhbItHs+bu1V/lwDwbuGaqzWVbezMdpQ28JIn38YypNIe8OnTTb3gXZnH90LLs4oKDCkGh2hGpZWg5lI0ELZEiiVcAKoudZ+uCCJMll3cFAfUe+UusE4MD41BlNHIb5QKNQhor4a/c9hDGTR23lo5OQtBka6KjHlnzuIKLAE6X6OGdPqwcwupnTQlCkXah+aAqq9/Tjij1s/2SPQrjyE55sTMZmr3vamrxnSrOtBzV3jcRtewF1gZ7/s1PAUN3+ug
-X-Forefront-Antispam-Report: CIP:216.228.112.36; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:schybrid05.nvidia.com; CAT:NONE;
- SFS:(4636009)(376002)(346002)(39860400002)(136003)(396003)(36840700001)(46966006)(7636003)(478600001)(316002)(26005)(54906003)(110136005)(36906005)(82740400003)(31686004)(2616005)(53546011)(36756003)(336012)(86362001)(426003)(31696002)(70206006)(47076005)(7416002)(36860700001)(5660300002)(186003)(4326008)(8676002)(82310400003)(356005)(70586007)(2906002)(7696005)(8936002)(43740500002)(2101003);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2021 17:49:02.9178 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f60f875c-00f9-4d75-cfc8-08d967f0a062
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.112.36];
- Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT034.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM8PR12MB5495
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.790
+ definitions=2021-08-25_06:2021-08-25,
+ 2021-08-25 signatures=0
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
+ adultscore=0 malwarescore=0
+ spamscore=0 mlxlogscore=999 phishscore=0 bulkscore=0 suspectscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2107140000
+ definitions=main-2108250101
+X-Proofpoint-GUID: UoSSdnztWs5A6UFnB2lJ-dGQhhers6zK
+X-Proofpoint-ORIG-GUID: UoSSdnztWs5A6UFnB2lJ-dGQhhers6zK
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.391,FMLib:17.0.607.475
+ definitions=2021-08-25_07,2021-08-25_02,2020-04-07_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
+ priorityscore=1501
+ lowpriorityscore=0 phishscore=0 impostorscore=0 clxscore=1015 bulkscore=0
+ malwarescore=0 suspectscore=0 mlxlogscore=999 adultscore=0 spamscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2107140000
+ definitions=main-2108250102
+X-Agari-Authentication-Results: mx.akamai.com;
+ spf=${SPFResult} (sender IP is 72.247.45.33)
+ smtp.mailfrom=jbaron@akamai.com smtp.helo=prod-mail-ppoint7
+X-Mailman-Approved-At: Wed, 25 Aug 2021 17:57:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,34 +107,67 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 8/25/21 4:15 AM, Vlastimil Babka wrote:
-> On 8/25/21 05:48, Alex Sierra wrote:
->> From: Ralph Campbell <rcampbell@nvidia.com>
->>
->> ZONE_DEVICE struct pages have an extra reference count that complicates the
->> code for put_page() and several places in the kernel that need to check the
->> reference count to see that a page is not being used (gup, compaction,
->> migration, etc.). Clean up the code so the reference count doesn't need to
->> be treated specially for ZONE_DEVICE.
-> That's certainly welcome. I just wonder what was the reason to use 1 in the
-> first place and why it's no longer necessary?
 
-I'm sure this is a long story that I don't know most of the history.
-I'm guessing that ZONE_DEVICE started out with a reference count of
-one since that is what most "normal" struct page pages start with.
-Then put_page() is used to free newly initialized struct pages to the
-slab/slob/slub page allocator.
-This made it easy to call get_page()/put_page() on ZONE_DEVICE pages
-since get_page() asserts that the caller has a reference.
-However, most drivers that create ZONE_DEVICE struct pages just insert
-a PTE into the user page tables and don't increment/decrement the
-reference count. MEMORY_DEVICE_FS_DAX used the >1 to 1 reference count
-transition to signal that a page was idle so that made put_page() a
-bit more complex. Then MEMORY_DEVICE_PRIVATE pages were added and this
-special casing of what "idle" meant got more complicated and more parts
-of mm had to check for is_device_private_page().
-My goal was to make ZONE_DEVICE struct pages reference counts be zero
-based and allocated/freed similar to the page allocator so that more
-of the mm code could be used, like THP ZONE_DEVICE pages, without special
-casing ZONE_DEVICE.
+On 8/22/21 6:19 PM, Jim Cromie wrote:
+> This patchset does 3 main things.
+> 
+> Adds DEFINE_DYNAMIC_DEBUG_CATEGORIES to define bitmap => category
+> control of pr_debugs, and to create their sysfs entries.
+> 
+> Uses it in amdgpu, i915 to control existing pr_debugs according to
+> their ad-hoc categorizations.
+> 
+> Plugs dyndbg into drm-debug framework, in a configurable manner.
+> 
+> v6: cleans up per v5 feedback, and adds RFC stuff:
+> 
+> - test_dynamic_debug.ko: uses tracer facility added in v5:8/9
+> - prototype print-once & rate-limiting
+> 
+> Hopefully adding RFC stuff doesnt distract too much.
 
+
+Hi Jim,
+
+Yeah, I feel like the RFC patches should be in a separate series
+unless there is a drm dependency for them?
+
+Thanks,
+
+-Jason
+
+
+> 
+> Jim Cromie (11):
+>   moduleparam: add data member to struct kernel_param
+>   dyndbg: add DEFINE_DYNAMIC_DEBUG_CATEGORIES and callbacks
+>   i915/gvt: remove spaces in pr_debug "gvt: core:" etc prefixes
+>   i915/gvt: use DEFINE_DYNAMIC_DEBUG_CATEGORIES to create "gvt:core:"
+>     etc categories
+>   amdgpu: use DEFINE_DYNAMIC_DEBUG_CATEGORIES to control categorized
+>     pr_debugs
+>   drm_print: add choice to use dynamic debug in drm-debug
+>   drm_print: instrument drm_debug_enabled
+>   amdgpu_ucode: reduce number of pr_debug calls
+>   nouveau: fold multiple DRM_DEBUG_DRIVERs together
+>   dyndbg: RFC add debug-trace callback, selftest with it. RFC
+>   dyndbg: RFC add print-once and print-ratelimited features. RFC.
+> 
+>  drivers/gpu/drm/Kconfig                       |  13 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c     | 293 ++++++++-------
+>  .../gpu/drm/amd/display/dc/core/dc_debug.c    |  44 ++-
+>  drivers/gpu/drm/drm_print.c                   |  49 ++-
+>  drivers/gpu/drm/i915/gvt/Makefile             |   4 +
+>  drivers/gpu/drm/i915/gvt/debug.h              |  18 +-
+>  drivers/gpu/drm/i915/i915_params.c            |  35 ++
+>  drivers/gpu/drm/nouveau/nouveau_drm.c         |  36 +-
+>  include/drm/drm_print.h                       | 148 ++++++--
+>  include/linux/dynamic_debug.h                 |  81 ++++-
+>  include/linux/moduleparam.h                   |  11 +-
+>  lib/Kconfig.debug                             |  11 +
+>  lib/Makefile                                  |   1 +
+>  lib/dynamic_debug.c                           | 336 ++++++++++++++++--
+>  lib/test_dynamic_debug.c                      | 279 +++++++++++++++
+>  15 files changed, 1117 insertions(+), 242 deletions(-)
+>  create mode 100644 lib/test_dynamic_debug.c
+> 
