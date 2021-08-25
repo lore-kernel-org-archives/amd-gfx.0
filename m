@@ -2,106 +2,55 @@ Return-Path: <SRS0=FOdb=NQ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 98AF5C4338F
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 15:42:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7F624C432BE
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 15:49:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 676466108F
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 15:42:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 676466108F
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 253B9610A4
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 15:49:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 253B9610A4
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E2686E332;
-	Wed, 25 Aug 2021 15:42:53 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2061.outbound.protection.outlook.com [40.107.244.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4F4E6E332
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Aug 2021 15:42:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LyCCFVMDek5+iLzlTYXTif/VIAZ1VolnbOSA4UsmcShMSk8GwINe1PetO/am57QBXVVkYUb8dEQ+42mqq1sFF/Iup7wUPQxEuac+sa4ixlg02IwvF5wBZAXGp/fhE8+U3g2NOySzCa9gKtzKIyZC6pFg9++QnudLNLhhrBTxuOrRsBzBapY6svjsSOkU66PmWBXFN0L2Os8yuimC+lQo7LZ56A3XIGyOv5QUoDG/aPUopLVRfRWvkM8tmX8sgjXhMbMy7kUeJVRf3/CaKQ/c7QoQSH0Tt0hmCPy9+qrABcGa8KEy24A8FjIvakWU/ffnqlNJGGRbhBjaGXNKF3um2A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9QQM6aehQJNtrkwAnWT1b859xjWMQYmCQVDtyui5Efk=;
- b=MTi28PswwUgcdUmd5LnW5C6rTro1XTLAcYLMHjkngpJbTyN3QCAZhwNk45WO+jbkSMkemQoIW+EW0PuN4Ch1Aj1Wp/mrMymu8lfbujGtN9nES7pr26UFlag89F4I0OPG7YtEnImXgRzQpSGsSWQ1OqTTB5TC1R/CrLopjhr6j0QpVQYBFk/yZOUuEmPgPuvZH1ofxb+dxZVsblk3RlJqSWdQBSHifkQ7sCwF5nnW6ALZzBNEm8GWj8EK4+y8AyNafxaM2ahMYqG/B1bPvh7ceWkjV70W0nz+o4Fyt3Py6Eb8IWVM38dLx4GEiwL2O263Ti8xzdoR8l+54KdHs7pWLg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9QQM6aehQJNtrkwAnWT1b859xjWMQYmCQVDtyui5Efk=;
- b=Ma8BtZ+C6f4MBjEumfq045AiK88+u+d2Y6bY++rvNbwcCqvWBxsVNPvNVpbbCpLw5iqa4VeNgLufn2gt6t2Eg4L5e+BJhRatf1V6SAaJuTxFQwDL0PfFRQkKyXMd+dnUumltSALmdOFv5XzQCdhzdQvxv+/jJgCKtsLx5RbuuU8=
-Received: from BN8PR04CA0014.namprd04.prod.outlook.com (2603:10b6:408:70::27)
- by CY4PR12MB1511.namprd12.prod.outlook.com (2603:10b6:910:4::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.19; Wed, 25 Aug
- 2021 15:42:50 +0000
-Received: from BN8NAM11FT018.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:70:cafe::7c) by BN8PR04CA0014.outlook.office365.com
- (2603:10b6:408:70::27) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.19 via Frontend
- Transport; Wed, 25 Aug 2021 15:42:50 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT018.mail.protection.outlook.com (10.13.176.89) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4457.17 via Frontend Transport; Wed, 25 Aug 2021 15:42:49 +0000
-Received: from brihaspati.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Wed, 25 Aug
- 2021 10:42:47 -0500
-From: Nirmoy Das <nirmoy.das@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Christian.Koenig@amd.com>, <lijo.lazar@amd.com>, <satyajit.sahu@amd.com>, 
- Nirmoy Das <nirmoy.das@amd.com>
-Subject: [PATCH 1/1] drm/amdgpu: detach ring priority from gfx priority
-Date: Wed, 25 Aug 2021 17:42:33 +0200
-Message-ID: <20210825154233.4882-1-nirmoy.das@amd.com>
-X-Mailer: git-send-email 2.32.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD6C76E329;
+	Wed, 25 Aug 2021 15:49:24 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FEC76E329;
+ Wed, 25 Aug 2021 15:49:24 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 3B57F6108F;
+ Wed, 25 Aug 2021 15:49:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1629906564;
+ bh=FVD2vqdsUZTR9hZG05ACoaP6ReYdgDUa885m2ElXSE0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=HAiwhNJ1ACq2z2H2TMp9dVF76jCCuZqsMCCYfkazWMyoAgJqTgQzIbM/bwgH2Ci8T
+ 9rnvGNiiu2J1lVNdcQUIhbB8jv0+IcWrnzLrr1K2B8jSpZ5TjYoqEAgzEwG5cjyE+X
+ vHLFfu4r70i7cCH1w8cKQUTcURZmxFpzcqxbt0cZ6UFMXB54n50Uw8HuN3C6Ow12Q7
+ EPNBfCXZY5gvFPoWY8Ja1kzrkP8EPpMQo7srRrOUNGU+1AO7uMPiKitzJurcKStCgb
+ hmEpCrWdwrfqQImLQA+tojsCLnsnCHPdvs440xdif865dG9JR5HZzIqBLBmM85Nfw1
+ FHvU8nF1D6lSw==
+Date: Wed, 25 Aug 2021 08:49:23 -0700
+From: "Darrick J. Wong" <djwong@kernel.org>
+To: Alex Sierra <alex.sierra@amd.com>
+Cc: akpm@linux-foundation.org, Felix.Kuehling@amd.com, linux-mm@kvack.org,
+ rcampbell@nvidia.com, linux-ext4@vger.kernel.org,
+ linux-xfs@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, hch@lst.de, jgg@nvidia.com,
+ jglisse@redhat.com
+Subject: Re: [PATCH v1 01/14] ext4/xfs: add page refcount helper
+Message-ID: <20210825154923.GF12640@magnolia>
+References: <20210825034828.12927-1-alex.sierra@amd.com>
+ <20210825034828.12927-2-alex.sierra@amd.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d6e7c776-1284-4aef-6f8d-08d967defe10
-X-MS-TrafficTypeDiagnostic: CY4PR12MB1511:
-X-Microsoft-Antispam-PRVS: <CY4PR12MB1511DD98E55778830573E9938BC69@CY4PR12MB1511.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4125;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: AHBGDhsV7g7SKEKzULU/T2k7ZXOwDr795LQEqFEFqg2Z+iHyTxLLZFjGBUCCEKMKEu90WSldEf/DjkM/AnDRM0BUTiBTqWDjS8v3+1daaACK7VxqSxGnCMyiU7Sa5r5W7r4ehJj06lI7JrqgQ595Y4ygfv3nhom//OUvaqg7JyZWqvoPXjaKDRQKiILE2WTKqmnfqmdJ4w4IwyUtvbEuzahnpdL2j3/5AAKRogXuFIx5d6aryk7HZXzg2ym1P1Yjnqol/dy3Ard8zwd+AvrVJ3X0/3CIizG7lULs7laCpcFvLQMSuGD/eysQBy5Dszl5JJqMSkUZE8sUwRZMBoExTpdlKLu4Y9rxItGqz0FzAqjz5xBQ+eWkuDSQekhgXy3c181nbQb220tZb7uU5YtjfeC7w+3PUO0J9ckXVZo3Pmlv970/c4vy4JHJ9n3GPLrSlDRGIfSPfaJTowDKmDp6r/oFASTRC1XCCgpnytfJawoWZsp94ZRg8bt2ZVxnhByl7GVrByyM/G+6denYQiAycqrlX/Im7WMJB81p1hHlBGt932OapsYoNUGiQZL45buObhSirEnDLAs8/Z2im2WLt4GJe8apPPPQXt7wd7C/jCqENg9LtJUfJjiEY0VPM/LfeTK2/D8OxIQCg8Etk4/smMhLUOnBFmJvqexoifpfwoDrHZiyjxhmIAZ4rZR0oYbDBiCOLpZ57UDN4dbXz68HjwZzPNNss7VpOiEbUnH96CM=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(376002)(396003)(136003)(39860400002)(346002)(36840700001)(46966006)(4326008)(6666004)(86362001)(356005)(81166007)(26005)(316002)(54906003)(186003)(82740400003)(16526019)(8676002)(82310400003)(8936002)(478600001)(47076005)(7696005)(5660300002)(83380400001)(1076003)(44832011)(336012)(2616005)(426003)(36756003)(36860700001)(70206006)(70586007)(2906002)(6916009)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2021 15:42:49.2086 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d6e7c776-1284-4aef-6f8d-08d967defe10
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT018.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1511
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210825034828.12927-2-alex.sierra@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,58 +65,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Currently AMDGPU_RING_PRIO_MAX is redefinition of a
-max gfx hwip priority, this won't work well when we will
-have a hwip with different set of priorities than gfx.
-Also, HW ring priorities are different from ring priorities.
+On Tue, Aug 24, 2021 at 10:48:15PM -0500, Alex Sierra wrote:
+> From: Ralph Campbell <rcampbell@nvidia.com>
+> 
+> There are several places where ZONE_DEVICE struct pages assume a reference
+> count == 1 means the page is idle and free. Instead of open coding this,
+> add a helper function to hide this detail.
+> 
+> Signed-off-by: Ralph Campbell <rcampbell@nvidia.com>
+> Signed-off-by: Alex Sierra <alex.sierra@amd.com>
+> Reviewed-by: Christoph Hellwig <hch@lst.de>
 
-Create a global enum for ring priority levels which each
-HWIP can use to define its own priority levels.
+Looks fine to me,
+Acked-by: Darrick J. Wong <djwong@kernel.org>
 
-Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h  |  6 +++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h | 10 ++++++++--
- 2 files changed, 11 insertions(+), 5 deletions(-)
+--D
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-index d43fe2ed8116..937320293029 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-@@ -43,9 +43,9 @@
- #define AMDGPU_MAX_COMPUTE_QUEUES KGD_MAX_QUEUES
- 
- enum gfx_pipe_priority {
--	AMDGPU_GFX_PIPE_PRIO_NORMAL = 1,
--	AMDGPU_GFX_PIPE_PRIO_HIGH,
--	AMDGPU_GFX_PIPE_PRIO_MAX
-+	AMDGPU_GFX_PIPE_PRIO_NORMAL = AMDGPU_RING_PRIO_1,
-+	AMDGPU_GFX_PIPE_PRIO_HIGH = AMDGPU_RING_PRIO_2,
-+	AMDGPU_GFX_PIPE_PRIO_MAX = AMDGPU_RING_PRIO_3
- };
- 
- /* Argument for PPSMC_MSG_GpuChangeState */
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-index e713d31619fe..85541005c1ad 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-@@ -36,8 +36,14 @@
- #define AMDGPU_MAX_VCE_RINGS		3
- #define AMDGPU_MAX_UVD_ENC_RINGS	2
- 
--#define AMDGPU_RING_PRIO_DEFAULT	1
--#define AMDGPU_RING_PRIO_MAX		AMDGPU_GFX_PIPE_PRIO_MAX
-+enum amdgpu_ring_priority_level {
-+	AMDGPU_RING_PRIO_0,
-+	AMDGPU_RING_PRIO_1,
-+	AMDGPU_RING_PRIO_DEFAULT = 1,
-+	AMDGPU_RING_PRIO_2,
-+	AMDGPU_RING_PRIO_3,
-+	AMDGPU_RING_PRIO_MAX
-+};
- 
- /* some special values for the owner field */
- #define AMDGPU_FENCE_OWNER_UNDEFINED	((void *)0ul)
--- 
-2.32.0
-
+> ---
+> v3:
+> [AS]: rename dax_layout_is_idle_page func to dax_page_unused
+> 
+> v4:
+> [AS]: This ref count functionality was missing on fuse/dax.c.
+> ---
+>  fs/dax.c            |  4 ++--
+>  fs/ext4/inode.c     |  5 +----
+>  fs/fuse/dax.c       |  4 +---
+>  fs/xfs/xfs_file.c   |  4 +---
+>  include/linux/dax.h | 10 ++++++++++
+>  5 files changed, 15 insertions(+), 12 deletions(-)
+> 
+> diff --git a/fs/dax.c b/fs/dax.c
+> index 62352cbcf0f4..c387d09e3e5a 100644
+> --- a/fs/dax.c
+> +++ b/fs/dax.c
+> @@ -369,7 +369,7 @@ static void dax_disassociate_entry(void *entry, struct address_space *mapping,
+>  	for_each_mapped_pfn(entry, pfn) {
+>  		struct page *page = pfn_to_page(pfn);
+>  
+> -		WARN_ON_ONCE(trunc && page_ref_count(page) > 1);
+> +		WARN_ON_ONCE(trunc && !dax_page_unused(page));
+>  		WARN_ON_ONCE(page->mapping && page->mapping != mapping);
+>  		page->mapping = NULL;
+>  		page->index = 0;
+> @@ -383,7 +383,7 @@ static struct page *dax_busy_page(void *entry)
+>  	for_each_mapped_pfn(entry, pfn) {
+>  		struct page *page = pfn_to_page(pfn);
+>  
+> -		if (page_ref_count(page) > 1)
+> +		if (!dax_page_unused(page))
+>  			return page;
+>  	}
+>  	return NULL;
+> diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
+> index fe6045a46599..05ffe6875cb1 100644
+> --- a/fs/ext4/inode.c
+> +++ b/fs/ext4/inode.c
+> @@ -3971,10 +3971,7 @@ int ext4_break_layouts(struct inode *inode)
+>  		if (!page)
+>  			return 0;
+>  
+> -		error = ___wait_var_event(&page->_refcount,
+> -				atomic_read(&page->_refcount) == 1,
+> -				TASK_INTERRUPTIBLE, 0, 0,
+> -				ext4_wait_dax_page(ei));
+> +		error = dax_wait_page(ei, page, ext4_wait_dax_page);
+>  	} while (error == 0);
+>  
+>  	return error;
+> diff --git a/fs/fuse/dax.c b/fs/fuse/dax.c
+> index ff99ab2a3c43..2b1f190ba78a 100644
+> --- a/fs/fuse/dax.c
+> +++ b/fs/fuse/dax.c
+> @@ -677,9 +677,7 @@ static int __fuse_dax_break_layouts(struct inode *inode, bool *retry,
+>  		return 0;
+>  
+>  	*retry = true;
+> -	return ___wait_var_event(&page->_refcount,
+> -			atomic_read(&page->_refcount) == 1, TASK_INTERRUPTIBLE,
+> -			0, 0, fuse_wait_dax_page(inode));
+> +	return dax_wait_page(inode, page, fuse_wait_dax_page);
+>  }
+>  
+>  /* dmap_end == 0 leads to unmapping of whole file */
+> diff --git a/fs/xfs/xfs_file.c b/fs/xfs/xfs_file.c
+> index 396ef36dcd0a..182057281086 100644
+> --- a/fs/xfs/xfs_file.c
+> +++ b/fs/xfs/xfs_file.c
+> @@ -840,9 +840,7 @@ xfs_break_dax_layouts(
+>  		return 0;
+>  
+>  	*retry = true;
+> -	return ___wait_var_event(&page->_refcount,
+> -			atomic_read(&page->_refcount) == 1, TASK_INTERRUPTIBLE,
+> -			0, 0, xfs_wait_dax_page(inode));
+> +	return dax_wait_page(inode, page, xfs_wait_dax_page);
+>  }
+>  
+>  int
+> diff --git a/include/linux/dax.h b/include/linux/dax.h
+> index b52f084aa643..8b5da1d60dbc 100644
+> --- a/include/linux/dax.h
+> +++ b/include/linux/dax.h
+> @@ -243,6 +243,16 @@ static inline bool dax_mapping(struct address_space *mapping)
+>  	return mapping->host && IS_DAX(mapping->host);
+>  }
+>  
+> +static inline bool dax_page_unused(struct page *page)
+> +{
+> +	return page_ref_count(page) == 1;
+> +}
+> +
+> +#define dax_wait_page(_inode, _page, _wait_cb)				\
+> +	___wait_var_event(&(_page)->_refcount,				\
+> +		dax_page_unused(_page),				\
+> +		TASK_INTERRUPTIBLE, 0, 0, _wait_cb(_inode))
+> +
+>  #ifdef CONFIG_DEV_DAX_HMEM_DEVICES
+>  void hmem_register_device(int target_nid, struct resource *r);
+>  #else
+> -- 
+> 2.32.0
+> 
