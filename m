@@ -2,77 +2,134 @@ Return-Path: <SRS0=FOdb=NQ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-19.5 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5AB49C4338F
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 15:01:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 57335C4338F
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 15:01:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 26390610E6
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 15:01:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 26390610E6
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 1E167610FA
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 15:01:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1E167610FA
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AEC9A6E2D8;
-	Wed, 25 Aug 2021 15:01:14 +0000 (UTC)
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [IPv6:2a00:1450:4864:20::433])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C34D96E2D8
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Aug 2021 15:01:13 +0000 (UTC)
-Received: by mail-wr1-x433.google.com with SMTP id d26so16586054wrc.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Aug 2021 08:01:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:references:from:message-id:date:user-agent:mime-version
- :in-reply-to:content-transfer-encoding:content-language;
- bh=al7HCLB9LSLLnqo3CWlrKU8zPrqs3oHiPB4KUoujeUg=;
- b=FaNDmH5Ns9xt70QPLA0O4RQHlb0/IA+Mv1G+AjKENnP5i1OwW1X1Lcz2UsHfPqwzpH
- Fitlu0PrXlMzHfJcvQ25jiHUHoeJKgAqbENVQ1BvirHZSrmnGpY6VOdFerhGnuojyNBT
- QHoVuIaAG9aDk13bxVU8YbHt04KC1pyJlZMPUkbuhq0C/BJ2Qz/5TmsZwZrLczEp42sf
- PZ9rV3UYiXXL22Fn0aRXW2elniCFr8G1rpeUIVCJfccFBmE5Zp1KfWQmgNgaHR/91cXn
- ityq0SyoDMtt+zZT4Wzws+ZsPFCHxV0tlJzhA4l8g1quqc+KntyuWbMZnPn3Txs7OyPU
- r1wA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=al7HCLB9LSLLnqo3CWlrKU8zPrqs3oHiPB4KUoujeUg=;
- b=Db83F7Qz5niB0mGj4982YIAszJjrhQyxQhqLpu+U+qzv99JER/8BJt8XBrzJD0DOui
- 3nznU7UlYHxZ5NR4iL9EVW7Ic+ZuFD79GAAA97bobFFii+GEEjbYKSev8XnFYEMD8BoS
- ++jMP8H6/NTJSsOd8nkeMLorpr50q/FBDCT8Cs4HbePk8zPq2SBaVqX3zKqakichWqq4
- mVRFMVblVdm/fxFoTvIyAkZkSLZo2eUPXu8B9EM3aQhryNk1/b3kiqO0If+fa7ZdU06z
- +A91NMVwpDZxCSBfcbaHhXpMCgGHe7SH4cu9G5/QmOffNDmLJucswEQz2nkmDEsMF046
- dilA==
-X-Gm-Message-State: AOAM532WAzW2UT0WXtTMN98w/0bUBFKA39SfAP/5xe87vK+xyJoD9wn1
- oknmQk70NHYtEVHUWy7vKLoZ1qlSIY8=
-X-Google-Smtp-Source: ABdhPJytJZ5wQDqc1QOFN71jeuPzVF7bpqydR61bWDDXqa3FbKkbpuwhPqCj3yCxEnCazzA2rSdHFA==
-X-Received: by 2002:adf:fc45:: with SMTP id e5mr25332092wrs.127.1629903672283; 
- Wed, 25 Aug 2021 08:01:12 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:de26:aaa6:84e1:c609?
- ([2a02:908:1252:fb60:de26:aaa6:84e1:c609])
- by smtp.gmail.com with ESMTPSA id r129sm5725636wmr.7.2021.08.25.08.01.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 25 Aug 2021 08:01:11 -0700 (PDT)
-Subject: Re: [PATCH] drm/amd/amdgpu: New debugfs interface for MMIO registers
- (v4)
-To: Tom St Denis <tom.stdenis@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20210825130926.230698-1-tom.stdenis@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <71e0b52f-728c-56dd-6d57-3897012deb0d@gmail.com>
-Date: Wed, 25 Aug 2021 17:01:10 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3D676E2E1;
+	Wed, 25 Aug 2021 15:01:56 +0000 (UTC)
+X-Greylist: delayed 50894 seconds by postgrey-1.36 at gabe;
+ Wed, 25 Aug 2021 15:01:55 UTC
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com (unknown
+ [40.107.244.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 069896E2E1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Aug 2021 15:01:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ZUD7/iQrHJ8j/Wq/0f7N7fZYNtECzclzJLKNpC047Mi80A7pyAd3rWQX22erGcIAxEScsKbD2ZxzMPbcI5Z8E44avMNC0FzXH2VU7y9e3aLrysDUYPGqvREfmTeZ7pViuflEII76XHwSoXa7+7rU/V86bByMeyGdStkdRSpkug/C2DNz7yUFaN5RbT/BKqE7L7LTOMTf8Hi5MZG96oNoZBdrSpEVg4n4j4R20OcLc55D/00Xgg6zyh5gm6S6B6iarEcMF8sevlOmCodVFA+7KAdI3TlQQEpbbObzBJzmVvioL3nfBXpFYPqD/w1KwqIRm12veUpZCqzzFjR9IkTjAA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VD61IcARAtL05IAEm+kQi5wUu292oRZfTEMoR6c3hWw=;
+ b=Q8/vOI/5i/sC4wmfviwPz2JtKjnVGS7hTszNo8b57Gnw+53b91FzqhMsYRZgmrrhrLz5NkyXxpOPz2eh58ei3gS27pB9EtLsW+ELXI6rRUYNAuR8o0oiSO7c6JbvLbF/2EvzRFJll7Af5/1jnFr1/LWQXgaLrydC2nqz4GQhAH8p7hSIEG9n5vNIBV+BRDGVqkzjo6FGZsvX+ABEcBLzOjvCIC9lKYMYaexizeucz8BfVlay75egwOC3Ms5NxvemKyggGgQzo7a8Q31rae6YqNm4eaRTacHxgWADFLsHIdk3swIzWMtWxRPYOzAYaXKku1vuuKqm711kvTKj5AH0ww==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VD61IcARAtL05IAEm+kQi5wUu292oRZfTEMoR6c3hWw=;
+ b=w0LXO6xSyUJ8yr2nU9sVlHmJ/NL8jNeDpJbQ9X2fY0N5FSZDdwepyGEN9b6mGsqwsAYFixhIT+2C8Ng1uSDhrBI+y6T8hs23BVCuUC1f1E+ggAlQm34BQEzKPGt6yYPYIZVkITJ7JwxJB3+e1IUNDWVVRuHN24G0+cdRgZ2O23E=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5129.namprd12.prod.outlook.com (2603:10b6:408:136::12)
+ by BN9PR12MB5382.namprd12.prod.outlook.com (2603:10b6:408:103::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.24; Wed, 25 Aug
+ 2021 15:01:52 +0000
+Received: from BN9PR12MB5129.namprd12.prod.outlook.com
+ ([fe80::b891:a906:28f0:fdb]) by BN9PR12MB5129.namprd12.prod.outlook.com
+ ([fe80::b891:a906:28f0:fdb%3]) with mapi id 15.20.4436.024; Wed, 25 Aug 2021
+ 15:01:52 +0000
+Subject: Re: [PATCH v3] drm/amdkfd: Account for SH/SE count when setting up cu
+ masks.
+To: Sean Keely <Sean.Keely@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20210825031015.96536-1-Sean.Keely@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Message-ID: <cd416b58-ac92-9d8d-55fe-f94f194cd36c@amd.com>
+Date: Wed, 25 Aug 2021 11:01:50 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
-MIME-Version: 1.0
-In-Reply-To: <20210825130926.230698-1-tom.stdenis@amd.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+In-Reply-To: <20210825031015.96536-1-Sean.Keely@amd.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
 Content-Language: en-US
+X-ClientProxiedBy: YT3PR01CA0082.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:84::24) To BN9PR12MB5129.namprd12.prod.outlook.com
+ (2603:10b6:408:136::12)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [192.168.2.100] (142.186.47.3) by
+ YT3PR01CA0082.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:84::24) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4436.19 via Frontend Transport; Wed, 25 Aug 2021 15:01:52 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 6f1b6a79-2890-48c2-9859-08d967d945a2
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5382:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BN9PR12MB5382D8CD82C5E4A45F52113A92C69@BN9PR12MB5382.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: NHef2iDjnE5IaC9lbXgIrWqIIrk0rMVqaqtea3Ynj7TCYQVFUjZIiN+iIa9EzdQNnnUndNh49mwOmgfy4Y8hOqMRnbCWl3T4ixwxtcPr4zSwv/xgme2LQLrira/gteXsDZs8NegJKCkKMFt1e8WoqokhnrAuljVoytHDLFGJLqEiWToHknnaZXup758URHTibzQlcEhqiMvnrVL4+L2k/UStqkTtve44ZAYoJM0Ery2zMtj/cS9T8GHPWZFAQK8HpQCgf4DlVFfU40Qo0+JAr0yCMqlHfB59MvjGykIV1tAa7TozLWoH2WLrGuARhlyPOIVapJLMI/8C2rcQ1c69ERJbuEKjFfN6GATXJtPayaCAUnkVJPHfsF+9GjvEZdliKyRe+ELZ62Y0louMMmTxvvbkh1L4tOWu0rCsE6bYVhcZs6ayXutNeVUGzcuzBOkH2V+yutsO9gDX/rWkDJd1tXrVJ3idYXFlyNXORuURMIFu/pFjSTnZgbv0QbLmdI+4TFQHwY606L4YtiWTSHLSGdbll1s2mvSAd27I6B8vNm2adsZgUMgM5NcbnGObU6GqGXq0WWNQBYIh41qVJK3qJ/+2Q7+KW+tzq6PuOiDdhq0zTliBzTox90AE6jXDluQ44HuCA8nknuwBoKeoi8bIi0nZ6PtBi1b3TuepBM8UkB6ENvBWiVGRD2tXkfAZVFfdBRYXRKJ6COJCnFDB819BlCdweMls0LB4r1amesHPKos=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5129.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(366004)(376002)(136003)(39860400002)(396003)(478600001)(36756003)(6486002)(38100700002)(186003)(83380400001)(16576012)(8676002)(26005)(2906002)(66476007)(2616005)(44832011)(316002)(66946007)(31696002)(66556008)(956004)(86362001)(8936002)(31686004)(5660300002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WnNNcUd6SHU1NndaMFZMZTBoQnhTRXo4NjNHc3EzQjFVbndrYVVFc0svWVhX?=
+ =?utf-8?B?OE54ZUVuU3B2SEIrVWkxaTliY3Mvb2hLRklYMkpEL0pWNkJxbXZ4M0RuUE5S?=
+ =?utf-8?B?UkVnMkF3OU56ZHN6ZXJtUnh6S0poMDhBS1EwUUgvaUxGZ0x5K3g3U0V3bWZ2?=
+ =?utf-8?B?cjhRVzdNMzB5c1BZZU9oNlVjWkpPWldTdW9hWmhiOThCY2RTNzNTSGNVK3FL?=
+ =?utf-8?B?TndtOFcvL21JVXN4SWRDVkhTSDA4ZzVWSzl4MS9mcCt0c2xNQmd3V2dYU3VI?=
+ =?utf-8?B?ZXRRY04rK1pXRitOYTRDR3VSMll0Z3AwVnc0UFkyYlNzYVZ6R1VEWTgwTU5C?=
+ =?utf-8?B?MzZsMzd5OVloSlpnNHkrU3QwRGhzdFhtc21RbUplV3RzK0FNaXJUc2REeXdO?=
+ =?utf-8?B?UUlhUCtIZ01lMFhYQUxORml0aE5pMU1VcXVrcDM4SUJvMXVtYUVia09JcXBX?=
+ =?utf-8?B?NlIwYlJJQ2o1WVFxVkZqVkR2QUp4VkpGQkZTQmtZV2hnSWl6dmJSNTZxUzkx?=
+ =?utf-8?B?RW9rdXBYU05aM2duK2hMcXlndVl2ekIzRlVXanZkWWNDVjYzNXZobkl4SS8w?=
+ =?utf-8?B?cTJ1SDg4eG8ydkhxT3lNdTZCVnRWdytpNk4rVTdiSXRWS290cSswQXVVTFhp?=
+ =?utf-8?B?c2Fmd0dZNGVadmN6OUNZWFBlUy9iV3hNbEhnWkh3SXZBSitmZUF6dkI4bURs?=
+ =?utf-8?B?aWtOWW5NQ01UYzdVdi94UDk5clFUeEpXWURpcDdxRUhjOTM3c0MraHRjTi82?=
+ =?utf-8?B?eDY0TzVBdTRxdGhRQzVMRGlPQmVYanhDNVlHWXRDd0t5V24wZGs4R29jS2FR?=
+ =?utf-8?B?TE1TNjN3SXVpMERNQ1orNTc4OHBucS9SSHB4YzR3TjNsbGl4eElsSUVZTUgx?=
+ =?utf-8?B?TkRvdXpoWm1SUVN6d2dyMzhVMXRvaXh6UVBxQ0F3ZlNNUSttMENqMVRJektj?=
+ =?utf-8?B?V2txUEhWdmVSQnRwK1BCY1RaWVl6cEswZnZURlhodkVZc2RxQ3NBNEtENnNx?=
+ =?utf-8?B?VkRpNjlVSlViVWpkWGlIcjNvc0srQ1UyMDZwTzNqTmpFSEtVNGw2dVpjUDF4?=
+ =?utf-8?B?NlhzNkdtWTVpSUhTS1JKMVlWbGg1ZExHYTZLT1RxaWs0NUZINnV6RXh1OUR3?=
+ =?utf-8?B?Rkw1QW1KdWsramFGQ2NodE9yM3NzQ3BvYUg0OTY2MXNqd1FxcGlyczUwS094?=
+ =?utf-8?B?SkhVZG9tR1pxR0FoRzlSNjJJUEV0a0QwYUkwUUtPZWR4Q1NPRHMvZk1NaHh6?=
+ =?utf-8?B?WmZlcmJ5bUgxUHJJRTUxbnJVUXpJQmZkaTJoN3Nud0F5TDJ0VHNoYmorNVM3?=
+ =?utf-8?B?ZWNvQVRQbUNBd1F4dEhza01NTGxOaittK0hKR21PT0pkWDFvTTFaSG9LeDhR?=
+ =?utf-8?B?TlVNS0pOd25obGZqMUVuV0R3cWNFVmJEa0dPUTU1Z1hvUGc5NGdsd251Zk9w?=
+ =?utf-8?B?c1VISWlyVU9GRUo2WEl6MDRIMzdxV2l0VXdYaGZmVCtLMzhlZXdiMnY2ZU4y?=
+ =?utf-8?B?OHJxQ0hYbE1rRHFKZ0VLeWZSWHVFeDVCTVhtNHNTNjRuNUc4dVk2QVpIdW9X?=
+ =?utf-8?B?d25tUkxQYW1yNEN2RmVrNjhFQnRLRzNmbjl0bUg4aitvUWQ3Ri9ISEJzT1hN?=
+ =?utf-8?B?Mi9uRHFzNDRlUldtZnJNWFEvb0ZBdUJRZ2l5TUNIR2xabEM3Nk94S1VNSmVI?=
+ =?utf-8?B?WFNvVzBueXhjeW1YT1J5QW9mMVBWaHNucmFLcUlGaDVJRlZEVE1jOFFLU1A5?=
+ =?utf-8?Q?67eN9yvRK3XCsaDULJyjEAvPBFrTiQ5stEckJXt?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6f1b6a79-2890-48c2-9859-08d967d945a2
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5129.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2021 15:01:52.5265 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: V5MO0YPeubSxJVcz3FwsjmnB2t9qU7Qle8IolQIn7Ykda0IMBN8uWF/qXKXjQOSMLCmoO7faR4T5tbwNTjPsLw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5382
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,292 +144,143 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 25.08.21 um 15:09 schrieb Tom St Denis:
-> This new debugfs interface uses an IOCTL interface in order to pass
-> along state information like SRBM and GRBM bank switching.  This
-> new interface also allows a full 32-bit MMIO address range which
-> the previous didn't.  With this new design we have room to grow
-> the flexibility of the file as need be.
+Am 2021-08-24 um 11:10 p.m. schrieb Sean Keely:
+> On systems with multiple SH per SE compute_static_thread_mgmt_se#
+> is split into independent masks, one for each SH, in the upper and
+> lower 16 bits.  We need to detect this and apply cu masking to each
+> SH.  The cu mask bits are assigned first to each SE, then to
+> alternate SHs, then finally to higher CU id.  This ensures that
+> the maximum number of SPIs are engaged as early as possible while
+> balancing CU assignment to each SH.
 >
-> (v2): Move read/write to .read/.write, fix style, add comment
->        for IOCTL data structure
+> v2: Use max SH/SE rather than max SH in cu_per_sh.
 >
-> (v3): C style comments
+> v3: Fix comment blocks, ensure se_mask is initially zero filled,
+>     and correctly assign se.sh.cu positions to unset bits in cu_mask.
 >
-> (v4): use u32 in struct and remove offset variable
->
-> Signed-off-by: Tom St Denis <tom.stdenis@amd.com>
+> Signed-off-by: Sean Keely <Sean.Keely@amd.com>
+
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+
+
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 158 ++++++++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h |  29 ++++
->   2 files changed, 187 insertions(+)
+>  drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c | 84 +++++++++++++++-----
+>  drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h |  1 +
+>  2 files changed, 64 insertions(+), 21 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> index 277128846dd1..6450f210f6c7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> @@ -279,6 +279,152 @@ static ssize_t amdgpu_debugfs_regs_write(struct file *f, const char __user *buf,
->   	return amdgpu_debugfs_process_reg_op(false, f, (char __user *)buf, size, pos);
->   }
->   
-> +static int amdgpu_debugfs_regs2_open(struct inode *inode, struct file *file)
-> +{
-> +	struct amdgpu_debugfs_regs2_data *rd;
-> +
-> +	rd = kzalloc(sizeof *rd, GFP_KERNEL);
-> +	if (!rd)
-> +		return -ENOMEM;
-> +	rd->adev = file_inode(file)->i_private;
-> +	file->private_data = rd;
-> +
-> +	return 0;
-> +}
-> +
-> +static int amdgpu_debugfs_regs2_release(struct inode *inode, struct file *file)
-> +{
-> +	kfree(file->private_data);
-> +	return 0;
-> +}
-> +
-> +static ssize_t amdgpu_debugfs_regs2_op(struct file *f, char __user *buf, u32 offset, size_t size, int write_en)
-> +{
-> +	struct amdgpu_debugfs_regs2_data *rd = f->private_data;
-> +	struct amdgpu_device *adev = rd->adev;
-> +	ssize_t result = 0;
-> +	int r;
-> +	uint32_t value;
-> +
-> +	if (size & 0x3 || offset & 0x3)
-> +		return -EINVAL;
-> +
-
-
-> +	if (rd->id.use_grbm) {
-> +		if (rd->id.grbm.se == 0x3FF)
-> +			rd->id.grbm.se = 0xFFFFFFFF;
-> +		if (rd->id.grbm.sh == 0x3FF)
-> +			rd->id.grbm.sh = 0xFFFFFFFF;
-> +		if (rd->id.grbm.instance == 0x3FF)
-> +			rd->id.grbm.instance = 0xFFFFFFFF;
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
+> index 88813dad731f..c021519af810 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
+> @@ -98,36 +98,78 @@ void mqd_symmetrically_map_cu_mask(struct mqd_manager *mm,
+>  		uint32_t *se_mask)
+>  {
+>  	struct kfd_cu_info cu_info;
+> -	uint32_t cu_per_se[KFD_MAX_NUM_SE] = {0};
+> -	int i, se, sh, cu = 0;
+> -
+> +	uint32_t cu_per_sh[KFD_MAX_NUM_SE][KFD_MAX_NUM_SH_PER_SE] = {0};
+> +	int i, se, sh, cu;
+>  	amdgpu_amdkfd_get_cu_info(mm->dev->kgd, &cu_info);
+>  
+>  	if (cu_mask_count > cu_info.cu_active_number)
+>  		cu_mask_count = cu_info.cu_active_number;
+>  
+> +	/* Exceeding these bounds corrupts the stack and indicates a coding error.
+> +	 * Returning with no CU's enabled will hang the queue, which should be
+> +	 * attention grabbing.
+> +	 */
+> +	if (cu_info.num_shader_engines > KFD_MAX_NUM_SE) {
+> +		pr_err("Exceeded KFD_MAX_NUM_SE, chip reports %d\n", cu_info.num_shader_engines);
+> +		return;
 > +	}
-
-What is this stuff all about? And can't we do this during the IOCTL?
-
-> +
-> +	r = pm_runtime_get_sync(adev_to_drm(adev)->dev);
-> +	if (r < 0) {
-> +		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
-> +		return r;
+> +	if (cu_info.num_shader_arrays_per_engine > KFD_MAX_NUM_SH_PER_SE) {
+> +		pr_err("Exceeded KFD_MAX_NUM_SH, chip reports %d\n",
+> +			cu_info.num_shader_arrays_per_engine * cu_info.num_shader_engines);
+> +		return;
 > +	}
+> +	/* Count active CUs per SH.
+> +	 *
+> +	 * Some CUs in an SH may be disabled.	HW expects disabled CUs to be
+> +	 * represented in the high bits of each SH's enable mask (the upper and lower
+> +	 * 16 bits of se_mask) and will take care of the actual distribution of
+> +	 * disabled CUs within each SH automatically.
+> +	 * Each half of se_mask must be filled only on bits 0-cu_per_sh[se][sh]-1.
+> +	 *
+> +	 * See note on Arcturus cu_bitmap layout in gfx_v9_0_get_cu_info.
+> +	 */
+>  	for (se = 0; se < cu_info.num_shader_engines; se++)
+>  		for (sh = 0; sh < cu_info.num_shader_arrays_per_engine; sh++)
+> -			cu_per_se[se] += hweight32(cu_info.cu_bitmap[se % 4][sh + (se / 4)]);
+> -
+> -	/* Symmetrically map cu_mask to all SEs:
+> -	 * cu_mask[0] bit0 -> se_mask[0] bit0;
+> -	 * cu_mask[0] bit1 -> se_mask[1] bit0;
+> -	 * ... (if # SE is 4)
+> -	 * cu_mask[0] bit4 -> se_mask[0] bit1;
+> +			cu_per_sh[se][sh] = hweight32(cu_info.cu_bitmap[se % 4][sh + (se / 4)]);
 > +
-> +	r = amdgpu_virt_enable_access_debugfs(adev);
-> +	if (r < 0) {
-> +		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
-> +		return r;
-> +	}
-
-Maybe replace that with "goto error" style error handling and just "if 
-(r)" is the more common style in the kernel I think.
-
+> +	/* Symmetrically map cu_mask to all SEs & SHs:
+> +	 * se_mask programs up to 2 SH in the upper and lower 16 bits.
+> +	 *
+> +	 * Examples
+> +	 * Assuming 1 SH/SE, 4 SEs:
+> +	 * cu_mask[0] bit0 -> se_mask[0] bit0
+> +	 * cu_mask[0] bit1 -> se_mask[1] bit0
+> +	 * ...
+> +	 * cu_mask[0] bit4 -> se_mask[0] bit1
+> +	 * ...
+> +	 *
+> +	 * Assuming 2 SH/SE, 4 SEs
+> +	 * cu_mask[0] bit0 -> se_mask[0] bit0 (SE0,SH0,CU0)
+> +	 * cu_mask[0] bit1 -> se_mask[1] bit0 (SE1,SH0,CU0)
+> +	 * ...
+> +	 * cu_mask[0] bit4 -> se_mask[0] bit16 (SE0,SH1,CU0)
+> +	 * cu_mask[0] bit5 -> se_mask[1] bit16 (SE1,SH1,CU0)
+> +	 * ...
+> +	 * cu_mask[0] bit8 -> se_mask[0] bit1 (SE0,SH0,CU1)
+>  	 * ...
+> +	 *
+> +	 * First ensure all CUs are disabled, then enable user specified CUs.
+>  	 */
+> -	se = 0;
+> -	for (i = 0; i < cu_mask_count; i++) {
+> -		if (cu_mask[i / 32] & (1 << (i % 32)))
+> -			se_mask[se] |= 1 << cu;
+> -
+> -		do {
+> -			se++;
+> -			if (se == cu_info.num_shader_engines) {
+> -				se = 0;
+> -				cu++;
+> +	for (i = 0; i < cu_info.num_shader_engines; i++)
+> +		se_mask[i] = 0;
 > +
-> +	if (rd->id.use_grbm) {
-> +		if ((rd->id.grbm.sh != 0xFFFFFFFF && rd->id.grbm.sh >= adev->gfx.config.max_sh_per_se) ||
-> +		    (rd->id.grbm.se != 0xFFFFFFFF && rd->id.grbm.se >= adev->gfx.config.max_shader_engines)) {
-> +			pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
-> +			pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
-> +			amdgpu_virt_disable_access_debugfs(adev);
-> +			return -EINVAL;
+> +	i = 0;
+> +	for (cu = 0; cu < 16; cu++) {
+> +		for (sh = 0; sh < cu_info.num_shader_arrays_per_engine; sh++) {
+> +			for (se = 0; se < cu_info.num_shader_engines; se++) {
+> +				if (cu_per_sh[se][sh] > cu) {
+> +					if (cu_mask[i / 32] & (1 << (i % 32)))
+> +						se_mask[se] |= 1 << (cu + sh * 16);
+> +					i++;
+> +					if (i == cu_mask_count)
+> +						return;
+> +				}
+>  			}
+> -		} while (cu >= cu_per_se[se] && cu < 32);
 > +		}
-> +		mutex_lock(&adev->grbm_idx_mutex);
-> +		amdgpu_gfx_select_se_sh(adev, rd->id.grbm.se,
-> +								rd->id.grbm.sh,
-> +								rd->id.grbm.instance);
-> +	}
-> +
-> +	if (rd->id.use_srbm) {
-> +		mutex_lock(&adev->srbm_mutex);
-> +		amdgpu_gfx_select_me_pipe_q(adev, rd->id.srbm.me, rd->id.srbm.pipe,
-> +									rd->id.srbm.queue, rd->id.srbm.vmid);
-> +	}
-> +
-> +	if (rd->id.pg_lock)
-> +		mutex_lock(&adev->pm.mutex);
-
-Is the locking order ok like this or could userspace cause problems here?
-
-BTW: Do we need a lock for rd? It might be rather bad if userspace is 
-causing a race here and we take a lock but never drop it because of a 
-concurrent IOCTL.
-
-> +
-> +	while (size) {
-> +		if (!write_en) {
-> +			value = RREG32(offset >> 2);
-> +			r = put_user(value, (uint32_t *)buf);
-> +		} else {
-> +			r = get_user(value, (uint32_t *)buf);
-
-Could be that I'm wrong, but I think get_user returned the number of 
-bytes copied and not the error code, but I tend to mix that stuff up. 
-Please double check.
-
-> +			if (!r)
-> +				amdgpu_mm_wreg_mmio_rlc(adev, offset >> 2, value);
-> +		}
-> +		if (r) {
-> +			result = r;
-> +			goto end;
-> +		}
-> +		offset += 4;
-> +		size -= 4;
-> +		result += 4;
-> +		buf += 4;
-> +	}
-
-I'm really wondering if it wouldn't be simpler to have the 
-prefix/postfix code in separate functions and this here in the main 
-read/write function.
-
-> +end:
-> +	if (rd->id.use_grbm) {
-> +		amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff);
-> +		mutex_unlock(&adev->grbm_idx_mutex);
-> +	}
-> +
-> +	if (rd->id.use_srbm) {
-> +		amdgpu_gfx_select_me_pipe_q(adev, 0, 0, 0, 0);
-> +		mutex_unlock(&adev->srbm_mutex);
-> +	}
-> +
-> +	if (rd->id.pg_lock)
-> +		mutex_unlock(&adev->pm.mutex);
-> +
-> +	/* in umr (the likely user of this) flags are set per file operation
-> +	 * which means they're never "unset" explicitly.  To avoid breaking
-> +	 * this convention we unset the flags after each operation
-> +	 * flags are for a single call (need to be set for every read/write) */
-
-Mhm, is that a must have? Usual semantics for IOCTLs is that they set 
-behavior which stays the same for subsequent read/write operations.
-
-Just a bunch of random thoughts on the code.
-
-Christian.
-
-> +	rd->id.use_grbm = 0;
-> +	rd->id.use_srbm = 0;
-> +	rd->id.pg_lock  = 0;
-> +
-> +	pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
-> +	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
-> +
-> +	amdgpu_virt_disable_access_debugfs(adev);
-> +	return result;
-> +}
-> +
-> +static long amdgpu_debugfs_regs2_ioctl(struct file *f, unsigned int cmd, unsigned long data)
-> +{
-> +	struct amdgpu_debugfs_regs2_data *rd = f->private_data;
-> +
-> +	switch (cmd) {
-> +	case AMDGPU_DEBUGFS_REGS2_IOC_SET_STATE:
-> +		if (copy_from_user(&rd->id, (struct amdgpu_debugfs_regs2_iocdata *)data, sizeof rd->id))
-> +			return -EINVAL;
-> +		break;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +	return 0;
-> +}
-> +
-> +static ssize_t amdgpu_debugfs_regs2_read(struct file *f, char __user *buf, size_t size, loff_t *pos)
-> +{
-> +	return amdgpu_debugfs_regs2_op(f, buf, *pos, size, 0);
-> +}
-> +
-> +static ssize_t amdgpu_debugfs_regs2_write(struct file *f, const char __user *buf, size_t size, loff_t *pos)
-> +{
-> +	return amdgpu_debugfs_regs2_op(f, (char __user *)buf, *pos, size, 1);
-> +}
-> +
->   
->   /**
->    * amdgpu_debugfs_regs_pcie_read - Read from a PCIE register
-> @@ -1091,6 +1237,16 @@ static ssize_t amdgpu_debugfs_gfxoff_read(struct file *f, char __user *buf,
->   	return result;
->   }
->   
-> +static const struct file_operations amdgpu_debugfs_regs2_fops = {
-> +	.owner = THIS_MODULE,
-> +	.unlocked_ioctl = amdgpu_debugfs_regs2_ioctl,
-> +	.read = amdgpu_debugfs_regs2_read,
-> +	.write = amdgpu_debugfs_regs2_write,
-> +	.open = amdgpu_debugfs_regs2_open,
-> +	.release = amdgpu_debugfs_regs2_release,
-> +	.llseek = default_llseek
-> +};
-> +
->   static const struct file_operations amdgpu_debugfs_regs_fops = {
->   	.owner = THIS_MODULE,
->   	.read = amdgpu_debugfs_regs_read,
-> @@ -1148,6 +1304,7 @@ static const struct file_operations amdgpu_debugfs_gfxoff_fops = {
->   
->   static const struct file_operations *debugfs_regs[] = {
->   	&amdgpu_debugfs_regs_fops,
-> +	&amdgpu_debugfs_regs2_fops,
->   	&amdgpu_debugfs_regs_didt_fops,
->   	&amdgpu_debugfs_regs_pcie_fops,
->   	&amdgpu_debugfs_regs_smc_fops,
-> @@ -1160,6 +1317,7 @@ static const struct file_operations *debugfs_regs[] = {
->   
->   static const char *debugfs_regs_names[] = {
->   	"amdgpu_regs",
-> +	"amdgpu_regs2",
->   	"amdgpu_regs_didt",
->   	"amdgpu_regs_pcie",
->   	"amdgpu_regs_smc",
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h
-> index 141a8474e24f..dcf20859c866 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h
-> @@ -22,6 +22,8 @@
->    * OTHER DEALINGS IN THE SOFTWARE.
->    *
->    */
-> +#include <linux/ioctl.h>
-> +#include <uapi/drm/amdgpu_drm.h>
->   
->   /*
->    * Debugfs
-> @@ -38,3 +40,30 @@ void amdgpu_debugfs_fence_init(struct amdgpu_device *adev);
->   void amdgpu_debugfs_firmware_init(struct amdgpu_device *adev);
->   void amdgpu_debugfs_gem_init(struct amdgpu_device *adev);
->   int amdgpu_debugfs_wait_dump(struct amdgpu_device *adev);
-> +
-> +/*
-> + * MMIO debugfs IOCTL structure
-> + */
-> +struct amdgpu_debugfs_regs2_iocdata {
-> +	__u32 use_srbm, use_grbm, pg_lock;
-> +	struct {
-> +		__u32 se, sh, instance;
-> +	} grbm;
-> +	struct {
-> +		__u32 me, pipe, queue, vmid;
-> +	} srbm;
-> +};
-> +
-> +/*
-> + * MMIO debugfs state data (per file* handle)
-> + */
-> +struct amdgpu_debugfs_regs2_data {
-> +	struct amdgpu_device *adev;
-> +	struct amdgpu_debugfs_regs2_iocdata id;
-> +};
-> +
-> +enum AMDGPU_DEBUGFS_REGS2_CMDS {
-> +	AMDGPU_DEBUGFS_REGS2_CMD_SET_STATE=0,
-> +};
-> +
-> +#define AMDGPU_DEBUGFS_REGS2_IOC_SET_STATE _IOWR(0x20, AMDGPU_DEBUGFS_REGS2_CMD_SET_STATE, struct amdgpu_debugfs_regs2_iocdata)
-
+>  	}
+>  }
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
+> index b5e2ea7550d4..6e6918ccedfd 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
+> @@ -27,6 +27,7 @@
+>  #include "kfd_priv.h"
+>  
+>  #define KFD_MAX_NUM_SE 8
+> +#define KFD_MAX_NUM_SH_PER_SE 2
+>  
+>  /**
+>   * struct mqd_manager
