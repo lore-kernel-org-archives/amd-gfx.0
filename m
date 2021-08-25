@@ -2,135 +2,105 @@ Return-Path: <SRS0=FOdb=NQ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-19.5 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable
-	autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 58715C432BE
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 14:39:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BCEC4C4338F
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 14:44:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 20AF360724
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 14:39:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 20AF360724
+	by mail.kernel.org (Postfix) with ESMTPS id 83C7B60E97
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 14:44:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 83C7B60E97
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C0DF06E249;
-	Wed, 25 Aug 2021 14:39:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07EDD6E25A;
+	Wed, 25 Aug 2021 14:44:27 +0000 (UTC)
 Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2071.outbound.protection.outlook.com [40.107.244.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2BB4B6E237;
- Wed, 25 Aug 2021 14:38:59 +0000 (UTC)
+ (mail-mw2nam12on2048.outbound.protection.outlook.com [40.107.244.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E33D86E25A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Aug 2021 14:44:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=d+zxrJk0M9+Tquygz/sgXbxgjiip4Wr0SKEdNlw7f4q5IzjvS7jc1Fc3NbQmM3Or9mrtEevgM6Og78j+6DHa6bU84eK35KzlkCbbJuZdQnXb5vEeJmzzOEabVhKhouRiXhzZbYeuIeK9hWaFWrbcWZOiotrrW7w0KG2OTlPalPijXfnPfg1Aximwkktf7GVMlqdvFi152Vj9kARfx0MvoyejjqFQ7FTf1sg/hLYuvtH3IhFdUM+Kj2kq5KI/muKCIHXCCDJ80+i4dgN88R7vfXV9NVurvuAFXlsGpYLerlOCdWr8lguUL3pwRuZawuKo2n6/QXOK/JK9mznQUSKmQQ==
+ b=nFpixejPMFLkrqzT9uTea3E+DVX0XfBJQF+CLyet0k+KoDE/YcAtojdeWI1yd1AMARw2TbwNi5XBVTfoVNSSn7lYlMuynmJY7hJrlyhduPVAE5tUmo+Bfpb+WmnICKsmDEa2f25J1Oc8HJDY0OmiKLxXqsje1kYhYMkWGOQa9+JA+EHTy7bFK2ExnGDVPmJGRS1iPlVBwrYEq9Mk/tHecy+tjRM03pSTZ8s5GNrC6SIgbfktsahIKeXs7GO3k0RTvV4tsVYn6OV/kZE64BYooNemcC+/Jv2i8idWHryZHOH1iyh+zOcJjuKkCFTnCEnfa8MAmGdRPTXkuZM6ZJ6TMw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=X7T19Sx3+hYt4ajzyqtoWhzzy8fY5AlRZ4NPBw8Cd/g=;
- b=gjDu3Qwfag+xJy9lEkb07MS82JMX1OjVzeLzz/YX+mTX3ClE2eASMDmU/monHeFgbOi6eSHh7ZlqTrzc9JS+8BftBm+8YTbHJ+e+GdZ2ZR1XvmDrs3/M1zndUw0yS9JNAa6JrnLqvw8epsKPWaan0JJQKJ464YGmzjdrQic4+Y3Og8YXmwm+eoepNXcCfm0ljbR/rPCET4I4aSprLOjcXvNKzApGiOIBwqHb5+98LuvGx0116m46+QrtfdUqT++mKotQ/9B8lKKzY/TgaZSWA7EjbStjpYggLwkgQnacTx8J4AcnkeygxvtXZmnbl1o/pE0ijYo1jhWc3XJHRIxAXw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=yX9tSvWDAZ74l5KLcoHRV2Bv65Np/2lVyY6NPqZ0MlI=;
+ b=Qv8zP5SNRAsM3dSH0Ykg1wt20vz6ERxJZS0Gvsp/9IrfmhZ5ynJ2bcc/JqPeZrtXAA+82+xbwg1LcG0+N/DPO5+qSuK8WBvGWYYNMscIIPpr9EPKJqGRHlYFasVl8MNQv9iZIegvDmOc+mlyELy8At1XyIkn7/y8Qc/zVHlVWLD8u9pF4Q12slRzdCSU8huCdGZzbgKbwZk7mh57B//ELWzISgwddAlNOl6vc3I40Zl18cCt0QbOg8DtcZzETochcaRjN799cW2fqWdUH9os8cTuqV50qUAQiWlm9McE7HOgefjSFodNiISOFaJUyC/j2kMcAvl6cfPa6UapyV94nA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=X7T19Sx3+hYt4ajzyqtoWhzzy8fY5AlRZ4NPBw8Cd/g=;
- b=IlwRk5M932zbofbLcwLSqg3wLCmrT6iIhn7JUVzCOuQ9sRz/marZjvdEooFNSYtNYbXSxRKvKy4JUmqqYwdDCcdjffzUGaUbOI2bCYFy82L2Pq2DAel3CjqgG13DEflyN0OmGnSJDgEGfoqmuBEkD4FUZT88RSf4L2lR+2whF0w=
-Authentication-Results: redhat.com; dkim=none (message not signed)
- header.d=none;redhat.com; dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5129.namprd12.prod.outlook.com (2603:10b6:408:136::12)
- by BN9PR12MB5116.namprd12.prod.outlook.com (2603:10b6:408:119::16)
+ bh=yX9tSvWDAZ74l5KLcoHRV2Bv65Np/2lVyY6NPqZ0MlI=;
+ b=o8vKU68OOZiliFafr5D3OnhLbY55RHEqKoKuei7zrPzK4B8Wixn3VaxV+6l+Ayo/th5PNsfox3Bt5E2GFjPukQwaOZuQVCxmGnwrkNii8emSITykb3F15gDcE+Zxaz153r/255+LsAoFq5XAhwKUTJ4bpFkUgSeIe/vNSDWgJ4Q=
+Received: from BN9P222CA0015.NAMP222.PROD.OUTLOOK.COM (2603:10b6:408:10c::20)
+ by BN8PR12MB2980.namprd12.prod.outlook.com (2603:10b6:408:62::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.19; Wed, 25 Aug
- 2021 14:24:07 +0000
-Received: from BN9PR12MB5129.namprd12.prod.outlook.com
- ([fe80::b891:a906:28f0:fdb]) by BN9PR12MB5129.namprd12.prod.outlook.com
- ([fe80::b891:a906:28f0:fdb%3]) with mapi id 15.20.4436.024; Wed, 25 Aug 2021
- 14:24:07 +0000
-Subject: Re: [PATCH v1 03/14] mm: add iomem vma selection for memory migration
-To: Alex Sierra <alex.sierra@amd.com>, akpm@linux-foundation.org,
- linux-mm@kvack.org, rcampbell@nvidia.com, linux-ext4@vger.kernel.org,
- linux-xfs@vger.kernel.org
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- hch@lst.de, jgg@nvidia.com, jglisse@redhat.com
-References: <20210825034828.12927-1-alex.sierra@amd.com>
- <20210825034828.12927-4-alex.sierra@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Message-ID: <fe3f234b-3998-da57-b141-6ea95070db6f@amd.com>
-Date: Wed, 25 Aug 2021 10:24:05 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
-In-Reply-To: <20210825034828.12927-4-alex.sierra@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-ClientProxiedBy: YTBPR01CA0027.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:14::40) To BN9PR12MB5129.namprd12.prod.outlook.com
- (2603:10b6:408:136::12)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.22; Wed, 25 Aug
+ 2021 13:09:34 +0000
+Received: from BN8NAM11FT066.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:10c:cafe::db) by BN9P222CA0015.outlook.office365.com
+ (2603:10b6:408:10c::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.19 via Frontend
+ Transport; Wed, 25 Aug 2021 13:09:34 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT066.mail.protection.outlook.com (10.13.177.138) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4457.17 via Frontend Transport; Wed, 25 Aug 2021 13:09:34 +0000
+Received: from ws.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Wed, 25 Aug
+ 2021 08:09:32 -0500
+From: Tom St Denis <tom.stdenis@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Tom St Denis <tom.stdenis@amd.com>
+Subject: [PATCH] drm/amd/amdgpu: New debugfs interface for MMIO registers (v4)
+Date: Wed, 25 Aug 2021 09:09:26 -0400
+Message-ID: <20210825130926.230698-1-tom.stdenis@amd.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [192.168.2.100] (142.186.47.3) by
- YTBPR01CA0027.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:14::40) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4457.17 via Frontend Transport; Wed, 25 Aug 2021 14:24:07 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 481e29ca-81ae-4a92-a5f3-08d967d3ffc5
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5116:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BN9PR12MB5116A6A35AD64F3DC8AF7EA092C69@BN9PR12MB5116.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+X-MS-Office365-Filtering-Correlation-Id: 5b8a33fb-dc05-4aec-c099-08d967c9954d
+X-MS-TrafficTypeDiagnostic: BN8PR12MB2980:
+X-Microsoft-Antispam-PRVS: <BN8PR12MB29807FC5FD2FD9C9A6490ABEF7C69@BN8PR12MB2980.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: o5Z9A+I53zzJdrvITE7w7ZxTkj5BIZ1f/hYsst1bux9HC60kE5LOMgSLfPFuG/RH+S1sS6BS4grNQGVSS7hBx8isp4m2Nl2fRw7EH0UUtR7qrNdIWYYv7RQjSQJwO6EJiBzW5WVJCRWTU3XOME1DDycsAi3+Gcod+9jNkOn8APQAavwGWp8OM5AkPnI/pOpBCsglnPyhXEniDmzz63w/GC3hxTKETrXvKP9g10mPsSd+OMAl8E+cC6O76aXWbb/5hxGGKNWNATaZoVWUA1wWtXSzihObBv3a2ENluRGwUwnU5GkKYA0aznhaFLcQqOKRxW5CPoOajav/h7K1su+JvsfqLju/z1kxvllqDHOSQ07cHuMiLvdEgAtexWWWzRX87Z0CIfiKzD78u03EKklw7nKCm/i7vKbXHShFJ49173baqG2T3RmHbc58MrKQfKpzgpj2DUfcQZn0CeBbgvkFdcJMIgu1NTKH5gbC9urlSM84sFMgu4nCUTxELH9Wua0ZIiZoDukxWzBs0JDQNYgQ024loCA7ZgfD/T0YFK7OTQSHjiAMgWd2ZhmAP3huqqbR/l0kJ2qmqbtGgfTW+gCpJxrQb7McQgK0vlwxLJLD5TOny3mEU2LlntLYEFHQrscBfIiBe8RyZHHz8u583oQe60U9rQZGaw1+kFvDDND+f+SD0YXROg+fMWB4z1c+zuKkwDPZ9xvenf46tOU69WwYGqifdPRluvg1U+nAGWmhJII=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5129.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(396003)(136003)(346002)(39860400002)(366004)(31686004)(83380400001)(956004)(2616005)(86362001)(16576012)(7416002)(31696002)(5660300002)(8676002)(38100700002)(2906002)(66556008)(4326008)(66476007)(66946007)(36756003)(8936002)(26005)(316002)(44832011)(6486002)(478600001)(186003)(45980500001)(43740500002);
+X-Microsoft-Antispam-Message-Info: KfgqR80uDJ4GF2Dq69kQjRV10+UlWDe0AaBQ3HhmhStdqfg5JCq+xiaeBfJkXXWZwCJhmQIRDa80jOkRjreIYUfY4Z+HC13kZpQfvRIRuHasL+WesO6uPFEuFRVdhz4eWaH34LbbOdu3zJqn8cjvL0F0kkYQvVMXTfsKEmlAKXwZ3GP7cSZ3GqTAMXatEBfdJH01gOEQIOcWbuonvc23mmN1gnrPBJdcHUVHrLdYSB22Hn4G7IpOm8KZxVAqCjyZ9FbjFuatwTEkEeAmCc4uGN0oEBQdMk/JWZT9hDN37UsYYIM/TGJ2qvjEOZ5VHPk5V2AdJa8xxeyhJZoW9qLF7V0DZiCuayerNhzD0ZcHH/sa0yAs9Jr2K7MEb2nnSm6GA38L32hodh5xs/+lNTl6SJjKcPk5uAMTaxCHRaih3GmBZbHfQzpAQQSg0TFMtw/NT0hvC70Eb54MMvdl7Tr/GcXz0uWnSImexGbkp3fcl003HLKsWpcYKmo2dOjOcNwNotx0P/ZlVLPx7jQgBGFICIQcil2sbez2NW7dQ4u26qxKaLaIzmL9CuBoCEYCLFAhzjcks+u+vZV4DGi1p4iDHewTxHpRL5b7PLHpYdcCU6/035c3vWu2xwTti6NuVVTUvoi6Cy/Iyncivr4H0v3lHElLeRD0MezEKd8F/HW1S4XmW5uS74OGIOt483kFPv8h0gUSDmirBZBJEve3553m14Q9PaI9o8/rs+Tkjx8YtDg=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(39860400002)(346002)(396003)(136003)(376002)(46966006)(36840700001)(478600001)(316002)(7696005)(6666004)(8936002)(16526019)(1076003)(2616005)(2906002)(5660300002)(186003)(6916009)(426003)(336012)(26005)(8676002)(36756003)(86362001)(4326008)(82740400003)(70586007)(70206006)(36860700001)(356005)(83380400001)(81166007)(82310400003)(47076005)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QTByaXIyNkZhRkI5aVVSV2EwejdoeU56a3kwc3dIVEE3WFhhYysvRngrSzRy?=
- =?utf-8?B?M0pISUFPWWtOUDRvU0ZyeS9KRmZ1Vi9sR2tYZGROTHdPZlVyblpvOUtHZXZJ?=
- =?utf-8?B?YzJqaXZhdXNsYTAxUG9QYWJLbGRpa3dXRUQ4NUgreGpqa2NEekplclg2ak0y?=
- =?utf-8?B?bHUzajRMbG96VGorWVNRKzhNMkoxajU1cDNlS0p6RUtkOVBnWDhOLytvSkZi?=
- =?utf-8?B?cm5qUkJ1YllUaEVldVhHdU56K3NHVFFLOUtpTi9mNk44eTZEdHVUQ0RDVmxR?=
- =?utf-8?B?dXFaOGNkWGFmQXhncXY2dmVTY25DZTAzblFyVTcyeFNvRE0wZXczM0lwREJO?=
- =?utf-8?B?MzZEN0pxNVN6Y3VPZnoxWHNuUHJ1azhJdDFmVG03ckY2RzZ3QkNFZWpORktq?=
- =?utf-8?B?OFkrNEduWVpJcFZiWTY3K0JBVFVVOEZEY2ZMWVc3NUFUYmpXVGt6MnVVemlv?=
- =?utf-8?B?SVNrMEJXM2I5RlZRSnNZN0lDYkJFUHNQODhpeW5sa0p5V0poTkpUWXdKdVB0?=
- =?utf-8?B?cHBrMis0ZEV2SzdJSTdtTHRSb0IwRGFFV1ovRm9kVDU5amdPUTVnaCtUV2cw?=
- =?utf-8?B?TUE3MFJaRFN0a29GaTdJU3dwcVZTZ2FjTXpPMkwzYnFFaVdxandXaDh5eGQz?=
- =?utf-8?B?dTgxZVJtL29oRTY3cU1paUNNczNlL1c2cmJxYWF3ektvN0ZMcjlNb3VWQ3Jm?=
- =?utf-8?B?UE5oQVJFczhPZTFqb1VhV2RzUElEMG43WktiMngrcDN6UmVHOTJSNXZtWTcy?=
- =?utf-8?B?cGtvdlRPMmVHcjA1L0dmdmNQL01XcXZWTFROb1BzOHFUdVdSUjJ6Sk95WW80?=
- =?utf-8?B?M0JPV0tVZVNCcWZLbCt1K3E2Wk9QdGMvVVh2eENMNEFIdnc5dS9CNVFXSGRG?=
- =?utf-8?B?VnhOYmRVdkNCdW9qZUg2emxQM2RNQ0xSSzJpRmoycWp5eTFUT2Y3NGJYZkl0?=
- =?utf-8?B?OGZmN1BzLzB3bC91R2MzUTQ2UUpzLy9NZEcvelhDY3FVNC92Q04vMytMclpN?=
- =?utf-8?B?Z1J5dE43OHQzMHFEbDlDeWJEYmltVzR4VW8xdWtJdzBHSUEwOEpXUUFBRzZU?=
- =?utf-8?B?K2xnV2pHRDZUN2ZpcmVEWG9NbGQyVTBJZncrVGFObFpENy9CWmRvR0FoR2cw?=
- =?utf-8?B?NWlkdFpBb3R1QzlFK1BvbFR2SXdTQk1iSGVIL3pHaTE2SHd4L3VjWGJ6YUph?=
- =?utf-8?B?VEh2TzZteXBaZTBIVjZNNVY5M3JCd3dWZWRaS3pjaWdjNGZ3K3ZPcnh6T0pL?=
- =?utf-8?B?a1JqalZHMFlCWnNaU1NCd2RhdFBaOUl3TlZSSG1NNS9uTmJKYmZmNnRGWG5u?=
- =?utf-8?B?RUdyLzE2YnZYSzBnOTl6TS83Z2tSbG5nTTM0c0plN0t2S01nT09sWHZKQjNE?=
- =?utf-8?B?WEczYmRCdytteVdpVXQ5d0pVaHlNSWhPVWI0NWNaMFdhczJhY2Z0bzBSWjNY?=
- =?utf-8?B?YXdnR1h6S2RqZ3laT1pSWnVGdVgzRE1VR1VuTDQ4VFNMM3FieWdoc1ZPMW9I?=
- =?utf-8?B?ZkZwdU12MnNhRmpMSEQrNWRITmVVRmRNUjNxdW9Qd0k0U25xZDh1Q3pOalUz?=
- =?utf-8?B?eTRIa3ROYlVLcWErNGZpc3VYemVCVndCWU4wb21BNyt2eFNCeUM0RG8zNzBy?=
- =?utf-8?B?aXc5c3BjeThmV2hQSDR1MDZlQ2FkeEtjT1NlS2dGUGFENXovUjhscHkzWGlU?=
- =?utf-8?B?SmIwNWhQdW9TMHZQeVZjZzFmeUMrMUZrQ1lLNWhpeEI5RDM1Q1ZYQUpWeTJy?=
- =?utf-8?Q?pG3L72WeR0skwd261WDyf+bQlloZdspa4ecRu0A?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 481e29ca-81ae-4a92-a5f3-08d967d3ffc5
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5129.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2021 14:24:07.7983 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2021 13:09:34.0204 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5b8a33fb-dc05-4aec-c099-08d967c9954d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4AKoE0CVoBREae21FQDVroaAANJAH2DihVYFeMkW4AvLMP5vCjQ/lHhTYGZyU0euLzP60b6rwzigI4+CmaAHSQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5116
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT066.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB2980
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,54 +115,259 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 2021-08-24 um 11:48 p.m. schrieb Alex Sierra:
-> In this case, this is used to migrate pages from device memory, back to
-> system memory. This particular device memory type should be accessible
-> by the CPU, through IOMEM access. Typically, zone device public type
-> memory falls into this category.
->
-> Signed-off-by: Alex Sierra <alex.sierra@amd.com>
-> ---
->  include/linux/migrate.h | 1 +
->  mm/migrate.c            | 3 ++-
->  2 files changed, 3 insertions(+), 1 deletion(-)
->
-> diff --git a/include/linux/migrate.h b/include/linux/migrate.h
-> index 4bb4e519e3f5..6b16f417384f 100644
-> --- a/include/linux/migrate.h
-> +++ b/include/linux/migrate.h
-> @@ -156,6 +156,7 @@ static inline unsigned long migrate_pfn(unsigned long pfn)
->  enum migrate_vma_direction {
->  	MIGRATE_VMA_SELECT_SYSTEM = 1 << 0,
->  	MIGRATE_VMA_SELECT_DEVICE_PRIVATE = 1 << 1,
-> +	MIGRATE_VMA_SELECT_IOMEM = 1 << 2,
+This new debugfs interface uses an IOCTL interface in order to pass
+along state information like SRBM and GRBM bank switching.  This
+new interface also allows a full 32-bit MMIO address range which
+the previous didn't.  With this new design we have room to grow
+the flexibility of the file as need be.
 
-How about calling this MIGRATE_VMA_SELECT_DEVICE_PUBLIC?
+(v2): Move read/write to .read/.write, fix style, add comment
+      for IOCTL data structure
 
+(v3): C style comments
 
->  };
->  
->  struct migrate_vma {
-> diff --git a/mm/migrate.c b/mm/migrate.c
-> index e3a10e2a1bb3..d4ae2da99607 100644
-> --- a/mm/migrate.c
-> +++ b/mm/migrate.c
-> @@ -2406,7 +2406,8 @@ static int migrate_vma_collect_pmd(pmd_t *pmdp,
->  			if (is_write_device_private_entry(entry))
->  				mpfn |= MIGRATE_PFN_WRITE;
->  		} else {
-> -			if (!(migrate->flags & MIGRATE_VMA_SELECT_SYSTEM))
-> +			if (!(migrate->flags & MIGRATE_VMA_SELECT_SYSTEM) &&
-> +			    !(migrate->flags & MIGRATE_VMA_SELECT_IOMEM))
->  				goto next;
+(v4): use u32 in struct and remove offset variable
 
-For MIGRATE_VMA_SELECT_IOMEM/DEVICE_PUBLIC, I think we should ensure the
-pages are ZONE_DEVICE and we should also check the page owner for
-symmetry with DEVICE_PRIVATE.
+Signed-off-by: Tom St Denis <tom.stdenis@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 158 ++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h |  29 ++++
+ 2 files changed, 187 insertions(+)
 
-Regards,
-  Felix
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+index 277128846dd1..6450f210f6c7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -279,6 +279,152 @@ static ssize_t amdgpu_debugfs_regs_write(struct file *f, const char __user *buf,
+ 	return amdgpu_debugfs_process_reg_op(false, f, (char __user *)buf, size, pos);
+ }
+ 
++static int amdgpu_debugfs_regs2_open(struct inode *inode, struct file *file)
++{
++	struct amdgpu_debugfs_regs2_data *rd;
++
++	rd = kzalloc(sizeof *rd, GFP_KERNEL);
++	if (!rd)
++		return -ENOMEM;
++	rd->adev = file_inode(file)->i_private;
++	file->private_data = rd;
++
++	return 0;
++}
++
++static int amdgpu_debugfs_regs2_release(struct inode *inode, struct file *file)
++{
++	kfree(file->private_data);
++	return 0;
++}
++
++static ssize_t amdgpu_debugfs_regs2_op(struct file *f, char __user *buf, u32 offset, size_t size, int write_en)
++{
++	struct amdgpu_debugfs_regs2_data *rd = f->private_data;
++	struct amdgpu_device *adev = rd->adev;
++	ssize_t result = 0;
++	int r;
++	uint32_t value;
++
++	if (size & 0x3 || offset & 0x3)
++		return -EINVAL;
++
++	if (rd->id.use_grbm) {
++		if (rd->id.grbm.se == 0x3FF)
++			rd->id.grbm.se = 0xFFFFFFFF;
++		if (rd->id.grbm.sh == 0x3FF)
++			rd->id.grbm.sh = 0xFFFFFFFF;
++		if (rd->id.grbm.instance == 0x3FF)
++			rd->id.grbm.instance = 0xFFFFFFFF;
++	}
++
++	r = pm_runtime_get_sync(adev_to_drm(adev)->dev);
++	if (r < 0) {
++		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
++		return r;
++	}
++
++	r = amdgpu_virt_enable_access_debugfs(adev);
++	if (r < 0) {
++		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
++		return r;
++	}
++
++	if (rd->id.use_grbm) {
++		if ((rd->id.grbm.sh != 0xFFFFFFFF && rd->id.grbm.sh >= adev->gfx.config.max_sh_per_se) ||
++		    (rd->id.grbm.se != 0xFFFFFFFF && rd->id.grbm.se >= adev->gfx.config.max_shader_engines)) {
++			pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
++			pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
++			amdgpu_virt_disable_access_debugfs(adev);
++			return -EINVAL;
++		}
++		mutex_lock(&adev->grbm_idx_mutex);
++		amdgpu_gfx_select_se_sh(adev, rd->id.grbm.se,
++								rd->id.grbm.sh,
++								rd->id.grbm.instance);
++	}
++
++	if (rd->id.use_srbm) {
++		mutex_lock(&adev->srbm_mutex);
++		amdgpu_gfx_select_me_pipe_q(adev, rd->id.srbm.me, rd->id.srbm.pipe,
++									rd->id.srbm.queue, rd->id.srbm.vmid);
++	}
++
++	if (rd->id.pg_lock)
++		mutex_lock(&adev->pm.mutex);
++
++	while (size) {
++		if (!write_en) {
++			value = RREG32(offset >> 2);
++			r = put_user(value, (uint32_t *)buf);
++		} else {
++			r = get_user(value, (uint32_t *)buf);
++			if (!r)
++				amdgpu_mm_wreg_mmio_rlc(adev, offset >> 2, value);
++		}
++		if (r) {
++			result = r;
++			goto end;
++		}
++		offset += 4;
++		size -= 4;
++		result += 4;
++		buf += 4;
++	}
++end:
++	if (rd->id.use_grbm) {
++		amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff);
++		mutex_unlock(&adev->grbm_idx_mutex);
++	}
++
++	if (rd->id.use_srbm) {
++		amdgpu_gfx_select_me_pipe_q(adev, 0, 0, 0, 0);
++		mutex_unlock(&adev->srbm_mutex);
++	}
++
++	if (rd->id.pg_lock)
++		mutex_unlock(&adev->pm.mutex);
++
++	/* in umr (the likely user of this) flags are set per file operation
++	 * which means they're never "unset" explicitly.  To avoid breaking
++	 * this convention we unset the flags after each operation
++	 * flags are for a single call (need to be set for every read/write) */
++	rd->id.use_grbm = 0;
++	rd->id.use_srbm = 0;
++	rd->id.pg_lock  = 0;
++
++	pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
++	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
++
++	amdgpu_virt_disable_access_debugfs(adev);
++	return result;
++}
++
++static long amdgpu_debugfs_regs2_ioctl(struct file *f, unsigned int cmd, unsigned long data)
++{
++	struct amdgpu_debugfs_regs2_data *rd = f->private_data;
++
++	switch (cmd) {
++	case AMDGPU_DEBUGFS_REGS2_IOC_SET_STATE:
++		if (copy_from_user(&rd->id, (struct amdgpu_debugfs_regs2_iocdata *)data, sizeof rd->id))
++			return -EINVAL;
++		break;
++	default:
++		return -EINVAL;
++	}
++	return 0;
++}
++
++static ssize_t amdgpu_debugfs_regs2_read(struct file *f, char __user *buf, size_t size, loff_t *pos)
++{
++	return amdgpu_debugfs_regs2_op(f, buf, *pos, size, 0);
++}
++
++static ssize_t amdgpu_debugfs_regs2_write(struct file *f, const char __user *buf, size_t size, loff_t *pos)
++{
++	return amdgpu_debugfs_regs2_op(f, (char __user *)buf, *pos, size, 1);
++}
++
+ 
+ /**
+  * amdgpu_debugfs_regs_pcie_read - Read from a PCIE register
+@@ -1091,6 +1237,16 @@ static ssize_t amdgpu_debugfs_gfxoff_read(struct file *f, char __user *buf,
+ 	return result;
+ }
+ 
++static const struct file_operations amdgpu_debugfs_regs2_fops = {
++	.owner = THIS_MODULE,
++	.unlocked_ioctl = amdgpu_debugfs_regs2_ioctl,
++	.read = amdgpu_debugfs_regs2_read,
++	.write = amdgpu_debugfs_regs2_write,
++	.open = amdgpu_debugfs_regs2_open,
++	.release = amdgpu_debugfs_regs2_release,
++	.llseek = default_llseek
++};
++
+ static const struct file_operations amdgpu_debugfs_regs_fops = {
+ 	.owner = THIS_MODULE,
+ 	.read = amdgpu_debugfs_regs_read,
+@@ -1148,6 +1304,7 @@ static const struct file_operations amdgpu_debugfs_gfxoff_fops = {
+ 
+ static const struct file_operations *debugfs_regs[] = {
+ 	&amdgpu_debugfs_regs_fops,
++	&amdgpu_debugfs_regs2_fops,
+ 	&amdgpu_debugfs_regs_didt_fops,
+ 	&amdgpu_debugfs_regs_pcie_fops,
+ 	&amdgpu_debugfs_regs_smc_fops,
+@@ -1160,6 +1317,7 @@ static const struct file_operations *debugfs_regs[] = {
+ 
+ static const char *debugfs_regs_names[] = {
+ 	"amdgpu_regs",
++	"amdgpu_regs2",
+ 	"amdgpu_regs_didt",
+ 	"amdgpu_regs_pcie",
+ 	"amdgpu_regs_smc",
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h
+index 141a8474e24f..dcf20859c866 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h
+@@ -22,6 +22,8 @@
+  * OTHER DEALINGS IN THE SOFTWARE.
+  *
+  */
++#include <linux/ioctl.h>
++#include <uapi/drm/amdgpu_drm.h>
+ 
+ /*
+  * Debugfs
+@@ -38,3 +40,30 @@ void amdgpu_debugfs_fence_init(struct amdgpu_device *adev);
+ void amdgpu_debugfs_firmware_init(struct amdgpu_device *adev);
+ void amdgpu_debugfs_gem_init(struct amdgpu_device *adev);
+ int amdgpu_debugfs_wait_dump(struct amdgpu_device *adev);
++
++/*
++ * MMIO debugfs IOCTL structure
++ */
++struct amdgpu_debugfs_regs2_iocdata {
++	__u32 use_srbm, use_grbm, pg_lock;
++	struct {
++		__u32 se, sh, instance;
++	} grbm;
++	struct {
++		__u32 me, pipe, queue, vmid;
++	} srbm;
++};
++
++/*
++ * MMIO debugfs state data (per file* handle)
++ */
++struct amdgpu_debugfs_regs2_data {
++	struct amdgpu_device *adev;
++	struct amdgpu_debugfs_regs2_iocdata id;
++};
++
++enum AMDGPU_DEBUGFS_REGS2_CMDS {
++	AMDGPU_DEBUGFS_REGS2_CMD_SET_STATE=0,
++};
++
++#define AMDGPU_DEBUGFS_REGS2_IOC_SET_STATE _IOWR(0x20, AMDGPU_DEBUGFS_REGS2_CMD_SET_STATE, struct amdgpu_debugfs_regs2_iocdata)
+-- 
+2.31.1
 
-
->  			pfn = pte_pfn(pte);
->  			if (is_zero_pfn(pfn)) {
