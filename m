@@ -2,95 +2,96 @@ Return-Path: <SRS0=FOdb=NQ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-20.2 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1E3F4C4320A
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 17:57:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 283E7C432BE
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 17:57:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DAE3060F35
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 17:57:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DAE3060F35
+	by mail.kernel.org (Postfix) with ESMTPS id E321460F35
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 17:57:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E321460F35
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=akamai.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 59C816E3EB;
-	Wed, 25 Aug 2021 17:57:49 +0000 (UTC)
-X-Greylist: delayed 349 seconds by postgrey-1.36 at gabe;
- Wed, 25 Aug 2021 17:18:52 UTC
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DF5F6E3F7;
+	Wed, 25 Aug 2021 17:57:51 +0000 (UTC)
 Received: from mx0b-00190b01.pphosted.com (mx0b-00190b01.pphosted.com
  [IPv6:2620:100:9005:57f::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FF3B6E3EE;
- Wed, 25 Aug 2021 17:18:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A06856E3F0;
+ Wed, 25 Aug 2021 17:34:15 +0000 (UTC)
 Received: from pps.filterd (m0122331.ppops.net [127.0.0.1])
- by mx0b-00190b01.pphosted.com (8.16.1.2/8.16.0.43) with SMTP id 17PG73hK003607;
- Wed, 25 Aug 2021 18:18:49 +0100
+ by mx0b-00190b01.pphosted.com (8.16.1.2/8.16.0.43) with SMTP id 17PF6fDr017837;
+ Wed, 25 Aug 2021 18:13:00 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=akamai.com;
  h=subject : to :
  references : from : message-id : date : mime-version : in-reply-to :
  content-type : content-transfer-encoding; s=jan2016.eng;
- bh=4yn0oy8JsEetkmJH1qt8+NeoPl5RpCvCkxTeymmkeu8=;
- b=VlSK6+1hH5l2Yb77fXnQ6g4ksZO1d0TBYf1qvwgSU6kOcYivw5WUQpb1N4/JRm2EUt9G
- e3bJGL8LjDRfjN+sc1kVN7e+SJ9gnGiCCjByBjf0O61aMIJPcXtckb22/h0ysDYPbROW
- PrifL86bLPPSwczHgflnC5RQoElyVJFQHwbXP0qA7p8n6WyLapMMGk844M55b3tkq1KL
- 9CGSpZvt0ClRxJQRGgz6xLTVcuwuL51DPkTee47Ox3zyiSICIIyEY+z61FsdaDQfgTfE
- vjB29jUgnqHXmZzDPcLKTSGf+Ihs3KmVDRkzb0tJPT6NwnukpDy1Upoju77GiS2lK2mZ yg== 
-Received: from prod-mail-ppoint7
- (a72-247-45-33.deploy.static.akamaitechnologies.com [72.247.45.33] (may be
- forged)) by mx0b-00190b01.pphosted.com with ESMTP id 3anhh8mpsu-1
+ bh=YXnAEFWbquKt14dSaU6kl7u8c9elGplzDvOg3WzNBxg=;
+ b=K6xFTyTEkTMv0s2G9LS9qPgLn58In6L688tTq5dAVzFvoKyrIkUMR5nKnbb4Vqu8tbmH
+ QWj+Xu905Gil2RafolO/MdXLs1ETdv74GM6abi+y3eIMgTyrS0GnMigqoPw+cFZaZhSz
+ Nh00QmX4yb1u2nUDjM7ixdtIUxu5neYvRAZrfZZI6ooP99q3tlTpMkF+ctzL2JgALsCK
+ 5VFCZNcwgPO7xbcj0MMBfjwdJVdEe6vJaz+lRHRLpMumhZ0+GWhHiRpMdU5jHTVqvw4Z
+ 1rdXjpzrOl5S0zuyvUE9jedsyT9J4MI62Cyw8DzAiJ2+7LPC78POUFcRyYfvTePm8fop /w== 
+Received: from prod-mail-ppoint2 (prod-mail-ppoint2.akamai.com [184.51.33.19]
+ (may be forged))
+ by mx0b-00190b01.pphosted.com with ESMTP id 3anhh8mmnj-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 25 Aug 2021 18:18:48 +0100
-Received: from pps.filterd (prod-mail-ppoint7.akamai.com [127.0.0.1])
- by prod-mail-ppoint7.akamai.com (8.16.1.2/8.16.1.2) with SMTP id
- 17PHCpZk029748; Wed, 25 Aug 2021 13:18:48 -0400
-Received: from prod-mail-relay19.dfw02.corp.akamai.com ([172.27.165.173])
- by prod-mail-ppoint7.akamai.com with ESMTP id 3an3v2fbq9-1;
- Wed, 25 Aug 2021 13:18:48 -0400
+ Wed, 25 Aug 2021 18:13:00 +0100
+Received: from pps.filterd (prod-mail-ppoint2.akamai.com [127.0.0.1])
+ by prod-mail-ppoint2.akamai.com (8.16.1.2/8.16.1.2) with SMTP id
+ 17PH538P029405; Wed, 25 Aug 2021 13:12:59 -0400
+Received: from prod-mail-relay10.akamai.com ([172.27.118.251])
+ by prod-mail-ppoint2.akamai.com with ESMTP id 3an3u21rka-1;
+ Wed, 25 Aug 2021 13:12:59 -0400
 Received: from [0.0.0.0] (prod-ssh-gw01.bos01.corp.akamai.com [172.27.119.138])
- by prod-mail-relay19.dfw02.corp.akamai.com (Postfix) with ESMTP id C8B9A6007A; 
- Wed, 25 Aug 2021 17:18:44 +0000 (GMT)
-Subject: Re: [PATCH v6 00/11] use DYNAMIC_DEBUG to implement DRM.debug
+ by prod-mail-relay10.akamai.com (Postfix) with ESMTP id 1023647300;
+ Wed, 25 Aug 2021 17:12:58 +0000 (GMT)
+Subject: Re: [PATCH v6 01/11] moduleparam: add data member to struct
+ kernel_param
 To: Jim Cromie <jim.cromie@gmail.com>, gregkh@linuxfoundation.org,
  seanpaul@chromium.org, jeyu@kernel.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
 References: <20210822222009.2035788-1-jim.cromie@gmail.com>
+ <20210822222009.2035788-2-jim.cromie@gmail.com>
 From: Jason Baron <jbaron@akamai.com>
-Message-ID: <7017599d-8e11-7bda-90df-3cbf39ef8f3b@akamai.com>
-Date: Wed, 25 Aug 2021 13:18:44 -0400
+Message-ID: <c83b0814-b8e1-91f5-ba28-f9db3f363ce1@akamai.com>
+Date: Wed, 25 Aug 2021 13:12:58 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <20210822222009.2035788-1-jim.cromie@gmail.com>
+In-Reply-To: <20210822222009.2035788-2-jim.cromie@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.790
- definitions=2021-08-25_06:2021-08-25,
+ definitions=2021-08-25_07:2021-08-25,
  2021-08-25 signatures=0
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
- adultscore=0 malwarescore=0
- spamscore=0 mlxlogscore=999 phishscore=0 bulkscore=0 suspectscore=0
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
+ bulkscore=0 spamscore=0
+ phishscore=0 mlxscore=0 suspectscore=0 malwarescore=0 mlxlogscore=999
  classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2107140000
  definitions=main-2108250101
-X-Proofpoint-GUID: UoSSdnztWs5A6UFnB2lJ-dGQhhers6zK
-X-Proofpoint-ORIG-GUID: UoSSdnztWs5A6UFnB2lJ-dGQhhers6zK
+X-Proofpoint-GUID: d5yTm-Wha_RNPM4TBCAo1XVbzvDP6Kvc
+X-Proofpoint-ORIG-GUID: d5yTm-Wha_RNPM4TBCAo1XVbzvDP6Kvc
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.391,FMLib:17.0.607.475
  definitions=2021-08-25_07,2021-08-25_02,2020-04-07_01
 X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
  priorityscore=1501
- lowpriorityscore=0 phishscore=0 impostorscore=0 clxscore=1015 bulkscore=0
+ lowpriorityscore=0 phishscore=0 impostorscore=0 clxscore=1011 bulkscore=0
  malwarescore=0 suspectscore=0 mlxlogscore=999 adultscore=0 spamscore=0
  classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2107140000
  definitions=main-2108250102
 X-Agari-Authentication-Results: mx.akamai.com;
- spf=${SPFResult} (sender IP is 72.247.45.33)
- smtp.mailfrom=jbaron@akamai.com smtp.helo=prod-mail-ppoint7
+ spf=${SPFResult} (sender IP is 184.51.33.19)
+ smtp.mailfrom=jbaron@akamai.com smtp.helo=prod-mail-ppoint2
 X-Mailman-Approved-At: Wed, 25 Aug 2021 17:57:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -109,65 +110,89 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 On 8/22/21 6:19 PM, Jim Cromie wrote:
-> This patchset does 3 main things.
+> Add a const void* data member to the struct, to allow attaching
+> private data that will be used soon by a setter method (via kp->data)
+> to perform more elaborate actions.
 > 
-> Adds DEFINE_DYNAMIC_DEBUG_CATEGORIES to define bitmap => category
-> control of pr_debugs, and to create their sysfs entries.
+> To attach the data at compile time, add new macros:
 > 
-> Uses it in amdgpu, i915 to control existing pr_debugs according to
-> their ad-hoc categorizations.
+> module_param_cb_data() derives from module_param_cb(), adding data
+> param, and latter is redefined to use former.
 > 
-> Plugs dyndbg into drm-debug framework, in a configurable manner.
+> It calls __module_param_call_with_data(), which accepts new data param
+> and inits .data with it. Re-define __module_param_call() to use it.
 > 
-> v6: cleans up per v5 feedback, and adds RFC stuff:
+> Use of this new data member will be rare, it might be worth redoing
+> this as a separate/sub-type to de-bloat the base case.
 > 
-> - test_dynamic_debug.ko: uses tracer facility added in v5:8/9
-> - prototype print-once & rate-limiting
+> Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+> ---
+> v6:
+> . const void* data - <emil.l.velikov@gmail.com>
+> . better macro names s/_cbd/_cb_data/, s/_wdata/_with_data/
+> . more const, no cast - Willy
+> ---
+>  include/linux/moduleparam.h | 11 +++++++++--
+>  1 file changed, 9 insertions(+), 2 deletions(-)
 > 
-> Hopefully adding RFC stuff doesnt distract too much.
+> diff --git a/include/linux/moduleparam.h b/include/linux/moduleparam.h
+> index eed280fae433..b8871e514de5 100644
+> --- a/include/linux/moduleparam.h
+> +++ b/include/linux/moduleparam.h
+> @@ -78,6 +78,7 @@ struct kernel_param {
+>  		const struct kparam_string *str;
+>  		const struct kparam_array *arr;
+>  	};
+> +	const void *data;
+>  };
+>  
 
 
-Hi Jim,
+I wonder if kp->arg can just be used for all this and avoid this patch entirely?
 
-Yeah, I feel like the RFC patches should be in a separate series
-unless there is a drm dependency for them?
+define something like:
+
+struct dd_bitmap_param {
+	int bitmap;
+	struct dyndbg_bitdesc *bitmap_arr;
+};
+
+and then just pass a pointer to it as 'arg' for module_param_cb? And then in
+the get/set callbacks you can use kp->bitmap and kp->bitmap_arr.
 
 Thanks,
 
 -Jason
 
-
-> 
-> Jim Cromie (11):
->   moduleparam: add data member to struct kernel_param
->   dyndbg: add DEFINE_DYNAMIC_DEBUG_CATEGORIES and callbacks
->   i915/gvt: remove spaces in pr_debug "gvt: core:" etc prefixes
->   i915/gvt: use DEFINE_DYNAMIC_DEBUG_CATEGORIES to create "gvt:core:"
->     etc categories
->   amdgpu: use DEFINE_DYNAMIC_DEBUG_CATEGORIES to control categorized
->     pr_debugs
->   drm_print: add choice to use dynamic debug in drm-debug
->   drm_print: instrument drm_debug_enabled
->   amdgpu_ucode: reduce number of pr_debug calls
->   nouveau: fold multiple DRM_DEBUG_DRIVERs together
->   dyndbg: RFC add debug-trace callback, selftest with it. RFC
->   dyndbg: RFC add print-once and print-ratelimited features. RFC.
-> 
->  drivers/gpu/drm/Kconfig                       |  13 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c     | 293 ++++++++-------
->  .../gpu/drm/amd/display/dc/core/dc_debug.c    |  44 ++-
->  drivers/gpu/drm/drm_print.c                   |  49 ++-
->  drivers/gpu/drm/i915/gvt/Makefile             |   4 +
->  drivers/gpu/drm/i915/gvt/debug.h              |  18 +-
->  drivers/gpu/drm/i915/i915_params.c            |  35 ++
->  drivers/gpu/drm/nouveau/nouveau_drm.c         |  36 +-
->  include/drm/drm_print.h                       | 148 ++++++--
->  include/linux/dynamic_debug.h                 |  81 ++++-
->  include/linux/moduleparam.h                   |  11 +-
->  lib/Kconfig.debug                             |  11 +
->  lib/Makefile                                  |   1 +
->  lib/dynamic_debug.c                           | 336 ++++++++++++++++--
->  lib/test_dynamic_debug.c                      | 279 +++++++++++++++
->  15 files changed, 1117 insertions(+), 242 deletions(-)
->  create mode 100644 lib/test_dynamic_debug.c
+>  extern const struct kernel_param __start___param[], __stop___param[];
+> @@ -175,6 +176,9 @@ struct kparam_array
+>  #define module_param_cb(name, ops, arg, perm)				      \
+>  	__module_param_call(MODULE_PARAM_PREFIX, name, ops, arg, perm, -1, 0)
+>  
+> +#define module_param_cb_data(name, ops, arg, perm, data)			\
+> +	__module_param_call_with_data(MODULE_PARAM_PREFIX, name, ops, arg, perm, -1, 0, data)
+> +
+>  #define module_param_cb_unsafe(name, ops, arg, perm)			      \
+>  	__module_param_call(MODULE_PARAM_PREFIX, name, ops, arg, perm, -1,    \
+>  			    KERNEL_PARAM_FL_UNSAFE)
+> @@ -284,14 +288,17 @@ struct kparam_array
+>  
+>  /* This is the fundamental function for registering boot/module
+>     parameters. */
+> -#define __module_param_call(prefix, name, ops, arg, perm, level, flags)	\
+> +#define __module_param_call(prefix, name, ops, arg, perm, level, flags) \
+> +	__module_param_call_with_data(prefix, name, ops, arg, perm, level, flags, NULL)
+> +
+> +#define __module_param_call_with_data(prefix, name, ops, arg, perm, level, flags, data) \
+>  	/* Default value instead of permissions? */			\
+>  	static const char __param_str_##name[] = prefix #name;		\
+>  	static struct kernel_param __moduleparam_const __param_##name	\
+>  	__used __section("__param")					\
+>  	__aligned(__alignof__(struct kernel_param))			\
+>  	= { __param_str_##name, THIS_MODULE, ops,			\
+> -	    VERIFY_OCTAL_PERMISSIONS(perm), level, flags, { arg } }
+> +	    VERIFY_OCTAL_PERMISSIONS(perm), level, flags, { arg }, data }
+>  
+>  /* Obsolete - use module_param_cb() */
+>  #define module_param_call(name, _set, _get, arg, perm)			\
 > 
