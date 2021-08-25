@@ -2,78 +2,110 @@ Return-Path: <SRS0=FOdb=NQ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 15460C4338F
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 06:43:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7D3FCC4338F
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 07:44:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B88C0610A3
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 06:43:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B88C0610A3
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 3F91C61373
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 07:44:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3F91C61373
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91BE06E159;
-	Wed, 25 Aug 2021 06:43:38 +0000 (UTC)
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [IPv6:2a00:1450:4864:20::434])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EAF396E155;
- Wed, 25 Aug 2021 06:43:36 +0000 (UTC)
-Received: by mail-wr1-x434.google.com with SMTP id z4so19086433wrr.6;
- Tue, 24 Aug 2021 23:43:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:references:from:message-id:date:user-agent:mime-version
- :in-reply-to:content-transfer-encoding:content-language;
- bh=fzACWBmlHWt2s2ApnNdT2Sp99bgbRcT2MvngoYnJ8S4=;
- b=jRTu7hBsRbVMVnQGe/qCiutZPsSk4FpkA811nuHR1EvdQREcvgU/PPailleFVSDWsj
- iePDOtLjfdqnUmN2xvbfQ/MtwEg2IjlZxpQDxOaxHqo02tz3n8oWr8Ug8RKnTJ2Q7MSH
- D3k1IFaYKYTT9XbIKZ4Hbu0QSHQVuA1oIExEZF8fAwm9aUtv1vRz948b2hjKepSPOGSr
- VAhgO/4DBXMn91BR6YYF1iC0kS8Ya/IcnPzmr0PVmaFB5oyXSL/iXzEc1evw5u8pcKuR
- WWvlaJKfPFn1em5Z+KqV+TJaG9dvm8R2isMQ8eGJX9loeudsFmAIw/+Czrdhlh+Z7tfh
- cCDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=fzACWBmlHWt2s2ApnNdT2Sp99bgbRcT2MvngoYnJ8S4=;
- b=Fvwd1akLyBtSZoAUTww2ME8rIuwE0Q12eHEjm2mcVtW0sS/Zd0CY2x+BALAb4v+4P7
- qVt8zVq1DMrAfEyX1A7jDHroeFYTKHWl9fTvqfzgSrAxuv+aK72wxQ4MlXfIEEO3rl48
- IF3dVEbzaNy2DtgHAv2DpG0tRMi5s6Hs6UHBLlb8/Y3kUQDRUS7d1lXpBKsqYYSkxOBh
- R5/wOC5SYOzsxA/yNMJa3R8EvulECG6Kal8iEpaQi8lMMv/KHWrAHJQjxzPR/yO83xBS
- q6e5/WKWQzkLm8GtZ2ImoHZc4bo7CCL4aiYPzeTqTx5nSseZQW5cxN01Lsz7iMGY4M6q
- b49w==
-X-Gm-Message-State: AOAM531w3BX5S5pkedvO03DdYDAOdn5T57Zo5co99nEj+zrvenHrmaBq
- 4CWdRBKo5lM2FIam2v2yTr/zfENmQ5Qo9HxJ
-X-Google-Smtp-Source: ABdhPJxksAFBjvM/JimH9+ossKd5aJcyos7ZtQhvtBrueTzo3bJeS7PREbAV+tyEr1+7cS/A5bmG9g==
-X-Received: by 2002:adf:ea09:: with SMTP id q9mr23299934wrm.64.1629873815446; 
- Tue, 24 Aug 2021 23:43:35 -0700 (PDT)
-Received: from [192.168.178.21] (p5b0ea1b5.dip0.t-ipconnect.de.
- [91.14.161.181])
- by smtp.gmail.com with ESMTPSA id y6sm10514106wrm.54.2021.08.24.23.43.34
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 Aug 2021 23:43:35 -0700 (PDT)
-Subject: Re: [PATCH 3/4] drm/amdgpu: drm/amdgpu: Handle IOMMU enabled case
-To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-References: <20210824210120.49812-1-andrey.grodzovsky@amd.com>
- <20210824210120.49812-4-andrey.grodzovsky@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <d4e6682e-2d2f-f271-6041-6bcb145c1fc9@gmail.com>
-Date: Wed, 25 Aug 2021 08:43:33 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76F9A6E160;
+	Wed, 25 Aug 2021 07:44:32 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2044.outbound.protection.outlook.com [40.107.237.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E233A6E160
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Aug 2021 07:44:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=lblXjhPpUov5P38JTiE0q4lsT2CUBP5+YAn5OHkKhON7YzoGncuUzO/pdmk5atKHaaDy1NDGVdX7KP0/v3LK+vtYsGHNaqWyCQbQVlRmh5/upu6f2KRLflJgZ+FUB/PCm8gtV0ONH+wM//8eLzec7n5gR3EQdViPzF7wtSp5hloKBhAOLv7ZieNGEFiVbGxvIa94O7aeNq9FS4oCl1wngpW5wXt7LJzpprg5idn0o5fa7EZDeFu5UI5mP+3gCq2DD9rmuD3Yac6kc9WD4wtVU0Npf3NG3p2eeXSJp3apug33h6kerAKW6ESlOkNy5ibhUbWaSXwVsiiiIWXi2RpwcQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LcLUNXsyEWAC0npSAFbOOdaw7YVvCkp6acQeeSFbgNE=;
+ b=TYm7NBXhuMNf8qsJjU9gUAP0y8rYkMhRnPVdBNPdgLcOPbAZeXKiN56/3zI0Q+uH2LKRWy5Fwcc+FTt9Mn+FS+xmk661JOje3u3dH5/CkWZd6NVlyrBqd0aSThpQ6Vq9rTBo+GiI1QnlOSNHyHUpWTFUFU8M3m0iQTt0H8hjwdEFINCgrauBAqztdeBOgAnUb0dr57bFc4hTQz0Me01knEZ5fpmgh8Qjv1/Q+fx7/+mTmCErdAA/Zv20PSdZHcDpZIUzilBwr3nRCVOzX3XN8qbiPv3+iClivTx7voVEQetBbwXAmEAERe8oeQ2MkjxmHLT5sfoSrczMS33CbdLq4g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LcLUNXsyEWAC0npSAFbOOdaw7YVvCkp6acQeeSFbgNE=;
+ b=uDHowEcS60Hz8UTmTpRhm9mhkhX/kJ4RsWGWpyz4LMJI28sfUL7ClBXAU8BNnTQVultD8i138ZQqaZAnStDL112O0BpM3oFUtdIsFULFqFN0dcTti58/Xxj76euoc/k4KrOmObnbQGnvN7iWQ1fOIlGi8VhXoXrr2a+3IZYPEOQ=
+Received: from BN9PR03CA0067.namprd03.prod.outlook.com (2603:10b6:408:fc::12)
+ by BN8PR12MB3617.namprd12.prod.outlook.com (2603:10b6:408:47::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.24; Wed, 25 Aug
+ 2021 07:44:30 +0000
+Received: from BN8NAM11FT062.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:fc:cafe::f8) by BN9PR03CA0067.outlook.office365.com
+ (2603:10b6:408:fc::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.19 via Frontend
+ Transport; Wed, 25 Aug 2021 07:44:30 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT062.mail.protection.outlook.com (10.13.177.34) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4457.17 via Frontend Transport; Wed, 25 Aug 2021 07:44:29 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Wed, 25 Aug
+ 2021 02:44:28 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Wed, 25 Aug
+ 2021 02:44:28 -0500
+Received: from yifan.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2242.12 via Frontend
+ Transport; Wed, 25 Aug 2021 02:44:27 -0500
+From: Yifan Zhang <yifan1.zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <christian.koenig@amd.com>, Yifan Zhang <yifan1.zhang@amd.com>
+Subject: [PATCH] drm/amdgpu: remove preferred domain judgement in pt/pd
+ creation
+Date: Wed, 25 Aug 2021 15:44:24 +0800
+Message-ID: <20210825074424.170859-1-yifan1.zhang@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <20210824210120.49812-4-andrey.grodzovsky@amd.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: da6749d8-4f37-4a93-6ccd-08d9679c2bc8
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3617:
+X-Microsoft-Antispam-PRVS: <BN8PR12MB361775F3F2874C7389C870FCC1C69@BN8PR12MB3617.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1186;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: HFjlm3BbtrtCTXVcg6B2rAbtJ2n8JGpUQGygoEMKXti9M0GrRRTb7whSNFMZeoAzcrICpjdbu8Hlvw2gMZBXbHJduxjYiGgxpa9BPwfSA8BIzIv1+Q70HOPPfP98iRxjQatl1CWCDUEzhNV3e7e6SEKlnMKnVUe83Yms06uVivMr8xr1n2OzLFM5rB+or9C5jz8Tfn9kDgQ47xouEkrStyEo0RcIm8Gf0idYR1+11Lz4S4y5F/HFMFmQqVaBHoxEzdtj5v135gj9Rc+lRHnezGd20kdux7uCBaaYTwoouzcRqp/r6A32tz26+yX+7andASJpIyzoM0ECrs1jvzOqgK4Jv/+ciUWnv9QoB734w9D7+VsHeMeVSfoLPmIsUSODr4HBGa6hGt2AuXd+iwRbCqIgz/DGTEan7VXUQnUJxLIU4rn3qgJdntHiz2CfXcvhK79JqE6mjw/RWHbqH30LtnAU7xQeBok8RnzudRtTLT6BVEiy49Ru7pQUFTCM3iQMwHajKMJVbwELzDp6luE436y8aLigfTaWCVYRshhZw1uDRfqKjIfP6GtpVFambvypWiB+MJaqlvklpSAfbPW06cXW0mVsZgM9Z0Xw8mNzlpCFQ4eFx+ImcyNuXky2Yqg06GGeaExQXukblpLIx+6UVp15OoQiqs/KxvHcGABNLYu64ClNwlvepdNNEOqURBp8gQ9WPVaR7pe0C9txGhjKauM144ki59opLGGnd3tc7rY=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(346002)(136003)(376002)(39860400002)(396003)(46966006)(36840700001)(70586007)(4744005)(36860700001)(86362001)(478600001)(70206006)(83380400001)(2616005)(6916009)(7696005)(2906002)(81166007)(8676002)(82740400003)(426003)(82310400003)(356005)(336012)(4326008)(47076005)(54906003)(8936002)(186003)(5660300002)(316002)(6666004)(26005)(1076003)(36756003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2021 07:44:29.6320 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: da6749d8-4f37-4a93-6ccd-08d9679c2bc8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT062.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3617
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,121 +120,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+amdgpu_bo_get_preferred_pin_domain was added to handle system memory
+page tables. Since system memory pt/pd is disabled now, remove preferred
+domain judgement to avoid confusion.
 
+Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-Am 24.08.21 um 23:01 schrieb Andrey Grodzovsky:
-> Handle all DMA IOMMU group related dependencies before the
-> group is removed and we try to access it after free.
->
-> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  2 +
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    | 50 ++++++++++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h    |  1 +
->   3 files changed, 53 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 0b5764aa98a4..288a465b8101 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -3860,6 +3860,8 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
->   
->   	amdgpu_device_ip_fini_early(adev);
->   
-> +	amdgpu_ttm_clear_dma_mappings(adev);
-> +
->   	amdgpu_gart_dummy_page_fini(adev);
->   
->   	amdgpu_device_unmap_mmio(adev);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> index 446943e32e3e..f73d807db3b0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -64,6 +64,7 @@
->   static int amdgpu_ttm_backend_bind(struct ttm_device *bdev,
->   				   struct ttm_tt *ttm,
->   				   struct ttm_resource *bo_mem);
-> +
->   static void amdgpu_ttm_backend_unbind(struct ttm_device *bdev,
->   				      struct ttm_tt *ttm);
->   
-> @@ -2293,6 +2294,55 @@ static ssize_t amdgpu_iomem_write(struct file *f, const char __user *buf,
->   	return result;
->   }
->   
-> +void amdgpu_ttm_clear_dma_mappings(struct amdgpu_device *adev)
-
-I strongly think that this function should be part of TTM. Something 
-like ttm_device_force_unpopulate.
-
-> +{
-> +	struct ttm_device *bdev = &adev->mman.bdev;
-> +	struct ttm_resource_manager *man;
-> +	struct ttm_buffer_object *bo;
-> +	unsigned int i, j;
-> +
-> +	spin_lock(&bdev->lru_lock);
-> +	for (i = TTM_PL_SYSTEM; i < TTM_NUM_MEM_TYPES; ++i) {
-> +		man = ttm_manager_type(bdev, i);
-> +		if (!man || !man->use_tt)
-> +			continue;
-> +
-> +		while (!list_empty(&man->pinned)) {
-> +			bo = list_first_entry(&man->pinned, struct ttm_buffer_object, lru);
-> +			/* Take ref against racing releases once lru_lock is unlocked */
-> +			ttm_bo_get(bo);
-> +			list_del_init(&bo->lru);
-> +			spin_unlock(&bdev->lru_lock);
-> +
-> +			if (bo->ttm) {
-> +				amdgpu_ttm_backend_unbind(bo->bdev, bo->ttm);
-> +				ttm_tt_destroy_common(bo->bdev, bo->ttm);
-
-Then you can also cleanly use ttm_tt_unpopulate here, cause this will 
-result in incorrect statistics inside TTM atm.
-
-Regards,
-Christian.
-
-> +			}
-> +
-> +			ttm_bo_put(bo);
-> +			spin_lock(&bdev->lru_lock);
-> +		}
-> +
-> +		for (j = 0; j < TTM_MAX_BO_PRIORITY; ++j) {
-> +			while (!list_empty(&man->lru[j])) {
-> +				bo = list_first_entry(&man->lru[j], struct ttm_buffer_object, lru);
-> +				ttm_bo_get(bo);
-> +				list_del_init(&bo->lru);
-> +				spin_unlock(&bdev->lru_lock);
-> +
-> +				if (bo->ttm) {
-> +					amdgpu_ttm_backend_unbind(bo->bdev, bo->ttm);
-> +					ttm_tt_destroy_common(bo->bdev, bo->ttm);
-> +				}
-> +				ttm_bo_put(bo);
-> +				spin_lock(&bdev->lru_lock);
-> +			}
-> +		}
-> +	}
-> +	spin_unlock(&bdev->lru_lock);
-> +
-> +}
-> +
->   static const struct file_operations amdgpu_ttm_iomem_fops = {
->   	.owner = THIS_MODULE,
->   	.read = amdgpu_iomem_read,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> index e69f3e8e06e5..02c8eac48a64 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> @@ -190,6 +190,7 @@ bool amdgpu_ttm_tt_is_readonly(struct ttm_tt *ttm);
->   uint64_t amdgpu_ttm_tt_pde_flags(struct ttm_tt *ttm, struct ttm_resource *mem);
->   uint64_t amdgpu_ttm_tt_pte_flags(struct amdgpu_device *adev, struct ttm_tt *ttm,
->   				 struct ttm_resource *mem);
-> +void amdgpu_ttm_clear_dma_mappings(struct amdgpu_device *adev);
->   
->   void amdgpu_ttm_debugfs_init(struct amdgpu_device *adev);
->   
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 0b893aa21ffe..764822edba18 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -926,7 +926,6 @@ static int amdgpu_vm_pt_create(struct amdgpu_device *adev,
+ 	bp.size = amdgpu_vm_bo_size(adev, level);
+ 	bp.byte_align = AMDGPU_GPU_PAGE_SIZE;
+ 	bp.domain = AMDGPU_GEM_DOMAIN_VRAM;
+-	bp.domain = amdgpu_bo_get_preferred_pin_domain(adev, bp.domain);
+ 	bp.flags = AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS |
+ 		AMDGPU_GEM_CREATE_CPU_GTT_USWC;
+ 
+-- 
+2.25.1
 
