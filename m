@@ -2,107 +2,128 @@ Return-Path: <SRS0=FOdb=NQ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AD25AC432BE
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 20:50:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D9F42C432BE
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 21:01:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7083A60F92
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 20:50:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7083A60F92
+	by mail.kernel.org (Postfix) with ESMTPS id 9251B60FD9
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 21:01:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9251B60FD9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA8156E420;
-	Wed, 25 Aug 2021 20:50:43 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2043.outbound.protection.outlook.com [40.107.93.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E4506E420
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Aug 2021 20:50:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2062B89A35;
+	Wed, 25 Aug 2021 21:01:27 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2078.outbound.protection.outlook.com [40.107.244.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 21C7A89933
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Aug 2021 21:01:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HZqXirMF4P3poAr2KWDnBKDBXXuFZsp2d+JFqFfsq47u3bpeZNOOu71Taxj6vXi5hAd1HOCbZdHW4s0zqrZv3coQejLGYexiuorKFJcctPu1WSdLsv7WOkKsESiFfQaXSWfAdcpZBkWIebRJ+dGsz/cyhQJLYQFzXco2x7jCgY4bHLA0LqZgpm5ASRyLJibZWuwAyrOnLY19LM+soYaY7+QVhjwcRjauyEBMHlaPwE7Yskd9lO1k7d7xj+zPLvI1NbYhPpcu5lTgiaKJNNgjRpIpQ5OWPQ7Fx4x3Xm32ptYmDQOvwgiv/fJnZQiy8ThSEOIxcccUY5MbOOmAKfD7ZA==
+ b=OwShK+VfZtNzkMVDRrytD2P6WHx7uqnuP2GxgQ+oAbU3S0dEwjKM8GLzRpFIgkhsPWWrzvXS08EeWaMDEKabu29CvqmwBlI5KgqRYk+h2tCHd5QL6XJS409KRX3Ueeojl2rTCDokP0e4jkIRVt4OBG4fvfVC2PbwsueYb4kksZmFU/5ydHfDkJyWZk6f/eLH4VcM0lTHJvO/VBzwZNomuUf9GACWn9O6vxSZXxm28UANCJCXZbaZpdakXTH/w0U4lNKR/CjnJtUb3rEJhXKjsxJ8UoGy69XJOMnosbq5axzUZbbd/03GkmgS7MeC4O9qzn+9g7+GOMTZQOWZZEtuvg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pSA3xb9akJIe/f59X3rwXH9iGtLItKuO2W0F9jXHYYM=;
- b=TxrBI8YqfqYawC9h1yqGM3W1gbItqDlMcIf7UOhO60WBxgn27HlsLKtYMVhXqV1sIhaSWzRyjbufxO7oH5TXT0RMtn9k+4G93HpXFKEepB9okKfYj7P3YXmqn3Krf9rSBWuJhpWI0LJ6wXSpkw6nNFNkk8EaK2okRPVXJPFQ6rLJLhGfMjcffbreM0EOJj8AMTRRcg7SeVeghxwfizW6xPJjMdVnUpSulwh66WH2XvrjTPVxlA5ojzoi35q1cZTb8iSYalVd/Bv43LmPfCPAJf4a+PjXHcg9wnCeAJJ+Qy0NB81609YtPUbeMW7fsKu/5rJ6eQYm2fkyfI9dzPE7JQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=RyHmWcXl6s2Ad8FkWjqHShAavuzaJp9B0L7KobX5gjI=;
+ b=nGoWz96amqfXbUSkvnivV9v+vCKfVOlVOjgN6b96Ix9Tk0l0EixpPFg2rZyGan+vQrlKm93TxXU2/Yg2BpLxoFEI+MlGaKqT+Klvvfe5nXIfiVxWmk5r9x+x24nV+OydwGxEX6rlJ6+xrYFW1BrkkNMzw8BdwwZcX1oRHow83a+tFDhUY7tDGTlCpg91WheFynJgPBDZvWBuZvk3guEU3XlSThuBdU5MPyPOEkqHd7lxfwCzm3877YH0qm8JCwEUL2Quc8bS2zJp8oqX4pdBQIIgVycfYgclEpe5psFjMkWwYIU1yKLUmlDkCTHTSDRB1R9GSosTT0QB+erFHWidVg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pSA3xb9akJIe/f59X3rwXH9iGtLItKuO2W0F9jXHYYM=;
- b=1xqxJ0DKqT0i57GA/B/nZcT5L8lMTnFdRCPBo/iFYghx9Lv7D51Z/Kp+PyAXr7+JLg9g48iiS91vQW87KG3fBcakb768YLdnrY2HNzaxKfRx6+DrvUQ3dwsVZCjL495L27/KPUs3QMgfGQjuuGI4/w9wGCBQwfj+4+Bpa8vlkZE=
-Received: from BN6PR1201CA0012.namprd12.prod.outlook.com
- (2603:10b6:405:4c::22) by DM6PR12MB2778.namprd12.prod.outlook.com
- (2603:10b6:5:50::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.17; Wed, 25 Aug
- 2021 18:18:33 +0000
-Received: from BN8NAM11FT043.eop-nam11.prod.protection.outlook.com
- (2603:10b6:405:4c:cafe::23) by BN6PR1201CA0012.outlook.office365.com
- (2603:10b6:405:4c::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.19 via Frontend
- Transport; Wed, 25 Aug 2021 18:18:33 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT043.mail.protection.outlook.com (10.13.177.218) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4457.17 via Frontend Transport; Wed, 25 Aug 2021 18:18:32 +0000
-Received: from localhost.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Wed, 25 Aug
- 2021 13:18:31 -0500
-From: Luben Tuikov <luben.tuikov@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Luben Tuikov <luben.tuikov@amd.com>, John Clements
- <john.clements@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>, Alex Deucher
- <Alexander.Deucher@amd.com>
-Subject: [PATCH 1/2] drm/amdgpu: Fixes to returning VBIOS RAS EEPROM address
-Date: Wed, 25 Aug 2021 14:18:11 -0400
-Message-ID: <20210825181812.4359-1-luben.tuikov@amd.com>
-X-Mailer: git-send-email 2.32.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 91482fe0-eca7-4f90-2241-08d967f4bf25
-X-MS-TrafficTypeDiagnostic: DM6PR12MB2778:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB27785C1E216FDD12820899A899C69@DM6PR12MB2778.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3826;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: /VSKHk1DZf/uswXnbUbzDqGTr1i6O8P56hRDCJli3cm3BcYtI8wDvDLCLMsIaJnoEd4qLg+vW+CZdb/ty1qf6CZTiToMHTulmLZQcnT2ZyFNTro7z8WcEyLZvpk3bq/f9HqDhmUX8mmq/h9SmeffkmKAFW9Oc+/kJIH8LUAxMO8b8lGUUB2tObOwEcHxm7YS1YS5DwpOzCqQ2YRE82FGhyCpkjGSBo452WCpQPp4ZXl0STYQCkC/EFlyp2sA2W8ITH4kL3KJQM4F6Xjrr9HAm3qxzH9Gz34owU9gj7TH9hWagyW0vXLXHpWi0h/XqID3DU7TK6kyqcZyzKpT2ygFg28jVEXk2ZPRZKo6K6niJuONNuBIoXa67JBfguVj7em9RZWMyXj0FXpBZ/K4kwuRewORnOydD90vXiuxlHy3Lkyb/5kbnfFhmqzG9nKnQTvjMlSb9Ko6QJ00n72dJBJly+d5naJrGxOcf0kOySAFiZ5fyg6GXYU0i8UO4f4/GzZ6+rR05vORrlesoHS2kXCsSyKH0wqgDh+MUFRPAMHWxR1zis568qzg96FOieaZOXJbxPcSxLOWMwU9W74hGwcewDvCuY3wwybC9lXw+WlmO4FsjQWEbn9VqAEbVyPViPSegafXOb/SSX78PmyBVdp4VjDnwVc9ebg1MuwF0k15x8zdpaK0IquTBErMSlCLnIz7pHO/ZGR6+Ry0O+HkVaK4nbh1t2SWUhlsNpNq+H28MnE=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(376002)(346002)(136003)(396003)(39860400002)(36840700001)(46966006)(47076005)(7696005)(44832011)(2906002)(36756003)(6666004)(86362001)(186003)(4326008)(8676002)(82310400003)(26005)(83380400001)(336012)(70206006)(36860700001)(426003)(5660300002)(2616005)(8936002)(16526019)(478600001)(316002)(6916009)(1076003)(70586007)(81166007)(356005)(54906003)(82740400003)(36900700001);
+ bh=RyHmWcXl6s2Ad8FkWjqHShAavuzaJp9B0L7KobX5gjI=;
+ b=2/h9GbLbO8LZaDHtfOX2zdhwSEM+ZTLTpjIewnrjan/IC9pBobAMP+CnFUvMUYvzajxH6FPNFCRoHGxaTi1jwhfUiglZOK284oOWO8by4OhS/16R2HntZV+XCmV2rvLay9a7f0pDuvZeULf04MBP0aT5jqMqzLO17MOSLhrE4sw=
+Received: from BN6PR1201MB0148.namprd12.prod.outlook.com
+ (2603:10b6:405:55::21) by BN6PR1201MB0210.namprd12.prod.outlook.com
+ (2603:10b6:405:59::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.18; Wed, 25 Aug
+ 2021 21:01:23 +0000
+Received: from BN6PR1201MB0148.namprd12.prod.outlook.com
+ ([fe80::d4f2:79a1:acd6:8a6b]) by BN6PR1201MB0148.namprd12.prod.outlook.com
+ ([fe80::d4f2:79a1:acd6:8a6b%5]) with mapi id 15.20.4436.024; Wed, 25 Aug 2021
+ 21:01:23 +0000
+From: "Zuo, Jerry" <Jerry.Zuo@amd.com>
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu/display: fix logic regression in dce110
+ apply_single_controller_ctx_to_hw
+Thread-Topic: [PATCH] drm/amdgpu/display: fix logic regression in dce110
+ apply_single_controller_ctx_to_hw
+Thread-Index: AQHXmdOhk9Bnb1OrfEG4FH42Xr3X5quEtMTA
+Date: Wed, 25 Aug 2021 21:01:23 +0000
+Message-ID: <BN6PR1201MB0148F72ADC17E5972F22F65BE5C69@BN6PR1201MB0148.namprd12.prod.outlook.com>
+References: <20210825170648.2567071-1-alexander.deucher@amd.com>
+In-Reply-To: <20210825170648.2567071-1-alexander.deucher@amd.com>
+Accept-Language: en-CA, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=de077b33-59a2-457c-91a9-c8245e307ad1;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
+ Official Use Only-AIP 2.0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-08-25T21:00:18Z;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: c5f3746b-9df3-4f83-ed47-08d9680b7f09
+x-ms-traffictypediagnostic: BN6PR1201MB0210:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <BN6PR1201MB0210C20F5E1D54CB95C1B830E5C69@BN6PR1201MB0210.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:2887;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: +C/h7DwzvIEUXbqYHYRtK7tBYhp25KEmZsdez4UzBAA8wByYiR1SdgpgQ/s6BG0HZz8VJc7Zmuyi8xlAjqTleUIjHVNSgPxkE7u8KzW7Uufr872g3Ivnay5VJIlZ1cLnTX0wBEFxzi9Y1/WFlxLd844SS6GWl6ycbENRWmlZeQCnSejfAghE1fPr4xIg5LwDjS+46SoPc+3MisBwAheV47Q+iBdgC+bG//pUQ2m30KjJ+Xr7zIabzvwqEDsCPnH15K+qije2/VpFmkqeWxTknXlYfvV2Y8TgFSF4sFDtApbYkPRyu8n8uTdrAbuZjjJZC2NJofvsMVwp3UNJbKodODwue/EB05EPTRcShxqst+SiRHMCZSGp0eKOw/cVddNHvEqShinIgGbvjccS+BvuZzp29EmhtJp+E6aAhPHCXJwEYpcgzP5kiB5klP8p5UE0DL1zkPLSE7v0zazmvHxvnu71mzN2Kmv5XqSBzZqokQpyhZu7EVpCWUxaf1RoMzdZXq+Sxq77qKfJaqgzD+Qw9ggYdo8GKcVZEtafz4mSVe/GXWBajJK/dbOs6738zn7ybSLP/+PfuSfnF4K1b+1jD49XimDNN1JIUDXStknSo63TUTqVNDCak4xhY3MotwoQAQ7QUK4Xxtoq2Jy2vAOihzJn7emMyZNTkuqLoOURpWsS3OrlSFAhLZFsXXjOUcSe2Vs/GBDRSmHwdqmu2fgt+w==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN6PR1201MB0148.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(396003)(136003)(376002)(346002)(39860400002)(76116006)(52536014)(66476007)(66556008)(86362001)(66946007)(66446008)(64756008)(110136005)(478600001)(316002)(8936002)(8676002)(122000001)(38100700002)(71200400001)(186003)(38070700005)(5660300002)(83380400001)(2906002)(26005)(6506007)(33656002)(53546011)(7696005)(55016002)(9686003);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?x4E36e5D2VXTMbdSoiGpbj0YLk1HxlDixUAn9+wYH+v05ZAOHiM1Qw07GenY?=
+ =?us-ascii?Q?V633Mvb9pZvBo3tZXPkevpcZfHoS3ytYovlpvFCwjoWUWBb3vogV2zWw8F3b?=
+ =?us-ascii?Q?yLzFiBM1dfJEN1G+CrXm5IwqiAe5WBDWQx4or71PBmpMoDicqc2ciSWQfAdR?=
+ =?us-ascii?Q?afZhG2j7yaJJi2ZcxBqqCbG0GirXC435fr/GdgHjoihRwpW64ecQ/6KFnDYB?=
+ =?us-ascii?Q?mHI4DO6MUd6GabfEnVdyq5Jt84KLZ72KijTzJpCmiL1iAtKZK88XHCeqeFvU?=
+ =?us-ascii?Q?4IiU18iChk143laUxu+v0wV6bv+c8xmXT0ceChNhCs4y+tKpui5URmQE7Gkf?=
+ =?us-ascii?Q?YVpoEQUs7nC1ZCdTrSWh0TY8REHNOKga+LPTjY90Mo4zrx+nl8iI3n7//CfK?=
+ =?us-ascii?Q?Sb6vHQ/qP3oVPlSbq0tvAQ9IXSxQjyfVlvbLpBbPADDdIYeoq4xXJRMUs3rY?=
+ =?us-ascii?Q?eEcTFMU58RbBqTN+DsA185ZKy9b4MAs5nKXBHfuNV8rH5rfNBjnXGS/Sqkzx?=
+ =?us-ascii?Q?94878qlLNvu5pK4t5n+38mJcsHWjdYyHppH3v2XDygO1ehBHDpandLXyS9df?=
+ =?us-ascii?Q?zuLzDA8y+touO44+HTnRrs4wiEU07yvIAEqNhCESQlkDzZdDabOZgak+Gaoz?=
+ =?us-ascii?Q?FDsKXgNFB6JfzGAqHRKnwtqlioPr/OpZteLoLE74J2o4Op1YdgUzDWSfdz0m?=
+ =?us-ascii?Q?UzzO07qXyJg9Iljdj3igOwwH2BiRHN8E+eMyo1hZTIa6Z+ZrThY6/FMj7UVd?=
+ =?us-ascii?Q?w8B6jXsv7H0bFll50cuw1XC3xFt+O8IrE8JDP0qD90P6R+5shl2cPR2ZIK87?=
+ =?us-ascii?Q?UR1d1FoS3aLTUCixqwK7NPE4nPLJfLg2QhXpMZpkqryYhpSgJfhl5AnsngB0?=
+ =?us-ascii?Q?xTXSm9MKzOan4Ap5zMphT8ORlmUjMcOZP5lvZDdwrsQHoPmBpnOaeuxCAZQ0?=
+ =?us-ascii?Q?fEB3N6RcMrFeGfYM1n+8scJr00PtLc0wWuAPNfTo8fODLgrI+Jt6RXgOG2s5?=
+ =?us-ascii?Q?qJL7hfZfW0tAk/nI015M6IdGqCHUZmNTSm1RTLgnkruc7Utywz83wnTrFTxh?=
+ =?us-ascii?Q?UnkKq0Rqk7lHmM1lbXQ2p4qf46aJSMdmJIrneNXMPdt5je5ZNEg9DkLmyFwM?=
+ =?us-ascii?Q?hFYCqSoLaQcq5ywcEpyiw6ExkGlGFXUfeO/8s+tE//bP4wldRWHcODhnQbP9?=
+ =?us-ascii?Q?ZkQXeRFHYD8ZTrphtBpc3z+gqmIK0fEzSguDKZausnNtF9NVkdoNYe9NLEqi?=
+ =?us-ascii?Q?jBbQWnd4WFQKmn+Gc6NMNQ2wYF3x1IfDjONPkLhlrL2NK1aXAO41jVNB0FCd?=
+ =?us-ascii?Q?wLGtnTn0dCizqv9mUqkOlzxv?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2021 18:18:32.5759 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 91482fe0-eca7-4f90-2241-08d967f4bf25
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT043.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2778
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN6PR1201MB0148.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c5f3746b-9df3-4f83-ed47-08d9680b7f09
+X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Aug 2021 21:01:23.3462 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: wfhthXxN8Az6+CrA3z90bG6xQN6bqV0Dd9gQiuuotNY7UuomieNg0fv61cdV0Rva
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR1201MB0210
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,107 +138,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-1) Generalize the function--if the user didn't set
-   i2c_address, still return true/false to indicate
-   whether VBIOS contains the RAS EEPROM address.
-   This function shouldn't evaluate whether the use
-   set the i2c_address pointer or not.
+[AMD Official Use Only]
 
-2) Don't touch the caller's i2c_address, unless
-   you have to--this function shouldn't have side
-   effects.
+Thanks for pointing out the mistake.
 
-3) Correctly set the function comment as a
-   kernel-doc comment.
+Reviewed-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
 
-Cc: John Clements <john.clements@amd.com>
-Cc: Hawking Zhang <Hawking.Zhang@amd.com>
-Cc: Alex Deucher <Alexander.Deucher@amd.com>
-Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
+-----Original Message-----
+From: Deucher, Alexander <Alexander.Deucher@amd.com>
+Sent: August 25, 2021 1:07 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zuo, Jerry <Jerry.Zuo@a=
+md.com>
+Subject: [PATCH] drm/amdgpu/display: fix logic regression in dce110 apply_s=
+ingle_controller_ctx_to_hw
+
+Commit 5de27e1d6755 ("drm/amd/display: Add DP 2.0 SST DC Support") added a =
+new check for DP 2.0 with a CONFIG_DRM_AMD_DC_DCN check that removed a bunc=
+h of logic if CONFIG_DRM_AMD_DC_DCN was not set, restore that logic.
+
+Fixes: 5de27e1d6755 ("drm/amd/display: Add DP 2.0 SST DC Support")
+Cc: Fangzhi Zuo <Jerry.Zuo@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- .../gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c  | 50 ++++++++++++-------
- 1 file changed, 33 insertions(+), 17 deletions(-)
+ .../gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c    | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-index 8f53837d4d3ee8..97178b307ed6f9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-@@ -468,14 +468,18 @@ bool amdgpu_atomfirmware_dynamic_boot_config_supported(struct amdgpu_device *ade
- 	return (fw_cap & ATOM_FIRMWARE_CAP_DYNAMIC_BOOT_CFG_ENABLE) ? true : false;
- }
- 
--/*
-- * Helper function to query RAS EEPROM address
-- *
-- * @adev: amdgpu_device pointer
-+/**
-+ * amdgpu_atomfirmware_ras_rom_addr -- Get the RAS EEPROM addr from VBIOS
-+ * adev: amdgpu_device pointer
-+ * i2c_address: pointer to u8; if not NULL, will contain
-+ *    the RAS EEPROM address if the function returns true
-  *
-- * Return true if vbios supports ras rom address reporting
-+ * Return true if VBIOS supports RAS EEPROM address reporting,
-+ * else return false. If true and @i2c_address is not NULL,
-+ * will contain the RAS ROM address.
-  */
--bool amdgpu_atomfirmware_ras_rom_addr(struct amdgpu_device *adev, uint8_t* i2c_address)
-+bool amdgpu_atomfirmware_ras_rom_addr(struct amdgpu_device *adev,
-+				      u8 *i2c_address)
- {
- 	struct amdgpu_mode_info *mode_info = &adev->mode_info;
- 	int index;
-@@ -483,27 +487,39 @@ bool amdgpu_atomfirmware_ras_rom_addr(struct amdgpu_device *adev, uint8_t* i2c_a
- 	union firmware_info *firmware_info;
- 	u8 frev, crev;
- 
--	if (i2c_address == NULL)
--		return false;
--
--	*i2c_address = 0;
--
- 	index = get_index_into_master_table(atom_master_list_of_data_tables_v2_1,
--			firmwareinfo);
-+					    firmwareinfo);
- 
- 	if (amdgpu_atom_parse_data_header(adev->mode_info.atom_context,
--				index, &size, &frev, &crev, &data_offset)) {
-+					  index, &size, &frev, &crev,
-+					  &data_offset)) {
- 		/* support firmware_info 3.4 + */
- 		if ((frev == 3 && crev >=4) || (frev > 3)) {
- 			firmware_info = (union firmware_info *)
- 				(mode_info->atom_context->bios + data_offset);
--			*i2c_address = firmware_info->v34.ras_rom_i2c_slave_addr;
-+			/* The ras_rom_i2c_slave_addr should ideally
-+			 * be a 19-bit EEPROM address, which would be
-+			 * used as is by the driver; see top of
-+			 * amdgpu_eeprom.c.
-+			 *
-+			 * When this is the case, 0 is of course a
-+			 * valid RAS EEPROM address, in which case,
-+			 * we'll drop the first "if (firm...)" and only
-+			 * leave the check for the pointer.
-+			 *
-+			 * The reason this works right now is because
-+			 * ras_rom_i2c_slave_addr contains the EEPROM
-+			 * device type qualifier 1010b in the top 4
-+			 * bits.
-+			 */
-+			if (firmware_info->v34.ras_rom_i2c_slave_addr) {
-+				if (i2c_address)
-+					*i2c_address = firmware_info->v34.ras_rom_i2c_slave_addr;
-+				return true;
-+			}
- 		}
- 	}
- 
--	if (*i2c_address != 0)
--		return true;
--
- 	return false;
- }
- 
--- 
-2.32.0
+diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c b/=
+drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
+index 33743dc2631c..f660472e71fb 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
+@@ -1545,6 +1545,7 @@ static enum dc_status apply_single_controller_ctx_to_=
+hw(
+         * function core_link_enable_stream
+         */
+        if (!(hws->wa.dp_hpo_and_otg_sequence && is_dp_128b_132b_signal(pip=
+e_ctx)))
++#endif
+                /*  */
+                /* Do not touch stream timing on seamless boot optimization=
+. */
+                if (!pipe_ctx->stream->apply_seamless_boot_optimization)
+@@ -1558,12 +1559,6 @@ static enum dc_status apply_single_controller_ctx_to=
+_hw(
+        if (pipe_ctx->stream_res.tg->funcs->set_drr)
+                pipe_ctx->stream_res.tg->funcs->set_drr(
+                        pipe_ctx->stream_res.tg, &params);
+-#else
+-       /*  */
+-       /* Do not touch stream timing on seamless boot optimization. */
+-       if (!pipe_ctx->stream->apply_seamless_boot_optimization)
+-               hws->funcs.enable_stream_timing(pipe_ctx, context, dc);
+-#endif
+
+        // DRR should set trigger event to monitor surface update event
+        if (stream->adjust.v_total_min !=3D 0 && stream->adjust.v_total_max=
+ !=3D 0)
+--
+2.31.1
 
