@@ -2,136 +2,77 @@ Return-Path: <SRS0=FOdb=NQ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-19.5 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D6F29C432BE
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 14:45:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5AB49C4338F
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 15:01:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A307060E97
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 14:45:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A307060E97
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 26390610E6
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 15:01:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 26390610E6
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C8A66E270;
-	Wed, 25 Aug 2021 14:45:51 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2059.outbound.protection.outlook.com [40.107.243.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9ECB26E25B;
- Wed, 25 Aug 2021 14:45:50 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Re3Xv75hfO7g3TkY776rKaexgqDbEbs25rRGS/A1q2Ms7EL2/vscuibZwUbph8p9KjEjtLW1Q+tBt4Oo6LZcMxdllpVlUkIe7QTkkjD8vtbdxKXEuFM8paUEEBqofkpDbMHceEYkSd8a1vhPT35LZOAhSd3Qar2tIe2QAzNfaq3vXzu1NlwIgg+wKORzqGoOxUkvuruF91erxBhrh5sUFGA60mbqq8E1G4Q9ZfGMskF9rrGUBUL31y/UPReDSZNRI2m8Zh+J6k92vddza4uZbPLSa5N6YiotJQJIa0o4FD9fQTTkU6k4TkRjZfiQV1DFTc+IAU4igSgRc2oiqz3bcQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TOpOLhivv8azLaMxe3rYuuXYfawz8Ua5PUPspDHrROk=;
- b=dfuwhFDMHOG8a5BL0k8uxjrRKmjAvlSYlaP+GbWFjxRbfSaEalx1IVaHwluszsZB43xyAyMYwqCj1gG1BAC7traQqlKF+2RG92SaPTJ9aky3zmGdsuIGkTC3BIPNp/sUv9cAsAPekKE4otIZi+4PJNd424L00zGjBTr7nsLZ9BADZSISkildTKd16F7zklhQuHfZydmIkv+WVD9TgP6aNctYNOSB3pLRGJBh6tP0Sf1ZJjEksXFukmCRmVPK3DjZ3Z+MFULG2oK2f5BBFWbT5jUNd1u8eQaSQ5l8LubB7DgVs6SUnCSlLnlesyhvV2Mt1RhcZhlegDBu0JAnLz+4Xw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TOpOLhivv8azLaMxe3rYuuXYfawz8Ua5PUPspDHrROk=;
- b=QYGmEctgydSiKkrdI8rWCFZPY12mZ38vgeXs8QAujZYqrfzD8zPpwZSBuVNuCN5O5VM+HWc+nMHlYJzzmoOGOYEJCv547Fv4svrYWkKak/0FdlOnHe22JRHNi3phjGViMhnbR1vzSh3AT2aXC0m8JE32WlDQKFSY5N/Cjf6PA1I=
-Authentication-Results: redhat.com; dkim=none (message not signed)
- header.d=none;redhat.com; dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5129.namprd12.prod.outlook.com (2603:10b6:408:136::12)
- by BN9PR12MB5289.namprd12.prod.outlook.com (2603:10b6:408:102::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.19; Wed, 25 Aug
- 2021 14:45:48 +0000
-Received: from BN9PR12MB5129.namprd12.prod.outlook.com
- ([fe80::b891:a906:28f0:fdb]) by BN9PR12MB5129.namprd12.prod.outlook.com
- ([fe80::b891:a906:28f0:fdb%3]) with mapi id 15.20.4436.024; Wed, 25 Aug 2021
- 14:45:47 +0000
-Subject: Re: [PATCH v1 06/14] drm/amdkfd: add SPM support for SVM
-To: Alex Sierra <alex.sierra@amd.com>, akpm@linux-foundation.org,
- linux-mm@kvack.org, rcampbell@nvidia.com, linux-ext4@vger.kernel.org,
- linux-xfs@vger.kernel.org
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- hch@lst.de, jgg@nvidia.com, jglisse@redhat.com
-References: <20210825034828.12927-1-alex.sierra@amd.com>
- <20210825034828.12927-7-alex.sierra@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Message-ID: <c16b9cdc-76a3-896f-3723-c8128aed1e70@amd.com>
-Date: Wed, 25 Aug 2021 10:45:45 -0400
+	by gabe.freedesktop.org (Postfix) with ESMTP id AEC9A6E2D8;
+	Wed, 25 Aug 2021 15:01:14 +0000 (UTC)
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [IPv6:2a00:1450:4864:20::433])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C34D96E2D8
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Aug 2021 15:01:13 +0000 (UTC)
+Received: by mail-wr1-x433.google.com with SMTP id d26so16586054wrc.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Aug 2021 08:01:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:references:from:message-id:date:user-agent:mime-version
+ :in-reply-to:content-transfer-encoding:content-language;
+ bh=al7HCLB9LSLLnqo3CWlrKU8zPrqs3oHiPB4KUoujeUg=;
+ b=FaNDmH5Ns9xt70QPLA0O4RQHlb0/IA+Mv1G+AjKENnP5i1OwW1X1Lcz2UsHfPqwzpH
+ Fitlu0PrXlMzHfJcvQ25jiHUHoeJKgAqbENVQ1BvirHZSrmnGpY6VOdFerhGnuojyNBT
+ QHoVuIaAG9aDk13bxVU8YbHt04KC1pyJlZMPUkbuhq0C/BJ2Qz/5TmsZwZrLczEp42sf
+ PZ9rV3UYiXXL22Fn0aRXW2elniCFr8G1rpeUIVCJfccFBmE5Zp1KfWQmgNgaHR/91cXn
+ ityq0SyoDMtt+zZT4Wzws+ZsPFCHxV0tlJzhA4l8g1quqc+KntyuWbMZnPn3Txs7OyPU
+ r1wA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=al7HCLB9LSLLnqo3CWlrKU8zPrqs3oHiPB4KUoujeUg=;
+ b=Db83F7Qz5niB0mGj4982YIAszJjrhQyxQhqLpu+U+qzv99JER/8BJt8XBrzJD0DOui
+ 3nznU7UlYHxZ5NR4iL9EVW7Ic+ZuFD79GAAA97bobFFii+GEEjbYKSev8XnFYEMD8BoS
+ ++jMP8H6/NTJSsOd8nkeMLorpr50q/FBDCT8Cs4HbePk8zPq2SBaVqX3zKqakichWqq4
+ mVRFMVblVdm/fxFoTvIyAkZkSLZo2eUPXu8B9EM3aQhryNk1/b3kiqO0If+fa7ZdU06z
+ +A91NMVwpDZxCSBfcbaHhXpMCgGHe7SH4cu9G5/QmOffNDmLJucswEQz2nkmDEsMF046
+ dilA==
+X-Gm-Message-State: AOAM532WAzW2UT0WXtTMN98w/0bUBFKA39SfAP/5xe87vK+xyJoD9wn1
+ oknmQk70NHYtEVHUWy7vKLoZ1qlSIY8=
+X-Google-Smtp-Source: ABdhPJytJZ5wQDqc1QOFN71jeuPzVF7bpqydR61bWDDXqa3FbKkbpuwhPqCj3yCxEnCazzA2rSdHFA==
+X-Received: by 2002:adf:fc45:: with SMTP id e5mr25332092wrs.127.1629903672283; 
+ Wed, 25 Aug 2021 08:01:12 -0700 (PDT)
+Received: from ?IPv6:2a02:908:1252:fb60:de26:aaa6:84e1:c609?
+ ([2a02:908:1252:fb60:de26:aaa6:84e1:c609])
+ by smtp.gmail.com with ESMTPSA id r129sm5725636wmr.7.2021.08.25.08.01.11
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 25 Aug 2021 08:01:11 -0700 (PDT)
+Subject: Re: [PATCH] drm/amd/amdgpu: New debugfs interface for MMIO registers
+ (v4)
+To: Tom St Denis <tom.stdenis@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20210825130926.230698-1-tom.stdenis@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <71e0b52f-728c-56dd-6d57-3897012deb0d@gmail.com>
+Date: Wed, 25 Aug 2021 17:01:10 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
-In-Reply-To: <20210825034828.12927-7-alex.sierra@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-ClientProxiedBy: YTOPR0101CA0048.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:14::25) To BN9PR12MB5129.namprd12.prod.outlook.com
- (2603:10b6:408:136::12)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [192.168.2.100] (142.186.47.3) by
- YTOPR0101CA0048.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:14::25) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.19 via Frontend
- Transport; Wed, 25 Aug 2021 14:45:47 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4c905386-04c1-407c-405b-08d967d7068d
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5289:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BN9PR12MB52892620775FDCBD55B8809C92C69@BN9PR12MB5289.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: WslBdmhHceuC0PEcgNbTcJerYm+UU7u6Pr8EE0Gu3eaKS/xEwFz854y3mSREodfnizs4xcfZ3i4xRBS59cdosWfrlyt4BPUBuZXNQHBVpLPcLpAok7yaXoEgcf6vWw/Rj4WcqXoSQKRF3TmSOYFdGSxN+OwvZjnNEjM5QFHsjv8D+3AUvuy03HQifL445NUPxUgoCpn1vWtgwcC/6J8Q+1rGVmy2JvbnY7b36enMCptaCsQEqXqVtXNKceQ8fHjxAcO557PRg1dtq6FXy7vixe8qSSRxDhi45TcdL/fC9Dea3QnggGfXU3jX/KI0BiQ4DKUL242NLSc0Kv6pd+Th0Ig6SjfH/FmSn8RLJQtld2Q9UsvCmyux0wlu9GWuc8eM8CFXDOlDg8JthdRlXPJUsIuPHbRhjXKUVsTpo1RhWgE1kLzMGzLNoDtqPFTNeywjth1g3BEf41+hyXYdo7R4q5tMBjiyNwstqTzCR0fSwaUlToXUfpDG4BS20us8T4gZ02LIBFMz+1S2OA+YaLkX8oTHStX271eiWSiMdLVUKtH/PaUyCHBsYd4fc917O9iZll/VqYg7Llqd98xSKWtrbs99YgPu8jPRpKgUPTnpyyG8MT+UkP26rG/hK3QOxQlHCRsbRWGV/Jp2PR1Ilij3Wu5onJJJfRZnQPn2xIAHfC0M7OEb+oE4VGrxylvr4QI4ASBHrniJJz4j26oUD0PP9xqWpbw3JVqHI9TA5SwnYGM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5129.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(346002)(396003)(39860400002)(136003)(366004)(8936002)(83380400001)(5660300002)(86362001)(186003)(478600001)(66556008)(36756003)(66946007)(66476007)(4326008)(7416002)(16576012)(31686004)(44832011)(38100700002)(2906002)(316002)(956004)(2616005)(6486002)(8676002)(31696002)(26005)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RGhBZkFVZkxXNXJmc09hTnFUaklCZ204UFJ6eDBkcUhFSENkbzRMdzQwK2gx?=
- =?utf-8?B?cWI5S09DZ0ZraDVVZVhDOHhHZnZId1VKZUVzZzVqRHAvK0FNRDA5R1prQVpv?=
- =?utf-8?B?ajdIVmFRcXJVRjdtOFZjaTRYRkpwL0xIMkdLaWxvRmVYUWdMQUNNNCtzOU82?=
- =?utf-8?B?ZHU4aDRtQzNENHB1Yy9SQzROTlBSdVFLT21YVjdzd1RCSEhjSUxVU0wxUzZn?=
- =?utf-8?B?NVlCdGpUVE1XRnJjNlJNQ1RFSVBVL0dsaHU4RFJRU0JSQnNNZHlZTFRpeDZy?=
- =?utf-8?B?akFjclpqdHdRVWxRU0ZIb1JqU1pxekJ3a05TZkdZc3VoaEdZVUh6d04xdTRw?=
- =?utf-8?B?RlRyK3BGckNIYkpYMjlRMVltQWU0YU9Pd3FkZE9vV2JtdWc2UVNMV0JGL2lY?=
- =?utf-8?B?OHdLMXZZc3BZelNteGt0ZldOdlI3R01HNHluUVBuZzltY0UwNUs0MWJ2dDB4?=
- =?utf-8?B?ZXhnSWxSd1FyYnpDYk4wOEFoMlBnZlVNNDZWdTMxVHlsVGxXandKdjFYSmVV?=
- =?utf-8?B?YUhuV2NHRVVzajBOOGVNSFpMZXBRaG1IRHNCV0tyQU9WTDVUNXY4dzliclhV?=
- =?utf-8?B?MWhCT0dpU0tIeTB4ZkZSV09oNkVXKzJmdlk1K0l2UElqaUZNNWxSNXJpNjhl?=
- =?utf-8?B?K0lqQWFtb3BiQi95emxWZzFOdUdyWks2eW9JMXFBdGFaMTZJRnRKVGhCbVVh?=
- =?utf-8?B?NGdpNnFqSEpaQThYOExwTmI4bWpyVytLbXNwK25FTzVnS1ZvbFcwREx2bHRS?=
- =?utf-8?B?MDlFWDRwMGl2ZDduVktnZHd0aFZVSGZLODNpU2RQc042aVlZWnZBYVh5UGFt?=
- =?utf-8?B?WmtkSkc5dm9LU2g5Q2EyV0xxSk54Nk95SUVSL0J1bTVmYlBoeDBpeWUyOGJt?=
- =?utf-8?B?dloxSmJwV3VPUlBycXMxMzNBVndPWlgwQUZkVU41dXFIM2xUbUM1OExpaVVE?=
- =?utf-8?B?ZUdKRDVnV0xVNlQ5TVQ1SGdCdmFWTzJhSzA1ekMvR3VnRDRqbnlFOG5za08z?=
- =?utf-8?B?c3lxMGRMeXBzMU1nTHpHc0tzd3pIRVo4eHFHSGFPWFpSV0s1djBlY3p2STky?=
- =?utf-8?B?R0RDSmJSajZCZTlIbDNSUk9PMzJnUjIzZjdjL0c2eDJwd3V1eTcxVHdQSVZj?=
- =?utf-8?B?QW1hSjk1ME1EenRTSW1WdkJjdEErRXJBM0VMMmJvRlZ4eHZIVU9YblpIL09K?=
- =?utf-8?B?N2VBMGRtaTJxU2IxN0swYmlmaGVOSG1WSVo5dXp5VmdESUhhMjdtSkpOQ3ZG?=
- =?utf-8?B?U25uVGM2bnoweEYrcVRJNE9CZzFjSjNiV0toa2FVV0l2dWh5WmdVSDk4V0hr?=
- =?utf-8?B?c1YzRnJYbUt5Qmw4aFFITFZXNTByNlp1T05GbWZLT1k0YU5iNFRKL1Y0UWNZ?=
- =?utf-8?B?NDdxcXJxVmI4Ky9SRnZ5Q3hweHBJVEF2ZVlJejFNTE1TRGJuMTFLamtKWEN3?=
- =?utf-8?B?UVdkVWtSV0xaYkZHSU44ODVVdW41ZTJUWWNsTEtRSVI5THFNMmFDRTREVWJx?=
- =?utf-8?B?Wk9jam9TcWhwNWNzWHVIRlVmZkxBaVU2dHllUUE4d1diZGk2NHJKMEZxQmxU?=
- =?utf-8?B?TnJ1alhuQ0MvNVRBRExpbGY4aDBhVmhiNHpKbG0zN2RpSVhpWGQ2TTN5QU43?=
- =?utf-8?B?ZnNoWGo3RHBKU3RNNUp4WWJ0anQzMFN6bG1oWWxzYjlsQmFyWFgxdTBJVTBI?=
- =?utf-8?B?N04wMTBlRlFlQXYrRGJHVVYvcGhRQXprWTlidHJTa2xWSVU5aENud3RGTEEr?=
- =?utf-8?Q?cYKY4zNHMkt7bVLigl28foZaWBR+s6+rWQk5Ul+?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4c905386-04c1-407c-405b-08d967d7068d
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5129.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2021 14:45:47.6738 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FldHZo8UW+9AGD51zvK1ifzYtSdOs83uDOHZ8o0GJw1MBnhDiUBFFIfxbWn6sir945yQGgUlnSxCpEnVgToGjw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5289
+In-Reply-To: <20210825130926.230698-1-tom.stdenis@amd.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,92 +87,292 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 2021-08-24 um 11:48 p.m. schrieb Alex Sierra:
-> When CPU is connected throug XGMI, it has coherent
-> access to VRAM resource. In this case that resource
-> is taken from a table in the device gmc aperture base.
-> This resource is used along with the device type, which could
-> be DEVICE_PRIVATE or DEVICE_PUBLIC to create the device
-> page map region.
+Am 25.08.21 um 15:09 schrieb Tom St Denis:
+> This new debugfs interface uses an IOCTL interface in order to pass
+> along state information like SRBM and GRBM bank switching.  This
+> new interface also allows a full 32-bit MMIO address range which
+> the previous didn't.  With this new design we have room to grow
+> the flexibility of the file as need be.
 >
-> Signed-off-by: Alex Sierra <alex.sierra@amd.com>
-> Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
-> ---
-> v7:
-> Remove lookup_resource call, so export symbol for this function
-> is not longer required. Patch dropped "kernel: resource:
-> lookup_resource as exported symbol"
-> ---
->  drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 29 +++++++++++++++---------
->  1 file changed, 18 insertions(+), 11 deletions(-)
+> (v2): Move read/write to .read/.write, fix style, add comment
+>        for IOCTL data structure
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-> index 47ee9a895cd2..dd245699479f 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-> @@ -865,7 +865,7 @@ int svm_migrate_init(struct amdgpu_device *adev)
->  {
->  	struct kfd_dev *kfddev = adev->kfd.dev;
->  	struct dev_pagemap *pgmap;
-> -	struct resource *res;
-> +	struct resource *res = NULL;
->  	unsigned long size;
->  	void *r;
->  
-> @@ -880,19 +880,25 @@ int svm_migrate_init(struct amdgpu_device *adev)
->  	 * should remove reserved size
->  	 */
->  	size = ALIGN(adev->gmc.real_vram_size, 2ULL << 20);
-> -	res = devm_request_free_mem_region(adev->dev, &iomem_resource, size);
-> -	if (IS_ERR(res))
-> -		return -ENOMEM;
-> +	if (adev->gmc.xgmi.connected_to_cpu) {
-> +		pgmap->range.start = adev->gmc.aper_base;
-> +		pgmap->range.end = adev->gmc.aper_base + adev->gmc.aper_size - 1;
-> +		pgmap->type = MEMORY_DEVICE_PUBLIC;
-> +	} else {
-> +		res = devm_request_free_mem_region(adev->dev, &iomem_resource, size);
-> +		if (IS_ERR(res))
-> +			return -ENOMEM;
-> +		pgmap->range.start = res->start;
-> +		pgmap->range.end = res->end;
-> +		pgmap->type = MEMORY_DEVICE_PRIVATE;
+> (v3): C style comments
+>
+> (v4): use u32 in struct and remove offset variable
+>
+> Signed-off-by: Tom St Denis <tom.stdenis@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 158 ++++++++++++++++++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h |  29 ++++
+>   2 files changed, 187 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> index 277128846dd1..6450f210f6c7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> @@ -279,6 +279,152 @@ static ssize_t amdgpu_debugfs_regs_write(struct file *f, const char __user *buf,
+>   	return amdgpu_debugfs_process_reg_op(false, f, (char __user *)buf, size, pos);
+>   }
+>   
+> +static int amdgpu_debugfs_regs2_open(struct inode *inode, struct file *file)
+> +{
+> +	struct amdgpu_debugfs_regs2_data *rd;
+> +
+> +	rd = kzalloc(sizeof *rd, GFP_KERNEL);
+> +	if (!rd)
+> +		return -ENOMEM;
+> +	rd->adev = file_inode(file)->i_private;
+> +	file->private_data = rd;
+> +
+> +	return 0;
+> +}
+> +
+> +static int amdgpu_debugfs_regs2_release(struct inode *inode, struct file *file)
+> +{
+> +	kfree(file->private_data);
+> +	return 0;
+> +}
+> +
+> +static ssize_t amdgpu_debugfs_regs2_op(struct file *f, char __user *buf, u32 offset, size_t size, int write_en)
+> +{
+> +	struct amdgpu_debugfs_regs2_data *rd = f->private_data;
+> +	struct amdgpu_device *adev = rd->adev;
+> +	ssize_t result = 0;
+> +	int r;
+> +	uint32_t value;
+> +
+> +	if (size & 0x3 || offset & 0x3)
+> +		return -EINVAL;
+> +
+
+
+> +	if (rd->id.use_grbm) {
+> +		if (rd->id.grbm.se == 0x3FF)
+> +			rd->id.grbm.se = 0xFFFFFFFF;
+> +		if (rd->id.grbm.sh == 0x3FF)
+> +			rd->id.grbm.sh = 0xFFFFFFFF;
+> +		if (rd->id.grbm.instance == 0x3FF)
+> +			rd->id.grbm.instance = 0xFFFFFFFF;
 > +	}
->  
-> -	pgmap->type = MEMORY_DEVICE_PRIVATE;
->  	pgmap->nr_range = 1;
-> -	pgmap->range.start = res->start;
-> -	pgmap->range.end = res->end;
->  	pgmap->ops = &svm_migrate_pgmap_ops;
->  	pgmap->owner = SVM_ADEV_PGMAP_OWNER(adev);
-> -	pgmap->flags = MIGRATE_VMA_SELECT_DEVICE_PRIVATE;
-> +	pgmap->flags = 0;
->  	r = devm_memremap_pages(adev->dev, pgmap);
-> -	if (IS_ERR(r)) {
-> +	if (res && IS_ERR(r)) {
 
-I think the (res && ...) condition means you only detect failures for
-DEVICE_PRIVATE memory. Why are you ignoring failures for DEVICE_PUBLIC?
+What is this stuff all about? And can't we do this during the IOCTL?
 
-For DEVICE_PUBLIC you can skip devm_release_mem_region, but you still
-need to detect and return the error. Also, using res as an indicator is
-a bit obscure. I'd put an if (pgmap->type == MEMORY_DEVICE_PRIVATE)
-before the devm_release_mem_region call.
+> +
+> +	r = pm_runtime_get_sync(adev_to_drm(adev)->dev);
+> +	if (r < 0) {
+> +		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+> +		return r;
+> +	}
+> +
+> +	r = amdgpu_virt_enable_access_debugfs(adev);
+> +	if (r < 0) {
+> +		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+> +		return r;
+> +	}
 
-Regards,
-  Felix
+Maybe replace that with "goto error" style error handling and just "if 
+(r)" is the more common style in the kernel I think.
 
+> +
+> +	if (rd->id.use_grbm) {
+> +		if ((rd->id.grbm.sh != 0xFFFFFFFF && rd->id.grbm.sh >= adev->gfx.config.max_sh_per_se) ||
+> +		    (rd->id.grbm.se != 0xFFFFFFFF && rd->id.grbm.se >= adev->gfx.config.max_shader_engines)) {
+> +			pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
+> +			pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+> +			amdgpu_virt_disable_access_debugfs(adev);
+> +			return -EINVAL;
+> +		}
+> +		mutex_lock(&adev->grbm_idx_mutex);
+> +		amdgpu_gfx_select_se_sh(adev, rd->id.grbm.se,
+> +								rd->id.grbm.sh,
+> +								rd->id.grbm.instance);
+> +	}
+> +
+> +	if (rd->id.use_srbm) {
+> +		mutex_lock(&adev->srbm_mutex);
+> +		amdgpu_gfx_select_me_pipe_q(adev, rd->id.srbm.me, rd->id.srbm.pipe,
+> +									rd->id.srbm.queue, rd->id.srbm.vmid);
+> +	}
+> +
+> +	if (rd->id.pg_lock)
+> +		mutex_lock(&adev->pm.mutex);
 
->  		pr_err("failed to register HMM device memory\n");
->  		devm_release_mem_region(adev->dev, res->start,
->  					res->end - res->start + 1);
-> @@ -914,6 +920,7 @@ void svm_migrate_fini(struct amdgpu_device *adev)
->  	struct dev_pagemap *pgmap = &adev->kfd.dev->pgmap;
->  
->  	devm_memunmap_pages(adev->dev, pgmap);
-> -	devm_release_mem_region(adev->dev, pgmap->range.start,
-> -				pgmap->range.end - pgmap->range.start + 1);
-> +	if (pgmap->type == MEMORY_DEVICE_PRIVATE)
-> +		devm_release_mem_region(adev->dev, pgmap->range.start,
-> +					pgmap->range.end - pgmap->range.start + 1);
->  }
+Is the locking order ok like this or could userspace cause problems here?
+
+BTW: Do we need a lock for rd? It might be rather bad if userspace is 
+causing a race here and we take a lock but never drop it because of a 
+concurrent IOCTL.
+
+> +
+> +	while (size) {
+> +		if (!write_en) {
+> +			value = RREG32(offset >> 2);
+> +			r = put_user(value, (uint32_t *)buf);
+> +		} else {
+> +			r = get_user(value, (uint32_t *)buf);
+
+Could be that I'm wrong, but I think get_user returned the number of 
+bytes copied and not the error code, but I tend to mix that stuff up. 
+Please double check.
+
+> +			if (!r)
+> +				amdgpu_mm_wreg_mmio_rlc(adev, offset >> 2, value);
+> +		}
+> +		if (r) {
+> +			result = r;
+> +			goto end;
+> +		}
+> +		offset += 4;
+> +		size -= 4;
+> +		result += 4;
+> +		buf += 4;
+> +	}
+
+I'm really wondering if it wouldn't be simpler to have the 
+prefix/postfix code in separate functions and this here in the main 
+read/write function.
+
+> +end:
+> +	if (rd->id.use_grbm) {
+> +		amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff);
+> +		mutex_unlock(&adev->grbm_idx_mutex);
+> +	}
+> +
+> +	if (rd->id.use_srbm) {
+> +		amdgpu_gfx_select_me_pipe_q(adev, 0, 0, 0, 0);
+> +		mutex_unlock(&adev->srbm_mutex);
+> +	}
+> +
+> +	if (rd->id.pg_lock)
+> +		mutex_unlock(&adev->pm.mutex);
+> +
+> +	/* in umr (the likely user of this) flags are set per file operation
+> +	 * which means they're never "unset" explicitly.  To avoid breaking
+> +	 * this convention we unset the flags after each operation
+> +	 * flags are for a single call (need to be set for every read/write) */
+
+Mhm, is that a must have? Usual semantics for IOCTLs is that they set 
+behavior which stays the same for subsequent read/write operations.
+
+Just a bunch of random thoughts on the code.
+
+Christian.
+
+> +	rd->id.use_grbm = 0;
+> +	rd->id.use_srbm = 0;
+> +	rd->id.pg_lock  = 0;
+> +
+> +	pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
+> +	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+> +
+> +	amdgpu_virt_disable_access_debugfs(adev);
+> +	return result;
+> +}
+> +
+> +static long amdgpu_debugfs_regs2_ioctl(struct file *f, unsigned int cmd, unsigned long data)
+> +{
+> +	struct amdgpu_debugfs_regs2_data *rd = f->private_data;
+> +
+> +	switch (cmd) {
+> +	case AMDGPU_DEBUGFS_REGS2_IOC_SET_STATE:
+> +		if (copy_from_user(&rd->id, (struct amdgpu_debugfs_regs2_iocdata *)data, sizeof rd->id))
+> +			return -EINVAL;
+> +		break;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +	return 0;
+> +}
+> +
+> +static ssize_t amdgpu_debugfs_regs2_read(struct file *f, char __user *buf, size_t size, loff_t *pos)
+> +{
+> +	return amdgpu_debugfs_regs2_op(f, buf, *pos, size, 0);
+> +}
+> +
+> +static ssize_t amdgpu_debugfs_regs2_write(struct file *f, const char __user *buf, size_t size, loff_t *pos)
+> +{
+> +	return amdgpu_debugfs_regs2_op(f, (char __user *)buf, *pos, size, 1);
+> +}
+> +
+>   
+>   /**
+>    * amdgpu_debugfs_regs_pcie_read - Read from a PCIE register
+> @@ -1091,6 +1237,16 @@ static ssize_t amdgpu_debugfs_gfxoff_read(struct file *f, char __user *buf,
+>   	return result;
+>   }
+>   
+> +static const struct file_operations amdgpu_debugfs_regs2_fops = {
+> +	.owner = THIS_MODULE,
+> +	.unlocked_ioctl = amdgpu_debugfs_regs2_ioctl,
+> +	.read = amdgpu_debugfs_regs2_read,
+> +	.write = amdgpu_debugfs_regs2_write,
+> +	.open = amdgpu_debugfs_regs2_open,
+> +	.release = amdgpu_debugfs_regs2_release,
+> +	.llseek = default_llseek
+> +};
+> +
+>   static const struct file_operations amdgpu_debugfs_regs_fops = {
+>   	.owner = THIS_MODULE,
+>   	.read = amdgpu_debugfs_regs_read,
+> @@ -1148,6 +1304,7 @@ static const struct file_operations amdgpu_debugfs_gfxoff_fops = {
+>   
+>   static const struct file_operations *debugfs_regs[] = {
+>   	&amdgpu_debugfs_regs_fops,
+> +	&amdgpu_debugfs_regs2_fops,
+>   	&amdgpu_debugfs_regs_didt_fops,
+>   	&amdgpu_debugfs_regs_pcie_fops,
+>   	&amdgpu_debugfs_regs_smc_fops,
+> @@ -1160,6 +1317,7 @@ static const struct file_operations *debugfs_regs[] = {
+>   
+>   static const char *debugfs_regs_names[] = {
+>   	"amdgpu_regs",
+> +	"amdgpu_regs2",
+>   	"amdgpu_regs_didt",
+>   	"amdgpu_regs_pcie",
+>   	"amdgpu_regs_smc",
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h
+> index 141a8474e24f..dcf20859c866 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h
+> @@ -22,6 +22,8 @@
+>    * OTHER DEALINGS IN THE SOFTWARE.
+>    *
+>    */
+> +#include <linux/ioctl.h>
+> +#include <uapi/drm/amdgpu_drm.h>
+>   
+>   /*
+>    * Debugfs
+> @@ -38,3 +40,30 @@ void amdgpu_debugfs_fence_init(struct amdgpu_device *adev);
+>   void amdgpu_debugfs_firmware_init(struct amdgpu_device *adev);
+>   void amdgpu_debugfs_gem_init(struct amdgpu_device *adev);
+>   int amdgpu_debugfs_wait_dump(struct amdgpu_device *adev);
+> +
+> +/*
+> + * MMIO debugfs IOCTL structure
+> + */
+> +struct amdgpu_debugfs_regs2_iocdata {
+> +	__u32 use_srbm, use_grbm, pg_lock;
+> +	struct {
+> +		__u32 se, sh, instance;
+> +	} grbm;
+> +	struct {
+> +		__u32 me, pipe, queue, vmid;
+> +	} srbm;
+> +};
+> +
+> +/*
+> + * MMIO debugfs state data (per file* handle)
+> + */
+> +struct amdgpu_debugfs_regs2_data {
+> +	struct amdgpu_device *adev;
+> +	struct amdgpu_debugfs_regs2_iocdata id;
+> +};
+> +
+> +enum AMDGPU_DEBUGFS_REGS2_CMDS {
+> +	AMDGPU_DEBUGFS_REGS2_CMD_SET_STATE=0,
+> +};
+> +
+> +#define AMDGPU_DEBUGFS_REGS2_IOC_SET_STATE _IOWR(0x20, AMDGPU_DEBUGFS_REGS2_CMD_SET_STATE, struct amdgpu_debugfs_regs2_iocdata)
+
