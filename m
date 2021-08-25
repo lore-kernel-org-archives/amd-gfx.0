@@ -2,125 +2,77 @@ Return-Path: <SRS0=FOdb=NQ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8F4A4C4338F
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 04:20:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 215D8C4338F
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 06:31:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 338CC6127B
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 04:20:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 338CC6127B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id DC884613A7
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 06:31:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DC884613A7
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 435266E141;
-	Wed, 25 Aug 2021 04:20:29 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2076.outbound.protection.outlook.com [40.107.93.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D8836E141;
- Wed, 25 Aug 2021 04:20:28 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XkzSM8ffDAeJujnnKNJsrQCPAcbivkYlMJ+tpsNTFkrgu6EEKOM2cGbOTIOcK/D9IW8cFEU7gNRcxAr2rSFNs//EkaTm3ouCHoM8L+FtX2VLYIexT0Z0ieErSU83KAWIfci6NGNUuZZF+jG1yUlbIsh92704uqFtgALDJDOJTxikA2krrZFkH7+tkUpQiMht0G2TnmwlRxBtIEustMZ1X0ANYPXHJxhLT8x0dsSbXKzgyg12lWEZu4OyRN5d1aq2a5jlQzc59U4OANgtwl5k/5eWETG5XT4O6hS1GODCbZ1Sx5fHh06RkSbHZXkVsbw8teBV242rey5csPc62fQ6Lw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=K/HtW1JAM3zl/llSyGWWwvnXjZ+I+rn1LvUfc29p62Y=;
- b=OdasTBEbscq7nD2VERF6tQF2I3suVAG1bnJmRBnErcvpcVrMHG++pS0Toacb+hR+hNpiCSktDok22ntG7To/AvI6jr7qf08f7GnBnDqKB2kDsFuSTIon/b2SVEx6mROW844OIphwBiN65ISXerTnAooXqpyItaasQ+yj9SU9fdbwEVLaAfwtJwDxuq3Sa0PO99K5qyBnGdKELEXU+IMaonW1FCDHwNO22HEDX2pvBzQW7Ls9kYwV7QoFT2714pMygI5zcWsr6ozo0dKr0XfvvM2Af9Ad2QrSC5sdY5n0ie7J/rSU8d60G5cgYcnN2cAqDt7eal+0dQw9i/TcEZ1mhg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=K/HtW1JAM3zl/llSyGWWwvnXjZ+I+rn1LvUfc29p62Y=;
- b=SjH9YUWJFxQFV71OTzS1TS/EVx9FQWXVkPvoFv+LdzXukisRX5VeSuPcg6Ac7AUFmnE8vtI5TTPPba56wbldU+4JPM/qSZiNjnknEb08HxxpJoDLJ3QtlBsHZX2BxbtcCvqAxPFQCcOhEDivcm7wnO5au8jUl35/DIXr3l3YHuM=
-Authentication-Results: linux-foundation.org; dkim=none (message not signed)
- header.d=none;linux-foundation.org; dmarc=none action=none
- header.from=amd.com;
-Received: from SA0PR12MB4430.namprd12.prod.outlook.com (2603:10b6:806:70::20)
- by SN6PR12MB4750.namprd12.prod.outlook.com (2603:10b6:805:e3::25)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.22; Wed, 25 Aug
- 2021 03:48:53 +0000
-Received: from SA0PR12MB4430.namprd12.prod.outlook.com
- ([fe80::855b:1f8c:c5d1:331f]) by SA0PR12MB4430.namprd12.prod.outlook.com
- ([fe80::855b:1f8c:c5d1:331f%7]) with mapi id 15.20.4457.017; Wed, 25 Aug 2021
- 03:48:53 +0000
-From: Alex Sierra <alex.sierra@amd.com>
-To: akpm@linux-foundation.org, Felix.Kuehling@amd.com, linux-mm@kvack.org,
- rcampbell@nvidia.com, linux-ext4@vger.kernel.org, linux-xfs@vger.kernel.org
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, hch@lst.de,
- jgg@nvidia.com, jglisse@redhat.com
-Subject: [PATCH v1 14/14] tools: update test_hmm script to support SP config
-Date: Tue, 24 Aug 2021 22:48:28 -0500
-Message-Id: <20210825034828.12927-15-alex.sierra@amd.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20210825034828.12927-1-alex.sierra@amd.com>
-References: <20210825034828.12927-1-alex.sierra@amd.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SN7PR04CA0190.namprd04.prod.outlook.com
- (2603:10b6:806:126::15) To SA0PR12MB4430.namprd12.prod.outlook.com
- (2603:10b6:806:70::20)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 436BD6E151;
+	Wed, 25 Aug 2021 06:31:46 +0000 (UTC)
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [IPv6:2a00:1450:4864:20::336])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3132D6E151
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Aug 2021 06:31:44 +0000 (UTC)
+Received: by mail-wm1-x336.google.com with SMTP id g138so14210204wmg.4
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Aug 2021 23:31:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:references:from:message-id:date:user-agent:mime-version
+ :in-reply-to:content-transfer-encoding:content-language;
+ bh=MV7C6QBTtytgqyej7np2RW4rfsUg7xWrATaGfFtkd1I=;
+ b=fapmg0+XBtlVquaA3hAGn9uc8+PLiw/9yp1tnig8TiL+fvrtxOxP/jC7VgVTjfMk4A
+ ygpbQTfVQTGZuxvSKYoGgt6UvBF8P3jWtWpE3UvajJt+PpyPIohBmdyjEBT7lNTZOnSY
+ a6MfNy7D0GzVHt9bTOW4NOtCJnllftWePINVU3SY3tHiSFAJmmQ/Luur4B1wg1lK6mzQ
+ XwqFnKBRnsVludbhYBkLJNb61eJR13WFpkC/yaBA7GDhQjQSbAo4M4ABLmwWOdCZGnMI
+ pRjxlRhUnWIcjHeWcFoplOcZsiTFeRMLP49eR8Rn4Zm4k+3ofy5GtMbBLxdaalHI3vC0
+ 129Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=MV7C6QBTtytgqyej7np2RW4rfsUg7xWrATaGfFtkd1I=;
+ b=Q5GQBEqsa33FzhV+AIDzSiD2sO6JDZ1LwU7e7bBiHejBlRKWJ5UMIF+Ve2BdOupTGl
+ 1wTCyfQf/A6lBhHuyov8jmpSD2PZaUjLPuyYGhsDpqu9v9hb1084eAUUegd7A7CJk771
+ paYBxPDY66ivGgEecTDmTMoir1lGQKaafSwA9zZKd9mcU6iwfChZtkPfbrGQyqiu42oM
+ gYogvtEseiHoJ1x51NEilEm0j5ZRmc+oD5u3Nsq9UVezGo/w+yAxQIvTb5BkEXmmcJv9
+ xrc42u0kx3DftU7eDgnY9L5Oc6NwcX4yJvG4yZjnqakg7QvgmUepLGywrSutL/RjNIt1
+ H4/Q==
+X-Gm-Message-State: AOAM5307DGMwGlV6IMcX1jMUdjcTpIc8XSQS755UwTGCCRlc0utWgs7I
+ W5q5mtPpFZ8Yqq83SK8nfQoF+3VIrZS76QHZ
+X-Google-Smtp-Source: ABdhPJzVdRmoRlu8bwLtJq5TGwhfuTfxqbrS4ro/FeddX5HVQOHa5D0AXYJsLaim2zgnRSgtHQEyVA==
+X-Received: by 2002:a05:600c:2e46:: with SMTP id
+ q6mr354052wmf.93.1629873102750; 
+ Tue, 24 Aug 2021 23:31:42 -0700 (PDT)
+Received: from [192.168.178.21] (p5b0ea1b5.dip0.t-ipconnect.de.
+ [91.14.161.181])
+ by smtp.gmail.com with ESMTPSA id r4sm3945107wmq.10.2021.08.24.23.31.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 24 Aug 2021 23:31:42 -0700 (PDT)
+Subject: Re: [PATCH] drm/sched: fix the bug of time out calculation(v2)
+To: Monk Liu <Monk.Liu@amd.com>, amd-gfx@lists.freedesktop.org
+References: <1629864857-4252-1-git-send-email-Monk.Liu@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <1ef452fc-1f76-8dda-1c74-c540576fe6c6@gmail.com>
+Date: Wed, 25 Aug 2021 08:31:41 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from alex-MS-7B09.amd.com (165.204.78.1) by
- SN7PR04CA0190.namprd04.prod.outlook.com (2603:10b6:806:126::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.19 via Frontend
- Transport; Wed, 25 Aug 2021 03:48:52 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 6b9f57e7-2787-4ac3-3a39-08d9677b41ae
-X-MS-TrafficTypeDiagnostic: SN6PR12MB4750:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <SN6PR12MB4750A26B138AAE1EE5E5022EFDC69@SN6PR12MB4750.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4714;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: tCiLxMI4dzT6KuGGNhfQ57silOfM32xlmMxuu+0e1dL0WGg/0CwylziqLwfB58YNnrSS58tGF/B6NE7Qc5K7/i2QFgKsvJdqx7arKVPInZDVwf7Fr7t+Wi/g0AHQtP9HftQRj4xkEZbFuRHDZMLtk2jtEEA9bNcy4JFoVdFN4zXySqLmoCTUIqv82dIijoroh7THI5mnUbdGg3ZClneuSoGazBqNhxnYSt2nlB1LcLaW0xUOxorlAd5UnD/6l1uESg/2C3VAPMr+zgLGARsHY+AzRz1o/mMVQF8t4kSKfKPjVyKpSsabAX/OE0UGng2AokUqgwak0UGXtJSk0YPj55IM/qPkBf8YPUspWg3+bJaQc7f97yKKx2yFr8I2xo3B6Mw9S6Ybys3Dfh1MkWyHX+6Xf9qFD8tS4TitnXFYoQP1/FmtDOPSrzQ0HKxobNLG+FUTsWCrjbGWBzOv4syEdQOryoJ/ijLq5PetFf5w9UiGla7bWJRGgtC7KWIJ/KYfpPIW0Mjp51wtWjJbvD63jFseIphjJa749Uoo+vGFii6Lh9GXG6Bx2uqSMEGGXZeFS4lY1XszjZ/qd9FOyPUYmRUkRLnaSXQA2bcgqyGrT6oeP/5S6gSMZEHxHBFEfEH9eTgW11tduY7w3NLYZ8oZ+NmTTor4u9iAUVZuF42Pv+tl4WU7wtJEk8A57goYdYieujQC2cDRPcC542300VGCXA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB4430.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(376002)(346002)(136003)(396003)(366004)(7416002)(6486002)(1076003)(4326008)(86362001)(7696005)(44832011)(52116002)(186003)(2616005)(956004)(38350700002)(38100700002)(478600001)(66476007)(66556008)(6666004)(316002)(26005)(36756003)(8936002)(5660300002)(8676002)(66946007)(83380400001)(2906002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?kUkcxiaL401raqQk28EO8PZ3B83V3LHkBpPFOXP1SV8kSMUO/Tn0SONwapWj?=
- =?us-ascii?Q?jmO+le11RsRgK5M6WgRrhysSroM8bPaXt6aXnJgqu67cXdkWcWlkPOo7RmD7?=
- =?us-ascii?Q?7eiegFimV8cBJ50sMByisJ1dbfNO774/oO5PYqqK1tHGckHTjgVmf9pmNbQI?=
- =?us-ascii?Q?nFgRpkjQ8FIc6weg6DrX9I3xOv/NwNePH2D5ty+xzG36onkr7pmxmgs/h+kL?=
- =?us-ascii?Q?mMHU0D7p7AbcqdLsad93CWtUU9I/L2Fl66Il6oHIl/UxzLluA3UfNRtM3iG/?=
- =?us-ascii?Q?F1fZRBlyGQ8MNptZTQ7JBIyWV3EFDFFxyqBzdOuHngkKwiK+qoYaycKn2PPt?=
- =?us-ascii?Q?vLFmPsuQcnne+MItQeIZ9QlzA3Tw9hduHaiWj70VKxRM0/zVrmxK6/4s+CUq?=
- =?us-ascii?Q?pRykKjJtwFjZHFagfHn+PJzqi5poy+ED+LU2ug5bZR9JqGa4GNQD8GyEFOu4?=
- =?us-ascii?Q?SZY7FIk+/velGTtLl6m59/P/fB3FliDn4+/CT9ADxe9jbJp2mRDifyrAyuhu?=
- =?us-ascii?Q?00aRU7zzB/pRuVOyuywQfEIolqQoKA0nNfWso490UtWL+xKbUS2X/IjKldLB?=
- =?us-ascii?Q?tE9c1r2b6RMvfWiHVPPUpYaOORDYHbiZNp9bjb6SXOPWVzn4hFIT9Zcd5l34?=
- =?us-ascii?Q?8OZx3LTDYSxlOs5dGxcUC9g8s7/hODQFrR8JlFSqyEPOVFH2RFpBV6ZabVTG?=
- =?us-ascii?Q?JaQY06barBXPFwfsmmTw+Ke3t4LIFd69PO5ghflnzOY8rwazQqTTDEioIW2G?=
- =?us-ascii?Q?0/bMLbzknfuGSd+978OlPN+QC4pNl5TOt1k1j6FNsUxKDZizYkruewpu9X7X?=
- =?us-ascii?Q?lg2Z4Mp98q/K8ECrTKkjZNiifoyH4LkvuJ4+2ysf8E29AxVeLnUpeSWs/eDA?=
- =?us-ascii?Q?RRNYeKD0v4hNlWFUvusVQ+YFsmUBmBf7o7AUMM7mRQWLbnPTHQ4mfqtyYhMI?=
- =?us-ascii?Q?FyErxdthLKcsfATX0PtP6oN1BBvZpho4E2Z3QuoKwigI11IF4VKrslLW52TY?=
- =?us-ascii?Q?E8Pvsa8cWclDpPilUOn+ZnssZ+cT4yVxbZzzmaodNuTM3Oh5g646OJAjXB2G?=
- =?us-ascii?Q?ZgtcwTKABlasd7YpaJIljjfpMBRCQ/4mxFuYdDQ3XhkEdcxeXR+rJhzpofNb?=
- =?us-ascii?Q?m9IFfIELcCCh1rWPp1CO+8vDf3qMaX57v+TS3kvircCQ4QJkpBLDbEu6I7UU?=
- =?us-ascii?Q?f4vgf2qPk7glPKbMaISNcPziEUURo/T6rjZmzL+R921Ts4i7jAy8/CYZh0/Q?=
- =?us-ascii?Q?+fQCoGso13th9r1/paM94vHf0FMKhhXzlmHUZbfHRSHxvWUlreQL9i1lEGHK?=
- =?us-ascii?Q?Yq/XaJJxVuo6ECy/KY42G2pA?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6b9f57e7-2787-4ac3-3a39-08d9677b41ae
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB4430.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2021 03:48:53.2561 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: klxSZQvNrJFcz+9JeFt6dMgNUmOXFB3NwCDQAaYoU3vbZzz71HbGH8ZJYFhcgx8qmxaWk3sYIdvOTU12gUNmyQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB4750
+In-Reply-To: <1629864857-4252-1-git-send-email-Monk.Liu@amd.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,68 +87,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add two more parameters to set spm_addr_dev0 & spm_addr_dev1
-addresses. These two parameters configure the start SP
-addresses for each device in test_hmm driver.
-Consequently, this configures zone device type as public.
+Well NAK to that approach. First of all your bug analyses is incorrect.
 
-Signed-off-by: Alex Sierra <alex.sierra@amd.com>
----
- tools/testing/selftests/vm/test_hmm.sh | 20 +++++++++++++++++---
- 1 file changed, 17 insertions(+), 3 deletions(-)
+The timeout started by queue_delayed_work() in drm_sched_start_timeout() 
+is paired with the cancel_delayed_work() in drm_sched_get_cleanup_job().
 
-diff --git a/tools/testing/selftests/vm/test_hmm.sh b/tools/testing/selftests/vm/test_hmm.sh
-index 0647b525a625..3eeabe94399f 100755
---- a/tools/testing/selftests/vm/test_hmm.sh
-+++ b/tools/testing/selftests/vm/test_hmm.sh
-@@ -40,7 +40,18 @@ check_test_requirements()
- 
- load_driver()
- {
--	modprobe $DRIVER > /dev/null 2>&1
-+	if [ $# -eq 0 ]; then
-+		modprobe $DRIVER > /dev/null 2>&1
-+	else
-+		if [ $# -eq 2 ]; then
-+			modprobe $DRIVER spm_addr_dev0=$1 spm_addr_dev1=$2
-+				> /dev/null 2>&1
-+		else
-+			echo "Missing module parameters. Make sure pass"\
-+			"spm_addr_dev0 and spm_addr_dev1"
-+			usage
-+		fi
-+	fi
- 	if [ $? == 0 ]; then
- 		major=$(awk "\$2==\"HMM_DMIRROR\" {print \$1}" /proc/devices)
- 		mknod /dev/hmm_dmirror0 c $major 0
-@@ -58,7 +69,7 @@ run_smoke()
- {
- 	echo "Running smoke test. Note, this test provides basic coverage."
- 
--	load_driver
-+	load_driver $1 $2
- 	$(dirname "${BASH_SOURCE[0]}")/hmm-tests
- 	unload_driver
- }
-@@ -75,6 +86,9 @@ usage()
- 	echo "# Smoke testing"
- 	echo "./${TEST_NAME}.sh smoke"
- 	echo
-+	echo "# Smoke testing with SPM enabled"
-+	echo "./${TEST_NAME}.sh smoke <spm_addr_dev0> <spm_addr_dev1>"
-+	echo
- 	exit 0
- }
- 
-@@ -84,7 +98,7 @@ function run_test()
- 		usage
- 	else
- 		if [ "$1" = "smoke" ]; then
--			run_smoke
-+			run_smoke $2 $3
- 		else
- 			usage
- 		fi
--- 
-2.32.0
+So you must have something else going on here.
+
+Then please don't use mod_delayed_work(), instead always cancel it and 
+restart it.
+
+Regards,
+Christian.
+
+Am 25.08.21 um 06:14 schrieb Monk Liu:
+> the original logic is wrong that the timeout will not be retriggerd
+> after the previous job siganled, and that lead to the scenario that all
+> jobs in the same scheduler shares the same timeout timer from the very
+> begining job in this scheduler which is wrong.
+>
+> we should modify the timer everytime a previous job signaled.
+>
+> v2:
+> further cleanup the logic, and do the TDR timer cancelling if the signaled job
+> is the last one in its scheduler.
+>
+> Signed-off-by: Monk Liu <Monk.Liu@amd.com>
+> ---
+>   drivers/gpu/drm/scheduler/sched_main.c | 29 ++++++++++++++++++++---------
+>   1 file changed, 20 insertions(+), 9 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+> index a2a9536..8c102ac 100644
+> --- a/drivers/gpu/drm/scheduler/sched_main.c
+> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> @@ -305,8 +305,17 @@ static void drm_sched_job_begin(struct drm_sched_job *s_job)
+>   	struct drm_gpu_scheduler *sched = s_job->sched;
+>   
+>   	spin_lock(&sched->job_list_lock);
+> -	list_add_tail(&s_job->list, &sched->pending_list);
+> -	drm_sched_start_timeout(sched);
+> +	if (list_empty(&sched->pending_list)) {
+> +		list_add_tail(&s_job->list, &sched->pending_list);
+> +		drm_sched_start_timeout(sched);
+> +	} else {
+> +		/* the old jobs in pending list are not finished yet
+> +		 * no need to restart TDR timer here, it is already
+> +		 * handled by drm_sched_get_cleanup_job
+> +		 */
+> +		list_add_tail(&s_job->list, &sched->pending_list);
+> +	}
+> +
+>   	spin_unlock(&sched->job_list_lock);
+>   }
+>   
+> @@ -693,17 +702,22 @@ drm_sched_get_cleanup_job(struct drm_gpu_scheduler *sched)
+>   	if (job && dma_fence_is_signaled(&job->s_fence->finished)) {
+>   		/* remove job from pending_list */
+>   		list_del_init(&job->list);
+> +
+>   		/* make the scheduled timestamp more accurate */
+>   		next = list_first_entry_or_null(&sched->pending_list,
+>   						typeof(*next), list);
+> -		if (next)
+> +		if (next) {
+> +			/* if we still have job in pending list we need modify the TDR timer */
+> +			mod_delayed_work(system_wq, &sched->work_tdr, sched->timeout);
+>   			next->s_fence->scheduled.timestamp =
+>   				job->s_fence->finished.timestamp;
+> +		} else {
+> +			/* cancel the TDR timer if no job in pending list */
+> +			cancel_delayed_work(&sched->work_tdr);
+> +		}
+>   
+>   	} else {
+>   		job = NULL;
+> -		/* queue timeout for next job */
+> -		drm_sched_start_timeout(sched);
+>   	}
+>   
+>   	spin_unlock(&sched->job_list_lock);
+> @@ -791,11 +805,8 @@ static int drm_sched_main(void *param)
+>   					  (entity = drm_sched_select_entity(sched))) ||
+>   					 kthread_should_stop());
+>   
+> -		if (cleanup_job) {
+> +		if (cleanup_job)
+>   			sched->ops->free_job(cleanup_job);
+> -			/* queue timeout for next job */
+> -			drm_sched_start_timeout(sched);
+> -		}
+>   
+>   		if (!entity)
+>   			continue;
 
