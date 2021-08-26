@@ -2,81 +2,70 @@ Return-Path: <SRS0=gNHI=NR=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=0.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8A3ECC432BE
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 14:52:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E46AEC432BE
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 16:35:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4CF9F60EE0
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 14:52:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4CF9F60EE0
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id A48EA60F5B
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 16:35:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A48EA60F5B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmx.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A931E6E87F;
-	Thu, 26 Aug 2021 14:52:39 +0000 (UTC)
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [IPv6:2a00:1450:4864:20::42c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 26ED96E870;
- Thu, 26 Aug 2021 14:52:38 +0000 (UTC)
-Received: by mail-wr1-x42c.google.com with SMTP id q11so5496398wrr.9;
- Thu, 26 Aug 2021 07:52:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:references:from:message-id:date:user-agent:mime-version
- :in-reply-to:content-transfer-encoding:content-language;
- bh=LA6F9AeGbaxvODZZLVNw0j/6UfmDFRq61Acl0k3i6NU=;
- b=JE2iBi4NFbFQ40QTbZWoC0fA4bX9h40u6Rfg3xEkMkLMs7MQTTVZ2G0UwLle10NpFd
- XkUhxB60n0TwqIeMzXy4y9xjQEB/KDWKIw1jLZN6LffmmfdMl+vI9yPpoD2rXDwiY4Ej
- +GgAjlh/KRSFOSgxGGh+lNTQoSJrxlpdIzJhz899K0DFtAIZho4cRipSZOej4IelUJnZ
- PqAz0de0kh0dXo86mTjUA3p08pKGoe8aMJhNPWT+pjYvtsBC2lgPC6jAjX0OiMYXk8G3
- RlycpSXJxJx90NtR7XwQmYcoCfkr2S9nL4hTFzkdGwgiWG562gB7gUrlpj1eOxyBwFcS
- ffJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=LA6F9AeGbaxvODZZLVNw0j/6UfmDFRq61Acl0k3i6NU=;
- b=N/PJ2BpQQ0UmsTXzvdSbQlFCkt6sBO6NBIoEtySruhf69kborEhH/O29JpvmMaTPhC
- NBDruXrYRkHHpzYA6Lo4OIJzJmXDuuuczAQOcNceVs9kFyU9DrHROl784oS001jN+4fk
- gOEaTavLmLyq2qDWUZLPwsclfcuTjd1vH5Jfpc7OKPKZDd2SyNaatpiSzqaleU1iJBAm
- Y20eYr+g9umWPC7EvwIilpNRJe5twrl8+vhH2PvJl+hyPsqLrhvSDIsXAPxtAZmeDzZG
- HzN8ilhoVupPLFr30Pfex5jU65++dBYiQno06DjwXgYp6bfQU7E6jc9nqCQV5vVTYtMI
- B9xA==
-X-Gm-Message-State: AOAM532TEZkD3n52cpUq28CaxYKYqKLGnVyu0Uem/N9yrBYL03I0++Xu
- 7AfzQYd+51Nr2gnYFB+3yX1dhGf3Zwg=
-X-Google-Smtp-Source: ABdhPJymZadLdLDJ/CuCN2OwCehr9B8G/js5l6SIotgIztldFcKCjo1Zn9Ege3PptpUvjPiQJH6ADQ==
-X-Received: by 2002:adf:c513:: with SMTP id q19mr4072199wrf.20.1629989556729; 
- Thu, 26 Aug 2021 07:52:36 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:1f1e:4529:2fc9:1857?
- ([2a02:908:1252:fb60:1f1e:4529:2fc9:1857])
- by smtp.gmail.com with ESMTPSA id o8sm7738403wmq.21.2021.08.26.07.52.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Aug 2021 07:52:36 -0700 (PDT)
-Subject: Re: [PATCH 3/4] drm/amdgpu: drm/amdgpu: Handle IOMMU enabled case
-To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-References: <20210824210120.49812-1-andrey.grodzovsky@amd.com>
- <20210824210120.49812-4-andrey.grodzovsky@amd.com>
- <d4e6682e-2d2f-f271-6041-6bcb145c1fc9@gmail.com>
- <a4f70dd8-5f07-5279-7f7a-723fb3b8b944@amd.com>
- <fa925e81-7724-5dbc-7755-d82e597b0841@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <64d691c0-1148-605b-5ec5-ad56497bffbe@gmail.com>
-Date: Thu, 26 Aug 2021 16:52:35 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C1986E86E;
+	Thu, 26 Aug 2021 16:35:36 +0000 (UTC)
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA07F6E871
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Aug 2021 16:35:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
+ s=badeba3b8450; t=1629995732;
+ bh=J+ZJWRI573poFOOmV/ZVp9J7NOcIwGjeHGIcvugtFUc=;
+ h=X-UI-Sender-Class:To:From:Subject:Date;
+ b=lYQD6Ar85k1wRBGtovxgP/yHpA1ocpTEkPN5wNOCo9tR0xZ4K8oKB492yy8FRP1kP
+ UGVf8NXt3wUi/0C0sy+V89qt1PvI6BuMNq2x+bVyycA3BkhfVY5UlwV3IqLneGCQa1
+ XesaXRfCWNF2G3zIg5YzyFjQnbjoac+o62Z6L+kA=
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Received: from [192.168.1.100] ([95.91.0.137]) by mail.gmx.net (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MMobU-1mZjGq30tA-00Ik86 for
+ <amd-gfx@lists.freedesktop.org>; Thu, 26 Aug 2021 18:35:32 +0200
+To: amd-gfx@lists.freedesktop.org
+From: Paul <pb.g@gmx.de>
+Subject: Set video resolution and refresh rate at boot?
+Message-ID: <36cacbd4-8240-9713-6cea-68209757ed0b@gmx.de>
+Date: Thu, 26 Aug 2021 18:35:25 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-In-Reply-To: <fa925e81-7724-5dbc-7755-d82e597b0841@amd.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/alternative;
+ boundary="------------EF73617E45CEB5C3B74FC931"
 Content-Language: en-US
+X-Provags-ID: V03:K1:VkETwGgQ44NUrPxvz3DaTQwoTBrTMtc6qaDErGa1pNzKBGhBpLQ
+ 4ANkdBitH51aZYoI7BRMjoRqpmJNaYi2Z+T2ZtHd9y0wNZippcvbadh79ddpuYrHOtRUb89
+ yH8wUDs55YTg4QPw615j67MZKZg6Hr13wWd7Xb0cJQ7QlIp3A9cnsG9B8laaUb5gkdI7XwV
+ 9EWRKG6oSKoKFi0SNajRA==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:XKVXJ4ze688=:uAyAo+jxRXdqnpNfMLTp60
+ CtAyyY7HlPKAI2xbK/1ZDFtzNXsyBH79DiydyOYUQIuUj4AtWFfDXJZIW94PgDfK9W6BA5CHq
+ oYw0uzf8sc1wY8zbLelGAmuschmO3PWXF/Gm+xIU3wqzPEQfYawk8iGtQL58bM/h6pJCNexFp
+ 1Y7kHoTofw9z7kN+LOCW29qMeqc9GgmGyGiaRCfpzoXUatYPBLkKkxt/9HI9x3sd3DJK0cqiQ
+ 6yy1slxauOjoGluiUfUjk9QFdaeiyIWAMe7sfWvmSrgZdisUsqqQpogk6bNeu2LMtC+p9BMd0
+ ufFKdoyeUGo7FVFiRAXOcvx6ImCHCEs0IFLEsU49CF5Utfx0pU9UZqwDSAD2IntOUjClREcPg
+ Wz4LKTQlITY83m9gnLWCXFIQ4IjythsBK57cSrI7YYZzRanVPrsZFYNZ160GIjHt7Me6BX/xB
+ Q/fvcFSeZ4ssooKmU3XwLZmlc/mpRwS0qVvBBkYYLo+itmSy9pL74hURxIAZneSILnYRe0xRy
+ 1HcNJpogq5dLztZfYxiXOoZEjY1PsfcwwuHGLeHTHimstDAGfat+FEzwHuoUULkSznW1wtX+s
+ VjtOUtG+XshSy8jNsMBbBEldLH57jR6Ouu89BFfY0qyE2tROMHQre1OaavEfIGEShwqqP6YEP
+ JT+QtnRBdGuLRCrg9o92fVMw64MG/8AnFkEeBdTL9k6D7tHohlN2dwD/69gPEDXGUU/DlsTtF
+ rFP3yJDcJOopRCs/vc/FGFQh3c68IPcM1N9oJruUFWYEQp5iaBLjiwZ3v8gZKtw3qKHOrcta0
+ aKEXj9CV5ylGbAyKEalZ+mrJdUdItP1l2xrNGAKfEpCanrga4C/o3Z6cQu5Aa4VJhBTb7opqx
+ OPI5mMn7beqB4o3oNFAGKwB0mJ8T6DzAJsxh3+KYtyjjApDqu6aHc94m2x88hiS+u1ZE6ZA9s
+ ODv0Y6GffAMAy/mW4xbKmsOwZmfD+GG9Kr4CY2gAmHCz7a+toI0FlcuHtYuiSKKXHWAW862Wz
+ g6So1QHHd1Yi+5w/5IEFrPdJbWE0P+0UdtFOrmKd058Ti3eXf46bhXtBZXjAgiG/zeC+uT8cX
+ sCndcpqC26vvhTHrpI8Gd1Y9MFqZaaxcPb6
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,170 +80,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 26.08.21 um 15:43 schrieb Andrey Grodzovsky:
-> Ping
->
-> Andrey
->
-> On 2021-08-25 11:36 a.m., Andrey Grodzovsky wrote:
->>
->> On 2021-08-25 2:43 a.m., Christian König wrote:
->>>
->>>
->>> Am 24.08.21 um 23:01 schrieb Andrey Grodzovsky:
->>>> Handle all DMA IOMMU group related dependencies before the
->>>> group is removed and we try to access it after free.
->>>>
->>>> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
->>>> ---
->>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  2 +
->>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    | 50 
->>>> ++++++++++++++++++++++
->>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h    |  1 +
->>>>   3 files changed, 53 insertions(+)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c 
->>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>> index 0b5764aa98a4..288a465b8101 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>> @@ -3860,6 +3860,8 @@ void amdgpu_device_fini_hw(struct 
->>>> amdgpu_device *adev)
->>>>         amdgpu_device_ip_fini_early(adev);
->>>>   +    amdgpu_ttm_clear_dma_mappings(adev);
->>>> +
->>>>       amdgpu_gart_dummy_page_fini(adev);
->>>>         amdgpu_device_unmap_mmio(adev);
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c 
->>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->>>> index 446943e32e3e..f73d807db3b0 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->>>> @@ -64,6 +64,7 @@
->>>>   static int amdgpu_ttm_backend_bind(struct ttm_device *bdev,
->>>>                      struct ttm_tt *ttm,
->>>>                      struct ttm_resource *bo_mem);
->>>> +
->>>>   static void amdgpu_ttm_backend_unbind(struct ttm_device *bdev,
->>>>                         struct ttm_tt *ttm);
->>>>   @@ -2293,6 +2294,55 @@ static ssize_t amdgpu_iomem_write(struct 
->>>> file *f, const char __user *buf,
->>>>       return result;
->>>>   }
->>>>   +void amdgpu_ttm_clear_dma_mappings(struct amdgpu_device *adev)
->>>
->>> I strongly think that this function should be part of TTM. Something 
->>> like ttm_device_force_unpopulate.
->>
->>
->> Yes, this something I also wanted but see bellow
->>
->>
->>>
->>>> +{
->>>> +    struct ttm_device *bdev = &adev->mman.bdev;
->>>> +    struct ttm_resource_manager *man;
->>>> +    struct ttm_buffer_object *bo;
->>>> +    unsigned int i, j;
->>>> +
->>>> +    spin_lock(&bdev->lru_lock);
->>>> +    for (i = TTM_PL_SYSTEM; i < TTM_NUM_MEM_TYPES; ++i) {
->>>> +        man = ttm_manager_type(bdev, i);
->>>> +        if (!man || !man->use_tt)
->>>> +            continue;
->>>> +
->>>> +        while (!list_empty(&man->pinned)) {
->>>> +            bo = list_first_entry(&man->pinned, struct 
->>>> ttm_buffer_object, lru);
->>>> +            /* Take ref against racing releases once lru_lock is 
->>>> unlocked */
->>>> +            ttm_bo_get(bo);
->>>> +            list_del_init(&bo->lru);
->>>> +            spin_unlock(&bdev->lru_lock);
->>>> +
->>>> +            if (bo->ttm) {
->>>> +                amdgpu_ttm_backend_unbind(bo->bdev, bo->ttm);
->>
->>
->> amdgpu_ttm_backend_unbind is needed to be called separately from 
->> ttm_tt_unpopulate to take care of code
->> flows that do dma mapping though the gart bind and not through 
->> ttm_tt_populate, Since it's inside amdgpu
->> i had to place the entire function in amdgpu. Any suggestions ?
+This is a multi-part message in MIME format.
+--------------EF73617E45CEB5C3B74FC931
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-I think I've fixed exactly that just recently, see the patch here:
+Hi there
 
-commit b7e8b086ffbc03b890ed22ae63ed5e5bd319d184
-Author: Christian König <ckoenig.leichtzumerken@gmail.com>
-Date:   Wed Jul 28 15:05:49 2021 +0200
+Out of curiosity I would like to ask if it is possible to set a kernel
+command line parameter for my Radeon 6900XT
+that sets a specific resolution and refresh rate of a specific connected
+monitor.
 
-     drm/amdgpu: unbind in amdgpu_ttm_tt_unpopulate
+Ideally this parameter is set to the monitors used desktop (X11,
+Wayland) resolution/refreshrate.
 
-     Doing this in amdgpu_ttm_backend_destroy() is to late.
+I did this for years with my Intel IGP's. I appended:
 
-     It turned out that this is not a good idea at all because it leaves 
-pointers
-     to freed up system memory pages in the GART tables of the drivers.
+video=3DHDMI-A-1:1920x1080@50
 
-But that probably hasn't showed up in amd-staging-drm-next yet.
+to the kernel command line. This worked beautifully and the result was
+my monitor was preconfigured to a specific resolution and refresh
+rate from the first lines of the kernel to the desktop (X11) and it did
+not had to switch to anything else in between.
 
-Christian.
+Another nice side effect is when in X11 one switches to the console, or
+vice versa, via STRG+Fx, pretty much everyone has this annoying delay
+because
+the monitor has to switch between refresh rates again. With that
+preconfigured settings at boot this gave a very satisfying feeling,
+especially if one frequently
+switches between console and X11 (or wayland maybe).
 
->>
->> Andrey
->>
->>
->>>> + ttm_tt_destroy_common(bo->bdev, bo->ttm);
->>>
->>> Then you can also cleanly use ttm_tt_unpopulate here, cause this 
->>> will result in incorrect statistics inside TTM atm.
->>>
->>> Regards,
->>> Christian.
->>>
->>>> +            }
->>>> +
->>>> +            ttm_bo_put(bo);
->>>> +            spin_lock(&bdev->lru_lock);
->>>> +        }
->>>> +
->>>> +        for (j = 0; j < TTM_MAX_BO_PRIORITY; ++j) {
->>>> +            while (!list_empty(&man->lru[j])) {
->>>> +                bo = list_first_entry(&man->lru[j], struct 
->>>> ttm_buffer_object, lru);
->>>> +                ttm_bo_get(bo);
->>>> +                list_del_init(&bo->lru);
->>>> +                spin_unlock(&bdev->lru_lock);
->>>> +
->>>> +                if (bo->ttm) {
->>>> +                    amdgpu_ttm_backend_unbind(bo->bdev, bo->ttm);
->>>> +                    ttm_tt_destroy_common(bo->bdev, bo->ttm);
->>>> +                }
->>>> +                ttm_bo_put(bo);
->>>> +                spin_lock(&bdev->lru_lock);
->>>> +            }
->>>> +        }
->>>> +    }
->>>> +    spin_unlock(&bdev->lru_lock);
->>>> +
->>>> +}
->>>> +
->>>>   static const struct file_operations amdgpu_ttm_iomem_fops = {
->>>>       .owner = THIS_MODULE,
->>>>       .read = amdgpu_iomem_read,
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h 
->>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
->>>> index e69f3e8e06e5..02c8eac48a64 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
->>>> @@ -190,6 +190,7 @@ bool amdgpu_ttm_tt_is_readonly(struct ttm_tt 
->>>> *ttm);
->>>>   uint64_t amdgpu_ttm_tt_pde_flags(struct ttm_tt *ttm, struct 
->>>> ttm_resource *mem);
->>>>   uint64_t amdgpu_ttm_tt_pte_flags(struct amdgpu_device *adev, 
->>>> struct ttm_tt *ttm,
->>>>                    struct ttm_resource *mem);
->>>> +void amdgpu_ttm_clear_dma_mappings(struct amdgpu_device *adev);
->>>>     void amdgpu_ttm_debugfs_init(struct amdgpu_device *adev);
->>>
+Is this kind of parameter implemented in the kernel/amdgpu driver?
 
+
+
+--------------EF73617E45CEB5C3B74FC931
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 7bit
+
+<html>
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    Hi there<br>
+    <br>
+    Out of curiosity I would like to ask if it is possible to set a
+    kernel command line parameter for my Radeon 6900XT<br>
+    that sets a specific resolution and refresh rate of a specific
+    connected monitor. <br>
+    <br>
+    Ideally this parameter is set to the monitors used desktop (X11,
+    Wayland) resolution/refreshrate.<br>
+    <br>
+    I did this for years with my Intel IGP's. I appended:<br>
+    <br>
+    video=HDMI-A-1:1920x1080@50<br>
+    <br>
+    to the kernel command line. This worked beautifully and the result
+    was my monitor was preconfigured to a specific resolution and
+    refresh<br>
+    rate from the first lines of the kernel to the desktop (X11) and it
+    did not had to switch to anything else in between.<br>
+    <br>
+    Another nice side effect is when in X11 one switches to the console,
+    or vice versa, via STRG+Fx, pretty much everyone has this <span
+      class="Y2IQFc" lang="en">annoying delay because<br>
+      the monitor has to switch between refresh rates again. With that
+      preconfigured settings at boot this gave a very satisfying
+      feeling, especially if one frequently<br>
+      switches between console and X11 (or wayland maybe).<br>
+      <br>
+      Is this kind of parameter implemented in the kernel/amdgpu driver?<br>
+      <br>
+      <br>
+    </span>
+  </body>
+</html>
+
+--------------EF73617E45CEB5C3B74FC931--
