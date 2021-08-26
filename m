@@ -2,136 +2,131 @@ Return-Path: <SRS0=gNHI=NR=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-19.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 27201C432BE
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 12:19:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3FD4CC432BE
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 12:23:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E8E1160F45
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 12:19:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E8E1160F45
+	by mail.kernel.org (Postfix) with ESMTPS id F286861073
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 12:23:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F286861073
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 256A26E829;
-	Thu, 26 Aug 2021 12:19:35 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam07on2077.outbound.protection.outlook.com [40.107.212.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D4C316E827
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Aug 2021 12:19:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D2146E822;
+	Thu, 26 Aug 2021 12:23:04 +0000 (UTC)
+X-Greylist: delayed 171622 seconds by postgrey-1.36 at gabe;
+ Thu, 26 Aug 2021 12:23:02 UTC
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com (unknown
+ [40.107.237.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E06066E822
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Aug 2021 12:23:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=h2T0icz5zn2J+PYzT41GY6iWAHWLeXmXadbrBxZUI3n0+anGFgJ6NEbfvCbpeOa+dhf45OvuX8RrKWToDJXbsd5Kv/20l4PxcXej35oDtEYbOuyc+WJbG//Z2RLulvOCpM+Foi+ev19b+SqCHwUtLByi41ZMb0VdnLPnQFkva11jEdhKBuzwC7JycN7tN629eEwangeEQYAkUQ+yg674hEEOiOB12pMsFi3pIL5pGZSqolKkTagoUfvWm47Xkl1BbVrB1v63Db6onVfpmuj8umdYonz4ITGU5WpykKPGKRKcqoWCAAytlkdWdlOOBalutsw4r0MPWYH2mVc7uVBoJg==
+ b=A4QFV8GHSy3owa1OxQV787q8dmMLiAB9XPJ76EkkkdEsiKgJc/KkCdV2FEt6xDxkXsnQXGDq3voSC7Wg+qgMROTzYlB9rZvie2LbcM/kEUdwKom7HY/MqL6kKn56LEbyZQGid7uvvq/GLlL2QuO+lYdIAJh40Mg1rTdPoQrvphilMBXRfFIuqfOTpAqXyrpZJ8upyptcminTiob7W/WxRwWdpOwZ93G1adT81PSEfT+Ls5KahyYyHeVdTF8Nme0IARsYTJ/UtRGH2pP1nbSVYUmiCDCAZ7BljG4yJqOeu03ESIaf0l2LbrVihqQ4yARSsN6zGZQ4AdwD8NqgcCN6zw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=r5Lko17CXFkNoRxj6MzTRRRvdxGlO5z7/V5paPH4MBM=;
- b=cDGxgC7af511BXUz6cEMxvD1nkDROjMSNDxwENasmFdEaea5F+ScQGyz4Jpt/AVZjbkpKxUn/xHHqBP48gKY6VVDUKGvrP4v5kH4C7Iry9V2FMGcSAtORi0+ieUmWeUBcu+RXDRnZxpbsmkqQzO13CGYc1K1OcJTh0GKh/maxQ0idDF4U4n87UN8BRvfZjpoK0oHGSDdE1XPN4D9K239+eEzlwCaRdqrA7/3OCMdmBzrZLJnbXHJD/2cWKHJ6YaqM75jRuYt/2+1MlLzFsoHPVFsJzMFufeB9lphz+kggMfkOLc2XgxqaMzO6DhHT4WnsW18UANRKkY4CPC450GKYA==
+ bh=XISRQNWpoMoNaA36rv4iRbhr8VZIlL6zLP/Cs27lKCE=;
+ b=IW7dpooevw5UPvZ0g6M0MMtfetsZJMoqZyS4q3+xVXJtSSVY/CILTZxm0+HsfrMtqXzw6uYg5HlRGNtp39ee95AHk/avp3Oo387SPDeVGASWOxfCM6vpXe/2WVRfMaZakaaehEIDLBxoTRgP+dFICVYNc7ohCQE9v/1B+qljv7L9VDX1OxBZzMkslbiV6WeImjI3FAiLrcSM0moWWObvaQ1uXILxv26AOJGjv4iYZoogSE8t8l4wNrLgr/nQ55MtfqCgc569m3mJkwkCQWwUexD/dKlz0fFodbrvmEefq5koxMlUbr1qSJlinq2vF1zzjnHDTmUscnSZIS83dGNrhA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=r5Lko17CXFkNoRxj6MzTRRRvdxGlO5z7/V5paPH4MBM=;
- b=bhxEKpYKvA4IgSk15ebmO6j1yUMeIkJIWbT1Fg9fWhcmVJlS00Sy4WkMVIAmW/ZxB+XjhjZ/pWrSKnReHh3DO2tK26YQxHexDRKhjq/a+2pgZBbhSCxi128AgKR0GEyDubq3J2uQrKxcx+/GqL3O+6XA9XPWH7/GWX+lc9HbZOY=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from BL1PR12MB5349.namprd12.prod.outlook.com (2603:10b6:208:31f::7)
- by BL0PR12MB5505.namprd12.prod.outlook.com (2603:10b6:208:1ce::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.20; Thu, 26 Aug
- 2021 12:19:30 +0000
-Received: from BL1PR12MB5349.namprd12.prod.outlook.com
- ([fe80::152:9dd3:45a4:eeb6]) by BL1PR12MB5349.namprd12.prod.outlook.com
- ([fe80::152:9dd3:45a4:eeb6%4]) with mapi id 15.20.4415.024; Thu, 26 Aug 2021
- 12:19:30 +0000
+ bh=XISRQNWpoMoNaA36rv4iRbhr8VZIlL6zLP/Cs27lKCE=;
+ b=zo/cJxGzWIbeYFmKqCwOK5fKug+EV7E/Mi9EmtiGbrKV1NIA+/sKniz65ulovWXODUCTj8TyH0WSCMYqBNj3ph/7a1BFWdhVg+avhRiXbAQNIr/nsDdTqRLSv9jzXD620g2wmqCupBzalv9e7gnOYQ/ypfm2q2wwuBYn2bqEQHo=
+Received: from DM6PR12MB3547.namprd12.prod.outlook.com (2603:10b6:5:18a::20)
+ by DM5PR12MB1386.namprd12.prod.outlook.com (2603:10b6:3:77::9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4436.22; Thu, 26 Aug 2021 12:22:59 +0000
+Received: from DM6PR12MB3547.namprd12.prod.outlook.com
+ ([fe80::d9bd:9fce:27a0:e1be]) by DM6PR12MB3547.namprd12.prod.outlook.com
+ ([fe80::d9bd:9fce:27a0:e1be%2]) with mapi id 15.20.4436.024; Thu, 26 Aug 2021
+ 12:22:59 +0000
+From: "StDenis, Tom" <Tom.StDenis@amd.com>
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
 Subject: Re: [PATCH] drm/amd/amdgpu: New debugfs interface for MMIO registers
  (v5)
-To: "StDenis, Tom" <Tom.StDenis@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Thread-Topic: [PATCH] drm/amd/amdgpu: New debugfs interface for MMIO registers
+ (v5)
+Thread-Index: AQHXmdZuCB+yjCUtWE2SNVzYjE2lt6uFs3wAgAAARLeAAAHCAIAAALxN
+Date: Thu, 26 Aug 2021 12:22:59 +0000
+Message-ID: <DM6PR12MB35470F0FA108B66B49434B10F7C79@DM6PR12MB3547.namprd12.prod.outlook.com>
 References: <20210825172659.247530-1-tom.stdenis@amd.com>
  <4f68568f-6f38-a36d-397b-c9d1d03cf9e2@amd.com>
  <DM6PR12MB3547D401A95FC5CB86595348F7C79@DM6PR12MB3547.namprd12.prod.outlook.com>
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-Message-ID: <eec9d9d5-aff6-5344-b15b-155a46a57e76@amd.com>
-Date: Thu, 26 Aug 2021 17:49:18 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-In-Reply-To: <DM6PR12MB3547D401A95FC5CB86595348F7C79@DM6PR12MB3547.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+ <eec9d9d5-aff6-5344-b15b-155a46a57e76@amd.com>
+In-Reply-To: <eec9d9d5-aff6-5344-b15b-155a46a57e76@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN1PR0101CA0025.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c00:c::11) To BL1PR12MB5349.namprd12.prod.outlook.com
- (2603:10b6:208:31f::7)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [172.31.157.114] (165.204.158.249) by
- PN1PR0101CA0025.INDPRD01.PROD.OUTLOOK.COM (2603:1096:c00:c::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.20 via Frontend
- Transport; Thu, 26 Aug 2021 12:19:29 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: be788f2b-fc3f-4608-1681-08d9688bc176
-X-MS-TrafficTypeDiagnostic: BL0PR12MB5505:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BL0PR12MB5505A9CD1E867478F93BF55097C79@BL0PR12MB5505.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: U2mk07ZCyUv/wIh9OmZaVgSUFdOST4H9SZ5SNytTsGhclR2+fiZG9nJR9MlszbyCGgNL+c7Xpa+K/BCULK59fgyMsE/H3j0dZTsxm5eIWvmRcEp73W2d2VVEzqvIPiED/xwYnH5RrAGV+X3yQ8Oq7pAHgcZycGaTYYh+H9zUGp6cidnh3OWAzS1Z++A4FzfrEHyB/nXF1iTFCrXbnn5b6jhcsuaQ+nTzvZgxAUSi7Celw1ORe9ZVKw+mwwD3qZWvf2nb7OL3fdPHFKHmoZNdDM1NB2G+DIntV6DM0YzkDFBogHJbP0t7Jndvk/xg0I4nyBdiRe28ysWP3t+nq+jAJs8ZEY+yfCnm9ZcwevUSMch8OlhsvgWOILxPeRzKdGau5ssrLRBvpNRvb0GakmbJHtmqVshJDTCVDtKUrk7S8aOrI+Dnt0szdaegmJerfeRw2901G7OIXIkwpr63eFh2SxVBLpGoCri7VILhSQgmqYcgeTx8yX3cp4/AHiEFNusHTKzUSt0Cm50RgNGZkfIl26YXPmgOAiPVVdYy1dGAivrXs2B/wY4girbQPSMJ/ljgCx5cYGWd4mIDsDihuWEhKIJSYW7J50kSHQi3MKSETZqSn44xLNhRAoXpu4YJmZ4YPHEoqP1miOGaW4Hh3kaxZNbsuctQg6XAODvra2bvh0pIVti/edYlxjgq4G916CVUpnbjI+nvvVv6x8ZMZMEXiJhxHx3U3EI8ZQI88ODv9fI=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5349.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(366004)(396003)(376002)(346002)(39860400002)(6486002)(36756003)(6666004)(86362001)(2906002)(30864003)(31696002)(110136005)(316002)(16576012)(66556008)(66476007)(66946007)(186003)(83380400001)(38100700002)(31686004)(26005)(8936002)(5660300002)(478600001)(956004)(53546011)(8676002)(2616005)(45980500001)(43740500002);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-08-26T12:22:58.855Z;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
+ Official Use
+ Only; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard; 
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 515ec698-be5f-4360-3b35-08d9688c3e1e
+x-ms-traffictypediagnostic: DM5PR12MB1386:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM5PR12MB1386180C832E42EB80FA48E2F7C79@DM5PR12MB1386.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: etK9KfMk/L9K0i92TcX7nC/ra8H2NlkML03b3xH9aLc9UtYOQbhCvT49vLFNtXphD0Y95km0Eka+JuJhmyKqwGnzNYx7lvKFcYRqL+UYQ2voVqhJsQJiGF3MpWYC+ln36IY8+OPM3WquVAaHNUgEQRPBFY9bLYseZ6zBTBGf1gFcQ3eDl+PkO9evg7I6gGbZT8d5HuLho12nAbmFnZ1raFXlmy/lPa/UJCfj3dAdyMfu+MX486VLKnGMn3LO957QKXAzhyBkduzLlq+vy2u7BtzWCcxqYfQLV3llBoxpfTRrRle0yY9W32DL6pHJye9ok/0yZOSS0fG6zlTghALAe/cGCJIJI2UjxlAbdRYKifSwXT3F0XDnrrBzudIiW3V4AucfnjBfgNBXZSBZuGC3Fv+IL9cBj7emX+6NiDdy6BnbQZPHX0iVzvLkGbjl233l+CkHta4E3++f3Z+igePiWKhK9d/Rprz3ZK5nk0CvFqmAnpSYfm4FUjHx96XWYwrGx2QppqlkDUpILxZ5UqBffyYW7AsKC0yfnFFSrPkBUzhA0I9HRrHHR1RVNocPlSDRJYuCrpw8vLBu2NaFJsNtrzVLVriUtPwWOd6hnhn8prOuCLiL+W/+3IW/VWR52fGuD4ZmSE5Qxudxqf/ZV1GT/Q5AWe9RQeUem7eXSyJ2/TBZVAAB6Nct+DvS5Z/I5RA9T2hleTp8OX4yjemKqcjsYg==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3547.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(39860400002)(136003)(346002)(396003)(376002)(8676002)(30864003)(38070700005)(9686003)(8936002)(71200400001)(38100700002)(5660300002)(316002)(83380400001)(52536014)(110136005)(186003)(33656002)(122000001)(26005)(6506007)(66476007)(478600001)(64756008)(86362001)(66446008)(91956017)(2906002)(76116006)(66946007)(7696005)(53546011)(55016002)(66556008);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TzZyVklIanc4Yi9Ga0JvMmZkVWxrck5LVEZCejRHRlFCcWs1ajBLQ1IzMWI5?=
- =?utf-8?B?RlQ4MmZHeVkwdHFiS1JLYlkyayt5YW5OY3RnS1dneGtrRGlRMUNQMGRIVFYy?=
- =?utf-8?B?c1V2NWY1Mit4aTBjSFZJYkprR1ErVUt4WEhGRTlxaFB3cXpJZlVycHVyWXVM?=
- =?utf-8?B?N2NrS1ZpRW1hcS9mMmw0UzZXOGwzOTJrek5SRmw4eVd5eDFlWERZUWhURm1x?=
- =?utf-8?B?YzN5dklqVUlYZmtGbm56dTN4RVU0UlIzTXNyQXZxVVp2NTA5QS9kNG5WemhU?=
- =?utf-8?B?TGVKVittUzQ0RnZNZkFtTmRkY2gzMElvMzVGZjNqL1FPcEhBRnVSWG5abTVB?=
- =?utf-8?B?YzNrWng5NG5sbzlaQUV5Vk1KQW5qdXlKR2ZtNTFPMzNRZnZyN0ZiMjIrNGhz?=
- =?utf-8?B?Nnp2YUFCcXN0aHJmWkFlSXRRRGpRRUZIUVJzR1ZoREFIaTBQdkxHbkVoOUl1?=
- =?utf-8?B?WjlmQTg1UlFIT0hXSW00cWg5bHAvVytpQ1pKWEsrZlBCcEtPQW9rc1BJS2dl?=
- =?utf-8?B?OXVTREFhSGxaeGFkNmdqc1hsT3c1R0J0RW5UMElHY0dmSEVwbXVKem5Mcmlo?=
- =?utf-8?B?Tk84Rk90ZWkrTG9LSXZsL3JJbVl0b0xWSkRWczlXbFkrUXgzdXd6NEdHbmR4?=
- =?utf-8?B?aldFRUo3eXVFWGRLNFJsc0FqSmdRQzFSbTZhY2ZBbm9Zd3pFZllqSytUVWEy?=
- =?utf-8?B?Z0o4aWZKbVlCcTkrZmc2bXlCQ3JSNTRENHlleG14NDFuL0NXWVdNZGtPcHBv?=
- =?utf-8?B?ektYZUpEbWJTREVPaU5UaFd3NVBSaHhCWVlNMDZtWVhCMFdJTnA4Si8zMjBP?=
- =?utf-8?B?YmNmWEZwMTVINVhxUnRuQlI4Q2VxSjIyYnp1UTd5MDRnTlVwSFZGUFVhU1pz?=
- =?utf-8?B?Yi96bzZMRnorRVpxa25BWUpYUy9xUHpVL29xTlVNaVl1S29wWDFQTndsUk1C?=
- =?utf-8?B?YmYyMytWV0h1VU1TUUFQV2tlZ1VBeUJucVhBNG1nQlZ3MTJkcnFkVHZXWkNm?=
- =?utf-8?B?WDNQSmZ1UHgwc2cxLzNuOWxGQWJtMGczeVhwU0hocUFTRW16dGJWUGdCUVFC?=
- =?utf-8?B?YTJNbUQ3Q3Y4bmVZTFNSS0tmWlkzTDlFOHY4TXFHaFgrTFVZRVJsRUlwQk1x?=
- =?utf-8?B?ODZtSlFKNVlOSGRUZkdjTnI4NVJOODhHZ2dkeXRLWk5LcnRIUkhUR01FZkpO?=
- =?utf-8?B?SHNCZ25nSENCWFFjYjVUN2QrbFdqZmdPZUFxR1NFYXUyRmR5YXAvVkJvbkQz?=
- =?utf-8?B?ajJhTmgwdEc0cHFhT05XWWpSNTNpMmNXRC9YSmJDMFRLelMxd00xUVFsRlJU?=
- =?utf-8?B?YzAyYnZocmRMc0NFdmJrNHZJekc1M3JUZUprZXZqUy80dExiTzJSSTZrbS9u?=
- =?utf-8?B?cFdqNjRkbzJqRkgvU2tDaWF4QWxhcVNqWExQMHM3Wm5Oekg1K0NnL0tTZlFB?=
- =?utf-8?B?Qlo5bmJtWmJuemVEeWMvbmV4cTNiZFNZS1Y5MCt3MEZDSmJXcG9UM1JQelhn?=
- =?utf-8?B?WlJhNE10Qm0vc201UkJUZEl1YnhaK0NYdlJ4QkJXSnVQaFgvamdXY2liT2xO?=
- =?utf-8?B?bW1HOGdnWGR6bkZjSE5WaU9zaDVmMjRnSjJUcU8vbk1jQ2NJQ1FXK1AyUm9i?=
- =?utf-8?B?NzdQTVdTakMreldjV3Fic25ZMkpGWldHNUN2Znl2L3dBT0doak5BNzBSWmtC?=
- =?utf-8?B?TS9mMHFoSXN4eWlKWlVhaU9hSjJHM1VvdzFlUXp6cTErRzYwWlA0RXpkSTRQ?=
- =?utf-8?Q?knAg6uEGd+U2wQGhghmsLx3XyRzwjwGMztxnE2X?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?8+7WFYLgwm2dHIjJJULW+8Sd2RR2hM2q4RiFa3dwoNOZ1LfA0OX2nuPI4b?=
+ =?iso-8859-1?Q?7DXEyIpr6k/M9U8IgrKCNwRtL9jw6Qtej/P8M01GLn42Plo/hrpxNR2evF?=
+ =?iso-8859-1?Q?hx5yy71T5r1GL7Mlr2roC2I/AszqB7MU7IN6H4RB9iRWnwKvgUaBeKrhIY?=
+ =?iso-8859-1?Q?zw3AJhSKWFgLP3LpzvBWkqTFYbKXrvHeCuBGDb4kNW67RtfhePFhIaWgtO?=
+ =?iso-8859-1?Q?nNfeCn1GL+O+82vxV313/t2N7DBTJ58WUzj/aSJDhphd/s9I1pSEudwVs6?=
+ =?iso-8859-1?Q?Jg8INN3sJga6RoXX1b6R7w6OnJ7RpvUA+/fxU6GJOK/0RsYIL/g6g7pZSf?=
+ =?iso-8859-1?Q?wnbzc1hW9zbDYvvYiq0B37zPicojiBoJLaVTHV51abXi6YL19K1TavrfAr?=
+ =?iso-8859-1?Q?V66mUPdkA7iwkdD4JUT8Mu1G3NnNAUWJpb8aLYRay4VJa66xdHVbyOqiH9?=
+ =?iso-8859-1?Q?r02WI6NYjOKH5wK9hJ40U5g3j42lpngFOKCcKodtl4H8k6Qpe6t67lSFf/?=
+ =?iso-8859-1?Q?q43CJkngJvly6J8cABr46EBkMMHS8OBi+zeIPvS16VApiXD6y2XYjGmAPy?=
+ =?iso-8859-1?Q?T8rBFYK84qPfYasvK4QEuTGCtY2fqo6UaSPcFq5GytzWAJOzZOhh26RhAC?=
+ =?iso-8859-1?Q?68dHR62ywyLa+pWHbV5U2Y2u5b4bczefK6y+YbEnfNowf6FeYEr84DcqAb?=
+ =?iso-8859-1?Q?cQx+63aRNnUtwb8MxJa3vwk8nb8aUu8nKT/S2o0SRXBFkwfs/Ncm1W/abc?=
+ =?iso-8859-1?Q?sKpxyn5Fo1uuC6mxsgiZ69RTpiPIVp4EUrSaN6AhqT6wO+3nHZ4BlwZMpu?=
+ =?iso-8859-1?Q?kP+Xu5PSQn9r9KgZ4r5W5zLO161LmiKl6sSoPxX29mYVVff5BcBSXRpXxI?=
+ =?iso-8859-1?Q?SceTzcSn5tTwZMYamd7mYEyNWJiSHe11GUQRfHBAnkkbK/zncnYY152Xuq?=
+ =?iso-8859-1?Q?gABVjX5Bgp3VdXUvifXZzQtoZGprif4FsfoD15LFZoDOvTLjWnGzcm1IEI?=
+ =?iso-8859-1?Q?dl236VkwL2nbOJvmE3YicVfoJYwnv2ryQOGpB7kFO4W4q93s0neCjCmcDd?=
+ =?iso-8859-1?Q?UDO6vqmDNjEOY5W/oz0pURellJSBf/bu++anA0l+acb1bMYripsAap1wSF?=
+ =?iso-8859-1?Q?W3iXgUCyp4gWqwaw47e5zWmMC4Z6DK7CudxZTeVcae9DSsOXA8JopGmZBH?=
+ =?iso-8859-1?Q?f4hXeGWRazdlj1ogyKOR15lSpVfSerYogMrsuLMERDWijxv7jvUHivlOGk?=
+ =?iso-8859-1?Q?36ZUTR+9fDtCn/gqUMacKF7LAjVvy0zTnAZWuSMDf8yhfZ6oEnAykrRS7u?=
+ =?iso-8859-1?Q?AJ93kIIJII+bYXLlJe8MyeRjcZsJZLp42JATh4Heo+ue/aQ=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: be788f2b-fc3f-4608-1681-08d9688bc176
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5349.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2021 12:19:30.7061 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xB25OzFyKnMBEoEKk7f7Fcy+CMfLvcfKS6fgc6ErTsnwfw1RE7lRs7y9m17X+j99
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB5505
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3547.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 515ec698-be5f-4360-3b35-08d9688c3e1e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Aug 2021 12:22:59.4195 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 1/T5eWWTCyVmsrBmhpd84BdLulmhhzstcCywuHuIbyST/PwXz59aIH9DDqJlXkFopA8JW4Ppo9afMdD4BkADpg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1386
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,36 +141,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If there are two threads using the same fd, I don't see anything that 
+[AMD Official Use Only]
+
+The issue is someone can issue an ioctl WHILE a read/write is happening.  I=
+n that case a read could take a [say] SRBM lock but then never free it.
+
+Two threads racing operations WITH the lock in place just means the userspa=
+ce gets undefined outputs which from the kernel is fine.
+
+Tom
+
+________________________________________
+From: Lazar, Lijo <Lijo.Lazar@amd.com>
+Sent: Thursday, August 26, 2021 08:19
+To: StDenis, Tom; amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH] drm/amd/amdgpu: New debugfs interface for MMIO registe=
+rs (v5)
+
+If there are two threads using the same fd, I don't see anything that
 prevent this order
 
-	set_state (T1) // State1
-	set_state (T2) // State2
-	read (T1)
-	write (T2)
+        set_state (T1) // State1
+        set_state (T2) // State2
+        read (T1)
+        write (T2)
 
-If there are separate fds, I guess the device level mutex takes care anyway.
+If there are separate fds, I guess the device level mutex takes care anyway=
+.
 
 Thanks,
 Lijo
 
 On 8/26/2021 5:45 PM, StDenis, Tom wrote:
 > [AMD Official Use Only]
-> 
-> While umr uses this as a constant two-step dance that doesn't mean another user task couldn't misbehave.  Two threads firing read/write and IOCTL at the same time could cause a lock imbalance.
-> 
-> As I remarked to Christian offline that's unlikely to happen since umr is the only likely user of this it's still ideal to avoid potential race conditions as a matter of correctness.
-> 
+>
+> While umr uses this as a constant two-step dance that doesn't mean anothe=
+r user task couldn't misbehave.  Two threads firing read/write and IOCTL at=
+ the same time could cause a lock imbalance.
+>
+> As I remarked to Christian offline that's unlikely to happen since umr is=
+ the only likely user of this it's still ideal to avoid potential race cond=
+itions as a matter of correctness.
+>
 > Tom
-> 
+>
 > ________________________________________
 > From: Lazar, Lijo <Lijo.Lazar@amd.com>
 > Sent: Thursday, August 26, 2021 08:12
 > To: StDenis, Tom; amd-gfx@lists.freedesktop.org
-> Subject: Re: [PATCH] drm/amd/amdgpu: New debugfs interface for MMIO registers (v5)
-> 
-> 
-> 
+> Subject: Re: [PATCH] drm/amd/amdgpu: New debugfs interface for MMIO regis=
+ters (v5)
+>
+>
+>
 > On 8/25/2021 10:56 PM, Tom St Denis wrote:
 >> This new debugfs interface uses an IOCTL interface in order to pass
 >> along state information like SRBM and GRBM bank switching.  This
@@ -195,13 +213,15 @@ On 8/26/2021 5:45 PM, StDenis, Tom wrote:
 >>
 >> Signed-off-by: Tom St Denis <tom.stdenis@amd.com>
 >> ---
->>    drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 150 ++++++++++++++++++++
+>>    drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 150 +++++++++++++++++++=
++
 >>    drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h |   1 -
 >>    drivers/gpu/drm/amd/amdgpu/amdgpu_umr.h     |  51 +++++++
 >>    3 files changed, 201 insertions(+), 1 deletion(-)
 >>    create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_umr.h
 >>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_debugfs.c
 >> index 277128846dd1..87766fef0b1c 100644
 >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
 >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
@@ -213,48 +233,53 @@ On 8/26/2021 5:45 PM, StDenis, Tom wrote:
 >>
 >>    int amdgpu_debugfs_wait_dump(struct amdgpu_device *adev)
 >>    {
->> @@ -279,6 +280,143 @@ static ssize_t amdgpu_debugfs_regs_write(struct file *f, const char __user *buf,
->>        return amdgpu_debugfs_process_reg_op(false, f, (char __user *)buf, size, pos);
+>> @@ -279,6 +280,143 @@ static ssize_t amdgpu_debugfs_regs_write(struct fi=
+le *f, const char __user *buf,
+>>        return amdgpu_debugfs_process_reg_op(false, f, (char __user *)buf=
+, size, pos);
 >>    }
 >>
->> +static int amdgpu_debugfs_regs2_open(struct inode *inode, struct file *file)
+>> +static int amdgpu_debugfs_regs2_open(struct inode *inode, struct file *=
+file)
 >> +{
 >> +     struct amdgpu_debugfs_regs2_data *rd;
 >> +
->> +     rd = kzalloc(sizeof *rd, GFP_KERNEL);
+>> +     rd =3D kzalloc(sizeof *rd, GFP_KERNEL);
 >> +     if (!rd)
 >> +             return -ENOMEM;
->> +     rd->adev = file_inode(file)->i_private;
->> +     file->private_data = rd;
+>> +     rd->adev =3D file_inode(file)->i_private;
+>> +     file->private_data =3D rd;
 >> +     mutex_init(&rd->lock);
 >> +
 >> +     return 0;
 >> +}
 >> +
->> +static int amdgpu_debugfs_regs2_release(struct inode *inode, struct file *file)
+>> +static int amdgpu_debugfs_regs2_release(struct inode *inode, struct fil=
+e *file)
 >> +{
 >> +     kfree(file->private_data);
 >> +     return 0;
 >> +}
 >> +
->> +static ssize_t amdgpu_debugfs_regs2_op(struct file *f, char __user *buf, u32 offset, size_t size, int write_en)
+>> +static ssize_t amdgpu_debugfs_regs2_op(struct file *f, char __user *buf=
+, u32 offset, size_t size, int write_en)
 >> +{
->> +     struct amdgpu_debugfs_regs2_data *rd = f->private_data;
->> +     struct amdgpu_device *adev = rd->adev;
->> +     ssize_t result = 0;
+>> +     struct amdgpu_debugfs_regs2_data *rd =3D f->private_data;
+>> +     struct amdgpu_device *adev =3D rd->adev;
+>> +     ssize_t result =3D 0;
 >> +     int r;
 >> +     uint32_t value;
 >> +
 >> +     if (size & 0x3 || offset & 0x3)
 >> +             return -EINVAL;
 >> +
->> +     r = pm_runtime_get_sync(adev_to_drm(adev)->dev);
+>> +     r =3D pm_runtime_get_sync(adev_to_drm(adev)->dev);
 >> +     if (r < 0) {
 >> +             pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
 >> +             return r;
 >> +     }
 >> +
->> +     r = amdgpu_virt_enable_access_debugfs(adev);
+>> +     r =3D amdgpu_virt_enable_access_debugfs(adev);
 >> +     if (r < 0) {
 >> +             pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
 >> +             return r;
@@ -263,24 +288,31 @@ On 8/26/2021 5:45 PM, StDenis, Tom wrote:
 >> +     mutex_lock(&rd->lock);
 >> +
 >> +     if (rd->id.use_grbm) {
->> +             if ((rd->id.grbm.sh != 0xFFFFFFFF && rd->id.grbm.sh >= adev->gfx.config.max_sh_per_se) ||
->> +                 (rd->id.grbm.se != 0xFFFFFFFF && rd->id.grbm.se >= adev->gfx.config.max_shader_engines)) {
+>> +             if ((rd->id.grbm.sh !=3D 0xFFFFFFFF && rd->id.grbm.sh >=3D=
+ adev->gfx.config.max_sh_per_se) ||
+>> +                 (rd->id.grbm.se !=3D 0xFFFFFFFF && rd->id.grbm.se >=3D=
+ adev->gfx.config.max_shader_engines)) {
 >> +                     pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
->> +                     pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+>> +                     pm_runtime_put_autosuspend(adev_to_drm(adev)->dev)=
+;
 >> +                     amdgpu_virt_disable_access_debugfs(adev);
 >> +                     mutex_unlock(&rd->lock);
 >> +                     return -EINVAL;
 >> +             }
 >> +             mutex_lock(&adev->grbm_idx_mutex);
 >> +             amdgpu_gfx_select_se_sh(adev, rd->id.grbm.se,
->> +                                                             rd->id.grbm.sh,
->> +                                                             rd->id.grbm.instance);
+>> +                                                             rd->id.grb=
+m.sh,
+>> +                                                             rd->id.grb=
+m.instance);
 >> +     }
 >> +
 >> +     if (rd->id.use_srbm) {
 >> +             mutex_lock(&adev->srbm_mutex);
->> +             amdgpu_gfx_select_me_pipe_q(adev, rd->id.srbm.me, rd->id.srbm.pipe,
->> +                                                                     rd->id.srbm.queue, rd->id.srbm.vmid);
+>> +             amdgpu_gfx_select_me_pipe_q(adev, rd->id.srbm.me, rd->id.s=
+rbm.pipe,
+>> +                                                                     rd=
+->id.srbm.queue, rd->id.srbm.vmid);
 >> +     }
 >> +
 >> +     if (rd->id.pg_lock)
@@ -288,25 +320,27 @@ On 8/26/2021 5:45 PM, StDenis, Tom wrote:
 >> +
 >> +     while (size) {
 >> +             if (!write_en) {
->> +                     value = RREG32(offset >> 2);
->> +                     r = put_user(value, (uint32_t *)buf);
+>> +                     value =3D RREG32(offset >> 2);
+>> +                     r =3D put_user(value, (uint32_t *)buf);
 >> +             } else {
->> +                     r = get_user(value, (uint32_t *)buf);
+>> +                     r =3D get_user(value, (uint32_t *)buf);
 >> +                     if (!r)
->> +                             amdgpu_mm_wreg_mmio_rlc(adev, offset >> 2, value);
+>> +                             amdgpu_mm_wreg_mmio_rlc(adev, offset >> 2,=
+ value);
 >> +             }
 >> +             if (r) {
->> +                     result = r;
+>> +                     result =3D r;
 >> +                     goto end;
 >> +             }
->> +             offset += 4;
->> +             size -= 4;
->> +             result += 4;
->> +             buf += 4;
+>> +             offset +=3D 4;
+>> +             size -=3D 4;
+>> +             result +=3D 4;
+>> +             buf +=3D 4;
 >> +     }
 >> +end:
 >> +     if (rd->id.use_grbm) {
->> +             amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff);
+>> +             amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xff=
+ffffff);
 >> +             mutex_unlock(&adev->grbm_idx_mutex);
 >> +     }
 >> +
@@ -327,23 +361,25 @@ On 8/26/2021 5:45 PM, StDenis, Tom wrote:
 >> +     return result;
 >> +}
 >> +
->> +static long amdgpu_debugfs_regs2_ioctl(struct file *f, unsigned int cmd, unsigned long data)
+>> +static long amdgpu_debugfs_regs2_ioctl(struct file *f, unsigned int cmd=
+, unsigned long data)
 >> +{
->> +     struct amdgpu_debugfs_regs2_data *rd = f->private_data;
+>> +     struct amdgpu_debugfs_regs2_data *rd =3D f->private_data;
 >> +     int r;
 >> +
 >> +     switch (cmd) {
 >> +     case AMDGPU_DEBUGFS_REGS2_IOC_SET_STATE:
 >> +             mutex_lock(&rd->lock);
->> +             r = copy_from_user(&rd->id, (struct amdgpu_debugfs_regs2_iocdata *)data, sizeof rd->id);
+>> +             r =3D copy_from_user(&rd->id, (struct amdgpu_debugfs_regs2=
+_iocdata *)data, sizeof rd->id);
 >> +             mutex_unlock(&rd->lock);
-> 
+>
 > As this is a two-step read/write, I don't think there is any protection
 > offered by having this mutex.
-> 
+>
 > Thanks,
 > Lijo
-> 
+>
 >> +             return r ? -EINVAL : 0;
 >> +     default:
 >> +             return -EINVAL;
@@ -351,53 +387,60 @@ On 8/26/2021 5:45 PM, StDenis, Tom wrote:
 >> +     return 0;
 >> +}
 >> +
->> +static ssize_t amdgpu_debugfs_regs2_read(struct file *f, char __user *buf, size_t size, loff_t *pos)
+>> +static ssize_t amdgpu_debugfs_regs2_read(struct file *f, char __user *b=
+uf, size_t size, loff_t *pos)
 >> +{
 >> +     return amdgpu_debugfs_regs2_op(f, buf, *pos, size, 0);
 >> +}
 >> +
->> +static ssize_t amdgpu_debugfs_regs2_write(struct file *f, const char __user *buf, size_t size, loff_t *pos)
+>> +static ssize_t amdgpu_debugfs_regs2_write(struct file *f, const char __=
+user *buf, size_t size, loff_t *pos)
 >> +{
->> +     return amdgpu_debugfs_regs2_op(f, (char __user *)buf, *pos, size, 1);
+>> +     return amdgpu_debugfs_regs2_op(f, (char __user *)buf, *pos, size, =
+1);
 >> +}
 >> +
 >>
 >>    /**
 >>     * amdgpu_debugfs_regs_pcie_read - Read from a PCIE register
->> @@ -1091,6 +1229,16 @@ static ssize_t amdgpu_debugfs_gfxoff_read(struct file *f, char __user *buf,
+>> @@ -1091,6 +1229,16 @@ static ssize_t amdgpu_debugfs_gfxoff_read(struct =
+file *f, char __user *buf,
 >>        return result;
 >>    }
 >>
->> +static const struct file_operations amdgpu_debugfs_regs2_fops = {
->> +     .owner = THIS_MODULE,
->> +     .unlocked_ioctl = amdgpu_debugfs_regs2_ioctl,
->> +     .read = amdgpu_debugfs_regs2_read,
->> +     .write = amdgpu_debugfs_regs2_write,
->> +     .open = amdgpu_debugfs_regs2_open,
->> +     .release = amdgpu_debugfs_regs2_release,
->> +     .llseek = default_llseek
+>> +static const struct file_operations amdgpu_debugfs_regs2_fops =3D {
+>> +     .owner =3D THIS_MODULE,
+>> +     .unlocked_ioctl =3D amdgpu_debugfs_regs2_ioctl,
+>> +     .read =3D amdgpu_debugfs_regs2_read,
+>> +     .write =3D amdgpu_debugfs_regs2_write,
+>> +     .open =3D amdgpu_debugfs_regs2_open,
+>> +     .release =3D amdgpu_debugfs_regs2_release,
+>> +     .llseek =3D default_llseek
 >> +};
 >> +
->>    static const struct file_operations amdgpu_debugfs_regs_fops = {
->>        .owner = THIS_MODULE,
->>        .read = amdgpu_debugfs_regs_read,
->> @@ -1148,6 +1296,7 @@ static const struct file_operations amdgpu_debugfs_gfxoff_fops = {
+>>    static const struct file_operations amdgpu_debugfs_regs_fops =3D {
+>>        .owner =3D THIS_MODULE,
+>>        .read =3D amdgpu_debugfs_regs_read,
+>> @@ -1148,6 +1296,7 @@ static const struct file_operations amdgpu_debugfs=
+_gfxoff_fops =3D {
 >>
->>    static const struct file_operations *debugfs_regs[] = {
+>>    static const struct file_operations *debugfs_regs[] =3D {
 >>        &amdgpu_debugfs_regs_fops,
 >> +     &amdgpu_debugfs_regs2_fops,
 >>        &amdgpu_debugfs_regs_didt_fops,
 >>        &amdgpu_debugfs_regs_pcie_fops,
 >>        &amdgpu_debugfs_regs_smc_fops,
->> @@ -1160,6 +1309,7 @@ static const struct file_operations *debugfs_regs[] = {
+>> @@ -1160,6 +1309,7 @@ static const struct file_operations *debugfs_regs[=
+] =3D {
 >>
->>    static const char *debugfs_regs_names[] = {
+>>    static const char *debugfs_regs_names[] =3D {
 >>        "amdgpu_regs",
 >> +     "amdgpu_regs2",
 >>        "amdgpu_regs_didt",
 >>        "amdgpu_regs_pcie",
 >>        "amdgpu_regs_smc",
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_debugfs.h
 >> index 141a8474e24f..6d4965b2d01e 100644
 >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h
 >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h
@@ -409,7 +452,8 @@ On 8/26/2021 5:45 PM, StDenis, Tom wrote:
 >>    /*
 >>     * Debugfs
 >>     */
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umr.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_umr.h
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umr.h b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_umr.h
 >> new file mode 100644
 >> index 000000000000..919d9d401750
 >> --- /dev/null
@@ -418,22 +462,34 @@ On 8/26/2021 5:45 PM, StDenis, Tom wrote:
 >> +/*
 >> + * Copyright 2021 Advanced Micro Devices, Inc.
 >> + *
->> + * Permission is hereby granted, free of charge, to any person obtaining a
->> + * copy of this software and associated documentation files (the "Software"),
->> + * to deal in the Software without restriction, including without limitation
->> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
->> + * and/or sell copies of the Software, and to permit persons to whom the
+>> + * Permission is hereby granted, free of charge, to any person obtainin=
+g a
+>> + * copy of this software and associated documentation files (the "Softw=
+are"),
+>> + * to deal in the Software without restriction, including without limit=
+ation
+>> + * the rights to use, copy, modify, merge, publish, distribute, sublice=
+nse,
+>> + * and/or sell copies of the Software, and to permit persons to whom th=
+e
 >> + * Software is furnished to do so, subject to the following conditions:
 >> + *
->> + * The above copyright notice and this permission notice shall be included in
+>> + * The above copyright notice and this permission notice shall be inclu=
+ded in
 >> + * all copies or substantial portions of the Software.
 >> + *
->> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
->> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
->> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
->> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
->> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
->> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+>> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPR=
+ESS OR
+>> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABIL=
+ITY,
+>> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT S=
+HALL
+>> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGE=
+S OR
+>> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE=
+,
+>> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE O=
+R
 >> + * OTHER DEALINGS IN THE SOFTWARE.
 >> + *
 >> + */
@@ -462,8 +518,9 @@ On 8/26/2021 5:45 PM, StDenis, Tom wrote:
 >> +};
 >> +
 >> +enum AMDGPU_DEBUGFS_REGS2_CMDS {
->> +     AMDGPU_DEBUGFS_REGS2_CMD_SET_STATE=0,
+>> +     AMDGPU_DEBUGFS_REGS2_CMD_SET_STATE=3D0,
 >> +};
 >> +
->> +#define AMDGPU_DEBUGFS_REGS2_IOC_SET_STATE _IOWR(0x20, AMDGPU_DEBUGFS_REGS2_CMD_SET_STATE, struct amdgpu_debugfs_regs2_iocdata)
+>> +#define AMDGPU_DEBUGFS_REGS2_IOC_SET_STATE _IOWR(0x20, AMDGPU_DEBUGFS_R=
+EGS2_CMD_SET_STATE, struct amdgpu_debugfs_regs2_iocdata)
 >>
