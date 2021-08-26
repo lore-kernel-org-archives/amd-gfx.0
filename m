@@ -4,53 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 74CEFC432BE
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 17:27:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1F839C432BE
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 17:42:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 110ED6103E
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 17:27:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 110ED6103E
+	by mail.kernel.org (Postfix) with ESMTPS id CCE5060551
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 17:42:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org CCE5060551
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 835D66E884;
-	Thu, 26 Aug 2021 17:27:45 +0000 (UTC)
-X-Greylist: delayed 137249 seconds by postgrey-1.36 at gabe;
- Thu, 26 Aug 2021 17:27:44 UTC
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com (unknown
- [40.107.92.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7CC696E051;
- Thu, 26 Aug 2021 17:27:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5082A6E88C;
+	Thu, 26 Aug 2021 17:42:02 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2049.outbound.protection.outlook.com [40.107.236.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 220B76E039
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Aug 2021 17:42:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UsZw5mjBk1TD/IYbCCgB4Yhefl1FUVNKtUKIoRfyTA0D4Yn/3TZyJNR0Zhhw0MdKM3dQlOR6Z3GMnSrcI7UjGeAoLoXnWfoeobWDHHiEIBvU54yvEr6iG6fhnUbNluz6houjycG3AUWQLwijq7OdGPp592kqowo2KKe1WXgp+VRCKvZyGRULXHPwJ7q0jDsfUueMJ/IuxomS00c8ccVhVEmmbuHZc/uQatyS8E1/cgtTgaWzMt4R4Gg5fUSijWbMMvzC1SaR1SmBfFt19ssfPNkPshXoC1BV99g6sFFyIUIhpFhHjbhgeFmpRSIat/gQKpsb/HVAdHnkymXa04JRvg==
+ b=Ya4w+of25VhHG0RbAa7VKumZXGEz4cshSVH68MLIIM85b3ROcTGXeFGSYXJs67RSp/qVhyUvS6e6RrCFLqTxy5kGq77Uk3TysUJZ0FHLGBmZAFVigk9r8ZbU6bNVPlou25wT4+Shayj5ObdtNcdweIrCVa3H0SACgc78LqUo53oEdqnmkN3zIpz5Um2CKJ53yheqLaibcccz6CDQMrw+L0Ye1QkAr+Cyd//TQ3bTa8/ackbajTYZwISNYsNJSldAueQO/LZvGYDHRdWCqRY/iJRJdbILxVLwOdaWnyegtOaK4l3dydT7lMkUUy++YwExwKdg63sMD4hI4eZpal9IDw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=H8p2OECCbMREYULrN+nWfym8HEYOFUtgXUtH7Xavsig=;
- b=ixXdQ0ng1jKgdMK2nu+gKnllVagljX2wvoP1v/vL/L4J6nyQeUxs/DCZ2vAqNR/TzSYbR3e9NPbHGpuEoIQfkyXP2JKTnT2UEW64WE/X9PFhTrzugzyaX1bQUCQHqYuADPoVH4SM0VCnO0WefSD5lawvw4yOMwEqS+l5C5jA/n9PS7EWjwk9TRCCPO7Rvmdth+RWIkdh/mm24yUqWLWpq0P5ZqRgD0qsgXhjsN0gtROtiYZxAdwCMVU1jqRWTUonnf/fhJ+NPr8fBtK0y7ER9QMcgeD9dj5RyU0CCFan7sKLH9OqLnmmtgl6kzcKUX++dOmk8BoL74gHhRw0rlp3Fg==
+ bh=sEJ3bxndkHkCmfjyUevUX60/6ebTDNvZQu40KYV997U=;
+ b=C2Q1EQ01DmtGBI3FBvsIAgsdm/y1mYkpJTwPWXQ2SW1L66q/Bpd1kVDjCNJ/Ta7tx7X/KydIljZS9tMX6wQx7yDbcvHLDjgCct1WSPUgCoqgJjE1NM+nzfV2ZnBuR/hbXL+XMw40UJteKplzuN/pYP9IB4Z87+isDHhH0fxR5AcecWhSj7vRkYHelAjD161XhdWWrKkZBH2amMPHr3t9XEnfbAqMBkvvqJ+E6eJimkq4GT6zB0xsSFpwemCGj4V35C/fK1nifncARlzua5U4XIe3dDGjKVdOjXLAv5gUBBpFfCOwelzA5Gjb1QllA0rXGwROX7jAOcnNmysU86xIdA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=H8p2OECCbMREYULrN+nWfym8HEYOFUtgXUtH7Xavsig=;
- b=IFKrPA12HriMq51lnrU98N2y94LhcqfknzCs96BHnXQ5SC8Iw6tk/7AMXu5yrNtQlER6WBps0Wxctj+8cyCzLyZ2xP0PO/ohUxuXDX+LmtAceDtaZuQcqxnT/k/smvxTsIsxyJUU4FNIAD1/gOsrpnIjpmHiftFra+fKltTh2N8=
-Received: from BN9PR03CA0555.namprd03.prod.outlook.com (2603:10b6:408:138::20)
- by DM6PR12MB4058.namprd12.prod.outlook.com (2603:10b6:5:21d::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.19; Thu, 26 Aug
- 2021 17:27:42 +0000
-Received: from BN8NAM11FT010.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:138:cafe::c8) by BN9PR03CA0555.outlook.office365.com
- (2603:10b6:408:138::20) with Microsoft SMTP Server (version=TLS1_2,
+ bh=sEJ3bxndkHkCmfjyUevUX60/6ebTDNvZQu40KYV997U=;
+ b=4dD8Ni+6QzJoEQNJ9AYexSFvMzcQV1ddfwTpB2J2kQlcKGVXC99D1cZzKzhvIWAvKvr6cY287fl1O7hp3gOkawvLR1Ek1zeUp1ThxtWQo3CH76ZBHI2WzIq9QAE5cEdLDubehTxGuKETiDJnydM6hVp2Vq+hfgpt62I3kuMokKc=
+Received: from BN8PR16CA0027.namprd16.prod.outlook.com (2603:10b6:408:4c::40)
+ by SJ0PR12MB5439.namprd12.prod.outlook.com (2603:10b6:a03:3ae::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.17; Thu, 26 Aug
+ 2021 17:27:44 +0000
+Received: from BN8NAM11FT028.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:4c:cafe::e9) by BN8PR16CA0027.outlook.office365.com
+ (2603:10b6:408:4c::40) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.17 via Frontend
- Transport; Thu, 26 Aug 2021 17:27:42 +0000
+ Transport; Thu, 26 Aug 2021 17:27:44 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -59,54 +57,53 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT010.mail.protection.outlook.com (10.13.177.53) with Microsoft SMTP
+ BN8NAM11FT028.mail.protection.outlook.com (10.13.176.225) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4457.17 via Frontend Transport; Thu, 26 Aug 2021 17:27:42 +0000
+ 15.20.4457.17 via Frontend Transport; Thu, 26 Aug 2021 17:27:44 +0000
 Received: from agrodzovsky-All-Series.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2242.12; Thu, 26 Aug 2021 12:27:40 -0500
+ 15.1.2242.12; Thu, 26 Aug 2021 12:27:43 -0500
 From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
 CC: <ckoenig.leichtzumerken@gmail.com>, Andrey Grodzovsky
- <andrey.grodzovsky@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-Subject: [PATCH v2 1/4] drm/ttm: Create pinned list
-Date: Thu, 26 Aug 2021 13:27:05 -0400
-Message-ID: <20210826172708.229134-2-andrey.grodzovsky@amd.com>
+ <andrey.grodzovsky@amd.com>
+Subject: [PATCH v2 3/4] drm/amdgpu: drm/amdgpu: Handle IOMMU enabled case
+Date: Thu, 26 Aug 2021 13:27:07 -0400
+Message-ID: <20210826172708.229134-4-andrey.grodzovsky@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210826172708.229134-1-andrey.grodzovsky@amd.com>
 References: <20210826172708.229134-1-andrey.grodzovsky@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
 X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 8ef2969f-4946-40e2-16fe-08d968b6cf69
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4058:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB405877D55B289E029978F269EAC79@DM6PR12MB4058.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+X-MS-Office365-Filtering-Correlation-Id: 842eb84c-7773-480a-9ee4-08d968b6d093
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB5439:
+X-Microsoft-Antispam-PRVS: <SJ0PR12MB54399B94BCB1306F23467ADAEAC79@SJ0PR12MB5439.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1850;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: XPwT1DYBorMppAeJzkqfnPujRNu5DWsEmMZ7oAb8cAfw5+880WJZdQVQST666RSJPRTWWfARddx27freL9Rr/wQYpmiLEB3xT5z4qny1O82yqktPy+60EXXCUcZLRkPtMGVc1kvzJnR6lPeM1JJlYfOZd2N4QF4joAM72TuTQPfLoHyHkAxqZ2xuSXNkQYJkpJPJ8adSRS2DTXimXP0XgSIIWqOc96Aqv6nkSX2WCQkNsSIbYzfXSAlEWNMJIjod7ivqKqEuVQlNZrSWFv1JX62cvIdMLGCVhjLw826VHZSE0j8QXrqKfnujMMVNxOPQv/JgdhyYy2LUUpsZIdUNEprfErKe735FPG7jFfp+L+0ZFODdc3S0Ze7LgVGGgegksb5PippJ254F2UDUSjgkexQ947TxYccoDDtHCJe2HY+pAJfL1VEXMr9ds+utC9zBt4GBqNkzZ06VPhA/YBTVgSko1YtnfJ5UufWrPN/QDHkSkEQgD9uw5qUT6J2JOFL9C3IMTIYbqirh97kc4YlRGSuKGRrtPe9WHUvxPgnrQ+lnoyMnfxQT6OcQcFpqkiQbBpvBI2sQ5T399LXTN6xZAEa9RhfNd0QAwUf+S4I15Lxk7HsHG9KD8wlY+jK5qHLQbTEDR6x36+PA+vU0zcLRT/2b6ETUtJ6zdvn/qQoP3/DRPQOM6hKXoKsVBfdeS85nrH0EQ205G8488eSTcFmZLhQM0WM5s3eER7OUa9nrWsU=
+X-Microsoft-Antispam-Message-Info: z0rPaZtlqXWKw9DyoEV4HTdKPetshSa2cmG/v/+K3e9P4wSCmmf+qcCvAbL9enxqghvVs15hmyPq+sg8abH0UjLG2cDg+h2HbuMeC/smpVXuDS+zO9InOe4SUOz2p6bAGIGNHqmXYOejugufZ3eUPe6qJLlU6cAMgjT1diG+6l3XxltnfrP0ax2XY3J3Nl9OfvwX6EHxVgtGBfNQAfyvEEbJCbuC/aPpWchWB3PW55S9ai64aWZaYCIvsiIZVXxVxZ9L+CrdbPioxzKT4SKZiqyus2qU79LxIYtSHWXdH0uQPlvonzc/ZvmCiQ99yEwk3LScLK1vmZsY+ju7Di5IV6NPdon37lDm3WakuyPgKSmySnUsZjQMGIWGTaEiFy77DfMisa1LV3uRK+tIc/bucG+8GdgxyJaZLygiIJVXXdzoUnPXy+8zyPtcWBtOQObqN0MmAYmEKwiS4lRCzg1qH4obR6Ca0bPTSP0Y/V5sMv6zszQMlfVev0aQia6/CthtjJAnA4oJB4bRRKL/QqwNRwQTaXI4Llqf81XwUnz9KOKqMGXKnfKlOGaaKO0FHJ9112Nyp/WQaEzbyvslfX4nHgsaPyKFhZTxaRPhlzf/hW484eMiNgQNJXeX9GKpoujQek3SXkpecEX8/ss5hzwxWJtQaCPIYw3Oo/YXMN4jev6ch3nOasJGr4aTCQURN4ZgfCIj9HnreS7Y+jLuF3dJL6ibJpPnviE9WGL13qHG5Hw=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(346002)(376002)(136003)(396003)(39860400002)(46966006)(36840700001)(82310400003)(356005)(81166007)(7696005)(4326008)(1076003)(83380400001)(2616005)(8936002)(44832011)(478600001)(36860700001)(316002)(54906003)(82740400003)(426003)(336012)(186003)(16526019)(70206006)(8676002)(86362001)(26005)(66574015)(6666004)(70586007)(110136005)(47076005)(5660300002)(2906002)(36756003)(36900700001);
+ SFS:(4636009)(376002)(39860400002)(136003)(346002)(396003)(46966006)(36840700001)(54906003)(110136005)(2616005)(36860700001)(316002)(186003)(70206006)(8936002)(36756003)(70586007)(2906002)(82310400003)(16526019)(4326008)(82740400003)(26005)(86362001)(1076003)(5660300002)(356005)(81166007)(426003)(44832011)(478600001)(336012)(47076005)(8676002)(6666004)(4744005)(83380400001)(7696005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2021 17:27:42.2313 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8ef2969f-4946-40e2-16fe-08d968b6cf69
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2021 17:27:44.1548 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 842eb84c-7773-480a-9ee4-08d968b6d093
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT010.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT028.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4058
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5439
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,109 +118,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This list will be used to capture all non VRAM BOs not
-on LRU so when device is hot unplugged we can iterate
-the list and unmap DMA mappings before device is removed.
+Handle all DMA IOMMU group related dependencies before the
+group is removed and we try to access it after free.
 
-v2: 
-Reanme function to ttm_bo_move_to_pinned
-Keep deleting BOs from LRU in the new function
-if they have no resource struct assigned to them.
+v2:
+Move the actul handling function to TTM
 
 Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-Suggested-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/ttm/ttm_bo.c       | 30 ++++++++++++++++++++++++++----
- drivers/gpu/drm/ttm/ttm_resource.c |  1 +
- include/drm/ttm/ttm_resource.h     |  1 +
- 3 files changed, 28 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-index 1b950b45cf4b..64594819e9e7 100644
---- a/drivers/gpu/drm/ttm/ttm_bo.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo.c
-@@ -69,7 +69,29 @@ static void ttm_bo_mem_space_debug(struct ttm_buffer_object *bo,
- 	}
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 0b5764aa98a4..653bd8fdaa33 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -3860,6 +3860,8 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
  
--static void ttm_bo_del_from_lru(struct ttm_buffer_object *bo)
-+static inline void ttm_bo_move_to_pinned_or_del(struct ttm_buffer_object *bo)
-+{
-+	struct ttm_device *bdev = bo->bdev;
-+	struct ttm_resource_manager *man = NULL;
+ 	amdgpu_device_ip_fini_early(adev);
+ 
++	ttm_device_clear_dma_mappings(&adev->mman.bdev);
 +
-+	if (bo->resource)
-+		man = ttm_manager_type(bdev, bo->resource->mem_type);
-+
-+	/*
-+	 * Some BOs might be in transient state where they don't belong
-+	 * to any domain at the moment, simply remove them from whatever
-+	 * LRU list they are still hanged on to keep previous functionality
-+	 */
-+	if (man && man->use_tt)
-+		list_move_tail(&bo->lru, &man->pinned);
-+	else
-+		list_del_init(&bo->lru);
-+
-+	if (bdev->funcs->del_from_lru_notify)
-+		bdev->funcs->del_from_lru_notify(bo);
-+}
-+
-+static inline void ttm_bo_del_from_lru(struct ttm_buffer_object *bo)
- {
- 	struct ttm_device *bdev = bo->bdev;
+ 	amdgpu_gart_dummy_page_fini(adev);
  
-@@ -98,7 +120,7 @@ void ttm_bo_move_to_lru_tail(struct ttm_buffer_object *bo,
- 		dma_resv_assert_held(bo->base.resv);
- 
- 	if (bo->pin_count) {
--		ttm_bo_del_from_lru(bo);
-+		ttm_bo_move_to_pinned_or_del(bo);
- 		return;
- 	}
- 
-@@ -339,7 +361,7 @@ static int ttm_bo_cleanup_refs(struct ttm_buffer_object *bo,
- 		return ret;
- 	}
- 
--	ttm_bo_del_from_lru(bo);
-+	ttm_bo_move_to_pinned_or_del(bo);
- 	list_del_init(&bo->ddestroy);
- 	spin_unlock(&bo->bdev->lru_lock);
- 	ttm_bo_cleanup_memtype_use(bo);
-@@ -1154,7 +1176,7 @@ int ttm_bo_swapout(struct ttm_buffer_object *bo, struct ttm_operation_ctx *ctx,
- 		return 0;
- 	}
- 
--	ttm_bo_del_from_lru(bo);
-+	ttm_bo_move_to_pinned_or_del(bo);
- 	/* TODO: Cleanup the locking */
- 	spin_unlock(&bo->bdev->lru_lock);
- 
-diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_resource.c
-index 2431717376e7..91165f77fe0e 100644
---- a/drivers/gpu/drm/ttm/ttm_resource.c
-+++ b/drivers/gpu/drm/ttm/ttm_resource.c
-@@ -85,6 +85,7 @@ void ttm_resource_manager_init(struct ttm_resource_manager *man,
- 
- 	for (i = 0; i < TTM_MAX_BO_PRIORITY; ++i)
- 		INIT_LIST_HEAD(&man->lru[i]);
-+	INIT_LIST_HEAD(&man->pinned);
- 	man->move = NULL;
- }
- EXPORT_SYMBOL(ttm_resource_manager_init);
-diff --git a/include/drm/ttm/ttm_resource.h b/include/drm/ttm/ttm_resource.h
-index 140b6b9a8bbe..1ec0d5ebb59f 100644
---- a/include/drm/ttm/ttm_resource.h
-+++ b/include/drm/ttm/ttm_resource.h
-@@ -130,6 +130,7 @@ struct ttm_resource_manager {
- 	 */
- 
- 	struct list_head lru[TTM_MAX_BO_PRIORITY];
-+	struct list_head pinned;
- 
- 	/*
- 	 * Protected by @move_lock.
+ 	amdgpu_device_unmap_mmio(adev);
 -- 
 2.25.1
 
