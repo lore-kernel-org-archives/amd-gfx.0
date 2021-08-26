@@ -1,129 +1,114 @@
-Return-Path: <SRS0=FOdb=NQ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=gNHI=NR=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D9F42C432BE
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 21:01:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BB58DC43216
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 01:10:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9251B60FD9
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 21:01:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9251B60FD9
+	by mail.kernel.org (Postfix) with ESMTPS id 770A06102A
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 01:10:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 770A06102A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2062B89A35;
-	Wed, 25 Aug 2021 21:01:27 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2078.outbound.protection.outlook.com [40.107.244.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21C7A89933
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Aug 2021 21:01:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BEEE16E452;
+	Thu, 26 Aug 2021 01:10:12 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2070.outbound.protection.outlook.com [40.107.220.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C06D66E453
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Aug 2021 01:10:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OwShK+VfZtNzkMVDRrytD2P6WHx7uqnuP2GxgQ+oAbU3S0dEwjKM8GLzRpFIgkhsPWWrzvXS08EeWaMDEKabu29CvqmwBlI5KgqRYk+h2tCHd5QL6XJS409KRX3Ueeojl2rTCDokP0e4jkIRVt4OBG4fvfVC2PbwsueYb4kksZmFU/5ydHfDkJyWZk6f/eLH4VcM0lTHJvO/VBzwZNomuUf9GACWn9O6vxSZXxm28UANCJCXZbaZpdakXTH/w0U4lNKR/CjnJtUb3rEJhXKjsxJ8UoGy69XJOMnosbq5axzUZbbd/03GkmgS7MeC4O9qzn+9g7+GOMTZQOWZZEtuvg==
+ b=KZkGwMQ499mGoZG1+/iOF7zt7Mnq4QQh0Fd3JY5pyeJm2LBc97Z8nlFfzk3NalPP1dEjSdtwpx1+8i6X06mjWi+ioAJVak7Gv3RPEQ1/Y7z2Yw0A4MTQUeAzfTvLsD07rX1QE+rux8V91yBBBAISu23QY60DynAKpL+AqZD9iEdgynbr6Ez3XyA2gGr77R8LK7+uAipxbdWngG9MIfL/35E2ynQ2b5AEgLg5EPS8ZERlB0uqvsbhLed6tMbIbUA9peREQ60qDuYgV3qdtDKAB+0AiZb2tMFSIvgxPCxrqyPdsWCOUKQMIEeEg17W35yadyJYjHKrX/fvLYRHoKk9Rg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RyHmWcXl6s2Ad8FkWjqHShAavuzaJp9B0L7KobX5gjI=;
- b=nGoWz96amqfXbUSkvnivV9v+vCKfVOlVOjgN6b96Ix9Tk0l0EixpPFg2rZyGan+vQrlKm93TxXU2/Yg2BpLxoFEI+MlGaKqT+Klvvfe5nXIfiVxWmk5r9x+x24nV+OydwGxEX6rlJ6+xrYFW1BrkkNMzw8BdwwZcX1oRHow83a+tFDhUY7tDGTlCpg91WheFynJgPBDZvWBuZvk3guEU3XlSThuBdU5MPyPOEkqHd7lxfwCzm3877YH0qm8JCwEUL2Quc8bS2zJp8oqX4pdBQIIgVycfYgclEpe5psFjMkWwYIU1yKLUmlDkCTHTSDRB1R9GSosTT0QB+erFHWidVg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=44yXU7nuuKpRgj0svW8oJ+GAjct6iDXfZis5dLxv7QY=;
+ b=KaK6aeHM/hFdZANtZ+p/h8pf0NZ2Cz9dqM9emTyoJ2GCLDKEo8v2e3UGi2S2L9Fxz3geYxNzXFiLN2WK7EZUcT6JnQBcyfdMTFj7nwTPRgrz0cgjb/JL5c7G+IGAzv20QYnlYMvg2VM6xTLBoHBtmKV7vD2Clhk0UzLiVmH96Pjwe73+ZPJemQ8QfGolBVi1hsioLo8c6LnUYb0UrSImrGKoNXPmBgIHgUtUviRPDErRCCnA1Soz6d356fhPbYK3B4wpA5oydjPTfrLx5BBIJZMNXAIGmZvZ0sLbacJ+RVbBQOaCXDQH539G72+OrnFAcwL9p3BOiqkzf/UpiE44cA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RyHmWcXl6s2Ad8FkWjqHShAavuzaJp9B0L7KobX5gjI=;
- b=2/h9GbLbO8LZaDHtfOX2zdhwSEM+ZTLTpjIewnrjan/IC9pBobAMP+CnFUvMUYvzajxH6FPNFCRoHGxaTi1jwhfUiglZOK284oOWO8by4OhS/16R2HntZV+XCmV2rvLay9a7f0pDuvZeULf04MBP0aT5jqMqzLO17MOSLhrE4sw=
-Received: from BN6PR1201MB0148.namprd12.prod.outlook.com
- (2603:10b6:405:55::21) by BN6PR1201MB0210.namprd12.prod.outlook.com
- (2603:10b6:405:59::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.18; Wed, 25 Aug
- 2021 21:01:23 +0000
-Received: from BN6PR1201MB0148.namprd12.prod.outlook.com
- ([fe80::d4f2:79a1:acd6:8a6b]) by BN6PR1201MB0148.namprd12.prod.outlook.com
- ([fe80::d4f2:79a1:acd6:8a6b%5]) with mapi id 15.20.4436.024; Wed, 25 Aug 2021
- 21:01:23 +0000
-From: "Zuo, Jerry" <Jerry.Zuo@amd.com>
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu/display: fix logic regression in dce110
- apply_single_controller_ctx_to_hw
-Thread-Topic: [PATCH] drm/amdgpu/display: fix logic regression in dce110
- apply_single_controller_ctx_to_hw
-Thread-Index: AQHXmdOhk9Bnb1OrfEG4FH42Xr3X5quEtMTA
-Date: Wed, 25 Aug 2021 21:01:23 +0000
-Message-ID: <BN6PR1201MB0148F72ADC17E5972F22F65BE5C69@BN6PR1201MB0148.namprd12.prod.outlook.com>
-References: <20210825170648.2567071-1-alexander.deucher@amd.com>
-In-Reply-To: <20210825170648.2567071-1-alexander.deucher@amd.com>
-Accept-Language: en-CA, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=de077b33-59a2-457c-91a9-c8245e307ad1;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
- Official Use Only-AIP 2.0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-08-25T21:00:18Z;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: c5f3746b-9df3-4f83-ed47-08d9680b7f09
-x-ms-traffictypediagnostic: BN6PR1201MB0210:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BN6PR1201MB0210C20F5E1D54CB95C1B830E5C69@BN6PR1201MB0210.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:2887;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: +C/h7DwzvIEUXbqYHYRtK7tBYhp25KEmZsdez4UzBAA8wByYiR1SdgpgQ/s6BG0HZz8VJc7Zmuyi8xlAjqTleUIjHVNSgPxkE7u8KzW7Uufr872g3Ivnay5VJIlZ1cLnTX0wBEFxzi9Y1/WFlxLd844SS6GWl6ycbENRWmlZeQCnSejfAghE1fPr4xIg5LwDjS+46SoPc+3MisBwAheV47Q+iBdgC+bG//pUQ2m30KjJ+Xr7zIabzvwqEDsCPnH15K+qije2/VpFmkqeWxTknXlYfvV2Y8TgFSF4sFDtApbYkPRyu8n8uTdrAbuZjjJZC2NJofvsMVwp3UNJbKodODwue/EB05EPTRcShxqst+SiRHMCZSGp0eKOw/cVddNHvEqShinIgGbvjccS+BvuZzp29EmhtJp+E6aAhPHCXJwEYpcgzP5kiB5klP8p5UE0DL1zkPLSE7v0zazmvHxvnu71mzN2Kmv5XqSBzZqokQpyhZu7EVpCWUxaf1RoMzdZXq+Sxq77qKfJaqgzD+Qw9ggYdo8GKcVZEtafz4mSVe/GXWBajJK/dbOs6738zn7ybSLP/+PfuSfnF4K1b+1jD49XimDNN1JIUDXStknSo63TUTqVNDCak4xhY3MotwoQAQ7QUK4Xxtoq2Jy2vAOihzJn7emMyZNTkuqLoOURpWsS3OrlSFAhLZFsXXjOUcSe2Vs/GBDRSmHwdqmu2fgt+w==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN6PR1201MB0148.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(396003)(136003)(376002)(346002)(39860400002)(76116006)(52536014)(66476007)(66556008)(86362001)(66946007)(66446008)(64756008)(110136005)(478600001)(316002)(8936002)(8676002)(122000001)(38100700002)(71200400001)(186003)(38070700005)(5660300002)(83380400001)(2906002)(26005)(6506007)(33656002)(53546011)(7696005)(55016002)(9686003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?x4E36e5D2VXTMbdSoiGpbj0YLk1HxlDixUAn9+wYH+v05ZAOHiM1Qw07GenY?=
- =?us-ascii?Q?V633Mvb9pZvBo3tZXPkevpcZfHoS3ytYovlpvFCwjoWUWBb3vogV2zWw8F3b?=
- =?us-ascii?Q?yLzFiBM1dfJEN1G+CrXm5IwqiAe5WBDWQx4or71PBmpMoDicqc2ciSWQfAdR?=
- =?us-ascii?Q?afZhG2j7yaJJi2ZcxBqqCbG0GirXC435fr/GdgHjoihRwpW64ecQ/6KFnDYB?=
- =?us-ascii?Q?mHI4DO6MUd6GabfEnVdyq5Jt84KLZ72KijTzJpCmiL1iAtKZK88XHCeqeFvU?=
- =?us-ascii?Q?4IiU18iChk143laUxu+v0wV6bv+c8xmXT0ceChNhCs4y+tKpui5URmQE7Gkf?=
- =?us-ascii?Q?YVpoEQUs7nC1ZCdTrSWh0TY8REHNOKga+LPTjY90Mo4zrx+nl8iI3n7//CfK?=
- =?us-ascii?Q?Sb6vHQ/qP3oVPlSbq0tvAQ9IXSxQjyfVlvbLpBbPADDdIYeoq4xXJRMUs3rY?=
- =?us-ascii?Q?eEcTFMU58RbBqTN+DsA185ZKy9b4MAs5nKXBHfuNV8rH5rfNBjnXGS/Sqkzx?=
- =?us-ascii?Q?94878qlLNvu5pK4t5n+38mJcsHWjdYyHppH3v2XDygO1ehBHDpandLXyS9df?=
- =?us-ascii?Q?zuLzDA8y+touO44+HTnRrs4wiEU07yvIAEqNhCESQlkDzZdDabOZgak+Gaoz?=
- =?us-ascii?Q?FDsKXgNFB6JfzGAqHRKnwtqlioPr/OpZteLoLE74J2o4Op1YdgUzDWSfdz0m?=
- =?us-ascii?Q?UzzO07qXyJg9Iljdj3igOwwH2BiRHN8E+eMyo1hZTIa6Z+ZrThY6/FMj7UVd?=
- =?us-ascii?Q?w8B6jXsv7H0bFll50cuw1XC3xFt+O8IrE8JDP0qD90P6R+5shl2cPR2ZIK87?=
- =?us-ascii?Q?UR1d1FoS3aLTUCixqwK7NPE4nPLJfLg2QhXpMZpkqryYhpSgJfhl5AnsngB0?=
- =?us-ascii?Q?xTXSm9MKzOan4Ap5zMphT8ORlmUjMcOZP5lvZDdwrsQHoPmBpnOaeuxCAZQ0?=
- =?us-ascii?Q?fEB3N6RcMrFeGfYM1n+8scJr00PtLc0wWuAPNfTo8fODLgrI+Jt6RXgOG2s5?=
- =?us-ascii?Q?qJL7hfZfW0tAk/nI015M6IdGqCHUZmNTSm1RTLgnkruc7Utywz83wnTrFTxh?=
- =?us-ascii?Q?UnkKq0Rqk7lHmM1lbXQ2p4qf46aJSMdmJIrneNXMPdt5je5ZNEg9DkLmyFwM?=
- =?us-ascii?Q?hFYCqSoLaQcq5ywcEpyiw6ExkGlGFXUfeO/8s+tE//bP4wldRWHcODhnQbP9?=
- =?us-ascii?Q?ZkQXeRFHYD8ZTrphtBpc3z+gqmIK0fEzSguDKZausnNtF9NVkdoNYe9NLEqi?=
- =?us-ascii?Q?jBbQWnd4WFQKmn+Gc6NMNQ2wYF3x1IfDjONPkLhlrL2NK1aXAO41jVNB0FCd?=
- =?us-ascii?Q?wLGtnTn0dCizqv9mUqkOlzxv?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ bh=44yXU7nuuKpRgj0svW8oJ+GAjct6iDXfZis5dLxv7QY=;
+ b=qvl6lAC/TrR3LkBoK7bUko029emvg0IJepX18N8vP5Gap8JZZkVy2rBU+hj5MY8RmY0WIDmnEc8+3ROVTgrGsZhiR6o7x/IMo5hmIeoODLEDKEBUv8xt/boB5QFiUkBtM7zup2jvqZUm26WMqVx6JI2kITonJZWeEIKDSXa76sc=
+Received: from DM5PR08CA0043.namprd08.prod.outlook.com (2603:10b6:4:60::32) by
+ DM5PR12MB1691.namprd12.prod.outlook.com (2603:10b6:4:8::11) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4436.22; Thu, 26 Aug 2021 01:10:09 +0000
+Received: from DM6NAM11FT012.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:4:60:cafe::7b) by DM5PR08CA0043.outlook.office365.com
+ (2603:10b6:4:60::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.17 via Frontend
+ Transport; Thu, 26 Aug 2021 01:10:09 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT012.mail.protection.outlook.com (10.13.173.109) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4457.17 via Frontend Transport; Thu, 26 Aug 2021 01:10:08 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Wed, 25 Aug
+ 2021 20:10:06 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Wed, 25 Aug
+ 2021 20:10:06 -0500
+Received: from elite-desk-aura.lan (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2242.12 via Frontend
+ Transport; Wed, 25 Aug 2021 20:10:05 -0500
+From: Aurabindo Pillai <aurabindo.pillai@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Harry.Wentland@amd.com>, <nicholas.kazlauskas@amd.com>,
+ <alexander.deucher@amd.com>, <aurabindo.pillai@amd.com>, "Jerry (Fangzhi)
+ Zuo" <Jerry.Zuo@amd.com>, <stable@vger.kernel.org>
+Subject: [PATCH 2/4] drm/amd/display: Update bounding box states (v2)
+Date: Wed, 25 Aug 2021 21:10:00 -0400
+Message-ID: <20210826011002.425361-2-aurabindo.pillai@amd.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20210826011002.425361-1-aurabindo.pillai@amd.com>
+References: <20210826011002.425361-1-aurabindo.pillai@amd.com>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 4b5ee877-601c-4bc7-a060-08d9682e3f28
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1691:
+X-Microsoft-Antispam-PRVS: <DM5PR12MB1691F1EB54EE154FE1DF40FA8BC79@DM5PR12MB1691.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3826;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: k7rUjZaFBEoRY/EAtJsinAB7WqerQvWUajVQEAgbo59Dsfz1qJKhFua+2TiQEwBqvbfgJP8enKdEi9XBE+hd9y0Gwm7pN+weDhWH8WvCPJ8toVsPoSUcMf3Ikdkg8So4fkgc1/LrWHREF6LTEJauZGn2cJF2mxw2tLEM2JPYrC7Hzn6Oes2NtK/p7Q4g9BqHk97SZ1UgrSMgJiPW24+ukhZdZG8kiOR2Q4WVXIPrOYoaO5iCm3KZdGf3PAn47+jndFs2WDjKRIcXZOorAAemGZzu+5J+rnFAKXGPiYWVsfa7L1bxco8ECrp+zn6c2A/ZR1CdKo3CUylI0cGpY7XgM+atcT2pR1x5Vk1EsyHyQjtefGH9d3Q8nN2EMMyQeKnKcsMlXda2LXrHczDnl2aoVNgMgWX2Lbd9GzG1sr0rSFBfR0TYBvFXsZLHFZbbx0EkAgll3T6rTqIwH2KJmMOgLuOCgwLY5EOkOTOvX4mmG2OcN+XKziZ3DnVdYjSb9fWAMpgRtZLNFK4j2ljLfyrE6ILl+uPgKHb6BYAMKipfA+SyBIBmiZSb3ljBLqu0k2Kq95QQx18fnKQ3NJq72zS7u78mnf5vRb3d4Crha0M8jvidWasEQbW9VGgEmucixeUbYoQSlUC2kBzQegXDn68Ua/hS52RoGQMBm3nY8+NcS+IYo4jUvFToswjm+3od7OmqWBU63vGeFSkP5suleUswvdNEH0n7I5wkaCorLFwL0UGKDKqRxYqLO2SceqJVgm17LKhNlweatSRqWue3pyMR3w==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(39860400002)(136003)(346002)(396003)(376002)(46966006)(36840700001)(70206006)(26005)(36756003)(82740400003)(6666004)(1076003)(70586007)(47076005)(2616005)(8936002)(6916009)(44832011)(82310400003)(36860700001)(81166007)(8676002)(356005)(83380400001)(426003)(186003)(336012)(4326008)(2906002)(86362001)(316002)(54906003)(5660300002)(478600001)(117716001)(36900700001);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN6PR1201MB0148.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c5f3746b-9df3-4f83-ed47-08d9680b7f09
-X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Aug 2021 21:01:23.3462 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: wfhthXxN8Az6+CrA3z90bG6xQN6bqV0Dd9gQiuuotNY7UuomieNg0fv61cdV0Rva
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR1201MB0210
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2021 01:10:08.4169 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4b5ee877-601c-4bc7-a060-08d9682e3f28
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT012.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1691
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,63 +123,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only]
+From: "Jerry (Fangzhi) Zuo" <Jerry.Zuo@amd.com>
 
-Thanks for pointing out the mistake.
+[Why]
+Drop hardcoded dispclk, dppclk, phyclk
 
-Reviewed-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
+[How]
+Read the corresponding values from clock table entries already populated.
 
------Original Message-----
-From: Deucher, Alexander <Alexander.Deucher@amd.com>
-Sent: August 25, 2021 1:07 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zuo, Jerry <Jerry.Zuo@a=
-md.com>
-Subject: [PATCH] drm/amdgpu/display: fix logic regression in dce110 apply_s=
-ingle_controller_ctx_to_hw
-
-Commit 5de27e1d6755 ("drm/amd/display: Add DP 2.0 SST DC Support") added a =
-new check for DP 2.0 with a CONFIG_DRM_AMD_DC_DCN check that removed a bunc=
-h of logic if CONFIG_DRM_AMD_DC_DCN was not set, restore that logic.
-
-Fixes: 5de27e1d6755 ("drm/amd/display: Add DP 2.0 SST DC Support")
-Cc: Fangzhi Zuo <Jerry.Zuo@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Jerry (Fangzhi) Zuo <Jerry.Zuo@amd.com>
+Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Cc: stable@vger.kernel.org
 ---
- .../gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c    | 7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
+ .../drm/amd/display/dc/dcn30/dcn30_resource.c | 41 ++++++++++++++-----
+ 1 file changed, 31 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c b/=
-drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-index 33743dc2631c..f660472e71fb 100644
---- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-@@ -1545,6 +1545,7 @@ static enum dc_status apply_single_controller_ctx_to_=
-hw(
-         * function core_link_enable_stream
-         */
-        if (!(hws->wa.dp_hpo_and_otg_sequence && is_dp_128b_132b_signal(pip=
-e_ctx)))
-+#endif
-                /*  */
-                /* Do not touch stream timing on seamless boot optimization=
-. */
-                if (!pipe_ctx->stream->apply_seamless_boot_optimization)
-@@ -1558,12 +1559,6 @@ static enum dc_status apply_single_controller_ctx_to=
-_hw(
-        if (pipe_ctx->stream_res.tg->funcs->set_drr)
-                pipe_ctx->stream_res.tg->funcs->set_drr(
-                        pipe_ctx->stream_res.tg, &params);
--#else
--       /*  */
--       /* Do not touch stream timing on seamless boot optimization. */
--       if (!pipe_ctx->stream->apply_seamless_boot_optimization)
--               hws->funcs.enable_stream_timing(pipe_ctx, context, dc);
--#endif
-
-        // DRR should set trigger event to monitor surface update event
-        if (stream->adjust.v_total_min !=3D 0 && stream->adjust.v_total_max=
- !=3D 0)
---
-2.31.1
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
+index 43ac6f42dd80..3d2443328345 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
+@@ -2398,16 +2398,37 @@ void dcn30_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params
+ 	dc->dml.soc.dispclk_dppclk_vco_speed_mhz = dc->clk_mgr->dentist_vco_freq_khz / 1000.0;
+ 
+ 	if (bw_params->clk_table.entries[0].memclk_mhz) {
++		int max_dcfclk_mhz = 0, max_dispclk_mhz = 0, max_dppclk_mhz = 0, max_phyclk_mhz = 0;
++
++		for (i = 0; i < MAX_NUM_DPM_LVL; i++) {
++			if (bw_params->clk_table.entries[i].dcfclk_mhz > max_dcfclk_mhz)
++				max_dcfclk_mhz = bw_params->clk_table.entries[i].dcfclk_mhz;
++			if (bw_params->clk_table.entries[i].dispclk_mhz > max_dispclk_mhz)
++				max_dispclk_mhz = bw_params->clk_table.entries[i].dispclk_mhz;
++			if (bw_params->clk_table.entries[i].dppclk_mhz > max_dppclk_mhz)
++				max_dppclk_mhz = bw_params->clk_table.entries[i].dppclk_mhz;
++			if (bw_params->clk_table.entries[i].phyclk_mhz > max_phyclk_mhz)
++				max_phyclk_mhz = bw_params->clk_table.entries[i].phyclk_mhz;
++		}
++
++		if (!max_dcfclk_mhz)
++			max_dcfclk_mhz = dcn3_0_soc.clock_limits[0].dcfclk_mhz;
++		if (!max_dispclk_mhz)
++			max_dispclk_mhz = dcn3_0_soc.clock_limits[0].dispclk_mhz;
++		if (!max_dppclk_mhz)
++			max_dppclk_mhz = dcn3_0_soc.clock_limits[0].dppclk_mhz;
++		if (!max_phyclk_mhz)
++			max_phyclk_mhz = dcn3_0_soc.clock_limits[0].phyclk_mhz;
+ 
+-		if (bw_params->clk_table.entries[1].dcfclk_mhz > dcfclk_sta_targets[num_dcfclk_sta_targets-1]) {
++		if (max_dcfclk_mhz > dcfclk_sta_targets[num_dcfclk_sta_targets-1]) {
+ 			// If max DCFCLK is greater than the max DCFCLK STA target, insert into the DCFCLK STA target array
+-			dcfclk_sta_targets[num_dcfclk_sta_targets] = bw_params->clk_table.entries[1].dcfclk_mhz;
++			dcfclk_sta_targets[num_dcfclk_sta_targets] = max_dcfclk_mhz;
+ 			num_dcfclk_sta_targets++;
+-		} else if (bw_params->clk_table.entries[1].dcfclk_mhz < dcfclk_sta_targets[num_dcfclk_sta_targets-1]) {
++		} else if (max_dcfclk_mhz < dcfclk_sta_targets[num_dcfclk_sta_targets-1]) {
+ 			// If max DCFCLK is less than the max DCFCLK STA target, cap values and remove duplicates
+ 			for (i = 0; i < num_dcfclk_sta_targets; i++) {
+-				if (dcfclk_sta_targets[i] > bw_params->clk_table.entries[1].dcfclk_mhz) {
+-					dcfclk_sta_targets[i] = bw_params->clk_table.entries[1].dcfclk_mhz;
++				if (dcfclk_sta_targets[i] > max_dcfclk_mhz) {
++					dcfclk_sta_targets[i] = max_dcfclk_mhz;
+ 					break;
+ 				}
+ 			}
+@@ -2447,7 +2468,7 @@ void dcn30_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params
+ 				dcfclk_mhz[num_states] = dcfclk_sta_targets[i];
+ 				dram_speed_mts[num_states++] = optimal_uclk_for_dcfclk_sta_targets[i++];
+ 			} else {
+-				if (j < num_uclk_states && optimal_dcfclk_for_uclk[j] <= bw_params->clk_table.entries[1].dcfclk_mhz) {
++				if (j < num_uclk_states && optimal_dcfclk_for_uclk[j] <= max_dcfclk_mhz) {
+ 					dcfclk_mhz[num_states] = optimal_dcfclk_for_uclk[j];
+ 					dram_speed_mts[num_states++] = bw_params->clk_table.entries[j++].memclk_mhz * 16;
+ 				} else {
+@@ -2462,7 +2483,7 @@ void dcn30_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params
+ 		}
+ 
+ 		while (j < num_uclk_states && num_states < DC__VOLTAGE_STATES &&
+-				optimal_dcfclk_for_uclk[j] <= bw_params->clk_table.entries[1].dcfclk_mhz) {
++				optimal_dcfclk_for_uclk[j] <= max_dcfclk_mhz) {
+ 			dcfclk_mhz[num_states] = optimal_dcfclk_for_uclk[j];
+ 			dram_speed_mts[num_states++] = bw_params->clk_table.entries[j++].memclk_mhz * 16;
+ 		}
+@@ -2475,9 +2496,9 @@ void dcn30_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params
+ 			dcn3_0_soc.clock_limits[i].dram_speed_mts = dram_speed_mts[i];
+ 
+ 			/* Fill all states with max values of all other clocks */
+-			dcn3_0_soc.clock_limits[i].dispclk_mhz = bw_params->clk_table.entries[1].dispclk_mhz;
+-			dcn3_0_soc.clock_limits[i].dppclk_mhz  = bw_params->clk_table.entries[1].dppclk_mhz;
+-			dcn3_0_soc.clock_limits[i].phyclk_mhz  = bw_params->clk_table.entries[1].phyclk_mhz;
++			dcn3_0_soc.clock_limits[i].dispclk_mhz = max_dispclk_mhz;
++			dcn3_0_soc.clock_limits[i].dppclk_mhz  = max_dppclk_mhz;
++			dcn3_0_soc.clock_limits[i].phyclk_mhz  = max_phyclk_mhz;
+ 			dcn3_0_soc.clock_limits[i].dtbclk_mhz = dcn3_0_soc.clock_limits[0].dtbclk_mhz;
+ 			/* These clocks cannot come from bw_params, always fill from dcn3_0_soc[1] */
+ 			/* FCLK, PHYCLK_D18, SOCCLK, DSCCLK */
+-- 
+2.30.2
 
