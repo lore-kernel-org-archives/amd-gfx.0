@@ -2,135 +2,81 @@ Return-Path: <SRS0=gNHI=NR=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-19.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2C325C432BE
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 14:03:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8A3ECC432BE
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 14:52:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BE72461038
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 14:03:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BE72461038
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 4CF9F60EE0
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 14:52:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4CF9F60EE0
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A4BF6E861;
-	Thu, 26 Aug 2021 14:03:12 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2048.outbound.protection.outlook.com [40.107.223.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D09256E85F;
- Thu, 26 Aug 2021 14:03:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Q1hU0EhJe2ysNpxjUKZWgKQhVysNcInVWFEKEaotWk0ei4/DxEdC2CvUnsWeFEPJHorhtLbCDAKr72sIG4RH24Jw7Abxzit+ysssDxtryR3rtPzWGtb6tGFIX4yV7M4MHFR20BXM/bnMoHacvIxyNIQ2KLQKf3Mv0DPzqtdCyO9WLWUeqhg5jTDyixmDr6WRq/Tg47VEZePpCnXHSYtKZIxVpZM7KJ3V98uorF34RkwIoEdu80qvGVwkIIgyWqnI6nypLbiXKslfIMtYysRplVEpoe76yW6ywNM0IXCRd09xryOGE2kGUpHpkox9CFRRxryacviF4x1hlm6i3vXmSg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=beGz5NTfWtv+QwaFnP9ybAxwL4T/a6/XPUuS7wwq3FY=;
- b=dvQf23PUU0FL4GFP23O9+7h6gYY+E1jZcitK19c3ll1HzCoA9gvU3//lqQDdU3pKgUGO4RXn/JLaxQbzGPqfnkn+o6ZWzWxjoIK8ziWaVHBy5OHhjDwlXgZsmY3wQtOV2cP/sSNFgZI4yfzmET9s8TEioEj3PbiW7GxDUTPsQsMpge8AdH/XOJo8ohiO7aPW67d7W6V+LXBereOQSpc+kKDJrVAXNpxh0udFLjnJWfasNN0LYpoYWaXB51PuL6JOVjU1euEC7bhwHB/uDG7jsEmP61wfDGBUKhIH9p+4lmN2CMECq3B+q+H4PGMQlmPwpmkHeBUidlQOkKsfMhhpUQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=beGz5NTfWtv+QwaFnP9ybAxwL4T/a6/XPUuS7wwq3FY=;
- b=LYZnNexxaZnxxKI2QjGSkBgA+TejRIZ5JzZQDdsINB4DoJTSEKWULeD83E1NVoxEcxJJod187KeSv32qmwClEYV92Vr8t+DY0Yz6WUAGZX9m4nvv3hdigCO2Uq3ngjWhI5UEt+zhiKNZhoIZDxfvwu1HBEAp0kESuDT1fvZ91z4=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from SN6PR12MB4623.namprd12.prod.outlook.com (2603:10b6:805:e9::17)
- by SA0PR12MB4381.namprd12.prod.outlook.com (2603:10b6:806:70::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.19; Thu, 26 Aug
- 2021 14:03:09 +0000
-Received: from SN6PR12MB4623.namprd12.prod.outlook.com
- ([fe80::17c:7262:446:f400]) by SN6PR12MB4623.namprd12.prod.outlook.com
- ([fe80::17c:7262:446:f400%5]) with mapi id 15.20.4436.024; Thu, 26 Aug 2021
- 14:03:09 +0000
-Subject: Re: [PATCH] drm/sched: fix the bug of time out calculation(v3)
-To: Monk Liu <Monk.Liu@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-References: <1629953731-14629-1-git-send-email-Monk.Liu@amd.com>
-From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-Message-ID: <20419179-ee90-45aa-f4b8-b6bcb20a9c52@amd.com>
-Date: Thu, 26 Aug 2021 10:03:07 -0400
+	by gabe.freedesktop.org (Postfix) with ESMTP id A931E6E87F;
+	Thu, 26 Aug 2021 14:52:39 +0000 (UTC)
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [IPv6:2a00:1450:4864:20::42c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 26ED96E870;
+ Thu, 26 Aug 2021 14:52:38 +0000 (UTC)
+Received: by mail-wr1-x42c.google.com with SMTP id q11so5496398wrr.9;
+ Thu, 26 Aug 2021 07:52:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:references:from:message-id:date:user-agent:mime-version
+ :in-reply-to:content-transfer-encoding:content-language;
+ bh=LA6F9AeGbaxvODZZLVNw0j/6UfmDFRq61Acl0k3i6NU=;
+ b=JE2iBi4NFbFQ40QTbZWoC0fA4bX9h40u6Rfg3xEkMkLMs7MQTTVZ2G0UwLle10NpFd
+ XkUhxB60n0TwqIeMzXy4y9xjQEB/KDWKIw1jLZN6LffmmfdMl+vI9yPpoD2rXDwiY4Ej
+ +GgAjlh/KRSFOSgxGGh+lNTQoSJrxlpdIzJhz899K0DFtAIZho4cRipSZOej4IelUJnZ
+ PqAz0de0kh0dXo86mTjUA3p08pKGoe8aMJhNPWT+pjYvtsBC2lgPC6jAjX0OiMYXk8G3
+ RlycpSXJxJx90NtR7XwQmYcoCfkr2S9nL4hTFzkdGwgiWG562gB7gUrlpj1eOxyBwFcS
+ ffJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=LA6F9AeGbaxvODZZLVNw0j/6UfmDFRq61Acl0k3i6NU=;
+ b=N/PJ2BpQQ0UmsTXzvdSbQlFCkt6sBO6NBIoEtySruhf69kborEhH/O29JpvmMaTPhC
+ NBDruXrYRkHHpzYA6Lo4OIJzJmXDuuuczAQOcNceVs9kFyU9DrHROl784oS001jN+4fk
+ gOEaTavLmLyq2qDWUZLPwsclfcuTjd1vH5Jfpc7OKPKZDd2SyNaatpiSzqaleU1iJBAm
+ Y20eYr+g9umWPC7EvwIilpNRJe5twrl8+vhH2PvJl+hyPsqLrhvSDIsXAPxtAZmeDzZG
+ HzN8ilhoVupPLFr30Pfex5jU65++dBYiQno06DjwXgYp6bfQU7E6jc9nqCQV5vVTYtMI
+ B9xA==
+X-Gm-Message-State: AOAM532TEZkD3n52cpUq28CaxYKYqKLGnVyu0Uem/N9yrBYL03I0++Xu
+ 7AfzQYd+51Nr2gnYFB+3yX1dhGf3Zwg=
+X-Google-Smtp-Source: ABdhPJymZadLdLDJ/CuCN2OwCehr9B8G/js5l6SIotgIztldFcKCjo1Zn9Ege3PptpUvjPiQJH6ADQ==
+X-Received: by 2002:adf:c513:: with SMTP id q19mr4072199wrf.20.1629989556729; 
+ Thu, 26 Aug 2021 07:52:36 -0700 (PDT)
+Received: from ?IPv6:2a02:908:1252:fb60:1f1e:4529:2fc9:1857?
+ ([2a02:908:1252:fb60:1f1e:4529:2fc9:1857])
+ by smtp.gmail.com with ESMTPSA id o8sm7738403wmq.21.2021.08.26.07.52.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 26 Aug 2021 07:52:36 -0700 (PDT)
+Subject: Re: [PATCH 3/4] drm/amdgpu: drm/amdgpu: Handle IOMMU enabled case
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+References: <20210824210120.49812-1-andrey.grodzovsky@amd.com>
+ <20210824210120.49812-4-andrey.grodzovsky@amd.com>
+ <d4e6682e-2d2f-f271-6041-6bcb145c1fc9@gmail.com>
+ <a4f70dd8-5f07-5279-7f7a-723fb3b8b944@amd.com>
+ <fa925e81-7724-5dbc-7755-d82e597b0841@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <64d691c0-1148-605b-5ec5-ad56497bffbe@gmail.com>
+Date: Thu, 26 Aug 2021 16:52:35 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
-In-Reply-To: <1629953731-14629-1-git-send-email-Monk.Liu@amd.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-ClientProxiedBy: YT3PR01CA0069.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:84::6) To SN6PR12MB4623.namprd12.prod.outlook.com
- (2603:10b6:805:e9::17)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2607:fea8:3edf:49b0:80cf:5155:1abb:d396]
- (2607:fea8:3edf:49b0:80cf:5155:1abb:d396) by
- YT3PR01CA0069.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:84::6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4457.18 via Frontend Transport; Thu, 26 Aug 2021 14:03:08 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: cc1bac3e-5dd9-457c-1cd5-08d9689a3c26
-X-MS-TrafficTypeDiagnostic: SA0PR12MB4381:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <SA0PR12MB43819DD301CD11763770BD38EAC79@SA0PR12MB4381.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:475;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: m5n2yt7WTt5pZocxMo4wrYnxdtedjXHaMx19+1TiedImKEsq6+Jexb/NxOlmWpl5TCsKbHUccOZVmgPFq2Au2vjuNrWoha0ThJUxEwJ7T6gyvvicCpSUB7ct80bhX+z6bC9oMh6qOY+Rn03rinGjFLEYhAeku3rZwFEjffoCmnJ0Tz91+XZczUjhuGZwzC9DLgbVT4lhN8+iOhwhyc+1F0Jy8vLLgyzHkK2j7zFazkAdgzh4Ih3X/FiSH7dHQCPgFe2wW45+beP04ensnwVRldFFQmrOyh9otfkumvRQX3IlUvuYSpzqD8HPr9NPycea0whZ3DFUnYioug0L3Knaa7lLTtdYF8eVKBwbZwggdddv/9klKwV9U7Sc3hcHTjEUtfTkKE82MO3gcpILhLYxxIfv2utieV330n0dfFNdMIWXXz71Lthbd382DxCCBa9Eu/RYTO3m6clFsBRwJCJbB9PpshTdLzseye2YBJ+QUJ7u4C+Ux6pzoEoyOUAZELVxbrancSuTq7qDFSiMX3IiYjmpnC7NY32HzxhKWhfBY6LeYlxh3eSve8lTaupATtwbgCR/8UHwrNbzo+P6yGVIcqffrdJLSaUzhOJswWbcx7EwKHI+n//ANxyviPiqY4uiCkuF1HD9rD6CWxI59nxJ2rxn7d75rFL+f1PAUzL/6GhxI7vx+MqjZZTKJwmq8rRmwNchlcaX1SuBYJs2yTF7iQ2fRYY2m1KwZ5Keqn0/iJU=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SN6PR12MB4623.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(39860400002)(376002)(346002)(366004)(396003)(6486002)(66556008)(5660300002)(86362001)(186003)(450100002)(4326008)(31696002)(66946007)(66476007)(44832011)(8936002)(478600001)(2616005)(8676002)(2906002)(316002)(36756003)(31686004)(53546011)(83380400001)(38100700002)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YXRObDFGenYwK1JNelVpKzVaYkZ6UlBOUmJ1eFBWYmxDbGM3OWFXQndjZDBW?=
- =?utf-8?B?dWRwV09rU2swMWJoUmlqNnJzVWhjaHVpYUYzMFJyOGcreDhEU3dIL2lwK05o?=
- =?utf-8?B?SEJnMFFOdEJ4RE5kRjQ3Q0F4Q1daM0dkY3BvUGxUZk9MNmFPVHBnWUZJcEla?=
- =?utf-8?B?VzUrbFRyODFNMStJelJ2bmRDWDlOQnlhY2xHYjNZWUg4a3ZxVFhwMXBpWkZP?=
- =?utf-8?B?Vi9za3NzU3hyS0pNY2QyNXBnR0FnbXNmYWoxZUhEY3BSbzFRSlRpTDk2MDVM?=
- =?utf-8?B?bkZ0REdLRExqTEhXSEJoQ1ZiTVNXWnpjVmlKZzdPc01yTGRlaU1rQzdqTEdo?=
- =?utf-8?B?STE3d3JkTjlPbW91Ry80WjlSM1Q1MEF5R3hPcTdiYlA1RFNlZzFtWFAxSE84?=
- =?utf-8?B?cEtmdFA1M1V2aFFHT2I1MXZwc25DNVF0d0FXZ1RGTk1jWGk4VEQycnBianNr?=
- =?utf-8?B?dlZXRmN1TG1DVC9WNnlSUVVhZm5ZeFFmMStHblJDcVhEZDQvNENFMzBZRkRv?=
- =?utf-8?B?TE5pWlhBN0F3SHhYTFR4M0NEOFJCc3UzaTVMUkt0N3hXKzZFVHhyV2xhcGZG?=
- =?utf-8?B?UllSYUExWlpWWjMwWVVhSkYvNVRmaUlFSTY0bTBmRGdSNDVEM2N0N2xmcG5r?=
- =?utf-8?B?enlZeXhaUER6UlFiT0ZUbE1WRjlhYmFxU21QMzFEdXU4QnRYMzJkU0poc0Fx?=
- =?utf-8?B?a1BiOXhxeVZJWHJCVXBYbnBvSGw5WmllaW53R3RHbm4ra3pvLzJyczBZOVk2?=
- =?utf-8?B?UHlhUWJzNXY4ZEdCWVdxbmJLVE1Wcmc1Q1N6OFZYR2Y3dUd6MDR1V2lHNXFZ?=
- =?utf-8?B?akx4TDBaMHc5eW9mYTdTTHJpWDV1QXVJTCtEZ3d5aDQrUktmd2dNLzRIcEJx?=
- =?utf-8?B?RnVyRjgvQTNQaVJ2dFVPbmxuRVlQbXBUY1JVUFUyenlMQWlZOVlzbDdHOHlS?=
- =?utf-8?B?c2NUdnk0R05iSWx2cmhXWjFmMVV0YURSQUNuT2gxSkxVREJ3RVNEajFxZ2NO?=
- =?utf-8?B?TUhYMkpCUnBmalNLVHZSV2NVd1ZoTmZTLzJVZ0VsYThhbC9oajEzR2JwbHZh?=
- =?utf-8?B?YjludElQZ1dKS1BvUmVvZVNvV3YxWU5FMU11N09qWlBubDFFUmptak50UDZB?=
- =?utf-8?B?MXloaVdLbldYVUZ5RThOVzlqNURXK3dMRmZIbm9iWE9xamtLMk5RNTJlL0ZW?=
- =?utf-8?B?ZGRIRVRpVVRMM1dUbTd6ME50STlYOGZPYktRVVdIbFluTDdnU0lQWlp4Tm04?=
- =?utf-8?B?blRuWUN1YXZaTzBKYktFempITTZWa2ZnM3hWbkxqR3dlakwvNG5PNXlGekRJ?=
- =?utf-8?B?VDg0bS9nd0VIc1QyM3A0UUxPbEdKRWh2UnRJMHVpcFlUNFNiVDBkTlVhUUl1?=
- =?utf-8?B?c3pOWWQ0dktYbGg1NktvK1BuK2taVFZkV0V1T1NVOGxtQW5zU09EZ3Z3QmdX?=
- =?utf-8?B?VE8zVnl0TTlleVdvTWZtcWsvN3N1YkozN25IUjY2elR5Z0xwUnB3L25PT2c4?=
- =?utf-8?B?NWM1alhnNndZTEYxRkZUaXh3RWNNaDdWMmZKcnkwOXlNRnIyQzNjVFFLUXZW?=
- =?utf-8?B?aXZadmZjQUJLbDRNakF2NlY5NUFFNGwxQnZ6Y3ZCMlVkQ3FSSVN6OHEvSUVJ?=
- =?utf-8?B?U1FtQlEyZkJzUzcxbUhYNUx5VThKa095VlkvRmZVbjNlODhDZWFKRjZ1VzNx?=
- =?utf-8?B?elhUcVpURDVWM2pTYWJiK21WUVlVbldyS2xVbXBMeWM3UW1mK2t2Z0I5dkJx?=
- =?utf-8?B?Z2RKb3BwdnpvRzl5NDVSbUhHRHJPWnREeDBPbU9WTXMrSXV5VHZvY0hlNzZk?=
- =?utf-8?B?VG9NajZkWUdWRzFYMDh5Q2hnRkRNQzJWdWk2NWtvSmdpZFZsbCtBTlVkTWlB?=
- =?utf-8?Q?Tjn7DOnSX6VTK?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cc1bac3e-5dd9-457c-1cd5-08d9689a3c26
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB4623.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2021 14:03:09.4597 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: YinmDVD2v6tccNHKOrUVOnnGxhPgLty2S27IuFTtEVFjOEWzaPJAxX5aFzlakzrYPy2IA/RhMqq2I00/OU9djw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4381
+In-Reply-To: <fa925e81-7724-5dbc-7755-d82e597b0841@amd.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,103 +91,170 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-On 2021-08-26 12:55 a.m., Monk Liu wrote:
-> issue:
-> in cleanup_job the cancle_delayed_work will cancel a TO timer
-> even the its corresponding job is still running.
+Am 26.08.21 um 15:43 schrieb Andrey Grodzovsky:
+> Ping
 >
-> fix:
-> do not cancel the timer in cleanup_job, instead do the cancelling
-> only when the heading job is signaled, and if there is a "next" job
-> we start_timeout again.
+> Andrey
 >
-> v2:
-> further cleanup the logic, and do the TDR timer cancelling if the signaled job
-> is the last one in its scheduler.
->
-> v3:
-> change the issue description
-> remove the cancel_delayed_work in the begining of the cleanup_job
-> recover the implement of drm_sched_job_begin.
->
-> TODO:
-> 1)introduce pause/resume scheduler in job_timeout to serial the handling
-> of scheduler and job_timeout.
-> 2)drop the bad job's del and insert in scheduler due to above serialization
-> (no race issue anymore with the serialization)
->
-> Signed-off-by: Monk Liu <Monk.Liu@amd.com>
-> ---
->   drivers/gpu/drm/scheduler/sched_main.c | 25 ++++++++++---------------
->   1 file changed, 10 insertions(+), 15 deletions(-)
->
-> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-> index a2a9536..ecf8140 100644
-> --- a/drivers/gpu/drm/scheduler/sched_main.c
-> +++ b/drivers/gpu/drm/scheduler/sched_main.c
-> @@ -676,13 +676,7 @@ drm_sched_get_cleanup_job(struct drm_gpu_scheduler *sched)
->   {
->   	struct drm_sched_job *job, *next;
->   
-> -	/*
-> -	 * Don't destroy jobs while the timeout worker is running  OR thread
-> -	 * is being parked and hence assumed to not touch pending_list
-> -	 */
-> -	if ((sched->timeout != MAX_SCHEDULE_TIMEOUT &&
-> -	    !cancel_delayed_work(&sched->work_tdr)) ||
-> -	    kthread_should_park())
-> +	if (kthread_should_park())
->   		return NULL;
+> On 2021-08-25 11:36 a.m., Andrey Grodzovsky wrote:
+>>
+>> On 2021-08-25 2:43 a.m., Christian König wrote:
+>>>
+>>>
+>>> Am 24.08.21 um 23:01 schrieb Andrey Grodzovsky:
+>>>> Handle all DMA IOMMU group related dependencies before the
+>>>> group is removed and we try to access it after free.
+>>>>
+>>>> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+>>>> ---
+>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  2 +
+>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    | 50 
+>>>> ++++++++++++++++++++++
+>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h    |  1 +
+>>>>   3 files changed, 53 insertions(+)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c 
+>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>> index 0b5764aa98a4..288a465b8101 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>> @@ -3860,6 +3860,8 @@ void amdgpu_device_fini_hw(struct 
+>>>> amdgpu_device *adev)
+>>>>         amdgpu_device_ip_fini_early(adev);
+>>>>   +    amdgpu_ttm_clear_dma_mappings(adev);
+>>>> +
+>>>>       amdgpu_gart_dummy_page_fini(adev);
+>>>>         amdgpu_device_unmap_mmio(adev);
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c 
+>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>>>> index 446943e32e3e..f73d807db3b0 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>>>> @@ -64,6 +64,7 @@
+>>>>   static int amdgpu_ttm_backend_bind(struct ttm_device *bdev,
+>>>>                      struct ttm_tt *ttm,
+>>>>                      struct ttm_resource *bo_mem);
+>>>> +
+>>>>   static void amdgpu_ttm_backend_unbind(struct ttm_device *bdev,
+>>>>                         struct ttm_tt *ttm);
+>>>>   @@ -2293,6 +2294,55 @@ static ssize_t amdgpu_iomem_write(struct 
+>>>> file *f, const char __user *buf,
+>>>>       return result;
+>>>>   }
+>>>>   +void amdgpu_ttm_clear_dma_mappings(struct amdgpu_device *adev)
+>>>
+>>> I strongly think that this function should be part of TTM. Something 
+>>> like ttm_device_force_unpopulate.
+>>
+>>
+>> Yes, this something I also wanted but see bellow
+>>
+>>
+>>>
+>>>> +{
+>>>> +    struct ttm_device *bdev = &adev->mman.bdev;
+>>>> +    struct ttm_resource_manager *man;
+>>>> +    struct ttm_buffer_object *bo;
+>>>> +    unsigned int i, j;
+>>>> +
+>>>> +    spin_lock(&bdev->lru_lock);
+>>>> +    for (i = TTM_PL_SYSTEM; i < TTM_NUM_MEM_TYPES; ++i) {
+>>>> +        man = ttm_manager_type(bdev, i);
+>>>> +        if (!man || !man->use_tt)
+>>>> +            continue;
+>>>> +
+>>>> +        while (!list_empty(&man->pinned)) {
+>>>> +            bo = list_first_entry(&man->pinned, struct 
+>>>> ttm_buffer_object, lru);
+>>>> +            /* Take ref against racing releases once lru_lock is 
+>>>> unlocked */
+>>>> +            ttm_bo_get(bo);
+>>>> +            list_del_init(&bo->lru);
+>>>> +            spin_unlock(&bdev->lru_lock);
+>>>> +
+>>>> +            if (bo->ttm) {
+>>>> +                amdgpu_ttm_backend_unbind(bo->bdev, bo->ttm);
+>>
+>>
+>> amdgpu_ttm_backend_unbind is needed to be called separately from 
+>> ttm_tt_unpopulate to take care of code
+>> flows that do dma mapping though the gart bind and not through 
+>> ttm_tt_populate, Since it's inside amdgpu
+>> i had to place the entire function in amdgpu. Any suggestions ?
 
+I think I've fixed exactly that just recently, see the patch here:
 
-I actually don't see why we need to keep the above,
-on the other side (in drm_sched_stop) we won't touch the pending list
-anyway until sched thread came to full stop (kthread_park). If you do 
-see a reason why
-this needed then a comment should be here i think.
+commit b7e8b086ffbc03b890ed22ae63ed5e5bd319d184
+Author: Christian König <ckoenig.leichtzumerken@gmail.com>
+Date:   Wed Jul 28 15:05:49 2021 +0200
 
-Andrey
+     drm/amdgpu: unbind in amdgpu_ttm_tt_unpopulate
 
+     Doing this in amdgpu_ttm_backend_destroy() is to late.
 
->   
->   	spin_lock(&sched->job_list_lock);
-> @@ -693,17 +687,21 @@ drm_sched_get_cleanup_job(struct drm_gpu_scheduler *sched)
->   	if (job && dma_fence_is_signaled(&job->s_fence->finished)) {
->   		/* remove job from pending_list */
->   		list_del_init(&job->list);
-> +
-> +		/* cancel this job's TO timer */
-> +		cancel_delayed_work(&sched->work_tdr);
->   		/* make the scheduled timestamp more accurate */
->   		next = list_first_entry_or_null(&sched->pending_list,
->   						typeof(*next), list);
-> -		if (next)
-> +
-> +		if (next) {
->   			next->s_fence->scheduled.timestamp =
->   				job->s_fence->finished.timestamp;
-> -
-> +			/* start TO timer for next job */
-> +			drm_sched_start_timeout(sched);
-> +		}
->   	} else {
->   		job = NULL;
-> -		/* queue timeout for next job */
-> -		drm_sched_start_timeout(sched);
->   	}
->   
->   	spin_unlock(&sched->job_list_lock);
-> @@ -791,11 +789,8 @@ static int drm_sched_main(void *param)
->   					  (entity = drm_sched_select_entity(sched))) ||
->   					 kthread_should_stop());
->   
-> -		if (cleanup_job) {
-> +		if (cleanup_job)
->   			sched->ops->free_job(cleanup_job);
-> -			/* queue timeout for next job */
-> -			drm_sched_start_timeout(sched);
-> -		}
->   
->   		if (!entity)
->   			continue;
+     It turned out that this is not a good idea at all because it leaves 
+pointers
+     to freed up system memory pages in the GART tables of the drivers.
+
+But that probably hasn't showed up in amd-staging-drm-next yet.
+
+Christian.
+
+>>
+>> Andrey
+>>
+>>
+>>>> + ttm_tt_destroy_common(bo->bdev, bo->ttm);
+>>>
+>>> Then you can also cleanly use ttm_tt_unpopulate here, cause this 
+>>> will result in incorrect statistics inside TTM atm.
+>>>
+>>> Regards,
+>>> Christian.
+>>>
+>>>> +            }
+>>>> +
+>>>> +            ttm_bo_put(bo);
+>>>> +            spin_lock(&bdev->lru_lock);
+>>>> +        }
+>>>> +
+>>>> +        for (j = 0; j < TTM_MAX_BO_PRIORITY; ++j) {
+>>>> +            while (!list_empty(&man->lru[j])) {
+>>>> +                bo = list_first_entry(&man->lru[j], struct 
+>>>> ttm_buffer_object, lru);
+>>>> +                ttm_bo_get(bo);
+>>>> +                list_del_init(&bo->lru);
+>>>> +                spin_unlock(&bdev->lru_lock);
+>>>> +
+>>>> +                if (bo->ttm) {
+>>>> +                    amdgpu_ttm_backend_unbind(bo->bdev, bo->ttm);
+>>>> +                    ttm_tt_destroy_common(bo->bdev, bo->ttm);
+>>>> +                }
+>>>> +                ttm_bo_put(bo);
+>>>> +                spin_lock(&bdev->lru_lock);
+>>>> +            }
+>>>> +        }
+>>>> +    }
+>>>> +    spin_unlock(&bdev->lru_lock);
+>>>> +
+>>>> +}
+>>>> +
+>>>>   static const struct file_operations amdgpu_ttm_iomem_fops = {
+>>>>       .owner = THIS_MODULE,
+>>>>       .read = amdgpu_iomem_read,
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h 
+>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+>>>> index e69f3e8e06e5..02c8eac48a64 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+>>>> @@ -190,6 +190,7 @@ bool amdgpu_ttm_tt_is_readonly(struct ttm_tt 
+>>>> *ttm);
+>>>>   uint64_t amdgpu_ttm_tt_pde_flags(struct ttm_tt *ttm, struct 
+>>>> ttm_resource *mem);
+>>>>   uint64_t amdgpu_ttm_tt_pte_flags(struct amdgpu_device *adev, 
+>>>> struct ttm_tt *ttm,
+>>>>                    struct ttm_resource *mem);
+>>>> +void amdgpu_ttm_clear_dma_mappings(struct amdgpu_device *adev);
+>>>>     void amdgpu_ttm_debugfs_init(struct amdgpu_device *adev);
+>>>
+
