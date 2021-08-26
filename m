@@ -7,48 +7,50 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E3E8AC432BE
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 07:27:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E83A6C432BE
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 07:29:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7B2026109E
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 07:27:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7B2026109E
+	by mail.kernel.org (Postfix) with ESMTPS id 9FEDA61053
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 07:29:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9FEDA61053
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BA836E52D;
-	Thu, 26 Aug 2021 07:27:54 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2062.outbound.protection.outlook.com [40.107.92.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC2796E52D
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Aug 2021 07:27:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 403326E52F;
+	Thu, 26 Aug 2021 07:29:50 +0000 (UTC)
+X-Greylist: delayed 957 seconds by postgrey-1.36 at gabe;
+ Thu, 26 Aug 2021 07:29:49 UTC
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com (unknown
+ [40.107.93.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B22D6E52F
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Aug 2021 07:29:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PcaO+1J/0c4qQUm3fLhhgTbyjvt9H9aXRfCKM3Gbr7nJRL4mUC0nw4iI1IJK1xoCg5Wf+qSr2SPGAZMpIgW/ZSgSsLkPDG/6TQtqXVOHyajKRr63OVdfOX+xd2+K6u3KxfsfNsJB/0xPMrERGzimcZeY+zpqFEoQ0uz3K/bonSow/dNimiZoA4c5K00VtoSeq+Unw/Nr1ogLa+6L6xfYL9AqNEzImmkA/F+3kJYG4pfyILwPQelUuomtlWoxDBhXuZABSU4ZBq6/G5MVQ+YiHaDtJEOmY/+wOAo2S7v9JhSMqSC36Sc26skT0UW/odSY0xFV5uH9vKFpvQsJDVqkcA==
+ b=WSI0Zzk0XHY0O2jVBh/B2+05cX8HtNpS80T4z582c0urNauVzL3cH0YCak4Tj9DJ7qD+HO7UW/JD/t97Mx7xtUHH2QMxxjonl0IGusqPZah+zpTEzmIfotc/0MiditWI2cNzJTeYNOKt1Eu+4lQqxuZi9hnR3mNeHr5uq6CxxLG/iQOL9KrJRFlHD3AVqpdpDW6j9GUgKFAYPIqoZP3r4MXp2T5oKotbB63lJpuQzYlbTDnMDTINbebTSJfCAh80m6F/Vgo5RmYcG8KBg1kej7dQW2gdhwIQBI4IipVsF7XfDRWwDswDDP7wAXgVhjMx+0p/SJ+BRKJMqIUK+Ksnhg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dzdRjXA5bOMLQZfDUkRGzafF6RYfQkv3rpOTuWpTiL4=;
- b=Fv2NtdwRvWeRl17X+64Ji4Q51SW8FyHSi3zrkdYATA7smpcA/+BTKOICyz8QF6A5pRK6LY7WvHFJEz7YwXWCofcP2XgsYR2KrJq6T/jgeIGUXjM4WnfQYfU0Qxdh4bSa150mzNj8kagit0GfgO2JL3dYnJorWmbOMFc4OacRbthrmIrF1I7w0XBPmv8DegCJds2SGk6M+2iDxdLuwU/p6mQ4cxrY5DVdUTsQWa1Hrvd1GAZrG6qayDHH73Ndn7zIx2ui/eVv3N1znzkAyDdq6q0Jjaz0hwLvFXOx/HTlWKzyfaDRm1+vnxFqv6qfc1Tr8ykKqTURFUmK9B5vdTPQqg==
+ bh=DPgqM7GNdEWAfDiZ9XmPRc8TI8Ghc7CwvNHVa8d8zW0=;
+ b=B9j5zJrUYkdVsKAjMD1sk4FVfKOWtGHzS+RWzTx0GgXaw/0KKG+prew/9VEprFlBbhG16ErplAUV0gthljnE3GWBb+yu1uaBMLczvYUUYYGidwYiGwk6+a88Lf5I7x0MkAFVvp9pGkKx2LF4ATK87fGzhA9xjgCwl/6IJC0AK6cCgSJvL9+xVkh5+Sk0Imifg1123tiwCL/IeFD1iO4N0zzR1xjw/tceqhltt8pb/C3fIwFzcEWdOc7TDn4XweNPIWh33UcylBxQsZppWc4sjZYVCu9w2Cglfzq42AfjhEkbHQwBigwiowVTC34z7zL5UQJ/tmP1epYtQgyZiSVDeQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dzdRjXA5bOMLQZfDUkRGzafF6RYfQkv3rpOTuWpTiL4=;
- b=3OmjzF3h2z1PtCR0h4C5vv0OBN2W1WXUs+YnwACN2h9flvDYtGL+1F3RdFEctfdNCowLctrzJgsqnBg3cNPxERnKl2fTGmAcDxfQsbs5712sraL0nvnnD15DZbZQPvRyGKLJdPafKvai92YIIiLxk/iCUVDLsADJvH9iiJkgC0Q=
-Received: from MW4PR03CA0297.namprd03.prod.outlook.com (2603:10b6:303:b5::32)
- by BYAPR12MB4615.namprd12.prod.outlook.com (2603:10b6:a03:96::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.17; Thu, 26 Aug
- 2021 07:13:38 +0000
-Received: from CO1NAM11FT068.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:b5:cafe::39) by MW4PR03CA0297.outlook.office365.com
- (2603:10b6:303:b5::32) with Microsoft SMTP Server (version=TLS1_2,
+ bh=DPgqM7GNdEWAfDiZ9XmPRc8TI8Ghc7CwvNHVa8d8zW0=;
+ b=UhWfqYCYGwQxwbOEWDIBK3Ke4j83bZlHZahJOwDQ86qpXcHfldigP/1z8Rn23rUY7KN1SCaiTt4CSG7PaPH0RD6DEOIEiDaymUu7fOyiXEiidwT+7zVrK6lF5yUxhXFhpApx2BEH6jhP48mSDO4QoCpmSw4BBPA2LhX/+wbZaG4=
+Received: from CO2PR04CA0192.namprd04.prod.outlook.com (2603:10b6:104:5::22)
+ by CH2PR12MB3816.namprd12.prod.outlook.com (2603:10b6:610:2f::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.22; Thu, 26 Aug
+ 2021 07:13:49 +0000
+Received: from CO1NAM11FT046.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:104:5:cafe::b) by CO2PR04CA0192.outlook.office365.com
+ (2603:10b6:104:5::22) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.18 via Frontend
- Transport; Thu, 26 Aug 2021 07:13:38 +0000
+ Transport; Thu, 26 Aug 2021 07:13:49 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -57,21 +59,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT068.mail.protection.outlook.com (10.13.175.142) with Microsoft SMTP
+ CO1NAM11FT046.mail.protection.outlook.com (10.13.174.203) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4457.17 via Frontend Transport; Thu, 26 Aug 2021 07:13:38 +0000
+ 15.20.4457.17 via Frontend Transport; Thu, 26 Aug 2021 07:13:49 +0000
 Received: from amd-Celadon-CZN.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Thu, 26 Aug
- 2021 02:13:34 -0500
+ 2021 02:13:45 -0500
 From: Satyajit Sahu <satyajit.sahu@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <leo.liu@amd.com>, <Alexander.Deucher@amd.com>,
  <Christian.Koenig@amd.com>, <shashank.sharma@amd.com>, <nirmoy.das@amd.com>,
  Satyajit Sahu <satyajit.sahu@amd.com>
-Subject: [PATCH 3/5] drm/amdgpu/vce:set ring priorities
-Date: Thu, 26 Aug 2021 12:43:05 +0530
-Message-ID: <20210826071307.136010-3-satyajit.sahu@amd.com>
+Subject: [PATCH 5/5] drm/amdgpu:schedule vce/vcn encode based on priority
+Date: Thu, 26 Aug 2021 12:43:07 +0530
+Message-ID: <20210826071307.136010-5-satyajit.sahu@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210826071307.136010-1-satyajit.sahu@amd.com>
 References: <20210826071307.136010-1-satyajit.sahu@amd.com>
@@ -83,28 +85,28 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 7aba41a1-e5b2-4eaa-0a02-08d9686106c9
-X-MS-TrafficTypeDiagnostic: BYAPR12MB4615:
-X-Microsoft-Antispam-PRVS: <BYAPR12MB4615BA91CFFEEC1D806E5F58F5C79@BYAPR12MB4615.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2399;
+X-MS-Office365-Filtering-Correlation-Id: 774fd2ec-5d89-4592-94a3-08d968610d3c
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3816:
+X-Microsoft-Antispam-PRVS: <CH2PR12MB3816EBB3289518436EFE72B6F5C79@CH2PR12MB3816.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4714;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: YrLj8me8TbF3x31mTo9/O9bHgM1iPeVmmcvNowPcNSJqz05qkygjI9jBNWjB3JcYxCq2tRWpXpODICFDxGROg7axI1Ebo6peMWSQIGX4k82HHPwerfgjD22oUBevxVa/DXY9uUCsM4Zpm+8jtz/P8gjvdpe6MXuobY/gsHP0Lh5emsPM8UgTgMVqNvseM8T4AGXUUnzOLaRo5bDma4avEXrflE0Y5uSxdEIsVITfkG0mitk79Rh/EpDjQY+ve3XDa/nb4It2YJGWtdW3D0d/tq72qZ+ODBwJXYfY1t0Yj6yJyXsYhoLg6m6hNKGEj3FzZP5+bCL0YI7O+50M1jUW01vLzmkA1YN/4ql6weSL8XRVD4BpPm1NClRfCV3MZcYVNqgFdsW18LQmtPZTlK+kLcyciU+7ct9aMl7K7bCs8pi5hGL5XHzaNyT1YkrijoOHYATrmXJN1YjSkjmFa5ibr/Zl229956cHWV+wQUjP6jakaFx/Xv2zqsfGRnLTXylPoigVNNKJudTGLRtTG20XIeGsnL3ldRIwDCMbTXQ02hoO/CHj1IyLI3CdO91Zp9HdmCtNRvlcnZqkDgePeYHoKy3K1yHLIOkdW/78yI+W1Ty8rZvSF3rHLVZxTRW2Eubo4tSm94bn8rp8Y76Pe595uC+OQf6lhswL22Bl/sZ2Nz8PsxSJsM7lXP7WU7+0Dvd3o6CyCi7uRi0zaeCuOi1Hk6JCfOLg+reWKQOw8dZ1qXY=
+X-Microsoft-Antispam-Message-Info: pNZqy4U4eywVwvT4eIyl/rZoWCKSvwS0GbC/kPHrZWJngoHgNPVpe7fnIZ9C1Ul1H3lYvHRX7/b73f+MZenobVFFiSHni3ObasAD/HZqE9zIp5Tnk59SRktC6hG8BVG8K+CaF/R7Mws9JgFM8f+vaiO0a0V9yrxV4WuxRb9LU+DD8V0MmRNXFhg4sVfIp3iFnSR8PEg4BDxdbHiAk238wRHRJjPTVmU2zdzLwtIY541DEvoDBgMbvkA4NdcUwA6dsbJlrGTcVmqqNk2fLoUxq8pIj+rjCQHlicmXeVjZDzKssB04UPBOKm6SFkCXOCdSNdU4UX4M6RBQuZ2w0Dt/s39VpY29kgqKK23hkfX6XDpGvNNdbjET1azd08BcYgjQ+kISUwChmOIE1d0ppsadn1Qh7bKWTjKg/Y/anbzrcVjwe/5p0U8kTOC+jsDF9Bx7sl/sf2EEYtwwCJNJhpDEDZ4YyvBa0/14WBcKfF0Pt1XtN5unOQXKOtkuWFaoG9jGMpaw4Yd/MB/dC+1Fqioz4qcCjzaup3YMZv0Q3ZUcSv7GnxWKFatOpuiwrgT3Labrv4oWzRvxY+zhT08Rld5E0HGxtyNAsHq91H2VVVhNR4jY7c5aXhT2RmlvmW9LYezKpaM9lv79na+Q8jsBOe0PqYr3wI0L748Q9Ik3KDu5DcTM83i+bkPsAjYgiy/fFFFatfAlE1SKPTijdjT31QXRaWwnsV4caFoWY0fTgyAqjbQ=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(136003)(376002)(346002)(39860400002)(396003)(36840700001)(46966006)(70586007)(81166007)(1076003)(70206006)(356005)(36860700001)(54906003)(82740400003)(16526019)(186003)(36756003)(316002)(7696005)(47076005)(5660300002)(2616005)(83380400001)(86362001)(336012)(6916009)(4326008)(44832011)(26005)(426003)(2906002)(8676002)(6666004)(82310400003)(8936002)(478600001)(36900700001);
+ SFS:(4636009)(376002)(346002)(136003)(396003)(39860400002)(46966006)(36840700001)(82310400003)(36860700001)(478600001)(47076005)(1076003)(44832011)(2616005)(2906002)(336012)(36756003)(86362001)(426003)(8936002)(82740400003)(70586007)(186003)(7696005)(70206006)(5660300002)(6666004)(26005)(356005)(54906003)(6916009)(16526019)(8676002)(316002)(4326008)(81166007)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2021 07:13:38.2983 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7aba41a1-e5b2-4eaa-0a02-08d9686106c9
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2021 07:13:49.1147 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 774fd2ec-5d89-4592-94a3-08d968610d3c
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT068.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT046.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB4615
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3816
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,73 +121,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Set proper ring priority while initializing the ring.
+Schedule the encode job in VCE/VCN encode ring
+based on the priority set by UMD.
 
 Signed-off-by: Satyajit Sahu <satyajit.sahu@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/vce_v2_0.c | 4 +++-
- drivers/gpu/drm/amd/amdgpu/vce_v3_0.c | 4 +++-
- drivers/gpu/drm/amd/amdgpu/vce_v4_0.c | 4 +++-
- 3 files changed, 9 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 30 +++++++++++++++++++++++++
+ 1 file changed, 30 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
-index c7d28c169be5..8ce37e2d5ffd 100644
---- a/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
-@@ -431,10 +431,12 @@ static int vce_v2_0_sw_init(void *handle)
- 		return r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+index c88c5c6c54a2..4e6e4b6ea471 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+@@ -120,6 +120,30 @@ static enum gfx_pipe_priority amdgpu_ctx_prio_to_compute_prio(int32_t prio)
+ 	}
+ }
  
- 	for (i = 0; i < adev->vce.num_rings; i++) {
-+		unsigned int hw_prio = amdgpu_vce_get_ring_prio(i);
++static enum gfx_pipe_priority amdgpu_ctx_sched_prio_to_vce_prio(int32_t prio)
++{
++	switch (prio) {
++	case AMDGPU_CTX_PRIORITY_HIGH:
++		return AMDGPU_VCE_ENC_PRIO_HIGH;
++	case AMDGPU_CTX_PRIORITY_VERY_HIGH:
++		return AMDGPU_VCE_ENC_PRIO_VERY_HIGH;
++	default:
++		return AMDGPU_VCE_ENC_PRIO_NORMAL;
++	}
++}
 +
- 		ring = &adev->vce.ring[i];
- 		sprintf(ring->name, "vce%d", i);
- 		r = amdgpu_ring_init(adev, ring, 512, &adev->vce.irq, 0,
--				     AMDGPU_RING_PRIO_DEFAULT, NULL);
-+				     hw_prio, NULL);
- 		if (r)
- 			return r;
- 	}
-diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
-index 3b82fb289ef6..e0bc42e1e2b3 100644
---- a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
-@@ -440,10 +440,12 @@ static int vce_v3_0_sw_init(void *handle)
- 		return r;
- 
- 	for (i = 0; i < adev->vce.num_rings; i++) {
-+		unsigned int hw_prio = amdgpu_vce_get_ring_prio(i);
++static enum gfx_pipe_priority amdgpu_ctx_sched_prio_to_vcn_prio(int32_t prio)
++{
++	switch (prio) {
++	case AMDGPU_CTX_PRIORITY_HIGH:
++		return AMDGPU_VCN_ENC_PRIO_HIGH;
++	case AMDGPU_CTX_PRIORITY_VERY_HIGH:
++		return AMDGPU_VCN_ENC_PRIO_VERY_HIGH;
++	default:
++		return AMDGPU_VCN_ENC_PRIO_NORMAL;
++	}
++}
 +
- 		ring = &adev->vce.ring[i];
- 		sprintf(ring->name, "vce%d", i);
- 		r = amdgpu_ring_init(adev, ring, 512, &adev->vce.irq, 0,
--				     AMDGPU_RING_PRIO_DEFAULT, NULL);
-+				     hw_prio, NULL);
- 		if (r)
- 			return r;
- 	}
-diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
-index 90910d19db12..931d3ae09c65 100644
---- a/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
-@@ -463,6 +463,8 @@ static int vce_v4_0_sw_init(void *handle)
- 	}
- 
- 	for (i = 0; i < adev->vce.num_rings; i++) {
-+		unsigned int hw_prio = amdgpu_vce_get_ring_prio(i);
-+
- 		ring = &adev->vce.ring[i];
- 		sprintf(ring->name, "vce%d", i);
- 		if (amdgpu_sriov_vf(adev)) {
-@@ -478,7 +480,7 @@ static int vce_v4_0_sw_init(void *handle)
- 				ring->doorbell_index = adev->doorbell_index.uvd_vce.vce_ring2_3 * 2 + 1;
- 		}
- 		r = amdgpu_ring_init(adev, ring, 512, &adev->vce.irq, 0,
--				     AMDGPU_RING_PRIO_DEFAULT, NULL);
-+				     hw_prio, NULL);
- 		if (r)
- 			return r;
- 	}
+ static unsigned int amdgpu_ctx_get_hw_prio(struct amdgpu_ctx *ctx, u32 hw_ip)
+ {
+ 	struct amdgpu_device *adev = ctx->adev;
+@@ -133,6 +157,12 @@ static unsigned int amdgpu_ctx_get_hw_prio(struct amdgpu_ctx *ctx, u32 hw_ip)
+ 	case AMDGPU_HW_IP_COMPUTE:
+ 		hw_prio = amdgpu_ctx_prio_to_compute_prio(ctx_prio);
+ 		break;
++	case AMDGPU_HW_IP_VCE:
++		hw_prio = amdgpu_ctx_sched_prio_to_vce_prio(ctx_prio);
++		break;
++	case AMDGPU_HW_IP_VCN_ENC:
++		hw_prio = amdgpu_ctx_sched_prio_to_vcn_prio(ctx_prio);
++		break;
+ 	default:
+ 		hw_prio = AMDGPU_RING_PRIO_DEFAULT;
+ 		break;
 -- 
 2.25.1
 
