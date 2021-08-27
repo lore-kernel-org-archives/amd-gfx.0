@@ -5,132 +5,141 @@ X-Spam-Level:
 X-Spam-Status: No, score=-17.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8BB50C432BE
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Aug 2021 14:32:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B2DC5C432BE
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Aug 2021 14:42:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4AE8A6101B
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Aug 2021 14:32:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4AE8A6101B
+	by mail.kernel.org (Postfix) with ESMTPS id 776C260EFE
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Aug 2021 14:42:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 776C260EFE
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D473D6E980;
-	Fri, 27 Aug 2021 14:32:51 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam08on2076.outbound.protection.outlook.com [40.107.101.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1E3C6E980
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Aug 2021 14:32:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C6EA6E974;
+	Fri, 27 Aug 2021 14:42:09 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2076.outbound.protection.outlook.com [40.107.237.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E085C6E974
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 Aug 2021 14:42:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NQOsHTWI73evx95a7YSqPNKsQo0wJn/e/Ilif0P3cf9cTZLPjZit3adK6TAn0z5Mar9mtvHl2l//iOv817cuzgmgwMA0NS3qypb2ROCy18WKS57esq4uCOmz5HdqocEx2q1EP3g1ooY4BkiHm40/ewsO721aAV6LEAUfnIxtNNWY0Q4gHcCTXUZHf7glFGIpm8aDZeZTXuEM06YW/OBo5KHwbT9chyWVIqtmjfZNq97nQ/QBeKsxgdNjXkQ8WgwAgA9SEvJiwtPJZ06YKZ4vfJGjB2CFT7MawDhLKLNW5kIkWxA4nSdexaVCjKW+S4/nOeOsaqdS6QDGagikxVZ6LQ==
+ b=MAgbK50dP/iL4ts30PjHSvGXJZ42dgXuzdF9Yu2K+aly3s3JXCNSHkGbjj1Z0PwDunmn40x5FdU956HnxPgyJODHqIWmjwbOuxBUh68WHoSgKxdfuGhkQC912tPbG/3b7sRTDdWY/3a0uBKMANNp5YzXW5JuWZlFcsUHon0Fdv9MKxDsdVDNRptLAWROu2rDEZHyjL4uJgfUrR8iGt11Tc8tWJRotaK6//BK+qhLxFPU2tjCI+BPTK+dBBqGzRWx77zS5j3wvGBdtUwJ4W9fw15Kqr25JTtfgXdmQHQjITKSb8HGGtU9BsTqeDjLwPfuEEdGDE35yxZmZVC7v9VqoQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lB9we3MOFAzjq6LEJhui9TjyXlI3MsYv1DC4fQOzJYE=;
- b=alkvaMou1vZe/NOEcuFUnceh8of4mkfTQQc/dos03hgCWV3p8xoUL8NPj0pVNi4ycHO/OMFa0e6bU12UYn7Fpy4SoRASDIk5ZctRFYLkuRrIf65j1teeVvZLo6TMK7M6tWEDq+6zZ5CHT9G2mMFEN16qXq6Bk9xQ11zZK7QPTqwEALPIbuZaKKn+oitzTRIll5ealg9CM1H5OU8G9cH7EgiGW5rk2hv6sygXPV+uzQ4ySy25cR6YWfGw1j5A8vtjxPdg+NlraJdBmW3Ahj71vxB2caKXOHlnCEB7W5S8IeAsS+06KTcEUDVF0WHkvwmF2Fqy57vLCg/8h/5cJGTphw==
+ bh=EUuJDzhtqWV8MizXMEzypFWHnMPL5vx7s3pk+Wl06/Y=;
+ b=GGL/jVE9B14azQma2pm6ZNMgA/HO2dIW4w2Lfrto5gIriLs3C93soUjJhOFEQinDCcV25IwcwGVwPdi1eUYRQNsATexcKrWlp69eEMmixL32H27RIlVERISYarwpnyRnr+OSUgl9DDnlN9PPxAacluWyVpjNJwKn3EOwmq1+g2xmnlxphr7Inc5Fg+zCKu5BNCJJ+BsAxjy8KvI3I33PR738a2Cg2NFnVkYTs13AYpq4mKMU4iKL7c1Gk17DNy0L47U4oqM2VrFid8eIA+OjJ2BndNXLx/jL3oWo4UTq3kC8ySnRjMlPZmNNeaG/obB3Su3FsUteTZm9zQN1u78XKg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lB9we3MOFAzjq6LEJhui9TjyXlI3MsYv1DC4fQOzJYE=;
- b=KGoF97cwRevAHFxKddHC27BMeQuXjEYrhVt0UwrplFAL0RwVHcA/w0V8h1U6smrLfHWdWvfJ2t5QGuKsfO2G5PS0R4gGCUzrq8PJDtjUJ5hacYmdOTsM5MejjTwUX65nZFGRlb1GcHPhQDGa0gjdW4n9yJbmQ/eSI52BvUUUHtw=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+ bh=EUuJDzhtqWV8MizXMEzypFWHnMPL5vx7s3pk+Wl06/Y=;
+ b=Qvvzar4mkp1Vs8XKfSOcEG1ZIiZ7ntYCMUJzKJb8CBKdhBMz2ikLAAYpa7H0wEJ1rXOnFwXQyYeUTDoqyAzGE6uO4dzIXjGffD7Fjxnnrtlo8skLIyusRXqnRVIohqsC7DZ8eWW8oZ5dg8I11sLedl89cUoNxfXkHpDGyG4IYoo=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
 Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
- by BL0PR12MB4868.namprd12.prod.outlook.com (2603:10b6:208:1c4::9)
+ by MN2PR12MB3679.namprd12.prod.outlook.com (2603:10b6:208:159::31)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.18; Fri, 27 Aug
- 2021 14:32:49 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.19; Fri, 27 Aug
+ 2021 14:26:28 +0000
 Received: from MN2PR12MB3775.namprd12.prod.outlook.com
  ([fe80::dce2:96e5:aba2:66fe]) by MN2PR12MB3775.namprd12.prod.outlook.com
  ([fe80::dce2:96e5:aba2:66fe%6]) with mapi id 15.20.4457.023; Fri, 27 Aug 2021
- 14:32:49 +0000
-Subject: Re: [PATCH v2 1/3] drm/amdgpu/vce: set the priority for each ring
-To: Satyajit Sahu <satyajit.sahu@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: leo.liu@amd.com, Alexander.Deucher@amd.com, shashank.sharma@amd.com,
- nirmoy.das@amd.com, lijo.lazar@amd.com
-References: <20210827124300.14593-1-satyajit.sahu@amd.com>
+ 14:26:28 +0000
+Subject: Re: [PATCH] drm/sched: fix the bug of time out calculation(v3)
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ "Liu, Monk" <Monk.Liu@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+References: <1629953731-14629-1-git-send-email-Monk.Liu@amd.com>
+ <20419179-ee90-45aa-f4b8-b6bcb20a9c52@amd.com>
+ <cc01416c-c04e-a716-f617-71351c1ad06a@amd.com>
+ <8c675723-b272-3d81-06c2-fe574a1dff06@gmail.com>
+ <BL1PR12MB52691420DCC3A00794168A1284C89@BL1PR12MB5269.namprd12.prod.outlook.com>
+ <de91a9d5-e223-3f5c-5226-e1261987a5cb@amd.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <04b17c20-8c0e-a2bc-4e70-c1cf24799c8e@amd.com>
-Date: Fri, 27 Aug 2021 16:32:44 +0200
+Message-ID: <57713f72-caf4-3f33-d594-837875178ea4@amd.com>
+Date: Fri, 27 Aug 2021 16:26:24 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
-In-Reply-To: <20210827124300.14593-1-satyajit.sahu@amd.com>
+In-Reply-To: <de91a9d5-e223-3f5c-5226-e1261987a5cb@amd.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
 Content-Language: en-US
-X-ClientProxiedBy: PR2P264CA0044.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:101:1::32) To MN2PR12MB3775.namprd12.prod.outlook.com
+X-ClientProxiedBy: AM4PR0902CA0015.eurprd09.prod.outlook.com
+ (2603:10a6:200:9b::25) To MN2PR12MB3775.namprd12.prod.outlook.com
  (2603:10b6:208:159::19)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from [IPv6:2a02:908:1252:fb60:1ea5:a2d5:a05c:1ebb]
  (2a02:908:1252:fb60:1ea5:a2d5:a05c:1ebb) by
- PR2P264CA0044.FRAP264.PROD.OUTLOOK.COM (2603:10a6:101:1::32) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4457.17 via Frontend Transport; Fri, 27 Aug 2021 14:32:47 +0000
+ AM4PR0902CA0015.eurprd09.prod.outlook.com (2603:10a6:200:9b::25) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.17 via Frontend
+ Transport; Fri, 27 Aug 2021 14:26:27 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 7b17e2b0-f815-41b4-70bd-08d969678b34
-X-MS-TrafficTypeDiagnostic: BL0PR12MB4868:
+X-MS-Office365-Filtering-Correlation-Id: 552069a1-c364-486f-60d1-08d96966a8a2
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3679:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BL0PR12MB486810736B0EA574CECBBA6283C89@BL0PR12MB4868.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
+X-Microsoft-Antispam-PRVS: <MN2PR12MB3679FB7B1B12E6AAE2F827BB83C89@MN2PR12MB3679.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2043;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: fyh88YjpWvwSPSclagMf0l4RjyMyu5vJSochlJ6BAj7b0MYVi9fGzjMLQ97IWNiguJPexln1Ck5UR1w9lK7yekSBNDBJXCm8tnFCt86RWiqE2OXSSYWUgM1oKKHgaPMTUDCAVjsiIv4mmZFtq4/YMC4oRSNLK2n+izAbktGRnB3QNK03HK4F3QZP4XXvSCtfnj3nBhzYTkJim4ULu1l5rX68CM2vy6QJ/gkpLO6ChJ2pmPvl0Dg8PpC3FZBq8YZr9MQdV3uiB5SPNTsH89HuPIOh/tdrmPaU4a5Ceq9esrYVGyC3zPM7gjmVW+nx1fT6RDvaxBf/jO/0Ar4xUKw4EBv1faj8ZQIdOJDWNwMFu7fy1cFIDEYk3N9JvoKZz+n8dltBdnSu8i8atSTGU8dNYuHLRkU98tCXcKD+3CmU9IeJnhx8FGux3c9SdwGKjIBPOt8U1CCqAxN4xxzVEEQd/39F7VN8lJgAb6Y+3uLaa1JPzvoaWhOG+QUtvPTEYoG84wQPYCaW9n+ZYAwjgGKysVmVs4zNa/Qu4ktHzDiSNaJEslwR8ts/r5XtmofRfA0DlTTxueTpnoa5rAblJvXNPTUD7ldqIrjNECgmbPGXRU5Ccaxgz7p3jtR9OpFi/d8EODaV659QMYiJcl9noNAg3pL7CXkfgnAFMG7Won2GfagxtUpwTsx5I/01LYccm44Z/G14f1jOaBz/AlMfRnYwrWG0q7Vp+hp4J4UzlFhDR8Y=
+X-Microsoft-Antispam-Message-Info: mFw8oJNOZVeJ3ifMPA6b4/H37X1MTejRruyTQnStpQ36OxgjQVFSVPKNEsdyNNlRGoTWCr3zdelaCVcE5ioIXdmqx02kkaWMrLqg+rUdQLkiNe9Eo6TfZKUnKAsXMZvxWGqjuGJohUpc38gWq7nWZoYkaInAhxYj+EaRL5VXYIpQrlBD8LSzKsy/8c4JGVgf3Z+2jsrEVDtEcuodnzZp2LJG3OQprP7JWsIXGcpjthCya0s1Uy31iYtMdSpdaS5YflWIKummcY8CZnYk8LqLYi9BMw19vvljqL3atmm6e61+I/8fysVwvenytKPT7IiefXwXDKucyvG6ElqAOHH4NA1ui7QG/5jG8cCJmd/C2MsmZDWHcHAEkto9TMejOSlDrlr9WhMSvLUG8131VpT/mslElKfFpP4beD3mHCshHxKh1fp7hVl35645gEcgBOcnbkibiTQzvXL4AupMkE2f5YeSyYgpPtXYpQEg+VnYenRpBQ3nYR5fgNfIRom5N+cvBzEYgNmeGke/zneUvTtHRmhUVnN7OkgqrIkMvb70cx18L2+mJwmWDxDHX+0yc4drxovHeGBYeT9Lx7yB0O2l2i0wquj4TEYhDnTiLvbbIpir24LPYTQxZO4rUOdjPqb+fphWcBlg8wxDZepxB5nIm1UTxpPf5Bm+5R4VlLOXuIor0PdNkgIUzJzEsXO5Vels12zKMLxuR8MjmCoJm5JsnzyzXozByJvFhfBOWDIxCCA=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(396003)(376002)(366004)(136003)(39860400002)(5660300002)(36756003)(66476007)(66556008)(6666004)(6486002)(31696002)(86362001)(4326008)(66574015)(2906002)(478600001)(2616005)(186003)(83380400001)(38100700002)(8936002)(8676002)(31686004)(316002)(66946007)(43740500002)(45980500001);
+ SFS:(4636009)(39860400002)(346002)(376002)(366004)(396003)(136003)(316002)(31686004)(38100700002)(110136005)(2906002)(6486002)(66574015)(36756003)(83380400001)(4326008)(86362001)(5660300002)(66946007)(66476007)(66556008)(186003)(6666004)(31696002)(53546011)(2616005)(8936002)(8676002)(478600001)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a096ZXNDWStZaUVOR2x4UUxEYkhSRytQeEw3TStLNG9yd09KQXFMR0IzdUlT?=
- =?utf-8?B?ZllKaGw0RVU2R2w3dGdaaC9sbUhTeUxMZ0pDMFhueTZoWTFzVDdTcUdjbGM3?=
- =?utf-8?B?eHlxUWkyRXk2d0F0REhzR3BtbFN0a3ZOQWNPNXFFaHpGVXdqcWNnVmJNcFlk?=
- =?utf-8?B?aTN2elNXTVg2YzdjRmZOc2VhTzhhL3NnRHBnUVRJeVVucFBFcnJXakkvUUpW?=
- =?utf-8?B?dG9Tdjg4bU5LbCs2Mml6SjgxeEYxQzV6azZxZ2luRFNJSzRyNHJ1RTdPcUNM?=
- =?utf-8?B?TkxRWUQ4UEFRM2VyQUE5Q2p2VmJxMUE2eWVlNHc5OWZjZTd4MTZZQ1BjTzJJ?=
- =?utf-8?B?ZjZka21XK3liVWRWTmM1THRXenVOOWRQZXQ1T0M4aE1JcGd3T1k0eENFOUc3?=
- =?utf-8?B?LzE3dFBRakRRYW1mTmpaSGQyMjUvellBUEhUbmpMM3hZcnUvVDl4U3dyazNZ?=
- =?utf-8?B?b3FEVnpOcG9scDVielVkUE1lSEg1cUFnVFMranNHQXE3WTlOWDFlT1BmWGk4?=
- =?utf-8?B?MWRQVk0yNlNORFd1bE0wOEN5RjZ1T1JaSU9KRmlpWHVENVR6MG8xR0UwWHZo?=
- =?utf-8?B?dHlPbHJvNy9lVHRnN0JPRzMyVk1uMTh5eDVpQWxPQnNPK2dTT29XbW9wNGVl?=
- =?utf-8?B?SUwvMnNJTEx0ZEQ4TGpPSXkvUHpXQnVFbFdvcXFvT3BjUzdkVkhRdzhIQVZh?=
- =?utf-8?B?czhlayt1cUV5bzVGSGZXRXpWNDZUaFNLYk5KcEtIUjNZWm1QWUZkS28xd2ZQ?=
- =?utf-8?B?WHU4ckdsNEJZYlhmUjNlTkpjdDZyQ1dKY213QW1xYldJVW5EZnJWSGJGeEpT?=
- =?utf-8?B?QmY1UXdaanVxSjArNXNqVkJTS1o0MjFNZVlGdStjWVFBa1czWUd0OE5ScEky?=
- =?utf-8?B?ejhURkNkM1MxNDlPOUV3Qk53ZU1tbmJwdjRhd096VGJmTmM3cXY2ODFndUJ1?=
- =?utf-8?B?cUlySXVScll3cjdFSEVQRG4wRndMaFk1Z291NzNvbDIxRmJGd09hWWI0Ymts?=
- =?utf-8?B?bjlwQzByTEFPVXh1MmZzQSswQTNFczk3QzZHVk55N012aHp5cmlNdzlJQkht?=
- =?utf-8?B?L3dMRFBDNHFmd0FVVTMzWjh2MmYwd0tkcWNoT0UzZloyaXJYMWFadkMzVXVI?=
- =?utf-8?B?WkNPeTRWTHU2aU4rOVNXQllhZXB3Wkw5UFFGc3QxWEJqaDdGRC9tOGtMTG1x?=
- =?utf-8?B?cXJoRXhjNVhjZ2F4UmRFQkFYVUszNFJlb2NKempkV0MxMnZDdURDVEdLVktj?=
- =?utf-8?B?Q0gwRU5DYVdja2NDRDBwYm1pTW5LMEVxYTVaVURYNU1PVU45d2psR1JIWFdh?=
- =?utf-8?B?dEZ3RUJUOFhaVkdjbWl2NngwV0M3VzVka1R3WWRVUUVjbEtEeG1qbmFtbDhp?=
- =?utf-8?B?dUpFSm9lY3FDMkw5eUFlVXI0T0ljMCtQL3VmVnRwUWhQVzBCOHc4Y0xTY2Jv?=
- =?utf-8?B?eGoraGord1pIcDQvTmNDVDJnYXlFYTFMVlBqeHlvVmkyMUZMeGIzU05rdTJC?=
- =?utf-8?B?aGQvYkJKZnY3ZUp1S0treWxVTzl4dGZPNGtrOTNKQWZ0ektjRGI2TC9PTlMz?=
- =?utf-8?B?SEZndjZvRGZaMnFGL3dlTEp1UXU3V3VKL2tMS0k3TEVOdGJmQTQyOFVDRExD?=
- =?utf-8?B?Rk9COFYwOEYzeHB6K0lHSUdRR3pidTl6dWxVOHRDTUF4UVdLZlFSbVI4T1Rs?=
- =?utf-8?B?T2ZFTktlLzdGYW1BcXBFcXlJOHNhaUtNWkR2MGg0cjUvdkFGY2dGUUdsL0o5?=
- =?utf-8?B?UVlnNk9HZVgzOUcveXNhTDBwWndqSkQ5K01GbngveGRmK0FZdDlXZVIrTXBp?=
- =?utf-8?B?RmhKY2s4dHdCeFU0SnF5c0FsSE1UMm9hSWxpOVgvbVhtbDhZWEorWER2cFBn?=
- =?utf-8?Q?WFBmHMOMvkcth?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T09zdlZYTjh1alRWRTBWMDdCbDltMTBrZnNNeXBhbjRzaU5lMERxcDRCb2NT?=
+ =?utf-8?B?dytXaityVnh2T0k2SkZQSStQQ29qR0RIcEQxYlRvcjdGamhGK01XNVh3dUFK?=
+ =?utf-8?B?eXc5TTJLdk1xbkFQaEFVaVBQbFRXS2hXMk9QU0M4SlRzRGd6d0pGSmhhK2h2?=
+ =?utf-8?B?NEVTa0I4cjBLQWdsTHhyTGxkMzVMaGRZdkVRS1ZPL1BqakVkVHZOM1dudXlJ?=
+ =?utf-8?B?TlQyTEUwZzhVall2Zk5HTEE4QnNFYURuK0pDNmVTY295RVpldnU0cnhTditN?=
+ =?utf-8?B?SVhNTkZleTZ1Nk55L3orWnlwT0dleVZWNG9sUEROUldmSFVVNDQyWWU0bG9I?=
+ =?utf-8?B?WFFYY2Vxa3BLaFF1S2xQWXBqVWU0MDVONSt6ZnVJNlRreFJTTHN5WU8xL3F4?=
+ =?utf-8?B?WEhMa3NnSGNlVUllY2QzQktWVG1IQWV2R0l1UWhxS2QrL0lJUG9ZYzM3WHl0?=
+ =?utf-8?B?UndldU5VMTF0Uk9SYUNrUTJ3RGJzNStpU1VrdVhsbWt0WjFMSGRURDh4bndX?=
+ =?utf-8?B?Njd1NTM0VEQrWjBwRG5uVndBanhPRWtoVmVuM1l3L05xaWZYVTJiQWVBOU5o?=
+ =?utf-8?B?WE9GSEZGam9BSFFXR05oOXhvOUZFQWh3b0wxcFJhdU5wWFJBdTM4K0ZFYjdG?=
+ =?utf-8?B?VUJVWWkxUEtLYlFCa3R3a01YNEJMT1VXUG5VdXhnMkhFeEh5SU1HVHkwSjZh?=
+ =?utf-8?B?eWJMUWZQczZycjZyL0VsRVVLVlVCSWt6V0tpU1JuQ2Z4SmlZbElsRS84ZHJs?=
+ =?utf-8?B?a2hqYzJwSGdkRFFjeHhJeTJ5dkVVVVV2SSt0Q21wampZUSsyQlRiL0hzTmpn?=
+ =?utf-8?B?ZUJvdnR6UjY2V0VjV3BPVDk2cDZ5OURWN0t4RTUwcndnL2dxZlltQTh6MVdk?=
+ =?utf-8?B?UlI0U3VRRjFpcHZlSklWQ0RkUUY1eU9GYXh6S01TaHBGUFk2VGFJMkthL3F1?=
+ =?utf-8?B?MW1yV29tbEp4QUJ3aEJ3d016NmZmSW5jbGtJUmJsSnpVb0lzMTdRTTZWK2Rq?=
+ =?utf-8?B?REZVRlRwdG5OWjNWNG4zQ1h0b0NZS292SS9oUmhNeHpyeEFuVzBNWUhoZXJS?=
+ =?utf-8?B?b05TR1M1aDJnYzcxK04vMmJtY21QNHlWTXdqRTBubzBCcWo5Qjl1eElTVUJt?=
+ =?utf-8?B?enNIdnRSUW5PK1h3ekNVUzZrc3AyRnp6OEFPYUc3aE5NcVhBNGRpdzluLzBs?=
+ =?utf-8?B?clZLRHZCT0l1ajUwKzZiZWh4L0hWWUVubk1EbllRZE5BOW1DUW1saDZpMFdt?=
+ =?utf-8?B?VjVKL2JsSnFHVTB3WWpDWlhwSTMrZnlTSkdmKzA4cnAxQTJoTDIxMjR4WXZF?=
+ =?utf-8?B?TWdmN1pzcDMvRjUyTndab2UzYXQycHA3bGx2VktXM2VFcXd1NkdYOE5kRk04?=
+ =?utf-8?B?RzZ0cVR0TnZiWFdvTjFWRm51a3JoaXZ6UDgrL3ExRndDdnNtUXJHcFE5dXpK?=
+ =?utf-8?B?THpneWY4VlE2RC90aFlKWHdPeS9ENXMrdldtN3JoVndtTlFQRFhQRlJiOUxR?=
+ =?utf-8?B?RXZQbGIwalZqYlJDQlFqV1NMR1lRMitYd2kwZlJMYlZLVFdPWmtwdU5sQ3JX?=
+ =?utf-8?B?V0ttcjZaNUNKOTBEcTdKNmQ5Si8yZkRhU0VFVWxPM1V2RGFPVS9LSWpDS1lC?=
+ =?utf-8?B?K3R4N1FVTGNGVWxsK3JCWTdRcDErLzlNaUxYQTR6VUk4Q21UaHVTVUllR09O?=
+ =?utf-8?B?eGprcWpuZmhDTGtuK0pvTUFScXR1Q0pJV3VIaWxkQ2xKdDhJRDJyTHh4QVRq?=
+ =?utf-8?B?QzNDYmtKVGYyR21FbnUzT2RWeHMrUm9VKy84TlY4WURPZGFJYkxFbm1uWHpx?=
+ =?utf-8?B?WFVEcGdVRUFWOURBK3luUVlQMzNpeUdOb29hRjd3MkVyclhSeXRvYW5EMlA3?=
+ =?utf-8?Q?5hXiyXUc7KGWH?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7b17e2b0-f815-41b4-70bd-08d969678b34
+X-MS-Exchange-CrossTenant-Network-Message-Id: 552069a1-c364-486f-60d1-08d96966a8a2
 X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2021 14:32:48.9622 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2021 14:26:28.8209 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ViXxFx74xkaJwRpbn9dtyNEbUAUiXQUYaRSnlNccbb+YFvE0Ye+bzRTW4UGwyr/9
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4868
+X-MS-Exchange-CrossTenant-UserPrincipalName: aao6cSma/myvy2ZqbGcBemckwRv8xym09MvfakboOBCIyKZeQMS8R2zg9Fk65OiW
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3679
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,118 +154,148 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 27.08.21 um 14:42 schrieb Satyajit Sahu:
-> VCE has multiple rings. Set the proper priority level for each
-> ring while initializing.
->
-> Signed-off-by: Satyajit Sahu <satyajit.sahu@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c | 14 ++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vce.h |  1 +
->   drivers/gpu/drm/amd/amdgpu/vce_v2_0.c   |  4 +++-
->   drivers/gpu/drm/amd/amdgpu/vce_v3_0.c   |  4 +++-
->   drivers/gpu/drm/amd/amdgpu/vce_v4_0.c   |  4 +++-
->   5 files changed, 24 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-> index 1ae7f824adc7..c07d973a2946 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-> @@ -1168,3 +1168,17 @@ int amdgpu_vce_ring_test_ib(struct amdgpu_ring *ring, long timeout)
->   	amdgpu_bo_free_kernel(&bo, NULL, NULL);
->   	return r;
->   }
-> +
-> +enum amdgpu_ring_priority_level amdgpu_vce_get_ring_prio(int ring)
-> +{
-> +	switch(ring) {
-> +	case 0:
-> +		return AMDGPU_RING_PRIO_0;
-> +	case 1:
-> +		return AMDGPU_RING_PRIO_1;
-> +	case 2:
-> +		return AMDGPU_RING_PRIO_2;
-> +	default:
-> +		return AMDGPU_RING_PRIO_0;
-> +	}
-> +}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.h
-> index d6d83a3ec803..be4a6e773c5b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.h
-> @@ -71,5 +71,6 @@ void amdgpu_vce_ring_begin_use(struct amdgpu_ring *ring);
->   void amdgpu_vce_ring_end_use(struct amdgpu_ring *ring);
->   unsigned amdgpu_vce_ring_get_emit_ib_size(struct amdgpu_ring *ring);
->   unsigned amdgpu_vce_ring_get_dma_frame_size(struct amdgpu_ring *ring);
-> +enum amdgpu_ring_priority_level amdgpu_vce_get_ring_prio(int ring);
->   
->   #endif
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
-> index c7d28c169be5..8ce37e2d5ffd 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
-> @@ -431,10 +431,12 @@ static int vce_v2_0_sw_init(void *handle)
->   		return r;
->   
->   	for (i = 0; i < adev->vce.num_rings; i++) {
-> +		unsigned int hw_prio = amdgpu_vce_get_ring_prio(i);
+Yes, I don't see any good reason for that either.
 
-This could use the enum name instead of unsigned int, but that's only a 
-nit pick and not a must have.
-
-The patches now lock really clean and simple to me now and the set is 
-Reviewed-by: Christian König <christian.koenig@amd.com>
-
-Regards,
 Christian.
 
-> +
->   		ring = &adev->vce.ring[i];
->   		sprintf(ring->name, "vce%d", i);
->   		r = amdgpu_ring_init(adev, ring, 512, &adev->vce.irq, 0,
-> -				     AMDGPU_RING_PRIO_DEFAULT, NULL);
-> +				     hw_prio, NULL);
->   		if (r)
->   			return r;
->   	}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
-> index 3b82fb289ef6..e0bc42e1e2b3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
-> @@ -440,10 +440,12 @@ static int vce_v3_0_sw_init(void *handle)
->   		return r;
->   
->   	for (i = 0; i < adev->vce.num_rings; i++) {
-> +		unsigned int hw_prio = amdgpu_vce_get_ring_prio(i);
-> +
->   		ring = &adev->vce.ring[i];
->   		sprintf(ring->name, "vce%d", i);
->   		r = amdgpu_ring_init(adev, ring, 512, &adev->vce.irq, 0,
-> -				     AMDGPU_RING_PRIO_DEFAULT, NULL);
-> +				     hw_prio, NULL);
->   		if (r)
->   			return r;
->   	}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
-> index 90910d19db12..931d3ae09c65 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
-> @@ -463,6 +463,8 @@ static int vce_v4_0_sw_init(void *handle)
->   	}
->   
->   	for (i = 0; i < adev->vce.num_rings; i++) {
-> +		unsigned int hw_prio = amdgpu_vce_get_ring_prio(i);
-> +
->   		ring = &adev->vce.ring[i];
->   		sprintf(ring->name, "vce%d", i);
->   		if (amdgpu_sriov_vf(adev)) {
-> @@ -478,7 +480,7 @@ static int vce_v4_0_sw_init(void *handle)
->   				ring->doorbell_index = adev->doorbell_index.uvd_vce.vce_ring2_3 * 2 + 1;
->   		}
->   		r = amdgpu_ring_init(adev, ring, 512, &adev->vce.irq, 0,
-> -				     AMDGPU_RING_PRIO_DEFAULT, NULL);
-> +				     hw_prio, NULL);
->   		if (r)
->   			return r;
->   	}
+Am 27.08.21 um 15:45 schrieb Andrey Grodzovsky:
+> So we agree if (kthread_should_park()) return NULL should go away ?
+>
+> Andrey
+>
+>
+> On 2021-08-27 3:46 a.m., Liu, Monk wrote:
+>> [AMD Official Use Only]
+>>
+>> Yeah, that "kthread_should_park" is also irrelevant looks to me as 
+>> well and it delays the signaled job's cleanup/free
+>>
+>> Thanks
+>>
+>> ------------------------------------------
+>> Monk Liu | Cloud-GPU Core team
+>> ------------------------------------------
+>>
+>> -----Original Message-----
+>> From: Christian König <ckoenig.leichtzumerken@gmail.com>
+>> Sent: Friday, August 27, 2021 2:12 PM
+>> To: Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>; Liu, Monk 
+>> <Monk.Liu@amd.com>; amd-gfx@lists.freedesktop.org; Koenig, Christian 
+>> <Christian.Koenig@amd.com>
+>> Cc: dri-devel@lists.freedesktop.org
+>> Subject: Re: [PATCH] drm/sched: fix the bug of time out calculation(v3)
+>>
+>> I don't think that this will be necessary nor desired.
+>>
+>> See the job should be cleaned up as soon as possible after it is 
+>> finished or otherwise we won't cancel the timeout quick enough either.
+>>
+>> Christian.
+>>
+>> Am 26.08.21 um 22:14 schrieb Andrey Grodzovsky:
+>>> Attached quick patch for per job TTL calculation to make more precises
+>>> next timer expiration. It's on top of the patch in this thread. Let me
+>>> know if this makes sense.
+>>>
+>>> Andrey
+>>>
+>>> On 2021-08-26 10:03 a.m., Andrey Grodzovsky wrote:
+>>>> On 2021-08-26 12:55 a.m., Monk Liu wrote:
+>>>>> issue:
+>>>>> in cleanup_job the cancle_delayed_work will cancel a TO timer even
+>>>>> the its corresponding job is still running.
+>>>>>
+>>>>> fix:
+>>>>> do not cancel the timer in cleanup_job, instead do the cancelling
+>>>>> only when the heading job is signaled, and if there is a "next" job
+>>>>> we start_timeout again.
+>>>>>
+>>>>> v2:
+>>>>> further cleanup the logic, and do the TDR timer cancelling if the
+>>>>> signaled job is the last one in its scheduler.
+>>>>>
+>>>>> v3:
+>>>>> change the issue description
+>>>>> remove the cancel_delayed_work in the begining of the cleanup_job
+>>>>> recover the implement of drm_sched_job_begin.
+>>>>>
+>>>>> TODO:
+>>>>> 1)introduce pause/resume scheduler in job_timeout to serial the
+>>>>> handling of scheduler and job_timeout.
+>>>>> 2)drop the bad job's del and insert in scheduler due to above
+>>>>> serialization (no race issue anymore with the serialization)
+>>>>>
+>>>>> Signed-off-by: Monk Liu <Monk.Liu@amd.com>
+>>>>> ---
+>>>>>    drivers/gpu/drm/scheduler/sched_main.c | 25
+>>>>> ++++++++++---------------
+>>>>>    1 file changed, 10 insertions(+), 15 deletions(-)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/scheduler/sched_main.c
+>>>>> b/drivers/gpu/drm/scheduler/sched_main.c
+>>>>> index a2a9536..ecf8140 100644
+>>>>> --- a/drivers/gpu/drm/scheduler/sched_main.c
+>>>>> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+>>>>> @@ -676,13 +676,7 @@ drm_sched_get_cleanup_job(struct
+>>>>> drm_gpu_scheduler *sched)
+>>>>>    {
+>>>>>        struct drm_sched_job *job, *next;
+>>>>>    -    /*
+>>>>> -     * Don't destroy jobs while the timeout worker is running OR
+>>>>> thread
+>>>>> -     * is being parked and hence assumed to not touch pending_list
+>>>>> -     */
+>>>>> -    if ((sched->timeout != MAX_SCHEDULE_TIMEOUT &&
+>>>>> -        !cancel_delayed_work(&sched->work_tdr)) ||
+>>>>> -        kthread_should_park())
+>>>>> +    if (kthread_should_park())
+>>>>>            return NULL;
+>>>>
+>>>> I actually don't see why we need to keep the above, on the other side
+>>>> (in drm_sched_stop) we won't touch the pending list anyway until
+>>>> sched thread came to full stop (kthread_park). If you do see a reason
+>>>> why this needed then a comment should be here i think.
+>>>>
+>>>> Andrey
+>>>>
+>>>>
+>>>>> spin_lock(&sched->job_list_lock);
+>>>>> @@ -693,17 +687,21 @@ drm_sched_get_cleanup_job(struct
+>>>>> drm_gpu_scheduler *sched)
+>>>>>        if (job && dma_fence_is_signaled(&job->s_fence->finished)) {
+>>>>>            /* remove job from pending_list */
+>>>>>            list_del_init(&job->list);
+>>>>> +
+>>>>> +        /* cancel this job's TO timer */
+>>>>> +        cancel_delayed_work(&sched->work_tdr);
+>>>>>            /* make the scheduled timestamp more accurate */
+>>>>>            next = list_first_entry_or_null(&sched->pending_list,
+>>>>>                            typeof(*next), list);
+>>>>> -        if (next)
+>>>>> +
+>>>>> +        if (next) {
+>>>>>                next->s_fence->scheduled.timestamp =
+>>>>>                    job->s_fence->finished.timestamp;
+>>>>> -
+>>>>> +            /* start TO timer for next job */
+>>>>> +            drm_sched_start_timeout(sched);
+>>>>> +        }
+>>>>>        } else {
+>>>>>            job = NULL;
+>>>>> -        /* queue timeout for next job */
+>>>>> -        drm_sched_start_timeout(sched);
+>>>>>        }
+>>>>>          spin_unlock(&sched->job_list_lock);
+>>>>> @@ -791,11 +789,8 @@ static int drm_sched_main(void *param)
+>>>>>                          (entity = drm_sched_select_entity(sched)))
+>>>>> ||
+>>>>>                         kthread_should_stop());
+>>>>>    -        if (cleanup_job) {
+>>>>> +        if (cleanup_job)
+>>>>>                sched->ops->free_job(cleanup_job);
+>>>>> -            /* queue timeout for next job */
+>>>>> -            drm_sched_start_timeout(sched);
+>>>>> -        }
+>>>>>              if (!entity)
+>>>>>                continue;
 
