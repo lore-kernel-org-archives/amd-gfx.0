@@ -2,119 +2,74 @@ Return-Path: <SRS0=EvCx=NS=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=0.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AAEA6C432BE
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Aug 2021 06:46:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C0521C432BE
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Aug 2021 06:55:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5AD3D60F92
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Aug 2021 06:46:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5AD3D60F92
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 75E7E60C51
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Aug 2021 06:55:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 75E7E60C51
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmx.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D30C26E8E1;
-	Fri, 27 Aug 2021 06:46:36 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam08on2085.outbound.protection.outlook.com [40.107.101.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C6C16E8E1
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Aug 2021 06:46:35 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QAjwu8i6GebkFUKH+zcE+D2ndLRqvM2hZZOE3T0QXC9g5R7Rm/2U4mBbUeVriNWjpPsHWqloZLlrkqdVk2YxD3cZitG2U7zNKh+JFDfljPeikx9uxKFp5+VFijM+xKfr+htxN5CNtX9xw9xlcrNmLgbK/saAKz4wrv2GMfaWcZY9QD+jRuqgXUrUKTqI+GfvIIJnQOsPNYgeyFstBiNyHcHXIKW4wckkR1/KStCDAUmzPwX3Ezgejocu1xdzY6eeZjliAKdYltU5FImQMk/e7k7Z0nqfZQjcyztYYOhB8ja0cpgvpTQitu0zSywW/b1fgBlJZUpL6xEBEuLxfIcrhw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wRECFU6EtN/GFCZHNrBt+Gaj03VSjRFSnnTtfuCduvQ=;
- b=bqz8gAOAKJrlgJLVmF9geiICOJJhEuvlkHrJwNaSJquS1hQ2pfw/D7a7oAh9BUewTvCo4Qw0eaGQgihKTTcamuJ7B7tYXUVJC2pideWZpiNfEHCY4gb5CSdP+iPA+jwpUsW/kGRnDZnScccyA6AdZRjD2UC9aMOoDCw4/6V5Qo+kVwWaKchScMC2d4GUU/5oeO+9Bhe5HmSejvdu20njQZloDp0adzW2Lew1myMe4ftVqweV7SHr3c/YtHu0EGQuvai2hm32DHH5VpgGAq/vvmjgMySSTUZ0RcCJfpzbdhxqCmfJXzjkLqKv+Qj6eZAP2qmf2IXT+OcTXH8ZgBZKMA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wRECFU6EtN/GFCZHNrBt+Gaj03VSjRFSnnTtfuCduvQ=;
- b=3jRLp8RRxmFvtfWaWiPRDF8BUaUOw+5U4EZAwaW6MSymcs8X1ofOf6GnSrx8a87yM3XBvb7QKDr3lqrQyuEigKIp/7lWsNdd2iLnE2N/gkFxuFkWL4fk+L15zQxU747WwthHCqppcCOPti96OO2z6fDRqFT7jlG7eM0w9ZTivKU=
-Received: from CO6PR12MB5412.namprd12.prod.outlook.com (2603:10b6:5:35e::15)
- by CO6PR12MB5425.namprd12.prod.outlook.com (2603:10b6:303:13e::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.19; Fri, 27 Aug
- 2021 06:46:34 +0000
-Received: from CO6PR12MB5412.namprd12.prod.outlook.com
- ([fe80::64b3:54c8:3a3b:5d09]) by CO6PR12MB5412.namprd12.prod.outlook.com
- ([fe80::64b3:54c8:3a3b:5d09%5]) with mapi id 15.20.4457.023; Fri, 27 Aug 2021
- 06:46:34 +0000
-From: "Huang, Ray" <Ray.Huang@amd.com>
-To: "Yu, Lang" <Lang.Yu@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Clements, John" <John.Clements@amd.com>
-CC: "Yu, Lang" <Lang.Yu@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: show both cmd id and name when psp cmd failed
-Thread-Topic: [PATCH] drm/amdgpu: show both cmd id and name when psp cmd failed
-Thread-Index: AQHXmwZRa0D3psNqmEmS/55yEXd+uauG6G7g
-Date: Fri, 27 Aug 2021 06:46:33 +0000
-Message-ID: <CO6PR12MB54126F58A08B5BA11C056D96ECC89@CO6PR12MB5412.namprd12.prod.outlook.com>
-References: <20210827054128.1136846-1-lang.yu@amd.com>
-In-Reply-To: <20210827054128.1136846-1-lang.yu@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 08623b7e-090a-4fcf-c577-08d96926690e
-x-ms-traffictypediagnostic: CO6PR12MB5425:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <CO6PR12MB54257965D7F090052D64B242ECC89@CO6PR12MB5425.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:241;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 0Z9QD2yYhvfpOhN1HfvaoZQ6JqtINjhpAb43w+IjhIoYkRk4bBqcHt7vpcS0LUYRJ9BiwFIquRSKCcsVQ7X+rMb8pUVd+axDkDCYEVmunv/TI0+pVM7iEbPWowCAIu0qFwhTHLfpxqXdFtwmmi47gdm9DiECeF56ahY+4q73d6Zu1zVjqhVNRhVW2Rf1qVzVJC8IDMqnLagLi6/p+9TcAZzqv95MA1JjE9WsXFHvwsP6Z7aS81vM/aKYpTgjrPcjWmoHTw0iiTxntEqSS6iwK9ftBfuOFpo6TxxdfXkeYhvNRJirij80FQ9t476U+Jl0fTlfBi4jEN33HYAjskeEw26rnEBG/Cc/RFp1s7t0+btbksoLcAeDzZWQtnDWiQZLO55QPsT9XaoxFR/k0AIg8lf8Z74upXa14R5xyHaiXgFpjw2Ko0kNa1HvACyNNpREdN7/SAvGfcv6rpnyHA+KM4ScTLWopRH2Hykddae8a0HzOwsORIjgoGSkRUIf/5FXl6KSCgqUdSLDBMVeRH3nSUU5sBa9hzjf2Zoz7SdtsZyAh95MNikxGLO6P00vODBFLO8fwiO7XHyzaABcL5ZgLeDzLwE2AafMWgqqXAg8bVjmye2AsLY+O6ZzZx1l6hLt1gS1lfGK9jBbYDH++4ATV8qZ28mRhAgbnOXjvWnuXewfSf7zqK8+SuxE2kxRaWe18z3EgWliEhdEUCgli3ybiA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5412.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(110136005)(64756008)(66946007)(9686003)(71200400001)(508600001)(7696005)(8676002)(6506007)(33656002)(76116006)(38100700002)(5660300002)(4326008)(86362001)(8936002)(66556008)(83380400001)(316002)(186003)(66446008)(38070700005)(52536014)(66476007)(6636002)(55016002)(122000001)(53546011)(26005)(2906002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?OE1MfDAwGx/Vesezd+BoC88GII0UmdzPHOQyajr0XOS/irFeNrbiM56AM17U?=
- =?us-ascii?Q?YitX1rJkrHFj5f5KjWzL5nEHgkkmoF5+DXmaYNiMq9tBaSkVtKTs/fSNOp0j?=
- =?us-ascii?Q?ZytAalJcfT2JF2h3OvtyD16TseLVhU1q0ExJ/7FXdWAY+cPEx80CZ57upDjb?=
- =?us-ascii?Q?1rLmVZHuKMPpm/mYquXzxapsR+SjX3e0usDknUNy9Of9/SvWSyC28/OQTLnR?=
- =?us-ascii?Q?9sDoMVY3gc0VJOHP3T0BpC6rcc4Oxy0Hh5YvFz7glfwCTiFiJaVgu57B4GCj?=
- =?us-ascii?Q?2JU1Es8u/6xiu+RHUeZP6e+YVJsW1P9jpDX8+6qIM7Tji7CuXFnXc0it/Xkl?=
- =?us-ascii?Q?4d1oPAg0VNOxSlcvBQS82Qbh75EPZZ8JlcPm4EdTQToD5u/TlUigfnSS52lH?=
- =?us-ascii?Q?2Y6Bwh9OXGGC6tfagYVkoGfLG4Wqevc4j0NybMh04quRz2iziSVH3/nddGLM?=
- =?us-ascii?Q?xGjBN9gSh4vsbeZ6Z+a6EuLnFpFyAEbjzu8vfBYMU4ziA7/CKrdtkVH4VsYU?=
- =?us-ascii?Q?BI+U2odBhC4F3NRCb2nKvfZRS5ubdc7EyfXsMHA6RKmQpH0RaxaYmF2//HhP?=
- =?us-ascii?Q?Qrv+ufs+wjmfS/vWOcxFyl2xOW0LjyxKMT9qu8NP9VysT4vUMLsPIgLu2egt?=
- =?us-ascii?Q?oiK67JbH7Q7NultVWYDE6QFhM85vvRhaiit3WCvtRR3YpL+rtXkYrsnX7FpC?=
- =?us-ascii?Q?kxiK9xX7VkdFR75fXYyi4xGCUzSJU2HoNQg5CsXKHCqmTHaDXVJa2NIb0Pyz?=
- =?us-ascii?Q?6QGJLHQbH6id41hQeZEyWgMXZ67ZkFV074YomYTooEX3DkshVfcGTqmMmiNx?=
- =?us-ascii?Q?B+R6K4iDBAEKbeuY3yzoSZA8tHjWj4gWdjoc7MNto25n2Kme8j9DL7+DwL1k?=
- =?us-ascii?Q?5X9RZBI+Eegu8FntFGBRnp8mBpMO/ezeoaTHHqMeXdjgh4p39yCXCJjJekzi?=
- =?us-ascii?Q?zGRVVN7nY3ll9ooLD5PUgMVtoMosfUX/8o/o6TnLRyCKdsMam89tGqzF+mHn?=
- =?us-ascii?Q?FWL7ddoozFDIwgTT3KNRu0hVYeqqb2fNsLHwYxefVLtpZz1roMv8dakbQfWy?=
- =?us-ascii?Q?2f3d4ejkuXGsi87VVFbs1cznNy8fMrwztqBrsI9EzpGhgdjbCJ0cHvUcCAiT?=
- =?us-ascii?Q?I0w5QLAhBAvQ6OLT9FZlNIOC3erSmmHa/FwO7Ag/JHI0Hvuwg8wMoe2t/jfW?=
- =?us-ascii?Q?4FBohkX/Ta7z6xlbNCoAfp8UAQ+jJAU8TNaMsa3PN7VJPVI0s/R7SsDu7IV7?=
- =?us-ascii?Q?rmyHh/5RiJ0mQP0LdRpmFpVG6yPKFqoMHkuEEFIYTAdmq11YiqJ6+2qHSI6O?=
- =?us-ascii?Q?Vw+v0uVAKNbDkfVhIuwRSDrE?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E1BF6E8E2;
+	Fri, 27 Aug 2021 06:55:13 +0000 (UTC)
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EE356E8E2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 Aug 2021 06:55:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
+ s=badeba3b8450; t=1630047309;
+ bh=LvaJixWq5KkQfhOsPBJD8EIQbvqgURaK18ncWcuaxAw=;
+ h=X-UI-Sender-Class:Subject:To:References:From:Date:In-Reply-To;
+ b=gJ2oVLNuLkV+E1maqYaOXaSR3/0lzYB8ZumdcUrJG1IIIG+7DghrslEYXYMooKKWY
+ oKC6qoGaxlrDQgYLQ+MMwW7rEjnTod7kTFVrT/5QbRi8g1+bHIIXirkBzUL1YrBcJp
+ FdonrmUUtgRwuSO0cszyLP8soWIIXPh2BNAAAHpY=
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Received: from [192.168.1.100] ([95.91.0.137]) by mail.gmx.net (mrgmx005
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MybGh-1nDosi1I2X-00z2FN for
+ <amd-gfx@lists.freedesktop.org>; Fri, 27 Aug 2021 08:55:09 +0200
+Subject: Re: Set video resolution and refresh rate at boot?
+To: amd-gfx@lists.freedesktop.org
+References: <36cacbd4-8240-9713-6cea-68209757ed0b@gmx.de>
+ <CADnq5_PrkEQCpKKWY8QhOqWZ_jxK3vabSjxwRW-+MFnm3Rgs2w@mail.gmail.com>
+From: Paul <pb.g@gmx.de>
+Message-ID: <49ceabbf-a59f-85e4-003d-4a9b20a798f1@gmx.de>
+Date: Fri, 27 Aug 2021 08:55:02 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5412.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 08623b7e-090a-4fcf-c577-08d96926690e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Aug 2021 06:46:33.9764 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: T/n3d9RNZ2nwD0M/QRADpx1Csf7xbQuMVUrzh9ckN4/5xbvRh9GdFWs0ISHj6nffI7Xnwk487DgqLZ5UvlRFdQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5425
+In-Reply-To: <CADnq5_PrkEQCpKKWY8QhOqWZ_jxK3vabSjxwRW-+MFnm3Rgs2w@mail.gmail.com>
+Content-Type: multipart/alternative;
+ boundary="------------FC0B0A97C4604C5D981DB62F"
+Content-Language: en-US
+X-Provags-ID: V03:K1:+FHlFNFk+874R74bbC2el5+4UKKfjp3eadx5nIiUQx6uHWuN5JM
+ denoR/SqoN7M9des2Sg1obCUeJpCbDOPxiWgTZDtVGVy+tysWGiVXMdSIBGJ9flxaCHNAmP
+ 82Q1RflCaGzAzT3nipX4DjAggkmYKuu990jEF4FRIUBXc06MUG6QY/Y0Effpqa0jEfwNtsd
+ CLe1iiB3z2S/Ohk4OZsGQ==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:zZf7eCUv/5c=:IKwhEeFZYQXmWhp+kFo7tt
+ PAmpPl33UT+VXV6rF0090YXD6ADgoodReqYb6li9ciiXkr+BhLFZlzfoPTq9YEHSxs0ytakyM
+ uwUFP8CKAZ38nvIRpWi2k1yL84gMeQoFgDBf8yuGwEUoriihEPr3NKBGfMDqQBbaP1hXvHFqb
+ F7LKJEw0ug49UcR3iE54Pe+YO1ds143eushwNh9NuN62NQmHbLk1KH3VhAyZPkLPqgPCZ1kvt
+ 2br5BvWprT8kHCzIhixRJigVzvU+cqwgsG1zRFsow50ekz+k5G2eIO6aBO8Ho4hYMbLq8ftgw
+ 6AmulHqAhG2QcVeXgQTwMTQxmE0uHms/V4/5Z97KaAEn9ZaywYysVCuOb4MPTnuIXDIobOkxq
+ 04YmTNcR2MIFvgenkDSZBWZVUC/pHS+earYp0p88xCVWkywKVjcjK5jZ4WX1vuMuVns1gT2yI
+ pXQlljyTJyFIe1ymxK62Nku+al7oyvFEhYdwLa9WhkHqqxP8//iNcu0JH3dFVfO2G5Wh8R1lY
+ UbreQR2iSzmO2Our/WR2pSBvoBnVRB2uglUCDaJb9HanCAvb8eG+i1AsRaaL42aQEdeLN/+AF
+ 9CGppprOmlBVgStxvIWzMkKql+uRx8AJs7wMoB95l7ElNIvWzvv5AKpgMQJLQX4BfJRbUocPf
+ 5tbMsMc9TZfG7pIKnks1QbgNFKdgRcT+quUoc04g/+y6JjEXM+VP6nx9v0iruqxXSJLppC1sx
+ ys1A8oAvEo8ksMH+5ODnD1dsPC41vuB3/JO6nXpdLIStXVvqudHFEzheoqp9c67cOqCbC0kwO
+ FevK6UHvXga6WW1Ft5l6mCGjHNXcfpqOlB0pNMW8OokQJc4I4zI1vw7u8nvIVQE0ipFeebajP
+ yJi203RmTcAF3NLtX+KZhilw/f/T+VolX1jMR0svMKZzjoocyeWWWz5Ck51vrLeWXhfHl4/dC
+ iBdU+uL9b+71A+0OS9MfbrKeK1eUunTQ8ALvry0+tOabX5Jid9y+BVp5t3pDSuRzA1sWAo1mj
+ qkDn5HkjsQIEv2/9XSb5hjhPrUm3X2eHO9w2Y6+1uk8uq1yKmauukTgERfTTUklGP6itQYlCY
+ qRFhffAdKsIz1BXFsMTyFYzP/WwpS3lgw8H
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,46 +84,156 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Huang Rui <ray.huang@amd.com>
+This is a multi-part message in MIME format.
+--------------FC0B0A97C4604C5D981DB62F
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Lang Yu
-Sent: Friday, August 27, 2021 1:41 PM
-To: amd-gfx@lists.freedesktop.org; Clements, John <John.Clements@amd.com>
-Cc: Huang, Ray <Ray.Huang@amd.com>; Yu, Lang <Lang.Yu@amd.com>
-Subject: [PATCH] drm/amdgpu: show both cmd id and name when psp cmd failed
 
-To cover the corner case that people want to know the ID
-of an UNKNOWN CMD.
 
-Suggested-by: John Clements <john.clements@amd.com>
-Signed-off-by: Lang Yu <lang.yu@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Am 26.08.21 um 18:45 schrieb Alex Deucher:
+> On Thu, Aug 26, 2021 at 12:35 PM Paul<pb.g@gmx.de>  wrote:
+>> Hi there
+>>
+>> Out of curiosity I would like to ask if it is possible to set a kernel =
+command line parameter for my Radeon 6900XT
+>> that sets a specific resolution and refresh rate of a specific connecte=
+d monitor.
+>>
+>> Ideally this parameter is set to the monitors used desktop (X11, Waylan=
+d) resolution/refreshrate.
+>>
+>> I did this for years with my Intel IGP's. I appended:
+>>
+>> video=3DHDMI-A-1:1920x1080@50
+>>
+>> to the kernel command line. This worked beautifully and the result was =
+my monitor was preconfigured to a specific resolution and refresh
+>> rate from the first lines of the kernel to the desktop (X11) and it did=
+ not had to switch to anything else in between.
+>>
+>> Another nice side effect is when in X11 one switches to the console, or=
+ vice versa, via STRG+Fx, pretty much everyone has this annoying delay bec=
+ause
+>> the monitor has to switch between refresh rates again. With that precon=
+figured settings at boot this gave a very satisfying feeling, especially i=
+f one frequently
+>> switches between console and X11 (or wayland maybe).
+>>
+>> Is this kind of parameter implemented in the kernel/amdgpu driver?
+> It works the same for all drivers.  Just make sure the connector name
+> is correct.
+>
+> Alex
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_psp.c
-index 23efdc672502..9b41cb8c3de5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -469,10 +469,10 @@ psp_cmd_submit_buf(struct psp_context *psp,
- 	 */
- 	if (!skip_unsupport && (psp->cmd_buf_mem->resp.status || !timeout) && !ra=
-s_intr) {
- 		if (ucode)
--			DRM_WARN("failed to load ucode (%s) ",
--				  amdgpu_ucode_name(ucode->ucode_id));
--		DRM_WARN("psp gfx command (%s) failed and response status is (0x%X)\n",
--			 psp_gfx_cmd_name(psp->cmd_buf_mem->cmd_id),
-+			DRM_WARN("failed to load ucode %s(0x%X) ",
-+				  amdgpu_ucode_name(ucode->ucode_id), ucode->ucode_id);
-+		DRM_WARN("psp gfx command %s(0x%X) failed and response status is (0x%X)\=
-n",
-+			 psp_gfx_cmd_name(psp->cmd_buf_mem->cmd_id), psp->cmd_buf_mem->cmd_id,
- 			 psp->cmd_buf_mem->resp.status);
- 		if (!timeout) {
- 			ret =3D -EINVAL;
---=20
-2.25.1
+Thank you, it works.
+I just want to mention that I had to look in "/sys/class/drm/" for the
+correct connector naming. Connector names shown by xrandr are different:
 
+ls /sys/class/drm/ | grep card0-
+card0-DP-1=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 # DP-1
+card0-DP-2=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 # DP-2
+card0-DP-3=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0 #=
+ DP-3
+card0-HDMI-A-1=C2=A0=C2=A0=C2=A0=C2=A0 # HDMI-A-1
+
+vs.
+
+xrandr | grep connected | awk '{print $1}'
+DisplayPort-0
+DisplayPort-1
+DisplayPort-2
+HDMI-A-0
+
+--------------FC0B0A97C4604C5D981DB62F
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+  <head>
+    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DUTF-=
+8">
+  </head>
+  <body>
+    <br>
+    <br>
+    <div class=3D"moz-cite-prefix">Am 26.08.21 um 18:45 schrieb Alex
+      Deucher:<br>
+    </div>
+    <blockquote type=3D"cite"
+cite=3D"mid:CADnq5_PrkEQCpKKWY8QhOqWZ_jxK3vabSjxwRW-+MFnm3Rgs2w@mail.gmail=
+.com">
+      <div class=3D"moz-text-plain" wrap=3D"true" graphical-quote=3D"true"
+        style=3D"font-family: -moz-fixed; font-size: 12px;"
+        lang=3D"x-unicode">
+        <pre class=3D"moz-quote-pre" wrap=3D"">On Thu, Aug 26, 2021 at 12:=
+35 PM Paul <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:pb.g@gmx.de" =
+moz-do-not-send=3D"true">&lt;pb.g@gmx.de&gt;</a> wrote:
+</pre>
+        <blockquote type=3D"cite" style=3D"color: #007cff;">
+          <pre class=3D"moz-quote-pre" wrap=3D"">Hi there
+
+Out of curiosity I would like to ask if it is possible to set a kernel com=
+mand line parameter for my Radeon 6900XT
+that sets a specific resolution and refresh rate of a specific connected m=
+onitor.
+
+Ideally this parameter is set to the monitors used desktop (X11, Wayland) =
+resolution/refreshrate.
+
+I did this for years with my Intel IGP's. I appended:
+
+video=3DHDMI-A-1:1920x1080@50
+
+to the kernel command line. This worked beautifully and the result was my =
+monitor was preconfigured to a specific resolution and refresh
+rate from the first lines of the kernel to the desktop (X11) and it did no=
+t had to switch to anything else in between.
+
+Another nice side effect is when in X11 one switches to the console, or vi=
+ce versa, via STRG+Fx, pretty much everyone has this annoying delay becaus=
+e
+the monitor has to switch between refresh rates again. With that preconfig=
+ured settings at boot this gave a very satisfying feeling, especially if o=
+ne frequently
+switches between console and X11 (or wayland maybe).
+
+Is this kind of parameter implemented in the kernel/amdgpu driver?
+</pre>
+        </blockquote>
+        <pre class=3D"moz-quote-pre" wrap=3D"">It works the same for all d=
+rivers.  Just make sure the connector name
+is correct.
+
+Alex
+</pre>
+      </div>
+    </blockquote>
+    <br>
+    Thank you, it works.<br>
+    I just want to mention that I had to look in "/sys/class/drm/" for
+    the correct connector naming. Connector names shown by xrandr are
+    different: <br>
+    <br>
+    ls /sys/class/drm/ | grep card0-<br>
+    card0-DP-1=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 # DP-1<br>
+    card0-DP-2=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 # DP-2<br>
+    card0-DP-3=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0=C2=
+=A0 # DP-3<br>
+    card0-HDMI-A-1=C2=A0=C2=A0=C2=A0=C2=A0 # HDMI-A-1<br>
+    <br>
+    vs.<br>
+    <br>
+    xrandr | grep connected | awk '{print $1}'<br>
+    DisplayPort-0<br>
+    DisplayPort-1<br>
+    DisplayPort-2<br>
+    HDMI-A-0<br>
+  </body>
+</html>
+
+--------------FC0B0A97C4604C5D981DB62F--
