@@ -2,81 +2,54 @@ Return-Path: <SRS0=EvCx=NS=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no
-	autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 30B33C4320E
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Aug 2021 13:08:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D27D0C432BE
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Aug 2021 13:47:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E5BFF60F4F
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Aug 2021 13:08:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E5BFF60F4F
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+	by mail.kernel.org (Postfix) with ESMTPS id 8567160EE7
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Aug 2021 13:47:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8567160EE7
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=emersion.fr
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 311FC6E932;
-	Fri, 27 Aug 2021 13:08:41 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 455C06E923;
- Fri, 27 Aug 2021 11:26:50 +0000 (UTC)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 9FC7C1FEEF;
- Fri, 27 Aug 2021 11:26:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1630063608; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=osw1/L3jC/bJi7Ne7bqRTQrD2wzLGX9q4SiZmi3c+5Q=;
- b=Oa5xd/Zm/qU2C1OGCyxqqfHFsWnr34ncOzeFSpN7OAEcyh/oBDc25De5Ypu97mk92Fc0l5
- WfKmOa7dYLRYIZcYtnPhoEpaBPGwEnyMECO4HLqPo3i9W5b6PgbW9SBvsap3cevHLoRH1S
- jI8R3lkYIFOL81JF5BIkcCoNehS8f/w=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1630063608;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=osw1/L3jC/bJi7Ne7bqRTQrD2wzLGX9q4SiZmi3c+5Q=;
- b=FzDxaGDhy6qR/uZBhWz+4OmgNkcW1LFyB3SdMaSBkkoTAxuFt+y/OHOgFdQl5mJ/+3AY5j
- 7vgGLDCeGDUJFmCA==
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 770A213892;
- Fri, 27 Aug 2021 11:26:48 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id B3tiHPjLKGEqRAAAGKfGzw
- (envelope-from <vbabka@suse.cz>); Fri, 27 Aug 2021 11:26:48 +0000
-Message-ID: <6a2513ac-1ea1-ba54-9d57-487504c6c86d@suse.cz>
-Date: Fri, 27 Aug 2021 13:26:48 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B8A66E96E;
+	Fri, 27 Aug 2021 13:47:23 +0000 (UTC)
+Received: from mail-4317.protonmail.ch (mail-4317.protonmail.ch [185.70.43.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FC436E931
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 Aug 2021 13:47:22 +0000 (UTC)
+Date: Fri, 27 Aug 2021 13:47:18 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
+ s=protonmail; t=1630072039;
+ bh=2mpSyvRYN68a+AVrYi3b/7VbwUDdjjVaGKHjJkRpaKA=;
+ h=Date:To:From:Cc:Reply-To:Subject:In-Reply-To:References:From;
+ b=LMrrIPO2N0Klnu6OG0ZvHacfMN+Jo04BZspdZfFZ7fX9s0t6tm8BL0luhZq0em26J
+ cG2TQQ0z+EVoejbfnmB7Epdi6xtIEBy87WhcwIlULJfVATnXNTT/Vhp2jJHxWJ9laR
+ 5uOtoarN0rDwzgudmy/pim9MERYKph7CY/oVzj7Z7NYY+YSIywwuK6Dg3lt5rJZ8Qv
+ WKClU4Mam9x0YOHbcnS+DTeSv5x41mqQRCO/29nN6DHrcWKbjx7VMFdpEiUGH0azIE
+ jcC05w6zU40T2TIvhgetzhSLFeu4j28PZXexEOE/4LQPETULLcsZpuGWKufzgVEvPw
+ gJF5ue7qFZlQA==
+To: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
+From: Simon Ser <contact@emersion.fr>
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
+ Sean Paul <seanpaul@chromium.org>, Hersen Wu <hersenxs.wu@amd.com>,
+ Harry Wentland <Harry.Wentland@amd.com>, Louis Li <Ching-shih.Li@amd.com>
+Subject: Re: [PATCH v2] drm/amd/display: Fix two cursor duplication when using
+ overlay
+Message-ID: <dyHqMa1Vv12hhoVMu0T4tJLDavAQh9ZyKNpwk9-GN8u_sdXYaQMLkxXXxrivyEeVOPbu7MDwj0QVMZowSxv70AHmYw3r_yWJbU4a5Bvt9U0=@emersion.fr>
+In-Reply-To: <ffd29136-d0e3-17a9-f01f-e81c44ae0284@amd.com>
+References: <20210414000604.3273048-1-Rodrigo.Siqueira@amd.com>
+ <SrcUnUUGJquVgjp9P79uV8sv6s-kMHG4wp0S3b4Nh9ksi29EIOye5edofuXkDLRvGfvkkRpQZ9JM7MNqew2B3kFUhaxsonDRXprkAYXaQUo=@emersion.fr>
+ <20210818131824.avczlw6ie3tfs76j@outlook.office365.com>
+ <Hm33HvRokytajvNBSyeseBTVWScQu0mPJVLvRcABYsahB6j3DjJwvelk-WgnIA2AlG1AU0wnGV3gvAgzDf5nmWYRjIS58gMjtdrG0m_kjhA=@emersion.fr>
+ <ffd29136-d0e3-17a9-f01f-e81c44ae0284@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.0.2
-Subject: Re: [PATCH v1 02/14] mm: remove extra ZONE_DEVICE struct page refcount
-Content-Language: en-US
-To: Ralph Campbell <rcampbell@nvidia.com>, Alex Sierra <alex.sierra@amd.com>, 
- akpm@linux-foundation.org, Felix.Kuehling@amd.com, linux-mm@kvack.org,
- linux-ext4@vger.kernel.org, linux-xfs@vger.kernel.org
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- hch@lst.de, jgg@nvidia.com, jglisse@redhat.com
-References: <20210825034828.12927-1-alex.sierra@amd.com>
- <20210825034828.12927-3-alex.sierra@amd.com>
- <dbd0f54a-ad6c-97a2-17d7-826247424c97@suse.cz>
- <505e4fe4-241a-8205-d2ef-f603e9cc46c6@nvidia.com>
-From: Vlastimil Babka <vbabka@suse.cz>
-In-Reply-To: <505e4fe4-241a-8205-d2ef-f603e9cc46c6@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Fri, 27 Aug 2021 13:08:39 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,43 +61,117 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Simon Ser <contact@emersion.fr>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 8/25/21 19:49, Ralph Campbell wrote:
-> 
-> On 8/25/21 4:15 AM, Vlastimil Babka wrote:
->> On 8/25/21 05:48, Alex Sierra wrote:
->>> From: Ralph Campbell <rcampbell@nvidia.com>
->>>
->>> ZONE_DEVICE struct pages have an extra reference count that complicates the
->>> code for put_page() and several places in the kernel that need to check the
->>> reference count to see that a page is not being used (gup, compaction,
->>> migration, etc.). Clean up the code so the reference count doesn't need to
->>> be treated specially for ZONE_DEVICE.
->> That's certainly welcome. I just wonder what was the reason to use 1 in the
->> first place and why it's no longer necessary?
-> 
-> I'm sure this is a long story that I don't know most of the history.
-> I'm guessing that ZONE_DEVICE started out with a reference count of
-> one since that is what most "normal" struct page pages start with.
-> Then put_page() is used to free newly initialized struct pages to the
-> slab/slob/slub page allocator.
-> This made it easy to call get_page()/put_page() on ZONE_DEVICE pages
-> since get_page() asserts that the caller has a reference.
-> However, most drivers that create ZONE_DEVICE struct pages just insert
-> a PTE into the user page tables and don't increment/decrement the
-> reference count. MEMORY_DEVICE_FS_DAX used the >1 to 1 reference count
-> transition to signal that a page was idle so that made put_page() a
-> bit more complex. Then MEMORY_DEVICE_PRIVATE pages were added and this
-> special casing of what "idle" meant got more complicated and more parts
-> of mm had to check for is_device_private_page().
-> My goal was to make ZONE_DEVICE struct pages reference counts be zero
-> based and allocated/freed similar to the page allocator so that more
-> of the mm code could be used, like THP ZONE_DEVICE pages, without special
-> casing ZONE_DEVICE.
+Hi Nicholas!
 
-Thanks for the explanation. I was afraid there was something more fundamental
-that required to catch the 2->1 refcount transition, seems like it's not. I
-agree with the simplification!
+On Tuesday, August 24th, 2021 at 16:56, Kazlauskas, Nicholas <nicholas.kazl=
+auskas@amd.com> wrote:
 
+> It's easiest to under the hardware cursor as being constrained within
+> the DRM plane specifications. Each DRM plane maps to 1 (or 2) hardware
+> pipes and the cursor has to be drawn along with it. The cursor will
+> inherit the scale, bounds, and color management associated with the
+> underlying pipes.
+
+Ah, I see. So the reason why we need to draw the cursor twice is to
+accomodate for the case where it's visible on both the primary and
+overlay planes, e.g.
+
+=E2=94=8C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=90
+=E2=94=82Primary                     =E2=94=82
+=E2=94=82                            =E2=94=82
+=E2=94=82                            =E2=94=82
+=E2=94=82        =E2=94=8C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=90           =E2=94=82
+=E2=94=82        =E2=94=82Cursor =E2=94=82           =E2=94=82
+=E2=94=82        =E2=94=82       =E2=94=82           =E2=94=82
+=E2=94=82        =E2=94=82   =E2=94=8C=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=BC=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=90  =E2=94=82
+=E2=94=82        =E2=94=94=E2=94=80=E2=94=80=E2=94=80=E2=94=BC=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=98        =E2=94=82  =E2=94=82
+=E2=94=82            =E2=94=82            =E2=94=82  =E2=94=82
+=E2=94=82            =E2=94=82            =E2=94=82  =E2=94=82
+=E2=94=82            =E2=94=82     Overlay=E2=94=82  =E2=94=82
+=E2=94=82            =E2=94=94=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=98  =E2=94=82
+=E2=94=82                            =E2=94=82
+=E2=94=94=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=98
+
+Is that right?
+
+In the case where the cursor only intersects a single plane (either primary
+or overlay) we need to draw it once only.
+
+Since some KMS user-space (ChromeOS) uses the non-atomic cursor with the re=
+st
+of the atomic API, we need to always ensure that the cursor can be enabled =
+at
+any time, even if it's currently disabled.
+
+> Correct me if I'm wrong, but I think your usecase [1] falls under the
+> category where:
+> 1. Primary plane covers entire screen
+> 2. Overlay plane does not cover the entire screen
+> 3. Overlay plane is scaled
+
+(1) and (2) are correct, but (3) is not. My overlay plane isn't scaled, but=
+ my
+primary plane may be. That doesn't change the outcome: the unscaled cursor =
+can
+be painted onto the overlay pipe, but not onto the primary pipe.
+
+> I don't remember if DRM has a requirement that the cursor plane must be
+> topmost, but we can't enable [1] as long as it is.
+
+KMS has a standard "zpos" property [1], which may be mutable. So we could i=
+n
+theory set an immutable "zpos" for the primary plane and overlay plane, and
+allow user-space to change the "zpos" of the cursor plane to move it
+in-between.
+
+But for my use-case, I need the cursor plane to be painted on top of the
+overlay, so it'd only be useful when the cursor doesn't intersect the overl=
+ay.
+
+[1]: https://drmdb.emersion.fr/properties/4008636142/zpos
+
+> 1. You want to save power:
+>
+> You will burn additional power for the overlay pipe.
+>
+> But you will save power in use cases like video playback - where the
+> decoder produces the framebuffer and we can avoid a shader composited
+> copy with its associated GFX engine overhead and memory traffic.
+>
+> 2. You want more performance:
+>
+> You will burn additional power for the overlay pipe.
+>
+> On bandwidth constrained systems you can save significant memory
+> bandwidth by avoiding the shader composition by allowing for direct
+> scanout of game or other application buffers.
+>
+> Your usecase [1] falls under this category, but as an aside I discourage
+> trying to design usecases where the compositor requires the overlay for
+> functional purposes.
+
+My use-case actually falls under both (1) and (2). We want to leave as much
+bandwidth as possible for the game to use. We want to save power because we=
+'re
+running on battery.
+
+We don't _require_ KMS planes to run, we have a fallback composition path w=
+hich
+uses the compute queue. But we want to do as much as possible to use KMS pl=
+anes.
