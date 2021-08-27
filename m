@@ -5,50 +5,52 @@ X-Spam-Level:
 X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 02C93C432BE
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Aug 2021 20:39:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5AE64C432BE
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Aug 2021 20:44:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BF7B060C40
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Aug 2021 20:39:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BF7B060C40
+	by mail.kernel.org (Postfix) with ESMTPS id 2013960EE9
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Aug 2021 20:44:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2013960EE9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2EF276E9CB;
-	Fri, 27 Aug 2021 20:39:39 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2059.outbound.protection.outlook.com [40.107.94.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A96016E9C8;
- Fri, 27 Aug 2021 20:39:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63EEE6E9C1;
+	Fri, 27 Aug 2021 20:44:09 +0000 (UTC)
+X-Greylist: delayed 864 seconds by postgrey-1.36 at gabe;
+ Fri, 27 Aug 2021 20:44:07 UTC
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com (unknown
+ [40.107.243.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF2F56E9C1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 Aug 2021 20:44:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=l+xrqVExNU4nmjx4Nu8xP8c3I4OdoVMNtshGjMCpPb1kMu6LlHyFOUce8YDM3vvgp/PGA7DWKR1gKLd5/ph+D2J60T/oV4GyvH6MJ+47aoK6MmNNyvH33lty8TTXtJJx9H1yoP8XJoNf5VdOP6wHoxALTuU4Hb0izVeU4z2OjC8aaJq8j/8AJBB2T+DUGTnvIAs0OtCpXtu3teYmqmiE69aywyu3JCBVFOfmKFqL8z3ajWzUYr4na1KsdBKKOhiQW1DDjkXht1d2r9Drue2f9tL6wQDCylS7TWmk2m0q6eib/WujDSRlnlo+sY43IZzMsrSCUajwxTVHXGK1KTkpTQ==
+ b=UcJLAEWX1Ic5RDfW0QK18Uku2T8PWMm8xt8ajJ36hryS8kIo/ZrXwYxTZ3l8z7/NqsasIIAb80HeKsb1hPN+mgjEIgwJEI+wTSGAAAfKAFQWSaeVlTryPl+x2DrZEKMeR/9q9pP/pcchoWL13sExpX2BnRXC3hZOzXILQGKaouTPMsJKRvtgr1G8hnGFpydYJcyGdd/5fPmKQINbgdcphbEvl8++J25vAcVlTk66F9YVziOqIjNMoripVuff28bspJV5YvzZF210oMLhpUyYodhOJKYAtcYlKojjITl6wZ3rwxaOHMW7gydZVtXM6lsa4jvZF7oFrvT+MGQ5VXqBQQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sEJ3bxndkHkCmfjyUevUX60/6ebTDNvZQu40KYV997U=;
- b=NRQJ+FPxwfhxsi9vHofkTPqQwdx2tHJnNmtT0NjUnQ9u5T0i0MYKHML44t4yvZ1dhG/6DX+vv6+YPPyCFc9dheq89qgYMfudAJClmqhrbLhOOjCYLR819jWEeF8i25H+d8vkWYVFDLUf6Sd6FICnWDQi5AzVAOZ1lMn5IdyWHjBW9RC23XN5ZPpQcrh5NIuN1+8piRce9PkZBSvwFatdXLA9ztQPW89oHTc8Lwwe/ZBmp5Y2hPrPTVTkeDfVld2BITcziHYB/ZlnY+/q/2pGqKaYvEaNwUyv/ccrywjqb8qfi1KjKUcokb0Q/1q9MTtAbxDd4aBk/eSWPqnwIVtXRg==
+ bh=/zzL4qr5mtf/VCfgcYyo1KrhxT9bQW/CJpjQxnHtm7U=;
+ b=U4aQZ1KN8Aq1e4obQoYI7INJS0DbjHU8m+QnZCqeS7nbzWasCwXZmRxMve0t5sNGDzG5+1/2tnYxhIWigWF4Er1w2mYxu0nOFsygaONja6k8kLRcZThzBydjEKsCluK48JUhu6+XKPk/Obbq5MXqDertDNiDEMgkOLwsExrEgKWVKEwbTIdWl01esT+ZgDXwV4z/50p9UM6lE/+My4+I8puOWUeQp74ezTFtGyvTTE8QmTga2FwXuHM8cFVv3rPblQFTMS5NYkNU+xkaRCdWBq/UsHFCh6W+SKxm4vA6uX6HdSOuHLlO58vPbCJIkrJvOp6X1FnvPvgiqIgnBuezrQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sEJ3bxndkHkCmfjyUevUX60/6ebTDNvZQu40KYV997U=;
- b=YRWB1OwbFLx1MBKErPGgg/ne2FF6f2JiE8odo654D9fSL4CWuteO+D1uUrExZ7BWKUgA60fPjqL/c2WJR64FBKAm4GhUMdstOV+Mv2SSt5UE/qq4FHhtQSiXUjfXWU1WVCzhgAgtkTKwNhyPYMIomjMboTiW+iemfNMCOmwLI1U=
-Received: from BN0PR04CA0186.namprd04.prod.outlook.com (2603:10b6:408:e9::11)
- by CY4PR1201MB0198.namprd12.prod.outlook.com (2603:10b6:910:17::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.23; Fri, 27 Aug
- 2021 20:39:25 +0000
-Received: from BN8NAM11FT032.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:e9:cafe::36) by BN0PR04CA0186.outlook.office365.com
- (2603:10b6:408:e9::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.20 via Frontend
- Transport; Fri, 27 Aug 2021 20:39:25 +0000
+ bh=/zzL4qr5mtf/VCfgcYyo1KrhxT9bQW/CJpjQxnHtm7U=;
+ b=1YW3mtbWjiCKZDqhnMdQZfcfBlPWoyTyYaTovswtNC4miBSpr4XLz7Zng7hi+7yeVWVlkCceUai8YkBnZvsVd7+7w3Na2IAku5er0txaQZOxX17jpazTk04nPOXUVlDNSFHlQ5pLHn0M0aTMS7Wos3a0XIrionYIok6FgSO7XYs=
+Received: from MWHPR15CA0051.namprd15.prod.outlook.com (2603:10b6:301:4c::13)
+ by DM6PR12MB2875.namprd12.prod.outlook.com (2603:10b6:5:15c::28) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.20; Fri, 27 Aug
+ 2021 20:29:45 +0000
+Received: from CO1NAM11FT004.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:301:4c:cafe::a8) by MWHPR15CA0051.outlook.office365.com
+ (2603:10b6:301:4c::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.19 via Frontend
+ Transport; Fri, 27 Aug 2021 20:29:45 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -57,53 +59,57 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT032.mail.protection.outlook.com (10.13.177.88) with Microsoft SMTP
+ CO1NAM11FT004.mail.protection.outlook.com (10.13.175.89) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4457.17 via Frontend Transport; Fri, 27 Aug 2021 20:39:25 +0000
-Received: from agrodzovsky-All-Series.amd.com (10.180.168.240) by
+ 15.20.4457.17 via Frontend Transport; Fri, 27 Aug 2021 20:29:45 +0000
+Received: from DESKTOP-9DR2N9S.localdomain (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2242.12; Fri, 27 Aug 2021 15:39:23 -0500
-From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-CC: <ckoenig.leichtzumerken@gmail.com>, Andrey Grodzovsky
- <andrey.grodzovsky@amd.com>
-Subject: [PATCH v3 3/4] drm/amdgpu: drm/amdgpu: Handle IOMMU enabled case
-Date: Fri, 27 Aug 2021 16:39:09 -0400
-Message-ID: <20210827203910.5565-4-andrey.grodzovsky@amd.com>
+ 15.1.2242.12; Fri, 27 Aug 2021 15:29:44 -0500
+From: Mikita Lipski <mikita.lipski@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
+ <Bhawanpreet.Lakha@amd.com>, <Rodrigo.Siqueira@amd.com>,
+ <Aurabindo.Pillai@amd.com>, <Qingqing.Zhuo@amd.com>, <mikita.lipski@amd.com>, 
+ <Anson.Jacob@amd.com>, Jaehyun Chung <jaehyun.chung@amd.com>, Krunoslav Kovac
+ <Krunoslav.Kovac@amd.com>
+Subject: [PATCH 19/19] drm/amd/display: Add regamma/degamma coefficients and
+ set sRGB when TF is BT709
+Date: Fri, 27 Aug 2021 16:29:10 -0400
+Message-ID: <20210827202910.20864-20-mikita.lipski@amd.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210827203910.5565-1-andrey.grodzovsky@amd.com>
-References: <20210827203910.5565-1-andrey.grodzovsky@amd.com>
+In-Reply-To: <20210827202910.20864-1-mikita.lipski@amd.com>
+References: <20210827202910.20864-1-mikita.lipski@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 36a0d826-212f-42b5-c22f-08d9699ac20a
-X-MS-TrafficTypeDiagnostic: CY4PR1201MB0198:
-X-Microsoft-Antispam-PRVS: <CY4PR1201MB0198F4038084D3557CB30DF9EAC89@CY4PR1201MB0198.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1850;
+X-MS-Office365-Filtering-Correlation-Id: 84fe6349-806e-4cbb-71e9-08d9699968b8
+X-MS-TrafficTypeDiagnostic: DM6PR12MB2875:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB2875B4B63AC21E96A7B609CEE4C89@DM6PR12MB2875.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ZD0uX0QHXOGxKADLyk9Gab2O7Qkr9G2K9jco6jnPhdvJpw+EyFoOgA4Y+F97Fm9/rN9cHiRWwH2hRytnWRzP7pa7DGG372EZAWpKZkUsCyFoOeFx0TxiuZALaJhjCdS/oQLvlymqz35OLr+X+zgH5tyPt3kls3bWP07TMIoyh2N666X4UTqRrHMvSZ9zmE2F+lQOg5aOoIbtUtF4mi+r9oehlba5eBfpoVq+F0iYuBUy4JOrhkx3+zoEg37yA64ogXD+kaSbhsLL3AoOjI4M3hnf6fKYf0jwXeRNuTLUlHETe69G6DEajSdTfpyi8YHhUMIOyr5pKXww77GVTqiQjU5cbpp3z4Ugx/3KW1FNdhNLd0Lz4eLJ52VBFrhcBSjvHGG9LnanxcC8ARm28atNw1mX+iIfa/4H8z+/8FMb8uQXRzude8xvWzzEQ4d0T12Rei3pcOjSaTI3ArLMO5kxgEYH1/WiTcnLlFNS6ySOizcvUiTQgFH6+v+siWtoCO7gE2bAinBP8G6fYQ92fANkm8GYermTEHoUtzGJPxtfLtmRqFskBHvTOVCWZETXodmNBjPKHBVQKi7RHmGV5QiTCkiNyZrdauxqP3Qmk7X4LF+L4Sk0XRS9OhFdl38/NIrH3Xs0m5zR7VOp0cGrdZdFWQuF0Z+WhEpnQ4WsIFJvYIcUceWdS1vQG9/YC674n8gStuJOPIiTX+6cvl+RIRxwCg39I3anC8AUX0456OT+lcA=
+X-Microsoft-Antispam-Message-Info: OcKO/FSd1IeUFk1RMp893xZMjsZhKboeGW8caUw7s2S9yMFrhXvcSyXUJhA7asPn2IxuUHU2f6324mHCh4yXGoholbM53s5oe0yFULtfwL8WNRLgsCBK9hfZISb/m/GHk0b5d8hDJCUbzc/06n7mJDrtO26B7zO+1wxYWtYzm6av4fpSaUTtm+E008TLFuejXWwxUHAuYxJgqRw5jgLwxvXK1fG2p4UuP8GaTnsgFTauepnU25NvPS0NRI5quZvuJWj/8RhTC/yLJUif6z3YOJL6oVpEtRtF33QB/cxlD/0EL4UnGrXoKS0vpqlHmHzV0n879lu3ZdeXkbooBLmJPeu9pNYhms+R0MFdtK7RbIs7cFOves7WZYvvJD99anYeqaaa2AeUZlbBHURE90AeYNswcDuLwM73Xfzvr3YtanIhgurZGq869B7Ld5uLLnQ2E0Z1d3GzUKa3g0mWeAeRYOl9daQbxqLXzyhjqWQFcX4bZaUk+HUvv+08sLqkkuW+9+xZpb0prJjB8izY39j9hyTrzQvVeRIS/RD9vyEUzaNEGpZF26Xr0vwa5+Q+n47IQLRZZUKOqsxrR04qwtte6HswFQBfDmBEPby5gb33neGNQlSzoPQVyhoU5lWSH0dHP+Ugki+e44xX+/C71dce9kyb0EMrP58C9tJQ+WgMT6GBw9313ZI6fUdm8i3SUFYBGhoaZ2ZgPitFv0546e5efcjmhTag43vijWeRtcx4a4I=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(39860400002)(136003)(346002)(376002)(396003)(36840700001)(46966006)(478600001)(86362001)(7696005)(82310400003)(47076005)(36860700001)(8676002)(1076003)(8936002)(186003)(70206006)(4326008)(16526019)(2616005)(426003)(36756003)(82740400003)(5660300002)(4744005)(26005)(6666004)(83380400001)(2906002)(110136005)(44832011)(336012)(54906003)(81166007)(356005)(70586007)(316002)(36900700001);
+ SFS:(4636009)(396003)(376002)(346002)(136003)(39860400002)(36840700001)(46966006)(44832011)(2616005)(47076005)(83380400001)(70206006)(8936002)(426003)(478600001)(70586007)(6666004)(4326008)(26005)(86362001)(82740400003)(36756003)(36860700001)(1076003)(82310400003)(54906003)(336012)(16526019)(186003)(2906002)(8676002)(316002)(6916009)(356005)(81166007)(5660300002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2021 20:39:25.0571 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 36a0d826-212f-42b5-c22f-08d9699ac20a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2021 20:29:45.5887 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 84fe6349-806e-4cbb-71e9-08d9699968b8
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT032.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT004.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0198
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2875
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,30 +124,134 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Handle all DMA IOMMU group related dependencies before the
-group is removed and we try to access it after free.
+From: Jaehyun Chung <jaehyun.chung@amd.com>
 
-v2:
-Move the actul handling function to TTM
+[Why]
+In YUV case, need to set the input TF to sRGB instead of BT709,
+even though the input TF type is distributed. SRGB was not
+being used because pixel format was not being set in the
+surface update sequence.
+Also, we were using the same coefficients for degamma and
+regamma formula, causing the cutoff point of the linear
+section of the curve to be incorrect.
 
-Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+[How]
+Set pixel format in the surface update sequence. Add separate
+coefficient arrays for regamma and degamma.
+
+Reviewed-by: Krunoslav Kovac <Krunoslav.Kovac@amd.com>
+Acked-by: Mikita Lipski <mikita.lipski@amd.com>
+Signed-off-by: Jaehyun Chung <jaehyun.chung@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 ++
- 1 file changed, 2 insertions(+)
+ .../amd/display/modules/color/color_gamma.c   | 60 ++++++++++++-------
+ 1 file changed, 40 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 0b5764aa98a4..653bd8fdaa33 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3860,6 +3860,8 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
- 
- 	amdgpu_device_ip_fini_early(adev);
- 
-+	ttm_device_clear_dma_mappings(&adev->mman.bdev);
+diff --git a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
+index ef742d95ef05..275f11f8bea3 100644
+--- a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
++++ b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
+@@ -54,12 +54,18 @@ static struct hw_x_point coordinates_x[MAX_HW_POINTS + 2];
+  * just multiply with 2^gamma which can be computed once, and save the result so we
+  * recursively compute all the values.
+  */
+-										/*sRGB	 709 2.2 2.4 P3*/
+-static const int32_t gamma_numerator01[] = { 31308,	180000,	0,	0,	0};
+-static const int32_t gamma_numerator02[] = { 12920,	4500,	0,	0,	0};
+-static const int32_t gamma_numerator03[] = { 55,	99,		0,	0,	0};
+-static const int32_t gamma_numerator04[] = { 55,	99,		0,	0,	0};
+-static const int32_t gamma_numerator05[] = { 2400,	2200,	2200, 2400, 2600};
++											 /*sRGB     709     2.2 2.4 P3*/
++static const int32_t regamma_numerator01[] = { 31308,   180000, 0,  0,  0};
++static const int32_t regamma_numerator02[] = { 12920,   4500,   0,  0,  0};
++static const int32_t regamma_numerator03[] = { 55,      99,     0,  0,  0};
++static const int32_t regamma_numerator04[] = { 55,      99,     0,  0,  0};
++static const int32_t regamma_numerator05[] = { 2400,    2200,   2200, 2400, 2600};
 +
- 	amdgpu_gart_dummy_page_fini(adev);
++static const int32_t degamma_numerator01[] = { 40450,   810000, 0,  0,  0};
++static const int32_t degamma_numerator02[] = { 12920,   4500,   0,  0,  0};
++static const int32_t degamma_numerator03[] = { 55,      99,     0,  0,  0};
++static const int32_t degamma_numerator04[] = { 55,      99,     0,  0,  0};
++static const int32_t degamma_numerator05[] = { 2400,    2200,   2200, 2400, 2600};
  
- 	amdgpu_device_unmap_mmio(adev);
+ /* one-time setup of X points */
+ void setup_x_points_distribution(void)
+@@ -288,7 +294,8 @@ struct dividers {
+ };
+ 
+ 
+-static bool build_coefficients(struct gamma_coefficients *coefficients, enum dc_transfer_func_predefined type)
++static bool build_coefficients(struct gamma_coefficients *coefficients,
++		enum dc_transfer_func_predefined type, bool isRegamma)
+ {
+ 
+ 	uint32_t i = 0;
+@@ -311,16 +318,29 @@ static bool build_coefficients(struct gamma_coefficients *coefficients, enum dc_
+ 	}
+ 
+ 	do {
+-		coefficients->a0[i] = dc_fixpt_from_fraction(
+-			gamma_numerator01[index], 10000000);
+-		coefficients->a1[i] = dc_fixpt_from_fraction(
+-			gamma_numerator02[index], 1000);
+-		coefficients->a2[i] = dc_fixpt_from_fraction(
+-			gamma_numerator03[index], 1000);
+-		coefficients->a3[i] = dc_fixpt_from_fraction(
+-			gamma_numerator04[index], 1000);
+-		coefficients->user_gamma[i] = dc_fixpt_from_fraction(
+-			gamma_numerator05[index], 1000);
++		if (isRegamma) {
++			coefficients->a0[i] = dc_fixpt_from_fraction(
++				regamma_numerator01[index], 10000000);
++			coefficients->a1[i] = dc_fixpt_from_fraction(
++				regamma_numerator02[index], 1000);
++			coefficients->a2[i] = dc_fixpt_from_fraction(
++				regamma_numerator03[index], 1000);
++			coefficients->a3[i] = dc_fixpt_from_fraction(
++				regamma_numerator04[index], 1000);
++			coefficients->user_gamma[i] = dc_fixpt_from_fraction(
++				regamma_numerator05[index], 1000);
++		} else {
++			coefficients->a0[i] = dc_fixpt_from_fraction(
++				degamma_numerator01[index], 10000000);
++			coefficients->a1[i] = dc_fixpt_from_fraction(
++				degamma_numerator02[index], 1000);
++			coefficients->a2[i] = dc_fixpt_from_fraction(
++				degamma_numerator03[index], 1000);
++			coefficients->a3[i] = dc_fixpt_from_fraction(
++				degamma_numerator04[index], 1000);
++			coefficients->user_gamma[i] = dc_fixpt_from_fraction(
++				degamma_numerator05[index], 1000);
++		}
+ 
+ 		++i;
+ 	} while (i != ARRAY_SIZE(coefficients->a0));
+@@ -833,7 +853,7 @@ static bool build_regamma(struct pwl_float_data_ex *rgb_regamma,
+ 	if (!coeff)
+ 		goto release;
+ 
+-	if (!build_coefficients(coeff, type))
++	if (!build_coefficients(coeff, type, true))
+ 		goto release;
+ 
+ 	memset(cal_buffer->buffer, 0, NUM_PTS_IN_REGION * sizeof(struct fixed31_32));
+@@ -1082,7 +1102,7 @@ static bool build_degamma(struct pwl_float_data_ex *curve,
+ 	uint32_t begin_index, end_index;
+ 	bool ret = false;
+ 
+-	if (!build_coefficients(&coeff, type))
++	if (!build_coefficients(&coeff, type, false))
+ 		goto release;
+ 
+ 	i = 0;
+@@ -1685,7 +1705,7 @@ static void apply_degamma_for_user_regamma(struct pwl_float_data_ex *rgb_regamma
+ 	struct pwl_float_data_ex *rgb = rgb_regamma;
+ 	const struct hw_x_point *coord_x = coordinates_x;
+ 
+-	build_coefficients(&coeff, TRANSFER_FUNCTION_SRGB);
++	build_coefficients(&coeff, TRANSFER_FUNCTION_SRGB, true);
+ 
+ 	i = 0;
+ 	while (i != hw_points_num + 1) {
 -- 
 2.25.1
 
