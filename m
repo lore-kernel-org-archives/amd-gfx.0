@@ -2,74 +2,115 @@ Return-Path: <SRS0=EvCx=NS=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C0521C432BE
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Aug 2021 06:55:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 89888C432BE
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Aug 2021 06:57:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 75E7E60C51
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Aug 2021 06:55:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 75E7E60C51
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmx.de
+	by mail.kernel.org (Postfix) with ESMTPS id 42DB960FD7
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Aug 2021 06:57:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 42DB960FD7
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E1BF6E8E2;
-	Fri, 27 Aug 2021 06:55:13 +0000 (UTC)
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2EE356E8E2
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Aug 2021 06:55:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
- s=badeba3b8450; t=1630047309;
- bh=LvaJixWq5KkQfhOsPBJD8EIQbvqgURaK18ncWcuaxAw=;
- h=X-UI-Sender-Class:Subject:To:References:From:Date:In-Reply-To;
- b=gJ2oVLNuLkV+E1maqYaOXaSR3/0lzYB8ZumdcUrJG1IIIG+7DghrslEYXYMooKKWY
- oKC6qoGaxlrDQgYLQ+MMwW7rEjnTod7kTFVrT/5QbRi8g1+bHIIXirkBzUL1YrBcJp
- FdonrmUUtgRwuSO0cszyLP8soWIIXPh2BNAAAHpY=
-X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
-Received: from [192.168.1.100] ([95.91.0.137]) by mail.gmx.net (mrgmx005
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MybGh-1nDosi1I2X-00z2FN for
- <amd-gfx@lists.freedesktop.org>; Fri, 27 Aug 2021 08:55:09 +0200
-Subject: Re: Set video resolution and refresh rate at boot?
-To: amd-gfx@lists.freedesktop.org
-References: <36cacbd4-8240-9713-6cea-68209757ed0b@gmx.de>
- <CADnq5_PrkEQCpKKWY8QhOqWZ_jxK3vabSjxwRW-+MFnm3Rgs2w@mail.gmail.com>
-From: Paul <pb.g@gmx.de>
-Message-ID: <49ceabbf-a59f-85e4-003d-4a9b20a798f1@gmx.de>
-Date: Fri, 27 Aug 2021 08:55:02 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id D027C6E8E4;
+	Fri, 27 Aug 2021 06:57:16 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2059.outbound.protection.outlook.com [40.107.92.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B8E8C6E8E4
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 Aug 2021 06:57:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=T9Up512+MwFdRiXr/OYkqXYU+0SuGPecKX2Dk3V7m0xbxx9hO19WoPExrLPggybTuxDjSWtm8TH9VtD5+40KhU4vJOAsV3zBHsNNI9iylyunvBVOBLoaDxKy2gP9STKXTp29ZjmjL/kAzFQ7L83SfAaZ8SIHtZGZK0kqiqOV1fEBL/wsgDeGEMBbuWzof8pYytIvMPVWRaUqWFKTee3iKynej7bkkN5m+9QMI83SYsAmnVP2Uv2IPlZrow9x+snyKbDECctE+FNfOuMjJO7bqBDVdFilV0tsc1FCHNwV5AlRGNH7MoUcLyTvMZkgnmJ6iOWMpWdNYZeh5B9ZtxS8qQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QYF0wnTBh8pBV44S/F1UkgTLIEkN45cPY86YeyT4CTE=;
+ b=YlHW/Y7ruEaYklvOP40JSqcRgQNwVblxVF9LS06n2aZ62GdB3JKfMxu4fBGjNpmeswdb5MbDX+gF7xeMtU2AQ9/+EK/Oq155At5ehkqVUhXYiVnP90sZehPBnYT5PqwcyxC14qeYwcM8fIZiXhlge3Dyuno+Oe93GCqENDmjf4jPMDxBKdnF9+Js9LwZNRtNs6zRtUQq2leYlhlBoRWLyELfOZ6W18BSWdgBD4/wUNW009fi9nd7HPUvNX/jC2elQiHMO6PvYD5F8HphtToN7/wHFyKhWAzE+57Po2oD/jYUK3KJ75Gr183fFYDmLLZZEf4OvSOIn4VWt0r1vX1gRw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QYF0wnTBh8pBV44S/F1UkgTLIEkN45cPY86YeyT4CTE=;
+ b=ytKzHBxmYuQ5SYnYIL5Yg42Ij+3bFOvg+EaXOnu5r/4vBVR/+DTmVwQoJ98DVvZTUlfdK8MRR06m+qPHCGR53mozTZHjbAasnVj43XhyGN3lHZW2csAWxEDKPqYTO1zGsgAVv3TonnyTjogBAlWhFWMVAPnQCfdYMZUVn6ek0Rs=
+Received: from MW4P220CA0021.NAMP220.PROD.OUTLOOK.COM (2603:10b6:303:115::26)
+ by CO6PR12MB5458.namprd12.prod.outlook.com (2603:10b6:5:35b::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.20; Fri, 27 Aug
+ 2021 06:57:13 +0000
+Received: from CO1NAM11FT049.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:115:cafe::e6) by MW4P220CA0021.outlook.office365.com
+ (2603:10b6:303:115::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.23 via Frontend
+ Transport; Fri, 27 Aug 2021 06:57:13 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CO1NAM11FT049.mail.protection.outlook.com (10.13.175.50) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4457.17 via Frontend Transport; Fri, 27 Aug 2021 06:57:12 +0000
+Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Fri, 27 Aug
+ 2021 01:57:11 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB07.amd.com
+ (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Thu, 26 Aug
+ 2021 23:57:09 -0700
+Received: from yubiwang-dev-linux.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2242.12
+ via Frontend Transport; Fri, 27 Aug 2021 01:57:06 -0500
+From: YuBiao Wang <YuBiao.Wang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>, Evan Quan
+ <Evan.Quan@amd.com>, <horace.chen@amd.com>, Tuikov Luben
+ <Luben.Tuikov@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>, Deucher Alexander <Alexander.Deucher@amd.com>,
+ Jack Xiao <Jack.Xiao@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>, "Monk
+ Liu" <Monk.Liu@amd.com>, Feifei Xu <Feifei.Xu@amd.com>, Kevin Wang
+ <Kevin1.Wang@amd.com>, YuBiao Wang <YuBiao.Wang@amd.com>
+Subject: [PATCH] drm/amd/amdgpu: Add ready_to_reset resp for vega10
+Date: Fri, 27 Aug 2021 14:56:51 +0800
+Message-ID: <20210827065651.459756-1-YuBiao.Wang@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <CADnq5_PrkEQCpKKWY8QhOqWZ_jxK3vabSjxwRW-+MFnm3Rgs2w@mail.gmail.com>
-Content-Type: multipart/alternative;
- boundary="------------FC0B0A97C4604C5D981DB62F"
-Content-Language: en-US
-X-Provags-ID: V03:K1:+FHlFNFk+874R74bbC2el5+4UKKfjp3eadx5nIiUQx6uHWuN5JM
- denoR/SqoN7M9des2Sg1obCUeJpCbDOPxiWgTZDtVGVy+tysWGiVXMdSIBGJ9flxaCHNAmP
- 82Q1RflCaGzAzT3nipX4DjAggkmYKuu990jEF4FRIUBXc06MUG6QY/Y0Effpqa0jEfwNtsd
- CLe1iiB3z2S/Ohk4OZsGQ==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:zZf7eCUv/5c=:IKwhEeFZYQXmWhp+kFo7tt
- PAmpPl33UT+VXV6rF0090YXD6ADgoodReqYb6li9ciiXkr+BhLFZlzfoPTq9YEHSxs0ytakyM
- uwUFP8CKAZ38nvIRpWi2k1yL84gMeQoFgDBf8yuGwEUoriihEPr3NKBGfMDqQBbaP1hXvHFqb
- F7LKJEw0ug49UcR3iE54Pe+YO1ds143eushwNh9NuN62NQmHbLk1KH3VhAyZPkLPqgPCZ1kvt
- 2br5BvWprT8kHCzIhixRJigVzvU+cqwgsG1zRFsow50ekz+k5G2eIO6aBO8Ho4hYMbLq8ftgw
- 6AmulHqAhG2QcVeXgQTwMTQxmE0uHms/V4/5Z97KaAEn9ZaywYysVCuOb4MPTnuIXDIobOkxq
- 04YmTNcR2MIFvgenkDSZBWZVUC/pHS+earYp0p88xCVWkywKVjcjK5jZ4WX1vuMuVns1gT2yI
- pXQlljyTJyFIe1ymxK62Nku+al7oyvFEhYdwLa9WhkHqqxP8//iNcu0JH3dFVfO2G5Wh8R1lY
- UbreQR2iSzmO2Our/WR2pSBvoBnVRB2uglUCDaJb9HanCAvb8eG+i1AsRaaL42aQEdeLN/+AF
- 9CGppprOmlBVgStxvIWzMkKql+uRx8AJs7wMoB95l7ElNIvWzvv5AKpgMQJLQX4BfJRbUocPf
- 5tbMsMc9TZfG7pIKnks1QbgNFKdgRcT+quUoc04g/+y6JjEXM+VP6nx9v0iruqxXSJLppC1sx
- ys1A8oAvEo8ksMH+5ODnD1dsPC41vuB3/JO6nXpdLIStXVvqudHFEzheoqp9c67cOqCbC0kwO
- FevK6UHvXga6WW1Ft5l6mCGjHNXcfpqOlB0pNMW8OokQJc4I4zI1vw7u8nvIVQE0ipFeebajP
- yJi203RmTcAF3NLtX+KZhilw/f/T+VolX1jMR0svMKZzjoocyeWWWz5Ck51vrLeWXhfHl4/dC
- iBdU+uL9b+71A+0OS9MfbrKeK1eUunTQ8ALvry0+tOabX5Jid9y+BVp5t3pDSuRzA1sWAo1mj
- qkDn5HkjsQIEv2/9XSb5hjhPrUm3X2eHO9w2Y6+1uk8uq1yKmauukTgERfTTUklGP6itQYlCY
- qRFhffAdKsIz1BXFsMTyFYzP/WwpS3lgw8H
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: bc705f65-6864-448d-1048-08d96927e59b
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5458:
+X-Microsoft-Antispam-PRVS: <CO6PR12MB54581D9184F04C755916E33FE5C89@CO6PR12MB5458.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4714;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: WUatht/gKCm9qDu1lEfiETUTfyRTzWpZOwU1M9s6Dt2r3YWw02kwY9yPqfHpFUOMrfo401SvFQAq7tILaYnYVLxgOqPNddvqUkE8+gvbMBQ8VrSsBeoTCppAm2zom4MrnBJLL8mQlqBJLm1iVQEPDdjweRlSafigC2HYFdkrO3LGkeUeeQMMhj8edjp4tytDegyHX0NfaGGhjZjzdO42/xi4dkE9bbQOtZE+KBsbXCnj7K4BS7Vznumo4v8FggrT0ULMbxypR5APQshphVVh/BcDRVGfRyDWYkZ4u1/HgUXac9cWbk/5OAtBxtBXVCfjzxU02VTb2d4fc6sd5lCOLnV083TtrnV2aocrC6ieclpm2jp7TF8Uvi6dfR5tCBcadl79qsJYPLM2Jg4MpCavyV8MsmigTB0q3ye/JIaES3BFv/n1niXP8g1/PtpBNM/kBPQP1GVIp2oDb8dPyIigiG6tckFeKUpq8FjUgiaThuHVpMd/QZt/gpAs/511+QoRQW+YbJj7v4QTvL11OvOFMScKXiEy11TySeGJiSmJ5dq7vGdDoYTPGsWv6Z1YHNK/9gXV/XwEke1AjXQqTk2jpxM2GcnEdUB9yn6sOUvs2XoJLJRdCtLA6avNY/c2+1xxAPP8ChPjR+It2dxCXubyGxmGafCNOLlSqGeXaEEa1yr4d+evNj3Pd7Nhj6LJhm4py4CcPSSLGu4ME9xeTl6gjWVfIyOcqN0h7WDv+qMIYMs=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(36840700001)(46966006)(83380400001)(426003)(82310400003)(36860700001)(316002)(47076005)(86362001)(54906003)(8936002)(2616005)(6666004)(26005)(7696005)(508600001)(6916009)(2906002)(70586007)(356005)(4326008)(81166007)(36756003)(70206006)(186003)(5660300002)(336012)(1076003)(8676002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2021 06:57:12.4722 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bc705f65-6864-448d-1048-08d96927e59b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT049.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5458
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,156 +125,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---------------FC0B0A97C4604C5D981DB62F
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+Send response to host after received the flr notification from host.
+Port NV change to vega10.
 
+Signed-off-by: YuBiao Wang <YuBiao.Wang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c | 2 ++
+ drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h | 1 +
+ 2 files changed, 3 insertions(+)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
+index ff2307d7ee0f..23b066bcffb2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
++++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
+@@ -258,6 +258,8 @@ static void xgpu_ai_mailbox_flr_work(struct work_struct *work)
+ 	amdgpu_virt_fini_data_exchange(adev);
+ 	atomic_set(&adev->in_gpu_reset, 1);
+ 
++	xgpu_ai_mailbox_trans_msg(adev, IDH_READY_TO_RESET, 0, 0, 0);
++
+ 	do {
+ 		if (xgpu_ai_mailbox_peek_msg(adev) == IDH_FLR_NOTIFICATION_CMPL)
+ 			goto flr_done;
+diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h
+index 50572635d0f8..bd3b23171579 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h
++++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h
+@@ -37,6 +37,7 @@ enum idh_request {
+ 	IDH_REQ_GPU_RESET_ACCESS,
+ 
+ 	IDH_LOG_VF_ERROR       = 200,
++	IDH_READY_TO_RESET 	= 201,
+ };
+ 
+ enum idh_event {
+-- 
+2.25.1
 
-Am 26.08.21 um 18:45 schrieb Alex Deucher:
-> On Thu, Aug 26, 2021 at 12:35 PM Paul<pb.g@gmx.de>  wrote:
->> Hi there
->>
->> Out of curiosity I would like to ask if it is possible to set a kernel =
-command line parameter for my Radeon 6900XT
->> that sets a specific resolution and refresh rate of a specific connecte=
-d monitor.
->>
->> Ideally this parameter is set to the monitors used desktop (X11, Waylan=
-d) resolution/refreshrate.
->>
->> I did this for years with my Intel IGP's. I appended:
->>
->> video=3DHDMI-A-1:1920x1080@50
->>
->> to the kernel command line. This worked beautifully and the result was =
-my monitor was preconfigured to a specific resolution and refresh
->> rate from the first lines of the kernel to the desktop (X11) and it did=
- not had to switch to anything else in between.
->>
->> Another nice side effect is when in X11 one switches to the console, or=
- vice versa, via STRG+Fx, pretty much everyone has this annoying delay bec=
-ause
->> the monitor has to switch between refresh rates again. With that precon=
-figured settings at boot this gave a very satisfying feeling, especially i=
-f one frequently
->> switches between console and X11 (or wayland maybe).
->>
->> Is this kind of parameter implemented in the kernel/amdgpu driver?
-> It works the same for all drivers.  Just make sure the connector name
-> is correct.
->
-> Alex
-
-Thank you, it works.
-I just want to mention that I had to look in "/sys/class/drm/" for the
-correct connector naming. Connector names shown by xrandr are different:
-
-ls /sys/class/drm/ | grep card0-
-card0-DP-1=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 # DP-1
-card0-DP-2=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 # DP-2
-card0-DP-3=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0 #=
- DP-3
-card0-HDMI-A-1=C2=A0=C2=A0=C2=A0=C2=A0 # HDMI-A-1
-
-vs.
-
-xrandr | grep connected | awk '{print $1}'
-DisplayPort-0
-DisplayPort-1
-DisplayPort-2
-HDMI-A-0
-
---------------FC0B0A97C4604C5D981DB62F
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-  <head>
-    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DUTF-=
-8">
-  </head>
-  <body>
-    <br>
-    <br>
-    <div class=3D"moz-cite-prefix">Am 26.08.21 um 18:45 schrieb Alex
-      Deucher:<br>
-    </div>
-    <blockquote type=3D"cite"
-cite=3D"mid:CADnq5_PrkEQCpKKWY8QhOqWZ_jxK3vabSjxwRW-+MFnm3Rgs2w@mail.gmail=
-.com">
-      <div class=3D"moz-text-plain" wrap=3D"true" graphical-quote=3D"true"
-        style=3D"font-family: -moz-fixed; font-size: 12px;"
-        lang=3D"x-unicode">
-        <pre class=3D"moz-quote-pre" wrap=3D"">On Thu, Aug 26, 2021 at 12:=
-35 PM Paul <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:pb.g@gmx.de" =
-moz-do-not-send=3D"true">&lt;pb.g@gmx.de&gt;</a> wrote:
-</pre>
-        <blockquote type=3D"cite" style=3D"color: #007cff;">
-          <pre class=3D"moz-quote-pre" wrap=3D"">Hi there
-
-Out of curiosity I would like to ask if it is possible to set a kernel com=
-mand line parameter for my Radeon 6900XT
-that sets a specific resolution and refresh rate of a specific connected m=
-onitor.
-
-Ideally this parameter is set to the monitors used desktop (X11, Wayland) =
-resolution/refreshrate.
-
-I did this for years with my Intel IGP's. I appended:
-
-video=3DHDMI-A-1:1920x1080@50
-
-to the kernel command line. This worked beautifully and the result was my =
-monitor was preconfigured to a specific resolution and refresh
-rate from the first lines of the kernel to the desktop (X11) and it did no=
-t had to switch to anything else in between.
-
-Another nice side effect is when in X11 one switches to the console, or vi=
-ce versa, via STRG+Fx, pretty much everyone has this annoying delay becaus=
-e
-the monitor has to switch between refresh rates again. With that preconfig=
-ured settings at boot this gave a very satisfying feeling, especially if o=
-ne frequently
-switches between console and X11 (or wayland maybe).
-
-Is this kind of parameter implemented in the kernel/amdgpu driver?
-</pre>
-        </blockquote>
-        <pre class=3D"moz-quote-pre" wrap=3D"">It works the same for all d=
-rivers.  Just make sure the connector name
-is correct.
-
-Alex
-</pre>
-      </div>
-    </blockquote>
-    <br>
-    Thank you, it works.<br>
-    I just want to mention that I had to look in "/sys/class/drm/" for
-    the correct connector naming. Connector names shown by xrandr are
-    different: <br>
-    <br>
-    ls /sys/class/drm/ | grep card0-<br>
-    card0-DP-1=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 # DP-1<br>
-    card0-DP-2=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 # DP-2<br>
-    card0-DP-3=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0=C2=
-=A0 # DP-3<br>
-    card0-HDMI-A-1=C2=A0=C2=A0=C2=A0=C2=A0 # HDMI-A-1<br>
-    <br>
-    vs.<br>
-    <br>
-    xrandr | grep connected | awk '{print $1}'<br>
-    DisplayPort-0<br>
-    DisplayPort-1<br>
-    DisplayPort-2<br>
-    HDMI-A-0<br>
-  </body>
-</html>
-
---------------FC0B0A97C4604C5D981DB62F--
