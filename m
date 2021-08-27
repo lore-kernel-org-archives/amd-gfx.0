@@ -2,53 +2,53 @@ Return-Path: <SRS0=EvCx=NS=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C3E64C4320E
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Aug 2021 20:29:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E4DBAC432BE
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Aug 2021 20:39:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8D1CB60F92
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Aug 2021 20:29:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8D1CB60F92
+	by mail.kernel.org (Postfix) with ESMTPS id A582060FF2
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Aug 2021 20:39:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A582060FF2
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2864B6E9BE;
-	Fri, 27 Aug 2021 20:29:47 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com (unknown
- [40.107.223.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47A2C6E9BE
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Aug 2021 20:29:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B3596E9C0;
+	Fri, 27 Aug 2021 20:39:24 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2071.outbound.protection.outlook.com [40.107.223.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8961E6E9C0;
+ Fri, 27 Aug 2021 20:39:22 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=imrjNgCEJdSFskMF6pHPLVFxpV2Pdw8d8TzApf1C13WehTfibk5gHRYbWFDphxW1E9iF4joXmuSfC6rhpUjnRLFguO8q2QE6BIeEqgg5pMbTIhefc6re1MWewIJnXx0q7YxEjpQ1NifT3py6wVJTg5jkjYdb2EOP5LH9Anh4Xdu5i4VwykfhCzud//vdsFtdlPqb8HjKOLs2u79sc/bxjn7rWJYRnhDx0cjW64pzIKrN6huQ55hriuBt3gnirNAEBmjCyD+bag4M1buu6VBYTxdWrzW6k6Yb84I/NW+mKj9b/1ImI8UApaXdr1k5e6iJ2BzZWQ+KVgwVnZun+urHIw==
+ b=hb0Qe2UqwoxXJ+DOb7mamHIZMfSbJzH5nCs601gvZDMFizoSgEOL3qFGNawSrw33MdBLFOwXsH2UK8kz+sCqB+gvA3dbmJgDXtSPmPkwE+JMqFp33uw9nKKS0ZdGMQzQO9GV8mHsOY3HG/RTyNN3nKzxXo8wC9IrzVIUuh6Otk9MUffX+BvmR5uWAz8nmujPyamXb0X93caRPAEJHta9QZBWEkQZSD8MMPjAPupZY2nHcZcNfChlEV/NYSNV0DxbMc+tCBZBtDJ95Hg423E9QyUDldN+mjSykZwS8QoOUW2zTdKoXm9XfgKkHR0B65ggbGB+liAVhkhuMhbyS/4TVg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AsOccHAhn48xlRq0cvV64zgZ7ahgfGzv1yKNF1hJw18=;
- b=ZQzsSMA5oFDEzpvJk7sjxzufP4rnhPz4dqHzimrXT9VJQro8keLOcFj88Seo8PF65bjHgSzHL47I5lohePPug8Kswdq2QJ7jolpseJUXzHFb8CfnuiI90DbtBwjiTt1KxtEwXTnc7E08UWzWtSN2upjq3gPis8DPEm9R4WxeKxMM/B5u+W5SzNcBJrsdF3tnd8SucyhmlqWmVQuXaW/hTMIMFoXhOksaKjNWEXgx10C/Nk4TbCW+QnRihjJQGRFBk+WNsRvyx5ukWmDdL6ZS880IkxuNrUmr/mdt4hOwcdzyESJZM27ldWGc4yYABJIyImIz8hguFR0pdFFK/bcFfA==
+ bh=VgrXsw5gwGJnlgE/QDHrq9WCKt/zayMqL/hGFZ1cWF4=;
+ b=lIuX9kL1Rdnj370rNBDdLIcM5ENtNle17qaEA+TbSEhj3624yr2yes8B9fjFA4mikor1zFb0j3KjDMpFEDmEzDmkXgO9nwgL1+6F7CEiWxkm2rjJ625FeQ/tExtB0iUUzIjciGdzjExrhYUj0+02YmcXO4bjgmG6Am+/KIXId7+rG6S5oArrtGFGEJoaDBuM13LuUc/0W1olxO9xWqO1UEynLC+mofudr0GaZD+p4PsVTyqaoXrdADbxIixAiKXfIEU2KvSrn3GZ3V9kg4IaKeC4djMSVwNlS5Dgk7m85WBzv+h9JtdSFRkqEKtZmxhwmWvtdy8G7d9uN5cITRPIXA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AsOccHAhn48xlRq0cvV64zgZ7ahgfGzv1yKNF1hJw18=;
- b=fmHE7wLgvVfeuqSYOV7I+2q9zs1Z3bIvuy4Je8lKmRUbHYCIqwzIosMifq+sIgGpyC88hARMreKdUzjKhQKUYtbYC9YgdsMEepQYWHkzU6YlJ1h6fthCQreOvJ2kAWIakxAMpfxdj6aul2L2tyilqeay+wds2HkOpx5kFQiPQyM=
-Received: from MW4PR04CA0061.namprd04.prod.outlook.com (2603:10b6:303:6b::6)
- by DM6PR12MB3979.namprd12.prod.outlook.com (2603:10b6:5:1cd::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.17; Fri, 27 Aug
- 2021 20:29:43 +0000
-Received: from CO1NAM11FT017.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:6b:cafe::19) by MW4PR04CA0061.outlook.office365.com
- (2603:10b6:303:6b::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.18 via Frontend
- Transport; Fri, 27 Aug 2021 20:29:43 +0000
+ bh=VgrXsw5gwGJnlgE/QDHrq9WCKt/zayMqL/hGFZ1cWF4=;
+ b=VM5ntgt277hugsEAKadUr9K+tg70KRp0dWwlmZRGJ7YDWrYrxzcnVHiD3xH9pthAOYzUwa/DACechnQNoBF4KEhsLPEFwiGRh1jug9aaj8D0Ux6CirvMTCzxS+Iblot6wrc5IxUggtVEM4hvoSXflHCxVWZR8j9AaBKkXtrRoqs=
+Received: from BN8PR07CA0035.namprd07.prod.outlook.com (2603:10b6:408:ac::48)
+ by BY5PR12MB4933.namprd12.prod.outlook.com (2603:10b6:a03:1d5::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.23; Fri, 27 Aug
+ 2021 20:39:20 +0000
+Received: from BN8NAM11FT054.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:ac:cafe::8) by BN8PR07CA0035.outlook.office365.com
+ (2603:10b6:408:ac::48) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.17 via Frontend
+ Transport; Fri, 27 Aug 2021 20:39:20 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -57,57 +57,51 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT017.mail.protection.outlook.com (10.13.175.108) with Microsoft SMTP
+ BN8NAM11FT054.mail.protection.outlook.com (10.13.177.102) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4457.17 via Frontend Transport; Fri, 27 Aug 2021 20:29:43 +0000
-Received: from DESKTOP-9DR2N9S.localdomain (10.180.168.240) by
+ 15.20.4457.17 via Frontend Transport; Fri, 27 Aug 2021 20:39:20 +0000
+Received: from agrodzovsky-All-Series.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2242.12; Fri, 27 Aug 2021 15:29:42 -0500
-From: Mikita Lipski <mikita.lipski@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
- <Bhawanpreet.Lakha@amd.com>, <Rodrigo.Siqueira@amd.com>,
- <Aurabindo.Pillai@amd.com>, <Qingqing.Zhuo@amd.com>, <mikita.lipski@amd.com>, 
- <Anson.Jacob@amd.com>, Harry Wentland <harry.wentland@amd.com>,
- <stable@vger.kernel.org>, Josip Pavic <josip.pavic@amd.com>
-Subject: [PATCH 17/19] drm/amd/display: Get backlight from PWM if DMCU is not
- initialized
-Date: Fri, 27 Aug 2021 16:29:08 -0400
-Message-ID: <20210827202910.20864-18-mikita.lipski@amd.com>
+ 15.1.2242.12; Fri, 27 Aug 2021 15:39:19 -0500
+From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
+CC: <ckoenig.leichtzumerken@gmail.com>, Andrey Grodzovsky
+ <andrey.grodzovsky@amd.com>
+Subject: [PATCH v3 0/4] Various fixes to pass libdrm hotunplug tests
+Date: Fri, 27 Aug 2021 16:39:06 -0400
+Message-ID: <20210827203910.5565-1-andrey.grodzovsky@amd.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210827202910.20864-1-mikita.lipski@amd.com>
-References: <20210827202910.20864-1-mikita.lipski@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 046dd5d3-3fd1-4117-9398-08d969996771
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3979:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB39796115A7F31A6E202A8088E4C89@DM6PR12MB3979.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1468;
+X-MS-Office365-Filtering-Correlation-Id: 681c3dac-85b9-4c7a-5a7b-08d9699abf6e
+X-MS-TrafficTypeDiagnostic: BY5PR12MB4933:
+X-Microsoft-Antispam-PRVS: <BY5PR12MB4933B06B540426C69A976316EAC89@BY5PR12MB4933.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4303;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ebxenBc5tXCCgj78Yo+K70RVYqvubJPYC09Dte7BB0I/YLLxF4H9znx8BSaGrvuTes1ef0VtfD6hYc8SkHHf77tY4Ew0ySzbkyA8/M1wpoKHkGRHqJ8m07XnTegSw88fSy5mTwKDh3KLiKqnchDO/qgOU+euV6e3pi68YbUZSuGCpdBGKSUUAitjp63XreK5n30txWnZjOvOuIYkS8ijve+j9AcKluyCXLRQniEB9e2QnxDKQFoOG6nLuOVHkZaD7EV3Kx6Lauy27EdgLpfdRbvF3px6k2nrdXnZsIb9Kcm25/5WlpHEqCkup73aPyOFxTaK1VlntwxPq9XnQTZvm1de6FyOgAndV48OnbBDLEeCgeozBtEnpVovDjj5LtAH6BZDfRrZNdo8IxQmDGu64l4OHYF9dHmaFW2VYoJnBrsjZ/QXZ0XfiuZKUtD5EueGx1Pm68hvgWRfC7stTE54GX9B+nnub+eZtHw8bgHhtaoJlof+rkPEyKEYPHlYMYEMtICn5nJJvY+tFCDu7WmUk3oNNFKgqsdMrhUp7U+7zRlfUT+e9KFjuW2/B9D8reoNv9AfeuFZHAnVTWtgienLlpv3TsHeawRIRFayseCVtF1jIy+WKLPxE06myGM6eR3BdcApi8oQm4+SJarsiNHqub3lkuQ8Xe7p87MMsUiNSct6izWQ72Gs26kx7D5/iNRhVvzvrexif0MHho2TsNgMjQ0B2nKWRZXlqXzZuFo4CXY=
+X-Microsoft-Antispam-Message-Info: ZV2Bfl6lSkoGxgYSmG01IrKj0onOHAdh9VLDqvtvOfHCmeD04QQZq+NEa7vr9nnLKDdP7DPMNhQD0ChkRsePHGPykoiFM6/U5ylRQOQt1UwqmdUoz7A0a/+8BFPUlFAabV5+j55tNWP+NZ2UinqGobz5SAY1sRJn3End7RjAT+zQVHhikmNkNz6fH9F/UUAv4FWNFgbNIKXdrJ7xjWPBKhMeT3sO4KhGoGLkab5M/grpRFlmvMp2DpSxiBkJVg3Yo2QyHbFU3Sczipuik+/aVVCzT7oW0fZ1ZBEEouaYuaoS9K6m6vnnDxxT7md46dQTPZ0AXqf8x5Bup7y1fDumGUeWp6pFmfjBQH6QixuZRd7r0XrrRkd070ASWlrw0bDvtTAbOt+/lCaFwZVEAbTRzMDSg5l9/1BqFGauQvGh5k4WNAs0Bo1HnpkDPyt3IthX5skd0J8O/Jy5Q/GA2vglfGRnAxkR9MdI6PP2CtunhcoNcK6FqGpXeAZnBR5u/fYtpI/KoCmLeqzvXeA4Xo0EYvx4nLiGiEWED56rJbeLqfge5Zp1b4DLvMEj63pFx5q+BLwRt5mHDBTcUBvdPCJr/mEd+jh0OXxM/7iCf3dw22ffM00sWmpVgJstUhpIMtwn6Lq0WBy+9+6HTSsBytR1zNd9apvgO0Uj46vtAlDK5TPkLtkTcvvkHHgTKJ5qE7DH7k6rdjzwIGzwvtbl3r0uCwjfhcYFUbAziMW51zx2v/Q=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(346002)(376002)(39860400002)(136003)(396003)(46966006)(36840700001)(70586007)(70206006)(4326008)(2616005)(44832011)(6666004)(426003)(2906002)(81166007)(54906003)(5660300002)(36756003)(83380400001)(36860700001)(966005)(82310400003)(47076005)(6916009)(26005)(8936002)(336012)(1076003)(8676002)(16526019)(478600001)(356005)(86362001)(186003)(316002)(82740400003)(36900700001);
+ SFS:(4636009)(136003)(376002)(39860400002)(346002)(396003)(36840700001)(46966006)(81166007)(186003)(2616005)(2906002)(336012)(316002)(44832011)(47076005)(70586007)(6666004)(83380400001)(86362001)(110136005)(70206006)(7696005)(82740400003)(82310400003)(8676002)(36860700001)(356005)(1076003)(966005)(426003)(4326008)(36756003)(26005)(478600001)(4744005)(16526019)(8936002)(54906003)(5660300002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2021 20:29:43.4476 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 046dd5d3-3fd1-4117-9398-08d969996771
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2021 20:39:20.6776 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 681c3dac-85b9-4c7a-5a7b-08d9699abf6e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT017.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT054.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3979
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4933
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,89 +116,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Harry Wentland <harry.wentland@amd.com>
+Bunch of fixes to enable passing hotplug tests i previosly added
+here[1] with latest code. 
+Once accepted I will enable the tests on libdrm side.
 
-On Carrizo/Stoney systems we set backlight through panel_cntl, i.e.
-directly via the PWM registers, if DMCU is not initialized. We
-always read it back through ABM registers which leads to a
-mismatch and forces atomic_commit to program the backlight
-each time.
+[1] - https://gitlab.freedesktop.org/mesa/drm/-/merge_requests/172
 
-Instead make sure we use the same logic for backlight readback,
-i.e. read it from panel_cntl if DMCU is not initialized.
+v2:
+Dropping VCE patch since relevant function already fixed in latest
+code.
+Moving IOMMU hnadling to TTM layer.
 
-We also need to remove some extraneous and incorrect calculations
-at the end of dce_get_16_bit_backlight_from_pwm.
+v3:
+Move pinned list to ttm device and a few others.
 
-Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1666
-Cc: stable@vger.kernel.org
+Andrey Grodzovsky (4):
+  drm/ttm: Create pinned list
+  drm/ttm: Clear all DMA mappings on demand
+  drm/amdgpu: drm/amdgpu: Handle IOMMU enabled case
+  drm/amdgpu: Add a UAPI flag for hot plug/unplug
 
-Reviewed-by: Josip Pavic <josip.pavic@amd.com>
-Acked-by: Mikita Lipski <mikita.lipski@amd.com>
-Signed-off-by: Harry Wentland <harry.wentland@amd.com>
----
- drivers/gpu/drm/amd/display/dc/core/dc_link.c    | 16 ++++++++++++----
- .../gpu/drm/amd/display/dc/dce/dce_panel_cntl.c  | 10 ----------
- 2 files changed, 12 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  3 +-
+ drivers/gpu/drm/ttm/ttm_bo.c               | 18 ++++++--
+ drivers/gpu/drm/ttm/ttm_device.c           | 48 ++++++++++++++++++++++
+ include/drm/ttm/ttm_device.h               |  2 +
+ 5 files changed, 68 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-index 3c3637fcc2b8..7928852185b8 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-@@ -2586,13 +2586,21 @@ static struct abm *get_abm_from_stream_res(const struct dc_link *link)
- 
- int dc_link_get_backlight_level(const struct dc_link *link)
- {
--
- 	struct abm *abm = get_abm_from_stream_res(link);
-+	struct panel_cntl *panel_cntl = link->panel_cntl;
-+	struct dc  *dc = link->ctx->dc;
-+	struct dmcu *dmcu = dc->res_pool->dmcu;
-+	bool fw_set_brightness = true;
- 
--	if (abm == NULL || abm->funcs->get_current_backlight == NULL)
--		return DC_ERROR_UNEXPECTED;
-+	if (dmcu)
-+		fw_set_brightness = dmcu->funcs->is_dmcu_initialized(dmcu);
- 
--	return (int) abm->funcs->get_current_backlight(abm);
-+	if (!fw_set_brightness && panel_cntl->funcs->get_current_backlight)
-+		return panel_cntl->funcs->get_current_backlight(panel_cntl);
-+	else if (abm != NULL && abm->funcs->get_current_backlight != NULL)
-+		return (int) abm->funcs->get_current_backlight(abm);
-+	else
-+		return DC_ERROR_UNEXPECTED;
- }
- 
- int dc_link_get_target_backlight_pwm(const struct dc_link *link)
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_panel_cntl.c b/drivers/gpu/drm/amd/display/dc/dce/dce_panel_cntl.c
-index e92339235863..e8570060d007 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_panel_cntl.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_panel_cntl.c
-@@ -49,7 +49,6 @@
- static unsigned int dce_get_16_bit_backlight_from_pwm(struct panel_cntl *panel_cntl)
- {
- 	uint64_t current_backlight;
--	uint32_t round_result;
- 	uint32_t bl_period, bl_int_count;
- 	uint32_t bl_pwm, fractional_duty_cycle_en;
- 	uint32_t bl_period_mask, bl_pwm_mask;
-@@ -84,15 +83,6 @@ static unsigned int dce_get_16_bit_backlight_from_pwm(struct panel_cntl *panel_c
- 	current_backlight = div_u64(current_backlight, bl_period);
- 	current_backlight = (current_backlight + 1) >> 1;
- 
--	current_backlight = (uint64_t)(current_backlight) * bl_period;
--
--	round_result = (uint32_t)(current_backlight & 0xFFFFFFFF);
--
--	round_result = (round_result >> (bl_int_count-1)) & 1;
--
--	current_backlight >>= bl_int_count;
--	current_backlight += round_result;
--
- 	return (uint32_t)(current_backlight);
- }
- 
 -- 
 2.25.1
 
