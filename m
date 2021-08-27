@@ -2,129 +2,125 @@ Return-Path: <SRS0=EvCx=NS=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	UPPERCASE_50_75 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B8D17C432BE
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Aug 2021 02:05:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D245AC432BE
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Aug 2021 02:43:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4C0AB60551
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Aug 2021 02:05:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4C0AB60551
+	by mail.kernel.org (Postfix) with ESMTPS id 8E9F860FF2
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Aug 2021 02:43:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8E9F860FF2
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFA8A6E8D2;
-	Fri, 27 Aug 2021 02:05:57 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2070.outbound.protection.outlook.com [40.107.244.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D32A16E8D2
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Aug 2021 02:05:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 293086E048;
+	Fri, 27 Aug 2021 02:43:22 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2073.outbound.protection.outlook.com [40.107.237.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3E426E048
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 Aug 2021 02:43:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iNqi4xL6uWJLPzut7T9j3oz5GKqlhyeJE3EfSrNPQ6NVyb0Yl3WVzGUQenI+ZEWupvpotavxDMpoHXwTnvmdS/Iq7BLfPvXP6yW4T+lkoF04RIUQPp7V6i/gXIxCn+6GBPmkedZlcQraGUSovfn6sC0XuCBOSTeoOZ3D+2Fg7uvCPNHTxNxSmhp7eFY//gCKlgs77uvnm2oExUTMTXk3UqZORjO1AoFNPsOMb3gtAy74G4Rnavmj3FIcwoGZ4rdZIZfq+7Cw8nRi1bRCOErT/a6AnC6kVqa2Y+GLRwbs/0RB9Svf824TvprPrC4sAkPuGuqWou/PVKv1FQmORE+GRQ==
+ b=cBW5aaejbpVCopjvykXG5vxwah2b19RmTkLTSAOWjmAbN+L9LeH2i+Im0p3WgMYhhmg+E22TwLWLQIh/qgnya9c3+BuFpR1EqODvs0Zux/2nuEewUHiEDqRF6GmGrYqEe7H5oovYaheuNwwJFjQGfKb7KmM4b5/PJSlazwOvQtu+60uweBYBMFz9CLucjqoFqbfIwYnoaVwesMfESHkOonqzx7zOemLfkMONcntUTZlDCJjmhpoE7+Nl9ey/HnoVTWKvuIAN+lyDjfO/HyMUTjlb2p5Ci7JyuIH8joM6bVzKwUVAtGrxn+WzdQXtDH9cvUCqEQOcQw3V/3xU8+vQPQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tHB+G/vsG6bJq9y2TtI/JB16EiiCGPF8bL8M0itcvuk=;
- b=Jc6GDkY8hCTpxfff8Js4rBL1XVFXpiRAkatS3np5W2iERMab+aguLmL62nc6/Zl7wFlg5MSHANG9+WbpqfcHVr6y9fbUCkc2Qh9nMb0V+sGYhxm5hw2guYKDhmzRmbbobgk7bshejBKY0KCjeF61wnDcmZ8roWN2YPaKRgqEsThzjAkGHoY8cuA8zwiEXBAcmztKWZi1a+j+5fqWe1t4zYu8rtgez4Nc1SmB1rwqnZG95TvxC2tiWzip3Lswz38eTmj/eUkgbrp+Igb8qtdG4P2TOZTOkupnvjBtUoEag45ZWUnxx+Pt6bhfgKGISANy/4EJNZhvcaulgRZ5OOOLIA==
+ bh=wUK19cyxilFloRYnfGNHJeY5NCL9OJbFYYe3Rt4J194=;
+ b=EJpKq6MvNZKZg0lljn8w50lrZOCdOZOIMezdzWaWqdnaQfB5GWuUtwcTdwcFpYJZVdoX3z13idE4avS33INVL/7845tK2RCTvZ8/YPToK/ro2aaABB9Uzpzw98qjj+1nOYCFFu6Wl3l6ohJ5UMBRVhMhtluw/FCg9KFyeEOUQ/2fJZ7hpc2FuDn828eBTs0FpTS0d+FlEP3MlmOYt6WTHnuQlK30gK87fYxPodmtN4H1mjwKiieKhvKN9aRCLjmoB65ZXYE94fkSUc4kLyvAWV/2WG/FP6ZNpd08hLyZze74a1y46CGwE9ry3MutCcfvWNEPfkBRjcOmaMZBtR8CuA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tHB+G/vsG6bJq9y2TtI/JB16EiiCGPF8bL8M0itcvuk=;
- b=AG/5rnCNt+xTLas/r2EXzFRq0Efdw0vjYIHoziVxLTUd2CCSLCstybF8yEK0DxrU+i7JAMepEZcl66plACRu2/Dxipjlpa5BXypHJciVBiTBG4iDH61AY2UQ0ICv8cT3+k2l5kTvCIggGtIsWiD9yjvUNYtFrf59Tr/ikc2+Hcg=
-Received: from CO6PR12MB5412.namprd12.prod.outlook.com (2603:10b6:5:35e::15)
- by CO6PR12MB5476.namprd12.prod.outlook.com (2603:10b6:303:138::17) with
+ bh=wUK19cyxilFloRYnfGNHJeY5NCL9OJbFYYe3Rt4J194=;
+ b=ij5seCrJTf4EDfIRkdjVkpWyS+gEtJQjwT+/8X+e5UB9LFMoXzeX5plONjBpP64CiT7M+8SI+NgdS7IAGJ2FvWo0yTCgO7M+zrTvokXhQhjfAy0n7N3Tywjl41jtN5Xg90NGwfnxtFNjqUZWmWVJGxfCaj0qh9AFHsQJqN4GzM0=
+Received: from DM6PR12MB4650.namprd12.prod.outlook.com (2603:10b6:5:1fd::27)
+ by DM5PR12MB1738.namprd12.prod.outlook.com (2603:10b6:3:112::22) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.20; Fri, 27 Aug
- 2021 01:32:29 +0000
-Received: from CO6PR12MB5412.namprd12.prod.outlook.com
- ([fe80::64b3:54c8:3a3b:5d09]) by CO6PR12MB5412.namprd12.prod.outlook.com
- ([fe80::64b3:54c8:3a3b:5d09%5]) with mapi id 15.20.4457.020; Fri, 27 Aug 2021
- 01:32:28 +0000
-From: "Huang, Ray" <Ray.Huang@amd.com>
-To: "Liu, Aaron" <Aaron.Liu@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Kazlauskas, Nicholas"
- <Nicholas.Kazlauskas@amd.com>
-Subject: RE: [PATCH 2/2] drm/amd/display: setup system context for APUs
-Thread-Topic: [PATCH 2/2] drm/amd/display: setup system context for APUs
-Thread-Index: AQHXmuL6DwAxTBW3KEaXvsJUS+/Y26uGkLnw
-Date: Fri, 27 Aug 2021 01:32:28 +0000
-Message-ID: <CO6PR12MB541291738FE4CD0AF7829142ECC89@CO6PR12MB5412.namprd12.prod.outlook.com>
-References: <20210827012907.2348995-1-aaron.liu@amd.com>
- <20210827012907.2348995-2-aaron.liu@amd.com>
-In-Reply-To: <20210827012907.2348995-2-aaron.liu@amd.com>
+ 2021 02:43:18 +0000
+Received: from DM6PR12MB4650.namprd12.prod.outlook.com
+ ([fe80::b0d9:236b:a2a0:49d8]) by DM6PR12MB4650.namprd12.prod.outlook.com
+ ([fe80::b0d9:236b:a2a0:49d8%7]) with mapi id 15.20.4436.025; Fri, 27 Aug 2021
+ 02:43:18 +0000
+From: "Zhou1, Tao" <Tao.Zhou1@amd.com>
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/amdgpu: add some additional RDNA2 PCI IDs
+Thread-Topic: [PATCH] drm/amdgpu: add some additional RDNA2 PCI IDs
+Thread-Index: AQHXmrmGy5zh0DqdV0iXujaCYk3qy6uGpPbF
+Date: Fri, 27 Aug 2021 02:43:18 +0000
+Message-ID: <DM6PR12MB4650E5C9DCC81B34323EF476B0C89@DM6PR12MB4650.namprd12.prod.outlook.com>
+References: <20210826203221.710350-1-alexander.deucher@amd.com>
+In-Reply-To: <20210826203221.710350-1-alexander.deucher@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-08-27T01:32:23Z; 
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
- Only-AIP 2.0;
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=e34c8a2e-5349-4538-b65d-cc851f17b31e;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-08-27T02:43:17.737Z;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
+ Official Use
+ Only; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard; 
 authentication-results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 6b70f097-6273-4f2b-d893-08d968fa8864
-x-ms-traffictypediagnostic: CO6PR12MB5476:
+x-ms-office365-filtering-correlation-id: 451c8875-e40b-4a07-02db-08d969046d62
+x-ms-traffictypediagnostic: DM5PR12MB1738:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <CO6PR12MB547683ABE785A2903FB27708ECC89@CO6PR12MB5476.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:2276;
+x-microsoft-antispam-prvs: <DM5PR12MB17385C9662AA46BBBD76FE1EB0C89@DM5PR12MB1738.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:169;
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: /YjNu5zlozJiwKWrNVf/mVhJBmV+J35koYdaxcj3VRe+l8IVQB9W7Vj6oQI1VWfzTUQ07bJwOFa0VDtdU2QWNZRCcbJcrZXufNZuxC0Icu4MIgHj2srIGow4Afjeo8gvke1O9bFOAoWZhvp3N0HZxNnutuLafzSrorur8q+uvOSou2Mi6d2zLogWQKuvYBAy4NOMo5A3MS55o3ktyYpYGQUv3hZARFTfBXocBCrwrv9cpnQ7FYtftT04nXfHGR5mgVxchYyUbV+M/ttQobr1U/0m2BCNx25vSa0DDwQkY9wq2fLnBHockgZ4/1GAMHCi9WZgiuZhmmeV2gI9jGjtW3LahcTZwEI7iCMifYoZ2OGKuX2XZ50dBRLDatXuv/EzL3Yi1M1pWBkocA2JMgc+crroqA3PxrswaBtAshxpX1aRfxO1DVgietjtkwZW6DSGZzbV2QBwIBQfNb8eV9YQ1X5/nUHMcA1PTEbgEdr7jSdXN9ctnjy+mdn8LwxGPUEBolD+oSTj3amui2ef5MuCUMmK5F6GQV0VOeAabpcYLriCWjuVvbW6+HNd7Rz6OehxiA/mU9kPKb0EUqNxxXUJ1rgKQC9g56Dz0jATs8xy81FeIa4MErf9flXeDw4se0/gdG90GTCzHXwgtbnoNh7ufC+VNFfJaV7O0BMlzz0OHNLRnJ7RfFIpIQ+EOYC3XjEFOE/toVXedYDvyJlkzMMQFg==
+x-microsoft-antispam-message-info: SONSxn11QDH8lKLnVDwDV8kRYs5LHHy2nP8PeM51FWn+vpPTTAbcwI0qkhAarEHh0BCUv6L+7AwC3+OGbjXJd9KGZFCKAS0usGeIQv0s4CyTpM8zfIZl0lLfU5w3B3QciqYU+G4V7ywwe5dNeDRV7bn2nWpgRejZrXQDmnCC06Yff0OUzfLt+q0YHz+0RUAlVsG/rZzAjq83e9qLbewnG/+UF8oMSIW6nXqN4+SkMnfqxYKWyD0ynQVXESjI0OK716TIvJsMz0QwIrxRjHjMlRCQhIZK3en7FTU4viHan3n33VFy9+vVXBN6dwk1MSAJ0OBpEQfftGOMeRYKOXa1AYB9UgR5DvVkPftZ5nj97VlxxwWNC20GZaxYwjXk4A8HeW+Y5qGADkFDMOS2Ro8Hn4IDt0GfQBurRufwVdHSTkgZZYnkAt7jlEFTGi3VEddHbSa95JVHHpOIhuKhnPBlKbJtF9vJk1qZcsuR+rR7zVd8jdTSwqa8w3z3XLa78mUWHqfPA28sql3BVvjAlOSaf6qUDh5DxnFv4lWau0gv08cu4OnrpZNL8gHCDCmva7vHfjpk3LUSR2L/K4nKS3JYgDEMZ+J+c7n1d+0Y1pVS47EhvlB/OcxbTOPdKWyH9QAZGDDafew73D/RnJ/PG3d1mo97ANRqFfAayOIIARm9eiJ8aQjO8zCTbSVliXxD3qvwRpmleP2tQVfCyrHlDeG3MQ==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5412.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(136003)(396003)(366004)(376002)(39850400004)(7696005)(66446008)(38100700002)(122000001)(64756008)(66556008)(4326008)(66476007)(38070700005)(66946007)(76116006)(33656002)(71200400001)(2906002)(26005)(316002)(83380400001)(9686003)(55016002)(478600001)(54906003)(110136005)(86362001)(52536014)(8676002)(53546011)(6506007)(8936002)(186003)(5660300002);
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4650.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(136003)(39860400002)(346002)(376002)(396003)(2906002)(5660300002)(8676002)(110136005)(33656002)(9686003)(71200400001)(186003)(316002)(66446008)(64756008)(38070700005)(8936002)(7696005)(91956017)(478600001)(52536014)(26005)(19627405001)(53546011)(6506007)(66476007)(66556008)(76116006)(38100700002)(122000001)(55016002)(86362001)(66946007);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?TrznIDA/cts/l06wCBh+m86aZm8/U2B5PPL52H9OeC7zSdnoxD0ik7LroGKY?=
- =?us-ascii?Q?LCHWA4tqZrjypBYwid6A+c9aR9yMtoo/LS6TOjo/gsP5rK2wJvYu2uERSfgP?=
- =?us-ascii?Q?u1axBtFbqkDQdo20RX0gfapHy0Y+BtuE6Ne67qnsCQ+Nn8IZjkaWLzn+k5z9?=
- =?us-ascii?Q?5cyayPjREkF28cOiIgk48k/zXdcfW8qlwjjfw4en46bjdB7O1fiOcS2Zwh1V?=
- =?us-ascii?Q?qpQKlEbhFlYK7My5bYzUmjGHrOrrpTyGwTumHHvQKf025QCKSB6673TubHpU?=
- =?us-ascii?Q?dSWirpE8jfkzv7uGWnF4IW28fyrTfEsBh3gm/vO4jE1nxZx86UBNFkaTiK3+?=
- =?us-ascii?Q?RNmIUDlhNnyF3xYrB/4n17rSPnZP6gwFk9ILTIu1JyVWgAyHDYwdxc1MiHre?=
- =?us-ascii?Q?dwr9UE8Z9It2v+pBUWOe6maUtZ1HFporcFTloJuTGY4jhHyaLsdqibkL3SmR?=
- =?us-ascii?Q?GR4WisEvs3J8TABMioMD6G/Yarpsmo3LV0sz0I3VkJK47g0odEYK9KlkE6zN?=
- =?us-ascii?Q?XZiJvIQzuupczLQs3D+RQ1VliiTYuO27O7oHtCXW+xSiRAfvD10zBD7zaFOQ?=
- =?us-ascii?Q?cwUUvT4Y7/wadc4ejhkfa/bnJ9cWUi1DEcWg+Z7an6tBq0XmyTmpBqNL5I+t?=
- =?us-ascii?Q?U/O50VJ5Cr7VTb9Fxeut6rvzwWhB6Yrqbrnmf+YU/v/F733P6+/Hb8dP0n3t?=
- =?us-ascii?Q?khS/CNauGd4GxIcUZpstjYNHytfdEMF4STE9g2Z1jqKu3wUoqXa0+LmR0gmL?=
- =?us-ascii?Q?2nUJ6z3hVPrdTjbxk3kKJej/51kJ3TUpytK4xtGQ1grz6SwrXVxx+lK5wgpx?=
- =?us-ascii?Q?9DrfdK8YcEsP5EWCUMS+SURXPctBeE8nF5ojBi5KO7PyFLUVw2QcmH8QMt5g?=
- =?us-ascii?Q?e4AcAFMBVzIGvAz/QtiO38GKTDfr8Z4O7Tc8HZWLxDzLANS9KTg2/js3TA8c?=
- =?us-ascii?Q?Y8TkgqUgdNsy2ONsSR28BH9MyJ3aUCV1NKSZ2ZTO3khRWFB1F+fnmGQe0QI4?=
- =?us-ascii?Q?2OCoVp2PwMDQV3GQlkGJDJEB45+HYvmROucuRtXoSpBHGw7wMPQFj7iuxGlt?=
- =?us-ascii?Q?EEbAfmkLjAk+rdd7GF+/T1ZeZaCP0YMA70HW6noZVqt7kGsPJq5XdS1NzIMJ?=
- =?us-ascii?Q?pM2Z0Cj5sb1kQ26bA9frx8dj8Q4qb62L5UOhKUB0KyVOuogVR7LUFIMzpcPW?=
- =?us-ascii?Q?7PsrJ3aR6fQ4BPImPsROOKr0VcC4BGbpncOGCADJ7fZtMeez4tt/lQ+FIi40?=
- =?us-ascii?Q?js9A1gufS62qllpPwoZCFO76xJf3TtTGEGLGlbJQ7jpcJP1Aj7LELhioszg6?=
- =?us-ascii?Q?WKVTj4vJajkUZ/SezWr+YG9A?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?gZ/ZdlmVdSI9DNnJ1Kd5peBSnO8V3cWisxVj6WyF8TARRnfwZQjv2YZNcs4g?=
+ =?us-ascii?Q?9jN2vVjfGhCmrYFY96hU3JFV661I1UckveIiGZmVfAWp14X872OhtIfn6qg6?=
+ =?us-ascii?Q?KsLALhrzavPsoBAA4aNeJZMQlbl8slPtAwVChA6z6KOI1tBNxizSZzbv26GY?=
+ =?us-ascii?Q?Vz+wb/3mHgere3rLbvGhBGmZFdwNpTGvv8RuLHzxchVstl8Gx8P502Nttv2q?=
+ =?us-ascii?Q?t/kHD3l2DzLW74H6eIdx+RqSE4oZQXwk3/dqdJrJX1c3uj/QNaq3vg2swwd1?=
+ =?us-ascii?Q?1FPf4lFu7BFozZHnuHMxB99T3umoXhb0pzEoQpX8t/3gq2/0FBAKKRyXCjqX?=
+ =?us-ascii?Q?GQTa4s2NFxtOWOpbte67OcNit9yBrWWSqQmb9OYQyq9WSYixSzWVN5v1bRgy?=
+ =?us-ascii?Q?13m7cQz3QayzKQSu2nF1SnIY3J4VYIgyzlQzbk64/camgOBX7gFegtePT51v?=
+ =?us-ascii?Q?qvcnHYJlmlGLxV32mQiD81THccmMv9ykcueR7+Xk69YB2lrywcXwZ2Y6a6uR?=
+ =?us-ascii?Q?6kgY6GEBJA0xBf1O2VrVCdNGlM0LAUVWgDUIe9c9CoxGNEa3xt0JyHhbahQc?=
+ =?us-ascii?Q?LdD8cAGf/zWIni61BIKdYOyzGmNAxQiag6uOxJVgRxo0KU+luylWIThP6UZ5?=
+ =?us-ascii?Q?wJOidJ8Zja2wIpRVWIZMjQ391HKRwk/zqrrxKamHV9ME9vOicS1JnskdZqdh?=
+ =?us-ascii?Q?SezyOtkUcYtaCVI5+V1vbdV9Zcv16xZoA+PM5mxzGpojRbmtt2NCmMW1DjGR?=
+ =?us-ascii?Q?RZSD3NQlsN6QmRKVbOIAIlpe8nkFP9pLntwvAV9zkW+6ZiJUiiBQGkzZt682?=
+ =?us-ascii?Q?B4HxD2J/M/GI7Su/ZbQuTing6xWFuuH4EpzxGIhPGYBgQmkxi6Ru8JNzSQix?=
+ =?us-ascii?Q?jHAps0lZg+UV/eKblK5UfeWbP860pEZcOfOIcepy585WLL4Z1/EhCrXQ8sxQ?=
+ =?us-ascii?Q?rnfSiF744KRfwvIY63ZGIADbxT19rewp1UncCsNPqFrq1NsgP1pMhZc+pWrW?=
+ =?us-ascii?Q?bUtoAHYxh/5P/kp9Qyx5Xaix3vf4/wIvUpXMp3wGV4LubP55hbLouW6t9lxQ?=
+ =?us-ascii?Q?/iNWOYOOycTOWp2KbYCA10swMZKJAh8UsPc/OTodIcfoD6f83aU9IbFu7mX1?=
+ =?us-ascii?Q?NWJ1I+NX6nuXugU2QZlf572v9F1yIbDJC3I0uGUsNsSrZdnudLqqIebBt4tQ?=
+ =?us-ascii?Q?evM1SfCzl6IlMUWUH8up4BZ3I/mgFWl1hmCNgLd3sBNIfVaLP9W6VPYe+bEA?=
+ =?us-ascii?Q?BB7NaEUgP4NoY2likMo5nwhkUIdYiA1ERHyrHTD77MDYuu1REjo4NY/ZY3Z4?=
+ =?us-ascii?Q?oVq7TWFcNcIssHCP21fpcQeH?=
+Content-Type: multipart/alternative;
+ boundary="_000_DM6PR12MB4650E5C9DCC81B34323EF476B0C89DM6PR12MB4650namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5412.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6b70f097-6273-4f2b-d893-08d968fa8864
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Aug 2021 01:32:28.7037 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4650.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 451c8875-e40b-4a07-02db-08d969046d62
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Aug 2021 02:43:18.3932 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 3idwkUEfmVTA90hrPttHeqD0GW0ITCUFJ6M8zX2odAkDnSOq8InPVUqWWFQwmNgLnb/vLYWA3huGYdhLVdwmYQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5476
+X-MS-Exchange-CrossTenant-userprincipalname: oIeXn86syq6aUoRFODX4yZsSgIj2qi+5DdXiOL5Vkn24UR+z7tasRQu/n4/tRMvZ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1738
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,46 +135,239 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+--_000_DM6PR12MB4650E5C9DCC81B34323EF476B0C89DM6PR12MB4650namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
 [AMD Official Use Only]
 
-Nice catch!
+Reviewed-by: Tao Zhou <tao.zhou1@amd.com<mailto:tao.zhou1@amd.com>>
+________________________________
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Alex Deu=
+cher <alexander.deucher@amd.com>
+Sent: Friday, August 27, 2021 4:32 AM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+Subject: [PATCH] drm/amdgpu: add some additional RDNA2 PCI IDs
 
-Series are Reviewed-by: Huang Rui <ray.huang@amd.com>
+New PCI IDs.
 
-Thanks,
-Ray
-
------Original Message-----
-From: Liu, Aaron <Aaron.Liu@amd.com>=20
-Sent: Friday, August 27, 2021 9:29 AM
-To: amd-gfx@lists.freedesktop.org
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Huang, Ray <Ray.Huang@a=
-md.com>; Kazlauskas, Nicholas <Nicholas.Kazlauskas@amd.com>; Liu, Aaron <Aa=
-ron.Liu@amd.com>
-Subject: [PATCH 2/2] drm/amd/display: setup system context for APUs
-
-Scatter/gather is APU feature starting from carrizo.
-adev->apu_flags is not used for all APUs.
-adev->flags & AMD_IS_APU can be used for all APUs.
-
-Signed-off-by: Aaron Liu <aaron.liu@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
-u/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index e1e57e7465a7..7f311bba9735 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -1327,7 +1327,7 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
- 	dc_hardware_init(adev->dm.dc);
-=20
- #if defined(CONFIG_DRM_AMD_DC_DCN)
--	if (adev->apu_flags) {
-+	if ((adev->flags & AMD_IS_APU) && (adev->asic_type >=3D CHIP_CARRIZO)) {
- 		struct dc_phy_addr_space_config pa_config;
-=20
- 		mmhub_read_system_context(adev, &pa_config);
---=20
-2.25.1
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_drv.c
+index 6400259a7c4b..0bdfdfc29299 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -1181,7 +1181,12 @@ static const struct pci_device_id pciidlist[] =3D {
+         {0x1002, 0x73A1, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_SIENNA_CICHLID=
+},
+         {0x1002, 0x73A2, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_SIENNA_CICHLID=
+},
+         {0x1002, 0x73A3, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_SIENNA_CICHLID=
+},
++       {0x1002, 0x73A5, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_SIENNA_CICHLID}=
+,
++       {0x1002, 0x73A8, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_SIENNA_CICHLID}=
+,
++       {0x1002, 0x73A9, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_SIENNA_CICHLID}=
+,
+         {0x1002, 0x73AB, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_SIENNA_CICHLID=
+},
++       {0x1002, 0x73AC, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_SIENNA_CICHLID}=
+,
++       {0x1002, 0x73AD, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_SIENNA_CICHLID}=
+,
+         {0x1002, 0x73AE, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_SIENNA_CICHLID=
+},
+         {0x1002, 0x73AF, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_SIENNA_CICHLID=
+},
+         {0x1002, 0x73BF, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_SIENNA_CICHLID=
+},
+@@ -1197,6 +1202,11 @@ static const struct pci_device_id pciidlist[] =3D {
+         {0x1002, 0x73C0, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVY_FLOUNDER}=
+,
+         {0x1002, 0x73C1, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVY_FLOUNDER}=
+,
+         {0x1002, 0x73C3, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVY_FLOUNDER}=
+,
++       {0x1002, 0x73DA, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVY_FLOUNDER},
++       {0x1002, 0x73DB, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVY_FLOUNDER},
++       {0x1002, 0x73DC, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVY_FLOUNDER},
++       {0x1002, 0x73DD, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVY_FLOUNDER},
++       {0x1002, 0x73DE, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVY_FLOUNDER},
+         {0x1002, 0x73DF, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVY_FLOUNDER}=
+,
+
+         /* DIMGREY_CAVEFISH */
+@@ -1204,6 +1214,13 @@ static const struct pci_device_id pciidlist[] =3D {
+         {0x1002, 0x73E1, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_DIMGREY_CAVEFI=
+SH},
+         {0x1002, 0x73E2, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_DIMGREY_CAVEFI=
+SH},
+         {0x1002, 0x73E3, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_DIMGREY_CAVEFI=
+SH},
++       {0x1002, 0x73E8, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_DIMGREY_CAVEFIS=
+H},
++       {0x1002, 0x73E9, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_DIMGREY_CAVEFIS=
+H},
++       {0x1002, 0x73EA, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_DIMGREY_CAVEFIS=
+H},
++       {0x1002, 0x73EB, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_DIMGREY_CAVEFIS=
+H},
++       {0x1002, 0x73EC, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_DIMGREY_CAVEFIS=
+H},
++       {0x1002, 0x73ED, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_DIMGREY_CAVEFIS=
+H},
++       {0x1002, 0x73EF, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_DIMGREY_CAVEFIS=
+H},
+         {0x1002, 0x73FF, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_DIMGREY_CAVEFI=
+SH},
+
+         /* Aldebaran */
+--
+2.31.1
+
+
+--_000_DM6PR12MB4650E5C9DCC81B34323EF476B0C89DM6PR12MB4650namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
+gn=3D"Left">
+[AMD Official Use Only]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<span style=3D"font-family:Calibri,sans-serif;background-color:white;margin=
+:0">Reviewed-by: Tao Zhou &lt;</span><a href=3D"mailto:tao.zhou1@amd.com" t=
+arget=3D"_blank" rel=3D"noopener noreferrer" data-auth=3D"NotApplicable" st=
+yle=3D"font-family:Calibri,sans-serif;background-color:white;margin:0" data=
+-linkindex=3D"0">tao.zhou1@amd.com</a><span style=3D"font-family:Calibri,sa=
+ns-serif;background-color:white;margin:0">&gt;</span><br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces@lists.freedesktop.org&gt; on behalf of Alex Deucher &lt;alexander.de=
+ucher@amd.com&gt;<br>
+<b>Sent:</b> Friday, August 27, 2021 4:32 AM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: add some additional RDNA2 PCI IDs</font=
+>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">New PCI IDs.<br>
+<br>
+Signed-off-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 17 +++++++++++++++++<br>
+&nbsp;1 file changed, 17 insertions(+)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_drv.c<br>
+index 6400259a7c4b..0bdfdfc29299 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
+@@ -1181,7 +1181,12 @@ static const struct pci_device_id pciidlist[] =3D {<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x1002, 0x73A1, PCI_ANY_I=
+D, PCI_ANY_ID, 0, 0, CHIP_SIENNA_CICHLID},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x1002, 0x73A2, PCI_ANY_I=
+D, PCI_ANY_ID, 0, 0, CHIP_SIENNA_CICHLID},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x1002, 0x73A3, PCI_ANY_I=
+D, PCI_ANY_ID, 0, 0, CHIP_SIENNA_CICHLID},<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x1002, 0x73A5, PCI_ANY_ID, PCI_ANY_=
+ID, 0, 0, CHIP_SIENNA_CICHLID},<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x1002, 0x73A8, PCI_ANY_ID, PCI_ANY_=
+ID, 0, 0, CHIP_SIENNA_CICHLID},<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x1002, 0x73A9, PCI_ANY_ID, PCI_ANY_=
+ID, 0, 0, CHIP_SIENNA_CICHLID},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x1002, 0x73AB, PCI_ANY_I=
+D, PCI_ANY_ID, 0, 0, CHIP_SIENNA_CICHLID},<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x1002, 0x73AC, PCI_ANY_ID, PCI_ANY_=
+ID, 0, 0, CHIP_SIENNA_CICHLID},<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x1002, 0x73AD, PCI_ANY_ID, PCI_ANY_=
+ID, 0, 0, CHIP_SIENNA_CICHLID},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x1002, 0x73AE, PCI_ANY_I=
+D, PCI_ANY_ID, 0, 0, CHIP_SIENNA_CICHLID},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x1002, 0x73AF, PCI_ANY_I=
+D, PCI_ANY_ID, 0, 0, CHIP_SIENNA_CICHLID},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x1002, 0x73BF, PCI_ANY_I=
+D, PCI_ANY_ID, 0, 0, CHIP_SIENNA_CICHLID},<br>
+@@ -1197,6 +1202,11 @@ static const struct pci_device_id pciidlist[] =3D {<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x1002, 0x73C0, PCI_ANY_I=
+D, PCI_ANY_ID, 0, 0, CHIP_NAVY_FLOUNDER},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x1002, 0x73C1, PCI_ANY_I=
+D, PCI_ANY_ID, 0, 0, CHIP_NAVY_FLOUNDER},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x1002, 0x73C3, PCI_ANY_I=
+D, PCI_ANY_ID, 0, 0, CHIP_NAVY_FLOUNDER},<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x1002, 0x73DA, PCI_ANY_ID, PCI_ANY_=
+ID, 0, 0, CHIP_NAVY_FLOUNDER},<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x1002, 0x73DB, PCI_ANY_ID, PCI_ANY_=
+ID, 0, 0, CHIP_NAVY_FLOUNDER},<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x1002, 0x73DC, PCI_ANY_ID, PCI_ANY_=
+ID, 0, 0, CHIP_NAVY_FLOUNDER},<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x1002, 0x73DD, PCI_ANY_ID, PCI_ANY_=
+ID, 0, 0, CHIP_NAVY_FLOUNDER},<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x1002, 0x73DE, PCI_ANY_ID, PCI_ANY_=
+ID, 0, 0, CHIP_NAVY_FLOUNDER},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x1002, 0x73DF, PCI_ANY_I=
+D, PCI_ANY_ID, 0, 0, CHIP_NAVY_FLOUNDER},<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* DIMGREY_CAVEFISH */<br>
+@@ -1204,6 +1214,13 @@ static const struct pci_device_id pciidlist[] =3D {<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x1002, 0x73E1, PCI_ANY_I=
+D, PCI_ANY_ID, 0, 0, CHIP_DIMGREY_CAVEFISH},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x1002, 0x73E2, PCI_ANY_I=
+D, PCI_ANY_ID, 0, 0, CHIP_DIMGREY_CAVEFISH},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x1002, 0x73E3, PCI_ANY_I=
+D, PCI_ANY_ID, 0, 0, CHIP_DIMGREY_CAVEFISH},<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x1002, 0x73E8, PCI_ANY_ID, PCI_ANY_=
+ID, 0, 0, CHIP_DIMGREY_CAVEFISH},<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x1002, 0x73E9, PCI_ANY_ID, PCI_ANY_=
+ID, 0, 0, CHIP_DIMGREY_CAVEFISH},<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x1002, 0x73EA, PCI_ANY_ID, PCI_ANY_=
+ID, 0, 0, CHIP_DIMGREY_CAVEFISH},<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x1002, 0x73EB, PCI_ANY_ID, PCI_ANY_=
+ID, 0, 0, CHIP_DIMGREY_CAVEFISH},<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x1002, 0x73EC, PCI_ANY_ID, PCI_ANY_=
+ID, 0, 0, CHIP_DIMGREY_CAVEFISH},<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x1002, 0x73ED, PCI_ANY_ID, PCI_ANY_=
+ID, 0, 0, CHIP_DIMGREY_CAVEFISH},<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x1002, 0x73EF, PCI_ANY_ID, PCI_ANY_=
+ID, 0, 0, CHIP_DIMGREY_CAVEFISH},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x1002, 0x73FF, PCI_ANY_I=
+D, PCI_ANY_ID, 0, 0, CHIP_DIMGREY_CAVEFISH},<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Aldebaran */<br>
+-- <br>
+2.31.1<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_DM6PR12MB4650E5C9DCC81B34323EF476B0C89DM6PR12MB4650namp_--
