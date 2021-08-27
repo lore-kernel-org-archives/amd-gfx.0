@@ -7,48 +7,48 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 69E14C432BE
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Aug 2021 20:45:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2EB22C4320A
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Aug 2021 20:45:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2B3F660EE9
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Aug 2021 20:45:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2B3F660EE9
+	by mail.kernel.org (Postfix) with ESMTPS id E71FA60E93
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Aug 2021 20:45:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E71FA60E93
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ADC6D6E9D3;
-	Fri, 27 Aug 2021 20:45:09 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2083.outbound.protection.outlook.com [40.107.237.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B22B6E9D3
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Aug 2021 20:45:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91E6B6E9D5;
+	Fri, 27 Aug 2021 20:45:11 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2084.outbound.protection.outlook.com [40.107.223.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D08086E9D6
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 Aug 2021 20:45:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=O4fIg7/Sf6+OWV7lnHdJbjaaMrxAHMONxkz/iq1hAeuvbyxqKdxN8K73aX1GBTG9Rtv9cJ84sYHDr5/6JZFE3f0jOU7Kj71cP8ZcNyXZ/MFIOVDczUo2F6UAseqVosEY3MQJZb1DmmZoanItvXTtjtyMwSMeCe7X2yASan0uHCjLNuG/eZK2c81Bic61bv5sduMEgJd0jekyhi2Vuod1cKWh4C1CJHnx3UlgZy2Cq4eDT2E5xowI4/fA9NlPC47ZQgbqbbZeGk3wNKpD3/F9F+x9OmfODaMymbDBTS15LvnQ0rwGqDfPDqxHaXsqoWe12jbLWynE3Guon4ktXAGewg==
+ b=ZqIzyUqzCONjY6MVoA4S+z5P3Bbdz2utrpV0yd5iFZEOfHsQwtQ/wb/esyaFIssm9kv8e8nzwM/w/1aSN7K1SP818aVEsjKZjmZvaFtEZvtIHYZdykEfi2zpR4CLNZ9cyX0NhchhaATB6exFKtg5KNHweJM4UliNjKYhvd3n+Jds9HGmIXMCxkFX9o0yKhJvH2Q+zjVAesRDAvEAG4aDa8ITi+dWWEBaRkHnj7qtzjRHTXSg7ckxWcEhUGRgMtFmSH+Xcj8RQwmdsCZ2mwViFT8uTcOJ02iEJTCw/kDzQry3/U5DWuFTrMwCstO03zyzduOvvUSnegAJaxfIHDvYBw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SwHlA7Fql8iy6JADw+8uQaQ9Fj/HtTmVqUbKmUvycWE=;
- b=FYn/+zS+NGbx421uCOFFs4rd/75dfAw6bdXtgpQkis412e2JfawDHe1CZdCzSB8Ay8sbulnCAfDTuQ/WQnSIL8z/vl13/1SqQqkPY1POGFxod7I6QiPCBOjS9f0Y/jXw8TQJWg4BRaJLFk3D58QH3pRZhll+WfBxLgc/H8Jn6mA6/LF254oxEYxA3/O7IumoCjf86m5ik0oGP6dj2Wuw1G+eeSXpscB1LGiAawjSYHR4PpzC7Kv4S1i/5W1/GWVLyXGFxVmDDjm5ZXTZmN5lrEdF7Di0aXUcbELnxH/ztiZuPR0YtOwqPgCCaAC5crt1EcHKY510egsc4UM5PUN+Pw==
+ bh=2ogoQNc+/UhHzsmE25G/Cg81kR3V4VUrycB5u099638=;
+ b=LtP4zQpfFnMiGeKy0/7UIE7qsee6+UF5Rtad2QoXV8TI/Tg/p5O4oLEC/tWkEGdJFYDR9fC6YWsJWruSOrPqdJK9PexyoaJXA2S/jVc0eVPJUgjv9ImcH7fnW+mUVhnJy3i7cVSVt48EZzl7HKXO/kGNCDHW22aAv/pKDxmUVbo6XtpvamjqKzvYMr1DWF3TOdgUwVu1QVmwLsOrWPsUNp9phvTY+PzOCvoQO0bohLrjVXI69pf9SYERml2Q4Uk0d5V7AaxPEqIQqq7vLtjxOX+fLJLvxzr+Wg1iFrFcyI/Pjg4az3aWf0/u5fYXsKA+r3hbsZ/mBJsmfIyKr2503Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SwHlA7Fql8iy6JADw+8uQaQ9Fj/HtTmVqUbKmUvycWE=;
- b=JnWxGgciTayuNL3YoARmlLG+4XXNyxNjdOYArF/UkHJU6Pv4znM0Nqa+ac/IXSkv7mK86WWmNHTuMiBmxDNeNmgJSnXPji1ViseNn6Ih5wwhpOFSc0ma2LQTxNZhbudwmkOoThlxydTYpQCykGZefI3vwPReDbQaeWMEt5q7X50=
-Received: from MWHPR11CA0013.namprd11.prod.outlook.com (2603:10b6:301:1::23)
- by BYAPR12MB3448.namprd12.prod.outlook.com (2603:10b6:a03:ad::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.22; Fri, 27 Aug
- 2021 20:29:25 +0000
-Received: from CO1NAM11FT043.eop-nam11.prod.protection.outlook.com
- (2603:10b6:301:1:cafe::f4) by MWHPR11CA0013.outlook.office365.com
- (2603:10b6:301:1::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.21 via Frontend
- Transport; Fri, 27 Aug 2021 20:29:25 +0000
+ bh=2ogoQNc+/UhHzsmE25G/Cg81kR3V4VUrycB5u099638=;
+ b=5PvQFMKldYjiMQegyPki0K8HrqeI3iGuCWAvHsUFxZHTihu49dl0xlMCnRrsEYKWS3HgzJh9Mpzggk2QpHgJVoWdtLEQ6fCKGm1SsDWedlIBeEyAsbaCiyrN+wUCIGKX486d4S8T5DjgO3KZawgxNLa8K8chm5egpUAVcd14Ij8=
+Received: from MW4PR03CA0142.namprd03.prod.outlook.com (2603:10b6:303:8c::27)
+ by SJ0PR12MB5407.namprd12.prod.outlook.com (2603:10b6:a03:3ac::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.17; Fri, 27 Aug
+ 2021 20:29:32 +0000
+Received: from CO1NAM11FT015.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:8c:cafe::b0) by MW4PR03CA0142.outlook.office365.com
+ (2603:10b6:303:8c::27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.18 via Frontend
+ Transport; Fri, 27 Aug 2021 20:29:32 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -57,23 +57,22 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT043.mail.protection.outlook.com (10.13.174.193) with Microsoft SMTP
+ CO1NAM11FT015.mail.protection.outlook.com (10.13.175.130) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4457.17 via Frontend Transport; Fri, 27 Aug 2021 20:29:25 +0000
+ 15.20.4457.17 via Frontend Transport; Fri, 27 Aug 2021 20:29:32 +0000
 Received: from DESKTOP-9DR2N9S.localdomain (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2242.12; Fri, 27 Aug 2021 15:29:23 -0500
+ 15.1.2242.12; Fri, 27 Aug 2021 15:29:31 -0500
 From: Mikita Lipski <mikita.lipski@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <Bhawanpreet.Lakha@amd.com>, <Rodrigo.Siqueira@amd.com>,
  <Aurabindo.Pillai@amd.com>, <Qingqing.Zhuo@amd.com>, <mikita.lipski@amd.com>, 
- <Anson.Jacob@amd.com>, Michael Strauss <michael.strauss@amd.com>, "Nicholas
- Kazlauskas" <Nicholas.Kazlauskas@amd.com>
-Subject: [PATCH 02/19] drm/amd/display: Initialize lt_settings on instantiation
-Date: Fri, 27 Aug 2021 16:28:53 -0400
-Message-ID: <20210827202910.20864-3-mikita.lipski@amd.com>
+ <Anson.Jacob@amd.com>, Wayne Lin <Wayne.Lin@amd.com>
+Subject: [PATCH 08/19] drm/amd/display: Add option to defer works of hpd_rx_irq
+Date: Fri, 27 Aug 2021 16:28:59 -0400
+Message-ID: <20210827202910.20864-9-mikita.lipski@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210827202910.20864-1-mikita.lipski@amd.com>
 References: <20210827202910.20864-1-mikita.lipski@amd.com>
@@ -85,28 +84,28 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 086cffd9-a4eb-47d9-2fb6-08d969995cbe
-X-MS-TrafficTypeDiagnostic: BYAPR12MB3448:
-X-Microsoft-Antispam-PRVS: <BYAPR12MB344892D4CEEF5CAE4141C20AE4C89@BYAPR12MB3448.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:962;
+X-MS-Office365-Filtering-Correlation-Id: 83eab2ce-6562-45ea-0785-08d9699960f8
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB5407:
+X-Microsoft-Antispam-PRVS: <SJ0PR12MB540727EB1EB0ED3965A13D91E4C89@SJ0PR12MB5407.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:983;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 2tAVyandQe3j8dIN1xynK3YkshER1lRXLEaB7bBXNj3ITjP86aS7+uHSPiIJUf54fJ9qVWyTERIrlerHebkjrRUj3XVaTK4u5yPlLqkTLHKdEUp22iddUI9T5lrevTEMV9/1tCqd7D76TpqJwrQQ6c5ThKCOo7RcZE6JRCR5/QvBm63nJLLpjSjGWXEuFOr5/XfisgQbwnC5YUawSrbjlMkuV4MVnJH8aqseb5rydEJX/9aGLpWPuQWh8qkr30IuAmMkGTp5ff+TtZeekyq7UG0rCF7opElW4LHJIUFwvsbbcIGQSB+qBUR6sXDzp4xBo0Qh0YPKc9LRHWvFezK6tfzr8OuLL2qgZdDfNylTK5bh0KzUpQduAhSBakVEvuW8ZbSnu5Gk7D5yCoyJxodPcW0ui/eTC6J2lvQwaRjOEr9gcS3U5gA5/QaC1DzM2/qMpTtN+Kxf0HUw9Zoicw6Zvy7UDR+8H98BsmNopvbc9fLt38udaJ/Su8rZQASY7EOXqvVAPaFXZmnmRTdt/b5hJ6n+spTeKiWB97fdcu/6Sf8AK1xcphMxdJuVasyKvMRhj8uCuqzSZtUBAIIDbmYU0YDkheEKKSgcobmTqkbF7RztKZelxmeTtoXvccDhfC97FTKTL1/mjm2Zsd82CpuSox6APTmNeiDHNDNRrgT52CjjemRlB12tc9GbknqX4Ppf5sxHBcRQ2XB49ZvVv540PUnTrr9lVrIZNvVPV9EzcyI=
+X-Microsoft-Antispam-Message-Info: +tXqpBzIEA+4KTIA1sM9gVEI2Py3SmR4UQYa2xLhfX2EUp2lqM6Dmjv9cuGEVQzKLZ7uTRVZ37MfVzWQzJ14Ly0PWjRLPDuEIK8xD+XjQddxRgfPbTJSGe8JLZ65Rw4oOYW+ehXuTrP4rGk9W2rLmmbwevQUz6rKtD/zt1rESFGLdu5p5IsaUB/ia/r4SWvz7AI7X+u2GmvsWWAy9zqbYMgs3IYsXWUTK+gQrq24lxz82k2dhAQdhobuFzPOgm8ZU8jDDVQ4YhkXk/agAB1q//i4iEJAUpPFJoM215t74qIGfCNzeULUpUjXAf7bk22qqirJWRcVNQslHXpPdTA3IBRfC/z70u1zsC0Ke396+rXiBJv2JWNnqF3dZ5KtFOoDXkIwJW5WiKxlkJA+tYwIoSlzJO0EebzyNWJJTXPq5y9QHabwqO1IBu0J8lPp5TkHNeDacVuA2K3Cqrh10YQRAFK76XBxGcp62bqUWrVTLCGSx/3ZmqGfYqtYL2jjdNj2WbZkxWRhdNxKlRNUTJ2Zuz8ldwfWFrAneX/PXdHIYA0lNCs9B/373h2pV3gnvkjbwznEyBlgSzgFp4UTON/DRJrRq6wksQVEubcCL3rsHxKbY8ubm2zkNdCQs9nsr7fpRzKnR+Bw9xoR7xQ8614JGn2yQKsA6lJDDwUIBxdwBSj/HebHmTFM0GXKki95CifDtEq1OYxDsLVcYO5AFvss+yb84u8GLjFsPt4fkLNLIqs=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(8676002)(70586007)(36756003)(6916009)(54906003)(336012)(6666004)(508600001)(426003)(16526019)(83380400001)(44832011)(2616005)(4326008)(186003)(316002)(81166007)(8936002)(36860700001)(86362001)(82310400003)(5660300002)(26005)(356005)(2906002)(47076005)(70206006)(1076003)(36900700001);
+ SFS:(4636009)(39860400002)(346002)(376002)(136003)(396003)(46966006)(36840700001)(8936002)(36860700001)(4326008)(82740400003)(1076003)(70206006)(356005)(70586007)(478600001)(54906003)(81166007)(83380400001)(316002)(44832011)(2906002)(6916009)(86362001)(2616005)(6666004)(82310400003)(47076005)(36756003)(5660300002)(26005)(16526019)(336012)(426003)(8676002)(186003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2021 20:29:25.4937 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 086cffd9-a4eb-47d9-2fb6-08d969995cbe
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2021 20:29:32.5837 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 83eab2ce-6562-45ea-0785-08d9699960f8
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT043.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT015.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3448
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5407
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,50 +120,201 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Michael Strauss <michael.strauss@amd.com>
+From: Wayne Lin <Wayne.Lin@amd.com>
 
-[WHY]
-lt_settings' pointers remain uninitialized but nonzero if display fails
-to light up with no DPCD/EDID info populated, leading to a hang on access
+[Why & How]
+Due to some code flow constraints, we need to defer dc_lock needed works
+from dc_link_handle_hpd_rx_irq(). Thus, do following changes:
 
-Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
+* Change allow_hpd_rx_irq() from static to public
+* Change handle_automated_test() from static to public
+* Extract link lost handling flow out from dc_link_handle_hpd_rx_irq()
+  and put those into a new function dc_link_dp_handle_link_loss()
+* Add one option parameter to decide whether defer works within
+  dc_link_handle_hpd_rx_irq()
+
+Reviewed-by: Mikita Lipski <mikita.lipski@amd.com>
 Acked-by: Mikita Lipski <mikita.lipski@amd.com>
-Signed-off-by: Michael Strauss <michael.strauss@amd.com>
+Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ .../gpu/drm/amd/display/dc/core/dc_link_dp.c  | 92 ++++++++++++-------
+ drivers/gpu/drm/amd/display/dc/dc_link.h      |  3 +
+ 2 files changed, 63 insertions(+), 32 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-index 8b35cd9d4c01..20bbde8524b8 100644
+index 44d7826e7654..f6589dc7a370 100644
 --- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
 +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-@@ -1561,7 +1561,7 @@ bool dc_link_dp_perform_link_training_skip_aux(
+@@ -2746,7 +2746,7 @@ void decide_link_settings(struct dc_stream_state *stream,
+ }
+ 
+ /*************************Short Pulse IRQ***************************/
+-static bool allow_hpd_rx_irq(const struct dc_link *link)
++bool dc_link_dp_allow_hpd_rx_irq(const struct dc_link *link)
+ {
+ 	/*
+ 	 * Don't handle RX IRQ unless one of following is met:
+@@ -3180,7 +3180,7 @@ static void dp_test_get_audio_test_data(struct dc_link *link, bool disable_video
+ 	}
+ }
+ 
+-static void handle_automated_test(struct dc_link *link)
++void dc_link_dp_handle_automated_test(struct dc_link *link)
+ {
+ 	union test_request test_request;
+ 	union test_response test_response;
+@@ -3229,17 +3229,50 @@ static void handle_automated_test(struct dc_link *link)
+ 			sizeof(test_response));
+ }
+ 
+-bool dc_link_handle_hpd_rx_irq(struct dc_link *link, union hpd_irq_data *out_hpd_irq_dpcd_data, bool *out_link_loss)
++void dc_link_dp_handle_link_loss(struct dc_link *link)
++{
++	int i;
++	struct pipe_ctx *pipe_ctx;
++
++	for (i = 0; i < MAX_PIPES; i++) {
++		pipe_ctx = &link->dc->current_state->res_ctx.pipe_ctx[i];
++		if (pipe_ctx && pipe_ctx->stream && pipe_ctx->stream->link == link)
++			break;
++	}
++
++	if (pipe_ctx == NULL || pipe_ctx->stream == NULL)
++		return;
++
++	for (i = 0; i < MAX_PIPES; i++) {
++		pipe_ctx = &link->dc->current_state->res_ctx.pipe_ctx[i];
++		if (pipe_ctx && pipe_ctx->stream && !pipe_ctx->stream->dpms_off &&
++				pipe_ctx->stream->link == link && !pipe_ctx->prev_odm_pipe) {
++			core_link_disable_stream(pipe_ctx);
++		}
++	}
++
++	for (i = 0; i < MAX_PIPES; i++) {
++		pipe_ctx = &link->dc->current_state->res_ctx.pipe_ctx[i];
++		if (pipe_ctx && pipe_ctx->stream && !pipe_ctx->stream->dpms_off &&
++				pipe_ctx->stream->link == link && !pipe_ctx->prev_odm_pipe) {
++			core_link_enable_stream(link->dc->current_state, pipe_ctx);
++		}
++	}
++}
++
++static bool handle_hpd_rx_irq(struct dc_link *link, union hpd_irq_data *out_hpd_irq_dpcd_data, bool *out_link_loss,
++							bool defer_handling, bool *has_left_work)
+ {
+ 	union hpd_irq_data hpd_irq_dpcd_data = { { { {0} } } };
+ 	union device_service_irq device_service_clear = { { 0 } };
+ 	enum dc_status result;
+ 	bool status = false;
+-	struct pipe_ctx *pipe_ctx;
+-	int i;
+ 
+ 	if (out_link_loss)
+ 		*out_link_loss = false;
++
++	if (has_left_work)
++		*has_left_work = false;
+ 	/* For use cases related to down stream connection status change,
+ 	 * PSR and device auto test, refer to function handle_sst_hpd_irq
+ 	 * in DAL2.1*/
+@@ -3271,11 +3304,14 @@ bool dc_link_handle_hpd_rx_irq(struct dc_link *link, union hpd_irq_data *out_hpd
+ 			&device_service_clear.raw,
+ 			sizeof(device_service_clear.raw));
+ 		device_service_clear.raw = 0;
+-		handle_automated_test(link);
++		if (defer_handling && has_left_work)
++			*has_left_work = true;
++		else
++			dc_link_dp_handle_automated_test(link);
+ 		return false;
+ 	}
+ 
+-	if (!allow_hpd_rx_irq(link)) {
++	if (!dc_link_dp_allow_hpd_rx_irq(link)) {
+ 		DC_LOG_HW_HPD_IRQ("%s: skipping HPD handling on %d\n",
+ 			__func__, link->link_index);
+ 		return false;
+@@ -3289,12 +3325,18 @@ bool dc_link_handle_hpd_rx_irq(struct dc_link *link, union hpd_irq_data *out_hpd
+ 	 * so do not handle as a normal sink status change interrupt.
+ 	 */
+ 
+-	if (hpd_irq_dpcd_data.bytes.device_service_irq.bits.UP_REQ_MSG_RDY)
++	if (hpd_irq_dpcd_data.bytes.device_service_irq.bits.UP_REQ_MSG_RDY) {
++		if (defer_handling && has_left_work)
++			*has_left_work = true;
+ 		return true;
++	}
+ 
+ 	/* check if we have MST msg and return since we poll for it */
+-	if (hpd_irq_dpcd_data.bytes.device_service_irq.bits.DOWN_REP_MSG_RDY)
++	if (hpd_irq_dpcd_data.bytes.device_service_irq.bits.DOWN_REP_MSG_RDY) {
++		if (defer_handling && has_left_work)
++			*has_left_work = true;
+ 		return false;
++	}
+ 
+ 	/* For now we only handle 'Downstream port status' case.
+ 	 * If we got sink count changed it means
+@@ -3311,29 +3353,10 @@ bool dc_link_handle_hpd_rx_irq(struct dc_link *link, union hpd_irq_data *out_hpd
+ 					sizeof(hpd_irq_dpcd_data),
+ 					"Status: ");
+ 
+-		for (i = 0; i < MAX_PIPES; i++) {
+-			pipe_ctx = &link->dc->current_state->res_ctx.pipe_ctx[i];
+-			if (pipe_ctx && pipe_ctx->stream && pipe_ctx->stream->link == link)
+-				break;
+-		}
+-
+-		if (pipe_ctx == NULL || pipe_ctx->stream == NULL)
+-			return false;
+-
+-
+-		for (i = 0; i < MAX_PIPES; i++) {
+-			pipe_ctx = &link->dc->current_state->res_ctx.pipe_ctx[i];
+-			if (pipe_ctx && pipe_ctx->stream && !pipe_ctx->stream->dpms_off &&
+-					pipe_ctx->stream->link == link && !pipe_ctx->prev_odm_pipe)
+-				core_link_disable_stream(pipe_ctx);
+-		}
+-
+-		for (i = 0; i < MAX_PIPES; i++) {
+-			pipe_ctx = &link->dc->current_state->res_ctx.pipe_ctx[i];
+-			if (pipe_ctx && pipe_ctx->stream && !pipe_ctx->stream->dpms_off &&
+-					pipe_ctx->stream->link == link && !pipe_ctx->prev_odm_pipe)
+-				core_link_enable_stream(link->dc->current_state, pipe_ctx);
+-		}
++		if (defer_handling && has_left_work)
++			*has_left_work = true;
++		else
++			dc_link_dp_handle_link_loss(link);
+ 
+ 		status = false;
+ 		if (out_link_loss)
+@@ -3359,6 +3382,11 @@ bool dc_link_handle_hpd_rx_irq(struct dc_link *link, union hpd_irq_data *out_hpd
+ 	return status;
+ }
+ 
++bool dc_link_handle_hpd_rx_irq(struct dc_link *link, union hpd_irq_data *out_hpd_irq_dpcd_data, bool *out_link_loss)
++{
++	return handle_hpd_rx_irq(link, out_hpd_irq_dpcd_data, out_link_loss, false, NULL);
++}
++
+ /*query dpcd for version and mst cap addresses*/
+ bool is_mst_supported(struct dc_link *link)
+ {
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_link.h b/drivers/gpu/drm/amd/display/dc/dc_link.h
+index 83845d006c54..0efa2bc8639b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_link.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_link.h
+@@ -308,6 +308,9 @@ bool dc_link_wait_for_t12(struct dc_link *link);
+ enum dc_status read_hpd_rx_irq_data(
  	struct dc_link *link,
- 	const struct dc_link_settings *link_setting)
- {
--	struct link_training_settings lt_settings;
-+	struct link_training_settings lt_settings = {0};
+ 	union hpd_irq_data *irq_data);
++void dc_link_dp_handle_automated_test(struct dc_link *link);
++void dc_link_dp_handle_link_loss(struct dc_link *link);
++bool dc_link_dp_allow_hpd_rx_irq(const struct dc_link *link);
  
- 	dp_decide_training_settings(
- 			link,
-@@ -1707,7 +1707,7 @@ enum link_training_result dc_link_dp_perform_link_training(
- 	bool skip_video_pattern)
- {
- 	enum link_training_result status = LINK_TRAINING_SUCCESS;
--	struct link_training_settings lt_settings;
-+	struct link_training_settings lt_settings = {0};
- 	enum dp_link_encoding encoding =
- 			dp_get_link_encoding_format(link_settings);
+ struct dc_sink_init_data;
  
-@@ -1944,7 +1944,7 @@ enum link_training_result dc_link_dp_sync_lt_attempt(
-     struct dc_link_settings *link_settings,
-     struct dc_link_training_overrides *lt_overrides)
- {
--	struct link_training_settings lt_settings;
-+	struct link_training_settings lt_settings = {0};
- 	enum link_training_result lt_status = LINK_TRAINING_SUCCESS;
- 	enum dp_panel_mode panel_mode = DP_PANEL_MODE_DEFAULT;
- 	enum clock_source_id dp_cs_id = CLOCK_SOURCE_ID_EXTERNAL;
 -- 
 2.25.1
 
