@@ -2,99 +2,130 @@ Return-Path: <SRS0=EvCx=NS=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-19.5 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DC0E3C43214
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Aug 2021 03:41:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 01DFDC432BE
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Aug 2021 04:38:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 866E060EB3
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Aug 2021 03:41:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 866E060EB3
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=chromium.org
+	by mail.kernel.org (Postfix) with ESMTPS id 8524760F92
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Aug 2021 04:38:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8524760F92
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7468C6E8D4;
-	Fri, 27 Aug 2021 03:41:31 +0000 (UTC)
-Received: from mail-pj1-x102f.google.com (mail-pj1-x102f.google.com
- [IPv6:2607:f8b0:4864:20::102f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCD406E054
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Aug 2021 03:16:51 +0000 (UTC)
-Received: by mail-pj1-x102f.google.com with SMTP id
- u13-20020a17090abb0db0290177e1d9b3f7so8012201pjr.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Aug 2021 20:16:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=0Bce03JETrzRTBCx67BKzzG67CqV+rVyAmVgfbY2R98=;
- b=TQzwMV1p5Prk0gGyavK+W/IvCmvya/Vc+wjN8gRjd7LuFrilVEKRfmOwf0YvRseQ+R
- cOfZRyFilbMnzNh3M1liQe6ihaIoNeJtN6SJCZW3gzkAnbdw7xxS1iADYhPIT/3Ajp2Z
- arHAPghOAlIep79ygmgdiSiywjkwtH8ze6U70=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=0Bce03JETrzRTBCx67BKzzG67CqV+rVyAmVgfbY2R98=;
- b=XmIXeAhCVjeN+RNRXi39p3fXWbz617Ya+0T5jArARiln0M0wmJO85qkXjkwZNMwwLQ
- T+mNX5kZsB9hXRYg/IawR6Nu6I68MfC2tZTTJ0WH/D83DmJxD5n9e6l+sB3ZKv/ydoqv
- YsgFrTo0bcGanKR1dvGRR7seZtH5hVQdZnYgno6YAD075i8lonz+/P0CF9TXKIy3Ko1S
- 0F1ALwpDwDc1/XoQJxu2+AWaRDRsrxPK8nLZeDh5MI6ZBNBPEYk0JVu/f5dBYkqLaV7D
- ZByxXyUnk6Dp7VJfIDGp17J4yrfuWUZdsab5ebFFHNJ9R4qK/40VciIuad+cikpCeUaY
- yy2A==
-X-Gm-Message-State: AOAM532Eeiu84z5QggZYwWSejlfhLC75YDEBSCF79wQsaFLMNTP1yj7r
- 5vBKwnp1AwNa9AnS93mb5WhC5w==
-X-Google-Smtp-Source: ABdhPJwPyyT+f3x1j2UZaMSQO66Rv6bh+5vZ0anST2XY4etb3TPn4bp/ofgQxQcwcdfUHBO2y0GWYg==
-X-Received: by 2002:a17:90b:f8d:: with SMTP id
- ft13mr20345178pjb.228.1630034211114; 
- Thu, 26 Aug 2021 20:16:51 -0700 (PDT)
-Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
- by smtp.gmail.com with ESMTPSA id b17sm5185691pgl.61.2021.08.26.20.16.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Aug 2021 20:16:50 -0700 (PDT)
-From: Kees Cook <keescook@chromium.org>
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: Kees Cook <keescook@chromium.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Hawking Zhang <Hawking.Zhang@amd.com>,
- Feifei Xu <Feifei.Xu@amd.com>, Likun Gao <Likun.Gao@amd.com>,
- Jiawei Gu <Jiawei.Gu@amd.com>, Evan Quan <evan.quan@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Lijo Lazar <lijo.lazar@amd.com>, Darren Powell <darren.powell@amd.com>,
- Huang Rui <ray.huang@amd.com>, Xiaojian Du <Xiaojian.Du@amd.com>,
- Ryan Taylor <Ryan.Taylor@amd.com>, Graham Sider <Graham.Sider@amd.com>,
- Luben Tuikov <luben.tuikov@amd.com>,
- Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- Kevin Wang <kevin1.wang@amd.com>, David M Nieto <david.nieto@amd.com>,
- Lee Jones <lee.jones@linaro.org>, John Clements <john.clements@amd.com>,
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: [PATCH v3] drm/amd/pm: And destination bounds checking to struct copy
-Date: Thu, 26 Aug 2021 20:16:47 -0700
-Message-Id: <20210827031647.2069945-1-keescook@chromium.org>
-X-Mailer: git-send-email 2.30.2
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DDFB6E067;
+	Fri, 27 Aug 2021 04:38:02 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2058.outbound.protection.outlook.com [40.107.220.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B03536E067
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 Aug 2021 04:38:00 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=lLRE8OLA2O34LrlfqwsIQOdi62egjC7wXVzt4eAUcUq0J/kBPfALMnsHu4z2ibOYBLVMd+0gFsc2Q9G3CzpTTr/msoj6h86THMXIKnNZ1kIRpcxj7emff2PAyP+FnhOXOQnjGjDW1P9onXr/rwG3ywjoSMoPQC8FqRaANDvKl2Mc+76GVT0NAmnvdSSy5wl2YVQYWTNZUFlAoELWFn51k+joTKaKNY1sZWB41vi/IozzqKY/Iq9FELD6FSsgS3zWvlkb2yVQ1nPF4FhnytzPwrBnGjSsn2Q+FQofbPCh/cEW//caKCqQtKqRIPpH4TFfWOto36l+lwu6W4BxpfqvnA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4VJYJnQ7rRq0dX7AwvHiGAlmlun23egRh15TZ2tNp+k=;
+ b=Eflx8OR9a2IHNJ7tjCH5IRsVDZg3buAGYKPyq5kOuNZDFSDlMGQcOZu3wTsNPYv+ODx6lKn2JkEt45mcIZ8m4KOnnVjj6sPJSBnf38r/ybK/jsvozsV4MnU8Pr5g+6e4CoYg3awFFpqhOVTop6bcEyZkqDe2GOYbMZiliZw75Tm4aEqGTgpdrJ2XMxPT5lTYMMOIkIWbPvAp5pBCh9XtANQfjvf2wV+Jij0TmIS6FIqsKezfdi1BwzaKdoEDohUMbsKmF2XjZrb4+H2PUX749YkqbBrblOfo5HiO/iQuUFJVLP/yxjuN+G52qjEpO8lFASG92LU6mEyhZv4N5wLTYg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4VJYJnQ7rRq0dX7AwvHiGAlmlun23egRh15TZ2tNp+k=;
+ b=1HZ5ECV1mwBSZLDPkb0BOkhmP/+jpddac7b7peXZKcbLADfUm5Gn3AtWcq+/wPhJwQ09o6q//nm3v5F4FPb8epMhpZ/TNnO+vVN7sRETGgeh45n3v+vENBGD2QitFhhBir0uTvOFVoV+U+DtB5+sFfbTiPPvbs9DCuFa4FLvVqE=
+Received: from BL1PR12MB5303.namprd12.prod.outlook.com (2603:10b6:208:317::14)
+ by BL1PR12MB5352.namprd12.prod.outlook.com (2603:10b6:208:314::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.15; Fri, 27 Aug
+ 2021 04:37:58 +0000
+Received: from BL1PR12MB5303.namprd12.prod.outlook.com
+ ([fe80::15fb:10e0:6892:6fb4]) by BL1PR12MB5303.namprd12.prod.outlook.com
+ ([fe80::15fb:10e0:6892:6fb4%7]) with mapi id 15.20.4457.021; Fri, 27 Aug 2021
+ 04:37:58 +0000
+From: "Mahapatra, Rajib" <Rajib.Mahapatra@amd.com>
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Wentland, Harry"
+ <Harry.Wentland@amd.com>, "Kazlauskas, Nicholas"
+ <Nicholas.Kazlauskas@amd.com>, "Wu, Hersen" <hersenxs.wu@amd.com>
+CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amd/display: Set the domain as GTT when VRAM size <=
+ 32 MB
+Thread-Topic: [PATCH] drm/amd/display: Set the domain as GTT when VRAM size <=
+ 32 MB
+Thread-Index: AQHXmqVX8TtkZXjidkyezXkimdiAd6uGGDqAgACp/dA=
+Date: Fri, 27 Aug 2021 04:37:58 +0000
+Message-ID: <BL1PR12MB53034286ED2BA36EC616C422F2C89@BL1PR12MB5303.namprd12.prod.outlook.com>
+References: <20210826180754.3193315-1-rajib.mahapatra@amd.com>
+ <BL1PR12MB5144C0F1425B8CE8B11BC093F7C79@BL1PR12MB5144.namprd12.prod.outlook.com>
+In-Reply-To: <BL1PR12MB5144C0F1425B8CE8B11BC093F7C79@BL1PR12MB5144.namprd12.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-08-27T04:37:52Z; 
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP 2.0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 21931e4a-97fe-4f22-2906-08d969147214
+x-ms-traffictypediagnostic: BL1PR12MB5352:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <BL1PR12MB5352DD9BF967B17002D36673F2C89@BL1PR12MB5352.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:2150;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: nafKY0VqbTvCBphPAjrobiP7plq5xQShgMXnH6uvqgpmR7CLIb+gAJMdHUpEfQ8SOCn11Q/iL/KJtVcARBBEHXMzzffM/YQYVgmMqLIxd0D3PFmLmXqX1ynwJy4i4jXLei7abGiLLp9V0yuEpPyU0mDpuDgIg63yl6hyh7mtnoskgi1jtheB74AYK5HKZPLqrDjUtCij90pnFUUSJPPfDTfgptDI2YsHQnea5leVa/Y982s4y4CE916Xw1EJVY1hbylssmf/x1SW9rwsaVehKBMYZTJdTIELObk0zO9w31TEDPf2YcqkFOytkoABVeYDU8FEJA5KJUYTq7pEaXNp25VV6C+q247uxaIbF/GrJCyTK2TpqdRDeKOZ6zNtCTQJxYOG8rP8MjRnUfSqGN8CC/DR4VEnToJmKJ/Rxwd3rtoYHUguUqGQ2NSp9rWdv36iRCkXIOJ5GtaEFpvSStjmAnr7/nnZSNSkANr+CTbAJK6aVGRAYFpelvbKNub2ZVFxrwSbx1bYIaaLogc/+s/9I6QsTsm98ii+MZSGUAXxQs9GuTgRK+yZX2euiWjHW+Miei03TXk6M6pxj8oG/uBg/7rGKP9sW5BeHEkYNbWH8Mhu8DFwk1tZCX5dYYKn2Wl4aEX3KrJ1XCAZ/fEsKEzjcDkScLsQ0txnXwvxStm0ioMbjWfeCwqf3X+QwCYeRJSenec0JRNr0qpPBPZvCP6Dkg==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5303.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(376002)(366004)(136003)(396003)(346002)(122000001)(66946007)(33656002)(38100700002)(4326008)(52536014)(9686003)(110136005)(5660300002)(186003)(66446008)(6506007)(7696005)(478600001)(316002)(966005)(66476007)(6636002)(76116006)(71200400001)(26005)(38070700005)(8676002)(64756008)(2906002)(166002)(83380400001)(86362001)(53546011)(66556008)(55016002)(8936002);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Yfbkzg1djawFXgokm8FfAl1p8O0vY1lvTr4jRCA548O//D6mD2XWdOmct9jf?=
+ =?us-ascii?Q?7NIxep84iJPq/M2YJxAq5fH+LquiJLZIieYtBrVda0+ePZ4cC9GdG4/C26mM?=
+ =?us-ascii?Q?gE5ZVNNXjAizfhKe2E8XvIzL3nse46iQ+BlgJtvyd4MCZC1RF8sLu1Qx5S+s?=
+ =?us-ascii?Q?7yJILStCZpZopDhIueAvMj5sy2x3YqxyrAvv5Ka2YAkabyuDWkQojbtd4CIX?=
+ =?us-ascii?Q?gFlvzWjxHqGEN89uhN8aT2HH3qUfhLxVtQXBkvHTTuoUCEqR/SetWS4+lErz?=
+ =?us-ascii?Q?FYE03zVoVlBKmesF7+weqnmbE7guucvDt6G02vVmjcDzHPu4RFCbzqPUKBHs?=
+ =?us-ascii?Q?vadJjrEaz+qbpIW5N6eQXeH6Ar2cWOGm/ytLossUmG3wCbCcPxIgYNrK9Ft/?=
+ =?us-ascii?Q?Scx0mi2ocGRAAI15Z3Zi+Rh9l96kAG1cT2wsXNDWM181KtcR1S4Tp6SKMcLm?=
+ =?us-ascii?Q?j6qQvexglsJGqzYwFWx/uH/k4bB1xAMVQIaWJxslRGEY1DkMI/wSUgk9OzwS?=
+ =?us-ascii?Q?nQaje02TirQFZwBhDxiFIxcySrWkxeWhQoll+NYbeZv8Oqrb9n1WPtWnCUgp?=
+ =?us-ascii?Q?d1M1EdAAogBM+ZYGDrpJnKJ8P53egu09QzbYOt+6O7wl5l0S0f15OiH5493R?=
+ =?us-ascii?Q?s62DK1mY9EDHv1RT2jl+lKQ88bfUdCcqfWDAm4CWokEdOtIeKj1DaIzfZxzF?=
+ =?us-ascii?Q?65QHJ04PvHWrFS/H9V9QP7a0TwFQrVM/4ebe9nqcaLlzxFNGM0QSzM+EVANh?=
+ =?us-ascii?Q?xBa6CG/EPMvmw9C5TJTOCRp2T8r6nRuGJ9qmTmBqd9L/2T1/knsAu4YVn98I?=
+ =?us-ascii?Q?mBbRItnhRYKEV5RKbgKKF6QlAgcSvzFMNBCLwI8l4sLyQLnFg6Lc3JjRB7hH?=
+ =?us-ascii?Q?7Avo/qt12nhROLVFDgZWiYeyJrGuWMlr4agNdsdCuPcZvl6Va3RKG9E2E53B?=
+ =?us-ascii?Q?KFavnnb+MSHP94IFr0ghBhDED0GM6PM+icaGFvHWn95mDdRLxmHUuv6W432c?=
+ =?us-ascii?Q?hEASr5Woi6g7r6x76Pd8aoSdYP5jTaw1j1NNtCs1MbVZxvdVks718k4nn3i7?=
+ =?us-ascii?Q?VEXW4Dxvwu1Vh1CmpHbqO2q/iJZl428yCAdJGfjYOTzBQjwRgpyjmjvK1cbX?=
+ =?us-ascii?Q?TX3WXjx+hzlrjADAKw+0mdPzuqDbzJM/t01hKDp2vfJz4vpMObWrXl8c2euB?=
+ =?us-ascii?Q?DTkU0bqmN0KOEwK9YtYVX2hjcakQQi9tr4NdQZP2cNbC/vyeYwqoVkH5Y9q9?=
+ =?us-ascii?Q?ZPZTFVg9PBktRdWUiI/iMCJ7uNNx1iAv5fGLIoXQMVgZgbiGnqmVlhsYY3+0?=
+ =?us-ascii?Q?R1kmY2DJJb87LY/wJjysuCDj?=
+Content-Type: multipart/alternative;
+ boundary="_000_BL1PR12MB53034286ED2BA36EC616C422F2C89BL1PR12MB5303namp_"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6646; h=from:subject;
- bh=l/HykKGKZ/lNbmKW9XocYhto47HK5IIlertRLOIBrms=;
- b=owEBbQKS/ZANAwAKAYly9N/cbcAmAcsmYgBhKFkeNlK7S7S7FDCkJ+mjmsiZZTEmDY4kXit477yu
- i+FQlXWJAjMEAAEKAB0WIQSlw/aPIp3WD3I+bhOJcvTf3G3AJgUCYShZHgAKCRCJcvTf3G3AJjkpEA
- CL7oYV3Rjc9EGLFlAov18nHd/fM3DMWfr1zwSh8CUI1eM87GFa3hbplAoB8ehl5F/vdOxmnEXFGRLH
- YGwTVBjnGaCSD2zFmjC90IGj3SatilgtO3EVTAyXI283Ho/4ri+jKjeXvn333i5+PI8dSp8Kv4uQUg
- qf61OvZzuXvRf29J/QmJ+tmbu3PeRNxta7TIz4xZvwFDxaGOi9XDV5eUz2BguWlHMZ3+Rvy2vk32TY
- PQkpddBUrLD7/ELg5LbueKbOIReswsVuL6nRSTIiZrVb6s+l46qKR9ry1e27JgEHej5wsBDdNbvmCa
- MQrMW3lqV3iqmiYeZTEC0dTIrp/iwtZGCpBO8VOFdEwKAaGejDiYECN4aC95NO3l3Nm90LE+oh/EXd
- M2WimYS0+pLcXCOICK45DVugOiERDDTUqPAixAZogU5YGkSjyzFXgJuzWzueAgAakbIWJM6eeY0DBU
- xZGeaqZvoCBrAEQNLwCnzJf/fWV+Z44CiErdUftq9QbDv/OUlo80m3Oq1GY7wwcJtig5IMqxJS+wQ4
- tjoiPdH0arG6Am260/XleuVtPSGHf9QcHB5K/fB7ulx+mz7z49vLQfA9uc0kAxQewTgsXk+12AC5lo
- 52CsCcxh9evy+PwHVD/ElWmt5AC3AR4DUSKr8gFxJ9i1nvH8zoBKbr5hMC2w==
-X-Developer-Key: i=keescook@chromium.org; a=openpgp;
- fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 27 Aug 2021 03:41:30 +0000
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5303.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 21931e4a-97fe-4f22-2906-08d969147214
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Aug 2021 04:37:58.2408 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 1pmtUotENtY4E0/8jn91fZdDMQ8SP17q5Vv+uNnj10zf2a8Tp0naPnEZrXphjF+MyaHTW2BnJE24ItqOTfQ7Ow==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5352
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,149 +140,347 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In preparation for FORTIFY_SOURCE performing compile-time and run-time
-field bounds checking for memcpy(), memmove(), and memset(), avoid
-intentionally writing across neighboring fields.
+--_000_BL1PR12MB53034286ED2BA36EC616C422F2C89BL1PR12MB5303namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-The "Board Parameters" members of the structs:
-	struct atom_smc_dpm_info_v4_5
-	struct atom_smc_dpm_info_v4_6
-	struct atom_smc_dpm_info_v4_7
-	struct atom_smc_dpm_info_v4_10
-are written to the corresponding members of the corresponding PPTable_t
-variables, but they lack destination size bounds checking, which means
-the compiler cannot verify at compile time that this is an intended and
-safe memcpy().
+[Public]
 
-Since the header files are effectively immutable[1] and a struct_group()
-cannot be used, nor a common struct referenced by both sides of the
-memcpy() arguments, add a new helper, amdgpu_memcpy_trailing(), to
-perform the bounds checking at compile time. Replace the open-coded
-memcpy()s with amdgpu_memcpy_trailing() which includes enough context
-for the bounds checking.
+Thanks Alex for your reply.
+The patch is not fixing our issue.
 
-"objdump -d" shows no object code changes.
+Thanks
+-Rajib
 
-[1] https://lore.kernel.org/lkml/e56aad3c-a06f-da07-f491-a894a570d78f@amd.com
-
-Cc: "Christian König" <christian.koenig@amd.com>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
-Cc: David Airlie <airlied@linux.ie>
-Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: Hawking Zhang <Hawking.Zhang@amd.com>
-Cc: Feifei Xu <Feifei.Xu@amd.com>
-Cc: Likun Gao <Likun.Gao@amd.com>
-Cc: Jiawei Gu <Jiawei.Gu@amd.com>
-Cc: Evan Quan <evan.quan@amd.com>
+From: Deucher, Alexander <Alexander.Deucher@amd.com>
+Sent: Thursday, August 26, 2021 11:48 PM
+To: Mahapatra, Rajib <Rajib.Mahapatra@amd.com>; Wentland, Harry <Harry.Went=
+land@amd.com>; Kazlauskas, Nicholas <Nicholas.Kazlauskas@amd.com>; Wu, Hers=
+en <hersenxs.wu@amd.com>
 Cc: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Kees Cook <keescook@chromium.org>
----
-v3: rename amdgpu_memcpy_trailing() to smu_memcpy_trailing()
-v2: https://lore.kernel.org/lkml/20210825161957.3904130-1-keescook@chromium.org
-v1: https://lore.kernel.org/lkml/20210819201441.3545027-1-keescook@chromium.org
----
- drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h       | 24 +++++++++++++++++++
- .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c |  6 ++---
- .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   |  8 +++----
- .../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    |  5 ++--
- 4 files changed, 32 insertions(+), 11 deletions(-)
+Subject: Re: [PATCH] drm/amd/display: Set the domain as GTT when VRAM size =
+<=3D 32 MB
 
-diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-index 715b4225f5ee..8156729c370b 100644
---- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-+++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-@@ -1335,6 +1335,30 @@ enum smu_cmn2asic_mapping_type {
- #define WORKLOAD_MAP(profile, workload) \
- 	[profile] = {1, (workload)}
- 
-+/**
-+ * smu_memcpy_trailing - Copy the end of one structure into the middle of another
-+ *
-+ * @dst: Pointer to destination struct
-+ * @first_dst_member: The member name in @dst where the overwrite begins
-+ * @last_dst_member: The member name in @dst where the overwrite ends after
-+ * @src: Pointer to the source struct
-+ * @first_src_member: The member name in @src where the copy begins
-+ *
-+ */
-+#define smu_memcpy_trailing(dst, first_dst_member, last_dst_member,	   \
-+			    src, first_src_member)			   \
-+({									   \
-+	size_t __src_offset = offsetof(typeof(*(src)), first_src_member);  \
-+	size_t __src_size = sizeof(*(src)) - __src_offset;		   \
-+	size_t __dst_offset = offsetof(typeof(*(dst)), first_dst_member);  \
-+	size_t __dst_size = offsetofend(typeof(*(dst)), last_dst_member) - \
-+			    __dst_offset;				   \
-+	BUILD_BUG_ON(__src_size != __dst_size);				   \
-+	__builtin_memcpy((u8 *)(dst) + __dst_offset,			   \
-+			 (u8 *)(src) + __src_offset,			   \
-+			 __dst_size);					   \
-+})
-+
- #if !defined(SWSMU_CODE_LAYER_L2) && !defined(SWSMU_CODE_LAYER_L3) && !defined(SWSMU_CODE_LAYER_L4)
- int smu_get_power_limit(void *handle,
- 			uint32_t *limit,
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-index 273df66cac14..e343cc218990 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-@@ -483,10 +483,8 @@ static int arcturus_append_powerplay_table(struct smu_context *smu)
- 
- 	if ((smc_dpm_table->table_header.format_revision == 4) &&
- 	    (smc_dpm_table->table_header.content_revision == 6))
--		memcpy(&smc_pptable->MaxVoltageStepGfx,
--		       &smc_dpm_table->maxvoltagestepgfx,
--		       sizeof(*smc_dpm_table) - offsetof(struct atom_smc_dpm_info_v4_6, maxvoltagestepgfx));
--
-+		smu_memcpy_trailing(smc_pptable, MaxVoltageStepGfx, BoardReserved,
-+				    smc_dpm_table, maxvoltagestepgfx);
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-index f96681700c41..a5fc5d7cb6c7 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-@@ -431,16 +431,16 @@ static int navi10_append_powerplay_table(struct smu_context *smu)
- 
- 	switch (smc_dpm_table->table_header.content_revision) {
- 	case 5: /* nv10 and nv14 */
--		memcpy(smc_pptable->I2cControllers, smc_dpm_table->I2cControllers,
--			sizeof(*smc_dpm_table) - sizeof(smc_dpm_table->table_header));
-+		smu_memcpy_trailing(smc_pptable, I2cControllers, BoardReserved,
-+				    smc_dpm_table, I2cControllers);
- 		break;
- 	case 7: /* nv12 */
- 		ret = amdgpu_atombios_get_data_table(adev, index, NULL, NULL, NULL,
- 					      (uint8_t **)&smc_dpm_table_v4_7);
- 		if (ret)
- 			return ret;
--		memcpy(smc_pptable->I2cControllers, smc_dpm_table_v4_7->I2cControllers,
--			sizeof(*smc_dpm_table_v4_7) - sizeof(smc_dpm_table_v4_7->table_header));
-+		smu_memcpy_trailing(smc_pptable, I2cControllers, BoardReserved,
-+				    smc_dpm_table_v4_7, I2cControllers);
- 		break;
- 	default:
- 		dev_err(smu->adev->dev, "smc_dpm_info with unsupported content revision %d!\n",
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-index ec8c30daf31c..ab652028e003 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-@@ -409,9 +409,8 @@ static int aldebaran_append_powerplay_table(struct smu_context *smu)
- 
- 	if ((smc_dpm_table->table_header.format_revision == 4) &&
- 	    (smc_dpm_table->table_header.content_revision == 10))
--		memcpy(&smc_pptable->GfxMaxCurrent,
--		       &smc_dpm_table->GfxMaxCurrent,
--		       sizeof(*smc_dpm_table) - offsetof(struct atom_smc_dpm_info_v4_10, GfxMaxCurrent));
-+		smu_memcpy_trailing(smc_pptable, GfxMaxCurrent, reserved,
-+				    smc_dpm_table, GfxMaxCurrent);
- 	return 0;
- }
- 
--- 
-2.30.2
 
+[Public]
+
+I think this may have already been fixed with this patch:
+https://gitlab.freedesktop.org/agd5f/linux/-/commit/2a7b9a8437130fd328001f4=
+edfac8eec98dfe298
+
+Alex
+
+________________________________
+From: Mahapatra, Rajib <Rajib.Mahapatra@amd.com<mailto:Rajib.Mahapatra@amd.=
+com>>
+Sent: Thursday, August 26, 2021 2:07 PM
+To: Wentland, Harry <Harry.Wentland@amd.com<mailto:Harry.Wentland@amd.com>>=
+; Kazlauskas, Nicholas <Nicholas.Kazlauskas@amd.com<mailto:Nicholas.Kazlaus=
+kas@amd.com>>; Deucher, Alexander <Alexander.Deucher@amd.com<mailto:Alexand=
+er.Deucher@amd.com>>; Wu, Hersen <hersenxs.wu@amd.com<mailto:hersenxs.wu@am=
+d.com>>
+Cc: amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <am=
+d-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>; Mahapat=
+ra, Rajib <Rajib.Mahapatra@amd.com<mailto:Rajib.Mahapatra@amd.com>>
+Subject: [PATCH] drm/amd/display: Set the domain as GTT when VRAM size <=3D=
+ 32 MB
+
+[Why]
+In lower carve out (<=3D 32 MB) devices, it was unable to pin framebuffer i=
+n
+VRAM domain for some BO allocations. The device shows below error logs and
+sometimes it reboots too.
+
+amdgpu 0000:02:00.0: amdgpu: 00000000d721431c pin failed
+[drm:dm_plane_helper_prepare_fb] *ERROR* Failed to pin framebuffer with err=
+or -12
+
+[How]
+Place the domain as GTT when VRAM size <=3D 32 MB.
+
+Signed-off-by: Rajib Mahapatra <rajib.mahapatra@amd.com<mailto:rajib.mahapa=
+tra@amd.com>>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h               |  1 +
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 +++++++++-
+ 2 files changed, 10 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdg=
+pu/amdgpu.h
+index dc3c6b3a00e5..d719be448eec 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -236,6 +236,7 @@ extern int amdgpu_num_kcq;
+
+ #define AMDGPU_VM_MAX_NUM_CTX                   4096
+ #define AMDGPU_SG_THRESHOLD                     (256*1024*1024)
++#define AMDGPU_VRAM_MIN_THRESHOLD              (32*1024*1024)
+ #define AMDGPU_DEFAULT_GTT_SIZE_MB              3072ULL /* 3GB by default =
+*/
+ #define AMDGPU_WAIT_IDLE_TIMEOUT_IN_MS          3000
+ #define AMDGPU_MAX_USEC_TIMEOUT                 100000  /* 100 ms */
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
+u/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index e1e57e7465a7..f71391599be1 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -7106,8 +7106,16 @@ static int dm_plane_helper_prepare_fb(struct drm_pla=
+ne *plane,
+                 return r;
+         }
+
+-       if (plane->type !=3D DRM_PLANE_TYPE_CURSOR)
++       if (plane->type !=3D DRM_PLANE_TYPE_CURSOR) {
+                 domain =3D amdgpu_display_supported_domains(adev, rbo->fla=
+gs);
++               /*
++                * Handle devices with lower carve out.
++                */
++               if (adev->gmc.real_vram_size <=3D AMDGPU_VRAM_MIN_THRESHOLD=
+) {
++                       domain |=3D (domain & AMDGPU_GEM_DOMAIN_GTT) ? doma=
+in :
++                                  AMDGPU_GEM_DOMAIN_GTT;
++               }
++       }
+         else
+                 domain =3D AMDGPU_GEM_DOMAIN_VRAM;
+
+--
+2.25.1
+
+--_000_BL1PR12MB53034286ED2BA36EC616C422F2C89BL1PR12MB5303namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+span.EmailStyle18
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+p.msipheader23c54b6f, li.msipheader23c54b6f, div.msipheader23c54b6f
+	{mso-style-name:msipheader23c54b6f;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple" style=3D"word-wrap:brea=
+k-word">
+<div class=3D"WordSection1">
+<p class=3D"msipheader23c54b6f" style=3D"margin:0in"><span style=3D"font-si=
+ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:green">[Public]</s=
+pan><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thanks Alex for your reply.<o:p></o:p></p>
+<p class=3D"MsoNormal">The patch is not fixing our issue. <o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thanks<o:p></o:p></p>
+<p class=3D"MsoNormal">-Rajib<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Deucher, Alexander &lt;Alexander.Deuche=
+r@amd.com&gt; <br>
+<b>Sent:</b> Thursday, August 26, 2021 11:48 PM<br>
+<b>To:</b> Mahapatra, Rajib &lt;Rajib.Mahapatra@amd.com&gt;; Wentland, Harr=
+y &lt;Harry.Wentland@amd.com&gt;; Kazlauskas, Nicholas &lt;Nicholas.Kazlaus=
+kas@amd.com&gt;; Wu, Hersen &lt;hersenxs.wu@amd.com&gt;<br>
+<b>Cc:</b> amd-gfx@lists.freedesktop.org<br>
+<b>Subject:</b> Re: [PATCH] drm/amd/display: Set the domain as GTT when VRA=
+M size &lt;=3D 32 MB<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p style=3D"margin:15.0pt"><span style=3D"font-size:10.0pt;font-family:&quo=
+t;Arial&quot;,sans-serif;color:green">[Public]<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">I think=
+ this may have already been fixed with this patch:<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><a href=
+=3D"https://gitlab.freedesktop.org/agd5f/linux/-/commit/2a7b9a8437130fd3280=
+01f4edfac8eec98dfe298">https://gitlab.freedesktop.org/agd5f/linux/-/commit/=
+2a7b9a8437130fd328001f4edfac8eec98dfe298</a><o:p></o:p></span></p>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Alex<o:=
+p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
+ style=3D"color:black"> Mahapatra, Rajib &lt;<a href=3D"mailto:Rajib.Mahapa=
+tra@amd.com">Rajib.Mahapatra@amd.com</a>&gt;<br>
+<b>Sent:</b> Thursday, August 26, 2021 2:07 PM<br>
+<b>To:</b> Wentland, Harry &lt;<a href=3D"mailto:Harry.Wentland@amd.com">Ha=
+rry.Wentland@amd.com</a>&gt;; Kazlauskas, Nicholas &lt;<a href=3D"mailto:Ni=
+cholas.Kazlauskas@amd.com">Nicholas.Kazlauskas@amd.com</a>&gt;; Deucher, Al=
+exander &lt;<a href=3D"mailto:Alexander.Deucher@amd.com">Alexander.Deucher@=
+amd.com</a>&gt;;
+ Wu, Hersen &lt;<a href=3D"mailto:hersenxs.wu@amd.com">hersenxs.wu@amd.com<=
+/a>&gt;<br>
+<b>Cc:</b> <a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.f=
+reedesktop.org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd=
+-gfx@lists.freedesktop.org</a>&gt;; Mahapatra, Rajib &lt;<a href=3D"mailto:=
+Rajib.Mahapatra@amd.com">Rajib.Mahapatra@amd.com</a>&gt;<br>
+<b>Subject:</b> [PATCH] drm/amd/display: Set the domain as GTT when VRAM si=
+ze &lt;=3D 32 MB</span>
+<o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">[Why]<br>
+In lower carve out (&lt;=3D 32 MB) devices, it was unable to pin framebuffe=
+r in<br>
+VRAM domain for some BO allocations. The device shows below error logs and<=
+br>
+sometimes it reboots too.<br>
+<br>
+amdgpu 0000:02:00.0: amdgpu: 00000000d721431c pin failed<br>
+[drm:dm_plane_helper_prepare_fb] *ERROR* Failed to pin framebuffer with err=
+or -12<br>
+<br>
+[How]<br>
+Place the domain as GTT when VRAM size &lt;=3D 32 MB.<br>
+<br>
+Signed-off-by: Rajib Mahapatra &lt;<a href=3D"mailto:rajib.mahapatra@amd.co=
+m">rajib.mahapatra@amd.com</a>&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 1 +<br>
+&nbsp;drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 +++++++++-<br>
+&nbsp;2 files changed, 10 insertions(+), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdg=
+pu/amdgpu.h<br>
+index dc3c6b3a00e5..d719be448eec 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+@@ -236,6 +236,7 @@ extern int amdgpu_num_kcq;<br>
+&nbsp;<br>
+&nbsp;#define AMDGPU_VM_MAX_NUM_CTX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4096<b=
+r>
+&nbsp;#define AMDGPU_SG_THRESHOLD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; (256*1024*1024)<br>
++#define AMDGPU_VRAM_MIN_THRESHOLD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (32*1024*1024)<br>
+&nbsp;#define AMDGPU_DEFAULT_GTT_SIZE_MB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3072ULL /* 3GB by default */<br=
+>
+&nbsp;#define AMDGPU_WAIT_IDLE_TIMEOUT_IN_MS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp; 3000<br>
+&nbsp;#define AMDGPU_MAX_USEC_TIMEOUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 100000&nbsp; /* =
+100 ms */<br>
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
+u/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+index e1e57e7465a7..f71391599be1 100644<br>
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+@@ -7106,8 +7106,16 @@ static int dm_plane_helper_prepare_fb(struct drm_pla=
+ne *plane,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return r;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (plane-&gt;type !=3D DRM_PLANE_TYP=
+E_CURSOR)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (plane-&gt;type !=3D DRM_PLANE_TYP=
+E_CURSOR) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; domain =3D amdgpu_display_supported_domains(adev, rbo=
+-&gt;flags);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; /*<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; * Handle devices with lower carve out.<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (adev-&gt;gmc.real_vram_size &lt;=3D AMDGPU_VRAM_MIN_THRESHOL=
+D) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; domain |=3D (dom=
+ain &amp; AMDGPU_GEM_DOMAIN_GTT) ? domain :<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_GEM_DOMAIN_GTT;<br=
+>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; }<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; domain =3D AMDGPU_GEM_DOMAIN_VRAM;<br>
+&nbsp;<br>
+-- <br>
+2.25.1<o:p></o:p></p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_BL1PR12MB53034286ED2BA36EC616C422F2C89BL1PR12MB5303namp_--
