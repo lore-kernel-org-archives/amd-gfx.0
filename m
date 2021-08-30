@@ -8,61 +8,67 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EB864C432BE
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 Aug 2021 16:04:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9C64EC432BE
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Aug 2021 16:07:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AB32D61004
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 Aug 2021 16:04:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org AB32D61004
+	by mail.kernel.org (Postfix) with ESMTPS id 6C5C760ED8
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Aug 2021 16:07:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6C5C760ED8
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4497189AEE;
-	Mon, 30 Aug 2021 16:04:42 +0000 (UTC)
-Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com
- [IPv6:2607:f8b0:4864:20::22c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9950289AEE
- for <amd-gfx@lists.freedesktop.org>; Mon, 30 Aug 2021 16:04:40 +0000 (UTC)
-Received: by mail-oi1-x22c.google.com with SMTP id bi4so16674029oib.9
- for <amd-gfx@lists.freedesktop.org>; Mon, 30 Aug 2021 09:04:40 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF3C38985A;
+	Mon, 30 Aug 2021 16:07:11 +0000 (UTC)
+Received: from mail-ot1-x32d.google.com (mail-ot1-x32d.google.com
+ [IPv6:2607:f8b0:4864:20::32d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E4118985A;
+ Mon, 30 Aug 2021 16:07:11 +0000 (UTC)
+Received: by mail-ot1-x32d.google.com with SMTP id
+ 107-20020a9d0bf4000000b0051b8be1192fso8822158oth.7; 
+ Mon, 30 Aug 2021 09:07:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=iFouTVS5fc8HbBaCxjT30Amx7cyjvTvCmj1iYS3XiNg=;
- b=Wb3Oxu4fU0iYMW2FLrID6J2FoqW9Tsz2DYi19jXE7Qcp0gIXpS2an8KZRWOCTbqxOQ
- GfO2k7tgpU7g+fIxcaxUTsZ0HzJGIahUd1fuIik5aSTQYytYCGPEfTe6Mkqro7F0Yn+S
- Z/neCyPE+bmtBzPMb4BwlSSi1MfZVASoMzKns1QBbSZ0dpJMiswrsgxc0eK0JixvLfzB
- /V422yJ7kilZwevXIyTVc3KbWyfRxAttHFBxMoISET/gEywFpJc2XD610p1ENIeHRbox
- 8ol+f63ze/Pyqn6QrsBCqSYpjF+hiFA2DxOlbljCh4e0zOMDGrEOBZ7BBS2oAu6rXK+Q
- OW8g==
+ :cc; bh=Ruwp3iijqIwZVSgXNeIhFJbwgJtXDZCn8fxCLBnVSpo=;
+ b=s3cvyYzQ9YyjSHdAUvCw6BZcy4J6QWSJo6UK76LFVfTEVetuG5AwfDUCCvgJDsFYYo
+ ntx0y3ExhGaYY/ArvFblOVtM0WTYCj4/VLqaCfRiYIBhnVxwtwUeqe+79ygj+hUE6FEM
+ asWOBsNirtXtPkqWn3QF9ALTxodu+uy0f9/5wUPmWlt0Tc2+hVCBQi7jTnEHS0MQifRP
+ UFLc9SvrBJjMn/R23zohpAo+KOwbw+02Gqi2L5iUZldkYyZoBNZojfQwkyW4JKQJjj3g
+ Q8L9MaY1ORB4EvZeEC/DnMzyDchoFkLbSAAbk03jno2JWlEvnRs1qRYoLPr2GLG6FNQN
+ w7Bg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=iFouTVS5fc8HbBaCxjT30Amx7cyjvTvCmj1iYS3XiNg=;
- b=iPA2rMQtzuhd+DZnj7CSH/s8XNf9nXP1MXGT6jV5VqYY65vAXTh5LaFrdXkDjJ/1Kc
- nnTmnkC5csxPoWZB67cFKrLdsxUVvMrVZb64tAigAClelkc3qaY+afGeEysnZA4oAI4L
- Vm+GHUo7QzeYdegBifRLphR6jmfVLKb6ORMumz56xd8Jexfowwo4Bvxg/igZIcktZbpD
- NnoeWTvpapqUk9wLWKM9yHUF7yZPNvW4VpTm6cFnR18/G8gvpJ1HU2/7vXLAOk2nuhVX
- jcLiR2GpvaNmMXoIVsxm1fP0f5Uf422EzmcXkay8wmW4njq8pDDs8a71sVmldK94G5EA
- pjjg==
-X-Gm-Message-State: AOAM531FpFYVRUkYP/FghiSdkx2lS/O2O3GgG+Zp6bobR30Ys6/3p2CN
- faAW2o98Q6Eget6MkAoFul2LTgCVYI+phb3hoA0=
-X-Google-Smtp-Source: ABdhPJxJc+Ls1w4Fog4M9yGsyy0hlPVfNA0QCLaFFZonVJyLmaYvFgz7RUozOulrZCHxtSYpKO1JA+BVpS/fUXuj0EA=
-X-Received: by 2002:a05:6808:6d2:: with SMTP id
- m18mr15841966oih.120.1630339477397; 
- Mon, 30 Aug 2021 09:04:37 -0700 (PDT)
+ bh=Ruwp3iijqIwZVSgXNeIhFJbwgJtXDZCn8fxCLBnVSpo=;
+ b=Pby5psoYX7IpHpYI4r6LVcPrnqAZeEYzHvVSGBBMk8lRvvfz6GGs/4ppwcPuXPi4zC
+ DJyRWGrihG9J7o9MFfjXSbG1zOoxkIrfgDNGvyRrhQ6O8GwYsQcKQlUql1LP0Oz1Hz1n
+ C5RNfIEpxaYiS6khKVubgVgAwPVWV15aFaoRrEldAHgqd4yhNPwhsMfaFSwjyCvW43Z0
+ npEVKLwS0XrelPaVI9wd+9lTlGewOq9XU/1fei5lE+kcWsku917Y9R4ehRcIcJNtt/OP
+ xd6XqQZtN+f36oXCV/ZAFzild0cdZhsWZYUIeekyQS8or1SGk5bFxzv8PGZJXxoHqwgj
+ 5+iA==
+X-Gm-Message-State: AOAM533xKZVHP6y8spDjkih9u6AYkCAvj4Ahy/tgOOp2VC8RccmSQ/uf
+ tRovB8Mv6qnH1eUm1tGhFqAxdK/vLbjTw8DRIpk=
+X-Google-Smtp-Source: ABdhPJzYjOG/T5oPCIUruDBmzAlPMcIH2mAh4iRhp/OybEGs5JtN4FWYzVB/ir1+/bJwtN0eKFAyVfymflI8BY45PxY=
+X-Received: by 2002:a9d:4c15:: with SMTP id l21mr19848810otf.311.1630339630660; 
+ Mon, 30 Aug 2021 09:07:10 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210830020200.611574-1-koba.ko@canonical.com>
- <20210830020200.611574-2-koba.ko@canonical.com>
-In-Reply-To: <20210830020200.611574-2-koba.ko@canonical.com>
+References: <20210827185914.507508-1-colin.king@canonical.com>
+In-Reply-To: <20210827185914.507508-1-colin.king@canonical.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 30 Aug 2021 12:04:26 -0400
-Message-ID: <CADnq5_PCRAtZNJo_R=iLSEtv_zk+_b02YRAZcgXgjBLs4Cy0fQ@mail.gmail.com>
-Subject: Re: [PATCH V4 1/1] drm/amdgpu: Disable PCIE_DPM on Intel RKL Platform
-To: Koba Ko <koba.ko@canonical.com>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Date: Mon, 30 Aug 2021 12:06:59 -0400
+Message-ID: <CADnq5_MFawF+Cq26-HxHAc1e2Pefrwg_95kYj9p=jHdpiBoRvA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/swsmu: fix spelling mistake "minimun" ->
+ "minimum"
+To: Colin King <colin.king@canonical.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ xinhui pan <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, 
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, 
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ kernel-janitors@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,69 +88,59 @@ Applied.  Thanks!
 
 Alex
 
-On Mon, Aug 30, 2021 at 3:17 AM Koba Ko <koba.ko@canonical.com> wrote:
+On Fri, Aug 27, 2021 at 2:59 PM Colin King <colin.king@canonical.com> wrote:
 >
-> Due to high latency in PCIE clock switching on RKL platforms,
-> switching the PCIE clock dynamically at runtime can lead to HDMI/DP
-> audio problems. On newer asics this is handled in the SMU firmware.
-> For SMU7-based asics, disable PCIE clock switching to avoid the issue.
+> From: Colin Ian King <colin.king@canonical.com>
 >
-> AMD provide a parameter to disable PICE_DPM.
+> There are three identical spelling mistakes in dev_err messages.
+> Fix these.
 >
-> modprobe amdgpu ppfeaturemask=0xfff7bffb
->
-> It's better to contorl PCIE_DPM in amd gpu driver,
-> switch PCI_DPM by determining intel RKL platform for SMU7-based asics.
->
-> Fixes: 1a31474cdb48 ("drm/amd/pm: workaround for audio noise issue")
-> Ref: https://lists.freedesktop.org/archives/amd-gfx/2021-August/067413.html
-> Signed-off-by: Koba Ko <koba.ko@canonical.com>
+> Signed-off-by: Colin Ian King <colin.king@canonical.com>
 > ---
->  .../gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c | 17 ++++++++++++++++-
->  1 file changed, 16 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c     | 2 +-
+>  drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c      | 2 +-
+>  drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c | 2 +-
+>  3 files changed, 3 insertions(+), 3 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-> index 0541bfc81c1b..1d76cf7cd85d 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-> @@ -27,6 +27,9 @@
->  #include <linux/pci.h>
->  #include <linux/slab.h>
->  #include <asm/div64.h>
-> +#if IS_ENABLED(CONFIG_X86_64)
-> +#include <asm/intel-family.h>
-> +#endif
->  #include <drm/amdgpu_drm.h>
->  #include "ppatomctrl.h"
->  #include "atombios.h"
-> @@ -1733,6 +1736,17 @@ static int smu7_disable_dpm_tasks(struct pp_hwmgr *hwmgr)
->         return result;
->  }
->
-> +static bool intel_core_rkl_chk(void)
-> +{
-> +#if IS_ENABLED(CONFIG_X86_64)
-> +       struct cpuinfo_x86 *c = &cpu_data(0);
-> +
-> +       return (c->x86 == 6 && c->x86_model == INTEL_FAM6_ROCKETLAKE);
-> +#else
-> +       return false;
-> +#endif
-> +}
-> +
->  static void smu7_init_dpm_defaults(struct pp_hwmgr *hwmgr)
->  {
->         struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-> @@ -1758,7 +1772,8 @@ static void smu7_init_dpm_defaults(struct pp_hwmgr *hwmgr)
->
->         data->mclk_dpm_key_disabled = hwmgr->feature_mask & PP_MCLK_DPM_MASK ? false : true;
->         data->sclk_dpm_key_disabled = hwmgr->feature_mask & PP_SCLK_DPM_MASK ? false : true;
-> -       data->pcie_dpm_key_disabled = hwmgr->feature_mask & PP_PCIE_DPM_MASK ? false : true;
-> +       data->pcie_dpm_key_disabled =
-> +               intel_core_rkl_chk() || !(hwmgr->feature_mask & PP_PCIE_DPM_MASK);
->         /* need to set voltage control types before EVV patching */
->         data->voltage_control = SMU7_VOLTAGE_CONTROL_NONE;
->         data->vddci_control = SMU7_VOLTAGE_CONTROL_NONE;
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+> index ad52f7ecfb87..629bb8e926fb 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+> @@ -1869,7 +1869,7 @@ static int vangogh_od_edit_dpm_table(struct smu_context *smu, enum PP_OD_DPM_TAB
+>                 } else {
+>                         if (smu->gfx_actual_hard_min_freq > smu->gfx_actual_soft_max_freq) {
+>                                 dev_err(smu->adev->dev,
+> -                                       "The setting minimun sclk (%d) MHz is greater than the setting maximum sclk (%d) MHz\n",
+> +                                       "The setting minimum sclk (%d) MHz is greater than the setting maximum sclk (%d) MHz\n",
+>                                         smu->gfx_actual_hard_min_freq,
+>                                         smu->gfx_actual_soft_max_freq);
+>                                 return -EINVAL;
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
+> index b39138041141..5aa175e12a78 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
+> @@ -426,7 +426,7 @@ static int renoir_od_edit_dpm_table(struct smu_context *smu,
+>                 } else {
+>                         if (smu->gfx_actual_hard_min_freq > smu->gfx_actual_soft_max_freq) {
+>                                 dev_err(smu->adev->dev,
+> -                                       "The setting minimun sclk (%d) MHz is greater than the setting maximum sclk (%d) MHz\n",
+> +                                       "The setting minimum sclk (%d) MHz is greater than the setting maximum sclk (%d) MHz\n",
+>                                         smu->gfx_actual_hard_min_freq,
+>                                         smu->gfx_actual_soft_max_freq);
+>                                 return -EINVAL;
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
+> index 0f17c2522c85..627ba2eec7fd 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
+> @@ -731,7 +731,7 @@ static int yellow_carp_od_edit_dpm_table(struct smu_context *smu, enum PP_OD_DPM
+>                 } else {
+>                         if (smu->gfx_actual_hard_min_freq > smu->gfx_actual_soft_max_freq) {
+>                                 dev_err(smu->adev->dev,
+> -                                       "The setting minimun sclk (%d) MHz is greater than the setting maximum sclk (%d) MHz\n",
+> +                                       "The setting minimum sclk (%d) MHz is greater than the setting maximum sclk (%d) MHz\n",
+>                                         smu->gfx_actual_hard_min_freq,
+>                                         smu->gfx_actual_soft_max_freq);
+>                                 return -EINVAL;
 > --
-> 2.25.1
+> 2.32.0
 >
