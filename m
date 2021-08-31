@@ -2,134 +2,108 @@ Return-Path: <SRS0=0crs=NW=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 54F13C432BE
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 Aug 2021 07:11:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5B5CDC432BE
+	for <amd-gfx@archiver.kernel.org>; Tue, 31 Aug 2021 10:35:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1A08060FED
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 Aug 2021 07:11:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1A08060FED
+	by mail.kernel.org (Postfix) with ESMTPS id 237B2601FD
+	for <amd-gfx@archiver.kernel.org>; Tue, 31 Aug 2021 10:35:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 237B2601FD
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ABE8F897F5;
-	Tue, 31 Aug 2021 07:11:31 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2078.outbound.protection.outlook.com [40.107.237.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DFD6897F5
- for <amd-gfx@lists.freedesktop.org>; Tue, 31 Aug 2021 07:11:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B555189AB5;
+	Tue, 31 Aug 2021 10:35:49 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2046.outbound.protection.outlook.com [40.107.223.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFF528959D;
+ Tue, 31 Aug 2021 10:35:47 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=m3N/Wcmvw+DD0PNNfZqMQTdmwY6xcujYbam93Ja89gW1TfEzx7FUH4WNu5cZlNfMJlMdFt3DQ49b6QeHCTqlnZQ+MxdIii4VbzkIdTuGuCUmG1lkiNnkDFs041sjnYSShAIFTQUWvPmiEnfvEn3vvVfhlYzsBPxYR1u55QP5DNe0ejKdABSOoX/ClerUVZwXvbPYA+t4iiB+T/QXKV3TY2a+DSU68SnZG/FyORZrRy59ET2k6XPt0/PIDjYrRvyat8kOW19MJtEHmdZpd/VBeIBkWs6mXUAlkNTwqmtT/LEcMNrlnx88eAWGHtXZN232alvf1t1NwEoN+3yEI/Q/tg==
+ b=WjgS33G/ivS6F2ZiXS9akAU0RD1wo9z2PybQ9BvvP8Vlv5TYeJA7y2Y13geFcLeJKqefZadG/qEFZngJ7auO9s6UzJFDpLVyJ/6uOFCeqZWj1Eq+/W04aYfFv87iMmGEhV7YSXpTLKVT5IPHLWJrNNrJ+ZZxSkxUx5YeD/RXBhYlX4acLmd68+6cegRMf7RGM7TwXmEcXIgWJi74emMD+nl4/4Zcbl8Cp2X1vMQe6J2RQ2mxENMAiq41mAk8F3h2bZ/5WAFWO0jYXdt3fwirG7KqJGH5l/4aQGX0tNbuH3pCirVKYWDSQb59YNODM/wI4mVOWOY4iC/uwW/YM4nHRQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1aX+4T10ZhSbS2Z0DyiVYueLUx+4u/Nhb4p8Prp//yY=;
- b=VZsK8PhcOYVCpFdxeouU0sXOmDUPUzHMWyhYSiFNgoa+rSN+VlM6If+RhIOeYPmYLByJguTcyw8DPkI92jMYCXriBXc2rBJ2FpBHnpslQmIRrv027FnyobnqIVyElSlrVAyBoqJ5xRbINe3KPtpIZNcpzRG9mCmK2nvuhoTyovouU7Iqr5BFZVFkVcKWSqSRDaYL3Q+QoPzFBCbC+tHZzuY3cOx/cxl9gFtUNSvdP/OWVIHfUmIyzqMN4921STHGOlY1G+klg2RVrYnupgbF6bdna1SfHDAZciMEdw5XGDvnuCEVRYgxOIeGowJMsIr2djTA+4ORlm8OZLVMyUf1DA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=c0nnQlA/+ptCDfrM4bLC6AXTZ2zZdzCPLYr3Gs3LTeQ=;
+ b=NRCPA50xO/1MMBiiBoo5Z+qyN0D/8O46LaDNffDyQjjNB2s7n7jcyUU4piNjulMXgFmevf3w2EAgqkPjA789oHbnqSu1mw+gaY0aMGOzFwgS9jS7QIpHAMY+NGXbIW/0imoOyp29eQtxiTwHP8lZPlc9AMxhgblLwicfUThsq46nRt13jSf4ezkrX2pZdrJE3xnPOJuGyNyCH4tZuWhW73eYQkRIIzkSy40BKSnK1ujPt4cZMFm9BAEC6ewBIfLeoTHbUauz5k6jsKeALPXaO4HUI7eVIWPwHn9xkeDRlBrprfnVWx8Ef+qhhF+7Gs98CaJYinYsFWK7mBDNjPTq4w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1aX+4T10ZhSbS2Z0DyiVYueLUx+4u/Nhb4p8Prp//yY=;
- b=CqyrD65+NWYGMvLGHGisoupbc2alSS4YL0hFOcqXG0e5xy4XEAu53FnUGu9+NzlWu2u6noTvVV1RKD9nbCQ72wKHYFDwmdGWYbJrj0/0DzC/aLPUxJHWjHwshgW5JRbfKRu6zThjpSJsxD5StxRc0PQhI3dHjofV3fS0So8wsGk=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
- by BL0PR12MB4930.namprd12.prod.outlook.com (2603:10b6:208:1c8::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.20; Tue, 31 Aug
- 2021 07:11:26 +0000
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::dce2:96e5:aba2:66fe]) by MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::dce2:96e5:aba2:66fe%6]) with mapi id 15.20.4457.024; Tue, 31 Aug 2021
- 07:11:26 +0000
-Subject: Re: [PATCH v3] drm/amdgpu: Fix a deadlock if previous GEM object
- allocation fails
-To: "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>
-References: <8DA06109-D89E-406E-954A-27482501B3AC@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <b601ed47-c625-36dd-f1fe-cd0f4593c03c@amd.com>
-Date: Tue, 31 Aug 2021 09:11:22 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
-In-Reply-To: <8DA06109-D89E-406E-954A-27482501B3AC@amd.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-ClientProxiedBy: AM9P250CA0003.EURP250.PROD.OUTLOOK.COM
- (2603:10a6:20b:21c::8) To MN2PR12MB3775.namprd12.prod.outlook.com
- (2603:10b6:208:159::19)
+ bh=c0nnQlA/+ptCDfrM4bLC6AXTZ2zZdzCPLYr3Gs3LTeQ=;
+ b=wZE71mvA/b2E7+rjZ7x6+OTkefITSl27srSA64lZFSqiLLq7d2ryHPxSZWc0+IY/rcU9LbcFFltDNnEGFHikfsR03Vq/51HV4+EmKbUrQQYYs7IoXub5IHfceAndHznGtPU2XabY/A3sywQyLKm8I0253VLwz/gyN1qlRVOjKMU=
+Received: from MW4PR03CA0320.namprd03.prod.outlook.com (2603:10b6:303:dd::25)
+ by DM8PR12MB5479.namprd12.prod.outlook.com (2603:10b6:8:38::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.24; Tue, 31 Aug
+ 2021 10:35:45 +0000
+Received: from CO1NAM11FT034.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:dd:cafe::a9) by MW4PR03CA0320.outlook.office365.com
+ (2603:10b6:303:dd::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.17 via Frontend
+ Transport; Tue, 31 Aug 2021 10:35:45 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CO1NAM11FT034.mail.protection.outlook.com (10.13.174.248) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4457.17 via Frontend Transport; Tue, 31 Aug 2021 10:35:44 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Tue, 31 Aug
+ 2021 05:35:43 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Tue, 31 Aug
+ 2021 05:35:43 -0500
+Received: from monk-build.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2242.12 via Frontend
+ Transport; Tue, 31 Aug 2021 05:35:42 -0500
+From: Monk Liu <Monk.Liu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <dri-devel@lists.freedesktop.org>, Monk Liu <Monk.Liu@amd.com>
+Subject: [PATCH 1/2] drm/sched: fix the bug of time out calculation(v3)
+Date: Tue, 31 Aug 2021 18:35:38 +0800
+Message-ID: <1630406139-19621-1-git-send-email-Monk.Liu@amd.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [192.168.178.21] (91.14.161.181) by
- AM9P250CA0003.EURP250.PROD.OUTLOOK.COM (2603:10a6:20b:21c::8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4457.21 via Frontend Transport; Tue, 31 Aug 2021 07:11:25 +0000
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 682e81c5-9a5f-442b-d7d7-08d96c4e8c18
-X-MS-TrafficTypeDiagnostic: BL0PR12MB4930:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BL0PR12MB493042592EB65FD51A6E96C783CC9@BL0PR12MB4930.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-MS-Office365-Filtering-Correlation-Id: 358d1620-766e-460f-85cd-08d96c6b16c2
+X-MS-TrafficTypeDiagnostic: DM8PR12MB5479:
+X-Microsoft-Antispam-PRVS: <DM8PR12MB5479BC0B72E7A06647106BA284CC9@DM8PR12MB5479.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:785;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: M51EacvvrxlyqQCBDD7+g6LXkx6R5QZXsLn3CdcF0ARexPk5T1/+LUmUynnu36NZxxeSrbglJeMG5uB57+jrniaunWoITuN4iUUWisd5W5Xm5M2VciBQLKZRaGhzzYn2kxcaQHo4ZfZAnVWFg0H+EPRFPlqND+PdCVDkDqYADiE2OkW7AgSQIlEwH+qemwqSSQoTcSrf/p4K0nmGJyJftbYp1ZRWRKFqRHSUVt5eJ7Erl44IlskPHn6y6Nc/btBZUYYU27gRBSEdffCFsokPRnlHthicQ/L0oG3/4BXoRH1/iawn5Rbp7aUh9oKOsuX/xJ3ySrH6/Lz95W6HkBRncIfiWCBbBvle0v3VNxnIDBpvtZHH2GTSailr63424z2cYPasjs3LsE3VYkcVWeVBiQs3buyhWlMw1K6DjJr4spJsQVvvo6Kf8hKiMpnsFdEjSaM7H4D4U6/WLT8Mc4m9ylA9W+F5EJY47CKV8xj8UrFS7je7kQRX4FBOGXnolJUM9lF+Osky7HvvMyIuhYNx+tiRSDtKW8Bzs+b/Oay/2X3l7bNKSGdc8JXpzl2G3u9tHMnDPqMF7EF+VfMmjktkbqJwhOKt2yeK7SBoywutGfh4LOU7o6BpIEr8qJ/mRnlv3ZDHJ3LbNY5ykFB37bi+Se8jhhQRNZg0rJThtksSEMZ2G3Lw1/ZmeV6vCp4d9UtaDRKs4gcgQXuH0Dm7EoV1VKvEc/VT5oUcFh0r6rMGk60=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(366004)(396003)(346002)(376002)(136003)(38100700002)(6666004)(4326008)(186003)(5660300002)(66556008)(83380400001)(2616005)(110136005)(66476007)(31686004)(8676002)(66946007)(8936002)(54906003)(36756003)(66574015)(6486002)(86362001)(16576012)(316002)(31696002)(478600001)(956004)(26005)(2906002)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: mAFKZ5bDNJ3AEt+ZZ1WFiWfnkx90Oxsz1vpmML24lKxUyiNINFU/270qDUb8CLi8nFdjBYO9emwiIgswJx5T2ojU94J9C31SZm9rdpAt/7dCPU3LNvWPSqoYDAWhHxQWtT57xKuFdV3m0icBIVG993m80sQ6zIbZ589dgEfj9fV+P1BT8jK9JrzvYMhVK275UysTibWamX8ffCqCPnbA0MpGOrXyN3sg5FLjgb8CZpj2zXRIKQUR55tv2p3+s1YoZEfSXovTOxfTWIxF/0ClELYHGfg+qZii6x4a6+HfgHr59d/Guu6UpKOgLZQLXvy5jnKyqboptb9N2bM7s7TaxpJGLkPNwuCRjTDVlehdCsvgGYBB6gtbkUXU5IZtheLFvcTV4K61Wx0PPO/udjsVv75my1oBhGxz3SysoRYbdkGkw2k1jsXs/j+4u6vItfQlNEiFZqh5HJfXNlGnb/QiJ8fRQOP9LSu0WcUTWREP0MYqPlcjPOFiIYfPukUeu8iG9HKbaVNlmQdD4QqkuEmsvssvTebCM+rssmUiSSqPTnWcvheWUkEmfSdy6pP1yYnGsQ8b7NWB/ckoJjUPHWb7Xxh1icaoJvmmDl9FM/Np+3A2N/YOHI6Sk35Y/hiFvfmqduxZVGfocdGr5jLt0X6pz+Kel6R/rOsngo3enmyb0fIX/66CndJKw81Q+Dl1DIOaDr+WOX127ub/SBV6gaOdluNZWHGtUnmmG4pCx/aHd1M=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(346002)(376002)(396003)(39860400002)(136003)(36840700001)(46966006)(4326008)(450100002)(86362001)(82740400003)(316002)(8676002)(2616005)(54906003)(186003)(478600001)(36860700001)(47076005)(70586007)(82310400003)(6666004)(5660300002)(26005)(7696005)(70206006)(36756003)(83380400001)(336012)(426003)(6916009)(356005)(81166007)(8936002)(2906002)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WGVvVktCSlVFWWE2eUs0NWk5eCszM3k5NHdVbE1BVEREYS9UYW4rQTlLQjgw?=
- =?utf-8?B?T0psc25DdkRhdmoveFpnK1hjT040bGdhVGhKa0lnU0hQak00QzhOVTNFY2V5?=
- =?utf-8?B?dUQ0VExJOHNsa3p4YzR2bng0MHdLT2p6U2FUSFlUbHBqdlhPYUxDK3lHUXN0?=
- =?utf-8?B?WFdhYlB6YmxxcmxNRGlQQUtKM0U0U0gzRm1MSVAvL1VnaU5Jd293aEZiZ2hT?=
- =?utf-8?B?Z0lDWnAzSnZETGZrVkxDdWQ4VlJ6ZlMxa1ZLVXBBaGlSeGt4U0w0OUpYWUpy?=
- =?utf-8?B?TWNqZjJiNGwrTFVDbUpWS3ZVMmNLVFdJNlY2N3lOTU9RclBmNWl2dzdHekoz?=
- =?utf-8?B?N2xtY3JwRkJRb2VKKytDazNINzFFVWhLUm95STB4QStianRkcXN1OXRUV1h5?=
- =?utf-8?B?NlNwdW5CRlRaK04rMi9NK0JjbTFoUFU3cFBXYmh2OXVNMUxZQ3R4RGdHS29T?=
- =?utf-8?B?R2M2Ukl2bTFlQXV1L3luRU56N3BEOXRDem5HY3V5M0grbC9TZkdNL1ZNL2pz?=
- =?utf-8?B?S1pwOTB4L0lhVHFRTTRtL1VQWmxhMUVRM3NSeFFuK0g5dmNKVk04eTZPUlpD?=
- =?utf-8?B?NkNqTTN5WStEbFRNWlRtV25hSENVaTdVcklYRkpwWVl2eW9Nb0FpYmVDeVVr?=
- =?utf-8?B?SnlQK2c2cUd5WGVleUhDSzZqU0NkRFBaWmtSV1lJRHlSdTgvdjBONlNCbWRW?=
- =?utf-8?B?SGNZVWNFaXBYTUZCMWtXMHZTWWFtdVBwWkZCTk9ENFFLazNkQkFnWmtVbThR?=
- =?utf-8?B?MFBGUG85b1Z6WVQzNXE0RXhlak1mN1Y2OVpnTGQ3OWNOSjZPZ0pTQ21EYmND?=
- =?utf-8?B?TkZ1Wm0zVVJXdXRURWs4TkFZVDF5TXZSSWpvSmxpWHlkSzQ2Mi92WXhuTDJB?=
- =?utf-8?B?ZXVyNmJZak04blhUQmFjYmt0RVR4VTYxcU1Id3Z1dTVnWWVpdHpyWHA5UDNw?=
- =?utf-8?B?RTNSdHpFaFY4UGJLckVOeVpaRFlRNjJib3pFSS93MVRVWXpIM0pLclJSbHhJ?=
- =?utf-8?B?R2QvdFphWlR2UWM1VHV5a1ZlK1I4dlcrZzVxaWVRamVJK2FkTXNEZlN1My9k?=
- =?utf-8?B?OHZYWU9IZ0ZtTUxPNVN5US96U2xScDlXMjcvVkQ4cDAwZk9oVTNZWDE0NHhh?=
- =?utf-8?B?M3JUWjNVbnUxM3JkR25oQWlSSFY4bTRPZHNmTFpNK3VTNVlrQzVzdlViMk54?=
- =?utf-8?B?Uk1JMFErZzJ3NTJ4WUNYRGM0dVQxaWFjU0RrYnM4bzdHbHBsenFWTzc1SWtO?=
- =?utf-8?B?ZFdqTUQ2emtEMTBKSWYrMEhMaStGWk9ZRHowc1lyRHFZN3Q5UHd6ZW9rVEFC?=
- =?utf-8?B?VTF1ZXpwaHUzN2RISWlOc1oxaUlJV3g5OHB0S3ZOdGl3dmxMM2R2clkyUTl6?=
- =?utf-8?B?bGg5b1hLT2s2d2tVcmN5d2drbjR5c0h0UStyOUtwS1RzSTdQQzlYSW1rZnNS?=
- =?utf-8?B?bExkL09ISFMza3QwS1JTeGdXOXZucW13cnZFZjZVZjQ4QnF0RHJLbVF3K281?=
- =?utf-8?B?OTYvejhieW11NTBYL0VSS1h1R2hHSmdveDFJOHllWDFidTFXMHY4R2k4TTEz?=
- =?utf-8?B?dEc4UERneEo0Mkd2SjhjTXk4VkNLYXF1SkpsUEZxTHp5L3Q1dmtlM3grQ3h1?=
- =?utf-8?B?OUZIMXNZVGNDNzdsZXI5WHNRSktVZW5JOS9mT2RhVUdTV3FoT0lqbm9QMU1Q?=
- =?utf-8?B?QThEOGcyL09NbGZRYSsyaENTdURwODBHTkdvYjg3bjdjNXgwd0hFeUtsNXBy?=
- =?utf-8?Q?Rx/pUTnqvIbaE0Xb3jUchcMjtnqbDdtJvTF9hP7?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 682e81c5-9a5f-442b-d7d7-08d96c4e8c18
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2021 07:11:26.5461 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2021 10:35:44.7164 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 358d1620-766e-460f-85cd-08d96c6b16c2
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tyI8JzT/XGln1sadIyJMJ4w4oJZaqibvQ2Nbgy6iF+SCwTCGFIA+Yz61JLuRdqhi
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4930
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT034.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM8PR12MB5479
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,54 +118,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 31.08.21 um 09:08 schrieb Pan, Xinhui:
-> Fall through to handle the error instead of return.
->
-> Fixes: f8aab60422c37 ("drm/amdgpu: Initialise drm_gem_object_funcs for
-> imported BOs")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: xinhui pan <xinhui.pan@amd.com>
+issue:
+in cleanup_job the cancle_delayed_work will cancel a TO timer
+even the its corresponding job is still running.
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
+fix:
+do not cancel the timer in cleanup_job, instead do the cancelling
+only when the heading job is signaled, and if there is a "next" job
+we start_timeout again.
 
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 23 ++++++++++-------------
->   1 file changed, 10 insertions(+), 13 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> index 85b292ed5c43..9e2525b96d04 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> @@ -341,21 +341,18 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
->   	r = amdgpu_gem_object_create(adev, size, args->in.alignment,
->   				     initial_domain,
->   				     flags, ttm_bo_type_device, resv, &gobj);
-> -	if (r) {
-> -		if (r != -ERESTARTSYS) {
-> -			if (flags & AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED) {
-> -				flags &= ~AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
-> -				goto retry;
-> -			}
-> +	if (r && r != -ERESTARTSYS) {
-> +		if (flags & AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED) {
-> +			flags &= ~AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
-> +			goto retry;
-> +		}
->   
-> -			if (initial_domain == AMDGPU_GEM_DOMAIN_VRAM) {
-> -				initial_domain |= AMDGPU_GEM_DOMAIN_GTT;
-> -				goto retry;
-> -			}
-> -			DRM_DEBUG("Failed to allocate GEM object (%llu, %d, %llu, %d)\n",
-> -				  size, initial_domain, args->in.alignment, r);
-> +		if (initial_domain == AMDGPU_GEM_DOMAIN_VRAM) {
-> +			initial_domain |= AMDGPU_GEM_DOMAIN_GTT;
-> +			goto retry;
->   		}
-> -		return r;
-> +		DRM_DEBUG("Failed to allocate GEM object (%llu, %d, %llu, %d)\n",
-> +				size, initial_domain, args->in.alignment, r);
->   	}
->   
->   	if (flags & AMDGPU_GEM_CREATE_VM_ALWAYS_VALID) {
+v2:
+further cleanup the logic, and do the TDR timer cancelling if the signaled job
+is the last one in its scheduler.
+
+v3:
+change the issue description
+remove the cancel_delayed_work in the begining of the cleanup_job
+recover the implement of drm_sched_job_begin.
+
+TODO:
+1)introduce pause/resume scheduler in job_timeout to serial the handling
+of scheduler and job_timeout.
+2)drop the bad job's del and insert in scheduler due to above serialization
+(no race issue anymore with the serialization)
+
+tested-by: jingwen <jingwen.chen@@amd.com>
+Signed-off-by: Monk Liu <Monk.Liu@amd.com>
+---
+ drivers/gpu/drm/scheduler/sched_main.c | 25 ++++++++++---------------
+ 1 file changed, 10 insertions(+), 15 deletions(-)
+
+diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+index a2a9536..ecf8140 100644
+--- a/drivers/gpu/drm/scheduler/sched_main.c
++++ b/drivers/gpu/drm/scheduler/sched_main.c
+@@ -676,13 +676,7 @@ drm_sched_get_cleanup_job(struct drm_gpu_scheduler *sched)
+ {
+ 	struct drm_sched_job *job, *next;
+ 
+-	/*
+-	 * Don't destroy jobs while the timeout worker is running  OR thread
+-	 * is being parked and hence assumed to not touch pending_list
+-	 */
+-	if ((sched->timeout != MAX_SCHEDULE_TIMEOUT &&
+-	    !cancel_delayed_work(&sched->work_tdr)) ||
+-	    kthread_should_park())
++	if (kthread_should_park())
+ 		return NULL;
+ 
+ 	spin_lock(&sched->job_list_lock);
+@@ -693,17 +687,21 @@ drm_sched_get_cleanup_job(struct drm_gpu_scheduler *sched)
+ 	if (job && dma_fence_is_signaled(&job->s_fence->finished)) {
+ 		/* remove job from pending_list */
+ 		list_del_init(&job->list);
++
++		/* cancel this job's TO timer */
++		cancel_delayed_work(&sched->work_tdr);
+ 		/* make the scheduled timestamp more accurate */
+ 		next = list_first_entry_or_null(&sched->pending_list,
+ 						typeof(*next), list);
+-		if (next)
++
++		if (next) {
+ 			next->s_fence->scheduled.timestamp =
+ 				job->s_fence->finished.timestamp;
+-
++			/* start TO timer for next job */
++			drm_sched_start_timeout(sched);
++		}
+ 	} else {
+ 		job = NULL;
+-		/* queue timeout for next job */
+-		drm_sched_start_timeout(sched);
+ 	}
+ 
+ 	spin_unlock(&sched->job_list_lock);
+@@ -791,11 +789,8 @@ static int drm_sched_main(void *param)
+ 					  (entity = drm_sched_select_entity(sched))) ||
+ 					 kthread_should_stop());
+ 
+-		if (cleanup_job) {
++		if (cleanup_job)
+ 			sched->ops->free_job(cleanup_job);
+-			/* queue timeout for next job */
+-			drm_sched_start_timeout(sched);
+-		}
+ 
+ 		if (!entity)
+ 			continue;
+-- 
+2.7.4
 
