@@ -2,84 +2,135 @@ Return-Path: <SRS0=0crs=NW=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-18.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1D19DC432BE
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 Aug 2021 13:11:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 757ECC432BE
+	for <amd-gfx@archiver.kernel.org>; Tue, 31 Aug 2021 13:53:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D755A60F3A
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 Aug 2021 13:11:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D755A60F3A
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id 3991360241
+	for <amd-gfx@archiver.kernel.org>; Tue, 31 Aug 2021 13:53:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3991360241
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7548589954;
-	Tue, 31 Aug 2021 13:11:40 +0000 (UTC)
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [IPv6:2a00:1450:4864:20::433])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FCCA8997E
- for <amd-gfx@lists.freedesktop.org>; Tue, 31 Aug 2021 13:11:39 +0000 (UTC)
-Received: by mail-wr1-x433.google.com with SMTP id n5so27539665wro.12
- for <amd-gfx@lists.freedesktop.org>; Tue, 31 Aug 2021 06:11:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=NXSiHSF/O6ASQcBeyP4E41YwXaZJiR+NQCf8vo0r73M=;
- b=SbqpgbqgxppNY7bkAok7YEDIKxqjtSfVBNFgLhkMwNx31JtEDpXN9k1+LuCuFlUymB
- IuXayMs3wya5GyXAKm0z0+mQCr9+0k2x5iV4tLkO4WHZUjVx5Sk92mPmJntqfud8FR7a
- mF16JYbfwgrFOVkovbUx14mPMy90plxcavvP4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=NXSiHSF/O6ASQcBeyP4E41YwXaZJiR+NQCf8vo0r73M=;
- b=MNhlxakNAQb41n1fLycA+qvbgrdp+xGa3y1X/ePzbKyYThAi1rC8gpbZmp6vqfVLh2
- AAkUe9FQiSx5jBMS8z9DozGQj0+B2hbKzDYp3la0NmmzsMCuptIbNOTwem8G3W9gGd4W
- Drk4iPrU7IEMQJRHUltpDTPIw3q0lsRs+rHfHQa6DkeU5Hkuu7Rj07Y55ZpHBMJoKM1p
- rKMnw6ktqoh7xxF11M3XYB8WABTEE+WMwitRl+seQ9lqX7aq76k8YbdcgNSH5IYglgNZ
- iIBr1kgOLGdS7hyYttiCRK9d7GJmWILTqYbKBnjkExGAq1zMmOWcNU7ThutEzPK0Nk7L
- 4RFA==
-X-Gm-Message-State: AOAM532OZ1Ts60M+JJ3Hnnf7met7z3ienxMjLawrUH3p2jrHDeF4sDz3
- HQHk5iDCrHexAZ237mc0DxH+5Vc58yxlbw==
-X-Google-Smtp-Source: ABdhPJxBAI9aWj1N1ynt6AwhWlXcBXSkCWd+0mSxlzXRmDNH6eYs8Msd0161nrssS6cqB1VtNCZwSQ==
-X-Received: by 2002:adf:9e49:: with SMTP id v9mr14663268wre.39.1630415498016; 
- Tue, 31 Aug 2021 06:11:38 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id c24sm18275926wrb.57.2021.08.31.06.11.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 31 Aug 2021 06:11:37 -0700 (PDT)
-Date: Tue, 31 Aug 2021 15:11:35 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexdeucher@gmail.com>,
- Jingwen Chen <Jingwen.Chen2@amd.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- "monk.liu" <monk.liu@amd.com>, Christian Koenig <christian.koenig@amd.com>
-Subject: Re: [PATCH v2] Revert "drm/scheduler: Avoid accessing freed bad job."
-Message-ID: <YS4qhxIrcB0Ko3SB@phenom.ffwll.local>
-References: <20210818112114.1417685-1-Jingwen.Chen2@amd.com>
- <CADnq5_OApvH1Jo2VzJBHewHB_LXgg1WzUHvTBvrNYnbYdFAWhQ@mail.gmail.com>
- <69cbf5bd-42c2-be55-a604-43f4ebba159d@amd.com>
- <YR0Z7qtEti2hwZ7i@phenom.ffwll.local>
- <b92c62f2-7b1c-d4d8-cb84-1b5ccc3e4bb1@amd.com>
- <YR0cb43Wv8jGiIbb@phenom.ffwll.local>
- <82782ff5-d2a7-a4a8-8526-d1ff231630ed@amd.com>
- <YR4k0fPfUL5viMRY@phenom.ffwll.local>
- <c1b7d154-55b0-1efd-4903-0d6730ccabb7@amd.com>
- <YSdZDtXcjxE/SPpr@phenom.ffwll.local>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+	by gabe.freedesktop.org (Postfix) with ESMTP id B75E589533;
+	Tue, 31 Aug 2021 13:53:42 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2041.outbound.protection.outlook.com [40.107.237.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2966589533;
+ Tue, 31 Aug 2021 13:53:41 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=TIpmyKSIc//yHel4oNx7LaDDeq0kYWmGk0YhKtEjRYI6MSdQy5N8bhxUKUdJbUdRvemSMV0xOnm9dEmDraC9x9Nw1+IgWGzSQw2isNfWN+SIzX7O0Y9r9nqxQWoIlfZLOKtyWVK4+i8AXqtYMsvYt/3izxLQOR/iszdoLQV8svt3GQeaHAIkC8fPFEzxhpH9QdgxMl9cn7CzZbvcpbK4CHFHDoWEk4nuU4H01OD2+XHrsxwoyyN+IZc0KrWVjqZoMJUrDJidf91BZS8+iPhCIYQxg5jwTvHnkBVG10EJBwfMLEzB2aZEbjSkwbXa61ybPeI11QY5+UvXrO7HuYPCxQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
+ bh=gPnvN3ORm78/VvGYzCKGHejghFtV/naMgvF26RhKqH0=;
+ b=dbRxmh01rytpsoXrl8xfyZ/uU1RNINrNsTBJ4tXmAEA7/J9qa7fIRk6SU8xI0J2H7CyK51PaVwuX9wxTZfVDNto+YLv+EansnZcBCsvPIwNZBPNFeihzUjsCuu5OMk0+9mI3LpTzWTupQLiKYFUCs4zxNexcYg4VwUnLExMMy6nO8s53FhnqG1JJlHjKp4ObUa32sdzCduolTLoCRcwXcfegWUReQ26bdYPfzD3YGi0+45Dp0Lfz5eoawAuZScf65yLX3McJftPRJCJY61eV4P4Zwz3q7R+Xd+had3cnEJsNSBWe8PNUR/oQ52Coh5XNHRKKxJMzjIwDeQdqZGeTvg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gPnvN3ORm78/VvGYzCKGHejghFtV/naMgvF26RhKqH0=;
+ b=IfMiPEJ5tu1kd0g7ntKRG3jCR9Bro2eUAq2MJaXzwtD4Lowu6w/IM8Qu4lB7G0ljBfOtI2ahJA5jn88WbpNjjfsEM93x6vVvdrP86DOpxFTfQ76uHPbJKBjarAfbzhC9X2cijkVbni4QGvoEQuzIGpHiuMWncbRufl7hHqTqNzo=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from SN6PR12MB4623.namprd12.prod.outlook.com (2603:10b6:805:e9::17)
+ by SN1PR12MB2352.namprd12.prod.outlook.com (2603:10b6:802:25::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.19; Tue, 31 Aug
+ 2021 13:53:39 +0000
+Received: from SN6PR12MB4623.namprd12.prod.outlook.com
+ ([fe80::c4ac:2505:5bd8:295d]) by SN6PR12MB4623.namprd12.prod.outlook.com
+ ([fe80::c4ac:2505:5bd8:295d%6]) with mapi id 15.20.4457.024; Tue, 31 Aug 2021
+ 13:53:39 +0000
+Subject: Re: [PATCH 2/2] drm/sched: serialize job_timeout and scheduler
+To: Monk Liu <Monk.Liu@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, jingwen chen <jingwen.chen@amd.com>
+References: <1630406139-19621-1-git-send-email-Monk.Liu@amd.com>
+ <1630406139-19621-2-git-send-email-Monk.Liu@amd.com>
+From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Message-ID: <29be989b-c2a5-69b3-f0b8-2df52f50047f@amd.com>
+Date: Tue, 31 Aug 2021 09:53:36 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
+In-Reply-To: <1630406139-19621-2-git-send-email-Monk.Liu@amd.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <YSdZDtXcjxE/SPpr@phenom.ffwll.local>
-X-Operating-System: Linux phenom 5.10.0-8-amd64 
+Content-Language: en-US
+X-ClientProxiedBy: YT1PR01CA0150.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2f::29) To SN6PR12MB4623.namprd12.prod.outlook.com
+ (2603:10b6:805:e9::17)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [IPv6:2607:fea8:3edf:49b0:b95:7ef3:48be:2d7e]
+ (2607:fea8:3edf:49b0:b95:7ef3:48be:2d7e) by
+ YT1PR01CA0150.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2f::29) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4478.17 via Frontend Transport; Tue, 31 Aug 2021 13:53:38 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 23ef9a6a-6cf8-403e-da40-08d96c86bc3f
+X-MS-TrafficTypeDiagnostic: SN1PR12MB2352:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <SN1PR12MB23522F87A5000661ECFC0798EACC9@SN1PR12MB2352.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 1BUi6pcWuNe8Q9nppQBAInZpQaEZaoS/vMEWTmEHeThO6NdRmLEFf2xZYBITmHJV3h/zqaOdkRXDLLm202azwWBb/dzdHZJqXyMlxX6bQdDolDhAcZxKFuf1Y2ffWTr8zzJHH5fXc+28+9mjUBxJHrF8I6YT2g64evZEuZ3SQyqBsvdV/iSI3AlUtDjRvVEEMda56MXDSXN1SRbTsEVYwnDquhTI0H5UkI1T9RFtdy4+7Ck2DhxtPLDz7Gb8X6ud2B0cALXWtfrNIEoX/TbT8vNvTrxxJyBa75/1kCqjov7kmZ6tv2uMFHCSfBrHG/wf/wd7p/tqOscRS0d8DUr1xSppKxxh8syO4mP//AtxaUQB7Vsd/HZyiAaf9Aw/j6m5Ucosg2c9h5VJcPm/MjAxH8mVLSbmY+Fc3TO2u4z+pKDbcAh99LvDKY8XA2SNYo1KYtBvQm9Vak0YYM/fFPzsc9NDxBq3JG4nzs5cw6L35ddY7NSP6lt2ILmtNhUjxf6msZvySjBotBGAMTZEjJnsL1IppUWYCkzOd7nxYCuUD3FHQOqbW6Wso35nSyA3Amj+fi/BBponw9mZzAGdHcblMjwk4v1i5yJyXH0jMuuYcJelTx/nA/UO2Tol4lKtpK+gXh+hOPVBLj4FDAD+wriF68SNhfVP4wchQnJoKHsprJJEsksfufMO1OUjY8duxFpqToSIDIJfWgbMIrmVGW67P7G5FdWS54ybQ2AvLuYx3+jwFoiMIKTDT9CQ+neTll8sUs/RX4DxU7jhUdztoBuCGrvDoyDvoOJFrbYIn93d9aMIzIUoBhQkSEW4g8vdjW9D
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SN6PR12MB4623.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(39860400002)(396003)(366004)(376002)(346002)(186003)(53546011)(966005)(36756003)(66556008)(66476007)(4326008)(38100700002)(8676002)(8936002)(66946007)(44832011)(478600001)(2906002)(6486002)(450100002)(5660300002)(83380400001)(31696002)(2616005)(86362001)(31686004)(316002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YTJFNGtSOVMzQkxOc2JqOHZ0cFF1SzFLV3l6R0xCa0dTVHdvSUlUaWFMRXpV?=
+ =?utf-8?B?K2EzTXlzc0FsLzZqRUFVdDVyeVVvU3ZZcVU0dHVNbzkzUVlCTzB2eXZYZk1u?=
+ =?utf-8?B?S1FYV0l0b1R1blJoa2NuU1k1YmtZeFI1R2lsZUYyMkQxQjN6VXg1YlFmRDZT?=
+ =?utf-8?B?TkJzcnp4czBGb0tZN29Tc3QrNkxVYmY5TnpyTTJGeko0bVEzcnJaMTRodWMy?=
+ =?utf-8?B?RnpYMEl1U0w0ZGg0b2o4N2pMdzZoKy81ME93aXhwNGNReGtHL3EzMGRkM0x1?=
+ =?utf-8?B?ZGY4NFpHSklCcmRNam0rOUllZ2o4MWJZVlp3THlhQWkrbi9VMDVlTi8yYzlS?=
+ =?utf-8?B?cTRlOVVMMk9YZnhmcFR1b0Z6NGd4RVRZOUx6SEVicEV3dUFxUEpFMGtSUThu?=
+ =?utf-8?B?aW5QdTBwYnFCL3NaYWNSWHYwYnBtbUZuUUZlRlhkekJJbXFWd2FzRld5cUNU?=
+ =?utf-8?B?NmREalBEMGF3eG9oeU8yLzRJam90aHYyeG1ZcWE4U2xqR3N0NHJWZXpCUDlp?=
+ =?utf-8?B?M3pVdUVBM0toOUxsVHZPYThRNHdUdERrTUVEdktjMjBqQ2NwTytwNEZaeDNh?=
+ =?utf-8?B?YWhPU1d5Q2g4TVRnTGNaZ0p5VHREK21qdHhHR1IwTm5pSkxKZHlTU0R1NVNK?=
+ =?utf-8?B?YVZMN1hNWTc3YmQxTXFBUC9LcFNiRUlZNDN4Zm5kRjFJbzdiT0E0cWI4ckxr?=
+ =?utf-8?B?Z3JXRGhDNVlNUWdZdkNiMVFIV0pNQTZwelZHMG5rVnZ6bWV4VnVMdldOdUU3?=
+ =?utf-8?B?S05uMktwQkNidVpIZUhlcmE5by9qSWpWeWtmY1VhRng1bWo4T1lHK3dXdEw0?=
+ =?utf-8?B?Z1Z6ajZGTWs5ZU1va25YY3ZIaXRSMkE5NkV5ZElhN3VLZ2dYTVZXVTJ2NXdL?=
+ =?utf-8?B?bE53YUtKZXFQdFh6WW9vUFRiOFdwZVUzYTg1cUtySGxERUFoR3ZMZVpaa1B5?=
+ =?utf-8?B?VzFjcDFHQmlWQk1DclMyUUlORnRCYmtNbysxSE0yV09EZ1pSbURKUzdXMG40?=
+ =?utf-8?B?cUM2VFhyd2VqNjM0Nk5NKzBXQlpZcVhGZGVWV2xKM1pldWhKaHdRVDUzY3RD?=
+ =?utf-8?B?UG1iNXhSNWg2NTM5cUk2V09xU01wK0VSdUZUTUduNm1nL3JUMHh2eXBQczdl?=
+ =?utf-8?B?YUpIdmFrUFpFMUhOOUhnZngvdHFwdkRYZ2puR1BlUUtZTHZhekJoOUN0MjZn?=
+ =?utf-8?B?RkJJSnp3ZFBEb0xXMGVPM1cvZllsU1RaNDdXQ3hKc24zbGRZNkJyNnJ2WUJH?=
+ =?utf-8?B?dnJFU2xlM0tBU1NtNXA1YzJENDBzQWFFMS9UYW13ajlUMUtUUFdXejhpeXB3?=
+ =?utf-8?B?TjcyNFZZZXZiWmdRMmhJY0hXMWxjWitRR1djZHVNYnJqOWcvSy9qMHJ3NzBN?=
+ =?utf-8?B?NHkwTEIxbW1JdVpXaEVySThPTlhHbW9wMXNTaEhGN2c2QklsdmZBS2NwU3hw?=
+ =?utf-8?B?enFTUmh5bFZjcVpIQkxibWxlRGpUTVhBdEVBNk1TNTlZYVRIN0NlczFYUVo4?=
+ =?utf-8?B?WE5PV1ozMWdRSUVFeWRkYjFnZTdtZHZySmdRRld1U21iaVYvQllnNGY1TkJJ?=
+ =?utf-8?B?VE9idTAvYXc2S2doUWNuVThpU2s5OHQ3VEZGbHRTUkR0THRSTmNYK1dIa2Qy?=
+ =?utf-8?B?c3RXS3RSREtLV0IrTGxlTlh5cFZIT1FRZVNnK1FaeGQ5YnNQNS83bndhNUN5?=
+ =?utf-8?B?N0dKbTg1Z25qcy9oalQ1WXlCS1ZPY0xSUW5BLy85bU1lZ3VUcUFDbWo0eUto?=
+ =?utf-8?B?a0ZLUkJQQ3JPK2tQRDNiVkFrTTZKbkVYSVhnY0ZvRG9Kd3dBK3pWOHl1dDNV?=
+ =?utf-8?B?VnF2cTdjS3EvTlcvU1hyZEozM2lmRjNoTHZBb0kyNVhEREFMMjZ5NURQNkUx?=
+ =?utf-8?Q?KUrdb50CzYhE+?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 23ef9a6a-6cf8-403e-da40-08d96c86bc3f
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB4623.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2021 13:53:39.1503 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 49scZUPV/IDBJHQDp64dmTMscB/kKSqD7y89b0H0L87ei+6ZNlWZ7tj1ieis5+upXCq7REtV8uwg0qOpEu3QuQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2352
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,235 +145,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Aug 26, 2021 at 11:04:14AM +0200, Daniel Vetter wrote:
-> On Thu, Aug 19, 2021 at 11:25:09AM -0400, Andrey Grodzovsky wrote:
-> > 
-> > On 2021-08-19 5:30 a.m., Daniel Vetter wrote:
-> > > On Wed, Aug 18, 2021 at 10:51:00AM -0400, Andrey Grodzovsky wrote:
-> > > > On 2021-08-18 10:42 a.m., Daniel Vetter wrote:
-> > > > > On Wed, Aug 18, 2021 at 10:36:32AM -0400, Andrey Grodzovsky wrote:
-> > > > > > On 2021-08-18 10:32 a.m., Daniel Vetter wrote:
-> > > > > > > On Wed, Aug 18, 2021 at 10:26:25AM -0400, Andrey Grodzovsky wrote:
-> > > > > > > > On 2021-08-18 10:02 a.m., Alex Deucher wrote:
-> > > > > > > > 
-> > > > > > > > > + dri-devel
-> > > > > > > > > 
-> > > > > > > > > Since scheduler is a shared component, please add dri-devel on all
-> > > > > > > > > scheduler patches.
-> > > > > > > > > 
-> > > > > > > > > On Wed, Aug 18, 2021 at 7:21 AM Jingwen Chen <Jingwen.Chen2@amd.com> wrote:
-> > > > > > > > > > [Why]
-> > > > > > > > > > for bailing job, this commit will delete it from pending list thus the
-> > > > > > > > > > bailing job will never have a chance to be resubmitted even in advance
-> > > > > > > > > > tdr mode.
-> > > > > > > > > > 
-> > > > > > > > > > [How]
-> > > > > > > > > > after embeded hw_fence into amdgpu_job is done, the race condition that
-> > > > > > > > > > this commit tries to work around is completely solved.So revert this
-> > > > > > > > > > commit.
-> > > > > > > > > > This reverts commit 135517d3565b48f4def3b1b82008bc17eb5d1c90.
-> > > > > > > > > > v2:
-> > > > > > > > > > add dma_fence_get/put() around timedout_job to avoid concurrent delete
-> > > > > > > > > > during processing timedout_job
-> > > > > > > > > > 
-> > > > > > > > > > Signed-off-by: Jingwen Chen <Jingwen.Chen2@amd.com>
-> > > > > > > > > > ---
-> > > > > > > > > >      drivers/gpu/drm/scheduler/sched_main.c | 23 +++++------------------
-> > > > > > > > > >      1 file changed, 5 insertions(+), 18 deletions(-)
-> > > > > > > > > > 
-> > > > > > > > > > diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-> > > > > > > > > > index a2a953693b45..f9b9b3aefc4a 100644
-> > > > > > > > > > --- a/drivers/gpu/drm/scheduler/sched_main.c
-> > > > > > > > > > +++ b/drivers/gpu/drm/scheduler/sched_main.c
-> > > > > > > > > > @@ -314,6 +314,7 @@ static void drm_sched_job_timedout(struct work_struct *work)
-> > > > > > > > > >      {
-> > > > > > > > > >             struct drm_gpu_scheduler *sched;
-> > > > > > > > > >             struct drm_sched_job *job;
-> > > > > > > > > > +       struct dma_fence *fence;
-> > > > > > > > > >             enum drm_gpu_sched_stat status = DRM_GPU_SCHED_STAT_NOMINAL;
-> > > > > > > > > > 
-> > > > > > > > > >             sched = container_of(work, struct drm_gpu_scheduler, work_tdr.work);
-> > > > > > > > > > @@ -325,11 +326,10 @@ static void drm_sched_job_timedout(struct work_struct *work)
-> > > > > > > > > > 
-> > > > > > > > > >             if (job) {
-> > > > > > > > > >                     /*
-> > > > > > > > > > -                * Remove the bad job so it cannot be freed by concurrent
-> > > > > > > > > > -                * drm_sched_cleanup_jobs. It will be reinserted back after sched->thread
-> > > > > > > > > > -                * is parked at which point it's safe.
-> > > > > > > > > > +                * Get job->s_fence->parent here to avoid concurrent delete during
-> > > > > > > > > > +                * processing timedout_job
-> > > > > > > > > >                      */
-> > > > > > > > > > -               list_del_init(&job->list);
-> > > > > > > > > > +               fence = dma_fence_get(job->s_fence->parent);
-> > > > > > > > While this is true for amdgpu, it has no meaning for other drivers for whom
-> > > > > > > > we haven't
-> > > > > > > > done the refactoring of embedding HW fence (parent) into the job structure.
-> > > > > > > > In fact thinking
-> > > > > > > > about it, unless you do the HW fence embedding for all the drivers using the
-> > > > > > > > scheduler you cannot
-> > > > > > > > revert this patch or you will just break them.
-> > > > > > > btw, why did you do that embedding? I do still have my patches with
-> > > > > > > dma_fence annotations floating around, but my idea at least was to fix
-> > > > > > > that issue with a mempool, not with embeddeding. What was the motivation
-> > > > > > > for embedding the wh fence?
-> > > > > > > -Daniel
-> > > > > > The motivation was 2 fold, avoid memory allocation during jobs submissions
-> > > > > > (HW fence allocation) because as Christian explained this leads to deadlock
-> > > > > > with
-> > > > > > mm code during evictions due to memory pressure (Christian can clarify if I
-> > > > > > messed
-> > > > > Yeah that's the exact same thing I've chased with my dma_fence
-> > > > > annotations, but thus far zero to none interested in getting it sorted. I
-> > > > > think it'd be good to have some cross-driver agreement on how this should
-> > > > > be solved before someone just charges ahead ...
-> > > > > 
-> > > > > > this explanation). Second is to exactly revert this patch because while it
-> > > > > > solved the issue
-> > > > > > described in the patch it created another with drivers who baildc out early
-> > > > > > during TDR handling
-> > > > > > for various reason and the job would just leak because it was already
-> > > > > > removed form pending list.
-> > > > > Can't we reinsert it before we restart the scheduler thread? It might need
-> > > > > a separate list for that due to the lockless queue tricks. Or am I
-> > > > > thinking about the wrong kind of "we lost the job"?
-> > > > > -Danile
-> > > > 
-> > > > If you look at the original patch it would reinsert it even earlier - right
-> > > > after stopping the  SW scheduler thread, and even then it was to late for
-> > > > some drivers as they would decide to return back from their TDR handler even
-> > > > before that. It is solvable but in an ugly way as far as I see, you need to
-> > > > require each driver in his code to put the job back in the list if they do
-> > > > it before reaching the place where scheduler framework does it. Kind of
-> > > > spaghetti code seems to me.
-> > > Hm yeah I didn't realize this all happens before we stop the scheduler
-> > > thread.
-> > > 
-> > > Why can't we stop the scheduler thread first, so that there's guaranteed
-> > > no race? I've recently had a lot of discussions with panfrost folks about
-> > > their reset that spawns across engines, and without stopping the scheduler
-> > > thread first before you touch anything it's just plain impossible.
-> > 
-> > 
-> > Talked with Christian on that, for each TDR we actually stop all the
-> > schedulers for all the rings and not only the hanged ring since
-> > ASIC reset will impact all the rings anyway. So we cannot allow
-> > other timeout handlers for other rings run in parallel to ours
-> > as they will stop/restart the threads we just stopped and rely
-> > on them being stopped. So it's all done with device wide lock
-> > inside the amdgpu tTDR handler. Only inside the locked
-> > section then we may stop/restart the scheduler threads.
-> > Christian also mentioned that you proposed at some point
-> > to serialize all TDR handling into single threading for all rings - this
-> > seems
-> > like something that could be used - we then don't need any
-> > locking against TDR handlers from other rings and then we may
-> > stop the scheduler thread as first step
-> > 
-> > 
-> > > 
-> > > I'm also still not understanding what exactly you guys have done,
-> > > can someone please dig out the the amdgpu patches that motivate all this
-> > > maybe that's clearer? A full explanation would still be good since I've
-> > > only started in scheduler stuff.
-> > 
-> > 
-> > https://gitlab.freedesktop.org/agd5f/linux/-/commit/de7515d43659f852590645a688f8d493e4a18141
-> 
-> Uh, it would have been really good if this was discussed a bit wider
-> beforehand. Now we have rather diverging approaches to this. Also would be
-> really good to resurrect the dma_fence annotations too.
-> 
-> Can you guys pls spend a bit of time on this? Shouldn't be to hard to type
-> up rfc conversion patches for the other drivers.
+It's says patch [2/2] but i can't find patch 1
 
-Ping for this. Currently the hw fence is returned from the ->run_job
-callback, and that's not great design.
+On 2021-08-31 6:35 a.m., Monk Liu wrote:
+> tested-by: jingwen chen <jingwen.chen@amd.com>
+> Signed-off-by: Monk Liu <Monk.Liu@amd.com>
+> Signed-off-by: jingwen chen <jingwen.chen@amd.com>
+> ---
+>   drivers/gpu/drm/scheduler/sched_main.c | 24 ++++--------------------
+>   1 file changed, 4 insertions(+), 20 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+> index ecf8140..894fdb24 100644
+> --- a/drivers/gpu/drm/scheduler/sched_main.c
+> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> @@ -319,19 +319,17 @@ static void drm_sched_job_timedout(struct work_struct *work)
+>   	sched = container_of(work, struct drm_gpu_scheduler, work_tdr.work);
+>   
+>   	/* Protects against concurrent deletion in drm_sched_get_cleanup_job */
+> +	if (!__kthread_should_park(sched->thread))
+> +		kthread_park(sched->thread);
+> +
 
-If we embed it, then I think it should start existing latest from
-drm_sched_job_arm. Maybe not yet initialized, but at least allocated. So
-the right thing to do here is to have the hw fence as a pointer in
-struct drm_sched_job. And check in drm_sched_job_arm() that it's at least
-allocated.
 
-Otherwise we're just diverging across drivers and tempting them to do the
-wrong thing with the current ->run_job callback interface.
+As mentioned before, without serializing against other TDR handlers from 
+other
+schedulers you just race here against them, e.g. you parked it now but 
+another
+one in progress will unpark it as part of callingÂ  drm_sched_start for 
+other rings[1]
+Unless I am missing something since I haven't found patch [1/2]
 
-Can you guys look into this?
--Daniel
+[1] - 
+https://elixir.bootlin.com/linux/latest/source/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c#L5041
 
-> > > Another thing I recently pondered for tdr races looking at i915 code is
-> > > whether the tdr should first block the completion fence for that job. My
-> > > motivation is to have a race-free error capture (if the completion races
-> > > then we might start evicting memory and everything goes boom), but maybe
-> > > that helps here too. Some kind of atomic "block this fence from
-> > > completing thing.
-> > > 
-> > > Or I'm I completely guessing in the wrong direction?
-> > 
-> > 
-> > I think we already do it here - https://elixir.bootlin.com/linux/v5.14-rc1/source/drivers/gpu/drm/scheduler/sched_main.c#L410
-> 
-> Ah yes this works becase drm/sched has separate hw fence from the logical
-> job fence.
-> -Daniel
-> 
-> > 
-> > Andrey
-> > 
-> > 
-> > > -Daniel
-> > > 
-> > > > Andrey
-> > > > 
-> > > > 
-> > > > > > Andrey
-> > > > > > 
-> > > > > > 
-> > > > > > > > Andrey
-> > > > > > > > 
-> > > > > > > > 
-> > > > > > > > > >                     spin_unlock(&sched->job_list_lock);
-> > > > > > > > > > 
-> > > > > > > > > >                     status = job->sched->ops->timedout_job(job);
-> > > > > > > > > > @@ -342,6 +342,7 @@ static void drm_sched_job_timedout(struct work_struct *work)
-> > > > > > > > > >                             job->sched->ops->free_job(job);
-> > > > > > > > > >                             sched->free_guilty = false;
-> > > > > > > > > >                     }
-> > > > > > > > > > +               dma_fence_put(fence);
-> > > > > > > > > >             } else {
-> > > > > > > > > >                     spin_unlock(&sched->job_list_lock);
-> > > > > > > > > >             }
-> > > > > > > > > > @@ -392,20 +393,6 @@ void drm_sched_stop(struct drm_gpu_scheduler *sched, struct drm_sched_job *bad)
-> > > > > > > > > > 
-> > > > > > > > > >             kthread_park(sched->thread);
-> > > > > > > > > > 
-> > > > > > > > > > -       /*
-> > > > > > > > > > -        * Reinsert back the bad job here - now it's safe as
-> > > > > > > > > > -        * drm_sched_get_cleanup_job cannot race against us and release the
-> > > > > > > > > > -        * bad job at this point - we parked (waited for) any in progress
-> > > > > > > > > > -        * (earlier) cleanups and drm_sched_get_cleanup_job will not be called
-> > > > > > > > > > -        * now until the scheduler thread is unparked.
-> > > > > > > > > > -        */
-> > > > > > > > > > -       if (bad && bad->sched == sched)
-> > > > > > > > > > -               /*
-> > > > > > > > > > -                * Add at the head of the queue to reflect it was the earliest
-> > > > > > > > > > -                * job extracted.
-> > > > > > > > > > -                */
-> > > > > > > > > > -               list_add(&bad->list, &sched->pending_list);
-> > > > > > > > > > -
-> > > > > > > > > >             /*
-> > > > > > > > > >              * Iterate the job list from later to  earlier one and either deactive
-> > > > > > > > > >              * their HW callbacks or remove them from pending list if they already
-> > > > > > > > > > --
-> > > > > > > > > > 2.25.1
-> > > > > > > > > > 
-> 
-> -- 
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
+Andrey
 
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+
+>   	spin_lock(&sched->job_list_lock);
+>   	job = list_first_entry_or_null(&sched->pending_list,
+>   				       struct drm_sched_job, list);
+>   
+>   	if (job) {
+> -		/*
+> -		 * Remove the bad job so it cannot be freed by concurrent
+> -		 * drm_sched_cleanup_jobs. It will be reinserted back after sched->thread
+> -		 * is parked at which point it's safe.
+> -		 */
+> -		list_del_init(&job->list);
+>   		spin_unlock(&sched->job_list_lock);
+>   
+> +		/* vendor's timeout_job should call drm_sched_start() */
+>   		status = job->sched->ops->timedout_job(job);
+>   
+>   		/*
+> @@ -393,20 +391,6 @@ void drm_sched_stop(struct drm_gpu_scheduler *sched, struct drm_sched_job *bad)
+>   	kthread_park(sched->thread);
+>   
+>   	/*
+> -	 * Reinsert back the bad job here - now it's safe as
+> -	 * drm_sched_get_cleanup_job cannot race against us and release the
+> -	 * bad job at this point - we parked (waited for) any in progress
+> -	 * (earlier) cleanups and drm_sched_get_cleanup_job will not be called
+> -	 * now until the scheduler thread is unparked.
+> -	 */
+> -	if (bad && bad->sched == sched)
+> -		/*
+> -		 * Add at the head of the queue to reflect it was the earliest
+> -		 * job extracted.
+> -		 */
+> -		list_add(&bad->list, &sched->pending_list);
+> -
+> -	/*
+>   	 * Iterate the job list from later to  earlier one and either deactive
+>   	 * their HW callbacks or remove them from pending list if they already
+>   	 * signaled.
