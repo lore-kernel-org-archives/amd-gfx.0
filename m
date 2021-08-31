@@ -2,76 +2,82 @@ Return-Path: <SRS0=0crs=NW=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 34518C432BE
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 Aug 2021 13:08:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EB89AC432BE
+	for <amd-gfx@archiver.kernel.org>; Tue, 31 Aug 2021 13:08:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E7290601FD
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 Aug 2021 13:08:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E7290601FD
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 7EE0061051
+	for <amd-gfx@archiver.kernel.org>; Tue, 31 Aug 2021 13:08:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7EE0061051
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66DA3899D4;
-	Tue, 31 Aug 2021 13:08:00 +0000 (UTC)
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [IPv6:2a00:1450:4864:20::22f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 26EF489C0A
- for <amd-gfx@lists.freedesktop.org>; Mon, 30 Aug 2021 17:21:59 +0000 (UTC)
-Received: by mail-lj1-x22f.google.com with SMTP id i28so27176953ljm.7
- for <amd-gfx@lists.freedesktop.org>; Mon, 30 Aug 2021 10:21:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2409789EAC;
+	Tue, 31 Aug 2021 13:08:37 +0000 (UTC)
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [IPv6:2a00:1450:4864:20::429])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA5FC89EA6
+ for <amd-gfx@lists.freedesktop.org>; Tue, 31 Aug 2021 13:08:35 +0000 (UTC)
+Received: by mail-wr1-x429.google.com with SMTP id u9so27571490wrg.8
+ for <amd-gfx@lists.freedesktop.org>; Tue, 31 Aug 2021 06:08:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:content-transfer-encoding:in-reply-to;
- bh=5o5eVa/D65IWc/Wg+t5VxQlOGV9cF34rB+LJ57J/HX4=;
- b=AbT4fQMY8evNioe7bS2ZgMPICkmZO9rlEmyhbhH3DQ7H+k51ox2zQE9b3J4+71mO3w
- lJmLaifpqmNxKzP/IB+N0sXlWuJ5xdboJu2esOvhmWMZzhmN+xAONOEOqDHy436zUrtP
- 1WRbVKYpcD45qWUnYvzXOgh+RmcJ8ja80XcSRXno6QccXCkLsMiXS4D0lLlTsz6BMn07
- Bg8rvVKOd8TkS0IPlIsp0lrSVaAVk/AIWeTHtcO3/mH/9/xoolvOljxm1XVichI8jnJM
- p5/hbgjP6DSlAGUCj4YuG7bnfrMd7q9bKfM5t2bXZ8HPrPYyX2/p0w7XOgPoffHOHxHQ
- KWxg==
+ bh=wXDmcDBTd2H3ARcd/cZIFyo7FbtO0F5pLy17lY5r46w=;
+ b=dyRIntM+MLpdVii3NsbghIQPginBP+TP3ERYG9rAaR1zz3MlwCM5H0qxn7iPVo05HJ
+ hCq52tsAU5LvKP1zfMYKVMS8tFUkViKIHsn2zmibC7yQCsIeYl9XqpzGWSplpNl1LuzO
+ ibE720/jboj7RTfuRBFVzygwcrT2L25kZr3LU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:content-transfer-encoding
  :in-reply-to;
- bh=5o5eVa/D65IWc/Wg+t5VxQlOGV9cF34rB+LJ57J/HX4=;
- b=q7cbBH/TaltULyIByAuToL5+mJwqOPruCLIzJ/FTlV/e6SWUGwAOVX2/Ba3VBbUuw2
- 6aPsjqQnDK2RLQtG4JRXPHOSHKXD/QONR4pj8BGFa5c2PAtxSE05+pI7cvr2uKoJ/+cM
- 8Buzu1OiMIKR/YLb7BQ3GvYoiupVoGPwIdx8ZllDAWweAJvYFpIPIpAUko91F43lQ5ne
- fwLKB3JSbMIlH+OnmnW7G8yaMdoLcS05iSZLhFR5ZeB29BXhwbsHUzyjAoVWumFO8YrE
- Q6jSusU3paLCthj6MkVzP1ZUzaZFFbqyycbzIbprGEF7jhD+QqYHA34JlsZRQSNjPWVM
- qovQ==
-X-Gm-Message-State: AOAM532VidUwayDEkJvqnUYw8HUqFnxaJZtE5uPPnaSMeH0yjWI0jUGR
- 4l8YDLkGlglfJ5iBb2DQ0zA=
-X-Google-Smtp-Source: ABdhPJwe7w9zR7dTsLfXrKe0TgaGffJeGK5jHfKncxWRV5n3Z5R7VcKHIA9UP37tCJ8VQK28vqLrvQ==
-X-Received: by 2002:a2e:8001:: with SMTP id j1mr21871927ljg.9.1630344117445;
- Mon, 30 Aug 2021 10:21:57 -0700 (PDT)
-Received: from kari-VirtualBox (85-23-89-224.bb.dnainternet.fi. [85.23.89.224])
- by smtp.gmail.com with ESMTPSA id t19sm1449850lfr.204.2021.08.30.10.21.56
+ bh=wXDmcDBTd2H3ARcd/cZIFyo7FbtO0F5pLy17lY5r46w=;
+ b=fBW65au23YyKKyYbomKDMAHNYwhOOkXd1GbIFqndJUoUmqO4bQo9+oJa995tZ+eBbw
+ 60NRaU0Uz4IngqYFwhrxddHYGyH24nPWRvkxixeSG1FaHDJskeSsCp8cyLEsM1g/YUXp
+ JpTujhUDcqI49yUjwdJiOdfvpF9ijKtnMBIwW5YfPDTBslwrQrUg4cs8+bfXYQohiXxY
+ wnLfdnFzLvqR+Ky7RbLsPhdHugkyvw9jxP0w36tG3JZF6PJBfr1iTODehKiE89unxPVw
+ Tbp2U9hlqERs9DA5tbeT1g7pZr74ve6302nVzww2EA1sOto2S5NyTArkBPI0LD/WRIBF
+ xFcg==
+X-Gm-Message-State: AOAM532bXyQmfzkZgmqhcFdCSd/T7RCUDNQekaTtLqI4RMlZsuD0NSb6
+ PwqyD3fZk7qWb20qHXDSXodkHA==
+X-Google-Smtp-Source: ABdhPJw8QFyFJzKObDdmwI2AO7gLMA38M2Tz1nNVPK5DOvxNOgTz2MF4AhkpMdxtz+VBrKXaMyoT5g==
+X-Received: by 2002:adf:9063:: with SMTP id h90mr31927611wrh.121.1630415314371; 
+ Tue, 31 Aug 2021 06:08:34 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id c14sm2402158wme.6.2021.08.31.06.08.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Aug 2021 10:21:56 -0700 (PDT)
-Date: Mon, 30 Aug 2021 20:21:55 +0300
-From: Kari Argillander <kari.argillander@gmail.com>
-To: Skyler =?utf-8?Q?M=C3=A4ntysaari?= <lists@samip.fi>
-Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
-Subject: Re: [drm/amdgpu] Driver crashes on 5.13.9 kernel
-Message-ID: <20210830172155.dxwdeh6em2smg2on@kari-VirtualBox>
-References: <4ada1100-fbce-44e4-b69d-0f5196f86bcb@www.fastmail.com>
- <20210829173448.3cwk4rz6wfxfxdpj@kari-VirtualBox>
- <4d3fd1cb-9b33-4598-b351-54ea455c2a6e@www.fastmail.com>
+ Tue, 31 Aug 2021 06:08:33 -0700 (PDT)
+Date: Tue, 31 Aug 2021 15:08:31 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ "Liu, Monk" <Monk.Liu@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/sched: fix the bug of time out calculation(v3)
+Message-ID: <YS4pz4SZBLPyllG+@phenom.ffwll.local>
+References: <1629953731-14629-1-git-send-email-Monk.Liu@amd.com>
+ <20419179-ee90-45aa-f4b8-b6bcb20a9c52@amd.com>
+ <cc01416c-c04e-a716-f617-71351c1ad06a@amd.com>
+ <BL1PR12MB5269AAC2FA518CF85724C85D84C89@BL1PR12MB5269.namprd12.prod.outlook.com>
+ <257202a9-a670-5b89-f98d-01855b6e41cf@amd.com>
+ <da180d36-b5dd-733e-3721-3333b0cf405e@gmail.com>
+ <9bb9b448-ea93-e8f9-818e-c6d27d4a8264@amd.com>
+ <8171ae25-72b6-7400-6969-61885ca5094b@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <4d3fd1cb-9b33-4598-b351-54ea455c2a6e@www.fastmail.com>
-X-Mailman-Approved-At: Tue, 31 Aug 2021 13:07:59 +0000
+In-Reply-To: <8171ae25-72b6-7400-6969-61885ca5094b@amd.com>
+X-Operating-System: Linux phenom 5.10.0-8-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,93 +92,205 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Aug 30, 2021 at 07:15:29PM +0300, Skyler Mäntysaari wrote:
-> I have tried kernel 5.13.13, without any difference and I haven't
-> tried with an older kernel, as this hardware is that new that I have
-> very little faith in less than 5.x kernel would even have support for
-> the needed GPU.
-
-Yeah might be. 
-
-> What do you mean with git bisect? I have checked that the crash
-> happens somewhere in the monitor connection code:
-
-If we found some older version which work. Then with git bisect we can
-track which patch made this bug. But if it never work then git bisect
-won't help.
-
-You may still want to test with 5.14 as it was released today.
-
-If that does not work then I cannot help more. It is still very
-important to know if it is also broken in 5.14. Hopefully someone will
-able to help you. 
-
-  Argillander
-
-> [ 9605.269927] Call Trace:
-> [ 9605.269931]  core_link_enable_stream+0x746/0x870 [amdgpu]
-> [ 9605.270038]  dce110_apply_ctx_to_hw+0x519/0x560 [amdgpu]
-> [ 9605.270146]  dc_commit_state+0x2f6/0xa50 [amdgpu]
-> [ 9605.270249]  amdgpu_dm_atomic_commit_tail+0x569/0x26a0 [amdgpu]
-> [ 9605.270326]  ? kfree+0xc3/0x460
-> [ 9605.270329]  ? dcn30_validate_bandwidth+0x11f/0x270 [amdgpu]
-> [ 9605.270402]  ? dcn30_validate_bandwidth+0x11f/0x270 [amdgpu]
-> [ 9605.270469]  ? dm_plane_helper_prepare_fb+0x19c/0x250 [amdgpu]
-> [ 9605.270542]  ? __cond_resched+0x16/0x40
-> [ 9605.270544]  ? __wait_for_common+0x3b/0x160
-> [ 9605.270545]  ? __raw_callee_save___native_queued_spin_unlock+0x11/0x1e
-> [ 9605.270548]  commit_tail+0x94/0x130 [drm_kms_helper]
-> [ 9605.270557]  drm_atomic_helper_commit+0x113/0x140 [drm_kms_helper]
-> [ 9605.270562]  drm_atomic_helper_set_config+0x70/0xb0 [drm_kms_helper]
-> [ 9605.270568]  drm_mode_setcrtc+0x1d3/0x6d0 [drm]
-> [ 9605.270582]  ? drm_mode_getcrtc+0x180/0x180 [drm]
-> [ 9605.270590]  drm_ioctl_kernel+0xaa/0xf0 [drm]
-> [ 9605.270600]  drm_ioctl+0x220/0x3c0 [drm]
-> [ 9605.270609]  ? drm_mode_getcrtc+0x180/0x180 [drm]
-> [ 9605.270618]  amdgpu_drm_ioctl+0x49/0x80 [amdgpu]
-> [ 9605.270673]  __x64_sys_ioctl+0x83/0xb0
-> [ 9605.270675]  do_syscall_64+0x40/0xb0
-> [ 9605.270677]  entry_SYSCALL_64_after_hwframe+0x44/0xae
+On Fri, Aug 27, 2021 at 08:30:32PM +0200, Christian König wrote:
+> Yeah, that's what I meant with that the start of processing a job is a bit
+> swampy defined.
 > 
+> Jobs overload, but we simply don't have another good indicator that a job
+> started except that the previous one completed.
 > 
-> On Sun, Aug 29, 2021, at 20:34, Kari Argillander wrote:
-> > On Sun, Aug 29, 2021 at 06:38:39PM +0300, Skyler Mäntysaari wrote:
-> > > Hello everyone on the list,
+> It's still better than starting the timer when pushing the job to the ring
+> buffer, because that is completely off.
+
+Not sure this matters that much really in practice, and in some cases we
+might want to actually just reset it all if the built up backlog is way
+too long.
+
+For anything that really runs way too long you want preempt-ctx/revoke
+fences anyway, not end-of-cs fences with tdr.
+-Daniel
+
+> 
+> Christian.
+> 
+> Am 27.08.21 um 20:22 schrieb Andrey Grodzovsky:
+> > As I mentioned to Monk before - what about cases such as in this test - https://gitlab.freedesktop.org/mesa/drm/-/commit/bc21168fa924d3fc4a000492e861f50a1a135b25
 > > 
-> > This is universal kernel list and it is not read by many. I have added
-> > hopefully right list (amd-gfx@lists.freedesktop.org).
+> > Here you don't have serialized sequence where when jobs finishes
+> > processing and second starts, they execute together  concurrently - for
+> > those cases seems
+> > to me restarting the timer for the second job from scratch will let it
+> > hang much longer then allowed by TO value.
 > > 
-> > > Subject: Re: [drm/amdgpu] Driver crashes on 5.13.9 kernel
+> > Andrey
 > > 
-> > I have no influence or knowledge about this driver, but I still try to
-> > help because it seems good bug report. Have you test with 5.13.13 or
-> > 5.14-rc7. Does this work with some other kernel? If needed can you git
-> > bisect if needed? You will probably get some support for it if needed.
-> > 
-> > Argillander
-> > 
-> > > I thought that this should probably be discussed here,  so I came
-> > > across weird issue to me which is driver crashing while trying to get
-> > > one of my monitors working on Gentoo.  I would like to ask here how
-> > > that would happen that the Display appears to jump from DisplayPort-6
-> > > (physical port) to DisplayPort-7 (which doesn't exist physically)? Has
-> > > anyone else experienced this?
+> > On 2021-08-27 10:29 a.m., Christian König wrote:
+> > > I don't think that makes sense.
 > > > 
-> > > It seems that the driver sees a rather large amount of inputs for the
-> > > GPU, even though I only have 4, 3 of which are DisplayPort, and the
-> > > issue monitor is also on DisplayPort. 
+> > > See we don't want to start the time when the job is inserted into
+> > > the ring buffer, but rather when it starts processing.
 > > > 
-> > > Hardware:
-> > > CPU: AMD Ryzen 5800X
-> > > GPU: AMD Radeon RX 6800
-> > > System Memory: 32GB of DDR4 3200Mhz
-> > > Display(s): BenQ Zowie XL2430 (1080p), DELL U2414H (1080p), DELL U2415 (1920x1200)
-> > > Type of Diplay Connection: All are connected via Display-Port
+> > > Starting processing is a bit swampy defined, but just starting the
+> > > timer when the previous job completes should be fine enough.
 > > > 
-> > > Related DRM issue:
-> > > https://gitlab.freedesktop.org/drm/amd/-/issues/1621 which includes
-> > > logs too.
+> > > Christian.
 > > > 
+> > > Am 27.08.21 um 15:57 schrieb Andrey Grodzovsky:
+> > > > The TS represents the point in time when the job was inserted
+> > > > into the pending list.
+> > > > I don't think it matters when it actually starts to be
+> > > > processed, what matters is when this job was inserted into
+> > > > pending list because right at that point you arm the TO timer
+> > > > (when no other is running already)
+> > > > and so when the previous job completes and you cancel and rearm
+> > > > again you can use that TS from the next job in pending list to
+> > > > calculate how much time has actually left for it to run before
+> > > > TDR must be initiated
+> > > > and not just give it again full TO value to run even if it has
+> > > > already been running for a while.
+> > > > 
+> > > > Also, i am not sure also about the assumption that what we
+> > > > measure is processing by HW, what we measure is from the moment
+> > > > it was scheduled to ring to the moment the job completed (EOP
+> > > > event). At least that what our TDR timer measures and so it
+> > > > makes sense to set the TS at this point.
+> > > > 
+> > > > Andrey
+> > > > 
+> > > > On 2021-08-27 3:20 a.m., Liu, Monk wrote:
+> > > > > [AMD Official Use Only]
+> > > > > 
+> > > > > what is that 'ts' representing for ? it looks to me the
+> > > > > jiffies that it get scheduled to the ring,  but a job
+> > > > > scheduled to the ring doesn't represent it's being processed
+> > > > > by hw.
+> > > > > 
+> > > > > Thanks
+> > > > > 
+> > > > > ------------------------------------------
+> > > > > Monk Liu | Cloud-GPU Core team
+> > > > > ------------------------------------------
+> > > > > 
+> > > > > -----Original Message-----
+> > > > > From: Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>
+> > > > > Sent: Friday, August 27, 2021 4:14 AM
+> > > > > To: Liu, Monk <Monk.Liu@amd.com>;
+> > > > > amd-gfx@lists.freedesktop.org; Koenig, Christian
+> > > > > <Christian.Koenig@amd.com>
+> > > > > Cc: dri-devel@lists.freedesktop.org
+> > > > > Subject: Re: [PATCH] drm/sched: fix the bug of time out
+> > > > > calculation(v3)
+> > > > > 
+> > > > > Attached quick patch for per job TTL calculation to make
+> > > > > more precises next timer expiration. It's on top of the
+> > > > > patch in this thread. Let me know if this makes sense.
+> > > > > 
+> > > > > Andrey
+> > > > > 
+> > > > > On 2021-08-26 10:03 a.m., Andrey Grodzovsky wrote:
+> > > > > > On 2021-08-26 12:55 a.m., Monk Liu wrote:
+> > > > > > > issue:
+> > > > > > > in cleanup_job the cancle_delayed_work will cancel a TO timer even
+> > > > > > > the its corresponding job is still running.
+> > > > > > > 
+> > > > > > > fix:
+> > > > > > > do not cancel the timer in cleanup_job, instead do the cancelling
+> > > > > > > only when the heading job is signaled, and if there is a "next" job
+> > > > > > > we start_timeout again.
+> > > > > > > 
+> > > > > > > v2:
+> > > > > > > further cleanup the logic, and do the TDR timer cancelling if the
+> > > > > > > signaled job is the last one in its scheduler.
+> > > > > > > 
+> > > > > > > v3:
+> > > > > > > change the issue description
+> > > > > > > remove the cancel_delayed_work in the begining of the cleanup_job
+> > > > > > > recover the implement of drm_sched_job_begin.
+> > > > > > > 
+> > > > > > > TODO:
+> > > > > > > 1)introduce pause/resume scheduler in job_timeout to serial the
+> > > > > > > handling of scheduler and job_timeout.
+> > > > > > > 2)drop the bad job's del and insert in scheduler due to above
+> > > > > > > serialization (no race issue anymore with the serialization)
+> > > > > > > 
+> > > > > > > Signed-off-by: Monk Liu <Monk.Liu@amd.com>
+> > > > > > > ---
+> > > > > > >    drivers/gpu/drm/scheduler/sched_main.c | 25
+> > > > > > > ++++++++++---------------
+> > > > > > >    1 file changed, 10 insertions(+), 15 deletions(-)
+> > > > > > > 
+> > > > > > > diff --git a/drivers/gpu/drm/scheduler/sched_main.c
+> > > > > > > b/drivers/gpu/drm/scheduler/sched_main.c
+> > > > > > > index a2a9536..ecf8140 100644
+> > > > > > > --- a/drivers/gpu/drm/scheduler/sched_main.c
+> > > > > > > +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> > > > > > > @@ -676,13 +676,7 @@ drm_sched_get_cleanup_job(struct
+> > > > > > > drm_gpu_scheduler *sched)
+> > > > > > >    {
+> > > > > > >        struct drm_sched_job *job, *next;
+> > > > > > >    -    /*
+> > > > > > > -     * Don't destroy jobs while the timeout worker is running OR
+> > > > > > > thread
+> > > > > > > -     * is being parked and hence assumed to not touch pending_list
+> > > > > > > -     */
+> > > > > > > -    if ((sched->timeout != MAX_SCHEDULE_TIMEOUT &&
+> > > > > > > -        !cancel_delayed_work(&sched->work_tdr)) ||
+> > > > > > > -        kthread_should_park())
+> > > > > > > +    if (kthread_should_park())
+> > > > > > >            return NULL;
+> > > > > > 
+> > > > > > I actually don't see why we need to keep the above, on the other side
+> > > > > > (in drm_sched_stop) we won't touch the pending list
+> > > > > > anyway until sched
+> > > > > > thread came to full stop (kthread_park). If you do see a reason why
+> > > > > > this needed then a comment should be here i think.
+> > > > > > 
+> > > > > > Andrey
+> > > > > > 
+> > > > > > 
+> > > > > > > spin_lock(&sched->job_list_lock);
+> > > > > > > @@ -693,17 +687,21 @@ drm_sched_get_cleanup_job(struct
+> > > > > > > drm_gpu_scheduler *sched)
+> > > > > > >        if (job && dma_fence_is_signaled(&job->s_fence->finished)) {
+> > > > > > >            /* remove job from pending_list */
+> > > > > > >            list_del_init(&job->list);
+> > > > > > > +
+> > > > > > > +        /* cancel this job's TO timer */
+> > > > > > > +        cancel_delayed_work(&sched->work_tdr);
+> > > > > > >            /* make the scheduled timestamp more accurate */
+> > > > > > >            next = list_first_entry_or_null(&sched->pending_list,
+> > > > > > >                            typeof(*next), list);
+> > > > > > > -        if (next)
+> > > > > > > +
+> > > > > > > +        if (next) {
+> > > > > > >                next->s_fence->scheduled.timestamp =
+> > > > > > > job->s_fence->finished.timestamp;
+> > > > > > > -
+> > > > > > > +            /* start TO timer for next job */
+> > > > > > > +            drm_sched_start_timeout(sched);
+> > > > > > > +        }
+> > > > > > >        } else {
+> > > > > > >            job = NULL;
+> > > > > > > -        /* queue timeout for next job */
+> > > > > > > -        drm_sched_start_timeout(sched);
+> > > > > > >        }
+> > > > > > >          spin_unlock(&sched->job_list_lock);
+> > > > > > > @@ -791,11 +789,8 @@ static int drm_sched_main(void *param)
+> > > > > > >                          (entity =
+> > > > > > > drm_sched_select_entity(sched))) ||
+> > > > > > >                         kthread_should_stop());
+> > > > > > >    -        if (cleanup_job) {
+> > > > > > > +        if (cleanup_job)
+> > > > > > >                sched->ops->free_job(cleanup_job);
+> > > > > > > -            /* queue timeout for next job */
+> > > > > > > -            drm_sched_start_timeout(sched);
+> > > > > > > -        }
+> > > > > > >              if (!entity)
+> > > > > > >                continue;
 > > > 
-> > > Best regards,
-> > > Skyler Mäntysaari
+> 
+
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
