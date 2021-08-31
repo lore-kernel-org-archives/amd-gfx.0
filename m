@@ -4,79 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EB89AC432BE
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 Aug 2021 13:08:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1D19DC432BE
+	for <amd-gfx@archiver.kernel.org>; Tue, 31 Aug 2021 13:11:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7EE0061051
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 Aug 2021 13:08:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7EE0061051
+	by mail.kernel.org (Postfix) with ESMTPS id D755A60F3A
+	for <amd-gfx@archiver.kernel.org>; Tue, 31 Aug 2021 13:11:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D755A60F3A
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2409789EAC;
-	Tue, 31 Aug 2021 13:08:37 +0000 (UTC)
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [IPv6:2a00:1450:4864:20::429])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA5FC89EA6
- for <amd-gfx@lists.freedesktop.org>; Tue, 31 Aug 2021 13:08:35 +0000 (UTC)
-Received: by mail-wr1-x429.google.com with SMTP id u9so27571490wrg.8
- for <amd-gfx@lists.freedesktop.org>; Tue, 31 Aug 2021 06:08:35 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7548589954;
+	Tue, 31 Aug 2021 13:11:40 +0000 (UTC)
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [IPv6:2a00:1450:4864:20::433])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8FCCA8997E
+ for <amd-gfx@lists.freedesktop.org>; Tue, 31 Aug 2021 13:11:39 +0000 (UTC)
+Received: by mail-wr1-x433.google.com with SMTP id n5so27539665wro.12
+ for <amd-gfx@lists.freedesktop.org>; Tue, 31 Aug 2021 06:11:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:content-transfer-encoding:in-reply-to;
- bh=wXDmcDBTd2H3ARcd/cZIFyo7FbtO0F5pLy17lY5r46w=;
- b=dyRIntM+MLpdVii3NsbghIQPginBP+TP3ERYG9rAaR1zz3MlwCM5H0qxn7iPVo05HJ
- hCq52tsAU5LvKP1zfMYKVMS8tFUkViKIHsn2zmibC7yQCsIeYl9XqpzGWSplpNl1LuzO
- ibE720/jboj7RTfuRBFVzygwcrT2L25kZr3LU=
+ bh=NXSiHSF/O6ASQcBeyP4E41YwXaZJiR+NQCf8vo0r73M=;
+ b=SbqpgbqgxppNY7bkAok7YEDIKxqjtSfVBNFgLhkMwNx31JtEDpXN9k1+LuCuFlUymB
+ IuXayMs3wya5GyXAKm0z0+mQCr9+0k2x5iV4tLkO4WHZUjVx5Sk92mPmJntqfud8FR7a
+ mF16JYbfwgrFOVkovbUx14mPMy90plxcavvP4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:content-transfer-encoding
  :in-reply-to;
- bh=wXDmcDBTd2H3ARcd/cZIFyo7FbtO0F5pLy17lY5r46w=;
- b=fBW65au23YyKKyYbomKDMAHNYwhOOkXd1GbIFqndJUoUmqO4bQo9+oJa995tZ+eBbw
- 60NRaU0Uz4IngqYFwhrxddHYGyH24nPWRvkxixeSG1FaHDJskeSsCp8cyLEsM1g/YUXp
- JpTujhUDcqI49yUjwdJiOdfvpF9ijKtnMBIwW5YfPDTBslwrQrUg4cs8+bfXYQohiXxY
- wnLfdnFzLvqR+Ky7RbLsPhdHugkyvw9jxP0w36tG3JZF6PJBfr1iTODehKiE89unxPVw
- Tbp2U9hlqERs9DA5tbeT1g7pZr74ve6302nVzww2EA1sOto2S5NyTArkBPI0LD/WRIBF
- xFcg==
-X-Gm-Message-State: AOAM532bXyQmfzkZgmqhcFdCSd/T7RCUDNQekaTtLqI4RMlZsuD0NSb6
- PwqyD3fZk7qWb20qHXDSXodkHA==
-X-Google-Smtp-Source: ABdhPJw8QFyFJzKObDdmwI2AO7gLMA38M2Tz1nNVPK5DOvxNOgTz2MF4AhkpMdxtz+VBrKXaMyoT5g==
-X-Received: by 2002:adf:9063:: with SMTP id h90mr31927611wrh.121.1630415314371; 
- Tue, 31 Aug 2021 06:08:34 -0700 (PDT)
+ bh=NXSiHSF/O6ASQcBeyP4E41YwXaZJiR+NQCf8vo0r73M=;
+ b=MNhlxakNAQb41n1fLycA+qvbgrdp+xGa3y1X/ePzbKyYThAi1rC8gpbZmp6vqfVLh2
+ AAkUe9FQiSx5jBMS8z9DozGQj0+B2hbKzDYp3la0NmmzsMCuptIbNOTwem8G3W9gGd4W
+ Drk4iPrU7IEMQJRHUltpDTPIw3q0lsRs+rHfHQa6DkeU5Hkuu7Rj07Y55ZpHBMJoKM1p
+ rKMnw6ktqoh7xxF11M3XYB8WABTEE+WMwitRl+seQ9lqX7aq76k8YbdcgNSH5IYglgNZ
+ iIBr1kgOLGdS7hyYttiCRK9d7GJmWILTqYbKBnjkExGAq1zMmOWcNU7ThutEzPK0Nk7L
+ 4RFA==
+X-Gm-Message-State: AOAM532OZ1Ts60M+JJ3Hnnf7met7z3ienxMjLawrUH3p2jrHDeF4sDz3
+ HQHk5iDCrHexAZ237mc0DxH+5Vc58yxlbw==
+X-Google-Smtp-Source: ABdhPJxBAI9aWj1N1ynt6AwhWlXcBXSkCWd+0mSxlzXRmDNH6eYs8Msd0161nrssS6cqB1VtNCZwSQ==
+X-Received: by 2002:adf:9e49:: with SMTP id v9mr14663268wre.39.1630415498016; 
+ Tue, 31 Aug 2021 06:11:38 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id c14sm2402158wme.6.2021.08.31.06.08.33
+ by smtp.gmail.com with ESMTPSA id c24sm18275926wrb.57.2021.08.31.06.11.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 31 Aug 2021 06:08:33 -0700 (PDT)
-Date: Tue, 31 Aug 2021 15:08:31 +0200
+ Tue, 31 Aug 2021 06:11:37 -0700 (PDT)
+Date: Tue, 31 Aug 2021 15:11:35 +0200
 From: Daniel Vetter <daniel@ffwll.ch>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
- "Liu, Monk" <Monk.Liu@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/sched: fix the bug of time out calculation(v3)
-Message-ID: <YS4pz4SZBLPyllG+@phenom.ffwll.local>
-References: <1629953731-14629-1-git-send-email-Monk.Liu@amd.com>
- <20419179-ee90-45aa-f4b8-b6bcb20a9c52@amd.com>
- <cc01416c-c04e-a716-f617-71351c1ad06a@amd.com>
- <BL1PR12MB5269AAC2FA518CF85724C85D84C89@BL1PR12MB5269.namprd12.prod.outlook.com>
- <257202a9-a670-5b89-f98d-01855b6e41cf@amd.com>
- <da180d36-b5dd-733e-3721-3333b0cf405e@gmail.com>
- <9bb9b448-ea93-e8f9-818e-c6d27d4a8264@amd.com>
- <8171ae25-72b6-7400-6969-61885ca5094b@amd.com>
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Cc: Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexdeucher@gmail.com>,
+ Jingwen Chen <Jingwen.Chen2@amd.com>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ "monk.liu" <monk.liu@amd.com>, Christian Koenig <christian.koenig@amd.com>
+Subject: Re: [PATCH v2] Revert "drm/scheduler: Avoid accessing freed bad job."
+Message-ID: <YS4qhxIrcB0Ko3SB@phenom.ffwll.local>
+References: <20210818112114.1417685-1-Jingwen.Chen2@amd.com>
+ <CADnq5_OApvH1Jo2VzJBHewHB_LXgg1WzUHvTBvrNYnbYdFAWhQ@mail.gmail.com>
+ <69cbf5bd-42c2-be55-a604-43f4ebba159d@amd.com>
+ <YR0Z7qtEti2hwZ7i@phenom.ffwll.local>
+ <b92c62f2-7b1c-d4d8-cb84-1b5ccc3e4bb1@amd.com>
+ <YR0cb43Wv8jGiIbb@phenom.ffwll.local>
+ <82782ff5-d2a7-a4a8-8526-d1ff231630ed@amd.com>
+ <YR4k0fPfUL5viMRY@phenom.ffwll.local>
+ <c1b7d154-55b0-1efd-4903-0d6730ccabb7@amd.com>
+ <YSdZDtXcjxE/SPpr@phenom.ffwll.local>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <8171ae25-72b6-7400-6969-61885ca5094b@amd.com>
+In-Reply-To: <YSdZDtXcjxE/SPpr@phenom.ffwll.local>
 X-Operating-System: Linux phenom 5.10.0-8-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,203 +94,233 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Aug 27, 2021 at 08:30:32PM +0200, Christian König wrote:
-> Yeah, that's what I meant with that the start of processing a job is a bit
-> swampy defined.
+On Thu, Aug 26, 2021 at 11:04:14AM +0200, Daniel Vetter wrote:
+> On Thu, Aug 19, 2021 at 11:25:09AM -0400, Andrey Grodzovsky wrote:
+> > 
+> > On 2021-08-19 5:30 a.m., Daniel Vetter wrote:
+> > > On Wed, Aug 18, 2021 at 10:51:00AM -0400, Andrey Grodzovsky wrote:
+> > > > On 2021-08-18 10:42 a.m., Daniel Vetter wrote:
+> > > > > On Wed, Aug 18, 2021 at 10:36:32AM -0400, Andrey Grodzovsky wrote:
+> > > > > > On 2021-08-18 10:32 a.m., Daniel Vetter wrote:
+> > > > > > > On Wed, Aug 18, 2021 at 10:26:25AM -0400, Andrey Grodzovsky wrote:
+> > > > > > > > On 2021-08-18 10:02 a.m., Alex Deucher wrote:
+> > > > > > > > 
+> > > > > > > > > + dri-devel
+> > > > > > > > > 
+> > > > > > > > > Since scheduler is a shared component, please add dri-devel on all
+> > > > > > > > > scheduler patches.
+> > > > > > > > > 
+> > > > > > > > > On Wed, Aug 18, 2021 at 7:21 AM Jingwen Chen <Jingwen.Chen2@amd.com> wrote:
+> > > > > > > > > > [Why]
+> > > > > > > > > > for bailing job, this commit will delete it from pending list thus the
+> > > > > > > > > > bailing job will never have a chance to be resubmitted even in advance
+> > > > > > > > > > tdr mode.
+> > > > > > > > > > 
+> > > > > > > > > > [How]
+> > > > > > > > > > after embeded hw_fence into amdgpu_job is done, the race condition that
+> > > > > > > > > > this commit tries to work around is completely solved.So revert this
+> > > > > > > > > > commit.
+> > > > > > > > > > This reverts commit 135517d3565b48f4def3b1b82008bc17eb5d1c90.
+> > > > > > > > > > v2:
+> > > > > > > > > > add dma_fence_get/put() around timedout_job to avoid concurrent delete
+> > > > > > > > > > during processing timedout_job
+> > > > > > > > > > 
+> > > > > > > > > > Signed-off-by: Jingwen Chen <Jingwen.Chen2@amd.com>
+> > > > > > > > > > ---
+> > > > > > > > > >      drivers/gpu/drm/scheduler/sched_main.c | 23 +++++------------------
+> > > > > > > > > >      1 file changed, 5 insertions(+), 18 deletions(-)
+> > > > > > > > > > 
+> > > > > > > > > > diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+> > > > > > > > > > index a2a953693b45..f9b9b3aefc4a 100644
+> > > > > > > > > > --- a/drivers/gpu/drm/scheduler/sched_main.c
+> > > > > > > > > > +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> > > > > > > > > > @@ -314,6 +314,7 @@ static void drm_sched_job_timedout(struct work_struct *work)
+> > > > > > > > > >      {
+> > > > > > > > > >             struct drm_gpu_scheduler *sched;
+> > > > > > > > > >             struct drm_sched_job *job;
+> > > > > > > > > > +       struct dma_fence *fence;
+> > > > > > > > > >             enum drm_gpu_sched_stat status = DRM_GPU_SCHED_STAT_NOMINAL;
+> > > > > > > > > > 
+> > > > > > > > > >             sched = container_of(work, struct drm_gpu_scheduler, work_tdr.work);
+> > > > > > > > > > @@ -325,11 +326,10 @@ static void drm_sched_job_timedout(struct work_struct *work)
+> > > > > > > > > > 
+> > > > > > > > > >             if (job) {
+> > > > > > > > > >                     /*
+> > > > > > > > > > -                * Remove the bad job so it cannot be freed by concurrent
+> > > > > > > > > > -                * drm_sched_cleanup_jobs. It will be reinserted back after sched->thread
+> > > > > > > > > > -                * is parked at which point it's safe.
+> > > > > > > > > > +                * Get job->s_fence->parent here to avoid concurrent delete during
+> > > > > > > > > > +                * processing timedout_job
+> > > > > > > > > >                      */
+> > > > > > > > > > -               list_del_init(&job->list);
+> > > > > > > > > > +               fence = dma_fence_get(job->s_fence->parent);
+> > > > > > > > While this is true for amdgpu, it has no meaning for other drivers for whom
+> > > > > > > > we haven't
+> > > > > > > > done the refactoring of embedding HW fence (parent) into the job structure.
+> > > > > > > > In fact thinking
+> > > > > > > > about it, unless you do the HW fence embedding for all the drivers using the
+> > > > > > > > scheduler you cannot
+> > > > > > > > revert this patch or you will just break them.
+> > > > > > > btw, why did you do that embedding? I do still have my patches with
+> > > > > > > dma_fence annotations floating around, but my idea at least was to fix
+> > > > > > > that issue with a mempool, not with embeddeding. What was the motivation
+> > > > > > > for embedding the wh fence?
+> > > > > > > -Daniel
+> > > > > > The motivation was 2 fold, avoid memory allocation during jobs submissions
+> > > > > > (HW fence allocation) because as Christian explained this leads to deadlock
+> > > > > > with
+> > > > > > mm code during evictions due to memory pressure (Christian can clarify if I
+> > > > > > messed
+> > > > > Yeah that's the exact same thing I've chased with my dma_fence
+> > > > > annotations, but thus far zero to none interested in getting it sorted. I
+> > > > > think it'd be good to have some cross-driver agreement on how this should
+> > > > > be solved before someone just charges ahead ...
+> > > > > 
+> > > > > > this explanation). Second is to exactly revert this patch because while it
+> > > > > > solved the issue
+> > > > > > described in the patch it created another with drivers who baildc out early
+> > > > > > during TDR handling
+> > > > > > for various reason and the job would just leak because it was already
+> > > > > > removed form pending list.
+> > > > > Can't we reinsert it before we restart the scheduler thread? It might need
+> > > > > a separate list for that due to the lockless queue tricks. Or am I
+> > > > > thinking about the wrong kind of "we lost the job"?
+> > > > > -Danile
+> > > > 
+> > > > If you look at the original patch it would reinsert it even earlier - right
+> > > > after stopping the  SW scheduler thread, and even then it was to late for
+> > > > some drivers as they would decide to return back from their TDR handler even
+> > > > before that. It is solvable but in an ugly way as far as I see, you need to
+> > > > require each driver in his code to put the job back in the list if they do
+> > > > it before reaching the place where scheduler framework does it. Kind of
+> > > > spaghetti code seems to me.
+> > > Hm yeah I didn't realize this all happens before we stop the scheduler
+> > > thread.
+> > > 
+> > > Why can't we stop the scheduler thread first, so that there's guaranteed
+> > > no race? I've recently had a lot of discussions with panfrost folks about
+> > > their reset that spawns across engines, and without stopping the scheduler
+> > > thread first before you touch anything it's just plain impossible.
+> > 
+> > 
+> > Talked with Christian on that, for each TDR we actually stop all the
+> > schedulers for all the rings and not only the hanged ring since
+> > ASIC reset will impact all the rings anyway. So we cannot allow
+> > other timeout handlers for other rings run in parallel to ours
+> > as they will stop/restart the threads we just stopped and rely
+> > on them being stopped. So it's all done with device wide lock
+> > inside the amdgpu tTDR handler. Only inside the locked
+> > section then we may stop/restart the scheduler threads.
+> > Christian also mentioned that you proposed at some point
+> > to serialize all TDR handling into single threading for all rings - this
+> > seems
+> > like something that could be used - we then don't need any
+> > locking against TDR handlers from other rings and then we may
+> > stop the scheduler thread as first step
+> > 
+> > 
+> > > 
+> > > I'm also still not understanding what exactly you guys have done,
+> > > can someone please dig out the the amdgpu patches that motivate all this
+> > > maybe that's clearer? A full explanation would still be good since I've
+> > > only started in scheduler stuff.
+> > 
+> > 
+> > https://gitlab.freedesktop.org/agd5f/linux/-/commit/de7515d43659f852590645a688f8d493e4a18141
 > 
-> Jobs overload, but we simply don't have another good indicator that a job
-> started except that the previous one completed.
+> Uh, it would have been really good if this was discussed a bit wider
+> beforehand. Now we have rather diverging approaches to this. Also would be
+> really good to resurrect the dma_fence annotations too.
 > 
-> It's still better than starting the timer when pushing the job to the ring
-> buffer, because that is completely off.
+> Can you guys pls spend a bit of time on this? Shouldn't be to hard to type
+> up rfc conversion patches for the other drivers.
 
-Not sure this matters that much really in practice, and in some cases we
-might want to actually just reset it all if the built up backlog is way
-too long.
+Ping for this. Currently the hw fence is returned from the ->run_job
+callback, and that's not great design.
 
-For anything that really runs way too long you want preempt-ctx/revoke
-fences anyway, not end-of-cs fences with tdr.
+If we embed it, then I think it should start existing latest from
+drm_sched_job_arm. Maybe not yet initialized, but at least allocated. So
+the right thing to do here is to have the hw fence as a pointer in
+struct drm_sched_job. And check in drm_sched_job_arm() that it's at least
+allocated.
+
+Otherwise we're just diverging across drivers and tempting them to do the
+wrong thing with the current ->run_job callback interface.
+
+Can you guys look into this?
 -Daniel
 
-> 
-> Christian.
-> 
-> Am 27.08.21 um 20:22 schrieb Andrey Grodzovsky:
-> > As I mentioned to Monk before - what about cases such as in this test - https://gitlab.freedesktop.org/mesa/drm/-/commit/bc21168fa924d3fc4a000492e861f50a1a135b25
+> > > Another thing I recently pondered for tdr races looking at i915 code is
+> > > whether the tdr should first block the completion fence for that job. My
+> > > motivation is to have a race-free error capture (if the completion races
+> > > then we might start evicting memory and everything goes boom), but maybe
+> > > that helps here too. Some kind of atomic "block this fence from
+> > > completing thing.
+> > > 
+> > > Or I'm I completely guessing in the wrong direction?
 > > 
-> > Here you don't have serialized sequence where when jobs finishes
-> > processing and second starts, they execute together  concurrently - for
-> > those cases seems
-> > to me restarting the timer for the second job from scratch will let it
-> > hang much longer then allowed by TO value.
+> > 
+> > I think we already do it here - https://elixir.bootlin.com/linux/v5.14-rc1/source/drivers/gpu/drm/scheduler/sched_main.c#L410
+> 
+> Ah yes this works becase drm/sched has separate hw fence from the logical
+> job fence.
+> -Daniel
+> 
 > > 
 > > Andrey
 > > 
-> > On 2021-08-27 10:29 a.m., Christian König wrote:
-> > > I don't think that makes sense.
+> > 
+> > > -Daniel
 > > > 
-> > > See we don't want to start the time when the job is inserted into
-> > > the ring buffer, but rather when it starts processing.
-> > > 
-> > > Starting processing is a bit swampy defined, but just starting the
-> > > timer when the previous job completes should be fine enough.
-> > > 
-> > > Christian.
-> > > 
-> > > Am 27.08.21 um 15:57 schrieb Andrey Grodzovsky:
-> > > > The TS represents the point in time when the job was inserted
-> > > > into the pending list.
-> > > > I don't think it matters when it actually starts to be
-> > > > processed, what matters is when this job was inserted into
-> > > > pending list because right at that point you arm the TO timer
-> > > > (when no other is running already)
-> > > > and so when the previous job completes and you cancel and rearm
-> > > > again you can use that TS from the next job in pending list to
-> > > > calculate how much time has actually left for it to run before
-> > > > TDR must be initiated
-> > > > and not just give it again full TO value to run even if it has
-> > > > already been running for a while.
-> > > > 
-> > > > Also, i am not sure also about the assumption that what we
-> > > > measure is processing by HW, what we measure is from the moment
-> > > > it was scheduled to ring to the moment the job completed (EOP
-> > > > event). At least that what our TDR timer measures and so it
-> > > > makes sense to set the TS at this point.
-> > > > 
 > > > > Andrey
 > > > > 
-> > > > On 2021-08-27 3:20 a.m., Liu, Monk wrote:
-> > > > > [AMD Official Use Only]
-> > > > > 
-> > > > > what is that 'ts' representing for ? it looks to me the
-> > > > > jiffies that it get scheduled to the ring,  but a job
-> > > > > scheduled to the ring doesn't represent it's being processed
-> > > > > by hw.
-> > > > > 
-> > > > > Thanks
-> > > > > 
-> > > > > ------------------------------------------
-> > > > > Monk Liu | Cloud-GPU Core team
-> > > > > ------------------------------------------
-> > > > > 
-> > > > > -----Original Message-----
-> > > > > From: Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>
-> > > > > Sent: Friday, August 27, 2021 4:14 AM
-> > > > > To: Liu, Monk <Monk.Liu@amd.com>;
-> > > > > amd-gfx@lists.freedesktop.org; Koenig, Christian
-> > > > > <Christian.Koenig@amd.com>
-> > > > > Cc: dri-devel@lists.freedesktop.org
-> > > > > Subject: Re: [PATCH] drm/sched: fix the bug of time out
-> > > > > calculation(v3)
-> > > > > 
-> > > > > Attached quick patch for per job TTL calculation to make
-> > > > > more precises next timer expiration. It's on top of the
-> > > > > patch in this thread. Let me know if this makes sense.
-> > > > > 
-> > > > > Andrey
-> > > > > 
-> > > > > On 2021-08-26 10:03 a.m., Andrey Grodzovsky wrote:
-> > > > > > On 2021-08-26 12:55 a.m., Monk Liu wrote:
-> > > > > > > issue:
-> > > > > > > in cleanup_job the cancle_delayed_work will cancel a TO timer even
-> > > > > > > the its corresponding job is still running.
-> > > > > > > 
-> > > > > > > fix:
-> > > > > > > do not cancel the timer in cleanup_job, instead do the cancelling
-> > > > > > > only when the heading job is signaled, and if there is a "next" job
-> > > > > > > we start_timeout again.
-> > > > > > > 
-> > > > > > > v2:
-> > > > > > > further cleanup the logic, and do the TDR timer cancelling if the
-> > > > > > > signaled job is the last one in its scheduler.
-> > > > > > > 
-> > > > > > > v3:
-> > > > > > > change the issue description
-> > > > > > > remove the cancel_delayed_work in the begining of the cleanup_job
-> > > > > > > recover the implement of drm_sched_job_begin.
-> > > > > > > 
-> > > > > > > TODO:
-> > > > > > > 1)introduce pause/resume scheduler in job_timeout to serial the
-> > > > > > > handling of scheduler and job_timeout.
-> > > > > > > 2)drop the bad job's del and insert in scheduler due to above
-> > > > > > > serialization (no race issue anymore with the serialization)
-> > > > > > > 
-> > > > > > > Signed-off-by: Monk Liu <Monk.Liu@amd.com>
-> > > > > > > ---
-> > > > > > >    drivers/gpu/drm/scheduler/sched_main.c | 25
-> > > > > > > ++++++++++---------------
-> > > > > > >    1 file changed, 10 insertions(+), 15 deletions(-)
-> > > > > > > 
-> > > > > > > diff --git a/drivers/gpu/drm/scheduler/sched_main.c
-> > > > > > > b/drivers/gpu/drm/scheduler/sched_main.c
-> > > > > > > index a2a9536..ecf8140 100644
-> > > > > > > --- a/drivers/gpu/drm/scheduler/sched_main.c
-> > > > > > > +++ b/drivers/gpu/drm/scheduler/sched_main.c
-> > > > > > > @@ -676,13 +676,7 @@ drm_sched_get_cleanup_job(struct
-> > > > > > > drm_gpu_scheduler *sched)
-> > > > > > >    {
-> > > > > > >        struct drm_sched_job *job, *next;
-> > > > > > >    -    /*
-> > > > > > > -     * Don't destroy jobs while the timeout worker is running OR
-> > > > > > > thread
-> > > > > > > -     * is being parked and hence assumed to not touch pending_list
-> > > > > > > -     */
-> > > > > > > -    if ((sched->timeout != MAX_SCHEDULE_TIMEOUT &&
-> > > > > > > -        !cancel_delayed_work(&sched->work_tdr)) ||
-> > > > > > > -        kthread_should_park())
-> > > > > > > +    if (kthread_should_park())
-> > > > > > >            return NULL;
-> > > > > > 
-> > > > > > I actually don't see why we need to keep the above, on the other side
-> > > > > > (in drm_sched_stop) we won't touch the pending list
-> > > > > > anyway until sched
-> > > > > > thread came to full stop (kthread_park). If you do see a reason why
-> > > > > > this needed then a comment should be here i think.
-> > > > > > 
+> > > > 
 > > > > > > Andrey
 > > > > > > 
 > > > > > > 
-> > > > > > > spin_lock(&sched->job_list_lock);
-> > > > > > > @@ -693,17 +687,21 @@ drm_sched_get_cleanup_job(struct
-> > > > > > > drm_gpu_scheduler *sched)
-> > > > > > >        if (job && dma_fence_is_signaled(&job->s_fence->finished)) {
-> > > > > > >            /* remove job from pending_list */
-> > > > > > >            list_del_init(&job->list);
-> > > > > > > +
-> > > > > > > +        /* cancel this job's TO timer */
-> > > > > > > +        cancel_delayed_work(&sched->work_tdr);
-> > > > > > >            /* make the scheduled timestamp more accurate */
-> > > > > > >            next = list_first_entry_or_null(&sched->pending_list,
-> > > > > > >                            typeof(*next), list);
-> > > > > > > -        if (next)
-> > > > > > > +
-> > > > > > > +        if (next) {
-> > > > > > >                next->s_fence->scheduled.timestamp =
-> > > > > > > job->s_fence->finished.timestamp;
-> > > > > > > -
-> > > > > > > +            /* start TO timer for next job */
-> > > > > > > +            drm_sched_start_timeout(sched);
-> > > > > > > +        }
-> > > > > > >        } else {
-> > > > > > >            job = NULL;
-> > > > > > > -        /* queue timeout for next job */
-> > > > > > > -        drm_sched_start_timeout(sched);
-> > > > > > >        }
-> > > > > > >          spin_unlock(&sched->job_list_lock);
-> > > > > > > @@ -791,11 +789,8 @@ static int drm_sched_main(void *param)
-> > > > > > >                          (entity =
-> > > > > > > drm_sched_select_entity(sched))) ||
-> > > > > > >                         kthread_should_stop());
-> > > > > > >    -        if (cleanup_job) {
-> > > > > > > +        if (cleanup_job)
-> > > > > > >                sched->ops->free_job(cleanup_job);
-> > > > > > > -            /* queue timeout for next job */
-> > > > > > > -            drm_sched_start_timeout(sched);
-> > > > > > > -        }
-> > > > > > >              if (!entity)
-> > > > > > >                continue;
-> > > 
+> > > > > > > > Andrey
+> > > > > > > > 
+> > > > > > > > 
+> > > > > > > > > >                     spin_unlock(&sched->job_list_lock);
+> > > > > > > > > > 
+> > > > > > > > > >                     status = job->sched->ops->timedout_job(job);
+> > > > > > > > > > @@ -342,6 +342,7 @@ static void drm_sched_job_timedout(struct work_struct *work)
+> > > > > > > > > >                             job->sched->ops->free_job(job);
+> > > > > > > > > >                             sched->free_guilty = false;
+> > > > > > > > > >                     }
+> > > > > > > > > > +               dma_fence_put(fence);
+> > > > > > > > > >             } else {
+> > > > > > > > > >                     spin_unlock(&sched->job_list_lock);
+> > > > > > > > > >             }
+> > > > > > > > > > @@ -392,20 +393,6 @@ void drm_sched_stop(struct drm_gpu_scheduler *sched, struct drm_sched_job *bad)
+> > > > > > > > > > 
+> > > > > > > > > >             kthread_park(sched->thread);
+> > > > > > > > > > 
+> > > > > > > > > > -       /*
+> > > > > > > > > > -        * Reinsert back the bad job here - now it's safe as
+> > > > > > > > > > -        * drm_sched_get_cleanup_job cannot race against us and release the
+> > > > > > > > > > -        * bad job at this point - we parked (waited for) any in progress
+> > > > > > > > > > -        * (earlier) cleanups and drm_sched_get_cleanup_job will not be called
+> > > > > > > > > > -        * now until the scheduler thread is unparked.
+> > > > > > > > > > -        */
+> > > > > > > > > > -       if (bad && bad->sched == sched)
+> > > > > > > > > > -               /*
+> > > > > > > > > > -                * Add at the head of the queue to reflect it was the earliest
+> > > > > > > > > > -                * job extracted.
+> > > > > > > > > > -                */
+> > > > > > > > > > -               list_add(&bad->list, &sched->pending_list);
+> > > > > > > > > > -
+> > > > > > > > > >             /*
+> > > > > > > > > >              * Iterate the job list from later to  earlier one and either deactive
+> > > > > > > > > >              * their HW callbacks or remove them from pending list if they already
+> > > > > > > > > > --
+> > > > > > > > > > 2.25.1
+> > > > > > > > > > 
 > 
+> -- 
+> Daniel Vetter
+> Software Engineer, Intel Corporation
+> http://blog.ffwll.ch
 
 -- 
 Daniel Vetter
