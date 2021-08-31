@@ -2,74 +2,74 @@ Return-Path: <SRS0=0crs=NW=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 19DD3C432BE
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 Aug 2021 14:03:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 87F98C432BE
+	for <amd-gfx@archiver.kernel.org>; Tue, 31 Aug 2021 14:14:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 428E8600CD
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 Aug 2021 14:03:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 428E8600CD
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id 3F5DA60E98
+	for <amd-gfx@archiver.kernel.org>; Tue, 31 Aug 2021 14:14:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3F5DA60E98
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C0CFA89BAE;
-	Tue, 31 Aug 2021 14:03:37 +0000 (UTC)
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [IPv6:2a00:1450:4864:20::42d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D68089BF5
- for <amd-gfx@lists.freedesktop.org>; Tue, 31 Aug 2021 14:03:37 +0000 (UTC)
-Received: by mail-wr1-x42d.google.com with SMTP id d26so28012352wrc.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 31 Aug 2021 07:03:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=06uLh/LerTKW7N9aJQacbCqa4SbGSUiczdfVSnFq9TY=;
- b=Nd09bB+nM8FXA3XLER9R/+vOHKkE7PjGgnYuzIutdoP5O+mLst5Swc8PgMBfAdiMLl
- QicgYDiZCj0DvNq08gTuMfxc0QuzGJjcu1PQIBp9nlHksg5cPDQ1qCXWoFYtO44c6JAN
- +vBJAsGANtbHdwS1lcufbETsr32v8h+QzhSh8=
+	by gabe.freedesktop.org (Postfix) with ESMTP id D82856E03E;
+	Tue, 31 Aug 2021 14:14:35 +0000 (UTC)
+Received: from mail-ot1-x332.google.com (mail-ot1-x332.google.com
+ [IPv6:2607:f8b0:4864:20::332])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61A886E03E
+ for <amd-gfx@lists.freedesktop.org>; Tue, 31 Aug 2021 14:14:35 +0000 (UTC)
+Received: by mail-ot1-x332.google.com with SMTP id
+ a20-20020a0568300b9400b0051b8ca82dfcso22922778otv.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 31 Aug 2021 07:14:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=S6jgX7fXruLHJZj12p4R/8PEDGXQrTwZvfickMsvKpw=;
+ b=RBSk4jLhJGb9kJZq878OeeGh+6uMAN850YmM1Qlhrx+kIro7Fw67p8VLWDLf/O2JRo
+ kZotcJOvW+53Liso77G6uXdFxjso4q4MvnMLqm1j/t1IWmYFF6psl6KIX3eGT13ttf7B
+ yvW7mAvuNUjXFttw68HwvWhRo1+XbjUO+YtPSB6ftmU8pG7BrT2HVWif1hlo8WbWExTc
+ JwOwiEOrG1zUHrIFv38Y/0POQHMkI7ItyJwZ0+6NLu9WGbIuXKRaG1BQdhIvox6KlDZ8
+ PjbicN89utks5eG+fDC8NMe5PhO5dwZ8+7ugGqwviDb6Zma8O6chen9Ip6tIwhnHdoyK
+ YaxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=06uLh/LerTKW7N9aJQacbCqa4SbGSUiczdfVSnFq9TY=;
- b=tiFBqMf/EnGieC+gxVWo6JbHlaT/gqvWwmFNUrmvzgzhbC/EccFl8KmbJG5i0qTCsz
- qnau6f2qV8hsYlsaq3OZclksXtphFT0aiFFgv4mgyaCyPkMKcsZxfNexOuGMhE5fN1Jn
- 8x9mQ6+mz3VI57m4Zse9Anld3fE6NZjy1Wci0a9/yVUkE7ZFECLZoNXc3SbvJ64tDRp3
- 4wD9bKWhA4icbAGwZM+CtvfXuN7lJUz/jM2WkX/NW48owdNwO73DmoFT4i3kfx3bpyxP
- soU8BHTlaDOn3sLqtd3UxgNE7v4UnkkQPtRCqrDxVnLZuOgZbgKUNPdM0aqDuQXv+l5e
- OczA==
-X-Gm-Message-State: AOAM533kePhYyABV2iY1dnXeOg/zrgRRGLH11b4Xh7veTFd0jYCmwxiq
- rceyNtw7u7M+KzRwzj0mB4zeNQ==
-X-Google-Smtp-Source: ABdhPJxzF0VkWonK+Ia276V1pqC0u0sROiCA57523MvRBQ5CfkRFsFluMm9/lPhJPHvBLxSaYKTYbQ==
-X-Received: by 2002:adf:eb02:: with SMTP id s2mr31564197wrn.294.1630418615584; 
- Tue, 31 Aug 2021 07:03:35 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id h16sm18537538wre.52.2021.08.31.07.03.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 31 Aug 2021 07:03:34 -0700 (PDT)
-Date: Tue, 31 Aug 2021 16:03:32 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-Cc: Monk Liu <Monk.Liu@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, jingwen chen <jingwen.chen@amd.com>
-Subject: Re: [PATCH 2/2] drm/sched: serialize job_timeout and scheduler
-Message-ID: <YS42tI6qAUb3yqOk@phenom.ffwll.local>
-References: <1630406139-19621-1-git-send-email-Monk.Liu@amd.com>
- <1630406139-19621-2-git-send-email-Monk.Liu@amd.com>
- <29be989b-c2a5-69b3-f0b8-2df52f50047f@amd.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=S6jgX7fXruLHJZj12p4R/8PEDGXQrTwZvfickMsvKpw=;
+ b=Xk22v0F69u34JnkxOjpnWmPQFZ/N79AbbqTp+/20z63HK0OHsar72ry5jlMo28GL00
+ tqN8KNAqhr1JtcVuiWWaZf2xvatFGk9TfDwuOMpmYXuGD8xfH0aAVQQTC/2mp7awYWwv
+ 2/lCVsMk/38cxCpediCgZlPuuGgJf/Qo1TaQF/CNnklbtl9nZZ4wWq0OYKGBGPEoskEq
+ qfMQ9NVq+yWY0I5qVD5SnzCvbGDrIPUaqXrWf5mLtNw3+v7IBnBUPHTkge/Ybrl6LTN1
+ wCCFFn7e/opp5hRKAOmpnTzBvhO3Cj7d/gzmsrGb3xQnheAD3FSTwBwzvxophKGEScYj
+ BdkQ==
+X-Gm-Message-State: AOAM531o3TX3ZrcM1ZUow4mEjPgUGThcUQLbJp5xX6bz79GPu0R3Ul7X
+ hMMjM1T/y58GNHL5BhpTL5e2pYzL73CwKnqSNhY2q0CUXyA=
+X-Google-Smtp-Source: ABdhPJxfr5A6VTC6Bue2Lvk8AGG22E1UUQy8C7Y80oeL5osC+NQBU0phXnbi04UajgTtNsD7fsrZQh16JxjnGVsMd2k=
+X-Received: by 2002:a9d:4c15:: with SMTP id l21mr23901097otf.311.1630419274649; 
+ Tue, 31 Aug 2021 07:14:34 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <29be989b-c2a5-69b3-f0b8-2df52f50047f@amd.com>
-X-Operating-System: Linux phenom 5.10.0-8-amd64 
+References: <20210830060855.12583-1-guchun.chen@amd.com>
+In-Reply-To: <20210830060855.12583-1-guchun.chen@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 31 Aug 2021 10:14:23 -0400
+Message-ID: <CADnq5_Puy4-VQZshbJ94L7HaVd6SCx7eVLOyAdnKEwXg+0K+Mw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: stop scheduler when calling hw_fini (v2)
+To: Guchun Chen <guchun.chen@amd.com>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Hawking Zhang <Hawking.Zhang@amd.com>, 
+ Christian Koenig <christian.koenig@amd.com>,
+ Andrey Grodzovsky <andrey.grodzovsky@amd.com>, 
+ Mike Lothian <mike@fireburn.co.uk>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,89 +84,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Aug 31, 2021 at 09:53:36AM -0400, Andrey Grodzovsky wrote:
-> It's says patch [2/2] but i can't find patch 1
-> 
-> On 2021-08-31 6:35 a.m., Monk Liu wrote:
-> > tested-by: jingwen chen <jingwen.chen@amd.com>
-> > Signed-off-by: Monk Liu <Monk.Liu@amd.com>
-> > Signed-off-by: jingwen chen <jingwen.chen@amd.com>
-> > ---
-> >   drivers/gpu/drm/scheduler/sched_main.c | 24 ++++--------------------
-> >   1 file changed, 4 insertions(+), 20 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-> > index ecf8140..894fdb24 100644
-> > --- a/drivers/gpu/drm/scheduler/sched_main.c
-> > +++ b/drivers/gpu/drm/scheduler/sched_main.c
-> > @@ -319,19 +319,17 @@ static void drm_sched_job_timedout(struct work_struct *work)
-> >   	sched = container_of(work, struct drm_gpu_scheduler, work_tdr.work);
-> >   	/* Protects against concurrent deletion in drm_sched_get_cleanup_job */
-> > +	if (!__kthread_should_park(sched->thread))
-> > +		kthread_park(sched->thread);
-> > +
-> 
-> 
-> As mentioned before, without serializing against other TDR handlers from
-> other
-> schedulers you just race here against them, e.g. you parked it now but
-> another
-> one in progress will unpark it as part of calling  drm_sched_start for other
-> rings[1]
-> Unless I am missing something since I haven't found patch [1/2]
-> 
-> [1] - https://elixir.bootlin.com/linux/latest/source/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c#L5041
+On Mon, Aug 30, 2021 at 2:24 AM Guchun Chen <guchun.chen@amd.com> wrote:
+>
+> This gurantees no more work on the ring can be submitted
+> to hardware in suspend/resume case, otherwise a potential
+> race will occur and the ring will get no chance to stay
+> empty before suspend.
+>
+> v2: Call drm_sched_resubmit_job before drm_sched_start to
+> restart jobs from the pending list.
+>
+> Suggested-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+> Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Signed-off-by: Guchun Chen <guchun.chen@amd.com>
 
-You need to have your own wq and run all your tdr work on the same wq if
-your reset has any cross-engine impact.
+Maybe add:
+Fixes: 067f44c8b459 ("drm/amdgpu: avoid over-handle of fence driver
+fini in s3 test (v2)")
+?
 
-See
+Alex
 
-https://dri.freedesktop.org/docs/drm/gpu/drm-mm.html#c.drm_sched_backend_ops
-
-for the ->timeout_job callback docs. I thought I brought this up already?
--Daniel
-
-> 
-> Andrey
-> 
-> 
-> >   	spin_lock(&sched->job_list_lock);
-> >   	job = list_first_entry_or_null(&sched->pending_list,
-> >   				       struct drm_sched_job, list);
-> >   	if (job) {
-> > -		/*
-> > -		 * Remove the bad job so it cannot be freed by concurrent
-> > -		 * drm_sched_cleanup_jobs. It will be reinserted back after sched->thread
-> > -		 * is parked at which point it's safe.
-> > -		 */
-> > -		list_del_init(&job->list);
-> >   		spin_unlock(&sched->job_list_lock);
-> > +		/* vendor's timeout_job should call drm_sched_start() */
-> >   		status = job->sched->ops->timedout_job(job);
-> >   		/*
-> > @@ -393,20 +391,6 @@ void drm_sched_stop(struct drm_gpu_scheduler *sched, struct drm_sched_job *bad)
-> >   	kthread_park(sched->thread);
-> >   	/*
-> > -	 * Reinsert back the bad job here - now it's safe as
-> > -	 * drm_sched_get_cleanup_job cannot race against us and release the
-> > -	 * bad job at this point - we parked (waited for) any in progress
-> > -	 * (earlier) cleanups and drm_sched_get_cleanup_job will not be called
-> > -	 * now until the scheduler thread is unparked.
-> > -	 */
-> > -	if (bad && bad->sched == sched)
-> > -		/*
-> > -		 * Add at the head of the queue to reflect it was the earliest
-> > -		 * job extracted.
-> > -		 */
-> > -		list_add(&bad->list, &sched->pending_list);
-> > -
-> > -	/*
-> >   	 * Iterate the job list from later to  earlier one and either deactive
-> >   	 * their HW callbacks or remove them from pending list if they already
-> >   	 * signaled.
-
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_fence.c
+> index b439eb7d4177..fd4ba076ff8a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> @@ -552,6 +552,9 @@ void amdgpu_fence_driver_hw_fini(struct amdgpu_device=
+ *adev)
+>                 if (!ring || !ring->fence_drv.initialized)
+>                         continue;
+>
+> +               if (!ring->no_scheduler)
+> +                       drm_sched_stop(&ring->sched, NULL);
+> +
+>                 /* You can't wait for HW to signal if it's gone */
+>                 if (!drm_dev_is_unplugged(&adev->ddev))
+>                         r =3D amdgpu_fence_wait_empty(ring);
+> @@ -611,6 +614,11 @@ void amdgpu_fence_driver_hw_init(struct amdgpu_devic=
+e *adev)
+>                 if (!ring || !ring->fence_drv.initialized)
+>                         continue;
+>
+> +               if (!ring->no_scheduler) {
+> +                       drm_sched_resubmit_jobs(&ring->sched);
+> +                       drm_sched_start(&ring->sched, true);
+> +               }
+> +
+>                 /* enable the interrupt */
+>                 if (ring->fence_drv.irq_src)
+>                         amdgpu_irq_get(adev, ring->fence_drv.irq_src,
+> --
+> 2.17.1
+>
