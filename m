@@ -2,131 +2,122 @@ Return-Path: <SRS0=BBbY=NX=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-18.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7D74DC432BE
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Sep 2021 01:58:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 16469C432BE
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Sep 2021 02:41:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 368B961057
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Sep 2021 01:58:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 368B961057
+	by mail.kernel.org (Postfix) with ESMTPS id C754360F11
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Sep 2021 02:41:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C754360F11
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE5F289EFF;
-	Wed,  1 Sep 2021 01:58:31 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2061.outbound.protection.outlook.com [40.107.236.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A5E889EFF;
- Wed,  1 Sep 2021 01:58:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FA378989F;
+	Wed,  1 Sep 2021 02:41:38 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam08on2081.outbound.protection.outlook.com [40.107.100.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B3F68989F
+ for <amd-gfx@lists.freedesktop.org>; Wed,  1 Sep 2021 02:41:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dxGiuNbWg7qpm8kbUz9EKdq6SFZUNlSGrjR/N/CGt4ZsKIaftyCK4r57GGXPoJHwotz74/2o+Ddgt+LaJS26niKS2QGUBegpN42eQJateQtd/x3ppJH7FIZ0UKaGXWE0voR3/v3PIqC9xap2GTNK0Zp/mYIhkiRBcQ6Wo5gN6l/PWuT+ZvJn+pNhBSP7xG1QFcKYWtveNlaEurmxORj+sQX0ajBtWvthIdq11QUCX9OO/aE9XRVgJaLNsdyCISIurzc9wuk8GXzVGSSVa2kAc58sja9Q46Nd2mlgvJaYJTrUXF+YaFUe8bOja3Mbgma0RJlCvz0I5nLVA5FkCdBc/A==
+ b=Odi6PB3Iq9Bv+dAibXtYnQoCCAF+edYjis9R3MFvZT/+FKimM2OkazbC0ndGQ9C9DGEW+t9oPLos4c5XRAn4M2gMbRTqksy1QRvVTl3xrNDNgU/+DSunlPfq5IG+FCXKnbwtaNKskIFr7gs0rScPLDDHjI3h1GOMmrba8U9qKgIw7VUC///qBepL/l0wnj51DDNsb0Q+MAVhIphCVWbCAy64RTLo6OnK7g68MudATXwVQzWAi/dAWVx4EsoQ8DtAIcwKyu573D9b2Z/AevkcZDEVlwxbyoFL0VQGvR7c8FBdgYj0ts7EBrMsOR3kO+CZs3oHeCL2p2Gkxn5jUMHHww==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EM0LBYaeMOXDXZkoZzHIXjisirWwBanPzzDiCSQIJhI=;
- b=VTTN94AaflDj5Iky1xjEr8bcXGUQbSUPLuodmwKPYV7it9MHCtHrY+lDTZgT05P1YMYNqyNeUya+P4c9sxUCQeUNSwEGo8QG8UoyDNVXh0HhvnOOJDHbah/U5/O1/jEOEu02yOU9huKiOggKHvjPWEiWPAR+ZzkjWwuo8xbFBhSHANYz4/7/KS75ysoj6Ld7Hthgsp8MVO0UaPifVfXVVtgfjFBSRKrhKQDkD0ekT1xdrUYnc9SnB7nPQ9co8cIuqI5l0nqy8bduGOm9Hp6Vj5uUDsy6qcRvYAz2ToinAGq+ECpFlD0Nx9V8cpgGl2DGgUTNKmUg3eY4uJFIMb+C1w==
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
+ bh=AnPsUFOA003aesxb3A+7OFSD8g8Z+WT22C1TcU7N9rU=;
+ b=QH/GzSzjqt5YKFSdFcNFLmauQAWieETIvvEf1AKn6DW0Hdw40VoMKgsJIKvdDXjmEOAJU7HgkVh3Jkhssic1/k1YQ7smIR9Y1O3AvMgHk0tUlPWX+Ucv6O4PbrctBCQQrnriaVSLqoef+6Laon+rP6K7Txi8ybjN1qNLvJp/VZrXuPqYfhUt13FKDXDKgWkFzhVJSg01joY4FRgZpcqRIvxZ38DJjdsTY6fFJZUnKZgkE2QCnfDYuGT39nnFVdcR/zIFMvdDS57JrRA0Oi7faTyT+G9hfuNK4BJ5z33KCJr8exo42m11dV/3adkvvCY0a4anPHaEY+tg7Ha2vXjEbA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EM0LBYaeMOXDXZkoZzHIXjisirWwBanPzzDiCSQIJhI=;
- b=CP26OpP3bmN7WonONBem6JfGMELg3LrJCkh3ZF+LMjtfsFua0lJWR58QtT8QMhYB6+A1NAtCSpwXXNJllHuQQBpX5t7vgKpoYyE/RvV4RAxqjZW7s+ENnONmwJFbJlHAoa6wILHTamqmZTtaFP5avvY7IlpbW35DMHzakjI906E=
-Received: from BL1PR12MB5269.namprd12.prod.outlook.com (2603:10b6:208:30b::20)
- by BL1PR12MB5271.namprd12.prod.outlook.com (2603:10b6:208:315::9)
+ bh=AnPsUFOA003aesxb3A+7OFSD8g8Z+WT22C1TcU7N9rU=;
+ b=Dup/8LyaZfDfZx//mQzVLNyWO3tC7JJ7mgBHHeYjca9ymymlTiasVm33G8mxjI51ywCbxS40hLfn0gEjOgwPPsBq1VsM5zAaZks5I11mFkv6aaIoF4L5APjPDLiURSHitJLVTWhmscxPL6OeNt+gw6YYh28qYt8Irl4h+qLDZL0=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from SA0PR12MB4430.namprd12.prod.outlook.com (2603:10b6:806:70::20)
+ by SN1PR12MB2510.namprd12.prod.outlook.com (2603:10b6:802:28::26)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.23; Wed, 1 Sep
- 2021 01:58:27 +0000
-Received: from BL1PR12MB5269.namprd12.prod.outlook.com
- ([fe80::acc6:c407:1353:6a]) by BL1PR12MB5269.namprd12.prod.outlook.com
- ([fe80::acc6:c407:1353:6a%5]) with mapi id 15.20.4457.024; Wed, 1 Sep 2021
- 01:58:27 +0000
-From: "Liu, Monk" <Monk.Liu@amd.com>
-To: "Koenig, Christian" <Christian.Koenig@amd.com>, "Grodzovsky, Andrey"
- <Andrey.Grodzovsky@amd.com>, Daniel Vetter <daniel@ffwll.ch>, "Chen, JingWen"
- <JingWen.Chen2@amd.com>
-CC: DRI Development <dri-devel@lists.freedesktop.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [diagnostic TDR mode patches] unify our solution
- opinions/suggestions in one thread
-Thread-Topic: [diagnostic TDR mode patches] unify our solution
- opinions/suggestions in one thread
-Thread-Index: Adeezw8WIoeNdpdaSO6/zguUPH+5CgABTufA
-Date: Wed, 1 Sep 2021 01:58:27 +0000
-Message-ID: <BL1PR12MB5269EB4E07A80EEB48A391DF84CD9@BL1PR12MB5269.namprd12.prod.outlook.com>
-References: <BL1PR12MB526942160701B46D4B28EEEC84CD9@BL1PR12MB5269.namprd12.prod.outlook.com>
-In-Reply-To: <BL1PR12MB526942160701B46D4B28EEEC84CD9@BL1PR12MB5269.namprd12.prod.outlook.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-09-01T01:58:25Z; 
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
- Only-AIP 2.0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=c5d17fbe-6cdb-4bfd-861f-b770323aae9c;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: c662c195-763f-4bd6-b4c1-08d96cebfd8e
-x-ms-traffictypediagnostic: BL1PR12MB5271:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BL1PR12MB52711707003E691422FD360484CD9@BL1PR12MB5271.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:4502;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: nIqnH1bWbwKvBuGeC2wdt77LROA+vn99d7m9FL8B0qQh4FwAYujOqgvN5n3GKaZQ/yQYBFcxZndWvX1MJKxavUqKHDuH4c3w35MAlw8HlD4CyCIjY2XatQiAxFSR/AIVvFZr//23SMioiIdhznAfpw616keNmNKqv15dGPmUPQWRYUxAdHEUqL/hDE0o/rVUW7cO8ywQDBk5cNqWwBfpWLzk6FpKiHjHTUFE2yiAEeoyWbaLpsLgugUiX2Jow/MYNe32DTXW6Gy5NXz29U1qUItO3fyLybS30ZkQelmzmUNzgKE/NxF3YSWutn4LRsdasGpc88fMajUyL7GKIxXV7IY5I585HWTuD2l4X4zDFNu+3/uK/Xr3Z01OhOsAjMiozLpN217g/oNuSuGhICLXYRkOaSeJjZ7KDEc2XpW/sNHJsobPc0d5UChRl8r4lDP0Rzr++HVjQ9pUdbLzH3WTk7IPxqH/KEnYwsIt+iherPaYCL1/nTxs7wlQq3YXk5codW+vjduDcTI6pEEvg8u4Wp25nRzJ8BRC1yDmbbprG5DRC0LkfRgahNz/fU+pl+gXyQeajMKE6QBBqtlNj1DfzUa0u+nRZozO3vDk8S2upMTwzZRVskuLZG/SNJzBJfIcmch+3MkjP55m14hhg8ZcS8HTPAkhp8Jx/HfCEz2ZmmygLkx0xwB0ofDXhPge874XvrK2XIH5Aj/OkV0Ftjc4ow==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5269.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(71200400001)(54906003)(110136005)(66476007)(7696005)(2940100002)(55016002)(122000001)(26005)(38070700005)(38100700002)(6506007)(316002)(52536014)(5660300002)(76116006)(2906002)(8676002)(6636002)(66556008)(9686003)(33656002)(186003)(53546011)(4326008)(66446008)(8936002)(64756008)(66946007)(86362001)(508600001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?v+e1fqfhRuqzllLzx3L7C5FKSKeikKXCkIN4BaR5hwe3gZutFdqE0VWQtd9J?=
- =?us-ascii?Q?QF2YTEQZLQ4gdwHn/3hVmIo18w6KeTK7zzTyLamfSchTUxIy+Ks0tXNLxiUt?=
- =?us-ascii?Q?ATP7vx8gHQ/sTORVtnilZ2/ICoLTBNivN5V5ItTRxAkrwlxtuFYdnvYEPYTn?=
- =?us-ascii?Q?tFjOEFQ3UlBlNpLEqT6iOSt4B+gsLdf7sbkXX4WxY6sqUGFtWxZVHFNYzd2r?=
- =?us-ascii?Q?DYQo+urb1nYRN/YlWzlrVgwyxMH/te61K8XIS8iJwhupIEywWKWuj8/IepJL?=
- =?us-ascii?Q?1xAp9st7GLp6WxT5oYpg9IfD07VMRHdb4cmauHgbD13fwOHzr04NXQgAQ8qC?=
- =?us-ascii?Q?9ULPYZfursO8+ggJ4ETetUxuMf3E5+Uz3HKK8kT22wZWKpdZ/u6Aapccz3PP?=
- =?us-ascii?Q?/D9WU78xwHfJV6NbxdWLvlSO/KI6H21+f+7pV+fcQx6kyxN3Z/A9ZxHVgTog?=
- =?us-ascii?Q?NRQKHjllA+haB3dlWDM6+dsM4v9oduNffPztr17dx/sjtOBsKe3Cjni5bhV9?=
- =?us-ascii?Q?Uiuhp1k4M9ppp+9hJFTaorWHO/sJF7RuztQ/X3GxgAtyqprXpgrhGTuf6XqC?=
- =?us-ascii?Q?1C4GB4yTDpt+r8SqEPcgVYntMXFCjQhHZDyuUJ3ay/+3ZwzyFx1ziTREkZ0h?=
- =?us-ascii?Q?DdaFOz6FZzj7d/xXXYG0FUguYpvhrAGf8WawEVotgN+JD4jLrtUcnws+V9l7?=
- =?us-ascii?Q?ZSKEhBciB+WazPPGODGBfDXAMyfYKXq15dWb/Up34N2qH4w05xzTvOy8s/K2?=
- =?us-ascii?Q?crHe7JzNqF//PfkcTug1NkSOTpQDE5QK2hg7i810/8/H+5agqireLTIxMnO8?=
- =?us-ascii?Q?3C/Wv3vVx/vciL9ZfT3E2Zxbbfn2xOuU2a9PlZV0YfeawCN337TEciee4suK?=
- =?us-ascii?Q?Bws2u4okx3P5wxz5SYB/K+iE4CAUbqOwwfXUAtrtJhuZpluDhnK+XnqBuZuA?=
- =?us-ascii?Q?YGLuQK3jUceBRbhiidD5ZstAsF2v1mE0LKAf3FUH999CExCCNF0wo63ssWsg?=
- =?us-ascii?Q?nBEGFuGOUQie0RGL4aus/Nt3RfWJF8xNTKmS43R6bGItmZp/3xcUAGRiSSwv?=
- =?us-ascii?Q?v23Os498dG5VKHxqfovrq9KiDdlf6Nw3imuGKnvbSfAHNKyMoym7EfeaNJuL?=
- =?us-ascii?Q?L26mZ3Vkle/2CI6Zm94aI0I5V8ikDnae3Mb4lpGAmBi8xXjIp3+JoijmcrGk?=
- =?us-ascii?Q?2HycS539AOrWimDp5Nk+xtA7PPb3Cb1koWdpffrDJhp3KhcCj+ZJhiAm3Kbc?=
- =?us-ascii?Q?4WG3OtSFpPvKDBMFs3SBgbK+HiMHHU9WraeMzcN3plKb2f8Lq3SB2TCLsqNe?=
- =?us-ascii?Q?cYlOPjVN08a8XIzboiNDazNj?=
-Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB5269EB4E07A80EEB48A391DF84CD9BL1PR12MB5269namp_"
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.17; Wed, 1 Sep
+ 2021 02:41:34 +0000
+Received: from SA0PR12MB4430.namprd12.prod.outlook.com
+ ([fe80::855b:1f8c:c5d1:331f]) by SA0PR12MB4430.namprd12.prod.outlook.com
+ ([fe80::855b:1f8c:c5d1:331f%7]) with mapi id 15.20.4457.021; Wed, 1 Sep 2021
+ 02:41:34 +0000
+From: Alex Sierra <alex.sierra@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: Alex Sierra <alex.sierra@amd.com>
+Subject: [PATCH] drm/amdkfd: drop process ref count when xnack disable
+Date: Tue, 31 Aug 2021 21:41:21 -0500
+Message-Id: <20210901024121.23964-1-alex.sierra@amd.com>
+X-Mailer: git-send-email 2.32.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SN4PR0401CA0027.namprd04.prod.outlook.com
+ (2603:10b6:803:2a::13) To SA0PR12MB4430.namprd12.prod.outlook.com
+ (2603:10b6:806:70::20)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from alex-MS-7B09.amd.com (165.204.78.1) by
+ SN4PR0401CA0027.namprd04.prod.outlook.com (2603:10b6:803:2a::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.17 via Frontend
+ Transport; Wed, 1 Sep 2021 02:41:34 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: ed3ef3e9-30aa-4b53-b711-08d96cf20367
+X-MS-TrafficTypeDiagnostic: SN1PR12MB2510:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <SN1PR12MB2510091DAC7C80BD57FB098FFDCD9@SN1PR12MB2510.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3826;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: YqN9ms4rndtuoGPK7zUcroUgTQKJsDGkXxi8Eeb7+AsovlP5xbn2Mj7+IfK7ZUFnis0swsiiC1mHAeRcOQxbqkTzP+xJmykiZrY/NFKu5VHCgcKGasUfXZu3WVAovWytXqU5Yj9quori2c5XK6myplSoyxIyhT1Ju007xmnbUt1BSL9ACA/FH5h6UPfICVnP/URaOo/4fQaf4NRRSqOMw6+CUCOULa57EZEkWGsliWsVgLoIsxequkYVJu8v5+Mqk3Kc7gJBk3jrA+Ld6IawZ4N+hmkvWUCsAmyqQOJzWDRc46kTyQrptgUsZqfI29C5FXJdht5bWNF1F4/ZIEEWOn8VnAouyXMYJzE4oM3PYt3Rdr76ccwd1Kc1jMxPqYY61xe02CdpyhPDNVy+BesSzwjbeDbK0XHingVdHcaJCm+INQrM3Xk4c5CDSZ8enOvkY03GDwFZqdsSIJTcbxhPm/30nQ9TmuaCxnt+DAGaqwxQYsYYP6i9w/ZLMIZtNWyRMITjH0pU2yi2tyjuvif2SK/6UVNUJmpYBmayyLqNE7jrGYkFc5r2PNPGv7pqRT9xAxrqaj2ErfAclJ8430SgBIcVR2y/ijHelQqbRlTJYNNGjkfPM+W2GypXVJepSPe8o0j8/h6T9DO3ayufa0vehkjy47Kpn35Ff8nW8BEBK6h5vofl1ROrTZMu2jQXMNouCDwHV/zRgLdhD8kJ3sRFgA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA0PR12MB4430.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(8676002)(44832011)(38350700002)(36756003)(316002)(8936002)(86362001)(38100700002)(956004)(2906002)(186003)(508600001)(83380400001)(2616005)(26005)(1076003)(6666004)(7696005)(52116002)(66476007)(66946007)(6916009)(6486002)(66556008)(4744005)(4326008)(5660300002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?yfYFPzbfrtN6FX+gpUcVLHcOqhMKGdvoQxnpIOZiXTBQ7JWK9HnWjLXNpSCc?=
+ =?us-ascii?Q?7RN6+TuBJUBq3U345vv/U02mY9Lrnrmqz990AMhDordF8PU71MlkCYIRsHvn?=
+ =?us-ascii?Q?Rn/CZTlNQgyBH1r7GCX54zMonXPYNAcR9t8edmze08jyLA4UVe66spkVVnbK?=
+ =?us-ascii?Q?fSPu994KJFL8ArHpJTj5yl+D6JGuR42HfKYPb6q/xu1dcdbbG0xRzlxLx65G?=
+ =?us-ascii?Q?iGSUOyNCU6PzaxZuFFbW2Q6WFG4SZKVExdCGQU9JH+c1ko1njWEizWlAI1WA?=
+ =?us-ascii?Q?qbdoSUDJTp4WobDf4ya5NJlaFbtn9a6cqsQoyYZctlZGLxs5z+8eeNzJYbKD?=
+ =?us-ascii?Q?yrr4s8KQm90ZXJiXNHi4m7JNvCagWpAppk9DKTswp4Rzpsh4YCk+DqYKQ3HA?=
+ =?us-ascii?Q?X7EeJMca2/DcJn0iWFx2+IxSEiAiDzDBYYKa+n6zHGm+ds8e1jGlHGnF8b8z?=
+ =?us-ascii?Q?DTSh3Yx3itxDXPRoIlU+Pbd226frf4T6ZIyVYHvEV8qB1pEZPWA6Bsa03wyt?=
+ =?us-ascii?Q?2XjaNGLJNDrTDD+KIV1JZMV9mGWLUKXXp07UaH7QLA3Vee0UfFxjcQh+JxsS?=
+ =?us-ascii?Q?NaNEMigcMrAN6wpG0SUhOyuzVnlnLN/9zlu0W6BJO49oEN6I8inoJ9FuPQfG?=
+ =?us-ascii?Q?MOv57OQ3qen67TTcURiwhvsXh+7Y2T8H8O37IT39+Pn7JwY3la8umo7QMxtf?=
+ =?us-ascii?Q?KAH2MS0LGYFLzlc3VO2PIzB0D3yFl+D1ZFESJccxE8kDU7tlrs0Vj+AwLafa?=
+ =?us-ascii?Q?eDbsDaaBKYBgh/tyRQKzPdrrckGklaSxY8ydQ0pCK1ceFIZH6YguYvHN4Q8M?=
+ =?us-ascii?Q?XrBAx7CtYxlU8uIX4x98FtWxWJwhnNQ/Xu3CNtH8Eal/htrRa3QYcDHlpJOz?=
+ =?us-ascii?Q?4NgdwfWPDaxDGbg62mABzUiC8bSWIo3T9hdZGQq5BMo+cbFntGH7mqkWp3yX?=
+ =?us-ascii?Q?V3cqOss9JWhpRu7+J2gyoqXUPOnTFRQNYqTZxp4Yi89kKBKlOg4jKMlc/duC?=
+ =?us-ascii?Q?qQlvA/Yduaa2wkbQcN0Y4eJnGIGtL2CLym56lEkMX/BSDcZlRx/Pb83NJjFq?=
+ =?us-ascii?Q?JJWw/XIt0TfRIRJojJXWhbljbHU6gY6Y4asTeDI0XQSvcugEjIp6+PSPbw0w?=
+ =?us-ascii?Q?Erua15lZ//8ViICCPJUDHyG4Pcz4RZrAQ2uusGgzBEaiWNrenNs4ByGApYhc?=
+ =?us-ascii?Q?fjEGB4xfygQaKeObBYXPZM8qDnuMZwHYKwobDtRS0sYh9uha/YO8TMy3bONd?=
+ =?us-ascii?Q?jst2BQ7JshTudmXXlPbRsKr+oVu8XRpEg06sSavifR0U+h8stRuI7WJeD5XZ?=
+ =?us-ascii?Q?H+CAaStw0TahiArVZAdd6/ff?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ed3ef3e9-30aa-4b53-b711-08d96cf20367
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB4430.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5269.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c662c195-763f-4bd6-b4c1-08d96cebfd8e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Sep 2021 01:58:27.5573 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 99gPZpSDPQVqTpWwxGgz+QHUDEpQRgxzC0ddwOLw2+d8derjiII/eXm0aKK1GmHl
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5271
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2021 02:41:34.5884 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5XinEgv4UtcoQOhGTPK+cEN9qJaFt8a1kSpMUE5v2cC2L+oJtESyREy0VYHwZw4l0M7HfyGIVLFkHgmFZ2Jrpw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2510
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,271 +132,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB5269EB4E07A80EEB48A391DF84CD9BL1PR12MB5269namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+During svm restore pages interrupt handler, kfd_process ref count was
+never dropped when xnack was disabled. Therefore, the object was never
+released.
 
-[AMD Official Use Only]
+Signed-off-by: Alex Sierra <alex.sierra@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-In the previous discussion, you guys stated that we should drop the "kthrea=
-d_should_park" in cleanup_job.
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index 8f9b5b53dab5..110c46cd7fac 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -2484,7 +2484,8 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
+ 	}
+ 	if (!p->xnack_enabled) {
+ 		pr_debug("XNACK not enabled for pasid 0x%x\n", pasid);
+-		return -EFAULT;
++		r = -EFAULT;
++		goto out;
+ 	}
+ 	svms = &p->svms;
+ 
+-- 
+2.32.0
 
-@@ -676,15 +676,6 @@ drm_sched_get_cleanup_job(struct drm_gpu_scheduler *sc=
-hed)
-{
-        struct drm_sched_job *job, *next;
-
--       /*
--        * Don't destroy jobs while the timeout worker is running  OR threa=
-d
--        * is being parked and hence assumed to not touch pending_list
--        */
--       if ((sched->timeout !=3D MAX_SCHEDULE_TIMEOUT &&
--           !cancel_delayed_work(&sched->work_tdr)) ||
--           kthread_should_park())
--               return NULL;
-
-But I suddenly have a question here: if return the timedout job no matter k=
-thread_should_park() or not, then we are backing to the original problem ag=
-ain: that the timedout_job is suddenly signaling and cleanup_job still retu=
-rns it to sched_main and job is freed while it is still handling by vendor'=
-s timeout callback
-
-If we return NULL when kthread_should_park() in cleanup_job, we can prevent=
- above scenario from happening: once a job is processed by job_timedout we =
-can stop its scheduler, and after that even this job suddenly signaled the =
-cleanup_job won't return it so sched_main won't free it in parallel ...
-
-What do you think ?
-Thanks
-
-------------------------------------------
-Monk Liu | Cloud-GPU Core team
-------------------------------------------
-
-From: Liu, Monk
-Sent: Wednesday, September 1, 2021 9:23 AM
-To: Koenig, Christian <Christian.Koenig@amd.com>; Grodzovsky, Andrey <Andre=
-y.Grodzovsky@amd.com>; Daniel Vetter <daniel@ffwll.ch>; Chen, JingWen <Jing=
-Wen.Chen2@amd.com>
-Cc: DRI Development <dri-devel@lists.freedesktop.org>; amd-gfx@lists.freede=
-sktop.org
-Subject: [diagnostic TDR mode patches] unify our solution opinions/suggesti=
-ons in one thread
-
-
-[AMD Official Use Only]
-
-Hi Daniel/Christian/Andrey
-
-It looks the voice from you three are spread over those email floods to me,=
- the feature we are working on (diagnostic TDR scheme) is pending there for=
- more than 6 month (we started it from feb 2021).
-
-Honestly speaking the email ways that we are using now is not friendly and =
-quite painful to me ....
-Can we try to put all our opinions, suggestions, or even objects here toget=
-her, let's go through them one by one, it's too hard for us to reply each e=
-mail on different questions .
-
-For [PATCH 1/2] drm/sched: fix the bug of time out calculation(v4)
-
-This is a fixing patch on the timeout timer in scheduler, can we complete t=
-his one first ? it should already resolved all the questions and suggestion=
-s.
-
-For [PATCH 2/2] drm/sched: serialize job_timeout and scheduler
-
-I think I already explained the questions raised by Daniel in other thread =
-, regarding why I use __kthread_should_park()
-For other aspects, can we put all our opinion synthesized here ?
-
-Thanks !
-
-------------------------------------------
-Monk Liu | Cloud-GPU Core team
-------------------------------------------
-
-
---_000_BL1PR12MB5269EB4E07A80EEB48A391DF84CD9BL1PR12MB5269namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@DengXian";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-p.msipheadera4477989, li.msipheadera4477989, div.msipheadera4477989
-	{mso-style-name:msipheadera4477989;
-	mso-margin-top-alt:auto;
-	margin-right:0in;
-	mso-margin-bottom-alt:auto;
-	margin-left:0in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-span.EmailStyle19
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
-break-word">
-<div class=3D"WordSection1">
-<p class=3D"msipheadera4477989" style=3D"margin:0in"><span style=3D"font-si=
-ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:blue">[AMD Officia=
-l Use Only]</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">In the previous discussion, you guys stated that we =
-should drop the &#8220;kthread_should_park&#8221; in cleanup_job.<o:p></o:p=
-></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">@@ -676,15 +676,6 @@ drm_sched_get_cleanup_job(struc=
-t drm_gpu_scheduler *sched)<o:p></o:p></p>
-<p class=3D"MsoNormal">{<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct dr=
-m_sched_job *job, *next;<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<o:p></o:p><=
-/p>
-<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Don't =
-destroy jobs while the timeout worker is running&nbsp; OR thread<o:p></o:p>=
-</p>
-<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * is bei=
-ng parked and hence assumed to not touch pending_list<o:p></o:p></p>
-<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<o:p><=
-/o:p></p>
-<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ((sched-&gt=
-;timeout !=3D MAX_SCHEDULE_TIMEOUT &amp;&amp;<o:p></o:p></p>
-<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp; !cancel_delayed_work(&amp;sched-&gt;work_tdr)) ||<o:p></o:p></p>
-<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp; kthread_should_park())<o:p></o:p></p>
-<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return NULL;<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">But I suddenly have a question here: if return the t=
-imedout job no matter kthread_should_park() or not, then we are backing to =
-the original problem again: that the timedout_job is suddenly signaling and=
- cleanup_job still returns it to sched_main
- and job is freed while it is still handling by vendor&#8217;s timeout call=
-back<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">If we return NULL when kthread_should_park() in clea=
-nup_job, we can prevent above scenario from happening: once a job is proces=
-sed by job_timedout we can stop its scheduler, and after that even this job=
- suddenly signaled the cleanup_job
- won&#8217;t return it so sched_main won&#8217;t free it in parallel &#8230=
-; <o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">What do you think ?<o=
-:p></o:p></p>
-<div>
-<p class=3D"MsoNormal">Thanks <o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">------------------------------------------<o:p></o:p=
-></p>
-<p class=3D"MsoNormal">Monk Liu | Cloud-GPU Core team<o:p></o:p></p>
-<p class=3D"MsoNormal">------------------------------------------<o:p></o:p=
-></p>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b>From:</b> Liu, Monk <br>
-<b>Sent:</b> Wednesday, September 1, 2021 9:23 AM<br>
-<b>To:</b> Koenig, Christian &lt;Christian.Koenig@amd.com&gt;; Grodzovsky, =
-Andrey &lt;Andrey.Grodzovsky@amd.com&gt;; Daniel Vetter &lt;daniel@ffwll.ch=
-&gt;; Chen, JingWen &lt;JingWen.Chen2@amd.com&gt;<br>
-<b>Cc:</b> DRI Development &lt;dri-devel@lists.freedesktop.org&gt;; amd-gfx=
-@lists.freedesktop.org<br>
-<b>Subject:</b> [diagnostic TDR mode patches] unify our solution opinions/s=
-uggestions in one thread<o:p></o:p></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"msipheadera4477989" style=3D"margin:0in"><span style=3D"font-si=
-ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:blue">[AMD Officia=
-l Use Only]</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Hi Daniel/Christian/Andrey<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">It looks the voice from you three are spread over th=
-ose email floods to me, the feature we are working on (diagnostic TDR schem=
-e) is pending there for more than 6 month (we started it from feb 2021).<o:=
-p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Honestly speaking the email ways that we are using n=
-ow is not friendly and quite painful to me &#8230;.<o:p></o:p></p>
-<p class=3D"MsoNormal">Can we try to put all our opinions, suggestions, or =
-even objects here together, let&#8217;s go through them one by one, it&#821=
-7;s too hard for us to reply each email on different questions .<o:p></o:p>=
-</p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">For [PATCH 1/2] drm/sched: fix the bug of time out c=
-alculation(v4)<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">This is a fixing patch on the timeout timer in sched=
-uler, can we complete this one first ? it should already resolved all the q=
-uestions and suggestions.<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">For [PATCH 2/2] drm/sched: serialize job_timeout and=
- scheduler<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">I think I already explained the questions raised by =
-Daniel in other thread , regarding why I use __kthread_should_park()<o:p></=
-o:p></p>
-<p class=3D"MsoNormal">For other aspects, can we put all our opinion synthe=
-sized here ?
-<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Thanks !<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">------------------------------------------<o:p></o:p=
-></p>
-<p class=3D"MsoNormal">Monk Liu | Cloud-GPU Core team<o:p></o:p></p>
-<p class=3D"MsoNormal">------------------------------------------<o:p></o:p=
-></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-</div>
-</body>
-</html>
-
---_000_BL1PR12MB5269EB4E07A80EEB48A391DF84CD9BL1PR12MB5269namp_--
