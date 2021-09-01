@@ -2,77 +2,71 @@ Return-Path: <SRS0=BBbY=NX=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 84152C432BE
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Sep 2021 06:50:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 071F6C432BE
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Sep 2021 08:18:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 391EB61008
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Sep 2021 06:50:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 391EB61008
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 383116103A
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Sep 2021 08:18:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 383116103A
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BAF9D6E11C;
-	Wed,  1 Sep 2021 06:50:42 +0000 (UTC)
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [IPv6:2a00:1450:4864:20::431])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85EEC6E06D;
- Wed,  1 Sep 2021 06:50:41 +0000 (UTC)
-Received: by mail-wr1-x431.google.com with SMTP id g18so2756858wrc.11;
- Tue, 31 Aug 2021 23:50:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=mtfydqR20tpaXs1lG6XWMZrLZrEt0a+YB+oBSPUyY1s=;
- b=VQX9niGHaKLWfNuuhiDLAW5t//EqZKvJsx/ziL8DVgVajip9llyBLl9n15pSQQXjWu
- JGmD82KOXFZrbTVhkp//VNu2xxQtcpQAuNGeToA1gRylo5N9gl4TAFTMBk+yu5dkajyH
- Ps0fhfGh3z68kwBKrsqCQHpM+lmpA39N2EtzFjcFsEnuriuNZBI+XzWbHlTcf0as3fIG
- eJAraK8h6wrywEN4uAaWVp8rz6IWoLUrgXGPhG8SWE+/FgAXU1QOTCt+simG1el3Dn4l
- UF0QsDGbszCPsWWKSULPx8Bmdar5eoa0Ea0nkItb6SyA+FuDXfiWq08zEfVy6eS42Jun
- TQ8g==
+	by gabe.freedesktop.org (Postfix) with ESMTP id D986F89617;
+	Wed,  1 Sep 2021 08:18:25 +0000 (UTC)
+Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com
+ [IPv6:2607:f8b0:4864:20::32e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FB6889617
+ for <amd-gfx@lists.freedesktop.org>; Wed,  1 Sep 2021 08:18:24 +0000 (UTC)
+Received: by mail-ot1-x32e.google.com with SMTP id
+ k12-20020a056830150c00b0051abe7f680bso2527220otp.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 01 Sep 2021 01:18:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=wPcw5tjWJ+wO9coOpJKKvWC5n1KGwBjvh1fc5dEcMak=;
+ b=GKmhYL4pRQIrhOQLDXeEiolsAcieFrKye7ekmI57dLqPsfyKZbR49zMI+os9YcPst8
+ kMpWvtNRV1DaqjKF8CEFeXISv/IpYYmjX4nHioDz+7imVmaPxcGEXu1x4tJNA0ZiB6ME
+ wrDlR2+sHCZP2XGPstW012wEHctoPZKGxsQ4k=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=mtfydqR20tpaXs1lG6XWMZrLZrEt0a+YB+oBSPUyY1s=;
- b=rSoMUi+gyqvwbIV1frYGcDtvy/h3OU92V05BirznIpyAMiL6Aj3Uaw3yvR6AZIjKZV
- yMKG5yb/b+qmHCcWDaadAyzLf2e3fEWU/xWwarTo5757YtPdLo12HVbQLtk0Ko6rLkz0
- LzgDae+kLBEyhZ47q4nkNf769QMnS2Hk5RAaMoN6MUL3pU4ar/TuRyDqkFFuG6cRThnQ
- 7BkS44RSdGlKa/zwkPlMVreL1fKUsQn+u4Cq8nhh9AFHRHeM2fwhYb4eUmlWDJWRxRkU
- yyJu5gPc7EmaHqtHs+81EkNIxZWCgr+evQgdbBueDB8eEMAsmfixSXvSmPosSEl8IWu0
- /1og==
-X-Gm-Message-State: AOAM533J98Mi6rOV8EU/T6PZo/uCYJX2TUhbQgetVjUzmRm+TbeZlAkD
- 3yemdLmPt+78LQsQ2ujCiQ4orOZLkpy1kU/2
-X-Google-Smtp-Source: ABdhPJzL9tfa1ZRe3t/yH1nXI4RG0HGyljMoTS6GIsMpvShq6YZLZ48tphUlcJRRk46ySQZdPE6G7Q==
-X-Received: by 2002:adf:c149:: with SMTP id w9mr20108060wre.127.1630479040090; 
- Tue, 31 Aug 2021 23:50:40 -0700 (PDT)
-Received: from [192.168.178.21] (p5b0ea1b5.dip0.t-ipconnect.de.
- [91.14.161.181])
- by smtp.gmail.com with ESMTPSA id l35sm2233454wms.40.2021.08.31.23.50.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 31 Aug 2021 23:50:38 -0700 (PDT)
-Subject: Re: [PATCH 1/2] drm/sched: fix the bug of time out calculation(v4)
-To: Monk Liu <Monk.Liu@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-References: <1630457207-13107-1-git-send-email-Monk.Liu@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <28709f7f-8a48-40ad-87bb-c2f0dd89da38@gmail.com>
-Date: Wed, 1 Sep 2021 08:50:37 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=wPcw5tjWJ+wO9coOpJKKvWC5n1KGwBjvh1fc5dEcMak=;
+ b=PFsFA88iBqBRI2aBzZWnQ+swbkaIf6CJD81WVRYvDgrM1G4yWM0mvLiEPIH00Jh+X8
+ d0k98nKcILB7QoSQvw0RqdTrHW+Y5xn2GDYTFUsSebSwIBY5RpjPDLEUFNqFpEF9OWdH
+ 2mownr0Y8ylybR0e63P52mmqPqfgf8AcVQoDr3Yrvv1n54d1PbSnhEg1pYEvIVdm5tet
+ GWww+lpICRD99FCPXAwoEPw+aM8jdWwEq47C/Z4UAivErqfVVGlbu4ApeziyYzvQJ4ez
+ HlQ/iCnXULPsUPBHaDg6f7dItds1Rl6DG1Pp+YrhGa+z+Bvs3H0/1qGdM9i5/3Ixl5di
+ t9wQ==
+X-Gm-Message-State: AOAM532wXkbpV/NpraNiWFLoHoJOWrRja3YyJS2WLxZAxDjgkyham2FZ
+ eI1GjKGNEMCEGHx+VsEBZXduFPac9INzn2d0Owc7fQ==
+X-Google-Smtp-Source: ABdhPJz05c+G8CWnq+IuHlbwS0UMDxrh1BXJ7T3nyc1jesV4PcZ3cgvBCyzaQXvZIt+vhh7tv0IHX/yHZqwwpLy10xM=
+X-Received: by 2002:a05:6830:70b:: with SMTP id
+ y11mr284176ots.281.1630484303762; 
+ Wed, 01 Sep 2021 01:18:23 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <1630457207-13107-1-git-send-email-Monk.Liu@amd.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+References: <BL1PR12MB526942160701B46D4B28EEEC84CD9@BL1PR12MB5269.namprd12.prod.outlook.com>
+In-Reply-To: <BL1PR12MB526942160701B46D4B28EEEC84CD9@BL1PR12MB5269.namprd12.prod.outlook.com>
+From: Daniel Vetter <daniel@ffwll.ch>
+Date: Wed, 1 Sep 2021 10:18:12 +0200
+Message-ID: <CAKMK7uHKX0rSVk_yBPo_KAEJ-UeLk5UxQ2kBdv+FD2j9zAjfZA@mail.gmail.com>
+Subject: Re: [diagnostic TDR mode patches] unify our solution
+ opinions/suggestions in one thread
+To: "Liu, Monk" <Monk.Liu@amd.com>
+Cc: "Koenig, Christian" <Christian.Koenig@amd.com>, 
+ "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>, "Chen,
+ JingWen" <JingWen.Chen2@amd.com>, 
+ DRI Development <dri-devel@lists.freedesktop.org>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,101 +81,147 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 01.09.21 um 02:46 schrieb Monk Liu:
-> issue:
-> in cleanup_job the cancle_delayed_work will cancel a TO timer
-> even the its corresponding job is still running.
->
-> fix:
-> do not cancel the timer in cleanup_job, instead do the cancelling
-> only when the heading job is signaled, and if there is a "next" job
-> we start_timeout again.
->
-> v2:
-> further cleanup the logic, and do the TDR timer cancelling if the signaled job
-> is the last one in its scheduler.
->
-> v3:
-> change the issue description
-> remove the cancel_delayed_work in the begining of the cleanup_job
-> recover the implement of drm_sched_job_begin.
->
-> v4:
-> remove the kthread_should_park() checking in cleanup_job routine,
-> we should cleanup the signaled job asap
->
-> TODO:
-> 1)introduce pause/resume scheduler in job_timeout to serial the handling
-> of scheduler and job_timeout.
-> 2)drop the bad job's del and insert in scheduler due to above serialization
-> (no race issue anymore with the serialization)
->
-> tested-by: jingwen <jingwen.chen@@amd.com>
-> Signed-off-by: Monk Liu <Monk.Liu@amd.com>
+Hi Monk,
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
-
-> ---
->   drivers/gpu/drm/scheduler/sched_main.c | 26 +++++++++-----------------
->   1 file changed, 9 insertions(+), 17 deletions(-)
+On Wed, Sep 1, 2021 at 3:23 AM Liu, Monk <Monk.Liu@amd.com> wrote:
 >
-> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-> index a2a9536..3e0bbc7 100644
-> --- a/drivers/gpu/drm/scheduler/sched_main.c
-> +++ b/drivers/gpu/drm/scheduler/sched_main.c
-> @@ -676,15 +676,6 @@ drm_sched_get_cleanup_job(struct drm_gpu_scheduler *sched)
->   {
->   	struct drm_sched_job *job, *next;
->   
-> -	/*
-> -	 * Don't destroy jobs while the timeout worker is running  OR thread
-> -	 * is being parked and hence assumed to not touch pending_list
-> -	 */
-> -	if ((sched->timeout != MAX_SCHEDULE_TIMEOUT &&
-> -	    !cancel_delayed_work(&sched->work_tdr)) ||
-> -	    kthread_should_park())
-> -		return NULL;
-> -
->   	spin_lock(&sched->job_list_lock);
->   
->   	job = list_first_entry_or_null(&sched->pending_list,
-> @@ -693,17 +684,21 @@ drm_sched_get_cleanup_job(struct drm_gpu_scheduler *sched)
->   	if (job && dma_fence_is_signaled(&job->s_fence->finished)) {
->   		/* remove job from pending_list */
->   		list_del_init(&job->list);
-> +
-> +		/* cancel this job's TO timer */
-> +		cancel_delayed_work(&sched->work_tdr);
->   		/* make the scheduled timestamp more accurate */
->   		next = list_first_entry_or_null(&sched->pending_list,
->   						typeof(*next), list);
-> -		if (next)
-> +
-> +		if (next) {
->   			next->s_fence->scheduled.timestamp =
->   				job->s_fence->finished.timestamp;
-> -
-> +			/* start TO timer for next job */
-> +			drm_sched_start_timeout(sched);
-> +		}
->   	} else {
->   		job = NULL;
-> -		/* queue timeout for next job */
-> -		drm_sched_start_timeout(sched);
->   	}
->   
->   	spin_unlock(&sched->job_list_lock);
-> @@ -791,11 +786,8 @@ static int drm_sched_main(void *param)
->   					  (entity = drm_sched_select_entity(sched))) ||
->   					 kthread_should_stop());
->   
-> -		if (cleanup_job) {
-> +		if (cleanup_job)
->   			sched->ops->free_job(cleanup_job);
-> -			/* queue timeout for next job */
-> -			drm_sched_start_timeout(sched);
-> -		}
->   
->   		if (!entity)
->   			continue;
+> [AMD Official Use Only]
+>
+>
+> Hi Daniel/Christian/Andrey
+>
+>
+>
+> It looks the voice from you three are spread over those email floods to m=
+e, the feature we are working on (diagnostic TDR scheme) is pending there f=
+or more than 6 month (we started it from feb 2021).
 
+For me your project exists since a few weeks at most, because that is
+when your team showed up on dri-devel. That you already spent 6 months
+on this within amd, on a code area that very much affects shared code,
+without kicking of any thread on dri-devel isn't great, but also not
+something we can fix, since time machines don't exist.
+
+So we have to make the best out of the situation and move ahead where
+we are. From my understanding you've done a bunch of changes to the
+scheduler code. As far as I can see there's been two related things
+your team has done:
+
+- remove some allocations from scheduler code, because that can lead
+to deadlocks. I've kicked up this topic quite a while ago here
+
+https://lore.kernel.org/dri-devel/20200604081224.863494-10-daniel.vetter@ff=
+wll.ch/
+
+This is just one patch of the entire series. This is an area where we
+really need a consistent solution across all drm/sched drivers, not
+something that individual drivers just fix in their own way.
+
+- the other one is the timeout issue for the patches you cite here.
+Again there's been discussion on this on dri-devel with Boris from
+panfrost about how we can handle at least some of the races in tdr.
+That resulted in lots of discussions and documentation improvements.
+Those patches are merged now, link
+https://lore.kernel.org/dri-devel/20210625133327.2598825-2-boris.brezillon@=
+collabora.com/
+
+There's been more than just this, also quite some doc patches from
+Boris that explain how it's all supposed to work and be race-free.
+Again your driver isn't the only one with interesting TDR races.
+
+Your team hasn't been active in any of these discussions, but now
+suddenly pops up out of nowhere and demands that your approach needs
+to land asap. That's really not how upstream works.
+
+The other thing where I'm struggling is that there's a lot of missing
+context for outsiders. The patches sometimes come with zero commit
+message, for tricky concurrency bugs. And there's no context with what
+you've done already on the amdgpu side (since that never showed up on
+dri-devel), which makes constructive discussions here really hard.
+
+Now fixing these bugs is obviously good, but the way this is supposed
+to work when touching shared infrastructure is:
+
+- Before you start merging anything kick off an RFC thread on
+dri-devel (or whatever the topic really is about) about the problem
+you have and how your trying to solve it. This can be just text if
+it's a big thing, but it can also already include some proof of
+concept solution in the form of patches.
+
+- Then we iterate on the solution, across drivers and shared code
+_together_. Not "merge amdgpu code first, then get annoyed when the
+core changes don't land immediately after you've practially finished
+the project".
+
+- This might mean changes to other drivers if we need to adjust interfaces.
+
+On the plus side you can plan much better, because you know you have
+upstream buy-in before you start to put in real work on the project.
+
+> Honestly speaking the email ways that we are using now is not friendly an=
+d quite painful to me =E2=80=A6.
+
+Yes this is painful :-(
+
+I think the best way forward is to go through the above process again
+and essentially restart. So submit a complete patch series with
+problem descriptions, solution you picked, why you picked that, all
+the amdgpu patches to get there and the core patches too. Since it
+sounds like a bunch of this has all landed already you probably need a
+patch 1 that goes back to 6 months ago so that we can see the overall
+direction, and review whether that's the right one or not.
+
+The not-so-painful approach would have been to do this from the start,
+6 months ago. It would definitely have helped if the tdr discussion
+we've had just a few months ago would have involved your team too, I'm
+sure there would have been some good insights from amd's side. I'd
+really want you and your engineers involved here, so let's do this
+properly!
+
+Cheers, Daniel
+
+> Can we try to put all our opinions, suggestions, or even objects here tog=
+ether, let=E2=80=99s go through them one by one, it=E2=80=99s too hard for =
+us to reply each email on different questions .
+>
+>
+>
+> For [PATCH 1/2] drm/sched: fix the bug of time out calculation(v4)
+>
+>
+>
+> This is a fixing patch on the timeout timer in scheduler, can we complete=
+ this one first ? it should already resolved all the questions and suggesti=
+ons.
+>
+>
+>
+> For [PATCH 2/2] drm/sched: serialize job_timeout and scheduler
+>
+>
+>
+> I think I already explained the questions raised by Daniel in other threa=
+d , regarding why I use __kthread_should_park()
+>
+> For other aspects, can we put all our opinion synthesized here ?
+>
+>
+>
+> Thanks !
+>
+>
+>
+> ------------------------------------------
+>
+> Monk Liu | Cloud-GPU Core team
+>
+> ------------------------------------------
+>
+>
+
+
+
+--=20
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
