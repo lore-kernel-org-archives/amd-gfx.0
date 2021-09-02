@@ -7,48 +7,48 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8ECE0C4320A
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Sep 2021 13:43:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 04188C432BE
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Sep 2021 13:44:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 51ACA61056
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Sep 2021 13:43:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 51ACA61056
+	by mail.kernel.org (Postfix) with ESMTPS id C2B5161056
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Sep 2021 13:44:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C2B5161056
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E27C86E500;
-	Thu,  2 Sep 2021 13:43:57 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2042.outbound.protection.outlook.com [40.107.93.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DA916E500
- for <amd-gfx@lists.freedesktop.org>; Thu,  2 Sep 2021 13:43:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8032E6E524;
+	Thu,  2 Sep 2021 13:44:00 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2073.outbound.protection.outlook.com [40.107.92.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E3B36E524
+ for <amd-gfx@lists.freedesktop.org>; Thu,  2 Sep 2021 13:43:58 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PQuIIQUnOtiSG/suqyyBeQYBnexUM7EDID9wEMaLDEij4bpJL+7AxCWc+4zzzud78kDUIHdpSaUP0o4dzUd3j/XgAq4YCm0MUF9Xok6bIADpRvEmngXsIF/zMIUgn4fFE/YFu4UUP+I0kQD2Ed3o2ZVdBXjE3NO4AUwgppFICH98n+KFp4ndSpojOtPtdWWU+M6aExwom5HufIe1BcjuOsRGKKq+HuzPLdZSVqNbWTs20n3IpAzJ3qs580dxwC72oqfjyJvSsV79EsbRPI0HYO9K6aexyvJiwd8Slp4XWYjNefkkLEcJ7GnQLuhBF8WZcK2cZ05QB76CZkQSOXDGaQ==
+ b=FErUf2QwmBUllV/BYnycZyqXk5DVUUEkOaRoLlG/cHJaU5+EiSvUbHUexPYyUWl1CRvFJgaWqo6aXirTKeqlh5XfD48FK0NfwexJkr/W1kOeAUgrf+ijzSN2UM4lW8I9ip1R9m0dd85LK2ld5xUvIsVddQCp5YFkAB7/k8OFRd7qQQIS6OvcGAr8ElDDoWOUAyyprbcIVk7IUBJ2CVsJExXUVpmNfzxwO1Zns70Wz7O7zLbzUxyyvFFxe6cYPg/S3cvMoyF7BDh6YI72IB2+/6fWknNV8ChI+YvoGlGRmcSoQiKkf+W3st1ETmvn7CqBwyFpq43Vu8OpgmfyqMFy9w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=Jybt/Miz902eWZ79Q/D0pW2xIPLSQblmHqmKayqY9Cg=;
- b=mA4gcBkNQv1bTNWyYA5zpcalMkQF5BuBjHxR0ZCD7ndP5931CdgbOPQXrcXUsUTCTKjkf114bi1hCj8NJ/bGpDQXd2DJnHfIxvcEmUjEBvJMqPRUGF8KnDpYnUKTif+ijckZP6LVL8O29upCMXfg2JuFbuKTsovhG0JSBMErqHPuQyMFK68a8l1psBRbWuoW6FX3w7bQG3ql8k+NjOM81AEPA35Hcy9QIXfFUqqw+nWdd7Jxv5uSQspdIRfhXIZZoTjD/grRH5T1vnYDj9XXC8Mzi0ugjT7DBF2DIRJgw7XImrUGoim29hgP2r8K5/8MvfM9Y5Lm3PdrZ1ACZ2LrJg==
+ bh=1DdZH+E0GvLEFURzRJ5xN2HpRIe6ZY9fGe7p0Xeq8S8=;
+ b=ODF64UM4tHhNGCC11ixUAEIffwPMgMuJ28vt2P6gsNX106gaT6TVXjtqdws465bBwEe5PjigDHKTJAKGptSpEHgeW2OVkLlUjykAaSN5DtHTygXO1KPxwxL2NsfsTlRA1QLnQv9XkzoGNBnWU5KNIL7us1cMsRGvXWvJPhAEoWhCT2Q32Wf+X13a6mF/LbiiFteI6ax2jeTob9W7fMlKKpyGgGadd3sfc270OBdx0YXBBBBS5lJI5FXCVxzoBCgj2OkEUrFrNjYQgP/1ysTzB95rw+gSYRmMDL064lGqSRz+5HVTnFQITUK5+0UCyo2mOz9d68q2bkHZmJ/MuSALng==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Jybt/Miz902eWZ79Q/D0pW2xIPLSQblmHqmKayqY9Cg=;
- b=3bVTTD1P00sdA6jCTQF7Ji2IYVFq97Gv7gRB2m9XLDU/9yEZaNojCnvjZfqDq3Jk50I0HM69PMdjyhyF/9fhOxDcICiMJ1E6bTQjjg1ljmKuHvOf0lDRyVZRriIMbBs+EcGwFgB4Htek+xHogUbFeMK+ra1YhpBWJ2FLS4MMB9I=
-Received: from DS7PR03CA0111.namprd03.prod.outlook.com (2603:10b6:5:3b7::26)
- by DM6PR12MB4943.namprd12.prod.outlook.com (2603:10b6:5:1bc::21) with
+ bh=1DdZH+E0GvLEFURzRJ5xN2HpRIe6ZY9fGe7p0Xeq8S8=;
+ b=sEbgvMcQl0JIYWZl9EXIlE0RN2xV0xlYqP3UYdFW9qfNrEu4nPRX/TtSgf8r4F58AFyhA0dYg/e/ciqzOfWwFuiQLIy9IagQPQUb/EZ4amItRTwVuvN9Y1VstjC6Py9fjKaO7jNWZ7zqhnaRuDlIrRw3Oiqn6EymEQbd37IbZ/I=
+Received: from DM5PR04CA0061.namprd04.prod.outlook.com (2603:10b6:3:ef::23) by
+ BN9PR12MB5382.namprd12.prod.outlook.com (2603:10b6:408:103::15) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.21; Thu, 2 Sep
- 2021 13:43:56 +0000
-Received: from DM6NAM11FT063.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:3b7:cafe::28) by DS7PR03CA0111.outlook.office365.com
- (2603:10b6:5:3b7::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.17; Thu, 2 Sep
+ 2021 13:43:55 +0000
+Received: from DM6NAM11FT021.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:3:ef:cafe::d8) by DM5PR04CA0061.outlook.office365.com
+ (2603:10b6:3:ef::23) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.19 via Frontend
- Transport; Thu, 2 Sep 2021 13:43:56 +0000
+ Transport; Thu, 2 Sep 2021 13:43:55 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -57,22 +57,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT063.mail.protection.outlook.com (10.13.172.219) with Microsoft SMTP
+ DM6NAM11FT021.mail.protection.outlook.com (10.13.173.76) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4478.19 via Frontend Transport; Thu, 2 Sep 2021 13:43:55 +0000
+ 15.20.4478.19 via Frontend Transport; Thu, 2 Sep 2021 13:43:54 +0000
 Received: from brihaspati.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Thu, 2 Sep
- 2021 08:43:54 -0500
+ 2021 08:43:53 -0500
 From: Nirmoy Das <nirmoy.das@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Christian.Koenig@amd.com>, Nirmoy Das <nirmoy.das@amd.com>
-Subject: [PATCH 2/2] drm/amdgpu: cleanup debugfs for amdgpu rings
-Date: Thu, 2 Sep 2021 15:43:37 +0200
-Message-ID: <20210902134337.3440-2-nirmoy.das@amd.com>
+Subject: [PATCH v2 1/2] drm/amdgpu:  use IS_ERR for debugfs APIs
+Date: Thu, 2 Sep 2021 15:43:36 +0200
+Message-ID: <20210902134337.3440-1-nirmoy.das@amd.com>
 X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20210902134337.3440-1-nirmoy.das@amd.com>
-References: <20210902134337.3440-1-nirmoy.das@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -81,28 +79,28 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4484b1a3-d8fd-401e-1963-08d96e17b597
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4943:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB4943773B8FB2463A45CD45A38BCE9@DM6PR12MB4943.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: e95216de-d3cd-4c24-3743-08d96e17b502
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5382:
+X-Microsoft-Antispam-PRVS: <BN9PR12MB5382EEBEDE495EBDDA8E5A378BCE9@BN9PR12MB5382.namprd12.prod.outlook.com>
 X-MS-Oob-TLC-OOBClassifiers: OLM:785;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: sL+NdXt26q8w2pWYcOCoPTDGo3ZLaVsllM/cxyEjAUCiE+QdAKnCFKmWfYFvqwue2lVokGVbLQQi/ApJCr3PrvEWcfOe+gU2zxYmUmQHMMUefB0qppkdC0v1QntqJ2Y0Zo0OMKNcuMXFt1iOSHpGwZ+qCb334hbU+IBWQokdwQjBHzVROnTLzlE7oDQEkM0wTaUpYEg4gImVy2TI7gZT5AHB0BiQxHUlGYj4KYzju90bOGsGzkmcUqA0tRIWEFj7duHI4WNkdmGblvDMjxw25ojwwwm1qs2sHsp1pbSnHRXgX3kgYNvNNcJzNGlx7WeUVqj/NWICeKj3S69rNv8dXhsMPBaY+0DFvz/CoExnOlYiXwVItVegIRxNkgWuetoD+ex0OG1mGZOapBeR9p0XI1WVtyLuC/KlqZRgzTP66uFdrQGWds1HWnu8cSGKaC5qOBkVeKxBthMx7MUef5rn4KBWvQnwHYkRHv/M991oGdGTcgAZuXLQ5CeSCMci9Q42HsTgd1C0Ef3wQEqOsTqP98wwRHWrr6nZD/Hyid0BVNRYUvUWSN1oxebrVBPCehW7QJmQtBB7vxqwYFIZi1eA+38bBNzJyZwEIk+wHbyx85WD87P/1iClxPcNJv8VZoIvCOyOpz9BJi7PeWJruRZmtt3JAVZPdmqznlfDp9ITzCgdHjiHcWIk8opCNOnEa8dtaMp3/KwiDAxlYZ4qh3yQtp5rd4/gl5Y9zF9v2Jx4efc=
+X-Microsoft-Antispam-Message-Info: 6rMEeiOxZqUd41QPLneo6/mEBUaeZwcPRsJXd79kWkGj6b1tO//rbNwizuvjfLmRYRdRxALvd9/9OGqw4PiZTa+oZj2LpSTNSCMwRugQHHoyjV9WQOUYlUx10To+aG5LGNsMUOlf3PhkNY96JmwZ3VcJ3dsnEvv3o6UaksG0k0VavA2cYO2R4nfV5JGLZj+7ZCoK/qcfCKxdfc3UZjsghNDEocmC646aft0zwAgDVXiofM5QwWpqxGxyMXjruaRIw/MsBgdBSCVc/z1gJOh1xyNXnCp70dhz5SiboLz8ray2PaovNZkPFkyt6fH9zJ0aYgpmCXYfscPdF093zPVMArGQgyJLv29HQ7FUzMsSzPM0f4uTDpkBAyKf2aEeP/yQpedQZT2CEw8xh+vmm0M8KP7Q1ucTFUpkDjhO0W+CgQoCJzhbU88m1Fc/7Wj+EDztRjAUeMB4nSIl5odOXEurKSjtQSyBlklbjNK8dLMfb/r6fziI7BKaqXbMOLVua3aE+jeokHKnkWgyWQ43FkNcc/baAe6JDgIw4TRbwm5VzfVyJrJS6vwtrhGe/UDOk6e+8NX3D+YnAHFVQCOqUXPqmbfd6ybM5iOte0mdpreZcsJwpNUuTI+mPSENZJl9NiOxCs1hoZMqYcmLi6fdJWCEaEZS1PE1uUxYUBKr2o8QjXUNXgcf4oPRTfqz6461jEl5M4cU8SXRPlPfcQMYTjdqdTQWNTv342EX7nRBFyQnaVw=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(39860400002)(396003)(346002)(376002)(136003)(46966006)(36840700001)(82310400003)(4326008)(316002)(26005)(81166007)(7696005)(5660300002)(47076005)(44832011)(54906003)(8936002)(6666004)(36860700001)(82740400003)(186003)(70586007)(2906002)(83380400001)(8676002)(2616005)(70206006)(1076003)(16526019)(86362001)(478600001)(6916009)(36756003)(336012)(356005)(426003)(36900700001);
+ SFS:(4636009)(346002)(136003)(396003)(376002)(39860400002)(46966006)(36840700001)(86362001)(36860700001)(36756003)(2616005)(7696005)(70586007)(5660300002)(4326008)(54906003)(316002)(186003)(26005)(70206006)(16526019)(6666004)(336012)(47076005)(478600001)(426003)(44832011)(83380400001)(8676002)(82310400003)(966005)(8936002)(356005)(82740400003)(2906002)(1076003)(6916009)(81166007)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2021 13:43:55.8448 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4484b1a3-d8fd-401e-1963-08d96e17b597
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2021 13:43:54.8880 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e95216de-d3cd-4c24-3743-08d96e17b502
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT063.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT021.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4943
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5382
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,94 +115,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use debugfs_create_file_size API for creating ring debugfs
-file, also cleanup surrounding code.
+debugfs APIs returns encoded error so use
+IS_ERR for checking return value.
 
+v2: return PTR_ERR(ent)
+
+References: https://gitlab.freedesktop.org/drm/amd/-/issues/1686
 Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |  4 +---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c    | 18 ++++++------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h    | 10 ++--------
- 3 files changed, 9 insertions(+), 23 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 10 ++++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c    |  4 ++--
+ 2 files changed, 6 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-index 60f46a4b0144..97d88f3e1c4c 100644
+index d256215ab2c7..60f46a4b0144 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-@@ -1734,9 +1734,7 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
- 		if (!ring)
- 			continue;
- 
--		if (amdgpu_debugfs_ring_init(adev, ring)) {
--			DRM_ERROR("Failed to register debugfs file for rings !\n");
--		}
-+		amdgpu_debugfs_ring_init(adev, ring);
+@@ -1696,20 +1696,18 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
+ 	struct dentry *ent;
+ 	int r, i;
+
+-
+-
+ 	ent = debugfs_create_file("amdgpu_preempt_ib", 0600, root, adev,
+ 				  &fops_ib_preempt);
+-	if (!ent) {
++	if (IS_ERR(ent)) {
+ 		DRM_ERROR("unable to create amdgpu_preempt_ib debugsfs file\n");
+-		return -EIO;
++		return PTR_ERR(ent);
  	}
- 
- 	amdgpu_ras_debugfs_create_all(adev);
+
+ 	ent = debugfs_create_file("amdgpu_force_sclk", 0200, root, adev,
+ 				  &fops_sclk_set);
+-	if (!ent) {
++	if (IS_ERR(ent)) {
+ 		DRM_ERROR("unable to create amdgpu_set_sclk debugsfs file\n");
+-		return -EIO;
++		return PTR_ERR(ent);
+ 	}
+
+ 	/* Register debugfs entries for amdgpu_ttm */
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-index 0554576d3695..ab2351ba9574 100644
+index 7b634a1517f9..0554576d3695 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-@@ -415,26 +415,20 @@ static const struct file_operations amdgpu_debugfs_ring_fops = {
- 
- #endif
- 
--int amdgpu_debugfs_ring_init(struct amdgpu_device *adev,
--			     struct amdgpu_ring *ring)
-+void amdgpu_debugfs_ring_init(struct amdgpu_device *adev,
-+			      struct amdgpu_ring *ring)
- {
- #if defined(CONFIG_DEBUG_FS)
- 	struct drm_minor *minor = adev_to_drm(adev)->primary;
--	struct dentry *ent, *root = minor->debugfs_root;
-+	struct dentry *root = minor->debugfs_root;
- 	char name[32];
- 
- 	sprintf(name, "amdgpu_ring_%s", ring->name);
-+	debugfs_create_file_size(name, S_IFREG | S_IRUGO, root, ring,
-+				 &amdgpu_debugfs_ring_fops,
-+				 ring->ring_size + 12);
- 
--	ent = debugfs_create_file(name,
--				  S_IFREG | S_IRUGO, root,
--				  ring, &amdgpu_debugfs_ring_fops);
--	if (IS_ERR(ent))
--		return PTR_ERR(ent);
--
--	i_size_write(ent->d_inode, ring->ring_size + 12);
--	ring->ent = ent;
- #endif
--	return 0;
- }
- 
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-index 88d80eb3fea1..4d380e79752c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-@@ -253,10 +253,6 @@ struct amdgpu_ring {
- 	bool			has_compute_vm_bug;
- 	bool			no_scheduler;
- 	int			hw_prio;
--
--#if defined(CONFIG_DEBUG_FS)
--	struct dentry *ent;
--#endif
- };
- 
- #define amdgpu_ring_parse_cs(r, p, ib) ((r)->funcs->parse_cs((p), (ib)))
-@@ -356,8 +352,6 @@ static inline void amdgpu_ring_write_multiple(struct amdgpu_ring *ring,
- 
- int amdgpu_ring_test_helper(struct amdgpu_ring *ring);
- 
--int amdgpu_debugfs_ring_init(struct amdgpu_device *adev,
--			     struct amdgpu_ring *ring);
--void amdgpu_debugfs_ring_fini(struct amdgpu_ring *ring);
--
-+void amdgpu_debugfs_ring_init(struct amdgpu_device *adev,
-+			      struct amdgpu_ring *ring);
- #endif
--- 
+@@ -428,8 +428,8 @@ int amdgpu_debugfs_ring_init(struct amdgpu_device *adev,
+ 	ent = debugfs_create_file(name,
+ 				  S_IFREG | S_IRUGO, root,
+ 				  ring, &amdgpu_debugfs_ring_fops);
+-	if (!ent)
+-		return -ENOMEM;
++	if (IS_ERR(ent))
++		return PTR_ERR(ent);
+
+ 	i_size_write(ent->d_inode, ring->ring_size + 12);
+ 	ring->ent = ent;
+--
 2.32.0
 
