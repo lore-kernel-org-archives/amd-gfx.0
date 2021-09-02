@@ -7,39 +7,39 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A7354C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Sep 2021 22:11:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 20CE6C433FE
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Sep 2021 22:11:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5635160E9B
+	by mail.kernel.org (Postfix) with ESMTPS id C725860E9B
 	for <amd-gfx@archiver.kernel.org>; Thu,  2 Sep 2021 22:11:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5635160E9B
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C725860E9B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=canonical.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E90AA6E823;
-	Thu,  2 Sep 2021 22:11:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F2FF6E824;
+	Thu,  2 Sep 2021 22:11:11 +0000 (UTC)
 Received: from smtp-relay-canonical-1.canonical.com
  (smtp-relay-canonical-1.canonical.com [185.125.188.121])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F7FD6E81C;
- Thu,  2 Sep 2021 21:51:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 005F56E81B;
+ Thu,  2 Sep 2021 21:45:13 +0000 (UTC)
 Received: from localhost (1.general.cking.uk.vpn [10.172.193.212])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
  SHA256) (No client certificate requested)
- by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id 1371E3F22D; 
- Thu,  2 Sep 2021 21:51:28 +0000 (UTC)
+ by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id ECE8F3FE71; 
+ Thu,  2 Sep 2021 21:45:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1630619488;
- bh=cItgUpS2AQ9mIN7Iv9RVBAc7PAHB+grKWA9BcWmqIBc=;
+ s=20210705; t=1630619112;
+ bh=s9p5QLB1+aDHhWrCWaZs6bVSkWVQnpCvcnaOFCjNF1w=;
  h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type;
- b=IPwMjkBO+TUYphxUis4Ia4y95JMr0Cy4WvMbdb91YA1ZPQV1cXwsST+vFcIfvZfEa
- slniXUFEUD3iKimJ+Xaav53XX24wBFdPxCF1cIX88P+npqUqXuFcXhMls0vWjxoDJG
- z5EJxhtPtYOJIoGNn6FmTe9R9UeDxC4jB5+hVw0s4Jmyim0qXAk6coxQ2LF4i1YeAC
- KlpfqrpCdj5PHeMCMi35kPBXK3ZxalxJGY/HqwamBG46JAcE3jTnmOP5a6jtRSWvVg
- +gjXdxPbA2lDQwVmC0vcn7Slmdi7hqU4WPUIfMocjdlg/PuR5/d3GqmBe3FdGVBIUA
- eid2uTihgfRAw==
+ b=uqdIoGDigSHGeux/F/gdDe1/0r9C8ZJjDg/Zssuiyaf7iStZADcs8G1Agx+zAG0Zz
+ DavD3If6UqRelNJ7Iyu3VYe4DxH/B5WA/JhdMMOoWqblbAs0ideETSSn2WfrtcCmEg
+ PQKlH8kp5ziQ+8jNGWGV/KsHB6TQpsi4h2C7voTwuCBigjptd8reBUmcjWdo1HDL83
+ xgQ+AEE2pNYMB5ceNhLrugjnODd1AkQOPa47EKmWfAviEipmR1aQkIL4Hgh1vTH5Hr
+ bvLNmiZJ0p0KseS3Bkd2I9mPoACChBoB9/6UajHNv1c4yL6MjC9OlccsaMZJyjMsAE
+ iZpzC0q9yQ7/A==
 From: Colin King <colin.king@canonical.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -48,9 +48,9 @@ To: Alex Deucher <alexander.deucher@amd.com>,
  dri-devel@lists.freedesktop.org
 Cc: kernel-janitors@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH][next] drm/amdgpu: sdma: clean up identation
-Date: Thu,  2 Sep 2021 22:51:27 +0100
-Message-Id: <20210902215127.55330-1-colin.king@canonical.com>
+Subject: [PATCH][next] drm/amdgpu: clean up inconsistent indenting
+Date: Thu,  2 Sep 2021 22:45:10 +0100
+Message-Id: <20210902214510.55070-1-colin.king@canonical.com>
 X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
@@ -72,32 +72,32 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Colin Ian King <colin.king@canonical.com>
 
-There is a statement that is indented incorrectly. Clean it up.
+There are a couple of statements that are indented one character
+too deeply, clean these up.
 
 Signed-off-by: Colin Ian King <colin.king@canonical.com>
 ---
- drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-index 779f5c911e11..e4a96e7e386d 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-@@ -375,10 +375,10 @@ static void sdma_v5_2_ring_emit_ib(struct amdgpu_ring *ring,
-  */
- static void sdma_v5_2_ring_emit_mem_sync(struct amdgpu_ring *ring)
- {
--    uint32_t gcr_cntl =
--		    SDMA_GCR_GL2_INV | SDMA_GCR_GL2_WB | SDMA_GCR_GLM_INV |
--			SDMA_GCR_GL1_INV | SDMA_GCR_GLV_INV | SDMA_GCR_GLK_INV |
--			SDMA_GCR_GLI_INV(1);
-+	uint32_t gcr_cntl = SDMA_GCR_GL2_INV | SDMA_GCR_GL2_WB |
-+			    SDMA_GCR_GLM_INV | SDMA_GCR_GL1_INV |
-+			    SDMA_GCR_GLV_INV | SDMA_GCR_GLK_INV |
-+			    SDMA_GCR_GLI_INV(1);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+index d6aa032890ee..a573424a6e0b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+@@ -60,10 +60,9 @@ static vm_fault_t amdgpu_gem_fault(struct vm_fault *vmf)
+ 			goto unlock;
+ 		}
  
- 	/* flush entire cache L0/L1/L2, this can be optimized by performance requirement */
- 	amdgpu_ring_write(ring, SDMA_PKT_HEADER_OP(SDMA_OP_GCR_REQ));
+-		 ret = ttm_bo_vm_fault_reserved(vmf, vmf->vma->vm_page_prot,
+-						TTM_BO_VM_NUM_PREFAULT, 1);
+-
+-		 drm_dev_exit(idx);
++		ret = ttm_bo_vm_fault_reserved(vmf, vmf->vma->vm_page_prot,
++					       TTM_BO_VM_NUM_PREFAULT, 1);
++		drm_dev_exit(idx);
+ 	} else {
+ 		ret = ttm_bo_vm_dummy_page(vmf, vmf->vma->vm_page_prot);
+ 	}
 -- 
 2.32.0
 
