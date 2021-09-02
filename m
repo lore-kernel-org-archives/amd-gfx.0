@@ -2,52 +2,79 @@ Return-Path: <SRS0=HxPN=NY=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-2.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8E472C432BE
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Sep 2021 12:56:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5E912C4320A
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Sep 2021 13:31:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EAC4860F4B
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Sep 2021 12:56:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EAC4860F4B
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
+	by mail.kernel.org (Postfix) with ESMTPS id 0375C60525
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Sep 2021 13:31:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0375C60525
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F7886E527;
-	Thu,  2 Sep 2021 12:56:17 +0000 (UTC)
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8406E89AAE;
- Thu,  2 Sep 2021 08:18:30 +0000 (UTC)
-Received: by verein.lst.de (Postfix, from userid 2407)
- id 1190E6736F; Thu,  2 Sep 2021 10:18:26 +0200 (CEST)
-Date: Thu, 2 Sep 2021 10:18:26 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: Felix Kuehling <felix.kuehling@amd.com>
-Cc: Christoph Hellwig <hch@lst.de>,
- "Sierra Guiza, Alejandro (Alex)" <alex.sierra@amd.com>,
- akpm@linux-foundation.org, linux-mm@kvack.org, rcampbell@nvidia.com,
- linux-ext4@vger.kernel.org, linux-xfs@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- jgg@nvidia.com, jglisse@redhat.com, Dan Williams <dan.j.williams@intel.com>
-Subject: Re: [PATCH v1 03/14] mm: add iomem vma selection for memory migration
-Message-ID: <20210902081826.GA16283@lst.de>
-References: <20210825034828.12927-1-alex.sierra@amd.com>
- <20210825034828.12927-4-alex.sierra@amd.com> <20210825074602.GA29620@lst.de>
- <c4241eb3-07d2-c85b-0f48-cce4b8369381@amd.com>
- <a9eb2c4a-d8cc-9553-57b7-fd1622679aaa@amd.com> <20210830082800.GA6836@lst.de>
- <e40b3b79-f548-b87b-7a85-f654f25ed8dd@amd.com>
- <20210901082925.GA21961@lst.de>
- <11d64457-9d61-f82d-6c98-d68762dce85d@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A9D6899E7;
+	Thu,  2 Sep 2021 13:31:30 +0000 (UTC)
+Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com
+ [IPv6:2607:f8b0:4864:20::230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BF75899E7;
+ Thu,  2 Sep 2021 13:31:29 +0000 (UTC)
+Received: by mail-oi1-x230.google.com with SMTP id c79so2506964oib.11;
+ Thu, 02 Sep 2021 06:31:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=DlakZWjL3B0PyUoUWgeFyjFMdA4bnhWlqnLUhIomQRs=;
+ b=CoLkJUvQwnWFduu9eyxKeTop+z1djuDkBrA/OLxD/mksuM3ZtRN1QnkkC/LD8Cnlyp
+ NtFU5EzP8K5gBHEcFzEBPCXBTV3rcPwwocL4ScBWSQXSTvc91TwvCQPZ2siycNXUn/9F
+ 2NOjjmNY1khUjK98y7nkW180An7CZdiNx0McliJHQhg45Fo7mZpuxKdFXe5xS5D46/gG
+ NsYpDFkr12l1288lq8WC61BgU7fs2ElkDLGVlrevsqFHPB+6lgAG/ujB4mHgbQVuJZH+
+ jfoX+slNlDhIB+i3Y2Kb+HfXOeZEiO6uRvLK2sGvsXCu2DzsXIfevvuFnrQ9MMCU8TUU
+ asLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=DlakZWjL3B0PyUoUWgeFyjFMdA4bnhWlqnLUhIomQRs=;
+ b=qUVTC8pR3zbzkQv93frgB7+NuOrHFZ3xtHNGxO+jNm2++Xrz1PfOkiLHHQmqgh8oTh
+ ixP1eIIIr7FkcQ/vXkrpF+yBrDUTZLXaSVFt0QEjW2NnbJp5DvBzYIZvrCX+aEKZVIYu
+ a4iyJc0mNKrmBHI2BuQv6v58ma9pI2e7r2cwJt5wHVhLFJsK4qusmXjQbNy1CyZjrlMd
+ dTD0Xe+0Y/kyFKLzKfqyUqE7KRzgy9WK9BdqXzyWT92KjdaCCeblKPE2qHAnsvG+eYSK
+ YYJElueZ18HzVsZ7OtYQNi0ovhkYf7p0Ef0DMn8sw+MFF8MWtdq80/UiXMCGehgYTsiZ
+ 6CbA==
+X-Gm-Message-State: AOAM532HPMVgAZfznnAwUsHVUnSsYMTPAfQrOcHDfiID17aw/aKK5QRn
+ LAT3CZ/xwhIa4pVBvOKrdH6e1RnKQmBK6zvP6sUh1luT
+X-Google-Smtp-Source: ABdhPJy2khPEuKFJNUzjYQ3eB6mcy3GWzG9OV5JGv38rjUKZzk85+RIShvOHdhUnlO/ySQhKFN4S7bWNdx84StCiiK8=
+X-Received: by 2002:a05:6808:1310:: with SMTP id
+ y16mr2159125oiv.123.1630589488430; 
+ Thu, 02 Sep 2021 06:31:28 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <11d64457-9d61-f82d-6c98-d68762dce85d@amd.com>
-User-Agent: Mutt/1.5.17 (2007-11-01)
-X-Mailman-Approved-At: Thu, 02 Sep 2021 12:56:16 +0000
+References: <BL1PR12MB526942160701B46D4B28EEEC84CD9@BL1PR12MB5269.namprd12.prod.outlook.com>
+ <CAKMK7uHKX0rSVk_yBPo_KAEJ-UeLk5UxQ2kBdv+FD2j9zAjfZA@mail.gmail.com>
+ <BL1PR12MB5269B303372A6251EDD1DC2C84CD9@BL1PR12MB5269.namprd12.prod.outlook.com>
+ <CADnq5_PUvgt9Cv2L3G4GGBJv_WBhtOp8DN+3WMvoES_80UMKfQ@mail.gmail.com>
+ <CAPM=9tz-66nXR8gbMucsBo5Q1VJ5AsrVZh4pF0r0WfFi7CQtzg@mail.gmail.com>
+ <BL1PR12MB5269F6B279EDE278C8FDF90A84CE9@BL1PR12MB5269.namprd12.prod.outlook.com>
+In-Reply-To: <BL1PR12MB5269F6B279EDE278C8FDF90A84CE9@BL1PR12MB5269.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 2 Sep 2021 09:31:17 -0400
+Message-ID: <CADnq5_PAEo0N4qrBFdv_o0S9+Vcjm7KeTcJ-BNKS=5qUzFyLwQ@mail.gmail.com>
+Subject: Re: [diagnostic TDR mode patches] unify our solution
+ opinions/suggestions in one thread
+To: "Liu, Monk" <Monk.Liu@amd.com>
+Cc: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ "Koenig, Christian" <Christian.Koenig@amd.com>, "Grodzovsky,
+ Andrey" <Andrey.Grodzovsky@amd.com>, 
+ "Chen, JingWen" <JingWen.Chen2@amd.com>,
+ DRI Development <dri-devel@lists.freedesktop.org>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,62 +89,145 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Sep 01, 2021 at 11:40:43AM -0400, Felix Kuehling wrote:
-> >>> It looks like I'm totally misunderstanding what you are adding here
-> >>> then.  Why do we need any special treatment at all for memory that
-> >>> has normal struct pages and is part of the direct kernel map?
-> >> The pages are like normal memory for purposes of mapping them in CPU
-> >> page tables and for coherent access from the CPU.
-> > That's the user page tables.  What about the kernel direct map?
-> > If there is a normal kernel struct page backing there really should
-> > be no need for the pgmap.
-> 
-> I'm not sure. The physical address ranges are in the UEFI system address
-> map as special-purpose memory. Does Linux create the struct pages and
-> kernel direct map for that without a pgmap call? I didn't see that last
-> time I went digging through that code.
+On Thu, Sep 2, 2021 at 1:52 AM Liu, Monk <Monk.Liu@amd.com> wrote:
+>
+> [AMD Official Use Only]
+>
+> >>>
+> I'm not sure I can add much to help this along, I'm sure Alex has some in=
+ternal training,
+> Once your driver is upstream, it belongs to upstream, you can maintain it=
+, but you no longer control it 100%, it's a tradeoff, it's not one companie=
+s always understand.
+> Usually people are fine developing away internally, but once interaction =
+with other parts of the kernel/subsystem is required they have the realisat=
+ion that they needed to work upstream 6 months earlier.
+> The best time to interact with upstream was 6 months ago, the second best=
+ time is now.
+> <<<
+>
+> Daniel/AlexD
+>
+> I didn't mean your changes on AMD driver need my personal approval or rev=
+iew ... and  I'm totally already get used that our driver is not 100% under=
+ control by AMDers,
+> but supposedly any one from community (including you) who tend to change =
+AMD's driver need at least to get approvement from someone in AMD, e.g.: Al=
+exD or Christian, doesn't that reasonable?
+> just like we need your approve if we try to modify DRM-sched, or need pan=
+frost's approval if we need to change panfrost code ...
+>
+> by only CC AMD's engineers looks not quite properly, how do you know if y=
+our changes (on AMD code part) are conflicting with AMD's on-going internal=
+ features/refactoring or not ?
+>
 
-So doing some googling finds a patch from Dan that claims to hand EFI
-special purpose memory to the device dax driver.  But when I try to
-follow the version that got merged it looks it is treated simply as an
-MMIO region to be claimed by drivers, which would not get a struct page.
+We keep as up to date as possible with upstream.  I don't have the
+bandwidth to verify every patch, but in most cases I try and look at
+them.  In your first example, the patch basically just adds a new
+parameter to some common functions.  Drivers that don't need that
+parameter don't use it.  It shouldn't really affect the functionality.
+There are lots of changes that touch our driver that we are largely
+not aware of.  E.g., APIs that we may use may change the function
+signatures with no intended functional changes.  If problems are found
+they are reported and resolved.  It is a collective effort.  If there
+are changes that would conflict with stuff we are doing in our tree we
+should bring them up when the relevant patches are being discussed.
+We can also make changes to core functionality like scheduler, ttm,
+etc. that would affect other drivers.  When we send out the patches we
+cc the relevant maintainers, but ultimately the ones who participate
+in the discussion set the direction.  That's why participation is
+important.
 
-Dan, did I misunderstand how E820_TYPE_SOFT_RESERVED works?
+Alex
 
-> >> From an application
-> >> perspective, we want file-backed and anonymous mappings to be able to
-> >> use DEVICE_PUBLIC pages with coherent CPU access. The goal is to
-> >> optimize performance for GPU heavy workloads while minimizing the need
-> >> to migrate data back-and-forth between system memory and device memory.
-> > I don't really understand that part.  file backed pages are always
-> > allocated by the file system using the pagecache helpers, that is
-> > using the page allocator.  Anonymouns memory also always comes from
-> > the page allocator.
-> 
-> I'm coming at this from my experience with DEVICE_PRIVATE. Both
-> anonymous and file-backed pages should be migrateable to DEVICE_PRIVATE
-> memory by the migrate_vma_* helpers for more efficient access by our
-> GPU. (*) It's part of the basic premise of HMM as I understand it. I
-> would expect the same thing to work for DEVICE_PUBLIC memory.
 
-Ok, so you want to migrate to and from them.  Not use DEVICE_PUBLIC
-for the actual page cache pages.  That maks a lot more sense.
-
-> I see DEVICE_PUBLIC as an improved version of DEVICE_PRIVATE that allows
-> the CPU to map the device memory coherently to minimize the need for
-> migrations when CPU and GPU access the same memory concurrently or
-> alternatingly. But we're not going as far as putting that memory
-> entirely under the management of the Linux memory manager and VM
-> subsystem. Our (and HPE's) system architects decided that this memory is
-> not suitable to be used like regular NUMA system memory by the Linux
-> memory manager.
-
-So yes.  It is a Memory Mapped I/O region, which unlike the PCIe BARs
-that people typically deal with is fully cache coherent.  I think this
-does make more sense as a description.
-
-But to go back to what start this discussion:  If these are memory
-mapped I/O pfn_valid should generally not return true for them.
-
-And as you already pointed out in reply to Alex we need to tighten the
-selection criteria one way or another.
+> Thanks
+>
+> ------------------------------------------
+> Monk Liu | Cloud-GPU Core team
+> ------------------------------------------
+>
+> -----Original Message-----
+> From: Dave Airlie <airlied@gmail.com>
+> Sent: Thursday, September 2, 2021 2:51 AM
+> To: Alex Deucher <alexdeucher@gmail.com>
+> Cc: Liu, Monk <Monk.Liu@amd.com>; Daniel Vetter <daniel@ffwll.ch>; Koenig=
+, Christian <Christian.Koenig@amd.com>; Grodzovsky, Andrey <Andrey.Grodzovs=
+ky@amd.com>; Chen, JingWen <JingWen.Chen2@amd.com>; DRI Development <dri-de=
+vel@lists.freedesktop.org>; amd-gfx@lists.freedesktop.org
+> Subject: Re: [diagnostic TDR mode patches] unify our solution opinions/su=
+ggestions in one thread
+>
+> On Thu, 2 Sept 2021 at 01:20, Alex Deucher <alexdeucher@gmail.com> wrote:
+> >
+> > On Wed, Sep 1, 2021 at 6:19 AM Liu, Monk <Monk.Liu@amd.com> wrote:
+> > >
+> > > [AMD Official Use Only]
+> > >
+> > > Daniel
+> > >
+> > > From the link you share it looks you(or someone else) have quite a bu=
+nch patches that changes DRM_SCHED or even amdgpu, by that case before they=
+ are merged to kernel tree I'm wondering if any AMD develop reviewed them ?
+> > >
+> > > They looks to me somehow conflicting with what we changed in our repo=
+....
+> > >
+> > > It is really a chaos for AMDer if someone else out side of AMD change=
+s our kernel driver (or/and scheduler) without reviewed by AMDer, just like=
+ we are requiring your review if we tend to change scheduler's logic here .=
+...
+> > >
+> > > This one changes AMD's code:
+> > > https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fl=
+o
+> > > re.kernel.org%2Fdri-devel%2F20210625133327.2598825-2-boris.brezillon
+> > > %40collabora.com%2F&amp;data=3D04%7C01%7CMonk.Liu%40amd.com%7C6c507d1=
+8
+> > > d65341ef53bb08d96d7976e6%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%
+> > > 7C637661190727875969%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJ
+> > > QIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=3DBWJSkK=
+N
+> > > y2%2BwjxbQrfxGPzuJ5PBpBwB4aV0ZH6QoJGEg%3D&amp;reserved=3D0
+> > > And I didn't see any reviewed-by from AMDers ...
+> > >
+> > > This one also touches AMD's code:
+> > > https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fl=
+o
+> > > re.kernel.org%2Fdri-devel%2F20200604081224.863494-12-daniel.vetter%4
+> > > 0ffwll.ch%2F&amp;data=3D04%7C01%7CMonk.Liu%40amd.com%7C6c507d18d65341=
+e
+> > > f53bb08d96d7976e6%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C63766
+> > > 1190727885929%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2
+> > > luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=3D%2F8vIVXCWjHk=
+M
+> > > 56pcYI9EvuzhbsZhV9WczkKaBJE67KQ%3D&amp;reserved=3D0
+> > > Which is conflicting with one patch we submitted (in our repo
+> > > rightnow), and neither see AMDder gave a review-by on this one (let
+> > > me know if I missed it)
+> > >
+> >
+> > Monk, this is not how upstream works.  You need to participate.
+> > That's how communities work.  There's a reason all these discussions
+> > happen on public mailing lists.  The patch author can't be expected to
+> > know every person on every vendor team to CC with a patch.  If you
+> > have concerns, you need to raise them when the patches are being
+> > discussed.
+> >
+>
+> I'm not sure I can add much to help this along, I'm sure Alex has some in=
+ternal training,
+>
+> Once your driver is upstream, it belongs to upstream, you can maintain it=
+, but you no longer control it 100%, it's a tradeoff, it's not one companie=
+s always understand.
+>
+> Usually people are fine developing away internally, but once interaction =
+with other parts of the kernel/subsystem is required they have the realisat=
+ion that they needed to work upstream 6 months earlier.
+>
+> The best time to interact with upstream was 6 months ago, the second best=
+ time is now.
+>
+> Dave.
