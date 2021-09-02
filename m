@@ -2,107 +2,52 @@ Return-Path: <SRS0=HxPN=NY=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.2 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8764FC432BE
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Sep 2021 11:45:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8E472C432BE
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Sep 2021 12:56:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 40317610CD
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Sep 2021 11:45:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 40317610CD
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id EAC4860F4B
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Sep 2021 12:56:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EAC4860F4B
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F413F6E504;
-	Thu,  2 Sep 2021 11:45:15 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2066.outbound.protection.outlook.com [40.107.243.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 920676E504
- for <amd-gfx@lists.freedesktop.org>; Thu,  2 Sep 2021 11:45:14 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eByhvfe4wJO2Y71CzN60Z/DFTlCchoU5mCAToStjQC2jmALuODBBJz/SyV6Yw5gbwDwWjPHtTMc4vG5Z4b3cHSUADHjJN3mZPczJz/E23rR4YR+VdsPigkvL/TaTEsDZoJDvBFKjjIBV38WOijzvsckKSXN71zs4VPJioc2Mi67SnecYvrKC/g+JbM1YXm14NPmolx9+VfgTQjX3QDqBmT8mgtIZdiCf2fk7VptU+iP1/91aamjfwBfmxjk1bDhky9sZzJNR/5MG7Ql7DTqtDBvOeSZ93AgaoiIeU0gOUpOax2VT1zdmSSloJ9+TTOwYbYnWcAjvuFnoCDEYdiyxfw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=0aDlnXFpo9WN1Na+XhQKK4HR/q0VGMUQa/WW1VOXd4I=;
- b=GRb9yWZLXfqKH7cbkd4O+dUGQR9b/zGHhtP58ZwFGxSErh7KX4epnvoqKfIwdvrLBURAFNwY6GFxa+SedytK+zQ8lZG8VXn1aLLNpGimLEdoNGrDm5TQhEzOrAXN9fRFrWTzLzJdD+FJD44m6BcaAsIdfB0UgByRSGEpjFnsTYX3x4ni4dit/cvCzhlvR4QdGC3gn4Nr8QHZo2czkKVQlFgpxOovsytrwfFFPbNCL/k9gkBEVvgbB2ubpDvQoLPyeg2rCIgmJvCWsUrmg6gQKd7z+OfDWuFTKLC8GhIszOytZsyb/OybiTdq1noyxn9oJGHqojVN8zBoeW39vZGCYA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0aDlnXFpo9WN1Na+XhQKK4HR/q0VGMUQa/WW1VOXd4I=;
- b=SyMWlWUO6hp/TM+wzNk04dtgB1nqqhvo2T0CiacFuu5wuMIT8uu3v48zDD+1eRF2qMqW9QDt3gkshBEe2blB0J96fUS/D3uAXhPYHU7t4Zfj+OYmLYM26HqJD/ebIvSs5nz8lX7QFBuH0cRAbOxAAUM/ViHJ54x7Xx9z/MPrlv0=
-Received: from DM6PR06CA0090.namprd06.prod.outlook.com (2603:10b6:5:336::23)
- by PH0PR12MB5420.namprd12.prod.outlook.com (2603:10b6:510:e8::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.21; Thu, 2 Sep
- 2021 11:45:12 +0000
-Received: from DM6NAM11FT010.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:336:cafe::b6) by DM6PR06CA0090.outlook.office365.com
- (2603:10b6:5:336::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.18 via Frontend
- Transport; Thu, 2 Sep 2021 11:45:12 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT010.mail.protection.outlook.com (10.13.172.222) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4478.19 via Frontend Transport; Thu, 2 Sep 2021 11:45:12 +0000
-Received: from brihaspati.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Thu, 2 Sep
- 2021 06:45:11 -0500
-From: Nirmoy Das <nirmoy.das@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Christian.Koenig@amd.com>, Nirmoy Das <nirmoy.das@amd.com>
-Subject: [PATCH 2/2] drm/amdgpu: cleanup debugfs for amdgpu rings
-Date: Thu, 2 Sep 2021 13:44:59 +0200
-Message-ID: <20210902114459.3866-2-nirmoy.das@amd.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20210902114459.3866-1-nirmoy.das@amd.com>
-References: <20210902114459.3866-1-nirmoy.das@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F7886E527;
+	Thu,  2 Sep 2021 12:56:17 +0000 (UTC)
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8406E89AAE;
+ Thu,  2 Sep 2021 08:18:30 +0000 (UTC)
+Received: by verein.lst.de (Postfix, from userid 2407)
+ id 1190E6736F; Thu,  2 Sep 2021 10:18:26 +0200 (CEST)
+Date: Thu, 2 Sep 2021 10:18:26 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: Felix Kuehling <felix.kuehling@amd.com>
+Cc: Christoph Hellwig <hch@lst.de>,
+ "Sierra Guiza, Alejandro (Alex)" <alex.sierra@amd.com>,
+ akpm@linux-foundation.org, linux-mm@kvack.org, rcampbell@nvidia.com,
+ linux-ext4@vger.kernel.org, linux-xfs@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ jgg@nvidia.com, jglisse@redhat.com, Dan Williams <dan.j.williams@intel.com>
+Subject: Re: [PATCH v1 03/14] mm: add iomem vma selection for memory migration
+Message-ID: <20210902081826.GA16283@lst.de>
+References: <20210825034828.12927-1-alex.sierra@amd.com>
+ <20210825034828.12927-4-alex.sierra@amd.com> <20210825074602.GA29620@lst.de>
+ <c4241eb3-07d2-c85b-0f48-cce4b8369381@amd.com>
+ <a9eb2c4a-d8cc-9553-57b7-fd1622679aaa@amd.com> <20210830082800.GA6836@lst.de>
+ <e40b3b79-f548-b87b-7a85-f654f25ed8dd@amd.com>
+ <20210901082925.GA21961@lst.de>
+ <11d64457-9d61-f82d-6c98-d68762dce85d@amd.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9a3fc3f0-1a02-4e86-c791-08d96e071fd8
-X-MS-TrafficTypeDiagnostic: PH0PR12MB5420:
-X-Microsoft-Antispam-PRVS: <PH0PR12MB5420D7AA468CF96533D1C1688BCE9@PH0PR12MB5420.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:785;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 0w4zkDchYld/do7zIdF8o9gZ3GnvC5iz35mjv4R9WxaiK18DVkoRr93GqghWWeKKj2IJaY/4v1Tmf/M13ziAicN/xKWuvklVjD9mdPSr8e5jkpo+u2yJ9BtJdVqdA21epo4HR7tHnfrtCOF0bglhTYoKQtmpHM5RKrkAfi4Va9UNcx39lGpF3l7CdN/v35Cc370Y4szaWPG6IiVkzt8NkTG33YfIavK73G1WUEi/sntQl9ViN4uiHO5oU05bRvxudSjut3YJEAu5NGWtJ2ykUjkSLqK3jqxSXTtxeDPpglA3Ja9LQHcoucOy0QLCDgD9shgw+ubSQaoICbu6vU19w6MJwCiFJ28e6AnWDubo074wLHTpCO8fb/Y8ZsVvTwIv2Vw394lX9IWx/KH8BbgtPIumXpgB1H5tiLoW7LbpvcdB6LuDB/eD7vmKwq+oNQZXRS9+h6nedtfrHODtDkrId3evVU4r89FS/XTGhHPl5FrxbJPIV/3YtjYR7moew82I9pP/Hh4wBnJl7Jt9dOFSjIoKXsmQnw2l15Zr9QvBNJhRXl5L6intZV7htzrE44U+lZdu+lm/Hc/HT3/AN1Bmd2m+8ZdC4zMksvFkwMCPnv0fmgmxHnXr2HNvbFOsBKq9r/7InudEIvEBPcrKo77sV2adif4CijZEXLb7K3b6Uuv1OT37nEVl9b8Yi1UIsQHAk1T4y/LTYcXdgeWmawTuGvtyOKRKQL00Ek/P8qf6viw=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(396003)(136003)(39860400002)(346002)(376002)(36840700001)(46966006)(82740400003)(81166007)(4326008)(54906003)(356005)(36756003)(7696005)(6916009)(36860700001)(478600001)(316002)(26005)(8936002)(2906002)(44832011)(186003)(16526019)(5660300002)(6666004)(2616005)(83380400001)(8676002)(336012)(426003)(70206006)(70586007)(1076003)(47076005)(82310400003)(86362001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2021 11:45:12.6823 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9a3fc3f0-1a02-4e86-c791-08d96e071fd8
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT010.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5420
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <11d64457-9d61-f82d-6c98-d68762dce85d@amd.com>
+User-Agent: Mutt/1.5.17 (2007-11-01)
+X-Mailman-Approved-At: Thu, 02 Sep 2021 12:56:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,92 +62,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use debugfs_create_file_size API for creating ring debugfs
-file, also cleanup surrounding code.
+On Wed, Sep 01, 2021 at 11:40:43AM -0400, Felix Kuehling wrote:
+> >>> It looks like I'm totally misunderstanding what you are adding here
+> >>> then.  Why do we need any special treatment at all for memory that
+> >>> has normal struct pages and is part of the direct kernel map?
+> >> The pages are like normal memory for purposes of mapping them in CPU
+> >> page tables and for coherent access from the CPU.
+> > That's the user page tables.  What about the kernel direct map?
+> > If there is a normal kernel struct page backing there really should
+> > be no need for the pgmap.
+> 
+> I'm not sure. The physical address ranges are in the UEFI system address
+> map as special-purpose memory. Does Linux create the struct pages and
+> kernel direct map for that without a pgmap call? I didn't see that last
+> time I went digging through that code.
 
-Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |  4 +---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c    | 16 +++++-----------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h    |  8 +-------
- 3 files changed, 7 insertions(+), 21 deletions(-)
+So doing some googling finds a patch from Dan that claims to hand EFI
+special purpose memory to the device dax driver.  But when I try to
+follow the version that got merged it looks it is treated simply as an
+MMIO region to be claimed by drivers, which would not get a struct page.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-index 077f9baf74fe..dee56ab19a8f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-@@ -1734,9 +1734,7 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
- 		if (!ring)
- 			continue;
- 
--		if (amdgpu_debugfs_ring_init(adev, ring)) {
--			DRM_ERROR("Failed to register debugfs file for rings !\n");
--		}
-+		amdgpu_debugfs_ring_init(adev, ring);
- 	}
- 
- 	amdgpu_ras_debugfs_create_all(adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-index f40753e1a60d..968521d80514 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-@@ -415,26 +415,20 @@ static const struct file_operations amdgpu_debugfs_ring_fops = {
- 
- #endif
- 
--int amdgpu_debugfs_ring_init(struct amdgpu_device *adev,
-+void amdgpu_debugfs_ring_init(struct amdgpu_device *adev,
- 			     struct amdgpu_ring *ring)
- {
- #if defined(CONFIG_DEBUG_FS)
- 	struct drm_minor *minor = adev_to_drm(adev)->primary;
--	struct dentry *ent, *root = minor->debugfs_root;
-+	struct dentry *root = minor->debugfs_root;
- 	char name[32];
- 
- 	sprintf(name, "amdgpu_ring_%s", ring->name);
- 
--	ent = debugfs_create_file(name,
--				  S_IFREG | S_IRUGO, root,
--				  ring, &amdgpu_debugfs_ring_fops);
--	if (IS_ERR(ent))
--		return -ENOMEM;
--
--	i_size_write(ent->d_inode, ring->ring_size + 12);
--	ring->ent = ent;
-+	debugfs_create_file_size(name, S_IFREG | S_IRUGO, root, ring,
-+				 &amdgpu_debugfs_ring_fops,
-+				 ring->ring_size + 12);
- #endif
--	return 0;
- }
- 
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-index 88d80eb3fea1..c29fbce0a5b4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-@@ -253,10 +253,6 @@ struct amdgpu_ring {
- 	bool			has_compute_vm_bug;
- 	bool			no_scheduler;
- 	int			hw_prio;
--
--#if defined(CONFIG_DEBUG_FS)
--	struct dentry *ent;
--#endif
- };
- 
- #define amdgpu_ring_parse_cs(r, p, ib) ((r)->funcs->parse_cs((p), (ib)))
-@@ -356,8 +352,6 @@ static inline void amdgpu_ring_write_multiple(struct amdgpu_ring *ring,
- 
- int amdgpu_ring_test_helper(struct amdgpu_ring *ring);
- 
--int amdgpu_debugfs_ring_init(struct amdgpu_device *adev,
-+void amdgpu_debugfs_ring_init(struct amdgpu_device *adev,
- 			     struct amdgpu_ring *ring);
--void amdgpu_debugfs_ring_fini(struct amdgpu_ring *ring);
--
- #endif
--- 
-2.32.0
+Dan, did I misunderstand how E820_TYPE_SOFT_RESERVED works?
 
+> >> From an application
+> >> perspective, we want file-backed and anonymous mappings to be able to
+> >> use DEVICE_PUBLIC pages with coherent CPU access. The goal is to
+> >> optimize performance for GPU heavy workloads while minimizing the need
+> >> to migrate data back-and-forth between system memory and device memory.
+> > I don't really understand that part.  file backed pages are always
+> > allocated by the file system using the pagecache helpers, that is
+> > using the page allocator.  Anonymouns memory also always comes from
+> > the page allocator.
+> 
+> I'm coming at this from my experience with DEVICE_PRIVATE. Both
+> anonymous and file-backed pages should be migrateable to DEVICE_PRIVATE
+> memory by the migrate_vma_* helpers for more efficient access by our
+> GPU. (*) It's part of the basic premise of HMM as I understand it. I
+> would expect the same thing to work for DEVICE_PUBLIC memory.
+
+Ok, so you want to migrate to and from them.  Not use DEVICE_PUBLIC
+for the actual page cache pages.  That maks a lot more sense.
+
+> I see DEVICE_PUBLIC as an improved version of DEVICE_PRIVATE that allows
+> the CPU to map the device memory coherently to minimize the need for
+> migrations when CPU and GPU access the same memory concurrently or
+> alternatingly. But we're not going as far as putting that memory
+> entirely under the management of the Linux memory manager and VM
+> subsystem. Our (and HPE's) system architects decided that this memory is
+> not suitable to be used like regular NUMA system memory by the Linux
+> memory manager.
+
+So yes.  It is a Memory Mapped I/O region, which unlike the PCIe BARs
+that people typically deal with is fully cache coherent.  I think this
+does make more sense as a description.
+
+But to go back to what start this discussion:  If these are memory
+mapped I/O pfn_valid should generally not return true for them.
+
+And as you already pointed out in reply to Alex we need to tighten the
+selection criteria one way or another.
