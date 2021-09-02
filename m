@@ -2,79 +2,107 @@ Return-Path: <SRS0=HxPN=NY=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5E912C4320A
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Sep 2021 13:31:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8ECE0C4320A
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Sep 2021 13:43:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0375C60525
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Sep 2021 13:31:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0375C60525
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 51ACA61056
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Sep 2021 13:43:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 51ACA61056
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A9D6899E7;
-	Thu,  2 Sep 2021 13:31:30 +0000 (UTC)
-Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com
- [IPv6:2607:f8b0:4864:20::230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7BF75899E7;
- Thu,  2 Sep 2021 13:31:29 +0000 (UTC)
-Received: by mail-oi1-x230.google.com with SMTP id c79so2506964oib.11;
- Thu, 02 Sep 2021 06:31:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=DlakZWjL3B0PyUoUWgeFyjFMdA4bnhWlqnLUhIomQRs=;
- b=CoLkJUvQwnWFduu9eyxKeTop+z1djuDkBrA/OLxD/mksuM3ZtRN1QnkkC/LD8Cnlyp
- NtFU5EzP8K5gBHEcFzEBPCXBTV3rcPwwocL4ScBWSQXSTvc91TwvCQPZ2siycNXUn/9F
- 2NOjjmNY1khUjK98y7nkW180An7CZdiNx0McliJHQhg45Fo7mZpuxKdFXe5xS5D46/gG
- NsYpDFkr12l1288lq8WC61BgU7fs2ElkDLGVlrevsqFHPB+6lgAG/ujB4mHgbQVuJZH+
- jfoX+slNlDhIB+i3Y2Kb+HfXOeZEiO6uRvLK2sGvsXCu2DzsXIfevvuFnrQ9MMCU8TUU
- asLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=DlakZWjL3B0PyUoUWgeFyjFMdA4bnhWlqnLUhIomQRs=;
- b=qUVTC8pR3zbzkQv93frgB7+NuOrHFZ3xtHNGxO+jNm2++Xrz1PfOkiLHHQmqgh8oTh
- ixP1eIIIr7FkcQ/vXkrpF+yBrDUTZLXaSVFt0QEjW2NnbJp5DvBzYIZvrCX+aEKZVIYu
- a4iyJc0mNKrmBHI2BuQv6v58ma9pI2e7r2cwJt5wHVhLFJsK4qusmXjQbNy1CyZjrlMd
- dTD0Xe+0Y/kyFKLzKfqyUqE7KRzgy9WK9BdqXzyWT92KjdaCCeblKPE2qHAnsvG+eYSK
- YYJElueZ18HzVsZ7OtYQNi0ovhkYf7p0Ef0DMn8sw+MFF8MWtdq80/UiXMCGehgYTsiZ
- 6CbA==
-X-Gm-Message-State: AOAM532HPMVgAZfznnAwUsHVUnSsYMTPAfQrOcHDfiID17aw/aKK5QRn
- LAT3CZ/xwhIa4pVBvOKrdH6e1RnKQmBK6zvP6sUh1luT
-X-Google-Smtp-Source: ABdhPJy2khPEuKFJNUzjYQ3eB6mcy3GWzG9OV5JGv38rjUKZzk85+RIShvOHdhUnlO/ySQhKFN4S7bWNdx84StCiiK8=
-X-Received: by 2002:a05:6808:1310:: with SMTP id
- y16mr2159125oiv.123.1630589488430; 
- Thu, 02 Sep 2021 06:31:28 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E27C86E500;
+	Thu,  2 Sep 2021 13:43:57 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2042.outbound.protection.outlook.com [40.107.93.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5DA916E500
+ for <amd-gfx@lists.freedesktop.org>; Thu,  2 Sep 2021 13:43:57 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=PQuIIQUnOtiSG/suqyyBeQYBnexUM7EDID9wEMaLDEij4bpJL+7AxCWc+4zzzud78kDUIHdpSaUP0o4dzUd3j/XgAq4YCm0MUF9Xok6bIADpRvEmngXsIF/zMIUgn4fFE/YFu4UUP+I0kQD2Ed3o2ZVdBXjE3NO4AUwgppFICH98n+KFp4ndSpojOtPtdWWU+M6aExwom5HufIe1BcjuOsRGKKq+HuzPLdZSVqNbWTs20n3IpAzJ3qs580dxwC72oqfjyJvSsV79EsbRPI0HYO9K6aexyvJiwd8Slp4XWYjNefkkLEcJ7GnQLuhBF8WZcK2cZ05QB76CZkQSOXDGaQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
+ bh=Jybt/Miz902eWZ79Q/D0pW2xIPLSQblmHqmKayqY9Cg=;
+ b=mA4gcBkNQv1bTNWyYA5zpcalMkQF5BuBjHxR0ZCD7ndP5931CdgbOPQXrcXUsUTCTKjkf114bi1hCj8NJ/bGpDQXd2DJnHfIxvcEmUjEBvJMqPRUGF8KnDpYnUKTif+ijckZP6LVL8O29upCMXfg2JuFbuKTsovhG0JSBMErqHPuQyMFK68a8l1psBRbWuoW6FX3w7bQG3ql8k+NjOM81AEPA35Hcy9QIXfFUqqw+nWdd7Jxv5uSQspdIRfhXIZZoTjD/grRH5T1vnYDj9XXC8Mzi0ugjT7DBF2DIRJgw7XImrUGoim29hgP2r8K5/8MvfM9Y5Lm3PdrZ1ACZ2LrJg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Jybt/Miz902eWZ79Q/D0pW2xIPLSQblmHqmKayqY9Cg=;
+ b=3bVTTD1P00sdA6jCTQF7Ji2IYVFq97Gv7gRB2m9XLDU/9yEZaNojCnvjZfqDq3Jk50I0HM69PMdjyhyF/9fhOxDcICiMJ1E6bTQjjg1ljmKuHvOf0lDRyVZRriIMbBs+EcGwFgB4Htek+xHogUbFeMK+ra1YhpBWJ2FLS4MMB9I=
+Received: from DS7PR03CA0111.namprd03.prod.outlook.com (2603:10b6:5:3b7::26)
+ by DM6PR12MB4943.namprd12.prod.outlook.com (2603:10b6:5:1bc::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.21; Thu, 2 Sep
+ 2021 13:43:56 +0000
+Received: from DM6NAM11FT063.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:3b7:cafe::28) by DS7PR03CA0111.outlook.office365.com
+ (2603:10b6:5:3b7::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.19 via Frontend
+ Transport; Thu, 2 Sep 2021 13:43:56 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT063.mail.protection.outlook.com (10.13.172.219) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4478.19 via Frontend Transport; Thu, 2 Sep 2021 13:43:55 +0000
+Received: from brihaspati.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Thu, 2 Sep
+ 2021 08:43:54 -0500
+From: Nirmoy Das <nirmoy.das@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Christian.Koenig@amd.com>, Nirmoy Das <nirmoy.das@amd.com>
+Subject: [PATCH 2/2] drm/amdgpu: cleanup debugfs for amdgpu rings
+Date: Thu, 2 Sep 2021 15:43:37 +0200
+Message-ID: <20210902134337.3440-2-nirmoy.das@amd.com>
+X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20210902134337.3440-1-nirmoy.das@amd.com>
+References: <20210902134337.3440-1-nirmoy.das@amd.com>
 MIME-Version: 1.0
-References: <BL1PR12MB526942160701B46D4B28EEEC84CD9@BL1PR12MB5269.namprd12.prod.outlook.com>
- <CAKMK7uHKX0rSVk_yBPo_KAEJ-UeLk5UxQ2kBdv+FD2j9zAjfZA@mail.gmail.com>
- <BL1PR12MB5269B303372A6251EDD1DC2C84CD9@BL1PR12MB5269.namprd12.prod.outlook.com>
- <CADnq5_PUvgt9Cv2L3G4GGBJv_WBhtOp8DN+3WMvoES_80UMKfQ@mail.gmail.com>
- <CAPM=9tz-66nXR8gbMucsBo5Q1VJ5AsrVZh4pF0r0WfFi7CQtzg@mail.gmail.com>
- <BL1PR12MB5269F6B279EDE278C8FDF90A84CE9@BL1PR12MB5269.namprd12.prod.outlook.com>
-In-Reply-To: <BL1PR12MB5269F6B279EDE278C8FDF90A84CE9@BL1PR12MB5269.namprd12.prod.outlook.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 2 Sep 2021 09:31:17 -0400
-Message-ID: <CADnq5_PAEo0N4qrBFdv_o0S9+Vcjm7KeTcJ-BNKS=5qUzFyLwQ@mail.gmail.com>
-Subject: Re: [diagnostic TDR mode patches] unify our solution
- opinions/suggestions in one thread
-To: "Liu, Monk" <Monk.Liu@amd.com>
-Cc: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- "Koenig, Christian" <Christian.Koenig@amd.com>, "Grodzovsky,
- Andrey" <Andrey.Grodzovsky@amd.com>, 
- "Chen, JingWen" <JingWen.Chen2@amd.com>,
- DRI Development <dri-devel@lists.freedesktop.org>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 4484b1a3-d8fd-401e-1963-08d96e17b597
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4943:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB4943773B8FB2463A45CD45A38BCE9@DM6PR12MB4943.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:785;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: sL+NdXt26q8w2pWYcOCoPTDGo3ZLaVsllM/cxyEjAUCiE+QdAKnCFKmWfYFvqwue2lVokGVbLQQi/ApJCr3PrvEWcfOe+gU2zxYmUmQHMMUefB0qppkdC0v1QntqJ2Y0Zo0OMKNcuMXFt1iOSHpGwZ+qCb334hbU+IBWQokdwQjBHzVROnTLzlE7oDQEkM0wTaUpYEg4gImVy2TI7gZT5AHB0BiQxHUlGYj4KYzju90bOGsGzkmcUqA0tRIWEFj7duHI4WNkdmGblvDMjxw25ojwwwm1qs2sHsp1pbSnHRXgX3kgYNvNNcJzNGlx7WeUVqj/NWICeKj3S69rNv8dXhsMPBaY+0DFvz/CoExnOlYiXwVItVegIRxNkgWuetoD+ex0OG1mGZOapBeR9p0XI1WVtyLuC/KlqZRgzTP66uFdrQGWds1HWnu8cSGKaC5qOBkVeKxBthMx7MUef5rn4KBWvQnwHYkRHv/M991oGdGTcgAZuXLQ5CeSCMci9Q42HsTgd1C0Ef3wQEqOsTqP98wwRHWrr6nZD/Hyid0BVNRYUvUWSN1oxebrVBPCehW7QJmQtBB7vxqwYFIZi1eA+38bBNzJyZwEIk+wHbyx85WD87P/1iClxPcNJv8VZoIvCOyOpz9BJi7PeWJruRZmtt3JAVZPdmqznlfDp9ITzCgdHjiHcWIk8opCNOnEa8dtaMp3/KwiDAxlYZ4qh3yQtp5rd4/gl5Y9zF9v2Jx4efc=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(39860400002)(396003)(346002)(376002)(136003)(46966006)(36840700001)(82310400003)(4326008)(316002)(26005)(81166007)(7696005)(5660300002)(47076005)(44832011)(54906003)(8936002)(6666004)(36860700001)(82740400003)(186003)(70586007)(2906002)(83380400001)(8676002)(2616005)(70206006)(1076003)(16526019)(86362001)(478600001)(6916009)(36756003)(336012)(356005)(426003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2021 13:43:55.8448 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4484b1a3-d8fd-401e-1963-08d96e17b597
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT063.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4943
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,145 +117,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Sep 2, 2021 at 1:52 AM Liu, Monk <Monk.Liu@amd.com> wrote:
->
-> [AMD Official Use Only]
->
-> >>>
-> I'm not sure I can add much to help this along, I'm sure Alex has some in=
-ternal training,
-> Once your driver is upstream, it belongs to upstream, you can maintain it=
-, but you no longer control it 100%, it's a tradeoff, it's not one companie=
-s always understand.
-> Usually people are fine developing away internally, but once interaction =
-with other parts of the kernel/subsystem is required they have the realisat=
-ion that they needed to work upstream 6 months earlier.
-> The best time to interact with upstream was 6 months ago, the second best=
- time is now.
-> <<<
->
-> Daniel/AlexD
->
-> I didn't mean your changes on AMD driver need my personal approval or rev=
-iew ... and  I'm totally already get used that our driver is not 100% under=
- control by AMDers,
-> but supposedly any one from community (including you) who tend to change =
-AMD's driver need at least to get approvement from someone in AMD, e.g.: Al=
-exD or Christian, doesn't that reasonable?
-> just like we need your approve if we try to modify DRM-sched, or need pan=
-frost's approval if we need to change panfrost code ...
->
-> by only CC AMD's engineers looks not quite properly, how do you know if y=
-our changes (on AMD code part) are conflicting with AMD's on-going internal=
- features/refactoring or not ?
->
+Use debugfs_create_file_size API for creating ring debugfs
+file, also cleanup surrounding code.
 
-We keep as up to date as possible with upstream.  I don't have the
-bandwidth to verify every patch, but in most cases I try and look at
-them.  In your first example, the patch basically just adds a new
-parameter to some common functions.  Drivers that don't need that
-parameter don't use it.  It shouldn't really affect the functionality.
-There are lots of changes that touch our driver that we are largely
-not aware of.  E.g., APIs that we may use may change the function
-signatures with no intended functional changes.  If problems are found
-they are reported and resolved.  It is a collective effort.  If there
-are changes that would conflict with stuff we are doing in our tree we
-should bring them up when the relevant patches are being discussed.
-We can also make changes to core functionality like scheduler, ttm,
-etc. that would affect other drivers.  When we send out the patches we
-cc the relevant maintainers, but ultimately the ones who participate
-in the discussion set the direction.  That's why participation is
-important.
+Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |  4 +---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c    | 18 ++++++------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h    | 10 ++--------
+ 3 files changed, 9 insertions(+), 23 deletions(-)
 
-Alex
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+index 60f46a4b0144..97d88f3e1c4c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -1734,9 +1734,7 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
+ 		if (!ring)
+ 			continue;
+ 
+-		if (amdgpu_debugfs_ring_init(adev, ring)) {
+-			DRM_ERROR("Failed to register debugfs file for rings !\n");
+-		}
++		amdgpu_debugfs_ring_init(adev, ring);
+ 	}
+ 
+ 	amdgpu_ras_debugfs_create_all(adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+index 0554576d3695..ab2351ba9574 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+@@ -415,26 +415,20 @@ static const struct file_operations amdgpu_debugfs_ring_fops = {
+ 
+ #endif
+ 
+-int amdgpu_debugfs_ring_init(struct amdgpu_device *adev,
+-			     struct amdgpu_ring *ring)
++void amdgpu_debugfs_ring_init(struct amdgpu_device *adev,
++			      struct amdgpu_ring *ring)
+ {
+ #if defined(CONFIG_DEBUG_FS)
+ 	struct drm_minor *minor = adev_to_drm(adev)->primary;
+-	struct dentry *ent, *root = minor->debugfs_root;
++	struct dentry *root = minor->debugfs_root;
+ 	char name[32];
+ 
+ 	sprintf(name, "amdgpu_ring_%s", ring->name);
++	debugfs_create_file_size(name, S_IFREG | S_IRUGO, root, ring,
++				 &amdgpu_debugfs_ring_fops,
++				 ring->ring_size + 12);
+ 
+-	ent = debugfs_create_file(name,
+-				  S_IFREG | S_IRUGO, root,
+-				  ring, &amdgpu_debugfs_ring_fops);
+-	if (IS_ERR(ent))
+-		return PTR_ERR(ent);
+-
+-	i_size_write(ent->d_inode, ring->ring_size + 12);
+-	ring->ent = ent;
+ #endif
+-	return 0;
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+index 88d80eb3fea1..4d380e79752c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+@@ -253,10 +253,6 @@ struct amdgpu_ring {
+ 	bool			has_compute_vm_bug;
+ 	bool			no_scheduler;
+ 	int			hw_prio;
+-
+-#if defined(CONFIG_DEBUG_FS)
+-	struct dentry *ent;
+-#endif
+ };
+ 
+ #define amdgpu_ring_parse_cs(r, p, ib) ((r)->funcs->parse_cs((p), (ib)))
+@@ -356,8 +352,6 @@ static inline void amdgpu_ring_write_multiple(struct amdgpu_ring *ring,
+ 
+ int amdgpu_ring_test_helper(struct amdgpu_ring *ring);
+ 
+-int amdgpu_debugfs_ring_init(struct amdgpu_device *adev,
+-			     struct amdgpu_ring *ring);
+-void amdgpu_debugfs_ring_fini(struct amdgpu_ring *ring);
+-
++void amdgpu_debugfs_ring_init(struct amdgpu_device *adev,
++			      struct amdgpu_ring *ring);
+ #endif
+-- 
+2.32.0
 
-
-> Thanks
->
-> ------------------------------------------
-> Monk Liu | Cloud-GPU Core team
-> ------------------------------------------
->
-> -----Original Message-----
-> From: Dave Airlie <airlied@gmail.com>
-> Sent: Thursday, September 2, 2021 2:51 AM
-> To: Alex Deucher <alexdeucher@gmail.com>
-> Cc: Liu, Monk <Monk.Liu@amd.com>; Daniel Vetter <daniel@ffwll.ch>; Koenig=
-, Christian <Christian.Koenig@amd.com>; Grodzovsky, Andrey <Andrey.Grodzovs=
-ky@amd.com>; Chen, JingWen <JingWen.Chen2@amd.com>; DRI Development <dri-de=
-vel@lists.freedesktop.org>; amd-gfx@lists.freedesktop.org
-> Subject: Re: [diagnostic TDR mode patches] unify our solution opinions/su=
-ggestions in one thread
->
-> On Thu, 2 Sept 2021 at 01:20, Alex Deucher <alexdeucher@gmail.com> wrote:
-> >
-> > On Wed, Sep 1, 2021 at 6:19 AM Liu, Monk <Monk.Liu@amd.com> wrote:
-> > >
-> > > [AMD Official Use Only]
-> > >
-> > > Daniel
-> > >
-> > > From the link you share it looks you(or someone else) have quite a bu=
-nch patches that changes DRM_SCHED or even amdgpu, by that case before they=
- are merged to kernel tree I'm wondering if any AMD develop reviewed them ?
-> > >
-> > > They looks to me somehow conflicting with what we changed in our repo=
-....
-> > >
-> > > It is really a chaos for AMDer if someone else out side of AMD change=
-s our kernel driver (or/and scheduler) without reviewed by AMDer, just like=
- we are requiring your review if we tend to change scheduler's logic here .=
-...
-> > >
-> > > This one changes AMD's code:
-> > > https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fl=
-o
-> > > re.kernel.org%2Fdri-devel%2F20210625133327.2598825-2-boris.brezillon
-> > > %40collabora.com%2F&amp;data=3D04%7C01%7CMonk.Liu%40amd.com%7C6c507d1=
-8
-> > > d65341ef53bb08d96d7976e6%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%
-> > > 7C637661190727875969%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJ
-> > > QIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=3DBWJSkK=
-N
-> > > y2%2BwjxbQrfxGPzuJ5PBpBwB4aV0ZH6QoJGEg%3D&amp;reserved=3D0
-> > > And I didn't see any reviewed-by from AMDers ...
-> > >
-> > > This one also touches AMD's code:
-> > > https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fl=
-o
-> > > re.kernel.org%2Fdri-devel%2F20200604081224.863494-12-daniel.vetter%4
-> > > 0ffwll.ch%2F&amp;data=3D04%7C01%7CMonk.Liu%40amd.com%7C6c507d18d65341=
-e
-> > > f53bb08d96d7976e6%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C63766
-> > > 1190727885929%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2
-> > > luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=3D%2F8vIVXCWjHk=
-M
-> > > 56pcYI9EvuzhbsZhV9WczkKaBJE67KQ%3D&amp;reserved=3D0
-> > > Which is conflicting with one patch we submitted (in our repo
-> > > rightnow), and neither see AMDder gave a review-by on this one (let
-> > > me know if I missed it)
-> > >
-> >
-> > Monk, this is not how upstream works.  You need to participate.
-> > That's how communities work.  There's a reason all these discussions
-> > happen on public mailing lists.  The patch author can't be expected to
-> > know every person on every vendor team to CC with a patch.  If you
-> > have concerns, you need to raise them when the patches are being
-> > discussed.
-> >
->
-> I'm not sure I can add much to help this along, I'm sure Alex has some in=
-ternal training,
->
-> Once your driver is upstream, it belongs to upstream, you can maintain it=
-, but you no longer control it 100%, it's a tradeoff, it's not one companie=
-s always understand.
->
-> Usually people are fine developing away internally, but once interaction =
-with other parts of the kernel/subsystem is required they have the realisat=
-ion that they needed to work upstream 6 months earlier.
->
-> The best time to interact with upstream was 6 months ago, the second best=
- time is now.
->
-> Dave.
