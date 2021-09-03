@@ -2,56 +2,133 @@ Return-Path: <SRS0=/nsf=NZ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-18.1 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B267CC433EF
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Sep 2021 11:15:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CE74DC433EF
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Sep 2021 15:26:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8119160FA0
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Sep 2021 11:15:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8119160FA0
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 97B9261107
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Sep 2021 15:26:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 97B9261107
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2592F6E86C;
-	Fri,  3 Sep 2021 11:15:33 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 464966E86C;
- Fri,  3 Sep 2021 11:15:32 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10095"; a="280408385"
-X-IronPort-AV: E=Sophos;i="5.85,265,1624345200"; d="scan'208";a="280408385"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Sep 2021 04:15:30 -0700
-X-IronPort-AV: E=Sophos;i="5.85,265,1624345200"; d="scan'208";a="500322254"
-Received: from ojcasey-mobl.ger.corp.intel.com (HELO [10.213.195.251])
- ([10.213.195.251])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Sep 2021 04:15:28 -0700
-Subject: Re: [Intel-gfx] [PATCH v7 5/8] drm_print: add choice to use dynamic
- debug in drm-debug
-To: Jim Cromie <jim.cromie@gmail.com>, jbaron@akamai.com,
- gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-References: <20210831202133.2165222-1-jim.cromie@gmail.com>
- <20210831202133.2165222-6-jim.cromie@gmail.com>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-Message-ID: <b3c4b3aa-b873-a2aa-c1ad-5fed80038c6e@linux.intel.com>
-Date: Fri, 3 Sep 2021 12:15:25 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
-MIME-Version: 1.0
-In-Reply-To: <20210831202133.2165222-6-jim.cromie@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C4196E8A2;
+	Fri,  3 Sep 2021 15:26:54 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2080.outbound.protection.outlook.com [40.107.94.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 338FD6E8A2
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 Sep 2021 15:26:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=CMKTiP0H3xd9hTnV0AeubyJgNJc7dgZYFaBHzquIGi8yyEbEE/aeXKmiaFMDlY6mGDriQmubzUBP0SHmy0sAJ7OT4fzzOCzmgut1E+E1iZBVsOCVgS+CeEVlXBDNkc5AbVNbfm4wdLWk0K0R3s1varqoZdW5FeRzPFr68Y4TBEXyPGLfOt/+um4FFbE11Jx200Iq5c3wwkMti3Y5OpleHe8CxaJ3N6FiDP3BRtbGDjc7W8mcB/11DJsM5SCJCcAI7ey1wIzO5r7OxLBfeuOpHH16hBK4GYiOJx2pCqCVvDUuhCk0wWt39mDx8almatUmxi8AvqTGkAotLWkcFRJ1VA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
+ bh=mFhfJvrea3EP+4A7LKAwdndFRmcR0pw2rs4L6nP3MWs=;
+ b=jyeO/R3bSDfDbt9fllE0kbALmUDlqwbJMOWDypgKtYVT9HzWLlS69WpStGfH1g8Osh9toAsI72A5oOyAxREQ7RRBgIKNPqALAqMdDaPbtBbkgaXOXmeqUYcxGyqApSJSZD7PGckcxzGaEG3FLiMnEUGvjjsG6UoIdvBZHJ1/b2fP/poBxtjRtTqmg3hxJmylbINP49aEMXbBSdaRjCADyklwdySBRQNFbnQGW0+CGt6A3vVKMf/Zx0JGQoA8jFf5uP3qiTK3i5GOX1bCYWMGbBA2nqz/C9b9YiRJcqWm5aRV5lhlS2G43H/aunFLvMi+7QcrYd6AGEFyCul/GUOK3g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mFhfJvrea3EP+4A7LKAwdndFRmcR0pw2rs4L6nP3MWs=;
+ b=gLZs0dtfA3UILt4tQzkdwB8++IuUK7L1Iz6TuLAfx1jY4x7v79s4HQ6GwR9FaPDALYffM6JKwASLN98KzIuF0fsyv/jfVvLpepgLPBa4dmcXqZsG0eFWwyKnYDdTOWC+w6hMY3nTDImQS5hchPnkrQkFjDsNCl1IaP3ZN6OlDdg=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB5040.namprd12.prod.outlook.com (2603:10b6:5:38b::19)
+ by DM8PR12MB5415.namprd12.prod.outlook.com (2603:10b6:8:25::5) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4478.17; Fri, 3 Sep 2021 15:26:51 +0000
+Received: from DM4PR12MB5040.namprd12.prod.outlook.com
+ ([fe80::9c06:d113:293:f09b]) by DM4PR12MB5040.namprd12.prod.outlook.com
+ ([fe80::9c06:d113:293:f09b%8]) with mapi id 15.20.4478.022; Fri, 3 Sep 2021
+ 15:26:51 +0000
+Subject: Re: [PATCH 2/2] drm/amdgpu: cleanup debugfs for amdgpu rings
+To: "Das, Nirmoy" <nirmoy.das@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Christian.Koenig@amd.com
+References: <20210902114459.3866-1-nirmoy.das@amd.com>
+ <20210902114459.3866-2-nirmoy.das@amd.com>
+ <e3a13fd6-f3f3-7980-14d6-b93948053535@amd.com>
+ <29a155c4-085a-442c-08f7-50ea56f831d6@amd.com>
+From: "Sharma, Shashank" <shashank.sharma@amd.com>
+Message-ID: <ba709b1d-5eeb-e748-811f-fbea728ab0b9@amd.com>
+Date: Fri, 3 Sep 2021 20:56:41 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
+In-Reply-To: <29a155c4-085a-442c-08f7-50ea56f831d6@amd.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MAXPR0101CA0024.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a00:c::34) To DM4PR12MB5040.namprd12.prod.outlook.com
+ (2603:10b6:5:38b::19)
+MIME-Version: 1.0
+Received: from [192.168.68.104] (106.51.20.251) by
+ MAXPR0101CA0024.INDPRD01.PROD.OUTLOOK.COM (2603:1096:a00:c::34) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.19 via Frontend
+ Transport; Fri, 3 Sep 2021 15:26:50 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: c7c572a0-f059-4bb5-b755-08d96eef40e1
+X-MS-TrafficTypeDiagnostic: DM8PR12MB5415:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM8PR12MB54150721395EABB368FDBCBEF2CF9@DM8PR12MB5415.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: qpCAfaC0GRE/CbCV1pxN2YT/ZaPcB3BJ0xcuTKYnIZrOoaS82LxGjnljf9f3kjgkH/t2kKanJTL6SGpZaVRZhIZyNba3B1YARB6znF5Se1KCTaHsfEtb6UPW2ttGD8h7162fuScs92dI+KVdS2xa0tKKdHdfgPmUtSfi7Esebu2XXMhA7sVu3iuAAXKNMiolJ+wQ+eDJg+3aauKLLDivWYfI8pl/5AmDBCPp0F11ljqssFzzA9DCPbexQwYwYrxAk84hBBfVIp86AkNRiAQ+w6u3AweVKhtKnrAJ428QVw7Ixdjiq6mVGxbwO3rtj2rIQfWIjjE2edk59ehB7Xz9vZDs81NMTMoxhfr8rq9wLnRpCjpIT5WWCwD7knF2CY3roh8WmVwyi7nZzuEGsGwQhb62tQd/pB7ZR3JplnsUSFA69c+jRsL6LR8YuK/OyovzjfGHuO23jV95Hm82ngXfpqaAhYmK8jvnVv0AMD3oCxIsVvoi3bXkhFLDOyuvtgku+KXdd7sdKO/MxJXTCs0ixzB+YvUrYjsF6SaJ9HG2EluqI/ksqsZLXchLFU9O55ve8sz+Ur0ssasUOAi82D2vDTxWuQL5H7KP/hU0UKKQ0nc7XKEzeWxdjoEyv0rJpsBIGUxLoPzDYmwiKIbkrTu9BoZQLHqQADTOSNlN9uQueATjvdzKaugODpRW+XU/uyqfNjRu4Yb5HoCuATmH/7RLyfr1vg0NQDKjkIE5dOGxtio/MPHJWl7f9vMfyr55cUsx
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5040.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(376002)(136003)(366004)(39860400002)(346002)(8936002)(956004)(86362001)(38100700002)(2616005)(36756003)(478600001)(5660300002)(316002)(16576012)(8676002)(1006002)(53546011)(6666004)(2906002)(55236004)(186003)(66476007)(31696002)(31686004)(26005)(4326008)(83380400001)(66556008)(6486002)(66946007)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bXh2UU5yYjE3bmN2U1R4Zm5EOUp1d1g3bnBDbndKcW9hTDRxK3ZEVVc2Tld5?=
+ =?utf-8?B?MGRwRVpWR2htSzdIRXc4dlVXYzNaL1UxUDBweWlaT1NQYjhLNWRJclpQVUVo?=
+ =?utf-8?B?U2FWOGQvSC9hWGprdmdoYWo0SlIvZm1QQnZ1Q0hhaE9PYjNRRlIxQlA3WURE?=
+ =?utf-8?B?VWM0ajZLMUw0RDE0bEQ2WXdBZEpBUlNKT3lMTHlEaTBkSGFKSDV6SG5DelRX?=
+ =?utf-8?B?dXdmcW80ejJlYWV5ZTRVVjNrblFxc3d0VHA4Z2IwME9wTW53ZG9nN0NhZnNq?=
+ =?utf-8?B?WXJyRmk3ekNoOUhQQjVGNHNQMVNXeDR3T1k4SVdJOGZsaVgxSU5lelBaYVUx?=
+ =?utf-8?B?V1RxdzIrMldSSXAwckIrUWhmTGtnT1RJVWxyY3RWQU9mVHIwcG1ybWRNMEhM?=
+ =?utf-8?B?Y0pLekhuTmJJbzlnZVBDOHl6ZWtLcVlzeVYyWER6d1h3RHZNVkhpSFpRVHBi?=
+ =?utf-8?B?QnNtZllXVkwxVkxnbUFsU2VuaC9ONk41OHF1MC9jL25xNTk3VDZzQ3NwSjJK?=
+ =?utf-8?B?SjNzVzZoeUFRQzNoRVlUcDVYMlROQXFGbmhXREQyWktrMGRZTC8xd2xSa2tN?=
+ =?utf-8?B?UkltQU5ZU0d1aXppZEFjMmR1eGFyb0dvTmdwSlg2N01Yb3BrYllyTkhySnVr?=
+ =?utf-8?B?NDBhSFd4NXF1dG1IelI0b1BHd3VEbnlCbCtOQ0V2Z2tBK0FDOGVrOG5jSVhR?=
+ =?utf-8?B?ZTRuUS9pRzNOV2tZa29JWGM0ZHpOeTZiT3hMYUFWbzNzZmE5NFhXZlNFd2ZH?=
+ =?utf-8?B?YzA1WXVPVTU5QTc4aWZPTm9hRzE4QW9wenJ1d3JuMDA3MStnZW0wNlBDaGZm?=
+ =?utf-8?B?dHlaZDJnTk4wNzdqcUd3WCtpVnAxcXAvd3pNUk1EVjhiZzJSWXArNnNxSFlv?=
+ =?utf-8?B?Y3NZQXluK09aN2FWaVM1R0hJN0cxVzl3NktlejZvYVNWNi9qSFhQeWhkN0ZU?=
+ =?utf-8?B?ajNzemcwckNJZTBvNTUzMHFISkQ3cVVTTEUvRStxZ00vNXlGYXpoUnpvTkhN?=
+ =?utf-8?B?dlVwUm82Qk9uMkJUSVQ5azgxZlo5ekl6cmdxNkl4WWlrRUxsanlBZ0pHZlFq?=
+ =?utf-8?B?N3V2SVF0aUViY1FlVitBVTM3eGNmYXRpSUYxeDBjbTFjQlRJU3UxL3FOY1A5?=
+ =?utf-8?B?bWZkSkpEOGJ4VWpPNDl2RXlvb1o3cHRoTE00aHZ4R3oyU0E3aXBCVVNvalBO?=
+ =?utf-8?B?aHZNVFZXYnR2QmhiTkdxdkhlOGJFSTVOUlNtZGZDQU1ZdkhRQlJxbGJVb3VB?=
+ =?utf-8?B?WVR3Nkdqdkx0SzdwejJZYzlVaW1iVk1uYmR4TnJWUVAxVENPRXcydTBmaFdo?=
+ =?utf-8?B?dE0rTUpkWkZTanRPZVFUMC9NSndOYm5kZ0JLTGVQRjE4azZnbW9QdThaTTRS?=
+ =?utf-8?B?TkRaeTNxbmg0bS9OaVN4T0lWamVrVWtudUFCVU1zUS81UEdldkJFTVlYRWNm?=
+ =?utf-8?B?dTBVVFlsaWg3Mm9xalZ6UDRkVDdwUGtkbGFRdjBlK2lFSllJUE5ycHVybHJQ?=
+ =?utf-8?B?VkQ2aEtTNGRtNE51TWhncUVoajRPWHo2ZU5mblY3bERid0VoK0J1eTdXbE5l?=
+ =?utf-8?B?MVc2emU2Q2dOc0lRQkVzMGkvSnUvMkVvUTNpQkhxTU9VcmNaVDVPSkZrRnJn?=
+ =?utf-8?B?MS9lUkRVN093V2hkMmQrenp4SnprOTBqdUlHNGdaSGFVanlOQXpxaUpPUWNU?=
+ =?utf-8?B?YUIzQ09pOVQySTRJdlFIR3hzTXNSYjVKTGpXbk5ZTHdldUQ2Z0VkU01NSnZX?=
+ =?utf-8?Q?M+Ns08nvc1PUF2ZDqnpIYHybjrB+szpXn9QXCWS?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c7c572a0-f059-4bb5-b755-08d96eef40e1
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5040.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2021 15:26:51.5902 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IFXUpG1womSe1l8uvVnGaixzlHLwPxQD2vKjpqOo7cJesQAIGHh8aokcGfJauWo0PNgNdYc8w+a1c4K9TZw/Fw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM8PR12MB5415
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,526 +144,120 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 31/08/2021 21:21, Jim Cromie wrote:
-> drm's debug system writes 10 distinct categories of messages to syslog
-> using a small API[1]: drm_dbg*(10 names), DRM_DEV_DEBUG*(3 names),
-> DRM_DEBUG*(8 names).  There are thousands of these callsites, each
-> categorized in this systematized way.
-> 
-> These callsites can be enabled at runtime by their category, each
-> controlled by a bit in drm.debug (/sys/modules/drm/parameter/debug).
-> In the current "basic" implementation, drm_debug_enabled() tests these
-> bits in __drm_debug each time an API[1] call is executed; while cheap
-> individually, the costs accumulate with uptime.
-> 
-> This patch uses dynamic-debug with jump-label to patch enabled calls
-> onto their respective NOOP slots, avoiding all runtime bit-checks of
-> __drm_debug by drm_debug_enabled().
-> 
-> Dynamic debug has no concept of category, but we can emulate one by
-> replacing enum categories with a set of prefix-strings; "drm:core:",
-> "drm:kms:" "drm:driver:" etc, and prepend them (at compile time) to
-> the given formats.
-> 
-> Then we can use:
->    `echo module drm format "^drm:core: " +p > control`
-> 
-> to enable the whole category with one query.
 
-Probably stupid question - enabling stuff at boot time still works as 
-described in Documentation/admin-guide/dynamic-debug-howto.rst?
+On 9/3/2021 1:39 PM, Das, Nirmoy wrote:
+> 
+> On 9/3/2021 8:36 AM, Sharma, Shashank wrote:
+>>
+>>
+>> On 9/2/2021 5:14 PM, Nirmoy Das wrote:
+>>> Use debugfs_create_file_size API for creating ring debugfs
+>>> file, also cleanup surrounding code.
+>>>
+>>> Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
+>>> ---
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |  4 +---
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c    | 16 +++++-----------
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h    |  8 +-------
+>>>   3 files changed, 7 insertions(+), 21 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c 
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+>>> index 077f9baf74fe..dee56ab19a8f 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+>>> @@ -1734,9 +1734,7 @@ int amdgpu_debugfs_init(struct amdgpu_device 
+>>> *adev)
+>>>           if (!ring)
+>>>               continue;
+>>>   -        if (amdgpu_debugfs_ring_init(adev, ring)) {
+>>> -            DRM_ERROR("Failed to register debugfs file for rings !\n");
+>>> -        }
+>>> +        amdgpu_debugfs_ring_init(adev, ring);
+>>>       }
+>>>         amdgpu_ras_debugfs_create_all(adev);
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c 
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+>>> index f40753e1a60d..968521d80514 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+>>> @@ -415,26 +415,20 @@ static const struct file_operations 
+>>> amdgpu_debugfs_ring_fops = {
+>>>     #endif
+>>>   -int amdgpu_debugfs_ring_init(struct amdgpu_device *adev,
+>>> +void amdgpu_debugfs_ring_init(struct amdgpu_device *adev,
+>>>                    struct amdgpu_ring *ring)
+>>>   {
+>>>   #if defined(CONFIG_DEBUG_FS)
+>>>       struct drm_minor *minor = adev_to_drm(adev)->primary;
+>>> -    struct dentry *ent, *root = minor->debugfs_root;
+>>> +    struct dentry *root = minor->debugfs_root;
+>>>       char name[32];
+>>>         sprintf(name, "amdgpu_ring_%s", ring->name);
+>>>   -    ent = debugfs_create_file(name,
+>>> -                  S_IFREG | S_IRUGO, root,
+>>> -                  ring, &amdgpu_debugfs_ring_fops);
+>>> -    if (IS_ERR(ent))
+>>> -        return -ENOMEM;
+>>
+>> Why are we doing this ? Why to make it void from int ?
+> 
+> 
+> We tend to ignore debugfs return values as those are not serious errors. 
+> This to sync with rest of our
+> 
+> debugfs calls.
+> 
+> 
+> Regards,
+> 
+> Nirmoy
+> 
 
-Second question, which perhaps has been covered in the past so apologies 
-if redundant - what is the advantage of allowing this to be 
-configurable, versus perhaps always enabling it? Like what would be the 
-reasons someone wouldn't just want to have CONFIG_DYNAMIC_DEBUG compiled 
-in? Kernel binary size?
 
-Regards,
+I am not suere if completely removing the provision of return value is a 
+good way of doing it, we can always ignore it at the caller side, isn't 
+it ?
 
-Tvrtko
+- Shashank
 
-> 
-> This conversion yields many new prdbg callsites:
-> 
->    dyndbg: 195 debug prints in module drm_kms_helper
->    dyndbg: 298 debug prints in module drm
->    dyndbg: 1630 debug prints in module i915
->    dyndbg: ~3500 debug prints in module amdgpu
-> 
-> CONFIG_DRM_USE_DYNAMIC_DEBUG enables this, and is available if
-> CONFIG_DYNAMIC_DEBUG or CONFIG_DYNAMIC_DEBUG_CORE is chosen, and if
-> CONFIG_JUMP_LABEL is enabled; this because its required to get the
-> promised optimizations.
-> 
-> The "basic" -> "dyndbg" switchover is layered into the macro scheme
-> 
-> A. A "prefix" version of DRM_UT_<CATs> map, named DRM_DBG_CAT_<CATs>
-> 
-> "basic":  DRM_DBG_CAT_<CATs>  <===  DRM_UT_<CATs>.  Identity map.
-> "dyndbg":
->     #define DRM_DBG_CAT_KMS    "drm:kms: "
->     #define DRM_DBG_CAT_PRIME  "drm:prime: "
->     #define DRM_DBG_CAT_ATOMIC "drm:atomic: "
-> 
-> In v3, had older name, DRM_DBG_CLASS_<CATs> was countered, I had
-> agreed, but this seems better still; CATEGORY is already DRM's
-> term-of-art, and adding a near-synonym 'CLASS' only adds ambiguity.
-> 
-> DRM_UT_* are preserved, since theyre used elsewhere.  We can probably
-> reduce their use further, but thats a separate thing.
-> 
-> B. drm_dev_dbg() & drm_debug() are interposed with macros
-> 
-> basic:	  forward to renamed fn, with args preserved
-> enabled:  redirect to pr_debug, dev_dbg, with CATEGORY format catenated
-> 
-> This is where drm_debug_enabled() is avoided.  The prefix is prepended
-> at compile-time, no category at runtime.
-> 
-> C. API[1] uses DRM_DBG_CAT_<CAT>s
-> 
-> these already use (B), now they use (A) too, to get the correct token
-> type for "basic" and "dyndbg" configs.
-> 
-> D. use DEFINE_DYNAMIC_DEBUG_CATEGORIES()
-> 
-> This defines the map using DRM_CAT_<CAT>s, and creates the /sysfs
-> bitmap to control those categories.
-> 
-> NOTES:
-> 
-> Because the dyndbg callback is watching __drm_debug, it is coherent
-> with drm_debug_enabled() and its remaining users; the switchover
-> should be transparent.
-> 
-> Code Review is expected to catch the lack of correspondence between
-> bit=>prefix definitions (the selector) and the prefixes used in the
-> API[1] layer above pr_debug()
-> 
-> I've coded the search-prefixes/categories with a trailing space, which
-> excludes any sub-categories added later.  This convention protects any
-> "drm:atomic:fail:" callsites from getting stomped on by `echo 0 > debug`.
-> Other categories could differ, but we need some default.
-> 
-> Dyndbg requires that the prefix be in the compiled-in format string;
-> run-time prefixing evades callsite selection by category.
-> 
-> 	pr_debug("%s: ...", __func__, ...) // not ideal
-> 
-> With "lineno X" in a query, its possible to enable single callsites,
-> but it is tedious, and useless in a category context.
-> 
-> Unfortunately __func__ is not a macro, and cannot be catenated at
-> preprocess/compile time.
-> 
-> Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-> ---
-> v5:
-> . use DEFINE_DYNAMIC_DEBUG_CATEGORIES in drm_print.c
-> . s/DRM_DBG_CLASS_/DRM_DBG_CAT_/ - dont need another term
-> . default=y in KBuild entry - per @DanVet
-> . move some commit-log prose to dyndbg commit
-> . add-prototyes to (param_get/set)_dyndbg
-> . more wrinkles found by <lkp@intel.com>
-> . relocate ratelimit chunk from elsewhere
-> v6:
-> . add kernel doc
-> . fix cpp paste, drop '#'
-> v7:
-> . change __drm_debug to long, to fit with DEFINE_DYNAMIC_DEBUG_CATEGORIES
-> . add -DDYNAMIC_DEBUG_MODULE to ccflags if DRM_USE_DYNAMIC_DEBUG
-> ---
->   drivers/gpu/drm/Kconfig     |  13 ++++
->   drivers/gpu/drm/Makefile    |   3 +
->   drivers/gpu/drm/drm_print.c |  53 +++++++++----
->   include/drm/drm_print.h     | 144 ++++++++++++++++++++++++++++--------
->   4 files changed, 166 insertions(+), 47 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-> index 7ff89690a976..97e38d86fd27 100644
-> --- a/drivers/gpu/drm/Kconfig
-> +++ b/drivers/gpu/drm/Kconfig
-> @@ -57,6 +57,19 @@ config DRM_DEBUG_MM
->   
->   	  If in doubt, say "N".
->   
-> +config DRM_USE_DYNAMIC_DEBUG
-> +	bool "use dynamic debug to implement drm.debug"
-> +	default y
-> +	depends on DRM
-> +	depends on DYNAMIC_DEBUG || DYNAMIC_DEBUG_CORE
-> +	depends on JUMP_LABEL
-> +	help
-> +	  The "basic" drm.debug facility does a lot of unlikely
-> +	  bit-field tests at runtime; while cheap individually, the
-> +	  cost accumulates.  DYNAMIC_DEBUG patches pr_debug()s in/out
-> +	  of the running kernel, so avoids those bit-test overheads,
-> +	  and is therefore recommended.
-> +
->   config DRM_DEBUG_SELFTEST
->   	tristate "kselftests for DRM"
->   	depends on DRM
-> diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-> index a118692a6df7..1809329654b3 100644
-> --- a/drivers/gpu/drm/Makefile
-> +++ b/drivers/gpu/drm/Makefile
-> @@ -20,6 +20,9 @@ drm-y       :=	drm_aperture.o drm_auth.o drm_cache.o \
->   		drm_client_modeset.o drm_atomic_uapi.o drm_hdcp.o \
->   		drm_managed.o drm_vblank_work.o
->   
-> +#ifdef CONFIG_DRM_USE_DYNAMIC_DEBUG
-> +ccflags-y += -DDYNAMIC_DEBUG_MODULE
-> +#endif
->   drm-$(CONFIG_DRM_LEGACY) += drm_agpsupport.o drm_bufs.o drm_context.o drm_dma.o \
->   			    drm_legacy_misc.o drm_lock.o drm_memory.o drm_scatter.o \
->   			    drm_vm.o
-> diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
-> index 111b932cf2a9..df2e10754c41 100644
-> --- a/drivers/gpu/drm/drm_print.c
-> +++ b/drivers/gpu/drm/drm_print.c
-> @@ -28,6 +28,7 @@
->   #include <stdarg.h>
->   
->   #include <linux/io.h>
-> +#include <linux/module.h>
->   #include <linux/moduleparam.h>
->   #include <linux/seq_file.h>
->   #include <linux/slab.h>
-> @@ -40,19 +41,39 @@
->    * __drm_debug: Enable debug output.
->    * Bitmask of DRM_UT_x. See include/drm/drm_print.h for details.
->    */
-> -unsigned int __drm_debug;
-> +unsigned long __drm_debug;
->   EXPORT_SYMBOL(__drm_debug);
->   
-> -MODULE_PARM_DESC(debug, "Enable debug output, where each bit enables a debug category.\n"
-> -"\t\tBit 0 (0x01)  will enable CORE messages (drm core code)\n"
-> -"\t\tBit 1 (0x02)  will enable DRIVER messages (drm controller code)\n"
-> -"\t\tBit 2 (0x04)  will enable KMS messages (modesetting code)\n"
-> -"\t\tBit 3 (0x08)  will enable PRIME messages (prime code)\n"
-> -"\t\tBit 4 (0x10)  will enable ATOMIC messages (atomic code)\n"
-> -"\t\tBit 5 (0x20)  will enable VBL messages (vblank code)\n"
-> -"\t\tBit 7 (0x80)  will enable LEASE messages (leasing code)\n"
-> -"\t\tBit 8 (0x100) will enable DP messages (displayport code)");
-> -module_param_named(debug, __drm_debug, int, 0600);
-> +#define DRM_DEBUG_DESC \
-> +"Enable debug output, where each bit enables a debug category.\n"	\
-> +"\t\tBit 0 (0x01)  will enable CORE messages (drm core code)\n"		\
-> +"\t\tBit 1 (0x02)  will enable DRIVER messages (drm controller code)\n"	\
-> +"\t\tBit 2 (0x04)  will enable KMS messages (modesetting code)\n"	\
-> +"\t\tBit 3 (0x08)  will enable PRIME messages (prime code)\n"		\
-> +"\t\tBit 4 (0x10)  will enable ATOMIC messages (atomic code)\n"		\
-> +"\t\tBit 5 (0x20)  will enable VBL messages (vblank code)\n"		\
-> +"\t\tBit 7 (0x80)  will enable LEASE messages (leasing code)\n"		\
-> +"\t\tBit 8 (0x100) will enable DP messages (displayport code)."
-> +
-> +#ifdef CONFIG_DRM_USE_DYNAMIC_DEBUG
-> +#include <linux/dynamic_debug.h>
-> +DEFINE_DYNAMIC_DEBUG_CATEGORIES(debug, __drm_debug,
-> +	DRM_DEBUG_DESC,
-> +	_DD_cat_(DRM_DBG_CAT_CORE),
-> +	_DD_cat_(DRM_DBG_CAT_DRIVER),
-> +	_DD_cat_(DRM_DBG_CAT_KMS),
-> +	_DD_cat_(DRM_DBG_CAT_PRIME),
-> +	_DD_cat_(DRM_DBG_CAT_ATOMIC),
-> +	_DD_cat_(DRM_DBG_CAT_VBL),
-> +	_DD_cat_(DRM_DBG_CAT_STATE),
-> +	_DD_cat_(DRM_DBG_CAT_LEASE),
-> +	_DD_cat_(DRM_DBG_CAT_DP),
-> +	_DD_cat_(DRM_DBG_CAT_DRMRES));
-> +
-> +#else
-> +MODULE_PARM_DESC(debug, DRM_DEBUG_DESC);
-> +module_param_named(debug, __drm_debug, ulong, 0600);
-> +#endif
->   
->   void __drm_puts_coredump(struct drm_printer *p, const char *str)
->   {
-> @@ -256,8 +277,8 @@ void drm_dev_printk(const struct device *dev, const char *level,
->   }
->   EXPORT_SYMBOL(drm_dev_printk);
->   
-> -void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
-> -		 const char *format, ...)
-> +void __drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
-> +		   const char *format, ...)
->   {
->   	struct va_format vaf;
->   	va_list args;
-> @@ -278,9 +299,9 @@ void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
->   
->   	va_end(args);
->   }
-> -EXPORT_SYMBOL(drm_dev_dbg);
-> +EXPORT_SYMBOL(__drm_dev_dbg);
->   
-> -void __drm_dbg(enum drm_debug_category category, const char *format, ...)
-> +void ___drm_dbg(enum drm_debug_category category, const char *format, ...)
->   {
->   	struct va_format vaf;
->   	va_list args;
-> @@ -297,7 +318,7 @@ void __drm_dbg(enum drm_debug_category category, const char *format, ...)
->   
->   	va_end(args);
->   }
-> -EXPORT_SYMBOL(__drm_dbg);
-> +EXPORT_SYMBOL(___drm_dbg);
->   
->   void __drm_err(const char *format, ...)
->   {
-> diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
-> index 9b66be54dd16..973443040561 100644
-> --- a/include/drm/drm_print.h
-> +++ b/include/drm/drm_print.h
-> @@ -35,7 +35,7 @@
->   #include <drm/drm.h>
->   
->   /* Do *not* use outside of drm_print.[ch]! */
-> -extern unsigned int __drm_debug;
-> +extern unsigned long __drm_debug;
->   
->   /**
->    * DOC: print
-> @@ -252,15 +252,15 @@ static inline struct drm_printer drm_err_printer(const char *prefix)
->   /**
->    * enum drm_debug_category - The DRM debug categories
->    *
-> - * Each of the DRM debug logging macros use a specific category, and the logging
-> - * is filtered by the drm.debug module parameter. This enum specifies the values
-> - * for the interface.
-> + * The drm.debug logging API[1] has 10 enumerated categories of
-> + * messages, issued by 3 families of macros: 10 drm_dbg_<CATs>, 8
-> + * DRM_DEBUG_<CATs>, and 3 DRM_DEV_DEBUG_<CATs>.
->    *
->    * Each DRM_DEBUG_<CATEGORY> macro logs to DRM_UT_<CATEGORY> category, except
->    * DRM_DEBUG() logs to DRM_UT_CORE.
->    *
-> - * Enabling verbose debug messages is done through the drm.debug parameter, each
-> - * category being enabled by a bit:
-> + * Enabling categories of debug messages is done through the drm.debug
-> + * parameter, each category being enabled by a bit:
->    *
->    *  - drm.debug=0x1 will enable CORE messages
->    *  - drm.debug=0x2 will enable DRIVER messages
-> @@ -319,6 +319,86 @@ enum drm_debug_category {
->   	DRM_UT_DRMRES		= 0x200,
->   };
->   
-> +/**
-> + * DOC: DRM_USE_DYNAMIC_DEBUG - using dyndbg in drm.debug
-> + *
-> + * In the "basic" drm.debug implementation outlined above, each time a
-> + * drm-debug API[1] call is executed, drm_debug_enabled(cat) tests
-> + * drm.debug vs cat before printing.
-> + *
-> + * DYNAMIC_DEBUG (aka: dyndbg) patches pr_debug()s in^out of the
-> + * running kernel, so it can avoid drm_debug_enabled() and skip lots
-> + * of unlikely bit tests.
-> + *
-> + * dyndbg has no concept of category, but we can prepend a
-> + * class-prefix string: "drm:core: ", "drm:kms: ", "drm:driver: " etc,
-> + * to pr_debug's format (at compile time).
-> + *
-> + * Then control the category
-> + *    `echo module drm format "^drm:core: " +p > control`
-> + *    `dynamic_debug_exec_queries("format '^drm:core: ' +p", "drm");`
-> + *
-> + * To do this for "basic" | "dyndbg", adaptation adds some macro indirection:
-> + *
-> + * 0. use dyndbg support to define the bits => prefixes map, attach callback.
-> + *
-> + *    DYNDBG_BITMAP_DESC(debug, __drm_debug,
-> + *			 "drm.debug - overview",
-> + *			 { "drm:core:", "enable CORE debug messages" },
-> + *			 { "drm:kms:", "enable KMS debug messages" }, ...);
-> + *
-> + * 1. DRM_DBG_CAT_<CAT>
-> + *
-> + * This set of symbols replaces DRM_UT_<CAT> in the drm-debug API; it
-> + * is either a copy of DRM_UT_<CAT>, or the class-prefix strings.
-> + *
-> + * 2. drm_dev_dbg & drm_debug are called by drm.debug API
-> + *
-> + * These are now macros, either forwarding to renamed functions, or
-> + * prepending the class string to the format, and invoking pr_debug
-> + * directly.  Since the API is all macros, dyndbg remembers
-> + * per-pr_debug: module,file,func,line,format and uses that to find
-> + * and enable them.
-> + */
-> +#if !defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
-> +
-> +#define __drm_dbg(cls, fmt, ...)			\
-> +	___drm_dbg(cls, fmt, ##__VA_ARGS__)
-> +#define drm_dev_dbg(dev, cls, fmt, ...)			\
-> +	__drm_dev_dbg(dev, cls, fmt, ##__VA_ARGS__)
-> +
-> +#define DRM_DBG_CAT_CORE	DRM_UT_CORE
-> +#define DRM_DBG_CAT_DRIVER	DRM_UT_DRIVER
-> +#define DRM_DBG_CAT_KMS		DRM_UT_KMS
-> +#define DRM_DBG_CAT_PRIME	DRM_UT_PRIME
-> +#define DRM_DBG_CAT_ATOMIC	DRM_UT_ATOMIC
-> +#define DRM_DBG_CAT_VBL		DRM_UT_VBL
-> +#define DRM_DBG_CAT_STATE	DRM_UT_STATE
-> +#define DRM_DBG_CAT_LEASE	DRM_UT_LEASE
-> +#define DRM_DBG_CAT_DP		DRM_UT_DP
-> +#define DRM_DBG_CAT_DRMRES	DRM_UT_DRMRES
-> +
-> +#else /* CONFIG_DRM_USE_DYNAMIC_DEBUG */
-> +
-> +/* join prefix+format in cpp so dyndbg can see it */
-> +#define __drm_dbg(cls, fmt, ...)		\
-> +	pr_debug(cls fmt, ##__VA_ARGS__)
-> +#define drm_dev_dbg(dev, cls, fmt, ...)		\
-> +	dev_dbg(dev, cls fmt, ##__VA_ARGS__)
-> +
-> +#define DRM_DBG_CAT_CORE	"drm:core: "
-> +#define DRM_DBG_CAT_DRIVER	"drm:drvr: "
-> +#define DRM_DBG_CAT_KMS		"drm:kms: "
-> +#define DRM_DBG_CAT_PRIME	"drm:prime: "
-> +#define DRM_DBG_CAT_ATOMIC	"drm:atomic: "
-> +#define DRM_DBG_CAT_VBL		"drm:vbl: "
-> +#define DRM_DBG_CAT_STATE	"drm:state: "
-> +#define DRM_DBG_CAT_LEASE	"drm:lease: "
-> +#define DRM_DBG_CAT_DP		"drm:dp: "
-> +#define DRM_DBG_CAT_DRMRES	"drm:res: " /* not in MODULE_PARM_DESC */
-> +
-> +#endif /* CONFIG_DRM_USE_DYNAMIC_DEBUG */
-> +
->   static inline bool drm_debug_enabled(enum drm_debug_category category)
->   {
->   	return unlikely(__drm_debug & category);
-> @@ -334,8 +414,8 @@ __printf(3, 4)
->   void drm_dev_printk(const struct device *dev, const char *level,
->   		    const char *format, ...);
->   __printf(3, 4)
-> -void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
-> -		 const char *format, ...);
-> +void __drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
-> +		   const char *format, ...);
->   
->   /**
->    * DRM_DEV_ERROR() - Error output.
-> @@ -383,7 +463,7 @@ void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
->    * @fmt: printf() like format string.
->    */
->   #define DRM_DEV_DEBUG(dev, fmt, ...)					\
-> -	drm_dev_dbg(dev, DRM_UT_CORE, fmt, ##__VA_ARGS__)
-> +	drm_dev_dbg(dev, DRM_DBG_CAT_CORE, fmt, ##__VA_ARGS__)
->   /**
->    * DRM_DEV_DEBUG_DRIVER() - Debug output for vendor specific part of the driver
->    *
-> @@ -391,7 +471,7 @@ void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
->    * @fmt: printf() like format string.
->    */
->   #define DRM_DEV_DEBUG_DRIVER(dev, fmt, ...)				\
-> -	drm_dev_dbg(dev, DRM_UT_DRIVER,	fmt, ##__VA_ARGS__)
-> +	drm_dev_dbg(dev, DRM_DBG_CAT_DRIVER, fmt, ##__VA_ARGS__)
->   /**
->    * DRM_DEV_DEBUG_KMS() - Debug output for modesetting code
->    *
-> @@ -399,7 +479,7 @@ void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
->    * @fmt: printf() like format string.
->    */
->   #define DRM_DEV_DEBUG_KMS(dev, fmt, ...)				\
-> -	drm_dev_dbg(dev, DRM_UT_KMS, fmt, ##__VA_ARGS__)
-> +	drm_dev_dbg(dev, DRM_DBG_CAT_KMS, fmt, ##__VA_ARGS__)
->   
->   /*
->    * struct drm_device based logging
-> @@ -443,25 +523,25 @@ void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
->   
->   
->   #define drm_dbg_core(drm, fmt, ...)					\
-> -	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_CORE, fmt, ##__VA_ARGS__)
-> +	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_DBG_CAT_CORE, fmt, ##__VA_ARGS__)
->   #define drm_dbg(drm, fmt, ...)						\
-> -	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_DRIVER, fmt, ##__VA_ARGS__)
-> +	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_DBG_CAT_DRIVER, fmt, ##__VA_ARGS__)
->   #define drm_dbg_kms(drm, fmt, ...)					\
-> -	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_KMS, fmt, ##__VA_ARGS__)
-> +	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_DBG_CAT_KMS, fmt, ##__VA_ARGS__)
->   #define drm_dbg_prime(drm, fmt, ...)					\
-> -	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_PRIME, fmt, ##__VA_ARGS__)
-> +	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_DBG_CAT_PRIME, fmt, ##__VA_ARGS__)
->   #define drm_dbg_atomic(drm, fmt, ...)					\
-> -	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_ATOMIC, fmt, ##__VA_ARGS__)
-> +	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_DBG_CAT_ATOMIC, fmt, ##__VA_ARGS__)
->   #define drm_dbg_vbl(drm, fmt, ...)					\
-> -	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_VBL, fmt, ##__VA_ARGS__)
-> +	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_DBG_CAT_VBL, fmt, ##__VA_ARGS__)
->   #define drm_dbg_state(drm, fmt, ...)					\
-> -	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_STATE, fmt, ##__VA_ARGS__)
-> +	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_DBG_CAT_STATE, fmt, ##__VA_ARGS__)
->   #define drm_dbg_lease(drm, fmt, ...)					\
-> -	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_LEASE, fmt, ##__VA_ARGS__)
-> +	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_DBG_CAT_LEASE, fmt, ##__VA_ARGS__)
->   #define drm_dbg_dp(drm, fmt, ...)					\
-> -	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_DP, fmt, ##__VA_ARGS__)
-> +	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_DBG_CAT_DP, fmt, ##__VA_ARGS__)
->   #define drm_dbg_drmres(drm, fmt, ...)					\
-> -	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_DRMRES, fmt, ##__VA_ARGS__)
-> +	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_DBG_CAT_DRMRES, fmt, ##__VA_ARGS__)
->   
->   
->   /*
-> @@ -471,7 +551,7 @@ void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
->    */
->   
->   __printf(2, 3)
-> -void __drm_dbg(enum drm_debug_category category, const char *format, ...);
-> +void ___drm_dbg(enum drm_debug_category category, const char *format, ...);
->   __printf(1, 2)
->   void __drm_err(const char *format, ...);
->   
-> @@ -500,29 +580,30 @@ void __drm_err(const char *format, ...);
->   #define DRM_ERROR_RATELIMITED(fmt, ...)					\
->   	DRM_DEV_ERROR_RATELIMITED(NULL, fmt, ##__VA_ARGS__)
->   
-> +
->   #define DRM_DEBUG(fmt, ...)						\
-> -	__drm_dbg(DRM_UT_CORE, fmt, ##__VA_ARGS__)
-> +	__drm_dbg(DRM_DBG_CAT_CORE, fmt, ##__VA_ARGS__)
->   
->   #define DRM_DEBUG_DRIVER(fmt, ...)					\
-> -	__drm_dbg(DRM_UT_DRIVER, fmt, ##__VA_ARGS__)
-> +	__drm_dbg(DRM_DBG_CAT_DRIVER, fmt, ##__VA_ARGS__)
->   
->   #define DRM_DEBUG_KMS(fmt, ...)						\
-> -	__drm_dbg(DRM_UT_KMS, fmt, ##__VA_ARGS__)
-> +	__drm_dbg(DRM_DBG_CAT_KMS, fmt, ##__VA_ARGS__)
->   
->   #define DRM_DEBUG_PRIME(fmt, ...)					\
-> -	__drm_dbg(DRM_UT_PRIME, fmt, ##__VA_ARGS__)
-> +	__drm_dbg(DRM_DBG_CAT_PRIME, fmt, ##__VA_ARGS__)
->   
->   #define DRM_DEBUG_ATOMIC(fmt, ...)					\
-> -	__drm_dbg(DRM_UT_ATOMIC, fmt, ##__VA_ARGS__)
-> +	__drm_dbg(DRM_DBG_CAT_ATOMIC, fmt, ##__VA_ARGS__)
->   
->   #define DRM_DEBUG_VBL(fmt, ...)						\
-> -	__drm_dbg(DRM_UT_VBL, fmt, ##__VA_ARGS__)
-> +	__drm_dbg(DRM_DBG_CAT_VBL, fmt, ##__VA_ARGS__)
->   
->   #define DRM_DEBUG_LEASE(fmt, ...)					\
-> -	__drm_dbg(DRM_UT_LEASE, fmt, ##__VA_ARGS__)
-> +	__drm_dbg(DRM_DBG_CAT_LEASE, fmt, ##__VA_ARGS__)
->   
->   #define DRM_DEBUG_DP(fmt, ...)						\
-> -	__drm_dbg(DRM_UT_DP, fmt, ## __VA_ARGS__)
-> +	__drm_dbg(DRM_DBG_CAT_DP, fmt, ## __VA_ARGS__)
->   
->   #define __DRM_DEFINE_DBG_RATELIMITED(category, drm, fmt, ...)					\
->   ({												\
-> @@ -530,7 +611,8 @@ void __drm_err(const char *format, ...);
->   	const struct drm_device *drm_ = (drm);							\
->   												\
->   	if (drm_debug_enabled(DRM_UT_ ## category) && __ratelimit(&rs_))			\
-> -		drm_dev_printk(drm_ ? drm_->dev : NULL, KERN_DEBUG, fmt, ## __VA_ARGS__);	\
-> +		drm_dev_dbg((drm_) ? (drm_)->dev : NULL,					\
-> +			    DRM_DBG_CAT_ ## category, fmt, ##__VA_ARGS__);			\
->   })
->   
->   #define drm_dbg_kms_ratelimited(drm, fmt, ...) \
-> 
+>>
+>> - Shashank
+>>
+>>
+>>> -
+>>> -    i_size_write(ent->d_inode, ring->ring_size + 12);
+>>> -    ring->ent = ent;
+>>> +    debugfs_create_file_size(name, S_IFREG | S_IRUGO, root, ring,
+>>> +                 &amdgpu_debugfs_ring_fops,
+>>> +                 ring->ring_size + 12);
+>>>   #endif
+>>> -    return 0;
+>>>   }
+>>>     /**
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h 
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+>>> index 88d80eb3fea1..c29fbce0a5b4 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+>>> @@ -253,10 +253,6 @@ struct amdgpu_ring {
+>>>       bool            has_compute_vm_bug;
+>>>       bool            no_scheduler;
+>>>       int            hw_prio;
+>>> -
+>>> -#if defined(CONFIG_DEBUG_FS)
+>>> -    struct dentry *ent;
+>>> -#endif
+>>>   };
+>>>     #define amdgpu_ring_parse_cs(r, p, ib) ((r)->funcs->parse_cs((p), 
+>>> (ib)))
+>>> @@ -356,8 +352,6 @@ static inline void 
+>>> amdgpu_ring_write_multiple(struct amdgpu_ring *ring,
+>>>     int amdgpu_ring_test_helper(struct amdgpu_ring *ring);
+>>>   -int amdgpu_debugfs_ring_init(struct amdgpu_device *adev,
+>>> +void amdgpu_debugfs_ring_init(struct amdgpu_device *adev,
+>>>                    struct amdgpu_ring *ring);
+>>> -void amdgpu_debugfs_ring_fini(struct amdgpu_ring *ring);
+>>> -
+>>>   #endif
+>>>
