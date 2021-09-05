@@ -1,74 +1,138 @@
-Return-Path: <SRS0=J69/=N2=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=lW8h=N3=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-21.1 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A3165C433EF
-	for <amd-gfx@archiver.kernel.org>; Sat,  4 Sep 2021 14:36:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D8BC1C433F5
+	for <amd-gfx@archiver.kernel.org>; Sun,  5 Sep 2021 08:03:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D4A1160F42
-	for <amd-gfx@archiver.kernel.org>; Sat,  4 Sep 2021 14:36:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D4A1160F42
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id 864F76103B
+	for <amd-gfx@archiver.kernel.org>; Sun,  5 Sep 2021 08:03:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 864F76103B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5AE7D88130;
-	Sat,  4 Sep 2021 14:36:25 +0000 (UTC)
-Received: from mail-qk1-x730.google.com (mail-qk1-x730.google.com
- [IPv6:2607:f8b0:4864:20::730])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3406C6E528
- for <amd-gfx@lists.freedesktop.org>; Sat,  4 Sep 2021 14:36:24 +0000 (UTC)
-Received: by mail-qk1-x730.google.com with SMTP id t4so2114823qkb.9
- for <amd-gfx@lists.freedesktop.org>; Sat, 04 Sep 2021 07:36:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fireburn-co-uk.20150623.gappssmtp.com; s=20150623;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=8BNGZbPw6Eow0Wr1m7Fq0CjI68AECtOaluScpJY3Zqg=;
- b=Awkd/5EnZ5WTf+HXhoXaMbVCleom/zuWq25CtFBSictVLymO3ZMgAPgKE5oAT1Usca
- VUwGr4UqQAJzmra5QWnKCBjErwzlfmVTdguU8VtDJ29+9uqQmmtSGT559WlGW3ljlrnj
- CipcSO8nXAiUpScuEPMqtiO3u2WOgEvwjV5vOIDctt4sXrAciocDNX+rQZHefHk+Mfod
- oAYZe7LBtz7nITP/0cmUd8R5ftWn9QYrh9lp8PVgwlKFNhoTMwAOT9anV2BAgqcfgv/Y
- sYyQ/q93WT5u5AKAIejtlBG2Psz15LZk7QLYskQHxyYavtowjZJhR9nzmzJFQgF3dN/N
- 7gRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=8BNGZbPw6Eow0Wr1m7Fq0CjI68AECtOaluScpJY3Zqg=;
- b=nBu5po62cWwMqY5Xs1tfIROroKgprUB9nqUxlWCOiuobdQc/cH/sbR5HNst2x1mdft
- HvyRP54WySqL0Ah4NJPZtn/U+TJ+iBsaJg4quzZ0tcpKBUWYwjrlKe6F1pFJ1uEo6+1b
- KhU2qQkhCkbn/WXSLzscL3oHw9H5HDMUNTzCdQ/e6eHyLoILooIBw61xJq69KaWnZNW2
- 2PVwdOuPY01FceaXYkl8IrnsDsACeejDyVMaBWvyqjCmmphT5J2ZddpkKBR46/hSkXpm
- 7TJ4P0+dKLkDOzoG7qYfkvqGZpqWXpgijaXjn8RtYbaOujAfJ9JvpyfHaGSi49WDBLP8
- u2mg==
-X-Gm-Message-State: AOAM532c+4qcMHI6/vuumuZkyufafAzz203vKFsrwTQDitGLvRcOtBEm
- vP7EKYUnINP7R9Xs/8+mpZFlBu8uFgVvUYRPtvYrbQ==
-X-Google-Smtp-Source: ABdhPJz9tW9zJgpiKT9MhTSHMtyAnH0+Jfv0tKqysa/sElt4EpFvNDlWROTjO1toyp48ffFyMYS0Q5tbxg+SIfwgiTM=
-X-Received: by 2002:a37:c09:: with SMTP id 9mr3543056qkm.73.1630766182799;
- Sat, 04 Sep 2021 07:36:22 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAA5289C9B;
+	Sun,  5 Sep 2021 08:03:46 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2042.outbound.protection.outlook.com [40.107.93.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CF6D89C9B
+ for <amd-gfx@lists.freedesktop.org>; Sun,  5 Sep 2021 08:03:46 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Ki+KGx87VXoduVl9UzGQgJc2DKm5FtjPO99LR0jQ9dXaVdZJ5ds4y0CCzXiBrwUtfS0/zE2DIn4euR511hC04VsXANZHyC8oZnUnN7IBKAkzkQkdK43AraMvMrGGb01dxr4d+q6arUSNyEhWsx+UyhHeCKOfdNklhPR+Z+6OZeMBYT9hfxEEpUJjoXHKx04fFb2ROtkVEt7LUmvvj3Wy0BXsmsKguQy2JjMCWmyvwjxCsaYmhD1B6/9xkVM5rBfXIyRlZp+1VM4LFK15OoZPCe04Rb9qaC3zmRhv0sw17rjAO2ELzk+VfvTsM7Bzyp2dMGrPnfSq8CtoQGFGYGTE7w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
+ bh=t49xpI+SP0IjmPmkZHy7kiMmP0wgUkp8WWV+8IphuNU=;
+ b=ToOVzWL3qOK7cgp+P+oiaNpatXQdHgp1MzRGnE4H1x8XrVtQdsQkXrFqF6S36pJYKPWdss41+sUsi0QF5zUKVjlfCRljJdVLHXQRlNvMLmNm80G1YFLmYlGAXe90ZeYPYD1lz1N9L3wSnC9tF9fIDL8TUbHpUZdOIsHUh6/0KGD1SB7wskIpGzSvU5RH3dHA3Ryt4U9YWFX1Lffarj89AW95QQmPOSB8tB60M1zC5a4uHRGd73dew8gR4MczMutjziYtq9EpzHPmUdcw1ENA0dToHLVXV/DXWaaO4+koOBQPcGQeAJcgqGotJiX3zXHC4eWZrHMWn8KuDNKF3kCG5w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=t49xpI+SP0IjmPmkZHy7kiMmP0wgUkp8WWV+8IphuNU=;
+ b=ZJWo4TeekiDb2p3vUmjZ6dA3FC9I9RUoFyC++LNhi7BYZsRGkITqAvOaTzwcVXwgZnLWNFWlx2gm5TgxE09rkOoXrQMNzVoyGp2PmiUyISqN1Jaa1h8y/Ku15rrKnQCgC70B+t2VEkB2zbJmOuvb7TShMknmhwYH2FwvogVDpHI=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB5040.namprd12.prod.outlook.com (2603:10b6:5:38b::19)
+ by DM6PR12MB5551.namprd12.prod.outlook.com (2603:10b6:5:1bc::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.21; Sun, 5 Sep
+ 2021 08:03:44 +0000
+Received: from DM4PR12MB5040.namprd12.prod.outlook.com
+ ([fe80::9c06:d113:293:f09b]) by DM4PR12MB5040.namprd12.prod.outlook.com
+ ([fe80::9c06:d113:293:f09b%8]) with mapi id 15.20.4478.025; Sun, 5 Sep 2021
+ 08:03:44 +0000
+Subject: Re: [PATCH 2/2] drm/amdgpu: cleanup debugfs for amdgpu rings
+To: "Das, Nirmoy" <nirmoy.das@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Christian.Koenig@amd.com
+References: <20210902114459.3866-1-nirmoy.das@amd.com>
+ <20210902114459.3866-2-nirmoy.das@amd.com>
+ <e3a13fd6-f3f3-7980-14d6-b93948053535@amd.com>
+ <29a155c4-085a-442c-08f7-50ea56f831d6@amd.com>
+ <ba709b1d-5eeb-e748-811f-fbea728ab0b9@amd.com>
+ <82d8e743-1b0f-daa9-3bda-fc791dd1795e@amd.com>
+ <7370b0d3-a179-1138-bbc7-728dcd131498@amd.com>
+From: "Sharma, Shashank" <shashank.sharma@amd.com>
+Message-ID: <1b7ec90e-752a-3111-c226-25ec1d3c385f@amd.com>
+Date: Sun, 5 Sep 2021 13:33:34 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
+In-Reply-To: <7370b0d3-a179-1138-bbc7-728dcd131498@amd.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MAXPR0101CA0058.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a00:e::20) To DM4PR12MB5040.namprd12.prod.outlook.com
+ (2603:10b6:5:38b::19)
 MIME-Version: 1.0
-References: <20210813063502.3106309-1-Wayne.Lin@amd.com>
- <20210813063502.3106309-4-Wayne.Lin@amd.com>
-In-Reply-To: <20210813063502.3106309-4-Wayne.Lin@amd.com>
-From: Mike Lothian <mike@fireburn.co.uk>
-Date: Sat, 4 Sep 2021 15:36:11 +0100
-Message-ID: <CAHbf0-GfTL7k64io_2ORFYfT717MX2WJqs7DHY7ODwWDcx-6LA@mail.gmail.com>
-Subject: Re: [PATCH 3/7] drm/amd/display: Use vblank control events for PSR
- enable/disable
-To: Wayne Lin <Wayne.Lin@amd.com>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Harry Wentland <Harry.Wentland@amd.com>, 
- Sunpeng.Li@amd.com, Bhawanpreet.Lakha@amd.com, Rodrigo.Siqueira@amd.com, 
- Aurabindo.Pillai@amd.com, Qingqing.Zhuo@amd.com, bindu.r@amd.com, 
- Anson.Jacob@amd.com, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, 
- Roman Li <Roman.Li@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Received: from [192.168.68.104] (106.51.20.251) by
+ MAXPR0101CA0058.INDPRD01.PROD.OUTLOOK.COM (2603:1096:a00:e::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.19 via Frontend
+ Transport; Sun, 5 Sep 2021 08:03:43 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 2e61bf37-f91f-49e0-001e-08d97043ae82
+X-MS-TrafficTypeDiagnostic: DM6PR12MB5551:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR12MB5551288E7C96FB26FA7B4532F2D19@DM6PR12MB5551.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Rp9sx2wnnajKEMhxrEu7qzYmmSTHSEhxYYlfI8OovhVoRdvD6NiGgA+nxRSs0Exr0kjBWGce1QzcBd/F83d4fCwEI9xtYLz52ghc6f4GE5RoEE3jrIWHxCIJIzdn1RAfedLTdhK9Mopntt4x0vi5lfHQHKGSxp/lMSF0JK4kRuIPBAZP0TioJ1Aj5jxwZ6QvqRpu4wgGLVfLPRdWm+Rj94Zc+NBffvMQ7ZRl59VR5fNV3Zjt0OxBLXgbAY8N7TpiCaert3zdRU1RjSEZKZYNx9C6GlGu6YSlzugUOMFKHOEn3ADvSCajyAt6yXjdEYb4qy7tg5vKjAuYQGYLBkJUeo465y6V8K0okqfvnD9p7OOK7l6zpXaDKMVywBuTfuRUZhJoKsRLjsA8q9RX3NUvF8dHq6DO5fAN+KHgm9sTJje0EgjOXIku9R58IckDmkYVEKC1CoYTU9V6k4Wd6jojlbeRJ/Y9i0T9AZJlwIW8lMnL4ku2yyg7V73sVyWOa9Dw6AyA0VRknp/OH+NqBf9tmeii04MpTLLQL01unxb7OQc1hLWgGfKoPhCJ7hd+z+9Xzg/KsrX6CtIeBDfU4fmHzsQ+Csjq9wszWdSBBp2dKwJtGAw6SEP7RSaS3fydDywgFtvJQC1PyD5gBi2pTW5EATcMWk53V1aOpLyaxeeJ23TQ8zvG9EXf95Qs/E9Ja9NMO0IOWGcNRwOPqwplgtyHW66AQAdVIDB62QszTiafkwcyaU6QskgWQ2rEttyZtt5f
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5040.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(136003)(366004)(39860400002)(346002)(376002)(6486002)(53546011)(55236004)(2906002)(2616005)(956004)(38100700002)(36756003)(186003)(1006002)(8676002)(316002)(16576012)(4326008)(6666004)(5660300002)(26005)(31696002)(8936002)(478600001)(86362001)(66946007)(83380400001)(66556008)(66476007)(31686004)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UkFsWHRIK3BSUXhDc3htRkpVZllpVjVXa0haLy9LeWladjh4NEVHaVF4SzBC?=
+ =?utf-8?B?WkxjN05wUjVmZzRNTitDVm9XbDhBbHVoYlBHR0lvbmlPK1owZDFCOEtvNVZm?=
+ =?utf-8?B?aUJtYm5SaXVMUXFKUDY5Z3hKKzVsWHdJRHlkdHJLNnNiN0FueVZ2MzJuYWdX?=
+ =?utf-8?B?ZGNqMUNpVGpaKy9HN1RSK1RsbXJUTkJFeEVJOVlrY3hXdHdNVnlYaU4xSEE3?=
+ =?utf-8?B?MHRKRmtLcHR5U2pBY1lWR2JjR0JjTTM2NWNYUURUc3JYUEFqbGI2UHlUN1JN?=
+ =?utf-8?B?WVZmdFdPV1QvRnB5WjRhMnc1ai83MVNDcEU2VmdHak5uMjVoKzlxeE11UmNl?=
+ =?utf-8?B?K0RjMU91aUdZNkY1aDdVUnhIb3dVQlp0WEhYaTAzSmFJOWlVcFlDLzVTaHFV?=
+ =?utf-8?B?aStNOTI3UCtuakJMMFlrRTJJRWc0Z3c2Z09kKzRmNUVTWG9jWVhNS093cWl4?=
+ =?utf-8?B?MTdBWkNXTVZYNnVPeVVla3BKNFVOanlFL2MzMWMvdHZIcnhuanZZMnBDTjN3?=
+ =?utf-8?B?R0cvTWJ2bDlUTVVrRVRvZGhDSkpGTVBONTZOby9JLzdUUFQzMFcwMzk2U0Er?=
+ =?utf-8?B?YU9EYmtjNG0vdGtGMzJRT0NPS0pzZUphVU5zaVByZFFMTU1scmNIR0xta3Ft?=
+ =?utf-8?B?cjUwNzBValZ1elBJbWpldy90a2NySEZkZ1NIeFBMWGRUcW9sVWg4MXkrYy95?=
+ =?utf-8?B?QVdkN3M3b2pVVUlwL0IzdnlqVUM5YVdqMU1zWHBpT1pPc0QzUE9RTnNyYWdT?=
+ =?utf-8?B?SGkyU3VOYkQ0eG1XSmR5ZHgzNW9LcUp1enB3ekFZQXdLRzFobVdRTWhFRDhF?=
+ =?utf-8?B?NnF6bnZYUzRhcWFtR1hjbDVzMUR6Q0hQcTE1SzFOTU9FclQyRzZ5VDRMbFR4?=
+ =?utf-8?B?ZjJVcjRnQ0JPRlM3RVJURmdUS2pZMjNObjRuRjhPd1kwZHlvd0VFUzl2WEUx?=
+ =?utf-8?B?WE5yWVRrcFNKNUxHT3hTeW5UVm0yMzB6SjlVTjVHYTNEKzZ3SG9qazdmMlBU?=
+ =?utf-8?B?a0QwVnI1M1ZBT24zZ1lXYUNocVMyL0YvVUVxcC83TjB4dHZDOGFHZ3lqNVlI?=
+ =?utf-8?B?UWhLekl2cXJhMDF1akxlQkJFYThqRTVPbllJTEZUcVdPbmt3d0YwVUdjamJn?=
+ =?utf-8?B?Y3JzaTZHSFlCYzZPVDFhOWxoRUw0WW1zOUhqZHJlWHFTa1pGbkFyMVRHenFn?=
+ =?utf-8?B?YS9kQlN6NUdHaDQ0SzExYjJ5S2VmbEd5K2hZTXR1YkJKZSsvQ1Q0QkdZb0ls?=
+ =?utf-8?B?OVhGUkYwKzd6S0c2L05CUlVKTjBETUJCaG9NRXN1bjZwMnZ6ZkJZeGdueXpu?=
+ =?utf-8?B?MWFaSDJnTDIzVGg5QXl2RWMvWWhVaTh5aHhDWWdYSEU4NGJVOEsrV2RNeVlr?=
+ =?utf-8?B?clJvQWVIRlhLa0p5d3BJKzNxc3hkOTJDaTVlempXbnhWbUZVcTdvNGYvamIw?=
+ =?utf-8?B?ZmRPcGxqOE85SzJ6bkVtVUkyTHhUYkhuVFJFdkhVQlRPc20xckZreGFvai9S?=
+ =?utf-8?B?YS93WW5ZTSswb01vSVE3ekJnQUtOeUkvcXpXTlFVQjBQMnJ5bzVXaWFrL3ZW?=
+ =?utf-8?B?QWxBb1dEV3YyNndDRE52VTZFQTByOEJSYjRLRVZZUk40WjhaZDJVZkNMODRQ?=
+ =?utf-8?B?aHRMaktjYzkyZmRrcVM1cjExOWNobXR4SmVONHAyUUppTjB2NGt5SXFiM1lD?=
+ =?utf-8?B?ZjluNGgwMUdNMFdjUi9ibVBxT3VGMVdVdG9nS1haWnF0d0lZZEJmSGloMHRK?=
+ =?utf-8?Q?NN2MMUgOVC5DbF4S25fBZE+5gS1p/YhR7sfczUK?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2e61bf37-f91f-49e0-001e-08d97043ae82
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5040.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2021 08:03:44.4173 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Ns6LkFz/lHNI79hQtIC/cM/uPqwpsLBK1upjMPG7Gsu84wvaUq99UFWs5tsRTkLKJZclMyPjxWdhtEd3NZUFow==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB5551
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,186 +147,163 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi
-
-This patch is causing issues on my PRIME system
-
-I've opened https://gitlab.freedesktop.org/drm/amd/-/issues/1700 to track
-
-Cheers
-
-Mike
 
 
-On Fri, 13 Aug 2021 at 07:35, Wayne Lin <Wayne.Lin@amd.com> wrote:
->
-> From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
->
-> [Why]
-> PSR can disable the HUBP along with the OTG when PSR is active.
->
-> We'll hit a pageflip timeout when the OTG is disable because we're no
-> longer updating the CRTC vblank counter and the pflip high IRQ will
-> not fire on the flip.
->
-> In order to flip the page flip timeout occur we should modify the
-> enter/exit conditions to match DRM requirements.
->
-> [How]
-> Use our deferred handlers for DRM vblank control to notify DMCU(B)
-> when it can enable or disable PSR based on whether vblank is disabled or
-> enabled respectively.
->
-> We'll need to pass along the stream with the notification now because
-> we want to access the CRTC state while the CRTC is locked to get the
-> stream state prior to the commit.
->
-> Retain a reference to the stream so it remains safe to continue to
-> access and release that reference once we're done with it.
->
-> Enable/disable logic follows what we were previously doing in
-> update_planes.
->
-> The workqueue has to be flushed before programming streams or planes
-> to ensure that we exit out of idle optimizations and PSR before
-> these events occur if necessary.
->
-> To keep the skip count logic the same to avoid FBCON PSR enablement
-> requires copying the allow condition onto the DM IRQ parameters - a
-> field that we can actually access from the worker.
->
-> Reviewed-by: Roman Li <Roman.Li@amd.com>
-> Acked-by: Wayne Lin <wayne.lin@amd.com>
-> Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-> ---
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 48 +++++++++++++++----
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  2 +
->  .../display/amdgpu_dm/amdgpu_dm_irq_params.h  |  1 +
->  3 files changed, 43 insertions(+), 8 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index f88b6c5b83cd..cebd663b6708 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -1061,7 +1061,22 @@ static void vblank_control_worker(struct work_struct *work)
->
->         DRM_DEBUG_KMS("Allow idle optimizations (MALL): %d\n", dm->active_vblank_irq_count == 0);
->
-> +       /* Control PSR based on vblank requirements from OS */
-> +       if (vblank_work->stream && vblank_work->stream->link) {
-> +               if (vblank_work->enable) {
-> +                       if (vblank_work->stream->link->psr_settings.psr_allow_active)
-> +                               amdgpu_dm_psr_disable(vblank_work->stream);
-> +               } else if (vblank_work->stream->link->psr_settings.psr_feature_enabled &&
-> +                          !vblank_work->stream->link->psr_settings.psr_allow_active &&
-> +                          vblank_work->acrtc->dm_irq_params.allow_psr_entry) {
-> +                       amdgpu_dm_psr_enable(vblank_work->stream);
-> +               }
-> +       }
-> +
->         mutex_unlock(&dm->dc_lock);
-> +
-> +       dc_stream_release(vblank_work->stream);
-> +
->         kfree(vblank_work);
->  }
->
-> @@ -6018,6 +6033,11 @@ static inline int dm_set_vblank(struct drm_crtc *crtc, bool enable)
->         work->acrtc = acrtc;
->         work->enable = enable;
->
-> +       if (acrtc_state->stream) {
-> +               dc_stream_retain(acrtc_state->stream);
-> +               work->stream = acrtc_state->stream;
-> +       }
-> +
->         queue_work(dm->vblank_control_workqueue, &work->work);
->  #endif
->
-> @@ -8623,6 +8643,12 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
->         /* Update the planes if changed or disable if we don't have any. */
->         if ((planes_count || acrtc_state->active_planes == 0) &&
->                 acrtc_state->stream) {
-> +               /*
-> +                * If PSR or idle optimizations are enabled then flush out
-> +                * any pending work before hardware programming.
-> +                */
-> +               flush_workqueue(dm->vblank_control_workqueue);
-> +
->                 bundle->stream_update.stream = acrtc_state->stream;
->                 if (new_pcrtc_state->mode_changed) {
->                         bundle->stream_update.src = acrtc_state->stream->src;
-> @@ -8691,16 +8717,20 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
->                                 acrtc_state->stream->link->psr_settings.psr_version != DC_PSR_VERSION_UNSUPPORTED &&
->                                 !acrtc_state->stream->link->psr_settings.psr_feature_enabled)
->                         amdgpu_dm_link_setup_psr(acrtc_state->stream);
-> -               else if ((acrtc_state->update_type == UPDATE_TYPE_FAST) &&
-> -                               acrtc_state->stream->link->psr_settings.psr_feature_enabled &&
-> -                               !acrtc_state->stream->link->psr_settings.psr_allow_active) {
-> -                       struct amdgpu_dm_connector *aconn = (struct amdgpu_dm_connector *)
-> -                                       acrtc_state->stream->dm_stream_context;
-> +
-> +               /* Decrement skip count when PSR is enabled and we're doing fast updates. */
-> +               if (acrtc_state->update_type == UPDATE_TYPE_FAST &&
-> +                   acrtc_state->stream->link->psr_settings.psr_feature_enabled) {
-> +                       struct amdgpu_dm_connector *aconn =
-> +                               (struct amdgpu_dm_connector *)acrtc_state->stream->dm_stream_context;
->
->                         if (aconn->psr_skip_count > 0)
->                                 aconn->psr_skip_count--;
-> -                       else
-> -                               amdgpu_dm_psr_enable(acrtc_state->stream);
-> +
-> +                       /* Allow PSR when skip count is 0. */
-> +                       acrtc_attach->dm_irq_params.allow_psr_entry = !aconn->psr_skip_count;
-> +               } else {
-> +                       acrtc_attach->dm_irq_params.allow_psr_entry = false;
->                 }
->
->                 mutex_unlock(&dm->dc_lock);
-> @@ -8949,8 +8979,10 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
->
->         if (dc_state) {
->                 /* if there mode set or reset, disable eDP PSR */
-> -               if (mode_set_reset_required)
-> +               if (mode_set_reset_required) {
-> +                       flush_workqueue(dm->vblank_control_workqueue);
->                         amdgpu_dm_psr_disable_all(dm);
-> +               }
->
->                 dm_enable_per_frame_crtc_master_sync(dc_state);
->                 mutex_lock(&dm->dc_lock);
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> index c6b8b835b08a..d1d353a7c77d 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> @@ -91,12 +91,14 @@ struct dm_compressor_info {
->   * @work: Kernel work data for the work event
->   * @dm: amdgpu display manager device
->   * @acrtc: amdgpu CRTC instance for which the event has occurred
-> + * @stream: DC stream for which the event has occurred
->   * @enable: true if enabling vblank
->   */
->  struct vblank_control_work {
->         struct work_struct work;
->         struct amdgpu_display_manager *dm;
->         struct amdgpu_crtc *acrtc;
-> +       struct dc_stream_state *stream;
->         bool enable;
->  };
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq_params.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq_params.h
-> index f3b93ba69a27..79b5f9999fec 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq_params.h
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq_params.h
-> @@ -33,6 +33,7 @@ struct dm_irq_params {
->         struct mod_vrr_params vrr_params;
->         struct dc_stream_state *stream;
->         int active_planes;
-> +       bool allow_psr_entry;
->         struct mod_freesync_config freesync_config;
->
->  #ifdef CONFIG_DEBUG_FS
-> --
-> 2.25.1
->
+On 9/3/2021 9:44 PM, Das, Nirmoy wrote:
+> Hi Shashank,
+> 
+> On 9/3/2021 5:51 PM, Das, Nirmoy wrote:
+>>
+>> On 9/3/2021 5:26 PM, Sharma, Shashank wrote:
+>>>
+>>>
+>>> On 9/3/2021 1:39 PM, Das, Nirmoy wrote:
+>>>>
+>>>> On 9/3/2021 8:36 AM, Sharma, Shashank wrote:
+>>>>>
+>>>>>
+>>>>> On 9/2/2021 5:14 PM, Nirmoy Das wrote:
+>>>>>> Use debugfs_create_file_size API for creating ring debugfs
+>>>>>> file, also cleanup surrounding code.
+>>>>>>
+>>>>>> Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
+>>>>>> ---
+>>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |  4 +---
+>>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c    | 16 +++++-----------
+>>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h    |  8 +-------
+>>>>>>   3 files changed, 7 insertions(+), 21 deletions(-)
+>>>>>>
+>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c 
+>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+>>>>>> index 077f9baf74fe..dee56ab19a8f 100644
+>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+>>>>>> @@ -1734,9 +1734,7 @@ int amdgpu_debugfs_init(struct amdgpu_device 
+>>>>>> *adev)
+>>>>>>           if (!ring)
+>>>>>>               continue;
+>>>>>>   -        if (amdgpu_debugfs_ring_init(adev, ring)) {
+>>>>>> -            DRM_ERROR("Failed to register debugfs file for rings 
+>>>>>> !\n");
+>>>>>> -        }
+>>>>>> +        amdgpu_debugfs_ring_init(adev, ring);
+>>>>>>       }
+>>>>>>         amdgpu_ras_debugfs_create_all(adev);
+>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c 
+>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+>>>>>> index f40753e1a60d..968521d80514 100644
+>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+>>>>>> @@ -415,26 +415,20 @@ static const struct file_operations 
+>>>>>> amdgpu_debugfs_ring_fops = {
+>>>>>>     #endif
+>>>>>>   -int amdgpu_debugfs_ring_init(struct amdgpu_device *adev,
+>>>>>> +void amdgpu_debugfs_ring_init(struct amdgpu_device *adev,
+>>>>>>                    struct amdgpu_ring *ring)
+>>>>>>   {
+>>>>>>   #if defined(CONFIG_DEBUG_FS)
+>>>>>>       struct drm_minor *minor = adev_to_drm(adev)->primary;
+>>>>>> -    struct dentry *ent, *root = minor->debugfs_root;
+>>>>>> +    struct dentry *root = minor->debugfs_root;
+>>>>>>       char name[32];
+>>>>>>         sprintf(name, "amdgpu_ring_%s", ring->name);
+>>>>>>   -    ent = debugfs_create_file(name,
+>>>>>> -                  S_IFREG | S_IRUGO, root,
+>>>>>> -                  ring, &amdgpu_debugfs_ring_fops);
+>>>>>> -    if (IS_ERR(ent))
+>>>>>> -        return -ENOMEM;
+>>>>>
+>>>>> Why are we doing this ? Why to make it void from int ?
+>>>>
+>>>>
+>>>> We tend to ignore debugfs return values as those are not serious 
+>>>> errors. This to sync with rest of our
+>>>>
+>>>> debugfs calls.
+>>>>
+>>>>
+>>>> Regards,
+>>>>
+>>>> Nirmoy
+>>>>
+>>>
+>>>
+>>> I am not suere if completely removing the provision of return value 
+>>> is a good way of doing it, we can always ignore it at the caller 
+>>> side, isn't it ?
+> 
+> 
+> 
+> I just realized while making the change debugfs_create_file_size() is 
+> void return, so we don't have anything useful to return in 
+> amdgpu_debugfs_ring_init()
+> 
+> 
+
+Ah, it makes better sense now. Probably just a mention in the body of 
+the message that we are moving from debugfs_create_file() to 
+debugfs_create_file_size(), will make this change of return type more 
+logical.
+
+- Shashank
+
+> Regards,
+> 
+> Nirmoy
+> 
+> 
+>>
+>>
+>> Yes, we are currently throwing an error msg and ignoring it. I don't 
+>> have a strong opinion regarding this, I will send a v2 restoring 
+>> previous behavior.
+>>
+>>
+>> Thanks,
+>>
+>> Nirmoy
+>>
+>>
+>>>
+>>> - Shashank
+>>>
+>>>>>
+>>>>> - Shashank
+>>>>>
+>>>>>
+>>>>>> -
+>>>>>> -    i_size_write(ent->d_inode, ring->ring_size + 12);
+>>>>>> -    ring->ent = ent;
+>>>>>> +    debugfs_create_file_size(name, S_IFREG | S_IRUGO, root, ring,
+>>>>>> +                 &amdgpu_debugfs_ring_fops,
+>>>>>> +                 ring->ring_size + 12);
+>>>>>>   #endif
+>>>>>> -    return 0;
+>>>>>>   }
+>>>>>>     /**
+>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h 
+>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+>>>>>> index 88d80eb3fea1..c29fbce0a5b4 100644
+>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+>>>>>> @@ -253,10 +253,6 @@ struct amdgpu_ring {
+>>>>>>       bool            has_compute_vm_bug;
+>>>>>>       bool            no_scheduler;
+>>>>>>       int            hw_prio;
+>>>>>> -
+>>>>>> -#if defined(CONFIG_DEBUG_FS)
+>>>>>> -    struct dentry *ent;
+>>>>>> -#endif
+>>>>>>   };
+>>>>>>     #define amdgpu_ring_parse_cs(r, p, ib) 
+>>>>>> ((r)->funcs->parse_cs((p), (ib)))
+>>>>>> @@ -356,8 +352,6 @@ static inline void 
+>>>>>> amdgpu_ring_write_multiple(struct amdgpu_ring *ring,
+>>>>>>     int amdgpu_ring_test_helper(struct amdgpu_ring *ring);
+>>>>>>   -int amdgpu_debugfs_ring_init(struct amdgpu_device *adev,
+>>>>>> +void amdgpu_debugfs_ring_init(struct amdgpu_device *adev,
+>>>>>>                    struct amdgpu_ring *ring);
+>>>>>> -void amdgpu_debugfs_ring_fini(struct amdgpu_ring *ring);
+>>>>>> -
+>>>>>>   #endif
+>>>>>>
