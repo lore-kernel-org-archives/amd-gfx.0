@@ -2,76 +2,87 @@ Return-Path: <SRS0=CFUU=N4=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
 	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9FCB2C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Sep 2021 18:25:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9963BC433EF
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Sep 2021 21:20:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 60FF86103B
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Sep 2021 18:25:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 60FF86103B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 497BA60C51
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Sep 2021 21:20:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 497BA60C51
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 961418996F;
-	Mon,  6 Sep 2021 18:25:14 +0000 (UTC)
-Received: from mail-vs1-xe2f.google.com (mail-vs1-xe2f.google.com
- [IPv6:2607:f8b0:4864:20::e2f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F2758996F;
- Mon,  6 Sep 2021 18:25:13 +0000 (UTC)
-Received: by mail-vs1-xe2f.google.com with SMTP id f6so6261548vsr.3;
- Mon, 06 Sep 2021 11:25:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=i6BKrN7X5suyNsmFH5r3sUKXBVHf29sG6WVeH2BVyjM=;
- b=clAkQy9mohMLPnVHW5cIgwm5UEQQ5nDlPiwgp0cwJEYS0ycJTwv/DWUsRr0B8bbniX
- 5/nkndYJJQt+jFffYyrtHZE10RuffIy6IiG+DYcDqlWqy8v1aJQBv/22QpJfJH5sAPEp
- lFzSMj0ku9aH22fxeXosDlemQyfBnrg21y/mGp51LbpdTK2SbNrLJNY55iFB8CjdVghV
- cCQba6HKcoqGwISK6MvywQ7Ew8wNqzUPIVUUw2uSew4EA9ZcK7Tn69EDc0rfdmfmLWbZ
- QQBHqFLn51nzUM6pTyUzm7OOUvLdQYde41jakHoVKOSwyJNU9iVB7OSZZDf1tmA+23aw
- oPsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=i6BKrN7X5suyNsmFH5r3sUKXBVHf29sG6WVeH2BVyjM=;
- b=lfRY+X+5SJm+hwkjvTX0zzChbvnLp2sa1/bPxKSaXSwwSeQh84Q8mbngp8WUvYRYQ8
- esVJN3YgOEi7FG9EIvivh444EAaWlTOXHQ/nwHVcmeBHGbt9PW6NhHESOrU1lyZf95Fo
- GVnqUvEetVdxfvJgRJXSqdyAoFMNBRECN2atA4oob904FwmgSmdntem+85FeoqB6dxJI
- lZIz07BSFbv6Nf/o4NUNNK+dPFpiu5feEE03LoqH4ZXPYxLOn8rA+NzgkcLMYNo7IQfm
- qUfLMYLL/4Cwq2ZRqbPP+9zt2pHHMyC5QOMpoc49dsE6K0pgH4ppgZvVPT2thE+rwg/t
- YFBw==
-X-Gm-Message-State: AOAM530DwrL5jDugw80BlzVzxsNXh9SJrKMTq/RxXQxy4aea68BE3GMs
- 8S5V/kzJNx1aDiUstqv15Kl/8J8NsMoc8v1yuRw=
-X-Google-Smtp-Source: ABdhPJyg4VWsnkepgpvWdmz4JefgU8pNg5h7OlRD3wfkop9WYoZH2bRCi5vo8Qu00MZRxt35BDmA2bUFrpbKx4ektFA=
-X-Received: by 2002:a05:6102:188:: with SMTP id
- r8mr6850374vsq.11.1630952712249; 
- Mon, 06 Sep 2021 11:25:12 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90CD389812;
+	Mon,  6 Sep 2021 21:20:45 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C402C89807;
+ Mon,  6 Sep 2021 21:20:43 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10099"; a="281054839"
+X-IronPort-AV: E=Sophos;i="5.85,273,1624345200"; d="scan'208";a="281054839"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Sep 2021 14:20:42 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.85,273,1624345200"; d="scan'208";a="647832129"
+Received: from fmsmsx602.amr.corp.intel.com ([10.18.126.82])
+ by orsmga005.jf.intel.com with ESMTP; 06 Sep 2021 14:20:42 -0700
+Received: from bgsmsx602.gar.corp.intel.com (10.109.78.81) by
+ fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.12; Mon, 6 Sep 2021 14:20:41 -0700
+Received: from bgsmsx604.gar.corp.intel.com (10.67.234.6) by
+ BGSMSX602.gar.corp.intel.com (10.109.78.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.10; Tue, 7 Sep 2021 02:50:39 +0530
+Received: from bgsmsx604.gar.corp.intel.com ([10.67.234.6]) by
+ BGSMSX604.gar.corp.intel.com ([10.67.234.6]) with mapi id 15.01.2242.010;
+ Tue, 7 Sep 2021 02:50:39 +0530
+From: "Shankar, Uma" <uma.shankar@intel.com>
+To: "sebastian@sebastianwick.net" <sebastian@sebastianwick.net>, "Harry
+ Wentland" <harry.wentland@amd.com>
+CC: Brian Starkey <brian.starkey@arm.com>, "Sharma, Shashank"
+ <shashank.sharma@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "ppaalanen@gmail.com"
+ <ppaalanen@gmail.com>, "mcasas@google.com" <mcasas@google.com>,
+ "jshargo@google.com" <jshargo@google.com>, "Deepak.Sharma@amd.com"
+ <Deepak.Sharma@amd.com>, "Shirish.S@amd.com" <Shirish.S@amd.com>,
+ "Vitaly.Prosyak@amd.com" <Vitaly.Prosyak@amd.com>, "aric.cyr@amd.com"
+ <aric.cyr@amd.com>, "Bhawanpreet.Lakha@amd.com" <Bhawanpreet.Lakha@amd.com>,
+ "Krunoslav.Kovac@amd.com" <Krunoslav.Kovac@amd.com>, "hersenxs.wu@amd.com"
+ <hersenxs.wu@amd.com>, "Nicholas.Kazlauskas@amd.com"
+ <Nicholas.Kazlauskas@amd.com>, "laurentiu.palcu@oss.nxp.com"
+ <laurentiu.palcu@oss.nxp.com>, "ville.syrjala@linux.intel.com"
+ <ville.syrjala@linux.intel.com>, "nd@arm.com" <nd@arm.com>
+Subject: RE: [RFC PATCH v3 1/6] drm/doc: Color Management and HDR10 RFC
+Thread-Topic: [RFC PATCH v3 1/6] drm/doc: Color Management and HDR10 RFC
+Thread-Index: AQHXhYNZCXW3xFqNFEOJOFQfEVYYUqtgED4AgBCMEwCABRsZgIAAGRMAgAAP+ICAIdoXoA==
+Date: Mon, 6 Sep 2021 21:20:38 +0000
+Message-ID: <caa90157957445828ecfe2f609f3bfcf@intel.com>
+References: <20210730204134.21769-1-harry.wentland@amd.com>
+ <20210730204134.21769-2-harry.wentland@amd.com>
+ <20210802163042.2phdkytybie236x4@000377403353>
+ <4e13504d-20ec-ae9c-7cb0-f79376d0f98b@amd.com>
+ <20210816111029.74cisnhblllindcv@000377403353>
+ <ace8dcf8-fe01-ad1e-8cfb-92e559f01d2f@amd.com>
+ <a2fc2bd00af431a4f6e3842c6db072a2@sebastianwick.net>
+In-Reply-To: <a2fc2bd00af431a4f6e3842c6db072a2@sebastianwick.net>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-product: dlpe-windows
+dlp-reaction: no-action
+dlp-version: 11.5.1.3
+x-originating-ip: [10.223.10.1]
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-References: <20210831202133.2165222-1-jim.cromie@gmail.com>
- <20210831202133.2165222-6-jim.cromie@gmail.com>
- <b3c4b3aa-b873-a2aa-c1ad-5fed80038c6e@linux.intel.com>
- <CAJfuBxw-i-7YUenvBGHA0unBQ8BqmOGRF3nRYNwNPLVaxWpSvQ@mail.gmail.com>
- <1aabb5c0-eef9-a483-2631-25726c9dc268@linux.intel.com>
-In-Reply-To: <1aabb5c0-eef9-a483-2631-25726c9dc268@linux.intel.com>
-From: jim.cromie@gmail.com
-Date: Mon, 6 Sep 2021 12:24:46 -0600
-Message-ID: <CAJfuBxxQ-dNWHv1VGu7Hh705wZbxmsStDa_-cc=63fDtNZiyjg@mail.gmail.com>
-Subject: Re: [Intel-gfx] [PATCH v7 5/8] drm_print: add choice to use dynamic
- debug in drm-debug
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Cc: Jason Baron <jbaron@akamai.com>, Greg KH <gregkh@linuxfoundation.org>, 
- LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, 
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- intel-gvt-dev@lists.freedesktop.org, 
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,31 +97,189 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-> I'll try to extract the "executive summary" from this, you tell me if I
-> got it right.
->
-> So using or not using dynamic debug for DRM debug ends up being about
-> shifting the cost between kernel binary size (data section grows by each
-> pr_debug call site) and runtime conditionals?
-
-Yes.
-
-> Since the table sizes you mention seem significant enough, I think that
-> justifies existence of DRM_USE_DYNAMIC_DEBUG. It would probably be a
-> good idea to put some commentary on that there. Ideally including some
-> rough estimates both including space cost per call site and space cost
-> for a typical distro kernel build?
-
-yeah, agreed.  I presume you mean in Kconfig entry,
-since commits have some size info now - I have i915, amdgpu, nouveau;
-I can see some prose improvements for 5/8
 
 
+> -----Original Message-----
+> From: sebastian@sebastianwick.net <sebastian@sebastianwick.net>
+> Sent: Monday, August 16, 2021 7:07 PM
+> To: Harry Wentland <harry.wentland@amd.com>
+> Cc: Brian Starkey <brian.starkey@arm.com>; Sharma, Shashank
+> <shashank.sharma@amd.com>; amd-gfx@lists.freedesktop.org; dri-
+> devel@lists.freedesktop.org; ppaalanen@gmail.com; mcasas@google.com;
+> jshargo@google.com; Deepak.Sharma@amd.com; Shirish.S@amd.com;
+> Vitaly.Prosyak@amd.com; aric.cyr@amd.com; Bhawanpreet.Lakha@amd.com;
+> Krunoslav.Kovac@amd.com; hersenxs.wu@amd.com;
+> Nicholas.Kazlauskas@amd.com; laurentiu.palcu@oss.nxp.com;
+> ville.syrjala@linux.intel.com; nd@arm.com; Shankar, Uma
+> <uma.shankar@intel.com>
+> Subject: Re: [RFC PATCH v3 1/6] drm/doc: Color Management and HDR10 RFC
+>=20
+> On 2021-08-16 14:40, Harry Wentland wrote:
+> > On 2021-08-16 7:10 a.m., Brian Starkey wrote:
+> >> On Fri, Aug 13, 2021 at 10:42:12AM +0530, Sharma, Shashank wrote:
+> >>> Hello Brian,
+> >>> (+Uma in cc)
+> >>>
 
+Thanks Shashank for cc'ing me. Apologies for being late here. Now seems
+all stakeholders are back so we can resume the UAPI discussion on color.
 
-> Regards,
->
-> Tvrtko
+> >>> Thanks for your comments, Let me try to fill-in for Harry to keep
+> >>> the design discussion going. Please find my comments inline.
+> >>>
+> >
+> > Thanks, Shashank. I'm back at work now. Had to cut my trip short due
+> > to rising Covid cases and concern for my kids.
+> >
+> >>> On 8/2/2021 10:00 PM, Brian Starkey wrote:
+> >>>>
+> >>
+> >> -- snip --
+> >>
+> >>>>
+> >>>> Android doesn't blend in linear space, so any API shouldn't be
+> >>>> built around an assumption of linear blending.
+> >>>>
+> >
+> > This seems incorrect but I guess ultimately the OS is in control of
+> > this. If we want to allow blending in non-linear space with the new
+> > API we would either need to describe the blending space or the
+> > pre/post-blending gamma/de-gamma.
+> >
+> > Any idea if this blending behavior in Android might get changed in the
+> > future?
+>=20
+> There is lots of software which blends in sRGB space and designers adjust=
+ed to the
+> incorrect blending in a way that the result looks right.
+> Blending in linear space would result in incorrectly looking images.
+>=20
 
-thanks
-Jim
+I feel we should just leave it to userspace to decide rather than forcing l=
+inear or non
+Linear blending in driver.
+
+> >>>
+> >>> If I am not wrong, we still need linear buffers for accurate Gamut
+> >>> transformation (SRGB -> BT2020 or other way around) isn't it ?
+> >>
+> >> Yeah, you need to transform the buffer to linear for color gamut
+> >> conversions, but then back to non-linear (probably sRGB or gamma 2.2)
+> >> for actual blending.
+> >>
+> >> This is why I'd like to have the per-plane "OETF/GAMMA" separate from
+> >> tone-mapping, so that the composition transfer function is
+> >> independent.
+> >>
+> >>>
+> >>
+> >> ...
+> >>
+> >>>>> +
+> >>>>> +Tonemapping in this case could be a simple nits value or `EDR`_
+> >>>>> +to
+> >>>>> describe
+> >>>>> +how to scale the :ref:`SDR luminance`.
+> >>>>> +
+> >>>>> +Tonemapping could also include the ability to use a 3D LUT which
+> >>>>> might be
+> >>>>> +accompanied by a 1D shaper LUT. The shaper LUT is required in
+> >>>>> order to
+> >>>>> +ensure a 3D LUT with limited entries (e.g. 9x9x9, or 17x17x17)
+> >>>>> operates
+> >>>>> +in perceptual (non-linear) space, so as to evenly spread the
+> >>>>> limited
+> >>>>> +entries evenly across the perceived space.
+> >>>>
+> >>>> Some terminology care may be needed here - up until this point, I
+> >>>> think you've been talking about "tonemapping" being luminance
+> >>>> adjustment, whereas I'd expect 3D LUTs to be used for gamut
+> >>>> adjustment.
+> >>>>
+> >>>
+> >>> IMO, what harry wants to say here is that, which HW block gets
+> >>> picked and how tone mapping is achieved can be a very driver/HW
+> >>> specific thing, where one driver can use a 1D/Fixed function block,
+> >>> whereas another one can choose more complex HW like a 3D LUT for the
+> >>> same.
+> >>>
+> >>> DRM layer needs to define only the property to hook the API with
+> >>> core driver, and the driver can decide which HW to pick and
+> >>> configure for the activity. So when we have a tonemapping property,
+> >>> we might not have a separate 3D-LUT property, or the driver may fail
+> >>> the atomic_check() if both of them are programmed for different
+> >>> usages.
+> >>
+> >> I still think that directly exposing the HW blocks and their
+> >> capabilities is the right approach, rather than a "magic" tonemapping
+> >> property.
+> >>
+> >> Yes, userspace would need to have a good understanding of how to use
+> >> that hardware, but if the pipeline model is standardised that's the
+> >> kind of thing a cross-vendor library could handle.
+> >>
+> >
+> > One problem with cross-vendor libraries is that they might struggle to
+> > really be cross-vendor when it comes to unique HW behavior. Or they
+> > might pick sub-optimal configurations as they're not aware of the
+> > power impact of a configuration. What's an optimal configuration might
+> > differ greatly between different HW.
+> >
+> > We're seeing this problem with "universal" planes as well.
+>=20
+> I'm repeating what has been said before but apparently it has to be said
+> again: if a property can't be replicated exactly in a shader the property=
+ is useless. If
+> your hardware is so unique that it can't give us the exact formula we exp=
+ect you
+> cannot expose the property.
+>=20
+> Maybe my view on power consumption is simplistic but I would expect enum =
+< 1d lut
+> < 3d lut < shader. Is there more to it?
+>=20
+> Either way if the fixed KMS pixel pipeline is not sufficient to expose th=
+e intricacies of
+> real hardware the right move would be to make the KMS pixel pipeline more
+> dynamic, expose more hardware specifics and create a hardware specific us=
+er space
+> like mesa. Moving the whole compositing with all its policies and decisio=
+n making
+> into the kernel is exactly the wrong way to go.
+>=20
+
+I agree here, we can give flexibility to userspace to decide how it wants t=
+o use the hardware
+blocks. So exposing the hardware capability to userspace and then servicing=
+ on its behalf would be
+the right way to go for driver I believe. Any compositor or userspace can d=
+efine its own policy and
+drive the hardware.
+
+We already have done that with crtc level color properties. We can do the s=
+ame for plane color. HDR
+will be just be an extension that way.
+
+> Laurent Pinchart put this very well:
+> https://lists.freedesktop.org/archives/dri-devel/2021-June/311689.html
+>=20
+> >> It would definitely be good to get some compositor opinions here.
+> >>
+> >
+> > For this we'll probably have to wait for Pekka's input when he's back
+> > from his vacation.
+> >
+Yeah, Pekka's input would be really useful here.
+
+We can work together Harry to come up with unified UAPI's which caters to g=
+eneral purpose color hardware
+pipeline. Just floated a RFC series with a UAPI proposal, link below:
+https://patchwork.freedesktop.org/series/90826/
+
+Please check and share your feedback.
+
+Regards,
+Uma Shankar
+> >> Cheers,
+> >> -Brian
+> >>
