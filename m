@@ -2,129 +2,139 @@ Return-Path: <SRS0=CFUU=N4=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A404BC433F5
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Sep 2021 02:55:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AD674C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Sep 2021 06:37:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4EF3360F5E
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Sep 2021 02:55:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4EF3360F5E
+	by mail.kernel.org (Postfix) with ESMTPS id 6866E6056B
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Sep 2021 06:37:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6866E6056B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6F9589AAD;
-	Mon,  6 Sep 2021 02:55:37 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2060.outbound.protection.outlook.com [40.107.93.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8965A89AAD;
- Mon,  6 Sep 2021 02:55:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4621A897E9;
+	Mon,  6 Sep 2021 06:36:57 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2074.outbound.protection.outlook.com [40.107.220.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFE83897E3;
+ Mon,  6 Sep 2021 06:36:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Uiuvr8uQy91uvDoISPKYbQwdJ3/fXnmiDLpNqsjBJOcje7nrHkUpj4QLzNhMG+A99dDeUs8m8QUOOt591psogosAQZclAlRZYnh3ld7N1h8z4+1IknikfyFr4Wb+4UdiCSdI6vgXBLE3TMqlFZbMKxolBcBimc/Oym1N8+tE1vpAmwCDThoaprsI+Li8TrXRkG9B6wFSzqDerXB8zivWuDpAiEXzEanJyHkxIUJWJofb/BFetInb9ia6S3yfUCSbNKmMKx5z40IGoV4YKykNF1m2LR5CbMvniZCjr2WCXTDv70Y7avfc5+F8w6B6eRMVe/gD4AB5bObVwLnyIRZ7Qg==
+ b=J5E26iWrUSrYZs4Dp+2f16dHo6tO8DChvRSBnXunCLndSOkpTs2U6zlccsD6HjfyFdKUovobJXxu3+gtSsdSyhrJ7C4gZguaYk8a8yutBujwyZ9McxuybH9zgyTB0vrp2E/4W2QhzUxSmDMeN+3wd+YMcZ0yX6B3Q4RY3hTYkqZRE05Ec3ihSV40KugMmFMkS1hAqM40QguQHoxGnrPAc/+sLFYCyyaHfjFqq+IkfwcAD4YZJRB33TOGt9fgvW/WonV+YVMVOgVblwpcXRRgxiDs3D4oHcyLTYjQ2zmXMrxFl/xXkPeELXoChY43ZdywpmtxbO6k5FlTnWjzdFbP6Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=XxU2QPXxVGchcNWMb3gUEL3CkFZkN1wprRHxhztEhXY=;
- b=FMDvFX3fveUWnxXIEyUVhl3zlW62CyirOs3Ex26+R41EZbdIGpvlWnQi0L+dotcyjlEyTQIioP215JcdHaNgiyIjvPyLDf4Pr9dl8W3HH1HZduTZuTCAmJYFCDV7pmSjNv/jNorea2nrgxCJl1SAUSn1u1a4yAAJaeAKdT06vnU2EbWscLcwip32vigXb94veCiQNFCT7srPAXnuP+8W2NTfJaYqpPrVNnju+AYe0Z3m5IpSBeUkrVnFSR7G8cuSNUBD/bQgTV7GH37JGFTEaRgHwBblVqFphmQZbsYMFRSHKTVlx/1c+WNkuL0iNa5OmFsBDdmatNuBrO4II5h7qQ==
+ bh=xYEZpD1VBho6H29aNQbp0vi2orQo2vp6QWOIYmeSZ/I=;
+ b=U4kajlglSnFE1Kxl5OzuF28JL7cE7l1wd1OS4gw5Ix7HV5PPKbFEMZTrUHZY+b8J7KqkWhfph38p8pZ3noyJLSV4XFTdMVo2+DVzajEdUVEPoDgoRmHZ5umlFCQ35y8G9OSXYXVdYv/f9m8DAXKTGu6gBmeJJXaBmUPitr1ow46yk2gkm3etzigt2crxmyTNu7AVBarq0OwgwumuEiwYJUG++woLJbB9DgK53cH+QjQ29Y/3SWVw3QfmqV9W89XRgyzZ28ES5rSVkSABEIjFaupfMXHtPBVozLvdqHhjamFTm60bM1xZyDko7S7jTpwkdmT0wEQzRrV8kF7t5E3zIQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XxU2QPXxVGchcNWMb3gUEL3CkFZkN1wprRHxhztEhXY=;
- b=5Dji2cKbLn9j3czROB0r4qibeKI0VI8fSAIPTtHnPdsb5ZLeR2cilMLFL6GRF+hSt/kePN+nqRzWJYKlMq/M6/zjuzgTRr7gEw69ufM7GTGlbC93MoHsVUgqayZt4dI3V1CwN5Wv89jdP1D7lr4ry0RTjuV9XpXzBB/LbJxQozU=
-Received: from CO6PR12MB5473.namprd12.prod.outlook.com (2603:10b6:303:13e::8)
- by CO6PR12MB5393.namprd12.prod.outlook.com (2603:10b6:5:356::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.20; Mon, 6 Sep
- 2021 02:55:34 +0000
-Received: from CO6PR12MB5473.namprd12.prod.outlook.com
- ([fe80::b87e:9edf:b7fc:68a6]) by CO6PR12MB5473.namprd12.prod.outlook.com
- ([fe80::b87e:9edf:b7fc:68a6%8]) with mapi id 15.20.4478.025; Mon, 6 Sep 2021
- 02:55:34 +0000
-From: "Wang, Kevin(Yang)" <Kevin1.Wang@amd.com>
-To: "Pan, Xinhui" <Xinhui.Pan@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>
-CC: "Koenig, Christian" <Christian.Koenig@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "chenli@uniontech.com" <chenli@uniontech.com>
-Subject: Re: [PATCH v2 2/2] drm/amdpgu: Use VRAM domain in UVD IB test
-Thread-Topic: [PATCH v2 2/2] drm/amdpgu: Use VRAM domain in UVD IB test
-Thread-Index: AQHXorvQyBdrKYEtM0WaAd5AOAc+z6uWTyrQ
-Date: Mon, 6 Sep 2021 02:55:34 +0000
-Message-ID: <CO6PR12MB547336E26E78BE1A014410B1A2D29@CO6PR12MB5473.namprd12.prod.outlook.com>
-References: <DM4PR12MB516520B50E5C61FD3C23D9CC87D29@DM4PR12MB5165.namprd12.prod.outlook.com>
-In-Reply-To: <DM4PR12MB516520B50E5C61FD3C23D9CC87D29@DM4PR12MB5165.namprd12.prod.outlook.com>
+ bh=xYEZpD1VBho6H29aNQbp0vi2orQo2vp6QWOIYmeSZ/I=;
+ b=zWLat9mhO05yNVtoeF0yRh7HTHmOGRL2nUijHHwkZQ/uzEjPrUjoyQkl1e8/GUo+uodUsqzz0wTLfk6eZ1dvLKX4o68xoIhq0qcXgTmQzGNlerK6PlBrW28g6Hid8wBo29U7ADQFSCTVVu/JhNnnEkS8sUx1Tw2VtDDuXIZ7fMg=
+Received: from BL1PR12MB5269.namprd12.prod.outlook.com (2603:10b6:208:30b::20)
+ by BL1PR12MB5032.namprd12.prod.outlook.com (2603:10b6:208:30a::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.21; Mon, 6 Sep
+ 2021 06:36:52 +0000
+Received: from BL1PR12MB5269.namprd12.prod.outlook.com
+ ([fe80::acc6:c407:1353:6a]) by BL1PR12MB5269.namprd12.prod.outlook.com
+ ([fe80::acc6:c407:1353:6a%5]) with mapi id 15.20.4478.025; Mon, 6 Sep 2021
+ 06:36:52 +0000
+From: "Liu, Monk" <Monk.Liu@amd.com>
+To: Daniel Vetter <daniel@ffwll.ch>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>
+CC: Dave Airlie <airlied@gmail.com>, Alex Deucher <alexdeucher@gmail.com>,
+ "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>, "Chen, JingWen"
+ <JingWen.Chen2@amd.com>, DRI Development <dri-devel@lists.freedesktop.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [diagnostic TDR mode patches] unify our solution
+ opinions/suggestions in one thread
+Thread-Topic: [diagnostic TDR mode patches] unify our solution
+ opinions/suggestions in one thread
+Thread-Index: Adeezw8WIoeNdpdaSO6/zguUPH+5CgAOtiEAAAQJJ3AACrFwAAAHXqOAABa9MsAACx8cgAAK2xGAALS3lIA=
+Date: Mon, 6 Sep 2021 06:36:52 +0000
+Message-ID: <BL1PR12MB5269F59E4548AD2CF85EC78084D29@BL1PR12MB5269.namprd12.prod.outlook.com>
+References: <BL1PR12MB526942160701B46D4B28EEEC84CD9@BL1PR12MB5269.namprd12.prod.outlook.com>
+ <CAKMK7uHKX0rSVk_yBPo_KAEJ-UeLk5UxQ2kBdv+FD2j9zAjfZA@mail.gmail.com>
+ <BL1PR12MB5269B303372A6251EDD1DC2C84CD9@BL1PR12MB5269.namprd12.prod.outlook.com>
+ <CADnq5_PUvgt9Cv2L3G4GGBJv_WBhtOp8DN+3WMvoES_80UMKfQ@mail.gmail.com>
+ <CAPM=9tz-66nXR8gbMucsBo5Q1VJ5AsrVZh4pF0r0WfFi7CQtzg@mail.gmail.com>
+ <BL1PR12MB5269F6B279EDE278C8FDF90A84CE9@BL1PR12MB5269.namprd12.prod.outlook.com>
+ <a1f2cfdf-e1af-e265-3d96-b8f5c47a0b84@amd.com>
+ <CAKMK7uENdQRw+5a=A_C3V6BpzqhU1asL_Bnm34r5ZjPpqu=gfQ@mail.gmail.com>
+In-Reply-To: <CAKMK7uENdQRw+5a=A_C3V6BpzqhU1asL_Bnm34r5ZjPpqu=gfQ@mail.gmail.com>
 Accept-Language: en-US, zh-CN
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-09-06T06:36:50Z; 
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
+ Only-AIP 2.0;
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-09-06T02:55:32.963Z;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
- Official Use
- Only; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard; 
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=51911ac3-7cd3-4ca4-b0df-098088d211d0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
+authentication-results: ffwll.ch; dkim=none (message not signed)
+ header.d=none;ffwll.ch; dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: d95d58b4-1810-4018-82a5-08d970e1cc12
-x-ms-traffictypediagnostic: CO6PR12MB5393:
+x-ms-office365-filtering-correlation-id: ac3e9d9a-360f-4434-b6cb-08d97100b67e
+x-ms-traffictypediagnostic: BL1PR12MB5032:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <CO6PR12MB539312870140975807ADD03EA2D29@CO6PR12MB5393.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:92;
+x-microsoft-antispam-prvs: <BL1PR12MB50322976415055D49033301984D29@BL1PR12MB5032.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:7219;
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: XrO+IY7LMsgP5sddxnzKG64zfInLm12uYwuJW9vWgY44qxwmvSdDLWcXWYSUC4gX+Sgkk/FvUWtLf/XczLnIz7/6l5ULGIBZNbDsji4zXD/8Q3D6eXE6FaifA5cs9/YK26X2ieE07lEUSbYhJQPK06tCl/mc+Y/951eqSLdgofTe/xtgLIxWgisAQGFh54/C6RhRjt9EvKMRxviHxmkUdaM5HgDVngjddH6n7XOKoDWPJdCe6gCT4PxhSgvP+s6zWow7bREv4zxpr1lXMlyVR5fiyOxNllgF1IR2FTM21cv+fCXen+gpF51zGMgUKekJdXZz1mtycDpEAPMNFdeJR9po+weIDGROyYtoK0r66a4bIf6YI5RfdQJMIV5iLYxmUgbYc2D+Jv7rpcAWKQ5WdjBD2i23yzMXah6njorYaWf+pJwQHbCFnH/9H0LHLs2qEisTfQzWLcSc+b3pmfzxT4TJlmN14OfJfhBFn7v+pz4ojywLRWZQHPhqxeGreY3kbscvYbQqM2baHDXtDNTGKXewsDPJ4TITlfAHT0ZhtxR+5CHxvQgynbnLIkDlzTpBXM1oo9lX9CG6flr/on8VtEU/VGmEuNBKmXTthtLvK0gkzgfDu4FjWjtaqPlLKqD7sEHu+mKVNrxWTxz0mU2Q/d8B0MaKpjoHYvJIJguIfJq5sCQq614GhyHN/VuQ8BwMKOb7RSLBch7oh29lwFnRRg==
+x-microsoft-antispam-message-info: zFT3n/5j0ZiFaPHA09dTL8hexbv3HAtmX4vQw4VknoN0hMCjRPpOsoL39v6d/g3RyAvt63I4l9NpDGhq+zNGLogv595azihEgWTuXiFRdh0UTd7RlbO+JeGfWCL6RYmdsXKus09Txyo9K/KCTu+kW63VL+gw2zTgG5tgV2vDOJ9Tzc1uCKt5SeS1TRAzZWuZ7qMfbhgbo68jsGeUEu1zvZb8LgUS5GB94zpSKRt+hGejEhe8pPcCvegtbzt5Zi7LoPDL9+9qA7xrcB4QHYyabl0/ZbQMS/cZbaOfzKWIPD20LesigeT6GT5TmSQZQQ5xb4jMHTCPVNrBTbqCPiYU73o4s1UwJtwkqLPwnR1WdwSUcS3ioP4FggTcrACI7Q87SYeqjGW4WWRy60EyvWIbXNVjQB750iZ7ZzdWTa/CwoncTjnbTptLMHeCvBesqsZNojwcavOuVa/OzxAiIXrXbWrYMz/ho3Mw6p1CwsR9YANXcZdE8nlr6gcj6UshbnMYciOo6BoGEoC3nkOlpVwlteU85KhUS56OQr1aZspQRmB9egVnrJyO15f7zxe96h9fTQAU6zOUwvd1iL5Lg5uiwO7Nq6EulCiy750hJpcVvZgpEjpmceXetVUE4VqlagKoxA8AvXko7owtOr+iUdzyKUGZTeXqGox5+iR/M8q/bvaDRbvPooG0sSMjVa1crTCh+ZTgb6trBKktz6BYvHDr3bA3QuKI/ykjO/J9f7YiNb/iHbDuv3P/gDLBeLRXgCdu25yaoS/PGyFkN8Dmt34ENFeJEzMR54/dmY8XEHzGVxUBXwpsE81NG9WRvkNeJXNyLv/nCjdh3/j0JOMrYaR8UQ==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5473.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(4326008)(8676002)(55016002)(19627405001)(52536014)(33656002)(64756008)(8936002)(76116006)(91956017)(66446008)(66556008)(66476007)(66946007)(38100700002)(86362001)(110136005)(54906003)(71200400001)(508600001)(5660300002)(186003)(26005)(38070700005)(53546011)(6506007)(2906002)(7696005)(9686003)(122000001)(316002);
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5269.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(366004)(396003)(39860400002)(376002)(346002)(8676002)(66574015)(5660300002)(66446008)(316002)(9686003)(71200400001)(38070700005)(33656002)(26005)(186003)(83380400001)(6506007)(53546011)(7696005)(54906003)(110136005)(66946007)(6636002)(2906002)(76116006)(122000001)(66556008)(8936002)(55016002)(45080400002)(38100700002)(52536014)(478600001)(966005)(4326008)(64756008)(66476007)(86362001);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?Qv47Xu7SyXf1Pciu3EA3egIQjNjFVoVzFQ8WkswMfIGsc0XbMMafGG/npR?=
- =?iso-8859-1?Q?BZNriz4a+9upOOyMHnlic6dXXmANa/f9IfJuuYT3XaLXKlB3K5Sa10v6R8?=
- =?iso-8859-1?Q?zEaYyuwNpP9l6bfhl9c3lg/hTFUj2qqn5ppqFWW+afPGKUYoOBeTPv1o85?=
- =?iso-8859-1?Q?x6yO9+NB0C9p0zPrI63zqeK4mjGmU8uY2sherHf0Pa2qD9p8UT5IGB4ztL?=
- =?iso-8859-1?Q?Cw4PpxYBJVCg+Jv5jnD+C19QZc9c4+nJgj47IOZ3Jp0rlTOdn6xiCLV4S8?=
- =?iso-8859-1?Q?g5RiMzpYr6B8zXHlPKm1VTWc6+A3J7lz/Tij4siW9OzFEnhDlLFNuf9cKw?=
- =?iso-8859-1?Q?WXU7oVfSpLi+quPJU0NUNxMiB6kQjPmpmnTA3dQU71TtcML/H2K+0DLciZ?=
- =?iso-8859-1?Q?w3ksrVpwq/cAaIY5Vr3DyriNc80zyHZX6XnqLu20h2wAv7hXHR4T76feul?=
- =?iso-8859-1?Q?sr0NVPFKdXxPeGj2Q0cNo3InXSiDG1eeefJ9aqHSU4/0BTHQC1pAnDMpQN?=
- =?iso-8859-1?Q?5WVV2p0pZZdS5cnIcER7tGyjddTqyGwhdbna6CecqpecpTV4i7NL+e3MbT?=
- =?iso-8859-1?Q?pghCjWkHwJpQfGidSzMw0XXVXsfVH08/Hrz0+V1o1GOSXAlaZlXpqGE0rT?=
- =?iso-8859-1?Q?mudoq5H6EqE4zDC5XXod7SB6bJji2wYKDI2B4cf9i1niw2Ce5dXjpEznbF?=
- =?iso-8859-1?Q?1gBv4s49R6hqwQCZjNqe6cWq+CSgA5g2Ea4VommAJc/PttKpq3lkyLCYsU?=
- =?iso-8859-1?Q?RgAYvzdm/+O6bv0e1PerBTumbXqsYjcOkjtiqRHGk1pthSYyR9iCCSmyFc?=
- =?iso-8859-1?Q?hoLYRZTAS+/4Au5BzrCqv2Erqdr3kORJFOAqvyMK4u1lhWTaD12gIlLbgr?=
- =?iso-8859-1?Q?oXfioIi5vyTMW0QzAJcam2gvXDShB25lMKlJKP9kTGjzxTDcDAVF0cZO2C?=
- =?iso-8859-1?Q?Ex+oVga75qh8Vl39uI2kq4nahqcnT8ygtO+uD21tlmF+co+yPwrXgX6Xek?=
- =?iso-8859-1?Q?po62c7KE4LFPylWMlYkb0/phSEgcKzHVrUjVuVYqYzLJa5grB5xYTdDeMU?=
- =?iso-8859-1?Q?4v7N2U1hGR6PaE5fW8TtpH26IU+fS2u16vrYrR4YA+72eAm6xYxslyoV5n?=
- =?iso-8859-1?Q?51YN0yrvubceSpO7aE+7SkpP9/EptPZCKzCuXWPlVzzg4hXqLbHnyLCFko?=
- =?iso-8859-1?Q?X7ywCKDO+gUCa16CNYh3nBsY9/vHgSgxgWbCVaMeMK0PNdatCsW+JY9ArW?=
- =?iso-8859-1?Q?gfn3oVr1vJdD4gXFbPD9hvRn7huZGA4EQqzWzG6kv283LzMkqKh5KGREUx?=
- =?iso-8859-1?Q?UMmKurwAMVlsnqrFBFqK5jLq0zY1SRONPQ8wC+wI1gFKeIBd4V53coJY2E?=
- =?iso-8859-1?Q?9O+694n457?=
-Content-Type: multipart/alternative;
- boundary="_000_CO6PR12MB547336E26E78BE1A014410B1A2D29CO6PR12MB5473namp_"
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?FSJglNakn0b26E0CQdHcbbek6dFawPS6VlUQIIJXaaWLkAbPeKZEgbFIFP?=
+ =?iso-8859-1?Q?bOfPmPfhNsKfIhNT0k5FykrPmgq0wNNYIaUeqtn+Pa2rBMKNrL5Iawvf+S?=
+ =?iso-8859-1?Q?2aqqUYAWYm3xA5shhznubszkJ9KfjEMXOpikxb7nASizKHTuSgucs/BNMK?=
+ =?iso-8859-1?Q?mpK4zCZH+2yH7Jfw/6UQUeyM/SMH63yxK4nA06QfFZX2rrYBJ4VQv8tcDK?=
+ =?iso-8859-1?Q?VB0HKYW/z/yrjjiXSjfCe/JqyO+urz/Zwa8qeg2QU/sBzL/r//kqHzw+b/?=
+ =?iso-8859-1?Q?375/CObTNXa0y6WSbzf/vVfFV8UB8iZ39nWl4fHHw0EdmHHiu7pgih+VeT?=
+ =?iso-8859-1?Q?CDqYOd7EyN89pdy1QLbEGrozlOnh4tCX6JroI8/+PjpyMGvPJVtSB2gQeF?=
+ =?iso-8859-1?Q?vI4impekg/rgX7EMWkE3df9NCyrU+T6XTMBB7Ed7d9RoJj92cfPgWSrCQ6?=
+ =?iso-8859-1?Q?sMjiwL6RKvR8D6bBsoWovQt+sNuy7Dn2BiJBnKRK0HWWHEQjdFkeIELqsq?=
+ =?iso-8859-1?Q?BJ5Vr2VLHLIDao2+KEcbbiOvmHOpOYFQ4EByiH94q5ndf/ZAdBU25x5oHy?=
+ =?iso-8859-1?Q?gjBNDDzPJCARNqvdTfyWfRJdNaSysQE1Otn5/zzoojtXs9LaLgNNIsYGmf?=
+ =?iso-8859-1?Q?tSlLsbaxysc3VKk8bCEEukZRe5qgKGbjNKX8OS+vsRSkl8zjfNSlr1z03W?=
+ =?iso-8859-1?Q?nZvUnV3W1UE6pzi/h4EPXUtuL9PYJT3I9k1CIcj0ObAHX63Pf5NrLY+jm4?=
+ =?iso-8859-1?Q?xPoVVqLl+Hmj/SVVh2NH+lVWrIfxqVeypZqyywmoPJ5gRxvQY2zQH65rBQ?=
+ =?iso-8859-1?Q?u8vIdLoJIekV8/uV/JB2adLHmpSKHnRkleeEfgDBftRkbdcGlhYLNsPPPj?=
+ =?iso-8859-1?Q?gRzLRxsPoijKNDrN9feMXeiJmiy1J+dohcl8QfhEwB6arvcfZpk6kaFM+9?=
+ =?iso-8859-1?Q?b9y5zGFr24jXPvARqGIxzdwxo+b5Tg4YMdzoogdNALI7BGPlIqUeHt3Lwa?=
+ =?iso-8859-1?Q?39u+zD71JmlJqK8YqivtfZisOjnC7pPlMMlPM/NDdWGMRCREt9sB4cPwfF?=
+ =?iso-8859-1?Q?71kBbkY27Y0XmQ9mi1DMthdk0iOBhkiuaAtyqpa5WWmOd0qOv0wuF/d4sh?=
+ =?iso-8859-1?Q?JHCFSB2sWLr7HzSlsxAV4JR5ljjoYR3QkBBgziiILVFb2Mc3HdiTXZ97Xh?=
+ =?iso-8859-1?Q?8OufJZp0N1PM62OYArEX4KYR4NxNd4Mw733J1ZG8u5GhFw7ToCcxTAOpCC?=
+ =?iso-8859-1?Q?Jm0kmyr+Z/QGRSCYnDhvOmu8sqjsNFCcoqnIaAEUMiXkp8U0KKK0n+XLpg?=
+ =?iso-8859-1?Q?macuN/zjK2T67aDHI6EkFUCSbcLO+xu/jP3EpxJ82v8GlzcEn9OtG65ehb?=
+ =?iso-8859-1?Q?nU+5QapXs+?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5473.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d95d58b4-1810-4018-82a5-08d970e1cc12
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Sep 2021 02:55:34.1421 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5269.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ac3e9d9a-360f-4434-b6cb-08d97100b67e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Sep 2021 06:36:52.2733 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: I+pL9LDSD4RW3591MAb4Erhh9HqTf3mUTg3mC/rYAhvNF0+0hkS23n4Vwb2zl7/P
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5393
+X-MS-Exchange-CrossTenant-userprincipalname: F/zyOsJlizoEBONyCsvP4Z9JgXfgbkJG6yGmGvdTvkKhxzaCRPEGnAGyfzq23U0L
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5032
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,213 +149,223 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_CO6PR12MB547336E26E78BE1A014410B1A2D29CO6PR12MB5473namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
 [AMD Official Use Only]
 
-
-
-________________________________
-From: dri-devel <dri-devel-bounces@lists.freedesktop.org> on behalf of Pan,=
- Xinhui <Xinhui.Pan@amd.com>
-Sent: Monday, September 6, 2021 9:10 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; dri-deve=
-l@lists.freedesktop.org <dri-devel@lists.freedesktop.org>
-Cc: Koenig, Christian <Christian.Koenig@amd.com>; Deucher, Alexander <Alexa=
-nder.Deucher@amd.com>; chenli@uniontech.com <chenli@uniontech.com>
-Subject: [PATCH v2 2/2] drm/amdpgu: Use VRAM domain in UVD IB test
-
-[AMD Official Use Only]
-
-[AMD Official Use Only]
-
-Like vce/vcn does, visible VRAM is OK for ib test.
-While commit a11d9ff3ebe0 ("drm/amdgpu: use GTT for
-uvd_get_create/destory_msg") says VRAM is not mapped correctly in his
-platform which is likely an arm64.
-
-So lets change back to use VRAM on x86_64 platform.
-
-Signed-off-by: xinhui pan <xinhui.pan@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_uvd.c
-index d451c359606a..e4b75f33ccc8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-@@ -1178,7 +1178,11 @@ int amdgpu_uvd_get_create_msg(struct amdgpu_ring *ri=
-ng, uint32_t handle,
-        int r, i;
-
-        r =3D amdgpu_bo_create_reserved(adev, 1024, PAGE_SIZE,
-+#ifdef CONFIG_X86_64
-[kevin]:
-It's better to replace this with macro of CONFIG_64BIT to cover more cases,
-do you think it is ok ?
-
-Best Regards,
-Kevin
-
-+                                     AMDGPU_GEM_DOMAIN_VRAM,
-+#else
-                                      AMDGPU_GEM_DOMAIN_GTT,
-+#endif
-                                      &bo, NULL, (void **)&msg);
-        if (r)
-                return r;
-@@ -1210,7 +1214,11 @@ int amdgpu_uvd_get_destroy_msg(struct amdgpu_ring *r=
-ing, uint32_t handle,
-        int r, i;
-
-        r =3D amdgpu_bo_create_reserved(adev, 1024, PAGE_SIZE,
-+#ifdef CONFIG_X86_64
-+                                     AMDGPU_GEM_DOMAIN_VRAM,
-+#else
-                                      AMDGPU_GEM_DOMAIN_GTT,
-+#endif
-                                      &bo, NULL, (void **)&msg);
-        if (r)
-                return r;
---
-2.25.1
-
-
---_000_CO6PR12MB547336E26E78BE1A014410B1A2D29CO6PR12MB5473namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div id=3D"appendonsend"></div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
-lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> dri-devel &lt;dri-dev=
-el-bounces@lists.freedesktop.org&gt; on behalf of Pan, Xinhui &lt;Xinhui.Pa=
-n@amd.com&gt;<br>
-<b>Sent:</b> Monday, September 6, 2021 9:10 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;; dri-devel@lists.freedesktop.org &lt;dri-devel@lists.freedesktop.org&gt=
-;<br>
-<b>Cc:</b> Koenig, Christian &lt;Christian.Koenig@amd.com&gt;; Deucher, Ale=
-xander &lt;Alexander.Deucher@amd.com&gt;; chenli@uniontech.com &lt;chenli@u=
-niontech.com&gt;<br>
-<b>Subject:</b> [PATCH v2 2/2] drm/amdpgu: Use VRAM domain in UVD IB test</=
-font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
+> I'm fearing that just repeating what Alex said, but to make it clear=20
+> once more: That is *not* necessary!
 >
-<div class=3D"PlainText">[AMD Official Use Only]<br>
-<br>
-[AMD Official Use Only]<br>
-<br>
-Like vce/vcn does, visible VRAM is OK for ib test.<br>
-While commit a11d9ff3ebe0 (&quot;drm/amdgpu: use GTT for<br>
-uvd_get_create/destory_msg&quot;) says VRAM is not mapped correctly in his<=
-br>
-platform which is likely an arm64.<br>
-<br>
-So lets change back to use VRAM on x86_64 platform.<br>
-<br>
-Signed-off-by: xinhui pan &lt;xinhui.pan@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c | 8 ++++++++<br>
-&nbsp;1 file changed, 8 insertions(+)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_uvd.c<br>
-index d451c359606a..e4b75f33ccc8 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c<br>
-@@ -1178,7 +1178,11 @@ int amdgpu_uvd_get_create_msg(struct amdgpu_ring *ri=
-ng, uint32_t handle,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r, i;<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_create_reserved(=
-adev, 1024, PAGE_SIZE,<br>
-+#ifdef CONFIG_X86_64</div>
-<div class=3D"PlainText">[kevin]:</div>
-<div class=3D"PlainText">It's better to replace this with macro of <b>CONFI=
-G_64BIT</b> to cover more cases,</div>
-<div class=3D"PlainText">do you think it is ok ?</div>
-<div class=3D"PlainText"><br>
-</div>
-<div class=3D"PlainText">Best Regards,</div>
-<div class=3D"PlainText">Kevin</div>
-<div class=3D"PlainText"><br>
-<span></span>+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp; AMDGPU_GEM_DOMAIN_VRAM,<br>
-+#else<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AM=
-DGPU_GEM_DOMAIN_GTT,<br>
-+#endif<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &a=
-mp;bo, NULL, (void **)&amp;msg);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; return r;<br>
-@@ -1210,7 +1214,11 @@ int amdgpu_uvd_get_destroy_msg(struct amdgpu_ring *r=
-ing, uint32_t handle,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r, i;<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_create_reserved(=
-adev, 1024, PAGE_SIZE,<br>
-+#ifdef CONFIG_X86_64<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_=
-GEM_DOMAIN_VRAM,<br>
-+#else<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AM=
-DGPU_GEM_DOMAIN_GTT,<br>
-+#endif<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &a=
-mp;bo, NULL, (void **)&amp;msg);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; return r;<br>
---<br>
-2.25.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
+> The shared repository is owned by upstream maintainers and they are=20
+> usually free to do restructuring work without getting acknowledge from=20
+> every single driver maintainer.
 
---_000_CO6PR12MB547336E26E78BE1A014410B1A2D29CO6PR12MB5473namp_--
+Hi Daniel
+
+Anyway thanks for officially confirm to me of working model & policy in com=
+munity, I don't want to put my opinion here due to that's not my call to ch=
+ange no matter how.
+I only want to let this diagnostic TDR scheme going to a good end for AMD o=
+r even for all DRM vendor.
+
+How about this way, we still have a final patch not landed in DRM scheduler=
+ and I would like jingwen to present it to you and AlexD/Christian/Andrey, =
+ I believe you will have concerns or objections regarding this patch, but t=
+hat's fine, let us figure it out together, how to make it acceptable by you=
+ and other vendors that working with DRM scheduler.
+
+P.S.:  I had to repeat myself again, we are not popping up new idea suddenl=
+y, it is disconnection issue, we didn't have changes (or plan to have chang=
+es) in DRM scheduler before, but eventually we found we must make job_timeo=
+ut and sched_main to work in a serialized otherwise it won't work based on =
+current scheduler's code structure.
+
+Thanks=20
+
+------------------------------------------
+Monk Liu | Cloud-GPU Core team
+------------------------------------------
+
+-----Original Message-----
+From: Daniel Vetter <daniel@ffwll.ch>=20
+Sent: Friday, September 3, 2021 12:11 AM
+To: Koenig, Christian <Christian.Koenig@amd.com>
+Cc: Liu, Monk <Monk.Liu@amd.com>; Dave Airlie <airlied@gmail.com>; Alex Deu=
+cher <alexdeucher@gmail.com>; Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com=
+>; Chen, JingWen <JingWen.Chen2@amd.com>; DRI Development <dri-devel@lists.=
+freedesktop.org>; amd-gfx@lists.freedesktop.org
+Subject: Re: [diagnostic TDR mode patches] unify our solution opinions/sugg=
+estions in one thread
+
+On Thu, Sep 2, 2021 at 1:00 PM Christian K=F6nig <christian.koenig@amd.com>=
+ wrote:
+>
+> Hi Monk,
+>
+> Am 02.09.21 um 07:52 schrieb Liu, Monk:
+> > [AMD Official Use Only]
+> >
+> > I'm not sure I can add much to help this along, I'm sure Alex has=20
+> > some internal training, Once your driver is upstream, it belongs to ups=
+tream, you can maintain it, but you no longer control it 100%, it's a trade=
+off, it's not one companies always understand.
+> > Usually people are fine developing away internally, but once interactio=
+n with other parts of the kernel/subsystem is required they have the realis=
+ation that they needed to work upstream 6 months earlier.
+> > The best time to interact with upstream was 6 months ago, the second be=
+st time is now.
+> > <<<
+> >
+> > Daniel/AlexD
+> >
+> > I didn't mean your changes on AMD driver need my personal approval=20
+> > or review ... and  I'm totally already get used that our driver is not =
+100% under control by AMDers, but supposedly any one from community (includ=
+ing you) who tend to change AMD's driver need at least to get approvement f=
+rom someone in AMD, e.g.: AlexD or Christian, doesn't that reasonable?
+>
+> I'm fearing that just repeating what Alex said, but to make it clear=20
+> once more: That is *not* necessary!
+>
+> The shared repository is owned by upstream maintainers and they are=20
+> usually free to do restructuring work without getting acknowledge from=20
+> every single driver maintainer.
+>
+> Anybody can of course technically object to upstream design decisions,=20
+> but that means that you need to pay attention to the mailing lists in=20
+> the first place.
+>
+> > just like we need your approve if we try to modify DRM-sched, or need p=
+anfrost's approval if we need to change panfrost code ...
+> >
+> > by only CC AMD's engineers looks not quite properly, how do you know if=
+ your changes (on AMD code part) are conflicting with AMD's on-going intern=
+al features/refactoring or not ?
+>
+> Well because AMD is supposed to work in public as much as possible and=20
+> ask upstream before doing changes to the code base.
+>
+> Additional to that design decisions are supposed to be discussed on=20
+> the mailing list and *not* internally.
+
+Yeah I'm honestly really surprised about the course of this discussion here=
+. With Alex, Christian and others amd has a lot of folks with years/decades=
+ of experience in how to collaborate in upstream, when to pull in others pr=
+oactively and when that's not needed, and in general how to plan upstream w=
+ork with the lest amount of risk and surprises.
+
+I think step zero here needs to be some training at amd and then re-plannin=
+g this effort, before we get back to technical stuff.
+Otherwise we'll just get bogged down in pain because expectations about the=
+ process don't pan out.
+-Daniel
+
+>
+> Regards,
+> Christian.
+>
+> >
+> > Thanks
+> >
+> > ------------------------------------------
+> > Monk Liu | Cloud-GPU Core team
+> > ------------------------------------------
+> >
+> > -----Original Message-----
+> > From: Dave Airlie <airlied@gmail.com>
+> > Sent: Thursday, September 2, 2021 2:51 AM
+> > To: Alex Deucher <alexdeucher@gmail.com>
+> > Cc: Liu, Monk <Monk.Liu@amd.com>; Daniel Vetter <daniel@ffwll.ch>;=20
+> > Koenig, Christian <Christian.Koenig@amd.com>; Grodzovsky, Andrey=20
+> > <Andrey.Grodzovsky@amd.com>; Chen, JingWen <JingWen.Chen2@amd.com>;=20
+> > DRI Development <dri-devel@lists.freedesktop.org>;=20
+> > amd-gfx@lists.freedesktop.org
+> > Subject: Re: [diagnostic TDR mode patches] unify our solution=20
+> > opinions/suggestions in one thread
+> >
+> > On Thu, 2 Sept 2021 at 01:20, Alex Deucher <alexdeucher@gmail.com> wrot=
+e:
+> >> On Wed, Sep 1, 2021 at 6:19 AM Liu, Monk <Monk.Liu@amd.com> wrote:
+> >>> [AMD Official Use Only]
+> >>>
+> >>> Daniel
+> >>>
+> >>>  From the link you share it looks you(or someone else) have quite a b=
+unch patches that changes DRM_SCHED or even amdgpu, by that case before the=
+y are merged to kernel tree I'm wondering if any AMD develop reviewed them =
+?
+> >>>
+> >>> They looks to me somehow conflicting with what we changed in our repo=
+....
+> >>>
+> >>> It is really a chaos for AMDer if someone else out side of AMD change=
+s our kernel driver (or/and scheduler) without reviewed by AMDer, just like=
+ we are requiring your review if we tend to change scheduler's logic here .=
+...
+> >>>
+> >>> This one changes AMD's code:
+> >>> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2F
+> >>> lo=20
+> >>> re.kernel.org%2Fdri-devel%2F20210625133327.2598825-2-boris.brezill
+> >>> on
+> >>> %40collabora.com%2F&amp;data=3D04%7C01%7CMonk.Liu%40amd.com%7C6c507d
+> >>> 18=20
+> >>> d65341ef53bb08d96d7976e6%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C
+> >>> 0%=20
+> >>> 7C637661190727875969%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiL
+> >>> CJ=20
+> >>> QIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=3DBWJSk
+> >>> KN
+> >>> y2%2BwjxbQrfxGPzuJ5PBpBwB4aV0ZH6QoJGEg%3D&amp;reserved=3D0
+> >>> And I didn't see any reviewed-by from AMDers ...
+> >>>
+> >>> This one also touches AMD's code:
+> >>> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2F
+> >>> lo
+> >>> re.kernel.org%2Fdri-devel%2F20200604081224.863494-12-daniel.vetter
+> >>> %4=20
+> >>> 0ffwll.ch%2F&amp;data=3D04%7C01%7CMonk.Liu%40amd.com%7C6c507d18d6534
+> >>> 1e
+> >>> f53bb08d96d7976e6%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637
+> >>> 66
+> >>> 1190727885929%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoi
+> >>> V2=20
+> >>> luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=3D%2F8vIVXCWjH
+> >>> kM
+> >>> 56pcYI9EvuzhbsZhV9WczkKaBJE67KQ%3D&amp;reserved=3D0
+> >>> Which is conflicting with one patch we submitted (in our repo=20
+> >>> rightnow), and neither see AMDder gave a review-by on this one=20
+> >>> (let me know if I missed it)
+> >>>
+> >> Monk, this is not how upstream works.  You need to participate.
+> >> That's how communities work.  There's a reason all these=20
+> >> discussions happen on public mailing lists.  The patch author can't=20
+> >> be expected to know every person on every vendor team to CC with a=20
+> >> patch.  If you have concerns, you need to raise them when the=20
+> >> patches are being discussed.
+> >>
+> > I'm not sure I can add much to help this along, I'm sure Alex has=20
+> > some internal training,
+> >
+> > Once your driver is upstream, it belongs to upstream, you can maintain =
+it, but you no longer control it 100%, it's a tradeoff, it's not one compan=
+ies always understand.
+> >
+> > Usually people are fine developing away internally, but once interactio=
+n with other parts of the kernel/subsystem is required they have the realis=
+ation that they needed to work upstream 6 months earlier.
+> >
+> > The best time to interact with upstream was 6 months ago, the second be=
+st time is now.
+> >
+> > Dave.
+>
+
+
+--
+Daniel Vetter
+Software Engineer, Intel Corporation
+https://nam11.safelinks.protection.outlook.com/?url=3Dhttp%3A%2F%2Fblog.ffw=
+ll.ch%2F&amp;data=3D04%7C01%7CMonk.Liu%40amd.com%7C1de8110d43194346d9b908d9=
+6e2c5459%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637661958966011423%7C=
+Unknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiL=
+CJXVCI6Mn0%3D%7C1000&amp;sdata=3D%2BvtBN1lBJnUoeSyj6aXTDRNHVQDQP8kPRdSUrhR1=
+MVk%3D&amp;reserved=3D0
