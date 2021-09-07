@@ -2,136 +2,71 @@ Return-Path: <SRS0=wMah=N5=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,
-	NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-7.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9537DC433F5
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Sep 2021 17:22:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8951AC433F5
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Sep 2021 17:23:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 54C8A610E8
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Sep 2021 17:22:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 54C8A610E8
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 4A76B610E8
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Sep 2021 17:23:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4A76B610E8
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E70DB6E0A2;
-	Tue,  7 Sep 2021 17:22:23 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2065.outbound.protection.outlook.com [40.107.244.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C1DA6E0A2
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Sep 2021 17:22:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=O4sgCIZ+iUOg5yBqTiC8MFxtukolsKqHW+6bF3LAvSzstkag6re4R1bKudkkWS6MHtgezoYSejy1ISrxbquNiiGjgfRU8sMqulgeyktfdVuFh/KwkOJpflAhAdTpkNHIpv6H+hXJIfyqv83hM3s5FgDwHgVgD4KsJ3LfASq9hxkYYv1UTIB4zDXsMj6qjFi/TvIFIu4BMR8DeOkFDcGL+T0oQyg+zse2jZf9+XSgeAdBpri1MBnANGEDqFfe3p9LeQsT9TKpW82CQ+Coib1cO1l3cPGnU1C+TPq3q/5IiS4YoC4FVnw4OSAAtWXU54UklPd3sreU9QH2uuH3z8kCYw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=SnUY1aeU3yP/VS5X3BuYuS+w1xieNnTbbnEmF2UNaao=;
- b=HNOzeIQqjIISd1y2yiZB1kFIe4uVG/MAEK0f/ozPOsctQWasul3xAz675eICq2B1YbgH0e7WkIZpRZmkql7pqjyAqtiBSquAf/2ul78i5Q2apidsk4xyQ1hhmSw3UtvdGLdfr/Qo+/tH+oF2DvQyXuUn63NbXSF/9mzQH4HxLjyceo4Yze4ErG2uRyb6hPdo/Jd/R46IsjuMowNyzxPEXEOs3hehFbqWjVRwkgX5u7ASodXHDBnMZnd5WhFbJZpOc3JaGQPVoQsub3ZTLHCUZIf01SgkPoOvCjGwt1hAklsSKonn2PXAHzhbG1dPGvgUQMz2xhSxx+Wz1Iz+XpUsOA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SnUY1aeU3yP/VS5X3BuYuS+w1xieNnTbbnEmF2UNaao=;
- b=HwMFHJPF9LSyWtk8+uCa/cMNIPannRLFS1LzkiBBMNljdZiSB4gcOyDpGp4u5wZaNANwWCx7B1BDPZHBuhSyaczCmDikEyOvK3GHnxpE6i0WdPOOchi7qGGUUSNbAHZJh0GjB6d61ASBS7Q8/wQs0Qet0Sn/TUx+7BPfJu1jbzE=
-Authentication-Results: gmail.com; dkim=none (message not signed)
- header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
-Received: from DM5PR12MB2517.namprd12.prod.outlook.com (2603:10b6:4:bb::13) by
- DM6PR12MB4729.namprd12.prod.outlook.com (2603:10b6:5:7f::17) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4500.14; Tue, 7 Sep 2021 17:22:18 +0000
-Received: from DM5PR12MB2517.namprd12.prod.outlook.com
- ([fe80::e1d2:cc87:74b9:397d]) by DM5PR12MB2517.namprd12.prod.outlook.com
- ([fe80::e1d2:cc87:74b9:397d%7]) with mapi id 15.20.4478.025; Tue, 7 Sep 2021
- 17:22:18 +0000
-Subject: Re: [PATCH 3/3] drm/amdgpu: move iommu_resume before ip init/resume
-To: Felix Kuehling <felix.kuehling@amd.com>, James Zhu <James.Zhu@amd.com>,
- amd-gfx@lists.freedesktop.org
-Cc: kolAflash@kolahilft.de, me@jeromec.com, alexdeucher@gmail.com,
- ted437@gmail.com
-References: <1631030843-18270-1-git-send-email-James.Zhu@amd.com>
- <1631030843-18270-3-git-send-email-James.Zhu@amd.com>
- <03c5e276-c478-c33c-9f75-e03a56ef16a6@amd.com>
-From: James Zhu <jamesz@amd.com>
-Organization: AMD RTG
-Message-ID: <adfed1a3-4e1d-8ead-bbf4-4c4448c0f7fe@amd.com>
-Date: Tue, 7 Sep 2021 13:22:15 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-In-Reply-To: <03c5e276-c478-c33c-9f75-e03a56ef16a6@amd.com>
-Content-Type: multipart/alternative;
- boundary="------------659BAF423314CB7C41B765CF"
-Content-Language: en-US
-X-ClientProxiedBy: YTOPR0101CA0016.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:15::29) To DM5PR12MB2517.namprd12.prod.outlook.com
- (2603:10b6:4:bb::13)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7E7E6E0A5;
+	Tue,  7 Sep 2021 17:23:10 +0000 (UTC)
+Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
+ [IPv6:2607:f8b0:4864:20::335])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E34416E0A5;
+ Tue,  7 Sep 2021 17:23:09 +0000 (UTC)
+Received: by mail-ot1-x335.google.com with SMTP id
+ 107-20020a9d0bf4000000b0051b8be1192fso13681983oth.7; 
+ Tue, 07 Sep 2021 10:23:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=EL1xk41RjYepbun1cWxFS0jtUDWVpmZ3TzLLYdIA3IE=;
+ b=cy8GAEhH431lxu4vtRIseoh6OT+rTlzy4AR5BIgtYE+TlPhEh9hgdPB5FtNyJ2lfku
+ iVRnaIbYCssrGrWhWH1TH2XfLTRUuVKlobfQYtn3jUM8yg808PbKDcSJvznyKjGTuQEm
+ nr5l7ukZeo4DG7nTVw4Jhkdg4K4iuQmvNdT1URzQQc9GZPGEfpbxeb4ocUUMtovKTfMa
+ 8DT03wAvwNxNCAegJQtfTvNhYyZti88bAVq2SpJsc89yBeeaM7oIXzjFESIlJC33p4yL
+ 5fktdttVuscNnGOj4Gxugex3/TeD+wmzkM7EIEseMBv8UY2xWu8x30wANzwLUSNbIjca
+ EVUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=EL1xk41RjYepbun1cWxFS0jtUDWVpmZ3TzLLYdIA3IE=;
+ b=EBV8jYNxXWQJOUtekdJVIAgUsSaZDWjRsPbCdy4fm8Fas2LyN6RPdGf6SvU7o09dSs
+ U4Ysc6PyhcF+3Mxbf42IExXntmMOokTnxdpD17TMwRSuI2nLvtk1eHLENPrqhevX7lNb
+ M6ZE6bNOrdWDM0uwVBLlCHA5scowYqjJejDi+rJM7jFMV379t9hfM7gNpzVqmMxu3DNv
+ NEpUilq52J2379Q2ZEOo22hps2og1qKNB/9stwyzbdPdJxFpqLy1QnJA9FmN94lDovMF
+ 4FKFOJ8v+zqr6fuWsIGXHYg56nytvfyh5iBTiMv4PVqs4ZVvBh5Bh/V/mPsfDGkrVhX+
+ y5lQ==
+X-Gm-Message-State: AOAM533Tdm9M3Sgf3EpcXAF/0r4vXRBSmQgWwW/KM6RC8wDTmzeGQJ4Q
+ YcKhQhY2nApEP3bXm20W1OcIDVA/4Ob+1vPHJks=
+X-Google-Smtp-Source: ABdhPJxk3RN46QI9ZbdOsYT5SGguOiErZO6DHnHazalCauW2MIFVJlNZFCoeOpldcy7W13/cMdtpb5ALQwYHPMjU2rs=
+X-Received: by 2002:a05:6830:214c:: with SMTP id
+ r12mr16437873otd.200.1631035389086; 
+ Tue, 07 Sep 2021 10:23:09 -0700 (PDT)
 MIME-Version: 1.0
-Received: from [172.27.230.192] (165.204.55.251) by
- YTOPR0101CA0016.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:15::29) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.25 via Frontend
- Transport; Tue, 7 Sep 2021 17:22:17 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 533cb014-71e8-4d4e-c8c7-08d972240b3d
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4729:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB4729A26555797D4A5E5D61B4E4D39@DM6PR12MB4729.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: F1cQk0k9oC5KQB9wYl2100VrLYbknEZGuy8QnkolDPu4Gun8mproUVAlj0hFrGpPbIMboRjzkDz0DiBD3prIxmEpXGnR4PvaY4s6zyIMFg5c9/iRNXJFGg7tSv5Ggfv21PBu/bRRl319NJXPI00lnnaZG88djSQPcK2AV6VD/+RpZ5F/MoVi7soksXzKsFu31OAY/H3ZeJZ/3MviG2ALLuZf+bOOT9ovZzRr1vA60xaNnQ2AGC/nBPdFImRQ/BKfD31t4apQx6J/G555j76Hnop4oK6ZQOWpTgmnAvkl1A1JbdyXgx50++CTKR8ckHQXUevymv/dfiBhtTfuOV78Jyt2V5UCJJsrJpQbp1dNwHQS4g6KnOJ8+q3DdwjKC6+gEePg5T7r4idYc0XERs5ah/VcPxeUtTog+JLdvmB0KqjIgrF5UHPZ4AeVAt+XmxWDTFEZFq/7ztczHi/UdG2t+FHIcgQqLViivHmGssduV2UUyHA60urF+VivqPN+UrZfg5xV28VmHlFQy05BwMeQgtndxpYPk1HBZ8qgvUtI+t9DeguOZCegPpI50solnXXUcbTSb1v5slO99E7hjRaVRcjJ5E72KpKROMJCO5gUZp31W/oR2ollKjQ4qMTCer3Tqz7iMl5ubJx80c7Y6expvos+pvpgVcy6R0Z9wUXNRqcxEymPI64VG6i7oTk8FTjT9rCZ+o2SdvjKtUh29zZSH/2NRZ8kbgRA2FoeYxE4a4+ogYAptIaEcG28uYzSwWdPOeApvcEY/Q3JQ15zWIvoLPPbe6hL+Sq6MXFOhJhbskG4z7lorcDKhyFBSqCM1XJrmIaOte9/Nt90vyQuBfqGzK2epyebdZETvX7L7HEqguU=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB2517.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(956004)(2906002)(2616005)(31686004)(83380400001)(966005)(16576012)(508600001)(316002)(33964004)(110136005)(4326008)(38100700002)(36756003)(36916002)(38350700002)(186003)(5660300002)(26005)(31696002)(66946007)(8676002)(66476007)(66556008)(166002)(52116002)(6486002)(8936002)(53546011)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Tlh6MEViN1JRN1MwUWFkRHdGbjdIY01OYkYydVlqbDF4ei9xbWRhUVUyQlQ3?=
- =?utf-8?B?RDBZbjR4dWo4NFpKSy9SYitMVTZ0cFRRdkJQU1VYcmtqVERKdWMrNXZidFZz?=
- =?utf-8?B?KzROQUp2TGRQN20yZ2p0UFFDUHZRa3RQYThsdjFYM2JlbFpoblljT04zQ1pM?=
- =?utf-8?B?TkVnS3VWbHpVTFVpeWN6L2JnVmtyWHlVV1J6MU9CSVdNT21yWVk4K2FmNzV0?=
- =?utf-8?B?REhWaDl0cS83a0I5dUkrcXcvdG5KNDBzSmpvTDh2TkxqNjFSQjhyUkJkQTIw?=
- =?utf-8?B?Y2FGTjN2NkVvRWg2MVVwcEpldGh3RlNoZGtYbm5leGxlOHdCZlIrSkFPV1BH?=
- =?utf-8?B?ZXlrUFc2N3JaZ3NTNVJlU1NGV0NsdWdNWTBLT0NieHVaYWJMcjBHclVBTUh2?=
- =?utf-8?B?RzJobWxpSGQ4SDRjdzFqazFCQkV2TXJzdytRTW1oNzhIdk83L0gxZWRsMHBF?=
- =?utf-8?B?Nkl4UXdZZlNNUW9FeEU3UWVNZXBFUGJHNWZkUlBpQjUzMHZBaUhYKzRPUkJz?=
- =?utf-8?B?N0YrU3RqTkFqNGFVZkxXQzljNXZoTmFlOCthVW14N2drRzJXQU5xa2ZyUjlm?=
- =?utf-8?B?bU43T2NxTVVud0VPYVo0clNLSVFMeW1LTW9qM1RuR2NWd0VVS3RRVXBEWXJ2?=
- =?utf-8?B?d2dVYnVyM1FJczd4RHlXSGhLWnFlZHdxV0ZvUjl3OTBQVjk0b0lZSXgyQnJW?=
- =?utf-8?B?ZUhWclo4bW8wM20welhJQVVMZVVJa2NjTjNmTmJleFpqaEx5QytkUDBVQ1ZY?=
- =?utf-8?B?TFRCNlYzRTJxUDJCL1F1VlQvYUdzRG9YMU1FQVhxWE5iTnhxSnZJakFZRldB?=
- =?utf-8?B?LzZ0VytTdWlLemZwWlBOSUFBajRGWmxWSklIcTg1Wit5SmxlL0VxUjdvdlRS?=
- =?utf-8?B?YkVCRnhncFVodUJaVDFBc0FhL3o4NUNuZUJ1Q296K2VSV3UxVmpZR1pDUkFy?=
- =?utf-8?B?TjdBUzVhTGUwbnZ6QVUrZzE3Yk5BOXhYYnF4Y3B1SmcyWlhDeXdzQWxValZK?=
- =?utf-8?B?SFpUeU1WK1drdHRsVEh6M2N2MDRMMStMYnRlVWxxWTR1YWRtNElBTFV2aG1z?=
- =?utf-8?B?OHBCUDM0ZXZBNmttSXBBaExOUDJnZy9leVJyNlpGWGRsTVNSZllLOGhEaE9k?=
- =?utf-8?B?NlRPMnU1d214SVhMRVozcVhCQTllSWFEaXpLVjlNZk13bG5lYktGRnNXNkp4?=
- =?utf-8?B?U0lmTHBPQU9EUERMSk9QaE5oMHlBRWFWTXZjOHE4VnF4S2VmMTVtVkYyVGNF?=
- =?utf-8?B?S2diNWd0NHI0NGo5QUhxUzVHa2dSSndoRFRRWkdZUEk0UkFqdTdWZzJTd2J0?=
- =?utf-8?B?Mko3ZUlTb0k0ZkZKQlcvNDBhMTlEVko3aWJEdVJibXR0SDVqVTlEaTdUZnlI?=
- =?utf-8?B?bE9HL29PTVdCMk1MU0YzdjdvRnIyVWRaREgwNWJncng4elZaUDhzY3Y1OVd4?=
- =?utf-8?B?U041c3N4SGh5dkdBZTlRQTJKSDhzbGd5OVNaZWVFMWROL1BtblpnSlQ4UDVU?=
- =?utf-8?B?Ny9WcXZ2MUxvUVFCaVFHVlc2RkMzSHI3OWJIdkkrdVRDNllnMmorZlQwSUY2?=
- =?utf-8?B?SHJPdFhsaGdVb2dWYkR6S2RtNG5oZmdodE0zY1M2V3V3UzgzZFRPUjZpbEd1?=
- =?utf-8?B?a2Y3djVGWXZyMmw3cnNKYmEvRWlkNzd2L0dwTW96NXNwclUzenI5eDlScGdp?=
- =?utf-8?B?b2J2enVESGN3T25qbmJsQS9yVmZLNElmSHpzc1BGenpkNld6NVBtLzNscjJj?=
- =?utf-8?Q?fBU6onosXP12dRhES7uC0zUP77WRhjsLyD1ajAS?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 533cb014-71e8-4d4e-c8c7-08d972240b3d
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2517.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2021 17:22:18.3552 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wH0sgGSgVa0rPzqgiI2M1+P2tJOf0z8dtqY9VnSlKi3Lf/Z06IEefnJXBSUvJBC+
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4729
+References: <20210907085301.482579-1-daniel@qtec.com>
+In-Reply-To: <20210907085301.482579-1-daniel@qtec.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 7 Sep 2021 13:22:58 -0400
+Message-ID: <CADnq5_N3ue6c6XzX+Nu=adsfhCZ6jkUVwNvQqy-Z_TjjGgsPmA@mail.gmail.com>
+Subject: Re: [RFC][PATCH] drm/amdgpu/powerplay/smu10: Add custom profile
+To: Daniel Gomez <daniel@qtec.com>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>, 
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ dagmcr@gmail.com, "Quan, Evan" <evan.quan@amd.com>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>, 
+ Christian Koenig <christian.koenig@amd.com>, xinhui pan <Xinhui.Pan@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,292 +81,241 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------659BAF423314CB7C41B765CF
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+On Tue, Sep 7, 2021 at 4:53 AM Daniel Gomez <daniel@qtec.com> wrote:
+>
+> Add custom power profile mode support on smu10.
+> Update workload bit list.
+> ---
+>
+> Hi,
+>
+> I'm trying to add custom profile for the Raven Ridge but not sure if
+> I'd need a different parameter than PPSMC_MSG_SetCustomPolicy to
+> configure the custom values. The code seemed to support CUSTOM for
+> workload types but it didn't show up in the menu or accept any user
+> input parameter. So far, I've added that part but a bit confusing to
+> me what is the policy I need for setting these parameters or if it's
+> maybe not possible at all.
+>
+> After applying the changes I'd configure the CUSTOM mode as follows:
+>
+> echo manual > /sys/class/drm/card0/device/hwmon/hwmon1/device/power_dpm_force_performance_level
+> echo "6 70 90 0 0" > /sys/class/drm/card0/device/hwmon/hwmon1/device/pp_power_profile_mode
+>
+> Then, using Darren Powell script for testing modes I get the following
+> output:
+>
+> 05:00.0 VGA compatible controller [0300]: Advanced Micro Devices, Inc. [AMD/ATI] Raven Ridge [Radeon Vega Series / Radeon Vega Mobile Series] [1002:15dd] (rev 83)
+> === pp_dpm_sclk ===
+> 0: 200Mhz
+> 1: 400Mhz *
+> 2: 1100Mhz
+> === pp_dpm_mclk ===
+> 0: 400Mhz
+> 1: 933Mhz *
+> 2: 1067Mhz
+> 3: 1200Mhz
+> === pp_power_profile_mode ===
+> NUM        MODE_NAME BUSY_SET_POINT FPS USE_RLC_BUSY MIN_ACTIVE_LEVEL
+>   0 BOOTUP_DEFAULT :             70  60          0              0
+>   1 3D_FULL_SCREEN :             70  60          1              3
+>   2   POWER_SAVING :             90  60          0              0
+>   3          VIDEO :             70  60          0              0
+>   4             VR :             70  90          0              0
+>   5        COMPUTE :             30  60          0              6
+>   6         CUSTOM*:             70  90          0              0
+>
+> As you can also see in my changes, I've also updated the workload bit
+> table but I'm not completely sure about that change. With the tests
+> I've done, using bit 5 for the WORKLOAD_PPLIB_CUSTOM_BIT makes the
+> gpu sclk locked around ~36%. So, maybe I'm missing a clock limit
+> configuraton table somewhere. Would you give me some hints to
+> proceed with this?
 
+I don't think APUs support customizing the workloads the same way
+dGPUs do.  I think they just support predefined profiles.
 
-On 2021-09-07 12:48 p.m., Felix Kuehling wrote:
-> Am 2021-09-07 um 12:07 p.m. schrieb James Zhu:
->> Separate iommu_resume from kfd_resume, and move it before
->> other amdgpu ip init/resume.
->>
->> Fixed Bugzilla: https://bugzilla.kernel.org/show_bug.cgi?id=211277
-> I think the change is OK. But I don't understand how the IOMMUv2
-> initialization sequence could affect a crash in DM. The display should
-> not depend on IOMMUv2 at all. What am I missing?
-
-[JZ] It is a weird issue. disable VCN IP block or disable gpu_off 
-feature, or set pci=noats, all
-
-can fix DM crash. Also the issue occurred quite random, some time after 
-few suspend/resume cycle,
-
-some times after few hundreds S/R cycles. the maximum that I saw is 2422 
-S/R cycles.
-
-But every time DM crash, I can see one or two iommu errors ahead:
-
-*AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0000 address=**** 
-flags=0x0070]*
-Since we can't stop HW/FW/SW right the way after IO page fault detected, 
-so I can't tell which part try to access
-system memory through IOMMU.
-
-But after moving IOMMU device init before other amdgpu IP init/resume, 
-the DM crash /IOMMU page fault issues are gone.
-
-Those patches can't directly explain why the issue fixed, but this new 
-sequence makes more sense to me.
-
-Can I have you RB on those patches?
-
-Thanks!
-James
+Alex
 
 >
-> Regards,
->    Felix
+> Thanks in advance,
+> Daniel
 >
 >
->> Signed-off-by: James Zhu <James.Zhu@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 12 ++++++++++++
->>   1 file changed, 12 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> index 653bd8f..e3f0308 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> @@ -2393,6 +2393,10 @@ static int amdgpu_device_ip_init(struct amdgpu_device *adev)
->>   	if (r)
->>   		goto init_failed;
->>   
->> +	r = amdgpu_amdkfd_resume_iommu(adev);
->> +	if (r)
->> +		goto init_failed;
->> +
->>   	r = amdgpu_device_ip_hw_init_phase1(adev);
->>   	if (r)
->>   		goto init_failed;
->> @@ -3147,6 +3151,10 @@ static int amdgpu_device_ip_resume(struct amdgpu_device *adev)
->>   {
->>   	int r;
->>   
->> +	r = amdgpu_amdkfd_resume_iommu(adev);
->> +	if (r)
->> +		return r;
->> +
->>   	r = amdgpu_device_ip_resume_phase1(adev);
->>   	if (r)
->>   		return r;
->> @@ -4602,6 +4610,10 @@ int amdgpu_do_asic_reset(struct list_head *device_list_handle,
->>   				dev_warn(tmp_adev->dev, "asic atom init failed!");
->>   			} else {
->>   				dev_info(tmp_adev->dev, "GPU reset succeeded, trying to resume\n");
->> +				r = amdgpu_amdkfd_resume_iommu(tmp_adev);
->> +				if (r)
->> +					goto out;
->> +
->>   				r = amdgpu_device_ip_resume_phase1(tmp_adev);
->>   				if (r)
->>   					goto out;
-
---------------659BAF423314CB7C41B765CF
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 2021-09-07 12:48 p.m., Felix
-      Kuehling wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:03c5e276-c478-c33c-9f75-e03a56ef16a6@amd.com">
-      <pre class="moz-quote-pre" wrap="">Am 2021-09-07 um 12:07 p.m. schrieb James Zhu:
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">Separate iommu_resume from kfd_resume, and move it before
-other amdgpu ip init/resume.
-
-Fixed Bugzilla: <a class="moz-txt-link-freetext" href="https://bugzilla.kernel.org/show_bug.cgi?id=211277">https://bugzilla.kernel.org/show_bug.cgi?id=211277</a>
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">I think the change is OK. But I don't understand how the IOMMUv2
-initialization sequence could affect a crash in DM. The display should
-not depend on IOMMUv2 at all. What am I missing?</pre>
-    </blockquote>
-    <p>[JZ] It is a weird issue. disable VCN IP block or disable gpu_off
-      feature, or set pci=noats, all</p>
-    <p>can fix DM crash. Also the issue occurred quite random, some time
-      after few suspend/resume cycle,</p>
-    <p>some times after few hundreds S/R cycles. the maximum that I saw
-      is 2422 S/R cycles.</p>
-    <p>But every time DM crash, I can see one or two iommu errors ahead:<br>
-    </p>
-    <div style="box-sizing: border-box; font-family: &quot;Segoe
-      UI&quot;, system-ui, &quot;Apple Color Emoji&quot;, &quot;Segoe UI
-      Emoji&quot;, sans-serif; font-size: 14px; font-style: normal;
-      font-variant-ligatures: normal; font-variant-caps: normal;
-      letter-spacing: normal; text-align: start; text-indent: 0px;
-      text-transform: none; white-space: normal; word-spacing: 0px;"><b>AMD-Vi:
-        Event logged [IO_PAGE_FAULT domain=0x0000 address=****
-        flags=0x0070]</b></div>
-    <div style="box-sizing: border-box; font-family: &quot;Segoe
-      UI&quot;, system-ui, &quot;Apple Color Emoji&quot;, &quot;Segoe UI
-      Emoji&quot;, sans-serif; font-size: 14px; font-style: normal;
-      font-variant-ligatures: normal; font-variant-caps: normal;
-      font-weight: 400; letter-spacing: normal; text-align: start;
-      text-indent: 0px; text-transform: none; white-space: normal;
-      word-spacing: 0px;">Since we can't stop HW/FW/SW right the way
-      after IO page fault detected, so I can't tell which part try to
-      access</div>
-    <div style="box-sizing: border-box; font-family: &quot;Segoe
-      UI&quot;, system-ui, &quot;Apple Color Emoji&quot;, &quot;Segoe UI
-      Emoji&quot;, sans-serif; font-size: 14px; font-style: normal;
-      font-variant-ligatures: normal; font-variant-caps: normal;
-      font-weight: 400; letter-spacing: normal; text-align: start;
-      text-indent: 0px; text-transform: none; white-space: normal;
-      word-spacing: 0px;">system memory through IOMMU.</div>
-    <div style="box-sizing: border-box; font-family: &quot;Segoe
-      UI&quot;, system-ui, &quot;Apple Color Emoji&quot;, &quot;Segoe UI
-      Emoji&quot;, sans-serif; font-size: 14px; font-style: normal;
-      font-variant-ligatures: normal; font-variant-caps: normal;
-      font-weight: 400; letter-spacing: normal; text-align: start;
-      text-indent: 0px; text-transform: none; white-space: normal;
-      word-spacing: 0px;"><br>
-    </div>
-    <div style="box-sizing: border-box; font-family: &quot;Segoe
-      UI&quot;, system-ui, &quot;Apple Color Emoji&quot;, &quot;Segoe UI
-      Emoji&quot;, sans-serif; font-size: 14px; font-style: normal;
-      font-variant-ligatures: normal; font-variant-caps: normal;
-      font-weight: 400; letter-spacing: normal; text-align: start;
-      text-indent: 0px; text-transform: none; white-space: normal;
-      word-spacing: 0px;">But after moving IOMMU device init before
-      other amdgpu IP init/resume, the DM crash /IOMMU page fault issues
-      are gone.</div>
-    <div style="box-sizing: border-box; font-family: &quot;Segoe
-      UI&quot;, system-ui, &quot;Apple Color Emoji&quot;, &quot;Segoe UI
-      Emoji&quot;, sans-serif; font-size: 14px; font-style: normal;
-      font-variant-ligatures: normal; font-variant-caps: normal;
-      font-weight: 400; letter-spacing: normal; text-align: start;
-      text-indent: 0px; text-transform: none; white-space: normal;
-      word-spacing: 0px;"><br>
-    </div>
-    <div style="box-sizing: border-box; font-family: &quot;Segoe
-      UI&quot;, system-ui, &quot;Apple Color Emoji&quot;, &quot;Segoe UI
-      Emoji&quot;, sans-serif; font-size: 14px; font-style: normal;
-      font-variant-ligatures: normal; font-variant-caps: normal;
-      font-weight: 400; letter-spacing: normal; text-align: start;
-      text-indent: 0px; text-transform: none; white-space: normal;
-      word-spacing: 0px;">Those patches can't directly explain why the
-      issue fixed, but this new sequence makes more sense to me.</div>
-    <div style="box-sizing: border-box; font-family: &quot;Segoe
-      UI&quot;, system-ui, &quot;Apple Color Emoji&quot;, &quot;Segoe UI
-      Emoji&quot;, sans-serif; font-size: 14px; font-style: normal;
-      font-variant-ligatures: normal; font-variant-caps: normal;
-      font-weight: 400; letter-spacing: normal; text-align: start;
-      text-indent: 0px; text-transform: none; white-space: normal;
-      word-spacing: 0px;"><br>
-    </div>
-    <div style="box-sizing: border-box; font-family: &quot;Segoe
-      UI&quot;, system-ui, &quot;Apple Color Emoji&quot;, &quot;Segoe UI
-      Emoji&quot;, sans-serif; font-size: 14px; font-style: normal;
-      font-variant-ligatures: normal; font-variant-caps: normal;
-      font-weight: 400; letter-spacing: normal; text-align: start;
-      text-indent: 0px; text-transform: none; white-space: normal;
-      word-spacing: 0px;">Can I have you RB on those patches?<br>
-    </div>
-    <div style="box-sizing: border-box; font-family: &quot;Segoe
-      UI&quot;, system-ui, &quot;Apple Color Emoji&quot;, &quot;Segoe UI
-      Emoji&quot;, sans-serif; font-size: 14px; font-style: normal;
-      font-variant-ligatures: normal; font-variant-caps: normal;
-      font-weight: 400; letter-spacing: normal; text-align: start;
-      text-indent: 0px; text-transform: none; white-space: normal;
-      word-spacing: 0px;"><br>
-    </div>
-    <div style="box-sizing: border-box; font-family: &quot;Segoe
-      UI&quot;, system-ui, &quot;Apple Color Emoji&quot;, &quot;Segoe UI
-      Emoji&quot;, sans-serif; font-size: 14px; font-style: normal;
-      font-variant-ligatures: normal; font-variant-caps: normal;
-      font-weight: 400; letter-spacing: normal; text-align: start;
-      text-indent: 0px; text-transform: none; white-space: normal;
-      word-spacing: 0px;">Thanks!</div>
-    <div style="box-sizing: border-box; font-family: &quot;Segoe
-      UI&quot;, system-ui, &quot;Apple Color Emoji&quot;, &quot;Segoe UI
-      Emoji&quot;, sans-serif; font-size: 14px; font-style: normal;
-      font-variant-ligatures: normal; font-variant-caps: normal;
-      font-weight: 400; letter-spacing: normal; text-align: start;
-      text-indent: 0px; text-transform: none; white-space: normal;
-      word-spacing: 0px;">James<br>
-    </div>
-    <div style="box-sizing: border-box; font-family: &quot;Segoe
-      UI&quot;, system-ui, &quot;Apple Color Emoji&quot;, &quot;Segoe UI
-      Emoji&quot;, sans-serif; font-size: 14px; font-style: normal;
-      font-variant-ligatures: normal; font-variant-caps: normal;
-      font-weight: 400; letter-spacing: normal; text-align: start;
-      text-indent: 0px; text-transform: none; white-space: normal;
-      word-spacing: 0px;"><br>
-    </div>
-    <blockquote type="cite" cite="mid:03c5e276-c478-c33c-9f75-e03a56ef16a6@amd.com">
-      <pre class="moz-quote-pre" wrap="">
-
-Regards,
-&nbsp; Felix
-
-
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">
-Signed-off-by: James Zhu <a class="moz-txt-link-rfc2396E" href="mailto:James.Zhu@amd.com">&lt;James.Zhu@amd.com&gt;</a>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 653bd8f..e3f0308 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2393,6 +2393,10 @@ static int amdgpu_device_ip_init(struct amdgpu_device *adev)
- 	if (r)
- 		goto init_failed;
- 
-+	r = amdgpu_amdkfd_resume_iommu(adev);
-+	if (r)
-+		goto init_failed;
-+
- 	r = amdgpu_device_ip_hw_init_phase1(adev);
- 	if (r)
- 		goto init_failed;
-@@ -3147,6 +3151,10 @@ static int amdgpu_device_ip_resume(struct amdgpu_device *adev)
- {
- 	int r;
- 
-+	r = amdgpu_amdkfd_resume_iommu(adev);
-+	if (r)
-+		return r;
-+
- 	r = amdgpu_device_ip_resume_phase1(adev);
- 	if (r)
- 		return r;
-@@ -4602,6 +4610,10 @@ int amdgpu_do_asic_reset(struct list_head *device_list_handle,
- 				dev_warn(tmp_adev-&gt;dev, &quot;asic atom init failed!&quot;);
- 			} else {
- 				dev_info(tmp_adev-&gt;dev, &quot;GPU reset succeeded, trying to resume\n&quot;);
-+				r = amdgpu_amdkfd_resume_iommu(tmp_adev);
-+				if (r)
-+					goto out;
-+
- 				r = amdgpu_device_ip_resume_phase1(tmp_adev);
- 				if (r)
- 					goto out;
-</pre>
-      </blockquote>
-    </blockquote>
-  </body>
-</html>
-
---------------659BAF423314CB7C41B765CF--
+>  drivers/gpu/drm/amd/pm/inc/smu10.h            | 14 +++--
+>  .../drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c  | 57 +++++++++++++++++--
+>  .../drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.h  |  1 +
+>  3 files changed, 61 insertions(+), 11 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/inc/smu10.h b/drivers/gpu/drm/amd/pm/inc/smu10.h
+> index 9e837a5014c5..b96520528240 100644
+> --- a/drivers/gpu/drm/amd/pm/inc/smu10.h
+> +++ b/drivers/gpu/drm/amd/pm/inc/smu10.h
+> @@ -136,12 +136,14 @@
+>  #define FEATURE_CORE_CSTATES_MASK     (1 << FEATURE_CORE_CSTATES_BIT)
+>
+>  /* Workload bits */
+> -#define WORKLOAD_PPLIB_FULL_SCREEN_3D_BIT 0
+> -#define WORKLOAD_PPLIB_VIDEO_BIT          2
+> -#define WORKLOAD_PPLIB_VR_BIT             3
+> -#define WORKLOAD_PPLIB_COMPUTE_BIT        4
+> -#define WORKLOAD_PPLIB_CUSTOM_BIT         5
+> -#define WORKLOAD_PPLIB_COUNT              6
+> +#define WORKLOAD_DEFAULT_BIT              0
+> +#define WORKLOAD_PPLIB_FULL_SCREEN_3D_BIT 1
+> +#define WORKLOAD_PPLIB_POWER_SAVING_BIT   2
+> +#define WORKLOAD_PPLIB_VIDEO_BIT          3
+> +#define WORKLOAD_PPLIB_VR_BIT             4
+> +#define WORKLOAD_PPLIB_COMPUTE_BIT        5
+> +#define WORKLOAD_PPLIB_CUSTOM_BIT         6
+> +#define WORKLOAD_PPLIB_COUNT              7
+>
+>  typedef struct {
+>         /* MP1_EXT_SCRATCH0 */
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
+> index 1de3ae77e03e..fef9f9ac1c56 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
+> @@ -110,6 +110,11 @@ static int smu10_initialize_dpm_defaults(struct pp_hwmgr *hwmgr)
+>         smu10_data->num_active_display = 0;
+>         smu10_data->deep_sleep_dcefclk = 0;
+>
+> +       smu10_data->custom_profile_mode[0] = 0;
+> +       smu10_data->custom_profile_mode[1] = 0;
+> +       smu10_data->custom_profile_mode[2] = 0;
+> +       smu10_data->custom_profile_mode[3] = 0;
+> +
+>         phm_cap_unset(hwmgr->platform_descriptor.platformCaps,
+>                                         PHM_PlatformCaps_SclkDeepSleep);
+>
+> @@ -544,6 +549,10 @@ static int smu10_hwmgr_backend_init(struct pp_hwmgr *hwmgr)
+>
+>         hwmgr->backend = data;
+>
+> +       hwmgr->workload_mask = 1 << hwmgr->workload_prority[PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT];
+> +       hwmgr->power_profile_mode = PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT;
+> +       hwmgr->default_power_profile_mode = PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT;
+> +
+>         result = smu10_initialize_dpm_defaults(hwmgr);
+>         if (result != 0) {
+>                 pr_err("smu10_initialize_dpm_defaults failed\n");
+> @@ -1408,9 +1417,15 @@ static int conv_power_profile_to_pplib_workload(int power_profile)
+>         int pplib_workload = 0;
+>
+>         switch (power_profile) {
+> +       case PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT:
+> +               pplib_workload = WORKLOAD_DEFAULT_BIT;
+> +               break;
+>         case PP_SMC_POWER_PROFILE_FULLSCREEN3D:
+>                 pplib_workload = WORKLOAD_PPLIB_FULL_SCREEN_3D_BIT;
+>                 break;
+> +       case PP_SMC_POWER_PROFILE_POWERSAVING:
+> +               pplib_workload = WORKLOAD_PPLIB_POWER_SAVING_BIT;
+> +               break;
+>         case PP_SMC_POWER_PROFILE_VIDEO:
+>                 pplib_workload = WORKLOAD_PPLIB_VIDEO_BIT;
+>                 break;
+> @@ -1430,22 +1445,24 @@ static int conv_power_profile_to_pplib_workload(int power_profile)
+>
+>  static int smu10_get_power_profile_mode(struct pp_hwmgr *hwmgr, char *buf)
+>  {
+> +       struct smu10_hwmgr *smu10_data = (struct smu10_hwmgr *)(hwmgr->backend);
+>         uint32_t i, size = 0;
+>         static const uint8_t
+> -               profile_mode_setting[6][4] = {{70, 60, 0, 0,},
+> +               profile_mode_setting[7][4] = {{70, 60, 0, 0,},
+>                                                 {70, 60, 1, 3,},
+>                                                 {90, 60, 0, 0,},
+>                                                 {70, 60, 0, 0,},
+>                                                 {70, 90, 0, 0,},
+>                                                 {30, 60, 0, 6,},
+>                                                 };
+> -       static const char *profile_name[6] = {
+> +       static const char *profile_name[7] = {
+>                                         "BOOTUP_DEFAULT",
+>                                         "3D_FULL_SCREEN",
+>                                         "POWER_SAVING",
+>                                         "VIDEO",
+>                                         "VR",
+> -                                       "COMPUTE"};
+> +                                       "COMPUTE",
+> +                                       "CUSTOM"};
+>         static const char *title[6] = {"NUM",
+>                         "MODE_NAME",
+>                         "BUSY_SET_POINT",
+> @@ -1459,11 +1476,15 @@ static int smu10_get_power_profile_mode(struct pp_hwmgr *hwmgr, char *buf)
+>         size += sysfs_emit_at(buf, size, "%s %16s %s %s %s %s\n",title[0],
+>                         title[1], title[2], title[3], title[4], title[5]);
+>
+> -       for (i = 0; i <= PP_SMC_POWER_PROFILE_COMPUTE; i++)
+> +       for (i = 0; i < PP_SMC_POWER_PROFILE_CUSTOM; i++)
+>                 size += sysfs_emit_at(buf, size, "%3d %14s%s: %14d %3d %10d %14d\n",
+>                         i, profile_name[i], (i == hwmgr->power_profile_mode) ? "*" : " ",
+>                         profile_mode_setting[i][0], profile_mode_setting[i][1],
+>                         profile_mode_setting[i][2], profile_mode_setting[i][3]);
+> +       size += sysfs_emit_at(buf, size, "%3d %14s%s: %14d %3d %10d %14d\n", i,
+> +                       profile_name[i], (i == hwmgr->power_profile_mode) ? "*" : " ",
+> +                       smu10_data->custom_profile_mode[0], smu10_data->custom_profile_mode[1],
+> +                       smu10_data->custom_profile_mode[2], smu10_data->custom_profile_mode[3]);
+>
+>         return size;
+>  }
+> @@ -1480,16 +1501,42 @@ static bool smu10_is_raven1_refresh(struct pp_hwmgr *hwmgr)
+>
+>  static int smu10_set_power_profile_mode(struct pp_hwmgr *hwmgr, long *input, uint32_t size)
+>  {
+> +       struct smu10_hwmgr *smu10_data = (struct smu10_hwmgr *)(hwmgr->backend);
+> +       uint8_t busy_set_point, FPS, use_rlc_busy, min_active_level;
+> +       uint32_t power_profile_mode = input[size];
+>         int workload_type = 0;
+>         int result = 0;
+>
+> -       if (input[size] > PP_SMC_POWER_PROFILE_COMPUTE) {
+> +       if (input[size] > PP_SMC_POWER_PROFILE_CUSTOM) {
+>                 pr_err("Invalid power profile mode %ld\n", input[size]);
+>                 return -EINVAL;
+>         }
+>         if (hwmgr->power_profile_mode == input[size])
+>                 return 0;
+>
+> +       if (power_profile_mode == PP_SMC_POWER_PROFILE_CUSTOM) {
+> +               if (size != 0 && size != 4)
+> +                       return -EINVAL;
+> +
+> +               if (size == 0) {
+> +                       if (smu10_data->custom_profile_mode[0] != 0)
+> +                               goto out;
+> +                       else
+> +                               return -EINVAL;
+> +               }
+> +
+> +               smu10_data->custom_profile_mode[0] = busy_set_point = input[0];
+> +               smu10_data->custom_profile_mode[1] = FPS = input[1];
+> +               smu10_data->custom_profile_mode[2] = use_rlc_busy = input[2];
+> +               smu10_data->custom_profile_mode[3] = min_active_level = input[3];
+> +               smum_send_msg_to_smc_with_parameter(hwmgr,
+> +                                       PPSMC_MSG_SetCustomPolicy,
+> +                                       busy_set_point | FPS<<8 |
+> +                                       use_rlc_busy << 16 | min_active_level<<24,
+> +                                       NULL);
+> +       }
+> +
+> +out:
+>         /* conv PP_SMC_POWER_PROFILE* to WORKLOAD_PPLIB_*_BIT */
+>         workload_type =
+>                 conv_power_profile_to_pplib_workload(input[size]);
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.h b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.h
+> index 808e0ecbe1f0..4c4b2b1b510a 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.h
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.h
+> @@ -302,6 +302,7 @@ struct smu10_hwmgr {
+>         uint32_t                             num_active_display;
+>
+>         bool                                                    fine_grain_enabled;
+> +       uint8_t                              custom_profile_mode[4];
+>  };
+>
+>  struct pp_hwmgr;
+> --
+> 2.30.2
+>
