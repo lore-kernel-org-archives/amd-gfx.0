@@ -2,78 +2,135 @@ Return-Path: <SRS0=wMah=N5=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-19.6 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 33477C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Sep 2021 17:27:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 914BCC433EF
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Sep 2021 17:51:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D61A160F01
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Sep 2021 17:27:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D61A160F01
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 5837861100
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Sep 2021 17:51:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5837861100
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7AD726E08E;
-	Tue,  7 Sep 2021 17:27:14 +0000 (UTC)
-Received: from mail-vs1-xe2c.google.com (mail-vs1-xe2c.google.com
- [IPv6:2607:f8b0:4864:20::e2c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B743E6E08E;
- Tue,  7 Sep 2021 17:27:13 +0000 (UTC)
-Received: by mail-vs1-xe2c.google.com with SMTP id o124so7403vsc.6;
- Tue, 07 Sep 2021 10:27:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=LC0TnzBIm7kldlTZWFwbiNFGUzVHexmW80QmHFbf/JU=;
- b=ieHN2db3PcG2jtfXnwvh5b+FuSokYOFRS4Bi5bNwo/Z73PjPuSJEFj4ZLW7XIknwuC
- TiTmzJrjhhRJ5OJCtt/7v5DCkahiBnjQJKRMb3ALmxd3D060+9+SM4SJdR1DSg/3fFfj
- mmGXn6SyYYiLLaFdYzGcPjUQB5Qu/M0R8Wj7Yj15g9AlGxEGf0vw568pD3pSmbpW1Roa
- 3axeG1NxT+h01zgukfg/Bq4TvnnvxRf7SOgzBtAoVp/4F/tyiymCy1+ogrQ+uyKijiaa
- nQJ9rDDl46PTGRJbXnqhRfQzDiWfRVs3goMpzDvb4A2e/3MdLX0AtE1PQOZSVe8rhshR
- VQNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=LC0TnzBIm7kldlTZWFwbiNFGUzVHexmW80QmHFbf/JU=;
- b=EqyJMR2PF5O2ZXerxgLH5535X7yRqO/w1JzW8SkVmHpLXgy425S+UZJr40TEKC/Uin
- QrU37hgVrjJyquR++KAsKvzHsCDLyWq4qApzd7HlFrQuUkKRxhsyrbflVxjO2oEMPMsa
- YAY2KIiaw0tjADDISFBQUNRudxWdnGehDoobIUE0OCPsM0Un13apfWTAfEMt96bbVY5t
- iR6p4BJ9zmRQfuRJgYj9N13M9UEQELt0r/GoBX+pIwFoZN4bJMfYNTG+ioIqU9jgD6bR
- XVUaLRzqtD4T2Yl+c2Z+aSynfJQYZIuCOTIKCWjHensR0WcSMKqCZdxXdTxilvcZ0tTA
- PUOw==
-X-Gm-Message-State: AOAM530KuxfCyfGZeoDndsojQs0/qkwSAYG9qX98p+iRWV5nEF2HrVM1
- kUsyAgeA93nCOEyERL1asBYZJF4S9L4swUu7yVw=
-X-Google-Smtp-Source: ABdhPJzw9KOkfNVmNb05rNdw1aVHB0qlmxd5gveD+2sJgFMYTfpkNnRkyVTydMqT9KrWCacjCgcqkNXw7ntoGqAT19Q=
-X-Received: by 2002:a67:d098:: with SMTP id s24mr9651450vsi.23.1631035632569; 
- Tue, 07 Sep 2021 10:27:12 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D8C81898BE;
+	Tue,  7 Sep 2021 17:51:15 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2074.outbound.protection.outlook.com [40.107.236.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7D1C898BE
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Sep 2021 17:51:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=BIDslbOJgU1DpU21oJrQObTsADznO1GWRGB79JOEN8Gejh4PKi8QXuIrv/HTxi7+cXnkgmY7waFQ0RVmPJ6dqyMHmWGhy21RG4I0k2FsbdyPKvNfcxL56viE6iFEtPXiBkjcs4i+n/FkX/9N00EpV+ek5ol0oxpyFefWGtZHvtIZGBWOBgkm4amG9cYd9SoLG9z1e8zlu8eAsUbgGHjP7/8l/ONpeGR6zfW9VuefYX45fBrXnRpyd3FFbSVDEz5qf9jrB+DQBAyX/djH4+c4Vwt/2T95aXoNpT2EiJux7TUZW1kb2qrXbIf6+jgS78gP33kNPZkBdAumraBUEIABVg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
+ bh=y4UA3MVZtyy8uEDW+nc9bqlybCbGZR0mZLBYC1v9Q6E=;
+ b=oOL2XZKICZn7x+5fFziwIpY4g4AjvJ1fXmEbrove2BqfzXXMb582FdRzmQZs5o1wlYdmC9c1kI+Pope1QiZClVAv9L8jhOUo6JE4djj27kE7Pug9UFWlRcUqfG+sNTWxswH0xRsy7jgFskdc7YcnJng1unhTbMyRUcVAn1dLKIvuuvbyniK5ac4vEzaT0mZ3bjklBdPxHE7ckPXSAFAh5oQnYgwkf24FT6LDKwCpxefNotYginmZLZO+4uwSs0Idor4GjrQ88+qOaTBZwkIjeyPAgQd1UZgFlFqrBzMeHBblbJQpV+Mn6ipO/gdeP2EzfmxHPUCU0y04F8kQBY9VWg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=y4UA3MVZtyy8uEDW+nc9bqlybCbGZR0mZLBYC1v9Q6E=;
+ b=Wq7zkgO1XHyvwOG3+Ln1Mucievx1DuXqapSMcY4Nj/2gPoihitn5ykpHy7tyaFzaBkYSUEdoY+keRBRdSdy/AoLKoZ6crdxUWjE2IVhRD+z4Poyq8549Hldl5PK9CKDptD5mGZvdCcUlS1TUPNE3eN2GP8lDnR4qNe5UcgJka80=
+Authentication-Results: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5129.namprd12.prod.outlook.com (2603:10b6:408:136::12)
+ by BN9PR12MB5033.namprd12.prod.outlook.com (2603:10b6:408:132::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.19; Tue, 7 Sep
+ 2021 17:51:12 +0000
+Received: from BN9PR12MB5129.namprd12.prod.outlook.com
+ ([fe80::94bc:6146:87a:9f3c]) by BN9PR12MB5129.namprd12.prod.outlook.com
+ ([fe80::94bc:6146:87a:9f3c%5]) with mapi id 15.20.4478.025; Tue, 7 Sep 2021
+ 17:51:12 +0000
+Subject: Re: [PATCH 3/3] drm/amdgpu: move iommu_resume before ip init/resume
+To: James Zhu <jamesz@amd.com>, James Zhu <James.Zhu@amd.com>,
+ amd-gfx@lists.freedesktop.org
+Cc: kolAflash@kolahilft.de, me@jeromec.com, alexdeucher@gmail.com,
+ ted437@gmail.com
+References: <1631030843-18270-1-git-send-email-James.Zhu@amd.com>
+ <1631030843-18270-3-git-send-email-James.Zhu@amd.com>
+ <03c5e276-c478-c33c-9f75-e03a56ef16a6@amd.com>
+ <adfed1a3-4e1d-8ead-bbf4-4c4448c0f7fe@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Message-ID: <3c196bbc-3799-44ff-d5f8-ade4ada89d93@amd.com>
+Date: Tue, 7 Sep 2021 13:51:10 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
+In-Reply-To: <adfed1a3-4e1d-8ead-bbf4-4c4448c0f7fe@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-ClientProxiedBy: YT1PR01CA0079.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2d::18) To BN9PR12MB5129.namprd12.prod.outlook.com
+ (2603:10b6:408:136::12)
 MIME-Version: 1.0
-References: <20210831202133.2165222-1-jim.cromie@gmail.com>
- <20210831202133.2165222-4-jim.cromie@gmail.com>
- <9fe5e962-e65e-6844-269a-058cce944a89@linux.intel.com>
- <CAJfuBxz+cZyyDSBrDR0+Rf7K9fqpmeAfcWb1x2MkwD0P9LuDcQ@mail.gmail.com>
- <2bfbd75c-8f7f-e756-05c3-13dff41264e4@linux.intel.com>
- <CAJfuBxymoFx79kQzGw_Gxv1vk7kVaTN-V0Hn694C6kT=kP7u2A@mail.gmail.com>
- <92c7639b-c8f4-cfa4-f9ca-82c0a06e0337@linux.intel.com>
-In-Reply-To: <92c7639b-c8f4-cfa4-f9ca-82c0a06e0337@linux.intel.com>
-From: jim.cromie@gmail.com
-Date: Tue, 7 Sep 2021 11:26:46 -0600
-Message-ID: <CAJfuBxxeG0-bijXvoExRyh6Zv5o8PSz42cWam6m0aVCUKPMZ+Q@mail.gmail.com>
-Subject: Re: [Intel-gfx] [PATCH v7 3/8] i915/gvt: use
- DEFINE_DYNAMIC_DEBUG_CATEGORIES to create "gvt:core:" etc categories
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Cc: Sean Paul <seanpaul@chromium.org>, Jason Baron <jbaron@akamai.com>, 
- Daniel Vetter <daniel.vetter@ffwll.ch>, Greg KH <gregkh@linuxfoundation.org>, 
- LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, 
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- intel-gvt-dev@lists.freedesktop.org, 
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="UTF-8"
+Received: from [192.168.2.100] (142.186.47.3) by
+ YT1PR01CA0079.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2d::18) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4478.19 via Frontend Transport; Tue, 7 Sep 2021 17:51:11 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 7550b4de-06ea-4f0d-2e4b-08d97228147e
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5033:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BN9PR12MB5033D356AC5283B26C84256292D39@BN9PR12MB5033.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: jQPWYdDPDGM/tADhXQdGzNzQb8dEGAs3UzMt6BMv6Oc6OI/yToCTdus/uFW5UgmRWhGmVvPyYRXIVLUZZbiUSI8/b+yetwDgzei92NioJgWnaqNGCi6xzGYiNPvNo4jVjbnvYxqaEQN6bkjGJhIhRMfp9se7ePhRxTlRl9chEwuKwQvgcTZtrgMJH9DvWw1EhATK4mKIpoteAWskjCeg8l0NwQSw6w1iNR6iEwLna6UzGY8osAuDLx2cCx+Mk+Zp2sbDckZrKn0g3J5NOwl1iiVGns/ZobrBgksUZMi9aqXdD+e4Dl0PMR1qfAlL01bb7MEa10Z23UuFoFy91B82Puemt0bSDOJ2nPYLjIUQGwX+GG8/Ywz9jqjzpNkNZ9gLplL/EHHs3/Dk4E6V4k8Mnm4sNVE8Zg2i1LBCl9HuhDpwTGGPGIBRKFvutp0f6+tWjENaqVXlacZHoP2jQY+nd2dFX2nEbi4k/G+0OFLqj5HGF/2EXfJiAnf9btTsfgy8Lv+xZVw/BANySZO3m4uujIuuJAGcC7Tmhr8pBIQTYJmuv3JktNpVrWRxOJuGGWtYPpCn6x9yl5c8jGDiDPJd+YBjDhoc9qBjc/o5+fc3mp10ZViUR8GNHLfEd7/HUby7KQCIkOUCpz8NQS9VJcBIvYz9GAkLKe1YSPol6ez/bU+pICDkG1BPN6wekARO/rMAKg/OX5zDVCtXjAGCCqMUlLiI6FlhJYBsXt+XgeStqt6/BTHTprc2+P1adihZ1/omcRMdbrRaZUWZ8UKi2sdm8ryCXsg77O6ZbpWLgbt7AuugxWI+iW/yPhs0mb9UNEcJ
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5129.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(366004)(376002)(39860400002)(396003)(346002)(31696002)(186003)(26005)(53546011)(66476007)(66556008)(8936002)(5660300002)(86362001)(38100700002)(316002)(83380400001)(966005)(8676002)(478600001)(31686004)(110136005)(16576012)(4326008)(956004)(44832011)(36756003)(2906002)(2616005)(66946007)(6486002)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bjhzbFFNMUIxaDRHdDd6UVEyeVVMeXZFMkhzSVgraWZFbEdNdk52aThETVdN?=
+ =?utf-8?B?dFlTbXBYd1dJaGx1RkNaZUoyZ1NGSEZrOEhyaFlpUFZ0WCs3eEk0eFMyaEpI?=
+ =?utf-8?B?aTVQZkhERVhxemduVVVraktuK2R0NzBrNkJlc0l1eFdHYVZiQWV3MEtnQkNR?=
+ =?utf-8?B?Ny8xcFByOXR6dkh6bVhtMHVTRldHby9WYVU4UzJLTkw4azVKeG9Jejg1ZEE1?=
+ =?utf-8?B?UUZobGRTdHo2cVh0NUN6dDNwWVBReXFuT0V4SDN3dlJYK3lnMldYb20ydjJH?=
+ =?utf-8?B?M1d3SHhLVHI5aDk4WFpIdVJmR2hLeWhMd21PY3B2VjRDMWcxd3F0R2t3WnVC?=
+ =?utf-8?B?bnFXSVZVcUxHTFR2YVhYYzlJVGRhNC9Od0Vqc2MvZ3ZIMmcrMzdhempkK3ZN?=
+ =?utf-8?B?clh6eDlZVWNVb1FkSVNtb29zRUpUSjVVOFlRTnV1YVZXMFF2OTVEaFVuWVNI?=
+ =?utf-8?B?bUhtT2JpL0ZIZC82dDF2MzJSVkNkZjFpdnpyU0JZZS9qdzJueVRSL3lHUDJt?=
+ =?utf-8?B?QmRxMEZqeFl2N2xZR1BkS3NCRFgxMmxadUFGK0NMMnRjbEVhK25vdTJ3aEov?=
+ =?utf-8?B?K2IzNFdRa0ZnY2N3eS92aVhHb0lTNVJYTVhwbUdCK2FRaFVXN3lGQytISEJT?=
+ =?utf-8?B?N1dFMTBUa3AvQzk3aE5ibVh3MUNmZkZoNGZhZGxrWVByT1NyQ2oxcWhDdlJt?=
+ =?utf-8?B?d2svNkx4RlEvRkpDeW4zT2dTWkRGRXllUnh5eFJ4TDdMbEg3cGtsbUo4Tmp1?=
+ =?utf-8?B?emFCUmRRSkxReVRqM1dMK1YreVVWbWpBaXU5bDNxUk0wcUZGQ2l3QlNNWjIy?=
+ =?utf-8?B?ZWpaZHMwOElvSnpxNkI0aUFsZE5YL1U5WkNlcCs5eTlnMWtuOHZXR09Wcnl6?=
+ =?utf-8?B?NDY5czRoSUp0QWFOd2orSnlnbjV6bHlkSXh2aHZjVEdrOW5mTWtUODg5OGxu?=
+ =?utf-8?B?RElLaTlUcDl3cXlYRGRuQXdVR2hrTC9WUnFMYXR0ZkQyREdwdkVKL0twUmVh?=
+ =?utf-8?B?WGpvaHNrRUFUOE5ub3RpMXpBa1d1TWxKUVNBTzEwR2JUTGhLd1luQ2lXL1ZQ?=
+ =?utf-8?B?dEJiUk9FKzRURXplWUpnRVdNYS9zQ1hLTUd3dndHU1doU2FFd2NIV0RRTWRn?=
+ =?utf-8?B?dGZUdFRqcnIyRkNZV1BQU1VxK0JKYUNNY0pIMFd6TnozSUVtL0diZE4yNERa?=
+ =?utf-8?B?NXRJdE05bmVxY3o1S3hzcnNCM0VSRjB5NEpuZ3hJbGNiWGVURURSK3Fid2VS?=
+ =?utf-8?B?V1FsK2xDT1Y1SWhUczBUNFVRNXJFYktXMmM0ZE9wT1d1U0pDREZqSVQzZVp4?=
+ =?utf-8?B?OUNodEx2OEllN2tuTUZ2K2dKZGhibld3dWVWZ1BkOE1PLzIxQUxNYWVRNm96?=
+ =?utf-8?B?bnoybzJidDF3bjU5emFwei9GNmo3S3dwSFRCMUllcjNxVDBBcGlvZXhMWTU3?=
+ =?utf-8?B?L3J6SHBYa0NTZnVJWG5FVUZTSm0zYnhyaFlERTdxaWcwTTdFNFhPTy85ckVx?=
+ =?utf-8?B?ajVyWGZ0RHU0L1hzQ3pSOU1vYVJVeFJ0QW1oVFQwNWwvSkRraDM5cjgxRGZv?=
+ =?utf-8?B?dG9FQUZFYmkxc1ExKy9lUFR1NUhTRFBvZEI0WjRBSTRHSWdRLzdVc3ZpdW91?=
+ =?utf-8?B?L2JBT3BQajJoaWR4UFRZdW1MMjlLa3E5NmJMbEIrTXFYVG9vdlBuNk56MUlV?=
+ =?utf-8?B?NldWNXhOWk5RcHg5bk5IM1dCdTFhVDJSNEdHSEx3VzhQV0QvTXdDazNrM2tX?=
+ =?utf-8?Q?iyjMhlxeoYNvHEJhsxUanAUCX3ueSZl1/Dnfltn?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7550b4de-06ea-4f0d-2e4b-08d97228147e
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5129.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2021 17:51:11.9430 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TzWQqb8+TMWURPBrmfMhzD1g4G0DOdpykBGWIsfhm0fl9J4KA48MruvzIhDXoIDNBR1ikgAAFCPBhPjidVhRrw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5033
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,230 +145,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Sep 7, 2021 at 9:14 AM Tvrtko Ursulin
-<tvrtko.ursulin@linux.intel.com> wrote:
+
+Am 2021-09-07 um 1:22 p.m. schrieb James Zhu:
 >
 >
-> On 06/09/2021 18:41, jim.cromie@gmail.com wrote:
-> > On Mon, Sep 6, 2021 at 6:26 AM Tvrtko Ursulin
-> > <tvrtko.ursulin@linux.intel.com <mailto:tvrtko.ursulin@linux.intel.com>>
-> > wrote:
-> >  >
-> >  >
-> >  > On 03/09/2021 20:22, jim.cromie@gmail.com
-> > <mailto:jim.cromie@gmail.com> wrote:
-> >  > > On Fri, Sep 3, 2021 at 5:07 AM Tvrtko Ursulin
-> >  > > <tvrtko.ursulin@linux.intel.com
-> > <mailto:tvrtko.ursulin@linux.intel.com>> wrote:
-> >  > >>
-> >  > >>
-> >  > >> On 31/08/2021 21:21, Jim Cromie wrote:
-> >  > >>> The gvt component of this driver has ~120 pr_debugs, in 9 categories
-> >  > >>> quite similar to those in DRM.  Following the interface model of
-> >  > >>> drm.debug, add a parameter to map bits to these categorizations.
-> >  > >>>
-> >  > >>> DEFINE_DYNAMIC_DEBUG_CATEGORIES(debug_gvt, __gvt_debug,
-> >  > >>>        "dyndbg bitmap desc",
-> >  > >>>        { "gvt:cmd: ",  "command processing" },
-> >
-> >  > >>> v7:
-> >  > >>> . move ccflags addition up to i915/Makefile from i915/gvt
-> >  > >>> ---
-> >  > >>>    drivers/gpu/drm/i915/Makefile      |  4 ++++
-> >  > >>>    drivers/gpu/drm/i915/i915_params.c | 35
-> > ++++++++++++++++++++++++++++++
-> >  > >>
-> >  > >> Can this work if put under gvt/ or at least intel_gvt.h|c?
-> >
-> > I tried this.
-> > I moved the code block into gvt/debug.c (new file)
-> > added it to Makefile GVT_SOURCES
-> > dunno why it wont make.
-> > frustratig basic err, Im not seeing.
-> > It does seem proper placement, will resolve...
-> >
-> >
-> >  > >>
-> >  > >
-> >  > > I thought it belonged here more, at least according to the name of the
-> >  > > config.var
-> >  >
-> >  > Hmm bear with me please - the categories this patch creates are intended
-> >  > to be used explicitly from the GVT "sub-module", or they somehow even
-> >  > get automatically used with no further intervention to callers required?
-> >  >
-> >
-> > 2009 - v5.9.0  the only users were admins reading/echoing
-> > /proc/dynamic_debug/control
-> > presumably cuz they wanted more info in the logs, episodically.
-> > v5.9.0 exported dynamic_debug_exec_queries for in-kernel use,
-> > reusing the stringy: echo $query_command > control  idiom.
-> > My intention was to let in-kernel users roll their own drm.debug type
-> > interface,
-> > or whatever else they needed.  nobodys using it yet.
+> On 2021-09-07 12:48 p.m., Felix Kuehling wrote:
+>> Am 2021-09-07 um 12:07 p.m. schrieb James Zhu:
+>>> Separate iommu_resume from kfd_resume, and move it before
+>>> other amdgpu ip init/resume.
+>>>
+>>> Fixed Bugzilla: https://bugzilla.kernel.org/show_bug.cgi?id=211277
+>> I think the change is OK. But I don't understand how the IOMMUv2
+>> initialization sequence could affect a crash in DM. The display should
+>> not depend on IOMMUv2 at all. What am I missing?
 >
-> What is 2009 referring to?
+> [JZ] It is a weird issue. disable VCN IP block or disable gpu_off
+> feature, or set pci=noats, all
 >
-> I am still not quite following. In case of the GVT categories you added,
-> in order for them to be used, would you or not also need to use some new
-> logging macros?
+> can fix DM crash. Also the issue occurred quite random, some time
+> after few suspend/resume cycle,
 >
-> > patch 1/8 implements that drm.debug interface.
-> > 5/8 is the primary use case
-> > 3/8 (this patch) & 4/8 are patches of opportunity, test cases, proof of
-> > function/utility.
-> > its value as such is easier control of those pr-debugs than given by
-> > echo > control
-> >
-> > Sean Paul seanpaul@chromium.org <mailto:seanpaul@chromium.org> worked up
-> > a patchset to do runtime steering of drm-debug stream,
-> > in particular watching for drm:atomic:fail: type activity (a subcategory
-> > which doesnt exist yet).
-> > 5/8 conflicts with his patchset, I have an rfc approach to that, so his
-> > concerns are mine too.
+> some times after few hundreds S/R cycles. the maximum that I saw is
+> 2422 S/R cycles.
 >
-> What kind of runtime steering is that - would you happen to have a link?
-
-Sean's patches
-https://patchwork.freedesktop.org/series/78133/
-
-what I think might work better
-https://lore.kernel.org/dri-devel/20210822222009.2035788-11-jim.cromie@gmail.com/
-
-> One idea we in the GEM team have mentioned a few time is the ability of
-> making the debug log stream per DRM client. That means opening
-> "something" (socket, fd, etc), enabling debug, which would only show
-> debug logs belonging to one client. That can sometimes be useful (and
-> more secure) than enabling a lot of debug for the system as a whole. But
-> of course there isn't much overlap with your dyndbg work. So just
-> mentioning this since the word "runtime steering" reminded me of it.
+> But every time DM crash, I can see one or two iommu errors ahead:
 >
+> *AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0000 address=****
+> flags=0x0070]*
 
-my rfc patch above might help. it adds
-   register_dyndbg_tracer ( selector_query, handler_callback)
+This error is not from IOMMUv2 doing GVA to GPA translations. It's from
+IOMMUv1 doing GPA to SPA translation. This error points to an invalid
+physical (GVA) address being used by the GPU to access random system
+memory it shouldn't be accessing (because there is no valid DMA mapping).
 
-I think you could write a single handler to further select / steer the
-debug stream
-according to your pr_debug arguments.
+On AMD systems, IOMMUv1 tends to be in pass-through mode when IOMMUv2 is
+enabled. It's possible that the earlier initialization of IOMMUv2 hides
+the problem by putting the IOMMU into passthrough mode. I don't think
+this patch series is a valid solution.
+
+You can probably fix the problem with this kernel boot parameter: iommu=pt
+
+And you can probably reproduce it even with this patch series if instead
+you add: iommu=nopt amd_iommu=force_isolation
+
+Regards,
+  Felix
 
 
+> Since we can't stop HW/FW/SW right the way after IO page fault
+> detected, so I can't tell which part try to access
+> system memory through IOMMU.
 >
-> >      > unsigned long __gvt_debug;
-> >      > EXPORT_SYMBOL(__gvt_debug);
-> >      >
-> >      >
-> >      >>> +
-> >      >>>    # Please keep these build lists sorted!
-> >      >>>
-> >      >>>    # core driver code
-> >      >>> diff --git a/drivers/gpu/drm/i915/i915_params.c
-> >     b/drivers/gpu/drm/i915/i915_params.c
-> >      >>> index e07f4cfea63a..e645e149485e 100644
-> >      >>> --- a/drivers/gpu/drm/i915/i915_params.c
-> >      >>> +++ b/drivers/gpu/drm/i915/i915_params.c
-> >      >>> @@ -265,3 +265,38 @@ void i915_params_free(struct i915_params
-> >     *params)
-> >      >>> +                             _DD_cat_("gvt:mmio:"),
-> >      >>> +                             _DD_cat_("gvt:render:"),
-> >      >>> +                             _DD_cat_("gvt:sched:"));
-> >      >>> +
-> >      >>> +#endif
-> >      >>
-> >      >> So just the foundation - no actual use sites I mean? How would
-> >     these be
-> >      >> used from the code?
-> >      >>
-> >      >
-> >      > there are 120 pr_debug "users" :-)
-> >      >
-> >      > no users per se, but anyone using drm.debug
-> >      > /sys/module/drm/parameters/debug
-> >      > might use this too.
-> >      > its a bit easier than composing queries for
-> >      >/proc/dyamic_debug/control
-> >
-> >     Same as my previous question, perhaps I am not up to speed with this
-> >     yet.. Even if pr_debug is used inside GVT - are the categories and
-> >     debug_gvt global as of this patch (or series)?
-> >
-> >
-> > they are already global in the sense that if kernel is built with
-> > DYNAMIC_DEBUG,
-> > the admin can turn those pr_debugs on and off, and change their
-> > decorations in the log (mod,func.line).
-> > Nor are modules protected from each other; drm-core could use
-> > dd-exec-queries to enable/disable
-> > pr-debugs in i915 etc
-> >
-> > This patch just adds a gvt-debug knob like drm-debug. using the existing
-> > format prefixes to categorize them.
-> > Whether those prefixes should be bent towards consistency with the rest
-> > of drm-debug
-> > or adapted towards some gvt community need I couldnt say.
-> >
-> > Its no save-the-world feature, but its pretty cheap.
-> >
-> > Id expect the same users as those who play with drm.debug, for similar
-> > reasons.
-> >
-> > does this clarify ?
+> But after moving IOMMU device init before other amdgpu IP init/resume,
+> the DM crash /IOMMU page fault issues are gone.
 >
-> Not yet I'm afraid. :)
-
-heh - 2 blind dudes describing their side of the elephant !
-
-When you say "using the existing format
-> prefixes", but it is not using __drm_debug but __gvt_debug (which isn't
-> a modparam). So I am lost as to what is __gvt_debug for and how does it
-> tie to existing DRM categories.
+> Those patches can't directly explain why the issue fixed, but this new
+> sequence makes more sense to me.
 >
-
-we have 2 kinds of "categories":
-1- proper drm categories - one of 10
-2- ad-hoc categories - these are systematized - using small set of
-format-prefixes
-i915 has 120 of these in GVT, with 9 different prefixes, touched in patches 2,3
-i915 also has ~1500 uses of drm-debug API  (with proper drm category enums)
-amdgpu also has lots of both kinds of debug; 13 kinds of prefixes.
-
-Ive probably created some confusion by stealing the "category" name,
-it could have been "class", but I thought we didnt need new vocabulary with
-subtle and ambiguous differences from the original term.
-
-Long term, maybe those ad-hoc prefixes can be aligned better with proper drm
-categories, but thats a separate discussion.
-
-But we can control them now, using a well oiled idiom, a drm.debug
-"style" bitmap.
-Its like drm.debug's little sisters, __gvt_debug & __debug_dc.  not
-identical, but related.
-
-Anyway, patches 2,3,4 work the ad-hoc prefix categorizations so theyre
-controllable.
-
-5/8 adapts DRM-debug itself - obsoleting enum category for most of drm-debug api
-this is where dyndbg's data table gets bigger - core & drivers! have
-many drm-debug uses,
-rivaling all builtin prdebugs in size.
-
-Then, we have a unified foundation on dyndbg, using glorified prefix strings
-for both formal DRM_DBG_CAT_* categories, and for similar existing uses.
-
-Then we could evolve / extend / bikeshed the categories (spelling,
-separator char '.' is nice too)
-
-Sean has already suggested "drm:atomic:fail:" sub-category.
-I agree - it is using the new stringy flexibility to significant
-expressive benefit.
-dyndbg makes new categories actionable.
-
-istm "*:fail:" is maybe a meta-sub-category (dont read that too closely;)
-maybe "*:warn:" "*:err:" ( what about warning, error ? here lies
-bikeshed madness !!)
-
-> Regards,
+> Can I have you RB on those patches?
 >
-> Tvrtko
-
-thanks
-JIm
+> Thanks!
+> James
+>
+>> Regards,
+>>   Felix
+>>
+>>
+>>> Signed-off-by: James Zhu <James.Zhu@amd.com>
+>>> ---
+>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 12 ++++++++++++
+>>>  1 file changed, 12 insertions(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>> index 653bd8f..e3f0308 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>> @@ -2393,6 +2393,10 @@ static int amdgpu_device_ip_init(struct amdgpu_device *adev)
+>>>  	if (r)
+>>>  		goto init_failed;
+>>>  
+>>> +	r = amdgpu_amdkfd_resume_iommu(adev);
+>>> +	if (r)
+>>> +		goto init_failed;
+>>> +
+>>>  	r = amdgpu_device_ip_hw_init_phase1(adev);
+>>>  	if (r)
+>>>  		goto init_failed;
+>>> @@ -3147,6 +3151,10 @@ static int amdgpu_device_ip_resume(struct amdgpu_device *adev)
+>>>  {
+>>>  	int r;
+>>>  
+>>> +	r = amdgpu_amdkfd_resume_iommu(adev);
+>>> +	if (r)
+>>> +		return r;
+>>> +
+>>>  	r = amdgpu_device_ip_resume_phase1(adev);
+>>>  	if (r)
+>>>  		return r;
+>>> @@ -4602,6 +4610,10 @@ int amdgpu_do_asic_reset(struct list_head *device_list_handle,
+>>>  				dev_warn(tmp_adev->dev, "asic atom init failed!");
+>>>  			} else {
+>>>  				dev_info(tmp_adev->dev, "GPU reset succeeded, trying to resume\n");
+>>> +				r = amdgpu_amdkfd_resume_iommu(tmp_adev);
+>>> +				if (r)
+>>> +					goto out;
+>>> +
+>>>  				r = amdgpu_device_ip_resume_phase1(tmp_adev);
+>>>  				if (r)
+>>>  					goto out;
