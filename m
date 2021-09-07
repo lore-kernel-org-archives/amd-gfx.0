@@ -2,70 +2,72 @@ Return-Path: <SRS0=wMah=N5=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-17.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D0E71C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Sep 2021 17:03:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6A17CC433FE
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Sep 2021 17:06:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 785686056B
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Sep 2021 17:03:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 785686056B
+	by mail.kernel.org (Postfix) with ESMTPS id 26E5B60187
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Sep 2021 17:06:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 26E5B60187
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B6106E071;
-	Tue,  7 Sep 2021 17:03:46 +0000 (UTC)
-Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com
- [IPv6:2607:f8b0:4864:20::32e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC02A6E071
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Sep 2021 17:03:44 +0000 (UTC)
-Received: by mail-ot1-x32e.google.com with SMTP id
- a20-20020a0568300b9400b0051b8ca82dfcso13608608otv.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 07 Sep 2021 10:03:44 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72E476E07F;
+	Tue,  7 Sep 2021 17:06:09 +0000 (UTC)
+Received: from mail-oi1-x234.google.com (mail-oi1-x234.google.com
+ [IPv6:2607:f8b0:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E0B26E075;
+ Tue,  7 Sep 2021 17:06:08 +0000 (UTC)
+Received: by mail-oi1-x234.google.com with SMTP id 6so13614588oiy.8;
+ Tue, 07 Sep 2021 10:06:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=m9KwqeMdnHHxmOkXIxvjvRaFZzOyXxYoUws6DRtPOiY=;
- b=MjAqhBoIT5i//kX3F4ZP3GON3gIAjHBTU+bcD0a5/cAqmml6qC2jtiuYKwV+keZXry
- nexu+ZVfnusEDWtltx12htRq2DYA3xOFe6MyLE1+Fig9CU8o4FK/C9xCJk9sPHsPov4O
- 8SAaAIQCUj+YVVEPvx61Z0m5tF+SSVApGqcPG6d2nAAgPwUN3XGMbmI4gJx8QwgpyvPG
- Jtazb8Q7Yy9MXRzlhhkPknpF60n1gznoB9h12FGyd+NLYXI/xqOHm9nWjZfYtq+5Q1Xz
- GAiJeQ3XTW+JfYt5JuIFVkW6l8cS9vKophAaE204yNo91wcWcFUfloUOUj5CKKtatv8f
- 2cBw==
+ :cc; bh=LvLnME+IjjXBdlapd7qwu3ckCRmUspxnvArgV5vhrZs=;
+ b=p7bvjkWXysVTS4dKlzkBHNI0Mh2Ex6LJErKRsDYC6PVaIdcwIhfzGMNcrVeAvjcB2N
+ lPjSwJBCVFki7J736XxBScmH+iYS31DmnOhzzHcq+Yrql2ayrSwZprAv3+CImVQSQVCQ
+ psPhSwmoRy0mL7JL4baFLy0N5j4thDzc/tRP2ooL7dF7FFtRCVI4fGbNjrKgzP29Nwal
+ BTpKD44nZRaJRiNT6o/tqQzfFxbUi1TKdMNL/cj5LpMvVNKwKK4+UCmfO/FU9Fa3Z22n
+ GYhUyvfOQim9/RaYGbZsfFOElPt2QDnQVQkkHEaJJzLSTqlgovAAl4l0CJaGhCJio3D9
+ R8sw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
+ d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=m9KwqeMdnHHxmOkXIxvjvRaFZzOyXxYoUws6DRtPOiY=;
- b=pegaJF2UxIxWmJJhmTLrEitKqe/3YFugOdWVWMuO19k4OoE1SDnsDKZVSv+SySDZCO
- 0WR0maMbDjMkY8bL5Jx4VCxrC53nq52/QPdi7WBDaBHRwdGZgUwJKF06GZ0fh1fykQ0b
- gUVtXislImzMiS1Jdurtam6PCPuaaOPHGxa/Jg4jq8MdhWt7S3FPmaHeBOSJGUWpnm/t
- H40xGAHV508p9ZNfyfQm34y4BiE81sUpJqqFr/RkmtsE7U8cxy6DjCkafI+Ox+tKM0sF
- bzEkF9Pl1POxlih66Gbp4mdvCLM0OHsNjklT1W0CxTa9Jw3+lgHumm/asnP/xzGD9PD+
- JOKQ==
-X-Gm-Message-State: AOAM533vV6H1nXDg4DuuK3LMTt3qyJFPUt1Dxdv8vhhOXiAmkVEsWite
- wnu8Kn4j90SNRvmEp5kusJMEO+Ad/8Hb1wkNk8+6fN5s
-X-Google-Smtp-Source: ABdhPJzeDYLWoBoqF6ER60gY3KmozGqNMf6mbiUdGTJul0PqatjV3Zfj+UKqj+E2eSvrco/n3y4z/HApVKaNgH1iREA=
-X-Received: by 2002:a05:6830:25d3:: with SMTP id
- d19mr16419966otu.357.1631034223949; 
- Tue, 07 Sep 2021 10:03:43 -0700 (PDT)
+ bh=LvLnME+IjjXBdlapd7qwu3ckCRmUspxnvArgV5vhrZs=;
+ b=Te/M2OenNYQAyBmE3b8KtiK08eyOJvXJBFpLRKORvqfGvXsQV/0d9QsYKXOUnAyX4V
+ z2wnC66/N/6htL+pnPhj6tcSixK+Ry6IjEh3eyHENNhTX7sYoA1QjFutO4E8eTrBgMd9
+ Zu/5INdqnqOQs8PXs6linBNtYK84Jx10kFw1BAhz6OGuEO/4Tuqe++MKmgpHBtePWAsQ
+ TadyNwt61M29lhWFsXcbAWLb4SJJ16/0fRf1jt1tR6HVsKTWQx2iSCI9rN4TXnvCmiS1
+ KcrBwl4Zs32WnWqhHZgkdMO3FVc5LZhQcRoodwax87x4pFwPfbRbsmAyt2txov2B1jm/
+ 8JoA==
+X-Gm-Message-State: AOAM532jLFggfVW7hvT2X8C1rxc8GZVjNe3wokbRQaMK3gpq+vHT+Vrt
+ qQMwSSdDGRrfL7nZXUKzOHHWmfh1+q+BpGZlsfg=
+X-Google-Smtp-Source: ABdhPJx3mbR9TZRmahMq3/ZF7VUfLVN5NKyz2LJ9Td2mGx+cyp97pCLl0NghVieRW05ckB4pOBB81dxwCcF4itvsl08=
+X-Received: by 2002:a05:6808:483:: with SMTP id z3mr3622068oid.5.1631034367521; 
+ Tue, 07 Sep 2021 10:06:07 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210907141925.125177-1-contact@emersion.fr>
- <bc35bf95-0eb2-a0d5-0f9d-f2ac5c02426c@amd.com>
-In-Reply-To: <bc35bf95-0eb2-a0d5-0f9d-f2ac5c02426c@amd.com>
+References: <20210907110913.15499-1-colin.king@canonical.com>
+In-Reply-To: <20210907110913.15499-1-colin.king@canonical.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 7 Sep 2021 13:03:32 -0400
-Message-ID: <CADnq5_OTjzPaPLB0qXxpjBSiaNu5+miWSz2CNwbB3LwPpWUchQ@mail.gmail.com>
-Subject: Re: [PATCH] amd/display: downgrade validation failure log level
-To: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
-Cc: Simon Ser <contact@emersion.fr>,
+Date: Tue, 7 Sep 2021 13:05:56 -0400
+Message-ID: <CADnq5_PsA5KsH5D2=-GKLgq2HQ-_5x=-0SJF3htvKEzK5cKVYQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/radeon/ci_dpm: Remove redundant initialization of
+ variables hi_sidd, lo_sidd
+To: Colin King <colin.king@canonical.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ xinhui pan <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, 
  amd-gfx list <amd-gfx@lists.freedesktop.org>, 
- Alex Deucher <alexander.deucher@amd.com>, Harry Wentland <hwentlan@amd.com>
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ kernel-janitors@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,52 +87,34 @@ Applied.  Thanks!
 
 Alex
 
-On Tue, Sep 7, 2021 at 10:21 AM Kazlauskas, Nicholas
-<nicholas.kazlauskas@amd.com> wrote:
+On Tue, Sep 7, 2021 at 7:09 AM Colin King <colin.king@canonical.com> wrote:
 >
-> On 2021-09-07 10:19 a.m., Simon Ser wrote:
-> > In amdgpu_dm_atomic_check, dc_validate_global_state is called. On
-> > failure this logs a warning to the kernel journal. However warnings
-> > shouldn't be used for atomic test-only commit failures: user-space
-> > might be perfoming a lot of atomic test-only commits to find the
-> > best hardware configuration.
-> >
-> > Downgrade the log to a regular DRM atomic message. While at it, use
-> > the new device-aware logging infrastructure.
-> >
-> > This fixes error messages in the kernel when running gamescope [1].
-> >
-> > [1]: https://github.com/Plagman/gamescope/issues/245
-> >
-> > Signed-off-by: Simon Ser <contact@emersion.fr>
-> > Cc: Alex Deucher <alexander.deucher@amd.com>
-> > Cc: Harry Wentland <hwentlan@amd.com>
-> > Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+> From: Colin Ian King <colin.king@canonical.com>
 >
-> Makes sense since validation can fail. Thanks for the patch!
+> The variables hi_sidd and lo_sidd are being initialized with a values
+> that are never read, they are being updated later on. The assignments
+> are redundant and can be removed.
 >
-> Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+> Addresses-Coverity: ("Unused value")
+> Signed-off-by: Colin Ian King <colin.king@canonical.com>
+> ---
+>  drivers/gpu/drm/radeon/ci_dpm.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
 >
-> Regards,
-> Nicholas Kazlauskas
+> diff --git a/drivers/gpu/drm/radeon/ci_dpm.c b/drivers/gpu/drm/radeon/ci_dpm.c
+> index f0cfb58da467..ac006bed4743 100644
+> --- a/drivers/gpu/drm/radeon/ci_dpm.c
+> +++ b/drivers/gpu/drm/radeon/ci_dpm.c
+> @@ -390,8 +390,7 @@ static int ci_min_max_v_gnbl_pm_lid_from_bapm_vddc(struct radeon_device *rdev)
+>  static int ci_populate_bapm_vddc_base_leakage_sidd(struct radeon_device *rdev)
+>  {
+>         struct ci_power_info *pi = ci_get_pi(rdev);
+> -       u16 hi_sidd = pi->smc_powertune_table.BapmVddCBaseLeakageHiSidd;
+> -       u16 lo_sidd = pi->smc_powertune_table.BapmVddCBaseLeakageLoSidd;
+> +       u16 hi_sidd, lo_sidd;
+>         struct radeon_cac_tdp_table *cac_tdp_table =
+>                 rdev->pm.dpm.dyn_state.cac_tdp_table;
 >
-> > ---
-> >   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 ++-
-> >   1 file changed, 2 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > index 986c9d29d686..6f3b6f2a952c 100644
-> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > @@ -10467,7 +10467,8 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
-> >                       goto fail;
-> >               status = dc_validate_global_state(dc, dm_state->context, false);
-> >               if (status != DC_OK) {
-> > -                     DC_LOG_WARNING("DC global validation failure: %s (%d)",
-> > +                     drm_dbg_atomic(dev,
-> > +                                    "DC global validation failure: %s (%d)",
-> >                                      dc_status_to_str(status), status);
-> >                       ret = -EINVAL;
-> >                       goto fail;
-> >
+> --
+> 2.32.0
 >
