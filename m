@@ -7,48 +7,48 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2AFF6C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 14:54:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0FA7CC433FE
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 14:54:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E53CC60E77
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 14:54:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E53CC60E77
+	by mail.kernel.org (Postfix) with ESMTPS id CA5EB60724
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 14:54:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org CA5EB60724
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 709CB6E1BB;
-	Wed,  8 Sep 2021 14:54:42 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2068.outbound.protection.outlook.com [40.107.243.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6769E6E19C
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Sep 2021 14:54:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35F4E6E1BE;
+	Wed,  8 Sep 2021 14:54:43 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2040.outbound.protection.outlook.com [40.107.92.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A6C406E19C
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Sep 2021 14:54:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AykArtYab4DYjCsuguBhEUZ56562F8Ecuf86aONg3Un4hDifA8CflPjfxpLVL89+cepbpq3Nzrmez4aE9DsWimrSNNgnUu//ETYXpsv3vlEx3hhTb2AXp4N+kT2sHrqiJfApGgxAkBo0egqgGGcJiBAP29PplxYwp0uM+5ShDYSXRCJbMKgXRejO7FBeBos5MMOkZIV0iwLlAbI7FrHUFPLktnEcIF3OweKtH/sAkIB0Oc7X4ajCjvmplBgPd1BQIDAr6CfTScfQiAk9qaLVxzrK92rJOjmNro97SvjJi53CFI5kBWhlLGqO6reRdcnIR+ukA0WLYlE+VJaulN51dQ==
+ b=SIX/yW+LELFWiCNSEaNoopsAIN2rU4aucp/SS0vRmi40vlTmHlcIVItyf+8jb+Ad2zhRveqz7GgLQ9JLFPL/SRIAVKamcedFS+z4c5P82YliPZ28NUfwlJMCpq1jQD3MTgQ7NrlpKyhVCdW5XKAb0NzOhN8zkeOFvAgEggWKCHtfcIe0OcFBozFmYjVZNALAeJ7yBXf4z/VEwJRuVx7UOPnARIug1MhhjmsYxvGjuzWX+A55jRDspWPLLSQQlZp2WOoWPh8NuFg2nQ1KQnPCB3Na03h7ajEZhVBZr3UAvE9aZQmwzznXCrbuYNsT7MdflTivbso1A+lE9eN+fhl9jA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=FRnAEuog8su2YquGOf8CoKt/H3jmpOPvpbvQoT7ykKs=;
- b=HqtaJxLMUzCf+Y6NP1AOA1vgi4lExvFgzeLIOBaE379CZ8sKP9K1aguaxmxus+NNsAYSqkkP12oNCsfGAS8qCliB+zL8t8gsNZXJrHwRbupK9/CbMccwCob1EajFp9Dd1LIhjAaC6gDuj4DZYEl83G2S7Ll7/XH35u8d/rls8jKSBhwa4twj8VfPWKz2BIxFq0JWCFXY/ElK/rWq9kavwZxepYq19B8PnZbLd7NQcskP1Fyt0QW/Yyon970MnVd3+nzl3RkA9plzp9TsKyD93C/Pf72KCpLIZcl81HwhAYo+EWpa351Iq8RcO5usbgCJ52/uAzqpRqZ8o9ByWi0pIg==
+ bh=ZK58z8akltD6KQSXrzpAcE3+x4wKSway2dWbYmOp4jQ=;
+ b=exMVw3MXTdYYpXeFJpDAZZt7KML7ae8SEI71jN+hGCz11mbX5nVS8S4kajJDo5fYj17jjY8Xp3LZKbhMxpkM9B87o8i3e8d8SCw5OH+7AP0rkVwONsV/4YDCroeKz+SYp8+LvaTFYuJZ/ShdMxToj599EtN6I9YpF6PM8XwyFCovOlPT4fOsmVkUvGugIL/54dlCcQ4892jvI5L/oeOiPlTr+s3G2BrzX4u5Otk0K3jcWGJ1QVqpLmJ1LMgq62cxNfiBfN7V42h/x5m5zxwNy0zgLQH+EVIdFiykz8k6k5sWWGRad+JJ4UNYe82+pPlFW5VPJx3vXpbMza04feDVow==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FRnAEuog8su2YquGOf8CoKt/H3jmpOPvpbvQoT7ykKs=;
- b=AJNRSEzVPFuVAOfxDUaLMki9HfyG0oiWJxZBU8YLMFuPZiewY71i2ZH9D//ruvfh8kSUI7qTgrQaT+P+/wG1Y/V7FVUn9Qk+f+uPsK/v4j/OZcycoB8dy7lWwywU+cC0KzjqBdgem6pHRkXyIo7iMjtf2vmJf9fMdMzKplRVv90=
-Received: from DM6PR02CA0051.namprd02.prod.outlook.com (2603:10b6:5:177::28)
- by DM4PR12MB5213.namprd12.prod.outlook.com (2603:10b6:5:394::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.14; Wed, 8 Sep
- 2021 14:54:38 +0000
-Received: from DM6NAM11FT051.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:177:cafe::81) by DM6PR02CA0051.outlook.office365.com
- (2603:10b6:5:177::28) with Microsoft SMTP Server (version=TLS1_2,
+ bh=ZK58z8akltD6KQSXrzpAcE3+x4wKSway2dWbYmOp4jQ=;
+ b=JVFb0t/h3QFx3qUfWKHWZyqFSfLrFgqOvAgmgplHT+e+ATBECkWbKiV9Ih4gD/NDC4TDaUp+wg448+gajCUyu4o9qdG0/h4WuN3kd0bWoIM9Sx8kKHxfyTsX+9P38JS3qsUtTFiizeThbovZ+YRhJBw1h7cSM+PqOy6HNCQ+twE=
+Received: from DM3PR12CA0127.namprd12.prod.outlook.com (2603:10b6:0:51::23) by
+ DM5PR1201MB2520.namprd12.prod.outlook.com (2603:10b6:3:e9::22) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4500.14; Wed, 8 Sep 2021 14:54:39 +0000
+Received: from DM6NAM11FT060.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:0:51:cafe::90) by DM3PR12CA0127.outlook.office365.com
+ (2603:10b6:0:51::23) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.14 via Frontend
- Transport; Wed, 8 Sep 2021 14:54:38 +0000
+ Transport; Wed, 8 Sep 2021 14:54:39 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -57,13 +57,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT051.mail.protection.outlook.com (10.13.172.243) with Microsoft SMTP
+ DM6NAM11FT060.mail.protection.outlook.com (10.13.173.63) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4500.14 via Frontend Transport; Wed, 8 Sep 2021 14:54:37 +0000
+ 15.20.4500.14 via Frontend Transport; Wed, 8 Sep 2021 14:54:38 +0000
 Received: from DESKTOP-9DR2N9S.localdomain (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.8; Wed, 8 Sep 2021 09:54:35 -0500
+ 15.1.2308.8; Wed, 8 Sep 2021 09:54:37 -0500
 From: Mikita Lipski <mikita.lipski@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
@@ -72,10 +72,10 @@ CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <roman.li@amd.com>, <Anson.Jacob@amd.com>, <wayne.lin@amd.com>,
  <stylon.wang@amd.com>, <solomon.chiu@amd.com>, Wenjing Liu
  <wenjing.liu@amd.com>, George Shen <george.shen@amd.com>
-Subject: [PATCH 03/33] drm/amd/display: move bpp range decision in decide dsc
- bw range function
-Date: Wed, 8 Sep 2021 10:53:54 -0400
-Message-ID: <20210908145424.3311-4-mikita.lipski@amd.com>
+Subject: [PATCH 04/33] drm/amd/display: update conditions to do dfp cap ext
+ validation
+Date: Wed, 8 Sep 2021 10:53:55 -0400
+Message-ID: <20210908145424.3311-5-mikita.lipski@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210908145424.3311-1-mikita.lipski@amd.com>
 References: <20210908145424.3311-1-mikita.lipski@amd.com>
@@ -87,28 +87,28 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4b6753e5-741f-4b85-f1aa-08d972d8947a
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5213:
-X-Microsoft-Antispam-PRVS: <DM4PR12MB5213FE7EC6F89FC9F6A039B0E4D49@DM4PR12MB5213.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5516;
+X-MS-Office365-Filtering-Correlation-Id: a2c37974-7e12-48c8-579f-08d972d89507
+X-MS-TrafficTypeDiagnostic: DM5PR1201MB2520:
+X-Microsoft-Antispam-PRVS: <DM5PR1201MB25206208E451343E43CC0775E4D49@DM5PR1201MB2520.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3968;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 9xbYjf61U3blTMvZvLpm2ZKxJnvpSFvJ2ZicVcFDXUbD2Z94jzFjAQdTj9w66NA8UhBhWPUDuMxfXILLXFESP2BsKZxe51HBGyAeVWl7fhbW5VrqkGd1LMGWcXXFVXHObizfhPIk0yg9o1D8Iqo2mAynMLKe/opJ0gDr8jYirNzIpga55SUU/K1T6YaTXO0QU4CT7+AvMOD1O/uSWmoStZ8jLoLu71lz1HU4jzlkEwFw/gIrpxMv11pMfrS56MpGKgEGAcS8q/l2yi4qNfT6X9Kfb+KjMpmNNpCcn5C5MHsf9GqfzAq+ejX/8MFZvVz1gq2K74upe9N2qliJJKjUKHJZRPykhdkGQmEJIR4Wnyg6ojaEZNzoRtG/AO2jHQP3X9ljg/+ZitDnSM5XraQS/z9NHeWW1KY5PApKkrypl9AZomU/mbADpjaojeHjy7Sx14WpI9rlLlR1UCGfBfsUgpE2CgtzmvnooczWVXbp6Z62OiEA0w9nMqqkRvLQjUL5TyuyE/1BoN9XWyTu/V/dma1pAwbUDOcBmltfWGB2Z1wtZFcBb43m6gmp+H8wbjOSaIqoi+Ob61Ma+cb2zcMcy7eyBn3VZkYgch1Zv8qRdqRGh0Xg+gKSLTKVY080tC8yGOc5VL9AlCPg+z+tmgzNxAk1/ABEmRNtIw+jNCeFW29WZsqd6pTiyjoYGdcStwDjhWAeexLgsyRkI2gEngCz6sDkPHo7upB6/q2+cdCel5Y=
+X-Microsoft-Antispam-Message-Info: kLCv+Y2Gld5XOlSTN7NI3meef0z/ssnhSYKeHCUX5qZoYrIUtaoTvAd/UHndQnige0aqKg9NZTEIxKzN7sn6RZEXS9a5GxPFMPR+8TSGeNcqq/ZGQY87/RNMsD0zHM/ZH4mMfO6Y0eUqF3dVzve/IzCpZE45eds3quI/4wlW3vlRHbmz1cA+nOhczJrItuZBfF7pJH6WaZ7M8N9a/dlUD7BHKG3CEEc3AqOkxFClXHzKLBp2vovIjYS82tUbjJOQoSnTKsPsGYiIl8dlbROC4qmWnwoOpWXAB4VkGWe66xbwQTzU1JdkeJ7qqdDJmNdLzJEtIOrGo02xy6MG+tHSh+EHxShagEOrBoPlXlcovP8MCL/oYZwhYsxKsAohzUQVmdRnTLHnf2eSRjH//D/uZG625plrZpWuJBgJJB+pISnK5wlof1YDrwyIZQlD6SlKiYj40aeq69xLcAiDyN+sswwZDWh0FyI+r31rBJ8IcHu8iTUnrTMzQcnVnA0MrHLSHB2spbL/afdlQsxrB00G3mYdPBpVBQS/cA66u+/W6G6HvGI6Yr/WTC7iXWKajWko4wKoEsg0rerVifpzb0Qvj6Ee4Gx8zMGoR210qgNHWNxQ1gNWAm5avhwdgZtAibdSmNv25cVFFNvSYHb/52bV/B6rkfGELM5qzm+Qe8+sR/V9WdgY2Vh6i2ZH+uPqAAM8h87hftQkP8YyiGsSJ5lE7l+XiNv/54/Gx0rbJDLbHcE=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(44832011)(316002)(16526019)(2906002)(54906003)(508600001)(82310400003)(8936002)(2616005)(4326008)(86362001)(36860700001)(426003)(47076005)(6666004)(70206006)(1076003)(5660300002)(70586007)(356005)(336012)(26005)(6916009)(186003)(8676002)(83380400001)(36756003)(81166007)(36900700001);
+ SFS:(4636009)(136003)(396003)(376002)(346002)(39860400002)(36840700001)(46966006)(26005)(4326008)(36860700001)(6916009)(47076005)(44832011)(426003)(2616005)(1076003)(82740400003)(70586007)(5660300002)(82310400003)(86362001)(186003)(83380400001)(336012)(81166007)(70206006)(478600001)(8936002)(2906002)(6666004)(8676002)(356005)(54906003)(36756003)(316002)(16526019)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2021 14:54:37.8174 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4b6753e5-741f-4b85-f1aa-08d972d8947a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2021 14:54:38.7495 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a2c37974-7e12-48c8-579f-08d972d89507
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT051.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT060.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5213
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB2520
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,230 +126,35 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 From: Wenjing Liu <wenjing.liu@amd.com>
 
 [why]
-Before get dsc bw range is used to compute DSC bw range
-based on the given fixed bpp min/max input.
-The new change will merge any specs, signal, timing specific
-bpp range decision into this function. So the function needs to make
-a decision with all aspects considered.
+According to DP specs dfp cap ext validation is only for branch
+device withou 128b/132b channel coding support and
+downstream of the branch device doesn't have compression.
+Therefore we are adding conditions to only do dfp cap
+extension validation for branch devcie supporting 8b/10b
+channel coding only and it has no DSC passthrough capability.
 
 Acked-by: Mikita Lipski <mikita.lipski@amd.com>
 Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
 Reviewed-by: George Shen <george.shen@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dc_dsc.h     |   6 +-
- drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c | 126 ++++++++++----------
- 2 files changed, 69 insertions(+), 63 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_dsc.h b/drivers/gpu/drm/amd/display/dc/dc_dsc.h
-index c8cc6a448c36..684713b2cff7 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_dsc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_dsc.h
-@@ -51,7 +51,6 @@ struct dc_dsc_policy {
- 	int min_slice_height; // Must not be less than 8
- 	uint32_t max_target_bpp;
- 	uint32_t min_target_bpp;
--	uint32_t preferred_bpp_x16;
- 	bool enable_dsc_when_not_needed;
- };
- 
-@@ -86,6 +85,11 @@ uint32_t dc_dsc_stream_bandwidth_overhead_in_kbps(
- 		const int num_slices_h,
- 		const bool is_dp);
- 
-+/* TODO - Hardware/specs limitation should be owned by dc dsc and returned to DM,
-+ * and DM can choose to OVERRIDE the limitation on CASE BY CASE basis.
-+ * Hardware/specs limitation should not be writable by DM.
-+ * It should be decoupled from DM specific policy and named differently.
-+ */
- void dc_dsc_get_policy_for_timing(const struct dc_crtc_timing *timing,
- 		uint32_t max_target_bpp_limit_override_x16,
- 		struct dc_dsc_policy *policy);
-diff --git a/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c b/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
-index 1e30a742ae01..0321b4446e05 100644
---- a/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
-+++ b/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
-@@ -40,8 +40,15 @@ static bool dsc_policy_enable_dsc_when_not_needed;
- 
- static bool dsc_policy_disable_dsc_stream_overhead;
- 
-+#ifndef MAX
-+#define MAX(X, Y) ((X) > (Y) ? (X) : (Y))
-+#endif
-+#ifndef MIN
-+#define MIN(X, Y) ((X) < (Y) ? (X) : (Y))
-+#endif
-+
- /* Forward Declerations */
--static void get_dsc_bandwidth_range(
-+static bool decide_dsc_bandwidth_range(
- 		const uint32_t min_bpp_x16,
- 		const uint32_t max_bpp_x16,
- 		const uint32_t num_slices_h,
-@@ -356,7 +363,7 @@ bool dc_dsc_compute_bandwidth_range(
- 				dsc_min_slice_height_override, max_bpp_x16, &config);
- 
- 	if (is_dsc_possible)
--		get_dsc_bandwidth_range(min_bpp_x16, max_bpp_x16,
-+		is_dsc_possible = decide_dsc_bandwidth_range(min_bpp_x16, max_bpp_x16,
- 				config.num_slices_h, &dsc_common_caps, timing, range);
- 
- 	return is_dsc_possible;
-@@ -481,10 +488,12 @@ static uint32_t compute_bpp_x16_from_target_bandwidth(
- 	return dc_fixpt_floor(bpp_x16);
- }
- 
--/* Get DSC bandwidth range based on [min_bpp, max_bpp] target bitrate range, and timing's pixel clock
-- * and uncompressed bandwidth.
-+/* Decide DSC bandwidth range based on signal, timing, specs specific and input min and max
-+ * requirements.
-+ * The range output includes decided min/max target bpp, the respective bandwidth requirements
-+ * and native timing bandwidth requirement when DSC is not used.
-  */
--static void get_dsc_bandwidth_range(
-+static bool decide_dsc_bandwidth_range(
- 		const uint32_t min_bpp_x16,
- 		const uint32_t max_bpp_x16,
- 		const uint32_t num_slices_h,
-@@ -492,39 +501,45 @@ static void get_dsc_bandwidth_range(
- 		const struct dc_crtc_timing *timing,
- 		struct dc_dsc_bw_range *range)
- {
--	/* native stream bandwidth */
--	range->stream_kbps = dc_bandwidth_in_kbps_from_timing(timing);
--
--	/* max dsc target bpp */
--	range->max_kbps = dc_dsc_stream_bandwidth_in_kbps(timing,
--			max_bpp_x16, num_slices_h, dsc_caps->is_dp);
--	range->max_target_bpp_x16 = max_bpp_x16;
--	if (range->max_kbps > range->stream_kbps) {
--		/* max dsc target bpp is capped to native bandwidth */
--		range->max_kbps = range->stream_kbps;
--		range->max_target_bpp_x16 = compute_bpp_x16_from_target_bandwidth(
--				range->max_kbps, timing, num_slices_h,
--				dsc_caps->bpp_increment_div,
--				dsc_caps->is_dp);
-+	uint32_t preferred_bpp_x16 = timing->dsc_fixed_bits_per_pixel_x16;
-+
-+	memset(range, 0, sizeof(*range));
-+
-+	/* apply signal, timing, specs and explicitly specified DSC range requirements */
-+	if (preferred_bpp_x16) {
-+		if (preferred_bpp_x16 <= max_bpp_x16 &&
-+				preferred_bpp_x16 >= min_bpp_x16) {
-+			range->max_target_bpp_x16 = preferred_bpp_x16;
-+			range->min_target_bpp_x16 = preferred_bpp_x16;
-+		}
-+	}
-+	else {
-+		range->max_target_bpp_x16 = max_bpp_x16;
-+		range->min_target_bpp_x16 = min_bpp_x16;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+index f1c9ee53ac67..5d9460e0dbab 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+@@ -2606,7 +2606,9 @@ static bool dp_active_dongle_validate_timing(
+ #if defined(CONFIG_DRM_AMD_DC_DCN)
  	}
  
--	/* min dsc target bpp */
--	range->min_kbps = dc_dsc_stream_bandwidth_in_kbps(timing,
--			min_bpp_x16, num_slices_h, dsc_caps->is_dp);
--	range->min_target_bpp_x16 = min_bpp_x16;
--	if (range->min_kbps > range->max_kbps) {
--		/* min dsc target bpp is capped to max dsc bandwidth*/
--		range->min_kbps = range->max_kbps;
--		range->min_target_bpp_x16 = range->max_target_bpp_x16;
-+	/* populate output structure */
-+	if (range->max_target_bpp_x16 >= range->min_target_bpp_x16 && range->min_target_bpp_x16 > 0) {
-+		/* native stream bandwidth */
-+		range->stream_kbps = dc_bandwidth_in_kbps_from_timing(timing);
-+
-+		/* max dsc target bpp */
-+		range->max_kbps = dc_dsc_stream_bandwidth_in_kbps(timing,
-+				range->max_target_bpp_x16, num_slices_h, dsc_caps->is_dp);
-+
-+		/* min dsc target bpp */
-+		range->min_kbps = dc_dsc_stream_bandwidth_in_kbps(timing,
-+				range->min_target_bpp_x16, num_slices_h, dsc_caps->is_dp);
- 	}
-+
-+	return range->max_kbps >= range->min_kbps && range->min_kbps > 0;
- }
+-	if (dongle_caps->dfp_cap_ext.supported) {
++	if (dpcd_caps->channel_coding_cap.bits.DP_128b_132b_SUPPORTED == 0 &&
++			dpcd_caps->dsc_caps.dsc_basic_caps.fields.dsc_support.DSC_PASSTHROUGH_SUPPORT == 0 &&
++			dongle_caps->dfp_cap_ext.supported) {
  
- /* Decides if DSC should be used and calculates target bpp if it should, applying DSC policy.
-  *
-  * Returns:
-- *     - 'true' if DSC was required by policy and was successfully applied
-- *     - 'false' if DSC was not necessary (e.g. if uncompressed stream fits 'target_bandwidth_kbps'),
-- *        or if it couldn't be applied based on DSC policy.
-+ *     - 'true' if target bpp is decided
-+ *     - 'false' if target bpp cannot be decided (e.g. cannot fit even with min DSC bpp),
-  */
- static bool decide_dsc_target_bpp_x16(
- 		const struct dc_dsc_policy *policy,
-@@ -534,40 +549,29 @@ static bool decide_dsc_target_bpp_x16(
- 		const int num_slices_h,
- 		int *target_bpp_x16)
- {
--	bool should_use_dsc = false;
- 	struct dc_dsc_bw_range range;
- 
--	memset(&range, 0, sizeof(range));
--
--	get_dsc_bandwidth_range(policy->min_target_bpp * 16, policy->max_target_bpp * 16,
--			num_slices_h, dsc_common_caps, timing, &range);
--	if (!policy->enable_dsc_when_not_needed && target_bandwidth_kbps >= range.stream_kbps) {
--		/* enough bandwidth without dsc */
--		*target_bpp_x16 = 0;
--		should_use_dsc = false;
--	} else if (policy->preferred_bpp_x16 > 0 &&
--			policy->preferred_bpp_x16 <= range.max_target_bpp_x16 &&
--			policy->preferred_bpp_x16 >= range.min_target_bpp_x16) {
--		*target_bpp_x16 = policy->preferred_bpp_x16;
--		should_use_dsc = true;
--	} else if (target_bandwidth_kbps >= range.max_kbps) {
--		/* use max target bpp allowed */
--		*target_bpp_x16 = range.max_target_bpp_x16;
--		should_use_dsc = true;
--	} else if (target_bandwidth_kbps >= range.min_kbps) {
--		/* use target bpp that can take entire target bandwidth */
--		*target_bpp_x16 = compute_bpp_x16_from_target_bandwidth(
--				target_bandwidth_kbps, timing, num_slices_h,
--				dsc_common_caps->bpp_increment_div,
--				dsc_common_caps->is_dp);
--		should_use_dsc = true;
--	} else {
--		/* not enough bandwidth to fulfill minimum requirement */
--		*target_bpp_x16 = 0;
--		should_use_dsc = false;
-+	*target_bpp_x16 = 0;
-+
-+	if (decide_dsc_bandwidth_range(policy->min_target_bpp * 16, policy->max_target_bpp * 16,
-+			num_slices_h, dsc_common_caps, timing, &range)) {
-+		if (target_bandwidth_kbps >= range.stream_kbps) {
-+			if (policy->enable_dsc_when_not_needed)
-+				/* enable max bpp even dsc is not needed */
-+				*target_bpp_x16 = range.max_target_bpp_x16;
-+		} else if (target_bandwidth_kbps >= range.max_kbps) {
-+			/* use max target bpp allowed */
-+			*target_bpp_x16 = range.max_target_bpp_x16;
-+		} else if (target_bandwidth_kbps >= range.min_kbps) {
-+			/* use target bpp that can take entire target bandwidth */
-+			*target_bpp_x16 = compute_bpp_x16_from_target_bandwidth(
-+					target_bandwidth_kbps, timing, num_slices_h,
-+					dsc_common_caps->bpp_increment_div,
-+					dsc_common_caps->is_dp);
-+		}
- 	}
- 
--	return should_use_dsc;
-+	return *target_bpp_x16 != 0;
- }
- 
- #define MIN_AVAILABLE_SLICES_SIZE  4
-@@ -1059,8 +1063,6 @@ void dc_dsc_get_policy_for_timing(const struct dc_crtc_timing *timing,
- 		return;
- 	}
- 
--	policy->preferred_bpp_x16 = timing->dsc_fixed_bits_per_pixel_x16;
--
- 	/* internal upper limit, default 16 bpp */
- 	if (policy->max_target_bpp > dsc_policy_max_target_bpp_limit)
- 		policy->max_target_bpp = dsc_policy_max_target_bpp_limit;
+ 		if (dongle_caps->dfp_cap_ext.max_pixel_rate_in_mps < (timing->pix_clk_100hz / 10000))
+ 			return false;
 -- 
 2.25.1
 
