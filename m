@@ -7,48 +7,48 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0B1ECC4332F
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 14:54:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F21B1C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 14:54:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CBD7E60E77
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 14:54:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org CBD7E60E77
+	by mail.kernel.org (Postfix) with ESMTPS id 9E6AA60724
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 14:54:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9E6AA60724
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C480B6E1C0;
-	Wed,  8 Sep 2021 14:54:43 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1anam02on2074.outbound.protection.outlook.com [40.107.96.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 602296E19C
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Sep 2021 14:54:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 013DA6E1CD;
+	Wed,  8 Sep 2021 14:54:46 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2073.outbound.protection.outlook.com [40.107.92.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 73A196E1CD
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Sep 2021 14:54:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=foFa5VX4f3P44SK+oHE/DSGXSa0s0h408mho/A45uES017jHGp4Gni6dXGWzmhc7KUW1EJcfM/du1D3mUcn1pp7pixGjEy6FgyR7gvZ0ArHkTmCZSOhsfSZCqNsXoaoe+CMHn3qSRwglzWKnb551SV2dQJ7T88sBAs05UU3RvIdv+8MMqUjNvkQn2AZocmEks7OWzOGeG4phCe/FcOFYT4kbdy3k0XMAgm/+9YTnbH1gtVVU3hX3zCF4qd5k29XFchzumugxJcKgtvGdV7W9raz92P4nhc+KLZeueI0wfaJGbS828s+qSWP/0QyXmYNanDwhPP/xzY9Gu1QZs9BZ+A==
+ b=E0a4QzoOHFA1cnf712PKctUyZ2ZkaTmwkxIL8QdXjQLLRnWHvEIanOGvRrrd4BVnx1Oj2wIx2GkVopq2UYdmHZbjYoZNDlkZ1OZehbK/wP3HL7uqqrFXIEiPC8BaImmi56jcd6bDsOrdgamlcozdQl90UR6v3l/wjN5mew02LduX9jIKPn58Tybg0hYrdKRxDxdIoNn4zNomNAD/giIpB48mOzMBUV2SZx40xOZm4adRJs7Z07cWtjj+Z7OAEM2rSxeu3Sbkc9Brc+udPgQgg65acfnQPi2oDYimjDxKGnYXQXgalJvxFx6b+Sg9YySC06AI1K5f+e6YPjKw9uVPUQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=ke/BMJclhw/pxT3yAa6cRr03YK2lCCB/nAo1vZnCkwQ=;
- b=nLDTclj+d+JKgpLIZ4hwOx0GGoUMkZo6vedNot0ZmXviiT20zcFUTzTy4eOkgRME6CrOVKaUwIk78Igvn/hKqPT5ryaNtaNRJTqpbPWpNe/9ImXU1NI8ymA+EBaHULA2rt2QH9kwLBVIcyuIj91BwOUcMWjVnzzeMpeOjmZptHMG3GUqe+BBqGBfVnvM8yESORot5u/9ze728FJWfuBqA+zoIdvCa+TSLYEhMzZq/I3RSqQ80lE/boSJlFGmYfkULYmvKnqG4eNRiX/PiG46wt5lvxHXrwFnWQQL67MtB6vOSHHgdH0DAwg0rYfUAR1YKNSs5IC9iZc55EtThCqyQQ==
+ bh=Jx9FayJQKLFcwG0M8qWryr5fhXDJVQrur5faEVELQBg=;
+ b=V7dMsbFlMgAU+o/4CANSI1QGi1/KS7pKgpdvVPl16rXCKgWSISCLXSfJ9q6GkvEhkpzA1eDBzhvXITfX140aBTtmVA9H+YlvzMu7r+SG2+L4e45AYndqzrcqHNWITh7iqgb+FcizSQhFyMyOFJezzwLcD23wsyfkB+fPBUyKM7nk4OsFAe0tSOcNK8A/OnuPDCFAoH5UWPRHg9UMNW9uCBUjPa1iJaUoUE+oh7a2itU3olqjdyGqxHQEl3VmNsrUg2UIPgCW2wwHl5bwgCDCk/RbTFjY7Ie6Nxtzbd+AjSL8OMUgI8033xDKzEqzmwpLbnAY6gtXX4maNHNbVvGX5w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ke/BMJclhw/pxT3yAa6cRr03YK2lCCB/nAo1vZnCkwQ=;
- b=FAch5PajSKApqLkRDwEKQTGkZxtiNXCxGDrbO1ZUB/Rt9zcbt01n8SYOTFCyABjVmn1feIxin9zduAbxmxVlO/kU3R0sM0HJqp0QG37JjZbrCgS8gG2fvRqh+jaHzIEZVNxJsiafVjpMpIKbuSC1wrDUujOaQMZbe3Jp4BFzcvw=
-Received: from DM6PR13CA0022.namprd13.prod.outlook.com (2603:10b6:5:bc::35) by
- DM8PR12MB5493.namprd12.prod.outlook.com (2603:10b6:8:3d::10) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4500.14; Wed, 8 Sep 2021 14:54:40 +0000
-Received: from DM6NAM11FT066.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:bc:cafe::e7) by DM6PR13CA0022.outlook.office365.com
- (2603:10b6:5:bc::35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.8 via Frontend
- Transport; Wed, 8 Sep 2021 14:54:40 +0000
+ bh=Jx9FayJQKLFcwG0M8qWryr5fhXDJVQrur5faEVELQBg=;
+ b=iF/cFEzIjvBBGUvwxCo+O0Hw5xKHUeVfBIZlYX+IfyJR/XmX+XhkHpkIk3MHGkH3VqlbyazYZhwpLL0RQmSnViPve1cqmE/fYmv+cenM2AdKj4upsrrZxBPENPnnM0hYhg3wv8DfSPAY2+pxY3fR4KEM+VLL6BDTH14S9JVGP/Y=
+Received: from DM6PR03CA0050.namprd03.prod.outlook.com (2603:10b6:5:100::27)
+ by SN6PR12MB4766.namprd12.prod.outlook.com (2603:10b6:805:e2::26) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.14; Wed, 8 Sep
+ 2021 14:54:42 +0000
+Received: from DM6NAM11FT034.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:100:cafe::cc) by DM6PR03CA0050.outlook.office365.com
+ (2603:10b6:5:100::27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.14 via Frontend
+ Transport; Wed, 8 Sep 2021 14:54:42 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -57,24 +57,25 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT066.mail.protection.outlook.com (10.13.173.179) with Microsoft SMTP
+ DM6NAM11FT034.mail.protection.outlook.com (10.13.173.47) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4500.14 via Frontend Transport; Wed, 8 Sep 2021 14:54:40 +0000
+ 15.20.4500.14 via Frontend Transport; Wed, 8 Sep 2021 14:54:42 +0000
 Received: from DESKTOP-9DR2N9S.localdomain (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.8; Wed, 8 Sep 2021 09:54:38 -0500
+ 15.1.2308.8; Wed, 8 Sep 2021 09:54:41 -0500
 From: Mikita Lipski <mikita.lipski@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <Bhawanpreet.Lakha@amd.com>, <Rodrigo.Siqueira@amd.com>,
  <Aurabindo.Pillai@amd.com>, <qingqing.zhuo@amd.com>, <mikita.lipski@amd.com>, 
  <roman.li@amd.com>, <Anson.Jacob@amd.com>, <wayne.lin@amd.com>,
- <stylon.wang@amd.com>, <solomon.chiu@amd.com>, Wayne Lin <Wayne.Lin@amd.com>, 
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Subject: [PATCH 05/33] drm/amd/display: Add option to defer works of hpd_rx_irq
-Date: Wed, 8 Sep 2021 10:53:56 -0400
-Message-ID: <20210908145424.3311-6-mikita.lipski@amd.com>
+ <stylon.wang@amd.com>, <solomon.chiu@amd.com>, Josip Pavic
+ <Josip.Pavic@amd.com>, Anthony Koo <anthony.koo@amd.com>
+Subject: [PATCH 07/33] drm/amd/display: unblock abm when odm is enabled only
+ on configs that support it
+Date: Wed, 8 Sep 2021 10:53:58 -0400
+Message-ID: <20210908145424.3311-8-mikita.lipski@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210908145424.3311-1-mikita.lipski@amd.com>
 References: <20210908145424.3311-1-mikita.lipski@amd.com>
@@ -86,28 +87,28 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ee09c1cc-6af7-4b4b-926d-08d972d895db
-X-MS-TrafficTypeDiagnostic: DM8PR12MB5493:
-X-Microsoft-Antispam-PRVS: <DM8PR12MB54939846905BCD9C370E558BE4D49@DM8PR12MB5493.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:983;
+X-MS-Office365-Filtering-Correlation-Id: 6cc3d9d1-5f30-49da-1653-08d972d8976e
+X-MS-TrafficTypeDiagnostic: SN6PR12MB4766:
+X-Microsoft-Antispam-PRVS: <SN6PR12MB47663CC8C6DF6C5A78502BB3E4D49@SN6PR12MB4766.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: bPR/FgpJXJfJk8qoUDMDPiSevtbQ0RLhmwoPF3HkHXMIju45Y5ND1/DeFHEmP2TKDDtTsYKls3m6sXdvlCYhVxhOVamWtPb/WPv1l+VsBJIorxZYm8EumepRlSQbOxmrUy+oC041cOUsv4a0TWqfzghcIdEPpd+lbBrc4lfQKtyUDI3q6GELDyAjQkZY9LCodbDSW0c2u2wC5K/38PCtrz8vtZabPNkR1M3Qjvfk3mzIWkrccliib7chwCgQEL5ZXNsWfJWdyvckarjocoqViqkc2ZbJBp+R/mIGVHQMZ+dAIOSnKiuDI0AFHlxFmkcGMHR4ByhGIvpOxOnEjFe8fi/mEFqVGcTIZhxz/z0kp68LE8AXu9pxGdjEz8s2JOQ5lhxXju7VAUFnr5bW6gcanOxaLOtZW/cbOOqnDbcf86OiigexwXvypgKeZT5wTx9LBbauCpWmJL53S6H7bPlXkQsZXq45/pCI44N2Muixxs85ipFOnKqM0r2C/0ePPGJ3Icyp081aMKkI0Sv8lQARmAbPv1jk+dTYcU2mWCI2CeQW0sI/bDxI0WFwEPXo6bSp9meoIDged/5PFiqNE2NxQLtV/CwkilAr7WrNL4pewIgilSslKWdf1T8WAEUh1Gn0I3VRMz//Wli1guPhQrIRotvpKvm+XEkTxdtRgcxrx70CUFQttK+GE5c861ghw2aopdUKPUxvg8JRsq3McpvYee9cmhvGGdcR46oEUHAQ5K4=
+X-Microsoft-Antispam-Message-Info: mbkuBDhNDRQv17/InXfWMVjsORvhcj8KINQzA5FI/joByzHSewaEOBtaDPoQNYWRyhXXxTNdomnRNPF3xJguGxO9nP4ljsQMXCEIZ072jOPLUnWxBiptPcNDlpkAcnrma/E7nzol3FgW5ZR5bWehme7F3z6PKP//J0xExltYxdEiJ0jdqKJC0VG/GSoAeQ0QAivB19CTxtDMAU4oLe/Z1fdwETlc0nIm0QlD2lF0cQV9AbBMNHK4ClV2BSIPuPE0siNxYQEOalVFnrjmWt0tIojh0KNySu0w5/rgT8ZfabkEZ/McTzd65JfDN91EuechP3CQjIgJ6BM6t63yk3sqRC/AlanKDvSoy9cnoymZHwhiFewBigHBdayjiWOEIiQQi4ItkQL/Qou31D/kTDxLylF35SJ2Kacztg1zKYliE4HFm3IDzrBnuQSpEEHB5X13g2ujKfbA9HkcveUsLVVkCbqOAee98hGoRIyGr0L0xFGOZu/c2lYrjDcsTR1pSU8gNC58dZk1niYCACMtID83NgfC6JQgAVmXv/UW7nikJ2MLzQMop5QMmGixAEixBboKTteWr8B7LbLamDtlawYOKjOwrn1/6yGVWrTsIhl119p9cHy67+q0VmbWKQqTMZDJ8O91OntoI4LJ6i6n/BiGumLO8bA6g9AsOIXQIQN9h/jH6Di1ySSh+N/tShTAYHkjN3JO3xoVByyV+dMxqReQhWdAxnbTjCQ5UOqCOvrofMs=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(136003)(39860400002)(376002)(346002)(396003)(46966006)(36840700001)(478600001)(44832011)(54906003)(316002)(47076005)(5660300002)(336012)(186003)(26005)(4326008)(36756003)(70206006)(82740400003)(2616005)(8936002)(2906002)(6666004)(86362001)(6916009)(70586007)(36860700001)(356005)(81166007)(16526019)(83380400001)(426003)(1076003)(8676002)(82310400003)(36900700001);
+ SFS:(4636009)(396003)(136003)(39860400002)(346002)(376002)(46966006)(36840700001)(82310400003)(2906002)(83380400001)(86362001)(36756003)(6916009)(316002)(82740400003)(36860700001)(4326008)(81166007)(54906003)(2616005)(336012)(426003)(356005)(6666004)(1076003)(47076005)(478600001)(8676002)(70206006)(70586007)(44832011)(186003)(5660300002)(26005)(16526019)(8936002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2021 14:54:40.1343 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ee09c1cc-6af7-4b4b-926d-08d972d895db
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2021 14:54:42.7773 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6cc3d9d1-5f30-49da-1653-08d972d8976e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT066.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT034.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM8PR12MB5493
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB4766
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,201 +123,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Wayne Lin <Wayne.Lin@amd.com>
+From: Josip Pavic <Josip.Pavic@amd.com>
 
-[Why & How]
-Due to some code flow constraints, we need to defer dc_lock needed works
-from dc_link_handle_hpd_rx_irq(). Thus, do following changes:
+[Why]
+When ODM is enabled, ABM is blocked on dcn31 but unblocked on dcn30.
 
-* Change allow_hpd_rx_irq() from static to public
-* Change handle_automated_test() from static to public
-* Extract link lost handling flow out from dc_link_handle_hpd_rx_irq()
-  and put those into a new function dc_link_dp_handle_link_loss()
-* Add one option parameter to decide whether defer works within
-  dc_link_handle_hpd_rx_irq()
+Since the dcn31 firmware is now able to handle ABM interop with ODM, it
+is no longer necessary to block ABM when ODM is enabled.
 
+Since the dcn30 firmware does not handle ABM interop with ODM, leaving
+that combination unblocked can lead to one side of the screen appearing
+brighter than the other.
+
+[How]
+When ODM is enabled, unblock abm on dcn31 and block it on dcn30
+
+Reviewed-by: Anthony Koo <anthony.koo@amd.com>
 Acked-by: Mikita Lipski <mikita.lipski@amd.com>
-Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
-Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Signed-off-by: Josip Pavic <Josip.Pavic@amd.com>
 ---
- .../gpu/drm/amd/display/dc/core/dc_link_dp.c  | 92 ++++++++++++-------
- drivers/gpu/drm/amd/display/dc/dc_link.h      |  3 +
- 2 files changed, 63 insertions(+), 32 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.c |  1 +
+ .../gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c    | 15 ---------------
+ drivers/gpu/drm/amd/display/dc/dcn31/dcn31_init.c |  1 -
+ 3 files changed, 1 insertion(+), 16 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-index 53c3c9c1a79d..22455113ba9d 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-@@ -3432,7 +3432,7 @@ void decide_link_settings(struct dc_stream_state *stream,
- }
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.c
+index 3a5b53dd2f6d..93f32a312fee 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.c
+@@ -100,6 +100,7 @@ static const struct hw_sequencer_funcs dcn30_funcs = {
+ 	.set_disp_pattern_generator = dcn30_set_disp_pattern_generator,
+ 	.get_dcc_en_bits = dcn10_get_dcc_en_bits,
+ 	.update_visual_confirm_color = dcn20_update_visual_confirm_color,
++	.is_abm_supported = dcn21_is_abm_supported
+ };
  
- /*************************Short Pulse IRQ***************************/
--static bool allow_hpd_rx_irq(const struct dc_link *link)
-+bool dc_link_dp_allow_hpd_rx_irq(const struct dc_link *link)
- {
- 	/*
- 	 * Don't handle RX IRQ unless one of following is met:
-@@ -3941,7 +3941,7 @@ static void dp_test_get_audio_test_data(struct dc_link *link, bool disable_video
+ static const struct hwseq_private_funcs dcn30_private_funcs = {
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c
+index 7feba8a0d847..2434232fb3f5 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c
+@@ -595,18 +595,3 @@ void dcn31_reset_hw_ctx_wrap(
+ 		}
  	}
  }
- 
--static void handle_automated_test(struct dc_link *link)
-+void dc_link_dp_handle_automated_test(struct dc_link *link)
- {
- 	union test_request test_request;
- 	union test_response test_response;
-@@ -3990,17 +3990,50 @@ static void handle_automated_test(struct dc_link *link)
- 			sizeof(test_response));
- }
- 
--bool dc_link_handle_hpd_rx_irq(struct dc_link *link, union hpd_irq_data *out_hpd_irq_dpcd_data, bool *out_link_loss)
-+void dc_link_dp_handle_link_loss(struct dc_link *link)
-+{
-+	int i;
-+	struct pipe_ctx *pipe_ctx;
-+
-+	for (i = 0; i < MAX_PIPES; i++) {
-+		pipe_ctx = &link->dc->current_state->res_ctx.pipe_ctx[i];
-+		if (pipe_ctx && pipe_ctx->stream && pipe_ctx->stream->link == link)
-+			break;
-+	}
-+
-+	if (pipe_ctx == NULL || pipe_ctx->stream == NULL)
-+		return;
-+
-+	for (i = 0; i < MAX_PIPES; i++) {
-+		pipe_ctx = &link->dc->current_state->res_ctx.pipe_ctx[i];
-+		if (pipe_ctx && pipe_ctx->stream && !pipe_ctx->stream->dpms_off &&
-+				pipe_ctx->stream->link == link && !pipe_ctx->prev_odm_pipe) {
-+			core_link_disable_stream(pipe_ctx);
-+		}
-+	}
-+
-+	for (i = 0; i < MAX_PIPES; i++) {
-+		pipe_ctx = &link->dc->current_state->res_ctx.pipe_ctx[i];
-+		if (pipe_ctx && pipe_ctx->stream && !pipe_ctx->stream->dpms_off &&
-+				pipe_ctx->stream->link == link && !pipe_ctx->prev_odm_pipe) {
-+			core_link_enable_stream(link->dc->current_state, pipe_ctx);
-+		}
-+	}
-+}
-+
-+static bool handle_hpd_rx_irq(struct dc_link *link, union hpd_irq_data *out_hpd_irq_dpcd_data, bool *out_link_loss,
-+							bool defer_handling, bool *has_left_work)
- {
- 	union hpd_irq_data hpd_irq_dpcd_data = { { { {0} } } };
- 	union device_service_irq device_service_clear = { { 0 } };
- 	enum dc_status result;
- 	bool status = false;
--	struct pipe_ctx *pipe_ctx;
+-
+-bool dcn31_is_abm_supported(struct dc *dc,
+-		struct dc_state *context, struct dc_stream_state *stream)
+-{
 -	int i;
- 
- 	if (out_link_loss)
- 		*out_link_loss = false;
-+
-+	if (has_left_work)
-+		*has_left_work = false;
- 	/* For use cases related to down stream connection status change,
- 	 * PSR and device auto test, refer to function handle_sst_hpd_irq
- 	 * in DAL2.1*/
-@@ -4032,11 +4065,14 @@ bool dc_link_handle_hpd_rx_irq(struct dc_link *link, union hpd_irq_data *out_hpd
- 			&device_service_clear.raw,
- 			sizeof(device_service_clear.raw));
- 		device_service_clear.raw = 0;
--		handle_automated_test(link);
-+		if (defer_handling && has_left_work)
-+			*has_left_work = true;
-+		else
-+			dc_link_dp_handle_automated_test(link);
- 		return false;
- 	}
- 
--	if (!allow_hpd_rx_irq(link)) {
-+	if (!dc_link_dp_allow_hpd_rx_irq(link)) {
- 		DC_LOG_HW_HPD_IRQ("%s: skipping HPD handling on %d\n",
- 			__func__, link->link_index);
- 		return false;
-@@ -4050,12 +4086,18 @@ bool dc_link_handle_hpd_rx_irq(struct dc_link *link, union hpd_irq_data *out_hpd
- 	 * so do not handle as a normal sink status change interrupt.
- 	 */
- 
--	if (hpd_irq_dpcd_data.bytes.device_service_irq.bits.UP_REQ_MSG_RDY)
-+	if (hpd_irq_dpcd_data.bytes.device_service_irq.bits.UP_REQ_MSG_RDY) {
-+		if (defer_handling && has_left_work)
-+			*has_left_work = true;
- 		return true;
-+	}
- 
- 	/* check if we have MST msg and return since we poll for it */
--	if (hpd_irq_dpcd_data.bytes.device_service_irq.bits.DOWN_REP_MSG_RDY)
-+	if (hpd_irq_dpcd_data.bytes.device_service_irq.bits.DOWN_REP_MSG_RDY) {
-+		if (defer_handling && has_left_work)
-+			*has_left_work = true;
- 		return false;
-+	}
- 
- 	/* For now we only handle 'Downstream port status' case.
- 	 * If we got sink count changed it means
-@@ -4072,29 +4114,10 @@ bool dc_link_handle_hpd_rx_irq(struct dc_link *link, union hpd_irq_data *out_hpd
- 					sizeof(hpd_irq_dpcd_data),
- 					"Status: ");
- 
--		for (i = 0; i < MAX_PIPES; i++) {
--			pipe_ctx = &link->dc->current_state->res_ctx.pipe_ctx[i];
--			if (pipe_ctx && pipe_ctx->stream && pipe_ctx->stream->link == link)
--				break;
--		}
 -
--		if (pipe_ctx == NULL || pipe_ctx->stream == NULL)
--			return false;
+-	for (i = 0; i < dc->res_pool->pipe_count; i++) {
+-		struct pipe_ctx *pipe_ctx = &context->res_ctx.pipe_ctx[i];
 -
--
--		for (i = 0; i < MAX_PIPES; i++) {
--			pipe_ctx = &link->dc->current_state->res_ctx.pipe_ctx[i];
--			if (pipe_ctx && pipe_ctx->stream && !pipe_ctx->stream->dpms_off &&
--					pipe_ctx->stream->link == link && !pipe_ctx->prev_odm_pipe)
--				core_link_disable_stream(pipe_ctx);
--		}
--
--		for (i = 0; i < MAX_PIPES; i++) {
--			pipe_ctx = &link->dc->current_state->res_ctx.pipe_ctx[i];
--			if (pipe_ctx && pipe_ctx->stream && !pipe_ctx->stream->dpms_off &&
--					pipe_ctx->stream->link == link && !pipe_ctx->prev_odm_pipe)
--				core_link_enable_stream(link->dc->current_state, pipe_ctx);
--		}
-+		if (defer_handling && has_left_work)
-+			*has_left_work = true;
-+		else
-+			dc_link_dp_handle_link_loss(link);
- 
- 		status = false;
- 		if (out_link_loss)
-@@ -4120,6 +4143,11 @@ bool dc_link_handle_hpd_rx_irq(struct dc_link *link, union hpd_irq_data *out_hpd
- 	return status;
- }
- 
-+bool dc_link_handle_hpd_rx_irq(struct dc_link *link, union hpd_irq_data *out_hpd_irq_dpcd_data, bool *out_link_loss)
-+{
-+	return handle_hpd_rx_irq(link, out_hpd_irq_dpcd_data, out_link_loss, false, NULL);
-+}
-+
- /*query dpcd for version and mst cap addresses*/
- bool is_mst_supported(struct dc_link *link)
- {
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_link.h b/drivers/gpu/drm/amd/display/dc/dc_link.h
-index 4fdb24ba24af..bb515d640965 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_link.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_link.h
-@@ -315,6 +315,9 @@ bool dc_link_wait_for_t12(struct dc_link *link);
- enum dc_status read_hpd_rx_irq_data(
- 	struct dc_link *link,
- 	union hpd_irq_data *irq_data);
-+void dc_link_dp_handle_automated_test(struct dc_link *link);
-+void dc_link_dp_handle_link_loss(struct dc_link *link);
-+bool dc_link_dp_allow_hpd_rx_irq(const struct dc_link *link);
- 
- struct dc_sink_init_data;
- 
+-		if (pipe_ctx->stream == stream &&
+-				(pipe_ctx->prev_odm_pipe == NULL && pipe_ctx->next_odm_pipe == NULL))
+-			return true;
+-	}
+-	return false;
+-}
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_init.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_init.c
+index 40011cd3c8ef..10c83f4083b5 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_init.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_init.c
+@@ -98,7 +98,6 @@ static const struct hw_sequencer_funcs dcn31_funcs = {
+ 	.set_pipe = dcn21_set_pipe,
+ 	.z10_restore = dcn31_z10_restore,
+ 	.z10_save_init = dcn31_z10_save_init,
+-	.is_abm_supported = dcn31_is_abm_supported,
+ 	.set_disp_pattern_generator = dcn30_set_disp_pattern_generator,
+ 	.update_visual_confirm_color = dcn20_update_visual_confirm_color,
+ };
 -- 
 2.25.1
 
