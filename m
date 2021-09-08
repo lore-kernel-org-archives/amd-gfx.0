@@ -2,82 +2,80 @@ Return-Path: <SRS0=RbrA=N6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-16.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 37D85C433F5
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 09:38:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9B00BC433EF
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 09:44:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F1A2C61131
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 09:38:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F1A2C61131
+	by mail.kernel.org (Postfix) with ESMTPS id 65A6E61026
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 09:44:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 65A6E61026
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 664A16E167;
-	Wed,  8 Sep 2021 09:38:17 +0000 (UTC)
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [IPv6:2a00:1450:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 117AD6E165
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Sep 2021 09:38:16 +0000 (UTC)
-Received: by mail-wm1-x335.google.com with SMTP id s24so1212019wmh.4
- for <amd-gfx@lists.freedesktop.org>; Wed, 08 Sep 2021 02:38:15 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC7FE6E16D;
+	Wed,  8 Sep 2021 09:44:36 +0000 (UTC)
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [IPv6:2a00:1450:4864:20::434])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54D466E171
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Sep 2021 09:44:35 +0000 (UTC)
+Received: by mail-wr1-x434.google.com with SMTP id t18so2394623wrb.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 08 Sep 2021 02:44:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=V9QNwXG+jV216OvKqkcOKUGJ5tYepQiKTBuc2Epn7l8=;
- b=pAdeVLj+vJqpZynvRA5KNm0wiqisknp9cZVq5S+ff2LvUVEgGUASs+BuuyHjslzQ6D
- OwhXBuPKx9ieR/Q5LLJttVzfDAKoC2ZC4a5nycDVckVk53B2/2L9gdzDi4pIfrFEhbC/
- Thu9mipn/vGYNMza+/FnfUY0PCugTRIUYs6gCXJLuqj9qwpMajdPW5GVvf/LgdANAwf6
- JVfRLNDNryW+aCoNEGS+5DdEru6+4GEEy8KDCCmBuPVZj/hpvD99g7wIu6k0Eg69ZED1
- N1KWuSkQksZ4A5PyI5ArJUbVRpuxfD6fl4ue5A7vSq7dMN8WKC7Q2bxm4VBZ+hik+gs2
- Xx3Q==
+ bh=NUtVZi5eDNYHfSs0AQ238689glv2wZ6Ve5micoxAsFo=;
+ b=fIGXVHrbawXw1d7ogDVK8m5G82aa+Utc0SA+Vqleo49ueRSD8ANJg6olQXQnmMFl9b
+ Gfom4zqmcG81Rb34nUlG2wvuKTL+2VYaFcnUIpbckyb6WEaaUAMD6hyh9fhn6s0Luc/X
+ q+3vFDdebu5FWdQVH5DWH7ElwEjJMH0msUSiCY8phlI9TEXTCM80ytRLGw7gVhcxpoaQ
+ uJX7kgrXp5+0hoqfuS6tYBwEiAtWY/89p/XM4Blcw+8eHWWTPlIdIHkUP/A1/0vspFZU
+ Z0CaPR7D30waV8oU339ie+q9tNiF3RmLMW+2eylDH2Lm/8GD1fju8+gN4yYIPjMQHCyj
+ giVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
+ d=1e100.net; s=20210112;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-transfer-encoding
  :content-language;
- bh=V9QNwXG+jV216OvKqkcOKUGJ5tYepQiKTBuc2Epn7l8=;
- b=qeowKN3YX8jOaZRrEogJWvMSaFG9/08rfqkhxP8rBO67ZJbr6GnarUrXlXRvCTmzp3
- nXZWvHSiNLihl2iXMFJwvMYbev8rctlDT9oC+c6Q1iNBVQnvtNXWm+EyQFBGWZnz68KZ
- E9fJ/jg2n1zH2KBX7pwieRAILwn8NSLt7B/vdeUAyv5tgu20IJ2qehiCMmnUOiRTcJzN
- N0H+nCzFR0veWMs8lT2S0DH+HBFE4Yx2KKroxNde4ZQHEP1UCgOxIbmslrTHpsZ+c6ZH
- GU0R+JVZIYMCt433Xsc9qpr7/RcaGge5Im6Owge1V9U3HxOkApwHTMMFvtfIe3A/L8qm
- FwzQ==
-X-Gm-Message-State: AOAM530Lg4MMcOc6xjtlsbeWJNSkPpLXzjbB05MALg/ip1Eyt2xVLC9w
- i83sHxDm5UdI3t9G9t43dqY=
-X-Google-Smtp-Source: ABdhPJzaAWjlHQS0stZ4TOfZ0iWuj2R9FHegUqNyKUFyrYRTm5OGCNKr+kiyXE8tJ2LBHdaGJ7LhNw==
-X-Received: by 2002:a1c:3584:: with SMTP id c126mr2566757wma.121.1631093894641; 
- Wed, 08 Sep 2021 02:38:14 -0700 (PDT)
+ bh=NUtVZi5eDNYHfSs0AQ238689glv2wZ6Ve5micoxAsFo=;
+ b=jmcW3yV8FQfNfyjdRuxKPYe0kKIvLXUidxP1qsqPTgKqcwat7764bHz/wbH7Es5ezQ
+ q2sPiQq+q3UVrzmf9OvlUI+as0aNYG5MMw7IZH8rdB2pwGC15/zFvhVT1KKEbBa9K4JX
+ pDYccDVysQMq3Ao6uImcqw97awDeGTiG9qg11KWb4JpAM2/qogFvL8ASf6cmPt+gZjZf
+ 0ErSmoH5Gpq4Lw+irz/kO055A9rGhcRMqi5OVokoxIAqZ0tnyGhFmp8g0nYF6iJroJ8q
+ a30+IriaBvqmqXnGjjAN7O2fYpjPo4PGKGquIlRhF6gEZ+0NvYeDd8Bpt0llR+ZmIEbR
+ B5vA==
+X-Gm-Message-State: AOAM531yg8YBFhqWp5F7GtsKwXL4bh5X30Qa/DJv9j6wp0133itRQclF
+ Pag0k3RzoerU1Nd3vHEOQ1Y=
+X-Google-Smtp-Source: ABdhPJwXrP3J1WY1sDIU+LUp/inxWq+WTBa2/uZO9RIBs8IQvNh9Ilm/L4lc8nfiQpeADBA8BqWzdQ==
+X-Received: by 2002:adf:914a:: with SMTP id j68mr3027124wrj.73.1631094273770; 
+ Wed, 08 Sep 2021 02:44:33 -0700 (PDT)
 Received: from ?IPv6:2a02:908:1252:fb60:e9d0:54fe:9083:60ce?
  ([2a02:908:1252:fb60:e9d0:54fe:9083:60ce])
- by smtp.gmail.com with ESMTPSA id y15sm1869436wmi.18.2021.09.08.02.38.13
+ by smtp.gmail.com with ESMTPSA id c7sm1480534wmq.13.2021.09.08.02.44.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 08 Sep 2021 02:38:14 -0700 (PDT)
-Subject: Re: [PATCH] drm/amdgpu: fix sysfs_emit/sysfs_emit_at warnings
-To: "Lazar, Lijo" <lijo.lazar@amd.com>, "Yu, Lang" <Lang.Yu@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Huang, Ray" <Ray.Huang@amd.com>, Tian Tao <tiantao6@hisilicon.com>,
- darren.powell@amd.com
-References: <20210908055615.3781901-1-lang.yu@amd.com>
- <e8b39f62-ca0c-d4e0-92a9-52487fa0da81@gmail.com>
- <47ed143e-b9ab-a80e-dac0-cfa1ec39d033@amd.com>
- <DM6PR12MB425086A1FFE0D1609581DFBAFBD49@DM6PR12MB4250.namprd12.prod.outlook.com>
- <39d2443b-c90e-b5c6-85ee-b44bbfd818d3@amd.com>
- <DM6PR12MB4250831801024A782408C280FBD49@DM6PR12MB4250.namprd12.prod.outlook.com>
- <332d81e6-a518-a155-cdfc-008e0bdb324c@amd.com>
+ Wed, 08 Sep 2021 02:44:33 -0700 (PDT)
+Subject: Re: [RFC PATCH v3] drm/amdgpu: alloc uvd msg from IB pool
+To: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+Cc: "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>
+References: <20210907122617.5303-1-xinhui.pan@amd.com>
+ <da7895bf-f2d9-e35c-3f93-e4e48f364511@amd.com>
+ <923A021C-0559-4EC7-88F2-7ABF2BA6A66E@amd.com>
+ <c3f0e3a8-8433-bef9-e613-c4f53e857fff@gmail.com>
+ <EAE9E86F-EEAE-4A4F-A202-C712AFDD1042@amd.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <5edd4df2-c49c-3b87-90d4-8d8b822641f9@gmail.com>
-Date: Wed, 8 Sep 2021 11:38:13 +0200
+Message-ID: <e59d21eb-2c29-accb-75e2-effe13622291@gmail.com>
+Date: Wed, 8 Sep 2021 11:44:32 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.13.0
 MIME-Version: 1.0
-In-Reply-To: <332d81e6-a518-a155-cdfc-008e0bdb324c@amd.com>
+In-Reply-To: <EAE9E86F-EEAE-4A4F-A202-C712AFDD1042@amd.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
 Content-Language: en-US
@@ -95,170 +93,329 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 08.09.21 um 11:29 schrieb Lazar, Lijo:
->
->
-> On 9/8/2021 2:32 PM, Yu, Lang wrote:
->> [AMD Official Use Only]
+Am 08.09.21 um 09:14 schrieb Pan, Xinhui:
+>> 2021年9月8日 14:23，Christian König <ckoenig.leichtzumerken@gmail.com> 写道：
 >>
->>
->>
->>> -----Original Message-----
->>> From: Lazar, Lijo <Lijo.Lazar@amd.com>
->>> Sent: Wednesday, September 8, 2021 4:55 PM
->>> To: Yu, Lang <Lang.Yu@amd.com>; Christian König
->>> <ckoenig.leichtzumerken@gmail.com>; amd-gfx@lists.freedesktop.org
->>> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Huang, Ray
->>> <Ray.Huang@amd.com>; Tian Tao <tiantao6@hisilicon.com>
->>> Subject: Re: [PATCH] drm/amdgpu: fix sysfs_emit/sysfs_emit_at warnings
->>>
->>>
->>>
->>> On 9/8/2021 1:14 PM, Yu, Lang wrote:
->>>> [AMD Official Use Only]
+>> Am 08.09.21 um 03:25 schrieb Pan, Xinhui:
+>>>> 2021年9月7日 20:37，Koenig, Christian <Christian.Koenig@amd.com> 写道：
 >>>>
->>>>
->>>>
->>>>> -----Original Message-----
->>>>> From: Lazar, Lijo <Lijo.Lazar@amd.com>
->>>>> Sent: Wednesday, September 8, 2021 3:36 PM
->>>>> To: Christian König <ckoenig.leichtzumerken@gmail.com>; Yu, Lang
->>>>> <Lang.Yu@amd.com>; amd-gfx@lists.freedesktop.org
->>>>> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Huang, Ray
->>>>> <Ray.Huang@amd.com>; Tian Tao <tiantao6@hisilicon.com>
->>>>> Subject: Re: [PATCH] drm/amdgpu: fix sysfs_emit/sysfs_emit_at
->>>>> warnings
+>>>> Am 07.09.21 um 14:26 schrieb xinhui pan:
+>>>>> There is one dedicated IB pool for IB test. So lets use it for uvd msg
+>>>>> too.
 >>>>>
+>>>>> For some older HW, use one reserved BO at specific range.
 >>>>>
+>>>>> Signed-off-by: xinhui pan <xinhui.pan@amd.com>
+>>>>> ---
+>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c | 173 +++++++++++++++---------
+>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.h |   2 +
+>>>>>   2 files changed, 112 insertions(+), 63 deletions(-)
 >>>>>
->>>>> On 9/8/2021 12:07 PM, Christian König wrote:
->>>>>> Am 08.09.21 um 07:56 schrieb Lang Yu:
->>>>>>> sysfs_emit and sysfs_emit_at requrie a page boundary aligned buf
->>>>>>> address. Make them happy!
->>>>>>>
->>>>>>> Warning Log:
->>>>>>> [  492.545174] invalid sysfs_emit_at: buf:00000000f19bdfde at:0 [
->>>>>>> 492.546416] WARNING: CPU: 7 PID: 1304 at fs/sysfs/file.c:765
->>>>>>> sysfs_emit_at+0x4a/0xa0
->>>>>>> [  492.654805] Call Trace:
->>>>>>> [  492.655353]  ? smu_cmn_get_metrics_table+0x40/0x50 [amdgpu] [
->>>>>>> 492.656780]  vangogh_print_clk_levels+0x369/0x410 [amdgpu] [
->>>>>>> 492.658245]  vangogh_common_print_clk_levels+0x77/0x80 [amdgpu] [
->>>>>>> 492.659733]  ? preempt_schedule_common+0x18/0x30 [ 492.660713]
->>>>>>> smu_print_ppclk_levels+0x65/0x90 [amdgpu] [ 492.662107]
->>>>>>> amdgpu_get_pp_od_clk_voltage+0x13d/0x190 [amdgpu] [ 492.663620]
->>>>>>> dev_attr_show+0x1d/0x40
->>>>>>
->>>>>> Mhm, that at least partially doesn't looks like the right 
->>>>>> approach to me.
->>>>>>
->>>>>> Why do we have string printing and sysfs code in the hardware
->>>>>> version specific backend in the first place?
->>>>>>
->>>>>
->>>>> This is a callback meant for printing ASIC specific information to
->>>>> sysfs node. The buffer passed in sysfs read is passed as it is to 
->>>>> the callback API.
->>>>>
->>>>>> That stuff needs to be implemented for each hardware generation and
->>>>>> is now cluttered with sysfs buffer offset calculations.
->>>>>>
->>>>>
->>>>> Looks like the warning happened because of this usage.
->>>>>
->>>>>                   size = amdgpu_dpm_print_clock_levels(adev, 
->>>>> OD_SCLK, buf);
->>>>>                   size += amdgpu_dpm_print_clock_levels(adev, 
->>>>> OD_MCLK,
->>>>> buf+size);
->>>>>                   size += amdgpu_dpm_print_clock_levels(adev,
->>>>> OD_VDDC_CURVE, buf+size);
->>>>>                   size += amdgpu_dpm_print_clock_levels(adev,
->>>>> OD_VDDGFX_OFFSET, buf+size);
->>>>>                   size += amdgpu_dpm_print_clock_levels(adev,
->>>>> OD_RANGE,
->>>>> buf+size);
->>>>>                   size += amdgpu_dpm_print_clock_levels(adev, 
->>>>> OD_CCLK,
->>>>> buf+size);
->>>>>
->>>>>
->>>> [Yu, Lang]
->>>> Yes. So it is fine we just fix the caller 
->>>> amdgpu_get_pp_od_clk_voltage like
->>> following:
->>>>
->>>> static ssize_t amdgpu_get_pp_od_clk_voltage(struct device *dev,
->>>>         struct device_attribute *attr,
->>>>         char *buf)
->>>> {
->>>>     struct drm_device *ddev = dev_get_drvdata(dev);
->>>>     struct amdgpu_device *adev = drm_to_adev(ddev);
->>>>     ssize_t size, offset;
->>>>     int ret, i;
->>>>     char temp_buf[512];
->>>>     char clock_type[] = {OD_SCLK, OD_MCLK, OD_VDDC_CURVE,
->>>>                          OD_VDDGFX_OFFSET, OD_RANGE, OD_CCLK};
->>>>
->>>>     if (amdgpu_in_reset(adev))
->>>>         return -EPERM;
->>>>     if (adev->in_suspend && !adev->in_runpm)
->>>>         return -EPERM;
->>>>
->>>>     ret = pm_runtime_get_sync(ddev->dev);
->>>>     if (ret < 0) {
->>>>         pm_runtime_put_autosuspend(ddev->dev);
->>>>         return ret;
->>>>     }
->>>>
->>>>     offset = 0;
->>>>
->>>>     if (adev->powerplay.pp_funcs->print_clock_levels) {
->>>>         for (i = 0; i < ARRAY_SIZE(clock_type); i++) {
->>>>             size = amdgpu_dpm_print_clock_levels(adev,
->>> clock_type[i], buf);
->>>>             if (offset + size > PAGE_SIZE)
->>>>                 break;
->>>>             memcpy(temp_buf + offset, buf, size);
->>>>             offset += size;
->>>>         }
->>>>         memcpy(buf, temp_buf, offset);
->>>>         size = offset;
->>>>     } else {
->>>>         size = sysfs_emit(buf, "\n");
->>>>     }
->>>>     pm_runtime_mark_last_busy(ddev->dev);
->>>>     pm_runtime_put_autosuspend(ddev->dev);
->>>>
->>>>     return size;
->>>> }
->>>>
->>> Prefer to avoid any extra stack or heap usage for buffer. Maybe 
->>> another arg to
->>> pass offset along with buf?
->>>
->> [Yu, Lang]
->> Actually, the buf address contains the offset(offset_in_page(buf)) .
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+>>>>> index d451c359606a..b741ab7b2468 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+>>>>> @@ -299,8 +299,35 @@ int amdgpu_uvd_sw_init(struct amdgpu_device *adev)
+>>>>>   	}
+>>>>>     	/* from uvd v5.0 HW addressing capacity increased to 64 bits */
+>>>>> -	if (!amdgpu_device_ip_block_version_cmp(adev, AMD_IP_BLOCK_TYPE_UVD, 5, 0))
+>>>>> +	if (!amdgpu_device_ip_block_version_cmp(adev, AMD_IP_BLOCK_TYPE_UVD, 5, 0)) {
+>>>>>   		adev->uvd.address_64_bit = true;
+>>>>> +	} else {
+>>>>> +		struct amdgpu_bo *bo = NULL;
+>>>>> +
+>>>>> +		r = amdgpu_bo_create_reserved(adev, PAGE_SIZE, PAGE_SIZE,
+>>>>> +				AMDGPU_GEM_DOMAIN_VRAM,
+>>>>> +				&bo, NULL, &adev->uvd.ib_bo_cpu_addr);
+>>>>> +		if (r)
+>>>>> +			return r;
+>>>>> +		amdgpu_bo_kunmap(bo);
+>>>>> +		amdgpu_bo_unpin(bo);
+>>>>> +		r = amdgpu_bo_pin_restricted(bo, AMDGPU_GEM_DOMAIN_VRAM,
+>>>>> +				0, 256 << 20);
+>>>>> +		if (r) {
+>>>>> +			amdgpu_bo_unreserve(bo);
+>>>>> +			amdgpu_bo_unref(&bo);
+>>>>> +			return r;
+>>>>> +		}
+>>>>> +		r = amdgpu_bo_kmap(bo, &adev->uvd.ib_bo_cpu_addr);
+>>>>> +		if (r) {
+>>>>> +			amdgpu_bo_unpin(bo);
+>>>>> +			amdgpu_bo_unreserve(bo);
+>>>>> +			amdgpu_bo_unref(&bo);
+>>>>> +			return r;
+>>>>> +		}
+>>>>> +		adev->uvd.ib_bo = bo;
+>>>>> +		amdgpu_bo_unreserve(bo);
+>>>> Can we have the same handling for both cases please? E.g. always allocate a single BO in SW init and place it appropriately.
+>>> One single BO is not good. validating BO into GTT or VRAM still cause memory allocation.
+>>> I will have a try to use two BOs.
+>> Well you should pin the buffer during allocation while loading the driver. After that we should not see any migration at all.
+> This is true for one IP.  While these three IPs need vram and gtt bo. But as you said below, each IP can have its own BO.
 >
-> Though it's not a problem based on codeflow, static analysis tools 
-> might complain.
+> My first design is that each IP call one function, say ib_bo_create() in sw_init to alloc BO,
+> and ib_bo_create() check if BO has been allocated by other IP, and re-alloc if domain & size does not match its request.
+> But to make code a liitle cleaner, I just create two BOs in anohter patchset.
+
+Thinking more about it I think we just need the BO handling for UVD. See 
+UVD is the only "old" hardware block which has this strange segment and 
+VRAM/GTT limitation.
+
+For both VCE and VCN we can put all the stuff inside the IB instead like 
+you originally planed.
+
 >
->> Or we just rollback to sprintf/snprintf.
+>>> More aggressively,  I will let vc/vcn/uvd IB test share the same two BOs.
+>> VCE/UVD and VCN are mutual exclusive, you either have one or the other in the hardware.
 >>
->
-> snprintf with (PAGE_SIZE-size) may be simpler. I think Darren took the 
-> effort to convert these, he may have some other ideas.
+>> So you can just have one BO for each and only whatever is present in the hardware is actually allocated.
+>>
+>>>> And I think we need some kind of lock to prevent concurrent use of the BO.
+>>> It takes reservation lock.
+>> That is a really bad idea. The reservation lock can (in theory) depend on the reset as well, so you end up in a circle dependency and potential deadlock again.
+>>
+> If so, I think that would be a false positive lockdep warning. The real deaklock happens if IB test(through debugfs) triggers a gpu reset. Not sure if that will heppen.
 
-This is not what I meant. See from the design point of view the 
-print_clock_levels() callback is the bad idea to begin with.
+Yeah, correct it's mostly a lockdep problem.
 
-What we should have instead is a callback which returns the clock as a 
-value which is then printed in the amdgpu_get_pp_od_clk_voltage() function.
-
-This avoids passing around the buffer and remaining size everywhere and 
-also guarantees that the sysfs have unified printing over all hardware 
-generations.
-
-Regards,
 Christian.
+
+>
+>> Thanks a lot that you take a look into this, it's on my TODO list for years to fix that up.
+>>
+> nope.
+>
+>> Christian.
+>>
+>>>> Christian.
+>>>>
+>>>>> +	}
+>>>>>     	switch (adev->asic_type) {
+>>>>>   	case CHIP_TONGA:
+>>>>> @@ -342,6 +369,8 @@ int amdgpu_uvd_sw_fini(struct amdgpu_device *adev)
+>>>>>   		for (i = 0; i < AMDGPU_MAX_UVD_ENC_RINGS; ++i)
+>>>>>   			amdgpu_ring_fini(&adev->uvd.inst[j].ring_enc[i]);
+>>>>>   	}
+>>>>> +	amdgpu_bo_free_kernel(&adev->uvd.ib_bo, NULL,
+>>>>> +			(void **)&adev->uvd.ib_bo_cpu_addr);
+>>>>>   	release_firmware(adev->uvd.fw);
+>>>>>     	return 0;
+>>>>> @@ -1066,7 +1095,7 @@ int amdgpu_uvd_ring_parse_cs(struct amdgpu_cs_parser *parser, uint32_t ib_idx)
+>>>>>   	return 0;
+>>>>>   }
+>>>>>   -static int amdgpu_uvd_send_msg(struct amdgpu_ring *ring, struct amdgpu_bo *bo,
+>>>>> +static int amdgpu_uvd_send_msg(struct amdgpu_ring *ring, uint64_t addr,
+>>>>>   			       bool direct, struct dma_fence **fence)
+>>>>>   {
+>>>>>   	struct amdgpu_device *adev = ring->adev;
+>>>>> @@ -1074,29 +1103,15 @@ static int amdgpu_uvd_send_msg(struct amdgpu_ring *ring, struct amdgpu_bo *bo,
+>>>>>   	struct amdgpu_job *job;
+>>>>>   	struct amdgpu_ib *ib;
+>>>>>   	uint32_t data[4];
+>>>>> -	uint64_t addr;
+>>>>>   	long r;
+>>>>>   	int i;
+>>>>>   	unsigned offset_idx = 0;
+>>>>>   	unsigned offset[3] = { UVD_BASE_SI, 0, 0 };
+>>>>>   -	amdgpu_bo_kunmap(bo);
+>>>>> -	amdgpu_bo_unpin(bo);
+>>>>> -
+>>>>> -	if (!ring->adev->uvd.address_64_bit) {
+>>>>> -		struct ttm_operation_ctx ctx = { true, false };
+>>>>> -
+>>>>> -		amdgpu_bo_placement_from_domain(bo, AMDGPU_GEM_DOMAIN_VRAM);
+>>>>> -		amdgpu_uvd_force_into_uvd_segment(bo);
+>>>>> -		r = ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
+>>>>> -		if (r)
+>>>>> -			goto err;
+>>>>> -	}
+>>>>> -
+>>>>>   	r = amdgpu_job_alloc_with_ib(adev, 64, direct ? AMDGPU_IB_POOL_DIRECT :
+>>>>>   				     AMDGPU_IB_POOL_DELAYED, &job);
+>>>>>   	if (r)
+>>>>> -		goto err;
+>>>>> +		return r;
+>>>>>     	if (adev->asic_type >= CHIP_VEGA10) {
+>>>>>   		offset_idx = 1 + ring->me;
+>>>>> @@ -1110,7 +1125,6 @@ static int amdgpu_uvd_send_msg(struct amdgpu_ring *ring, struct amdgpu_bo *bo,
+>>>>>   	data[3] = PACKET0(offset[offset_idx] + UVD_NO_OP, 0);
+>>>>>     	ib = &job->ibs[0];
+>>>>> -	addr = amdgpu_bo_gpu_offset(bo);
+>>>>>   	ib->ptr[0] = data[0];
+>>>>>   	ib->ptr[1] = addr;
+>>>>>   	ib->ptr[2] = data[1];
+>>>>> @@ -1123,33 +1137,13 @@ static int amdgpu_uvd_send_msg(struct amdgpu_ring *ring, struct amdgpu_bo *bo,
+>>>>>   	}
+>>>>>   	ib->length_dw = 16;
+>>>>>   -	if (direct) {
+>>>>> -		r = dma_resv_wait_timeout(bo->tbo.base.resv, true, false,
+>>>>> -					  msecs_to_jiffies(10));
+>>>>> -		if (r == 0)
+>>>>> -			r = -ETIMEDOUT;
+>>>>> -		if (r < 0)
+>>>>> -			goto err_free;
+>>>>> -
+>>>>> +	if (direct)
+>>>>>   		r = amdgpu_job_submit_direct(job, ring, &f);
+>>>>> -		if (r)
+>>>>> -			goto err_free;
+>>>>> -	} else {
+>>>>> -		r = amdgpu_sync_resv(adev, &job->sync, bo->tbo.base.resv,
+>>>>> -				     AMDGPU_SYNC_ALWAYS,
+>>>>> -				     AMDGPU_FENCE_OWNER_UNDEFINED);
+>>>>> -		if (r)
+>>>>> -			goto err_free;
+>>>>> -
+>>>>> +	else
+>>>>>   		r = amdgpu_job_submit(job, &adev->uvd.entity,
+>>>>> -				      AMDGPU_FENCE_OWNER_UNDEFINED, &f);
+>>>>> -		if (r)
+>>>>> -			goto err_free;
+>>>>> -	}
+>>>>> -
+>>>>> -	amdgpu_bo_fence(bo, f, false);
+>>>>> -	amdgpu_bo_unreserve(bo);
+>>>>> -	amdgpu_bo_unref(&bo);
+>>>>> +				AMDGPU_FENCE_OWNER_UNDEFINED, &f);
+>>>>> +	if (r)
+>>>>> +		goto err_free;
+>>>>>     	if (fence)
+>>>>>   		*fence = dma_fence_get(f);
+>>>>> @@ -1159,10 +1153,6 @@ static int amdgpu_uvd_send_msg(struct amdgpu_ring *ring, struct amdgpu_bo *bo,
+>>>>>     err_free:
+>>>>>   	amdgpu_job_free(job);
+>>>>> -
+>>>>> -err:
+>>>>> -	amdgpu_bo_unreserve(bo);
+>>>>> -	amdgpu_bo_unref(&bo);
+>>>>>   	return r;
+>>>>>   }
+>>>>>   @@ -1173,16 +1163,31 @@ int amdgpu_uvd_get_create_msg(struct amdgpu_ring *ring, uint32_t handle,
+>>>>>   			      struct dma_fence **fence)
+>>>>>   {
+>>>>>   	struct amdgpu_device *adev = ring->adev;
+>>>>> -	struct amdgpu_bo *bo = NULL;
+>>>>> +	struct amdgpu_bo *bo = adev->uvd.ib_bo;
+>>>>> +	struct dma_fence *f = NULL;
+>>>>> +	struct amdgpu_ib ib;
+>>>>>   	uint32_t *msg;
+>>>>>   	int r, i;
+>>>>>   -	r = amdgpu_bo_create_reserved(adev, 1024, PAGE_SIZE,
+>>>>> -				      AMDGPU_GEM_DOMAIN_GTT,
+>>>>> -				      &bo, NULL, (void **)&msg);
+>>>>> -	if (r)
+>>>>> -		return r;
+>>>>> -
+>>>>> +	if (bo) {
+>>>>> +		r = amdgpu_bo_reserve(bo, true);
+>>>>> +		if (r)
+>>>>> +			return r;
+>>>>> +		r = dma_resv_wait_timeout(bo->tbo.base.resv, true, false,
+>>>>> +				msecs_to_jiffies(10));
+>>>>> +		if (r == 0)
+>>>>> +			r = -ETIMEDOUT;
+>>>>> +		if (r < 0)
+>>>>> +			goto err;
+>>>>> +		ib.gpu_addr = amdgpu_bo_gpu_offset(bo);
+>>>>> +		msg = adev->uvd.ib_bo_cpu_addr;
+>>>>> +	} else {
+>>>>> +		memset(&msg, 0, sizeof(msg));
+>>>>> +		r = amdgpu_ib_get(adev, NULL, PAGE_SIZE,
+>>>>> +				AMDGPU_IB_POOL_DIRECT,
+>>>>> +				&ib);
+>>>>> +		msg = ib.ptr;
+>>>>> +	}
+>>>>>   	/* stitch together an UVD create msg */
+>>>>>   	msg[0] = cpu_to_le32(0x00000de4);
+>>>>>   	msg[1] = cpu_to_le32(0x00000000);
+>>>>> @@ -1198,23 +1203,52 @@ int amdgpu_uvd_get_create_msg(struct amdgpu_ring *ring, uint32_t handle,
+>>>>>   	for (i = 11; i < 1024; ++i)
+>>>>>   		msg[i] = cpu_to_le32(0x0);
+>>>>>   -	return amdgpu_uvd_send_msg(ring, bo, true, fence);
+>>>>> +	r = amdgpu_uvd_send_msg(ring, ib.gpu_addr, true, &f);
+>>>>> +	if (r)
+>>>>> +		goto err;
+>>>>> +	if (bo)
+>>>>> +		amdgpu_bo_fence(bo, f, false);
+>>>>> +	else
+>>>>> +		amdgpu_ib_free(adev, &ib, f);
+>>>>> +	if (fence)
+>>>>> +		*fence = dma_fence_get(f);
+>>>>> +	dma_fence_put(f);
+>>>>> +err:
+>>>>> +	if (bo)
+>>>>> +		amdgpu_bo_unreserve(bo);
+>>>>> +	return r;
+>>>>>   }
+>>>>>     int amdgpu_uvd_get_destroy_msg(struct amdgpu_ring *ring, uint32_t handle,
+>>>>>   			       bool direct, struct dma_fence **fence)
+>>>>>   {
+>>>>>   	struct amdgpu_device *adev = ring->adev;
+>>>>> -	struct amdgpu_bo *bo = NULL;
+>>>>> +	struct amdgpu_bo *bo = adev->uvd.ib_bo;
+>>>>> +	struct dma_fence *f = NULL;
+>>>>> +	struct amdgpu_ib ib;
+>>>>>   	uint32_t *msg;
+>>>>>   	int r, i;
+>>>>>   -	r = amdgpu_bo_create_reserved(adev, 1024, PAGE_SIZE,
+>>>>> -				      AMDGPU_GEM_DOMAIN_GTT,
+>>>>> -				      &bo, NULL, (void **)&msg);
+>>>>> -	if (r)
+>>>>> -		return r;
+>>>>> -
+>>>>> +	if (bo) {
+>>>>> +		r = amdgpu_bo_reserve(bo, true);
+>>>>> +		if (r)
+>>>>> +			return r;
+>>>>> +		r = dma_resv_wait_timeout(bo->tbo.base.resv, true, false,
+>>>>> +				msecs_to_jiffies(10));
+>>>>> +		if (r == 0)
+>>>>> +			r = -ETIMEDOUT;
+>>>>> +		if (r < 0)
+>>>>> +			goto err;
+>>>>> +		ib.gpu_addr = amdgpu_bo_gpu_offset(bo);
+>>>>> +		msg = adev->uvd.ib_bo_cpu_addr;
+>>>>> +	} else {
+>>>>> +		memset(&msg, 0, sizeof(msg));
+>>>>> +		r = amdgpu_ib_get(adev, NULL, PAGE_SIZE,
+>>>>> +				direct ?
+>>>>> +				AMDGPU_IB_POOL_DIRECT : AMDGPU_IB_POOL_DELAYED,
+>>>>> +				&ib);
+>>>>> +		msg = ib.ptr;
+>>>>> +	}
+>>>>>   	/* stitch together an UVD destroy msg */
+>>>>>   	msg[0] = cpu_to_le32(0x00000de4);
+>>>>>   	msg[1] = cpu_to_le32(0x00000002);
+>>>>> @@ -1223,7 +1257,20 @@ int amdgpu_uvd_get_destroy_msg(struct amdgpu_ring *ring, uint32_t handle,
+>>>>>   	for (i = 4; i < 1024; ++i)
+>>>>>   		msg[i] = cpu_to_le32(0x0);
+>>>>>   -	return amdgpu_uvd_send_msg(ring, bo, direct, fence);
+>>>>> +	r = amdgpu_uvd_send_msg(ring, ib.gpu_addr, true, &f);
+>>>>> +	if (r)
+>>>>> +		goto err;
+>>>>> +	if (bo)
+>>>>> +		amdgpu_bo_fence(bo, f, false);
+>>>>> +	else
+>>>>> +		amdgpu_ib_free(adev, &ib, f);
+>>>>> +	if (fence)
+>>>>> +		*fence = dma_fence_get(f);
+>>>>> +	dma_fence_put(f);
+>>>>> +err:
+>>>>> +	if (bo)
+>>>>> +		amdgpu_bo_unreserve(bo);
+>>>>> +	return r;
+>>>>>   }
+>>>>>     static void amdgpu_uvd_idle_work_handler(struct work_struct *work)
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.h
+>>>>> index edbb8194ee81..3ff49daf558c 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.h
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.h
+>>>>> @@ -68,6 +68,8 @@ struct amdgpu_uvd {
+>>>>>   	/* store image width to adjust nb memory state */
+>>>>>   	unsigned		decode_image_width;
+>>>>>   	uint32_t                keyselect;
+>>>>> +	struct amdgpu_bo	*ib_bo;
+>>>>> +	void			*ib_bo_cpu_addr;
+>>>>>   };
+>>>>>     int amdgpu_uvd_sw_init(struct amdgpu_device *adev);
 
