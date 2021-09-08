@@ -2,88 +2,109 @@ Return-Path: <SRS0=RbrA=N6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 00B62C433F5
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 12:44:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7B3D7C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 14:54:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AF4DE60EE6
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 12:44:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org AF4DE60EE6
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 4AAE460724
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 14:54:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4AAE460724
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 377998921B;
-	Wed,  8 Sep 2021 12:44:03 +0000 (UTC)
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [IPv6:2a00:1450:4864:20::334])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4CDB8921B
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Sep 2021 12:44:01 +0000 (UTC)
-Received: by mail-wm1-x334.google.com with SMTP id
- 196-20020a1c04cd000000b002fa489ffe1fso1049568wme.4
- for <amd-gfx@lists.freedesktop.org>; Wed, 08 Sep 2021 05:44:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=uDDoFQTKhzWpZfXJK9JEMK71rtNIX8qadTzOx/IRuWQ=;
- b=VdPXh2ste0UfGXy3eV0pfcAld70bKNKszuDFwCsNdw2poTNS7FggSowmRRwTnpYhbR
- 5I7KeozjWkczKCZWxlj5VSBoZEwHYnTN70wYE3dC+A3zfv+hA7INOlmL1W6CtpiPzATi
- GBreZwiuS282hdQMydDX9lYkpiz+6g2ASInZelqC/7z/GapuALCLN5V3pwIv1euHhRND
- n0mszr5Y/e+aRU+3qXQdNjVyBBblzEMtwx279KWSaDpZ59vnibfbdB7fJxz2k3o0f/Io
- +/LlgqU2Kvr9b6WBPo2cmAhiQmanQSG+NJvFO6qA88TUxzLuEZBiQYErrC/9v7yB0Aju
- QNjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=uDDoFQTKhzWpZfXJK9JEMK71rtNIX8qadTzOx/IRuWQ=;
- b=THP38OCAtHNO5lZydTX/L81Jakdf2D5EYc5ElrbxG8CFA52KeOYZ56bO0fjoMINnac
- 7UKWw5NfVzii1nEUq+jpDrFdZh4Qo0x5fBijOSZFocJyWWijpI1xAsrwPb4UCfD5iGbF
- tUG2DZKKwybdUTD7f98/vAc6EdnLlPPPfwP6jGM2aBiiPdwqdVqxEA+x/T2RrzcgJ1Id
- +biGN0OyGazV94UOCy94WEb7YcWVTHzHkmqVMEggvfwkHQxOPcqlGjcib4fBdP5zzBPA
- KEkvA4CUqjluBLVts96ltwyK1F/BLV7ExHSR3rCGIfu365z4RwFSiQ8B3Pe9oOnqnqp3
- 2N3g==
-X-Gm-Message-State: AOAM532s93otZbh9VMnHAFlthbS4o0XX04dsqsO+VRijzRUXmB6eWVjn
- UQ0SESIomJTlYlZNjPMG4Ruq0JBKdNs=
-X-Google-Smtp-Source: ABdhPJw0EfKe97+snIIXdvUXmhC8IRpcsPb4KhpkJZlhH3N7wAB6Rge82zOavv8YW1h6PfPMX3/R3g==
-X-Received: by 2002:a1c:9d8a:: with SMTP id g132mr3403486wme.17.1631105040220; 
- Wed, 08 Sep 2021 05:44:00 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:e9d0:54fe:9083:60ce?
- ([2a02:908:1252:fb60:e9d0:54fe:9083:60ce])
- by smtp.gmail.com with ESMTPSA id j25sm2099096wrc.12.2021.09.08.05.43.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 08 Sep 2021 05:43:59 -0700 (PDT)
-Subject: Re: [PATCH] drm/amdgpu: fix sysfs_emit/sysfs_emit_at warnings
-To: "Lazar, Lijo" <lijo.lazar@amd.com>, "Yu, Lang" <Lang.Yu@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Huang, Ray" <Ray.Huang@amd.com>, Tian Tao <tiantao6@hisilicon.com>,
- darren.powell@amd.com
-References: <20210908055615.3781901-1-lang.yu@amd.com>
- <e8b39f62-ca0c-d4e0-92a9-52487fa0da81@gmail.com>
- <47ed143e-b9ab-a80e-dac0-cfa1ec39d033@amd.com>
- <DM6PR12MB425086A1FFE0D1609581DFBAFBD49@DM6PR12MB4250.namprd12.prod.outlook.com>
- <39d2443b-c90e-b5c6-85ee-b44bbfd818d3@amd.com>
- <DM6PR12MB4250831801024A782408C280FBD49@DM6PR12MB4250.namprd12.prod.outlook.com>
- <332d81e6-a518-a155-cdfc-008e0bdb324c@amd.com>
- <5edd4df2-c49c-3b87-90d4-8d8b822641f9@gmail.com>
- <1fa7224f-de58-6864-6cb2-16a7b8968f54@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <4e6c0a19-0476-d8ca-c233-6f143cca511c@gmail.com>
-Date: Wed, 8 Sep 2021 14:43:58 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCB6B6E170;
+	Wed,  8 Sep 2021 14:54:38 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2081.outbound.protection.outlook.com [40.107.93.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 414686E12D
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Sep 2021 14:54:38 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Pl2YMV2FIA3bG4d1cGXSC93KfmktinQtFBBC4Q+KfFWWeYN/PY/lxAhiHexUyPDJIACRXIyG/WK1+hgvm8oSthhNVRdc/kgu7YpV2chjzIubCigES6OnQlNhbn9XYExc6oEtx82iHzh5eEkWPLokzzwepkAxdk2b3qoXDFHoLLyLQkiXQQBy86iHjr88SIcPTJmym5p0k3BQ57yBUkzHTRQlD8oxmIgbebQD1V8fR7OBYBDaY6jlvGU4WoDqzl87z4kFDVsuBSBmd6FGrKeGqtdTrsnLrHXYXH1sDjEpsK6qDVDicbsn5n81K/+9JbiIarmJHVavNKHZgOcwG6nvbA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2S52FV5S0gHGiX7pF4+867hVwSmtH4MEb1N0tVjpMVk=;
+ b=bGXQuQSVvxvaj+QHbBahui+IzBNMnI0nbm1uQc5mdKT+eHT5VUQ7a3ht6/dTamdi8qZAo0AZ4WN/f5oSO8sfhJyINLM1pYRjzqGSpZK3Fv7qjJxQ9bu9T33LUmFrY2l30a2woNP8YZFScdsGsgwiL+QoZy7tulx+qtiLJgKzQyUMDJaAnMAMFdawNZQahKX1xbcb7zJReIO/3JTTbX8E9Owets8ctsEk+EQeVP5Qpq6wrFZDAKU6TDh4IgX58oRwHaxEOlpQ6wewFW8BUS+W2p4vXV2ylqdZxDCa/ritr6Rvy7Gz6Jkx+ddzCZA9OZdnynAgK0IOezI2bbkOTgC5CA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2S52FV5S0gHGiX7pF4+867hVwSmtH4MEb1N0tVjpMVk=;
+ b=zIRzbfXRRKIvZ7SX61ypv+YWelt3Bfb6w+FRZGhoKcN2rR/ZJnkYopwFRiB8Gi1wiWcrs+RvIKXeymPwzK7a+VjbAHNu5L4PpEvXmC6h9Y6V1pErx/gQZhwaz+g0hI0dLJbcfqGYm8Qz6NBWFzCsDWXrs+UDLGypPcj871JLXk0=
+Received: from DM5PR07CA0110.namprd07.prod.outlook.com (2603:10b6:4:ae::39) by
+ BL1PR12MB5377.namprd12.prod.outlook.com (2603:10b6:208:31f::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.18; Wed, 8 Sep
+ 2021 14:54:35 +0000
+Received: from DM6NAM11FT017.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:4:ae:cafe::a7) by DM5PR07CA0110.outlook.office365.com
+ (2603:10b6:4:ae::39) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.14 via Frontend
+ Transport; Wed, 8 Sep 2021 14:54:35 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT017.mail.protection.outlook.com (10.13.172.145) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4500.14 via Frontend Transport; Wed, 8 Sep 2021 14:54:35 +0000
+Received: from DESKTOP-9DR2N9S.localdomain (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.8; Wed, 8 Sep 2021 09:54:32 -0500
+From: Mikita Lipski <mikita.lipski@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
+ <Bhawanpreet.Lakha@amd.com>, <Rodrigo.Siqueira@amd.com>,
+ <Aurabindo.Pillai@amd.com>, <qingqing.zhuo@amd.com>, <mikita.lipski@amd.com>, 
+ <roman.li@amd.com>, <Anson.Jacob@amd.com>, <wayne.lin@amd.com>,
+ <stylon.wang@amd.com>, <solomon.chiu@amd.com>
+Subject: [PATCH 00/33] DC Patches September 08, 2021
+Date: Wed, 8 Sep 2021 10:53:51 -0400
+Message-ID: <20210908145424.3311-1-mikita.lipski@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <1fa7224f-de58-6864-6cb2-16a7b8968f54@amd.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 4d70cd94-6248-4807-7b56-08d972d892d0
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5377:
+X-Microsoft-Antispam-PRVS: <BL1PR12MB53779ECF801CD751FEB8E5F3E4D49@BL1PR12MB5377.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3631;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: i/bah6AKv54zRlmjwZwIBWtY1spTcEedPBdeZd7vMGyHlZM34Y/eBMGpL4gddWN+Lw8R2X4ILtmUK6M3olITSU8bFFAhHGYMg1x3y9nyDi9JqhGAtgjOGSA9dw86dRI7gUQhwzY9bFtsCH16/xxRX4IMFeEpRont7BUCXu9adZsDke0WJlhnyEcH1Dz3lq4t2kYNgQpPXyDvQ0g/WDV1F8IjZUrLlWnHHSEBJ/UzbjHBhu5wLFTrRtN6i9lBrDgBQA4AL+mObEdQrHdULKSpJVYLWoLSm5vbgeU71rTW3KEYOBtLwKTCgeQDESQA2fL9YCRl786GWGlN6qARsKPpEj/000fbP0kc0uANsthiAo+iYyDOvOJ5i/77eOzDtODQAPlsck6d2DJZBPTjjFOBOBwlPmrMRed+WEvcOacr14KkDSh0Z8E3dkaRz+iiRukqXmY1EV+FO+cQCG1lLWg77XbPXEdHGncpyJSFECGa2Jb0xPYFonkYXyq3g5xWqDslrh9AXq5lYVBMQv6wJs83Dzvf24+sKKcnh+CYExBr5OuG4lDiRiP/A4Rs0QGMGfWy8xTjsnmfDdlCYPdmQ9Msuy6wyff0iOhpxwycB3BbXI4GuTNjYGxHk+nbICxhoxjZ/1t7wJaRzVljMlgjDyyyBzK0RsDzvTMvRbco/OazAn/sZy2aDMCCszbyVKqyZwTjitVNzJgrFNFnOKSQXLJzKZdRlHJGmUvc2MkU4QgCVdU=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(39860400002)(136003)(346002)(396003)(376002)(46966006)(36840700001)(36756003)(8676002)(6666004)(44832011)(4326008)(26005)(36860700001)(82310400003)(336012)(16526019)(356005)(2906002)(70586007)(8936002)(47076005)(186003)(70206006)(5660300002)(2616005)(86362001)(426003)(1076003)(6916009)(478600001)(81166007)(316002)(82740400003)(83380400001)(54906003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2021 14:54:35.0335 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4d70cd94-6248-4807-7b56-08d972d892d0
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT017.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5377
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,202 +119,168 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 08.09.21 um 12:22 schrieb Lazar, Lijo:
-> On 9/8/2021 3:08 PM, Christian König wrote:
->> Am 08.09.21 um 11:29 schrieb Lazar, Lijo:
->>> On 9/8/2021 2:32 PM, Yu, Lang wrote:
->>>> [AMD Official Use Only]
->>>>> -----Original Message-----
->>>>> From: Lazar, Lijo <Lijo.Lazar@amd.com>
->>>>> Sent: Wednesday, September 8, 2021 4:55 PM
->>>>> To: Yu, Lang <Lang.Yu@amd.com>; Christian König
->>>>> <ckoenig.leichtzumerken@gmail.com>; amd-gfx@lists.freedesktop.org
->>>>> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Huang, Ray
->>>>> <Ray.Huang@amd.com>; Tian Tao <tiantao6@hisilicon.com>
->>>>> Subject: Re: [PATCH] drm/amdgpu: fix sysfs_emit/sysfs_emit_at 
->>>>> warnings
->>>>>
->>>>>
->>>>>
->>>>> On 9/8/2021 1:14 PM, Yu, Lang wrote:
->>>>>> [AMD Official Use Only]
->>>>>>
->>>>>>
->>>>>>
->>>>>>> -----Original Message-----
->>>>>>> From: Lazar, Lijo <Lijo.Lazar@amd.com>
->>>>>>> Sent: Wednesday, September 8, 2021 3:36 PM
->>>>>>> To: Christian König <ckoenig.leichtzumerken@gmail.com>; Yu, Lang
->>>>>>> <Lang.Yu@amd.com>; amd-gfx@lists.freedesktop.org
->>>>>>> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Huang, Ray
->>>>>>> <Ray.Huang@amd.com>; Tian Tao <tiantao6@hisilicon.com>
->>>>>>> Subject: Re: [PATCH] drm/amdgpu: fix sysfs_emit/sysfs_emit_at
->>>>>>> warnings
->>>>>>>
->>>>>>>
->>>>>>>
->>>>>>> On 9/8/2021 12:07 PM, Christian König wrote:
->>>>>>>> Am 08.09.21 um 07:56 schrieb Lang Yu:
->>>>>>>>> sysfs_emit and sysfs_emit_at requrie a page boundary aligned buf
->>>>>>>>> address. Make them happy!
->>>>>>>>>
->>>>>>>>> Warning Log:
->>>>>>>>> [  492.545174] invalid sysfs_emit_at: buf:00000000f19bdfde at:0 [
->>>>>>>>> 492.546416] WARNING: CPU: 7 PID: 1304 at fs/sysfs/file.c:765
->>>>>>>>> sysfs_emit_at+0x4a/0xa0
->>>>>>>>> [  492.654805] Call Trace:
->>>>>>>>> [  492.655353]  ? smu_cmn_get_metrics_table+0x40/0x50 [amdgpu] [
->>>>>>>>> 492.656780]  vangogh_print_clk_levels+0x369/0x410 [amdgpu] [
->>>>>>>>> 492.658245] vangogh_common_print_clk_levels+0x77/0x80 [amdgpu] [
->>>>>>>>> 492.659733]  ? preempt_schedule_common+0x18/0x30 [ 492.660713]
->>>>>>>>> smu_print_ppclk_levels+0x65/0x90 [amdgpu] [ 492.662107]
->>>>>>>>> amdgpu_get_pp_od_clk_voltage+0x13d/0x190 [amdgpu] [ 492.663620]
->>>>>>>>> dev_attr_show+0x1d/0x40
->>>>>>>>
->>>>>>>> Mhm, that at least partially doesn't looks like the right 
->>>>>>>> approach to me.
->>>>>>>>
->>>>>>>> Why do we have string printing and sysfs code in the hardware
->>>>>>>> version specific backend in the first place?
->>>>>>>>
->>>>>>>
->>>>>>> This is a callback meant for printing ASIC specific information to
->>>>>>> sysfs node. The buffer passed in sysfs read is passed as it is 
->>>>>>> to the callback API.
->>>>>>>
->>>>>>>> That stuff needs to be implemented for each hardware generation 
->>>>>>>> and
->>>>>>>> is now cluttered with sysfs buffer offset calculations.
->>>>>>>>
->>>>>>>
->>>>>>> Looks like the warning happened because of this usage.
->>>>>>>
->>>>>>>                   size = amdgpu_dpm_print_clock_levels(adev, 
->>>>>>> OD_SCLK, buf);
->>>>>>>                   size += amdgpu_dpm_print_clock_levels(adev, 
->>>>>>> OD_MCLK,
->>>>>>> buf+size);
->>>>>>>                   size += amdgpu_dpm_print_clock_levels(adev,
->>>>>>> OD_VDDC_CURVE, buf+size);
->>>>>>>                   size += amdgpu_dpm_print_clock_levels(adev,
->>>>>>> OD_VDDGFX_OFFSET, buf+size);
->>>>>>>                   size += amdgpu_dpm_print_clock_levels(adev,
->>>>>>> OD_RANGE,
->>>>>>> buf+size);
->>>>>>>                   size += amdgpu_dpm_print_clock_levels(adev, 
->>>>>>> OD_CCLK,
->>>>>>> buf+size);
->>>>>>>
->>>>>>>
->>>>>> [Yu, Lang]
->>>>>> Yes. So it is fine we just fix the caller 
->>>>>> amdgpu_get_pp_od_clk_voltage like
->>>>> following:
->>>>>>
->>>>>> static ssize_t amdgpu_get_pp_od_clk_voltage(struct device *dev,
->>>>>>         struct device_attribute *attr,
->>>>>>         char *buf)
->>>>>> {
->>>>>>     struct drm_device *ddev = dev_get_drvdata(dev);
->>>>>>     struct amdgpu_device *adev = drm_to_adev(ddev);
->>>>>>     ssize_t size, offset;
->>>>>>     int ret, i;
->>>>>>     char temp_buf[512];
->>>>>>     char clock_type[] = {OD_SCLK, OD_MCLK, OD_VDDC_CURVE,
->>>>>>                          OD_VDDGFX_OFFSET, OD_RANGE, OD_CCLK};
->>>>>>
->>>>>>     if (amdgpu_in_reset(adev))
->>>>>>         return -EPERM;
->>>>>>     if (adev->in_suspend && !adev->in_runpm)
->>>>>>         return -EPERM;
->>>>>>
->>>>>>     ret = pm_runtime_get_sync(ddev->dev);
->>>>>>     if (ret < 0) {
->>>>>>         pm_runtime_put_autosuspend(ddev->dev);
->>>>>>         return ret;
->>>>>>     }
->>>>>>
->>>>>>     offset = 0;
->>>>>>
->>>>>>     if (adev->powerplay.pp_funcs->print_clock_levels) {
->>>>>>         for (i = 0; i < ARRAY_SIZE(clock_type); i++) {
->>>>>>             size = amdgpu_dpm_print_clock_levels(adev,
->>>>> clock_type[i], buf);
->>>>>>             if (offset + size > PAGE_SIZE)
->>>>>>                 break;
->>>>>>             memcpy(temp_buf + offset, buf, size);
->>>>>>             offset += size;
->>>>>>         }
->>>>>>         memcpy(buf, temp_buf, offset);
->>>>>>         size = offset;
->>>>>>     } else {
->>>>>>         size = sysfs_emit(buf, "\n");
->>>>>>     }
->>>>>>     pm_runtime_mark_last_busy(ddev->dev);
->>>>>>     pm_runtime_put_autosuspend(ddev->dev);
->>>>>>
->>>>>>     return size;
->>>>>> }
->>>>>>
->>>>> Prefer to avoid any extra stack or heap usage for buffer. Maybe 
->>>>> another arg to
->>>>> pass offset along with buf?
->>>>>
->>>> [Yu, Lang]
->>>> Actually, the buf address contains the offset(offset_in_page(buf)) .
->>>
->>> Though it's not a problem based on codeflow, static analysis tools 
->>> might complain.
->>>
->>>> Or we just rollback to sprintf/snprintf.
->>>>
->>>
->>> snprintf with (PAGE_SIZE-size) may be simpler. I think Darren took 
->>> the effort to convert these, he may have some other ideas.
->>
->> This is not what I meant. See from the design point of view the 
->> print_clock_levels() callback is the bad idea to begin with.
->>
->> What we should have instead is a callback which returns the clock as 
->> a value which is then printed in the amdgpu_get_pp_od_clk_voltage() 
->> function.
->>
->> This avoids passing around the buffer and remaining size everywhere 
->> and also guarantees that the sysfs have unified printing over all 
->> hardware generations.
->>
->
-> The scenario is one node used for multiple parameters - OD_SCLK, 
-> OD_CCLK, OD_VDDGFX_OFFSET etc.(mostly to avoid cluttering sysfs with 
-> lots of nodes). On top of it, the parameters supported (for ex: CCLK 
-> is not valid on dGPUs),  the number of levels supported etc. vary 
-> across ASICs. There has to be multiple calls or the call needs to 
-> return multiple values for a single parameter (for ex: up to 4, 8 or 
-> 16 levels of GFXCLK depending on ASIC).
+This DC patchset brings improvements in multiple areas. In summary, we highlight:
 
-Well exactly that is questionable design for sysfs.
+* bandwidth optimizations on following fast updates
+* fixes and code improvements of DP connector blanking
+* add thread to offload work of MST HPD IRQ function
+* fix gamma coefficients
+* provide backlight support for APUs without DMUB support
+* coverity memory leak and warning fixes
+* DSC MST bandwidth calculation fixes
+* DMUB enhances
 
-See the sysfs_emit() and sysfs_emit_at() functions are designed the way 
-they are because you should have only one value per file, which is then 
-printed at exactly one location.
+Anson Jacob (3):
+  drm/amd/display: Fix false BAD_FREE warning from Coverity
+  drm/amd/display: Fix multiple memory leaks reported by coverity
+  drm/amd/display: Revert "Directly retrain link from debugfs"
 
-Take a look at the documentation for sysfs for more details.
+Anthony Koo (2):
+  drm/amd/display: [FW Promotion] Release 0.0.81
+  drm/amd/display: [FW Promotion] Release 0.0.82
 
-> I don't know the history of the callback, mostly it was considered 
-> more efficient to print it directly rather than fetch and print. 
-> Alex/Evan may know the details.
+Aric Cyr (2):
+  drm/amd/display: 3.2.151
+  drm/amd/display: 3.2.152
 
-Yeah, somebody with a bit more background in power management needs to 
-take a closer look at this here. Just keep me looped in.
+Aurabindo Pillai (1):
+  drm/amd/display: Add flag to detect dpms force off during HPD
 
-Regards,
-Christian.
+Dale Zhao (1):
+  drm/amd/display: Refine condition of cursor visibility for pipe-split
 
->
-> Thanks,
-> Lijo
->
->> Regards,
->> Christian.
->>
+Eric Yang (1):
+  drm/amd/display: Add periodic detection when zstate is enabled
+
+Harry Wentland (1):
+  drm/amd/display: Get backlight from PWM if DMCU is not initialized
+
+Hersen Wu (1):
+  drm/amd/display: dsc mst 2 4K displays go dark with 2 lane HBR3
+
+Ian Chen (1):
+  drm/amd/display: remove force_enable_edp_fec param.
+
+Jaehyun Chung (3):
+  drm/amd/display: Add regamma/degamma coefficients and set sRGB when TF
+    is BT709
+  drm/amd/display: Correct degamma coefficients
+  drm/amd/display: Revert adding degamma coefficients
+
+Jimmy Kizito (1):
+  drm/amd/display: Fix dynamic link encoder access.
+
+Josip Pavic (1):
+  drm/amd/display: unblock abm when odm is enabled only on configs that
+    support it
+
+Leo (Hanghong) Ma (3):
+  drm/amd/display: Add DPCD writes at key points
+  drm/amd/display: Fix system hang at boot
+  drm/amd/display: Add helper for blanking all dp displays
+
+Meenakshikumar Somasundaram (2):
+  drm/amd/display: Fix for null pointer access for ddc pin and aux
+    engine.
+  drm/amd/display: Link training retry fix for abort case
+
+Michael Strauss (2):
+  drm/amd/display: Add VPG and AFMT low power support for DCN3.1
+  drm/amd/display: Enable mem low power control for DCN3.1 sub-IP blocks
+
+Nicholas Kazlauskas (1):
+  drm/amd/display: Optimize bandwidth on following fast update
+
+Qingqing Zhuo (3):
+  drm/amd/display: Revert "dc: w/a for hard hang on HPD on native DP"
+  drm/amd/display: Apply w/a for hard hang on HPD
+  drm/amd/display: Fix unstable HPCP compliance on Chrome Barcelo
+
+Wayne Lin (2):
+  drm/amd/display: Add option to defer works of hpd_rx_irq
+  drm/amd/display: Fork thread to offload work of hpd_rx_irq
+
+Wenjing Liu (2):
+  drm/amd/display: move bpp range decision in decide dsc bw range
+    function
+  drm/amd/display: update conditions to do dfp cap ext validation
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 266 ++++++++++++++----
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  51 +++-
+ .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c |   3 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_hdcp.c    |  16 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |   6 +
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  18 +-
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.h   |  11 +-
+ .../amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c |  16 +-
+ .../display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c  |   4 +-
+ drivers/gpu/drm/amd/display/dc/core/dc.c      |  31 +-
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c | 139 ++++++++-
+ .../gpu/drm/amd/display/dc/core/dc_link_dp.c  | 138 ++++++---
+ .../drm/amd/display/dc/core/dc_link_dpcd.c    |  11 +-
+ .../drm/amd/display/dc/core/dc_link_enc_cfg.c |  25 +-
+ .../drm/amd/display/dc/core/dc_link_hwss.c    |  20 +-
+ .../gpu/drm/amd/display/dc/core/dc_resource.c |   3 +-
+ drivers/gpu/drm/amd/display/dc/dc.h           |   9 +-
+ drivers/gpu/drm/amd/display/dc/dc_dsc.h       |   6 +-
+ drivers/gpu/drm/amd/display/dc/dc_link.h      |  10 +-
+ drivers/gpu/drm/amd/display/dc/dce/dce_aux.c  |  12 +-
+ .../drm/amd/display/dc/dce/dce_panel_cntl.c   |  10 -
+ .../amd/display/dc/dce/dce_stream_encoder.c   |   2 +
+ .../display/dc/dce110/dce110_hw_sequencer.c   |  55 ++--
+ .../amd/display/dc/dcn10/dcn10_hw_sequencer.c |  86 ++----
+ .../drm/amd/display/dc/dcn10/dcn10_resource.c |   2 +-
+ .../display/dc/dcn10/dcn10_stream_encoder.c   |  20 ++
+ .../display/dc/dcn10/dcn10_stream_encoder.h   |   2 +
+ .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    |  23 +-
+ .../drm/amd/display/dc/dcn20/dcn20_resource.c |  20 +-
+ .../display/dc/dcn20/dcn20_stream_encoder.c   |   5 +
+ .../display/dc/dcn20/dcn20_stream_encoder.h   |   1 +
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_afmt.c |  24 +-
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_afmt.h |  24 ++
+ .../dc/dcn30/dcn30_dio_stream_encoder.c       |   2 +
+ .../drm/amd/display/dc/dcn30/dcn30_hwseq.c    |  39 +--
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_init.c |   1 +
+ .../drm/amd/display/dc/dcn30/dcn30_resource.c |   6 +-
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_vpg.c  |   2 +-
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_vpg.h  |  11 +
+ .../amd/display/dc/dcn301/dcn301_resource.c   |   6 +-
+ .../amd/display/dc/dcn302/dcn302_resource.c   |   6 +-
+ drivers/gpu/drm/amd/display/dc/dcn31/Makefile |   3 +-
+ .../gpu/drm/amd/display/dc/dcn31/dcn31_afmt.c |  92 ++++++
+ .../gpu/drm/amd/display/dc/dcn31/dcn31_afmt.h | 126 +++++++++
+ .../drm/amd/display/dc/dcn31/dcn31_hwseq.c    |  60 +---
+ .../drm/amd/display/dc/dcn31/dcn31_hwseq.h    |   2 +-
+ .../gpu/drm/amd/display/dc/dcn31/dcn31_init.c |   1 -
+ .../drm/amd/display/dc/dcn31/dcn31_resource.c |  74 +++--
+ .../gpu/drm/amd/display/dc/dcn31/dcn31_vpg.c  |  87 ++++++
+ .../gpu/drm/amd/display/dc/dcn31/dcn31_vpg.h  | 162 +++++++++++
+ drivers/gpu/drm/amd/display/dc/dm_helpers.h   |   4 +
+ drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c   | 126 +++++----
+ .../amd/display/dc/inc/hw/stream_encoder.h    |   2 +
+ .../gpu/drm/amd/display/dc/inc/hw_sequencer.h |   2 +-
+ .../gpu/drm/amd/display/dc/inc/link_enc_cfg.h |   5 +
+ .../gpu/drm/amd/display/dc/inc/link_hwss.h    |   1 +
+ .../display/dc/irq/dcn21/irq_service_dcn21.c  |  25 ++
+ .../display/dc/irq/dcn21/irq_service_dcn21.h  |   2 +
+ .../gpu/drm/amd/display/dc/irq/irq_service.c  |   2 +-
+ .../gpu/drm/amd/display/dc/irq/irq_service.h  |   4 +
+ .../dc/virtual/virtual_stream_encoder.c       |   2 +
+ drivers/gpu/drm/amd/display/dmub/dmub_srv.h   |   4 +
+ .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |   4 +-
+ .../gpu/drm/amd/display/dmub/src/dmub_dcn31.c |   8 +
+ .../gpu/drm/amd/display/dmub/src/dmub_dcn31.h |   2 +
+ .../gpu/drm/amd/display/dmub/src/dmub_srv.c   |  10 +-
+ .../gpu/drm/amd/display/include/dal_asic_id.h |   2 +-
+ .../gpu/drm/amd/display/include/dpcd_defs.h   |   1 +
+ .../amd/display/include/link_service_types.h  |  16 ++
+ .../amd/display/modules/color/color_gamma.c   |  32 ++-
+ 70 files changed, 1528 insertions(+), 475 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_afmt.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_afmt.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_vpg.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn31/dcn31_vpg.h
+
+-- 
+2.25.1
 
