@@ -2,113 +2,77 @@ Return-Path: <SRS0=RbrA=N6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 470E5C433F5
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 14:55:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D351DC433EF
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 18:27:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 170C160E77
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 14:55:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 170C160E77
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 9FF0B60EE6
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 18:27:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9FF0B60EE6
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4FF86E200;
-	Wed,  8 Sep 2021 14:55:20 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam07on2044.outbound.protection.outlook.com [40.107.212.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5828C6E1F1
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Sep 2021 14:55:19 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DF7FGhdSitGMh6EoHdISUBSm0aQRi+P89mywuf029IyvdRWKuwi6kuvzTfnYn1mcxUO+NvdxIgNOGBH7dQ50wOXZsgnOJmArEV+NhQ04z5sorHpi47cC8u+/YdwKkH9KsZtJCFrMpfoveRS9BVeV7EwqZX9JlyHfcZWJqK7/pU3Nt9Ckrw7b8UWCzKMUqpEkTN+wNwT/fbxBICQLDsLIlwBHauElC7NZSBCoRNJEPUYBB/0v+ftucKEdjcrRTvtEbnwvx0ZB0s/7o4NLZt5mgeO5ZOIR1wJh810Rbo0wVXyU1sAMQfwrWqUt4UsaAyHfqdJ9SL85xefneWztmG3Ytg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=aaI2N/L38AuBSOFtHClWRG+3YPD0k+4qYGC353z9/MM=;
- b=GHJnNK2nG9vF/BURPg4D8bWpzdnanhs38htjlfSm/26g5FoI576gPy9KnxpaTBAqF8Db8N8r6ETFj/+2OFVJbdv2V3sSEdvw5u5vps5qafglC/quIkCnrv7rTjmL3ci+A92+Bvip9/Wz23NzH+sQsa0l/TNLVH7EU4sR1wpFqCkq+OwhCOSgoaVcDgimBdy+pvUy6TBeOtACRs1h/z8sCkoDvFkRgFb7cLmI6GIu+x3mnAi59r1B4fIvcJqkAYnOygQbonDtwMnOhVJlSBTClAQI8JdamGrpmF6NvL2UXCuXsah+ZanJLn5P6PZJ1AaQHqbXKfoWWmN9VsfYx4WSnA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aaI2N/L38AuBSOFtHClWRG+3YPD0k+4qYGC353z9/MM=;
- b=iH1di8bZs6MLhP/f1Zw3H+xzlbAumA1qhcS5AvQxWPD+QYjd1VEwbUTI56KobFFWjWmrfaIedn7hM/76ViFZeXZl1oBC/lRO7g0kWVA0J+vwuH15ClCj3Ci+teBS2hNbtRy3NFq6xova4uLPdiUoSd/m/QApZVLzMXOBMKmExTQ=
-Received: from DM3PR12CA0072.namprd12.prod.outlook.com (2603:10b6:0:57::16) by
- BYAPR12MB2966.namprd12.prod.outlook.com (2603:10b6:a03:df::27) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4478.25; Wed, 8 Sep 2021 14:55:17 +0000
-Received: from DM6NAM11FT030.eop-nam11.prod.protection.outlook.com
- (2603:10b6:0:57:cafe::74) by DM3PR12CA0072.outlook.office365.com
- (2603:10b6:0:57::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.14 via Frontend
- Transport; Wed, 8 Sep 2021 14:55:17 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT030.mail.protection.outlook.com (10.13.172.146) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4500.14 via Frontend Transport; Wed, 8 Sep 2021 14:55:17 +0000
-Received: from DESKTOP-9DR2N9S.localdomain (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.8; Wed, 8 Sep 2021 09:55:13 -0500
-From: Mikita Lipski <mikita.lipski@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
- <Bhawanpreet.Lakha@amd.com>, <Rodrigo.Siqueira@amd.com>,
- <Aurabindo.Pillai@amd.com>, <qingqing.zhuo@amd.com>, <mikita.lipski@amd.com>, 
- <roman.li@amd.com>, <Anson.Jacob@amd.com>, <wayne.lin@amd.com>,
- <stylon.wang@amd.com>, <solomon.chiu@amd.com>, Michael Strauss
- <michael.strauss@amd.com>, Eric Yang <eric.yang2@amd.com>
-Subject: [PATCH 33/33] drm/amd/display: Enable mem low power control for
- DCN3.1 sub-IP blocks
-Date: Wed, 8 Sep 2021 10:54:24 -0400
-Message-ID: <20210908145424.3311-34-mikita.lipski@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210908145424.3311-1-mikita.lipski@amd.com>
-References: <20210908145424.3311-1-mikita.lipski@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 416636E247;
+	Wed,  8 Sep 2021 18:27:45 +0000 (UTC)
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [IPv6:2a00:1450:4864:20::636])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88DA26E247
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Sep 2021 18:27:44 +0000 (UTC)
+Received: by mail-ej1-x636.google.com with SMTP id kt8so209866ejb.13
+ for <amd-gfx@lists.freedesktop.org>; Wed, 08 Sep 2021 11:27:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=h7qqbAYeSJZ8gicucUP36snA5crLbH8LBI1pIK+gSTo=;
+ b=GKpD+E+P7KmFYfe1bXOy5uk62XNSgLQzbE+a0vGLxZ2vVQvJXrhl70bt4SkMK9cS5c
+ Y19XLuGJ9h/xNT3WL5zcImMwCZLjPgwZuAXSu6ZGIipD4Tvem/cZFlPPamwfWnyGasQF
+ Aecs3DgArwpUkNVPDtaS2i8ni0BEOwCO/rNrw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=h7qqbAYeSJZ8gicucUP36snA5crLbH8LBI1pIK+gSTo=;
+ b=bGASEovMHK+dQi14ddgqGMCoEun/VLOSkjZtqMFBccpogn/zQtbkjzrsz+h7JJuxpI
+ e1HDhdts2dcVd+I0/PvD2od36o0gVFJm+fUTw6hDi+AWJ1TEoioiqgZD2kTxVACt6XGP
+ OelrP/9a0fA+NPhQwEtRw/ju4q2wL07MlYlSM0tR8Pbo+3rWDwNsIMdQ0PEsRKzSQoeD
+ TtvmqF7AdzTnyNzh2049OcpgZ2G06mzZDazBQ+1wlgnuDKsl1fGwp2EFwhwZXIZ4QTN0
+ iNEssSXeh6fIyyZuG2a+J4BZXAx2ioe7U6RpOO3TpdbokvnTzelAgNpX6TQZfM585zi4
+ yxuw==
+X-Gm-Message-State: AOAM530h6sO4l5ZtiXudxann0rP/BeCp8EV9Nc53IWdiFgqeg2mXFy4q
+ Fwp4RfjMTiZYlFAZNwnIq5O4Og==
+X-Google-Smtp-Source: ABdhPJx2WdSNz2VL5q86R3bQiaG5qfGtjEk//hrIEKSqXkgKTJos41xH1KbiVSg8nKtPcyTQxpEFPw==
+X-Received: by 2002:a17:906:c298:: with SMTP id
+ r24mr1268253ejz.93.1631125663142; 
+ Wed, 08 Sep 2021 11:27:43 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id bx14sm1582030edb.93.2021.09.08.11.27.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 08 Sep 2021 11:27:42 -0700 (PDT)
+Date: Wed, 8 Sep 2021 20:27:40 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Daniel Vetter <daniel@ffwll.ch>, xinhui pan <xinhui.pan@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: Re: [resend PATCH] drm/ttm: Fix a deadlock if the target BO is not
+ idle during swap
+Message-ID: <YTkAnDncKU7ewW+5@phenom.ffwll.local>
+References: <20210907040832.1107747-1-xinhui.pan@amd.com>
+ <074efe24-db7a-df68-3624-05989596f44a@amd.com>
+ <YTcrcw+hxWuyyl4C@phenom.ffwll.local>
+ <37412f7e-9f6f-04bb-41b1-72931ea1381e@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 610ac1e6-ab55-4f7c-6663-08d972d8abdd
-X-MS-TrafficTypeDiagnostic: BYAPR12MB2966:
-X-Microsoft-Antispam-PRVS: <BYAPR12MB296639F38EAE45D78D748EEDE4D49@BYAPR12MB2966.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1824;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: jTagdPXenVUefDjt7crOlMNyVZCnGVtL8b77NHNVV+BlDbBT23p0FHlQZkGFVAw3s+fsUnH1LAkZynAUtb3tuwGhdUTZV+uvzWWiKQamJLcJ8LYspw1Ubz9i6jNF0R2CuVJ6A8YbW9VlpUDl3WO7lA+pWvbC5kDiECotQb5wrkr21wQv6EWPGfMEc3HXbuYnOPEbBMhmr0hYfdBTaByShNWgkhtbbcEzrQxPwdZjcZabc3J1SVqYJFHpNxnirrnhYnnqD2z9YqMglNtX4e4WctcG5K6hB0bmT4m5bM64qqmnnCj+vB6wiE8LdDr5UoZIXIQl9PNNQkNL0z0WNF9GnnxV6jkfAur89bDgJcTk9tkszMEAZBT0yRGZ5Agga3qPLnya1h9KMr4PhSnFOR65iDpsRccOW74o6YFiv0mvMht6J7PLcQ6pUtLQ2ZdJBB+WrA1I69Ur1DhVQnZUc1XTPny3uGhghSnHHGWN/CRGbKZUMPq0fb63fs6Z+/QrNquVca0uXSfoETWUQGKU6o1MZ2FuLHYWnveR2kOVUCzXbp2Fuxr2pU3R007JjpYi5PFDoU8LP0R03PlTBQ1XRT0HhfbNrenSfxh6pYYc4hoarPgQDUgxg10/rU0y0QeJ/gZx/9Rg8GsFGCE+Q6Kr7Tc285MWrOCNUAnr9s8HFlZUYDfCvsUbTA5rImTvbmfmKpggGbsu9IwNOpYHS14PsYMW3DjmxwtU7sHvUgw+0vPvBYA=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(39860400002)(136003)(346002)(396003)(376002)(36840700001)(46966006)(6916009)(83380400001)(6666004)(70586007)(36860700001)(70206006)(54906003)(1076003)(2906002)(316002)(4326008)(336012)(81166007)(356005)(44832011)(82740400003)(36756003)(8936002)(47076005)(86362001)(478600001)(16526019)(426003)(26005)(5660300002)(186003)(8676002)(2616005)(82310400003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2021 14:55:17.0568 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 610ac1e6-ab55-4f7c-6663-08d972d8abdd
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT030.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2966
+In-Reply-To: <37412f7e-9f6f-04bb-41b1-72931ea1381e@amd.com>
+X-Operating-System: Linux phenom 5.10.0-8-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,46 +87,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Michael Strauss <michael.strauss@amd.com>
+On Tue, Sep 07, 2021 at 11:28:23AM +0200, Christian König wrote:
+> Am 07.09.21 um 11:05 schrieb Daniel Vetter:
+> > On Tue, Sep 07, 2021 at 08:22:20AM +0200, Christian König wrote:
+> > > Added a Fixes tag and pushed this to drm-misc-fixes.
+> > We're in the merge window, this should have been drm-misc-next-fixes. I'll
+> > poke misc maintainers so it's not lost.
+> 
+> Hui? It's a fix for a problem in stable and not in drm-misc-next.
 
-[WHY]
-Sequences to handle powering down these sub-IP blocks are now ready for use
+Ah the flow chart is confusing. There is no current -rc, so it's always
+-next-fixes. Or you're running the risk that it's lost until after -rc1.
+Maybe we should clarify that "is the bug in current -rc?" only applies if
+there is a current -rc.
 
-Reviewed-by: Eric Yang <eric.yang2@amd.com>
-Acked-by: Mikita Lipski <mikita.lipski@amd.com>
-Signed-off-by: Michael Strauss <michael.strauss@amd.com>
----
- .../drm/amd/display/dc/dcn31/dcn31_resource.c    | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+Anyway Thomas sent out a pr, so it's all good.
+-Daniel
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
-index cf6392eadaf2..613d34bde7dd 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
-@@ -1009,15 +1009,15 @@ static const struct dc_debug_options debug_defaults_drv = {
- 	.use_max_lb = true,
- 	.enable_mem_low_power = {
- 		.bits = {
--			.vga = false,
--			.i2c = false,
-+			.vga = true,
-+			.i2c = true,
- 			.dmcu = false, // This is previously known to cause hang on S3 cycles if enabled
--			.dscl = false,
--			.cm = false,
--			.mpc = false,
--			.optc = false,
--			.vpg = false,
--			.afmt = false,
-+			.dscl = true,
-+			.cm = true,
-+			.mpc = true,
-+			.optc = true,
-+			.vpg = true,
-+			.afmt = true,
- 		}
- 	},
- 	.optimize_edp_link_rate = true,
+> 
+> Christian.
+> 
+> > -Daniel
+> > 
+> > > It will take a while until it cycles back into the development branches, so
+> > > feel free to push some version to amd-staging-drm-next as well. Just ping
+> > > Alex when you do this.
+> > > 
+> > > Thanks,
+> > > Christian.
+> > > 
+> > > Am 07.09.21 um 06:08 schrieb xinhui pan:
+> > > > The ret value might be -EBUSY, caller will think lru lock is still
+> > > > locked but actually NOT. So return -ENOSPC instead. Otherwise we hit
+> > > > list corruption.
+> > > > 
+> > > > ttm_bo_cleanup_refs might fail too if BO is not idle. If we return 0,
+> > > > caller(ttm_tt_populate -> ttm_global_swapout ->ttm_device_swapout) will
+> > > > be stuck as we actually did not free any BO memory. This usually happens
+> > > > when the fence is not signaled for a long time.
+> > > > 
+> > > > Signed-off-by: xinhui pan <xinhui.pan@amd.com>
+> > > > Reviewed-by: Christian König <christian.koenig@amd.com>
+> > > > ---
+> > > >    drivers/gpu/drm/ttm/ttm_bo.c | 6 +++---
+> > > >    1 file changed, 3 insertions(+), 3 deletions(-)
+> > > > 
+> > > > diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+> > > > index 8d7fd65ccced..23f906941ac9 100644
+> > > > --- a/drivers/gpu/drm/ttm/ttm_bo.c
+> > > > +++ b/drivers/gpu/drm/ttm/ttm_bo.c
+> > > > @@ -1152,9 +1152,9 @@ int ttm_bo_swapout(struct ttm_buffer_object *bo, struct ttm_operation_ctx *ctx,
+> > > >    	}
+> > > >    	if (bo->deleted) {
+> > > > -		ttm_bo_cleanup_refs(bo, false, false, locked);
+> > > > +		ret = ttm_bo_cleanup_refs(bo, false, false, locked);
+> > > >    		ttm_bo_put(bo);
+> > > > -		return 0;
+> > > > +		return ret == -EBUSY ? -ENOSPC : ret;
+> > > >    	}
+> > > >    	ttm_bo_del_from_lru(bo);
+> > > > @@ -1208,7 +1208,7 @@ int ttm_bo_swapout(struct ttm_buffer_object *bo, struct ttm_operation_ctx *ctx,
+> > > >    	if (locked)
+> > > >    		dma_resv_unlock(bo->base.resv);
+> > > >    	ttm_bo_put(bo);
+> > > > -	return ret;
+> > > > +	return ret == -EBUSY ? -ENOSPC : ret;
+> > > >    }
+> > > >    void ttm_bo_tt_destroy(struct ttm_buffer_object *bo)
+> 
+
 -- 
-2.25.1
-
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
