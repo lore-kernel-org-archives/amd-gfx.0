@@ -7,48 +7,48 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DF051C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 05:46:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C8507C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 05:56:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9E2D961100
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 05:46:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9E2D961100
+	by mail.kernel.org (Postfix) with ESMTPS id 831CA61101
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 05:56:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 831CA61101
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A29F18940E;
-	Wed,  8 Sep 2021 05:46:25 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2051.outbound.protection.outlook.com [40.107.93.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74F1D6E10C
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Sep 2021 05:46:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14F6D89EFF;
+	Wed,  8 Sep 2021 05:56:36 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2073.outbound.protection.outlook.com [40.107.94.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A57889EFF
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Sep 2021 05:56:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BrgMj6nU4MTxlXIJ7b2SxUP5zTYQGlG05fHZ9Zyh9nOkTIb6yL6E4IRKCk9b3fRMcYIkYrZ39mICKsONJHBlsnVyp56QOOf1Rh2gVdknQ02cyI7fUNPj33ozV3uzhcF689XOEJMOPjuui4DgZ8UyJd6fC6DDF65oYDvlqWwWXXHYJoqnSfXpbjhFJ1mii1Y9WN3Dtr6N/okvt0oWP02dPH4RTWQCCC3yxms4Z4v1HoSn0HBfTBGPMYeiaomLtwsrA+5g9crzD178r9pdAZ9Ldf0/26Q7u8asU1roT2AJo1bVsw8ERzCjfJUsbSjpXLfcpQMcY36AMQCkN7hZvoL6Ww==
+ b=EhkSHx00FgfgiUuDpznBxxe5GrsDNTtGgZQV2ZTRQ2JqVnfLWwD0YEnUIFjaB3Y2CExwbA0OO2WSeHX2ZokqH3dhQmK5Z0UgrEcP7jjyMmGZTTIBbB98R5afC/IEZyf/QMDxeLubs+vuhw5GJuqUy35kfFaiogsGLZ1XWe/DEa1m0ISGXk1N6ghTJs8WMvOOlpy0qoQAMjR0gJssw7Iqy42jkKM+Pv/gUUqFuGQTIINGpsNqXSRe/1/kRRYnUrLLZt5dM+861ZUoxiutmlcY9AvSHXvAYCT4dWCFwWC8COTMkCXmuTdPdRToilDNJQHYEwYyHvUd0rvu/uxSPHISVA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=2Fkl6l5JNRJUvL7oTQ2pxHAwdNhCN87gRIoBHPNk5zg=;
- b=nv0TM4MhCZnWkIJWmb/es+iQ0TuQ7AsfncqT2pArkRfkHSggxvnxvTFqD7o1ziiOpCNAUCoUEhCq7HJkrkEBKoHVN48GE8QU0LIrov5oERzAWwuD8pCXL5+MiK9R99ZaWETLvXpdeRxMapyBk8jtISnvkKV7G9gh6aowJ3FEe/fN54jQbpOS+5BQXT3LiSk74hyiI8CQqWHlfMz3um0cxtSS7CwTG76j0pdNtaBH+1IEXj0G+W2cS/EMGQZEwToP+40kXe/oqlXBG+0CNctmkaIEBxiBw5hAvdxjf5+vvhQRG3A5C+v9EPJz/s7sje6f95x6RfLJmjJAF7H6nr4yzQ==
+ bh=npvm+EDFICesPLnzI30aVoZNkgI521gAtyGRslceHXk=;
+ b=ZoFMVHITlmalcL9JCwp1uaMUV5yLD4SKvqlM1hiQrZ6eW6NfUJXZ0lAMAG4fqoj9rBtFLdGMfmQ9DLLj8bcS5UZixtkRnYqn44VZOvqvB5VvK+RIuzGf0K/n9kuHKFF1lwXg+QqnYlQYTbn3D4UIsoxrZGz/InoCLtm4/MtM5U/KXfRQ85pOeMQOfBWqFsw7ggJ1GPl5MXv082hoyCJH44lUFQOymt4gxs7aXfCK7fc90sDgC27WiJSytTpQsBQu5niqSYqyqPTif3+Na3+QefXBwQxC+0kr3m6AL8/jGI6XG5m10qT9tSmhl9pYD4ZZSk/UxxhSqD/efwOLvgA3BA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2Fkl6l5JNRJUvL7oTQ2pxHAwdNhCN87gRIoBHPNk5zg=;
- b=baMnuRq5lDvH/aXVa0IXfgjlb3F+TdK7usBo20UNOiMY49yM7fXJbU7OjHXM3oaV5XSP0DJUPkAO+iYs1gCOHM/qFnRyoXhEB1uizlfalR14eX0XMhoArgNqfZ+mAwxPOqDcZcSk+wPSOhFxYWhs6+KjqRtQ2x5olE0N6/a8CnA=
-Received: from BN0PR07CA0018.namprd07.prod.outlook.com (2603:10b6:408:141::25)
- by BN6PR1201MB0084.namprd12.prod.outlook.com (2603:10b6:405:57::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.22; Wed, 8 Sep
- 2021 05:46:22 +0000
-Received: from BN8NAM11FT062.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:141:cafe::74) by BN0PR07CA0018.outlook.office365.com
- (2603:10b6:408:141::25) with Microsoft SMTP Server (version=TLS1_2,
+ bh=npvm+EDFICesPLnzI30aVoZNkgI521gAtyGRslceHXk=;
+ b=4HBixxAQuuNjiSiuMrPii3qEp2twMPB/69JIaWFJIUDqIVWm+swFu3NGnr5RhcZAWtEJ1g2qwLuxV/TnPac7LFtH8f19uxrK8byMpsjEPCcAtaEw0s1iNFSe5Ogr8xL9+2BvFtsgPLKle5UdJBzaNJIMAZkD6lgOYFa+q4UaWFM=
+Received: from MW4PR04CA0003.namprd04.prod.outlook.com (2603:10b6:303:69::8)
+ by PH0PR12MB5433.namprd12.prod.outlook.com (2603:10b6:510:e1::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.14; Wed, 8 Sep
+ 2021 05:56:32 +0000
+Received: from CO1NAM11FT061.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:69:cafe::db) by MW4PR04CA0003.outlook.office365.com
+ (2603:10b6:303:69::8) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.14 via Frontend
- Transport; Wed, 8 Sep 2021 05:46:22 +0000
+ Transport; Wed, 8 Sep 2021 05:56:32 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -57,23 +57,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT062.mail.protection.outlook.com (10.13.177.34) with Microsoft SMTP
+ CO1NAM11FT061.mail.protection.outlook.com (10.13.175.200) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4500.14 via Frontend Transport; Wed, 8 Sep 2021 05:46:22 +0000
-Received: from pp-server-two.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ 15.20.4500.14 via Frontend Transport; Wed, 8 Sep 2021 05:56:32 +0000
+Received: from lang-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Wed, 8 Sep 2021
- 00:46:19 -0500
-From: xinhui pan <xinhui.pan@amd.com>
+ 00:56:29 -0500
+From: Lang Yu <lang.yu@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: <alexander.deucher@amd.com>, <christian.koenig@amd.com>, xinhui pan
- <xinhui.pan@amd.com>
-Subject: [RFC PATCH 2/2] drm/amdgpu: IPs use IB test dedicated BO
-Date: Wed, 8 Sep 2021 13:45:53 +0800
-Message-ID: <20210908054553.3290-2-xinhui.pan@amd.com>
+CC: Alex Deucher <alexander.deucher@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>, Lang Yu <lang.yu@amd.com>
+Subject: [PATCH] drm/amdgpu: fix sysfs_emit/sysfs_emit_at warnings
+Date: Wed, 8 Sep 2021 13:56:15 +0800
+Message-ID: <20210908055615.3781901-1-lang.yu@amd.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210908054553.3290-1-xinhui.pan@amd.com>
-References: <20210908054553.3290-1-xinhui.pan@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -82,28 +80,28 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d3c41a09-72a4-46df-7f77-08d9728bfd13
-X-MS-TrafficTypeDiagnostic: BN6PR1201MB0084:
-X-Microsoft-Antispam-PRVS: <BN6PR1201MB0084A31DAB3C3722FB6DBFBD87D49@BN6PR1201MB0084.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:983;
+X-MS-Office365-Filtering-Correlation-Id: 3e93c3d0-673c-48c5-e151-08d9728d68ac
+X-MS-TrafficTypeDiagnostic: PH0PR12MB5433:
+X-Microsoft-Antispam-PRVS: <PH0PR12MB5433CD9F4084A05BEFB75EBFFBD49@PH0PR12MB5433.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:40;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Xh0PctKz0ohuGUDkco7UYqqS/+lT7/xe5Xl2sqM8OOitZn6XDxWRaXPNlgU9xgBK3+WAmQ4PWhuJJhCx2SnIjcbxrWrNoY7f6Z1xy9PykrtYzcj55VM1GuGyFTSiIN0GTfLBcQd9dhfWh0DSzREKv4E502jfSlRuhn8rXzb41UDnvImUROgeUAQvkT9PuQI3YhpG/lnqryFdHkVi9JMXeLsCoFghJNt8hgPY0ixFBS4IY6S13vtd2y0FLwuacRr7DgtKF0EwuWCAPYt99qTSRUzTZdeIvnKSM4e3cfccqqxJw/F8yd6zyFxE0TNHfr0qR4aZLAePZmu36DA/TpI4NNLs6nSgWlpppQdUf+tRlfaE17aUwcsJ39JvsVP91dyd/pNgrgeQm3c69BwWgEjrIyk19f2nX0Douf5HPIEc8nKp/0YUy8zBxoN2XkR5iREUMzIRMO5+MXS4XgOD33Hi/oNFiKWMdxI+U6f8VnPk6kRMKItnXjwKVQjUp4CO2IH6eEzvxySQk7R27RTKoQ5d9YqAfkvlipvmNH/BPAbCovpGrxSDXl/eD/V+g7s9bJsJ/hRlUBnw61uPNRB+4iGb7PXnSk/yCIW5hgyRClj/nsPuST6L9Vs3XjNBDjbNvk5MpotFY0EksLljtr+ghEWIwSvtwk9USxKKyrOkCOxgCj5KvttGWtDJl98ql3g+kBIrrK+GBT6tXmdZsNlX0Nv0MHTyoJDEwULt72TsV134jcg=
+X-Microsoft-Antispam-Message-Info: WPHeZQstF+iGa7ggYceX/1nfW7dJmHPke0poz2L/S1xldCLrs9ICZgOoVYE7JbQeB6FmJxareORObFnWYpBUeMVzlI/gXWSVXCpoeFh2zfl/ga2RkxnbtXRmkghbGUMhlFNyejxtxanGWEIIm0H8k2IXg85j7KaqK/BLEzhtwGI1XaJEHyDBSSygtas/HVhEZU808Unih0noGD8xxwo+d1fpWQf6Cn+5XqWKHbDlOqNgX8PKw3n6vgU8wc843frQjS/08SVIWiPBpjmfwXdj8afUVXHjztD6/dYo8mvKJI2oADa8xdCr8kmz50NKbCxSwEkaYH07eDSXTMIcf5snfVzRkXop8KSoBG/wGRQwdVmE28cs6r//Rdy9YwE6eYXkJ+Tv1cMHoxsoyWxDjvu2DZbYgFs+QVXtaKwdHAyYns8rLqlegMD1w0e7tMRR4KOk8wiH6XPU2vR91qBPD4ib53Gh5Pfj/2Xf5nPZdRhqUTYxAcMv13OC/+vq2SeZWMLV03iFzjlgmYhx6ing4XNlN+VYDChKqF/zLR1duEYoJ0KQ7Yi5b6Xxjiy/g+6XWiCzyPZKeqortWjhPowrjol3etpIxdDIxUsl4uBxa8W3tDpGpEcPwzdNNkmpzLBxFXrLwjJAirch/wtps3LUsMoa8NekBNRgwX3NzLUoNzAc5TQCpgVWf2Lhbhh+NOeCJrCHi3sTNrgiOjSGk3dbt2XnranHWoxqx5e5Mr58FFPO98c=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(6916009)(508600001)(36756003)(426003)(316002)(356005)(83380400001)(2906002)(30864003)(16526019)(8676002)(1076003)(26005)(186003)(81166007)(82310400003)(336012)(54906003)(6666004)(86362001)(2616005)(47076005)(8936002)(4326008)(7696005)(70586007)(70206006)(5660300002)(36860700001)(36900700001);
+ SFS:(4636009)(39860400002)(136003)(346002)(376002)(396003)(36840700001)(46966006)(8676002)(1076003)(70206006)(70586007)(6666004)(36756003)(82310400003)(36860700001)(83380400001)(47076005)(8936002)(2906002)(316002)(4326008)(54906003)(7696005)(30864003)(5660300002)(6916009)(478600001)(186003)(26005)(2616005)(426003)(16526019)(44832011)(336012)(86362001)(82740400003)(356005)(81166007)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2021 05:46:22.1140 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d3c41a09-72a4-46df-7f77-08d9728bfd13
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2021 05:56:32.0102 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3e93c3d0-673c-48c5-e151-08d9728d68ac
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT062.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT061.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR1201MB0084
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5433
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,445 +116,243 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Let vce/uvd/vcn use it to avoid memory allocation during IB test.
-This is useful when memory is nearly used up and no BO can be
-evicted/swappout.
+sysfs_emit and sysfs_emit_at requrie a page boundary
+aligned buf address. Make them happy!
 
-Signed-off-by: xinhui pan <xinhui.pan@amd.com>
+Warning Log:
+[  492.545174] invalid sysfs_emit_at: buf:00000000f19bdfde at:0
+[  492.546416] WARNING: CPU: 7 PID: 1304 at fs/sysfs/file.c:765 sysfs_emit_at+0x4a/0xa0
+[  492.654805] Call Trace:
+[  492.655353]  ? smu_cmn_get_metrics_table+0x40/0x50 [amdgpu]
+[  492.656780]  vangogh_print_clk_levels+0x369/0x410 [amdgpu]
+[  492.658245]  vangogh_common_print_clk_levels+0x77/0x80 [amdgpu]
+[  492.659733]  ? preempt_schedule_common+0x18/0x30
+[  492.660713]  smu_print_ppclk_levels+0x65/0x90 [amdgpu]
+[  492.662107]  amdgpu_get_pp_od_clk_voltage+0x13d/0x190 [amdgpu]
+[  492.663620]  dev_attr_show+0x1d/0x40
+
+Signed-off-by: Lang Yu <lang.yu@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c |  51 ++++-------
- drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c |   9 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 113 ++++++++++++------------
- drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c   |  10 +--
- drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c   |  10 +--
- 5 files changed, 89 insertions(+), 104 deletions(-)
+ drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c |  9 +++++++--
+ drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   |  5 ++++-
+ .../drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   |  5 ++++-
+ drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  | 15 +++++++++------
+ drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c   |  3 +++
+ .../gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    | 13 +++++++++----
+ .../gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c  |  7 +++++--
+ 7 files changed, 41 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-index d451c359606a..573ab1d69bd7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-@@ -1080,23 +1080,10 @@ static int amdgpu_uvd_send_msg(struct amdgpu_ring *ring, struct amdgpu_bo *bo,
- 	unsigned offset_idx = 0;
- 	unsigned offset[3] = { UVD_BASE_SI, 0, 0 };
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+index e343cc218990..53185fe96d83 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+@@ -771,8 +771,13 @@ static int arcturus_print_clk_levels(struct smu_context *smu,
+ 	struct smu_11_0_dpm_context *dpm_context = NULL;
+ 	uint32_t gen_speed, lane_width;
  
--	amdgpu_bo_kunmap(bo);
--	amdgpu_bo_unpin(bo);
--
--	if (!ring->adev->uvd.address_64_bit) {
--		struct ttm_operation_ctx ctx = { true, false };
--
--		amdgpu_bo_placement_from_domain(bo, AMDGPU_GEM_DOMAIN_VRAM);
--		amdgpu_uvd_force_into_uvd_segment(bo);
--		r = ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
--		if (r)
--			goto err;
--	}
--
- 	r = amdgpu_job_alloc_with_ib(adev, 64, direct ? AMDGPU_IB_POOL_DIRECT :
- 				     AMDGPU_IB_POOL_DELAYED, &job);
- 	if (r)
--		goto err;
-+		return r;
- 
- 	if (adev->asic_type >= CHIP_VEGA10) {
- 		offset_idx = 1 + ring->me;
-@@ -1148,8 +1135,6 @@ static int amdgpu_uvd_send_msg(struct amdgpu_ring *ring, struct amdgpu_bo *bo,
- 	}
- 
- 	amdgpu_bo_fence(bo, f, false);
--	amdgpu_bo_unreserve(bo);
--	amdgpu_bo_unref(&bo);
- 
- 	if (fence)
- 		*fence = dma_fence_get(f);
-@@ -1159,10 +1144,6 @@ static int amdgpu_uvd_send_msg(struct amdgpu_ring *ring, struct amdgpu_bo *bo,
- 
- err_free:
- 	amdgpu_job_free(job);
--
--err:
--	amdgpu_bo_unreserve(bo);
--	amdgpu_bo_unref(&bo);
- 	return r;
- }
- 
-@@ -1177,11 +1158,12 @@ int amdgpu_uvd_get_create_msg(struct amdgpu_ring *ring, uint32_t handle,
- 	uint32_t *msg;
- 	int r, i;
- 
--	r = amdgpu_bo_create_reserved(adev, 1024, PAGE_SIZE,
--				      AMDGPU_GEM_DOMAIN_GTT,
--				      &bo, NULL, (void **)&msg);
--	if (r)
--		return r;
-+	if (!ring->adev->uvd.address_64_bit)
-+		bo = adev->ib_test_vram_bo;
-+	else
-+		bo = adev->ib_test_gtt_bo;
-+	amdgpu_bo_reserve(bo, true);
-+	msg = amdgpu_bo_kptr(bo);
- 
- 	/* stitch together an UVD create msg */
- 	msg[0] = cpu_to_le32(0x00000de4);
-@@ -1198,7 +1180,9 @@ int amdgpu_uvd_get_create_msg(struct amdgpu_ring *ring, uint32_t handle,
- 	for (i = 11; i < 1024; ++i)
- 		msg[i] = cpu_to_le32(0x0);
- 
--	return amdgpu_uvd_send_msg(ring, bo, true, fence);
-+	r = amdgpu_uvd_send_msg(ring, bo, true, fence);
-+	amdgpu_bo_unreserve(bo);
-+	return r;
- }
- 
- int amdgpu_uvd_get_destroy_msg(struct amdgpu_ring *ring, uint32_t handle,
-@@ -1209,11 +1193,12 @@ int amdgpu_uvd_get_destroy_msg(struct amdgpu_ring *ring, uint32_t handle,
- 	uint32_t *msg;
- 	int r, i;
- 
--	r = amdgpu_bo_create_reserved(adev, 1024, PAGE_SIZE,
--				      AMDGPU_GEM_DOMAIN_GTT,
--				      &bo, NULL, (void **)&msg);
--	if (r)
--		return r;
-+	if (!ring->adev->uvd.address_64_bit)
-+		bo = adev->ib_test_vram_bo;
-+	else
-+		bo = adev->ib_test_gtt_bo;
-+	amdgpu_bo_reserve(bo, true);
-+	msg = amdgpu_bo_kptr(bo);
- 
- 	/* stitch together an UVD destroy msg */
- 	msg[0] = cpu_to_le32(0x00000de4);
-@@ -1223,7 +1208,9 @@ int amdgpu_uvd_get_destroy_msg(struct amdgpu_ring *ring, uint32_t handle,
- 	for (i = 4; i < 1024; ++i)
- 		msg[i] = cpu_to_le32(0x0);
- 
--	return amdgpu_uvd_send_msg(ring, bo, direct, fence);
-+	r = amdgpu_uvd_send_msg(ring, bo, direct, fence);
-+	amdgpu_bo_unreserve(bo);
-+	return r;
- }
- 
- static void amdgpu_uvd_idle_work_handler(struct work_struct *work)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-index e9fdf49d69e8..70af6afbbbb6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-@@ -1141,11 +1141,11 @@ int amdgpu_vce_ring_test_ib(struct amdgpu_ring *ring, long timeout)
- 	if (ring != &ring->adev->vce.ring[0])
- 		return 0;
- 
--	r = amdgpu_bo_create_reserved(ring->adev, 512, PAGE_SIZE,
--				      AMDGPU_GEM_DOMAIN_VRAM,
--				      &bo, NULL, NULL);
-+	bo = ring->adev->ib_test_vram_bo;
-+	amdgpu_bo_reserve(bo, true);
-+	r = ttm_bo_wait(&bo->tbo, false, false);
- 	if (r)
--		return r;
-+		goto error;
- 
- 	r = amdgpu_vce_get_create_msg(ring, 1, bo, NULL);
- 	if (r)
-@@ -1164,7 +1164,6 @@ int amdgpu_vce_ring_test_ib(struct amdgpu_ring *ring, long timeout)
- error:
- 	dma_fence_put(fence);
- 	amdgpu_bo_unreserve(bo);
--	amdgpu_bo_free_kernel(&bo, NULL, NULL);
- 	return r;
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-index 561296a85b43..b150d5a5db73 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-@@ -577,8 +577,6 @@ static int amdgpu_vcn_dec_send_msg(struct amdgpu_ring *ring,
- 		goto err_free;
- 
- 	amdgpu_bo_fence(bo, f, false);
--	amdgpu_bo_unreserve(bo);
--	amdgpu_bo_free_kernel(&bo, NULL, (void **)&msg);
- 
- 	if (fence)
- 		*fence = dma_fence_get(f);
-@@ -588,26 +586,15 @@ static int amdgpu_vcn_dec_send_msg(struct amdgpu_ring *ring,
- 
- err_free:
- 	amdgpu_job_free(job);
--
- err:
--	amdgpu_bo_unreserve(bo);
--	amdgpu_bo_free_kernel(&bo, NULL, (void **)&msg);
- 	return r;
- }
- 
--static int amdgpu_vcn_dec_get_create_msg(struct amdgpu_ring *ring, uint32_t handle,
--					 struct amdgpu_bo **bo)
-+static void amdgpu_vcn_dec_get_create_msg(struct amdgpu_ring *ring, uint32_t handle,
-+					 struct amdgpu_bo *bo)
- {
--	struct amdgpu_device *adev = ring->adev;
--	uint32_t *msg;
--	int r, i;
--
--	*bo = NULL;
--	r = amdgpu_bo_create_reserved(adev, 1024, PAGE_SIZE,
--				      AMDGPU_GEM_DOMAIN_VRAM,
--				      bo, NULL, (void **)&msg);
--	if (r)
--		return r;
-+	uint32_t *msg = amdgpu_bo_kptr(bo);
-+	int i;
- 
- 	msg[0] = cpu_to_le32(0x00000028);
- 	msg[1] = cpu_to_le32(0x00000038);
-@@ -625,23 +612,13 @@ static int amdgpu_vcn_dec_get_create_msg(struct amdgpu_ring *ring, uint32_t hand
- 	msg[13] = cpu_to_le32(0x00000440);
- 	for (i = 14; i < 1024; ++i)
- 		msg[i] = cpu_to_le32(0x0);
--
--	return 0;
- }
- 
--static int amdgpu_vcn_dec_get_destroy_msg(struct amdgpu_ring *ring, uint32_t handle,
--					  struct amdgpu_bo **bo)
-+static void amdgpu_vcn_dec_get_destroy_msg(struct amdgpu_ring *ring, uint32_t handle,
-+					  struct amdgpu_bo *bo)
- {
--	struct amdgpu_device *adev = ring->adev;
--	uint32_t *msg;
--	int r, i;
--
--	*bo = NULL;
--	r = amdgpu_bo_create_reserved(adev, 1024, PAGE_SIZE,
--				      AMDGPU_GEM_DOMAIN_VRAM,
--				      bo, NULL, (void **)&msg);
--	if (r)
--		return r;
-+	uint32_t *msg = amdgpu_bo_kptr(bo);
-+	int i;
- 
- 	msg[0] = cpu_to_le32(0x00000028);
- 	msg[1] = cpu_to_le32(0x00000018);
-@@ -651,8 +628,6 @@ static int amdgpu_vcn_dec_get_destroy_msg(struct amdgpu_ring *ring, uint32_t han
- 	msg[5] = cpu_to_le32(0x00000000);
- 	for (i = 6; i < 1024; ++i)
- 		msg[i] = cpu_to_le32(0x0);
--
--	return 0;
- }
- 
- int amdgpu_vcn_dec_ring_test_ib(struct amdgpu_ring *ring, long timeout)
-@@ -661,17 +636,29 @@ int amdgpu_vcn_dec_ring_test_ib(struct amdgpu_ring *ring, long timeout)
- 	struct amdgpu_bo *bo;
- 	long r;
- 
--	r = amdgpu_vcn_dec_get_create_msg(ring, 1, &bo);
-+	bo = ring->adev->ib_test_vram_bo;
-+	amdgpu_bo_reserve(bo, true);
-+	r = ttm_bo_wait(&bo->tbo, false, false);
- 	if (r)
- 		goto error;
- 
--	r = amdgpu_vcn_dec_send_msg(ring, bo, NULL);
-+	amdgpu_vcn_dec_get_create_msg(ring, 1, bo);
+-	if (amdgpu_ras_intr_triggered())
+-		return sysfs_emit(buf, "unavailable\n");
++	size = offset_in_page(buf);
++	buf = buf - size;
 +
-+	r = amdgpu_vcn_dec_send_msg(ring, bo, &fence);
- 	if (r)
- 		goto error;
--	r = amdgpu_vcn_dec_get_destroy_msg(ring, 1, &bo);
--	if (r)
++	if (amdgpu_ras_intr_triggered()) {
++		size += sysfs_emit_at(buf, size, "unavailable\n");
++		return size;
++	}
+ 
+ 	dpm_context = smu_dpm->dpm_context;
+ 
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+index 4c81989b8162..5490e8e66e14 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+@@ -1279,6 +1279,9 @@ static int navi10_print_clk_levels(struct smu_context *smu,
+ 	struct smu_11_0_overdrive_table *od_settings = smu->od_settings;
+ 	uint32_t min_value, max_value;
+ 
++	size = offset_in_page(buf);
++	buf = buf - size;
 +
-+	r = dma_fence_wait_timeout(fence, false, timeout);
-+	if (r == 0)
-+		r = -ETIMEDOUT;
-+	if (r < 0)
- 		goto error;
+ 	switch (clk_type) {
+ 	case SMU_GFXCLK:
+ 	case SMU_SCLK:
+@@ -1392,7 +1395,7 @@ static int navi10_print_clk_levels(struct smu_context *smu,
+ 	case SMU_OD_RANGE:
+ 		if (!smu->od_enabled || !od_table || !od_settings)
+ 			break;
+-		size = sysfs_emit(buf, "%s:\n", "OD_RANGE");
++		size += sysfs_emit_at(buf, size, "%s:\n", "OD_RANGE");
  
-+	dma_fence_put(fence);
-+	fence = NULL;
+ 		if (navi10_od_feature_is_supported(od_settings, SMU_11_0_ODCAP_GFXCLK_LIMITS)) {
+ 			navi10_od_setting_get_range(od_settings, SMU_11_0_ODSETTING_GFXCLKFMIN,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+index 5e292c3f5050..817ad6de3854 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+@@ -1058,6 +1058,9 @@ static int sienna_cichlid_print_clk_levels(struct smu_context *smu,
+ 	uint32_t min_value, max_value;
+ 	uint32_t smu_version;
+ 
++	size = offset_in_page(buf);
++	buf = buf - size;
 +
-+	amdgpu_vcn_dec_get_destroy_msg(ring, 1, bo);
+ 	switch (clk_type) {
+ 	case SMU_GFXCLK:
+ 	case SMU_SCLK:
+@@ -1180,7 +1183,7 @@ static int sienna_cichlid_print_clk_levels(struct smu_context *smu,
+ 		if (!smu->od_enabled || !od_table || !od_settings)
+ 			break;
+ 
+-		size = sysfs_emit(buf, "%s:\n", "OD_RANGE");
++		size += sysfs_emit_at(buf, size, "%s:\n", "OD_RANGE");
+ 
+ 		if (sienna_cichlid_is_od_feature_supported(od_settings, SMU_11_0_7_ODCAP_GFXCLK_LIMITS)) {
+ 			sienna_cichlid_get_od_setting_range(od_settings, SMU_11_0_7_ODSETTING_GFXCLKFMIN,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+index 3a3421452e57..c7842c69b570 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+@@ -592,7 +592,7 @@ static int vangogh_print_legacy_clk_levels(struct smu_context *smu,
+ 	switch (clk_type) {
+ 	case SMU_OD_SCLK:
+ 		if (smu_dpm_ctx->dpm_level == AMD_DPM_FORCED_LEVEL_MANUAL) {
+-			size = sysfs_emit(buf, "%s:\n", "OD_SCLK");
++			size += sysfs_emit_at(buf, size, "%s:\n", "OD_SCLK");
+ 			size += sysfs_emit_at(buf, size, "0: %10uMhz\n",
+ 			(smu->gfx_actual_hard_min_freq > 0) ? smu->gfx_actual_hard_min_freq : smu->gfx_default_hard_min_freq);
+ 			size += sysfs_emit_at(buf, size, "1: %10uMhz\n",
+@@ -601,7 +601,7 @@ static int vangogh_print_legacy_clk_levels(struct smu_context *smu,
+ 		break;
+ 	case SMU_OD_CCLK:
+ 		if (smu_dpm_ctx->dpm_level == AMD_DPM_FORCED_LEVEL_MANUAL) {
+-			size = sysfs_emit(buf, "CCLK_RANGE in Core%d:\n",  smu->cpu_core_id_select);
++			size += sysfs_emit_at(buf, size, "CCLK_RANGE in Core%d:\n",  smu->cpu_core_id_select);
+ 			size += sysfs_emit_at(buf, size, "0: %10uMhz\n",
+ 			(smu->cpu_actual_soft_min_freq > 0) ? smu->cpu_actual_soft_min_freq : smu->cpu_default_soft_min_freq);
+ 			size += sysfs_emit_at(buf, size, "1: %10uMhz\n",
+@@ -610,7 +610,7 @@ static int vangogh_print_legacy_clk_levels(struct smu_context *smu,
+ 		break;
+ 	case SMU_OD_RANGE:
+ 		if (smu_dpm_ctx->dpm_level == AMD_DPM_FORCED_LEVEL_MANUAL) {
+-			size = sysfs_emit(buf, "%s:\n", "OD_RANGE");
++			size += sysfs_emit_at(buf, size, "%s:\n", "OD_RANGE");
+ 			size += sysfs_emit_at(buf, size, "SCLK: %7uMhz %10uMhz\n",
+ 				smu->gfx_default_hard_min_freq, smu->gfx_default_soft_max_freq);
+ 			size += sysfs_emit_at(buf, size, "CCLK: %7uMhz %10uMhz\n",
+@@ -682,6 +682,9 @@ static int vangogh_print_clk_levels(struct smu_context *smu,
+ 	uint32_t cur_value = 0, value = 0, count = 0;
+ 	bool cur_value_match_level = false;
+ 
++	size = offset_in_page(buf);
++	buf = buf - size;
 +
- 	r = amdgpu_vcn_dec_send_msg(ring, bo, &fence);
- 	if (r)
- 		goto error;
-@@ -681,9 +668,9 @@ int amdgpu_vcn_dec_ring_test_ib(struct amdgpu_ring *ring, long timeout)
- 		r = -ETIMEDOUT;
- 	else if (r > 0)
- 		r = 0;
--
--	dma_fence_put(fence);
- error:
-+	dma_fence_put(fence);
-+	amdgpu_bo_unreserve(bo);
- 	return r;
- }
+ 	memset(&metrics, 0, sizeof(metrics));
  
-@@ -727,8 +714,6 @@ static int amdgpu_vcn_dec_sw_send_msg(struct amdgpu_ring *ring,
- 		goto err_free;
+ 	ret = smu_cmn_get_metrics_table(smu, &metrics, false);
+@@ -691,7 +694,7 @@ static int vangogh_print_clk_levels(struct smu_context *smu,
+ 	switch (clk_type) {
+ 	case SMU_OD_SCLK:
+ 		if (smu_dpm_ctx->dpm_level == AMD_DPM_FORCED_LEVEL_MANUAL) {
+-			size = sysfs_emit(buf, "%s:\n", "OD_SCLK");
++			size += sysfs_emit_at(buf, size, "%s:\n", "OD_SCLK");
+ 			size += sysfs_emit_at(buf, size, "0: %10uMhz\n",
+ 			(smu->gfx_actual_hard_min_freq > 0) ? smu->gfx_actual_hard_min_freq : smu->gfx_default_hard_min_freq);
+ 			size += sysfs_emit_at(buf, size, "1: %10uMhz\n",
+@@ -700,7 +703,7 @@ static int vangogh_print_clk_levels(struct smu_context *smu,
+ 		break;
+ 	case SMU_OD_CCLK:
+ 		if (smu_dpm_ctx->dpm_level == AMD_DPM_FORCED_LEVEL_MANUAL) {
+-			size = sysfs_emit(buf, "CCLK_RANGE in Core%d:\n",  smu->cpu_core_id_select);
++			size += sysfs_emit_at(buf, size, "CCLK_RANGE in Core%d:\n",  smu->cpu_core_id_select);
+ 			size += sysfs_emit_at(buf, size, "0: %10uMhz\n",
+ 			(smu->cpu_actual_soft_min_freq > 0) ? smu->cpu_actual_soft_min_freq : smu->cpu_default_soft_min_freq);
+ 			size += sysfs_emit_at(buf, size, "1: %10uMhz\n",
+@@ -709,7 +712,7 @@ static int vangogh_print_clk_levels(struct smu_context *smu,
+ 		break;
+ 	case SMU_OD_RANGE:
+ 		if (smu_dpm_ctx->dpm_level == AMD_DPM_FORCED_LEVEL_MANUAL) {
+-			size = sysfs_emit(buf, "%s:\n", "OD_RANGE");
++			size += sysfs_emit_at(buf, size, "%s:\n", "OD_RANGE");
+ 			size += sysfs_emit_at(buf, size, "SCLK: %7uMhz %10uMhz\n",
+ 				smu->gfx_default_hard_min_freq, smu->gfx_default_soft_max_freq);
+ 			size += sysfs_emit_at(buf, size, "CCLK: %7uMhz %10uMhz\n",
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
+index 5aa175e12a78..86e7978b6d63 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
+@@ -491,6 +491,9 @@ static int renoir_print_clk_levels(struct smu_context *smu,
+ 	struct smu_dpm_context *smu_dpm_ctx = &(smu->smu_dpm);
+ 	bool cur_value_match_level = false;
  
- 	amdgpu_bo_fence(bo, f, false);
--	amdgpu_bo_unreserve(bo);
--	amdgpu_bo_unref(&bo);
- 
- 	if (fence)
- 		*fence = dma_fence_get(f);
-@@ -738,10 +723,7 @@ static int amdgpu_vcn_dec_sw_send_msg(struct amdgpu_ring *ring,
- 
- err_free:
- 	amdgpu_job_free(job);
--
- err:
--	amdgpu_bo_unreserve(bo);
--	amdgpu_bo_unref(&bo);
- 	return r;
- }
- 
-@@ -751,17 +733,29 @@ int amdgpu_vcn_dec_sw_ring_test_ib(struct amdgpu_ring *ring, long timeout)
- 	struct amdgpu_bo *bo;
- 	long r;
- 
--	r = amdgpu_vcn_dec_get_create_msg(ring, 1, &bo);
-+	bo = ring->adev->ib_test_vram_bo;
-+	amdgpu_bo_reserve(bo, true);
-+	r = ttm_bo_wait(&bo->tbo, false, false);
- 	if (r)
- 		goto error;
- 
--	r = amdgpu_vcn_dec_sw_send_msg(ring, bo, NULL);
-+	amdgpu_vcn_dec_get_create_msg(ring, 1, bo);
++	size = offset_in_page(buf);
++	buf = buf - size;
 +
-+	r = amdgpu_vcn_dec_sw_send_msg(ring, bo, &fence);
- 	if (r)
- 		goto error;
--	r = amdgpu_vcn_dec_get_destroy_msg(ring, 1, &bo);
--	if (r)
+ 	memset(&metrics, 0, sizeof(metrics));
+ 
+ 	ret = smu_cmn_get_metrics_table(smu, &metrics, false);
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+index ab652028e003..6349f27e9efc 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+@@ -733,15 +733,20 @@ static int aldebaran_print_clk_levels(struct smu_context *smu,
+ 	uint32_t freq_values[3] = {0};
+ 	uint32_t min_clk, max_clk;
+ 
+-	if (amdgpu_ras_intr_triggered())
+-		return sysfs_emit(buf, "unavailable\n");
++	size = offset_in_page(buf);
++	buf = buf - size;
 +
-+	r = dma_fence_wait_timeout(fence, false, timeout);
-+	if (r == 0)
-+		r = -ETIMEDOUT;
-+	if (r < 0)
- 		goto error;
++	if (amdgpu_ras_intr_triggered()) {
++		size += sysfs_emit_at(buf, size, "unavailable\n");
++		return size;
++	}
  
-+	dma_fence_put(fence);
-+	fence = NULL;
+ 	dpm_context = smu_dpm->dpm_context;
+ 
+ 	switch (type) {
+ 
+ 	case SMU_OD_SCLK:
+-		size = sysfs_emit(buf, "%s:\n", "GFXCLK");
++		size += sysfs_emit_at(buf, size, "%s:\n", "GFXCLK");
+ 		fallthrough;
+ 	case SMU_SCLK:
+ 		ret = aldebaran_get_current_clk_freq_by_table(smu, SMU_GFXCLK, &now);
+@@ -795,7 +800,7 @@ static int aldebaran_print_clk_levels(struct smu_context *smu,
+ 		break;
+ 
+ 	case SMU_OD_MCLK:
+-		size = sysfs_emit(buf, "%s:\n", "MCLK");
++		size += sysfs_emit_at(buf, size, "%s:\n", "MCLK");
+ 		fallthrough;
+ 	case SMU_MCLK:
+ 		ret = aldebaran_get_current_clk_freq_by_table(smu, SMU_UCLK, &now);
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
+index 627ba2eec7fd..3b21d9143b96 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
+@@ -1052,16 +1052,19 @@ static int yellow_carp_print_clk_levels(struct smu_context *smu,
+ 	int i, size = 0, ret = 0;
+ 	uint32_t cur_value = 0, value = 0, count = 0;
+ 
++	size = offset_in_page(buf);
++	buf = buf - size;
 +
-+	amdgpu_vcn_dec_get_destroy_msg(ring, 1, bo);
-+
- 	r = amdgpu_vcn_dec_sw_send_msg(ring, bo, &fence);
- 	if (r)
- 		goto error;
-@@ -772,8 +766,9 @@ int amdgpu_vcn_dec_sw_ring_test_ib(struct amdgpu_ring *ring, long timeout)
- 	else if (r > 0)
- 		r = 0;
- 
--	dma_fence_put(fence);
- error:
-+	dma_fence_put(fence);
-+	amdgpu_bo_unreserve(bo);
- 	return r;
- }
- 
-@@ -922,16 +917,25 @@ int amdgpu_vcn_enc_ring_test_ib(struct amdgpu_ring *ring, long timeout)
- 	struct amdgpu_bo *bo = NULL;
- 	long r;
- 
--	r = amdgpu_bo_create_reserved(ring->adev, 128 * 1024, PAGE_SIZE,
--				      AMDGPU_GEM_DOMAIN_VRAM,
--				      &bo, NULL, NULL);
-+	bo = ring->adev->ib_test_vram_bo;
-+	amdgpu_bo_reserve(bo, true);
-+	r = ttm_bo_wait(&bo->tbo, false, false);
- 	if (r)
--		return r;
-+		goto error;
- 
--	r = amdgpu_vcn_enc_get_create_msg(ring, 1, bo, NULL);
-+	r = amdgpu_vcn_enc_get_create_msg(ring, 1, bo, &fence);
- 	if (r)
- 		goto error;
- 
-+	r = dma_fence_wait_timeout(fence, false, timeout);
-+	if (r == 0)
-+		r = -ETIMEDOUT;
-+	if (r < 0)
-+		goto error;
-+
-+	dma_fence_put(fence);
-+	fence = NULL;
-+
- 	r = amdgpu_vcn_enc_get_destroy_msg(ring, 1, bo, &fence);
- 	if (r)
- 		goto error;
-@@ -945,7 +949,6 @@ int amdgpu_vcn_enc_ring_test_ib(struct amdgpu_ring *ring, long timeout)
- error:
- 	dma_fence_put(fence);
- 	amdgpu_bo_unreserve(bo);
--	amdgpu_bo_free_kernel(&bo, NULL, NULL);
- 
- 	return r;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
-index bc571833632e..0ce8fcc318d3 100644
---- a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
-@@ -335,11 +335,11 @@ static int uvd_v6_0_enc_ring_test_ib(struct amdgpu_ring *ring, long timeout)
- 	struct amdgpu_bo *bo = NULL;
- 	long r;
- 
--	r = amdgpu_bo_create_reserved(ring->adev, 128 * 1024, PAGE_SIZE,
--				      AMDGPU_GEM_DOMAIN_VRAM,
--				      &bo, NULL, NULL);
-+	bo = ring->adev->ib_test_vram_bo;
-+	amdgpu_bo_reserve(bo, true);
-+	r = ttm_bo_wait(&bo->tbo, false, false);
- 	if (r)
--		return r;
-+		goto error;
- 
- 	r = uvd_v6_0_enc_get_create_msg(ring, 1, bo, NULL);
- 	if (r)
-@@ -357,9 +357,7 @@ static int uvd_v6_0_enc_ring_test_ib(struct amdgpu_ring *ring, long timeout)
- 
- error:
- 	dma_fence_put(fence);
--	amdgpu_bo_unpin(bo);
- 	amdgpu_bo_unreserve(bo);
--	amdgpu_bo_unref(&bo);
- 	return r;
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
-index b6e82d75561f..6d26c80df960 100644
---- a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
-@@ -341,11 +341,11 @@ static int uvd_v7_0_enc_ring_test_ib(struct amdgpu_ring *ring, long timeout)
- 	struct amdgpu_bo *bo = NULL;
- 	long r;
- 
--	r = amdgpu_bo_create_reserved(ring->adev, 128 * 1024, PAGE_SIZE,
--				      AMDGPU_GEM_DOMAIN_VRAM,
--				      &bo, NULL, NULL);
-+	bo = ring->adev->ib_test_vram_bo;
-+	amdgpu_bo_reserve(bo, true);
-+	r = ttm_bo_wait(&bo->tbo, false, false);
- 	if (r)
--		return r;
-+		goto error;
- 
- 	r = uvd_v7_0_enc_get_create_msg(ring, 1, bo, NULL);
- 	if (r)
-@@ -363,9 +363,7 @@ static int uvd_v7_0_enc_ring_test_ib(struct amdgpu_ring *ring, long timeout)
- 
- error:
- 	dma_fence_put(fence);
--	amdgpu_bo_unpin(bo);
- 	amdgpu_bo_unreserve(bo);
--	amdgpu_bo_unref(&bo);
- 	return r;
- }
- 
+ 	switch (clk_type) {
+ 	case SMU_OD_SCLK:
+-		size = sysfs_emit(buf, "%s:\n", "OD_SCLK");
++		size += sysfs_emit_at(buf, size, "%s:\n", "OD_SCLK");
+ 		size += sysfs_emit_at(buf, size, "0: %10uMhz\n",
+ 		(smu->gfx_actual_hard_min_freq > 0) ? smu->gfx_actual_hard_min_freq : smu->gfx_default_hard_min_freq);
+ 		size += sysfs_emit_at(buf, size, "1: %10uMhz\n",
+ 		(smu->gfx_actual_soft_max_freq > 0) ? smu->gfx_actual_soft_max_freq : smu->gfx_default_soft_max_freq);
+ 		break;
+ 	case SMU_OD_RANGE:
+-		size = sysfs_emit(buf, "%s:\n", "OD_RANGE");
++		size += sysfs_emit_at(buf, size, "%s:\n", "OD_RANGE");
+ 		size += sysfs_emit_at(buf, size, "SCLK: %7uMhz %10uMhz\n",
+ 						smu->gfx_default_hard_min_freq, smu->gfx_default_soft_max_freq);
+ 		break;
 -- 
 2.25.1
 
