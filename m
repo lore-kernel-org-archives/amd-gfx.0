@@ -3,74 +3,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6984BC433F5
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 22:48:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4A40EC4321E
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 22:59:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2079B610CE
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 22:48:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2079B610CE
+	by mail.kernel.org (Postfix) with ESMTPS id 081FB61090
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Sep 2021 22:59:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 081FB61090
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD15D6E334;
-	Wed,  8 Sep 2021 22:48:40 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2071.outbound.protection.outlook.com [40.107.94.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF8526E334
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Sep 2021 22:48:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D48736E33F;
+	Wed,  8 Sep 2021 22:58:58 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2053.outbound.protection.outlook.com [40.107.223.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54E046E332;
+ Wed,  8 Sep 2021 22:58:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=E3YSmO3hCrCgJ/lK6CkXeVd8+2nqiuDvYNDj33h3bfTpAxF4WcGJ9Np9m1l4zycJDSDdjbgS45yrWsmsd0w5L+Tovyj8yeBmxJai8QhFmLUzv7vE/WUAlzCKOWzWpuj3o2lXd15iCr+ewO+qYkWPDM+BL0Jw9jhTJs4g/T2ZEBgG5VXlAtboF5aJYgmY6EA0qoosZgEtHpicaO6oFUiPb1e9Z12EZ8zc+iID914XNycINdz1jgVZRV/IE0Pd+zflhmGEuxuZ7d/NwmnHWKazkHDgU3j2eEaFlm9XZmdguMhHgnz1Wv/tC2ov8KQ4qx3D23WwklTvlI8OQpcEyE8jYw==
+ b=UPu0b+JDkq/ZC0JxyB6BNg3OwZ7ji3o5UjovTzBdWtMzL1SocATjZ2O7Jysh9BJOh8h+djd59LFwqE4Q1uPVGjJQJFLrsbGhzas1PQCJKpYh665ZJtwArqj4zns1Xkho4HsAq9ou6rCIcMJXkcog7XbudBPTWPMOnMj2jbcMod5lHPbpYKQdG0qP8ly7CjcQa8YHLdorPdUDRD//c5tFcaRCy51JKa0lLl4NsC8JILNjxmrhLSNQji5OLVvoNiqLzb3YdtAzEua4c7d6C/yKDWMgAXM2mHeAgwe93KXTwd4rh2OPaZTj0KcNy5t6RLc/Q6bjoB/hLq95kQJXrOhA1w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=C3wT+FG4ftrnoT8TZQRwDX4G68dzPjnfAAmp/cXTHfs=;
- b=P5lCEEKOmS9j8umgwRvtu7PMJwgeSPRgtKQz64ls1E6AjvdMycgTqyKoq1SQvgfMnBZnMf9aS4xJk7TpaDDj+KeOfI5KCCCO3PoHVZ2AK0Z1FRZ6UnwCKNvt6qz84VR/hC8v0ZU+jJ1UgDRx6+fau/uGUJ48MasUPBFWbUQGgJj7Ok24IkSPZk6iR8OdNazzKAFBSzMfOL+ZBe7hspc7lifF5kBvXxfarvsohcfKFVt8P2o0HWoS0ngqjUw2qtGldomGK3WhcO/S7+qiQlugTDgVyGb3OnE5U0x+A7j7DJmp21AtZLO+z36nqLsl1hqhmV1H+6UMQ0HFUnkb9FpRjQ==
+ bh=7Wh2FFXsJRDtCqhHeo4NGZGQQSRx6vJ90yxYFUVmHqY=;
+ b=OFn8JEyWPasNOG1h5TOQMV/whVBs0BWXi472ElAlTTqzfUHBKhLBseEZxniBcKIUc2UtzU2NvjuYA2XPWkcWPSoBnhn4wMqBw8voldmrln3xURmzb6lljCP5OFtKb9SjVxII0vBKmVQbyI+0Wb0vkSBorDZItQu20KgO2iMezmF53/EoLLaPMbMWITonw2WS7iQEPpamKQjsrUgfOoEYlnu1EccdtM3Acxr+FJtUL1CbuJkDCZxcl7qMifCGlE/H8hoyGE0vowHjkzYlVCobnjN5NMycpiuIzLWRFNPReUU7P0mXi8ywuulU0MQojOQihKMNI8CMkHeuZGaq39BKrQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=C3wT+FG4ftrnoT8TZQRwDX4G68dzPjnfAAmp/cXTHfs=;
- b=0V8iAoD1ekZ0NUcOVTQ9MfS+657WLUy1LWmqA4lXKSY0xUQXubhQb+Ya8eRD/zULNcVS4nGeGzzvc5RfhmzgzHIr7LVObWnFvzIi+Z7j0Yp2mr3Y0XefA8z82tQ3BBdzh3rzh1OA6Qx431H1MtRV3DRkSGt5lD9kAIA4n66SYqM=
-Received: from DM5PR04CA0050.namprd04.prod.outlook.com (2603:10b6:3:ef::12) by
- MWHPR12MB1663.namprd12.prod.outlook.com (2603:10b6:301:e::9) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4478.20; Wed, 8 Sep 2021 22:48:34 +0000
-Received: from DM6NAM11FT020.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:ef:cafe::44) by DM5PR04CA0050.outlook.office365.com
- (2603:10b6:3:ef::12) with Microsoft SMTP Server (version=TLS1_2,
+ bh=7Wh2FFXsJRDtCqhHeo4NGZGQQSRx6vJ90yxYFUVmHqY=;
+ b=bU+w2z9vlwNclNtevXBdzfIrg5DLck5syjSbqsD3R50+ARmaTzDju6S2ggOSpaWWkBFRnGG9vyYGrRoWA10v3G36/F/6AZ+trQalpNOCAR2Hu4TTdwNZVqH4fZ2fPFU8v+4WnXOJgAxDk+olxKWLgbDFO6bPFlQPkkl+wwagcwQ=
+Received: from DM5PR18CA0081.namprd18.prod.outlook.com (2603:10b6:3:3::19) by
+ BN9PR12MB5195.namprd12.prod.outlook.com (2603:10b6:408:11c::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.19; Wed, 8 Sep
+ 2021 22:58:54 +0000
+Received: from DM6NAM11FT028.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:3:3:cafe::9d) by DM5PR18CA0081.outlook.office365.com
+ (2603:10b6:3:3::19) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.14 via Frontend
- Transport; Wed, 8 Sep 2021 22:48:34 +0000
+ Transport; Wed, 8 Sep 2021 22:58:54 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
+ smtp.mailfrom=amd.com; vger.kernel.org; dkim=none (message not signed)
+ header.d=none;vger.kernel.org; dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT020.mail.protection.outlook.com (10.13.172.224) with Microsoft SMTP
+ DM6NAM11FT028.mail.protection.outlook.com (10.13.173.140) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4500.14 via Frontend Transport; Wed, 8 Sep 2021 22:48:34 +0000
-Received: from Harpoon.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ 15.20.4500.14 via Frontend Transport; Wed, 8 Sep 2021 22:58:53 +0000
+Received: from tlendack-t1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Wed, 8 Sep 2021
- 17:48:32 -0500
-From: Felix Kuehling <Felix.Kuehling@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v3 1/1] drm/amdkfd: make needs_pcie_atomics FW-version
- dependent
-Date: Wed, 8 Sep 2021 18:48:22 -0400
-Message-ID: <20210908224822.1500405-1-Felix.Kuehling@amd.com>
-X-Mailer: git-send-email 2.32.0
+ 17:58:51 -0500
+From: Tom Lendacky <thomas.lendacky@amd.com>
+To: <linux-kernel@vger.kernel.org>, <x86@kernel.org>,
+ <linuxppc-dev@lists.ozlabs.org>, <linux-s390@vger.kernel.org>,
+ <iommu@lists.linux-foundation.org>, <kvm@vger.kernel.org>,
+ <linux-efi@vger.kernel.org>, <platform-driver-x86@vger.kernel.org>,
+ <linux-graphics-maintainer@vmware.com>, <amd-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <kexec@lists.infradead.org>,
+ <linux-fsdevel@vger.kernel.org>
+CC: Borislav Petkov <bp@alien8.de>, Brijesh Singh <brijesh.singh@amd.com>,
+ Joerg Roedel <joro@8bytes.org>, Andi Kleen <ak@linux.intel.com>,
+ Sathyanarayanan Kuppuswamy <sathyanarayanan.kuppuswamy@linux.intel.com>,
+ Tianyu Lan <Tianyu.Lan@microsoft.com>, Christoph Hellwig <hch@infradead.org>, 
+ Andy Lutomirski <luto@kernel.org>, Ard Biesheuvel <ardb@kernel.org>, "Baoquan
+ He" <bhe@redhat.com>, Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Christian Borntraeger <borntraeger@de.ibm.com>, Daniel Vetter
+ <daniel@ffwll.ch>, Dave Hansen <dave.hansen@linux.intel.com>, Dave Young
+ <dyoung@redhat.com>, David Airlie <airlied@linux.ie>, Heiko Carstens
+ <hca@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Michael Ellerman <mpe@ellerman.id.au>, Paul Mackerras <paulus@samba.org>,
+ Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@linutronix.de>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Vasily Gorbik <gor@linux.ibm.com>,
+ Will Deacon <will@kernel.org>
+Subject: [PATCH v3 0/8] Implement generic cc_platform_has() helper function
+Date: Wed, 8 Sep 2021 17:58:31 -0500
+Message-ID: <cover.1631141919.git.thomas.lendacky@amd.com>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -79,28 +98,28 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 396a299e-4170-4a78-35e4-08d9731ac9d2
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1663:
-X-Microsoft-Antispam-PRVS: <MWHPR12MB1663597D342DF444F5951C2B92D49@MWHPR12MB1663.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-MS-Office365-Filtering-Correlation-Id: d8edaccc-5d97-45c7-b500-08d9731c3b44
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5195:
+X-Microsoft-Antispam-PRVS: <BN9PR12MB51955B56FFF2FA3E4078B327ECD49@BN9PR12MB5195.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2887;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 7NphhxQqLog8ODS9utd6hUY0eUUKGgqG+FM96z48rKK7pzId8tiYoKmuYIDscxEEWSbMiZbt80hAxUSSWvmz+vsYrObcUsZJuBkIslpjMAJFvboff4dAOoSZYZ0MvWjLhszMyOCvu4KSyXL+0pKG4p4skr52GTNGl3uNBEkMp1APOnhfwfk1GYKQLTreu4Sie0M+gDVB0ygDSKsPOkZ95L93kcxfTZWocozB5DwYHpfGwT51deiNvvDmdoLZ0UpfrRkQDEB6GoIoPJ1OcHBVjBDUy1Vclqn55zXwHRNeBgDDNYc4fig+yGou939Kg6uBIWg9sf9Mv8pBSskChcWlmFrWjW4eBXSy+J3B1aBWZw58gWcrZet0xTOR71aqtwf46+muU+rTls8gqzX0OBlw2XubvZH80pFl4N1miEjk5uzdXCIQWxInT4WPFZI5p32U63xIIjrBoJyRYnORBeIE2gMcnibHBUpXZFci6mQPpbOa03pUp/9KLOHE5rnrE6UZ5k1fysLtjfqn/X4TWQoAgpAzVg88su0dAHrrKZ60V9LCylVXwKbfWjNwtoXqB+dv8gD7qtVIwrXlTq+P998X7A8cyTnuE19cGorJw/WG/qoT2C3swrQGQMS4Qb9KSe/6qwbIIpK3MOkBzkzOVfCbXE6hVNslcQPuT7B7GRQ7/MQqYiv3yiosTADQY/4CYcgHg83eALMME/E3XMUcdyviVvhacv64rU3XGOfS1UKtCKM=
+X-Microsoft-Antispam-Message-Info: KPQV3Dld0tKh03daLbVsw8fNE40OpEf6zkH4Hh4z7l/FAYUN/MPv82J4MeHd87eSFtlQ8dRQ5QO+7UZ8ghypbyg1l34pNPEPcVI3RWyRii4bHyLgflt+hmUWSgMSpIkxR4V9+bs36hzwwCdIDa3A5cN252dbn9p3L8xUCpM3c8uCkjL2D70B4NzpTGMqGRowi5LbfviG+v7XzaRQV6nsJr5MpzreseU11nNTcIh8kePueBrzl2QLFLER3V62KEiPALgln4ipFMHqLeekGgR3KXItUimhMnszmnAk8eXUJOW3yjaPRwl/54zrhkoMQDvQPSbMxCbt6Om1ibNsjtR8o5F7K33JEhRDaKSqW5NftdqCeb5teCpBR5xMecmhFenFiYmbHvX3gsaRYNiSRU0DRgqwxBMA8W0kvqdcRAWma8peJ1A8mQlOfKpbDKQyMopWExjcSvXe09Q5L5br9wiOSBQyrShpkvyQNZvEanwBZ75wYYoYsbO0Gfp5nci8o666rmnhxGfNc8ixysJ66NOKYTP5mcITphxkY/rJswvgO+4qvZWbFwKXav+9NDKU1I8Hdky3P6/cjpB290suAG6ib8SCgu8sO6QP4eznN3AngfsaYrqdD7nczfasB2zApCzy2XIZr443JHT08SR6BFZqDBw4EBFc1nRqKMUdGtNmpRdEYzkJlTQlCSRjLKo09VwObdWxFzqECBKKdRHJQoq36HFHkriIhqK+8owFy+4NRo5jziTWZr+STXGQt3CO/l+j9XjB4c0XigDlF9tBvkEcd4t5ycgWWxQy5EfUO5JKd1XQImAeAp1GUKGEzUuqHgFixX4hfsAsMdrwmU2gji+ef0OjBiqaYvrrXQIbTd2fL7tdCgumDFgrxgJcT4+VfDYQhdDqJUyDeGf/9JEymi7Nehxt22yklmAa907ANajbWk8=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(376002)(396003)(39860400002)(346002)(136003)(46966006)(36840700001)(70206006)(316002)(7696005)(70586007)(336012)(16526019)(82310400003)(86362001)(8676002)(186003)(2906002)(478600001)(26005)(2616005)(83380400001)(47076005)(6666004)(426003)(81166007)(36756003)(356005)(5660300002)(36860700001)(82740400003)(6916009)(8936002)(1076003)(36900700001);
+ SFS:(4636009)(136003)(376002)(346002)(396003)(39860400002)(46966006)(36840700001)(4326008)(7416002)(478600001)(7696005)(81166007)(47076005)(8936002)(2616005)(36860700001)(26005)(6666004)(83380400001)(966005)(2906002)(336012)(426003)(186003)(316002)(86362001)(70206006)(70586007)(8676002)(7406005)(5660300002)(16526019)(921005)(36756003)(82740400003)(356005)(82310400003)(110136005)(54906003)(41533002)(2101003)(83996005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2021 22:48:34.1027 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 396a299e-4170-4a78-35e4-08d9731ac9d2
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2021 22:58:53.9334 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d8edaccc-5d97-45c7-b500-08d9731c3b44
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT020.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT028.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1663
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5195
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,157 +134,131 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On some GPUs the PCIe atomic requirement for KFD depends on the MEC
-firmware version. Add a firmware version check for this. The minimum
-firmware version that works without atomics can be updated in the
-device_info structure for each GPU type.
+This patch series provides a generic helper function, cc_platform_has(),
+to replace the sme_active(), sev_active(), sev_es_active() and
+mem_encrypt_active() functions.
 
-Move PCIe atomic detection from kgf2kfd_probe into kgf2kfd_device_init
-because the MEC firmware is not loaded yet at the probe stage.
+It is expected that as new confidential computing technologies are
+added to the kernel, they can all be covered by a single function call
+instead of a collection of specific function calls all called from the
+same locations.
 
-Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
+The powerpc and s390 patches have been compile tested only. Can the
+folks copied on this series verify that nothing breaks for them. Also,
+a new file, arch/powerpc/platforms/pseries/cc_platform.c, has been
+created for powerpc to hold the out of line function.
+
+Cc: Andi Kleen <ak@linux.intel.com>
+Cc: Andy Lutomirski <luto@kernel.org>
+Cc: Ard Biesheuvel <ardb@kernel.org>
+Cc: Baoquan He <bhe@redhat.com>
+Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Cc: Borislav Petkov <bp@alien8.de>
+Cc: Christian Borntraeger <borntraeger@de.ibm.com>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>
+Cc: Dave Young <dyoung@redhat.com>
+Cc: David Airlie <airlied@linux.ie>
+Cc: Heiko Carstens <hca@linux.ibm.com>
+Cc: Ingo Molnar <mingo@redhat.com>
+Cc: Joerg Roedel <joro@8bytes.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Michael Ellerman <mpe@ellerman.id.au>
+Cc: Paul Mackerras <paulus@samba.org>
+Cc: Peter Zijlstra <peterz@infradead.org>
+Cc: Thomas Gleixner <tglx@linutronix.de>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Vasily Gorbik <gor@linux.ibm.com>
+Cc: VMware Graphics <linux-graphics-maintainer@vmware.com>
+Cc: Will Deacon <will@kernel.org>
+Cc: Christoph Hellwig <hch@infradead.org>
+
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_device.c | 44 ++++++++++++++++---------
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h   |  1 +
- 2 files changed, 29 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-index 16a57b70cc1a..30fde852af19 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-@@ -468,6 +468,7 @@ static const struct kfd_device_info navi10_device_info = {
- 	.needs_iommu_device = false,
- 	.supports_cwsr = true,
- 	.needs_pci_atomics = true,
-+	.no_atomic_fw_version = 145,
- 	.num_sdma_engines = 2,
- 	.num_xgmi_sdma_engines = 0,
- 	.num_sdma_queues_per_engine = 8,
-@@ -487,6 +488,7 @@ static const struct kfd_device_info navi12_device_info = {
- 	.needs_iommu_device = false,
- 	.supports_cwsr = true,
- 	.needs_pci_atomics = true,
-+	.no_atomic_fw_version = 145,
- 	.num_sdma_engines = 2,
- 	.num_xgmi_sdma_engines = 0,
- 	.num_sdma_queues_per_engine = 8,
-@@ -506,6 +508,7 @@ static const struct kfd_device_info navi14_device_info = {
- 	.needs_iommu_device = false,
- 	.supports_cwsr = true,
- 	.needs_pci_atomics = true,
-+	.no_atomic_fw_version = 145,
- 	.num_sdma_engines = 2,
- 	.num_xgmi_sdma_engines = 0,
- 	.num_sdma_queues_per_engine = 8,
-@@ -525,6 +528,7 @@ static const struct kfd_device_info sienna_cichlid_device_info = {
- 	.needs_iommu_device = false,
- 	.supports_cwsr = true,
- 	.needs_pci_atomics = true,
-+	.no_atomic_fw_version = 92,
- 	.num_sdma_engines = 4,
- 	.num_xgmi_sdma_engines = 0,
- 	.num_sdma_queues_per_engine = 8,
-@@ -544,6 +548,7 @@ static const struct kfd_device_info navy_flounder_device_info = {
- 	.needs_iommu_device = false,
- 	.supports_cwsr = true,
- 	.needs_pci_atomics = true,
-+	.no_atomic_fw_version = 92,
- 	.num_sdma_engines = 2,
- 	.num_xgmi_sdma_engines = 0,
- 	.num_sdma_queues_per_engine = 8,
-@@ -562,7 +567,8 @@ static const struct kfd_device_info vangogh_device_info = {
- 	.mqd_size_aligned = MQD_SIZE_ALIGNED,
- 	.needs_iommu_device = false,
- 	.supports_cwsr = true,
--	.needs_pci_atomics = false,
-+	.needs_pci_atomics = true,
-+	.no_atomic_fw_version = 92,
- 	.num_sdma_engines = 1,
- 	.num_xgmi_sdma_engines = 0,
- 	.num_sdma_queues_per_engine = 2,
-@@ -582,6 +588,7 @@ static const struct kfd_device_info dimgrey_cavefish_device_info = {
- 	.needs_iommu_device = false,
- 	.supports_cwsr = true,
- 	.needs_pci_atomics = true,
-+	.no_atomic_fw_version = 92,
- 	.num_sdma_engines = 2,
- 	.num_xgmi_sdma_engines = 0,
- 	.num_sdma_queues_per_engine = 8,
-@@ -601,6 +608,7 @@ static const struct kfd_device_info beige_goby_device_info = {
- 	.needs_iommu_device = false,
- 	.supports_cwsr = true,
- 	.needs_pci_atomics = true,
-+	.no_atomic_fw_version = 92,
- 	.num_sdma_engines = 1,
- 	.num_xgmi_sdma_engines = 0,
- 	.num_sdma_queues_per_engine = 8,
-@@ -619,7 +627,8 @@ static const struct kfd_device_info yellow_carp_device_info = {
- 	.mqd_size_aligned = MQD_SIZE_ALIGNED,
- 	.needs_iommu_device = false,
- 	.supports_cwsr = true,
--	.needs_pci_atomics = false,
-+	.needs_pci_atomics = true,
-+	.no_atomic_fw_version = 92,
- 	.num_sdma_engines = 1,
- 	.num_xgmi_sdma_engines = 0,
- 	.num_sdma_queues_per_engine = 2,
-@@ -708,20 +717,6 @@ struct kfd_dev *kgd2kfd_probe(struct kgd_dev *kgd,
- 	if (!kfd)
- 		return NULL;
- 
--	/* Allow BIF to recode atomics to PCIe 3.0 AtomicOps.
--	 * 32 and 64-bit requests are possible and must be
--	 * supported.
--	 */
--	kfd->pci_atomic_requested = amdgpu_amdkfd_have_atomics_support(kgd);
--	if (device_info->needs_pci_atomics &&
--	    !kfd->pci_atomic_requested) {
--		dev_info(kfd_device,
--			 "skipped device %x:%x, PCI rejects atomics\n",
--			 pdev->vendor, pdev->device);
--		kfree(kfd);
--		return NULL;
--	}
--
- 	kfd->kgd = kgd;
- 	kfd->device_info = device_info;
- 	kfd->pdev = pdev;
-@@ -821,6 +816,23 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
- 	kfd->vm_info.vmid_num_kfd = kfd->vm_info.last_vmid_kfd
- 			- kfd->vm_info.first_vmid_kfd + 1;
- 
-+	/* Allow BIF to recode atomics to PCIe 3.0 AtomicOps.
-+	 * 32 and 64-bit requests are possible and must be
-+	 * supported.
-+	 */
-+	kfd->pci_atomic_requested = amdgpu_amdkfd_have_atomics_support(kfd->kgd);
-+	if (!kfd->pci_atomic_requested &&
-+	    kfd->device_info->needs_pci_atomics &&
-+	    (!kfd->device_info->no_atomic_fw_version ||
-+	     kfd->mec_fw_version < kfd->device_info->no_atomic_fw_version)) {
-+		dev_info(kfd_device,
-+			 "skipped device %x:%x, PCI rejects atomics %d<%d\n",
-+			 kfd->pdev->vendor, kfd->pdev->device,
-+			 kfd->mec_fw_version,
-+			 kfd->device_info->no_atomic_fw_version);
-+		return false;
-+	}
-+
- 	/* Verify module parameters regarding mapped process number*/
- 	if ((hws_max_conc_proc < 0)
- 			|| (hws_max_conc_proc > kfd->vm_info.vmid_num_kfd)) {
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index ab83b0de6b22..6d8f9bb2d905 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -207,6 +207,7 @@ struct kfd_device_info {
- 	bool supports_cwsr;
- 	bool needs_iommu_device;
- 	bool needs_pci_atomics;
-+	uint32_t no_atomic_fw_version;
- 	unsigned int num_sdma_engines;
- 	unsigned int num_xgmi_sdma_engines;
- 	unsigned int num_sdma_queues_per_engine;
+Patches based on:
+  https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+  4b93c544e90e ("thunderbolt: test: split up test cases in tb_test_credit_alloc_all")
+
+Changes since v2:
+- Changed the name from prot_guest_has() to cc_platform_has()
+- Took the cc_platform_has() function out of line. Created two new files,
+  cc_platform.c, in both x86 and ppc to implment the function. As a
+  result, also changed the attribute defines into enums.
+- Removed any received Reviewed-by's and Acked-by's given changes in this
+  version.
+- Added removal of new instances of mem_encrypt_active() usage in powerpc
+  arch.
+- Based on latest Linux tree to pick up powerpc changes related to the
+  mem_encrypt_active() function.
+
+Changes since v1:
+- Moved some arch ioremap functions within #ifdef CONFIG_AMD_MEM_ENCRYPT
+  in prep for use of prot_guest_has() by TDX.
+- Added type includes to the the protected_guest.h header file to prevent
+  build errors outside of x86.
+- Made amd_prot_guest_has() EXPORT_SYMBOL_GPL
+- Used amd_prot_guest_has() in place of checking sme_me_mask in the
+  arch/x86/mm/mem_encrypt.c file.
+
+Tom Lendacky (8):
+  x86/ioremap: Selectively build arch override encryption functions
+  mm: Introduce a function to check for confidential computing features
+  x86/sev: Add an x86 version of cc_platform_has()
+  powerpc/pseries/svm: Add a powerpc version of cc_platform_has()
+  x86/sme: Replace occurrences of sme_active() with cc_platform_has()
+  x86/sev: Replace occurrences of sev_active() with cc_platform_has()
+  x86/sev: Replace occurrences of sev_es_active() with cc_platform_has()
+  treewide: Replace the use of mem_encrypt_active() with
+    cc_platform_has()
+
+ arch/Kconfig                                 |  3 +
+ arch/powerpc/include/asm/mem_encrypt.h       |  5 --
+ arch/powerpc/platforms/pseries/Kconfig       |  1 +
+ arch/powerpc/platforms/pseries/Makefile      |  2 +
+ arch/powerpc/platforms/pseries/cc_platform.c | 26 ++++++
+ arch/powerpc/platforms/pseries/svm.c         |  5 +-
+ arch/s390/include/asm/mem_encrypt.h          |  2 -
+ arch/x86/Kconfig                             |  1 +
+ arch/x86/include/asm/io.h                    |  8 ++
+ arch/x86/include/asm/kexec.h                 |  2 +-
+ arch/x86/include/asm/mem_encrypt.h           | 14 +---
+ arch/x86/kernel/Makefile                     |  3 +
+ arch/x86/kernel/cc_platform.c                | 21 +++++
+ arch/x86/kernel/crash_dump_64.c              |  4 +-
+ arch/x86/kernel/head64.c                     |  4 +-
+ arch/x86/kernel/kvm.c                        |  3 +-
+ arch/x86/kernel/kvmclock.c                   |  4 +-
+ arch/x86/kernel/machine_kexec_64.c           | 19 +++--
+ arch/x86/kernel/pci-swiotlb.c                |  9 +-
+ arch/x86/kernel/relocate_kernel_64.S         |  2 +-
+ arch/x86/kernel/sev.c                        |  6 +-
+ arch/x86/kvm/svm/svm.c                       |  3 +-
+ arch/x86/mm/ioremap.c                        | 18 ++--
+ arch/x86/mm/mem_encrypt.c                    | 57 +++++++------
+ arch/x86/mm/mem_encrypt_identity.c           |  3 +-
+ arch/x86/mm/pat/set_memory.c                 |  3 +-
+ arch/x86/platform/efi/efi_64.c               |  9 +-
+ arch/x86/realmode/init.c                     |  8 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c      |  4 +-
+ drivers/gpu/drm/drm_cache.c                  |  4 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_drv.c          |  4 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_msg.c          |  6 +-
+ drivers/iommu/amd/init.c                     |  7 +-
+ drivers/iommu/amd/iommu.c                    |  3 +-
+ drivers/iommu/amd/iommu_v2.c                 |  3 +-
+ drivers/iommu/iommu.c                        |  3 +-
+ fs/proc/vmcore.c                             |  6 +-
+ include/linux/cc_platform.h                  | 88 ++++++++++++++++++++
+ include/linux/mem_encrypt.h                  |  4 -
+ kernel/dma/swiotlb.c                         |  4 +-
+ 40 files changed, 267 insertions(+), 114 deletions(-)
+ create mode 100644 arch/powerpc/platforms/pseries/cc_platform.c
+ create mode 100644 arch/x86/kernel/cc_platform.c
+ create mode 100644 include/linux/cc_platform.h
+
+
+base-commit: 4b93c544e90e2b28326182d31ee008eb80e02074
 -- 
-2.32.0
+2.33.0
 
