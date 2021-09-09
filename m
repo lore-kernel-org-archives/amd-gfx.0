@@ -2,134 +2,105 @@ Return-Path: <SRS0=g6Hj=N7=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-19.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-18.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 75B1CC433EF
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 07:14:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D1F42C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 07:15:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3D86560E94
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 07:14:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3D86560E94
+	by mail.kernel.org (Postfix) with ESMTPS id 881F160F13
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 07:15:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 881F160F13
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E93436E44E;
-	Thu,  9 Sep 2021 07:14:22 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2063.outbound.protection.outlook.com [40.107.223.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A7FA6E44E
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Sep 2021 07:14:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A0916E44D;
+	Thu,  9 Sep 2021 07:15:22 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2050.outbound.protection.outlook.com [40.107.220.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 752446E44D
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Sep 2021 07:15:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bPuC3PljXlcPKAEwZtDzCd5wrH90LIOMqG8ZzF5ZlX892V5sJidU+qz2tnJhGewnT2odlMi6DNmvG1qjljzxE6dP1X5hSroj6b2a5jrK92rWrkw6gZCJsQ3X3O3WnIWvWBSSW7B4M8a7/s7TmD3YI9NArzrGkniTDvJhcVE/ytKkIaQC3fiY821hivlzi6Aa8YZXwWVbad6X6Q6UMJqAdx6cxS6u68OCAKijp70HWnkule7KJi3/LzNcGLmoGJpsMQ7qIcC8Gd+Lp+o0P1FgEDjmxIgYbN+E6YSNotjlJNVfIHypscNRefiwDFjgrQVnTHvULXcw7oIMn2a1xzP1Ig==
+ b=eSYmljHXMoSGTTqEuUcoL5Z7+AARTzch1YwPNqBGk0LKMnAdvZNkSmvYU6sroo22udMU9NEQfcxmT6F8N2P77tA99fwKEyQ43M1Wr7EsvI8ERG+JlAKmWHn2qhdsaXeGNOq7ScXWoBjdKmF65iU7vUbmQMKLFXru9nrtwF4VJP63rX9bXQEmYEzf9jGc9h/8qK2wqzC0wAketvXFvmiKmg+KAc5BPzyEO9ln+5VZC/sAOhmb21O75nwpZ1QWHUFF5ivKc9eIsHrJp2OeZ1NbtFn5CL49X0T7/xoElYhiNxB1NyranNnRwM0/tLXauhJrYeOLaZ0tg8ZhXYM2zhlhvg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=c2V0yj56ya4SRV1aCzbJ+FONHhJYoOWCjP5Fr64gPFk=;
- b=WT4DAanFhvEhUCRpd//QJG1KxsQyIJ1ztErEv57+UIcDVME0lZ4BDzV1ziKRiAf6RI0KH7yRI1Msi0ihz3VvPT+ecJHPMbsgIzysg+p0uEE2NYKATVxLumlvHZikRK4a+/ObohV1gU+DS48pI4J1ktZ4nLJa2y+4tiGK6bhL/dR+egqE/t+fyvRf6BhHdzVCGZW2Fjt1dmMMJi4KEHfdoAxBk3GElma+XsqlytWKG6UIC101ntsYmj3r/ZxrJ9y8e//Fu5YlRubT9u1PviC760eGuzvDaQIh32EhzX68PRk6soQVPe0Zsh+L1BWeVG4ZPNFQkX6fND5MiJE7S9gP/w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=xtCDqkboyKG1x1y+BZ1agCftgYMOuT29BPS/hxYrELI=;
+ b=Fu9S/VGUo5vvqrDqSW/IMBrwXuRxPv7LH9anQMmQLyGGI8xq8M9VGWubCqGXtad1tmhPh0x28ZiC4PkFNSb9syJbY1MTznXIfAyayaW4zbQsKdXx2feb7vwaTAdxAnW5R98oAHKlIucX+8MWXhyNIb1/tGaDL9BLPdSpee1w/mdnsz/c89f//7iJFT0BGMsmeKBejAjqwmz4V+R1SOq4Io7OcFfJCe421xOyFu5965fzomsy++uJsssgdZHoeWJ0NGvX4YgekrXU4lRgVzuIipRElUI6OR6uFQyhxrx5kN7rPwnZvW+Wtl3jkA0rpD5h7MuhSqCwwE6y6KNpnwmrBA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=c2V0yj56ya4SRV1aCzbJ+FONHhJYoOWCjP5Fr64gPFk=;
- b=Mnr+v9T8mrw4++wp9xIA+nurVKoNux3TZWaOGDDF++sxCKJRTJpxt/SeoTekua4lFXXoepnSwmbaqBYNROY4HWilx41pRwjJFkOG87TpmmYYb3ia8vI3jOchY/hVheDhqOQJjkLyOEHGWuWVcH91im2sDKsl/GTT/SPsjJhV1Bo=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
- by BL0PR12MB4740.namprd12.prod.outlook.com (2603:10b6:208:84::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.25; Thu, 9 Sep
- 2021 07:14:20 +0000
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::dce2:96e5:aba2:66fe]) by MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::dce2:96e5:aba2:66fe%6]) with mapi id 15.20.4500.015; Thu, 9 Sep 2021
- 07:14:20 +0000
-Subject: Re: [PATCH 1/2] drm/amdgpu: Increase direct IB pool size
-To: "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-References: <DM4PR12MB5165BCC3E4E26C7EE4E85F3B87D59@DM4PR12MB5165.namprd12.prod.outlook.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <8c56cc27-a99b-3ea5-1bf7-59cad134fe21@amd.com>
-Date: Thu, 9 Sep 2021 09:14:15 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-In-Reply-To: <DM4PR12MB5165BCC3E4E26C7EE4E85F3B87D59@DM4PR12MB5165.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=gbk; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-ClientProxiedBy: AM4PR05CA0024.eurprd05.prod.outlook.com (2603:10a6:205::37)
- To MN2PR12MB3775.namprd12.prod.outlook.com
- (2603:10b6:208:159::19)
-MIME-Version: 1.0
-Received: from [IPv6:2a02:908:1252:fb60:327b:a453:3daa:de36]
- (2a02:908:1252:fb60:327b:a453:3daa:de36) by
- AM4PR05CA0024.eurprd05.prod.outlook.com (2603:10a6:205::37) with Microsoft
+ bh=xtCDqkboyKG1x1y+BZ1agCftgYMOuT29BPS/hxYrELI=;
+ b=YyBOlL1XL7bZk2LUy7qZMuBOd4fPpGuGSIDc+KYCqQlteGxH8NtVBdnBmwUenUc3atMh7p/Rzv6OEpfMmU1g8h5XRfSR5i6SySvzK/ublkBgnUBOMrMT/+mO4aVXni60nbTDE/lsV9iA0Md3nBKsPxgbork3owC+3dLoWJO05EA=
+Received: from DM5PR07CA0033.namprd07.prod.outlook.com (2603:10b6:3:16::19) by
+ CH0PR12MB5107.namprd12.prod.outlook.com (2603:10b6:610:be::17) with
+ Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4500.14 via Frontend Transport; Thu, 9 Sep 2021 07:14:19 +0000
+ 15.20.4500.14; Thu, 9 Sep 2021 07:15:19 +0000
+Received: from DM6NAM11FT060.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:3:16:cafe::fa) by DM5PR07CA0033.outlook.office365.com
+ (2603:10b6:3:16::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.14 via Frontend
+ Transport; Thu, 9 Sep 2021 07:15:19 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT060.mail.protection.outlook.com (10.13.173.63) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4500.14 via Frontend Transport; Thu, 9 Sep 2021 07:15:18 +0000
+Received: from lnx-glk.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Thu, 9 Sep 2021
+ 02:15:16 -0500
+From: Likun Gao <likun.gao@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Hawking Zhang <hawking.zhang@amd.com>, Likun Gao <Likun.Gao@amd.com>
+Subject: [PATCH] drm/amdgpu: refactor function to init no-psp fw
+Date: Thu, 9 Sep 2021 15:15:02 +0800
+Message-ID: <20210909071502.3322586-1-likun.gao@amd.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: c74c3e73-aa5a-4723-65b8-08d97361715e
-X-MS-TrafficTypeDiagnostic: BL0PR12MB4740:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BL0PR12MB47406FF663F540D1FE192D6883D59@BL0PR12MB4740.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
+X-MS-Office365-Filtering-Correlation-Id: 95d9980f-7809-4e7a-b9a8-08d97361947a
+X-MS-TrafficTypeDiagnostic: CH0PR12MB5107:
+X-Microsoft-Antispam-PRVS: <CH0PR12MB5107A94FB59C69E4B29C1477EFD59@CH0PR12MB5107.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2512;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: /NBJuEJD8IjtHAl40v251brtWXNY4Zff5UWSsgG++ZblNm4ojJUvLBU48IYJpR4fbvxUMhHeiis/jIXQIRzQkwFynLfCed+c77OEnixUwS2ccRByfE4a6txOqcRlDEUtaY36S7SerXeHavRDWptJDIbwNz4oJ4UyoSnudag7lk97T7tKFA9AAGpkMZGHgU//iV3nxqcLmss/hVeqWB8JWGmQVkNG8M+S2Hl8K0hj66I86Lam+703g1rc27JkTwbsrau7kso/Xq2gEu9MZa6HUXA57mh14dyFhoa7Slk17y6nBnyPde4Tg0nfViN8uAxMipVoVhiy6Iu9HabpEGLI4icNYBQNUImpuFUD8Z18lPmsTOVa1WvMloMQksSm1MDAjZ0cXLpCd1kZkYVjnAdAV85icoRXjYxgKUFYJcQ4VhpT+9fNffKx0dq/OOPxbpvIAAjI7Z4PsUuSwcX2kFCXStjZRNaTh6Okc11r/VbH7UfVJAB5Xz40sHux1kaZNBhlNHQYWEZ7PgBK+w5FesH0//+d34eee0Tqv+O6zAJZlrPkwkerWtG6Kyee98Jqmuhqhf1AZ5hZejT6kG4UyiyfT2GEzfTW2j5yREe5fcFpMc6vov3lFFJFpvAPH+zr3o5+Uo4VuTvQjbZioYvzcv+f3Qgv+ljd9Eszs8WdHTNNPHx5+yUqhZmwDLNv476tZ5di4cEQzxRwNsmPIuYhWEMIJtYW+adWYcidIUs1ROuM8Qulk4uOT/OpKWuRSgQ3hjfn
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(39860400002)(136003)(346002)(376002)(366004)(8676002)(66476007)(86362001)(2616005)(66946007)(4326008)(5660300002)(186003)(66556008)(478600001)(83380400001)(316002)(110136005)(6486002)(2906002)(38100700002)(31696002)(31686004)(6666004)(8936002)(36756003)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: cwU3VpfNOB70ADZTi71/3HqDL/Nm+ftDZEgcYa+KuqXDSQ9IN71UKSzUWKJpy4GeCl+HGg+y/zShkksRnG4wUj9/lYKGjYw+8mVYFve0fB2wpAYKsLDiEKMfXQrTlsd1yzJH1GQfQGhDzEwkzxcb45gYipiRXJbdlteAqz1XRplVmpX/Vv2pvs92/2pLJwjJalY718ANgFjXPP+4V6qOJxDPW1TY/ukKxMkSB/oeZNxCThhSPpEfFcps/IPzO4ezj38p5xtbgHv3zcrF/DWRzp305Z8HVLlEELEaQfV6pfoDEemvu/xUtZOeWaGnteJqtQBU2WzGWTLldq84z/t1NPOS0hCE8L6TPTg73f1S8s5orMBSqnCxFYGVXjh0XFzVgc6DCtnEfYExQrHSPdSEu0MA9vz317e2bNQdg5UkQZSU7UYR86EjCnx9eBVlhnXBPTXsHu1d5yaYR5OXWKLDYj5aQjnTVUsL0SnXp572wHNbbVc70JXgLYJAD906EaddyKwHy+9x2O+xgtxBFyzlLG/EZGTl5I/g/+vlnsuuQ38f8/f144QqvaACAQCNqRDf9KvmpbNiMK2Vg6l1YrJ2+h8C6P8CgWFb7OaB6mXFzj6FvH+9CvNvwWoCcPU2hHY1PuEuhrvACJqvleb2wE5wmH5p6IJ8XZJWtInACAsUF4tGO/2ly9TRSlfKrRhsiUmdJO6zXFS4Bst1MtVaUdmWhDqU8jXiNeSFQUsoMGRgipo=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(396003)(39860400002)(376002)(136003)(346002)(36840700001)(46966006)(186003)(7696005)(16526019)(26005)(36860700001)(44832011)(82740400003)(4326008)(2616005)(47076005)(70586007)(336012)(426003)(6916009)(70206006)(478600001)(54906003)(8676002)(36756003)(6666004)(83380400001)(81166007)(316002)(2906002)(86362001)(82310400003)(8936002)(5660300002)(356005)(1076003)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?gb2312?B?aEZNeGQ0dU9salAra1VVbnlxbnduV2gyb3VJYzhtZVZCTkZrdk1JYUxzZzVn?=
- =?gb2312?B?WERiakZQbGl6VHQwU3V6TmcyNnBNbW5OK0FOOExwWGhIYmtXWHVLdHVpWkYx?=
- =?gb2312?B?YW1kK2VsMEd2SVVMVnNMM1lrY09iUktqdG1Jbk5wOG5WaTNiOTJjdVk0Y01Z?=
- =?gb2312?B?Y1ljSGl3azJwZis3WGZjR0llWWdFWU9kdXQ1RlhXWWI2REl4d3UxdXZJUHBK?=
- =?gb2312?B?aXB6RmRRQnhuNGlMbUd6cnJQMkIycStmd3RXcFBhckZUM3pUUGJBZXIrbWo2?=
- =?gb2312?B?L3JnRTZNM1pCdmNhU2ZwM0RIaWhXeGpoTjdnQkdzajYyRnlSTjNRSENPbnFR?=
- =?gb2312?B?bDA5SjBCQmt3WmM0MnNac1JxcUZRQVRNd0NDNzBuclMwd0pSdjh5RldrY3lZ?=
- =?gb2312?B?UENBZ3hWMkVXWGlWZXk5dXFWSXRXTEZVVlhGQ0dvSzBET1hjalFYUnAyTXVO?=
- =?gb2312?B?SXZQVmJ3ZzBiN3dmVXlrV3ZzOUNodzBaVC9Jb3hadjNENDNQV0twVy9GZWh3?=
- =?gb2312?B?UXNaZXVyeE01RDUzVko2T1B4aTFsK1RIWEJ2VG9Va29OaUFMemlrUXlVUmsx?=
- =?gb2312?B?MlVvWDJpa0xmRXB5dXgzT0hGYU55cklqdjAyeG5LZGY5dlRnM2JlYXBtNWEw?=
- =?gb2312?B?ZTdtY09Kd05KbUZYOUdXZTV6ZHpuTi92SzgzRU5BdUtGUHBUZC9sTDRVSmVv?=
- =?gb2312?B?T0RqdFBRYXFpaUhhSnVNeXZHK2JrdkxDaVFWNEgyVHZSbmM3T21aWFdyTkI1?=
- =?gb2312?B?M3pPc1FZOXNIajB6RWNQV0VTV3AyT2NUbzRJbncwd1lHbjA2OG9wU2Q3TlJt?=
- =?gb2312?B?NWR4ZUc0MlZHOGN3RTNSaW1hT3JmakdEQm9EczlLRlBUTmtQdmpQRHVBa1N2?=
- =?gb2312?B?S2laRDl1QzA1dmpjTjVtOEdBR05GNlEwV0hQYXNyUTBoVjBLN1pSdVBySFZH?=
- =?gb2312?B?UG9CRFBIMFI0ZjA3UldQNXFuc1NTM0tvNkxYeEozeWJJZW9PU1FnNDludW1B?=
- =?gb2312?B?aWVKZkV2RmRGblVsbTJkOVlLcjZDU0Rjb1IzQU9EcGZna1BLbEJUTmc2UGor?=
- =?gb2312?B?eHlIVHh4VnZCZWxzbXRBb1pGUmp3NkVUenlEMnIvcWl0ZDYwenlhdC9KRnZR?=
- =?gb2312?B?VFFaYWp6R1ZJdTl6ZzBjMGw2SFlxYWl6MDQwc1N1ejlIYm4vcGN0ektBTDkx?=
- =?gb2312?B?bG9vaitHVG5sNVZXM1pTM0JxQm1raENnejFCZnJSVHM1WmpoaGxpc2hjRDU5?=
- =?gb2312?B?REVKRXg1MWtYUlM5MFpsMUZseDN5ck9hbGQ3WS9vZk5ETWtQNDUzU0U5ZXZM?=
- =?gb2312?B?d3BzVTZMdUJKVmFleTk3TW9qcnFjVUllUUZVbWRYSWZ6b3lxeTFDVVJNSnBG?=
- =?gb2312?B?WUZwRXErV2lSUzQ4TFlUWHpGYXdsUDFkQkQ0ckhXcWI5SnowRXBIOWdBMjhn?=
- =?gb2312?B?Vk1sWDBQWElCSm0wUzRTS1BqNWl1MVY2RDBWUFRkV0NHWjFrd2luU0MrcUdG?=
- =?gb2312?B?RHpVb0ZvL0pkU3M2YVYyclNzbnNUeGljNnArVGMyZDd4dFpGU3YxTDVKNFBW?=
- =?gb2312?B?cTNFamNMV3FoTVBGV0tFcEUzS1dBT2NpUFhsYlZDRStpckhiVTlkOEFIZjF5?=
- =?gb2312?B?UU9iR1NKOHRGTnpjeE1rZVpkck1rZE04bEt0enFaUHZHLy93UjF5eWliTWNP?=
- =?gb2312?B?VkRYTS9LeXhQQ3B4TUk0bU4wbkhoMmlDaXpJQ0syYnFoUXppaFMyek0vV0pp?=
- =?gb2312?B?b2M5QndVdTlMb2NhSFEvOVlyajYybGlienhFeGtTckpCN1B0am8xSXE2cmtM?=
- =?gb2312?B?Uk92eFRuSEZNTGYyU0JFaFkwVzcwYWZ4N1B4T2NEODlScUxzMjIzYk9YOWl2?=
- =?gb2312?Q?ea8pjTObhEawq?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c74c3e73-aa5a-4723-65b8-08d97361715e
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2021 07:14:20.1808 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2021 07:15:18.8829 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 95d9980f-7809-4e7a-b9a8-08d97361947a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Hd3Ob8uFoh7jPSEkd6yXQe+L6LRNRSybHTLpZ7/V+joETuhcmKLtBAr3IIjDR3zM
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4740
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT060.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5107
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,40 +115,197 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 09.09.21 um 07:54 schrieb Pan, Xinhui:
-> [AMD Official Use Only]
->
-> Direct IB pool is used for vce/uvd/vcn IB extra msg too. Increase its
-> size to 64 pages.
+From: Likun Gao <Likun.Gao@amd.com>
 
-Do you really run into issues with that? 64 pages are 256kiB on x86 and 
-the extra msg are maybe 2kiB.
+Refactor the code of amdgpu_ucode_init_single_fw to make it more
+readable as too many ucode need to handle on this function currently.
 
-Additional to that we should probably make this a constant independent 
-of the CPU page size.
+Signed-off-by: Likun Gao <Likun.Gao@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c | 160 ++++++++++------------
+ 1 file changed, 75 insertions(+), 85 deletions(-)
 
-Christian.
-
->
-> Signed-off-by: xinhui pan <xinhui.pan@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-> index c076a6b9a5a2..cd2c7073fdd9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-> @@ -308,7 +308,7 @@ int amdgpu_ib_pool_init(struct amdgpu_device *adev)
->
->          for (i = 0; i < AMDGPU_IB_POOL_MAX; i++) {
->                  if (i == AMDGPU_IB_POOL_DIRECT)
-> -                       size = PAGE_SIZE * 6;
-> +                       size = PAGE_SIZE * 64;
->                  else
->                          size = AMDGPU_IB_POOL_SIZE;
->
-> --
-> 2.25.1
->
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
+index abd8469380e5..5f396936c6ad 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
+@@ -572,6 +572,7 @@ static int amdgpu_ucode_init_single_fw(struct amdgpu_device *adev,
+ 	const struct dmcu_firmware_header_v1_0 *dmcu_hdr = NULL;
+ 	const struct dmcub_firmware_header_v1_0 *dmcub_hdr = NULL;
+ 	const struct mes_firmware_header_v1_0 *mes_hdr = NULL;
++	u8 *ucode_addr;
+ 
+ 	if (NULL == ucode->fw)
+ 		return 0;
+@@ -588,94 +589,83 @@ static int amdgpu_ucode_init_single_fw(struct amdgpu_device *adev,
+ 	dmcub_hdr = (const struct dmcub_firmware_header_v1_0 *)ucode->fw->data;
+ 	mes_hdr = (const struct mes_firmware_header_v1_0 *)ucode->fw->data;
+ 
+-	if (adev->firmware.load_type != AMDGPU_FW_LOAD_PSP ||
+-	    (ucode->ucode_id != AMDGPU_UCODE_ID_CP_MEC1 &&
+-	     ucode->ucode_id != AMDGPU_UCODE_ID_CP_MEC2 &&
+-	     ucode->ucode_id != AMDGPU_UCODE_ID_CP_MEC1_JT &&
+-	     ucode->ucode_id != AMDGPU_UCODE_ID_CP_MEC2_JT &&
+-	     ucode->ucode_id != AMDGPU_UCODE_ID_CP_MES &&
+-	     ucode->ucode_id != AMDGPU_UCODE_ID_CP_MES_DATA &&
+-	     ucode->ucode_id != AMDGPU_UCODE_ID_RLC_RESTORE_LIST_CNTL &&
+-	     ucode->ucode_id != AMDGPU_UCODE_ID_RLC_RESTORE_LIST_GPM_MEM &&
+-	     ucode->ucode_id != AMDGPU_UCODE_ID_RLC_RESTORE_LIST_SRM_MEM &&
+-	     ucode->ucode_id != AMDGPU_UCODE_ID_RLC_IRAM &&
+-	     ucode->ucode_id != AMDGPU_UCODE_ID_RLC_DRAM &&
+-		 ucode->ucode_id != AMDGPU_UCODE_ID_DMCU_ERAM &&
+-		 ucode->ucode_id != AMDGPU_UCODE_ID_DMCU_INTV &&
+-		 ucode->ucode_id != AMDGPU_UCODE_ID_DMCUB)) {
+-		ucode->ucode_size = le32_to_cpu(header->ucode_size_bytes);
+-
+-		memcpy(ucode->kaddr, (void *)((uint8_t *)ucode->fw->data +
+-					      le32_to_cpu(header->ucode_array_offset_bytes)),
+-		       ucode->ucode_size);
+-	} else if (ucode->ucode_id == AMDGPU_UCODE_ID_CP_MEC1 ||
+-		   ucode->ucode_id == AMDGPU_UCODE_ID_CP_MEC2) {
+-		ucode->ucode_size = le32_to_cpu(header->ucode_size_bytes) -
+-			le32_to_cpu(cp_hdr->jt_size) * 4;
+-
+-		memcpy(ucode->kaddr, (void *)((uint8_t *)ucode->fw->data +
+-					      le32_to_cpu(header->ucode_array_offset_bytes)),
+-		       ucode->ucode_size);
+-	} else if (ucode->ucode_id == AMDGPU_UCODE_ID_CP_MEC1_JT ||
+-		   ucode->ucode_id == AMDGPU_UCODE_ID_CP_MEC2_JT) {
+-		ucode->ucode_size = le32_to_cpu(cp_hdr->jt_size) * 4;
+-
+-		memcpy(ucode->kaddr, (void *)((uint8_t *)ucode->fw->data +
+-					      le32_to_cpu(header->ucode_array_offset_bytes) +
+-					      le32_to_cpu(cp_hdr->jt_offset) * 4),
+-		       ucode->ucode_size);
+-	} else if (ucode->ucode_id == AMDGPU_UCODE_ID_DMCU_ERAM) {
+-		ucode->ucode_size = le32_to_cpu(header->ucode_size_bytes) -
++	if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) {
++		switch (ucode->ucode_id) {
++		case AMDGPU_UCODE_ID_CP_MEC1:
++		case AMDGPU_UCODE_ID_CP_MEC2:
++			ucode->ucode_size = le32_to_cpu(header->ucode_size_bytes) -
++				le32_to_cpu(cp_hdr->jt_size) * 4;
++			ucode_addr = (u8 *)ucode->fw->data +
++				le32_to_cpu(header->ucode_array_offset_bytes);
++			break;
++		case AMDGPU_UCODE_ID_CP_MEC1_JT:
++		case AMDGPU_UCODE_ID_CP_MEC2_JT:
++			ucode->ucode_size = le32_to_cpu(cp_hdr->jt_size) * 4;
++			ucode_addr = (u8 *)ucode->fw->data +
++				le32_to_cpu(header->ucode_array_offset_bytes) +
++				le32_to_cpu(cp_hdr->jt_offset) * 4;
++			break;
++		case AMDGPU_UCODE_ID_RLC_RESTORE_LIST_CNTL:
++			ucode->ucode_size = adev->gfx.rlc.save_restore_list_cntl_size_bytes;
++			ucode_addr = adev->gfx.rlc.save_restore_list_cntl;
++			break;
++		case AMDGPU_UCODE_ID_RLC_RESTORE_LIST_GPM_MEM:
++			ucode->ucode_size = adev->gfx.rlc.save_restore_list_gpm_size_bytes;
++			ucode_addr = adev->gfx.rlc.save_restore_list_gpm;
++			break;
++		case AMDGPU_UCODE_ID_RLC_RESTORE_LIST_SRM_MEM:
++			ucode->ucode_size = adev->gfx.rlc.save_restore_list_srm_size_bytes;
++			ucode_addr = adev->gfx.rlc.save_restore_list_srm;
++			break;
++		case AMDGPU_UCODE_ID_RLC_IRAM:
++			ucode->ucode_size = adev->gfx.rlc.rlc_iram_ucode_size_bytes;
++			ucode_addr = adev->gfx.rlc.rlc_iram_ucode;
++			break;
++		case AMDGPU_UCODE_ID_RLC_DRAM:
++			ucode->ucode_size = adev->gfx.rlc.rlc_dram_ucode_size_bytes;
++			ucode_addr = adev->gfx.rlc.rlc_dram_ucode;
++			break;
++		case AMDGPU_UCODE_ID_CP_MES:
++			ucode->ucode_size = le32_to_cpu(mes_hdr->mes_ucode_size_bytes);
++			ucode_addr = (u8 *)ucode->fw->data +
++				le32_to_cpu(mes_hdr->mes_ucode_offset_bytes);
++			break;
++		case AMDGPU_UCODE_ID_CP_MES_DATA:
++			ucode->ucode_size = le32_to_cpu(mes_hdr->mes_ucode_data_size_bytes);
++			ucode_addr = (u8 *)ucode->fw->data +
++				le32_to_cpu(mes_hdr->mes_ucode_data_offset_bytes);
++			break;
++		case AMDGPU_UCODE_ID_DMCU_ERAM:
++			ucode->ucode_size = le32_to_cpu(header->ucode_size_bytes) -
+ 				le32_to_cpu(dmcu_hdr->intv_size_bytes);
+-
+-		memcpy(ucode->kaddr, (void *)((uint8_t *)ucode->fw->data +
+-					      le32_to_cpu(header->ucode_array_offset_bytes)),
+-		       ucode->ucode_size);
+-	} else if (ucode->ucode_id == AMDGPU_UCODE_ID_DMCU_INTV) {
+-		ucode->ucode_size = le32_to_cpu(dmcu_hdr->intv_size_bytes);
+-
+-		memcpy(ucode->kaddr, (void *)((uint8_t *)ucode->fw->data +
+-					      le32_to_cpu(header->ucode_array_offset_bytes) +
+-					      le32_to_cpu(dmcu_hdr->intv_offset_bytes)),
+-		       ucode->ucode_size);
+-	} else if (ucode->ucode_id == AMDGPU_UCODE_ID_DMCUB) {
+-		ucode->ucode_size = le32_to_cpu(dmcub_hdr->inst_const_bytes);
+-		memcpy(ucode->kaddr,
+-		       (void *)((uint8_t *)ucode->fw->data +
+-				le32_to_cpu(header->ucode_array_offset_bytes)),
+-		       ucode->ucode_size);
+-	} else if (ucode->ucode_id == AMDGPU_UCODE_ID_RLC_RESTORE_LIST_CNTL) {
+-		ucode->ucode_size = adev->gfx.rlc.save_restore_list_cntl_size_bytes;
+-		memcpy(ucode->kaddr, adev->gfx.rlc.save_restore_list_cntl,
+-		       ucode->ucode_size);
+-	} else if (ucode->ucode_id == AMDGPU_UCODE_ID_RLC_RESTORE_LIST_GPM_MEM) {
+-		ucode->ucode_size = adev->gfx.rlc.save_restore_list_gpm_size_bytes;
+-		memcpy(ucode->kaddr, adev->gfx.rlc.save_restore_list_gpm,
+-		       ucode->ucode_size);
+-	} else if (ucode->ucode_id == AMDGPU_UCODE_ID_RLC_RESTORE_LIST_SRM_MEM) {
+-		ucode->ucode_size = adev->gfx.rlc.save_restore_list_srm_size_bytes;
+-		memcpy(ucode->kaddr, adev->gfx.rlc.save_restore_list_srm,
+-		       ucode->ucode_size);
+-	} else if (ucode->ucode_id == AMDGPU_UCODE_ID_RLC_IRAM) {
+-		ucode->ucode_size = adev->gfx.rlc.rlc_iram_ucode_size_bytes;
+-		memcpy(ucode->kaddr, adev->gfx.rlc.rlc_iram_ucode,
+-		       ucode->ucode_size);
+-	} else if (ucode->ucode_id == AMDGPU_UCODE_ID_RLC_DRAM) {
+-		ucode->ucode_size = adev->gfx.rlc.rlc_dram_ucode_size_bytes;
+-		memcpy(ucode->kaddr, adev->gfx.rlc.rlc_dram_ucode,
+-		       ucode->ucode_size);
+-	} else if (ucode->ucode_id == AMDGPU_UCODE_ID_CP_MES) {
+-		ucode->ucode_size = le32_to_cpu(mes_hdr->mes_ucode_size_bytes);
+-		memcpy(ucode->kaddr, (void *)((uint8_t *)adev->mes.fw->data +
+-			      le32_to_cpu(mes_hdr->mes_ucode_offset_bytes)),
+-		       ucode->ucode_size);
+-	} else if (ucode->ucode_id == AMDGPU_UCODE_ID_CP_MES_DATA) {
+-		ucode->ucode_size = le32_to_cpu(mes_hdr->mes_ucode_data_size_bytes);
+-		memcpy(ucode->kaddr, (void *)((uint8_t *)adev->mes.fw->data +
+-			      le32_to_cpu(mes_hdr->mes_ucode_data_offset_bytes)),
+-		       ucode->ucode_size);
++			ucode_addr = (u8 *)ucode->fw->data +
++				le32_to_cpu(header->ucode_array_offset_bytes);
++			break;
++		case AMDGPU_UCODE_ID_DMCU_INTV:
++			ucode->ucode_size = le32_to_cpu(dmcu_hdr->intv_size_bytes);
++			ucode_addr = (u8 *)ucode->fw->data +
++				le32_to_cpu(header->ucode_array_offset_bytes) +
++				le32_to_cpu(dmcu_hdr->intv_offset_bytes);
++			break;
++		case AMDGPU_UCODE_ID_DMCUB:
++			ucode->ucode_size = le32_to_cpu(dmcub_hdr->inst_const_bytes);
++			ucode_addr = (u8 *)ucode->fw->data +
++				le32_to_cpu(header->ucode_array_offset_bytes);
++			break;
++		default:
++			ucode->ucode_size = le32_to_cpu(header->ucode_size_bytes);
++			ucode_addr = (u8 *)ucode->fw->data +
++				le32_to_cpu(header->ucode_array_offset_bytes);
++			break;
++		}
++	} else {
++		ucode->ucode_size = le32_to_cpu(header->ucode_size_bytes);
++		ucode_addr = (u8 *)ucode->fw->data +
++			le32_to_cpu(header->ucode_array_offset_bytes);
+ 	}
+ 
++	memcpy(ucode->kaddr, ucode_addr, ucode->ucode_size);
++
+ 	return 0;
+ }
+ 
+-- 
+2.25.1
 
