@@ -2,94 +2,77 @@ Return-Path: <SRS0=g6Hj=N7=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-6.4 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 62394C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 08:50:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 06E0DC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 11:00:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2E32E6113E
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 08:50:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2E32E6113E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id BD17560E94
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 11:00:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BD17560E94
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A28F16E4A1;
-	Thu,  9 Sep 2021 08:50:12 +0000 (UTC)
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [IPv6:2a00:1450:4864:20::42b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C8176E4A1
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Sep 2021 08:50:11 +0000 (UTC)
-Received: by mail-wr1-x42b.google.com with SMTP id x6so1373703wrv.13
- for <amd-gfx@lists.freedesktop.org>; Thu, 09 Sep 2021 01:50:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=MHG54aa7mwgQVCTtc0CLgFD+I5rkVaDXOzuiyUmdGpI=;
- b=QUdbllfjGSXgZ7utYSkD18sjMU2twHaget1yJ1UnjnBXjDQEYZrvaazM9niAh3SnMQ
- /08ObDGtoP5l1LH3cOSmcSpkQjArEvc3/rtX7wuAR0aFLKYekL7yQE6NeQITaIn7Pa+d
- uFaEc/81KvHNN0m53rVMhQOy1DKWLE/PDrbMXUNdZxlZyqeK4qDON+y/o63ApyMndRsn
- STcgG3oq2Fj9M4SB7dRFcMeElaI6ZNnBoNjqrHan0hY1u9hNrD8cZheo3a4UmPMmi+Wf
- AsdaMwmK1haEtH7hrH5TLffaUfaCkspd9hm++FhB+tyM0l67KN7DcWbD7f0AvDA7wdlE
- FKgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=MHG54aa7mwgQVCTtc0CLgFD+I5rkVaDXOzuiyUmdGpI=;
- b=YBi92kBN6WoIdG/762TfZgDKZdKOHzc0Xzk06OGNv3w2pYmLrzPGqFwXxGSQwif9fN
- COzdK0oHiAeVnkc5rEkKQcOIp0aHdkCMvFN06QiQslIwWNDMcaNL6DWKTUx4Bnf25hWN
- j1HmspLebC/rlA/7D30xft23KiSIg/IVAB2oGxpwkW4r5YXoQ8Cc4ENSv6xM3SxX3f3U
- eQlHMmEAuEr1TJhJgGXTrKFZjcf8Aq0Hz+ytC/nPsn3G5vpx5j2zJuz0kvyoRNoA0zkR
- UajBcxcBuj6bI8zb62618p1j2V08/6XPxZY7mZswOP+n734k8OccKcaCP7Huk7xTKYUJ
- naRg==
-X-Gm-Message-State: AOAM532EyWUzz4Flf1qdA/Y1RTqNsMOX2pxjBhPFWRx7r0HRbYYNyVAw
- YzOk/sHZDs5TUyZRCkf298U=
-X-Google-Smtp-Source: ABdhPJwsNUs29AQ11xaM87E9hRpuXyKQVbfuMIfPecfTZ3DtMWj0voWf36YUAG9EZ+wvuV7w9xbL8g==
-X-Received: by 2002:adf:b781:: with SMTP id s1mr2122844wre.319.1631177409876; 
- Thu, 09 Sep 2021 01:50:09 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:7140:364b:3af8:f004?
- ([2a02:908:1252:fb60:7140:364b:3af8:f004])
- by smtp.gmail.com with ESMTPSA id x18sm1015535wmj.36.2021.09.09.01.50.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 09 Sep 2021 01:50:09 -0700 (PDT)
-Subject: Re: [PATCH] drm/amdgpu: fix sysfs_emit/sysfs_emit_at warnings
-To: "Lazar, Lijo" <lijo.lazar@amd.com>, "Yu, Lang" <Lang.Yu@amd.com>,
- "Powell, Darren" <Darren.Powell@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Huang, Ray" <Ray.Huang@amd.com>, Tian Tao <tiantao6@hisilicon.com>
-References: <20210908055615.3781901-1-lang.yu@amd.com>
- <e8b39f62-ca0c-d4e0-92a9-52487fa0da81@gmail.com>
- <47ed143e-b9ab-a80e-dac0-cfa1ec39d033@amd.com>
- <DM6PR12MB425086A1FFE0D1609581DFBAFBD49@DM6PR12MB4250.namprd12.prod.outlook.com>
- <39d2443b-c90e-b5c6-85ee-b44bbfd818d3@amd.com>
- <DM6PR12MB4250831801024A782408C280FBD49@DM6PR12MB4250.namprd12.prod.outlook.com>
- <332d81e6-a518-a155-cdfc-008e0bdb324c@amd.com>
- <5edd4df2-c49c-3b87-90d4-8d8b822641f9@gmail.com>
- <1fa7224f-de58-6864-6cb2-16a7b8968f54@amd.com>
- <4e6c0a19-0476-d8ca-c233-6f143cca511c@gmail.com>
- <CH0PR12MB5387C11CD331985AB96F0DCEF0D49@CH0PR12MB5387.namprd12.prod.outlook.com>
- <DM6PR12MB4250EC35F696D19098E9642AFBD59@DM6PR12MB4250.namprd12.prod.outlook.com>
- <3c02e758-1d36-ce2a-11df-eedd82a30c33@amd.com>
- <58d5fbbc-dd57-85ff-f627-8479d7db8128@gmail.com>
- <f94f20c4-b7f4-3cc5-f631-3160796bc31f@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <75d66c25-f47a-dfbb-e49b-e65a5b3f5f4e@gmail.com>
-Date: Thu, 9 Sep 2021 10:50:08 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 670216E4CF;
+	Thu,  9 Sep 2021 11:00:45 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A6F7A6E4CF
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Sep 2021 11:00:43 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 4D35160E94
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Sep 2021 11:00:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1631185243;
+ bh=q0jaemKaNpxivtuHJVN3sxGi68MjVqL99mYlZXXeAZI=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=hHJKoNgkH8/igA8mIRS3lIuUeTLXcTZC+1DSY6sOpt50Cc3WpwUTvTnh/1FPRRi8r
+ 0Vs7f5vHfPoSG+fzyOuQDSrOnhcMNDF8ii4p0MHgdNIXgvwypuYO5MY8dXdOhWgNJO
+ l41W2CHOYhIN7rTDJmhNdndV8iDc0k+71EnPXb4Hkxztk3ElYZlZZxS90P/9j7eX1A
+ MTYrG7IPALgtwsZEPstcM/v9XSp1C68Dl2rC+4P4ZfEIaVaRPKNHRQHlovAPeodguH
+ xTNQKbeXBfcqmwbLhkZj73EII8d3PTV+SM+lRFKaQxWFUDb4OD+t6maZjm1zDAHEBj
+ FX9aW8KR4x/wA==
+Received: by mail-wm1-f49.google.com with SMTP id
+ l7-20020a1c2507000000b002e6be5d86b3so1057591wml.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 09 Sep 2021 04:00:43 -0700 (PDT)
+X-Gm-Message-State: AOAM532lyrPKBnDFBOoaO07anOhw58RjHWbIS+bhqUZ2d1BbkkBP9An6
+ 398lfNKL6W017G10G2F0yyFX5IdD9OvulzsBdAA=
+X-Google-Smtp-Source: ABdhPJzXwyBVTWsO83az+CnqYKTmuJ+96XVP1jSzK/fPZCcrRA2zux6YoBG2oM4L6KntsYaUUUA2GKpxx8IgphoRzAg=
+X-Received: by 2002:a1c:4c14:: with SMTP id z20mr2344349wmf.82.1631185241984; 
+ Thu, 09 Sep 2021 04:00:41 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <f94f20c4-b7f4-3cc5-f631-3160796bc31f@amd.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+References: <20210906142615.GA1917503@roeck-us.net>
+ <CAHk-=wgjTePY1v_D-jszz4NrpTso0CdvB9PcdroPS=TNU1oZMQ@mail.gmail.com>
+ <YTbOs13waorzamZ6@Ryzen-9-3900X.localdomain>
+ <CAK8P3a3_Tdc-XVPXrJ69j3S9048uzmVJGrNcvi0T6yr6OrHkPw@mail.gmail.com>
+ <YTkjJPCdR1VGaaVm@archlinux-ax161>
+ <75a10e8b-9f11-64c4-460b-9f3ac09965e2@roeck-us.net>
+ <YTkyIAevt7XOd+8j@elver.google.com> <YTmidYBdchAv/vpS@infradead.org>
+ <CANpmjNNCVu8uyn=8=5_8rLeKM5t3h7-KzVg1aCJASxF8u_6tEQ@mail.gmail.com>
+In-Reply-To: <CANpmjNNCVu8uyn=8=5_8rLeKM5t3h7-KzVg1aCJASxF8u_6tEQ@mail.gmail.com>
+From: Arnd Bergmann <arnd@kernel.org>
+Date: Thu, 9 Sep 2021 13:00:25 +0200
+X-Gmail-Original-Message-ID: <CAK8P3a1W-13f-qCykaaAiXAr+P_F+VhjsU-9Uu=kTPUeB4b26Q@mail.gmail.com>
+Message-ID: <CAK8P3a1W-13f-qCykaaAiXAr+P_F+VhjsU-9Uu=kTPUeB4b26Q@mail.gmail.com>
+Subject: Re: [PATCH] Enable '-Werror' by default for all kernel builds
+To: Marco Elver <elver@google.com>
+Cc: Christoph Hellwig <hch@infradead.org>, Guenter Roeck <linux@roeck-us.net>, 
+ Nathan Chancellor <nathan@kernel.org>,
+ Linus Torvalds <torvalds@linux-foundation.org>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, llvm@lists.linux.dev,
+ Nick Desaulniers <ndesaulniers@google.com>,
+ Paul Walmsley <paul.walmsley@sifive.com>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ linux-riscv <linux-riscv@lists.infradead.org>,
+ Andrey Ryabinin <ryabinin.a.a@gmail.com>, 
+ Alexander Potapenko <glider@google.com>, Dmitry Vyukov <dvyukov@google.com>, 
+ Andrey Konovalov <andreyknvl@gmail.com>, kasan-dev <kasan-dev@googlegroups.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,402 +87,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 09.09.21 um 10:36 schrieb Lazar, Lijo:
-> On 9/9/2021 1:31 PM, Christian König wrote:
->> Am 09.09.21 um 05:28 schrieb Lazar, Lijo:
->>> On 9/9/2021 8:13 AM, Yu, Lang wrote:
->>>> [AMD Official Use Only]
->>>>
->>>> So the final decision is rollback to scnprintf().
->>>>
->>>> If we can define our own helper functions like 
->>>> sysfs_emit/sysfs_emit_at
->>>>
->>>> but without page boundary aligned limitation to make life easier?
->>>>
->>>
->>> No, we do want to make it clear that this function is used for sysfs 
->>> files and make use of the extra checks provided by the sysfs_emit* 
->>> functions. Looking at the origins of sysf_emit_at() specifically, 
->>> there are indeed some cases of printing more than one values per 
->>> file and multi-line usage.
->>
->> Correct, but those are rather limited and well documented special 
->> cases. E.g. for example if you need to grab a lock to get multiple 
->> values which are supposed to be coherent to each other.
->>
->> I think that's the case here, so printing multiple values is probably 
->> ok in general. But we still need to get the implementation straight.
->>
->>> So I'm fine with your original patch. Maybe, you can make the 
->>> intention explicit by keeping the offset and buf start calculations 
->>> in a separate inline function.
->>>     smu_get_sysfs_buf()
->>
->> Exactly that is what is not ok. So once more the intended use case of 
->> those functions is:
->>
->> offs = sysfs_emit(page, ...);
->> offs += sysfs_emit_at(page, offs, ....);
->> offs += sysfs_emit_at(page, offs, ....);
->> ...
->>
->> Another possible alternative which I think should be allowed is:
->>
->> offs = 0;
->> for_each_clock_in_my_device(..) {
->>      offs += sysfs_emit_at(page, offs, ....);
->> }
->>
->> But when you are calculating the initial offset manually then there 
->> is certainly something wrong here and that is not the intended usage 
->> pattern.
->>
+On Thu, Sep 9, 2021 at 12:54 PM Marco Elver <elver@google.com> wrote:
+> On Thu, 9 Sept 2021 at 07:59, Christoph Hellwig <hch@infradead.org> wrote:
+> > On Wed, Sep 08, 2021 at 11:58:56PM +0200, Marco Elver wrote:
+> > > It'd be good to avoid. It has helped uncover build issues with KASAN in
+> > > the past. Or at least make it dependent on the problematic architecture.
+> > > For example if arm is a problem, something like this:
+> >
+> > I'm also seeing quite a few stack size warnings with KASAN on x86_64
+> > without COMPILT_TEST using gcc 10.2.1 from Debian.  In fact there are a
+> > few warnings without KASAN, but with KASAN there are a lot more.
+> > I'll try to find some time to dig into them.
 >
-> Actually, the issue is not within one function invocation. The issue 
-> is at the caller side with multiple invocations -
+> Right, this reminded me that we actually at least double the real
+> stack size for KASAN builds, because it inherently requires more stack
+> space. I think we need Wframe-larger-than to match that, otherwise
+> we'll just keep having this problem:
 >
->                  size = amdgpu_dpm_print_clock_levels(adev, OD_SCLK, 
-> buf);
->                  size += amdgpu_dpm_print_clock_levels(adev, OD_MCLK,
-> buf+size);
->
-> Having amdgpu_dpm_print_clock_levels() helped to consolidate sysfs 
-> calls in single function for different parameters and used for 
-> different nodes. However in this case, different parameters are 
-> presented as a single "logical entity" in a sysfs node and the 
-> function is called multiple times for different parameters 
-> (questionable as per sysfs guidelines, Alex needs to come back on this).
+> https://lkml.kernel.org/r/20210909104925.809674-1-elver@google.com
 
-Yes, exactly that. But as I noted above multiple values are ok when you 
-need to keep them coherent, e.g. returning SCLK and MCLK without a 
-performance level switch in between.
+The problem with this is that it completely defeats the point of the
+stack size warnings in allmodconfig kernels when they have KASAN
+enabled and end up missing obvious code bugs in drivers that put
+large structures on the stack. Let's not go there.
 
-> Within one invocation of amdgpu_dpm_print_clock_levels(), the APIs are 
-> used correctly. For the second call, it needs to pass the page aligned 
-> buf pointer correctly to sysfs_emit* calls.
->
-> Presently, amdgpu_dpm_print_clock_levels() takes only buff pointer as 
-> argument and probably it is that way since the function existed before 
-> sysfs_emit* patches got added and was originally using sprintfs.
->
-> Now, two possible options are -
->
-> 1) Make a pre-requisite that this function is always going to print to 
-> sysfs files. For that use sysfs_emit*. Also, as with a sysfs buffer 
-> calculate the page aligned start address of buf and offset for use 
-> with sysfs_emit* in the beginning. At least for now, this assumption 
-> is inline with the buffer start address requirement in sysfs_emit* 
-> patches. This is what the original patch does. That said, if the 
-> buffer properties change in future this will not hold good.
->
-> 2) Pass the offset along with the buff in API. That will be extensive 
-> since it affects older powerplay based HWs also.
-
-I think that should be the way to go then.
-
-> There may be other ways, but those could be even more extensive than 2).
-
- From a high level view my feeling says me that returning the values as 
-numbers and printing them in the higher level function is a better 
-design, but there might as well be reason against that.
-
-Regards,
-Christian.
-
->
-> Thanks,
-> Lijo
->
->> Regards,
->> Christian.
->>
->>>
->>> Thanks,
->>> Lijo
->>>
->>>> Regards,
->>>>
->>>> Lang
->>>>
->>>> *From:* Powell, Darren <Darren.Powell@amd.com>
->>>> *Sent:* Thursday, September 9, 2021 6:18 AM
->>>> *To:* Christian König <ckoenig.leichtzumerken@gmail.com>; Lazar, 
->>>> Lijo <Lijo.Lazar@amd.com>; Yu, Lang <Lang.Yu@amd.com>; 
->>>> amd-gfx@lists.freedesktop.org
->>>> *Cc:* Deucher, Alexander <Alexander.Deucher@amd.com>; Huang, Ray 
->>>> <Ray.Huang@amd.com>; Tian Tao <tiantao6@hisilicon.com>
->>>> *Subject:* Re: [PATCH] drm/amdgpu: fix sysfs_emit/sysfs_emit_at 
->>>> warnings
->>>>
->>>> [AMD Official Use Only]
->>>>
->>>> ------------------------------------------------------------------------ 
->>>>
->>>>
->>>> *From:*Christian König <ckoenig.leichtzumerken@gmail.com 
->>>> <mailto:ckoenig.leichtzumerken@gmail.com>>
->>>> *Sent:* Wednesday, September 8, 2021 8:43 AM
->>>> *To:* Lazar, Lijo <Lijo.Lazar@amd.com <mailto:Lijo.Lazar@amd.com>>; 
->>>> Yu, Lang <Lang.Yu@amd.com <mailto:Lang.Yu@amd.com>>; 
->>>> amd-gfx@lists.freedesktop.org 
->>>> <mailto:amd-gfx@lists.freedesktop.org> 
->>>> <amd-gfx@lists.freedesktop.org <mailto:amd-gfx@lists.freedesktop.org>>
->>>> *Cc:* Deucher, Alexander <Alexander.Deucher@amd.com 
->>>> <mailto:Alexander.Deucher@amd.com>>; Huang, Ray <Ray.Huang@amd.com 
->>>> <mailto:Ray.Huang@amd.com>>; Tian Tao <tiantao6@hisilicon.com 
->>>> <mailto:tiantao6@hisilicon.com>>; Powell, Darren 
->>>> <Darren.Powell@amd.com <mailto:Darren.Powell@amd.com>>
->>>> *Subject:* Re: [PATCH] drm/amdgpu: fix sysfs_emit/sysfs_emit_at 
->>>> warnings
->>>>
->>>> Am 08.09.21 um 12:22 schrieb Lazar, Lijo:
->>>>  > On 9/8/2021 3:08 PM, Christian König wrote:
->>>>  >> Am 08.09.21 um 11:29 schrieb Lazar, Lijo:
->>>>  >>> On 9/8/2021 2:32 PM, Yu, Lang wrote:
->>>>  >>>> [AMD Official Use Only]
->>>>  >>>>> -----Original Message-----
->>>>  >>>>> From: Lazar, Lijo <Lijo.Lazar@amd.com 
->>>> <mailto:Lijo.Lazar@amd.com>>
->>>>  >>>>> Sent: Wednesday, September 8, 2021 4:55 PM
->>>>  >>>>> To: Yu, Lang <Lang.Yu@amd.com <mailto:Lang.Yu@amd.com>>; 
->>>> Christian König
->>>>  >>>>> <ckoenig.leichtzumerken@gmail.com 
->>>> <mailto:ckoenig.leichtzumerken@gmail.com>>; 
->>>> amd-gfx@lists.freedesktop.org <mailto:amd-gfx@lists.freedesktop.org>
->>>>  >>>>> Cc: Deucher, Alexander <Alexander.Deucher@amd.com 
->>>> <mailto:Alexander.Deucher@amd.com>>; Huang, Ray
->>>>  >>>>> <Ray.Huang@amd.com <mailto:Ray.Huang@amd.com>>; Tian Tao 
->>>> <tiantao6@hisilicon.com <mailto:tiantao6@hisilicon.com>>
->>>>  >>>>> Subject: Re: [PATCH] drm/amdgpu: fix sysfs_emit/sysfs_emit_at
->>>>  >>>>> warnings
->>>>  >>>>>
->>>>  >>>>>
->>>>  >>>>>
->>>>  >>>>> On 9/8/2021 1:14 PM, Yu, Lang wrote:
->>>>  >>>>>> [AMD Official Use Only]
->>>>  >>>>>>
->>>>  >>>>>>
->>>>  >>>>>>
->>>>  >>>>>>> -----Original Message-----
->>>>  >>>>>>> From: Lazar, Lijo <Lijo.Lazar@amd.com 
->>>> <mailto:Lijo.Lazar@amd.com>>
->>>>  >>>>>>> Sent: Wednesday, September 8, 2021 3:36 PM
->>>>  >>>>>>> To: Christian König <ckoenig.leichtzumerken@gmail.com 
->>>> <mailto:ckoenig.leichtzumerken@gmail.com>>; Yu, Lang
->>>>  >>>>>>> <Lang.Yu@amd.com <mailto:Lang.Yu@amd.com>>; 
->>>> amd-gfx@lists.freedesktop.org <mailto:amd-gfx@lists.freedesktop.org>
->>>>  >>>>>>> Cc: Deucher, Alexander <Alexander.Deucher@amd.com 
->>>> <mailto:Alexander.Deucher@amd.com>>; Huang, Ray
->>>>  >>>>>>> <Ray.Huang@amd.com <mailto:Ray.Huang@amd.com>>; Tian Tao 
->>>> <tiantao6@hisilicon.com <mailto:tiantao6@hisilicon.com>>
->>>>  >>>>>>> Subject: Re: [PATCH] drm/amdgpu: fix sysfs_emit/sysfs_emit_at
->>>>  >>>>>>> warnings
->>>>  >>>>>>>
->>>>  >>>>>>>
->>>>  >>>>>>>
->>>>  >>>>>>> On 9/8/2021 12:07 PM, Christian König wrote:
->>>>  >>>>>>>> Am 08.09.21 um 07:56 schrieb Lang Yu:
->>>>  >>>>>>>>> sysfs_emit and sysfs_emit_at requrie a page boundary 
->>>> aligned buf
->>>>  >>>>>>>>> address. Make them happy!
->>>>  >>>>>>>>>
->>>>  >>>>>>>>> Warning Log:
->>>>  >>>>>>>>> [  492.545174] invalid sysfs_emit_at: 
->>>> buf:00000000f19bdfde at:0 [
->>>>  >>>>>>>>> 492.546416] WARNING: CPU: 7 PID: 1304 at 
->>>> fs/sysfs/file.c:765
->>>>  >>>>>>>>> sysfs_emit_at+0x4a/0xa0
->>>>  >>>>>>>>> [  492.654805] Call Trace:
->>>>  >>>>>>>>> [  492.655353]  ? smu_cmn_get_metrics_table+0x40/0x50 
->>>> [amdgpu] [
->>>>  >>>>>>>>> 492.656780] vangogh_print_clk_levels+0x369/0x410 [amdgpu] [
->>>>  >>>>>>>>> 492.658245] vangogh_common_print_clk_levels+0x77/0x80 
->>>> [amdgpu] [
->>>>  >>>>>>>>> 492.659733]  ? preempt_schedule_common+0x18/0x30 [ 
->>>> 492.660713]
->>>>  >>>>>>>>> smu_print_ppclk_levels+0x65/0x90 [amdgpu] [ 492.662107]
->>>>  >>>>>>>>> amdgpu_get_pp_od_clk_voltage+0x13d/0x190 [amdgpu] [ 
->>>> 492.663620]
->>>>  >>>>>>>>> dev_attr_show+0x1d/0x40
->>>>  >>>>>>>>
->>>>  >>>>>>>> Mhm, that at least partially doesn't looks like the right
->>>>  >>>>>>>> approach to me.
->>>>  >>>>>>>>
->>>>  >>>>>>>> Why do we have string printing and sysfs code in the 
->>>> hardware
->>>>  >>>>>>>> version specific backend in the first place?
->>>>  >>>>>>>>
->>>>  >>>>>>>
->>>>  >>>>>>> This is a callback meant for printing ASIC specific 
->>>> information to
->>>>  >>>>>>> sysfs node. The buffer passed in sysfs read is passed as 
->>>> it is
->>>>  >>>>>>> to the callback API.
->>>>  >>>>>>>
->>>>  >>>>>>>> That stuff needs to be implemented for each hardware 
->>>> generation
->>>>  >>>>>>>> and
->>>>  >>>>>>>> is now cluttered with sysfs buffer offset calculations.
->>>>  >>>>>>>>
->>>>  >>>>>>>
->>>>  >>>>>>> Looks like the warning happened because of this usage.
->>>>  >>>>>>>
->>>>  >>>>>>>                   size = amdgpu_dpm_print_clock_levels(adev,
->>>>  >>>>>>> OD_SCLK, buf);
->>>>  >>>>>>>                   size += amdgpu_dpm_print_clock_levels(adev,
->>>>  >>>>>>> OD_MCLK,
->>>>  >>>>>>> buf+size);
->>>>  >>>>>>>                   size += amdgpu_dpm_print_clock_levels(adev,
->>>>  >>>>>>> OD_VDDC_CURVE, buf+size);
->>>>  >>>>>>>                   size += amdgpu_dpm_print_clock_levels(adev,
->>>>  >>>>>>> OD_VDDGFX_OFFSET, buf+size);
->>>>  >>>>>>>                   size += amdgpu_dpm_print_clock_levels(adev,
->>>>  >>>>>>> OD_RANGE,
->>>>  >>>>>>> buf+size);
->>>>  >>>>>>>                   size += amdgpu_dpm_print_clock_levels(adev,
->>>>  >>>>>>> OD_CCLK,
->>>>  >>>>>>> buf+size);
->>>>  >>>>>>>
->>>>  >>>>>>>
->>>>  >>>>>> [Yu, Lang]
->>>>  >>>>>> Yes. So it is fine we just fix the caller
->>>>  >>>>>> amdgpu_get_pp_od_clk_voltage like
->>>>  >>>>> following:
->>>>  >>>>>>
->>>>  >>>>>> static ssize_t amdgpu_get_pp_od_clk_voltage(struct device 
->>>> *dev,
->>>>  >>>>>>         struct device_attribute *attr,
->>>>  >>>>>>         char *buf)
->>>>  >>>>>> {
->>>>  >>>>>>     struct drm_device *ddev = dev_get_drvdata(dev);
->>>>  >>>>>>     struct amdgpu_device *adev = drm_to_adev(ddev);
->>>>  >>>>>>     ssize_t size, offset;
->>>>  >>>>>>     int ret, i;
->>>>  >>>>>>     char temp_buf[512];
->>>>  >>>>>>     char clock_type[] = {OD_SCLK, OD_MCLK, OD_VDDC_CURVE,
->>>>  >>>>>> OD_VDDGFX_OFFSET, OD_RANGE, OD_CCLK};
->>>>  >>>>>>
->>>>  >>>>>>     if (amdgpu_in_reset(adev))
->>>>  >>>>>>         return -EPERM;
->>>>  >>>>>>     if (adev->in_suspend && !adev->in_runpm)
->>>>  >>>>>>         return -EPERM;
->>>>  >>>>>>
->>>>  >>>>>>     ret = pm_runtime_get_sync(ddev->dev);
->>>>  >>>>>>     if (ret < 0) {
->>>>  >>>>>> pm_runtime_put_autosuspend(ddev->dev);
->>>>  >>>>>>         return ret;
->>>>  >>>>>>     }
->>>>  >>>>>>
->>>>  >>>>>>     offset = 0;
->>>>  >>>>>>
->>>>  >>>>>>     if (adev->powerplay.pp_funcs->print_clock_levels) {
->>>>  >>>>>>         for (i = 0; i < ARRAY_SIZE(clock_type); i++) {
->>>>  >>>>>>             size = amdgpu_dpm_print_clock_levels(adev,
->>>>  >>>>> clock_type[i], buf);
->>>>  >>>>>>             if (offset + size > PAGE_SIZE)
->>>>  >>>>>>                 break;
->>>>  >>>>>>             memcpy(temp_buf + offset, buf, size);
->>>>  >>>>>>             offset += size;
->>>>  >>>>>>         }
->>>>  >>>>>>         memcpy(buf, temp_buf, offset);
->>>>  >>>>>>         size = offset;
->>>>  >>>>>>     } else {
->>>>  >>>>>>         size = sysfs_emit(buf, "\n");
->>>>  >>>>>>     }
->>>>  >>>>>>     pm_runtime_mark_last_busy(ddev->dev);
->>>>  >>>>>>     pm_runtime_put_autosuspend(ddev->dev);
->>>>  >>>>>>
->>>>  >>>>>>     return size;
->>>>  >>>>>> }
->>>>  >>>>>>
->>>>  >>>>> Prefer to avoid any extra stack or heap usage for buffer. Maybe
->>>>  >>>>> another arg to
->>>>  >>>>> pass offset along with buf?
->>>>  >>>>>
->>>>  >>>> [Yu, Lang]
->>>>  >>>> Actually, the buf address contains the 
->>>> offset(offset_in_page(buf)) .
->>>>  >>>
->>>>  >>> Though it's not a problem based on codeflow, static analysis 
->>>> tools
->>>>  >>> might complain.
->>>>  >>>
->>>>  >>>> Or we just rollback to sprintf/snprintf.
->>>>  >>>>
->>>>  >>>
->>>>  >>> snprintf with (PAGE_SIZE-size) may be simpler. I think Darren 
->>>> took
->>>>  >>> the effort to convert these, he may have some other ideas.
->>>> The changes I made were intended to simply replace snprintf with 
->>>> sysfs_emit as per
->>>>
->>>> linux/Documentation/filesystems/sysfs.rst:246,247
->>>>
->>>>   -  show() should only use sysfs_emit() or sysfs_emit_at() when 
->>>> formatting
->>>>
->>>>      the value to be returned to user space.
->>>>
->>>> I specifically tried not to change the design, but only as I didn't 
->>>> have
->>>>
->>>> background in Power Management.
->>>>
->>>>  >>
->>>>  >> This is not what I meant. See from the design point of view the
->>>>  >> print_clock_levels() callback is the bad idea to begin with.
->>>>  >>
->>>>  >> What we should have instead is a callback which returns the 
->>>> clock as
->>>>  >> a value which is then printed in the 
->>>> amdgpu_get_pp_od_clk_voltage()
->>>>  >> function.
->>>>  >>
->>>>  >> This avoids passing around the buffer and remaining size 
->>>> everywhere
->>>>  >> and also guarantees that the sysfs have unified printing over all
->>>>  >> hardware generations.
->>>>  >>
->>>>  >
->>>>  > The scenario is one node used for multiple parameters - OD_SCLK,
->>>>  > OD_CCLK, OD_VDDGFX_OFFSET etc.(mostly to avoid cluttering sysfs 
->>>> with
->>>>  > lots of nodes). On top of it, the parameters supported (for ex: 
->>>> CCLK
->>>>  > is not valid on dGPUs),  the number of levels supported etc. vary
->>>>  > across ASICs. There has to be multiple calls or the call needs to
->>>>  > return multiple values for a single parameter (for ex: up to 4, 
->>>> 8 or
->>>>  > 16 levels of GFXCLK depending on ASIC).
->>>>
->>>> Well exactly that is questionable design for sysfs.
->>>>
->>>> See the sysfs_emit() and sysfs_emit_at() functions are designed the 
->>>> way
->>>> they are because you should have only one value per file, which is 
->>>> then
->>>> printed at exactly one location.
->>>>
->>>> Take a look at the documentation for sysfs for more details.
->>>>
->>>>  > I don't know the history of the callback, mostly it was considered
->>>>  > more efficient to print it directly rather than fetch and print.
->>>>  > Alex/Evan may know the details.
->>>>
->>>> Yeah, somebody with a bit more background in power management needs to
->>>> take a closer look at this here. Just keep me looped in.
->>>>
->>>> Regards,
->>>> Christian.
->>>>
->>>>  >
->>>>  > Thanks,
->>>>  > Lijo
->>>>  >
->>>>  >> Regards,
->>>>  >> Christian.
->>>>  >>
->>>>
->>
-
+        Arnd
