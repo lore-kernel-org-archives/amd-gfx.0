@@ -2,104 +2,130 @@ Return-Path: <SRS0=g6Hj=N7=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-19.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9731EC433EF
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 15:59:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 38E5AC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 16:17:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5C1E461101
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 15:59:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5C1E461101
+	by mail.kernel.org (Postfix) with ESMTPS id ECF7461179
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 16:17:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org ECF7461179
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8F756E8A9;
-	Thu,  9 Sep 2021 15:59:25 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2082.outbound.protection.outlook.com [40.107.243.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45CBA6E8A9
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Sep 2021 15:59:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9514A6E528;
+	Thu,  9 Sep 2021 16:17:57 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2045.outbound.protection.outlook.com [40.107.244.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED5B96E528
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Sep 2021 16:17:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dspefERdogNOI+px5cVT1Iy870gWK00mXlgOZInZGlb9FfSuIedKvXkyvGl0W/MVq6zE+Eju9SvwCaT97UOs0u0hFiXSH1EeRar6p1VlXarNuXq+4xsxlBL6cmiErsbdEANDodOAqgnZa1ZbTWA/HU3EVMEj7JruFzW3+CtWSafo/P/X2pOoRBAC9rTe3rx9aZbgOE+DGAWzhh4k/OtUhbMfQ3mILwFfToBfz/e91jGPeDf/jaZSHE+b91fBRSjNCkpSkqxxLX5TgG7vFl38VlWgXXSzjNbrcXhL1oBKPqBvO7fv5WtRoA7hV6Jg30ivpBVX1jN0oy36FlmZmMKatA==
+ b=XQoeoSaD5XHWPWj4J3OA0ph+nzkqIwU9qaYMpIVaVhFQTJspE4sAnA6M9juHkS9UHv56ptxrz2zvk1Bmf12zWS1CP1rA02OAbUcp07ZRPPl5f/MMDUT3nBTkaWhAngKhY64O/rpDcid7DDIyfX2/eMuDqDYkAGhaEbkbSrvb4JjAjlqh+QXNlUErXgrrpZ9xCYuJXuifYsWy59/OfHB+XR+fWLc4oZBuEZFqvr2ULKilIhazO/ac9hi97BYf5EJj693vd39Jv5MyFf6u5h93vgQYwyRvOwhqrgqTjzkEZsJKyTi2c2BdnyFbDe690JeXNRArZ5it5Jn3T6BsE6LHyQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=YRdnsoqPynNI518LL1IPnblle4nHT3P/Acg9XWuku6Q=;
- b=KUyG8oAyTo0iYCUUfCBHBNRQJnP7aRpmwCNaONrrYtXuQgoLoQ0yYpqB19ESl9+OUwWXuQAG8oPNTLoYHAuwMrEHgFkVlCrlgst3l/LwGYbLLGYqqmSapP0GO1tkPLB8rMrXIBsQP/lNhu8VliQIuoPphjkAbmLrhmc88zrxSCERTxVhOw6cpLhh72ousO5gN/edSiwBVQ2UG0XY6b8DTMNabtzjHPcI17VMVYuo9bus5Ru4TJnxtAmGCYlucPgy2ITnGZpGoCMiKGamR2RLBDvxGrMGWkL/tpV7nIq+7ystwJX8uReoPl/TWFv0PqfHV9+dQ/6FhV5r8Uttz8VvCA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=ITLsKQPiectHJNNSB2p2KxJ7lRbuvWMnpuEuOPxTi+M=;
+ b=lj2oKOuBkv3VE0Pdp0h3rKAtvtJMsWNu7KP7vw1lJh2MjY/qqmAMcC+6h58c000Uhn0y7pcEhZLtrHmx88KuqOT27y7HCRE23PJ+p7XQ6YsaTCbAgfpet/jVIqf27X6Wgh8q6SsdY58c/FVqfKzkeO6s7AvTw6aKNnrauTX8khAoSQ+4pXLD61YgQcuUVD91SkADboAAhOOfupZvlukR8kK8EnqTMW8a6I6YDcFe0cUGmI4XZ8UvkeVarPuWUgE+irQBkssLfisFfK7Zc/5jmE1A6yTP24AzA7wGQUV0uAmgX4SecLKMSdeENeEywIpMTcHmBOxHu0+mNr2qrebZMg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YRdnsoqPynNI518LL1IPnblle4nHT3P/Acg9XWuku6Q=;
- b=wJjuNwiThik8SB471LGVxudxPKvvlvhiBICjAtcp+rNBh7ggH/Tqs7oruF3naDjWfJLwo02Ys7kbgOKtMJuxYJchvhhz4BjqgSKQV2XqCcvfLggHIRApaCI3l24lu5psjcZCXAMTvPHSTnEUr94LMby7tHwt3oKbg13tP1qU/lk=
-Received: from DM5PR16CA0035.namprd16.prod.outlook.com (2603:10b6:4:15::21) by
- DM6PR12MB3786.namprd12.prod.outlook.com (2603:10b6:5:14a::14) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4500.14; Thu, 9 Sep 2021 15:59:21 +0000
-Received: from DM6NAM11FT049.eop-nam11.prod.protection.outlook.com
- (2603:10b6:4:15:cafe::7a) by DM5PR16CA0035.outlook.office365.com
- (2603:10b6:4:15::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.14 via Frontend
- Transport; Thu, 9 Sep 2021 15:59:21 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT049.mail.protection.outlook.com (10.13.172.188) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4500.14 via Frontend Transport; Thu, 9 Sep 2021 15:59:21 +0000
-Received: from shaoyunl-dev1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Thu, 9 Sep 2021
- 10:59:19 -0500
-From: shaoyunl <shaoyun.liu@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: shaoyunl <shaoyun.liu@amd.com>
-Subject: [PATCH] drm/amdgpu:  Get atomicOps info from Host for sriov setup
-Date: Thu, 9 Sep 2021 11:59:06 -0400
-Message-ID: <20210909155906.16026-1-shaoyun.liu@amd.com>
-X-Mailer: git-send-email 2.17.1
+ bh=ITLsKQPiectHJNNSB2p2KxJ7lRbuvWMnpuEuOPxTi+M=;
+ b=uTen39QwnmNzVZqFAnC7QTpX3bQ1YJV7fciP9KRTXXoOFV9B77nLddcNysSBsT8nKl5npVGMe5zYp0EsJ7pqglg2caFXyIDyDNcu9GCCoNhnak05ZDsR6SNR5xLPdlKBwQwPOpmDgSUNBh9s1mIDxQUZ2yeqgVRw++zjf173xgU=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5129.namprd12.prod.outlook.com (2603:10b6:408:136::12)
+ by BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.16; Thu, 9 Sep
+ 2021 16:17:54 +0000
+Received: from BN9PR12MB5129.namprd12.prod.outlook.com
+ ([fe80::94bc:6146:87a:9f3c]) by BN9PR12MB5129.namprd12.prod.outlook.com
+ ([fe80::94bc:6146:87a:9f3c%5]) with mapi id 15.20.4500.017; Thu, 9 Sep 2021
+ 16:17:54 +0000
+Subject: Re: [PATCH] drm/amdgpu: Get atomicOps info from Host for sriov setup
+To: shaoyunl <shaoyun.liu@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20210909155906.16026-1-shaoyun.liu@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Message-ID: <5f2d7782-8530-122e-4082-2b4cad9f4a0e@amd.com>
+Date: Thu, 9 Sep 2021 12:17:53 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
+In-Reply-To: <20210909155906.16026-1-shaoyun.liu@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-ClientProxiedBy: YT3PR01CA0115.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:85::26) To BN9PR12MB5129.namprd12.prod.outlook.com
+ (2603:10b6:408:136::12)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+Received: from [192.168.2.100] (142.186.47.3) by
+ YT3PR01CA0115.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:85::26) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4500.14 via Frontend Transport; Thu, 9 Sep 2021 16:17:54 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: eb54682d-c7ff-4c20-cf3b-08d973aac9c1
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3786:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB378613A84F0FCD6F085FBD1BF4D59@DM6PR12MB3786.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Office365-Filtering-Correlation-Id: e5c0b4cc-3d5f-4a3d-095c-08d973ad610c
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BN9PR12MB5115FBC8465B85C6B00C299292D59@BN9PR12MB5115.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 8zFp9SFHBfrM4igJz93OHW1GAeCqcyc2qG1KcjuT4QiXURtINV9LDL63hBK5x8nCq9ot3TLlcoRAZ5oSQesNEA8P/smAnDdYpO6YZNIc7JGo8Bz+zoB1DR/p0L/jH99cMESmUDiVJHYsa3ZztnSodUdtYAzPlWMc7FsmRo2NC/XxYXJB98QETecMxXsKjbvpXRUUqlLJ1eTFSf4/p+adRw5jIjF7FDrB3Q2cJKMbHn3BD6fyz++cuJK/WhkL/itXLr8tHYHvJ7GU54GHkCt2XUsgAU0zNcp1Y/KIshxiZyIP3Ay+QeqDxGnfvZNM7xN43cwslWkptTHo6CF5J5kRqFHyGm1EvnuUkr3hqmoVeZpKWA7fOw71r4hBHqTUsMoc9kNjYYvkPUIZpak71hfrPzEEGm+39ZFVoHLjAbYknTfTI3KaOg9YjzfzlMrON9WnJMKoDp7gcnGGvxBnR4vWXRzvkVuU9zZKpc2xX5QMfZmEFa+xaOGvTiFFpz0fGVyeCq5J0AWhsXubhxS1oW0OYNDvlk59Gk/7jHr8Z4uVhAlJYU2YDho5JJxY9Ol71eMRrezuhkY5s5DCY4Jv2E0AB+oYJUCdTuZv/CqqW+lxLgRQoY4jxYS01zOu+R2v9U4h9sDgPA9NT7K3JueLoNN4WBq9RSWtNiwHv2Clfsq3mVCud53LV/fumUsfjkBjs/B6uptT7XhWF80TFYSuwNql12meekvAWMmX4kZzBh3kDxhan8ZaWENZuEsSBqwG5JMmEuCX4sojDxS4OrNXbQTHww==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(316002)(8936002)(336012)(6666004)(508600001)(36860700001)(26005)(70586007)(82310400003)(36756003)(70206006)(426003)(4326008)(2906002)(7696005)(6916009)(83380400001)(47076005)(2616005)(16526019)(186003)(86362001)(356005)(1076003)(5660300002)(8676002)(81166007)(43062005)(36900700001);
+X-Microsoft-Antispam-Message-Info: 7mRQj2IhapgWLSDu8pzz1qZckfT4YrZMIX2af0hrwgSLrTNBh5BtlVR+hpCxHe4dAAN4LdFVp5uqD+OV7yrvNsmXZW/vNAoWFISUv3Qb5e4YNov/cWV6tmI5wezODNEEy70fi3Uav2aWIdNZ+Xy5H4f7rYs8/I7vJFBmUTzIAPoTyrR9lpex7oyVNP7imVQVSiI+XQEDUK7QAvAKHlM3fPLmqKE8TS2fKjGMP1/p9q/9NcGSfIfaUtqGNSTB86TQvkQSj+PTeMDxsIGDDwzli9MSq0qlRY40Fo4TmDTjEvWoZGLb5LNFB5KtFEbD/gTiN5/WsIHX+drvpD7Dl1EMW0FJUaIpoW2DZrjxl/ySJAjX1L2Phyr1gQvzJ5aKNhEbwniGhmCrIVtXYMRiZA96qxxwgTmZBxJHXbKr4IUN3l51LjKM5m9d5R2OGXX05pfNTAyJc35+gAY9UMvBDJa0Ld2ckwqoP4XB4MVc4ZEs5knOem0imIMNDgVEtPtsYdSE3JnIFKd7rQvNbEi4iIuZACajdhz1uYvAKaQP3Thhdbfb6pN7L42a8xYG1qjw26RkC+ZMZ4Eu3W4AMjh6aGZTsB3V+Rl/QTrQWlce8WuYs77ETRZSFqVb4/Hm8/vDO1rrm27xlRyTPPw9l9ZEoTUSxcfKajIwkx3gLVNRBwSIN51TUn4oR8/285W1QtVvjO7N5O2mxuTVHxgwDJO9r4RcUR9KS+OBS5qn2ab+feDI6ZU=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5129.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(346002)(376002)(136003)(39860400002)(396003)(16576012)(2616005)(956004)(186003)(26005)(83380400001)(316002)(2906002)(36756003)(8676002)(5660300002)(66556008)(478600001)(6486002)(8936002)(66476007)(66946007)(31696002)(86362001)(31686004)(44832011)(38100700002)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?anNaaUF4Mjc1VE9JMGZoc2QwWVRnRzlhSEZETUxJSE5Zekswa3hjVkwyS1RO?=
+ =?utf-8?B?eVNWdmhTdjlNWFZmVjdNTUM3RjR5eUREQUhDYjBKcUo2anE3UGFORUdEb2lk?=
+ =?utf-8?B?MHZucEpkalJJbmJMVnF1RGNBVUgvU294VENDZTVlRU42S05JSGdxUGd5d3lI?=
+ =?utf-8?B?SXg2bHJ2bCs4NWcvK0kxOTAzZjNyNkpQeC9PeEZWTnhPR3pidWk3SHZVMVhP?=
+ =?utf-8?B?K3ErUWZNRDdDL3JIaFc1R2dJN3o0SDZzZjJjeXFHdmVhYkZqKzBJcnlEQkR1?=
+ =?utf-8?B?NEJnejdkclk5NC8xMmp2aU9XUWhINmFETFlUaHRrUHJjZGQ1SjZmbUV0QnhO?=
+ =?utf-8?B?Z0trcXBQNFlkYzZld2w1L1RzcnVSNEQ5cTFmblNOOGR4cWpoK2xyaEVHVktG?=
+ =?utf-8?B?bGxQbCtCczZRdHBiRWZxQ1dWcm5rTnBteGMzd0U3MkllSXhIaGQ0eW5zZE9h?=
+ =?utf-8?B?SCt1MU9mZHlRbFdtUmRZT0k4dGl1SC9laEpTeXNvcVZvUmZLNys1ajVUdWdh?=
+ =?utf-8?B?RlpUeStWUDcyYjNoOWpmT0NFakQrVkZZblRnTVpKeWo4L0V5YVN1WU9zNHE3?=
+ =?utf-8?B?QnBwNHN2K2g0bU9hSUlGNnpTbVZ4YVkrbWd0Z00xVWg5dlhKb09yNExua1pU?=
+ =?utf-8?B?SUJ3a1gwd1pSNmZxMVJ5YWZWQm82a3hKeit4L0lYdU11eXpzQlpYMDBWcWt0?=
+ =?utf-8?B?RUlCUlFBN3djbzY3T1A4S05tRDJHSGdWSmRkZVc5VHAvUWhKajJtZXJrWXdi?=
+ =?utf-8?B?bnBYTG5wbkZLcHNKaXRlc2d4aG85ZXl1ZG1HOFNsaTlVbm1ucTV6cGV3Q01Q?=
+ =?utf-8?B?YlFNdGNyZXBwWVlieTFHemd5emErVnlEV0paUzNnbGF3MWJORzZxd1lYTmpJ?=
+ =?utf-8?B?V0JJaXovZCtnWDBQR1ZGVWxIVkZyTVpTTUJWTHMyTHp0SVd5QWZwamdBdklJ?=
+ =?utf-8?B?TGFJTzBJK3JHWVgwSTFnUFB4R0FLMDc1OEswaDVua0JpZFBWclpxQzIzcUVo?=
+ =?utf-8?B?V3BvUUxWc2pEUWlFK3lBSGxlQ29qWllvbHl0YUtiUVRtTkFIVlMwRDBmOWVu?=
+ =?utf-8?B?N0dyMCtwaG1rNmFYMEp4eXlzNnBIM0xTc2Eva0RmQ29LZ0pIZThwUmdJU3Bo?=
+ =?utf-8?B?R1F1MnZSMlVUV0dDMVBOdFpkVjllUWJqVnhiL1VFWCs0cnpNUnRtT09LVDNF?=
+ =?utf-8?B?SXpqa1VrUjVqM2NuNXY2RXNOdXRabm5hK1h1Sk16WTVvbEwrSnhscWRIY0Vr?=
+ =?utf-8?B?ZlhFOGU4b3ppOTkxdWNiemN4aGdPWTIvWEdEaGtVYW5oajVpYU5NZXVwNFlJ?=
+ =?utf-8?B?TVdIdEQ2TWNKM21nU2x1RmV2QnV6bStKOVJ4M2R5bitscWRmZHBQQjFVaTl2?=
+ =?utf-8?B?cjBXUFZVUVlnV0N3WVNWbTIyODU3ZnNteUJIMThzRWFlYmFzYjdveXQxeVdJ?=
+ =?utf-8?B?WHI1M216Y2hkdVNQdU1HWHdPL2VWR0hJNllhTkN4WGtMb1hkK1ZkSjVWMUlC?=
+ =?utf-8?B?czlPNGtGSmxpMjM5ZnFJOExVOWFvVFl5Q0xvSGJSSjZtNGU0L1pITng5dkRP?=
+ =?utf-8?B?ZkFwTzl4ZmtqeU5FdGVLbllzRE1nWFFocDhRVHNuNE1Cb1RSYzFNa0VVNGRj?=
+ =?utf-8?B?ZTNSZXNYVDZZQjQ3SDdsTkZHUEorOEkwaTRYUGIrMUo3MGNjUGZxQXFVZU5a?=
+ =?utf-8?B?aFg5YTNONnZZV3prbkwvZzhzRjBFYlkxVjBqTU45VU9mQXBKTE85WEwzZk9V?=
+ =?utf-8?Q?YNoBXAbVBs2CGr1gUMCj1bN4If/OPdwXFtJI9G6?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2021 15:59:21.5332 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: eb54682d-c7ff-4c20-cf3b-08d973aac9c1
+X-MS-Exchange-CrossTenant-Network-Message-Id: e5c0b4cc-3d5f-4a3d-095c-08d973ad610c
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5129.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2021 16:17:54.6252 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT049.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3786
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XRrOSy/pgsU1EnD3OMJPqzf92ElaInM28lm25/dGLqrE0r5tiYnI528HzWkT7KUartpvRDBA6fHqrk3C8Q4ujQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5115
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,78 +140,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The AtomicOp Requester Enable bit is reserved in VFs and the PF value applies to all
-associated VFs. so guest driver can not directly enable the atomicOps for VF, it
-depends on PF to enable it. In current design, amdgpu driver  will get the enabled
-atomicOps bits through private pf2vf data
+Am 2021-09-09 um 11:59 a.m. schrieb shaoyunl:
+> The AtomicOp Requester Enable bit is reserved in VFs and the PF value applies to all
+> associated VFs. so guest driver can not directly enable the atomicOps for VF, it
+> depends on PF to enable it. In current design, amdgpu driver  will get the enabled
+> atomicOps bits through private pf2vf data
+>
+> Signed-off-by: shaoyunl <shaoyun.liu@amd.com>
+> Change-Id: Ifdbcb4396d64e3f3cbf6bcbf7ab9c7b2cb061052
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  | 20 ++++++++++++++++++--
+>  drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h |  4 +++-
+>  2 files changed, 21 insertions(+), 3 deletions(-)
+>  mode change 100644 => 100755 drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>  mode change 100644 => 100755 drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> old mode 100644
+> new mode 100755
+> index 653bd8fdaa33..a0d2b9eb84fc
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -2167,8 +2167,6 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
+>  		return -EINVAL;
+>  	}
+>  
+> -	amdgpu_amdkfd_device_probe(adev);
+> -
+>  	adev->pm.pp_feature = amdgpu_pp_feature_mask;
+>  	if (amdgpu_sriov_vf(adev) || sched_policy == KFD_SCHED_POLICY_NO_HWS)
+>  		adev->pm.pp_feature &= ~PP_GFXOFF_MASK;
+> @@ -3562,6 +3560,24 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+>  	if (r)
+>  		return r;
+>  
+> +	/* enable PCIE atomic ops */
+> +	if (amdgpu_sriov_bios(adev))
+> +		adev->have_atomics_support = (((struct amd_sriov_msg_pf2vf_info *)
+> +			adev->virt.fw_reserve.p_pf2vf)->pcie_atomic_ops_enabled_flags ==
+> +			(PCI_EXP_DEVCAP2_ATOMIC_COMP32 | PCI_EXP_DEVCAP2_ATOMIC_COMP64))
+> +			? TRUE : FALSE;
 
-Signed-off-by: shaoyunl <shaoyun.liu@amd.com>
-Change-Id: Ifdbcb4396d64e3f3cbf6bcbf7ab9c7b2cb061052
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  | 20 ++++++++++++++++++--
- drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h |  4 +++-
- 2 files changed, 21 insertions(+), 3 deletions(-)
- mode change 100644 => 100755 drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
- mode change 100644 => 100755 drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
+Please don't use this "condition ? TRUE : FALSE" idiom. Just "condition"
+is good enough.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-old mode 100644
-new mode 100755
-index 653bd8fdaa33..a0d2b9eb84fc
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2167,8 +2167,6 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
- 		return -EINVAL;
- 	}
- 
--	amdgpu_amdkfd_device_probe(adev);
--
- 	adev->pm.pp_feature = amdgpu_pp_feature_mask;
- 	if (amdgpu_sriov_vf(adev) || sched_policy == KFD_SCHED_POLICY_NO_HWS)
- 		adev->pm.pp_feature &= ~PP_GFXOFF_MASK;
-@@ -3562,6 +3560,24 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 	if (r)
- 		return r;
- 
-+	/* enable PCIE atomic ops */
-+	if (amdgpu_sriov_bios(adev))
-+		adev->have_atomics_support = (((struct amd_sriov_msg_pf2vf_info *)
-+			adev->virt.fw_reserve.p_pf2vf)->pcie_atomic_ops_enabled_flags ==
-+			(PCI_EXP_DEVCAP2_ATOMIC_COMP32 | PCI_EXP_DEVCAP2_ATOMIC_COMP64))
-+			? TRUE : FALSE;
-+	else
-+		adev->have_atomics_support =
-+			pci_enable_atomic_ops_to_root(adev->pdev,
-+					  PCI_EXP_DEVCAP2_ATOMIC_COMP32 |
-+					  PCI_EXP_DEVCAP2_ATOMIC_COMP64)
-+			? FALSE : TRUE;
-+	if (adev->have_atomics_support = false )
-+		DRM_INFO("PCIE atomic ops is not supported\n");
-+
-+	amdgpu_amdkfd_device_probe(adev);
-+
-+
- 	/* doorbell bar mapping and doorbell index init*/
- 	amdgpu_device_doorbell_init(adev);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
-old mode 100644
-new mode 100755
-index a434c71fde8e..995899191288
---- a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
-@@ -204,8 +204,10 @@ struct amd_sriov_msg_pf2vf_info {
- 	} mm_bw_management[AMD_SRIOV_MSG_RESERVE_VCN_INST];
- 	/* UUID info */
- 	struct amd_sriov_msg_uuid_info uuid_info;
-+	/* pcie atomic Ops info */
-+	uint32_t pcie_atomic_ops_enabled_flags;
- 	/* reserved */
--	uint32_t reserved[256 - 47];
-+	uint32_t reserved[256 - 48];
- };
- 
- struct amd_sriov_msg_vf2pf_info_header {
--- 
-2.17.1
 
+> +	else
+> +		adev->have_atomics_support =
+> +			pci_enable_atomic_ops_to_root(adev->pdev,
+> +					  PCI_EXP_DEVCAP2_ATOMIC_COMP32 |
+> +					  PCI_EXP_DEVCAP2_ATOMIC_COMP64)
+> +			? FALSE : TRUE;
+
+Same as above, but in this case it's "!condition". Also, I would have
+expected that you remove the other call to pci_enable_atomic_ops_to_root
+from this function.
+
+
+> +	if (adev->have_atomics_support = false )
+
+This should be "==", but even better would be "if
+(!adev->have_atomics_support) ...
+
+That said, the message below may be redundant. The PCIe atomic check in
+kgd2kfd_device_init already prints an error message if atomics are
+required by the GPU but not supported. If you really want to print it
+for information on GPUs where it's not required, use dev_info so the
+message clearly shows which GPU in a multi-GPU system it refers to.
+
+
+> +		DRM_INFO("PCIE atomic ops is not supported\n");
+> +
+> +	amdgpu_amdkfd_device_probe(adev);
+
+This should not be necessary. I just sent another patch for review that
+moves the PCIe atomic check in KFD into kgd2kfd_device_init:
+"drm/amdkfd: make needs_pcie_atomics FW-version dependent". So
+amdgpu_amdkfd_device_probe can stay where it is, if you can wait a few
+days for my change to go in first.
+
+Regards,
+  Felix
+
+
+> +
+> +
+>  	/* doorbell bar mapping and doorbell index init*/
+>  	amdgpu_device_doorbell_init(adev);
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
+> old mode 100644
+> new mode 100755
+> index a434c71fde8e..995899191288
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
+> @@ -204,8 +204,10 @@ struct amd_sriov_msg_pf2vf_info {
+>  	} mm_bw_management[AMD_SRIOV_MSG_RESERVE_VCN_INST];
+>  	/* UUID info */
+>  	struct amd_sriov_msg_uuid_info uuid_info;
+> +	/* pcie atomic Ops info */
+> +	uint32_t pcie_atomic_ops_enabled_flags;
+>  	/* reserved */
+> -	uint32_t reserved[256 - 47];
+> +	uint32_t reserved[256 - 48];
+>  };
+>  
+>  struct amd_sriov_msg_vf2pf_info_header {
